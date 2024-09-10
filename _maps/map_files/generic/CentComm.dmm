@@ -1990,7 +1990,7 @@
 /turf/simulated/floor/wood,
 /area/centcom/jail)
 "aQh" = (
-/obj/vehicle/motorcycle{
+/obj/vehicle/ridden/motorcycle{
 	dir = 8
 	},
 /obj/structure/sign/poster/contraband/random{
@@ -7605,7 +7605,7 @@
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "dxs" = (
-/obj/vehicle/motorcycle{
+/obj/vehicle/ridden/motorcycle{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -20409,7 +20409,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
 "jGg" = (
-/obj/vehicle/secway{
+/obj/vehicle/ridden/secway{
 	layer = 3.5
 	},
 /obj/item/key/security,
@@ -46732,7 +46732,7 @@
 /area/syndicate_mothership)
 "vwk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/vehicle/motorcycle{
+/obj/vehicle/ridden/motorcycle{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -47220,7 +47220,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "vLc" = (
-/obj/vehicle/motorcycle{
+/obj/vehicle/ridden/motorcycle{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -49334,7 +49334,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "wGg" = (
-/obj/vehicle/motorcycle{
+/obj/vehicle/ridden/motorcycle{
 	dir = 8
 	},
 /turf/simulated/floor/wood{

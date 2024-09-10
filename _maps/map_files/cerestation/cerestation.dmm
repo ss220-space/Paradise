@@ -40266,7 +40266,7 @@
 /area/janitor)
 "hKL" = (
 /obj/effect/turf_decal/delivery/red,
-/obj/vehicle/secway,
+/obj/vehicle/ridden/secway,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -74936,7 +74936,7 @@
 /turf/simulated/floor/plating,
 /area/medical/medbreak)
 "rzH" = (
-/obj/vehicle/secway,
+/obj/vehicle/ridden/secway,
 /obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel{
 	dir = 10;

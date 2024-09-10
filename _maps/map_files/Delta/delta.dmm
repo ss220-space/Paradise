@@ -122103,7 +122103,7 @@
 /turf/simulated/floor/plating/airless,
 /area/engine/engineering)
 "xqE" = (
-/obj/vehicle/secway,
+/obj/vehicle/ridden/secway,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"

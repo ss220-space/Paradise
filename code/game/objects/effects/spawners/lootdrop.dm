@@ -402,7 +402,7 @@
 /obj/effect/spawner/lootdrop/trade_sol/vehicle
 	name = "9. Vehicle"
 	loot = list(
-		/obj/vehicle/motorcycle = 50,
+		/obj/vehicle/ridden/motorcycle = 50,
 		/obj/vehicle/snowmobile/key = 50,
 		/obj/vehicle/snowmobile/blue/key = 50,
 		/obj/vehicle/space/speedbike/red = 50,

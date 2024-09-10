@@ -1,4 +1,4 @@
-/obj/vehicle/motorcycle
+/obj/vehicle/ridden/motorcycle
 	name = "motorcycle"
 	desc = "A fast and highly maneuverable vehicle."
 	icon = 'icons/obj/vehicles/motorcycle.dmi'
@@ -6,17 +6,19 @@
 	var/mutable_appearance/bikecover
 
 
-/obj/vehicle/motorcycle/Initialize(mapload)
+/obj/vehicle/ridden/motorcycle/Initialize(mapload)
 	. = ..()
-	bikecover = mutable_appearance(icon, "motorcycle_4dir_overlay", ABOVE_MOB_LAYER)
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/motorcycle)
+	if(!bikecover)
+		bikecover = mutable_appearance(icon, "motorcycle_4dir_overlay", ABOVE_MOB_LAYER)
 
 
-/obj/vehicle/motorcycle/Destroy()
+/obj/vehicle/ridden/motorcycle/Destroy()
 	bikecover = null
 	return ..()
 
 
-/obj/vehicle/motorcycle/update_overlays()
+/obj/vehicle/ridden/motorcycle/update_overlays()
 	. = ..()
 	if(!has_buckled_mobs())
 		return .

@@ -37091,7 +37091,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "xDI" = (
-/obj/vehicle/secway,
+/obj/vehicle/ridden/secway,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/camera/autoname,
 /obj/machinery/requests_console{

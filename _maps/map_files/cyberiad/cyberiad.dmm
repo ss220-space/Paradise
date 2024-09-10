@@ -8727,7 +8727,7 @@
 	},
 /area/security/permabrig)
 "aBT" = (
-/obj/vehicle/secway,
+/obj/vehicle/ridden/secway,
 /obj/item/key/security,
 /turf/simulated/floor/plasteel{
 	dir = 1;

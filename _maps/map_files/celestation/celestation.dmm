@@ -79507,7 +79507,7 @@
 /area/maintenance/fsmaint2)
 "nVx" = (
 /obj/effect/turf_decal/delivery/red,
-/obj/vehicle/secway,
+/obj/vehicle/ridden/secway,
 /obj/structure/sign/poster/official/help_others{
 	pixel_y = 32
 	},
@@ -85905,7 +85905,7 @@
 /area/crew_quarters/captain)
 "pgx" = (
 /obj/effect/turf_decal/delivery/red,
-/obj/vehicle/secway,
+/obj/vehicle/ridden/secway,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"

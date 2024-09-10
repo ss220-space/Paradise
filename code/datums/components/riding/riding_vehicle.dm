@@ -133,7 +133,24 @@
 
 /datum/component/riding/vehicle/janicart/handle_specials()
 	. = ..()
-	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 7), TEXT_EAST = list(-12, 7), TEXT_WEST = list( 12, 7)))
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 7), TEXT_EAST = list(-12, 7), TEXT_WEST = list(12, 7)))
+
+/datum/component/riding/vehicle/motorcycle
+	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
+
+/datum/component/riding/vehicle/motorcycle/handle_specials()
+	. = ..()
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list(0, 4)))
+
+/datum/component/riding/vehicle/secway
+	keytype = /obj/item/key/security
+	vehicle_move_delay = 1.75
+	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
+
+/datum/component/riding/vehicle/secway/handle_specials()
+	. = ..()
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list( 0, 4)))
+	set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
 
 /*
 /datum/component/riding/vehicle/bicycle
@@ -304,17 +321,6 @@
 
 /datum/component/riding/vehicle/scooter/skateboard/wheelys/rollerskates
 	vehicle_move_delay = 1.5
-
-
-/datum/component/riding/vehicle/secway
-	keytype = /obj/item/key/security
-	vehicle_move_delay = 1.75
-	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
-
-/datum/component/riding/vehicle/secway/handle_specials()
-	. = ..()
-	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list( 0, 4)))
-	set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
 
 /datum/component/riding/vehicle/secway/driver_move(mob/living/user, direction)
 	var/obj/vehicle/ridden/secway/the_secway = parent
