@@ -125,11 +125,6 @@
 				break
 	. = ..()
 
-//obj/item/projectile/bullet/reusable/arrow/on_hit(atom/target)
-//	if(nemesis_faction)
-//		damage -= faction_bonus_damage
-
-
 /obj/item/projectile/bullet/reusable/arrow/bone //A fully upgraded normal arrow; it's got the stats to show. Still *less* damage than a slug, slower, and with negative AP. Only for bone bow!
 	name = "bone-tipped arrow"
 	icon_state = "bone_arrow"
