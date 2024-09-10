@@ -93,7 +93,7 @@
 		if(mouse_control["y_of_shot"]) // Протестировать этот иф, скорее всего не работает нормально.
 			var/y_of_shot = text2num(mouse_control["y_of_shot"])
 			pixel_y = world.icon_size * y_of_shot
-			var/angle = ATAN2(yo * world.icon_size - (y_of_shot - 0.5) * world.icon_size, xo * world.icon_size)
+			var/angle = ATAN2(yo * world.icon_size + user.pixel_y - (y_of_shot - 0.5) * world.icon_size, xo * world.icon_size)
 			Angle = angle
 		if(mouse_control["icon-x"])
 			p_x = text2num(mouse_control["icon-x"])

@@ -14,6 +14,8 @@
 	icon_grow = "grass-grow"
 	icon_dead = "grass-dead"
 	mutatelist = list(/obj/item/seeds/terraformers_plant/ivy/barbed, /obj/item/seeds/terraformers_plant/ivy/venomous)
+	connected_simplemob = null
+	can_harvest = TRUE
 
 /obj/item/seeds/terraformers_plant/ivy/barbed
 	name = "pack of barbed ivy seeds"
