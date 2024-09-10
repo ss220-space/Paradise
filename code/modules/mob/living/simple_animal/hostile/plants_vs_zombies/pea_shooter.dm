@@ -27,10 +27,10 @@
 	dodging = FALSE
 	var/obj/machinery/hydroponics/our_tray = null
 
-/mob/living/simple_animal/hostile/plant/proc/on_connected_simplemob_death()
-	SIGNAL_HANDLER
+/mob/living/simple_animal/hostile/plant/death(gibbed)
 	our_tray.connected_simplemob = null
 	our_tray.plantdies()
+	. = ..(TRUE)
 
 /mob/living/simple_animal/hostile/plant/Initialize(mapload)
 	. = ..()
