@@ -602,7 +602,7 @@
 	if(isobj(hit_atom))
 		var/obj/H = hit_atom
 		playsound(H, pick('sound/items/trayhit1.ogg', 'sound/items/trayhit2.ogg'), 50, TRUE)
-		H.take_damage(25, BRUTE, "melee")
+		H.take_damage(25, BRUTE, MELEE)
 
 
 /obj/item/storage/bag/dangertray/update_overlays()
