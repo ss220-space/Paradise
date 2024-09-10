@@ -168,7 +168,7 @@
 	icon_state = "peagun-attack"
 	sleep(2)
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, src, target)
-	chambered.fire(target = target, user = src, firer_source_atom = src)
+	chambered.fire(target = target, user = src, firer_source_atom = src, zone_override = random_body_accessory(SPECIES_HUMAN))
 	chambered = new bullet_type()
 	sleep(2)
 	rotate_to(target)
