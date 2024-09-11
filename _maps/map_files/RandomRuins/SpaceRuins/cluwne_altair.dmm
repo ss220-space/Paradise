@@ -41,6 +41,12 @@
 	},
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
+"ed" = (
+/obj/structure/closet/fireaxecabinet{
+	pixel_y = -32
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
 "fH" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/noslip,
@@ -57,10 +63,10 @@
 /turf/simulated/floor/mineral/silver/fancy,
 /area/ruin/space/cluwne_ruin)
 "hF" = (
-/obj/structure/closet/fireaxecabinet{
-	pixel_x = -32
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_x = 32
 	},
-/turf/simulated/floor/mineral/silver/fancy,
+/turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "hH" = (
 /obj/structure/table/wood/fancy/orange,
@@ -112,6 +118,10 @@
 /area/ruin/space/cluwne_ruin)
 "kV" = (
 /obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"ma" = (
+/obj/item/stack/ore/bananium,
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "mZ" = (
@@ -363,7 +373,7 @@
 /obj/structure/sacrificealtar{
 	pixel_y = 5
 	},
-/obj/item/clothing/mask/cursedclown{
+/obj/item/clothing/mask/cursedclown/fake{
 	pixel_y = 7
 	},
 /obj/effect/turf_decal/sand/plating,
@@ -394,6 +404,7 @@
 /obj/structure/window/reinforced/tinted{
 	dir = 8
 	},
+/obj/item/stack/ore/bananium,
 /turf/simulated/floor/mineral/silver/fancy,
 /area/ruin/space/cluwne_ruin)
 "Qh" = (
@@ -461,6 +472,7 @@
 /area/ruin/space/cluwne_ruin)
 "Za" = (
 /obj/effect/decal/cleanable/glass,
+/obj/item/stack/ore/bananium,
 /turf/simulated/floor/mineral/silver/fancy,
 /area/ruin/space/cluwne_ruin)
 
@@ -768,7 +780,7 @@ na
 Ls
 na
 wk
-hF
+Kb
 Kb
 LM
 VQ
@@ -891,7 +903,7 @@ za
 Kv
 Kv
 Nr
-na
+ma
 na
 na
 ai
@@ -1030,7 +1042,7 @@ Aa
 Aa
 ai
 kV
-na
+ma
 na
 Nr
 Kv
@@ -1063,7 +1075,7 @@ ai
 Ex
 na
 yX
-na
+ed
 Nr
 Kv
 Kv
@@ -1157,7 +1169,7 @@ Kb
 jF
 na
 na
-na
+hF
 na
 HS
 TU
