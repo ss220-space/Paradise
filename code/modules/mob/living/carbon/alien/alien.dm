@@ -183,7 +183,7 @@
 	return has_fine_manipulation
 
 
-/mob/living/carbon/alien/Weaken(amount, ignore_canweaken)
+/mob/living/carbon/alien/Weaken(amount, ignore_canweaken, mob/source = src)
 	. = ..()
 	if(. && check_incapacitating_immunity(CANWEAKEN, ignore_canweaken) && amount && !large)
 		// add some movement delay

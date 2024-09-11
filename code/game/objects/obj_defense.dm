@@ -92,7 +92,7 @@
 		M.custom_emote(EMOTE_VISIBLE, "[M.friendly] [src].")
 		return FALSE
 
-	if(GLOB.pacifism_after_gt || HAS_TRAIT(M, TRAIT_PACIFISM))
+	if(HAS_TRAIT(M, TRAIT_PACIFISM))
 		to_chat(M, span_notice("Немного подумав, Вы решаете не трогать [src]."))
 		return FALSE
 

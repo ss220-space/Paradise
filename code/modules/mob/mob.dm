@@ -1020,7 +1020,9 @@
 		S.icon_state = "[initial(S.icon_state)][suffix]"
 
 ///Adjust the nutrition of a mob
-/mob/proc/adjust_nutrition(change, forced)
+/mob/proc/adjust_nutrition(change, forced, mob/source = src)
+	if (!(source?.CanHarm(src)) && change < 0)
+		return
 	nutrition = max(0, nutrition + change)
 
 ///Force set the mob nutrition

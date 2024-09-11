@@ -44,14 +44,14 @@ effective or pretty fucking useless.
 
 	for(var/mob/living/carbon/human/M in orange (10, user))
 		if(prob(50))
-			M.Weaken(rand(2,6) SECONDS)
-			M.apply_damage(rand(35, 60), STAMINA)
+			M.Weaken(rand(2,6) SECONDS, user)
+			M.apply_damage(rand(35, 60), STAMINA, user)
 			add_attack_logs(user, M, "Stunned with [src]")
 			to_chat(M, span_danger("You feel a tremendous, paralyzing wave flood your mind."))
 		else
 			to_chat(M, span_danger("You feel a sudden, electric jolt travel through your head."))
-			M.Slowed(10 SECONDS)
-			M.Confused(6 SECONDS)
+			M.Slowed(10 SECONDS, user)
+			M.Confused(6 SECONDS, user)
 
 	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
 	charges--

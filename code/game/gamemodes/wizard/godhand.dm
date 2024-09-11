@@ -85,6 +85,45 @@
 	M.gib()
 	..()
 
+/obj/item/melee/touch_attack/friendship
+	name = "friendship touch"
+	desc = "Моя рука светится удивительной силой дружбы!"
+	catchphrase = "Довай останемся друзьями!" // The wizard friendzoned you, lol.
+	on_use_sound = 'sound/magic/disintegrate.ogg'
+	icon_state = "disintegrate"
+	item_state = "disintegrate"
+
+/obj/item/melee/touch_attack/disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity, params)
+	if(!proximity || target == user || !iscarbon(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+		//thief.add_antag_datum(/datum/antagonist/thief)
+
+	var/mob/living/carbon/M = target
+	if (!M.mind)
+		user.balloon_alert(M, "цель слишком глупа")
+		return
+
+	if (M.mind in user.mind.friends)
+		user.balloon_alert(M, "вы уже друзья")
+		return
+
+	new /obj/effect/temp_visual/heart(M)
+
+	var/datum/objective/friendship/friendship = new(user)
+	friendship.owner = M.mind
+	M.mind.objectives += friendship
+
+	new /obj/effect/temp_visual/heart(user)
+
+	friendship = new(M)
+	friendship.owner = user.mind
+	user.mind.objectives += friendship
+
+	user.mind.friends += M.mind
+	M.mind.friends += user.mind
+
+	..()
 
 /obj/item/melee/touch_attack/fleshtostone
 	name = "petrifying touch"

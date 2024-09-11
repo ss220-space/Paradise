@@ -410,6 +410,7 @@ Difficulty: Medium
 	blocked = 0,
 	damage_type = BRUTE,
 	forced = FALSE,
+	mob/source = src,
 )
 	if(swooping & SWOOP_INVULNERABLE)
 		return STATUS_UPDATE_NONE

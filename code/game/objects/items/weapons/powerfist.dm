@@ -135,8 +135,8 @@
 	if(isliving(target))
 		var/mob/living/mobtarget = target
 		var/atom/throw_target = get_edge_target_turf(mobtarget, get_dir(src, get_step_away(target, src)))
-		mobtarget.throw_at(throw_target, 5 * fisto_setting, 0.5 + (fisto_setting / 2))
-		mobtarget.apply_damage(force * fisto_setting, BRUTE)
+		mobtarget.throw_at(throw_target, 5 * fisto_setting, 0.5 + (fisto_setting / 2), source = user)
+		mobtarget.apply_damage(force * fisto_setting, BRUTE, source = user)
 		mobtarget.visible_message(span_danger("[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [mobtarget.name]!"), \
 			span_userdanger("You cry out in pain as [user]'s punch flings you backwards!"))
 		if(cell?.charge > 0)

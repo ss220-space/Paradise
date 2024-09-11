@@ -277,6 +277,7 @@
 	sharp = FALSE,
 	silent = FALSE,
 	affect_robotic = TRUE,
+	mob/source = src
 )
 	if(!forced)
 		amount = -abs(amount)

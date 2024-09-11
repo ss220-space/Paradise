@@ -441,19 +441,19 @@
 	else
 		to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
 		// These are in life cycles, so double the time that's stated.
-		L.Knockdown(3 SECONDS)
-		L.apply_damage(30, STAMINA)
-		L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
-		L.flash_eyes(1, TRUE)
+		L.Knockdown(3 SECONDS, source = user)
+		L.apply_damage(30, STAMINA, source = user)
+		L.apply_status_effect(STATUS_EFFECT_STAMINADOT, source = user)
+		L.flash_eyes(1, TRUE, source = user)
 		if(issilicon(target))
 			var/mob/living/silicon/S = L
-			S.emp_act(EMP_HEAVY)
+			S.emp_act(EMP_HEAVY, source = user)
 		else if(iscarbon(target))
 			var/mob/living/carbon/C = L
-			C.Silence(10 SECONDS)
-			C.Stuttering(16 SECONDS)
-			C.CultSlur(20 SECONDS)
-			C.Jitter(16 SECONDS)
+			C.Silence(10 SECONDS, source = user)
+			C.Stuttering(16 SECONDS, source = user)
+			C.CultSlur(20 SECONDS, source = user)
+			C.Jitter(16 SECONDS, source = user)
 	uses--
 	..()
 

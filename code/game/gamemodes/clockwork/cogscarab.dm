@@ -186,7 +186,7 @@
 /mob/living/silicon/robot/cogscarab/emag_act()
 	return
 
-/mob/living/silicon/robot/cogscarab/emp_act(severity)
+/mob/living/silicon/robot/cogscarab/emp_act(severity, mob/source = src)
 	return
 
 /mob/living/silicon/robot/cogscarab/ratvar_act(weak)

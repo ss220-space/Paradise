@@ -243,7 +243,7 @@
 		return TRUE
 	else if (!morphed)
 		to_chat(attacker, "<span class='warning'>Touching [src] with your hands hurts you!</span>")
-		attacker.apply_damage(20, def_zone = attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+		attacker.apply_damage(20, def_zone = attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND, source = src)
 		add_food(5)
 
 	restore_form()
@@ -268,7 +268,7 @@
 		var/food_value = calc_food_gained(item)
 		if(food_value + gathered_food > 0)
 			to_chat(user, span_warning("Attacking [src] damaging your systems!"))
-			user.apply_damage(70)
+			user.apply_damage(70, source = src)
 			add_food(-5)
 		return ..()
 
@@ -312,8 +312,8 @@
 		total_weaken *= 2
 		total_damage *= 2
 
-	dumbass.Weaken(total_weaken)
-	dumbass.apply_damage(total_damage, BRUTE)
+	dumbass.Weaken(total_weaken, source = src)
+	dumbass.apply_damage(total_damage, BRUTE, source = src)
 	add_attack_logs(src, dumbass, "morph ambush attacked")
 	do_attack_animation(dumbass, ATTACK_EFFECT_BITE)
 	visible_message("<span class='danger'>[src] suddenly leaps towards [dumbass]!</span>", "<span class='warning'>You strike [dumbass] when [dumbass.p_they()] least expected it!</span>", "You hear a horrible crunch!")

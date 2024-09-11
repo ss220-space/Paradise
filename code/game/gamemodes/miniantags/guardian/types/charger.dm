@@ -67,9 +67,9 @@
 				if(H.check_shields(src, 90, "[name]", attack_type = THROWN_PROJECTILE_ATTACK))
 					blocked = TRUE
 			if(!blocked)
-				L.Weaken(2 SECONDS)
+				L.Weaken(2 SECONDS, source = src)
 				L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] slams into you!</span>")
-				L.apply_damage(30, BRUTE)
+				L.apply_damage(30, BRUTE, source = src)
 				playsound(get_turf(L), 'sound/effects/meteorimpact.ogg', 100, 1)
 				shake_camera(L, 4, 3)
 				shake_camera(src, 2, 3)

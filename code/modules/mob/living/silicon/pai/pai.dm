@@ -208,7 +208,7 @@
 	return 0
 
 
-/mob/living/silicon/pai/emp_act(severity)
+/mob/living/silicon/pai/emp_act(severity, mob/source = src)
 	// Silence for 2 minutes
 	// 20% chance to kill
 		// 33% chance to unbind

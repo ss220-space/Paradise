@@ -1678,8 +1678,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_module_icon()
 	update_icons()
 
-/mob/living/silicon/robot/emp_act(severity)
-	if(emp_protection)
+/mob/living/silicon/robot/emp_act(severity, mob/source = src)
+	if(emp_protection || !source.CanHarm(src))
 		return
 	..()
 	switch(severity)

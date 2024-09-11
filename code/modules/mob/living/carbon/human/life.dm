@@ -1035,8 +1035,8 @@
 			return FALSE
 	return TRUE
 
-/mob/living/carbon/human/proc/set_heartattack(status)
-	if(!can_heartattack())
+/mob/living/carbon/human/proc/set_heartattack(status, mob/source = src)
+	if(!can_heartattack() || !source.CanHarm(src))
 		return FALSE
 
 	var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)

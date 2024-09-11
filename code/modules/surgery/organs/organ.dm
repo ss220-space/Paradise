@@ -315,10 +315,13 @@
  *
  * Returns `TRUE` on success
  */
-/obj/item/organ/proc/internal_receive_damage(amount = 0, silent = FALSE)
+/obj/item/organ/proc/internal_receive_damage(amount = 0, silent = FALSE, mob/source = owner)
 	. = FALSE
 	if(isexternalorgan(src))
 		CRASH("internal_receive_damage() is called for external organ. Use external_receive_damage()")
+
+	if (!source.CanHarm(owner))
+		return
 
 	if(tough)
 		return .

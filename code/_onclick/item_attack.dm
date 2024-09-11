@@ -188,7 +188,7 @@
 	if(try_item_eat(target, user))
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	if(force && (HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
+	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		return .
 
@@ -272,7 +272,7 @@
 	if(!I.force)
 		return .
 
-	var/apply_damage_result = apply_damage(I.force, I.damtype, def_zone, sharp = is_sharp(I), used_weapon = I)
+	var/apply_damage_result = apply_damage(I.force, I.damtype, def_zone, sharp = is_sharp(I), used_weapon = I, source = user)
 	// if we are hitting source with real weapon and any brute damage was done, we apply victim's blood everywhere
 	if(apply_damage_result && I.damtype == BRUTE && prob(33))
 		I.add_mob_blood(src)

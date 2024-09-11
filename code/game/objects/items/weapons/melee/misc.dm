@@ -89,7 +89,7 @@
 		)
 		target.Sleeping(10 SECONDS)
 		add_attack_logs(user, target, "put to sleep with [src]")
-	target.apply_damage(stamina_damage, STAMINA)
+	target.apply_damage(stamina_damage, STAMINA, source = user)
 
 
 /obj/item/melee/mantisblade

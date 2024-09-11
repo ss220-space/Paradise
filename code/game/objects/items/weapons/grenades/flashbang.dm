@@ -37,7 +37,7 @@
   * * flash - Whether to flash (blind)
   * * bang - Whether to bang (deafen)
   */
-/proc/bang(turf/T, atom/A, range = 7, flash = TRUE, bang = TRUE)
+/proc/bang(turf/T, atom/A, range = 7, flash = TRUE, bang = TRUE, mob/source = A)
 
 	// Flashing mechanic
 	var/source_turf = get_turf(A)
@@ -51,32 +51,32 @@
 			if(M.weakeyes)
 				M.visible_message(span_disarm("<b>[M]</b> screams and collapses!"))
 				to_chat(M, span_userdanger("<font size=3>AAAAGH!</font>"))
-				M.Weaken(10 SECONDS) //hella stunned
+				M.Weaken(10 SECONDS, source = source) //hella stunned
 				if(ishuman(M))
 					M.emote("scream")
 					var/mob/living/carbon/human/H = M
 					var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 					if(E)
-						E.internal_receive_damage(8, silent = TRUE)
+						E.internal_receive_damage(8, silent = TRUE, source = source)
 			if(M.flash_eyes())
-				M.AdjustConfused(6 SECONDS)
+				M.AdjustConfused(6 SECONDS, source = source)
 			if(issilicon(M))
-				M.Weaken(6 SECONDS)
+				M.Weaken(6 SECONDS, source = source)
 
 		// Bang
 		var/ear_safety = M.check_ear_prot()
 		if(bang)
 			if(source_turf == mobturf) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
-				M.Weaken(10 SECONDS)
+				M.Weaken(10 SECONDS, source = source)
 			if(!ear_safety)
-				M.apply_damage(15, STAMINA)
-				M.Weaken(1 SECONDS)
-				M.Deaf(30 SECONDS)
+				M.apply_damage(15, STAMINA, source = source)
+				M.Weaken(1 SECONDS, source = source)
+				M.Deaf(30 SECONDS, source = source)
 				if(iscarbon(M))
 					var/mob/living/carbon/C = M
 					var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 					if(istype(ears))
-						ears.internal_receive_damage(5)
+						ears.internal_receive_damage(5, source = source)
 						if(ears.damage >= 15)
 							to_chat(M, span_warning("Your ears start to ring badly!"))
 							if(prob(ears.damage - 5))

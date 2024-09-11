@@ -1103,8 +1103,8 @@
 	..()
 
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
-	if(throwing || !target || HAS_TRAIT(src, TRAIT_NODROP) || speed <= 0)
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE, mob/source = src)
+	if(throwing || !target || HAS_TRAIT(src, TRAIT_NODROP) || speed <= 0 || !source.CanHarm(src))
 		return FALSE
 
 	pulledby?.stop_pulling()

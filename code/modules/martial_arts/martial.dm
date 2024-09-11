@@ -548,7 +548,7 @@
 		to_chat(user, span_warning("It would be dishonorable to attack a foe while [target.p_they()] cannot retaliate."))
 		return .
 
-	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("You feel violence is not the answer."))
 		return .
 

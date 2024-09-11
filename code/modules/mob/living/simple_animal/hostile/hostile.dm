@@ -430,6 +430,7 @@
 	blocked = 0,
 	damage_type = BRUTE,
 	forced = FALSE,
+	mob/source = src,
 )
 	. = ..()
 	if(!.)
@@ -508,7 +509,7 @@
 /mob/living/simple_animal/hostile/proc/OpenFire(atom/A)
 	if(client && (a_intent == INTENT_HELP || intent == INTENT_HELP))
 		return
-	if(GLOB.pacifism_after_gt || HAS_TRAIT(src, TRAIT_PACIFISM))
+	if(HAS_TRAIT(src, TRAIT_PACIFISM))
 		return
 	if(CheckFriendlyFire(A))
 		return
@@ -636,7 +637,7 @@
 
 
 /mob/living/simple_animal/hostile/RangedAttack(atom/A, params) //Player firing
-	if(GLOB.pacifism_after_gt || HAS_TRAIT(src, TRAIT_PACIFISM))
+	if(HAS_TRAIT(src, TRAIT_PACIFISM))
 		return
 	if(ranged && ranged_cooldown <= world.time)
 		target = A

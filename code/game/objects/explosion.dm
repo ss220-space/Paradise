@@ -10,7 +10,7 @@
 #define FREQ_UPPER 40 //The upper limit for the randomly selected frequency.
 #define FREQ_LOWER 25 //The lower of the above.
 
-/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0, silent = 0, smoke = 1, var/cause = null, breach = TRUE)
+/proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0, silent = 0, smoke = 1, var/cause = null, breach = TRUE, mob/source = null)
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
@@ -220,12 +220,12 @@
 							var/atom/AM = atom
 							if(!QDELETED(AM) && AM.simulated)
 								if(AM.level >= affecting_level)
-									AM.ex_act(dist, epicenter)
+									AM.ex_act(dist, epicenter, source)
 					else
 						for(var/atom in T.contents)	//see above
 							var/atom/AM = atom
 							if(!QDELETED(AM) && AM.simulated)
-								AM.ex_act(dist, epicenter)
+								AM.ex_act(dist, epicenter, source)
 							CHECK_TICK
 					if(breach)
 						T.ex_act(dist, epicenter)

@@ -111,7 +111,7 @@
 		..()
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/sword_attack(mob/living/carbon/C)     // esword attack
-	if((HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) && dmg)
+	if((HAS_TRAIT(src, TRAIT_PACIFISM)) && dmg)
 		if(usr)
 			to_chat(usr, span_warning("You don't want to harm other living beings!"))
 		return

@@ -163,7 +163,7 @@
 			if(2)
 				to_chat(H, "<span class='warning'>You hear an annoying buzz in your head.</span>")
 				H.AdjustConfused(30 SECONDS)
-				H.apply_damage(rand(5, 15), BRAIN)
+				H.apply_damage(rand(5, 15), BRAIN, source = owner)
 			if(3)
 				H.AdjustHallucinate(60 SECONDS)
 

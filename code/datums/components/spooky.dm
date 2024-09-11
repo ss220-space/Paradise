@@ -8,9 +8,9 @@
 	if(ishuman(user)) //this weapon wasn't meant for mortals.
 		var/mob/living/carbon/human/U = user
 		if(!istype(U.dna.species, /datum/species/skeleton))
-			U.apply_damage(35, STAMINA)
-			U.Jitter(70 SECONDS)
-			U.SetStuttering(40 SECONDS)
+			U.apply_damage(35, STAMINA, source = source)
+			U.Jitter(70 SECONDS, source = source)
+			U.SetStuttering(40 SECONDS, source = source)
 			if(U.getStaminaLoss() > 95)
 				to_chat(U, "<font color='red' size='4'><b>Your ears weren't meant for this spectral sound.</b></font>")
 				spectral_change(U)
@@ -20,21 +20,22 @@
 		var/mob/living/carbon/human/H = C
 		if(istype(H.dna.species, /datum/species/skeleton))
 			return //undeads are unaffected by the spook-pocalypse.
-		C.Jitter(70 SECONDS)
-		C.SetStuttering(40 SECONDS)
+		C.Jitter(70 SECONDS, source = source)
+		C.SetStuttering(40 SECONDS, source = source)
 		if(!istype(H.dna.species, /datum/species/diona) && !istype(H.dna.species, /datum/species/machine) && !istype(H.dna.species, /datum/species/slime) && !istype(H.dna.species, /datum/species/golem) && !istype(H.dna.species, /datum/species/plasmaman))
-			C.apply_damage(25, STAMINA) //boneless humanoids don't lose the will to live
+			C.apply_damage(25, STAMINA, source = source) //boneless humanoids don't lose the will to live
 		to_chat(C, "<font color='red' size='4'><B>DOOT</B></font>")
 		spectral_change(H)
 
 	else //the sound will spook monkeys.
-		C.Jitter(30 SECONDS)
-		C.SetStuttering(40 SECONDS)
+		C.Jitter(30 SECONDS, source = source)
+		C.SetStuttering(40 SECONDS, source = source)
 
 /datum/component/spooky/proc/spectral_change(mob/living/carbon/human/H, mob/user)
 	if((H.getStaminaLoss() > 95) && (!istype(H.dna.species, /datum/species/diona) && !istype(H.dna.species, /datum/species/machine) && !istype(H.dna.species, /datum/species/slime) && !istype(H.dna.species, /datum/species/golem) && !istype(H.dna.species, /datum/species/plasmaman) && !istype(H.dna.species, /datum/species/skeleton)))
-		H.Stun(40 SECONDS)
-		H.set_species(/datum/species/skeleton)
+		H.Stun(40 SECONDS, source = user)
+		if (user && user.CanHarm(H))
+			H.set_species(/datum/species/skeleton)
 		H.visible_message("<span class='warning'>[H] has given up on life as a mortal.</span>")
 		var/T = get_turf(H)
 		if(too_spooky)

@@ -15,7 +15,7 @@
 
 
 /obj/effect/proc_holder/spell/hulk_transform/cast(list/targets, mob/user = usr)
-	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>Not enough angry power.")
 		return
 	if(istype(user,/mob/living/simple_animal/hulk))

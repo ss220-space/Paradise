@@ -299,7 +299,7 @@
 	var/mob/living/simple_animal/pet/cat/kitty = new(cached_loc)
 	kitty.name = "Schrodinger's Cat"
 	if(prob(50))
-		kitty.apply_damage(250, TOX)
+		kitty.apply_damage(250, TOX) // source != user because kitty was dead before opening
 		kitty.desc = "It seems it's been dead for a while."
 	else
 		kitty.desc = "It was alive the whole time!"

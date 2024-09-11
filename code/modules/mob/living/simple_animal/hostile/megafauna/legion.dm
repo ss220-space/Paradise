@@ -217,6 +217,7 @@ Difficulty: Medium
 	blocked = 0,
 	damage_type = BRUTE,
 	forced = FALSE,
+	mob/source = src,
 )
 	. = ..()
 

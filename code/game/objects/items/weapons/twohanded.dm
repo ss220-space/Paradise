@@ -856,9 +856,9 @@
 				"<span class='warning'>\"As you pick up the [src] your arms ignite, reminding you of all your past sins.\"</span>")
 			if(ishuman(U))
 				var/mob/living/carbon/human/H = U
-				H.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+				H.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM), source = user)
 			else
-				U.adjustFireLoss(rand(force/2,force))
+				U.adjustFireLoss(rand(force/2,force), source = user)
 
 
 /obj/item/twohanded/pitchfork/demonic/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -870,7 +870,7 @@
 		return .
 
 	to_chat(user, span_warning("The [name] burns in your hands!"))
-	user.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+	user.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM), source = user)
 
 
 

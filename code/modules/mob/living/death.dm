@@ -1,6 +1,8 @@
 //This is the proc for gibbing a mob. Cannot gib ghosts.
 //added different sort of gibs and animations. N
-/mob/living/gib()
+/mob/living/gib(mob/source = src)
+	if((status_flags & GODMODE) || (source && !source.CanHarm(src)))
+		return FALSE
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	// hide and freeze for the GC
@@ -16,7 +18,9 @@
 //This is the proc for turning a mob into ash. Mostly a copy of gib code (above).
 //Originally created for wizard disintegrate. I've removed the virus code since it's irrelevant here.
 //Dusting robots does not eject the MMI, so it's a bit more powerful than gib() /N
-/mob/living/dust()
+/mob/living/dust(mob/source = src)
+	if((status_flags & GODMODE) || (source && !source.CanHarm(src)))
+		return FALSE
 	dusted = TRUE
 	if(!death(TRUE) && stat != DEAD)
 		dusted = FALSE
@@ -29,7 +33,9 @@
 	QDEL_IN(src, 0)
 	return TRUE
 
-/mob/living/melt()
+/mob/living/melt(mob/source = src)
+	if((status_flags & GODMODE) || (source && !source.CanHarm(src)))
+		return FALSE
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	// hide and freeze them while they get GC'd
@@ -45,7 +51,9 @@
 // Returns true if mob transitioned from live to dead
 // Do a check with `can_die` beforehand if you need to do any
 // handling before `stat` is set
-/mob/living/death(gibbed)
+/mob/living/death(gibbed, mob/source = src)
+	if((status_flags & GODMODE) || (source && !source.CanHarm(src)))
+		return FALSE
 	if(stat == DEAD || !can_die())
 		// Whew! Good thing I'm indestructible! (or already dead)
 		return FALSE
@@ -104,7 +112,9 @@
 	// u no we dead
 	return TRUE
 
-/mob/living/proc/delayed_gib()
+/mob/living/proc/delayed_gib(mob/source = src)
+	if((status_flags & GODMODE) || (source && !source.CanHarm(src)))
+		return FALSE
 	visible_message("<span class='danger'><b>[src]</b> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
 	Weaken(30 SECONDS)
 	do_jitter_animation(1000, -1) // jitter until they are gibbed

@@ -129,8 +129,8 @@
 		to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
 		if(iscarbon(user))
 			var/mob/living/carbon/carbon = user
-			carbon.Knockdown(10 SECONDS)
-			carbon.Stuttering(20 SECONDS)
+			carbon.Knockdown(10 SECONDS, source = user)
+			carbon.Stuttering(20 SECONDS, source = user)
 		return
 	switch(enchant_type)
 		if(STUN_SPELL)
@@ -143,19 +143,19 @@
 				visible_message(span_warning("[target]'s holy weapon absorbs the light!"))
 				deplete_spell()
 				return
-			living.Knockdown(3 SECONDS)
-			living.apply_damage(30, STAMINA)
-			living.apply_status_effect(STATUS_EFFECT_STAMINADOT)
-			living.flash_eyes(1, TRUE)
+			living.Knockdown(3 SECONDS, source = user)
+			living.apply_damage(30, STAMINA, source = user)
+			living.apply_status_effect(STATUS_EFFECT_STAMINADOT, source = user)
+			living.flash_eyes(1, TRUE, source = user)
 			if(isrobot(living))
 				var/mob/living/silicon/robot/robot = living
-				robot.emp_act(EMP_HEAVY)
+				robot.emp_act(EMP_HEAVY, source = user)
 			else if(iscarbon(target))
 				var/mob/living/carbon/carbon = living
-				carbon.Silence(10 SECONDS)
-				carbon.Stuttering(16 SECONDS)
-				carbon.ClockSlur(20 SECONDS)
-				carbon.Jitter(16 SECONDS)
+				carbon.Silence(10 SECONDS, source = user)
+				carbon.Stuttering(16 SECONDS, source = user)
+				carbon.ClockSlur(20 SECONDS, source = user)
+				carbon.Jitter(16 SECONDS, source = user)
 			add_attack_logs(user, target, "Stunned by [src]")
 			deplete_spell()
 		if(KNOCK_SPELL)
@@ -208,7 +208,7 @@
 			else if(isanimal(living))
 				var/mob/living/simple_animal/M = living
 				if(M.health < M.maxHealth)
-					M.adjustHealth(-50)
+					M.adjustHealth(-50, source = user)
 			add_attack_logs(user, target, "clockslab healed", ATKLOG_ALL)
 			deplete_spell()
 
@@ -419,7 +419,7 @@
 			span_warning("A powerful force shoves [user] away from [target]!"),
 			span_clocklarge("\"Don't hit yourself.\""),
 		)
-		user.apply_damage(rand(force_unwielded, force_wielded), BRUTE, BODY_ZONE_HEAD)
+		user.apply_damage(rand(force_unwielded, force_wielded), BRUTE, BODY_ZONE_HEAD, source = user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
@@ -648,7 +648,7 @@
 			to_chat(user, "<span class='clocklarge'>\"Did you like having head?\"</span>")
 			to_chat(user, "<span class='userdanger'>The buckler suddenly hits you in the head!</span>")
 			user.emote("scream")
-			user.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
+			user.apply_damage(10, BRUTE, BODY_ZONE_HEAD, source = user)
 		user.drop_item_ground(src)
 
 // Clockwork robe. Basic robe from clockwork slab.
@@ -777,7 +777,7 @@
 		else
 			to_chat(user, "<span class='clocklarge'>\"I think this armor is too hot for you to handle.\"</span>")
 			user.emote("scream")
-			user.apply_damage(7, BURN, BODY_ZONE_CHEST)
+			user.apply_damage(7, BURN, BODY_ZONE_CHEST, source = user)
 			user.IgniteMob()
 		user.drop_item_ground(src)
 
@@ -904,7 +904,7 @@
 		else
 			to_chat(user, "<span class='clocklarge'>\"I think this armor is too hot for you to handle.\"</span>")
 			user.emote("scream")
-			user.apply_damage(15, BURN, BODY_ZONE_CHEST)
+			user.apply_damage(15, BURN, BODY_ZONE_CHEST, source = user)
 			user.adjust_fire_stacks(2)
 			user.IgniteMob()
 		user.drop_item_ground(src)
@@ -1032,8 +1032,8 @@
 			to_chat(user, "<span class='clocklarge'>\"Did you like having arms?\"</span>")
 			to_chat(user, "<span class='userdanger'>The gauntlets suddenly squeeze tight, crushing your arms before you manage to get them off!</span>")
 			user.emote("scream")
-			user.apply_damage(7, BRUTE, BODY_ZONE_L_ARM)
-			user.apply_damage(7, BRUTE, BODY_ZONE_R_ARM)
+			user.apply_damage(7, BRUTE, BODY_ZONE_L_ARM, source = user)
+			user.apply_damage(7, BRUTE, BODY_ZONE_R_ARM, source = user)
 		user.drop_item_ground(src)
 
 // Shoes
@@ -1072,8 +1072,8 @@
 			to_chat(user, "<span class='clocklarge'>\"Let's see if you can dance with these.\"</span>")
 			to_chat(user, "<span class='userdanger'>The treads turn searing hot as you scramble to get them off!</span>")
 			user.emote("scream")
-			user.apply_damage(7, BURN, BODY_ZONE_L_LEG)
-			user.apply_damage(7, BURN, BODY_ZONE_R_LEG)
+			user.apply_damage(7, BURN, BODY_ZONE_L_LEG, source = user)
+			user.apply_damage(7, BURN, BODY_ZONE_R_LEG, source = user)
 		user.drop_item_ground(src)
 
 // Helmet
@@ -1119,8 +1119,8 @@
 			to_chat(user, "<span class='heavy_brass'>\"Do you have a hole in your head? You're about to.\"</span>")
 			to_chat(user, "<span class='userdanger'>The helmet tries to drive a spike through your head as you scramble to remove it!</span>")
 			user.emote("scream")
-			user.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
-			user.adjustBrainLoss(30)
+			user.apply_damage(30, BRUTE, BODY_ZONE_HEAD, source = user)
+			user.adjustBrainLoss(30, source = user)
 		user.drop_item_ground(src)
 
 // Glasses

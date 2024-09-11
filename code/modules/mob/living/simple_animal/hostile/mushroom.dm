@@ -87,6 +87,7 @@
 	blocked = 0,
 	damage_type = BRUTE,
 	forced = FALSE,
+	mob/source = src,
 )
 	. = ..()
 	//Possibility to flee from a fight just to make it more visually interesting

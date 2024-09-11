@@ -104,6 +104,7 @@
 	blocked = 0,
 	damage_type = BRUTE,
 	forced = FALSE,
+	mob/source = src,
 )
 	. = ..()
 	if(. && del_on_death)

@@ -100,7 +100,7 @@
 				for(var/mob/M in range(6, target))
 					shake_camera(M, 2 SECONDS, 2)
 				for(var/mob/living/M in range(1, target))
-					M.apply_damage(120)
+					M.apply_damage(120, source = user)
 			else
 				used = FALSE
 		else

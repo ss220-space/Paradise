@@ -214,7 +214,7 @@
 	if(isliving(target))
 		var/mob/living/l_target = target
 		l_target.Immobilize(4 SECONDS)
-		l_target.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
+		l_target.apply_damage(40, BRUTE, BODY_ZONE_CHEST, source = firer)
 		l_target.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
 	else
 		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)

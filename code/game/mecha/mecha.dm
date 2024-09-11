@@ -224,19 +224,6 @@
 	if(src == target)
 		return
 
-	if(GLOB.pacifism_after_gt)
-		var/mob/living/L = user
-		if(!target.Adjacent(src))
-			if(selected && selected.is_ranged())
-				if(selected.harmful)
-					to_chat(L, span_warning("You don't want to harm other living beings!"))
-					return
-				selected.action(target, params)
-		else if(selected && selected.is_melee())
-			if(ishuman(target) && selected.harmful)
-				to_chat(user, span_warning("You don't want to harm other living beings!"))
-				return
-
 	var/dir_to_target = get_dir(src, target)
 	if(dir_to_target && !(dir_to_target & dir))//wrong direction
 		return

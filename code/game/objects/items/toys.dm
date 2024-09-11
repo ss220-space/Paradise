@@ -217,7 +217,7 @@
 		add_fingerprint(user)
 		if(I == src)
 			to_chat(user, span_warning("You try to attach the end of the plastic sword to... itself. You're not very smart, are you?"))
-			user.apply_damage(10, BRAIN)
+			user.apply_damage(10, BRAIN, source = src)
 			return ATTACK_CHAIN_PROCEED
 		if(loc == user && !user.can_unEquip(src))
 			return ATTACK_CHAIN_PROCEED
@@ -1789,7 +1789,7 @@
 		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 		user.visible_message("<span class='danger'>[src] goes off!</span>")
 		post_shot(user)
-		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
+		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].", , source = user)
 		user.bleed(BLOOD_VOLUME_NORMAL)
 		user.death() // Just in case
 		return TRUE

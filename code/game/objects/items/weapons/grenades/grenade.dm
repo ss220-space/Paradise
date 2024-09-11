@@ -15,6 +15,7 @@
 	var/active = FALSE
 	var/det_time = 5 SECONDS
 	var/display_timer = TRUE
+	var/mob/thrower = null
 
 
 /obj/item/grenade/deconstruct(disassembled = TRUE)
@@ -56,6 +57,7 @@
 
 /obj/item/grenade/attack_self(mob/user)
 	if(!active && clown_check(user))
+		thrower = user
 		to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
 		active = TRUE
 		update_icon(UPDATE_ICON_STATE)

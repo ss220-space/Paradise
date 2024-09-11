@@ -33,7 +33,7 @@
 			var/obj/effect/decal/cleanable/blood/gibs/G = new/obj/effect/decal/cleanable/blood/gibs(get_turf(H))
 			spawn()
 				G.throw_at(get_edge_target_turf(H, pick(GLOB.alldirs)), rand(1, 10), 5)
-			H.apply_damage(10, BRUTE, BODY_ZONE_CHEST)
+			H.apply_damage(10, BRUTE, BODY_ZONE_CHEST, source = user)
 			to_chat(H, "<span class='userdanger'>You have no appendix, but something had to give! Holy shit, what was that?</span>")
 			H.Weaken(6 SECONDS)
 			for(var/obj/item/organ/external/E as anything in H.bodyparts)

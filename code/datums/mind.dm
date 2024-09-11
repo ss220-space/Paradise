@@ -87,6 +87,7 @@
 
 	var/list/curses
 
+	var/list/datum/mind/friends = list() // Minds that the creature cannot harm.
 
 /datum/mind/New(new_key)
 	key = new_key
@@ -3254,3 +3255,15 @@
 	..()
 	mind.assigned_role = "Juggernaut"
 	mind.special_role = SPECIAL_ROLE_CULTIST
+
+/mob/proc/CanHarm(mob/living/target) // You can attack, but you won't be able to harm.
+	if (GLOB.pacifism_after_gt)
+		return FALSE
+
+	if (!target || !mind || !target.mind)
+		return TRUE
+
+	if (target.status_flags & GODMODE)
+		return FALSE
+
+	return !(target.mind in mind.friends)

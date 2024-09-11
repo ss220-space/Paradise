@@ -141,6 +141,7 @@
 	blocked = 0,
 	damage_type = BRUTE,
 	forced = FALSE,
+	mob/source = src,
 )
 	. = STATUS_UPDATE_NONE
 	//The spirit is invincible, but passes on damage to the summoner

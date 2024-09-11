@@ -116,7 +116,6 @@
 	desc = "NT-Drunk Dialer Grenade. Originally built by NT for locating all beacons in an area and creating wormholes to them, it now finds use to miners for recovering allies from chasms."
 	icon_state = "mirage"
 	/// Mob that threw the grenade.
-	var/mob/living/thrower
 
 
 /obj/item/grenade/jaunter_grenade/Destroy()

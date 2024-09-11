@@ -68,15 +68,15 @@
 		target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>", \
 			"<span class='userdanger'>Your gaze is forcibly drawn into [user]'s eyes, and you are mesmerized by [user.p_their()] heavenly beauty...</span>")
 
-		target.Weaken(4 SECONDS)
-		target.AdjustSilence(20 SECONDS)
-		target.apply_damage(20, STAMINA)
-		target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
+		target.Weaken(4 SECONDS, source = user)
+		target.AdjustSilence(20 SECONDS, source = user)
+		target.apply_damage(20, STAMINA, source = user)
+		target.apply_status_effect(STATUS_EFFECT_STAMINADOT, source = user)
 
 	else //Distant glare
-		target.Stun(2 SECONDS)
-		target.Slowed(10 SECONDS)
-		target.AdjustSilence(10 SECONDS)
+		target.Stun(2 SECONDS, source = user)
+		target.Slowed(10 SECONDS, source = user)
+		target.AdjustSilence(10 SECONDS, source = user)
 		to_chat(target, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted.. you are not able to speak..</span>")
 		target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>")
 
@@ -258,9 +258,9 @@
 			continue
 
 		to_chat(target, "<span class='userdanger'>A wave of shockingly cold air engulfs you!</span>")
-		target.Stun(2 SECONDS)
-		target.apply_damage(10, BURN)
-		target.adjust_bodytemperature(-200) //Extreme amount of initial cold
+		target.Stun(2 SECONDS, source = user)
+		target.apply_damage(10, BURN, source = user)
+		target.adjust_bodytemperature(-200, source = user) //Extreme amount of initial cold
 		if(target.reagents)
 			target.reagents.add_reagent("frostoil", 15) //Half of a cryosting
 

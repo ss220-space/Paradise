@@ -104,7 +104,7 @@
 		span_danger("You stop cutting [target]'s hair and slice [target.p_their()] throat!"),
 	)
 	target.AdjustLoseBreath(20 SECONDS) //30 Oxy damage over time
-	var/success = target.apply_damage(18, BRUTE, BODY_ZONE_HEAD, sharp = TRUE, used_weapon = src)
+	var/success = target.apply_damage(18, BRUTE, BODY_ZONE_HEAD, sharp = TRUE, used_weapon = src, source = user)
 	if(!success)
 		return .
 	target.add_splatter_floor()

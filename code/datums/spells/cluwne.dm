@@ -12,7 +12,9 @@
 	action_icon_state = "cluwne"
 
 
-/mob/living/carbon/human/proc/makeCluwne()
+/mob/living/carbon/human/proc/makeCluwne(mob/source = null)
+	if((status_flags & GODMODE) || (source && !source.CanHarm(src)))
+		return
 	if(!get_int_organ(/obj/item/organ/internal/brain/cluwne))
 		var/obj/item/organ/internal/brain/cluwne/idiot_brain = new
 		internal_organs |= idiot_brain	//Well, everything's for recursion prevention.

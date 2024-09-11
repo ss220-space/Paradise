@@ -196,7 +196,7 @@
 	if(victim.has_pain())
 		victim.emote("scream")
 
-	victim.apply_damage(30, BURN, BODY_ZONE_HEAD) // 30 fire damage because it's FUCKING LAVA
+	victim.apply_damage(30, BURN, BODY_ZONE_HEAD, source = grabber) // 30 fire damage because it's FUCKING LAVA
 	head.disfigure() // Your face is unrecognizable because it's FUCKING LAVA
 	victim.UpdateDamageIcon()
 	add_attack_logs(grabber, victim, "Lava-dunked into [src]")

@@ -240,6 +240,11 @@
 	cost = 1
 	category = "Defensive"
 
+/datum/spellbook_entry/friendship
+	name = "Friendship"
+	spell_type = /obj/effect/proc_holder/spell/touch/friendship
+	category = "Defensive"
+
 /datum/spellbook_entry/sacred_flame/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
 	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
 	ADD_TRAIT(user, TRAIT_RESIST_HEAT, MAGIC_TRAIT)

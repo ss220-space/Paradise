@@ -108,7 +108,7 @@
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			var/obj/item/organ/external/target_part = H.get_organ(ran_zone(BODY_ZONE_CHEST))
-			H.apply_damage(10, BRUTE, BODY_ZONE_CHEST, H.run_armor_check(target_part, MELEE))
+			H.apply_damage(10, BRUTE, BODY_ZONE_CHEST, H.run_armor_check(target_part, MELEE), source = user)
 
 			//blood splatters
 			blood_color = H.dna.species.blood_color

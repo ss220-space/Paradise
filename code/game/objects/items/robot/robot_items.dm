@@ -21,9 +21,9 @@
 
 	. |= ATTACK_CHAIN_SUCCESS
 	user.do_attack_animation(target)
-	target.Weaken(2 SECONDS)
-	target.apply_effect(STUTTER, 10 SECONDS)
-	target.apply_damage(20, STAMINA)
+	target.Weaken(2 SECONDS, source = user)
+	target.apply_effect(STUTTER, 10 SECONDS, source = user)
+	target.apply_damage(20, STAMINA, source = user)
 
 	target.visible_message(
 		span_danger("[user] has prodded [target] with [src]!"),

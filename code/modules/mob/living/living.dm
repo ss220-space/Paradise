@@ -565,7 +565,9 @@
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 
 
-/mob/living/ex_act(severity)
+/mob/living/ex_act(severity, mob/source = src)
+	if((status_flags & GODMODE) || source && !source.CanHarm(src))
+		return
 	..()
 	flash_eyes()
 
@@ -1262,8 +1264,8 @@
 
 
 //called when the mob receives a bright flash
-/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
-	if(status_flags & GODMODE)
+/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash, mob/source = src)
+	if((status_flags & GODMODE) || !source.CanHarm(src))
 		return FALSE
 	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)))
 		overlay_fullscreen("flash", type)
@@ -1764,7 +1766,9 @@
 			sync_lighting_plane_alpha()
 
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable, mob/source = src)
+	if (!source.CanHarm(src))
+		return FALSE
 	stop_pulling()
 	return ..()
 

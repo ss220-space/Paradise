@@ -55,7 +55,7 @@
 	if(!B || !B.controlling)
 		return
 
-	B.host.apply_damage(rand(5, 10), BRAIN)
+	B.host.apply_damage(rand(5, 10), BRAIN, source = B)
 	to_chat(src, span_userdanger("Огромным усилием воли вы вновь обретаете контроль над своим телом!"))
 	to_chat(B.host, span_userdanger("Вы чувствуете, как мозг носителя уходит из под вашего контроля. Вы успеваете разорвать связь прежде, чем сильные нейронные импульсы смогут навредить вам."))
 
@@ -293,7 +293,7 @@
 					return
 
 				if(prob(5))
-					host.apply_damage(rand(1, 2), BRAIN)
+					host.apply_damage(rand(1, 2), BRAIN, source = src)
 
 				if(prob(host.getBrainLoss()/20))
 					host.say("*[pick(list("blink","blink_r","choke","aflap","drool","twitch","twitch_s","gasp"))]")

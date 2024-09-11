@@ -660,7 +660,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	return 0
 
 
-/mob/living/silicon/ai/emp_act(severity)
+/mob/living/silicon/ai/emp_act(severity, mob/source = src)
 	..()
 	if(prob(30))
 		switch(pick(1,2))

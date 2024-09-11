@@ -50,7 +50,7 @@
 	if(a_intent == INTENT_DISARM && isliving(target) && !isclocker(target))
 		var/mob/living/L = target
 		playsound(loc, 'sound/weapons/clash.ogg', 50, TRUE)
-		L.apply_damage(25, STAMINA)
+		L.apply_damage(25, STAMINA, src)
 		src.do_attack_animation(target)
 		target.visible_message("<span class='danger'>[src] hits [target] with flat of the sword!</span>", \
 						"<span class='userdanger'>[src] hits you with flat of the sword!</span>")

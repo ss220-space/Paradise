@@ -62,7 +62,7 @@
 			if(!affecting || affecting.is_robotic())
 				return
 			to_chat(H, "<span class='warning'>[src] cuts into your hand!</span>")
-			H.apply_damage(force * 0.5, def_zone = affecting)
+			H.apply_damage(force * 0.5, def_zone = affecting, source = user)
 
 
 /obj/item/shard/attackby(obj/item/I, mob/user, params)

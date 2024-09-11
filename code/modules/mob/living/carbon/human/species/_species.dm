@@ -481,13 +481,13 @@
 		return TRUE
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>[pluralize_ru(user.gender,"Ты не хочешь","Вы не хотите")] навредить [target.declent_ru(DATIVE)]!</span>")
 		return FALSE
 
 	//Vampire code
 	var/datum/antagonist/vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(vamp && !vamp.draining && user.zone_selected == BODY_ZONE_HEAD && target != user)
+	if(vamp && !vamp.draining && user.zone_selected == BODY_ZONE_HEAD && target != user && user.CanHarm(target))
 		if(HAS_TRAIT(target, TRAIT_NO_BLOOD) || HAS_TRAIT(target, TRAIT_EXOTIC_BLOOD) || !target.blood_volume)
 			to_chat(user, "<span class='warning'>They have no blood!</span>")
 			return
@@ -504,7 +504,7 @@
 
 	//Goon Vampire Dupe code
 	var/datum/antagonist/goon_vampire/g_vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(g_vamp && !g_vamp.draining && user.zone_selected == BODY_ZONE_HEAD && target != user)
+	if(g_vamp && !g_vamp.draining && user.zone_selected == BODY_ZONE_HEAD && target != user && user.CanHarm(target))
 		if(HAS_TRAIT(target, TRAIT_NO_BLOOD) || HAS_TRAIT(target, TRAIT_EXOTIC_BLOOD) || !target.blood_volume)
 			to_chat(user, "<span class='warning'>Отсутствует кровь!</span>")
 			return
@@ -590,7 +590,7 @@
 				if(target.mind == objective.target)
 					objective.take_damage(damage, damage_type)
 
-		target.apply_damage(damage, damage_type, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
+		target.apply_damage(damage, damage_type, affecting, armor_block, sharp = attack.sharp, source = user) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= (user.dna.species.punchstunthreshold + user.physiology.punch_stun_threshold))
 			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>", \
 							"<span class='userdanger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
@@ -632,6 +632,8 @@
 			return
 
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+		if (!user.CanHarm(target))
+			return FALSE
 		if(target.move_resist > user.pull_force)
 			return FALSE
 		if(!(target.status_flags & CANPUSH))

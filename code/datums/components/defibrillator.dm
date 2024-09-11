@@ -309,16 +309,16 @@
 		span_danger("[user] has touched [target.name] with [parent]!"),
 		span_userdanger("[user] has touched [target.name] with [parent]!"),
 	)
-	target.apply_damage(50, STAMINA)
-	target.Weaken(4 SECONDS)
+	target.apply_damage(50, STAMINA, source = user)
+	target.Weaken(4 SECONDS, source = user)
 	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	target.emote("gasp")
 	if(prob(heart_attack_chance))
 		add_attack_logs(user, target, "Gave a heart attack with [parent]")
-		target.set_heartattack(TRUE)
+		target.set_heartattack(TRUE, source = user)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 	add_attack_logs(user, target, "Stunned with [parent]")
-	target.shock_internal_organs(100)
+	target.shock_internal_organs(100, source = user)
 	set_cooldown(cooldown)
 	busy = FALSE
 

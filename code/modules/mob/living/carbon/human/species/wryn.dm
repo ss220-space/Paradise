@@ -191,7 +191,7 @@
 
 /datum/species/wryn/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	var/obj/item/organ/internal/wryn/hivenode/node = target.get_int_organ(/obj/item/organ/internal/wryn/hivenode)
-	if(target.handcuffed && node && user.zone_selected == BODY_ZONE_HEAD)
+	if(target.handcuffed && node && user.zone_selected == BODY_ZONE_HEAD && user.CanHarm(target))
 		switch(alert(user, "Вы хотите вырвать усики этому существу?", "OH SHIT", "Да", "Нет"))
 			if("Да")
 				user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] яростно отрывать усики [target].</span>")

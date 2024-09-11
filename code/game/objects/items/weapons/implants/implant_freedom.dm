@@ -19,8 +19,8 @@
 		if(C_imp_in.pulledby)
 			var/mob/living/grabber = C_imp_in.pulledby
 			C_imp_in.visible_message(span_warning("[C_imp_in] suddenly shocks [grabber] from their wrists and slips out of their grab!"))
-			grabber.apply_damage(2, BURN, BODY_ZONE_PRECISE_R_HAND, grabber.run_armor_check(BODY_ZONE_PRECISE_R_HAND, ENERGY))
-			grabber.apply_damage(2, BURN, BODY_ZONE_PRECISE_L_HAND, grabber.run_armor_check(BODY_ZONE_PRECISE_L_HAND, ENERGY))
+			grabber.apply_damage(2, BURN, BODY_ZONE_PRECISE_R_HAND, grabber.run_armor_check(BODY_ZONE_PRECISE_R_HAND, ENERGY), source = imp_in)
+			grabber.apply_damage(2, BURN, BODY_ZONE_PRECISE_L_HAND, grabber.run_armor_check(BODY_ZONE_PRECISE_L_HAND, ENERGY), source = imp_in)
 			playsound(C_imp_in.loc, 'sound/weapons/egloves.ogg', 75, TRUE)
 			grabber.stop_pulling()
 			C_imp_in.client?.move_delay = world.time	// to skip move delay we probably got from resisting the grab

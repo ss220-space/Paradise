@@ -260,11 +260,11 @@
 ///Define used for calculating explosve damage and effects upon humanoids. Result is >= 0
 #define ex_armor_reduction(value, armor) (clamp(value * (1 - (armor / 100)), 0, INFINITY))
 
-/mob/living/carbon/human/ex_act(severity, turf/epicenter)
+/mob/living/carbon/human/ex_act(severity, turf/epicenter, mob/source = src)
 	var/bruteloss = 0
 	var/burnloss = 0
 
-	if(status_flags & GODMODE)
+	if((status_flags & GODMODE) || source && !source.CanHarm(src))
 		return FALSE
 
 	var/armor = getarmor(attack_flag = BOMB)	//Average bomb protection

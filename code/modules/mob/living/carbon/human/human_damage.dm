@@ -44,8 +44,9 @@
 	blocked = 0,
 	forced = FALSE,
 	used_weapon = null,
+	mob/source = src,
 )
-	if(status_flags & GODMODE)
+	if((status_flags & GODMODE) || !source.CanHarm(src))
 		return STATUS_UPDATE_NONE
 
 	if(!forced && amount > 0)
@@ -202,10 +203,11 @@
 	sharp = FALSE,
 	silent = FALSE,
 	affect_robotic = TRUE,
+	mob/source = src
 )
 	. = STATUS_UPDATE_NONE
 	if(amount > 0)
-		. |= take_overall_damage(0, amount, blocked, forced, updating_health, used_weapon, sharp, silent, affect_robotic)
+		. |= take_overall_damage(0, amount, blocked, forced, updating_health, used_weapon, sharp, silent, affect_robotic, source = source)
 	else
 		. |= heal_overall_damage(0, amount, updating_health, FALSE, affect_robotic)
 
@@ -425,11 +427,15 @@
 	sharp = FALSE,
 	silent = FALSE,
 	affect_robotic = TRUE,
+	mob/source = src
 )
 	if(status_flags & GODMODE)
 		return ..()	//godmode
 
 	. = STATUS_UPDATE_NONE
+
+	if (!source.CanHarm(src))
+		return
 
 	var/list/obj/item/organ/external/parts = get_damageable_organs(affect_robotic)
 	if(!length(parts))
@@ -498,6 +504,7 @@ This function restores all organs.
 	silent = FALSE,
 	updating_health = TRUE,
 	update_damage_icon = TRUE,
+	mob/source = null,
 )
 	// Spread damage should always have def zone be null
 	if(spread_damage)

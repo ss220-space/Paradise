@@ -170,16 +170,18 @@
 /mob/living/silicon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE //So borgs they don't die trying to fix wiring
 
-/mob/living/silicon/emp_act(severity)
+/mob/living/silicon/emp_act(severity, mob/source = src)
+	if (!source.CanHarm(src))
+		return
 	..()
 	switch(severity)
 		if(EMP_HEAVY)
-			take_organ_damage(20)
-			Stun(16 SECONDS)
+			take_organ_damage(20, source)
+			Stun(16 SECONDS, source)
 		if(EMP_LIGHT)
-			take_organ_damage(10)
-			Stun(6 SECONDS)
-	flash_eyes(3, affect_silicon = TRUE)
+			take_organ_damage(10, source)
+			Stun(6 SECONDS, source)
+	flash_eyes(3, affect_silicon = TRUE, source)
 	to_chat(src, span_danger("*BZZZT*"))
 	to_chat(src, span_warning("Warning: Electromagnetic pulse detected."))
 
@@ -354,7 +356,7 @@
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access
 
-/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash/noise)
+/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash/noise, mob/source = src)
 	if(affect_silicon)
 		return ..()
 

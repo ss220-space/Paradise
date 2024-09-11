@@ -193,6 +193,7 @@
 	sharp = FALSE,
 	silent = FALSE,
 	affect_robotic = TRUE,
+	mob/source = src
 )
 	. = ..()
 	if(. && amount > 0)

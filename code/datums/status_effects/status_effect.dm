@@ -217,12 +217,15 @@
  * Returns the instance of the created effected, if successful.
  * Returns 'null' if unsuccessful.
  */
-/mob/living/proc/apply_status_effect(datum/status_effect/new_effect, ...)
+/mob/living/proc/apply_status_effect(datum/status_effect/new_effect, mob/source = src, ...)
 	RETURN_TYPE(/datum/status_effect)
 
 	// The arguments we pass to the start effect. The 1st argument is this mob.
 	var/list/arguments = args.Copy()
 	arguments[1] = src
+
+	if (!source.CanHarm(src))
+		return
 
 	// If the status effect we're applying doesn't allow multiple effects, we need to handle it
 	if(initial(new_effect.status_type) != STATUS_EFFECT_MULTIPLE)

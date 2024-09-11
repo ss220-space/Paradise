@@ -33,9 +33,10 @@
 	sharp = FALSE,
 	silent = FALSE,
 	affect_robotic = TRUE,
+	mob/source = src
 )
 	if(amount > 0)
-		take_overall_damage(amount, 0, blocked, forced, updating_health, used_weapon, sharp, silent, affect_robotic)
+		take_overall_damage(amount, 0, blocked, forced, updating_health, used_weapon, sharp, silent, affect_robotic, source = source)
 	else
 		heal_overall_damage(amount, 0, updating_health, FALSE, affect_robotic)
 	return STATUS_UPDATE_HEALTH
@@ -51,6 +52,7 @@
 	sharp = FALSE,
 	silent = FALSE,
 	affect_robotic = TRUE,
+	mob/source = src
 )
 	if(amount > 0)
 		take_overall_damage(0, amount, blocked, forced, updating_health, used_weapon, sharp, silent, affect_robotic)

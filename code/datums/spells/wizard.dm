@@ -390,7 +390,7 @@
 	if(!isturf(U) || !isturf(T))
 		return FALSE
 
-	var/obj/item/projectile/magic/fireball/FB = new fireball_type(user.loc)
+	var/obj/item/projectile/magic/fireball/FB = new fireball_type(user.loc, user)
 	FB.current = get_turf(user)
 	FB.original = target
 	FB.firer = user

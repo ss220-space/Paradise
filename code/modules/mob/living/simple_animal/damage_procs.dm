@@ -17,12 +17,15 @@
 	blocked = 0,
 	damage_type = BRUTE,
 	forced = FALSE,
+	mob/source = src
 )
 	if(status_flags & GODMODE)
 		var/oldbruteloss = bruteloss
 		bruteloss = 0
 		if(oldbruteloss != 0)
 			updatehealth("adjustHealth")
+		return STATUS_UPDATE_NONE
+	if (bruteloss > 0 && !source.CanHarm(src))
 		return STATUS_UPDATE_NONE
 	if(!(damage_type in damage_coeff))
 		damage_type = BRUTE
@@ -91,8 +94,9 @@
 	sharp = FALSE,
 	silent = FALSE,
 	affect_robotic = TRUE,
+	mob/source = src
 )
-	return adjustHealth(amount, updating_health, blocked, BRUTE, forced)
+	return adjustHealth(amount, updating_health, blocked, BRUTE, forced, source)
 
 
 /mob/living/simple_animal/adjustFireLoss(
@@ -105,6 +109,7 @@
 	sharp = FALSE,
 	silent = FALSE,
 	affect_robotic = TRUE,
+	mob/source = src,
 )
 	return adjustHealth(amount, updating_health, blocked, BURN, forced)
 

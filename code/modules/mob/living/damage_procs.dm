@@ -29,6 +29,7 @@
 	silent = FALSE,
 	updating_health = TRUE,
 	update_damage_icon = TRUE,
+	mob/source = src,
 )
 	SHOULD_CALL_PARENT(TRUE)
 
@@ -50,7 +51,7 @@
 					if(updating_health)
 						updatehealth("apply damage")
 			else
-				. |= adjustBruteLoss(damage, updating_health, def_zone, blocked, forced, used_weapon, sharp, silent)
+				. |= adjustBruteLoss(damage, updating_health, def_zone, blocked, forced, used_weapon, sharp, silent, source)
 		if(BURN)
 			if(isexternalorgan(def_zone))
 				var/obj/item/organ/external/bodypart = def_zone
@@ -62,17 +63,17 @@
 					if(updating_health)
 						updatehealth("apply damage")
 			else
-				. |= adjustFireLoss(damage, updating_health, def_zone, blocked, forced, used_weapon, sharp, silent)
+				. |= adjustFireLoss(damage, updating_health, def_zone, blocked, forced, used_weapon, sharp, silent, source)
 		if(TOX)
-			. |= adjustToxLoss(damage, updating_health, blocked, forced, used_weapon)
+			. |= adjustToxLoss(damage, updating_health, blocked, forced, used_weapon, source)
 		if(OXY)
-			. |= adjustOxyLoss(damage, updating_health, blocked, forced, used_weapon)
+			. |= adjustOxyLoss(damage, updating_health, blocked, forced, used_weapon, source)
 		if(CLONE)
-			. |= adjustCloneLoss(damage, updating_health, blocked, forced, used_weapon)
+			. |= adjustCloneLoss(damage, updating_health, blocked, forced, used_weapon, source)
 		if(STAMINA)
-			. |= adjustStaminaLoss(damage, updating_health, blocked, forced, used_weapon)
+			. |= adjustStaminaLoss(damage, updating_health, blocked, forced, used_weapon, source)
 		if(BRAIN)
-			. |= adjustBrainLoss(damage, updating_health, blocked, forced, used_weapon)
+			. |= adjustBrainLoss(damage, updating_health, blocked, forced, used_weapon, source)
 
 
 /// Collects all possible flat damage resistances
@@ -256,7 +257,9 @@
 
 
 /// Applies passed status effect
-/mob/living/proc/apply_effect(effect = 0, effecttype = STUN, blocked = 0, negate_armor = FALSE)
+/mob/living/proc/apply_effect(effect = 0, effecttype = STUN, blocked = 0, negate_armor = FALSE, mob/source = src)
+	if (!source.CanHarm(src))
+		return STATUS_UPDATE_NONE
 	if(status_flags & GODMODE)
 		return FALSE
 	blocked = (100-blocked)/100
@@ -352,12 +355,15 @@
 	sharp = FALSE,
 	silent = FALSE,
 	affect_robotic = TRUE,
+	mob/source = src
 )
 	if(status_flags & GODMODE)
 		var/old_bruteloss = getBruteLoss()
 		bruteloss = 0
 		if(old_bruteloss != 0)
 			updatehealth("adjustBruteLoss")
+		return STATUS_UPDATE_NONE
+	if (!source.CanHarm(src))
 		return STATUS_UPDATE_NONE
 	if(!forced && amount > 0)
 		amount *= ((100 - clamp(blocked + get_blocking_resistance(amount, BRUTE, def_zone, sharp, used_weapon), 0, 100)) / 100)
@@ -406,7 +412,10 @@
 	sharp = FALSE,
 	silent = FALSE,
 	affect_robotic = TRUE,
+	mob/source = src,
 )
+	if (!source.CanHarm(src))
+		return STATUS_UPDATE_NONE
 	if(status_flags & GODMODE)
 		var/old_fireloss = getFireLoss()
 		fireloss = 0
@@ -452,7 +461,10 @@
 	blocked = 0,
 	forced = FALSE,
 	used_weapon = null,
+	mob/source = src
 )
+	if (!source.CanHarm(src))
+		return STATUS_UPDATE_NONE
 	if((status_flags & GODMODE) || HAS_TRAIT(src, TRAIT_NO_BREATH))
 		var/old_oxyloss = getOxyLoss()
 		oxyloss = 0
@@ -525,7 +537,10 @@
 	blocked = 0,
 	forced = FALSE,
 	used_weapon = null,
+	mob/source = src,
 )
+	if (!source.CanHarm(src))
+		return STATUS_UPDATE_NONE
 	if(status_flags & GODMODE)
 		var/old_toxloss = getToxLoss()
 		toxloss = 0
@@ -598,7 +613,10 @@
 	blocked = 0,
 	forced = FALSE,
 	used_weapon = null,
+	mob/source = src,
 )
+	if (!source.CanHarm(src))
+		return STATUS_UPDATE_NONE
 	if(status_flags & GODMODE)
 		var/old_cloneloss = getCloneLoss()
 		cloneloss = 0
@@ -671,6 +689,7 @@
 	blocked = 0,
 	forced = FALSE,
 	used_weapon = null,
+	mob/source = src
 )
 	return STATUS_UPDATE_NONE
 
@@ -742,7 +761,10 @@
 	blocked = 0,
 	forced = FALSE,
 	used_weapon = null,
+	mob/source = src
 )
+	if (!source.CanHarm(src))
+		return STATUS_UPDATE_NONE
 	if(status_flags & GODMODE)
 		var/old_stamloss = getStaminaLoss()
 		staminaloss = 0
@@ -861,7 +883,10 @@
 	sharp = FALSE,
 	silent = FALSE,
 	affect_robotic = TRUE,
+	mob/source = src
 )
+	if (!source.CanHarm(src))
+		return STATUS_UPDATE_NONE
 	if(status_flags & GODMODE)
 		var/old_bruteloss = getBruteLoss()
 		var/old_fireloss = getFireLoss()
@@ -941,7 +966,10 @@
 	sharp = FALSE,
 	silent = FALSE,
 	affect_robotic = TRUE,
+	mob/source = src,
 )
+	if (!source.CanHarm(src))
+		return STATUS_UPDATE_NONE
 	if(status_flags & GODMODE)
 		var/old_bruteloss = getBruteLoss()
 		var/old_fireloss = getFireLoss()

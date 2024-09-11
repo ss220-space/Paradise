@@ -69,6 +69,18 @@
 
 	action_icon_state = "gib"
 
+/obj/effect/proc_holder/spell/touch/friendship // If you'll become yourself friend somehow, you won't be able to harm yourself. It was planned.
+	name = "Friendship"
+	desc = "Это заклинание заряжает вашу руку зловещей энергией, которую можно использовать для того, чтобы подружиться с кем-то."
+	hand_path = /obj/item/melee/touch_attack/friendship
+
+	school = "evocation"
+	base_cooldown = 60 SECONDS
+	clothes_req = TRUE
+	cooldown_min = 20 SECONDS
+
+	action_icon_state = "gib"
+
 
 /obj/effect/proc_holder/spell/touch/flesh_to_stone
 	name = "Flesh to Stone"

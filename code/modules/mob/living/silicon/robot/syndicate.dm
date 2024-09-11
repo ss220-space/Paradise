@@ -176,7 +176,7 @@
 		cham_proj.disrupt(src)
 	..()
 
-/mob/living/silicon/robot/syndicate/saboteur/emp_act()
+/mob/living/silicon/robot/syndicate/saboteur/emp_act(severity, mob/source = src)
 	..()
 	if(cham_proj)
 		cham_proj.disrupt(src)

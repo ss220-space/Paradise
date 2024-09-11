@@ -684,6 +684,7 @@ Difficulty: Very Hard
 	blocked = 0,
 	damage_type = BRUTE,
 	forced = FALSE,
+	mob/source = src,
 )
 	. = STATUS_UPDATE_NONE
 	amount *= transfer_rate

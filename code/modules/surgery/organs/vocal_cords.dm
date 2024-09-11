@@ -211,27 +211,27 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	if(findtext(message, GLOB.stun_words))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.Stun(6 SECONDS * power_multiplier)
+			L.Stun(6 SECONDS * power_multiplier, source = owner)
 		next_command = world.time + cooldown_stun
 
 	//WEAKEN
 	else if(findtext(message, GLOB.weaken_words))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.Weaken(6 SECONDS * power_multiplier)
+			L.Weaken(6 SECONDS * power_multiplier, source = owner)
 		next_command = world.time + cooldown_stun
 
 	//SLEEP
 	else if((findtext(message, GLOB.sleep_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.Sleeping(4 SECONDS * power_multiplier)
+			L.Sleeping(4 SECONDS * power_multiplier, source = owner)
 		next_command = world.time + cooldown_stun
 
 	//VOMIT
 	else if((findtext(message, GLOB.vomit_words)))
 		for(var/mob/living/carbon/C in listeners)
-			C.vomit(10 * power_multiplier)
+			C.vomit(10 * power_multiplier, source = owner)
 		next_command = world.time + cooldown_stun
 
 	//SILENCE

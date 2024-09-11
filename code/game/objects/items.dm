@@ -366,7 +366,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				to_chat(user, span_notice("You put out the fire on [src]."))
 			else
 				to_chat(user, span_warning("You burn your hand on [src]!"))
-				H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM)	// 5 burn damage
+				H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM, source = user)	// 5 burn damage
 				return
 		else
 			extinguish()
@@ -376,7 +376,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(istype(H))
 			if(!H.gloves || (!(H.gloves.resistance_flags & (UNACIDABLE|ACID_PROOF))))
 				to_chat(user, span_warning("The acid on [src] burns your hand!"))
-				H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM)	// 5 burn damage
+				H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM, source = user)	// 5 burn damage
 
 	if(throwing)
 		throwing.finalize()
@@ -868,10 +868,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(target_is_human)
 		var/obj/item/organ/internal/eyes/eyes = target.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!eyes) // should still get stabbed in the head
-			target.apply_damage(rand(10, 14), def_zone = BODY_ZONE_HEAD)
+			target.apply_damage(rand(10, 14), def_zone = BODY_ZONE_HEAD, source = user)
 			return .
 
-		eyes.internal_receive_damage(rand(3, 4), silent = TRUE)
+		eyes.internal_receive_damage(rand(3, 4), silent = TRUE, source = user)
 
 		if(eyes.damage >= eyes.min_bruised_damage)
 			if(target.stat != DEAD && !eyes.is_robotic())	//robot eyes bleeding might be a bit silly
@@ -879,16 +879,16 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			if(prob(50))
 				if(target.stat != DEAD)
 					to_chat(target, span_danger("You drop what you're holding and clutch at your eyes!"))
-				target.AdjustEyeBlurry(20 SECONDS)
-				target.Paralyse(2 SECONDS)
+				target.AdjustEyeBlurry(20 SECONDS, source = user)
+				target.Paralyse(2 SECONDS, source = user)
 			if(eyes.damage >= eyes.min_broken_damage && target.stat != DEAD)
 				to_chat(target, span_danger("You go blind!"))
 
-		target.apply_damage(7, def_zone = BODY_ZONE_HEAD)
-		target.AdjustEyeBlurry(rand(6 SECONDS, 8 SECONDS))
+		target.apply_damage(7, def_zone = BODY_ZONE_HEAD, source = user)
+		target.AdjustEyeBlurry(rand(6 SECONDS, 8 SECONDS), source = user)
 
 	else
-		target.apply_damage(7)
+		target.apply_damage(7, source = user)
 
 
 /obj/item/singularity_pull(S, current_size)

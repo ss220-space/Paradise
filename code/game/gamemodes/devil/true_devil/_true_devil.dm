@@ -93,7 +93,7 @@
 /mob/living/carbon/true_devil/assess_threat()
 	return 666
 
-/mob/living/carbon/true_devil/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
+/mob/living/carbon/true_devil/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash, mob/source = src)
 	if(mind && has_bane(BANE_LIGHT))
 		mind.disrupt_spells(-500)
 		return ..() //flashes don't stop devils UNLESS it's their bane.
@@ -106,7 +106,7 @@
 	if(!I.force)
 		return .
 
-	apply_damage(I.force * check_weakness(I, user), I.damtype, def_zone, sharp = is_sharp(I), used_weapon = I)
+	apply_damage(I.force * check_weakness(I, user), I.damtype, def_zone, sharp = is_sharp(I), used_weapon = I, source = user)
 	if(QDELETED(src))
 		return ATTACK_CHAIN_BLOCKED_ALL
 

@@ -56,7 +56,7 @@
 			span_warning("A powerful force shoves [user] away from [target]!"),
 			span_cultlarge("\"You shouldn't play with sharp things. You'll poke someone's eye out.\""),
 		)
-		user.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+		user.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM), source = user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 

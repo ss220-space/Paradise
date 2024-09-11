@@ -215,7 +215,7 @@
 			to_chat(user, span_warning("Вам нужно больше свободы движений для взмаха хвостом!"))
 		return FALSE
 
-	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		if(show_message)
 			to_chat(user, span_warning("Вы не хотите никому навредить.."))
 		return FALSE

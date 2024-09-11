@@ -208,7 +208,7 @@
 		add_fingerprint(user)
 		if(I == src)
 			to_chat(user, span_warning("You try to attach the end of the plastic sword to... itself. You're not very smart, are you?"))
-			user.apply_damage(10, BRAIN)
+			user.apply_damage(10, BRAIN, source = user)
 			return ATTACK_CHAIN_PROCEED
 		if(loc == user && !user.can_unEquip(src))
 			return ATTACK_CHAIN_PROCEED

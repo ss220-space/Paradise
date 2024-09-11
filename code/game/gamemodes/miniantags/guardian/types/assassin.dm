@@ -36,7 +36,7 @@
 /mob/living/simple_animal/hostile/guardian/assassin/AttackingTarget()
 	var/mob/living/L = target
 	if(istype(L))
-		L.apply_damage(tox_damage, TOX)
+		L.apply_damage(tox_damage, TOX, source = src)
 	. = ..()
 	if(toggle && (ishuman(target)))
 		if(prob(25))
@@ -53,6 +53,7 @@
 	blocked = 0,
 	damage_type = BRUTE,
 	forced = FALSE,
+	mob/source = src,
 )
 	. = ..()
 	if(. && amount > 0 && toggle)

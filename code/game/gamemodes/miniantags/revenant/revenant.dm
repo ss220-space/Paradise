@@ -106,6 +106,7 @@
 	blocked = 0,
 	damage_type = BRUTE,
 	forced = FALSE,
+	mob/source = src,
 )
 	. = STATUS_UPDATE_NONE
 	if(!revealed)
@@ -256,7 +257,7 @@
 			span_warning("[src] violently flinches!"),
 			span_revendanger("As [I.name] passes through you, you feel your essence draining away!"),
 		)
-		apply_damage(25) //hella effective
+		apply_damage(25, source = user) //hella effective
 		inhibited = TRUE
 		addtimer(VARSET_CALLBACK(src, inhibited, FALSE), 3 SECONDS)
 	return ..()

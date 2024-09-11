@@ -221,6 +221,7 @@ Difficulty: Medium
 	blocked = 0,
 	damage_type = BRUTE,
 	forced = FALSE,
+	mob/source = src,
 )
 	if(!enraged && amount > 0)
 		var/adjustment_amount = amount * 0.1

@@ -164,8 +164,8 @@
 		if(ishuman(target) && prob(force_say_chance))
 			var/mob/living/carbon/human/human_target = target
 			human_target.forcesay(GLOB.hit_appends)
-		target.apply_damage(stamina_damage, STAMINA)
-		target.Knockdown((isnull(stun_override) ? knockdown_time : stun_override))
+		target.apply_damage(stamina_damage, STAMINA, source = user)
+		target.Knockdown((isnull(stun_override) ? knockdown_time : stun_override), source = user)
 		additional_effects_non_cyborg(target, user)
 	return TRUE
 
@@ -200,13 +200,13 @@
 		if(ishuman(user))
 			var/mob/living/carbon/human/human_user = user
 			human_user.forcesay(GLOB.hit_appends)
-		user.Knockdown(clumsy_knockdown_time)
-		user.apply_damage(stamina_damage, STAMINA)
+		user.Knockdown(clumsy_knockdown_time, source = user)
+		user.apply_damage(stamina_damage, STAMINA, source = user)
 		additional_effects_non_cyborg(user, user) // user is the target here
 		if(on_stun_sound)
 			playsound(get_turf(src), on_stun_sound, on_stun_volume, TRUE, -1)
 
-	user.apply_damage(2 * force, BRUTE, BODY_ZONE_HEAD, used_weapon = src)
+	user.apply_damage(2 * force, BRUTE, BODY_ZONE_HEAD, used_weapon = src, source = user)
 
 	add_attack_logs(user, user, "accidentally stun attacked [user.p_them()]self due to their clumsiness")
 	if(stun_animation)

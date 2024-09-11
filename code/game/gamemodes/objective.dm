@@ -1755,3 +1755,32 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/blob_find_place_to_burst
 	needs_target = FALSE
 	explanation_text = "Найдите укромное место на станции, в котором вас не смогут найти после вылупления до тех пор, пока вы не наберетесь сил."
+
+
+/datum/objective/friendship
+	name = "Friendship"
+	martyr_compatible = TRUE
+
+/datum/objective/friendship/New(friend)
+	target = friend
+
+/datum/objective/friendship/find_target(list/target_blacklist)
+	if(target && target.current)
+		explanation_text = "[target.current.real_name] - ваш друг. Вы не хотите навредить ему."
+	else
+		explanation_text = "Подружитесь с кем-нибудь."
+	return target
+
+/datum/objective/friendship/check_completion() // It's sad when a friend dies.
+	if(!target) //If it's a free objective.
+		return TRUE
+
+	if(target.current)
+		if(target.current.stat == DEAD)
+			return FALSE
+		if(isbrain(target.current))
+			return FALSE
+		if(!iscarbon(target.current))
+			return FALSE
+		return TRUE
+	return FALSE

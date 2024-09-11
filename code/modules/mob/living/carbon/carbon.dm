@@ -74,7 +74,7 @@
 	return FALSE
 
 
-/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, stun = 8 SECONDS, distance = 0, message = 1)
+/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, stun = 8 SECONDS, distance = 0, message = 1, mob/source = src)
 	if(ismachineperson(src)) //IPCs do not vomit particulates
 		return FALSE
 	if(is_muzzled())
@@ -82,13 +82,13 @@
 			to_chat(src, "<span class='warning'>Намордник препятствует рвоте!</span>")
 		return FALSE
 	if(stun)
-		Stun(stun)
+		Stun(stun, source = source)
 	if(nutrition < 100 && !blood)
 		if(message)
 			visible_message("<span class='warning'>[src.name] сухо кашля[pluralize_ru(src.gender,"ет","ют")]!</span>", \
 							"<span class='userdanger'>Вы пытаетесь проблеваться, но в вашем желудке пусто!</span>")
 		if(stun)
-			Weaken(stun * 2.5)
+			Weaken(stun * 2.5, source = source)
 	else
 		if(message)
 			visible_message("<span class='danger'>[src.name] блю[pluralize_ru(src.gender,"ет","ют")]!</span>", \
@@ -100,13 +100,13 @@
 				if(T)
 					add_splatter_floor(T)
 				if(stun)
-					adjustBruteLoss(3)
+					adjustBruteLoss(3, source = source)
 			else
 				if(T)
 					T.add_vomit_floor()
-				adjust_nutrition(-lost_nutrition)
+				adjust_nutrition(-lost_nutrition, source = source)
 				if(stun)
-					adjustToxLoss(-3)
+					adjustToxLoss(-3, source = source)
 			T = get_step(T, dir)
 			if(T.is_blocked_turf())
 				break
@@ -312,7 +312,7 @@
 		H.play_xylophone()
 
 
-/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash, mob/source = src)
 	. = ..()
 	var/damage = intensity - check_eye_prot()
 	var/extra_damage = 0
@@ -531,7 +531,7 @@
 				if(grab_state >= GRAB_NECK)
 					neckgrab_throw = TRUE
 				stop_pulling()
-				if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+				if(HAS_TRAIT(src, TRAIT_PACIFISM))
 					to_chat(src, span_notice("Вы осторожно отпускаете [throwable_mob.declent_ru(ACCUSATIVE)]."))
 					return FALSE
 	else
@@ -539,7 +539,7 @@
 			return FALSE
 		if(!drop_item_ground(held_item, silent = TRUE))
 			return FALSE
-		if(held_item.throwforce && (GLOB.pacifism_after_gt || HAS_TRAIT(src, TRAIT_PACIFISM)))
+		if(held_item.throwforce && HAS_TRAIT(src, TRAIT_PACIFISM))
 			to_chat(src, span_notice("Вы осторожно опускаете [held_item.declent_ru(ACCUSATIVE)] на землю."))
 			return FALSE
 		thrown_thing = held_item
@@ -817,7 +817,9 @@ so that different stomachs can handle things in different ways VB*/
 		. += G.tint
 
 
-/mob/living/carbon/proc/shock_internal_organs(intensity)
+/mob/living/carbon/proc/shock_internal_organs(intensity, mob/source = src)
+	if (!source.CanHarm(src))
+		return
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
 		organ.shock_organ(intensity)
 

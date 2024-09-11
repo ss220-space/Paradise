@@ -137,11 +137,11 @@
 		return PROCESS_KILL
 
 	if(improvised)
-		strangling.Stuttering(6 SECONDS)
-		strangling.apply_damage(2, OXY, BODY_ZONE_HEAD)
+		strangling.Stuttering(6 SECONDS, source = strangler)
+		strangling.apply_damage(2, OXY, BODY_ZONE_HEAD, source = strangler)
 	else
-		strangling.Silence(6 SECONDS)
-		strangling.apply_damage(20, OXY, BODY_ZONE_HEAD)
+		strangling.Silence(6 SECONDS, source = strangler)
+		strangling.apply_damage(20, OXY, BODY_ZONE_HEAD, source = strangler)
 
 
 /obj/item/twohanded/garrote/suicide_act(mob/user)
