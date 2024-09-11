@@ -389,6 +389,12 @@
 		alert(msg)
 		return FALSE
 
+	if(thisjob.species_in_blacklist(client))
+		var/msg = "Должность [rank] недоступна для данной расы. Выберите другую."
+		to_chat(src, msg)
+		alert(msg)
+		return FALSE
+
 	SSjobs.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
