@@ -2869,13 +2869,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	character.dna.blood_type = b_type
 
-	// Wheelchair necessary?
-	var/obj/item/organ/external/l_foot = character.get_organ(BODY_ZONE_PRECISE_L_FOOT)
-	var/obj/item/organ/external/r_foot = character.get_organ(BODY_ZONE_PRECISE_R_FOOT)
-	if(!l_foot && !r_foot || HAS_TRAIT_FROM(character, TRAIT_FLOORED, DNA_TRAIT))
-		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
-		W.buckle_mob(character, TRUE)
-
 	character.underwear = underwear
 	character.color_underwear = underwear_color
 	character.undershirt = undershirt
