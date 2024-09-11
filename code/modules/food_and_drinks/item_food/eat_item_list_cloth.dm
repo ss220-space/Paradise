@@ -260,3 +260,4 @@
 	return
 /obj/item/clothing/under/misc/durathread/add_eatable_component()
 	return
+	
