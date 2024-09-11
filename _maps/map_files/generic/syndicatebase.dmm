@@ -3453,7 +3453,8 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dfx" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "syndie_base_air_sensor"
+	id_tag = "syndie_base_air_sensor";
+	output = 23
 	},
 /turf/simulated/floor/engine/air,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -6055,7 +6056,8 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "fLc" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "syndie_base_mix_sensor"
+	id_tag = "syndie_base_mix_sensor";
+	output = 127
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/syndicate/unpowered/syndicate_space_base/engineering)

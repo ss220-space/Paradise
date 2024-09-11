@@ -48450,7 +48450,8 @@
 /area/maintenance/asmaint5)
 "kdK" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "mix_sensor"
+	id_tag = "mix_sensor";
+	output = 127
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
@@ -66834,7 +66835,8 @@
 /area/security/prison/cell_block/A)
 "pkf" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "air_sensor"
+	id_tag = "air_sensor";
+	output = 23
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
