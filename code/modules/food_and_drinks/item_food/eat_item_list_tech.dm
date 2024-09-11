@@ -201,9 +201,6 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-
-
-
 /obj/item/circuitboard/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
