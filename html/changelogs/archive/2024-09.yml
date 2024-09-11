@@ -49,3 +49,32 @@
   SyndiCat:
   - add: gamma shuttle transition (#5860)
   - imageadd: charcoal olives (#5867)
+'2024-09-08':
+  Vladisvell:
+  - add: 1643 compatibility patch (#5866)
+'2024-09-10':
+  FanTik-Ratge:
+  - imageadd: colour fix4pants (#5882)
+  WolfLox:
+  - bugfix: we delete the wall that was in the wrong place (#5887)
+'2024-09-11':
+  Anorak2020:
+  - bugfix: Leg paralysis/no legs wheelchair (#5873)
+  Antoonij:
+  - refactor: Eatable component & stacks are now eatable & species special diet. (#5843)
+  BoshyG:
+  - bugfix: Leather satchel right inhand FIX (#5879)
+  Daeberdir:
+  - bugfix: Resonator and fleshmaul attackchain cooldowns. (#5878)
+  - bugfix: Taipan Spawn. (#5871)
+  - bugfix: Gas sensor actualization. (#5886)
+  Etrnlmelancholy:
+  - add: voxes banned from official NT jobs (#5865)
+  NuSanya:
+  - add: focus contractor baton module in contractor hub (#5883)
+  Ozen:
+  - tweak: Blueshield role requirements. (#5872)
+  ROdenFL:
+  - add: succumb alert (#5771)
+  pilygun:
+  - tweak: Удаление турелей тайпана + сапёр (#5848)
