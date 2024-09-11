@@ -15,5 +15,5 @@
 
 /obj/effect/proc_holder/spell/explosion/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		explosion(target.loc, ex_severe, ex_heavy, ex_light, ex_flash, flame_range = ex_flame)
+		explosion(target.loc, ex_severe, ex_heavy, ex_light, ex_flash, flame_range = ex_flame, source = usr)
 

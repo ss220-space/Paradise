@@ -18,7 +18,6 @@
 	var/volume = 70
 	var/fillable = TRUE
 
-
 /obj/item/tank/Initialize(mapload)
 	. = ..()
 

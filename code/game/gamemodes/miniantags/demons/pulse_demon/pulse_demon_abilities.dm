@@ -197,7 +197,7 @@
 
 /obj/effect/proc_holder/spell/pulse_demon/overload/proc/detonate(obj/machinery/target)
 	if(!QDELETED(target))
-		explosion(get_turf(target), 0, 1, 1, 0)
+		explosion(get_turf(target), 0, 1, 1, 0, source = usr)
 		if(!QDELETED(target))
 			qdel(target)
 

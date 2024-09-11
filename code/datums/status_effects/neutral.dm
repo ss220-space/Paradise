@@ -114,7 +114,7 @@
 			user.visible_message(span_dangerbigger("<b>[user.name]</b> and <b>[check.name]</b> [critical_success]"))
 			user.status_flags |= GODMODE
 			check.status_flags |= GODMODE
-			explosion(get_turf(user), 5, 2, 1, 3, cause = id)
+			explosion(get_turf(user), 5, 2, 1, 3, cause = id, source = owner)
 			// explosions have a spawn so this makes sure that we don't get gibbed
 			addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, check), 0.3 SECONDS) //I want to be sure this lasts long enough, with lag.
 			add_attack_logs(user, check, "caused a wizard [id] explosion")

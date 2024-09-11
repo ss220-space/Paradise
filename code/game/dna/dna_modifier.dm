@@ -294,9 +294,9 @@
 /obj/machinery/dna_scannernew/force_eject_occupant(mob/target)
 	go_out(null, TRUE)
 
-/obj/machinery/dna_scannernew/ex_act(severity)
+/obj/machinery/dna_scannernew/ex_act(severity, mob/source)
 	if(occupant)
-		occupant.ex_act(severity)
+		occupant.ex_act(severity, source)
 	..()
 
 /obj/machinery/dna_scannernew/handle_atom_del(atom/A)

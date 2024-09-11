@@ -202,9 +202,9 @@
 	add_fingerprint(grabber)
 
 
-/obj/machinery/abductor/experiment/ex_act(severity)
+/obj/machinery/abductor/experiment/ex_act(severity, mob/source)
 	if(occupant)
-		occupant.ex_act(severity)
+		occupant.ex_act(severity, mob/source)
 	..()
 
 /obj/machinery/abductor/experiment/handle_atom_del(atom/A)
