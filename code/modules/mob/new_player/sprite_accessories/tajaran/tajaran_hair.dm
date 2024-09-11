@@ -17,6 +17,7 @@
 /datum/sprite_accessory/hair/tajara/taj_hair_sidebraid
 	name = "Tajara Sidebraid"
 	icon_state = "sidebraid"
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/tajara/taj_hair_sidebraid/ears
 	name = "Tajara Sidebraid & Ears"
@@ -94,6 +95,7 @@
 /datum/sprite_accessory/hair/tajara/taj_hair_ponytail
 	name = "Tajara Ponytail"
 	icon_state = "ponytail"
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/tajara/taj_hair_ponytail/ears
 	name = "Tajara Ponytail & Ears"
@@ -178,6 +180,7 @@
 /datum/sprite_accessory/hair/tajara/taj_hair_metal
 	name = "Tajara Metal"
 	icon_state = "metal"
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/tajara/taj_hair_ribbons
 	name = "Tajara Ribbons"
@@ -206,6 +209,7 @@
 /datum/sprite_accessory/hair/tajara/taj_hair_overeye
 	name = "Tajara Overeye"
 	icon_state = "overeye"
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/tajara/taj_hair_overeye/ears
 	name = "Tajara Overeye & Ears"
@@ -214,6 +218,7 @@
 /datum/sprite_accessory/hair/tajara/taj_hair_tough
 	name = "Tajara Tough"
 	icon_state = "tough"
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/tajara/taj_hair_tough/ears
 	name = "Tajara Tough & Ears"
