@@ -1550,3 +1550,12 @@
 	reqs = list(/obj/item/stack/sheet/wood = 2,
 				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
+
+/datum/crafting_recipe/tent
+	name = "Primitive tent"
+	result = /obj/item/folded_tent
+	time = 15 SECONDS
+	reqs = list(/obj/item/stack/sheet/bone = 2,
+				 /obj/item/stack/sheet/animalhide/goliath_hide = 2,
+				 /obj/item/stack/sheet/sinew = 1)
+	category = CAT_PRIMAL
