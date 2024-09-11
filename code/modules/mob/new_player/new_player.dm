@@ -30,7 +30,7 @@
 
 /mob/new_player/proc/privacy_consent()
 	src << browse(null, "window=playersetup")
-	var/output = {"<meta charset="UTF-8">"} + GLOB.join_tos
+	var/output = {"<!DOCTYPE html><meta charset="UTF-8">"} + GLOB.join_tos
 	output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>I consent</A>"
 	output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>I DO NOT consent</A>"
 	src << browse(output,"window=privacy_consent;size=500x300")
@@ -195,7 +195,8 @@
 			var/mob/dead/observer/observer = new()
 			src << browse(null, "window=playersetup")
 			spawning = 1
-			stop_sound_channel(CHANNEL_LOBBYMUSIC)
+			// stop_sound_channel(CHANNEL_LOBBYMUSIC)
+			client?.tgui_panel?.stop_music()
 
 
 			observer.started_as_observer = 1
@@ -388,6 +389,12 @@
 		alert(msg)
 		return FALSE
 
+	if(thisjob.species_in_blacklist(client))
+		var/msg = "Должность [rank] недоступна для данной расы. Выберите другую."
+		to_chat(src, msg)
+		alert(msg)
+		return FALSE
+
 	SSjobs.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
@@ -434,10 +441,6 @@
 			join_message = "прибыл на станцию"
 
 	character.lastarea = get_area(loc)
-	// Moving wheelchair if they have one
-	if(character.buckled && istype(character.buckled, /obj/structure/chair/wheelchair))
-		character.buckled.forceMove(character.loc)
-		character.buckled.dir = character.dir
 
 	character = SSjobs.EquipRank(character, rank, 1)					//equips the human
 	EquipCustomItems(character)
@@ -628,7 +631,8 @@
 		client.prefs.real_name = random_name(client.prefs.gender)
 	client.prefs.copy_to(new_character)
 
-	stop_sound_channel(CHANNEL_LOBBYMUSIC)
+	// stop_sound_channel(CHANNEL_LOBBYMUSIC)
+	client?.tgui_panel?.stop_music()
 
 
 	if(mind)

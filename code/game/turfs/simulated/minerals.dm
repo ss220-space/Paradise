@@ -23,19 +23,21 @@
 	var/mineralAmt = 1
 	var/spread = 0 //will the seam spread?
 	var/spreadChance = 0 //the percentual chance of an ore spreading to the neighbouring tiles
-	var/last_act = 0
 	var/scan_state = "" //Holder for the image we display when we're pinged by a mining scanner
 	var/defer_change = 0
 	var/mine_time = 4 SECONDS //Changes how fast the turf is mined by pickaxes, multiplied by toolspeed
 	/// Should this be set to the normal rock colour on init?
 	var/should_reset_color = TRUE
 	var/hardness = 1 //how hard the material is, we'll have to have more powerful stuff if we want to blast harder materials.
+	/// Typecache of all the instruments allowed to dig us.
+	/// Populated in [/turf/simulated/mineral/proc/generate_picks()].
+	var/list/allowed_picks_typecache
+	COOLDOWN_DECLARE(last_act)
+
 
 /turf/simulated/mineral/Initialize(mapload)
-	var/matrix/M = new
-	//M.Translate(-4, -4)
-	transform = M
 	. = ..()
+	generate_picks()
 	if(should_reset_color)
 		color = null
 	if(mineralType && mineralAmt && spread && spreadChance)
@@ -44,6 +46,15 @@
 				var/turf/T = get_step(src, dir)
 				if(istype(T, /turf/simulated/mineral/random))
 					Spread(T)
+
+
+/// Generates typecache of tools allowed to dig this mineral
+/turf/simulated/mineral/proc/generate_picks()
+	allowed_picks_typecache = typecacheof(list(
+		/obj/item/pickaxe,
+		/obj/item/pen/survival,
+	))
+
 
 /turf/simulated/mineral/proc/Spread(turf/T)
 	T.ChangeTurf(type)
@@ -59,43 +70,31 @@
 		return TRUE
 	return ..()
 
+
 /turf/simulated/mineral/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !isturf(user.loc) || !COOLDOWN_FINISHED(src, last_act) || !is_type_in_typecache(I, allowed_picks_typecache))
+		return .
+
+	COOLDOWN_START(src, last_act, mine_time * I.toolspeed * user.get_actionspeed_by_category(DA_CAT_TOOL))	// Prevents message spam
+
 	if(!user.IsAdvancedToolUser())
-		to_chat(usr, span_warning("You don't have the dexterity to do this!"))
-		return
-	var/turf/T = user.loc
-	if(!isturf(T))
-		return ..()
+		to_chat(user, span_warning("You don't have the dexterity to do this!"))
+		return .
 
-	if(istype(I, /obj/item/pickaxe))
-		var/obj/item/pickaxe/P = I
+	I.play_tool_sound(src)
+	to_chat(user, span_notice("You start picking..."))
+	if(!do_after(user, mine_time * I.toolspeed, src, category = DA_CAT_TOOL))
+		if(istype(src, /turf/simulated/mineral))
+			COOLDOWN_RESET(src, last_act)
+		return .
 
-		if(last_act + (mine_time * P.toolspeed * user.get_actionspeed_by_category(DA_CAT_TOOL)) > world.time) // Prevents message spam
-			return
-		last_act = world.time
-		to_chat(user, span_notice("You start picking..."))
-		P.playDigSound()
-
-		if(do_after(user, mine_time * P.toolspeed, src, category = DA_CAT_TOOL))
-			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
-				to_chat(user, span_notice("You finish cutting into the rock."))
-				attempt_drill(user)
-				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
-	else if(istype(I, /obj/item/pen/survival))
-		var/obj/item/pen/survival/P = I
-		if(last_act + (mine_time * P.toolspeed * user.get_actionspeed_by_category(DA_CAT_TOOL)) > world.time) // Prevents message spam
-			return
-		last_act = world.time
-		to_chat(user, span_notice("You start picking with your pen..."))
-		playsound(user, 'sound/effects/picaxe1.ogg', 20, TRUE)
-
-		if(do_after(user, mine_time * P.toolspeed, src, category = DA_CAT_TOOL))
-			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
-				to_chat(user, span_notice("You finish cutting into the rock."))
-				attempt_drill(user)
-				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
-	else
-		return attack_hand(user)
+	to_chat(user, span_notice("You finish cutting into the rock."))
+	I.play_tool_sound(src)
+	. |= (ATTACK_CHAIN_BLOCKED_ALL)
+	attempt_drill(user)
+	SSblackbox.record_feedback("tally", "pick_used_mining", 1, I.name)
 
 
 /turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE, override_bonus = FALSE)
@@ -160,23 +159,24 @@
 
 /turf/simulated/mineral/Bumped(atom/movable/moving_atom)
 	. = ..()
+
 	if(ishuman(moving_atom))
-		var/mob/living/carbon/human/H = moving_atom
-		if((istype(H.l_hand,/obj/item/pickaxe)) && (!H.hand))
-			attackby(H.l_hand,H)
-		else if((istype(H.r_hand,/obj/item/pickaxe)) && H.hand)
-			attackby(H.r_hand,H)
+		var/mob/living/carbon/human/human = moving_atom
+		var/active_hand = human.get_active_hand()
+		if(is_type_in_typecache(active_hand, allowed_picks_typecache))
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, attackby), active_hand, human)
 		return
 
-	else if(isrobot(moving_atom))
-		var/mob/living/silicon/robot/R = moving_atom
-		if(istype(R.module_active, /obj/item/pickaxe))
-			attackby(R.module_active, R)
+	if(isrobot(moving_atom))
+		var/mob/living/silicon/robot/robot = moving_atom
+		if(is_type_in_typecache(robot.module_active, allowed_picks_typecache))
+			INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, attackby), robot.module_active, robot)
+		return
 
-	else if(ismecha(moving_atom))
-		var/obj/mecha/M = moving_atom
-		if(istype(M.selected, /obj/item/mecha_parts/mecha_equipment/drill))
-			M.selected.action(src)
+	if(ismecha(moving_atom))
+		var/obj/mecha/mecha = moving_atom
+		if(istype(mecha.selected, /obj/item/mecha_parts/mecha_equipment/drill))
+			mecha.selected.action(src)
 
 
 /turf/simulated/mineral/acid_melt()
@@ -211,30 +211,11 @@
 	mineralType = /obj/item/stack/ore/glass/basalt/ancient
 	baseturf = /turf/simulated/floor/plating/asteroid/ancient
 
-/turf/simulated/mineral/ancient/attackby(obj/item/I, mob/user, params)
-	if(!user.IsAdvancedToolUser())
-		to_chat(usr, span_warning("You don't have the dexterity to do this!"))
-		return
 
-	if(istype(I, /obj/item/pickaxe))
-		var/obj/item/pickaxe/P = I
-		var/turf/T = user.loc
-		if(!isturf(T))
-			return
-
-		if(last_act + (mine_time * P.toolspeed) > world.time) // Prevents message spam
-			return
-		last_act = world.time
-		to_chat(user, span_notice("You start picking..."))
-		P.playDigSound()
-
-		if(do_after(user, mine_time * P.toolspeed, src))
-			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
-				to_chat(user, span_notice("You finish cutting into the rock."))
-				gets_drilled(user)
-				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
-	else
-		return attack_hand(user)
+/turf/simulated/mineral/ancient/generate_picks()
+	allowed_picks_typecache = typecacheof(list(
+		/obj/item/pickaxe,
+	))
 
 
 /turf/simulated/mineral/ancient/burn_down()
@@ -264,22 +245,16 @@
 	color = COLOR_COLD_ROCK
 	temperature = TCMB
 	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
-	var/static/list/allowed_picks_typecache
 
-/turf/simulated/mineral/ancient/outer/Initialize(mapload)
-	. = ..()
+
+/turf/simulated/mineral/ancient/outer/generate_picks()
 	allowed_picks_typecache = typecacheof(list(
-			/obj/item/pickaxe/drill/jackhammer,
-			/obj/item/pickaxe/diamond,
-			/obj/item/pickaxe/drill/cyborg/diamond,
-			/obj/item/pickaxe/drill/diamonddrill,
-			))
+		/obj/item/pickaxe/drill/jackhammer,
+		/obj/item/pickaxe/diamond,
+		/obj/item/pickaxe/drill/cyborg/diamond,
+		/obj/item/pickaxe/drill/diamonddrill,
+	))
 
-/turf/simulated/mineral/ancient/outer/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pickaxe) && !(is_type_in_typecache(I, allowed_picks_typecache)))
-		to_chat(user, span_notice("Only a diamond tools or a sonic jackhammer can break this rock."))
-		return
-	return ..()
 
 /turf/simulated/mineral/ancient/outer/ex_act(severity)
 	return
@@ -764,12 +739,25 @@
 	det_time = rand(8,10) //So you don't know exactly when the hot potato will explode
 	. = ..()
 
+
 /turf/simulated/mineral/gibtonite/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/mecha_parts/mecha_equipment/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) && stage == 1)
-		user.visible_message(span_notice("[user] holds [I] to [src]..."), span_notice("You use [I] to locate where to cut off the chain reaction and attempt to stop it..."))
-		defuse()
-	else
-		return ..()
+	. = ..()
+
+	var/static/list/allowed_scan_tools = typecacheof(list(
+		/obj/item/mining_scanner,
+		/obj/item/mecha_parts/mecha_equipment/mining_scanner,
+		/obj/item/t_scanner/adv_mining_scanner,
+	))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || stage != GIBTONITE_ACTIVE || !isturf(user.loc) || !is_type_in_typecache(I, allowed_scan_tools))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+	user.visible_message(
+		span_notice("[user] holds [I] to [src]..."),
+		span_notice("You use [I] to locate where to cut off the chain reaction and attempt to stop it...")
+	)
+	defuse()
+
 
 /turf/simulated/mineral/gibtonite/proc/explosive_reaction(mob/user = null, triggered_by_explosion = 0)
 	if(stage == GIBTONITE_UNSTRUCK)
@@ -819,7 +807,7 @@
 			det_time = 0
 		visible_message(span_notice("The chain reaction was stopped! The gibtonite had [det_time] reactions left till the explosion!"))
 
-/turf/simulated/mineral/gibtonite/attempt_drill(var/mob/user, triggered_by_explosion = 0)
+/turf/simulated/mineral/gibtonite/attempt_drill(mob/user, triggered_by_explosion = 0)
 	if(stage == GIBTONITE_UNSTRUCK && mineralAmt >= 1) //Gibtonite deposit is activated
 		playsound(src,'sound/effects/hit_on_shattered_glass.ogg', 50, TRUE)
 		explosive_reaction(user, triggered_by_explosion)
@@ -830,13 +818,12 @@
 		stage = GIBTONITE_DETONATE
 		explosion(bombturf,1,2,5, adminlog = 0)
 	if(stage == GIBTONITE_STABLE) //Gibtonite deposit is now benign and extractable. Depending on how close you were to it blowing up before defusing, you get better quality ore.
-		var/obj/item/twohanded/required/gibtonite/G = new(src)
+		var/obj/item/twohanded/required/gibtonite/gibtonite = new(src)
 		if(det_time <= 0)
-			G.quality = 3
-			G.icon_state = "Gibtonite ore 3"
-		if(det_time >= 1 && det_time <= 2)
-			G.quality = 2
-			G.icon_state = "Gibtonite ore 2"
+			gibtonite.quality = 3
+		else if(det_time >= 1 && det_time <= 2)
+			gibtonite.quality = 2
+		gibtonite.update_icon(UPDATE_ICON_STATE)
 
 	ChangeTurf(turf_type, defer_change)
 	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)

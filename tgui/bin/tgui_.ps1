@@ -54,7 +54,7 @@ function task-dev-server {
 function task-lint {
   yarn run tsc
   Write-Output "tgui: type check passed"
-  yarn run eslint packages --ext ".js,.jsx,.ts,.tsx,.cjs,.mjs" @Args
+  yarn run eslint packages @Args
   Write-Output "tgui: eslint check passed"
 }
 
@@ -107,7 +107,7 @@ function task-validate-build {
 ## Installs merge drivers and git hooks
 function task-install-git-hooks () {
     Set-Location $global:basedir
-    git config --replace-all merge.tgui-merge-bundle.driver "tgui/bin/tgui --merge=bundle %P %O %A %B %L"
+    git config --replace-all merge.tgui-merge-bundle.driver "tgui/bin/tgui --merge=bundle %P %A"
     Write-Output "tgui: Merge drivers have been successfully installed!"
 }
 

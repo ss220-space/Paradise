@@ -186,7 +186,7 @@
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
-			master.attackby(I, usr, params)
+			I.melee_attack_chain(usr, master, params)
 	return TRUE
 
 
@@ -246,8 +246,7 @@
 			S.orient2hud(user)
 			S.show_to(user)
 	else // If it's not in the storage, try putting it inside
-		I.pickup(user) //Do not actually put in hands, but rather make some funny effects out of it
-		S.attackby(I, user)
+		I.melee_attack_chain(user, S, params)
 	return TRUE
 
 

@@ -263,51 +263,47 @@
 	name = "\improper Mysterious Crate"
 	desc = "What could it be?"
 
-/obj/structure/largecrate/evil/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(W.tool_behaviour == TOOL_CROWBAR)
-		var/list/menace = pick(	/mob/living/simple_animal/hostile/carp,/mob/living/simple_animal/hostile/faithless,/mob/living/simple_animal/hostile/pirate,
-								/mob/living/simple_animal/hostile/creature,/mob/living/simple_animal/hostile/pirate/ranged,
-								/mob/living/simple_animal/hostile/hivebot,/mob/living/simple_animal/hostile/viscerator,/mob/living/simple_animal/hostile/pirate)
 
-		add_fingerprint(user)
-		visible_message("<span class='warning'>Something falls out of the [src]!</span>")
-		var/obj/item/grenade/clusterbuster/C = new(src.loc)
-		C.prime()
-		sleep(10)
-		new menace(src.loc)
-		while(prob(15))
-			new menace(get_step_rand(src.loc))
-		..()
-		return TRUE
-	else
-		return ..()
+/obj/structure/largecrate/evil/crowbar_act(mob/living/user, obj/item/I)
+	var/cached_name = name
+	var/atom/cached_loc = loc
+	. = ..()
+	var/static/list/menace = pick(
+		/mob/living/simple_animal/hostile/carp,
+		/mob/living/simple_animal/hostile/faithless,
+		/mob/living/simple_animal/hostile/pirate,
+		/mob/living/simple_animal/hostile/creature,
+		/mob/living/simple_animal/hostile/pirate/ranged,
+		/mob/living/simple_animal/hostile/hivebot,
+		/mob/living/simple_animal/hostile/viscerator,
+		/mob/living/simple_animal/hostile/pirate,
+	)
+	visible_message(span_warning("Something falls out of the [cached_name]!"))
+	var/obj/item/grenade/clusterbuster/grenade = new(cached_loc)
+	grenade.prime()
+	sleep(1 SECONDS)
+	new menace(cached_loc)
+	while(prob(15))
+		new menace(get_step_rand(cached_loc))
 
-
-//
-//
-//
-//                   ???
-//
-//
-//
 
 /obj/structure/largecrate/schrodinger
 	name = "Schrodinger's Crate"
 	desc = "What happens if you open it?"
 
-/obj/structure/largecrate/schrodinger/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(W.tool_behaviour == TOOL_CROWBAR)
-		add_fingerprint(user)
-		sleep(2)
-		var/mob/living/simple_animal/pet/cat/Cat = new(loc)
-		Cat.name = "Schrodinger's Cat"
 
-		if(prob(50))
-			Cat.apply_damage(250,TOX)
-			Cat.desc = "It seems it's been dead for a while."
-		else
-			Cat.desc = "It was alive the whole time!"
-	return ..()
+/obj/structure/largecrate/schrodinger/crowbar_act(mob/living/user, obj/item/I)
+	var/atom/cached_loc = loc
+	. = ..()
+	sleep(0.2 SECONDS)
+	var/mob/living/simple_animal/pet/cat/kitty = new(cached_loc)
+	kitty.name = "Schrodinger's Cat"
+	if(prob(50))
+		kitty.apply_damage(250, TOX)
+		kitty.desc = "It seems it's been dead for a while."
+	else
+		kitty.desc = "It was alive the whole time!"
+
 
 // --------------------------------------
 //   Collen's box of wonder and mystery

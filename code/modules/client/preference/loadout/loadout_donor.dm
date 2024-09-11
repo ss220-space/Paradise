@@ -220,6 +220,7 @@
 	slot = ITEM_SLOT_EYES
 
 /datum/gear/donor/heartglasses/New()
+	..()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
 
 /datum/gear/donor/night_dress
@@ -365,6 +366,6 @@
 	donator_tier = 2
 	cost = 1
 	display_name = "Short maid costume"
-	path = /obj/item/clothing/under/maid
+	path = /obj/item/clothing/under/maid/short
 
 

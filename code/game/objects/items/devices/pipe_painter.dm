@@ -14,7 +14,7 @@
 		modes += "[C]"
 	mode = pick(modes)
 
-/obj/item/pipe_painter/afterattack(atom/A, mob/user as mob)
+/obj/item/pipe_painter/afterattack(atom/A, mob/user, proximity, params)
 	if(!istype(A,/obj/machinery/atmospherics/pipe) || istype(A,/obj/machinery/atmospherics/pipe/simple/heat_exchanging) || istype(A,/obj/machinery/atmospherics/pipe/simple/insulated) || !in_range(user, A))
 		return
 	var/obj/machinery/atmospherics/pipe/P = A

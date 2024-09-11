@@ -174,7 +174,7 @@
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/proc/place_on_head(obj/item/item_to_add, mob/user)
 
 	if(istype(item_to_add, /obj/item/grenade/plastic/c4)) // last thing she ever wears, I guess
-		item_to_add.afterattack(src,user,1)
+		item_to_add.afterattack(src, user, TRUE)
 		return
 
 	if(inventory_head)
@@ -227,13 +227,6 @@
 	emote_hear = list("зевает", "шипит", "дурачится", "толкается")
 	emote_see = list("высовывает язык", "кружится", "трясёт хвостом")
 
-///Этот код скопирован с кода для корги и обнуляет показатели которые ему даёт риг. Если когда нибудь змейке дадут риг, раскомментируете///
-/*
-	set_light_on(FALSE)
-	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	mutations.Remove(BREATHLESS)
-	minbodytemp = initial(minbodytemp)
-*/
 	if(inventory_head?.snake_fashion)
 		var/datum/snake_fashion/SF = new inventory_head.snake_fashion(src)
 		SF.apply(src)

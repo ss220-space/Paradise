@@ -5,68 +5,60 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "target_h"
 	density = FALSE
+	/// Lazylist of all bullet holes overlays
+	var/list/bullet_holes
+	/// The stake we acre currently placed on
+	var/obj/structure/target_stake/stake
+	/// Basically our intergrity
 	var/hp = 1800
+	/// Recursion avoidance
+	var/currently_moving = FALSE
+
 
 /obj/item/target/Destroy()
-	cut_overlays()
-	// if a target is deleted and associated with a stake, force stake to forget
-	for(var/obj/structure/target_stake/T in view(3, src))
-		if(T.pinned_target == src)
-			T.pinned_target = null
-			T.set_density(TRUE)
-			break
-	return ..() // delete target
+	stake = null
+	LAZYNULL(bullet_holes)
+	return ..()
+
 
 /obj/item/target/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	if(currently_moving)
+		return FALSE
 	. = ..()
-	// After target moves, check for nearby stakes. If associated, move to target
-	for(var/obj/structure/target_stake/M in view(3, src))
-		if(M.density == 0 && M.pinned_target == src)
-			M.loc = loc
+	// Move the stake along with the pinned target
+	if(!stake)
+		return .
+	stake.currently_moving = TRUE
+	. = stake.Move(newloc, direct, glide_size)
+	stake?.set_glide_size(glide_size)
+	stake?.currently_moving = FALSE
+	if(!. && loc && stake && stake.loc != loc)
+		stake.forceMove(loc)
 
-	// This may seem a little counter-intuitive but I assure you that's for a purpose.
-	// Stakes are the ones that carry targets, yes, but in the stake code we set
-	// a stake's density to 0 meaning it can't be pushed anymore. Instead of pushing
-	// the stake now, we have to push the target.
 
-
-/obj/item/target/welder_act(mob/user, obj/item/I)
+/obj/item/target/welder_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	cut_overlays()
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
-	to_chat(user, "<span class='notice'>You slice off [src]'s uneven chunks of aluminium and scorch marks.</span>")
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	LAZYNULL(bullet_holes)
+	update_icon(UPDATE_OVERLAYS)
+	to_chat(user, span_notice("You slice off [src]'s uneven chunks of aluminium and scorch marks."))
+
 
 /obj/item/target/attack_hand(mob/user)
-	// taking pinned targets off!
-	var/obj/structure/target_stake/stake
-	for(var/obj/structure/target_stake/T in view(3,src))
-		if(T.pinned_target == src)
-			stake = T
-			break
+	if(!stake)
+		return ..()
 
-	if(stake)
-		if(stake.pinned_target)
-			stake.set_density(TRUE)
-			set_density(FALSE)
-			layer = OBJ_LAYER
+	to_chat(user, span_notice("You take [src] out of [stake]."))
+	add_fingerprint(user)
+	stake.add_fingerprint(user)
+	stake.set_density(TRUE)
+	set_density(initial(density))
+	layer = initial(layer)
+	user.put_in_hands(src, ignore_anim = FALSE)
+	stake.pinned_target = null
+	stake = null
 
-			loc = user.loc
-			if(ishuman(user))
-				if(!user.get_active_hand())
-					user.put_in_hands(src)
-					to_chat(user, "You take the target out of the stake.")
-			else
-				src.loc = get_turf(user)
-				to_chat(user, "You take the target out of the stake.")
-
-			stake.pinned_target = null
-			return
-
-	else
-		..()
 
 /obj/item/target/syndicate
 	icon_state = "target_s"
@@ -78,6 +70,11 @@
 	desc = "A shooting target that looks like a xenomorphic alien."
 	hp = 2350 // alium onest too kinda
 
+
+/obj/item/target/update_overlays()
+	return LAZYCOPY(bullet_holes)
+
+
 #define DECALTYPE_SCORCH 1
 #define DECALTYPE_BULLET 2
 
@@ -88,16 +85,16 @@
 	if(istype(P, /obj/item/projectile/bullet))
 		decaltype = DECALTYPE_BULLET
 
-	var/icon/C = icon(icon, icon_state)
-	if(LAZYLEN(overlays) <= 35 && C.GetPixel(p_x, p_y)) // if the located pixel isn't blank (null)
+	var/icon/source_icon = icon(icon, icon_state)
+	if(LAZYLEN(bullet_holes) <= 35 && source_icon.GetPixel(p_x, p_y)) // if the located pixel isn't blank (null)
 		hp -= P.damage
 		if(hp <= 0)
-			visible_message("<span class='danger'>[src] breaks into tiny pieces and collapses!</span>")
+			visible_message(span_danger("[src] breaks into tiny pieces and collapses!"))
 			qdel(src)
 			return
-		var/image/bullet_hole = image('icons/effects/effects.dmi', "scorch", OBJ_LAYER + 0.5)
-		bullet_hole.pixel_x = p_x - 1 //offset correction
-		bullet_hole.pixel_y = p_y - 1
+		var/mutable_appearance/bullet_hole = mutable_appearance('icons/effects/effects.dmi', "scorch", OBJ_LAYER + 0.5)
+		bullet_hole.pixel_w = p_x - 1 //offset correction
+		bullet_hole.pixel_z = p_y - 1
 		if(decaltype == DECALTYPE_SCORCH)
 			if(P.damage >= 20 || istype(P, /obj/item/projectile/beam/practice))
 				bullet_hole.setDir(pick(NORTH,SOUTH,EAST,WEST))// random scorch design. light_scorch does not have different directions
@@ -105,7 +102,9 @@
 				bullet_hole.icon_state = "light_scorch"
 		else
 			bullet_hole.icon_state = "dent"
-		add_overlay(bullet_hole)
+
+		LAZYADD(bullet_holes, bullet_hole)
+		update_icon(UPDATE_OVERLAYS)
 		return
 
 	return -1 // the bullet/projectile goes through the target! Ie, you missed

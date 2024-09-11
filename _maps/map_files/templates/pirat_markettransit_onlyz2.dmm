@@ -783,7 +783,7 @@
 /area/ruin/space/pirate_base/black_market)
 "QM" = (
 /obj/item/card/id/syndicate{
-	access = list(150,160,161,162,165,26)
+	initial_access = list(150,160,161,162,165,26)
 	},
 /obj/structure/closet{
 	icon_state = "syndicate"
@@ -846,7 +846,6 @@
 	pixel_x = -4
 	},
 /obj/item/stack/tape_roll/thick{
-	icon_state = "thick_taperoll4";
 	pixel_y = 2
 	},
 /turf/simulated/floor/indestructible/plating{

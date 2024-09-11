@@ -69,7 +69,7 @@
 	var/pen_color_shift = 3
 
 /obj/item/pen/multi/Initialize(mapload)
-	..()
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pen/multi/proc/select_colour(mob/user)
@@ -177,18 +177,15 @@
 	origin_tech = "engineering=4;syndicate=2"
 
 
-/obj/item/pen/sleepy/attack(mob/living/M, mob/user)
-	if(!istype(M))
-		return
-
-	if(!M.can_inject(user, TRUE, ignore_pierceimmune = TRUE))
-		return
+/obj/item/pen/sleepy/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!target.can_inject(user, TRUE, ignore_pierceimmune = TRUE))
+		return ATTACK_CHAIN_PROCEED
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	var/transfered = 0
-	if(reagents.total_volume && M.reagents)
-		transfered = reagents.trans_to(M, 50)
-	to_chat(user, span_warning("You sneakily stab [M] with the pen."))
-	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered.")
-	return TRUE
+	if(reagents.total_volume && target.reagents)
+		transfered = reagents.trans_to(target, 50)
+	to_chat(user, span_warning("You sneakily stab [target] with the pen."))
+	add_attack_logs(user, target, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered.")
 
 
 /obj/item/pen/sleepy/Initialize(mapload)
@@ -202,66 +199,79 @@
  */
 /obj/item/pen/edagger
 	origin_tech = "combat=3;syndicate=1"
-	var/on = FALSE
 	light_range = 2
 	light_power = 1
 	light_color = LIGHT_COLOR_RED
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT
 	armour_penetration = 20
+	var/on = FALSE
 	var/backstab_sound = 'sound/items/unsheath.ogg'
-	var/backstab_cooldown = 0
 	var/backstab_damage = 12
+	COOLDOWN_DECLARE(backstab_cooldown)
 
-/obj/item/pen/edagger/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
-	user.changeNext_move(CLICK_CD_MELEE * 1.3) //attack speed is 1.3 times slower
 
-/obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/pen/edagger/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/extra_force_applied = FALSE
-	if(on && user.dir == M.dir && !M.incapacitated(INC_IGNORE_RESTRAINED) && user != M && backstab_cooldown <= world.time)
-		backstab_cooldown = (world.time + 10 SECONDS)
+	var/cached_sound = hitsound
+	if(on && user != target && user.dir == target.dir && COOLDOWN_FINISHED(src, backstab_cooldown) && !target.incapacitated(INC_IGNORE_RESTRAINED))
+		hitsound = null
 		force += backstab_damage
 		extra_force_applied = TRUE
-		M.Weaken(2 SECONDS)
-		M.apply_damage(40, STAMINA)
-		add_attack_logs(user, M, "Backstabbed with [src]", ATKLOG_ALL)
-		M.visible_message(span_warning("[user] stabs [M] in the back!"), span_userdanger("[user] stabs you in the back! The energy blade makes you collapse in pain!"))
-		playsound(loc, backstab_sound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
-	else
-		playsound(loc, hitsound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
 	. = ..()
-	if(extra_force_applied)
-		force -= backstab_damage
+	if(!extra_force_applied)
+		return .
+	hitsound = cached_sound
+	force -= backstab_damage
+	COOLDOWN_START(src, backstab_cooldown, 10 SECONDS)
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
+		return .
+	target.Weaken(2 SECONDS)
+	target.apply_damage(40, STAMINA)
+	add_attack_logs(user, target, "Backstabbed with [src]", ATKLOG_ALL)
+	playsound(loc, backstab_sound, 30, TRUE, ignore_walls = FALSE, falloff_distance = 0)
+	target.visible_message(
+		span_warning("[user] stabs [target] in the back!"),
+		span_userdanger("[user] stabs you in the back! The energy blade makes you collapse in pain!"),
+	)
+
 
 /obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
-	return FALSE
+	if(!force)
+		return ..()
+	return 20
+
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
+	on = !on
 	if(on)
-		on = FALSE
-		force = initial(force)
-		w_class = initial(w_class)
-		name = initial(name)
-		attack_verb = list()
-		hitsound = initial(hitsound)
-		embed_chance = initial(embed_chance)
-		throwforce = initial(throwforce)
-		playsound(user, 'sound/weapons/saberoff.ogg', 3, TRUE)
-		to_chat(user, span_warning("[src] can now be concealed."))
-		set_light_on(FALSE)
-	else
-		on = TRUE
 		force = 18
+		attack_speed *= 1.3
 		w_class = WEIGHT_CLASS_NORMAL
-		name = "energy dagger"
 		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 		hitsound = 'sound/weapons/blade1.ogg'
 		embed_chance = 100 //rule of cool
 		throwforce = 35
 		playsound(user, 'sound/weapons/saberon.ogg', 3, TRUE)
 		to_chat(user, span_warning("[src] is now active."))
-		set_light_on(TRUE)
+	else
+		attack_speed /= 1.3
+		force = initial(force)
+		w_class = initial(w_class)
+		attack_verb = list()
+		hitsound = initial(hitsound)
+		embed_chance = initial(embed_chance)
+		throwforce = initial(throwforce)
+		playsound(user, 'sound/weapons/saberoff.ogg', 3, TRUE)
+		to_chat(user, span_warning("[src] can now be concealed."))
+	set_light_on(on)
 	set_sharpness(on)
-	update_icon(UPDATE_ICON_STATE)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
+
+
+/obj/item/pen/edagger/update_name(updates = ALL)
+	. = ..()
+	name = on ? "energy dagger" : initial(name)
 
 
 /obj/item/pen/edagger/update_icon_state()
@@ -310,4 +320,5 @@
 	icon_state = "digging_pen"
 	toolspeed = 10 //You will never willingly choose to use one of these over a shovel.
 	colour = COLOR_BLUE
+	usesound = 'sound/effects/picaxe1.ogg'
 

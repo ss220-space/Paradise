@@ -82,8 +82,8 @@
 		to_chat(user, span_notice("You realise that a ghost probably doesn't have any useful organs."))
 		return //no cult ghost surgery please
 	INVOKE_ASYNC(src, PROC_REF(do_initiate_surgery_moment), target, user)
-	// This signal is actually part of the attack chain, so it needs to return true to stop it
-	return TRUE
+	// This signal is actually part of the attack chain, so it needs to return COMPONENT_CANCEL_ATTACK_CHAIN to stop it
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /// Meat and potatoes of starting surgery.
 /datum/component/surgery_initiator/proc/do_initiate_surgery_moment(mob/living/target, mob/user)

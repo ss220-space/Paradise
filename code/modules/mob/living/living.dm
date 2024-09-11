@@ -140,7 +140,7 @@
 	if(((istajaran(src) && functional_legs) || cat) && body_position != LYING_DOWN && can_help_themselves)
 		. |= ZIMPACT_NO_MESSAGE|ZIMPACT_NO_SPIN
 		skip_weaken = TRUE
-		if(cat || (DWARF in mutations)) // lil' bounce kittens
+		if(cat || HAS_TRAIT(src, TRAIT_DWARF)) // lil' bounce kittens
 			visible_message(
 				span_notice("[src] makes a hard landing on [impacted_turf], but lands safely on [p_their()] feet!"),
 				span_notice("You make a hard landing on [impacted_turf], but land safely on your feet!"),
@@ -546,21 +546,6 @@
 	return TRUE
 
 
-/mob/living/verb/succumb()
-	set hidden = 1
-	if(InCritical())
-		add_misc_logs(src, "has succumbed to death with [round(health, 0.1)] points of health")
-		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
-		// super check for weird mobs, including ones that adjust hp
-		// we don't want to go overboard and gib them, though
-		for(var/i = 1 to 5)
-			if(health < HEALTH_THRESHOLD_DEAD)
-				break
-			take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD))
-		death()
-		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
-
-
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 
@@ -846,7 +831,7 @@
 		if(!buckled.anchored)
 			buckled.moving_from_pull = moving_from_pull
 			. = buckled.Move(newloc, direct)
-			buckled.moving_from_pull = null
+			buckled?.moving_from_pull = null
 		return .
 
 	if(pulling)
@@ -921,11 +906,12 @@
 						else
 							TH.color = "#A10808"
 
-/mob/living/carbon/human/makeTrail(turf/T)
 
-	if((NO_BLOOD in dna.species.species_traits) || dna.species.exotic_blood || !bleed_rate || bleedsuppress)
+/mob/living/carbon/human/makeTrail(turf/T)
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD) || !bleed_rate || bleedsuppress)
 		return
 	..()
+
 
 /mob/living/proc/getTrail()
 	if(getBruteLoss() < 300)
@@ -1264,7 +1250,7 @@
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
 	if(status_flags & GODMODE)
 		return FALSE
-	if(check_eye_prot() < intensity && (override_blindness_check || !(BLINDNESS in mutations)))
+	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return TRUE
@@ -1388,26 +1374,27 @@
 /mob/living/proc/get_permeability_protection()
 	return 0
 
+
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
-	if(user.a_intent == INTENT_HARM && stat == DEAD && (butcher_results || is_monkeybasic(src))) //can we butcher it?
-		var/sharpness = is_sharp(I)
-		if(sharpness)
-			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
-			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-			if(do_after(user, 8 SECONDS / sharpness, src, NONE) && Adjacent(I))
-				harvest(user)
-			return 1
+	if(user.a_intent != INTENT_HARM || stat != DEAD || !is_sharp(I) || (!butcher_results && !is_monkeybasic(src))) //can we butcher it?
+		return FALSE
+	. = TRUE
+	to_chat(user, span_notice("You begin to butcher [src]..."))
+	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
+	if(!do_after(user, 4 SECONDS * mob_size, src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
+		return .
+	harvest(user)
+
 
 /mob/living/proc/harvest(mob/living/user)
-	if(QDELETED(src))
+	if(QDELETED(src) || !butcher_results)
 		return
-	if(butcher_results)
-		for(var/path in butcher_results)
-			for(var/i = 1, i <= butcher_results[path], i++)
-				new path(loc)
-			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
-		visible_message("<span class='notice'>[user] butchers [src].</span>")
-		gib()
+	for(var/path in butcher_results)
+		for(var/i in 1 to butcher_results[path])
+			new path(loc)
+		butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
+	visible_message(span_notice("[user] butchers [src]."))
+	gib()
 
 
 /mob/living/proc/can_use_guns(var/obj/item/gun/G)
@@ -2264,4 +2251,55 @@
 		. = TRUE
 
 	update_ssd_overlay()	// special SSD overlay handling
+
+/mob/living/verb/succumb()
+	set hidden = TRUE
+	// if you use the verb you better mean it
+	do_succumb(FALSE)
+
+/mob/living/proc/do_succumb(cancel_on_no_words)
+	if(stat == DEAD)
+		to_chat(src, span_notice("It's too late, you're already dead!"))
+		return
+	if(health >= HEALTH_THRESHOLD_CRIT)
+		to_chat(src, span_warning("You are unable to succumb to death! This life continues!"))
+		return
+
+	last_words = null // In case we kept some from last time
+	var/final_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
+
+	if(isnull(final_words) && cancel_on_no_words)
+		to_chat(src, span_notice("You decide you aren't quite ready to die."))
+		return
+
+	if(stat == DEAD)
+		return
+
+	if(health >= HEALTH_THRESHOLD_CRIT)
+		to_chat(src, span_warning("You are unable to succumb to death! This life continues!"))
+		return
+
+	if(!isnull(final_words))
+		last_words = final_words
+		whisper(final_words)
+
+	create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
+	adjustOxyLoss(max(health - HEALTH_THRESHOLD_DEAD, 0))
+	// super check for weird mobs, including ones that adjust hp
+	// we don't want to go overboard and gib them, though
+	for(var/i in 1 to 5)
+		if(health < HEALTH_THRESHOLD_DEAD)
+			break
+		take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
+
+	if(!isnull(final_words))
+		addtimer(CALLBACK(src, PROC_REF(death)), 1 SECONDS)
+	else
+		death()
+	to_chat(src, span_notice("You have given up life and succumbed to death."))
+	apply_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED)
+
+/// Updates damage slowdown accordingly to the current health
+/mob/living/proc/update_movespeed_damage_modifiers()
+	return
 

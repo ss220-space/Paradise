@@ -114,6 +114,8 @@
 		/obj/item/organ/internal/heart/slime = 210,
 		/obj/item/organ/internal/liver/diona = 300,
 		/obj/item/organ/internal/lungs/unathi/ash_walker = 325,
+		/obj/item/organ/internal/eyes/unathi/ash_walker = 350,
+		/obj/item/organ/internal/eyes/unathi/ash_walker_shaman = 350,
 		/obj/item/organ/internal/lantern = 400
 	)
 	very_hard_items = list(
@@ -477,12 +479,13 @@
 		"LISP" = 150,
 		"MUTE" = 150,
 		"RAD" = 150,
-		"FAT" = 150,
+		"OBESITY" = 150,
 		"SWEDE" = 150,
 		"SCRAMBLE" = 150,
 		"WEAK" = 150,
 		"HORNS" = 150,
 		"COMIC" = 150,
+		"PARAPLEGIA" = 150,
 	)
 
 	hard_items = list(
@@ -508,6 +511,7 @@
 		"BREATHLESS" = 250,
 		"COLD" = 200,
 		"HALLUCINATION" = 200,
+		"FARVISION" = 200,
 	)
 	very_hard_items = list(
 		"NOPRINTS" = 250,

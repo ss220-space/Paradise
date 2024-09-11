@@ -62,17 +62,16 @@
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
 	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
 	name = "budget insulated gloves"
-	icon_state = "yellow"
+	icon_state = "fyellow"
 	item_state = "ygloves"
+	siemens_coefficient = 0			//Set to a default of 0
 	belt_icon = "ygloves"
-	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
 	permeability_coefficient = 0.05
 	item_color="yellow"
 	resistance_flags = NONE
+	toolspeedmod = 0.2
+	clothing_traits = list(TRAIT_NO_GUNS)
 
-/obj/item/clothing/gloves/color/fyellow/New()
-	..()
-	siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
 
 /obj/item/clothing/gloves/color/fyellow/old
 	desc = "Old and worn out insulated gloves, hopefully they still work."
@@ -103,24 +102,30 @@
 	item_color = "chief"			//Exists for washing machines. Is not different from black gloves in any way.
 
 /obj/item/clothing/gloves/color/black/thief
-	pickpocket = 1
+	pickpocket = TRUE
 
-/obj/item/clothing/gloves/color/black/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WIRECUTTER)
-		if(can_be_cut && icon_state == initial(icon_state))//only if not dyed
-			var/confirm = tgui_alert(user, "Do you want to cut off the gloves fingertips? Warning: It might destroy their functionality.", "Cut tips?", list("Yes","No"))
-			if(get_dist(user, src) > 1)
-				to_chat(user, "You have moved too far away.")
-				return
-			if(confirm == "Yes")
-				to_chat(user, "<span class='notice'>You snip the fingertips off of [src].</span>")
-				playsound(user.loc, W.usesound, rand(10,50), 1)
-				var/obj/item/clothing/gloves/fingerless/F = new/obj/item/clothing/gloves/fingerless(user.loc)
-				if(pickpocket)
-					F.pickpocket = FALSE
-				qdel(src)
-				return
-	..()
+
+/obj/item/clothing/gloves/color/black/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!can_be_cut || icon_state != initial(icon_state))	// only if not dyed
+		to_chat(user, span_warning("You cannot cut off [src]!"))
+		return .
+	if(loc == user)
+		to_chat(user, span_warning("You cut off [src]'s fingertips while wearing it!"))
+		return .
+	var/confirm = tgui_alert(user, "Do you want to cut off the gloves fingertips? Warning: It might destroy their functionality.", "Cut tips?", list("Yes", "No"))
+	if(confirm != "Yes" || icon_state != initial(icon_state) || !Adjacent(user) || user.incapacitated())
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	to_chat(user, span_notice("You snip the fingertips off of [src]."))
+	var/obj/item/clothing/gloves/fingerless/new_gloves = new(loc)
+	transfer_fingerprints_to(new_gloves)
+	new_gloves.add_fingerprint(user)
+	if(pickpocket)
+		new_gloves.pickpocket = FALSE
+	qdel(src)
+
 
 /obj/item/clothing/gloves/color/black/goliath
 	name = "goliath gloves"
@@ -249,6 +254,14 @@
 	item_state = "nitrilegloves"
 	transfer_prints = FALSE
 	item_color = "medical"
+
+/obj/item/clothing/gloves/color/latex/modified
+	name = "modified medical gloves"
+	desc = "They are very soft and light to the touch and do not hinder movement at all."
+	icon_state = "modified"
+	item_state = "modified"
+	item_color = "modified"
+	surgeryspeedmod = -0.3
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"

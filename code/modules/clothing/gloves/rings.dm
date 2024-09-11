@@ -2,7 +2,6 @@
 	name = "iron ring"
 	desc = "A band that goes around your finger.  It's considered gauche to wear more than one."
 	gender = "neuter" // not plural anymore
-	material_type = MATERIAL_CLASS_NONE
 	transfer_prints = TRUE
 	clothing_flags = NONE
 	icon_state = "ironring"
@@ -12,7 +11,7 @@
 	drop_sound = 'sound/items/handling/ring_drop.ogg'
 	var/fluff_material = FALSE	//If true, will ignore the material when examining
 	var/material = "iron"
-	var/stud = 0
+	var/stud = FALSE
 	var/ring_color = "iron"
 
 /obj/item/clothing/gloves/ring/Initialize(mapload)
@@ -29,17 +28,24 @@
 	if(stud)
 		. += "<span class='notice'>It is adorned with a single gem.</span>"
 
+
 /obj/item/clothing/gloves/ring/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/diamond))
-		var/obj/item/stack/sheet/mineral/diamond/D = I
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/mineral/diamond/diamond = I
 		if(stud)
-			to_chat(usr, "<span class='notice'>The [src] already has a gem.</span>")
-		else
-			if(D.amount >= 1)
-				D.use(1)
-				stud = 1
-				update_icon()
-				to_chat(usr, "<span class='notice'>You socket the diamond into the [src].</span>")
+			to_chat(user, span_warning("The [name] already has a gem."))
+			return ATTACK_CHAIN_PROCEED
+		if(!diamond.use(1))
+			to_chat(user, span_warning("You need at least one diamond to fill the socket."))
+			return ATTACK_CHAIN_PROCEED
+		stud = TRUE
+		update_icon()
+		to_chat(user, span_notice("You socket the diamond into [src]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 // s'pensive
 /obj/item/clothing/gloves/ring/silver

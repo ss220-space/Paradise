@@ -33,101 +33,137 @@
 
 
 /obj/structure/janitorialcart/proc/put_in_cart(obj/item/I, mob/user)
-	user.drop_transfer_item_to_loc(I, src)
-	updateUsrDialog()
-	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
-	update_icon(UPDATE_OVERLAYS)
+	. = user.drop_transfer_item_to_loc(I, src)
+	if(.)
+		to_chat(user, span_notice("You put [I] into [src]."))
 
 
 /obj/structure/janitorialcart/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
+
 /obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
-	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
+	if(user.a_intent == INTENT_HARM || I.is_robot_module())
+		return ..()
 
-	if(!I.is_robot_module())
-		if(istype(I, /obj/item/mop))
-			var/obj/item/mop/m=I
-			if(m.reagents.total_volume < m.reagents.maximum_volume)
-				m.wet_mop(src, user)
-				return
-			if(!mymop)
-				add_fingerprint(user)
-				m.janicart_insert(user, src)
-			else
-				to_chat(user, fail_msg)
+	var/fail_msg = span_notice("There is already one of those in [src].")
 
-		else if(istype(I, /obj/item/storage/bag/trash))
-			if(!mybag)
-				add_fingerprint(user)
-				var/obj/item/storage/bag/trash/t=I
-				t.janicart_insert(user, src)
-			else
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/reagent_containers/spray/cleaner))
-			if(!myspray)
-				add_fingerprint(user)
-				myspray=I
-				put_in_cart(I, user)
-			else
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/lightreplacer))
-			if(!myreplacer)
-				add_fingerprint(user)
-				var/obj/item/lightreplacer/l=I
-				l.janicart_insert(user,src)
-			else
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/caution))
-			if(signs < max_signs)
-				add_fingerprint(user)
-				signs++
-				put_in_cart(I, user)
-			else
-				to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
-		else if(I.tool_behaviour == TOOL_CROWBAR)
-			user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
-			if(do_after(user, 3 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
-				add_fingerprint(user)
-				to_chat(usr, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
-				reagents.reaction(src.loc)
-				src.reagents.clear_reagents()
-		else if(I.tool_behaviour == TOOL_WRENCH)
-			add_fingerprint(user)
-			if(!anchored && !isinspace())
-				playsound(src.loc, I.usesound, 50, 1)
-				user.visible_message( \
-					"[user] tightens \the [src]'s casters.", \
-					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
-					"You hear ratchet.")
-				set_anchored(TRUE)
-			else if(anchored)
-				playsound(src.loc, I.usesound, 50, 1)
-				user.visible_message( \
-					"[user] loosens \the [src]'s casters.", \
-					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
-					"You hear ratchet.")
-				set_anchored(FALSE)
-		else if(mybag)
-			add_fingerprint(user)
-			mybag.attackby(I, user, params)
+	if(istype(I, /obj/item/mop))
+		add_fingerprint(user)
+		var/obj/item/mop/mop = I
+		mop.wet_mop(src, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/storage/bag/trash))
+		add_fingerprint(user)
+		if(mybag)
+			to_chat(user, fail_msg)
+			return ATTACK_CHAIN_PROCEED
+		if(!put_in_cart(I, user))
+			return ..()
+		mybag = I
+		updateUsrDialog()
+		update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/lightreplacer))
+		add_fingerprint(user)
+		if(myreplacer)
+			to_chat(user, fail_msg)
+			return ATTACK_CHAIN_PROCEED
+		if(!put_in_cart(I, user))
+			return ..()
+		myreplacer = I
+		updateUsrDialog()
+		update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/reagent_containers/spray/cleaner))
+		add_fingerprint(user)
+		if(myspray)
+			to_chat(user, fail_msg)
+			return ATTACK_CHAIN_PROCEED
+		if(!put_in_cart(I, user))
+			return ..()
+		myspray = I
+		updateUsrDialog()
+		update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/caution))
+		add_fingerprint(user)
+		if(signs >= max_signs)
+			to_chat(user, span_notice("The [name] cannot hold any more signs."))
+			return ATTACK_CHAIN_PROCEED
+		if(!put_in_cart(I, user))
+			return ..()
+		signs++
+		updateUsrDialog()
+		update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(mybag?.can_be_inserted(I, stop_messages = TRUE))
+		mybag.handle_item_insertion(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/structure/janitorialcart/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!reagents || !reagents.total_volume)
+		to_chat(user, span_warning("The [name]'s bucket is empty."))
+		return .
+	user.visible_message(
+		span_notice("[user] starts to empty the contents of [src]'s bucket."),
+		span_notice("You start to empty the contents of [src]'s bucket..."),
+	)
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || !reagents || !reagents.total_volume)
+		return .
+	user.visible_message(
+		span_notice("[user] empties the contents of [src]'s bucket onto the floor."),
+		span_notice("You have emptied the contents of [src]'s bucket onto the floor."),
+	)
+	reagents.reaction(loc)
+	reagents.clear_reagents()
+
+
+/obj/structure/janitorialcart/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(isinspace())
+		to_chat(user, span_warning("That was a dumb idea."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	set_anchored(!anchored)
+	if(anchored)
+		user.visible_message(
+			span_notice("[user] tightens [name]'s casters."),
+			span_notice("You have tightened [name]'s casters."),
+			span_italics("You hear ratchet."),
+		)
 	else
-		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
+		user.visible_message(
+			span_notice("[user] loosens [name]'s casters."),
+			span_notice("You have loosened [name]'s casters."),
+			span_italics("You hear ratchet."),
+		)
+
 
 /obj/structure/janitorialcart/attack_hand(mob/user)
 	add_fingerprint(user)
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	if(mybag)
-		dat += "<a href='?src=[UID()];garbage=1'>[mybag.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];garbage=1'>[mybag.name]</a><br>"
 	if(mymop)
-		dat += "<a href='?src=[UID()];mop=1'>[mymop.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];mop=1'>[mymop.name]</a><br>"
 	if(myspray)
-		dat += "<a href='?src=[UID()];spray=1'>[myspray.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];spray=1'>[myspray.name]</a><br>"
 	if(myreplacer)
-		dat += "<a href='?src=[UID()];replacer=1'>[myreplacer.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];replacer=1'>[myreplacer.name]</a><br>"
 	if(signs)
-		dat += "<a href='?src=[UID()];sign=1'>[signs] sign\s</a><br>"
+		dat += "<a href='byond://?src=[UID()];sign=1'>[signs] sign\s</a><br>"
 	var/datum/browser/popup = new(user, "janicart", name, 240, 160)
 	popup.set_content(dat)
 	popup.open()

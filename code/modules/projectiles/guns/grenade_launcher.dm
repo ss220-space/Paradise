@@ -13,26 +13,29 @@
 
 	materials = list(MAT_METAL=2000)
 
+
 /obj/item/gun/grenadelauncher/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2)
-		. += "<span class='notice'>[grenades.len] / [max_grenades] grenades.</span>"
+		. += span_info("Contains <b>[length(grenades)]/[max_grenades]</b> grenades.")
 
-/obj/item/gun/grenadelauncher/attackby(obj/item/I as obj, mob/user as mob, params)
+
+/obj/item/gun/grenadelauncher/attackby(obj/item/I, mob/user, params)
 	if((istype(I, /obj/item/grenade)))
-		if(grenades.len < max_grenades)
-			if(!user.drop_item_ground(I))
-				return
-			I.loc = src
-			grenades += I
-			to_chat(user, "<span class='notice'>You put the grenade in the [name].</span>")
-			to_chat(user, "<span class='notice'>[grenades.len] / [max_grenades] grenades.</span>")
-		else
-			to_chat(user, "<span class='warning'>The grenade launcher cannot hold more grenades.</span>")
-	else
-		return ..()
+		add_fingerprint(user)
+		if(length(grenades) >= max_grenades)
+			to_chat(user, span_warning("The [name] cannot hold more grenades."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		grenades += I
+		to_chat(user, span_notice("You have put [I] into [src]. In now contains <b>[length(grenades)]/[max_grenades]</b> grenades."))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/gun/grenadelauncher/afterattack(obj/target, mob/user , flag)
+	return ..()
+
+
+/obj/item/gun/grenadelauncher/afterattack(obj/target, mob/user, flag, params)
 	if(target == user)
 		return
 

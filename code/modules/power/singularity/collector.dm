@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	return
 
 
-/obj/machinery/power/rad_collector/attack_hand(mob/user as mob)
+/obj/machinery/power/rad_collector/attack_hand(mob/user)
 	if(..())
 		return TRUE
 
@@ -53,55 +53,86 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			return
 
 
-/obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_MULTITOOL)
-		add_fingerprint(user)
-		to_chat(user, "<span class='notice'>The [W.name] detects that [last_power]W were recently produced.</span>")
-		return 1
-	else if(istype(W, /obj/item/tank/internals/plasma))
-		if(!src.anchored)
-			to_chat(user, "<span class='warning'>The [src] needs to be secured to the floor first.</span>")
-			return 1
-		if(src.P)
-			to_chat(user, "<span class='warning'>There's already a plasma tank loaded.</span>")
-			return 1
-		add_fingerprint(user)
-		user.drop_transfer_item_to_loc(W, src)
-		src.P = W
-		update_icon()
-	else if(W.tool_behaviour == TOOL_CROWBAR)
-		if(P && !src.locked)
-			add_fingerprint(user)
-			eject()
-			return 1
-	else if(W.tool_behaviour == TOOL_WRENCH)
-		if(P)
-			to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
-			return 1
-		add_fingerprint(user)
-		playsound(src.loc, W.usesound, 75, 1)
-		src.anchored = !src.anchored
-		user.visible_message("[user.name] [anchored? "secures":"unsecures"] the [src.name].", \
-			"You [anchored? "secure":"undo"] the external bolts.", \
-			"You hear a ratchet")
-		if(anchored)
-			connect_to_network()
-		else
-			disconnect_from_network()
-	else if(W.GetID() || is_pda(W))
-		if(src.allowed(user))
-			add_fingerprint(user)
-			if(active)
-				src.locked = !src.locked
-				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
-			else
-				src.locked = 0 //just in case it somehow gets locked
-				to_chat(user, "<span class='warning'>The controls can only be locked when the [src] is active</span>")
-		else
-			to_chat(user, "<span class='warning'>Access denied!</span>")
-			return 1
-	else
+/obj/machinery/power/rad_collector/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/tank/internals/plasma))
+		add_fingerprint(user)
+		if(!anchored)
+			to_chat(user, span_warning("The [name] should be secured to the floor first."))
+			return ATTACK_CHAIN_PROCEED
+		if(P)
+			to_chat(user, span_warning("The [name] already has a plasma tank loaded."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You have loaded the plasma tank into [src]."))
+		P = I
+		update_icon()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(I.GetID() || is_pda(I))
+		add_fingerprint(user)
+		if(!allowed(user))
+			to_chat(user, span_warning("Access denied."))
+			return ATTACK_CHAIN_PROCEED
+		if(!active)
+			locked = FALSE //just in case it somehow gets locked
+			to_chat(user, span_warning("The controls can only be locked while [src] is active."))
+			return ATTACK_CHAIN_PROCEED
+		locked = !locked
+		to_chat(user, span_notice("The controls are now [locked ? "locked." : "unlocked."]"))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+
+/obj/machinery/power/rad_collector/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(P)
+		add_fingerprint(user)
+		to_chat(user, span_warning("You should remove the plasma tank first."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	set_anchored(!anchored)
+	if(anchored)
+		user.visible_message(
+			span_notice("[user] has secured [src] to the floor."),
+			span_notice("You have secured [src] to the floor."),
+			span_italics("You hear a ratchet"),
+		)
+		connect_to_network()
+	else
+		user.visible_message(
+			span_notice("[user] has unsecured [src] from floor."),
+			span_notice("You have unsecured [src] from floor."),
+			span_italics("You hear a ratchet"),
+		)
+		disconnect_from_network()
+
+
+/obj/machinery/power/rad_collector/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	add_fingerprint(user)
+	if(!P)
+		to_chat(user, span_warning("The [name] has no loaded plasma tanks."))
+		return .
+	if(locked)
+		to_chat(user, span_warning("The [name] is locked."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	eject(user)
+
+
+/obj/machinery/power/rad_collector/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	to_chat(user, span_notice("The [I.name] detects that [last_power]W were recently produced.."))
+
 
 /obj/machinery/power/rad_collector/return_analyzable_air()
 	if(P)
@@ -113,19 +144,19 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		eject()
 		stat |= BROKEN
 
-/obj/machinery/power/rad_collector/proc/eject()
-	locked = 0
-	var/obj/item/tank/internals/plasma/Z = src.P
-	if(!Z)
+
+/obj/machinery/power/rad_collector/proc/eject(mob/user)
+	locked = FALSE
+	if(!P)
 		return
-	Z.loc = get_turf(src)
-	Z.layer = initial(Z.layer)
-	Z.plane = initial(Z.plane)
-	src.P = null
+	P.forceMove_turf()
+	user?.put_in_hands(P, ignore_anim = FALSE)
+	P = null
 	if(active)
 		toggle_power()
 	else
 		update_icon()
+
 
 /obj/machinery/power/rad_collector/proc/receive_pulse(var/pulse_strength)
 	if(P && active)

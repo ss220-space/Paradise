@@ -7,7 +7,7 @@
 	activation_messages = list("Your body feels if can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = MORPH
+
 
 /datum/dna/gene/basic/grant_spell/morph/New()
 	..()
@@ -186,8 +186,6 @@
 	activation_messages = list("You feel you can project your thoughts.")
 	deactivation_messages = list("You no longer feel you can project your thoughts.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = REMOTE_TALK
-
 	spelltype = /obj/effect/proc_holder/spell/remotetalk
 
 
@@ -234,10 +232,10 @@
 	for(var/mob/living/target in targets)
 		var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 		hud.manage_hud(target, THOUGHTS_HUD_PRECISE)
-		user.hud_typing = TRUE
+		// user.hud_typing = TRUE do not know what to do
 		user.thoughts_hud_set(TRUE)
 		var/say = tgui_input_text(user, "What do you wish to say?", "Project Mind")
-		user.hud_typing = FALSE
+		// user.hud_typing = FALSE
 		user.typing = FALSE
 		if(!say || usr.stat)
 			hud.manage_hud(target, THOUGHTS_HUD_DISPERSE)
@@ -281,7 +279,7 @@
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			message = "You feel [user.real_name] request a response from you... (Click here to project mind.)"
 		user.show_message("<span class='abductor'>You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"].</span>")
-		target.show_message("<span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span>")
+		target.show_message("<span class='abductor'><a href='byond://?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span>")
 		available_targets += target
 		hud.manage_hud(target, THOUGHTS_HUD_PRECISE)
 		addtimer(CALLBACK(src, PROC_REF(removeAvailability), target), 45 SECONDS)
@@ -305,10 +303,10 @@
 		var/mob/living/target = locateUID(href_list["target"])
 		if(!(target in available_targets))
 			return
-		target.hud_typing = TRUE
+		// target.hud_typing = TRUE
 		target.thoughts_hud_set(TRUE)
 		var/say = tgui_input_text(user, "What do you wish to say?", "Scan Mind")
-		target.hud_typing = FALSE
+		// target.hud_typing = FALSE
 		target.typing = FALSE
 		if(!say || target.stat)
 			target.thoughts_hud_set(FALSE)
@@ -338,9 +336,8 @@
 	activation_messages = list("Your mind can see things from afar.")
 	deactivation_messages = list("Your mind can no longer can see things from afar.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = REMOTE_VIEW
-
 	spelltype = /obj/effect/proc_holder/spell/remoteview
+	traits_to_add = list(TRAIT_OPEN_MIND)
 
 
 /datum/dna/gene/basic/grant_spell/remoteview/New()

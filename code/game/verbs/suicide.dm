@@ -40,13 +40,13 @@
 			if(confirm == "Yes")
 				suiciding = TRUE
 				do_suicide()
-				create_log(ATTACK_LOG, "Attempted suicide as special role")
+				add_attack_logs(src, src, "Attempted suicide as special role")
 				message_admins("[src] with a special role attempted suicide at [ADMIN_JMP(src)]")
 				return
 			return
 		suiciding = TRUE
 		do_suicide()
-		create_log(ATTACK_LOG, "Attempted suicide")
+		add_attack_logs(src, src, "Attempted suicide")
 
 
 /mob/living/proc/do_suicide()
@@ -177,7 +177,7 @@
 
 	// Failing that...
 	if(!(damagetype & BRUTELOSS) && !(damagetype & FIRELOSS) && !(damagetype & TOXLOSS) && !(damagetype & OXYLOSS))
-		if(NO_BREATHE in dna.species.species_traits)
+		if(HAS_TRAIT(src, TRAIT_NO_BREATH))
 			// the ultimate fallback
 			take_overall_damage(max(dmgamt - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0), 0, updating_health = FALSE)
 		else

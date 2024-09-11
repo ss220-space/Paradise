@@ -79,25 +79,24 @@
 		update_icon(UPDATE_ICON_STATE)
 
 
-/obj/item/deck/attackby(obj/O, mob/user)
-	if(istype(O, /obj/item/cardhand))
-		var/obj/item/cardhand/cardhand = O
+/obj/item/deck/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/cardhand))
+		var/obj/item/cardhand/cardhand = I
 		if(cardhand.parentdeck != src)
-			to_chat(user, span_warning("You can't mix cards from different decks!"))
-			return
-
+			to_chat(user, span_warning("You cannot mix cards from different decks."))
+			return ATTACK_CHAIN_PROCEED
 		if(length(cardhand.cards) > 1)
 			var/confirm = tgui_alert(user, "Are you sure you want to put your [length(cardhand.cards)] cards back into the deck?", "Return Hand", list("Yes", "No"))
 			if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-				return
-
+				return ATTACK_CHAIN_PROCEED
 		for(var/datum/playingcard/card in cardhand.cards)
 			cards += card
 		qdel(cardhand)
 		to_chat(user, span_notice("You place your cards on the bottom of [src]."))
 		update_icon(UPDATE_ICON_STATE)
-		return
-	..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/deck/examine(mob/user)
@@ -368,30 +367,35 @@
 	resistance_flags = deck.card_resistance_flags
 
 
-/obj/item/cardhand/attackby(obj/O, mob/user)
-	if(length(cards) == 1 && is_pen(O))
+/obj/item/cardhand/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		if(length(cards) > 1)
+			to_chat(user, span_warning("You can only write on a single card at once."))
+			return ATTACK_CHAIN_PROCEED
 		var/datum/playingcard/card = cards[1]
 		if(card.name != "Blank Card")
 			to_chat(user, span_notice("You cannot write on that card."))
-			return
+			return ATTACK_CHAIN_PROCEED
 		var/rename = rename_interactive(user, card, use_prefix = FALSE, actually_rename = FALSE)
 		if(rename && card.name == "Blank Card")
 			card.name = rename
 		// SNOWFLAKE FOR CAG, REMOVE IF OTHER CARDS ARE ADDED THAT USE THIS.
 		card.card_icon = "cag_white_card"
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	else if(istype(O, /obj/item/cardhand))
-		var/obj/item/cardhand/cardhand = O
-		if(cardhand.parentdeck == parentdeck)
-			cardhand.concealed = concealed
-			cards += cardhand.cards
-			qdel(cardhand)
-			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-			return
-		else
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/cardhand))
+		var/obj/item/cardhand/cardhand = I
+		if(cardhand.parentdeck != parentdeck)
 			to_chat(user, span_notice("You cannot mix cards from other decks!"))
-			return
-	..()
+			return ATTACK_CHAIN_PROCEED
+		cardhand.concealed = concealed
+		cards += cardhand.cards
+		qdel(cardhand)
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/cardhand/attack_self(mob/user)
@@ -411,9 +415,9 @@
 /obj/item/cardhand/interact(mob/user)
 	var/dat = "You have:<br>"
 	for(var/card in cards)
-		dat += "<a href='?src=[UID()];pick=[card]'>The [card]</a><br>"
+		dat += "<a href='byond://?src=[UID()];pick=[card]'>The [card]</a><br>"
 	dat += "Which card will you remove next?<br>"
-	dat += "<a href='?src=[UID()];pick=Turn'>Turn the hand over</a>"
+	dat += "<a href='byond://?src=[UID()];pick=Turn'>Turn the hand over</a>"
 	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
 	popup.set_content(dat)
 	popup.open()

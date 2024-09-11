@@ -327,13 +327,21 @@ Difficulty: Very Hard
 		disable_shield()
 
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
 	if(!body_shield_enabled)
 		return ..()
+
+	. = ATTACK_CHAIN_BLOCKED
 	do_sparks(2, 1, src)
-	visible_message("<span class='danger'>[src]'s shield deflects [I] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the attack!</span>")
+	visible_message(
+		span_danger("[src]'s shield deflects [I] in a shower of sparks!"),
+		span_warning("Your shield deflects the attack!"),
+		ignored_mobs = user,
+	)
+	to_chat(user, span_danger("[src]'s shield deflects your attack!"))
 	if(I.force)
 		disable_shield()
+
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/devour(mob/living/L)
 	say(pick("JKYZXAIZOBK GTGREYKX GIZOBK", "OTZKMXGZOTM YAHPKIZ YZXKTMZNY", "JKIUSVOROTM GTJ RKGXTOTM", "LOTJOTM IXOZOIGR CKGQTKYYKY")) //what can I say, I like the trope of something talking in cypher

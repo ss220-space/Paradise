@@ -56,12 +56,15 @@
 	if(spawn_amt_left <= 0)
 		qdel(src)
 
-/obj/effect/rend/attackby(obj/item/I as obj, mob/user as mob)
+
+/obj/effect/rend/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/nullrod))
-		user.visible_message("<span class='danger'>[user] seals \the [src] with \the [I].</span>")
+		add_fingerprint(user)
+		user.visible_message(span_danger("[user] seals [src] with [I]."))
 		qdel(src)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
+
 
 /obj/effect/rend/singularity_pull()
 	return
@@ -148,11 +151,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 	GLOB.multiverse.Remove(src)
 	return ..()
 
-/obj/item/multisword/attack(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
-	if(M.real_name == user.real_name)
-		to_chat(user, "<span class='warning'>The [src] detects benevolent energies in your target and redirects your attack!</span>")
-		return
-	..()
+
+/obj/item/multisword/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(target.real_name == user.real_name)	//to prevent accidental friendly fire or out and out grief.
+		to_chat(user, span_warning("The [name] detects benevolent energies in your target and redirects your attack!"))
+		return ATTACK_CHAIN_PROCEED
+	return ..()
+
 
 /obj/item/multisword/attack_self(mob/user)
 	if(user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
@@ -524,39 +529,44 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/necromantic_stone/unlimited
 	unlimited = 1
 
-/obj/item/necromantic_stone/attack(mob/living/carbon/human/M as mob, mob/living/carbon/human/user as mob)
-
-	if(!istype(M))
+/obj/item/necromantic_stone/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!istype(target))
 		return ..()
 
+	. = ATTACK_CHAIN_PROCEED
+
 	if(!istype(user))
-		return
+		return .
 
-	if(M.stat != DEAD)
-		to_chat(user, "<span class='warning'>This artifact can only affect the dead!</span>")
-		return
+	if(target.stat != DEAD)
+		to_chat(user, span_warning("This artifact can only affect the dead!"))
+		return .
 
-	if((!M.mind || !M.client) && !M.grab_ghost())
-		to_chat(user,"<span class='warning'>There is no soul connected to this body...</span>")
-		return
+	if((!target.mind || !target.client) && !target.grab_ghost())
+		to_chat(user, span_warning("There is no soul connected to this body..."))
+		return .
 
 	check_spooky()//clean out/refresh the list
 
 	if(spooky_scaries.len >= 3 && !unlimited)
-		to_chat(user, "<span class='warning'>This artifact can only affect three undead at a time!</span>")
-		return
+		to_chat(user, span_warning("This artifact can only affect three undead at a time!"))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+
 	if(heresy)
-		spawnheresy(M)//oh god why
+		spawnheresy(target)//oh god why
 	else
-		M.set_species(/datum/species/skeleton)
-		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
-		M.grab_ghost() // yoinks the ghost if its not in the body
-		M.revive()
-		equip_skeleton(M)
-	spooky_scaries |= M
-	to_chat(M, "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>")
-	to_chat(M, "<span class='userdanger'>[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!</span>")
+		target.set_species(/datum/species/skeleton)
+		target.visible_message(span_warning("A massive amount of flesh sloughs off [target] and a skeleton rises up!"))
+		target.grab_ghost() // yoinks the ghost if its not in the body
+		target.revive()
+		equip_skeleton(target)
+	spooky_scaries |= target
+	to_chat(target, "[span_userdanger("You have been revived by ")]<B>[user.real_name]!</B>")
+	to_chat(target, span_userdanger("[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!"))
 	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
+
 
 /obj/item/necromantic_stone/proc/check_spooky()
 	if(unlimited) //no point, the list isn't used.
@@ -669,37 +679,40 @@ GLOBAL_LIST_EMPTY(multiverse)
 	var/mob/living/carbon/human/target = null
 	var/list/mob/living/carbon/human/possible = list()
 	var/obj/item/link = null
-	var/cooldown_time = 30 //3s
-	var/cooldown = 0
+	var/cooldown_time = 3 SECONDS
+	COOLDOWN_DECLARE(cooldown)
 	max_integrity = 10
 	resistance_flags = FLAMMABLE
 
-/obj/item/voodoo/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(target && cooldown < world.time)
-		if(is_hot(I))
-			to_chat(target, "<span class='userdanger'>You suddenly feel very hot</span>")
-			target.adjust_bodytemperature(50)
-			GiveHint(target)
-		else if(is_pointed(I))
-			to_chat(target, "<span class='userdanger'>You feel a stabbing pain in [parse_zone(user.zone_selected)]!</span>")
-			target.Weaken(4 SECONDS)
-			GiveHint(target)
-		else if(istype(I,/obj/item/bikehorn))
-			to_chat(target, "<span class='userdanger'>HONK</span>")
-			target << 'sound/items/airhorn.ogg'
-			target.Deaf(6 SECONDS)
-			GiveHint(target)
-		cooldown = world.time +cooldown_time
-		return
 
-	if(!link)
-		if(I.loc == user && istype(I) && I.w_class <= WEIGHT_CLASS_SMALL)
-			user.drop_transfer_item_to_loc(I, src)
-			link = I
-			to_chat(user, "You attach [I] to the doll.")
-			update_targets()
-		return
+/obj/item/voodoo/attackby(obj/item/I, mob/user, params)
+	if(target && COOLDOWN_FINISHED(src, cooldown))
+		add_fingerprint(user)
+		if(is_hot(I))
+			to_chat(target, span_userdanger("You suddenly feel very hot."))
+			target.adjust_bodytemperature(50)
+		else if(is_pointed(I))
+			to_chat(target, span_userdanger("You feel a stabbing pain in [parse_zone(user.zone_selected)]!"))
+			target.Weaken(4 SECONDS)
+		else if(istype(I, /obj/item/bikehorn))
+			to_chat(target, span_userdanger("HONK!"))
+			target.playsound_local(null, 'sound/items/airhorn.ogg', 150, TRUE)
+			target.Deaf(6 SECONDS)
+		GiveHint(target)
+		COOLDOWN_START(src, cooldown, cooldown_time)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(!link && I.loc == user && I.w_class <= WEIGHT_CLASS_SMALL)
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_fingerprint(user)
+		link = I
+		to_chat(user, span_notice("You attach [I] to the doll."))
+		update_targets()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/item/voodoo/check_eye(mob/user)
 	if(loc != user)

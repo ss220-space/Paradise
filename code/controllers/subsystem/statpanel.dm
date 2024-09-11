@@ -201,6 +201,7 @@ SUBSYSTEM_DEF(statpanels)
 		list("Byond:", "(FPS:[world.fps]) (TickCount:[world.time / world.tick_lag]) (TickDrift:[round(Master.tickdrift, 1)]([round((Master.tickdrift / (world.time / world.tick_lag)) * 100, 0.1)]%)) (Internal Tick Usage: [round(MAPTICK_LAST_INTERNAL_TICK_USAGE, 0.1)]%)"),
 		list("Master Controller:", Master.stat_entry(), "[Master.UID()]"),
 		list("Failsafe Controller:", Failsafe.stat_entry(), "[Failsafe.UID()]"),
+		list("Configuration Controller:", config.stat_entry(), "[config.UID()]"),
 		list("","")
 	)
 	for(var/datum/controller/subsystem/sub_system as anything in Master.subsystems)

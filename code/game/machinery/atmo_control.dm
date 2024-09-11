@@ -1,11 +1,13 @@
 GLOBAL_LIST_EMPTY(gas_sensors)
 
-#define SENSOR_PRESSURE 1
-#define SENSOR_TEMPERATURE 2
-#define SENSOR_O2 4
-#define SENSOR_PLASMA 8
-#define SENSOR_N2 16
-#define SENSOR_CO2 32
+#define SENSOR_SCAN_PRESSURE		(1<<0)
+#define SENSOR_SCAN_TEMPERATURE		(1<<1)
+
+#define SENSOR_COMPOSITION_OXYGEN	(1<<2)
+#define SENSOR_COMPOSITION_TOXINS	(1<<3)
+#define SENSOR_COMPOSITION_NITROGEN	(1<<4)
+#define SENSOR_COMPOSITION_CO2		(1<<5)
+#define SENSOR_COMPOSITION_N2O		(1<<6)
 
 
 /obj/machinery/atmospherics/air_sensor
@@ -19,18 +21,11 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	frequency = ATMOS_TANKS_FREQ
 	on = TRUE
 
-	var/state = NONE
 	var/bolts = TRUE
 	var/id_tag
-	var/output = SENSOR_PRESSURE|SENSOR_TEMPERATURE
-	//Flags: (see lines 3-9)
-	// 1 for pressure
-	// 2 for temperature
-	// Output >= 4 includes gas composition
-	// 4 for oxygen concentration
-	// 8 for toxins concentration
-	// 16 for nitrogen concentration
-	// 32 for carbon dioxide concentration
+	/// 1 - Pressure. 2 - Temperature.
+	/// 4 - Oxygen. 8 - Toxins. 16 - Nitrogen. 32 - Carbon Dioxide. 64 - Nitrous Oxide.
+	var/output = SENSOR_SCAN_PRESSURE|SENSOR_SCAN_TEMPERATURE
 
 
 
@@ -39,7 +34,15 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 
 /obj/machinery/atmospherics/air_sensor/proc/toggle_out_flag(bitflag_value)
-	if(!(bitflag_value in list(SENSOR_PRESSURE, SENSOR_TEMPERATURE, SENSOR_O2, SENSOR_PLASMA, SENSOR_N2, SENSOR_CO2)))
+	if(!(bitflag_value in list(
+								SENSOR_SCAN_PRESSURE,
+								SENSOR_SCAN_TEMPERATURE,
+								SENSOR_COMPOSITION_OXYGEN,
+								SENSOR_COMPOSITION_TOXINS,
+								SENSOR_COMPOSITION_NITROGEN,
+								SENSOR_COMPOSITION_CO2,
+								SENSOR_COMPOSITION_N2O,
+							)))
 		return
 	if(output & bitflag_value)
 		output &= ~bitflag_value
@@ -83,27 +86,31 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 		var/datum/gas_mixture/air_sample = return_air()
 
-		if(output&1)
-			signal.data["pressure"] = num2text(round(air_sample.return_pressure(),0.1),)
-		if(output&2)
-			signal.data["temperature"] = round(air_sample.temperature,0.1)
+		if(output & SENSOR_SCAN_PRESSURE)
+			signal.data["pressure"] = num2text(round(air_sample.return_pressure(), 0.1))
+		if(output & SENSOR_SCAN_TEMPERATURE)
+			signal.data["temperature"] = round(air_sample.temperature, 0.1)
 
-		if(output>4)
+		if(output > (SENSOR_SCAN_PRESSURE|SENSOR_SCAN_TEMPERATURE))
 			var/total_moles = air_sample.total_moles()
 			if(total_moles > 0)
-				if(output&4)
-					signal.data["oxygen"] = round(100*air_sample.oxygen/total_moles,0.1)
-				if(output&8)
-					signal.data["toxins"] = round(100*air_sample.toxins/total_moles,0.1)
-				if(output&16)
-					signal.data["nitrogen"] = round(100*air_sample.nitrogen/total_moles,0.1)
-				if(output&32)
-					signal.data["carbon_dioxide"] = round(100*air_sample.carbon_dioxide/total_moles,0.1)
+				if(output & SENSOR_COMPOSITION_OXYGEN)
+					signal.data["oxygen"] = round(100 * air_sample.oxygen / total_moles, 0.1)
+				if(output & SENSOR_COMPOSITION_TOXINS)
+					signal.data["toxins"] = round(100 * air_sample.toxins / total_moles, 0.1)
+				if(output & SENSOR_COMPOSITION_NITROGEN)
+					signal.data["nitrogen"] = round(100 * air_sample.nitrogen / total_moles, 0.1)
+				if(output & SENSOR_COMPOSITION_CO2)
+					signal.data["carbon_dioxide"] = round(100 * air_sample.carbon_dioxide / total_moles, 0.1)
+				if(output & SENSOR_COMPOSITION_N2O)
+					signal.data["nitrous_oxide"] = round(100 * air_sample.sleeping_agent / total_moles, 0.1)
 			else
 				signal.data["oxygen"] = 0
 				signal.data["toxins"] = 0
 				signal.data["nitrogen"] = 0
 				signal.data["carbon_dioxide"] = 0
+				signal.data["nitrous_oxide"] = 0
+
 		signal.data["sigtype"]="status"
 		radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 
@@ -206,9 +213,11 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 						if(data["oxygen"])
 							sensor_part += "<li>[data["oxygen"]]% O<sub>2</sub></li>"
 						if(data["nitrogen"])
-							sensor_part += "<li>[data["nitrogen"]]% N</li>"
+							sensor_part += "<li>[data["nitrogen"]]% N<sub>2</sub></li>"
 						if(data["carbon_dioxide"])
 							sensor_part += "<li>[data["carbon_dioxide"]]% CO<sub>2</sub></li>"
+						if(data["nitrous_oxide"])
+							sensor_part += "<li>[data["nitrous_oxide"]]% N<sub>2</sub>O</li>"
 						if(data["toxins"])
 							sensor_part += "<li>[data["toxins"]]% Plasma</li>"
 						sensor_part += "</ul></td></tr>"
@@ -365,11 +374,11 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			var/volume_rate = input_info["volume_rate"]
 			output += {"
 <fieldset>
-	<legend>Input (<A href='?src=[UID()];in_refresh_status=1'>Refresh</A>)</legend>
+	<legend>Input (<a href='byond://?src=[UID()];in_refresh_status=1'>Refresh</A>)</legend>
 	<table>
 		<tr>
 			<th>State:</th>
-			<td><A href='?src=[UID()];in_toggle_injector=1'>[power?("Injecting"):("On Hold")]</A></td>
+			<td><a href='byond://?src=[UID()];in_toggle_injector=1'>[power?("Injecting"):("On Hold")]</A></td>
 		</tr>
 		<tr>
 			<th>Rate:</th>
@@ -379,28 +388,28 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 </fieldset>
 "}
 		else
-			output += "<FONT color='red'>ERROR: Can not find input port</FONT> <A href='?src=[UID()];in_refresh_status=1'>Search</A><BR>"
+			output += "<FONT color='red'>ERROR: Can not find input port</FONT> <a href='byond://?src=[UID()];in_refresh_status=1'>Search</A><BR>"
 	if(output_tag)
 		if(output_info)
 			var/power = (output_info["power"])
 			var/output_pressure = output_info["internal"]
 			output += {"
 <fieldset>
-	<legend>Output (<A href='?src=[UID()];out_refresh_status=1'>Refresh</A>)</legend>
+	<legend>Output (<a href='byond://?src=[UID()];out_refresh_status=1'>Refresh</A>)</legend>
 	<table>
 		<tr>
 			<th>State:</th>
-			<td><A href='?src=[UID()];out_toggle_power=1'>[power?("Open"):("On Hold")]</A></td>
+			<td><a href='byond://?src=[UID()];out_toggle_power=1'>[power?("Open"):("On Hold")]</A></td>
 		</tr>
 		<tr>
 			<th>Max Output Pressure:</th>
-			<td><A href='?src=[UID()];out_set_pressure=1'>[output_pressure]</A> kPa</td>
+			<td><a href='byond://?src=[UID()];out_set_pressure=1'>[output_pressure]</A> kPa</td>
 		</tr>
 	</table>
 </fieldset>
 "}
 		else
-			output += "<FONT color='red'>ERROR: Can not find output port</FONT> <A href='?src=[UID()];out_refresh_status=1'>Search</A><BR>"
+			output += "<FONT color='red'>ERROR: Can not find output port</FONT> <a href='byond://?src=[UID()];out_refresh_status=1'>Search</A><BR>"
 
 	return output
 
@@ -518,7 +527,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 /obj/machinery/computer/general_air_control/fuel_injection/return_text()
 	var/output = ..()
-	output += "<fieldset><legend>Fuel Injection System (<A href='?src=[UID()];refresh_status=1'>Refresh</A>)</legend>"
+	output += "<fieldset><legend>Fuel Injection System (<a href='byond://?src=[UID()];refresh_status=1'>Refresh</A>)</legend>"
 	if(device_info)
 		var/power = device_info["power"]
 		var/volume_rate = device_info["volume_rate"]
@@ -533,13 +542,13 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		</tr>
 		<tr>
 			<th>Automated Fuel Injection:</th>
-			<td><A href='?src=[UID()];toggle_automation=1'>[automation?"Engaged":"Disengaged"]</A></td>
+			<td><a href='byond://?src=[UID()];toggle_automation=1'>[automation?"Engaged":"Disengaged"]</A></td>
 		</tr>"}
 
 		if(automation)
 
 			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:372: output += "Automated Fuel Injection: <A href='?src=[UID()];toggle_automation=1'>Engaged</A><BR>"
+			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:372: output += "Automated Fuel Injection: <a href='byond://?src=[UID()];toggle_automation=1'>Engaged</A><BR>"
 			output += {"
 			<tr>
 				<td colspan="2">Injector Controls Locked Out</td>
@@ -548,16 +557,16 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		else
 
 			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:375: output += "Automated Fuel Injection: <A href='?src=[UID()];toggle_automation=1'>Disengaged</A><BR>"
+			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:375: output += "Automated Fuel Injection: <a href='byond://?src=[UID()];toggle_automation=1'>Disengaged</A><BR>"
 			output += {"
 			<tr>
 				<th>Injector:</th>
-				<td><A href='?src=[UID()];toggle_injector=1'>Toggle Power</A> <A href='?src=[UID()];injection=1'>Inject (1 Cycle)</A></td>
+				<td><a href='byond://?src=[UID()];toggle_injector=1'>Toggle Power</A> <a href='byond://?src=[UID()];injection=1'>Inject (1 Cycle)</A></td>
 			</td>"}
 			// END AUTOFIX
 		output += "</table>"
 	else
-		output += {"<p style="color:red"><b>ERROR:</b> Can not find device. <A href='?src=[UID()];refresh_status=1'>Search</A></p>"}
+		output += {"<p style="color:red"><b>ERROR:</b> Can not find device. <a href='byond://?src=[UID()];refresh_status=1'>Search</A></p>"}
 	output += "</fieldset>"
 
 	return output

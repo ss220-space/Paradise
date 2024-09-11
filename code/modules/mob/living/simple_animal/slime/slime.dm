@@ -159,6 +159,10 @@
 
 /mob/living/simple_animal/slime/updatehealth(reason = "none given", should_log = FALSE)
 	. = ..()
+	update_movespeed_damage_modifiers()
+
+
+/mob/living/simple_animal/slime/update_movespeed_damage_modifiers()
 	var/mod = 0
 	if(!HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
 		var/health_deficiency = (maxHealth - health)
@@ -381,37 +385,66 @@
 
 
 /mob/living/simple_animal/slime/attackby(obj/item/I, mob/living/user, params)
-	if(stat == DEAD && surgeries.len)
-		if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM)
-			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, src))
-					return 1
-	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && !stat) //Let's you feed slimes plasma.
+	if(user.a_intent == INTENT_HARM)
+		if(I.force && prob(25))
+			user.do_attack_animation(src)
+			visible_message(span_danger("[I] passes right through [src]!"))
+			playsound(loc, 'sound/effects/footstep/slime1.ogg', 50, TRUE, -1)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		. = ..()
+		if(!ATTACK_CHAIN_CANCEL_CHECK(.))
+			discipline_on_attack(I.force, user)
+		return .
+
+	if(user.a_intent == INTENT_HELP && stat == DEAD && length(surgeries))
+		for(var/datum/surgery/surgery as anything in surgeries)
+			if(surgery.next_step(user, src))
+				add_fingerprint(user)
+				return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stack/sheet/mineral/plasma)) //Let's you feed slimes plasma.
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/mineral/plasma/plasma = I
+		if(stat != CONSCIOUS)
+			to_chat(user, span_warning("[src] has problems with health."))
+			return ATTACK_CHAIN_PROCEED
+		if(!plasma.use(1))
+			to_chat(user, span_warning("You don't have enough plasma to feed [src]!"))
+			return ATTACK_CHAIN_PROCEED
 		if(user in Friends)
-			++Friends[user]
+			Friends[user]++
 		else
 			Friends[user] = 1
 			RegisterSignal(user, COMSIG_QDELETING, PROC_REF(clear_friend))
-		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
-		var/obj/item/stack/sheet/mineral/plasma/S = I
-		S.use(1)
+		user.visible_message(
+			span_notice("[user] hand-feeds plasma to [src]. It chirps happily."),
+			span_notice("You hand-feed plasma to [src]. It chirps happily."),
+		)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(I.force && prob(25))
+		user.do_attack_animation(src)
+		visible_message(span_danger("[I] passes right through [src]!"))
+		playsound(loc, 'sound/effects/footstep/slime1.ogg', 50, TRUE, -1)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	. = ..()
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
+		discipline_on_attack(I.force, user)
+
+
+/mob/living/simple_animal/slime/proc/discipline_on_attack(force = 0, mob/user)
+	attacked += 10 - age_state.attacked
+	if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
+		Discipline = 0
+	if(force < 3)
 		return
-	if(I.force > 0)
-		attacked += 10 - age_state.attacked
-		if(prob(25))
-			user.do_attack_animation(src)
-			user.changeNext_move(CLICK_CD_MELEE)
-			to_chat(user, "<span class='danger'>[I] passes right through [src]!</span>")
-			return
-		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
-			Discipline = 0
-	if(I.force >= 3)
-		var/force_effect = 2 * I.force
-		if(age_state.age != SLIME_BABY)
-			force_effect = round(I.force / 2)
-		if(prob(10 + force_effect))
-			discipline_slime(user)
-	..()
+	var/force_effect = 2 * force
+	if(age_state.age != SLIME_BABY)
+		force_effect = round(force / 2)
+	if(prob(10 + force_effect))
+		discipline_slime(user)
+
 
 /mob/living/simple_animal/slime/proc/clear_friend(mob/living/friend)
 	UnregisterSignal(friend, COMSIG_QDELETING)

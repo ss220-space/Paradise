@@ -130,6 +130,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/mob/living/simple_animal/bot/secbot/pingsky{
+	desc = "Worse than nothing";
+	name = "AI Defender"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -5803,12 +5807,8 @@
 /area/engine/controlroom)
 "aSH" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "air_sensor"
-	},
-/obj/machinery/atmospherics/air_sensor{
-	frequency = 1443;
 	id_tag = "air_sensor";
-	output = 7
+	output = 23
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -16270,10 +16270,10 @@
 	pixel_y = -22
 	},
 /obj/machinery/light/small,
-/obj/structure/closet/crate,
 /obj/item/storage/belt/champion/wrestling/true,
 /obj/item/stack/sheet/mineral/gold,
 /obj/item/stack/sheet/mineral/gold,
+/obj/structure/closet/crate/vault,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -29952,6 +29952,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/roboquest_pad,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "purple"
@@ -40838,6 +40839,14 @@
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
+/obj/item/storage/belt/utility,
+/obj/item/extinguisher,
+/obj/item/secbot_assembly{
+	created_name = "Officer Podsky";
+	desc = "Ты не узнаешь ценность чего-либо, пока не потеряешь это...";
+	name = "Обломки офицера Подски";
+	pixel_y = 21
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -48430,7 +48439,8 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/obj/machinery/arcade/claw,
+/obj/structure/table,
+/obj/item/toy/plushie/red_fox,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "fOK" = (
@@ -51492,7 +51502,8 @@
 /area/crew_quarters/kitchen)
 "gCu" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "mix_sensor"
+	id_tag = "mix_sensor";
+	output = 127
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
@@ -63383,6 +63394,7 @@
 "jwd" = (
 /obj/structure/table,
 /obj/item/assembly/igniter,
+/obj/item/book/manual/nuclear,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -71290,8 +71302,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/table,
-/obj/random/plushie,
+/obj/machinery/arcade/claw,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "lyU" = (
@@ -74300,7 +74311,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/chair/stool,
+/obj/machinery/arcade/minesweeper,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "mlG" = (
@@ -74596,15 +74607,8 @@
 	},
 /area/engine/break_room)
 "mop" = (
-/obj/structure/table,
-/obj/item/storage/belt/utility,
-/obj/item/extinguisher,
-/obj/item/secbot_assembly{
-	created_name = "Officer Podsky";
-	desc = "Ты не узнаешь ценность чего-либо, пока не потеряешь это...";
-	name = "Обломки офицера Подски";
-	pixel_y = 21
-	},
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/closet/secure_closet/pilot_sniper,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74953,9 +74957,6 @@
 /area/maintenance/kitchen)
 "msG" = (
 /obj/structure/window/reinforced,
-/obj/structure/chair/comfy/black{
-	dir = 8
-	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "msV" = (
@@ -78324,9 +78325,7 @@
 	dir = 6
 	},
 /obj/effect/decal/warning_stripes/northwest,
-/obj/item/pipe_meter{
-	anchored = 1
-	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating/airless,
 /area/medical/virology/lab)
 "nhs" = (
@@ -82255,7 +82254,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/crate,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
@@ -82264,6 +82262,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
+/obj/structure/closet/crate/vault,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -82366,7 +82365,7 @@
 /obj/structure/closet/fireaxecabinet{
 	pixel_y = 32
 	},
-/obj/structure/closet/secure_closet/freezer/money,
+/obj/structure/closet/secure_closet/freezer/vault,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -88851,7 +88850,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/chair/comfy/black,
+/obj/structure/chair/stool,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "pCX" = (
@@ -90659,6 +90658,16 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
+"pWQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/chair/stool,
+/turf/simulated/floor/carpet/arcade,
+/area/crew_quarters/fitness)
 "pWR" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
@@ -94363,8 +94372,9 @@
 	},
 /area/bridge)
 "qMN" = (
-/obj/structure/table,
-/obj/item/book/manual/nuclear,
+/obj/machinery/arcade/minesweeper{
+	freeplay = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -97927,7 +97937,9 @@
 /obj/machinery/newscaster{
 	pixel_x = 30
 	},
-/obj/machinery/computer/arcade,
+/obj/machinery/arcade/minesweeper{
+	freeplay = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -110924,6 +110936,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light,
+/obj/machinery/computer/roboquest,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "purple"
@@ -117421,7 +117434,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
-/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/storage/toolbox/electrical,
 /obj/item/multitool,
 /turf/simulated/floor/plasteel{
@@ -119927,7 +119940,7 @@
 /area/crew_quarters/captain/bedroom)
 "wPi" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/storage/toolbox/electrical,
 /obj/item/multitool,
 /turf/simulated/floor/plasteel{
@@ -120115,12 +120128,6 @@
 	icon_state = "darkbluecorners"
 	},
 /area/construction/hallway)
-"wRB" = (
-/obj/machinery/atmospherics/unary/vent_scrubber,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/virology)
 "wRH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -153575,7 +153582,7 @@ yhg
 yhg
 yhg
 yhg
-plO
+yhg
 yhg
 yhg
 yhg
@@ -175834,7 +175841,7 @@ rvd
 fey
 ltW
 wBW
-wRB
+qIo
 qUW
 ltW
 hbD
@@ -179142,10 +179149,10 @@ oId
 xyi
 fVK
 cQj
-cQj
 iUT
-mjE
-msG
+cQj
+pWQ
+cTc
 lQm
 qEC
 ogj
@@ -179659,7 +179666,7 @@ cQj
 iUT
 cQj
 pww
-cTc
+msG
 wkE
 qEC
 oum

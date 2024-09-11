@@ -33,12 +33,12 @@
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 
 
-/obj/item/gun/projectile/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
+/obj/item/gun/projectile/automatic/l6_saw/can_shoot(mob/user)
 	if(cover_open)
 		balloon_alert(user, "крышка не закрыта!")
-	else
-		..()
-		update_icon()
+		return FALSE
+	return ..()
+
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_hand(mob/user)
 	if(loc != user)
@@ -49,7 +49,7 @@
 	else if(cover_open && magazine)
 		//drop the mag
 		magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
-		magazine.loc = get_turf(loc)
+		magazine.forceMove(drop_location())
 		user.put_in_hands(magazine)
 		magazine = null
 		playsound(src, magout_sound, 50, 1)
@@ -57,14 +57,12 @@
 		balloon_alert(user, "магазин вынут")
 
 
-/obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/ammo_box/magazine))
-		var/obj/item/ammo_box/magazine/AM = A
-		if(istype(AM, mag_type))
-			if(!cover_open)
-				balloon_alert(user, "крышка закрыта!")
-				return
+/obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/I, mob/user, params)
+	if(istype(I, mag_type) && !cover_open)
+		balloon_alert(user, "крышка закрыта!")
+		return ATTACK_CHAIN_PROCEED
 	return ..()
+
 
 //ammo//
 
@@ -115,7 +113,7 @@
 
 /obj/item/ammo_box/magazine/mm556x45
 	name = "box magazine (5.56x45mm)"
-	icon_state = "a762-200"
+	icon_state = "a762"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/mm556x45/weak
 	caliber = "mm55645"

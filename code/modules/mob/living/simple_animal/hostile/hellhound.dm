@@ -1,13 +1,12 @@
 // Hellhound
 /mob/living/simple_animal/hostile/hellhound
 	// Sprites by FoS: https://www.paradisestation.org/forum/profile/335-fos
-	name = "Lesser Hellhound"
+	name = "lesser hellhound"
 	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. A firey, lava-like substance drips from it."
 	icon_state = "hellhound"
 	icon_living = "hellhound"
 	icon_dead = "hellhound_dead"
 	icon_resting = "hellhound_rest"
-	mutations = list(BREATHLESS)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -37,10 +36,13 @@
 	var/smoke_freq = 300 // 30 seconds
 	var/datum/action/innate/demon/whisper/whisper_action
 
-/mob/living/simple_animal/hostile/hellhound/New()
+
+/mob/living/simple_animal/hostile/hellhound/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_BREATH, INNATE_TRAIT)
 	whisper_action = new()
 	whisper_action.Grant(src)
+
 
 /mob/living/simple_animal/hostile/hellhound/handle_automated_action()
 	if(!..())
@@ -92,15 +94,19 @@
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/hellhound/attackby(obj/item/C, mob/user, params)
+
+/mob/living/simple_animal/hostile/hellhound/attackby(obj/item/I, mob/user, params)
+	var/current_health = health
 	. = ..()
-	if(target && isliving(target))
-		var/mob/living/L = target
-		if(L.stat != CONSCIOUS)
-			GiveTarget(user)
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || health >= current_health)
+		return .
+	var/mob/living/living_target = target
+	if(isliving(target) && living_target.stat != CONSCIOUS)
+		GiveTarget(user)
+
 
 /mob/living/simple_animal/hostile/hellhound/greater
-	name = "Greater Hellhound"
+	name = "greater hellhound"
 	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. Greater hounds are far stronger than their lesser kin, and typically employed by powerful bluespace entities."
 	icon_state = "hellhoundgreater"
 	icon_living = "hellhoundgreater"
@@ -115,7 +121,7 @@
 	melee_damage_upper = 30
 	environment_smash = 2
 
-/mob/living/simple_animal/hostile/hellhound/greater/New()
+/mob/living/simple_animal/hostile/hellhound/greater/Initialize(mapload)
 	. = ..()
 	// Movement
 	AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt/shift)

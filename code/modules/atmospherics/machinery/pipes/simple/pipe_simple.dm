@@ -45,7 +45,7 @@
 
 /obj/machinery/atmospherics/pipe/simple/atmos_init(initPipe = 1)
 	..()
-	if(initPipe)
+	if(initPipe && isturf(loc))
 		normalize_dir()
 		var/N = 2
 		for(var/D in GLOB.cardinal)
@@ -67,10 +67,11 @@
 							node2 = target
 							break
 
-		var/turf/T = loc			// hide if turf is not intact
-		if(!T.transparent_floor)
-			hide(T.intact)
+		var/turf/our_turf = loc
+		if(our_turf.transparent_floor == TURF_NONTRANSPARENT)
+			hide(our_turf.intact)	// hide if turf is not intact
 		update_icon()
+
 
 /obj/machinery/atmospherics/pipe/simple/check_pressure(pressure)
 	var/datum/gas_mixture/environment = loc.return_air()

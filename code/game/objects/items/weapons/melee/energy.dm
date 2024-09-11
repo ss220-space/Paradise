@@ -22,11 +22,12 @@
 	light_on = FALSE
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
 
-/obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
+
+/obj/item/melee/energy/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))
-		for(var/F in target.faction)
-			if(F in nemesis_factions)
+		for(var/faction in target.faction)
+			if(faction in nemesis_factions)
 				nemesis_faction = TRUE
 				force += faction_bonus_force
 				nemesis_effects(user, target)
@@ -34,6 +35,7 @@
 	. = ..()
 	if(nemesis_faction)
 		force -= faction_bonus_force
+
 
 /obj/item/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>", \
@@ -58,7 +60,7 @@
 
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 		user.take_organ_damage(5,5)
 	active = !active
@@ -140,15 +142,16 @@
 /obj/item/melee/energy/sword/cyborg
 	var/hitcost = 50
 
-/obj/item/melee/energy/sword/cyborg/attack(mob/M, var/mob/living/silicon/robot/R)
-	if(R.cell)
-		var/obj/item/stock_parts/cell/C = R.cell
-		if(active && !(C.use(hitcost)))
-			attack_self(R)
-			to_chat(R, "<span class='notice'>It's out of charge!</span>")
-			return
-		..()
-	return
+
+/obj/item/melee/energy/sword/cyborg/attack(mob/living/target, mob/living/silicon/robot/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!user.cell)
+		return ATTACK_CHAIN_PROCEED
+	if(active && !user.cell.use(hitcost))
+		attack_self(user)
+		to_chat(user, span_warning("It's out of charge!"))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/melee/energy/sword/cyborg/saw //Used by medical Syndicate cyborgs
 	name = "energy saw"
@@ -199,33 +202,43 @@
 /obj/item/melee/energy/sword/saber/yellow
 	item_color = "yellow"
 
-/obj/item/melee/energy/sword/saber/attackby(obj/item/W, mob/living/user, params)
-	..()
-	if(istype(W, /obj/item/melee/energy/sword/saber))
-		if(W == src)
-			to_chat(user, "<span class='notice'>You try to attach the end of the energy sword to... itself. You're not very smart, are you?</span>")
-			if(ishuman(user))
-				user.adjustBrainLoss(10)
-		else
-			to_chat(user, "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>")
-			var/obj/item/twohanded/dualsaber/newSaber = new(drop_location())
-			if(hacked) // That's right, we'll only check the "original" esword.
-				newSaber.hacked = TRUE
-				newSaber.blade_color = "rainbow"
-			user.temporarily_remove_item_from_inventory(W)
-			user.temporarily_remove_item_from_inventory(src)
-			qdel(W)
-			qdel(src)
-			user.put_in_hands(newSaber, ignore_anim = FALSE)
-	else if(W.tool_behaviour == TOOL_MULTITOOL)
-		if(hacked)
-			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
-			return
 
-		hacked = TRUE
-		item_color = "rainbow"
-		to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
-		update_icon(UPDATE_ICON_STATE)
+/obj/item/melee/energy/sword/saber/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/melee/energy/sword/saber))
+		add_fingerprint(user)
+		if(I == src)
+			to_chat(user, span_warning("You try to attach the end of the plastic sword to... itself. You're not very smart, are you?"))
+			user.apply_damage(10, BRAIN)
+			return ATTACK_CHAIN_PROCEED
+		if(loc == user && !user.can_unEquip(src))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user,  span_notice("You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool."))
+		var/obj/item/twohanded/dualsaber/dual_saber = new(drop_location())
+		if(hacked) // That's right, we'll only check the "original" esword.
+			dual_saber.hacked = TRUE
+			dual_saber.blade_color = "rainbow"
+		user.temporarily_remove_item_from_inventory(src)
+		user.put_in_hands(dual_saber, ignore_anim = FALSE)
+		qdel(I)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/item/melee/energy/sword/saber/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(hacked)
+		to_chat(user, span_warning("It's already fabulous!"))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	hacked = TRUE
+	item_color = "rainbow"
+	to_chat(user, span_warning("RNBW_ENGAGE"))
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/melee/energy/sword/saber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -320,12 +333,12 @@
 	if(transform_cooldown > world.time)
 		return FALSE
 
-	transform_cooldown = world.time + (CLICK_CD_MELEE * 0.5)
-	user.changeNext_move(CLICK_CD_MELEE * 0.25)
+	transform_cooldown = world.time + (attack_speed * 0.5)
+	user.changeNext_move(attack_speed * 0.25)
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if((CLUMSY in H.mutations) && prob(50))
+		if(HAS_TRAIT(H, TRAIT_CLUMSY) && prob(50))
 			to_chat(H, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 			H.take_organ_damage(10,10)
 	active = !active
@@ -364,26 +377,27 @@
 	transform_weapon(user, TRUE)
 	return BRUTELOSS
 
-/obj/item/melee/energy/cleaving_saw/melee_attack_chain(mob/user, atom/target, params)
-	..()
-	if(!active)
-		user.changeNext_move(CLICK_CD_MELEE * 0.5) //when closed, it attacks very rapidly
 
-/obj/item/melee/energy/cleaving_saw/attack(mob/living/target, mob/living/carbon/human/user)
-	if(!active || swiping || !target.density || get_turf(target) == get_turf(user))
+/obj/item/melee/energy/cleaving_saw/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	var/turf/user_turf = get_turf(user)
+	var/turf/target_turf = get_turf(target)
+	if(!active || swiping || user_turf == target_turf)
 		if(!active)
+			user.changeNext_move(attack_speed * 0.5)	//when closed, it attacks very rapidly
 			faction_bonus_force = 0
-		..()
+		. = ..()
 		if(!active)
 			faction_bonus_force = initial(faction_bonus_force)
-	else
-		var/turf/user_turf = get_turf(user)
-		var/dir_to_target = get_dir(user_turf, get_turf(target))
-		swiping = TRUE
-		var/static/list/cleaving_saw_cleave_angles = list(0, -45, 45) //so that the animation animates towards the target clicked and not towards a side target
-		for(var/i in cleaving_saw_cleave_angles)
-			var/turf/T = get_step(user_turf, turn(dir_to_target, i))
-			for(var/mob/living/L in T)
-				if(user.Adjacent(L) && L.density)
-					melee_attack_chain(user, L)
-		swiping = FALSE
+		return .
+
+	var/dir_to_target = get_dir(user_turf, target_turf)
+	swiping = TRUE
+	var/static/list/cleaving_saw_cleave_angles = list(0, -45, 45) //so that the animation animates towards the target clicked and not towards a side target
+	for(var/i in cleaving_saw_cleave_angles)
+		var/turf/check_turf = get_step(user_turf, turn(dir_to_target, i))
+		for(var/mob/living/mob in check_turf)
+			if(user.Adjacent(mob) && mob.body_position == STANDING_UP)
+				melee_attack_chain(user, mob, params)
+	swiping = FALSE
+	return ATTACK_CHAIN_BLOCKED_ALL
+

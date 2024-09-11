@@ -144,15 +144,19 @@
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	qdel(src)
 
-/obj/item/tank/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
 
-	add_fingerprint(user)
+/obj/item/tank/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
 	if(isassembly(loc))
 		icon = loc
 
-	if(istype(W, /obj/item/assembly_holder))
-		bomb_assemble(W,user)
+	if(istype(I, /obj/item/assembly_holder) && bomb_assemble(I, user))
+		. |= ATTACK_CHAIN_SUCCESS
+
+
 
 /obj/item/tank/attack_self(mob/user as mob)
 	if(!(air_contents))

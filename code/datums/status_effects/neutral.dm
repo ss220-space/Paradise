@@ -294,3 +294,9 @@
 	if(new_value != LYING_DOWN)
 		stop_rolling()
 
+
+/datum/status_effect/recently_succumbed
+	id = "recently_succumbed"
+	alert_type = null
+	duration = 1 MINUTES
+	status_type = STATUS_EFFECT_REFRESH

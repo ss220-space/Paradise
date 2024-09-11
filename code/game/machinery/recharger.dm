@@ -36,49 +36,50 @@
 		recharge_coeff = capacitor.rating
 
 
-/obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
-	var/allowed = is_type_in_list(G, allowed_devices)
-
-	if(!allowed)
+/obj/machinery/recharger/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || !is_type_in_list(I, allowed_devices))
 		return ..()
 
-	. = TRUE
+	add_fingerprint(user)
+	. = ATTACK_CHAIN_PROCEED
+
 	if(!anchored)
-		to_chat(user, span_notice("[src] isn't connected to anything!"))
+		to_chat(user, span_warning("The [name] isn't connected to anything!"))
 		return .
 	if(panel_open)
 		to_chat(user, span_warning("Close the maintenance panel first!"))
 		return .
 	if(charging)
-		to_chat(user, span_warning("There's \a [charging] inserted in [src] already!"))
+		to_chat(user, span_warning("There is already [charging.name] inserted in [src]!"))
 		return .
 
 	//Checks to make sure he's not in space doing it, and that the area got proper power.
 	var/area/our_area = get_area(src)
 	if(!istype(our_area) || !our_area.power_equip)
-		to_chat(user, span_warning("[src] blinks red as you try to insert [G]."))
+		to_chat(user, span_warning("[src] blinks red as you try to insert [I]."))
 		return .
 
-	if(istype(G, /obj/item/gun/energy))
-		var/obj/item/gun/energy/e_gun = G
+	if(istype(I, /obj/item/gun/energy))
+		var/obj/item/gun/energy/e_gun = I
 		if(!e_gun.can_charge)
-			to_chat(user, span_notice("Your gun has no external power connector."))
+			to_chat(user, span_warning("Your gun has no external power connector."))
 			return .
 
-	if(!user.drop_transfer_item_to_loc(G, src))
-		to_chat(user, span_warning("[G] is stuck to your hand!"))
-		return .
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
 
-	add_fingerprint(user)
-	charging = G
+	charging = I
 	use_power = ACTIVE_POWER_USE
-	using_power = check_cell_needs_recharging(get_cell_from(G))
+	using_power = check_cell_needs_recharging(get_cell_from(I))
 	update_icon()
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/machinery/recharger/crowbar_act(mob/user, obj/item/I)
-	if(panel_open && !charging && default_deconstruction_crowbar(user, I))
-		return TRUE
+	if(panel_open || charging)
+		return FALSE
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
 
 
 /obj/machinery/recharger/screwdriver_act(mob/user, obj/item/I)

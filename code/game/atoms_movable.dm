@@ -243,6 +243,8 @@
 
 	return ..()
 
+/atom/movable/proc/moveToNullspace()
+	return doMove(null)
 
 /// Proc to hook user-enacted teleporting behavior and keep logging of the event.
 /atom/movable/proc/admin_teleport(atom/new_location)
@@ -723,6 +725,8 @@
 
 	for (var/datum/light_source/light as anything in light_sources) // Cycle through the light sources on this atom and tell them to update.
 		light.source_atom.update_light()
+
+	SSdemo.mark_dirty(src)
 	return TRUE
 
 
@@ -1169,18 +1173,21 @@
 	anchored = TRUE
 	simulated = FALSE
 
-/atom/movable/overlay/New()
+
+/atom/movable/overlay/Initialize(mapload, ...)
 	. = ..()
 	verbs.Cut()
-	return
 
-/atom/movable/overlay/attackby(a, b, c)
-	if(master)
-		return master.attackby(a, b, c)
 
-/atom/movable/overlay/attack_hand(a, b, c)
+/atom/movable/overlay/attackby(obj/item/I, mob/user, params)
 	if(master)
-		return master.attack_hand(a, b, c)
+		I.melee_attack_chain(user, master, params)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+
+/atom/movable/overlay/attack_hand(mob/user)
+	if(master)
+		return master.attack_hand(user)
 
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc, direct, glide_size_override)
@@ -1372,6 +1379,7 @@
 
 	var/target = isturf(loc) ? src : gourmet
 
+	gourmet.setDir(get_dir(gourmet, src))
 	gourmet.visible_message(span_danger("[gourmet.name] пыта[pluralize_ru(gourmet.gender,"ет","ют")]ся поглотить [name]!"))
 
 	if(!do_after(gourmet, get_devour_time(gourmet), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [name]!")))
