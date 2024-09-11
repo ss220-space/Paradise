@@ -94,7 +94,7 @@ SUBSYSTEM_DEF(jobs)
 			return 0
 		if(!job.character_old_enough(player.client))
 			return 0
-		if(!job.species_in_blacklist(player.client))
+		if(job.species_in_blacklist(player.client))
 			return 0
 
 		var/position_limit = job.total_positions
