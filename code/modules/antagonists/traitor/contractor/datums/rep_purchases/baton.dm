@@ -22,7 +22,7 @@
 	stock = 1
 	item_type = /obj/item/baton_upgrade/mute
 
-/datum/rep_purchase/item/baton_focusup //avote said to remove this
+/datum/rep_purchase/item/baton_focusup
 	name = "Baton Focus Upgrade"
 	description = "When applied to a baton, it will exhaust the target even more, should they be the target of your current contract."
 	cost = 2
