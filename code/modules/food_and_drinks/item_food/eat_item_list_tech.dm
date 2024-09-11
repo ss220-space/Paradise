@@ -1,7 +1,7 @@
 //===== Vox food =====
 //Bad tech
 
-/obj/item/flashlight/ComponentInitialize()
+/obj/item/flashlight/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -10,7 +10,7 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/clothing/head/hardhat/ComponentInitialize()
+/obj/item/clothing/head/hardhat/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -18,7 +18,7 @@
 	nutritional_value = 2, \
 	)
 
-/obj/item/holosign_creator/ComponentInitialize()
+/obj/item/holosign_creator/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -26,7 +26,7 @@
 	nutritional_value = 3, \
 	)
 
-/obj/item/signmaker/ComponentInitialize()
+/obj/item/signmaker/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -34,7 +34,7 @@
 	nutritional_value = 3, \
 	)
 
-/obj/item/pipe_painter/ComponentInitialize()
+/obj/item/pipe_painter/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -42,7 +42,7 @@
 	nutritional_value = 3, \
 	)
 
-/obj/item/airlock_painter/ComponentInitialize()
+/obj/item/airlock_painter/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -50,7 +50,7 @@
 	nutritional_value = 3, \
 	)
 
-/obj/item/laser_pointer/ComponentInitialize()
+/obj/item/laser_pointer/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -58,7 +58,7 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/radio/ComponentInitialize()
+/obj/item/radio/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -66,7 +66,7 @@
 	nutritional_value = 5, \
 	)
 
-/obj/item/gps/ComponentInitialize()
+/obj/item/gps/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -77,28 +77,28 @@
 
 //Medium tech
 
-/obj/item/t_scanner/ComponentInitialize()
+/obj/item/t_scanner/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	max_bites = 2, \
 	)
 
-/obj/item/slime_scanner/ComponentInitialize()
+/obj/item/slime_scanner/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	max_bites = 6, \
 	)
 
-/obj/item/sensor_device/ComponentInitialize()
+/obj/item/sensor_device/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	max_bites = 6, \
 	)
 
-/obj/item/mining_scanner/ComponentInitialize()
+/obj/item/mining_scanner/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -106,7 +106,7 @@
 	nutritional_value = 15, \
 	)
 
-/obj/item/pinpointer/ComponentInitialize()
+/obj/item/pinpointer/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -115,7 +115,7 @@
 
 //Используемые на карбонах
 
-/obj/item/healthanalyzer/ComponentInitialize()
+/obj/item/healthanalyzer/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -124,7 +124,7 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/bodyanalyzer/ComponentInitialize()
+/obj/item/bodyanalyzer/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -132,7 +132,7 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/bodyanalyzer/advanced/ComponentInitialize()
+/obj/item/bodyanalyzer/advanced/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -141,7 +141,7 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/plant_analyzer/ComponentInitialize()
+/obj/item/plant_analyzer/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -149,7 +149,7 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/autopsy_scanner/ComponentInitialize()
+/obj/item/autopsy_scanner/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -157,7 +157,7 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/reagent_scanner/ComponentInitialize()
+/obj/item/reagent_scanner/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -166,7 +166,7 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/reagent_scanner/adv/ComponentInitialize()
+/obj/item/reagent_scanner/adv/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -175,7 +175,7 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/analyzer/ComponentInitialize()
+/obj/item/analyzer/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -183,7 +183,7 @@
 	nutritional_value = 15, \
 	)
 
-/obj/item/melee/baton/security/ComponentInitialize()
+/obj/item/melee/baton/security/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -192,7 +192,7 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/melee/baton/security/cattleprod/ComponentInitialize()
+/obj/item/melee/baton/security/cattleprod/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -204,21 +204,21 @@
 
 
 
-/obj/item/circuitboard/ComponentInitialize()
+/obj/item/circuitboard/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	max_bites = 3, \
 	)
 
-/obj/item/borg/upgrade/ComponentInitialize()
+/obj/item/borg/upgrade/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	max_bites = 3, \
 	)
 
-/obj/item/multitool/ComponentInitialize()
+/obj/item/multitool/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -226,7 +226,7 @@
 	nutritional_value = 10, \
 	)
 
-/obj/item/multitool/abductor/ComponentInitialize()
+/obj/item/multitool/abductor/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -234,7 +234,7 @@
 	nutritional_value = 50, \
 	)
 
-/obj/item/multitool/ai_detect/ComponentInitialize()
+/obj/item/multitool/ai_detect/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -242,14 +242,14 @@
 	nutritional_value = 50, \
 	)
 
-/obj/item/radio/headset/ComponentInitialize()
+/obj/item/radio/headset/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/pda/ComponentInitialize()
+/obj/item/pda/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -258,7 +258,7 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/paicard/ComponentInitialize()
+/obj/item/paicard/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -266,7 +266,7 @@
 	nutritional_value = 15, \
 	)
 
-/obj/item/machineprototype/ComponentInitialize()
+/obj/item/machineprototype/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -274,7 +274,7 @@
 	nutritional_value = 15, \
 	)
 
-/obj/item/mobcapsule/ComponentInitialize()
+/obj/item/mobcapsule/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -282,7 +282,7 @@
 	nutritional_value = 30, \
 	)
 
-/obj/item/camera_bug/ComponentInitialize()
+/obj/item/camera_bug/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -291,7 +291,7 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/door_remote/ComponentInitialize()
+/obj/item/door_remote/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -300,28 +300,28 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/encryptionkey/ComponentInitialize()
+/obj/item/encryptionkey/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 30, \
 	)
 
-/obj/item/implanter/ComponentInitialize()
+/obj/item/implanter/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 15, \
 	)
 
-/obj/item/radio/beacon/ComponentInitialize()
+/obj/item/radio/beacon/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 30, \
 	)
 
-/obj/item/aicard/ComponentInitialize()
+/obj/item/aicard/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -329,7 +329,7 @@
 	nutritional_value = 5, \
 	)
 
-/obj/item/holder/drone/ComponentInitialize()
+/obj/item/holder/drone/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -337,7 +337,7 @@
 	nutritional_value = 15, \
 	)
 
-/obj/item/pod_parts/core/ComponentInitialize()
+/obj/item/pod_parts/core/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -345,146 +345,145 @@
 	nutritional_value = 10, \
 	)
 
-/obj/item/airlock_electronics/ComponentInitialize()
+/obj/item/airlock_electronics/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 10, \
 	)
 
-/obj/item/airalarm_electronics/ComponentInitialize()
+/obj/item/airalarm_electronics/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 10, \
 	)
 
-/obj/item/apc_electronics/ComponentInitialize()
+/obj/item/apc_electronics/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	)
 
-/obj/item/assembly/ComponentInitialize()
-	. = ..()
+/obj/item/assembly/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	)
 
-/obj/item/stock_parts/ComponentInitialize()
+/obj/item/stock_parts/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 5, \
 	)
 
-/obj/item/stock_parts/capacitor/adv/ComponentInitialize()
+/obj/item/stock_parts/capacitor/adv/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 15, \
 	)
 
-/obj/item/stock_parts/scanning_module/adv/ComponentInitialize()
+/obj/item/stock_parts/scanning_module/adv/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 15, \
 	)
 
-/obj/item/stock_parts/manipulator/nano/ComponentInitialize()
+/obj/item/stock_parts/manipulator/nano/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 15, \
 	)
 
-/obj/item/stock_parts/micro_laser/high/ComponentInitialize()
+/obj/item/stock_parts/micro_laser/high/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 15, \
 	)
 
-/obj/item/stock_parts/matter_bin/adv/ComponentInitialize()
+/obj/item/stock_parts/matter_bin/adv/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 15, \
 	)
 
-/obj/item/stock_parts/capacitor/super/ComponentInitialize()
+/obj/item/stock_parts/capacitor/super/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 30, \
 	)	
 
-/obj/item/stock_parts/scanning_module/phasic/ComponentInitialize()
+/obj/item/stock_parts/scanning_module/phasic/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 30, \
 	)	
 
-/obj/item/stock_parts/manipulator/pico/ComponentInitialize()
+/obj/item/stock_parts/manipulator/pico/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 30, \
 	)	
 
-/obj/item/stock_parts/micro_laser/ultra/ComponentInitialize()
+/obj/item/stock_parts/micro_laser/ultra/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 30, \
 	)	
 
-/obj/item/stock_parts/matter_bin/super/ComponentInitialize()
+/obj/item/stock_parts/matter_bin/super/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 30, \
 	)	
 
-/obj/item/stock_parts/capacitor/quadratic/ComponentInitialize()
+/obj/item/stock_parts/capacitor/quadratic/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 60, \
 	)	
 
-/obj/item/stock_parts/scanning_module/triphasic/ComponentInitialize()
+/obj/item/stock_parts/scanning_module/triphasic/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 60, \
 	)	
 	
-/obj/item/stock_parts/manipulator/femto/ComponentInitialize()
+/obj/item/stock_parts/manipulator/femto/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 60, \
 	)	
 
-/obj/item/stock_parts/micro_laser/quadultra/ComponentInitialize()
+/obj/item/stock_parts/micro_laser/quadultra/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 60, \
 	)
 
-/obj/item/stock_parts/matter_bin/bluespace/ComponentInitialize()
+/obj/item/stock_parts/matter_bin/bluespace/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 60, \
 	)
 
-/obj/item/rad_laser/ComponentInitialize()
+/obj/item/rad_laser/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -493,7 +492,7 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/jammer/ComponentInitialize()
+/obj/item/jammer/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -501,7 +500,7 @@
 	nutritional_value = 80, \
 	)
 
-/obj/item/teleporter/ComponentInitialize()
+/obj/item/teleporter/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -509,7 +508,7 @@
 	nutritional_value = 120, \
 	)
 
-/obj/item/batterer/ComponentInitialize()
+/obj/item/batterer/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -518,7 +517,7 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/card/emag/ComponentInitialize()
+/obj/item/card/emag/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -527,7 +526,7 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/card/emag_broken/ComponentInitialize()
+/obj/item/card/emag_broken/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -535,7 +534,7 @@
 	nutritional_value = 50, \
 	)
 
-/obj/item/card/data/clown/ComponentInitialize()
+/obj/item/card/data/clown/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
@@ -543,7 +542,7 @@
 	nutritional_value = 1, \
 	)
 
-/obj/item/access_control/ComponentInitialize()
+/obj/item/access_control/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_TECH, \
