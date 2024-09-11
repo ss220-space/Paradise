@@ -16,6 +16,13 @@
 
 /obj/item/soap/ComponentInitialize()
 	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
+	AddComponent( \
+	/datum/component/eatable, \
+	material_type = MATERIAL_CLASS_SOAP, \
+	max_bites = 6, \
+	nutritional_value = 15, \
+	is_only_grab_intent = TRUE, \
+	)
 
 /obj/item/soap/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)

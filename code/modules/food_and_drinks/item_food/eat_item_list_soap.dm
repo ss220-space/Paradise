@@ -1,16 +1,8 @@
 //===== Drask food =====
 //Soap
 
-/obj/item/soap/add_eatable_component()
-	AddComponent( \
-	/datum/component/eatable, \
-	material_type = MATERIAL_CLASS_SOAP, \
-	max_bites = 6, \
-	nutritional_value = 15, \
-	is_only_grab_intent = TRUE, \
-	)
-
-/obj/item/soap/homemade/add_eatable_component()
+/obj/item/soap/homemade/ComponentInitialize()
+	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_SOAP, \
@@ -19,7 +11,8 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/soap/deluxe/add_eatable_component()
+/obj/item/soap/deluxe/ComponentInitialize()
+	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_SOAP, \
@@ -28,7 +21,8 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/soap/syndie/add_eatable_component()
+/obj/item/soap/syndie/ComponentInitialize()
+	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_SOAP, \
@@ -37,7 +31,8 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/soap/nanotrasen/add_eatable_component()
+/obj/item/soap/nanotrasen/ComponentInitialize()
+	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_SOAP, \
@@ -46,7 +41,8 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/soap/ducttape/add_eatable_component()
+/obj/item/soap/ducttape/ComponentInitialize()
+	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = MATERIAL_CLASS_SOAP, \
