@@ -10,7 +10,7 @@
 /obj/item/clothing/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
-	material_type = MATERIAL_CLASS_CLOTH, \
+	material_type = MATERIAL_CLASS_NONE, \
 	max_bites = 10, \
 	integrity_bite = 20, \
 	nutritional_value = 5, \
