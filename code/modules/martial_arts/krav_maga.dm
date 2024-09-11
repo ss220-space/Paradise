@@ -107,7 +107,7 @@
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
 
-	D.apply_damage(bonus_damage, BRUTE)
+	D.apply_damage(bonus_damage, BRUTE, source = A)
 	objective_damage(A, D, bonus_damage, BRUTE)
 
 	if(picked_hit_type == "kicks" || picked_hit_type == "stomps")

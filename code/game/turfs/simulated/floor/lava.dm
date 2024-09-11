@@ -164,7 +164,7 @@
 		var/mob/living/burn_living = burn_target
 		burn_living.adjust_fire_stacks(lava_firestacks)
 		burn_living.IgniteMob()
-		burn_living.apply_damage(lava_damage, BURN, spread_damage = TRUE)
+		burn_living.apply_damage(lava_damage, BURN, spread_damage = TRUE, source = burn_living)
 		return TRUE
 
 	return FALSE

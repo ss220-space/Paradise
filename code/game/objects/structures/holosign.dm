@@ -84,7 +84,7 @@
 /obj/structure/holosign/wetsign/mine/proc/triggermine(mob/living/victim)
 	empulse(src, 1, 1, TRUE, "[victim] triggered holosign")
 	if(ishuman(victim))
-		victim.apply_damage(100, STAMINA)
+		victim.apply_damage(100, STAMINA, source = victim)
 	qdel(src)
 
 

@@ -682,13 +682,13 @@
 		if(!is_vampire_compatible(victim, include_IPC = TRUE))
 			continue
 
-		victim.apply_damage(applied_damage, BRUTE, BODY_ZONE_CHEST)
-		victim.Stun(stun_amt)
+		victim.apply_damage(applied_damage, BRUTE, BODY_ZONE_CHEST, source = firer)
+		victim.Stun(stun_amt, source = firer)
 		to_chat(victim, span_userdanger("You feel a dull pain inside your chest!"))
 
 		if(iscarbon(victim))
 			var/mob/living/carbon/c_victim = victim
-			c_victim.vomit(50, TRUE, FALSE)
+			c_victim.vomit(50, TRUE, FALSE, source = firer)
 
 		if(prob(10 + vampire.get_trophies(INTERNAL_ORGAN_LIVER) * 3))
 			new /obj/effect/temp_visual/cult/sparks(get_turf(victim))
@@ -1163,17 +1163,17 @@
 			if(h_victim.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 				continue
 
-			h_victim.apply_damage(brain_dmg, BRAIN)
+			h_victim.apply_damage(brain_dmg, BRAIN, source = user)
 
 		if(issilicon(victim))
 			playsound(get_turf(victim), 'sound/weapons/flash.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			victim.Weaken(rand(10 SECONDS, 20 SECONDS))
+			victim.Weaken(rand(10 SECONDS, 20 SECONDS), source = user)
 		else
-			victim.Weaken(weaken_amt)
-			victim.AdjustConfused(confusion_amt)
-			victim.Stuttering(40 SECONDS)
-			victim.Deaf(40 SECONDS)
-			victim.Jitter(40 SECONDS)
+			victim.Weaken(weaken_amt, source = user)
+			victim.AdjustConfused(confusion_amt, source = user)
+			victim.Stuttering(40 SECONDS, source = user)
+			victim.Deaf(40 SECONDS, source = user)
+			victim.Jitter(40 SECONDS, source = user)
 
 	for(var/object in view(effect_aoe, user))
 		if(istype(object, /obj/machinery/light))

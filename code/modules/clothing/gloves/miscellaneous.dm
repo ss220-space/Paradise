@@ -131,9 +131,9 @@
 				H.do_attack_animation(C)
 				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
 				add_attack_logs(H, C, "Touched with stun gloves")
-				C.Weaken(stun_strength)
-				C.Stuttering(stun_strength)
-				C.apply_damage(20, STAMINA)
+				C.Weaken(stun_strength, source = H)
+				C.Stuttering(stun_strength, source = H)
+				C.apply_damage(20, STAMINA, source = H)
 			else
 				to_chat(H, "<span class='notice'>Not enough charge!</span>")
 			return TRUE
@@ -281,7 +281,7 @@
 				if(target.mind == objective.target)
 					objective.take_damage(damage, BRUTE)
 
-		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = TRUE)
+		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = TRUE, source = user)
 		return TRUE
 
 	if(isliving(A))
@@ -289,7 +289,7 @@
 		var/mob/living/living = A
 		playsound(living.loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 		living.visible_message("<span class='danger'>[user] cuts [living] with razor gloves!</span>")
-		living.apply_damage(damage, BRUTE)
+		living.apply_damage(damage, BRUTE, source = user)
 		return TRUE
 
 	if(isobj(A) && !isitem(A))
@@ -346,8 +346,8 @@
 				if(target.mind == objective.target)
 					objective.take_damage(damage, BRUTE)
 
-		target.apply_damage(damage, BRUTE, affecting)
-		target.apply_damage(staminadamage, STAMINA, affecting)
+		target.apply_damage(damage, BRUTE, affecting, source = user)
+		target.apply_damage(staminadamage, STAMINA, affecting, source = user)
 		return TRUE
 
 	if(isliving(A))
@@ -355,7 +355,7 @@
 		user.do_attack_animation(A, "kick")
 		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 		living.visible_message("<span class='danger'>[user] smash [living] with knuckles!</span>")
-		living.apply_damage(damage, BRUTE)
+		living.apply_damage(damage, BRUTE, source = user)
 		return TRUE
 
 	if(isobj(A) && !isitem(A))

@@ -446,9 +446,9 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	if(!isliving(user))
 		return
 	visible_message(span_userdanger("The flame escapes from [src] and spreads to [user]!"))
-	user.apply_damage(40, BURN, user.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM)
-	user.adjust_fire_stacks(20)
-	user.IgniteMob()
+	user.apply_damage(40, BURN, user.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM, source = user)
+	user.adjust_fire_stacks(20, source = user)
+	user.IgniteMob(source = user)
 
 
 /obj/machinery/crematorium/attack_ai(mob/user)

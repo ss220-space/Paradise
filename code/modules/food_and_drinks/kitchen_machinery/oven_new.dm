@@ -61,9 +61,9 @@
 	if(victim.has_pain())
 		victim.emote("scream")
 	//5 fire damage, 15 brute damage, and knockdown because your head was just in a hot oven with the door bashing into your neck!
-	victim.apply_damage(5, BURN, BODY_ZONE_HEAD)
-	victim.apply_damage(15, BRUTE, BODY_ZONE_HEAD)
-	victim.Knockdown(2 SECONDS)
+	victim.apply_damage(5, BURN, BODY_ZONE_HEAD, source = grabber)
+	victim.apply_damage(15, BRUTE, BODY_ZONE_HEAD, source = grabber)
+	victim.Knockdown(2 SECONDS, source = grabber)
 	add_attack_logs(grabber, victim, "Smashed with [src]")
 	//Removes the grip to prevent rapid bashes. With the knockdown, you PROBABLY can't run unless they are slow to grab you again...
 	grabber.stop_pulling()

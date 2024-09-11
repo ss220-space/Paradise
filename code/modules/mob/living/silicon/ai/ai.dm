@@ -1491,7 +1491,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/update_fire()
 	return
 
-/mob/living/silicon/ai/IgniteMob()
+/mob/living/silicon/ai/IgniteMob(mob/source = src)
 	return FALSE
 
 /mob/living/silicon/ai/ExtinguishMob()

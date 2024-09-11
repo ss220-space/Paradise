@@ -71,7 +71,7 @@
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
 
-	D.apply_damage(bonus_damage, BRUTE)
+	D.apply_damage(bonus_damage, BRUTE, source = A)
 	objective_damage(A, D, bonus_damage, BRUTE)
 
 	if(picked_hit_type == "kicks" || picked_hit_type == "stomps on")
@@ -85,9 +85,9 @@
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
-		D.apply_damage(10, BRUTE)
+		D.apply_damage(10, BRUTE, source = A)
 		objective_damage(A, D, 10, BRUTE)
-		D.Knockdown(1 SECONDS)
+		D.Knockdown(1 SECONDS, source = A)
 		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Leg sweep", ATKLOG_ALL)
 	return TRUE
 
@@ -96,7 +96,7 @@
 	if(restraining && A.pulling && A.pulling == D)
 		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
 							"<span class='userdanger'>[A] puts you into a chokehold!</span>")
-		D.SetSleeping(20 SECONDS)
+		D.SetSleeping(20 SECONDS, source = A)
 		restraining = FALSE
 		if(A.grab_state < GRAB_NECK)
 			A.setGrabState(GRAB_NECK)
@@ -114,8 +114,8 @@
 			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 			if(I && D.drop_from_active_hand())
 				A.put_in_hands(I, ignore_anim = FALSE)
-			D.Jitter(4 SECONDS)
-			D.apply_damage(5, BRUTE)
+			D.Jitter(4 SECONDS, source = A)
+			D.apply_damage(5, BRUTE, source = A)
 			objective_damage(A, D, 5, BRUTE)
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")

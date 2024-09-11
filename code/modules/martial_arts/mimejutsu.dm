@@ -24,9 +24,9 @@
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 	var/bonus_damage = 15
-	D.apply_damage(bonus_damage, BRUTE)
+	D.apply_damage(bonus_damage, BRUTE, source = A)
 	if(prob(30))
-		D.Weaken(2 SECONDS)
+		D.Weaken(2 SECONDS, source = A)
 	playsound(get_turf(A), 'sound/weapons/blunthit_mimejutsu.ogg', 10, 1, -1)
 	objective_damage(A, D, bonus_damage, BRUTE)
 	add_attack_logs(A, D, "Melee attacked with [src]", ATKLOG_ALL)
@@ -41,8 +41,8 @@
 			I = D.get_active_hand()
 			if(I && D.drop_from_active_hand())
 				A.put_in_hands(I, ignore_anim = FALSE)
-			D.Jitter(4 SECONDS)
-			D.apply_damage(5, BRUTE)
+			D.Jitter(4 SECONDS, source = A)
+			D.apply_damage(5, BRUTE, source = A)
 			objective_damage(A, D, 5, BRUTE)
 	playsound(D, 'sound/weapons/punchmiss.ogg', 10, 1, -1)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)

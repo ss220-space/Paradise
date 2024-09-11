@@ -761,8 +761,8 @@
 /mob/living/proc/SetStuttering(amount, ignore_canstun = FALSE, mob/source = src)
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_STAMMER, amount)
 
-/mob/living/proc/AdjustStuttering(amount, bound_lower = 0, bound_upper = INFINITY, ignore_canstun = FALSE)
-	SetStuttering(directional_bounded_sum(AmountStuttering(), amount, bound_lower, bound_upper), ignore_canstun)
+/mob/living/proc/AdjustStuttering(amount, bound_lower = 0, bound_upper = INFINITY, ignore_canstun = FALSE, mob/source = src)
+	SetStuttering(directional_bounded_sum(AmountStuttering(), amount, bound_lower, bound_upper), ignore_canstun, source = source)
 
 
 // WEAKEN

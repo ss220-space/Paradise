@@ -100,14 +100,14 @@
 	if(!user.mind || !user.mind.isholy)
 		to_chat(user, span_warning("The book sizzles in your hands."))
 		add_attack_logs(user, target, "Hit themselves with [src]")
-		user.take_organ_damage(0, 10)
+		user.take_organ_damage(0, 10, source = user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, span_warning("The [src] slips out of your hand and hits your head."))
 		add_attack_logs(user, target, "Hit themselves with [src]")
-		user.take_organ_damage(10)
-		user.Paralyse(40 SECONDS)
+		user.take_organ_damage(10, source = user)
+		user.Paralyse(40 SECONDS, source = user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	add_attack_logs(user, target, "Hit with [src]")
@@ -139,7 +139,7 @@
 		playsound(loc, "punch", 25, TRUE, -1)
 	else
 		if(!istype(target.head, /obj/item/clothing/head/helmet))
-			target.apply_damage(10, BRAIN)
+			target.apply_damage(10, BRAIN, source = user)
 			to_chat(target, span_warning("You feel dumber."))
 		target.visible_message(
 			span_danger("[user] beats [target == user ? "[user.p_them()]self" : "[target]"] over the head with [src]!"),
@@ -153,9 +153,9 @@
 	if(god_punishment == 5)
 		to_chat(user, span_danger("<h1>Вы злоупотребляете покровительством бога [deity_name], остановитесь и подумайте.</h1>"))
 	else if(god_punishment > 5) //lets apply punishment AFTER heal
-		user.electrocute_act(5, "молнии", flags = SHOCK_NOGLOVES)
-		user.apply_damage(65, BURN)
-		user.Knockdown(10 SECONDS)
+		user.electrocute_act(5, "молнии", flags = SHOCK_NOGLOVES, source = user)
+		user.apply_damage(65, BURN, source = user)
+		user.Knockdown(10 SECONDS, source = user)
 		to_chat(user, span_userdanger("Вы злоупотребили волей бога и были за это наказаны!"))
 
 

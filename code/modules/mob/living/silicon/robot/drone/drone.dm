@@ -410,7 +410,7 @@
 /mob/living/silicon/robot/drone/remove_robot_verbs()
 	remove_verb(src, silicon_subsystems)
 
-/mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash/noise)
+/mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash/noise, mob/source = src)
 	if(affect_silicon)
 		return ..()
 

@@ -271,7 +271,7 @@
 /mob/living/silicon/robot/cogscarab/get_access()
 	return list() //none cause from gears.
 
-/mob/living/silicon/robot/cogscarab/flash_eyes(intensity, override_blindness_check, affect_silicon, visual, type)
+/mob/living/silicon/robot/cogscarab/flash_eyes(intensity, override_blindness_check, affect_silicon, visual, type, mob/source = src)
 	return
 
 /mob/living/silicon/robot/cogscarab/use_power() //it's made of gears...

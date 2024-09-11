@@ -182,7 +182,7 @@
 			visible_message("<span class='warning'>[capitalize(M.declent_ru(NOMINATIVE))] безуспешно пытается оттолкнуть [src.declent_ru(ACCUSATIVE)] в сторону.</span>")
 
 //Mobs on Fire
-/mob/living/proc/IgniteMob()
+/mob/living/proc/IgniteMob(mob/source = src)
 	if(fire_stacks > 0 && !on_fire)
 		on_fire = TRUE
 		visible_message("<span class='warning'>[src.declent_ru(NOMINATIVE)] загора[pluralize_ru(src.gender,"ется","ются")]!</span>", \
@@ -209,7 +209,9 @@
 /mob/living/proc/update_fire()
 	return
 
-/mob/living/proc/adjust_fire_stacks(add_fire_stacks) //Adjusting the amount of fire_stacks we have on person
+/mob/living/proc/adjust_fire_stacks(add_fire_stacks, mob/source = src) //Adjusting the amount of fire_stacks we have on person
+	if (!source.CanHarm(src))
+		return
 	SEND_SIGNAL(src, COMSIG_MOB_ADJUST_FIRE)
 	fire_stacks = clamp(fire_stacks + add_fire_stacks, -20, 20)
 	if(on_fire && fire_stacks <= 0)

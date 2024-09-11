@@ -248,5 +248,5 @@
 	if(ishuman(target))
 		if(!ishumanbasic(target))
 			var/mob/living/victim = target
-			victim.apply_damage(bonus_damage, BURN)
+			victim.apply_damage(bonus_damage, BURN, source = user)
 

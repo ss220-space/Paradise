@@ -33,15 +33,15 @@
 	D.visible_message("<span class='danger'>[A] has hit [D] with a [atk_verb]!</span>", \
 								"<span class='userdanger'>[A] has hit [D] with a [atk_verb]!</span>")
 
-	D.apply_damage(damage, STAMINA, affecting, armor_block)
+	D.apply_damage(damage, STAMINA, affecting, armor_block, source = A)
 	add_attack_logs(A, D, "Melee attacked with [src]", ATKLOG_ALL)
 	if(D.getStaminaLoss() > 50)
 		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
 		if((D.stat != DEAD) && prob(knockout_prob))
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
-			D.apply_effect(20 SECONDS, WEAKEN, armor_block)
-			D.Weaken(6 SECONDS)
+			D.apply_effect(20 SECONDS, WEAKEN, armor_block, source = A)
+			D.Weaken(6 SECONDS, source = A)
 			D.forcesay(GLOB.hit_appends)
 		else if(D.body_position == LYING_DOWN)
 			D.forcesay(GLOB.hit_appends)
@@ -93,17 +93,17 @@
 	D.visible_message("<span class='danger'>[A] has hit [D] with a [atk_verb]!</span>", \
 								"<span class='userdanger'>[A] has hit [D] with a [atk_verb]!</span>")
 
-	D.apply_damage(damage, BRUTE, null, armor_block)
+	D.apply_damage(damage, BRUTE, null, armor_block, source = A)
 	objective_damage(A, D, damage, BRUTE)
 
-	D.apply_damage(damage, STAMINA, armor_block)
+	D.apply_damage(damage, STAMINA, armor_block, source = A)
 	if(D.getStaminaLoss() > 50)
 		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
 		if((D.stat != DEAD) && prob(knockout_prob))
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
-			D.Paralyse(10 SECONDS)
-			D.apply_effect(20 SECONDS, WEAKEN, armor_block)
+			D.Paralyse(10 SECONDS, source = A)
+			D.apply_effect(20 SECONDS, WEAKEN, armor_block, source = A)
 			D.forcesay(GLOB.hit_appends)
 		else if(D.body_position == LYING_DOWN)
 			D.forcesay(GLOB.hit_appends)

@@ -74,7 +74,7 @@
 	if(!used && user.pulledby)
 		var/mob/living/grab_owner = user.pulledby
 		user.visible_message(span_warning("[user] spits acid at [grab_owner]'s face and slips out of their grab!"))
-		grab_owner.apply_damage(5, BURN, BODY_ZONE_HEAD, grab_owner.run_armor_check(BODY_ZONE_HEAD, MELEE))
+		grab_owner.apply_damage(5, BURN, BODY_ZONE_HEAD, grab_owner.run_armor_check(BODY_ZONE_HEAD, MELEE), source = user)
 		playsound(user.loc, 'sound/weapons/sear.ogg', 50, TRUE)
 		grab_owner.stop_pulling()
 		user.client?.move_delay = world.time	// to skip move delay we probably got from resisting the grab

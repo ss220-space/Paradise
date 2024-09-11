@@ -66,18 +66,18 @@
 
 
 /obj/item/melee/baton/telescopic/contractor/additional_effects_non_cyborg(mob/living/carbon/human/target, mob/living/user)
-	target.AdjustJitter(5 SECONDS, bound_upper = 40 SECONDS)
-	target.AdjustStuttering(10 SECONDS, bound_upper = 40 SECONDS)
+	target.AdjustJitter(5 SECONDS, bound_upper = 40 SECONDS, source = user)
+	target.AdjustStuttering(10 SECONDS, bound_upper = 40 SECONDS, source = user)
 	if(has_upgrade(UPGRADE_MUTE))
-		target.AdjustSilence(10 SECONDS, bound_upper = 10 SECONDS)
+		target.AdjustSilence(10 SECONDS, bound_upper = 10 SECONDS, source = user)
 	if(has_upgrade(UPGRADE_CUFFS) && cuffs_amount > 0)
 		if(target.getStaminaLoss() > 90 || target.health <= HEALTH_THRESHOLD_CRIT || target.IsSleeping())
 			CuffAttack(target, user)
 	if(has_upgrade(UPGRADE_FOCUS) && ishuman(target))
 		for(var/datum/antagonist/contractor/antag_datum in user.mind.antag_datums)
 			if(target == antag_datum?.contractor_uplink?.hub?.current_contract?.contract?.target.current)
-				target.apply_damage(20, STAMINA)
-				target.AdjustJitter(20 SECONDS, bound_upper = 40 SECONDS)
+				target.apply_damage(20, STAMINA, source = user)
+				target.AdjustJitter(20 SECONDS, bound_upper = 40 SECONDS, source = user)
 				break
 
 

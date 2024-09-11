@@ -151,7 +151,7 @@
 	D.visible_message("<span class='danger'>[A] has [atk_verb] [D]!</span>", \
 								"<span class='userdanger'>[A] has [atk_verb] [D]!</span>")
 
-	D.apply_damage(damage, BRUTE, affecting, armor_block)
+	D.apply_damage(damage, BRUTE, affecting, armor_block, source = A)
 	objective_damage(A, D, damage, BRUTE)
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", (damage > 0) ? null : ATKLOG_ALL)
@@ -532,11 +532,11 @@
 /obj/item/twohanded/bostaff/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, span_warning("You club yourself over the head with [src]."))
-		user.Knockdown(6 SECONDS)
+		user.Knockdown(6 SECONDS, source = user)
 		if(ishuman(user))
-			user.apply_damage(2 * force, BRUTE, BODY_ZONE_HEAD)
+			user.apply_damage(2 * force, BRUTE, BODY_ZONE_HEAD, source = user)
 		else
-			user.take_organ_damage(2 * force)
+			user.take_organ_damage(2 * force, source = user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(isrobot(target) || !ishuman(target) || user.a_intent != INTENT_DISARM || !HAS_TRAIT(src, TRAIT_WIELDED))
@@ -568,14 +568,14 @@
 		span_userdanger("[pick(fluffmessages)]"),
 	)
 	playsound(loc, 'sound/effects/woodhit.ogg', 75, TRUE, -1)
-	target.apply_damage(rand(13, 20), STAMINA)
+	target.apply_damage(rand(13, 20), STAMINA, source = user)
 
 	if(prob(10))
 		target.visible_message(
 			span_warning("[target] collapses!"),
 			span_userdanger("Your legs give out!"),
 		)
-		target.Knockdown(8 SECONDS)
+		target.Knockdown(8 SECONDS, source = user)
 
 	else if(target.staminaloss && !target.IsSleeping())
 		var/total_health = (target.health - target.staminaloss)
@@ -584,8 +584,8 @@
 				span_warning("[user] delivers a heavy hit to [target]'s head, knocking [target.p_them()] out cold!"),
 				span_userdanger("[user] knocks you unconscious!"),
 			)
-			target.SetSleeping(60 SECONDS)
-			target.apply_damage(25, BRAIN)
+			target.SetSleeping(60 SECONDS, source = user)
+			target.apply_damage(25, BRAIN, source = user)
 
 
 /obj/item/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)

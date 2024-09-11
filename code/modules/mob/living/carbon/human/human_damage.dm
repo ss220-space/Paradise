@@ -356,6 +356,7 @@
 	sharp = FALSE,
 	silent = FALSE,
 	affect_robotic = TRUE,
+	mob/source = src
 )
 	if(status_flags & GODMODE)
 		return ..()

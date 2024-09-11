@@ -37,7 +37,7 @@
 					  "<span class='userdanger'>[A] [atk_verb] you!</span>")
 
 	var/damage = rand(10,15)
-	D.apply_damage(damage, BRUTE)
+	D.apply_damage(damage, BRUTE, source = A)
 	objective_damage(A, D, damage, BRUTE)
 
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, 1, -1)
@@ -45,7 +45,7 @@
 		A.say(pick("HUAH!", "HYA!", "CHOO!", "WUO!", "KYA!", "HUH!", "HIYOH!", "CARP STRIKE!", "CARP BITE!"))
 	if(prob(D.getBruteLoss()) && D.body_position != LYING_DOWN)
 		D.visible_message("<span class='warning'>[D] stumbles and falls!</span>", "<span class='userdanger'>The blow sends you to the ground!</span>")
-		D.Weaken(6 SECONDS)
+		D.Weaken(6 SECONDS, source = A)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)
 	return TRUE
 

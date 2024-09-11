@@ -323,17 +323,17 @@
 			var/obj/item/clothing/suit/space/space_ninja/ninja_suit = target.wear_suit
 			if(istype(ninja_suit) && ninja_suit.vamp_protection_active && ninja_suit.s_initialized)
 				to_chat(target, span_warning("<b>Вы начали слышать жуткий визг!</b> Но ваш костюм отреагировал на него и временно прикрыл вам уши, минимизируя урон"))
-				target.Deaf(20 SECONDS)
-				target.Jitter(100 SECONDS)
-				target.adjustStaminaLoss(20)
+				target.Deaf(20 SECONDS, source = user)
+				target.Jitter(100 SECONDS, source = user)
+				target.adjustStaminaLoss(20, source = user)
 				continue
 
 		to_chat(target, span_warning("<font size='3'><b>Вы слышите ушераздирающий визг и ваши чувства притупляются!</font></b>"))
-		target.Weaken(4 SECONDS)
-		target.Deaf(40 SECONDS)
-		target.Stuttering(40 SECONDS)
-		target.Jitter(300 SECONDS)
-		target.apply_damage(60, STAMINA)
+		target.Weaken(4 SECONDS, source = user)
+		target.Deaf(40 SECONDS, source = user)
+		target.Stuttering(40 SECONDS, source = user)
+		target.Jitter(300 SECONDS, source = user)
+		target.apply_damage(60, STAMINA, source = user)
 
 	for(var/obj/structure/window/window in view(4))
 		window.deconstruct(FALSE)

@@ -71,7 +71,7 @@
 		user.update_icons()
 		playsound(get_turf(src), 'sound/items/unsheath.ogg', 25, TRUE, 5)
 	if(!isninja(user) && !isrobot(user))
-		user.apply_damage(20, def_zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+		user.apply_damage(20, def_zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND, source = user)
 		to_chat(user, span_userdanger("Oh fuck, it hurts!."))
 		playsound(user, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 

@@ -248,23 +248,23 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			)
 			if(prob(25))
 				victim.Knockdown(2 SECONDS)
-			victim.apply_damage(7)
+			victim.apply_damage(7, source = grabber)
 			take_damage(10)
 		if(GRAB_NECK)
 			victim.visible_message(
 				span_warning("[grabber] bashes [victim] against [src]!"),
 				span_warning("[grabber] bashes you against [src]!"),
 			)
-			victim.Knockdown(4 SECONDS)
-			victim.apply_damage(10)
+			victim.Knockdown(4 SECONDS, source = grabber)
+			victim.apply_damage(10, source = grabber)
 			take_damage(25)
 		if(GRAB_KILL)
 			victim.visible_message(
 				span_warning("[grabber] crushes [victim] against [src]!"),
 				span_warning("[grabber] crushes you against [src]!"),
 			)
-			victim.Knockdown(6 SECONDS)
-			victim.apply_damage(20)
+			victim.Knockdown(6 SECONDS, source = grabber)
+			victim.apply_damage(20, source = grabber)
 			take_damage(50)
 
 

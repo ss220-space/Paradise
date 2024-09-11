@@ -181,7 +181,7 @@
 		if(EMP_LIGHT)
 			take_organ_damage(10, source)
 			Stun(6 SECONDS, source)
-	flash_eyes(3, affect_silicon = TRUE, source)
+	flash_eyes(3, affect_silicon = TRUE, source = source)
 	to_chat(src, span_danger("*BZZZT*"))
 	to_chat(src, span_warning("Warning: Electromagnetic pulse detected."))
 

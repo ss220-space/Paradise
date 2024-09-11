@@ -259,21 +259,21 @@
 			deviation = calculate_deviation(target, user)
 
 		if(deviation == DEVIATION_FULL)
-			target.Confused(6 SECONDS)
-			target.apply_damage(30, STAMINA)
+			target.Confused(6 SECONDS, source = user)
+			target.apply_damage(30, STAMINA, source = user)
 
 		else if(deviation == DEVIATION_PARTIAL)
-			target.Weaken(4 SECONDS)
-			target.Confused(10 SECONDS)
-			target.apply_damage(40, STAMINA)
+			target.Weaken(4 SECONDS, source = user)
+			target.Confused(10 SECONDS, source = user)
+			target.apply_damage(40, STAMINA, source = user)
 
 		else
-			target.Confused(10 SECONDS)
-			target.apply_damage(30, STAMINA)
-			target.Weaken(2 SECONDS)
-			target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
-			target.AdjustSilence(8 SECONDS)
-			target.flash_eyes(1, TRUE, TRUE)
+			target.Confused(10 SECONDS, source = user)
+			target.apply_damage(30, STAMINA, source = user)
+			target.Weaken(2 SECONDS, source = user)
+			target.apply_status_effect(STATUS_EFFECT_STAMINADOT, source = user)
+			target.AdjustSilence(8 SECONDS, source = user)
+			target.flash_eyes(1, TRUE, TRUE, source = user)
 
 		to_chat(target, span_warning("You are blinded by [user]'s glare."))
 		add_attack_logs(user, target, "(Vampire) Glared at")
@@ -366,10 +366,10 @@
 	if(H.stat != DEAD)
 		if(H.IsWeakened())
 			visible_message(span_warning("[H] looks to be in pain!"))
-			H.apply_damage(60, BRAIN)
+			H.apply_damage(60, BRAIN, source = M)
 		else
 			visible_message(span_warning("[H] looks to be stunned by the energy!"))
-			H.Weaken(40 SECONDS)
+			H.Weaken(40 SECONDS, source = M)
 		return
 	for(var/obj/item/implant/mindshield/L in H)
 		if(L && L.implanted)
@@ -386,5 +386,5 @@
 	add_attack_logs(M, H, "Vampire-sired")
 	H.mind.make_vampire()
 	H.revive()
-	H.Weaken(40 SECONDS)
+	H.Weaken(40 SECONDS, source = M)
 

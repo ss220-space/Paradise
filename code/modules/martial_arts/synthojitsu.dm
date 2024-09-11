@@ -14,9 +14,9 @@
 	MARTIAL_ARTS_ACT_CHECK
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	A.do_attack_animation(D)
-	D.apply_damage(5, BURN)
+	D.apply_damage(5, BURN, source = A)
 	objective_damage(A, D, 5, BURN)
-	D.apply_damage(5, BRUTE)
+	D.apply_damage(5, BRUTE, source = A)
 	objective_damage(A, D, 5, BRUTE)
 	A.adjust_nutrition(-10)
 	playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
@@ -29,8 +29,8 @@
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
-	D.apply_damage(30, STAMINA)
-	A.adjust_nutrition(-10)
+	D.apply_damage(30, STAMINA, source = A)
+	A.adjust_nutrition(-10, source = A)
 	playsound(get_turf(D), 'sound/weapons/contractorbatonhit.ogg', 50, 1, -1)
 	D.visible_message("<span class='danger'>[A] tapped [D]!</span>", \
 				  "<span class='userdanger'>[A] tapped you!</span>")

@@ -473,7 +473,7 @@
 		return
 	adjustFireLoss(fire_damage) // Slowly start dying from being on fire
 
-/mob/living/simple_animal/IgniteMob()
+/mob/living/simple_animal/IgniteMob(mob/source = src)
 	if(!can_be_on_fire)
 		return FALSE
 	return ..()

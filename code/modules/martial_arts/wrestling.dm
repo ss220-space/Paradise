@@ -28,9 +28,9 @@
 								"<span class='userdanger'>[A] suplexes [D]!</span>")
 	D.forceMove(A.loc)
 	var/armor_block = D.run_armor_check(null, "melee")
-	D.apply_damage(30, BRUTE, null, armor_block)
+	D.apply_damage(30, BRUTE, null, armor_block, source = A)
 	objective_damage(A, D, 30, BRUTE)
-	D.apply_effect(12 SECONDS, KNOCKDOWN, armor_block)
+	D.apply_effect(12 SECONDS, KNOCKDOWN, armor_block, source = A)
 	add_attack_logs(A, D, "Melee attacked with [src] (SUPLEX)")
 
 	A.SpinAnimation(10,1)
@@ -54,7 +54,7 @@
 								"<span class='userdanger'>[A] holds [D] down!</span>")
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, "melee")
-	D.apply_damage(10, STAMINA, affecting, armor_block)
+	D.apply_damage(10, STAMINA, affecting, armor_block, source = A)
 	return TRUE
 
 /datum/martial_art/wrestling/give_explaination(user = usr)

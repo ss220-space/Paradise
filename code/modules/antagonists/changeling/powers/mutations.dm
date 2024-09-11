@@ -464,7 +464,7 @@
 							span_danger("[user] impales you with [offarm_item]!"))
 	add_attack_logs(user, target, "[user] pulled [target] with a tentacle, attacking them with [offarm_item]") //Attack log is here so we can fetch the item they're stabbing with.
 
-	target.apply_damage(offarm_item.force, BRUTE, BODY_ZONE_CHEST)
+	target.apply_damage(offarm_item.force, BRUTE, BODY_ZONE_CHEST, source = user)
 	user.do_attack_animation(target, used_item = offarm_item)
 	offarm_item.add_mob_blood(target)
 	playsound(get_turf(user), offarm_item.hitsound, 75, TRUE)

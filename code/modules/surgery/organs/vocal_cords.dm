@@ -239,21 +239,22 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		for(var/mob/living/carbon/C in listeners)
 			if(owner.mind && (owner.mind.assigned_role == JOB_TITLE_LIBRARIAN || owner.mind.assigned_role == JOB_TITLE_MIME))
 				power_multiplier *= 3
-			C.AdjustSilence(20 SECONDS * power_multiplier)
+			C.AdjustSilence(20 SECONDS * power_multiplier, source = owner)
 		next_command = world.time + cooldown_stun
 
 	//HALLUCINATE
 	else if((findtext(message, GLOB.hallucinate_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			new /obj/effect/hallucination/delusion(get_turf(L),L,duration=150 * power_multiplier,skip_nearby=0)
+			if (owner.CanHarm(L))
+				new /obj/effect/hallucination/delusion(get_turf(L),L,duration=150 * power_multiplier,skip_nearby=0)
 		next_command = world.time + cooldown_meme
 
 	//WAKE UP
 	else if((findtext(message, GLOB.wakeup_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.SetSleeping(0)
+			L.SetSleeping(0, source = owner)
 		next_command = world.time + cooldown_damage
 
 	//HEAL
@@ -267,21 +268,22 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	else if((findtext(message, GLOB.hurt_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.apply_damage(15 * power_multiplier, def_zone = BODY_ZONE_CHEST)
+			L.apply_damage(15 * power_multiplier, def_zone = BODY_ZONE_CHEST, source = owner)
 		next_command = world.time + cooldown_damage
 
 	//BLEED
 	else if((findtext(message, GLOB.bleed_words)))
 		for(var/mob/living/carbon/human/H in listeners)
-			H.bleed_rate += (5 * power_multiplier)
+			if (owner.CanHarm(H))
+				H.bleed_rate += (5 * power_multiplier)
 		next_command = world.time + cooldown_damage
 
 	//FIRE
 	else if((findtext(message, GLOB.burn_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.adjust_fire_stacks(1 * power_multiplier)
-			L.IgniteMob()
+			L.adjust_fire_stacks(1 * power_multiplier, source = owner)
+			L.IgniteMob(source = owner)
 		next_command = world.time + cooldown_damage
 
 	//REPULSE
@@ -289,7 +291,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		for(var/V in listeners)
 			var/mob/living/L = V
 			var/throwtarget = get_edge_target_turf(owner, get_dir(owner, get_step_away(L, owner)))
-			L.throw_at(throwtarget, 3 * power_multiplier, 1)
+			L.throw_at(throwtarget, 3 * power_multiplier, 1, source = owner)
 		next_command = world.time + cooldown_damage
 
 	//WHO ARE YOU?

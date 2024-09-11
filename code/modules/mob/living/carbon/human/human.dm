@@ -453,7 +453,7 @@
 
 
 ///Calculates the siemens coeff based on clothing and species, can also restart hearts.
-/mob/living/carbon/human/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/carbon/human/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS, mob/source = src)
 	//Calculates the siemens coeff based on clothing. Completely ignores the arguments
 	if(flags & SHOCK_TESLA) //I hate this entire block. This gets the siemens_coeff for tesla shocks
 		if(gloves && gloves.siemens_coefficient <= 0)
@@ -1742,9 +1742,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. += "---"
 
 
-/mob/living/carbon/human/adjust_nutrition(change, forced)
+/mob/living/carbon/human/adjust_nutrition(change, forced, mob/source = src)
 	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
+
+	if (change < 0 && !source.CanHarm(src))
+		return FALSE
+
 	. = ..()
 	update_hunger_slowdown()
 

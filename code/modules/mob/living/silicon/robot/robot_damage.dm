@@ -179,11 +179,15 @@
 	sharp = FALSE,
 	silent = FALSE,
 	affect_robotic = TRUE,
+	mob/source = src,
 )
 	if(status_flags & GODMODE)
 		return ..()
 
 	. = STATUS_UPDATE_NONE
+
+	if (!source.CanHarm(src))
+		return
 
 	brute = abs(brute)
 	burn = abs(burn)

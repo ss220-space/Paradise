@@ -151,8 +151,8 @@
 /obj/effect/proc_holder/spell/vampire/blood_tendrils/proc/apply_slowdown(turf/T, distance, slowed_amount, mob/user)
 	for(var/mob/living/L in range(distance, T))
 		if(L.affects_vampire(user))
-			L.Slowed(slowed_amount)
-			L.apply_damage(33, TOX)
+			L.Slowed(slowed_amount, source = user)
+			L.apply_damage(33, TOX, source = user)
 			L.visible_message(span_warning("[L] gets ensnare in blood tendrils, restricting [L.p_their()] movement!"))
 			var/turf/target_turf = get_turf(L)
 			playsound(target_turf, 'sound/magic/tail_swing.ogg', 50, TRUE)
@@ -414,8 +414,8 @@
 		var/obj/effect/temp_visual/blood_spike/spike = new /obj/effect/temp_visual/blood_spike(T)
 		spike.color = B.basecolor
 		playsound(L, 'sound/misc/demon_attack1.ogg', 50, TRUE)
-		L.apply_damage(50, BRUTE, BODY_ZONE_CHEST)
-		L.Stun(3 SECONDS)
+		L.apply_damage(50, BRUTE, BODY_ZONE_CHEST, source = user)
+		L.Stun(3 SECONDS, source = user)
 		L.visible_message(span_warning("<b>[L] gets impaled by a spike of living blood!</b>"))
 
 
