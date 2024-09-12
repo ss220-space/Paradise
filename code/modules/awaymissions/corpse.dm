@@ -84,15 +84,15 @@
 	var/ghost_role = tgui_alert(user, "Become [mob_name]? (Warning, You can no longer be cloned!)", "Respawn", list("Yes","No"))
 	if(ghost_role != "Yes")
 		return
-	var/mob_use_prefs = FALSE
 	var/_mob_species = FALSE
 	var/_mob_gender = FALSE
 	var/_mob_name = FALSE
 
-	if(!use_prefs_prompt(user, &mob_use_prefs))
+	var/mob_use_prefs = use_prefs_prompt(user)
+	if(!mob_use_prefs)
 		return
 
-	if(!mob_use_prefs && allow_prefs_prompt)
+	if(mob_use_prefs == "No" && allow_prefs_prompt)
 		var/randomize_alert = tgui_alert(user, "Your character will be randomized for this role, continue?", "Character Selection", list("Yes", "No"))
 		if(randomize_alert != "Yes")
 			return
@@ -136,7 +136,7 @@
 /obj/effect/mob_spawn/is_mob_spawnable()
 	return TRUE
 
-/obj/effect/mob_spawn/proc/use_prefs_prompt(mob/user, mob_use_prefs)
+/obj/effect/mob_spawn/proc/use_prefs_prompt(mob/user)
 	return TRUE
 
 /obj/effect/mob_spawn/proc/species_prompt()
@@ -261,7 +261,7 @@
 	return ..()
 
 
-/obj/effect/mob_spawn/human/use_prefs_prompt(mob/user, mob_use_prefs)
+/obj/effect/mob_spawn/human/use_prefs_prompt(mob/user)
 	if(!allow_prefs_prompt)
 		return TRUE
 
@@ -271,17 +271,17 @@
 		return .
 
 	. = tgui_alert(user, "Would you like to play as the character you currently have selected in slot?", "Character Selection", list("Yes", "No"))
-	if(. == "Yes")
-		if(user.client.prefs.real_name in GLOB.human_names_list)
-			to_chat(user, span_warning("You have already entered the round with this name, choose another slot."))
-			return .
+	if(. != "Yes")
+		return .
 
-		var/char_species = user.client.prefs.species
-		if(!(char_species in pickable_species))
-			to_chat(user, span_warning("Your character's current species is not suitable for this role."))
-			return .
+	if(user.client.prefs.real_name in GLOB.human_names_list)
+		to_chat(user, span_warning("You have already entered the round with this name, choose another slot."))
+		return .
 
-		*mob_use_prefs = TRUE
+	var/char_species = user.client.prefs.species
+	if(!(char_species in pickable_species))
+		to_chat(user, span_warning("Your character's current species is not suitable for this role."))
+		return .
 
 
 /obj/effect/mob_spawn/human/species_prompt()
