@@ -20,7 +20,6 @@
 /area/hallway/primary/central)
 "aT" = (
 /obj/machinery/alarm{
-	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
 	},
@@ -260,7 +259,6 @@
 "hw" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -274,14 +272,12 @@
 /area/storage/primary)
 "hI" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
 "hJ" = (
 /obj/machinery/alarm{
-	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
 	},
@@ -316,7 +312,6 @@
 /area/engine/engineering)
 "is" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -442,7 +437,6 @@
 /area/construction/hallway)
 "mh" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -471,11 +465,9 @@
 /area/hallway/secondary/entry)
 "nr" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -583,7 +575,6 @@
 /area/space)
 "qs" = (
 /obj/machinery/alarm{
-	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
 	},
@@ -755,7 +746,6 @@
 /area/engine/gravitygenerator)
 "ud" = (
 /obj/machinery/alarm{
-	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
 	},
@@ -813,12 +803,8 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister,
-/obj/effect/turf_decal/bot{
-	dir = 2
-	},
-/turf/simulated/floor/plasteel{
-	dir = 2
-	},
+/obj/effect/turf_decal/bot,
+/turf/simulated/floor/plasteel,
 /area/atmos)
 "vC" = (
 /obj/structure/lattice/catwalk,
@@ -920,7 +906,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -1059,7 +1044,6 @@
 /area/construction/hallway)
 "BQ" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -1067,7 +1051,6 @@
 "Ca" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment{
@@ -1203,7 +1186,6 @@
 /area/construction)
 "FK" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 8
 	},
 /obj/effect/spawner/window/reinforced,
@@ -1277,7 +1259,6 @@
 /area/construction/solars)
 "HA" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -1310,11 +1291,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
-"IC" = (
-/turf/simulated/floor/plasteel{
-	dir = 2
-	},
-/area/construction/hallway)
 "IF" = (
 /obj/effect/turf_decal/stripes/asteroid/corner,
 /turf/simulated/floor/plasteel,
@@ -1370,7 +1346,6 @@
 /area/storage/primary)
 "JY" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
-	icon_state = "ast_warn_corner";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -1378,7 +1353,6 @@
 "Ka" = (
 /obj/structure/ladder,
 /obj/effect/turf_decal/stripes/asteroid/corner{
-	icon_state = "ast_warn_corner";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -1470,7 +1444,6 @@
 /area/hallway/primary/central)
 "Mj" = (
 /obj/machinery/alarm{
-	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
 	},
@@ -1551,11 +1524,9 @@
 /area/engine/engineering)
 "ND" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -1609,7 +1580,6 @@
 /area/construction/hallway)
 "Ph" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 1
 	},
 /obj/effect/spawner/window/reinforced,
@@ -1620,11 +1590,9 @@
 /area/construction/hallway)
 "Px" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
-	icon_state = "ast_warn_corner";
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/asteroid/corner{
-	icon_state = "ast_warn_corner";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -1642,7 +1610,6 @@
 /area/atmos)
 "PW" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -1705,12 +1672,8 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
-/obj/effect/turf_decal/bot{
-	dir = 2
-	},
-/turf/simulated/floor/plasteel{
-	dir = 2
-	},
+/obj/effect/turf_decal/bot,
+/turf/simulated/floor/plasteel,
 /area/atmos)
 "Sj" = (
 /turf/simulated/floor/plasteel,
@@ -1732,7 +1695,6 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/alarm{
-	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
 	},
@@ -1819,11 +1781,9 @@
 /area/engine/engineering)
 "TR" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -1834,7 +1794,6 @@
 /area/construction/hallway)
 "Uw" = (
 /obj/machinery/alarm{
-	frequency = 1439;
 	locked = 0;
 	pixel_y = 23
 	},
@@ -1847,7 +1806,6 @@
 /area/storage/primary)
 "UJ" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 4
 	},
 /obj/effect/spawner/window/reinforced,
@@ -1884,11 +1842,9 @@
 /area/construction)
 "Vx" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 4
 	},
 /obj/machinery/door/airlock,
@@ -2014,7 +1970,6 @@
 /area/atmos)
 "Yk" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
-	icon_state = "ast_warn";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -84266,8 +84221,8 @@ dg
 YU
 Ps
 Ps
-IC
-IC
+wl
+wl
 wl
 wl
 wl
