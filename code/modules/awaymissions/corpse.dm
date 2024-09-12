@@ -89,13 +89,14 @@
 	var/_mob_name = FALSE
 
 	var/mob_use_prefs = use_prefs_prompt(user)
-	if(!mob_use_prefs)
+	if(isnull(mob_use_prefs))
 		return
 
-	if(mob_use_prefs == "No" && allow_prefs_prompt)
+	if(!mob_use_prefs && allow_prefs_prompt)
 		var/randomize_alert = tgui_alert(user, "Your character will be randomized for this role, continue?", "Character Selection", list("Yes", "No"))
 		if(randomize_alert != "Yes")
 			return
+
 		if(allow_species_pick)
 			_mob_species = species_prompt()
 		if(allow_gender_pick)
@@ -263,25 +264,29 @@
 
 /obj/effect/mob_spawn/human/use_prefs_prompt(mob/user)
 	if(!allow_prefs_prompt)
-		return TRUE
-
-	. = FALSE
+		return FALSE
 
 	if(!user.client)
-		return .
+		return null
 
-	. = tgui_alert(user, "Would you like to play as the character you currently have selected in slot?", "Character Selection", list("Yes", "No"))
-	if(. != "Yes")
-		return .
+	var/use_prefs = tgui_alert(user, "Would you like to play as the character you currently have selected in slot?", "Character Selection", list("Yes", "No"))
+
+	if(isnull(use_prefs))
+		return null
+
+	if(use_prefs != "Yes")
+		return FALSE
 
 	if(user.client.prefs.real_name in GLOB.human_names_list)
 		to_chat(user, span_warning("You have already entered the round with this name, choose another slot."))
-		return .
+		return FALSE
 
 	var/char_species = user.client.prefs.species
 	if(!(char_species in pickable_species))
 		to_chat(user, span_warning("Your character's current species is not suitable for this role."))
-		return .
+		return FALSE
+
+	return TRUE
 
 
 /obj/effect/mob_spawn/human/species_prompt()
