@@ -1,4 +1,4 @@
-// Teleporter, Wormhole generator, Gravitational catapult, Armor booster modules,
+// Teleporter, Wormhole generator, Gravitational catapult, Armor booster modules, SCS-3 Cage,
 // Repair droid, Tesla Energy relay, Generators
 
 ////////////////////////////////////////////// TELEPORTER ///////////////////////////////////////////////
@@ -590,3 +590,162 @@
 		var/obj/mecha/working/W = loc
 		W.slow_pressure_step_in = initial(W.slow_pressure_step_in)
 		W.fast_pressure_step_in = initial(W.fast_pressure_step_in)
+
+//SCS-3 CAGE
+
+/obj/item/mecha_parts/mecha_equipment/cage
+	name = "SCS 3 Cage"
+	desc = "An exosuit module for containing lawbreakers, or hostages."
+	icon_state = "mecha_teleport" //change
+	origin_tech = "combat=6;materials=5"
+	equip_cooldown = 3 SECONDS
+	energy_drain = 500
+	range = MECHA_MELEE
+	salvageable = FALSE
+	var/dam_force = 10
+	var/mob/living/carbon/prisoner
+	var/mob/living/carbon/holding
+	var/turf/holding_turf
+	harmful = TRUE
+
+
+/obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
+	if(..())
+		if(istype(M, /obj/mecha/combat/durand) || istype(M, /obj/mecha/combat/lockersyndie) || istype(M, /obj/mecha/combat/marauder))
+			return TRUE
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/cage/Destroy()
+	for(var/atom/movable/AM in src)
+		AM.forceMove(get_turf(src))
+		if(holding)
+			stop_supressing(holding)
+	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/cage/action(mob/living/carbon/target)
+	if(!action_checks(target))
+		return FALSE
+	if(!istype(target))
+		return FALSE
+	//SUPRESSING
+	if(((target != holding) && holding) && (target.IsStamcrited() || (target.health <= HEALTH_THRESHOLD_CRIT) || target.stat == DEAD || target.stat == UNCONSCIOUS))
+		occupant_message(span_notice("You stop supressing [holding], and switch to [target]..."))
+		chassis.visible_message(span_warning("[chassis] stops supressing [holding] and switches to [target]."))
+		stop_supressing(holding)
+		supress(target)
+		return TRUE
+	if((target.IsStamcrited() || (target.health <= HEALTH_THRESHOLD_CRIT) || target.stat == DEAD || target.stat == UNCONSCIOUS) && !holding)
+		occupant_message(span_notice("You start supressing [target]..."))
+		chassis.visible_message(span_warning("[chassis] starts supressing [target]."))
+		supress(target)
+		return TRUE
+
+	//HANDCUFFING
+	if(holding && (target == holding) && !target.handcuffed)
+		occupant_message(span_notice("You start cuffing [target]..."))
+		chassis.visible_message(span_warning("[chassis] starts cuffing [target]."))
+		if(!do_after_cooldown(target))
+			return FALSE
+		target.apply_restraints(new /obj/item/restraints/handcuffs, ITEM_SLOT_HANDCUFFED, TRUE)
+		occupant_message(span_notice("You successfully cuff [target]..."))
+		chassis.visible_message(span_warning("[chassis] successfully cuffed [target]."))
+		add_attack_logs(chassis.occupant, target, "shackled")
+		return TRUE
+
+	//PUTTING INTO MECH
+	if(holding && target.handcuffed && (target == holding))
+		if(!prisoner_insertion_check(target))
+			return FALSE
+		occupant_message(span_notice("You start putting [target] into the containment chamber..."))
+		chassis.visible_message(span_warning("[chassis] is putting [target] into the containment chamber."))
+		if(!do_after_cooldown(target))
+			return FALSE
+		stop_supressing(target)
+		target.forceMove(src)
+		prisoner = target
+		update_equip_info()
+		occupant_message(span_notice("[target] successfully loaded into [src]."))
+		chassis.visible_message(span_warning("[chassis] loads [target] into [src]."))
+		log_message("[target] loaded.")
+		return TRUE
+
+	occupant_message(span_notice("[target] can't be suppressed, since [target] is not in critical condition"))
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/supress(mob/living/carbon/target)
+	holding = target
+	holding_turf = get_turf(holding)
+	target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
+	target.move_resist = MOVE_FORCE_STRONG
+	START_PROCESSING(SSobj, src)
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/stop_supressing(mob/living/carbon/target)
+	holding = null
+	holding_turf = null
+	target.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
+	target.move_resist = MOVE_FORCE_DEFAULT
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/prisoner_insertion_check(mob/living/carbon/target)
+	if(target.buckled)
+		occupant_message(span_warning("[target] will not fit into the cage because [target.p_they()] [target.p_are()] buckled to [target.buckled]!"))
+		return FALSE
+	if(target.has_buckled_mobs())
+		occupant_message(span_warning("[target] will not fit into the cage because of the creatures attached to it!"))
+		return FALSE
+	if(prisoner)
+		occupant_message(span_warning("The cage is already occupied!"))
+		return FALSE
+	return TRUE
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/eject(force)
+	if(!action_checks(src))
+		return FALSE
+	if(!prisoner)
+		return FALSE
+	prisoner.forceMove(get_turf(src))
+	if(!force)
+		occupant_message("[prisoner] ejected.")
+		log_message("[prisoner] ejected.")
+	else
+		occupant_message("[prisoner] escaped.")
+		log_message("[prisoner] escaped.")
+	prisoner = null
+	update_equip_info()
+
+/obj/item/mecha_parts/mecha_equipment/cage/can_detach()
+	if(prisoner)
+		occupant_message(span_warning("Unable to detach [src] - equipment occupied!"))
+		return FALSE
+	return TRUE
+
+/obj/item/mecha_parts/mecha_equipment/cage/get_module_equip_info()
+	if(prisoner)
+		return " <br />\[Occupant: [prisoner] \]<br /><a href='byond://?src=[UID()];eject=1'>Eject</a>"
+
+/obj/item/mecha_parts/mecha_equipment/cage/Topic(href,href_list)
+	..()
+	var/datum/topic_input/afilter = new /datum/topic_input(href,href_list)
+	if(afilter.get("eject"))
+		eject(FALSE)
+	return
+
+/obj/item/mecha_parts/mecha_equipment/cage/container_resist()
+	if(prisoner.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER))
+		var/obj/item/clothing/suit/straight_jacket/H = prisoner.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
+		prisoner.cuff_resist(H, FALSE)
+		return
+	if(prisoner.handcuffed)
+		prisoner.cuff_resist(prisoner.handcuffed, FALSE)
+		return
+	if(do_after(prisoner, 30 SECONDS, prisoner))
+		eject(TRUE)
+
+/obj/item/mecha_parts/mecha_equipment/cage/process()
+	var/turf/actual_turf = holding.loc
+	if(holding == null)
+		STOP_PROCESSING(SSobj, src)
+	if((actual_turf.x != holding_turf.x) || (actual_turf.y != holding_turf.y))
+		stop_supressing(holding)
+		actual_turf = null
+	if(chassis.occupant == null)
+		stop_supressing(holding)

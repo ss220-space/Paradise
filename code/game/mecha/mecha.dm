@@ -400,6 +400,11 @@
 			occupant_message(span_danger("Unable to move while in zoom mode."))
 			last_message = world.time
 		return FALSE
+	if(locate(/obj/item/mecha_parts/mecha_equipment/cage) in equipment) // THIS
+		var/obj/item/mecha_parts/mecha_equipment/cage/H = locate(/obj/item/mecha_parts/mecha_equipment/cage) in equipment
+		if(H.holding)
+			occupant_message(span_notice("You stop supressing [H.holding]."))
+			H.stop_supressing(H.holding)
 
 	//Turns strafe OFF if not enough energy to step (with actuator module only)
 	if(strafe && actuator && !has_charge(actuator.energy_per_step))

@@ -49,6 +49,26 @@
 		addtimer(CALLBACK(src, PROC_REF(dissolve_restraint), user, res_suit), 3 SECONDS)
 		used = TRUE
 
+	// mech supress escape
+	if(HAS_TRAIT_FROM(user, TRAIT_IMMOBILIZED, MECH_SUPRESSED_TRAIT))
+		user.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
+		used = TRUE
+
+	// mech cage container escape
+	if(istype(user.loc, /obj/mecha) && !used)
+		var/obj/mecha/mech = user.loc
+		if(!istype(mech))
+			return FALSE
+		if(locate(/obj/item/mecha_parts/mecha_equipment/cage) in mech.equipment)
+			var/obj/item/mecha_parts/mecha_equipment/cage/H = locate(/obj/item/mecha_parts/mecha_equipment/cage) in mech.equipment
+			if(H.prisoner == user)
+				mech.visible_message(span_warning("[mech]'s containment chamber suddenly begins to melt and run!"), \
+									span_warning("We vomit acidic goop onto the interior of the containment chamber!"))
+				H.prisoner.forceMove(get_turf(H))
+				H.prisoner = null
+				H.update_equip_info()
+				used = TRUE
+
 	if(istype(user.loc, /obj/structure/closet) && !used)
 		var/obj/structure/closet/closet = user.loc
 		if(!istype(closet))
