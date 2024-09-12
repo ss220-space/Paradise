@@ -92,11 +92,10 @@
 	if(!use_prefs_prompt(user, &mob_use_prefs))
 		return
 
-	if(!mob_use_prefs)
-		if(allow_prefs_prompt)
-			var/randomize_alert = tgui_alert(user, "Your character will be randomized for this role, continue?", "Character Selection", list("Yes","No"))
-			if(randomize_alert != "Yes")
-				return
+	if(!mob_use_prefs && allow_prefs_prompt)
+		var/randomize_alert = tgui_alert(user, "Your character will be randomized for this role, continue?", "Character Selection", list("Yes", "No"))
+		if(randomize_alert != "Yes")
+			return
 		if(allow_species_pick)
 			_mob_species = species_prompt()
 		if(allow_gender_pick)
@@ -108,6 +107,7 @@
 		if(_mob_species)
 			var/datum/species/S = GLOB.all_species[_mob_species]
 			_mob_species = S.type
+
 	if(!loc || !uses || QDELETED(src) || QDELETED(user))
 		to_chat(user, span_warning("The [name] is no longer usable!"))
 		return
@@ -262,24 +262,24 @@
 
 
 /obj/effect/mob_spawn/human/use_prefs_prompt(mob/user, mob_use_prefs)
+	if(!allow_prefs_prompt)
+		return TRUE
+
 	. = FALSE
 
-	if(!allow_prefs_prompt)
-		return
-
 	if(!user.client)
-		return
+		return .
 
 	. = tgui_alert(user, "Would you like to play as the character you currently have selected in slot?", "Character Selection", list("Yes", "No"))
 	if(. == "Yes")
 		if(user.client.prefs.real_name in GLOB.human_names_list)
 			to_chat(user, span_warning("You have already entered the round with this name, choose another slot."))
-			return
+			return .
 
 		var/char_species = user.client.prefs.species
 		if(!(char_species in pickable_species))
 			to_chat(user, span_warning("Your character's current species is not suitable for this role."))
-			return
+			return .
 
 		*mob_use_prefs = TRUE
 
