@@ -20,7 +20,7 @@
 	var/obj/ritual_object
 	/// Name of our ritual
 	var/name
-	/// If ritual requires more than one ashwalker
+	/// If ritual requires more than one invoker
 	var/extra_invokers = 0
 	/// If invoker species isn't in allowed - he won't do ritual.
 	var/list/allowed_species
@@ -86,8 +86,7 @@
 		if(RITUAL_FAILED_ON_PROCEED)
 			failed = TRUE
 			cause_disaster = TRUE
-			if(ritual_should_del_things_on_fail)
-				del_things = TRUE
+			del_things = TRUE
 			
 	if(message)
 		to_chat(invoker, message)
@@ -95,7 +94,7 @@
 	if(cause_disaster && prob(disaster_prob))
 		disaster(obj, invoker)
 
-	if(ritual_should_del_things && del_things)
+	if((ritual_should_del_things_on_fail || ritual_should_del_things) && (del_things))
 		del_things()
 
 	if(failed)
@@ -275,7 +274,8 @@
 	ritual_should_del_things_on_fail = TRUE
 	required_things = list(
 		/obj/item/twohanded/spear = 3,
-		/obj/item/organ/internal/regenerative_core = 1
+		/obj/item/organ/internal/regenerative_core = 1,
+		/obj/item/food/monstermeat/goliath = 5
 	)
 
 /datum/ritual/ashwalker/mind_transfer/do_ritual(obj/obj, mob/living/carbon/human/invoker)
@@ -283,8 +283,9 @@
 	if(!human.mind || !human.ckey)
 		return RITUAL_FAILED_ON_PROCEED // Your punishment
 	var/obj/effect/proc_holder/spell/mind_transfer/transfer = new
-	if(transfer.cast(human, invoker))
-		message_admins("[key_name(human)] accomplished mindtransfer ritual on [key_name(invoker)]")
+	if(!transfer.cast(human, invoker))
+		return RITUAL_FAILED_ON_PROCEED
+	message_admins("[key_name(human)] accomplished mindtransfer ritual on [key_name(invoker)]")
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/ashwalker/mind_transfer/disaster(obj/obj, mob/living/carbon/human/invoker)
@@ -302,3 +303,39 @@
 	. = ..(bitflags)
 	return
 
+/datum/ritual/ashwalker/summon
+	name = "Summoning ritual"
+	disaster_prob = 30
+	fail_chance = 30
+	shaman_only = TRUE
+	extra_invokers = 1
+	required_things = list(
+		/obj/item/stack/sheet/sinew = 3,
+		/obj/item/organ/internal/regenerative_core = 1,
+		/obj/item/stack/sheet/animalhide/goliath_hide = 1
+	)
+
+/datum/ritual/ashwalker/summon/do_ritual(obj/obj, mob/living/carbon/human/invoker)
+	var/list/ready_for_summoning = list()
+	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
+		if(isashwalker(human))
+			LAZYADD(ready_for_summoning, human)
+	if(!LAZYLEN(ready_for_summoning))
+		return RITUAL_FAILED_ON_PROCEED
+	var/mob/living/carbon/human/human = tgui_input_list(invoker, "Who will be summoned?", "Summon ritual", ready_for_summoning)
+	if(!human)
+		return RITUAL_FAILED_ON_PROCEED
+	human.forceMove(invoker)
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/summon/handle_ritual_object(bitflags, silent = FALSE)
+	. = ..(bitflags, TRUE)
+	if(. == RITUAL_ENDED)
+		playsound(ritual_object.loc, 'sound/weapons/zapbang.ogg', 50, TRUE)
+		var/datum/effect_system/smoke_spread/smoke = new
+		smoke.set_up(5, FALSE, ritual_object.loc)
+		smoke.start()
+		return
+	. = ..(bitflags)
+	return
+	

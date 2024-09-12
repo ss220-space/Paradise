@@ -36,8 +36,17 @@
 /datum/component/ritual_object/proc/attackby(obj/obj, mob/user, params)
 	SIGNAL_HANDLER
 	
-	INVOKE_ASYNC(src, PROC_REF(pre_open_ritual_ui), obj, user)
-	return COMPONENT_CANCEL_ATTACK_CHAIN // The reason not to give that datum to every object.
+	if(active_ui)
+		return
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/human = user
+	if(attacking_item_type && !istype(obj, attacking_item_type))
+		return
+		
+	active_ui = TRUE
+	INVOKE_ASYNC(src, PROC_REF(open_ritual_ui), obj, human)
+	return COMPONENT_CANCEL_ATTACK_CHAIN 
 
 /datum/component/ritual_object/proc/open_ritual_ui(obj/obj, mob/living/carbon/human/human)
 	var/list/rituals_list = list()
@@ -66,20 +75,3 @@
 			
 	active_ui = FALSE
 	return
-
-/datum/component/ritual_object/proc/pre_open_ritual_ui(obj/obj, mob/user)
-	if(active_ui)
-		return
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/human = user
-	if(attacking_item_type && !istype(obj, attacking_item_type))
-		return
-	if(open_ritual_ui_check(obj, human))
-		active_ui = TRUE
-		open_ritual_ui(obj, human)
-	return
-
-/datum/component/ritual_object/proc/open_ritual_ui_check(obj/obj, mob/living/carbon/human/human) // Your custom checks are going here
-	return TRUE
-
