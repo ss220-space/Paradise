@@ -274,8 +274,7 @@
 	ritual_should_del_things_on_fail = TRUE
 	required_things = list(
 		/obj/item/twohanded/spear = 3,
-		/obj/item/organ/internal/regenerative_core = 1,
-		/obj/item/food/grown/ash_flora/cactus_fruit = 1
+		/obj/item/organ/internal/regenerative_core = 1
 	)
 
 /datum/ritual/ashwalker/mind_transfer/do_ritual(obj/obj, mob/living/carbon/human/invoker)
