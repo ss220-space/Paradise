@@ -68,6 +68,8 @@
 	if(isturf(A) && get_dist(src, A) <= 1)
 		Move_Pulled(A)
 
+	A.view_act(src)
+
 
 /**
  * Checks if this mob is in a valid state to punch someone.
