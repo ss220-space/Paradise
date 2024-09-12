@@ -13,6 +13,7 @@
 /datum/sprite_accessory/body_markings/tajara/belly_taj
 	name = "Tajaran Belly"
 	icon_state = "fullbelly_man"
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/body_markings/tajara/belly_taj/woman
 	icon_state = "fullbelly_woman"
@@ -21,6 +22,7 @@
 /datum/sprite_accessory/body_markings/tajara/patchy_taj
 	name = "Tajaran Patches"
 	icon_state = "patch_man"
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/body_markings/tajara/patchy_taj/woman
 	icon_state = "patch_woman"

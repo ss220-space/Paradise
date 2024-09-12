@@ -1,7 +1,7 @@
 /datum/sprite_accessory/facial_hair/unathi
 	icon = 'icons/mob/sprite_accessories/unathi/unathi_facial_hair.dmi'
 	species_allowed = list(SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
-	unsuitable_gender = NONE
+	unsuitable_gender = null
 	over_hair = TRUE
 
 /datum/sprite_accessory/facial_hair/unathi/una_spines_long

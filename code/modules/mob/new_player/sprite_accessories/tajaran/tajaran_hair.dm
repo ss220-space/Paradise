@@ -7,7 +7,6 @@
 	name = "Tajara Braid"
 	icon_state = "braid"
 	secondary_theme = "beads"
-	no_sec_colour = TRUE
 	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/tajara/taj_hair_braid/ears

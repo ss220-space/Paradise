@@ -56,7 +56,7 @@
 	var/list/wings_allowed
 	var/marking_location //Specifies which bodypart a body marking is located on.
 	var/secondary_theme	//If exists, there's a secondary colour to that hair style and the secondary theme's icon state's suffix is equal to this.
-	var/no_sec_colour = FALSE	//If FALSE, prohibit the colouration of the secondary theme.
+	var/no_sec_colour = FALSE	//If TRUE, prohibit the colouration of the secondary theme.
 	var/fluff = 0
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1
