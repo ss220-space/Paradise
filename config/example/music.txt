@@ -202,6 +202,9 @@ LOBBY_MUSIC https://pilotpriest.bandcamp.com/track/now-be-the-light-2
 ## Jeff Imam - Forest
 #LOBBY_MUSIC https://soundcloud.com/jeffimam/forest
 
+
 #### Holiday Music
+
 ## If you want to make holidays custom lobby music, you should make new config entry
 ## with special holiday music and change holiday's var value
+
