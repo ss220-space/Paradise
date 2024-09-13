@@ -379,7 +379,7 @@
 		return RITUAL_FAILED_ON_PROCEED
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/curse/disease(obj/obj, mob/living/carbon/human/invoker)
+/datum/ritual/ashwalker/curse/disaster(obj/obj, mob/living/carbon/human/invoker)
 	var/list/humans = list()
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
 		if(!isashwalker(human))
