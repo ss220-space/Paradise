@@ -7799,14 +7799,11 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
+/obj/item/radio/intercom{
+	pixel_x = -28
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
@@ -13758,6 +13755,10 @@
 /obj/machinery/computer/security{
 	name = "Labor Camp Monitoring";
 	network = list("Labor Camp")
+	},
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -27391,11 +27392,6 @@
 /turf/simulated/wall/r_wall/coated,
 /area/engine/supermatter)
 "dNS" = (
-/obj/structure/sign/atmosplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в работе с Фаррагусом, а также полной адаптации Стацнии под нужды НаноТрейзен. Благодарим вас за труд, SQUEEK!. Слава НаноТрейзен!";
-	name = "Благодарственное Письмо Для Старшего Рабочего Команды Архитекторов Фаррагуса.";
-	pixel_x = 32
-	},
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowcorners"
@@ -44571,11 +44567,6 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/dorms)
 "hes" = (
-/obj/structure/sign/goldenplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в работе с Фаррагусом, а также полной адаптации Стацнии под нужды НаноТрейзен. Благодарим вас за труд, BeebBeebBoob. Слава НаноТрейзен!";
-	name = "Благодарственное Письмо Для Бригадира Команды Архитекторов Фаррагуса.";
-	pixel_x = -32
-	},
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -52276,12 +52267,10 @@
 /turf/simulated/floor/plating,
 /area/security/prisonlockers)
 "iEd" = (
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Bridge";
-	departmentType = 5;
-	name = "Bridge Requests Console";
-	pixel_y = 30
+/obj/structure/sign/beautyplaque{
+	pixel_y = 32;
+	name = "Благодарственное Письмо Для Бригадира Команды Архитекторов Селестии";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в области инженерного менеджмента, а также успешное проектирование Селестии по всем стандартам НаноТрейзен. Благодарим вас за труд, Saad_f603. Слава НаноТрейзен!"
 	},
 /turf/simulated/floor/carpet/black,
 /area/bridge)
@@ -59177,8 +59166,12 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/alarm{
-	pixel_y = 26
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Bridge";
+	departmentType = 5;
+	name = "Bridge Requests Console";
+	pixel_y = 30
 	},
 /turf/simulated/floor/carpet/black,
 /area/bridge)
@@ -80254,12 +80247,6 @@
 	},
 /turf/simulated/floor/glass,
 /area/hallway/primary/central)
-"odp" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/space/openspace,
-/area/space)
 "odx" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -227315,7 +227302,7 @@ dFy
 dFy
 dFy
 qdY
-odp
+soY
 qdY
 dFy
 dFy
