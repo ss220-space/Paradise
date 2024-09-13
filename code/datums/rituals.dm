@@ -325,7 +325,7 @@
 	var/mob/living/carbon/human/human = tgui_input_list(invoker, "Who will be summoned?", "Summon ritual", ready_for_summoning)
 	if(!human)
 		return RITUAL_FAILED_ON_PROCEED
-	human.forceMove(invoker)
+	human.forceMove(ritual_object)
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/ashwalker/summon/handle_ritual_object(bitflags, silent = FALSE)
@@ -378,4 +378,4 @@
 	if(!disease.Contract(human))
 		return RITUAL_FAILED_ON_PROCEED
 	return RITUAL_SUCCESSFUL
-	
+

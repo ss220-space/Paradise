@@ -71,7 +71,7 @@
 /datum/component/ritual_object/proc/get_available_rituals()
 	var/list/rituals_list = list()
 	for(var/datum/ritual/ritual as anything in rituals)
-		if(!ritual.charges && ritual.charges >= 0))
+		if(!ritual.charges && ritual.charges >= 0)
 			continue
 		if(!COOLDOWN_FINISHED(ritual, ritual_cooldown))
 			continue
