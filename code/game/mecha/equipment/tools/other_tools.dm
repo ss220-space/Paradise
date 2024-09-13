@@ -1,5 +1,5 @@
-// Teleporter, Wormhole generator, Gravitational catapult, Armor booster modules, SCS-3 Cage,
-// Repair droid, Tesla Energy relay, Generators
+// Teleporter, Wormhole generator, Gravitational catapult, Armor booster modules,
+// Repair droid, Tesla Energy relay, Generators, SCS-3 Cage
 
 ////////////////////////////////////////////// TELEPORTER ///////////////////////////////////////////////
 
@@ -627,21 +627,29 @@
 		return FALSE
 	if(!istype(target))
 		return FALSE
+
+	var/same_target = target == holding
+
 	//SUPRESSING
-	if(((target != holding) && holding) && (target.IsStamcrited() || (target.health <= HEALTH_THRESHOLD_CRIT) || target.stat == DEAD || target.stat == UNCONSCIOUS))
-		occupant_message(span_notice("You stop supressing [holding], and switch to [target]..."))
-		chassis.visible_message(span_warning("[chassis] stops supressing [holding] and switches to [target]."))
-		stop_supressing(holding)
-		supress(target)
-		return TRUE
-	if((target.IsStamcrited() || (target.health <= HEALTH_THRESHOLD_CRIT) || target.stat == DEAD || target.stat == UNCONSCIOUS) && !holding)
+	if(holding && !same_target)
+		if(target.IsStamcrited() || (target.health <= HEALTH_THRESHOLD_CRIT) || target.stat != CONSCIOUS)
+			occupant_message(span_notice("You stop supressing [holding], and start supressing [target]..."))
+			chassis.visible_message(span_warning("[chassis] stops supressing [holding] and switches to [target]."))
+			if(!do_after_cooldown(target))
+				return FALSE
+			stop_supressing(holding)
+			supress(target)
+			return TRUE
+	if(!holding && (target.IsStamcrited() || (target.health <= HEALTH_THRESHOLD_CRIT) || target.stat != CONSCIOUS))
 		occupant_message(span_notice("You start supressing [target]..."))
 		chassis.visible_message(span_warning("[chassis] starts supressing [target]."))
+		if(!do_after_cooldown(target))
+			return FALSE
 		supress(target)
 		return TRUE
 
 	//HANDCUFFING
-	if(holding && (target == holding) && !target.handcuffed)
+	if(holding && same_target && !target.handcuffed)
 		occupant_message(span_notice("You start cuffing [target]..."))
 		chassis.visible_message(span_warning("[chassis] starts cuffing [target]."))
 		if(!do_after_cooldown(target))
@@ -653,7 +661,7 @@
 		return TRUE
 
 	//PUTTING INTO MECH
-	if(holding && target.handcuffed && (target == holding))
+	if(holding && same_target && target.handcuffed)
 		if(!prisoner_insertion_check(target))
 			return FALSE
 		occupant_message(span_notice("You start putting [target] into the containment chamber..."))

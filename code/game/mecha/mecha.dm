@@ -400,7 +400,7 @@
 			occupant_message(span_danger("Unable to move while in zoom mode."))
 			last_message = world.time
 		return FALSE
-	if(locate(/obj/item/mecha_parts/mecha_equipment/cage) in equipment) // THIS
+	if(locate(/obj/item/mecha_parts/mecha_equipment/cage) in equipment)
 		var/obj/item/mecha_parts/mecha_equipment/cage/H = locate(/obj/item/mecha_parts/mecha_equipment/cage) in equipment
 		if(H.holding)
 			occupant_message(span_notice("You stop supressing [H.holding]."))

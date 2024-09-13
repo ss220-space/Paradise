@@ -55,19 +55,15 @@
 		used = TRUE
 
 	// mech cage container escape
-	if(istype(user.loc, /obj/mecha) && !used)
-		var/obj/mecha/mech = user.loc
-		if(!istype(mech))
-			return FALSE
-		if(locate(/obj/item/mecha_parts/mecha_equipment/cage) in mech.equipment)
-			var/obj/item/mecha_parts/mecha_equipment/cage/H = locate(/obj/item/mecha_parts/mecha_equipment/cage) in mech.equipment
-			if(H.prisoner == user)
-				mech.visible_message(span_warning("[mech]'s containment chamber suddenly begins to melt and run!"), \
+	if(istype(user.loc, /obj/item/mecha_parts/mecha_equipment/cage))
+		var/obj/item/mecha_parts/mecha_equipment/cage/container = user.loc
+		var/obj/mecha/mech = container.chassis
+		var/mob/living/carbon/prisoner = container.prisoner
+		mech.visible_message(span_warning("[mech]'s containment chamber suddenly begins to melt and run!"), \
 									span_warning("We vomit acidic goop onto the interior of the containment chamber!"))
-				H.prisoner.forceMove(get_turf(H))
-				H.prisoner = null
-				H.update_equip_info()
-				used = TRUE
+		prisoner.forceMove(get_turf(mech))
+		container.prisoner = null
+		container.update_equip_info()
 
 	if(istype(user.loc, /obj/structure/closet) && !used)
 		var/obj/structure/closet/closet = user.loc

@@ -28,16 +28,13 @@
 			grabber.stop_pulling()
 			C_imp_in.client?.move_delay = world.time	// to skip move delay we probably got from resisting the grab
 		// mech cage container escape
-		if(istype(C_imp_in.loc, /obj/mecha))
-			var/obj/mecha/mech = C_imp_in.loc
-			if(!istype(mech))
-				return FALSE
-			if(locate(/obj/item/mecha_parts/mecha_equipment/cage) in mech.equipment)
-				var/obj/item/mecha_parts/mecha_equipment/cage/H = locate(/obj/item/mecha_parts/mecha_equipment/cage) in mech.equipment
-				if(H.prisoner == C_imp_in)
-					H.prisoner.forceMove(get_turf(H))
-					H.prisoner = null
-					H.update_equip_info()
+		if(istype(C_imp_in.loc, /obj/item/mecha_parts/mecha_equipment/cage))
+			var/obj/item/mecha_parts/mecha_equipment/cage/container = C_imp_in.loc
+			var/obj/mecha/mech = container.chassis
+			var/mob/living/carbon/prisoner = container.prisoner
+			prisoner.forceMove(get_turf(mech))
+			container.prisoner = null
+			container.update_equip_info()
 
 	if(!uses)
 		qdel(src)
