@@ -64,7 +64,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/ccbdb_lookup_ckey,
 	/client/proc/toggle_pacifism_gt,
 	/client/proc/toogle_ghost_vision,
-	/datum/admins/proc/changetitlescreen,
+	/client/proc/admin_change_title_screen,
+	/client/proc/change_title_screen_notice,
 	/client/proc/debugstatpanel,
 	/client/proc/openAdminTicketUI,
 	/client/proc/openMentorTicketUI,
@@ -182,6 +183,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debug_atom_init,
 	/client/proc/debugstatpanel,
 	/client/proc/allow_browser_inspect, // XSS prevention
+	/client/proc/change_title_screen_html
 ))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
