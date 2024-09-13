@@ -1443,7 +1443,6 @@
 /obj/structure/table/wood,
 /obj/item/ammo_box/shotgun/beanbag,
 /obj/item/gun/projectile/revolver/doublebarrel,
-/obj/structure/window/reinforced,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -1587,6 +1586,7 @@
 	c_tag = "Bar Backroom";
 	dir = 9
 	},
+/obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2597,7 +2597,6 @@
 	name = "Bar Junction";
 	sortType = 19
 	},
-/obj/machinery/navbeacon,
 /obj/effect/decal/warning_stripes/west{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding8"
@@ -5167,7 +5166,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A36";
+	codes_txt = "patrol;next_patrol=A37"
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -5389,6 +5391,11 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery";
+	dir = 1;
+	location = "Library"
 	},
 /turf/simulated/floor/plating,
 /area/space)
@@ -6694,7 +6701,10 @@
 	},
 /area/space)
 "bAj" = (
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A23";
+	codes_txt = "patrol;next_patrol=A24"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -7513,7 +7523,10 @@
 /area/space)
 "bHE" = (
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A44";
+	codes_txt = "patrol;next_patrol=A45"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -11200,8 +11213,10 @@
 	},
 /area/space)
 "ctu" = (
-/obj/machinery/navbeacon,
-/obj/effect/decal/cleanable/dirt,
+/obj/machinery/navbeacon{
+	location = "A27";
+	codes_txt = "patrol;next_patrol=A28"
+	},
 /turf/simulated/floor/plating,
 /area/space)
 "ctw" = (
@@ -12066,6 +12081,15 @@
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"
+	},
+/area/space)
+"cCf" = (
+/obj/machinery/navbeacon{
+	location = "A41";
+	codes_txt = "patrol;next_patrol=A42"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
 	},
 /area/space)
 "cCn" = (
@@ -13876,7 +13900,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellowfull";
+	dir = 8
+	},
 /area/space)
 "cSR" = (
 /obj/structure/cable{
@@ -16658,7 +16685,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "C10";
+	codes_txt = "patrol;next_patrol=C11"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -20973,7 +21003,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A35";
+	codes_txt = "patrol;next_patrol=A36"
+	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/space)
@@ -22306,7 +22339,10 @@
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "C13";
+	codes_txt = "patrol;next_patrol=C1"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -23110,6 +23146,23 @@
 	dir = 1
 	},
 /area/space)
+"eJX" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/obj/machinery/navbeacon{
+	location = "A32";
+	codes_txt = "patrol;next_patrol=A33"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/space)
 "eKg" = (
 /obj/effect/turf_decal/siding/red{
 	dir = 10
@@ -23841,6 +23894,7 @@
 	dir = 2;
 	req_access = list(10)
 	},
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/space)
 "eRl" = (
@@ -24398,7 +24452,10 @@
 /turf/simulated/floor/engine/plasma,
 /area/space)
 "eWQ" = (
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A24";
+	codes_txt = "patrol;next_patrol=A25"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner";
 	dir = 4
@@ -25020,7 +25077,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A29";
+	codes_txt = "patrol;next_patrol=A30"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -25334,7 +25394,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A38";
+	codes_txt = "patrol;next_patrol=A39"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -25881,8 +25944,14 @@
 	},
 /area/space)
 "fmG" = (
-/obj/structure/table/wood,
-/obj/machinery/reagentgrinder,
+/obj/machinery/door/window/southleft{
+	name = "Bar Delivery";
+	req_access = list(25);
+	tag = "icon-left (WEST)";
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -29325,6 +29394,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/navbeacon{
+	location = "A14";
+	codes_txt = "patrol;next_patrol=A15"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "orangecorner";
 	dir = 1
@@ -31707,7 +31780,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A46";
+	codes_txt = "patrol;next_patrol=A1"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "arrival"
@@ -32936,7 +33012,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "C11";
+	codes_txt = "patrol;next_patrol=C12"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -34893,6 +34972,8 @@
 "gZf" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull";
 	dir = 8
@@ -39130,7 +39211,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A45";
+	codes_txt = "patrol;next_patrol=A46"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "arrival"
@@ -40737,7 +40821,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "C6";
+	codes_txt = "patrol;next_patrol=C7"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -43472,6 +43559,23 @@
 	dir = 9
 	},
 /area/space)
+"iKV" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/obj/machinery/navbeacon{
+	location = "A3";
+	codes_txt = "patrol;next_patrol=A4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/space)
 "iLq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
@@ -43760,6 +43864,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -46061,7 +46166,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "C8";
+	codes_txt = "patrol;next_patrol=C9"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -48150,7 +48258,10 @@
 /area/space)
 "jHo" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A22";
+	codes_txt = "patrol;next_patrol=A23"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -48788,6 +48899,18 @@
 	icon_state = "darkblue"
 	},
 /area/space)
+"jOa" = (
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=2";
+	dir = 1;
+	location = "Engineering"
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel,
+/area/space)
 "jOc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -49381,7 +49504,10 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "C12";
+	codes_txt = "patrol;next_patrol=C13"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -50690,7 +50816,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "C9";
+	codes_txt = "patrol;next_patrol=C10"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -51071,7 +51200,10 @@
 /turf/simulated/floor/plating,
 /area/space)
 "kmu" = (
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A12";
+	codes_txt = "patrol;next_patrol=A13"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner";
 	dir = 1
@@ -52266,6 +52398,24 @@
 	},
 /turf/space{
 	icon_state = "black"
+	},
+/area/space)
+"kxv" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/navbeacon{
+	location = "A6";
+	codes_txt = "patrol;next_patrol=A7"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
 	},
 /area/space)
 "kxH" = (
@@ -54681,6 +54831,24 @@
 	icon_state = "dark"
 	},
 /area/space)
+"kWl" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/navbeacon{
+	location = "A7";
+	codes_txt = "patrol;next_patrol=A8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/space)
 "kWm" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -55963,7 +56131,10 @@
 	},
 /area/space)
 "ljM" = (
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A28";
+	codes_txt = "patrol;next_patrol=A29"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner";
 	dir = 1
@@ -57264,7 +57435,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "C5";
+	codes_txt = "patrol;next_patrol=C6"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -58017,7 +58191,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A21";
+	codes_txt = "patrol;next_patrol=A22"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -58352,7 +58529,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A26";
+	codes_txt = "patrol;next_patrol=A27"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -60855,7 +61035,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A1";
+	codes_txt = "patrol;next_patrol=A2"
+	},
 /turf/simulated/floor/plasteel,
 /area/space)
 "mlH" = (
@@ -61667,7 +61850,10 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A10";
+	codes_txt = "patrol;next_patrol=A11"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -63453,6 +63639,18 @@
 	icon_state = "white"
 	},
 /area/space)
+"mMG" = (
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=2";
+	location = "Bar"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/space)
 "mMV" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/table/wood,
@@ -64556,7 +64754,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A34";
+	codes_txt = "patrol;next_patrol=A35"
+	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/space)
@@ -65042,7 +65243,10 @@
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A13";
+	codes_txt = "patrol;next_patrol=A14"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -65788,6 +65992,23 @@
 	dir = 4
 	},
 /turf/simulated/floor/carpet/cyan,
+/area/space)
+"nhW" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/obj/machinery/navbeacon{
+	location = "A17";
+	codes_txt = "patrol;next_patrol=A18"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/space)
 "nhX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -73181,7 +73402,10 @@
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "C4";
+	codes_txt = "patrol;next_patrol=C5"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -75577,7 +75801,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A43";
+	pixel_y = 1;
+	codes_txt = "patrol;next_patrol=A44"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "arrival"
@@ -75696,11 +75924,13 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A4";
+	codes_txt = "patrol;next_patrol=A5"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -77040,7 +77270,10 @@
 	},
 /area/space)
 "pxG" = (
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A15";
+	codes_txt = "patrol;next_patrol=A16"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -77370,7 +77603,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "C7";
+	codes_txt = "patrol;next_patrol=C8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -79626,7 +79862,10 @@
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A33";
+	codes_txt = "patrol;next_patrol=A34"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -82634,6 +82873,17 @@
 /obj/item/pickaxe,
 /turf/simulated/floor/grass,
 /area/space)
+"qEG" = (
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "delivery;dir=8";
+	dir = 4;
+	location = "Kitchen"
+	},
+/turf/simulated/floor/plating,
+/area/space)
 "qEH" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue";
@@ -83422,7 +83672,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A11";
+	codes_txt = "patrol;next_patrol=A12"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -83945,6 +84198,23 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
+/area/space)
+"qSH" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/obj/machinery/navbeacon{
+	location = "A5";
+	codes_txt = "patrol;next_patrol=A6"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/space)
 "qSN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -84677,15 +84947,21 @@
 	},
 /area/space)
 "rbh" = (
-/obj/machinery/door/window/southleft{
-	name = "Bar Delivery";
-	req_access = list(25);
-	tag = "icon-left (WEST)";
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/navbeacon{
+	location = "C3";
+	codes_txt = "patrol;next_patrol=C4"
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "neutralfull"
 	},
 /area/space)
 "rbo" = (
@@ -93192,7 +93468,10 @@
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A2";
+	codes_txt = "patrol;next_patrol=A3"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -94564,7 +94843,6 @@
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
-/obj/machinery/navbeacon,
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -94646,7 +94924,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A8";
+	codes_txt = "patrol;next_patrol=A9"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -96697,6 +96978,23 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plating,
 /area/space)
+"tvm" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/obj/machinery/navbeacon{
+	location = "A18";
+	codes_txt = "patrol;next_patrol=A19"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/space)
 "tvp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
@@ -97087,7 +97385,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A30";
+	codes_txt = "patrol;next_patrol=A31"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner";
 	dir = 1
@@ -99269,7 +99570,10 @@
 "tXi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A37";
+	codes_txt = "patrol;next_patrol=A38"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -102327,7 +102631,10 @@
 /area/space)
 "uDI" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A9";
+	codes_txt = "patrol;next_patrol=A10"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purplecorner"
@@ -103709,7 +104016,6 @@
 	},
 /area/space)
 "uRv" = (
-/obj/structure/table/wood,
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
 	name = "standard air scrubber";
@@ -103717,6 +104023,8 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
+/obj/structure/table/wood,
+/obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -104796,7 +105104,10 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "C1";
+	codes_txt = "patrol;next_patrol=C2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -105646,7 +105957,10 @@
 	},
 /area/space)
 "vmE" = (
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A39";
+	codes_txt = "patrol;next_patrol=A40"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -106398,7 +106712,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A42";
+	codes_txt = "patrol;next_patrol=A43"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -107347,6 +107664,24 @@
 /area/space)
 "vGF" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/space)
+"vGG" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/navbeacon{
+	location = "C2";
+	codes_txt = "patrol;next_patrol=C3"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -109619,7 +109954,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A20";
+	codes_txt = "patrol;next_patrol=A21"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -111390,11 +111728,12 @@
 	},
 /area/space)
 "wvJ" = (
-/obj/structure/plasticflaps{
-	opacity = 1
+/obj/machinery/navbeacon{
+	location = "A16";
+	codes_txt = "patrol;next_patrol=A17"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "Dark"
+	icon_state = "neutralfull"
 	},
 /area/space)
 "wvL" = (
@@ -113753,6 +114092,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/space)
+"wZG" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/navbeacon{
+	location = "A31";
+	codes_txt = "patrol;next_patrol=A32"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/space)
 "wZK" = (
 /obj/structure/chair/office/dark,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -114382,7 +114735,10 @@
 	sortType = 15;
 	name = "HoP Office"
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A19";
+	codes_txt = "patrol;next_patrol=A20"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -117161,7 +117517,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A40";
+	codes_txt = "patrol;next_patrol=A41"
+	},
 /turf/simulated/floor/plasteel,
 /area/space)
 "xIN" = (
@@ -119137,7 +119496,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/navbeacon,
+/obj/machinery/navbeacon{
+	location = "A25";
+	codes_txt = "patrol;next_patrol=A26"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -128080,7 +128442,7 @@ wEH
 qin
 iIP
 pFj
-pxG
+cCf
 tCe
 iIP
 qin
@@ -134278,7 +134640,7 @@ rXT
 rXT
 wif
 vlA
-ibi
+jOa
 eRd
 jPZ
 vDb
@@ -138855,9 +139217,9 @@ dAi
 sXG
 aUi
 geT
-qcK
+qSH
 pXS
-qcK
+iKV
 fqz
 aUi
 aUi
@@ -138878,9 +139240,9 @@ wnl
 lYJ
 aUi
 aUi
-qcK
+eJX
 svv
-qcK
+tvm
 jOV
 aUi
 aUi
@@ -138935,7 +139297,7 @@ aUi
 foi
 fqz
 aUi
-qcK
+nhW
 lVC
 pxG
 ndg
@@ -139109,7 +139471,7 @@ myS
 bsL
 aHa
 lUi
-mTP
+kxv
 oBK
 apf
 eSd
@@ -141763,7 +142125,7 @@ wUt
 opb
 ifP
 dEn
-pxG
+wvJ
 gia
 ifP
 qin
@@ -142463,7 +142825,7 @@ ifP
 ifP
 ifP
 ifP
-wvJ
+ifP
 ifP
 ifP
 qEq
@@ -142714,13 +143076,13 @@ ifP
 ifP
 maa
 ifP
-ibi
+qEG
 ifP
 kUB
 kos
 tiX
 arU
-rbh
+ylY
 ifP
 ifP
 ifP
@@ -142967,7 +143329,7 @@ lUi
 mTP
 oBK
 ifP
-cAZ
+cSN
 iyb
 uBI
 oFC
@@ -143227,9 +143589,9 @@ ifP
 qAL
 xOT
 sGM
-cSN
-cSN
-ifP
+rXT
+rXT
+mMG
 fmG
 uRv
 ata
@@ -144506,7 +144868,7 @@ fnO
 fnO
 nGw
 fmT
-lwI
+kWl
 oBK
 nBt
 qkU
@@ -145304,7 +145666,7 @@ keW
 tQV
 fOz
 qNx
-lwI
+mTP
 wkQ
 iOO
 iMJ
@@ -147838,7 +148200,7 @@ gix
 lwH
 cJc
 kMl
-cnp
+rXT
 xBA
 ifP
 jge
@@ -148352,7 +148714,7 @@ sHu
 cBH
 gLT
 bsL
-rXT
+cnp
 xBA
 bsL
 vSU
@@ -149672,7 +150034,7 @@ ctQ
 gei
 ctQ
 cXq
-sYD
+wZG
 gOq
 xeO
 aUi
@@ -152044,7 +152406,7 @@ evz
 rXT
 vMw
 vMw
-vlA
+rXT
 ifP
 vlA
 tUK
@@ -159700,7 +160062,7 @@ nOT
 lRg
 qyP
 fFq
-lwI
+vGG
 drO
 qzd
 rel
@@ -162527,7 +162889,7 @@ kky
 lwB
 bTg
 vLS
-lwI
+rbh
 drO
 oxJ
 pPQ
