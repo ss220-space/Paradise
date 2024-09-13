@@ -379,3 +379,27 @@
 		return RITUAL_FAILED_ON_PROCEED
 	return RITUAL_SUCCESSFUL
 
+/datum/ritual/ashwalker/curse/disease(obj/obj, mob/living/carbon/human/invoker)
+	var/list/humans = list()
+	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
+		if(!isashwalker(human))
+			LAZYADD(humans, human)
+			
+	if(!LAZYLEN(humans))
+		return RITUAL_FAILED_ON_PROCEED
+
+	var/mob/living/carbon/human/human = pick(humans)
+	var/datum/disease/vampire/disease = new
+	if(!disease.Contract(human))
+		return RITUAL_FAILED_ON_PROCEED
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/curse/disaster(obj/obj, mob/living/carbon/human/invoker)
+	var/list/targets = list()
+	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
+		if(isashwalker(human))
+			LAZYADD(targets, human)
+	var/mob/living/carbon/human/human = safepick(targets)
+	human?.monkeyize()
+	return
+

@@ -49,7 +49,7 @@
 	return COMPONENT_CANCEL_ATTACK_CHAIN 
 
 /datum/component/ritual_object/proc/open_ritual_ui(obj/obj, mob/living/carbon/human/human)
-	var/list/rituals_list = get_available_rituals()
+	var/list/rituals_list = get_available_rituals(human)
 
 	if(!LAZYLEN(rituals_list))
 		to_chat(human, "Не имеется доступных для исполнения ритуалов.")
@@ -68,7 +68,7 @@
 	active_ui = FALSE
 	return
 
-/datum/component/ritual_object/proc/get_available_rituals()
+/datum/component/ritual_object/proc/get_available_rituals(mob/living/carbon/human/human)
 	var/list/rituals_list = list()
 	for(var/datum/ritual/ritual as anything in rituals)
 		if(!ritual.charges && ritual.charges >= 0)
