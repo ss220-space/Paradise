@@ -83,9 +83,13 @@
 '2024-09-13':
   Antoonij:
   - bugfix: Eatable component attack speed & cloth material fix (#5895)
+  Aziz Chynaliev:
+  - bugfix: revert bit shift define
   Daeberdir:
   - bugfix: Ghostrole spawner again, (#5897)
   Den109G:
   - bugfix: Dye bottle is working (#5901)
+  ROdenFL:
+  - unknown: title menu (#5819)
   Vladisvell:
   - add: Lockers and crates are now opened with chance when hit into wall (#5902)
