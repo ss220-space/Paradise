@@ -49,15 +49,7 @@
 	return COMPONENT_CANCEL_ATTACK_CHAIN 
 
 /datum/component/ritual_object/proc/open_ritual_ui(obj/obj, mob/living/carbon/human/human)
-	var/list/rituals_list = list()
-	for(var/datum/ritual/ritual as anything in rituals)
-		if(ritual.ritual_completed)
-			continue
-		if(!COOLDOWN_FINISHED(ritual, ritual_cooldown))
-			continue
-		if(ritual.allowed_species && !is_type_in_typecache(human.dna.species, ritual.allowed_species))
-			continue
-		LAZYADD(rituals_list, ritual.name)
+	var/list/rituals_list = get_available_rituals()
 
 	if(!LAZYLEN(rituals_list))
 		to_chat(human, "Не имеется доступных для исполнения ритуалов.")
@@ -75,3 +67,15 @@
 			
 	active_ui = FALSE
 	return
+
+/datum/component/ritual_object/proc/get_available_rituals()
+	var/list/rituals_list = list()
+	for(var/datum/ritual/ritual as anything in rituals)
+		if(!ritual.charges && ritual.charges >= 0))
+			continue
+		if(!COOLDOWN_FINISHED(ritual, ritual_cooldown))
+			continue
+		if(ritual.allowed_species && !is_type_in_typecache(human.dna.species, ritual.allowed_species))
+			continue
+		LAZYADD(rituals_list, ritual.name)
+	return rituals_list

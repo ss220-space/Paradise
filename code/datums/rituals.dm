@@ -30,8 +30,8 @@
 	var/require_allowed_species = TRUE
 	/// We search for humans in that radius
 	var/finding_range = DEFAULT_RITUAL_RANGE_FIND
-	/// Single rituals. If true - it cannot be choosen.
-	var/ritual_completed = FALSE
+	/// Amount of maximum ritual uses.
+	var/charges = -1
 	/// Messages on failed invocation.
 	var/invalid_species_message = "Вы не можете понять, как с этим работать."
 	var/extra_invokers_message = "Для выполнения данного ритуала требуется больше участников."
@@ -74,6 +74,7 @@
 			COOLDOWN_START(src, ritual_cooldown, cooldown_after_cast)
 			handle_ritual_object(RITUAL_ENDED)
 			del_things = TRUE
+			charges -= 1
 		if(RITUAL_FAILED_INVALID_SPECIES)
 			failed = TRUE
 			message = invalid_species_message
@@ -127,7 +128,7 @@
 	return
 
 /datum/ritual/proc/ritual_invoke_check(obj/obj, mob/living/carbon/human/invoker)
-	if(ritual_completed)
+	if(!charges && charges >= 0)
 		return // should not have message
 	if(allowed_species && !is_type_in_typecache(invoker.dna.species, allowed_species)) // double check to avoid funny situations
 		return RITUAL_FAILED_INVALID_SPECIES
@@ -216,6 +217,7 @@
 	name = "Ash storm summon"
 	shaman_only = TRUE
 	disaster_prob = 20
+	charges = 2
 	fail_chance = 20
 	extra_invokers = 2
 	required_things = list(
@@ -254,7 +256,6 @@
 /datum/ritual/ashwalker/summon_ashstorm/do_ritual(obj/obj, mob/living/carbon/human/invoker)
 	SSweather.run_weather(/datum/weather/ash_storm)
 	message_admins("[key_name(invoker)] accomplished ashstorm ritual and summoned ashstorm")
-	ritual_completed = TRUE
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/ashwalker/summon_ashstorm/disaster(obj/obj, mob/living/carbon/human/invoker)
@@ -337,3 +338,44 @@
 		return
 	. = ..(bitflags)
 	return
+
+/datum/ritual/ashwalker/curse
+	name = "Curse ritual"
+	disaster_prob = 30
+	fail_chance = 30
+	charges = 3
+	shaman_only = TRUE
+	extra_invokers = 2
+	required_things = list(
+		/mob/living/carbon/human = 3
+	)
+
+/datum/ritual/ashwalker/curse/del_things()
+	for(var/mob/living/carbon/human as anything in used_things)
+		human.gib()
+	return
+
+/datum/ritual/ashwalker/curse/ritual_check(obj/obj, mob/living/carbon/human/invoker)
+	. = ..()
+	if(!.)
+		return FALSE
+	for(var/mob/living/carbon/human/human as anything in used_things)
+		if(human.stat != DEAD)
+			return FALSE
+	return TRUE
+
+/datum/ritual/ashwalker/curse/do_ritual(obj/obj, mob/living/carbon/human/invoker)
+	var/list/humans = list()
+	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
+		if(!isashwalker(human))
+			LAZYADD(humans, human)
+			
+	if(!LAZYLEN(humans))
+		return RITUAL_FAILED_ON_PROCEED
+
+	var/mob/living/carbon/human/human = pick(humans)
+	var/datum/disease/vampire/disease = new
+	if(!disease.Contract(human))
+		return RITUAL_FAILED_ON_PROCEED
+	return RITUAL_SUCCESSFUL
+	
