@@ -31,13 +31,13 @@
 
 /datum/objective/sintouched/gluttony/on_apply()
 	user.physiology.hunger_mod *= 3
-	user.dna.species.species_traits |= NO_OBESITY
-	user.mutations |= EATER
+	user.dna.species.inherent_traits |= TRAIT_NO_FAT
+	user.force_gene_block(GLOB.eatblock, TRUE)
 
 /datum/objective/sintouched/gluttony/Destroy(force)
 	user.physiology.hunger_mod /= 3
-	user.dna.species.species_traits -= NO_OBESITY
-	user.mutations -= EATER
+	user.dna.species.inherent_traits -= TRAIT_NO_FAT
+	user.force_gene_block(GLOB.eatblock)
 	return ..()
 	
 /datum/objective/sintouched/greed
