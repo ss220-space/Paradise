@@ -60,6 +60,7 @@
 	var/disabilities_allowed = 1
 	var/transfer_allowed = TRUE // If false, ID computer will always discourage transfers to this job, even if player is eligible
 	var/hidden_from_job_prefs = FALSE // if true, job preferences screen never shows this job.
+	var/list/blocked_race_for_job = list()
 
 	var/admin_only = 0
 	var/spawn_ert = 0
@@ -139,6 +140,13 @@
 	if(!C)
 		return FALSE
 	if(C.prefs.age >= min_age_allowed)
+		return TRUE
+	return FALSE
+
+/datum/job/proc/species_in_blacklist(client/C)
+	if(!C)
+		return FALSE
+	if(C.prefs.species in blocked_race_for_job)
 		return TRUE
 	return FALSE
 
