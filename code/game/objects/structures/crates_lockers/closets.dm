@@ -102,6 +102,11 @@ GLOBAL_LIST_EMPTY(closets)
 
 	return TRUE
 
+/obj/structure/closet/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	if(iswallturf(hit_atom) && prob(20))
+		open()
+
 /obj/structure/closet/proc/dump_contents()
 	var/atom/L = drop_location()
 	for(var/atom/movable/AM in src)
