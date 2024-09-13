@@ -259,11 +259,15 @@
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/ashwalker/summon_ashstorm/disaster(obj/obj, mob/living/carbon/human/invoker)
+	var/list/targets = list()
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
 		if(isashwalker(human))
-			var/datum/disease/virus/cadaver/cadaver = new
-			cadaver.Contract(human)
-			break
+			LAZYADD(targets, human)
+	if(!LAZYLEN(targets))
+		return
+	var/mob/living/carbon/human/human = pick(targets)
+	var/datum/disease/virus/cadaver/cadaver = new
+	cadaver.Contract(human)
 	return
 
 /datum/ritual/ashwalker/mind_transfer
@@ -328,6 +332,11 @@
 	human.forceMove(ritual_object)
 	return RITUAL_SUCCESSFUL
 
+/datum/ritual/ashwalker/summon/disaster(obj/obj, mob/living/carbon/human/invoker)
+	var/obj/item/organ/external/limb = invoker.get_organ(pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+	limb?.droplimb()
+	return
+
 /datum/ritual/ashwalker/summon/handle_ritual_object(bitflags, silent = FALSE)
 	. = ..(bitflags, TRUE)
 	if(. == RITUAL_ENDED)
@@ -384,7 +393,54 @@
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
 		if(isashwalker(human))
 			LAZYADD(targets, human)
-	var/mob/living/carbon/human/human = safepick(targets)
-	human?.monkeyize()
+	if(!LAZYLEN(targets))
+		return
+	var/mob/living/carbon/human/human = pick(targets)
+	human.monkeyize()
+	return
+
+/datum/ritual/ashwalker/power
+	name = "Power ritual"
+	disaster_prob = 40
+	fail_chance = 40
+	charges = 1
+	shaman_only = TRUE
+	extra_invokers = 4
+	required_things = list(
+		/mob/living/carbon/human = 5,
+		/mob/living/simple_animal/hostile/asteroid/goliath = 3,
+		/obj/item/organ/internal/regenerative_core = 3
+	)
+
+/datum/ritual/ashwalker/power/del_things()
+	for(var/mob/living/living in used_things)
+		living.gib()
+	return
+
+/datum/ritual/ashwalker/power/ritual_check(obj/obj, mob/living/carbon/human/invoker)
+	. = ..()
+	if(!.)
+		return FALSE
+	for(var/mob/living/carbon/human/human in used_things)
+		if(human.stat != DEAD)
+			return FALSE
+		if(!isashwalker(human))
+			return FALSE
+	return TRUE
+
+/datum/ritual/ashwalker/power/do_ritual(obj/obj, mob/living/carbon/human/invoker)
+	var/mob/living/carbon/human/human = pick(invokers)
+	human.force_gene_block(GLOB.hulkblock, TRUE)
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/power/disaster(obj/obj, mob/living/carbon/human/invoker)
+	var/list/targets = list()
+	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
+		if(isashwalker(human))
+			LAZYADD(targets, human)
+	if(!LAZYLEN(targets))
+		return
+	var/mob/living/carbon/human/human = pick(targets)
+	human.force_gene_block(pick(GLOB.bad_blocks), TRUE)
 	return
 
