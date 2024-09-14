@@ -80534,12 +80534,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
-"ogP" = (
-/obj/machinery/computer/card/minor/hos{
-	dir = 1
-	},
-/turf/simulated/floor/wood/fancy/light,
-/area/security/hos)
 "ogS" = (
 /obj/effect/spawner/random_spawners/blood_20,
 /obj/effect/decal/cleanable/dirt,
@@ -126887,6 +126881,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/reception)
+"xaI" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/security/hos)
 "xaJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -219774,7 +219774,7 @@ eab
 liR
 xAa
 liR
-dJF
+xaI
 rWS
 qQo
 pNG
@@ -220030,7 +220030,7 @@ rWS
 oAE
 cVf
 dkU
-ogP
+dJF
 ayE
 rWS
 buS
