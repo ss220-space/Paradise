@@ -339,6 +339,37 @@ REAGENT SCANNER
 		return
 	print_report(user)
 
+// If there is id -> account from id
+// If there is no id -> dnk
+
+/proc/get_insurance_account(mob/living/carbon/human/user)
+	var/obj/item/card/id/user_id = person.get_id_card()
+	if (istype(user_id) && user_id.associated_account_number)
+		return user_id.associated_account_number
+
+
+/proc/collect_insurance_points(mob/living/carbon/human/user, amount)
+
+
+/obj/item/healthanalyzer/proc/collect_insurance_points_verb()
+	set name = "Списать очки страховки"
+	set category = "Object"
+	set src = usr
+
+	var/mob/living/carbon/human/user = usr
+	if(!istype(user))
+		return
+	if (user.incapacitated())
+		return
+
+	var/req = get_req_insurance(user)
+	var/result = collect_insurance_points(user, req)
+
+	if (result)
+		visible_message("Страховка списанна в размере: [result].")
+	else
+		visible_message(span_warning("Страховка не может покрыть полное лечение."))
+
 /obj/item/healthanalyzer/proc/print_report(var/mob/living/user)
 	if(!scan_data)
 		to_chat(user, "Нет данных для печати.")
@@ -438,6 +469,42 @@ REAGENT SCANNER
 	. = medical_scan_results(scan_subject, mode, advanced)
 	scanner.window_height += length(.) * 20
 	. = "<span class='highlight'>[jointext(., "<br>")]</span>"
+
+/proc/get_req_insurance(mob/living/carbon/human/user)
+	var/insurance = 0
+
+	insurance += user.getBruteLoss() * REQ_INSURANCE_BRUT
+	insurance += user.getFireLoss() * REQ_INSURANCE_BURN
+	insurance += user.getOxyLoss() * REQ_INSURANCE_OXY
+	insurance += user.getToxLoss() * REQ_INSURANCE_TOX
+
+	var/internal_organs_damage = 0
+	for(var/obj/item/organ/internal/organ as anything in user.internal_organs)
+		internal_organs_damage += organ.damage
+	insurance += user.getToxLoss() * REQ_INSURANCE_ORGAN
+
+	insurance += user.radiation * REQ_INSURANCE_RAD
+	insurance += user.getCloneLoss() * REQ_INSURANCE_CLONE
+
+	var/internal_bleedings = 0
+	for(var/obj/item/organ/external/bodypart as anything in user.bodyparts)
+		if(bodypart.has_internal_bleeding())
+			internal_bleedings++
+	insurance += internal_bleedings * REQ_INSURANCE_INTBLEED
+
+	var/missed_organs = 0
+	for (var/organ in user.dna.species.has_organ)
+		if (!(organ in user.internal_organs_slot))
+			missed_organs++
+	insurance += missed_organs * REQ_INSURANCE_LOST_ORGAN
+
+	var/missed_limbs = 0
+	for (var/limb in user.dna.species.has_limbs)
+		if (!(limb in user.bodyparts))
+			missed_limbs++
+	insurance += missed_limbs * REQ_INSURANCE_LOST_LIMB
+
+	return insurance
 
 /proc/medical_scan_results(var/mob/living/M, var/mode = 1, var/advanced = FALSE)
 	. = list()
@@ -618,7 +685,9 @@ REAGENT SCANNER
 	else
 		. += "Гены стабильны."
 
-// Это вывод в чат
+	. += "Требуемое количество очков страховки - [get_req_insurance(H)]"
+
+// This is the output to the chat
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
 	var/scan_data = medical_scan_results(M, mode, advanced)
 	to_chat(user, "[jointext(scan_data, "<br>")]")

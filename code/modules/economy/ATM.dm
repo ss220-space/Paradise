@@ -171,6 +171,7 @@ log transactions
 	if(authenticated_account)
 		data["owner_name"] = authenticated_account.owner_name
 		data["money"] = authenticated_account.money
+		data["insurance"] = authenticated_account.insurance
 		data["security_level"] = authenticated_account.security_level
 
 		var/list/trx = list()
@@ -289,6 +290,23 @@ log transactions
 				else
 					to_chat(usr, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
 
+		if("withdinsurancerawal")
+			var/amount = max(text2num(params["insurance_amount"]), 0)
+			if(amount <= 0)
+				to_chat(usr, "[bicon(src)]" + span_warning("That is not a valid amount."))
+			else if(authenticated_account && amount > 0)
+				if(amount <= authenticated_account.money)
+					playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
+
+					//remove the money
+					if(amount > 100000) // prevent crashes
+						to_chat(usr, span_notice("The ATM's screen flashes, 'Лимит единоразового пополнения страховки достигнут, установка пополнения на 100,000.'"))
+						amount = 100000
+					if(authenticated_account.charge(amount, null, "Insurance replenishment", machine_id, authenticated_account.owner_name))
+						replenish_insurance(amount)
+				else
+					to_chat(usr, "[bicon(src)]" + span_warning("У вас недостаточно кредитов для этого!"))
+
 		if("balance_statement")
 			if(authenticated_account)
 				if(world.timeofday < lastprint + PRINT_DELAY)
@@ -334,3 +352,5 @@ log transactions
 	if(usr)
 		usr.put_in_hands(C, ignore_anim = FALSE)
 
+/obj/machinery/atm/proc/replenish_insurance(amount)
+	authenticated_account.addInsurancePoints(amount)

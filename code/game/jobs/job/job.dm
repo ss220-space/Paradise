@@ -77,6 +77,9 @@
 	var/required_objectives=list() // Objectives that are ALWAYS added.
 	var/optional_objectives=list() // Objectives that are SOMETIMES added.
 
+	/// Roundstart insurance normal for this job
+	var/insurance = INSURANCE_STANDART
+
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
 
@@ -281,6 +284,7 @@
 
 		if(H.mind && H.mind.initial_account)
 			C.associated_account_number = H.mind.initial_account.account_number
+			H.mind.initial_account.insurance = J.insurance
 		C.owner_uid = H.UID()
 		C.owner_ckey = H.ckey
 

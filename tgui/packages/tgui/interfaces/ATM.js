@@ -199,12 +199,13 @@ const TransferFunds = (props, context) => {
 
 const DefaultScreen = (props, context) => {
   const { act, data } = useBackend(context);
-  const [fundsAmount, setFundsAmount] = useLocalState(
+  const [fundsAmount, insuranceAmount, setFundsAmount, setInsuranceAmount] = useLocalState(
     context,
     'fundsAmount',
+    'insuranceAmount',
     0
   );
-  const { owner_name, money } = data;
+  const { owner_name, money, insurance } = data;
   return (
     <>
       <Section
@@ -227,6 +228,18 @@ const DefaultScreen = (props, context) => {
               content="Withdraw Funds"
               icon="sign-out-alt"
               onClick={() => act('withdrawal', { funds_amount: fundsAmount })}
+            />
+          </LabeledList.Item>
+
+          <LabeledList.Item label="Insurance Points">${insurance}</LabeledList.Item>
+          <LabeledList.Item label="Adding Insurance">
+            <Input onInput={(e, value) => setInsuranceAmount(value)} />
+          </LabeledList.Item>
+          <LabeledList.Item>
+            <Button
+              content="Add insurance points"
+              icon="sign-out-alt"
+              onClick={() => act('insurance', { insurance_amount: insuranceAmount })}
             />
           </LabeledList.Item>
         </LabeledList>

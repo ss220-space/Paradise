@@ -23,6 +23,7 @@
 	exp_type = EXP_TYPE_ENGINEERING
 	money_factor = 7
 	outfit = /datum/outfit/job/chief_engineer
+	insurance = INSURANCE_DELUXE
 
 /datum/outfit/job/chief_engineer
 	name = "Chief Engineer"

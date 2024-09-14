@@ -118,12 +118,16 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 	var/money = 0
 	var/suspended = 0
 	var/list/transaction_log = list()
+	var/insurance = INSURANCE_NONE
 	var/security_level = 0	//0 - auto-identify from worn ID, require only account number
 							//1 - require manual login / account number and pin
 							//2 - require card and manual login
 
 /datum/money_account/New()
 	..()
+
+/datum/money_account/proc/addInsurancePoints(amount)
+	insurance += amount
 
 /datum/transaction
 	var/target_name = ""

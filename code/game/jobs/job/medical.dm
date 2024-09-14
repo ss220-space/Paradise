@@ -21,6 +21,7 @@
 	exp_type = EXP_TYPE_MEDICAL
 	money_factor = 7
 	outfit = /datum/outfit/job/cmo
+	insurance = INSURANCE_DELUXE
 
 /datum/outfit/job/cmo
 	name = JOB_TITLE_CMO

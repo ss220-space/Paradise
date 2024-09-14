@@ -17,6 +17,7 @@
 	alt_titles = list("Chief Supply Manager")
 	money_factor = 6
 	outfit = /datum/outfit/job/qm
+	insurance = INSURANCE_DELUXE // Always has been.
 
 /datum/outfit/job/qm
 	name = "Quartermaster"
@@ -80,6 +81,7 @@
 	alt_titles = list("Spelunker")
 	money_factor = 3
 	outfit = /datum/outfit/job/mining
+	insurance = INSURANCE_EXTENDED
 
 /datum/outfit/job/mining
 	name = "Shaft Miner"

@@ -12,6 +12,7 @@
 	alt_titles = list("Tourist","Businessman","Trader","Assistant")
 	random_money_factor = TRUE
 	outfit = /datum/outfit/job/assistant
+	insurance = INSURANCE_BUDGETARY
 
 /datum/job/civilian/get_access()
 	if(CONFIG_GET(flag/assistant_maint))

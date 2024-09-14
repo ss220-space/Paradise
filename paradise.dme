@@ -75,6 +75,7 @@
 #include "code\__DEFINES\implants_defines.dm"
 #include "code\__DEFINES\input.dm"
 #include "code\__DEFINES\instruments.dm"
+#include "code\__DEFINES\insurance.dm"
 #include "code\__DEFINES\inventory.dm"
 #include "code\__DEFINES\is_helpers.dm"
 #include "code\__DEFINES\job.dm"
