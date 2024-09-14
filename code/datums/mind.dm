@@ -419,6 +419,7 @@
 	var/datum/antagonist/morph/antag_datum = has_antag_datum(/datum/antagonist/morph)
 	if(antag_datum)
 		. += "<a href='byond://?src=[UID()];morph=handle_ability'>Re-grant abilities</a>"
+		. += "<a href='byond://?src=[UID()];morph=toggle_reproduce'>Toggle reproduce</a>"
 
 	else if(!ismorph(current))
 		. += "<a href='byond://?src=[UID()];morph=make_morph'>Tranform into morph</a>"
@@ -1894,7 +1895,7 @@
 				for(var/obj/item/check as anything in living.get_equipped_items(TRUE, TRUE))
 					living.drop_item_ground(check, force = TRUE)
 
-				var/mob/living/simple_animal/hostile/morph/morph = new(living.loc)
+				var/mob/living/simple_animal/hostile/morph/morph = new(get_turf(living.loc))
 				morph.key = living.key
 				morph.make_morph_antag()
 				qdel(living)
@@ -1904,6 +1905,11 @@
 				if(LAZYLEN(spell_list))
 					morph.remove_abilities()
 				morph.grant_abilities()
+
+			if("toggle_reproduce")
+				var/datum/antagonist/morph/morph = has_antag_datum(/datum/antagonist/morph)
+				morph.switch_reproduce()
+				to_chat(usr, "You toggled [src] reproduce [morph.can_reproduce ? "on": "off"]")
 
 	else if(href_list["nuclear"])
 		var/mob/living/carbon/human/H = current
