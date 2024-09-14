@@ -546,21 +546,6 @@
 	return TRUE
 
 
-/mob/living/verb/succumb()
-	set hidden = 1
-	if(InCritical())
-		add_attack_logs(src, src, "has succumbed to death with [round(health, 0.1)] points of health")
-		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
-		// super check for weird mobs, including ones that adjust hp
-		// we don't want to go overboard and gib them, though
-		for(var/i = 1 to 5)
-			if(health < HEALTH_THRESHOLD_DEAD)
-				break
-			take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD))
-		death()
-		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
-
-
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
 
@@ -2267,6 +2252,52 @@
 
 	update_ssd_overlay()	// special SSD overlay handling
 
+/mob/living/verb/succumb()
+	set hidden = TRUE
+	// if you use the verb you better mean it
+	do_succumb(FALSE)
+
+/mob/living/proc/do_succumb(cancel_on_no_words)
+	if(stat == DEAD)
+		to_chat(src, span_notice("It's too late, you're already dead!"))
+		return
+	if(health >= HEALTH_THRESHOLD_CRIT)
+		to_chat(src, span_warning("You are unable to succumb to death! This life continues!"))
+		return
+
+	last_words = null // In case we kept some from last time
+	var/final_words = tgui_input_text(src, "Do you have any last words?", "Goodnight, Sweet Prince", encode = FALSE)
+
+	if(isnull(final_words) && cancel_on_no_words)
+		to_chat(src, span_notice("You decide you aren't quite ready to die."))
+		return
+
+	if(stat == DEAD)
+		return
+
+	if(health >= HEALTH_THRESHOLD_CRIT)
+		to_chat(src, span_warning("You are unable to succumb to death! This life continues!"))
+		return
+
+	if(!isnull(final_words))
+		last_words = final_words
+		whisper(final_words)
+
+	create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
+	adjustOxyLoss(max(health - HEALTH_THRESHOLD_DEAD, 0))
+	// super check for weird mobs, including ones that adjust hp
+	// we don't want to go overboard and gib them, though
+	for(var/i in 1 to 5)
+		if(health < HEALTH_THRESHOLD_DEAD)
+			break
+		take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
+
+	if(!isnull(final_words))
+		addtimer(CALLBACK(src, PROC_REF(death)), 1 SECONDS)
+	else
+		death()
+	to_chat(src, span_notice("You have given up life and succumbed to death."))
+	apply_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED)
 
 /// Updates damage slowdown accordingly to the current health
 /mob/living/proc/update_movespeed_damage_modifiers()

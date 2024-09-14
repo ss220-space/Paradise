@@ -25,6 +25,7 @@
 #define DISABILITY_FLAG_TEA_ADDICT (1<<13)
 #define DISABILITY_FLAG_ALCOHOLE_ADDICT (1<<14)
 #define DISABILITY_FLAG_NICOTINE_ADDICT (1<<15)
+#define DISABILITY_FLAG_PARAPLEGIA 		  (1<<16)
 
 
 //Nutrition levels for humans. No idea where else to put it
