@@ -560,4 +560,4 @@
 	var/mob/living/carbon/human/human = pick(targets)
 	new /obj/item/organ/internal/legion_tumour(human)
 	return
-	
+
