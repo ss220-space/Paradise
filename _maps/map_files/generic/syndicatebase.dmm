@@ -22073,7 +22073,7 @@
 	pixel_y = -24
 	},
 /obj/item/toy/plushie/coffee_fox{
-	desc = "Extremely soft toy, sewn by a truly professional artist who loves his job. There is a tag with the inscription "Fur..." hanging on the paw."
+	desc = "Extremely soft toy, sewn by a truly professional artist who loves his job. There is a tag with the inscription /"Fur.../" hanging on the paw."
 	},
 /obj/item/storage/toolbox/syndicate,
 /turf/simulated/floor/carpet/black,
