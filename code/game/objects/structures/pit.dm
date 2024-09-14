@@ -212,6 +212,11 @@
 	pixel_x = 5
 	pixel_y = 8
 	anchored = TRUE
+	var/message = "Unknown."
+
+/obj/structure/gravemarker/update_desc(updates = ALL)
+	. = ..()
+	desc = "[message]"
 
 /obj/structure/gravemarker/cross
 	icon_state = "cross"
@@ -234,7 +239,8 @@
 	var/born = cur_year - rand(5,150)
 	var/died = max(cur_year - rand(0,70),born)
 
-	desc = "Здесь упокоен [nam], [born] - [died]."
+	message = "Здесь упокоен [nam], [born] - [died]."
+	update_appearance(UPDATE_DESC)
 
 
 /obj/structure/gravemarker/attackby(obj/item/I, mob/user, params)
@@ -244,7 +250,8 @@
 	if(is_pen(I))
 		var/msg = tgui_input_text(user, "What should it say?", "Grave marker", desc)
 		if(msg)
-			desc = msg
+			message = msg
+			update_appearance(UPDATE_DESC)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/hatchet))
