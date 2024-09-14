@@ -212,7 +212,6 @@
 	pixel_x = 5
 	pixel_y = 8
 	anchored = TRUE
-	var/message = "Unknown."
 
 /obj/structure/gravemarker/cross
 	icon_state = "cross"
@@ -220,7 +219,6 @@
 /obj/structure/gravemarker/random/Initialize(mapload)
 	. = ..()
 	generate()
-	desc = "[message]"
 
 /obj/structure/gravemarker/random/proc/generate()
 	var/nam
@@ -236,7 +234,7 @@
 	var/born = cur_year - rand(5,150)
 	var/died = max(cur_year - rand(0,70),born)
 
-	message = "Здесь упокоен [nam], [born] - [died]."
+	desc = "Здесь упокоен [nam], [born] - [died]."
 
 
 /obj/structure/gravemarker/attackby(obj/item/I, mob/user, params)
