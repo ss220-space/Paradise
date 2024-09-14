@@ -244,9 +244,9 @@
 		return ..()
 
 	if(is_pen(I))
-		var/msg = tgui_input_text(user, "What should it say?", "Grave marker", "Rest In Peace")
+		var/msg = tgui_input_text(user, "What should it say?", "Grave marker", desc)
 		if(msg)
-			message = msg
+			desc = msg
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/hatchet))
