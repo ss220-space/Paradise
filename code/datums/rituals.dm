@@ -223,6 +223,7 @@
 	shaman_only = TRUE
 	disaster_prob = 20
 	charges = 2
+	cooldown_after_cast = 1200 SECONDS
 	fail_chance = 20
 	extra_invokers = 2
 	required_things = list(
@@ -236,8 +237,8 @@
 	if(!.)
 		return FALSE
 
-	for(var/mob/mob in used_things)
-		if(mob.stat != DEAD)
+	for(var/mob/living/living in used_things)
+		if(living.stat != DEAD)
 			return FALSE
 
 	return TRUE
@@ -281,6 +282,7 @@
 	disaster_prob = 30
 	fail_chance = 50
 	extra_invokers = 1
+	cooldown_after_cast = 480 SECONDS
 	require_allowed_species = FALSE
 	ritual_should_del_things_on_fail = TRUE
 	required_things = list(
@@ -318,6 +320,7 @@
 	disaster_prob = 30
 	fail_chance = 30
 	shaman_only = TRUE
+	cooldown_after_cast = 900 SECONDS
 	extra_invokers = 1
 	required_things = list(
 		/obj/item/stack/sheet/sinew = 3,
@@ -358,6 +361,7 @@
 	name = "Curse ritual"
 	disaster_prob = 30
 	fail_chance = 30
+	cooldown_after_cast = 600 SECONDS
 	charges = 3
 	shaman_only = TRUE
 	extra_invokers = 2
@@ -410,6 +414,7 @@
 	disaster_prob = 40
 	fail_chance = 40
 	charges = 1
+	cooldown_after_cast = 800 SECONDS
 	shaman_only = TRUE
 	extra_invokers = 4
 	required_things = list(
@@ -519,7 +524,7 @@
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher = 1,
 		/mob/living/simple_animal/hostile/asteroid/goliath = 1,
 		/obj/item/organ/internal/regenerative_core = 1,
-		/mob/living/simple_animal/hostile/asteroid/goldgrub
+		/mob/living/simple_animal/hostile/asteroid/goldgrub = 1
 	)
 	var/list/blacklisted_rituals = list()
 
