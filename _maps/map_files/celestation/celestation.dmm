@@ -119603,7 +119603,11 @@
 	pixel_y = -3;
 	req_access = list(2)
 	},
-/obj/item/paper/monitorkey,
+/obj/machinery/computer/secure_data/laptop{
+	pixel_y = -17;
+	dir = 4;
+	pixel_x = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -126881,12 +126885,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/reception)
-"xaI" = (
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
-/turf/simulated/floor/wood/fancy/light,
-/area/security/hos)
 "xaJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -219774,7 +219772,7 @@ eab
 liR
 xAa
 liR
-xaI
+bGn
 rWS
 qQo
 pNG
