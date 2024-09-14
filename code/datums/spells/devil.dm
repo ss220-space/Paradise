@@ -50,7 +50,7 @@
 
 
 /obj/effect/proc_holder/spell/summon_contract/valid_target(mob/living/carbon/target, mob/user)
-	return target.mind && target.ckey && !target.stat
+	return target.mind
 
 
 /obj/effect/proc_holder/spell/summon_contract/cast(list/targets, mob/user = usr)
