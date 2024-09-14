@@ -580,7 +580,7 @@
 	if(!.)
 		return FALSE
 	if(!isashwalkershaman(invoker))
-		disease_prob = 40
+		disaster_prob = 40
 		fail_chance = 40
 	return TRUE
 
