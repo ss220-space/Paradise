@@ -31,7 +31,7 @@
 	if(!charging || (stat & (BROKEN|NOPOWER)))
 		return
 
-	var/newlevel = 	round(charging.percent() * 4 / 100)
+	var/newlevel = 	round(charging.percent() * 3 / 100)
 	. += "ccharger-o[newlevel]"
 
 
