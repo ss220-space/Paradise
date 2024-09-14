@@ -141,10 +141,9 @@
 		return RITUAL_FAILED_EXTRA_INVOKERS
 	if(required_things && !check_contents())
 		return RITUAL_FAILED_MISSED_REQUIREMENTS
-	if(ritual_check(obj, invoker))
-		if(prob(fail_chance))
-			return RITUAL_FAILED_ON_PROCEED
-		return do_ritual(obj, invoker, invokers)
+	if(prob(fail_chance))
+		return RITUAL_FAILED_ON_PROCEED
+	return do_ritual(obj, invoker, invokers)
 
 /datum/ritual/proc/check_invokers(mob/living/carbon/human/invoker)
 	for(var/mob/living/carbon/human/human in range(finding_range, ritual_object))
@@ -180,9 +179,6 @@
 
 	return TRUE
 
-/datum/ritual/proc/ritual_check(obj/obj, mob/living/carbon/human/invoker) // Additional pre-ritual checks
-	return TRUE
-
 /datum/ritual/proc/do_ritual(obj/obj, mob/living/carbon/human/invoker) // Do ritual stuff.
 	return RITUAL_SUCCESSFUL
 
@@ -198,7 +194,11 @@
 /datum/ritual/ashwalker/New()
 	allowed_species = typecacheof(/datum/species/unathi/ashwalker)
 
-/datum/ritual/ashwalker/ritual_check(obj/obj, mob/living/carbon/human/invoker)
+/datum/ritual/ashwalker/check_invokers(mob/living/carbon/human/invoker)
+	. = ..()
+	if(!.)
+		return FALSE
+
 	if(shaman_only && !isashwalkershaman(invoker))
 		return FALSE
 
@@ -244,10 +244,11 @@
 
 /datum/ritual/ashwalker/summon_ashstorm/del_things()
 	. = ..()
-	for(var/mob/mob in used_things)
-		mob.gib()
+	for(var/mob/living/living in used_things)
+		living.gib()
+	return
 
-/datum/ritual/ashwalker/summon_ashstorm/ritual_check(obj/obj, mob/living/carbon/human/invoker)
+/datum/ritual/ashwalker/summon_ashstorm/check_invokers(mob/living/carbon/human/invoker)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -365,11 +366,11 @@
 	)
 
 /datum/ritual/ashwalker/curse/del_things()
-	for(var/mob/living/carbon/human as anything in used_things)
+	for(var/mob/living/carbon/human/human as anything in used_things)
 		human.gib()
 	return
 
-/datum/ritual/ashwalker/curse/ritual_check(obj/obj, mob/living/carbon/human/invoker)
+/datum/ritual/ashwalker/curse/check_contents()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -422,7 +423,7 @@
 		living.gib()
 	return
 
-/datum/ritual/ashwalker/power/ritual_check(obj/obj, mob/living/carbon/human/invoker)
+/datum/ritual/ashwalker/power/check_contents()
 	. = ..()
 	if(!.)
 		return FALSE
@@ -465,20 +466,27 @@
 	)
 
 /datum/ritual/ashwalker/cure/del_things()
+	. = ..()
 	for(var/mob/living/living in used_things)
 		living.gib()
 	return
 
-/datum/ritual/ashwalker/cure/ritual_check(obj/obj, mob/living/carbon/human/invoker)
+/datum/ritual/ashwalker/cure/check_invokers(mob/living/carbon/human/invoker)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(!isashwalkershaman(invoker))
+		fail_chance = 50
+		disaster_prob = 50
+	return TRUE
+
+/datum/ritual/ashwalker/cure/check_contents()
 	. = ..()
 	if(!.)
 		return FALSE
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
 			return FALSE
-	if(!isashwalkershaman(invoker))
-		fail_chance = 50
-		disaster_prob = 50
 	return TRUE
 
 /datum/ritual/ashwalker/cure/do_ritual(obj/obj, mob/living/carbon/human/invoker)
@@ -500,3 +508,56 @@
 		human.adjustBrainLoss(20)
 	return
 
+/datum/ritual/ashwalker/recharge
+	name = "Recharge rituals"
+	extra_invokers = 3
+	disaster_prob = 30
+	fail_chance = 50
+	cooldown_after_cast = 360 SECONDS
+	shaman_only = TRUE
+	required_things = list(
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher = 1,
+		/mob/living/simple_animal/hostile/asteroid/goliath = 1,
+		/obj/item/organ/internal/regenerative_core = 1,
+		/mob/living/simple_animal/hostile/asteroid/goldgrub
+	)
+	var/list/blacklisted_rituals = list()
+
+/datum/ritual/ashwalker/recharge/del_things()
+	. = ..()
+	for(var/mob/living/living in used_things)
+		living.gib()
+	return
+
+/datum/ritual/ashwalker/recharge/check_contents()
+	. = ..()
+	if(!.)
+		return FALSE
+	for(var/mob/living/living in used_things)
+		if(living.stat != DEAD)
+			return FALSE
+	return TRUE
+
+/datum/ritual/ashwalker/recharge/do_ritual(obj/obj, mob/living/carbon/human/invoker)
+	var/datum/component/ritual_object/component = ritual_object.GetComponent(/datum/component/ritual_object)
+	if(!component)
+		return RITUAL_FAILED_ON_PROCEED
+	for(var/datum/ritual/ritual as anything in component.rituals)
+		if(is_type_in_list(ritual, blacklisted_rituals))
+			continue
+		if(!ritual.charges && ritual.charges >= 0)
+			continue
+		ritual.charges++
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/recharge/disaster(obj/obj, mob/living/carbon/human/invoker)
+	var/list/targets = list()
+	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
+		if(isashwalker(human))
+			LAZYADD(targets, human)
+	if(!LAZYLEN(targets))
+		return
+	var/mob/living/carbon/human/human = pick(targets)
+	new /obj/item/organ/internal/legion_tumour(human)
+	return
+	
