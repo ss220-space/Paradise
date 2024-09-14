@@ -586,6 +586,8 @@
 
 /datum/ritual/ashwalker/population/del_things()
 	for(var/mob/living/living as anything in used_things)
+		if(QDELETED(living))
+			continue
 		living.gib()
 	return
 
@@ -601,9 +603,14 @@
 /datum/ritual/ashwalker/population/do_ritual(obj/obj, mob/living/carbon/human/invoker)
 	var/mob/living/carbon/human/human = invokers[1]
 	ADD_TRAIT(human, TRAIT_FLOORED,  UNIQUE_TRAIT_SOURCE(src))
+	for(var/mob/living/living as anything in used_things)
+		ADD_TRAIT(living, TRAIT_FLOORED,  UNIQUE_TRAIT_SOURCE(src))
 	if(!do_after(invoker, 40 SECONDS, ritual_object, NONE))
+		for(var/mob/living/living as anything in used_things)
+			REMOVE_TRAIT(living, TRAIT_FLOORED,  UNIQUE_TRAIT_SOURCE(src))
 		REMOVE_TRAIT(human, TRAIT_FLOORED, UNIQUE_TRAIT_SOURCE(src))
 		return RITUAL_FAILED_ON_PROCEED
+	REMOVE_TRAIT(human, TRAIT_FLOORED, UNIQUE_TRAIT_SOURCE(src))
 	new /obj/effect/mob_spawn/human/ash_walker(ritual_object.loc)
 	return RITUAL_SUCCESSFUL
 
