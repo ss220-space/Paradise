@@ -1910,7 +1910,7 @@
 				var/datum/antagonist/morph/antag_datum = has_antag_datum(/datum/antagonist/morph)
 				var/mob/living/simple_animal/hostile/morph/morph = current
 				antag_datum.switch_reproduce()
-				to_chat(usr, "You toggled [src] reproduce [morph.can_reproduce ? "on": "off"]")
+				to_chat(usr, "You toggled [morph] reproduce [morph.can_reproduce ? "on": "off"]")
 
 	else if(href_list["nuclear"])
 		var/mob/living/carbon/human/H = current
