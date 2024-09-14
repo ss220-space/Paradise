@@ -68,10 +68,11 @@
 	var/failed = FALSE
 	var/cause_disaster = FALSE
 	var/del_things = FALSE
+	var/start_cooldown = FALSE
 	handle_ritual_object(RITUAL_STARTED)
 	switch(ritual_invoke_check(obj, invoker))
 		if(RITUAL_SUCCESSFUL)
-			COOLDOWN_START(src, ritual_cooldown, cooldown_after_cast)
+			start_cooldown = TRUE
 			handle_ritual_object(RITUAL_ENDED)
 			del_things = TRUE
 			charges--
@@ -88,7 +89,11 @@
 			failed = TRUE
 			cause_disaster = TRUE
 			del_things = TRUE
-			
+			start_cooldown = TRUE
+	
+	if(start_cooldown)
+		COOLDOWN_START(src, ritual_cooldown, cooldown_after_cast)
+
 	if(message)
 		to_chat(invoker, message)
 
@@ -421,9 +426,10 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	for(var/mob/living/carbon/human/human in used_things)
-		if(human.stat != DEAD)
+	for(var/mob/living/living in used_things)
+		if(living.stat != DEAD)
 			return FALSE
+	for(var/mob/living/carbon/human/human in used_things)
 		if(!isashwalker(human))
 			return FALSE
 	return TRUE
@@ -440,7 +446,57 @@
 			LAZYADD(targets, human)
 	if(!LAZYLEN(targets))
 		return
+	invoker.force_gene_block(pick(GLOB.bad_blocks), TRUE)
+	for(var/mob/living/carbon/human/human as anything in invokers)
+		human.force_gene_block(pick(GLOB.bad_blocks), TRUE)
 	var/mob/living/carbon/human/human = pick(targets)
 	human.force_gene_block(pick(GLOB.bad_blocks), TRUE)
+	return
+
+/datum/ritual/ashwalker/cure
+	name = "Cure ritual"
+	charges = 3
+	extra_invokers = 2
+	cooldown_after_cast = 180 SECONDS
+	required_things = list(
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher = 1,
+		/mob/living/simple_animal/hostile/asteroid/goliath = 3,
+		/obj/item/organ/internal/regenerative_core = 3
+	)
+
+/datum/ritual/ashwalker/cure/del_things()
+	for(var/mob/living/living in used_things)
+		living.gib()
+	return
+
+/datum/ritual/ashwalker/cure/ritual_check(obj/obj, mob/living/carbon/human/invoker)
+	. = ..()
+	if(!.)
+		return FALSE
+	for(var/mob/living/living in used_things)
+		if(living.stat != DEAD)
+			return FALSE
+	if(!isashwalkershaman(invoker))
+		fail_chance = 50
+		disaster_prob = 50
+	return TRUE
+
+/datum/ritual/ashwalker/cure/do_ritual(obj/obj, mob/living/carbon/human/invoker)
+	for(var/mob/living/carbon/human/human in range(finding_range, ritual_object))
+		if(!isashwalker(human) || human.stat == DEAD)
+			continue
+		human.reagents.add_reagent("nutriment", 15)
+		human.adjustBrainLoss(-20)
+		for(var/datum/disease/disease in human.diseases)
+			disease.cure()
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/cure/disaster(obj/obj, mob/living/carbon/human/invoker)
+	for(var/mob/living/carbon/human/human in range(10, ritual_object))
+		if(!isashwalker(human) || human.stat == DEAD || !prob(disaster_prob))
+			continue
+		var/datum/disease/appendicitis/disease = new
+		disease.Contract(human)
+		human.adjustBrainLoss(20)
 	return
 
