@@ -94227,8 +94227,6 @@
 "xiZ" = (
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/closet/secure_closet/hos,
-/obj/item/megaphone,
-/obj/item/reagent_containers/food/drinks/flask/barflask,
 /obj/item/spacepod_equipment/key{
 	id = 100000
 	},
