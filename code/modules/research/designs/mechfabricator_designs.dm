@@ -1047,6 +1047,17 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_cage
+	name = "SCS 3 Cage"
+	desc = "Exosuit-mounted security containing system."
+	id = "mech_proj_armor" //change
+	build_type = MECHFAB
+	req_tech = (list("materials" = 7, "combat" = 7))
+	build_path = /obj/item/mecha_parts/mecha_equipment/cage
+	materials = list(MAT_METAL=10000, MAT_TITANIUM=4000, MAT_SILVER=2000, MAT_DIAMOND=1000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
 // Exosuit Weapons
 
 /datum/design/mech_grenade_launcher

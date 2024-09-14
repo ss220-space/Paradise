@@ -83,3 +83,5 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang
 	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/cage
+	ME.attach(src)

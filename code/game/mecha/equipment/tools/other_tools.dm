@@ -611,7 +611,11 @@
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
 	if(..())
+		if(locate(src) in M.equipment)
+			return FALSE
 		if(istype(M, /obj/mecha/combat/durand) || istype(M, /obj/mecha/combat/lockersyndie) || istype(M, /obj/mecha/combat/marauder))
+			return TRUE
+		else if(M.emagged == TRUE)
 			return TRUE
 	return FALSE
 
@@ -629,10 +633,11 @@
 		return FALSE
 
 	var/same_target = target == holding
+	var/supress_check = target.IsStamcrited() || (target.health <= HEALTH_THRESHOLD_CRIT) || target.stat != CONSCIOUS
 
 	//SUPRESSING
 	if(holding && !same_target)
-		if(target.IsStamcrited() || (target.health <= HEALTH_THRESHOLD_CRIT) || target.stat != CONSCIOUS)
+		if(supress_check)
 			occupant_message(span_notice("You stop supressing [holding], and start supressing [target]..."))
 			chassis.visible_message(span_warning("[chassis] stops supressing [holding] and switches to [target]."))
 			if(!do_after_cooldown(target))
@@ -640,7 +645,7 @@
 			stop_supressing(holding)
 			supress(target)
 			return TRUE
-	if(!holding && (target.IsStamcrited() || (target.health <= HEALTH_THRESHOLD_CRIT) || target.stat != CONSCIOUS))
+	if(!holding && supress_check)
 		occupant_message(span_notice("You start supressing [target]..."))
 		chassis.visible_message(span_warning("[chassis] starts supressing [target]."))
 		if(!do_after_cooldown(target))
@@ -649,7 +654,7 @@
 		return TRUE
 
 	//HANDCUFFING
-	if(holding && same_target && !target.handcuffed)
+	if(same_target && !target.handcuffed)
 		occupant_message(span_notice("You start cuffing [target]..."))
 		chassis.visible_message(span_warning("[chassis] starts cuffing [target]."))
 		if(!do_after_cooldown(target))
@@ -661,7 +666,7 @@
 		return TRUE
 
 	//PUTTING INTO MECH
-	if(holding && same_target && target.handcuffed)
+	if(same_target && target.handcuffed)
 		if(!prisoner_insertion_check(target))
 			return FALSE
 		occupant_message(span_notice("You start putting [target] into the containment chamber..."))
@@ -678,6 +683,7 @@
 		return TRUE
 
 	occupant_message(span_notice("[target] can't be suppressed, since [target] is not in critical condition"))
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress(mob/living/carbon/target)
 	holding = target
