@@ -225,7 +225,7 @@
 	icon_state = pick("wood","cross")
 	var/female = (prob(1) ?  TRUE : FALSE)
 	if(female)
-		name = pick(GLOB.first_names_female)
+		nam = pick(GLOB.first_names_female)
 		nam += " " + pick(GLOB.last_names_female)
 	else
 		nam = pick(GLOB.first_names_male)
