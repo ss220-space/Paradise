@@ -143,7 +143,7 @@
 		return RITUAL_FAILED_MISSED_REQUIREMENTS
 	if(prob(fail_chance))
 		return RITUAL_FAILED_ON_PROCEED
-	return do_ritual(obj, invoker, invokers)
+	return do_ritual(obj, invoker)
 
 /datum/ritual/proc/check_invokers(mob/living/carbon/human/invoker)
 	for(var/mob/living/carbon/human/human in range(finding_range, ritual_object))
@@ -564,5 +564,59 @@
 		return
 	var/mob/living/carbon/human/human = pick(targets)
 	new /obj/item/organ/internal/legion_tumour(human)
+	return
+
+/datum/ritual/ashwalker/population
+	name = "Population ritual"
+	extra_invokers = 1
+	cooldown_after_cast = 120 SECONDS
+	ritual_should_del_things_on_fail = TRUE
+	required_things = list(
+		/mob/living = 7
+	)
+
+/datum/ritual/ashwalker/population/check_invokers(mob/living/carbon/human/invoker)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(!isashwalkershaman(invoker))
+		disease_prob = 40
+		fail_chance = 40
+	return TRUE
+
+/datum/ritual/ashwalker/population/del_things()
+	for(var/mob/living/living as anything in used_things)
+		living.gib()
+	return
+
+/datum/ritual/ashwalker/population/check_contents()
+	. = ..()
+	if(!.)
+		return FALSE
+	for(var/mob/living/living as anything in used_things)
+		if(living.stat != DEAD)
+			return FALSE
+	return TRUE
+
+/datum/ritual/ashwalker/population/do_ritual(obj/obj, mob/living/carbon/human/invoker)
+	var/mob/living/carbon/human/human = invokers[1]
+	ADD_TRAIT(human, TRAIT_FLOORED,  UNIQUE_TRAIT_SOURCE(src))
+	if(!do_after(invoker, 40 SECONDS, ritual_object, NONE))
+		REMOVE_TRAIT(human, TRAIT_FLOORED, UNIQUE_TRAIT_SOURCE(src))
+		return RITUAL_FAILED_ON_PROCEED
+	new /obj/effect/mob_spawn/human/ash_walker(ritual_object.loc)
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/population/disaster(obj/obj, mob/living/carbon/human/invoker)
+	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
+		if(!isashwalker(human) || !prob(disaster_prob))
+			continue
+		if(!isturf(human.loc))
+			continue
+		var/datum/effect_system/smoke_spread/smoke = new
+		smoke.set_up(5, FALSE, get_turf(human.loc))
+		smoke.start()
+		for(var/obj/item/item as anything in human.get_equipped_items(TRUE, TRUE))
+			human.drop_item_ground(item)	
 	return
 
