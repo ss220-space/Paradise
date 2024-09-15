@@ -704,7 +704,6 @@ to the Merge Queue.
 - [BeebBeebBoob](https://github.com/BeebBeebBoob)
 - [Daeberdir](https://github.com/Daeberdir)
 - [Rerik007](https://github.com/Rerik007)
-- [ROdenFL](https://github.com/ROdenFL)
 - [NightDawnFox](https://github.com/NightDawnFox)
 
 ### Map Review Team
