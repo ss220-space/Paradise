@@ -629,7 +629,7 @@
 	. = ..(bitflags, TRUE)
 	switch(.)
 		if(RITUAL_ENDED)
-			playsound(ritual_object.loc, 'sound/magic/castssummon.ogg', 50, TRUE)
+			playsound(ritual_object.loc, 'sound/magic/castsummon.ogg', 50, TRUE)
 			return
 		if(RITUAL_STARTED)
 			playsound(ritual_object.loc, 'sound/magic/cult_spell.ogg', 50, TRUE)
