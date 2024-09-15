@@ -1010,9 +1010,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(item_flags & (IN_INVENTORY|IN_STORAGE))
 		var/mob/living/user = usr
 		if(user.client.prefs.toggles2 & PREFTOGGLE_2_DISABLE_DESC_TIPS)
-			return
-		var/timedelay = 8
-		tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)
+			var/timedelay = 8
+			tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)
 
 		if(QDELETED(src))
 			return
