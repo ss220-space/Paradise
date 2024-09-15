@@ -139,7 +139,7 @@
 		return
 	if(!charges && charges >= 0)
 		return // should not have message
-	if(allowed_species && !is_type_in_typecache(invoker.dna.species, allowed_species)) // double check to avoid funny situations
+	if(allowed_species && !is_type_in_list(invoker.dna.species, allowed_species)) // double check to avoid funny situations
 		return RITUAL_FAILED_INVALID_SPECIES
 	if(extra_invokers && !check_invokers(invoker))
 		return RITUAL_FAILED_EXTRA_INVOKERS
@@ -153,7 +153,7 @@
 	for(var/mob/living/carbon/human/human in range(finding_range, ritual_object))
 		if(human == invoker)
 			continue
-		if(require_allowed_species && !is_type_in_typecache(human.dna.species, allowed_species))
+		if(require_allowed_species && !is_type_in_list(human.dna.species, allowed_species))
 			continue
 		LAZYADD(invokers, human)
 
@@ -194,9 +194,7 @@
 	var/extra_shaman_invokers = 0
 	/// If ritual can be invoked only by shaman
 	var/shaman_only = FALSE
-
-/datum/ritual/ashwalker/New()
-	allowed_species = typecacheof(/datum/species/unathi/ashwalker)
+	allowed_species = list(/datum/species/unathi/ashwalker, /datum/species/unathi/draconid)
 
 /datum/ritual/ashwalker/check_invokers(mob/living/carbon/human/invoker)
 	. = ..()
@@ -300,7 +298,9 @@
 		return RITUAL_FAILED_ON_PROCEED // Your punishment
 	var/obj/effect/proc_holder/spell/mind_transfer/transfer = new
 	if(!transfer.cast(human, invoker))
+		qdel(transfer)
 		return RITUAL_FAILED_ON_PROCEED
+	qdel(transfer)
 	message_admins("[key_name(human)] accomplished mindtransfer ritual on [key_name(invoker)]")
 	return RITUAL_SUCCESSFUL
 
@@ -572,7 +572,7 @@
 
 /datum/ritual/ashwalker/population
 	name = "Population ritual"
-	extra_invokers = 1
+	extra_invokers = 2
 	cooldown_after_cast = 120 SECONDS
 	ritual_should_del_things_on_fail = TRUE
 	required_things = list(
@@ -590,8 +590,6 @@
 
 /datum/ritual/ashwalker/population/del_things()
 	for(var/mob/living/living as anything in used_things)
-		if(QDELETED(living))
-			continue
 		living.gib()
 	return
 
@@ -605,16 +603,11 @@
 	return TRUE
 
 /datum/ritual/ashwalker/population/do_ritual(obj/obj, mob/living/carbon/human/invoker)
-	var/mob/living/carbon/human/human = invokers[1]
-	ADD_TRAIT(human, TRAIT_FLOORED,  UNIQUE_TRAIT_SOURCE(src))
-	for(var/mob/living/living as anything in used_things)
-		ADD_TRAIT(living, TRAIT_FLOORED,  UNIQUE_TRAIT_SOURCE(src))
-	if(!do_after(invoker, 40 SECONDS, ritual_object, NONE))
-		for(var/mob/living/living as anything in used_things)
-			REMOVE_TRAIT(living, TRAIT_FLOORED,  UNIQUE_TRAIT_SOURCE(src))
-		REMOVE_TRAIT(human, TRAIT_FLOORED, UNIQUE_TRAIT_SOURCE(src))
+	for(var/mob/living/carbon/human/human as anything in invokers)
+		if(!do_after(human, 40 SECONDS, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
+			return RITUAL_FAILED_ON_PROCEED
+	if(!do_after(invoker, 40 SECONDS, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
 		return RITUAL_FAILED_ON_PROCEED
-	REMOVE_TRAIT(human, TRAIT_FLOORED, UNIQUE_TRAIT_SOURCE(src))
 	new /obj/effect/mob_spawn/human/ash_walker(ritual_object.loc)
 	return RITUAL_SUCCESSFUL
 
@@ -653,8 +646,6 @@
 /datum/ritual/ashwalker/population/del_things()
 	. = ..()
 	for(var/mob/living/living in used_things)
-		if(QDELETED(living))
-			continue
 		living.gib()
 	return
 
@@ -694,9 +685,73 @@
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/effects/whoosh.ogg', 50, TRUE)
 			return
+		if(RITUAL_STARTED)
+			playsound(ritual_object.loc, 'sound/effects/bamf.ogg', 50, TRUE)
+			return
 		if(RITUAL_FAILED)
 			playsound(ritual_object.loc, 'sound/effects/blobattack.ogg', 50, TRUE)
 			return
-	. = ..(bitflags)
+	return .
+
+/datum/ritual/ashwalker/transmutation
+	name = "Transmutation ritual"
+	cooldown_after_cast = 1200 SECONDS
+	required_things = list(
+		/obj/item/stack/ore = 1
+	)
+
+/datum/ritual/ashwalker/transmutation/check_invokers(mob/living/carbon/human/invoker)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(!isashwalkershaman(invoker))
+		disaster_prob = 30
+		fail_chance = 50
+	return TRUE
+
+/datum/ritual/ashwalker/transmutation/check_contents()
+	. = ..()
+	if(!.)
+		return FALSE
+	var/obj/item/stack/ore/ore = used_things[1]
+	if(ore.amount < 10)
+		return FALSE
+	return TRUE
+
+/datum/ritual/ashwalker/transmutation/do_ritual(obj/obj, mob/living/carbon/human/invoker)
+	if(!do_after(invoker, 20 SECONDS, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
+		return RITUAL_FAILED_ON_PROCEED
+	var/list/ore_types = list()
+	for(var/obj/item/stack/ore/ore as anything in subtypesof(/obj/item/stack/ore))
+		LAZYADD(ore_types, ore)
+	var/obj/item/stack/ore/ore = pick(ore_types)
+	ore = new(get_turf(ritual_object))
+	ore.add(10)
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/transmutation/disaster(obj/obj, mob/living/carbon/human/invoker)
+	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
+		if(!isashwalker(human) || !prob(disaster_prob))
+			continue
+		if(!isturf(human.loc))
+			continue
+		human.SetKnockdown(10 SECONDS)
+		var/turf/turf = human.loc
+		new /obj/effect/hotspot(turf)
+		turf.hotspot_expose(700, 50, 1)
+	return
+
+/datum/ritual/ashwalker/transmutation/handle_ritual_object(bitflags, silent =  FALSE)
+	. = ..(bitflags, TRUE)
+	switch(.)
+		if(RITUAL_ENDED)
+			playsound(ritual_object.loc, 'sound/effects/bin_close.ogg', 50, TRUE)
+			return
+		if(RITUAL_STARTED)
+			playsound(ritual_object.loc, 'sound/magic/cult_spell.ogg', 50, TRUE)
+			return
+		if(RITUAL_FAILED)
+			playsound(ritual_object.loc, 'sound/magic/knock.ogg', 50, TRUE)
+			return
 	return .
 	

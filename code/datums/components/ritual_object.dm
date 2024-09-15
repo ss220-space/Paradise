@@ -1,6 +1,6 @@
 /datum/component/ritual_object
 	/// if defined and you attacking parent without that item - UI will not be shown.
-	var/attacking_item_type
+	var/list/attacking_item_type = list()
 	/// Pre-defined rituals list
 	var/list/rituals = list()
 	/// We define rituals from this.
@@ -8,10 +8,10 @@
 	/// Prevents from multiple uses
 	var/active_ui = FALSE
 
-/datum/component/ritual_object/Initialize(attacking_item_type, allowed_categories = /datum/ritual)
+/datum/component/ritual_object/Initialize(list/attacking_item_type, allowed_categories = /datum/ritual)
 	if(!isobj(parent))
 		return COMPONENT_INCOMPATIBLE
-	src.attacking_item_type = attacking_item_type
+	LAZYADD(src.attacking_item_type, attacking_item_type)
 	src.allowed_categories = allowed_categories
 	get_rituals()
 
@@ -62,10 +62,10 @@
 		
 	for(var/datum/ritual/ritual as anything in rituals)
 		if(tgui_menu == ritual.name)
-			ritual.pre_ritual_check(obj, human)
+			if(ritual.pre_ritual_check(obj, human))
+				active_ui = FALSE
 			break
 			
-	active_ui = FALSE
 	return
 
 /datum/component/ritual_object/proc/get_available_rituals(mob/living/carbon/human/human)
@@ -75,7 +75,7 @@
 			continue
 		if(!COOLDOWN_FINISHED(ritual, ritual_cooldown))
 			continue
-		if(ritual.allowed_species && !is_type_in_typecache(human.dna.species, ritual.allowed_species))
+		if(ritual.allowed_species && !is_type_in_list(human.dna.species, ritual.allowed_species))
 			continue
 		LAZYADD(rituals_list, ritual.name)
 	return rituals_list
