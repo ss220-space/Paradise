@@ -85,17 +85,15 @@
 				break
 
 			else if(item.contents)
-				var/obj/I = null
-				for(I in item.contents)
-					if(istype(I, /obj/item/stock_parts/cell/))
-						var/obj/item/stock_parts/cell/C = I
-						if(prob(80) && !C.adjust_maxcharge(-200))
-							burnt_out = TRUE
+				for(var/obj/item/stock_parts/cell/C in item.contents)
+					if(prob(80) && !C.adjust_maxcharge(-200))
+						burnt_out = TRUE
 
-						C.charge = C.maxcharge
-						item.update_icon()
-						charged_item = item
-						break
+					C.charge = C.maxcharge
+					item.update_icon()
+					charged_item = item
+					break
+
 		if(!charged_item)
 			to_chat(L, "<span class='notice'>You feel magical power surging to your hands, but the feeling rapidly fades...</span>")
 		else if(burnt_out)
