@@ -766,6 +766,14 @@
 	..()
 	initialize()
 
+/obj/item/spellbook/recharge_act(mob/user)
+	to_chat(user, span_caution("Glowing red letters appear on the front cover..."))
+	to_chat(user, span_warning(pick("NICE TRY BUT NO!", \
+				"CLEVER BUT NOT CLEVER ENOUGH!", \
+				"SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", \
+				"CUTE!", \
+				"YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")))
+	return RECHARGE_BURNOUT
 
 /obj/item/spellbook/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM || skip_refunds)
@@ -1015,6 +1023,14 @@
 	name = "spellbook of "
 	uses = 1
 	desc = "This template spellbook was never meant for the eyes of man..."
+
+/obj/item/spellbook/oneuse/recharge_act()
+	if(prob(80))
+		visible_message(span_warning("[src] catches fire!"))
+		qdel(src)
+		return
+	used = FALSE
+	return
 
 /obj/item/spellbook/oneuse/New()
 	..()

@@ -51,6 +51,15 @@
 		charges--//... drain a charge
 	return
 
+/obj/item/gun/magic/recharge_act(mob/user)
+	if(prob(80) && !can_charge)
+		max_charges--
+	if(max_charges <= 0)
+		max_charges = 0
+		return RECHARGE_BURNOUT
+	charges = max_charges
+	return RECHARGE_SUCCESSFUL
+
 /obj/item/gun/magic/Initialize()
 	. = ..()
 	charges = max_charges

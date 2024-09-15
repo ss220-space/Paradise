@@ -82,6 +82,14 @@
 /obj/item/book/granter/proc/can_learn(mob/living/user)
 	return TRUE
 
+/obj/item/book/granter/recharge_act(mob/user)
+	if(prob(80))
+		user.visible_message(span_warning("[src] catches fire!"))
+		qdel(src)
+		return
+	uses += 1
+	return RECHARGE_SUCCESSFUL
+
 // Generic action giver
 /obj/item/book/granter/action
 	/// The typepath of action that is given
