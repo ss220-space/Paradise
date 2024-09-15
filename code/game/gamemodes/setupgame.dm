@@ -47,7 +47,6 @@
 	GLOB.fakeblock2				= getAssignedBlock("", numsToAssign)
 	GLOB.fakeblock3				= getAssignedBlock("", numsToAssign)
 	GLOB.fakeblock4				= getAssignedBlock("", numsToAssign)
-	GLOB.fakeblock5				= getAssignedBlock("", numsToAssign)
 
 	// Bay muts
 	GLOB.breathlessblock		= getAssignedBlock("BREATHLESS", numsToAssign,		DNA_HARD_BOUNDS,		good = TRUE)
@@ -100,6 +99,7 @@
 
 	// Paradise1984 Disabilities
 	GLOB.auld_imperial_block	= getAssignedBlock("AULD_IMPERIAL", numsToAssign)
+	GLOB.paraplegiablock		= getAssignedBlock("PARAPLEGIA", numsToAssign)
 
 	//
 	// Static Blocks

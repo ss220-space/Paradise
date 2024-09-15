@@ -5807,12 +5807,8 @@
 /area/engine/controlroom)
 "aSH" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "air_sensor"
-	},
-/obj/machinery/atmospherics/air_sensor{
-	frequency = 1443;
 	id_tag = "air_sensor";
-	output = 7
+	output = 23
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -16274,10 +16270,10 @@
 	pixel_y = -22
 	},
 /obj/machinery/light/small,
-/obj/structure/closet/crate,
 /obj/item/storage/belt/champion/wrestling/true,
 /obj/item/stack/sheet/mineral/gold,
 /obj/item/stack/sheet/mineral/gold,
+/obj/structure/closet/crate/vault,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -51506,7 +51502,8 @@
 /area/crew_quarters/kitchen)
 "gCu" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "mix_sensor"
+	id_tag = "mix_sensor";
+	output = 127
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
@@ -82257,7 +82254,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/crate,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
@@ -82266,6 +82262,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
+/obj/structure/closet/crate/vault,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -82368,7 +82365,7 @@
 /obj/structure/closet/fireaxecabinet{
 	pixel_y = 32
 	},
-/obj/structure/closet/secure_closet/freezer/money,
+/obj/structure/closet/secure_closet/freezer/vault,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"

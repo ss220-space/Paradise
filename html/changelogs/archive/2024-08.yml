@@ -272,8 +272,13 @@
   - unknown: Mutation Traits To Real Traits (#5793)
   - bugfix: Attack Chain Fixes N5 (#5796)
 '2024-08-25':
+  Aziz Chynaliev:
+  - bugfix: forgotten utf-8 charset meta tags
+  MstrKabach:
+  - add: new budget gloves mechanic (#5767)
   ROdenFL:
   - server: 516 compability (#5753)
+  - add: Replays v1 (#5731)
   Shaman:
   - tweak: replace spellblade with guardian (#5807)
   Vladisvell:
@@ -288,3 +293,43 @@
   - refactor: Species Traits Rework (#5806)
   - bugfix: Old Traits Removal (#5809)
   - bugfix: Runtimes Fixes N5 (#5811)
+  - bugfix: Attack Chain Fixes N6 (#5812)
+  endipe:
+  - add: rework floral somatoray [bounty] (#5786)
+'2024-08-26':
+  Anorak2020:
+  - bugfix: Farvision deactivate (#5814)
+  Zwei:
+  - bugfix: Washing Machine / Mop / Paradox Bag Fixes (#5813)
+'2024-08-27':
+  SAAD:
+  - bugfix: Extra syndie port del (#5820)
+  Zwei:
+  - bugfix: Correct Far Vision Fix (#5818)
+  littleboobs:
+  - bugfix: fixed virology (#5816)
+'2024-08-30':
+  Honker9999999:
+  - add: lasershot [bounty] (#5817)
+  endipe:
+  - bugfix: floral somatoray disassembly technology & safe mode chem master (#5815)
+'2024-08-31':
+  Aziz Chynaliev:
+  - add: new 25 TTS voices from Cyberpunk 2077 (15), TLoU (3), Deep Rock Galactic
+      (2), Альтушка для скуфа (4), etc (1) (#5839)
+  FanTik-Ratge:
+  - imageadd: inhand-harvestSprite by Kisik (#5833)
+  Kray1k:
+  - tweak: all goals in extended mode (#5831)
+  Mahimka42:
+  - tweak: Adds a fork to the ashwalkers base (#5826)
+  - add: new flowers & new seed icons (#5825)
+  ROdenFL:
+  - server: better PR tempelate (#5838)
+  Sheya:
+  - add: new sprites for lockers and vault crate (#5828)
+  - add: xray removes tint and eyeprot (#5632)
+  endipe:
+  - qol: balloon_alert for cursed heart (#5834)
+  pilygun:
+  - add: AM-AI Экран для ИИ (#5832)

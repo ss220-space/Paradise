@@ -113,7 +113,7 @@
 
 /obj/item/ammo_box/magazine/mm556x45
 	name = "box magazine (5.56x45mm)"
-	icon_state = "a762-200"
+	icon_state = "a762"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/mm556x45/weak
 	caliber = "mm55645"

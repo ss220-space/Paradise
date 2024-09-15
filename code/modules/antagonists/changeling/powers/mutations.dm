@@ -266,8 +266,9 @@
 
 	else if(iswallturf(target))
 		var/turf/simulated/wall/wall = target
-		wall.take_damage(30)
 		user.do_attack_animation(wall)
+		user.changeNext_move(attack_speed)
+		wall.take_damage(30)
 		playsound(src, 'sound/weapons/smash.ogg', 50, TRUE)
 
 	else if(isliving(target))

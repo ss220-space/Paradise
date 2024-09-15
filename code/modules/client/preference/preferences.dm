@@ -907,6 +907,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(!job.character_old_enough(user.client))
 				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ВОЗРАСТ ОТ [(job.min_age_allowed)]]</b></span></td></tr>"
 				continue
+			if(job.species_in_blacklist(user.client))
+				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[НЕДОСТУПНО ДЛЯ ДАННОЙ РАСЫ]</b></span></td></tr>"
+				continue
 			if((job.title in GLOB.command_positions) || (job.title == JOB_TITLE_AI))//Bold head jobs
 				html += "<b><span class='[color]'>[rank]</span></b>"
 			else
@@ -1184,6 +1187,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_COFFEE_ADDICT, "Coffee addict")
 	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_ALCOHOLE_ADDICT))
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_ALCOHOLE_ADDICT, "Alcohole addict")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_PARAPLEGIA, "Paraplegia")
 
 	HTML += {"</ul>
 		<a href=\"?_src_=prefs;task=close;preference=disabilities\">\[Done\]</a>
@@ -2864,13 +2869,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	character.dna.blood_type = b_type
 
-	// Wheelchair necessary?
-	var/obj/item/organ/external/l_foot = character.get_organ(BODY_ZONE_PRECISE_L_FOOT)
-	var/obj/item/organ/external/r_foot = character.get_organ(BODY_ZONE_PRECISE_R_FOOT)
-	if(!l_foot && !r_foot)
-		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
-		W.buckle_mob(character, TRUE)
-
 	character.underwear = underwear
 	character.color_underwear = underwear_color
 	character.undershirt = undershirt
@@ -2956,6 +2954,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	if((disabilities & DISABILITY_FLAG_WINGDINGS) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_WINGDINGS))
 		character.force_gene_block(GLOB.wingdingsblock, TRUE, TRUE)
+
+	if((disabilities & DISABILITY_FLAG_PARAPLEGIA) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
+		character.force_gene_block(GLOB.paraplegiablock, TRUE, TRUE)
 
 	character.dna.species.handle_dna(character)
 
