@@ -163,7 +163,7 @@
 /datum/ritual/proc/cast(mob/living/carbon/human/invoker)
 	if(LAZYLEN(invokers))
 		for(var/mob/living/carbon/human/human as anything in invokers)
-			if(!do_after(human, cast_time, ritual_object, progress_bar = FALSE, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
+			if(!do_after(human, cast_time, ritual_object, progress = FALSE, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
 				return FALSE
 	if(!do_after(invoker, cast_time, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
 		return FALSE
@@ -306,13 +306,13 @@
 	fail_chance = 50
 	extra_invokers = 1
 	cooldown_after_cast = 480 SECONDS
+	cast_time = 70 SECONDS
 	require_allowed_species = FALSE
 	ritual_should_del_things_on_fail = TRUE
 	required_things = list(
 		/obj/item/twohanded/spear = 3,
 		/obj/item/organ/internal/regenerative_core = 1
 	)
-	cast_time = 70 SECONDS
 
 /datum/ritual/ashwalker/mind_transfer/do_ritual(obj/obj, mob/living/carbon/human/invoker)
 	var/mob/living/carbon/human/human = invokers[1]
