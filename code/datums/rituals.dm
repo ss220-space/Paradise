@@ -1,5 +1,5 @@
 #define DEFAULT_RITUAL_RANGE_FIND 1
-#define DEFAULT_RITUAL_COOLDOWN (10 SECONDS)
+#define DEFAULT_RITUAL_COOLDOWN (100 SECONDS)
 #define DEFAULT_RITUAL_DISASTER_PROB 10
 #define DEFAULT_RITUAL_FAIL_PROB 10
 
@@ -14,6 +14,7 @@
 #define RITUAL_FAILED_EXTRA_INVOKERS			(1<<2)
 #define RITUAL_FAILED_MISSED_REQUIREMENTS		(1<<3)
 #define RITUAL_FAILED_ON_PROCEED				(1<<4)
+#define RITUAL_FAILED_INVALID_SPECIAL_ROLE		(1<<5)
 
 /datum/ritual
 	/// Linked object
@@ -24,6 +25,8 @@
 	var/extra_invokers = 0
 	/// If invoker species isn't in allowed - he won't do ritual.
 	var/list/allowed_species
+	/// If invoker special role isn't in allowed - he won't do ritual.
+	var/list/allowed_special_role
 	/// Required to ritual invoke things are located here
 	var/required_things[] = list()
 	/// If true - only whitelisted species will be added as invokers
@@ -52,6 +55,8 @@
 	var/list/used_things = list()
 	/// Temporary list of invokers.
 	var/list/invokers = list()
+	/// If defined - do_after will be added to your ritual
+	var/cast_time
 	
 /datum/ritual/proc/link_object(obj/obj)
 	ritual_object = obj
@@ -85,6 +90,8 @@
 		if(RITUAL_FAILED_MISSED_REQUIREMENTS)
 			failed = TRUE
 			message = missed_reqs_message
+		if(RITUAL_FAILED_INVALID_SPECIAL_ROLE)
+			failed = TRUE
 		if(RITUAL_FAILED_ON_PROCEED)
 			failed = TRUE
 			cause_disaster = TRUE
@@ -139,6 +146,8 @@
 		return
 	if(!charges && charges >= 0)
 		return // should not have message
+	if(allowed_special_role && !is_type_in_list(invoker.mind?.special_role, allowed_special_role))
+		return RITUAL_FAILED_INVALID_SPECIAL_ROLE
 	if(allowed_species && !is_type_in_list(invoker.dna.species, allowed_species)) // double check to avoid funny situations
 		return RITUAL_FAILED_INVALID_SPECIES
 	if(extra_invokers && !check_invokers(invoker))
@@ -147,7 +156,18 @@
 		return RITUAL_FAILED_MISSED_REQUIREMENTS
 	if(prob(fail_chance))
 		return RITUAL_FAILED_ON_PROCEED
+	if(cast_time && !cast(invoker))
+		return RITUAL_FAILED_ON_PROCEED
 	return do_ritual(obj, invoker)
+
+/datum/ritual/proc/cast(mob/living/carbon/human/invoker)
+	if(LAZYLEN(invokers))
+		for(var/mob/living/carbon/human/human as anything in invokers)
+			if(!do_after(human, cast_time, ritual_object, progress_bar = FALSE, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
+				return FALSE
+	if(!do_after(invoker, cast_time, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
+		return FALSE
+	return TRUE
 
 /datum/ritual/proc/check_invokers(mob/living/carbon/human/invoker)
 	for(var/mob/living/carbon/human/human in range(finding_range, ritual_object))
@@ -226,6 +246,7 @@
 	disaster_prob = 20
 	charges = 2
 	cooldown_after_cast = 1200 SECONDS
+	cast_time = 100 SECONDS
 	fail_chance = 20
 	extra_invokers = 2
 	required_things = list(
@@ -291,6 +312,7 @@
 		/obj/item/twohanded/spear = 3,
 		/obj/item/organ/internal/regenerative_core = 1
 	)
+	cast_time = 70 SECONDS
 
 /datum/ritual/ashwalker/mind_transfer/do_ritual(obj/obj, mob/living/carbon/human/invoker)
 	var/mob/living/carbon/human/human = invokers[1]
@@ -325,6 +347,7 @@
 	fail_chance = 30
 	shaman_only = TRUE
 	cooldown_after_cast = 900 SECONDS
+	cast_time = 50 SECONDS
 	extra_invokers = 1
 	required_things = list(
 		/obj/item/stack/sheet/sinew = 3,
@@ -366,6 +389,7 @@
 	disaster_prob = 30
 	fail_chance = 30
 	cooldown_after_cast = 600 SECONDS
+	cast_time = 60 SECONDS
 	charges = 3
 	shaman_only = TRUE
 	extra_invokers = 2
@@ -419,6 +443,7 @@
 	fail_chance = 40
 	charges = 1
 	cooldown_after_cast = 800 SECONDS
+	cast_time = 80 SECONDS
 	shaman_only = TRUE
 	extra_invokers = 4
 	required_things = list(
@@ -463,11 +488,26 @@
 	human.force_gene_block(pick(GLOB.bad_blocks), TRUE)
 	return
 
+/datum/ritual/ashwalker/power/handle_ritual_object(bitflags, silent =  FALSE)
+	. = ..(bitflags, TRUE)
+	switch(.)
+		if(RITUAL_ENDED)
+			playsound(ritual_object.loc, 'sound/magic/castssummon.ogg', 50, TRUE)
+			return
+		if(RITUAL_STARTED)
+			playsound(ritual_object.loc, 'sound/magic/smoke.ogg', 50, TRUE)
+			return
+		if(RITUAL_FAILED)
+			playsound(ritual_object.loc, 'sound/magic/strings.ogg', 50, TRUE)
+			return
+	return .
+
 /datum/ritual/ashwalker/cure
 	name = "Cure ritual"
 	charges = 3
 	extra_invokers = 2
 	cooldown_after_cast = 180 SECONDS
+	cast_time = 100 SECONDS
 	required_things = list(
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher = 1,
 		/mob/living/simple_animal/hostile/asteroid/goliath = 3,
@@ -517,12 +557,27 @@
 		human.adjustBrainLoss(20)
 	return
 
+/datum/ritual/ashwalker/cure/handle_ritual_object(bitflags, silent =  FALSE)
+	. = ..(bitflags, TRUE)
+	switch(.)
+		if(RITUAL_ENDED)
+			playsound(ritual_object.loc, 'sound/magic/clockwork/reconstruct.ogg', 50, TRUE)
+			return
+		if(RITUAL_STARTED)
+			playsound(ritual_object.loc, 'sound/magic/disable_tech.ogg', 50, TRUE)
+			return
+		if(RITUAL_FAILED)
+			playsound(ritual_object.loc, 'sound/magic/invoke_general.ogg', 50, TRUE)
+			return
+	return .
+
 /datum/ritual/ashwalker/recharge
 	name = "Recharge rituals"
 	extra_invokers = 3
 	disaster_prob = 30
 	fail_chance = 50
 	cooldown_after_cast = 360 SECONDS
+	cast_time = 90 SECONDS
 	shaman_only = TRUE
 	required_things = list(
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher = 1,
@@ -570,10 +625,25 @@
 	new /obj/item/organ/internal/legion_tumour(human)
 	return
 
+/datum/ritual/ashwalker/recharge/handle_ritual_object(bitflags, silent =  FALSE)
+	. = ..(bitflags, TRUE)
+	switch(.)
+		if(RITUAL_ENDED)
+			playsound(ritual_object.loc, 'sound/magic/castssummon.ogg', 50, TRUE)
+			return
+		if(RITUAL_STARTED)
+			playsound(ritual_object.loc, 'sound/magic/cult_spell.ogg', 50, TRUE)
+			return
+		if(RITUAL_FAILED)
+			playsound(ritual_object.loc, 'sound/magic/invoke_general.ogg', 50, TRUE)
+			return
+	return .
+
 /datum/ritual/ashwalker/population
 	name = "Population ritual"
 	extra_invokers = 2
 	cooldown_after_cast = 120 SECONDS
+	cast_time = 40 SECONDS
 	ritual_should_del_things_on_fail = TRUE
 	required_things = list(
 		/mob/living = 7
@@ -603,11 +673,6 @@
 	return TRUE
 
 /datum/ritual/ashwalker/population/do_ritual(obj/obj, mob/living/carbon/human/invoker)
-	for(var/mob/living/carbon/human/human as anything in invokers)
-		if(!do_after(human, 40 SECONDS, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
-			return RITUAL_FAILED_ON_PROCEED
-	if(!do_after(invoker, 40 SECONDS, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
-		return RITUAL_FAILED_ON_PROCEED
 	new /obj/effect/mob_spawn/human/ash_walker(ritual_object.loc)
 	return RITUAL_SUCCESSFUL
 
@@ -624,10 +689,25 @@
 			human.drop_item_ground(item)	
 	return
 
+/datum/ritual/ashwalker/population/handle_ritual_object(bitflags, silent =  FALSE)
+	. = ..(bitflags, TRUE)
+	switch(.)
+		if(RITUAL_ENDED)
+			playsound(ritual_object.loc, 'sound/magic/demon_consume.ogg', 50, TRUE)
+			return
+		if(RITUAL_STARTED)
+			playsound(ritual_object.loc, 'sound/magic/cult_spell.ogg', 50, TRUE)
+			return
+		if(RITUAL_FAILED)
+			playsound(ritual_object.loc, 'sound/magic/teleport_diss.ogg', 50, TRUE)
+			return
+	return .
+
 /datum/ritual/ashwalker/soul
 	name = "Soul ritual"
 	extra_invokers = 3
 	cooldown_after_cast = 1200 SECONDS
+	cast_time = 60 SECONDS
 	shaman_only = TRUE
 	required_things = list(
 		/mob/living/carbon/human = 3,
@@ -659,11 +739,6 @@
 	return TRUE
 
 /datum/ritual/ashwalker/soul/do_ritual(obj/obj, mob/living/carbon/human/invoker)
-	for(var/mob/living/carbon/human/human as anything in invokers)
-		if(!do_after(human, 60 SECONDS, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
-			return RITUAL_FAILED_ON_PROCEED
-	if(!do_after(invoker, 60 SECONDS, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
-		return RITUAL_FAILED_ON_PROCEED
 	invoker.set_species(/datum/species/unathi/draconid)
 	return RITUAL_SUCCESSFUL
 
@@ -696,6 +771,7 @@
 /datum/ritual/ashwalker/transmutation
 	name = "Transmutation ritual"
 	cooldown_after_cast = 1200 SECONDS
+	cast_time = 10 SECONDS
 	required_things = list(
 		/obj/item/stack/ore = 1
 	)
@@ -719,8 +795,6 @@
 	return TRUE
 
 /datum/ritual/ashwalker/transmutation/do_ritual(obj/obj, mob/living/carbon/human/invoker)
-	if(!do_after(invoker, 20 SECONDS, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
-		return RITUAL_FAILED_ON_PROCEED
 	var/list/ore_types = list()
 	for(var/obj/item/stack/ore/ore as anything in subtypesof(/obj/item/stack/ore))
 		LAZYADD(ore_types, ore)
