@@ -117,6 +117,8 @@
 	var/last_slogan = 0			//When did we last pitch?
 	var/slogan_delay = 600 SECONDS		//How long until we can pitch again?
 	COOLDOWN_DECLARE(slogan_cooldown)
+	var/alarm_delay = 10 SECONDS
+	COOLDOWN_DECLARE(alarm_cooldown)
 
 	///The type of refill canisters used by this machine.
 	var/obj/item/vending_refill/custom/canister = null
@@ -163,6 +165,24 @@
 	RefreshParts()
 
 	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/customat/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	. = ..(AM, skipcatch, hitpush, blocked, throwingdatum)
+	if (!AM.throwforce)
+		return
+
+	if(COOLDOWN_FINISHED(src, emp_cooldown) && COOLDOWN_FINISHED(src, alarm_cooldown))
+		playsound(src, 'sound/machines/burglar_alarm.ogg', AM.throwforce * 5, 0)
+		COOLDOWN_START(src, alarm_cooldown, alarm_delay)
+		return ..()
+
+/obj/machinery/customat/bullet_act(obj/item/projectile/P, def_zone)
+	. = ..(P, def_zone)
+
+	if(COOLDOWN_FINISHED(src, emp_cooldown) && COOLDOWN_FINISHED(src, alarm_cooldown))
+		playsound(src, 'sound/machines/burglar_alarm.ogg', P.damage * 5, 0)
+		COOLDOWN_START(src, alarm_cooldown, alarm_delay)
+		return ..()
 
 /obj/machinery/customat/proc/eject_all()
 	for (var/key in products)
@@ -354,8 +374,9 @@
 	insert(user, I, cost)
 
 /obj/machinery/customat/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent == INTENT_HARM || !COOLDOWN_FINISHED(src, emp_cooldown))
+	if(user.a_intent == INTENT_HARM && COOLDOWN_FINISHED(src, emp_cooldown) && COOLDOWN_FINISHED(src, alarm_cooldown))
 		playsound(src, 'sound/machines/burglar_alarm.ogg', I.force * 5, 0)
+		COOLDOWN_START(src, alarm_cooldown, alarm_delay)
 		return ..()
 
 	if(istype(I, /obj/item/crowbar) || istype(I, /obj/item/wrench))
@@ -550,12 +571,20 @@
 			if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
 				var/obj/item/stack/spacecash/S = usr.get_active_hand()
 				paid = FALSE
+				var/left = currently_vending.price
 				for (var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
-					paid = pay_with_cash(S, usr, currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths, currently_vending.name, canister.linked_accounts[ind]) || paid
+					var/pay_now = round(currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths)
+					pay_now = min(pay_now, left)
+					left -= pay_now
+					paid = pay_with_cash(S, usr, pay_now, currently_vending.name, canister.linked_accounts[ind]) || paid
 			else if(get_card_account(usr))
 				paid = FALSE
+				var/left = currently_vending.price
 				for (var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
-					paid = pay_with_card(usr, currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths, currently_vending.name, canister.linked_accounts[ind]) || paid
+					var/pay_now = round(currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths)
+					pay_now = min(pay_now, left)
+					left -= pay_now
+					paid = pay_with_card(usr, pay_now, currently_vending.name, canister.linked_accounts[ind]) || paid
 			else if(usr.can_advanced_admin_interact())
 				to_chat(usr, span_notice("Vending object due to admin interaction."))
 				paid = TRUE
@@ -673,7 +702,6 @@
 		if (istype(content, /obj/item))
 			try_insert(null, content, TRUE)
 			contents.Remove(content)
-	pipe_eject(holder)
 	qdel(holder)
 
 #undef FLICK_NONE

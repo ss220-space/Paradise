@@ -71,12 +71,23 @@ export const Customat = (props, context) => {
   return (
     <Window
       width={470}
-      height={100 + Math.min(products.length * 38, 500)}
+      height={600}
       title="Customat"
     >
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
+            <Section title="User">
+              {(user && (
+                <Box>
+                  Welcome, <b>{user.name}</b>,{' '}
+                  <b>{user.job || 'Unemployed'}</b>
+                  !
+                  <br />
+                  Your balance is <b>{userMoney} credits</b>.
+                </Box>
+              )) || <Box color="light-grey">{guestNotice}</Box>}
+            </Section>
             {!!panel_open && (
               <Section title="Maintenance">
                 <Button
