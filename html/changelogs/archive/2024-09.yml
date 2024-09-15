@@ -93,3 +93,13 @@
   - unknown: title menu (#5819)
   Vladisvell:
   - add: Lockers and crates are now opened with chance when hit into wall (#5902)
+'2024-09-14':
+  Aziz Chynaliev:
+  - bugfix: status bar visibility
+  Sheya:
+  - add: stock parts, apc, cells, cell charger (#5904)
+'2024-09-15':
+  Aziz Chynaliev:
+  - del: xray removes tint and eyeprot" (#5908)
+  dageavtobusnick:
+  - bugfix: shadowlings ascend fix (#5912)
