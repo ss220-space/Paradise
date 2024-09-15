@@ -1520,8 +1520,8 @@
 	always_availible = FALSE
 
 /datum/crafting_recipe/drone
-	name = "Unactive Drone"
-	result = list(/obj/item/unactive_drone)
+	name = "Inactive Drone"
+	result = list(/obj/item/inactive_drone)
 	reqs = list(
 			/obj/item/stack/sheet/plasteel = 10,
 			/obj/item/stack/sheet/glass = 5,

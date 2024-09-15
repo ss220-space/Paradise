@@ -243,7 +243,8 @@
 	update_icon()
 
 /mob/living/simple_animal/bot/ed209/combat_drone/emag_act(mob/user)
-	return ATTACK_CHAIN_BLOCKED_ALL
+	. = ..()
+	update_icon()
 
 /mob/living/simple_animal/bot/ed209/combat_drone/start_cuffing(mob/living/carbon/C)
 	shootAt(C)
@@ -251,32 +252,33 @@
 /mob/living/simple_animal/bot/ed209/combat_drone/stun_attack(mob/living/carbon/C)
 	shootAt(C)
 
-/obj/item/unactive_drone
-	name = "Deactivated drone"
+/obj/item/inactive_drone
+	name = "Inactive drone"
 	desc = "Большой дрон. Кажется, неактивен."
 	w_class = WEIGHT_CLASS_GIGANTIC
+	item_flags = NOPICKUP
 	icon_state = "unactive_drone"
 
 /obj/item/unactive_drone/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/drone_modules/drone_BCM))
 		to_chat(user, span_notice("Вы установили модуль в слот."))
-		new /mob/living/simple_animal/bot/ed209/combat_drone(src.loc)
+		new /mob/living/simple_animal/bot/ed209/combat_drone(get_turf(src))
 		qdel(src)
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	if(istype(I, /obj/item/drone_modules/drone_IFF))
 		to_chat(user, span_notice("Вы установили модуль в слот."))
-		new /mob/living/simple_animal/hostile/malf_drone/syndicate(src.loc)
+		new /mob/living/simple_animal/hostile/malf_drone/syndicate(get_turf(src))
 		qdel(src)
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	if(istype(I, /obj/item/drone_modules/drone_AI))
 		to_chat(user, span_notice("Вам не стоит отходить вместе с платой от дрона, пока он не активируется."))
 		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за боевого дрона?", ROLE_SENTIENT, FALSE, 10 SECONDS, source = src)
-		if(!src || !I || get_dist(src, I) > 1)
+		if(!src || QDELETED(src) || !I || get_dist(src, I) > 1)
 			return
 		if(length(candidates))
-			var/mob/living/simple_animal/hostile/malf_drone/syndicate/S = new /mob/living/simple_animal/hostile/malf_drone/syndicate(src.loc)
+			var/mob/living/simple_animal/hostile/malf_drone/syndicate/S = new /mob/living/simple_animal/hostile/malf_drone/syndicate(get_turf(src))
 			var/mob/M = pick(candidates)
 			S.key = M.key
 			S.master_commander = user
@@ -305,32 +307,31 @@
 	user.faction += list("syndicate")
 	qdel(src)
 
+/obj/item/drone_modules
+	name = "Drone module"
+	desc = "Если вы это видите - сообщите в баг-репорты."
+	icon_state = "drone_BCM"
+	var/explanation = "Вы не должны были этого видеть."
+
+/obj/item/drone_modules/examine(mob/user)
+	. = ..()
+	for(var/datum/crafting_recipe/D in user.mind.learned_recipes)
+		if(D.result == type && explanation)
+			. += explanation
+
 /obj/item/drone_modules/drone_BCM
 	name = "Drone BCM"
 	desc = "Неплохо сделанная плата."
-	icon_state = "drone_BCM"
-
-/obj/item/drone_modules/drone_BCM/examine(mob/user)
-	. = ..()
-	if(user.mind.learned_recipes == src.type)
-		. += "Это базовая версия платы стандартного модуля для боевых дронов, сделанная по схеме из книги. Она позволит управлять роботом как обычным дроном без интеллекта."
+	explanation = "Это базовая версия платы стандартного модуля для боевых дронов, сделанная по схеме из книги. Она позволит управлять роботом как обычным дроном без интеллекта."
 
 /obj/item/drone_modules/drone_IFF
 	name = "Drone IFFM"
 	desc = "Неплохо сделанная плата."
 	icon_state = "drone_IFF"
-
-/obj/item/drone_modules/drone_IFF/examine(mob/user)
-	. = ..()
-	if(user.mind.learned_recipes == src.type)
-		. += "Это плата модуля Свой-Чужой для боевых дронов. Сделанная по схеме из книги, она не допускает изменений - а значит, дроны с подобным модулем всегда будут участвовать в бою на стороне Синдиката."
+	explanation = "Это плата модуля Свой-Чужой для боевых дронов. Сделанная по схеме из книги, она не допускает изменений - а значит, дроны с подобным модулем всегда будут участвовать в бою на стороне Синдиката."
 
 /obj/item/drone_modules/drone_AI
 	name = "Drone AICM"
 	desc = "Неплохо сделанная плата."
 	icon_state = "drone_AI"
-
-/obj/item/drone_modules/drone_AI/examine(mob/user)
-	. = ..()
-	if(user.mind.learned_recipes == src.type)
-		. += "Это продвинутый модуль контроля для боевых дронов. Позволит дрону получить более продвинутый интеллект. Но, кажется, первоначальное подключение все ещё зависит от внутренней сети, которая может и не быть активной."
+	explanation = "Это продвинутый модуль контроля для боевых дронов. Позволит дрону получить более продвинутый интеллект. Но первоначальное подключение все ещё зависит от внутренней сети, которая может и не быть активной."
