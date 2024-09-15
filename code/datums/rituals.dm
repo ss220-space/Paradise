@@ -106,6 +106,8 @@
 	if(failed)
 		handle_ritual_object(RITUAL_FAILED)
 
+	disaster_prob = initial(disaster_prob)
+	fail_chance = initial(fail_chance)
 	LAZYCLEARLIST(invokers)
 	LAZYCLEARLIST(used_things)
 	return
@@ -133,6 +135,8 @@
 	return
 
 /datum/ritual/proc/ritual_invoke_check(obj/obj, mob/living/carbon/human/invoker)
+	if(!COOLDOWN_FINISHED(src, ritual_cooldown))
+		return
 	if(!charges && charges >= 0)
 		return // should not have message
 	if(allowed_species && !is_type_in_typecache(invoker.dna.species, allowed_species)) // double check to avoid funny situations
@@ -313,7 +317,7 @@
 		playsound(ritual_object.loc, 'sound/effects/clone_jutsu.ogg', 50, TRUE)
 		return
 	. = ..(bitflags)
-	return
+	return .
 
 /datum/ritual/ashwalker/summon
 	name = "Summoning ritual"
@@ -355,7 +359,7 @@
 		smoke.start()
 		return
 	. = ..(bitflags)
-	return
+	return .
 
 /datum/ritual/ashwalker/curse
 	name = "Curse ritual"
@@ -526,7 +530,7 @@
 		/obj/item/organ/internal/regenerative_core = 1,
 		/mob/living/simple_animal/hostile/asteroid/goldgrub = 1
 	)
-	var/list/blacklisted_rituals = list()
+	var/list/blacklisted_rituals = list(/datum/ritual/ashwalker/power)
 
 /datum/ritual/ashwalker/recharge/del_things()
 	. = ..()
@@ -627,3 +631,71 @@
 			human.drop_item_ground(item)	
 	return
 
+/datum/ritual/ashwalker/soul
+	name = "Soul ritual"
+	extra_invokers = 3
+	cooldown_after_cast = 1200 SECONDS
+	shaman_only = TRUE
+	required_things = list(
+		/mob/living/carbon/human = 3,
+		/obj/item/stack/sheet/animalhide/ashdrake = 1
+	)
+
+/datum/ritual/ashwalker/soul/check_invokers(mob/living/carbon/human/invoker)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(!isashwalkershaman(invoker))
+		disaster_prob = 40
+		fail_chance = 70
+	return TRUE
+
+/datum/ritual/ashwalker/population/del_things()
+	. = ..()
+	for(var/mob/living/living in used_things)
+		if(QDELETED(living))
+			continue
+		living.gib()
+	return
+
+/datum/ritual/ashwalker/soul/check_contents()
+	. = ..()
+	if(!.)
+		return FALSE
+	for(var/mob/living/living in used_things)
+		if(living.stat != DEAD)
+			return FALSE
+	return TRUE
+
+/datum/ritual/ashwalker/soul/do_ritual(obj/obj, mob/living/carbon/human/invoker)
+	for(var/mob/living/carbon/human/human as anything in invokers)
+		if(!human.do_after(human, 60 SECONDS, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents()))))
+			return RITUAL_FAILED_ON_PROCEED
+	if(!invoker.do_after(invoker, 60 SECONDS, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents()))))
+		return RITUAL_FAILED_ON_PROCEED
+	invoker.set_species(/datum/species/unathi/draconid)
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/soul/disaster(obj/obj, mob/living/carbon/human/invoker)
+	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
+		if(!isashwalker(human) || !prob(disaster_prob))
+			continue
+		if(!isturf(human.loc))
+			continue
+		human.SetKnockdown(10 SECONDS)
+		var/turf/turf = human.loc
+		new /obj/effect/hotspot(turf)
+		turf.hotspot_expose(700, 50, 1)
+	return
+
+/datum/ritual/ashwalker/soul/handle_ritual_object(bitflags, silent =  FALSE)
+	. = ..(bitflags, TRUE)
+	switch(.)
+		if(RITUAL_ENDED)
+			playsound(ritual_object.loc, 'sound/effects/whoosh.ogg', 50, TRUE)
+			return
+		if(RITUAL_FAILED)
+			playsound(ritual_object.loc, 'sound/effects/blobattack.ogg', 50, TRUE)
+			return
+	. = ..(bitflags)
+	return .
