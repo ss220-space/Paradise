@@ -71,6 +71,20 @@
 /obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
 	return 100 * charge / maxcharge
 
+
+/obj/item/stock_parts/cell/proc/adjust_maxcharge(amount)
+	if(self_recharge)
+		return FALSE	// SelfCharging uses static charge values ​​per tick, so we don't want it to mess up the recharge balance.
+
+	var/oldcharge = maxcharge
+	maxcharge = min(maxcharge + amount, 1)
+
+	if(charge > maxcharge)
+		charge = maxcharge
+
+	return maxcharge != oldcharge
+
+
 // use power from a cell
 /obj/item/stock_parts/cell/use(amount)
 	if(rigged && amount > 0)
@@ -368,6 +382,11 @@
 
 /obj/item/stock_parts/cell/emproof/corrupt()
 	return
+
+
+/obj/item/stock_parts/cell/emproof/adjust_maxcharge(amount)
+	return FALSE
+
 
 /obj/item/stock_parts/cell/ninja
 	name = "spider-clan power cell"
