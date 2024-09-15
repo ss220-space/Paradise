@@ -669,9 +669,9 @@
 
 /datum/ritual/ashwalker/soul/do_ritual(obj/obj, mob/living/carbon/human/invoker)
 	for(var/mob/living/carbon/human/human as anything in invokers)
-		if(!human.do_after(human, 60 SECONDS, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents()))))
+		if(!do_after(human, 60 SECONDS, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
 			return RITUAL_FAILED_ON_PROCEED
-	if(!invoker.do_after(invoker, 60 SECONDS, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents()))))
+	if(!do_after(invoker, 60 SECONDS, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
 		return RITUAL_FAILED_ON_PROCEED
 	invoker.set_species(/datum/species/unathi/draconid)
 	return RITUAL_SUCCESSFUL
