@@ -63,8 +63,9 @@
 #define PREFTOGGLE_2_LARGE_INPUT_BUTTONS			(1<<16) // 65536
 #define PREFTOGGLE_2_BIG_STRIP_MENU					(1<<17) // 131072
 #define PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE		(1<<18) // 262144
+#define PREFTOGGLE_2_PIXELATED_MENU					(1<<19) // 524288
 
-#define TOGGLES_2_TOTAL								524287// If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_2_TOTAL								1048575 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_PARALLAX_MULTIZ|PREFTOGGLE_2_SWAP_INPUT_BUTTONS|PREFTOGGLE_2_LARGE_INPUT_BUTTONS)
 
