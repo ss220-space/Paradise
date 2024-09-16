@@ -2324,3 +2324,4 @@
 
 	to_chat(src, span_notice("You feel raw magical energy flowing through you, it feels good!"))
 	return .
+	
