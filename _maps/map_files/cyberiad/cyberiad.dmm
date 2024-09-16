@@ -47970,7 +47970,7 @@
 "cSr" = (
 /obj/machinery/atmospherics/air_sensor{
 	id_tag = "waste_sensor";
-	output = 63
+	output = 127
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
@@ -66312,7 +66312,7 @@
 /obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "air_sensor";
-	output = 7
+	output = 23
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
