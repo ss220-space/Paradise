@@ -365,13 +365,18 @@
 	if(user && !user.drop_transfer_item_to_loc(I, src))
 		to_chat(usr, span_warning("Вы не можете положить это внутрь."))
 		return
+
+	if (!user) // If from pipe, transfer into src.
+		I.forceMove(src)
+
+	var/datum/data/customat_product/product
 	if (!(key in products))
-		var/datum/data/customat_product/product = new /datum/data/customat_product(I)
+		product = new /datum/data/customat_product(I)
 		product.price = !emagged ? cost : 0
 		product.key = key
 		products[key] = product
 
-	var/datum/data/customat_product/product = products[key]
+	product = products[key]
 	product.containtment += I
 	product.amount++
 	inserted_items_count++
