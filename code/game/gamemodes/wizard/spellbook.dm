@@ -1024,13 +1024,13 @@
 	uses = 1
 	desc = "This template spellbook was never meant for the eyes of man..."
 
-/obj/item/spellbook/oneuse/recharge_act()
+/obj/item/spellbook/oneuse/recharge_act(mob/user)
 	if(prob(80))
-		visible_message(span_warning("[src] catches fire!"))
+		user.visible_message(span_warning("[src] catches fire!"))
 		qdel(src)
-		return
+		return RECHARGE_FAILED
 	used = FALSE
-	return
+	return RECHARGE_SUCCESSFUL
 
 /obj/item/spellbook/oneuse/New()
 	..()

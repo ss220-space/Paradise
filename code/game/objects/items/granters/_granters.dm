@@ -86,7 +86,7 @@
 	if(prob(80))
 		user.visible_message(span_warning("[src] catches fire!"))
 		qdel(src)
-		return
+		return RECHARGE_FAILED
 	uses += 1
 	return RECHARGE_SUCCESSFUL
 
