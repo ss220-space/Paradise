@@ -686,7 +686,6 @@
 
 	to_chat(src, span_danger("Ваш хозяин дёргается и вздрагивает, когда вы быстро выводите личинку из своего слизнеподобного тела."))
 	visible_message(span_danger("[src] яростно блюёт, изрыгая рвотные массы вместе с извивающимся, похожим на слизня существом!"))
-	borer.chemicals -= 100
 	var/turf/turf = get_turf(src)
 	turf.add_vomit_floor()
 	new /mob/living/simple_animal/borer(turf, borer.generation + 1)
@@ -708,7 +707,6 @@
 
 	borer.sneaking = TRUE
 	to_chat(src, span_notice("Вы скрываете ваше присутствие внутри хозяина!"))
-	borer.chemicals -= 50
 	borer.host.med_hud_set_status()
 	return
 
