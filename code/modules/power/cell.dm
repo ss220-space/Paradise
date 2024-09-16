@@ -40,15 +40,16 @@
 	return ..()
 
 /obj/item/stock_parts/cell/recharge_act(mob/user)
+	. = RECHARGE_SUCCESSFUL
 	if(!self_recharge)
 		if(prob(80))
 			maxcharge -= 200
 		if(maxcharge <= 1) //Div by 0 protection
 			maxcharge = 1
-			return RECHARGE_BURNOUT
+			. = RECHARGE_BURNOUT
 	charge = maxcharge
 	update_icon()
-	return RECHARGE_SUCCESSFUL
+	return .
 
 /obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)
 	. = ..()
