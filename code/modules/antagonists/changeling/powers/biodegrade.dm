@@ -58,10 +58,9 @@
 	if(istype(user.loc, /obj/item/mecha_parts/mecha_equipment/cage))
 		var/obj/item/mecha_parts/mecha_equipment/cage/container = user.loc
 		var/obj/mecha/mech = container.chassis
-		var/mob/living/carbon/prisoner = container.prisoner
 		mech.visible_message(span_warning("[mech]'s containment chamber suddenly begins to melt and run!"), \
 									span_warning("We vomit acidic goop onto the interior of the containment chamber!"))
-		prisoner.forceMove(get_turf(container))
+		user.forceMove(get_turf(container))
 		container.prisoner = null
 		container.update_equip_info()
 
