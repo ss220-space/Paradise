@@ -181,15 +181,15 @@
 /obj/structure/flora/ash/coaltree
 	icon_state = "coaltree"
 	name = "coaltree"
-	desc = "Потом"
+	desc = "Небольшое мрачное дерево, растущее на просторах такой же мрачной планеты."
 	harvested_name = "coaltree stump"
-	harvested_desc = "Потом."
+	harvested_desc = "Голый ствол дерева, оставшийся без своей уродливой кроны."
 	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
 	harvest_amount_high = 5
 	harvest_time = 40
-	harvest_message_low = "Потом."
-	harvest_message_med = "Потом."
-	harvest_message_high = "Потом."
+	harvest_message_low = "Вы обрезаете небольшое дерево."
+	harvest_message_med = "Вы обрезаете дерево среднего размера."
+	harvest_message_high = "Вы обрезаете большое дерево."
 	regrowth_time_low = 4000
 	regrowth_time_high = 6000
 
@@ -249,7 +249,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
 	name = "coaltree log"
-	desc = "Потом."
+	desc = "Бревно угледрева, на ощупь мягкое."
 	icon_state = "coaltree_log"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'

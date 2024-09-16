@@ -684,7 +684,7 @@ REAGENT SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "Gem_analyzer"
 	item_state = "gem_analyzer"
-	desc = "Потом."
+	desc = "Необычный самоцвет в форме сердца."
 	origin_tech = null
 
 /obj/item/healthanalyzer/healtheye/attackby(obj/item/I, mob/user, params)

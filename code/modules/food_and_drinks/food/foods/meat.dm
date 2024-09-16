@@ -64,7 +64,7 @@
 
 /obj/item/reagent_containers/food/snacks/roasted_meat
 	name = "roasted meat"
-	desc = "Потом"
+	desc = "Хорошо прожаренный стейк."
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	icon_state = "roasted_meat"
 	list_reagents = list("protein" = 4, "vitamin" = 1)
@@ -720,7 +720,7 @@
 
 /obj/item/reagent_containers/food/snacks/roasted_spiderleg
 	name = "roasted spider leg"
-	desc = "Потом"
+	desc = "Жаренная лапка паука, теперь оно точно мертво."
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	icon_state = "roasted_spiderleg"
 	list_reagents = list("protein" = 4, "vitamin" = 1)

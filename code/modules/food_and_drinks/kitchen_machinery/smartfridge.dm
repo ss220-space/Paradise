@@ -915,7 +915,7 @@
 
 /obj/machinery/smartfridge/drying_rack/ash
 	name = "primitive drying rack"
-	desc = "A handmade tribal wooden rack, used to dry plant products, food and leather."
+	desc = "Самодельная сушилка, используется для сушки кожи и еды."
 	icon_state = "primitive-drying-rack"
 	use_power = NO_POWER_USE
 	can_dry = FALSE //trust me

@@ -373,16 +373,17 @@
 /datum/reagent/medicine/coaltree_extract
 	name = "Coaltree extract"
 	id = "coaltree_extract"
-	description = "Потом"
+	description = "Экстракт полученный из угледрева, выводит из организма токсины ценой больших мучений."
 	reagent_state = LIQUID
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 	color = "#000000"
-	taste_description = "Потом"
+	taste_description = "ash"
 
 /datum/reagent/medicine/coaltree_extract/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(-3, FALSE)
 	update_flags |= M.adjustBruteLoss(1, FALSE)
+	to_chat(M, "<span class='notice'>Ваша кожа покрывается кровавыми волдырями.</span>")
 	if(prob(50))
 		for(var/datum/reagent/R in M.reagents.reagent_list)
 			if(R != src)
