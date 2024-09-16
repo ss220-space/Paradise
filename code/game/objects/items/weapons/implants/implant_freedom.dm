@@ -30,8 +30,7 @@
 		// mech cage container escape
 		if(istype(C_imp_in.loc, /obj/item/mecha_parts/mecha_equipment/cage))
 			var/obj/item/mecha_parts/mecha_equipment/cage/container = C_imp_in.loc
-			var/mob/living/carbon/prisoner = container.prisoner
-			prisoner.forceMove(get_turf(container))
+			C_imp_in.forceMove(get_turf(container))
 			container.prisoner = null
 			container.update_equip_info()
 
