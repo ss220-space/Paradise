@@ -904,10 +904,10 @@
 			playsound(ritual_object.loc, 'sound/effects/anvil_start.ogg', 50, TRUE)
 			return
 		if(RITUAL_STARTED)
-			playsound(ritual_object.loc, 'sound/magic/hulk_hit.ogg', 50, TRUE)
+			playsound(ritual_object.loc, 'sound/effects/hulk_hit.ogg', 50, TRUE)
 			return
 		if(RITUAL_FAILED)
-			playsound(ritual_object.loc, 'sound/magic/forge_destroy.ogg', 50, TRUE)
+			playsound(ritual_object.loc, 'sound/effects/forge_destroy.ogg', 50, TRUE)
 			return
 	return .
 	
