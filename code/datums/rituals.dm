@@ -31,6 +31,8 @@
 	var/required_things[] = list()
 	/// If true - only whitelisted species will be added as invokers
 	var/require_allowed_species = TRUE
+	/// Same as require_allowed_species, but requires special role to be counted as invoker.
+	var/require_allowed_special_role = FALSE
 	/// We search for humans in that radius
 	var/finding_range = DEFAULT_RITUAL_RANGE_FIND
 	/// Amount of maximum ritual uses.
@@ -144,8 +146,8 @@
 /datum/ritual/proc/ritual_invoke_check(obj/obj, mob/living/carbon/human/invoker)
 	if(!COOLDOWN_FINISHED(src, ritual_cooldown))
 		return
-	if(!charges && charges >= 0)
-		return // should not have message
+	if(charges == 0)
+		return 
 	if(allowed_special_role && !is_type_in_list(invoker.mind?.special_role, allowed_special_role))
 		return RITUAL_FAILED_INVALID_SPECIAL_ROLE
 	if(allowed_species && !is_type_in_list(invoker.dna.species, allowed_species)) // double check to avoid funny situations
@@ -174,6 +176,8 @@
 		if(human == invoker)
 			continue
 		if(require_allowed_species && !is_type_in_list(human.dna.species, allowed_species))
+			continue
+		if(require_allowed_special_role && !is_type_in_list(human.mind?.special_role, allowed_special_role))
 			continue
 		LAZYADD(invokers, human)
 
