@@ -365,6 +365,7 @@
 	icon_state = "seed-coaltree"
 	species = "coaltree"
 	plantname = "Coaltree"
+	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing.dmi'
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
 	genes = list(/datum/plant_gene/trait/fire_resistance)
