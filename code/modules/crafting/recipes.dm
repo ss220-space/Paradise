@@ -683,7 +683,6 @@
 	result = list(/obj/item/retractor/primitive_retractor,
 				/obj/item/hemostat/primitive_hemostat,
 				/obj/item/cautery/primitive_cautery,
-				/obj/item/surgicaldrill/primitive_surgicaldrill,
 				/obj/item/scalpel/primitive_scalpel,
 				/obj/item/circular_saw/primitive_saw,
 				/obj/item/bonegel/primitive_bonegel,

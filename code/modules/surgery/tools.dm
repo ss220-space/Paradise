@@ -88,22 +88,6 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
-/obj/item/surgicaldrill
-	name = "surgical drill"
-	desc = "You can drill using this item. You dig?"
-	icon = 'icons/obj/surgery.dmi'
-	icon_state = "drill"
-	item_state = "drills"
-	hitsound = 'sound/weapons/drill.ogg'
-	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
-	flags = CONDUCT
-	force = 15.0
-	sharp = 1
-	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "materials=1;biotech=1"
-	attack_verb = list("drilled")
-	tool_behaviour = TOOL_DRILL
-
 /obj/item/surgicaldrill/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
