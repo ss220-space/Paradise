@@ -305,6 +305,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	update_preview_icon()
 	user << browse_rsc(preview_icon_front, "previewicon.png")
 	user << browse_rsc(preview_icon_side, "previewicon2.png")
+	SStitle.update_preview(user.client)
 
 	var/list/dat = list()
 	dat += {"<meta charset="UTF-8">"}
@@ -606,6 +607,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b> - TGUI Input:</b> <a href='byond://?_src_=prefs;preference=tgui_input'>[(toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT) ? "No" : "Yes"]</a><br>"
 			dat += "<b> - TGUI Input - Large Buttons:</b> <a href='byond://?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
 			dat += "<b> - TGUI Input - Swap Buttons:</b> <a href='byond://?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Title menu style:</b> <a href='byond://?_src_=prefs;preference=pixelated_menu'>[(toggles2 & PREFTOGGLE_2_PIXELATED_MENU) ? "Pixelated" : "Basic"]</a><br>"
 			dat += "</td></tr></table>"
 
 		if(TAB_SPEC) // Antagonist's Preferences
@@ -906,6 +908,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				continue
 			if(!job.character_old_enough(user.client))
 				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ВОЗРАСТ ОТ [(job.min_age_allowed)]]</b></span></td></tr>"
+				continue
+			if(job.species_in_blacklist(user.client))
+				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[НЕДОСТУПНО ДЛЯ ДАННОЙ РАСЫ]</b></span></td></tr>"
 				continue
 			if((job.title in GLOB.command_positions) || (job.title == JOB_TITLE_AI))//Bold head jobs
 				html += "<b><span class='[color]'>[rank]</span></b>"
@@ -1537,9 +1542,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			switch(href_list["preference"])
 				if("name")
 					real_name = random_name(gender,species)
-					if(isnewplayer(user))
-						var/mob/new_player/N = user
-						N.new_player_panel_proc()
+					user.client << output(real_name, "title_browser:update_current_character")
 				if("age")
 					age = rand(AGE_MIN, AGE_MAX)
 				if("hair")
@@ -1613,9 +1616,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						var/new_name = reject_bad_name(raw_name, 1)
 						if(new_name)
 							real_name = new_name
-							if(isnewplayer(user))
-								var/mob/new_player/N = user
-								N.new_player_panel_proc()
+							user.client << output(real_name, "title_browser:update_current_character")
 						else
 							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 
@@ -2446,6 +2447,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					toggles2 ^= PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE
 					user?.client?.tgui_say?.load()
 
+				if("pixelated_menu")
+					toggles2 ^= PREFTOGGLE_2_PIXELATED_MENU
+					if(user?.client)
+						SStitle?.show_title_screen_to(user.client)
+
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
 
@@ -2506,9 +2512,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("randomslot")
 					toggles2 ^= PREFTOGGLE_2_RANDOMSLOT
-					if(isnewplayer(usr))
-						var/mob/new_player/N = usr
-						N.new_player_panel_proc()
 
 				if("hear_midis")
 					sound ^= SOUND_MIDI
@@ -2566,9 +2569,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						real_name = random_name(gender)
 						save_character(user)
 					close_load_dialog(user)
-					if(isnewplayer(user))
-						var/mob/new_player/N = user
-						N.new_player_panel_proc()
+					user.client << output(real_name, "title_browser:update_current_character")
 
 				if("tab")
 					if(href_list["tab"])
@@ -2779,8 +2780,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						var/datum/preference_toggle/toggle = locateUID(href_list["toggle"])
 						toggle.set_toggles(user.client)
 
-
-
 	ShowChoices(user)
 	return TRUE
 
@@ -2865,13 +2864,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				I.robotize()
 
 	character.dna.blood_type = b_type
-
-	// Wheelchair necessary?
-	var/obj/item/organ/external/l_foot = character.get_organ(BODY_ZONE_PRECISE_L_FOOT)
-	var/obj/item/organ/external/r_foot = character.get_organ(BODY_ZONE_PRECISE_R_FOOT)
-	if(!l_foot && !r_foot || HAS_TRAIT_FROM(character, TRAIT_FLOORED, DNA_TRAIT))
-		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
-		W.buckle_mob(character, TRUE)
 
 	character.underwear = underwear
 	character.color_underwear = underwear_color

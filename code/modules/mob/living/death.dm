@@ -97,6 +97,9 @@
 
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
+
+	clear_alert("succumb")
+
 	if(mind && mind.devilinfo) // Expand this into a general-purpose death-response system when appropriate
 		mind.devilinfo.beginResurrectionCheck(src)
 
