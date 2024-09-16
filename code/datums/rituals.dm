@@ -354,10 +354,28 @@
 	cast_time = 50 SECONDS
 	extra_invokers = 1
 	required_things = list(
-		/obj/item/stack/sheet/sinew = 3,
+		/obj/item/stack/sheet/sinew = 1,
 		/obj/item/organ/internal/regenerative_core = 1,
 		/obj/item/stack/sheet/animalhide/goliath_hide = 1
 	)
+
+/datum/ritual/ashwalker/summon/check_contents()
+	. = ..()
+	if(!.)
+		return FALSE
+	for(var/obj/item/stack/sheet/sinew/sinew in used_things)
+		if(sinew.amount < 3)
+			return FALSE
+	return TRUE
+
+/datum/ritual/ashwalker/summon/del_things()
+	var/obj/item/stack/sheet/sinew/sinew = locate() in used_things
+	var/obj/item/stack/sheet/animalhide/goliath_hide/hide = locate() in used_things
+	var/obj/item/organ/internal/regenerative_core/core = locate() in used_things
+	sinew.use(3)
+	hide.use(1)
+	qdel(core)
+	return
 
 /datum/ritual/ashwalker/summon/do_ritual(obj/obj, mob/living/carbon/human/invoker)
 	var/list/ready_for_summoning = list()
@@ -774,7 +792,7 @@
 
 /datum/ritual/ashwalker/transmutation
 	name = "Transmutation ritual"
-	cooldown_after_cast = 1200 SECONDS
+	cooldown_after_cast = 120 SECONDS
 	cast_time = 10 SECONDS
 	required_things = list(
 		/obj/item/stack/ore = 1
@@ -830,6 +848,66 @@
 			return
 		if(RITUAL_FAILED)
 			playsound(ritual_object.loc, 'sound/magic/knock.ogg', 50, TRUE)
+			return
+	return .
+
+/datum/ritual/ashwalker/interrogation
+	name = "Interrogation ritual"
+	cooldown_after_cast = 50 SECONDS
+	shaman_only = TRUE
+	cast_time = 10 SECONDS
+	required_things = list(
+		/mob/living/carbon/human = 1
+	)
+
+/datum/ritual/ashwalker/interrogation/check_invokers(mob/living/carbon/human/invoker)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(invoker.health > 10)
+		disaster_prob = 30
+		fail_chance = 30
+	return TRUE
+
+/datum/ritual/ashwalker/interrogation/check_contents()
+	. = ..()
+	if(!.)
+		return FALSE
+	var/mob/living/carbon/human/human = used_things[1]
+	if(human.stat == DEAD || !human.mind)
+		return FALSE
+	return TRUE
+
+/datum/ritual/ashwalker/interrogation/do_ritual(obj/obj, mob/living/carbon/human/invoker)
+	var/obj/effect/proc_holder/spell/empath/empath = new
+	if(!empath.cast(used_things, invoker))
+		return RITUAL_FAILED_ON_PROCEED
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/interrogation/disaster(obj/obj, mob/living/carbon/human/invoker)
+	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
+		if(!isashwalker(human))
+			continue
+		if(!isturf(human.loc))
+			continue
+		var/turf/turf = human.loc
+		to_chat(human, "<font color='red' size='7'>HONK</font>")
+		SEND_SOUND(turf, sound('sound/items/airhorn.ogg'))
+		human.AdjustHallucinate(150 SECONDS)
+		human.EyeBlind(5 SECONDS)
+	return
+
+/datum/ritual/ashwalker/interrogation/handle_ritual_object(bitflags, silent =  FALSE)
+	. = ..(bitflags, TRUE)
+	switch(.)
+		if(RITUAL_ENDED)
+			playsound(ritual_object.loc, 'sound/effects/anvil_start.ogg', 50, TRUE)
+			return
+		if(RITUAL_STARTED)
+			playsound(ritual_object.loc, 'sound/magic/hulk_hit.ogg', 50, TRUE)
+			return
+		if(RITUAL_FAILED)
+			playsound(ritual_object.loc, 'sound/magic/forge_destroy.ogg', 50, TRUE)
 			return
 	return .
 	
