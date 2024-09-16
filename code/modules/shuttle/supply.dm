@@ -543,6 +543,7 @@
 				var/num_input = tgui_input_number(ui.user, "Amount", "How many crates?", max_value = 20, min_value = 1)
 				if(isnull(num_input) || (!is_public && !is_authorized(ui.user)) || ..()) // Make sure they dont walk away
 					return
+				amount = num_input
 
 			var/timeout = world.time + (60 SECONDS) // If you dont type the reason within a minute, theres bigger problems here
 			var/reason = tgui_input_text(ui.user, "Reason", "Why do you require this item?", encode = FALSE, timeout = timeout)

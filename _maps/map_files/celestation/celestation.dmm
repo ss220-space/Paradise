@@ -57761,7 +57761,8 @@
 /area/security/lobby)
 "jFZ" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "mix_sensor"
+	id_tag = "mix_sensor";
+	output = 127
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
@@ -119365,7 +119366,8 @@
 /area/chapel/main)
 "vEd" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "air_sensor"
+	id_tag = "air_sensor";
+	output = 23
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)

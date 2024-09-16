@@ -477,7 +477,8 @@
 "rk" = (
 /obj/machinery/atmospherics/air_sensor{
 	frequency = 1441;
-	id_tag = "mix_sensor_gtl"
+	id_tag = "mix_sensor_gtl";
+	output = 127
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/gasthelizards/viewzone)

@@ -151,7 +151,8 @@
 /area/space/nearstation)
 "acX" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "mix_sensor"
+	id_tag = "mix_sensor";
+	output = 127
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
@@ -41872,12 +41873,8 @@
 /area/medical/virology)
 "ehg" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "air_sensor"
-	},
-/obj/machinery/atmospherics/air_sensor{
-	frequency = 1443;
 	id_tag = "air_sensor";
-	output = 7
+	output = 23
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)

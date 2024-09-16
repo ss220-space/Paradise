@@ -6618,7 +6618,7 @@
 /obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "UO71_air_sensor";
-	output = 7
+	output = 23
 	},
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO71/eng)
@@ -8652,7 +8652,7 @@
 "ty" = (
 /obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO71_waste_sensor";
-	output = 63
+	output = 127
 	},
 /turf/simulated/floor/engine{
 	name = "vacuum floor";
