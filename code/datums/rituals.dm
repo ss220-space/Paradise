@@ -515,13 +515,10 @@
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/magic/castsummon.ogg', 50, TRUE)
-			return
 		if(RITUAL_STARTED)
 			playsound(ritual_object.loc, 'sound/magic/smoke.ogg', 50, TRUE)
-			return
 		if(RITUAL_FAILED)
 			playsound(ritual_object.loc, 'sound/magic/strings.ogg', 50, TRUE)
-			return
 	return .
 
 /datum/ritual/ashwalker/cure
@@ -584,13 +581,10 @@
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/magic/clockwork/reconstruct.ogg', 50, TRUE)
-			return
 		if(RITUAL_STARTED)
 			playsound(ritual_object.loc, 'sound/magic/disable_tech.ogg', 50, TRUE)
-			return
 		if(RITUAL_FAILED)
 			playsound(ritual_object.loc, 'sound/magic/invoke_general.ogg', 50, TRUE)
-			return
 	return .
 
 /datum/ritual/ashwalker/recharge
@@ -652,13 +646,10 @@
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/magic/castsummon.ogg', 50, TRUE)
-			return
 		if(RITUAL_STARTED)
 			playsound(ritual_object.loc, 'sound/magic/cult_spell.ogg', 50, TRUE)
-			return
 		if(RITUAL_FAILED)
 			playsound(ritual_object.loc, 'sound/magic/invoke_general.ogg', 50, TRUE)
-			return
 	return .
 
 /datum/ritual/ashwalker/population
@@ -716,13 +707,10 @@
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/magic/demon_consume.ogg', 50, TRUE)
-			return
 		if(RITUAL_STARTED)
 			playsound(ritual_object.loc, 'sound/magic/cult_spell.ogg', 50, TRUE)
-			return
 		if(RITUAL_FAILED)
 			playsound(ritual_object.loc, 'sound/magic/teleport_diss.ogg', 50, TRUE)
-			return
 	return .
 
 /datum/ritual/ashwalker/soul
@@ -781,13 +769,10 @@
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/effects/whoosh.ogg', 50, TRUE)
-			return
 		if(RITUAL_STARTED)
 			playsound(ritual_object.loc, 'sound/effects/bamf.ogg', 50, TRUE)
-			return
 		if(RITUAL_FAILED)
 			playsound(ritual_object.loc, 'sound/effects/blobattack.ogg', 50, TRUE)
-			return
 	return .
 
 /datum/ritual/ashwalker/transmutation
@@ -842,13 +827,10 @@
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/effects/bin_close.ogg', 50, TRUE)
-			return
 		if(RITUAL_STARTED)
 			playsound(ritual_object.loc, 'sound/magic/cult_spell.ogg', 50, TRUE)
-			return
 		if(RITUAL_FAILED)
 			playsound(ritual_object.loc, 'sound/magic/knock.ogg', 50, TRUE)
-			return
 	return .
 
 /datum/ritual/ashwalker/interrogation
@@ -902,12 +884,9 @@
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/effects/anvil_start.ogg', 50, TRUE)
-			return
 		if(RITUAL_STARTED)
 			playsound(ritual_object.loc, 'sound/effects/hulk_hit.ogg', 50, TRUE)
-			return
 		if(RITUAL_FAILED)
 			playsound(ritual_object.loc, 'sound/effects/forge_destroy.ogg', 50, TRUE)
-			return
 	return .
 	
