@@ -36,11 +36,11 @@
 			break
 
 	if(!charged_item)
-		to_chat(living, span_notice("You feel magical power surging to your hands, but the feeling rapidly fades..."))
+		to_chat(user, span_notice("You feel magical power surging to your hands, but the feeling rapidly fades..."))
 		return
 	switch(charge_result)
 		if(RECHARGE_BURNOUT)
-			to_chat(living, span_caution("[charged_item] doesn't seem to be reacting to the spell..."))
+			to_chat(user, span_caution("[charged_item] doesn't seem to be reacting to the spell..."))
 		if(RECHARGE_SUCCESSFUL)
-			to_chat(living, span_notice("[charged_item] suddenly feels very warm!"))
+			to_chat(user, span_notice("[charged_item] suddenly feels very warm!"))
 
