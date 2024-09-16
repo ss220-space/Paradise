@@ -557,7 +557,7 @@
 
 /datum/action/innate/borer/make_larvae/Activate()
 	borer.host = owner
-	borer.chemicals -= 100
+	borer.chemicals -= chem_cost
 	borer.host.spawn_larvae()
 
 /datum/action/innate/borer/torment
@@ -577,7 +577,7 @@
 
 /datum/action/innate/borer/sneak_mode/Activate()
 	borer.host = owner
-	borer.chemicals -= 50
+	borer.chemicals -= chem_cost
 	borer.host.sneak_mode()
 
 #undef REPRODUCTIONS_TO_MATURE
