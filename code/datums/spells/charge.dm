@@ -19,34 +19,18 @@
 	for(var/mob/living/living in targets)
 		var/list/hand_items = list(living.get_active_hand(), living.get_inactive_hand())
 		var/charged_item = null
+		var/charge_result
 
-		if(living.pulling && (isliving(living.pulling)))
-			var/mob/living/mob = living.pulling
-			if(LAZYLEN(mob.mob_spell_list) || (mob.mind && LAZYLEN(mob.mind.spell_list)))
-				for(var/obj/effect/proc_holder/spell/spell as anything in mob.mob_spell_list)
-					spell.cooldown_handler.revert_cast()
-				if(mob.mind)
-					for(var/obj/effect/proc_holder/spell/spell as anything in mob.mind.spell_list)
-						spell.cooldown_handler.revert_cast()
-				to_chat(mob, span_notice("You feel raw magical energy flowing through you, it feels good!"))
-			else
-				to_chat(mob, span_notice("You feel very strange for a moment, but then it passes."))
-				. = RECHARGE_BURNOUT
-			charged_item = mob
+		if(living.pulling)
+			charge_result = pulling.magic_charge_act(pulling)
+			if(charge_result & RECHARGE_NO_EFFECT)
+				continue
+			charged_item = pulling
 			break
-		for(var/obj/item in hand_items)
-			if(item.contents)
-				var/obj/item/stock_parts/cell/cell = locate() in item.contents
-				if(!cell)
-					continue
-				. = cell.recharge_act(living)
-				if(. & RECHARGE_NO_EFFECT)
-					continue
-				charged_item = cell
-				break
 
-			. = item.recharge_act(living)
-			if(. & RECHARGE_NO_EFFECT)
+		for(var/obj/item in hand_items)
+			charge_result = item.magic_charge_act(living)
+			if(charge_result & RECHARGE_NO_EFFECT)
 				continue
 			charged_item = item
 			break
@@ -54,10 +38,9 @@
 		if(!charged_item)
 			to_chat(living, span_notice("You feel magical power surging to your hands, but the feeling rapidly fades..."))
 			return
-		switch(.)
+		switch(charge_result)
 			if(RECHARGE_BURNOUT)
 				to_chat(living, span_caution("[charged_item] doesn't seem to be reacting to the spell..."))
 			if(RECHARGE_SUCCESSFUL)
 				to_chat(living, span_notice("[charged_item] suddenly feels very warm!"))
-		return .
 

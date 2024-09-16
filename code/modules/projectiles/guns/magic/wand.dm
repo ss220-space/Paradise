@@ -33,7 +33,7 @@
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
-/obj/item/gun/magic/wand/recharge_act(mob/user)
+/obj/item/gun/magic/wand/magic_charge_act(mob/user)
 	. = ..()
 	if(!max_charges)
 		. = RECHARGE_BURNOUT

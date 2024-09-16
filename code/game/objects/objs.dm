@@ -253,9 +253,6 @@
 /obj/proc/on_mob_move(mob/user, dir)
 	return
 
-/obj/proc/recharge_act(mob/user)
-	return RECHARGE_NO_EFFECT
-
 /obj/proc/makeSpeedProcess()
 	if(speed_process)
 		return

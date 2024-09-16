@@ -2303,3 +2303,15 @@
 /mob/living/proc/update_movespeed_damage_modifiers()
 	return
 
+/mob/living/magic_charge_act(mob/user)
+	if(LAZYLEN(mob_spell_list) || LAZYLEN(mind?.spell_list))
+		for(var/obj/effect/proc_holder/spell/spell as anything in mob_spell_list)
+			spell.cooldown_handler.revert_cast()
+		if(mind)
+			for(var/obj/effect/proc_holder/spell/spell as anything in mind?.spell_list)
+				spell.cooldown_handler.revert_cast()
+		to_chat(src, span_notice("You feel raw magical energy flowing through you, it feels good!"))
+		return RECHARGE_SUCCESSFUL
+
+	to_chat(src, span_notice("You feel very strange for a moment, but then it passes."))
+	return RECHARGE_NO_EFFECT

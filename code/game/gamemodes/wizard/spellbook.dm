@@ -766,7 +766,7 @@
 	..()
 	initialize()
 
-/obj/item/spellbook/recharge_act(mob/user)
+/obj/item/spellbook/magic_charge_act(mob/user)
 	to_chat(user, span_caution("Glowing red letters appear on the front cover..."))
 	to_chat(user, span_warning(pick("NICE TRY BUT NO!", \
 				"CLEVER BUT NOT CLEVER ENOUGH!", \
@@ -1024,9 +1024,9 @@
 	uses = 1
 	desc = "This template spellbook was never meant for the eyes of man..."
 
-/obj/item/spellbook/oneuse/recharge_act(mob/user)
+/obj/item/spellbook/oneuse/magic_charge_act()
 	if(prob(80))
-		user.visible_message(span_warning("[src] catches fire!"))
+		visible_message(span_warning("[src] catches fire!"))
 		qdel(src)
 		return RECHARGE_FAILED
 	used = FALSE

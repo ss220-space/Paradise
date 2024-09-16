@@ -51,7 +51,7 @@
 		charges--//... drain a charge
 	return
 
-/obj/item/gun/magic/recharge_act(mob/user)
+/obj/item/gun/magic/magic_charge_act(mob/user)
 	. = RECHARGE_SUCCESSFUL
 	if(prob(80) && !can_charge)
 		max_charges--

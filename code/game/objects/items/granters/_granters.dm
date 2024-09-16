@@ -82,9 +82,9 @@
 /obj/item/book/granter/proc/can_learn(mob/living/user)
 	return TRUE
 
-/obj/item/book/granter/recharge_act(mob/user)
+/obj/item/book/granter/magic_charge_act(mob/user)
 	if(prob(80))
-		user.visible_message(span_warning("[src] catches fire!"))
+		visible_message(span_warning("[src] catches fire!"))
 		qdel(src)
 		return RECHARGE_FAILED
 	uses += 1
