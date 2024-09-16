@@ -254,7 +254,7 @@
 	return
 
 /obj/proc/recharge_act(mob/user)
-	return
+	return RECHARGE_NO_EFFECT
 
 /obj/proc/makeSpeedProcess()
 	if(speed_process)

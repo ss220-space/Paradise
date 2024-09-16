@@ -44,7 +44,7 @@
 				break
 
 			. = item.recharge_act(living)
-			if(!(. & RECHARGE_SUCCESSFUL) || (!(. & RECHARGE_BURNOUT)))
+			if(. & RECHARGE_NO_EFFECT)
 				continue
 			charged_item = item
 			break
