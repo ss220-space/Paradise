@@ -40,6 +40,8 @@
 				if(!cell)
 					continue
 				. = cell.recharge_act(living)
+				if(. & RECHARGE_NO_EFFECT)
+					continue
 				charged_item = cell
 				break
 
