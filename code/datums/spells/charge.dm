@@ -16,10 +16,10 @@
 
 
 /obj/effect/proc_holder/spell/charge/cast(list/targets, mob/user = usr)
+	var/charged_item
+	var/charge_result
 	for(var/mob/living/living in targets)
 		var/list/hand_items = list(living.get_active_hand(), living.get_inactive_hand())
-		var/charged_item = null
-		var/charge_result
 
 		if(living.pulling)
 			charge_result = pulling.magic_charge_act(pulling)
@@ -35,12 +35,12 @@
 			charged_item = item
 			break
 
-		if(!charged_item)
-			to_chat(living, span_notice("You feel magical power surging to your hands, but the feeling rapidly fades..."))
-			return
-		switch(charge_result)
-			if(RECHARGE_BURNOUT)
-				to_chat(living, span_caution("[charged_item] doesn't seem to be reacting to the spell..."))
-			if(RECHARGE_SUCCESSFUL)
-				to_chat(living, span_notice("[charged_item] suddenly feels very warm!"))
+	if(!charged_item)
+		to_chat(living, span_notice("You feel magical power surging to your hands, but the feeling rapidly fades..."))
+		return
+	switch(charge_result)
+		if(RECHARGE_BURNOUT)
+			to_chat(living, span_caution("[charged_item] doesn't seem to be reacting to the spell..."))
+		if(RECHARGE_SUCCESSFUL)
+			to_chat(living, span_notice("[charged_item] suddenly feels very warm!"))
 
