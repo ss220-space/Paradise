@@ -41,7 +41,7 @@
 
 /obj/item/stock_parts/cell/recharge_act(mob/user)
 	. = RECHARGE_SUCCESSFUL
-	if(prob(80) && !C.adjust_maxcharge(-200))
+	if(prob(80) && !adjust_maxcharge(-200))
 		. = RECHARGE_BURNOUT
 	charge = maxcharge
 	update_icon()
