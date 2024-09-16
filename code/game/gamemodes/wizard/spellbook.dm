@@ -1024,7 +1024,7 @@
 	uses = 1
 	desc = "This template spellbook was never meant for the eyes of man..."
 
-/obj/item/spellbook/oneuse/magic_charge_act()
+/obj/item/spellbook/oneuse/magic_charge_act(mob/user)
 	if(prob(80))
 		visible_message(span_warning("[src] catches fire!"))
 		qdel(src)
