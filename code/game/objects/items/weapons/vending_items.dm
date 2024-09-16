@@ -214,7 +214,7 @@
 	linked_accounts = list()
 	accounts_weights = list()
 	sum_of_weigths = 0
-	balloon_alert(user, "всё сохраненные счета удалены")
+	balloon_alert(user, "счета отвязаны")
 
 
 /obj/item/vending_refill/custom/proc/try_add_account(mob/user)
@@ -223,25 +223,25 @@
 		balloon_alert(user, "лимит привязки достигнут")
 		return
 
-	var/new_acc_number = tgui_input_number(user, "Пожалуйста, введите номер счета, который вы хотите привязать.", "Выбор счета", (user.mind && user.mind.initial_account) ? user.mind.initial_account.account_number : 999999, 999999, 100000, ui_state = GLOB.inventory_state)
+	var/new_acc_number = tgui_input_number(user, "Пожалуйста, введите номер счета, который вы хотите привязать.", "Выбор счета", (user.mind && user.mind.initial_account) ? user.mind.initial_account.account_number : 999999, 999999, 0, ui_state = GLOB.hands_state, ui_source = src)
 
 	if (isnull(new_acc_number))
 		balloon_alert(user, "номер не введен")
 		return
 
-	var/weight = tgui_input_number(user, "Пожалуйста, введите вес счета от 1 до 1000000.", "Выбор веса", 100, 1000000, 1, ui_state = GLOB.inventory_state)
-
-	if (isnull(weight))
-		balloon_alert(user, "вес не введен")
-		return
-
 	var/new_account = attempt_account_access(new_acc_number, pin_needed = FALSE)
 	if (!new_account)
-		balloon_alert(user, "указанный аккаунт не существует")
+		balloon_alert(user, "аккаунт не существует")
 		return
 
 	if (new_account in linked_accounts)
-		balloon_alert(user, "указанный аккаунт уже привязан")
+		balloon_alert(user, "аккаунт уже привязан")
+		return
+
+	var/weight = tgui_input_number(user, "Пожалуйста, введите вес счета от 1 до 1000000.", "Выбор веса", 100, 1000000, 1, ui_state = GLOB.hands_state, ui_source = src)
+
+	if (isnull(weight))
+		balloon_alert(user, "вес не введен")
 		return
 
 	add_account(new_account, weight)
@@ -251,7 +251,7 @@
 
 /obj/item/vending_refill/custom/proc/try_add_station_account(mob/user)
 	. = FALSE
-	var/weight = tgui_input_number(user, "Пожалуйста, введите вес для счета станции от 1 до 1000000.", "Выбор веса", 100, 1000000, 1, ui_state = GLOB.inventory_state)
+	var/weight = tgui_input_number(user, "Пожалуйста, введите вес для счета станции от 1 до 1000000.", "Выбор веса", 100, 1000000, 1, ui_state = GLOB.hands_state, ui_source = src)
 
 	if (isnull(weight))
 		balloon_alert(user, "вес не введен")
@@ -267,7 +267,7 @@
 
 
 /obj/item/vending_refill/custom/attack_self(mob/user) // It works this way not because I'm lazy, but for better immersion.
-	var/operation = tgui_input_number(user, "Введите 0 чтобы сбросить список сохраненных счетов, 1 чтобы добавить новый счет в список получателей, 2 чтобы добавить счет станции.", "Настройка счетов", 0, 2, 0, ui_state = GLOB.inventory_state)
+	var/operation = tgui_input_number(user, "Введите 0 чтобы сбросить список сохраненных счетов, 1 чтобы добавить новый счет в список получателей, 2 чтобы добавить счет станции.", "Настройка счетов", 0, 2, 0, ui_state = GLOB.hands_state, ui_source = src)
 
 	if (isnull(operation))
 		balloon_alert(user, "значение не введено")

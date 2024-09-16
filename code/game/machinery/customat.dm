@@ -154,16 +154,21 @@
 	var/weak_emp_cooldown = 60 SECONDS
 	var/strong_emp_cooldown = 180 SECONDS
 
-/obj/machinery/customat/Initialize(mapload)
-	. = ..()
+	/// Direct ref to the trunk pipe underneath us
+	var/obj/structure/disposalpipe/trunk/trunk
+
+/obj/machinery/customat/proc/set_up_components()
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new
 	V.set_type(replacetext(initial(name), "\improper", ""))
 	component_parts += V
 	canister = new /obj/item/vending_refill/custom
 	component_parts += canister
-	RefreshParts()
 
+/obj/machinery/customat/Initialize(mapload)
+	. = ..()
+	set_up_components()
+	RefreshParts()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/customat/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
@@ -195,7 +200,23 @@
 
 /obj/machinery/customat/Destroy()
 	eject_all()
+	if (trunk)
+		var/obj/structure/disposalholder/holder = locate() in trunk
+		if(holder)
+			trunk.expel(holder)
+		trunk.linked = null
+		trunk = null
 	return ..()
+
+/obj/machinery/customat/LateInitialize()
+	. = ..()
+	set_up_components()
+	RefreshParts()
+	update_icon(UPDATE_OVERLAYS)
+	var/obj/structure/disposalpipe/trunk/found_trunk = locate() in loc
+	if(found_trunk)
+		found_trunk.set_linked(src)
+		trunk = found_trunk
 
 /obj/machinery/customat/update_icon(updates = ALL)
 	if(skip_non_primary_icon_updates && !(stat & (NOPOWER|BROKEN)) && COOLDOWN_FINISHED(src, emp_cooldown))
@@ -341,7 +362,7 @@
 		return
 	remembered_costs[I.name] = cost
 	var/key = get_key(I, cost)
-	if(!user.drop_transfer_item_to_loc(I, src))
+	if(user && !user.drop_transfer_item_to_loc(I, src))
 		to_chat(usr, span_warning("Вы не можете положить это внутрь."))
 		return
 	if (!(key in products))
@@ -390,7 +411,8 @@
 			try_insert(user, I)
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-	if (!istype(I, /obj/item/stack/nanopaste) && !istype(I, /obj/item/detective_scanner)) // enything else will damage customat
+	if (!istype(I, /obj/item/stack/nanopaste) && !istype(I, /obj/item/detective_scanner) && COOLDOWN_FINISHED(src, emp_cooldown) && COOLDOWN_FINISHED(src, alarm_cooldown))
+		COOLDOWN_START(src, alarm_cooldown, alarm_delay)
 		playsound(src, 'sound/machines/burglar_alarm.ogg', I.force * 5, 0)
 
 	return ..()
@@ -421,6 +443,8 @@
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	default_unfasten_wrench(user, I, time = 60)
+	if (anchored)
+		trunk_check()
 
 /obj/machinery/customat/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	if(!istype(W))
@@ -697,12 +721,20 @@
 			COOLDOWN_START(src, emp_cooldown, strong_emp_cooldown)
 
 /obj/machinery/customat/proc/expel(obj/structure/disposalholder/holder)
+	var/turf/origin_turf = get_turf(src)
 	var/list/contents = holder.contents
-	for (var/content in contents)
+	for (var/atom/movable/content in contents)
 		if (istype(content, /obj/item))
 			try_insert(null, content, TRUE)
-			contents.Remove(content)
+		else
+			content.forceMove(origin_turf)
 	qdel(holder)
+
+/obj/machinery/customat/proc/trunk_check()
+	var/obj/structure/disposalpipe/trunk/found_trunk = locate() in loc
+	if(found_trunk)
+		found_trunk.set_linked(src) // link the pipe trunk to self
+		trunk = found_trunk
 
 #undef FLICK_NONE
 #undef FLICK_VEND

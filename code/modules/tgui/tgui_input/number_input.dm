@@ -15,7 +15,7 @@
  * * timeout - The timeout of the number input, after which the modal will close and qdel itself. Set to zero for no timeout.
  * * round_value - whether the inputted number is rounded down into an integer.
  */
-/proc/tgui_input_number(mob/user, message, title = "Number Input", default = 0, max_value = 10000, min_value = 0, timeout = 0, round_value = TRUE, ui_state = GLOB.always_state)
+/proc/tgui_input_number(mob/user, message, title = "Number Input", default = 0, max_value = 10000, min_value = 0, timeout = 0, round_value = TRUE, ui_state = GLOB.always_state, ui_source = null)
 	if(!user)
 		user = usr
 
@@ -33,7 +33,7 @@
 		var/input_number = input(user, message, title, default) as null|num
 		return clamp(round_value ? round(input_number) : input_number, min_value, max_value)
 
-	var/datum/tgui_input_number/number_input = new(user, message, title, default, max_value, min_value, timeout, round_value, ui_state)
+	var/datum/tgui_input_number/number_input = new(user, message, title, default, max_value, min_value, timeout, round_value, ui_state, ui_source, ui_source)
 
 	number_input.ui_interact(user)
 	number_input.wait()
@@ -73,14 +73,15 @@
 	/// The TGUI UI state that will be returned in ui_state(). Default: always_state
 	var/datum/ui_state/state
 
-/datum/tgui_input_number/New(mob/user, message, title, default, max_value, min_value, timeout, round_value, ui_state)
+/datum/tgui_input_number/New(mob/user, message, title, default, max_value, min_value, timeout, round_value, datum/ui_state, ui_source)
 	src.default = default
 	src.max_value = max_value
 	src.message = message
 	src.min_value = min_value
 	src.title = title
 	src.round_value = round_value
-	src.state = ui_state
+	src.state = new ui_state.type()
+	src.state.ui_source = ui_source
 
 	if(timeout)
 		src.timeout = timeout
