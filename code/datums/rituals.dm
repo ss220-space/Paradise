@@ -885,7 +885,7 @@
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/effects/anvil_start.ogg', 50, TRUE)
 		if(RITUAL_STARTED)
-			playsound(ritual_object.loc, 'sound/effects/hulk_hit.ogg', 50, TRUE)
+			playsound(ritual_object.loc, 'sound/effects/hulk_hit_airlock.ogg', 50, TRUE)
 		if(RITUAL_FAILED)
 			playsound(ritual_object.loc, 'sound/effects/forge_destroy.ogg', 50, TRUE)
 	return .
