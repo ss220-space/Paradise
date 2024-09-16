@@ -41,15 +41,23 @@
 
 /obj/item/stock_parts/cell/recharge_act(mob/user)
 	. = RECHARGE_SUCCESSFUL
-	if(!self_recharge)
-		if(prob(80))
-			maxcharge -= 200
-		if(maxcharge <= 1) //Div by 0 protection
-			maxcharge = 1
-			. = RECHARGE_BURNOUT
+	if(prob(80) && !C.adjust_maxcharge(-200))
+		. = RECHARGE_BURNOUT
 	charge = maxcharge
 	update_icon()
 	return .
+
+/obj/item/stock_parts/cell/proc/adjust_maxcharge(amount)
+	if(self_recharge)
+		return FALSE	// SelfCharging uses static charge values ​​per tick, so we don't want it to mess up the recharge balance.
+
+	var/oldcharge = maxcharge
+	maxcharge = max(maxcharge + amount, 1)
+
+	if(charge > maxcharge)
+		charge = maxcharge
+
+	return maxcharge != oldcharge
 
 /obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)
 	. = ..()
@@ -379,6 +387,9 @@
 
 /obj/item/stock_parts/cell/emproof/corrupt()
 	return
+
+/obj/item/stock_parts/cell/emproof/adjust_maxcharge(amount)
+	return FALSE
 
 /obj/item/stock_parts/cell/ninja
 	name = "spider-clan power cell"
