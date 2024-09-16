@@ -347,8 +347,8 @@
 /obj/item/reagent_containers/glass/bottle/bromine
 	name = "bromine bottle"
 	list_reagents = list("bromine" = 30)
+
 // areas
-//Ruin of ancient Space Station
 
 //charly
 
@@ -455,7 +455,7 @@
 	icon_state = "yellow"
 
 /area/ruin/space/ancientstation/thetaexit
-	name = "External Theta Station Output"
+	name = "Theta Station External Output"
 	icon_state = "escape"
 
 /area/ruin/space/ancientstation/thetadocks
@@ -467,7 +467,7 @@
 	icon_state = "away4"
 
 /area/ruin/space/ancientstation/thetamine
-	name = "The Tetta station miners' locker room."
+	name = "Tetta station miner's locker's."
 	icon_state = "construction"
 
 /area/ruin/space/ancientstation/thetaexperi
@@ -475,7 +475,7 @@
 	icon_state = "chapel"
 
 /area/ruin/space/ancientstation/thetatechnical
-	name = "The technical room of the solar branches"
+	name = "Tetta Station Solar Control"
 	icon_state = "dk_yellow"
 
 /area/ruin/space/ancientstation/proto
@@ -490,10 +490,10 @@
 
 /area/ruin/space/ancientstation/betanorth
 	name = "Beta Station North Corridor"
-	icon_state = "bluenew"
+	icon_state = "away4"
 
-/area/ruin/space/ancientstation/betamedhall
-	name = "Beta Station Medical Hall"
+/area/ruin/space/ancientstation/betamedbay
+	name = "Beta Station Medbay"
 	icon_state = "away1"
 
 /area/ruin/space/ancientstation/betamedstorage
@@ -501,11 +501,11 @@
 	icon_state = "quartstorage"
 
 /area/ruin/space/ancientstation/betasurgery
-	name = "Beta Station Operation"
+	name = "Beta Station Surgery"
 	icon_state = "surgery"
 
 /area/ruin/space/ancientstation/betasurgery1
-	name = "Beta Station Operation"
+	name = "Beta Station Surgery"
 	icon_state = "surgery1"
 
 /area/ruin/space/ancientstation/atmosfoyer
