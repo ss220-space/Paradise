@@ -31,7 +31,7 @@
 				to_chat(mob, span_notice("You feel raw magical energy flowing through you, it feels good!"))
 			else
 				to_chat(mob, span_notice("You feel very strange for a moment, but then it passes."))
-				. |= RECHARGE_BURNOUT
+				. = RECHARGE_BURNOUT
 			charged_item = mob
 			break
 		for(var/obj/item in hand_items)
@@ -39,11 +39,11 @@
 				var/obj/item/stock_parts/cell/cell = locate() in item.contents
 				if(!cell)
 					continue
-				. |= cell.recharge_act(living)
+				. = cell.recharge_act(living)
 				charged_item = cell
 				break
 
-			. |= item.recharge_act(living)
+			. = item.recharge_act(living)
 			if(!(. & RECHARGE_SUCCESSFUL) || (!(. & RECHARGE_BURNOUT)))
 				continue
 			charged_item = item
