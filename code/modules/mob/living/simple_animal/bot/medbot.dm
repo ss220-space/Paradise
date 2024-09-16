@@ -58,6 +58,69 @@
 	/// Will it only treat operatives?
 	var/syndicate_aligned = FALSE
 	var/drops_parts = TRUE
+	///our tipper
+	var/datum/weakref/tipper
+
+	///anouncements when we find a target to heal
+	var/static/list/wait_announcements = list(
+		MEDIBOT_VOICED_HOLD_ON = 'sound/voice/medbot/coming.ogg',
+		MEDIBOT_VOICED_WANT_TO_HELP = 'sound/voice/medbot/help.ogg',
+		MEDIBOT_VOICED_YOU_ARE_INJURED = 'sound/voice/medbot/injured.ogg',
+	)
+
+	///announcements after we heal someone
+	var/static/list/afterheal_announcements = list(
+		MEDIBOT_VOICED_ALL_PATCHED_UP = 'sound/voice/medbot/patchedup.ogg',
+		MEDIBOT_VOICED_APPLE_A_DAY = 'sound/voice/medbot/apple.ogg',
+		MEDIBOT_VOICED_FEEL_BETTER = 'sound/voice/medbot/feelbetter.ogg',
+	)
+
+	///announcements when we are healing someone near death
+	var/static/list/near_death_announcements = list(
+		MEDIBOT_VOICED_STAY_WITH_ME = 'sound/voice/medbot/no.ogg',
+		MEDIBOT_VOICED_LIVE = 'sound/voice/medbot/live.ogg',
+		MEDIBOT_VOICED_NEVER_LOST = 'sound/voice/medbot/lost.ogg',
+	)
+	///announcements when we are idle
+	var/static/list/idle_lines = list(
+		MEDIBOT_VOICED_DELICIOUS = 'sound/voice/medbot/delicious.ogg',
+		MEDIBOT_VOICED_PLASTIC_SURGEON = 'sound/voice/medbot/surgeon.ogg',
+		MEDIBOT_VOICED_MASK_ON = 'sound/voice/medbot/radar.ogg',
+		MEDIBOT_VOICED_ALWAYS_A_CATCH = 'sound/voice/medbot/catch.ogg',
+		MEDIBOT_VOICED_LIKE_FLIES = 'sound/voice/medbot/flies.ogg',
+		MEDIBOT_VOICED_SUFFER = 'sound/voice/medbot/why.ogg',
+	)
+	///announcements when we are emagged
+	var/static/list/emagged_announcements = list(
+		MEDIBOT_VOICED_FUCK_YOU = 'sound/voice/medbot/fuck_you.ogg',
+		MEDIBOT_VOICED_NOT_A_GAME = 'sound/voice/medbot/turn_off.ogg',
+		MEDIBOT_VOICED_IM_DIFFERENT = 'sound/voice/medbot/im_different.ogg',
+		MEDIBOT_VOICED_FOURTH_WALL = 'sound/voice/medbot/close.ogg',
+		MEDIBOT_VOICED_SHINDEMASHOU = 'sound/voice/medbot/shindemashou.ogg',
+	)
+	///announcements when we are being tipped
+	var/static/list/tipped_announcements = list(
+		MEDIBOT_VOICED_WAIT = 'sound/voice/medbot/hey_wait.ogg',
+		MEDIBOT_VOICED_DONT = 'sound/voice/medbot/please_dont.ogg',
+		MEDIBOT_VOICED_TRUSTED_YOU = 'sound/voice/medbot/i_trusted_you.ogg',
+		MEDIBOT_VOICED_NO_SAD = 'sound/voice/medbot/nooo.ogg',
+		MEDIBOT_VOICED_OH_FUCK = 'sound/voice/medbot/oh_fuck.ogg',
+	)
+	///announcements when we are being untipped
+	var/static/list/untipped_announcements = list(
+		MEDIBOT_VOICED_FORGIVE = 'sound/voice/medbot/forgive.ogg',
+		MEDIBOT_VOICED_THANKS = 'sound/voice/medbot/thank_you.ogg',
+		MEDIBOT_VOICED_GOOD_PERSON = 'sound/voice/medbot/youre_good.ogg',
+	)
+	///announcements when we are worried
+	var/static/list/worried_announcements = list(
+		MEDIBOT_VOICED_PUT_BACK = 'sound/voice/medbot/please_put_me_back.ogg',
+		MEDIBOT_VOICED_IM_SCARED = 'sound/voice/medbot/please_im_scared.ogg',
+		MEDIBOT_VOICED_NEED_HELP = 'sound/voice/medbot/dont_like.ogg',
+		MEDIBOT_VOICED_THIS_HURTS = 'sound/voice/medbot/pain_is_real.ogg',
+		MEDIBOT_VOICED_THE_END = 'sound/voice/medbot/is_this_the_end.ogg',
+		MEDIBOT_VOICED_NOOO = 'sound/voice/medbot/nooo.ogg',
+	)
 
 /mob/living/simple_animal/bot/medbot/tox
 	skin = "tox"
@@ -151,6 +214,13 @@
 	if(new_skin)
 		skin = new_skin
 	update_icon()
+	AddComponent(/datum/component/tippable, \
+		tip_time = 3 SECONDS, \
+		untip_time = 3 SECONDS, \
+		self_right_time = 3.5 MINUTES, \
+		pre_tipped_callback = CALLBACK(src, PROC_REF(pre_tip_over)), \
+		post_tipped_callback = CALLBACK(src, PROC_REF(after_tip_over)), \
+		post_untipped_callback = CALLBACK(src, PROC_REF(after_righted)))
 
 
 /mob/living/simple_animal/bot/medbot/bot_reset()
@@ -635,3 +705,53 @@
 
 /obj/machinery/bot_core/medbot/syndicate
 	req_access = list(ACCESS_SYNDICATE)
+
+/mob/living/basic/bot/medbot/examine()
+	. = ..()
+	if(!(medical_mode_flags & MEDBOT_TIPPED_MODE))
+		return
+	var/static/list/panic_state = list(
+		"It appears to be tipped over, and is quietly waiting for someone to set it right.",
+		"It is tipped over and requesting help.",
+		"They are tipped over and appear visibly distressed.",
+		span_warning("They are tipped over and visibly panicking!"),
+		span_warning("They are freaking out from being tipped over!"))
+	)
+	. += pick(panic_state)
+/*
+ * Proc used in a callback for before this medibot is tipped by the tippable component.
+ *
+ * user - the mob who is tipping us over
+ */
+
+/mob/living/basic/bot/medbot/proc/pre_tip_over(mob/user)
+	speak(pick(worried_announcements))
+
+/*
+ * Proc used in a callback for after this medibot is tipped by the tippable component.
+ *
+ * user - the mob who tipped us over
+ */
+/mob/living/basic/bot/medbot/proc/after_tip_over(mob/user)
+	medical_mode_flags |= MEDBOT_TIPPED_MODE
+	tipper = WEAKREF(user)
+	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
+	if(prob(10))
+		speak("PSYCH ALERT: Crewmember [user.name] recorded displaying antisocial tendencies torturing bots in [get_area(src)]. Please schedule psych evaluation.", radio_channel)
+
+/*
+ * Proc used in a callback for after this medibot is righted, either by themselves or by a mob, by the tippable component.
+ *
+ * user - the mob who righted us. Can be null.
+ */
+/mob/living/basic/bot/medbot/proc/after_righted(mob/user)
+	var/mob/tipper_mob = isnull(user) ? null : tipper?.resolve()
+	tipper = null
+	medical_mode_flags &= ~MEDBOT_TIPPED_MODE
+	if(isnull(tipper_mob))
+		return
+	if(tipper_mob == user)
+		speak(MEDIBOT_VOICED_FORGIVE)
+		return
+	speak(pick(untipped_announcements))
+
