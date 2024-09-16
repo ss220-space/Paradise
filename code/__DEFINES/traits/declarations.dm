@@ -255,3 +255,4 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///Trait given when a mob has been tipped
 #define TRAIT_MOB_TIPPED "mob_tipped"
+
