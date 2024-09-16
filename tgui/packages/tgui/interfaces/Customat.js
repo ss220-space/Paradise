@@ -69,19 +69,14 @@ export const Customat = (props, context) => {
   } = data;
 
   return (
-    <Window
-      width={470}
-      height={600}
-      title="Customat"
-    >
+    <Window width={470} height={600} title="Customat">
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
             <Section title="User">
               {(user && (
                 <Box>
-                  Welcome, <b>{user.name}</b>,{' '}
-                  <b>{user.job || 'Unemployed'}</b>
+                  Welcome, <b>{user.name}</b>, <b>{user.job || 'Unemployed'}</b>
                   !
                   <br />
                   Your balance is <b>{userMoney} credits</b>.
