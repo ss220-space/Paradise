@@ -706,16 +706,16 @@
 /obj/machinery/bot_core/medbot/syndicate
 	req_access = list(ACCESS_SYNDICATE)
 
-/mob/living/basic/bot/medbot/examine()
+/mob/living/simple_animal/bot/medbot/examine()
 	. = ..()
-	if(!(medical_mode_flags & MEDBOT_TIPPED_MODE))
-		return
+/*	if(!(medical_mode_flags & MEDBOT_TIPPED_MODE))
+		return	*/
 	var/static/list/panic_state = list(
 		"It appears to be tipped over, and is quietly waiting for someone to set it right.",
 		"It is tipped over and requesting help.",
 		"They are tipped over and appear visibly distressed.",
 		span_warning("They are tipped over and visibly panicking!"),
-		span_warning("They are freaking out from being tipped over!"))
+		span_warning("They are freaking out from being tipped over!"),
 	)
 	. += pick(panic_state)
 /*
@@ -724,7 +724,7 @@
  * user - the mob who is tipping us over
  */
 
-/mob/living/basic/bot/medbot/proc/pre_tip_over(mob/user)
+/mob/living/simple_animal/bot/medbot/proc/pre_tip_over(mob/user)
 	speak(pick(worried_announcements))
 
 /*
@@ -732,8 +732,8 @@
  *
  * user - the mob who tipped us over
  */
-/mob/living/basic/bot/medbot/proc/after_tip_over(mob/user)
-	medical_mode_flags |= MEDBOT_TIPPED_MODE
+/mob/living/simple_animal/bot/medbot/proc/after_tip_over(mob/user)
+/*	medical_mode_flags |= MEDBOT_TIPPED_MODE	*/
 	tipper = WEAKREF(user)
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
 	if(prob(10))
@@ -744,10 +744,10 @@
  *
  * user - the mob who righted us. Can be null.
  */
-/mob/living/basic/bot/medbot/proc/after_righted(mob/user)
+/mob/living/simple_animal/bot/medbot/proc/after_righted(mob/user)
 	var/mob/tipper_mob = isnull(user) ? null : tipper?.resolve()
 	tipper = null
-	medical_mode_flags &= ~MEDBOT_TIPPED_MODE
+/*	medical_mode_flags &= ~MEDBOT_TIPPED_MODE	*/
 	if(isnull(tipper_mob))
 		return
 	if(tipper_mob == user)

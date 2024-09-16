@@ -1,4 +1,4 @@
-//фразы медбота.
+// Фразы медбота.
 #define MEDIBOT_VOICED_HOLD_ON "Hey! Hold on, I'm coming."
 #define MEDIBOT_VOICED_WANT_TO_HELP "Wait! I want to help!"
 #define MEDIBOT_VOICED_YOU_ARE_INJURED "You appear to be injured!"
@@ -36,6 +36,6 @@
 #define MEDIBOT_VOICED_THE_END "Is this the end?"
 #define MEDIBOT_VOICED_NOOO	"Nooo!"
 
-//Медбот перевернут
+// Медбот перевёрнут.
 #define MEDBOT_TIPPED_MODE
 
