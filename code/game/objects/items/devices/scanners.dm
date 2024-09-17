@@ -687,9 +687,9 @@ REAGENT SCANNER
 	desc = "Необычный самоцвет в форме сердца."
 	origin_tech = null
 
-/obj/item/healthanalyzer/healtheye/attackby(obj/item/I, mob/user, params)
+/obj/item/healthanalyzer/gem_analyzer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/healthupgrade))
-		to_chat(user, span_notice("Установить невозможно."))
+		user.balloon_alert(user, "Установить невозможно.")
 
 /obj/item/reagent_scanner
 	name = "reagent scanner"

@@ -383,7 +383,8 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(-3, FALSE)
 	update_flags |= M.adjustBruteLoss(1, FALSE)
-	to_chat(M, "<span class='notice'>Ваша кожа покрывается кровавыми волдырями.</span>")
+	if(prob(10))
+		to_chat(M, "<span class='notice'>Ваша кожа покрывается кровавыми волдырями.</span>")
 	if(prob(50))
 		for(var/datum/reagent/R in M.reagents.reagent_list)
 			if(R != src)

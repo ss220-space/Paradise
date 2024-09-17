@@ -1543,7 +1543,7 @@
 	always_availible = FALSE
 
 /datum/crafting_recipe/ashrack
-	name = "Primitive dryig rack"
+	name = "Primitive drying rack"
 	result = /obj/machinery/smartfridge/drying_rack/ash
 	time = 15 SECONDS
 	reqs = list(/obj/item/stack/sheet/wood = 2,
