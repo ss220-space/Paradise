@@ -37,10 +37,6 @@
 	var/finding_range = DEFAULT_RITUAL_RANGE_FIND
 	/// Amount of maximum ritual uses.
 	var/charges = -1
-	/// Messages on failed invocation.
-	var/invalid_species_message = "Вы не можете понять, как с этим работать."
-	var/extra_invokers_message = "Для выполнения данного ритуала требуется больше участников."
-	var/missed_reqs_message = "Для выполнения данного ритуала требуется удовлетворить его требования."
 	/// Cooldown for one ritual
 	COOLDOWN_DECLARE(ritual_cooldown)
 	/// Our cooldown after we casted ritual.
@@ -71,7 +67,6 @@
 	return ..()
 		
 /datum/ritual/proc/pre_ritual_check(obj/obj, mob/living/carbon/human/invoker)
-	var/message
 	var/failed = FALSE
 	var/cause_disaster = FALSE
 	var/del_things = FALSE
@@ -85,13 +80,10 @@
 			charges--
 		if(RITUAL_FAILED_INVALID_SPECIES)
 			failed = TRUE
-			message = invalid_species_message
 		if(RITUAL_FAILED_EXTRA_INVOKERS)
 			failed = TRUE
-			message = extra_invokers_message
 		if(RITUAL_FAILED_MISSED_REQUIREMENTS)
 			failed = TRUE
-			message = missed_reqs_message
 		if(RITUAL_FAILED_INVALID_SPECIAL_ROLE)
 			failed = TRUE
 		if(RITUAL_FAILED_ON_PROCEED)
@@ -152,7 +144,7 @@
 		return RITUAL_FAILED_INVALID_SPECIES
 	if(extra_invokers && !check_invokers(invoker))
 		return RITUAL_FAILED_EXTRA_INVOKERS
-	if(required_things && !check_contents())
+	if(required_things && !check_contents(invoker))
 		return RITUAL_FAILED_MISSED_REQUIREMENTS
 	if(prob(fail_chance))
 		return RITUAL_FAILED_ON_PROCEED
@@ -163,9 +155,9 @@
 /datum/ritual/proc/cast(mob/living/carbon/human/invoker)
 	if(LAZYLEN(invokers))
 		for(var/mob/living/carbon/human/human as anything in invokers)
-			if(!do_after(human, cast_time, ritual_object, progress = FALSE, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
+			if(!do_after(human, cast_time, ritual_object, progress = FALSE, extra_checks = CALLBACK(src, PROC_REF(check_contents), invoker)))
 				return FALSE
-	if(!do_after(invoker, cast_time, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents))))
+	if(!do_after(invoker, cast_time, ritual_object, extra_checks = CALLBACK(src, PROC_REF(check_contents), invoker)))
 		return FALSE
 	return TRUE
 
@@ -183,11 +175,12 @@
 			break
 				
 	if(LAZYLEN(invokers) < extra_invokers)
+		to_chat(invoker, "требуется [LAZYLEN(extra_invokers) - LAZYLEN(invokers)] участник[(LAZYLEN(extra_invokers) - LAZYLEN(invokers)) > 1 ? "ов": ""] для начала ритуала.]")
 		return FALSE
 
 	return TRUE
 
-/datum/ritual/proc/check_contents()
+/datum/ritual/proc/check_contents(mob/living/carbon/human/invoker)
 	for(var/thing in required_things)
 		var/needed_amount = required_things[thing]
 		var/current_amount = 0
@@ -201,6 +194,7 @@
 				break
 		
 		if(current_amount < needed_amount)
+			to_chat(invoker, "Для выполнения ритуала требуется [required_things]")
 			return FALSE
 
 	return TRUE
@@ -224,6 +218,7 @@
 		return FALSE
 
 	if(shaman_only && !isashwalkershaman(invoker))
+		to_chat(invoker, span_warning("только шаман может выполнить данный ритуал!"))
 		return FALSE
 
 	var/list/shaman_invokers = list()
@@ -238,6 +233,7 @@
 				break
 				
 		if(LAZYLEN(shaman_invokers) < extra_shaman_invokers)
+			to_chat(invoker, "требуется [LAZYLEN(extra_shaman_invokers) - LAZYLEN(shaman_invokers)] шаман[(LAZYLEN(extra_shaman_invokers) - LAZYLEN(shaman_invokers)) > 1 ? "ов": ""] для начала ритуала.]")
 			return FALSE
 
 	return TRUE
@@ -257,7 +253,7 @@
 		/obj/item/candle = 1
 	)
 
-/datum/ritual/ashwalker/summon_ashstorm/check_contents()
+/datum/ritual/ashwalker/summon_ashstorm/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -279,9 +275,11 @@
 	if(!.)
 		return FALSE
 	if(!invoker.fire_stacks)
+		to_chat(invoker, "инициатор ритуала должны быть в воспламеняемой субстанции.")
 		return FALSE
 	for(var/mob/living/carbon/human/human as anything in invokers)
 		if(!human.fire_stacks)
+			to_chat(invoker, "участники ритуала должны быть в воспламеняемой субстанции.")
 			return FALSE
 	return TRUE
 
@@ -355,7 +353,7 @@
 		/obj/item/stack/sheet/animalhide/goliath_hide = 1
 	)
 
-/datum/ritual/ashwalker/summon/check_contents()
+/datum/ritual/ashwalker/summon/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -420,7 +418,7 @@
 		human.gib()
 	return
 
-/datum/ritual/ashwalker/curse/check_contents()
+/datum/ritual/ashwalker/curse/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -475,15 +473,17 @@
 		living.gib()
 	return
 
-/datum/ritual/ashwalker/power/check_contents()
+/datum/ritual/ashwalker/power/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
 	if(!.)
 		return FALSE
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
+			to_chat(invoker, "существа должны быть мертвы.")
 			return FALSE
 	for(var/mob/living/carbon/human/human in used_things)
 		if(!isashwalker(human))
+			to_chat(invoker, "гуманоиды должны быть пеплоходцами.")
 			return FALSE
 	return TRUE
 
@@ -544,12 +544,13 @@
 		disaster_prob = 50
 	return TRUE
 
-/datum/ritual/ashwalker/cure/check_contents()
+/datum/ritual/ashwalker/cure/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
 	if(!.)
 		return FALSE
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
+			to_chat(invoker, "существа должны быть мертвы.")
 			return FALSE
 	return TRUE
 
@@ -605,12 +606,13 @@
 		living.gib()
 	return
 
-/datum/ritual/ashwalker/recharge/check_contents()
+/datum/ritual/ashwalker/recharge/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
 	if(!.)
 		return FALSE
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
+			to_chat(invoker, "существа должны быть мертвы.")
 			return FALSE
 	return TRUE
 
@@ -672,12 +674,13 @@
 		living.gib()
 	return
 
-/datum/ritual/ashwalker/population/check_contents()
+/datum/ritual/ashwalker/population/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
 	if(!.)
 		return FALSE
 	for(var/mob/living/living as anything in used_things)
 		if(living.stat != DEAD)
+			to_chat(invoker, "существа должны быть мертвы.")
 			return FALSE
 	return TRUE
 
@@ -714,7 +717,6 @@
 	extra_invokers = 3
 	cooldown_after_cast = 1200 SECONDS
 	cast_time = 60 SECONDS
-	shaman_only = TRUE
 	required_things = list(
 		/mob/living/carbon/human = 3,
 		/obj/item/stack/sheet/animalhide/ashdrake = 1
@@ -730,17 +732,19 @@
 	return TRUE
 
 /datum/ritual/ashwalker/population/del_things()
-	. = ..()
+	var/obj/item/stack/sheet/animalhide/ashdrake/stack = locate() in used_things
+	stack.use(1)
 	for(var/mob/living/living in used_things)
 		living.gib()
 	return
 
-/datum/ritual/ashwalker/soul/check_contents()
+/datum/ritual/ashwalker/soul/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
 	if(!.)
 		return FALSE
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
+			to_chat(invoker, "существа должны быть мертвы.")
 			return FALSE
 	return TRUE
 
@@ -788,7 +792,7 @@
 		fail_chance = 50
 	return TRUE
 
-/datum/ritual/ashwalker/transmutation/check_contents()
+/datum/ritual/ashwalker/transmutation/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -847,12 +851,13 @@
 		fail_chance = 30
 	return TRUE
 
-/datum/ritual/ashwalker/interrogation/check_contents()
+/datum/ritual/ashwalker/interrogation/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
 	if(!.)
 		return FALSE
 	var/mob/living/carbon/human/human = used_things[1]
 	if(human.stat == DEAD || !human.mind)
+		to_chat(invoker, "гуманоид должен быть жив и иметь разум.")
 		return FALSE
 	return TRUE
 
@@ -906,14 +911,16 @@
 			fail_chance += 20
 	return TRUE
 
-/datum/ritual/ashwalker/creation/check_contents()
+/datum/ritual/ashwalker/creation/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
 	if(!.)
 		return FALSE
 	for(var/mob/living/carbon/human/human as anything in used_things)
 		if(human.stat != DEAD)
+			to_chat(invoker, "гуманоиды должны быть мертвы.")
 			return FALSE
 		if(!isashwalker(human))
+			to_chat(invoker, "гуманоиды должны быть пеплоходцами.")
 			return FALSE
 	return TRUE
 
@@ -942,6 +949,71 @@
 			playsound(ritual_object.loc, 'sound/magic/demon_consume.ogg', 50, TRUE)
 		if(RITUAL_STARTED)
 			playsound(ritual_object.loc, 'sound/magic/blind.ogg', 50, TRUE)
+		if(RITUAL_FAILED)
+			playsound(ritual_object.loc, 'sound/magic/castsummon.ogg', 50, TRUE)
+	return .
+
+/datum/ritual/ashwalker/command
+	name = "Command ritual"
+	cooldown_after_cast = 150 SECONDS
+	shaman_only = TRUE
+	extra_invokers = 1
+	cast_time = 60 SECONDS
+	required_things = list(
+		/mob/living/simple_animal = 1
+	)
+
+/datum/ritual/ashwalker/command/check_contents(mob/living/carbon/human/invoker)
+	. = ..()
+	if(!.)
+		return FALSE
+	for(var/mob/living/simple_animal/living as anything in used_things)
+		if(living.client)
+			to_chat(invoker, "существо должно быть бездушным.")
+			return FALSE
+		if(living.sentience_type == SENTIENCE_BOSS)
+			to_chat(invoker, "ритуал не может воздействовать на мегафауну.")
+			return FALSE
+		if(living.stat != DEAD)
+			to_chat(invoker, "существа должны быть мертвы.")
+			return FALSE
+	return TRUE
+
+/datum/ritual/ashwalker/command/do_ritual(obj/obj, mob/living/carbon/human/invoker)
+	var/mob/living/simple_animal/animal = used_things[1]
+	animal.faction = invoker.faction
+	animal.revive()
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за раба пеплоходцев?", ROLE_SENTIENT, TRUE, source = animal)
+	if(!LAZYLEN(candidates) || QDELETED(animal)) // no travelling into nullspace
+		return RITUAL_FAILED_ON_PROCEED // no mercy guys
+	var/mob/mob = pick(candidates)
+	animal.key = mob.key
+	animal.universal_speak = 1
+	animal.sentience_act()
+	animal.can_collar = 1
+	animal.maxHealth = max(animal.maxHealth, 200)
+	animal.del_on_death = FALSE
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/command/disaster(obj/obj, mob/living/carbon/human/invoker)
+	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
+		if(!isashwalker(human) || !prob(disaster_prob))
+			continue
+		if(!isturf(human.loc))
+			continue
+		human.SetKnockdown(10 SECONDS)
+		var/turf/turf = human.loc
+		new /obj/effect/hotspot(turf)
+		turf.hotspot_expose(700, 50, 1)
+	return
+
+/datum/ritual/ashwalker/command/handle_ritual_object(bitflags, silent =  FALSE)
+	. = ..(bitflags, TRUE)
+	switch(.)
+		if(RITUAL_ENDED)
+			playsound(ritual_object.loc, 'sound/magic/demon_consume.ogg', 50, TRUE)
+		if(RITUAL_STARTED)
+			playsound(ritual_object.loc, 'sound/magic/invoke_general.ogg', 50, TRUE)
 		if(RITUAL_FAILED)
 			playsound(ritual_object.loc, 'sound/magic/castsummon.ogg', 50, TRUE)
 	return .
