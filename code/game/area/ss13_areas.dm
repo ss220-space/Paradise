@@ -1385,6 +1385,16 @@ This applies to all STANDARD station areas
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
+/area/crew_quarters/toilet3
+	name = "Theatre Toilets"
+	icon_state = "toilet"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/crew_quarters/toilet4
+	name = "Arrivals Toilets"
+	icon_state = "toilet"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
 /area/crew_quarters/sleep
 	name = "Dormitories"
 	icon_state = "Sleep"
@@ -1871,6 +1881,10 @@ This applies to all STANDARD station areas
 
 /area/medical/medbreak
 	name = "Break Room"
+	icon_state = "medbaybreak"
+
+/area/medical/medrest
+	name = "Med Restroom"
 	icon_state = "medbaybreak"
 
 /area/medical/patients_rooms
@@ -2707,6 +2721,10 @@ This applies to all STANDARD station areas
 
 /area/aisat
 	name = "AI Satellite Hallway"
+	icon_state = "yellow"
+
+/area/aisat/aihallway
+	name = "AI Satellite Exterior Hallway"
 	icon_state = "yellow"
 
 /area/aisat/entrance
