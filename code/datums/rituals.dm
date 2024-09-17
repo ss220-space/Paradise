@@ -183,9 +183,15 @@
 		var/current_amount = 0
 
 		for(var/obj in range(finding_range, ritual_object))
-			if(ispath(obj, thing))
-				current_amount++
-				LAZYADD(used_things, obj)
+			if(!ispath(obj, thing))
+				continue
+			if(obj == invoker)
+				continue
+			if(is_type_in_list(obj, invokers))
+				continue
+
+			current_amount++
+			LAZYADD(used_things, obj)
 
 			if(current_amount >= needed_amount)
 				break
@@ -257,6 +263,7 @@
 
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
+			to_chat(invoker, "существа должны быть мертвы")
 			return FALSE
 
 	return TRUE
@@ -296,6 +303,17 @@
 	var/datum/disease/virus/cadaver/cadaver = new
 	cadaver.Contract(human)
 	return
+
+/datum/ritual/ashwalker/summon_ashstorm/handle_ritual_object(bitflags, silent = FALSE)
+	. = ..(bitflags, TRUE)
+	switch(.)
+		if(RITUAL_ENDED)
+			playsound(ritual_object.loc, 'sound/magic/fleshtostone.ogg', 50, TRUE)
+		if(RITUAL_STARTED)
+			playsound(ritual_object.loc, 'sound/magic/invoke_general.ogg', 50, TRUE)
+		if(RITUAL_FAILED)
+			playsound(ritual_object.loc, 'sound/magic/castsummon.ogg', 50, TRUE)
+	return .
 
 /datum/ritual/ashwalker/mind_transfer
 	name = "Mind transfer"
@@ -382,19 +400,24 @@
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/ashwalker/summon/disaster(obj/obj, mob/living/carbon/human/invoker)
+	if(!prob(disaster_prob))
+		return
 	var/obj/item/organ/external/limb = invoker.get_organ(pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 	limb?.droplimb()
 	return
 
 /datum/ritual/ashwalker/summon/handle_ritual_object(bitflags, silent = FALSE)
 	. = ..(bitflags, TRUE)
-	if(. == RITUAL_ENDED)
-		playsound(ritual_object.loc, 'sound/weapons/zapbang.ogg', 50, TRUE)
-		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(5, FALSE, ritual_object.loc)
-		smoke.start()
-		return
-	. = ..(bitflags)
+	switch(.)
+		if(RITUAL_ENDED)
+			playsound(ritual_object.loc, 'sound/weapons/zapbang.ogg', 50, TRUE)
+			var/datum/effect_system/smoke_spread/smoke = new
+			smoke.set_up(5, FALSE, ritual_object.loc)
+			smoke.start()
+		if(RITUAL_STARTED)
+			playsound(ritual_object.loc, 'sound/magic/forcewall.ogg', 50, TRUE)
+		if(RITUAL_FAILED)
+			playsound(ritual_object.loc, 'sound/magic/invoke_general.ogg', 50, TRUE)
 	return .
 
 /datum/ritual/ashwalker/curse
@@ -421,6 +444,7 @@
 		return FALSE
 	for(var/mob/living/carbon/human/human as anything in used_things)
 		if(human.stat != DEAD)
+			to_chat(invoker, "гуманоиды должны быть мертвы.")
 			return FALSE
 	return TRUE
 
@@ -557,6 +581,9 @@
 			continue
 		human.reagents.add_reagent("nutriment", 15)
 		human.adjustBrainLoss(-20)
+		human.adjustBruteLoss(-100)
+		human.adjustToxLoss(-30)
+		human.remove_all_parasites()
 		for(var/datum/disease/disease in human.diseases)
 			disease.cure()
 	return RITUAL_SUCCESSFUL
@@ -564,6 +591,8 @@
 /datum/ritual/ashwalker/cure/disaster(obj/obj, mob/living/carbon/human/invoker)
 	for(var/mob/living/carbon/human/human in range(10, ritual_object))
 		if(!isashwalker(human) || human.stat == DEAD || !prob(disaster_prob))
+			continue
+		if(!prob(disaster_prob))
 			continue
 		var/datum/disease/appendicitis/disease = new
 		disease.Contract(human)
@@ -682,6 +711,8 @@
 	return TRUE
 
 /datum/ritual/ashwalker/population/do_ritual(obj/obj, mob/living/carbon/human/invoker)
+	if(prob(10))
+		new /obj/effect/mob_spawn/human/ash_walker/shaman(ritual_object.loc)
 	new /obj/effect/mob_spawn/human/ash_walker(ritual_object.loc)
 	return RITUAL_SUCCESSFUL
 
@@ -703,6 +734,9 @@
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/magic/demon_consume.ogg', 50, TRUE)
+			var/datum/effect_system/smoke_spread/smoke = new
+			smoke.set_up(5, FALSE, get_turf(ritual_object.loc))
+			smoke.start()
 		if(RITUAL_STARTED)
 			playsound(ritual_object.loc, 'sound/magic/cult_spell.ogg', 50, TRUE)
 		if(RITUAL_FAILED)
@@ -746,6 +780,9 @@
 	return TRUE
 
 /datum/ritual/ashwalker/soul/do_ritual(obj/obj, mob/living/carbon/human/invoker)
+	var/datum/effect_system/smoke_spread/smoke = new
+	smoke.set_up(5, FALSE, get_turf(invoker.loc))
+	smoke.start()
 	invoker.set_species(/datum/species/unathi/draconid)
 	return RITUAL_SUCCESSFUL
 
@@ -875,6 +912,9 @@
 		SEND_SOUND(turf, sound('sound/items/airhorn.ogg'))
 		human.AdjustHallucinate(150 SECONDS)
 		human.EyeBlind(5 SECONDS)
+		var/datum/effect_system/smoke_spread/smoke = new
+		smoke.set_up(5, FALSE, turf)
+		smoke.start()
 	return
 
 /datum/ritual/ashwalker/interrogation/handle_ritual_object(bitflags, silent =  FALSE)
@@ -982,7 +1022,7 @@
 	animal.revive()
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за раба пеплоходцев?", ROLE_SENTIENT, TRUE, source = animal)
 	if(!LAZYLEN(candidates) || QDELETED(animal)) // no travelling into nullspace
-		return RITUAL_FAILED_ON_PROCEED // no mercy guys
+		return RITUAL_FAILED_ON_PROCEED // no mercy guys. But you got friendly creature
 	var/mob/mob = pick(candidates)
 	animal.key = mob.key
 	animal.universal_speak = 1
@@ -990,6 +1030,10 @@
 	animal.can_collar = 1
 	animal.maxHealth = max(animal.maxHealth, 200)
 	animal.del_on_death = FALSE
+	animal.master_commander = invoker
+	animal.mind.store_memory("<B>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
+	to_chat(animal, chat_box_green("Вы - раб пеплоходцев. Всегда подчиняйтесь и помогайте им."))
+	add_game_logs("стал питомцем игрока [key_name(invoker)]", animal)
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/ashwalker/command/disaster(obj/obj, mob/living/carbon/human/invoker)
@@ -998,6 +1042,9 @@
 			continue
 		if(!isturf(human.loc))
 			continue
+		var/datum/effect_system/smoke_spread/smoke = new
+		smoke.set_up(5, FALSE, get_turf(human.loc))
+		smoke.start()
 		human.SetKnockdown(10 SECONDS)
 		var/turf/turf = human.loc
 		new /obj/effect/hotspot(turf)
