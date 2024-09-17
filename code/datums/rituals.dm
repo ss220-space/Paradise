@@ -574,8 +574,6 @@
 	for(var/mob/living/carbon/human/human in range(10, ritual_object))
 		if(!isashwalker(human) || human.stat == DEAD || !prob(disaster_prob))
 			continue
-		if(!prob(disaster_prob))
-			continue
 		var/datum/disease/appendicitis/disease = new
 		disease.Contract(human)
 		human.adjustBrainLoss(20)
