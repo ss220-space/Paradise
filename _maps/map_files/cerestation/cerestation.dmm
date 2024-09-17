@@ -2991,10 +2991,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "azW" = (
@@ -12043,10 +12040,7 @@
 /turf/simulated/wall,
 /area/library)
 "bGw" = (
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/grass,
 /area/medical/genetics)
 "bGx" = (
@@ -16995,9 +16989,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
-/obj/machinery/quantumpad/cere/arrivals_science{
-	name = "quantum pad"
-	},
+/obj/machinery/quantumpad/cere/arrivals_science,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplefull"
@@ -20400,9 +20392,7 @@
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
 "cFE" = (
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
 "cFF" = (
@@ -21405,9 +21395,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
-/obj/machinery/quantumpad/cere/cargo_security{
-	name = "quantum pad"
-	},
+/obj/machinery/quantumpad/cere/cargo_security,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -21460,9 +21448,7 @@
 	dir = 4;
 	pixel_x = 24
 	},
-/obj/machinery/quantumpad/cere/cargo_arrivals{
-	name = "quantum pad"
-	},
+/obj/machinery/quantumpad/cere/cargo_arrivals,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkgreenfull"
@@ -29065,9 +29051,7 @@
 /obj/machinery/door/window/northleft{
 	dir = 4
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	location = "Hydroponics"
@@ -33440,10 +33424,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/grass,
 /area/medical/genetics)
 "fKt" = (
@@ -35625,9 +35606,7 @@
 	dir = 8;
 	pixel_x = -24
 	},
-/obj/machinery/quantumpad/cere/science_security{
-	name = "quantum pad"
-	},
+/obj/machinery/quantumpad/cere/science_security,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -41984,9 +41963,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "ikY" = (
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	location = "Janitor"
@@ -45034,9 +45011,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
-/obj/machinery/quantumpad/cere/security_science{
-	name = "quantum pad"
-	},
+/obj/machinery/quantumpad/cere/security_science,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplefull"
@@ -45358,9 +45333,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
-/obj/machinery/quantumpad/cere/security_cargo{
-	name = "quantum pad"
-	},
+/obj/machinery/quantumpad/cere/security_cargo,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowfull"
@@ -49150,10 +49123,7 @@
 	},
 /area/turret_protected/ai_upload)
 "knS" = (
-/mob/living/carbon/human/lesser/monkey/teeny{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey/teeny,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -64849,9 +64819,7 @@
 	dir = 4;
 	location = "Bar"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/machinery/door/window/eastright{
 	dir = 8
 	},
@@ -66670,10 +66638,7 @@
 	},
 /area/security/checkpoint2)
 "phX" = (
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -12;
@@ -69132,9 +69097,7 @@
 /obj/machinery/door/window/northleft{
 	dir = 4
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/crew_quarters/kitchen)
@@ -70912,10 +70875,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -79106,9 +79066,7 @@
 	dir = 8;
 	location = "Security"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
@@ -79634,10 +79592,7 @@
 	},
 /area/security/lobby)
 "sRC" = (
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /obj/machinery/door/window/brigdoor/southleft{
 	dir = 4;
 	req_access = list(39)
@@ -85454,10 +85409,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -87533,7 +87485,6 @@
 	},
 /obj/machinery/door_timer/cell_6{
 	name = "General Population Cell C";
-	pixel_x = 0;
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -87752,9 +87703,7 @@
 	dir = 4;
 	pixel_x = 24
 	},
-/obj/machinery/quantumpad/cere/arrivals_cargo{
-	name = "quantum pad"
-	},
+/obj/machinery/quantumpad/cere/arrivals_cargo,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowfull"
@@ -90090,9 +90039,7 @@
 	},
 /area/medical/medbay)
 "vWu" = (
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 4;
@@ -93391,7 +93338,6 @@
 /area/maintenance/starboardaux)
 "wVx" = (
 /mob/living/carbon/human/lesser/monkey/punpun{
-	icon = 'icons/mob/monkey.dmi';
 	icon_state = "punpun1"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -96079,9 +96025,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
-/obj/machinery/quantumpad/cere/science_arrivals{
-	name = "quantum pad"
-	},
+/obj/machinery/quantumpad/cere/science_arrivals,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkgreenfull"
