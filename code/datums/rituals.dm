@@ -115,8 +115,6 @@
 	if(failed)
 		handle_ritual_object(RITUAL_FAILED)
 
-	disaster_prob = initial(disaster_prob)
-	fail_chance = initial(fail_chance)
 	LAZYCLEARLIST(invokers)
 	LAZYCLEARLIST(used_things)
 	return
@@ -324,9 +322,7 @@
 		return RITUAL_FAILED_ON_PROCEED // Your punishment
 	var/obj/effect/proc_holder/spell/mind_transfer/transfer = new
 	if(!transfer.cast(human, invoker))
-		qdel(transfer)
 		return RITUAL_FAILED_ON_PROCEED
-	qdel(transfer)
 	message_admins("[key_name(human)] accomplished mindtransfer ritual on [key_name(invoker)]")
 	return RITUAL_SUCCESSFUL
 
@@ -363,9 +359,9 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	for(var/obj/item/stack/sheet/sinew/sinew in used_things)
-		if(sinew.amount < 3)
-			return FALSE
+	var/obj/item/stack/sheet/sinew/sinew = locate() in used_things
+	if(sinew.amount < 3)
+		return FALSE
 	return TRUE
 
 /datum/ritual/ashwalker/summon/del_things()
@@ -625,7 +621,7 @@
 	for(var/datum/ritual/ritual as anything in component.rituals)
 		if(is_type_in_list(ritual, blacklisted_rituals))
 			continue
-		if(!ritual.charges && ritual.charges >= 0)
+		if(ritual.charges < 0)
 			continue
 		ritual.charges++
 	return RITUAL_SUCCESSFUL
@@ -888,5 +884,65 @@
 			playsound(ritual_object.loc, 'sound/effects/hulk_hit_airlock.ogg', 50, TRUE)
 		if(RITUAL_FAILED)
 			playsound(ritual_object.loc, 'sound/effects/forge_destroy.ogg', 50, TRUE)
+	return .
+
+/datum/ritual/ashwalker/creation
+	name = "Creation ritual"
+	cooldown_after_cast = 150 SECONDS
+	shaman_only = TRUE
+	extra_invokers = 2
+	cast_time = 60 SECONDS
+	required_things = list(
+		/mob/living/carbon/human = 2
+	)
+
+/datum/ritual/ashwalker/creation/check_invokers(mob/living/carbon/human/invoker)
+	. = ..()
+	if(!.)
+		return FALSE
+	for(var/mob/living/carbon/human/human as anything in invokers)
+		if(human.stat != UNCONSCIOUS)
+			disaster_prob += 20
+			fail_prob += 20
+	return TRUE
+
+/datum/ritual/ashwalker/creation/check_contents()
+	. = ..()
+	if(!.)
+		return FALSE
+	for(var/mob/living/carbon/human/human as anything in used_things)
+		if(human.stat != DEAD)
+			return FALSE
+		if(!isashwalker(human))
+			return FALSE
+	return TRUE
+
+/datum/ritual/ashwalker/creation/do_ritual(obj/obj, mob/living/carbon/human/invoker)
+	for(var/mob/living/mob as anything in subtypesof(/mob/living/simple_animal/hostile/asteroid))
+		if(prob(30))
+			mob = new(get_turf(ritual_object))
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/creation/disaster(obj/obj, mob/living/carbon/human/invoker)
+	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
+		if(!isashwalker(human) || !prob(disaster_prob))
+			continue
+		if(!isturf(human.loc))
+			continue
+		human.SetKnockdown(10 SECONDS)
+		var/turf/turf = human.loc
+		new /obj/effect/hotspot(turf)
+		turf.hotspot_expose(700, 50, 1)
+	return
+
+/datum/ritual/ashwalker/creation/handle_ritual_object(bitflags, silent =  FALSE)
+	. = ..(bitflags, TRUE)
+	switch(.)
+		if(RITUAL_ENDED)
+			playsound(ritual_object.loc, 'sound/magic/demon_consume.ogg', 50, TRUE)
+		if(RITUAL_STARTED)
+			playsound(ritual_object.loc, 'sound/magic/blind.ogg', 50, TRUE)
+		if(RITUAL_FAILED)
+			playsound(ritual_object.loc, 'sound/magic/castsummon.ogg', 50, TRUE)
 	return .
 	
