@@ -11827,6 +11827,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
+"bGn" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/security/hos)
 "bGt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -54851,9 +54857,7 @@
 	},
 /area/security/medbay)
 "jbZ" = (
-/obj/machinery/computer/secure_data{
-	dir = 1
-	},
+/obj/machinery/computer/brigcells,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -97408,7 +97412,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -220287,7 +220290,7 @@ rWS
 cgG
 rWS
 rWS
-iIO
+rWS
 qQo
 pNG
 mWc
