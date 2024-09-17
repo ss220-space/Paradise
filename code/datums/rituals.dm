@@ -95,9 +95,6 @@
 	if(start_cooldown)
 		COOLDOWN_START(src, ritual_cooldown, cooldown_after_cast)
 
-	if(message)
-		to_chat(invoker, message)
-
 	if(cause_disaster && prob(disaster_prob))
 		disaster(obj, invoker)
 
@@ -1007,7 +1004,7 @@
 		turf.hotspot_expose(700, 50, 1)
 	return
 
-/datum/ritual/ashwalker/command/handle_ritual_object(bitflags, silent =  FALSE)
+/datum/ritual/ashwalker/command/handle_ritual_object(bitflags, silent = FALSE)
 	. = ..(bitflags, TRUE)
 	switch(.)
 		if(RITUAL_ENDED)
