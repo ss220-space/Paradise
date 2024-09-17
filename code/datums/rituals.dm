@@ -903,7 +903,7 @@
 	for(var/mob/living/carbon/human/human as anything in invokers)
 		if(human.stat != UNCONSCIOUS)
 			disaster_prob += 20
-			fail_prob += 20
+			fail_chance += 20
 	return TRUE
 
 /datum/ritual/ashwalker/creation/check_contents()
