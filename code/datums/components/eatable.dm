@@ -94,6 +94,7 @@
 	if(is_only_grab_intent && user.a_intent != INTENT_GRAB)
 		return FALSE
 
+	target.changeNext_move(CLICK_CD_MELEE)
 	INVOKE_ASYNC(src, PROC_REF(try_eat_item), target, user)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
