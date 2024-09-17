@@ -1,21 +1,3 @@
-#define DEFAULT_RITUAL_RANGE_FIND 1
-#define DEFAULT_RITUAL_COOLDOWN (100 SECONDS)
-#define DEFAULT_RITUAL_DISASTER_PROB 10
-#define DEFAULT_RITUAL_FAIL_PROB 10
-
-/// Ritual object bitflags
-#define RITUAL_STARTED							(1<<0)
-#define RITUAL_ENDED							(1<<1)
-#define RITUAL_FAILED 							(1<<2)
-/// Ritual datum bitflags
-#define RITUAL_SUCCESSFUL						(1<<0)
-/// Invocation checks, should not be used in extra checks.
-#define RITUAL_FAILED_INVALID_SPECIES			(1<<1)
-#define RITUAL_FAILED_EXTRA_INVOKERS			(1<<2)
-#define RITUAL_FAILED_MISSED_REQUIREMENTS		(1<<3)
-#define RITUAL_FAILED_ON_PROCEED				(1<<4)
-#define RITUAL_FAILED_INVALID_SPECIAL_ROLE		(1<<5)
-
 /datum/ritual
 	/// Linked object
 	var/obj/ritual_object
@@ -1031,7 +1013,7 @@
 	animal.maxHealth = max(animal.maxHealth, 200)
 	animal.del_on_death = FALSE
 	animal.master_commander = invoker
-	animal.mind.store_memory("<B>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
+	animal.mind.store_memory("<B>Мой хозяин [invoker.name], выполню [genderize_ru(invoker.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
 	to_chat(animal, chat_box_green("Вы - раб пеплоходцев. Всегда подчиняйтесь и помогайте им."))
 	add_game_logs("стал питомцем игрока [key_name(invoker)]", animal)
 	return RITUAL_SUCCESSFUL
