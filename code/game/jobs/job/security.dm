@@ -25,7 +25,7 @@
 	disabilities_allowed = 0
 	money_factor = 7
 	outfit = /datum/outfit/job/hos
-	insurance = INSURANCE_DELUXE
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 /datum/outfit/job/hos
 	name = "Head of Security"
@@ -78,7 +78,7 @@
 	exp_type = EXP_TYPE_SECURITY
 	money_factor = 6
 	outfit = /datum/outfit/job/warden
-	insurance = INSURANCE_DELUXE
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 /datum/outfit/job/warden
 	name = "Warden"
@@ -129,7 +129,7 @@
 	exp_type = EXP_TYPE_SECURITY
 	money_factor = 4
 	outfit = /datum/outfit/job/detective
-	insurance = INSURANCE_DELUXE
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 /datum/outfit/job/detective
 	name = "Detective"
@@ -191,7 +191,7 @@
 	exp_type = EXP_TYPE_CREW
 	money_factor = 3
 	outfit = /datum/outfit/job/officer
-	insurance = INSURANCE_DELUXE
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 /datum/outfit/job/officer
 	name = "Security Officer"
@@ -256,7 +256,7 @@
 	exp_type = EXP_TYPE_MEDICAL
 	money_factor = 4
 	outfit = /datum/outfit/job/brigdoc
-	insurance = INSURANCE_DELUXE
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 /datum/outfit/job/brigdoc
 	name = "Brig Physician"
@@ -294,7 +294,7 @@
 	exp_type = EXP_TYPE_SECURITY
 	money_factor = 4
 	outfit = /datum/outfit/job/pilot
-	insurance = INSURANCE_DELUXE
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 /datum/outfit/job/pilot
 	name = "Security Pod Pilot"

@@ -78,7 +78,8 @@
 	var/optional_objectives=list() // Objectives that are SOMETIMES added.
 
 	/// Roundstart insurance normal for this job
-	var/insurance = INSURANCE_STANDART
+	var/insurance
+	var/insurance_type = INSURANCE_TYPE_STANDART
 
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
@@ -284,7 +285,21 @@
 
 		if(H.mind && H.mind.initial_account)
 			C.associated_account_number = H.mind.initial_account.account_number
-			H.mind.initial_account.insurance = J.insurance
+			H.mind.initial_account.insurance_type = J.insurance_type
+			switch (J.insurance_type)
+				if (INSURANCE_TYPE_NONE)
+					H.mind.initial_account.insurance = INSURANCE_NONE
+				if (INSURANCE_TYPE_BUDGETARY)
+					H.mind.initial_account.insurance = INSURANCE_BUDGETARY
+				if (INSURANCE_TYPE_STANDART)
+					H.mind.initial_account.insurance = INSURANCE_STANDART
+				if (INSURANCE_TYPE_EXTENDED)
+					H.mind.initial_account.insurance = INSURANCE_EXTENDED
+				if (INSURANCE_TYPE_DELUXE)
+					H.mind.initial_account.insurance = INSURANCE_DELUXE
+				if (INSURANCE_TYPE_NT_SPECIAL)
+					H.mind.initial_account.insurance = INSURANCE_NT_SPECIAL
+
 		C.owner_uid = H.UID()
 		C.owner_ckey = H.ckey
 

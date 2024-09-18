@@ -27,7 +27,7 @@
 	)
 	money_factor = 8
 	outfit = /datum/outfit/job/rd
-	insurance = INSURANCE_DELUXE
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 
 /datum/outfit/job/rd

@@ -242,6 +242,14 @@ const DefaultScreen = (props, context) => {
               onClick={() => act('insurance', { insurance_amount: insuranceAmount })}
             />
           </LabeledList.Item>
+
+          <LabeledList.Item>
+            <Button
+              content="Toggle auto-replenishment of insurance"
+              icon="sign-out-alt"
+              onClick={() => act('insurance_replenishment', {})}
+            />
+          </LabeledList.Item>
         </LabeledList>
       </Section>
       <Section title="Menu">

@@ -20,7 +20,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	disabilities_allowed = 0
 	money_factor = 10
 	outfit = /datum/outfit/job/captain
-	insurance = INSURANCE_DELUXE
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -88,7 +88,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	money_factor = 9
 	outfit = /datum/outfit/job/hop
-	insurance = INSURANCE_DELUXE
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 /datum/outfit/job/hop
 	name = "Head of Personnel"
@@ -143,7 +143,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	alt_titles = list("NT Consultant","Central Command Consultant")
 	money_factor = 9
 	outfit = /datum/outfit/job/nanotrasenrep
-	insurance = INSURANCE_DELUXE
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 /datum/outfit/job/nanotrasenrep
 	name = "Nanotrasen Representative"
@@ -190,7 +190,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS, ACCESS_BLUESHIELD, ACCESS_WEAPONS)
 	money_factor = 7
 	outfit = /datum/outfit/job/blueshield
-	insurance = INSURANCE_DELUXE
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 /datum/outfit/job/blueshield
 	name = "Blueshield"
@@ -246,7 +246,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	alt_titles = list("Judge")
 	money_factor = 9
 	outfit = /datum/outfit/job/judge
-	insurance = INSURANCE_DELUXE
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 /datum/outfit/job/judge
 	name = "Magistrate"
@@ -293,7 +293,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	exp_type = EXP_TYPE_CREW
 	money_factor = 6
 	outfit = /datum/outfit/job/lawyer
-	insurance = INSURANCE_DELUXE
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 /datum/outfit/job/lawyer
 	name = "Internal Affairs Agent"

@@ -290,7 +290,7 @@ log transactions
 				else
 					to_chat(usr, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
 
-		if("withdinsurancerawal")
+		if("insurance")
 			var/amount = max(text2num(params["insurance_amount"]), 0)
 			if(amount <= 0)
 				to_chat(usr, "[bicon(src)]" + span_warning("That is not a valid amount."))
@@ -306,6 +306,13 @@ log transactions
 						replenish_insurance(amount)
 				else
 					to_chat(usr, "[bicon(src)]" + span_warning("У вас недостаточно кредитов для этого!"))
+
+		if("insurance_replenishment")
+			authenticated_account.insurance_auto_replen = !authenticated_account.insurance_auto_replen
+			if (authenticated_account.insurance_auto_replen)
+				to_chat(usr, "[bicon(src)]" + span_warning("Автопополнение страховки включено!"))
+			else
+				to_chat(usr, "[bicon(src)]" + span_warning("Автопополнение страховки отключено!"))
 
 		if("balance_statement")
 			if(authenticated_account)

@@ -11,6 +11,7 @@
 	var/mob/living/carbon/human/occupant
 	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 	var/isPrinting = FALSE
+	var/obj/item/card/id/inserted_id = null
 
 /obj/machinery/bodyscanner/Destroy()
 	go_out()
@@ -387,6 +388,8 @@
 			P.info += "<br><br><b>Notes:</b><br>"
 			P.name = "Body Scan - [name]"
 			isPrinting = FALSE
+		if ("insurance")
+			do_insurance_collection(occupant, inserted_id ? inserted_id.associated_account_number : null)
 		else
 			return FALSE
 

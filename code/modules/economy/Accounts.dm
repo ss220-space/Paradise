@@ -11,6 +11,7 @@ GLOBAL_VAR_INIT(next_account_number, 0)
 GLOBAL_DATUM(centcomm_account_db, /obj/machinery/computer/account_database) // this being an object hurts me deeply on the inside
 GLOBAL_DATUM(vendor_account, /datum/money_account)
 GLOBAL_LIST_EMPTY(all_money_accounts)
+GLOBAL_LIST_EMPTY(dna2account)
 
 /proc/create_station_account()
 	if(!GLOB.station_account)
@@ -119,6 +120,8 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 	var/suspended = 0
 	var/list/transaction_log = list()
 	var/insurance = INSURANCE_NONE
+	var/insurance_type = INSURANCE_TYPE_NONE
+	var/insurance_auto_replen = TRUE
 	var/security_level = 0	//0 - auto-identify from worn ID, require only account number
 							//1 - require manual login / account number and pin
 							//2 - require card and manual login

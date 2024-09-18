@@ -287,6 +287,7 @@ REAGENT SCANNER
 
 	var/isPrinting = FALSE
 
+	var/datum/money_account/connected_acc = null
 
 /obj/item/healthanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	add_fingerprint(user)
@@ -317,6 +318,9 @@ REAGENT SCANNER
 		if(!isPrinting)
 			print_report(user)
 		return 1
+	if(href_list["insurance"])
+		do_insurance_collection(user, connected_acc)
+		return 1
 	if(href_list["mode"])
 		toggle_mode()
 		return 1
@@ -342,33 +346,60 @@ REAGENT SCANNER
 // If there is id -> account from id
 // If there is no id -> dnk
 
+/proc/find_pda_server()
+	if(GLOB.message_servers)
+		for(var/obj/machinery/message_server/check in GLOB.message_servers)
+			if(check.active)
+				return check
+
+/proc/send_insurance_alert(datum/money_account/acc, amount_spent)
+	var/obj/machinery/message_server/message_server = find_pda_server()
+	if (message_server)
+		message_server.send_pda_message(acc.owner_name, "Insurance NT Department", "Медицинской страховки недостаточно на покрытие расходов на лечение. С вашего счета списанно [amount_spent] кредитов.")
+
 /proc/get_insurance_account(mob/living/carbon/human/user)
-	var/obj/item/card/id/user_id = person.get_id_card()
+	var/obj/item/card/id/user_id = user.get_id_card()
 	if (istype(user_id) && user_id.associated_account_number)
-		return user_id.associated_account_number
+		return get_money_account(user_id.associated_account_number)
+	if (user.dna in GLOB.dna2account)
+		return GLOB.dna2account[user.dna]
+	else
+		return null
 
-
-/proc/collect_insurance_points(mob/living/carbon/human/user, amount)
-
-
-/obj/item/healthanalyzer/proc/collect_insurance_points_verb()
-	set name = "Списать очки страховки"
-	set category = "Object"
-	set src = usr
-
-	var/mob/living/carbon/human/user = usr
+/proc/do_insurance_collection(mob/living/carbon/human/user, datum/money_account/connected_acc)
 	if(!istype(user))
-		return
-	if (user.incapacitated())
-		return
+		user.visible_message("Некорректная цель.")
+		return FALSE
 
 	var/req = get_req_insurance(user)
-	var/result = collect_insurance_points(user, req)
 
-	if (result)
-		visible_message("Страховка списанна в размере: [result].")
-	else
-		visible_message(span_warning("Страховка не может покрыть полное лечение."))
+	var/datum/money_account/acc = get_insurance_account(user)
+
+	if (!acc)
+		return FALSE
+
+	var/from_insurance = min(acc.insurance, req)
+	var/from_money_acc = (req - from_insurance) * 2
+
+	if (from_money_acc && !acc.insurance_auto_replen)
+		if (!acc.insurance_auto_replen)
+			user.visible_message(span_warning("Страховки не хватает на оплату лечения. Автопополнение страховки отключено."))
+			return FALSE
+		if (!acc.charge(from_money_acc))
+			user.visible_message(span_warning("Страховки не хватает на оплату лечения. Автопополнение страховки провалилось."))
+			return FALSE
+
+	if (from_money_acc)
+		send_insurance_alert(acc)
+
+	acc.addInsurancePoints(-from_insurance)
+
+	if (connected_acc)
+		connected_acc.money += round(round(req / 2))
+	user.visible_message("Страховка списанна в размере: [req].")
+	if (from_money_acc)
+		user.visible_message("Страховки не хватило. [from_money_acc / 2] недостающих очков страховки восполнено за счет [from_money_acc] кредитов со счета пациента.")
+	return TRUE
 
 /obj/item/healthanalyzer/proc/print_report(var/mob/living/user)
 	if(!scan_data)
@@ -406,7 +437,7 @@ REAGENT SCANNER
 	popup.open(no_focus = 1)
 
 /obj/item/healthanalyzer/proc/get_header(mob/user)
-	return "<a href='byond://?src=[src.UID()];user=[user.UID()];clear=1'>Очистить</a><a href='byond://?src=[src.UID()];user=[user.UID()];mode=1'>Локализация</a>[advanced ? "<a href='byond://?src=[src.UID()];user=[user.UID()];print=1'>Печать отчета</a>" : ""]"
+	return "<a href='byond://?src=[src.UID()];user=[user.UID()];clear=1'>Очистить</a><a href='byond://?src=[src.UID()];user=[user.UID()];mode=1'>Локализация</a>[advanced ? "<a href='byond://?src=[src.UID()];user=[user.UID()];print=1'>Печать отчета</a><a href='byond://?src=[src.UID()];user=[user.UID()];insurance=1'>Списать страховку</a>" : ""]"
 
 /obj/item/healthanalyzer/examine(mob/user)
 	. = ..()
@@ -685,6 +716,11 @@ REAGENT SCANNER
 	else
 		. += "Гены стабильны."
 
+	var/datum/money_account/acc = get_insurance_account(H)
+	if (acc)
+		. += "Тип страховки - [acc.insurance_type]"
+	else
+		. += "Аккаунт не обнаружен"
 	. += "Требуемое количество очков страховки - [get_req_insurance(H)]"
 
 // This is the output to the chat
@@ -727,6 +763,23 @@ REAGENT SCANNER
 		update_icon(UPDATE_OVERLAYS)
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/card/id))
+		add_fingerprint(user)
+		if(!advanced)
+			to_chat(user, span_warning("Для привязки счета требуется наличие продвинутого модуля сканирования."))
+			return ATTACK_CHAIN_PROCEED
+
+		var/obj/item/card/id/id = I
+
+		if (!id.associated_account_number)
+			to_chat(user, span_warning("Не обнаружено привязанного аккаунта."))
+			return ATTACK_CHAIN_PROCEED
+
+		connected_acc = id.associated_account_number
+		to_chat(user, span_notice("Аккаунт привязан."))
+		playsound(loc, I.usesound, 50, TRUE)
+		return ATTACK_CHAIN_PROCEED
 
 	return ..()
 
