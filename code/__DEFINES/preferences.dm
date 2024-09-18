@@ -64,7 +64,7 @@
 #define PREFTOGGLE_2_BIG_STRIP_MENU                                        (1<<17) // 131072
 #define PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE                (1<<18) // 262144
 #define PREFTOGGLE_2_PIXELATED_MENU                                        (1<<19) // 524288
-#define PREFTOGGLE_2_DISABLE_DESC_TIPS				(1<<20) // 1048576
+#define PREFTOGGLE_2_DESC_TIPS			(1<<20) // 1048576
 
 #define TOGGLES_2_TOTAL								2097151 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
