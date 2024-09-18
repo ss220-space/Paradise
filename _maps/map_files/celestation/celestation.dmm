@@ -311,7 +311,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "greenfull"
 	},
 /area/security/permabrig)
@@ -1167,7 +1166,6 @@
 /area/maintenance/maintcentral)
 "aky" = (
 /obj/machinery/door_timer/cell_6{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -10638,7 +10636,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "greenfull"
 	},
 /area/security/permabrig)
@@ -11834,21 +11831,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
-"bGn" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 4;
-	name = "Труба смешивания"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
-	dir = 2;
-	name = "Труба турбины"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/atmos)
 "bGt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -18491,7 +18473,6 @@
 /area/library)
 "ctq" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/tcommsat/computer)
@@ -24567,7 +24548,6 @@
 	},
 /obj/item/seeds/chili,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "green"
 	},
 /area/security/permabrig)
@@ -27743,7 +27723,6 @@
 /obj/structure/reagent_dispensers/watertank,
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "green"
 	},
 /area/security/permabrig)
@@ -28601,7 +28580,6 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/tcommsat/computer)
@@ -30792,7 +30770,6 @@
 /area/maintenance/fsmaint2)
 "eyp" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/aisat/maintenance)
@@ -36766,7 +36743,6 @@
 /obj/item/seeds/chili,
 /obj/item/seeds/chili,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "green"
 	},
 /area/security/permabrig)
@@ -37739,7 +37715,6 @@
 "fPO" = (
 /obj/machinery/porta_turret,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/ai)
@@ -43487,7 +43462,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat_interior)
@@ -56630,10 +56604,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
 "jtI" = (
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /obj/machinery/door/window/brigdoor/southleft{
 	req_access = list(39)
 	},
@@ -57165,7 +57136,6 @@
 /obj/item/radio,
 /obj/item/t_scanner,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/ai)
@@ -58539,7 +58509,6 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/ai)
@@ -62509,7 +62478,6 @@
 /obj/structure/table/reinforced,
 /obj/item/paicard,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/ai)
@@ -63866,7 +63834,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/aisat/maintenance)
@@ -64252,7 +64219,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navybluecornersalt"
 	},
 /area/turret_protected/aisat)
@@ -65032,7 +64998,6 @@
 /area/security/checkpoint/south)
 "laE" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat_interior/secondary)
@@ -73651,7 +73616,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/tcommsat/computer)
@@ -73884,7 +73848,6 @@
 /obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/ai)
@@ -75119,7 +75082,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/aisat/maintenance)
@@ -80407,7 +80369,6 @@
 /area/engine/engineering/monitor)
 "oev" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/ai)
@@ -82451,7 +82412,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat_interior/secondary)
@@ -84383,7 +84343,6 @@
 /obj/structure/table,
 /obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat)
@@ -91223,7 +91182,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat_interior/secondary)
@@ -91281,7 +91239,6 @@
 	},
 /obj/machinery/porta_turret,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat_interior)
@@ -92094,7 +92051,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/aisat/maintenance)
@@ -99746,10 +99702,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint/south)
 "rQQ" = (
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/beach/sand,
 /area/medical/virology/lab)
 "rQR" = (
@@ -102265,7 +102218,6 @@
 /area/crew_quarters/serviceyard)
 "sqX" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navybluecorners"
 	},
 /area/turret_protected/ai)
@@ -105661,7 +105613,6 @@
 /obj/machinery/porta_turret,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat_interior)
@@ -109932,7 +109883,6 @@
 /area/turret_protected/ai)
 "tMH" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navybluecorners"
 	},
 /area/turret_protected/aisat)
@@ -112884,7 +112834,6 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/aisat/maintenance)
@@ -113668,7 +113617,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat)
@@ -116638,10 +116586,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/beach/sand,
 /area/medical/genetics)
 "vbl" = (
@@ -117217,7 +117162,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat_interior)
@@ -119587,10 +119531,7 @@
 /turf/simulated/floor/carpet/black,
 /area/chapel/office)
 "vFO" = (
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/beach/sand,
 /area/medical/genetics)
 "vFP" = (
@@ -121272,7 +121213,6 @@
 "vWX" = (
 /obj/machinery/porta_turret,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navybluecornersalt"
 	},
 /area/turret_protected/aisat)
@@ -126417,7 +126357,6 @@
 /area/maintenance/fpmaint)
 "wVx" = (
 /mob/living/carbon/human/lesser/monkey/punpun{
-	icon = 'icons/mob/monkey.dmi';
 	icon_state = "punpun1"
 	},
 /obj/machinery/hologram/holopad,
@@ -126932,16 +126871,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/reception)
-"xaI" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
-	dir = 2;
-	name = "Труба турбины"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/atmos)
 "xaJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -131671,7 +131600,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/aisat/maintenance)
@@ -132281,7 +132209,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/ai)
@@ -230756,11 +230683,11 @@ jEA
 mAG
 rkl
 jmg
-xaI
-xaI
-xaI
-xaI
-bGn
+kmC
+kmC
+kmC
+kmC
+xBK
 tLu
 dZI
 bUV

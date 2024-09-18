@@ -99,7 +99,6 @@
 "D" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plating/burnt,

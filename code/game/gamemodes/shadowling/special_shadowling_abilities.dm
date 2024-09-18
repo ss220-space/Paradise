@@ -166,7 +166,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	if(!shadowling_check(user))
 		return
 
-	if(tgui_alert(user, "It is time to ascend. Are you sure about this?", "Ascend", "Yes", "No") != "Yes")
+	if(tgui_alert(user, "It is time to ascend. Are you sure about this?", "Ascend", list("Yes", "No")) != "Yes")
 		to_chat(user, span_warning("You decide against ascending for now."))
 		revert_cast(user)
 		return
