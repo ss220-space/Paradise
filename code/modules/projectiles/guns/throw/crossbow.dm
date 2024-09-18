@@ -192,6 +192,8 @@
 	desc = "It's got a tip for you - get the point?"
 	icon_state = "bolt"
 	item_state = "bolt"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	throwforce = 20
 	w_class = WEIGHT_CLASS_SMALL
 	sharp = TRUE
