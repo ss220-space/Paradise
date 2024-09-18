@@ -786,9 +786,7 @@ so that different stomachs can handle things in different ways VB*/
 	if(!GLOB.tinted_weldhelh)
 		return
 	var/tinttotal = get_total_tint()
-	if((sight & (SEE_MOBS|SEE_OBJS|SEE_TURFS)) == (SEE_MOBS|SEE_OBJS|SEE_TURFS))
-		clear_fullscreen("tint", 0)
-	else if(tinttotal >= TINT_BLIND)
+	if(tinttotal >= TINT_BLIND)
 		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 	else if(tinttotal >= TINT_IMPAIR)
 		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, 2)
