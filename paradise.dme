@@ -1721,6 +1721,7 @@
 #include "code\modules\asset_cache\assets\asset_emoji.dm"
 #include "code\modules\asset_cache\assets\asset_id_card.dm"
 #include "code\modules\asset_cache\assets\asset_jquery.dm"
+#include "code\modules\asset_cache\assets\asset_lobby.dm"
 #include "code\modules\asset_cache\assets\asset_materials.dm"
 #include "code\modules\asset_cache\assets\asset_mining_vendor.dm"
 #include "code\modules\asset_cache\assets\asset_nanomap.dm"

@@ -27,7 +27,6 @@
 /obj/structure/lattice,
 /obj/item/stack/cable_coil/cut{
 	amount = 2;
-	dir = 2;
 	icon_state = "coil_red2"
 	},
 /turf/space,
@@ -156,8 +155,7 @@
 /area/ruin/onehalf/dorms_med)
 "aB" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /obj/structure/table,
 /obj/item/storage/firstaid/brute{
@@ -223,7 +221,6 @@
 /obj/machinery/power/apc/noalarm{
 	keep_preset_name = 1;
 	name = "Hallway APC";
-	pixel_x = 0;
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -422,12 +419,10 @@
 "be" = (
 /obj/structure/disposalpipe/broken{
 	tag = "icon-pipe-b (EAST)";
-	icon_state = "pipe-b";
 	dir = 4
 	},
 /obj/item/stack/cable_coil/cut{
 	amount = 2;
-	dir = 2;
 	icon_state = "coil_red2"
 	},
 /turf/simulated/floor/plating/airless,
@@ -467,7 +462,6 @@
 "bi" = (
 /obj/structure/disposalpipe/broken{
 	tag = "icon-pipe-b (EAST)";
-	icon_state = "pipe-b";
 	dir = 4
 	},
 /obj/effect/landmark/tiles/damageturf,
@@ -529,9 +523,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/drone_bay)
 "bp" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "maintenance hatch"
-	},
+/obj/machinery/door/airlock/maintenance_hatch,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -667,9 +659,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/onehalf/hallway)
 "bK" = (
-/obj/machinery/vending/coffee{
-	name = "\improper Solar's Best Hot Drinks"
-	},
+/obj/machinery/vending/coffee,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
@@ -858,7 +848,6 @@
 "cq" = (
 /obj/structure/chair{
 	tag = "icon-chair (WEST)";
-	icon_state = "chair";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -869,7 +858,6 @@
 "cs" = (
 /obj/structure/chair{
 	tag = "icon-chair (NORTH)";
-	icon_state = "chair";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -980,12 +968,10 @@
 /obj/structure/lattice,
 /obj/structure/disposalpipe/broken{
 	tag = "icon-pipe-b (NORTH)";
-	icon_state = "pipe-b";
 	dir = 1
 	},
 /obj/structure/disposalpipe/broken{
 	tag = "icon-pipe-b (WEST)";
-	icon_state = "pipe-b";
 	dir = 8
 	},
 /turf/space,
@@ -1028,7 +1014,6 @@
 "cN" = (
 /obj/structure/chair/comfy/black{
 	tag = "icon-comfychair (EAST)";
-	icon_state = "comfychair";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -1037,7 +1022,6 @@
 /obj/structure/lattice,
 /obj/item/stack/cable_coil/cut{
 	amount = 2;
-	dir = 2;
 	icon_state = "coil_red2"
 	},
 /turf/space,
@@ -1079,7 +1063,6 @@
 /obj/machinery/door_control{
 	id = "onehalf bridge";
 	name = "Bridge Lockdown";
-	pixel_x = 0;
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel,

@@ -39,8 +39,6 @@
 "ag" = (
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
-	name = "area power controller";
-	pixel_x = 0;
 	pixel_y = 24
 	},
 /obj/structure/cable{
@@ -90,7 +88,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
@@ -155,7 +152,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
@@ -181,7 +177,6 @@
 /obj/machinery/light/small,
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plating,
@@ -189,7 +184,6 @@
 "az" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
@@ -204,7 +198,6 @@
 /area/awaymission/example)
 "aB" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 8
 	},
 /obj/structure/table,
@@ -213,8 +206,7 @@
 /area/awaymission/example)
 "aC" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -292,8 +284,7 @@
 /area/awaymission/example)
 "aR" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 2
+	icon_state = "whitehall"
 	},
 /area/awaymission/example)
 "aS" = (
@@ -438,7 +429,6 @@
 /area/awaymission/example)
 "bj" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -588,7 +578,6 @@
 /area/awaymission/example)
 "bC" = (
 /obj/structure/sink{
-	icon_state = "sink";
 	dir = 8;
 	pixel_x = -12;
 	pixel_y = 2
@@ -647,7 +636,6 @@
 "bJ" = (
 /obj/structure/chair/wood{
 	tag = "icon-wooden_chair (EAST)";
-	icon_state = "wooden_chair";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -657,7 +645,6 @@
 "bK" = (
 /obj/structure/chair/wood{
 	tag = "icon-wooden_chair (WEST)";
-	icon_state = "wooden_chair";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -683,7 +670,6 @@
 "bN" = (
 /obj/structure/chair/wood{
 	tag = "icon-wooden_chair (NORTH)";
-	icon_state = "wooden_chair";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -785,7 +771,6 @@
 /obj/item/screwdriver,
 /obj/item/hand_labeler,
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -856,7 +841,6 @@
 /obj/effect/landmark/awaystart,
 /obj/machinery/light_construct/small{
 	tag = "icon-bulb-construct-stage1 (WEST)";
-	icon_state = "bulb-construct-stage1";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
