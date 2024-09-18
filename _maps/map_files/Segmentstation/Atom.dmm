@@ -3763,7 +3763,6 @@
 "aLN" = (
 /obj/structure/marker_beacon{
 	icon_state = "markerburgundy-on";
-	initialized = 1
 	},
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plasteel{
@@ -21653,7 +21652,6 @@
 	},
 /obj/structure/marker_beacon{
 	icon_state = "markerlime-on";
-	initialized = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -35648,7 +35646,6 @@
 	},
 /obj/structure/marker_beacon{
 	icon_state = "markerlime-on";
-	initialized = 1
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -69993,7 +69990,6 @@
 "muE" = (
 /obj/structure/marker_beacon{
 	icon_state = "markerteal-on";
-	initialized = 1
 	},
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plasteel{
@@ -90910,7 +90906,6 @@
 	},
 /obj/structure/marker_beacon{
 	icon_state = "markerlime-on";
-	initialized = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -91922,7 +91917,6 @@
 	},
 /obj/structure/marker_beacon{
 	icon_state = "markerlime-on";
-	initialized = 1
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -96199,7 +96193,6 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon{
 	icon_state = "markerlime-on";
-	initialized = 1
 	},
 /turf/space,
 /area/space)
@@ -97803,7 +97796,6 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon{
 	icon_state = "markerlime-on";
-	initialized = 1
 	},
 /turf/space,
 /area/space)
@@ -99097,7 +99089,6 @@
 /obj/structure/window/full/reinforced,
 /obj/structure/marker_beacon{
 	icon_state = "markerteal-on";
-	initialized = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -110572,7 +110563,6 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon{
 	icon_state = "markerlime-on";
-	initialized = 1
 	},
 /turf/space,
 /area/space)
@@ -128232,7 +128222,6 @@
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon{
 	icon_state = "markerlime-on";
-	initialized = 1
 	},
 /turf/space,
 /area/space)
@@ -129294,7 +129283,6 @@
 	},
 /obj/structure/marker_beacon{
 	icon_state = "markerlime-on";
-	initialized = 1
 	},
 /obj/structure/cable{
 	d1 = 1;
