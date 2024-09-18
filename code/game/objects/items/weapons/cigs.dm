@@ -332,7 +332,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	list_reagents = list("nicotine" = 40, "lipolicide" = 7.5, "ammonia" = 2, "atrazine" = 1, "toxin" = 1.5)
 
 /obj/item/clothing/mask/cigerette/richard
-	list_reagents = lis("nicotine" = 40, "epinephrine" = 5, "absinthe" = 5)
+	list_reagents = list("nicotine" = 40, "epinephrine" = 5, "absinthe" = 5)
 
 /obj/item/clothing/mask/cigarette/rollie
 	name = "rollie"
