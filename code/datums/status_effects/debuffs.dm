@@ -74,17 +74,15 @@
 /datum/status_effect/fang_exhaust/on_apply()
 	var/mob/living/simple_animal/new_owner = owner
 	for(var/thing in new_owner.damage_coeff)
-		var/damage_modifier = new_owner.damage_coeff[thing]
-		damage_modifier *= modifier
+		new_owner.damage_coeff[thing] *= modifier
 	return ..()
 
 /datum/status_effect/fang_exhaust/on_remove()
 	var/mob/living/simple_animal/new_owner = owner
 	for(var/thing in new_owner.damage_coeff)
-		var/damage_modifier = new_owner.damage_coeff[thing]
-		damage_modifier /= modifier
+		new_owner.damage_coeff[thing] /= modifier
 	return ..()
-	
+
 /datum/status_effect/shadow_boxing
 	id = "shadow barrage"
 	alert_type = null

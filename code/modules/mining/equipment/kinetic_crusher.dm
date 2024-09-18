@@ -365,7 +365,7 @@
 /obj/item/crusher_trophy/eyed_tentacle
 	name = "Massive eyed tentacle"
 	desc = "A big eyed tentacle. Suitable as a trophy for a kinetic crusher."
-	icon_state = null 
+	icon_state = "ancient_goliath_tentacle"
 	denied_type = /obj/item/crusher_trophy/eyed_tentacle
 	bonus_value = 2
 
@@ -385,7 +385,7 @@
 /obj/item/crusher_trophy/fang
 	name = "Poison fang"
 	desc = "An ugly poisoned fang. Suitable as a trophy for a kinetic crusher."
-	icon_state = null 
+	icon_state = "ob_gniga"
 	denied_type = /obj/item/crusher_trophy/fang
 	bonus_value = 0.9
 
@@ -399,7 +399,7 @@
 /obj/item/crusher_trophy/gland
 	name = "Frost gland"
 	desc = "A frozen gland. Suitable as a trophy for a kinetic crusher."
-	icon_state = null 
+	icon_state = "ice_gniga"
 	denied_type = /obj/item/crusher_trophy/gland
 	bonus_value = 0.9
 
