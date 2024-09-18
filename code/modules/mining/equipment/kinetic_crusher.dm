@@ -364,10 +364,10 @@
 /// Massive eyed tentacle
 /obj/item/crusher_trophy/eyed_tentacle
 	name = "Massive eyed tentacle"
-	desc = "A big eyed tentacle. Suitable as a trophy for a kinetic crusher."
+	desc = "Большое и глазастое щупальце древнего голиафа. Может быть установлено как трофей крашера."
 	icon_state = "ancient_goliath_tentacle"
 	denied_type = /obj/item/crusher_trophy/eyed_tentacle
-	bonus_value = 2
+	bonus_value = 1
 
 /obj/item/crusher_trophy/eyed_tentacle/effect_desc()
 	return "cause kinetic crusher to deal 50% more damage if target has more than 90% HP"
@@ -384,7 +384,7 @@
 /// Poison fang
 /obj/item/crusher_trophy/fang
 	name = "Poison fang"
-	desc = "An ugly poisoned fang. Suitable as a trophy for a kinetic crusher."
+	desc = "Уродливый и отравленный коготь. Может быть установлен как трофей крашера."
 	icon_state = "ob_gniga"
 	denied_type = /obj/item/crusher_trophy/fang
 	bonus_value = 0.9
@@ -398,7 +398,7 @@
 /// Frost gland
 /obj/item/crusher_trophy/gland
 	name = "Frost gland"
-	desc = "A frozen gland. Suitable as a trophy for a kinetic crusher."
+	desc = "Замороженная железа. Может быть установлена как трофей крашера."
 	icon_state = "ice_gniga"
 	denied_type = /obj/item/crusher_trophy/gland
 	bonus_value = 0.9
