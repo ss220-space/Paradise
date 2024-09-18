@@ -605,9 +605,10 @@
 	harmful = FALSE
 	var/mob/living/carbon/prisoner
 	var/mob/living/carbon/holding
+	var/mob/living/carbon/mecha_occupant //to remove alerts after leaving the mech
 	var/turf/holding_turf
-	var/datum/action/innate/mecha/select_module/button
-
+	var/datum/action/innate/mecha/select_module/button // for custom icons
+	var/atom/movable/screen/alert/mech_cage/current_alert //wacky case
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
 	if(..())
@@ -618,6 +619,9 @@
 		else if(M.emagged == TRUE)
 			return TRUE
 	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/cage/attach_act(obj/mecha/M)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/cage/Destroy()
 	for(var/atom/movable/AM in src)
@@ -652,9 +656,11 @@
 		if(supress_check)
 			occupant_message(span_notice("You stop supressing [holding], and start supressing [target]..."))
 			chassis.visible_message(span_warning("[chassis] stops supressing [holding] and switches to [target]."))
+			stop_supressing(holding)
 			if(!do_after_cooldown(target))
 				return FALSE
-			stop_supressing(holding)
+			if(!prisoner)
+				change_alert(/atom/movable/screen/alert/mech_cage/one)
 			supress(target)
 			return TRUE
 	if(!holding && supress_check)
@@ -685,6 +691,13 @@
 	if(same_target && target.handcuffed)
 		if(!prisoner_insertion_check(target))
 			return FALSE
+		//since we are only using change_state here and in processing, might as well do it here
+		if(!button)
+			for(var/datum/action/innate/mecha/select_module/H in chassis.occupant.actions)
+				if(H.button_icon_state == "mecha_cage")
+					button = H
+					break
+
 		change_state("mecha_cage_activate")
 		occupant_message(span_notice("You start putting [target] into the containment chamber..."))
 		chassis.visible_message(span_warning("[chassis] is putting [target] into the containment chamber."))
@@ -710,13 +723,15 @@
 	holding_turf = get_turf(holding)
 	target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
 	target.move_resist = MOVE_FORCE_STRONG
-	START_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/stop_supressing(mob/living/carbon/target)
 	holding = null
 	holding_turf = null
 	target.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
 	target.move_resist = MOVE_FORCE_DEFAULT
+
+	if(!prisoner)
+		change_alert(/atom/movable/screen/alert/mech_cage/zero)
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/change_state(icon)
 	button.button_icon_state = icon
@@ -726,6 +741,7 @@
 	var/mob/living/carbon/H = chassis.occupant
 	H.clear_alert("mecha_cage")
 	H.throw_alert("mecha_cage", new_alert)
+	current_alert = new_alert
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/prisoner_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
@@ -761,6 +777,7 @@
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/cage/detach_act()
+	STOP_PROCESSING(SSobj, src)
 	button = null
 
 /obj/item/mecha_parts/mecha_equipment/cage/get_module_equip_info()
@@ -786,11 +803,6 @@
 		eject(TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/cage/process()
-	if(!button) //get the action datum
-		for(var/datum/action/innate/mecha/select_module/H in chassis.occupant.actions)
-			if(H.button_icon_state == "mecha_cage")
-				button = H
-				break
 	if(holding || prisoner)
 		if(holding)
 			var/turf/actual_turf = holding.loc
@@ -799,11 +811,21 @@
 				actual_turf = null
 			if(chassis.occupant == null)
 				stop_supressing(holding)
+
 		if(prisoner)
 			if(!istype(prisoner.loc, src))
 				prisoner = null
+		else if(istype(current_alert, /atom/movable/screen/alert/mech_cage/three))
+			if(!holding.handcuffed)
+				change_alert(/atom/movable/screen/alert/mech_cage/one)
+			else
+				change_alert(/atom/movable/screen/alert/mech_cage/two)
 	else
-		change_alert(/atom/movable/screen/alert/mech_cage/zero)
-		change_state("mecha_cage")
-		button = null
-		STOP_PROCESSING(SSobj, src)
+		if(chassis.occupant)
+			mecha_occupant = chassis.occupant
+			change_alert(/atom/movable/screen/alert/mech_cage/zero)
+		if(button)
+			change_state("mecha_cage")
+			button = null
+	if(!chassis.occupant || !istype(chassis.selected, src))
+		mecha_occupant.clear_alert("mecha_cage")
