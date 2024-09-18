@@ -221,7 +221,7 @@ GLOBAL_LIST_INIT(lawlorify, list (
 
 /datum/devilinfo/proc/regress_blood_lizard()
 	var/mob/living/carbon/true_devil/devil = owner.current
-	to_chat(D, span_warning("Your powers weaken, have more contracts be signed to regain power."))
+	to_chat(devil, span_warning("Your powers weaken, have more contracts be signed to regain power."))
 	devil.oldform.loc = devil.loc
 	owner.transfer_to(devil.oldform)
 	REMOVE_TRAIT(devil.oldform, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
