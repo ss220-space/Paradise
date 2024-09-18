@@ -1958,8 +1958,7 @@
 	icon_state = "1-2"
 	},
 /mob/living/simple_animal/hostile/alien/drone{
-	dir = 8;
-	
+	dir = 8
 	},
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2908,8 +2907,7 @@
 	pixel_y = 10
 	},
 /mob/living/simple_animal/hostile/alien/drone{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3697,8 +3695,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /mob/living/simple_animal/hostile/alien/drone{
-	dir = 8;
-	
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

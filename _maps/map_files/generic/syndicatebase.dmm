@@ -220,8 +220,7 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1393,8 +1392,7 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -1442,8 +1440,7 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
@@ -1489,9 +1486,7 @@
 	tag = "icon-bulb1 (WEST)";
 	throw_range = 2
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "bmH" = (
@@ -3566,8 +3561,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dms" = (
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -6036,9 +6030,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
@@ -6562,9 +6554,7 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
@@ -7390,7 +7380,6 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd)
 "gPn" = (
 /obj/machinery/atmospherics/trinary/mixer{
-	desc = null;
 	dir = 8;
 	node1_concentration = 0.8;
 	node2_concentration = 0.2;
@@ -7531,9 +7520,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -7882,8 +7869,7 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/effect/turf_decal{
 	icon = 'icons/obj/lavaland/survival_pod.dmi';
@@ -8058,8 +8044,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -10026,9 +10011,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/random/toolbox,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "jkz" = (
@@ -12047,9 +12030,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "lho" = (
@@ -12877,8 +12858,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/effect/turf_decal/tile/yellow,
 /turf/simulated/floor/plasteel{
@@ -13201,7 +13181,7 @@
 	pixel_y = 15
 	},
 /obj/item/instrument/bikehorn{
-	pixel_y = -7;
+	pixel_y = -7
 	},
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
@@ -13213,7 +13193,7 @@
 	pixel_y = 8
 	},
 /obj/item/clothing/mask/muzzle{
-	pixel_y = -12;
+	pixel_y = -12
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13582,13 +13562,13 @@
 	pixel_y = 14
 	},
 /obj/item/radio/electropack{
-	pixel_x = -3;
+	pixel_x = -3
 	},
 /obj/item/razor{
-	pixel_x = 10;
+	pixel_x = 10
 	},
 /obj/item/assembly/signaler{
-	pixel_x = -4;
+	pixel_x = -4
 	},
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
@@ -14197,8 +14177,7 @@
 	tag = ""
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
@@ -14586,8 +14565,7 @@
 	initialize_directions = 11
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/junction{
 	dir = 4
@@ -15125,8 +15103,7 @@
 	tag = ""
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/junction/yjunction{
 	dir = 2
@@ -15250,8 +15227,7 @@
 	tag = ""
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -15400,8 +15376,7 @@
 	tag = ""
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -15419,8 +15394,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -15769,8 +15743,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16231,7 +16204,6 @@
 "osV" = (
 /obj/effect/turf_decal/tile/yellow,
 /obj/machinery/atmospherics/trinary/filter{
-	desc = null;
 	dir = 1;
 	filter_type = 3;
 	on = 1
@@ -16567,8 +16539,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16931,9 +16902,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "oTI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "oTR" = (
@@ -17494,9 +17463,7 @@
 	},
 /obj/item/stack/tape_roll,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
 "ppf" = (
@@ -17568,8 +17535,7 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/wood,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin1)
@@ -18371,8 +18337,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -18422,8 +18387,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -19241,7 +19205,7 @@
 	dir = 4
 	},
 /obj/machinery/vending/wallmed/syndicate{
-	pixel_x = 24;
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20940,8 +20904,7 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin2)
@@ -21249,8 +21212,7 @@
 "ska" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -21333,9 +21295,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/item/storage/wallet/random,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "smz" = (
@@ -21720,9 +21680,7 @@
 "sJO" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -21741,9 +21699,7 @@
 "sLk" = (
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/closet/crate,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "sLL" = (
@@ -22842,8 +22798,7 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -23941,9 +23896,7 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "ujO" = (
@@ -23973,9 +23926,7 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "ulz" = (
@@ -24048,9 +23999,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot{
-	spawn_inside = null
-	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "umD" = (
@@ -24945,8 +24894,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -25452,8 +25400,7 @@
 	tag = "90Curve"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/prison)
@@ -25786,8 +25733,7 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -25883,8 +25829,7 @@
 	dir = 10
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -26673,8 +26618,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -28058,8 +28002,7 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -29487,8 +29430,7 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "xOB" = (
 /obj/structure/cable{
-	icon_state = "2-4";
-	tag = null
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;

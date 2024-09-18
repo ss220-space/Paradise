@@ -56,7 +56,6 @@
 "n" = (
 /obj/structure/chair{
 	tag = "icon-chair (WEST)";
-	icon_state = "chair";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -107,7 +106,6 @@
 /area/ruin/unpowered)
 "w" = (
 /obj/machinery/power/apc/noalarm{
-	dir = 2;
 	name = "Outpost APC";
 	keep_preset_name = 1;
 	pixel_y = -24
@@ -165,8 +163,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -265,7 +262,6 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/rawcutlet,
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,

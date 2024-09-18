@@ -26,8 +26,7 @@
 /area/template_noop)
 "e" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "engine"
