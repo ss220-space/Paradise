@@ -373,7 +373,7 @@
 	return "cause kinetic crusher to deal 50% more damage if target has more than 90% HP"
 
 /obj/item/crusher_trophy/eyed_tentacle/on_melee_hit(mob/living/target, mob/living/user)
-	var/procent = (target.health / target.max_health) * 100
+	var/procent = (target.health / target.maxHealth) * 100
 	if(procent < 90)
 		return
 	var/obj/item/twohanded/kinetic_crusher/crusher = user.get_active_hand()
@@ -390,7 +390,7 @@
 	bonus_value = 0.9
 
 /obj/item/crusher_trophy/fang/effect_desc()
-	return "cause fauna to get 10% more damage after mark destroyed for 2 second\s"
+	return "cause fauna to get 10% more damage after mark destroyed for 2 seconds"
 
 /obj/item/crusher_trophy/fang/on_mark_detonation(mob/living/target, mob/living/user)
 	target.apply_status_effect(STATUS_EFFECT_FANG_EXHAUSTION, bonus_value)
