@@ -722,10 +722,10 @@
 	button.button_icon_state = icon
 	button.UpdateButtonIcon()
 
-/obj/item/mecha_parts/mecha_equipment/cage/proc/change_alert(/atom/movable/screen/alert/mech_cage/new_alert)
+/obj/item/mecha_parts/mecha_equipment/cage/proc/change_alert(atom/movable/screen/alert/mech_cage/new_alert)
 	var/mob/living/carbon/H = chassis.occupant
 	H.clear_alert("mecha_cage")
-	H.throw_alert("mecha_cage", /atom/movable/screen/alert/mech_cage/new_alert)
+	H.throw_alert("mecha_cage", new_alert)
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/prisoner_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
