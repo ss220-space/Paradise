@@ -268,7 +268,7 @@
 	var/bruteloss = 0
 	var/burnloss = 0
 
-	if(HAS_TRAIT(caster, TRAIT_GODMODE))
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 
 	var/armor = getarmor(attack_flag = BOMB)	//Average bomb protection
