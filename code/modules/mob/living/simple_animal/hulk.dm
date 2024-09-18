@@ -153,7 +153,7 @@
 
 	for(var/mob/mob in contents)
 		mob.forceMove(loc)
-		REMOVE_TRAIT(mob, TRAIT_GODMODE)
+		REMOVE_TRAIT(mob, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 		if(isliving(mob))
 			var/mob/living/living = mob
 			living.Paralyse(30 SECONDS)
