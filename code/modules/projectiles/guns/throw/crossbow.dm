@@ -205,6 +205,9 @@
 	name = "makeshift bolt"
 	desc = "A sharpened metal rod that can be fired out of a crossbow."
 	icon_state = "metal-rod"
+	item_state = "metal-rod"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	throwforce = 10
 
 /obj/item/arrow/proc/modify_arrow()

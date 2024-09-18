@@ -117,6 +117,8 @@
 
 /obj/item/projectile/bullet/reusable/arrow/prehit(atom/target)
 	var/mob/living/H = target
+	if(istype(target, /obj/))
+		return
 	if(LAZYLEN(nemesis_factions))
 		for(var/faction in H.faction)
 			if(faction in nemesis_factions)
@@ -138,6 +140,9 @@
 	name = "arrow"
 	desc = "Stab, stab, stab."
 	icon_state = "arrow"
+	item_state = "arrow"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 10
 	projectile_type = /obj/item/projectile/bullet/reusable/arrow
 	muzzle_flash_effect = null
@@ -147,6 +152,9 @@
 	name = "bone-tipped arrow"
 	desc = "An arrow made from bone, wood, and sinew. Sturdy and sharp."
 	icon_state = "bone_arrow"
+	item_state = "bone_arrow"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 12
 	projectile_type = /obj/item/projectile/bullet/reusable/arrow/bone
 	caliber = "bone_arrow"
