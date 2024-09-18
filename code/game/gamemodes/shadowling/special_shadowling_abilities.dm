@@ -50,7 +50,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 		new /obj/structure/alien/weeds/node(shadowturf) //Dim lighting in the chrysalis -- removes itself afterwards
 
 	//Can't die while hatching
-	user.status_flags |= GODMODE
+	ADD_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 
 	user.visible_message(span_warning("A chrysalis forms around [user], sealing [user.p_them()] inside."), \
 						span_shadowling("You create your chrysalis and begin to contort within."))
@@ -101,9 +101,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	user.real_name = newNameId
 	user.name = user.real_name
 	to_chat(user, span_mind_control("YOU LIVE!!!"))
-
-	user.status_flags &= ~GODMODE
-	REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+	user.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 
 	for(var/obj/structure/alien/resin/wall/shadowling/resin in orange(user, 1))
 		qdel(resin)
