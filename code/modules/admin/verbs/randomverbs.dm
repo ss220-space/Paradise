@@ -199,10 +199,14 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	ADD_TRAIT(mob, TRAIT_GODMODE, ADMIN_TRAIT)
-	to_chat(usr, span_notice("Toggled [HAS_TRAIT(mob, TRAIT_GODMODE) ? "ON" : "OFF"]"), confidential=TRUE)
+	var/had_trait = HAS_TRAIT_FROM(mob, TRAIT_GODMODE, ADMIN_TRAIT)
+	if(had_trait)
+		REMOVE_TRAIT(mob, TRAIT_GODMODE, ADMIN_TRAIT)
+	else
+		ADD_TRAIT(mob, TRAIT_GODMODE, ADMIN_TRAIT)
 
-	log_and_message_admins("has toggled [key_name_admin(mob)]'s nodamage to [HAS_TRAIT(mob, TRAIT_GODMODE) ? "On" : "Off"]")
+	to_chat(usr, span_notice("Toggled [had_trait ? "OFF" : "ON"]"), confidential=TRUE)
+	log_and_message_admins("has toggled [key_name_admin(mob)]'s nodamage to [had_trait ? "Off" : "On"]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Godmode") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 
