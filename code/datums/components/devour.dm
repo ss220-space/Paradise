@@ -143,7 +143,7 @@
 /datum/component/devour/advanced/UnregisterFromParent()
     UnregisterSignal(parent, list(COMSIG_LIVING_GRAB_ATTACK, COMSIG_MOB_DEATH, COMSIG_PARENT_ATTACKBY, COMSIG_LIVING_GRAB_EQUIP))
 
-/datum/component/devour/advanced/proc/attackedby_item(/obj/item, /mob/living, params)
+/datum/component/devour/advanced/proc/attackedby_item(obj/item, mob/living, params)
 	SIGNAL_HANDLER
 
 	if(!isholder(item))
