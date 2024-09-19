@@ -289,6 +289,8 @@ REAGENT SCANNER
 
 	var/datum/money_account/connected_acc = null
 
+	var/mob/scanned = null
+
 /obj/item/healthanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	add_fingerprint(user)
 	scan_title = "Сканирование: [target]"
@@ -319,7 +321,7 @@ REAGENT SCANNER
 			print_report(user)
 		return 1
 	if(href_list["insurance"])
-		do_insurance_collection(user, connected_acc)
+		do_insurance_collection(scanned, connected_acc)
 		return 1
 	if(href_list["mode"])
 		toggle_mode()
@@ -506,6 +508,7 @@ REAGENT SCANNER
 	. = medical_scan_results(scan_subject, mode, advanced)
 	scanner.window_height += length(.) * 20
 	. = "<span class='highlight'>[jointext(., "<br>")]</span>"
+	scanner.scanned = scan_subject
 
 /proc/get_req_insurance(mob/living/carbon/human/user)
 	var/insurance = 0
@@ -741,6 +744,7 @@ REAGENT SCANNER
 	else
 		. += "Аккаунт не обнаружен"
 	. += "Требуемое количество очков страховки - [get_req_insurance(H)]"
+	. += "Текущее количество очков страховки - [acc.insurance]"
 
 // This is the output to the chat
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
