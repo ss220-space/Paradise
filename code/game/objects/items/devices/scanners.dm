@@ -744,7 +744,8 @@ REAGENT SCANNER
 	else
 		. += "Аккаунт не обнаружен"
 	. += "Требуемое количество очков страховки - [get_req_insurance(H)]"
-	. += "Текущее количество очков страховки - [acc.insurance]"
+	if (acc)
+		. += "Текущее количество очков страховки - [acc.insurance]"
 
 // This is the output to the chat
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
