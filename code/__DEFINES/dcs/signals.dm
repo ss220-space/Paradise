@@ -513,6 +513,10 @@
 // from /client/proc/change_view() : (new_size)
 #define COMSIG_VIEW_SET "view_set"
 
+/// Source: /mob/proc/ClickOn(atom/A, params)
+#define COMSIG_MOB_PRE_UNARMED_ATTACK "mob_pre_unarmed_attack"
+	#define COMPONENT_CANCEL_UNARMED_ATTACK (1<<0)
+
 // /mob/living signals
 
 ///from base of mob/living/resist() (/mob/living)
@@ -922,6 +926,8 @@
 #define COMSIG_TURF_MAKE_DRY "make_turf_try"
 ///called on an object to clean it of cleanables. Usualy with soap: (num/strength)
 #define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
+/// Source: /datum/component/devour/proc/devour(atom/movable/atom, params)
+#define COMSIG_COMPONENT_DEVOURED_TARGET "devoured_target"
 
 //Creamed
 
