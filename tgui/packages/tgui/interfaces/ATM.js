@@ -248,10 +248,16 @@ const ChangeInsuranceType = (props, context) => {
 
 const DefaultScreen = (props, context) => {
   const { act, data } = useBackend(context);
-  const [fundsAmount, setFundsAmount] =
-    useLocalState(context, 'fundsAmount', 0);
-  const [insuranceAmount, setInsuranceAmount] =
-    useLocalState(context, 'insuranceAmount', 0);
+  const [fundsAmount, setFundsAmount] = useLocalState(
+    context,
+    'fundsAmount',
+    0
+  );
+  const [insuranceAmount, setInsuranceAmount] = useLocalState(
+    context,
+    'insuranceAmount',
+    0
+  );
   const { owner_name, money, insurance } = data;
   return (
     <>
