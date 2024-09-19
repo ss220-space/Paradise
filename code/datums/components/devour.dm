@@ -34,12 +34,12 @@
     src.allowed_types = allowed_types
     src.blacklisted_types = blacklisted_types
     src.devouring_time = devouring_time
-	src.health_threshold = health_threshold
-	src.corpse_only = corpse_only
+    src.health_threshold = health_threshold
+    src.corpse_only = corpse_only
     src.drop_contents = drop_contents
     src.drop_anyway = drop_anyway
     src.silent = silent
-    src.cancel_attack = cancel_attack
+    src.cancel_attack - cancel_attack
 	
 /datum/component/devour/RegisterWithParent()
     RegisterSignal(parent, COMSIG_MOB_PRE_UNARMED_ATTACK, PROC_REF(try_devour))
@@ -76,17 +76,17 @@
     SEND_SIGNAL(parent, COMSIG_COMPONENT_PRE_DEVOUR_TARGET, atom, params)
     if(!silent)
         to_chat(parent, span_warning("Вы начинаете глотать [living] целиком..."))
-	if(devouring_time && !do_after(parent, devouring_time, atom, NONE))
+    if(devouring_time && !do_after(parent, devouring_time, atom, NONE))
 		return
     if(SEND_SIGNAL(parent, COMSIG_COMPONENT_DEVOURING_TARGET, atom, params) &  STOP_DEVOURING)
 		return
-	if(atom?.loc == parent)
+    if(atom?.loc == parent)
 		return
     if(!silent)
-	    playsound(parent, 'sound/misc/demon_attack1.ogg', 100, TRUE)
-	    parent.visible_message(span_warning("[parent] swallows [atom] whole!"))
+        playsound(parent, 'sound/misc/demon_attack1.ogg', 100, TRUE)
+        parent.visible_message(span_warning("[parent] swallows [atom] whole!"))
     atom.extinguish_light()
-	atom.forceMove(parent)
+    atom.forceMove(parent)
     SEND_SIGNAL(parent, COMSIG_COMPONENT_DEVOURED_TARGET, atom, params)
 
 /datum/component/devour/proc/on_mob_death(gibbed)
@@ -96,8 +96,8 @@
         return
     if(!drop_anyway && !gibbed)
         return
-	for(var/atom/movable/atom in parent)
-		atom.forceMove(parent.loc)
-		if(prob(90))
-			step(atom, pick(GLOB.alldirs))
+    for(var/atom/movable/atom in parent)
+        atom.forceMove(parent.loc)
+        if(prob(90))
+            step(atom, pick(GLOB.alldirs))
 
