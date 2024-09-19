@@ -22,25 +22,24 @@
     list/allowed_types,
     list/blacklisted_types,
     devouring_time = 3 SECONDS,
-	health_threshold,
-	corpse_only = TRUE,
+    health_threshold,
+    corpse_only = TRUE,
     drop_contents = TRUE,
     drop_anyway = FALSE,
     silent = FALSE,
-    cancel_attack = FALSE
+    cancel_attack = TRUE
 )
-	if(!ismob(parent))
-		return COMPONENT_INCOMPATIBLE
+    if(!ismob(parent))
+        return COMPONENT_INCOMPATIBLE
     src.allowed_types = allowed_types
     src.blacklisted_types = blacklisted_types
-    src.devouring_time = devouring_time
     src.health_threshold = health_threshold
     src.corpse_only = corpse_only
     src.drop_contents = drop_contents
     src.drop_anyway = drop_anyway
     src.silent = silent
-    src.cancel_attack - cancel_attack
-	
+    src.cancel_attack = cancel_attack
+
 /datum/component/devour/RegisterWithParent()
     RegisterSignal(parent, COMSIG_MOB_PRE_UNARMED_ATTACK, PROC_REF(try_devour))
     RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) // register anyway for flexibility
@@ -77,11 +76,11 @@
     if(!silent)
         to_chat(parent, span_warning("Вы начинаете глотать [living] целиком..."))
     if(devouring_time && !do_after(parent, devouring_time, atom, NONE))
-		return
-    if(SEND_SIGNAL(parent, COMSIG_COMPONENT_DEVOURING_TARGET, atom, params) &  STOP_DEVOURING)
-		return
+        return
+    if(SEND_SIGNAL(parent, COMSIG_COMPONENT_DEVOURING_TARGET, atom, params) & STOP_DEVOURING)
+        return
     if(atom?.loc == parent)
-		return
+        return
     if(!silent)
         playsound(parent, 'sound/misc/demon_attack1.ogg', 100, TRUE)
         parent.visible_message(span_warning("[parent] swallows [atom] whole!"))
