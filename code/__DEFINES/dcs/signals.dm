@@ -936,7 +936,6 @@
 
 /// Source: initiates on mob and going here /datum/component/devour/advanced/devour(mob/living/gourmet, mob/living/living)
 #define COMSIG_COMPONENT_DEVOUR_INITIATE "initiate_devour"
-	#define COMSIG_MOB_DEVOURED (1<<0)
 
 //Creamed
 

@@ -39,7 +39,7 @@
 /obj/item/holder/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target == user && ishuman(user))	//eating holder
 		for(var/mob/living/mob in contents)
-			if(SEND_SIGNAL(user, COMSIG_COMPONENT_DEVOUR_INITIATE, target) &  COMSIG_MOB_DEVOURED)
+			if(HAS_TRAIT(mob, TRAIT_DEVOURED))
 				qdel(src)
 				return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
