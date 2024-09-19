@@ -74,19 +74,20 @@
 /datum/component/devour/proc/devour(atom/movable/atom, params)
     SEND_SIGNAL(parent, COMSIG_COMPONENT_PRE_DEVOUR_TARGET, atom, params)
     if(!silent)
-        to_chat(parent, span_warning("Вы начинаете глотать [living] целиком..."))
+        to_chat(parent, span_warning("Вы начинаете глотать [atom] целиком..."))
     if(devouring_time && !do_after(parent, devouring_time, atom, NONE))
         return
     if(SEND_SIGNAL(parent, COMSIG_COMPONENT_DEVOURING_TARGET, atom, params) & STOP_DEVOURING)
         return
-    if(atom?.loc == parent)
+    var/mob/mob = parent
+    if(atom?.loc == mob)
         return
     if(!silent)
         playsound(parent, 'sound/misc/demon_attack1.ogg', 100, TRUE)
-        parent.visible_message(span_warning("[parent] swallows [atom] whole!"))
+        mob.visible_message(span_warning("[mob] swallows [atom] whole!"))
     atom.extinguish_light()
-    atom.forceMove(parent)
-    SEND_SIGNAL(parent, COMSIG_COMPONENT_DEVOURED_TARGET, atom, params)
+    atom.forceMove(mob)
+    SEND_SIGNAL(mob, COMSIG_COMPONENT_DEVOURED_TARGET, atom, params)
 
 /datum/component/devour/proc/on_mob_death(gibbed)
     SIGNAL_HANDLER
@@ -95,8 +96,9 @@
         return
     if(!drop_anyway && !gibbed)
         return
-    for(var/atom/movable/atom in parent)
-        atom.forceMove(parent.loc)
+    var/mob/mob = parent
+    for(var/atom/movable/atom in mob)
+        atom.forceMove(mob.loc)
         if(prob(90))
             step(atom, pick(GLOB.alldirs))
 
