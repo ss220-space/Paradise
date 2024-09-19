@@ -605,10 +605,9 @@
 	harmful = FALSE
 	var/mob/living/carbon/prisoner
 	var/mob/living/carbon/holding
-	var/mob/living/carbon/mecha_occupant //to remove alerts after leaving the mech
 	var/turf/holding_turf
 	var/datum/action/innate/mecha/select_module/button // for custom icons
-	var/atom/movable/screen/alert/mech_cage/current_alert //wacky case
+	var/current_alert //wacky case
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
 	if(..())
@@ -630,17 +629,18 @@
 			stop_supressing(holding)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/cage/select_module()
-	if(prisoner)
-		change_alert(/atom/movable/screen/alert/mech_cage/three)
-	else if(holding)
-		if(!holding.handcuffed)
-			change_alert(/atom/movable/screen/alert/mech_cage/one)
+/obj/item/mecha_parts/mecha_equipment/cage/select_set_alert()
+	. = ..()
+	if(.)
+		if(prisoner)
+			change_alert("three")
+		else if(holding)
+			if(!holding.handcuffed)
+				change_alert("one")
+			else
+				change_alert("two")
 		else
-			change_alert(/atom/movable/screen/alert/mech_cage/two)
-	else
-		change_alert(/atom/movable/screen/alert/mech_cage/zero)
-	..()
+			change_alert("zero")
 
 /obj/item/mecha_parts/mecha_equipment/cage/action(mob/living/carbon/target)
 	if(!action_checks(target))
@@ -656,11 +656,11 @@
 		if(supress_check)
 			occupant_message(span_notice("You stop supressing [holding], and start supressing [target]..."))
 			chassis.visible_message(span_warning("[chassis] stops supressing [holding] and switches to [target]."))
-			stop_supressing(holding)
+			stop_supressing(holding, FALSE)
 			if(!do_after_cooldown(target))
 				return FALSE
 			if(!prisoner)
-				change_alert(/atom/movable/screen/alert/mech_cage/one)
+				change_alert("one")
 			supress(target)
 			return TRUE
 	if(!holding && supress_check)
@@ -669,7 +669,7 @@
 		if(!do_after_cooldown(target))
 			return FALSE
 		if(!prisoner)
-			change_alert(/atom/movable/screen/alert/mech_cage/one)
+			change_alert("one")
 		supress(target)
 		return TRUE
 
@@ -680,7 +680,7 @@
 		if(!do_after_cooldown(target))
 			return FALSE
 		if(!prisoner)
-			change_alert(/atom/movable/screen/alert/mech_cage/two)
+			change_alert("two")
 		target.apply_restraints(new /obj/item/restraints/handcuffs, ITEM_SLOT_HANDCUFFED, TRUE)
 		occupant_message(span_notice("You successfully cuff [target]..."))
 		chassis.visible_message(span_warning("[chassis] successfully cuffed [target]."))
@@ -705,7 +705,7 @@
 			change_state("mecha_cage")
 			return FALSE
 		change_state("mecha_cage_activated")
-		change_alert(/atom/movable/screen/alert/mech_cage/three)
+		change_alert("three")
 		target.forceMove(src)
 		prisoner = target
 		stop_supressing(target)
@@ -724,24 +724,32 @@
 	target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
 	target.move_resist = MOVE_FORCE_STRONG
 
-/obj/item/mecha_parts/mecha_equipment/cage/proc/stop_supressing(mob/living/carbon/target)
+/obj/item/mecha_parts/mecha_equipment/cage/proc/stop_supressing(mob/living/carbon/target, var/alert = TRUE)
 	holding = null
 	holding_turf = null
 	target.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
 	target.move_resist = MOVE_FORCE_DEFAULT
 
-	if(!prisoner)
-		change_alert(/atom/movable/screen/alert/mech_cage/zero)
+	if(!prisoner && alert)
+		change_alert("zero")
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/change_state(icon)
 	button.button_icon_state = icon
 	button.UpdateButtonIcon()
 
-/obj/item/mecha_parts/mecha_equipment/cage/proc/change_alert(atom/movable/screen/alert/mech_cage/new_alert)
+/obj/item/mecha_parts/mecha_equipment/cage/proc/change_alert(var/stage_number) //zero, one, two, three in string
 	var/mob/living/carbon/H = chassis.occupant
-	H.clear_alert("mecha_cage")
-	H.throw_alert("mecha_cage", new_alert)
-	current_alert = new_alert
+	switch(stage_number)
+		if("zero")
+			H.throw_alert(alert_category, /atom/movable/screen/alert/mech_cage/zero)
+		if("one")
+			H.throw_alert(alert_category, /atom/movable/screen/alert/mech_cage/one)
+		if("two")
+			H.throw_alert(alert_category, /atom/movable/screen/alert/mech_cage/two)
+		if("three")
+			H.throw_alert(alert_category, /atom/movable/screen/alert/mech_cage/three)
+
+	current_alert = stage_number
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/prisoner_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
@@ -805,8 +813,8 @@
 /obj/item/mecha_parts/mecha_equipment/cage/process()
 	if(holding || prisoner)
 		if(holding)
-			var/turf/actual_turf = holding.loc
-			if((actual_turf.x != holding_turf.x) || (actual_turf.y != holding_turf.y))
+			var/turf/actual_turf = get_turf(holding)
+			if(actual_turf != holding_turf)
 				stop_supressing(holding)
 				actual_turf = null
 			if(chassis.occupant == null)
@@ -815,17 +823,16 @@
 		if(prisoner)
 			if(!istype(prisoner.loc, src))
 				prisoner = null
-		else if(istype(current_alert, /atom/movable/screen/alert/mech_cage/three))
-			if(!holding.handcuffed)
-				change_alert(/atom/movable/screen/alert/mech_cage/one)
+		else if(current_alert == "three")
+			if(holding.handcuffed)
+				change_alert("two")
 			else
-				change_alert(/atom/movable/screen/alert/mech_cage/two)
+				change_alert("one")
+		else if(button)
+			if(button.button_icon_state == "mecha_cage_activated")
+				change_state("mecha_cage")
+
 	else
 		if(chassis.occupant)
-			mecha_occupant = chassis.occupant
-			change_alert(/atom/movable/screen/alert/mech_cage/zero)
-		if(button)
-			change_state("mecha_cage")
-			button = null
-	if(!chassis.occupant || !istype(chassis.selected, src))
-		mecha_occupant.clear_alert("mecha_cage")
+			if(current_alert != "zero")
+				change_alert("zero")

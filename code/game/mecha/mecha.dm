@@ -1407,6 +1407,7 @@
 	occupant.clear_alert("mech damage")
 	occupant.clear_alert("mechaport")
 	occupant.clear_alert("mechaport_d")
+	occupant.clear_alert(selected.alert_category)
 	if(occupant && occupant.client)
 		occupant.client.mouse_pointer_icon = initial(occupant.client.mouse_pointer_icon)
 	if(ishuman(occupant))

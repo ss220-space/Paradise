@@ -23,7 +23,7 @@
 	var/selectable = MODULE_SELECTABLE_FULL
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
 	var/integrated = FALSE // Preventing modules from getting detached.
-
+	var/alert_category = "mecha_module" //only one alert at a time. sorry
 
 /obj/item/mecha_parts/mecha_equipment/proc/update_chassis_page()
 	if(chassis)
@@ -181,6 +181,8 @@
 		return
 	if(chassis.occupant)
 		remove_targeted_action()
+		if(alert_category)
+			chassis.occupant.clear_alert(alert_category)
 	detach_act()
 	moveto = moveto || get_turf(chassis)
 	if(Move(moveto))
@@ -224,10 +226,18 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/select_module()
+	select_set_alert()
 	chassis.selected = src
 	chassis.occupant_message(span_notice("You switch to [src]."))
 	chassis.visible_message("[chassis] raises [src]")
 	send_byjax(chassis.occupant, "exosuit.browser", "eq_list", chassis.get_equipment_list())
+
+/obj/item/mecha_parts/mecha_equipment/proc/select_set_alert() //change according to your needs
+	if(chassis.selected != src)
+		var/mob/living/carbon/occupant = chassis.occupant
+		occupant.clear_alert(alert_category)
+		return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/toggle_module()
 	return
