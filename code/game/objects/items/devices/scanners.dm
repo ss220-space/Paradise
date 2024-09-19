@@ -516,12 +516,19 @@ REAGENT SCANNER
 
 	insurance += user.radiation * REQ_INSURANCE_RAD
 	insurance += user.getCloneLoss() * REQ_INSURANCE_CLONE
+	insurance += round(1 - (BLOOD_VOLUME_NORMAL - user.blood_volume) / BLOOD_VOLUME_NORMAL) * 100 * REQ_INSURANCE_BLOOD
 
 	var/internal_bleedings = 0
 	for(var/obj/item/organ/external/bodypart as anything in user.bodyparts)
 		if(bodypart.has_internal_bleeding())
 			internal_bleedings++
 	insurance += internal_bleedings * REQ_INSURANCE_INTBLEED
+
+	var/broken_bones = 0
+	for(var/obj/item/organ/external/bodypart as anything in user.bodyparts)
+		if(bodypart.has_fracture())
+			broken_bones++
+	insurance += broken_bones * REQ_INSURANCE_BONE
 
 	var/missed_organs = 0
 	for (var/organ in user.dna.species.has_organ)
@@ -534,6 +541,12 @@ REAGENT SCANNER
 		if (!(limb in user.bodyparts))
 			missed_limbs++
 	insurance += missed_limbs * REQ_INSURANCE_LOST_LIMB
+
+	if (user.health < HEALTH_THRESHOLD_CRIT)
+		insurance += REQ_INSURANCE_CRIT
+
+	if (user.stat == DEAD)
+		insurance += REQ_INSURANCE_DEATH
 
 	return insurance
 
