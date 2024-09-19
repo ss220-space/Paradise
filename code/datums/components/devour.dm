@@ -179,8 +179,8 @@
     for(var/datum/disease/virus/virus in living.diseases)
         if(virus.spread_flags > NON_CONTAGIOUS)
             virus.Contract(living)
-
-   add_to_contents(living)
+    
+    add_to_contents(living)
 
 /// Does all the checking for the [/proc/devoured()] to see if a mob can eat another with the grab.
 /datum/component/devour/advanced/proc/can_devour(mob/living/carbon/gourmet, mob/living/target)
