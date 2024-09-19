@@ -110,14 +110,14 @@
 /datum/component/devour/advanced
 
 /datum/component/devour/advanced/RegisterWithParent()
-    RegisterSignal(parent, COMSIG_COMPONENT_DEVOUR_INITIATE, PROC_REF(devour))
+    RegisterSignal(parent, COMSIG_COMPONENT_DEVOUR_INITIATE, PROC_REF(adv_devour))
     RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_mob_death))
 
 /datum/component/devour/advanced/UnregisterFromParent()
     UnregisterSignal(parent, list(COMSIG_COMPONENT_DEVOUR_INITIATE, COMSIG_MOB_DEATH))
 
 /// Living(target) is devoured by gourmet.
-/datum/component/devour/advanced/devour(mob/living/carbon/gourmet, mob/living/living)
+/datum/component/devour/advanced/proc/adv_devour(mob/living/carbon/gourmet, mob/living/living)
     SIGNAL_HANDLER
 
     if(!check_types(living) || !can_devour(gourmet))
