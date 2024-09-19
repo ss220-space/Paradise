@@ -54,7 +54,7 @@
         return
     
     INVOKE_ASYNC(src, PROC_REF(devour), atom, params)
-    if(!cancel_attact)
+    if(!cancel_attack)
         return
     return COMPONENT_CANCEL_UNARMED_ATTACK
 
