@@ -132,14 +132,14 @@
 	)
 
 
-/datum/species/kidan/on_species_loss(mob/living/carbon/human/H)
+/datum/species/kidan/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
-	remove_verb(H, list(
+	remove_verb(human, list(
 		/mob/living/carbon/human/proc/emote_click,
 		/mob/living/carbon/human/proc/emote_clack,
 		/mob/living/carbon/human/proc/emote_wiggle,
 		/mob/living/carbon/human/proc/emote_wave_k))
-	add_verb(H, list(
+	add_verb(human, list(
 		/mob/living/carbon/human/verb/emote_pale,
 		/mob/living/carbon/human/verb/emote_blink,
 		/mob/living/carbon/human/verb/emote_blink_r,
@@ -155,11 +155,14 @@
 
 	// Removing the HUD for detecting pheromones
 	var/datum/atom_hud/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
-	kidan_hud.remove_hud_from(H)
+	kidan_hud.remove_hud_from(human)
 
 	// Removing the action for creating pheromones
-	var/datum/action/innate/produce_pheromones/produce_pheromones = locate() in H.actions
-	produce_pheromones?.Remove(H)
+	var/datum/action/innate/produce_pheromones/produce_pheromones = locate() in human.actions
+	produce_pheromones?.Remove(human)
+	var/devour_component = human.GetComponent(/datum/component/devour/advanced)
+	if(devour_component)
+		qdel(devour_component)
 
 
 /// Pheromones spawnable by kida, only perceivable by other kida

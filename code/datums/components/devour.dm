@@ -120,7 +120,11 @@
 /datum/component/devour/advanced/proc/adv_devour(mob/living/carbon/gourmet, mob/living/living)
     SIGNAL_HANDLER
 
-    if(!check_types(living) || !can_devour(gourmet))
+    if(!istype(living))
+        return
+    if(allowed_types && !is_type_in_list(living, allowed_types))
+        return
+    if(blacklisted_types && is_type_in_list(living, blacklisted_types))
         return
 
     var/target = isturf(living.loc) ? living : gourmet

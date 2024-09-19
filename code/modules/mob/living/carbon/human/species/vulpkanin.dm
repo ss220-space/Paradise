@@ -83,9 +83,12 @@
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble), \
 	)
 
-/datum/species/vulpkanin/on_species_loss(mob/living/carbon/human/H)
+/datum/species/vulpkanin/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
-	remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_howl)
-	remove_verb(H, /mob/living/carbon/human/proc/emote_growl)
+	remove_verb(human, /mob/living/carbon/human/proc/emote_wag)
+	remove_verb(human, /mob/living/carbon/human/proc/emote_swag)
+	remove_verb(human, /mob/living/carbon/human/proc/emote_howl)
+	remove_verb(human, /mob/living/carbon/human/proc/emote_growl)
+	var/devour_component = human.GetComponent(/datum/component/devour/advanced)
+	if(devour_component)
+		qdel(devour_component)

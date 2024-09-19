@@ -117,9 +117,9 @@
 	)
 
 
-/datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
+/datum/species/unathi/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
-	remove_verb(H, list(
+	remove_verb(human, list(
 		/mob/living/carbon/human/proc/emote_wag,
 		/mob/living/carbon/human/proc/emote_swag,
 		/mob/living/carbon/human/proc/emote_hiss_unathi,
@@ -128,8 +128,11 @@
 		/mob/living/carbon/human/proc/emote_whip,
 		/mob/living/carbon/human/proc/emote_whip_l,
 		/mob/living/carbon/human/proc/emote_rumble))
-	var/datum/action/innate/tail_cut/lash = locate() in H.actions
-	lash?.Remove(H)
+	var/datum/action/innate/tail_cut/lash = locate() in human.actions
+	lash?.Remove(human)
+	var/devour_component = human.GetComponent(/datum/component/devour/advanced)
+	if(devour_component)
+		qdel(devour_component)
 
 
 /datum/species/unathi/handle_life(mob/living/carbon/human/H)
