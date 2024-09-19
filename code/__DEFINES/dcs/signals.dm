@@ -610,6 +610,13 @@
 #define COMSIG_LIVING_GRAB "living_grab"
 	// Return COMPONENT_CANCEL_ATTACK_CHAIN to stop the grab
 
+/// Source: /mob/living/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+#define COMSIG_LIVING_GRAB_ATTACK "grab_attack"
+
+/// Source: /mob/living/proc/on_grab_quick_equip(atom/movable/grabbed_thing, current_pull_hand)
+#define COMSIG_LIVING_GRAB_EQUIP "grab_equip"
+	#define GRAB_EQUIP_SUCCESS	(1<<0)
+
 ///from base of /mob/living/can_track(): (mob/user)
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)

@@ -135,23 +135,68 @@
         return COMPONENT_INCOMPATIBLE
 
 /datum/component/devour/advanced/RegisterWithParent()
-    RegisterSignal(parent, COMSIG_COMPONENT_DEVOUR_INITIATE, PROC_REF(adv_devour))
+    RegisterSignal(parent, COMSIG_LIVING_GRAB_ATTACK, PROC_REF(grab_attack))
+    RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(attackedby_item))
+    RegisterSignal(parent, COMSIG_LIVING_GRAB_EQUIP, PROC_REF(grab_equip))
     RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_mob_death))
 
 /datum/component/devour/advanced/UnregisterFromParent()
     UnregisterSignal(parent, list(COMSIG_COMPONENT_DEVOUR_INITIATE, COMSIG_MOB_DEATH))
 
-/// Living(target) is devoured by gourmet.
+/datum/component/devour/advanced/proc/attackedby_item(/obj/item, /mob/living, params)
+	SIGNAL_HANDLER
+
+	if(!isholder(item))
+		return
+    var/mob/living/mob = locate() in item.contents
+    if(!mob)
+        return
+	if(!isliving(living))
+        return
+
+	INVOKE_ASYNC(src, PROC_REF(devouring), living, mob, item)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/datum/component/devour/advanced/proc/grab_equip(datum/source, atom/movable/grabbed_thing, current_pull_hand)
+    SIGNAL_HANDLER
+
+    if(!check_types(grabbed_thing))
+        return
+
+    INVOKE_ASYNC(src, PROC_REF(devouring), source, grabbed_thing)
+	return GRAB_EQUIP_SUCCESS
+
+/datum/component/devour/advanced/proc/grab_attack(datum/source, mob/living/grabber, atom/movable/grabbed_thing)
+    SIGNAL_HANDLER
+
+    if(!check_types(grabbed_thing))
+        return
+    if(grabber.a_intent != INTENT_GRAB)
+        return
+	if(grabber != source)
+        return
+
+    INVOKE_ASYNC(src, PROC_REF(devouring), gourmet, grabbed_thing)
+	return
+
 /datum/component/devour/advanced/proc/adv_devour(mob/living/carbon/gourmet, mob/living/living)
     SIGNAL_HANDLER
+
+    if(!check_types(living))
+        return
 
     INVOKE_ASYNC(src, PROC_REF(devouring), gourmet, living)
     return
 
-/datum/component/devour/advanced/proc/devouring(mob/living/carbon/gourmet, mob/living/living)
-    if(!check_types(living))
-        return
+/datum/component/devour/advanced/check_types(atom/movable/atom)
+    . = ..()
+    if(!.)
+        return FALSE
+    if(!isliving(atom))
+        return FALSE
+    return TRUE
 
+/datum/component/devour/advanced/proc/devouring(mob/living/carbon/gourmet, mob/living/living, obj/item)
     var/target = isturf(living.loc) ? living : gourmet
     gourmet.setDir(get_dir(gourmet, living))
 
@@ -181,20 +226,20 @@
             virus.Contract(living)
     
     add_to_contents(living)
+    if(isholder(item))
+        qdel(item)
 
 /datum/component/devour/advanced/add_to_contents(atom/movable/target)
     . = ..()
     var/mob/living/carbon/carbon = .
     LAZYADD(carbon.stomach_contents, target)
 
-/// Does all the checking for the [/proc/devoured()] to see if a mob can eat another with the grab.
 /datum/component/devour/advanced/proc/can_devour(mob/living/carbon/gourmet, mob/living/target)
 	if(isalienadult(gourmet))
 		var/mob/living/carbon/alien/humanoid/alien = gourmet
 		return alien.can_consume(target)
 	return FALSE
 
-/// Returns the time devourer has to wait before they eat a prey.
 /datum/component/devour/advanced/proc/get_devour_time(mob/living/gourmet, mob/living/target)
 	if(isanimal(target))
 		return DEVOUR_TIME_ANIMAL
