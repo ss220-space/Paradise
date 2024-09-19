@@ -62,8 +62,8 @@
     var/mob/mob/carbon/gourmet = parent
     target.extinguish_light()
     target.forceMove(gourmet)
-    LAZYADD(gourmet.stomach_contents, living)
-    ADD_TRAIT(trait, TRAIT_DEVOURED, UNIQUE_TRAIT_SOURCE(src))
+    LAZYADD(gourmet.stomach_contents, target)
+    ADD_TRAIT(target, TRAIT_DEVOURED, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/component/devour/proc/check_types(atom/movable/atom)
     if(allowed_types && !is_type_in_list(atom, allowed_types))
