@@ -58,6 +58,13 @@
         return
     return COMPONENT_CANCEL_UNARMED_ATTACK
 
+/datum/component/devour/proc/add_to_contents(atom/movable/target)
+    var/mob/mob/carbon/gourmet = parent
+    target.extinguish_light()
+    target.forceMove(gourmet)
+    LAZYADD(gourmet.stomach_contents, living)
+    ADD_TRAIT(trait, TRAIT_DEVOURED, UNIQUE_TRAIT_SOURCE(src))
+
 /datum/component/devour/proc/check_types(atom/movable/atom)
     if(allowed_types && !is_type_in_list(atom, allowed_types))
         return FALSE
@@ -89,8 +96,7 @@
     if(!silent)
         playsound(parent, 'sound/misc/demon_attack1.ogg', 100, TRUE)
         mob.visible_message(span_warning("[mob] swallows [atom] whole!"))
-    atom.extinguish_light()
-    atom.forceMove(mob)
+    add_to_contents(atom)
     SEND_SIGNAL(mob, COMSIG_COMPONENT_DEVOURED_TARGET, atom, params)
 
 /datum/component/devour/proc/on_mob_death(gibbed)
@@ -111,6 +117,23 @@
 /// Advanced version of devour component which works on special signals.
 /datum/component/devour/advanced
 
+/datum/component/devour/advanced/Initialize(
+    list/allowed_types,
+    list/blacklisted_types,
+    devouring_time,
+    health_threshold,
+    corpse_only = TRUE,
+    drop_contents = TRUE,
+    drop_anyway = FALSE,
+    silent = FALSE,
+    cancel_attack = TRUE
+)
+    . = ..()
+    if(. & COMPONENT_INCOMPATIBLE)
+        return COMPONENT_INCOMPATIBLE
+    if(!iscarbon(parent))
+        return COMPONENT_INCOMPATIBLE
+
 /datum/component/devour/advanced/RegisterWithParent()
     RegisterSignal(parent, COMSIG_COMPONENT_DEVOUR_INITIATE, PROC_REF(adv_devour))
     RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_mob_death))
@@ -126,6 +149,9 @@
     return
 
 /datum/component/devour/advanced/proc/devouring(mob/living/carbon/gourmet, mob/living/living)
+    if(!check_types(living))
+        return
+
     var/target = isturf(living.loc) ? living : gourmet
     gourmet.setDir(get_dir(gourmet, living))
 
@@ -154,9 +180,7 @@
         if(virus.spread_flags > NON_CONTAGIOUS)
             virus.Contract(living)
 
-    living.forceMove(gourmet)
-    LAZYADD(gourmet.stomach_contents, living)
-    ADD_TRAIT(living, TRAIT_DEVOURED, UNIQUE_TRAIT_SOURCE(src))
+   add_to_contents(living)
 
 /// Does all the checking for the [/proc/devoured()] to see if a mob can eat another with the grab.
 /datum/component/devour/advanced/proc/can_devour(mob/living/carbon/gourmet, mob/living/target)
