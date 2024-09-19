@@ -278,7 +278,7 @@
 		H.LAssailant = null
 	else
 		H.LAssailant = owner.current
-	while(do_after(owner.current, 5 SECONDS, H, NONE))
+	while(do_after(owner.current, 5 SECONDS, H, NONE, interaction_key = DOAFTER_SOURCE_VAMPIRE_SUCKING, max_interact_count = 1))
 		if(!isvampire(owner))
 			to_chat(owner.current, span_userdanger("Ваши клыки исчезают!"))
 			return
@@ -289,7 +289,7 @@
 				to_chat(owner.current, span_warning("Вы поглотили всю жизненную эссенцию [H], дальнейшее питьё крови будет только утолять голод"))
 				blood_limit_exceeded = TRUE
 
-		if(H.stat < DEAD)
+		if(H.stat < DEAD || H.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED))
 			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, H.blood_volume) / 2	// if they have less than 20 blood, give them the remnant else they get 20 blood
 				if(!blood_limit_exceeded)

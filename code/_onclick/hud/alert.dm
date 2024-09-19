@@ -753,8 +753,8 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!usr || !usr.client)
 		return
 	if(stone)
-		if(alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
-		impossible for you to get back into the game as your regular character.",, "No", "Yes") ==  "Yes")
+		if(tgui_alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
+		impossible for you to get back into the game as your regular character.", "Respawn", list("No", "Yes")) ==  "Yes")
 			stone?.opt_in = TRUE
 
 /atom/movable/screen/alert/notify_soulstone/Destroy()
@@ -848,3 +848,17 @@ so as to remain in compliance with the most up-to-date laws."
 	master = null
 	screen_loc = ""
 	return ..()
+
+/// Gives the player the option to succumb while in critical condition
+/atom/movable/screen/alert/succumb
+	name = "Succumb"
+	desc = "Shuffle off this mortal coil."
+	icon_state = "succumb"
+
+/atom/movable/screen/alert/succumb/Click()
+	if(!usr || !usr.client)
+		return
+	var/mob/living/living_owner = usr
+	if(!istype(usr))
+		return
+	living_owner.do_succumb(TRUE)

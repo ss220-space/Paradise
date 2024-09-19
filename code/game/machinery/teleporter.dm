@@ -52,18 +52,25 @@
 			break
 	return power_station
 
+
 /obj/machinery/computer/teleporter/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/gps))
-		var/obj/item/gps/L = I
-		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
-			if(!user.drop_transfer_item_to_loc(L, src))
-				to_chat(user, span_warning("[I] is stuck to your hand, you cannot put it in [src]"))
-				return
-			add_fingerprint(user)
-			locked = L
-			to_chat(user, span_caution("You insert the GPS device into the [src]'s slot."))
-	else
+	if(user.a_intent == INTENT_HARM || (stat & (NOPOWER|BROKEN)))
 		return ..()
+
+	if(istype(I, /obj/item/gps))
+		add_fingerprint(user)
+		var/obj/item/gps/gps = I
+		if(!gps.locked_location)
+			to_chat(user, span_warning("The [gps.name] has no specified location."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(gps, src))
+			return ..()
+		locked = gps
+		to_chat(user, span_caution("You insert the GPS device into the [src]'s slot."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/machinery/computer/teleporter/emag_act(mob/user)
 	if(!emagged)
@@ -354,7 +361,7 @@
 	RefreshParts()
 
 /obj/machinery/teleport/hub/Initialize()
-	..()
+	. = ..()
 	link_power_station()
 	update_icon()
 
@@ -396,9 +403,12 @@
 
 
 /obj/machinery/teleport/hub/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/machinery/teleport/hub/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -553,9 +563,12 @@
 
 
 /obj/machinery/teleport/perma/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/machinery/teleport/perma/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -625,16 +638,26 @@
 		teleporter_console = null
 	return ..()
 
+
 /obj/machinery/teleport/station/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(exchange_parts(user, I))
-		return
-	if(panel_open && istype(I, /obj/item/circuitboard/teleporter_perma))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/circuitboard/teleporter_perma))
 		add_fingerprint(user)
-		var/obj/item/circuitboard/teleporter_perma/C = I
-		C.target = teleporter_console.target
-		to_chat(user, span_caution("You copy the targeting information from [src] to [C]"))
-		return
+		if(!panel_open)
+			to_chat(user, span_warning("Open th panel first!"))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/circuitboard/teleporter_perma/circuit = I
+		circuit.target = teleporter_console.target
+		to_chat(user, span_caution("You copy the targeting information from [src] to [circuit]"))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
 
 /obj/machinery/teleport/station/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))

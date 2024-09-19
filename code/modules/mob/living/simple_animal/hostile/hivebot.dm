@@ -28,6 +28,7 @@
 	bubble_icon = "machine"
 	del_on_death = 1
 	footstep_type = FOOTSTEP_MOB_CLAW
+	AI_delay_max = 0.5 SECONDS
 
 /mob/living/simple_animal/hostile/hivebot/range
 	name = "Hivebot"

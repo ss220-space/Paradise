@@ -49,14 +49,26 @@
 
 /proc/collect_vv(obj/item/I)
 	//Temporary/Internal stuff, do not copy these.
-	var/static/list/ignored_vars = list("vars","x","y","z","plane","layer","override","animate_movement","pixel_step_size","screen_loc","fingerprintslast","tip_timer")
+	var/static/list/ignored_vars = list(
+		NAMEOF(I, animate_movement) = TRUE,
+		NAMEOF(I, datum_flags) = TRUE,
+		NAMEOF(I, fingerprintslast) = TRUE,
+		NAMEOF(I, layer) = TRUE,
+		NAMEOF(I, plane) = TRUE,
+		NAMEOF(I, screen_loc) = TRUE,
+		NAMEOF(I, tip_timer) = TRUE,
+		NAMEOF(I, vars) = TRUE,
+		NAMEOF(I, x) = TRUE,
+		NAMEOF(I, y) = TRUE,
+		NAMEOF(I, z) = TRUE,
+	)
 
-	if(istype(I))
+	if(istype(I) && (I.datum_flags & DF_VAR_EDITED))
 		var/list/vedits = list()
 		for(var/varname in I.vars)
 			if(!I.can_vv_get(varname))
 				continue
-			if(varname in ignored_vars)
+			if(ignored_vars[varname])
 				continue
 			var/vval = I.vars[varname]
 			//Does it even work ?
@@ -68,19 +80,20 @@
 			vedits[varname] = I.vars[varname]
 		return vedits
 
+
 /mob/living/carbon/human/proc/copy_outfit()
 	var/datum/outfit/varedit/O = new
 
 	//Copy equipment
 	var/list/result = list()
 	var/list/slots_to_check = list(ITEM_SLOT_CLOTH_INNER, ITEM_SLOT_BACK, ITEM_SLOT_CLOTH_OUTER, ITEM_SLOT_BELT, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_HEAD, ITEM_SLOT_MASK, ITEM_SLOT_NECK, ITEM_SLOT_EAR_LEFT, ITEM_SLOT_EAR_RIGHT, ITEM_SLOT_EYES, ITEM_SLOT_PDA, ITEM_SLOT_SUITSTORE, ITEM_SLOT_POCKET_LEFT, ITEM_SLOT_POCKET_RIGHT)
-	for(var/s in slots_to_check)
-		var/obj/item/I = get_item_by_slot(s)
+	for(var/slot in slots_to_check)
+		var/obj/item/I = get_item_by_slot(slot)
 		var/vedits = collect_vv(I)
 		if(vedits)
-			result["[s]"] = vedits
+			result["[slot]"] = vedits
 		if(istype(I))
-			O.set_equipment_by_slot(s, I.type)
+			O.set_equipment_by_slot(slot, I.type)
 
 	//Copy hands
 	if(l_hand || r_hand) //Not in the mood to let outfits transfer amputees
@@ -149,21 +162,19 @@
 	//Copy implants
 	O.implants = list()
 	for(var/obj/item/implant/I in contents)
-		if(istype(I))
-			O.implants |= I.type
+		O.implants |= I.type
 
 	// Copy cybernetic implants
 	O.cybernetic_implants = list()
 	for(var/obj/item/organ/internal/CI in (contents + internal_organs))
-		if(istype(CI))
-			O.cybernetic_implants |= CI.type
+		O.cybernetic_implants |= CI.type
 
 	// Copy accessories
 	var/obj/item/clothing/under/uniform_slot = get_item_by_slot(ITEM_SLOT_CLOTH_INNER)
 	if(uniform_slot)
 		O.accessories = list()
 		for(var/obj/item/clothing/accessory/accessory as anything in uniform_slot.accessories)
-			O.accessories |= accessory
+			O.accessories |= accessory.type
 
 	//Copy to outfit cache
 	var/outfit_name = stripped_input(usr, "Enter the outfit name")
@@ -185,7 +196,7 @@
 			else
 				I = H.get_item_by_slot(text2num(slot))
 		for(var/vname in edits)
-			I.vv_edit_var(vname,edits[vname])
+			I.vv_edit_var(vname, edits[vname])
 	//Dat thing will make your capes colored by using `"24":{"atom_colours":{"#ffffff":"3"}}` in "vv_values".
 	var/obj/item/neck_slot = H.get_item_by_slot(ITEM_SLOT_NECK)
 	if(neck_slot)

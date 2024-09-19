@@ -45,28 +45,32 @@
 		. += image('icons/obj/implants.dmi', imp.implant_state)
 
 
-/obj/item/implantcase/attackby(obj/item/I, mob/user)
+/obj/item/implantcase/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		rename_interactive(user, I)
-	else if(istype(I, /obj/item/implanter))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/implanter))
+		add_fingerprint(user)
 		var/obj/item/implanter/implater = I
 		if(implater.imp)
 			if(imp || implater.imp.implanted)
-				return
+				return ATTACK_CHAIN_PROCEED
 			implater.imp.forceMove(src)
 			imp = implater.imp
 			implater.imp = null
 			update_state()
 			implater.update_state()
-		else
-			if(imp)
-				if(implater.imp)
-					return
-				imp.forceMove(implater)
-				implater.imp = imp
-				imp = null
-				update_state()
-			implater.update_state()
-	else
-		return ..()
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		if(imp)
+			if(implater.imp)
+				return ATTACK_CHAIN_PROCEED
+			imp.forceMove(implater)
+			implater.imp = imp
+			imp = null
+			update_state()
+		implater.update_state()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 

@@ -165,6 +165,16 @@
 	build_path = /obj/item/reagent_scanner
 	category = list("Medical")
 
+/datum/design/upgraded_hypospray
+	name = "upgraded medical hypospray"
+	desc = "A device for identifying chemicals."
+	id = "upgraded_hypospray"
+	req_tech = list("plasmatech" = 4, "biotech" = 6, "materials" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 800, MAT_SILVER = 400, MAT_GOLD = 600)
+	build_path = /obj/item/reagent_containers/hypospray/safety/upgraded
+	category = list("Medical")
+
 /datum/design/item/scalpel_laser1
 	name = "Basic Laser Scalpel"
 	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks basic and could be improved."
@@ -429,6 +439,17 @@
 	construction_time = 50
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
 	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+	category = list("Medical")
+
+/datum/design/cyberimp_science_hud
+	name = "Science HUD implant"
+	desc = "These cybernetic eye implants with an analyzer for scanning items and reagents."
+	id = "ci-scihud"
+	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/science
 	category = list("Medical")
 
 /datum/design/cyberimp_security_hud
@@ -714,4 +735,14 @@
 	build_path = /obj/item/roller/holo
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_SILVER = 500, MAT_GLASS = 500, MAT_DIAMOND = 200)
+	category = list("Medical")
+
+/datum/design/modified_medical_gloves
+	name = "modified medical gloves"
+	desc = "They are very soft and light to the touch and do not hinder movement at all."
+	id = "modified_medical_gloves"
+	req_tech = list("magnets" = 7, "materials" = 7, "programming" = 5, "biotech" = 5)
+	build_path = /obj/item/clothing/gloves/color/latex/modified
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_SILVER = 800, MAT_GLASS = 800, MAT_DIAMOND = 600, MAT_GOLD = 400)
 	category = list("Medical")

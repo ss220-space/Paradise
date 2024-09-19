@@ -192,10 +192,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return COMPONENT_ATOM_BLOCK_EXIT
 
 
-/obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+/obj/structure/window/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
 		return TRUE
-	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir) || fulltile)
+	if(fulltile || (dir == FULLTILE_WINDOW_DIR) || (dir == to_dir))
 		return FALSE
 	return TRUE
 
@@ -206,13 +206,13 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	add_fingerprint(user)
 	playsound(src, 'sound/effects/glassknock.ogg', 50, 1)
 
-/obj/structure/window/attack_hand(mob/user)
+/obj/structure/window/attack_hand(mob/living/carbon/human/user)
 	if(!can_be_reached(user))
 		return
 	if(user.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
-		if(ishuman(user) && user.dna.species.obj_damage)
-			attack_generic(user, user.dna.species.obj_damage)
+		if(ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
+			attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		else
 			playsound(src, 'sound/effects/glassknock.ogg', 80, 1)
 			user.visible_message("<span class='warning'>[user] bangs against [src]!</span>", \
@@ -270,7 +270,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/attackby(obj/item/I, mob/living/user, params)
 	if(!can_be_reached(user))
-		return 1 //skip the afterattack
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 
@@ -765,6 +765,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
 	icon = 'icons/obj/smooth_structures/tinted_window.dmi'
+	icon_state = "tinted_window-0"
 	base_icon_state = "tinted_window"
 	opacity = TRUE
 

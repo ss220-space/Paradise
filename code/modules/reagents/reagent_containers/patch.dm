@@ -14,17 +14,22 @@
 	temperature_max = 350
 	var/needs_to_apply_reagents = TRUE
 
-/obj/item/reagent_containers/food/pill/patch/attack(mob/living/carbon/M, mob/user, def_zone)
-	if(!istype(M))
-		return FALSE
-	bitesize = 0
-	if(M.eat(src, user))
-		user.drop_transfer_item_to_loc(src, M)
-		LAZYADD(M.processing_patches, src)
-		return TRUE
-	return FALSE
 
-/obj/item/reagent_containers/food/pill/patch/afterattack(obj/target, mob/user , proximity)
+/obj/item/reagent_containers/food/pill/patch/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(!iscarbon(target))
+		return .
+	if(!user.can_unEquip(src))
+		return .
+	bitesize = 0
+	if(!target.eat(src, user) || !user.can_unEquip(src))
+		return .
+	user.drop_transfer_item_to_loc(src, target)
+	LAZYADD(target.processing_patches, src)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+
+/obj/item/reagent_containers/food/pill/patch/afterattack(obj/target, mob/user, proximity, params)
 	return // thanks inheritance again
 
 /obj/item/reagent_containers/food/pill/patch/styptic

@@ -145,10 +145,10 @@
 #define MUZZLE_MUTE_ALL 2 // Completely mutes you.
 
 //MATERIAL CLASS FOR RACE EAT
-#define MATERIAL_CLASS_NONE     0
-#define MATERIAL_CLASS_CLOTH    1
-#define MATERIAL_CLASS_TECH		2
-#define MATERIAL_CLASS_SOAP		3
+#define MATERIAL_CLASS_NONE     (1<<0)
+#define MATERIAL_CLASS_CLOTH    (1<<1)
+#define MATERIAL_CLASS_TECH		(1<<2)
+#define MATERIAL_CLASS_SOAP		(1<<3)
 
 
 //These defines used in sprites, keep in touch with "Slot defines" above if needed

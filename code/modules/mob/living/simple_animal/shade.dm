@@ -37,12 +37,18 @@
 	. = ..()
 	SSticker.mode.remove_cultist(mind, FALSE)
 
-/mob/living/simple_animal/shade/attackby(obj/item/O, mob/user)  //Marker -Agouri
-	if(istype(O, /obj/item/soulstone))
-		var/obj/item/soulstone/SS = O
-		SS.transfer_soul("SHADE", src, user)
-	else
-		..()
+
+/mob/living/simple_animal/shade/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/soulstone))
+		var/obj/item/soulstone/soulstone = I
+		soulstone.transfer_soul("SHADE", src, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /mob/living/simple_animal/shade/update_icon_state()
 	icon_state = holy ? "shade_angelic" : "shade"

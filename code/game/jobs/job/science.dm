@@ -42,7 +42,7 @@
 	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/heads/rd
 	backpack_contents = list(
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1
 	)
 
 	backpack = /obj/item/storage/backpack/science
@@ -147,10 +147,6 @@
 	exp_requirements = 900
 	exp_type = EXP_TYPE_SCIENCE
 
-	required_objectives = list(
-		/datum/job_objective/make_cyborg,
-		/datum/job_objective/make_ripley
-	)
 	money_factor = 3
 	outfit = /datum/outfit/job/roboticist
 

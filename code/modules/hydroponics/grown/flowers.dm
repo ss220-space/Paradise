@@ -197,9 +197,12 @@
 	throw_speed = 1
 	throw_range = 3
 
-/obj/item/grown/sunflower/attack(mob/M, mob/user)
-	to_chat(M, "<font color='green'><b> [user] smacks you with a sunflower!</font><font color='yellow'><b>FLOWER POWER<b></font>")
-	to_chat(user, "<font color='green'>Your sunflower's </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'>strikes [M]</font>")
+
+/obj/item/grown/sunflower/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	to_chat(target, "<font color='green'><b> [user] smacks you with a sunflower!</font><font color='yellow'><b>FLOWER POWER<b></font>")
+	to_chat(user, "<font color='green'>Your sunflower's </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'>strikes [target]</font>")
+	return ATTACK_CHAIN_PROCEED_SUCCESS
+
 
 // Moonflower
 /obj/item/seeds/sunflower/moonflower
@@ -258,15 +261,19 @@
 	..()
 	force = round((5 + seed.potency / 5), 1)
 
-/obj/item/grown/novaflower/attack(mob/living/carbon/M, mob/user)
-	..()
-	if(isliving(M))
-		to_chat(M, "<span class='danger'>You are lit on fire from the intense heat of the [name]!</span>")
-		M.adjust_fire_stacks(seed.potency / 20)
-		if(M.IgniteMob())
-			add_attack_logs(user, M, "set on fire", ATKLOG_FEW)
 
-/obj/item/grown/novaflower/afterattack(atom/A as mob|obj, mob/user,proximity)
+/obj/item/grown/novaflower/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
+		return .
+
+	to_chat(target, span_danger("You are lit on fire from the intense heat of the [name]!"))
+	target.adjust_fire_stacks(seed.potency / 20)
+	if(target.IgniteMob())
+		add_attack_logs(user, target, "set on fire", ATKLOG_FEW)
+
+
+/obj/item/grown/novaflower/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(force > 0)
@@ -310,3 +317,317 @@
 	icon_state = "shavel"
 	tastes = list("sour weed" = 1)
 	filling_color = "#177025"
+
+//Red flower
+/obj/item/seeds/redflower
+	name = "pack of red flower seeds"
+	desc = "These seeds grow into red flowers"
+	icon_state = "seed-redflower"
+	species = "redflower"
+	plantname = "Red flowers"
+	product = /obj/item/reagent_containers/food/snacks/grown/redflower
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_dead = "redflower-dead"
+	icon_harvest = "redflower-harvest"
+	reagents_add = list("plantmatter" = 0.05)
+	endurance = 10
+	maturation = 8
+	yield = 6
+	potency = 20
+	growthstages = 3
+	icon_grow = "redflower-grow"
+
+/obj/item/reagent_containers/food/snacks/grown/redflower
+	seed = /obj/item/seeds/redflower
+	name = "red flower"
+	desc = "Beautiful red flower."
+	icon_state = "redflower"
+	filling_color = "#FF6347"
+	bitesize_mod = 3
+	tastes = list("flower" = 1)
+
+//Flowerlamp
+/obj/item/seeds/flowerlamp
+	name = "pack of flowerlamp seeds"
+	desc = "These seeds grow into flowerlamp"
+	icon_state = "seed-flowerlamp"
+	species = "flowerlamp"
+	plantname = "Flowerlamp"
+	product = /obj/item/reagent_containers/food/snacks/grown/flowerlamp
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_dead = "flowerlamp-dead"
+	icon_harvest = "flowerlamp-harvest"
+	reagents_add = list("plantmatter" = 0.05)
+	endurance = 10
+	maturation = 8
+	yield = 6
+	potency = 20
+	growthstages = 3
+	icon_grow = "flowerlamp-grow"
+
+/obj/item/reagent_containers/food/snacks/grown/flowerlamp
+	seed = /obj/item/seeds/flowerlamp
+	name = "flowerlamp"
+	desc = "Beautiful flowerlamp."
+	icon_state = "flowerlamp"
+	filling_color = "#FF6347"
+	bitesize_mod = 3
+	tastes = list("flower" = 1)
+
+//White Carnation
+/obj/item/seeds/carnation
+	name = "pack of white carnation seeds"
+	desc = "These seeds grow into white carnation"
+	icon_state = "seed-whitecarnation"
+	species = "whitecarnation"
+	plantname = "white carnation"
+	product = /obj/item/reagent_containers/food/snacks/grown/whitecarnation
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_dead = "whitecarnation-dead"
+	icon_harvest = "whitecarnation-harvest"
+	reagents_add = list("plantmatter" = 0.05)
+	endurance = 10
+	maturation = 8
+	yield = 6
+	potency = 20
+	growthstages = 3
+	icon_grow = "whitecarnation-grow"
+	mutatelist = list(/obj/item/seeds/carnation/red)
+
+/obj/item/reagent_containers/food/snacks/grown/whitecarnation
+	seed = /obj/item/seeds/carnation
+	name = "white carnation"
+	desc = "Beautiful white carnation."
+	icon_state = "whitecarnation"
+	filling_color = "#FF6347"
+	bitesize_mod = 3
+	tastes = list("flower" = 1)
+
+//Red carnation
+/obj/item/seeds/carnation/red
+	name = "pack of red carnation seeds"
+	desc = "These seeds grow into red carnation"
+	icon_state = "seed-redcarnation"
+	species = "redcarnation"
+	plantname = "red carnation"
+	product = /obj/item/reagent_containers/food/snacks/grown/redcarnation
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_dead = "redcarnation-dead"
+	icon_harvest = "redcarnation-harvest"
+	reagents_add = list("plantmatter" = 0.05)
+	endurance = 10
+	maturation = 8
+	yield = 6
+	potency = 20
+	growthstages = 3
+	icon_grow = "redcarnation-grow"
+
+/obj/item/reagent_containers/food/snacks/grown/redcarnation
+	seed = /obj/item/seeds/carnation/red
+	name = "red carnation"
+	desc = "Beautiful red carnation."
+	icon_state = "redcarnation"
+	filling_color = "#FF6347"
+	bitesize_mod = 3
+	tastes = list("flower" = 1)
+
+//White tulp
+/obj/item/seeds/tulp
+	name = "pack of white tulp seeds"
+	desc = "These seeds grow into white tulp"
+	icon_state = "seed-whitetulp"
+	species = "whitetulp"
+	plantname = "white tulp"
+	product = /obj/item/reagent_containers/food/snacks/grown/whitetulp
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_dead = "whitetulp-dead"
+	icon_harvest = "whitetulp-harvest"
+	reagents_add = list("plantmatter" = 0.05)
+	endurance = 10
+	maturation = 8
+	yield = 6
+	potency = 20
+	growthstages = 3
+	icon_grow = "whitetulp-grow"
+	mutatelist = list(/obj/item/seeds/tulp/yellow, /obj/item/seeds/tulp/pink)
+
+/obj/item/reagent_containers/food/snacks/grown/whitetulp
+	seed = /obj/item/seeds/tulp
+	name = "white tulp"
+	desc = "Beautiful white tulp."
+	icon_state = "whitetulp"
+	filling_color = "#FF6347"
+	bitesize_mod = 3
+	tastes = list("flower" = 1)
+
+//Yellow tulp
+/obj/item/seeds/tulp/yellow
+	name = "pack of yellow tulp seeds"
+	desc = "These seeds grow into yellow tulp"
+	icon_state = "seed-yellowtulp"
+	species = "yellowtulp"
+	plantname = "yellow tulp"
+	product = /obj/item/reagent_containers/food/snacks/grown/yellowtulp
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_dead = "yellowtulp-dead"
+	icon_harvest = "yellowtulp-harvest"
+	reagents_add = list("plantmatter" = 0.05)
+	endurance = 10
+	maturation = 8
+	yield = 6
+	potency = 20
+	growthstages = 3
+	icon_grow = "yellowtulp-grow"
+
+/obj/item/reagent_containers/food/snacks/grown/yellowtulp
+	seed = /obj/item/seeds/tulp/yellow
+	name = "yellow tulp"
+	desc = "Beautiful yellow tulp."
+	icon_state = "yellowtulp"
+	filling_color = "#FF6347"
+	bitesize_mod = 3
+	tastes = list("flower" = 1)
+
+//Pink tulp
+/obj/item/seeds/tulp/pink
+	name = "pack of pink tulp seeds"
+	desc = "These seeds grow into pink tulp"
+	icon_state = "seed-pinktulp"
+	species = "pinktulp"
+	plantname = "pink tulp"
+	product = /obj/item/reagent_containers/food/snacks/grown/pinktulp
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_dead = "pinktulp-dead"
+	icon_harvest = "pinktulp-harvest"
+	reagents_add = list("plantmatter" = 0.05)
+	endurance = 10
+	maturation = 8
+	yield = 6
+	potency = 20
+	growthstages = 3
+	icon_grow = "pinktulp-grow"
+
+/obj/item/reagent_containers/food/snacks/grown/pinktulp
+	seed = /obj/item/seeds/tulp/pink
+	name = "pink tulp"
+	desc = "Beautiful pink tulp."
+	icon_state = "pinktulp"
+	filling_color = "#FF6347"
+	bitesize_mod = 3
+	tastes = list("flower" = 1)
+
+//Chamomile
+/obj/item/seeds/chamomile
+	name = "pack of chamomile seeds"
+	desc = "These seeds grow into chamomile"
+	icon_state = "seed-chamomile"
+	species = "chamomile"
+	plantname = "chamomile"
+	product = /obj/item/reagent_containers/food/snacks/grown/chamomile
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_dead = "chamomile-dead"
+	icon_harvest = "chamomile-harvest"
+	reagents_add = list("plantmatter" = 0.05)
+	endurance = 10
+	maturation = 8
+	yield = 6
+	potency = 20
+	growthstages = 3
+	icon_grow = "chamomile-grow"
+	mutatelist = list(/obj/item/seeds/chamomile/red)
+
+/obj/item/reagent_containers/food/snacks/grown/chamomile
+	seed = /obj/item/seeds/chamomile
+	name = "chamomile"
+	desc = "Beautiful chamomile."
+	icon_state = "chamomile"
+	filling_color = "#FF6347"
+	bitesize_mod = 3
+	tastes = list("flower" = 1)
+
+//Red chamomile
+/obj/item/seeds/chamomile/red
+	name = "pack of red chamomile seeds"
+	desc = "These seeds grow into red chamomile"
+	icon_state = "seed-redchamomile"
+	species = "redchamomile"
+	plantname = "red chamomile"
+	product = /obj/item/reagent_containers/food/snacks/grown/redchamomile
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_dead = "redchamomile-dead"
+	icon_harvest = "redchamomile-harvest"
+	reagents_add = list("plantmatter" = 0.05)
+	endurance = 10
+	maturation = 8
+	yield = 6
+	potency = 20
+	growthstages = 3
+	icon_grow = "redchamomile-grow"
+
+/obj/item/reagent_containers/food/snacks/grown/redchamomile
+	seed = /obj/item/seeds/chamomile/red
+	name = "red chamomile"
+	desc = "Beautiful red chamomile."
+	icon_state = "redchamomile"
+	filling_color = "#FF6347"
+	bitesize_mod = 3
+	tastes = list("flower" = 1)
+
+//White rose
+/obj/item/seeds/rose
+	name = "pack of white rose seeds"
+	desc = "These seeds grow into white rose"
+	icon_state = "seed-whiterose"
+	species = "whiterose"
+	plantname = "white rose"
+	product = /obj/item/reagent_containers/food/snacks/grown/whiterose
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_dead = "whiterose-dead"
+	icon_harvest = "whiterose-harvest"
+	reagents_add = list("plantmatter" = 0.05)
+	endurance = 10
+	maturation = 8
+	yield = 6
+	potency = 20
+	growthstages = 3
+	icon_grow = "whiterose-grow"
+	mutatelist = (/obj/item/seeds/rose/red)
+	genes = list(/datum/plant_gene/trait/stinging)
+
+/obj/item/reagent_containers/food/snacks/grown/whiterose
+	seed = /obj/item/seeds/rose
+	name = "white rose"
+	desc = "Beautiful white rose."
+	icon_state = "whiterose"
+	filling_color = "#FF6347"
+	bitesize_mod = 3
+	tastes = list("flower" = 1)
+
+//Red rose
+/obj/item/seeds/rose/red
+	name = "pack of red rose seeds"
+	desc = "These seeds grow into red rose"
+	icon_state = "seed-redrose"
+	species = "redrose"
+	plantname = "red rose"
+	product = /obj/item/reagent_containers/food/snacks/grown/redrose
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	icon_dead = "redrose-dead"
+	icon_harvest = "redrose-harvest"
+	reagents_add = list("plantmatter" = 0.05)
+	endurance = 10
+	maturation = 8
+	yield = 6
+	potency = 20
+	growthstages = 3
+	icon_grow = "redrose-grow"
+	genes = list(/datum/plant_gene/trait/stinging)
+
+/obj/item/reagent_containers/food/snacks/grown/redrose
+	seed = /obj/item/seeds/rose/red
+	name = "red rose"
+	desc = "Beautiful red rose."
+	icon_state = "redrose"
+	filling_color = "#FF6347"
+	bitesize_mod = 3
+	tastes = list("flower" = 1)

@@ -89,7 +89,9 @@
 
 /obj/effect/anomaly/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/analyzer))
-		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code].</span>")
+		to_chat(user, span_notice("Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code]."))
+	return ATTACK_CHAIN_PROCEED_SUCCESS
+
 
 ///////////////////////
 
@@ -201,7 +203,7 @@
 /obj/effect/anomaly/flux/proc/mobShock(mob/living/M)
 	if(canshock && istype(M))
 		canshock = FALSE //Just so you don't instakill yourself if you slam into the anomaly five times in a second.
-		M.electrocute_act(shockdamage, "[name]", safety = TRUE)
+		M.electrocute_act(shockdamage, "потоковой аномалии", flags = SHOCK_NOGLOVES)
 
 /obj/effect/anomaly/flux/detonate()
 	if(explosive)

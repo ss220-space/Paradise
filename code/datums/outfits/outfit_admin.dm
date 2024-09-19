@@ -115,13 +115,14 @@
 	uniform = /obj/item/clothing/under/syndicate
 	back = /obj/item/storage/backpack/security
 	shoes =	/obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/combat/swat/syndicate
 	l_ear = /obj/item/radio/headset/syndicate/alt/syndteam
 	l_pocket = /obj/item/card/emag
 	r_pocket = /obj/item/melee/energy/sword/saber/red
 	id = /obj/item/card/id/syndicate
 	box = /obj/item/storage/box/survival_syndi
 	backpack_contents = list(
+		/obj/item/radio/uplink/sst = 1,
 		/obj/item/grenade/plastic/x4 = 2,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
 		/obj/item/gun/projectile/revolver = 1,
@@ -162,6 +163,7 @@
 
 	backpack_contents = list(
 		/obj/item/tank/jetpack/oxygen/harness = 1,
+		/obj/item/radio/uplink/sst = 1,
 		/obj/item/ammo_box/magazine/mm556x45 = 1,
 		/obj/item/grenade/plastic/x4 = 2,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
@@ -213,7 +215,7 @@
 	suit = /obj/item/clothing/suit/storage/blueshield/srt
 	back = /obj/item/storage/backpack/satchel_blueshield/srt
 	belt = /obj/item/storage/belt/security/webbing/srt/full
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/combat/swat
 	head = /obj/item/clothing/head/beret/centcom/officer/navy
 	l_ear = /obj/item/radio/headset/ert/alt
@@ -378,7 +380,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/deathsquad
 	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/gun/projectile/revolver/mateba
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/magboots/syndie/advance
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
@@ -433,7 +435,7 @@
 	uniform = /obj/item/clothing/under/pirate
 	back = /obj/item/storage/backpack/satchel
 	belt = /obj/item/storage/belt/utility/full/multitool
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/combat/swat/syndicate
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset
 	id = /obj/item/card/id
@@ -476,7 +478,7 @@
 	l_ear = /obj/item/radio/headset/syndicate
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	id = /obj/item/card/id/syndicate/vox
-	l_pocket = /obj/item/melee/classic_baton/telescopic
+	l_pocket = /obj/item/melee/baton/telescopic
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/double/vox
 	backpack_contents = list(
 		/obj/item/flashlight = 1,
@@ -522,7 +524,7 @@
 		/obj/item/flashlight = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
 		/obj/item/grenade/clown_grenade = 1,
-		/obj/item/melee/baton/cattleprod = 1,
+		/obj/item/melee/baton/security/cattleprod = 1,
 		/obj/item/stock_parts/cell/super = 1,
 		/obj/item/bikehorn/rubberducky = 1
 	)
@@ -700,7 +702,7 @@
 /datum/outfit/admin/soviet
 	name = "Soviet Generic"
 	var/list/rank_list = list()
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/combat/swat/syndicate
 	uniform = /obj/item/clothing/under/soviet
 	back = /obj/item/storage/backpack/satchel
 	head = /obj/item/clothing/head/sovietsidecap
@@ -763,7 +765,7 @@
 	head = /obj/item/clothing/head/sovietofficerhat
 	glasses = /obj/item/clothing/glasses/sunglasses
 	belt = /obj/item/gun/projectile/revolver/mateba
-	l_pocket = /obj/item/melee/classic_baton/telescopic
+	l_pocket = /obj/item/melee/baton/telescopic
 	r_pocket = /obj/item/flashlight/seclite
 
 	backpack_contents = list(
@@ -782,7 +784,7 @@
 	glasses = /obj/item/clothing/glasses/night
 	belt = /obj/item/storage/belt/military/assault/soviet/full
 	l_pocket = /obj/item/card/emag
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/melee/baton/telescopic
 	l_hand = /obj/item/gun/projectile/automatic/ak814
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 
@@ -815,7 +817,7 @@
 	l_ear = /obj/item/radio/headset/syndicate
 	r_ear = /obj/item/radio/headset/alt/soviet
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
-	l_pocket = /obj/item/melee/classic_baton/telescopic
+	l_pocket = /obj/item/melee/baton/telescopic
 	backpack_contents = list(
 		/obj/item/ammo_box/speedloader/a357 = 3
 	)
@@ -861,7 +863,7 @@
 	head = /obj/item/clothing/head/soft/solgov
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/combat/swat/syndicate
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/ert/alt/solgov
 	id = /obj/item/card/id
@@ -918,7 +920,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/solgov/command
 	head = /obj/item/clothing/head/beret/solgov/command/elite
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	belt = /obj/item/melee/baton/loaded
+	belt = /obj/item/melee/baton/security/loaded
 	l_hand = null
 	suit_store = /obj/item/gun/projectile/automatic/pistol/deagle
 	l_pocket = /obj/item/pinpointer/advpinpointer
@@ -953,7 +955,7 @@
 
 	uniform = /obj/item/clothing/under/rank/cargotech
 	back = /obj/item/storage/backpack/industrial
-	belt = /obj/item/melee/classic_baton
+	belt = /obj/item/melee/baton
 	head = /obj/item/clothing/head/soft
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset
@@ -982,7 +984,7 @@
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/chronos
 	back = /obj/item/chrono_eraser
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	head = /obj/item/clothing/head/helmet/space/chronos
 	mask = /obj/item/clothing/mask/gas/syndicate
@@ -1210,7 +1212,7 @@
 	back = /obj/item/storage/backpack/satchel
 	l_hand = /obj/item/twohanded/knighthammer
 	belt = /obj/item/claymore/ceremonial
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/magboots
 	mask = /obj/item/clothing/mask/breath
 	l_ear = /obj/item/radio/headset/ert

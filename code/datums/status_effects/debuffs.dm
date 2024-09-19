@@ -177,7 +177,7 @@
 	return ..()
 
 /datum/status_effect/bluespace_slowdown/on_remove()
-	owner.next_move_modifier /= 2
+	owner.next_move_modifier *= 0.5
 
 
 /**
@@ -294,11 +294,11 @@
 			if(force_left > force_right)
 				if(!owner.hand)
 					owner.swap_hand()
-				left_hand.attack(target, owner, BODY_ZONE_HEAD)	// yes! right in the neck
+				left_hand.attack(target, owner, def_zone = BODY_ZONE_HEAD)	// yes! right in the neck
 			else if(force_right)
 				if(owner.hand)
 					owner.swap_hand()
-				right_hand.attack(target, owner, BODY_ZONE_HEAD)
+				right_hand.attack(target, owner, def_zone = BODY_ZONE_HEAD)
 			return
 
 		// here goes nothing!
@@ -309,7 +309,7 @@
 			if(owner.hand && owner.l_hand != found_gun)
 				owner.swap_hand()
 			found_gun.process_fire(target, owner, zone_override = BODY_ZONE_HEAD)	// hell yeah! few headshots for mr. vampire!
-			found_gun.attack(owner, owner, BODY_ZONE_HEAD)	// attack ourselves also in case gun has no ammo
+			found_gun.attack(owner, owner, def_zone = BODY_ZONE_HEAD)	// attack ourselves also in case gun has no ammo
 
 
 // start of `living` level status procs.
@@ -541,6 +541,9 @@
 			liver_multiplier = L.alcohol_intensity
 		actual_strength *= liver_multiplier
 
+	if(HAS_TRAIT(owner, TRAIT_SOBER))
+		actual_strength *= 0.5	// you can resist the effects of the alcohol twice as good
+
 	// THRESHOLD_SLUR (60 SECONDS)
 	if(actual_strength >= THRESHOLD_SLUR)
 		owner.Slur(actual_strength)
@@ -577,7 +580,7 @@
 		owner.Paralyse(10 SECONDS)
 		owner.Drowsy(60 SECONDS)
 		if(L)
-			L.receive_damage(1, TRUE)
+			L.internal_receive_damage(1, silent = TRUE)
 		if(!is_ipc)
 			owner.adjustToxLoss(1)
 	// THRESHOLD_BRAIN_DAMAGE (240 SECONDS)
@@ -618,10 +621,7 @@
 
 /datum/status_effect/incapacitating/on_creation(mob/living/new_owner, set_duration)
 	if(isnum(set_duration))
-		if(ishuman(new_owner))
-			var/mob/living/carbon/human/H = new_owner
-			set_duration = H.dna.species.spec_stun(H, set_duration)
-		duration = set_duration
+		duration = update_duration(new_owner, set_duration)
 	if(!duration)
 		return FALSE
 	return ..()
@@ -643,6 +643,13 @@
 	return ..()
 
 
+/// Proc used to correct duration of incapacitating effects
+/datum/status_effect/incapacitating/proc/update_duration(mob/living/carbon/human/new_owner, set_duration)
+	if(ishuman(new_owner))
+		return new_owner.dna.species.spec_stun(new_owner, set_duration)
+	return set_duration
+
+
 //STUN - prevents movement and actions, victim stays standing
 /datum/status_effect/incapacitating/stun
 	id = "stun"
@@ -659,6 +666,12 @@
 /datum/status_effect/incapacitating/knockdown
 	id = "knockdown"
 	traits_to_apply = list(TRAIT_FLOORED)
+
+
+/datum/status_effect/incapacitating/knockdown/update_duration(mob/living/carbon/human/new_owner, set_duration)
+	. = ..()
+	if(ishuman(new_owner))
+		. *= new_owner.physiology.knockdown_mod
 
 
 //IMMOBILIZED - prevents movement, victim can still stand and act
@@ -686,6 +699,10 @@
 	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_KNOCKEDOUT)
 
 
+/datum/status_effect/incapacitating/paralyzed/update_duration(mob/living/carbon/human/new_owner, set_duration)
+	return set_duration
+
+
 //SLEEPING - victim falls over, cannot act, cannot see or hear, heals under certain conditions.
 /datum/status_effect/incapacitating/sleeping
 	id = "sleeping"
@@ -694,19 +711,25 @@
 	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_KNOCKEDOUT)
 
 
+/datum/status_effect/incapacitating/sleeping/update_duration(mob/living/carbon/human/new_owner, set_duration)
+	return set_duration
+
+
 /datum/status_effect/incapacitating/sleeping/tick(seconds_between_ticks)
 	if(!iscarbon(owner))
 		return
 
 	var/mob/living/carbon/dreamer = owner
 
-	if(isvampire(dreamer))
-		if(istype(dreamer.loc, /obj/structure/closet/coffin))
-			dreamer.adjustBruteLoss(-1, FALSE)
-			dreamer.adjustFireLoss(-1, FALSE)
-			dreamer.adjustToxLoss(-1)
+	var/update = NONE
+	var/brute_heal = 0
+	var/burn_heal = 0
+	update |= dreamer.heal_damage_type(10, STAMINA, FALSE)
+	if(isvampire(dreamer) && istype(dreamer.loc, /obj/structure/closet/coffin))
+		brute_heal += 1
+		burn_heal += 1
+		update |= dreamer.heal_damage_type(1, TOX, FALSE)
 	dreamer.handle_dreams()
-	dreamer.adjustStaminaLoss(-10)
 	var/comfort = 1
 	if(istype(dreamer.buckled, /obj/structure/bed))
 		var/obj/structure/bed/bed = dreamer.buckled
@@ -723,8 +746,12 @@
 		comfort += 1 //Aren't naps SO much better when drunk?
 		dreamer.AdjustDrunk(-0.4 SECONDS * comfort) //reduce drunkenness while sleeping.
 	if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
-		dreamer.adjustBruteLoss(-1 * comfort, FALSE)
-		dreamer.adjustFireLoss(-1 * comfort)
+		brute_heal += 1 * comfort
+		burn_heal += 1 * comfort
+	if(brute_heal > 0 || burn_heal > 0)
+		update |= dreamer.heal_overall_damage(brute_heal, burn_heal, updating_health = FALSE)
+	if(update)
+		dreamer.updatehealth("sleeping")
 	if(prob(10) && dreamer.health)
 		dreamer.emote("snore")
 
@@ -737,11 +764,10 @@
 	/// Current multiplicative slowdown
 	var/slowdown_value
 
-
-/datum/status_effect/incapacitating/slowed/on_apply()
+/datum/status_effect/incapacitating/slowed/on_creation(mob/living/new_owner, set_duration, new_slowdown_value)
 	. = ..()
-	set_slowdown_value(DEFAULT_SLOWED_DELAY)
-
+	if(.)
+		set_slowdown_value(new_slowdown_value)
 
 /datum/status_effect/incapacitating/slowed/on_remove()
 	. = ..()
@@ -936,7 +962,7 @@
 /datum/status_effect/transient/blindness/calc_decay()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		if((BLINDNESS in H.mutations))
+		if(HAS_TRAIT(H, TRAIT_BLIND))
 			return 0
 
 		var/obj/item/organ/vision = H.dna?.species?.get_vision_organ(H)

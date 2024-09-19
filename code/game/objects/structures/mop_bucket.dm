@@ -19,33 +19,51 @@
 
 /obj/structure/mopbucket/Destroy()
 	GLOB.janitorial_equipment -= src
+	QDEL_NULL(mymop)
 	return ..()
 
 /obj/structure/mopbucket/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "<span class='notice'>[bicon(src)] [src] contains [reagents.total_volume] units of water left.</span>"
+		. += span_info("[bicon(src)] [src] contains [reagents.total_volume] units of water left.")
 
-/obj/structure/mopbucket/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/mop))
-		var/obj/item/mop/mop = W
-		if(mop.reagents.total_volume < mop.reagents.maximum_volume)
-			add_fingerprint(user)
-			mop.wet_mop(src, user)
-			return
-		if(!mymop)
-			add_fingerprint(user)
-			mop.mopbucket_insert(user, src)
-			return
-		to_chat(user, "<span class='notice'>Theres already a mop in the mopbucket.</span>")
-		return
+
+/obj/structure/mopbucket/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || I.is_robot_module())
+		return ..()
+
+	if(istype(I, /obj/item/mop))
+		add_fingerprint(user)
+		var/obj/item/mop/mop = I
+		mop.wet_mop(src, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 
-/obj/structure/mopbucket/proc/put_in_cart(obj/item/mop/I, mob/user)
-	user.drop_transfer_item_to_loc(I, src)
-	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
-	update_icon(UPDATE_OVERLAYS)
+/obj/structure/mopbucket/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!reagents || !reagents.total_volume)
+		to_chat(user, span_warning("The [name] is empty."))
+		return .
+	user.visible_message(
+		span_notice("[user] starts to empty [src]."),
+		span_notice("You start to empty [src]..."),
+	)
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || !reagents || !reagents.total_volume)
+		return .
+	user.visible_message(
+		span_notice("[user] empties the contents of [src] onto the floor."),
+		span_notice("You have emptied the contents of [src] onto the floor."),
+	)
+	reagents.reaction(loc)
+	reagents.clear_reagents()
+
+
+/obj/structure/mopbucket/proc/put_in_cart(obj/item/I, mob/user)
+	. = user.drop_transfer_item_to_loc(I, src)
+	if(.)
+		to_chat(user, span_notice("You put [I] into [src]."))
 
 
 /obj/structure/mopbucket/on_reagent_change()

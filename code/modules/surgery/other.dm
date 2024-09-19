@@ -179,7 +179,8 @@
 
 	user.visible_message(
 		"[user] starts patching the damaged vein in [target]'s [affected.name] with \the [tool].",
-		"You start patching the damaged vein in [target]'s [affected.name] with \the [tool]."
+		"You start patching the damaged vein in [target]'s [affected.name] with \the [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.custom_pain("The pain in your [affected.name] is unbearable!")
 	return ..()
@@ -189,7 +190,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		span_notice("[user] has patched the damaged vein in [target]'s [affected.name] with \the [tool]."),
-		span_notice("You have patched the damaged vein in [target]'s [affected.name] with \the [tool].")
+		span_notice("You have patched the damaged vein in [target]'s [affected.name] with \the [tool]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	affected.stop_internal_bleeding()
@@ -203,10 +205,10 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		span_warning("[user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!"),
-		span_warning("Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!")
+		span_warning("Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	affected.receive_damage(5, 0)
-
+	target.apply_damage(5, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/fix_dead_tissue		//Debridement
@@ -226,7 +228,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"[user] starts cutting away necrotic tissue in [target]'s [affected.name] with \the [tool].",
-		"You start cutting away necrotic tissue in [target]'s [affected.name] with \the [tool]."
+		"You start cutting away necrotic tissue in [target]'s [affected.name] with \the [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.custom_pain("The pain in [affected.name] is unbearable!")
 	return ..()
@@ -235,7 +238,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		span_notice("[user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool]."),
-		span_notice("You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].")
+		span_notice("You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_ORGANIC_OPEN
 
@@ -245,10 +249,10 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		span_warning("[user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!"),
-		span_warning("Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!")
+		span_warning("Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	affected.receive_damage(20)
-
+	target.apply_damage(20, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/treat_necrosis
@@ -277,7 +281,9 @@
 	if(!container.reagents.has_reagent("mitocholide"))
 		user.visible_message(
 			"[user] looks at \the [tool] and ponders.",
-			"You are not sure if \the [tool] contains the mitocholide necessary to treat the necrosis.")
+			"You are not sure if \the [tool] contains the mitocholide necessary to treat the necrosis.",
+			chat_message_type = MESSAGE_TYPE_COMBAT
+			)
 		return FALSE
 
 /datum/surgery_step/treat_necrosis/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -290,7 +296,8 @@
 
 	user.visible_message(
 		"[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].",
-		"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool]."
+		"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
 	return ..()
@@ -313,7 +320,8 @@
 
 		user.visible_message(
 			span_notice("[user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]"),
-			span_notice("You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].")
+			span_notice("You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool]."),
+			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 
 	return SURGERY_STEP_CONTINUE
@@ -331,7 +339,8 @@
 
 	user.visible_message(
 		span_warning("[user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!"),
-		span_warning("Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!")
+		span_warning("Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	//no damage or anything, just wastes medicine
@@ -397,16 +406,18 @@
 	var/obj/item/organ/internal/brain = target.get_organ_slot(INTERNAL_ORGAN_BRAIN)
 	user.visible_message(
 		"[user] reaches into [target]'s head with [tool].",
-		span_notice("You begin aligning [tool]'s light to the tumor on [target]'s brain...")
+		span_notice("You begin aligning [tool]'s light to the tumor on [target]'s brain..."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	to_chat(target, span_boldannounce("A small part of your [brain.parent_organ_zone] pulses with agony as the light impacts it."))
+	to_chat(target, span_boldannounceic("A small part of your [brain.parent_organ_zone] pulses with agony as the light impacts it."))
 	return ..()
 
 /datum/surgery_step/internal/dethrall/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(isshadowlinglesser(target)) //Empowered thralls cannot be deconverted
 		to_chat(target, span_shadowling("<b><i>NOT LIKE THIS!</i></b>"))
 		user.visible_message(span_warning("[target] suddenly slams upward and knocks down [user]!"), \
-							 span_userdanger("[target] suddenly bolts up and slams you with tremendous force!"))
+							 span_userdanger("[target] suddenly bolts up and slams you with tremendous force!"),
+							 chat_message_type = MESSAGE_TYPE_COMBAT)
 		user.SetSleeping(0)
 		user.SetStunned(0)
 		user.SetWeakened(0)
@@ -426,9 +437,9 @@
 		return SURGERY_STEP_INCOMPLETE
 	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
 	var/obj/item/organ/external/E = target.get_organ(check_zone(B.parent_organ_zone))
-	user.visible_message("[user] shines light onto the tumor in [target]'s [E]!", span_notice("You cleanse the contamination from [target]'s brain!"))
+	user.visible_message("[user] shines light onto the tumor in [target]'s [E]!", span_notice("You cleanse the contamination from [target]'s brain!"), chat_message_type = MESSAGE_TYPE_COMBAT)
 	if(target.vision_type) //Turns off their darksight if it's still active.
-		to_chat(target, span_boldannounce("Your eyes are suddenly wrought with immense pain as your darksight is forcibly dismissed!"))
+		to_chat(target, span_boldannounceic("Your eyes are suddenly wrought with immense pain as your darksight is forcibly dismissed!"))
 		target.set_vision_override(null)
 	SSticker.mode.remove_thrall(target.mind, 0)
 	target.visible_message(span_warning("A strange black mass falls from [target]'s [E]!"))

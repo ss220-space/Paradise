@@ -35,19 +35,52 @@
 	base_cooldown = 5 SECONDS
 	cooldown_min = 1 SECONDS
 	action_icon_state = "camera_jump"
-	var/ranges = list(7,8,9,10/*,11,12*/)
+	/// Currently selected view range
+	var/selected_view = "default"
+	/// View ranges to apply
+	var/static/list/view_ranges = list(
+		"default",
+		"17x17",
+		"19x19",
+		"21x21",
+	)
 
+
+/obj/effect/proc_holder/spell/view_range/Destroy()
+	UnregisterSignal(action.owner, COMSIG_LIVING_DEATH)
+	if(selected_view != "default" && !QDELETED(action.owner) && action.owner.client)
+		action.owner.client.change_view(action.owner.client.prefs.viewrange)
+	return ..()
+
+/obj/effect/proc_holder/spell/view_range/proc/make_view_normal(mob/user)
+	SIGNAL_HANDLER
+	if(!QDELETED(user) && user.client)
+		INVOKE_ASYNC(user.client, TYPE_PROC_REF(/client, change_view), user.client.prefs.viewrange)
 
 /obj/effect/proc_holder/spell/view_range/create_new_targeting()
 	return new /datum/spell_targeting/self
 
 
-/obj/effect/proc_holder/spell/view_range/cast(list/targets, mob/user = usr)
-	for(var/mob/C in targets)
-		if(!C.client)
-			continue
-		C.client.view = input("Select view range:", "Range", 4) in ranges
+/obj/effect/proc_holder/spell/view_range/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(!user.client)
+		return FALSE
+	return ..()
 
+/obj/effect/proc_holder/spell/view_range/on_spell_gain(mob/user = usr)
+	RegisterSignal(user, COMSIG_LIVING_DEATH, TYPE_PROC_REF(/obj/effect/proc_holder/spell/view_range, make_view_normal))
+
+/obj/effect/proc_holder/spell/view_range/cast(list/targets, mob/user = usr)
+	var/new_view = tgui_input_list(user, "Select view range:", "View", view_ranges, "default")
+	if(isnull(new_view) || !user.client)
+		return
+	if(new_view == "default")
+		new_view = user.client.prefs.viewrange
+	selected_view = new_view
+	user.client.change_view(new_view)
+
+
+/obj/effect/proc_holder/spell/view_range/genetic
+	desc = "Allows you to choose how far you can see."
 
 /obj/effect/proc_holder/spell/summon_friend
 	name = "Summon Friend"

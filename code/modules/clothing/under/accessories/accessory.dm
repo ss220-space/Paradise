@@ -101,42 +101,47 @@
 	has_suit = null
 
 
-/obj/item/clothing/accessory/attack(mob/living/carbon/human/target, mob/living/user)
+/obj/item/clothing/accessory/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	// This code lets you put accessories on other people by attacking their sprite with the accessory
 	if(!ishuman(target) || user == target)
 		return ..()
 
+	. = ATTACK_CHAIN_PROCEED
+
 	if(!istype(target.w_uniform, /obj/item/clothing/under))
 		to_chat(user, span_warning("[target] is not wearing anything to attach [src] to."))
-		return TRUE
+		return .
 
 	if(ITEM_SLOT_CLOTH_INNER & target.check_obscured_slots())
 		to_chat(user, span_notice("[target]'s body is covered, and you cannot attach [src]."))
-		return TRUE
+		return .
 
 	var/obj/item/clothing/under/uniform = target.w_uniform
 	if(uniform_check(target, user, uniform))
-		return TRUE
+		return .
 
 	user.visible_message(
 		span_notice("[user] is putting [name] on [target]'s [uniform.name]!"),
-		span_notice("You begin to put [name] on [target]'s [uniform.name]..."),
+		span_notice("You start to put [name] on [target]'s [uniform.name]..."),
 	)
 	if(!do_after(user, 4 SECONDS, target, extra_checks = CALLBACK(src, PROC_REF(uniform_check), target, user, uniform), max_interact_count = 1))
-		return TRUE
+		return .
+
+	if(!uniform.attach_accessory(src, user, unequip = TRUE))
+		return .
+
+	. = ATTACK_CHAIN_BLOCKED_ALL
 	user.visible_message(
-		span_notice("[user] puts [name] on [target]'s [uniform.name]!"),
-		span_notice("You finish putting [name] on [target]'s [uniform.name]..."),
+		span_notice("[user] has put [name] on [target]'s [uniform.name]!"),
+		span_notice("You have finished puting [name] on [target]'s [uniform.name]..."),
 	)
-	uniform.attach_accessory(src, user, unequip = TRUE)
-	return TRUE
 
 
 /obj/item/clothing/accessory/proc/uniform_check(mob/living/carbon/human/target, mob/living/user, obj/item/clothing/under/uniform)
 	SHOULD_CALL_PARENT(TRUE)
 	if(target.w_uniform != uniform)
-		return TRUE
-	return FALSE
+		return FALSE
+	return TRUE
 
 
 /obj/item/clothing/accessory/attack_hand(mob/user)
@@ -198,9 +203,11 @@
 	icon_state = "stethoscope"
 
 
-/obj/item/clothing/accessory/stethoscope/attack(mob/living/carbon/human/target, mob/living/user)
+/obj/item/clothing/accessory/stethoscope/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target))
 		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
 
 	if(user == target)
 		user.visible_message(
@@ -214,7 +221,9 @@
 		)
 
 	if(!do_after(user, 5 SECONDS, target, NONE, max_interact_count = 1))
-		return TRUE
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
 
 	var/obj/item/organ/internal/heart = target.get_int_organ(/obj/item/organ/internal/heart)
 	var/obj/item/organ/internal/lungs = target.get_int_organ(/obj/item/organ/internal/lungs)
@@ -236,7 +245,7 @@
 
 		msg += "You hear <span class='[color]'>[heart_sound]</span> heart pulse"
 
-	if(lungs && !(BREATHLESS in target.mutations) && !(NO_BREATHE in target.dna.species.species_traits))
+	if(lungs && !HAS_TRAIT(target, TRAIT_NO_BREATH))
 		var/color = "notice"
 		var/lung_sound
 		var/respiration = TRUE
@@ -261,8 +270,6 @@
 		to_chat(user, "[msg].")
 	else
 		to_chat(user, span_warning("You don't hear anything!"))
-
-	return TRUE
 
 
 //Medals
@@ -447,7 +454,7 @@
 	)
 
 
-/obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/target, mob/living/user)
+/obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/target, mob/living/user, def_zone, skip_attack_anim = FALSE)
 	if(user == target)
 		user.visible_message(
 			span_userdanger("[user] starts thrusting [src] to [user.p_their()] own face! What a dumbass?"),
@@ -458,19 +465,21 @@
 			span_userdanger("[user] invades [target]'s personal space, thrusting [src] to [target.p_their()] face insistently!"),
 			span_userdanger("You invade [target]'s personal space, thrusting [src] to [target.p_their()] face insistently. You are the law!"),
 		)
-	return TRUE
+	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 
 /obj/item/clothing/accessory/holobadge/attackby(obj/item/I, mob/user, params)
 	var/obj/item/card/id/id = I.GetID()
 	if(id)
-		if((ACCESS_SEC_DOORS in id.access) || emagged)
-			to_chat(user, span_notice("You imprint your ID details onto the badge."))
-			stored_name = id.registered_name
-			update_appearance(UPDATE_NAME|UPDATE_DESC)
-		else
-			to_chat(user, span_warning("[src] rejects your insufficient access rights."))
-		return
+		add_fingerprint(user)
+		if(!(ACCESS_SEC_DOORS in id.access) && !emagged)
+			to_chat(user, span_warning("The [name] rejects your insufficient access rights."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You imprint your ID details onto the badge."))
+		stored_name = id.registered_name
+		update_appearance(UPDATE_NAME|UPDATE_DESC)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 
@@ -670,22 +679,19 @@
 
 
 /obj/item/clothing/accessory/necklace/locket/attackby(obj/item/I, mob/user, params)
-	if(!up)
-		to_chat(user, span_warning("You have to open [src] first."))
-		return
-
 	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo))
+		add_fingerprint(user)
+		if(!up)
+			to_chat(user, span_warning("You have to open [src] first."))
+			return ATTACK_CHAIN_PROCEED
 		if(held_item)
-			to_chat(user, span_warning("[src] already has something inside it."))
-			return
+			to_chat(user, span_warning("The [name] already has something inside it."))
+			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
-			return
-
+			return ..()
 		held_item = I
 		to_chat(user, span_notice("You slip [I] into [src]."))
-		return
-	else
-		to_chat(user, span_warning("You cannot place [I] inside [src]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 
@@ -919,20 +925,23 @@
 	if(is_pen(I))
 		if(istype(loc, /obj/item/clothing/under))
 			return ..()
-		var/t = input(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot") as null|text
-		if(t)
-			tagname = copytext(sanitize(t), 1, MAX_NAME_LEN)
+		var/new_tag = tgui_input_text(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot", MAX_NAME_LEN)
+		if(!isnull(new_tag))
 			update_appearance(UPDATE_NAME)
-	else if(istype(I, /obj/item/card/id))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/card/id))
+		add_fingerprint(user)
 		if(access_id)
-			to_chat(user, span_notice("There is already \a [access_id] clipped onto \the [src]."))
-			return
+			to_chat(user, span_notice("There is already [access_id] clipped onto [src]."))
+			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
-			return
+			return ..()
 		access_id = I
-		to_chat(user, span_notice("\The [I] clips onto \the [src] snugly."))
-	else
-		return ..()
+		to_chat(user, span_notice("The [I.name] clips onto [src] snugly."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/clothing/accessory/petcollar/update_name(updates = ALL)
@@ -1037,9 +1046,9 @@
 
 /obj/item/clothing/accessory/head_strip/uniform_check(mob/living/carbon/human/target, mob/living/user, obj/item/clothing/under/uniform)
 	. = ..()
-	if(locate(/obj/item/clothing/accessory/head_strip, uniform.contents))
+	if(. && locate(/obj/item/clothing/accessory/head_strip, uniform.contents))
 		to_chat(user, span_warning("You can have only one strip attached to this uniform!"))
-		return TRUE
+		return FALSE
 
 
 /obj/item/clothing/accessory/head_strip/on_attached(obj/item/clothing/under/new_suit, mob/attacher)

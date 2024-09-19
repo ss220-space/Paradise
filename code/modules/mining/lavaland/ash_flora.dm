@@ -59,14 +59,24 @@
 	desc = initial(desc)
 	harvested = FALSE
 
-/obj/structure/flora/ash/attackby(obj/item/W, mob/user, params)
-	if(!harvested && needs_sharp_harvest && W.sharp)
-		user.visible_message("<span class='notice'>[user] starts to harvest from [src] with [W].</span>","<span class='notice'>You begin to harvest from [src] with [W].</span>")
-		if(do_after(user, harvest_time, src))
-			add_fingerprint(user)
-			harvest(user)
-	else
+
+/obj/structure/flora/ash/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(is_sharp(I) && !harvested && needs_sharp_harvest)
+		add_fingerprint(user)
+		user.visible_message(
+			span_notice("[user] starts to harvest [src] with [I]."),
+			span_notice("You start to harvest [src]."),
+		)
+		if(!do_after(user, harvest_time * I.toolspeed, src, category = DA_CAT_TOOL) || harvested)
+			return ATTACK_CHAIN_PROCEED
+		harvest(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/structure/flora/ash/attack_hand(mob/user)
 	if(!harvested && !needs_sharp_harvest)

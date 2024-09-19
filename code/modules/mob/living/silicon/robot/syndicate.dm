@@ -108,6 +108,16 @@
 	var/datum/action/thermals = new /datum/action/innate/robot_sight/thermal()
 	thermals.Grant(src)
 
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
+
+
+/mob/living/silicon/robot/syndicate/saboteur/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
+	SIGNAL_HANDLER
+
+	if(mail_destination)
+		disposal_holder.destinationTag = mail_destination
+
+
 /mob/living/silicon/robot/syndicate/saboteur/verb/modify_name()
 	set name = "Modify Name"
 	set desc = "Change your systems' registered name to fool Nanotrasen systems. No cost."
@@ -150,10 +160,11 @@
 
 	return
 
-/mob/living/silicon/robot/syndicate/saboteur/attackby()
-	if(cham_proj)
-		cham_proj.disrupt(src)
-	..()
+
+/mob/living/silicon/robot/syndicate/saboteur/attackby(obj/item/I, mob/user, params)
+	cham_proj?.disrupt(src)
+	return ..()
+
 
 /mob/living/silicon/robot/syndicate/saboteur/attack_hand()
 	if(cham_proj)
@@ -175,7 +186,3 @@
 		cham_proj.disrupt(src)
 	..()
 
-/mob/living/silicon/robot/syndicate/saboteur/attackby()
-	if(cham_proj)
-		cham_proj.disrupt(src)
-	..()

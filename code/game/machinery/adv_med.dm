@@ -267,7 +267,7 @@
 
 		var/bloodData[0]
 		bloodData["hasBlood"] = FALSE
-		if(!(NO_BLOOD in occupant.dna.species.species_traits))
+		if(!HAS_TRAIT(occupant, TRAIT_NO_BLOOD))
 			bloodData["hasBlood"] = TRUE
 			bloodData["volume"] = occupant.blood_volume
 			bloodData["percent"] = round(((occupant.blood_volume / BLOOD_VOLUME_NORMAL)*100))
@@ -347,9 +347,9 @@
 
 		occupantData["intOrgan"] = intOrganData
 
-		occupantData["blind"] = (BLINDNESS in occupant.mutations)
-		occupantData["colourblind"] = (COLOURBLIND in occupant.mutations)
-		occupantData["nearsighted"] = (NEARSIGHTED in occupant.mutations)
+		occupantData["blind"] = HAS_TRAIT(occupant, TRAIT_BLIND)
+		occupantData["colourblind"] = HAS_TRAIT(occupant, TRAIT_COLORBLIND)
+		occupantData["nearsighted"] = HAS_TRAIT(occupant, TRAIT_NEARSIGHTED)
 
 	data["occupant"] = occupantData
 	return data
@@ -546,11 +546,11 @@
 			dat += "<td>[organ.name]</td><td>N/A</td><td>[organ.damage]</td><td>[infection]:[mech][dead]</td><td></td>"
 			dat += "</tr>"
 		dat += "</table>"
-		if(BLINDNESS in occupant.mutations)
+		if(HAS_TRAIT(occupant, TRAIT_BLIND))
 			dat += "<font color='red'>Cataracts detected.</font><BR>"
-		if(COLOURBLIND in occupant.mutations)
+		if(HAS_TRAIT(occupant, TRAIT_COLORBLIND))
 			dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
-		if(NEARSIGHTED in occupant.mutations)
+		if(HAS_TRAIT(occupant, TRAIT_NEARSIGHTED))
 			dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 	else
 		dat += "[src] is empty."

@@ -14,8 +14,6 @@
 	var/list/channels = list()
 
 
-/obj/item/encryptionkey/attackby(obj/item/W as obj, mob/user as mob, params)
-
 /obj/item/encryptionkey/syndicate
 	name = "syndicate encryption key"
 	icon_state = "syn_cypherkey"

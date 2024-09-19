@@ -36,8 +36,10 @@
 	// This is really dirty, but there's no superclass for all bills, so we
 	// just assume that all spacecash that's not something else is a bill
 
+	if(!cashmoney.use(price))
+		return FALSE
+
 	visible_message("<span class='notice'>[user] inserts a credit chip into [src].</span>")
-	cashmoney.use(price)
 
 	// Vending machines have no idea who paid with cash
 	GLOB.vendor_account.credit(price, "Sale of [vended_name]", name, "(cash)")
@@ -57,7 +59,7 @@
 	// Prevents people from figuring out acct is empty at high security levels
 	if(customer_account.security_level)
 		// If card requires pin authentication (ie seclevel 1 or 2)
-		var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
+		var/attempt_pin = tgui_input_number(M, "Enter pin code", "Vendor Transaction", 111111, 999999, 111111)
 		if(!attempt_account_access(customer_account.account_number, attempt_pin, 2))
 			to_chat(M, "<span class='warning'>Unable to access account: incorrect credentials.</span>")
 			return FALSE

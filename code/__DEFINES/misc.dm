@@ -14,20 +14,21 @@
 #define SIBYL_LETHAL 2
 #define SIBYL_DESTRUCTIVE 3
 
-//Click cooldowns, in tenths of a second
-#define CLICK_CD_MELEE 8
-#define CLICK_CD_RANGE 4
-#define CLICK_CD_HANDCUFFED 10
-#define CLICK_CD_TKSTRANGLE 10
-#define CLICK_CD_POINT 10
-#define CLICK_CD_RESIST 20
-#define CLICK_CD_GRABBING 10
-#define CLICK_CD_CLICK_ABILITY 6
-#define CLICK_CD_RAPID 2
-#define CLICK_CD_LOOK_UP_DOWN 5
+//Click cooldowns
+#define CLICK_CD_MELEE (0.8 SECONDS)
+#define CLICK_CD_RANGE (0.4 SECONDS)
+#define CLICK_CD_HANDCUFFED (1 SECONDS)
+#define CLICK_CD_TKSTRANGLE (1 SECONDS)
+#define CLICK_CD_POINT (1 SECONDS)
+#define CLICK_CD_RESIST (2 SECONDS)
+#define CLICK_CD_PULLING (0.2 SECONDS)
+#define CLICK_CD_GRABBING (1 SECONDS)
+#define CLICK_CD_CLICK_ABILITY (0.6 SECONDS)
+#define CLICK_CD_RAPID (0.2 SECONDS)
+#define CLICK_CD_LOOK_UP_DOWN (0.5 SECONDS)
 
-///
-#define ROUNDSTART_LOGOUT_REPORT_TIME 6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
+/// Amount of time after the rounds starts, that the player disconnect report is issued.
+#define ROUNDSTART_LOGOUT_REPORT_TIME (10 MINUTES)
 
 // DOOR CRUSHING DAMAGE!
 #define DOOR_CRUSH_DAMAGE 10
@@ -47,16 +48,6 @@
 #define MAX_STACK_AMOUNT_METAL	50
 #define MAX_STACK_AMOUNT_GLASS	50
 #define MAX_STACK_AMOUNT_RODS	60
-
-//FONTS:
-// Used by Paper and PhotoCopier (and PaperBin once a year).
-// Used by PDA's Notekeeper.
-// Used by NewsCaster and NewsPaper.
-// Used by Modular Computers
-#define PEN_FONT "Verdana"
-#define CRAYON_FONT "Comic Sans MS"
-#define PRINTER_FONT "Times New Roman"
-#define SIGNFONT "Times New Roman"
 
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 #define PROCESS_KILL 26	//Used to trigger removal from a processing list
@@ -126,11 +117,27 @@
 	(CENTER.x - RADIUS > 1 ? block(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS + 1, 1), CENTER.z) : list()) +\
 	(CENTER.x + RADIUS < world.maxx ? block(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS + 1, 1), CENTER.z) : list())
 
+/// Returns a list of turfs in the rectangle specified by BOTTOM LEFT corner and height/width, checks for being outside the world border for you
+#define CORNER_BLOCK(corner, width, height) CORNER_BLOCK_OFFSET(corner, width, height, 0, 0)
+
+/// Returns a list of turfs similar to CORNER_BLOCK but with offsets
+#define CORNER_BLOCK_OFFSET(corner, width, height, offset_x, offset_y) ((block(locate(corner.x + offset_x, corner.y + offset_y, corner.z), locate(min(corner.x + (width - 1) + offset_x, world.maxx), min(corner.y + (height - 1) + offset_y, world.maxy), corner.z))))
+
+/// Returns an outline (neighboring turfs) of the given block
+#define CORNER_OUTLINE(corner, width, height) ( \
+	CORNER_BLOCK_OFFSET(corner, width + 2, 1, -1, -1) + \
+	CORNER_BLOCK_OFFSET(corner, width + 2, 1, -1, height) + \
+	CORNER_BLOCK_OFFSET(corner, 1, height, -1, 0) + \
+	CORNER_BLOCK_OFFSET(corner, 1, height, width, 0))
+
+/// Returns a list of around us
+#define TURF_NEIGHBORS(turf) (CORNER_BLOCK_OFFSET(turf, 3, 3, -1, -1) - turf)
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
 	GLOB.dview_mob.set_invis_see(invis_flags); \
 	for(type in view(range, GLOB.dview_mob))
+
 #define END_FOR_DVIEW GLOB.dview_mob.loc = null
 
 //Turf locational stuff
@@ -318,6 +325,23 @@
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
+
+// These comments mirror the below define in the order of operations to help you understand what it is doing
+		// Check if datum I is a mob
+		// If I is a mob, return the client of mob I
+		// Else, check to see if I is a client
+			// If I is a client, return I
+			// Else, check to see if I is a mind
+				// If I is a mind, try and return the mind's current mob's client
+
+/// Return a Client
+#define CLIENT_FROM_VAR(I) (ismob(I)			\
+		? I:client								\
+		: istype(I, /client)					\
+				? I								\
+				: istype(I, /datum/mind			\
+						? I:current?:client		\
+						: null))
 
 // Macro to get the current elapsed round time, rather than total world runtime
 #define ROUND_TIME (SSticker.time_game_started ? (world.time - SSticker.time_game_started) : 0)

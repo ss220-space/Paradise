@@ -5,14 +5,13 @@
 	set name = "Open Admin Ticket Interface"
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
 	SStickets.showUI(usr)
 
 /client/proc/resolveAllAdminTickets()
 	set name = "Resolve All Open Admin Tickets"
-	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return

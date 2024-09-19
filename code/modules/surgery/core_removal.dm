@@ -35,18 +35,18 @@
 	time = 1.6 SECONDS
 
 /datum/surgery_step/slime/cut_flesh/begin_step(mob/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
-	user.visible_message("[user] starts cutting through [target]'s flesh with \the [tool].", "You start cutting through [target]'s flesh with \the [tool].")
+	user.visible_message("[user] starts cutting through [target]'s flesh with \the [tool].", "You start cutting through [target]'s flesh with \the [tool].", chat_message_type = MESSAGE_TYPE_COMBAT)
 	return ..()
 
 /datum/surgery_step/slime/cut_flesh/end_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
 	user.visible_message(span_notice("[user] cuts through [target]'s flesh with \the [tool]."),
-	span_notice(" You cut through [target]'s flesh with \the [tool], revealing its silky innards."))
+	span_notice(" You cut through [target]'s flesh with \the [tool], revealing its silky innards."), chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/slime/cut_flesh/fail_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
 	user.visible_message(
 		span_warning("[user]'s hand slips, tearing [target]'s flesh with \the [tool]!"),
-		span_warning("Your hand slips, tearing [target]'s flesh with \the [tool]!")
+		span_warning("Your hand slips, tearing [target]'s flesh with \the [tool]!"), chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_RETRY
 
@@ -66,8 +66,11 @@
 /datum/surgery_step/slime/extract_core/end_step(mob/user, mob/living/simple_animal/slime/slime, target_zone, obj/item/tool)
 	if(slime.cores > 0)
 		slime.cores--
-		user.visible_message(span_notice("[user] successfully extracts a core from [slime]!"),
-			span_notice("You successfully extract a core from [slime]. [slime.cores] core\s remaining."))
+		user.visible_message(
+			span_notice("[user] successfully extracts a core from [slime]!"),
+			span_notice("You successfully extract a core from [slime]. [slime.cores] core\s remaining."),
+			chat_message_type = MESSAGE_TYPE_COMBAT
+			)
 
 		new slime.coretype(slime.loc)
 
@@ -83,6 +86,7 @@
 /datum/surgery_step/slime/extract_core/fail_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
 	user.visible_message(
 		span_warning("[user]'s hand slips, tearing [target]'s flesh with \the [tool]!"),
-		span_warning("Your hand slips, tearing [target]'s flesh with \the [tool]!")
+		span_warning("Your hand slips, tearing [target]'s flesh with \the [tool]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_RETRY

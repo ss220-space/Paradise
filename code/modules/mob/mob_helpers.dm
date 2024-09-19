@@ -409,7 +409,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		to_chat(src, "<span class='notice'>Вы уже спите.</span>")
 		return
 	else
-		if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
+		if(tgui_alert(src, "You sure you want to sleep for a while?", "Sleep", list("Yes", "No")) == "Yes")
 			SetSleeping(40 SECONDS) //Short nap
 
 
@@ -587,11 +587,11 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 		for(var/i=1,i<=3,i++)	//we get 3 attempts to pick a suitable name.
 			if(force)
-				newname = clean_input("Выберите новое имя.", "Смена имени", oldname, src)
+				newname = tgui_input_text(src, "Выберите новое имя.", "Смена имени", oldname)
 			else
-				newname = clean_input("Вы [role]. Не хотите поменять своё имя на другое? У вас есть 3 минуты для выбора нового имени.", "Смена имени", oldname, src)
+				newname = tgui_input_text(src, "Вы [role]. Не хотите поменять своё имя на другое? У вас есть 3 минуты для выбора нового имени.", "Смена имени", oldname, timeout = 3 MINUTES)
 			if(((world.time - time_passed) > 1800) && !force)
-				alert(src, "К сожалению, время для выбора имени кончилось. Если вы киборг, используйте команду «Namepick»; иначе — «Adminhelp».", "Смена имени")
+				tgui_alert(src, "К сожалению, время для выбора имени кончилось. Если вы киборг, используйте команду «Namepick»; иначе — «Adminhelp».", "Смена имени")
 				return	//took too long
 			newname = reject_bad_name(newname,allow_numbers)	//returns null if the name doesn't meet some basic requirements. Tidies up a few other things like bad-characters.
 
@@ -835,16 +835,17 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		adjacent = get_turf(adjacent)
 		if(!adjacent)
 			return FALSE
-	if(adjacent.density)
+	if(loc == adjacent)
+		return TRUE
+	if(!in_range(src, adjacent))
 		return FALSE
-	if(!in_range(loc, adjacent))
+	var/border_dir = get_dir(adjacent, src)
+	if(!is_type_in_list(adjacent, types_to_exclude) && !adjacent.CanPass(src, border_dir))
 		return FALSE
-	for(var/atom/check_atom in adjacent)
-		if(islist(types_to_exclude) && is_type_in_list(check_atom, types_to_exclude))
+	for(var/atom/check_atom as anything in adjacent)
+		if(is_type_in_list(check_atom, types_to_exclude))
 			continue
-		if(check_atom.density)
-			return FALSE
-		if(!check_atom.CanPass(src, loc))
+		if(!check_atom.CanPass(src, border_dir))
 			return FALSE
 	return TRUE
 

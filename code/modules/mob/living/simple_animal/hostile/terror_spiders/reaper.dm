@@ -35,4 +35,4 @@
 
 	if(L.stat != DEAD) //no healing when biting corpses
 		L.bleed(25) //bloodsucker
-		src.adjustBruteLoss(-30)   //vampirism
+		adjustBruteLoss(-30)   //vampirism

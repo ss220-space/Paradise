@@ -19,6 +19,7 @@
 			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_PILOT, ACCESS_WEAPONS)
 	minimal_player_age = 21
 	min_age_allowed = 30
+	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed = 0
@@ -43,7 +44,7 @@
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/melee/classic_baton/telescopic = 1,
+		/obj/item/melee/baton/telescopic = 1,
 		/obj/item/security_voucher = 1
 	)
 
@@ -71,6 +72,7 @@
 	alt_titles = list("Brig Sergeant")
 	minimal_player_age = 21
 	min_age_allowed = 30
+	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 2100
 	exp_type = EXP_TYPE_SECURITY
 	money_factor = 6
@@ -121,6 +123,7 @@
 	alt_titles = list("Forensic Technician")
 	minimal_player_age = 14
 	exp_requirements = 1200
+	blocked_race_for_job = list(SPECIES_VOX)
 	exp_type = EXP_TYPE_SECURITY
 	money_factor = 4
 	outfit = /datum/outfit/job/detective
@@ -143,7 +146,7 @@
 	l_hand = /obj/item/storage/briefcase/crimekit
 	backpack_contents = list(
 		/obj/item/storage/box/evidence = 1,
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1
 	)
 	satchel = /obj/item/storage/backpack/satchel_detective
 	box = /obj/item/storage/box/survival_security/detective
@@ -180,6 +183,7 @@
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	alt_titles = list("Security Trainer","Patrol Officer", "Security Cadet")
 	minimal_player_age = 14
+	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
 	money_factor = 3

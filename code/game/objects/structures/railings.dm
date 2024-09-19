@@ -31,8 +31,6 @@
 	density = FALSE
 	climbable = FALSE
 
-/obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
-	..()
 
 /obj/structure/railing/welder_act(mob/living/user, obj/item/I)
 	if(user.intent != INTENT_HELP)
@@ -84,7 +82,7 @@
 	return TRUE
 
 
-/obj/structure/railing/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+/obj/structure/railing/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!(to_dir & dir))
 		return TRUE
 	return ..()

@@ -30,6 +30,7 @@
 	faction = list("pirate")
 	sentience_type = SENTIENCE_OTHER
 	footstep_type = FOOTSTEP_MOB_SHOE
+	AI_delay_max = 0 SECONDS
 
 /mob/living/simple_animal/hostile/pirate/ranged
 	name = "Pirate Gunner"

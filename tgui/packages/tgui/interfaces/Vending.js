@@ -1,6 +1,6 @@
 import { classes } from 'common/react';
 import { useBackend } from '../backend';
-import { Box, Button, Section, Table } from '../components';
+import { Box, Button, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 
 const VendingRow = (props, context) => {
@@ -104,74 +104,82 @@ export const Vending = (props, context) => {
   return (
     <Window
       width={470}
-      height={100 + Math.min(product_records.length * 34, 500)}
+      height={100 + Math.min(product_records.length * 38, 500)}
       title="Vending Machine"
     >
-      <Window.Content scrollable>
-        {!!chargesMoney && (
-          <Section title="User">
-            {(user && (
-              <Box>
-                Welcome, <b>{user.name}</b>, <b>{user.job || 'Unemployed'}</b>!
-                <br />
-                Your balance is <b>{userMoney} credits</b>.
-              </Box>
-            )) || <Box color="light-grey">{guestNotice}</Box>}
-          </Section>
-        )}
-        {!!coin_name && (
-          <Section
-            title="Coin"
-            buttons={
-              <Button
-                fluid
-                icon="eject"
-                content="Remove Coin"
-                onClick={() => act('remove_coin', {})}
-              />
-            }
-          >
-            <Box>{coin_name}</Box>
-          </Section>
-        )}
-        {!!inserted_item_name && (
-          <Section
-            title="Item"
-            buttons={
-              <Button
-                fluid
-                icon="eject"
-                content="Eject Item"
-                onClick={() => act('eject_item', {})}
-              />
-            }
-          >
-            <Box>{inserted_item_name}</Box>
-          </Section>
-        )}
-        {!!panel_open && (
-          <Section title="Maintenance">
-            <Button
-              icon={speaker ? 'check' : 'volume-mute'}
-              selected={speaker}
-              content="Speaker"
-              textAlign="left"
-              onClick={() => act('toggle_voice', {})}
-            />
-          </Section>
-        )}
-        <Section title="Products">
-          <Table>
-            {inventory.map((product) => (
-              <VendingRow
-                key={product.name}
-                product={product}
-                productStock={stock[product.name]}
-                productImage={imagelist[product.path]}
-              />
-            ))}
-          </Table>
-        </Section>
+      <Window.Content>
+        <Stack fill vertical>
+          <Stack.Item>
+            {!!chargesMoney && (
+              <Section title="User">
+                {(user && (
+                  <Box>
+                    Welcome, <b>{user.name}</b>,{' '}
+                    <b>{user.job || 'Unemployed'}</b>
+                    !
+                    <br />
+                    Your balance is <b>{userMoney} credits</b>.
+                  </Box>
+                )) || <Box color="light-grey">{guestNotice}</Box>}
+              </Section>
+            )}
+            {!!coin_name && (
+              <Section
+                title="Coin"
+                buttons={
+                  <Button
+                    fluid
+                    icon="eject"
+                    content="Remove Coin"
+                    onClick={() => act('remove_coin', {})}
+                  />
+                }
+              >
+                <Box>{coin_name}</Box>
+              </Section>
+            )}
+            {!!inserted_item_name && (
+              <Section
+                title="Item"
+                buttons={
+                  <Button
+                    fluid
+                    icon="eject"
+                    content="Eject Item"
+                    onClick={() => act('eject_item', {})}
+                  />
+                }
+              >
+                <Box>{inserted_item_name}</Box>
+              </Section>
+            )}
+            {!!panel_open && (
+              <Section title="Maintenance">
+                <Button
+                  icon={speaker ? 'check' : 'volume-mute'}
+                  selected={speaker}
+                  content="Speaker"
+                  textAlign="left"
+                  onClick={() => act('toggle_voice', {})}
+                />
+              </Section>
+            )}
+          </Stack.Item>
+          <Stack.Item grow>
+            <Section title="Products" fill scrollable>
+              <Table>
+                {inventory.map((product) => (
+                  <VendingRow
+                    key={product.name}
+                    product={product}
+                    productStock={stock[product.name]}
+                    productImage={imagelist[product.path]}
+                  />
+                ))}
+              </Table>
+            </Section>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

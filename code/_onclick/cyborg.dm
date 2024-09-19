@@ -94,7 +94,7 @@
 			W.melee_attack_chain(src, A, params)
 			return
 		else
-			W.afterattack(A, src, 0, params)
+			W.afterattack(A, src, FALSE, params)
 			return
 	return
 

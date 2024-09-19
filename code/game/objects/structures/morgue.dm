@@ -128,13 +128,9 @@
 /obj/structure/morgue/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		var/rename = rename_interactive(user, I)
-
-		if(isnull(rename))
-			return
-
-		update_icon(UPDATE_OVERLAYS)
-		add_fingerprint(user)
-		return
+		if(!isnull(rename))
+			update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
 
@@ -288,7 +284,10 @@
 
 
 /obj/structure/m_tray/attackby(obj/item/I, mob/user, params)
-	user.drop_transfer_item_to_loc(I, loc)
+	if(user.a_intent == INTENT_HARM || !user.drop_transfer_item_to_loc(I, loc))
+		return ..()
+	add_fingerprint(user)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/structure/m_tray/MouseDrop_T(atom/movable/dropping, mob/living/user, params)
@@ -312,7 +311,7 @@
 	return TRUE
 
 
-/obj/structure/tray/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
+/obj/structure/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return TRUE
@@ -320,10 +319,12 @@
 		return TRUE
 
 
-/obj/structure/m_tray/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
-	. = !density
-	if(checkpass(caller, PASSTABLE))
-		. = TRUE
+/obj/structure/m_tray/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSTABLE))
+		return TRUE
+	return FALSE
 
 
 /mob/proc/update_morgue()
@@ -415,10 +416,12 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/machinery/crematorium/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		rename_interactive(user, I)
-		add_fingerprint(user)
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	if(cremating)
 		flame_spread(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 
@@ -528,14 +531,13 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 /obj/machinery/crematorium/verb/cremate_verb()
 	set name = "Cremate"
-	set category = null
 	set src in oview(1)
 
 	try_cremate(usr)
 
 
 /obj/machinery/crematorium/proc/try_cremate(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(stat & NOPOWER)
@@ -691,6 +693,14 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	return ..()
 
 
+/obj/structure/c_tray/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSTABLE))
+		return TRUE
+	return FALSE
+
+
 /obj/structure/c_tray/attack_hand(mob/user)
 	crematorium?.tray_toggle(user)
 
@@ -705,7 +715,10 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 
 /obj/structure/c_tray/attackby(obj/item/I, mob/user, params)
-	user.drop_transfer_item_to_loc(I, loc)
+	if(user.a_intent == INTENT_HARM || !user.drop_transfer_item_to_loc(I, loc))
+		return ..()
+	add_fingerprint(user)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/structure/c_tray/MouseDrop_T(atom/movable/dropping, mob/living/user, params)

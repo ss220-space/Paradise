@@ -1,7 +1,6 @@
 //Station goal stuff goes here
 /datum/station_goal/bluespace_tap
 	name = "Bluespace Harvester"
-	gamemode_blacklist = list("extended")
 	var/goal = 25000
 
 /datum/station_goal/bluespace_tap/get_report()
@@ -26,7 +25,7 @@
 	var/highscore = 0
 	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
 		highscore = max(highscore, T.total_points)
-	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounce'>"][highscore]</span>")
+	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounceooc'>"][highscore]</span>")
 	if(highscore >= goal)
 		return TRUE
 	return FALSE

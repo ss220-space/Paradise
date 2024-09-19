@@ -45,44 +45,53 @@
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 	var/plank_type = /obj/item/stack/sheet/wood
 	var/plank_name = "wooden planks"
-	var/static/list/accepted = typecacheof(list(/obj/item/reagent_containers/food/snacks/grown/tobacco,
-	/obj/item/reagent_containers/food/snacks/grown/tea,
-	/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
-	/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
-	/obj/item/reagent_containers/food/snacks/grown/wheat))
+	var/static/list/accepted = typecacheof(list(
+		/obj/item/reagent_containers/food/snacks/grown/tobacco,
+		/obj/item/reagent_containers/food/snacks/grown/tea,
+		/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
+		/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
+		/obj/item/reagent_containers/food/snacks/grown/wheat,
+	))
 
-/obj/item/grown/log/attackby(obj/item/W, mob/user, params)
-	if(is_sharp(W))
-		user.show_message(span_notice("You make [plank_name] out of \the [src]!"), 1)
+
+/obj/item/grown/log/attackby(obj/item/I, mob/user, params)
+	if(is_sharp(I))
+		if(!isturf(loc))
+			add_fingerprint(user)
+			to_chat(user, span_warning("You cannot chop [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have chopped [src] into planks."))
 		var/seed_modifier = 0
 		if(seed)
 			seed_modifier = round(seed.potency / 25)
-		new plank_type(user.loc, 1 + seed_modifier)
-		var/new_amount = 0
-		for(var/obj/item/stack/sheet/G in user.loc)
-			if(!istype(G, plank_type))
-				continue
-			if(G.amount >= G.max_amount)
-				continue
-			new_amount += G.amount
-		if(new_amount > 1)
-			to_chat(user, span_notice("You add the newly-formed [plank_name] to the stack. It now contains [new_amount] [plank_name]."))
+		var/obj/item/stack/planks = new plank_type(loc, 1 + seed_modifier)
+		transfer_fingerprints_to(planks)
+		planks.add_fingerprint(user)
 		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(CheckAccepted(W))
-		var/obj/item/reagent_containers/food/snacks/grown/leaf = W
-		if(leaf.dry)
-			user.show_message(span_notice("You wrap \the [W] around the log, turning it into a torch!"))
-			var/obj/item/flashlight/flare/torch/T = new /obj/item/flashlight/flare/torch(user.loc)
-			usr.drop_item_ground(W)
-			usr.put_in_active_hand(T, ignore_anim = FALSE)
-			qdel(leaf)
-			qdel(src)
-			return
-		else
-			to_chat(usr, span_warning("You must dry this first!"))
-	else
-		return ..()
+	if(CheckAccepted(I))
+		var/obj/item/reagent_containers/food/snacks/grown/leaf = I
+		if(!leaf.dry)
+			add_fingerprint(user)
+			to_chat(user, span_warning("You should dry [leaf] first."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(leaf, src))
+			return ..()
+		to_chat(user, span_notice("You wrap [leaf] around [src], turning it into a torch."))
+		var/obj/item/flashlight/flare/torch/torch = new(drop_location())
+		transfer_fingerprints_to(torch)
+		leaf.transfer_fingerprints_to(torch)
+		torch.add_fingerprint(user)
+		if(loc == user)
+			user.temporarily_remove_item_from_inventory(src, force = TRUE)
+			user.put_in_hands(torch)
+		qdel(leaf)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/grown/log/proc/CheckAccepted(obj/item/I)
 	return is_type_in_typecache(I, accepted)
@@ -157,6 +166,7 @@
 	anchored = TRUE
 	buckle_lying = 0
 	pass_flags_self = PASSTABLE|LETPASSTHROW
+	var/rod_installed = FALSE
 	var/burning = FALSE
 	var/lighter // Who lit the fucking thing
 	var/fire_stack_strength = 5
@@ -177,35 +187,68 @@
 	icon_state = "bonfire[burning ? "_on_fire" : ""]"
 
 
-/obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/rods) && !can_buckle)
+/obj/structure/bonfire/update_overlays()
+	. = ..()
+	underlays.Cut()
+	if(!rod_installed)
+		return .
+	var/static/mutable_appearance/rod
+	if(isnull(rod))
+		rod = mutable_appearance('icons/obj/hydroponics/equipment.dmi', "bonfire_rod")
+		rod.pixel_z = 16
+	underlays += rod
+
+
+/obj/structure/bonfire/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/stack/rods))
 		add_fingerprint(user)
-		var/obj/item/stack/rods/R = W
-		R.use(1)
+		var/obj/item/stack/rods/rods = I
+		if(rod_installed)
+			to_chat(user, span_warning("The [name] already has a metal rod installed."))
+			return ATTACK_CHAIN_PROCEED
+		if(!rods.use(1))
+			to_chat(user, span_warning("You need at least one rod to do this."))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] has constructed a central rod inside [src]."),
+			span_notice("You have constructed a central rod inside [src]."),
+		)
+		rod_installed = TRUE
 		can_buckle = TRUE
 		buckle_requires_restraints = TRUE
-		to_chat(user, "<span class='italics'>You add a rod to [src].")
-		var/image/U = image(icon='icons/obj/hydroponics/equipment.dmi',icon_state="bonfire_rod",pixel_y=16)
-		underlays += U
-	if(is_hot(W))
+		update_icon(UPDATE_OVERLAYS)	// update underlays some day
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(is_hot(I) && StartBurning())
 		add_fingerprint(user)
 		lighter = user.ckey
 		add_misc_logs(user, "lit a bonfire", src)
-		StartBurning()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
 /obj/structure/bonfire/attack_hand(mob/user)
 	if(burning)
-		to_chat(user, "<span class='warning'>You need to extinguish [src] before removing the logs!")
+		to_chat(user, span_warning("You need to extinguish [src] before removing the logs!"))
 		return
 	if(!has_buckled_mobs() && do_after(user, 5 SECONDS, src))
 		for(var/I in 1 to 5)
-			var/obj/item/grown/log/L = new /obj/item/grown/log(loc)
-			L.pixel_x += rand(1,4)
-			L.pixel_y += rand(1,4)
+			var/obj/item/grown/log/log = new(loc)
+			log.set_base_pixel_x(rand(1,4))
+			log.set_base_pixel_y(rand(1,4))
+			log.add_fingerprint(user)
+			transfer_fingerprints_to(log)
+		if(rod_installed)
+			var/obj/item/stack/rods/rod = new(loc)
+			rod.add_fingerprint(user)
+			transfer_fingerprints_to(rod)
 		qdel(src)
 		return
-	..()
+	return ..()
 
 
 /obj/structure/bonfire/proc/CheckOxygen()
@@ -215,7 +258,9 @@
 	return 0
 
 /obj/structure/bonfire/proc/StartBurning()
+	. = FALSE
 	if(!burning && CheckOxygen())
+		. = TRUE
 		burning = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		set_light(6, l_color = "#ED9200", l_on = TRUE)
@@ -265,6 +310,11 @@
 		update_icon(UPDATE_ICON_STATE)
 		set_light_on(FALSE)
 		STOP_PROCESSING(SSobj, src)
+
+
+/obj/structure/bonfire/extinguish_light(force = FALSE)
+	if(force)
+		extinguish()
 
 
 /obj/structure/bonfire/post_buckle_mob(mob/living/target)

@@ -98,12 +98,18 @@
 			GLOB.syndicateofficer += loc
 			qdel(src)
 
-	GLOB.landmarks_list += src
+		if("Syndicate-Spawn")
+			GLOB.nukespawn += loc
+
+	if(!QDELETED(src))
+		GLOB.landmarks_list += src
+
 	return 1
 
 /obj/effect/landmark/Destroy()
+	. = ..()
 	GLOB.landmarks_list -= src
-	return ..()
+	return QDEL_HINT_HARDDEL_NOW
 
 /obj/effect/landmark/singularity_act()
 	return
@@ -294,183 +300,183 @@
 //Same orders as jobs in lobby
 
 /obj/effect/landmark/start/civilian
-	name = "Civilian"
+	name = JOB_TITLE_CIVILIAN
 	icon_state = "Assistant"
 
 /obj/effect/landmark/start/chief_engineer
-	name = "Chief Engineer"
+	name = JOB_TITLE_CHIEF
 	icon_state = "CE"
 
 /obj/effect/landmark/start/engineer
-	name = "Station Engineer"
+	name = JOB_TITLE_ENGINEER
 	icon_state = "Engi"
 
 /obj/effect/landmark/start/trainee_engineer
-	name = "Trainee Engineer"
+	name = JOB_TITLE_ENGINEER_TRAINEE
 	icon_state = "Trainee_Engi"
 
 /obj/effect/landmark/start/atmospheric
-	name = "Life Support Specialist"
+	name = JOB_TITLE_ATMOSTECH
 	icon_state = "Atmos"
 
 /obj/effect/landmark/start/mechanic
-	name = "Mechanic"
+	name = JOB_TITLE_MECHANIC
 	icon_state = "Mechanic"
 
 /obj/effect/landmark/start/cmo
-	name = "Chief Medical Officer"
+	name = JOB_TITLE_CMO
 	icon_state = "CMO"
 
 /obj/effect/landmark/start/doctor
-	name = "Medical Doctor"
+	name = JOB_TITLE_DOCTOR
 	icon_state = "MD"
 
 /obj/effect/landmark/start/intern
-	name = "Intern"
+	name = JOB_TITLE_INTERN
 	icon_state = "Intern"
 
 /obj/effect/landmark/start/coroner
-	name = "Coroner"
+	name = JOB_TITLE_CORONER
 	icon_state = "Coroner"
 
 /obj/effect/landmark/start/chemist
-	name = "Chemist"
+	name = JOB_TITLE_CHEMIST
 	icon_state = "Chemist"
 
 /obj/effect/landmark/start/geneticist
-	name = "Geneticist"
+	name = JOB_TITLE_GENETICIST
 	icon_state = "Genetics"
 
 /obj/effect/landmark/start/virologist
-	name = "Virologist"
+	name = JOB_TITLE_VIROLOGIST
 	icon_state = "Viro"
 
 /obj/effect/landmark/start/psychiatrist
-	name = "Psychiatrist"
+	name = JOB_TITLE_PSYCHIATRIST
 	icon_state = "Psych"
 
 /obj/effect/landmark/start/paramedic
-	name = "Paramedic"
+	name = JOB_TITLE_PARAMEDIC
 	icon_state = "Paramed"
 
 /obj/effect/landmark/start/research_director
-	name = "Research Director"
+	name = JOB_TITLE_RD
 	icon_state = "RD"
 
 /obj/effect/landmark/start/scientist
-	name = "Scientist"
+	name = JOB_TITLE_SCIENTIST
 	icon_state = "Sci"
 
 /obj/effect/landmark/start/student_sientist
-	name = "Student Scientist"
+	name = JOB_TITLE_SCIENTIST_STUDENT
 	icon_state = "Student_Sci"
 
 /obj/effect/landmark/start/roboticist
-	name = "Roboticist"
+	name = JOB_TITLE_ROBOTICIST
 	icon_state = "Robo"
 
 /obj/effect/landmark/start/head_of_security
-	name = "Head of Security"
+	name = JOB_TITLE_HOS
 	icon_state = "HoS"
 
 /obj/effect/landmark/start/warden
-	name = "Warden"
+	name = JOB_TITLE_WARDEN
 	icon_state = "Warden"
 
 /obj/effect/landmark/start/detective
-	name = "Detective"
+	name = JOB_TITLE_DETECTIVE
 	icon_state = "Det"
 
 /obj/effect/landmark/start/security_officer
-	name = "Security Officer"
+	name = JOB_TITLE_OFFICER
 	icon_state = "Sec"
 
 /obj/effect/landmark/start/brig_physician
-	name = "Brig Physician"
+	name = JOB_TITLE_BRIGDOC
 	icon_state = "Brig_MD"
 
 /obj/effect/landmark/start/security_pod_pilot
-	name = "Security Pod Pilot"
+	name = JOB_TITLE_PILOT
 	icon_state = "Security_Pod"
 
 /obj/effect/landmark/start/ai
-	name = "AI"
+	name = JOB_TITLE_AI
 	icon_state = "AI"
 
 /obj/effect/landmark/start/cyborg
-	name = "Cyborg"
+	name = JOB_TITLE_CYBORG
 	icon_state = "Borg"
 
 /obj/effect/landmark/start/captain
-	name = "Captain"
+	name = JOB_TITLE_CAPTAIN
 	icon_state = "Cap"
 
 /obj/effect/landmark/start/hop
-	name = "Head of Personnel"
+	name = JOB_TITLE_HOP
 	icon_state = "HoP"
 
 /obj/effect/landmark/start/nanotrasen_rep
-	name = "Nanotrasen Representative"
+	name = JOB_TITLE_REPRESENTATIVE
 	icon_state = "NTR"
 
 /obj/effect/landmark/start/blueshield
-	name = "Blueshield"
+	name = JOB_TITLE_BLUESHIELD
 	icon_state = "BS"
 
 /obj/effect/landmark/start/magistrate
-	name = "Magistrate"
+	name = JOB_TITLE_JUDGE
 	icon_state = "Magi"
 
 /obj/effect/landmark/start/internal_affairs
-	name = "Internal Affairs Agent"
+	name = JOB_TITLE_LAWYER
 	icon_state = "IAA"
 
 /obj/effect/landmark/start/bartender
-	name = "Bartender"
+	name = JOB_TITLE_BARTENDER
 	icon_state = "Bartender"
 
 /obj/effect/landmark/start/chef
-	name = "Chef"
+	name = JOB_TITLE_CHEF
 	icon_state = "Chef"
 
 /obj/effect/landmark/start/botanist
-	name = "Botanist"
+	name = JOB_TITLE_BOTANIST
 	icon_state = "Botanist"
 
 /obj/effect/landmark/start/quartermaster
-	name = "Quartermaster"
+	name = JOB_TITLE_QUARTERMASTER
 	icon_state = "QM"
 
 /obj/effect/landmark/start/cargo_technician
-	name = "Cargo Technician"
+	name = JOB_TITLE_CARGOTECH
 	icon_state = "Cargo_Tech"
 
 /obj/effect/landmark/start/shaft_miner
-	name = "Shaft Miner"
+	name = JOB_TITLE_MINER
 	icon_state = "Miner"
 
 /obj/effect/landmark/start/clown
-	name = "Clown"
+	name = JOB_TITLE_CLOWN
 	icon_state = "Clown"
 
 /obj/effect/landmark/start/mime
-	name = "Mime"
+	name = JOB_TITLE_MIME
 	icon_state = "Mime"
 
 /obj/effect/landmark/start/janitor
-	name = "Janitor"
+	name = JOB_TITLE_JANITOR
 	icon_state = "Jani"
 
 /obj/effect/landmark/start/librarian
-	name = "Librarian"
+	name = JOB_TITLE_LIBRARIAN
 	icon_state = "Librarian"
 
 /obj/effect/landmark/start/barber
-	name = "Barber"
+	name = JOB_TITLE_BARBER
 	icon_state = "Barber"
 
 /obj/effect/landmark/start/chaplain
-	name = "Chaplain"
+	name = JOB_TITLE_CHAPLAIN
 	icon_state = "Chap"
 
 /obj/effect/landmark/start/set_tag()
@@ -679,10 +685,6 @@
 	..()
 	var/turf/simulated/T = get_turf(src)
 	T.burn_tile()
-
-
-/obj/effect/landmark/battle_mob_point
-	name = "Nanomob Battle Avatar Spawn Point"
 
 /obj/effect/landmark/spawner/bubblegum_arena
 	name = "bubblegum_arena_human"

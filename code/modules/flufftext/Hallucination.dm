@@ -133,7 +133,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 			return
 		Expand()
 		if((get_turf(target) in flood_turfs) && !target.internal)
-			target.hallucinate_living("fake_alert", "too_much_tox")
+			target.hallucinate_living("fake_alert", ALERT_TOO_MUCH_TOX)
 		next_expand = world.time + FAKE_FLOOD_EXPAND_TIME
 
 /obj/effect/hallucination/fake_flood/proc/Expand()
@@ -296,7 +296,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		if(bubblegum.Adjacent(target) && !charged)
 			charged = TRUE
 			target.Weaken(8 SECONDS)
-			target.adjustStaminaLoss(40)
+			target.apply_damage(40, STAMINA)
 			step_away(target, bubblegum)
 			shake_camera(target, 4, 3)
 			target.visible_message("<span class='warning'>[target] jumps backwards, falling on the ground!</span>", "<span class='userdanger'>[bubblegum] slams into you!</span>")
@@ -627,15 +627,19 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-/obj/effect/fake_attacker/attackby(obj/item/P, mob/living/user, params)
-	step_away(src, my_target, 2)
-	user.changeNext_move(CLICK_CD_MELEE)
+/obj/effect/fake_attacker/attackby(obj/item/I, mob/user, params)
+	. = ATTACK_CHAIN_PROCEED
+	if(!my_target)
+		return .
+	. |= ATTACK_CHAIN_SUCCESS
 	user.do_attack_animation(src)
-	my_target.playsound_local(src, P.hitsound, 1)
-	my_target.visible_message("<span class='danger'>[my_target] flails around wildly.</span>", \
-							"<span class='danger'>[my_target] has attacked [src]!</span>")
-
-	health -= P.force
+	step_away(src, my_target, 2)
+	my_target.playsound_local(src, I.hitsound, 1)
+	my_target.visible_message(
+		span_danger("[my_target] flails around wildly."),
+		span_danger("[my_target] has attacked [src]!"),
+	)
+	health -= I.force
 
 
 /obj/effect/fake_attacker/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
@@ -683,7 +687,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				if(weapon_name)
 					my_target.playsound_local(my_target, weap.hitsound, 1)
 					my_target.show_message("<span class='danger'>[src.name] has attacked [my_target] with [weapon_name]!</span>", 1)
-					my_target.adjustStaminaLoss(30)
+					my_target.apply_damage(30, STAMINA)
 					if(prob(20))
 						my_target.AdjustEyeBlurry(6 SECONDS)
 					if(prob(33))
@@ -692,7 +696,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				else
 					my_target.playsound_local(my_target, pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg'), 25, 1, -1)
 					my_target.show_message("<span class='userdanger'>[src.name] has punched [my_target]!</span>", 1)
-					my_target.adjustStaminaLoss(30)
+					my_target.apply_damage(30, STAMINA)
 					if(prob(33))
 						if(!locate(/obj/effect/overlay) in my_target.loc)
 							fake_blood(my_target)
@@ -938,22 +942,22 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 			sleep(rand(100,250))
 			hal_screwyhud = SCREWYHUD_NONE
 		if("fake_alert")
-			var/alert_type = pick("not_enough_oxy","not_enough_tox","not_enough_co2","too_much_oxy","too_much_co2","too_much_tox","newlaw","nutrition","charge","weightless","fire","locked","hacked","temp","pressure")
+			var/alert_type = pick(ALERT_NOT_ENOUGH_OXYGEN, ALERT_NOT_ENOUGH_TOX, ALERT_NOT_ENOUGH_CO2, ALERT_TOO_MUCH_OXYGEN, ALERT_TOO_MUCH_TOX, ALERT_TOO_MUCH_CO2,"newlaw","nutrition","charge","weightless","fire","locked","hacked","temp","pressure")
 			if(specific)
 				alert_type = specific
 			switch(alert_type)
-				if("not_enough_oxy")
-					throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy, override = TRUE)
-				if("not_enough_tox")
-					throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox, override = TRUE)
-				if("not_enough_co2")
-					throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2, override = TRUE)
-				if("too_much_oxy")
-					throw_alert("too_much_oxy", /atom/movable/screen/alert/too_much_oxy, override = TRUE)
-				if("too_much_co2")
-					throw_alert("too_much_co2", /atom/movable/screen/alert/too_much_co2, override = TRUE)
-				if("too_much_tox")
-					throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox, override = TRUE)
+				if(ALERT_NOT_ENOUGH_OXYGEN)
+					throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy, override = TRUE)
+				if(ALERT_NOT_ENOUGH_TOX)
+					throw_alert(ALERT_NOT_ENOUGH_TOX, /atom/movable/screen/alert/not_enough_tox, override = TRUE)
+				if(ALERT_NOT_ENOUGH_CO2)
+					throw_alert(ALERT_NOT_ENOUGH_CO2, /atom/movable/screen/alert/not_enough_co2, override = TRUE)
+				if(ALERT_TOO_MUCH_OXYGEN)
+					throw_alert(ALERT_TOO_MUCH_OXYGEN, /atom/movable/screen/alert/too_much_oxy, override = TRUE)
+				if(ALERT_TOO_MUCH_TOX)
+					throw_alert(ALERT_TOO_MUCH_TOX, /atom/movable/screen/alert/too_much_tox, override = TRUE)
+				if(ALERT_TOO_MUCH_CO2)
+					throw_alert(ALERT_TOO_MUCH_CO2, /atom/movable/screen/alert/too_much_co2, override = TRUE)
 				if("nutrition")
 					if(prob(50))
 						throw_alert(ALERT_NUTRITION, /atom/movable/screen/alert/hunger/fat, override = TRUE, icon_override = dna.species.hunger_icon)

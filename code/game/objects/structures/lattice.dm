@@ -54,15 +54,14 @@
 		C.deconstruct()
 	..()
 
-/obj/structure/lattice/attackby(obj/item/C, mob/user, params)
-	if(resistance_flags & INDESTRUCTIBLE)
-		return
-	else
-		add_fingerprint(user)
-		var/turf/T = get_turf(src)
-		if(!T)
-			return
-		return T.attackby(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
+
+/obj/structure/lattice/attackby(obj/item/I, mob/user, params)
+	if((resistance_flags & INDESTRUCTIBLE) || !isturf(loc))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	add_fingerprint(user)
+	I.melee_attack_chain(user, loc, params)	// hand this off to the turf instead (for building plating, catwalks, etc)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/structure/lattice/ratvar_act()
 	new /obj/structure/lattice/clockwork(loc)
@@ -141,6 +140,8 @@
 /obj/structure/lattice/catwalk/clockwork
 	name = "clockwork catwalk"
 	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
+	base_icon_state = "catwalk_clockwork"
+	icon_state = "catwalk_clockwork-0"
 	smooth = SMOOTH_BITMASK
 
 /obj/structure/lattice/catwalk/clockwork/Initialize(mapload)
@@ -182,11 +183,10 @@
 /obj/structure/lattice/catwalk/fireproof
 	name = "strong catwalk"
 	desc = "Усиленный мостик, способный выдерживать высокие температуры и сильные нагрузки."
-	icon_state = "catwalk"
 	armor = list("melee" = 70, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80)
 	max_integrity = 150
 	icon = 'icons/obj/smooth_structures/strong_catwalk.dmi'
-	icon_state = "catwalk"
+	icon_state = "catwalk-0"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	number_of_rods = 3
 	give_turf_traits = list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)

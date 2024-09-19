@@ -161,9 +161,11 @@
 	if(mob.mind)
 		if(mob.mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-			mob.mutations.Remove(CLUMSY)
-			var/datum/action/innate/toggle_clumsy/A = new
-			A.Grant(mob)
+			mob.force_gene_block(GLOB.clumsyblock, FALSE)
+			// Don't give them another action if they already have one.
+			if(!(locate(/datum/action/innate/toggle_clumsy) in mob.actions))
+				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
+				toggle_clumsy.Grant(mob)
 
 	var/obj/item/toy/crayon/spraycan/R = new(mob)
 	var/obj/item/clothing/glasses/hud/security/chameleon/C = new(mob)
@@ -308,7 +310,7 @@
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
 			if(target)
-				text += "<span class='boldannounce'>Target</span>"
+				text += span_boldannounceooc("Target")
 			text += printplayer(head, 1)
 		text += "<br>"
 		to_chat(world, text)

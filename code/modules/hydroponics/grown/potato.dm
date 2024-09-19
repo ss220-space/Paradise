@@ -39,16 +39,39 @@
 	distill_reagent = "sbiten"
 
 
-/obj/item/reagent_containers/food/snacks/grown/potato/attackby(obj/item/W, mob/user, params)
-	if(is_sharp(W))
-		to_chat(user, "<span class='notice'>You cut the potato into wedges with [W].</span>")
-		var/obj/item/reagent_containers/food/snacks/grown/potato/wedges/Wedges = new /obj/item/reagent_containers/food/snacks/grown/potato/wedges
-		if(!remove_item_from_storage(user))
-			user.temporarily_remove_item_from_inventory(src)
-		user.put_in_hands(Wedges)
-		qdel(src)
-	else
-		return ..()
+/obj/item/reagent_containers/food/snacks/grown/potato/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_sharp(I))
+		return .
+
+	if(!isturf(loc))
+		to_chat(user, span_warning("You cannot cut [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+		return .
+
+	var/static/list/acceptable_surfaces = typecacheof(list(
+		/obj/structure/table,
+		/obj/machinery/optable,
+		/obj/item/storage/bag/tray,
+	))
+	var/acceptable = FALSE
+	for(var/thing in loc)
+		if(is_type_in_typecache(thing, acceptable_surfaces))
+			acceptable = TRUE
+			break
+	if(!acceptable)
+		to_chat(user, span_warning("You cannot cut [src] here! You need a table or at least a tray to do it."))
+		return .
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	user.visible_message(
+		span_notice("[user] cuts the potato into wedges with [I]."),
+		span_notice("You have cut the potato into wedges."),
+	)
+	var/obj/item/reagent_containers/food/snacks/grown/potato/wedges/wedges = new(loc)
+	transfer_fingerprints_to(wedges)
+	wedges.add_fingerprint(user)
+	qdel(src)
 
 
 // Sweet Potato

@@ -128,6 +128,7 @@
 		I.access.Add(ACCESS_CLOWN, ACCESS_MIME, ACCESS_THEATRE)
 		I.assignment = name
 	H.sec_hud_set_ID()
+	H.grant_mimicking()
 
 
 //=========== security clown equipment ===========

@@ -129,18 +129,6 @@
 		frequency = new_frequency
 		radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
-/obj/machinery/door/airlock/Initialize()
-	..()
-	if(frequency)
-		set_frequency(frequency)
-
-
-/obj/machinery/door/airlock/New()
-	..()
-
-	if(SSradio)
-		set_frequency(frequency)
-
 /obj/machinery/airlock_sensor
 	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "airlock_sensor_off"
@@ -204,7 +192,7 @@
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
 /obj/machinery/airlock_sensor/Initialize()
-	..()
+	. = ..()
 	set_frequency(frequency)
 
 /obj/machinery/airlock_sensor/New()
@@ -254,12 +242,18 @@
 	else
 		to_chat(user, "Error, no route to host.")
 
+
 /obj/machinery/access_button/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	//Swiping ID on the access button
 	if(I.GetID())
 		attack_hand(user)
-		return
+		return ATTACK_CHAIN_BLOCKED
+
 	return ..()
+
 
 /obj/machinery/access_button/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -287,7 +281,7 @@
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
 /obj/machinery/access_button/Initialize()
-	..()
+	. = ..()
 	set_frequency(frequency)
 
 /obj/machinery/access_button/New()

@@ -135,11 +135,12 @@
 
 
 /obj/machinery/recharge_station/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
+
 
 /obj/machinery/recharge_station/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -166,7 +167,7 @@
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
 				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
 			if(repairs)
-				H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
+				H.heal_overall_damage(repairs, repairs, affect_robotic = TRUE)
 
 /obj/machinery/recharge_station/proc/go_out(mob/user = usr)
 	if(!occupant)

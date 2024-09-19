@@ -108,17 +108,24 @@
 
 
 /obj/machinery/floodlight/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/stock_parts/cell))
-		if(open)
-			if(cell)
-				to_chat(user, span_warning("There is a power cell already installed."))
-			else
-				add_fingerprint(user)
-				user.drop_transfer_item_to_loc(I, src)
-				cell = I
-				to_chat(user, span_notice("You insert the power cell."))
+		add_fingerprint(user)
+		if(!open)
+			to_chat(user, span_warning("Open [src]'s panel first."))
+			return ATTACK_CHAIN_PROCEED
+		if(cell)
+			to_chat(user, span_warning("There is already a power cell installed."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		cell = I
+		to_chat(user, span_notice("You insert the power cell."))
 		update_icon(UPDATE_ICON_STATE)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 

@@ -26,8 +26,6 @@
 
 
 /datum/vote/New(_initiator, _question, list/_choices, _is_custom = FALSE)
-	if(SSvote.active_vote)
-		CRASH("Attempted to start another vote with one already in progress!")
 
 	if(_initiator)
 		initiator = _initiator
@@ -124,7 +122,7 @@
 
 /datum/vote/proc/announce(start_text)
 	to_chat(world, {"<font color='purple'><b>[start_text]</b>
-		<a href='?src=[SSvote.UID()];vote=open'>Click here or type <code>Vote</code> to place your vote.</a>
+		<a href='byond://?src=[SSvote.UID()];vote=open'>Click here or type <code>Vote</code> to place your vote.</a>
 		You have [CONFIG_GET(number/vote_period) / 10] seconds to vote.</font>"})
 	SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 
@@ -141,6 +139,7 @@
 		SSvote.active_vote = null
 		if(ooc_auto_muted && !CONFIG_GET(flag/ooc_allowed))
 			toggle_ooc()
+		addtimer(CALLBACK(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, on_vote_end)), 3 SECONDS)
 	return ..()
 
 
@@ -208,7 +207,7 @@
 			if(params["target"] in choices)
 				voted[usr.ckey] = params["target"]
 			else
-				message_admins("<span class='boldannounce'>\[EXPLOIT]</span> User [key_name_admin(usr)] spoofed a vote in the vote panel!")
+				message_admins("<span class='boldannounceooc'>\[EXPLOIT]</span> User [key_name_admin(usr)] spoofed a vote in the vote panel!")
 		if("cancel")
 			if(check_rights(R_ADMIN))
 				to_chat(world, "<b>The vote has been canceled.</b>")

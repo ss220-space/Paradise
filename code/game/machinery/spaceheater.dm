@@ -53,28 +53,30 @@
 		cell.emp_act(severity)
 	..(severity)
 
+
 /obj/machinery/space_heater/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
-		if(open)
-			if(cell)
-				to_chat(user, "There is already a power cell inside.")
-				return
-			else
-				// insert cell
-				var/obj/item/stock_parts/cell/C = user.get_active_hand()
-				if(istype(C))
-					if(user.drop_transfer_item_to_loc(C, src))
-						cell = C
-						C.add_fingerprint(user)
-						add_fingerprint(user)
-
-						user.visible_message(span_notice("[user] inserts a power cell into [src]."), span_notice("You insert the power cell into [src]."))
-		else
-			to_chat(user, "The hatch must be open to insert a power cell.")
-			return
-
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/stock_parts/cell))
+		add_fingerprint(user)
+		if(!open)
+			to_chat(user, span_warning("The hatch must be open to insert a power cell."))
+			return ATTACK_CHAIN_PROCEED
+		if(cell)
+			to_chat(user, "There is already a power cell inside.")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		cell = I
+		user.visible_message(
+			span_notice("[user] inserts a power cell into [src]."),
+			span_notice("You insert the power cell into [src]."),
+		)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/machinery/space_heater/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -107,10 +109,10 @@
 
 		dat += "Set Temperature: "
 
-		dat += "<A href='?src=[UID()];op=temp;val=-5'>-</A>"
+		dat += "<a href='byond://?src=[UID()];op=temp;val=-5'>-</A>"
 
 		dat += " [set_temperature]&deg;C "
-		dat += "<A href='?src=[UID()];op=temp;val=5'>+</A><BR>"
+		dat += "<a href='byond://?src=[UID()];op=temp;val=5'>+</A><BR>"
 
 		user.set_machine(src)
 		user << browse({"<meta charset="UTF-8"><HEAD><TITLE>Space Heater Control Panel</TITLE></HEAD><TT>[dat]</TT>"}, "window=spaceheater")

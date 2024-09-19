@@ -374,12 +374,11 @@
 
 	else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))
 		dam_amt = 5
-		target.adjustToxLoss(10)
-		affected?.receive_damage(5)
+		target.apply_damages(brute = 5, tox = 10, def_zone = affected)
 
 	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
 		if(organ.damage && !(organ.tough))
-			organ.receive_damage(dam_amt,0)
+			organ.internal_receive_damage(dam_amt)
 
 	return SURGERY_STEP_RETRY
 
@@ -477,7 +476,7 @@
 				span_warning("[user]'s hand slips, damaging [target]'s [affected.name] with [tool]!"),
 				span_warning("Your hand slips, damaging [target]'s [affected.name] with [tool]!")
 			)
-			affected.receive_damage(20)
+			target.apply_damage(20, def_zone = affected)
 		else
 			user.visible_message(
 				span_warning("[user]'s hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!"),
@@ -510,11 +509,15 @@
 		// dunno how you got here but okay
 		return SURGERY_BEGINSTEP_SKIP
 
+	if(istype(organ, /obj/item/organ/internal/wryn/hivenode) && !iswryn(target)) // If they make more "unique" organs, I'll make some vars and a separate proc, but now..
+		to_chat(user, span_warning("Данное существо не способно принять этот орган!"))
+		return SURGERY_BEGINSTEP_SKIP
+
 	if(target_zone != organ.parent_organ_zone || target.get_organ_slot(organ.slot))
 		to_chat(user, span_notice("There is no room for [organ] in [target]'s [parse_zone(target_zone)]!"))
 		return SURGERY_BEGINSTEP_SKIP
 
-	if((RUNIC_MIND in target.dna.species.species_traits) && istype(organ, /obj/item/organ/internal/brain) && !istype(organ, /obj/item/organ/internal/brain/golem))
+	if(isskeleton(target) && istype(organ, /obj/item/organ/internal/brain) && !istype(organ, /obj/item/organ/internal/brain/golem))
 		to_chat(user, span_notice("There is no room for [organ] in [target]'s [parse_zone(target_zone)]!"))
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -524,6 +527,14 @@
 
 	if(target.get_int_organ(organ) && !affected)
 		to_chat(user, span_warning("[target] already has [organ]."))
+		return SURGERY_BEGINSTEP_SKIP
+
+	if((istype(organ, /obj/item/organ/internal/cyberimp)) && HAS_TRAIT(target, TRAIT_NO_CYBERIMPLANTS))
+		to_chat(user, span_notice("Cyberimplants won't take root in the [target]."))
+		return SURGERY_BEGINSTEP_SKIP
+
+	if((organ.status == ORGAN_ROBOT) && HAS_TRAIT(target, TRAIT_NO_ROBOPARTS))
+		to_chat(user, span_notice("You can't install cybernetic organs into the [target]."))
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(affected)
@@ -569,7 +580,7 @@
 	)
 	var/obj/item/organ/internal/I = tool
 	if(istype(I) && !I.tough)
-		I.receive_damage(rand(3,5),0)
+		I.internal_receive_damage(rand(3,5))
 
 	return SURGERY_STEP_RETRY
 
@@ -709,7 +720,7 @@
 
 	for(var/obj/item/organ/internal/organ as anything in target.get_organs_zone(target_zone))
 		organ.germ_level = max(organ.germ_level-ethanol, 0)
-		organ.receive_damage(rand(4, 8), 0)
+		organ.internal_receive_damage(rand(4, 8))
 
 	R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
 	R.reaction(target, REAGENT_INGEST)
@@ -773,8 +784,7 @@
 	else
 		msg = span_warning("[user]'s hand slips, tearing the skin!")
 		self_msg = span_warning("Your hand slips, tearing skin!")
-	if(affected)
-		affected.receive_damage(20)
+	target.apply_damage(20, def_zone = affected)
 	user.visible_message(msg, self_msg)
 	return SURGERY_STEP_RETRY
 
@@ -837,14 +847,17 @@
 
 	user.visible_message(
 		"[user] starts the incision on [target]'s [target_zone] with [tool].",
-		"You start the incision on [target]'s [target_zone] with [tool].")
+		"You start the incision on [target]'s [target_zone] with [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
+		)
 	return ..()
 
 /datum/surgery_step/cut_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 	user.visible_message(
 		span_notice("[user] has made an incision on [target]'s [target_zone] with [tool]."),
-		span_notice("You have made an incision on [target]'s [target_zone] with [tool].")
+		span_notice("You have made an incision on [target]'s [target_zone] with [tool]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_CONTINUE
 
@@ -852,7 +865,8 @@
 
 	user.visible_message(
 		span_warning("[user]'s hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!"),
-		span_warning("Your hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!")
+		span_warning("Your hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_RETRY
 
@@ -877,7 +891,7 @@
 	if(target_zone == BODY_ZONE_PRECISE_GROIN)
 		msg = "[user] starts to pry open the incision and rearrange the organs in [target]'s lower abdomen with [tool]."
 		self_msg = "You start to pry open the incision and rearrange the organs in [target]'s lower abdomen with [tool]."
-	user.visible_message(msg, self_msg)
+	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	return ..()
 
 /datum/surgery_step/retract_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -889,7 +903,7 @@
 	if(target_zone == BODY_ZONE_PRECISE_GROIN)
 		msg = span_notice("[user] keeps the incision open on [target]'s lower abdomen with [tool].")
 		self_msg = span_notice("You keep the incision open on [target]'s lower abdomen with [tool].")
-	user.visible_message(msg, self_msg)
+	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/retract_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -901,7 +915,7 @@
 	if(target_zone == BODY_ZONE_PRECISE_GROIN)
 		msg = span_warning("[user]'s hand slips, damaging several organs [target]'s lower abdomen with [tool]")
 		self_msg = span_warning("Your hand slips, damaging several organs [target]'s lower abdomen with [tool]!")
-	user.visible_message(msg, self_msg)
+	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_RETRY
 
 // redefine cauterize for every step because of course it relies on get_organ()
@@ -932,7 +946,8 @@
 	var/zone = zone_name(target_zone)
 	user.visible_message(
 		"[user] is beginning to cauterize the incision on [target]'s [zone] with \the [tool].",
-		"You are beginning to cauterize the incision on [target]'s [zone] with \the [tool]."
+		"You are beginning to cauterize the incision on [target]'s [zone] with \the [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.custom_pain("Your [zone] is being burned!")
 	return ..()
@@ -941,7 +956,8 @@
 	var/zone = zone_name(target_zone)
 	user.visible_message(
 		span_notice("[user] cauterizes the incision on [target]'s [zone] with \the [tool]."),
-		span_notice("You cauterize the incision on [target]'s [zone] with \the [tool].")
+		span_notice("You cauterize the incision on [target]'s [zone] with \the [tool]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_CONTINUE
 
@@ -949,7 +965,8 @@
 	var/zone = zone_name(target_zone)
 	user.visible_message(
 		span_warning("[user]'s hand slips, leaving a small burn on [target]'s [zone] with \the [tool]!"),
-		span_warning("Your hand slips, leaving a small burn on [target]'s [zone] with \the [tool]!")
+		span_warning("Your hand slips, leaving a small burn on [target]'s [zone] with \the [tool]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(3, BURN, target_zone)
 	return SURGERY_STEP_RETRY

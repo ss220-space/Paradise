@@ -209,14 +209,15 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		if(SPT_PROB(30, seconds_per_tick))
 			var/matrix/animatrix = new(transform)
 			animatrix.Translate(rand(-1, 1), rand(0, 1))
-			animate(src, transform = animatrix, time= 0.1 SECONDS)
+			animate(src, transform = animatrix, time = 0.1 SECONDS)
 			animate(transform = matrix(), time = 0.1 SECONDS)
 	else
-		if(SPT_PROB(2.5, seconds_per_tick))
+		if(SPT_PROB(15, seconds_per_tick))
 			step(src, pick(GLOB.cardinal))
 		var/matrix/animatrix = new(transform)
 		animatrix.Translate(rand(-3, 3), rand(-1, 3))
-		animate(src, transform = animatrix, time = 0.2 SECONDS)
+		animate(src, transform = animatrix, time = 0.1 SECONDS)
+		animate(transform = matrix(), time = 0.1 SECONDS)
 
 
 /obj/machinery/washing_machine/relaymove(mob/living/user, direction)
@@ -413,32 +414,34 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 /obj/machinery/washing_machine/attackby(obj/item/I, mob/user, params)
 	var/is_mob_holder = istype(I, /obj/item/holder)
-	if(!(state & STATE_OPENED) || istype(I, /obj/item/card/emag) || istype(I, /obj/item/soap) || (!(state & STATE_HACKED) && is_mob_holder))
+	if(!(state & STATE_OPENED) || user.a_intent == INTENT_HARM || istype(I, /obj/item/card/emag) || istype(I, /obj/item/soap) || (!(state & STATE_HACKED) && is_mob_holder))
 		return ..()
+
+	add_fingerprint(user)
 	if(state & STATE_BLOODY)
 		to_chat(user, span_warning("[src] needs to be cleaned first!"))
-		return TRUE
+		return ATTACK_CHAIN_PROCEED
+
 	var/contents_len = length(contents)
 	if((contents_len + (is_mob_holder ? length(I.contents) : 0)) >= MAX_WASH_CAPACITY)
 		to_chat(user, span_warning("[src] is full!"))
-		return TRUE
+		return ATTACK_CHAIN_PROCEED
+
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
+
 	if(is_mob_holder)
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return ..()
-		add_fingerprint(user)
 		for(var/mob/living/simple_animal/pet in I.contents)
 			pet.forceMove(src)
 		if(!QDELETED(I))
 			qdel(I)
-		if(!contents_len)
-			toggle_state(STATE_FULL)
-		return FALSE
-	else if(!user.drop_transfer_item_to_loc(I, src))
-		return ..()
-	if(I.dye_color)
-		color_source = I
+	else
+		if(I.dye_color)
+			color_source = I
+
 	if(!contents_len)
 		toggle_state(STATE_FULL)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/machinery/washing_machine/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)

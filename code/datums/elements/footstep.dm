@@ -1,6 +1,6 @@
 ///Footstep element. Plays footsteps at parents location when it is appropriate.
 /datum/element/footstep
-	element_flags = ELEMENT_DETACH|ELEMENT_BESPOKE
+	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY|ELEMENT_BESPOKE
 	id_arg_index = 2
 	///A list containing living mobs and the number of steps they have taken since the last time their footsteps were played.
 	var/list/steps_for_living = list()
@@ -99,7 +99,7 @@
 /datum/element/footstep/proc/play_simplestep(mob/living/source, atom/oldloc, direction, forced, list/old_locs, momentum_change)
 	SIGNAL_HANDLER
 
-	if(forced || HAS_TRAIT(source, SILENT_FOOTSTEPS) || !momentum_change)
+	if(forced || HAS_TRAIT(source, TRAIT_SILENT_FOOTSTEPS) || !momentum_change)
 		return
 
 	var/list/prepared_steps = prepare_step(source)
@@ -120,7 +120,7 @@
 /datum/element/footstep/proc/play_humanstep(mob/living/carbon/human/source, atom/oldloc, direction, forced, list/old_locs, momentum_change)
 	SIGNAL_HANDLER
 
-	if(forced || !momentum_change || HAS_TRAIT(source, SILENT_FOOTSTEPS) || source.dna.species.silent_steps)
+	if(forced || !momentum_change || HAS_TRAIT(source, TRAIT_SILENT_FOOTSTEPS) || source.dna.species.silent_steps)
 		return
 
 	var/list/prepared_steps = prepare_step(source)
@@ -163,7 +163,7 @@
 /datum/element/footstep/proc/play_simplestep_machine(atom/movable/source, atom/oldloc, direction, forced, list/old_locs, momentum_change)
 	SIGNAL_HANDLER
 
-	if(forced || HAS_TRAIT(source, SILENT_FOOTSTEPS))
+	if(forced || HAS_TRAIT(source, TRAIT_SILENT_FOOTSTEPS))
 		return
 
 	var/turf/source_loc = get_turf(source)

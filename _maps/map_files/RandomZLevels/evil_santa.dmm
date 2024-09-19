@@ -210,10 +210,11 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "bX" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/item/twohanded/dualsaber/toy,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "bY" = (
@@ -262,9 +263,7 @@
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "cD" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},
@@ -281,9 +280,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "cF" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/effect/decal/snow/clean/edge{
 	dir = 1;
 	tag = "icon-snow_corner (NORTH)"
@@ -484,7 +481,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_nw)
 "et" = (
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /obj/item/weldingtool,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/asteroid,
@@ -530,8 +527,7 @@
 /mob/living/simple_animal/pet/penguin/emperor{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	faction = list("hostile","syndicate","winter");
-	minbodytemp = 0;
-	weather_immunities = list("snow")
+	minbodytemp = 0
 	},
 /turf/simulated/floor/plating/ice/smooth,
 /area/vision_change_area/awaymission/evil_santa_storm)
@@ -807,11 +803,9 @@
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "gE" = (
 /obj/structure/flora/grass/brown,
-/mob/living/simple_animal/pet/dog/fox/forest{
+/mob/living/simple_animal/pet/dog/fox/forest/winter{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	faction = list("hostile","syndicate","winter");
-	minbodytemp = 0;
-	weather_immunities = list("snow")
+	faction = list("hostile","syndicate","winter")
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -1240,9 +1234,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "jD" = (
-/mob/living/simple_animal/hostile/winter/reindeer{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/reindeer,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},
@@ -1309,7 +1301,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/mine)
 "ki" = (
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /obj/item/stack/cable_coil,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/asteroid,
@@ -1441,10 +1433,11 @@
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "lw" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/machinery/mineral/ore_redemption/labor,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "ly" = (
@@ -1785,7 +1778,7 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "oj" = (
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /obj/item/paintkit/ripley_red,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/asteroid,
@@ -1797,10 +1790,11 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "ol" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/item/gun/projectile/automatic/toy,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "om" = (
@@ -1894,9 +1888,7 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "oW" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},
@@ -2114,9 +2106,7 @@
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "qV" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 4
 	},
@@ -2129,7 +2119,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "qY" = (
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /obj/item/screwdriver{
 	pixel_y = 10
 	},
@@ -2467,9 +2457,7 @@
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "tP" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},
@@ -2501,8 +2489,7 @@
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "uo" = (
 /mob/living/simple_animal/hostile/bear/brown{
-	faction = list("hostile","syndicate","winter");
-	weather_immunities = list("snow")
+	faction = list("hostile","syndicate","winter")
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -2534,7 +2521,7 @@
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "uw" = (
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/oilcan/full,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/asteroid,
@@ -2710,8 +2697,7 @@
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "wc" = (
 /mob/living/simple_animal/hostile/bear/polar{
-	faction = list("hostile","syndicate","winter");
-	weather_immunities = list("snow")
+	faction = list("hostile","syndicate","winter")
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -2772,7 +2758,9 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "wC" = (
 /obj/machinery/mineral/processing_unit,
-/obj/machinery/conveyor/south,
+/obj/machinery/conveyor{
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "wE" = (
@@ -2993,10 +2981,11 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "ys" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/item/stack/sheet/animalhide/monkey,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "yu" = (
@@ -3006,10 +2995,11 @@
 	},
 /area/vision_change_area/awaymission/evil_santa_storm)
 "yC" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/effect/mob_spawn/human/corpse/monkey_shaftminer,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "yD" = (
@@ -3081,10 +3071,11 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_s)
 "zq" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/effect/spawner/lootdrop/officetoys,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "zs" = (
@@ -3099,8 +3090,9 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "zA" = (
-/obj/machinery/conveyor/northeast{
-	id = "QMLoad"
+/obj/machinery/conveyor{
+	dir = 5;
+	id = "santa"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -3227,7 +3219,10 @@
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
 "AS" = (
 /obj/machinery/recycler/deathtrap,
-/obj/machinery/conveyor/east/ccw,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "AT" = (
@@ -3251,8 +3246,10 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "AY" = (
-/obj/machinery/conveyor/south,
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot,
+/obj/machinery/conveyor{
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "Ba" = (
@@ -3278,9 +3275,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/mine)
 "Bk" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 1
 	},
@@ -3293,9 +3288,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "Bl" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/effect/decal/snow/clean/edge{
 	dir = 8
 	},
@@ -3435,11 +3428,9 @@
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "CH" = (
-/mob/living/simple_animal/pet/dog/fox/forest{
+/mob/living/simple_animal/pet/dog/fox/forest/winter{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	faction = list("hostile","syndicate","winter");
-	minbodytemp = 0;
-	weather_immunities = list("snow")
+	faction = list("hostile","syndicate","winter")
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -3494,8 +3485,10 @@
 	},
 /area/vision_change_area/awaymission/evil_santa_storm)
 "Dt" = (
-/obj/machinery/conveyor/south,
 /obj/item/twohanded/toy/chainsaw,
+/obj/machinery/conveyor{
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "Du" = (
@@ -3773,11 +3766,12 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
 "Gc" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/effect/decal/cleanable/blood/gibs{
 	layer = 2.5
+	},
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -4061,10 +4055,11 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Io" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/item/a_gift,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "Ir" = (
@@ -4227,9 +4222,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "JY" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 1
 	},
@@ -4276,8 +4269,7 @@
 "Kq" = (
 /mob/living/simple_animal/hostile/bear/brown{
 	faction = list("hostile","syndicate","winter");
-	name = "space daebear";
-	weather_immunities = list("snow")
+	name = "space daebear"
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -4498,9 +4490,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Mp" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},
@@ -4525,24 +4515,25 @@
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "MA" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/item/clothing/mask/gas/monkeymask,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "MC" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/item/clothing/suit/monkeysuit,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "MD" = (
 /mob/living/simple_animal/pet/penguin/baby{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	minbodytemp = 0;
-	weather_immunities = list("snow")
+	minbodytemp = 0
 	},
 /turf/simulated/floor/plating/ice/smooth,
 /area/vision_change_area/awaymission/evil_santa_storm)
@@ -4592,8 +4583,10 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "MT" = (
-/obj/machinery/conveyor/south,
 /obj/item/a_gift,
+/obj/machinery/conveyor{
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "MZ" = (
@@ -4640,8 +4633,10 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Nu" = (
-/obj/machinery/conveyor/south,
 /obj/item/toy/xmas_cracker,
+/obj/machinery/conveyor{
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "Nw" = (
@@ -4878,9 +4873,7 @@
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "Pn" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 1
 	},
@@ -5270,8 +5263,7 @@
 "Sx" = (
 /mob/living/simple_animal/pet/penguin/eldrich{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	minbodytemp = 0;
-	weather_immunities = list("snow")
+	minbodytemp = 0
 	},
 /turf/simulated/floor/plating/ice/smooth,
 /area/vision_change_area/awaymission/evil_santa_storm)
@@ -5299,9 +5291,7 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
 "SM" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "SQ" = (
@@ -5451,7 +5441,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "TQ" = (
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /obj/item/clothing/head/welding/flamedecal,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/asteroid,
@@ -5460,10 +5450,11 @@
 /turf/simulated/wall/mineral/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "TS" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/item/toy/xmas_cracker,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "TV" = (
@@ -5881,9 +5872,11 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "XB" = (
-/obj/machinery/conveyor/south,
 /obj/effect/spawner/lootdrop/officetoys,
 /obj/item/shield/riot/templar,
+/obj/machinery/conveyor{
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "XD" = (
@@ -6123,8 +6116,9 @@
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "ZP" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)

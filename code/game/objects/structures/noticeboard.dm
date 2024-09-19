@@ -14,7 +14,7 @@
 /obj/structure/noticeboard/Initialize()
 	. = ..()
 	for(var/obj/item/paper/paper in loc)
-		paper.loc = src
+		paper.forceMove(src)
 		notices++
 	update_icon(UPDATE_OVERLAYS)
 
@@ -26,18 +26,18 @@
 		. += image(src.icon, icon_state = "[src.icon_state][I]")
 
 
-//attaching papers!!
-/obj/structure/noticeboard/attackby(obj/item/item, mob/user, params)
-	if(istype(item, /obj/item/paper))
-		item.add_fingerprint(user)
+/obj/structure/noticeboard/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/paper))	//attaching papers!!
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		add_fingerprint(user)
-		if(!user.drop_transfer_item_to_loc(item, src))
-			return
 		notices++
 		update_icon(UPDATE_OVERLAYS)
 		to_chat(user, span_notice("You pin the paper to the noticeboard."))
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/structure/noticeboard/attack_hand(mob/user)
 	add_fingerprint(user)
@@ -46,7 +46,7 @@
 	dat += "<B>Noticeboard</B><BR>"
 	var/uid = UID()
 	for(var/obj/item/paper/P in src)
-		dat += "<A href='?src=[uid];read=[P.UID()]'>[P.name]</A> <A href='?src=[uid];write=[P.UID()]'>Write</A> <A href='?src=[uid];remove=[P.UID()]'>Remove</A><BR>"
+		dat += "<a href='byond://?src=[uid];read=[P.UID()]'>[P.name]</A> <a href='byond://?src=[uid];write=[P.UID()]'>Write</A> <a href='byond://?src=[uid];remove=[P.UID()]'>Remove</A><BR>"
 	user << browse(dat.Join(""),"window=noticeboard")
 	onclose(user, "noticeboard")
 
@@ -78,6 +78,7 @@
 			add_fingerprint(usr)
 			notices--
 			update_icon(UPDATE_OVERLAYS)
+			usr.put_in_hands(paper, ignore_anim = FALSE)
 
 	if(href_list["write"])
 		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //For when a player is handcuffed while they have the notice window open
@@ -86,10 +87,10 @@
 		if(istype(paper) && paper.loc == src) //ifthe paper's on the board
 			if(is_pen(usr.r_hand)) //and you're holding a pen
 				add_fingerprint(usr)
-				paper.attackby(usr.r_hand, usr) //then do ittttt
+				paper.show_content(usr, infolinks = TRUE)
 			else if(is_pen(usr.l_hand)) //check other hand for pen
 				add_fingerprint(usr)
-				paper.attackby(usr.l_hand, usr)
+				paper.show_content(usr, infolinks = TRUE)
 			else
 				to_chat(usr, span_notice("You'll need something to write with!"))
 

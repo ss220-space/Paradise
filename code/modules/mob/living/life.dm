@@ -19,6 +19,7 @@
 
 	if(!loc)
 		return FALSE
+	INVOKE_ASYNC(src, PROC_REF(burst_blob_in_mob))
 
 	if(stat != DEAD)
 		//Chemicals in the body
@@ -130,7 +131,7 @@
 
 /mob/living/proc/handle_disabilities()
 	//Eyes
-	if((BLINDNESS in mutations) || stat)	//blindness from disability or unconsciousness doesn't get better on its own
+	if(HAS_TRAIT(src, TRAIT_BLIND) || stat)	//blindness from disability or unconsciousness doesn't get better on its own
 		EyeBlind(2 SECONDS)
 
 // Gives a mob the vision of being dead
@@ -174,6 +175,10 @@
 			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 		else
 			clear_fullscreen("brute")
+		if(health <= HEALTH_THRESHOLD_CRIT)
+			throw_alert("succumb", /atom/movable/screen/alert/succumb)
+		else
+			clear_alert("succumb")
 
 
 /mob/living/update_stamina_hud(shown_stamina_loss)
