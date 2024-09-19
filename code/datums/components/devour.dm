@@ -119,40 +119,40 @@
 /// Living(target) is devoured by gourmet.
 /datum/component/devour/advanced/devour(mob/living/gourmet, mob/living/living)
     SIGNAL_HANDLER
-    
-    if(!check_types(living) || !can_devour(gourmet))
-		return 
-        
-    var/target = isturf(living.loc) ? living : gourmet
 
-	gourmet.setDir(get_dir(gourmet, living))
+    if(!check_types(living) || !can_devour(gourmet))
+        return
+
+    var/target = isturf(living.loc) ? living : gourmet
+    gourmet.setDir(get_dir(gourmet, living))
+
     if(!silent)
         gourmet.visible_message(span_danger("[gourmet.name] пыта[pluralize_ru(gourmet.gender,"ет","ют")]ся поглотить [living.name]!"))
 
-	if(!do_after(gourmet, devouring_time ? devouring_time : get_devour_time(gourmet, living), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet, living), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [living.name]!")))
+    if(!do_after(gourmet, devouring_time ? devouring_time : get_devour_time(gourmet, living), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet, living), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [living.name]!")))
         if(!silent)
             gourmet.visible_message(span_notice("[gourmet.name] прекраща[pluralize_ru(gourmet.gender,"ет","ют")] поглощать [living.name]!"))
-		return
+        return
     
     if(!silent)
         gourmet.visible_message(span_danger("[gourmet.name] поглоща[pluralize_ru(gourmet.gender,"ет","ют")] [living.name]!"))
 
-	if(living.mind)
-		add_attack_logs(gourmet, living, "Devoured")
+    if(living.mind)
+        add_attack_logs(gourmet, living, "Devoured")
 
-	if(!isvampire(gourmet))
-		gourmet.adjust_nutrition(2 * living.health)
+    if(!isvampire(gourmet))
+        gourmet.adjust_nutrition(2 * living.health)
 
-	for(var/datum/disease/virus/virus in living.diseases)
-		if(virus.spread_flags > NON_CONTAGIOUS)
-			virus.Contract(gourmet)
+    for(var/datum/disease/virus/virus in living.diseases)
+        if(virus.spread_flags > NON_CONTAGIOUS)
+            virus.Contract(gourmet)
+    
+    for(var/datum/disease/virus/virus in living.diseases)
+        if(virus.spread_flags > NON_CONTAGIOUS)
+            virus.Contract(living)
 
-	for(var/datum/disease/virus/virus in living.diseases)
-		if(virus.spread_flags > NON_CONTAGIOUS)
-			virus.Contract(living)
-
-	living.forceMove(gourmet)
-	LAZYADD(gourmet.stomach_contents, living)
+    living.forceMove(gourmet)
+    LAZYADD(gourmet.stomach_contents, living)
     return COMSIG_MOB_DEVOURED
 
 /// Does all the checking for the [/proc/devoured()] to see if a mob can eat another with the grab.
