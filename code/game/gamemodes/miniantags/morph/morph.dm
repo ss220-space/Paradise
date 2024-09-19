@@ -84,7 +84,15 @@
 	AddSpell(pass_airlock_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
-
+	RegisterSignal(src, COMSIG_COMPONENT_DEVOURED_TARGET, PROC_REF(eat))
+	RegisterSignal(src, COMSIG_COMPONENT_PRE_DEVOUR_TARGET, PROC_REF(try_eat))
+	RegisterSignal(src, COMSIG_COMPONENT_DEVOURING_TARGET, PROC_REF(eating))
+	
+/mob/living/simple_animal/hostile/morph/ComponentInitialize()
+	AddComponent(/datum/component/devour, \
+		silent = TRUE, \
+		blacklisted_types = list(/mob/living/silicon/ai, /mob/living/silicon/robot, /mob/living/silicon/drone) \ // still can eat PAI
+	)
 
 /**
  * This proc enables or disables morph reproducing ability
@@ -121,35 +129,34 @@
 
 
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
+	SIGNAL_HANDLER
+
 	var/food_value = calc_food_gained(item)
 	if(food_value + gathered_food < 0)
-		to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
+		to_chat(src, span_warning("You can't force yourself to eat more disgusting items. Eat some living things first."))
 		return
 	var/eat_self_message
 	if(food_value < 0)
-		eat_self_message = "<span class='warning'>You start eating [item]... disgusting....</span>"
+		eat_self_message = span_warning("You start eating [item]... disgusting....")
 	else
-		eat_self_message = "<span class='notice'>You start eating [item].</span>"
-	visible_message("<span class='warning'>[src] starts eating [target]!</span>", eat_self_message, "You hear loud crunching!")
-	if(do_after(src, 3 SECONDS, item))
-		if(food_value + gathered_food < 0)
-			to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
-			return
-		eat(item)
+		eat_self_message = span_notice("You start eating [item].")
+	visible_message(span_warning("[src] starts eating [target]!"), eat_self_message, "You hear loud crunching!")
+
+/mob/living/simple_animal/hostile/morph/proc/eating(atom/movable/item)
+	SIGNAL_HANDLER
+
+	if((calc_food_gained(item) + gathered_food) < 0)
+		to_chat(src, span_warning("You can't force yourself to eat more disgusting items. Eat some living things first."))
+		return STOP_DEVOURING
 
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/item)
-	if(item && item.loc != src)
-		visible_message("<span class='warning'>[src] swallows [item] whole!</span>")
+	SIGNAL_HANDLER
 
-		item.extinguish_light()
-		item.forceMove(src)
-		var/food_value = calc_food_gained(item)
-		add_food(food_value)
-		if(food_value > 0)
-			adjustHealth(-food_value)
-		add_attack_logs(src, item, "morph ate")
-		return TRUE
-	return FALSE
+	var/food_value = calc_food_gained(item)
+	add_food(food_value)
+	if(food_value > 0)
+		adjustHealth(-food_value)
+	add_attack_logs(src, item, "morph ate")
 
 /mob/living/simple_animal/hostile/morph/proc/calc_food_gained(mob/living/living)
 	if(!istype(living))
@@ -226,14 +233,13 @@
 
 /mob/living/simple_animal/hostile/morph/death(gibbed)
 	. = ..()
-	if(stat == DEAD && gibbed)
-		for(var/atom/movable/eaten_thing in src)
-			eaten_thing.forceMove(loc)
-			if(prob(90))
-				step(eaten_thing, pick(GLOB.alldirs))
 	// Only execute the below if we successfully died
 	if(!.)
 		return FALSE
+	UnregisterSignal(src, list(COMSIG_COMPONENT_PRE_DEVOUR_TARGET,  
+	COMSIG_COMPONENT_DEVOURED_TARGET, 
+	COMSIG_COMPONENT_DEVOURING_TARGET
+	))
 	GLOB.morphs_alive_list -= src
 
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/attacker)
@@ -342,17 +348,9 @@
 /mob/living/simple_animal/hostile/morph/AttackingTarget()
 	if(isliving(target)) // Eat Corpses to regen health
 		var/mob/living/living = target
-		if(living.stat == DEAD)
-			try_eat(living)
-			return TRUE
 		if(ambush_prepared)
 			ambush_attack(living)
 			return TRUE // No double attack
-	else if(isitem(target)) // Eat items just to be annoying
-		var/obj/item/item = target
-		if(!item.anchored)
-			try_eat(item)
-			return TRUE
 	. = ..()
 	if(. && morphed)
 		restore_form()

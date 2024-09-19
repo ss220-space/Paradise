@@ -1,6 +1,8 @@
 /datum/component/devour
-    /// Which object types you can devour
+    /// Which atom types you can devour
     var/list/allowed_types
+    /// Blacklisted atom types to devour
+    var/list/blacklisted_types
     /// How much time that will take to devour target
     var/devouring_time 
     /// Drops loc contents on dead
@@ -17,6 +19,8 @@
     var/cancel_attack
 
 /datum/component/devour/Initialize(
+    list/allowed_types,
+    list/blacklisted_types,
     devouring_time = 3 SECONDS,
 	health_threshold,
 	corpse_only = TRUE,
@@ -27,6 +31,8 @@
 )
 	if(!ismob(parent))
 		return COMPONENT_INCOMPATIBLE
+    src.allowed_types = allowed_types
+    src.blacklisted_types = blacklisted_types
     src.devouring_time = devouring_time
 	src.health_threshold = health_threshold
 	src.corpse_only = corpse_only
@@ -47,7 +53,13 @@
 
     if(allowed_types && !is_type_in_list(atom, allowed_types))
         return
+    if(blacklisted_types && is_type_in_list(atom, blacklisted_types))
+        return
 
+    if(isitem(atom))
+        var/obj/item/item = atom
+        if(item.anchored)
+            return
     if(isliving(atom))
         var/mob/living/living = atom
         if(corpse_only && living.stat != DEAD)
@@ -61,15 +73,19 @@
     return COMPONENT_CANCEL_UNARMED_ATTACK
 
 /datum/component/devour/proc/devour(atom/movable/atom, params)
+    SEND_SIGNAL(parent, COMSIG_COMPONENT_PRE_DEVOUR_TARGET, atom, params)
     if(!silent)
         to_chat(parent, span_warning("Вы начинаете глотать [living] целиком..."))
 	if(devouring_time && !do_after(parent, devouring_time, atom, NONE))
+		return
+    if(SEND_SIGNAL(parent, COMSIG_COMPONENT_DEVOURING_TARGET, atom, params) &  STOP_DEVOURING)
 		return
 	if(atom?.loc == parent)
 		return
     if(!silent)
 	    playsound(parent, 'sound/misc/demon_attack1.ogg', 100, TRUE)
 	    parent.visible_message(span_warning("[parent] swallows [atom] whole!"))
+    atom.extinguish_light()
 	atom.forceMove(parent)
     SEND_SIGNAL(parent, COMSIG_COMPONENT_DEVOURED_TARGET, atom, params)
 

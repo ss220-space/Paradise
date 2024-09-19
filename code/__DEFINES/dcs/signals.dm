@@ -928,6 +928,11 @@
 #define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
 /// Source: /datum/component/devour/proc/devour(atom/movable/atom, params)
 #define COMSIG_COMPONENT_DEVOURED_TARGET "devoured_target"
+/// Source: /datum/component/devour/proc/devour(atom/movable/atom, params)
+#define COMSIG_COMPONENT_PRE_DEVOUR_TARGET "pre_devour_target"
+/// Source: /datum/component/devour/proc/devour(atom/movable/atom, params)
+#define COMSIG_COMPONENT_DEVOURING_TARGET "devouring_target"
+	#define STOP_DEVOURING (1<<0)
 
 //Creamed
 

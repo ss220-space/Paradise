@@ -93,7 +93,10 @@
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_CARP_RIFTS, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
 	RegisterSignal(small_sprite, COMSIG_ACTION_TRIGGER, PROC_REF(add_dragon_overlay))
+	RegisterSignal(src, COMSIG_COMPONENT_DEVOURED_TARGET, PROC_REF(eat))
 
+/mob/living/simple_animal/hostile/space_dragon/ComponentInitialize()
+	AddComponent(/datum/component/devour, allowed_types = /mob/living)
 
 /mob/living/simple_animal/hostile/space_dragon/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
@@ -127,13 +130,10 @@
 
 
 /mob/living/simple_animal/hostile/space_dragon/death(gibbed)
-	for(var/atom/movable/barfed_out in contents)
-		barfed_out.forceMove(loc)
-		if(prob(90))
-			step(barfed_out, pick(GLOB.alldirs))
 	. = ..()
 	add_dragon_overlay()
 	UnregisterSignal(small_sprite, COMSIG_ACTION_TRIGGER)
+	UnregisterSignal(src, COMSIG_COMPONENT_DEVOURED_TARGET)
 
 
 /mob/living/simple_animal/hostile/space_dragon/AttackingTarget()
@@ -161,13 +161,6 @@
 		return
 	if(isliving(target)) //Swallows corpses like a snake to regain health.
 		var/mob/living/L = target
-		if(L.stat == DEAD)
-			to_chat(src, span_warning("Вы начинаете глотать [L] целиком..."))
-			if(!do_after(src, 3 SECONDS, L))
-				return
-			if(eat(L))
-				adjustHealth(-L.maxHealth * 0.5)
-			return
 		if("carp" in L.faction)
 			to_chat(src, span_warning("Вы почти укусили своего сородича, но вовремя остановились."))
 			return
@@ -362,13 +355,12 @@
  * Arguments:
  * * atom/movable/A - The thing being consumed
  */
-/mob/living/simple_animal/hostile/space_dragon/proc/eat(atom/movable/A)
-	if(A?.loc == src)
-		return FALSE
-	playsound(src, 'sound/misc/demon_attack1.ogg', 100, TRUE)
-	visible_message(span_warning("[src] swallows [A] whole!"))
-	A.forceMove(src)
-	return TRUE
+/mob/living/simple_animal/hostile/space_dragon/proc/eat(atom/movable/atom, params)
+	SIGNAL_HANDLER
+
+	var/mob/living/living = atom // The only allowed type.
+	adjustHealth(-living.maxHealth * 0.5)
+	return
 
 
 /**
