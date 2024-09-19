@@ -566,6 +566,10 @@
 	var/obj/item/clothing/shoes/magboots/gravity/G = target
 	G.dash(usr)
 
+/datum/action/item_action/toggle_rapier_nodrop
+	name = "Toggle anti-drop"
+	desc = "Activates/deactivates centcomm rapier anti-drop."
+
 ///prset for organ actions
 /datum/action/item_action/organ_action
 	check_flags = AB_CHECK_CONSCIOUS

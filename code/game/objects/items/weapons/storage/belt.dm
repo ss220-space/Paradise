@@ -683,11 +683,11 @@
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_BULKY
-	can_hold = list(/obj/item/melee/rapier)
+	can_hold = list(/obj/item/melee/rapier/captain)
 
 /obj/item/storage/belt/rapier/populate_contents()
-	new /obj/item/melee/rapier(src)
-	update_icon()
+	new /obj/item/melee/rapier/captain(src)
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/rapier/attack_hand(mob/user)
 	if(loc != user)
@@ -730,12 +730,22 @@
 	desc = "A sinister, thin sheath, suitable for a rapier."
 	icon_state = "syndie_sheath"
 	item_state = "syndie_sheath"
-	can_hold = list(/obj/item/melee/syndie_rapier)
+	can_hold = list(/obj/item/melee/rapier/poisoned/syndie)
 
 /obj/item/storage/belt/rapier/syndie/populate_contents()
-	new /obj/item/melee/syndie_rapier(src)
-	update_icon()
+	new /obj/item/melee/rapier/poisoned/syndie(src)
+	update_appearance(UPDATE_ICON_STATE)
 
+/obj/item/storage/belt/rapier/centcomm
+	name = "centcomm rapier sheath"
+	desc = "Украшенные ножны, корпоративный кич в комплекте."
+	icon_state = "centcomm_sheath"
+	item_state = "centcomm_sheath"
+	can_hold = list(/obj/item/melee/rapier/poisoned/centcomm)
+
+/obj/item/storage/belt/rapier/centcomm/populate_contents()
+	new /obj/item/melee/rapier/poisoned/centcomm(src)
+	update_appearance(UPDATE_ICON_STATE)
 
 // -------------------------------------
 //     Bluespace Belt

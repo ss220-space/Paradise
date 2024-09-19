@@ -714,6 +714,8 @@
 ///from base of obj/item/attack_self(): (/mob)
 #define COMSIG_ITEM_ATTACK_SELF "item_attack_self"
 	#define COMPONENT_NO_INTERACT (1<<0)
+///from base of /obj/item/attack(): (mob/M, mob/user, params, def_zone)
+#define COMSIG_ITEM_ATTACK_SUCCESS "mob_item_attack_success"
 ///from base of obj/item/attack_obj(): (/obj, /mob)
 #define COMSIG_ITEM_ATTACK_OBJ "item_attack_obj"
 ///from base of obj/item/pre_attackby(): (atom/target, mob/user, params)
