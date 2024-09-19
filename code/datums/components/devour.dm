@@ -137,7 +137,11 @@
         if(!silent)
             gourmet.visible_message(span_notice("[gourmet.name] прекраща[pluralize_ru(gourmet.gender,"ет","ют")] поглощать [living.name]!"))
         return
-    
+
+    INVOKE_ASYNC(src, PROC_REF(after_devour), gourmet, target)
+    return COMSIG_MOB_DEVOURED
+
+/datum/component/devour/advanced/proc/after_devour(mob/living/carbon/gourmet, mob/living/target)
     if(!silent)
         gourmet.visible_message(span_danger("[gourmet.name] поглоща[pluralize_ru(gourmet.gender,"ет","ют")] [living.name]!"))
 
@@ -157,7 +161,6 @@
 
     living.forceMove(gourmet)
     LAZYADD(gourmet.stomach_contents, living)
-    return COMSIG_MOB_DEVOURED
 
 /// Does all the checking for the [/proc/devoured()] to see if a mob can eat another with the grab.
 /datum/component/devour/advanced/proc/can_devour(mob/living/carbon/gourmet, mob/living/target)
