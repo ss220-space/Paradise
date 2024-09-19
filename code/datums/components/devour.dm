@@ -141,7 +141,7 @@
     INVOKE_ASYNC(src, PROC_REF(after_devour), gourmet, target)
     return COMSIG_MOB_DEVOURED
 
-/datum/component/devour/advanced/proc/after_devour(mob/living/carbon/gourmet, mob/living/target)
+/datum/component/devour/advanced/proc/after_devour(mob/living/carbon/gourmet, mob/living/living)
     if(!silent)
         gourmet.visible_message(span_danger("[gourmet.name] поглоща[pluralize_ru(gourmet.gender,"ет","ют")] [living.name]!"))
 
