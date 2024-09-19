@@ -567,8 +567,8 @@
 	G.dash(usr)
 
 /datum/action/item_action/toggle_rapier_nodrop
-	name = "Toggle anti-drop"
-	desc = "Activates/deactivates centcomm rapier anti-drop."
+	name = "Toggle Anti-Drop"
+	desc = "Activates/deactivates centcomm rapier Anti-Drop."
 
 ///prset for organ actions
 /datum/action/item_action/organ_action
