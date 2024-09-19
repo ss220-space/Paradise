@@ -79,6 +79,7 @@
 	add_verb(human, /mob/living/carbon/human/proc/emote_growl)
 	human.AddComponent( \
 	/datum/component/devour/advanced, \
+	drop_contents = FALSE, \
 	allowed_types = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble), \
 	)

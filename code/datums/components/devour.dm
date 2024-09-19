@@ -103,6 +103,8 @@
     var/mob/mob = parent
     for(var/atom/movable/atom in mob)
         atom.forceMove(mob.loc)
+        if(HAS_TRAIT(mob, TRAIT_DEVOURED))
+            REMOVE_TRAIT(mob, TRAIT_DEVOURED, UNIQUE_TRAIT_SOURCE(src))
         if(prob(90))
             step(atom, pick(GLOB.alldirs))
 
@@ -120,7 +122,7 @@
 /datum/component/devour/advanced/proc/adv_devour(mob/living/carbon/gourmet, mob/living/living)
     SIGNAL_HANDLER
 
-    INVOKE_ASYNC(src, PROC_REF(devouring), gourmet, target)
+    INVOKE_ASYNC(src, PROC_REF(devouring), gourmet, living)
     return
 
 /datum/component/devour/advanced/proc/devouring(mob/living/carbon/gourmet, mob/living/living)
