@@ -154,9 +154,11 @@ GLOBAL_VAR(current_date_string)
 			starting_funds = clamp(starting_funds, 0, GLOB.station_account.money) // Not authorized to put the station in debt.
 			starting_funds = min(starting_funds, fund_cap) // Not authorized to give more than the fund cap.
 
-			var/datum/money_account/M = create_account(account_name, starting_funds, src)
+			var/datum/money_account/M = create_account(account_name, starting_funds, src, FALSE)
 			if(starting_funds > 0)
 				GLOB.station_account.charge(starting_funds, null, "New account activation", "", "New account activation", M.owner_name)
+			M.insurance_type = INSURANCE_TYPE_BUDGETARY
+			M.insurance = INSURANCE_NONE
 
 			current_page = AUT_ACCLST
 

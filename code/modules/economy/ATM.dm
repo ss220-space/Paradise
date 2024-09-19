@@ -11,6 +11,7 @@ log transactions
 #define CHANGE_SECURITY_LEVEL 1
 #define TRANSFER_FUNDS 2
 #define VIEW_TRANSACTION_LOGS 3
+#define CHANGE_INSURANCE_TYPE 4
 #define PRINT_DELAY 100
 #define LOCKOUT_TIME 120
 
@@ -172,6 +173,7 @@ log transactions
 		data["owner_name"] = authenticated_account.owner_name
 		data["money"] = authenticated_account.money
 		data["insurance"] = authenticated_account.insurance
+		data["insurance_type"] = authenticated_account.insurance_type
 		data["security_level"] = authenticated_account.security_level
 
 		var/list/trx = list()
@@ -209,7 +211,7 @@ log transactions
 				to_chat(usr, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
 
 		if("view_screen")
-			var/list/valid_screen = list(DEFAULT_SCREEN, CHANGE_SECURITY_LEVEL, TRANSFER_FUNDS, VIEW_TRANSACTION_LOGS)
+			var/list/valid_screen = list(DEFAULT_SCREEN, CHANGE_SECURITY_LEVEL, TRANSFER_FUNDS, VIEW_TRANSACTION_LOGS, CHANGE_INSURANCE_TYPE)
 			var/screen_proper = text2num(params["view_screen"])
 			if(screen_proper in valid_screen)
 				view_screen = screen_proper
@@ -221,6 +223,11 @@ log transactions
 			if(authenticated_account)
 				var/new_sec_level = max(min(params["new_security_level"], 2), 0)
 				authenticated_account.security_level = new_sec_level
+
+		if("change_insurance_type")
+			if(authenticated_account)
+				var/new_insurance_type = params["new_insurance_type"]
+				authenticated_account.insurance_type = new_insurance_type
 
 		if("attempt_auth")
 			if(linked_db)

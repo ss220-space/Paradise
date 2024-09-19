@@ -142,8 +142,11 @@ const BodyScannerMainOccupant = (props, context) => {
           <Button icon="print" onClick={() => act('insurance')}>
             Списать страховку
           </Button>
+          <Button icon="user-slash" onClick={() => act('eject_id')}>
+            Извлечь карту
+          </Button>
           <Button icon="user-slash" onClick={() => act('ejectify')}>
-            Извлечь
+            Извлечь пациента
           </Button>
         </>
       }

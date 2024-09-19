@@ -667,6 +667,21 @@ SUBSYSTEM_DEF(jobs)
 
 	H.mind.initial_account = M
 
+	H.mind.initial_account.insurance_type = job.insurance_type
+	switch (job.insurance_type)
+		if (INSURANCE_TYPE_NONE)
+			H.mind.initial_account.insurance = INSURANCE_NONE
+		if (INSURANCE_TYPE_BUDGETARY)
+			H.mind.initial_account.insurance = INSURANCE_BUDGETARY
+		if (INSURANCE_TYPE_STANDART)
+			H.mind.initial_account.insurance = INSURANCE_STANDART
+		if (INSURANCE_TYPE_EXTENDED)
+			H.mind.initial_account.insurance = INSURANCE_EXTENDED
+		if (INSURANCE_TYPE_DELUXE)
+			H.mind.initial_account.insurance = INSURANCE_DELUXE
+		if (INSURANCE_TYPE_NT_SPECIAL)
+			H.mind.initial_account.insurance = INSURANCE_NT_SPECIAL
+
 	spawn(0)
 		to_chat(H, "<span class='boldnotice'>Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]</span>")
 

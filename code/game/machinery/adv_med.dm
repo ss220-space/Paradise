@@ -15,6 +15,7 @@
 
 /obj/machinery/bodyscanner/Destroy()
 	go_out()
+	eject_id()
 	return ..()
 
 /obj/machinery/bodyscanner/power_change(forced = FALSE)
@@ -171,6 +172,17 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
+/obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
+	if (istype(I, /obj/item/card/id))
+		if (inserted_id)
+			user.balloon_alert(src, "Занято")
+		else
+			inserted_id = I
+			I.forceMove(src)
+			user.balloon_alert(src, "Карта вставлена")
+
+	. = ..()
+
 /obj/machinery/bodyscanner/relaymove(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE //maybe they should be able to get out with cuffs, but whatever
@@ -195,6 +207,13 @@
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts)
 		A.forceMove(loc)
+	SStgui.update_uis(src)
+
+/obj/machinery/bodyscanner/proc/eject_id()
+	if(!inserted_id)
+		return
+	inserted_id.forceMove(loc)
+	inserted_id = null
 	SStgui.update_uis(src)
 
 /obj/machinery/bodyscanner/force_eject_occupant(mob/target)
@@ -232,6 +251,7 @@
 	var/list/data = list()
 
 	data["occupied"] = occupant ? TRUE : FALSE
+	data["has_id"] = inserted_id ? TRUE : FALSE
 
 	var/occupantData[0]
 	if(occupant)
@@ -390,6 +410,8 @@
 			isPrinting = FALSE
 		if ("insurance")
 			do_insurance_collection(occupant, inserted_id ? inserted_id.associated_account_number : null)
+		if ("eject_id")
+			eject_id()
 		else
 			return FALSE
 

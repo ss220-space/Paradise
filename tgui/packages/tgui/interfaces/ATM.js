@@ -54,6 +54,9 @@ export const ATM = (props, context) => {
       case 3: // VIEW_TRANSACTION_LOGS
         body = <ViewTransactionLogs />;
         break;
+      case 4: // CHANGE_INSURANCE_TYPE
+        body = <ChangeInsuranceType />;
+        break;
       default:
         body = <DefaultScreen />;
     }
@@ -197,14 +200,56 @@ const TransferFunds = (props, context) => {
   );
 };
 
+const ChangeInsuranceType = (props, context) => {
+  const { act, data } = useBackend(context);
+  const { insurance_type } = data;
+  return (
+    <Section title="Выберите новый тип страховки">
+      <LabeledList>
+        <LabeledList.Item label="Тип">
+          <Button
+            content="Нет (0)"
+            icon="unlock"
+            selected={insurance_type === 'None'}
+            onClick={() =>
+              act('change_insurance_type', { new_insurance_type: 'None' })
+            }
+          />
+          <Button
+            content="Бюджетная (0)"
+            icon="unlock"
+            selected={insurance_type === 'Bugetary'}
+            onClick={() =>
+              act('change_insurance_type', { new_insurance_type: 'Bugetary' })
+            }
+          />
+          <Button
+            content="Стандартная (500)"
+            icon="unlock"
+            selected={insurance_type === 'Standart'}
+            onClick={() =>
+              act('change_insurance_type', { new_insurance_type: 'Standart' })
+            }
+          />
+          <Button
+            content="Делюкс (2000)"
+            icon="unlock"
+            selected={insurance_type === 'Deluxe'}
+            onClick={() =>
+              act('change_insurance_type', { new_insurance_type: 'Deluxe' })
+            }
+          />
+        </LabeledList.Item>
+      </LabeledList>
+      <BackButton />
+    </Section>
+  );
+};
+
 const DefaultScreen = (props, context) => {
   const { act, data } = useBackend(context);
-  const [fundsAmount, insuranceAmount, setFundsAmount, setInsuranceAmount] = useLocalState(
-    context,
-    'fundsAmount',
-    'insuranceAmount',
-    0
-  );
+  const [fundsAmount, insuranceAmount, setFundsAmount, setInsuranceAmount] =
+    useLocalState(context, 'fundsAmount', 'insuranceAmount', 0);
   const { owner_name, money, insurance } = data;
   return (
     <>
@@ -231,7 +276,9 @@ const DefaultScreen = (props, context) => {
             />
           </LabeledList.Item>
 
-          <LabeledList.Item label="Insurance Points">${insurance}</LabeledList.Item>
+          <LabeledList.Item label="Insurance Points">
+            ${insurance}
+          </LabeledList.Item>
           <LabeledList.Item label="Adding Insurance">
             <Input onInput={(e, value) => setInsuranceAmount(value)} />
           </LabeledList.Item>
@@ -239,7 +286,9 @@ const DefaultScreen = (props, context) => {
             <Button
               content="Add insurance points"
               icon="sign-out-alt"
-              onClick={() => act('insurance', { insurance_amount: insuranceAmount })}
+              onClick={() =>
+                act('insurance', { insurance_amount: insuranceAmount })
+              }
             />
           </LabeledList.Item>
 
@@ -272,6 +321,13 @@ const DefaultScreen = (props, context) => {
             content="View transaction log"
             icon="list"
             onClick={() => act('view_screen', { view_screen: 3 })}
+          />
+        </Box>
+        <Box>
+          <Button
+            content="Change type of insurance"
+            icon="lock"
+            onClick={() => act('view_screen', { view_screen: 4 })}
           />
         </Box>
         <Box>
