@@ -89,9 +89,10 @@
 	RegisterSignal(src, COMSIG_COMPONENT_DEVOURING_TARGET, PROC_REF(eating))
 	
 /mob/living/simple_animal/hostile/morph/ComponentInitialize()
-	AddComponent(/datum/component/devour, \
+	AddComponent( \
+		/datum/component/devour, \
 		silent = TRUE, \
-		blacklisted_types = list(/mob/living/silicon/ai, /mob/living/silicon/robot, /mob/living/silicon/drone) \ // still can eat PAI
+		blacklisted_types = list(/mob/living/silicon/ai, /mob/living/silicon/robot, /mob/living/silicon/drone), \ // still can eat PAI
 	)
 
 /**
