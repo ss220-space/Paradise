@@ -117,7 +117,7 @@
     UnregisterSignal(parent, list(COMSIG_COMPONENT_DEVOUR_INITIATE, COMSIG_MOB_DEATH))
 
 /// Living(target) is devoured by gourmet.
-/datum/component/devour/advanced/devour(mob/living/gourmet, mob/living/living)
+/datum/component/devour/advanced/devour(mob/living/carbon/gourmet, mob/living/living)
     SIGNAL_HANDLER
 
     if(!check_types(living) || !can_devour(gourmet))
@@ -156,7 +156,7 @@
     return COMSIG_MOB_DEVOURED
 
 /// Does all the checking for the [/proc/devoured()] to see if a mob can eat another with the grab.
-/datum/component/devour/advanced/proc/can_devour(mob/living/gourmet, mob/living/target)
+/datum/component/devour/advanced/proc/can_devour(mob/living/carbon/gourmet, mob/living/target)
 	if(isalienadult(gourmet))
 		var/mob/living/carbon/alien/humanoid/alien = gourmet
 		return alien.can_consume(target)
@@ -164,9 +164,6 @@
 
 /// Returns the time devourer has to wait before they eat a prey.
 /datum/component/devour/advanced/proc/get_devour_time(mob/living/gourmet, mob/living/target)
-	if(isalienadult(gourmet))
-		var/mob/living/carbon/alien/humanoid/alien = gourmet
-		return alien.devour_time
 	if(isanimal(target))
 		return DEVOUR_TIME_ANIMAL
 	return DEVOUR_TIME_DEFAULT

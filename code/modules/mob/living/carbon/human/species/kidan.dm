@@ -55,8 +55,6 @@
 		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
 	)
 
-	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
-
 	suicide_messages = list(
 		"пытается откусить себе усики!",
 		"вонзает когти в свои глазницы!",
