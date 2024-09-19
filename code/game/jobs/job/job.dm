@@ -60,7 +60,6 @@
 	var/disabilities_allowed = 1
 	var/transfer_allowed = TRUE // If false, ID computer will always discourage transfers to this job, even if player is eligible
 	var/hidden_from_job_prefs = FALSE // if true, job preferences screen never shows this job.
-	var/list/blocked_race_for_job = list()
 
 	var/admin_only = 0
 	var/spawn_ert = 0
@@ -76,10 +75,6 @@
 	/////////////////////////////////
 	var/required_objectives=list() // Objectives that are ALWAYS added.
 	var/optional_objectives=list() // Objectives that are SOMETIMES added.
-
-	/// Roundstart insurance normal for this job
-	var/insurance
-	var/insurance_type = INSURANCE_TYPE_STANDART
 
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
@@ -144,13 +139,6 @@
 	if(!C)
 		return FALSE
 	if(C.prefs.age >= min_age_allowed)
-		return TRUE
-	return FALSE
-
-/datum/job/proc/species_in_blacklist(client/C)
-	if(!C)
-		return FALSE
-	if(C.prefs.species in blocked_race_for_job)
 		return TRUE
 	return FALSE
 
@@ -282,6 +270,9 @@
 		C.age = H.age
 		C.name = "[C.registered_name]'s ID Card ([C.assignment])"
 		C.photo = get_id_photo(H)
+
+		if(H.mind && H.mind.initial_account)
+			C.associated_account_number = H.mind.initial_account.account_number
 		C.owner_uid = H.UID()
 		C.owner_ckey = H.ckey
 
