@@ -368,7 +368,7 @@ REAGENT SCANNER
 
 /proc/do_insurance_collection(mob/living/carbon/human/user, datum/money_account/connected_acc)
 	if(!istype(user))
-		user.visible_message("Некорректная цель.")
+		user.visible_message("Некорректная цель списания страховки.")
 		return FALSE
 
 	var/req = get_req_insurance(user)
@@ -376,12 +376,18 @@ REAGENT SCANNER
 	var/datum/money_account/acc = get_insurance_account(user)
 
 	if (!acc)
+		user.visible_message("Аккаунт не обнаружен.")
 		return FALSE
+
+	if (!COOLDOWN_FINISHED(acc, insurance_collecting))
+		user.visible_message("С цели недавно уже списывалась страховка. Подождите немного.")
+		return FALSE
+	COOLDOWN_START(acc, insurance_collecting, 60 SECONDS)
 
 	var/from_insurance = min(acc.insurance, req)
 	var/from_money_acc = (req - from_insurance) * 2
 
-	if (from_money_acc && !acc.insurance_auto_replen)
+	if (from_money_acc)
 		if (!acc.insurance_auto_replen)
 			user.visible_message(span_warning("Страховки не хватает на оплату лечения. Автопополнение страховки отключено."))
 			return FALSE
@@ -516,7 +522,7 @@ REAGENT SCANNER
 
 	insurance += user.radiation * REQ_INSURANCE_RAD
 	insurance += user.getCloneLoss() * REQ_INSURANCE_CLONE
-	insurance += round(1 - (BLOOD_VOLUME_NORMAL - user.blood_volume) / BLOOD_VOLUME_NORMAL) * 100 * REQ_INSURANCE_BLOOD
+	insurance += round((BLOOD_VOLUME_NORMAL - user.blood_volume) / BLOOD_VOLUME_NORMAL) * 100 * REQ_INSURANCE_BLOOD
 
 	var/internal_bleedings = 0
 	for(var/obj/item/organ/external/bodypart as anything in user.bodyparts)
@@ -538,7 +544,7 @@ REAGENT SCANNER
 
 	var/missed_limbs = 0
 	for (var/limb in user.dna.species.has_limbs)
-		if (!(limb in user.bodyparts))
+		if (!(user.bodyparts_by_name[limb] in user.bodyparts))
 			missed_limbs++
 	insurance += missed_limbs * REQ_INSURANCE_LOST_LIMB
 

@@ -125,6 +125,7 @@ GLOBAL_LIST_EMPTY(dna2account)
 	var/security_level = 0	//0 - auto-identify from worn ID, require only account number
 							//1 - require manual login / account number and pin
 							//2 - require card and manual login
+	COOLDOWN_DECLARE(insurance_collecting)
 
 /datum/money_account/New()
 	..()
