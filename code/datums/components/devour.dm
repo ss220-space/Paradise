@@ -141,18 +141,18 @@
     RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_mob_death))
 
 /datum/component/devour/advanced/UnregisterFromParent()
-    UnregisterSignal(parent, list(COMSIG_COMPONENT_DEVOUR_INITIATE, COMSIG_MOB_DEATH))
+    UnregisterSignal(parent, list(COMSIG_LIVING_GRAB_ATTACK, COMSIG_MOB_DEATH, COMSIG_PARENT_ATTACKBY, COMSIG_LIVING_GRAB_EQUIP))
 
 /datum/component/devour/advanced/proc/attackedby_item(/obj/item, /mob/living, params)
 	SIGNAL_HANDLER
 
 	if(!isholder(item))
 		return
-    var/mob/living/mob = locate() in item.contents
-    if(!mob)
-        return
+	var/mob/living/mob = locate() in item.contents
+	if(!mob)
+		return
 	if(!isliving(living))
-        return
+		return
 
 	INVOKE_ASYNC(src, PROC_REF(devouring), living, mob, item)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
@@ -164,7 +164,7 @@
         return
 
     INVOKE_ASYNC(src, PROC_REF(devouring), source, grabbed_thing)
-	return GRAB_EQUIP_SUCCESS
+    return GRAB_EQUIP_SUCCESS
 
 /datum/component/devour/advanced/proc/grab_attack(datum/source, mob/living/grabber, atom/movable/grabbed_thing)
     SIGNAL_HANDLER
@@ -173,11 +173,11 @@
         return
     if(grabber.a_intent != INTENT_GRAB)
         return
-	if(grabber != source)
+    if(grabber != source)
         return
-
+    
     INVOKE_ASYNC(src, PROC_REF(devouring), gourmet, grabbed_thing)
-	return
+    return
 
 /datum/component/devour/advanced/proc/adv_devour(mob/living/carbon/gourmet, mob/living/living)
     SIGNAL_HANDLER

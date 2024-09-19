@@ -35,16 +35,6 @@
 		return animal.attackby(I, user, params)
 	return ..()
 
-
-/obj/item/holder/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(target == user && ishuman(user))	//eating holder
-		for(var/mob/living/mob in contents)
-			if(HAS_TRAIT(mob, TRAIT_DEVOURED))
-				qdel(src)
-				return ATTACK_CHAIN_BLOCKED_ALL
-	return ..()
-
-
 /obj/item/holder/proc/show_message(message, m_type, chat_message_type)
 	for(var/mob/living/M in contents)
 		M.show_message(message, m_type, chat_message_type)
