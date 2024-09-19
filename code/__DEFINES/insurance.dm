@@ -5,6 +5,11 @@
 #define INSURANCE_DELUXE			10000
 #define INSURANCE_NT_SPECIAL		100000 // CC roles don't have accounts, but if they do, they will have this insurance.
 
+#define INSURANCE_NONE_COST         0
+#define INSURANCE_BUDGETARY_COST  	0
+#define INSURANCE_STANDART_COST  	500
+#define INSURANCE_DELUXE_COST		2000
+
 #define INSURANCE_TYPE_NONE          	"None"
 #define INSURANCE_TYPE_BUDGETARY     	"Bugetary"
 #define INSURANCE_TYPE_STANDART      	"Standart"
