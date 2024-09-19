@@ -59,11 +59,11 @@
     return COMPONENT_CANCEL_UNARMED_ATTACK
 
 /datum/component/devour/proc/add_to_contents(atom/movable/target)
-    var/mob/mob/carbon/gourmet = parent
+    var/mob/mob = parent
     target.extinguish_light()
-    target.forceMove(gourmet)
-    LAZYADD(gourmet.stomach_contents, target)
+    target.forceMove(mob)
     ADD_TRAIT(target, TRAIT_DEVOURED, UNIQUE_TRAIT_SOURCE(src))
+    return mob
 
 /datum/component/devour/proc/check_types(atom/movable/atom)
     if(allowed_types && !is_type_in_list(atom, allowed_types))
@@ -181,6 +181,11 @@
             virus.Contract(living)
     
     add_to_contents(living)
+
+/datum/component/devour/advanced/add_to_contents(atom/movable/target)
+    . = ..()
+    var/mob/living/carbon/carbon = .
+    LAZYADD(carbon.stomach_contents, target)
 
 /// Does all the checking for the [/proc/devoured()] to see if a mob can eat another with the grab.
 /datum/component/devour/advanced/proc/can_devour(mob/living/carbon/gourmet, mob/living/target)
