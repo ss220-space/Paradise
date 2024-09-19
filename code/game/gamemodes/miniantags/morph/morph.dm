@@ -90,9 +90,9 @@
 	
 /mob/living/simple_animal/hostile/morph/ComponentInitialize()
 	AddComponent( \
-		/datum/component/devour, \
-		silent = TRUE, \
-		blacklisted_types = list(/mob/living/silicon/ai, /mob/living/silicon/robot, /mob/living/silicon/drone), \ // still can eat PAI
+	/datum/component/devour, \
+	blacklisted_types = list(/mob/living/silicon/ai, mob/living/silicon/robot), \
+	silent = TRUE, \
 	)
 
 /**
