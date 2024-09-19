@@ -91,7 +91,7 @@
 /mob/living/simple_animal/hostile/morph/ComponentInitialize()
 	AddComponent( \
 	/datum/component/devour, \
-	blacklisted_types = list(/mob/living/silicon/ai, mob/living/silicon/robot), \
+	blacklisted_types = list(/mob/living/silicon/ai, /mob/living/silicon/robot), \
 	silent = TRUE, \
 	)
 
