@@ -476,7 +476,6 @@
 "zc" = (
 /obj/structure/sign/mining/survival{
 	dir = 1;
-	icon_state = "survival";
 	tag = "icon-survival (NORTH)"
 	},
 /turf/simulated/wall/mineral/titanium/survival/pod,

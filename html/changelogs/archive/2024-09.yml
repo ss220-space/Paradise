@@ -62,6 +62,8 @@
   - bugfix: Leg paralysis/no legs wheelchair (#5873)
   Antoonij:
   - refactor: Eatable component & stacks are now eatable & species special diet. (#5843)
+  Aziz Chynaliev:
+  - bugfix: blacklist check logic issue preventing spawn
   BoshyG:
   - bugfix: Leather satchel right inhand FIX (#5879)
   Daeberdir:
@@ -78,3 +80,26 @@
   - add: succumb alert (#5771)
   pilygun:
   - tweak: Удаление турелей тайпана + сапёр (#5848)
+'2024-09-13':
+  Antoonij:
+  - bugfix: Eatable component attack speed & cloth material fix (#5895)
+  Aziz Chynaliev:
+  - bugfix: revert bit shift define
+  Daeberdir:
+  - bugfix: Ghostrole spawner again, (#5897)
+  Den109G:
+  - bugfix: Dye bottle is working (#5901)
+  ROdenFL:
+  - unknown: title menu (#5819)
+  Vladisvell:
+  - add: Lockers and crates are now opened with chance when hit into wall (#5902)
+'2024-09-14':
+  Aziz Chynaliev:
+  - bugfix: status bar visibility
+  Sheya:
+  - add: stock parts, apc, cells, cell charger (#5904)
+'2024-09-15':
+  Aziz Chynaliev:
+  - del: xray removes tint and eyeprot" (#5908)
+  dageavtobusnick:
+  - bugfix: shadowlings ascend fix (#5912)
