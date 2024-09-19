@@ -934,6 +934,10 @@
 #define COMSIG_COMPONENT_DEVOURING_TARGET "devouring_target"
 	#define STOP_DEVOURING (1<<0)
 
+/// Source: initiates on mob and going here /datum/component/devour/advanced/devour(mob/living/gourmet, mob/living/living)
+#define COMSIG_COMPONENT_DEVOUR_INITIATE "initiate_devour"
+	#define COMSIG_MOB_DEVOURED (1<<0)
+
 //Creamed
 
 ///called when you wash your face at a sink: (num/strength)

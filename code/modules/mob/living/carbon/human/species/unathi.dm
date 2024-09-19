@@ -97,9 +97,9 @@
 	H.stop_tail_wagging()
 
 
-/datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
+/datum/species/unathi/on_species_gain(mob/living/carbon/human/human)
 	. = ..()
-	add_verb(H, list(
+	add_verb(human, list(
 		/mob/living/carbon/human/proc/emote_wag,
 		/mob/living/carbon/human/proc/emote_swag,
 		/mob/living/carbon/human/proc/emote_hiss_unathi,
@@ -108,10 +108,16 @@
 		/mob/living/carbon/human/proc/emote_whip,
 		/mob/living/carbon/human/proc/emote_whip_l,
 		/mob/living/carbon/human/proc/emote_rumble))
-	var/datum/action/innate/tail_cut/lash = locate() in H.actions
+	var/datum/action/innate/tail_cut/lash = locate() in human.actions
 	if(!lash)
 		lash = new
-		lash.Grant(H)
+		lash.Grant(human)
+
+	human.AddComponent( \
+	/datum/component/devour/advanced, \
+	allowed_types = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
+								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble), \
+	)
 
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)

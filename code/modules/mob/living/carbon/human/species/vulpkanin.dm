@@ -74,12 +74,17 @@
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
-/datum/species/vulpkanin/on_species_gain(mob/living/carbon/human/H)
+/datum/species/vulpkanin/on_species_gain(mob/living/carbon/human/human)
 	. = ..()
-	add_verb(H, /mob/living/carbon/human/proc/emote_wag)
-	add_verb(H, /mob/living/carbon/human/proc/emote_swag)
-	add_verb(H, /mob/living/carbon/human/proc/emote_howl)
-	add_verb(H, /mob/living/carbon/human/proc/emote_growl)
+	add_verb(human, /mob/living/carbon/human/proc/emote_wag)
+	add_verb(human, /mob/living/carbon/human/proc/emote_swag)
+	add_verb(human, /mob/living/carbon/human/proc/emote_howl)
+	add_verb(human, /mob/living/carbon/human/proc/emote_growl)
+	human.AddComponent( \
+	/datum/component/devour/advanced, \
+	allowed_types = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
+								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble), \
+	)
 
 /datum/species/vulpkanin/on_species_loss(mob/living/carbon/human/H)
 	. = ..()

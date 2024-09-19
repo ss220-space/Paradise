@@ -21,7 +21,7 @@
 /datum/component/devour/Initialize(
     list/allowed_types,
     list/blacklisted_types,
-    devouring_time = 3 SECONDS,
+    devouring_time,
     health_threshold,
     corpse_only = TRUE,
     drop_contents = TRUE,
@@ -47,29 +47,33 @@
 /datum/component/devour/UnregisterFromParent()
     UnregisterSignal(parent, list(COMSIG_MOB_PRE_UNARMED_ATTACK, COMSIG_MOB_DEATH))
 
-/datum/component/devour/proc/try_devour(atom/movable/atom, params)
+/datum/component/devour/proc/try_devour(datum/source, atom/movable/atom, params)
     SIGNAL_HANDLER
 
-    if(allowed_types && !is_type_in_list(atom, allowed_types))
+   if(!check_types(atom))
         return
-    if(blacklisted_types && is_type_in_list(atom, blacklisted_types))
-        return
-
-    if(isitem(atom))
-        var/obj/item/item = atom
-        if(item.anchored)
-            return
-    if(isliving(atom))
-        var/mob/living/living = atom
-        if(corpse_only && living.stat != DEAD)
-            return
-        if(health_threshold && living.health > health_threshold)
-            return
 
     INVOKE_ASYNC(src, PROC_REF(devour), atom, params)
     if(!cancel_attack)
         return
     return COMPONENT_CANCEL_UNARMED_ATTACK
+
+/datum/component/devour/proc/check_types(atom/movable/atom)
+    if(allowed_types && !is_type_in_list(atom, allowed_types))
+        return FALSE
+    if(blacklisted_types && is_type_in_list(atom, blacklisted_types))
+        return FALSE
+    if(isitem(atom))
+        var/obj/item/item = atom
+        if(item.anchored)
+            return FALSE
+    if(isliving(atom))
+        var/mob/living/living = atom
+        if(corpse_only && living.stat != DEAD)
+            return FALSE
+        if(health_threshold && living.health > health_threshold)
+            return FALSE
+    return TRUE
 
 /datum/component/devour/proc/devour(atom/movable/atom, params)
     SEND_SIGNAL(parent, COMSIG_COMPONENT_PRE_DEVOUR_TARGET, atom, params)
@@ -101,4 +105,69 @@
         atom.forceMove(mob.loc)
         if(prob(90))
             step(atom, pick(GLOB.alldirs))
+
+/// Advanced version of devour component which works on special signals.
+/datum/component/devour/advanced
+
+/datum/component/devour/advanced/RegisterWithParent()
+    RegisterSignal(parent, COMSIG_COMPONENT_DEVOUR_INITIATE, PROC_REF(devour))
+    RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_mob_death))
+
+/datum/component/devour/advanced/UnregisterFromParent()
+    UnregisterSignal(parent, list(COMSIG_COMPONENT_DEVOUR_INITIATE, COMSIG_MOB_DEATH))
+
+/// Living(target) is devoured by gourmet.
+/datum/component/devour/advanced/devour(mob/living/gourmet, mob/living/living)
+    SIGNAL_HANDLER
+
+	if(!check_types(living) || !can_devour(gourmet))
+		return 
+
+	var/target = isturf(living.loc) ? living : gourmet
+
+	gourmet.setDir(get_dir(gourmet, living))
+    if(!silent)
+	    gourmet.visible_message(span_danger("[gourmet.name] пыта[pluralize_ru(gourmet.gender,"ет","ют")]ся поглотить [living.name]!"))
+
+	if(!do_after(gourmet, devouring_time ? devouring_time : get_devour_time(gourmet, living), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet, living), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [living.name]!")))
+        if(!silent)
+		    gourmet.visible_message(span_notice("[gourmet.name] прекраща[pluralize_ru(gourmet.gender,"ет","ют")] поглощать [living.name]!"))
+		return
+
+    if(!silent)
+	    gourmet.visible_message(span_danger("[gourmet.name] поглоща[pluralize_ru(gourmet.gender,"ет","ют")] [living.name]!"))
+
+	if(living.mind)
+		add_attack_logs(gourmet, living, "Devoured")
+
+	if(!isvampire(gourmet))
+		gourmet.adjust_nutrition(2 * living.health)
+
+	for(var/datum/disease/virus/virus in living.diseases)
+		if(virus.spread_flags > NON_CONTAGIOUS)
+			virus.Contract(gourmet)
+
+	for(var/datum/disease/virus/virus in living.diseases)
+		if(virus.spread_flags > NON_CONTAGIOUS)
+			virus.Contract(living)
+
+	living.forceMove(gourmet)
+	LAZYADD(gourmet.stomach_contents, living)
+    return COMSIG_MOB_DEVOURED
+
+/// Does all the checking for the [/proc/devoured()] to see if a mob can eat another with the grab.
+/datum/component/devour/advanced/proc/can_devour(mob/living/gourmet, mob/living/target)
+	if(isalienadult(gourmet))
+		var/mob/living/carbon/alien/humanoid/alien = gourmet
+		return alien.can_consume(target)
+	return FALSE
+
+/// Returns the time devourer has to wait before they eat a prey.
+/datum/component/devour/advanced/proc/get_devour_time(mob/living/gourmet, mob/living/target)
+	if(isalienadult(gourmet))
+		var/mob/living/carbon/alien/humanoid/alien = gourmet
+		return alien.devour_time
+	if(isanimal(target))
+		return DEVOUR_TIME_ANIMAL
+	return DEVOUR_TIME_DEFAULT
 

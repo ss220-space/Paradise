@@ -99,13 +99,13 @@
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_colour
 
-/datum/species/kidan/on_species_gain(mob/living/carbon/human/H)
+/datum/species/kidan/on_species_gain(mob/living/carbon/human/human)
 	. = ..()
-	add_verb(H, list(/mob/living/carbon/human/proc/emote_click,
+	add_verb(human, list(/mob/living/carbon/human/proc/emote_click,
 					/mob/living/carbon/human/proc/emote_clack,
 			   		/mob/living/carbon/human/proc/emote_wiggle,
 			   		/mob/living/carbon/human/proc/emote_wave_k))
-	remove_verb(H, list(
+	remove_verb(human, list(
 		/mob/living/carbon/human/verb/emote_pale,
 		/mob/living/carbon/human/verb/emote_blink,
 		/mob/living/carbon/human/verb/emote_blink_r,
@@ -120,13 +120,18 @@
 		/mob/living/carbon/human/verb/emote_glare))
 	// HUD for detecting pheromones
 	var/datum/atom_hud/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
-	kidan_hud.add_hud_to(H)
+	kidan_hud.add_hud_to(human)
 
 	// Action for creating pheromones
-	var/datum/action/innate/produce_pheromones/produce_pheromones = locate() in H.actions
+	var/datum/action/innate/produce_pheromones/produce_pheromones = locate() in human.actions
 	if(!produce_pheromones)
 		produce_pheromones = new
-		produce_pheromones.Grant(H)
+		produce_pheromones.Grant(human)
+
+	human.AddComponent( \
+	/datum/component/devour/advanced, \
+	allowed_types = list(/mob/living/simple_animal/diona), \
+	)
 
 
 /datum/species/kidan/on_species_loss(mob/living/carbon/human/H)

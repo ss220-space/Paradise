@@ -3,7 +3,6 @@
 	caste = "h"
 	maxHealth = 205
 	health = 205
-	devour_time = 2 SECONDS
 	icon_state = "alienh_s"
 	caste_movement_delay = -1
 	var/invisibility_cost = 5
@@ -15,6 +14,12 @@
 	real_name = name
 	..()
 
+/mob/living/carbon/alien/humanoid/hunter/ComponentInitialize()
+	AddComponent( \
+	/datum/component/devour/advanced, \
+	devouring_time = 2 SECONDS, \
+	allowed_types = list(/mob/living/carbon), \
+	)
 
 /mob/living/carbon/alien/humanoid/hunter/get_caste_organs()
 	. = ..()

@@ -1368,64 +1368,6 @@
 	else
 		RemoveElement(/datum/element/light_blocking)
 
-
-
-/// Source is devoured by living mob.
-/atom/movable/proc/devoured(mob/living/carbon/gourmet)
-	if(!can_devour(gourmet))
-		return FALSE
-
-	var/mob/living/victim = src	// its just living mobs now, subject to change later
-
-	var/target = isturf(loc) ? src : gourmet
-
-	gourmet.setDir(get_dir(gourmet, src))
-	gourmet.visible_message(span_danger("[gourmet.name] пыта[pluralize_ru(gourmet.gender,"ет","ют")]ся поглотить [name]!"))
-
-	if(!do_after(gourmet, get_devour_time(gourmet), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [name]!")))
-		gourmet.visible_message(span_notice("[gourmet.name] прекраща[pluralize_ru(gourmet.gender,"ет","ют")] поглощать [name]!"))
-		return FALSE
-
-	gourmet.visible_message(span_danger("[gourmet.name] поглоща[pluralize_ru(gourmet.gender,"ет","ют")] [name]!"))
-
-	if(victim.mind)
-		add_attack_logs(gourmet, src, "Devoured")
-
-	if(!isvampire(gourmet))
-		gourmet.adjust_nutrition(2 * victim.health)
-
-	for(var/datum/disease/virus/virus in victim.diseases)
-		if(virus.spread_flags > NON_CONTAGIOUS)
-			virus.Contract(gourmet)
-
-	for(var/datum/disease/virus/virus in gourmet.diseases)
-		if(virus.spread_flags > NON_CONTAGIOUS)
-			virus.Contract(victim)
-
-	victim.forceMove(gourmet)
-	LAZYADD(gourmet.stomach_contents, victim)
-	return TRUE
-
-
-/// Does all the checking for the [/proc/devoured()] to see if a mob can eat another with the grab.
-/atom/movable/proc/can_devour(mob/living/carbon/gourmet)
-	if(isalienadult(gourmet))
-		var/mob/living/carbon/alien/humanoid/alien = gourmet
-		return alien.can_consume(src)
-	if(ishuman(gourmet)) //species eating of other mobs
-		return is_type_in_list(src, gourmet.dna.species.allowed_consumed_mobs)
-	return FALSE
-
-
-/// Returns the time devourer has to wait before they eat a prey.
-/atom/movable/proc/get_devour_time(mob/living/carbon/gourmet)
-	if(isalienadult(gourmet))
-		var/mob/living/carbon/alien/humanoid/alien = gourmet
-		return alien.devour_time
-	if(isanimal(src))
-		return DEVOUR_TIME_ANIMAL
-	return DEVOUR_TIME_DEFAULT
-
 /// called when a mob gets shoved into an items turf. false means the mob will be shoved backwards normally, true means the mob will not be moved by the disarm proc.
 /atom/movable/proc/shove_impact(mob/living/target, mob/living/attacker)
 	return FALSE

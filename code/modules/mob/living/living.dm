@@ -1624,7 +1624,7 @@
 
 		if(INTENT_GRAB)
 			if(grabber == src)
-				target.devoured(grabber)
+				SEND_SIGNAL(src, COMSIG_COMPONENT_DEVOUR_INITIATE, target)
 
 
 /mob/living/proc/update_z(new_z) // 1+ to register, null to unregister

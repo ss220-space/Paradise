@@ -138,7 +138,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 
 
 /mob/living/carbon/alien/humanoid/on_grab_quick_equip(atom/movable/grabbed_thing, current_pull_hand)
-	return grabbed_thing.devoured(src)
+	SEND_SIGNAL(src, COMSIG_COMPONENT_DEVOUR_INITIATE, grabbed_thing)
 
 
 /// Returns FALSE if we're not allowed to eat it, true otherwise

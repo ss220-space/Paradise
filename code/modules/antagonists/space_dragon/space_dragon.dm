@@ -96,7 +96,7 @@
 	RegisterSignal(src, COMSIG_COMPONENT_DEVOURED_TARGET, PROC_REF(eat))
 
 /mob/living/simple_animal/hostile/space_dragon/ComponentInitialize()
-	AddComponent(/datum/component/devour, allowed_types = /mob/living)
+	AddComponent(/datum/component/devour, allowed_types = /mob/living, devouring_time = DEVOUR_TIME_ANIMAL)
 
 /mob/living/simple_animal/hostile/space_dragon/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE

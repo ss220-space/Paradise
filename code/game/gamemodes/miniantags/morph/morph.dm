@@ -92,6 +92,7 @@
 	AddComponent( \
 	/datum/component/devour, \
 	blacklisted_types = list(/mob/living/silicon/ai, /mob/living/silicon/robot), \
+	devouring_time = DEVOUR_TIME_ANIMAL, \
 	silent = TRUE, \
 	)
 
