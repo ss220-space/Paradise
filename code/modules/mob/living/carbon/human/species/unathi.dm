@@ -132,9 +132,8 @@
 		/mob/living/carbon/human/proc/emote_rumble))
 	var/datum/action/innate/tail_cut/lash = locate() in human.actions
 	lash?.Remove(human)
-	var/devour_component = human.GetComponent(/datum/component/devour/advanced)
-	if(devour_component)
-		qdel(devour_component)
+	if(human.GetComponent(/datum/component/devour/advanced))
+		qdel(human.GetComponent(/datum/component/devour/advanced))
 
 
 /datum/species/unathi/handle_life(mob/living/carbon/human/H)

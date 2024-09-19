@@ -162,9 +162,8 @@
 	// Removing the action for creating pheromones
 	var/datum/action/innate/produce_pheromones/produce_pheromones = locate() in human.actions
 	produce_pheromones?.Remove(human)
-	var/devour_component = human.GetComponent(/datum/component/devour/advanced)
-	if(devour_component)
-		qdel(devour_component)
+	if(human.GetComponent(/datum/component/devour/advanced))
+		qdel(human.GetComponent(/datum/component/devour/advanced))
 
 
 /// Pheromones spawnable by kida, only perceivable by other kida

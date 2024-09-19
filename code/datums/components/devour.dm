@@ -63,6 +63,7 @@
     target.extinguish_light()
     target.forceMove(mob)
     ADD_TRAIT(target, TRAIT_DEVOURED, UNIQUE_TRAIT_SOURCE(src))
+    SEND_SIGNAL(mob, COMSIG_COMPONENT_DEVOURED_TARGET, target)
     return mob
 
 /datum/component/devour/proc/check_types(atom/movable/atom)
@@ -97,7 +98,6 @@
         playsound(parent, 'sound/misc/demon_attack1.ogg', 100, TRUE)
         mob.visible_message(span_warning("[mob] swallows [atom] whole!"))
     add_to_contents(atom)
-    SEND_SIGNAL(mob, COMSIG_COMPONENT_DEVOURED_TARGET, atom, params)
 
 /datum/component/devour/proc/on_mob_death(gibbed)
     SIGNAL_HANDLER

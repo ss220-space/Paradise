@@ -106,6 +106,5 @@
 	remove_verb(human, /mob/living/carbon/human/proc/emote_purr)
 	remove_verb(human, /mob/living/carbon/human/proc/emote_purrl)
 	remove_verb(human, /mob/living/carbon/human/proc/emote_hiss_tajaran)
-	var/devour_component = human.GetComponent(/datum/component/devour/advanced)
-	if(devour_component)
-		qdel(devour_component)
+	if(human.GetComponent(/datum/component/devour/advanced))
+		qdel(human.GetComponent(/datum/component/devour/advanced))
