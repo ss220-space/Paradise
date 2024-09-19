@@ -50,11 +50,11 @@
 /datum/component/devour/proc/try_devour(datum/source, atom/movable/atom, params)
     SIGNAL_HANDLER
 
-   if(!check_types(atom))
+    if(!check_types(atom))
         return
-
+    
     INVOKE_ASYNC(src, PROC_REF(devour), atom, params)
-    if(!cancel_attack)
+    if(!cancel_attact)
         return
     return COMPONENT_CANCEL_UNARMED_ATTACK
 
@@ -119,23 +119,23 @@
 /// Living(target) is devoured by gourmet.
 /datum/component/devour/advanced/devour(mob/living/gourmet, mob/living/living)
     SIGNAL_HANDLER
-
-	if(!check_types(living) || !can_devour(gourmet))
+    
+    if(!check_types(living) || !can_devour(gourmet))
 		return 
-
-	var/target = isturf(living.loc) ? living : gourmet
+        
+    var/target = isturf(living.loc) ? living : gourmet
 
 	gourmet.setDir(get_dir(gourmet, living))
     if(!silent)
-	    gourmet.visible_message(span_danger("[gourmet.name] пыта[pluralize_ru(gourmet.gender,"ет","ют")]ся поглотить [living.name]!"))
+        gourmet.visible_message(span_danger("[gourmet.name] пыта[pluralize_ru(gourmet.gender,"ет","ют")]ся поглотить [living.name]!"))
 
 	if(!do_after(gourmet, devouring_time ? devouring_time : get_devour_time(gourmet, living), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet, living), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [living.name]!")))
         if(!silent)
-		    gourmet.visible_message(span_notice("[gourmet.name] прекраща[pluralize_ru(gourmet.gender,"ет","ют")] поглощать [living.name]!"))
+            gourmet.visible_message(span_notice("[gourmet.name] прекраща[pluralize_ru(gourmet.gender,"ет","ют")] поглощать [living.name]!"))
 		return
-
+    
     if(!silent)
-	    gourmet.visible_message(span_danger("[gourmet.name] поглоща[pluralize_ru(gourmet.gender,"ет","ют")] [living.name]!"))
+        gourmet.visible_message(span_danger("[gourmet.name] поглоща[pluralize_ru(gourmet.gender,"ет","ют")] [living.name]!"))
 
 	if(living.mind)
 		add_attack_logs(gourmet, living, "Devoured")
