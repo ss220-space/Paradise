@@ -94,6 +94,7 @@
 	human.AddComponent( \
 	/datum/component/devour/advanced, \
 	drop_contents = FALSE, \
+	corpse_only = FALSE, \
 	allowed_types = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
 								 /mob/living/simple_animal/tribble), \
 	)
