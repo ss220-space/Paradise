@@ -43,6 +43,13 @@
 			COOLDOWN_START(src, message_cooldown, 5 SECONDS)
 		return COMPONENT_DRIVER_BLOCK_MOVE
 
+	if(!iscarbon(user))
+		if(COOLDOWN_FINISHED(src, message_cooldown))
+			to_chat(user, span_warning("you can't drive, you are not human!"))
+			COOLDOWN_START(src, message_cooldown, 5 SECONDS)
+		return COMPONENT_DRIVER_BLOCK_MOVE
+
+
 	if(HAS_TRAIT(user, TRAIT_INCAPACITATED))
 		if(ride_check_flags & UNBUCKLE_DISABLED_RIDER)
 			vehicle_parent.unbuckle_mob(user, TRUE)
@@ -129,6 +136,7 @@
 	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 7), TEXT_EAST = list(-13, 7), TEXT_WEST = list(13, 7)))
 
 /datum/component/riding/vehicle/janicart
+	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
 	keytype = /obj/item/key/janitor
 
 /datum/component/riding/vehicle/janicart/handle_specials()
@@ -152,15 +160,23 @@
 	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list( 0, 4)))
 	set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
 
-/*
-/datum/component/riding/vehicle/bicycle
+/datum/component/riding/vehicle/snowmobile
+	keytype = /obj/item/key/snowmobile
+	vehicle_move_delay = 1.75
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
-	vehicle_move_delay = 0
 
-/datum/component/riding/vehicle/bicycle/handle_specials()
+/datum/component/riding/vehicle/speedbike
+	vehicle_move_delay = 0.75
+	override_allow_spacemove = TRUE
+	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
+
+/datum/component/riding/vehicle/speedbike/handle_specials()
 	. = ..()
-	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list( 0, 4)))
-
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, -8), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(-10, 5), TEXT_WEST = list( 10, 5)))
+	set_vehicle_dir_offsets(NORTH, -16, -16)
+	set_vehicle_dir_offsets(SOUTH, -16, -16)
+	set_vehicle_dir_offsets(EAST, -18, 0)
+	set_vehicle_dir_offsets(WEST, -18, 0)
 
 /datum/component/riding/vehicle/lavaboat
 	ride_check_flags = NONE // not sure
@@ -178,6 +194,24 @@
 /datum/component/riding/vehicle/lavaboat/dragonboat/handle_specials()
 	. = ..()
 	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(1, 2), TEXT_SOUTH = list(1, 2), TEXT_EAST = list(1, 2), TEXT_WEST = list( 1, 2)))
+
+/datum/component/riding/vehicle/car
+	vehicle_move_delay = 1.75
+	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
+
+/datum/component/riding/vehicle/car/handle_specials()
+	. = ..()
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(2, 20), TEXT_SOUTH = list(20, 23), TEXT_EAST = list(20, 27), TEXT_WEST = list(34, 10)))
+
+
+/*
+/datum/component/riding/vehicle/bicycle
+	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
+	vehicle_move_delay = 0
+
+/datum/component/riding/vehicle/bicycle/handle_specials()
+	. = ..()
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list( 0, 4)))
 
 /datum/component/riding/vehicle/scooter/handle_specials(mob/living/riding_mob)
 	. = ..()
@@ -331,19 +365,6 @@
 			COOLDOWN_START(src, message_cooldown, 0.75 SECONDS)
 		return COMPONENT_DRIVER_BLOCK_MOVE
 	return ..()
-
-/datum/component/riding/vehicle/speedbike
-	vehicle_move_delay = 0
-	override_allow_spacemove = TRUE
-	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
-
-/datum/component/riding/vehicle/speedbike/handle_specials()
-	. = ..()
-	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, -8), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(-10, 5), TEXT_WEST = list( 10, 5)))
-	set_vehicle_dir_offsets(NORTH, -16, -16)
-	set_vehicle_dir_offsets(SOUTH, -16, -16)
-	set_vehicle_dir_offsets(EAST, -18, 0)
-	set_vehicle_dir_offsets(WEST, -18, 0)
 
 /datum/component/riding/vehicle/speedwagon
 	vehicle_move_delay = 0

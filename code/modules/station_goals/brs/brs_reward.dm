@@ -106,10 +106,10 @@
 		/obj/vehicle/ridden/motorcycle = 20,
 		/obj/vehicle/ridden/janicart = 15,
 		/obj/vehicle/ridden/ambulance = 15,
-		/obj/vehicle/snowmobile = 15,
-		/obj/vehicle/space/speedbike/red = 10,
-		/obj/vehicle/space/speedbike = 10,
-		/obj/vehicle/car,
+		/obj/vehicle/ridden/snowmobile = 15,
+		/obj/vehicle/ridden/speedbike/red = 10,
+		/obj/vehicle/ridden/speedbike = 10,
+		/obj/vehicle/ridden/car,
 
 		//Toys
 		/obj/item/toy/syndicateballoon = 5,

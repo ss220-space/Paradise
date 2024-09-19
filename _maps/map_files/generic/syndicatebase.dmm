@@ -23293,7 +23293,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "tOd" = (
-/obj/vehicle/snowmobile/blue,
+/obj/vehicle/ridden/snowmobile/blue,
 /turf/simulated/floor/plating/ice,
 /area/ruin/unpowered)
 "tOv" = (
