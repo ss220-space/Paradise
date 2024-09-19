@@ -176,7 +176,7 @@
     if(grabber != source)
         return
     
-    INVOKE_ASYNC(src, PROC_REF(devouring), gourmet, grabbed_thing)
+    INVOKE_ASYNC(src, PROC_REF(devouring), grabber, grabbed_thing)
     return
 
 /datum/component/devour/advanced/proc/adv_devour(mob/living/carbon/gourmet, mob/living/living)
