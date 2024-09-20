@@ -3,15 +3,15 @@
 /obj/structure/cult/archives,
 /obj/item/clothing/suit/space/cult,
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "bV" = (
 /obj/structure/flora/tree/dead,
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "cb" = (
 /obj/structure/cult/pylon,
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "cD" = (
 /obj/effect/turf_decal{
 	dir = 5;
@@ -23,25 +23,25 @@
 	name = "grass"
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "cH" = (
 /obj/item/toy/sword,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "cT" = (
 /obj/item/trash/candle,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "dw" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "eH" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/sheet/cloth,
 /obj/item/stack/rods,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "eJ" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
@@ -49,26 +49,25 @@
 /obj/structure/table/wood/fancy,
 /obj/item/storage/fancy/cigarettes/cigpack_carp,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "fM" = (
 /obj/structure/window/reinforced/survival_pod{
-	dir = 6;
 	name = "window"
 	},
-/obj/structure/window/reinforced/survival_pod{
-	name = "window";
-	dir = 10
-	},
-/obj/structure/window/reinforced/survival_pod{
-	name = "window";
-	dir = 2
-	},
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "fW" = (
-/obj/item/fish_eggs/clownfish,
-/turf/simulated/floor/indestructible/beach/water/deep/dense,
-/area/ruin/space/astroak)
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/item/fish_eggs/clownfish{
+	pixel_x = 3;
+	pixel_y = -5
+	},
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/ruin/unpowered)
 "gl" = (
 /obj/effect/turf_decal{
 	icon_state = "grass_edge_medium";
@@ -80,24 +79,24 @@
 	name = "grass"
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "gw" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "gy" = (
 /obj/item/trash/candle,
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "gE" = (
-/obj/machinery/shield/cult/barrier,
+/obj/machinery/shield/cult,
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "gJ" = (
 /obj/effect/turf_decal{
 	dir = 6;
@@ -110,26 +109,26 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "gK" = (
 /obj/structure/window/full/paperframe,
 /obj/structure/curtain/open/shower/security,
 /turf/simulated/floor/wood/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "hC" = (
 /obj/item/trash/tastybread,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "kz" = (
 /obj/structure/closet,
 /obj/item/clothing/suit/hooded/salmon_costume,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "lt" = (
 /obj/item/flag/cult,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "ly" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/wood/fancy/birch{
@@ -144,82 +143,80 @@
 "lX" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "mw" = (
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/unpowered/no_grav)
 "mM" = (
 /obj/item/reagent_containers/glass/bucket/wooden,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "ne" = (
 /obj/structure/table_frame/wood,
 /obj/effect/landmark/tiles/damageturf,
-/obj/item/flashlight/lantern{
-	icon_state = "lantern-on"
-	},
+/obj/item/stack/sheet/wood,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "nr" = (
 /obj/structure/wooden_sign{
 	desc = "Астроак открыт для посещения";
 	name = "Астроак"
 	},
 /obj/structure/sign/holy{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "nA" = (
-/obj/item/stack/sheet/wood,
+/obj/item/stack/sheet/wood{
+	amount = 4
+	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "nG" = (
 /obj/structure/table/wood/fancy/red,
 /obj/item/flashlight/lantern{
 	icon_state = "lantern-on"
 	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "nL" = (
 /turf/simulated/wall/cult_fake,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "nO" = (
 /mob/living/simple_animal/hostile/carp/mcarp,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "oi" = (
 /obj/structure/table_frame/wood,
 /obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/tile/carpet/red,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "oY" = (
 /obj/item/chair/wood,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "pq" = (
 /turf/simulated/wall/mineral/wood/nonmetal,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "pB" = (
 /obj/structure/noticeboard{
 	pixel_y = 30
 	},
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "qF" = (
 /obj/structure/cult/archives,
 /obj/item/clothing/head/helmet/space/cult,
 /obj/structure/sign/poster/contraband/very_robust{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "qO" = (
 /obj/structure/statue/carp_mini{
 	pixel_y = 16
@@ -227,7 +224,7 @@
 /obj/structure/table/wood/fancy/red,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "rb" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
@@ -242,7 +239,7 @@
 "rA" = (
 /obj/item/reagent_containers/food/drinks/bottle/unholywater,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "rD" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -254,22 +251,22 @@
 	name = "grass"
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "sF" = (
-/obj/machinery/power/apc/worn_out{
-	pixel_y = 26;
-	dir = 1
-	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/apc/noalarm{
+	pixel_y = 26;
+	dir = 1
+	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "sT" = (
 /obj/structure/sacrificealtar,
 /obj/item/nullrod/carp,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "sX" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/window/reinforced/survival_pod{
@@ -277,70 +274,76 @@
 	dir = 10
 	},
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "tE" = (
 /obj/structure/bookcase/random/religion,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "tR" = (
-/obj/effect/decal/cleanable/blood/writing,
+/obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "uI" = (
 /obj/structure/sign/poster/official/religious{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "uJ" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
+"uP" = (
+/obj/structure/closet/crate/can,
+/obj/item/trash/gum,
+/obj/item/trash/doshik,
+/obj/item/hatchet/wooden,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
 "wh" = (
 /obj/effect/spawner/random_spawners/blood_20,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "wk" = (
 /obj/item/trash/candy,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "wU" = (
 /obj/item/trash/chips,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "yF" = (
 /mob/living/simple_animal/hostile/carp/mcarp,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "yT" = (
 /turf/template_noop,
 /area/template_noop)
 "zb" = (
 /obj/structure/cult/forge,
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "zg" = (
 /obj/structure/sign/poster/contraband/wanted{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "zC" = (
-/obj/effect/decal/cleanable/glass/plasma,
-/obj/structure/railing{
-	dir = 8
+/obj/structure/railing,
+/obj/machinery/poolcontroller{
+	pixel_x = -25;
+	srange = 3;
+	deep_water = 1
 	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "zF" = (
-/obj/item/stack/sheet/wood,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "zK" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -353,24 +356,23 @@
 	name = "grass"
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "zN" = (
 /obj/structure/closet/crate,
 /obj/item/pickaxe/diamond,
 /obj/item/flashlight/lantern,
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "zR" = (
 /obj/item/melee/cultblade/dagger,
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Aa" = (
 /obj/structure/bed,
 /obj/item/bedsheet/wiz,
 /obj/effect/decal/cleanable/blood,
-/obj/effect/decal/remains/human,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Af" = (
 /mob/living/simple_animal/hostile/illusion/cult{
 	deathmessage = "disappears into the air with a cry of agony";
@@ -386,26 +388,26 @@
 	melee_damage_upper = 25
 	},
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Av" = (
 /obj/structure/window/reinforced/survival_pod{
 	name = "window";
 	dir = 9
 	},
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Ay" = (
 /obj/structure/cult/altar,
 /obj/item/tome,
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Be" = (
 /obj/structure/window/reinforced/survival_pod{
 	dir = 8;
 	name = "window"
 	},
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Bj" = (
 /mob/living/simple_animal/hostile/carp,
 /turf/template_noop,
@@ -415,47 +417,44 @@
 	pixel_y = 11
 	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "BY" = (
 /obj/structure/sign/poster/official/tsf_emblem{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "CG" = (
 /obj/item/shield/riot/buckler,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "DC" = (
 /obj/item/restraints/legcuffs/bola/cult,
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "DN" = (
 /obj/item/fluff/rsik_katana,
 /obj/effect/landmark/tiles/damageturf,
-/obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "DP" = (
 /obj/structure/window/reinforced/survival_pod{
 	dir = 6;
 	name = "window"
 	},
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "DS" = (
-/obj/effect/decal/cleanable/glass/plasma,
-/obj/item/reagent_containers/glass/bucket/wooden,
-/obj/structure/railing{
-	dir = 8
+/obj/item/flashlight/lantern{
+	icon_state = "lantern-on";
+	pixel_x = 6
 	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "DX" = (
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Eg" = (
 /turf/simulated/floor/wood/fancy/birch{
 	oxygen = 0;
@@ -467,15 +466,14 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/item/flag/cult,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "EW" = (
 /obj/structure/curtain/open/shower/security,
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "EX" = (
 /obj/effect/landmark/tiles/damageturf,
-/obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/remains/human,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -487,43 +485,47 @@
 	},
 /area/ruin/unpowered/no_grav)
 "FE" = (
-/obj/structure/railing,
-/turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/obj/item/fish_eggs/clownfish{
+	pixel_x = -8;
+	pixel_y = -15
+	},
+/obj/structure/railing/corner,
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/ruin/unpowered)
 "Ga" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Ge" = (
 /obj/structure/window/reinforced/survival_pod{
 	name = "window";
 	dir = 4
 	},
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "GG" = (
-/obj/structure/window/reinforced/survival_pod{
-	name = "window";
-	dir = 2
+/obj/item/fish_eggs/babycarp{
+	pixel_x = -8;
+	pixel_y = 6
 	},
-/obj/structure/window/reinforced/survival_pod{
-	name = "window";
-	dir = 4
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
 	},
-/turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "GI" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/structure/sign/poster/ripped{
 	pixel_x = -32
 	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "GL" = (
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "GT" = (
 /obj/machinery/door/window/survival_pod{
 	dir = 8
@@ -538,37 +540,35 @@
 	name = "grass"
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Hb" = (
 /obj/structure/window/reinforced/survival_pod{
 	name = "window";
 	dir = 10
 	},
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Hc" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Hd" = (
 /obj/effect/decal/remains/human,
-/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "HE" = (
-/obj/structure/window/reinforced/survival_pod{
-	name = "window";
-	dir = 2
+/obj/item/flashlight/lantern{
+	icon_state = "lantern-on"
 	},
-/turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
 "HL" = (
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "HP" = (
 /obj/structure/sacrificealtar,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Ih" = (
 /obj/effect/turf_decal{
 	dir = 9;
@@ -581,12 +581,12 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Ii" = (
 /obj/structure/bed,
 /obj/item/bedsheet/fluff/hugosheet,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "It" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/landmark/tiles/damageturf,
@@ -599,61 +599,34 @@
 	faction = list("neutral","cult", "illusion")
 	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Jf" = (
-/obj/item/fish_eggs/babycarp,
-/obj/item/shard,
-/obj/effect/landmark/tiles/damageturf,
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/structure/railing/corner{
-	dir = 1
-	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
-"Ky" = (
-/obj/structure/window/reinforced/survival_pod{
-	name = "window";
-	dir = 10
-	},
-/obj/structure/window/reinforced/survival_pod{
-	name = "window";
-	dir = 9
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8;
-	name = "window"
-	},
-/turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "KJ" = (
-/turf/simulated/floor/indestructible/beach/water/deep/dense,
-/area/ruin/space/astroak)
+/obj/structure/railing,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "ramptop"
+	},
+/area/ruin/unpowered)
 "Lr" = (
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "LX" = (
 /obj/item/trash/candle{
 	pixel_y = 13
 	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
-"Md" = (
-/obj/effect/landmark/tiles/damageturf,
-/obj/item/flashlight/lantern{
-	icon_state = "lantern-on"
-	},
-/turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "MC" = (
-/obj/effect/decal/cleanable/blood/writing{
-	dir = 4
-	},
 /obj/effect/rune,
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Ni" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -671,22 +644,21 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Np" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Nw" = (
 /obj/structure/window/reinforced/survival_pod{
 	name = "window";
 	dir = 4
 	},
 /obj/structure/window/reinforced/survival_pod{
-	name = "window";
-	dir = 2
+	name = "window"
 	},
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "NL" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -699,7 +671,12 @@
 	name = "grass"
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
+"Ou" = (
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/ruin/unpowered)
 "OQ" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -717,42 +694,38 @@
 	name = "grass"
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "OV" = (
 /obj/item/chair/wood,
 /mob/living/simple_animal/hostile/carp/mcarp,
 /obj/effect/landmark/tiles/damageturf,
-/obj/structure/railing/corner{
-	dir = 8
-	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Py" = (
 /obj/structure/table/wood/fancy/red,
 /obj/item/toy/carpplushie/ice,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "PM" = (
 /obj/structure/table/wood/fancy/red,
 /obj/item/toy/carpplushie/nebula,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "PS" = (
 /obj/structure/closet/crate/trashcart/gibs,
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Qw" = (
 /obj/structure/closet,
 /obj/item/clothing/suit/hooded/carp_costume,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Qy" = (
 /obj/structure/decorative_structures/corpse,
 /obj/effect/landmark/tiles/damageturf,
-/obj/effect/decal/cleanable/blood/gibs/old,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "QD" = (
 /obj/structure/mineral_door/wood,
 /obj/structure/barricade/wooden/crude,
@@ -760,13 +733,12 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "QI" = (
 /obj/effect/decal/cleanable/blood,
-/obj/effect/decal/remains/human,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "QO" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -783,16 +755,16 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Rm" = (
 /obj/structure/cult/altar,
 /obj/item/book_of_babel,
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "RO" = (
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/wood/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Sf" = (
 /obj/machinery/door/window/survival_pod{
 	dir = 2
@@ -808,32 +780,31 @@
 	name = "grass"
 	},
 /turf/simulated/floor/plating/asteroid,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Tw" = (
 /obj/structure/window/reinforced/survival_pod{
-	name = "window";
-	dir = 2
+	name = "window"
 	},
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "TW" = (
 /obj/structure/mineral_door/wood,
 /obj/structure/barricade/wooden/crude,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Uk" = (
 /obj/item/melee/cultblade,
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Uy" = (
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "UE" = (
 /obj/structure/closet,
-/obj/item/stack/sheet/runed_metal_fake,
+/obj/item/stack/sheet/runed_metal_fake/fifty,
 /turf/simulated/floor/engine/cult,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Vp" = (
 /obj/structure/window/reinforced/survival_pod{
 	name = "window";
@@ -844,50 +815,45 @@
 	name = "window"
 	},
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Wd" = (
 /obj/structure/window/reinforced/survival_pod{
-	name = "window";
-	dir = 2
+	name = "window"
 	},
 /obj/structure/window/reinforced/survival_pod{
 	dir = 8;
 	name = "window"
 	},
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Wi" = (
 /obj/structure/window/reinforced/survival_pod{
-	name = "window";
-	dir = 2
-	},
-/obj/structure/window/reinforced/survival_pod{
-	name = "window";
-	dir = 2
+	name = "window"
 	},
 /obj/structure/window/reinforced/survival_pod{
 	name = "window";
 	dir = 4
 	},
 /turf/simulated/floor/grass,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "Yx" = (
-/obj/effect/decal/cleanable/blood/old,
 /obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "ZC" = (
 /obj/structure/bed,
 /obj/item/bedsheet/cult,
+/obj/effect/decal/remains/human,
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 "ZY" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood/fancy/birch,
-/area/ruin/space/astroak)
+/area/ruin/unpowered)
 
 (1,1,1) = {"
 yT
@@ -1253,7 +1219,7 @@ eJ
 eJ
 Vp
 GT
-Ky
+Be
 Wd
 eJ
 eJ
@@ -1291,7 +1257,7 @@ mw
 pq
 pq
 pq
-Be
+pq
 Be
 Av
 gl
@@ -1329,17 +1295,17 @@ lA
 mw
 mw
 mw
+mw
 pq
-pq
-KJ
-pq
+GG
+Ou
 pq
 Np
 Uy
 OQ
 cD
 DP
-GG
+Wi
 eJ
 eJ
 yT
@@ -1372,15 +1338,15 @@ pq
 pq
 pq
 pq
+pq
+FE
 fW
-KJ
-KJ
 pq
 zg
 Uy
 bV
 rD
-HE
+fM
 eJ
 eJ
 eJ
@@ -1413,10 +1379,10 @@ DX
 BG
 dw
 GI
-FE
+DX
+zC
 KJ
-KJ
-fW
+mM
 pq
 Uy
 Uy
@@ -1456,9 +1422,9 @@ DX
 DX
 DX
 OV
-DS
 Jf
-zC
+Jf
+DX
 pq
 GL
 Uy
@@ -1499,7 +1465,7 @@ uJ
 uJ
 uJ
 DX
-DX
+dw
 wk
 EW
 Uy
@@ -1540,7 +1506,7 @@ DX
 cH
 cT
 DX
-DX
+dw
 DX
 DX
 pq
@@ -1590,7 +1556,7 @@ NL
 QO
 Uy
 GL
-HE
+fM
 eJ
 eJ
 eJ
@@ -1632,7 +1598,7 @@ pB
 zK
 cD
 Uy
-HE
+fM
 eJ
 eJ
 eJ
@@ -1667,8 +1633,8 @@ gw
 hC
 DX
 uI
-DX
 yF
+uP
 pq
 BY
 Uy
@@ -1716,7 +1682,7 @@ GL
 Uy
 Uy
 Np
-HE
+fM
 eJ
 eJ
 eJ
@@ -1752,7 +1718,7 @@ pq
 DX
 DX
 wh
-mM
+DS
 pq
 pq
 Uy
@@ -1801,7 +1767,7 @@ Uy
 Uy
 Uy
 Uy
-HE
+fM
 eJ
 eJ
 eJ
@@ -1843,7 +1809,7 @@ Uy
 Np
 Uy
 DP
-GG
+Wi
 eJ
 eJ
 yT
@@ -1870,7 +1836,7 @@ mw
 mw
 nL
 Hc
-Uk
+gE
 gE
 gE
 gE
@@ -1912,7 +1878,7 @@ mw
 nL
 nL
 HL
-HL
+Uk
 DX
 Ga
 gE
@@ -2039,7 +2005,7 @@ nL
 zb
 HL
 Yx
-Md
+dw
 HL
 zR
 Ay
@@ -2081,7 +2047,7 @@ pq
 HL
 DX
 DX
-HL
+HE
 Af
 HL
 cb
