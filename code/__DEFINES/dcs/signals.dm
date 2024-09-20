@@ -630,7 +630,7 @@
 #define COMSIG_POPUP_CLEARED "popup_cleared"
 
 /// Source: /mob/living/UnarmedAttack(atom/A, proximity_flag)
-#define COMSIG_LIVING_UNARMED_ATTACK "mob_unarmed_attack"
+#define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
 	#define COMPONENT_CANCEL_UNARMED_ATTACK (1<<0)
 
 // /mob/living/carbon signals
