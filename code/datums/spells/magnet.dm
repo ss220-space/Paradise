@@ -59,4 +59,3 @@
 		"<span class='danger'>[to_throw] внезапно вылетает из ваших рук!</span>")
 	to_throw.throw_at(user, to_throw.throw_range, 4)
 	return TRUE
-
