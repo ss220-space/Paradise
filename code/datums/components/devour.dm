@@ -19,7 +19,7 @@
     var/cancel_attack
 
 /datum/component/devour/Initialize(
-    list/allowed_types = list(atom/movable),
+    list/allowed_types = list(/atom/movable),
     list/blacklisted_types,
     devouring_time,
     health_threshold,
