@@ -27,7 +27,7 @@
 	if(isitem(source))
 		RegisterSignal(source, COMSIG_ITEM_ATTACK, PROC_REF(item_attack))
 
-	if(ismob(attaker))
+	if(ismob(source))
 		RegisterSignal(source, COMSIG_MOB_PRE_UNARMED_ATTACK, PROC_REF(mob_attack))
 
 /datum/element/reagent_attack/Detach(atom/source)
