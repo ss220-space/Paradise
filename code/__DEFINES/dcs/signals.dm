@@ -928,7 +928,7 @@
 #define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
 
 /// Devour component
-/// Source: /datum/component/devour/proc/devour(atom/movable/atom)
+/// Source:	/datum/component/devour/proc/add_to_contents(atom/movable/target)
 #define COMSIG_COMPONENT_DEVOURED_TARGET "devoured_target"
 /// Source: /datum/component/devour/proc/devour(atom/movable/atom)
 #define COMSIG_COMPONENT_PRE_DEVOUR_TARGET "pre_devour_target"
