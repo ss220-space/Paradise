@@ -59,7 +59,7 @@
 
 /obj/effect/proc_holder/spell/touch/disintegrate
 	name = "Disintegrate"
-	desc = "Это заклинание заряжает вашу руку энергией, которая может быть использована для насильственного взрыва жертв."
+	desc = "Это заклинание заряжает вашу руку энергией, которая может быть использована для дезинтеграции жертв."
 	hand_path = /obj/item/melee/touch_attack/disintegrate
 
 	school = "evocation"
