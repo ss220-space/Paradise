@@ -42,7 +42,7 @@
 	var/mob/living/carbon/human/target = targets[1]
 
 	spawn(0) // allows cast to complete even if recipient ignores the prompt
-		if(alert(target, "[user] хочет благословить вас во имя религии [user.p_their()]. Принять?", "Принять благословение?", "Да", "Нет") == "Да") // prevents forced conversions
+		if(tgui_alert(target, "[user] хочет благословить вас во имя своей религии. Принять?", "Принять благословение?", "Да", "Нет") == "Да") // prevents forced conversions
 			user.visible_message("[user] начинает благословлять [target] во имя [SSticker.Bible_deity_name].", "<span class='notice'>Вы начинаете благословлять [target] во имя [SSticker.Bible_deity_name].</span>")
 			if(do_after(user, 15 SECONDS, target))
 				user.visible_message("[user] благословил [target] во имя [SSticker.Bible_deity_name].", "<span class='notice'>Вы благословили [target] во имя [SSticker.Bible_deity_name].</span>")

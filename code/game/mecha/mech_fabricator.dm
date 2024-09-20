@@ -291,19 +291,26 @@
 		return FALSE
 	return TRUE
 
-// Interaction code
-/obj/machinery/mecha_part_fabricator/attackby(obj/item/W, mob/user, params)
-	if(default_change_direction_wrench(user, W))
-		add_fingerprint(user)
-		return
-	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, W))
-		add_fingerprint(user)
-		return
-	if(exchange_parts(user, W))
-		return
-	if(default_deconstruction_crowbar(user, W))
-		return TRUE
+
+/obj/machinery/mecha_part_fabricator/wrench_act(mob/living/user, obj/item/I)
+	return default_change_direction_wrench(user, I)
+
+
+/obj/machinery/mecha_part_fabricator/screwdriver_act(mob/living/user, obj/item/I)
+	return default_deconstruction_screwdriver(user, icon_open, icon_closed, I)
+
+
+/obj/machinery/mecha_part_fabricator/crowbar_act(mob/living/user, obj/item/I)
+	return default_deconstruction_crowbar(user, I)
+
+
+/obj/machinery/mecha_part_fabricator/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/machinery/mecha_part_fabricator/attack_ghost(mob/user)
 	ui_interact(user)
@@ -317,18 +324,20 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/mecha_part_fabricator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/mecha_part_fabricator/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!selected_category)
 		selected_category = categories[1]
 
-	var/datum/asset/materials_assets = get_asset_datum(/datum/asset/simple/materials)
-	materials_assets.send(user)
-
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ExosuitFabricator", name, 800, 600)
+		ui = new(user, src, "ExosuitFabricator", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
+
+/obj/machinery/mecha_part_fabricator/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/materials)
+	)
 
 /obj/machinery/mecha_part_fabricator/ui_data(mob/user)
 	var/list/data = list()
@@ -460,7 +469,7 @@
 			var/datum/material/M = materials.materials[id]
 			if(!M || !M.amount)
 				return
-			var/num_sheets = input(usr, "How many sheets do you want to withdraw?", "Withdrawing [M.name]") as num|null
+			var/num_sheets = tgui_input_number(usr, "How many sheets do you want to withdraw?", "Withdrawing [M.name]", max_value = round(M.amount / MINERAL_MATERIAL_AMOUNT))
 			if(isnull(num_sheets) || num_sheets <= 0)
 				return
 			materials.retrieve_sheets(num_sheets, id)
@@ -476,7 +485,6 @@
 /obj/machinery/mecha_part_fabricator/upgraded/New()
 	..()
 	// Upgraded components
-	QDEL_LIST(component_parts)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mechfab(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -498,7 +506,6 @@
 
 /obj/machinery/mecha_part_fabricator/spacepod/New()
 	..()
-	QDEL_LIST(component_parts)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/podfab(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

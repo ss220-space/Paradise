@@ -72,7 +72,7 @@
 	return ..()
 
 /obj/machinery/turretid/Initialize()
-	..()
+	. = ..()
 	if(!control_area)
 		control_area = get_area(src)
 	else if(istext(control_area))
@@ -112,21 +112,25 @@
 
 	return FALSE
 
-/obj/machinery/turretid/attackby(obj/item/I, mob/user)
-	if(stat & BROKEN)
-		add_fingerprint(user)
-		return
+
+/obj/machinery/turretid/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || (stat & BROKEN))
+		return ..()
 
 	if(I.GetID() || is_pda(I))
-		if(src.allowed(usr))
-			add_fingerprint(user)
-			if(emagged)
-				to_chat(user, span_notice("The turret control is unresponsive."))
-			else
-				locked = !locked
-				to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the panel."))
-		return
+		add_fingerprint(user)
+		if(emagged)
+			to_chat(user, span_warning("The turret control is unresponsive."))
+			return ATTACK_CHAIN_PROCEED
+		if(!allowed(user))
+			to_chat(user, span_warning("Access Denied."))
+			return ATTACK_CHAIN_PROCEED
+		locked = !locked
+		to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the panel."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
 
 /obj/machinery/turretid/emag_act(mob/user)
 	if(!emagged)
@@ -147,10 +151,10 @@
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/turretid/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/turretid/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PortableTurret", name, 500, 400)
+		ui = new(user, src, "PortableTurret", name)
 		ui.open()
 
 /obj/machinery/turretid/ui_data(mob/user)

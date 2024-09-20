@@ -26,10 +26,20 @@ jobs:
         with:
           path: $HOME/SpacemanDMM
           key: ${{ runner.os }}-spacemandmm
+
       - name: Install Tools
         run: |
           bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.6'
+          cache: 'pip'
+
+      - name: Install python packages
+        run: pip3 install -r tools/requirements.txt
+
       - name: Run Linters
         run: |
           find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/ci/json_verifier.py
@@ -37,6 +47,7 @@ jobs:
           tools/ci/check_grep.sh
           python3 tools/ci/check_line_endings.py
           python3 tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
+
       - name: Run DreamChecker
         shell: bash
         run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh

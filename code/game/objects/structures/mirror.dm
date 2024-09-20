@@ -40,6 +40,8 @@
 			AC = new(src, user)
 			AC.name = "SalonPro Nano-Mirror"
 			AC.flags = APPEARANCE_ALL_BODY
+			if(iswryn(user))
+				AC.flags -= APPEARANCE_HAIR
 			ui_users[user] = AC
 		add_fingerprint(user)
 		AC.ui_interact(user)
@@ -144,13 +146,8 @@
 				curse(user)
 
 		if("Body")
-			var/list/race_list = list(SPECIES_HUMAN, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_MOTH)
-			if(CONFIG_GET(flag/usealienwhitelist))
-				for(var/Spec in GLOB.whitelisted_species)
-					if(is_alien_whitelisted(H, Spec))
-						race_list += Spec
-			else
-				race_list += GLOB.whitelisted_species
+			var/list/race_list = list(SPECIES_HUMAN)
+			race_list += CONFIG_GET(str_list/playable_species)
 
 			var/datum/ui_module/appearance_changer/AC = ui_users[user]
 			if(!AC)
@@ -187,8 +184,10 @@
 /obj/structure/mirror/magic/ui_close(mob/user)
 	curse(user)
 
+
 /obj/structure/mirror/magic/attackby(obj/item/I, mob/living/user, params)
-	return
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return

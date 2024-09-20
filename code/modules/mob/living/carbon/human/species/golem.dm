@@ -5,7 +5,15 @@
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 	deform = 'icons/mob/human_races/r_golem.dmi'
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, EMBEDIMMUNE)
+	inherent_traits = list(
+		TRAIT_NO_BLOOD,
+		TRAIT_NO_BREATH,
+		TRAIT_NO_PAIN,
+		TRAIT_RADIMMUNE,
+		TRAIT_NO_GUNS,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_EMBEDIMMUNE,
+	)
 	dies_at_threshold = TRUE
 	speed_mod = 2
 	brute_mod = 0.45 //55% damage reduction
@@ -151,7 +159,7 @@
 	return golem_name
 
 /datum/species/golem/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	if(H.mind)
 		H.mind.assigned_role = "Golem"
 		if(owner)
@@ -176,7 +184,7 @@
 	var/static/list/random_golem_types
 
 /datum/species/golem/random/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	..()
+	. = ..()
 	if(!random_golem_types)
 		random_golem_types = subtypesof(/datum/species/golem) - type
 		for(var/V in random_golem_types)
@@ -227,7 +235,7 @@
 		NEUTER = null
 		)
 	var/boom_warning = FALSE
-	var/datum/action/innate/ignite/ignite
+
 
 /datum/species/golem/plasma/handle_life(mob/living/carbon/human/H)
 	if(H.bodytemperature > 750)
@@ -248,16 +256,20 @@
 		H.adjust_fire_stacks(1)
 	..()
 
-/datum/species/golem/plasma/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	..()
-	if(ishuman(C))
-		ignite = new
-		ignite.Grant(C)
 
-/datum/species/golem/plasma/on_species_loss(mob/living/carbon/C)
-	if(ignite)
-		ignite.Remove(C)
-	..()
+/datum/species/golem/plasma/on_species_gain(mob/living/carbon/human/H)
+	. = ..()
+	var/datum/action/innate/ignite/ignite = locate() in H.actions
+	if(!ignite)
+		ignite = new
+		ignite.Grant(H)
+
+
+/datum/species/golem/plasma/on_species_loss(mob/living/carbon/human/H)
+	. = ..()
+	var/datum/action/innate/ignite/ignite = locate() in H.actions
+	ignite?.Remove(H)
+
 
 /datum/action/innate/ignite
 	name = "Ignite"
@@ -374,14 +386,17 @@
 		FEMALE = list("Дева"),
 		NEUTER = null
 		)
+	inherent_traits = list(
+		TRAIT_NO_BLOOD,
+		TRAIT_NO_BREATH,
+		TRAIT_NO_PAIN,
+		TRAIT_RADIMMUNE,
+		TRAIT_NO_GUNS,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_EMBEDIMMUNE,
+		TRAIT_ASHSTORM_IMMUNE,
+	)
 
-/datum/species/golem/titanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	. = ..()
-	C.weather_immunities |= "ash"
-
-/datum/species/golem/titanium/on_species_loss(mob/living/carbon/C)
-	. = ..()
-	C.weather_immunities -= "ash"
 
 //Even more resistant to burn damage and immune to ashstorms and lava
 /datum/species/golem/plastitanium
@@ -396,16 +411,18 @@
 		FEMALE = list("Дева"),
 		NEUTER = null
 		)
+	inherent_traits = list(
+		TRAIT_NO_BLOOD,
+		TRAIT_NO_BREATH,
+		TRAIT_NO_PAIN,
+		TRAIT_RADIMMUNE,
+		TRAIT_NO_GUNS,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_EMBEDIMMUNE,
+		TRAIT_ASHSTORM_IMMUNE,
+		TRAIT_LAVA_IMMUNE,
+	)
 
-/datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	. = ..()
-	C.weather_immunities |= "lava"
-	C.weather_immunities |= "ash"
-
-/datum/species/golem/plastitanium/on_species_loss(mob/living/carbon/C)
-	. = ..()
-	C.weather_immunities -= "ash"
-	C.weather_immunities -= "lava"
 
 //Fast and regenerates... but can only speak like an abductor
 /datum/species/golem/alloy
@@ -426,20 +443,23 @@
 	chance_name_male = 80
 	chance_name_female = 30
 
+
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/handle_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
 		return
-	H.adjustBruteLoss(-2)
-	H.adjustFireLoss(-2)
-	H.adjustToxLoss(-2)
-	H.adjustOxyLoss(-2)
+	var/update = NONE
+	update |= H.heal_overall_damage(2, 2, updating_health = FALSE)
+	update |= H.heal_damages(tox = 2, oxy = 2, updating_health = FALSE)
+	if(update)
+		H.updatehealth()
+
 
 /datum/species/golem/alloy/can_understand(mob/other) //Can understand everyone, but they can only speak over their mindlink
 	return TRUE
 
 /datum/species/golem/alloy/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	LAZYREINITLIST(H.languages)
 	H.add_language(LANGUAGE_HIVE_GOLEM)
 	H.add_language(LANGUAGE_GREY) // still grey enouhg to speak in psi link
@@ -449,7 +469,16 @@
 	name = SPECIES_GOLEM_WOOD
 	golem_colour = rgb(158, 112, 75)
 	skinned_type = /obj/item/stack/sheet/wood
-	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, EMBEDIMMUNE, IS_PLANT)
+	inherent_traits = list(
+		TRAIT_NO_BLOOD,
+		TRAIT_NO_BREATH,
+		TRAIT_NO_PAIN,
+		TRAIT_PLANT_ORIGIN,
+		TRAIT_RADIMMUNE,
+		TRAIT_NO_GUNS,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_EMBEDIMMUNE,
+	)
 	//Can burn and take damage from heat
 	brute_mod = 0.7 //30% damage reduction down from 55%
 	burn_mod = 0.875
@@ -492,10 +521,11 @@
 			if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 				H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2 && !H.suiciding) //if there's enough light, heal
-			H.adjustBruteLoss(-1)
-			H.adjustFireLoss(-1)
-			H.adjustToxLoss(-1)
-			H.adjustOxyLoss(-1)
+			var/update = NONE
+			update |= H.heal_overall_damage(1, 1, updating_health = FALSE)
+			update |= H.heal_damages(tox = 1, oxy = 1, updating_health = FALSE)
+			if(update)
+				H.updatehealth()
 
 	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.adjustBruteLoss(2)
@@ -524,14 +554,13 @@
 	chance_name_neuter = 10
 	special_name_chance = 60
 
-/datum/species/golem/uranium/handle_life(mob/living/carbon/human/H)
-	for(var/mob/living/L in range(2, H))
-		if(ishuman(L))
-			var/mob/living/carbon/human/I = L
-			if(!(RADIMMUNE in I.dna.species.species_traits))
-				L.apply_effect(10, IRRADIATE)
-				if(prob(25)) //reduce spam
-					to_chat(L, "<span class='danger'>Вас окутывает мягкое зелёное свечение, исходящее от [H].</span>")
+/datum/species/golem/uranium/handle_life(mob/living/carbon/human/user)
+	for(var/mob/living/victim in range(2, user))
+		if(HAS_TRAIT(victim, TRAIT_RADIMMUNE))
+			continue
+		victim.apply_effect(10, IRRADIATE)
+		if(prob(25)) //reduce spam
+			to_chat(victim, span_danger("Вас окутывает мягкое зелёное свечение, исходящее от [user]."))
 	..()
 
 //Ventcrawler
@@ -543,7 +572,16 @@
 		FEMALE = list("Тарелка", "Посуда", "Утварь"),
 		NEUTER = null
 		)
-	ventcrawler_trait = TRAIT_VENTCRAWLER_NUDE
+	inherent_traits = list(
+		TRAIT_NO_BLOOD,
+		TRAIT_NO_BREATH,
+		TRAIT_NO_PAIN,
+		TRAIT_RADIMMUNE,
+		TRAIT_NO_GUNS,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_EMBEDIMMUNE,
+		TRAIT_VENTCRAWLER_NUDE,
+	)
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/sheet/plastic
 	info_text = "Будучи <span class='danger'>пластиковым големом</span>, вы способны ползать по вентиляции, если вы раздеты."
@@ -653,8 +691,6 @@
 	special_name_chance = 50
 	chance_name_male = 90
 	chance_name_female = 20
-
-	var/datum/action/innate/unstable_teleport/unstable_teleport
 	var/teleport_cooldown = 100
 	var/last_teleport = 0
 	var/tele_range = 6
@@ -695,27 +731,33 @@
 	if(world.time > last_teleport + teleport_cooldown && M != H &&  M.a_intent != INTENT_HELP)
 		reactive_teleport(H)
 
-/datum/species/golem/bluespace/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
-	..()
-	if(world.time > last_teleport + teleport_cooldown && user != H)
-		reactive_teleport(H)
+
+/datum/species/golem/bluespace/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
+	. = ..()
+	if(world.time > last_teleport + teleport_cooldown && defender != attacker && reactive_teleport(defender))
+		. |= ATTACK_CHAIN_NO_AFTERATTACK
+
 
 /datum/species/golem/bluespace/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_teleport + teleport_cooldown)
 		reactive_teleport(H)
 	return TRUE
 
-/datum/species/golem/bluespace/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	..()
-	if(ishuman(C))
+
+/datum/species/golem/bluespace/on_species_gain(mob/living/carbon/human/H)
+	. = ..()
+	var/datum/action/innate/unstable_teleport/unstable_teleport = locate() in H.actions
+	if(!unstable_teleport)
 		unstable_teleport = new
-		unstable_teleport.Grant(C)
+		unstable_teleport.Grant(H)
 		last_teleport = world.time
 
-/datum/species/golem/bluespace/on_species_loss(mob/living/carbon/C)
-	if(unstable_teleport)
-		unstable_teleport.Remove(C)
-	..()
+
+/datum/species/golem/bluespace/on_species_loss(mob/living/carbon/human/H)
+	. = ..()
+	var/datum/action/innate/unstable_teleport/unstable_teleport = locate() in H.actions
+	unstable_teleport?.Remove(H)
+
 
 /datum/action/innate/unstable_teleport
 	name = "Unstable Teleport"
@@ -787,6 +829,7 @@
 		NEUTER = null
 		)
 	unarmed_type = /datum/unarmed_attack/golem/bananium
+	default_genes = list(/datum/dna/gene/disability/comic)
 
 	var/last_honk = 0
 	var/honkooldown = 0
@@ -794,18 +837,24 @@
 	var/banana_cooldown = 100
 	var/active = null
 
+
 /datum/species/golem/bananium/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	last_banana = world.time
 	last_honk = world.time
-	H.mutations.Add(COMIC)
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), ITEM_SLOT_POCKET_RIGHT)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), ITEM_SLOT_POCKET_LEFT)
 	H.AddElement(/datum/element/waddling)
 
-/datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
+
+/datum/species/golem/bananium/handle_dna(mob/living/carbon/human/H, remove = FALSE)
+	H.force_gene_block(GLOB.comicblock, !remove, TRUE, TRUE)
+
+
+/datum/species/golem/bananium/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
-	C.RemoveElement(/datum/element/waddling)
+	H.RemoveElement(/datum/element/waddling)
+
 
 /datum/species/golem/bananium/get_random_name()
 	var/clown_name = pick(GLOB.clown_names)
@@ -818,11 +867,13 @@
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 		last_banana = world.time
 
-/datum/species/golem/bananium/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
-	..()
-	if(world.time > last_banana + banana_cooldown && user != H)
-		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
+
+/datum/species/golem/bananium/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
+	. = ..()
+	if(world.time > last_banana + banana_cooldown && defender != attacker)
+		new /obj/item/grown/bananapeel/specialpeel(get_turf(defender))
 		last_banana = world.time
+
 
 /datum/species/golem/bananium/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_banana + banana_cooldown)
@@ -880,7 +931,7 @@
 	return golem_name
 
 /datum/species/golem/tranquillite/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	H.equip_to_slot_or_del(new 	/obj/item/clothing/head/beret(H), ITEM_SLOT_HEAD)
 	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), ITEM_SLOT_POCKET_RIGHT)
 	H.equip_to_slot_or_del(new 	/obj/item/cane(H), ITEM_SLOT_HAND_LEFT)

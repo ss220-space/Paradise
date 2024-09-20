@@ -179,6 +179,11 @@
 	flags = IGNORE_NOSLOW
 
 
+/datum/movespeed_modifier/mouse_jetpack
+	multiplicative_slowdown = -0.5
+	movetypes = (FLYING|FLOATING)
+
+
 /datum/movespeed_modifier/grab_slowdown
 	id = MOVESPEED_ID_MOB_GRAB_STATE
 	blacklisted_movetypes = FLOATING

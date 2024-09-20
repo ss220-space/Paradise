@@ -158,11 +158,7 @@
 
 /obj/item/gun/medbeam/proc/on_beam_tick(mob/living/carbon/human/target)
 	var/prev_health = target.health
-	var/need_mob_update
-	need_mob_update = target.adjustBruteLoss(-4, updating_health = FALSE)
-	need_mob_update += target.adjustFireLoss(-4, updating_health = FALSE)
-	if(need_mob_update)
-		target.updatehealth()
+	target.heal_overall_damage(4, 4)
 	var/bones_mended = FALSE
 	if(ishuman(target))
 		for(var/obj/item/organ/external/bodypart as anything in target.bodyparts)
@@ -175,8 +171,4 @@
 
 /obj/item/gun/medbeam/proc/on_beam_release(mob/living/target)
 	return
-
-
-/obj/effect/ebeam/medical
-	name = "medical beam"
 

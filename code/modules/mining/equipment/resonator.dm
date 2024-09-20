@@ -41,12 +41,16 @@
 		return
 	if(LAZYLEN(fields) < fieldlimit)
 		new /obj/effect/temp_visual/resonance(target_turf, user, src, mode, adding_failure)
-		user.changeNext_move(CLICK_CD_MELEE)
+
 
 /obj/item/resonator/pre_attackby(atom/target, mob/user, params)
-	if(check_allowed_items(target, TRUE))
-		create_resonance(target, user)
-	return TRUE
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !check_allowed_items(target, TRUE))
+		return .
+	. |= ATTACK_CHAIN_BLOCKED
+	user.changeNext_move(attack_speed)
+	create_resonance(target, user)
+
 
 //resonance field, crushes rock, damages mobs
 /obj/effect/temp_visual/resonance
@@ -77,7 +81,10 @@
 	if(mode == RESONATOR_MODE_MATRIX)
 		icon_state = "shield2"
 		name = "resonance matrix"
-		RegisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED), PROC_REF(burst))
+		var/static/list/loc_connections = list(
+			COMSIG_ATOM_ENTERED = PROC_REF(burst),
+		)
+		AddElement(/datum/element/connect_loc, loc_connections)
 	. = ..()
 	creator = set_creator
 	parent_resonator = set_resonator
@@ -143,8 +150,8 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	duration = 4
 
-/obj/effect/temp_visual/resonance_crush/New()
-	..()
+/obj/effect/temp_visual/resonance_crush/Initialize(mapload)
+	. = ..()
 	transform = matrix() * 1.5
 	animate(src, transform = matrix() * 0.1, alpha = 50, time = 4)
 

@@ -138,10 +138,13 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/ui_host()
 	return parent ? parent : src
 
-/obj/item/gps/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/gps/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/gps/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "GPS", "GPS", 450, 700)
+		ui = new(user, src, "GPS", "GPS")
 		ui.open()
 
 /obj/item/gps/ui_act(action, list/params)
@@ -277,9 +280,22 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon_state = "cart-mine"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/gps/attackby(obj/item/C as obj)
-	if(istype(C, /obj/item/gpsupgrade) && !upgraded)
+
+/obj/item/gps/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/gpsupgrade))
+		add_fingerprint(user)
+		if(upgraded)
+			to_chat(user, span_warning("The [name] is already upgraded."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You have upgraded [src]."))
 		upgraded = TRUE
-		qdel(C)
+		SStgui.update_uis(src)
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 #undef EMP_DISABLE_TIME

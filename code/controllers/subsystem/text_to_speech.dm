@@ -207,6 +207,7 @@ SUBSYSTEM_DEF(tts)
 	is_enabled = CONFIG_GET(flag/tts_enabled)
 	if(!is_enabled)
 		flags |= SS_NO_FIRE
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/tts/fire()
@@ -334,16 +335,14 @@ SUBSYSTEM_DEF(tts)
 		provider.failed_requests++
 		// if(provider.failed_requests >= provider.failed_requests_limit)
 		// 	provider.is_enabled = FALSE
-		log_game(span_warning("Error connecting to [provider.name] TTS API. Please inform a maintainer or server host."))
-		message_admins(span_warning("Error connecting to [provider.name] TTS API. Please inform a maintainer or server host."))
+		log_debug(span_warning("Error connecting to [provider.name] TTS API. Please inform a maintainer or server host."))
 		return
 
 	if(response.status_code != 200)
 		provider.failed_requests++
 		// if(provider.failed_requests >= provider.failed_requests_limit)
 		// 	provider.is_enabled = FALSE
-		log_game(span_warning("Error performing [provider.name] TTS API request (Code: [response.status_code])"))
-		message_admins(span_warning("Error performing [provider.name] TTS API request (Code: [response.status_code])"))
+		log_debug(span_warning("Error performing [provider.name] TTS API request (Code: [response.status_code])"))
 		tts_request_failed++
 		if(response.status_code)
 			if(tts_errors["[response.status_code]"])
@@ -501,7 +500,7 @@ SUBSYSTEM_DEF(tts)
 	. = trim(.)
 	. = regex(@"<[^>]*>", "g").Replace(., "")
 	. = html_decode(.)
-	. = regex(@"[^a-zA-Z0-9а-яА-ЯёЁ,!?+./ \r\n\t:—()-]", "g").Replace(., "")
+	. = regex(@"[^a-zA-Z0-9а-яА-ЯёЁѣѢІіäÄöÖØøÆæÅåÄäꝎꝏꜼꜽŒœ#,!?+./ \r\n\t:—()-]", "g").Replace(., "")
 	. = replacetext(., regex(@"(?<![a-zA-Zа-яёА-ЯЁ])[a-zA-Zа-яёА-ЯЁ]+?(?![a-zA-Zа-яёА-ЯЁ])", "igm"), /proc/tts_word_replacer)
 	for(var/job in tts_job_replacements)
 		. = replacetext(., regex(job, "igm"), tts_job_replacements[job])

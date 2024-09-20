@@ -15,9 +15,10 @@
 /turf/space/transit/west
 	dir = WEST
 
-//Overwrite because we dont want people building rods in space.
-/turf/space/transit/attackby(obj/O as obj, mob/user as mob, params)
-	return
+
+/turf/space/transit/attackby(obj/item/I, mob/user, params)
+	//Overwrite because we dont want people building rods in space.
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /turf/space/transit/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
@@ -57,9 +58,6 @@
 /turf/space/transit/rcd_act()
 	return RCD_NO_ACT
 
-//Overwrite because we dont want people building rods in space.
-/turf/space/transit/attackby()
-	return
 
 /turf/space/transit/Initialize(mapload)
 	. = ..()
@@ -90,7 +88,4 @@
 	transform = turn(matrix(), angle)
 
 /turf/space/transit/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	underlay_appearance.icon = 'icons/turf/space.dmi'
-	underlay_appearance.icon_state = SPACE_ICON_STATE
-	SET_PLANE(underlay_appearance, PLANE_SPACE, src)
-	return TRUE
+	. = ..()

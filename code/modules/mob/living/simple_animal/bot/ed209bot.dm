@@ -58,8 +58,9 @@
 	var/baton_delayed = FALSE
 	var/speak_cooldown = FALSE
 
-/mob/living/simple_animal/bot/ed209/New(loc, created_name, created_lasercolor)
-	..()
+
+/mob/living/simple_animal/bot/ed209/Initialize(mapload, created_name, created_lasercolor)
+	. = ..()
 	if(created_name)
 		name = created_name
 	if(created_lasercolor)
@@ -127,10 +128,10 @@
 	ui_interact(M)
 
 
-/mob/living/simple_animal/bot/ed209/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/simple_animal/bot/ed209/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotSecurity", name, 500, 500)
+		ui = new(user, src, "BotSecurity", name)
 		ui.open()
 
 
@@ -213,15 +214,14 @@
 	return ..()
 
 
-/mob/living/simple_animal/bot/ed209/attackby(obj/item/W, mob/user, params)
-	..()
-	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
-		return
-	if(!isscrewdriver(W) && !locked && !target) //If the target is locked, they are recieving damage from the screwdriver
-		if(W.force && W.damtype != STAMINA)//If force is non-zero and damage type isn't stamina.
-			retaliate(user)
-			if(lasercolor)//To make up for the fact that lasertag bots don't hunt
-				shootAt(user)
+/mob/living/simple_animal/bot/ed209/attackby(obj/item/I, mob/user, params)
+	var/current_health = health
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || health >= current_health)
+		return .
+	retaliate(user)
+	if(lasercolor)//To make up for the fact that lasertag bots don't hunt
+		shootAt(user)
 
 
 /mob/living/simple_animal/bot/ed209/emag_act(mob/user)
@@ -622,7 +622,7 @@
 	var/threat = C.assess_threat(src)
 	C.SetStuttering(10 SECONDS)
 	C.Weaken(4 SECONDS)
-	C.adjustStaminaLoss(45)
+	C.apply_damage(45, STAMINA)
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
 	add_attack_logs(src, C, "stunned")

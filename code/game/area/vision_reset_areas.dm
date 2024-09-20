@@ -6,7 +6,7 @@
 
 /area/vision_change_area
 
-/area/vision_change_area/Entered(atom/movable/arrived)
+/area/vision_change_area/Entered(atom/movable/arrived, area/old_area)
 	. = ..()
 	if(iscarbon(arrived))
 		var/mob/living/carbon/C = arrived
@@ -17,7 +17,7 @@
 		C.sync_lighting_plane_alpha()
 		C.AddComponent(/datum/component/vision_reset)
 
-/area/vision_change_area/Exited(atom/movable/departed)
+/area/vision_change_area/Exited(atom/movable/departed, area/new_area)
 	. = ..()
 	if(iscarbon(departed))
 		var/mob/living/carbon/carbon = departed

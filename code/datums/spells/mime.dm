@@ -2,7 +2,6 @@
 	name = "Invisible Wall"
 	desc = "Представление мима превращается в реальность."
 	school = "mime"
-	panel = "Mime"
 	summon_type = list(/obj/effect/forcefield/mime)
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>Вы формируете перед собой стену.</span>"
@@ -35,7 +34,6 @@
 	name = "Speech"
 	desc = "Дайте или нарушьте обет молчания."
 	school = "mime"
-	panel = "Mime"
 	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
 	human_req = TRUE
@@ -86,7 +84,6 @@
 	name = "Invisible Greater Wall"
 	desc = "Сформируйте невидимую стену шириной в три тайла"
 	school = "mime"
-	panel = "Mime"
 	wall_type = /obj/effect/forcefield/mime/advanced
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>Вы формируете стену перед собой.</span>"
@@ -114,7 +111,6 @@
 	name = "Finger Gun"
 	desc = "Беззвучно стреляйте боевыми патронами прямо из пальцев! Для каждого прочтения доступно по три пули. Выроните пальцы из рук, чтобы спрятать их."
 	school = "mime"
-	panel = "Mime"
 	clothes_req = FALSE
 	base_cooldown = 1 MINUTES
 	human_req = TRUE

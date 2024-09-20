@@ -32,10 +32,10 @@
 	return song.ui_data(user)
 
 
-/obj/item/clothing/ears/headphones/ui_interact(mob/user)
+/obj/item/clothing/ears/headphones/ui_interact(mob/user, datum/tgui/ui = null)
 	if(should_stop_playing(user) || user.incapacitated())
 		return
-	song.ui_interact(user)
+	song.ui_interact(user, ui)
 
 
 /obj/item/clothing/ears/headphones/ui_act(action, params)
@@ -50,7 +50,7 @@
 	update_equipped_item(update_speedmods = FALSE)
 
 
-/obj/item/clothing/ears/headphones/item_action_slot_check(slot)
+/obj/item/clothing/ears/headphones/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot & ITEM_SLOT_EARS)
 		return TRUE
 

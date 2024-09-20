@@ -8,136 +8,46 @@
 	icon_state = "conpipe-s"
 	anchored = FALSE
 	density = FALSE
-	pressure_resistance = 5*ONE_ATMOSPHERE
+	pressure_resistance = 5 * ONE_ATMOSPHERE
 	level = 2
 	max_integrity = 200
-	var/ptype = PIPE_DISPOSALS_STRAIGHT //Use the defines
-	var/base_state
-	var/dpdir = 0	// directions as disposalpipe
-	var/nicetype = "pipe"
-	var/ispipe = 0 // Indicates if we should change the level of this pipe
+	set_dir_on_move = FALSE
+	/// What disposals type we are representing
+	var/obj/pipe_type = /obj/structure/disposalpipe/segment
+	/// Disposals name we got on init from the path above
+	var/pipename
 
-/obj/structure/disposalconstruct/Initialize(mapload, pipe_type, direction)
+
+/obj/structure/disposalconstruct/Initialize(mapload, pipe_define, dir = SOUTH, obj/made_from)
 	. = ..()
-	if(pipe_type)
-		ptype = pipe_type
-	if(dir)
-		dir = direction
-	update()
+	if(made_from)
+		pipe_type = made_from.type
+		setDir(made_from.dir)
+	else
+		if(ispath(pipe_define))
+			pipe_type = pipe_define
+		else if(isnum(pipe_define))
+			pipe_type = define2type(pipe_define)
+			if(pipe_define == PIPE_DISPOSALS_BENT)	// dirty hack, requires rewriten RPD code
+				dir = turn(dir, -45)
+		setDir(dir)
 
-	// update iconstate and dpdir due to dir and type
-/obj/structure/disposalconstruct/proc/update()
-	base_state = get_pipe_icon(ptype)
-	icon_state = "con[base_state]"
-	var/flip = turn(dir, 180)
-	var/left = turn(dir, 90)
-	var/right = turn(dir, -90)
-	name = get_pipe_name(ptype, PIPETYPE_DISPOSAL)
-	switch(ptype)
-		if(PIPE_DISPOSALS_STRAIGHT)
-			dpdir = dir | flip
-		if(PIPE_DISPOSALS_BENT)
-			dpdir = dir | right
-		if(PIPE_DISPOSALS_JUNCTION_RIGHT)
-			dpdir = dir | right | flip
-		if(PIPE_DISPOSALS_JUNCTION_LEFT)
-			dpdir = dir | left | flip
-		if(PIPE_DISPOSALS_Y_JUNCTION)
-			dpdir = dir | left | right
-		if(PIPE_DISPOSALS_TRUNK)
-			dpdir = dir
-		if(PIPE_DISPOSALS_SORT_RIGHT)
-			dpdir = dir | right | flip
-		if(PIPE_DISPOSALS_SORT_LEFT)
-			dpdir = dir | left | flip
-		 // disposal bin has only one dir, thus we don't need to care about setting it
-		if(PIPE_DISPOSALS_BIN)
-			if(!anchored)
-				icon_state = "[base_state]-unanchored"
-			else
-				icon_state = base_state
-		if(PIPE_DISPOSALS_OUTLET)
-			dpdir = dir
-			icon_state = base_state
-		if(PIPE_DISPOSALS_CHUTE)
-			dpdir = dir
-			icon_state = base_state
-		if(PIPE_DISPOSALS_MULTIZ_UP)
-			dpdir = dir
-			icon_state = base_state
-		if(PIPE_DISPOSALS_MULTIZ_DOWN)
-			dpdir = dir
-			icon_state = base_state
-	if(!(ptype in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE)))
-		icon_state = "con[base_state]"
-	if(invisibility)				// if invisible, fade icon
-		icon -= rgb(0,0,0,128)
+	pipename = initial(pipe_type.name)
+	update_appearance(UPDATE_ICON_STATE)
 
-// hide called by levelupdate if turf intact status changes
-// change visibility status and force update of icon
-/obj/structure/disposalconstruct/hide(intact)
-	invisibility = (intact && level == 1) ? INVISIBILITY_MAXIMUM : 0	// hide if floor is intact
-	update()
+	if(!is_pipe())
+		set_density(TRUE)
 
 
-/obj/structure/disposalconstruct/examine(mob/user)
-	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click to flip it.</b></span>"
-
-
-// flip and rotate verbs
-/obj/structure/disposalconstruct/verb/rotate()
-	set category = "Object"
-	set name = "Rotate Pipe"
-	set src in view(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
-		return
-
-	if(anchored)
-		to_chat(usr, "You must unfasten the pipe before rotating it.")
-		return
-
-	add_fingerprint(usr)
-	dir = turn(dir, -90)
-	update()
-
-/obj/structure/disposalconstruct/AltClick(mob/user)
-	if(Adjacent(user))
-		rotate()
-
-/obj/structure/disposalconstruct/verb/flip()
-	set category = "Object"
-	set name = "Flip Pipe"
-	set src in view(1)
-	if(usr.stat)
-		return
-
-	if(anchored)
-		to_chat(usr, "You must unfasten the pipe before flipping it.")
-		return
-
-	dir = turn(dir, 180)
-	switch(ptype)
-		if(PIPE_DISPOSALS_JUNCTION_RIGHT)
-			ptype = PIPE_DISPOSALS_JUNCTION_LEFT
-		if(PIPE_DISPOSALS_JUNCTION_LEFT)
-			ptype = PIPE_DISPOSALS_JUNCTION_RIGHT
-		if(PIPE_DISPOSALS_SORT_RIGHT)
-			ptype = PIPE_DISPOSALS_SORT_LEFT
-		if(PIPE_DISPOSALS_SORT_LEFT)
-			ptype = PIPE_DISPOSALS_SORT_RIGHT
-
-	update()
-
-// returns the type path of disposalpipe corresponding to this item dtype
-/obj/structure/disposalconstruct/proc/dpipetype()
-	switch(ptype)
+/// Proc required to convert RPD / pipe dispencer defines into disposal paths
+/obj/structure/disposalconstruct/proc/define2type(value)
+	switch(value)
 		if(PIPE_DISPOSALS_STRAIGHT, PIPE_DISPOSALS_BENT)
 			return /obj/structure/disposalpipe/segment
-		if(PIPE_DISPOSALS_JUNCTION_RIGHT, PIPE_DISPOSALS_JUNCTION_LEFT, PIPE_DISPOSALS_Y_JUNCTION)
+		if(PIPE_DISPOSALS_JUNCTION_RIGHT, PIPE_DISPOSALS_JUNCTION_LEFT)
 			return /obj/structure/disposalpipe/junction
+		if(PIPE_DISPOSALS_Y_JUNCTION)
+			return /obj/structure/disposalpipe/junction/yjunction
 		if(PIPE_DISPOSALS_TRUNK)
 			return /obj/structure/disposalpipe/trunk
 		if(PIPE_DISPOSALS_BIN)
@@ -152,107 +62,177 @@
 			return /obj/structure/disposalpipe/trunk/multiz
 		if(PIPE_DISPOSALS_MULTIZ_DOWN)
 			return /obj/structure/disposalpipe/trunk/multiz/down
-	return
+		if(PIPE_DISPOSALS_ROTATOR)
+			return /obj/structure/disposalpipe/rotator
 
-/obj/structure/disposalconstruct/proc/pipe_check(mob/user)
-	src.add_fingerprint(user)
-	switch(ptype)
-		if(PIPE_DISPOSALS_BIN)
-			nicetype = "disposal bin"
-		if(PIPE_DISPOSALS_OUTLET)
-			nicetype = "disposal outlet"
-		if(PIPE_DISPOSALS_CHUTE)
-			nicetype = "delivery chute"
-		if(PIPE_DISPOSALS_SORT_RIGHT, PIPE_DISPOSALS_SORT_LEFT)
-			nicetype = "sorting pipe"
-			ispipe = 1
-		else
-			nicetype = "pipe"
-			ispipe = 1
-	var/turf/T = src.loc
-	if(T.intact)
-		to_chat(user, "You can only attach the [nicetype] if the floor plating is removed.")
+
+/obj/structure/disposalconstruct/update_icon_state()
+	if(pipe_type == /obj/machinery/disposal)
+		// Disposal bins receive special icon treating
+		icon_state = "[anchored ? "" : "con"]disposal"
+		return
+	icon_state = "[is_pipe() ? "con" : ""][initial(pipe_type.icon_state)]"
+
+
+/// If src represents a pipe this will return all possible dirs it has.
+/obj/structure/disposalconstruct/proc/get_disposal_dir()
+	if(!is_pipe())
+		return NONE
+
+	if(ISDIAGONALDIR(dir)) // Bent pipes
+		return dir
+
+	var/obj/structure/disposalpipe/temp = pipe_type
+	var/initialize_dirs = initial(temp.initialize_dirs)
+	var/dpdir = NONE
+	if(initialize_dirs != DISP_DIR_NONE)
+		dpdir = dir
+
+		if(initialize_dirs & DISP_DIR_LEFT)
+			dpdir |= turn(dir, 90)
+		if(initialize_dirs & DISP_DIR_RIGHT)
+			dpdir |= turn(dir, -90)
+		if(initialize_dirs & DISP_DIR_FLIP)
+			dpdir |= REVERSE_DIR(dir)
+	return dpdir
+
+
+// hide called by levelupdate if turf intact status changes
+// change visibility status and force update of icon
+/obj/structure/disposalconstruct/hide(intact)
+	invisibility = (intact && level == 1) ? INVISIBILITY_MAXIMUM : 0	// hide if floor is intact
+	update_appearance(UPDATE_ICON_STATE)
+
+
+/obj/structure/disposalconstruct/examine(mob/user)
+	. = ..()
+	. += span_info("<b>Alt-Click</b> to rotate it, <b>Alt-Shift-Click</b> to flip it.")
+
+
+// flip and rotate verbs
+/obj/structure/disposalconstruct/verb/rotate_verb()
+	set category = "Object"
+	set name = "Rotate Pipe"
+	set src in view(1)
+	rotate(usr)
+
+
+/obj/structure/disposalconstruct/AltClick(mob/user)
+	if(Adjacent(user))
+		rotate(user)
+
+
+/// Rotates construct 90 degrees counter-clockwise
+/obj/structure/disposalconstruct/proc/rotate(mob/user)
+	if(user && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
+		to_chat(user, span_warning("You can't do that right now!"))
 		return FALSE
-	if(ptype in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE)) // Disposal or outlet
-		var/obj/structure/disposalpipe/trunk/CP = locate() in T
-		if(!CP) // There's no trunk
-			to_chat(user, "The [nicetype] requires a trunk underneath it in order to work.")
-			return FALSE
-	else
-		for(var/obj/structure/disposalpipe/CP in T)
-			if(CP)
-				update()
-				var/pdir = CP.dpdir
-				if(istype(CP, /obj/structure/disposalpipe/broken))
-					pdir = CP.dir
-				if(pdir & dpdir)
-					to_chat(user, "There is already a [nicetype] at that location.")
-					return FALSE
+	if(anchored)
+		if(user)
+			to_chat(user, span_warning("You must unfasten the [pipename] before rotating it."))
+		return FALSE
+	add_fingerprint(user)
+	setDir(turn(dir, -90))
+	update_appearance(UPDATE_ICON_STATE)
 	return TRUE
+
+
+/obj/structure/disposalconstruct/verb/flip_verb()
+	set category = "Object"
+	set name = "Flip Pipe"
+	set src in view(1)
+	flip(usr)
+
+
+/obj/structure/disposalconstruct/AltShiftClick(mob/user)
+	if(Adjacent(user))
+		flip(user)
+
+
+/// Flips construct 180 degrees, but also inverts it if its a pipe with defined flip_type
+/obj/structure/disposalconstruct/proc/flip(mob/user)
+	if(user && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
+		to_chat(user, span_warning("You can't do that right now!"))
+		return FALSE
+	if(anchored)
+		if(user)
+			to_chat(user, span_warning("You must unfasten the [pipename] before flipping it."))
+		return FALSE
+	add_fingerprint(user)
+	setDir(turn(dir, 180))
+	var/obj/structure/disposalpipe/temp = pipe_type
+	if(is_pipe() && initial(temp.flip_type))
+		pipe_type = initial(temp.flip_type)
+	update_appearance(UPDATE_ICON_STATE)
+	return TRUE
+
 
 /obj/structure/disposalconstruct/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!pipe_check(user))
-		return
+	var/turf/our_turf = loc
+	if(!isturf(our_turf))
+		return .
+	if(our_turf.intact)
+		to_chat(user, span_warning("You can only [anchored ? "detach" : "attach"] the [pipename] if the floor plating is removed."))
+		return FALSE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return .
+	var/ispipe = is_pipe() // Indicates if we should change the level of this pipe
 	if(anchored)
 		set_anchored(FALSE)
-		if(ispipe)
-			level = 2
-			set_density(FALSE)
-		else
-			set_density(TRUE)
-		to_chat(user, "You detach the [nicetype] from the underfloor.")
+		to_chat(user, "You detach the [pipename] from the underfloor.")
 	else
-		set_anchored(TRUE)
+		if(!ispipe && iswallturf(our_turf))
+			to_chat(user, span_warning("You can't build [pipename] on walls, only disposal pipes!"))
+			return .
+
 		if(ispipe)
-			level = 1 // We don't want disposal bins to disappear under the floors
-			set_density(FALSE)
-		else
-			set_density(TRUE) // We don't want disposal bins or outlets to go density FALSE
-		to_chat(user, "You attach the [nicetype] to the underfloor.")
-	playsound(src.loc, I.usesound, 100, 1)
-	update()
+			var/dpdir = get_disposal_dir()
+			for(var/obj/structure/disposalpipe/pipe in our_turf)
+				var/pdir = pipe.dpdir
+				if(istype(pipe, /obj/structure/disposalpipe/broken))
+					pdir = pipe.dir
+				if(pdir & dpdir)
+					if(istype(pipe, /obj/structure/disposalpipe/broken))
+						qdel(pipe)
+					else
+						to_chat(user, span_warning("There is already a disposal pipe at that location!"))
+						return TRUE
+
+		else // Disposal or outlet
+			if(!(locate(/obj/structure/disposalpipe/trunk) in our_turf))
+				to_chat(user, span_warning("The [pipename] requires a trunk underneath it in order to work!"))
+				return .
+
+		set_anchored(TRUE)
+		to_chat(user, "You attach the [pipename] to the underfloor.")
+	update_appearance(UPDATE_ICON_STATE)
+
 
 /obj/structure/disposalconstruct/welder_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!pipe_check(user))
-		return
+	var/turf/our_turf = loc
+	if(!isturf(our_turf))
+		return .
+	if(our_turf.intact)
+		to_chat(user, span_warning("You can only [anchored ? "detach" : "attach"] the [pipename] if the floor plating is removed."))
+		return .
 	if(!anchored)
-		to_chat(user, "You need to attach it to the plating first!")
-		return
-	if(!I.tool_use_check(user, 0))
-		to_chat(user, "You need more welding fuel to complete this task.")
-		return
-	to_chat(user, "Welding the [nicetype] in place.")
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		to_chat(user, "The [nicetype] has been welded in place!")
-		update() // TODO: Make this neat
-		if(ispipe) // Pipe
-			var/pipetype = dpipetype()
-			var/obj/structure/disposalpipe/P = new pipetype(src.loc)
-			src.transfer_fingerprints_to(P)
-			P.base_icon_state = base_state
-			P.dir = dir
-			P.dpdir = dpdir
-			P.update_icon()
-			//Needs some special treatment ;)
-			if(ptype == PIPE_DISPOSALS_SORT_RIGHT || ptype == PIPE_DISPOSALS_SORT_LEFT)
-				var/obj/structure/disposalpipe/sortjunction/SortP = P
-				SortP.updatedir()
-		else if(ptype == PIPE_DISPOSALS_BIN) // Disposal bin
-			var/obj/machinery/disposal/P = new /obj/machinery/disposal(src.loc)
-			src.transfer_fingerprints_to(P)
-			P.mode = 0 // start with pump off
-		else if(ptype == PIPE_DISPOSALS_OUTLET) // Disposal outlet
-			var/obj/structure/disposaloutlet/P = new /obj/structure/disposaloutlet(src.loc)
-			src.transfer_fingerprints_to(P)
-			P.dir = dir
-		else if(ptype==PIPE_DISPOSALS_CHUTE) // Disposal outlet
-			var/obj/machinery/disposal/deliveryChute/P = new /obj/machinery/disposal/deliveryChute(src.loc)
-			src.transfer_fingerprints_to(P)
-			P.dir = dir
-		qdel(src)
-		return
+		to_chat(user, span_warning("You need to attach [pipename] to the plating first!"))
+		return .
+	var/ispipe = is_pipe()
+	if(!ispipe && ((locate(/obj/machinery/disposal) in our_turf) || (locate(/obj/structure/disposaloutlet) in our_turf)))
+		to_chat(user, span_warning("A disposals machine already exists here!"))
+		return .
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || !anchored)
+		return .
+	if(!ispipe && ((locate(/obj/machinery/disposal) in our_turf) || (locate(/obj/structure/disposaloutlet) in our_turf)))
+		return .
+	to_chat(user, "The [pipename] has been welded in place!")
+	var/obj/disposals = new pipe_type(loc, src)
+	transfer_fingerprints_to(disposals)
+	qdel(src)
+
 
 /obj/structure/disposalconstruct/rpd_act(mob/user, obj/item/rpd/our_rpd)
 	. = TRUE
@@ -264,3 +244,21 @@
 		our_rpd.delete_single_pipe(user, src)
 	else
 		return ..()
+
+
+/obj/structure/disposalconstruct/set_anchored(anchorvalue)
+	. = ..()
+	if(isnull(.) || !is_pipe())
+		return .
+	if(anchored)
+		level = 1
+		layer = initial(pipe_type.layer)	// Extra layer handling
+	else
+		level = 2
+		layer = initial(layer)
+
+
+/// Checks whether we represent a pipe, depending on path in pipe_type variable
+/obj/structure/disposalconstruct/proc/is_pipe()
+	return ispath(pipe_type, /obj/structure/disposalpipe)
+

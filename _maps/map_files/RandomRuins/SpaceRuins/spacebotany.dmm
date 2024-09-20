@@ -2,8 +2,7 @@
 "aa" = (
 /obj/structure/spacevine,
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Hydro)
@@ -35,15 +34,14 @@
 /area/ruin/space/spacebotany/Med)
 "aG" = (
 /obj/machinery/disposal,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whitegreen"
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "whitegreen";
+	dir = 10
 	},
 /area/ruin/space/spacebotany/Chem)
 "aJ" = (
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-y"
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -88,8 +86,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "bp" = (
@@ -101,7 +98,6 @@
 "bv" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/ruin/space/spacebotany/WestGarden)
@@ -247,8 +243,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Vault)
 "dJ" = (
-/obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Chem)
@@ -304,7 +299,6 @@
 /obj/item/storage/backpack/duffel/syndie/med,
 /obj/item/seeds/cherry/bomb,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/space/spacebotany/Dorm)
@@ -348,7 +342,6 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/space/spacebotany/Dorm)
@@ -356,8 +349,7 @@
 /obj/item/paper,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "eQ" = (
@@ -426,8 +418,7 @@
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -436,8 +427,7 @@
 /area/ruin/space/spacebotany/Med)
 "fA" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -543,8 +533,7 @@
 /area/ruin/space/spacebotany/EastGarden)
 "gV" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -566,10 +555,9 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	dir = 1
 	},
 /area/ruin/space/spacebotany/Chem)
 "hf" = (
@@ -593,12 +581,6 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)
-"hA" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
-	},
-/area/ruin/space/spacebotany/WestGarden)
 "hC" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -664,8 +646,7 @@
 /obj/structure/spacevine,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/spacebotany/Med)
 "ia" = (
@@ -782,7 +763,7 @@
 /area/ruin/space/spacebotany/Chem)
 "jf" = (
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Chem)
@@ -835,10 +816,8 @@
 	},
 /area/ruin/space/spacebotany/Dorm)
 "kc" = (
-/obj/structure/disposalpipe/junction{
-	dir = 2;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j1 (WEST)"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 2
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -877,9 +856,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitegreen"
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "whitegreen";
+	dir = 8
 	},
 /area/ruin/space/spacebotany/Chem)
 "kF" = (
@@ -916,8 +895,7 @@
 /obj/structure/spacevine,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/spacebotany/Med)
 "kN" = (
@@ -959,8 +937,7 @@
 "lv" = (
 /obj/machinery/light,
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -1035,8 +1012,7 @@
 /area/space)
 "mU" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/machinery/slot_machine,
 /turf/simulated/floor/plating,
@@ -1099,8 +1075,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "ny" = (
@@ -1135,8 +1110,7 @@
 /area/ruin/space/spacebotany/GardenMaint)
 "nQ" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
@@ -1166,6 +1140,7 @@
 /area/ruin/space/spacebotany/GardenMaint)
 "nY" = (
 /obj/effect/decal/cleanable/blood/drip,
+/obj/structure/lattice,
 /turf/space,
 /area/ruin/space/spacebotany/Chem)
 "og" = (
@@ -1243,8 +1218,7 @@
 /obj/effect/decal/cleanable/blood/writing,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/junction{
-	dir = 1;
-	tag = "icon-pipe-j1 (EAST)"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Med)
@@ -1288,8 +1262,7 @@
 /area/ruin/space/spacebotany/WestGarden)
 "po" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1351,7 +1324,7 @@
 /area/ruin/space/spacebotany/Hydro)
 "qu" = (
 /obj/effect/decal/cleanable/flour,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Chem)
@@ -1373,10 +1346,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	dir = 1
 	},
 /area/ruin/space/spacebotany/Chem)
 "rg" = (
@@ -1387,7 +1359,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/wall,
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
 "rq" = (
 /obj/effect/decal/cleanable/dust,
@@ -1397,7 +1371,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/insectguts,
 /obj/effect/decal/cleanable/ash,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Chem)
@@ -1446,6 +1420,7 @@
 /area/ruin/space/spacebotany/Vault)
 "sa" = (
 /obj/effect/decal/cleanable/ash,
+/obj/structure/lattice,
 /turf/space,
 /area/ruin/space/spacebotany/Chem)
 "sn" = (
@@ -1511,9 +1486,8 @@
 /area/ruin/space/spacebotany/Dorm)
 "tg" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "tm" = (
@@ -1569,7 +1543,9 @@
 /area/ruin/space/spacebotany/GardenMaint)
 "uc" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/wall,
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
+/turf/space,
 /area/ruin/space/spacebotany/EastGarden)
 "uk" = (
 /obj/structure/reagent_dispensers/oil,
@@ -1588,7 +1564,6 @@
 /obj/item/paper/spacebotany/note,
 /obj/item/paper/spacebotany/note1,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/space/spacebotany/Dorm)
@@ -1603,14 +1578,13 @@
 /area/ruin/space/spacebotany/EastGarden)
 "uw" = (
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Chem)
 "ux" = (
-/obj/structure/disposalpipe/junction{
-	dir = 2;
-	icon_state = "pipe-y"
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 2
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -1708,8 +1682,10 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Vault)
 "vJ" = (
-/turf/simulated/floor/plating,
-/area/space)
+/obj/effect/spawner/random_spawners/grille_13,
+/obj/structure/lattice,
+/turf/space,
+/area/ruin/space/spacebotany/Chem)
 "vL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -1893,7 +1869,6 @@
 "yn" = (
 /obj/machinery/suit_storage_unit,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/space/spacebotany/Dorm)
@@ -1927,8 +1902,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/spacebotany/Med)
 "yZ" = (
@@ -1947,8 +1921,7 @@
 	dir = 4
 	},
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
@@ -1986,7 +1959,7 @@
 /area/ruin/space/spacebotany/Vault)
 "zR" = (
 /obj/effect/decal/cleanable/insectguts,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Chem)
@@ -2012,7 +1985,6 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/space/spacebotany/Dorm)
@@ -2073,9 +2045,8 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 1;
-	icon_state = "pipe-y"
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
@@ -2147,8 +2118,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2247,9 +2217,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitegreen"
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "whitegreen";
+	dir = 8
 	},
 /area/ruin/space/spacebotany/Chem)
 "CI" = (
@@ -2294,8 +2264,7 @@
 /area/ruin/space/spacebotany/Chem)
 "DB" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2346,8 +2315,7 @@
 /area/ruin/space/spacebotany/Chem)
 "DX" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner";
@@ -2384,7 +2352,6 @@
 /area/ruin/space/spacebotany/Hydro)
 "Em" = (
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/ruin/space/spacebotany/WestGarden)
@@ -2410,10 +2377,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/EastGarden)
 "EI" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitegreencorner"
-	},
+/obj/structure/lattice,
+/turf/space,
 /area/ruin/space/spacebotany/Chem)
 "EN" = (
 /obj/structure/spacevine,
@@ -2565,9 +2530,8 @@
 "GR" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "Ha" = (
@@ -2586,7 +2550,7 @@
 /area/ruin/space/spacebotany/Garden)
 "HJ" = (
 /obj/effect/spawner/random_spawners/blood_20,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Chem)
@@ -2692,8 +2656,7 @@
 /obj/item/paper,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "Jp" = (
@@ -2714,8 +2677,7 @@
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/space/spacebotany/Med)
 "JG" = (
@@ -2759,8 +2721,7 @@
 /obj/item/reagent_containers/applicator/dual,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/spacebotany/Med)
 "Kc" = (
@@ -2821,8 +2782,7 @@
 /obj/item/pen,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "Le" = (
@@ -2912,7 +2872,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/ruin/space/spacebotany/WestGarden)
@@ -2949,7 +2908,9 @@
 /area/ruin/space/spacebotany/GardenMaint)
 "Mj" = (
 /obj/effect/spawner/random_spawners/grille_13,
-/turf/space,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "white"
+	},
 /area/ruin/space/spacebotany/Chem)
 "Ms" = (
 /obj/item/cigbutt{
@@ -3007,17 +2968,15 @@
 /area/ruin/space/spacebotany/WestGarden)
 "MX" = (
 /obj/effect/decal/cleanable/blood/drip,
-/turf/simulated/floor/plasteel{
-	dir = 1;
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	dir = 1
 	},
 /area/ruin/space/spacebotany/Chem)
 "MY" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "Nj" = (
@@ -3025,9 +2984,9 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/WestGarden)
 "Nq" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitegreen"
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "whitegreen";
+	dir = 8
 	},
 /area/ruin/space/spacebotany/Chem)
 "Nz" = (
@@ -3116,8 +3075,7 @@
 "OJ" = (
 /obj/machinery/floodlight,
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -3132,9 +3090,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Hydro)
 "OZ" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "Pd" = (
@@ -3232,8 +3189,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/spacebotany/Med)
 "Qh" = (
@@ -3259,8 +3215,7 @@
 /area/ruin/space/spacebotany/Garden)
 "Qt" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -3272,8 +3227,7 @@
 /area/ruin/space/spacebotany/Garden)
 "Qv" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -3302,8 +3256,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (EAST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "QM" = (
@@ -3482,8 +3435,7 @@
 /area/ruin/space/spacebotany/WestGarden)
 "SH" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3535,7 +3487,6 @@
 /area/ruin/space/spacebotany/Med)
 "SZ" = (
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/space/spacebotany/Dorm)
@@ -3566,8 +3517,7 @@
 "Tl" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "Tn" = (
@@ -3593,8 +3543,7 @@
 /area/ruin/space/spacebotany/Garden)
 "Tt" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/dark,
@@ -3631,8 +3580,7 @@
 /area/space)
 "TJ" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3735,8 +3683,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "Vf" = (
@@ -3753,9 +3700,9 @@
 	},
 /area/ruin/space/spacebotany/Hydro)
 "Vh" = (
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitegreen"
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "whitegreen";
+	dir = 9
 	},
 /area/ruin/space/spacebotany/Chem)
 "Vv" = (
@@ -3814,8 +3761,7 @@
 /area/ruin/space/spacebotany/Hydro)
 "VV" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "greencorner"
@@ -3859,7 +3805,7 @@
 "WZ" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/spawner/random_spawners/oil_20,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Chem)
@@ -3867,8 +3813,7 @@
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/spacebotany/Med)
 "Xk" = (
@@ -3876,8 +3821,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/GardenMaint)
@@ -3924,8 +3868,7 @@
 /area/ruin/space/spacebotany/Med)
 "XJ" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -3991,6 +3934,7 @@
 "Yr" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/ash,
+/obj/structure/lattice,
 /turf/space,
 /area/ruin/space/spacebotany/Chem)
 "Yw" = (
@@ -4081,8 +4025,7 @@
 /obj/item/paper/spacebotany/report,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitegreen";
-	tag = "icon-whitegreen (WEST)"
+	icon_state = "whitegreen"
 	},
 /area/ruin/space/spacebotany/Chem)
 "Zs" = (
@@ -4099,8 +4042,7 @@
 /obj/item/storage/backpack/duffel/syndie/med,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/space/spacebotany/Med)
 "Zt" = (
@@ -5205,7 +5147,7 @@ xu
 Ub
 xu
 xG
-hA
+gX
 Tf
 dw
 xu
@@ -5273,7 +5215,7 @@ XJ
 nV
 DX
 vg
-hA
+gX
 kF
 xu
 Os
@@ -6758,9 +6700,9 @@ NP
 Vh
 EI
 Yr
-Ez
-uw
 dJ
+uw
+sa
 GR
 NP
 Os
@@ -6818,7 +6760,7 @@ Ap
 kN
 SR
 Iu
-VK
+Iu
 rh
 Iu
 cM
@@ -6826,7 +6768,7 @@ MX
 uw
 uw
 WZ
-gg
+EI
 zR
 tg
 NP
@@ -6890,11 +6832,11 @@ vZ
 NC
 Dh
 hd
-gg
-gg
-Ez
-gg
-gg
+EI
+EI
+dJ
+EI
+EI
 OZ
 NP
 Os
@@ -6949,7 +6891,7 @@ SR
 sn
 pV
 pV
-IK
+SR
 SR
 ak
 ak
@@ -6957,9 +6899,9 @@ ES
 ak
 NP
 ra
-gg
+EI
 qu
-gg
+EI
 HJ
 jf
 cM
@@ -7005,7 +6947,7 @@ DE
 DE
 DE
 DE
-vJ
+ak
 IK
 IK
 Fj
@@ -7025,10 +6967,10 @@ Os
 NP
 HJ
 sa
-gg
-gg
+EI
+EI
 rw
-gg
+EI
 nY
 jj
 Os
@@ -7090,12 +7032,12 @@ Os
 Os
 Os
 cM
-gg
-Ez
+EI
+dJ
 Mj
 Mj
-Ez
-gg
+dJ
+EI
 Db
 nS
 cx
@@ -7159,8 +7101,8 @@ Os
 Os
 gg
 nS
-Mj
-gg
+vJ
+EI
 QF
 nS
 vt

@@ -130,7 +130,7 @@ Difficulty: Medium
 			var/turf/target_location = locate(x + (50 * sin(beam_angle)), y + (50 * cos(beam_angle)), z)
 			var/beam_time = 0.25 SECONDS + ((health / maxHealth) SECONDS)
 			playsound(loc, 'sound/effects/basscannon.ogg', 200, TRUE)
-			Beam(target_location, icon_state = "death_laser", time = beam_time, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/disintegration_telegraph)
+			Beam(target_location, icon_state = "death_laser", time = beam_time, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/disintegration_telegraph, beam_layer = ON_EDGED_TURF_LAYER)
 			addtimer(CALLBACK(src, PROC_REF(fire_disintegration_laser), target_location), beam_time)
 			ranged_cooldown = world.time + beam_time + 2 SECONDS
 			SLEEP_CHECK_DEATH(src, beam_time + 2 SECONDS)
@@ -185,7 +185,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/legion/proc/fire_disintegration_laser(location)
 	playsound(loc, 'sound/weapons/marauder.ogg', 200, TRUE)
-	Beam(location, icon_state = "death_laser", time = 2 SECONDS, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/disintegration)
+	Beam(location, icon_state = "death_laser", time = 2 SECONDS, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/reacting/disintegration, beam_layer = ON_EDGED_TURF_LAYER)
 	for(var/turf/t as anything in get_line(src, location))
 		if(ismineralturf(t))
 			var/turf/simulated/mineral/M = t
@@ -211,7 +211,13 @@ Difficulty: Medium
 	return TRUE
 
 
-/mob/living/simple_animal/hostile/megafauna/legion/adjustHealth(amount, updating_health = TRUE)
+/mob/living/simple_animal/hostile/megafauna/legion/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
 
 	if(GLOB.necropolis_gate && !GLOB.necropolis_gate.legion_triggered)

@@ -44,31 +44,43 @@
 /obj/vehicle/janicart/examine(mob/user)
 	. = ..()
 	if(floorbuffer)
-		. += "<span class='notice'>It has been upgraded with a floor buffer.</span>"
+		. += span_notice("It has been upgraded with a floor buffer.")
+
 
 /obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/storage/bag/trash))
+		add_fingerprint(user)
 		if(trash_bag)
 			balloon_alert(user, "уже прицеплено!")
-			return
-		if(!user.drop_from_active_hand())
-			return
-		I.forceMove(src)
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		balloon_alert(user, "прицеплено к машине")
 		trash_bag = I
 		update_icon(UPDATE_OVERLAYS)
-	else if(istype(I, /obj/item/janiupgrade))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/janiupgrade))
+		add_fingerprint(user)
 		if(floorbuffer)
-			to_chat(user, "<span class='warning'>[src] already has an upgrade installed! Use a screwdriver to remove it.</span>")
-			return
+			balloon_alert(user, "уже установлено!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		floorbuffer = TRUE
-		qdel(I)
-		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
+		balloon_alert(user, "установлено")
 		update_icon(UPDATE_OVERLAYS)
-	else if(trash_bag && (initial(key_type.type) != I.type)) // don't put a key in the trash when we need it
-		trash_bag.attackby(I, user)
-	else
-		return ..()
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(trash_bag && (initial(key_type.type) != I.type)) // don't put a key in the trash when we need it
+		trash_bag.attackby(I, user, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/vehicle/janicart/update_overlays()

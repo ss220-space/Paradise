@@ -82,10 +82,10 @@
 	else if(!disabled)
 		ui_interact(user)
 
-/obj/machinery/autolathe/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/autolathe/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Autolathe", name, 750, 700, master_ui, state)
+		ui = new(user, src, "Autolathe", name)
 		ui.open()
 
 
@@ -175,10 +175,10 @@
 				return
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 			var/coeff = get_coeff(design_last_ordered)
-			if(design_last_ordered.materials["$metal"] / coeff > materials.amount(MAT_METAL))
+			if(design_last_ordered.materials[MAT_METAL] / coeff > materials.amount(MAT_METAL))
 				to_chat(usr, span_warning("Invalid design (not enough metal)"))
 				return
-			if(design_last_ordered.materials["$glass"] / coeff > materials.amount(MAT_GLASS))
+			if(design_last_ordered.materials[MAT_GLASS] / coeff > materials.amount(MAT_GLASS))
 				to_chat(usr, span_warning("Invalid design (not enough glass)"))
 				return
 			if(!hacked && ("hacked" in design_last_ordered.category))
@@ -204,7 +204,7 @@
 				busy = FALSE
 
 /obj/machinery/autolathe/ui_status(mob/user, datum/ui_state/state)
-	. = disabled ? STATUS_DISABLED : STATUS_INTERACTIVE
+	. = disabled ? UI_DISABLED : UI_INTERACTIVE
 
 	return min(..(), .)
 
@@ -243,52 +243,55 @@
 		data["queue"] = null
 	return data
 
-/obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
+
+/obj/machinery/autolathe/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(busy)
-		add_fingerprint(user)
 		to_chat(user, span_alert("The autolathe is busy. Please wait for completion of previous operation."))
-		return 1
-	if(exchange_parts(user, O))
-		return
+		return ATTACK_CHAIN_PROCEED
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	if(stat)
-		add_fingerprint(user)
-		return 1
+		return ..()
 
 	// Disks in general
-	if(istype(O, /obj/item/disk))
-		if(istype(O, /obj/item/disk/design_disk))
-			var/obj/item/disk/design_disk/D = O
-			if(D.blueprint)
-				var/datum/design/design = D.blueprint // READ ONLY!!
-
-				if(design.id in files.known_designs)
-					to_chat(user, span_warning("This design has already been loaded into the autolathe."))
-					return 1
-
-				if(!files.CanAddDesign2Known(design))
-					to_chat(user, span_warning("This design is not compatible with the autolathe."))
-					return 1
-				user.visible_message("[user] begins to load \the [O] in \the [src]...",
-					"You begin to load a design from \the [O]...",
-					"You hear the chatter of a floppy drive.")
-				playsound(get_turf(src), 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-				busy = TRUE
-				if(do_after(user, 1.4 SECONDS, src))
-					add_fingerprint(user)
-					imported[design.id] = TRUE
-					files.AddDesign2Known(design)
-					recipiecache = list()
-					SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
-				busy = FALSE
-			else
-				to_chat(user, span_warning("That disk does not have a design on it!"))
-			return 1
-		else
+	if(istype(I, /obj/item/disk))
+		add_fingerprint(user)
+		if(!istype(I, /obj/item/disk/design_disk))
 			// So that people who are bad at computers don't shred their disks
 			to_chat(user, span_warning("This is not the correct type of disk for the autolathe!"))
-			return 1
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/disk/design_disk/disk = I
+		if(!disk.blueprint)
+			to_chat(user, span_warning("That disk does not have a design on it!"))
+			return ATTACK_CHAIN_PROCEED
+		var/datum/design/design = disk.blueprint // READ ONLY!!
+		if(design.id in files.known_designs)
+			to_chat(user, span_warning("This design has already been loaded into the autolathe."))
+			return ATTACK_CHAIN_PROCEED
+		if(!files.CanAddDesign2Known(design))
+			to_chat(user, span_warning("This design is not compatible with the autolathe."))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] begins to load [disk] in [src]..."),
+			span_notice("You begin to load a design from [disk]..."),
+			span_italics("You hear the chatter of a floppy drive."),
+		)
+		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+		busy = TRUE
+		if(!do_after(user, 1.4 SECONDS, src))
+			busy = FALSE
+			return ATTACK_CHAIN_PROCEED
+		imported[design.id] = TRUE
+		files.AddDesign2Known(design)
+		recipiecache = list()
+		SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
+		busy = FALSE
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
+
 
 /obj/machinery/autolathe/crowbar_act(mob/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = 0))
@@ -357,7 +360,7 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.max_amount = tot_rating * 3
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		prod_coeff += 1 + (M.rating - 1) / 3
+		prod_coeff += 1 + (M.rating == 5 ? 2 : (M.rating - 1) / 3)
 	recipiecache = list()
 	SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
 

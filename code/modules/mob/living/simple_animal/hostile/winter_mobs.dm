@@ -19,6 +19,9 @@
 
 	melee_damage_lower = 3
 	melee_damage_upper = 7
+	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
+	AI_delay_max = 0 SECONDS
+
 
 /mob/living/simple_animal/hostile/winter/snowman
 	name = "snowman"

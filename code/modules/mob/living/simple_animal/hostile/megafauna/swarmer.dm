@@ -51,7 +51,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	medal_type = BOSS_MEDAL_SWARMERS
 	score_type = SWARMER_BEACON_SCORE
 	faction = list("mining", "boss", "swarmer")
-	weather_immunities = list("lava","ash")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	stop_automated_movement = TRUE
 	wander = FALSE
 	layer = BELOW_MOB_LAYER
@@ -87,11 +87,18 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 			new createtype(loc)
 
 
-/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/adjustHealth(amount, updating_health = TRUE)
+/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
-	if(. > 0 && world.time > call_help_cooldown)
+	if(. && amount > 0 && world.time > call_help_cooldown)
 		call_help_cooldown = world.time + call_help_cooldown_amt
 		summon_backup(25) //long range, only called max once per 15 seconds, so it's not deathlag
+
 
 /mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/emp_act(severity)
 	adjustHealth(50)
@@ -108,7 +115,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 /mob/living/simple_animal/hostile/swarmer/ai
 	wander = 1
 	faction = list("swarmer", "mining")
-	weather_immunities = list("ash") //wouldn't be fun otherwise
+	weather_immunities = list(TRAIT_ASHSTORM_IMMUNE) //wouldn't be fun otherwise
 	AIStatus = AI_ON
 
 /mob/living/simple_animal/hostile/swarmer/ai/Initialize(mapload)
@@ -145,7 +152,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 
 	if(newloc.z == z) //so these actions are Z-specific
 		if(islava(newloc))
-			var/turf/simulated/floor/plating/lava/L = newloc
+			var/turf/simulated/floor/lava/L = newloc
 			if(!L.is_safe())
 				StartAction(20)
 				new /obj/structure/lattice/catwalk/swarmer_catwalk(newloc)
@@ -283,7 +290,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		else
 			var/mob/living/L = target
 			L.attack_animal(src)
-			L.electrocute_act(10, src, safety = TRUE) //safety = TRUE means we don't check gloves... Ok?
+			L.electrocute_act(10, "свармера", flags = SHOCK_NOGLOVES) // SHOCK_NOGLOVES means we don't check gloves... Ok?
 		return TRUE
 	else
 		return ..()

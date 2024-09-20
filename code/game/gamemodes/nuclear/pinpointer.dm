@@ -243,7 +243,7 @@
 		to_chat(user, span_warning("[src] is locked. It can only track one specific target."))
 		return
 
-	switch(alert("Please select the mode you want to put the pinpointer in.", "Pinpointer Mode Select", "Location", "Disk Recovery", "Other Signature"))
+	switch(tgui_alert(user, "Please select the mode you want to put the pinpointer in.", "Pinpointer Mode Select", list("Location", "Disk Recovery", "Other Signature")))
 		if("Location")
 			setting = SETTING_LOCATION
 
@@ -266,7 +266,7 @@
 
 		if("Other Signature")
 			setting = SETTING_OBJECT
-			switch(alert("Search for item signature or DNA fragment?" , "Signature Mode Select" , "Item" , "DNA"))
+			switch(tgui_alert(user, "Search for item signature or DNA fragment?", "Signature Mode Select", list("Item", "DNA")))
 				if("Item")
 					var/list/item_names = list()
 					var/list/item_paths = list()
@@ -655,14 +655,12 @@
 			var/input_tittle = "Режим выбора"
 
 			var/input_type
-			input_type = alert("Какие типы сигнатуры объектов необходимо найти?" , "Выбор Сигнатуры Объектов" , "Предмет" , "Структура" , "Питомец")
-			if(!input_type)
-				return
+			input_type = tgui_alert(user, "Какие типы сигнатуры объектов необходимо найти?" , "Выбор Сигнатуры Объектов" , list("Предмет" , "Структура" , "Питомец"))
 
 			var/input_subtype
 			switch(input_type)
 				if("Предмет")
-					input_subtype = alert("Какой тип доступности предмета?" , "Определение Доступности Предмета" , "Сложнодоступен" , "Доступен" , "Коллекционный")
+					input_subtype = tgui_alert("Какой тип доступности предмета?" , "Определение Доступности Предмета" , "Сложнодоступен" , "Доступен" , "Коллекционный")
 					switch(input_subtype)
 						if("Сложнодоступен")
 							for(var/datum/theft_objective/theft as anything in (GLOB.potential_theft_objectives_hard|GLOB.potential_theft_objectives))
@@ -716,7 +714,7 @@
 			to_chat(user, span_notice("Вы переключили пинпоинтер для обнаружения <b>[choosen_target]</b>. Найдено целей: <b>[length(current_targets)]</b>."))
 
 		if("Цели")
-			var/input_type = alert("Какую операцию стоит произвести?", "Выбор Операции", "Показать Цели", "Следующая Цель")
+			var/input_type = tgui_alert(user, "Какую операцию стоит произвести?", "Выбор Операции", list("Показать Цели", "Следующая Цель"))
 			switch(input_type)
 				if("Показать Цели")
 					setting = SETTING_OBJECT

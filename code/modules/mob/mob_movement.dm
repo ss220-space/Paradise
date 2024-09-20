@@ -40,9 +40,8 @@
 	if(world.time < move_delay)	//do not move anything ahead of this check please
 		return FALSE
 
-	input_data.desired_move_dir_add = NONE
-	input_data.desired_move_dir_sub = NONE
-
+	next_move_dir_add = NONE
+	next_move_dir_sub = NONE
 	var/old_move_delay = move_delay
 	move_delay = world.time + world.tick_lag //this is here because Move() can now be called multiple times per tick
 
@@ -122,10 +121,8 @@
 
 	. = ..()
 
-	if(mob.loc == new_loc)
-		mob.last_movement = world.time
-		if(ISDIAGONALDIR(direct)) //moved diagonally successfully
-			add_delay *= sqrt(2)
+	if(ISDIAGONALDIR(direct) && mob.loc == new_loc) //moved diagonally successfully
+		add_delay *= sqrt(2)
 
 	var/after_glide = 0
 	if(visual_delay)
@@ -138,14 +135,12 @@
 	move_delay += add_delay
 
 	if(.) // If mob is null here, we deserve the runtime
+		mob.last_movement = world.time
 		mob.throwing?.finalize()
 
 		// At this point we've moved the client's attached mob. This is one of the only ways to guess that a move was done
 		// as a result of player input and not because they were pulled or any other magic.
 		SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_MOVED, direct, old_dir)
-
-		for(var/obj/object in mob.contents)
-			object.on_mob_move(direct, mob)
 
 
 /**
@@ -466,13 +461,6 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/toggle_walk_run()
-	set name = "toggle-walk-run"
-	set hidden = TRUE
-	set instant = TRUE
-	if(mob)
-		mob.toggle_move_intent()
-
 
 /client/verb/toggle_throw_mode()
 	set hidden = 1
@@ -483,7 +471,7 @@
 		to_chat(usr, "<span class='danger'>Это существо не может бросать предметы.</span>")
 
 
-/mob/proc/toggle_move_intent()
+/mob/proc/toggle_move_intent(new_move_intent)
 	return
 
 /mob/verb/move_up()

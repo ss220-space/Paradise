@@ -3,8 +3,10 @@
 	desc = "Don't jump on it... Or do, I'm not your mom."
 	icon = 'icons/turf/floors/glass.dmi'
 	icon_state = "unsmooth"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/turf/simulated/floor/glass, /turf/simulated/floor/glass/reinforced, /turf/simulated/floor/glass/plasma, /turf/simulated/floor/glass/reinforced/plasma)
+	smooth = SMOOTH_BITMASK
+	base_icon_state = "glass"
+	canSmoothWith = SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS
+	smoothing_groups = SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS
 	light_power = 0.25
 	light_range = 2
 	keep_dir = FALSE
@@ -71,7 +73,7 @@
 		else
 			to_chat(user, span_notice("You begin replacing [src]..."))
 			playsound(src, I.usesound, 80, TRUE)
-			if(do_after(user, 3 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 3 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 				if(R.get_amount() < 2 || !transparent_floor)
 					return
 			else
@@ -161,6 +163,7 @@
 	name = "reinforced glass floor"
 	desc = "Jump on it, it can cope. Promise..."
 	icon = 'icons/turf/floors/reinf_glass.dmi'
+	base_icon_state = "reinf_glass"
 	thermal_conductivity = 0.035
 	heat_capacity = 1600
 	explosion_vertical_block = 1
@@ -173,6 +176,7 @@
 	name = "plasma glass floor"
 	desc = "Wait, was space always that color?"
 	icon = 'icons/turf/floors/plasmaglass.dmi'
+	base_icon_state = "plasmaglass"
 	thermal_conductivity = 0.030
 	heat_capacity = 32000
 
@@ -180,6 +184,7 @@
 	name = "reinforced plasma glass floor"
 	desc = "For when you REALLY don't want your floor choice to suffocate everyone."
 	icon = 'icons/turf/floors/reinf_plasmaglass.dmi'
+	base_icon_state = "reinf_plasmaglass"
 	thermal_conductivity = 0.025
 	heat_capacity = 325000
 
@@ -187,7 +192,8 @@
 	name = "titanium glass floor"
 	desc = "Stylish AND strong!"
 	icon = 'icons/turf/floors/titaniumglass.dmi'
-	canSmoothWith = list(/turf/simulated/floor/glass/titanium, /turf/simulated/floor/glass/titanium/plasma)
+	base_icon_state = "titaniumglass"
+	canSmoothWith = SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS
 	thermal_conductivity = 0.025
 	heat_capacity = 1600
 	explosion_vertical_block = 2
@@ -195,6 +201,7 @@
 /turf/simulated/floor/glass/titanium/plasma
 	name = "plastitanium glass floor"
 	icon = 'icons/turf/floors/plastitaniumglass.dmi'
+	base_icon_state = "plastitaniumglass"
 
 /turf/simulated/floor/glass/airless
 	temperature = TCMB

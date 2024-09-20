@@ -233,7 +233,7 @@
 /obj/effect/spawner/lootdrop/randomsafe
 	name = "Secret or data documents safe spawner"
 	icon_state = "floorsafe-open"
-	lootdoubles = 0
+	lootdoubles = FALSE
 	loot = list(
 				/obj/structure/safe/floor/random_documents,
 				/obj/structure/safe/floor/random_researchnotes_MatBioProg
@@ -277,27 +277,34 @@
 	var/cardrank
 	var/possiblerank = list("Советский турист", "Товарищ") // addition before name
 
+
 /obj/machinery/computer/id_upgrader/ussp/attackby(obj/item/I, mob/user, params)
-	if(I.GetID())
-		var/obj/item/card/id/D = I.GetID()
-		if(!access_to_give.len)
-			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
-			return
-		var/did_upgrade = 0
-		var/list/id_access = D.GetAccess()
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	var/obj/item/card/id/id = I.GetID()
+	if(id)
+		add_fingerprint(user)
+		if(!length(access_to_give))
+			to_chat(user, span_warning("This machine appears to be configured incorrectly."))
+			return ATTACK_CHAIN_PROCEED
+		var/did_upgrade = FALSE
+		var/list/id_access = id.GetAccess()
 		for(var/this_access in access_to_give)
 			if(!(this_access in id_access))
 				// don't have it - add it
-				D.access |= this_access
-				did_upgrade = 1
-		if(did_upgrade)
-			giverank(D)
-			to_chat(user, "<span class='notice'>New rank has been assigned to comrade.</span>")
-			playsound(src, 'sound/machines/chime.ogg', 30, 0)
-		else
-			to_chat(user, "<span class='notice'>This ID card already has all the access this machine can give.</span>")
-		return
+				id.access |= this_access
+				did_upgrade = TRUE
+		if(!did_upgrade)
+			to_chat(user, span_warning("This ID card already has all the access this machine can give."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("New rank has been assigned to comrade."))
+		playsound(src, 'sound/machines/chime.ogg', 30, FALSE)
+		giverank(id)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
 
 /obj/machinery/computer/id_upgrader/ussp/proc/giverank(obj/item/card/id/D)
 	if(!cardholdername||!cardrank)
@@ -395,18 +402,18 @@
 	Ставка Главного Командования поручает Вам собрать боевую группу и уничтожить позицию врага, сохранив возможность последующего использования на благо СССП.\
 	<br> Время отведенное на выполнение задачи <b>72 часа</b> с момента получения директивы. <br><br><i>	Оперативный штаб специальных операций</i>"
 
+
 /obj/item/paper/gorky17/orders/Initialize()
-	var/obj/item/stamp/ussp/stamp = new
-	src.stamp(stamp)
-	qdel(stamp)
-	..()
+	. = ..()
+	stamp(/obj/item/stamp/ussp)
+
 
 /obj/item/paper/gorky17/report
 	name = "Доклад Центральному Комитету СССП"
 	header = "<font face=\"Verdana\" color=black><center>&ZeroWidthSpace;<img src = ussplogo.png></center>"
 	info = "<font face=\"Verdana\" color=black><BR><center><B>Доклад Центральному Комитету СССП</B></center><BR>Я <B><span class=\"paper_field\"></span></B>, в звании <B><span class=\"paper_field\"></span></B> и должности <B><span class=\"paper_field\"></span></B>, докладываю: <span class=\"paper_field\"></span> <BR><BR><BR><font size = \"1\"> Подпись: <span class=\"paper_field\"></span></font><BR><font size = \"1\"> Дата: <span class=\"paper_field\"></span></font><BR><HR><font size = \"1\">*Данный факс, обязательно должен подтверждаться печатью ответственного лица. В случае наличия опечаток и отсутствия подписей или печатей, факс считается скомпрометированным.<BR>*Нарушение субординации и уставных отношений повлечет наказание.</font></font>"
 
-/obj/item/paper/gorky17/report/New()
+/obj/item/paper/gorky17/report/Initialize(mapload)
 	. = ..()
 	populatefields()
 
@@ -590,7 +597,7 @@
 	playsound(src, 'sound/effects/empulse.ogg', 80)
 	qdel(C)
 
-/area/ruin/space/USSP_gorky17/collapsed/vault/Entered(mob/living/bourgeois)
+/area/ruin/space/USSP_gorky17/collapsed/vault/Entered(mob/living/bourgeois, area/old_area)
 	. = ..()
 	if(!communism_has_fallen && istype(bourgeois) && !faction_check(bourgeois.faction, safe_faction))
 		var/obj/machinery/syndicatebomb/gorky17/bomb = locate(/obj/machinery/syndicatebomb/gorky17) in src

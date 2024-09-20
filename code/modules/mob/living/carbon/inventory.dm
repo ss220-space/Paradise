@@ -83,13 +83,11 @@
 /mob/living/carbon/proc/update_legcuffed_status()
 	if(legcuffed)
 		throw_alert(ALERT_LEGCUFFED, /atom/movable/screen/alert/restrained/legcuffed, new_master = legcuffed)
-		if(m_intent == MOVE_INTENT_RUN)
-			toggle_move_intent()
+		toggle_move_intent(MOVE_INTENT_WALK)
 
 	else
 		clear_alert(ALERT_LEGCUFFED)
-		if(m_intent == MOVE_INTENT_WALK)
-			toggle_move_intent()
+		toggle_move_intent(MOVE_INTENT_RUN)
 
 	update_inv_legcuffed()
 
@@ -167,127 +165,12 @@
 		I.do_break()
 	drop_item_ground(I, TRUE)
 
-
-/mob/living/carbon/show_inv(mob/user)
-	user.set_machine(src)
-
-	var/dat = {"<meta charset="UTF-8"><table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_LEFT]'>[(l_hand && !(l_hand.item_flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_RIGHT]'>[(r_hand && !(r_hand.item_flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td>&nbsp;</td></tr>"}
-
-	dat += "<tr><td><B>Internals:</B></td><td>"
-
-	if(has_airtight_items() && length(find_air_tanks()))
-		dat += "<A href='?src=[UID()];internal=1'>[internal ? "Disable Internals" : "Set Internals"]</A>"
-	else
-		dat += "<font color=grey>Not available</font>"
-
-	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
-
-	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_BACK]'>[(back && !(back.item_flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A></td></tr><tr><td>&nbsp;</td></tr>"
-
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HEAD]'>[(head && !(head.item_flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
-
-	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_MASK]'>[(wear_mask && !(wear_mask.item_flags&ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A></td></tr>"
-
-	if(istype(wear_mask, /obj/item/clothing/mask/muzzle))
-		var/obj/item/clothing/mask/muzzle/M = wear_mask
-		if(M.security_lock)
-			dat += "&nbsp;<A href='?src=[M.UID()];locked=\ref[src]'>[M.locked ? "Disable Lock" : "Set Lock"]</A>"
-
-		dat += "</td></tr><tr><td>&nbsp;</td></tr>"
-
-	if(handcuffed)
-		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[ITEM_SLOT_HANDCUFFED]'>Remove</A></td></tr>"
-	if(legcuffed)
-		dat += "<tr><td><A href='?src=[UID()];item=[ITEM_SLOT_LEGCUFFED]'>Legcuffed</A></td></tr>"
-
-	dat += {"</table>
-	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
-	"}
-
-	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 500)
-	popup.set_content(dat)
-	popup.open()
-
-
-/mob/living/carbon/Topic(href, href_list)
-	..()
-	//strip panel
-	if(usr.incapacitated() || !Adjacent(usr) || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(href_list["internal"])
-		if(internal)
-			visible_message(
-				span_danger("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся закрыть воздушный клапан на баллоне у [name]!"),
-				span_userdanger("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся закрыть воздушный клапан на Вашем баллоне!"),
-			)
-			if(!do_after(usr, POCKET_STRIP_DELAY, src, NONE) || !internal)
-				return
-			internal = null
-			update_action_buttons_icon()
-		else
-			if(!has_airtight_items())
-				to_chat(usr, span_warning("[name] не облада[pluralize_ru(gender,"ет","ют")] подходящей маской или шлемом!"))
-				return
-
-			var/list/airtanks = find_air_tanks()
-			if(!length(airtanks))
-				return
-
-			var/obj/item/tank/our_tank
-			if(length(airtanks) > 1)
-				var/obj/item/tank/choice = tgui_input_list(usr, "Choose a tank to open valve on.", "Tank selection.", airtanks)
-				if(!choice || usr.incapacitated() || !Adjacent(usr))
-					return
-				if(internal)
-					to_chat(usr, span_warning("[name] уже име[pluralize_ru(gender,"ет","ют")] подключённый баллон."))
-					return
-				if(choice.loc != src)
-					to_chat(usr, span_warning("[name] более не облада[pluralize_ru(gender,"ет","ют")] указанным баллоном."))
-					return
-				if(!has_airtight_items())
-					to_chat(usr, span_warning("[name] более не облада[pluralize_ru(gender,"ет","ют")] подходящей маской или шлемом."))
-					return
-				our_tank = choice
-			else
-				our_tank = airtanks[1]
-
-			visible_message(
-				span_danger("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся открыть воздушный клапан на баллоне у [name]!"),
-				span_userdanger("[usr] пыта[pluralize_ru(usr.gender,"ет","ют")]ся открыть воздушный клапан на Вашем баллоне!"),
-			)
-			if(!do_after(usr, POCKET_STRIP_DELAY, src, NONE))
-				return
-			if(internal)
-				to_chat(usr, span_warning("[name] уже име[pluralize_ru(src.gender,"ет","ют")] подключённый баллон."))
-				return
-			if(our_tank.loc != src)
-				to_chat(usr, span_warning("[name] более не облада[pluralize_ru(src.gender,"ет","ют")] баллоном."))
-				return
-			if(!has_airtight_items())
-				to_chat(usr, span_warning("[name] более не облада[pluralize_ru(src.gender,"ет","ют")] подходящей маской или шлемом."))
-				return
-			internal = our_tank
-			update_action_buttons_icon()
-
-		for(var/mob/viewer as anything in viewers(1, src))
-			if(viewer.machine == src)
-				show_inv(viewer)
-
-		visible_message(
-			span_danger("[usr] [internal ? "открыва" : "закрыва"][pluralize_ru(usr.gender,"ет","ют")] воздушный клапан на баллоне у [name]!"),
-			span_userdanger("[usr] [internal ? "открыва" : "закрыва"][pluralize_ru(usr.gender,"ет","ют")] воздушный клапан на Вашем баллоне!"),
-		)
-
-
 /mob/living/carbon/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	. = ..()
 	if(!. || !I)
-		return
-
+		return .
+	//if we actually unequipped an item, this is because we dont want to run this proc twice, once for carbons and once for humans
+	var/not_handled = FALSE
 	if(I == back)
 		back = null
 		if(!QDELETED(src))
@@ -309,6 +192,13 @@
 		set_legcuffed(null)
 		if(!QDELETED(src))
 			update_legcuffed_status()
+	else
+		not_handled = TRUE
+
+	if(not_handled)
+		return .
+
+	update_equipment_speed_mods()
 
 
 /**
@@ -460,7 +350,7 @@
 
 /mob/living/carbon/get_access_locations()
 	. = ..()
-	. |= list(get_active_hand(), get_inactive_hand())
+	. |= list(l_hand, r_hand)
 
 
 /mob/living/carbon/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
@@ -503,12 +393,6 @@
 	return FALSE
 
 
-/mob/living/carbon/proc/find_air_tanks()
-	. = list()
-	for(var/obj/item/tank/tank in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
-		. += tank
-
-
 /mob/living/carbon/covered_with_thick_material(check_zone, full_body_check = FALSE)
 	if(full_body_check)
 		if(!isclothing(head))
@@ -540,4 +424,5 @@
 				return TRUE
 
 	return FALSE
+
 

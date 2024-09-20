@@ -15,7 +15,6 @@
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_demon"
-	panel = "Demon"
 	var/allowed_type = /obj/effect/decal/cleanable
 	var/phased = FALSE
 
@@ -160,14 +159,10 @@
 
 	if(ishuman(victim) || isrobot(victim))
 		to_chat(user, span_warning("Вы поглотили [victim]. Ваше здоровье полностью восстановлено."))
-		user.adjustBruteLoss(-1000)
-		user.adjustFireLoss(-1000)
-		user.adjustOxyLoss(-1000)
-		user.adjustToxLoss(-1000)
+		user.heal_damages(brute = 1000, burn = 1000, tox = 1000, oxy = 1000)
 	else
-		to_chat(user, span_warning("Вы поглотили [victim], но жертва едва ли насытила вас."))
-		user.adjustBruteLoss(-25)
-		user.adjustFireLoss(-25)
+		to_chat(user, span_warning("Вы поглотили [victim], но жертва едва ли насытила вас!"))
+		user.heal_damages(brute = 25, burn = 25)
 
 	if(isslaughterdemon(user))
 		var/mob/living/simple_animal/demon/slaughter/demon = user

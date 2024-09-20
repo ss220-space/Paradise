@@ -6,10 +6,13 @@
 		qdel(src)
 	owner = new_owner
 
-/datum/orbit_menu/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.observer_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/orbit_menu/ui_state(mob/user)
+	return GLOB.observer_state
+
+/datum/orbit_menu/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Orbit", "Orbit", 700, 500, master_ui, state)
+		ui = new(user, src, "Orbit", "Orbit")
 		ui.open()
 
 /datum/orbit_menu/ui_act(action, list/params, datum/tgui/ui)
@@ -105,6 +108,8 @@
 					// Traitors - the only antags in `.antag_datums` at the time of writing.
 					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
+						if(!A.show_in_orbit)
+							continue
 						var/antag_serialized = serialized.Copy()
 						antag_serialized["antag"] = A.name
 						antagonists += list(antag_serialized)
@@ -129,6 +134,7 @@
 							"Wizards — ([length(SSticker.mode.wizards)])" = (mind in SSticker.mode.wizards),
 							"Wizard’s Apprentices — ([length(SSticker.mode.apprentices)])" = (mind in SSticker.mode.apprentices),
 							"Xenomorphs — ([length(SSticker.mode.xenos)])" = (mind in SSticker.mode.xenos),
+							"Blobs — ([length(SSticker.mode.get_blobs_minds())])" = (mind in SSticker.mode.get_blobs_minds())
 						)
 
 				for(var/antag_name in other_antags)

@@ -58,7 +58,7 @@
 		return
 
 	if(damaging)
-		target.electrocute_act(energy, "Lightning Bolt", safety = TRUE)
+		target.electrocute_act(energy, "молнии", flags = SHOCK_NOGLOVES)
 	else
 		target.AdjustJitter(2000 SECONDS) //High numbers for violent convulsions
 		target.AdjustStuttering(4 SECONDS)

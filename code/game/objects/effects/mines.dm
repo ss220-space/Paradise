@@ -8,18 +8,33 @@
 	var/triggered = 0
 	var/faction = "syndicate"
 
+
+/obj/effect/mine/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/effect/mine/proc/mineEffect(mob/living/victim)
 	to_chat(victim, "<span class='danger'>*click*</span>")
 
-/obj/effect/mine/Crossed(atom/movable/AM, oldloc)
-	if(!isliving(AM))
+
+/obj/effect/mine/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!isliving(arrived))
 		return
-	var/mob/living/M = AM
-	if(faction && (faction in M.faction))
+
+	if(arrived.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return
-	if(M.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
+
+	if(faction && (faction in arrived.faction))
 		return
-	triggermine(M)
+
+	triggermine(arrived)
+
 
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	if(triggered)
@@ -69,10 +84,8 @@
 
 /obj/effect/mine/dnascramble/mineEffect(mob/living/victim)
 	victim.apply_effect(radiation_amount, IRRADIATE, 0)
-	if(ishuman(victim))
-		var/mob/living/carbon/human/V = victim
-		if(NO_DNA in V.dna.species.species_traits)
-			return
+	if(HAS_TRAIT(victim, TRAIT_NO_DNA))
+		return
 	randmutb(victim)
 	victim.check_genes()
 

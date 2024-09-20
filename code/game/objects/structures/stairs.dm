@@ -192,36 +192,41 @@
 	new frame_stack(get_turf(src), frame_stack_amount)
 	qdel(src)
 
+
 /obj/structure/stairs_frame/attackby(obj/item/I, mob/user, params)
-	if(!isstack(I))
+	if(user.a_intent == INTENT_HARM)
 		return ..()
-	if(!anchored)
-		to_chat(user, span_warning("secure frame first!"))
-		return TRUE
-	var/obj/item/stack/stack = I
-	if(stack.get_amount() < 10)
-		to_chat(user, span_warning("You need ten [stack.name] sheets to do this!"))
-		return
-	if(locate(/obj/structure/stairs) in loc)
-		to_chat(user, span_warning("There's already stairs built here!"))
-		return
-	if(istype(stack, /obj/item/stack/sheet/metal))
-		to_chat(user, span_notice("You start adding [stack] to [src]..."))
+
+	var/is_metal = istype(I, /obj/item/stack/sheet/metal)
+	if(is_metal || istype(I, /obj/item/stack/sheet/wood))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/sheet = I
+		if(!anchored)
+			to_chat(user, span_warning("You should secure the frame first!"))
+			return ATTACK_CHAIN_PROCEED
+		if(sheet.get_amount() < 10)
+			to_chat(user, span_warning("You need at least ten [sheet.name] to do this!"))
+			return ATTACK_CHAIN_PROCEED
+		if(locate(/obj/structure/stairs) in loc)
+			to_chat(user, span_warning("There's already stairs built here!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You start to add the [sheet.name] to [src]..."))
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-		if(do_after(user, 10 SECONDS, src) || !stack.use(10) || (locate(/obj/structure/table) in loc))
-			var/obj/structure/stairs/new_stairs = new /obj/structure/stairs(loc)
-			new_stairs.setDir(dir)
-			qdel(src)
-			return
-	if(istype(stack, /obj/item/stack/sheet/wood))
-		to_chat(user, span_notice("You start adding [stack] to [src]..."))
+		if(!do_after(user, 10 SECONDS, src, category = DA_CAT_TOOL) || (locate(/obj/structure/stairs) in loc) || QDELETED(sheet) || !sheet.use(10))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/structure/stairs/new_stairs
+		if(is_metal)
+			new_stairs = new /obj/structure/stairs(loc)
+		else
+			new_stairs = new /obj/structure/stairs/wood(loc)
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-		if(do_after(user, 10 SECONDS, src) || !stack.use(10) || (locate(/obj/structure/table) in loc))
-			var/obj/structure/stairs/new_stairs = new /obj/structure/stairs/wood(loc)
-			new_stairs.setDir(dir)
-			qdel(src)
-			return
-	return TRUE
+		transfer_fingerprints_to(new_stairs)
+		new_stairs.add_fingerprint(user)
+		new_stairs.setDir(dir)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 #undef STAIR_TERMINATOR_AUTOMATIC

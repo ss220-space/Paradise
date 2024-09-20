@@ -9,6 +9,14 @@
 	bomb_name = "contact mine"
 
 
+/obj/item/assembly/mousetrap/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/item/assembly/mousetrap/examine(mob/user)
 	. = ..()
 	if(armed)
@@ -23,7 +31,7 @@
 	armed = !armed
 	if(!armed && ishuman(usr))
 		var/mob/living/carbon/human/user = usr
-		if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
+		if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 			to_chat(user, "Your hand slips, setting off the trigger.")
 			pulse(FALSE, user)
 
@@ -47,7 +55,7 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/h_target = target
-		if(h_target.dna && (PIERCEIMMUNE in h_target.dna.species.species_traits))
+		if(HAS_TRAIT(h_target, TRAIT_PIERCEIMMUNE))
 			playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 			armed = FALSE
 			update_icon()
@@ -66,7 +74,7 @@
 					h_target.Stun(6 SECONDS)
 
 		if(affecting)
-			affecting.receive_damage(1, 0)
+			h_target.apply_damage(1, def_zone = affecting)
 
 	else if(ismouse(target) && target.stat != DEAD)
 		var/mob/living/simple_animal/mouse/mouse = target
@@ -85,7 +93,7 @@
 	if(!armed)
 		to_chat(user, span_notice("You arm [src]."))
 	else
-		if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
+		if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 			triggered(user, user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			user.visible_message(
 				span_warning("[user] accidentally sets off [src], breaking [user.p_their()] fingers."),
@@ -99,7 +107,7 @@
 
 
 /obj/item/assembly/mousetrap/attack_hand(mob/living/user)
-	if(armed && (user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
+	if(armed && (user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		triggered(user, user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		user.visible_message(
 			span_warning("[user] accidentally sets off [src], breaking [user.p_their()] fingers."),
@@ -109,21 +117,26 @@
 	..()
 
 
-/obj/item/assembly/mousetrap/Crossed(atom/movable/AM, oldloc)
-	if(armed)
-		if(ishuman(AM))
-			var/mob/living/carbon/h_target = AM
-			if(h_target.m_intent == MOVE_INTENT_RUN)
-				triggered(h_target)
-				h_target.visible_message(
-					span_warning("[h_target] accidentally steps on [src]."),
-					span_warning("You accidentally step on [src]!"),
-				)
-		else if(ismouse(AM))
-			triggered(AM)
-		else if(AM.density) // For mousetrap grenades, set off by anything heavy
-			triggered(AM)
-	..()
+/obj/item/assembly/mousetrap/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(assembly_crossed), arrived, old_loc)
+
+
+/obj/item/assembly/mousetrap/assembly_crossed(atom/movable/crossed, atom/old_loc)
+	if(!armed)
+		return
+
+	if(ishuman(crossed))
+		var/mob/living/carbon/h_target = crossed
+		if(h_target.m_intent == MOVE_INTENT_RUN)
+			triggered(h_target)
+			h_target.visible_message(
+				span_warning("[h_target] accidentally steps on [src]."),
+				span_warning("You accidentally step on [src]!"),
+			)
+	else if(ismouse(crossed) || crossed.density)	// For mousetrap grenades, set off by anything heavy
+		triggered(crossed)
 
 
 /obj/item/assembly/mousetrap/on_found(mob/finder)

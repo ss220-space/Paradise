@@ -216,7 +216,7 @@ Difficulty: Hard
 		if(L.client)
 			enrage()
 			arena_trap(L, TRUE)
-			FindTarget(list(L), 1)
+			FindTarget(list(L))
 			for(var/mob/living/simple_animal/hostile/megafauna/colossus/C in GLOB.mob_list)
 				UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE)
 			break
@@ -486,9 +486,15 @@ Difficulty: Hard
 		if(spawned_beacon && loc == spawned_beacon.loc && did_reset)
 			arena_trap(src)
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/adjustHealth(amount, updating_health = TRUE)
+/mob/living/simple_animal/hostile/megafauna/hierophant/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
-	if(src && . && !blinking)
+	if(. && amount > 0 && !blinking && !QDELETED(src))
 		wander = TRUE
 		did_reset = FALSE
 
@@ -569,10 +575,13 @@ Difficulty: Hard
 /obj/effect/temp_visual/hierophant/wall //smoothing and pooling were not friends, but pooling is dead.
 	name = "vortex wall"
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
+	base_icon_state = "hierophant_wall_temp"
+	smoothing_groups = SMOOTH_GROUP_HIERO_VORTEX
+	canSmoothWith = SMOOTH_GROUP_HIERO_VORTEX
+	smooth = SMOOTH_BITMASK
 	icon_state = "wall"
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	duration = 100
-	smooth = SMOOTH_TRUE
 
 /obj/effect/temp_visual/hierophant/wall/Initialize(mapload, new_caster)
 	. = ..()
@@ -698,6 +707,7 @@ Difficulty: Hard
 	var/friendly_fire_check = FALSE
 	var/bursting = FALSE //if we're bursting and need to hit anyone crossing us
 
+
 /obj/effect/temp_visual/hierophant/blast/Initialize(mapload, new_caster, friendly_fire)
 	. = ..()
 	friendly_fire_check = friendly_fire
@@ -707,6 +717,11 @@ Difficulty: Hard
 		var/turf/simulated/mineral/M = loc
 		M.attempt_drill(caster)
 	INVOKE_ASYNC(src, PROC_REF(blast))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/effect/temp_visual/hierophant/blast/proc/blast()
 	var/turf/T = get_turf(src)
@@ -719,10 +734,13 @@ Difficulty: Hard
 	sleep(1.3) //slightly forgiving; the burst animation is 1.5 deciseconds
 	bursting = FALSE //we no longer damage crossers
 
-/obj/effect/temp_visual/hierophant/blast/Crossed(atom/movable/AM)
-	..()
+
+/obj/effect/temp_visual/hierophant/blast/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	if(bursting)
-		do_damage(get_turf(src))
+		INVOKE_ASYNC(src, PROC_REF(do_damage), get_turf(src))
+
 
 /obj/effect/temp_visual/hierophant/blast/proc/do_damage(turf/T)
 	if(!damage)
@@ -743,7 +761,7 @@ Difficulty: Hard
 			if(H.stat == CONSCIOUS && !H.target && H.AIStatus != AI_OFF && !H.client)
 				if(!QDELETED(caster))
 					if(get_dist(H, caster) <= H.aggro_vision_range)
-						H.FindTarget(list(caster), 1)
+						H.FindTarget(list(caster))
 					else
 						H.Goto(get_turf(caster), H.move_to_delay, 3)
 		if(monster_damage_boost && (ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid)))
@@ -777,29 +795,38 @@ Difficulty: Hard
 /obj/effect/hierophant/ex_act()
 	return
 
+
+/obj/effect/hierophant/has_prints()
+	return TRUE
+
+
 /obj/effect/hierophant/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hierophant_club))
-		var/obj/item/hierophant_club/H = I
-		if(H.timer > world.time)
-			return
-		if(H.beacon == src)
-			to_chat(user, "<span class='notice'>You start removing your hierophant beacon...</span>")
-			H.timer = world.time + 51
-			INVOKE_ASYNC(H, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
-			if(do_after(user, 5 SECONDS, src))
-				playsound(src,'sound/magic/blind.ogg', 200, TRUE, -4)
-				new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(src), user)
-				to_chat(user, "<span class='hierophant_warning'>You collect [src], reattaching it to the club!</span>")
-				H.beacon = null
-				user.update_action_buttons_icon()
-				qdel(src)
-			else
-				H.timer = world.time
-				INVOKE_ASYNC(H, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
-		else
-			to_chat(user, "<span class='hierophant_warning'>You touch the beacon with the club, but nothing happens.</span>")
-	else
-		return ..()
+		add_fingerprint(user)
+		var/obj/item/hierophant_club/club = I
+		if(club.timer > world.time)
+			to_chat(user, span_hierophant_warning("The club is recharging."))
+			return ATTACK_CHAIN_PROCEED
+		if(club.beacon != src)
+			to_chat(user, span_hierophant_warning("You touch the beacon with the club, but nothing happens."))
+			return ATTACK_CHAIN_PROCEED
+		club.timer = world.time + 5.1 SECONDS
+		to_chat(user, span_notice("You start removing the hierophant beacon..."))
+		INVOKE_ASYNC(club, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
+		if(!do_after(user, 5 SECONDS, src))
+			club.timer = world.time
+			INVOKE_ASYNC(club, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
+			return ATTACK_CHAIN_PROCEED
+		playsound(loc, 'sound/magic/blind.ogg', 200, TRUE, -4)
+		new /obj/effect/temp_visual/hierophant/telegraph/teleport(loc, user)
+		to_chat(user, span_hierophant_warning("You collect [src], reattaching it to the club!"))
+		club.beacon = null
+		user.update_action_buttons_icon()
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/gps/internal/hierophant
 	icon_state = null

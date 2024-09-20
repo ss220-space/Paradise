@@ -60,6 +60,7 @@
 	var/disabilities_allowed = 1
 	var/transfer_allowed = TRUE // If false, ID computer will always discourage transfers to this job, even if player is eligible
 	var/hidden_from_job_prefs = FALSE // if true, job preferences screen never shows this job.
+	var/list/blocked_race_for_job = list()
 
 	var/admin_only = 0
 	var/spawn_ert = 0
@@ -142,6 +143,13 @@
 		return TRUE
 	return FALSE
 
+/datum/job/proc/species_in_blacklist(client/C)
+	if(!C)
+		return FALSE
+	if(C.prefs.species in blocked_race_for_job)
+		return TRUE
+	return FALSE
+
 /datum/job/proc/is_position_available()
 	return (current_positions < total_positions) || (total_positions == -1)
 
@@ -201,7 +209,7 @@
 			else
 				permitted = TRUE
 
-			if(G.whitelisted && (G.whitelisted != H.dna.species.name || !is_alien_whitelisted(H, G.whitelisted)))
+			if(G.whitelisted && G.whitelisted != H.dna.species.name)
 				permitted = FALSE
 
 			if(H.client.donator_level < G?.donator_tier)
@@ -283,7 +291,8 @@
 		PDA.owner = H.real_name
 		PDA.ownjob = C.assignment
 		PDA.ownrank = C.rank
-		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
+		PDA.update_appearance(UPDATE_NAME)
+
 
 
 /datum/outfit/job/get_chameleon_disguise_info()
@@ -295,13 +304,7 @@
 
 
 /datum/job/proc/would_accept_job_transfer_from_player(mob/player)
-	if(!transfer_allowed)
-		return FALSE
-	if(!guest_jobbans(title)) // actually checks if job is a whitelisted position
-		return TRUE
-	if(!istype(player))
-		return FALSE
-	return is_job_whitelisted(player, title)
+	return transfer_allowed
 
 
 /datum/job/proc/can_novice_play(client/C)

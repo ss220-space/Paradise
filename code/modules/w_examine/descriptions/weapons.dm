@@ -38,6 +38,10 @@
 	description_info = "This is an energy weapon. Most energy weapons can fire through windows harmlessly.  To recharge this weapon, use a weapon recharger. \
 	To use the scope, use the appropriate verb in the object tab."
 
+/obj/item/gun/energy/floragun
+	description_info = "This is an energy weapon. Has 3 shooting modes: alpha, beta, gamma. Alpha destroys plants. Beta improves plant genes. Gamma accelerates plant \
+	growth. Cannot be charged in the charger."
+
 /obj/item/gun/projectile
 	description_info = "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo.  The description \
 	will tell you what caliber you need."
@@ -54,7 +58,7 @@
 //*Melee*
 //*******
 
-/obj/item/melee/baton
+/obj/item/melee/baton/security
 	description_info = "The baton needs to be turned on to apply the stunning effect.  Use it in your hand to toggle it on or off.  If your intent is \
 	set to 'harm', you will inflict damage when using it, regardless if it is on or not.  Each stun reduces the baton's charge, which can be replenished by \
 	putting it inside a weapon recharger."

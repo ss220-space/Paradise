@@ -163,9 +163,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "aD" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/storage/backpack/satchel,
 /obj/item/lighter/zippo,
 /turf/simulated/floor/carpet,
@@ -255,8 +253,7 @@
 /area/ruin/unpowered)
 "aT" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /obj/structure/reagent_dispensers/oil,
 /turf/simulated/floor/plating,
@@ -482,11 +479,11 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/mineral/plasma,
+/turf/space,
 /area/ruin/unpowered)
 "bG" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/shuttle/plating,
+/turf/space,
 /area/ruin/unpowered)
 "bH" = (
 /turf/simulated/wall/mineral/titanium,
@@ -497,8 +494,7 @@
 /area/ruin/unpowered)
 "bJ" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/unpowered)

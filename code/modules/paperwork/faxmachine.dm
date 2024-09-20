@@ -90,15 +90,28 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/photocopier/faxmachine/attackby(obj/item/item, mob/user, params)
-	if(istype(item,/obj/item/card/id) && !scan)
-		add_fingerprint(user)
-		scan(item)
-	else if(istype(item, /obj/item/paper) || istype(item, /obj/item/photo) || istype(item, /obj/item/paper_bundle))
-		..()
-		SStgui.update_uis(src)
-	else
+
+/obj/machinery/photocopier/faxmachine/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/card/id))
+		add_fingerprint(user)
+		if(scan)
+			to_chat(user, span_warning("The [name] is already holding another ID-card."))
+			return ATTACK_CHAIN_PROCEED
+		if(!scan(I))
+			return ..()
+		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
+		. = ..()
+		SStgui.update_uis(src)
+		return .
+
+	return ..()
+
 
 /obj/machinery/photocopier/faxmachine/emag_act(mob/user)
 	if(!emagged)
@@ -117,10 +130,10 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return TRUE
 	return FALSE
 
-/obj/machinery/photocopier/faxmachine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/photocopier/faxmachine/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "FaxMachine",  name, 540, 300, master_ui, state)
+		ui = new(user, src, "FaxMachine", name)
 		ui.open()
 
 /obj/machinery/photocopier/faxmachine/ui_data(mob/user)
@@ -199,7 +212,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					. = FALSE
 		if("rename") // rename the item that is currently in the fax machine
 			if(copyitem)
-				var/n_name = sanitize(copytext(input(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)  as text, 1, MAX_MESSAGE_LEN))
+				var/n_name = tgui_input_text(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)
+				if(!n_name)
+					return
 				if((copyitem && copyitem.loc == src && usr.stat == 0))
 					if(istype(copyitem, /obj/item/paper))
 						copyitem.name = "[(n_name ? text("[n_name]") : initial(copyitem.name))]"
@@ -264,29 +279,41 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(.)
 		add_fingerprint(usr)
 
-/obj/machinery/photocopier/faxmachine/proc/scan(var/obj/item/card/id/card = null)
+
+/obj/machinery/photocopier/faxmachine/proc/scan(obj/item/card/id/card)
 	if(scan) // Card is in machine
 		if(ishuman(usr))
-			scan.forceMove(get_turf(src))
+			scan.forceMove(drop_location())
 			if(Adjacent(usr))
 				usr.put_in_hands(scan, ignore_anim = FALSE)
 			scan = null
-		else
-			scan.forceMove(get_turf(src))
-			scan = null
-	else if(Adjacent(usr))
-		if(!card)
-			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/card/id))
-				usr.drop_transfer_item_to_loc(I, src)
-				scan = I
-		else if(istype(card))
-			usr.drop_transfer_item_to_loc(card, src)
-			scan = card
+			SStgui.update_uis(src)
+			return TRUE
+		scan.forceMove(drop_location())
+		scan = null
+		SStgui.update_uis(src)
+		return TRUE
+	if(!usr || !Adjacent(usr))
+		return FALSE
+	if(!card)
+		var/obj/item/I = usr.get_active_hand()
+		if(!istype(I, /obj/item/card/id))
+			return FALSE
+		if(!usr.drop_transfer_item_to_loc(I, src))
+			return FALSE
+		scan = I
+		SStgui.update_uis(src)
+		return TRUE
+	if(!istype(card))
+		return FALSE
+	if(!usr.drop_transfer_item_to_loc(card, src))
+		return FALSE
+	scan = card
 	SStgui.update_uis(src)
+	return TRUE
+
 
 /obj/machinery/photocopier/faxmachine/verb/eject_id()
-	set category = null
 	set name = "Eject ID Card"
 	set src in oview(1)
 
@@ -337,7 +364,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	sleep(20)
 
 	if(istype(incoming, /obj/item/paper))
-		copy(incoming)
+		papercopy(incoming)
 	else if(istype(incoming, /obj/item/photo))
 		photocopy(incoming)
 	else if(istype(incoming, /obj/item/paper_bundle))
@@ -383,7 +410,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	return round((sendcooldown - world.time) / 10)
 
 /obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#9A04D1")
-	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<A HREF='?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</A>) (<a href='?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<A HREF='?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</A>) ([ADMIN_BSA(sender,"BSA")]) (<A HREF='?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</A>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</A>) ([ADMIN_BSA(sender,"BSA")]) (<a href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))
 			to_chat(C, msg)
@@ -454,14 +481,13 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	text = replacetext(text, "<img src = syndielogo.png>", "` SYNDIE LOGO `\n")
 	text = replacetextEx(text, "<img src = syndielogo.png>", "` SYNDIE LOGO `\n")
 	var/textstamps = paper.stamps
-	for(var/type in paper.stamped)
-		var/obj/item/stamp/stamp = new type()
-		if(istype(stamp, /obj/item/stamp/chameleon))
+	for(var/obj/item/stamp/stamp_path as anything in paper.stamped)
+		if(ispath(stamp_path, /obj/item/stamp/chameleon))
 			var/text_stamp = replacetext(textstamps, regex(".*?<img src=large_stamp-(.*?).png>.*"), "$1") // pops from textstamps.
 			textstamps = replacetext(textstamps, regex("<img src=large_stamp-.*?.png>"), "")
 			text += "` [text_stamp] (CHAMELEON) stamp `"
 		else
-			text += "` [replacetext(replacetext(stamp.name, "rubber", ""), "'s", "")] `"
+			text += "` [replacetext(replacetext(initial(stamp_path.name), "rubber", ""), "'s", "")] `"
 
 	return strip_html_properly(text, MAX_PAPER_MESSAGE_LEN, TRUE) //So satisfying that max paper length equals max description disorcd
 

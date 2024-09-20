@@ -42,6 +42,7 @@ GLOBAL_LIST_INIT(nuclear_uplink_list, list())			//list of all existing nuke ops 
 GLOBAL_LIST_INIT(abductor_equipment, list())			//list of all abductor equipment
 GLOBAL_LIST_INIT(global_intercoms, list())			//list of all intercomms, across all z-levels
 GLOBAL_LIST_INIT(global_radios, list())				//list of all radios, across all z-levels
+GLOBAL_LIST_EMPTY(ioncallers_list)					// For ioncaller mass icon updating.
 
 GLOBAL_LIST_INIT(meteor_list, list())				//list of all meteors
 GLOBAL_LIST_INIT(poi_list, list())					//list of points of interest for observe/follow
@@ -63,3 +64,5 @@ GLOBAL_LIST_EMPTY(engine_beacon_list)
 /// List of wire colors for each object type of that round. One for airlocks, one for vendors, etc.
 GLOBAL_LIST_EMPTY(wire_color_directory) // This is an associative list with the `holder_type` as the key, and a list of colors as the value.
 GLOBAL_LIST_EMPTY(wire_name_directory)
+
+GLOBAL_LIST_EMPTY(visual_portals)

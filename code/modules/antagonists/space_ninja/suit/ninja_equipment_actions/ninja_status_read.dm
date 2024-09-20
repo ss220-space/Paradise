@@ -41,7 +41,7 @@
 	if(ninja.reagents.reagent_list.len)
 		info_list += "[span_info("Обнаружены реагенты:")]\n"
 		for(var/datum/reagent/ninja_reagent in ninja.reagents.reagent_list)
-			info_list += "[span_info("&emsp;[ninja_reagent.volume]u [ninja_reagent.name][ninja_reagent.overdosed ? " - [span_boldannounce("ПЕРЕДОЗИРОВКА")]" : "."]")]\n"
+			info_list += "[span_info("&emsp;[ninja_reagent.volume]u [ninja_reagent.name][ninja_reagent.overdosed ? " - [span_boldannounceic("ПЕРЕДОЗИРОВКА")]" : "."]")]\n"
 	else
 		info_list += "[span_info("Реагенты не обнаружены.")]\n"
 	if(ninja.reagents.addiction_list.len)

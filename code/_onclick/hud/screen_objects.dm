@@ -109,6 +109,14 @@
 	name = "run/walk toggle"
 	icon_state = "running"
 
+
+/atom/movable/screen/mov_intent/update_icon_state()
+	if(hud?.mymob)
+		icon_state = (hud.mymob.m_intent == MOVE_INTENT_RUN) ? "running" : "walking"
+	else
+		icon_state = initial(icon_state)
+
+
 /atom/movable/screen/act_intent/simple_animal
 	icon = 'icons/mob/screen_simplemob.dmi'
 	screen_loc = ui_acti
@@ -178,7 +186,7 @@
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
-			master.attackby(I, usr, params)
+			I.melee_attack_chain(usr, master, params)
 	return TRUE
 
 
@@ -238,8 +246,7 @@
 			S.orient2hud(user)
 			S.show_to(user)
 	else // If it's not in the storage, try putting it inside
-		I.pickup(user) //Do not actually put in hands, but rather make some funny effects out of it
-		S.attackby(I, user)
+		I.melee_attack_chain(user, S, params)
 	return TRUE
 
 

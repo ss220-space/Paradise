@@ -231,16 +231,21 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ancient
 	var/footstep = 1
 
-/obj/item/clothing/suit/space/hardsuit/ancient/on_mob_move()
-	var/mob/living/carbon/human/H = loc
-	if(!istype(H) || H.wear_suit != src)
-		return
+/obj/item/clothing/suit/space/hardsuit/ancient/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot & slot_flags)
+		RegisterSignal(user, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move), override = TRUE)
+
+/obj/item/clothing/suit/space/hardsuit/ancient/dropped(mob/user, slot, silent)
+	. = ..()
+	UnregisterSignal(user, COMSIG_MOB_CLIENT_MOVED)
+
+/obj/item/clothing/suit/space/hardsuit/ancient/on_mob_move(mob/user, dir)
 	if(footstep > 1)
-		playsound(src, 'sound/effects/servostep.ogg', 100, 1)
+		playsound(src, 'sound/effects/servostep.ogg', 100, TRUE)
 		footstep = 0
 	else
 		footstep++
-	..()
 
 // Chemical bottles
 /obj/item/reagent_containers/glass/bottle/aluminum

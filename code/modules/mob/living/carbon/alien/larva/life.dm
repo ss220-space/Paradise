@@ -1,6 +1,8 @@
 /mob/living/carbon/alien/larva/Life(seconds, times_fired)
-	set invisibility = 0
+	var/old_evo_points = evolution_points
 	. = ..()
+	if(. && old_evo_points != evolution_points)
+		update_icons()
 
 
 /mob/living/carbon/alien/larva/update_stat(reason = "none given", should_log = FALSE)

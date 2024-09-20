@@ -21,45 +21,69 @@
 	var/framestack = /obj/item/stack/rods
 	var/framestackamount = 2
 
+
 /obj/structure/table_frame/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/plasteel))
-		var/obj/item/stack/sheet/plasteel/P = I
-		if(P.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one plasteel sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 5 SECONDS, src) && P.use(1))
-			make_new_table(/obj/structure/table/reinforced)
-
-	else if(istype(I, /obj/item/stack/sheet/metal))
-		var/obj/item/stack/sheet/metal/M = I
-		if(M.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one metal sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [M] to [src]...</span>")
-		if(do_after(user, 2 SECONDS, src) && M.use(1))
-			make_new_table(/obj/structure/table)
-
-	else if(istype(I, /obj/item/stack/sheet/glass))
-		var/obj/item/stack/sheet/glass/G = I
-		if(G.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one glass sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [G] to [src]...</span>")
-		if(do_after(user, 2 SECONDS, src) && G.use(1))
-			make_new_table(/obj/structure/table/glass)
-
-	else if(istype(I, /obj/item/stack/tile/carpet))
-		var/obj/item/stack/tile/carpet/C = I
-		if(C.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one [C.name] sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [C] to [src]...</span>")
-		if(do_after(user, 2 SECONDS, src) && C.use(1))
-			make_new_table(C.fancy_table_type)
-
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	var/obj/item/stack/sheet = I
+	if(istype(I, /obj/item/stack/sheet/plasteel))
+		add_fingerprint(user)
+		if(sheet.get_amount() < 1)
+			to_chat(user, span_warning("You need at least one sheet of [sheet.name] to do this."))
+			return ATTACK_CHAIN_PROCEED
+		sheet.play_tool_sound(src)
+		to_chat(user, span_notice("You start to add [sheet] to [src]..."))
+		if(!do_after(user, 5 SECONDS * sheet.toolspeed, src, category = DA_CAT_TOOL) || QDELETED(sheet) || !sheet.use(1))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have completed the construction of the reinforced table."))
+		make_new_table(/obj/structure/table/reinforced)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stack/sheet/metal))
+		add_fingerprint(user)
+		if(sheet.get_amount() < 1)
+			to_chat(user, span_warning("You need at least one sheet of [sheet.name] to do this."))
+			return ATTACK_CHAIN_PROCEED
+		sheet.play_tool_sound(src)
+		to_chat(user, span_notice("You start to add [sheet] to [src]..."))
+		if(!do_after(user, 2 SECONDS * sheet.toolspeed, src, category = DA_CAT_TOOL) || QDELETED(sheet) || !sheet.use(1))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have completed the construction of the table."))
+		make_new_table(/obj/structure/table)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stack/sheet/glass))
+		add_fingerprint(user)
+		if(sheet.get_amount() < 1)
+			to_chat(user, span_warning("You need at least one sheet of [sheet.name] to do this."))
+			return ATTACK_CHAIN_PROCEED
+		sheet.play_tool_sound(src)
+		to_chat(user, span_notice("You start to add [sheet] to [src]..."))
+		if(!do_after(user, 2 SECONDS * sheet.toolspeed, src, category = DA_CAT_TOOL) || QDELETED(sheet) || !sheet.use(1))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have completed the construction of the glass table."))
+		make_new_table(/obj/structure/table/glass)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stack/tile/carpet))
+		add_fingerprint(user)
+		var/obj/item/stack/tile/carpet/carpet = I
+		if(carpet.get_amount() < 1)
+			to_chat(user, span_warning("You need at least one [carpet.name] to do this."))
+			return ATTACK_CHAIN_PROCEED
+		carpet.play_tool_sound(src)
+		to_chat(user, span_notice("You start to add [carpet] to [src]..."))
+		var/obj/cached_type = carpet.fancy_table_type
+		var/cached_name = cached_type::name
+		if(!do_after(user, 2 SECONDS * carpet.toolspeed, src, category = DA_CAT_TOOL) || QDELETED(carpet) || !carpet.use(1))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have completed the construction of the [cached_name]."))
+		make_new_table(cached_type)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/structure/table_frame/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -104,26 +128,41 @@
 	framestackamount = 2
 	resistance_flags = FLAMMABLE
 
+
 /obj/structure/table_frame/wood/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/wood))
-		var/obj/item/stack/sheet/wood/W = I
-		if(W.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one wood sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
-		if(do_after(user, 2 SECONDS, src) && W.use(1))
-			make_new_table(/obj/structure/table/wood)
-		return
-	else if(istype(I, /obj/item/stack/tile/carpet))
-		var/obj/item/stack/tile/carpet/C = I
-		if(C.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one carpet sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [C] to [src]...</span>")
-		if(do_after(user, 2 SECONDS, src) && C.use(1))
-			make_new_table(/obj/structure/table/wood/poker)
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/stack/sheet/wood))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/wood/wood = I
+		if(wood.get_amount() < 1)
+			to_chat(user, span_warning("You need at least one sheet of wood to do this."))
+			return ATTACK_CHAIN_PROCEED
+		wood.play_tool_sound(src)
+		to_chat(user, span_notice("You start to add [wood] to [src]..."))
+		if(!do_after(user, 2 SECONDS * wood.toolspeed, src, category = DA_CAT_TOOL) || QDELETED(wood) || !wood.use(1))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have completed the construction of the wooden table."))
+		make_new_table(/obj/structure/table/wood)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stack/tile/carpet))
+		add_fingerprint(user)
+		var/obj/item/stack/tile/carpet/carpet = I
+		if(carpet.get_amount() < 1)
+			to_chat(user, span_warning("You need at least one [carpet.name] to do this."))
+			return ATTACK_CHAIN_PROCEED
+		carpet.play_tool_sound(src)
+		to_chat(user, span_notice("You start to add [carpet] to [src]..."))
+		if(!do_after(user, 2 SECONDS * carpet.toolspeed, src, category = DA_CAT_TOOL) || QDELETED(carpet) || !carpet.use(1))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have completed the construction of the poker table."))
+		make_new_table(/obj/structure/table/wood/poker)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/structure/table_frame/brass
 	name = "brass table frame"
@@ -133,17 +172,27 @@
 	framestack = /obj/item/stack/sheet/brass
 	framestackamount = 1
 
+
 /obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/brass))
-		var/obj/item/stack/sheet/brass/W = I
-		if(W.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
-		if(do_after(user, 2 SECONDS, src) && W.use(1))
-			make_new_table(/obj/structure/table/reinforced/brass)
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/stack/sheet/brass))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/brass/brass = I
+		if(brass.get_amount() < 1)
+			to_chat(user, span_warning("You need at least one sheet of brass to do this."))
+			return ATTACK_CHAIN_PROCEED
+		brass.play_tool_sound(src)
+		to_chat(user, span_notice("You start to add [brass] to [src]..."))
+		if(!do_after(user, 5 SECONDS * brass.toolspeed, src, category = DA_CAT_TOOL) || QDELETED(brass) || !brass.use(1))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have completed the construction of the brass table."))
+		make_new_table(/obj/structure/table/reinforced/brass)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/structure/table_frame/brass/narsie_act()
 	..()
@@ -160,14 +209,24 @@
 	framestack = /obj/item/stack/sheet/brass_fake
 	framestackamount = 1
 
-/obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/brass_fake))
-		var/obj/item/stack/sheet/brass_fake/W = I
-		if(W.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
-		if(do_after(user, 2 SECONDS, src) && W.use(1))
-			make_new_table(/obj/structure/table/reinforced/brass/fake)
-	else
+
+/obj/structure/table_frame/brass/fake/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/stack/sheet/brass_fake))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/brass_fake/brass = I
+		if(brass.get_amount() < 1)
+			to_chat(user, span_warning("You need at least one sheet of brass to do this."))
+			return ATTACK_CHAIN_PROCEED
+		brass.play_tool_sound(src)
+		to_chat(user, span_notice("You start to add [brass] to [src]..."))
+		if(!do_after(user, 5 SECONDS * brass.toolspeed, src, category = DA_CAT_TOOL) || QDELETED(brass) || !brass.use(1))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have completed the construction of the brass table."))
+		make_new_table(/obj/structure/table/reinforced/brass/fake)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+

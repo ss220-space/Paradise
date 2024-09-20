@@ -70,6 +70,10 @@
 	path = /obj/item/clothing/accessory/ntrjacket
 	allowed_roles = list(JOB_TITLE_REPRESENTATIVE)
 
+/datum/gear/accessory/waistcoat
+	display_name = "waistcoat"
+	path = /obj/item/clothing/accessory/waistcoat
+
 /datum/gear/accessory/cowboyshirt
 	display_name = "cowboy shirt, select"
 	path = /obj/item/clothing/accessory/cowboyshirt

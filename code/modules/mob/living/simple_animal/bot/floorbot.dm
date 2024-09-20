@@ -44,8 +44,8 @@
 	#define TILE_EMAG		6
 
 
-/mob/living/simple_animal/bot/floorbot/New(mapload, new_toolbox_color)
-	..()
+/mob/living/simple_animal/bot/floorbot/Initialize(mapload, new_toolbox_color)
+	. = ..()
 	toolbox_color = new_toolbox_color
 	update_icon()
 	var/datum/job/engineer/J = new/datum/job/engineer
@@ -61,7 +61,7 @@
 	target = null
 	oldloc = null
 	ignore_list.Cut()
-	nagged = 0
+	nagged = FALSE
 	set_anchored(FALSE)
 	update_icon()
 
@@ -77,45 +77,47 @@
 	dat += hack(user)
 	dat += showpai(user)
 	dat += "<TT><B>Floor Repairer Controls v1.1</B></TT><BR><BR>"
-	dat += "Status: <A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A><BR>"
+	dat += "Status: <a href='byond://?src=[UID()];power=1'>[on ? "On" : "Off"]</A><BR>"
 	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
 	dat += "Tiles left: [amount]<BR>"
 	dat += "Behvaiour controls are [locked ? "locked" : "unlocked"]<BR>"
 	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += "Add tiles to new hull plating: <A href='?src=[UID()];operation=autotile'>[autotile ? "Yes" : "No"]</A><BR>"
-		dat += "Replace floor tiles: <A href='?src=[UID()];operation=replace'>[replacetiles ? "Yes" : "No"]</A><BR>"
-		dat += "Finds tiles: <A href='?src=[UID()];operation=tiles'>[eattiles ? "Yes" : "No"]</A><BR>"
-		dat += "Make pieces of metal into tiles when empty: <A href='?src=[UID()];operation=make'>[maketiles ? "Yes" : "No"]</A><BR>"
-		dat += "Transmit notice when empty: <A href='?src=[UID()];operation=emptynag'>[nag_on_empty ? "Yes" : "No"]</A><BR>"
-		dat += "Repair damaged tiles and platings: <A href='?src=[UID()];operation=fix'>[fixfloors ? "Yes" : "No"]</A><BR>"
-		dat += "Traction Magnets: <A href='?src=[UID()];operation=anchor'>[anchored ? "Engaged" : "Disengaged"]</A><BR>"
-		dat += "Patrol Station: <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
+		dat += "Add tiles to new hull plating: <a href='byond://?src=[UID()];operation=autotile'>[autotile ? "Yes" : "No"]</A><BR>"
+		dat += "Replace floor tiles: <a href='byond://?src=[UID()];operation=replace'>[replacetiles ? "Yes" : "No"]</A><BR>"
+		dat += "Finds tiles: <a href='byond://?src=[UID()];operation=tiles'>[eattiles ? "Yes" : "No"]</A><BR>"
+		dat += "Make pieces of metal into tiles when empty: <a href='byond://?src=[UID()];operation=make'>[maketiles ? "Yes" : "No"]</A><BR>"
+		dat += "Transmit notice when empty: <a href='byond://?src=[UID()];operation=emptynag'>[nag_on_empty ? "Yes" : "No"]</A><BR>"
+		dat += "Repair damaged tiles and platings: <a href='byond://?src=[UID()];operation=fix'>[fixfloors ? "Yes" : "No"]</A><BR>"
+		dat += "Traction Magnets: <a href='byond://?src=[UID()];operation=anchor'>[anchored ? "Engaged" : "Disengaged"]</A><BR>"
+		dat += "Patrol Station: <a href='byond://?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
 		var/bmode
 		if(targetdirection)
 			bmode = dir2text(targetdirection)
 		else
 			bmode = "disabled"
-		dat += "Bridge Mode : <A href='?src=[UID()];operation=bridgemode'>[bmode]</A><BR>"
+		dat += "Bridge Mode : <a href='byond://?src=[UID()];operation=bridgemode'>[bmode]</A><BR>"
 
 	return dat
 
 
-/mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
-	if(istype(W, /obj/item/stack/tile/plasteel))
-		var/obj/item/stack/tile/plasteel/T = W
-		if(amount >= 50)
-			return
-		var/loaded = min(50-amount, T.amount)
-		T.use(loaded)
-		amount += loaded
-		if(loaded > 0)
-			to_chat(user, span_notice("You load [loaded] tiles into the floorbot. [p_they(TRUE)] now contains [amount] tiles."))
-			nagged = 0
-			update_icon()
-		else
+/mob/living/simple_animal/bot/floorbot/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/stack/tile/plasteel))
+		add_fingerprint(user)
+		var/obj/item/stack/tile/plasteel/plasteel = I
+		var/loaded = min(50 - amount, plasteel.get_amount())
+		if(!plasteel.use(loaded))
 			to_chat(user, span_warning("You need at least one floor tile to put into [src]!"))
-	else
-		..()
+			return ATTACK_CHAIN_PROCEED
+		amount += loaded
+		to_chat(user, span_notice("You have loaded [loaded] tile\s into the floorbot. [p_they(TRUE)] now contains [amount] tiles."))
+		nagged = FALSE
+		update_icon()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
 /mob/living/simple_animal/bot/floorbot/emag_act(mob/user)
@@ -245,9 +247,9 @@
 		if(!length(path))
 			if(!isturf(target))
 				var/turf/TL = get_turf(target)
-				path = get_path_to(src, TL, 30, id = access_card, simulated_only = FALSE)
+				path = get_path_to(src, TL, max_distance = 30, access = access_card.GetAccess(), simulated_only = FALSE)
 			else
-				path = get_path_to(src, target, 30, id = access_card, simulated_only = FALSE)
+				path = get_path_to(src, target, max_distance = 30, access = access_card.GetAccess(), simulated_only = FALSE)
 
 			if(!bot_move(target))
 				add_to_ignore(target)

@@ -17,12 +17,19 @@ GLOBAL_VAR(runtime_summary_log)
 GLOBAL_PROTECT(runtime_summary_log)
 GLOBAL_VAR(tgui_log)
 GLOBAL_PROTECT(tgui_log)
+GLOBAL_VAR(demo_log)
+GLOBAL_PROTECT(demo_log)
 GLOBAL_VAR(http_log)
 GLOBAL_PROTECT(http_log)
 GLOBAL_VAR(sql_log)
 GLOBAL_PROTECT(sql_log)
 GLOBAL_VAR(round_id)
 GLOBAL_PROTECT(round_id)
+
+#ifdef REFERENCE_TRACKING
+GLOBAL_VAR(gc_log)
+GLOBAL_PROTECT(gc_log)
+#endif
 
 GLOBAL_LIST_EMPTY(jobMax)
 GLOBAL_PROTECT(jobMax)

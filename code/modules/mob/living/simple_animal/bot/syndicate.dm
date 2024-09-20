@@ -26,8 +26,8 @@
 	var/turf/spawn_turf
 
 
-/mob/living/simple_animal/bot/ed209/syndicate/New()
-	..()
+/mob/living/simple_animal/bot/ed209/syndicate/Initialize(mapload)
+	. = ..()
 	set_weapon()
 	update_icon()
 	spawn_turf = get_turf(src)
@@ -53,7 +53,7 @@
 	update_icon()
 
 
-/mob/living/simple_animal/bot/ed209/syndicate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/mob/living/simple_animal/bot/ed209/syndicate/ui_interact(mob/user, datum/tgui/ui = null)
 	to_chat(user, span_warning("[src] has no accessible control panel!"))
 	return
 

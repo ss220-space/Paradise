@@ -33,8 +33,12 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	/// Defines from __DEFINES/hud.dm go here based on which huds the ghost has activated.
 	var/list/data_hud_seen = list()
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
-	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
+	///does the ghost have health scanner mode on? by default it should be off
+	var/health_scan = FALSE
+	///does the ghost have gas scanner mode on? by default it should be off
 	var/gas_scan = FALSE
+	///does the ghost have plant scanner mode on? by default it should be off
+	var/plant_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
 
 /mob/dead/observer/New(mob/body=null, flags=1)
@@ -42,13 +46,13 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
 	set_invis_see(SEE_INVISIBLE_OBSERVER_AI_EYE)
-	verbs += list(
+	add_verb(src, list(
 		/mob/dead/observer/proc/dead_tele,
 		/mob/dead/observer/proc/open_spawners_menu,
 		/mob/dead/observer/proc/emote_spin_ghost,
 		/mob/dead/observer/proc/emote_flip_ghost,
 		/mob/dead/observer/proc/open_minigames_menu,
-	)
+	))
 
 	// Our new boo spell.
 	AddSpell(new /obj/effect/proc_holder/spell/boo(null))
@@ -87,7 +91,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	updateallghostimages()
 	if(!T)
 		T = pick(GLOB.latejoin)			//Safety in case we cannot find the body's position
-	forceMove(T)
 
 	if(!name)							//To prevent nameless ghosts
 		name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
@@ -98,6 +101,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	toggle_all_huds_on(body)
 	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(set_ghost_darkness_level)) //something something don't call this until we have a HUD
 	..()
+	abstract_move(T) //let ghost initialize properly, then off to spawn point
 
 
 /mob/dead/observer/Destroy()
@@ -180,6 +184,7 @@ Works together with spawning an observer, noted above.
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
 		ghost.key = key
+		ghost.client?.init_verbs()
 		SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZE, ghost)
 		return ghost
 
@@ -209,7 +214,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(warningmsg)
 		var/response
 		var/alertmsg = "Are you -sure- you want to ghost?\n([warningmsg]. If you ghost now, you probably won't be able to rejoin the round! You can't change your mind, so choose wisely!)"
-		response = alert(src, alertmsg,"Are you sure you want to ghost?","Stay in body","Ghost")
+		response = tgui_alert(src, alertmsg, "Ghost", list("Stay in body", "Ghost"))
 		if(response != "Ghost")
 			return
 
@@ -269,12 +274,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		abstract_move(destination)//Get out of closets and such as a ghost
 
 
-/mob/dead/observer/Stat()
-	..()
-	statpanel("Status")
-	if(client.statpanel == "Status")
-		show_stat_emergency_shuttle_eta()
-		stat(null, "Respawnability: [(src in GLOB.respawnable_list) ? "Yes" : "No"]")
+/mob/dead/observer/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Respawnability:", "[(src in GLOB.respawnable_list) ? "Yes" : "No"]")
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
@@ -373,7 +376,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='warning'>Твое тело все еще живо!</span>")
 		return
 
-	if(alert(src, "Если вы включите это, ваше тело не смогут больше возродить до конца раунда.", "Вы уверены?", "Да", "Нет") == "Да")
+	if(tgui_alert(src, "Если вы включите это, ваше тело не смогут больше возродить до конца раунда.", "Вы уверены?", list("Да", "Нет")) == "Да")
 		to_chat(src, "<span class='boldnotice'>Do Not Revive статус включён.</span>")
 		can_reenter_corpse = FALSE
 		if(!QDELETED(mind.current)) // Could change while they're choosing
@@ -466,9 +469,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Teleport to a mob"
 
 	if(isobserver(usr)) //Make sure they're an observer!
-		var/list/dest = getpois(mobs_only=TRUE) //Fill list, prompt user with list
-		var/datum/async_input/A = input_autocomplete_async(usr, "Enter a mob name: ", dest)
-		A.on_close(CALLBACK(src, PROC_REF(jump_to_mob)))
+		var/jumping = tgui_input_list(src, "Mob to jump to", "Jump to Mob", GLOB.mob_list)
+		if(jumping)
+			return jump_to_mob(jumping)
 
 /mob/dead/observer/proc/jump_to_mob(mob/M)
 	if(!M || !isobserver(usr))
@@ -516,10 +519,22 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, span_notice("Gas scan enabled."))
 		gas_scan = TRUE
 
+/mob/dead/observer/verb/toggle_plant_anaylzer()
+	set name = "Toggle Plant Analyzer"
+	set desc = "Toggles wether you can anaylze plants and seeds on click"
+	set category = "Ghost"
+
+	if(plant_analyzer)
+		to_chat(src, "<span class='notice'>Plant Analyzer disabled.</span>")
+		plant_analyzer = FALSE
+	else
+		to_chat(src, "<span class='notice'>Plant Analyzer enabled. Click on a plant or seed to analyze.</span>")
+		plant_analyzer = TRUE
+
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
 	set category = "Ghost"
-	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.observer_state)
+	GLOB.generic_crew_manifest.ui_interact(usr)
 
 
 //this is called when a ghost is drag clicked to something.
@@ -686,13 +701,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return TRUE
 
 
-/mob/dead/observer/proc/incarnate_ghost()
+/mob/dead/observer/proc/incarnate_ghost(use_old_mind=FALSE)
 	if(!client)
 		return
 
 	var/mob/living/carbon/human/new_char = new(get_turf(src))
 	client.prefs.copy_to(new_char)
-	if(mind)
+	if(mind && use_old_mind)
 		mind.active = TRUE
 		mind.transfer_to(new_char)
 	else

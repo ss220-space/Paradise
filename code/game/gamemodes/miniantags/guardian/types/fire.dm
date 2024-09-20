@@ -13,6 +13,15 @@
 	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый сеять хаос в произвольном порядке."
 	var/toggle = FALSE
 
+
+/mob/living/simple_animal/hostile/guardian/fire/Initialize(mapload, mob/living/host)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /mob/living/simple_animal/hostile/guardian/fire/Life(seconds, times_fired) //Dies if the summoner dies
 	..()
 	if(summoner)
@@ -37,9 +46,10 @@
 				summoner.AdjustHallucinate(10 SECONDS)
 
 
-/mob/living/simple_animal/hostile/guardian/fire/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	collision_ignite(AM)
+/mob/living/simple_animal/hostile/guardian/fire/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	collision_ignite(arrived)
 
 
 /mob/living/simple_animal/hostile/guardian/fire/MobBump(mob/living/bumped_mob)

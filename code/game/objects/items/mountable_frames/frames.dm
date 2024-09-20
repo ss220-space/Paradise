@@ -7,11 +7,16 @@
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
-/obj/item/mounted/frame/attackby(obj/item/W, mob/user)
-	..()
-	if(W.tool_behaviour == TOOL_WRENCH && sheets_refunded)
-		new /obj/item/stack/sheet/metal(get_turf(src), sheets_refunded)
-		qdel(src)
+
+/obj/item/mounted/frame/wrench_act(mob/living/user, obj/item/I)
+	if(!sheets_refunded)
+		return FALSE
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	new /obj/item/stack/sheet/metal(drop_location(), sheets_refunded)
+	qdel(src)
+
 
 /obj/item/mounted/frame/try_build(turf/on_wall, mob/user)
 	if(..()) //if we pass the parent tests

@@ -27,7 +27,7 @@
 	if(volume >= 1)
 		Swell()
 
-/obj/item/toy/carpplushie/dehy_carp/afterattack(obj/O, mob/user,proximity)
+/obj/item/toy/carpplushie/dehy_carp/afterattack(obj/O, mob/user, proximity, params)
 	if(!proximity) return
 	if(istype(O,/obj/structure/sink))
 		to_chat(user, "<span class='notice'>You place [src] under a stream of water...</span>")

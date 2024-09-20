@@ -18,6 +18,19 @@
 
 /obj/structure/lavaland/ash_walker/Initialize()
 	. = ..()
+	AddComponent( \
+			/datum/component/aura_healing, \
+			range = 4, \
+			brute_heal = 0.4, \
+			burn_heal = 0.4, \
+			toxin_heal = 0.4, \
+			blood_heal = 0.4, \
+			simple_heal = 1.2, \
+			requires_visibility = FALSE, \
+			limit_to_trait = TRAIT_HEALS_FROM_ASH_TENDRIL, \
+			healing_color = COLOR_GREEN, \
+			robot_heal = FALSE, \
+		)
 	START_PROCESSING(SSprocessing, src)
 
 /obj/structure/lavaland/ash_walker/Destroy()
@@ -94,7 +107,6 @@
 /obj/effect/mob_spawn/human/ash_walker/special(mob/living/carbon/human/new_spawn)
 	new_spawn.rename_character(new_spawn.real_name, new_spawn.dna.species.get_random_name(new_spawn.gender))
 	new_spawn.faction += "ashwalker"
-
 	to_chat(new_spawn, "<b>Добывайте для гнезда трупы гуманоидов и зверей. Щупальце поглотит их, порождая яйца новых пеплоходцев. Слава Некрополю!</b>")
 
 /obj/effect/mob_spawn/human/ash_walker/New()

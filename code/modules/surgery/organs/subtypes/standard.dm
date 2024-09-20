@@ -413,7 +413,17 @@
 	. = ..()
 
 
-/obj/item/organ/external/head/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE, silent = FALSE)
+/obj/item/organ/external/head/external_receive_damage(
+	brute = 0,
+	burn = 0,
+	blocked = 0,
+	sharp = FALSE,
+	used_weapon = null,
+	list/forbidden_limbs = list(),
+	forced = FALSE,
+	updating_health = TRUE,
+	silent = FALSE,
+)
 	. = ..()
 	if(brute_dam + burn_dam > 50)
 		disfigure(silent)

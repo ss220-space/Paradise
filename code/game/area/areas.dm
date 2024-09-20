@@ -521,46 +521,19 @@
 			used_environ += amount
 
 
-/area/Entered(atom/movable/arrived)
+/area/Entered(atom/movable/arrived, area/old_area)
 
-	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived)
-	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERED_AREA, src)
-
-	var/area/newarea
-	var/area/oldarea
+	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
+	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERED_AREA, src, old_area)
 
 	if(ismob(arrived))
 		var/mob/arrived_mob = arrived
-
-		if(!arrived_mob.lastarea)
-			arrived_mob.lastarea = get_area(arrived_mob)
-		newarea = get_area(arrived_mob)
-		oldarea = arrived_mob.lastarea
-
-		if(newarea != oldarea)
+		if(!arrived_mob.lastarea || old_area != src)
 			arrived_mob.lastarea = src
 
-	if(!isliving(arrived))
-		return
-
-	var/mob/living/arrived_living = arrived
-	if(!arrived_living.client)
-		return
-
-	var/client/our_client = arrived_living.client
-
-	//Ship ambience just loops if turned on.
-	if(!our_client.ambience_playing && (our_client.prefs.sound & SOUND_BUZZ))
-		our_client.ambience_playing = TRUE
-		var/amb_volume = 35 * our_client.prefs.get_channel_volume(CHANNEL_BUZZ)
-		SEND_SOUND(arrived_living, sound('sound/ambience/shipambience.ogg', repeat = TRUE, wait = FALSE, volume = amb_volume, channel = CHANNEL_BUZZ))
-
-	else if(!(our_client.prefs.sound & SOUND_BUZZ))
-		our_client.ambience_playing = FALSE
-
-/area/Exited(atom/movable/departed)
-	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed)
-	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src)
+/area/Exited(atom/movable/departed, area/new_area)
+	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed, new_area)
+	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src, new_area)
 
 /area/proc/gravitychange()
 	for(var/mob/living/carbon/human/user in src)

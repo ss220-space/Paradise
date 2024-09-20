@@ -11,7 +11,6 @@
 
 
 /obj/effect/proc_holder
-	var/panel = "Debug"//What panel the proc holder needs to go on.
 	var/active = FALSE //Used by toggle based abilities.
 	var/ranged_mousepointer
 	var/mob/ranged_ability_user
@@ -100,7 +99,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	name = "Spell"
 	desc = "A wizard spell"
 	/// What panel the proc holder needs to go on.
-	panel = "Spells"
 	density = FALSE
 	opacity = FALSE
 
@@ -704,3 +702,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		if(!step_turf.density)
 			target_mob.Move(step_turf)
 
+/// Called when a spell is added
+/obj/effect/proc_holder/spell/proc/on_spell_gain(mob/user = usr)
+	return

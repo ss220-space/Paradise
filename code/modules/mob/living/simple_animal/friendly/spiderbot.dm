@@ -46,66 +46,72 @@
 		eject_brain()
 	return ..()
 
-/mob/living/simple_animal/spiderbot/attackby(obj/item/O, mob/living/user, params)
-	if(istype(O, /obj/item/mmi))
-		var/obj/item/mmi/B = O
+
+/mob/living/simple_animal/spiderbot/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/mmi))
+		add_fingerprint(user)
+		var/obj/item/mmi/new_mmi = I
 		if(mmi) //There's already a brain in it.
-			to_chat(user, "<span class='warning'>There's already a brain in [src]!</span>")
-			return
-		if(!B.brainmob)
-			to_chat(user, "<span class='warning'>Sticking an empty MMI into the frame would sort of defeat the purpose.</span>")
-			return
-		if(!B.brainmob.key)
-			var/ghost_can_reenter = 0
-			if(B.brainmob.mind)
-				for(var/mob/dead/observer/G in GLOB.player_list)
-					if(G.can_reenter_corpse && G.mind == B.brainmob.mind)
-						ghost_can_reenter = 1
+			to_chat(user, span_warning("There is already [mmi] installed into [src]."))
+			return ATTACK_CHAIN_PROCEED
+
+		if(!new_mmi.brainmob)
+			to_chat(user, span_warning("Sticking an empty MMI would sort of defeat the purpose."))
+			return ATTACK_CHAIN_PROCEED
+
+		if(!new_mmi.brainmob.key)
+			var/ghost_can_reenter = FALSE
+			if(new_mmi.brainmob.mind)
+				for(var/mob/dead/observer/observer in GLOB.player_list)
+					if(observer.can_reenter_corpse && observer.mind == new_mmi.brainmob.mind)
+						ghost_can_reenter = TRUE
+						if(new_mmi.next_possible_ghost_ping < world.time)
+							observer.notify_cloning("Somebody is trying to spiderize you! Re-enter your corpse if you want to be a spider bot!", 'sound/voice/liveagain.ogg', src)
+							new_mmi.next_possible_ghost_ping = world.time + 30 SECONDS // Avoid spam
 						break
-				for(var/mob/living/simple_animal/S in GLOB.player_list)
-					if(S in GLOB.respawnable_list)
-						ghost_can_reenter = 1
-						break
-			if(!ghost_can_reenter)
-				to_chat(user, "<span class='notice'>[B] is completely unresponsive; there's no point.</span>")
-				return
+			if(ghost_can_reenter)
+				to_chat(user, span_warning("The [new_mmi.name] is currently inactive. Try again later."))
+			else
+				to_chat(user, span_warning("The [new_mmi.name] is completely unresponsive; there's no point to use it."))
+			return ATTACK_CHAIN_PROCEED
 
-		if(B.brainmob.stat == DEAD)
-			to_chat(user, "<span class='warning'>[B] is dead. Sticking it into the frame would sort of defeat the purpose.</span>")
-			return
+		if(new_mmi.brainmob.stat == DEAD)
+			to_chat(user, span_warning("Sticking an MMI with dead occupant would sort of defeat the purpose."))
+			return ATTACK_CHAIN_PROCEED
 
-		if(jobban_isbanned(B.brainmob, JOB_TITLE_CYBORG) || jobban_isbanned(B.brainmob, "nonhumandept"))
-			to_chat(user, "<span class='warning'>[B] does not seem to fit.</span>")
-			return
+		if(jobban_isbanned(new_mmi.brainmob, JOB_TITLE_CYBORG) || jobban_isbanned(new_mmi.brainmob, "nonhumandept"))
+			to_chat(user, span_warning("This [new_mmi.name] does not seem to fit."))
+			return ATTACK_CHAIN_PROCEED
 
-		to_chat(user, "<span class='notice'>You install [B] in [src]!</span>")
+		if(!user.drop_transfer_item_to_loc(mmi, src))
+			return ..()
 
-		user.drop_transfer_item_to_loc(B, src)
-		mmi = B
-		transfer_personality(B)
-		return 1
+		to_chat(user, span_notice("You have inserted [new_mmi] into [src]."))
+		mmi = new_mmi
+		transfer_personality(new_mmi)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(O.GetID())
+	var/obj/item/card/id/id_card = I.GetID()
+	if(id_card)
+		add_fingerprint(user)
 		if(!mmi)
-			to_chat(user, "<span class='warning'>There's no reason to swipe your ID - the spiderbot has no brain to remove.</span>")
-			return 0
-
+			to_chat(user, span_warning("There's no reason to swipe your ID - the spiderbot has no brain to remove."))
+			return ATTACK_CHAIN_PROCEED
 		if(emagged)
-			to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
-			return 0
+			to_chat(user, span_warning("[src] doesn't seem to respond."))
+			return ATTACK_CHAIN_PROCEED
+		if(!(ACCESS_ROBOTICS in id_card.access))
+			to_chat(user, span_warning("Access Denied."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You swipe your access card and pop [mmi] out of [src]."))
+		eject_brain()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-		var/obj/item/card/id/id_card = O.GetID()
+	return ..()
 
-		if(ACCESS_ROBOTICS in id_card.access)
-			to_chat(user, "<span class='notice'>You swipe your access card and pop the brain out of [src].</span>")
-			eject_brain()
-			return 1
-		else
-			to_chat(user, "<span class='warning'>You swipe your card, with no effect.</span>")
-			return 0
-
-	else
-		..()
 
 /mob/living/simple_animal/spiderbot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)

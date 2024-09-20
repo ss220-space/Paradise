@@ -189,7 +189,7 @@
 	return ..()
 
 
-/obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
+/obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 
@@ -255,7 +255,7 @@
 	gender = MALE
 	ru_names = list(NOMINATIVE = "молот из плоти", GENITIVE = "молота из плоти", DATIVE = "молоту из плоти", ACCUSATIVE = "молот из плоти", INSTRUMENTAL = "молотом из плоти", PREPOSITIONAL = "молоте из плоти")
 
-/obj/item/melee/arm_blade/fleshy_maul/afterattack(atom/target, mob/living/user, proximity)
+/obj/item/melee/arm_blade/fleshy_maul/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!proximity)
 		return
 
@@ -266,8 +266,9 @@
 
 	else if(iswallturf(target))
 		var/turf/simulated/wall/wall = target
-		wall.take_damage(30)
 		user.do_attack_animation(wall)
+		user.changeNext_move(attack_speed)
+		wall.take_damage(30)
 		playsound(src, 'sound/weapons/smash.ogg', 50, TRUE)
 
 	else if(isliving(target))

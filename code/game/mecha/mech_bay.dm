@@ -67,10 +67,14 @@
 		MC += C.rating
 	max_charge = MC * 50
 
+
 /obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/machinery/mech_bay_recharge_port/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "recharge_port-o", "recharge_port", I))
@@ -165,10 +169,10 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/computer/mech_bay_power_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/mech_bay_power_console/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "MechBayConsole", name, 400, 150, master_ui, state)
+		ui = new(user, src, "MechBayConsole", name)
 		ui.open()
 
 /obj/machinery/computer/mech_bay_power_console/ui_act(action, params)

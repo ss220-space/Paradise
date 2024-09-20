@@ -128,59 +128,76 @@ GLOBAL_VAR(bomb_set)
 			INVOKE_ASYNC(src, PROC_REF(explode))
 	return
 
-/obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/disk/nuclear))
-		if(extended)
-			if(!user.drop_transfer_item_to_loc(O, src))
-				to_chat(user, "<span class='notice'>[O] is stuck to your hand!</span>")
-				return
-			auth = O
-			return attack_hand(user)
-		else
-			to_chat(user, "<span class='notice'>You need to deploy [src] first.</span>")
-		return
-	if(istype(O, /obj/item/stack/sheet/mineral/titanium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
-		var/obj/item/stack/S = O
-		if(S.get_amount() < sheets_to_fix)
-			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of titanium to repair [src]'s inner core plate!</span>")
-			return
-		if(do_after(user, 2 SECONDS, src))
-			if(!loc || !S || S.get_amount() < sheets_to_fix)
-				return
-			S.use(sheets_to_fix)
-			user.visible_message("<span class='notice'>[user] repairs [src]'s inner core plate.</span>", \
-								"<span class='notice'>You repair [src]'s inner core plate. The radiation is contained.</span>")
-			removal_stage = NUKE_CORE_PANEL_UNWELDED
-			if(core)
-				STOP_PROCESSING(SSobj, core)
-				ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
-			return
-	if(istype(O, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
-		var/obj/item/stack/S = O
-		if(S.get_amount() < sheets_to_fix)
-			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of metal to repair [src]'s outer core plate!</span>")
-			return
-		if(do_after(user, 2 SECONDS, src))
-			if(!loc || !S || S.get_amount() < sheets_to_fix)
-				return
-			S.use(sheets_to_fix)
-			user.visible_message("<span class='notice'>[user] repairs [src]'s outer core plate.</span>", \
-								"<span class='notice'>You repair [src]'s outer core plate.</span>")
-			removal_stage = NUKE_CORE_EVERYTHING_FINE
-			return
-	if(istype(O, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
-		if(do_after(user, 2 SECONDS, src))
-			if(!user.drop_item_ground(O))
-				to_chat(user, "<span class='notice'>The [O] is stuck to your hand!</span>")
-				return
-			user.visible_message("<span class='notice'>[user] puts [O] back in [src].</span>", "<span class='notice'>You put [O] back in [src].</span>")
-			O.forceMove(src)
-			core = O
 
-	else if(istype(O, /obj/item/disk/plantgene))
-		to_chat(user, "<span class='warning'>You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!</span>")
-		return
+/obj/machinery/nuclearbomb/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/disk/nuclear))
+		add_fingerprint(user)
+		if(extended)
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
+			auth = I
+			attack_hand(user)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		to_chat(user, span_notice("You need to deploy [src] first."))
+		return ATTACK_CHAIN_PROCEED
+
+	if(istype(I, /obj/item/stack/sheet/mineral/titanium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
+		add_fingerprint(user)
+		var/obj/item/stack/stack = I
+		if(stack.get_amount() < sheets_to_fix)
+			to_chat(user, span_warning("You need at least [sheets_to_fix] sheets of titanium to repair [src]'s inner core plate!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || removal_stage != NUKE_CORE_FULLY_EXPOSED || QDELETED(stack) || !stack.use(sheets_to_fix))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] repairs [src]'s inner core plate."),
+			span_notice("You repair [src]'s inner core plate. The radiation is contained."),
+		)
+		removal_stage = NUKE_CORE_PANEL_UNWELDED
+		if(core)
+			STOP_PROCESSING(SSobj, core)
+			ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
+		add_fingerprint(user)
+		var/obj/item/stack/stack = I
+		if(stack.get_amount() < sheets_to_fix)
+			to_chat(user, span_warning("You need at least [sheets_to_fix] sheets  of metal to repair [src]'s outer core plate!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || removal_stage != NUKE_CORE_PANEL_EXPOSED || QDELETED(stack) || !stack.use(sheets_to_fix))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] repairs [src]'s outer core plate."),
+			span_notice("You repair [src]'s outer core plate."),
+		)
+		removal_stage = NUKE_CORE_EVERYTHING_FINE
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
+		add_fingerprint(user)
+		if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || removal_stage != NUKE_CORE_FULLY_EXPOSED)
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] puts [I] back in [src]."),
+			span_notice("You put [I] back in [src]."),
+		)
+		core = I
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/disk/plantgene))
+		add_fingerprint(user)
+		to_chat(user, span_warning("You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!"))
+		return ATTACK_CHAIN_PROCEED
+
 	return ..()
+
 
 /obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -312,10 +329,10 @@ GLOBAL_VAR(bomb_set)
 		"<span class='notice'>You cut apart the anchoring system's sealant.</span></span>")
 		removal_stage = NUKE_SEALANT_OPEN
 
-/obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
+/obj/machinery/nuclearbomb/attack_ghost(mob/user)
 	attack_hand(user)
 
-/obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
+/obj/machinery/nuclearbomb/attack_hand(mob/user)
 	if(..())
 		return TRUE
 	add_fingerprint(user)
@@ -332,10 +349,13 @@ GLOBAL_VAR(bomb_set)
 		core.forceMove(loc)
 		core = null
 
-/obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/nuclearbomb/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/machinery/nuclearbomb/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "NuclearBomb", name, 450, 300, master_ui, state)
+		ui = new(user, src, "NuclearBomb", name)
 		ui.open()
 
 /obj/machinery/nuclearbomb/ui_data(mob/user)
@@ -361,7 +381,7 @@ GLOBAL_VAR(bomb_set)
 		data["codemsg"] = "-----"
 	return data
 
-/obj/machinery/nuclearbomb/proc/is_auth(var/mob/user)
+/obj/machinery/nuclearbomb/proc/is_auth(mob/user)
 	if(auth)
 		return TRUE
 	else if(user.can_admin_interact())
@@ -374,6 +394,9 @@ GLOBAL_VAR(bomb_set)
 		return
 	. = TRUE
 	if(exploded)
+		return
+	if(SSticker?.mode?.blob_stage == BLOB_STAGE_STORM)
+		to_chat(usr, span_notice("Плотное облако спор не дает вам разглядеть кнопки на боеглоловке и что-либо с ней сделать."))
 		return
 	switch(action)
 		if("deploy")
@@ -410,14 +433,15 @@ GLOBAL_VAR(bomb_set)
 				yes_code = FALSE
 				return
 			// If no code set, enter new one
-			var/tempcode = input(usr, "Code", "Input Code", null) as num|null
-			if(tempcode)
-				code = min(max(round(tempcode), 0), 999999)
-				if(code == r_code)
-					yes_code = TRUE
-					code = null
-				else
-					code = "ERROR"
+			var/tempcode = tgui_input_number(usr, "Code", "Input Code", max_value = 999999)
+			if(isnull(tempcode))
+				return
+			code = tempcode
+			if(code == r_code)
+				yes_code = TRUE
+				code = null
+			else
+				code = "ERROR"
 			return
 
 	if(!yes_code) // All requests below here require both NAD inserted AND code correct
@@ -439,9 +463,10 @@ GLOBAL_VAR(bomb_set)
 					visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
 			return
 		if("set_time")
-			var/time = input(usr, "Detonation time (seconds, min 120, max 600)", "Input Time", 120) as num|null
-			if(time)
-				timeleft = min(max(round(time), 120), 600)
+			var/time = tgui_input_number(usr, "Detonation time (seconds, min 120, max 600)", "Input Time", 120, 600, 120)
+			if(isnull(time))
+				return
+			timeleft = time
 		if("toggle_safety")
 			safety = !(safety)
 			if(safety)
@@ -456,6 +481,9 @@ GLOBAL_VAR(bomb_set)
 				return
 			if(!core)
 				to_chat(usr, "<span class='danger'>[src]'s screen blinks red! There is no plutonium core in [src]!</span>")
+				return
+			if(isblobinfected(usr.mind))
+				to_chat(usr, span_notice("Что-то внутри вас не дает вам это сделать."))
 				return
 			timing = !(timing)
 			update_icon()

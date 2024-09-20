@@ -97,8 +97,8 @@ GLOBAL_LIST_INIT(tendrils, list())
 	return ..()
 
 /obj/effect/light_emitter/tendril
-	set_luminosity = 4
-	set_cap = 2.5
+	light_range = 4
+	light_power = 2.5
 	light_color = LIGHT_COLOR_LAVA
 
 /obj/effect/collapse
@@ -114,7 +114,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 /obj/effect/collapse/Initialize(mapload)
 	. = ..()
 	emitted_light = new(loc)
-	visible_message("<span class='boldannounce'>The tendril writhes in fury as the earth around it begins to crack and break apart! Get back!</span>")
+	visible_message(span_boldannounceic("The tendril writhes in fury as the earth around it begins to crack and break apart! Get back!"))
 	visible_message("<span class='warning'>Something falls free of the tendril!</span>")
 	playsound(loc, 'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(collapse)), 50)
@@ -127,7 +127,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 	for(var/mob/M in range(7, src))
 		shake_camera(M, 15, 1)
 	playsound(get_turf(src),'sound/effects/explosionfar.ogg', 200, TRUE)
-	visible_message("<span class='boldannounce'>The tendril falls inward, the ground around it widening into a yawning chasm!</span>")
+	visible_message(span_boldannounceic("The tendril falls inward, the ground around it widening into a yawning chasm!"))
 	for(var/turf/T in range(2,src))
 		if(!T.density)
 			T.TerraformTurf(/turf/simulated/floor/chasm/straight_down/lava_land_surface)

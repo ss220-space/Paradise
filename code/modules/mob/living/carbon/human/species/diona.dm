@@ -21,7 +21,17 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	species_traits = list(IS_PLANT, NO_GERMS, NO_DECAY, NO_DNA)
+	inherent_traits = list(
+		TRAIT_NO_BLOOD_RESTORE,
+		TRAIT_NO_DNA,
+		TRAIT_PLANT_ORIGIN,
+		TRAIT_NO_GERMS,
+		TRAIT_NO_DECAY,
+		TRAIT_NO_ROBOPARTS,
+		TRAIT_NO_BIOCHIPS,
+		TRAIT_NO_CYBERIMPLANTS,
+		TRAIT_SPECIES_LIMBS,
+	)
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
 	has_gender = FALSE
@@ -76,22 +86,34 @@
 	return 0
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	H.gender = NEUTER
-	H.verbs |= /mob/living/carbon/human/proc/emote_creak
+	add_verb(H, /mob/living/carbon/human/proc/emote_creak)
 
-/datum/species/diona/on_species_loss(mob/living/carbon/human/H)
-	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_creak
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
+	remove_verb(H, /mob/living/carbon/human/proc/emote_creak)
 	H.clear_alert("nolight")
 
+
 /datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "glyphosate" || R.id == "atrazine")
-		H.adjustToxLoss(3) //Deal aditional damage
-		return TRUE
+
+	switch(R.id)
+
+		if("glyphosate", "atrazine")
+			H.adjustToxLoss(3) //Deal additional damage
+			return TRUE
+		if("iron")
+			H.reagents.remove_reagent(R.id, R.metabolization_rate * H.metabolism_efficiency * H.digestion_ratio)
+			return FALSE
+		if("salglu_solution")
+			if(prob(33))
+				H.adjustBruteLoss(-1)
+				H.adjustFireLoss(-1)
+			H.reagents.remove_reagent(R.id, R.metabolization_rate * H.metabolism_efficiency * H.digestion_ratio)
+			return FALSE
+
 	return ..()
 
 /datum/species/diona/handle_life(mob/living/carbon/human/H)
@@ -113,10 +135,15 @@
 		if(light_amount > 0.2 && !H.suiciding) //if there's enough light, heal
 			if(!pod && H.health <= 0)
 				return
-			H.adjustBruteLoss(-1)
-			H.adjustFireLoss(-1)
-			H.adjustToxLoss(-1)
-			H.adjustOxyLoss(-1)
+			var/update = NONE
+			update |= H.heal_overall_damage(1, 1, updating_health = FALSE)
+			update |= H.heal_damages(tox = 1, oxy = 1, updating_health = FALSE)
+			if(update)
+				H.updatehealth()
+			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+				H.blood_volume += 0.4
+		else if(light_amount < 0.2)
+			H.blood_volume -= 0.1
 
 	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.adjustBruteLoss(2)

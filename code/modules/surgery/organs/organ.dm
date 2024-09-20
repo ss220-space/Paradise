@@ -50,13 +50,13 @@
 	var/hidden_pain = FALSE
 
 
-/obj/item/organ/New(mob/living/carbon/holder)
+/obj/item/organ/New(mob/living/carbon/human/holder)
 	..(holder)
 
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
 
-	if(iscarbon(holder))
+	if(ishuman(holder))
 		update_DNA(holder.dna)
 		return
 
@@ -115,7 +115,7 @@
 
 
 /obj/item/organ/proc/update_blood()
-	if(!dna || (NO_BLOOD in dna.species.species_traits))
+	if(!dna || (TRAIT_NO_BLOOD in dna.species.inherent_traits))
 		return
 	LAZYSET(blood_DNA, dna.unique_enzymes, dna.blood_type)
 
@@ -149,12 +149,19 @@
 
 
 /obj/item/organ/attackby(obj/item/I, mob/user, params)
-	if(is_robotic() && istype(I, /obj/item/stack/nanopaste))
-		var/obj/item/stack/nanopaste/nano = I
-		nano.use(1)
+	if(istype(I, /obj/item/stack/nanopaste))
+		add_fingerprint(user)
+		var/obj/item/stack/nanopaste/nanopaste = I
+		if(!is_robotic())
+			to_chat(user, span_warning("The [nanopaste.name] can only be used on robotic bodyparts."))
+			return ATTACK_CHAIN_PROCEED
+		if(!nanopaste.use(1))
+			to_chat(user, span_warning("You need at least one unit of [nanopaste] to proceed."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have repaired the damage on [src]."))
 		rejuvenate()
-		to_chat(user, span_notice("You repair the damage on [src]."))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 
@@ -168,7 +175,7 @@
 		return
 
 	//Process infections
-	if(is_robotic() || sterile || (owner && (NO_GERMS in owner.dna.species.species_traits)))
+	if(is_robotic() || sterile || (owner && HAS_TRAIT(owner, TRAIT_NO_GERMS)))
 		germ_level = 0
 		return
 
@@ -239,10 +246,15 @@
 	if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE / 2 && prob(30))
 		germ_level--
 
+	if(!ishuman(owner))
+		return
+
+	var/germs_amount = 1 * (owner.dna.species.germs_growth_mod * owner.physiology.germs_growth_mod)
+
 	if(germ_level >= INFECTION_LEVEL_ONE / 2)
 		//aiming for germ level to go from ambient to INFECTION_LEVEL_TWO in an average of 15 minutes
 		if(prob(round(germ_level / 6)))
-			germ_level += owner?.dna.species.germs_growth_rate
+			germ_level += germs_amount
 
 	if(germ_level >= INFECTION_LEVEL_ONE)
 		var/fever_temperature = (owner.dna.species.heat_level_1 - owner.dna.species.body_temperature - 5) * min(germ_level / INFECTION_LEVEL_TWO, 1) + owner.dna.species.body_temperature
@@ -252,7 +264,7 @@
 		var/obj/item/organ/external/parent = owner.get_organ(parent_organ_zone)
 		//spread germs
 		if(parent.germ_level < germ_level && ( parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30)))
-			parent.germ_level += owner?.dna.species.germs_growth_rate
+			parent.germ_level += germs_amount
 
 
 /obj/item/organ/proc/rejuvenate()
@@ -294,11 +306,26 @@
 	weapon_data.time_inflicted = world.time
 
 
-//Note: external organs have their own version of this proc
-/obj/item/organ/proc/receive_damage(amount, silent = FALSE)
+/**
+ * Adjusts internal organ damage value.
+ *
+ * Arguments:
+ * * amount - Amount of damage.
+ * * silent - Stops custom pain messaged for organ owner.
+ *
+ * Returns `TRUE` on success
+ */
+/obj/item/organ/proc/internal_receive_damage(amount = 0, silent = FALSE)
+	. = FALSE
+	if(isexternalorgan(src))
+		CRASH("internal_receive_damage() is called for external organ. Use external_receive_damage()")
+
 	if(tough)
-		return
-	damage = between(0, damage + amount, max_damage)
+		return .
+
+	. = TRUE
+
+	damage = clamp(round(damage + amount, DAMAGE_PRECISION), 0, max_damage)
 
 	//only show this if the organ is not robotic
 	if(owner && parent_organ_zone && amount > 0)
@@ -306,9 +333,9 @@
 		if(parent && !silent)
 			owner.custom_pain("Something inside your [parent.name] hurts a lot.")
 
-		//check if we've hit max_damage
+	//check if we've hit max_damage
 	if(damage >= max_damage)
-		necrotize()
+		necrotize(silent)
 
 
 /obj/item/organ/proc/heal_internal_damage(amount, robo_repair = FALSE)
@@ -331,6 +358,7 @@
 		return
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, owner)
 	owner.internal_organs -= src
 
 	var/obj/item/organ/external/affected = owner.get_organ(parent_organ_zone)

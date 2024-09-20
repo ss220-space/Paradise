@@ -66,8 +66,11 @@
 	attempting = TRUE //One at a time!!
 	icon_state = "ninja_cloning_on"
 	ninja_ghost.forceMove(src.loc)
-	ninja = ninja_ghost.incarnate_ghost()
+	ninja = ninja_ghost.incarnate_ghost(TRUE)
+	ninja.real_name = ninja.mind.name
+	ninja.name = ninja.mind.name
 	var/datum/antagonist/ninja/ninja_datum = ninja.mind.has_antag_datum(/datum/antagonist/ninja)
+	ninja_datum.change_species(ninja)
 	ninja_datum.equip_ninja()
 	ninja.forceMove(src)
 	ninja.Sleeping(15 SECONDS)
@@ -114,14 +117,14 @@
 /obj/machinery/ninja_clonepod/proc/force_ninja_out()
 	icon_state = initial(icon_state)
 	ninja.forceMove(get_turf(src))
-	ninja.flash_eyes(visual = 1)
+	ninja.flash_eyes(visual = TRUE)
 	add_game_logs("Ninja-cloned at [COORD(src)]", ninja)
-	to_chat(ninja, "[span_notice("Вы чувствуете себя как совершенно новое существо... Так вот какого быть клоном... Но все эти мысли не имеют значения. Миссия и клан... Гораздо важнее!")]")
+	to_chat(ninja, span_notice("Вы чувствуете себя как совершенно новое существо... Так вот какого быть клоном... Но все эти мысли не имеют значения. Миссия и клан... Гораздо важнее!"))
 	attempting = FALSE
 	ninja = null
 
 // Вызываемое костюмом добавление ниндзя в БД клонёрки для будущего оживления
-/obj/machinery/ninja_clonepod/proc/scan_mob(mob/living/carbon/human/subject as mob)
+/obj/machinery/ninja_clonepod/proc/scan_mob(mob/living/carbon/human/subject)
 	// Нет ДНК, либо самого сканируемого, либо он не хуман.
 	if(isnull(subject) || (!(ishuman(subject))) || (!subject.dna))
 		return
@@ -151,7 +154,7 @@
 	var/obj/item/organ/ninja_brain = subject.get_int_organ(/obj/item/organ/internal/brain)
 	ninja_brain.dna.check_integrity()
 	ninja_dna_record.dna = ninja_brain.dna.Clone()
-	if(NO_SCAN in ninja_dna_record.dna.species.species_traits)
+	if(HAS_TRAIT(ninja_brain, TRAIT_NO_SCAN))
 		ninja_dna_record.dna.species = new subject.dna.species.type
 	ninja_dna_record.id = copytext(md5(ninja_brain.dna.real_name), 2, 6)
 	ninja_dna_record.name = ninja_brain.dna.real_name

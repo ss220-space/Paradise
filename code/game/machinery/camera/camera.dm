@@ -122,69 +122,76 @@
 		toggle_cam(null, 0)
 	..()
 
+
 /obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
-	var/msg = span_notice("You attach [I] into the assembly inner circuits.")
-	var/msg2 = span_notice("The camera already has that upgrade!")
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 	if(panel_open && is_type_in_list(I, assembly.possible_upgrades))
 		if(is_type_in_list(I, assembly.upgrades))
-			to_chat(user, "[msg2]")
-			return
+			to_chat(user, span_notice("The camera already has that upgrade!"))
+			return ATTACK_CHAIN_PROCEED
 		if(isstack(I))
-			if(!user.can_unEquip(I) || !I.use(1))
-				to_chat(user, span_warning("[I] is stuck to your hand!"))
-				return
-			I = new /obj/item/stack/sheet/mineral/plasma(assembly, 1)
-		else if(!user.drop_transfer_item_to_loc(I, assembly, silent = TRUE))
-			to_chat(user, span_warning("[I] is stuck to your hand!"))
-			return
-		assembly.upgrades.Add(I)
+			if(!I.use(1))
+				to_chat(user, span_warning("You need more of [I]."))
+				return ATTACK_CHAIN_PROCEED
+			var/obj/item/stack/new_stack = new(src, 1)
+			assembly.upgrades += new_stack
+			new_stack.camera_upgrade(src)
+			to_chat(user, span_notice("You attach [new_stack] into the assembly inner circuits."))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You attach [I] into the assembly inner circuits."))
+		assembly.upgrades += I
 		I.camera_upgrade(src)
-		to_chat(user, "[msg]")
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	// OTHER
-	else if((istype(I, /obj/item/paper) || is_pda(I)) && isliving(user))
-		if (!can_use())
+	var/is_paper = istype(I, /obj/item/paper)
+	if(is_paper || is_pda(I))
+		if(!can_use())
 			to_chat(user, span_warning("You can't show something to a disabled camera!"))
-			return
-
-		var/mob/living/U = user
-		var/obj/item/paper/X = null
-		var/obj/item/pda/PDA = null
+			return ATTACK_CHAIN_PROCEED
 
 		var/itemname = ""
 		var/info = ""
-		if(istype(I, /obj/item/paper))
-			X = I
-			itemname = X.name
-			info = X.info
+		if(is_paper)
+			var/obj/item/paper/paper = I
+			itemname = paper.name
+			info = paper.info
 		else
-			PDA = I
-			var/datum/data/pda/app/notekeeper/N = PDA.find_program(/datum/data/pda/app/notekeeper)
-			if(N)
-				itemname = PDA.name
-				info = N.note
-		to_chat(U, "You hold \the [itemname] up to the camera ...")
-		U.changeNext_move(CLICK_CD_MELEE)
+			var/obj/item/pda/PDA = I
+			itemname = PDA.name
+			var/datum/data/pda/app/notekeeper/notekeeper = PDA.find_program(/datum/data/pda/app/notekeeper)
+			if(notekeeper)
+				info = notekeeper.note
+
+		to_chat(user, "You hold the [itemname] up to the camera ...")
+
 		for(var/mob/living/silicon/ai/AI as anything in GLOB.ai_list)
 			if(AI.control_disabled || (AI.stat == DEAD))
-				return
-			if(U.name == "Unknown")
-				to_chat(AI, "<b>[U]</b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
+				continue
+			if(user.name == "Unknown")
+				to_chat(AI, "<b>[user]</b> holds <a href='byond://?_src_=usr;show_paper=1;'>the [itemname]</a> up to one of your cameras ...")
 			else
-				to_chat(AI, "<b><a href='?src=[AI.UID()];track=[html_encode(U.name)]'>[U]</a></b> holds <a href='?_src_=usr;show_paper=1;'>\a [itemname]</a> up to one of your cameras ...")
+				to_chat(AI, "<b><a href='byond://?src=[AI.UID()];track=[html_encode(user.name)]'>[user]</a></b> holds <a href='byond://?_src_=usr;show_paper=1;'>the [itemname]</a> up to one of your cameras ...")
 			AI.last_paper_seen = {"<HTML><meta charset="UTF-8"><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"}
+
 		for(var/obj/machinery/computer/security/console as anything in computers_watched_by)
 			for(var/uid_watcher as anything in console.watchers)
 				var/watcher = locateUID(uid_watcher)
-				to_chat(watcher, "[U] holds \a [itemname] up to one of the cameras ...")
+				to_chat(watcher, "[user] holds the [itemname] up to one of the cameras ...")
 				watcher << browse(text({"<HTML><meta charset="UTF-8"><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>"}, itemname, info), text("window=[]", itemname))
 
-	else if(istype(I, /obj/item/laser_pointer))
-		var/obj/item/laser_pointer/L = I
-		L.laser_act(src, user)
-	else
-		return ..()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/laser_pointer))
+		var/obj/item/laser_pointer/laser = I
+		laser.laser_act(src, user, params)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
 /obj/machinery/camera/screwdriver_act(mob/user, obj/item/I)

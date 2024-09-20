@@ -288,19 +288,31 @@
 	light_color = LIGHT_COLOR_RED
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/myowner = null
 
-/obj/structure/legionnaire_bonfire/Crossed(datum/source, atom/movable/mover)
-	if(isobj(source))
-		var/obj/object = source
+
+/obj/structure/legionnaire_bonfire/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/structure/legionnaire_bonfire/Destroy()
+	myowner?.mypile = null
+	return ..()
+
+
+/obj/structure/legionnaire_bonfire/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(isobj(arrived))
+		var/obj/object = arrived
 		object.fire_act(1000, 500)
-	if(isliving(source))
-		var/mob/living/fire_walker = source
+	else if(isliving(arrived))
+		var/mob/living/fire_walker = arrived
 		fire_walker.adjust_fire_stacks(5)
 		fire_walker.IgniteMob()
 
-/obj/structure/legionnaire_bonfire/Destroy()
-	if(myowner != null)
-		myowner.mypile = null
-	. = ..()
 
 /obj/item/projectile/legionnaire
 	name = "bone"

@@ -33,6 +33,7 @@
 	stat_attack = UNCONSCIOUS // Sleeping won't save you
 	a_intent = INTENT_HARM // Angrilla
 	tts_seed = "Mannoroth"
+	AI_delay_max = 0.5 SECONDS
 	/// Is the gorilla stood up or not?
 	var/is_bipedal = FALSE
 	/// The max number of crates we can carry

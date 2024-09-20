@@ -269,13 +269,13 @@
 
 /datum/spellbook_entry/sacred_flame/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
 	to_chat(user, "<span class='notice'>Вы чувствуете себя огнеупорным.</span>")
-	ADD_TRAIT(user, RESISTHOT, MAGIC_TRAIT)
+	ADD_TRAIT(user, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	//ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	return ..()
 
 /datum/spellbook_entry/sacred_flame/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)
 	to_chat(user, "<span class='warning'>Вы больше не чувствуете себя огнеупорным.</span>")
-	REMOVE_TRAIT(user, RESISTHOT, MAGIC_TRAIT)
+	REMOVE_TRAIT(user, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	//REMOVE_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	return ..()
 
@@ -466,12 +466,13 @@
 
 /datum/spellbook_entry/item/scryingorb/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(..())
-		if(!(XRAY in user.mutations))
-			user.mutations.Add(XRAY)
-			user.add_sight(SEE_MOBS|SEE_OBJS|SEE_TURFS)
+		if(!HAS_TRAIT_FROM(user, TRAIT_XRAY, SCRYING_ORB_TRAIT))
+			ADD_TRAIT(user, TRAIT_XRAY, SCRYING_ORB_TRAIT)
 			user.see_in_dark = 8
 			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-			to_chat(user, "<span class='notice'>Стены неожиданно исчезли.</span>")
+			user.update_sight()
+			user.update_misc_effects()
+			to_chat(user, span_notice("Стены неожиданно исчезли."))
 	return TRUE
 
 /datum/spellbook_entry/item/soulstones
@@ -775,14 +776,14 @@
 
 /datum/spellbook_entry/loadout/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(destroy_spellbook)
-		var/response = alert(user, "Набор [src] нельзя будет вернуть после покупки. Вы уверены?", "Никаких возвратов!", "Нет", "Да")
-		if(response == "No")
+		var/response = tgui_alert(user, "Набор [src] нельзя будет вернуть после покупки. Вы уверены?", "Никаких возвратов!", list("Нет", "Да"))
+		if(response != "Yes")
 			return FALSE
 		to_chat(user, "<span class='notice'>[book] рассыпается в прах после того, как вы постигаете её мудрость.</span>")
 		qdel(book)
 	else if(items_path.len)
-		var/response = alert(user, "Набор [src] содержит предметы, которые нельзя вернуть после покупки. Вы уверены?", "Никаких возвратов!", "Нет", "Да")
-		if(response == "No")
+		var/response = tgui_alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
+		if(response != "Yes")
 			return FALSE
 	if(items_path.len)
 		var/obj/item/storage/box/wizard/B = new(src)
@@ -802,6 +803,8 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
+	/// If TRUE spellbook will not accept any refunds (demon's vial, morph's bottle etc.)
+	var/skip_refunds = FALSE
 	var/uses = 10
 	var/temp = null
 	var/op = 1
@@ -832,59 +835,70 @@
 	..()
 	initialize()
 
-/obj/item/spellbook/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/contract/apprentice))
-		var/obj/item/contract/apprentice/contract = O
+
+/obj/item/spellbook/attackby(obj/item/I, mob/living/user, params)
+	if(user.a_intent == INTENT_HARM || skip_refunds)
+		return ..()
+
+	if(istype(I, /obj/item/contract/apprentice))
+		add_fingerprint(user)
+		var/obj/item/contract/apprentice/contract = I
 		if(contract.used)
-			to_chat(user, "<span class='warning'>Вы не можете оформить возврат после использования контракта!</span>")
-		else
-			to_chat(user, "<span class='notice'>Вы успешно вернули контракт в книгу заклинаний. Очки возвращены.</span>")
-			uses+=2
-			qdel(O)
-		return
+			to_chat(user, span_warning("Вы не можете оформить возврат после использования контракта!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("Вы успешно вернули контракт в книгу заклинаний. Очки возвращены."))
+		uses += 2
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(O, /obj/item/guardiancreator))
-		var/obj/item/guardiancreator/guardian = O
+	if(istype(I, /obj/item/guardiancreator))
+		add_fingerprint(user)
+		var/obj/item/guardiancreator/guardian = I
 		if(guardian.used)
-			to_chat(user, "<span class='warning'>Вы не можете оформить возврат после использования колоды!</span>")
-		else
-			to_chat(user, "<span class='notice'>Вы успешно вернули колоду в книгу заклинаний. Очки возвращены.</span>")
-			uses+=2
-			for(var/datum/spellbook_entry/item/tarotdeck/deck in entries)
-				if(!isnull(deck.limit))
-					deck.limit++
-			qdel(O)
-		return
+			to_chat(user, span_warning("Вы не можете оформить возврат после использования колоды!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("Вы успешно вернули колоду в книгу заклинаний. Очки возвращены.<"))
+		uses += 2
+		for(var/datum/spellbook_entry/item/tarotdeck/deck in entries)
+			if(!isnull(deck.limit))
+				deck.limit++
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(O, /obj/item/antag_spawner/slaughter_demon))
-		to_chat(user, "<span class='notice'>Если так подумать, то, возможно, вызывать демона - плохая идея. Очки возвращены.</span>")
-		if(istype(O, /obj/item/antag_spawner/slaughter_demon/laughter))
-			uses += 1
-			for(var/datum/spellbook_entry/item/hugbottle/HB in entries)
-				if(!isnull(HB.limit))
-					HB.limit++
-		else if(istype(O, /obj/item/antag_spawner/slaughter_demon/shadow))
-			uses += 1
-			for(var/datum/spellbook_entry/item/shadowbottle/SB in entries)
-				if(!isnull(SB.limit))
-					SB.limit++
-		else
-			uses += 2
-			for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
-				if(!isnull(BB.limit))
-					BB.limit++
-		qdel(O)
-		return
+	if(istype(I, /obj/item/antag_spawner/slaughter_demon))
+		add_fingerprint(user)
+		to_chat(user, span_notice("Если так подумать, то вызывать демона - плохая идея. Очки возвращены."))
+		switch(I.type)
+			if(/obj/item/antag_spawner/slaughter_demon/laughter)
+				uses += 1
+				for(var/datum/spellbook_entry/item/hugbottle/bottle in entries)
+					if(!isnull(bottle.limit))
+						bottle.limit++
+			if(/obj/item/antag_spawner/slaughter_demon/shadow)
+				uses += 1
+				for(var/datum/spellbook_entry/item/shadowbottle/bottle in entries)
+					if(!isnull(bottle.limit))
+						bottle.limit++
+			else
+				uses += 2
+				for(var/datum/spellbook_entry/item/bloodbottle/bottle in entries)
+					if(!isnull(bottle.limit))
+						bottle.limit++
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(O, /obj/item/antag_spawner/morph))
-		to_chat(user, "<span class='notice'>Если так подумать, то, возможно, вызывать морфа - плохая идея. Очки возвращены.</span>")
+	if(istype(I, /obj/item/antag_spawner/morph))
+		add_fingerprint(user)
+		to_chat(user, span_notice("Если так подумать, то вызывать морфа - плохая идея. Очки возвращены."))
 		uses += 1
-		for(var/datum/spellbook_entry/item/oozebottle/OB in entries)
-			if(!isnull(OB.limit))
-				OB.limit++
-		qdel(O)
-		return
+		for(var/datum/spellbook_entry/item/oozebottle/bottle in entries)
+			if(!isnull(bottle.limit))
+				bottle.limit++
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/item/spellbook/proc/GetCategoryHeader(category)
 	var/dat = ""
@@ -1062,6 +1076,7 @@
 	var/spell = /obj/effect/proc_holder/spell/projectile/magic_missile //just a placeholder to avoid runtimes if someone spawned the generic
 	var/spellname = "sandbox"
 	var/used = 0
+	skip_refunds = TRUE
 	name = "spellbook of "
 	uses = 1
 	desc = "Эта книга заклинаний никогда не предназначалась для глаз человека..."
@@ -1098,8 +1113,6 @@
 	used = 1
 	user.visible_message("<span class='caution'>[src] на мгновение сверкнул чёрным светом!</span>")
 
-/obj/item/spellbook/oneuse/attackby()
-	return
 
 /obj/item/spellbook/oneuse/fireball
 	spell = /obj/effect/proc_holder/spell/fireball

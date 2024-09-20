@@ -1,4 +1,8 @@
 '2024-07-01':
+  Dimach:
+  - del: '"bugfix: Fixed death nettle and attack checks" (#5322)'
+  Shakalchik:
+  - bugfix: Blueshield gun duplicates (#5282)
   Zwei:
   - bugfix: Demons Fixes (#5316)
   - server: bugfix; Spacevine Spread Fix (#5301)
@@ -7,3 +11,497 @@
   - bugfix: Regrowth Limbs Fix (#5287)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#5318)
+'2024-07-03':
+  Daeberdir:
+  - add: Towels. (#5313)
+  Den109G:
+  - tweak: Makes lattice two-way path block (#5317)
+  Rafnik02:
+  - add: You can now shove other people (#5285)
+  Vladisvell:
+  - add: Removed most of Object verbs for optimization (#5325)
+  Zwei:
+  - add: SSD And Unconscious Indicators (#5182)
+'2024-07-04':
+  FanTik-Ratge:
+  - refactor: Removed redundant wall pieces directions (#5303)
+  SAAD:
+  - tweak: Celestation is available now. (#5315)
+'2024-07-05':
+  SAAD:
+  - bugfix: Celestia - unincluded (#5346)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5343)
+'2024-07-06':
+  BeebBeebBoob:
+  - tweak: Hotel Gate Big Fix (#5266)
+  Vladisvell:
+  - bugfix: Fixed incorrect positioning of clicks in space (#5350)
+  - bugfix: Syndie teleport no longer gibs you in openspace (#5356)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5347)
+'2024-07-07':
+  Antoonij:
+  - bugfix: virus moment (#5351)
+  SHODAN:
+  - add: Full tile windows and new sprite  (#5365)
+  Vladisvell:
+  - bugfix: Fixed failed merge issue (#5366)
+  Zwei:
+  - refactor: CanExit Removal (#5311)
+  - refactor: Crossed/Uncrossed Removal (#5323)
+  - bugfix: Slowed Status Effect Correct Update (#5342)
+'2024-07-08':
+  Antoonij:
+  - bugfix: tips grammatic (#5369)
+  - bugfix: drask blood  (#5370)
+  - bugfix: hulk joke spell (#5380)
+  Dimach:
+  - server: port tgui4 from paradise (#4981)
+  - refactor: remove karmashop, refactor species whitelist (#5383)
+  ROdenFL:
+  - bugfix: 'cursed interfaces: floorpainter, MedicalRecords, SecurityRecords (#5384)'
+  - bugfix: fax and tooltip (#5390)
+  - bugfix: radio, airalarm, refresh tgui (#5387)
+  Rafnik02:
+  - tweak: lower slowed in shove. (#5334)
+  SAAD:
+  - tweak: Celestation improvements part1 (#5364)
+  SHODAN:
+  - bugfix: polarized full tile windows are working now (#5368)
+  - tweak: lifted layer shutter (#5382)
+  Vladisvell:
+  - bugfix: Made buttons above fulltile windows (#5381)
+  - refactor: 'Bitmask smoothing: initial implementation (#5341)'
+  Zwei:
+  - bugfix: Stop Ore Spawning In Qdeleted Turf (#5375)
+  - bugfix: Garrote Correct Messages (#5374)
+  - bugfix: AntiDrop Implant Fix (#5376)
+  - bugfix: Poll Overlays Fix (#5379)
+  - bugfix: Dead Mobs Squeek Fix (#5377)
+  - refactor: Chasms And Portals Refactor (#5330)
+'2024-07-09':
+  Den109G:
+  - bugfix: Now you can craft both tele consoles (#5402)
+  NightDawnFox:
+  - balance: all nanomed & sectech vendors reduced to 2 on each map (#5321)
+  ROdenFL:
+  - bugfix: (some additions to uplink, hehe) uplink, jump to mob, cryopodconsole,
+      tts final, admins shuttle manipulator (#5398)
+  SAAD:
+  - bugfix: Lavalend destroy transit tubes (#5400)
+  Vladisvell:
+  - bugfix: Smooth fixes for false wall (#5393)
+  - bugfix: 'Icon fixes: Eternal suffering edition (#5396)'
+  - bugfix: Another icon fixes (#5399)
+  - bugfix: 'Movement optimization: cut processing time for every move. (#5388)'
+  - add: Micro optimizations (#5378)
+  Zwei:
+  - bugfix: Catwalk Fix (#5397)
+  - bugfix: Taperoll And Clothing Overlays Fixes (#5401)
+  - qol: Free Hand Pull (#5391)
+  - tweak: Projectiles Ignore Lying Mobs (#5326)
+  - add: PDA Beer Case (#5166)
+  - refactor: Washing Machine Rework (#5068)
+  - refactor: Dominator Icon Updates Rework (#5075)
+'2024-07-10':
+  FanTik-Ratge:
+  - imageadd: grey clothes (#5305)
+  NuSanya:
+  - del: delete spai at syndicate base (#5307)
+  Zwei:
+  - bugfix: Fakedeath Removes Sleeping Overlay (#5403)
+  - bugfix: Correct Boolean Value (#5406)
+'2024-07-12':
+  Antoonij:
+  - add: loadout dyeable skirt (#5405)
+  - bugfix: Nettle now stings people without fingers being covered (#5386)
+  - bugfix: Fixed mind transfer potion on cortial borer (#5372)
+  - bugfix: Borg jobs are now showing correctly in announcements (#5328)
+  - add: Plasmaman now receive 15 units of plasma dust on bone fracture, plasma dust
+      now heals fractures with 1% chance (#5319)
+  - bugfix: bloodcult runes fix (#5335)
+  - bugfix: capulettium fakedeath (#5424)
+  Daeberdir:
+  - bugfix: Fixed conditions for flashing eyes, phosphorus ammo, flash stuns, fisual
+      flashes (#5308)
+  Den109G:
+  - bugfix: Change ninjas species separatly from applying antag datum (#5190)
+  NightDawnFox:
+  - bugfix: no more bursts in l6_saw (#5419)
+  PlayerUnknown14:
+  - balance: Lowered sugar overdose threshhold to 30 units, added new effects of overdosing
+      (#5348)
+  Renascitur:
+  - tweak: ERT implants for Centcom reps (#5425)
+  Rerik007:
+  - bugfix: You can now extract borers from head (#5273)
+  Vladisvell:
+  - refactor: Cleaned up smoothing icon states (#5420)
+  - bugfix: Plasma Reinforced windows no longer conduct heat (#5414)
+  Zwei:
+  - bugfix: BFL Chasm Interaction Fix (#5417)
+  dageavtobusnick:
+  - bugfix: fix incorrect shadowlings announcement threshold (#5355)
+  - bugfix: fix Re-incarnate and ninja name after cloning (#5354)
+  endipe:
+  - tweak: the cardboard/agent is now visible using sec t-ray (#5352)
+  - bugfix: Chemical reactions now generate real, visible vapor and smoke (#5223)
+'2024-07-13':
+  Vladisvell:
+  - bugfix: Returned decon sprites of reinforced wall (#5427)
+  - bugfix: Fixed emo textures for mappers (#5438)
+  - tweak: Improves SSevents and SSshuttles subsystems for lag prevention (#5437)
+  - tweak: /client/Destroy() tweaks, improved SSambience (#5436)
+  Zwei:
+  - unknown: Conveyors Rework (#5395)
+'2024-07-14':
+  Den109G:
+  - bugfix: BlueShield's gun now stores in cryo (#5333)
+  Rafnik02:
+  - add: His Grace now opens his mouth when he is hungry. (#5331)
+  Renascitur:
+  - add: Gib for pulse weaponry (#5426)
+  Vladisvell:
+  - tweak: Disable disabling of hardware acceleration in sake of enabling hardware
+      acceleration (#5446)
+  - tweak: Global variables now always display lists in contracted state (#5439)
+  - bugfix: fixes table smoothing after unflipping (#5445)
+  Zwei:
+  - refactor: Weather Traits Implementation (#5423)
+  dageavtobusnick:
+  - refactor: Blob gamemode+event fix and rework (#5312)
+  kukur:
+  - bugfix: AI PDA Messages Fix (#5431)
+  - unknown: robotic organ removal (#5430)
+'2024-07-15':
+  Antoonij:
+  - bugfix: Plastic reaction (#5407)
+  Aziz Chynaliev:
+  - server: add testmerge conflict detection
+  Den109G:
+  - refactor: Change landmarks's strings to defines. (#5457)
+  LiquidPotroh:
+  - bugfix: Slowed effect is not applied correctly (#5453)
+  ROdenFL:
+  - bugfix: alarm vending powermonitor (#5412)
+  SAAD:
+  - tweak: Celestations improvement part 2 (#5428)
+  - add: '"I''m definitely not an idiot" sign (#5394)'
+  TimChi:
+  - tweak: decrease tk cost on dna upgrader (#5449)
+  Zwei:
+  - unknown: Disposals Rework (#5440)
+  dageavtobusnick:
+  - unknown: blob mode&event rework bugfixes and qol tweaks (#5458)
+'2024-07-17':
+  Antoonij:
+  - bugfix: hatch gasmask (#5470)
+  Vladisvell:
+  - bugfix: Returned old bubblegum speed after movement refactor (#5475)
+  - bugfix: Fixes ghosts and bots multi-z rendering (#5464)
+  Zwei:
+  - bugfix: Shooting With Grab Fix (#5459)
+  - bugfix: Living Have No Limbs (#5456)
+  - bugfix: Correct Jetpack Dereference (#5465)
+  dageavtobusnick:
+  - bugfix: immortal blob fix (#5482)
+  dependabot[bot]:
+  - server: bump braces from 3.0.2 to 3.0.3 in /tgui (#5463)
+'2024-07-18':
+  Vladisvell:
+  - add: Experimental gliding feature (#5432)
+  Zwei:
+  - unknown: Batons Rework (#5144)
+  - bugfix: Registered Turf Signals Stay Registered (#5455)
+  - refactor: Updated Error Code (#5468)
+  - refactor: Updated Pathing (#5488)
+  - bugfix: Fixing Runtime Popup (#5501)
+'2024-07-19':
+  Antoonij:
+  - bugfix: deathnettle now stings without fingers being covered (#5496)
+  - tweak: New thief bundle + slug adjustments (#5503)
+  - tweak: crossbow now gibs space carp && e dagger 2 illegal lvl (#5502)
+  Den109G:
+  - bugfix: Fix welding sec-glasses giving you permanent HUD (#5494)
+  Dimach:
+  - refactor: replace goonChat with TGchat (#5404)
+  ItsMeJaba:
+  - bugfix: turret's connection to control panel in AI Satellite Antechamber (#5450)
+  LiquidPotroh:
+  - bugfix: ETR nullrod afterattack checks (#5493)
+  Quinalion:
+  - add: Abductor Toolbelt in racial Uplink (#5499)
+  - tweak: Allow Grey use Silencer (#5498)
+  ROdenFL:
+  - bugfix: power monitor change back and alarms and assemeblies and camera (#5490)
+  Vladisvell:
+  - bugfix: Fixed taser animation bug (#5505)
+  - bugfix: Fixed negative atmospherics, made lavaland plasma burning nice (#5487)
+  - server: Updated nanomap renderer (#5511)
+  Zwei:
+  - bugfix: Runtimes Fixes N3 (#5510)
+  - bugfix: MultiZ Pull And Flying Mobs Fix (#5509)
+  - bugfix: HoS Laser Overlay Fix (#5504)
+  - bugfix: Slime Unconsious Stat Fixed (#5497)
+  - bugfix: Few Spacemove Fixes (#5483)
+  - bugfix: Holster Overlays (#5489)
+  - bugfix: Drones Have Disposal Signal On Init (#5466)
+  endipe:
+  - tweak: add ointment to nanomed-plus (#5413)
+  - add: new firstaid for paramed (#5418)
+'2024-07-22':
+  Antoonij:
+  - bugfix: species meat reagent name fix (#5526)
+  Vladisvell:
+  - tweak: Removes ambience playing from entering area (#5537)
+'2024-07-24':
+  Antoonij:
+  - bugfix: morph teleport (#5448)
+  - bugfix: shadowling veil fix (#5518)
+  - bugfix: rcd window mode air fix (#5542)
+  - add: advancedtoolusing for borers && chans (#5389)
+  - add: shadow update (#5441)
+  Aziz Chynaliev:
+  - del: Cleaners now can be colored using crayons " (#5554)
+  BoshyG:
+  - add: Varieties of armored gloves for ERT and Syndicate (and some other roles)
+      (#5527)
+  Daeberdir:
+  - unknown: '`/tableflip` icons and new "hotkey". (#4975)'
+  - refactor: wooden cabinets visuals standartising. (#5227)
+  Den109G:
+  - del: Comment debug code for saylogs (#5532)
+  FanTik-Ratge:
+  - imageadd: new maid sex uniform  (#5477)
+  - imageadd: Foodfart (#5513)
+  - imageadd: Kitchen update (#5476)
+  Helmsman:
+  - add: ash tendril has heal aura that heals ash walkers (#5132)
+  Lentye:
+  - add: Добавление категории карго контрабанды, увеличение списка контры (#5168)
+  LiquidPotroh:
+  - tweak: Disarms without slowdown (#5451)
+  - add: Abductors moderate event (#4852)
+  MstrKabach:
+  - refactor: Cleaners now can be colored using crayons  (#4895)
+  NightDawnFox:
+  - add: '3 lavaland tweaks in one: new injector, capsule now toss you & new shaft
+      miner pens (#5057)'
+  - balance: a bunch of weaken -> knockdown changes (#5523)
+  - add: syndicate reverse card (#5137)
+  Quinalion:
+  - balance: Sleeping Carp Rollback (#5480)
+  ROdenFL:
+  - bugfix: vending icon fixes (#5549)
+  - bugfix: revenant gas scan runtime (#5535)
+  - bugfix: empty message runtime and some plan analyzer standartization (#5536)
+  - bugfix: not working async input replaced by tgui_input_list, stationary gps ui
+      state, nanomap marker border return, remove bad \t (#5541)
+  - unknown: text emphasis (#5543)
+  - balance: uplink refund and holoparasites (#5447)
+  SAAD:
+  - server: Celestation improvement 3 (#5547)
+  - bugfix: July Lavalend ruins general cleanup (#5551)
+  SHODAN:
+  - imageadd: new_sprite_tools (#5485)
+  TimChi:
+  - add: Cursed Piano (#5100)
+  Vladisvell:
+  - add: Mobs are now suspended when there are no alive players on the same z level
+      (#5548)
+  - del: Removes NanoMob (#5550)
+  - bugfix: Failed test fixes (#5553)
+  - tweak: Light is no more light, but let there be light (#5519)
+  - add: Added waitfor = 0 for some background tasks (#5506)
+  - bugfix: Returns white noise, ambience now works (#5538)
+  - add: Enables and improves Garbage Collector (#5360)
+  - refactor: Removes all lava platings, lava is smoothed by default (#5479)
+  - del: Added waitfor = 0 for some background tasks" (#5558)
+  Zwei:
+  - bugfix: Bandanas Head Sprites Fix (#5539)
+  - bugfix: Jaunter Checks Storage (#5544)
+  - bugfix: Correct Newtonian Movement After Throwing (#5495)
+  - bugfix: Hardsuits And Hooded Suits Update (#5507)
+  - tweak: Alien Grab Movespeed Penalty Return (#5371)
+  - refactor: Electrocute Refactor (#5515)
+  captainnelly:
+  - bugfix: beds and chairs obj layer (#4997)
+  dageavtobusnick:
+  - bugfix: blob overmind now visible in orbit (#5534)
+  endipe:
+  - add: cultivator now has a progress-bar (#5471)
+  pilygun:
+  - add: Баунти) Leather Syndicate Coat in t2 loadout donor (#5516)
+  - imageadd: New sprites Weapons  (#5517)
+'2024-07-25':
+  Antoonij:
+  - bugfix: ai interaction with crematorium and mech ability (#5563)
+  Daeberdir:
+  - add: Jetpack for mices. (#5176)
+  FanTik-Ratge:
+  - imageadd: maid-fix (#5569)
+  MstrKabach:
+  - add: Camera can be worn around the neck (#5525)
+  ROdenFL:
+  - add: tgui inputs (#5385)
+  - bugfix: landmarks not a thing (#5567)
+  - bugfix: ghost piano, paper input revert, uplink, cult invoke fix (#5572)
+  Vladisvell:
+  - tweak: removed debug log for megaphones (#5566)
+  - bugfix: Returns possibility to reference tracking, fixes mobs hard deletion issue
+      and makes landmarks hard delete now (#5568)
+  Zwei:
+  - tweak: Show Runtimes Amount By Type (#5559)
+  - bugfix: Stamp Overlays Fix (#5556)
+  - refactor: Pimp My Master (#5514)
+  - tweak: Optimized NPC Handling (#5570)
+  dageavtobusnick:
+  - refactor: blob objective update fix (#5560)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5565)
+'2024-07-26':
+  Aziz Chynaliev:
+  - bugfix: incorrect timezone offset
+  - server: update byond version to 515.1642
+  - bugfix: world.timezone offset was correct
+  - bugfix: stupid fix of redundancy
+  FanTik-Ratge:
+  - imageadd: fix some inhand issue (#5576)
+  ItsMeJaba:
+  - add: Central Command rework (#3900)
+  ROdenFL:
+  - tweak: никаких костылей в кодвордах, люммокс молодец (#5580)
+  Zwei:
+  - tweak: Garbage Inits Later (#5574)
+  - tweak: Small AI Optimization (#5573)
+  - bugfix: Runtimes Fixes N4 (#5578)
+  dageavtobusnick:
+  - tweak: all roundstart traitors can accept contractor offer (#5555)
+  - tweak: add crew transfer vote after blob death (#5557)
+'2024-07-27':
+  Aziz Chynaliev:
+  - server: add testmerge conflict detector
+  - server: fix testmerge conflict detector
+  - server: fix testmerge conflict detector 2
+  - server: fix testmerge conflict detector 3
+  - server: fix testmerge conflict detector 4
+  - server: fix testmerge conflict detector 5
+  Daeberdir:
+  - bugfix: mouse jet dropped on user death. (#5584)
+  ItsMeJaba:
+  - bugfix: centcom rework (#5583)
+  NuSanya:
+  - tweak: polymorph recharge and mob list (#5575)
+  ROdenFL:
+  - bugfix: tgui minor fixes(totally not working eftpos and cargo quests iconswithnospacewithword)s
+      (#5579)
+  - unknown: strips menu (#5443)
+  SAAD:
+  - bugfix: July Space ruins general cleanup (#5552)
+  SabrioBiblio:
+  - add: twohanded cardboard cutout (#5353)
+  - bugfix: обновлён cardboard_cutouts (#5587)
+  Zwei:
+  - bugfix: Chem Grenade Prime Fix (#5581)
+  - unknown: Few Keybinding Tweaks (#5416)
+  - tweak: Bots Have No AI Delay (#5585)
+  - tweak: Move Intent Toggle Old Behavior (#5588)
+  - bugfix: Lavaland Extract Alert Fix (#5586)
+  dageavtobusnick:
+  - tweak: add sst uplink to sst (#5545)
+  endipe:
+  - unknown: new paintkit for welding (#5520)
+  pilygun:
+  - imageadd: QOL spr.Flashbang+mobcap (#5582)
+'2024-07-28':
+  Aziz Chynaliev:
+  - bugfix: allow to set FPS from -1 to 120
+  - server: add testmerge worker action
+  - server: fix testmerge worker action
+  - server: fix testmerge worker action 2
+  - server: fix testmerge worker action 3
+  - server: fix testmerge worker action 4
+  - server: fix testmerge worker action 5
+  - server: fix testmerge worker action 6
+  - server: fix testmerge worker action 7
+  - server: fix testmerge worker action 8
+  - server: fix testmerge worker action 9
+  - server: fix testmerge worker action 10
+  - server: add potential conflicts checker
+  Daeberdir:
+  - add: ION storm device. (#4435)
+  Den109G:
+  - bugfix: Shadows now can hatch (#5591)
+  - imagedel: Delete default case for inhands clothing (#5590)
+  Honker9999999:
+  - add: lavamechs paintkit (#4800)
+  ROdenFL:
+  - unknown: tgui panel (#5564)
+  - unknown: chem master (#5469)
+  - tweak: alt game prefs (#5595)
+  - bugfix: ATM pin number, empty tgui_input_lists, ATM levels (#5594)
+  - bugfix: mulptly striping (#5597)
+  - bugfix: law_manager adminjump (#5600)
+  SAAD:
+  - server: Celestation improvement 4 (#5589)
+  Valtor:
+  - add: Diona no roboparts, but regeneration from consuming nymphs (#5521)
+  Vladisvell:
+  - bugfix: Ghosts no longer can trigger explosion of abandoned crate (#5593)
+  Zwei:
+  - bugfix: Tesla Zap Fix (#5601)
+  endipe:
+  - bugfix: no icon_state on cardboard (#5599)
+  pilygun:
+  - imageadd: QOL spr.grenade 2 (#5592)
+  - bugfix: chem_grenade spr (#5598)
+'2024-07-29':
+  Aziz Chynaliev:
+  - server: fix potential conflicts checker
+  - server: fix potential conflicts checker 2
+  - server: fix potential conflicts checker 3
+  - bugfix: less spam in admin log
+  - server: add resources.txt config entries
+  - server: increase TGUI connection lost threshold
+  NightDawnFox:
+  - add: shooting with shotgun at point-blank range now throwing victim back. (#5491)
+  ROdenFL:
+  - add: more buttons in top-left menu (#5602)
+  - admin: bold banned message (#5607)
+  - add: clown mimic voice menu[bounty] (#5512)
+  - bugfix: holster abuz and deadmin hide stealth (#5612)
+  - tweak: antagonists -> special roles (#5611)
+  - bugfix: verbs |= -> add_verb (#5618)
+  SAAD:
+  - tweak: July delta general cleanup + Z1 shuttles air leaks fix (#5474)
+  - add: Event map "delta dlya oldov" (#5467)
+  - tweak: change "Point to" category (#5613)
+  - bugfix: replace holotabes at any not-holodeck place (#5615)
+  - tweak: pods placement (#5614)
+  Vladisvell:
+  - bugfix: Fixed mob deleting with martial arts (#5616)
+  Zwei:
+  - bugfix: Vampire Sucking Unique DoAfter Source (#5609)
+  - bugfix: Unconscious/Dead Facing Fix (#5610)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5606)
+'2024-07-30':
+  Aziz Chynaliev:
+  - bugfix: TTS with old Cyrillic and Norway characters
+  - server: add example resources.txt config and local asset hosting server script
+  Dimach:
+  - refactor: update vox_preload code (#5623)
+  ROdenFL:
+  - bugfix: null icon_states fix (#5620)
+  - tweak: remove fullscreen button, hide karma verbs (#5621)
+  Vladisvell:
+  - add: Now you can make photos without flashing lights, also fixes photography (#5625)
+  dageavtobusnick:
+  - unknown: admin buttons fixes and tweaks (#5528)
+  - tweak: add contractor items to admin uplink (#5624)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5619)
+'2024-07-31':
+  Vladisvell:
+  - bugfix: Now you can have lighting in custom areas and spawned maps (#5630)

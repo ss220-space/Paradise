@@ -15,7 +15,7 @@ export class Countdown extends Component {
     if (newValue <= 0) {
       clearInterval(this.timer);
     }
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return {
         value: newValue,
       };
@@ -33,8 +33,7 @@ export class Countdown extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.current !== prevProps.current) {
       // https://github.com/yannickcr/eslint-plugin-react/issues/1707
-      // eslint-disable-next-line react/no-did-update-set-state
-      this.setState(prevState => {
+      this.setState((prevState) => {
         return {
           value: Math.max(this.props.timeLeft * 100, 0),
         };
@@ -46,10 +45,7 @@ export class Countdown extends Component {
   }
 
   render() {
-    const {
-      format,
-      ...rest
-    } = this.props;
+    const { format, ...rest } = this.props;
     const formatted = new Date(this.state.value).toISOString().slice(11, 19);
     return (
       <Box as="span" {...rest}>

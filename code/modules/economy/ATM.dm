@@ -107,33 +107,38 @@ log transactions
 
 
 /obj/machinery/atm/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card))
-		if(!powered())
-			return
-
-		if(!held_card)
-			add_fingerprint(user)
-			user.drop_transfer_item_to_loc(I, src)
-			held_card = I
-			if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
-				authenticated_account = null
-			SStgui.update_uis(src)
-	else if(authenticated_account)
-		if(istype(I, /obj/item/stack/spacecash))
-			//consume the money
-			if(!powered())
-				return
-			add_fingerprint(user)
-			var/obj/item/stack/spacecash/C = I
-			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
-
-			authenticated_account.credit(C.amount, "Credit deposit", machine_id, authenticated_account.owner_name)
-
-			to_chat(user, "<span class='notice'>You insert [C] into [src].</span>")
-			SStgui.update_uis(src)
-			C.use(C.amount)
-	else
+	if(user.a_intent == INTENT_HARM || !powered())
 		return ..()
+
+	if(istype(I, /obj/item/card))
+		add_fingerprint(user)
+		if(held_card)
+			to_chat(user, span_warning("The [name] is already holding another ID-card."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		held_card = I
+		if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
+			authenticated_account = null
+		SStgui.update_uis(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stack/spacecash))
+		add_fingerprint(user)
+		var/obj/item/stack/spacecash/cash = I
+		if(!authenticated_account)
+			to_chat(user, span_warning("You should insert ID-card and login first."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(cash, src))
+			return ..()
+		to_chat(user, span_notice("You have inserted [cash] into [src]."))
+		playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
+		authenticated_account.credit(cash.amount, "Credit deposit", machine_id, authenticated_account.owner_name)
+		SStgui.update_uis(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/machinery/atm/attack_hand(mob/user)
 	if(..())
@@ -148,10 +153,10 @@ log transactions
 /obj/machinery/atm/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/atm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atm/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
-		ui = new(user, src, ui_key, "ATM", name, 550, 650)
+		ui = new(user, src, "ATM", name)
 		ui.open()
 
 /obj/machinery/atm/ui_data(mob/user)
@@ -213,7 +218,7 @@ log transactions
 
 		if("change_security_level")
 			if(authenticated_account)
-				var/new_sec_level = max(min(text2num(params["new_security_level"]), 2), 0)
+				var/new_sec_level = max(min(params["new_security_level"], 2), 0)
 				authenticated_account.security_level = new_sec_level
 
 		if("attempt_auth")
@@ -301,13 +306,7 @@ log transactions
 					<i>Service terminal ID:</i> [machine_id]<br>"}
 
 				//stamp the paper
-				var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-				stampoverlay.icon_state = "paper_stamp-cent"
-				if(!R.stamped)
-					R.stamped = new()
-				R.stamped += /obj/item/stamp
-				LAZYADD(R.stamp_overlays, stampoverlay)
-				R.stamps += "<HR><i>This paper has been stamped by the Automatic Teller Machine.</i>"
+				R.stamp(/obj/item/stamp, TRUE, "<i>This paper has been stamped by the Automatic Teller Machine.</i>", "stamp-cent")
 
 			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 

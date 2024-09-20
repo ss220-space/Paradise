@@ -158,13 +158,13 @@
 /proc/show_note(target_ckey, index, linkless = 0)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
-	var/output = {"<meta charset="UTF-8">"}
-	var/navbar
-	var/ruler
-	ruler = "<hr style='background:#000000; border:0; height:3px'>"
-	navbar = "<a href='?_src_=holder;nonalpha=1'>\[All\]</a>|<a href='?_src_=holder;nonalpha=2'>\[#\]</a>"
+	var/list/output = list({"<!DOCTYPE html><meta charset="UTF-8">"})
+	var/list/navbar = list()
+	var/ruler = "<hr style='background:#000000; border:0; height:3px'>"
+
+	navbar = "<a href='byond://?_src_=holder;nonalpha=1'>\[All\]</a>|<a href='byond://?_src_=holder;nonalpha=2'>\[#\]</a>"
 	for(var/letter in GLOB.alphabet)
-		navbar += "|<a href='?_src_=holder;shownote=[letter]'>\[[letter]\]</a>"
+		navbar += "|<a href='byond://?_src_=holder;shownote=[letter]'>\[[letter]\]</a>"
 	navbar += "<br><form method='GET' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='notessearch' value='[index]'>\
@@ -183,7 +183,7 @@
 			return
 		output += "<h2><center>Notes of [target_ckey]</center></h2>"
 		if(!linkless)
-			output += "<center><a href='?_src_=holder;addnote=[target_ckey]'>\[Add Note\]</a></center>"
+			output += "<center><a href='byond://?_src_=holder;addnote=[target_ckey]'>\[Add Note\]</a></center>"
 		output += ruler
 		while(query_get_notes.NextRow())
 			var/id = query_get_notes.item[1]
@@ -200,7 +200,7 @@
 			output += "</b>"
 
 			if(!linkless)
-				output += " <a href='?_src_=holder;removenote=[id]'>\[Remove Note\]</a> <a href='?_src_=holder;editnote=[id]'>\[Edit Note\]</a>"
+				output += " <a href='byond://?_src_=holder;removenote=[id]'>\[Remove Note\]</a> <a href='byond://?_src_=holder;editnote=[id]'>\[Edit Note\]</a>"
 				if(last_editor)
 					output += " <font size='2'>Last edit by [last_editor]</font>"
 			output += "<br>[notetext]<hr style='background:#000000; border:0; height:1px'>"
@@ -208,7 +208,7 @@
 	else if(index)
 		var/index_ckey
 		var/search
-		output += "<center><a href='?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
+		output += "<center><a href='byond://?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler
 		switch(index)
 			if(1)
@@ -227,12 +227,12 @@
 		message_admins("[usr.ckey] has started a note search with the following regex: [search] | CPU usage may be higher.")
 		while(query_list_notes.NextRow())
 			index_ckey = query_list_notes.item[1]
-			output += "<a href='?_src_=holder;shownoteckey=[index_ckey]'>[index_ckey]</a><br>"
+			output += "<a href='byond://?_src_=holder;shownoteckey=[index_ckey]'>[index_ckey]</a><br>"
 			CHECK_TICK
 		qdel(query_list_notes)
 		message_admins("The note search started by [usr.ckey] has complete. CPU should return to normal.")
 	else
-		output += "<center><a href='?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
+		output += "<center><a href='byond://?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler
-	usr << browse(output, "window=show_notes;size=900x500")
+	usr << browse(output.Join(""), "window=show_notes;size=900x500")
 

@@ -36,8 +36,8 @@
 	ADD_TRAIT(magichead, TRAIT_NODROP, CURSED_ITEM_TRAIT(magichead.type))
 	magichead.flags_inv &= ~HIDENAME	//so you can still see their face
 	magichead.voicechange = TRUE	//NEEEEIIGHH
-	target.visible_message(	"<span class='danger'>лицо [target] загорается, на его месте появляется лошадиная морда!</span>", \
-							"<span class='danger'>Твоё лицо горит, и вскоре ты понимаешь, что у тебя лошадиная морда!</span>")
+	target.visible_message(	span_danger("лицо [target] загорается, на его месте появляется лошадиная морда!"), \
+							span_danger("Твоё лицо горит, и вскоре ты понимаешь, что у тебя лошадиная морда!"))
 	if(!target.drop_item_ground(target.wear_mask))
 		qdel(target.wear_mask)
 	target.equip_to_slot_or_del(magichead, ITEM_SLOT_MASK)

@@ -97,6 +97,14 @@
 	var/walks_left = 50 //prevents the game from hanging in extreme cases
 
 
+/obj/effect/cross_action/spacetime_dist/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/effect/cross_action/singularity_act()
 	return
 
@@ -119,14 +127,17 @@
 	cant_teleport = FALSE
 
 
-/obj/effect/cross_action/spacetime_dist/Crossed(atom/movable/AM, oldloc)
+/obj/effect/cross_action/spacetime_dist/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	if(!cant_teleport)
-		walk_link(AM)
+		walk_link(arrived)
 
 
-/obj/effect/cross_action/spacetime_dist/attackby(obj/item/W, mob/user, params)
-	if(user.drop_item_ground(W))
-		walk_link(W)
+/obj/effect/cross_action/spacetime_dist/attackby(obj/item/I, mob/user, params)
+	. = ATTACK_CHAIN_BLOCKED_ALL
+	if(user.drop_item_ground(I))
+		walk_link(I)
 	else
 		walk_link(user)
 

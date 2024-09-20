@@ -113,8 +113,7 @@
 "aj" = (
 /obj/structure/closet/cardboard,
 /obj/machinery/light{
-	dir = 8;
-	icon_state = "tube1"
+	dir = 8
 	},
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
@@ -173,8 +172,7 @@
 "ao" = (
 /obj/structure/closet/cardboard,
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /obj/item/ammo_box/c9mm,
 /obj/item/ammo_box/c9mm,
@@ -234,9 +232,7 @@
 	},
 /obj/structure/sink{
 	dir = 4;
-	icon_state = "sink";
-	pixel_x = 11;
-	pixel_y = 0
+	pixel_x = 11
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -256,8 +252,7 @@
 	pixel_y = 6
 	},
 /obj/item/gun/projectile/automatic/wt550{
-	pixel_x = 2;
-	pixel_y = 0
+	pixel_x = 2
 	},
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 30
@@ -391,8 +386,7 @@
 "aO" = (
 /obj/structure/closet/radiation,
 /obj/machinery/light{
-	dir = 8;
-	icon_state = "tube1"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -404,8 +398,7 @@
 /obj/item/reagent_containers/food/drinks/cans/cola,
 /obj/item/reagent_containers/food/drinks/cans/cola,
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -525,8 +518,7 @@
 /area/ruin/unpowered)
 "bg" = (
 /obj/machinery/sleeper{
-	dir = 4;
-	icon_state = "sleeper-open"
+	dir = 4
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -548,8 +540,7 @@
 /area/ruin/unpowered)
 "bj" = (
 /obj/machinery/sleeper{
-	dir = 4;
-	icon_state = "sleeper-open"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -591,17 +582,15 @@
 /area/ruin/unpowered)
 "br" = (
 /obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+	icon_state = "2-4"
 	},
-/obj/machinery/power/port_gen/pacman,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "bs" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
 /obj/machinery/power/smes,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "bu" = (
@@ -627,12 +616,11 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "by" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/power/terminal{
-	dir = 1;
-	icon_state = "term"
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -644,30 +632,26 @@
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
-	icon_state = "bar";
-	tag = "icon-bar"
+	icon_state = "bar"
 	},
 /area/ruin/unpowered)
 "bB" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "bar";
-	tag = "icon-bar"
+	icon_state = "bar"
 	},
 /area/ruin/unpowered)
 "bC" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel{
-	icon_state = "bar";
-	tag = "icon-bar"
+	icon_state = "bar"
 	},
 /area/ruin/unpowered)
 "bD" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/beans,
 /turf/simulated/floor/plasteel{
-	icon_state = "bar";
-	tag = "icon-bar"
+	icon_state = "bar"
 	},
 /area/ruin/unpowered)
 "bE" = (
@@ -675,8 +659,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "bar";
-	tag = "icon-bar"
+	icon_state = "bar"
 	},
 /area/ruin/unpowered)
 "bF" = (
@@ -688,8 +671,7 @@
 	dir = 8;
 	keep_preset_name = 1;
 	name = "Bunker APC";
-	pixel_x = -24;
-	pixel_y = 0
+	pixel_x = -24
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -697,8 +679,9 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "bH" = (
+/obj/machinery/power/port_gen/pacman,
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -716,23 +699,20 @@
 /obj/structure/table,
 /obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel{
-	icon_state = "bar";
-	tag = "icon-bar"
+	icon_state = "bar"
 	},
 /area/ruin/unpowered)
 "bL" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	icon_state = "bar";
-	tag = "icon-bar"
+	icon_state = "bar"
 	},
 /area/ruin/unpowered)
 "bM" = (
 /obj/structure/table,
 /obj/item/kitchen/utensil/fork,
 /turf/simulated/floor/plasteel{
-	icon_state = "bar";
-	tag = "icon-bar"
+	icon_state = "bar"
 	},
 /area/ruin/unpowered)
 "bN" = (
@@ -746,7 +726,6 @@
 "bP" = (
 /obj/structure/chair/office/dark{
 	dir = 4;
-	icon_state = "officechair_dark";
 	tag = "icon-officechair_dark (EAST)"
 	},
 /turf/simulated/floor/plasteel,
@@ -758,15 +737,13 @@
 "bR" = (
 /obj/machinery/smartfridge,
 /turf/simulated/floor/plasteel{
-	icon_state = "bar";
-	tag = "icon-bar"
+	icon_state = "bar"
 	},
 /area/ruin/unpowered)
 "bS" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	icon_state = "bar";
-	tag = "icon-bar"
+	icon_state = "bar"
 	},
 /area/ruin/unpowered)
 "bT" = (
@@ -795,7 +772,6 @@
 	dir = 1;
 	name = "Bunker Entrance";
 	network = list("Bunker1");
-	pixel_x = 0;
 	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel,
@@ -851,6 +827,12 @@
 "mL" = (
 /obj/machinery/tcomms/relay/ruskie{
 	network_id = "STORAGE-RELAY"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"xL" = (
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -2627,8 +2609,8 @@ ar
 ar
 ac
 br
-ar
-bH
+xL
+bI
 ar
 ar
 ar
@@ -2697,7 +2679,7 @@ au
 ac
 bs
 by
-bI
+ar
 ar
 ar
 ar
@@ -2764,8 +2746,8 @@ ac
 ar
 ar
 ac
-mL
-ar
+bH
+bI
 ar
 ar
 ar
@@ -2974,7 +2956,7 @@ ac
 bu
 bz
 bJ
-bQ
+mL
 bW
 bQ
 ac

@@ -49,7 +49,7 @@
 	origin_tech = "materials=4;programming=5;biotech=4"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
-/obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click()
+/obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click(mob/user, datum/action/action, leftclick)
 	active = !active
 	if(active)
 		l_hand_obj = owner.l_hand
@@ -59,6 +59,7 @@
 				l_hand_ignore = TRUE
 			else
 				ADD_TRAIT(l_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT)
+				RegisterSignal(l_hand_obj, COMSIG_ITEM_DROPPED, PROC_REF(on_held_item_dropped))
 				l_hand_ignore = FALSE
 
 		if(r_hand_obj)
@@ -66,6 +67,7 @@
 				r_hand_ignore = TRUE
 			else
 				ADD_TRAIT(r_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT)
+				RegisterSignal(r_hand_obj, COMSIG_ITEM_DROPPED, PROC_REF(on_held_item_dropped))
 				r_hand_ignore = FALSE
 
 		if(!l_hand_obj && !r_hand_obj)
@@ -87,6 +89,24 @@
 		to_chat(owner, span_notice("Your hands relax..."))
 		l_hand_obj = null
 		r_hand_obj = null
+
+
+/obj/item/organ/internal/cyberimp/brain/anti_drop/proc/on_held_item_dropped(obj/item/source, mob/user, slot)
+	SIGNAL_HANDLER
+
+	REMOVE_TRAIT(source, TRAIT_NODROP, ANTIDROP_TRAIT)
+	UnregisterSignal(source, COMSIG_ITEM_DROPPED)
+
+	if(l_hand_obj == source)
+		l_hand_obj = null
+		l_hand_ignore = FALSE
+	else if(r_hand_obj == source)
+		r_hand_obj = null
+		r_hand_ignore = FALSE
+
+	if(!l_hand_obj && !r_hand_obj)
+		active = FALSE
+
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/emp_act(severity)
 	if(!owner || emp_proof)
@@ -241,7 +261,7 @@
 		to_chat(owner, span_notice("Your translator's safeties trigger, it is now turned off."))
 		active = FALSE
 
-/obj/item/organ/internal/cyberimp/brain/speech_translator/ui_action_click()
+/obj/item/organ/internal/cyberimp/brain/speech_translator/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(owner && !active)
 		to_chat(owner, span_notice("You turn on your translator implant."))
 		active = TRUE
@@ -286,13 +306,18 @@
 	slot = INTERNAL_ORGAN_STOMACH
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
 
-/obj/item/organ/internal/cyberimp/chest/nutriment/insert(mob/living/carbon/M, special, dont_remove_slot)
-	M.hunger_drain *= hunger_modificator
-	. = ..()
 
-/obj/item/organ/internal/cyberimp/chest/nutriment/remove(mob/living/carbon/M, special)
-	M.hunger_drain /= hunger_modificator
+/obj/item/organ/internal/cyberimp/chest/nutriment/insert(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
+	if(. && ishuman(target))
+		target.physiology.hunger_mod *= hunger_modificator
+
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/remove(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+	if(. && ishuman(target))
+		target.physiology.hunger_mod /= hunger_modificator
+
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
 	if(!owner || emp_proof)
@@ -387,21 +412,27 @@
 	revive_cost = 0
 	reviving = TRUE
 
+
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/heal()
 	if(QDELETED(owner))
 		return
-	if(prob(90) && owner.getOxyLoss())
-		owner.adjustOxyLoss(-3)
-		revive_cost += 5
+	var/heal_brute = 0
+	var/heal_burn = 0
+	var/heal_tox = 0
+	var/heal_oxy = 0
 	if(prob(75) && owner.getBruteLoss())
-		owner.adjustBruteLoss(-1)
+		heal_brute += 1
 		revive_cost += 20
 	if(prob(75) && owner.getFireLoss())
-		owner.adjustFireLoss(-1)
+		heal_burn += 1
 		revive_cost += 20
 	if(prob(40) && owner.getToxLoss())
-		owner.adjustToxLoss(-1)
+		heal_tox += 1
 		revive_cost += 50
+	if(prob(90) && owner.getOxyLoss())
+		heal_oxy += 3
+		revive_cost += 5
+	owner.heal_damages(heal_brute, heal_burn, heal_tox, heal_oxy)
 
 
 /obj/item/organ/internal/cyberimp/chest/reviver/emp_act(severity)

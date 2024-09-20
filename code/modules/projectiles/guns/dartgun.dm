@@ -69,43 +69,47 @@
 					for(var/datum/reagent/R in B.reagents.reagent_list)
 						. += "<span class='notice'>[R.volume] units of [R.name]</span>"
 
-/obj/item/gun/dartgun/attackby(obj/item/I as obj, mob/user as mob, params)
+
+/obj/item/gun/dartgun/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/dart_cartridge))
-
-		var/obj/item/dart_cartridge/D = I
-
-		if(!D.darts)
-			to_chat(user, "<span class='warning'>[D] is empty.</span>")
-			return 0
-
+		add_fingerprint(user)
+		var/obj/item/dart_cartridge/new_cartridge = I
+		if(!new_cartridge.darts)
+			to_chat(user, span_warning("The [new_cartridge.name] is empty."))
+			return ATTACK_CHAIN_PROCEED
 		if(cartridge)
-			if(cartridge.darts <= 0)
-				src.remove_cartridge()
-			else
-				to_chat(user, "<span class='warning'>There's already a cartridge in [src].</span>")
-				return 0
-
-		user.drop_transfer_item_to_loc(D, src)
-		cartridge = D
-		to_chat(user, "<span class='notice'>You slot [D] into [src].</span>")
+			if(cartridge.darts > 0)
+				to_chat(user, span_warning("There's already a cartridge in [src]."))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(new_cartridge, src))
+				return ..()
+			remove_cartridge()
+		else
+			if(!user.drop_transfer_item_to_loc(new_cartridge, src))
+				return ..()
+		cartridge = new_cartridge
+		to_chat(user, span_notice("You have clipped [new_cartridge] into [src]."))
 		update_icon()
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(istype(I, /obj/item/reagent_containers/glass))
-		if(!istype(I, containers_type))
-			to_chat(user, "<span class='warning'>[I] doesn't seem to fit into [src].</span>")
-			return
-		if(beakers.len >= max_beakers)
-			to_chat(user, "<span class='warning'>[src] already has [max_beakers] beakers in it - another one isn't going to fit!</span>")
-			return
-		var/obj/item/reagent_containers/glass/beaker/B = I
-		if(!user.drop_transfer_item_to_loc(B, src))
-			to_chat(user, "<span class='warning'>\The [B] is stuck to you!</span>")
-			return
-		beakers += B
-		to_chat(user, "<span class='notice'>You slot [B] into [src].</span>")
-		src.updateUsrDialog()
-	else
-		return ..()
+		add_fingerprint(user)
+		var/obj/item/reagent_containers/glass/beaker/new_beaker = I
+		if(!istype(new_beaker, containers_type))
+			to_chat(user, span_warning("The [new_beaker.name] doesn't seem to fit into [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(length(beakers) >= max_beakers)
+			to_chat(user, span_warning("The [name] already has [max_beakers] beaker\s in it."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(new_beaker, src))
+			return ..()
+		beakers += new_beaker
+		to_chat(user, span_notice("You have clipped [new_beaker] into [src]."))
+		updateUsrDialog()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/gun/dartgun/can_shoot(mob/user)
 	if(!cartridge)
@@ -213,12 +217,12 @@
 				for(var/datum/reagent/R in B.reagents.reagent_list)
 					dat += "<br>    [R.volume] units of [R.name], "
 				if(check_beaker_mixing(B))
-					dat += text("<A href='?src=[UID()];stop_mix=[i]'><font color='green'>Mixing</font></A> ")
+					dat += text("<a href='byond://?src=[UID()];stop_mix=[i]'><font color='green'>Mixing</font></A> ")
 				else
-					dat += text("<A href='?src=[UID()];mix=[i]'><font color='red'>Not mixing</font></A> ")
+					dat += text("<a href='byond://?src=[UID()];mix=[i]'><font color='red'>Not mixing</font></A> ")
 			else
 				dat += "nothing."
-			dat += " \[<A href='?src=[UID()];eject=[i]'>Eject</A>\]<br>"
+			dat += " \[<a href='byond://?src=[UID()];eject=[i]'>Eject</A>\]<br>"
 			i++
 	else
 		dat += "There are no beakers inserted!<br><br>"
@@ -228,7 +232,7 @@
 			dat += "The dart cartridge has [cartridge.darts] shots remaining."
 		else
 			dat += "<font color='red'>The dart cartridge is empty!</font>"
-		dat += " \[<A href='?src=[UID()];eject_cart=1'>Eject</A>\]"
+		dat += " \[<a href='byond://?src=[UID()];eject_cart=1'>Eject</A>\]"
 
 	user << browse(dat, "window=dartgun")
 	onclose(user, "dartgun", src)
