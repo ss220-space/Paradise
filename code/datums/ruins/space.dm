@@ -433,7 +433,7 @@
 
 
 /datum/map_template/ruin/space/astroak
-	id = "Astroak"
+	id = "astroak"
 	suffix = "astroak.dmm"
 	name = "Astroak"
 	description = "An ordinary church of Carp'Sie, it seems that the carps punished the believers..."
