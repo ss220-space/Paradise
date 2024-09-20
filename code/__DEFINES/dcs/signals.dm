@@ -513,6 +513,10 @@
 // from /client/proc/change_view() : (new_size)
 #define COMSIG_VIEW_SET "view_set"
 
+/// Source: /mob/proc/ClickOn(atom/A, params)
+#define COMSIG_MOB_PRE_UNARMED_ATTACK "mob_pre_unarmed_attack"
+	#define COMPONENT_CANCEL_UNARMED_ATTACK (1<<0)
+
 // /mob/living signals
 
 ///from base of mob/living/resist() (/mob/living)
@@ -1117,6 +1121,10 @@
 ///from base of [/datum/element/light_eater/proc/devour]: (atom/eaten_light)
 #define COMSIG_LIGHT_EATER_DEVOUR "light_eater_devour"
 
+// /datum/element/reagent_attack
+/// Source: /datum/element/reagent_attack/proc/inject(atom/source, mob/living/carbon/target), sends ANYWAY
+#define COMSIG_REAGENT_INJECTED "reagent_inject"
+	// datum/element/reagent_attack, mob/source, mob/living/carbon/target, reagent_id, reagent_amount, target_zone
 
 // /datum/element/movetype_handler signals
 /// Called when the floating anim has to be temporarily stopped and restarted later: (timer)

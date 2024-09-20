@@ -534,6 +534,7 @@
 #include "code\datums\elements\connect_loc.dm"
 #include "code\datums\elements\falling_hazard.dm"
 #include "code\datums\elements\footstep.dm"
+#include "code\datums\elements\reagent_attack.dm"
 #include "code\datums\elements\give_turf_traits.dm"
 #include "code\datums\elements\light_blocking.dm"
 #include "code\datums\elements\movetype_handler.dm"

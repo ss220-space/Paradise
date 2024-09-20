@@ -154,6 +154,8 @@
 		if(W)
 			W.melee_attack_chain(src, A, params)
 		else
+			if(SEND_SIGNAL(src, COMSIG_MOB_PRE_UNARMED_ATTACK, A, params) &  COMPONENT_CANCEL_UNARMED_ATTACK)
+				return
 			if(ismob(A))
 				changeNext_move(CLICK_CD_MELEE)
 			UnarmedAttack(A, 1)
@@ -171,6 +173,8 @@
 			if(W)
 				W.melee_attack_chain(src, A, params)
 			else
+				if(SEND_SIGNAL(src, COMSIG_MOB_PRE_UNARMED_ATTACK, A, params) &  COMPONENT_CANCEL_UNARMED_ATTACK)
+					return
 				if(ismob(A))
 					changeNext_move(CLICK_CD_MELEE)
 				UnarmedAttack(A, 1)
