@@ -198,7 +198,7 @@
             source.visible_message(span_notice("[source.name] прекраща[pluralize_ru(source.gender,"ет","ют")] поглощать [living.name]!"))
         return
 
-     if(SEND_SIGNAL(parent, COMSIG_COMPONENT_DEVOURING_TARGET, living) & STOP_DEVOURING)
+    if(SEND_SIGNAL(parent, COMSIG_COMPONENT_DEVOURING_TARGET, living) & STOP_DEVOURING)
         return
 
     if(!silent)
