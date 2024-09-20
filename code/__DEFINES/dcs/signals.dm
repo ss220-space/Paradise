@@ -513,10 +513,6 @@
 // from /client/proc/change_view() : (new_size)
 #define COMSIG_VIEW_SET "view_set"
 
-/// Source: /mob/proc/ClickOn(atom/A, params)
-#define COMSIG_MOB_PRE_UNARMED_ATTACK "mob_pre_unarmed_attack"
-	#define COMPONENT_CANCEL_UNARMED_ATTACK (1<<0)
-
 // /mob/living signals
 
 ///from base of mob/living/resist() (/mob/living)
@@ -632,6 +628,10 @@
 
 /// from base of /client/proc/handle_popup_close() : (window_id)
 #define COMSIG_POPUP_CLEARED "popup_cleared"
+
+/// Source: /mob/living/UnarmedAttack(atom/A, proximity_flag)
+#define COMSIG_LIVING_UNARMED_ATTACK "mob_unarmed_attack"
+	#define COMPONENT_CANCEL_UNARMED_ATTACK (1<<0)
 
 // /mob/living/carbon signals
 

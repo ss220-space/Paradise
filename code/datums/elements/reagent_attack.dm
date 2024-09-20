@@ -28,7 +28,7 @@
 		RegisterSignal(source, COMSIG_ITEM_ATTACK, PROC_REF(item_attack))
 
 	if(ismob(source))
-		RegisterSignal(source, COMSIG_MOB_PRE_UNARMED_ATTACK, PROC_REF(mob_attack))
+		RegisterSignal(source, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(mob_attack))
 
 /datum/element/reagent_attack/Detach(atom/source)
 	. = ..()
@@ -37,7 +37,7 @@
 		UnregisterSignal(source, COMSIG_ITEM_ATTACK)
 
 	if(ismob(source))
-		UnregisterSignal(source, COMSIG_MOB_PRE_UNARMED_ATTACK)
+		UnregisterSignal(source, COMSIG_LIVING_UNARMED_ATTACK)
 
 /datum/element/reagent_attack/proc/item_attack(mob/target, mob/living/user, params, def_zone)
 	SIGNAL_HANDLER
@@ -48,9 +48,12 @@
 
 	INVOKE_ASYNC(src, PROC_REF(inject), user, target, picked_zone)
 
-/datum/element/reagent_attack/proc/mob_attack(datum/source, mob/target, params)
+/datum/element/reagent_attack/proc/mob_attack(datum/source, mob/target, proximity_flag)
 	SIGNAL_HANDLER
 
+	if(!proximity_flag)
+		return
+		
 	var/mob/mob = source
 	var/picked_zone = allowed_zones ? pick(allowed_zones) : mob.zone_selected
 	if(!can_inject(target, picked_zone))

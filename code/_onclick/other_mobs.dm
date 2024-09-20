@@ -101,6 +101,8 @@
 /mob/living/UnarmedAttack(atom/A, proximity_flag)
 	if(!can_unarmed_attack())
 		return
+	if(SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, A, proximity_flag) &  COMPONENT_CANCEL_UNARMED_ATTACK)
+		return
 	if(proximity_flag && pulling && !isnull(pull_hand) && pull_hand != PULL_WITHOUT_HANDS && pull_hand == hand)
 		if(A.grab_attack(src, pulling))
 			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
