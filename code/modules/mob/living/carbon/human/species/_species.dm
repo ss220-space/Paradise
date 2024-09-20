@@ -117,6 +117,7 @@
 	var/list/special_step_sounds
 
 	var/list/allowed_consumed_mobs = list() // If a species can consume mobs, put the type of mobs it can consume here.
+	
 	/// Generic traits tied to having the species.
 	var/list/inherent_traits
 

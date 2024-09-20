@@ -68,6 +68,7 @@
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
 								 /mob/living/simple_animal/tribble)
+								 
 	suicide_messages = list(
 		"пытается откусить себе язык!",
 		"вонзает когти себе в глазницы!",
