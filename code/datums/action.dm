@@ -568,7 +568,7 @@
 
 /datum/action/item_action/toggle_rapier_nodrop
 	name = "Toggle Anti-Drop"
-	desc = "Activates/deactivates centcomm rapier Anti-Drop."
+	desc = "Activates/deactivates CentComm rapier Anti-Drop."
 
 ///prset for organ actions
 /datum/action/item_action/organ_action
