@@ -69,6 +69,7 @@
 		night_vision_action = null
 	return ..()
 
+
 /**
  * Returns the list of type paths of the organs that we need to insert into this particular xeno upon its creation
  */

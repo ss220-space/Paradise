@@ -44,6 +44,7 @@
 				return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
+
 /obj/item/holder/proc/show_message(message, m_type, chat_message_type)
 	for(var/mob/living/M in contents)
 		M.show_message(message, m_type, chat_message_type)

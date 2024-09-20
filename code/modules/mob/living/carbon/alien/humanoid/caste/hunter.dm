@@ -3,6 +3,7 @@
 	caste = "h"
 	maxHealth = 205
 	health = 205
+	devour_time = 2 SECONDS
 	icon_state = "alienh_s"
 	caste_movement_delay = -1
 	var/invisibility_cost = 5
