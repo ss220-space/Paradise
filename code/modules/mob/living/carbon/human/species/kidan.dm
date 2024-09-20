@@ -129,7 +129,6 @@
 	human.AddComponent( \
 	/datum/component/devour/advanced, \
 	allowed_types = list(/mob/living/simple_animal/diona), \
-	corpse_only = FALSE, \
 	drop_contents = FALSE, \
 	)
 

@@ -19,7 +19,7 @@
     var/cancel_attack
 
 /datum/component/devour/Initialize(
-    list/allowed_types,
+    list/allowed_types = list(atom/movable),
     list/blacklisted_types,
     devouring_time,
     health_threshold,
@@ -84,12 +84,12 @@
     return TRUE
 
 /datum/component/devour/proc/devour(atom/movable/atom, params)
-    SEND_SIGNAL(parent, COMSIG_COMPONENT_PRE_DEVOUR_TARGET, atom, params)
+    SEND_SIGNAL(parent, COMSIG_COMPONENT_PRE_DEVOUR_TARGET, atom)
     if(!silent)
         to_chat(parent, span_warning("Вы начинаете глотать [atom] целиком..."))
     if(devouring_time && !do_after(parent, devouring_time, atom, NONE))
         return
-    if(SEND_SIGNAL(parent, COMSIG_COMPONENT_DEVOURING_TARGET, atom, params) & STOP_DEVOURING)
+    if(SEND_SIGNAL(parent, COMSIG_COMPONENT_DEVOURING_TARGET, atom) & STOP_DEVOURING)
         return
     var/mob/mob = parent
     if(atom?.loc == mob)
@@ -118,11 +118,11 @@
 /datum/component/devour/advanced
 
 /datum/component/devour/advanced/Initialize(
-    list/allowed_types,
+    list/allowed_types = list(/atom/movable),
     list/blacklisted_types,
     devouring_time,
     health_threshold,
-    corpse_only = TRUE,
+    corpse_only = FALSE,
     drop_contents = TRUE,
     drop_anyway = FALSE,
     silent = FALSE,
@@ -151,8 +151,6 @@
 	var/mob/living/mob = locate() in item.contents
 	if(!mob)
 		return
-	if(!isliving(living))
-		return
 
 	INVOKE_ASYNC(src, PROC_REF(devouring), living, mob, item)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
@@ -179,15 +177,6 @@
     INVOKE_ASYNC(src, PROC_REF(devouring), grabber, grabbed_thing)
     return
 
-/datum/component/devour/advanced/proc/adv_devour(mob/living/carbon/gourmet, mob/living/living)
-    SIGNAL_HANDLER
-
-    if(!check_types(living))
-        return
-
-    INVOKE_ASYNC(src, PROC_REF(devouring), gourmet, living)
-    return
-
 /datum/component/devour/advanced/check_types(atom/movable/atom)
     . = ..()
     if(!.)
@@ -196,30 +185,34 @@
         return FALSE
     return TRUE
 
-/datum/component/devour/advanced/proc/devouring(mob/living/carbon/gourmet, mob/living/living, obj/item)
-    var/target = isturf(living.loc) ? living : gourmet
-    gourmet.setDir(get_dir(gourmet, living))
+/datum/component/devour/advanced/proc/devouring(mob/living/carbon/source, mob/living/living, obj/item)
+    SEND_SIGNAL(parent, COMSIG_COMPONENT_PRE_DEVOUR_TARGET, living)
+    var/target = isturf(living.loc) ? living : source
+    source.setDir(get_dir(source, living))
 
     if(!silent)
-        gourmet.visible_message(span_danger("[gourmet.name] пыта[pluralize_ru(gourmet.gender,"ет","ют")]ся поглотить [living.name]!"))
+        source.visible_message(span_danger("[source.name] пыта[pluralize_ru(source.gender,"ет","ют")]ся поглотить [living.name]!"))
 
-    if(!do_after(gourmet, devouring_time ? devouring_time : get_devour_time(gourmet, living), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet, living), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [living.name]!")))
+    if(!do_after(source, devouring_time ? devouring_time : get_devour_time(source, living), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), source, living), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [living.name]!")))
         if(!silent)
-            gourmet.visible_message(span_notice("[gourmet.name] прекраща[pluralize_ru(gourmet.gender,"ет","ют")] поглощать [living.name]!"))
+            source.visible_message(span_notice("[source.name] прекраща[pluralize_ru(source.gender,"ет","ют")] поглощать [living.name]!"))
+        return
+
+     if(SEND_SIGNAL(parent, COMSIG_COMPONENT_DEVOURING_TARGET, living) & STOP_DEVOURING)
         return
 
     if(!silent)
-        gourmet.visible_message(span_danger("[gourmet.name] поглоща[pluralize_ru(gourmet.gender,"ет","ют")] [living.name]!"))
+        source.visible_message(span_danger("[source.name] поглоща[pluralize_ru(source.gender,"ет","ют")] [living.name]!"))
 
     if(living.mind)
-        add_attack_logs(gourmet, living, "Devoured")
+        add_attack_logs(source, living, "Devoured")
 
-    if(!isvampire(gourmet))
-        gourmet.adjust_nutrition(2 * living.health)
+    if(!isvampire(source))
+        source.adjust_nutrition(2 * living.health)
 
     for(var/datum/disease/virus/virus in living.diseases)
         if(virus.spread_flags > NON_CONTAGIOUS)
-            virus.Contract(gourmet)
+            virus.Contract(source)
     
     for(var/datum/disease/virus/virus in living.diseases)
         if(virus.spread_flags > NON_CONTAGIOUS)
@@ -234,13 +227,13 @@
     var/mob/living/carbon/carbon = .
     LAZYADD(carbon.stomach_contents, target)
 
-/datum/component/devour/advanced/proc/can_devour(mob/living/carbon/gourmet, mob/living/target)
-	if(isalienadult(gourmet))
-		var/mob/living/carbon/alien/humanoid/alien = gourmet
+/datum/component/devour/advanced/proc/can_devour(mob/living/carbon/source, mob/living/target)
+	if(isalienadult(source))
+		var/mob/living/carbon/alien/humanoid/alien = source
 		return alien.can_consume(target)
-	return FALSE
+	return TRUE
 
-/datum/component/devour/advanced/proc/get_devour_time(mob/living/gourmet, mob/living/target)
+/datum/component/devour/advanced/proc/get_devour_time(mob/living/source, mob/living/target)
 	if(isanimal(target))
 		return DEVOUR_TIME_ANIMAL
 	return DEVOUR_TIME_DEFAULT
