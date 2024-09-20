@@ -15,7 +15,7 @@
 /datum/element/reagent_attack/Attach(atom/source, reagent_id, reagent_amount, piercing, reagent_limit, list/allowed_zones)
 	. = ..()
 
-	if(!isitem(source) || !ismob(source))
+	if(!isitem(source) && !ismob(source))
 		return ELEMENT_INCOMPATIBLE
 
 	src.reagent_id = reagent_id
