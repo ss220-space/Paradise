@@ -180,7 +180,7 @@
 
 /obj/effect/proc_holder/spell/area_teleport/teleport
 	name = "Teleport"
-	desc = "Это заклинание телепортирует вас в выбранную вами область."
+	desc = "Это заклинание телепортирует вас в выбранную область."
 
 	school = "abjuration"
 	base_cooldown = 60 SECONDS

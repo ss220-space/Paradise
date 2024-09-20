@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/goliath_tentacles
 	name = "Summon Tentacles"
-	desc = "Вызывает атаку щупальцами голиафа на выбранный тайл"
+	desc = "Вызывает атаку щупальцами голиафа на выбранный тайл."
 	school = "lavaland"
 	base_cooldown = 15 SECONDS
 	clothes_req = TRUE
