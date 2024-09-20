@@ -6,14 +6,6 @@
 /obj/effect/landmark/event/carpspawn,
 /turf/space,
 /area/space)
-"aah" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/item/balltoy,
-/turf/simulated/floor/plating,
-/area/security/customs)
 "aam" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -10195,15 +10187,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/locker)
-"bwx" = (
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Brig_lockdown";
-	name = "Brig Lockdown"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/security/main)
 "bwy" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -167909,7 +167892,7 @@ tzh
 pYG
 vQG
 tMU
-aah
+jTh
 dle
 ttw
 pcp
@@ -170998,7 +170981,7 @@ xFL
 syB
 mIk
 hvr
-bwx
+uEq
 eVO
 uFp
 iGw
