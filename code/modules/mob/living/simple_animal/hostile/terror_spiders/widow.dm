@@ -43,11 +43,11 @@
 	SIGNAL_HANDLER
 
 	if(HAS_TRAIT(target, TRAIT_INCAPACITATED))
-		target.reagents.add_reagent("terror_black_toxin", 33) // inject our special poison
+		target.reagents.add_reagent(reagent_id, 33) // inject our special poison
 		visible_message(span_danger("[src] buries its long fangs deep into the [target_zone] of [target]!"))
 		return
 
-	target.reagents.add_reagent("terror_black_toxin", 20)
+	target.reagents.add_reagent(reagent_id, 20)
 	visible_message(span_danger("[src] pierces armour and buries its long fangs deep into the [target_zone] of [target]!"))
 	return
 
