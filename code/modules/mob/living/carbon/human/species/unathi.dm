@@ -79,6 +79,9 @@
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/unathi),
 	)
 
+	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
+								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
+
 	suicide_messages = list(
 		"пытается откусить себе язык!",
 		"вонзает когти себе в глазницы!",
@@ -110,13 +113,6 @@
 		lash = new
 		lash.Grant(human)
 
-	human.AddComponent( \
-	/datum/component/devour/advanced, \
-	drop_contents = FALSE, \
-	allowed_types = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
-								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble), \
-	)
-
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
@@ -131,9 +127,6 @@
 		/mob/living/carbon/human/proc/emote_rumble))
 	var/datum/action/innate/tail_cut/lash = locate() in human.actions
 	lash?.Remove(human)
-	if(human.GetComponent(/datum/component/devour/advanced))
-		qdel(human.GetComponent(/datum/component/devour/advanced))
-
 
 /datum/species/unathi/handle_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)

@@ -66,6 +66,9 @@
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/tajaran),
 	)
 
+	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
+								 /mob/living/simple_animal/tribble)
+								 
 	suicide_messages = list(
 		"пытается откусить себе язык!",
 		"вонзает когти себе в глазницы!",
@@ -91,12 +94,6 @@
 	add_verb(human, /mob/living/carbon/human/proc/emote_purr)
 	add_verb(human, /mob/living/carbon/human/proc/emote_purrl)
 	add_verb(human, /mob/living/carbon/human/proc/emote_hiss_tajaran)
-	human.AddComponent( \
-	/datum/component/devour/advanced, \
-	corpse_only = FALSE, \
-	allowed_types = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
-								 /mob/living/simple_animal/tribble), \
-	)
 
 /datum/species/tajaran/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
@@ -105,5 +102,3 @@
 	remove_verb(human, /mob/living/carbon/human/proc/emote_purr)
 	remove_verb(human, /mob/living/carbon/human/proc/emote_purrl)
 	remove_verb(human, /mob/living/carbon/human/proc/emote_hiss_tajaran)
-	if(human.GetComponent(/datum/component/devour/advanced))
-		qdel(human.GetComponent(/datum/component/devour/advanced))

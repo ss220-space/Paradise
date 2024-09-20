@@ -610,13 +610,6 @@
 #define COMSIG_LIVING_GRAB "living_grab"
 	// Return COMPONENT_CANCEL_ATTACK_CHAIN to stop the grab
 
-/// Source: /mob/living/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
-#define COMSIG_LIVING_GRAB_ATTACK "grab_attack"
-
-/// Source: /mob/living/proc/on_grab_quick_equip(atom/movable/grabbed_thing, current_pull_hand)
-#define COMSIG_LIVING_GRAB_EQUIP "grab_equip"
-	#define GRAB_EQUIP_SUCCESS	(1<<0)
-
 ///from base of /mob/living/can_track(): (mob/user)
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
@@ -933,11 +926,13 @@
 #define COMSIG_TURF_MAKE_DRY "make_turf_try"
 ///called on an object to clean it of cleanables. Usualy with soap: (num/strength)
 #define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
-/// Source: /datum/component/devour/proc/devour(atom/movable/atom, params)
+
+/// Devour component
+/// Source: /datum/component/devour/proc/devour(atom/movable/atom)
 #define COMSIG_COMPONENT_DEVOURED_TARGET "devoured_target"
-/// Source: /datum/component/devour/proc/devour(atom/movable/atom, params)
+/// Source: /datum/component/devour/proc/devour(atom/movable/atom)
 #define COMSIG_COMPONENT_PRE_DEVOUR_TARGET "pre_devour_target"
-/// Source: /datum/component/devour/proc/devour(atom/movable/atom, params)
+/// Source: /datum/component/devour/proc/devour(atom/movable/atom)
 #define COMSIG_COMPONENT_DEVOURING_TARGET "devouring_target"
 	#define STOP_DEVOURING (1<<0)
 

@@ -116,6 +116,8 @@
 	///Sounds to override barefeet walking
 	var/list/special_step_sounds
 
+	var/list/allowed_consumed_mobs = list()
+	
 	/// Generic traits tied to having the species.
 	var/list/inherent_traits
 

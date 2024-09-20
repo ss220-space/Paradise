@@ -14,13 +14,6 @@
 	real_name = name
 	..()
 
-/mob/living/carbon/alien/humanoid/hunter/ComponentInitialize()
-	AddComponent( \
-	/datum/component/devour/advanced, \
-	devouring_time = 2 SECONDS, \
-	allowed_types = list(/mob/living/carbon), \
-	)
-
 /mob/living/carbon/alien/humanoid/hunter/get_caste_organs()
 	. = ..()
 	. += /obj/item/organ/internal/xenos/plasmavessel/hunter

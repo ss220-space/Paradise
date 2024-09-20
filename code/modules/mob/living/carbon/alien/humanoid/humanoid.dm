@@ -136,6 +136,11 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	if(l_store)
 		. |= ITEM_SLOT_POCKET_LEFT
 
+
+/mob/living/carbon/alien/humanoid/on_grab_quick_equip(atom/movable/grabbed_thing, current_pull_hand)
+	return grabbed_thing.devoured(src)
+
+	
 /// Returns FALSE if we're not allowed to eat it, true otherwise
 /mob/living/carbon/alien/humanoid/proc/can_consume(mob/living/target)
 	if(!isliving(target) || !pulling || (pulling && pulling != target))

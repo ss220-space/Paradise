@@ -59,6 +59,9 @@
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/vulpkanin),
 	)
 
+	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
+								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
+								 
 	suicide_messages = list(
 		"пытается откусить себе язык!",
 		"выдавливает когтями свои глазницы!",
@@ -77,12 +80,6 @@
 	add_verb(human, /mob/living/carbon/human/proc/emote_swag)
 	add_verb(human, /mob/living/carbon/human/proc/emote_howl)
 	add_verb(human, /mob/living/carbon/human/proc/emote_growl)
-	human.AddComponent( \
-	/datum/component/devour/advanced, \
-	drop_contents = FALSE, \
-	allowed_types = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
-								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble), \
-	)
 
 /datum/species/vulpkanin/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
@@ -90,5 +87,3 @@
 	remove_verb(human, /mob/living/carbon/human/proc/emote_swag)
 	remove_verb(human, /mob/living/carbon/human/proc/emote_howl)
 	remove_verb(human, /mob/living/carbon/human/proc/emote_growl)
-	if(human.GetComponent(/datum/component/devour/advanced))
-		qdel(human.GetComponent(/datum/component/devour/advanced))

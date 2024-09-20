@@ -55,6 +55,8 @@
 		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
 	)
 
+	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
+
 	suicide_messages = list(
 		"пытается откусить себе усики!",
 		"вонзает когти в свои глазницы!",
@@ -126,12 +128,6 @@
 		produce_pheromones = new
 		produce_pheromones.Grant(human)
 
-	human.AddComponent( \
-	/datum/component/devour/advanced, \
-	allowed_types = list(/mob/living/simple_animal/diona), \
-	drop_contents = FALSE, \
-	)
-
 
 /datum/species/kidan/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
@@ -161,8 +157,6 @@
 	// Removing the action for creating pheromones
 	var/datum/action/innate/produce_pheromones/produce_pheromones = locate() in human.actions
 	produce_pheromones?.Remove(human)
-	if(human.GetComponent(/datum/component/devour/advanced))
-		qdel(human.GetComponent(/datum/component/devour/advanced))
 
 
 /// Pheromones spawnable by kida, only perceivable by other kida

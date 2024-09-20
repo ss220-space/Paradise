@@ -1591,8 +1591,6 @@
 /// Proc extender of quick equip verb when user tries to equip grab or pull.
 /// Returning TRUE will add 1s. cooldown on the next move.
 /mob/living/proc/on_grab_quick_equip(atom/movable/grabbed_thing, current_pull_hand)
-	if(SEND_SIGNAL(src, COMSIG_LIVING_GRAB_EQUIP, grabbed_thing, current_pull_hand) & GRAB_EQUIP_SUCCESS)
-		return TRUE
 	return FALSE
 
 
@@ -1601,7 +1599,6 @@
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
 		return .
 	var/mob/living/target = grabbed_thing
-	SEND_SIGNAL(src, COMSIG_LIVING_GRAB_ATTACK, grabber, target)
 	switch(grabber.a_intent)
 		if(INTENT_HARM)
 			if(target != src || !ishuman(target) || !ishuman(grabber) || target.body_position == LYING_DOWN)
@@ -1624,6 +1621,9 @@
 				victim.Knockdown(2 SECONDS)
 			playsound(victim.loc, "desceration", 35, TRUE, -1)
 			add_attack_logs(attacker, victim, "Headbutted")
+		if(INTENT_GRAB)
+			if(grabber == src)
+				target.devoured(grabber)
 
 
 /mob/living/proc/update_z(new_z) // 1+ to register, null to unregister

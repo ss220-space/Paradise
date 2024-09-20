@@ -52,8 +52,6 @@
 
 #define isitem(A) (istype(A, /obj/item))
 
-#define isholder(A) (istype(A, /obj/item/holder))
-
 #define isstack(A) (istype(A, /obj/item/stack))
 
 #define isstorage(A) (istype(A, /obj/item/storage))

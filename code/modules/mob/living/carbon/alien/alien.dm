@@ -26,6 +26,7 @@
 	var/armour_penetration = 20
 	var/disarm_stamina_damage = 20
 	var/obj_damage = 60
+	var/devour_time = DEVOUR_TIME_ANIMAL
 	var/environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	var/time_to_open_doors = 5 SECONDS
 
@@ -67,13 +68,6 @@
 		night_vision_action.Remove(src)
 		night_vision_action = null
 	return ..()
-
-/mob/living/carbon/alien/ComponentInitialize()
-	AddComponent( \
-	/datum/component/devour/advanced, \
-	devouring_time = 3 SECONDS, \
-	allowed_types = list(/mob/living/carbon), \
-	)
 
 /**
  * Returns the list of type paths of the organs that we need to insert into this particular xeno upon its creation
