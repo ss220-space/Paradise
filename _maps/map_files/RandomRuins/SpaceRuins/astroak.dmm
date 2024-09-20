@@ -112,8 +112,10 @@
 /area/ruin/unpowered)
 "gK" = (
 /obj/structure/window/full/paperframe,
-/obj/structure/curtain/open/shower/security,
-/turf/simulated/floor/wood/birch,
+/obj/structure/curtain/open/shower/security{
+	anchored = 1
+	},
+/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "hC" = (
 /obj/item/trash/tastybread,
@@ -169,7 +171,7 @@
 /area/ruin/unpowered)
 "nA" = (
 /obj/item/stack/sheet/wood{
-	amount = 4
+	amount = 2
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/wood/fancy/birch,
@@ -228,7 +230,7 @@
 "rb" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
-	icon_state = "0-4"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood/fancy/birch{
 	oxygen = 0;
@@ -312,6 +314,13 @@
 /obj/item/trash/chips,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
+"yv" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered/no_grav)
 "yF" = (
 /mob/living/simple_animal/hostile/carp/mcarp,
 /turf/simulated/floor/wood/fancy/birch,
@@ -456,11 +465,11 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "Eg" = (
-/turf/simulated/floor/wood/fancy/birch{
-	oxygen = 0;
-	nitrogen = 0;
-	temperature = 2.7
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/cable{
+	icon_state = "0-4"
 	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "ED" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -468,7 +477,9 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "EW" = (
-/obj/structure/curtain/open/shower/security,
+/obj/structure/curtain/open/shower/security{
+	anchored = 1
+	},
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
@@ -624,9 +635,20 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "MC" = (
-/obj/effect/rune,
+/obj/effect/rune{
+	allow_excess_invokers = 1;
+	cultist_desc = "an ancient rune that will absorb the power of believers.";
+	cultist_name = "Sacrifice";
+	scribe_damage = 30
+	},
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
+"MH" = (
+/obj/item/stack/cable_coil{
+	amount = 5
+	},
+/turf/template_noop,
+/area/template_noop)
 "Ni" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -762,9 +784,15 @@
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "RO" = (
-/obj/structure/mineral_door/wood,
-/turf/simulated/floor/wood/birch,
-/area/ruin/unpowered)
+/obj/item/stack/sheet/wood{
+	amount = 2
+	},
+/turf/template_noop,
+/area/template_noop)
+"Sb" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered/no_grav)
 "Sf" = (
 /obj/machinery/door/window/survival_pod{
 	dir = 2
@@ -816,6 +844,13 @@
 	},
 /turf/simulated/floor/grass,
 /area/ruin/unpowered)
+"VP" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered/no_grav)
 "Wd" = (
 /obj/structure/window/reinforced/survival_pod{
 	name = "window"
@@ -1034,7 +1069,7 @@ yT
 yT
 yT
 yT
-yT
+MH
 yT
 yT
 yT
@@ -1078,7 +1113,7 @@ yT
 yT
 yT
 yT
-yT
+RO
 ly
 yT
 yT
@@ -1115,12 +1150,12 @@ yT
 yT
 yT
 yT
+RO
 yT
 yT
 yT
 yT
-yT
-ly
+Sb
 ly
 ly
 yT
@@ -1161,8 +1196,8 @@ yT
 yT
 yT
 yT
-ly
-ly
+Sb
+Eg
 ly
 ly
 lA
@@ -1204,8 +1239,8 @@ yT
 yT
 ly
 ly
-ly
-ly
+VP
+yv
 ly
 lA
 mw
@@ -1248,7 +1283,7 @@ ly
 ly
 ly
 rb
-Eg
+ly
 lA
 mw
 mw
@@ -1288,7 +1323,7 @@ yT
 lA
 lA
 lA
-Eg
+ly
 EX
 ly
 lA
@@ -1551,7 +1586,7 @@ DX
 Hd
 DX
 oY
-RO
+Lr
 NL
 QO
 Uy
