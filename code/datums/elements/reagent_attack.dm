@@ -48,14 +48,15 @@
 
 	INVOKE_ASYNC(src, PROC_REF(inject), user, target, picked_zone)
 
-/datum/element/reagent_attack/proc/mob_attack(mob/source, mob/target, params)
+/datum/element/reagent_attack/proc/mob_attack(datum/source, mob/target, params)
 	SIGNAL_HANDLER
 
-	var/picked_zone = allowed_zones ? pick(allowed_zones) : source.zone_selected
+	var/mob/mob = source
+	var/picked_zone = allowed_zones ? pick(allowed_zones) : mob.zone_selected
 	if(!can_inject(target, picked_zone))
 		return
 
-	INVOKE_ASYNC(src, PROC_REF(inject), source, target, picked_zone)
+	INVOKE_ASYNC(src, PROC_REF(inject), mob, target, picked_zone)
 
 /datum/element/reagent_attack/proc/can_inject(mob/living/carbon/target, target_zone)
 	if(!istype(target)) 
@@ -69,6 +70,6 @@
 /datum/element/reagent_attack/proc/inject(atom/source, mob/living/carbon/target, target_zone)
 	if(reagent_id && reagent_amount)
 		target.reagents.add_reagent(reagent_id, reagent_amount)
-	SEND_SIGNAL(source, COMSIG_REAGENT_INJECTED, source, target, reagent_id, reagent_amount, target_zone) // custom injections!
+	SEND_SIGNAL(source, COMSIG_REAGENT_INJECTED, target, reagent_id, reagent_amount, target_zone) // custom injections!
 	return
 

@@ -39,7 +39,7 @@
 	AddElement(/datum/element/reagent_attack, "terror_black_toxin", null, FALSE, 100, list(BODY_ZONE_CHEST, BODY_ZONE_HEAD))
 	RegisterSignal(src, COMSIG_REAGENT_INJECTED, PROC_REF(on_inject))
 
-/mob/living/simple_animal/hostile/poison/terror_spider/widow/proc/on_inject(datum/source, mob/source, mob/living/carbon/target, reagent_id, reagent_amount, target_zone)
+/mob/living/simple_animal/hostile/poison/terror_spider/widow/proc/on_inject(datum/source, mob/living/carbon/target, reagent_id, reagent_amount, target_zone)
 	SIGNAL_HANDLER
 
 	if(HAS_TRAIT(target, TRAIT_INCAPACITATED))

@@ -1124,7 +1124,7 @@
 // /datum/element/reagent_attack
 /// Source: /datum/element/reagent_attack/proc/inject(atom/source, mob/living/carbon/target), sends ANYWAY
 #define COMSIG_REAGENT_INJECTED "reagent_inject"
-	// datum/element/reagent_attack, mob/source, mob/living/carbon/target, reagent_id, reagent_amount, target_zone
+	// datum/element/reagent_attack, mob/living/carbon/target, reagent_id, reagent_amount, target_zone
 
 // /datum/element/movetype_handler signals
 /// Called when the floating anim has to be temporarily stopped and restarted later: (timer)
