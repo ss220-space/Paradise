@@ -1,5 +1,5 @@
 /datum/element/reagent_attack
-	element_flags = ELEMENT_BESPOKE
+	element_flags = ELEMENT_BESPOKE|ELEMENT_DETACH_ON_HOST_DESTROY
 	id_arg_index = 2
 	/// Which reagent we will inject
 	var/reagent_id
