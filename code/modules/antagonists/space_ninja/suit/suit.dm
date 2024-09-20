@@ -19,7 +19,7 @@
 		/obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank,
 		/obj/item/stock_parts/cell, /obj/item/grenade/plastic/c4/ninja)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 20,"energy" = 30, "bomb" = 30, "bio" = 100, "rad" = 30, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 20,"energy" = 30, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	strip_delay = 12
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL

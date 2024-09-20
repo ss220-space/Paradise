@@ -182,3 +182,5 @@
 #define STATUS_EFFECT_OFFERING_ITEM /datum/status_effect/offering_item
 
 #define STATUS_EFFECT_STARING /datum/status_effect/staring //Used in ../human/examine() proc
+
+#define STATUS_EFFECT_RECENTLY_SUCCUMBED /datum/status_effect/recently_succumbed
