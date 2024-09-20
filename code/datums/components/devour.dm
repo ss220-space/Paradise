@@ -62,7 +62,6 @@
     var/mob/mob = parent
     target.extinguish_light()
     target.forceMove(mob)
-    ADD_TRAIT(target, TRAIT_DEVOURED, UNIQUE_TRAIT_SOURCE(src))
     SEND_SIGNAL(mob, COMSIG_COMPONENT_DEVOURED_TARGET, target)
     return mob
 
@@ -109,8 +108,6 @@
     var/mob/mob = parent
     for(var/atom/movable/atom in mob)
         atom.forceMove(mob.loc)
-        if(HAS_TRAIT(mob, TRAIT_DEVOURED))
-            REMOVE_TRAIT(mob, TRAIT_DEVOURED, UNIQUE_TRAIT_SOURCE(src))
         if(prob(90))
             step(atom, pick(GLOB.alldirs))
 

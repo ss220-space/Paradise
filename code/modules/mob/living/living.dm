@@ -1621,7 +1621,6 @@
 				victim.Knockdown(2 SECONDS)
 			playsound(victim.loc, "desceration", 35, TRUE, -1)
 			add_attack_logs(attacker, victim, "Headbutted")
-			
 		if(INTENT_GRAB)
 			if(grabber == src)
 				target.devoured(grabber)
