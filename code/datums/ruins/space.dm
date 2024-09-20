@@ -440,4 +440,3 @@
 	cost = 2
 	allow_duplicates = FALSE
 	can_found = TRUE
-	always_place = TRUE
