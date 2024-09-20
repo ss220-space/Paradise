@@ -1519,7 +1519,7 @@
 	subcategory = CAT_WEAPON
 	always_availible = FALSE
 
-/datum/crafting_recipe/iron_pickaxe
+/datum/crafting_recipe/pickaxe
 	name = "Iron pickaxe"
 	reqs = list(
 		/obj/item/stack/sheet/wood = 2,
@@ -1528,16 +1528,15 @@
 	result = list(/obj/item/pickaxe)
 	category = CAT_PRIMAL
 
-/datum/crafting_recipe/silver_pickaxe
+/datum/crafting_recipe/pickaxe/silver
 	name = "Silver pickaxe"
 	reqs = list(
 		/obj/item/stack/sheet/wood = 2,
 		/obj/item/stack/sheet/mineral/silver = 5
 	)
 	result = list(/obj/item/pickaxe/silver)
-	category = CAT_PRIMAL
 
-/datum/crafting_recipe/golden_pickaxe
+/datum/crafting_recipe/pickaxe/golden
 	name = "Golden pickaxe"
 	reqs = list(
 		/obj/item/stack/sheet/wood = 2,
@@ -1546,12 +1545,11 @@
 	result = list(/obj/item/pickaxe/gold)
 	category = CAT_PRIMAL
 
-/datum/crafting_recipe/diamond_pickaxe
+/datum/crafting_recipe/pickaxe/diamond
 	name = "Diamond pickaxe"
 	reqs = list(
 		/obj/item/stack/sheet/wood = 2,
 		/obj/item/stack/sheet/mineral/diamond = 5
 	)
 	result = list(/obj/item/pickaxe/diamond)
-	category = CAT_PRIMAL
 
