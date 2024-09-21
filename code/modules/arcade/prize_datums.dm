@@ -259,7 +259,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/chainsaw
 	name = "Toy Chainsaw"
-	desc = "Полноразмерна модель бензопилы, основанная на той Техасской космо-резне бензопилой.."
+	desc = "Полноразмерная модель бензопилы, основанная на той самой Техасской космо-резне бензопилой."
 	typepath = /obj/item/twohanded/toy/chainsaw
 	cost = 200
 
