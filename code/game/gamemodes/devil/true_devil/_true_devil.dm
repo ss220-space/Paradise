@@ -111,11 +111,11 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 
-/mob/living/carbon/true_devil/OnUnarmedAttack(atom/A, proximity)
-	if(!ishuman(A))
+/mob/living/carbon/true_devil/OnUnarmedAttack(atom/atom, proximity)
+	if(!ishuman(atom))
 		// `attack_hand` on mobs assumes the attacker is a human
 		// I am the worst
-		A.attack_hand(src)
+		return atom.attack_hand(src)
 		// If the devil wants to actually attack, they have the pitchfork.
 
 /mob/living/carbon/true_devil/pre_grab_attack(atom/atom, proximity_flag)

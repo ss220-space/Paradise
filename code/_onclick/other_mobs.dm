@@ -18,7 +18,7 @@
 		if(S.prevents_buckled_mobs_attacking())
 			return
 
-	A.attack_hand(src)
+	return A.attack_hand(src)
 
 /mob/living/carbon/human/pre_grab_attack(atom/atom, proximity_flag)
 	if(proximity_flag && pulling && (!isnull(pull_hand) && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)))
@@ -99,7 +99,10 @@
 /mob/living/UnarmedAttack(atom/atom, proximity_flag)
 	if(!can_unarmed_attack())
 		return
-	if(SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, atom, proximity_flag) &  COMPONENT_CANCEL_UNARMED_ATTACK)
+	var/signal = SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, atom, proximity_flag)
+	if(signal & COMPONENT_CANCEL_UNARMED_ATTACK)
+		return
+	if(signal & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return
 	if(pre_grab_attack(atom, proximity_flag))
 		return
@@ -114,12 +117,12 @@
 	return FALSE
 
 /mob/living/OnUnarmedAttack(atom/atom, proximity_flag)
-	atom.attack_animal(src)
+	return atom.attack_animal(src)
 
 /mob/living/simple_animal/hostile/OnUnarmedAttack(atom/atom, proximity_flag)
 	GiveTarget(atom)
 	if(target)
-		AttackingTarget()
+		return AttackingTarget()
 
 /atom/proc/attack_animal(mob/user)
 	return
@@ -132,7 +135,7 @@
 	Defaults to same as monkey in most places
 */
 /mob/living/carbon/alien/OnUnarmedAttack(atom/atom, proximity_flag)
-	atom.attack_alien(src)
+	return atom.attack_alien(src)
 
 /mob/living/carbon/alien/pre_grab_attack(atom/atom, proximity_flag)	
 	if(proximity_flag && pulling && (!isnull(pull_hand) && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)))
@@ -149,7 +152,7 @@
 
 // Babby aliens
 /mob/living/carbon/alien/larva/OnUnarmedAttack(atom/atom, proximity_flag)
-	atom.attack_larva(src)
+	return atom.attack_larva(src)
 
 /atom/proc/attack_larva(mob/user)
 	return
@@ -159,7 +162,7 @@
 	Nothing happening here
 */
 /mob/living/simple_animal/slime/OnUnarmedAttack(atom/atom, proximity_flag)
-	atom.attack_slime(src)
+	return atom.attack_slime(src)
 
 /atom/proc/attack_slime(mob/user)
 	return
