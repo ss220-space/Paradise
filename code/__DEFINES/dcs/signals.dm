@@ -629,7 +629,7 @@
 /// from base of /client/proc/handle_popup_close() : (window_id)
 #define COMSIG_POPUP_CLEARED "popup_cleared"
 
-/// Source: /mob/living/UnarmedAttack(atom/A, proximity_flag)
+/// Source: /mob/living/UnarmedAttack(atom/atom, proximity_flag)
 #define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
 	#define COMPONENT_CANCEL_UNARMED_ATTACK (1<<0)
 

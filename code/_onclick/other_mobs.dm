@@ -99,7 +99,7 @@
 /mob/living/UnarmedAttack(atom/atom, proximity_flag)
 	if(!can_unarmed_attack())
 		return
-	if(SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, A, proximity_flag) &  COMPONENT_CANCEL_UNARMED_ATTACK)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, atom, proximity_flag) &  COMPONENT_CANCEL_UNARMED_ATTACK)
 		return
 	if(pre_grab_attack(atom, proximity_flag))
 		return
@@ -113,7 +113,7 @@
 			return TRUE
 	return FALSE
 
-/mob/living/proc/OnUnarmedAttack(atom/atom, proximity_flag)
+/mob/living/OnUnarmedAttack(atom/atom, proximity_flag)
 	atom.attack_animal(src)
 
 /mob/living/simple_animal/hostile/OnUnarmedAttack(atom/atom, proximity_flag)
