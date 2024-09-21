@@ -181,7 +181,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/owl
 	name = "Owl Action Figure"
-	desc = "Помните: Герои не становятся ГРИФонами!"
+	desc = "Помните: герои не становятся ГРИФонами!"
 	typepath = /obj/item/toy/owl
 	cost = 100
 
