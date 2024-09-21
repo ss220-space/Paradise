@@ -277,7 +277,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/crossbow
 	name = "Toy Energy Crossbow"
-	desc = "Игрушечное оружие, сделанное из тагерного пистолета со стильным дизайном арбалета синдиката."
+	desc = "Игрушечное оружие, сделанное из тагерного пистолета со стильным дизайном контрабандного арбалета."
 	typepath = /obj/item/gun/energy/kinetic_accelerator/crossbow/toy
 	cost = 300
 
@@ -294,13 +294,13 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	cost = 400
 
 /datum/prize_item/bike
-	name = "Awesome Bike!"
+	name = "Awesome Rofl Bike!"
 	desc = "Я прикупил огромный байк..."
 	typepath = /obj/vehicle/motorcycle
 	cost = 2500
 
 /datum/prize_item/speedbike
-	name = "Speed Bike!"
+	name = "Awesome Speedbike!"
 	desc = "Спорим что вы не сможете его купить? XD"
 	typepath =/obj/vehicle/space/speedbike/red
 	cost = 10000	//max stack + 1 tickets.
