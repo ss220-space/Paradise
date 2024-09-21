@@ -201,7 +201,7 @@
 	return
 
 
-/mob/living/simple_animal/bot/ed209/syndicate/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/ed209/syndicate/OnUnarmedAttack(atom/A)
 	if(!on)
 		return
 	shootAt(A)

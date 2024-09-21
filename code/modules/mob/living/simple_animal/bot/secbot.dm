@@ -266,7 +266,7 @@
 	..()
 
 
-/mob/living/simple_animal/bot/secbot/UnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/secbot/OnUnarmedAttack(atom/A)
 	if(!on)
 		return
 	if(iscarbon(A))
