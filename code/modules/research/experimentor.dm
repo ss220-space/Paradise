@@ -761,7 +761,7 @@
 	lefthand_file = 'icons/mob/inhands/relics_production/inhandl.dmi'
 	righthand_file = 'icons/mob/inhands/relics_production/inhandr.dmi'
 	origin_tech = "materials=4"
-	var/datum/reagent/R
+	var/datum/reagent/inner_reagent
 	var/transfer = 10
 
 /obj/item/relict_priduction/perfect_mix/New()
