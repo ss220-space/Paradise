@@ -1001,18 +1001,19 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/MouseEntered(location, control, params)
 	if(item_flags & (IN_INVENTORY|IN_STORAGE))
-		var/timedelay = 8
-		var/mob/user = usr
-		tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)
+		var/mob/living/user = usr
+		if(user.client.prefs.toggles2 & PREFTOGGLE_2_DESC_TIPS)
+			var/timedelay = 8
+			tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)
+
 		if(QDELETED(src))
 			return
-		var/mob/living/L = user
 		if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES))
 			return
-		if(istype(L) && L.incapacitated())
-			apply_outline(L, COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
+		if(istype(user) && user.incapacitated())
+			apply_outline(user, COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
 		else
-			apply_outline(L) //if the player's alive and well we send the command with no color set, so it uses the theme's color
+			apply_outline(user) //if the player's alive and well we send the command with no color set, so it uses the theme's color
 
 
 /obj/item/MouseExited()

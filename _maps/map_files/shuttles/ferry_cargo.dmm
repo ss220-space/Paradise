@@ -139,9 +139,7 @@
 	},
 /area/shuttle/transport)
 "D" = (
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"

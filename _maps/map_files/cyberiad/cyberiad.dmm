@@ -6190,7 +6190,6 @@
 "auM" = (
 /obj/machinery/door_timer/cell_1{
 	dir = 1;
-	layer = 4;
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -6213,7 +6212,6 @@
 "auO" = (
 /obj/machinery/door_timer/cell_3{
 	dir = 1;
-	layer = 4;
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -7306,7 +7304,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door_timer/cell_5{
 	dir = 4;
-	layer = 4;
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -13996,9 +13993,7 @@
 	dir = 1;
 	location = "Security"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -20371,9 +20366,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "bmt" = (
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	location = "Kitchen"
@@ -20923,9 +20916,7 @@
 	codes_txt = "delivery";
 	location = "Hydroponics"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bot"
@@ -23377,9 +23368,7 @@
 	dir = 1;
 	location = "Bridge"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/bridge/meeting_room)
@@ -27871,9 +27860,7 @@
 /turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
 "bKZ" = (
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor{
 	dir = 4;
@@ -31534,9 +31521,7 @@
 	dir = 8;
 	location = "Research Division"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -43316,9 +43301,7 @@
 	},
 /area/storage/office)
 "cGi" = (
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
@@ -45047,9 +45030,7 @@
 	dir = 8;
 	location = "Bar"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plasteel,
 /area/maintenance/fsmaint2)
 "cKF" = (
@@ -45766,7 +45747,6 @@
 /area/solar/port)
 "cMD" = (
 /mob/living/carbon/human/lesser/monkey/punpun{
-	icon = 'icons/mob/monkey.dmi';
 	icon_state = "punpun1"
 	},
 /turf/simulated/floor/plasteel{
@@ -61148,10 +61128,7 @@
 	},
 /area/medical/cmo)
 "gAN" = (
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -69105,10 +69082,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "lZK" = (
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
@@ -69327,10 +69301,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
 "meY" = (
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "meZ" = (
@@ -75285,9 +75256,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
@@ -83339,9 +83308,7 @@
 	dir = 4;
 	location = "Medbay"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plating,
 /area/medical/sleeper)
 "vxL" = (
@@ -84079,10 +84046,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "vUY" = (
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
