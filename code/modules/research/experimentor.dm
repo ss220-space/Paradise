@@ -157,7 +157,7 @@
 	if(!I.origin_tech)
 		to_chat(user, span_warning("The [I.name] has no technological origin."))
 		return ATTACK_CHAIN_PROCEED
-	if (clone_next)
+	if(clone_next)
 		var/list/temp_tech = ConvertReqString2List(I.origin_tech)
 		var/techs_sum = 0
 		for(var/T in temp_tech)
