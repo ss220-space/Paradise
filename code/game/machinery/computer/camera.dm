@@ -261,7 +261,10 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/security/telescreen/entertainment/view_act(mob/user)
-	attack_hand(user)
+	if(stat)
+		user.unset_machine()
+		return
+	ui_interact(user)
 
 
 /obj/machinery/computer/security/telescreen/singularity
