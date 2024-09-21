@@ -59,7 +59,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/foam_darts
 	name = "Pack of Foam Darts"
-	desc = "Безвредный боезапас для донксовт оружия."
+	desc = "Безвредный боезапас для донксофт оружия."
 	typepath = /obj/item/ammo_box/foambox
 	cost = 20
 
@@ -101,7 +101,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/id_sticker/silver
 	name = "Silver ID Sticker"
-	desc = "Наклейка которая сделает любую ID серебряной."
+	desc = "Наклейка, которая сделает любую ID серебряной."
 	typepath = /obj/item/id_decal/silver
 
 /datum/prize_item/id_sticker/gold
@@ -116,7 +116,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/id_sticker/emag
 	name = "Suspicious ID Sticker"
-	desc = "Наклейка которое превращает вашу ID карту в нечто подозрительное..."
+	desc = "Наклейка, которая превращает вашу ID карту в нечто подозрительное..."
 	typepath = /obj/item/id_decal/emag
 
 /datum/prize_item/flash
@@ -127,7 +127,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/minimeteor
 	name = "Mini-Meteor"
-	desc = "Обнаружены метеоры, идущие на столкновение с вашим веселым временем!"
+	desc = "Обнаружены метеоры, идущие на столкновение с вашим весёлым временем!"
 	typepath = /obj/item/toy/minimeteor
 	cost = 50
 
@@ -187,7 +187,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/griffin
 	name = "Griffin Action Figure"
-	desc = "Если вы не можешь быть лучшим, вы всегда можешь быть ХУДШИМ."
+	desc = "Если вы не можете быть лучшим, вы всегда можете быть ХУДШИМ."
 	typepath = /obj/item/toy/griffin
 	cost = 100
 
@@ -294,13 +294,13 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	cost = 400
 
 /datum/prize_item/bike
-	name = "Awesome Rofl Bike!"
+	name = "Awesome Bike!"
 	desc = "Я прикупил огромный байк..."
 	typepath = /obj/vehicle/motorcycle
 	cost = 2500
 
 /datum/prize_item/speedbike
 	name = "Awesome Speedbike!"
-	desc = "Спорим что вы не сможете его купить? XD"
+	desc = "Спорим, что вы не сможете его купить? XD"
 	typepath =/obj/vehicle/space/speedbike/red
 	cost = 10000	//max stack + 1 tickets.
