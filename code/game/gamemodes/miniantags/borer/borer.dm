@@ -304,12 +304,13 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/borer/UnarmedAttack(mob/living/carbon/human/M)
-	if(!can_unarmed_attack())
-		return
+/mob/living/simple_animal/borer/OnUnarmedAttack(mob/living/carbon/human/M)
 	if(istype(M))
 		to_chat(src, span_notice("Вы анализируете жизненные показатели [M]."))
 		healthscan(src, M, 1, TRUE)
+
+/mob/living/simple_animal/borer/pre_grab_attack(atom/atom, proximity_flag)
+	return FALSE
 
 /obj/effect/proc_holder/spell/borer_infest
 	name = "Infest"

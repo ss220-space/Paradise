@@ -112,14 +112,14 @@
 
 
 /mob/living/carbon/true_devil/UnarmedAttack(atom/A, proximity)
-	if(!can_unarmed_attack())
-		return
 	if(!ishuman(A))
 		// `attack_hand` on mobs assumes the attacker is a human
 		// I am the worst
 		A.attack_hand(src)
 		// If the devil wants to actually attack, they have the pitchfork.
 
+/mob/living/carbon/true_devil/pre_grab_attack(atom/atom, proximity_flag)
+	return FALSE
 
 /mob/living/carbon/true_devil/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE

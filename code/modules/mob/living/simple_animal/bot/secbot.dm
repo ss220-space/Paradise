@@ -267,7 +267,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/UnarmedAttack(atom/A)
-	if(!on || !can_unarmed_attack())
+	if(!on)
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A

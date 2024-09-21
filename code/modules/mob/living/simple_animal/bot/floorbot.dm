@@ -463,8 +463,6 @@
 
 
 /mob/living/simple_animal/bot/floorbot/UnarmedAttack(atom/A)
-	if(!can_unarmed_attack())
-		return
 	if(isturf(A))
 		repair(A)
 	else if(istype(A,/obj/item/stack/tile/plasteel))
