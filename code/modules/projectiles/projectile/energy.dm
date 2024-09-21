@@ -91,9 +91,8 @@
 	icon_state = "cbbolttoy"
 	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = STAMINA
-	damage = 0
+	nodamage = TRUE
 	weaken = 0.1 SECONDS
-	stamina = 0
 	stutter = 2 SECONDS
 	shockbull = TRUE
 
