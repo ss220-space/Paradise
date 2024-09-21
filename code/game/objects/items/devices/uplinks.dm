@@ -21,18 +21,23 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/race
 	/// Job assigned to uplink owner.
 	var/job
+	/// Affiliate assigned of uplink owner
+	var/datum/affiliate/affiliate
 	/// Allows or blocks ordering of certain items. Specified on initialization by different uplink types.
 	var/uplink_type = UPLINK_TYPE_TRAITOR
 	/// If set, the uplink will show the option to become a contractor through this variable.
 	var/datum/antagonist/contractor/contractor
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
+	/// Can be bonus objectives taken on this uplink
+	var/can_bonus_objectives = TRUE
 
 
 /obj/item/uplink/Initialize(mapload, uplink_type, uses)
 	. = ..()
 	src.uses = uses ? uses : src.uses
 	src.uplink_type = uplink_type ? uplink_type : src.uplink_type
+	can_bonus_objectives = uplink_type == UPLINK_TYPE_TRAITOR
 	uplink_items = get_uplink_items(src, generate_discounts = TRUE)
 	GLOB.world_uplinks += src
 
@@ -72,6 +77,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			if(length(uplink_item.job) && !uplink_item.job.Find(job) && uplink_type != UPLINK_TYPE_ADMIN)
 				continue
 			if(length(uplink_item.race) && !uplink_item.race.Find(race) && uplink_type != UPLINK_TYPE_ADMIN)
+				continue
+			if((length(uplink_item.affiliate) && !uplink_item.affiliate.Find(affiliate?.name) && uplink_type != UPLINK_TYPE_ADMIN))
+				continue
+			if((length(uplink_item.exclude_from_affiliate) && uplink_item.exclude_from_affiliate.Find(affiliate?.name) && uplink_type != UPLINK_TYPE_ADMIN))
 				continue
 			cats[cats.len]["items"] += list(list("name" = sanitize(uplink_item.name), "desc" = sanitize(uplink_item.description()), "cost" = uplink_item.cost, "hijack_only" = uplink_item.hijack_only, "obj_path" = ref(uplink_item), "refundable" = uplink_item.refundable))
 
@@ -249,6 +258,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	data["cart"] = generate_tgui_cart()
 	data["cart_price"] = calculate_cart_tc()
 	data["lucky_numbers"] = lucky_numbers
+	data["affiliate"] = affiliate.name
+	data["can_bonus_objectives"] = can_bonus_objectives
 
 	if(contractor)
 		var/list/contractor_data = list(
@@ -419,6 +430,14 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		if("shuffle_lucky_numbers")
 			// lets see paul allen's random uplink item
 			shuffle_lucky_numbers()
+
+		if ("give_bonus_objectives")
+			if (can_bonus_objectives)
+				can_bonus_objectives = FALSE
+				affiliate.give_bonus_objectives()
+				visible_message("[src] beeps: Additional objectives and bonus TK have been sent.")
+			else
+				visible_message("[src] beeps: You have already requested additional objectives.")
 
 /obj/item/uplink/hidden/proc/shuffle_lucky_numbers()
 	lucky_numbers = list()

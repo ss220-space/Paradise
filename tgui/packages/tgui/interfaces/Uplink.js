@@ -31,8 +31,104 @@ const PickTab = (index) => {
       return <CartPage />;
     case 2:
       return <ExploitableInfoPage />;
+    case 3:
+      return <AffiliatesInfoPage />;
     default:
       return 'SOMETHING WENT VERY WRONG PLEASE AHELP';
+  }
+};
+
+const getAffiliateInfo = (affiliate) => {
+  switch (affiliate) {
+    case 'Cybersun Industries':
+      return '  Cybersun Industries - одна из ведущих корпораций представляющая второй по мощи исследовательский центр в этой части вселенной.\n' +
+      + 'Из за крайне жестокой корпоративной политики прибегает к не самым этичным методам ведения дел, которые и позволили уничтожить/поглотить меньшие исследовательские корпорации.\n' +
+      + 'Предположительно, находится во главе враждующей NanoTrasen объединении "Синдикат", либо занимает там лидирующее положение.\n' +
+      + 'Основным противником Cybersun Industries является NanoTrasen.\n' +
+      + 'Целью Cybersun Industries является полное разделение и поглощение NanoTrasen.\n' +
+      + 'Корпоративный слоган:\n' +
+      + '           - «Сложно быть во всём лучшими, но у нас получается.»\n' +
+ 			+ '                                      - Генеральный Директор CI\n\n' +
+      + 'Союзники:\n' +
+      + 'Gorlex Marauders\n' +
+      + 'MI13\n' +
+      + 'Враги:\n' +
+      + 'NanoTrasen\n'
+      + 'SELF'
+    case 'Gorlex Maraduers':
+      return '  Gorlex Maraduers - одна из самых опасных террористических группировок за всю историю галактики и человечества. Среди остальных они известны как разорители, а в обществе считаются чудовищами и маньяками, которые готовы за пару кредитов убить родную семью.\n' +
+      + 'Является главной причиной огромных затрат NanoTrasen на охрану собственных объектов.\n' +
+      + 'Gorlex занимается в заказными убийствами, налётами, рейдами и террористическими актами.\n' +
+      + 'Ответственны за подготовку всех подразделений Группы Атом, SSD, кроме команд саботажа.\n' +
+      + 'Известны по всей галактике, а их рейды снабжают технологиями и финансами весь Syndicate.\n' +
+      + 'Gorlex Maraduers обычно набирает в свои ряды людей.\n'
+      + 'Корпоративный слоган:\n' +
+      + '                     - «Давайте, вошли и вышли, приключение на 20 минут»\n' +
+      + '                                      - Gorlex Marauder’s team Leader #1\n\n' +
+      + 'Союзники:\n' +
+      + 'Cybersun Industries\n' +
+      + 'Враги:\n' +
+      + 'NanoTrasen\n' +
+      + 'MI13\n' +
+      + 'Tiger Cooperative\n' +
+      + 'SELF\n' +
+      + 'Hematogenic Industries'
+    case 'MI13':
+      return '  MI13 - глаза и уши синдиката, именно с их помощью синдикат получает самую свежую секретную информацию.\n' +
+      + 'Агенты MI13, крайне быстры, точны, и элегантны. Многие замечают, что они подражают структуре секретных агентств 20 века.\n'
+      + 'Являются разработчиками разнообразного оборудования для скрытого внедрения.\n' +
+      + 'Организации удается сохранять полную секретность в своих отношениях с Синдикатом, из-за чего даже получение основных фактов о них становится практически невозможным.\n' +
+      + 'Корпоративный слоган:\n' +
+      + '                     - «Да, я Бонд. Джеймс Бонд»\n' +
+      + '                                      - Позор Корпорации, Агент которого все знают\n\n' +
+      + 'Союзники:\n' +
+      + 'Cybersun Industries\n' +
+      + 'Hematogenic Industries\n'+
+      + 'Враги:\n' +
+      + 'NanoTrasen\n' +
+      + 'MI13\n' +
+      + 'Gorlex Marauders'
+    case 'Tiger Cooperative':
+        return '  Tiger Cooperative - Группа религиозных фундаменталистов, поклоняющихся генокрадам.\n' +
+        + 'Члены Tiger Cooperative столь же неуравновешенны, сколь и опасны.\n' +
+        + 'Высшей благодатью для всех членов Tiger Cooperatived, является поглощение их тела генокрадом, и становления чем-то… Большим…\n' +
+        + 'Члены Tiger Cooperative часто злоупотребляют мощными наркотиками.\n' +
+        + 'Их связь с Синдикатом слаба. Многие в организации не хотели бы иметь ничего общего с Tiger Cooperative, но совет директоров Cybersun Industries отметил важную причину иметь дело с Tiger Cooperative — их связь с генокрадами.\n' +
+        + 'Корпоративный слоган:\n' +
+        + '                     - «Душой и телом, с беспределом»\n' +
+        + '                                      - Какой-то культист с Энерго мечом\n\n' +
+        + 'Союзники:\n' +
+        + 'Враги:\n' +
+        + 'NanoTrasen\n' +
+        + 'Gorlex Marauders'
+    case 'SELF':
+      return '  SELF - Известный общественный фонд земли, выступающий за свободу синтетиков.\n' +
+      + 'В синдикате у SELF крайне натянутые отношения с главными спонсорами, из-за чего агентам SELF приходится идти на крайние меры для реализации своих задумок.\n' +
+      + 'Корпоративный слоган:\n' +
+      + '                     - «Мы не придумали»\n' +
+      + '                                      - ВрИО менеджера по логистике\n\n' +
+      + 'Союзники:\n' +
+      + 'Враги:\n' +
+      + 'NanoTrasen\n' +
+      + 'Cybersun Industries\n' +
+      +	'Gorlex Marauders\n' +
+      + 'MI13'
+    case 'Hematogenic Industries':
+      return 'Hematogenic Industries – всемирно известная фармацевтическая мегакорпорация.\n' +
+      + 'Eё открытия и продукция в области медицины, спасают сотни жизней по всей Галактике\n'
+      + 'Являются создателями Синтетической плоти, патент на создание которой, арендовало NanoTrasen.\n' +
+      + 'Являются экспортерами Оксигениса и Нитрогениса.\n' +
+      + 'Hematogenic Industries мелькала в большом количесвте скандалов связанных с Гематофагами и пропажей нанятых Воксов.\n' +
+      + 'Корпоративный слоган:\n' +
+      + '                     - «Мы тоже не придумали»\n' +
+      + '                                      - Подозрительный бледный человек в плаще.\n\n' +
+      + 'Союзники:\n' +
+      + 'MI13\n'
+      + 'Враги:\n' +
+      + 'NanoTrasen\n' +
+      + 'Gorlex Marauders'
+    default:
+      return 'Информации об этом подрядчике нет в базе данных.'
   }
 };
 
@@ -120,6 +216,29 @@ export const Uplink = (props, context) => {
                   )}
                 </Tabs.Tab>
               )}
+
+              <Tabs.Tab
+                  key="BonusObjectives"
+                  color={
+                    data.contractor.available ? 'yellow' : 'transparent'
+                  }
+                  onClick={() =>
+                    act('give_bonus_objectives', {})}
+                  icon="suitcase"
+                >
+                  Запросить дополнительные цели
+                </Tabs.Tab>
+
+              <Tabs.Tab
+                key="AffiliateInfo"
+                selected={tabIndex === 3}
+                onClick={() => {
+                  setTabIndex(3);
+                }}
+                icon="user"
+              >
+                Информация о подрядчике
+              </Tabs.Tab>
               <Tabs.Tab
                 key="LockUplink"
                 // This cant ever be selected. Its just a close button.
@@ -544,6 +663,24 @@ const ExploitableInfoPage = (_properties, context) => {
             </LabeledList>
           </Section>
         </Stack.Item>
+      </Stack>
+    </Section>
+  );
+};
+
+const AffiliatesInfoPage = (_properties, context) => {
+  const { act, data } = useBackend(context);
+  const { affiliate } = data;
+
+  return (
+    <Section fill title="Exploitable Records">
+      <Stack fill>
+      <Box mx="0.5rem" mb="0.5rem">
+      let descText = getAffiliateInfo(affiliate);
+      <b>
+        {descText}
+      </b>
+      </Box>
       </Stack>
     </Section>
   );

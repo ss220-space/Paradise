@@ -22,7 +22,9 @@
 	var/is_hijacker = FALSE
 	/// The associated traitor's uplink. Only present if `give_uplink` is set to `TRUE`.
 	var/obj/item/uplink/hidden/hidden_uplink = null
-
+	/// Current traitor affiliate
+	var/datum/affiliate/affiliate
+	var/list/killed_enemy_agents = list()
 
 /datum/antagonist/traitor/on_gain()
 	// Create this in case the traitor wants to mindslaves someone.
@@ -30,7 +32,43 @@
 		owner.som = new /datum/mindslaves
 
 	owner.som.masters += owner
+	give_affiliates()
+	RegisterSignal(owner.current, COMSIG_MOB_DEATH, PROC_REF(on_view_change))
 	return ..()
+
+/mob/living/carbon/human/proc/grant_enemy_affiliates()
+	var/datum/antagonist/traitor/src_traitor = has_antag_datum(/datum/antagonist/traitor)
+
+	for (/mob/living/carbon/human/H in range(5))
+		var/datum/antagonist/traitor/another_traitor = owner.has_antag_datum(/datum/antagonist/traitor)
+		if (!(src_traitor.affiliate in another_traitor.affiliate.enemys))
+			continue
+		if (another_traitor.killed_enemy_agents.length >= LIMIT_KILLING_ENEMY_REWARDS)
+			continue
+		if (src_traitor in another_traitor.killed_enemy_agents)
+			continue
+		another_traitor.killed_enemy_agents.Add(src_traitor)
+		another_traitor.hidden_uplink.uses += another_traitor.affiliate.reward_for_enemys
+
+/datum/antagonist/traitor/proc/give_affiliates()
+	var/list/possible_affiliates = list()
+	var/list/the_choosen_ones = list()
+	for(var/new_affiliate in subtypesof(/datum/affiliate))
+		var/datum/affiliate/affiliate_check = new new_affiliate
+		if(affiliate_check.is_possible())
+			possible_affiliates += new_affiliate
+		qdel(affiliate_check)
+	for(var/i in 1 to 3)
+		the_choosen_ones += pick_n_take(possible_affiliates)
+	var/obj/effect/proc_holder/spell/choose_affiliate/choose = new(the_choosen_ones)
+	owner.AddSpell(choose)
+
+
+/datum/antagonist/traitor/proc/grant_affiliate(var/path)
+	var/datum/affiliate/new_affiliate = new path
+	affiliate = new_affiliate
+	if(hidden_uplink)
+		hidden_uplink.affiliate = new_affiliate
 
 /datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -215,9 +253,6 @@
 	var/list/messages = list()
 	if(give_codewords)
 		messages.Add(give_codewords())
-
-	if(give_uplink)
-		give_uplink()
 
 	announce_uplink_info()
 

@@ -33,6 +33,7 @@
 #define CULT_EYES "cult_eyes"
 #define CLOCK_HANDS "clock_hands"
 #define PULSEDEMON_TRAIT "pulse_demon"
+#define TIGER_TRAIT "tiger"
 #define CHANGELING_TRAIT "changeling"
 #define VAMPIRE_TRAIT "vampire"
 #define NINJA_TRAIT "space-ninja"

@@ -5,6 +5,7 @@
 #define THEFT_FLAG_STRUCTURE	5
 #define THEFT_FLAG_ANIMAL		6
 #define THEFT_FLAG_COLLECT 		7
+#define THEFT_FLAG_AI 			8
 
 
 GLOBAL_LIST_EMPTY(all_objectives)
@@ -216,21 +217,66 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return target
 
+/datum/objective/assassinate/headofstaff
+	name = "Assassinate Head of Stuff"
+	martyr_compatible = TRUE
 
-/datum/objective/assassinate/check_completion()
-	if(target && target.current)
-		if(target.current.stat == DEAD)
-			return TRUE
 
-		if(is_special_dead(target.current)) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
-			return TRUE
+/datum/objective/assassinate/headofstaff/find_target(list/target_blacklist)
+	if(!needs_target)
+		return
 
-		if(!target.current.ckey)
-			return TRUE
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(is_invalid_target(possible_target) || (possible_target in target_blacklist) || !(possible_target?.assigned_role in list("Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Captain")))
+			continue
+		possible_targets |= possible_target
 
-		return FALSE
+	if(length(possible_targets))
+		target = pick(possible_targets)
 
-	return TRUE
+		SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
+
+	if(target?.current)
+		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
+		if(!(target in SSticker.mode.victims))
+			SSticker.mode.victims.Add(target)
+	else
+		explanation_text = "Free Objective"
+
+	return target
+
+/datum/objective/assassinate/procedure
+	name = "Assassinate Procedure workers"
+	martyr_compatible = TRUE
+
+
+/datum/objective/assassinate/procedure/find_target(list/target_blacklist)
+	if(!needs_target)
+		return
+
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(is_invalid_target(possible_target) || (possible_target in target_blacklist) || !(possible_target?.assigned_role in list("Magistrate", "NT Representative")))
+			continue
+		possible_targets |= possible_target
+
+	if(length(possible_targets))
+		target = pick(possible_targets)
+
+	SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
+
+	if(target?.current)
+		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
+		if(!(target in SSticker.mode.victims))
+			SSticker.mode.victims.Add(target)
+	else
+		var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+		if(traitor)
+			traitor.add_objective(/datum/objective/assassinate/headofstaff)
+		qdel(src)
+
+	return target
 
 
 /datum/objective/mutiny
@@ -815,6 +861,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			return GLOB.potential_theft_objectives_structure
 		if(THEFT_FLAG_ANIMAL)
 			return GLOB.potential_theft_objectives_animal
+		if(THEFT_FLAG_AI)
+			return list(/datum/theft_objective/highrisk/ai)
 		else
 			return GLOB.potential_theft_objectives
 
@@ -929,6 +977,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/steal/collect
 	type_theft_flag = THEFT_FLAG_COLLECT
 
+/datum/objective/steal/ai
+	type_theft_flag = THEFT_FLAG_AI
 
 /datum/objective/steal/exchange
 	martyr_compatible = FALSE
@@ -1734,6 +1784,16 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	Подойдёт только консоль в этой зоне из-за уязвимости оставленной заранее для вируса. \
 	Учтите, что установка займёт время и ИИ скорее всего будет уведомлён о вашей попытке взлома!"
 
+// Affiliates objectives custom
+/datum/objective/download_data
+	needs_target = FALSE
+	completed = TRUE
+	explanation_text = "Проверка: загрузка"
+
+/datum/objective/mecha_hijack
+	needs_target = FALSE
+	completed = TRUE
+	explanation_text = "Проверка: мехи"
 
 /datum/objective/blob_critical_mass
 	needs_target = FALSE
