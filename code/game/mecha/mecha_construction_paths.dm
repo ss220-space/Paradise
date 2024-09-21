@@ -1220,7 +1220,7 @@
 					 		"desc"="The bluespace crystal is engaged."),
 					 //8
 					 list("key" = TOOL_SCREWDRIVER,
-					 		"backkey"=/obj/item/wirecutters,
+					 		"backkey"=/TOOL_WIRECUTTER,
 					 		"desc"="The bluespace crystal is connected."),
 					 //9
 					 list("key" = /obj/item/stack/cable_coil,
