@@ -1,4 +1,4 @@
-//Medbot
+
 /mob/living/simple_animal/bot/medbot
 	name = "\improper Medibot"
 	desc = "A little medical robot. He looks somewhat underwhelmed."
@@ -58,69 +58,10 @@
 	/// Will it only treat operatives?
 	var/syndicate_aligned = FALSE
 	var/drops_parts = TRUE
-	///our tipper
+	///Наш Опкрокидыватель
 	var/datum/weakref/tipper
-
-	///anouncements when we find a target to heal
-	var/static/list/wait_announcements = list(
-		MEDIBOT_VOICED_HOLD_ON = 'sound/voice/medbot/coming.ogg',
-		MEDIBOT_VOICED_WANT_TO_HELP = 'sound/voice/medbot/help.ogg',
-		MEDIBOT_VOICED_YOU_ARE_INJURED = 'sound/voice/medbot/injured.ogg',
-	)
-
-	///announcements after we heal someone
-	var/static/list/afterheal_announcements = list(
-		MEDIBOT_VOICED_ALL_PATCHED_UP = 'sound/voice/medbot/patchedup.ogg',
-		MEDIBOT_VOICED_APPLE_A_DAY = 'sound/voice/medbot/apple.ogg',
-		MEDIBOT_VOICED_FEEL_BETTER = 'sound/voice/medbot/feelbetter.ogg',
-	)
-
-	///announcements when we are healing someone near death
-	var/static/list/near_death_announcements = list(
-		MEDIBOT_VOICED_STAY_WITH_ME = 'sound/voice/medbot/no.ogg',
-		MEDIBOT_VOICED_LIVE = 'sound/voice/medbot/live.ogg',
-		MEDIBOT_VOICED_NEVER_LOST = 'sound/voice/medbot/lost.ogg',
-	)
-	///announcements when we are idle
-	var/static/list/idle_lines = list(
-		MEDIBOT_VOICED_DELICIOUS = 'sound/voice/medbot/delicious.ogg',
-		MEDIBOT_VOICED_PLASTIC_SURGEON = 'sound/voice/medbot/surgeon.ogg',
-		MEDIBOT_VOICED_MASK_ON = 'sound/voice/medbot/radar.ogg',
-		MEDIBOT_VOICED_ALWAYS_A_CATCH = 'sound/voice/medbot/catch.ogg',
-		MEDIBOT_VOICED_LIKE_FLIES = 'sound/voice/medbot/flies.ogg',
-		MEDIBOT_VOICED_SUFFER = 'sound/voice/medbot/why.ogg',
-	)
-	///announcements when we are emagged
-	var/static/list/emagged_announcements = list(
-		MEDIBOT_VOICED_FUCK_YOU = 'sound/voice/medbot/fuck_you.ogg',
-		MEDIBOT_VOICED_NOT_A_GAME = 'sound/voice/medbot/turn_off.ogg',
-		MEDIBOT_VOICED_IM_DIFFERENT = 'sound/voice/medbot/im_different.ogg',
-		MEDIBOT_VOICED_FOURTH_WALL = 'sound/voice/medbot/close.ogg',
-		MEDIBOT_VOICED_SHINDEMASHOU = 'sound/voice/medbot/shindemashou.ogg',
-	)
-	///announcements when we are being tipped
-	var/static/list/tipped_announcements = list(
-		MEDIBOT_VOICED_WAIT = 'sound/voice/medbot/hey_wait.ogg',
-		MEDIBOT_VOICED_DONT = 'sound/voice/medbot/please_dont.ogg',
-		MEDIBOT_VOICED_TRUSTED_YOU = 'sound/voice/medbot/i_trusted_you.ogg',
-		MEDIBOT_VOICED_NO_SAD = 'sound/voice/medbot/nooo.ogg',
-		MEDIBOT_VOICED_OH_FUCK = 'sound/voice/medbot/oh_fuck.ogg',
-	)
-	///announcements when we are being untipped
-	var/static/list/untipped_announcements = list(
-		MEDIBOT_VOICED_FORGIVE = 'sound/voice/medbot/forgive.ogg',
-		MEDIBOT_VOICED_THANKS = 'sound/voice/medbot/thank_you.ogg',
-		MEDIBOT_VOICED_GOOD_PERSON = 'sound/voice/medbot/youre_good.ogg',
-	)
-	///announcements when we are worried
-	var/static/list/worried_announcements = list(
-		MEDIBOT_VOICED_PUT_BACK = 'sound/voice/medbot/please_put_me_back.ogg',
-		MEDIBOT_VOICED_IM_SCARED = 'sound/voice/medbot/please_im_scared.ogg',
-		MEDIBOT_VOICED_NEED_HELP = 'sound/voice/medbot/dont_like.ogg',
-		MEDIBOT_VOICED_THIS_HURTS = 'sound/voice/medbot/pain_is_real.ogg',
-		MEDIBOT_VOICED_THE_END = 'sound/voice/medbot/is_this_the_end.ogg',
-		MEDIBOT_VOICED_NOOO = 'sound/voice/medbot/nooo.ogg',
-	)
+	// Проверка на перевернутость
+	var/mob/medbot
 
 /mob/living/simple_animal/bot/medbot/tox
 	skin = "tox"
@@ -169,7 +110,6 @@
 	control_freq = BOT_FREQ + 1000 // make it not show up on lists
 	radio_channel = "Syndicate"
 	radio_config = list("Common" = 1, "Medical" = 1, "Syndicate" = 1)
-
 
 /mob/living/simple_animal/bot/medbot/syndicate/Initialize(mapload, new_skin)
 	. = ..()
@@ -389,11 +329,17 @@
 		return
 
 	if(assess_patient(H))
-		last_found = world.time
-		if((last_newpatient_speak + 30 SECONDS) < world.time) //Don't spam these messages!
-			speak(pick(wait_announcements))
-			last_newpatient_speak = world.time
-		return H
+		if(!(HAS_TRAIT(src, TRAIT_MOB_TIPPED)))
+			last_found = world.time
+			if((last_newpatient_speak + 30 SECONDS) < world.time) //Don't spam these messages!
+				var/list/messagevoice = list("Hey, [H.name]! Hold on, I'm coming." = 'sound/voice/mcoming.ogg',
+										"Wait [H.name]! I want to help!" = 'sound/voice/mhelp.ogg',
+										"[H.name], you appear to be injured!" = 'sound/voice/minjured.ogg')
+				var/message = pick(messagevoice)
+				speak(message)
+				playsound(loc, messagevoice[message], 50, FALSE)
+				last_newpatient_speak = world.time
+			return H
 
 
 /mob/living/simple_animal/bot/medbot/handle_automated_action()
@@ -409,7 +355,15 @@
 
 	if(!patient)
 		if(!shut_up && prob(1))
-			speak(pick(idle_lines))
+			if(!(HAS_TRAIT(src, TRAIT_MOB_TIPPED)))
+				var/list/messagevoice = list("Radar, put a mask on!" = 'sound/voice/medbot/radar.ogg',
+											"There's always a catch, and I'm the best there is." = 'sound/voice/medbot/catch.ogg',
+											"I knew it, I should've been a plastic surgeon." = 'sound/voice/medbot/surgeon.ogg',
+											"What kind of medbay is this? Everyone's dropping like flies." = 'sound/voice/medbot/flies.ogg',
+											"Delicious!" = 'sound/voice/medbot/delicious.ogg')
+				var/message = pick(messagevoice)
+				speak(message)
+				playsound(loc, messagevoice[message], 50, FALSE)
 		var/scan_range = (stationary_mode ? 1 : DEFAULT_SCAN_RANGE) //If in stationary mode, scan range is limited to adjacent patients.
 		patient = scan(/mob/living/carbon/human, oldpatient, scan_range)
 		oldpatient = patient
@@ -559,7 +513,12 @@
 		return
 
 	if(C.stat == DEAD || HAS_TRAIT(C, TRAIT_FAKEDEATH))
-		speak(pick(near_death_announcements))
+		var/list/messagevoice = list("No! Stay with me!" = 'sound/voice/medbot/no.ogg',
+									"Live, damnit! LIVE!" = 'sound/voice/medbot/live.ogg',
+									"I...I've never lost a patient before. Not today, I mean." = 'sound/voice/medbot/lost.ogg')
+		var/message = pick(messagevoice)
+		speak(message)
+		playsound(loc, messagevoice[message], 50, FALSE)
 		oldpatient = patient
 		soft_reset()
 		return
@@ -574,7 +533,12 @@
 		reagent_id = select_medication(C, beaker_injection)
 
 	if(!reagent_id) //If they don't need any of that they're probably cured!
-		speak(pick(afterheal_announcements))
+		var/list/messagevoice = list("All patched up!" = 'sound/voice/medbot/patchedup.ogg',
+									"An apple a day keeps me away." = 'sound/voice/medbot/apple.ogg',
+									"Feel better soon!" = 'sound/voice/medbot/feelbetter.ogg')
+		var/message = pick(messagevoice)
+		speak(message)
+		playsound(loc, messagevoice[message], 50, FALSE)
 		bot_reset()
 		return
 	else
@@ -659,7 +623,7 @@
 		reagent_glass = null
 
 	if(emagged && prob(25))
-		playsound(loc, 'sound/voice/minsult.ogg', 50, FALSE)
+		playsound(loc, 'sound/voice/medbot/fuck_you.ogg', 50, FALSE)
 
 	do_sparks(3, TRUE, src)
 	..()
@@ -686,16 +650,16 @@
 
 /mob/living/simple_animal/bot/medbot/examine()
 	. = ..()
-/*	if(!(medical_mode_flags & MEDBOT_TIPPED_MODE))
-		return	*/
-	var/static/list/panic_state = list(
-		"It appears to be tipped over, and is quietly waiting for someone to set it right.",
-		"It is tipped over and requesting help.",
-		"They are tipped over and appear visibly distressed.",
-		span_warning("They are tipped over and visibly panicking!"),
-		span_warning("They are freaking out from being tipped over!"),
-	)
-	. += pick(panic_state)
+	if(HAS_TRAIT(src, TRAIT_MOB_TIPPED))
+		var/static/list/panic_state = list(
+			"Кажется, что он опрокинут и тихо ждет, пока кто-нибудь его поднимет..",
+			"Он перевернулся и просит помощи.",
+			"Он опрокинут и выглядят явно расстроенными..",
+			span_warning("Он опрокинут и явно паникуют!"),
+			span_warning("Он бесится, когда опрокинут!")
+		)
+		. += pick(panic_state)
+		return
 /*
  * Proc used in a callback for before this medibot is tipped by the tippable component.
  *
@@ -703,19 +667,26 @@
  */
 
 /mob/living/simple_animal/bot/medbot/proc/pre_tip_over(mob/user)
-	speak(pick(worried_announcements))
-
+	var/list/messagevoice = list("Please put me back." = 'sound/voice/medbot/please_put_me_back.ogg',
+								"Nooo!" = 'sound/voice/medbot/nooo.ogg',
+								"Please, I am scared!." = 'sound/voice/medbot/please_im_scared.ogg',
+								"Is this the end?." = 'sound/voice/medbot/is_this_the_end.ogg',
+								"This hurts, my pain is real!." = 'sound/voice/medbot/pain_is_real.ogg',
+								"I don't like this, I need help!" = 'sound/voice/medbot/dont_like.ogg')
+	var/message = pick(messagevoice)
+	speak(message)
+	playsound(loc, messagevoice[message], 50, FALSE)
 /*
  * Proc used in a callback for after this medibot is tipped by the tippable component.
  *
  * user - the mob who tipped us over
  */
 /mob/living/simple_animal/bot/medbot/proc/after_tip_over(mob/user)
-/*	medical_mode_flags |= MEDBOT_TIPPED_MODE	*/
+	ADD_TRAIT(src, TRAIT_MOB_TIPPED, TIPPED_OVER)
 	tipper = WEAKREF(user)
 	playsound(src, 'sound/machines/warning-buzzer.ogg', 50)
 	if(prob(10))
-		speak("PSYCH ALERT: Crewmember [user.name] recorded displaying antisocial tendencies torturing bots in [get_area(src)]. Please schedule psych evaluation.", radio_channel)
+		speak("ПСИХИЧЕСКАЯ ТРЕВОГА: Член экипажа [user.name] имеет садисткие наклонности в сторону ботов в [get_area(src)]. Пожалуйста, запланируйте психологическое обследование.", radio_channel)
 
 /*
  * Proc used in a callback for after this medibot is righted, either by themselves or by a mob, by the tippable component.
@@ -723,13 +694,41 @@
  * user - the mob who righted us. Can be null.
  */
 /mob/living/simple_animal/bot/medbot/proc/after_righted(mob/user)
+	REMOVE_TRAIT(src, TRAIT_MOB_TIPPED, TIPPED_OVER)
 	var/mob/tipper_mob = isnull(user) ? null : tipper?.resolve()
 	tipper = null
-/*	medical_mode_flags &= ~MEDBOT_TIPPED_MODE	*/
 	if(isnull(tipper_mob))
 		return
 	if(tipper_mob == user)
-		speak(MEDIBOT_VOICED_FORGIVE)
+		var/list/i_forgive = list("I forgive you." = 'sound/voice/medbot/forgive.ogg')
+		var/forgivemessage = pick(i_forgive)
+		speak(forgivemessage)
+		playsound(loc, i_forgive[forgivemessage ], 50, FALSE)
 		return
-	speak(pick(untipped_announcements))
+	var/list/messagevoice = list("I forgive you." = 'sound/voice/medbot/forgive.ogg',
+								"Thank you!" = 'sound/voice/medbot/thank_you.ogg',
+								"You are a good person." = 'sound/voice/medbot/youre_good.ogg')
+	var/message = pick(messagevoice)
+	speak(message)
+	playsound(loc, messagevoice[message], 50, FALSE)
+
+/mob/living/simple_animal/bot/medbot/proc/tipped_speak()
+	if(HAS_TRAIT(src, TRAIT_MOB_TIPPED))
+		last_found = world.time
+		if((last_newpatient_speak + 30 SECONDS) < world.time) //Don't spam these messages!
+			var/list/messagevoice = list("Please put me back." = 'sound/voice/medbot/please_put_me_back.ogg',
+								"Nooo!" = 'sound/voice/medbot/nooo.ogg',
+								"Please, I am scared!." = 'sound/voice/medbot/please_im_scared.ogg',
+								"Is this the end?." = 'sound/voice/medbot/is_this_the_end.ogg',
+								"This hurts, my pain is real!." = 'sound/voice/medbot/pain_is_real.ogg',
+								"I don't like this, I need help!" = 'sound/voice/medbot/dont_like.ogg')
+			var/message = pick(messagevoice)
+			speak(message)
+			playsound(loc, messagevoice[message], 50, FALSE)
+			last_newpatient_speak = world.time
+
+/mob/living/simple_animal/bot/medbot/bot_move()
+	if(HAS_TRAIT(src, TRAIT_MOB_TIPPED))
+		return
+	..()
 
