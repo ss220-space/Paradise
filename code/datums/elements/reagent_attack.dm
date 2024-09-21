@@ -15,7 +15,7 @@
 /datum/element/reagent_attack/Attach(atom/source, reagent_id, reagent_amount, piercing, reagent_limit, list/allowed_zones)
 	. = ..()
 
-	if(!isitem(source) && !ismob(source))
+	if(!isitem(source) && !isliving(source))
 		return ELEMENT_INCOMPATIBLE
 
 	src.reagent_id = reagent_id
@@ -27,7 +27,7 @@
 	if(isitem(source))
 		RegisterSignal(source, COMSIG_ITEM_ATTACK, PROC_REF(item_attack))
 
-	if(ismob(source))
+	if(isliving(source))
 		RegisterSignal(source, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(mob_attack))
 
 /datum/element/reagent_attack/Detach(atom/source)
@@ -36,7 +36,7 @@
 	if(isitem(source))
 		UnregisterSignal(source, COMSIG_ITEM_ATTACK)
 
-	if(ismob(source))
+	if(isliving(source))
 		UnregisterSignal(source, COMSIG_LIVING_UNARMED_ATTACK)
 
 /datum/element/reagent_attack/proc/item_attack(mob/target, mob/living/user, params, def_zone)
