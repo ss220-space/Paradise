@@ -181,7 +181,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/owl
 	name = "Owl Action Figure"
-	desc = "Помните: Герои не становятся ГИФонами!"
+	desc = "Помните: Герои не становятся ГРИФонами!"
 	typepath = /obj/item/toy/owl
 	cost = 100
 
@@ -253,19 +253,19 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/tommygun
 	name = "Tommy Gun"
-	desc = "Реплика Томи-гана, стреляющего дротиками из пенопласта."
+	desc = "Реплика Томми-гана, стреляющего дротиками из пенопласта."
 	typepath = /obj/item/gun/projectile/shotgun/toy/tommygun
 	cost = 175
 
 /datum/prize_item/chainsaw
 	name = "Toy Chainsaw"
-	desc = "Полноразмерна модель бензопилы, основанная на той Техаской бензопилой."
+	desc = "Полноразмерна модель бензопилы, основанная на той Техасской космо-резне бензопилой.."
 	typepath = /obj/item/twohanded/toy/chainsaw
 	cost = 200
 
 /datum/prize_item/headpat
 	name = "Gloves of Headpats"
-	desc = "Перчатки, которые наполняют вас непреодолимым желанием сделать пару ударов по голове."
+	desc = "Перчатки, которые наполняют вас непреодолимым желанием погладить кого нибудь по голове."
 	typepath = /obj/item/clothing/gloves/fingerless/rapid/headpat
 	cost = 150
 
@@ -289,7 +289,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/shotgun
 	name = "Foam Force Shotgun"
-	desc = "Помповый донк софт дробовик со скользящим цевьём для быстрой стрельбы."
+	desc = "Помповый донксофт дробовик со скользящим цевьём для быстрой стрельбы."
 	typepath = /obj/item/gun/projectile/shotgun/toy
 	cost = 400
 
