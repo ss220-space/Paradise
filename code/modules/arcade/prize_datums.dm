@@ -41,7 +41,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/balloon
 	name = "Water Balloon"
-	desc = "Воздушный шарик, наполняемый водой. Можно кинуть в другово человека!"
+	desc = "Воздушный шарик, наполняемый водой. Можно кинуть в другого человека!"
 	typepath = /obj/item/toy/balloon
 	cost = 10
 
@@ -101,7 +101,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/id_sticker/silver
 	name = "Silver ID Sticker"
-	desc = "Наклейка которое сделает любую ID серебряной."
+	desc = "Наклейка которая сделает любую ID серебряной."
 	typepath = /obj/item/id_decal/silver
 
 /datum/prize_item/id_sticker/gold
@@ -111,7 +111,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/id_sticker/centcom
 	name = "Centcomm ID Sticker"
-	desc = "Наклейка, которое сделает любую ID карту похожей на ID Центрального командования."
+	desc = "Наклейка, которая сделает любую ID карту похожей на ID Центрального командования."
 	typepath = /obj/item/id_decal/centcom
 
 /datum/prize_item/id_sticker/emag
