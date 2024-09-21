@@ -485,7 +485,7 @@
 		qdel(exp_on)
 	else
 		exp = FAIL
-п
+
 
 /obj/machinery/r_n_d/experimentor/proc/scan_cold(exp, obj/item/exp_on, chosenchem, criticalReaction, isRelict)
 	visible_message("[src] lowers [exp_on]'s temperature.")
