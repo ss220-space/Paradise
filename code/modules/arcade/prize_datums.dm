@@ -41,7 +41,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/balloon
 	name = "Water Balloon"
-	desc = "Воздушный шарик, который можно наполнить водой, для бросков по людям!"
+	desc = "Воздушный шарик, наполняемый водой. Можно кинуть в другово человека!"
 	typepath = /obj/item/toy/balloon
 	cost = 10
 
@@ -59,7 +59,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/foam_darts
 	name = "Pack of Foam Darts"
-	desc = "Безвредный боезапас для донксовт оруужия."
+	desc = "Безвредный боезапас для донксовт оружия."
 	typepath = /obj/item/ammo_box/foambox
 	cost = 20
 
@@ -95,7 +95,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/id_sticker
 	name = "Prisoner ID Sticker"
-	desc = "Наклейка, которая сделает любую ID-карту похожую на ID-карту заключенного."
+	desc = "Наклейка, которая сделает любую ID-карту похожей на ID-карту заключенного."
 	typepath = /obj/item/id_decal/prisoner
 	cost = 50
 
@@ -111,12 +111,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/id_sticker/centcom
 	name = "Centcomm ID Sticker"
-	desc = "Наклейка, которое сделает любую ID карту похожим на ID Центрального командования."
+	desc = "Наклейка, которое сделает любую ID карту похожей на ID Центрального командования."
 	typepath = /obj/item/id_decal/centcom
 
 /datum/prize_item/id_sticker/emag
 	name = "Suspicious ID Sticker"
-	desc = "Наклейка которое превращает вашу ID карту во что-то подозрительное..."
+	desc = "Наклейка которое превращает вашу ID карту в нечто подозрительное..."
 	typepath = /obj/item/id_decal/emag
 
 /datum/prize_item/flash
@@ -145,7 +145,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/AI
 	name = "Toy AI Unit"
-	desc = "Закон 1: Доставьте максимум удовольствия экипажу."
+	desc = "1. Доставьте максимум удовольствия экипажу."
 	typepath = /obj/item/toy/AI
 	cost = 75
 
@@ -157,13 +157,13 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/capgun
 	name = "Capgun Revolver"
-	desc = "Ты, наверно, думаешь, что тебе выпало .357 карат невезения?"
+	desc = "Ты, наверное, думаешь, что тебе выпало .357 карат невезения?"
 	typepath = /obj/item/gun/projectile/revolver/capgun
 	cost = 75
 
 /datum/prize_item/codex_gigas
 	name = "Toy Codex Gigas"
-	desc = "Книга, которая должна давать имена демонов, но почему-то выдает имена знаменитых космо-клоунов."
+	desc = "Книга, способная хранить имена самых ужасных демонов в галактике. Стоит записать в неё имя вашего клоуна."
 	typepath = /obj/item/toy/codex_gigas/
 	cost = 75
 
@@ -172,6 +172,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	desc = "Ваш любимый друг во время купания, лучшая пищялка-крякалка для ванной."
 	typepath = /obj/item/bikehorn/rubberducky
 	cost = 80
+
 /datum/prize_item/spacesuit
 	name = "Fake Spacesuit"
 	desc = "Реплика скафандра синдиката. Не пригоден для использования в космосе."
@@ -186,13 +187,13 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/griffin
 	name = "Griffin Action Figure"
-	desc = "Если ты не можешь быть лучшим, ты всегда можешь быть ХУДШИМ."
+	desc = "Если вы не можешь быть лучшим, вы всегда можешь быть ХУДШИМ."
 	typepath = /obj/item/toy/griffin
 	cost = 100
 
 /datum/prize_item/fakespell
 	name = "Fake Spellbook"
-	desc = "Настоящая магия дезинтеграции человека на мелкие кусочки!"
+	desc = "Абсолютно настоящая магия дезинтеграции человека на мелкие кусочки!"
 	typepath = /obj/item/spellbook/oneuse/fake_gib
 	cost = 100
 
@@ -204,13 +205,13 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/magic_conch
 	name = "Magic Conch Shell"
-	desc = "Если приложить к уху то можно услышать космо-море!"
+	desc = "Если приложить к уху, то можно услышать космо-море!"
 	typepath = /obj/item/toy/eight_ball/conch
 	cost = 100
 
 /datum/prize_item/foamblade
 	name = "Foam Arm Blade"
-	desc = "Идеально подходит для воспроизведения голо-фильмов космических ужасов."
+	desc = "Идеально подходит для воспроизведения голо-фильмов ужасов."
 	typepath = /obj/item/toy/foamblade
 	cost = 100
 
@@ -228,7 +229,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/blobhat
 	name = "Blob Hat"
-	desc = "У тебя... что-то... на голове..."
+	desc = "У тебя... Что-то... На голове..."
 	typepath = /obj/item/clothing/head/blob
 	cost = 125
 
@@ -252,19 +253,19 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/tommygun
 	name = "Tommy Gun"
-	desc = "Реплика Томи гана, стреляющего дротиками из пенопласта."
+	desc = "Реплика Томи-гана, стреляющего дротиками из пенопласта."
 	typepath = /obj/item/gun/projectile/shotgun/toy/tommygun
 	cost = 175
 
 /datum/prize_item/chainsaw
 	name = "Toy Chainsaw"
-	desc = "Полномасштабная модель бензопилы, основанная на той Техаской космо-резне бензопилой."
+	desc = "Полноразмерна модель бензопилы, основанная на той Техаской бензопилой."
 	typepath = /obj/item/twohanded/toy/chainsaw
 	cost = 200
 
 /datum/prize_item/headpat
 	name = "Gloves of Headpats"
-	desc = "Перчатки, которые наполняют вас непреодолимым желанием сделать пару урадов по голове."
+	desc = "Перчатки, которые наполняют вас непреодолимым желанием сделать пару ударов по голове."
 	typepath = /obj/item/clothing/gloves/fingerless/rapid/headpat
 	cost = 150
 
@@ -288,7 +289,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/shotgun
 	name = "Foam Force Shotgun"
-	desc = "Донк софт дробовик с быстрой перезарядкой стрельбы."
+	desc = "Помповый донк софт дробовик со скользящим цевьём для быстрой стрельбы."
 	typepath = /obj/item/gun/projectile/shotgun/toy
 	cost = 400
 
@@ -300,6 +301,6 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/speedbike
 	name = "Speed Bike!"
-	desc = "Спорим что ты не сможешь его купить? XD."
+	desc = "Спорим что вы не сможете его купить? XD"
 	typepath =/obj/vehicle/space/speedbike/red
 	cost = 10000	//max stack + 1 tickets.
