@@ -143,7 +143,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/toy
 	name = "toy energy crossbow"
-	desc = "Игрушечное оружие, сделанное из тагерного пистолета со стильным дизайном арбалета синдиката."
+	desc = "Игрушечное оружие, сделанное из тагерного пистолета со стильным дизайном контрабандного арбалета."
 	icon_state = "crossbowtoy"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=4000)
