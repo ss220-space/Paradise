@@ -544,16 +544,14 @@ SUBSYSTEM_DEF(jobs)
 					G.upgrade_prescription()
 					H.update_nearsighted_effects()
 
-		// Wheelchair necessary?
-		var/obj/item/organ/external/l_foot = H.get_organ(BODY_ZONE_PRECISE_L_FOOT)
-		var/obj/item/organ/external/r_foot = H.get_organ(BODY_ZONE_PRECISE_R_FOOT)
-		if(!l_foot && !r_foot || (H.client.prefs.disabilities & DISABILITY_FLAG_PARAPLEGIA) && !(H.dna.species.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
-			var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(H.loc)
-			W.buckle_mob(H, TRUE)
+		if(!issilicon(H))
+			// Wheelchair necessary?
+			var/obj/item/organ/external/l_foot = H.get_organ(BODY_ZONE_PRECISE_L_FOOT)
+			var/obj/item/organ/external/r_foot = H.get_organ(BODY_ZONE_PRECISE_R_FOOT)
+			if(!l_foot && !r_foot || (H.client.prefs.disabilities & DISABILITY_FLAG_PARAPLEGIA) && !(H.dna.species.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
+				var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(H.loc)
+				W.buckle_mob(H, TRUE)
 	return H
-
-
-
 
 
 /datum/controller/subsystem/jobs/proc/LoadJobsFile(jobsfile, highpop) //ran during round setup, reads info from jobs.txt -- Urist
