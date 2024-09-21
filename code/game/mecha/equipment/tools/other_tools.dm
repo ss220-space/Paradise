@@ -608,6 +608,7 @@
 	var/turf/holding_turf
 	var/datum/action/innate/mecha/select_module/button // for custom icons
 	var/current_alert //wacky case
+	alert_category = "mecha_cage"
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
 	if(..())
@@ -631,7 +632,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/cage/select_set_alert()
 	. = ..()
-	if(.)
+	if(!.)
 		if(prisoner)
 			change_alert("three")
 		else if(holding)
@@ -834,5 +835,5 @@
 
 	else
 		if(chassis.occupant)
-			if(current_alert != "zero")
+			if(current_alert != "zero" && chassis.selected == src)
 				change_alert("zero")

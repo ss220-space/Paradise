@@ -562,6 +562,10 @@ so as to remain in compliance with the most up-to-date laws."
 	desc = "Maintenance protocols are currently in effect, most actions disabled."
 	icon_state = "locked"
 
+/atom/movable/screen/alert/empty_alert
+	name = ""
+	desc = ""
+
 //MECH MODULES
 
 //cage module
