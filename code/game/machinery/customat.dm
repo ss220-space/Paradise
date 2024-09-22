@@ -148,7 +148,7 @@
 	var/list/products = list()
 
 	var/inserted_items_count = 0
-	var/max_items_inside = 30
+	var/max_items_inside = 60
 
 	COOLDOWN_DECLARE(emp_cooldown)
 	var/weak_emp_cooldown = 60 SECONDS
@@ -365,12 +365,14 @@
 	return I.name + "_[cost]"
 
 /obj/machinery/customat/proc/insert(mob/user, obj/item/I, cost)
-	if (inserted_items_count == max_items_inside)
+	if (inserted_items_count >= max_items_inside)
+		if (user)
+			to_chat(user, span_warning("Лимит в [max_items_inside] предметов достигнут."))
 		return
 	remembered_costs[I.name] = cost
 	var/key = get_key(I, cost)
 	if(user && !user.drop_transfer_item_to_loc(I, src))
-		to_chat(usr, span_warning("Вы не можете положить это внутрь."))
+		to_chat(user, span_warning("Вы не можете положить это внутрь."))
 		return
 
 	if (!user) // If from pipe, transfer into src.
@@ -398,11 +400,11 @@
 	else
 		var/input_cost = tgui_input_number(user, "Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0, 1000000, 0)
 		if (!input_cost)
-			to_chat(usr, span_warning("Цена не указанна!"))
+			to_chat(user, span_warning("Цена не указанна!"))
 			return
 		cost = input_cost
 	if (user && get_dist(get_turf(user), get_turf(src)) > 1)
-		to_chat(usr, span_warning("Вы слишком далеко!"))
+		to_chat(user, span_warning("Вы слишком далеко!"))
 		return
 	insert(user, I, cost)
 
@@ -434,7 +436,7 @@
 	if(!component_parts)
 		return
 	if (isLocked())
-		to_chat(usr, span_warning("[src] is locked."))
+		to_chat(user, span_warning("[src] is locked."))
 		return
 	. = TRUE
 	eject_all()
@@ -670,7 +672,6 @@
 	do_vend(product, user)
 	vend_ready = TRUE
 	currently_vending = null
-	inserted_items_count--
 
 
 /**
@@ -687,6 +688,7 @@
 		var/turf/T = get_turf(src)
 		vended.forceMove(T)
 	product.containtment.Remove(product.containtment[1])
+	inserted_items_count--
 	return TRUE
 
 /obj/machinery/customat/process()
