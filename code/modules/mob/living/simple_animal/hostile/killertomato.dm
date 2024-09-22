@@ -30,5 +30,3 @@
 		maxbodytemp = 500, \
 		minbodytemp = 150, \
 	)
-
-

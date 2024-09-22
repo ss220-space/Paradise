@@ -40,5 +40,3 @@
 		/datum/component/animal_temperature, \
 		minbodytemp = 0, \
 	)
-
-
