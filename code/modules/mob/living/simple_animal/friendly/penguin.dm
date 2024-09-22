@@ -57,6 +57,11 @@
 	emote_see = list("shakes its beak.", "flaps it's wings.","preens itself.")
 	faction = list("penguin", "cult")
 
+/mob/living/simple_animal/pet/penguin/eldritch/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/pet/penguin/emperor/shamebrero
 	name = "Shamebrero penguin"

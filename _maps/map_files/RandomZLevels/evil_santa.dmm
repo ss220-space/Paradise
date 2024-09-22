@@ -5261,7 +5261,6 @@
 "Sx" = (
 /mob/living/simple_animal/pet/penguin/eldrich{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	minbodytemp = 0
 	},
 /turf/simulated/floor/plating/ice/smooth,
 /area/vision_change_area/awaymission/evil_santa_storm)
