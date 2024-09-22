@@ -40,10 +40,10 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/winter/snowman/ComponentInitialize()
-	. = ..()
 	AddComponent( \
 		/datum/component/animal_temperature, \
 		maxbodytemp = 280, \
+		minbodytemp = 0, \
 		heat_damage = 10, \
 	)
 
