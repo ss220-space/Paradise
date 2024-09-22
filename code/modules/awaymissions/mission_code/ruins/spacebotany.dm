@@ -62,7 +62,7 @@
 	. = ..()
 	AddComponent( \
 		/datum/component/animal_temperature, \
-		heat_damage_per_tick = 0, \
+		heat_damage = 0, \
 	)
 
 /mob/living/simple_animal/hostile/tree/palm
