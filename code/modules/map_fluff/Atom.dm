@@ -1,4 +1,4 @@
-/datum/map/delta
+/datum/map/Atom
 	name = "Atom"
 	map_path = "_maps/map_files/Segmentstation/Atom.dmm"
 	lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
