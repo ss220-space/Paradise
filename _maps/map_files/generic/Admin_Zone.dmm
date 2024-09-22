@@ -462,8 +462,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "TD_Strela";
-	name = "Strela";
-	tag = null
+	name = "Strela"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -474,8 +473,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "TD_Bojutsu";
-	name = "Bojutsu";
-	tag = null
+	name = "Bojutsu"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -619,8 +617,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
 	id_tag = "TD_Shitcurity";
-	name = "Shitcurity";
-	tag = null
+	name = "Shitcurity"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -662,8 +659,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
 	id_tag = "TD_Robaster";
-	name = "Robaster";
-	tag = null
+	name = "Robaster"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -947,8 +943,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
 	id_tag = "TD_Cowboy";
-	name = "Cowboy";
-	tag = null
+	name = "Cowboy"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1427,8 +1422,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
 	id_tag = "TD_Cowboy";
-	name = "Cowboy";
-	tag = null
+	name = "Cowboy"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1597,8 +1591,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
 	id_tag = "TD_Shitcurity";
-	name = "Shitcurity";
-	tag = null
+	name = "Shitcurity"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3208,8 +3201,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "TD_Bojutsu";
-	name = "Bojutsu";
-	tag = null
+	name = "Bojutsu"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3328,8 +3320,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "TD_Strela";
-	name = "Strela";
-	tag = null
+	name = "Strela"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3579,8 +3570,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
 	id_tag = "TD_Robaster";
-	name = "Robaster";
-	tag = null
+	name = "Robaster"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;

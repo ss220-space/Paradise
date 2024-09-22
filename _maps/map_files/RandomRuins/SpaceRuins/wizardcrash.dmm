@@ -253,8 +253,7 @@
 /area/ruin/unpowered)
 "aT" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /obj/structure/reagent_dispensers/oil,
 /turf/simulated/floor/plating,
@@ -495,8 +494,7 @@
 /area/ruin/unpowered)
 "bJ" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plasma,
 /area/ruin/unpowered)
