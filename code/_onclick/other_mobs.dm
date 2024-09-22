@@ -99,11 +99,14 @@
 /mob/living/UnarmedAttack(atom/atom, proximity_flag)
 	if(!can_unarmed_attack())
 		return
+
 	var/signal = SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, atom, proximity_flag)
 	if(signal & COMPONENT_CANCEL_UNARMED_ATTACK)
 		return
+
 	if(signal & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return
+
 	if(pre_grab_attack(atom, proximity_flag))
 		return
 
@@ -114,6 +117,7 @@
 		if(atom.grab_attack(src, pulling))
 			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
 			return TRUE
+
 	return FALSE
 
 /mob/living/OnUnarmedAttack(atom/atom, proximity_flag)
@@ -142,6 +146,7 @@
 		if(atom.grab_attack(src, pulling))
 			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
 			return TRUE
+			
 	return FALSE
 
 /atom/proc/attack_alien(mob/living/carbon/alien/user)

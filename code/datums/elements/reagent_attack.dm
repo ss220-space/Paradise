@@ -64,15 +64,19 @@
 /datum/element/reagent_attack/proc/can_inject(mob/living/carbon/target, target_zone)
 	if(!istype(target)) 
 		return FALSE
+
 	if(reagent_limit && target.reagents.has_reagent(reagent_id, reagent_limit))
 		return FALSE
+
 	if(!piercing && !target.can_inject(null, FALSE, target_zone, FALSE))
 		return FALSE
+
 	return TRUE
 
 /datum/element/reagent_attack/proc/inject(atom/source, mob/living/carbon/target, target_zone)
 	if(reagent_id && reagent_amount)
 		target.reagents.add_reagent(reagent_id, reagent_amount)
+		
 	SEND_SIGNAL(source, COMSIG_REAGENT_INJECTED, target, reagent_id, reagent_amount, target_zone) // custom injections!
 	return
 
