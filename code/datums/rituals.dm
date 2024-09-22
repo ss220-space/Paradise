@@ -224,6 +224,7 @@
 		return FALSE
 
 	var/list/shaman_invokers = list()
+	
 	if(extra_shaman_invokers)
 		for(var/mob/living/carbon/human/human as anything in invokers)
 			if(human == invoker)
@@ -479,6 +480,7 @@
 
 /datum/ritual/ashwalker/curse/do_ritual(obj/item/item, mob/living/carbon/human/invoker)
 	var/list/humans = list()
+
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
 		if(!isashwalker(human))
 			LAZYADD(humans, human)
@@ -488,6 +490,7 @@
 
 	var/mob/living/carbon/human/human = pick(humans)
 	var/datum/disease/vampire/disease = new
+
 	if(!disease.Contract(human))
 		return RITUAL_FAILED_ON_PROCEED
 
@@ -495,6 +498,7 @@
 
 /datum/ritual/ashwalker/curse/disaster(obj/item/item, mob/living/carbon/human/invoker)
 	var/list/targets = list()
+
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
 		if(isashwalker(human))
 			LAZYADD(targets, human)
@@ -553,6 +557,7 @@
 
 /datum/ritual/ashwalker/power/disaster(obj/item/item, mob/living/carbon/human/invoker)
 	var/list/targets = list()
+
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
 		if(isashwalker(human))
 			LAZYADD(targets, human)
@@ -714,6 +719,7 @@
 
 /datum/ritual/ashwalker/recharge/disaster(obj/item/item, mob/living/carbon/human/invoker)
 	var/list/targets = list()
+
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
 		if(isashwalker(human))
 			LAZYADD(targets, human)
