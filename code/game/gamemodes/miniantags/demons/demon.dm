@@ -18,8 +18,6 @@
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	death_sound = 'sound/misc/demon_dies.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	maxbodytemp = INFINITY
 	faction = list(ROLE_DEMON)
 	attacktext = "неистово терзает"
 	maxHealth = 200
@@ -44,6 +42,12 @@
 	whisper_action.Grant(src)
 	addtimer(CALLBACK(src, PROC_REF(attempt_objectives)), 5 SECONDS)
 
+/mob/living/simple_animal/demon/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = INFINITY, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/demon/Destroy()
 	if(mind)

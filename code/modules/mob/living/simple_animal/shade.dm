@@ -17,8 +17,6 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 	attacktext = "опустошает"
-	minbodytemp = 0
-	maxbodytemp = 4000
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	speed = -1
 	stop_automated_movement = TRUE
@@ -32,6 +30,13 @@
 	del_on_death = TRUE
 	deathmessage = "lets out a contented sigh as their form unwinds."
 	var/holy = FALSE
+
+/mob/living/simple_animal/shade/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+		maxbodytemp = 4000, \
+	)
 
 /mob/living/simple_animal/shade/death(gibbed)
 	. = ..()

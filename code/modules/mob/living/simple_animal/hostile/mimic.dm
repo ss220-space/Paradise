@@ -23,7 +23,6 @@
 	taunt_chance = 30
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 
 	faction = list("mimic")
 	move_to_delay = 9
@@ -32,6 +31,12 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
 	AI_delay_max = 0.5 SECONDS
+
+/mob/living/simple_animal/hostile/mimic/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/mimic/emp_act(severity)
 	if(is_electronic)

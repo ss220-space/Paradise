@@ -8,7 +8,6 @@
 	health = 120
 	maxHealth = 120
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 
 	robust_searching = 1
 	armour_penetration = 10
@@ -35,3 +34,9 @@
 	speak_chance = 20
 	turns_per_move = 1
 	turns_since_move = 0
+
+/mob/living/simple_animal/hostile/evil_pine/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)

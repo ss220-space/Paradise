@@ -7,8 +7,6 @@
 	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	obj_damage = 30
 	environment_smash = ENVIRONMENT_SMASH_WALLS
-	minbodytemp = 0
-	maxbodytemp = INFINITY
 	response_help = "pokes"
 	response_disarm = "shoves"
 	response_harm = "strikes"
@@ -25,6 +23,13 @@
 	var/icon_aggro = null
 	var/crusher_drop_mod = 25
 	var/has_laser_resist = TRUE //If we want the mob to have 66% resist from burn damage projectiles
+
+/mob/living/simple_animal/hostile/asteroid/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = INFINITY, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/asteroid/Aggro()
 	..()

@@ -30,6 +30,12 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	AI_delay_max = 0.5 SECONDS
 
+/mob/living/simple_animal/hostile/hivebot/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
+
 /mob/living/simple_animal/hostile/hivebot/range
 	name = "Hivebot"
 	desc = "A smallish robot, this one is armed!"

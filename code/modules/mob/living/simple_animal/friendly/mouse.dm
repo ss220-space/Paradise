@@ -37,8 +37,6 @@
 	mob_size = MOB_SIZE_TINY
 	layer = MOB_LAYER
 	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 223		//Below -50 Degrees Celcius
-	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = FALSE
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
@@ -60,6 +58,13 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/mob/living/simple_animal/mouse/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 323, \
+		minbodytemp = 223, \
+	)
 
 /mob/living/simple_animal/mouse/add_strippable_element()
 	AddElement(/datum/element/strippable, GLOB.strippable_mouse_items)

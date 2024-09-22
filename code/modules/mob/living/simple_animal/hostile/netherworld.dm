@@ -18,6 +18,12 @@
 	minbodytemp = 0
 	faction = list("nether")
 
+/mob/living/simple_animal/hostile/netherworld/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
+
 /mob/living/simple_animal/hostile/netherworld/migo
 	name = "mi-go"
 	desc = "A pinkish, fungoid crustacean-like creature with numerous pairs of clawed appendages and a head covered with waving antennae."

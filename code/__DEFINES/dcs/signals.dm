@@ -683,6 +683,9 @@
 	#define COMPONENT_RIDDEN_STOP_Z_MOVE 1
 	#define COMPONENT_RIDDEN_ALLOW_Z_MOVE 2
 
+/// Source: /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
+#define COMSIG_ANIMAL_HANDLE_ENVIRONMENT "animal_handle_environment"
+
 // /obj signals
 
 ///from base of obj/deconstruct(): (disassembled)

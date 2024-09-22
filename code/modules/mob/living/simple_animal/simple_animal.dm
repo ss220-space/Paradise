@@ -41,13 +41,6 @@
 	/// Was this mob spawned by xenobiology magic? Used for mobcapping.
 	var/xenobiology_spawned = FALSE
 
-	//Temperature effect
-	var/minbodytemp = 250
-	var/maxbodytemp = 350
-	/// Amount of damage applied if animal's body temperature is higher than maxbodytemp
-	var/heat_damage_per_tick = 2
-	/// Same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
-	var/cold_damage_per_tick = 2
 	/// If the mob can catch fire
 	var/can_be_on_fire = FALSE
 	/// Damage the mob will take if it is on fire
@@ -308,13 +301,6 @@
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
 	var/atmos_suitable = TRUE
 
-	var/areatemp = get_temperature(environment)
-
-	if(abs(areatemp - bodytemperature) > 5)
-		var/diff = areatemp - bodytemperature
-		diff = diff / 5
-		adjust_bodytemperature(diff)
-
 	if(!HAS_TRAIT(src, TRAIT_NO_BREATH))
 		var/tox = environment.toxins
 		var/oxy = environment.oxygen
@@ -354,15 +340,7 @@
 		if(!atmos_suitable)
 			adjustHealth(unsuitable_atmos_damage)
 
-	handle_temperature_damage()
-
-
-/mob/living/simple_animal/proc/handle_temperature_damage()
-	if(bodytemperature < minbodytemp)
-		adjustHealth(cold_damage_per_tick)
-	else if(bodytemperature > maxbodytemp)
-		adjustHealth(heat_damage_per_tick)
-
+	SEND_SIGNAL(src, COMSIG_ANIMAL_HANDLE_ENVIRONMENT, environment)
 
 /mob/living/simple_animal/gib()
 	if(icon_gib)

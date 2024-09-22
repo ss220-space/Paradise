@@ -1916,6 +1916,12 @@
 	if(meta_spell)
 		parent_spell = meta_spell
 
+/mob/living/simple_animal/hostile/vampire/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 600, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/vampire/Destroy()
 	vampire = null

@@ -27,10 +27,15 @@
 	universal_speak = 1
 	universal_understand = 1
 	attack_sound = list('sound/weapons/punch1.ogg')
-	minbodytemp = 0
 	var/hulk_powers = list()
 	var/mob/living/original_body
 	var/health_regen = 6
+
+/mob/living/simple_animal/hulk/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hulk/human
 	hulk_powers = list(/obj/effect/proc_holder/spell/hulk_jump,

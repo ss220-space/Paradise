@@ -35,9 +35,13 @@
 
 
 /mob/living/simple_animal/pet/dog/fox/forest/winter
-	minbodytemp = 0
 	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
 
+/mob/living/simple_animal/pet/dog/fox/forest/winter/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 //Captain fox
 /mob/living/simple_animal/pet/dog/fox/Renault
@@ -58,10 +62,14 @@
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 
+/mob/living/simple_animal/pet/dog/fox/SyndiFox/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/pet/dog/fox/Syndifox/Initialize(mapload)
 	. = ..()
@@ -81,10 +89,14 @@
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 
+/mob/living/simple_animal/pet/dog/fox/alisa/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/pet/dog/fox/alisa/Initialize(mapload)
 	. = ..()
