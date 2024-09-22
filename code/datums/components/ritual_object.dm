@@ -39,6 +39,7 @@
 		if(ritual.name)
 			rituals += new ritual
 			ritual.link_object(parent)
+
 	return
 
 /datum/component/ritual_object/Destroy(force)
@@ -66,6 +67,7 @@
 		
 	active_ui = TRUE
 	INVOKE_ASYNC(src, PROC_REF(open_ritual_ui), item, human)
+	
 	return COMPONENT_CANCEL_ATTACK_CHAIN 
 
 /datum/component/ritual_object/proc/open_ritual_ui(obj/item/item, mob/living/carbon/human/human)

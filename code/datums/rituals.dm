@@ -46,7 +46,6 @@
 	LAZYNULL(used_things)
 	LAZYNULL(required_things)
 	LAZYNULL(invokers)
-
 	return ..()
 		
 /datum/ritual/proc/pre_ritual_check(obj/item/item, mob/living/carbon/human/invoker)
@@ -295,6 +294,7 @@
 /datum/ritual/ashwalker/summon_ashstorm/do_ritual(obj/item/item, mob/living/carbon/human/invoker)
 	SSweather.run_weather(/datum/weather/ash_storm)
 	message_admins("[key_name(invoker)] accomplished ashstorm ritual and summoned ashstorm")
+
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/ashwalker/summon_ashstorm/disaster(obj/item/item, mob/living/carbon/human/invoker)
@@ -419,6 +419,7 @@
 		return RITUAL_FAILED_ON_PROCEED
 
 	human.forceMove(ritual_object)
+
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/ashwalker/summon/disaster(obj/item/item, mob/living/carbon/human/invoker)
@@ -427,6 +428,7 @@
 
 	var/obj/item/organ/external/limb = invoker.get_organ(pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 	limb?.droplimb()
+
 	return
 
 /datum/ritual/ashwalker/summon/handle_ritual_object(bitflags, silent = FALSE)
@@ -778,6 +780,7 @@
 /datum/ritual/ashwalker/population/do_ritual(obj/item/item, mob/living/carbon/human/invoker)
 	if(prob(10))
 		new /obj/effect/mob_spawn/human/ash_walker/shaman(ritual_object.loc)
+
 	new /obj/effect/mob_spawn/human/ash_walker(ritual_object.loc)
 
 	return RITUAL_SUCCESSFUL
