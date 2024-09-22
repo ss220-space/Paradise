@@ -472,7 +472,7 @@
 
 	for(var/mob/living/carbon/human/human as anything in used_things)
 		if(human.stat != DEAD)
-			to_chat(invoker, "гуманоиды должны быть мертвы.")
+			to_chat(invoker, "Гуманоиды должны быть мертвы.")
 			return FALSE
 
 	return TRUE
@@ -535,12 +535,12 @@
 
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
-			to_chat(invoker, "существа должны быть мертвы.")
+			to_chat(invoker, "Существа должны быть мертвы.")
 			return FALSE
 
 	for(var/mob/living/carbon/human/human in used_things)
 		if(!isashwalker(human))
-			to_chat(invoker, "гуманоиды должны быть пеплоходцами.")
+			to_chat(invoker, "Гуманоиды должны быть пеплоходцами.")
 			return FALSE
 
 	return TRUE
@@ -618,7 +618,7 @@
 
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
-			to_chat(invoker, "существа должны быть мертвы.")
+			to_chat(invoker, "Существа должны быть мертвы.")
 			return FALSE
 
 	return TRUE
@@ -691,7 +691,7 @@
 
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
-			to_chat(invoker, "существа должны быть мертвы.")
+			to_chat(invoker, "Существа должны быть мертвы.")
 			return FALSE
 
 	return TRUE
@@ -772,7 +772,7 @@
 
 	for(var/mob/living/living as anything in used_things)
 		if(living.stat != DEAD)
-			to_chat(invoker, "существа должны быть мертвы.")
+			to_chat(invoker, "Существа должны быть мертвы.")
 			return FALSE
 
 	return TRUE
@@ -854,7 +854,7 @@
 
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
-			to_chat(invoker, "существа должны быть мертвы.")
+			to_chat(invoker, "Существа должны быть мертвы.")
 			return FALSE
 
 	return TRUE
@@ -990,7 +990,7 @@
 
 	var/mob/living/carbon/human/human = used_things[1]
 	if(human.stat == DEAD || !human.mind)
-		to_chat(invoker, "гуманоид должен быть жив и иметь разум.")
+		to_chat(invoker, "Гуманоид должен быть жив и иметь разум.")
 		return FALSE
 
 	return TRUE
@@ -1062,11 +1062,11 @@
 
 	for(var/mob/living/carbon/human/human as anything in used_things)
 		if(human.stat != DEAD)
-			to_chat(invoker, "гуманоиды должны быть мертвы.")
+			to_chat(invoker, "Гуманоиды должны быть мертвы.")
 			return FALSE
 
 		if(!isashwalker(human))
-			to_chat(invoker, "гуманоиды должны быть пеплоходцами.")
+			to_chat(invoker, "Гуманоиды должны быть пеплоходцами.")
 			return FALSE
 
 	return TRUE
@@ -1122,15 +1122,15 @@
 
 	for(var/mob/living/simple_animal/living as anything in used_things)
 		if(living.client)
-			to_chat(invoker, "существо должно быть бездушным.")
+			to_chat(invoker, "Существо должно быть бездушным.")
 			return FALSE
 
 		if(living.sentience_type == SENTIENCE_BOSS)
-			to_chat(invoker, "ритуал не может воздействовать на мегафауну.")
+			to_chat(invoker, "Ритуал не может воздействовать на мегафауну.")
 			return FALSE
 
 		if(living.stat != DEAD)
-			to_chat(invoker, "существа должны быть мертвы.")
+			to_chat(invoker, "Существа должны быть мертвы.")
 			return FALSE
 
 	return TRUE
