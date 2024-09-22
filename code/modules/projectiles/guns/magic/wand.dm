@@ -37,6 +37,7 @@
 	. = ..()
 	if(!max_charges)
 		. = RECHARGE_BURNOUT
+		
 	update_icon_state()
 	return .
 

@@ -773,6 +773,7 @@
 				"SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", \
 				"CUTE!", \
 				"YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")))
+				
 	return RECHARGE_BURNOUT
 
 /obj/item/spellbook/attackby(obj/item/I, mob/living/user, params)
@@ -1029,6 +1030,7 @@
 		visible_message(span_warning("[src] catches fire!"))
 		qdel(src)
 		return RECHARGE_FAILED
+
 	used = FALSE
 	return RECHARGE_SUCCESSFUL
 

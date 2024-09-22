@@ -43,6 +43,7 @@
 	. = RECHARGE_SUCCESSFUL
 	if(prob(80) && !adjust_maxcharge(-200))
 		. = RECHARGE_BURNOUT
+		
 	charge = maxcharge
 	update_icon()
 	return .

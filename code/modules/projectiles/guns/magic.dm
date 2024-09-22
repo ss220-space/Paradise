@@ -55,9 +55,11 @@
 	. = RECHARGE_SUCCESSFUL
 	if(prob(80) && !can_charge)
 		max_charges--
+
 	if(max_charges <= 0)
 		max_charges = 0
 		. = RECHARGE_BURNOUT
+		
 	charges = max_charges
 	return .
 

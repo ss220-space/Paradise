@@ -2308,6 +2308,7 @@
 		for(var/obj/effect/proc_holder/spell/spell as anything in mob_spell_list)
 			if(spell.cooldown_handler.is_on_cooldown())
 				continue
+				
 			spell.revert_cast()
 		. = RECHARGE_SUCCESSFUL
 
@@ -2315,6 +2316,7 @@
 		for(var/obj/effect/proc_holder/spell/spell as anything in mind?.spell_list)
 			if(spell.cooldown_handler.is_on_cooldown())
 				continue
+
 			spell.revert_cast()
 		. = RECHARGE_SUCCESSFUL
 

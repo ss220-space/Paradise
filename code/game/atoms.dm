@@ -723,6 +723,7 @@
 	if(contents)
 		for(var/obj/item/stock_parts/cell/cell in contents)
 			cell.magic_charge_act()
+			
 	return RECHARGE_NO_EFFECT
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
