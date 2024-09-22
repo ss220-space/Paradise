@@ -67,20 +67,24 @@
 	. = ..()
 	if(!.)
 		return FALSE
+
 	if(!istype(new_owner))
 		return FALSE
+
 	src.modifier = modifier
 
 /datum/status_effect/fang_exhaust/on_apply()
 	var/mob/living/simple_animal/new_owner = owner
 	for(var/thing in new_owner.damage_coeff)
 		new_owner.damage_coeff[thing] *= modifier
+
 	return ..()
 
 /datum/status_effect/fang_exhaust/on_remove()
 	var/mob/living/simple_animal/new_owner = owner
 	for(var/thing in new_owner.damage_coeff)
 		new_owner.damage_coeff[thing] /= modifier
+		
 	return ..()
 
 /datum/status_effect/shadow_boxing
