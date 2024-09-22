@@ -109,7 +109,7 @@
 	return .
 
 /datum/ritual/proc/del_things() // This is a neutral variant with item delete. Override it to change.
-	for(var/obj/item/thing as in used_things)
+	for(var/obj/item/thing in used_things)
 		qdel(thing)
 
 	return
@@ -347,7 +347,7 @@
 		return RITUAL_FAILED_ON_PROCEED
 
 	message_admins("[key_name(human)] accomplished mindtransfer ritual on [key_name(invoker)]")
-	
+
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/ashwalker/mind_transfer/disaster(obj/item/item, mob/living/carbon/human/invoker)
@@ -366,6 +366,7 @@
 		return
 
 	. = ..(bitflags)
+
 	return .
 
 /datum/ritual/ashwalker/summon
@@ -439,6 +440,7 @@
 			playsound(ritual_object.loc, 'sound/magic/forcewall.ogg', 50, TRUE)
 		if(RITUAL_FAILED)
 			playsound(ritual_object.loc, 'sound/magic/invoke_general.ogg', 50, TRUE)
+			
 	return .
 
 /datum/ritual/ashwalker/curse
