@@ -148,10 +148,11 @@
 		qdel(src)
 
 /obj/singularity/energy_ball/proc/dust_mobs(atom/atom)
-	if(isliving(atom))
-		var/mob/living/living = atom
-		if(living.incorporeal_move || HAS_TRAIT(living, TRAIT_GODMODE))
-			return
+	if(!isliving(atom))
+		return
+	var/mob/living/living = atom
+	if(living.incorporeal_move || HAS_TRAIT(living, TRAIT_GODMODE))
+		return
 	if(!iscarbon(atom))
 		return
 	for(var/obj/machinery/power/grounding_rod/rod in orange(src, 2))

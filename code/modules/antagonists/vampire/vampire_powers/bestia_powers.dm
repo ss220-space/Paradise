@@ -1010,7 +1010,7 @@
 
 	vampire.stop_sucking()
 	original_body = user
-	user.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
+	original_body.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	vampire_animal.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	user.forceMove(vampire_animal)
 	user.mind.transfer_to(vampire_animal)

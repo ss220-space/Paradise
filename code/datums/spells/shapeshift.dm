@@ -50,7 +50,7 @@
 
 /obj/effect/proc_holder/spell/shapeshift/proc/Shapeshift(mob/living/caster)
 	for(var/mob/living/mob in caster)
-		if(HAS_TRAIT(mob, TRAIT_GODMODE))
+		if(HAS_TRAIT_FROM(mob, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src)))
 			to_chat(caster, span_warning("You're already shapeshifted!"))
 			return
 
