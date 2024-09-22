@@ -20,14 +20,19 @@
 )
 	if(!isanimal(parent))
 		return COMPONENT_INCOMPATIBLE
+
 	if(minbodytemp)
 		src.minbodytemp = minbodytemp
+
 	if(maxbodytemp)
 		src.maxbodytemp = maxbodytemp
+
 	if(cold_damage)
 		src.cold_damage = cold_damage
+
 	if(heat_damage)
 		src.heat_damage = heat_damage
+		
 	if(show_alert)
 		src.show_alert = show_alert
 
@@ -47,10 +52,12 @@
 
 /datum/component/animal_temperature/proc/regulate_temperature(mob/living/simple_animal/animal, datum/gas_mixture/environment)
 	var/areatemp = animal.get_temperature(environment)
+
 	if(abs(areatemp - animal.bodytemperature) > 5)
 		var/diff = areatemp - animal.bodytemperature
 		diff = diff / 5
 		animal.adjust_bodytemperature(diff)
+
 	return
 
 /datum/component/animal_temperature/proc/check_temperature(mob/living/simple_animal/animal)
@@ -59,15 +66,18 @@
 		if(show_alert)
 			animal.throw_alert("temp", /atom/movable/screen/alert/cold, get_severity(animal))
 		return TRUE
+
 	if(animal.bodytemperature > maxbodytemp)
 		animal.adjustHealth(heat_damage)
 		if(show_alert)
 			animal.throw_alert("temp", /atom/movable/screen/alert/hot, get_severity(animal))
 		return TRUE
+
 	animal.clear_alert("temp")
 	return FALSE
 
 /datum/component/animal_temperature/proc/get_severity(mob/living/simple_animal/animal)
 	var/multiplier = animal.bodytemperature < minbodytemp ? (1 / minbodytemp) : (1 / maxbodytemp)
 	var/severity = CEILING(abs(animal.bodytemperature / multiplier), 1)
+
 	return min(severity, 3)
