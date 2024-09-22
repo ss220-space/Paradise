@@ -590,6 +590,7 @@
 /mob/living/simple_animal/bot/ed209/OnUnarmedAttack(atom/A)
 	if(!on)
 		return
+		
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.staminaloss < 110 || arrest_type && !baton_delayed)

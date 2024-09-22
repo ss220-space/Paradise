@@ -25,6 +25,7 @@
 		if(atom.grab_attack(src, pulling))
 			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
 			return TRUE
+
 	return FALSE
 
 /mob/living/carbon/human/beforeAdjacentClick(atom/A, params)
@@ -125,6 +126,7 @@
 
 /mob/living/simple_animal/hostile/OnUnarmedAttack(atom/atom, proximity_flag)
 	GiveTarget(atom)
+	
 	if(target)
 		return AttackingTarget()
 
@@ -146,7 +148,7 @@
 		if(atom.grab_attack(src, pulling))
 			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
 			return TRUE
-			
+
 	return FALSE
 
 /atom/proc/attack_alien(mob/living/carbon/alien/user)
