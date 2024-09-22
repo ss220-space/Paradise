@@ -63,14 +63,18 @@
 /datum/component/animal_temperature/proc/check_temperature(mob/living/simple_animal/animal)
 	if(animal.bodytemperature < minbodytemp)
 		animal.adjustHealth(cold_damage)
+
 		if(show_alert)
 			animal.throw_alert("temp", /atom/movable/screen/alert/cold, get_severity(animal))
+
 		return TRUE
 
 	if(animal.bodytemperature > maxbodytemp)
 		animal.adjustHealth(heat_damage)
+		
 		if(show_alert)
 			animal.throw_alert("temp", /atom/movable/screen/alert/hot, get_severity(animal))
+
 		return TRUE
 
 	animal.clear_alert("temp")
