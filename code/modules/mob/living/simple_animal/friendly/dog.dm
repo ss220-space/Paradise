@@ -563,7 +563,7 @@
 /mob/living/simple_animal/pet/dog/corgi/puppy/void/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \
-		maxbodytemp = T0 + 40, \
+		maxbodytemp = T0C + 40, \
 		minbodytemp = TCMB, \
 	)
 
