@@ -35,6 +35,11 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 4)
 	gold_core_spawnable = FRIENDLY_SPAWN
 
+/mob/living/simple_animal/pet/penguin/emperor/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/pet/penguin/eldrich
 	name = "Albino penguin"
