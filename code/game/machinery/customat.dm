@@ -36,7 +36,7 @@
 	name = "\improper Customat"
 	desc = "Торговый автомат с кастомным содержимым."
 	icon = 'icons/obj/machines/customat.dmi'
-	icon_state = "custommate"
+	icon_state = "custommate-off"
 	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 	density = TRUE
@@ -48,7 +48,7 @@
 	/// Overlay of customat maintenance panel.
 	var/panel_overlay = "custommate-panel"
 	/// Overlay of a customat screen, will not apply of stat is NOPOWER.
-	var/screen_overlay = "custommate-off"
+	var/screen_overlay = "custommate"
 	/// Lightmask used when customat is working properly.
 	var/lightmask_overlay = ""
 	/// Damage overlay applied if customat is damaged enough.
@@ -69,8 +69,6 @@
 	var/deny_overlay_time = 1.5 SECONDS
 	/// Flags used to correctly manipulate with vend/deny sequences.
 	var/flick_sequence = FLICK_NONE
-	/// If `TRUE` machine will only react to BROKEN/NOPOWER stat, when updating overlays.
-	var/skip_non_primary_icon_updates = TRUE
 
 	// Power
 	use_power = IDLE_POWER_USE
@@ -226,8 +224,6 @@
 		trunk = found_trunk
 
 /obj/machinery/customat/update_icon(updates = ALL)
-	if(skip_non_primary_icon_updates && !(stat & (NOPOWER|BROKEN)) && COOLDOWN_FINISHED(src, emp_cooldown))
-		return ..(NONE)
 	return ..()
 
 
@@ -301,13 +297,11 @@
 		return
 	flick_sequence = flick_flag
 	update_icon(UPDATE_OVERLAYS)
-	skip_non_primary_icon_updates = TRUE
 	var/flick_time = (flick_flag & FLICK_VEND) ? vend_overlay_time : (flick_flag & FLICK_DENY) ? deny_overlay_time : 0
 	addtimer(CALLBACK(src, PROC_REF(flick_reset)), flick_time)
 
 
 /obj/machinery/customat/proc/flick_reset()
-	skip_non_primary_icon_updates = FALSE
 	flick_sequence = FLICK_NONE
 	update_icon(UPDATE_OVERLAYS)
 
