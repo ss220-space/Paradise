@@ -46,6 +46,7 @@
 	LAZYNULL(used_things)
 	LAZYNULL(required_things)
 	LAZYNULL(invokers)
+
 	return ..()
 		
 /datum/ritual/proc/pre_ritual_check(obj/item/item, mob/living/carbon/human/invoker)
@@ -440,7 +441,7 @@
 			playsound(ritual_object.loc, 'sound/magic/forcewall.ogg', 50, TRUE)
 		if(RITUAL_FAILED)
 			playsound(ritual_object.loc, 'sound/magic/invoke_general.ogg', 50, TRUE)
-			
+
 	return .
 
 /datum/ritual/ashwalker/curse
@@ -793,8 +794,8 @@
 		smoke.set_up(5, FALSE, get_turf(human.loc))
 		smoke.start()
 
-		for(var/obj/item/item as anything in human.get_equipped_items(TRUE, TRUE))
-			human.drop_item_ground(item)
+		for(var/obj/item/obj as anything in human.get_equipped_items(TRUE, TRUE))
+			human.drop_item_ground(obj)
 
 	return
 
