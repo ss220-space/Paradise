@@ -43,7 +43,7 @@
 	. = ..()
 	AddComponent( \
 		/datum/component/animal_temperature, \
-		maxbodytemp = 280.15, \
+		maxbodytemp = 280, \
 		heat_damage = 10, \
 	)
 

@@ -161,7 +161,6 @@
 	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SILENCED_SOUND_EXTRARANGE) //as quiet as a frog or whatever
 
 /mob/living/simple_animal/frog/scream/mapper/ComponentInitialize()
-	. = ..()
 	AddComponent( \
 		/datum/component/animal_temperature, \
 		maxbodytemp = 1000, \
