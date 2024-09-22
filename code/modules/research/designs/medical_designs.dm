@@ -217,7 +217,7 @@
 
 /datum/design/item/retractor_laser
 	name = "Advenced Laser Retractor"
-	desc = "A retractor with a laser tip.This one looks to be the pinnacle of precision energy a surgery tools!"
+	desc = "A retractor with a laser tip. This one looks to be the pinnacle of precision energy a surgery tools!"
 	id = "retractor_laser"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	build_type = PROTOLATHE
@@ -227,7 +227,7 @@
 
 /datum/design/item/hemostat_laser
 	name = "Advenced Laser Hemostat"
-	desc = "A hemostat with a laser clamp.This one looks to be the pinnacle of precision energy a surgery tools!"
+	desc = "A hemostat with a laser clamp. This one looks to be the pinnacle of precision energy a surgery tools!"
 	id = "hemostat_laser"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	build_type = PROTOLATHE
@@ -237,7 +237,7 @@
 
 /datum/design/item/surgicaldrill_laser
 	name = "Advenced Laser Surgical Drill"
-	desc = "A surgery drill with a directed laser bit.This one looks to be the pinnacle of precision energy a surgery tools!"
+	desc = "A surgery drill with a directed laser bit. This one looks to be the pinnacle of precision energy a surgery tools!"
 	id = "surgicaldrill_laser"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	build_type = PROTOLATHE
@@ -247,7 +247,7 @@
 
 /datum/design/item/circular_laser
 	name = "Advenced Laser Circular Saw"
-	desc = "A saw with a circular laser disk.This one looks to be the pinnacle of precision energy a surgery tools!"
+	desc = "A saw with a circular laser disk. This one looks to be the pinnacle of precision energy a surgery tools!"
 	id = "circular_laser"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	build_type = PROTOLATHE

@@ -16,7 +16,7 @@
 
 /obj/item/retractor/laser
 	name = "Advanced Laser Retractors"
-	desc = "A retractor with a laser tip.This one looks to be the pinnacle of precision energy a surgery tools!"
+	desc = "A retractor with a laser tip. This one looks to be the pinnacle of precision energy a surgery tools!"
 	icon_state = "retractor_laser"
 	item_state = "retractor_laser"
 	toolspeed = 0.4
@@ -45,7 +45,7 @@
 
 /obj/item/hemostat/laser
 	name = "Advanced Laser Hemostat"
-	desc = "A hemostat with a laser clamp.This one looks to be the pinnacle of precision energy a surgery tools!"
+	desc = "A hemostat with a laser clamp. This one looks to be the pinnacle of precision energy a surgery tools!"
 	icon_state = "hemostat_laser"
 	item_state = "hemostat_laser"
 	toolspeed = 0.4
@@ -102,7 +102,7 @@
 
 /obj/item/surgicaldrill/laser
 	name = "Advanced Laser Surgical Drill"
-	desc = "A surgery drill with a directed laser bit.This one looks to be the pinnacle of precision energy a surgery tools!"
+	desc = "A surgery drill with a directed laser bit. This one looks to be the pinnacle of precision energy a surgery tools!"
 	icon_state = "drill_laser"
 	item_state = "drill_laser"
 	toolspeed = 0.4
@@ -229,7 +229,7 @@
 
 /obj/item/circular_saw/laser
 	name = "Advanced Laser Circular Saw"
-	desc = "A saw with a circular laser disk.This one looks to be the pinnacle of precision energy a surgery tools!"
+	desc = "A saw with a circular laser disk. This one looks to be the pinnacle of precision energy a surgery tools!"
 	icon_state = "saw_laser"
 	item_state = "saw_laser"
 	origin_tech = "biotech=1;material=1"
@@ -298,7 +298,7 @@
 
 /obj/item/bonesetter/laser
 	name = "Advanced Laser Bone Setter"
-	desc = "A bone settler with a laser teeth.This one looks to be the pinnacle of precision energy a surgery tools!"
+	desc = "A bone settler with a laser teeth. This one looks to be the pinnacle of precision energy a surgery tools!"
 	icon_state = "bonesetter_laser"
 	item_state = "bonesetter_laser"
 	toolspeed = 0.4
