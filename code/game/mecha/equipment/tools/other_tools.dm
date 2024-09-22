@@ -603,12 +603,14 @@
 	range = MECHA_MELEE
 	salvageable = FALSE
 	harmful = FALSE
+	alert_category = "mecha_cage"
+
 	var/mob/living/carbon/prisoner
 	var/mob/living/carbon/holding
 	var/turf/holding_turf
 	var/datum/action/innate/mecha/select_module/button // for custom icons
 	var/current_alert //wacky case
-	alert_category = "mecha_cage"
+	var/obj/effect/supress/supress_effect
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
 	if(..())
@@ -658,7 +660,10 @@
 			occupant_message(span_notice("You stop supressing [holding], and start supressing [target]..."))
 			chassis.visible_message(span_warning("[chassis] stops supressing [holding] and switches to [target]."))
 			stop_supressing(holding, FALSE)
+			supress_effect = new(target.loc)
 			if(!do_after_cooldown(target))
+				qdel(supress_effect)
+				supress_effect = null
 				return FALSE
 			if(!prisoner)
 				change_alert("one")
@@ -667,7 +672,10 @@
 	if(!holding && supress_check)
 		occupant_message(span_notice("You start supressing [target]..."))
 		chassis.visible_message(span_warning("[chassis] starts supressing [target]."))
+		supress_effect = new(target.loc)
 		if(!do_after_cooldown(target))
+			qdel(supress_effect)
+			supress_effect = null
 			return FALSE
 		if(!prisoner)
 			change_alert("one")
@@ -724,14 +732,17 @@
 	holding_turf = get_turf(holding)
 	target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
 	target.move_resist = MOVE_FORCE_STRONG
+	supress_effect.icon_state = "applied"
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/stop_supressing(mob/living/carbon/target, var/alert = TRUE)
 	holding = null
 	holding_turf = null
 	target.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
 	target.move_resist = MOVE_FORCE_DEFAULT
+	qdel(supress_effect)
+	supress_effect = null
 
-	if(!prisoner && alert)
+	if(!prisoner)
 		change_alert("zero")
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/change_state(icon)
@@ -837,3 +848,15 @@
 		if(chassis.occupant)
 			if(current_alert != "zero" && chassis.selected == src)
 				change_alert("zero")
+		if(button)
+			if(button.button_icon_state == "mecha_cage_activated")
+				change_state("mecha_cage")
+
+
+/obj/effect/supress
+	name = "Mech claws"
+	desc = "Looks like someone is getting taken hostage..."
+	icon = 'icons/misc/supress_effect.dmi'
+	icon_state = "applying"
+	anchored = TRUE
+	plane = ABOVE_GAME_PLANE

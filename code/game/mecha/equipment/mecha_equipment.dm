@@ -249,5 +249,6 @@
 		default_alert.desc = "You currently have [src.name] module selected"
 		return TRUE
 	return FALSE
+
 /obj/item/mecha_parts/mecha_equipment/proc/toggle_module()
 	return
