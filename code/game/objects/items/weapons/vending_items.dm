@@ -229,7 +229,7 @@
 		balloon_alert(user, "номер не введен")
 		return
 
-	var/new_account = attempt_account_access(new_acc_number, pin_needed = FALSE)
+	var/new_account = attempt_account_access(new_acc_number, pin_needed = FALSE, security_level_passed = 3, pin_needed = FALSE)
 	if (!new_account)
 		balloon_alert(user, "аккаунт не существует")
 		return

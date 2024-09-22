@@ -165,6 +165,13 @@
 	canister = new /obj/item/vending_refill/custom
 	component_parts += canister
 
+/obj/machinery/customat/RefreshParts()
+	. = ..()
+	for(var/obj/item/vending_refill/custom/VR in component_parts)
+		canister.linked_accounts = VR.linked_accounts.Copy()
+		canister.accounts_weights = VR.accounts_weights.Copy()
+		canister.sum_of_weigths = VR.sum_of_weigths
+
 /obj/machinery/customat/Initialize(mapload)
 	. = ..()
 	set_up_components()
@@ -607,13 +614,17 @@
 					left -= pay_now
 					paid = pay_with_cash(S, usr, pay_now, currently_vending.name, canister.linked_accounts[ind]) || paid
 			else if(get_card_account(usr))
+				var/datum/money_account/customer_account = get_card_account(usr)
 				paid = FALSE
 				var/left = currently_vending.price
 				for (var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
 					var/pay_now = round(currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths)
 					pay_now = min(pay_now, left)
 					left -= pay_now
-					paid = pay_with_card(usr, pay_now, currently_vending.name, canister.linked_accounts[ind]) || paid
+					paid = customer_account.charge(pay_now, canister.linked_accounts[ind],
+		"Purchase of [product.name]", name, canister.linked_accounts[ind].owner_name,
+		"Sale of [product.name]", customer_account.owner_name) || paid
+
 			else if(usr.can_advanced_admin_interact())
 				to_chat(usr, span_notice("Vending object due to admin interaction."))
 				paid = TRUE
