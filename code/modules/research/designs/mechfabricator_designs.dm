@@ -1050,7 +1050,7 @@
 /datum/design/mech_cage
 	name = "SCS 3 Cage"
 	desc = "Exosuit-mounted security containing system."
-	id = "mech_proj_armor" //change
+	id = "mech_cage"
 	build_type = MECHFAB
 	req_tech = (list("materials" = 7, "combat" = 7))
 	build_path = /obj/item/mecha_parts/mecha_equipment/cage
