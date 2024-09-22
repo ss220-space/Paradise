@@ -37,7 +37,6 @@
 	icon_dead = "snowman-dead"
 
 	bodytemperature = 73.0		//it's made of snow and hatred, so it's pretty cold.
-	heat_damage_per_tick = 10	//Now With Rapid Thawing Action!
 	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/winter/snowman/ComponentInitialize()

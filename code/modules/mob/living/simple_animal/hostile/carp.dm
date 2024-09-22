@@ -131,9 +131,15 @@
 /mob/living/simple_animal/hostile/carp/holocarp
 	icon_state = "holocarp"
 	icon_living = "holocarp"
-	maxbodytemp = INFINITY
 	del_on_death = 1
 	random_color = FALSE
+
+/mob/living/simple_animal/hostile/carp/holocarp/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = INFINITY, \
+	)
 
 /mob/living/simple_animal/hostile/carp/megacarp
 	icon = 'icons/mob/alienqueen.dmi'
@@ -190,10 +196,15 @@
 	retreat_distance = 6
 	vision_range = 5
 	retaliate_only = TRUE
-	minbodytemp = 250
-	maxbodytemp = 350
 	gold_core_spawnable = NO_SPAWN
 	var/carp_color = "carp" //holder for icon set
+
+/mob/living/simple_animal/hostile/carp/sea/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 350, \
+		minbodytemp = 250, \
+	)
 
 /mob/living/simple_animal/hostile/carp/koi
 	name = "space koi"

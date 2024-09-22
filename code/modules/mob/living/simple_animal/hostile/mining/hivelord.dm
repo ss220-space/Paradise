@@ -327,7 +327,6 @@
 	AIStatus = AI_ON
 	stop_automated_movement = FALSE
 	wander = TRUE
-	maxbodytemp = INFINITY
 	layer = MOB_LAYER
 	del_on_death = TRUE
 	sentience_type = SENTIENCE_BOSS
@@ -345,6 +344,11 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	tts_seed = "Mannoroth"
 
+/mob/living/simple_animal/hostile/big_legion/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = INFINITY, \
+	)
 
 /mob/living/simple_animal/hostile/big_legion/Initialize(mapload)
 	.=..()

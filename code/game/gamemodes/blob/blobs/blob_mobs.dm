@@ -189,8 +189,6 @@
 	attacktext = "ударяет"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	speak_emote = list("gurgles")
-	minbodytemp = 0
-	maxbodytemp = 360
 	force_threshold = 10
 	mob_size = MOB_SIZE_LARGE
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
@@ -200,6 +198,12 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	move_resist = MOVE_FORCE_OVERPOWERING
 
+/mob/living/simple_animal/hostile/ancient_robot_leg/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+		maxbodytemp = 360, \
+	)
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
 	. = ..()

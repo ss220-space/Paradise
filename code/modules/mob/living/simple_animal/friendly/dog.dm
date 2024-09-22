@@ -579,8 +579,6 @@
 	icon_dead = "slime_puppy_dead"
 	nofur = TRUE
 	holder_type = /obj/item/holder/slime_puppy
-	minbodytemp = 250 //Weak to cold
-	maxbodytemp = INFINITY
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/slime/ComponentInitialize()
 	AddComponent( \

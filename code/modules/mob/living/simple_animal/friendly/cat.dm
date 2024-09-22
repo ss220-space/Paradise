@@ -341,9 +341,14 @@
 	icon_dead = "spacecat_dead"
 	icon_resting = "spacecat_rest"
 	unsuitable_atmos_damage = 0
-	minbodytemp = TCMB
-	maxbodytemp = T0C + 40
 	holder_type = /obj/item/holder/spacecat
+
+/mob/living/simple_animal/pet/cat/spacecat/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = T0C + 40, \
+		minbodytemp = TCMB, \
+	)
 
 /mob/living/simple_animal/pet/cat/fat
 	name = "FatCat"

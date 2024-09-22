@@ -2,7 +2,6 @@
 /mob/living/simple_animal/hostile/asteroid
 	vision_range = 2
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	heat_damage_per_tick = 20
 	faction = list("mining")
 	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	obj_damage = 30
@@ -29,6 +28,7 @@
 		/datum/component/animal_temperature, \
 		maxbodytemp = INFINITY, \
 		minbodytemp = 0, \
+		heat_damage = 20, \
 	)
 
 /mob/living/simple_animal/hostile/asteroid/Aggro()
