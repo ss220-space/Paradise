@@ -253,3 +253,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Prohibits the installation of the limbs, which do not belong to our species
 #define TRAIT_SPECIES_LIMBS "only_species_limbs"
 
+///Trait given when a mob has been tipped
+#define TRAIT_MOB_TIPPED "mob_tipped"
+
