@@ -32,7 +32,7 @@
 
 	if(heat_damage)
 		src.heat_damage = heat_damage
-		
+
 	if(show_alert)
 		src.show_alert = show_alert
 
@@ -79,5 +79,4 @@
 /datum/component/animal_temperature/proc/get_severity(mob/living/simple_animal/animal)
 	var/multiplier = animal.bodytemperature < minbodytemp ? (1 / minbodytemp) : (1 / maxbodytemp)
 	var/severity = CEILING(abs(animal.bodytemperature / multiplier), 1)
-
 	return min(severity, 3)
