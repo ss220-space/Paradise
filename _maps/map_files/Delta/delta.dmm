@@ -68569,6 +68569,7 @@
 /obj/item/storage/box/bodybags,
 /obj/item/clothing/suit/apron/surgical,
 /obj/item/storage/box/bodybags/biohazard,
+/obj/item/storage/belt/medical/surgery/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -84367,6 +84368,7 @@
 /obj/item/storage/box/bodybags,
 /obj/item/clothing/suit/apron/surgical,
 /obj/item/storage/box/bodybags/biohazard,
+/obj/item/storage/belt/medical/surgery/loaded,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
