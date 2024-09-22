@@ -122,7 +122,7 @@
 						span_notice("You hear something squishing..."))
 
 	original_body = user
-	ADD_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+	original_body.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	slimeme.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	user.mind.transfer_to(slimeme)
 	slimeme.update_sight()
