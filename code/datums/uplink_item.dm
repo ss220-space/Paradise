@@ -1954,7 +1954,6 @@
 
 /datum/uplink_item/implants
 	category = "Implants"
-	exclude_from_affiliate = list(AFFIL_CYBERSUN)
 
 /datum/uplink_item/implants/freedom
 	name = "Freedom Implant"
@@ -2362,6 +2361,7 @@
 /datum/uplink_item/affiliate
 	category = "Affiliate specific"
 	can_discount = FALSE
+	surplus = 0
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/affiliate/cybersun

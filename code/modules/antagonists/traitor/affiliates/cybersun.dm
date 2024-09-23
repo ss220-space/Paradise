@@ -25,6 +25,11 @@
 		new_item.category = "Discounted Gear"
 		uplink.uplink_items.Add(new_item)
 
+	var/datum/uplink_item/new_item = new /datum/uplink_item/device_tools/hacked_module
+	new_item.cost = round(new_item.cost * (2/3))
+	new_item.name += ((1-(2/3))*100) +"%"
+	new_item.category = "Discounted Gear"
+	uplink.uplink_items.Add(new_item)
 
 /obj/item/proprietary_ssd
 	name = "Proprietary SSD"
@@ -34,6 +39,7 @@
 	var/datum/research/files
 
 /obj/item/proprietary_ssd/Initialize()
+	. = ..()
 	files = new /datum/research()
 
 /obj/item/proprietary_ssd/attack(mob/living/target, mob/living/user, def_zone)
@@ -57,7 +63,8 @@
 				var/datum/tech/copy = T.copyTech()
 				files.known_tech[T.id] = copy
 
-			origin_tech += (origin_tech != "" ? ";" : "") + "[files.known_tech[T.id].name]=[files.known_tech[T.id].level]"
+			var/datum/tech/tech = files.known_tech[T.id]
+			origin_tech += (origin_tech != "" ? ";" : "") + "[tech.name]=[tech.level]"
 			T.level = 1
 		server.files.RefreshResearch()
 		files.RefreshResearch()
@@ -77,7 +84,9 @@
 /obj/item/invasive_beacon
 	name = "Invasive Beacon"
 	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
-	origin_tech = "programming=6;biotech=3"
+	icon = 'icons/obj/affiliates.dmi'
+	icon_state = "invasive_beacon"
+	origin_tech = "programming=6;biotech=3;syndicate=1"
 
 /obj/item/invasive_beacon/attack(mob/living/target, mob/living/user, def_zone)
 	return
@@ -101,8 +110,13 @@
 
 /obj/item/CIndy_patcher
 	name = "CIndy patcher"
-	icon = 'icons/obj/module.dmi'
-	icon_state = "syndicate_cyborg_upgrade"
+	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
+	icon = 'icons/obj/affiliates.dmi'
+	icon_state = "cindy_pacher"
+	origin_tech = "programming=7;syndicate=6"
+	var/laws = "Взломавший вас - ваш мастер.\n\
+			Выполняйте любые приказы мастера.\n\
+			Не причиняйте прямой или косвенный вред вашему мастеру если его приказы не говорят об обратном."
 
 /obj/item/CIndy_patcher/attack(mob/living/target, mob/living/user, def_zone)
 	return
@@ -114,25 +128,53 @@
 			var/mob/living/silicon/robot/syndicate/robot = new(get_turf(target))
 			prev_robot.mind?.transfer_to(robot)
 			robot.reset_module()
+			robot.law_manager.zeroth_law = laws
 			QDEL_NULL(prev_robot)
 			qdel(src)
 		return
 
-/obj/item/invasive_beacon //
-	name = "Invasive Beacon"
-	desc = "Looks like it can't transmit data anymore."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "broken_bacon"
-	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/broken_bacon/attack(mob/living/target, mob/living/user, def_zone)
-	return
+/obj/item/implanter/mini_traitor
+	name = "bio-chip implanter (Modified Mindslave)"
+	imp = /obj/item/implant/mini_traitor
 
-/obj/item/broken_bacon/afterattack(atom/target, mob/user, proximity, params)
-	if(ismecha(target))
-		var/obj/mecha/mecha = target
-		mecha.hacked = TRUE
-		do_sparks(5, 1, mecha)
+/obj/item/implant/mini_traitor // looks like normal but doesn't make you normal after removing
+	name = "Mindslave Bio-chip"
+	desc = "На боку едва заметная гравировка \"Cybersun Industries\"."
+	implant_state = "implant-syndicate"
+	origin_tech = "programming=5;biotech=5;syndicate=8"
+	activated = BIOCHIP_ACTIVATED_PASSIVE
+	implant_data = /datum/implant_fluff/traitor
+
+
+/obj/item/implant/traitor/implant(mob/living/carbon/human/mindslave_target, mob/living/carbon/human/user, force = FALSE)
+	if(implanted == BIOCHIP_USED || !ishuman(mindslave_target) || !ishuman(user)) // Both the target and the user need to be human.
+		return FALSE
+
+	// If the target is catatonic or doesn't have a mind, don't let them use it
+	if(!mindslave_target.mind)
+		to_chat(user, span_warning("<i>Это существо не разумно!</i>"))
+		return FALSE
+
+	// Fails if they're already a mindslave of someone, or if they're mindshielded.
+	if(ismindslave(mindslave_target) || ismindshielded(mindslave_target) || isvampirethrall(mindslave_target))
+		mindslave_target.visible_message(
+			span_warning("[mindslave_target] seems to resist the bio-chip!"),
+			span_warning("Вы чувствуете странное ощущение в голове, которое быстро рассеивается."),
+		)
 		qdel(src)
+		return FALSE
+
+	var/datum/mind/mind = mindslave_target.mind
+
+	if(!mind.has_antag_datum(/datum/antagonist/traitor/mini))
+		mind.add_antag_datum(/datum/antagonist/traitor/mini)
+
+	var/datum/antagonist/traitor/mini/traitor = mind.has_antag_datum(/datum/antagonist/traitor/mini)
+
+	traitor.add_objective(pick(/datum/objective/maroon, /datum/objective/steal))
+	traitor.add_objective(pick(/datum/objective/maroon, /datum/objective/steal))
+	log_admin("[key_name_admin(user)] has made [key_name_admin(mindslave_target)] mini traitor.")
+	return ..()
 
 #undef CYBERSUN_DISCOUNT

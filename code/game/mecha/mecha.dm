@@ -40,7 +40,6 @@
 	var/lights_power = 6
 	var/lights_color = -99999 // "NONSENSICAL_VALUE"
 	var/emagged = FALSE
-	var/hacked = FALSE // Like emagged but not emagged, special bool for CYBERSUN item
 	var/frozen = FALSE
 	var/repairing = FALSE
 	/// The internal storage of the exosuit. For the cargo module
@@ -1258,7 +1257,7 @@
 	var/passed
 	if(dna)
 		if(ishuman(user))
-			if(user.dna.unique_enzymes == dna || hacked)
+			if(user.dna.unique_enzymes == dna)
 				passed = TRUE
 	else if(operation_allowed(user))
 		passed = TRUE
@@ -1489,8 +1488,6 @@
 
 
 /obj/mecha/check_access(obj/item/I, list/access_list)
-	if(hacked)
-		return TRUE
 	if(!istype(access_list))
 		return TRUE
 	if(!length(access_list)) //no requirements

@@ -1,6 +1,6 @@
 /obj/item/implant/traitor
 	name = "Mindslave Bio-chip"
-	desc = "Divide and Conquer"
+	desc = "На боку едва заметная гравировка \"Cybersun Industries\"."
 	implant_state = "implant-syndicate"
 	origin_tech = "programming=5;biotech=5;syndicate=8"
 	activated = BIOCHIP_ACTIVATED_PASSIVE

@@ -24,7 +24,17 @@
 	var/obj/item/uplink/hidden/hidden_uplink = null
 	/// Current traitor affiliate
 	var/datum/affiliate/affiliate
+	/// List of killed agents from enemy affiliates
 	var/list/killed_enemy_agents = list()
+
+/datum/antagonist/traitor/mini
+
+
+
+/datum/antagonist/traitor/mini/on_gain()
+	if(!owner.som)
+		owner.som = new /datum/mindslaves
+	owner.som.masters += owner
 
 /datum/antagonist/traitor/on_gain()
 	// Create this in case the traitor wants to mindslaves someone.
@@ -32,7 +42,6 @@
 		owner.som = new /datum/mindslaves
 
 	owner.som.masters += owner
-	give_affiliates()
 	RegisterSignal(src, COMSIG_MOB_DEATH, PROC_REF(grant_enemy_affiliates))
 	return ..()
 
