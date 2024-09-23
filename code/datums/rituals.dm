@@ -51,6 +51,7 @@
 	var/del_things = FALSE
 	var/start_cooldown = FALSE
 	handle_ritual_object(RITUAL_STARTED)
+	
 	switch(ritual_invoke_check(item, invoker))
 		if(RITUAL_SUCCESSFUL)
 			start_cooldown = TRUE
