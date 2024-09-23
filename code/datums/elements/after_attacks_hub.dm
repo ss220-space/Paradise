@@ -1,5 +1,6 @@
 /datum/element/after_attacks_hub
 	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY|ELEMENT_BESPOKE
+	/// List of after-attack effects for various items
 	var/list/after_attacks_effects = list()
 
 /datum/element/after_attacks_hub/Attach(datum/target)

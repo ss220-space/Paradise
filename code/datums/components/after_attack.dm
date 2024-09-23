@@ -1,5 +1,10 @@
+/**
+ * Ancestor class for various post-attack effects. Requires /datum/element/after_attacks_hub to work
+ */
+
 /datum/component/after_attack
 	dupe_mode = COMPONENT_DUPE_UNIQUE
+	/// Does the effect differ between a block and a successful attack
 	var/has_block_different_effect = TRUE
 
 /datum/component/after_attack/Initialize()
