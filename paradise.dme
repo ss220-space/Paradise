@@ -2344,7 +2344,6 @@
 #include "code\modules\mob\living\carbon\carbon.dm"
 #include "code\modules\mob\living\carbon\carbon_defense.dm"
 #include "code\modules\mob\living\carbon\carbon_defines.dm"
-#include "code\modules\mob\living\carbon\damage_procs.dm"
 #include "code\modules\mob\living\carbon\carbon_emote.dm"
 #include "code\modules\mob\living\carbon\carbon_stripping.dm"
 #include "code\modules\mob\living\carbon\death.dm"

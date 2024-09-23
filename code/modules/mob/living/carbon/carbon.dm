@@ -81,42 +81,58 @@
 	distance = 0, 
 	message = TRUE
 )
+	. = FALSE
 	if(ismachineperson(src)) //IPCs do not vomit particulates
-		return FALSE
+		return .
+
 	if(is_muzzled())
 		if(message)
 			to_chat(src, "<span class='warning'>Намордник препятствует рвоте!</span>")
-		return FALSE
+		return .
+
 	if(stun)
 		Stun(stun)
+
 	if(nutrition < 100 && !blood)
 		if(message)
 			visible_message("<span class='warning'>[src.name] сухо кашля[pluralize_ru(src.gender,"ет","ют")]!</span>", \
 							"<span class='userdanger'>Вы пытаетесь проблеваться, но в вашем желудке пусто!</span>")
+
 		if(stun)
 			Weaken(stun * 2.5)
+
 	else
+		. = TRUE
 		if(message)
 			visible_message("<span class='danger'>[src.name] блю[pluralize_ru(src.gender,"ет","ют")]!</span>", \
 							"<span class='userdanger'>Вас вырвало!</span>")
+
 		playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
 		var/turf/T = get_turf(src)
+
 		for(var/i=0 to distance)
 			if(blood)
 				if(T)
 					add_splatter_floor(T)
+
 				if(stun)
 					adjustBruteLoss(3)
+
 			else
 				if(T)
 					T.add_vomit_floor()
+
 				adjust_nutrition(-lost_nutrition)
+
 				if(stun)
 					adjustToxLoss(-3)
+
 			T = get_step(T, dir)
+			
 			if(T.is_blocked_turf())
 				break
-	return TRUE
+				
+	return .
 
 /mob/living/carbon/gib()
 	. = death(TRUE)

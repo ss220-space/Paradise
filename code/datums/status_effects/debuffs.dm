@@ -1246,6 +1246,9 @@
 		return
 
 	var/mob/living/carbon/carbon = owner
-	carbon.vomit(20)
+	
+	if(!carbon.vomit(20))
+		return
+
 	carbon.adjustToxLoss(-3)
 	puke_counter = initial(puke_counter)
