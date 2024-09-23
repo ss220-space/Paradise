@@ -66,7 +66,8 @@
 
 /obj/item/melee/rapier/poisoned/Initialize()
 	. = ..()
-	AddComponent(/datum/component/attack_effect_sleep, stamina_damage, sleep_time)
+	AddElement(/datum/element/after_attacks_hub)
+	AddComponent(/datum/component/after_attack/attack_effect_sleep, stamina_damage, sleep_time)
 
 
 /obj/item/melee/rapier/poisoned/syndie

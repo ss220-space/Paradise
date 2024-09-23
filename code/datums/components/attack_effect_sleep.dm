@@ -1,23 +1,17 @@
-/datum/component/attack_effect_sleep
+/datum/component/after_attack/attack_effect_sleep
 	var/stamina_damage
 	var/sleep_time
 
 
-/datum/component/attack_effect_sleep/Initialize(stamina_damage, sleep_time)
+/datum/component/after_attack/attack_effect_sleep/Initialize(stamina_damage, sleep_time)
 	. = ..()
-	if(!isitem(parent))
-		return COMPONENT_INCOMPATIBLE
 	src.stamina_damage = stamina_damage
 	src.sleep_time = sleep_time
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SUCCESS, PROC_REF(on_attack_success))
-
-/datum/component/attack_effect_sleep/Destroy(force)
-	UnregisterSignal(parent, COMSIG_ITEM_ATTACK_SUCCESS)
-	. = ..()
 
 
-/datum/component/attack_effect_sleep/proc/on_attack_success(datum/source, mob/living/target, mob/living/user, params, def_zone)
-	SIGNAL_HANDLER
+
+/datum/component/after_attack/attack_effect_sleep/on_success(datum/source, mob/living/target, mob/living/user, proximity, params)
+	..()
 
 	if(!target || !user || !istype(target))
 		return
