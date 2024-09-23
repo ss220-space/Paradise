@@ -79,6 +79,26 @@
 	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
 	origin_tech = "programming=6;biotech=3"
 
+/obj/item/invasive_beacon/attack(mob/living/target, mob/living/user, def_zone)
+	return
+
+/obj/item/invasive_beacon/afterattack(atom/target, mob/user, proximity, params)
+	var/obj/mecha/mecha = target
+	if (!istype(mecha))
+		return
+
+	do_sparks(5, 1, mecha)
+	mecha.dna = null
+	mecha.operation_req_access = list()
+	mecha.internals_req_access = list()
+
+	if (mecha.occupant)
+		mecha.occupant.forceMove(get_turf(mecha))
+		mecha.occupant.Knockdown(6 SECONDS)
+		mecha.occupant.electrocute_act(30, mecha)
+		mecha.occupant = null
+
+
 /obj/item/CIndy_patcher
 	name = "CIndy patcher"
 	icon = 'icons/obj/module.dmi'
