@@ -43,6 +43,7 @@
 
 	owner.som.masters += owner
 	RegisterSignal(src, COMSIG_MOB_DEATH, PROC_REF(grant_enemy_affiliates))
+	give_affiliates()
 	return ..()
 
 /datum/antagonist/traitor/proc/grant_enemy_affiliates()

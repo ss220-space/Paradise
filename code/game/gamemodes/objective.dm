@@ -1806,10 +1806,10 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	explanation_text = "Украдите [req_techs] уровней технологий просканировав сервера R&D при помощи Фирменного SSD из аплинка."
 
 /datum/objective/download_data/check_completion()
-	for(var/obj/item/proprietary_ssd/check in owner.current.get_contents()) //Check for items
+	for(var/obj/item/proprietary_ssd/ssd in owner.current.get_contents()) //Check for items
 		var/sum_of_techs = 0
-		for(var/I in files.known_tech)
-			var/datum/tech/T = files.known_tech[I]
+		for(var/I in ssd.files.known_tech)
+			var/datum/tech/T = ssd.files.known_tech[I]
 			sum_of_techs += T.level
 			if (sum_of_techs >= req_techs)
 				return TRUE
