@@ -440,3 +440,5 @@
 /// Makes the weaken into a knockdown
 #define SHOCK_KNOCKDOWN (1<<7)
 
+/// When reached - we'll apply status effect which will force carbon to vomit
+#define VOMIT_THRESHOLD_REACHED(carbon) (carbon.getToxLoss() > REQUIRED_VOMIT_TOXLOSS && carbon.nutrition > REQUIRED_VOMIT_NUTRITION)
