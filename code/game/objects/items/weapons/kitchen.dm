@@ -78,7 +78,7 @@
 		if(target == user)
 			balloon_alert(user, span_warning("лицо скрыто"))
 		else
-			balloon_alert(user, span_warning("у [target] скрыто лицо"))
+			balloon_alert(user, span_warning("мешает скрытое лицо"))
 		return .
 
 	if(target.eat(toEat, user))
