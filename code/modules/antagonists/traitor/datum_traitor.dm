@@ -33,21 +33,21 @@
 
 	owner.som.masters += owner
 	give_affiliates()
-	RegisterSignal(owner.current, COMSIG_MOB_DEATH, PROC_REF(on_view_change))
+	RegisterSignal(src, COMSIG_MOB_DEATH, PROC_REF(grant_enemy_affiliates))
 	return ..()
 
-/mob/living/carbon/human/proc/grant_enemy_affiliates()
-	var/datum/antagonist/traitor/src_traitor = has_antag_datum(/datum/antagonist/traitor)
-
-	for (/mob/living/carbon/human/H in range(5))
-		var/datum/antagonist/traitor/another_traitor = owner.has_antag_datum(/datum/antagonist/traitor)
-		if (!(src_traitor.affiliate in another_traitor.affiliate.enemys))
+/datum/antagonist/traitor/proc/grant_enemy_affiliates()
+	for (var/mob/M in range(5, owner.current))
+		var/datum/antagonist/traitor/another_traitor = M.mind.has_antag_datum(/datum/antagonist/traitor)
+		if (!another_traitor)
 			continue
-		if (another_traitor.killed_enemy_agents.length >= LIMIT_KILLING_ENEMY_REWARDS)
+		if (!(src.affiliate in another_traitor.affiliate.enemys))
 			continue
-		if (src_traitor in another_traitor.killed_enemy_agents)
+		if (another_traitor.killed_enemy_agents.len >= LIMIT_KILLING_ENEMY_REWARDS)
 			continue
-		another_traitor.killed_enemy_agents.Add(src_traitor)
+		if (src in another_traitor.killed_enemy_agents)
+			continue
+		another_traitor.killed_enemy_agents.Add(src)
 		another_traitor.hidden_uplink.uses += another_traitor.affiliate.reward_for_enemys
 
 /datum/antagonist/traitor/proc/give_affiliates()
@@ -130,7 +130,7 @@
 	return ..()
 
 
-/datum/antagonist/traitor/give_old_objectives()
+/datum/antagonist/traitor/proc/old_give_objectives()
 	var/hijacker_antag = (GLOB.master_mode == "antag-paradise" || GLOB.secret_force_mode == "antag-paradise") ? is_hijacker : prob(10)
 
 	var/objective_count = hijacker_antag 			//Hijacking counts towards number of objectives
