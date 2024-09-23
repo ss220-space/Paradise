@@ -82,6 +82,7 @@
 	message = TRUE
 )
 	. = FALSE
+	
 	if(ismachineperson(src)) //IPCs do not vomit particulates
 		return .
 
@@ -128,7 +129,7 @@
 					adjustToxLoss(-3)
 
 			T = get_step(T, dir)
-			
+
 			if(T.is_blocked_turf())
 				break
 				
