@@ -157,6 +157,10 @@
 
 /datum/surgery_step/limb/attach
 	name = "attach limb"
+
+	begin_sound	= 'sound/surgery/organ2.ogg'
+	fail_sound	= 'sound/effects/meatslap.ogg'
+
 	allowed_tools = list(/obj/item/organ/external = 100)
 
 	time = 3.2 SECONDS
@@ -254,6 +258,11 @@
 
 /datum/surgery_step/limb/connect
 	name = "connect limb"
+
+	begin_sound	= 'sound/surgery/hemostat1.ogg'
+	end_sound	= 'sound/surgery/hemostat2.ogg'
+	fail_sound	= 'sound/effects/meatslap.ogg'
+
 	allowed_tools = list(
 		TOOL_HEMOSTAT = 100,
 		/obj/item/stack/cable_coil = 90,

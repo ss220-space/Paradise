@@ -9,6 +9,10 @@
 /datum/surgery_step/generic/cut_open
 	name = "make incision"
 
+	begin_sound	= 'sound/surgery/scalpel1.ogg'
+	end_sound	= 'sound/surgery/scalpel2.ogg'
+	fail_sound	= 'sound/effects/meatslap.ogg'
+
 	allowed_tools = list(
 		TOOL_SCALPEL = 100,
 		/obj/item/kitchen/knife = 90,
@@ -55,6 +59,10 @@
 /datum/surgery_step/generic/clamp_bleeders
 	name = "clamp bleeders"
 
+	begin_sound	= 'sound/surgery/hemostat1.ogg'
+	end_sound	= 'sound/surgery/hemostat2.ogg'
+	fail_sound	= 'sound/effects/meatslap.ogg'
+
 	allowed_tools = list(
 		TOOL_HEMOSTAT = 100,
 		/obj/item/scalpel/laser = 100,
@@ -98,6 +106,10 @@
 
 /datum/surgery_step/generic/retract_skin
 	name = "retract skin"
+
+	begin_sound	= 'sound/surgery/retractor1.ogg'
+	end_sound	= 'sound/surgery/retractor2.ogg'
+	fail_sound	= 'sound/effects/meatslap.ogg'
 
 	allowed_tools = list(
 		TOOL_RETRACTOR = 100,
@@ -154,6 +166,10 @@
 /datum/surgery_step/generic/cauterize
 
 	name = "cauterize incision"
+
+	begin_sound	= 'sound/surgery/cautery1.ogg'
+	end_sound	= 'sound/surgery/cautery2.ogg'
+	fail_sound	= 'sound/effects/meatslap.ogg'
 
 	allowed_tools = list(
 		/obj/item/scalpel/laser = 100,
@@ -215,6 +231,10 @@
 //drill bone
 /datum/surgery_step/generic/drill
 	name = "drill bone"
+
+	begin_sound	= 'sound/surgery/surgicaldrill.ogg'
+	fail_sound	= 'sound/effects/meatslap.ogg'
+
 	allowed_tools = list(
 		TOOL_DRILL = 100,
 		/obj/item/screwdriver/power = 80,
@@ -250,6 +270,13 @@
 
 /datum/surgery_step/generic/amputate
 	name = "amputate limb"
+
+	begin_sound = list(
+		TOOL_SAW					= 'sound/surgery/saw1.ogg',
+		/obj/item/hatchet			= 'sound/surgery/scalpel1.ogg',
+		/obj/item/melee/arm_blade	= 'sound/surgery/scalpel1.ogg',
+	)
+	end_sound = 'sound/surgery/amputation.ogg'
 
 	allowed_tools = list(
 		TOOL_SAW = 100,
