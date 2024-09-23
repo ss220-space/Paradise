@@ -7,19 +7,19 @@
 )
 	. = ..()
 	if(. == STATUS_UPDATE_NONE)
-        return .
-
+		return .
+	
 	if(VOMIT_THRESHOLD_REACHED(src))
 		apply_status_effect(STATUS_EFFECT_VOMIT)
-    
-    return .
+		
+	return .
 
 /mob/living/carbon/setToxLoss(amount, updating_health = TRUE)
 	. = ..()
 	if(. == STATUS_UPDATE_NONE)
-        return .
+		return .
 
 	if(VOMIT_THRESHOLD_REACHED(src))
 		apply_status_effect(STATUS_EFFECT_VOMIT)
 
-    return .
+	return .
