@@ -94,7 +94,7 @@
 	if(stun)
 		Stun(stun)
 
-	if(nutrition < 100 && !blood)
+	if(nutrition < VOMIT_REQUIRED_NUTRITION && !blood)
 		if(message)
 			visible_message("<span class='warning'>[src.name] сухо кашля[pluralize_ru(src.gender,"ет","ют")]!</span>", \
 							"<span class='userdanger'>Вы пытаетесь проблеваться, но в вашем желудке пусто!</span>")
