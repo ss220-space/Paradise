@@ -8,7 +8,7 @@
 
 
 /mob/living/silicon/robot/update_stat(reason = "none given", should_log = FALSE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		..()
 		update_headlamp()
 		return

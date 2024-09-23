@@ -23,7 +23,7 @@
 				last_change_chemicals = world.time
 
 /mob/living/silicon/pai/updatehealth(reason = "none given", should_log = FALSE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()
 	set_health(maxHealth - getBruteLoss() - getFireLoss())
 	update_stat("updatehealth([reason])", should_log)
