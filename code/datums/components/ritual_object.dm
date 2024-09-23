@@ -21,6 +21,7 @@
 
 	if(!isobj(parent))
 		return COMPONENT_INCOMPATIBLE
+
 	src.attacking_item_type = attacking_item_type
 	src.allowed_categories = allowed_categories
 	src.allowed_species = allowed_species
@@ -35,10 +36,13 @@
 
 /datum/component/ritual_object/proc/get_rituals() // We'll get all rituals for flexibility. 
 	LAZYCLEARLIST(rituals)
+
 	for(var/datum/ritual/ritual as anything in typecacheof(allowed_categories))
-		if(ritual.name)
-			rituals += new ritual
-			ritual.link_object(parent)
+		if(!ritual.name)
+			continue
+
+		rituals += new ritual
+		ritual.ritual_object = parent
 
 	return
 
@@ -56,6 +60,7 @@
 		return
 
 	var/mob/living/carbon/human/human = user
+
 	if(attacking_item_type && !istype(item, attacking_item_type))
 		return
 
@@ -92,6 +97,7 @@
 
 /datum/component/ritual_object/proc/get_available_rituals(mob/living/carbon/human/human)
 	var/list/rituals_list = list()
+
 	for(var/datum/ritual/ritual as anything in rituals)
 		if(ritual.charges == 0)
 			continue

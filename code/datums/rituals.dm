@@ -37,10 +37,7 @@
 	var/list/invokers = list()
 	/// If defined - do_after will be added to your ritual
 	var/cast_time
-	
-/datum/ritual/proc/link_object(obj/obj)
-	ritual_object = obj
-	
+
 /datum/ritual/Destroy(force)
 	ritual_object = null
 	LAZYNULL(used_things)
@@ -179,8 +176,8 @@
 		var/needed_amount = required_things[thing]
 		var/current_amount = 0
 
-		for(var/obj in range(finding_range, ritual_object))
-			if(!ispath(obj, thing))
+		for(var/atom/obj in range(finding_range, ritual_object))
+			if(!istype(obj, thing))
 				continue
 
 			if(obj == invoker)
@@ -349,7 +346,6 @@
 		return RITUAL_FAILED_ON_PROCEED
 
 	message_admins("[key_name(human)] accomplished mindtransfer ritual on [key_name(invoker)]")
-
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/ashwalker/mind_transfer/disaster(obj/item/item, mob/living/carbon/human/invoker)
@@ -368,7 +364,6 @@
 		return
 
 	. = ..(bitflags)
-
 	return .
 
 /datum/ritual/ashwalker/summon
@@ -400,6 +395,7 @@
 	var/obj/item/stack/sheet/sinew/sinew = locate() in used_things
 	var/obj/item/stack/sheet/animalhide/goliath_hide/hide = locate() in used_things
 	var/obj/item/organ/internal/regenerative_core/core = locate() in used_things
+
 	sinew.use(3)
 	hide.use(1)
 	qdel(core)
@@ -420,7 +416,6 @@
 		return RITUAL_FAILED_ON_PROCEED
 
 	human.forceMove(ritual_object)
-
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/ashwalker/summon/disaster(obj/item/item, mob/living/carbon/human/invoker)
