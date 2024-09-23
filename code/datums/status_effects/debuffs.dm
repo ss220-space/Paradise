@@ -1227,3 +1227,27 @@
 	if(new_filter)
 		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
 		animate(offset = 0, time = 10 SECONDS)
+
+/datum/status_effect/tox_vomit
+	id = "vomitting_from_toxins"
+	tick_interval = 2 SECONDS
+	alert_type = null
+	/// Has a chance to count up every tick, until it reaches a threshold, which causes the mob to vomit and resets
+	var/puke_counter = 0
+
+/datum/status_effect/tox_vomit/tick(seconds_between_ticks)
+	if(!iscarbon(owner) || !VOMIT_THRESHOLD_REACHED(owner))
+		qdel(src)
+		return
+
+	if(owner.stat == DEAD || HAS_TRAIT(owner, TRAIT_GODMODE))
+		return
+
+	puke_counter++
+	if(puke_counter < 25) // This is like 150 seconds apparently according to old comments
+		return
+
+	var/mob/living/carbon/carbon = owner
+	vomit(20, 0, VOMIT_STUN_TIME, 0, TRUE)
+	carbon.adjustToxLoss(-3)
+	puke_counter = initial(puke_counter)
