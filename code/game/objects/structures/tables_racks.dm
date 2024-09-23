@@ -44,8 +44,6 @@
 
 /obj/structure/table/Initialize(mapload)
 	. = ..()
-	if(flipped)
-		update_icon(UPDATE_ICON_STATE)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
@@ -525,7 +523,7 @@
 		table_shatter(M)
 
 
-/obj/structure/table/glass/flip(direction)
+/obj/structure/table/glass/flip(direction, throw_around = TRUE)
 	deconstruct(FALSE)
 	return TRUE
 
