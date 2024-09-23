@@ -447,4 +447,4 @@
 #define VOMIT_BLOOD_LOSS         0
 #define VOMIT_DISTANCE           0
 /// When reached - we'll apply status effect which will force carbon to vomit
-#define VOMIT_THRESHOLD_REACHED(mob, toxloss, nutriments) (mob.getToxLoss() >= toxloss) if(nutriments) { (mob.nutrition > req_nutrients); }
+#define VOMIT_THRESHOLD_REACHED(mob, toxloss, nutriments) (mob.getToxLoss() >= toxloss && mob.nutrition > req_nutrients)

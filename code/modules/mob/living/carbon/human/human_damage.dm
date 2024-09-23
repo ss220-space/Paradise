@@ -294,7 +294,7 @@
 	if(. == STATUS_UPDATE_NONE)
 		return .
 
-	if(VOMIT_THRESHOLD_REACHED(src, 45))
+	if(VOMIT_THRESHOLD_REACHED(src, 45, 100))
 		apply_status_effect(STATUS_EFFECT_VOMIT)
 
 	if(!mind)
@@ -311,7 +311,7 @@
 	if(. == STATUS_UPDATE_NONE)
 		return .
 
-	if(VOMIT_THRESHOLD_REACHED(src, 45))
+	if(VOMIT_THRESHOLD_REACHED(src, 45, 100))
 		apply_status_effect(STATUS_EFFECT_VOMIT)
 
 	return .
