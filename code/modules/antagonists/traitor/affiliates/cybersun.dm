@@ -175,6 +175,12 @@
 	traitor.add_objective(pick(/datum/objective/maroon, /datum/objective/steal))
 	traitor.add_objective(pick(/datum/objective/maroon, /datum/objective/steal))
 	log_admin("[key_name_admin(user)] has made [key_name_admin(mindslave_target)] mini traitor.")
+
+	var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
+	for(var/datum/objective/new_mini_traitor/objective in T.all_objectives)
+		if(target.mind == objective.target)
+			objective.made = TRUE
+
 	return ..()
 
 #undef CYBERSUN_DISCOUNT

@@ -1798,15 +1798,43 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 // Affiliates objectives custom
 /datum/objective/download_data
 	needs_target = FALSE
-	explanation_text = "Проверка: загрузка"
+	var/req_techs
+
+/datum/objective/download_data/New(text, datum/team/team_to_join)
+	. = ..()
+	req_techs = rand(30, 40)
+	explanation_text = "Украдите [req_techs] уровней технологий просканировав сервера R&D при помощи Фирменного SSD из аплинка."
+
+/datum/objective/download_data/check_completion()
+	for(var/obj/item/proprietary_ssd/check in owner.current.get_contents()) //Check for items
+		var/sum_of_techs = 0
+		for(var/I in files.known_tech)
+			var/datum/tech/T = files.known_tech[I]
+			sum_of_techs += T.level
+			if (sum_of_techs >= req_techs)
+				return TRUE
+	return FALSE
+
 
 /datum/objective/mecha_hijack
 	needs_target = FALSE
-	explanation_text = "Проверка: мехи"
+	explanation_text = "Украдите любого меха."
+
+/datum/objective/mecha_hijack/check_completion()
+	for (var/obj/mecha/mecha in range(3, owner.current))
+		if (mecha.occupant == owner.current)
+			return TRUE
+		if (!mecha.occupant)
+			return TRUE
+	return FALSE
 
 /datum/objective/new_mini_traitor
 	needs_target = TRUE
 	explanation_text = "Вколоть модифицированный майндслейв имплант"
+	var/made = FALSE
+
+/datum/objective/new_mini_traitor/check_completion()
+	return made
 
 /datum/objective/harvest_blood
 	explanation_text = "Набрать кровь у нескольких членов экипажа."
@@ -1851,6 +1879,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	needs_target = TRUE
 	explanation_text = "Развести бореров"
 	var/req = 3
+
+
+// BLOB
 
 /datum/objective/blob_critical_mass
 	needs_target = FALSE
