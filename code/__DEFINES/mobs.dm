@@ -442,9 +442,10 @@
 
 /// Vomit defines
 #define VOMIT_REQUIRED_NUTRITION 100
+#define VOMIT_REQUIRED_TOXLOSS 	 45
 #define VOMIT_NUTRITION_LOSS     10
 #define VOMIT_STUN_TIME          (8 SECONDS)
 #define VOMIT_BLOOD_LOSS         0
 #define VOMIT_DISTANCE           0
 /// When reached - we'll apply status effect which will force carbon to vomit
-#define VOMIT_THRESHOLD_REACHED(mob, toxloss, nutriments) (mob.getToxLoss() >= toxloss && mob.nutrition > req_nutrients)
+#define VOMIT_THRESHOLD_REACHED(mob, toxloss, nutriments) (mob.getToxLoss() >= toxloss && mob.nutrition > nutriments)
