@@ -9,6 +9,7 @@
 		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, span_warning("Вы не можете говорить в IC (muted)."))
 			return
+
 		if(client.handle_spam_prevention(message,MUTE_IC))
 			return
 
@@ -16,9 +17,11 @@
 		message = trim(sanitize(copytext_char(message, 1, MAX_MESSAGE_LEN)))
 		if(!message)
 			return
+
 		add_say_logs(src, message)
 		if(stat == DEAD)
 			return say_dead(message)
+			
 		var/mob/living/simple_animal/borer/B = loc
 		to_chat(src, "Вы тихо шепчете, \"[message]\"")
 		to_chat(B.host, span_alien("<i>Пленённый разум [src] шепчет, \"[message]\"</i>"))
@@ -29,9 +32,11 @@
 
 /mob/living/captive_brain/say_understands(var/mob/other, var/datum/language/speaking = null)
 	var/mob/living/simple_animal/borer/B = loc
+
 	if(!istype(B))
 		log_runtime(EXCEPTION("Trapped mind found without a borer!"), src)
 		return FALSE
+
 	return B.host.say_understands(other, speaking)
 
 
@@ -139,18 +144,24 @@
 	if(cannotPossess(user))
 		to_chat(user, span_boldnotice("Upon using the antagHUD you forfeited the ability to join the round."))
 		return
+
 	if(jobban_isbanned(user, "Syndicate"))
 		to_chat(user, span_warning("You are banned from antagonists!"))
 		return
+
 	if(key)
 		return
+
 	if(stat != CONSCIOUS)
 		return
+
 	var/be_borer = tgui_alert(user, "Become a cortical borer? (Warning, You can no longer be cloned!)", "Cortical Borer", list("Yes", "No"))
 	if(be_borer != "Yes" || !src || QDELETED(src))
 		return
+
 	if(key)
 		return
+
 	transfer_personality(user.client)
 
 /mob/living/simple_animal/borer/sentience_act()
@@ -167,10 +178,12 @@
 
 /mob/living/simple_animal/borer/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	var/list/message_pieces = parse_languages(message)
+
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		if(S.speaking != GLOB.all_languages[LANGUAGE_HIVE_BORER] && loc == host && !talk_inside_host)
 			Communicate(message)
 			return
+
 	return ..()
 
 
@@ -191,9 +204,11 @@
 		if(host)
 			to_chat(host, span_changeling("<i>[truename] [say_string]:</i> [sended_message]"))
 			add_say_logs(src, sended_message, host, "BORER")
+
 			for(var/M in GLOB.dead_mob_list)
 				if(isobserver(M))
 					to_chat(M, span_changeling("<i>Borer Communication from <b>[truename]</b> ([ghost_follow_link(src, ghost=M)]): [sended_message]</i>"))
+
 		to_chat(src, span_changeling("<i>[truename] [say_string]:</i> [sended_message]"))
 		talk_to_borer_action.Grant(host)
 
@@ -202,8 +217,10 @@
 	evo_points += 1
 	if(borer_rank?.required_reproductions && reproductions >= borer_rank.required_reproductions)
 		reproductions -= borer_rank.required_reproductions
+
 		if(host && borer_rank.update_rank())
 			to_chat(host, span_notice("Вы эволюционировали. Ваш текущий ранг - [borer_rank.rankname]."))
+
 	return
 
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
@@ -234,6 +251,7 @@
 	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
 			to_chat(M, span_changeling("<i>Borer Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
+
 	to_chat(src, span_changeling("<i>[src] says:</i> [input]"))
 
 /mob/living/proc/trapped_mind_comm()
@@ -242,10 +260,13 @@
 		return
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
+
 	if(!B.host_brain)
 		return
+
 	var/mob/living/captive_brain/CB = B.host_brain
 	var/input = stripped_input(src, "Введите сообщение для пленённого разума.", "Сообщение", "")
+
 	if(!input)
 		return
 
@@ -255,6 +276,7 @@
 	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
 			to_chat(M, span_changeling("<i>Borer Communication from <b>[B]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
+
 	to_chat(src, span_changeling("<i>[B.truename] says:</i> [input]"))
 
 /mob/living/simple_animal/borer/Life(seconds, times_fired)
@@ -333,6 +355,7 @@
 
 	if (is_ventcrawling(user) || !src || user.stat || infesting)
 		return FALSE
+
 	. = ..()
 
 /obj/effect/proc_holder/spell/borer_infest/valid_target(mob/living/carbon/human/target, user)
@@ -435,12 +458,14 @@
 		return
 		
 	var/tgui_menu = tgui_input_list(src, "Choose focus", "Focus Menu", content)
-	if(tgui_menu)
-		for(var/datum in subtypesof(/datum/borer_focus))
-			var/datum/borer_focus/borer_datum = datum
-			if(tgui_menu == borer_datum.bodypartname)
-				process_focus_choice(borer_datum)
-				break
+	if(!tgui_menu)
+		return
+
+	for(var/datum in subtypesof(/datum/borer_focus))
+		var/datum/borer_focus/borer_datum = datum
+		if(tgui_menu == borer_datum.bodypartname)
+			process_focus_choice(borer_datum)
+			break
 
 	return
 
@@ -677,8 +702,10 @@
 
 /mob/living/carbon/proc/BorerControlling()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
+
 	if(borer?.controlling)
 		return TRUE
+
 	return FALSE
 
 /mob/living/carbon/proc/spawn_larvae()

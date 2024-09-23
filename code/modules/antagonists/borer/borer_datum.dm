@@ -28,20 +28,26 @@
 /datum/antagonist/borer/apply_innate_effects(mob/living/simple_animal/borer/borer)
 	. = ..()
 	user = borer || owner.current
+
 	if(QDELETED(user))
 		qdel(src)
 		return FALSE
+
 	RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(entered_host))
 	RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host))
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) 
 	RegisterSignal(user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive))
 	sync()
+
 	if(tick_interval != -1)
 		tick_interval = world.time + tick_interval
+
 	if(!(tick_interval > world.time))
 		return FALSE
+
 	if(user.stat != DEAD)
 		START_PROCESSING(SSprocessing, src)
+
 	return TRUE
 
 /datum/antagonist/borer/proc/sync()
@@ -54,8 +60,10 @@
 /datum/antagonist/borer/proc/parent_sync()
 	scaling?.parent = src
 	borer_rank.parent = src
+
 	for(var/datum/borer_focus/focus as anything in learned_focuses)
 		focus.parent = src
+
 	return
 
 /datum/antagonist/borer/greet()
@@ -70,13 +78,17 @@
 	
 /datum/antagonist/borer/proc/entered_host()
 	SIGNAL_HANDLER
+
 	host = user.host
+
 	if(pre_grant_movable_effect())
 		previous_host = host
 
 /datum/antagonist/borer/proc/left_host()
 	SIGNAL_HANDLER
+
 	host = null
+
 	if(pre_remove_movable_effect())
 		previous_host = host
 
@@ -108,40 +120,52 @@
 	return
 
 /datum/antagonist/borer/Destroy(force)
-	UnregisterSignal(user, COMSIG_BORER_ENTERED_HOST)
-	UnregisterSignal(user, COMSIG_BORER_LEFT_HOST)
-	UnregisterSignal(user, COMSIG_MOB_DEATH)
-	UnregisterSignal(user, COMSIG_LIVING_REVIVE)
+	UnregisterSignal(user, list(
+		COMSIG_BORER_ENTERED_HOST,
+		COMSIG_BORER_LEFT_HOST,
+		COMSIG_MOB_DEATH,
+		COMSIG_LIVING_REVIVE
+	))
 	pre_remove_movable_effect()
 	STOP_PROCESSING(SSprocessing, src)
+
 	QDEL_NULL(borer_rank)
 	QDEL_NULL(learned_focuses)
 	QDEL_NULL(scaling)
+
 	user = null
 	host = null
 	previous_host = null
+
 	return ..()
 
 /datum/antagonist/borer/proc/on_mob_death()
 	SIGNAL_HANDLER
+	
 	STOP_PROCESSING(SSprocessing, src)
 
 /datum/antagonist/borer/proc/on_mob_revive()
 	SIGNAL_HANDLER
+
 	if(tick_interval > world.time)
 		START_PROCESSING(SSprocessing, src)
 
 /datum/antagonist/borer/process(seconds_per_tick)
 	SHOULD_NOT_OVERRIDE(TRUE)
+
 	if(QDELETED(user))
 		qdel(src)
 		return
+
 	if(tick_interval != -1 && tick_interval <= world.time)
 		var/tick_length = initial(tick_interval)
+
 		for(var/datum/borer_focus/focus as anything in learned_focuses)
 			focus.tick(tick_length / (1 SECONDS))
+
 		borer_rank.tick(tick_length / (1 SECONDS))
 		tick_interval = world.time + tick_length
+
 		if(QDELING(src))
 			return
 
@@ -193,6 +217,7 @@
 			owner.borer_rank = new BORER_RANK_ADULT(owner)
 		if(BORER_RANK_ADULT)
 			owner.borer_rank = new BORER_RANK_ELDER(owner)
+
 	return TRUE
 
 /datum/borer_rank/New(mob/living/simple_animal/borer/borer)
@@ -302,6 +327,7 @@
 		parent.host.physiology.hunger_mod *= 0.75
 		parent.host.stam_regen_start_modifier *= 0.875
 		return TRUE
+
 	parent.host.physiology.brain_mod *= 0.7
 	parent.host.physiology.hunger_mod *= 0.5
 	parent.host.stam_regen_start_modifier *= 0.75
@@ -313,6 +339,7 @@
 		parent.host.physiology.hunger_mod /= 0.75
 		parent.host.stam_regen_start_modifier /= 0.875
 		return TRUE
+
 	parent.previous_host.physiology.brain_mod /= 0.7
 	parent.previous_host.physiology.hunger_mod /= 0.3
 	parent.previous_host.stam_regen_start_modifier /= 0.75
@@ -326,6 +353,7 @@
 	if(!is_catathonic)
 		parent.host.physiology.brute_mod *= 0.9
 		return TRUE
+
 	parent.host.physiology.brute_mod *= 0.8
 	return TRUE
 
@@ -333,6 +361,7 @@
 	if(!is_catathonic)
 		parent.host.physiology.brute_mod /= 0.9
 		return TRUE
+
 	parent.previous_host.physiology.brute_mod /= 0.8
 	return TRUE
 
@@ -364,6 +393,7 @@
 	if(!is_catathonic)
 		parent.host.add_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus/lesser)
 		return TRUE
+
 	parent.host.add_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus)
 	return TRUE
 
@@ -371,6 +401,7 @@
 	if(!is_catathonic)
 		parent.previous_host.remove_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus/lesser)
 		return TRUE
+
 	parent.previous_host.remove_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus)
 	return TRUE
 
@@ -429,23 +460,29 @@
 	if(ishuman(user))
 		host = user
 		borer = host.has_brain_worms()
+
 	if(isborer(user))
 		borer = user
 
 /datum/action/innate/borer/IsAvailable()
 	if(!borer)
 		return FALSE
+
 	if(borer.stat) // No AB_CHECK_CONSCIOUS, we should do something even host is dead.
-		to_chat(usr, stat_message)
+		to_chat(borer, stat_message)
 		return FALSE
+
 	if(borer.docile)
 		to_chat(borer, docile_message)
 		return FALSE
+
 	if(host_req && !borer.host)
 		return FALSE
+
 	if(borer.chemicals < chem_cost && borer.chemicals >= 0)
 		to_chat(usr, "Вам требуется еще [chem_cost - borer.chemicals] химикатов для использования способности.")
 		return FALSE
+
 	. = ..()
 
 /datum/action/innate/borer/Remove(mob/user)
