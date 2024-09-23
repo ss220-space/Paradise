@@ -1231,6 +1231,7 @@
 /datum/status_effect/tox_vomit
 	id = "vomitting_from_toxins"
 	alert_type = null
+	processing_speed = STATUS_EFFECT_NORMAL_PROCESS
 	var/puke_counter = 0
 
 /datum/status_effect/tox_vomit/tick(seconds_between_ticks)
