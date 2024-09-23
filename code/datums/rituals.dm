@@ -177,7 +177,7 @@
 		var/needed_amount = required_things[thing]
 		var/current_amount = 0
 
-		for(var/atom/obj in range(finding_range, ritual_object))
+		for(var/atom/obj as anything in range(finding_range, ritual_object))
 			if(!istype(obj, thing))
 				continue
 
