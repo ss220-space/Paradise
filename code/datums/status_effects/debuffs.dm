@@ -1230,16 +1230,15 @@
 
 /datum/status_effect/tox_vomit
 	id = "vomitting_from_toxins"
-	tick_interval = 2 SECONDS
 	alert_type = null
 	var/puke_counter = 0
 
 /datum/status_effect/tox_vomit/tick(seconds_between_ticks)
-	if(!iscarbon(owner) || !VOMIT_THRESHOLD_REACHED(owner))
+	if(!iscarbon(owner) || !VOMIT_THRESHOLD_REACHED(owner) || HAS_TRAIT(owner, TRAIT_GODMODE))
 		qdel(src)
 		return
 
-	if(owner.stat == DEAD || HAS_TRAIT(owner, TRAIT_GODMODE))
+	if(owner.stat == DEAD)
 		return
 
 	puke_counter++
