@@ -1232,7 +1232,6 @@
 	id = "vomitting_from_toxins"
 	tick_interval = 2 SECONDS
 	alert_type = null
-	/// Has a chance to count up every tick, until it reaches a threshold, which causes the mob to vomit and resets
 	var/puke_counter = 0
 
 /datum/status_effect/tox_vomit/tick(seconds_between_ticks)
@@ -1244,7 +1243,7 @@
 		return
 
 	puke_counter++
-	if(puke_counter < 25) // This is like 150 seconds apparently according to old comments
+	if(puke_counter < 25)
 		return
 
 	var/mob/living/carbon/carbon = owner
