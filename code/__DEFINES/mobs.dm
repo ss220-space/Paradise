@@ -440,9 +440,6 @@
 /// Makes the weaken into a knockdown
 #define SHOCK_KNOCKDOWN (1<<7)
 
-/// Used to calculate threshold to vomit
-#define REQUIRED_VOMIT_THRESHOLD_TOXLOSS   45
-#define REQUIRED_VOMIT_THRESHOLD_NUTRITION 100
 /// Vomit defines
 #define VOMIT_REQUIRED_NUTRITION 100
 #define VOMIT_NUTRITION_LOSS     10
@@ -450,4 +447,4 @@
 #define VOMIT_BLOOD_LOSS         0
 #define VOMIT_DISTANCE           0
 /// When reached - we'll apply status effect which will force carbon to vomit
-#define VOMIT_THRESHOLD_REACHED(mob, req_toxloss = REQUIRED_VOMIT_THRESHOLD_TOXLOSS, req_nutrients = REQUIRED_VOMIT_THRESHOLD_NUTRITION) (mob.getToxLoss() >= req_toxloss && mob.nutrition > req_nutrients)
+#define VOMIT_THRESHOLD_REACHED(mob, toxloss, nutriments) (mob.getToxLoss() >= toxloss) if(nutriments) { (mob.nutrition > req_nutrients); }

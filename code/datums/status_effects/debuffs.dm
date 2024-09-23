@@ -1235,7 +1235,7 @@
 	var/puke_counter = 0
 
 /datum/status_effect/tox_vomit/tick(seconds_between_ticks)
-	if(!iscarbon(owner) || !VOMIT_THRESHOLD_REACHED(owner, req_nutrients = 20) || HAS_TRAIT(owner, TRAIT_GODMODE))
+	if(!iscarbon(owner) || !VOMIT_THRESHOLD_REACHED(owner, 45, 20) || HAS_TRAIT(owner, TRAIT_GODMODE))
 		qdel(src)
 		return
 
