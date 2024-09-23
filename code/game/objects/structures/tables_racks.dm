@@ -388,16 +388,18 @@
 
 
 
-/obj/structure/table/proc/flip(direction)
+/obj/structure/table/proc/flip(direction, throw_around = TRUE)
 	if(flipped)
 		return FALSE
 
 	if(!straight_table_check(turn(direction, 90)) || !straight_table_check(turn(direction, -90)))
 		return FALSE
 
-	var/list/targets = list(get_step(src, dir), get_step(src, turn(dir, 45)), get_step(src, turn(dir, -45)))
-	for(var/atom/movable/thing in get_turf(src))
-		if(!thing.anchored)
+	if(throw_around)
+		var/list/targets = list(get_step(src, dir), get_step(src, turn(dir, 45)), get_step(src, turn(dir, -45)))
+		for(var/atom/movable/thing in get_turf(src))
+			if(thing.anchored)
+				continue
 			INVOKE_ASYNC(thing, TYPE_PROC_REF(/atom/movable, throw_at), pick(targets), 1, 1)
 
 	dir = direction
@@ -412,7 +414,7 @@
 	for(var/check_dir in list(turn(direction, 90), turn(direction, -90)))
 		var/obj/structure/table/other_table = locate(/obj/structure/table, get_step(src, check_dir))
 		if(other_table)
-			other_table.flip(direction)
+			other_table.flip(direction, throw_around)
 	update_icon(UPDATE_ICON_STATE)
 
 	creates_cover = FALSE
