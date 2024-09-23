@@ -484,7 +484,7 @@
 /datum/surgery_step/proc/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/proc/play_end_sound(mob/user, mob/living/carbon/target, modded_time, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/proc/play_end_sound(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(!end_sound)
 		return
 	playsound(target, end_sound, 75, TRUE, falloff_exponent = 9, falloff_distance = 1, ignore_walls = FALSE)
@@ -498,7 +498,7 @@
 /datum/surgery_step/proc/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	return SURGERY_STEP_INCOMPLETE
 
-/datum/surgery_step/proc/play_fail_sound(mob/user, mob/living/carbon/target, modded_time, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/proc/play_fail_sound(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
 	if(!fail_sound)
 		return
 	playsound(target, fail_sound, 75, TRUE, falloff_exponent = 9, falloff_distance = 1, ignore_walls = FALSE)
