@@ -17,6 +17,8 @@
 	var/list/datum/affiliate/enemys = list()
 	/// Reward for killing enemy agents.
 	var/reward_for_enemys = 10
+	/// TRUE if it can take bonus objectives
+	var/can_take_bonus_objectives = TRUE
 
 /// If your affiliate need special effects, it is place for them
 /datum/affiliate/proc/finalize_affiliate(datum/mind/owner)
@@ -43,17 +45,18 @@
 /datum/affiliate/proc/is_possible()
 	return TRUE
 
-/datum/affiliate/remove_innate_effects(mob/living/mob_override)
-	. = ..()
+/datum/affiliate/proc/remove_innate_effects(mob/living/mob_override)
 	mob_override.RemoveSpell(/obj/effect/proc_holder/spell/choose_affiliate)
 
-/datum/affiliate/give_bonus_objectives(datum/mind/mind)
+/datum/affiliate/proc/give_bonus_objectives(datum/mind/mind)
 	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
 	if(!traitor)
 		return
 
-	traitor.add_objective(new pick(/datum/objective/maroon, /datum/objective/steal)())
-	traitor.add_objective(new pick(/datum/objective/maroon, /datum/objective/steal)())
+	var/obj1 = pick(/datum/objective/maroon, /datum/objective/steal)
+	traitor.add_objective(new obj1)
+	var/obj2 = pick(/datum/objective/maroon, /datum/objective/steal)
+	traitor.add_objective(new obj2)
 
 /obj/effect/proc_holder/spell/choose_affiliate
 	name = "Choose Affiliate"

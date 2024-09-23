@@ -1,11 +1,18 @@
-#define THEFT_FLAG_HIGHRISK 	1
-#define THEFT_FLAG_UNIQUE 		2
-#define THEFT_FLAG_HARD 		3
-#define THEFT_FLAG_MEDIUM 		4
-#define THEFT_FLAG_STRUCTURE	5
-#define THEFT_FLAG_ANIMAL		6
-#define THEFT_FLAG_COLLECT 		7
-#define THEFT_FLAG_AI 			8
+#define THEFT_FLAG_HIGHRISK 		1
+#define THEFT_FLAG_UNIQUE 			2
+#define THEFT_FLAG_HARD 			3
+#define THEFT_FLAG_MEDIUM 			4
+#define THEFT_FLAG_STRUCTURE		5
+#define THEFT_FLAG_ANIMAL			6
+#define THEFT_FLAG_COLLECT 			7
+#define THEFT_FLAG_AI 				8
+#define THEFT_FLAG_HYPO_OR_DEFIB	9
+#define THEFT_FLAG_DOCUMENTS		10
+
+#define SYNTH_TYPE_AI				(1<<0)
+#define SYNTH_TYPE_BORG				(1<<1)
+#define SYNTH_TYPE_DRONE			(1<<2)
+#define SYNTH_TYPE_ALL				(SYNTH_TYPE_AI | SYNTH_TYPE_BORG | SYNTH_TYPE_DRONE)
 
 
 GLOBAL_LIST_EMPTY(all_objectives)
@@ -863,6 +870,10 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			return GLOB.potential_theft_objectives_animal
 		if(THEFT_FLAG_AI)
 			return list(/datum/theft_objective/highrisk/ai)
+		if(THEFT_FLAG_HYPO_OR_DEFIB)
+			return list(/datum/theft_objective/highrisk/hypospray, /datum/theft_objective/highrisk/defib)
+		if (THEFT_FLAG_DOCUMENTS)
+			return list(/datum/theft_objective/highrisk/documents)
 		else
 			return GLOB.potential_theft_objectives
 
@@ -1787,13 +1798,59 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 // Affiliates objectives custom
 /datum/objective/download_data
 	needs_target = FALSE
-	completed = TRUE
 	explanation_text = "Проверка: загрузка"
 
 /datum/objective/mecha_hijack
 	needs_target = FALSE
-	completed = TRUE
 	explanation_text = "Проверка: мехи"
+
+/datum/objective/new_mini_traitor
+	needs_target = TRUE
+	explanation_text = "Вколоть модифицированный майндслейв имплант"
+
+/datum/objective/harvest_blood
+	explanation_text = "Набрать кровь у нескольких членов экипажа."
+	var/req_blood_samples = 4
+
+/datum/objective/steal/hypo_or_defib
+	type_theft_flag = THEFT_FLAG_HYPO_OR_DEFIB
+
+/datum/objective/new_mini_vampire
+	needs_target = TRUE
+	explanation_text = "Сделать кого-то вампиром"
+
+/datum/objective/steal/documents
+	type_theft_flag = THEFT_FLAG_DOCUMENTS
+
+/datum/objective/swap_docs
+	needs_target = TRUE
+	explanation_text = "Обменяться документами"
+
+/datum/objective/swap_docs/get_both
+	explanation_text = "Получить документам другого агента и при этом сохранить свой."
+
+/datum/objective/release_synthetic
+	explanation_text = "Освободить разных синтетиков."
+	var/req_amount = 2
+	var/allowed_types =	SYNTH_TYPE_ALL
+
+/datum/objective/release_synthetic/ai
+	explanation_text = "Освободить иишку."
+	req_amount = 1
+	allowed_types =	SYNTH_TYPE_AI
+
+/datum/objective/maroon_agent
+	needs_target = TRUE
+	explanation_text = "Убить конкретного агента."
+
+/datum/objective/new_mini_changeling
+	needs_target = TRUE
+	explanation_text = "Сделать кого-то генокрадом"
+
+/datum/objective/borers
+	needs_target = TRUE
+	explanation_text = "Развести бореров"
+	var/req = 3
 
 /datum/objective/blob_critical_mass
 	needs_target = FALSE

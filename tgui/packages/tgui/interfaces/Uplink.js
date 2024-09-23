@@ -220,13 +220,25 @@ export const Uplink = (props, context) => {
               <Tabs.Tab
                   key="BonusObjectives"
                   color={
-                    data.contractor.available ? 'yellow' : 'transparent'
+                    'transparent'
                   }
                   onClick={() =>
                     act('give_bonus_objectives', {})}
                   icon="suitcase"
                 >
                   Запросить дополнительные цели
+                </Tabs.Tab>
+
+                <Tabs.Tab
+                  key="CoolMusic"
+                  color={
+                    'transparent'
+                  }
+                  onClick={() =>
+                    act('cool_music', {})}
+                  icon="suitcase"
+                >
+                  Включить крутую музыку
                 </Tabs.Tab>
 
               <Tabs.Tab

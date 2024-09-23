@@ -6,12 +6,13 @@
 			из-за обещанных материальных благ вы согласились выполнить некоторые задания для неё. \n\
 			Как вам стоит работать: наниматель не предоставил вам конкретных указаний, действуйте на свое усмотрение.\n\
 			Особые условия: Корпорация предоставляет вам скидку на собственную продукцию - щедро, не так ли?;\n\
-			Вам доступен специальный модуль улучшения, который предоставляет киборгу NT модули Киберсана. \n\
-			Стандартные цели: выкрасть высокотехнологичную продукцию NT (ИИ / боевой мех / научные исследования), устранить цель, побег."
-	objectives = list(list(/datum/objective/steal = 50, /datum/objective/steal/ai = 50),
-						/datum/objective/mecha_hijack,
+			Вам доступен специальный модуль улучшения, который предоставляет киборгу NT модули Киберсана."
+	objectives = list(list(/datum/objective/steal = 70, /datum/objective/steal/ai = 30),
 						/datum/objective/download_data,
-						/datum/objective/maroon,
+						/datum/objective/new_mini_traitor,
+						/datum/objective/mecha_hijack,
+						list(/datum/objective/steal = 60, /datum/objective/maroon = 40),
+						list(/datum/objective/steal = 60, /datum/objective/maroon = 40),
 						/datum/objective/escape,
 						)
 
@@ -23,6 +24,12 @@
 		new_item.name += ((1-CYBERSUN_DISCOUNT)*100) +"%"
 		new_item.category = "Discounted Gear"
 		uplink.uplink_items.Add(new_item)
+
+/obj/item/proprietary_ssd
+	name = "Proprietary SSD"
+	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
+	icon = 'icons/obj/affiliates.dmi'
+	icon_state = "proprietary_ssd"
 
 /obj/item/CIndy_patcher
 	name = "CIndy patcher"

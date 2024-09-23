@@ -31,6 +31,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/is_jammed = FALSE
 	/// Can be bonus objectives taken on this uplink
 	var/can_bonus_objectives = TRUE
+	COOLDOWN_DECLARE(music_cooldown)
 
 
 /obj/item/uplink/Initialize(mapload, uplink_type, uses)
@@ -432,12 +433,19 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			shuffle_lucky_numbers()
 
 		if ("give_bonus_objectives")
-			if (can_bonus_objectives)
+			if (can_bonus_objectives && affiliate.can_take_bonus_objectives)
 				can_bonus_objectives = FALSE
 				affiliate.give_bonus_objectives()
 				visible_message("[src] beeps: Additional objectives and bonus TK have been sent.")
 			else
 				visible_message("[src] beeps: You have already requested additional objectives.")
+
+		if ("cool_music")
+			if (!COOLDOWN_FINISHED(src, music_cooldown))
+				visible_message("[src] beeps: The music still plays.")
+			else
+				COOLDOWN_START(src, music_cooldown, 32 SECONDS)
+				playsound(src, "sounds/items/uplink/11_syndiememe.mp3")
 
 /obj/item/uplink/hidden/proc/shuffle_lucky_numbers()
 	lucky_numbers = list()
