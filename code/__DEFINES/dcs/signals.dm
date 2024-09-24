@@ -1169,15 +1169,13 @@
 	/// Return COMPONENT_NO_DEFAULT_MESSAGE to prevent the transforming component from displaying the default transform message / sound.
 	#define COMPONENT_NO_DEFAULT_MESSAGE (1<<0)
 
-///from base of /datum/component/after_attack/Initialize(): (datum/component)
+///from base of /datum/element/after_attack/Attach(): (datum/sender, proc_ref)
 #define COMSIG_ITEM_REGISTER_AFTERATTACK "register_item_afterattack"
-///from base of /datum/component/after_attack/Destroy(): (datum/component)
+///from base of /datum/element/after_attack/Detach(): (proc_ref)
 #define COMSIG_ITEM_UNREGISTER_AFTERATTACK "unregister_item_afterattack"
 
 ///from base of /datum/element/after_attack/Destroy(): (atom/target, mob/user, params)
-#define COMSIG_ITEM_AFTERATTACK_IF_SUCCESS "item_afterattack_if_success"
-///from base of /datum/element/after_attack/Destroy(): (atom/target, mob/user, params)
-#define COMSIG_ITEM_AFTERATTACK_IF_BLOCKED "item_afterattack_if_blocked"
+#define COMSIG_ITEM_AFTERATTACK_EFFECT "item_afterattack_effect"
 
 
 ///From base of datum/controller/subsystem/Initialize

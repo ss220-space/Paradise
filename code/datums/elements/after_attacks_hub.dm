@@ -1,43 +1,34 @@
-/datum/element/after_attacks_hub
-	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY|ELEMENT_BESPOKE
+/datum/component/after_attacks_hub
 	/// List of after-attack effects for various items
-	var/list/after_attacks_effects = list()
+	dupe_mode = COMPONENT_DUPE_UNIQUE
+	var/list/after_attacks_procs = list()
+	var/list/after_attacks = list()
 
-/datum/element/after_attacks_hub/Attach(datum/target)
+/datum/component/after_attacks_hub/Initialize(...)
 	. = ..()
-	RegisterSignal(target, COMSIG_ITEM_AFTERATTACK, PROC_REF(on_after_attack))
-	RegisterSignal(target, COMSIG_ITEM_REGISTER_AFTERATTACK, PROC_REF(on_register_after_attack))
-	RegisterSignal(target, COMSIG_ITEM_UNREGISTER_AFTERATTACK, PROC_REF(on_unregister_after_attack))
+	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(on_after_attack))
+	RegisterSignal(parent, COMSIG_ITEM_REGISTER_AFTERATTACK, PROC_REF(on_register_after_attack))
+	RegisterSignal(parent, COMSIG_ITEM_UNREGISTER_AFTERATTACK, PROC_REF(on_unregister_after_attack))
 
-/datum/element/after_attacks_hub/Detach(datum/source, force)
-	UnregisterSignal(source, COMSIG_ITEM_AFTERATTACK)
-	UnregisterSignal(source, COMSIG_ITEM_REGISTER_AFTERATTACK)
-	UnregisterSignal(source, COMSIG_ITEM_UNREGISTER_AFTERATTACK)
+/datum/component/after_attacks_hub/Destroy(force)
+	UnregisterSignal(parent, COMSIG_ITEM_AFTERATTACK)
+	UnregisterSignal(parent, COMSIG_ITEM_REGISTER_AFTERATTACK)
+	UnregisterSignal(parent, COMSIG_ITEM_UNREGISTER_AFTERATTACK)
 	. = ..()
 
-/datum/element/after_attacks_hub/proc/on_after_attack(datum/source, mob/living/target, mob/living/user, proximity, params, status)
+/datum/component/after_attacks_hub/proc/on_after_attack(datum/source, mob/living/target, mob/living/user, proximity, params, status)
 	SIGNAL_HANDLER
-	var/list/effects_list = after_attacks_effects[source]
-	if(!effects_list || !effects_list.len)
-		return
-	var/signal_type = (ATTACK_CHAIN_SUCCESS_CHECK(status))? COMSIG_ITEM_AFTERATTACK_IF_SUCCESS : COMSIG_ITEM_AFTERATTACK_IF_BLOCKED
-	for(var/datum/effect in effects_list)
-		SEND_SIGNAL(effect, signal_type, target, user, proximity, params)
+	for(var/ref in after_attacks_procs)
+		call(after_attacks[ref], ref)(source, target, user, proximity, params, status);
 
 
-
-/datum/element/after_attacks_hub/proc/on_register_after_attack(datum/source, datum/component)
+/datum/component/after_attacks_hub/proc/on_register_after_attack(datum/source, datum/sender, proc_ref)
 	SIGNAL_HANDLER
-	var/list/effects_list = after_attacks_effects[source]
-	if(!effects_list)
-		after_attacks_effects[source] = list()
-		effects_list = after_attacks_effects[source]
-	effects_list |= component
+	after_attacks_procs |= proc_ref
+	after_attacks[proc_ref] = sender
 
 
-/datum/element/after_attacks_hub/proc/on_unregister_after_attack(datum/source, datum/component)
+/datum/component/after_attacks_hub/proc/on_unregister_after_attack(datum/source, proc_ref)
 	SIGNAL_HANDLER
-	var/list/effects_list = after_attacks_effects[source]
-	if(!effects_list || !effects_list.len)
-		return
-	effects_list -= component
+	after_attacks_procs -= proc_ref
+	after_attacks -= proc_ref
