@@ -139,3 +139,5 @@
 	/// Soullinks we are a/the sharer of
 	var/list/sharedSoullinks
 
+	/// Famous last words -- if succumbing, what the user's last words were
+	var/last_words

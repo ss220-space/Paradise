@@ -382,7 +382,7 @@
 		if(key.id != equipment_system.lock_system.id)
 			to_chat(user, span_warning("Wrong key."))
 			return ATTACK_CHAIN_PROCEED
-		lock_pod()
+		lock_pod(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/spacepod_equipment))
