@@ -4,19 +4,24 @@
 	cost = 1
 	var/list/whitelisted_species
 
-/datum/gear/racial/can_select(client/cl = FALSE, job_name = FALSE, species_name = FALSE, silent = FALSE)
-	. = ..()
-
-	if(!.) // there's no point in being here.
+/datum/gear/racial/can_select(client/cl, job_name, species_name, silent = FALSE)
+	if(!..()) // there's no point in being here.
 		return FALSE
 
-	if(!LAZYLEN(whitelisted_species)) // empty list, allowed for all
+	if(!LAZYLEN(whitelisted_species)) // why are we here? allowed, but
+		stack_trace("Item with no racial list in loadout racial items: [display_name].")
 		return TRUE
 
-	if(species_name && !(species_name in whitelisted_species)) // check species whitelist
-		if(cl && !silent)
-			to_chat(cl, span_warning("Ваш вид не подходит для того, чтобы использовать \"[display_name]\"!"))
-		return FALSE
+	if(!species_name) // skip
+		return TRUE
+
+	if(species_name in whitelisted_species) // check species whitelist
+		return TRUE
+
+	if(cl && !silent)
+		to_chat(cl, span_warning("Ваш вид не подходит для того, чтобы использовать \"[display_name]\"!"))
+
+	return FALSE
 
 
 /datum/gear/racial/taj
@@ -85,20 +90,4 @@
 	path = /obj/item/clothing/glasses/hud/skills/tajblind
 	allowed_roles = list(JOB_TITLE_HOP, JOB_TITLE_CAPTAIN)
 
-/datum/gear/racial/footwraps
-	display_name = "cloth footwraps, select"
-	path = /obj/item/clothing/shoes/footwraps
-	slot = ITEM_SLOT_FEET
-	whitelisted_species = list() // it's just some bandages, especially since you can make footwraps via craft
 
-/datum/gear/racial/footwraps/New()
-	..()
-	var/list/feet = list("classic" = /obj/item/clothing/shoes/footwraps,
-						 "yellow" = /obj/item/clothing/shoes/footwraps/yellow,
-						 "silver" = /obj/item/clothing/shoes/footwraps/silver,
-						 "red" = /obj/item/clothing/shoes/footwraps/red,
-						 "blue" = /obj/item/clothing/shoes/footwraps/blue,
-						 "black" = /obj/item/clothing/shoes/footwraps/black,
-						 "brown" = /obj/item/clothing/shoes/footwraps/brown,
-						 )
-	gear_tweaks += new /datum/gear_tweak/path(feet, src)

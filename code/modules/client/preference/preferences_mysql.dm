@@ -413,7 +413,7 @@
 		if(!istype(geartype))
 			loadout_gear -= gear // Delete wrong/outdated data
 			continue
-		if(!geartype.can_select(cl = parent, job_name = FALSE, species_name = species, silent = TRUE)) // all other checks, no jobs in prefs, be quiet
+		if(!geartype.can_select(cl = parent, species_name = species, silent = TRUE)) // all other checks, no jobs in prefs, be quiet
 			loadout_gear -= gear
 			continue
 		var/datum/gear/new_gear = new geartype.type

@@ -1501,7 +1501,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				loadout_gear -= TG.display_name
 				choosen_gears -= TG.display_name
 			else
-				if(!(TG.can_select(cl = user.client, job_name = FALSE, species_name = S.name))) // all gear checks there, no jobs while prefs
+				if(!(TG.can_select(cl = user.client, species_name = S.name))) // all gear checks there, no jobs while prefs
 					return
 				var/total_cost = 0
 				var/list/type_blacklist = list()

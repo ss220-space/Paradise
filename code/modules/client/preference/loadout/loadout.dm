@@ -63,12 +63,14 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		gt.tweak_item(item, metadata["[gt]"])
 	return item
 
-/datum/gear/proc/can_select(client/cl = FALSE, job_name = FALSE, species_name = FALSE, silent = FALSE)
-	. = TRUE
+/datum/gear/proc/can_select(client/cl, job_name, species_name, silent = FALSE)
+	if(!job_name || !LAZYLEN(allowed_roles))
+		return TRUE
 
-	if((job_name && allowed_roles) && !(job_name in allowed_roles)) // incorrect job
-		. = FALSE
-		if(cl && !silent)
-			to_chat(cl, span_warning("\"[capitalize(display_name)]\" недоступно для вашей профессии!"))
+	if(job_name in allowed_roles)
+		return TRUE
 
+	if(cl && !silent)
+		to_chat(cl, span_warning("\"[capitalize(display_name)]\" недоступно для вашей профессии!"))
 
+	return FALSE
