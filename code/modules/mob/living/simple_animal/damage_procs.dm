@@ -18,7 +18,7 @@
 	damage_type = BRUTE,
 	forced = FALSE,
 )
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		var/oldbruteloss = bruteloss
 		bruteloss = 0
 		if(oldbruteloss != 0)
@@ -53,7 +53,7 @@
  * Returns STATUS_UPDATE_HEALTH if any changes were made, STATUS_UPDATE_NONE otherwise
  */
 /mob/living/simple_animal/proc/setHealth(amount, updating_health = TRUE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		var/oldbruteloss = bruteloss
 		bruteloss = 0
 		if(oldbruteloss != 0)

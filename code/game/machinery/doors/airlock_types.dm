@@ -379,6 +379,7 @@
 
 /obj/machinery/door/airlock/hatch/gamma
 	name = "gamma level hatch"
+	id_tag = "gamma_home"
 	hackProof = TRUE
 	aiControlDisabled = AICONTROLDISABLED_ON
 	resistance_flags = FIRE_PROOF | ACID_PROOF

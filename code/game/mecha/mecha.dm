@@ -559,7 +559,7 @@
 
 	else if(isliving(bumped_atom))
 		var/mob/living/bumped_living = bumped_atom
-		if(bumped_living.flags & GODMODE)
+		if(HAS_TRAIT(bumped_living, TRAIT_GODMODE))
 			return
 		var/static/list/mecha_hit_sound = list('sound/weapons/genhit1.ogg','sound/weapons/genhit2.ogg','sound/weapons/genhit3.ogg')
 		bumped_living.take_overall_damage(5)

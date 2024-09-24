@@ -79,6 +79,7 @@
 	toxic_food = MEAT | JUNKFOOD
 	disliked_food = FRIED | RAW | EGG
 	liked_food = SUGAR | GROSS | FRUIT | VEGETABLES
+	special_diet = MATERIAL_CLASS_CLOTH
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
