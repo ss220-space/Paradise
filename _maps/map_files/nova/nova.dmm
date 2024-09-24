@@ -15550,13 +15550,6 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -20371,7 +20364,7 @@
 	},
 /area/security/securehallway)
 "cWq" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/turf/simulated/wall/shuttle/nosmooth,
 /area/shuttle/arrival/station)
 "cWs" = (
 /obj/effect/decal/cleanable/dust,
@@ -161163,7 +161156,6 @@
 	req_access = list(33)
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -161182,10 +161174,10 @@
 	name = "Quarantine Lockdown";
 	opacity = 0
 	},
-/obj/structure/disposalpipe/segment,
 /obj/item/lighter/zippo{
 	name = "Ash Generator 3000"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
