@@ -1,5 +1,5 @@
 /mob/living/carbon/brain/update_stat(reason = "none given", should_log = FALSE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()
 		// if(health <= min_health)
 	if(stat == DEAD)
