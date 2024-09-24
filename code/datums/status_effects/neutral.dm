@@ -93,8 +93,8 @@
 
 /// So we don't leave folks with god-mode
 /datum/status_effect/high_five/proc/wiz_cleanup(mob/living/carbon/user, mob/living/carbon/highfived)
-	user.status_flags &= ~GODMODE
-	highfived.status_flags &= ~GODMODE
+	REMOVE_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(highfived, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 	user.remove_status_effect(type)
 	highfived.remove_status_effect(type)
 
@@ -112,8 +112,8 @@
 			continue
 		if(is_wiz && iswizard(check))
 			user.visible_message(span_dangerbigger("<b>[user.name]</b> and <b>[check.name]</b> [critical_success]"))
-			user.status_flags |= GODMODE
-			check.status_flags |= GODMODE
+			ADD_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
+			ADD_TRAIT(check, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 			explosion(get_turf(user), 5, 2, 1, 3, cause = id)
 			// explosions have a spawn so this makes sure that we don't get gibbed
 			addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, check), 0.3 SECONDS) //I want to be sure this lasts long enough, with lag.
@@ -294,3 +294,9 @@
 	if(new_value != LYING_DOWN)
 		stop_rolling()
 
+
+/datum/status_effect/recently_succumbed
+	id = "recently_succumbed"
+	alert_type = null
+	duration = 1 MINUTES
+	status_type = STATUS_EFFECT_REFRESH

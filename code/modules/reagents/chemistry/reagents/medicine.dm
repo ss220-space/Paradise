@@ -1099,6 +1099,7 @@
 	reagent_state = LIQUID
 	color = "#FFDCFF"
 	taste_description = "stability"
+	harmless = FALSE
 	var/list/drug_list = list("crank","methamphetamine","space_drugs","psilocybin","ephedrine","epinephrine","stimulants","bath_salts","lsd","thc")
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)

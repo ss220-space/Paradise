@@ -40,7 +40,7 @@
 	return TRUE
 
 /mob/living/proc/can_die()
-	return !(stat == DEAD || (status_flags & GODMODE))
+	return !(stat == DEAD || HAS_TRAIT(src, TRAIT_GODMODE))
 
 // Returns true if mob transitioned from live to dead
 // Do a check with `can_die` beforehand if you need to do any
@@ -97,6 +97,9 @@
 
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
+
+	clear_alert("succumb")
+
 	if(mind && mind.devilinfo) // Expand this into a general-purpose death-response system when appropriate
 		mind.devilinfo.beginResurrectionCheck(src)
 

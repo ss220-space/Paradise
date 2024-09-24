@@ -7002,9 +7002,7 @@
 /obj/machinery/conveyor{
 	id = "SOL"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -25891,9 +25889,7 @@
 	},
 /area/centcom/jail)
 "sCb" = (
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/structure/cable{
 	icon_state = "1-2";
 	tag = ""

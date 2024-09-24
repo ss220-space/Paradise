@@ -846,7 +846,6 @@
 	pixel_x = -4
 	},
 /obj/item/stack/tape_roll/thick{
-	icon_state = "thick_taperoll4";
 	pixel_y = 2
 	},
 /turf/simulated/floor/indestructible/plating{

@@ -49,7 +49,11 @@
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
-	status_flags = GODMODE|CANPUSH
+	status_flags = CANPUSH
+
+/mob/living/carbon/human/dummy/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_GODMODE, INNATE_TRAIT)
 
 /mob/living/carbon/human/skrell/Initialize(mapload)
 	. = ..(mapload, /datum/species/skrell)
@@ -264,7 +268,7 @@
 	var/bruteloss = 0
 	var/burnloss = 0
 
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 
 	var/armor = getarmor(attack_flag = BOMB)	//Average bomb protection

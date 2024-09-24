@@ -237,6 +237,35 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "pump crate"
 	access = ACCESS_ATMOSPHERICS
 
+/datum/supply_packs/emergency/biosuitcrate
+	name = "Anti-epidemic equipment crate"
+	contains = list(/obj/item/clothing/suit/bio_suit,
+					/obj/item/clothing/suit/bio_suit,
+					/obj/item/clothing/suit/bio_suit,
+					/obj/item/clothing/suit/bio_suit,
+					/obj/item/clothing/suit/bio_suit,
+					/obj/item/clothing/suit/bio_suit,
+					/obj/item/clothing/head/bio_hood,
+					/obj/item/clothing/head/bio_hood,
+					/obj/item/clothing/head/bio_hood,
+					/obj/item/clothing/head/bio_hood,
+					/obj/item/clothing/head/bio_hood,
+					/obj/item/clothing/head/bio_hood,
+					/obj/item/clothing/mask/breath,
+					/obj/item/clothing/mask/breath,
+					/obj/item/clothing/mask/breath,
+					/obj/item/clothing/mask/breath,
+					/obj/item/clothing/mask/breath,
+					/obj/item/clothing/mask/breath,
+					/obj/item/tank/internals/emergency_oxygen/engi,
+					/obj/item/tank/internals/emergency_oxygen/engi,
+					/obj/item/tank/internals/emergency_oxygen/engi,
+					/obj/item/tank/internals/emergency_oxygen/engi,
+					/obj/item/tank/internals/emergency_oxygen/engi,
+					/obj/item/tank/internals/emergency_oxygen/engi)
+	cost = 120
+	containername = "anti-epidemic equipment crate"
+
 /datum/supply_packs/emergency/specialops
 	name = "Special Ops Supplies"
 	contains = list(/obj/item/storage/box/emps,

@@ -6,11 +6,17 @@
 
 // Mutable appearances erase template vars on new, because they accept an appearance to copy as an arg
 // If we have nothin to copy, we set the float plane
+
+#if DM_BUILD > 1642
+/mutable_appearance/proc/New(mutable_appearance/to_copy)
+	if(!to_copy)
+		plane = FLOAT_PLANE
+#else
 /mutable_appearance/New(mutable_appearance/to_copy)
 	..()
 	if(!to_copy)
 		plane = FLOAT_PLANE
-
+#endif
 
 // Helper similar to image()
 /proc/mutable_appearance(icon, icon_state = "", layer = FLOAT_LAYER, atom/offset_spokesman, plane = FLOAT_PLANE, alpha = 255, appearance_flags = NONE, color, offset_const)
