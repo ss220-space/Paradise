@@ -782,7 +782,7 @@
 		to_chat(user, "<span class='notice'>[book] рассыпается в прах после того, как вы постигаете её мудрость.</span>")
 		qdel(book)
 	else if(items_path.len)
-		var/response = tgui_alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
+		var/response = tgui_alert(user, "Набор [src] содержит предметы, которые нельзя вернуть после покупки. Вы уверены?", "Никаких возвратов!", list("Нет", "Да"))
 		if(response != "Yes")
 			return FALSE
 	if(items_path.len)
