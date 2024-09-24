@@ -2,12 +2,23 @@
 	sort_category = "Racial"
 	subtype_path = /datum/gear/racial
 	cost = 1
+	var/list/whitelisted_species = list()
+
+/datum/gear/racial/can_select(datum/species/S)
+	if(!LAZYLEN(whitelisted_species)) //empty list, allowed for all
+		return TRUE
+
+	if(S in whitelisted_species) //species in whitelist
+		return TRUE
+
+	return FALSE
 
 /datum/gear/racial/taj
 	display_name = "embroidered veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races."
 	path = /obj/item/clothing/glasses/tajblind
 	slot = ITEM_SLOT_EYES
+	whitelisted_species = list(SPECIES_TAJARAN)
 
 /datum/gear/racial/taj/job
 	subtype_path = /datum/gear/racial/taj/job
@@ -72,6 +83,7 @@
 	display_name = "cloth footwraps, select"
 	path = /obj/item/clothing/shoes/footwraps
 	slot = ITEM_SLOT_FEET
+	whitelisted_species = list() // it's just some bandages, especially since you can make footwraps via craft
 
 /datum/gear/racial/footwraps/New()
 	..()

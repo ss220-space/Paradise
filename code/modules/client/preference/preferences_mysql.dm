@@ -416,6 +416,9 @@
 		if(geartype.donator_tier > parent.donator_level && parent.prefs)
 			loadout_gear -= gear // Gagaga, donate again
 			continue
+		if(!geartype.can_select(species))
+			loadout_gear -= gear // Just to be safe, let's check
+			continue
 		var/datum/gear/new_gear = new geartype.type
 		for(var/tweak in loadout_gear[gear])
 			for(var/datum/gear_tweak/gear_tweak in new_gear.gear_tweaks)

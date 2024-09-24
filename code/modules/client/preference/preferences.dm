@@ -1499,7 +1499,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				choosen_gears -= TG.display_name
 			else
 				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
-					to_chat(user, span_warning("That gear is only available at [TG.donator_tier] and higher donation tier."))
+					to_chat(user, span_warning("Это снаряжение доступно лишь на [TG.donator_tier] или более высоких уровнях пожертвований."))
+					return
+				if(!TG.can_select(S))
+					to_chat(user, span_warning("Ваш вид не подходит для того, чтобы использовать это снаряжение."))
 					return
 				var/total_cost = 0
 				var/list/type_blacklist = list()

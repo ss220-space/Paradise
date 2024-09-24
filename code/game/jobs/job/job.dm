@@ -209,7 +209,7 @@
 			else
 				permitted = TRUE
 
-			if(G.whitelisted && G.whitelisted != H.dna.species.name)
+			if(!G.can_select(H.dna.species.name))
 				permitted = FALSE
 
 			if(H.client.donator_level < G?.donator_tier)
