@@ -62,6 +62,9 @@
 		if(prob(75))
 			emote("gasp")
 	else
+		var/signal = SEND_SIGNAL(src, COMSIG_CARBON_BREATH)
+		if(signal & COMPONENT_BLOCK_BREATH_FROM_INTERNAL_SUPPLY)
+			return
 		breath = get_breath()
 
 	check_breath(breath)
@@ -82,14 +85,11 @@
 		if(internal.loc != src || !has_airtight_items())
 			internal = null
 			update_action_buttons_icon()
-			return null
+			return
 
 		percentage_from_internal = has_airtight_items()
 		percentage_from_loc = 1 - percentage_from_internal
 		breath.merge(internal.remove_air_volume(BREATH_VOLUME * percentage_from_internal))
-
-	if(is_closed_breathing_system())
-		breath_from_loc = SEND_SIGNAL(src, COMSIG_AIR_SUPPLY_GET_BREATH)
 
 	if(isobj(loc))	//Breathe from loc as object
 		var/obj/loc_as_obj = loc

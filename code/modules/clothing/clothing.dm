@@ -25,6 +25,8 @@
 	var/tint = 0
 	/// Tint when its up
 	var/tint_up = 0
+	/// How much air can clothes store
+	var/internal_volume
 
 	/// Whether clothing is currently adjusted.
 	var/up = FALSE
@@ -130,6 +132,9 @@
 
 /obj/item/clothing/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
+	if((slot == ITEM_SLOT_CLOTH_OUTER) || (slot == ITEM_SLOT_HEAD))
+		try_adding_air_supply(user)
+
 	if(!istype(user) || !LAZYLEN(clothing_traits) || !(slot_flags & slot))
 		return .
 
@@ -142,6 +147,17 @@
   */
 /obj/item/clothing/proc/catch_fire() //Called in handle_fire()
 	return
+
+///
+/obj/item/clothing/proc/try_adding_air_supply(mob/living/carbon/human/user)
+	if(!isclothing(user.wear_suit) || !isclothing(user.head))
+		return
+
+	var/obj/item/clothing/suit = user.wear_suit
+	var/obj/item/clothing/helmet = user.head
+
+	if(suit.clothing_flags & BLOCK_GASES && helmet.clothing_flags & BLOCK_GASES)
+		user.AddComponent(/datum/component/internal_air_supply, suit.internal_volume + helmet.internal_volume)
 
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
@@ -450,6 +466,7 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/hats.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_HEAD
+	internal_volume = 30
 	var/blockTracking // Do we block AI tracking?
 	var/HUDType = null
 
@@ -754,6 +771,7 @@ BLIND     // can't see anything
 	var/list/hide_tail_by_species = null
 	max_integrity = 400
 	integrity_failure = 160
+	internal_volume = 90
 
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -835,9 +853,10 @@ BLIND     // can't see anything
 /obj/item/clothing/suit/proc/can_store_weighted(obj/item/I, item_weight = WEIGHT_CLASS_BULKY)
 	return I.w_class <= item_weight
 
-/obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot, initial) //Handle tail-hiding on a by-species basis.
+/obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
 
+	//Handle tail-hiding on a by-species basis.
 	if(ishuman(user) && hide_tail_by_species && slot == ITEM_SLOT_CLOTH_OUTER)
 		if(user.dna.species.name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.

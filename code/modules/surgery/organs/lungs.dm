@@ -130,12 +130,12 @@
 
 	//Too little oxygen!
 	if(safe_oxygen_min)
+		gas_breathed = breath.oxygen
 		if(O2_pp < safe_oxygen_min)
-			gas_breathed = handle_too_little_breath(H, O2_pp, safe_oxygen_min, breath.oxygen)
+			handle_too_little_breath(H, O2_pp, safe_oxygen_min)
 			H.throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 		else
 			H.heal_damage_type(HUMAN_MAX_OXYLOSS, OXY)
-			gas_breathed = breath.oxygen
 			H.clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
 	//Exhale
@@ -156,12 +156,12 @@
 
 	//Too little nitrogen!
 	if(safe_nitro_min)
+		gas_breathed = breath.nitrogen
 		if(N2_pp < safe_nitro_min)
-			gas_breathed = handle_too_little_breath(H, N2_pp, safe_nitro_min, breath.nitrogen)
+			handle_too_little_breath(H, N2_pp, safe_nitro_min)
 			H.throw_alert(ALERT_NOT_ENOUGH_NITRO, /atom/movable/screen/alert/not_enough_nitro)
 		else
 			H.heal_damage_type(HUMAN_MAX_OXYLOSS, OXY)
-			gas_breathed = breath.nitrogen
 			H.clear_alert(ALERT_NOT_ENOUGH_NITRO)
 
 	//Exhale
@@ -176,14 +176,17 @@
 		if(CO2_pp > safe_co2_max)
 			if(!H.co2overloadtime) // If it's the first breath with too much CO2 in it, lets start a counter, then have them pass out after 12s or so.
 				H.co2overloadtime = world.time
-			else if(world.time - H.co2overloadtime > 120)
-				H.Paralyse(6 SECONDS)
-				H.apply_damage(HUMAN_MAX_OXYLOSS, co2_damage_type, spread_damage = TRUE, forced = TRUE) // Lets hurt em a little, let them know we mean business
-				if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
-					H.apply_damage(15, co2_damage_type, spread_damage = TRUE, forced = TRUE)
-				H.throw_alert(ALERT_TOO_MUCH_CO2, /atom/movable/screen/alert/too_much_co2)
-			if(prob(20)) // Lets give them some chance to know somethings not right though I guess.
-				H.emote("cough")
+				H.emote("cough")	// Lets give them some chance to know somethings not right though I guess.
+				to_chat(H, span_userdanger("You feel like you're losing consciousness!"))
+			else
+				if(world.time - H.co2overloadtime > 120)
+					H.Paralyse(6 SECONDS)
+					H.apply_damage(HUMAN_MAX_OXYLOSS, co2_damage_type, spread_damage = TRUE, forced = TRUE) // Lets hurt em a little, let them know we mean business
+					if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
+						H.apply_damage(15, co2_damage_type, spread_damage = TRUE, forced = TRUE)
+					H.throw_alert(ALERT_TOO_MUCH_CO2, /atom/movable/screen/alert/too_much_co2)
+				if(prob(20))
+					H.emote("cough")
 
 		else
 			H.co2overloadtime = 0
@@ -191,12 +194,12 @@
 
 	//Too little CO2!
 	if(safe_co2_min)
+		gas_breathed = breath.carbon_dioxide
 		if(CO2_pp < safe_co2_min)
-			gas_breathed = handle_too_little_breath(H, CO2_pp, safe_co2_min, breath.carbon_dioxide)
+			handle_too_little_breath(H, CO2_pp, safe_co2_min)
 			H.throw_alert(ALERT_NOT_ENOUGH_CO2, /atom/movable/screen/alert/not_enough_co2)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
-			gas_breathed = breath.carbon_dioxide
 			H.clear_alert(ALERT_NOT_ENOUGH_CO2)
 
 	//Exhale
@@ -219,12 +222,12 @@
 
 	//Too little toxins!
 	if(safe_toxins_min)
+		gas_breathed = breath.toxins
 		if(Toxins_pp < safe_toxins_min)
-			gas_breathed = handle_too_little_breath(H, Toxins_pp, safe_toxins_min, breath.toxins)
+			handle_too_little_breath(H, Toxins_pp, safe_toxins_min)
 			H.throw_alert(ALERT_NOT_ENOUGH_TOX, /atom/movable/screen/alert/not_enough_tox)
 		else
 			H.heal_damage_type(HUMAN_MAX_OXYLOSS, OXY)
-			gas_breathed = breath.toxins
 			H.clear_alert(ALERT_NOT_ENOUGH_TOX)
 
 	//Exhale
@@ -249,19 +252,15 @@
 	return TRUE
 
 
-/obj/item/organ/internal/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0, true_pp = 0)
-	. = 0
+/obj/item/organ/internal/lungs/proc/handle_too_little_breath(mob/living/carbon/human/H = null, breath_pp = 0, safe_breath_min = 0)
 	if(!H || !safe_breath_min) //the other args are either: Ok being 0 or Specifically handled.
-		return FALSE
+		return
 
 	if(prob(20))
 		H.emote("gasp")
-	if(breath_pp > 0)
-		var/ratio = safe_breath_min/breath_pp
-		H.adjustOxyLoss(min(5*ratio, HUMAN_MAX_OXYLOSS)) // Don't fuck them up too fast (space only does HUMAN_MAX_OXYLOSS after all!
-		. = true_pp*ratio/6
-	else
-		H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
+
+	var/ratio = 1 - breath_pp/safe_breath_min
+	H.adjustOxyLoss(max(HUMAN_MAX_OXYLOSS*ratio, 0))
 
 
 /obj/item/organ/internal/lungs/proc/handle_breath_temperature(datum/gas_mixture/breath, mob/living/carbon/human/H) // called by human/life, handles temperatures

@@ -84,12 +84,12 @@
 		force_cryo_human(src)
 
 
-/mob/living/carbon/human/calculate_affecting_pressure(pressure)
+/mob/living/carbon/human/calculate_affecting_pressure(pressure, ignore_clothing_protection = FALSE)
 	var/pressure_difference = abs( pressure - ONE_ATMOSPHERE )
 
 	// Determines how much the clothing you are wearing protects you in percent.
 	var/pressure_adjustment_coefficient = 1
-	if(isclothing(wear_suit) && isclothing(head))
+	if(isclothing(wear_suit) && isclothing(head) && !ignore_clothing_protection)
 		var/obj/item/clothing/suit = wear_suit
 		var/obj/item/clothing/helmet = head
 		// Complete set of pressure-proof suit worn, assume fully sealed.
@@ -288,7 +288,12 @@
 	return health <= HEALTH_THRESHOLD_CRIT && stat != DEAD
 
 
-/mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
+/mob/living/carbon/human/handle_environment(datum/gas_mixture/environment, send_signal = TRUE, ignore_protection = FALSE)
+	if(send_signal)
+		var/signal = SEND_SIGNAL(src, COMSIG_HUMAN_HANDLE_ENVIROMENT)
+		if(signal & COMPONENT_BLOCK_HANLE_INTERNAL_ENVIROMENT)
+			return
+
 	if(!environment)
 		return
 
@@ -305,12 +310,12 @@
 	if(!on_fire && (loc_temp < dna.species.cold_level_1 || loc_temp > dna.species.heat_level_1 || bodytemperature <= dna.species.cold_level_1 || bodytemperature >= dna.species.heat_level_1))
 		if(loc_temp < bodytemperature)
 			//Place is colder than we are
-			var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
+			var/thermal_protection = ignore_protection ? 0 : get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
 				adjust_bodytemperature(max((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX))
 		else
 			//Place is hotter than we are
-			var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
+			var/thermal_protection = ignore_protection ? 0 : get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
 			if(thermal_protection < 1)
 				adjust_bodytemperature(min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX))
 
@@ -384,7 +389,7 @@
 	// Made it possible to actually have something that can protect against high pressure... Done by Errorage. Polymorph now has an axe sticking from his head for his previous hardcoded nonsense!
 
 	var/pressure = environment.return_pressure()
-	var/adjusted_pressure = calculate_affecting_pressure(pressure) //Returns how much pressure actually affects the mob.
+	var/adjusted_pressure = calculate_affecting_pressure(pressure, ignore_protection) //Returns how much pressure actually affects the mob.
 	if(status_flags & GODMODE)
 		return TRUE	//godmode
 
