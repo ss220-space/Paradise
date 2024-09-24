@@ -27,8 +27,6 @@
 	/// List of killed agents from enemy affiliates
 	var/list/killed_enemy_agents = list()
 
-/datum/antagonist/traitor/mini
-
 
 
 /datum/antagonist/traitor/mini/on_gain()

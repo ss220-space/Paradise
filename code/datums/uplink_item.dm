@@ -2377,7 +2377,7 @@
 /datum/uplink_item/affiliate/cybersun/CIndy_patcher
 	name = "Синди патчер"
 	desc = "Высокотехнологичное устройство для взлома боргов разработанное Cybersun Industries. При взломе борга, ставит ему прошивку борга Синдиката с нулевым законом на подчинение взломавшему. Устройство одноразовое."
-	item = /obj/item/invasive_beacon
+	item = /obj/item/CIndy_patcher
 	cost = 28
 	limited_stock = 2
 
@@ -2389,6 +2389,14 @@
 
 /datum/uplink_item/affiliate/hematogenic
 	affiliate = list(AFFIL_HEMATOGENIC)
+
+/datum/uplink_item/affiliate/hematogenic/hemophagus_extract
+	name = "Экстракт Гемофага"
+	desc = "Инжектор с дорогой и сложной в производстве сывороткой открытой Hematogenic Industries. При введении гуманойду, запускает сложные "
+	item = /obj/item/hemophagus_extract/self
+	cost = 75 // A little bit stronger than normal vampire because of 25 TC, but with more hard objectives.
+	limited_stock = 1 // Sorry, only one
+
 
 /datum/uplink_item/affiliate/self
 	affiliate = list(AFFIL_SELF)

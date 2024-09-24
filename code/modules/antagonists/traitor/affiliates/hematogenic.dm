@@ -1,3 +1,6 @@
+#define FREE_INJECT_TIME 10 SECONDS
+#define TARGET_INJECT_TIME 3 SECONDS
+
 /datum/affiliate/hematogenic
 	name = "Hematogenic Industries"
 	desc = "Вы один из представителей \"большой фармы\" Hematogenic Industries, ваш наниматель \n\
@@ -14,61 +17,65 @@
 					list(/datum/objective/steal = 60, /datum/objective/maroon = 40),
 					/datum/objective/escape
 					)
-/*
- /obj/item/hemophagus_extract
- 	name = "Bloody Injector"
- 	desc = "Looks like something moving inside it"
- 	var/mob/living/carbon/human/target
- 	var/free_inject = FALSE
- 	var/used = FALSE
- 	var/used_state
 
- /obj/item/hemophagus_extract/attack(mob/living/target, mob/living/user, def_zone)
- 	return
+/obj/item/hemophagus_extract
+	name = "Bloody Injector"
+	desc = "Инжектор странной формы, с неестественно двигающейся алой жидкостью внутри. На боку едва заметная гравировка \"Hematogenic Industries\". Конкретно на этом инжекторе установлена блокировка не позволяющая исспользовать его на случайном гуманойде.."
+	icon = 'icons/obj/affiliates.dmi'
+	icon_state = "hemophagus_extract"
+	var/datum/mind/target
+	var/free_inject = FALSE
+	var/used = FALSE
+	var/used_state = "hemophagus_extract_used"
 
- /obj/item/hemophagus_extract/afterattack(atom/target, mob/user, proximity, params)
- 	if(used)
- 		return
- 	if(!ishuman(target))
- 		return
- 	var/mob/living/carbon/human/H = target
- 	if(H.stat == DEAD)
- 		return
- 	if((src.target && target != src.target) || !free_inject)
- 		to_chat(user, span_warning("You can't use [src] to [target]!"))
- 		return
- 	if(do_after_once(user, free_inject ? FREE_INJECT_TIME : TARGET_INJECT_TIME, target = user))
- 		inject(user, H)
+/obj/item/hemophagus_extract/attack(mob/living/target, mob/living/user, def_zone)
+	return
 
- /obj/item/hemophagus_extractt/proc/inject(mob/living/user, mob/living/carbon/human/target)
- 	if(!free_inject)
- 		if(target.mind)
- 			target.rejuvenate()
- 			var/datum/antagonist/vampire/vamp = new()
- 			vamp.give_objectives = FALSE
- 			target.mind.add_antag_datum(vamp)
- 			to_chat(user, span_notice("You inject [target] with [src]"))
- 			used = TRUE
- 			update_icon(UPDATE_ICON_STATE)
- 		else
- 			to_chat(user, span_notice("[target] body rejects [src]"))
- 		return
- 	else
- 		if(target.mind)
- 			var/datum/antagonist/vampire/vamp = new()
- 			vamp.give_objectives = FALSE
- 			target.mind.add_antag_datum(vamp)
- 			to_chat(user, span_notice("You inject [target == user ? "yourself" : target] with [src]"))
- 			used = TRUE
- 			update_icon(UPDATE_ICON_STATE)
- 		else
- 			to_chat(user, span_notice("[target] body rejects [src]"))
+/obj/item/hemophagus_extract/afterattack(atom/target, mob/user, proximity, params)
+	if(used)
+		return
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/H = target
+	if(H.stat == DEAD)
+		return
+	if((src.target && target != src.target) || !free_inject)
+		to_chat(user, span_warning("You can't use [src] to [target]!"))
+		return
+	if(do_after(user, free_inject ? FREE_INJECT_TIME : TARGET_INJECT_TIME, target = user, max_interact_count = 1))
+		inject(user, H)
 
- /obj/item/hemophagus_extract/self
+/obj/item/hemophagus_extract/proc/inject(mob/living/user, mob/living/carbon/human/target)
+	if(!free_inject)
+		if(target.mind)
+			target.rejuvenate()
+			var/datum/antagonist/vampire/vamp = new()
+			vamp.give_objectives = FALSE
+			target.mind.add_antag_datum(vamp)
+			to_chat(user, span_notice("You inject [target] with [src]"))
+			used = TRUE
+			update_icon(UPDATE_ICON_STATE)
+		else
+			to_chat(user, span_notice("[target] body rejects [src]"))
+		return
+	else
+		if(target.mind)
+			var/datum/antagonist/vampire/vamp = new()
+			vamp.give_objectives = FALSE
+			target.mind.add_antag_datum(vamp)
+			to_chat(user, span_notice("You inject [target == user ? "yourself" : target] with [src]"))
+			used = TRUE
+			update_icon(UPDATE_ICON_STATE)
+		else
+			to_chat(user, span_notice("[target] body rejects [src]"))
+
+/obj/item/hemophagus_extract/self
  	name = "Hemophagus Essence Auto Injector"
- 	desc = "Looks like something moving inside it"
+ 	desc = "Инжектор странной формы, с неестественно двигающейся алой жидкостью внутри. На боку едва заметная гравировка \"Hematogenic Industries\"."
  	free_inject = TRUE
 
 /obj/item/hemophagus_extract/update_icon_state()
  	icon_state = used ? used_state : initial(icon_state)
-*/
+
+#undef FREE_INJECT_TIME
+#undef TARGET_INJECT_TIME
