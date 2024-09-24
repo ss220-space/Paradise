@@ -33,11 +33,10 @@
 	if(GLOB.allDevils[lowertext(name)])
 		return GLOB.allDevils[lowertext(name)]
 
-	else
-		var/datum/fakeDevil/devil = new /datum/fakeDevil(name)
-		GLOB.allDevils[lowertext(name)] = devil
+	var/datum/fakeDevil/devil = new /datum/fakeDevil(name)
+	GLOB.allDevils[lowertext(name)] = devil
 
-		return devil
+	return devil
 
 /proc/randomDevilName()
 	var/name = ""
@@ -309,3 +308,17 @@
 	W.sex = capitalize(H.gender)
 	W.access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS)
 	W.photo = get_id_photo(H)
+
+/datum/fakeDevil
+	var/truename
+	var/bane
+	var/obligation
+	var/ban
+	var/banish
+
+/datum/fakeDevil/New(name = randomDevilName())
+	truename = name
+	bane = randomdevilbane()
+	obligation = randomdevilobligation()
+	ban = randomdevilban()
+	banish = randomdevilbanish()

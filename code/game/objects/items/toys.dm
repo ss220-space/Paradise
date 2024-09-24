@@ -1493,26 +1493,34 @@
 	var/cooldown = FALSE
 
 /obj/item/toy/codex_gigas/attack_self(mob/user)
-	if(!cooldown)
-		user.visible_message(
-			"<span class='notice'>[user] presses the button on \the [src].</span>",
-			"<span class='notice'>You press the button on \the [src].</span>",
-			"<span class='notice'>You hear a soft click.</span>")
-		var/list/messages = list()
-		var/datum/devilinfo/devil = randomDevilInfo()
-		messages += "Some fun facts about: [devil.truename]"
-		messages += "[GLOB.lawlorify[LORE][devil.bane]]"
-		messages += "[GLOB.lawlorify[LORE][devil.obligation]]"
-		messages += "[GLOB.lawlorify[LORE][devil.ban]]"
-		messages += "[GLOB.lawlorify[LORE][devil.banish]]"
-		playsound(loc, 'sound/machines/click.ogg', 20, 1)
-		cooldown = TRUE
-		for(var/message in messages)
-			user.loc.visible_message("<span class='danger'>[bicon(src)] [message]</span>")
-			sleep(10)
-		spawn(20)
-			cooldown = FALSE
+	if(cooldown)
 		return
+
+	user.visible_message(
+		span_notice("[user] presses the button on \the [src].",
+		"You press the button on \the [src].",
+		"You hear a soft click.")
+
+	var/list/messages = list()
+	var/datum/fakeDevil/devil = new
+
+	messages += "Some fun facts about: [devil.truename]"
+	messages += "[GLOB.lawlorify[LORE][devil.bane]]"
+	messages += "[GLOB.lawlorify[LORE][devil.obligation]]"
+	messages += "[GLOB.lawlorify[LORE][devil.ban]]"
+	messages += "[GLOB.lawlorify[LORE][devil.banish]]"
+
+	playsound(loc, 'sound/machines/click.ogg', 20, 1)
+	cooldown = TRUE
+
+	for(var/message in messages)
+		user.loc.visible_message("<span class='danger'>[bicon(src)] [message]</span>")
+		sleep(10)
+
+	spawn(20)
+		cooldown = FALSE
+		
+	return
 
 /obj/item/toy/owl
 	name = "owl action figure"
