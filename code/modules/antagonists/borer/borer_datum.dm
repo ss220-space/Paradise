@@ -25,14 +25,15 @@
 	var/datum/borer_misc/change_host_and_scale/scaling = new // chemical scaling, gained when acquired unique host
 	var/tick_interval = 1 SECONDS
 
+/datum/antagonist/borer/on_gain()
+	. = ..()
+	if(!.)
+		return
+
+	user = owner.current
+
 /datum/antagonist/borer/apply_innate_effects(mob/living/simple_animal/borer/borer)
 	. = ..()
-	user = borer || owner.current
-
-	if(QDELETED(user))
-		qdel(src)
-		return FALSE
-
 	RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(entered_host))
 	RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host))
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) 
@@ -271,11 +272,13 @@
 
 /datum/borer_rank/adult/tick(seconds_between_ticks)
 	parent.user.adjustHealth(-0.2)
+
 	if(parent.host?.stat != DEAD && !parent.user.sneaking)
 		parent.user.chemicals += 0.2
 
 /datum/borer_rank/elder/tick(seconds_between_ticks)
 	parent.user.adjustHealth(-0.3)
+	
 	if(parent.host?.stat != DEAD)
 		parent.host?.heal_overall_damage(0.4, 0.4)
 		parent.user.chemicals += 0.3
