@@ -23,3 +23,27 @@
 						/datum/objective/die
 						)
 	can_take_bonus_objectives = FALSE
+
+/datum/affiliate/gorlex/finalize_affiliate()
+	. = ..()
+	add_discount_item(/datum/uplink_item/device_tools/stims, 0.7)
+	add_discount_item(/datum/uplink_item/suits/hardsuit, 0.75)
+
+/datum/affiliate/gorlex/get_weight(mob/living/carbon/human/H)
+	switch (H.dna.species.type)
+		if (/datum/species/human)
+			return 1
+		if (/datum/species/machine)
+			return 0.2
+		if (/datum/species/slime)
+			return 0.2
+	return 0
+
+/datum/affiliate/gorlex/give_bonus_objectives(datum/mind/mind)
+	if (!can_take_bonus_objectives)
+		return
+	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
+	if(!traitor)
+		return
+	traitor.add_objective(new /datum/objective/assassinate)
+	traitor.add_objective(new /datum/objective/assassinate)

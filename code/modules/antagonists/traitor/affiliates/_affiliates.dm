@@ -42,13 +42,15 @@
 			new_objective = new objective
 		traitor.add_objective(new_objective)
 
-/datum/affiliate/proc/is_possible()
-	return TRUE
+/datum/affiliate/proc/get_weight(mob/living/carbon/human/H)
+	return 3
 
 /datum/affiliate/proc/remove_innate_effects(mob/living/mob_override)
 	mob_override.RemoveSpell(/obj/effect/proc_holder/spell/choose_affiliate)
 
 /datum/affiliate/proc/give_bonus_objectives(datum/mind/mind)
+	if (!can_take_bonus_objectives)
+		return
 	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
 	if(!traitor)
 		return
@@ -80,10 +82,10 @@
 /obj/effect/proc_holder/spell/choose_affiliate/cast(mob/user)
 	ui_interact(user)
 
-/obj/effect/proc_holder/spell/choose_affiliate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/effect/proc_holder/spell/choose_affiliate/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Affiliates", name, 900, 800, master_ui, state)
+		ui = new(user, src, "Affiliates", name, 900, 800)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -112,5 +114,17 @@
 			traitor.grant_affiliate(path)
 			traitor.owner.RemoveSpell(src)
 			ui.close()
+			if (istype(traitor.affiliate, /datum/affiliate/gorlex))
+				to_chat(ui.user, span_info("Аплинк будет активирован через 20 минут.\n\
+				Спасибо что выбрали Gorlex Maraduers.\n\
+				Слава синдикату!"))
+				sleep(20 MINUTES)
 			traitor.give_uplink()
 			traitor.announce_uplink_info()
+
+/datum/affiliate/proc/add_discount_item(I, cost_part)
+	var/datum/uplink_item/new_item = new I
+	new_item.cost = round(new_item.cost * (cost_part))
+	new_item.name += ((1-(cost_part))*100) +"%"
+	new_item.category = "Discounted Gear"
+	uplink.uplink_items.Add(new_item)

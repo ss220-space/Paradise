@@ -42,8 +42,9 @@
 		owner.som = new /datum/mindslaves
 
 	owner.som.masters += owner
-	RegisterSignal(src, COMSIG_MOB_DEATH, PROC_REF(grant_enemy_affiliates))
-	give_affiliates()
+	if (ishuman(owner.current))
+		RegisterSignal(src, COMSIG_MOB_DEATH, PROC_REF(grant_enemy_affiliates))
+		give_affiliates()
 	return ..()
 
 /datum/antagonist/traitor/proc/grant_enemy_affiliates()
@@ -65,11 +66,10 @@
 	var/list/the_choosen_ones = list()
 	for(var/new_affiliate in subtypesof(/datum/affiliate))
 		var/datum/affiliate/affiliate_check = new new_affiliate
-		if(affiliate_check.is_possible())
-			possible_affiliates += new_affiliate
+		possible_affiliates[new_affiliate] = affiliate_check.get_weight(owner.current)
 		qdel(affiliate_check)
 	for(var/i in 1 to 3)
-		the_choosen_ones += pick_n_take(possible_affiliates)
+		the_choosen_ones += pick_weight_n_take(possible_affiliates)
 	var/obj/effect/proc_holder/spell/choose_affiliate/choose = new(the_choosen_ones)
 	owner.AddSpell(choose)
 

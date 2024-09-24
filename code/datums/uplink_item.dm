@@ -1800,7 +1800,7 @@
 	This one disquised as engineering hardsuit."
 	cost = 46 //reskinned blood-red hardsuit with chameleon
 	item = /obj/item/storage/box/syndie_kit/chameleon_hardsuit
-	exclude_from_affiliate = list(AFFIL_MI13)
+	exclude_from_affiliate = list(AFFIL_MI13, AFFIL_GORLEX)
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"
@@ -2212,6 +2212,7 @@
 	desc = "A crate containing 625 telecrystals worth of random syndicate leftovers."
 	cost = 200
 	crate_value = 625
+	exclude_from_affiliate = list(AFFIL_GORLEX)
 
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(mob/buyer, obj/item/uplink/target_uplink)

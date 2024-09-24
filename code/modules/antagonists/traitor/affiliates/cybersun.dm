@@ -19,17 +19,8 @@
 /datum/affiliate/cybersun/finalize_affiliate()
 	. = ..()
 	for(var/path in subtypesof(/datum/uplink_item/implants))
-		var/datum/uplink_item/new_item = new path
-		new_item.cost = round(new_item.cost * CYBERSUN_DISCOUNT)
-		new_item.name += ((1-CYBERSUN_DISCOUNT)*100) +"%"
-		new_item.category = "Discounted Gear"
-		uplink.uplink_items.Add(new_item)
-
-	var/datum/uplink_item/new_item = new /datum/uplink_item/device_tools/hacked_module
-	new_item.cost = round(new_item.cost * (2/3))
-	new_item.name += ((1-(2/3))*100) +"%"
-	new_item.category = "Discounted Gear"
-	uplink.uplink_items.Add(new_item)
+		add_discount_item(path, CYBERSUN_DISCOUNT)
+	add_discount_item(/datum/uplink_item/device_tools/hacked_module, 2/3)
 
 /obj/item/proprietary_ssd
 	name = "Proprietary SSD"
