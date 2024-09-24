@@ -777,13 +777,13 @@
 /datum/spellbook_entry/loadout/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(destroy_spellbook)
 		var/response = tgui_alert(user, "Набор [src] нельзя будет вернуть после покупки. Вы уверены?", "Никаких возвратов!", list("Нет", "Да"))
-		if(response != "Yes")
+		if(response != "Да")
 			return FALSE
 		to_chat(user, "<span class='notice'>[book] рассыпается в прах после того, как вы постигаете её мудрость.</span>")
 		qdel(book)
 	else if(items_path.len)
 		var/response = tgui_alert(user, "Набор [src] содержит предметы, которые нельзя вернуть после покупки. Вы уверены?", "Никаких возвратов!", list("Нет", "Да"))
-		if(response != "Yes")
+		if(response != "Да")
 			return FALSE
 	if(items_path.len)
 		var/obj/item/storage/box/wizard/B = new(src)
