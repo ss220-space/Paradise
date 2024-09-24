@@ -26,3 +26,45 @@
 				return 2
 
 	return 1
+
+/mob/living/proc/owns_soul()
+	if(!mind)
+		return FALSE
+		
+	return mind.soulOwner == mind
+
+/mob/living/proc/return_soul()
+	if(!mind)
+		return
+
+	mind.soulOwner = mind
+	mind.damnation_type = 0
+
+	var/datum/antagonist/devil/devil = mind?.has_antag_datum(/datum/antagonist/devil)
+	if(!devil)
+		return 
+	
+	devil.remove_soul(mind)
+
+/mob/living/proc/has_bane(banetype)
+	var/datum/antagonist/devil/devil = mind?.has_antag_datum(/datum/antagonist/devil)
+	if(!devil)
+		return TRUE
+			
+	return devil.bane == banetype
+
+/mob/living/proc/check_weakness(obj/item/weapon, mob/living/attacker)
+	var/datum/antagonist/devil/devil = mind?.has_antag_datum(/datum/antagonist/devil)
+	if(!devil)
+		return TRUE
+
+	return check_devil_bane_multiplier(weapon, attacker)
+
+/mob/living/proc/check_acedia()
+	if(!mind?.objectives)
+		return FALSE
+
+	for(var/datum/objective/sintouched/acedia/A in .mind.objectives)
+		return TRUE
+
+	return FALSE

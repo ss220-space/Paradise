@@ -111,19 +111,21 @@
 	else //Did the devil get hit by a staff of transmutation?
 		owner.current.color = "#501010"
 
-	give_appropriate_spells()
 	form = BLOOD_LIZARD
+	update_spells()
 
 /datum/antagonist/devil/proc/increase_true_devil()
 	to_chat(owner.current, span_warning("You feel as though your current form is about to shed.  You will soon turn into a true devil."))
 	var/mob/living/carbon/true_devil/A = new /mob/living/carbon/true_devil(owner.current.loc)
+
 	A.faction |= "hell"
 	owner.current.forceMove(A)
 	A.oldform = owner.current
 	owner.transfer_to(A)
 	A.set_name()
-	give_appropriate_spells()
 	form = TRUE_DEVIL
+
+	update_spells()
 	update_hud()
 
 /datum/antagonist/devil/proc/remove_spells()
@@ -213,16 +215,17 @@
 	    C.hud_used.devilsouldisplay.update_counter(SOULVALUE)
 
 /datum/antagonist/devil/greet()
-	to_chat(owner.current, span_warning("<b>You remember your link to the infernal.  You are [truename], an agent of hell, a devil.  And you were sent to the plane of creation for a reason.  A greater purpose.  Convince the crew to sin, and embroiden Hell's grasp.</b>"))
-	to_chat(owner.current, span_warning("<b>However, your infernal form is not without weaknesses.</b>"))
-	to_chat(owner.current, "You may not use violence to coerce someone into selling their soul.")
-	to_chat(owner.current, "You may not directly and knowingly physically harm a devil, other than yourself.")
-	to_chat(owner.current, GLOB.lawlorify[LAW][bane])
-	to_chat(owner.current, GLOB.lawlorify[LAW][ban])
-	to_chat(owner.current, GLOB.lawlorify[LAW][obligation])
-	to_chat(owner.current, GLOB.lawlorify[LAW][banish])
-	to_chat(owner.current, "[span_warning("Remember, the crew can research your weaknesses if they find out your devil name.")]<br>")
-	.=..()
+	var/list/messages = list()
+	LAZYADD(messages, span_warning("<b>You remember your link to the infernal.  You are [truename], an agent of hell, a devil.  And you were sent to the plane of creation for a reason.  A greater purpose.  Convince the crew to sin, and embroiden Hell's grasp.</b>"))
+	LAZYADD(messages, span_warning("<b>However, your infernal form is not without weaknesses.</b>"))
+	LAZYADD(messages, "You may not use violence to coerce someone into selling their soul.")
+	LAZYADD(messages, "You may not directly and knowingly physically harm a devil, other than yourself.")
+	LAZYADD(messages, GLOB.lawlorify[LAW][bane])
+	LAZYADD(messages, GLOB.lawlorify[LAW][ban])
+	LAZYADD(messages, GLOB.lawlorify[LAW][obligation])
+	LAZYADD(messages, GLOB.lawlorify[LAW][banish])
+	LAZYADD(messages, "[span_warning("Remember, the crew can research your weaknesses if they find out your devil name.")]<br>")
+	return messages
 
 /datum/antagonist/devil/on_gain()
 	truename = randomDevilName()
@@ -236,12 +239,18 @@
 	handle_clown_mutation(owner.current, "Your infernal nature has allowed you to overcome your clownishness.")
 	return ..()
 
+/datum/antagonist/devil/add_owner_to_gamemode()
+	LAZYADD(SSticker.mode.devils, owner)
+
+/datum/antagonist/devil/remove_owner_from_gamemode()
+	LAZYREMOVE(SSticker.mode.devils, owner)
+
 /datum/antagonist/devil/on_removal()
 	to_chat(owner.current, span_userdanger("Your infernal link has been severed! You are no longer a devil!"))
 	. = ..()
 
 /datum/antagonist/devil/apply_innate_effects(mob/living/mob_override)
-	give_appropriate_spells()
+	update_spells()
 	owner.current.grant_all_languages(TRUE, TRUE, TRUE, LANGUAGE_DEVIL)
 	update_hud()
 	.=..()
@@ -250,8 +259,9 @@
 	for(var/datum/action/cooldown/spell/spells in owner.current.actions)
 		if(is_type_in_typecache(spells, devil_spells))
 			spells.Remove(owner.current)
+
 	owner.current.remove_all_languages(LANGUAGE_DEVIL)
-	.=..()
+	. = ..()
 
 /datum/antagonist/devil/proc/printdevilinfo()
 	var/list/parts = list()

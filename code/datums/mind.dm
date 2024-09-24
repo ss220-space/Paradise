@@ -1973,17 +1973,13 @@
 
 				remove_devil_role()
 			if("devil")
-				var/datum/antagonist/devil/devilinfo = has_antag_datum(/datum/antagonist/devil)
-				if(!ishuman(current))
-					to_chat(usr, span_warning("This only works on humans!"))
+				var/datum/antagonist/devil/devil = has_antag_datum(/datum/antagonist/devil)
+				if(!ishuman(current) || devil)
 					return
 
-				SSticker.mode.devils += src
-				special_role = "devil"
+				add_antag_datum(devil)
 				SSticker.mode.update_devil_icons_added(src)
 				SSticker.mode.finalize_devil(src, FALSE)
-				SSticker.mode.forge_devil_objectives(src, 2)
-				SSticker.mode.greet_devil(src)
 
 				message_admins("[key_name_admin(usr)] has devil'ed [current].")
 				log_admin("[key_name(usr)] has devil'ed [current].")
