@@ -1,5 +1,5 @@
 /**
- * Ancestor class for various post-attack effects. Requires /datum/element/after_attacks_hub to work
+ * Ancestor class for various post-attack effects. Requires /datum/component/after_attacks_hub for on_attack proc work
  */
 
 /datum/element/after_attack
