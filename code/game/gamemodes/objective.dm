@@ -1803,7 +1803,12 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/download_data/New(text, datum/team/team_to_join)
 	. = ..()
 	req_techs = rand(30, 40)
-	explanation_text = "Украдите [req_techs] уровней технологий просканировав сервера R&D при помощи Фирменного SSD из аплинка."
+	explanation_text = "Украдите [req_techs] уровней технологий просканировав сервера R&D при помощи Фирменного SSD, который вы можете приобрести во вкладке \"Affiliate specific\"."
+
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		traitor.hidden_uplink.add_corp_item(new /obj/item/proprietary_ssd, name = "Фирменный SSD накопитель", desc = "Специальный SSD накопитель предназначеный для кражи технологий с серверов R&D. При успешной краже, технологии сбросятся. При разборке данного предмета, все технологии с него будут восстановлены.", limited_stock = 1)
+
 
 /datum/objective/download_data/check_completion()
 	for(var/obj/item/proprietary_ssd/ssd in owner.current.get_contents()) //Check for items
@@ -1830,8 +1835,14 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/new_mini_traitor
 	needs_target = TRUE
-	explanation_text = "Вколоть модифицированный майндслейв имплант"
 	var/made = FALSE
+
+/datum/objective/new_mini_traitor/New()
+	. = ..()
+	explanation_text = "Implant the [target.current.real_name], [target.assigned_role] with a modified mindslave implant. You can find it in uplink in \"Affiliate specific\""
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		traitor.hidden_uplink.add_corp_item(new /obj/item/implanter/mini_traitor, name = "Модифицированный имплант Mindslave", desc = "Высокотехнологичный, разработанный Cybersun Industries имплант, необратимо изменяющий мозг цели, делая ее лояльной Синдикату.", limited_stock = 1)
 
 /datum/objective/new_mini_traitor/check_completion()
 	return made

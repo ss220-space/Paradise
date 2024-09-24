@@ -2368,6 +2368,19 @@
 /datum/uplink_item/affiliate/cybersun
 	affiliate = list(AFFIL_CYBERSUN)
 
+/datum/uplink_item/affiliate/cybersun/invasive_beacon
+	name = "Инвазивный маячок"
+	desc = "Высокотехнологичное устройство для взлома мехов разработанное Cybersun Industries. При взломе меха, мгновенно сбивает все блокировки и выкидывает текущего пилота."
+	item = /obj/item/invasive_beacon
+	cost = 14
+
+/datum/uplink_item/affiliate/cybersun/CIndy_patcher
+	name = "Синди патчер"
+	desc = "Высокотехнологичное устройство для взлома боргов разработанное Cybersun Industries. При взломе борга, ставит ему прошивку борга Синдиката с нулевым законом на подчинение взломавшему. Устройство одноразовое."
+	item = /obj/item/invasive_beacon
+	cost = 28
+	limited_stock = 2
+
 /datum/uplink_item/affiliate/gorlex
 	affiliate = list(AFFIL_GORLEX)
 
