@@ -128,14 +128,3 @@
 	new_item.name += ((1-(cost_part))*100) +"%"
 	new_item.category = "Discounted Gear"
 	uplink.uplink_items.Add(new_item)
-
-/obj/item/uplink/proc/add_corp_item(obj/item/I, cost = 0, name, desc, limited_stock = -1)
-	var/datum/uplink_item/new_item = new
-	new_item.item = I
-	new_item.name = name ? name : I.name
-	new_item.desc = desc ? desc : I.desc
-	new_item.cost = cost
-	new_item.limited_stock = limited_stock
-	new_item.category = "Affiliate specific"
-	uplink_items.Add(new_item)
-	new_item.can_discount = FALSE

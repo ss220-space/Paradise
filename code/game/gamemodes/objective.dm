@@ -1807,8 +1807,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
-		traitor.hidden_uplink.add_corp_item(new /obj/item/proprietary_ssd, name = "Фирменный SSD накопитель", desc = "Специальный SSD накопитель предназначеный для кражи технологий с серверов R&D. При успешной краже, технологии сбросятся. При разборке данного предмета, все технологии с него будут восстановлены.", limited_stock = 1)
-
+		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/proprietary_ssd)
 
 /datum/objective/download_data/check_completion()
 	for(var/obj/item/proprietary_ssd/ssd in owner.current.get_contents()) //Check for items
@@ -1842,7 +1841,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	explanation_text = "Implant the [target.current.real_name], [target.assigned_role] with a modified mindslave implant. You can find it in uplink in \"Affiliate specific\""
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
-		traitor.hidden_uplink.add_corp_item(new /obj/item/implanter/mini_traitor, name = "Модифицированный имплант Mindslave", desc = "Высокотехнологичный, разработанный Cybersun Industries имплант, необратимо изменяющий мозг цели, делая ее лояльной Синдикату.", limited_stock = 1)
+		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/mod_mindslave)
 
 /datum/objective/new_mini_traitor/check_completion()
 	return made

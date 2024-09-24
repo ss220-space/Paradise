@@ -2360,10 +2360,16 @@
 //Affiliate specific
 
 /datum/uplink_item/affiliate
-	category = "Affiliate specific"
+	category = "Снаряжение подрядчика"
 	can_discount = FALSE
 	surplus = 0
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/affiliate/for_objective
+	category = "Снаряжение для целей"
+	cost = 0
+	limited_stock = 1
+	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT, UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Given by objectives
 
 /datum/uplink_item/affiliate/cybersun
 	affiliate = list(AFFIL_CYBERSUN)
@@ -2380,6 +2386,17 @@
 	item = /obj/item/CIndy_patcher
 	cost = 28
 	limited_stock = 2
+
+/datum/uplink_item/affiliate/for_objective/proprietary_ssd
+	name = "Фирменный SSD накопитель"
+	desc = "Специальный SSD накопитель предназначеный для кражи технологий с серверов R&D. При успешной краже, технологии сбросятся. При разборке данного предмета, все технологии с него будут восстановлены."
+	item = /obj/item/proprietary_ssd
+
+/datum/uplink_item/affiliate/for_objective/mod_mindslave
+	name = "Модифицированный имплант \"Mindslave\""
+	desc = "Высокотехнологичный, разработанный Cybersun Industries имплант, необратимо изменяющий мозг цели, делая ее лояльной Синдикату."
+	item = /obj/item/implanter/mini_traitor
+
 
 /datum/uplink_item/affiliate/gorlex
 	affiliate = list(AFFIL_GORLEX)
