@@ -1,6 +1,6 @@
 // Made by PiroMage (https://github.com/PiroMage)
 
-/datum/map/Nova
+/datum/map/nova
 	name = "Nova"
 	map_path = "_maps/map_files/nova/nova.dmm"
 	lavaland_path = "_maps/map_files/nova/Lavaland.dmm"
