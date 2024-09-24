@@ -23,7 +23,6 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/list/gear_tweaks = list() //List of datums which will alter the item after it has been spawned.
 	var/subtype_path = /datum/gear //for skipping organizational subtypes (optional)
 	var/subtype_cost_overlap = TRUE //if subtypes can take points at the same time
-	var/donator_tier = 0
 	var/implantable = FALSE    //For organ-like implants (huds, pumps, etc)
 
 /datum/gear/New()
@@ -64,5 +63,12 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		gt.tweak_item(item, metadata["[gt]"])
 	return item
 
-/datum/gear/proc/can_select()
-	return TRUE
+/datum/gear/proc/can_select(client/cl = FALSE, job_name = FALSE, species_name = FALSE, silent = FALSE)
+	. = TRUE
+
+	if((job_name && allowed_roles) && !(job_name in allowed_roles)) // incorrect job
+		. = FALSE
+		if(cl && !silent)
+			to_chat(cl, span_warning("\"[capitalize(display_name)]\" недоступно для вашей профессии!"))
+
+

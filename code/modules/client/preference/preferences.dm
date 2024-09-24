@@ -693,8 +693,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					for(var/role in G.allowed_roles)
 						dat += role + " "
 					dat += "</font>"
-				var/donor_info = G.donator_tier > 0 ? "\[Tier [G.donator_tier]\] " : ""
-				dat += "</td><td style='vertical-align:middle'><font size=2>[donor_info]<i>[ticked ? ticked.description : G.description] <br/></i></font></td></tr>"
+				var/datum/gear/donor/donate_gear = G
+				var/donor_info = ""
+				if(istype(donate_gear) && donate_gear.donator_tier)
+					donor_info = "\[Tier [donate_gear.donator_tier]\] "
+				dat += "</td><td style='vertical-align:middle'><font size=2>[donor_info]<i>[ticked ? ticked.description : donate_gear.description] <br/></i></font></td></tr>"
 			dat += "</table>"
 		if(TAB_KEYS)
 			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
@@ -1498,11 +1501,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				loadout_gear -= TG.display_name
 				choosen_gears -= TG.display_name
 			else
-				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
-					to_chat(user, span_warning("Это снаряжение доступно лишь на [TG.donator_tier] или более высоких уровнях пожертвований."))
-					return
-				if(!TG.can_select(S))
-					to_chat(user, span_warning("Ваш вид не подходит для того, чтобы использовать это снаряжение."))
+				if(!(TG.can_select(cl = user.client, job_name = FALSE, species_name = S.name))) // all gear checks there, no jobs while prefs
 					return
 				var/total_cost = 0
 				var/list/type_blacklist = list()

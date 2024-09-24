@@ -1,7 +1,22 @@
 /datum/gear/donor
-	donator_tier = 2
+	var/donator_tier = 2
 	sort_category = "Donor"
 	subtype_path = /datum/gear/donor
+
+/datum/gear/donor/can_select(client/cl = FALSE, job_name = FALSE, species_name = FALSE, silent = FALSE)
+	. = ..()
+
+	if(!.) // there's no point in being here
+		return FALSE
+
+	if(!donator_tier) // why are you here?.. allowed
+		return TRUE
+
+	if(cl && (cl.donator_level < donator_tier))
+		if(!silent)
+			to_chat(cl, span_warning("Для получения \"[display_name]\" необходим [donator_tier] или более высокий уровень пожертвований."))
+		return FALSE
+
 
 /datum/gear/donor/ussptracksuit_black
 	donator_tier = 1

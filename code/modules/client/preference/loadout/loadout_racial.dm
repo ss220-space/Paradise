@@ -2,16 +2,22 @@
 	sort_category = "Racial"
 	subtype_path = /datum/gear/racial
 	cost = 1
-	var/list/whitelisted_species = list()
+	var/list/whitelisted_species
 
-/datum/gear/racial/can_select(datum/species/S)
+/datum/gear/racial/can_select(client/cl = FALSE, job_name = FALSE, species_name = FALSE, silent = FALSE)
+	. = ..()
+
+	if(!.) // there's no point in being here.
+		return FALSE
+
 	if(!LAZYLEN(whitelisted_species)) // empty list, allowed for all
 		return TRUE
 
-	if(S in whitelisted_species) // species in whitelist
-		return TRUE
+	if(species_name && !(species_name in whitelisted_species)) // check species whitelist
+		if(cl && !silent)
+			to_chat(cl, span_warning("Ваш вид не подходит для того, чтобы использовать \"[display_name]\"!"))
+		return FALSE
 
-	return FALSE
 
 /datum/gear/racial/taj
 	display_name = "embroidered veil"
