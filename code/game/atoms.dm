@@ -1700,3 +1700,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		var/mouseparams = list2params(paramslist)
 		usr_client.Click(src, loc, null, mouseparams)
 		return TRUE
+
+/atom/proc/on_bullet_fly_through(obj/item/projectile/bullet)
+	return

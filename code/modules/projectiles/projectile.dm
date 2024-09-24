@@ -114,6 +114,9 @@
 	/// Probability to hit lying non-dead mobs
 	var/hit_crawling_mobs_chance = 0
 
+	/// Types of objects that pass through this projectile
+	var/list/whitelist = list()
+
 
 /obj/item/projectile/Initialize(mapload)
 	. = ..()
@@ -253,6 +256,11 @@
 
 
 /obj/item/projectile/Bump(atom/bumped_atom)
+	if (bumped_atom.type in whitelist)
+		bumped_atom.on_bullet_fly_through(src)
+		loc = get_turf(bumped_atom)
+		return FALSE
+
 	. = ..()
 
 	if(check_ricochet(bumped_atom) && check_ricochet_flag(bumped_atom) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))

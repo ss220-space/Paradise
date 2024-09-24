@@ -43,6 +43,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	var/weed_rate = 1 //If the chance below passes, then this many weeds sprout during growth
 	var/weed_chance = 5 //Percentage chance per tray update to grow weeds
 	var/nogenes = FALSE
+	var/can_harvest = TRUE
 
 /obj/item/seeds/New(loc, nogenes = FALSE)
 	..()
@@ -452,6 +453,9 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 		return
 	if(user.plant_analyzer)
 		to_chat(user, get_analyzer_text())
+
+/obj/item/seeds/proc/on_grow()
+	return
 
 #undef FLORAGUN_POTENCY
 #undef FLORAGUN_YIELD

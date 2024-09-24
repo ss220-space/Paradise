@@ -347,6 +347,11 @@
 	icon_state = "impact_bullet"
 	duration = 5
 
+/obj/effect/temp_visual/pea_destroy
+	icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun.dmi'
+	icon_state = "pea-bullet_effect"
+	duration = 4
+
 /obj/effect/temp_visual/impact_effect/Initialize(mapload, x, y)
 	pixel_x = x
 	pixel_y = y

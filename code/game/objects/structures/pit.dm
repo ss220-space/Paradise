@@ -92,6 +92,8 @@
 		icon_floor_type = "sand"
 	if(istype(loc, /turf/simulated/floor/grass))
 		icon_floor_type = "mud"
+	if(istype(loc, /turf/simulated/floor/ivy))
+		icon_floor_type = "mud"
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/pit/proc/take_contents()
