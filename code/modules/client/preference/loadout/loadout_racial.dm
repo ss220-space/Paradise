@@ -5,10 +5,10 @@
 	var/list/whitelisted_species = list()
 
 /datum/gear/racial/can_select(datum/species/S)
-	if(!LAZYLEN(whitelisted_species)) //empty list, allowed for all
+	if(!LAZYLEN(whitelisted_species)) // empty list, allowed for all
 		return TRUE
 
-	if(S in whitelisted_species) //species in whitelist
+	if(S in whitelisted_species) // species in whitelist
 		return TRUE
 
 	return FALSE
