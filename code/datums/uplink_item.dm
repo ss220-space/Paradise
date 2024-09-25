@@ -2414,6 +2414,10 @@
 	cost = 74 // A little bit stronger than normal vampire because of 26 TC, but with more hard objectives.
 	limited_stock = 1 // Sorry, only one
 
+/datum/uplink_item/affiliate/for_objective/hemophagus_extract
+	name = "Экстракт Гемофага"
+	desc = "Инжектор с дорогой и сложной в производстве сывороткой, открытой Hematogenic Industries. При введении гуманойду запускает сложные процессы, делающие гуманойда вампиром."
+	item = /obj/item/hemophagus_extract
 
 /datum/uplink_item/affiliate/self
 	affiliate = list(AFFIL_SELF)

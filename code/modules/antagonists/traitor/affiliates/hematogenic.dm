@@ -20,7 +20,7 @@
 
 /obj/item/hemophagus_extract
 	name = "Bloody Injector"
-	desc = "Инжектор странной формы, с неестественно двигающейся алой жидкостью внутри. На боку едва заметная гравировка \"Hematogenic Industries\". Конкретно на этом инжекторе установлена блокировка, не позволяющая исспользовать его на случайном гуманойде.."
+	desc = "Инжектор странной формы, с неестественно двигающейся алой жидкостью внутри. На боку едва заметная гравировка \"Hematogenic Industries\". Конкретно на этом инжекторе установлена блокировка, не позволяющая исспользовать его на случайном гуманойде."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "hemophagus_extract"
 	var/datum/mind/target
@@ -55,6 +55,11 @@
 			to_chat(user, span_notice("You inject [target] with [src]"))
 			used = TRUE
 			update_icon(UPDATE_ICON_STATE)
+
+			var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
+			for(var/datum/objective/new_mini_vampire/objective in T.objectives)
+				if(target.mind == objective.target)
+					objective.made = TRUE
 		else
 			to_chat(user, span_notice("[target] body rejects [src]"))
 		return
@@ -66,6 +71,11 @@
 			to_chat(user, span_notice("You inject [target == user ? "yourself" : target] with [src]"))
 			used = TRUE
 			update_icon(UPDATE_ICON_STATE)
+
+			var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
+			for(var/datum/objective/new_mini_vampire/objective in T.objectives)
+				if(target.mind == objective.target)
+					objective.made = TRUE
 		else
 			to_chat(user, span_notice("[target] body rejects [src]"))
 

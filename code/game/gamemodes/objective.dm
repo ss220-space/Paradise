@@ -1855,7 +1855,22 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/new_mini_vampire
 	needs_target = TRUE
-	explanation_text = "Сделать кого-то вампиром"
+	var/made = FALSE
+
+/datum/objective/new_mini_vampire/New()
+	. = ..()
+	explanation_text = "Inject [target.current.real_name], the [target.assigned_role] with a modified mindslave hemophagus extract. You can find one for free in uplink."
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		var/datum/uplink_item/affiliate/for_objective/hemophagus_extract/I = new
+		var/obj/item/hemophagus_extract/HE = I.item
+		HE.target = target
+		HE.desc += "\nIt is intended for [target.current.real_name], the [target.assigned_role]."
+		I.desc += "\nIt is intended for [target.current.real_name], the [target.assigned_role]."
+		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/mod_mindslave)
+
+/datum/objective/new_mini_vampire/check_completion()
+	return made
 
 /datum/objective/steal/documents
 	type_theft_flag = THEFT_FLAG_DOCUMENTS
