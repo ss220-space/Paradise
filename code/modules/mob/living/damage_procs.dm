@@ -257,7 +257,7 @@
 
 /// Applies passed status effect
 /mob/living/proc/apply_effect(effect = 0, effecttype = STUN, blocked = 0, negate_armor = FALSE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 	blocked = (100-blocked)/100
 	if(!effect || (blocked <= 0))
@@ -353,7 +353,7 @@
 	silent = FALSE,
 	affect_robotic = TRUE,
 )
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		var/old_bruteloss = getBruteLoss()
 		bruteloss = 0
 		if(old_bruteloss != 0)
@@ -407,7 +407,7 @@
 	silent = FALSE,
 	affect_robotic = TRUE,
 )
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		var/old_fireloss = getFireLoss()
 		fireloss = 0
 		if(old_fireloss != 0)
@@ -453,7 +453,7 @@
 	forced = FALSE,
 	used_weapon = null,
 )
-	if((status_flags & GODMODE) || HAS_TRAIT(src, TRAIT_NO_BREATH))
+	if(HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NO_BREATH))
 		var/old_oxyloss = getOxyLoss()
 		oxyloss = 0
 		if(old_oxyloss != 0)
@@ -485,7 +485,7 @@
  * Returns STATUS_UPDATE_HEALTH if any changes were made, STATUS_UPDATE_NONE otherwise
  */
 /mob/living/proc/setOxyLoss(amount = 0, updating_health = TRUE)
-	if((status_flags & GODMODE) || HAS_TRAIT(src, TRAIT_NO_BREATH))
+	if(HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NO_BREATH))
 		var/old_oxyloss = getOxyLoss()
 		oxyloss = 0
 		if(old_oxyloss != 0)
@@ -526,7 +526,7 @@
 	forced = FALSE,
 	used_weapon = null,
 )
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		var/old_toxloss = getToxLoss()
 		toxloss = 0
 		if(old_toxloss != 0)
@@ -558,7 +558,7 @@
  * Returns STATUS_UPDATE_HEALTH if any changes were made, STATUS_UPDATE_NONE otherwise
  */
 /mob/living/proc/setToxLoss(amount, updating_health = TRUE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		var/old_toxloss = getToxLoss()
 		toxloss = 0
 		if(old_toxloss != 0)
@@ -599,7 +599,7 @@
 	forced = FALSE,
 	used_weapon = null,
 )
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		var/old_cloneloss = getCloneLoss()
 		cloneloss = 0
 		if(old_cloneloss != 0)
@@ -631,7 +631,7 @@
  * Returns STATUS_UPDATE_HEALTH if any changes were made, STATUS_UPDATE_NONE otherwise
  */
 /mob/living/proc/setCloneLoss(amount, updating_health = TRUE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		var/old_cloneloss = getCloneLoss()
 		cloneloss = 0
 		if(old_cloneloss != 0)
@@ -743,7 +743,7 @@
 	forced = FALSE,
 	used_weapon = null,
 )
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		var/old_stamloss = getStaminaLoss()
 		staminaloss = 0
 		if(old_stamloss != 0)
@@ -777,7 +777,7 @@
  * Returns STATUS_UPDATE_HEALTH if any changes were made, STATUS_UPDATE_NONE otherwise
  */
 /mob/living/proc/setStaminaLoss(amount, updating_health = TRUE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		var/old_stamloss = getStaminaLoss()
 		staminaloss = 0
 		if(old_stamloss != 0)
@@ -862,7 +862,7 @@
 	silent = FALSE,
 	affect_robotic = TRUE,
 )
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		var/old_bruteloss = getBruteLoss()
 		var/old_fireloss = getFireLoss()
 		bruteloss = 0
@@ -942,7 +942,7 @@
 	silent = FALSE,
 	affect_robotic = TRUE,
 )
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		var/old_bruteloss = getBruteLoss()
 		var/old_fireloss = getFireLoss()
 		bruteloss = 0
