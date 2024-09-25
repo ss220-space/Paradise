@@ -2404,6 +2404,11 @@
 /datum/uplink_item/affiliate/mi13
 	affiliate = list(AFFIL_MI13)
 
+/datum/uplink_item/affiliate/mi13/bond
+	name = "Набор \"Бонд\""
+	desc = "Взболтайте свой мартини и поднимите переполох с этого набора смертельного снаряжения, совмещенного с капелькой гаджетов, чтобы все оставалось интересным."
+	item = /obj/item/storage/box/bond_bundle
+
 /datum/uplink_item/affiliate/hematogenic
 	affiliate = list(AFFIL_HEMATOGENIC)
 

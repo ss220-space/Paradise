@@ -1895,26 +1895,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/steal/documents
 	type_theft_flag = THEFT_FLAG_DOCUMENTS
 
-/datum/objective/proc/give_obj_item(item_path)
-	var/item = new item_path
-	var/list/slots = list(
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"left pocket" = ITEM_SLOT_POCKET_LEFT,
-		"right pocket" = ITEM_SLOT_POCKET_RIGHT,
-		"left hand" = ITEM_SLOT_HAND_LEFT,
-		"right hand" = ITEM_SLOT_HAND_RIGHT,
-	)
-
-	for(var/datum/mind/player in get_owners())
-		var/mob/living/carbon/human/human_owner = player.current
-		var/where = human_owner.equip_in_one_of_slots(item, slots)
-		if(where)
-			to_chat(human_owner, "<br><br><span class='info'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
-		else
-			to_chat(human_owner, span_userdanger("Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1)."))
-			message_admins("[ADMIN_LOOKUPFLW(human_owner)] Failed to spawn with their [item_path] theft kit.")
-			qdel(item)
-
 /datum/objective/maroon/blueshield/find_target(list/target_blacklist) // Blueshield. If there are no suitable blueshields, take a random crew member.
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in SSticker.minds)
