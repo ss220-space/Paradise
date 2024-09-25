@@ -91,6 +91,7 @@
 	A.oldform = owner.current
 	owner.transfer_to(A)
 	A.set_name()
+	
 	form = TRUE_DEVIL
 
 /datum/antagonist/devil/proc/remove_spells()
