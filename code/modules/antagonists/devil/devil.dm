@@ -28,10 +28,13 @@
 	if(soulsOwned.Find(soul))
 		return
 
-	soulsOwned += soul
+	var/update_spells = FALSE
+	var/update_hud = FALSE
+
+	LAZYADD(soulsOwned, soul)
 	owner.current.set_nutrition(NUTRITION_LEVEL_FULL)
 	to_chat(owner.current, span_warning("You feel satiated as you received a new soul."))
-	update_hud()
+	update_hud = TRUE
 
 	if(!SOULVALUE)
 		to_chat(owner.current, span_warning("Your hellish powers have been restored."))
@@ -41,8 +44,18 @@
 	switch(SOULVALUE)
 		if(BLOOD_THRESHOLD)
 			increase_blood_lizard()
+			update_spells = TRUE
 		if(TRUE_THRESHOLD)
 			increase_true_devil()
+			update_spells = TRUE
+			update_hud = TRUE
+
+
+	if(update_spells)
+		update_spells()
+	
+	if(update_hud)
+		update_hud()
 
 /datum/antagonist/devil/proc/remove_soul(datum/mind/soul)
 	if(soulsOwned.Remove(soul))
@@ -56,8 +69,8 @@
 
 	var/mob/living/carbon/human/H = owner.current
 	var/list/language_temp = LAZYLEN(H.languages) ? H.languages.Copy() : null
-	H.set_species(/datum/species/unathi)
 
+	H.set_species(/datum/species/unathi)
 	if(language_temp)
 		H.languages = language_temp
 
@@ -68,7 +81,6 @@
 	H.regenerate_icons()
 
 	form = BLOOD_LIZARD
-	update_spells()
 
 /datum/antagonist/devil/proc/increase_true_devil()
 	to_chat(owner.current, span_warning("You feel as though your current form is about to shed.  You will soon turn into a true devil."))
@@ -81,24 +93,21 @@
 	A.set_name()
 	form = TRUE_DEVIL
 
-	update_spells()
-	update_hud()
-
 /datum/antagonist/devil/proc/remove_spells()
 	for(var/obj/effect/proc_holder/spell/spell as anything in owner.spell_list)
-		if(is_type_in_typecache(spell, devil_spells))
-			owner.RemoveSpell(spell)
+		if(!is_type_in_typecache(spell, devil_spells))
+			continue
+
+		owner.RemoveSpell(spell)
 
 /datum/antagonist/devil/proc/update_spells()
 	remove_spells()
+	give_obligation_spells()
+
 	switch(form)
 		if(BASIC_DEVIL)
 			owner.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish(null))
 			owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/pitchfork(null))
-			if(obligation == OBLIGATION_FIDDLE)
-				owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/violin(null))
-			if(obligation == OBLIGATION_DANCEOFF)
-				owner.AddSpell(new /obj/effect/proc_holder/spell/summon_dancefloor(null))
 		if(BLOOD_LIZARD)
 			owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/pitchfork(null))
 			owner.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish(null))
@@ -109,55 +118,47 @@
 			owner.AddSpell(new /obj/effect/proc_holder/spell/infernal_jaunt(null))
 			owner.AddSpell(new /obj/effect/proc_holder/spell/sintouch(null))
 
-/datum/antagonist/devil/proc/check_banishment(mob/living/body)
+/datum/antagonist/devil/proc/give_obligation_spells()
+	switch(obligation)
+		if(OBLIGATION_FIDDLE)
+			owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/violin(null))
+		if(OBLIGATION_DANCEOFF)
+			owner.AddSpell(new /obj/effect/proc_holder/spell/summon_dancefloor(null))
+
+/datum/antagonist/devil/proc/check_banishment()
+	if(!iscarbon(body) || QDELETED(body))
+		return FALSE
+
+	var/mob/living/carbon/human/human = owner.current
+
 	switch(banish)
 		if(BANISH_WATER)
-			if(!iscarbon(body))
-				return FALSE
-
-			var/mob/living/carbon/H = body
-			return H.reagents.has_reagent("holy water")
+			return human.reagents?.has_reagent("holy water")
 
 		if(BANISH_COFFIN)
-			return (body && istype(body.loc, /obj/structure/closet/coffin))
+			return (istype(body?.loc, /obj/structure/closet/coffin))
 
 		if(BANISH_FORMALDYHIDE)
-			if(!iscarbon(body))
-				return FALSE
-
-			var/mob/living/carbon/H = body
-			return H.reagents.has_reagent("formaldehyde")
+			return human.reagents?.has_reagent("formaldehyde")
 
 		if(BANISH_RUNES)
-			if(!body)
-				return FALSE
-
-			for(var/obj/effect/decal/cleanable/crayon/R in range(0,body))
+			for(var/obj/effect/decal/cleanable/crayon/R in range(0, human))
 				return R.name == "rune"
 
 		if(BANISH_CANDLES)
-			if(!body)
-				return FALSE
-            
 			var/count = 0
-			for(var/obj/item/candle/C in range(1,body))
-				count += C.lit
+
+			for(var/obj/item/candle/candle in range(1, human))
+				count += candle.lit
 
 			return count >= 4
 
-		if(BANISH_DESTRUCTION)
-			return body
-
 		if(BANISH_FUNERAL_GARB)
-			if(!iscarbon(body))
-				return FALSE
-
-			var/mob/living/carbon/human/H = body
-			if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/burial))
+			if(human.w_uniform && istype(human.w_uniform, /obj/item/clothing/under/burial))
 				return TRUE
 			
-			for(var/obj/item/clothing/under/burial/B in range(0,body))
-				if(B.loc == get_turf(B)) //Make sure it's not in someone's inventory or something.
+			for(var/obj/item/clothing/under/burial/burial in range(0, human))
+				if(burial.loc == get_turf(burial)) //Make sure it's not in someone's inventory or something.
 					return TRUE
 
 			return FALSE
@@ -190,6 +191,10 @@
 	return messages
 
 /datum/antagonist/devil/on_gain()
+	. = ..()
+	if(!.)
+		return FALSE
+		
 	truename = randomDevilName()
 	ban = randomdevilban()
 	bane = randomdevilbane()
@@ -199,8 +204,6 @@
 	GLOB.allDevils[lowertext(truename)] = src
 	var/mob/living/carbon/human/human = owner.current
 	human.store_memory("Your devilic true name is [truename]<br>[GLOB.lawlorify[LAW][ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][bane]]<br>[GLOB.lawlorify[LAW][obligation]]<br>[GLOB.lawlorify[LAW][banish]]<br>")
-
-	return ..()
 
 /datum/antagonist/devil/add_owner_to_gamemode()
 	LAZYADD(SSticker.mode.devils, owner)
