@@ -533,6 +533,12 @@
 	tint = 3				//to make them blind
 	prescription_upgradable = FALSE
 
+/obj/item/clothing/glasses/sunglasses/blindfold/fake
+	name = "thin blindfold"
+	desc = "Covers the eyes, but not thick enough to obscure vision. Mostly for aesthetic."
+	flash_protect = FLASH_PROTECTION_NONE
+	tint = 0
+
 /obj/item/clothing/glasses/sunglasses/prescription
 	prescription = TRUE
 
