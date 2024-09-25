@@ -2376,25 +2376,25 @@
 
 /datum/uplink_item/affiliate/cybersun/invasive_beacon
 	name = "Инвазивный маячок"
-	desc = "Высокотехнологичное устройство для взлома мехов разработанное Cybersun Industries. При взломе меха, мгновенно сбивает все блокировки и выкидывает текущего пилота."
+	desc = "Высокотехнологичное устройство для взлома мехов, разработанное Cybersun Industries. При взломе меха мгновенно сбивает все блокировки и выкидывает текущего пилота."
 	item = /obj/item/invasive_beacon
 	cost = 14
 
 /datum/uplink_item/affiliate/cybersun/CIndy_patcher
 	name = "Синди патчер"
-	desc = "Высокотехнологичное устройство для взлома боргов разработанное Cybersun Industries. При взломе борга, ставит ему прошивку борга Синдиката с нулевым законом на подчинение взломавшему. Устройство одноразовое."
+	desc = "Высокотехнологичное устройство для взлома боргов, разработанное Cybersun Industries. При взломе борга ставит ему прошивку борга Синдиката с нулевым законом на подчинение взломавшему. Устройство одноразовое."
 	item = /obj/item/CIndy_patcher
 	cost = 28
 	limited_stock = 2
 
 /datum/uplink_item/affiliate/for_objective/proprietary_ssd
 	name = "Фирменный SSD накопитель"
-	desc = "Специальный SSD накопитель предназначеный для кражи технологий с серверов R&D. При успешной краже, технологии сбросятся. При разборке данного предмета, все технологии с него будут восстановлены."
+	desc = "Специальный SSD накопитель, предназначеный для кражи технологий с серверов R&D. При успешной краже технологии сбросятся. При разборке данного предмета, все технологии с него будут восстановлены.Специальный SSD накопитель, предназначеный для кражи технологий с серверов R&D. При успешной краже технологии сбросятся. При разборке данного предмета, все технологии с него будут восстановлены."
 	item = /obj/item/proprietary_ssd
 
 /datum/uplink_item/affiliate/for_objective/mod_mindslave
 	name = "Модифицированный имплант \"Mindslave\""
-	desc = "Высокотехнологичный, разработанный Cybersun Industries имплант, необратимо изменяющий мозг цели, делая ее лояльной Синдикату."
+	desc = "Высокотехнологичный, разработанный Cybersun Industries, имплант, необратимо изменяющий мозг цели, делая ее лояльной Синдикату."
 	item = /obj/item/implanter/mini_traitor
 
 
@@ -2409,9 +2409,9 @@
 
 /datum/uplink_item/affiliate/hematogenic/hemophagus_extract
 	name = "Экстракт Гемофага"
-	desc = "Инжектор с дорогой и сложной в производстве сывороткой открытой Hematogenic Industries. При введении гуманойду, запускает сложные "
+	desc = "Инжектор с дорогой и сложной в производстве сывороткой, открытой Hematogenic Industries. При введении гуманойду запускает сложные процессы, делающие гуманойда вампиром."
 	item = /obj/item/hemophagus_extract/self
-	cost = 75 // A little bit stronger than normal vampire because of 25 TC, but with more hard objectives.
+	cost = 74 // A little bit stronger than normal vampire because of 26 TC, but with more hard objectives.
 	limited_stock = 1 // Sorry, only one
 
 

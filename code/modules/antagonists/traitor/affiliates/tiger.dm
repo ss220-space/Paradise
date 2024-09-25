@@ -5,7 +5,7 @@
 	name = "Tiger Cooperative"
 	desc = "Вы - послушник культа генокрадопоклонников и член организации Tiger Cooperative. \n\
 			Вышестоящие братья определили ваши задачи на станции NanoTrasen, не опозорьте их и явите миру новое дитя генокрада! \n\
-			Как вам стоит работать: не раскрывайте свое присутсвие и присутствие генокрада, позаботьтесь о его успешном внидрении. \n\
+			Как вам стоит работать: не раскрывайте свое присутсвие и присутствие генокрада, позаботьтесь о его успешном внедрении. \n\
 			Особые условия: братья по вере не пользуются оружием дальнего боя, предпочитая стимуляторы и энергомечи."
 	objectives = list(/datum/objective/new_mini_changeling, // Oh, sorry, I forgot to make that stupid drug objective...
 					/datum/objective/borers,
@@ -21,7 +21,7 @@
 
 /obj/item/cling_extract
 	name = "Egg Implanter"
-	desc = "Looks like something moving inside it"
+	desc = "Looks like something is moving inside it"
 	var/mob/living/carbon/human/target
 	var/free_inject = FALSE
 	var/used = FALSE
@@ -80,8 +80,6 @@
 			to_chat(user, span_notice("[target] body rejects [src]"))
 
 /obj/item/cling_extract/self
-	name = "Cling AutoInjector"
-	desc = "Looks like something moving inside it"
 	free_inject = TRUE
 
 /obj/item/cling_extract/update_icon_state()

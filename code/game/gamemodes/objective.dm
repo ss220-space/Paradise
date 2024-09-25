@@ -1803,7 +1803,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/download_data/New(text, datum/team/team_to_join)
 	. = ..()
 	req_techs = rand(30, 40)
-	explanation_text = "Украдите [req_techs] уровней технологий просканировав сервера R&D при помощи Фирменного SSD, который вы можете приобрести во вкладке \"Affiliate specific\"."
+	explanation_text = "Украдите [req_techs] уровней технологий, просканировав сервера R&D при помощи Фирменного SSD, который вы можете приобрести в аплинке."
 
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
@@ -1838,7 +1838,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/new_mini_traitor/New()
 	. = ..()
-	explanation_text = "Implant the [target.current.real_name], [target.assigned_role] with a modified mindslave implant. You can find it in uplink in \"Affiliate specific\""
+	explanation_text = "Implant [target.current.real_name], the [target.assigned_role] with a modified mindslave implant. You can find it in uplink."
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
 		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/mod_mindslave)
