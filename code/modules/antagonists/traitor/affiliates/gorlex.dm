@@ -24,10 +24,14 @@
 						)
 	can_take_bonus_objectives = FALSE
 
-/datum/affiliate/gorlex/finalize_affiliate()
+/datum/affiliate/gorlex/finalize_affiliate(datum/mind/owner)
 	. = ..()
 	add_discount_item(/datum/uplink_item/device_tools/stims, 0.7)
 	add_discount_item(/datum/uplink_item/suits/hardsuit, 0.75)
+
+	var/datum/atom_hud/antag/gorlhud = GLOB.huds[ANTAG_HUD_AFFIL_GORLEX]
+	gorlhud.join_hud(owner.current)
+	set_antag_hud(owner.current, "hudaffilgorlex")
 
 /datum/affiliate/gorlex/get_weight(mob/living/carbon/human/H)
 	switch (H.dna.species.type)

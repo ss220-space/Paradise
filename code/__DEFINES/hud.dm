@@ -64,6 +64,7 @@
 #define THOUGHTS_HUD 25
 //species hud
 #define DATA_HUD_KIDAN_PHEROMONES 26
+#define ANTAG_HUD_AFFIL_GORLEX 27
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
