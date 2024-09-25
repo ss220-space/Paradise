@@ -10,7 +10,7 @@
 	silent = FALSE,
 	affect_robotic = TRUE,
 )
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()
 
 	. = STATUS_UPDATE_NONE

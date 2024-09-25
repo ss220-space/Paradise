@@ -105,7 +105,7 @@
 	return breath
 
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 
 	if(!breath || (breath.total_moles() == 0))

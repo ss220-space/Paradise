@@ -76,7 +76,7 @@
 	if(has_upgrade(UPGRADE_FOCUS) && ishuman(target))
 		for(var/datum/antagonist/contractor/antag_datum in user.mind.antag_datums)
 			if(target == antag_datum?.contractor_uplink?.hub?.current_contract?.contract?.target.current)
-				target.apply_damage(20, STAMINA)
+				target.apply_damage(30, STAMINA)
 				target.AdjustJitter(20 SECONDS, bound_upper = 40 SECONDS)
 				break
 

@@ -1605,7 +1605,7 @@
 	name = "Cryptographic Sequencer"
 	desc = "The cryptographic sequencer, also known as an emag, is a small card that unlocks hidden functions in electronic devices, subverts intended functions and characteristically breaks security mechanisms."
 	item = /obj/item/card/emag
-	cost = 50 // No brainrot allowed
+	cost = 30 // Brainrot allowed
 
 /datum/uplink_item/device_tools/access_tuner
 	name = "Access Tuner"

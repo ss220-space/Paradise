@@ -122,10 +122,8 @@
 						span_notice("You hear something squishing..."))
 
 	original_body = user
-	ADD_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	ADD_TRAIT(slimeme, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	slimeme.status_flags |= GODMODE
-	user.status_flags |= GODMODE
+	original_body.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
+	slimeme.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	user.mind.transfer_to(slimeme)
 	slimeme.update_sight()
 	user.move_to_null_space()
@@ -141,8 +139,7 @@
 	if(QDELETED(src) || QDELETED(slimeme))
 		return
 
-	REMOVE_TRAIT(slimeme, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	slimeme.status_flags &= ~GODMODE
+	slimeme.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	is_transformed = TRUE
 
 
@@ -174,8 +171,7 @@
 		stack_trace("Spell or original_body was qdeled during the [src] work.")
 		return
 
-	REMOVE_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	original_body.status_flags &= ~GODMODE
+	original_body.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	is_transformed = FALSE
 	original_body = null
 

@@ -84,7 +84,7 @@
 
 
 /obj/item/organ/internal/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
-	if((H.status_flags & GODMODE) || HAS_TRAIT(H, TRAIT_NO_BREATH))
+	if(HAS_TRAIT(H, TRAIT_GODMODE) || HAS_TRAIT(H, TRAIT_NO_BREATH))
 		return
 
 	if(!breath || (breath.total_moles() == 0))
