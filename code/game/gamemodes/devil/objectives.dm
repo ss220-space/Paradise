@@ -75,8 +75,6 @@
 /datum/objective/devil/sintouch/check_completion()
 	return target_amount <= SSticker.mode.sintouched.len
 
-
-
 /datum/objective/devil/buy_target
 	explanation_text = "You shouldn't see this text.  Error:DEVIL4"
 
