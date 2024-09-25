@@ -6,13 +6,13 @@
 			Если вы и решитесь пойти на открытую конфронтацию - не забудьте прибрать следы, сменить тройку на двойку не будет ошибкой. \n\
 			Особые условия: агентам Корпорации не положено тяжелое и шумное снаряжение, однако набор \"Бонда\" уже ваш - не забудье забрать его."
 	objectives = list(/datum/objective/steal/documents,
-					list(/datum/objective/swap_docs = 80, /datum/objective/swap_docs/get_both = 20),
 					list(/datum/objective/steal = 30, /datum/objective/maroon = 70),
-					/datum/objective/steal,
+					list(/datum/objective/steal = 30, /datum/objective/maroon/blueshield = 70), // blueshield has revolver and CQC.
 					/datum/objective/steal,
 					/datum/objective/escape
 					)
 
 /datum/affiliate/mi13/finalize_affiliate(datum/mind/owner)
 	. = ..()
-	uplink.uses = 50
+	uplink.uses = 20
+	owner.has_antag_datum(/datum/antagonist/traitor).assign_exchange_role()
