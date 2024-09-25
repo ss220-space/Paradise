@@ -661,6 +661,7 @@
 			chassis.visible_message(span_warning("[chassis] stops supressing [holding] and switches to [target]."))
 			stop_supressing(holding, FALSE)
 			supress_effect = new(target.loc)
+			flick("applying", supress_effect)
 			if(!do_after_cooldown(target))
 				qdel(supress_effect)
 				supress_effect = null
@@ -673,6 +674,7 @@
 		occupant_message(span_notice("You start supressing [target]..."))
 		chassis.visible_message(span_warning("[chassis] starts supressing [target]."))
 		supress_effect = new(target.loc)
+		flick("applying", supress_effect)
 		if(!do_after_cooldown(target))
 			qdel(supress_effect)
 			supress_effect = null
@@ -707,13 +709,13 @@
 					button = H
 					break
 
-		change_state("mecha_cage_activate")
-		occupant_message(span_notice("You start putting [target] into the containment chamber..."))
+		change_state("mecha_cage_activated")
+		flick("mecha_cage_activate", button)
+		occupant_message(span_notice("Yoeu start putting [target] into the containment chamber..."))
 		chassis.visible_message(span_warning("[chassis] is putting [target] into the containment chamber."))
 		if(!do_after_cooldown(target))
 			change_state("mecha_cage")
 			return FALSE
-		change_state("mecha_cage_activated")
 		change_alert("three")
 		target.forceMove(src)
 		prisoner = target
@@ -857,6 +859,7 @@
 	name = "Mech claws"
 	desc = "Looks like someone is getting taken hostage..."
 	icon = 'icons/misc/supress_effect.dmi'
-	icon_state = "applying"
+	icon_state = "applied"
 	anchored = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = ABOVE_GAME_PLANE
