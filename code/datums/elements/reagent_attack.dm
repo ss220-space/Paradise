@@ -66,13 +66,13 @@
 
 /datum/element/reagent_attack/proc/pre_inject(mob/source, mob/living/carbon/target, target_zone)
 
-	if(!inject(source, target))
+	if(!inject(source, target, target_zone))
 		return
 
 	SEND_SIGNAL(source, COMSIG_REAGENT_INJECTED, target, reagent_id, reagent_amount, target_zone)
 	return
 
-/datum/element/reagent_attack/proc/inject(mob/source, mob/living/carbon/target)
+/datum/element/reagent_attack/proc/inject(mob/source, mob/living/carbon/target, target_zone)
 	if(target.reagents.add_reagent(reagent_id, reagent_amount))
 		return TRUE
 
@@ -82,7 +82,7 @@
 	reagent_id = "beetoxin"
 	reagent_amount = 5
 
-/datum/element/reagent_attack/bee/inject(mob/source, mob/living/carbon/target)
+/datum/element/reagent_attack/bee/inject(mob/source, mob/living/carbon/target, target_zone)
 	var/mob/living/simple_animal/hostile/poison/bees/bee = source
 	if(!bee.beegent)
 		return ..()
@@ -99,13 +99,13 @@
 	reagent_amount = 20
 	allowed_zones = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 
-/datum/element/reagent_attack/widow/inject(mob/source, mob/living/carbon/target)
+/datum/element/reagent_attack/widow/inject(mob/source, mob/living/carbon/target, target_zone)
 	if(!HAS_TRAIT(target, TRAIT_INCAPACITATED))
-		visible_message(span_danger("[src] pierces armour and buries its long fangs deep into the [target_zone] of [target]!"))
+		source.visible_message(span_danger("[src] pierces armour and buries its long fangs deep into the [target_zone] of [target]!"))
 		return ..()
 
 	if(target.reagents.add_reagent(reagent_id, 33)) // inject our special poison
-		visible_message(span_danger("[src] buries its long fangs deep into the [target_zone] of [target]!"))
+		source.visible_message(span_danger("[src] buries its long fangs deep into the [target_zone] of [target]!"))
 		return TRUE
 
 	return FALSE
