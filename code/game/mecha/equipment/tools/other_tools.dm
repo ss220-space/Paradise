@@ -660,8 +660,7 @@
 			occupant_message(span_notice("You stop supressing [holding], and start supressing [target]..."))
 			chassis.visible_message(span_warning("[chassis] stops supressing [holding] and switches to [target]."))
 			stop_supressing(holding, FALSE)
-			supress_effect = new(target.loc)
-			flick("applying", supress_effect)
+			set_supress_effect(target)
 			if(!do_after_cooldown(target))
 				qdel(supress_effect)
 				supress_effect = null
@@ -674,7 +673,7 @@
 		occupant_message(span_notice("You start supressing [target]..."))
 		chassis.visible_message(span_warning("[chassis] starts supressing [target]."))
 		supress_effect = new(target.loc)
-		flick("applying", supress_effect)
+		set_supress_effect(target)
 		if(!do_after_cooldown(target))
 			qdel(supress_effect)
 			supress_effect = null
@@ -709,13 +708,13 @@
 					button = H
 					break
 
-		change_state("mecha_cage_activated")
-		flick("mecha_cage_activate", button)
+		change_state("mecha_cage_activate")
 		occupant_message(span_notice("Yoeu start putting [target] into the containment chamber..."))
 		chassis.visible_message(span_warning("[chassis] is putting [target] into the containment chamber."))
 		if(!do_after_cooldown(target))
 			change_state("mecha_cage")
 			return FALSE
+		change_state("mecha_cage_activated")
 		change_alert("three")
 		target.forceMove(src)
 		prisoner = target
@@ -765,6 +764,10 @@
 
 	current_alert = stage_number
 
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/set_supress_effect(mob/living/carbon/target)
+	supress_effect = new(target.loc)
+	flick("applying", supress_effect)
 /obj/item/mecha_parts/mecha_equipment/cage/proc/prisoner_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
 		occupant_message(span_warning("[target] will not fit into the cage because [target.p_they()] [target.p_are()] buckled to [target.buckled]!"))
