@@ -1583,7 +1583,6 @@
 #include "code\modules\antagonists\devil\contracts\friend.dm"
 #include "code\modules\antagonists\devil\imp\imp.dm"
 #include "code\modules\antagonists\devil\true_devil\_true_devil.dm"
-#include "code\modules\antagonists\devil\true_devil\inventory.dm"
 #include "code\modules\antagonists\goon_vampire\goon_vampire_datum.dm"
 #include "code\modules\antagonists\goon_vampire\goon_vampire_powers.dm"
 #include "code\modules\antagonists\malf_ai\malf_ai_datum.dm"
