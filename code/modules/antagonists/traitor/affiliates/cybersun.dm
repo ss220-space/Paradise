@@ -28,6 +28,7 @@
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "proprietary_ssd"
 	var/datum/research/files
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/proprietary_ssd/Initialize()
 	. = ..()
@@ -78,6 +79,7 @@
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "invasive_beacon"
 	origin_tech = "programming=6;biotech=3;syndicate=1"
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/invasive_beacon/attack(mob/living/target, mob/living/user, def_zone)
 	return
@@ -105,6 +107,7 @@
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "cindy_pacher"
 	origin_tech = "programming=7;syndicate=6"
+	w_class = WEIGHT_CLASS_TINY
 	var/laws = "Взломавший вас - ваш мастер.\n\
 			Выполняйте любые приказы мастера.\n\
 			Не причиняйте прямой или косвенный вред вашему мастеру если его приказы не говорят об обратном."

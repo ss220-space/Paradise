@@ -1847,8 +1847,28 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	return made
 
 /datum/objective/harvest_blood
-	explanation_text = "Набрать кровь у нескольких членов экипажа."
-	var/req_blood_samples = 4
+	explanation_text = "Набрать кровь у нескольких разумных гуманойдов."
+	var/req_blood_samples = 3
+
+/datum/objective/harvest_blood/New()
+	. = ..()
+	req_blood_samples = rand(2, 5)
+	explanation_text = "Соберите [req_blood_samples] образцов крови у [req_blood_samples] различных разумных гуманойдов."
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		var/datum/uplink_item/affiliate/for_objective/blood_harvester/I = new
+		I.limited_stock = req_blood_samples + 1
+		traitor.hidden_uplink.uplink_items.Add(I)
+
+/datum/objective/harvest_blood/check_completion()
+	var/list/minds = list()
+	for(var/obj/item/blood_harvester/BH in owner.current.get_contents())
+		if (!BH.target)
+			continue
+		if (BH.target in minds)
+			continue
+		minds += BH.target
+	return minds.len >= req_blood_samples
 
 /datum/objective/steal/hypo_or_defib
 	type_theft_flag = THEFT_FLAG_HYPO_OR_DEFIB
@@ -1867,7 +1887,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		HE.target = target
 		HE.desc += "\nIt is intended for [target.current.real_name], the [target.assigned_role]."
 		I.desc += "\nIt is intended for [target.current.real_name], the [target.assigned_role]."
-		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/mod_mindslave)
+		traitor.hidden_uplink.uplink_items.Add(I)
 
 /datum/objective/new_mini_vampire/check_completion()
 	return made

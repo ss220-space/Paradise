@@ -2419,6 +2419,11 @@
 	desc = "Инжектор с дорогой и сложной в производстве сывороткой, открытой Hematogenic Industries. При введении гуманойду запускает сложные процессы, делающие гуманойда вампиром."
 	item = /obj/item/hemophagus_extract
 
+/datum/uplink_item/affiliate/for_objective/blood_harvester
+	name = "Сборщик крови"
+	desc = "Большой шприц, специально разработаный для быстрого сбора больших объемов крови. Можно исспользовать только на гуманойдах обладающих душой. Из-за высокой скорости сбора крови, обычно значительно повреждает кровеносную систему цели."
+	item = /obj/item/blood_harvester
+
 /datum/uplink_item/affiliate/self
 	affiliate = list(AFFIL_SELF)
 
