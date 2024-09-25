@@ -166,17 +166,18 @@
 	return TRUE
 
 /mob/living/carbon/true_devil/ex_act(severity, ex_target)
-	if(!ascended)
-		var/b_loss
-		switch (severity)
-			if (1)
-				b_loss = 500
-			if (2)
-				b_loss = 150
-			if(3)
-				b_loss = 30
-		if(has_bane(BANE_LIGHT))
-			b_loss *=2
-		adjustBruteLoss(b_loss)
+	var/b_loss
+	switch(severity)
+		if(1)
+			b_loss = 500
+		if(2)
+			b_loss = 150
+		if(3)
+			b_loss = 30
+			
+	if(has_bane(BANE_LIGHT))
+		b_loss *=2
+
+	adjustBruteLoss(b_loss)
 	return ..()
 

@@ -17,7 +17,8 @@
 
 /datum/objective/devil/soulquantity/check_completion()
 	var/count = 0
-	for(var/S in owner.devilinfo.soulsOwned)
+	var/datum/antagonist/devil/devil = owner.has_antag_datum(/datum/antagonist/devil)
+	for(var/S in devil.soulsOwned)
 		var/datum/mind/L = S
 		if(L.soulOwner == owner)
 			count++
@@ -54,7 +55,8 @@
 
 /datum/objective/devil/soulquality/check_completion()
 	var/count = 0
-	for(var/S in owner.devilinfo.soulsOwned)
+	var/datum/antagonist/devil/devil = owner.has_antag_datum(/datum/antagonist/devil)
+	for(var/S in devil.soulsOwned)
 		var/datum/mind/L = S
 		if(L.soulOwner != L && L.damnation_type == contractType)
 			count++
@@ -90,23 +92,3 @@
 
 /datum/objective/devil/buy_target/check_completion()
 	return target.soulOwner == owner
-
-
-/datum/objective/devil/outsell
-	explanation_text = "You shouldn't see this text.  Error:DEVIL5"
-
-/datum/objective/devil/outsell/update_explanation_text()
-	explanation_text = "Purchase and retain control over more souls than [target.devilinfo.truename], known to mortals as [target.name], the [target.assigned_role]."
-
-/datum/objective/devil/outsell/check_completion()
-	var/selfcount = 0
-	for(var/S in owner.devilinfo.soulsOwned)
-		var/datum/mind/L = S
-		if(L.soulOwner == owner)
-			selfcount++
-	var/targetcount = 0
-	for(var/S in target.devilinfo.soulsOwned)
-		var/datum/mind/L = S
-		if(L.soulOwner == target)
-			targetcount++
-	return selfcount > targetcount

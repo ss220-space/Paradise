@@ -1,10 +1,9 @@
 /datum/antagonist/devil
 	name = "Devil"
 	roundend_category = "devils"
-	antagpanel_category = "Devil"
 	job_rank = ROLE_DEVIL
+	special_role = ROLE_DEVIL
 	antag_hud_name = "devil"
-	show_to_ghosts = TRUE
 	var/obligation
 	var/ban
 	var/bane
@@ -13,16 +12,12 @@
 	var/list/datum/mind/soulsOwned = new
 	var/form = BASIC_DEVIL
 	var/static/list/devil_spells = typecacheof(list(
-		/datum/action/cooldown/spell/pointed/projectile/fireball/hellish,
-		/datum/action/cooldown/spell/conjure_item/summon_pitchfork,
-		/datum/action/cooldown/spell/conjure_item/summon_pitchfork/greater,
-		/datum/action/cooldown/spell/conjure_item/summon_pitchfork/ascended,
-		/datum/action/cooldown/spell/jaunt/infernal_jaunt,
-		/datum/action/cooldown/spell/aoe/sintouch,
-		/datum/action/cooldown/spell/aoe/sintouch/ascended,
-		/datum/action/cooldown/spell/pointed/summon_contract,
-		/datum/action/cooldown/spell/conjure_item/violin,
-		/datum/action/cooldown/spell/summon_dancefloor))
+		/obj/effect/proc_holder/spell/fireball/hellish,
+		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
+		/obj/effect/proc_holder/spell/conjure_item/violin,
+		/obj/effect/proc_holder/spell/summon_dancefloor,
+		/obj/effect/proc_holder/spell/sintouch
+		))
 
 /datum/antagonist/devil/can_be_owned(datum/mind/new_owner)
 	. = ..()
@@ -43,7 +38,9 @@
 	if(prob(65))
 		if(prob(35))
 			name = pick(GLOB.devil_pre_title)
+
 		name += pick(GLOB.devil_title)
+
 	var/probability = 100
 	name += pick(GLOB.devil_syllable)
     
@@ -60,7 +57,7 @@
 	return pick(OBLIGATION_FOOD, OBLIGATION_FIDDLE, OBLIGATION_DANCEOFF, OBLIGATION_GREET, OBLIGATION_PRESENCEKNOWN, OBLIGATION_SAYNAME, OBLIGATION_ANNOUNCEKILL, OBLIGATION_ANSWERTONAME)
 
 /proc/randomdevilban()
-	return pick(BAN_HURTWOMAN, BAN_CHAPEL, BAN_HURTPRIEST, BAN_AVOIDWATER, BAN_STRIKEUNCONSCIOUS, BAN_HURTLIZARD, BAN_HURTANIMAL)
+	return pick(BAN_HURTWOMAN, BAN_CHAPEL, BAN_HURTPRIEST, BAN_AVOIDWATER, BAN_HURTLIZARD, BAN_HURTANIMAL)
 
 /proc/randomdevilbane()
 	return pick(BANE_SALT, BANE_LIGHT, BANE_IRON, BANE_WHITECLOTHES, BANE_SILVER, BANE_HARVEST, BANE_TOOLBOX)
@@ -87,28 +84,29 @@
 			increase_blood_lizard()
 		if(TRUE_THRESHOLD)
 			increase_true_devil()
-		if(ARCH_THRESHOLD)
-			increase_arch_devil()
 
 /datum/antagonist/devil/proc/remove_soul(datum/mind/soul)
 	if(soulsOwned.Remove(soul))
-		check_regression()
 		to_chat(owner.current, span_warning("You feel as though a soul has slipped from your grasp."))
 		update_hud()
 
 /datum/antagonist/devil/proc/increase_blood_lizard()
-	to_chat(owner.current, span_warning("You feel as though your humanoid form is about to shed.  You will soon turn into a blood lizard."))
-
-	if(ishuman(owner.current))
-		var/mob/living/carbon/human/H = owner.current
-		H.set_species(/datum/species/lizard, TRUE)
-		H.underwear = "Nude"
-		H.undershirt = "Nude"
-		H.socks = "Nude"
-		H.dna.features["mcolor"] = "#551111" //A deep red
-		H.regenerate_icons()
-	else //Did the devil get hit by a staff of transmutation?
+	if(!ishuman(owner.current))
 		owner.current.color = "#501010"
+		return
+
+	var/mob/living/carbon/human/H = owner.current
+	var/list/language_temp = LAZYLEN(H.languages) ? H.languages.Copy() : null
+	H.set_species(/datum/species/unathi)
+
+	if(language_temp)
+		H.languages = language_temp
+
+	H.underwear = "Nude"
+	H.undershirt = "Nude"
+	H.socks = "Nude"
+	H.change_skin_color(80, 16, 16) //A deep red
+	H.regenerate_icons()
 
 	form = BLOOD_LIZARD
 	update_spells()
@@ -159,17 +157,17 @@
 				return FALSE
 
 			var/mob/living/carbon/H = body
-			return H.reagents.has_reagent(/datum/reagent/water/holywater)
+			return H.reagents.has_reagent("holy water")
 
 		if(BANISH_COFFIN)
-			return (body && istype(body.loc, /obj/structure/closet/crate/coffin))
+			return (body && istype(body.loc, /obj/structure/closet/coffin))
 
 		if(BANISH_FORMALDYHIDE)
 			if(!iscarbon(body))
 				return FALSE
 
 			var/mob/living/carbon/H = body
-			return H.reagents.has_reagent(/datum/reagent/toxin/formaldehyde)
+			return H.reagents.has_reagent("formaldehyde")
 
 		if(BANISH_RUNES)
 			if(!body)
@@ -192,14 +190,14 @@
 			return body
 
 		if(BANISH_FUNERAL_GARB)
-			if(!ishuman(body))
+			if(!iscarbon(body))
 				return FALSE
 
 			var/mob/living/carbon/human/H = body
-			if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/rank/civilian/chaplain/burial))
+			if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/burial))
 				return TRUE
-
-			for(var/obj/item/clothing/under/rank/civilian/chaplain/burial/B in range(0,body))
+			
+			for(var/obj/item/clothing/under/burial/B in range(0,body))
 				if(B.loc == get_turf(B)) //Make sure it's not in someone's inventory or something.
 					return TRUE
 
@@ -232,10 +230,11 @@
 	bane = randomdevilbane()
 	obligation = randomdevilobligation()
 	banish = randomdevilbanish()
+
 	GLOB.allDevils[lowertext(truename)] = src
 	var/mob/living/carbon/human/human = owner.current
 	human.store_memory("Your devilic true name is [truename]<br>[GLOB.lawlorify[LAW][ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][bane]]<br>[GLOB.lawlorify[LAW][obligation]]<br>[GLOB.lawlorify[LAW][banish]]<br>")
-	handle_clown_mutation(owner.current, "Your infernal nature has allowed you to overcome your clownishness.")
+
 	return ..()
 
 /datum/antagonist/devil/add_owner_to_gamemode()
@@ -248,29 +247,29 @@
 	to_chat(owner.current, span_userdanger("Your infernal link has been severed! You are no longer a devil!"))
 
 /datum/antagonist/devil/apply_innate_effects(mob/living/mob_override)
+	. = ..()
 	update_spells()
 	update_hud()
-	.=..()
 
-/datum/antagonist/devil/remove_innate_effects(mob/living/mob_override)
+/datum/antagonist/devil/remove_innate_effects()
 	. = ..()
 	remove_spells()
 
 /datum/antagonist/devil/proc/printdevilinfo()
 	var/list/parts = list()
-	parts += "The devil's true name is: [truename]"
-	parts += "The devil's bans were:"
-	parts += (GLOB.lawlorify[LAW][bane])
-	parts += (GLOB.lawlorify[LAW][ban])
-	parts += (GLOB.lawlorify[LAW][obligation])
-	parts += (GLOB.lawlorify[LAW][banish])
+	LAZYADD(parts, "The devil's true name is: [truename]")
+	LAZYADD(parts, "The devil's bans were:")
+	LAZYADD(parts, (GLOB.lawlorify[LAW][bane]))
+	LAZYADD(parts, (GLOB.lawlorify[LAW][ban]))
+	LAZYADD(parts, (GLOB.lawlorify[LAW][obligation]))
+	LAZYADD(parts, (GLOB.lawlorify[LAW][banish]))
 	return parts.Join("<br>")
 
 /datum/antagonist/devil/roundend_report()
 	var/list/parts = list()
-	parts += printplayer(owner)
-	parts += printdevilinfo()
-	parts += printobjectives(objectives)
+	LAZYADD(parts, printplayer(owner))
+	LAZYADD(parts, printdevilinfo())
+	LAZYADD(parts, printobjectives(objectives))
 	return parts.Join("<br>")
 
 /datum/outfit/devil_lawyer
@@ -281,7 +280,6 @@
 	l_hand = /obj/item/storage/briefcase
 	l_pocket = /obj/item/pen
 	l_ear = /obj/item/radio/headset
-
 	id = /obj/item/card/id
 
 /datum/outfit/devil_lawyer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -291,6 +289,7 @@
 
 	var/name_to_use = H.real_name
 	var/datum/antagonist/devil/devilinfo = H.mind?.has_antag_datum(/datum/antagonist/devil)
+
 	if(devilinfo)
 		// Having hell create an ID for you causes its risks
 		name_to_use = devilinfo.truename

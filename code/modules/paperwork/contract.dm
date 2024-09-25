@@ -67,6 +67,7 @@
 	var/contractType = 0
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/datum/antagonist/devil/devilinfo
+	var/mob/living/carbon/human/owner
 	icon_state = "evil_contract"
 
 /obj/item/paper/contract/infernal/power
@@ -104,6 +105,7 @@
 /obj/item/paper/contract/infernal/New(atom/loc, mob/living/nTarget, datum/mind/nOwner)
 	..()
 	devilinfo = nOwner.has_antag_datum(/datum/antagonist/devil)
+	owner = nOwner
 	target = nTarget
 	update_text()
 

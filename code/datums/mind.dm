@@ -2727,27 +2727,10 @@
 
 /datum/mind/proc/remove_devil_role()
 	if(src in SSticker.mode.devils)
-		if(istype(current,/mob/living/carbon/true_devil/))
-		else
-			SSticker.mode.devils -= src
-			SSticker.mode.update_devil_icons_removed(src)
-			special_role = null
-			RemoveSpell(/obj/effect/proc_holder/spell/infernal_jaunt)
-			RemoveSpell(/obj/effect/proc_holder/spell/fireball/hellish)
-			RemoveSpell(/obj/effect/proc_holder/spell/summon_contract)
-			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/pitchfork)
-			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/pitchfork/greater)
-			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/pitchfork/ascended)
-			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/violin)
-			RemoveSpell(/obj/effect/proc_holder/spell/summon_dancefloor)
-			RemoveSpell(/obj/effect/proc_holder/spell/sintouch)
-			RemoveSpell(/obj/effect/proc_holder/spell/sintouch/ascended)
-			if(issilicon(current))
-				var/mob/living/silicon/S = current
-				S.laws.clear_sixsixsix_laws()
-			devilinfo = null
+		remove_antag_datum(/datum/antagonist/devil)
+
 	else if(src in SSticker.mode.sintouched)
-		SSticker.mode.sintouched -= src
+		LAZYREMOVE(SSticker.mode.sintouched, src)
 
 
 /datum/mind/proc/remove_contractor_role()
