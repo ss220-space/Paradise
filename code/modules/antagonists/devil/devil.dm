@@ -27,7 +27,7 @@
 /datum/antagonist/devil/can_be_owned(datum/mind/new_owner)
 	. = ..()
 	if(!ishuman(owner.current))
-        return FALSE
+		return FALSE
 
 /proc/devilInfo(name)
 	if(GLOB.allDevils[lowertext(name)])
@@ -77,10 +77,10 @@
 	to_chat(owner.current, span_warning("You feel satiated as you received a new soul."))
 	update_hud()
 
-    if(!SOULVALUE)
-        to_chat(owner.current, span_warning("Your hellish powers have been restored."))
+	if(!SOULVALUE)
+		to_chat(owner.current, span_warning("Your hellish powers have been restored."))
 		update_spells()
-        return
+		return
 
 	switch(SOULVALUE)
 		if(BLOOD_THRESHOLD)
@@ -128,35 +128,35 @@
 	update_hud()
 
 /datum/antagonist/devil/proc/remove_spells()
-	for(var/datum/action/cooldown/spell/spells in owner.current.actions)
-		if(is_type_in_typecache(spells, devil_spells))
-			spells.Remove(owner.current)
+	for(var/obj/effect/proc_holder/spell/spell as anything in owner.spell_list)
+		if(is_type_in_typecache(spell, devil_spells))
+			owner.RemoveSpell(spell)
 
 /datum/antagonist/devil/proc/update_spells()
 	remove_spells()
-    switch(form)
-        if(BASIC_DEVIL)
-	        owner.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish(null))
-	        owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/pitchfork(null))
-		    if(obligation == OBLIGATION_FIDDLE)
-			    owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/violin(null))
-		    if(obligation == OBLIGATION_DANCEOFF)
-			    owner.AddSpell(new /obj/effect/proc_holder/spell/summon_dancefloor(null))
-        if(BLOOD_LIZARD)
-            owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/pitchfork(null))
-	        owner.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish(null))
-	        owner.AddSpell(new /obj/effect/proc_holder/spell/infernal_jaunt(null))
-        if(TRUE_DEVIL)
-            owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/pitchfork/greater(null))
-	        owner.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish(null))
-	        owner.AddSpell(new /obj/effect/proc_holder/spell/infernal_jaunt(null))
-	        owner.AddSpell(new /obj/effect/proc_holder/spell/sintouch(null))
+	switch(form)
+		if(BASIC_DEVIL)
+			owner.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish(null))
+			owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/pitchfork(null))
+			if(obligation == OBLIGATION_FIDDLE)
+				owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/violin(null))
+			if(obligation == OBLIGATION_DANCEOFF)
+				owner.AddSpell(new /obj/effect/proc_holder/spell/summon_dancefloor(null))
+		if(BLOOD_LIZARD)
+			owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/pitchfork(null))
+			owner.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish(null))
+			owner.AddSpell(new /obj/effect/proc_holder/spell/infernal_jaunt(null))
+		if(TRUE_DEVIL)
+			owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/pitchfork/greater(null))
+			owner.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish(null))
+			owner.AddSpell(new /obj/effect/proc_holder/spell/infernal_jaunt(null))
+			owner.AddSpell(new /obj/effect/proc_holder/spell/sintouch(null))
 
 /datum/antagonist/devil/proc/check_banishment(mob/living/body)
 	switch(banish)
 		if(BANISH_WATER)
 			if(!iscarbon(body))
-                return FALSE
+				return FALSE
 
 			var/mob/living/carbon/H = body
 			return H.reagents.has_reagent(/datum/reagent/water/holywater)
@@ -166,21 +166,21 @@
 
 		if(BANISH_FORMALDYHIDE)
 			if(!iscarbon(body))
-                return FALSE
+				return FALSE
 
 			var/mob/living/carbon/H = body
 			return H.reagents.has_reagent(/datum/reagent/toxin/formaldehyde)
 
 		if(BANISH_RUNES)
 			if(!body)
-                return FALSE
+				return FALSE
 
 			for(var/obj/effect/decal/cleanable/crayon/R in range(0,body))
 				return R.name == "rune"
 
 		if(BANISH_CANDLES)
 			if(!body)
-                return FALSE
+				return FALSE
             
 			var/count = 0
 			for(var/obj/item/candle/C in range(1,body))
@@ -193,7 +193,7 @@
 
 		if(BANISH_FUNERAL_GARB)
 			if(!ishuman(body))
-                return FALSE
+				return FALSE
 
 			var/mob/living/carbon/human/H = body
 			if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under/rank/civilian/chaplain/burial))
@@ -207,11 +207,11 @@
 
 /datum/antagonist/devil/proc/update_hud()
 	if(!iscarbon(owner.current))
-        return
+		return
 
 	var/mob/living/C = owner.current
 	if(C.hud_used && C.hud_used.devilsouldisplay)
-	    C.hud_used.devilsouldisplay.update_counter(SOULVALUE)
+		C.hud_used.devilsouldisplay.update_counter(SOULVALUE)
 
 /datum/antagonist/devil/greet()
 	var/list/messages = list()
@@ -233,7 +233,7 @@
 	obligation = randomdevilobligation()
 	banish = randomdevilbanish()
 	GLOB.allDevils[lowertext(truename)] = src
-    var/mob/living/carbon/human/human = owner.current
+	var/mob/living/carbon/human/human = owner.current
 	human.store_memory("Your devilic true name is [truename]<br>[GLOB.lawlorify[LAW][ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][bane]]<br>[GLOB.lawlorify[LAW][obligation]]<br>[GLOB.lawlorify[LAW][banish]]<br>")
 	handle_clown_mutation(owner.current, "Your infernal nature has allowed you to overcome your clownishness.")
 	return ..()
@@ -244,32 +244,26 @@
 /datum/antagonist/devil/remove_owner_from_gamemode()
 	LAZYREMOVE(SSticker.mode.devils, owner)
 
-/datum/antagonist/devil/on_removal()
+/datum/antagonist/devil/farewell()
 	to_chat(owner.current, span_userdanger("Your infernal link has been severed! You are no longer a devil!"))
-	. = ..()
 
 /datum/antagonist/devil/apply_innate_effects(mob/living/mob_override)
 	update_spells()
-	owner.current.grant_all_languages(TRUE, TRUE, TRUE, LANGUAGE_DEVIL)
 	update_hud()
 	.=..()
 
 /datum/antagonist/devil/remove_innate_effects(mob/living/mob_override)
-	for(var/datum/action/cooldown/spell/spells in owner.current.actions)
-		if(is_type_in_typecache(spells, devil_spells))
-			spells.Remove(owner.current)
-
-	owner.current.remove_all_languages(LANGUAGE_DEVIL)
 	. = ..()
+	remove_spells()
 
 /datum/antagonist/devil/proc/printdevilinfo()
 	var/list/parts = list()
 	parts += "The devil's true name is: [truename]"
 	parts += "The devil's bans were:"
-	parts += "[GLOB.TAB][GLOB.lawlorify[LORE][ban]]"
-	parts += "[GLOB.TAB][GLOB.lawlorify[LORE][bane]]"
-	parts += "[GLOB.TAB][GLOB.lawlorify[LORE][obligation]]"
-	parts += "[GLOB.TAB][GLOB.lawlorify[LORE][banish]]"
+	parts += (GLOB.lawlorify[LAW][bane])
+	parts += (GLOB.lawlorify[LAW][ban])
+	parts += (GLOB.lawlorify[LAW][obligation])
+	parts += (GLOB.lawlorify[LAW][banish])
 	return parts.Join("<br>")
 
 /datum/antagonist/devil/roundend_report()
@@ -296,9 +290,10 @@
 		return
 
 	var/name_to_use = H.real_name
-	if(H.mind && H.mind.devilinfo)
+	var/datum/antagonist/devil/devilinfo = H.mind?.has_antag_datum(/datum/antagonist/devil)
+	if(devilinfo)
 		// Having hell create an ID for you causes its risks
-		name_to_use = H.mind.devilinfo.truename
+		name_to_use = devilinfo.truename
 
 	W.name = "[name_to_use]'s ID Card (Lawyer)"
 	W.registered_name = name_to_use

@@ -1499,16 +1499,16 @@
 	user.visible_message(
 		span_notice("[user] presses the button on \the [src].",
 		"You press the button on \the [src].",
-		"You hear a soft click.")
+		"You hear a soft click."))
 
 	var/list/messages = list()
 	var/datum/fakeDevil/devil = new
 
-	messages += "Some fun facts about: [devil.truename]"
-	messages += "[GLOB.lawlorify[LORE][devil.bane]]"
-	messages += "[GLOB.lawlorify[LORE][devil.obligation]]"
-	messages += "[GLOB.lawlorify[LORE][devil.ban]]"
-	messages += "[GLOB.lawlorify[LORE][devil.banish]]"
+	LAZYADD(messages, "Some fun facts about: [devil.truename]")
+	LAZYADD(messages, GLOB.lawlorify[LAW][bane])
+	LAZYADD(messages, GLOB.lawlorify[LAW][ban])
+	LAZYADD(messages, GLOB.lawlorify[LAW][obligation])
+	LAZYADD(messages, GLOB.lawlorify[LAW][banish])
 
 	playsound(loc, 'sound/machines/click.ogg', 20, 1)
 	cooldown = TRUE

@@ -1,10 +1,9 @@
 /mob/living/proc/check_devil_bane_multiplier(obj/item/weapon, mob/living/attacker)
-    var/datum/antagonist/devil/devilInfo = mind.has_antag_datum(/datum/antagonist/devil)
-    
-	switch(devilinfo.bane)
+	var/datum/antagonist/devil/devilInfo = mind.has_antag_datum(/datum/antagonist/devil)
+	switch(devilInfo.bane)
 		if(BANE_WHITECLOTHES)
 			if(!ishuman(attacker))
-                return 0
+				return 0
 
 			var/mob/living/carbon/human/H = attacker
 			if(H.w_uniform && istype(H.w_uniform, /obj/item/clothing/under))
@@ -64,7 +63,7 @@
 	if(!mind?.objectives)
 		return FALSE
 
-	for(var/datum/objective/sintouched/acedia/A in .mind.objectives)
+	for(var/datum/objective/sintouched/acedia/A in mind.objectives)
 		return TRUE
 
 	return FALSE

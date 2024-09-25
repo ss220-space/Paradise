@@ -40,7 +40,7 @@
 	var/list/messages = list()
 	
 	if(devilinfo)
-		messages.Add(devilinfo.announce_laws(src))
+		messages.Add(devilinfo.greet())
 
 	messages.Add(mind.prepare_announce_objectives())
 	to_chat(mind.current, chat_box_red(messages.Join("<br>")))
@@ -138,7 +138,7 @@
 				adjustBruteLoss(damage)
 				add_attack_logs(M, src, "attacked")
 			if(INTENT_DISARM)
-				if(body_position == STANDING_UP && !ascended) //No stealing the arch devil's pitchfork.
+				if(body_position == STANDING_UP) //No stealing the arch devil's pitchfork.
 					if(prob(5))
 						// Weaken knocks people over
 						// Paralyse knocks people out
