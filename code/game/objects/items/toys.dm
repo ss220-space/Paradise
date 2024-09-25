@@ -1505,10 +1505,10 @@
 	var/datum/fakeDevil/devil = new
 
 	LAZYADD(messages, "Some fun facts about: [devil.truename]")
-	LAZYADD(messages, GLOB.lawlorify[LAW][bane])
-	LAZYADD(messages, GLOB.lawlorify[LAW][ban])
-	LAZYADD(messages, GLOB.lawlorify[LAW][obligation])
-	LAZYADD(messages, GLOB.lawlorify[LAW][banish])
+	LAZYADD(messages, GLOB.lawlorify[LAW][devil.bane])
+	LAZYADD(messages, GLOB.lawlorify[LAW][devil.ban])
+	LAZYADD(messages, GLOB.lawlorify[LAW][devil.obligation])
+	LAZYADD(messages, GLOB.lawlorify[LAW][devil.banish])
 
 	playsound(loc, 'sound/machines/click.ogg', 20, 1)
 	cooldown = TRUE

@@ -127,7 +127,7 @@
 			owner.AddSpell(new /obj/effect/proc_holder/spell/summon_dancefloor(null))
 
 /datum/antagonist/devil/proc/check_banishment()
-	if(!iscarbon(body) || QDELETED(body))
+	if(!iscarbon(owner.current) || QDELETED(owner.current))
 		return FALSE
 
 	var/mob/living/carbon/human/human = owner.current
@@ -137,7 +137,7 @@
 			return human.reagents?.has_reagent("holy water")
 
 		if(BANISH_COFFIN)
-			return (istype(body?.loc, /obj/structure/closet/coffin))
+			return (istype(human?.loc, /obj/structure/closet/coffin))
 
 		if(BANISH_FORMALDYHIDE)
 			return human.reagents?.has_reagent("formaldehyde")

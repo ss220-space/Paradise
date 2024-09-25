@@ -1978,8 +1978,6 @@
 					return
 
 				add_antag_datum(/datum/antagonist/devil)
-				SSticker.mode.update_devil_icons_added(src)
-
 				message_admins("[key_name_admin(usr)] has devil'ed [current].")
 				log_admin("[key_name(usr)] has devil'ed [current].")
 			if("sintouched")
