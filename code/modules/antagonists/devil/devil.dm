@@ -3,7 +3,7 @@
 	roundend_category = "devils"
 	job_rank = ROLE_DEVIL
 	special_role = ROLE_DEVIL
-	antag_hud_name = "devil"
+	antag_hud_type = ANTAG_HUD_DEVIL
 	var/obligation
 	var/ban
 	var/bane
@@ -23,47 +23,6 @@
 	. = ..()
 	if(!ishuman(owner.current))
 		return FALSE
-
-/proc/devilInfo(name)
-	if(GLOB.allDevils[lowertext(name)])
-		return GLOB.allDevils[lowertext(name)]
-
-	var/datum/fakeDevil/devil = new /datum/fakeDevil(name)
-	GLOB.allDevils[lowertext(name)] = devil
-
-	return devil
-
-/proc/randomDevilName()
-	var/name = ""
-	if(prob(65))
-		if(prob(35))
-			name = pick(GLOB.devil_pre_title)
-
-		name += pick(GLOB.devil_title)
-
-	var/probability = 100
-	name += pick(GLOB.devil_syllable)
-    
-	while(prob(probability))
-		name += pick(GLOB.devil_syllable)
-		probability -= 20
-
-	if(prob(40))
-		name += pick(GLOB.devil_suffix)
-
-	return name
-
-/proc/randomdevilobligation()
-	return pick(OBLIGATION_FOOD, OBLIGATION_FIDDLE, OBLIGATION_DANCEOFF, OBLIGATION_GREET, OBLIGATION_PRESENCEKNOWN, OBLIGATION_SAYNAME, OBLIGATION_ANNOUNCEKILL, OBLIGATION_ANSWERTONAME)
-
-/proc/randomdevilban()
-	return pick(BAN_HURTWOMAN, BAN_CHAPEL, BAN_HURTPRIEST, BAN_AVOIDWATER, BAN_HURTLIZARD, BAN_HURTANIMAL)
-
-/proc/randomdevilbane()
-	return pick(BANE_SALT, BANE_LIGHT, BANE_IRON, BANE_WHITECLOTHES, BANE_SILVER, BANE_HARVEST, BANE_TOOLBOX)
-
-/proc/randomdevilbanish()
-	return pick(BANISH_WATER, BANISH_COFFIN, BANISH_FORMALDYHIDE, BANISH_RUNES, BANISH_CANDLES, BANISH_DESTRUCTION, BANISH_FUNERAL_GARB)
 
 /datum/antagonist/devil/proc/add_soul(datum/mind/soul)
 	if(soulsOwned.Find(soul))
@@ -204,12 +163,18 @@
 			return FALSE
 
 /datum/antagonist/devil/proc/update_hud()
-	if(!iscarbon(owner.current))
+	var/mob/living/living = owner.current
+	if(living.hud_used && living.hud_used.devilsouldisplay)
+		living.hud_used.devilsouldisplay.update_counter(SOULVALUE)
+
+/datum/antagonist/devil/proc/remove_hud()
+	var/mob/living = owner.current
+	var/datum/hud/devil/devil = living.hud_used
+
+	if(!devil)
 		return
 
-	var/mob/living/C = owner.current
-	if(C.hud_used && C.hud_used.devilsouldisplay)
-		C.hud_used.devilsouldisplay.update_counter(SOULVALUE)
+	qdel(devil)
 
 /datum/antagonist/devil/greet()
 	var/list/messages = list()
@@ -254,6 +219,7 @@
 /datum/antagonist/devil/remove_innate_effects()
 	. = ..()
 	remove_spells()
+	remove_hud()
 
 /datum/antagonist/devil/proc/printdevilinfo()
 	var/list/parts = list()

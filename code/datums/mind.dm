@@ -1977,9 +1977,8 @@
 				if(!ishuman(current) || devil)
 					return
 
-				add_antag_datum(devil)
+				add_antag_datum(/datum/antagonist/devil)
 				SSticker.mode.update_devil_icons_added(src)
-				SSticker.mode.finalize_devil(src, FALSE)
 
 				message_admins("[key_name_admin(usr)] has devil'ed [current].")
 				log_admin("[key_name(usr)] has devil'ed [current].")

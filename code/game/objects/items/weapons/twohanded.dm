@@ -867,7 +867,7 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
 
-	if(!user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner == user.mind))
+	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner == user.mind))
 		return .
 
 	to_chat(user, span_warning("The [name] burns in your hands!"))

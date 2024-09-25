@@ -1497,9 +1497,10 @@
 		return
 
 	user.visible_message(
-		span_notice("[user] presses the button on \the [src].",
-		"You press the button on \the [src].",
-		"You hear a soft click."))
+		span_notice("[user] presses the button on \the [src].", \
+		"You press the button on \the [src].", \
+		"You hear a soft click.", \
+		))
 
 	var/list/messages = list()
 	var/datum/fakeDevil/devil = new
