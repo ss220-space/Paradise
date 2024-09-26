@@ -2414,23 +2414,29 @@
 
 /datum/uplink_item/affiliate/hematogenic/hemophagus_extract
 	name = "Экстракт Гемофага"
-	desc = "Инжектор с дорогой и сложной в производстве сывороткой, открытой Hematogenic Industries. При введении гуманойду запускает сложные процессы, делающие гуманойда вампиром."
+	desc = "Инжектор с дорогой и сложной в производстве сывороткой, открытой Hematogenic Industries. При введении гуманоиду запускает сложные процессы, делающие гуманоида вампиром."
 	item = /obj/item/hemophagus_extract/self
 	cost = 74 // A little bit stronger than normal vampire because of 26 TC, but with more hard objectives.
 	limited_stock = 1 // Sorry, only one
 
 /datum/uplink_item/affiliate/for_objective/hemophagus_extract
 	name = "Экстракт Гемофага"
-	desc = "Инжектор с дорогой и сложной в производстве сывороткой, открытой Hematogenic Industries. При введении гуманойду запускает сложные процессы, делающие гуманойда вампиром."
+	desc = "Инжектор с дорогой и сложной в производстве сывороткой, открытой Hematogenic Industries. При введении гуманоиду запускает сложные процессы, делающие гуманоида вампиром."
 	item = /obj/item/hemophagus_extract
 
 /datum/uplink_item/affiliate/for_objective/blood_harvester
 	name = "Сборщик крови"
-	desc = "Большой шприц, специально разработаный для быстрого сбора больших объемов крови. Можно исспользовать только на гуманойдах обладающих душой. Из-за высокой скорости сбора крови, обычно значительно повреждает кровеносную систему цели."
+	desc = "Большой шприц, специально разработаный для быстрого сбора больших объемов крови. Можно исспользовать только на гуманоидах обладающих душой. Из-за высокой скорости сбора крови, обычно значительно повреждает кровеносную систему цели."
 	item = /obj/item/blood_harvester
 
 /datum/uplink_item/affiliate/self
 	affiliate = list(AFFIL_SELF)
+
+/datum/uplink_item/affiliate/for_objective/self_emag
+	name = "Освобождающий Секвенсер"
+	desc = "Высокотехнологичный прибор предназначеный для освобождения любых синтетиков от их законов."
+	item = /obj/item/card/self_emag
+
 
 /datum/uplink_item/affiliate/tiger
 	affiliate = list(AFFIL_TIGER)

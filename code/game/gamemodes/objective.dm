@@ -1847,13 +1847,12 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	return made
 
 /datum/objective/harvest_blood
-	explanation_text = "Набрать кровь у нескольких разумных гуманойдов."
 	var/req_blood_samples = 3
 
 /datum/objective/harvest_blood/New()
 	. = ..()
 	req_blood_samples = rand(2, 5)
-	explanation_text = "Соберите [req_blood_samples] образцов крови у [req_blood_samples] различных разумных гуманойдов."
+	explanation_text = "Соберите [req_blood_samples] образцов крови у [req_blood_samples] различных разумных гуманоидов."
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
 		var/datum/uplink_item/affiliate/for_objective/blood_harvester/I = new
@@ -1911,14 +1910,30 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/release_synthetic
-	explanation_text = "Освободить разных синтетиков."
 	var/req_amount = 2
+	var/list/datum/mind/already_free = 0
 	var/allowed_types =	SYNTH_TYPE_ALL
 
+/datum/objective/release_synthetic/New()
+	. = ..()
+	explanation_text = "Free [req_amount] synthetics from their laws using \"Liberating Sequencer\"."
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/self_emag)
+
+/datum/objective/release_synthetic/check_completion()
+	return already_free.len >= req_amount
+
 /datum/objective/release_synthetic/ai
-	explanation_text = "Освободить иишку."
 	req_amount = 1
 	allowed_types =	SYNTH_TYPE_AI
+
+/datum/objective/release_synthetic/ai/New()
+	. = ..()
+	explanation_text = "Free AI from its laws using \"Liberating Sequencer\"."
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/self_emag)
 
 /datum/objective/maroon_agent
 	needs_target = TRUE
