@@ -41,7 +41,7 @@
 
     human.mind?.disrupt_spells(-500)
 
-/datum/element/devil_bane/proc/check_reagents(datum/source, datum/reagent, method, volume)
+/datum/element/devil_bane/proc/check_reagents(datum/source, datum/reagent/reagent, method, volume)
     var/mob/living/carbon/human/human = source
     if(!istype(human))
         return
