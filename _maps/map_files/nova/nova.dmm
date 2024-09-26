@@ -70424,6 +70424,15 @@
 	icon_state = "yellow"
 	},
 /area/maintenance/electrical)
+"kAX" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/security/permahallway)
 "kAY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -92253,6 +92262,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/reception)
+"nRd" = (
+/obj/machinery/light/small{
+	dir = 4;
+	tag = "icon-bulb1 (EAST)"
+	},
+/turf/simulated/floor/plating,
+/area/security/permahallway)
 "nRg" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -106543,6 +106559,9 @@
 "pXf" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -123705,9 +123724,6 @@
 /obj/item/radio/intercom{
 	name = "west station intercom (General)";
 	pixel_x = -28
-	},
-/obj/machinery/light{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -178938,7 +178954,7 @@ eIe
 ocY
 iBD
 vuB
-rgs
+cuf
 szQ
 nyr
 jPi
@@ -179715,7 +179731,7 @@ mWj
 qgc
 idv
 dhS
-cuf
+rgs
 pXf
 mvi
 wAU
@@ -180998,11 +181014,11 @@ iMO
 gOj
 wIu
 pZF
-gug
+kAX
 fQu
 ocY
 tCy
-owx
+nRd
 wBe
 ocY
 ocY
