@@ -1,8 +1,4 @@
-/// Important note: check banes in the procs
-/datum/element/devil_bane
-	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY|ELEMENT_BESPOKE
-	id_arg_index = 2
-
+/// Important note: check banes into the procs
 /datum/element/devil_bane/Attach(datum/target)
     . = ..()
     var/mob/living/carbon/human/human = target
@@ -58,32 +54,34 @@
         human.reagents?.add_reagent("toxin", volume)
 
 /datum/element/devil_bane/proc/attackedby(datum/source, obj/item/item, mob/attacker, params)
-    var/mob/living/carbon/human/human = source
-    var/datum/antagonist/devil/devil = human.mind?.has_antag_datum(/datum/antagonist/devil)
+	SIGNAL_HANDLER
 
-    if(!devil)
-        return
+	var/mob/living/carbon/human/human = source
+	var/datum/antagonist/devil/devil = human.mind?.has_antag_datum(/datum/antagonist/devil)
 
-    switch(devil.bane)
-        if(BANE_WHITECLOTHES)
-            if(!ishuman(attacker))
-                return
+	if(!devil)
+		return
 
-            var/mob/living/carbon/human/hunter = attacker
-            if(!istype(hunter.w_uniform, /obj/item/clothing/under))
-                return
+	switch(devil.bane)
+		if(BANE_WHITECLOTHES)
+			if(!ishuman(attacker))
+				return
 
-            var/obj/item/clothing/under/uniform = hunter.w_uniform
-            if(GLOB.whiteness[uniform.type])
+			var/mob/living/carbon/human/hunter = attacker
+			if(!istype(hunter.w_uniform, /obj/item/clothing/under))
+				return
+
+			var/obj/item/clothing/under/uniform = hunter.w_uniform
+			if(GLOB.whiteness[uniform.type])
 				human.apply_damage(item.force * (GLOB.whiteness[uniform.type] + 1))
 				item.visible_message(span_warning("[human] seems to have been harmed by the purity of [attacker]'s clothes."), span_notice("Unsullied white clothing is disrupting [human] form."))
-        if(BANE_TOOLBOX)
-            if(istype(item, /obj/item/storage/toolbox))
-                human.apply_damage(item.force * BANE_TOOLBOX_DAMAGE_MODIFIER)
+		if(BANE_TOOLBOX)
+			if(istype(item, /obj/item/storage/toolbox))
+				human.apply_damage(item.force * BANE_TOOLBOX_DAMAGE_MODIFIER)
 				item.visible_message(span_warning("The [item] seems unusually robust this time."), span_notice("The [item] is [human] unmaking!"))
-        if(BANE_HARVEST)
-            if(istype(item, /obj/item/reagent_containers/food/snacks/grown) || istype(item, /obj/item/grown))
-                human.apply_damage(item.force * BANE_HARVEST_DAMAGE_MULTIPLIER)
-                item.visible_message(span_warning("The spirits of the harvest aid in the exorcism."), span_notice("The harvest spirits are harming [human]."))
-				human.Weaken(4 SECONDS)
+		if(BANE_HARVEST)
+			if(istype(item, /obj/item/reagent_containers/food/snacks/grown) || istype(item, /obj/item/grown))       	
+				human.apply_damage(item.force * BANE_HARVEST_DAMAGE_MULTIPLIER)               
+				item.visible_message(span_warning("The spirits of the harvest aid in the exorcism."), span_notice("The harvest spirits are harming [human]."))                
 				qdel(item)
+  
