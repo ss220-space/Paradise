@@ -307,6 +307,7 @@
 /obj/item/implanter/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
+	is_only_grab_intent = TRUE, \
 	material_type = MATERIAL_CLASS_TECH, \
 	nutritional_value = 15, \
 	)
