@@ -430,6 +430,30 @@
 	dir = 1
 	},
 /area/security/processing)
+"aeA" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/chair/comfy/purp{
+	dir = 8
+	},
+/obj/effect/landmark/start/student_sientist,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplecorner";
+	dir = 8
+	},
+/area/medical/research/nhallway)
 "aeB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1130,20 +1154,12 @@
 /turf/simulated/wall/rust,
 /area/maintenance/starboard)
 "amb" = (
-/obj/structure/table/wood{
-	flipped = 1;
-	icon_state = "wood_tableflip1-"
-	},
-/obj/effect/turf_decal/siding/green{
-	icon_state = "grass_edge_medium";
-	color = "";
+/obj/effect/mapping_helpers/table_flip{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkgreenfull"
-	},
-/area/maintenance/debris/South)
+/obj/structure/table,
+/turf/simulated/floor/plating,
+/area/maintenance/perma)
 "amd" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
@@ -2024,6 +2040,7 @@
 	icon_state = "welded_joint";
 	color = "#FFFFFF"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "auh" = (
@@ -2202,11 +2219,10 @@
 	pixel_x = -1;
 	pixel_y = -4
 	},
-/obj/structure/table/wood{
-	flipped = 1;
-	dir = 1;
-	icon_state = "wood_tableflip0"
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
+/obj/structure/table/wood,
 /turf/simulated/floor/carpet,
 /area/maintenance/library)
 "avH" = (
@@ -2460,6 +2476,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -2891,6 +2911,10 @@
 	name = "Bridge Privacy Shutters";
 	opacity = 0
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/bridge)
 "aDy" = (
@@ -3064,6 +3088,10 @@
 "aES" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
+	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -3074,15 +3102,14 @@
 /turf/simulated/floor/grass,
 /area/crew_quarters/kitchen)
 "aEZ" = (
-/obj/structure/table{
-	flipped = 1;
-	dir = 4;
-	icon_state = "tableflip1-"
-	},
 /obj/effect/turf_decal/siding/green/corner{
 	icon_state = "grass_edge_medium_corner";
 	color = ""
 	},
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
+	},
+/obj/structure/table,
 /turf/simulated/floor/plating,
 /area/maintenance/tonel/southeast)
 "aFb" = (
@@ -4832,6 +4859,7 @@
 	},
 /area/hallway/primary/central/satell/north)
 "aUB" = (
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner";
 	dir = 4
@@ -4976,6 +5004,10 @@
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "conferenceroomwindows"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -6237,12 +6269,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "biy" = (
-/obj/structure/table{
-	flipped = 1;
-	dir = 4;
-	icon_state = "tableflip1-"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/debris/North)
 "biE" = (
@@ -6338,6 +6369,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -6839,11 +6874,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/table{
-	flipped = 1;
-	dir = 1;
-	icon_state = "tableflip1-"
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
+/obj/structure/table,
 /turf/simulated/floor/plating,
 /area/maintenance/debris)
 "bpF" = (
@@ -6977,10 +7011,6 @@
 "bqL" = (
 /obj/structure/cable{
 	icon_state = "1-4"
-	},
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0"
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -7298,10 +7328,8 @@
 	color = "";
 	dir = 1
 	},
-/obj/structure/table/wood{
-	flipped = 1;
-	icon_state = "wood_tableflip2"
-	},
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip,
 /turf/simulated/floor/plating,
 /area/maintenance/debris/South)
 "btF" = (
@@ -7338,6 +7366,10 @@
 	dir = 1;
 	id_tag = "privacyteleaccessshutter";
 	name = "Privacy Teleport Shutters"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/teleporter)
@@ -7755,16 +7787,15 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/table{
-	flipped = 1;
-	dir = 4;
-	icon_state = "tableflip1+"
-	},
 /obj/effect/turf_decal/siding/green{
 	icon_state = "grass_edge_medium";
 	dir = 8;
 	color = ""
 	},
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
+	},
+/obj/structure/table,
 /turf/simulated/floor/plating,
 /area/maintenance/tonel/southeast)
 "byL" = (
@@ -8080,12 +8111,11 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/crew_quarters/bar/atrium)
 "bAV" = (
-/obj/structure/table{
-	flipped = 1;
-	dir = 1;
-	icon_state = "tableflip1+"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -8869,10 +8899,9 @@
 "bHt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/oil_20,
-/obj/structure/table{
-	flipped = 1;
-	dir = 8;
-	icon_state = "tableflip1+"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/debris/North)
@@ -9889,10 +9918,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/table{
-	flipped = 1;
-	dir = 4;
-	icon_state = "tableflip1+"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -11558,6 +11586,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple";
 	dir = 8;
@@ -11977,19 +12006,13 @@
 	},
 /area/engine/break_room)
 "ckB" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 8
 	},
-/obj/structure/table{
-	flipped = 1;
-	dir = 1;
-	icon_state = "tableflip1+"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
-/area/maintenance/perma)
+/turf/simulated/floor/plating,
+/area/maintenance/tonel/west2)
 "ckD" = (
 /obj/structure/showcase,
 /obj/structure/window/reinforced{
@@ -13205,9 +13228,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/machinery/atmospherics/meter,
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
@@ -13396,9 +13419,8 @@
 	dir = 1
 	},
 /obj/effect/landmark/tiles/burnturf,
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0";
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -13448,6 +13470,10 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
@@ -13605,6 +13631,10 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain)
@@ -14248,11 +14278,6 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/maintenance/spacerest)
 "cDM" = (
-/obj/structure/table{
-	flipped = 1;
-	dir = 1;
-	icon_state = "tableflip1-"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -15202,6 +15227,10 @@
 	name = "Bridge Privacy Shutters";
 	opacity = 0
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/bridge)
 "cLT" = (
@@ -15906,6 +15935,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -15965,11 +15996,10 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "cQV" = (
-/obj/structure/table{
-	flipped = 1;
-	dir = 4;
-	icon_state = "tableflip1-"
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -18227,12 +18257,11 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table{
-	flipped = 1;
-	dir = 4;
-	icon_state = "tableflip1+"
-	},
 /obj/item/stock_parts/cell/high/plus,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
+	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -18365,11 +18394,10 @@
 	icon_state = "4-8"
 	},
 /obj/item/cigbutt,
-/obj/structure/table{
-	flipped = 1;
-	dir = 1;
-	icon_state = "tableflip1+"
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
+/obj/structure/table,
 /turf/simulated/floor/plating,
 /area/maintenance/debris)
 "dmn" = (
@@ -18464,6 +18492,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/grille,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -20149,13 +20178,12 @@
 /area/space)
 "dzH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0";
-	dir = 8
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/perma)
+/area/maintenance/tonel/south)
 "dzI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -20695,6 +20723,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
+	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -22673,6 +22705,10 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/bridge/park)
 "dYg" = (
@@ -23818,10 +23854,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip1-"
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/turbine)
 "ehw" = (
@@ -24336,11 +24368,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0";
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -24758,11 +24785,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/table{
-	flipped = 1;
-	dir = 8;
-	icon_state = "tableflip1+"
+/obj/effect/mapping_helpers/table_flip{
+	dir = 8
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -26314,6 +26340,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain/bedroom)
 "eCE" = (
@@ -26430,11 +26460,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedplaying)
 "eEj" = (
-/obj/structure/chair/comfy/purp{
-	dir = 1
-	},
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
+	},
+/obj/structure/chair/comfy/purp{
+	dir = 4
 	},
 /obj/effect/landmark/start/student_sientist,
 /turf/simulated/floor/plasteel{
@@ -27447,6 +27477,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/bridge/park)
 "eNb" = (
@@ -28217,9 +28251,9 @@
 	},
 /area/crew_quarters/chief)
 "eUi" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating/asteroid,
-/area/space)
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plating,
+/area/maintenance/turbine)
 "eUj" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/eastright{
@@ -28820,10 +28854,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/table{
-	flipped = 1;
-	dir = 4;
-	icon_state = "tableflip1+"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
@@ -28930,17 +28963,16 @@
 	},
 /area/hallway/primary/starboard)
 "eZX" = (
-/obj/structure/table/wood{
-	flipped = 1;
-	dir = 1;
-	icon_state = "wood_tableflip1-"
-	},
 /obj/effect/turf_decal/siding/green{
 	icon_state = "grass_edge_medium";
 	color = ""
 	},
 /obj/structure/chair/wood{
 	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/maintenance/debris/South)
@@ -28984,6 +29016,10 @@
 	id_tag = "representative";
 	name = "Privacy Shutters";
 	opacity = 0
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/ntrep)
@@ -29417,6 +29453,10 @@
 	id_tag = "BridgeShutters";
 	name = "Bridge Privacy Shutters";
 	opacity = 0
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -30547,6 +30587,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner";
 	dir = 8
@@ -31112,10 +31153,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedplaying)
 "fuT" = (
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0";
-	dir = 1
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/debris/South)
@@ -32533,6 +32573,10 @@
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/bridge/park)
@@ -34486,6 +34530,11 @@
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/gateway)
+"fWR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/glass,
+/area/maintenance/fpmaint2)
 "fWV" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -35764,6 +35813,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
+	},
+/obj/structure/table,
 /turf/simulated/floor/plating,
 /area/maintenance/perma)
 "ggA" = (
@@ -36610,10 +36663,9 @@
 	},
 /area/maintenance/gambling_den)
 "gnf" = (
-/obj/structure/table{
-	flipped = 1;
-	dir = 8;
-	icon_state = "tableflip1-"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/turbine)
@@ -37230,10 +37282,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/table{
-	flipped = 1;
-	dir = 1;
-	icon_state = "tableflip1+"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/tonel/north)
@@ -38617,9 +38668,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/turbine)
 "gFd" = (
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0";
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
@@ -40025,6 +40075,9 @@
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plating,
 /area/maintenance/debris/South)
+"gRv" = (
+/turf/simulated/mineral,
+/area/maintenance/tourist)
 "gRy" = (
 /obj/machinery/smartfridge/secure/medbay/organ,
 /turf/simulated/floor/plating,
@@ -41174,6 +41227,7 @@
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -42076,7 +42130,6 @@
 /turf/simulated/floor/carpet,
 /area/maintenance/gambling_den)
 "hkw" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/junction/reversed,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -42090,6 +42143,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/light{
 	icon_state = "light_on-p"
 	},
@@ -42385,6 +42439,14 @@
 	icon_state = "whitepurplefull"
 	},
 /area/maintenance/server)
+"hne" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (NORTH)"
+	},
+/area/medical/research/nhallway)
 "hnh" = (
 /obj/machinery/camera{
 	c_tag = "Research Hall";
@@ -42515,11 +42577,9 @@
 	},
 /area/medical/virology/lab)
 "hon" = (
-/obj/structure/chair/comfy/purp,
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
-/obj/effect/landmark/start/student_sientist,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple";
@@ -42662,15 +42722,14 @@
 /turf/simulated/floor/carpet/orange,
 /area/crew_quarters/heads/hop)
 "hpz" = (
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0";
-	dir = 8
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -43023,11 +43082,10 @@
 	},
 /area/engine/Generator)
 "hts" = (
-/obj/structure/table{
-	flipped = 1;
-	dir = 8;
-	icon_state = "tableflip1-"
+/obj/effect/mapping_helpers/table_flip{
+	dir = 8
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -44032,6 +44090,9 @@
 	},
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred";
 	dir = 5
@@ -45113,10 +45174,8 @@
 /turf/simulated/floor/wood,
 /area/maintenance/spacerest)
 "hLh" = (
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0"
-	},
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip,
 /turf/simulated/floor/plating,
 /area/maintenance/debris/North)
 "hLl" = (
@@ -45392,6 +45451,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ntrep)
 "hNM" = (
@@ -45431,6 +45494,10 @@
 	name = "Privacy Shutters";
 	opacity = 0;
 	dir = 1
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/blueshield)
@@ -45702,6 +45769,10 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain)
@@ -46993,6 +47064,10 @@
 	name = "Privacy Shutters";
 	opacity = 0
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/ntrep)
 "icV" = (
@@ -47115,14 +47190,13 @@
 	},
 /area/toxins/storage)
 "idI" = (
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0";
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
@@ -47824,12 +47898,11 @@
 	},
 /area/engine/mechanic_workshop/hangar2)
 "ikf" = (
-/obj/structure/table{
-	flipped = 1;
-	dir = 4;
-	icon_state = "tableflip1+"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50547,16 +50620,16 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/light{
 	icon_state = "light_on-p"
 	},
 /area/maintenance/tourist)
 "iJK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood{
-	flipped = 1;
-	dir = 8;
-	icon_state = "wood_tableflip1-"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/east)
@@ -51178,6 +51251,10 @@
 	id_tag = "privacyteleaccessshutter";
 	name = "Privacy Teleport Shutters"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/teleporter)
 "iOY" = (
@@ -51256,6 +51333,7 @@
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -51271,10 +51349,9 @@
 /area/maintenance/abandonedplaying)
 "iPU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood{
-	flipped = 1;
-	dir = 4;
-	icon_state = "wood_tableflip0"
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/maintenance/gambling_den)
@@ -51372,6 +51449,10 @@
 	name = "Privacy Shutters";
 	opacity = 0;
 	dir = 1
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/blueshield)
@@ -52882,6 +52963,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/junction/yjunction,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/light{
 	icon_state = "light_on-p"
 	},
@@ -53766,6 +53848,10 @@
 	name = "Privacy Shutters";
 	opacity = 0;
 	dir = 1
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/blueshield)
@@ -54801,6 +54887,10 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain)
@@ -56472,11 +56562,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/debris/South)
-"jIY" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/wrench,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint2)
 "jJa" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -58301,12 +58386,20 @@
 	name = "Bridge Privacy Shutters";
 	opacity = 0
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/bridge)
 "kav" = (
 /obj/effect/turf_decal/siding/green{
 	icon_state = "grass_edge_medium";
 	color = ""
+	},
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/tonel/southeast)
@@ -58441,11 +58534,11 @@
 	},
 /area/hallway/primary/aft/west)
 "kbG" = (
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkgreenfull"
@@ -58476,6 +58569,10 @@
 	name = "Teleporter Access Shutters"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58520,10 +58617,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/table{
-	flipped = 1;
-	dir = 4;
-	icon_state = "tableflip1-"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
@@ -58709,11 +58805,11 @@
 	},
 /area/security/warden)
 "keE" = (
-/obj/structure/table/glass,
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -28
 	},
+/obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple";
@@ -59929,6 +60025,11 @@
 	icon_state = "darkpurple"
 	},
 /area/medical/genetics)
+"koE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "koG" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -60794,6 +60895,7 @@
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "kvh" = (
@@ -61384,6 +61486,10 @@
 	id_tag = "representative";
 	name = "Privacy Shutters";
 	opacity = 0
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/ntrep)
@@ -62684,6 +62790,10 @@
 	name = "Bridge Privacy Shutters";
 	opacity = 0
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/bridge)
 "kNf" = (
@@ -63640,24 +63750,10 @@
 	},
 /area/crew_quarters/bar)
 "kUQ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/table{
-	flipped = 1;
-	dir = 4;
-	icon_state = "tableflip1-"
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
@@ -64151,6 +64247,10 @@
 "kYB" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain/bedroom)
 "kYC" = (
@@ -65148,12 +65248,11 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/port/north)
 "lil" = (
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0";
+/obj/item/cigbutt,
+/obj/effect/mapping_helpers/table_flip{
 	dir = 1
 	},
-/obj/item/cigbutt,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -65477,10 +65576,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/table{
-	flipped = 1;
-	dir = 1;
-	icon_state = "tableflip1+"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
@@ -65737,10 +65835,8 @@
 "lnf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0"
-	},
+/obj/effect/mapping_helpers/table_flip,
+/obj/structure/table/wood,
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
 "lnj" = (
@@ -67497,6 +67593,7 @@
 /obj/effect/spawner/lootdrop/maintenance/double,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/soap/syndie,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -67562,6 +67659,10 @@
 	id_tag = "representative";
 	name = "Privacy Shutters";
 	opacity = 0
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/ntrep)
@@ -67720,11 +67821,10 @@
 	},
 /area/security/permabrig)
 "lEo" = (
-/obj/structure/bed/dogbed/pet,
-/mob/living/simple_animal/goose/Scientist,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24
 	},
+/obj/structure/closet/bombcloset,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple";
@@ -67845,6 +67945,14 @@
 	dir = 1
 	},
 /area/security/processing)
+"lGl" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (NORTH)"
+	},
+/area/medical/research/nhallway)
 "lGB" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -68132,11 +68240,12 @@
 /area/security/checkpoint/south)
 "lJB" = (
 /obj/structure/chair/comfy/purp{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/landmark/start/student_sientist,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "whitepurple";
+	tag = "icon-whitepurple (WEST)"
 	},
 /area/medical/research/nhallway)
 "lJE" = (
@@ -69596,11 +69705,6 @@
 	},
 /area/hydroponics)
 "lWP" = (
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0";
-	dir = 8
-	},
 /obj/effect/turf_decal/siding/green/corner{
 	icon_state = "grass_edge_medium_corner";
 	color = "";
@@ -70650,13 +70754,16 @@
 	},
 /area/aisat/maintenance)
 "mgP" = (
-/obj/structure/table/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
+/obj/structure/chair/comfy/purp{
+	dir = 4
+	},
+/obj/effect/landmark/start/student_sientist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner";
 	dir = 8
@@ -70937,10 +71044,9 @@
 /area/crew_quarters/fitness)
 "mji" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table{
-	flipped = 1;
-	dir = 1;
-	icon_state = "tableflip1+"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/bar)
@@ -71158,6 +71264,10 @@
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_y = 20
 	},
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
+	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -71315,7 +71425,6 @@
 	dir = 4;
 	tag = "icon-bulb1 (EAST)"
 	},
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
@@ -72355,6 +72464,10 @@
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain/bedroom)
@@ -75235,11 +75348,10 @@
 	},
 /area/security/securearmory)
 "mTG" = (
-/obj/structure/grille,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/glass,
 /area/maintenance/fpmaint2)
 "mTI" = (
 /obj/effect/decal/warning_stripes/east,
@@ -76784,7 +76896,7 @@
 	},
 /area/maintenance/delivery)
 "nfI" = (
-/obj/machinery/vending/cigarette,
+/obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple";
 	dir = 5
@@ -77201,6 +77313,10 @@
 	name = "Privacy Shutters";
 	opacity = 0;
 	dir = 1
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/blueshield)
@@ -77822,6 +77938,10 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/bridge/park)
 "nnC" = (
@@ -77972,6 +78092,10 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain/bedroom)
 "npt" = (
@@ -78073,6 +78197,11 @@
 	icon_state = "dark"
 	},
 /area/security/prisonershuttle)
+"nqz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/glass,
+/area/maintenance/fpmaint2)
 "nqE" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -78164,16 +78293,12 @@
 /area/medical/virology/lab)
 "nra" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table{
-	flipped = 1;
-	dir = 4;
-	icon_state = "tableflip1+"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred";
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip{
 	dir = 1
 	},
-/area/maintenance/brig)
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "nrb" = (
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
@@ -80242,6 +80367,10 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "conferenceroomwindows"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/bridge/meeting_room)
 "nJu" = (
@@ -80824,12 +80953,11 @@
 /turf/simulated/floor/plating,
 /area/engine/controlroom)
 "nPl" = (
-/obj/structure/table/wood{
-	flipped = 1;
-	dir = 1;
-	icon_state = "wood_tableflip0"
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/wood,
 /area/maintenance/asmaint2)
 "nPm" = (
 /obj/structure/closet/crate/engineering,
@@ -81261,6 +81389,10 @@
 	dir = 1;
 	id_tag = "privacyteleaccessshutter";
 	name = "Privacy Teleport Shutters"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/teleporter)
@@ -81920,6 +82052,10 @@
 	dir = 1;
 	id_tag = "privacyteleaccessshutter";
 	name = "Privacy Teleport Shutters"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/teleporter)
@@ -83391,14 +83527,12 @@
 /turf/simulated/floor/wood,
 /area/library)
 "okR" = (
-/obj/structure/chair/comfy/purp,
-/obj/effect/landmark/start/student_sientist,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/grille,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (NORTH)"
+	icon_state = "hydrofloor"
 	},
-/area/medical/research/nhallway)
+/area/maintenance/fpmaint2)
 "okV" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -83585,6 +83719,10 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/bridge/park)
@@ -88166,10 +88304,9 @@
 /area/hallway/primary/starboard)
 "phd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood{
-	flipped = 1;
-	dir = 8;
-	icon_state = "wood_tableflip1+"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -88425,7 +88562,6 @@
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
-/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/maintenance/tonel/east)
 "pki" = (
@@ -88847,10 +88983,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/table{
-	flipped = 1;
-	dir = 4;
-	icon_state = "tableflip1-"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/tonel/southeast)
@@ -89291,15 +89426,16 @@
 	},
 /area/maintenance/cafeteria)
 "prK" = (
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0"
-	},
 /obj/effect/turf_decal/siding/thinplating/dark{
 	icon_state = "welded_joint";
 	color = "#FFFFFF";
 	dir = 8
 	},
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
+	},
+/obj/effect/landmark/tiles/burnturf,
+/obj/structure/table,
 /turf/simulated/floor/plating,
 /area/maintenance/tonel/east)
 "prO" = (
@@ -89694,8 +89830,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/library)
 "pvy" = (
-/obj/structure/chair/comfy/purp,
-/obj/effect/landmark/start/student_sientist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple";
 	dir = 9
@@ -89926,6 +90060,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/binary/pump{
 	name = "Gas to Turbine"
+	},
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
@@ -93061,6 +93199,10 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/bridge/park)
 "qdT" = (
@@ -93496,10 +93638,17 @@
 /turf/simulated/floor/wood,
 /area/maintenance/asmaint2)
 "qhE" = (
-/obj/structure/closet/l3closet/scientist,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "white"
 	},
 /area/medical/research/nhallway)
 "qhK" = (
@@ -94134,16 +94283,15 @@
 /area/engine/mechanic_workshop/hangar2)
 "qna" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood{
-	flipped = 1;
-	dir = 1;
-	icon_state = "wood_tableflip1+"
-	},
 /obj/effect/turf_decal/siding/green{
 	icon_state = "grass_edge_medium";
 	color = ""
 	},
 /obj/item/wirecutters,
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
+	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
@@ -94909,6 +95057,10 @@
 	id_tag = "BridgeShutters";
 	name = "Bridge Privacy Shutters";
 	opacity = 0
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -95736,10 +95888,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/table/wood{
-	flipped = 1;
-	dir = 8;
-	icon_state = "wood_tableflip0"
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -98333,6 +98484,10 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -99803,6 +99958,10 @@
 	id_tag = "privacyteleaccessshutter";
 	name = "Privacy Teleport Shutters"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/teleporter)
 "riA" = (
@@ -100333,9 +100492,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
 "rny" = (
-/obj/structure/grille,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/glass,
 /area/maintenance/fpmaint2)
 "rnN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -102167,7 +102324,7 @@
 	scrub_Toxins = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/glass,
 /area/maintenance/fpmaint2)
 "rCY" = (
 /obj/structure/cable{
@@ -104584,15 +104741,14 @@
 	},
 /area/engine/controlroom)
 "rZJ" = (
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0";
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/table_flip{
+	dir = 8
+	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/maintenance/cargo)
 "rZX" = (
@@ -104739,6 +104895,10 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain/bedroom)
 "saM" = (
@@ -104824,10 +104984,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/table{
-	flipped = 1;
-	dir = 8;
-	icon_state = "tableflip1+"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
@@ -108181,6 +108340,10 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -108463,14 +108626,13 @@
 /area/maintenance/abandonedplaying)
 "sFX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood{
-	flipped = 1;
-	dir = 1;
-	icon_state = "wood_tableflip0"
-	},
 /obj/effect/turf_decal/siding/green{
 	icon_state = "grass_edge_medium";
 	color = ""
+	},
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3";
@@ -109818,6 +109980,10 @@
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain/bedroom)
@@ -111243,6 +111409,10 @@
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
+/obj/structure/chair/comfy/purp{
+	dir = 4
+	},
+/obj/effect/landmark/start/student_sientist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -111506,13 +111676,12 @@
 /area/maintenance/asmaint)
 "thV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table{
-	flipped = 1;
-	dir = 1;
-	icon_state = "tableflip1-"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 8
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/bar)
+/turf/simulated/floor/plasteel,
+/area/maintenance/server)
 "thX" = (
 /obj/structure/closet/cabinet,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -111618,10 +111787,17 @@
 	},
 /area/security/checkpoint)
 "tiQ" = (
-/obj/structure/closet/bombcloset,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/obj/structure/chair/comfy/purp,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple";
-	tag = "icon-whitepurple (WEST)"
+	icon_state = "white"
 	},
 /area/medical/research/nhallway)
 "tiV" = (
@@ -114147,10 +114323,8 @@
 	},
 /area/quartermaster/storage)
 "tHb" = (
-/obj/structure/girder,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "tHc" = (
@@ -114446,17 +114620,16 @@
 /area/maintenance/asmaint2)
 "tJj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood{
-	flipped = 1;
-	dir = 1;
-	icon_state = "wood_tableflip2"
-	},
 /obj/effect/turf_decal/siding/green{
 	icon_state = "grass_edge_medium";
 	color = ""
 	},
 /obj/structure/chair/wood{
 	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
@@ -117012,10 +117185,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/table/wood{
-	flipped = 1;
-	dir = 4;
-	icon_state = "wood_tableflip0"
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -118302,7 +118474,6 @@
 "usE" = (
 /obj/structure/grille,
 /obj/machinery/light/small,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "usH" = (
@@ -120429,11 +120600,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "uLd" = (
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0";
-	dir = 1
-	},
 /obj/item/weldingtool{
 	pixel_y = -14
 	},
@@ -120689,8 +120855,7 @@
 	sortType = 13;
 	name = "RD Junction"
 	},
-/obj/machinery/hologram/holopad,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -120769,15 +120934,13 @@
 	},
 /area/engine/mechanic_workshop)
 "uNW" = (
-/obj/structure/table/wood{
-	flipped = 1;
-	icon_state = "wood_tableflip0"
-	},
 /obj/effect/turf_decal/siding/green{
 	icon_state = "grass_edge_medium";
 	color = "";
 	dir = 1
 	},
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkgreenfull"
@@ -120825,21 +120988,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"uOB" = (
-/obj/structure/table/wood{
-	flipped = 1;
-	icon_state = "wood_tableflip1+"
-	},
-/obj/effect/turf_decal/siding/green{
-	icon_state = "grass_edge_medium";
-	color = "";
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkgreenfull"
-	},
-/area/maintenance/debris/South)
 "uOG" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "conferenceroomwindows"
@@ -120962,6 +121110,10 @@
 	id_tag = "BridgeShutters";
 	name = "Bridge Privacy Shutters";
 	opacity = 0
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -121374,15 +121526,12 @@
 	},
 /area/security/processing)
 "uSA" = (
-/obj/structure/chair/comfy/purp{
-	dir = 1
-	},
-/obj/effect/landmark/start/student_sientist,
 /obj/machinery/camera{
 	c_tag = "Research Central Hallway";
 	network = list("Research","SS13");
 	dir = 4
 	},
+/obj/structure/closet/l3closet/scientist,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple";
@@ -122852,7 +123001,6 @@
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/arrival/station)
 "vgQ" = (
-/obj/structure/table/glass,
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
 	name = "standard air scrubber";
@@ -123691,6 +123839,10 @@
 	id_tag = "BridgeShutters";
 	name = "Bridge Privacy Shutters";
 	opacity = 0
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -125031,6 +125183,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain/bedroom)
 "vBE" = (
@@ -125328,8 +125484,15 @@
 	},
 /area/hallway/primary/central/satell/west)
 "vEk" = (
-/turf/space,
-/area/maintenance/fpmaint2)
+/obj/structure/disposalpipe/segment{
+	invisibility = 101
+	},
+/obj/structure/table/glass,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/research/nhallway)
 "vEm" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel/airless,
@@ -125822,11 +125985,16 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "vIW" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/table,
+/turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
 "vIZ" = (
 /obj/machinery/vending/coffee,
@@ -129020,6 +129188,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
@@ -129595,11 +129767,8 @@
 	color = "#FFFFFF";
 	dir = 4
 	},
-/obj/effect/landmark/tiles/burnturf,
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0"
-	},
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip,
 /turf/simulated/floor/plating,
 /area/maintenance/debris/South)
 "wpm" = (
@@ -130159,6 +130328,17 @@
 /obj/structure/flora/rock,
 /turf/simulated/floor/grass,
 /area/bridge/park)
+"wui" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "conferenceroomwindows"
+	},
+/obj/structure/cable,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "BridgeLockdown";
+	name = "Bridge Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/bridge/meeting_room)
 "wuo" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/warning_stripes/blue,
@@ -134272,10 +134452,9 @@
 /area/maintenance/garden)
 "xkC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table{
-	flipped = 1;
-	dir = 1;
-	icon_state = "tableflip1-"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/tonel/north)
@@ -135043,10 +135222,9 @@
 /area/security/processing)
 "xsB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table{
-	flipped = 1;
-	dir = 8;
-	icon_state = "tableflip1-"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/debris/North)
@@ -135328,13 +135506,12 @@
 	},
 /area/maintenance/brig)
 "xvk" = (
-/obj/structure/table{
-	flipped = 1;
-	dir = 1;
-	icon_state = "tableflip1-"
-	},
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
@@ -135793,7 +135970,6 @@
 /turf/simulated/floor/plating,
 /area/security/prison/cell_block/A)
 "xyu" = (
-/obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple";
@@ -135945,13 +136121,17 @@
 	},
 /area/hydroponics)
 "xzX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip0"
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/brig)
+/area/maintenance/tonel/southeast)
 "xAd" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
@@ -136159,19 +136339,10 @@
 	},
 /area/storage/secure)
 "xCh" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/table/wood{
-	flipped = 1;
-	dir = 1;
-	icon_state = "wood_tableflip0"
-	},
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip,
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint)
+/area/maintenance/debris/South)
 "xCi" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -137503,7 +137674,8 @@
 	},
 /area/security/main)
 "xMR" = (
-/obj/machinery/vending/sustenance,
+/obj/structure/bed/dogbed/pet,
+/mob/living/simple_animal/goose/Scientist,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple";
 	dir = 4;
@@ -139182,10 +139354,9 @@
 /turf/simulated/wall,
 /area/maintenance/starboard)
 "yda" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table{
-	flipped = 1;
-	icon_state = "tableflip1+"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
@@ -139700,11 +139871,13 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain)
 "yio" = (
-/obj/structure/reagent_dispensers/water_cooler,
+/obj/structure/chair/comfy/purp{
+	dir = 8
+	},
+/obj/effect/landmark/start/student_sientist,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple";
-	dir = 4;
-	tag = "icon-whitepurple (EAST)"
+	dir = 1;
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/research/nhallway)
 "yit" = (
@@ -139809,10 +139982,9 @@
 "yjp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
-/obj/structure/table{
-	flipped = 1;
-	dir = 1;
-	icon_state = "tableflip1-"
+/obj/structure/table,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
@@ -145611,7 +145783,7 @@ qin
 xMF
 bkR
 nbJ
-jIY
+aGs
 xsT
 aGs
 aGs
@@ -147164,13 +147336,13 @@ dyo
 nUX
 gtp
 aGs
-rny
+omu
 qsd
 pfI
-pfI
+nqz
 mTG
 rny
-qMn
+okR
 aGs
 qMn
 fCo
@@ -147192,13 +147364,13 @@ xUi
 xUi
 wEH
 qin
-bsL
+xKg
 xUi
 xUi
 xUi
 xUi
 xUi
-bsL
+xKg
 qin
 qin
 qin
@@ -147423,11 +147595,11 @@ rZq
 pfI
 mqM
 cUN
-xMF
-fCo
-fCo
-fCo
-wrf
+rny
+rny
+rny
+rny
+rny
 aGs
 xsT
 fCo
@@ -147449,13 +147621,13 @@ xUi
 xUi
 wEH
 qin
-bsL
-bsL
+xKg
+xKg
 xUi
 kxt
 xUi
-bsL
-bsL
+xKg
+xKg
 qin
 wEH
 wEH
@@ -147680,11 +147852,11 @@ gtp
 xMF
 uSu
 aGs
-fCo
-vEk
-vEk
-vEk
-fCo
+rny
+rny
+rny
+rny
+rny
 qMn
 usE
 wrf
@@ -147937,11 +148109,11 @@ cpn
 dmX
 dMP
 dfy
-wrf
-fCo
-fCo
-fCo
-wrf
+rny
+rny
+rny
+rny
+rny
 aGs
 aGs
 fCo
@@ -148195,10 +148367,10 @@ tfk
 xsT
 gnj
 sCu
-dMP
+fWR
 rCV
-omu
-tHb
+rny
+xsT
 qMn
 aGs
 fCo
@@ -148449,9 +148621,9 @@ plP
 dfC
 cmQ
 xMF
-rny
+omu
 dZu
-aGs
+tHb
 aYr
 mmo
 qMn
@@ -148670,8 +148842,8 @@ qaJ
 jhp
 yab
 nIl
-qaJ
 yda
+rFF
 kdj
 mfn
 sPz
@@ -150455,7 +150627,7 @@ oMt
 xKT
 jtx
 hfl
-jlE
+eUi
 vSn
 kCZ
 gOU
@@ -150741,7 +150913,7 @@ moG
 sjv
 oHJ
 uLd
-skp
+ckB
 ofN
 vRU
 ofN
@@ -152260,7 +152432,7 @@ azL
 rZD
 evt
 rZD
-xzX
+kUQ
 rZD
 rZD
 roI
@@ -153790,8 +153962,8 @@ ofg
 aUL
 bCD
 jFj
-nra
-kUQ
+iMY
+mtL
 hef
 jBX
 jBX
@@ -154140,7 +154312,7 @@ wGh
 wGh
 ije
 ije
-ije
+koE
 xFx
 gdP
 nlN
@@ -156176,7 +156348,7 @@ aok
 nQR
 vYA
 nQR
-xCh
+nQR
 nQR
 nQR
 niU
@@ -156438,7 +156610,7 @@ tWt
 tWt
 dCF
 czE
-tWt
+nra
 tWt
 tWt
 tWt
@@ -157644,7 +157816,7 @@ wbB
 cCN
 fYf
 pUo
-rZD
+kUQ
 fWG
 jed
 qsR
@@ -158935,7 +159107,7 @@ jFj
 qin
 tYS
 gzd
-thV
+mji
 tYS
 cix
 oxf
@@ -161406,7 +161578,7 @@ jsu
 cNc
 iZb
 gKY
-vIW
+hkP
 ltQ
 nBm
 aXc
@@ -162685,7 +162857,7 @@ wEH
 sdC
 qin
 xjY
-sWQ
+vIW
 cNc
 xjY
 qin
@@ -166683,7 +166855,7 @@ eWr
 rSZ
 iJC
 vYj
-xHk
+hne
 ftp
 pvy
 keE
@@ -166940,15 +167112,15 @@ sGd
 vDg
 qNw
 voG
-xHk
+lGl
 ftp
-okR
+xHk
 vgQ
-lJB
+pVA
 pVA
 tBk
 muU
-tiQ
+jFm
 wmV
 dmA
 spr
@@ -167205,7 +167377,7 @@ eEj
 tfJ
 dAB
 tQa
-qhE
+jFm
 wmV
 efz
 fOt
@@ -167458,7 +167630,7 @@ iGU
 hFO
 afX
 chf
-afX
+vEk
 hbQ
 fQL
 adx
@@ -167713,9 +167885,9 @@ aKU
 sHf
 ewx
 qlc
-ggA
+tiQ
 iPF
-ggA
+qhE
 uNp
 ggA
 nBr
@@ -168228,9 +168400,9 @@ ffm
 iGU
 pwz
 xHk
-jFm
-hoP
-fpQ
+lJB
+yio
+aeA
 hoP
 pVA
 jZL
@@ -168743,7 +168915,7 @@ iGU
 pwz
 nfI
 xMR
-yio
+uGk
 nAZ
 eKq
 mlY
@@ -174129,8 +174301,8 @@ wEH
 qin
 tlT
 luT
-dEy
 nPl
+fpp
 qhy
 wcB
 eQD
@@ -177004,7 +177176,7 @@ wEH
 wEH
 wEH
 wEH
-sdC
+wEH
 sdC
 sdC
 qin
@@ -177767,7 +177939,7 @@ wEH
 wEH
 wEH
 wEH
-wEH
+sdC
 eze
 gok
 tbh
@@ -178024,7 +178196,7 @@ wEH
 wEH
 wEH
 wEH
-wEH
+sdC
 euL
 nUU
 nud
@@ -178281,7 +178453,7 @@ wEH
 wEH
 wEH
 wEH
-wEH
+sdC
 euL
 nUU
 egZ
@@ -178535,8 +178707,8 @@ wEH
 wEH
 wEH
 wEH
-wEH
-wEH
+sdC
+sdC
 wEH
 wEH
 euL
@@ -178792,7 +178964,7 @@ wEH
 wEH
 wEH
 wEH
-wEH
+sdC
 eze
 jgR
 jgR
@@ -179820,7 +179992,7 @@ wEH
 wEH
 wEH
 wEH
-qin
+sdC
 mpe
 jER
 uUv
@@ -180076,8 +180248,8 @@ wEH
 wEH
 wEH
 wEH
-qin
-qin
+sdC
+sdC
 mpe
 jER
 jER
@@ -180589,7 +180761,7 @@ wEH
 wEH
 wEH
 wEH
-qin
+sdC
 qin
 qin
 qin
@@ -180687,7 +180859,7 @@ qGr
 obs
 doV
 aSB
-doV
+thV
 avm
 xAg
 uOU
@@ -180846,10 +181018,10 @@ wEH
 wEH
 wEH
 qin
+sdC
 qin
-qin
-qin
-qin
+sdC
+sdC
 wEH
 qin
 cco
@@ -181311,9 +181483,9 @@ qwq
 dbA
 xYB
 tXt
-qin
-uxY
 wEH
+qin
+qin
 wEH
 rEr
 mDD
@@ -181356,8 +181528,8 @@ wEH
 wEH
 wEH
 wEH
-qin
-qin
+sdC
+sdC
 qin
 qin
 qin
@@ -181568,9 +181740,9 @@ wGe
 qEO
 lCD
 tXt
+jsO
 wEH
-qin
-nEk
+yfY
 qin
 rmW
 rEr
@@ -181824,11 +181996,11 @@ tXt
 wpN
 lUw
 hYb
-tXt
-wEH
-wEH
-wEH
-wEH
+gRv
+xIg
+jsO
+qin
+nEk
 hKx
 fmr
 fmr
@@ -182081,11 +182253,11 @@ tXt
 lrG
 lrG
 weT
-tXt
-wEH
-wEH
-wEH
-qin
+gRv
+xIg
+jsO
+jsO
+jsO
 fut
 qXs
 xkE
@@ -182247,7 +182419,7 @@ pkp
 dvz
 dvz
 bKT
-dHo
+dzH
 gbW
 cSy
 dhH
@@ -182339,10 +182511,10 @@ ldI
 xIg
 jsO
 xIg
-wEH
-wEH
-wEH
-qin
+qVh
+qVh
+jsO
+jsO
 hKx
 iwS
 lEj
@@ -182597,9 +182769,9 @@ xIg
 jsO
 xIg
 xIg
+qVh
+jsO
 qin
-wEH
-ifP
 rEr
 iEo
 fmr
@@ -182855,8 +183027,8 @@ qVh
 xIg
 xIg
 jsO
-nEk
-qin
+jsO
+yfY
 rEr
 hIZ
 lEj
@@ -183112,8 +183284,8 @@ qVh
 qVh
 xIg
 xIg
-wEH
-wEH
+jsO
+jsO
 rEr
 nlL
 syw
@@ -183365,12 +183537,12 @@ jsO
 xIg
 xIg
 qVh
-eUi
+qVh
 xIg
 xIg
 xIg
-wEH
-nEk
+jsO
+jsO
 rEr
 oWB
 pDp
@@ -183626,8 +183798,8 @@ qVh
 xIg
 jsO
 jsO
-wEH
-qin
+jsO
+jsO
 rEr
 rsf
 sVe
@@ -183710,7 +183882,7 @@ inU
 nJt
 sDt
 qWi
-nNj
+wui
 inU
 inU
 inU
@@ -183881,10 +184053,10 @@ jsO
 jsO
 xIg
 xIg
+qVh
+jsO
+jsO
 wEH
-wEH
-wEH
-qin
 rEr
 tTp
 ijh
@@ -184137,11 +184309,11 @@ xIg
 jsO
 xIg
 xIg
-ldI
-qin
-wEH
-qin
+jsO
+jsO
+jsO
 nEk
+qin
 rEr
 dPD
 hpq
@@ -184393,10 +184565,10 @@ wEH
 bsL
 sJd
 xIg
-ldI
 wEH
 qin
-wEH
+nEk
+yfY
 qin
 nEk
 rEr
@@ -184542,7 +184714,7 @@ uIN
 uIN
 ahA
 uIN
-vbk
+xzX
 uIN
 qIK
 qin
@@ -186701,7 +186873,7 @@ cfl
 cfl
 sME
 ggr
-ckB
+jOc
 sME
 jOc
 jOc
@@ -186957,7 +187129,7 @@ mnP
 oHe
 qRJ
 oHe
-rfG
+amb
 cDM
 qVj
 svf
@@ -187726,7 +187898,7 @@ blZ
 nGf
 ego
 qVj
-dzH
+qVj
 lXa
 eSY
 mFw
@@ -196647,7 +196819,7 @@ mwg
 lES
 ejR
 ejR
-hSv
+xCh
 aPf
 bYI
 wEH
@@ -199468,7 +199640,7 @@ quy
 jIU
 tlk
 ejR
-amb
+uNW
 tGv
 qMH
 rGq
@@ -199982,7 +200154,7 @@ nsI
 jIU
 eCk
 fFo
-uOB
+uNW
 rxj
 iQj
 diO
