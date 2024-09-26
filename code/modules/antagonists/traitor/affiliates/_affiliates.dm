@@ -22,11 +22,7 @@
 
 /// If your affiliate need special effects, it is place for them
 /datum/affiliate/proc/finalize_affiliate(datum/mind/owner)
-	//Тут надо будет рольнуть хиджака думаю, хз
-	var/datum/antagonist/traitor/traitor = owner.has_antag_datum(/datum/antagonist/traitor)
-	traitor.affiliate = src
-	give_objectives(owner)
-	show_objectives(owner)
+	return
 
 /datum/affiliate/proc/give_objectives(datum/mind/mind)
 	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
@@ -82,14 +78,16 @@
 /obj/effect/proc_holder/spell/choose_affiliate/cast(mob/user)
 	ui_interact(user)
 
-/obj/effect/proc_holder/spell/choose_affiliate/ui_interact(mob/user, datum/tgui/ui = null)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "Affiliates", name, 900, 800)
-		ui.open()
-		ui.set_autoupdate(FALSE)
+/obj/effect/proc_holder/spell/choose_affiliate/ui_state(mob/user)
+	return GLOB.always_state
 
-/obj/effect/proc_holder/spell/choose_affiliate/ui_static_data(mob/user)
+/obj/effect/proc_holder/spell/choose_affiliate/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, user, ui)
+	if(!ui)
+		ui = new(user, src, "Affiliates")
+		ui.open()
+
+/obj/effect/proc_holder/spell/choose_affiliate/ui_data(mob/user)
 	var/list/data = list()
 	var/list/affiliates = list()
 	for(var/i in 1 to 3)
@@ -119,7 +117,12 @@
 				Спасибо что выбрали Gorlex Maraduers.\n\
 				Слава синдикату!"))
 				sleep(20 MINUTES)
+
 			traitor.give_uplink()
+			traitor.affiliate.give_objectives(ui.user.mind)
+			show_objectives(ui.user.mind)
+			traitor.hidden_uplink.affiliate = traitor.affiliate
+			traitor.affiliate.finalize_affiliate()
 			traitor.announce_uplink_info()
 
 /datum/affiliate/proc/add_discount_item(I, cost_part)

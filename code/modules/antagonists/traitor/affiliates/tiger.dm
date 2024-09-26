@@ -96,7 +96,6 @@
 	. = ..()
 	var/mob/living/simple_animal/borer/borer = new /mob/living/simple_animal/borer(get_turf(src))
 	borer.master_name = user.real_name
-	borer.grant_master_info()
 	to_chat(user, span_notice("You squashed [src]. There was a [borer] inside."))
 	qdel(src)
 

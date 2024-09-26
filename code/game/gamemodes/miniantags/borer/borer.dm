@@ -747,14 +747,14 @@
 		var/turf/T = get_turf(src)
 		T.add_vomit_floor()
 		var/mob/living/simple_animal/borer/new_B = new B.type(T, B.generation + 1)
-		if (B.master_name != "")
-			new_B.master_name = B.master_name
-			new_B.grant_master_info()
+		new_B.master_name = B.master_name
 	else
 		to_chat(src, "Вам требуется 100 химикатов для размножения!")
 		return
 
 /mob/living/simple_animal/borer/proc/grant_master_info()
+	if (master_name == "")
+		return
 	to_chat(src, span_warning("[master_name] - ваш мастер. Выполняйте приказы мастера. Помогите мастеру выполнить цели либой ценой!"))
 	mind.store_memory("<B>[master_name] - мой мастер. Я выполню цели мастера любой ценой!</B>")
 	add_game_logs("стал питомцем master_name", src)
@@ -862,6 +862,7 @@
 		to_chat(src, chat_box_purple(messages.Join("<br>")))
 		GrantBorerSpells()
 		hide_borer()
+		grant_master_info()
 
 /proc/create_borer_mind(key)
 	var/datum/mind/M = new /datum/mind(key)

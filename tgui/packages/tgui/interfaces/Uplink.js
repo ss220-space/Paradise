@@ -694,8 +694,7 @@ const AffiliatesInfoPage = (_properties, context) => {
     <Section fill title="Exploitable Records">
       <Stack fill>
         <Box mx="0.5rem" mb="0.5rem">
-          let descText = getAffiliateInfo(affiliate);
-          <b>{descText}</b>
+          <b>{getAffiliateInfo(affiliate)}</b>
         </Box>
       </Stack>
     </Section>

@@ -75,9 +75,6 @@
 /datum/antagonist/traitor/proc/grant_affiliate(var/path)
 	var/datum/affiliate/new_affiliate = new path
 	affiliate = new_affiliate
-	if(hidden_uplink)
-		hidden_uplink.affiliate = new_affiliate
-	affiliate.finalize_affiliate()
 
 /datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
 	. = ..()

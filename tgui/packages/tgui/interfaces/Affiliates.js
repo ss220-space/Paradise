@@ -16,12 +16,13 @@ import {
 
 export const Affiliates = (props, context) => {
   const { act, data } = useBackend(context);
+  const { affiliates } = data;
 
   return (
-    <Window theme="syndicate">
+    <Window width={900} height={800} title="Выбор подрядчика">
       <ComplexModal />
       <Window.Content scrollable>
-        <ExploitableInfoPage />
+        <ExploitableInfoPage affiliates={affiliates} />
       </Window.Content>
     </Window>
   );
@@ -30,7 +31,6 @@ export const Affiliates = (props, context) => {
 const ExploitableInfoPage = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { affiliates } = data;
-  // Default to first
 
   return (
     <Section title="Affiliates">
