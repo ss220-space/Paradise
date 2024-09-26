@@ -567,20 +567,14 @@
 
 		//user beats target, check target's defense in selected zone
 		for(var/datum/disease/virus/V in user.diseases)
-			var/is_infected = FALSE
 			if(attack.is_bite && (V.spread_flags & BITES))
-				is_infected = V.Contract(target, act_type = BITES|CONTACT, need_protection_check = TRUE, zone = affecting)
-			if(!is_infected && (V.spread_flags & CONTACT))
-				V.Contract(target, act_type = CONTACT, need_protection_check = TRUE, zone = affecting)
+				V.Contract(target, act_type = BITES, need_protection_check = TRUE, zone = affecting)
 
 		//check user's defense in attacking zone (hands or mouth)
 		for(var/datum/disease/virus/V in target.diseases)
-			var/is_infected = FALSE
+			//infected blood contacts with mouth, ignore protection & spread_flags
 			if(attack.is_bite  && (V.spread_flags > NON_CONTAGIOUS))
-				//infected blood contacts with mouth, ignore protection & spread_flags
-				is_infected = V.Contract(user, need_protection_check = FALSE)
-			if(!is_infected && (V.spread_flags & CONTACT))
-				V.Contract(user, act_type = CONTACT, need_protection_check = TRUE, zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+				V.Contract(user, need_protection_check = FALSE)
 
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 

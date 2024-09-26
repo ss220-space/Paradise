@@ -71,8 +71,8 @@
 
 /mob/living/CheckBitesProtection(datum/disease/virus/V, zone = BODY_ZONE_CHEST)
 	var/x = run_armor_check(zone, MELEE)/V.permeability_mod
-	// parabola from (0, 100) to (100, 0)
-	return prob((x-100)*(x-100)/100)
+	// parabola from (0, 0) to (100, 100)
+	return prob(sqrtor0(100*x))
 
 /mob/living/carbon/human/CheckContactProtection(datum/disease/virus/V, zone)
 	if(!zone)

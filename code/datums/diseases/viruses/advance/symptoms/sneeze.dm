@@ -36,5 +36,4 @@ Bonus
 				M.emote("snuffle")
 			else
 				M.emote("sneeze")
-				A.spread(5)
-	return
+				A.spread(spread_range = 5, force_spread_flags = AIRBORNE)

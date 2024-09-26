@@ -11,7 +11,7 @@
 	///affects how well the virus will pass through the protection. The more the better. In range (0-2]
 	var/permeability_mod = 1
 	/// Virus can contract others, if carrier is dead with this chance. Set to 0, if can't. Must be in [0, 100].
-	var/spread_from_dead_prob = 25
+	var/spread_from_dead_prob = 40
 
 /datum/disease/virus/New()
 	..()
@@ -61,20 +61,30 @@
 	V.carrier = is_carrier
 	return V
 
-/datum/disease/virus/proc/spread(force_spread = 0)
-	if(!affected_mob)
-		return
 
-	if((spread_flags <= BLOOD) && !force_spread)
+/**
+ * An attempt to spread the virus to others
+ * Arguments:
+ * * spread_range - radius of the infection zone. Use 0 to default value.
+ * * force_spread_flags - use the spread flag or a combination of them so that even a non-contagious virus can spread in this way
+ */
+/datum/disease/virus/proc/spread(spread_range = 0, force_spread_flags = null)
+	if(!affected_mob)
 		return
 
 	if(affected_mob.reagents?.has_reagent("spaceacillin") || (affected_mob.satiety > 0 && prob(affected_mob.satiety/10)))
 		return
 
-	var/spread_range = force_spread ? force_spread : 1
+	var/act_type = force_spread_flags ? force_spread_flags : spread_flags
+	if(act_type <= BLOOD)
+		return
 
-	if(spread_flags & AIRBORNE)
-		spread_range++
+	if(!spread_range)
+		switch(spread_flags)
+			if(CONTACT)
+				spread_range = CONTACT_SPREAD_RANGE
+			if(AIRBORNE)
+				spread_range = AIRBORNE_SPREAD_RANGE
 
 	var/turf/T = get_turf(affected_mob)
 	if(istype(T))
@@ -83,11 +93,10 @@
 			if(V)
 				while(TRUE)
 					if(V == T)
-						var/a_type = (spread_range == 1) ? CONTACT : CONTACT|AIRBORNE
 						//if we wear bio suit, for example, we won't be able to contract anyone
-						if(affected_mob.CheckVirusProtection(src, a_type))
+						if(affected_mob.CheckVirusProtection(src, act_type))
 							return
-						Contract(C, act_type = a_type, need_protection_check = TRUE)
+						Contract(C, act_type, need_protection_check = TRUE)
 						break
 					var/turf/Temp = get_step_towards(V, T)
 					if(!V.CanAtmosPass(Temp, vertical = FALSE))

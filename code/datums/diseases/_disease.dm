@@ -44,14 +44,15 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	/// Does it skip TRAIT_VIRUSIMMUNE
 	var/ignore_immunity = FALSE
 	/// Immunity to Anti-Bodies Metabolism symptom
-	var/virus_heal_resistant = FALSE
+	var/resistance_to_ABM = FALSE
+
 	/// Message when cured
 	var/cured_message = "You feel better."
 
 	//Mutations
 
 	/// Probability of mutation if the necessary reagents are in the body
-	var/mutation_chance = 1
+	var/mutation_chance = 2
 	/// Necessary reagents
 	var/list/mutation_reagents = list("mutagen")
 	/// List of diseases in which it can mutate

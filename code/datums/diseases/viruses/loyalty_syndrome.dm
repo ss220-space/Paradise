@@ -6,13 +6,12 @@
 	desc = "A disease that causes acute mass insanity for a certain person, as well as various obsessions"
 	max_stages = 5
 	spread_flags = CONTACT
-	permeability_mod = 0.8
 	can_immunity = FALSE
 	cure_text = "Anti-Psychotics"
 	cures = list("haloperidol")
 	cure_prob = 8
 	visibility_flags = HIDDEN_HUD
-	severity = DANGEROUS
+	severity = BIOHAZARD
 	var/is_master = FALSE
 	var/mob/living/carbon/human/master
 	var/timer = 0

@@ -1,10 +1,10 @@
-//Visibility Flags
+//Visibility flags
 #define VISIBLE 0
 #define HIDDEN_HUD 1		//hidden from huds & medbots
 #define HIDDEN_SCANNER	2	//hidden from health analyzers & stationary body analyzers
 #define HIDDEN_PANDEMIC	4	//hidden from pandemic
 
-//Severity Defines
+//Severity defines
 #define NONTHREAT	"No threat"
 #define MINOR		"Minor"
 #define MEDIUM		"Medium"
@@ -12,9 +12,13 @@
 #define DANGEROUS 	"Dangerous!"
 #define BIOHAZARD	"BIOHAZARD THREAT!"
 
-//Spread Flags
+//Spread flags
 #define NON_CONTAGIOUS	(1<<0)	//virus can't spread
 #define BITES 			(1<<1)	//virus can spread with bites
 #define BLOOD 			(1<<2)	//virus can spread with infected blood
 #define CONTACT 		(1<<3)	//virus can spread with any touch
 #define AIRBORNE 		(1<<4)	//virus spreads through the air
+
+//Spread range
+#define CONTACT_SPREAD_RANGE	1
+#define AIRBORNE_SPREAD_RANGE	2

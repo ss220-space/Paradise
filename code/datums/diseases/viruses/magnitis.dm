@@ -4,7 +4,7 @@
 	desc = "This disease disrupts the magnetic field of your body, making it act as if a powerful magnet. Injections of iron help stabilize the field."
 	max_stages = 4
 	visibility_flags = HIDDEN_HUD
-	spread_flags = AIRBORNE
+	spread_flags = CONTACT|AIRBORNE
 	cure_text = "Iron for the living, nanopaste for robots"
 	cures = list("iron")
 	infectable_mobtypes = list(/mob/living/carbon/human, /mob/living/silicon/robot, /mob/living/simple_animal/pet/dog/corgi/borgi)

@@ -3,7 +3,7 @@
 	agent = "Nya Virus"
 	desc = "If left untreated the subject will turn into a feline. In felines it has... OTHER... effects."
 	max_stages = 4
-	spread_flags = AIRBORNE
+	spread_flags = CONTACT|AIRBORNE
 	cures = list("milk")
 	cure_prob = 50
 	permeability_mod = 0.75
@@ -62,7 +62,7 @@
 	agent = "AMB45DR Bacteria"
 	desc = "If left untreated the subject will mutate to a different species."
 	max_stages = 4
-	spread_flags = AIRBORNE
+	spread_flags = CONTACT|AIRBORNE
 	cures = list("plasma")
 	cure_prob = 50
 	permeability_mod = 0.75
