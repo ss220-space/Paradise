@@ -72,7 +72,7 @@
         return
 
     ADD_TRAIT(human, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
-    to_chat(user, span_revenbignotice("Hellish powers are resurrecting you."))
+    to_chat(human, span_revenbignotice("Hellish powers are resurrecting you."))
     playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
     linked_timer = addtimer(CALLBACK(src, PROC_REF(regen_after_death), human, devil), devil.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE)
 

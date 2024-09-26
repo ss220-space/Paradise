@@ -124,7 +124,7 @@
 			owner.AddSpell(new /obj/effect/proc_holder/spell/infernal_jaunt(null))
 			owner.AddSpell(new /obj/effect/proc_holder/spell/sintouch(null))
 
-/datum/antagonist/devil/proc/update_regen_threshold()
+/datum/antagonist/devil/proc/update_regen()
 	switch(form)
 		if(BASIC_DEVIL)
 			regen_threshold = BASIC_DEVIL_REGEN_THRESHOLD
