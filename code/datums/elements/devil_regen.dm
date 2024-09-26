@@ -2,8 +2,8 @@
 	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY|ELEMENT_BESPOKE
 	id_arg_index = 2
 
-    var/linked_timer
-    var/list/sounds = list('sound/magic/demon_consume.ogg', 'sound/effects/attackblob.ogg')
+	var/linked_timer    
+	var/list/sounds = list('sound/magic/demon_consume.ogg', 'sound/effects/attackblob.ogg')    
 
 /datum/element/devil_regeneration/Attach(datum/target)
     . = ..()
@@ -18,7 +18,7 @@
     RegisterSignal(human, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 
     var/obj/item/organ/internal/brain/brain = human.get_organ_slot(INTERNAL_ORGAN_BRAIN)
-	brain?.decoy_brain = TRUE
+    brain?.decoy_brain = TRUE	
 
 /datum/element/devil_regeneration/Detach(datum/target)
     . = ..()
@@ -33,7 +33,7 @@
     UnregisterSignal(human, COMSIG_LIVING_DEATH)
 
     var/obj/item/organ/internal/brain/brain = human.get_organ_slot(INTERNAL_ORGAN_BRAIN)
-	brain?.decoy_brain = FALSE
+    brain?.decoy_brain = FALSE	
 
 /datum/element/devil_regeneration/proc/start_regen_bodypart(datum/source, obj/item/organ)
     SIGNAL_HANDLER
@@ -53,7 +53,7 @@
     datum/antagonist/devil/devil
     )
     external = new external.parent_organ_zone(human)
-    human.heal_overall_damage(devil.regen_amount / 3, devil.regen_amount / 3)
+    human.heal_overall_damage(devil.regen_amount, devil.regen_amount)
 
     RegisterSignal(external, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(start_regen_bodypart))
     playsound(get_turf(human), pick(sounds), 50, 0, TRUE)
@@ -99,5 +99,5 @@
 
 /datum/element/devil_regeneration/proc/update_status(mob/living/carbon/human/human)
     human.update_body()
-	human.updatehealth()
-	human.UpdateDamageIcon()
+    human.updatehealth()	
+    human.UpdateDamageIcon()
