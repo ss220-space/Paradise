@@ -4,7 +4,7 @@
 	var/list/target_minds = list()
 	needs_target = FALSE
 	check_cryo = FALSE
-	explanation_text = 'meow'
+	explanation_text = "meow"
 
 /datum/objective/devil/sacrifice/New()
 	get_targets()
