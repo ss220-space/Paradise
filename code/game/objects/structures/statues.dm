@@ -317,6 +317,13 @@
 	anchored = TRUE
 	oreAmount = 0
 
+/obj/structure/statue/angel
+	name = "Stone Angel Statue"
+	desc = "An antique statue of a human angel made of stone."
+	icon_state = "angel"
+	anchored = TRUE
+	oreAmount = 0
+
 /obj/structure/statue/russian_mulebot
 	desc = "Like a MULEbot, but more Russian and less functional.";
 	icon = 'icons/obj/aibots.dmi';

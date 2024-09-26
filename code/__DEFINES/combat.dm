@@ -55,7 +55,6 @@
 #define PASSEMOTES (1<<6)      //Mob has a cortical borer or holders inside of it that need to see emotes.
 #define IGNORESLOWDOWN (1<<7)
 #define IGNORE_SPEED_CHANGES (1<<8)
-#define GODMODE (1<<9)
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
