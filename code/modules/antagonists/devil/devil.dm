@@ -43,9 +43,9 @@
 	update_rank()
 
 /datum/antagonist/devil/proc/remove_soul(datum/mind/soul)
-	if(LAZYREMOVE(soulsOwned, soul))
-		to_chat(owner.current, span_warning("You feel as though a soul has slipped from your grasp."))
-		update_hud()
+	LAZYREMOVE(soulsOwned, soul)
+	to_chat(owner.current, span_warning("You feel as though a soul has slipped from your grasp."))
+	update_hud()
 
 /datum/antagonist/devil/proc/update_rank()
 	. = FALSE
