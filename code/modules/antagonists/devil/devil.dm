@@ -11,6 +11,8 @@
 	var/truename
 	var/list/datum/mind/soulsOwned = new
 	var/form = BASIC_DEVIL
+	var/regen_threshold = BASIC_DEVIL_REGEN_THRESHOLD
+	var/regen_amount = BASIC_DEVIL_REGEN_AMOUNT
 	var/static/list/devil_spells = typecacheof(list(
 		/obj/effect/proc_holder/spell/fireball/hellish,
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
@@ -28,44 +30,45 @@
 	if(soulsOwned.Find(soul))
 		return
 
-	var/update_spells = FALSE
-	var/update_hud = FALSE
-
 	LAZYADD(soulsOwned, soul)
 	owner.current.set_nutrition(NUTRITION_LEVEL_FULL)
 	to_chat(owner.current, span_warning("You feel satiated as you received a new soul."))
-	update_hud = TRUE
 
 	if(!SOULVALUE)
 		to_chat(owner.current, span_warning("Your hellish powers have been restored."))
 		update_spells()
 		return
 
-	switch(SOULVALUE)
-		if(BLOOD_THRESHOLD)
-			increase_blood_lizard()
-			update_spells = TRUE
-		if(TRUE_THRESHOLD)
-			increase_true_devil()
-			update_spells = TRUE
-			update_hud = TRUE
-
-
-	if(update_spells)
-		update_spells()
-	
-	if(update_hud)
-		update_hud()
+	update_hud()
+	update_rank()
 
 /datum/antagonist/devil/proc/remove_soul(datum/mind/soul)
-	if(soulsOwned.Remove(soul))
+	if(LAZYREMOVE(soulsOwned, soul))
 		to_chat(owner.current, span_warning("You feel as though a soul has slipped from your grasp."))
 		update_hud()
+
+/datum/antagonist/devil/proc/update_rank()
+	. = FALSE
+
+	if(!ishuman(owner.current) || !isdevil(owner.current))
+		return .
+
+	switch(SOULVALUE)
+		if(BLOOD_THRESHOLD)
+			. = increase_blood_lizard()
+		if(TRUE_THRESHOLD)
+			. = increase_true_devil()
+
+	if(.)
+		update_spells()
+		update_regen()
+
+	return .
 
 /datum/antagonist/devil/proc/increase_blood_lizard()
 	if(!ishuman(owner.current))
 		owner.current.color = "#501010"
-		return
+		return FALSE
 
 	var/mob/living/carbon/human/H = owner.current
 	var/list/language_temp = LAZYLEN(H.languages) ? H.languages.Copy() : null
@@ -79,8 +82,9 @@
 	H.socks = "Nude"
 	H.change_skin_color(80, 16, 16) //A deep red
 	H.regenerate_icons()
-
 	form = BLOOD_LIZARD
+
+	return TRUE
 
 /datum/antagonist/devil/proc/increase_true_devil()
 	to_chat(owner.current, span_warning("You feel as though your current form is about to shed.  You will soon turn into a true devil."))
@@ -91,8 +95,9 @@
 	A.oldform = owner.current
 	owner.transfer_to(A)
 	A.set_name()
-	
 	form = TRUE_DEVIL
+
+	return TRUE
 
 /datum/antagonist/devil/proc/remove_spells()
 	for(var/obj/effect/proc_holder/spell/spell as anything in owner.spell_list)
@@ -118,6 +123,18 @@
 			owner.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish(null))
 			owner.AddSpell(new /obj/effect/proc_holder/spell/infernal_jaunt(null))
 			owner.AddSpell(new /obj/effect/proc_holder/spell/sintouch(null))
+
+/datum/antagonist/devil/proc/update_regen_threshold()
+	switch(form)
+		if(BASIC_DEVIL)
+			regen_threshold = BASIC_DEVIL_REGEN_THRESHOLD
+			regen_amount = BASIC_DEVIL_REGEN_AMOUNT
+		if(BLOOD_LIZARD)
+			regen_threshold = BLOOD_LIZARD_REGEN_THRESHOLD
+			regen_amount = BLOOD_LIZARD_REGEN_AMOUNT
+		if(TRUE_DEVIL)
+			regen_threshold = TRUE_DEVIL_REGEN_THRESHOLD
+			regen_amount = TRUE_DEVIL_REGEN_AMOUNT
 
 /datum/antagonist/devil/proc/give_obligation_spells()
 	switch(obligation)
@@ -218,11 +235,13 @@
 /datum/antagonist/devil/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	update_spells()
+	owner.current.AddElement(/datum/element/devil_regeneration)
 	update_hud()
 
 /datum/antagonist/devil/remove_innate_effects()
 	. = ..()
 	remove_spells()
+	owner.current.RemoveElement(/datum/element/devil_regeneration)
 	remove_hud()
 
 /datum/antagonist/devil/proc/printdevilinfo()
