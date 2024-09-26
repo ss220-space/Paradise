@@ -1878,7 +1878,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/new_mini_vampire/New()
 	. = ..()
-	explanation_text = "Inject [target.current.real_name], the [target.assigned_role] with a modified mindslave hemophagus extract. You can find one for free in uplink."
+	explanation_text = "Inject [target.current.real_name], the [target.assigned_role] with a hemophagus extract. You can find one for free in uplink."
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
 		var/datum/uplink_item/affiliate/for_objective/hemophagus_extract/I = new
@@ -1941,13 +1941,37 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/new_mini_changeling
 	needs_target = TRUE
-	explanation_text = "Сделать кого-то генокрадом"
+	var/made = FALSE
+
+/datum/objective/new_mini_changeling/New()
+	. = ..()
+	explanation_text = "Inject [target.current.real_name], the [target.assigned_role] with an egg implanter. You can find one for free in uplink."
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		var/datum/uplink_item/affiliate/for_objective/cling_extract/I = new
+		var/obj/item/cling_extract/CE = I.item
+		CE.target = target
+		CE.desc += "\nIt is intended for [target.current.real_name], the [target.assigned_role]."
+		I.desc += "\nIt is intended for [target.current.real_name], the [target.assigned_role]."
+		traitor.hidden_uplink.uplink_items.Add(I)
+
+/datum/objective/new_mini_changeling/check_completion()
+	return made
 
 /datum/objective/borers
 	needs_target = TRUE
-	explanation_text = "Развести бореров"
 	var/req = 3
 
+/datum/objective/borers/New()
+	. = ..()
+	explanation_text = "Проследите чтобы к концу смены количество живых бореров было по меньшей мере [req]."
+
+/datum/objective/borers/check_completion()
+	var/borers = 0
+
+	for(var/mob/living/simple_animal/borer/C in GLOB.alive_mob_list)
+		borers++
+	return borers >= req
 
 // BLOB
 

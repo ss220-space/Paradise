@@ -21,11 +21,13 @@
 
 /obj/item/cling_extract
 	name = "Egg Implanter"
-	desc = "Looks like something is moving inside it"
-	var/mob/living/carbon/human/target
+	desc = "Кажется внутри что-то двигается. На боку этикетка \"Tiger Cooperative\""
+	icon = 'icons/obj/affiliates.dmi'
+	icon_state = "cling_extract"
+	var/used_state = "cling_extract_used"
+	var/datum/mind/target
 	var/free_inject = FALSE
 	var/used = FALSE
-	var/used_state
 
 /obj/item/cling_extract/attack(mob/living/target, mob/living/user, def_zone)
 	return
@@ -84,6 +86,20 @@
 
 /obj/item/cling_extract/update_icon_state()
 	icon_state = used ? used_state : initial(icon_state)
+
+/obj/item/reagent_containers/food/snacks/egg/borer
+	filling_color = "#C0C021"
+	list_reagents = list("protein" = 3, "egg" = 5, "rotatium" = 5)
+
+// looks like normal
+/obj/item/reagent_containers/food/snacks/egg/borer/attack_self(mob/living/carbon/human/user)
+	. = ..()
+	var/mob/living/simple_animal/borer/borer = new /mob/living/simple_animal/borer(get_turf(src))
+	borer.master_name = user.real_name
+	borer.grant_master_info()
+	to_chat(user, span_notice("You squashed [src]. There was a [borer] inside."))
+	qdel(src)
+
 
 #undef FREE_INJECT_TIME
 #undef TARGET_INJECT_TIME

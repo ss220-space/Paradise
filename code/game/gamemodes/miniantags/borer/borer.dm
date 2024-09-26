@@ -118,6 +118,7 @@
 	var/datum/action/innate/borer/make_larvae/make_larvae_action = new
 	var/datum/action/innate/borer/torment/torment_action = new
 	var/datum/action/innate/borer/sneak_mode/sneak_mode_action = new
+	var/master_name = ""
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
 	..(newloc)
@@ -745,11 +746,18 @@
 		B.chemicals -= 100
 		var/turf/T = get_turf(src)
 		T.add_vomit_floor()
-		new /mob/living/simple_animal/borer(T, B.generation + 1)
-
+		var/mob/living/simple_animal/borer/new_B = new B.type(T, B.generation + 1)
+		if (B.master_name != "")
+			new_B.master_name = B.master_name
+			new_B.grant_master_info()
 	else
 		to_chat(src, "Вам требуется 100 химикатов для размножения!")
 		return
+
+/mob/living/simple_animal/borer/proc/grant_master_info()
+	to_chat(src, span_warning("[master_name] - ваш мастер. Выполняйте приказы мастера. Помогите мастеру выполнить цели либой ценой!"))
+	mind.store_memory("<B>[master_name] - мой мастер. Я выполню цели мастера любой ценой!</B>")
+	add_game_logs("стал питомцем master_name", src)
 
 /mob/living/carbon/proc/sneak_mode()
 	set category = "Borer"
