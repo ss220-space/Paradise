@@ -20,6 +20,10 @@
 	return FALSE
 
 
+/datum/gear/donor/get_header_tips()
+	return "\[Tier [donator_tier]\] "
+
+
 /datum/gear/donor/ussptracksuit_black
 	donator_tier = 1
 	cost = 1

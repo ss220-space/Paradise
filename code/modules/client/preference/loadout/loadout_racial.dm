@@ -24,6 +24,10 @@
 	return FALSE
 
 
+/datum/gear/racial/get_header_tips()
+	return "\[Species: [english_list(whitelisted_species)]\] "
+
+
 /datum/gear/racial/taj
 	display_name = "embroidered veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races."

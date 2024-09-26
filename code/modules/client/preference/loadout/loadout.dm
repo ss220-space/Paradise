@@ -74,3 +74,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		to_chat(cl, span_warning("\"[capitalize(display_name)]\" недоступно для вашей профессии!"))
 
 	return FALSE
+
+
+/datum/gear/proc/get_header_tips()
+	return
