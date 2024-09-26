@@ -12,9 +12,7 @@
     if(!istype(human) && !human.mind?.has_antag_datum(/datum/antagonist/devil))
         return ELEMENT_INCOMPATIBLE
 
-    for(var/obj/item/organ/external/external as anything in human.bodyparts)
-        RegisterSignal(external, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(start_regen_bodypart))
-
+    RegisterSignal(human, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(start_regen_bodypart))
     RegisterSignal(human, COMSIG_LIVING_DEATH, PROC_REF(on_death))
 
     var/obj/item/organ/internal/brain/brain = human.get_organ_slot(INTERNAL_ORGAN_BRAIN)
@@ -27,19 +25,16 @@
     if(!istype(human))
         return
 
-    for(var/obj/item/organ/external/external as anything in human.bodyparts)
-        UnregisterSignal(external, COMSIG_CARBON_LOSE_ORGAN)
-
+    UnregisterSignal(human, COMSIG_CARBON_LOSE_ORGAN)
     UnregisterSignal(human, COMSIG_LIVING_DEATH)
 
     var/obj/item/organ/internal/brain/brain = human.get_organ_slot(INTERNAL_ORGAN_BRAIN)
     brain?.decoy_brain = FALSE	
 
-/datum/element/devil_regeneration/proc/start_regen_bodypart(datum/source, obj/item/organ)
+/datum/element/devil_regeneration/proc/start_regen_bodypart(datum/source, mob/living/carbon/human/human)
     SIGNAL_HANDLER
 
-    var/mob/living/carbon/human/human = source
-    var/obj/item/organ/external/external = organ
+    var/obj/item/organ/external/external = source
     var/datum/antagonist/devil/devil = human?.mind?.has_antag_datum(/datum/antagonist/devil)
 
     if(!devil)
@@ -55,7 +50,6 @@
     external = new external.parent_organ_zone(human)
     human.heal_overall_damage(devil.regen_amount, devil.regen_amount)
 
-    RegisterSignal(external, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(start_regen_bodypart))
     playsound(get_turf(human), pick(sounds), 50, 0, TRUE)
     update_status(human)
 

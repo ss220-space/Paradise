@@ -34,34 +34,42 @@
 	owner.current.set_nutrition(NUTRITION_LEVEL_FULL)
 	to_chat(owner.current, span_warning("You feel satiated as you received a new soul."))
 
-	if(!SOULVALUE)
-		to_chat(owner.current, span_warning("Your hellish powers have been restored."))
-		update_spells()
-		return
-
+	try_update_rank()
 	update_hud()
-	update_rank()
 
 /datum/antagonist/devil/proc/remove_soul(datum/mind/soul)
 	LAZYREMOVE(soulsOwned, soul)
 	to_chat(owner.current, span_warning("You feel as though a soul has slipped from your grasp."))
 	update_hud()
 
-/datum/antagonist/devil/proc/update_rank()
-	. = FALSE
-
+/datum/antagonist/devil/proc/try_update_rank()
 	if(!ishuman(owner.current) || !isdevil(owner.current))
+		return FALSE
+
+	. = update_rank()
+	if(!.)
 		return .
 
+	update_spells()
+	update_regen()
+	
+	return . 
+
+/datum/antagonist/devil/proc/update_rank()
+	. = FALSE
+	var/message
+
 	switch(SOULVALUE)
+		if(FALSE)
+			. = TRUE
+			message = span_warning("Your hellish powers have been restored.")
 		if(BLOOD_THRESHOLD)
 			. = increase_blood_lizard()
 		if(TRUE_THRESHOLD)
 			. = increase_true_devil()
 
-	if(.)
-		update_spells()
-		update_regen()
+	if(message)
+		to_chat(owner.current, message)
 
 	return .
 
