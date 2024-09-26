@@ -30,7 +30,7 @@
     if(!devil)
         return
 
-    var/damage = intensity - check_eye_prot()
+    var/damage = intensity - human.check_eye_prot()
 
     if(devil.bane != BANE_LIGHT)
         return STOP_FLASHING_EYES
@@ -50,8 +50,18 @@
     if(!devil)
         return
 
-    if(devil.bane == BANE_SILVER && reagent.id == "silver")
-        human.reagents?.add_reagent("toxin", volume)
+    switch(devil.bane)
+        if(BANE_SILVER)
+            if(reagent.id != "silver")
+                return
+
+            human.reagents?.add_reagent("toxin", volume)
+
+        if(BANE_IRON)
+            if(reagent.id != "iron")
+                return
+            
+            human.reagents?.add_reagent("toxin", volume)
 
 /datum/element/devil_bane/proc/attackedby(datum/source, obj/item/item, mob/attacker, params)
 	SIGNAL_HANDLER
