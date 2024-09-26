@@ -498,16 +498,15 @@ emp_act
 	if(weapon_sharp && prob(getarmor(user.zone_selected, MELEE)))
 		weapon_sharp = FALSE
 
-	var/cached_force = I.force * check_weakness(I, user)
 	// this can destroy some species (damn nucleo-bombers), so from now on we cannot count on its existance
-	var/apply_damage_result = apply_damage(cached_force, I.damtype, affecting, armor, weapon_sharp, I)
+	var/apply_damage_result = apply_damage(I.force, I.damtype, affecting, armor, weapon_sharp, I)
 	var/IM_ALIVE = !QDELETED(src)
 
 	var/list/all_objectives = user.mind?.get_all_objectives()
 	if(all_objectives)
 		for(var/datum/objective/pain_hunter/objective in all_objectives)
 			if(mind == objective.target)
-				objective.take_damage(cached_force, I.damtype)
+				objective.take_damage(I.force, I.damtype)
 
 	if(!IM_ALIVE)
 		return .

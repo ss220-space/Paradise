@@ -55,6 +55,7 @@
 			if(M.reagents)
 				if(amount >= 1)
 					M.reagents.add_reagent(id, amount)
+					SEND_SIGNAL(M, COMSIG_REAGENT_ADDED, src, method, volume)
 
 		if(method == REAGENT_INGEST) //Yes, even Xenos can get addicted to drugs.
 			var/can_become_addicted = M.reagents.reaction_check(M, src)

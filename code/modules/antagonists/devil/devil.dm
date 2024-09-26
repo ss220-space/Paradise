@@ -191,7 +191,7 @@
 
 /datum/antagonist/devil/proc/update_hud()
 	var/mob/living/living = owner.current
-	if(living.hud_used && living.hud_used.devilsouldisplay)
+	if(living.hud_used?.devilsouldisplay)
 		living.hud_used.devilsouldisplay.update_counter(SOULVALUE)
 
 /datum/antagonist/devil/proc/remove_hud()
@@ -201,7 +201,7 @@
 	if(!devil)
 		return
 
-	qdel(devil)
+	LAZYREMOVE(devil.infodisplay, devil.devilsouldisplay)
 
 /datum/antagonist/devil/greet()
 	var/list/messages = list()
@@ -243,12 +243,14 @@
 /datum/antagonist/devil/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	update_spells()
+	owner.current.AddElement(/datum/element/devil_bane)
 	owner.current.AddElement(/datum/element/devil_regeneration)
 	update_hud()
 
 /datum/antagonist/devil/remove_innate_effects()
 	. = ..()
 	remove_spells()
+	owner.current.RemoveElement(/datum/element/devil_bane)
 	owner.current.RemoveElement(/datum/element/devil_regeneration)
 	remove_hud()
 

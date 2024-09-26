@@ -90,14 +90,6 @@
 /mob/living/carbon/true_devil/assess_threat()
 	return 666
 
-/mob/living/carbon/true_devil/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
-	if(!mind && !has_bane(BANE_LIGHT))
-		return
-
-	mind.disrupt_spells(-500)
-	return ..() //flashes don't stop devils UNLESS it's their bane.
-
-
 /mob/living/carbon/true_devil/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -105,7 +97,6 @@
 	if(!I.force)
 		return .
 
-	apply_damage(I.force * check_weakness(I, user), I.damtype, def_zone, sharp = is_sharp(I), used_weapon = I)
 	if(QDELETED(src))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -174,9 +165,6 @@
 			b_loss = 150
 		if(3)
 			b_loss = 30
-			
-	if(has_bane(BANE_LIGHT))
-		b_loss *=2
 
 	adjustBruteLoss(b_loss)
 	return ..()
