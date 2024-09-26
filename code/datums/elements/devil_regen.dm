@@ -67,6 +67,7 @@
 
     ADD_TRAIT(human, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
     to_chat(human, span_revenbignotice("Hellish powers are resurrecting you."))
+    
     playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
     linked_timer = addtimer(CALLBACK(src, PROC_REF(regen_after_death), human, devil), devil.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE)
 
@@ -80,16 +81,29 @@
             apply_regeneration(human, devil)
 
 /datum/element/devil_regeneration/proc/apply_regeneration(mob/living/carbon/human/human, datum/antagonist/devil/devil)
-    if(human.health >= 50)
+    if(human.health >= 100)
         REMOVE_TRAIT(human, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
         human.revive()
+        deltimer(linked_timer)
         linked_timer = null
 
-    human.heal_overall_damage(devil.regen_amount, devil.regen_amount)
-    human.check_and_regenerate_organs()
+    human.heal_damages(
+        devil.regen_amount, 
+        devil.regen_amount,
+        devil.regen_amount,
+        devil.regen_amount,
+        devil.regen_amount,
+        devil.regen_amount,
+        devil.regen_amount,
+        devil.regen_amount,
+        devil.regen_amount,
+        TRUE,
+        TRUE
+        )
 
+    human.check_and_regenerate_organs()
     playsound(get_turf(human), pick(sounds), 50, 0, TRUE)
-    update_status()
+    update_status(human)
 
 /datum/element/devil_regeneration/proc/update_status(mob/living/carbon/human/human)
     human.update_body()
