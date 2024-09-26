@@ -1,68 +1,44 @@
 /datum/objective/devil
 
-/datum/objective/devil/soulquantity
+/datum/objective/devil/sacrifice
+	var/list/target_minds = list()
 	needs_target = FALSE
-	explanation_text = "You shouldn't see this text.  Error:DEVIL1"
-	target_amount = 4
+	check_cryo = FALSE
+	explanation_text = 'meow'
 
-/datum/objective/devil/soulquantity/New()
-	target_amount = pick(6, 7, 8)
-	update_explanation_text()
+/datum/objective/devil/sacrifice/New()
+	get_targets()
 
-/datum/objective/devil/proc/update_explanation_text()
-	//Intentionally empty
+	for(var/datum/mind/mind in target_minds)
+		LAZYADD(explanation_text, "Принесите в жертву [mind.name], [mind.assigned_role]")
 
-/datum/objective/devil/soulquantity/update_explanation_text()
-	explanation_text = "Purchase, and retain control over at least [target_amount] souls."
+/datum/objective/devil/sacrifice/proc/get_targets()
+	var/list/command_minds = list()
+	var/list/security_minds = list()
+	var/list/other_minds = list()
 
-/datum/objective/devil/soulquantity/check_completion()
-	var/count = 0
-	var/datum/antagonist/devil/devil = owner.has_antag_datum(/datum/antagonist/devil)
-	for(var/S in devil.soulsOwned)
-		var/datum/mind/L = S
-		if(L.soulOwner == owner)
-			count++
-	return count >= target_amount
+	var/list/command_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_HOP, JOB_TITLE_HOS, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE)
+	var/list/security_roles = list(JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
+	for(var/datum/mind/mind in SSticker.minds)
+		if(mind == owner)
+			continue
 
+		if(!ishuman(mind.current) || mind.current.stat == DEAD || mind.offstation_role)
+			continue
 
-/datum/objective/devil/soulquality
-	needs_target = FALSE
-	explanation_text = "You shouldn't see this text.  Error:DEVIL2"
-	var/contractType
-	var/contractName
+		if(mind.assigned_role in command_roles)
+			LAZYADD(command_minds, mind)
 
-/datum/objective/devil/soulquality/New()
-	contractType = pick(CONTRACT_POWER, CONTRACT_WEALTH, CONTRACT_PRESTIGE, CONTRACT_MAGIC, CONTRACT_REVIVE, CONTRACT_KNOWLEDGE)
-	target_amount = pick(1, 2)
-	switch(contractType)
-		if(CONTRACT_POWER)
-			contractName = "for power"
-		if(CONTRACT_WEALTH)
-			contractName = "for wealth"
-		if(CONTRACT_PRESTIGE)
-			contractName = "for prestige"
-		if(CONTRACT_MAGIC)
-			contractName = "for magic"
-		if(CONTRACT_REVIVE)
-			contractName = "of revival"
-		if(CONTRACT_KNOWLEDGE)
-			contractName = "for knowledge"
-	update_explanation_text()
+		else if(mind.assigned_role in security_roles)
+			LAZYADD(security_minds, mind)
 
-/datum/objective/devil/soulquality/update_explanation_text()
-	explanation_text = "Have mortals sign at least [target_amount] contracts [contractName]."
+		else
+			LAZYADD(other_minds, mind)
 
-/datum/objective/devil/soulquality/check_completion()
-	var/count = 0
-	var/datum/antagonist/devil/devil = owner.has_antag_datum(/datum/antagonist/devil)
-	for(var/S in devil.soulsOwned)
-		var/datum/mind/L = S
-		if(L.soulOwner != L && L.damnation_type == contractType)
-			count++
-	return count >= target_amount
-
-
+	LAZYADD(target_minds, safepick(command_minds))
+	LAZYADD(target_minds, security_minds.Copy(1, 4))
+	LAZYADD(target_minds, other_minds.Copy(1, 9))
 
 /datum/objective/devil/sintouch
 	needs_target = FALSE
@@ -75,18 +51,9 @@
 /datum/objective/devil/sintouch/check_completion()
 	return target_amount <= SSticker.mode.sintouched.len
 
-/datum/objective/devil/buy_target
-	explanation_text = "You shouldn't see this text.  Error:DEVIL4"
+/datum/objective/devil/ascend
+	explanation_text = "Ascend to your true form."
+	needs_target = FALSE
 
-/datum/objective/devil/buy_target/New()
-	find_target()
-	update_explanation_text()
-
-/datum/objective/devil/buy_target/update_explanation_text()
-	if(target)
-		explanation_text = "Purchase and retain the soul of [target.name], the [target.assigned_role]."
-	else
-		explanation_text = "Free objective."
-
-/datum/objective/devil/buy_target/check_completion()
-	return target.soulOwner == owner
+/datum/objective/devil/ascend/check_completion()
+	return isdevil(owner)

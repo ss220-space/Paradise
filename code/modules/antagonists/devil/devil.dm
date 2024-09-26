@@ -231,6 +231,11 @@
 	var/mob/living/carbon/human/human = owner.current
 	human.store_memory("Your devilic true name is [truename]<br>[GLOB.lawlorify[LAW][ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][bane]]<br>[GLOB.lawlorify[LAW][obligation]]<br>[GLOB.lawlorify[LAW][banish]]<br>")
 
+/datum/antagonist/devil/give_objectives()
+	add_objective(/datum/objective/devil/ascend)
+	add_objective(/datum/objective/devil/sintouch)
+	add_objective(/datum/objective/devil/sacrifice)
+
 /datum/antagonist/devil/add_owner_to_gamemode()
 	LAZYADD(SSticker.mode.devils, owner)
 

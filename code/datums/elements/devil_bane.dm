@@ -35,7 +35,7 @@
     if(devil.bane != BANE_LIGHT)
         return STOP_FLASHING_EYES
 
-    if(!damage && devil.bane == BANE_LIGHT)
+    if(!damage)
         human.mind?.disrupt_spells(0)
         return
 
