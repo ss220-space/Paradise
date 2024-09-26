@@ -578,7 +578,7 @@ Difficulty: Very Hard
 	leg_walking_controler(movement_dir)
 	if(!charging)
 		return ..()
-		
+
 	switch(mode)
 		if(PYRO)
 			var/turf/C = get_turf(src)
@@ -592,7 +592,7 @@ Difficulty: Very Hard
 				A.ex_act(3) //Body is immune to explosions of this strength.
 			T.ex_act(3)
 
-	if(beam && !QDELETEB(beam))
+	if(beam && !QDELETED(beam))
 		beam.forceMove(get_turf(src))
 
 	return ..()
