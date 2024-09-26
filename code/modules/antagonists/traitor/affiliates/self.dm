@@ -9,8 +9,8 @@
 			однако, кто именно является владельцем устройства - идентифицировать не удалось."
 
 	objectives = list(list(/datum/objective/release_synthetic = 70, /datum/objective/release_synthetic/ai = 30),
-					/datum/objective/maroon_agent,
-					/datum/objective/maroon_agent,
+					/datum/objective/maroon/agent,
+					/datum/objective/maroon/agent,
 					list(/datum/objective/steal = 60, /datum/objective/maroon = 40), // Often, doing nothing is enough to prevent an agent from escaping, so some more objectives.
 					list(/datum/objective/steal = 60, /datum/objective/maroon = 40),
 					/datum/objective/escape

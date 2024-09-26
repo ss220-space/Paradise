@@ -1935,9 +1935,20 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(traitor)
 		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/self_emag)
 
-/datum/objective/maroon_agent
-	needs_target = TRUE
-	explanation_text = "Убить конкретного агента."
+
+/datum/objective/maroon/agent/find_target(list/target_blacklist) // Blueshield. If there are no suitable blueshields, take a random crew member.
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(is_invalid_target(possible_target) || (possible_target in target_blacklist) || possible_target.has_antag_datum(/datum/antagonist/traitor))
+			continue
+		possible_targets |= possible_target
+
+	if(length(possible_targets))
+		target = pick(possible_targets)
+	else
+		return ..()
+
+	SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
 
 /datum/objective/new_mini_changeling
 	needs_target = TRUE
