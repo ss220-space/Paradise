@@ -44360,9 +44360,9 @@
 "iWx" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access = list(2)
+	req_access = list(63)
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "iWA" = (
 /obj/item/lighter/zippo/nt_rep,
@@ -77320,7 +77320,7 @@
 "sgV" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access = list(2)
+	req_access = list(63)
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,

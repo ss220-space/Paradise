@@ -17818,22 +17818,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
-"lAI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	locked = 1;
-	name = "Security Escape Airlock";
-	req_access = list(1)
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/exit)
 "lAL" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -668030,7 +668014,7 @@ nKk
 nKk
 nKk
 nKk
-lAI
+fpx
 qPe
 eqo
 kIC
