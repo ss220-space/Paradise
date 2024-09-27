@@ -101,5 +101,39 @@
 '2024-09-15':
   Aziz Chynaliev:
   - del: xray removes tint and eyeprot" (#5908)
+  BoshyG:
+  - bugfix: New parts fix (#5911)
   dageavtobusnick:
   - bugfix: shadowlings ascend fix (#5912)
+'2024-09-17':
+  Daeberdir:
+  - experiment: Trash lines cleaning for map files. (#5899)
+'2024-09-21':
+  L343-CJ:
+  - bugfix: fixed the interaction of the holotool with the mechs (#5929)
+  SyndiCat:
+  - qol: toggle item tips (#5909)
+  Valtor:
+  - bugfix: deepfryer is now working (#5919)
+  - bugfix: no cyborg wheelchairs (#5925)
+'2024-09-22':
+  Antoonij:
+  - refactor: godmode (#5920)
+  Den109G:
+  - bugfix: Delete runtime from DeathSquad's upgrade (#5923)
+  - bugfix: Closets use correct sprite (#5918)
+  NoName:
+  - add: Advanced laser surgery tools (#5836)
+  Sheya:
+  - tweak: cyber heart stamina regen (#5927)
+'2024-09-23':
+  pilygun:
+  - imageadd: Респрайт мед. патчей  (#5933)
+'2024-09-24':
+  Etrnlmelancholy:
+  - bugfix: brig phys and pod pilot banned for voxes (#5941)
+'2024-09-25':
+  NoName:
+  - bugfix: fix name laser surgery tools (#5942)
+  PiroMage:
+  - add: New Station "Nova" (#5461)

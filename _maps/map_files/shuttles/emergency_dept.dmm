@@ -386,7 +386,7 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
 	normalspeed = 0;
-	req_access = list(2)
+	req_access = list(63)
 	},
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)

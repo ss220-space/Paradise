@@ -155,6 +155,14 @@
 	build_path = /obj/item/storage/belt/medical
 	category = list("initial","Leather and Cloth")
 
+/datum/design/surbelt
+	name = "Surgical belt"
+	id = "surbel"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 300)
+	build_path = /obj/item/storage/belt/medical/surgery
+	category = list("initial","Leather and Cloth")
+
 /datum/design/janibelt
 	name = "Janitorial belt"
 	id = "janibelt"

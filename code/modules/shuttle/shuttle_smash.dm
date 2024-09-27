@@ -51,7 +51,7 @@
 
 
 /mob/living/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
-	if(incorporeal_move || (status_flags & GODMODE))
+	if(incorporeal_move || HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 	if(!isturf(loc))
 		forceMove(stationary_turf)

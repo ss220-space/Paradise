@@ -823,6 +823,10 @@ This applies to all STANDARD station areas
 	name = "Arrivals Maintenance"
 	icon_state = "asmaint"
 
+/area/maintenance/asmaint6
+	name = "RnD Restroom Maintenance"
+	icon_state = "asmaint"
+
 /area/maintenance/apmaint
 	name = "Cargo Maintenance"
 	icon_state = "apmaint"
@@ -1131,6 +1135,30 @@ This applies to all STANDARD station areas
 /area/hallway/primary/central/sw
 /area/hallway/primary/central/se
 
+/area/hallway/primary/command
+	name = "Command Primary Hallway"
+	icon_state = "hallC"
+
+/area/hallway/primary/command/north
+/area/hallway/primary/command/south
+/area/hallway/primary/command/west
+/area/hallway/primary/command/east
+/area/hallway/primary/command/nw
+/area/hallway/primary/command/ne
+
+/area/hallway/primary/central/second
+	name = "Second Floor Central Primary Hallway"
+	icon_state = "hallC"
+
+/area/hallway/primary/central/second/north
+/area/hallway/primary/central/second/south
+/area/hallway/primary/central/second/west
+/area/hallway/primary/central/second/east
+/area/hallway/primary/central/second/nw
+/area/hallway/primary/central/second/ne
+/area/hallway/primary/central/second/sw
+/area/hallway/primary/central/second/se
+
 /area/hallway/spacebridge
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	icon_state = "hall_space"
@@ -1170,6 +1198,9 @@ This applies to all STANDARD station areas
 
 /area/hallway/spacebridge/comeng
 	name = "Command-Engineering Bridge"
+
+/area/hallway/spacebridge/comcar
+	name = "Command-Cargo Bridge"
 
 /area/hallway/secondary/exit
 	name = "Escape Shuttle Hallway"
@@ -1346,6 +1377,21 @@ This applies to all STANDARD station areas
 
 /area/crew_quarters/toilet
 	name = "Dormitory Toilets"
+	icon_state = "toilet"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/crew_quarters/toilet2
+	name = "West Toilets"
+	icon_state = "toilet"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/crew_quarters/toilet3
+	name = "Theatre Toilets"
+	icon_state = "toilet"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/crew_quarters/toilet4
+	name = "Arrivals Toilets"
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
@@ -1835,6 +1881,10 @@ This applies to all STANDARD station areas
 
 /area/medical/medbreak
 	name = "Break Room"
+	icon_state = "medbaybreak"
+
+/area/medical/medrest
+	name = "Med Restroom"
 	icon_state = "medbaybreak"
 
 /area/medical/patients_rooms
@@ -2671,6 +2721,10 @@ This applies to all STANDARD station areas
 
 /area/aisat
 	name = "AI Satellite Hallway"
+	icon_state = "yellow"
+
+/area/aisat/aihallway
+	name = "AI Satellite Exterior Hallway"
 	icon_state = "yellow"
 
 /area/aisat/entrance
