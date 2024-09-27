@@ -72,14 +72,14 @@
 			return count >= 4
 
 		if(BANISH_FUNERAL_GARB)
-            if(!ishuman(human)) // can be true devil
-                return
+			if(!ishuman(human)) // can be true devil
+				return FALSE
 
-            var/mob/living/carbon/human/carbon = human 
+			var/mob/living/carbon/human/carbon = human 
 			if(carbon.w_uniform && istype(carbon.w_uniform, /obj/item/clothing/under/burial))
 				return TRUE
 			
 			for(var/obj/item/clothing/under/burial/burial in range(0, human))
-				return TRUE burial.loc == get_turf(burial)
+				return burial.loc == get_turf(burial)
 
 			return FALSE
