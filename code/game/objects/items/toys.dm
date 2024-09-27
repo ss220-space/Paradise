@@ -1493,7 +1493,7 @@
 	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/codex_gigas/attack_self(mob/user)
-	if(!COOLDOWN_FINISHED(cooldown))
+	if(!COOLDOWN_FINISHED(src, cooldown))
 		return
 
 	user.visible_message(
