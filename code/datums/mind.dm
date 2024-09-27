@@ -2045,12 +2045,9 @@
 					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
 
 					var/type = input(usr, "Выберите подрядчика", "Выбор подрядчика") as null|anything in subtypesof(/datum/affiliate)
-					var/datum/affiliate/aff
-					if (type)
-						aff = new type
-					else
-						aff = new /datum/affiliate/old
-					traitor_datum.give_affiliate(src, aff)
+					if (!type)
+						type = /datum/affiliate/old
+					traitor_datum.give_affiliate(src, type)
 
 			if("autoobjectives")
 				var/datum/antagonist/traitor/traitor_datum = has_antag_datum(/datum/antagonist/traitor)
