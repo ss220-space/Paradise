@@ -1932,25 +1932,23 @@
 	},
 /area/atmos)
 "asZ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment{
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	dir = 8;
+	color = ""
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	icon_state = "grass_edge_medium_corner";
+	color = "";
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/effect/turf_decal/siding/green/corner{
+	icon_state = "grass_edge_medium_corner";
+	color = "";
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkred"
-	},
-/area/maintenance/asmaint3)
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/spacerest)
 "ata" = (
 /obj/machinery/camera{
 	c_tag = "Bar Backroom";
@@ -7482,6 +7480,13 @@
 /obj/effect/turf_decal/bot/right,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"bvn" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "purplefull"
+	},
+/area/hallway/primary/fore)
 "bvp" = (
 /obj/machinery/firealarm{
 	pixel_y = 26
@@ -12870,6 +12875,19 @@
 	dir = 1
 	},
 /area/security/range)
+"cqE" = (
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	dir = 10;
+	color = ""
+	},
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	color = "";
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/spacerest)
 "cqJ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -13838,7 +13856,7 @@
 	dir = 10;
 	color = ""
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "czk" = (
 /obj/structure/table/reinforced,
@@ -21600,6 +21618,7 @@
 /area/maintenance/tonel/west)
 "dOd" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
 "dOs" = (
@@ -30048,6 +30067,11 @@
 /area/maintenance/perma)
 "fko" = (
 /obj/machinery/hydroponics/soil,
+/obj/effect/turf_decal/siding/green/corner{
+	icon_state = "grass_edge_medium_corner";
+	color = "";
+	dir = 1
+	},
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/spacerest)
 "fky" = (
@@ -32654,6 +32678,19 @@
 	icon_state = "bcarpet05"
 	},
 /area/blueshield)
+"fIo" = (
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	dir = 4;
+	color = ""
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	icon_state = "grass_edge_medium_corner";
+	color = "";
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/spacerest)
 "fIu" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -32788,6 +32825,20 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/reception)
+"fJG" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	dir = 5;
+	color = ""
+	},
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	dir = 8;
+	color = ""
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/spacerest)
 "fJH" = (
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
@@ -40294,7 +40345,7 @@
 	color = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "gTT" = (
 /obj/effect/spawner/window/reinforced,
@@ -43321,6 +43372,11 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	color = "";
+	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/spacerest)
@@ -52232,6 +52288,11 @@
 /area/crew_quarters/kitchen)
 "iXQ" = (
 /mob/living/simple_animal/chicken,
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	dir = 5;
+	color = ""
+	},
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/spacerest)
 "iXT" = (
@@ -64701,7 +64762,7 @@
 	dir = 6;
 	color = ""
 	},
-/turf/simulated/floor/plasteel/airless,
+/turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "lcS" = (
 /obj/effect/decal/warning_stripes/south,
@@ -67696,6 +67757,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/cafeteria)
+"lDK" = (
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	color = ""
+	},
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	color = "";
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/spacerest)
 "lDN" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -79470,6 +79543,10 @@
 /obj/structure/reagent_dispensers/watertank/high,
 /turf/simulated/floor/grass,
 /area/maintenance/spacerest)
+"nBN" = (
+/obj/structure/flora/junglebush,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
 "nBP" = (
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 8
@@ -83799,6 +83876,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	dir = 9;
+	color = ""
+	},
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/spacerest)
 "oox" = (
@@ -84413,14 +84495,18 @@
 	},
 /area/maintenance/starboard)
 "ovv" = (
+/obj/effect/decal/cleanable/dust,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /obj/effect/turf_decal/siding/green{
 	icon_state = "grass_edge_medium";
-	dir = 8;
 	color = ""
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/airless,
-/area/toxins/test_area)
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/spacerest)
 "ovD" = (
 /obj/machinery/door_timer/cell_6{
 	name = "General Population Cell C";
@@ -88370,6 +88456,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/execution)
+"phQ" = (
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	dir = 5;
+	color = ""
+	},
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	color = ""
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/spacerest)
 "phZ" = (
 /obj/machinery/power/apc{
 	cell_type = 0;
@@ -91269,6 +91367,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/flora/junglebush,
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
 "pJX" = (
@@ -100244,7 +100343,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple";
 	dir = 9
@@ -109327,6 +109425,20 @@
 /obj/item/reagent_containers/food/snacks/grown/wheat{
 	pixel_y = -11
 	},
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	dir = 4;
+	color = ""
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	icon_state = "grass_edge_medium_corner";
+	color = ""
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	icon_state = "grass_edge_medium_corner";
+	color = "";
+	dir = 8
+	},
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/spacerest)
 "sLD" = (
@@ -112793,6 +112905,19 @@
 	},
 /turf/simulated/floor/engine/o2,
 /area/atmos)
+"tsd" = (
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	dir = 8;
+	color = ""
+	},
+/obj/effect/turf_decal/siding/green/corner{
+	icon_state = "grass_edge_medium_corner";
+	color = "";
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/spacerest)
 "tsp" = (
 /obj/structure/bookcase,
 /turf/simulated/floor/plating,
@@ -113596,6 +113721,24 @@
 	icon_state = "white"
 	},
 /area/security/medbay)
+"tzE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint3)
 "tzR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -117998,6 +118141,13 @@
 	icon_state = "neutralfull"
 	},
 /area/security/permabrig)
+"unK" = (
+/obj/effect/turf_decal/siding/green{
+	icon_state = "grass_edge_medium";
+	color = ""
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/maintenance/spacerest)
 "unQ" = (
 /obj/structure/chair/wood,
 /turf/simulated/floor/carpet,
@@ -165859,7 +166009,7 @@ oXU
 lXR
 xhp
 tgi
-xBA
+tzE
 wLT
 cav
 ojH
@@ -166111,12 +166261,12 @@ iki
 cpU
 aWV
 kwy
-igP
+bvn
 pAa
 tCF
 xhp
 hYF
-asZ
+cOM
 wLT
 sbD
 jlm
@@ -167057,7 +167207,7 @@ oMe
 fFW
 keh
 pNS
-ovv
+mGO
 fRn
 fRn
 qin
@@ -170744,8 +170894,8 @@ iGl
 qBV
 iHt
 nYG
-ebl
 cnp
+ebl
 ebl
 nfW
 nfW
@@ -173851,11 +174001,11 @@ wEH
 wEH
 wEH
 qin
-wEH
+qin
 nhm
 wEH
 qzH
-wEH
+qin
 qin
 wEH
 wEH
@@ -174107,13 +174257,13 @@ wEH
 wEH
 wEH
 wEH
-qin
+wEH
 wEH
 nhm
 wEH
 qzH
 wEH
-qin
+wEH
 wEH
 wEH
 wEH
@@ -174364,13 +174514,13 @@ wEH
 wEH
 wEH
 wEH
-qin
+wEH
 wEH
 nhm
 wEH
 qzH
 wEH
-qin
+wEH
 wEH
 wEH
 wEH
@@ -174621,13 +174771,13 @@ wEH
 wEH
 wEH
 wEH
-qin
+wEH
 wEH
 nhm
 wEH
 qzH
 wEH
-qin
+wEH
 wEH
 wEH
 wEH
@@ -174878,13 +175028,13 @@ wEH
 wEH
 wEH
 wEH
-qin
+wEH
 wEH
 nhm
 wEH
 qzH
 wEH
-qin
+wEH
 wEH
 wEH
 wEH
@@ -175135,13 +175285,13 @@ wEH
 wEH
 wEH
 wEH
-qin
+wEH
 wEH
 nhm
 wEH
 qzH
 wEH
-qin
+wEH
 wEH
 wEH
 wEH
@@ -175392,13 +175542,13 @@ wEH
 wEH
 wEH
 wEH
-qin
+wEH
 wEH
 nhm
 wEH
 qzH
 wEH
-qin
+wEH
 wEH
 wEH
 wEH
@@ -175649,13 +175799,13 @@ wEH
 wEH
 wEH
 wEH
-qin
+wEH
 wEH
 nhm
 wEH
 qzH
 wEH
-qin
+wEH
 wEH
 wEH
 wEH
@@ -175906,13 +176056,13 @@ wEH
 wEH
 wEH
 wEH
-qin
+wEH
 wEH
 nhm
 wEH
 qzH
 wEH
-qin
+wEH
 wEH
 wEH
 wEH
@@ -176164,11 +176314,11 @@ wEH
 wEH
 wEH
 qin
-wEH
+qin
 nhm
 wEH
 qzH
-wEH
+qin
 qin
 wEH
 wEH
@@ -179672,7 +179822,7 @@ qin
 tyI
 tyI
 wnb
-fot
+nBN
 fot
 sWr
 mVy
@@ -199444,7 +199594,7 @@ wEH
 cDL
 tCJ
 tCJ
-fko
+fJG
 qEy
 tCJ
 dEm
@@ -199702,7 +199852,7 @@ cDL
 jsM
 mUe
 lhD
-iYW
+phQ
 tCJ
 dEm
 dEm
@@ -199959,7 +200109,7 @@ cDL
 cDL
 mUe
 mUe
-iYW
+cqE
 ugW
 tCJ
 kyc
@@ -200217,9 +200367,9 @@ cDL
 cDL
 tCJ
 guE
-iYW
+phQ
 lhD
-iYW
+unK
 hwr
 dRH
 uRM
@@ -200473,10 +200623,10 @@ wEH
 cDL
 cDL
 tCJ
-iYW
-iYW
+fIo
+asZ
 sLz
-iYW
+tsd
 ooj
 tCJ
 dEm
@@ -200732,7 +200882,7 @@ cDL
 tCJ
 tCJ
 nBL
-iYW
+lDK
 lhD
 ugr
 tCJ
@@ -200992,7 +201142,7 @@ mUe
 fko
 iXQ
 lcl
-uLE
+ovv
 uLE
 qJb
 fEi
