@@ -22,10 +22,11 @@
 		/obj/effect/proc_holder/spell/sintouch
 		))
 
-/datum/antagonist/devil/can_be_owned(datum/mind/new_owner)
-	. = ..()
-	if(!ishuman(owner.current))
-		return FALSE
+/datum/antagonist/devil/Destroy(force)
+	rank = null
+	QDEL_NULL(soulsOwned)
+	
+	return ..()
 
 /datum/antagonist/devil/proc/add_soul(datum/mind/soul)
 	if(soulsOwned.Find(soul))
@@ -86,8 +87,11 @@
 
 /datum/antagonist/devil/proc/update_hud()
 	var/mob/living/living = owner.current
-	if(living.hud_used?.devilsouldisplay)
-		living.hud_used.devilsouldisplay.update_counter(SOULVALUE)
+
+	if(!living.hud_used?.devilsouldisplay)
+		living.hud_used.devilsouldisplay = new /atom/movable/screen/devil/soul_counter(null, living.hud_used.devilsouldisplay)
+
+	living.hud_used?.devilsouldisplay.update_counter(SOULVALUE)
 
 /datum/antagonist/devil/proc/remove_hud()
 	var/mob/living = owner.current
@@ -117,7 +121,6 @@
 	if(!.)
 		return FALSE
 	
-	owner.current.hud_used = new /datum/hud/devil(owner.current, ui_style2icon(owner.current.client.prefs.UI_style))
 	truename = randomDevilName()
 	ban = randomdevilban()
 	bane = randomdevilbane()
@@ -127,6 +130,7 @@
 
 	var/mob/living/carbon/human/human = owner.current
 	human.store_memory("Your devilic true name is [truename]<br>[GLOB.lawlorify[LAW][ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][bane]]<br>[GLOB.lawlorify[LAW][obligation]]<br>[GLOB.lawlorify[LAW][banish]]<br>")
+	update_hud()
 
 /datum/antagonist/devil/give_objectives()
 	add_objective(/datum/objective/devil/ascend)

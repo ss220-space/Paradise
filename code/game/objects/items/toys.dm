@@ -1490,10 +1490,10 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "demonomicon"
 	w_class = WEIGHT_CLASS_SMALL
-	var/cooldown = FALSE
+	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/codex_gigas/attack_self(mob/user)
-	if(cooldown)
+	if(!COOLDOWN_FINISHED(cooldown))
 		return
 
 	user.visible_message(
@@ -1511,15 +1511,12 @@
 	LAZYADD(messages, GLOB.lawlorify[LAW][devil.banish])
 
 	playsound(loc, 'sound/machines/click.ogg', 20, 1)
-	cooldown = TRUE
+	COOLDOWN_START(src, cooldown, 2 SECONDS)
 
 	for(var/message in messages)
-		user.loc.visible_message("<span class='danger'>[bicon(src)] [message]</span>")
-		sleep(10)
+		user.loc.visible_message(span_danger("[bicon(src)] [message]"))
+		sleep(1 SECONDS)
 
-	spawn(20)
-		cooldown = FALSE
-		
 	return
 
 /obj/item/toy/owl
