@@ -198,7 +198,8 @@
 	/// How many times this step has been automatically repeated.
 	var/times_repeated = 0
 
-	/// Sound played when the step is started
+	/// Sound played when the step is started. It can be a list. Format if it is a list `path/tool_behaviour = 'sound path'`.
+	/// Pay attention to the sequence in the list.
 	var/begin_sound
 	/// Sound played if the step succeeded
 	var/end_sound
@@ -465,6 +466,7 @@
 /datum/surgery_step/proc/play_begin_sound(mob/living/user, mob/living/carbon/human/target, obj/item/tool)
 	if(!begin_sound)
 		return
+
 	var/sound_file_use
 	if(islist(begin_sound))
 		for(var/typepath in begin_sound)
@@ -473,6 +475,7 @@
 				break
 	else
 		sound_file_use = begin_sound
+
 	playsound(target, sound_file_use, 75, TRUE, falloff_exponent = 9, falloff_distance = 1, ignore_walls = FALSE)
 
 /**
