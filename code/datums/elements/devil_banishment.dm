@@ -46,6 +46,8 @@
     human.dust()
 
 /datum/element/devil_banishment/proc/on_revive()
+    SIGNAL_HANDLER
+    
     if(!linked_timer)
         return
 

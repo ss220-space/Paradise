@@ -68,12 +68,15 @@
         return
 
     ADD_TRAIT(human, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
+    ADD_TRAIT(human, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
     to_chat(human, span_revenbignotice("Hellish powers are resurrecting you."))
     
     playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
     linked_timer = addtimer(CALLBACK(src, PROC_REF(apply_regeneration), human, devil), devil.rank.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE)
 
 /datum/element/devil_regeneration/proc/on_revive(datum/source)
+    SIGNAL_HANDLER
+
     if(!linked_timer)
         return
 
@@ -82,6 +85,9 @@
 
     if(HAS_TRAIT_FROM(source, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src)))
         REMOVE_TRAIT(source, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
+
+    if(HAS_TRAIT_FROM(source, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src)))
+        REMOVE_TRAIT(source, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/element/devil_regeneration/proc/apply_regeneration(mob/living/carbon/human, datum/antagonist/devil/devil)
     if(human.health >= human.maxHealth)

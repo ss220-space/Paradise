@@ -112,18 +112,18 @@
 	return messages
 
 /datum/antagonist/devil/on_gain()
+	rank = new BASIC_DEVIL_RANK()
 	. = ..()
 	if(!.)
 		return FALSE
-		
+	
+	owner.current.hud_used = new /datum/hud/devil(owner.current, ui_style2icon(owner.current.client.prefs.UI_style))
 	truename = randomDevilName()
 	ban = randomdevilban()
 	bane = randomdevilbane()
 	obligation = randomdevilobligation()
 	banish = randomdevilbanish()
-
 	GLOB.allDevils[lowertext(truename)] = src
-	rank = new BASIC_DEVIL_RANK()
 
 	var/mob/living/carbon/human/human = owner.current
 	human.store_memory("Your devilic true name is [truename]<br>[GLOB.lawlorify[LAW][ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][bane]]<br>[GLOB.lawlorify[LAW][obligation]]<br>[GLOB.lawlorify[LAW][banish]]<br>")
