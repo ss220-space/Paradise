@@ -151,44 +151,6 @@
 		if(OBLIGATION_DANCEOFF)
 			owner.AddSpell(new /obj/effect/proc_holder/spell/summon_dancefloor(null))
 
-/datum/antagonist/devil/proc/check_banishment()
-	if(!iscarbon(owner.current) || QDELETED(owner.current))
-		return FALSE
-
-	var/mob/living/carbon/human/human = owner.current
-
-	switch(banish)
-		if(BANISH_WATER)
-			return human.reagents?.has_reagent("holy water")
-
-		if(BANISH_COFFIN)
-			return (istype(human?.loc, /obj/structure/closet/coffin))
-
-		if(BANISH_FORMALDYHIDE)
-			return human.reagents?.has_reagent("formaldehyde")
-
-		if(BANISH_RUNES)
-			for(var/obj/effect/decal/cleanable/crayon/R in range(0, human))
-				return R.name == "rune"
-
-		if(BANISH_CANDLES)
-			var/count = 0
-
-			for(var/obj/item/candle/candle in range(1, human))
-				count += candle.lit
-
-			return count >= 4
-
-		if(BANISH_FUNERAL_GARB)
-			if(human.w_uniform && istype(human.w_uniform, /obj/item/clothing/under/burial))
-				return TRUE
-			
-			for(var/obj/item/clothing/under/burial/burial in range(0, human))
-				if(burial.loc == get_turf(burial)) //Make sure it's not in someone's inventory or something.
-					return TRUE
-
-			return FALSE
-
 /datum/antagonist/devil/proc/update_hud()
 	var/mob/living/living = owner.current
 	if(living.hud_used?.devilsouldisplay)
@@ -250,6 +212,7 @@
 	update_spells()
 	owner.current.AddElement(/datum/element/devil_bane)
 	owner.current.AddElement(/datum/element/devil_regeneration)
+	owner.current.AddElement(/datum/element/devil_banishment)
 	update_hud()
 
 /datum/antagonist/devil/remove_innate_effects()
@@ -257,6 +220,7 @@
 	remove_spells()
 	owner.current.RemoveElement(/datum/element/devil_bane)
 	owner.current.RemoveElement(/datum/element/devil_regeneration)
+	owner.current.RemoveElement(/datum/element/devil_banishment)
 	remove_hud()
 
 /datum/antagonist/devil/proc/printdevilinfo()

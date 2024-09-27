@@ -39,10 +39,9 @@
 	..()
 	var/list/messages = list()
 	
-	if(devilinfo)
-		messages.Add(devilinfo.greet())
+	LAZYADD(messages, devilinfo?.greet())
+	LAZYADD(messages, mind.prepare_announce_objectives())
 
-	messages.Add(mind.prepare_announce_objectives())
 	to_chat(mind.current, chat_box_red(messages.Join("<br>")))
 
 

@@ -1,7 +1,7 @@
 /// Important note: check banes into the procs
 /datum/element/devil_bane/Attach(datum/target)
     . = ..()
-    var/mob/living/carbon/human/human = target
+    var/mob/living/carbon/human = target
 
     if(!istype(human) && !human.mind?.has_antag_datum(/datum/antagonist/devil))
         return ELEMENT_INCOMPATIBLE
@@ -12,7 +12,7 @@
 
 /datum/element/devil_bane/Detach(datum/target)
     . = ..()
-    var/mob/living/carbon/human/human = target
+    var/mob/living/carbon/human = target
 
     if(!istype(human))
         return
@@ -22,7 +22,7 @@
     UnregisterSignal(human, COMSIG_PARENT_ATTACKBY)
 
 /datum/element/devil_bane/proc/flash_eyes(datum/source, intensity, override_blindness_check, affect_silicon, visual, type)
-    var/mob/living/carbon/human/human = source
+    var/mob/living/carbon/human = source
     if(!istype(human))
         return
 
@@ -42,7 +42,7 @@
     human.mind?.disrupt_spells(-500)
 
 /datum/element/devil_bane/proc/check_reagents(datum/source, datum/reagent/reagent, method, volume)
-    var/mob/living/carbon/human/human = source
+    var/mob/living/carbon/human = source
     if(!istype(human))
         return
 
@@ -66,7 +66,7 @@
 /datum/element/devil_bane/proc/attackedby(datum/source, obj/item/item, mob/attacker, params)
 	SIGNAL_HANDLER
 
-	var/mob/living/carbon/human/human = source
+	var/mob/living/carbon/human = source
 	var/datum/antagonist/devil/devil = human.mind?.has_antag_datum(/datum/antagonist/devil)
 
 	if(!devil)

@@ -7,7 +7,7 @@
 
 /datum/element/devil_regeneration/Attach(datum/target)
     . = ..()
-    var/mob/living/carbon/human/human = target
+    var/mob/living/carbon/human = target
 
     if(!istype(human) && !human.mind?.has_antag_datum(/datum/antagonist/devil))
         return ELEMENT_INCOMPATIBLE
@@ -20,7 +20,7 @@
 
 /datum/element/devil_regeneration/Detach(datum/target)
     . = ..()
-    var/mob/living/carbon/human/human = target
+    var/mob/living/carbon/human = target
 
     if(!istype(human))
         return
@@ -31,7 +31,7 @@
     var/obj/item/organ/internal/brain/brain = human.get_organ_slot(INTERNAL_ORGAN_BRAIN)
     brain?.decoy_brain = FALSE	
 
-/datum/element/devil_regeneration/proc/start_regen_bodypart(datum/source, mob/living/carbon/human/human)
+/datum/element/devil_regeneration/proc/start_regen_bodypart(datum/source, mob/living/carbon/human)
     SIGNAL_HANDLER
 
     var/obj/item/organ/external/external = source
@@ -43,7 +43,7 @@
     addtimer(CALLBACK(src, PROC_REF(regen_bodypart), human, external, devil), devil.regen_threshold)
 
 /datum/element/devil_regeneration/proc/regen_bodypart(
-    mob/living/carbon/human/human,
+    mob/living/carbon/human,
     obj/item/organ/external/external,
     datum/antagonist/devil/devil
     )
@@ -59,7 +59,7 @@
     if(gibbed) // You're not immortal anymore.
         return
 
-    var/mob/living/carbon/human/human = source
+    var/mob/living/carbon/human = source
     var/datum/antagonist/devil/devil = human?.mind?.has_antag_datum(/datum/antagonist/devil)
 
     if(!devil)
@@ -71,17 +71,8 @@
     playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
     linked_timer = addtimer(CALLBACK(src, PROC_REF(regen_after_death), human, devil), devil.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE)
 
-/datum/element/devil_regeneration/proc/regen_after_death(mob/living/carbon/human/human, datum/antagonist/devil/devil)
-    . = devil.check_banishment()
-    switch(.)
-        if(TRUE)
-            REMOVE_TRAIT(human, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
-            human.gib() // bye bye
-        if(FALSE)
-            apply_regeneration(human, devil)
-
-/datum/element/devil_regeneration/proc/apply_regeneration(mob/living/carbon/human/human, datum/antagonist/devil/devil)
-    if(human.health >= 100)
+/datum/element/devil_regeneration/proc/apply_regeneration(mob/living/carbon/human, datum/antagonist/devil/devil)
+    if(human.health >= human.maxHealth)
         REMOVE_TRAIT(human, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
         human.revive()
         deltimer(linked_timer)
@@ -105,7 +96,7 @@
     playsound(get_turf(human), pick(sounds), 50, 0, TRUE)
     update_status(human)
 
-/datum/element/devil_regeneration/proc/update_status(mob/living/carbon/human/human)
+/datum/element/devil_regeneration/proc/update_status(mob/living/carbon/human)
     human.update_body()
     human.updatehealth()	
     human.UpdateDamageIcon()
