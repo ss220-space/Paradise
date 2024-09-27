@@ -536,6 +536,7 @@
 #include "code\datums\elements\falling_hazard.dm"
 #include "code\datums\elements\footstep.dm"
 #include "code\datums\elements\devil_regen.dm"
+#include "code\datums\elements\devil_banishment.dm"
 #include "code\datums\elements\devil_bane.dm"
 #include "code\datums\elements\give_turf_traits.dm"
 #include "code\datums\elements\light_blocking.dm"

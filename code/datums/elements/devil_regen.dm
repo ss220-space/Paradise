@@ -69,7 +69,7 @@
     to_chat(human, span_revenbignotice("Hellish powers are resurrecting you."))
     
     playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
-    linked_timer = addtimer(CALLBACK(src, PROC_REF(regen_after_death), human, devil), devil.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE)
+    linked_timer = addtimer(CALLBACK(src, PROC_REF(apply_regeneration), human, devil), devil.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE)
 
 /datum/element/devil_regeneration/proc/apply_regeneration(mob/living/carbon/human, datum/antagonist/devil/devil)
     if(human.health >= human.maxHealth)
@@ -92,11 +92,13 @@
         TRUE
         )
 
-    human.check_and_regenerate_organs()
+    if(ishuman(human))
+        var/mob/living/carbon/human/carbon = human
+        carbon.check_and_regenerate_organs()
+
     playsound(get_turf(human), pick(sounds), 50, 0, TRUE)
     update_status(human)
 
 /datum/element/devil_regeneration/proc/update_status(mob/living/carbon/human)
-    human.update_body()
     human.updatehealth()	
     human.UpdateDamageIcon()
