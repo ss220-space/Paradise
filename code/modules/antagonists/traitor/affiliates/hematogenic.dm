@@ -50,14 +50,18 @@
 /obj/item/hemophagus_extract/afterattack(atom/target, mob/user, proximity, params)
 	if(used)
 		return
+
 	if(!ishuman(target))
 		return
+
 	var/mob/living/carbon/human/H = target
 	if(H.stat == DEAD)
 		return
+
 	if((src.target && target != src.target) || !free_inject)
 		to_chat(user, span_warning("You can't use [src] to [target]!"))
 		return
+
 	if(do_after(user, free_inject ? FREE_INJECT_TIME : TARGET_INJECT_TIME, target = target, max_interact_count = 1))
 		inject(user, H)
 
@@ -76,9 +80,11 @@
 			var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
 			if (!T)
 				return
+
 			for(var/datum/objective/new_mini_vampire/objective in T.objectives)
 				if(target.mind == objective.target)
 					objective.made = TRUE
+
 		else
 			to_chat(user, span_notice("[target] body rejects [src]"))
 		return
@@ -95,9 +101,11 @@
 			var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
 			if (!T)
 				return
+
 			for(var/datum/objective/new_mini_vampire/objective in T.objectives)
 				if(target.mind == objective.target)
 					objective.made = TRUE
+
 		else
 			to_chat(user, span_notice("[target] body rejects [src]"))
 
@@ -130,23 +138,29 @@
 	if(!istype(target))
 		user.balloon_alert(src, "Не подходящая цель")
 		return
+
 	if(used)
 		to_chat(user, span_warning("[src] is already used!"))
 		return
+
 	if (HAS_TRAIT(target, TRAIT_NO_BLOOD) || HAS_TRAIT(target, TRAIT_EXOTIC_BLOOD))
 		user.balloon_alert(target, "Кровь не обнаружена!")
 		return
+
 	if(target.blood_volume < BLOOD_HARVEST_VOLUME)
 		user.balloon_alert(target, "Недостаточно крови!")
 		return
+
 	if(!target.mind)
 		user.balloon_alert(target, "Разум не обнаружен!")
 		return
+
 	return TRUE
 
 /obj/item/blood_harvester/afterattack(atom/target, mob/user, proximity, params)
 	if (!can_harvest(target, user))
 		return
+
 	var/mob/living/carbon/human/H = target
 
 	to_chat(target, span_danger("[user] started collecting your blood using [src]!"))
@@ -164,6 +178,7 @@
 	for (var/i = 0; i < 3; ++i)
 		if (prob(60))
 			continue
+
 		var/obj/item/organ/external/bodypart = pick(target.bodyparts)
 		bodypart.internal_bleeding() // no blood collection from metafriends.
 
@@ -195,6 +210,7 @@
 	if (!used)
 		. += span_info("Кровь не собрана.")
 		return
+
 	if (user?.mind.has_antag_datum(/datum/antagonist/traitor))
 		. += span_info("Собрана кровь с отпечатком души [target.name].")
 	else

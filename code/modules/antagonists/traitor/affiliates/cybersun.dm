@@ -107,12 +107,15 @@
 		for(var/obj/machinery/computer/rdconsole/rnd_console in GLOB.machines)
 			if(!is_station_level(rnd_console.z))
 				continue
+
 			for(var/i in rnd_console.files.known_tech)
 				current_tech = rnd_console.files.known_tech[i]
 				current_tech.level = 1
+
 			for(var/j in rnd_console.files.known_designs)
 				current_design = rnd_console.files.known_designs[j]
 				rnd_console.files.known_designs -= current_design.id
+
 			investigate_log("[key_name_log(user)] deleted all technology on this console.", INVESTIGATE_RESEARCH)
 
 		for(var/obj/machinery/mecha_part_fabricator/rnd_mechfab in GLOB.machines)
@@ -200,6 +203,7 @@
 			robot.law_manager.zeroth_law = laws
 			QDEL_NULL(prev_robot)
 			qdel(src)
+
 		return
 
 
@@ -248,6 +252,7 @@
 	var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
 	if (!T)
 		return ..()
+
 	for(var/datum/objective/new_mini_traitor/objective in T.objectives)
 		if(mindslave_target.mind == objective.target)
 			objective.made = TRUE

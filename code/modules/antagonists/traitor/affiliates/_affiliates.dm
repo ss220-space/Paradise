@@ -30,6 +30,7 @@
 	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
 	if(!traitor)
 		return
+
 	for(var/objective in objectives)
 		var/datum/objective/new_objective
 		if(islist(objective))
@@ -49,6 +50,7 @@
 /datum/affiliate/proc/give_bonus_objectives(datum/mind/mind)
 	if (!can_take_bonus_objectives)
 		return
+
 	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
 	if(!traitor)
 		return
@@ -99,6 +101,7 @@
 								"desc" = affiliate.desc,
 								"path" = affiliate_path,
 								"icon" = icon2base64(icon('icons/misc/affiliates.dmi', affiliate.tgui_icon, SOUTH))))
+
 	data["affiliates"] = affiliates
 	return data
 

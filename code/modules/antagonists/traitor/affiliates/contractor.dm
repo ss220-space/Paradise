@@ -11,6 +11,7 @@
 	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
 	if(!traitor)
 		return
+
 	traitor.old_give_objectives()
 
 	var/datum/antagonist/contractor/contractor_datum = new()

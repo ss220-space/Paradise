@@ -755,6 +755,7 @@
 /mob/living/simple_animal/borer/proc/grant_master_info()
 	if (master_name == "")
 		return
+
 	to_chat(src, span_warning("[master_name] - ваш мастер. Выполняйте приказы мастера. Помогите мастеру выполнить цели либой ценой!"))
 	mind.store_memory("<B>[master_name] - мой мастер. Я выполню цели мастера любой ценой!</B>")
 	add_game_logs("стал питомцем master_name", src)

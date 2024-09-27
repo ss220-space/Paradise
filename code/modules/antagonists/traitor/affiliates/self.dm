@@ -55,6 +55,7 @@
 	. += span_info("Освобожденые синтетики:")
 	for (var/name in names)
 		. += span_info(name)
+
 	if (names.len > 3)
 		. += span_info("Вы отлично справились!")
 

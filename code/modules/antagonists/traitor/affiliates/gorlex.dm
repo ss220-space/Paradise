@@ -48,8 +48,10 @@
 /datum/affiliate/gorlex/give_bonus_objectives(datum/mind/mind)
 	if (!can_take_bonus_objectives)
 		return
+
 	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
 	if(!traitor)
 		return
+
 	traitor.add_objective(new /datum/objective/assassinate)
 	traitor.add_objective(new /datum/objective/assassinate)

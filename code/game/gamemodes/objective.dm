@@ -133,6 +133,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
+
 		possible_targets |= possible_target
 
 	if(length(possible_targets))
@@ -239,6 +240,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist) || !(possible_target?.assigned_role in list("Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Captain")))
 			continue
+
 		possible_targets |= possible_target
 
 	if(length(possible_targets))
@@ -268,6 +270,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist) || !(possible_target?.assigned_role in list("Magistrate", "NT Representative")))
 			continue
+
 		possible_targets |= possible_target
 
 	if(length(possible_targets))
@@ -1583,6 +1586,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in killers) || (possible_target in target_blacklist) || target == possible_target)
 			continue
+
 		possible_targets |= possible_target
 
 		if(length(killers_objectives))
@@ -1730,6 +1734,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
+
 		possible_targets |= possible_target
 		for(var/role in possible_roles)
 			if(role == possible_target.assigned_role)
@@ -1836,13 +1841,17 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for (var/obj/mecha/mecha in range(3, owner.current))
 		if (mecha.occupant == owner.current)
 			return TRUE
+
 		if (!mecha.occupant)
 			return TRUE
+
 	for (var/obj/spacepod/pod in range(3, owner.current))
 		if (pod.pilot == owner.current)
 			return TRUE
+
 		if (!pod.pilot)
 			return TRUE
+
 	return FALSE
 
 /datum/objective/new_mini_traitor
@@ -1853,6 +1862,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	..()
 	if (target)
 		update_explanation()
+
 	return target
 
 /datum/objective/new_mini_traitor/proc/update_explanation()
@@ -1887,9 +1897,12 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/obj/item/blood_harvester/BH in owner.current.get_contents())
 		if (!BH.target)
 			continue
+
 		if (BH.target in minds)
 			continue
+
 		minds += BH.target
+
 	return minds.len >= req_blood_samples
 
 /datum/objective/steal/hypo_or_defib
@@ -1903,6 +1916,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	..()
 	if (target)
 		update_explanation()
+
 	return target
 
 /datum/objective/new_mini_vampire/proc/update_explanation()
@@ -1929,6 +1943,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist) || possible_target.current.job != JOB_TITLE_BLUESHIELD)
 			continue
+
 		possible_targets |= possible_target
 
 	if(length(possible_targets))
@@ -1974,6 +1989,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist) || possible_target.has_antag_datum(/datum/antagonist/traitor))
 			continue
+
 		possible_targets |= possible_target
 
 	if(length(possible_targets))
@@ -1992,6 +2008,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	..()
 	if (target)
 		update_explanation()
+
 	return target
 
 /datum/objective/new_mini_changeling/proc/update_explanation()
