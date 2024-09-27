@@ -191,7 +191,7 @@
 				user.visible_message("<span class='danger'>[user] fires [src] point blank at [target]!</span>", "<span class='danger'>You fire [src] point blank at [target]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
 				if(pb_knockback > 0 && isliving(target))
 					var/mob/living/living_target = target
-					if(!living_target.move_resist > MOVE_FORCE_NORMAL) //no knockbacking prince of terror or somethin
+					if(!(living_target.move_resist > MOVE_FORCE_NORMAL)) //no knockbacking prince of terror or somethin
 						var/atom/throw_target = get_edge_target_turf(living_target, user.dir)
 						living_target.throw_at(throw_target, pb_knockback, 2)
 			else

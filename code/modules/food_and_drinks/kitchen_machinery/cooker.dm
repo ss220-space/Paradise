@@ -138,12 +138,12 @@
 	if(!putIn(I, user))
 		return ATTACK_CHAIN_PROCEED
 
-	addtimer(CALLBACK(src, PROC_REF(cooking_end), I, user))
+	addtimer(CALLBACK(src, PROC_REF(cooking_end), I, user), cooktime)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/machinery/cooker/proc/cooking_end(obj/item/cooking, mob/cook)
-	if(!QDELETED(cooking) || cooking.loc != src)
+	if(QDELETED(cooking) || cooking.loc != src)
 		return
 	//New interaction to allow special foods to be made/cooked via deepfryer without removing original functionality
 	//Define the foods/results on the specific machine		--FalseIncarnate

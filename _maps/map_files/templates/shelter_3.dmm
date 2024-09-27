@@ -30,7 +30,6 @@
 "f" = (
 /obj/structure/sign/mining/survival{
 	dir = 4;
-	icon_state = "survival";
 	tag = "icon-survival (EAST)"
 	},
 /obj/structure/disposalpipe/segment{
@@ -41,7 +40,6 @@
 "g" = (
 /obj/structure/sign/mining/survival{
 	dir = 4;
-	icon_state = "survival";
 	tag = "icon-survival (EAST)"
 	},
 /obj/structure/disposalpipe/segment{
@@ -108,9 +106,7 @@
 /area/survivalpod)
 "s" = (
 /obj/structure/sign/mining/survival{
-	dir = 1;
-	icon_state = "survival";
-	
+	dir = 1
 	},
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
@@ -139,7 +135,6 @@
 "y" = (
 /obj/structure/sign/mining/survival{
 	dir = 4;
-	icon_state = "survival";
 	tag = "icon-survival (EAST)"
 	},
 /obj/structure/disposalpipe/junction{
@@ -232,7 +227,6 @@
 "W" = (
 /obj/structure/sign/mining/survival{
 	dir = 4;
-	icon_state = "survival";
 	tag = "icon-survival (EAST)"
 	},
 /turf/simulated/wall/mineral/titanium/survival,
