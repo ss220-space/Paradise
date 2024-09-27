@@ -48,7 +48,7 @@
 
     human.dust()
 
-/datum/element/devil/proc/check_banishment(mob/living/carbon/human, datum/antagonist/devil/devil)
+/datum/element/devil_banishment/proc/check_banishment(mob/living/carbon/human, datum/antagonist/devil/devil)
 	switch(devil.banish)
 		if(BANISH_WATER)
 			return human.reagents?.has_reagent("holy water")
