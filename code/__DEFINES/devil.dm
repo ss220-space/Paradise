@@ -23,12 +23,14 @@ GLOBAL_LIST_INIT(whiteness, list(
 	/obj/item/clothing/under/burial = 1
 ))
 
-#define BLOOD_THRESHOLD 3 //How many souls are needed per stage.
-#define TRUE_THRESHOLD 7
+#define ENRAGED_THRESHOLD	4
+#define BLOOD_THRESHOLD 	7
+#define TRUE_THRESHOLD 		10
 
-#define BASIC_DEVIL 0
-#define BLOOD_LIZARD 1
-#define TRUE_DEVIL 2
+#define BASIC_DEVIL 	0
+#define ENRAGED_DEVIL 	1
+#define BLOOD_LIZARD 	2
+#define TRUE_DEVIL 		3
 
 #define SOULVALUE (LAZYLEN(soulsOwned))
 
@@ -39,6 +41,10 @@ GLOBAL_LIST_INIT(whiteness, list(
 #define BASIC_DEVIL_REGEN_AMOUNT 		20
 #define BLOOD_LIZARD_REGEN_AMOUNT 		40
 #define TRUE_DEVIL_REGEN_AMOUNT 		60
+
+#define BASIC_DEVIL_RANK	/datum/devil_rank/basic_devil
+#define BLOOD_LIZARD_RANK	/datum/devil_rank/blood_lizard
+#define TRUE_DEVIL_RANK		/datum/devil_rank/true_devil
 
 #define BANE_SALT "salt"
 #define BANE_LIGHT "light"

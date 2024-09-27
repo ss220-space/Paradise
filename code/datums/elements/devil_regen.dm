@@ -14,6 +14,7 @@
 
     RegisterSignal(human, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(start_regen_bodypart))
     RegisterSignal(human, COMSIG_LIVING_DEATH, PROC_REF(on_death))
+    RegisterSignal(human, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 
     var/obj/item/organ/internal/brain/brain = human.get_organ_slot(INTERNAL_ORGAN_BRAIN)
     brain?.decoy_brain = TRUE	
@@ -27,6 +28,7 @@
 
     UnregisterSignal(human, COMSIG_CARBON_LOSE_ORGAN)
     UnregisterSignal(human, COMSIG_LIVING_DEATH)
+    UnregisterSignal(human, COMSIG_LIVING_REVIVE)
 
     var/obj/item/organ/internal/brain/brain = human.get_organ_slot(INTERNAL_ORGAN_BRAIN)
     brain?.decoy_brain = FALSE	
@@ -71,12 +73,19 @@
     playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
     linked_timer = addtimer(CALLBACK(src, PROC_REF(apply_regeneration), human, devil), devil.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE)
 
+/datum/element/devil_regeneration/proc/on_revive(datum/source)
+    if(!linked_timer)
+        return
+
+    deltimer(linked_timer)
+    linked_timer = null
+
+    if(HAS_TRAIT_FROM(source, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src)))
+        REMOVE_TRAIT(source, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
+
 /datum/element/devil_regeneration/proc/apply_regeneration(mob/living/carbon/human, datum/antagonist/devil/devil)
     if(human.health >= human.maxHealth)
-        REMOVE_TRAIT(human, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
         human.revive()
-        deltimer(linked_timer)
-        linked_timer = null
 
     human.heal_damages(
         devil.regen_amount, 

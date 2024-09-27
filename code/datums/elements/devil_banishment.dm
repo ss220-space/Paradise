@@ -12,6 +12,7 @@
         return ELEMENT_INCOMPATIBLE
 
     RegisterSignal(human, COMSIG_LIVING_DEATH, PROC_REF(on_death))
+    RegisterSignal(human, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 
 /datum/element/devil_banishment/Detach(datum/target)
     . = ..()
@@ -21,6 +22,7 @@
         return
 
     UnregisterSignal(human, COMSIG_LIVING_DEATH)
+    UnregisterSignal(human, COMSIG_LIVING_REVIVE)
 
 /datum/element/devil_banishment/proc/on_death(datum/source, gibbed)
     SIGNAL_HANDLER
@@ -38,15 +40,17 @@
     linked_timer = addtimer(CALLBACK(src, PROC_REF(try_banishment), human, devil), devil.regen_threshold / 2, TIMER_LOOP | TIMER_STOPPABLE)
 
 /datum/element/devil_banishment/proc/try_banishment(mob/living/carbon/human, datum/antagonist/devil/devil)
-    if(human.stat != DEAD)
-        deltimer(linked_timer)
-        linked_timer = null
-        return
-        
     if(!check_banishment(human, devil))
         return
 
     human.dust()
+
+/datum/element/devil_banishment/proc/on_revive()
+    if(!linked_timer)
+        return
+
+    deltimer(linked_timer)
+    linked_timer = null
 
 /datum/element/devil_banishment/proc/check_banishment(mob/living/carbon/human, datum/antagonist/devil/devil)
 	switch(devil.banish)
