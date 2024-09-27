@@ -4,15 +4,16 @@
 	job_rank = ROLE_DEVIL
 	special_role = ROLE_DEVIL
 	antag_hud_type = ANTAG_HUD_DEVIL
+
 	var/obligation
 	var/ban
 	var/bane
 	var/banish
 	var/truename
+
 	var/list/datum/mind/soulsOwned = new
 	var/datum/devil_rank/rank
-	var/regen_threshold = BASIC_DEVIL_REGEN_THRESHOLD
-	var/regen_amount = BASIC_DEVIL_REGEN_AMOUNT
+
 	var/static/list/devil_spells = typecacheof(list(
 		/obj/effect/proc_holder/spell/fireball/hellish,
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
@@ -51,7 +52,7 @@
 
 	rank.link_rank(owner.current)
 	rank.apply_rank()
-	update_spells()
+	rank.apply_spells()
 
 	return
 
@@ -59,9 +60,11 @@
 	. = FALSE
 	switch(SOULVALUE)
 		if(BLOOD_THRESHOLD)
+			rank.remove_spells()
 			rank = new BLOOD_LIZARD_RANK()
 			. = TRUE
 		if(TRUE_THRESHOLD)
+			rank.remove_spells()
 			rank = new TRUE_DEVIL_RANK()
 			. = TRUE
 
@@ -73,11 +76,6 @@
 			continue
 
 		owner.RemoveSpell(spell)
-
-/datum/antagonist/devil/proc/update_spells()
-	remove_spells()
-	give_obligation_spells()
-	rank.apply_spells()
 
 /datum/antagonist/devil/proc/give_obligation_spells()
 	switch(obligation)
@@ -152,16 +150,18 @@
 
 	rank.link_rank(owner.current)
 	rank.apply_rank()
+	rank.apply_spells()
 
 	update_hud()
-	update_spells()
+	give_obligation_spells()
 
 /datum/antagonist/devil/remove_innate_effects()
 	. = ..()
-	remove_spells()
 	owner.current.RemoveElement(/datum/element/devil_bane)
 	owner.current.RemoveElement(/datum/element/devil_regeneration)
 	owner.current.RemoveElement(/datum/element/devil_banishment)
+
+	remove_spells()
 	remove_hud()
 
 /datum/antagonist/devil/proc/printdevilinfo()
@@ -219,10 +219,20 @@
 	var/mob/living/carbon/owner
 	/// Which spells we'll give to rank owner when rank is applied
 	var/list/rank_spells
+	/// Regeneration things for devil. Used in devil elements
+	var/regen_threshold
+	var/regen_amount
 
 /datum/devil_rank/proc/link_rank(mob/living/carbon/carbon)
 	owner = carbon
 	devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
+
+/datum/devil_rank/proc/remove_spells()
+	for(var/obj/effect/proc_holder/spell/spell as anything in owner.mind?.spell_list)
+		if(!is_type_in_list(spell, rank_spells))
+			continue
+
+		owner.mind?.RemoveSpell(spell)
 
 /datum/devil_rank/proc/apply_rank(mob/living/carbon/carbon)
 	return
@@ -232,9 +242,15 @@
 		owner.mind?.AddSpell(new spell)
 
 /datum/devil_rank/basic_devil
+	regen_threshold = BASIC_DEVIL_REGEN_THRESHOLD
+	regen_amount = BASIC_DEVIL_REGEN_AMOUNT
+
 	rank_spells = list() // TODO: new single spell which allows you to do rituals
 
 /datum/devil_rank/blood_lizard
+	regen_threshold = BLOOD_LIZARD_REGEN_THRESHOLD
+	regen_amount = BLOOD_LIZARD_REGEN_AMOUNT
+
 	rank_spells = list(
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
 		/obj/effect/proc_holder/spell/fireball/hellish,
@@ -244,7 +260,7 @@
 /datum/devil_rank/blood_lizard/apply_rank()
 	if(!ishuman(owner))
 		owner.color = "#501010"
-		return TRUE
+		return
 
 	var/mob/living/carbon/human/human = owner
 	var/list/language_temp = LAZYLEN(human.languages) ? human.languages.Copy() : null
@@ -259,9 +275,12 @@
 	human.change_skin_color(80, 16, 16) //A deep red
 	human.regenerate_icons()
 
-	return TRUE
+	return
 
 /datum/devil_rank/true_devil
+	regen_threshold = TRUE_DEVIL_REGEN_THRESHOLD
+	regen_amount = TRUE_DEVIL_REGEN_AMOUNT
+
 	rank_spells = list(
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork/greater,
 		/obj/effect/proc_holder/spell/fireball/hellish,
@@ -279,7 +298,7 @@
 	owner.mind?.transfer_to(A)
 	A.set_name()
 
-	return TRUE
+	return
 
 /datum/fakeDevil
 	var/truename

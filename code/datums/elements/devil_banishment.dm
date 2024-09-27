@@ -37,7 +37,7 @@
         return
     
     playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
-    linked_timer = addtimer(CALLBACK(src, PROC_REF(try_banishment), human, devil), devil.regen_threshold / 2, TIMER_LOOP | TIMER_STOPPABLE)
+    linked_timer = addtimer(CALLBACK(src, PROC_REF(try_banishment), human, devil), devil.rank.regen_threshold / 2, TIMER_LOOP | TIMER_STOPPABLE)
 
 /datum/element/devil_banishment/proc/try_banishment(mob/living/carbon/human, datum/antagonist/devil/devil)
     if(!check_banishment(human, devil))

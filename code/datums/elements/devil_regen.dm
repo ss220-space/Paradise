@@ -42,7 +42,7 @@
     if(!devil)
         return
 
-    addtimer(CALLBACK(src, PROC_REF(regen_bodypart), human, external, devil), devil.regen_threshold)
+    addtimer(CALLBACK(src, PROC_REF(regen_bodypart), human, external, devil), devil.rank.regen_threshold)
 
 /datum/element/devil_regeneration/proc/regen_bodypart(
     mob/living/carbon/human,
@@ -50,7 +50,7 @@
     datum/antagonist/devil/devil
     )
     external = new external.parent_organ_zone(human)
-    human.heal_overall_damage(devil.regen_amount, devil.regen_amount)
+    human.heal_overall_damage(devil.rank.regen_amount, devil.rank.regen_amount)
 
     playsound(get_turf(human), pick(sounds), 50, 0, TRUE)
     update_status(human)
@@ -71,7 +71,7 @@
     to_chat(human, span_revenbignotice("Hellish powers are resurrecting you."))
     
     playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
-    linked_timer = addtimer(CALLBACK(src, PROC_REF(apply_regeneration), human, devil), devil.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE)
+    linked_timer = addtimer(CALLBACK(src, PROC_REF(apply_regeneration), human, devil), devil.rank.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE)
 
 /datum/element/devil_regeneration/proc/on_revive(datum/source)
     if(!linked_timer)
@@ -88,15 +88,15 @@
         human.revive()
 
     human.heal_damages(
-        devil.regen_amount, 
-        devil.regen_amount,
-        devil.regen_amount,
-        devil.regen_amount,
-        devil.regen_amount,
-        devil.regen_amount,
-        devil.regen_amount,
-        devil.regen_amount,
-        devil.regen_amount,
+        devil.rank.regen_amount, 
+        devil.rank.regen_amount,
+        devil.rank.regen_amount,
+        devil.rank.regen_amount,
+        devil.rank.regen_amount,
+        devil.rank.regen_amount,
+        devil.rank.regen_amount,
+        devil.rank.regen_amount,
+        devil.rank.regen_amount,
         TRUE,
         TRUE
         )
