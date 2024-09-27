@@ -52781,7 +52781,7 @@
 	id_tag = "emergency_home";
 	locked = 1;
 	name = "Security Escape Airlock";
-	req_access = list(1)
+	req_access = list(63)
 	},
 /obj/effect/turf_decal/caution/red{
 	dir = 8
