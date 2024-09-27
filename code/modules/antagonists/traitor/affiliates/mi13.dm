@@ -4,10 +4,11 @@
 			Вы были внедрены в структуру NanoTrasen для поиска и получения секретных сведений; однако возможно, что придется испачкать перчатки в крови. \n\
 			Как вам стоит работать: действуйте скрытно и осторожно, не вызывайте подозрений со стороны службы безопасности станции. \n\
 			Если вы и решитесь пойти на открытую конфронтацию - не забудьте прибрать следы, сменить тройку на двойку не будет ошибкой. \n\
-			Особые условия: агентам Корпорации не положено тяжелое и шумное снаряжение, однако набор \"Бонда\" уже ваш - не забудье забрать его."
+			Особые условия: агентам Корпорации не положено тяжелое и шумное снаряжение, однако набор \"Бонда\" уже ваш - не забудье забрать его.\n\
+			Стандартные цели: Украсть секретные документы, украсть пару вещей, убить пару гуманойдов, обменяться секретными документами с другим агентом, выглядеть стильно."
 	objectives = list(/datum/objective/steal/documents,
 					list(/datum/objective/steal = 30, /datum/objective/maroon = 70),
-					list(/datum/objective/steal = 30, /datum/objective/maroon/blueshield = 70), // blueshield has revolver and CQC.
+					list(/datum/objective/steal = 30, /datum/objective/maroon/blueshield = 70), // blueshield also has CQC.
 					/datum/objective/steal,
 					/datum/objective/escape
 					)
@@ -39,3 +40,7 @@
 	new /obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail(src)
 	new /obj/item/storage/box/syndie_kit/emp(src)
 	new /obj/item/CQC_manual(src)
+
+/obj/item/storage/box/bond_bundle/New()
+	if (prob(5))
+		icon_state = "joker"

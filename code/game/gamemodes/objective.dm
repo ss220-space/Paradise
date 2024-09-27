@@ -1820,15 +1820,20 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	return FALSE
 
 
-/datum/objective/mecha_hijack
+/datum/objective/mecha_or_pod_hijack
 	needs_target = FALSE
-	explanation_text = "Украдите любого меха."
+	explanation_text = "Украдите любого меха или любой под."
 
-/datum/objective/mecha_hijack/check_completion()
+/datum/objective/mecha_or_pod_hijack/check_completion()
 	for (var/obj/mecha/mecha in range(3, owner.current))
 		if (mecha.occupant == owner.current)
 			return TRUE
 		if (!mecha.occupant)
+			return TRUE
+	for (var/obj/spacepod/pod in range(3, owner.current))
+		if (pod.pilot == owner.current)
+			return TRUE
+		if (!pod.pilot)
 			return TRUE
 	return FALSE
 
@@ -1903,10 +1908,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	if(length(possible_targets))
 		target = pick(possible_targets)
+		SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
 	else
 		return ..()
-
-	SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
 
 
 /datum/objective/release_synthetic
@@ -1936,7 +1940,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/self_emag)
 
 
-/datum/objective/maroon/agent/find_target(list/target_blacklist) // Blueshield. If there are no suitable blueshields, take a random crew member.
+/datum/objective/maroon/agent/find_target(list/target_blacklist)
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist) || possible_target.has_antag_datum(/datum/antagonist/traitor))
@@ -1945,10 +1949,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	if(length(possible_targets))
 		target = pick(possible_targets)
+		explanation_text += " Target is agent." // No uplink code. SELF agents already get 40TK for killing both agents + 20TK for bonus objectives.
+		SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
 	else
 		return ..()
 
-	SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
 
 /datum/objective/new_mini_changeling
 	needs_target = TRUE
@@ -1956,7 +1961,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/new_mini_changeling/New()
 	. = ..()
-	explanation_text = "Inject [target.current.real_name], the [target.assigned_role] with an egg implanter. You can find one for free in uplink."
+	explanation_text = "Inject [target.current.real_name], the [target.assigned_role] with an egg implanter. The target must be dead at the time of injection. You can find one for free in uplink."
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
 		var/datum/uplink_item/affiliate/for_objective/cling_extract/I = new
@@ -1975,7 +1980,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/borers/New()
 	. = ..()
-	explanation_text = "Проследите чтобы к концу смены количество живых бореров было по меньшей мере [req]."
+	explanation_text = "Проследите, чтобы к концу смены количество живых бореров было по меньшей мере [req]."
 
 /datum/objective/borers/check_completion()
 	var/borers = 0

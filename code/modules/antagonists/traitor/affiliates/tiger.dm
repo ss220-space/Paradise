@@ -6,7 +6,8 @@
 	desc = "Вы - послушник культа генокрадопоклонников и член организации Tiger Cooperative. \n\
 			Вышестоящие братья определили ваши задачи на станции NanoTrasen, не опозорьте их и явите миру новое дитя генокрада! \n\
 			Как вам стоит работать: не раскрывайте свое присутсвие и присутствие генокрада, позаботьтесь о его успешном внедрении. \n\
-			Особые условия: братья по вере не пользуются оружием дальнего боя, предпочитая стимуляторы и энергомечи."
+			Особые условия: братья по вере не пользуются оружием дальнего боя, предпочитая стимуляторы и энергомечи.\n\
+			Стандартные цели: Сделать члена экипажа генокрадом вколов в его труп яйца генокрада, развести бореров, украсть пару вещей, убить пару еретиков."
 	objectives = list(/datum/objective/new_mini_changeling, // Oh, sorry, I forgot to make that stupid drug objective...
 					/datum/objective/borers,
 					list(/datum/objective/steal = 60, /datum/objective/maroon = 40),
@@ -21,7 +22,7 @@
 
 /obj/item/cling_extract
 	name = "Egg Implanter"
-	desc = "Кажется внутри что-то двигается. На боку этикетка \"Tiger Cooperative\""
+	desc = "Кажется, внутри что-то двигается. На боку этикетка \"Tiger Cooperative\""
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "cling_extract"
 	var/used_state = "cling_extract_used"
