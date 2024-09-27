@@ -231,7 +231,15 @@
 	for(var/obj/effect/proc_holder/spell/spell as anything in rank_spells)
 		owner.mind?.AddSpell(new spell)
 
+/datum/devil_rank/basic_devil
+	rank_spells = list() // TODO: new single spell which allows you to do rituals
+
 /datum/devil_rank/blood_lizard
+	rank_spells = list(
+		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
+		/obj/effect/proc_holder/spell/fireball/hellish,
+		/obj/effect/proc_holder/spell/infernal_jaunt
+	)
 
 /datum/devil_rank/blood_lizard/apply_rank()
 	if(!ishuman(owner))
@@ -254,6 +262,12 @@
 	return TRUE
 
 /datum/devil_rank/true_devil
+	rank_spells = list(
+		/obj/effect/proc_holder/spell/conjure_item/pitchfork/greater,
+		/obj/effect/proc_holder/spell/fireball/hellish,
+		/obj/effect/proc_holder/spell/infernal_jaunt,
+		/obj/effect/proc_holder/spell/sintouch
+	)
 
 /datum/devil_rank/true_devil/apply_rank()
 	to_chat(owner, span_warning("You feel as though your current form is about to shed.  You will soon turn into a true devil."))
@@ -262,7 +276,7 @@
 	A.faction |= "hell"
 	owner.forceMove(A)
 	A.oldform = owner
-	owner.transfer_to(A)
+	owner.mind?.transfer_to(A)
 	A.set_name()
 
 	return TRUE
