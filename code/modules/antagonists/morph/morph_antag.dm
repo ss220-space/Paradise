@@ -21,9 +21,11 @@
 	. = ..()
 	if(!.)
 		return FALSE
+		
 	var/datum/mind/mind = new_mind || owner
 	if(!mind || !ismorph(mind.current))
 		return FALSE
+
 	return TRUE
 
 /datum/antagonist/morph/add_owner_to_gamemode()

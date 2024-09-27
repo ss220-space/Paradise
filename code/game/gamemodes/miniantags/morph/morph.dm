@@ -82,12 +82,14 @@
 	if(food_value + gathered_food < 0)
 		to_chat(src, span_warning("You can't force yourself to eat more disgusting items. Eat some living things first."))
 		return
+
 	var/eat_self_message
 	if(food_value < 0)
 		eat_self_message = span_warning("You start eating [item]... disgusting....")
 	else
 		eat_self_message = span_notice("You start eating [item].")
 	visible_message(span_warning("[src] starts eating [target]!"), eat_self_message, "You hear loud crunching!")
+
 	if(do_after(src, 3 SECONDS, item))
 		if(food_value + gathered_food < 0)
 			to_chat(src, span_warning("You can't force yourself to eat more disgusting items. Eat some living things first."))
@@ -100,17 +102,20 @@
 
 		item.extinguish_light()
 		item.forceMove(src)
+
 		var/food_value = calc_food_gained(item)
 		add_food(food_value)
 		if(food_value > 0)
 			adjustHealth(-food_value)
 		add_attack_logs(src, item, "morph ate")
 		return TRUE
+
 	return FALSE
 
 /mob/living/simple_animal/hostile/morph/proc/calc_food_gained(mob/living/living)
 	if(!istype(living))
 		return -ITEM_EAT_COST // Anything other than a tasty mob will make me sad ;(
+
 	var/gained_food = max(5, 10 * living.mob_size) // Tiny things are worth less
 	if(ishuman(living) && !is_monkeybasic(living))
 		gained_food += 10 // Humans are extra tasty
@@ -151,8 +156,10 @@
 	melee_damage_lower = initial(melee_damage_lower)
 	melee_damage_upper = initial(melee_damage_upper)
 	set_varspeed(initial(speed))
+
 	if(ambush_prepared)
 		to_chat(src, span_warning("The ambush potential has faded as you take your true form."))
+
 	failed_ambush()
 	antag_datum.pass_airlock_spell.updateButtonIcon()
 	move_resist = MOVE_FORCE_STRONG // Return to their fatness
@@ -188,6 +195,7 @@
 	// Only execute the below if we successfully died
 	if(!.)
 		return FALSE
+
 	GLOB.morphs_alive_list -= src
 
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/attacker)
@@ -195,6 +203,7 @@
 		to_chat(attacker, "[span_warning("[src] feels a bit different from normal... it feels more..")] [span_danger("SLIMEY?!")]")
 		ambush_attack(attacker, TRUE)
 		return TRUE
+
 	else if (!morphed)
 		to_chat(attacker, span_warning("Touching [src] with your hands hurts you!"))
 		attacker.apply_damage(20, def_zone = attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
@@ -223,6 +232,7 @@
 			to_chat(user, span_warning("Attacking [src] damaging your systems!"))
 			user.apply_damage(70)
 			add_food(-5)
+
 		return ..()
 
 	if(!morphed && prob(50))
@@ -231,6 +241,7 @@
 			to_chat(user, span_warning("[src] just ate your [item]!"))
 			eat(item)
 			return ATTACK_CHAIN_BLOCKED_ALL
+
 		return ..()
 
 	restore_form()
@@ -241,6 +252,7 @@
 		to_chat(animal, "[span_notice("You nuzzle [src].")] [span_danger("And [src] nuzzles back!")]")
 		ambush_attack(animal, TRUE)
 		return TRUE
+
 	restore_form()
 
 /mob/living/simple_animal/hostile/morph/attack_larva(mob/living/carbon/alien/larva/L)
@@ -259,6 +271,7 @@
 	ambush_prepared = FALSE
 	var/total_weaken = ambush_weaken
 	var/total_damage = ambush_damage
+
 	if(touched) // Touching a morph while he's ready to kill you is a bad idea
 		total_weaken *= 2
 		total_damage *= 2
@@ -284,14 +297,17 @@
 		if(living.stat == DEAD)
 			try_eat(living)
 			return TRUE
+
 		if(ambush_prepared)
 			ambush_attack(living)
 			return TRUE // No double attack
+
 	else if(isitem(target)) // Eat items just to be annoying
 		var/obj/item/item = target
 		if(!item.anchored)
 			try_eat(item)
 			return TRUE
+
 	. = ..()
 	if(. && morphed)
 		restore_form()
@@ -299,9 +315,11 @@
 /mob/living/simple_animal/hostile/morph/proc/make_morph_antag(grant_objectives = TRUE)
 	if(!mind)
 		return // It can be called by gluttony blessing on mindless mob.
+		
 	antag_datum = new
 	if(!grant_objectives)
 		antag_datum.give_objectives = FALSE
+
 	mind.add_antag_datum(antag_datum)
 
 /mob/living/simple_animal/hostile/morph/sentience_act()
