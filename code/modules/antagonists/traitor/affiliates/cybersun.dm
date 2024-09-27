@@ -37,6 +37,8 @@
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "proprietary_ssd"
 	item_state = "disk"
+	lefthand_file = 'icons/obj/affiliates.dmi'
+	righthand_file = 'icons/obj/affiliates.dmi'
 	origin_tech = "syndicate=2"
 	w_class = WEIGHT_CLASS_TINY
 	var/datum/research/files
@@ -51,12 +53,15 @@
 /obj/item/proprietary_ssd/afterattack(atom/target, mob/user, proximity, params)
 	if (istype(target, /obj/machinery/r_n_d/destructive_analyzer))
 		return
+
 	if (get_dist(user, target) > 1)
 		user.balloon_alert(user, "Слишком далеко")
 		return
+
 	if(!istype(target, /obj/machinery/r_n_d/server))
 		user.balloon_alert(user, "Это не сервер")
 		return
+
 
 	var/obj/machinery/r_n_d/server/server = target
 	if(do_after(user, 5 SECONDS, target, max_interact_count = 1)) // Добавить потом какой-нибудь сапер. Ну и коммент на русском убрать.
@@ -81,16 +86,21 @@
 		for(var/obj/machinery/r_n_d/server/rnd_server in GLOB.machines)
 			if(!is_station_level(rnd_server.z))
 				continue
+
 			if(rnd_server.disabled)
 				continue
+
 			if(rnd_server.syndicate)
 				continue
+
 			for(var/i in rnd_server.files.known_tech)
 				current_tech = rnd_server.files.known_tech[i]
 				current_tech.level = 1
+
 			for(var/j in rnd_server.files.known_designs)
 				current_design = rnd_server.files.known_designs[j]
 				rnd_server.files.known_designs -= current_design.id
+
 			investigate_log("[key_name_log(user)] deleted all technology on this server.", INVESTIGATE_RESEARCH)
 
 
@@ -106,14 +116,18 @@
 			investigate_log("[key_name_log(user)] deleted all technology on this console.", INVESTIGATE_RESEARCH)
 
 		for(var/obj/machinery/mecha_part_fabricator/rnd_mechfab in GLOB.machines)
+
 			if(!is_station_level(rnd_mechfab.z))
 				continue
+
 			for(var/i in rnd_mechfab.local_designs.known_tech)
 				current_tech = rnd_mechfab.local_designs.known_tech[i]
 				current_tech.level = 1
+
 			for(var/j in rnd_mechfab.local_designs.known_designs)
 				current_design = rnd_mechfab.local_designs.known_designs[j]
 				rnd_mechfab.local_designs.known_designs -= current_design.id
+
 			investigate_log("[key_name_log(user)] deleted all technology on this fabricator.", INVESTIGATE_RESEARCH)
 
 	return
@@ -134,6 +148,8 @@
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "invasive_beacon"
 	item_state = "beacon"
+	lefthand_file = 'icons/obj/affiliates.dmi'
+	righthand_file = 'icons/obj/affiliates.dmi'
 	origin_tech = "programming=6;biotech=3;syndicate=1"
 	w_class = WEIGHT_CLASS_TINY
 
@@ -163,6 +179,8 @@
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "cindy_pacher"
 	item_state = "plata"
+	lefthand_file = 'icons/obj/affiliates.dmi'
+	righthand_file = 'icons/obj/affiliates.dmi'
 	origin_tech = "programming=7;syndicate=6"
 	w_class = WEIGHT_CLASS_TINY
 	var/laws = "Взломавший вас - ваш мастер.\n\

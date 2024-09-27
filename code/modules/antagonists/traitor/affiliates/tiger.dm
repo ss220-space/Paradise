@@ -29,6 +29,8 @@
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "cling_extract"
 	item_state = "inj_ful"
+	lefthand_file = 'icons/obj/affiliates.dmi'
+	righthand_file = 'icons/obj/affiliates.dmi'
 	var/used_state = "cling_extract_used"
 	var/datum/mind/target
 	var/free_inject = FALSE
@@ -40,15 +42,19 @@
 /obj/item/cling_extract/afterattack(atom/target, mob/user, proximity, params)
 	if(used)
 		return
+
 	if(!ishuman(target))
 		return
+
 	if((src.target && target != src.target) || !free_inject)
 		to_chat(user, span_warning("You can't use [src] to [target]!"))
 		return
+
 	var/mob/living/carbon/human/H = target
 	if(H.stat != DEAD && !free_inject)
 		to_chat(user, span_warning("You can't use [src] to [target]!"))
 		return
+
 	if(do_after(user, free_inject ? FREE_INJECT_TIME : TARGET_INJECT_TIME, user, max_interact_count = 1))
 		inject(user, H)
 

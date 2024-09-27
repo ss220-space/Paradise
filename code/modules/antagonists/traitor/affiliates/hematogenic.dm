@@ -36,6 +36,8 @@
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "hemophagus_extract"
 	item_state = "inj_ful"
+	lefthand_file = 'icons/obj/affiliates.dmi'
+	righthand_file = 'icons/obj/affiliates.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	var/datum/mind/target
 	var/free_inject = FALSE
@@ -113,6 +115,8 @@
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "blood_harvester"
 	item_state = "blood1_used"
+	lefthand_file = 'icons/obj/affiliates.dmi'
+	righthand_file = 'icons/obj/affiliates.dmi'
 	var/used = FALSE
 	var/used_state = "blood_harvester_used"
 	var/datum/mind/target

@@ -51,12 +51,16 @@
 		var/datum/antagonist/traitor/another_traitor = M.mind.has_antag_datum(/datum/antagonist/traitor)
 		if (!another_traitor)
 			continue
+
 		if (!(src.affiliate in another_traitor.affiliate.enemys))
 			continue
+
 		if (another_traitor.killed_enemy_agents.len >= LIMIT_KILLING_ENEMY_REWARDS)
 			continue
+
 		if (src in another_traitor.killed_enemy_agents)
 			continue
+
 		another_traitor.killed_enemy_agents.Add(src)
 		another_traitor.hidden_uplink.uses += another_traitor.affiliate.reward_for_enemys
 

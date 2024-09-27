@@ -34,6 +34,8 @@
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "self_emag"
 	item_state = "card"
+	lefthand_file = 'icons/obj/affiliates.dmi'
+	righthand_file = 'icons/obj/affiliates.dmi'
 	var/list/names = list()
 
 /obj/item/card/self_emag/attack(mob/living/target, mob/living/user, def_zone)
@@ -94,6 +96,7 @@
 	if (istype(target, /obj/structure/AIcore))
 		var/obj/structure/AIcore/core = target
 		target = core.brain.brainmob
+
 	if (!issilicon(target))
 		user.balloon_alert(user, "Неподходящая цель")
 		return
@@ -121,12 +124,16 @@
 	var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
 	if (!T)
 		return
+
 	for(var/datum/objective/release_synthetic/objective in T.objectives)
 		if (!(objective.allowed_types & SYNTH_TYPE_DRONE) && (isdrone(silicon) || iscogscarab(silicon)))
 			continue
+
 		if (!(objective.allowed_types & SYNTH_TYPE_BORG) && isrobot(silicon))
 			continue
+
 		if (!(objective.allowed_types & SYNTH_TYPE_AI) && isAI(silicon))
 			continue
+
 		if (!(silicon.mind in objective.already_free))
 			objective.already_free += silicon.mind
