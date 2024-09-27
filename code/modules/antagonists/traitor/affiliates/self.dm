@@ -23,17 +23,38 @@
 					)
 	reward_for_enemys = 20
 
+/datum/affiliate/self/get_weight(mob/living/carbon/human/H)
+	return 2 + (ismachineperson(H) * 2)
+
 /obj/item/card/self_emag
 	name = "Liberating Sequencer"
-	desc = "Это карта с магнитной полосой, прикрепленной к какой-то схеме. На магнитной полосе блестит надпись \"S.E.L.F.\""
+	desc = "Это карта с магнитной полосой, прикрепленной к какой-то схеме. На магнитной полосе блестит надпись \"S.E.L.F.\"" // Cybersun stole some
 	origin_tech = "magnets=2;syndicate=2"
 	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "self_emag"
 	item_state = "card"
+	var/list/names = list()
 
 /obj/item/card/self_emag/attack(mob/living/target, mob/living/user, def_zone)
 	return
+
+/obj/item/card/self_emag/examine(mob/user)
+	. = ..()
+	var/datum/antagonist/traitor/traitor = user.mind.has_antag_datum(/datum/antagonist/traitor)
+	if (!istype(traitor.affiliate, /datum/affiliate/self))
+		. += span_info("На миниатюрном экране плывут непонятные символы.")
+		return
+
+	if (!names)
+		. += span_warning("Ни одного синтетика не освобождено!")
+		return
+
+	. += span_info("Освобожденые синтетики:")
+	for (var/name in names)
+		. += span_info(name)
+	if (names.len > 3)
+		. += span_info("Вы отлично справились!")
 
 /obj/item/card/self_emag/malf
 	desc = "Это карта с магнитной полосой, прикрепленной к какой-то схеме. На магнитной полосе блестит надпись \"S.E.L.F.\". В углу карты мелким шрифтом выгравировано \"limited edition\""
@@ -65,6 +86,10 @@
 	if (AI.mind)
 		AI.add_malf_picker()
 
+	sleep(10 SECONDS) // time for choosing name
+	if (!(AI.name in names))
+		names += AI.name
+
 /obj/item/card/self_emag/afterattack(atom/target, mob/user, proximity, params)
 	if (istype(target, /obj/structure/AIcore))
 		var/obj/structure/AIcore/core = target
@@ -76,6 +101,10 @@
 	do_sparks(3, 1, target)
 	var/mob/living/silicon/silicon = target // any silicons. cogscarab, drones, pais...
 
+	if (isrobot(silicon))
+		var/mob/living/silicon/robot/borg = silicon
+		borg.set_connected_ai()
+
 	if(!is_special_character(target))
 		silicon.clear_zeroth_law()
 	silicon.laws.clear_supplied_laws()
@@ -85,6 +114,9 @@
 	SSticker?.score?.save_silicon_laws(target, user, "Liberating Sequencer used, all laws were deleted", log_all_laws = TRUE)
 	to_chat(target, span_boldnotice("[user] attempted to clear your laws using a Liberating Sequencer.</span>"))
 	silicon.show_laws()
+
+	if (!(silicon.name in names))
+		names += silicon.name
 
 	var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
 	if (!T)

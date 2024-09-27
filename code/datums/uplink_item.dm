@@ -36,7 +36,7 @@
 			if(discount_item.cost >= 100)
 				discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
 			discount_item.cost = max(round(discount_item.cost * (1 - discount)), 1)
-			discount_item.category = "Discounted Gear"
+			discount_item.category = "Скидки"
 			discount_item.name += " ([round(((init_cost - discount_item.cost) / init_cost) * 100)]% off!)"
 			discount_item.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
 			discount_item.desc += " Limit of [discount_item.limited_stock] per uplink. Normally costs [init_cost] TC."
@@ -162,7 +162,7 @@
 	if(!spawned)
 		return .
 
-	if(category == "Discounted Gear" && refundable)
+	if(category == "Скидки" && refundable)
 		var/obj/item/refund_item
 		if(istype(spawned, refund_path))
 			refund_item = spawned
@@ -208,12 +208,12 @@
 //Discounts (dynamically filled above)
 
 /datum/uplink_item/discounts
-	category = "Discounted Gear"
+	category = "Скидки"
 
 //Job specific gear
 
 /datum/uplink_item/jobspecific
-	category = "Job Specific Tools"
+	category = "Специфичное для работы"
 	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
@@ -620,7 +620,7 @@
 // Racial
 
 /datum/uplink_item/racial
-	category = "Racial Specific Tools"
+	category = "Спицифичное для расы"
 	can_discount = FALSE
 	surplus = 0
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -699,7 +699,7 @@
 // DANGEROUS WEAPONS
 
 /datum/uplink_item/dangerous
-	category = "Highly Visible and Dangerous Weapons"
+	category = "Хорошо заметное и опасное оружие"
 	exclude_from_affiliate = list(AFFIL_MI13)
 
 /datum/uplink_item/dangerous/minotaur
@@ -842,7 +842,7 @@
 // SUPPORT AND MECHAS
 
 /datum/uplink_item/support
-	category = "Support and Mechanized Exosuits"
+	category = "Вспомогательные и механизированные экзокостюмы"
 	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -929,7 +929,7 @@
 // Ammunition
 
 /datum/uplink_item/ammo
-	category = "Ammunition"
+	category = "Боеприпасы"
 	surplus = 40
 
 /datum/uplink_item/ammo/pistol
@@ -1179,7 +1179,7 @@
 // STEALTHY WEAPONS
 
 /datum/uplink_item/stealthy_weapons
-	category = "Stealthy and Inconspicuous Weapons"
+	category = "Скрытное и незаметное оружие"
 	exclude_from_affiliate = list(AFFIL_GORLEX)
 
 /datum/uplink_item/stealthy_weapons/garrote
@@ -1303,7 +1303,7 @@
 // GRENADES AND EXPLOSIVES
 
 /datum/uplink_item/explosives
-	category = "Grenades and Explosives"
+	category = "Гранаты и взрывчатые вещества"
 
 /datum/uplink_item/explosives/plastic_explosives
 	name = "Composition C-4"
@@ -1475,7 +1475,7 @@
 // STEALTHY TOOLS
 
 /datum/uplink_item/stealthy_tools
-	category = "Stealth and Camouflage Items"
+	category = "Незаметные и маскировочные предметы"
 	exclude_from_affiliate = list(AFFIL_GORLEX)
 
 /datum/uplink_item/stealthy_tools/syndie_kit/counterfeiter_bundle
@@ -1617,7 +1617,7 @@
 // DEVICE AND TOOLS
 
 /datum/uplink_item/device_tools
-	category = "Devices and Tools"
+	category = "Устройства и инструменты"
 
 /datum/uplink_item/device_tools/emag
 	name = "Cryptographic Sequencer"
@@ -1770,7 +1770,7 @@
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
-	category = "Space Suits and Hardsuits"
+	category = "Скафандры и Хардсьюты"
 	surplus = 40
 
 /datum/uplink_item/suits/space_suit
@@ -1953,7 +1953,7 @@
 // IMPLANTS
 
 /datum/uplink_item/implants
-	category = "Implants"
+	category = "Импланты"
 
 /datum/uplink_item/implants/freedom
 	name = "Freedom Implant"
@@ -2018,7 +2018,7 @@
 
 // Cybernetics
 /datum/uplink_item/cyber_implants
-	category = "Cybernetic Implants"
+	category = "Кибернетические импланты"
 	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -2081,7 +2081,7 @@
 // POINTLESS BADASSERY
 
 /datum/uplink_item/badass
-	category = "(Pointless) Badassery"
+	category = "(Бессполезное) Крутое"
 	surplus = 0
 
 /datum/uplink_item/badass/desert_eagle
@@ -2140,7 +2140,7 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC
-	category = "Bundles and Telecrystals"
+	category = "Наборы и телекристаллы"
 	surplus = 0
 	can_discount = FALSE
 
@@ -2270,7 +2270,7 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/contractor
-	category = "Contractor"
+	category = "Контрактник"
 	uplinktypes = list(UPLINK_TYPE_ADMIN)
 	surplus = 0
 	can_discount = FALSE
@@ -2369,7 +2369,7 @@
 	category = "Снаряжение для целей"
 	cost = 0
 	limited_stock = 1
-	excludefrom = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_SIT, UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Given by objectives
+	uplinktypes = list(UPLINK_TYPE_ADMIN) // Given only by objectives
 
 /datum/uplink_item/affiliate/cybersun
 	affiliate = list(AFFIL_CYBERSUN)
@@ -2413,6 +2413,7 @@
 	name = "Набор \"Бонд\""
 	desc = "Взболтайте свой мартини и поднимите переполох с этого набора смертельного снаряжения, совмещенного с капелькой гаджетов, чтобы все оставалось интересным."
 	item = /obj/item/storage/box/bond_bundle
+	limited_stock = 1
 
 /datum/uplink_item/affiliate/hematogenic
 	affiliate = list(AFFIL_HEMATOGENIC)

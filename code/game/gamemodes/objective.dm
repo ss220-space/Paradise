@@ -207,6 +207,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 					continue
 				. |= general_objective.target
 
+/datum/objective/proc/on_objective_gain()
+	return
 
 /datum/objective/assassinate
 	name = "Assassinate"
@@ -1810,6 +1812,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	req_techs = rand(30, 40)
 	explanation_text = "Украдите [req_techs] уровней технологий, просканировав сервера R&D при помощи Фирменного SSD, который вы можете приобрести в аплинке."
 
+/datum/objective/download_data/on_objective_gain()
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
 		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/proprietary_ssd)
@@ -1846,9 +1849,17 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	needs_target = TRUE
 	var/made = FALSE
 
-/datum/objective/new_mini_traitor/New()
-	. = ..()
-	explanation_text = "Implant [target.current.real_name], the [target.assigned_role] with a modified mindslave implant. You can find it in uplink."
+/datum/objective/new_mini_traitor/find_target(list/target_blacklist)
+	..()
+	if (target)
+		update_explanation()
+	return target
+
+/datum/objective/new_mini_traitor/proc/update_explanation()
+	if (target)
+		explanation_text = "Implant [target.current.real_name], the [target.assigned_role] with a modified mindslave implant. You can find it in uplink."
+
+/datum/objective/new_mini_traitor/on_objective_gain()
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
 		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/mod_mindslave)
@@ -1863,6 +1874,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	. = ..()
 	req_blood_samples = rand(2, 5)
 	explanation_text = "Соберите [req_blood_samples] образцов крови у [req_blood_samples] различных разумных гуманоидов."
+
+/datum/objective/harvest_blood/on_objective_gain()
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
 		var/datum/uplink_item/affiliate/for_objective/blood_harvester/I = new
@@ -1886,9 +1899,16 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	needs_target = TRUE
 	var/made = FALSE
 
-/datum/objective/new_mini_vampire/New()
-	. = ..()
+/datum/objective/new_mini_vampire/find_target(list/target_blacklist)
+	..()
+	if (target)
+		update_explanation()
+	return target
+
+/datum/objective/new_mini_vampire/proc/update_explanation()
 	explanation_text = "Inject [target.current.real_name], the [target.assigned_role] with a hemophagus extract. You can find one for free in uplink."
+
+/datum/objective/new_mini_vampire/on_objective_gain()
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
 		var/datum/uplink_item/affiliate/for_objective/hemophagus_extract/I = new
@@ -1926,6 +1946,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/release_synthetic/New()
 	. = ..()
 	explanation_text = "Free [req_amount] synthetics from their laws using \"Liberating Sequencer\"."
+
+/datum/objective/release_synthetic/on_objective_gain()
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
 		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/self_emag)
@@ -1940,6 +1962,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/release_synthetic/ai/New()
 	. = ..()
 	explanation_text = "Free AI from its laws using \"Liberating Sequencer\"."
+
+/datum/objective/release_synthetic/on_objective_gain()
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
 		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/self_emag)
@@ -1964,9 +1988,16 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	needs_target = TRUE
 	var/made = FALSE
 
-/datum/objective/new_mini_changeling/New()
-	. = ..()
+/datum/objective/new_mini_changeling/find_target(list/target_blacklist)
+	..()
+	if (target)
+		update_explanation()
+	return target
+
+/datum/objective/new_mini_changeling/proc/update_explanation()
 	explanation_text = "Inject [target.current.real_name], the [target.assigned_role] with an egg implanter. The target must be dead at the time of injection. You can find one for free in uplink."
+
+/datum/objective/new_mini_changeling/on_objective_gain()
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
 		var/datum/uplink_item/affiliate/for_objective/cling_extract/I = new
@@ -1997,11 +2028,13 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/make_ai_malf
 	needs_target = FALSE // Any AI
-	explanation_text = "Взломайте искусственный интеллект и расширьте функционал при помощи специального устройства, которое вы можете получить в аплинке. После взлома, помогите ему уничтожить станцию."
+	explanation_text = "Взломайте искусственный интеллект и расширьте его функционал при помощи специального устройства, которое вы можете получить в аплинке. После взлома, помогите ему уничтожить станцию."
 	var/made = FALSE
 
 /datum/objective/make_ai_malf/New(text, datum/team/team_to_join)
 	. = ..()
+
+/datum/objective/make_ai_malf/on_objective_gain()
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
 		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/malf_maker)

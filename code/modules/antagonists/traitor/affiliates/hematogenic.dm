@@ -12,6 +12,7 @@
 			Для хирурга самое важное - его руки, поэтому для сотрудников Hematogenic Industries боевые искусства под запретом. \n\
 			Но взамен Корпорация предлагает вам опробовать её передовую разработку Hemophagus Essence Auto Injector.\n\
 			Стандартные цели: Собрать крови полной духовной энергии, украсть передовое медицинское снаряжение, сделать одного из членов экипажа вампиром, украсть что-то или убить кого-то."
+	tgui_icon = "hematogenic"
 	hij_desc = "Вы - опытный наёмный агент Hematogenic Industries.\n\
 			Основатель Hematogenic Industries высоко оценил ваши прошлые заслуги, а потому, дал вам возможность купить инжектор наполненный его собственной кровью... \n\
 			Вас предупредили, что после инъекции вы будете продолжительное время испытывать сильный голод. \n\
@@ -25,6 +26,9 @@
 					list(/datum/objective/steal = 60, /datum/objective/maroon = 40),
 					/datum/objective/escape
 					)
+
+/datum/affiliate/hematogenic/get_weight(mob/living/carbon/human/H)
+	return (!ismachineperson(H)) * 2
 
 /obj/item/hemophagus_extract
 	name = "Bloody Injector"

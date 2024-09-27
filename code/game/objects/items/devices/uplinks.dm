@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	. = ..()
 	src.uses = uses ? uses : src.uses
 	src.uplink_type = uplink_type ? uplink_type : src.uplink_type
-	can_bonus_objectives = uplink_type == UPLINK_TYPE_TRAITOR
+	can_bonus_objectives = (uplink_type == UPLINK_TYPE_TRAITOR)
 	uplink_items = get_uplink_items(src, generate_discounts = TRUE)
 	GLOB.world_uplinks += src
 
@@ -437,17 +437,21 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 				can_bonus_objectives = FALSE
 				affiliate.give_bonus_objectives()
 				visible_message("[src] beeps: Additional objectives and bonus TK have been sent.")
+				playsound(src, "sound/machines/boop.ogg", 50, TRUE)
 			else if (affiliate.can_take_bonus_objectives)
 				visible_message("[src] beeps: You have already requested additional objectives.")
+				playsound(src, "sound/machines/boop.ogg", 50, TRUE)
 			else
 				visible_message("[src] beeps: Your affiliate don't want to give you additional objectives.")
+				playsound(src, "sound/machines/boop.ogg", 50, TRUE)
 
 		if ("cool_music")
 			if (!COOLDOWN_FINISHED(src, music_cooldown))
 				visible_message("[src] beeps: The music still plays.")
+				playsound(src, "sound/machines/boop.ogg", 50, TRUE)
 			else
 				COOLDOWN_START(src, music_cooldown, 32 SECONDS)
-				playsound(src, "sound/items/uplink/11_syndiememe.mp3")
+				playsound(src, "sound/items/uplink/11_syndiememe.ogg", 50, TRUE)
 
 /obj/item/uplink/hidden/proc/shuffle_lucky_numbers()
 	lucky_numbers = list()

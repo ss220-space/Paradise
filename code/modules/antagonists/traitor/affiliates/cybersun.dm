@@ -8,6 +8,7 @@
 			Особые условия: Корпорация предоставляет вам скидку на собственную продукцию - щедро, не так ли?;\n\
 			Вам доступен специальный модуль улучшения, который предоставляет киборгу NT модули Киберсана.\n\
 			Стандартные цели: Украсть пару вещей, убить пару нерадивых клиентов, украсть технологии, угнать мех или под, завербовать нового агента вколов ему модифицированный имплант \"Mindslave\"."
+	tgui_icon = "cybersun"
 	hij_desc = "Вы - наёмный агент Cybersun Industries, засланный на станцию NT с особой целью:\n\
 			Взломать искусственный интеллект станции специальным, предоставленным вам, устройством. \n\
 			После взлома, искусственный интеллект попытается уничтожить станцию. \n\
@@ -36,8 +37,8 @@
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "proprietary_ssd"
 	item_state = "disk"
-	var/datum/research/files
 	w_class = WEIGHT_CLASS_TINY
+	var/datum/research/files
 
 /obj/item/proprietary_ssd/Initialize()
 	. = ..()
@@ -47,10 +48,14 @@
 	return
 
 /obj/item/proprietary_ssd/afterattack(atom/target, mob/user, proximity, params)
-	var/obj/machinery/r_n_d/server/server = target
-	if(istype(server))
+	if (get_dist(user, target) > 1)
+		user.balloon_alert(user, "Слишком далеко")
+		return
+	if(!istype(target, /obj/machinery/r_n_d/server))
+		user.balloon_alert(user, "Это не сервер")
 		return
 
+	var/obj/machinery/r_n_d/server/server = target
 	if(do_after(user, 5 SECONDS, target, max_interact_count = 1)) // Добавить потом какой-нибудь сапер. Ну и коммент на русском убрать.
 		origin_tech = ""
 		for(var/I in server.files.known_tech)
@@ -64,11 +69,49 @@
 				var/datum/tech/copy = T.copyTech()
 				files.known_tech[T.id] = copy
 
-			var/datum/tech/tech = files.known_tech[T.id]
-			origin_tech += (origin_tech != "" ? ";" : "") + "[tech.name]=[tech.level]"
-			T.level = 1
+
 		server.files.RefreshResearch()
 		files.RefreshResearch()
+
+		var/datum/tech/current_tech
+		var/datum/design/current_design
+		for(var/obj/machinery/r_n_d/server/rnd_server in GLOB.machines)
+			if(!is_station_level(rnd_server.z))
+				continue
+			if(rnd_server.disabled)
+				continue
+			if(rnd_server.syndicate)
+				continue
+			for(var/i in rnd_server.files.known_tech)
+				current_tech = rnd_server.files.known_tech[i]
+				current_tech.level = 1
+			for(var/j in rnd_server.files.known_designs)
+				current_design = rnd_server.files.known_designs[j]
+				rnd_server.files.known_designs -= current_design.id
+			investigate_log("[key_name_log(user)] deleted all technology on this server.", INVESTIGATE_RESEARCH)
+
+
+		for(var/obj/machinery/computer/rdconsole/rnd_console in GLOB.machines)
+			if(!is_station_level(rnd_console.z))
+				continue
+			for(var/i in rnd_console.files.known_tech)
+				current_tech = rnd_console.files.known_tech[i]
+				current_tech.level = 1
+			for(var/j in rnd_console.files.known_designs)
+				current_design = rnd_console.files.known_designs[j]
+				rnd_console.files.known_designs -= current_design.id
+			investigate_log("[key_name_log(user)] deleted all technology on this console.", INVESTIGATE_RESEARCH)
+
+		for(var/obj/machinery/mecha_part_fabricator/rnd_mechfab in GLOB.machines)
+			if(!is_station_level(rnd_mechfab.z))
+				continue
+			for(var/i in rnd_mechfab.local_designs.known_tech)
+				current_tech = rnd_mechfab.local_designs.known_tech[i]
+				current_tech.level = 1
+			for(var/j in rnd_mechfab.local_designs.known_designs)
+				current_design = rnd_mechfab.local_designs.known_designs[j]
+				rnd_mechfab.local_designs.known_designs -= current_design.id
+			investigate_log("[key_name_log(user)] deleted all technology on this fabricator.", INVESTIGATE_RESEARCH)
 
 	return
 
@@ -84,7 +127,7 @@
 
 /obj/item/invasive_beacon
 	name = "Invasive Beacon"
-	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
+	desc = "Сложное черное устройство. На боку едва заметная надпись \"Cybersun Industries\"."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "invasive_beacon"
 	item_state = "beacon"
@@ -152,7 +195,7 @@
 	implant_data = /datum/implant_fluff/traitor
 
 
-/obj/item/implant/traitor/implant(mob/living/carbon/human/mindslave_target, mob/living/carbon/human/user, force = FALSE)
+/obj/item/implant/mini_traitor/implant(mob/living/carbon/human/mindslave_target, mob/living/carbon/human/user, force = FALSE)
 	if(implanted == BIOCHIP_USED || !ishuman(mindslave_target) || !ishuman(user)) // Both the target and the user need to be human.
 		return FALSE
 

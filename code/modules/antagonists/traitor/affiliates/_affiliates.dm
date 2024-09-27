@@ -104,8 +104,8 @@
 
 /obj/effect/proc_holder/spell/choose_affiliate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
-		return
-
+		return//	if (traitor.affiliate)
+//		return
 	var/datum/antagonist/traitor/traitor = ui.user.mind.has_antag_datum(/datum/antagonist/traitor)
 
 	switch(action)
@@ -124,12 +124,13 @@
 			traitor.affiliate.give_objectives(ui.user.mind)
 			show_objectives(ui.user.mind)
 			traitor.hidden_uplink.affiliate = traitor.affiliate
-			traitor.affiliate.finalize_affiliate()
+			traitor.affiliate.uplink = traitor.hidden_uplink
+			traitor.affiliate.finalize_affiliate(ui.user.mind)
 			traitor.announce_uplink_info()
 
 /datum/affiliate/proc/add_discount_item(I, cost_part)
 	var/datum/uplink_item/new_item = new I
 	new_item.cost = round(new_item.cost * (cost_part))
-	new_item.name += ((1-(cost_part))*100) +"%"
-	new_item.category = "Discounted Gear"
+	new_item.name += "[((1-(cost_part))*100)]%"
+	new_item.category = "Скидки"
 	uplink.uplink_items.Add(new_item)

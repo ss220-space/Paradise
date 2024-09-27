@@ -167,7 +167,7 @@ export const Uplink = (props, context) => {
                 }}
                 icon="store"
               >
-                View Market
+                Посмотреть магазин
               </Tabs.Tab>
               <Tabs.Tab
                 key="Cart"
@@ -178,7 +178,7 @@ export const Uplink = (props, context) => {
                 }}
                 icon="shopping-cart"
               >
-                View Shopping Cart{' '}
+                Просмотреть корзину{' '}
                 {cart && cart.length ? '(' + cart.length + ')' : ''}
               </Tabs.Tab>
               <Tabs.Tab
@@ -190,7 +190,7 @@ export const Uplink = (props, context) => {
                 }}
                 icon="user"
               >
-                Exploitable Information
+                Полезная информация
               </Tabs.Tab>
               {!!data.contractor && (
                 <Tabs.Tab
@@ -239,15 +239,6 @@ export const Uplink = (props, context) => {
               </Tabs.Tab>
 
               <Tabs.Tab
-                key="CoolMusic"
-                color={'transparent'}
-                onClick={() => act('cool_music', {})}
-                icon="suitcase"
-              >
-                Включить крутую музыку
-              </Tabs.Tab>
-
-              <Tabs.Tab
                 key="AffiliateInfo"
                 selected={tabIndex === 3}
                 onClick={() => {
@@ -257,13 +248,23 @@ export const Uplink = (props, context) => {
               >
                 Информация о подрядчике
               </Tabs.Tab>
+
+              <Tabs.Tab
+                key="CoolMusic"
+                color={'transparent'}
+                onClick={() => act('cool_music', {})}
+                icon="suitcase"
+              >
+                Включить крутую музыку
+              </Tabs.Tab>
+
               <Tabs.Tab
                 key="LockUplink"
                 // This cant ever be selected. Its just a close button.
                 onClick={() => act('lock')}
                 icon="lock"
               >
-                Lock Uplink
+                Заблокировать Аплинк
               </Tabs.Tab>
             </Tabs>
           </Stack.Item>

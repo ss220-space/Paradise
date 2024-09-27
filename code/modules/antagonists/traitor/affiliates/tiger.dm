@@ -16,6 +16,9 @@
 					/datum/objective/escape
 					)
 
+/datum/affiliate/tiger/get_weight(mob/living/carbon/human/H)
+	return (!ismachineperson(H)) * 2
+
 /datum/affiliate/tiger/finalize_affiliate(datum/mind/owner)
 	. = ..()
 	ADD_TRAIT(owner, TRAIT_NO_GUNS, TIGER_TRAIT)
