@@ -26,13 +26,6 @@
 		return FALSE
 	return TRUE
 
-/datum/antagonist/morph/on_gain()
-	. = ..()
-	if(!.)
-		return
-
-	morph = owner.current
-
 /datum/antagonist/morph/add_owner_to_gamemode()
 	SSticker.mode.traitors |= owner
 
@@ -41,6 +34,7 @@
 
 /datum/antagonist/morph/apply_innate_effects(mob/living/mob_override)
 	. = ..()
+	morph = owner.current || mob_override
 	grant_abilities()
 
 /datum/antagonist/morph/remove_innate_effects(mob/living/mob_override)
@@ -53,10 +47,13 @@
 	owner.AddSpell(ambush_spell)
 	owner.AddSpell(open_vent_spell)
 	owner.AddSpell(pass_airlock_spell)
+
 	if(morph.can_reproduce)
 		owner.AddSpell(reproduce_spell)
+
 	if(morph.is_magical)
 		grant_magic()
+
 	return
 
 /datum/antagonist/morph/proc/remove_abilities()
@@ -64,17 +61,22 @@
 	owner.RemoveSpell(ambush_spell)
 	owner.RemoveSpell(open_vent_spell)
 	owner.RemoveSpell(pass_airlock_spell)
+
 	if(morph.can_reproduce)
 		owner.RemoveSpell(reproduce_spell)
+
 	if(morph.is_magical)
 		remove_magic()
+
 	return
 
 /datum/antagonist/morph/proc/grant_magic()
 	var/obj/effect/proc_holder/spell/smoke/smoke = new
 	var/obj/effect/proc_holder/spell/forcewall/forcewall = new
+
 	smoke.human_req = FALSE
 	forcewall.human_req = FALSE
+
 	owner.AddSpell(smoke)
 	owner.AddSpell(forcewall)
 
