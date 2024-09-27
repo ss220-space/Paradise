@@ -130,7 +130,7 @@
 		if("SelectAffiliate")
 			var/path = params["path"]
 			ui.close()
-			owner.RemoveSpell(src)
+			ui.user.RemoveSpell(src)
 			traitor.give_affiliate(ui.user.mind, path)
 
 /datum/affiliate/proc/add_discount_item(I, cost_part)
