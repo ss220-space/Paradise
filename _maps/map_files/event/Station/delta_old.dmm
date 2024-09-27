@@ -151,7 +151,8 @@
 /area/space/nearstation)
 "acX" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "mix_sensor"
+	id_tag = "mix_sensor";
+	output = 127
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
@@ -1041,9 +1042,7 @@
 	pixel_x = 28;
 	pixel_y = -2
 	},
-/obj/machinery/computer/security{
-	network = list("SS13","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -5618,9 +5617,7 @@
 	location = "Bar"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark";
@@ -8437,7 +8434,6 @@
 "bmp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/flasher{
-	id = null;
 	pixel_y = 24
 	},
 /obj/structure/extinguisher_cabinet{
@@ -9450,9 +9446,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
@@ -15413,10 +15407,10 @@
 	pixel_y = -25
 	},
 /obj/machinery/light/small,
-/obj/structure/closet/crate,
 /obj/item/storage/belt/champion,
 /obj/item/stack/sheet/mineral/gold,
 /obj/item/stack/sheet/mineral/gold,
+/obj/structure/closet/crate/vault,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -17014,7 +17008,6 @@
 	name = "Труба фильтрации"
 	},
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "co2_out";
@@ -18368,8 +18361,7 @@
 "ciT" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	name = "Magazines for SMG";
-	req_access = list(3)
+	name = "Magazines for SMG"
 	},
 /obj/item/ammo_box/magazine/wt550m9{
 	pixel_x = -4;
@@ -18626,9 +18618,7 @@
 /area/library)
 "ckk" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plating,
 /area/crew_quarters/serviceyard)
@@ -23697,9 +23687,7 @@
 	dir = 4;
 	location = "Mime"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_regular_floor = "yellowsiding";
@@ -26187,9 +26175,7 @@
 	dir = 4;
 	location = "Clown"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -26837,7 +26823,6 @@
 "cTl" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
-	frequency = 1441;
 	id = "mix_in"
 	},
 /turf/simulated/floor/engine,
@@ -30583,7 +30568,6 @@
 	network = list("Medical","SS13")
 	},
 /obj/machinery/button/windowtint{
-	anchored = 1;
 	id = "cloninglab";
 	pixel_x = 22;
 	pixel_y = 10
@@ -34500,9 +34484,7 @@
 	codes_txt = "delivery";
 	location = "Chemistry"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -34954,9 +34936,7 @@
 	codes_txt = "delivery";
 	location = "Hydroponics"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -35732,7 +35712,6 @@
 /area/medical/research)
 "dEg" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "o2_out";
@@ -38676,7 +38655,6 @@
 /area/quartermaster/storage)
 "dQW" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "n2_out";
@@ -41872,12 +41850,8 @@
 /area/medical/virology)
 "ehg" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "air_sensor"
-	},
-/obj/machinery/atmospherics/air_sensor{
-	frequency = 1443;
 	id_tag = "air_sensor";
-	output = 7
+	output = 23
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -42141,7 +42115,6 @@
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
-	id = null;
 	name = "Creature Pen";
 	req_access = list(47)
 	},
@@ -43347,7 +43320,6 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/flasher{
-	id = null;
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
@@ -44063,7 +44035,6 @@
 /area/medical/medbay3)
 "eMu" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "air_in";
 	name = "Mixed Air Supply Control";
 	output_tag = "air_out";
@@ -44495,7 +44466,6 @@
 	dir = 4
 	},
 /obj/machinery/button/windowtint{
-	anchored = 1;
 	id = "privateroom";
 	pixel_x = -24;
 	pixel_y = 24
@@ -45054,9 +45024,7 @@
 	},
 /area/medical/medbay3)
 "eZR" = (
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
 	dir = 4;
@@ -52453,9 +52421,7 @@
 	location = "Engineering"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "gVO" = (
@@ -55229,7 +55195,6 @@
 "hKe" = (
 /obj/machinery/tcomms/core/station,
 /obj/machinery/flasher{
-	id = null;
 	pixel_y = -24
 	},
 /obj/structure/cable{
@@ -56691,8 +56656,7 @@
 "igH" = (
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
-	name = "Security SMG's";
-	req_access = list(3)
+	name = "Security SMG's"
 	},
 /obj/item/gun/projectile/automatic/wt550{
 	pixel_x = -3;
@@ -56945,7 +56909,6 @@
 	name = "Труба фильтрации"
 	},
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "tox_in";
 	name = "Toxin Supply Control";
 	output_tag = "tox_out";
@@ -57523,9 +57486,7 @@
 	dir = 8;
 	location = "Library"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/wood,
 /area/library)
 "irC" = (
@@ -59706,9 +59667,7 @@
 	},
 /area/maintenance/gambling_den)
 "iXX" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
 "iYa" = (
@@ -60120,7 +60079,6 @@
 	dir = 4
 	},
 /obj/machinery/button/windowtint{
-	anchored = 1;
 	id = "Interrogation";
 	pixel_x = 24
 	},
@@ -62307,9 +62265,7 @@
 	codes_txt = "delivery";
 	location = "Chapel"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -65752,9 +65708,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
@@ -67623,7 +67577,6 @@
 /area/security/detectives_office)
 "lpu" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "n2o_out";
@@ -73102,9 +73055,7 @@
 	},
 /area/crew_quarters/locker)
 "mMi" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -74882,9 +74833,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/computer/security{
-	network = list("SS13","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/wood,
 /area/security/hos)
 "nnt" = (
@@ -77175,7 +77124,6 @@
 /area/crew_quarters/locker)
 "nRQ" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "mix_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "mix_out";
@@ -77841,7 +77789,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/crate,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
@@ -77850,6 +77797,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 24
 	},
+/obj/structure/closet/crate/vault,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -77935,7 +77883,7 @@
 /obj/structure/closet/fireaxecabinet{
 	pixel_y = 32
 	},
-/obj/structure/closet/secure_closet/freezer/money,
+/obj/structure/closet/secure_closet/freezer/vault,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -78138,7 +78086,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/window/brigdoor{
-	id = null;
 	name = "Creature Pen";
 	req_access = list(47)
 	},
@@ -81062,9 +81009,7 @@
 /area/hallway/primary/central/ne)
 "oSQ" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/atmospherics/trinary/mixer{
-	req_access = null
-	},
+/obj/machinery/atmospherics/trinary/mixer,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -81189,9 +81134,7 @@
 	},
 /area/quartermaster/delivery)
 "oUP" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 62
 	},
@@ -85697,9 +85640,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/computer/security{
-	network = list("SS13","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -92066,9 +92007,7 @@
 	location = "Robotics"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
@@ -92102,7 +92041,6 @@
 	pixel_y = 2
 	},
 /obj/machinery/flasher{
-	id = null;
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -102536,7 +102474,6 @@
 "uHl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/flasher{
-	id = null;
 	pixel_y = -24
 	},
 /obj/structure/extinguisher_cabinet{
@@ -109741,9 +109678,7 @@
 	codes_txt = "patrol;next_patrol=Armory_sprava";
 	location = "Armory_South"
 	},
-/mob/living/simple_animal/bot/secbot/armsky{
-	auto_patrol = 1
-	},
+/mob/living/simple_animal/bot/secbot/armsky,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -110795,9 +110730,7 @@
 	codes_txt = "delivery";
 	location = "Janitor"
 	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plating,
 /area/janitor)
 "wMn" = (

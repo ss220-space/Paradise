@@ -13,7 +13,6 @@
 
 /datum/station_goal/dna_vault
 	name = "DNA Vault"
-	gamemode_blacklist = list("extended")
 	var/animal_count
 	var/human_count
 	var/plant_count

@@ -558,6 +558,12 @@
 			to_chat(user, span_notice("Отличная попытка, но нет!"))
 		playsound(src.loc, "sound/misc/sadtrombone.ogg", 60, 1)
 
+
+/obj/structure/closet/crate/vault
+	desc = "A vault crate."
+	name = "vault crate"
+	icon_state = "vaultcrate"
+
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(locked && broken == 0 && user.a_intent != INTENT_HARM) // Stage one
