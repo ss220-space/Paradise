@@ -49,7 +49,7 @@
 	if(!update_rank())
 		return
 
-	rank.link(owner.current)
+	rank.link_rank(owner.current)
 	rank.apply_rank()
 	update_spells()
 
@@ -150,7 +150,7 @@
 	owner.current.AddElement(/datum/element/devil_regeneration)
 	owner.current.AddElement(/datum/element/devil_banishment)
 
-	rank.link(owner.current)
+	rank.link_rank(owner.current)
 	rank.apply_rank()
 
 	update_hud()
@@ -220,7 +220,7 @@
 	/// Which spells we'll give to rank owner when rank is applied
 	var/list/rank_spells
 
-/datum/devil_rank/proc/link(mob/living/carbon/carbon)
+/datum/devil_rank/proc/link_rank(mob/living/carbon/carbon)
 	owner = carbon
 	devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
 
