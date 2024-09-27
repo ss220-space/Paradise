@@ -1172,9 +1172,6 @@
 ///from base of /datum/element/after_attack/Detach(): (proc_ref)
 #define COMSIG_ITEM_UNREGISTER_AFTERATTACK "unregister_item_afterattack"
 
-///from base of /datum/element/after_attack/Destroy(): (atom/target, mob/user, params)
-#define COMSIG_ITEM_AFTERATTACK_EFFECT "item_afterattack_effect"
-
 
 ///From base of datum/controller/subsystem/Initialize
 #define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"

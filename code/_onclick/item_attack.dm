@@ -208,7 +208,6 @@
 	. |= target.proceed_attack_results(src, user, params, def_zone)
 
 
-
 /// The equivalent of the standard version of [/obj/item/proc/attack] but for object targets.
 /obj/item/proc/attack_obj(obj/object, mob/living/user, params)
 	. = ATTACK_CHAIN_PROCEED
