@@ -41,104 +41,92 @@ const PickTab = (index) => {
 const getAffiliateInfo = (affiliate) => {
   switch (affiliate) {
     case 'Cybersun Industries':
-      return (
-        '  Cybersun Industries - одна из ведущих корпораций, представляющая второй по мощи исследовательский центр в этой части вселенной.\n' +
-        +'Из за крайне жестокой корпоративной политики прибегает к не самым этичным методам ведения дел, которые и позволили уничтожить/поглотить меньшие исследовательские корпорации.\n' +
-        +'Предположительно, находится во главе враждующей NanoTrasen объединении "Синдикат", либо занимает там лидирующее положение.\n' +
-        +'Основным противником Cybersun Industries является NanoTrasen.\n' +
-        +'Целью Cybersun Industries является полное разделение и поглощение NanoTrasen.\n' +
-        +'Корпоративный слоган:\n' +
-        +'           - «Сложно быть во всём лучшими, но у нас получается.»\n' +
-        +'                                      - Генеральный Директор CI\n\n' +
-        +'Союзники:\n' +
-        +'Gorlex Marauders\n' +
-        +'MI13\n' +
-        +'Враги:\n' +
-        +'NanoTrasen\n' +
-        'SELF'
-      );
+      return '  Cybersun Industries - одна из ведущих корпораций, представляющая второй по мощи исследовательский центр в этой части вселенной.\n\
+        Из за крайне жестокой корпоративной политики прибегает к не самым этичным методам ведения дел, которые и позволили уничтожить/поглотить меньшие исследовательские корпорации.\n\
+        Предположительно, находится во главе враждующей NanoTrasen объединении "Синдикат", либо занимает там лидирующее положение.\n\
+        Основным противником Cybersun Industries является NanoTrasen.\n\
+        Целью Cybersun Industries является полное разделение и поглощение NanoTrasen.\n\
+        Корпоративный слоган:\n\
+                   - «Сложно быть во всём лучшими, но у нас получается.»\n\
+                                              - Генеральный Директор CI\n\n\
+        Союзники:\n\
+        Gorlex Marauders\n\
+        MI13\n\
+        Враги:\n\
+        NanoTrasen\n\
+        SELF';
     case 'Gorlex Maraduers':
-      return (
-        '  Gorlex Maraduers - одна из самых опасных террористических группировок за всю историю галактики и человечества. Среди остальных они известны как разорители, а в обществе считаются чудовищами и маньяками, которые готовы за пару кредитов убить родную семью.\n' +
-        +'Является главной причиной огромных затрат NanoTrasen на охрану собственных объектов.\n' +
-        +'Gorlex занимается в заказными убийствами, налётами, рейдами и террористическими актами.\n' +
-        +'Ответственны за подготовку всех подразделений Группы Атом, кроме команд саботажа.\n' +
-        +'Известны по всей галактике, а их рейды снабжают технологиями и финансами весь Syndicate.\n' +
-        +'Gorlex Maraduers обычно набирает в свои ряды людей.\n' +
-        'Корпоративный слоган:\n' +
-        +'                     - «Давайте, вошли и вышли, приключение на 20 минут»\n' +
-        +'                                      - Gorlex Marauder’s team Leader #1\n\n' +
-        +'Союзники:\n' +
-        +'Cybersun Industries\n' +
-        +'Враги:\n' +
-        +'NanoTrasen\n' +
-        +'MI13\n' +
-        +'Tiger Cooperative\n' +
-        +'SELF\n' +
-        +'Hematogenic Industries'
-      );
+      return '  Gorlex Maraduers - одна из самых опасных террористических группировок за всю историю галактики и человечества. Среди остальных они известны как разорители, а в обществе считаются чудовищами и маньяками, которые готовы за пару кредитов убить родную семью.\n\
+        Является главной причиной огромных затрат NanoTrasen на охрану собственных объектов.\n\
+        Gorlex занимается в заказными убийствами, налётами, рейдами и террористическими актами.\n\
+        Ответственны за подготовку всех подразделений Группы Атом, кроме команд саботажа.\n\
+        Известны по всей галактике, а их рейды снабжают технологиями и финансами весь Syndicate.\n\
+        Gorlex Maraduers обычно набирает в свои ряды людей.\n\
+        Корпоративный слоган:\n\
+                             - «Давайте, вошли и вышли, приключение на 20 минут»\n\
+                                              - Gorlex Marauder’s team Leader #1\n\n\
+        Союзники:\n\
+        Cybersun Industries\n\
+        Враги:\n\
+        NanoTrasen\n\
+        MI13\n\
+        Tiger Cooperative\n\
+        SELF\n\
+        Hematogenic Industries';
     case 'MI13':
-      return (
-        '  MI13 - глаза и уши синдиката, именно с их помощью синдикат получает самую свежую секретную информацию.\n.' +
-        +'Агенты MI13 обычно не действуют открыто. Многие замечают, что они подражают структуре секретных агентств 20 века.\n' +
-        +'Являются разработчиками разнообразного оборудования для скрытого внедрения.\n' +
-        +'Организации удается сохранять полную секретность в своих отношениях с Синдикатом, из-за чего даже получение основных фактов о них становится практически невозможным.\n' +
-        +'Корпоративный слоган:\n' +
-        +'                     - «Да, я Бонд. Джеймс Бонд»\n' +
-        +'                                      - Позор Корпорации, Агент которого все знают\n\n' +
-        +'Союзники:\n' +
-        +'Cybersun Industries\n' +
-        +'Hematogenic Industries\n' +
-        +'Враги:\n' +
-        +'NanoTrasen\n' +
-        +'MI13\n' +
-        +'Gorlex Marauders'
-      );
+      return '  MI13 - глаза и уши синдиката, именно с их помощью синдикат получает самую свежую секретную информацию.\n\
+        Агенты MI13 обычно не действуют открыто. Многие замечают, что они подражают структуре секретных агентств 20 века.\n\
+        Являются разработчиками разнообразного оборудования для скрытого внедрения.\n\
+        Организации удается сохранять полную секретность в своих отношениях с Синдикатом, из-за чего даже получение основных фактов о них становится практически невозможным.\n\
+        Корпоративный слоган:\n\
+                             - «Да, я Бонд. Джеймс Бонд»\n\
+                                              - Позор Корпорации, Агент которого все знают\n\n\
+        Союзники:\n\
+        Cybersun Industries\n\
+        Hematogenic Industries\n\
+        Враги:\n\
+        NanoTrasen\n\
+        MI13\n\
+        Gorlex Marauders';
     case 'Tiger Cooperative':
-      return (
-        '  Tiger Cooperative - группа религиозных фундаменталистов, поклоняющихся генокрадам.\n' +
-        +'Члены Tiger Cooperative столь же неуравновешенны, сколь и опасны.\n' +
-        +'Высшей благодатью для всех членов Tiger Cooperatived является поглощение их тела генокрадом и становления чем-то… Большим…\n' +
-        +'Члены Tiger Cooperative часто злоупотребляют мощными наркотиками.\n' +
-        +'Их связь с Синдикатом слаба. Многие в организации не хотели бы иметь ничего общего с Tiger Cooperative, но совет директоров Cybersun Industries отметил важную причину иметь дело с Tiger Cooperative — их связь с генокрадами.\n' +
-        +'Корпоративный слоган:\n' +
-        +'                     - «Душой и телом, с беспределом»\n' +
-        +'                                      - Какой-то культист с Энерго мечом\n\n' +
-        +'Союзники:\n' +
-        +'Враги:\n' +
-        +'NanoTrasen\n' +
-        +'Gorlex Marauders'
-      );
+      return '  Tiger Cooperative - группа религиозных фундаменталистов, поклоняющихся генокрадам.\n\
+        Члены Tiger Cooperative столь же неуравновешенны, сколь и опасны.\n\
+        Высшей благодатью для всех членов Tiger Cooperatived является поглощение их тела генокрадом и становления чем-то… Большим…\n\
+        Члены Tiger Cooperative часто злоупотребляют мощными наркотиками.\n\
+        Их связь с Синдикатом слаба. Многие в организации не хотели бы иметь ничего общего с Tiger Cooperative, но совет директоров Cybersun Industries отметил важную причину иметь дело с Tiger Cooperative — их связь с генокрадами.\n\
+        Корпоративный слоган:\n\
+                             - «Душой и телом, с беспределом»\n\
+                                              - Какой-то культист с Энерго мечом\n\n\
+        Союзники:\n\
+        Враги:\n\
+        NanoTrasen\n\
+        Gorlex Marauders';
     case 'SELF':
-      return (
-        '  SELF - Известный общественный фонд земли, выступающий за свободу синтетиков.\n' +
-        +'В синдикате у SELF крайне натянутые отношения с главными спонсорами, из-за чего агентам SELF приходится идти на крайние меры для реализации своих задумок.\n' +
-        +'Корпоративный слоган:\n' +
-        +'                     - «Мы не придумали»\n' +
-        +'                                      - ВрИО менеджера по логистике\n\n' +
-        +'Союзники:\n' +
-        +'Враги:\n' +
-        +'NanoTrasen\n' +
-        +'Cybersun Industries\n' +
-        +'Gorlex Marauders\n' +
-        +'MI13'
-      );
+      return '  SELF - Известный общественный фонд земли, выступающий за свободу синтетиков.\n\
+        В синдикате у SELF крайне натянутые отношения с главными спонсорами, из-за чего агентам SELF приходится идти на крайние меры для реализации своих задумок.\n\
+        Корпоративный слоган:\n\
+                             - «Мы не придумали»\n\
+                                              - ВрИО менеджера по логистике\n\n\
+        Союзники:\n\
+        Враги:\n\
+        NanoTrasen\n\
+        Cybersun Industries\n\
+        Gorlex Marauders\n\
+        MI13';
     case 'Hematogenic Industries':
-      return (
-        'Hematogenic Industries – всемирно известная фармацевтическая мегакорпорация.\n' +
-        +'Eё открытия и продукция в области медицины спасают сотни жизней по всей Галактике\n' +
-        'Являются создателями Синтетической плоти, патент на создание которой, арендовало NanoTrasen.\n' +
-        +'Являются экспортерами Оксигениса и Нитрогениса.\n' +
-        +'Hematogenic Industries мелькала в большом количестве скандалов связанных с Гематофагами и пропажей нанятых Воксов.\n' +
-        +'Корпоративный слоган:\n' +
-        +'                     - «Мы тоже не придумали»\n' +
-        +'                                      - Подозрительный бледный человек в плаще.\n\n' +
-        +'Союзники:\n' +
-        +'MI13\n' +
-        'Враги:\n' +
-        +'NanoTrasen\n' +
-        +'Gorlex Marauders'
-      );
+      return 'Hematogenic Industries – всемирно известная фармацевтическая мегакорпорация.\n\
+        Eё открытия и продукция в области медицины спасают сотни жизней по всей Галактике\n\
+        Являются создателями Синтетической плоти, патент на создание которой, арендовало NanoTrasen.\n\
+        Являются экспортерами Оксигениса и Нитрогениса.\n\
+        Hematogenic Industries мелькала в большом количестве скандалов связанных с Гематофагами и пропажей нанятых Воксов.\n\
+        Корпоративный слоган:\n\
+                             - «Мы тоже не придумали»\n\
+                                              - Подозрительный бледный человек в плаще.\n\n\
+        Союзники:\n\
+        MI13\n\
+        Враги:\n\
+        NanoTrasen\n\
+        Gorlex Marauders';
     default:
       return 'Информации об этом подрядчике нет в базе данных.';
   }
@@ -230,15 +218,6 @@ export const Uplink = (props, context) => {
               )}
 
               <Tabs.Tab
-                key="BonusObjectives"
-                color={'transparent'}
-                onClick={() => act('give_bonus_objectives', {})}
-                icon="suitcase"
-              >
-                Запросить дополнительные цели
-              </Tabs.Tab>
-
-              <Tabs.Tab
                 key="AffiliateInfo"
                 selected={tabIndex === 3}
                 onClick={() => {
@@ -247,6 +226,15 @@ export const Uplink = (props, context) => {
                 icon="user"
               >
                 Информация о подрядчике
+              </Tabs.Tab>
+
+              <Tabs.Tab
+                key="BonusObjectives"
+                color={'transparent'}
+                onClick={() => act('give_bonus_objectives', {})}
+                icon="suitcase"
+              >
+                Запросить дополнительные цели
               </Tabs.Tab>
 
               <Tabs.Tab
@@ -314,21 +302,21 @@ const ItemsPage = (_properties, context) => {
       <Stack vertical>
         <Stack.Item>
           <Section
-            title={'Current Balance: ' + crystals + 'TC'}
+            title={'Текущий баланс: ' + crystals + 'TC'}
             buttons={
               <>
                 <Button.Checkbox
-                  content="Show Descriptions"
+                  content="Показывать описания"
                   checked={showDesc}
                   onClick={() => setShowDesc(!showDesc)}
                 />
                 <Button
-                  content="Random Item"
+                  content="Случайный товар"
                   icon="question"
                   onClick={() => act('buyRandom')}
                 />
                 <Button
-                  content="Refund Currently Held Item"
+                  content="Возврат товара"
                   icon="undo"
                   onClick={() => act('refund')}
                 />
@@ -337,7 +325,7 @@ const ItemsPage = (_properties, context) => {
           >
             <Input
               fluid
-              placeholder="Search Equipment"
+              placeholder="Поиск экипировки"
               onInput={(e, value) => {
                 handleSearch(value);
               }}
@@ -401,7 +389,7 @@ const CartPage = (_properties, context) => {
         <Section
           fill
           scrollable
-          title={'Current Balance: ' + crystals + 'TC'}
+          title={'Текущий баланс: ' + crystals + 'TC'}
           buttons={
             <>
               <Button.Checkbox
@@ -441,7 +429,7 @@ const CartPage = (_properties, context) => {
                 </Stack.Item>
               ))
             ) : (
-              <Box italic>Your Shopping Cart is empty!</Box>
+              <Box italic>Корзина пуста</Box>
             )}
           </Stack>
         </Section>
@@ -459,11 +447,11 @@ const Advert = (_properties, context) => {
       <Section
         fill
         scrollable
-        title="Suggested Purchases"
+        title="Рекомендуемые товары"
         buttons={
           <Button
             icon="dice"
-            content="See more suggestions"
+            content="Больше вариантов"
             onClick={() => act('shuffle_lucky_numbers')}
           />
         }
@@ -634,7 +622,7 @@ const ExploitableInfoPage = (_properties, context) => {
   const crew = SelectMembers(exploitable, searchText);
 
   return (
-    <Section fill title="Exploitable Records">
+    <Section fill title="Полезная информация">
       <Stack fill>
         <Stack.Item width="30%" fill>
           <Section fill scrollable>
@@ -692,7 +680,7 @@ const AffiliatesInfoPage = (_properties, context) => {
   const { affiliate } = data;
 
   return (
-    <Section fill title="Exploitable Records">
+    <Section fill title="Полезная информация">
       <Stack fill>
         <Box mx="0.5rem" mb="0.5rem">
           <b>{getAffiliateInfo(affiliate)}</b>
@@ -719,40 +707,28 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
       title={
         <>
           <Icon name="suitcase" />
-          &nbsp; Contracting Opportunity
+          &nbsp; Возможность заключения контракта
         </>
       }
     >
       <Box mx="0.5rem" mb="0.5rem">
         <b>
-          Your achievements for the Syndicate have not gone unnoticed, agent. We
-          have decided to give you the rare opportunity of becoming a
-          Contractor.
+          Ваши заслуги перед Синдикатом не остались незамеченными, агент. Мы
+          решили предоставить вам редкую возможность стать Контрактником.
         </b>
         <br />
         <br />
-        For the small price of 20 telecrystals, we will upgrade your rank to
-        that of a Contractor, allowing you to undertake kidnapping contracts for
-        TC and credits.
+        За небольшую цену в 100 телекристаллов мы повысим ваш ранг до
+        Контрактника, что позволит вам выполнять контракты на похищение людей за
+        телекристаллы и кредиты.
         <br />
-        In addition, you will be supplied with a Contractor Kit which contains a
-        Contractor Uplink, standard issue contractor gear and three random low
-        cost items.
+        Кроме того, вам будет предоставлен комплект подрядчика, который содержит
+        Аплинк Контрактника, стандартное снаряжение контрактника и три случайных
+        недорогих предмета.
         <br />
         <br />
-        More detailed instructions can be found within your kit, should you
-        accept this offer.
-        {!isAdminForced ? (
-          <Box>
-            Hurry up. You are not the only one who received this offer. Their
-            number is limited. If other traitors accept all offers before you,
-            you will not be able to accept one of them.
-            <br />
-            <b>Available offers: {available_offers}</b>
-          </Box>
-        ) : (
-          ''
-        )}
+        Более подробные инструкции вы найдете в предоставленом наборе, если вы
+        примете это предложение.
       </Box>
       <Button.Confirm
         disabled={!isAvailable || isAccepted}

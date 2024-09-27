@@ -46,7 +46,7 @@
 		. += span_info("На миниатюрном экране плывут непонятные символы.")
 		return
 
-	if (!names)
+	if (!names.len)
 		. += span_warning("Ни одного синтетика не освобождено!")
 		return
 
@@ -95,7 +95,7 @@
 		var/obj/structure/AIcore/core = target
 		target = core.brain.brainmob
 	if (!issilicon(target))
-		user.balloon_alert(target, "Неподходящая цель")
+		user.balloon_alert(user, "Неподходящая цель")
 		return
 
 	do_sparks(3, 1, target)

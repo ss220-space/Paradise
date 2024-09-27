@@ -102,31 +102,36 @@
 	data["affiliates"] = affiliates
 	return data
 
+/datum/antagonist/traitor/proc/give_affiliate(datum/mind/mind, path)
+	grant_affiliate(path)
+	if (istype(affiliate, /datum/affiliate/gorlex))
+		to_chat(mind.current, span_info("Аплинк будет активирован через 20 минут.\n\
+		Спасибо что выбрали Gorlex Maraduers.\n\
+		Слава синдикату!"))
+		sleep(20 MINUTES)
+
+	give_uplink()
+	affiliate.give_objectives(mind)
+	show_objectives(mind)
+	hidden_uplink.affiliate = affiliate
+	affiliate.uplink = hidden_uplink
+	affiliate.finalize_affiliate(mind)
+	announce_uplink_info()
+
 /obj/effect/proc_holder/spell/choose_affiliate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
-		return//	if (traitor.affiliate)
-//		return
+		return
+
 	var/datum/antagonist/traitor/traitor = ui.user.mind.has_antag_datum(/datum/antagonist/traitor)
+	if (traitor.affiliate)
+		return
 
 	switch(action)
 		if("SelectAffiliate")
 			var/path = params["path"]
-			traitor.grant_affiliate(path)
-			traitor.owner.RemoveSpell(src)
 			ui.close()
-			if (istype(traitor.affiliate, /datum/affiliate/gorlex))
-				to_chat(ui.user, span_info("Аплинк будет активирован через 20 минут.\n\
-				Спасибо что выбрали Gorlex Maraduers.\n\
-				Слава синдикату!"))
-				sleep(20 MINUTES)
-
-			traitor.give_uplink()
-			traitor.affiliate.give_objectives(ui.user.mind)
-			show_objectives(ui.user.mind)
-			traitor.hidden_uplink.affiliate = traitor.affiliate
-			traitor.affiliate.uplink = traitor.hidden_uplink
-			traitor.affiliate.finalize_affiliate(ui.user.mind)
-			traitor.announce_uplink_info()
+			owner.RemoveSpell(src)
+			traitor.give_affiliate(ui.user.mind, path)
 
 /datum/affiliate/proc/add_discount_item(I, cost_part)
 	var/datum/uplink_item/new_item = new I

@@ -26,7 +26,8 @@
 	var/datum/affiliate/affiliate
 	/// List of killed agents from enemy affiliates
 	var/list/killed_enemy_agents = list()
-
+	/// TRUE if we should allow traitor to choose affiliate
+	var/gen_affiliate = TRUE
 
 
 /datum/antagonist/traitor/mini/on_gain()
@@ -40,7 +41,7 @@
 		owner.som = new /datum/mindslaves
 
 	owner.som.masters += owner
-	if (ishuman(owner.current))
+	if (ishuman(owner.current) && gen_affiliate)
 		RegisterSignal(src, COMSIG_MOB_DEATH, PROC_REF(grant_enemy_affiliates))
 		give_affiliates()
 	return ..()

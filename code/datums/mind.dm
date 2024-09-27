@@ -568,11 +568,11 @@
 	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp", "traitorthief"))
 	var/datum/antagonist/traitor/traitor_datum = has_antag_datum(/datum/antagonist/traitor)
 	if(traitor_datum)
-		. += "<b><font color='red'>TRAITOR</font></b>|<a href='byond://?src=[UID()];traitor=clear'>no</a>"
+		. += "<b><font color='red'>TRAITOR" + (!traitor_datum.affiliate ? " without affiliate" : " from [traitor_datum.affiliate.name]") + "</font></b>|<a href='byond://?src=[UID()];traitor=clear'>no</a>"
 		if(!length(traitor_datum.objectives))
 			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];traitor=autoobjectives'>Randomize!</a>"
 	else
-		. += "<a href='byond://?src=[UID()];traitor=traitor'>traitor</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];traitor=traitor'>traitor</a>|<a href='byond://?src=[UID()];traitor=traitor_affil'>traitor with concret affiliate</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_TRAITOR)
 	// Contractor
@@ -2033,6 +2033,24 @@
 					add_antag_datum(traitor_datum)
 					log_admin("[key_name(usr)] has traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
+
+			if("traitor_affil")
+				if(!(has_antag_datum(/datum/antagonist/traitor)))
+					var/datum/antagonist/traitor/traitor_datum = new()
+					traitor_datum.gen_affiliate = FALSE
+					traitor_datum.give_objectives = FALSE
+					traitor_datum.give_uplink = FALSE
+					add_antag_datum(traitor_datum)
+					log_admin("[key_name(usr)] has traitored [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
+
+					var/type = input(usr, "Выберите подрядчика", "Выбор подрядчика") as null|anything in subtypesof(/datum/affiliate)
+					var/datum/affiliate/aff
+					if (type)
+						aff = new type
+					else
+						aff = new /datum/affiliate/old
+					traitor_datum.give_affiliate(src, aff)
 
 			if("autoobjectives")
 				var/datum/antagonist/traitor/traitor_datum = has_antag_datum(/datum/antagonist/traitor)

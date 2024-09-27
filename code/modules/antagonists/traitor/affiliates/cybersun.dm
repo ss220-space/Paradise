@@ -37,6 +37,7 @@
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "proprietary_ssd"
 	item_state = "disk"
+	origin_tech = "syndicate=2"
 	w_class = WEIGHT_CLASS_TINY
 	var/datum/research/files
 
@@ -48,6 +49,8 @@
 	return
 
 /obj/item/proprietary_ssd/afterattack(atom/target, mob/user, proximity, params)
+	if (istype(target, /obj/machinery/r_n_d/destructive_analyzer))
+		return
 	if (get_dist(user, target) > 1)
 		user.balloon_alert(user, "Слишком далеко")
 		return
