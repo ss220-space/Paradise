@@ -23,7 +23,7 @@
 
 /datum/event/headslug_infestation/proc/wrappedstart()
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE) //check for amount of people
-	if(eventcheck())
+	if(!can_start())
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
 		EC.next_event_time = world.time + (60 * 10)
 		return
@@ -42,9 +42,14 @@
 			successSpawn = TRUE
 			log_game("[new_slug.key] has become Changeling Headslug.")
 
-/datum/event/headslug_infestation/proc/eventcheck()
-	if((num_station_players() <= HI_MINPLAYERS_TRIGGER) ||GAMEMODE_IS_CULTS || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_SHADOWLING)
+/datum/event/headslug_infestation/can_start()
+	if(..())
 		return TRUE
+
+	if((num_station_players() <= HI_MINPLAYERS_TRIGGER) || GAMEMODE_IS_CULTS || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_SHADOWLING)
+		return FALSE
+
+	return TRUE
 
 
 #undef GAMEMODE_IS_CULTS

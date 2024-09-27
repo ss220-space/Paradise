@@ -7,7 +7,8 @@
 		return
 	var/type = tgui_input_list(src, "Выберите событие для запуска", "Выбор события", SSevents.allEvents)
 	if(ispath(type))
-		new type(new /datum/event_meta(EVENT_LEVEL_MAJOR))
+		var/datum/event/E = new type(new /datum/event_meta(EVENT_LEVEL_MAJOR))
+		E.forced_event = TRUE
 		message_admins("[key_name_admin(usr)] has triggered an event. ([type])")
 
 /client/proc/event_manager_panel()

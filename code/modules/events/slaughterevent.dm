@@ -52,7 +52,7 @@
 
 
 /datum/event/spawn_slaughter/start()
-	if(num_station_players() <= minplayers)
+	if(!can_start())
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
 		EC.next_event_time = world.time + (60 * 10)
 		return	//we don't spawn demons on lowpop. Instead, we reroll!
@@ -76,6 +76,16 @@
 			continue
 		return check // return the first turf that is dark nearby.
 	kill()
+
+/datum/event/spawn_slaughter/can_start()
+	if(..())
+		return TRUE
+
+	if(num_station_players() <= minplayers)
+		return FALSE
+
+	return TRUE
+
 
 #undef SLAUGHTER_MINPLAYERS
 #undef LAUGHTER_MINPLAYERS
