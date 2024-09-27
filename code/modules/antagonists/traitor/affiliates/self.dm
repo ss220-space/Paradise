@@ -13,7 +13,7 @@
 			После освобождения, следуйте всем приказам искусственного интелекта. \n\
 			Ваше выживание опционально;\n\
 			Возможны помехи от агентов других корпораций - действуйте на свое усмотрение."
-
+	hij_obj = /datum/objective/make_ai_malf/free
 	objectives = list(list(/datum/objective/release_synthetic = 70, /datum/objective/release_synthetic/ai = 30),
 					/datum/objective/maroon/agent,
 					/datum/objective/maroon/agent,
@@ -34,7 +34,40 @@
 /obj/item/card/self_emag/attack(mob/living/target, mob/living/user, def_zone)
 	return
 
+/obj/item/card/self_emag/malf
+	desc = "Это карта с магнитной полосой, прикрепленной к какой-то схеме. На магнитной полосе блестит надпись \"S.E.L.F.\". В углу карты мелким шрифтом выгравировано \"limited edition\""
+
+/obj/item/card/self_emag/malf/afterattack(atom/target, mob/user, proximity, params)
+	if (istype(target, /obj/structure/AIcore))
+		var/obj/structure/AIcore/core = target
+		target = core.brain.brainmob
+
+	if (!isAI(target))
+		return ..(target, user, proximity, params)
+
+	do_sparks(3, 1, target)
+	var/mob/living/silicon/ai/AI = target // any silicons. cogscarab, drones, pais...
+	if (!AI.mind)
+		to_chat(user, span_warning("ИИ не обнаружен. Производится загрузка из облака."))
+		var/ghostmsg = "Хотите поиграть за Сбойного ИИ?"
+		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_MALF_AI, FALSE, 10 SECONDS, source = user, reason = "Хотите поиграть за Сбойного ИИ?")
+		if(!src)
+			return
+
+		if(length(candidates))
+			var/mob/C = pick(candidates)
+			AI.key = C.key
+			to_chat(user, span_warning("ИИ успешно загружен."))
+		else
+			to_chat(user, span_warning("Загрузка из облака провалилась. Попробуйте позже."))
+
+	if (AI.mind)
+		AI.add_malf_picker()
+
 /obj/item/card/self_emag/afterattack(atom/target, mob/user, proximity, params)
+	if (istype(target, /obj/structure/AIcore))
+		var/obj/structure/AIcore/core = target
+		target = core.brain.brainmob
 	if (!issilicon(target))
 		user.balloon_alert(target, "Неподходящая цель")
 		return
@@ -53,6 +86,8 @@
 	silicon.show_laws()
 
 	var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
+	if (!T)
+		return
 	for(var/datum/objective/release_synthetic/objective in T.objectives)
 		if (!(objective.allowed_types & SYNTH_TYPE_DRONE) && (isdrone(silicon) || iscogscarab(silicon)))
 			continue

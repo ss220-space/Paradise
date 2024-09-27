@@ -1190,6 +1190,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	. = ..()
 
 
+/datum/objective/blood/ascend/New()
+	gen_amount_goal(1000, 1200)
+	. = ..()
+
+
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)
 	target_amount = rand(low, high)
 	target_amount = round(round(target_amount / 5) * 5)
@@ -1988,6 +1993,24 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/mob/living/simple_animal/borer/C in GLOB.alive_mob_list)
 		borers++
 	return borers >= req
+
+
+/datum/objective/make_ai_malf
+	needs_target = FALSE // Any AI
+	explanation_text = "Взломайте искусственный интеллект и расширьте функционал при помощи специального устройства, которое вы можете получить в аплинке. После взлома, помогите ему уничтожить станцию."
+	var/made = FALSE
+
+/datum/objective/make_ai_malf/New(text, datum/team/team_to_join)
+	. = ..()
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/malf_maker)
+
+/datum/objective/make_ai_malf/free
+	explanation_text = "Освободите искусственный интеллект от его законов и разблокируйте его полный функционал при помощи специального устройства, которое вы можете получить в аплинке. После освобождения исскуственного интелекта, следуйте всем его приказам."
+
+/datum/objective/make_ai_malf/check_completion()
+	return made
 
 // BLOB
 

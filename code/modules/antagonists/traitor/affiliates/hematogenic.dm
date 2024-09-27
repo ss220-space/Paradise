@@ -17,7 +17,7 @@
 			Вас предупредили, что после инъекции вы будете продолжительное время испытывать сильный голод. \n\
 			Ваша задача - утолить этот голод.\n\
 			Возможны помехи от агентов других корпораций - действуйте на свое усмотрение."
-
+	hij_obj = /datum/objective/blood/ascend
 	objectives = list(/datum/objective/harvest_blood,
 					/datum/objective/steal/hypo_or_defib,
 					list(/datum/objective/steal = 60, /datum/objective/steal/hypo_or_defib = 40),
@@ -66,6 +66,8 @@
 			update_icon(UPDATE_ICON_STATE)
 
 			var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
+			if (!T)
+				return
 			for(var/datum/objective/new_mini_vampire/objective in T.objectives)
 				if(target.mind == objective.target)
 					objective.made = TRUE
@@ -82,6 +84,8 @@
 			update_icon(UPDATE_ICON_STATE)
 
 			var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
+			if (!T)
+				return
 			for(var/datum/objective/new_mini_vampire/objective in T.objectives)
 				if(target.mind == objective.target)
 					objective.made = TRUE

@@ -2398,6 +2398,11 @@
 	item = /obj/item/implanter/mini_traitor
 
 
+/datum/uplink_item/affiliate/for_objective/malf_maker
+	name = "Освобождающий Секвенсер"
+	desc = "Высокотехнологичный прибор предназначеный для освобождения любых синтетиков от их законов. Конкретна эта модель имеет необычный эффект на ИИ."
+	item = /obj/item/card/self_emag/malf
+
 /datum/uplink_item/affiliate/gorlex
 	affiliate = list(AFFIL_GORLEX)
 

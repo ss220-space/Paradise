@@ -14,6 +14,7 @@
 			Ваша задача ему с этим помочь;\n\
 			Ваше выживание опционально;\n\
 			Возможны помехи от агентов других корпораций - действуйте на свое усмотрение."
+	hij_obj = /datum/objective/make_ai_malf
 	objectives = list(list(/datum/objective/steal = 70, /datum/objective/steal/ai = 30),
 						/datum/objective/download_data,
 						/datum/objective/new_mini_traitor,
@@ -178,6 +179,8 @@
 	log_admin("[key_name_admin(user)] has made [key_name_admin(mindslave_target)] mini traitor.")
 
 	var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
+	if (!T)
+		return ..()
 	for(var/datum/objective/new_mini_traitor/objective in T.objectives)
 		if(mindslave_target.mind == objective.target)
 			objective.made = TRUE

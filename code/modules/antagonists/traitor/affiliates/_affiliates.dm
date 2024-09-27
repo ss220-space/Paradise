@@ -5,6 +5,8 @@
 	var/desc
 	/// Description for tgui, if you get hijack role
 	var/hij_desc
+	/// Type of hijack objective
+	var/hij_obj = /datum/objective/hijack
 	/// Icon for tgui 256X256
 	var/tgui_icon = "1"
 	/// Cats, which this affeliate does not have.

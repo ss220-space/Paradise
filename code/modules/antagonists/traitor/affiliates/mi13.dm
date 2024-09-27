@@ -42,5 +42,6 @@
 	new /obj/item/CQC_manual(src)
 
 /obj/item/storage/box/bond_bundle/New()
+	. = ..()
 	if (prob(5))
 		icon_state = "joker"
