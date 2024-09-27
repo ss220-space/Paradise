@@ -447,6 +447,13 @@
 	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_ROBOTICIST)
 	surplus = 0
 
+/datum/uplink_item/jobspecific/lockermech
+	name = "Combat Drone Manual"
+	desc = "Manual that will allow you to construct combat drones and control plates for them."
+	item = /obj/item/drone_manual
+	cost = 45
+	job = list(JOB_TITLE_ROBOTICIST)
+
 /datum/uplink_item/jobspecific/stungloves
 	name = "Stungloves"
 	desc = "A pair of sturdy shock gloves with insulated layer. Protects user from electric shock and allows to shock enemies."

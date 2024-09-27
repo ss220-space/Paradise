@@ -390,7 +390,6 @@
 	armed = 1
 	},
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 2.8
 	},
 /turf/simulated/floor/engine,
@@ -627,7 +626,6 @@
 	tag = ""
 	},
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 3.3
 	},
 /turf/simulated/floor/plating,
@@ -885,9 +883,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "cN" = (
@@ -1322,7 +1318,6 @@
 	tag = ""
 	},
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 2.8
 	},
 /turf/simulated/floor/plating,
@@ -1583,9 +1578,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Kitchen)
 "eA" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -1732,7 +1725,6 @@
 "eU" = (
 /obj/machinery/door/airlock/titanium,
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 2.8
 	},
 /turf/simulated/floor/plating,
@@ -1886,7 +1878,6 @@
 "fn" = (
 /obj/machinery/door/airlock/silver,
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 2.8
 	},
 /turf/simulated/floor/plasteel,
@@ -2421,9 +2412,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gE" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -2489,9 +2478,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Kitchen)
 "gN" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -2695,7 +2682,6 @@
 	},
 /obj/structure/alien/weeds,
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 2.8
 	},
 /turf/simulated/floor/vault,
@@ -3280,7 +3266,6 @@
 	locked = 1
 	},
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 2.8
 	},
 /turf/simulated/floor/plasteel{
@@ -3351,7 +3336,6 @@
 	tag = ""
 	},
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 2.8
 	},
 /turf/simulated/floor/plasteel{
@@ -3379,7 +3363,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 3.3
 	},
 /turf/simulated/floor/plasteel,
@@ -3454,7 +3437,6 @@
 "kI" = (
 /obj/machinery/door/airlock/silver,
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 2.8
 	},
 /turf/simulated/floor/engine,
@@ -4264,7 +4246,6 @@
 "qJ" = (
 /obj/machinery/door/airlock/silver,
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 2.8
 	},
 /turf/simulated/floor/plating,
@@ -4394,7 +4375,6 @@
 	locked = 1
 	},
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 2.8
 	},
 /turf/simulated/floor/plasteel{
@@ -4739,7 +4719,6 @@
 	tag = ""
 	},
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 2.8
 	},
 /turf/simulated/floor/plating,
@@ -4876,7 +4855,6 @@
 	tag = ""
 	},
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 3.3
 	},
 /turf/simulated/floor/plating,
@@ -5496,7 +5474,6 @@
 	},
 /obj/structure/alien/weeds,
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 2.8
 	},
 /obj/structure/cable{
@@ -5582,7 +5559,6 @@
 	tag = ""
 	},
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 3.3
 	},
 /turf/simulated/floor/plating/airless,
@@ -6022,9 +5998,7 @@
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "FU" = (
@@ -6502,7 +6476,6 @@
 	tag = ""
 	},
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 2.8
 	},
 /turf/simulated/floor/plasteel,
@@ -7376,9 +7349,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "Uj" = (
@@ -7691,9 +7662,7 @@
 "Xy" = (
 /obj/item/stack/tile/plasteel,
 /obj/structure/alien/weeds,
-/obj/structure/computerframe{
-	anchored = 1
-	},
+/obj/structure/computerframe,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "XB" = (
@@ -7878,7 +7847,6 @@
 "Za" = (
 /obj/machinery/door/airlock/titanium,
 /obj/machinery/door/firedoor/closed{
-	opacity = 0;
 	layer = 2.8
 	},
 /turf/simulated/floor/plating,

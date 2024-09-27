@@ -149,6 +149,5 @@
 #define SCRYING_ORB_TRAIT "scrying_orb"
 #define EVIL_FAX_TRAIT "evil_fax"
 #define CORGI_HARDSUIT_TRAIT "corgi_hardsuit"
-
 /// inherited from riding vehicles
 #define VEHICLE_TRAIT "vehicle"

@@ -895,7 +895,6 @@
 "ayR" = (
 /obj/machinery/door/airlock/research{
 	name = "Research and Development Lab";
-	check_one_access = 1;
 	req_access = list(7)
 	},
 /obj/structure/cable{
@@ -1150,10 +1149,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4522,7 +4518,6 @@
 "cYx" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	check_one_access = 1;
 	req_access = list(1,4)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -4989,10 +4984,7 @@
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/sparsegrass,
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/grass,
 /area/quartermaster/storage)
 "dqc" = (
@@ -6645,7 +6637,6 @@
 /obj/machinery/door/airlock/highsecurity{
 	heat_proof = 1;
 	name = "Supermatter Chamber";
-	check_one_access = 1;
 	req_access = list(24,10)
 	},
 /turf/simulated/floor/engine,
@@ -7968,7 +7959,6 @@
 "fpu" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Gear Room";
-	check_one_access = 1;
 	req_access = list(1,4)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -9863,7 +9853,6 @@
 "gvk" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Access";
-	check_one_access = 1;
 	req_access = list(24,10)
 	},
 /obj/structure/disposalpipe/segment,
@@ -11203,7 +11192,6 @@
 "hkn" = (
 /obj/machinery/door/airlock{
 	name = "Service Hall";
-	check_one_access = 1;
 	req_access = list(22,25,26,28,35,37,38,46,70)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -11974,7 +11962,6 @@
 "hLl" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Access";
-	check_one_access = 1;
 	req_access = list(24,10)
 	},
 /obj/structure/disposalpipe/segment,
@@ -12872,9 +12859,7 @@
 	},
 /area/engine/mechanic_workshop)
 "ipc" = (
-/obj/structure/stairs{
-	dir = 2
-	},
+/obj/structure/stairs,
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "ipu" = (
@@ -13021,7 +13006,6 @@
 "iur" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Access";
-	check_one_access = 1;
 	req_access = list(24,10)
 	},
 /obj/structure/disposalpipe/segment,
@@ -13238,7 +13222,8 @@
 /area/crew_quarters/bar/atrium)
 "izH" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "mix_sensor"
+	id_tag = "mix_sensor";
+	output = 127
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
@@ -13559,7 +13544,6 @@
 "iKK" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Engine Room";
-	check_one_access = 1;
 	req_access = list(24,10)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -14350,7 +14334,8 @@
 /area/medical/medbay)
 "jlk" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "air_sensor"
+	id_tag = "air_sensor";
+	output = 23
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -16599,9 +16584,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/space)
 "kKB" = (
-/obj/machinery/power/smes/engineering{
-	charge = 2e+006
-	},
+/obj/machinery/power/smes/engineering,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -17736,9 +17719,7 @@
 	},
 /area/quartermaster/storage)
 "lwN" = (
-/obj/structure/stairs{
-	dir = 2
-	},
+/obj/structure/stairs,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "lxq" = (
@@ -17837,22 +17818,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
-"lAI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	locked = 1;
-	name = "Security Escape Airlock";
-	req_access = list(1)
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/exit)
 "lAL" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -18025,7 +17990,6 @@
 "lGd" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Access";
-	check_one_access = 1;
 	req_access = list(24,10)
 	},
 /obj/structure/disposalpipe/segment,
@@ -19111,7 +19075,6 @@
 "mmX" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Access";
-	check_one_access = 1;
 	req_access = list(24,10)
 	},
 /obj/structure/disposalpipe/segment,
@@ -19913,7 +19876,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	check_one_access = 1;
 	req_access = list(1,4)
 	},
 /obj/machinery/door/firedoor,
@@ -20532,9 +20494,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/security/prison)
 "nkj" = (
-/obj/structure/stairs{
-	dir = 2
-	},
+/obj/structure/stairs,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/bar/atrium)
 "nkn" = (
@@ -20947,9 +20907,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/bar/atrium)
 "nAC" = (
-/obj/structure/stairs{
-	dir = 2
-	},
+/obj/structure/stairs,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "nAF" = (
@@ -21965,7 +21923,6 @@
 "ogE" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Access";
-	check_one_access = 1;
 	req_access = list(24,10)
 	},
 /obj/structure/disposalpipe/segment,
@@ -24313,7 +24270,6 @@
 /area/engine/break_room)
 "pHi" = (
 /obj/machinery/door/window{
-	dir = 4;
 	name = "Fitness Ring"
 	},
 /obj/structure/window/reinforced{
@@ -24449,7 +24405,6 @@
 "pLe" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Access";
-	check_one_access = 1;
 	req_access = list(24,10)
 	},
 /obj/structure/disposalpipe/segment,
@@ -24788,7 +24743,6 @@
 "pVN" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Access";
-	check_one_access = 1;
 	req_access = list(24,10)
 	},
 /obj/structure/disposalpipe/segment,
@@ -26271,9 +26225,7 @@
 	},
 /area/hallway/secondary/entry)
 "qUW" = (
-/obj/machinery/power/smes/engineering{
-	charge = 2e+006
-	},
+/obj/machinery/power/smes/engineering,
 /obj/structure/cable,
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -27838,9 +27790,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/secondary/exit)
 "rSs" = (
-/obj/machinery/power/smes/engineering{
-	charge = 2e+006
-	},
+/obj/machinery/power/smes/engineering,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -28637,10 +28587,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -29399,7 +29346,6 @@
 "sYI" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Access";
-	check_one_access = 1;
 	req_access = list(24,10)
 	},
 /obj/structure/disposalpipe/segment,
@@ -30010,7 +29956,6 @@
 "ttQ" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Access";
-	check_one_access = 1;
 	req_access = list(24,10)
 	},
 /obj/structure/disposalpipe/segment,
@@ -30325,9 +30270,7 @@
 /turf/simulated/floor/glass/reinforced,
 /area/crew_quarters/dorms)
 "tEc" = (
-/obj/structure/stairs{
-	dir = 2
-	},
+/obj/structure/stairs,
 /turf/simulated/floor/plasteel,
 /area/medical/medbay)
 "tEf" = (
@@ -30640,7 +30583,6 @@
 /area/crew_quarters/dorms)
 "tOv" = (
 /mob/living/carbon/human/lesser/monkey/punpun{
-	icon = 'icons/mob/monkey.dmi';
 	icon_state = "punpun1"
 	},
 /turf/simulated/floor/carpet/black,
@@ -31386,7 +31328,6 @@
 "uml" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Office";
-	check_one_access = 1;
 	req_access = list(31,48)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -31969,7 +31910,6 @@
 	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Laser Room";
-	check_one_access = 1;
 	req_access = list(24,10)
 	},
 /obj/machinery/door/firedoor,
@@ -33446,10 +33386,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "vAv" = (
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36006,7 +35943,6 @@
 "wWY" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Engine Room";
-	check_one_access = 1;
 	req_access = list(24,10)
 	},
 /obj/structure/cable{
@@ -36410,7 +36346,6 @@
 /area/toxins/lab)
 "xjO" = (
 /obj/machinery/door/window/brigdoor{
-	dir = 4;
 	name = "Secure Creature Pen";
 	req_access = list(47)
 	},
@@ -668079,7 +668014,7 @@ nKk
 nKk
 nKk
 nKk
-lAI
+fpx
 qPe
 eqo
 kIC

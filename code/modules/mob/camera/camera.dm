@@ -5,11 +5,15 @@
 	density = FALSE
 	move_force = INFINITY
 	move_resist = INFINITY
-	status_flags = GODMODE  // You can't damage it.
+	status_flags = NONE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_ABSTRACT  // No one can see us
 	sight = SEE_SELF
 	move_on_shuttle = 0
+
+/mob/camera/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_GODMODE, INNATE_TRAIT)
 
 /mob/camera/experience_pressure_difference()
 	return
