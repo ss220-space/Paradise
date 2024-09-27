@@ -1232,10 +1232,17 @@
 	id = "vomitting_from_toxins"
 	alert_type = null
 	processing_speed = STATUS_EFFECT_NORMAL_PROCESS
+	tick_interval = 2 SECONDS
 	var/puke_counter = 0
 
+/datum/status_effect/tox_vomit/on_apply()
+	if(!iscarbon(owner))
+		return FALSE
+
+	return TRUE
+
 /datum/status_effect/tox_vomit/tick(seconds_between_ticks)
-	if(!iscarbon(owner) || !VOMIT_THRESHOLD_REACHED(owner, VOMIT_REQUIRED_TOXLOSS, 20) || HAS_TRAIT(owner, TRAIT_GODMODE))
+	if(!TOX_VOMIT_THRESHOLD_REACHED(owner, TOX_VOMIT_REQUIRED_TOXLOSS) || HAS_TRAIT(owner, TRAIT_GODMODE))
 		qdel(src)
 		return
 
