@@ -76,9 +76,9 @@
 
 	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
 		if(target == user)
-			to_chat(user, span_warning("Your face is obscured."))
+			balloon_alert(user, span_warning("лицо скрыто"))
 		else
-			to_chat(user, span_warning("[target]'s face is obscured."))
+			balloon_alert(user, span_warning("мешает скрытое лицо"))
 		return .
 
 	if(target.eat(toEat, user))

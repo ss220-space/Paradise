@@ -216,7 +216,7 @@
 	category = list("Medical")
 
 /datum/design/item/retractor_laser
-	name = "Advenced Laser Retractor"
+	name = "Advanced Laser Retractor"
 	desc = "A retractor with a laser tip. This one looks to be the pinnacle of precision energy a surgery tools!"
 	id = "retractor_laser"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
@@ -226,7 +226,7 @@
 	category = list("Medical")
 
 /datum/design/item/hemostat_laser
-	name = "Advenced Laser Hemostat"
+	name = "Advanced Laser Hemostat"
 	desc = "A hemostat with a laser clamp. This one looks to be the pinnacle of precision energy a surgery tools!"
 	id = "hemostat_laser"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
@@ -236,7 +236,7 @@
 	category = list("Medical")
 
 /datum/design/item/surgicaldrill_laser
-	name = "Advenced Laser Surgical Drill"
+	name = "Advanced Laser Surgical Drill"
 	desc = "A surgery drill with a directed laser bit. This one looks to be the pinnacle of precision energy a surgery tools!"
 	id = "surgicaldrill_laser"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
@@ -246,7 +246,7 @@
 	category = list("Medical")
 
 /datum/design/item/circular_laser
-	name = "Advenced Laser Circular Saw"
+	name = "Advanced Laser Circular Saw"
 	desc = "A saw with a circular laser disk. This one looks to be the pinnacle of precision energy a surgery tools!"
 	id = "circular_laser"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
@@ -256,7 +256,7 @@
 	category = list("Medical")
 
 /datum/design/item/bonesetter_laser
-	name = "Advenced Laser Bonesetter"
+	name = "Advanced Laser Bonesetter"
 	desc = "A bone settler with a laser teeth. This one looks to be the pinnacle of precision energy a surgery tools!"
 	id = "bonesetter_laser"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
