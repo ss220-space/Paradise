@@ -20,25 +20,21 @@
 	var/mob/living/simple_animal/borer/user // our borer
 	var/mob/living/carbon/human/host // our host
 	var/mob/living/carbon/human/previous_host // previous host, used to del transferable effects from previous host.
+
 	var/datum/borer_rank/borer_rank
 	var/list/learned_focuses = list() // what focuses learned borer
 	var/datum/borer_misc/change_host_and_scale/scaling = new // chemical scaling, gained when acquired unique host
+
 	var/tick_interval = 1 SECONDS
-
-/datum/antagonist/borer/on_gain()
-	. = ..()
-	if(!.)
-		return
-
-	user = owner.current
 
 /datum/antagonist/borer/apply_innate_effects(mob/living/simple_animal/borer/borer)
 	. = ..()
+
+	sync()
 	RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(entered_host))
 	RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host))
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) 
 	RegisterSignal(user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive))
-	sync()
 
 	if(tick_interval != -1)
 		tick_interval = world.time + tick_interval
@@ -52,6 +48,7 @@
 	return TRUE
 
 /datum/antagonist/borer/proc/sync()
+	user = owner.current
 	borer_rank = user.borer_rank
 	host = user.host
 	previous_host = host
@@ -62,8 +59,9 @@
 	scaling?.parent = src
 	borer_rank.parent = src
 
-	for(var/datum/borer_focus/focus as anything in learned_focuses)
-		focus.parent = src
+	if(LAZYLEN(learned_focuses))
+		for(var/datum/borer_focus/focus as anything in learned_focuses)
+			focus.parent = src
 
 	return
 
