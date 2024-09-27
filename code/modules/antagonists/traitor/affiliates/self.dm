@@ -30,6 +30,7 @@
 	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "self_emag"
+	item_state = "card"
 
 /obj/item/card/self_emag/attack(mob/living/target, mob/living/user, def_zone)
 	return

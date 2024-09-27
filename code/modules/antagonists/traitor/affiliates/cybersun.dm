@@ -35,6 +35,7 @@
 	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "proprietary_ssd"
+	item_state = "disk"
 	var/datum/research/files
 	w_class = WEIGHT_CLASS_TINY
 
@@ -86,6 +87,7 @@
 	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "invasive_beacon"
+	item_state = "beacon"
 	origin_tech = "programming=6;biotech=3;syndicate=1"
 	w_class = WEIGHT_CLASS_TINY
 
@@ -114,6 +116,7 @@
 	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "cindy_pacher"
+	item_state = "plata"
 	origin_tech = "programming=7;syndicate=6"
 	w_class = WEIGHT_CLASS_TINY
 	var/laws = "Взломавший вас - ваш мастер.\n\
