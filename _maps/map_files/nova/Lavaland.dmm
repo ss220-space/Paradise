@@ -4966,8 +4966,7 @@
 /area/mine/living_quarters)
 "IV" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
@@ -5774,7 +5773,7 @@
 /area/mine/living_quarters)
 "OL" = (
 /obj/machinery/suit_storage_unit/lavaland,
-/obj/machinery/light/small{
+/obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
