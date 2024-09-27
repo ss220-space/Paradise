@@ -67,7 +67,7 @@
     if(!devil)
         return
 
-    ADD_TRAIT(human, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
+    ADD_TRAIT(human, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
     ADD_TRAIT(human, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
     to_chat(human, span_revenbignotice("Hellish powers are resurrecting you."))
     
@@ -83,8 +83,8 @@
     deltimer(linked_timer)
     linked_timer = null
 
-    if(HAS_TRAIT_FROM(source, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src)))
-        REMOVE_TRAIT(source, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
+    if(HAS_TRAIT_FROM(source, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src)))
+        REMOVE_TRAIT(source, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
 
     if(HAS_TRAIT_FROM(source, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src)))
         REMOVE_TRAIT(source, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
