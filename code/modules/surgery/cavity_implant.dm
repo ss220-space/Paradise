@@ -211,9 +211,7 @@
 
 /datum/surgery_step/cavity/make_space
 	name = "make cavity space"
-
-	begin_sound	= 'sound/surgery/surgicaldrill.ogg'
-
+	begin_sound = 'sound/surgery/surgicaldrill.ogg'
 	allowed_tools = list(
 		TOOL_DRILL = 100,
 		/obj/item/screwdriver/power = 90,
@@ -243,10 +241,8 @@
 
 /datum/surgery_step/cavity/close_space
 	name = "close cavity space"
-
-	begin_sound	= 'sound/surgery/cautery2.ogg'
-	fail_sound	= 'sound/effects/meatslap.ogg'
-
+	begin_sound = 'sound/surgery/cautery2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/scalpel/laser = 100,
 		TOOL_CAUTERY = 100,
@@ -278,10 +274,8 @@
 
 /datum/surgery_step/cavity/remove_item
 	name = "extract object"
-
-	begin_sound	= 'sound/surgery/organ2.ogg'
-	fail_sound	= 'sound/effects/meatslap.ogg'
-
+	begin_sound = 'sound/surgery/organ2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	accept_hand = TRUE
 
 /datum/surgery_step/cavity/remove_item/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -327,10 +321,8 @@
 
 /datum/surgery_step/cavity/place_item
 	name = "implant object"
-
-	begin_sound	= 'sound/surgery/organ1.ogg'
-	fail_sound	= 'sound/effects/meatslap.ogg'
-
+	begin_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	accept_any_item = TRUE
 
 	time = 3.2 SECONDS

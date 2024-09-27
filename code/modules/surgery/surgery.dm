@@ -339,7 +339,7 @@
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_SUCCESS
 
-	play_begin_sound(user, target, tool, surgery)
+	play_begin_sound(user, target, tool)
 
 	if(tool)
 		speed_mod = tool.toolspeed * user.get_actionspeed_by_category(DA_CAT_SURGERY)
@@ -369,10 +369,10 @@
 
 	if((prob(prob_success) || silicons_ignore_prob && isrobot(user)) && chem_check_result && !try_to_fail)
 		step_result = end_step(user, target, target_zone, tool, surgery)
-		play_end_sound(user, target, tool, surgery)
+		play_end_sound(user, target, tool)
 	else
 		step_result = fail_step(user, target, target_zone, tool, surgery)
-		play_fail_sound(user, target, tool, surgery)
+		play_fail_sound(user, target, tool)
 	switch(step_result)
 		if(SURGERY_STEP_CONTINUE)
 			advance = TRUE
@@ -462,7 +462,7 @@
 				H.bloody_body(target)
 	return
 
-/datum/surgery_step/proc/play_begin_sound(mob/living/user, mob/living/carbon/human/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/proc/play_begin_sound(mob/living/user, mob/living/carbon/human/target, obj/item/tool)
 	if(!begin_sound)
 		return
 	var/sound_file_use
@@ -484,7 +484,7 @@
 /datum/surgery_step/proc/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/proc/play_end_sound(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/proc/play_end_sound(mob/living/user, mob/living/carbon/human/target, obj/item/tool)
 	if(!end_sound)
 		return
 	playsound(target, end_sound, 75, TRUE, falloff_exponent = 9, falloff_distance = 1, ignore_walls = FALSE)
@@ -498,7 +498,7 @@
 /datum/surgery_step/proc/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	return SURGERY_STEP_INCOMPLETE
 
-/datum/surgery_step/proc/play_fail_sound(mob/user, mob/living/carbon/target, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/proc/play_fail_sound(mob/living/user, mob/living/carbon/human/target, obj/item/tool)
 	if(!fail_sound)
 		return
 	playsound(target, fail_sound, 75, TRUE, falloff_exponent = 9, falloff_distance = 1, ignore_walls = FALSE)

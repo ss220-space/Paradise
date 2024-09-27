@@ -28,10 +28,8 @@
 
 /datum/surgery_step/internal/extract_organ
 	name = "remove heart"
-
-	begin_sound	= 'sound/surgery/hemostat1.ogg'
-	fail_sound	= 'sound/effects/meatslap.ogg'
-
+	begin_sound = 'sound/surgery/hemostat1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	accept_hand = TRUE
 	time = 3.2 SECONDS
 	var/obj/item/organ/internal/IC = null
@@ -76,10 +74,8 @@
 
 /datum/surgery_step/internal/gland_insert
 	name = "insert gland"
-
-	begin_sound	= 'sound/surgery/organ1.ogg'
-	fail_sound	= 'sound/effects/meatslap.ogg'
-
+	begin_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(/obj/item/organ/internal/heart/gland = 100)
 	time = 3.2 SECONDS
 

@@ -138,11 +138,9 @@
 //surgery steps
 /datum/surgery_step/glue_bone
 	name = "mend bone"
-
-	begin_sound	= 'sound/surgery/bonegel.ogg'
-	end_sound	= 'sound/surgery/hemostat1.ogg'
-	fail_sound	= 'sound/effects/meatslap.ogg'
-
+	begin_sound = 'sound/surgery/bonegel.ogg'
+	end_sound = 'sound/surgery/hemostat1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_BONEGEL = 100,
 		TOOL_SCREWDRIVER = 90
@@ -205,11 +203,9 @@
 
 /datum/surgery_step/set_bone
 	name = "set bone"
-
-	begin_sound	= 'sound/surgery/bonesetter.ogg'
-	end_sound	= 'sound/surgery/hemostat1.ogg'
-	fail_sound	= 'sound/effects/meatslap.ogg'
-
+	begin_sound = 'sound/surgery/bonesetter.ogg'
+	end_sound = 'sound/surgery/hemostat1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_BONESET = 100,
 		TOOL_WRENCH = 90
@@ -280,11 +276,9 @@
 
 /datum/surgery_step/finish_bone
 	name = "medicate bones"
-
-	begin_sound	= 'sound/surgery/bonegel.ogg'
-	end_sound	= 'sound/surgery/hemostat1.ogg'
-	fail_sound	= 'sound/effects/meatslap.ogg'
-
+	begin_sound = 'sound/surgery/bonegel.ogg'
+	end_sound = 'sound/surgery/hemostat1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_BONEGEL = 100,
 		TOOL_SCREWDRIVER = 90
