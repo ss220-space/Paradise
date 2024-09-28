@@ -86,7 +86,7 @@
 	if(!rank)
 		return FALSE // something bad occured, but we prevent runtimes
 
-	rank.link(owner.current)
+	rank.link_rank(owner.current)
 	rank.apply_rank()
 	rank.apply_spells()
 
@@ -98,6 +98,8 @@
 			continue
 
 		owner.RemoveSpell(spell)
+
+	rank?.remove_spells()
 
 /datum/antagonist/devil/proc/give_obligation_spells()
 	switch(obligation)
@@ -120,7 +122,7 @@
 	if(!living.hud_used?.devilsouldisplay)
 		return
 
-	QDEL_NULL(living.hud_used.devilsouldosplay)
+	QDEL_NULL(living.hud_used.devilsouldisplay)
 
 /datum/antagonist/devil/greet()
 	var/list/messages = list()
