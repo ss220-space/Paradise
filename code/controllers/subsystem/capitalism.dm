@@ -1,6 +1,6 @@
 #define FREQUENCY_SALARY 5 MINUTES
 #define EXTRA_MONEY 10000
-
+// TODO done, SScapitalism
 SUBSYSTEM_DEF(capitalism)
 	name = "Capitalism"
 	ss_id = "capitalism_subsystem"
