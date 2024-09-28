@@ -1,8 +1,6 @@
-//Оставь надежду надежду всяк сюда входящий
-//Оставь надежду надежду всяк сюда входящий
-//Оставь надежду надежду всяк сюда входящий
+//Abandon hope, everyone who enters here
 
-//Меняя реагенты помните про ужас скрытый под капотом
+//When changing reagents, remember about the horror hidden under the hood
 /datum/cargo_quest/reagents
 	quest_type_name = "Chemical"
 	req_items = list(/obj/item/reagent_containers)
