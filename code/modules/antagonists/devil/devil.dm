@@ -184,6 +184,9 @@
 	update_hud()
 	give_obligation_spells()
 
+	LAZYADD(owner.current.faction, "hell")
+	ADD_TRAIT(owner.current, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
+
 /datum/antagonist/devil/remove_innate_effects()
 	. = ..()
 	owner.current.RemoveElement(/datum/element/devil_bane)
@@ -192,6 +195,9 @@
 
 	remove_spells()
 	remove_hud()
+
+	LAZYREMOVE(owner.current.faction, "hell")
+	REMOVE_TRAIT(owner.current, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/antagonist/devil/proc/printdevilinfo()
 	var/list/parts = list()
@@ -332,7 +338,6 @@
 	to_chat(owner, span_warning("You feel as though your current form is about to shed.  You will soon turn into a true devil."))
 	var/mob/living/carbon/true_devil/A = new /mob/living/carbon/true_devil(owner.loc)
 
-	A.faction |= "hell"
 	owner.forceMove(A)
 	A.oldform = owner
 	owner.mind?.transfer_to(A)

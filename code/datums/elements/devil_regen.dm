@@ -13,24 +13,23 @@
         return ELEMENT_INCOMPATIBLE
 
     RegisterSignal(human, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(start_regen_bodypart))
-    RegisterSignal(human, COMSIG_LIVING_DEATH, PROC_REF(on_death))
-    RegisterSignal(human, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
+    RegisterSignal(human, COMSIG_LIVING_EARLY_DEATH, PROC_REF(pre_death))
 
     var/obj/item/organ/internal/brain/brain = human.get_organ_slot(INTERNAL_ORGAN_BRAIN)
     brain?.decoy_brain = TRUE	
 
 /datum/element/devil_regeneration/Detach(datum/target)
     . = ..()
-    var/mob/living/carbon/human = target
 
-    if(!istype(human))
+    UnregisterSignal(target, COMSIG_CARBON_LOSE_ORGAN)
+    UnregisterSignal(target, COMSIG_LIVING_EARLY_DEATH)
+
+    if(!ishuman(target))
         return
 
-    UnregisterSignal(human, COMSIG_CARBON_LOSE_ORGAN)
-    UnregisterSignal(human, COMSIG_LIVING_DEATH)
-    UnregisterSignal(human, COMSIG_LIVING_REVIVE)
+    var/mob/living/carbon/carbon = target
+    var/obj/item/organ/internal/brain/brain = carbon.get_organ_slot(INTERNAL_ORGAN_BRAIN)
 
-    var/obj/item/organ/internal/brain/brain = human.get_organ_slot(INTERNAL_ORGAN_BRAIN)
     brain?.decoy_brain = FALSE	
 
 /datum/element/devil_regeneration/proc/start_regen_bodypart(datum/source, mob/living/carbon/human)
@@ -55,10 +54,10 @@
     playsound(get_turf(human), pick(sounds), 50, 0, TRUE)
     update_status(human)
 
-/datum/element/devil_regeneration/proc/on_death(datum/source, gibbed)
+/datum/element/devil_regeneration/proc/pre_death(datum/source, gibbed)
     SIGNAL_HANDLER
 
-    if(gibbed) // You're not immortal anymore.
+    if(gibbed || linked_timer)
         return
 
     var/mob/living/carbon/human = source
@@ -67,8 +66,6 @@
     if(!devil)
         return
 
-    ADD_TRAIT(human, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
-    ADD_TRAIT(human, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
     to_chat(human, span_revenbignotice("Hellish powers are resurrecting you."))
     
     human.metabolism_efficiency = 0
@@ -77,29 +74,19 @@
     playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
     linked_timer = addtimer(CALLBACK(src, PROC_REF(apply_regeneration), human, devil), devil.rank.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE)
 
-/datum/element/devil_regeneration/proc/on_revive(datum/source)
-    SIGNAL_HANDLER
-
+/datum/element/devil_regeneration/proc/on_revive(mob/living/carbon/carbon)
     if(!linked_timer)
         return
-
-    var/mob/living/carbon/human = source
 
     deltimer(linked_timer)
     linked_timer = null
 
-    if(HAS_TRAIT_FROM(human, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src)))
-        REMOVE_TRAIT(human, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
-
-    if(HAS_TRAIT_FROM(human, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src)))
-        REMOVE_TRAIT(human, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
-
-    human.metabolism_efficiency = initial(human.metabolism_efficiency)
-    human.digestion_ratio = initial(human.digestion_ratio)
+    carbon.metabolism_efficiency = initial(human.metabolism_efficiency)
+    carbon.digestion_ratio = initial(human.digestion_ratio)
 
 /datum/element/devil_regeneration/proc/apply_regeneration(mob/living/carbon/human, datum/antagonist/devil/devil)
     if(human.health >= human.maxHealth)
-        human.revive()
+        on_revive(human)
 
     human.heal_damages(
         devil.rank.regen_amount, 
@@ -116,8 +103,8 @@
         )
 
     if(ishuman(human))
-        var/mob/living/carbon/human/carbon = human
-        carbon.check_and_regenerate_organs()
+        var/mob/living/carbon/human/mob = human
+        mob.check_and_regenerate_organs()
 
     playsound(get_turf(human), pick(sounds), 50, 0, TRUE)
     update_status(human)

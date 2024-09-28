@@ -559,6 +559,8 @@
 ///From living/Life(). (deltatime, times_fired)
 #define COMSIG_LIVING_LIFE "living_life"
 ///from base of mob/living/death(): (gibbed)
+#define COMSIG_LIVING_EARLY_DEATH "living_early_death"
+///from base of mob/living/death(): (gibbed)
 #define COMSIG_LIVING_DEATH "living_death"
 //sent from mobs when they exit their body as a ghost
 #define COMSIG_LIVING_GHOSTIZED "ghostized"

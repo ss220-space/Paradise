@@ -11,23 +11,17 @@
     if(!istype(human) && !human.mind?.has_antag_datum(/datum/antagonist/devil))
         return ELEMENT_INCOMPATIBLE
 
-    RegisterSignal(human, COMSIG_LIVING_DEATH, PROC_REF(on_death))
-    RegisterSignal(human, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
+    RegisterSignal(human, COMSIG_LIVING_EARLY_DEATH, PROC_REF(pre_death))
 
 /datum/element/devil_banishment/Detach(datum/target)
     . = ..()
-    var/mob/living/carbon/human = target
 
-    if(!istype(human))
-        return
+    UnregisterSignal(target, COMSIG_LIVING_EARLY_DEATH)
 
-    UnregisterSignal(human, COMSIG_LIVING_DEATH)
-    UnregisterSignal(human, COMSIG_LIVING_REVIVE)
-
-/datum/element/devil_banishment/proc/on_death(datum/source, gibbed)
+/datum/element/devil_banishment/proc/pre_death(datum/source, gibbed)
     SIGNAL_HANDLER
 
-    if(gibbed) // You're not immortal anymore.
+    if(gibbed || linked_timer)
         return
 
     var/mob/living/carbon/human = source
@@ -40,14 +34,16 @@
     linked_timer = addtimer(CALLBACK(src, PROC_REF(try_banishment), human, devil), devil.rank.regen_threshold / 2, TIMER_LOOP | TIMER_STOPPABLE)
 
 /datum/element/devil_banishment/proc/try_banishment(mob/living/carbon/human, datum/antagonist/devil/devil)
+    if(human.health >= human.maxHealth)
+        stop_banishment_check()
+        return
+
     if(!check_banishment(human, devil))
         return
 
     human.dust()
 
-/datum/element/devil_banishment/proc/on_revive()
-    SIGNAL_HANDLER
-    
+/datum/element/devil_banishment/proc/stop_banishment_check()
     if(!linked_timer)
         return
 
@@ -88,4 +84,4 @@
 			for(var/obj/item/clothing/under/burial/burial in range(0, human))
 				return burial.loc == get_turf(burial)
 
-			return FALSE
+	return FALSE

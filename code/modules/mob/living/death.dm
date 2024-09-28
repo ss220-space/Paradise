@@ -46,6 +46,8 @@
 // Do a check with `can_die` beforehand if you need to do any
 // handling before `stat` is set
 /mob/living/death(gibbed)
+	SEND_SIGNAL(src, COMSIG_LIVING_EARLY_DEATH, gibbed)
+	
 	if(stat == DEAD || !can_die())
 		// Whew! Good thing I'm indestructible! (or already dead)
 		return FALSE
