@@ -26208,6 +26208,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"dQr" = (
+/obj/machinery/light/small,
+/obj/machinery/photocopier,
+/obj/effect/decal/warning_stripes/red,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark"
+	},
+/area/hallway/primary/command/west)
 "dQt" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -28163,6 +28172,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "efA" = (
@@ -28503,8 +28513,7 @@
 	layer = 4;
 	pixel_x = -32
 	},
-/obj/effect/decal/warning_stripes/red,
-/obj/machinery/light/small,
+/obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -32514,8 +32523,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
 "eLO" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "eLP" = (
@@ -71921,6 +71930,9 @@
 /obj/structure/railing,
 /turf/simulated/floor/glass/reinforced,
 /area/engine/mechanic_workshop/hangar)
+"kNw" = (
+/turf/simulated/wall/r_wall,
+/area/security/brig)
 "kNC" = (
 /obj/structure/cable,
 /obj/machinery/door/poddoor{
@@ -77679,9 +77691,7 @@
 	},
 /area/hallway/primary/central/second/west)
 "lIv" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/grille,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/r_wall,
 /area/maintenance/fore)
 "lIC" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -121407,7 +121417,7 @@
 "sgB" = (
 /obj/structure/sign/security,
 /turf/simulated/wall/r_wall,
-/area/maintenance/brig)
+/area/security/brig)
 "sgI" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -125738,7 +125748,7 @@
 /area/crew_quarters/serviceyard)
 "sOK" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/maintenance/fore)
 "sON" = (
 /obj/structure/sink/kitchen{
@@ -148046,7 +148056,7 @@
 "wfo" = (
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access = list(63);
+	req_access = list(1);
 	security_level = 1
 	},
 /obj/structure/cable{
@@ -148780,7 +148790,8 @@
 /area/toxins/test_chamber)
 "wkT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/grille/broken,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "wkV" = (
@@ -250503,7 +250514,7 @@ uRS
 reI
 aFq
 pfm
-gpq
+kNw
 tjC
 hEP
 nGQ
@@ -252769,7 +252780,7 @@ fmZ
 ncn
 dDu
 gyA
-lIv
+dTp
 dTp
 gyA
 jGH
@@ -253284,7 +253295,7 @@ sjI
 dDu
 wkT
 aKV
-aKV
+owQ
 aKV
 aKV
 aKV
@@ -253539,13 +253550,13 @@ dDu
 tOT
 dDu
 dDu
-dTp
+sOK
 aKV
 fev
 fev
 fev
 fev
-ebt
+fev
 aKV
 dTp
 mPi
@@ -253795,8 +253806,8 @@ nbb
 nbb
 jhe
 ehF
-goz
-gyA
+dQr
+lIv
 eLO
 fev
 bTz
@@ -254059,7 +254070,7 @@ fev
 pik
 xop
 udl
-fev
+ebt
 aKV
 pxL
 jPg
@@ -254826,7 +254837,7 @@ lTR
 xMb
 elE
 aKV
-ebt
+fev
 fRV
 fev
 fev
