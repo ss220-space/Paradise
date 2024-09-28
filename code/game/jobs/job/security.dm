@@ -25,7 +25,6 @@
 	money_factor = 7
 	outfit = /datum/outfit/job/hos
 
-	//Зарплата хосу хуесосу
 	salary = 300
 	min_start_money = 400
 	max_start_money = 700
