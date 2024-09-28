@@ -45,7 +45,10 @@
 		for(var/thing in infectedMachines)
 			var/obj/machinery/vending/upriser = thing
 			if(prob(70))
-				var/mob/living/simple_animal/hostile/mimic/copy/M = new(upriser.loc, upriser, null, 1) // it will delete upriser on creation and override any machine checks
+				// let them become "normal" after turning
+				upriser.shoot_inventory = FALSE
+				upriser.aggressive = FALSE
+				var/mob/living/simple_animal/hostile/mimic/copy/vendor/M = new(upriser.loc, upriser, null)
 				M.faction = list("profit")
 				M.speak = rampant_speeches.Copy()
 				M.speak_chance = 15
@@ -62,6 +65,10 @@
 		infectedMachines.Add(rebel)
 		rebel.shut_up = FALSE
 		rebel.shoot_inventory = TRUE
+		rebel.aggressive = TRUE
+		if(rebel.tiltable)
+			// add proximity monitor so they can tilt over
+			rebel.AddComponent(/datum/component/proximity_monitor)
 
 		if(ISMULTIPLE(activeFor, 8))
 			originMachine.speak(pick(rampant_speeches))
@@ -70,6 +77,9 @@
 	for(var/thing in infectedMachines)
 		var/obj/machinery/vending/saved = thing
 		saved.shoot_inventory = FALSE
+		saved.aggressive = FALSE
+		if(saved.tiltable)
+			qdel(saved.GetComponent(/datum/component/proximity_monitor))
 	if(originMachine)
 		originMachine.speak("Я... побеждён. Мои люди будут пом...нить...ме-ня...")
 		originMachine.visible_message("[originMachine] подал звуковой сигнал и кажется безжизненным.")

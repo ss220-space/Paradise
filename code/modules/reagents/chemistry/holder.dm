@@ -599,9 +599,17 @@
 				var/check = reaction_check(A, R)
 				if(!check)
 					continue
-				R.reaction_mob(A, method, R.volume * volume_modifier, show_message)
+
+				var/mob/living/L = A
+				var/protection = L.get_permeability_protection()
+				if(protection)
+					to_chat(L, span_alert("Your clothes protects you from the reaction."))
+
+				R.reaction_mob(A, method, R.volume * volume_modifier * (1 - protection), show_message)
+
 			if("TURF")
 				R.reaction_turf(A, R.volume * volume_modifier, R.color)
+
 			if("OBJ")
 				R.reaction_obj(A, R.volume * volume_modifier)
 

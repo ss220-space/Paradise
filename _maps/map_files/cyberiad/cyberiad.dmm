@@ -10741,7 +10741,6 @@
 	pixel_y = 1
 	},
 /obj/item/book/manual/sop_legal,
-/obj/item/megaphone,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13678,7 +13677,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access = list(1)
+	req_access = list(63)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -34266,6 +34265,7 @@
 	name = "Privacy Shutters Control";
 	pixel_y = 25
 	},
+/obj/item/storage/belt/medical/surgery/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -54735,7 +54735,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access = list(1)
+	req_access = list(63)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -61681,6 +61681,7 @@
 	name = "Privacy Shutters Control";
 	pixel_y = 25
 	},
+/obj/item/storage/belt/medical/surgery/loaded,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitebluecorner"
