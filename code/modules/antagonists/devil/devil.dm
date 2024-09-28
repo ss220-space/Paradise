@@ -22,8 +22,19 @@
 		/obj/effect/proc_holder/spell/sintouch
 		))
 
+/datum/antagonist/devil/can_be_owned(datum/mind/new_owner)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/datum/mind/tested = new_owner || owner
+	if(!tested || !iscarbon(tested.current))
+		return FALSE
+
+	return TRUE
+
 /datum/antagonist/devil/Destroy(force)
-	rank = null
+	QDEL_NULL(rank)
 	QDEL_NULL(soulsOwned)
 	
 	return ..()
@@ -45,31 +56,41 @@
 	update_hud()
 
 /datum/antagonist/devil/proc/try_update_rank()
-	if(!iscarbon(owner.current))
-		return
+	var/devil_rank = update_rank()
+	if(!devil_rank)
+		return FALSE
 
-	if(!update_rank())
-		return
+	if(!init_new_rank(devil_rank))
+		return FALSE
 
-	rank.link_rank(owner.current)
+	return TRUE // rank updated.
+
+/datum/antagonist/devil/proc/update_rank()
+	switch(SOULVALUE)
+		if(ENRAGED_THRESHOLD)
+			. = ENRAGED_DEVIL_RANK
+		if(BLOOD_THRESHOLD)
+			. = BLOOD_LIZARD_RANK
+		if(TRUE_THRESHOLD)
+			. = TRUE_DEVIL_RANK
+
+	return .
+
+/datum/antagonist/devil/proc/init_new_rank(typepath)
+	if(rank)
+		rank.remove_spells()
+
+	if(typepath)
+		rank = new typepath()
+
+	if(!rank)
+		return FALSE // something bad occured, but we prevent runtimes
+
+	rank.link(owner.current)
 	rank.apply_rank()
 	rank.apply_spells()
 
-	return
-
-/datum/antagonist/devil/proc/update_rank()
-	. = FALSE
-	switch(SOULVALUE)
-		if(BLOOD_THRESHOLD)
-			rank.remove_spells()
-			rank = new BLOOD_LIZARD_RANK()
-			. = TRUE
-		if(TRUE_THRESHOLD)
-			rank.remove_spells()
-			rank = new TRUE_DEVIL_RANK()
-			. = TRUE
-
-	return .
+	return TRUE
 
 /datum/antagonist/devil/proc/remove_spells()
 	for(var/obj/effect/proc_holder/spell/spell as anything in owner.spell_list)
@@ -89,18 +110,17 @@
 	var/mob/living/living = owner.current
 
 	if(!living.hud_used?.devilsouldisplay)
-		living.hud_used.devilsouldisplay = new /atom/movable/screen/devil/soul_counter(null, living.hud_used.devilsouldisplay)
+		living.hud_used.devilsouldisplay = new /atom/movable/screen/devil/soul_counter(null, living.hud_used)
 
 	living.hud_used?.devilsouldisplay.update_counter(SOULVALUE)
 
 /datum/antagonist/devil/proc/remove_hud()
-	var/mob/living = owner.current
-	var/datum/hud/devil/devil = living.hud_used
+	var/mob/living/living = owner.current
 
-	if(!devil)
+	if(!living.hud_used?.devilsouldisplay)
 		return
 
-	LAZYREMOVE(devil.infodisplay, devil.devilsouldisplay)
+	QDEL_NULL(living.hud_used.devilsouldosplay)
 
 /datum/antagonist/devil/greet()
 	var/list/messages = list()
@@ -116,21 +136,27 @@
 	return messages
 
 /datum/antagonist/devil/on_gain()
-	rank = new BASIC_DEVIL_RANK()
+	init_devil()
+
 	. = ..()
 	if(!.)
 		return FALSE
 	
+	var/mob/living/carbon/human/human = owner.current
+	human.store_memory("Your devilic true name is [truename]<br>[GLOB.lawlorify[LAW][ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][bane]]<br>[GLOB.lawlorify[LAW][obligation]]<br>[GLOB.lawlorify[LAW][banish]]<br>")
+
+	update_hud()
+	init_new_rank(BASIC_DEVIL_RANK)
+
+/datum/antagonist/devil/proc/init_devil()
 	truename = randomDevilName()
 	ban = randomdevilban()
 	bane = randomdevilbane()
 	obligation = randomdevilobligation()
 	banish = randomdevilbanish()
-	GLOB.allDevils[lowertext(truename)] = src
 
-	var/mob/living/carbon/human/human = owner.current
-	human.store_memory("Your devilic true name is [truename]<br>[GLOB.lawlorify[LAW][ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][bane]]<br>[GLOB.lawlorify[LAW][obligation]]<br>[GLOB.lawlorify[LAW][banish]]<br>")
-	update_hud()
+	GLOB.allDevils[lowertext(truename)] = src
+	return
 
 /datum/antagonist/devil/give_objectives()
 	add_objective(/datum/objective/devil/ascend)
@@ -152,10 +178,7 @@
 	owner.current.AddElement(/datum/element/devil_regeneration)
 	owner.current.AddElement(/datum/element/devil_banishment)
 
-	rank.link_rank(owner.current)
-	rank.apply_rank()
-	rank.apply_spells()
-
+	init_new_rank()
 	update_hud()
 	give_obligation_spells()
 
@@ -251,6 +274,15 @@
 
 	rank_spells = list() // TODO: new single spell which allows you to do rituals
 
+/datum/devil_rank/enraged_devil
+	regen_threshold = ENRAGED_DEVIL_REGEN_THRESHOLD
+	regen_amount = ENRAGED_DEVIL_REGEN_AMOUNT
+
+	rank_spells = list(
+		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
+		/obj/effect/proc_holder/spell/aoe/devil_haunt
+	)
+
 /datum/devil_rank/blood_lizard
 	regen_threshold = BLOOD_LIZARD_REGEN_THRESHOLD
 	regen_amount = BLOOD_LIZARD_REGEN_AMOUNT
@@ -258,6 +290,7 @@
 	rank_spells = list(
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
 		/obj/effect/proc_holder/spell/fireball/hellish,
+		/obj/effect/proc_holder/spell/aoe/devil_haunt,
 		/obj/effect/proc_holder/spell/infernal_jaunt
 	)
 
@@ -288,6 +321,7 @@
 	rank_spells = list(
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork/greater,
 		/obj/effect/proc_holder/spell/fireball/hellish,
+		/obj/effect/proc_holder/spell/aoe/devil_haunt,
 		/obj/effect/proc_holder/spell/infernal_jaunt,
 		/obj/effect/proc_holder/spell/sintouch
 	)

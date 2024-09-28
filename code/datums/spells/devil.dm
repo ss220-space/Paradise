@@ -217,15 +217,13 @@
 	human_req = FALSE
 	school = "conjuration"
 	base_cooldown = 1 SECONDS
-	cooldown_min = 5 SECONDS //5 seconds, so the smoke can't be spammed
+	cooldown_min = 5 SECONDS // 5 seconds, so the smoke can't be spammed
 	action_icon_state = "funk"
 	action_background_icon_state = "bg_demon"
 
 	var/list/dancefloor_turfs
 	var/list/dancefloor_turfs_types
 	var/dancefloor_exists = FALSE
-//	var/datum/effect_system/smoke_spread/transparent/dancefloor_devil/smoke
-
 
 /obj/effect/proc_holder/spell/summon_dancefloor/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -234,13 +232,6 @@
 /obj/effect/proc_holder/spell/summon_dancefloor/cast(list/targets, mob/user = usr)
 	LAZYINITLIST(dancefloor_turfs)
 	LAZYINITLIST(dancefloor_turfs_types)
-
-/*
-	if(!smoke)
-		smoke = new()
-	smoke.set_up(0, get_turf(user))
-	smoke.start()
-*/
 
 	if(dancefloor_exists)
 		dancefloor_exists = FALSE
@@ -264,12 +255,27 @@
 			T.ChangeTurf((i % 2 == 0) ? /turf/simulated/floor/light/colour_cycle/dancefloor_a : /turf/simulated/floor/light/colour_cycle/dancefloor_b)
 			i++
 
+/obj/effect/proc_holder/spell/aoe/devil_haunt
+	name = "Demonical haunt"
+	desc = "Causes living creatures to move slower and haunts every object in spell radius."
+	action_icon_state = "explosion_old"
 
-/*
-/datum/effect_system/smoke_spread/transparent/dancefloor_devil
-	effect_type = /obj/effect/particle_effect/smoke/transparent/dancefloor_devil
+	base_cooldown = 60 SECONDS
+	aoe_range = 10
 
+	var/slow_time = 5 SECONDS
 
-/obj/effect/particle_effect/smoke/transparent/dancefloor_devil
-	lifetime = 2
-*/
+/obj/effect/proc_holder/spell/aoe/devil_haunt/create_new_targeting()
+	var/datum/spell_targeting/aoe/T = new()
+	T.range = aoe_range
+	return T
+
+/obj/effect/proc_holder/spell/aoe/devil_haunt/cast(list/targets, mob/living/carbon/carbon = usr)
+	var/obj/effect/proc_holder/spell/aoe/revenant/haunt_object/haunt = new
+
+	haunt.max_targets = 20
+	haunt.haunt_time = 1 MINUTES
+	haunt.cast(targets, carbon)
+
+	for(var/mob/living/living in targets)
+		living.Slowed(slow_time)
