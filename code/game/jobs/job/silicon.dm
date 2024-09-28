@@ -12,6 +12,8 @@
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_SILICON
 
+	//Силиконам не платят увы
+
 /datum/job/ai/equip(mob/living/carbon/human/H)
 	if(!H)
 		return 0

@@ -2,6 +2,13 @@
 #define NUMBER_OF_CORP_QUEST 4
 #define NUMBER_OF_PLASMA_QUEST 1
 
+//Оставь надежду надежду всяк сюда входящий
+
+//Это место проклято, не пытайтесь понять его и изменить. Это убьет вас
+
+//Все больше вчитываясь в строки я понимаю, ох зря я сюда полез.
+
+//ДАЛЬШЕ БОГА НЕТ
 SUBSYSTEM_DEF(cargo_quests)
 	name = "Cargo Quests"
 	flags = SS_NO_FIRE
@@ -103,6 +110,7 @@ SUBSYSTEM_DEF(cargo_quests)
 /datum/controller/subsystem/cargo_quests/proc/check_delivery(obj/structure/bigDelivery/delivery)
 	var/max_reward = 0
 	var/datum/cargo_quests_storage/target_storage
+	var/list/copmpleted_quests = list()
 
 	for(var/order in quest_storages)
 		var/datum/cargo_quests_storage/storage = order
@@ -129,6 +137,7 @@ SUBSYSTEM_DEF(cargo_quests)
 					continue
 				if(quest.check_required_item(item))
 					failed_quest_length--
+					copmpleted_quests += quest
 					has_extra_item = FALSE
 					break
 
@@ -141,6 +150,7 @@ SUBSYSTEM_DEF(cargo_quests)
 
 		for(var/datum/cargo_quest/quest in storage.current_quests)
 			if(!quest.after_check())
+				copmpleted_quests -= quest
 				failed_quest_length++
 
 		var/reward = storage.check_quest_completion(delivery, failed_quest_length, extra_items, req_quantity)
@@ -161,8 +171,14 @@ SUBSYSTEM_DEF(cargo_quests)
 		max_reward = max_reward * 10
 
 	remove_quest(target_storage.UID(), complete = TRUE, modificators = target_storage.modificators, new_reward = max_reward)
-	if(target_storage.customer.send_reward(max_reward))
+	if(target_storage.customer.send_reward(max_reward, copmpleted_quests))
 		return
+
+	//Честно не хочу делать еще прок для этого
+	if(target_storage.quest_difficulty.bounty_for_difficulty)
+		SScapitalism.total_station_bounty += target_storage.quest_difficulty.bounty_for_difficulty
+		SScapitalism.base_account.credit(target_storage.quest_difficulty.bounty_for_difficulty, "Награда за выполнение корпоративного задания.", "Biesel TCD Terminal #[rand(111,333)]", "Отдел развития Нанотрейзен")
+
 	return max_reward
 
 /datum/controller/subsystem/cargo_quests/proc/remove_bfl_quests(count)
@@ -182,6 +198,9 @@ SUBSYSTEM_DEF(cargo_quests)
 	var/max_quest_time
 	var/for_easy_mode
 
+	//Сколько дадут шекелей за сложность на счет base_account
+	var/bounty_for_difficulty = 0
+
 /datum/quest_difficulty/proc/generate_timer(datum/cargo_quests_storage/q_storage)
 	q_storage.time_start = world.time
 	q_storage.quest_time = rand(min_quest_time, max_quest_time) MINUTES
@@ -195,6 +214,8 @@ SUBSYSTEM_DEF(cargo_quests)
 	max_quest_time = 25
 	for_easy_mode = TRUE
 
+	bounty_for_difficulty = 150
+
 /datum/quest_difficulty/normal
 	diff_flag = QUEST_DIFFICULTY_NORMAL
 	weight = 34
@@ -202,17 +223,23 @@ SUBSYSTEM_DEF(cargo_quests)
 	max_quest_time = 30
 	for_easy_mode = TRUE
 
+	bounty_for_difficulty = 300
+
 /datum/quest_difficulty/hard
 	diff_flag = QUEST_DIFFICULTY_HARD
 	weight = 14
 	min_quest_time = 30
 	max_quest_time = 40
 
+	bounty_for_difficulty = 500
+
 /datum/quest_difficulty/very_hard
 	diff_flag = QUEST_DIFFICULTY_VERY_HARD
 	weight = 4
 	min_quest_time = 30
 	max_quest_time = 60
+
+	bounty_for_difficulty = 1000
 
 
 #undef NUMBER_OF_CC_QUEST

@@ -7,7 +7,16 @@
 #define GROUP_MATERIALS "Raw Materials"
 #define GROUP_VEND "Vending"
 
+#define PERCENTAGE_PAYMENTS_STATION	 	0.25 	//25 процентов станции
+#define	PERCENTAGE_PAYMENTS_CARGO 		0.6 	//60 процентов на счет карго
+#define PERCENTAGE_PAYMENTS_PERSONAL 	0.15	//15 процентов на счет нищебродов
+
 #define POINT_TO_CREDITS 10
+#define COMMERCIAL_MODIFIER 3 
+
+//Оставь надежду надежду всяк сюда входящий
+//Оставь надежду надежду всяк сюда входящий
+//Оставь надежду надежду всяк сюда входящий
 
 /datum/quest_customer
 	var/departament_name
@@ -40,7 +49,7 @@
 /datum/quest_customer/proc/get_difficulty()
 	return
 
-/datum/quest_customer/proc/send_reward(reward)
+/datum/quest_customer/proc/send_reward(reward, var/list/copmpleted_quests = list())
 	return FALSE
 
 /datum/quest_customer/proc/special(datum/cargo_quests_storage/quest)
@@ -164,14 +173,31 @@
 /datum/quest_customer/corp
 	group_name = "corporation"
 
+//Наследие. Легаси. Наследие пустоты.
 /datum/quest_customer/corp/change_reward(datum/cargo_quests_storage/quest)
-	quest.reward *= POINT_TO_CREDITS
+	quest.reward *= POINT_TO_CREDITS * COMMERCIAL_MODIFIER
 
-/datum/quest_customer/corp/send_reward(reward)
-	var/datum/money_account/station_money_account = GLOB.station_account
-	station_money_account.credit(round(reward/4), "Completed Order!", "Biesel TCD Terminal #[rand(111,333)]", "Station Account")
+/datum/quest_customer/corp/send_reward(reward, var/list/copmpleted_quests = list())
+	var/list/nishebrod_jobs = list()
+	var/list/linked_deportaments = list() //HEHE HI HA
+	var/personals_reward = round(reward * PERCENTAGE_PAYMENTS_PERSONAL)
+	for(var/datum/cargo_quest/quest in copmpleted_quests)
+		nishebrod_jobs |= quest.bounty_jobs
+		linked_deportaments |= quest.linked_deportament
+
+	//Если не то платит на счет отдела
+	if(!SScapitalism.smart_bounty_payment(nishebrod_jobs, personals_reward))
+		SScapitalism.smart_deportament_payment(linked_deportaments, personals_reward)
+
+	SScapitalism.total_station_bounty += round(reward * PERCENTAGE_PAYMENTS_STATION)
+	var/datum/money_account/station_money_account = SScapitalism.base_account
+	station_money_account.credit(round(reward * PERCENTAGE_PAYMENTS_STATION), "Completed Order!", "Biesel TCD Terminal #[rand(111,333)]", "Station Account")
+
+	
+	SScapitalism.total_cargo_bounty += round(reward * PERCENTAGE_PAYMENTS_CARGO)
 	var/datum/money_account/cargo_money_account = GLOB.department_accounts["Cargo"]
-	cargo_money_account.credit(round(reward/4*3), "Completed Order!", "Biesel TCD Terminal #[rand(111,333)]", "Cargo Account")
+	cargo_money_account.credit(round(reward * PERCENTAGE_PAYMENTS_CARGO), "Completed Order!", "Biesel TCD Terminal #[rand(111,333)]", "Cargo Account")
+
 	return TRUE
 
 
@@ -228,3 +254,8 @@
 #undef GROUP_VEND
 
 #undef POINT_TO_CREDITS
+#undef COMMERCIAL_MODIFIER
+
+#undef PERCENTAGE_PAYMENTS_STATION
+#undef PERCENTAGE_PAYMENTS_CARGO
+#undef PERCENTAGE_PAYMENTS_PERSONAL

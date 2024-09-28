@@ -25,6 +25,11 @@
 	money_factor = 7
 	outfit = /datum/outfit/job/hos
 
+	//Зарплата хосу хуесосу
+	salary = 300
+	min_start_money = 400
+	max_start_money = 700
+
 /datum/outfit/job/hos
 	name = "Head of Security"
 	jobtype = /datum/job/hos
@@ -73,8 +78,12 @@
 	min_age_allowed = 30
 	exp_requirements = 2100
 	exp_type = EXP_TYPE_SECURITY
-	money_factor = 6
 	outfit = /datum/outfit/job/warden
+
+	//Гага вавден, больше работы но столько же зарплаты
+	salary = 170
+	min_start_money = 200
+	max_start_money = 550
 
 /datum/outfit/job/warden
 	name = "Warden"
@@ -122,7 +131,6 @@
 	minimal_player_age = 14
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_SECURITY
-	money_factor = 4
 	outfit = /datum/outfit/job/detective
 
 /datum/outfit/job/detective
@@ -182,7 +190,6 @@
 	minimal_player_age = 14
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
-	money_factor = 3
 	outfit = /datum/outfit/job/officer
 
 /datum/outfit/job/officer
@@ -246,8 +253,11 @@
 	alt_titles = list("Security Medic")
 	exp_requirements = 1800
 	exp_type = EXP_TYPE_MEDICAL
-	money_factor = 4
 	outfit = /datum/outfit/job/brigdoc
+
+	salary = 170
+	min_start_money = 200
+	max_start_money = 550
 
 /datum/outfit/job/brigdoc
 	name = "Brig Physician"
@@ -283,8 +293,11 @@
 	minimal_player_age = 7
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_SECURITY
-	money_factor = 4
 	outfit = /datum/outfit/job/pilot
+
+	salary = 170
+	min_start_money = 200
+	max_start_money = 550
 
 /datum/outfit/job/pilot
 	name = "Security Pod Pilot"

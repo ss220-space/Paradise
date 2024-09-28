@@ -72,6 +72,8 @@
 		"Sale of [vended_name]", customer_account.owner_name)
 	if(customer_account.owner_name == GLOB.station_account.owner_name)
 		add_game_logs("as silicon purchased [vended_name] in [COORD(src)]", M)
+
+	SScapitalism.income_vedromat += price //Для статистики бабок с ведроматов
 	return TRUE
 
 /datum/money_account/proc/fmtBalance()

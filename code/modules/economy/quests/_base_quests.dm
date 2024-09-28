@@ -152,7 +152,11 @@
 	var/list/req_items = list()
 	///possible difficultly
 	var/difficultly_flags
-
+	
+	
+	var/cargo_quest_reward = 0 			//Награда за квест, считайте дебаг залупа roflcat
+	var/list/bounty_jobs = list() 		//Должности которым будет идти зарплата. (Неееет я не буду делать часть этого в new)
+	var/linked_deportament = "Cargo" 	//Указывается ключ депортамента чтобы брать его из глобального списка, нет я не сделаю загрузку в new, боюсь чет сломать
 
 /datum/cargo_quest/New(storage, read_datum = FALSE)
 	if(!read_datum)

@@ -25,8 +25,11 @@
 	required_objectives = list(
 		/datum/job_objective/further_research
 	)
-	money_factor = 8
 	outfit = /datum/outfit/job/rd
+
+	salary = 300
+	min_start_money = 400
+	max_start_money = 700
 
 
 /datum/outfit/job/rd
@@ -73,6 +76,9 @@
 	money_factor = 4
 	outfit = /datum/outfit/job/scientist
 
+	salary = 200
+	min_start_money = 250
+	max_start_money = 500
 
 /datum/outfit/job/scientist
 	name = "Scientist"

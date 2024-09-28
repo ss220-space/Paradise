@@ -88,6 +88,13 @@
 /obj/item/stack/spacecash/c1000000
 	amount = 1000000
 
+//Костыль для шахтерского ведромата, ну или гениальное решение roflcat
+/obj/item/stack/spacecash/magic_linked/New(loc, amt = 150)
+	. = ..()
+	//roflcat
+	if(SScapitalism)
+		SScapitalism.payment_account.credit(amt * -1, "Выдача наличности")
+
 ///// USSP space cash
 
 /obj/item/stack/spacecash/ussp
