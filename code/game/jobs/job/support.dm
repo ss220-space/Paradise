@@ -17,7 +17,7 @@
 	alt_titles = list("Chief Supply Manager")
 	outfit = /datum/outfit/job/qm
 
-	//КМ НЕ ГЛАВА!!
+	//QM IS NOT THE HEAD!!
 	salary = 300
 	min_start_money = 400
 	max_start_money = 700
