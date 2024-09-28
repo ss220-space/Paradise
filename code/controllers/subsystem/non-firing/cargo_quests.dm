@@ -174,7 +174,7 @@ SUBSYSTEM_DEF(cargo_quests)
 	if(target_storage.customer.send_reward(max_reward, copmpleted_quests))
 		return
 
-	//Честно не хочу делать еще прок для этого
+	//Honestly, I don't want to do another procedure for this
 	if(target_storage.quest_difficulty.bounty_for_difficulty)
 		SScapitalism.total_station_bounty += target_storage.quest_difficulty.bounty_for_difficulty
 		SScapitalism.base_account.credit(target_storage.quest_difficulty.bounty_for_difficulty, "Награда за выполнение корпоративного задания.", "Biesel TCD Terminal #[rand(111,333)]", "Отдел развития Нанотрейзен")
@@ -198,7 +198,7 @@ SUBSYSTEM_DEF(cargo_quests)
 	var/max_quest_time
 	var/for_easy_mode
 
-	//Сколько дадут шекелей за сложность на счет base_account
+	//How many shekels will be given for the complexity to the base_account account
 	var/bounty_for_difficulty = 0
 
 /datum/quest_difficulty/proc/generate_timer(datum/cargo_quests_storage/q_storage)
@@ -213,7 +213,6 @@ SUBSYSTEM_DEF(cargo_quests)
 	min_quest_time = 15
 	max_quest_time = 25
 	for_easy_mode = TRUE
-
 	bounty_for_difficulty = 150
 
 /datum/quest_difficulty/normal
@@ -222,7 +221,6 @@ SUBSYSTEM_DEF(cargo_quests)
 	min_quest_time = 20
 	max_quest_time = 30
 	for_easy_mode = TRUE
-
 	bounty_for_difficulty = 300
 
 /datum/quest_difficulty/hard
@@ -230,7 +228,6 @@ SUBSYSTEM_DEF(cargo_quests)
 	weight = 14
 	min_quest_time = 30
 	max_quest_time = 40
-
 	bounty_for_difficulty = 500
 
 /datum/quest_difficulty/very_hard
@@ -238,7 +235,6 @@ SUBSYSTEM_DEF(cargo_quests)
 	weight = 4
 	min_quest_time = 30
 	max_quest_time = 60
-
 	bounty_for_difficulty = 1000
 
 
