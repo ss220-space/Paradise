@@ -27,7 +27,7 @@
     var/mob/living/carbon/human = source
     var/datum/antagonist/devil/devil = human?.mind?.has_antag_datum(/datum/antagonist/devil)
 
-    if(!devil)
+    if(!devil?.info)
         return
     
     playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
@@ -51,7 +51,7 @@
     linked_timer = null
 
 /datum/element/devil_banishment/proc/check_banishment(mob/living/carbon/human, datum/antagonist/devil/devil)
-	switch(devil.banish)
+	switch(devil.info.banish)
 		if(BANISH_WATER)
 			return human.reagents?.has_reagent("holy water")
 

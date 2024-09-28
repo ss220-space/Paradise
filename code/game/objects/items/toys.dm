@@ -1502,7 +1502,7 @@
 		span_sinister("You hear a soft click."))
 
 	var/list/messages = list()
-	var/datum/fakeDevil/devil = new
+	var/datum/devilinfo/devil = new
 
 	LAZYADD(messages, "Some fun facts about: [devil.truename]")
 	LAZYADD(messages, GLOB.lawlorify[LAW][devil.bane])

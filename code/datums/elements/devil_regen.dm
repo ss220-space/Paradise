@@ -24,7 +24,7 @@
     UnregisterSignal(target, COMSIG_CARBON_LOSE_ORGAN)
     UnregisterSignal(target, COMSIG_LIVING_EARLY_DEATH)
 
-    if(!ishuman(target))
+    if(!iscarbon(target))
         return
 
     var/mob/living/carbon/carbon = target
@@ -36,6 +36,9 @@
     SIGNAL_HANDLER
 
     var/obj/item/organ/external/external = source
+    if(!istype(external))
+        return
+        
     var/datum/antagonist/devil/devil = human?.mind?.has_antag_datum(/datum/antagonist/devil)
 
     if(!devil)

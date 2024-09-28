@@ -12,14 +12,10 @@
 
 /datum/element/devil_bane/Detach(datum/target)
     . = ..()
-    var/mob/living/carbon/human = target
 
-    if(!istype(human))
-        return
-
-    UnregisterSignal(human, COMSIG_LIVING_EARLY_FLASH_EYES)
-    UnregisterSignal(human, COMSIG_REAGENT_ADDED)
-    UnregisterSignal(human, COMSIG_PARENT_ATTACKBY)
+    UnregisterSignal(target, COMSIG_LIVING_EARLY_FLASH_EYES)
+    UnregisterSignal(target, COMSIG_REAGENT_ADDED)
+    UnregisterSignal(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/element/devil_bane/proc/flash_eyes(datum/source, intensity, override_blindness_check, affect_silicon, visual, type)
     SIGNAL_HANDLER
@@ -34,7 +30,7 @@
 
     var/damage = intensity - human.check_eye_prot()
 
-    if(devil.bane == BANE_LIGHT)
+    if(devil.info.bane == BANE_LIGHT)
         if(!damage)
             human.mind?.disrupt_spells(0)
             return
@@ -54,7 +50,7 @@
     if(!devil)
         return
 
-    switch(devil.bane)
+    switch(devil.info.bane)
         if(BANE_SILVER)
             if(reagent.id != "silver")
                 return
@@ -76,7 +72,7 @@
 	if(!devil)
 		return
 
-	switch(devil.bane)
+	switch(devil.info.bane)
 		if(BANE_WHITECLOTHES)
 			if(!ishuman(attacker))
 				return

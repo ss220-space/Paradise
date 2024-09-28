@@ -5,12 +5,7 @@
 	special_role = ROLE_DEVIL
 	antag_hud_type = ANTAG_HUD_DEVIL
 
-	var/obligation
-	var/ban
-	var/bane
-	var/banish
-	var/truename
-
+	var/datum/devilinfo/info
 	var/list/datum/mind/soulsOwned = new
 	var/datum/devil_rank/rank
 
@@ -38,6 +33,7 @@
 /datum/antagonist/devil/Destroy(force)
 	QDEL_NULL(rank)
 	QDEL_NULL(soulsOwned)
+	QDEL_NULL(info)
 	
 	return ..()
 
@@ -126,14 +122,14 @@
 
 /datum/antagonist/devil/greet()
 	var/list/messages = list()
-	LAZYADD(messages, span_warning("<b>You remember your link to the infernal.  You are [truename], an agent of hell, a devil.  And you were sent to the plane of creation for a reason.  A greater purpose.  Convince the crew to sin, and embroiden Hell's grasp.</b>"))
+	LAZYADD(messages, span_warning("<b>You remember your link to the infernal.  You are [info.truename], an agent of hell, a devil.  And you were sent to the plane of creation for a reason.  A greater purpose.  Convince the crew to sin, and embroiden Hell's grasp.</b>"))
 	LAZYADD(messages, span_warning("<b>However, your infernal form is not without weaknesses.</b>"))
 	LAZYADD(messages, "You may not use violence to coerce someone into selling their soul.")
 	LAZYADD(messages, "You may not directly and knowingly physically harm a devil, other than yourself.")
-	LAZYADD(messages, GLOB.lawlorify[LAW][bane])
-	LAZYADD(messages, GLOB.lawlorify[LAW][ban])
-	LAZYADD(messages, GLOB.lawlorify[LAW][obligation])
-	LAZYADD(messages, GLOB.lawlorify[LAW][banish])
+	LAZYADD(messages, GLOB.lawlorify[LAW][info.bane])
+	LAZYADD(messages, GLOB.lawlorify[LAW][info.ban])
+	LAZYADD(messages, GLOB.lawlorify[LAW][info.obligation])
+	LAZYADD(messages, GLOB.lawlorify[LAW][info.banish])
 	LAZYADD(messages, "[span_warning("Remember, the crew can research your weaknesses if they find out your devil name.")]<br>")
 	return messages
 
@@ -145,19 +141,15 @@
 		return FALSE
 	
 	var/mob/living/carbon/human/human = owner.current
-	human.store_memory("Your devilic true name is [truename]<br>[GLOB.lawlorify[LAW][ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][bane]]<br>[GLOB.lawlorify[LAW][obligation]]<br>[GLOB.lawlorify[LAW][banish]]<br>")
+	human.store_memory("Your devilic true name is [info.truename]<br>[GLOB.lawlorify[LAW][info.ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][info.bane]]<br>[GLOB.lawlorify[LAW][info.obligation]]<br>[GLOB.lawlorify[LAW][info.banish]]<br>")
 
 	update_hud()
 	init_new_rank(BASIC_DEVIL_RANK)
 
 /datum/antagonist/devil/proc/init_devil()
-	truename = randomDevilName()
-	ban = randomdevilban()
-	bane = randomdevilbane()
-	obligation = randomdevilobligation()
-	banish = randomdevilbanish()
-
+	info = new info()
 	GLOB.allDevils[lowertext(truename)] = src
+
 	return
 
 /datum/antagonist/devil/give_objectives()
@@ -201,12 +193,12 @@
 
 /datum/antagonist/devil/proc/printdevilinfo()
 	var/list/parts = list()
-	LAZYADD(parts, "The devil's true name is: [truename]")
+	LAZYADD(parts, "The devil's true name is: [info.truename]")
 	LAZYADD(parts, "The devil's bans were:")
-	LAZYADD(parts, (GLOB.lawlorify[LAW][bane]))
-	LAZYADD(parts, (GLOB.lawlorify[LAW][ban]))
-	LAZYADD(parts, (GLOB.lawlorify[LAW][obligation]))
-	LAZYADD(parts, (GLOB.lawlorify[LAW][banish]))
+	LAZYADD(parts, (GLOB.lawlorify[LAW][info.bane]))
+	LAZYADD(parts, (GLOB.lawlorify[LAW][info.ban]))
+	LAZYADD(parts, (GLOB.lawlorify[LAW][info.obligation]))
+	LAZYADD(parts, (GLOB.lawlorify[LAW][info.banish]))
 	return parts.Join("<br>")
 
 /datum/antagonist/devil/roundend_report()
@@ -236,7 +228,7 @@
 
 	if(devilinfo)
 		// Having hell create an ID for you causes its risks
-		name_to_use = devilinfo.truename
+		name_to_use = devilinfo.info.truename
 
 	W.name = "[name_to_use]'s ID Card (Lawyer)"
 	W.registered_name = name_to_use
@@ -346,16 +338,48 @@
 
 	return
 
-/datum/fakeDevil
+/datum/devilinfo
 	var/truename
 	var/bane
 	var/obligation
 	var/ban
 	var/banish
 
-/datum/fakeDevil/New(name = randomDevilName())
+/datum/devilinfo/New(name = randomDevilName())
 	truename = name
 	bane = randomdevilbane()
 	obligation = randomdevilobligation()
 	ban = randomdevilban()
 	banish = randomdevilbanish()
+
+/datum/devilinfo/proc/randomDevilName()
+	var/name = ""
+	if(prob(65))
+		if(prob(35))
+			name = pick(GLOB.devil_pre_title)
+
+		name += pick(GLOB.devil_title)
+
+	var/probability = 100
+	name += pick(GLOB.devil_syllable)
+    
+	while(prob(probability))
+		name += pick(GLOB.devil_syllable)
+		probability -= 20
+
+	if(prob(40))
+		name += pick(GLOB.devil_suffix)
+
+	return name
+
+/datum/devilinfo/proc/randomdevilobligation()
+	return pick(OBLIGATION_FOOD, OBLIGATION_FIDDLE, OBLIGATION_DANCEOFF, OBLIGATION_GREET, OBLIGATION_PRESENCEKNOWN, OBLIGATION_SAYNAME, OBLIGATION_ANNOUNCEKILL, OBLIGATION_ANSWERTONAME)
+
+/datum/devilinfo/proc/randomdevilban()
+	return pick(BAN_HURTWOMAN, BAN_CHAPEL, BAN_HURTPRIEST, BAN_AVOIDWATER, BAN_HURTLIZARD, BAN_HURTANIMAL)
+
+/datum/devilinfo/proc/randomdevilbane()
+	return pick(BANE_SALT, BANE_LIGHT, BANE_IRON, BANE_WHITECLOTHES, BANE_SILVER, BANE_HARVEST, BANE_TOOLBOX)
+
+/datum/devilinfo/proc/randomdevilbanish()
+	return pick(BANISH_WATER, BANISH_COFFIN, BANISH_FORMALDYHIDE, BANISH_RUNES, BANISH_CANDLES, BANISH_FUNERAL_GARB)
