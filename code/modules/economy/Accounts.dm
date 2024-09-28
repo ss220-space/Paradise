@@ -205,4 +205,4 @@ GLOBAL_DATUM(trull_account, /datum/money_account)
 #undef STATION_START_CASH
 #undef STATION_SOURCE_TERMINAL
 #undef DEPARTMENT_START_CASH
-#undef NISHEBROD_SALARY 
+#undef NISHEBROD_SALARY
