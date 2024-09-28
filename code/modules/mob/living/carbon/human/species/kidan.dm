@@ -12,7 +12,9 @@
 	brute_mod = 0.8
 	tox_mod = 1.7
 
-	species_traits = list(HAVE_REGENERATION)
+	inherent_traits = list(
+		TRAIT_HAS_REGENERATION,
+	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
 	fingers_count = 6
@@ -98,7 +100,7 @@
 	return E.eye_colour
 
 /datum/species/kidan/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	add_verb(H, list(/mob/living/carbon/human/proc/emote_click,
 					/mob/living/carbon/human/proc/emote_clack,
 			   		/mob/living/carbon/human/proc/emote_wiggle,
@@ -121,11 +123,14 @@
 	kidan_hud.add_hud_to(H)
 
 	// Action for creating pheromones
-	var/datum/action/innate/produce_pheromones/produce_pheromones = new()
-	produce_pheromones.Grant(H)
+	var/datum/action/innate/produce_pheromones/produce_pheromones = locate() in H.actions
+	if(!produce_pheromones)
+		produce_pheromones = new
+		produce_pheromones.Grant(H)
+
 
 /datum/species/kidan/on_species_loss(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	remove_verb(H, list(
 		/mob/living/carbon/human/proc/emote_click,
 		/mob/living/carbon/human/proc/emote_clack,
@@ -150,8 +155,8 @@
 	kidan_hud.remove_hud_from(H)
 
 	// Removing the action for creating pheromones
-	for(var/datum/action/innate/produce_pheromones/action in H.actions)
-		action.Remove(H)
+	var/datum/action/innate/produce_pheromones/produce_pheromones = locate() in H.actions
+	produce_pheromones?.Remove(H)
 
 
 /// Pheromones spawnable by kida, only perceivable by other kida

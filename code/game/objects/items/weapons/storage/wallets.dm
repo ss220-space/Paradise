@@ -29,7 +29,10 @@
 		/obj/item/stamp,
 		/obj/item/encryptionkey,
 		/obj/item/clothing/gloves/ring,
-		/obj/item/reagent_containers/food/pill/patch)
+		/obj/item/reagent_containers/food/pill/patch,
+		/obj/item/spacepod_equipment/key,
+		/obj/item/key,
+	)
 	slot_flags = ITEM_SLOT_ID
 
 	var/obj/item/card/id/front_id = null

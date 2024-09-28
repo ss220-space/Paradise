@@ -357,7 +357,7 @@
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				continue
-			if(NO_BREATHE in H.dna.species.species_traits)
+			if(HAS_TRAIT(H, TRAIT_NO_BREATH))
 				continue //no puking if you can't smell!
 			to_chat(H, "<span class='warning'>You smell something foul...</span>")
 			H.fakevomit()

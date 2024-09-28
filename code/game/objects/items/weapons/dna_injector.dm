@@ -86,7 +86,7 @@
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	target.apply_effect(rand(20 / (damage_coeff  ** 2), 50 / (damage_coeff  ** 2)), IRRADIATE, 0, 1)
 
-	if(!ishuman(target) || (NOCLONE in target.mutations) || (NO_DNA in target.dna.species.species_traits))
+	if(!ishuman(target) || HAS_TRAIT(target, TRAIT_NO_DNA))
 		return .
 
 	if(!user.IsAdvancedToolUser())

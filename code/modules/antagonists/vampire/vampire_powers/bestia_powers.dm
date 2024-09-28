@@ -185,7 +185,7 @@
 		return FALSE
 	if(!include_dead && victim.stat == DEAD)
 		return FALSE
-	if(blood_required && ishuman(victim) && ((NO_BLOOD in victim.dna?.species?.species_traits) || victim.dna?.species?.exotic_blood))
+	if(blood_required && ishuman(victim) && (HAS_TRAIT(victim, TRAIT_NO_BLOOD) || HAS_TRAIT(victim, TRAIT_EXOTIC_BLOOD)))
 		return FALSE
 	if(issilicon(victim) || isbot(victim) || isswarmer(victim) || isguardian(victim))
 		return FALSE
@@ -828,7 +828,7 @@
 
 		if(t_kidneys > 0 && ishuman(victim))
 			var/mob/living/carbon/human/h_victim = victim
-			if((NO_BLOOD in h_victim.dna?.species?.species_traits))
+			if(HAS_TRAIT(h_victim, TRAIT_NO_BLOOD))
 				continue
 
 			h_victim.bleed(actual_blood_loss)
@@ -836,7 +836,7 @@
 			h_victim.emote("moan")
 			to_chat(h_victim, span_userdanger("You sense a sharp pain inside your body and suddenly feel very weak!"))
 
-			if(h_victim.mind && h_victim.ckey && !h_victim.dna.species.exotic_blood)
+			if(h_victim.mind && h_victim.ckey && !HAS_TRAIT(h_victim, TRAIT_EXOTIC_BLOOD))
 				blood_gained += blood_vamp_get
 				vampire.adjust_blood(h_victim, blood_vamp_get)
 
@@ -1010,10 +1010,8 @@
 
 	vampire.stop_sucking()
 	original_body = user
-	user.status_flags |= GODMODE
-	vampire_animal.status_flags |= GODMODE
-	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	ADD_TRAIT(vampire_animal, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+	original_body.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
+	vampire_animal.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	user.forceMove(vampire_animal)
 	user.mind.transfer_to(vampire_animal)
 	vampire.draw_HUD()
@@ -1027,8 +1025,7 @@
 	if(QDELETED(src) || QDELETED(vampire_animal))
 		return
 
-	vampire_animal.status_flags &= ~GODMODE
-	REMOVE_TRAIT(vampire_animal, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+	vampire_animal.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	is_transformed = TRUE
 	var/list/all_spells = vampire_animal.mind.spell_list + vampire_animal.mob_spell_list
 	for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
@@ -1072,8 +1069,7 @@
 		stack_trace("Spell or original_body was qdeled during the [src] work.")
 		return
 
-	REMOVE_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	original_body.status_flags &= ~GODMODE
+	original_body.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	is_transformed = FALSE
 	var/list/all_spells = original_body.mind.spell_list + original_body.mob_spell_list
 	for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
@@ -1334,7 +1330,7 @@
 	user_image.add_overlay(user)
 	user_image.set_light(2, 10, "#700000")
 	user.forceMove(user_image)
-	user.status_flags |= GODMODE
+	ADD_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 
 	animate(user_image, pixel_y = 40, time = 3.7 SECONDS, easing = BOUNCE_EASING|EASE_IN)
 	animate(pixel_y = 0, time = 0.3 SECONDS, easing = BOUNCE_EASING|EASE_OUT)
@@ -1378,7 +1374,7 @@
 		return
 
 	coffin.close()
-	user.status_flags &= ~GODMODE
+	REMOVE_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 
 	// we need no companions inside the coffin
 	for(var/mob/living/victim in (coffin.contents - user))
@@ -1585,7 +1581,8 @@
 		human_vampire.updatehealth()
 
 	// blood
-	human_vampire.blood_volume = clamp(human_vampire.blood_volume + heal_blood, 0, BLOOD_VOLUME_NORMAL)
+	if(!HAS_TRAIT(human_vampire, TRAIT_NO_BLOOD_RESTORE))
+		human_vampire.blood_volume = clamp(human_vampire.blood_volume + heal_blood, 0, BLOOD_VOLUME_NORMAL)
 
 	// internal organs
 	for(var/obj/item/organ/internal/organ as anything in human_vampire.internal_organs)
@@ -1776,10 +1773,10 @@
 		user.visible_message(span_warning("As soon as [user] touches [src], [user.p_their()] body undergoes violent convulsions"), \
 							span_userdanger("Something is shrinking inside you, and you start convulsing!"))
 
-		if(!(NO_BLOOD in user.dna?.species?.species_traits))
+		if(!HAS_TRAIT(user, TRAIT_NO_BLOOD))
 			user.bleed(100)
 			to_chat(human_vampire, span_notice("<i>... [span_userdanger("You feel strange feel of joy and power")] ...</i>"))
-			if(!user.dna.species.exotic_blood)
+			if(!HAS_TRAIT(user, TRAIT_EXOTIC_BLOOD))
 				vampire.bloodusable += 50	// only usable blood, will not affect abilities
 				human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 50))
 
@@ -2101,7 +2098,6 @@
 	melee_damage_upper = 20
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	obj_damage = 50
-	mutations = list(BREATHLESS)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)	// ultimate form, no need in oxy
 	maxbodytemp = 1200	// we are still a vampire
 	/// How many cycles will be skipped between blood cost apply.
@@ -2113,6 +2109,9 @@
 
 /mob/living/simple_animal/hostile/vampire/hound/Initialize(mapload, datum/antagonist/vampire/vamp, mob/living/carbon/human/h_vampire, obj/effect/proc_holder/spell/vampire/metamorphosis/meta_spell)
 	. = ..()
+
+	ADD_TRAIT(src, TRAIT_NO_BREATH, INNATE_TRAIT)
+
 	if(!vampire)
 		return
 

@@ -18,7 +18,7 @@
 	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
 
 /obj/item/soap/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || iseffect(target))
+	if(!proximity)
 		return
 	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn

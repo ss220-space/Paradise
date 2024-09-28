@@ -233,7 +233,7 @@
 		if(QDELETED(target))
 			continue
 
-		if(ishuman(target) && (RADIMMUNE in target.dna?.species?.species_traits))
+		if(HAS_TRAIT(target, TRAIT_RADIMMUNE))
 			continue
 
 		var/resist = target.getarmor(attack_flag = RAD)

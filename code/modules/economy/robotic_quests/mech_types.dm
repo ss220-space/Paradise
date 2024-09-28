@@ -44,7 +44,7 @@
 	mech_type = /obj/mecha/working/ripley/firefighter
 	mech_class = WORKING_MECH
 	mech_icon = "firefighter-open"
-	max_modules = 6
+	max_modules = 5
 	cash_reward = 700
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
@@ -117,6 +117,7 @@
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot,
+		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/riot,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/amlg,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack,
@@ -141,6 +142,7 @@
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot,
+		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/riot,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/amlg,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack,

@@ -191,7 +191,7 @@
 				user.visible_message("<span class='danger'>[user] fires [src] point blank at [target]!</span>", "<span class='danger'>You fire [src] point blank at [target]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
 				if(pb_knockback > 0 && isliving(target))
 					var/mob/living/living_target = target
-					if(!living_target.move_resist > MOVE_FORCE_NORMAL) //no knockbacking prince of terror or somethin
+					if(!(living_target.move_resist > MOVE_FORCE_NORMAL)) //no knockbacking prince of terror or somethin
 						var/atom/throw_target = get_edge_target_turf(living_target, user.dir)
 						living_target.throw_at(throw_target, pb_knockback, 2)
 			else
@@ -231,16 +231,13 @@
 				handle_suicide(user, target, params)
 			return
 
-
 	//Exclude lasertag guns from the CLUMSY check.
-	if(clumsy_check)
-		if(istype(user))
-			if((CLUMSY in user.mutations) && prob(40))
-				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
-				var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-				process_fire(user, user, 0, params, zone_override = shot_leg)
-				user.drop_from_active_hand()
-				return
+	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
+		to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
+		var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+		process_fire(user, user, 0, params, zone_override = shot_leg)
+		user.drop_from_active_hand()
+		return
 
 	if(weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
 		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")

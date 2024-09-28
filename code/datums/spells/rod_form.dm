@@ -85,8 +85,7 @@
 	setDir(wizard.dir)
 	src.wizard = wizard
 	wizard.forceMove(src)
-	wizard.status_flags |= GODMODE
-	ADD_TRAIT(wizard, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+	wizard.add_traits(list(TRAIT_GODMODE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
 
 
 /**
@@ -97,8 +96,7 @@
 	if(QDELETED(wizard))
 		wizard = null
 		return
-	REMOVE_TRAIT(wizard, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	wizard.status_flags &= ~GODMODE
+	wizard.remove_traits(list(TRAIT_GODMODE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
 	wizard.forceMove(get_turf(src))
 	wizard = null
 

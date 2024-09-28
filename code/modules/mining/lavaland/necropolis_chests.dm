@@ -14,7 +14,7 @@
 /obj/structure/closet/crate/necropolis/tendril/populate_contents()
 	switch(rand(1, 32))
 		if(1)
-			new /obj/item/shared_storage/red(src)
+			new /obj/item/shared_storage(src)
 		if(2)
 			new /obj/item/clothing/head/helmet/space/cult(src)
 			new /obj/item/clothing/suit/space/cult(src)

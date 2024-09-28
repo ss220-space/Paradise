@@ -27,7 +27,7 @@
 		DSN.occupant = null
 		DSN.icon_state = "scanner_0"
 	var/mob/living/simple_animal/hulk/Monster
-	if(CLUMSY in user.mutations)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY))
 		Monster = new /mob/living/simple_animal/hulk/clown_hulk(get_turf(user))
 	else if(isunathi(user))
 		Monster = new /mob/living/simple_animal/hulk/zilla(get_turf(user))
@@ -40,7 +40,7 @@
 	playsound(user, 'sound/effects/bamf.ogg', CHANNEL_BUZZ)
 	Monster.original_body = user
 	user.forceMove(Monster)
-	user.status_flags |= GODMODE
+	ADD_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(Monster))
 	user.mind.transfer_to(Monster)
 	Monster.say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))
 
@@ -349,7 +349,7 @@
 		return
 	playsound(user, 'sound/items/airhorn.ogg', CHANNEL_BUZZ)
 	for(var/mob/living/carbon/M in ohearers(2))
-		if(CLUMSY in M.mutations)
+		if(HAS_TRAIT(M, TRAIT_CLUMSY))
 			var/update = NONE
 			update |= M.heal_overall_damage(10, 10, updating_health = FALSE)
 			update |= M.heal_damage_type(10, OXY, updating_health = FALSE)

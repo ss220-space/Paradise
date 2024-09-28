@@ -725,6 +725,8 @@
 
 	for (var/datum/light_source/light as anything in light_sources) // Cycle through the light sources on this atom and tell them to update.
 		light.source_atom.update_light()
+
+	SSdemo.mark_dirty(src)
 	return TRUE
 
 
@@ -1377,6 +1379,7 @@
 
 	var/target = isturf(loc) ? src : gourmet
 
+	gourmet.setDir(get_dir(gourmet, src))
 	gourmet.visible_message(span_danger("[gourmet.name] пыта[pluralize_ru(gourmet.gender,"ет","ют")]ся поглотить [name]!"))
 
 	if(!do_after(gourmet, get_devour_time(gourmet), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [name]!")))

@@ -38,7 +38,7 @@ emp_act
 
 
 	if(mind?.martial_art?.reflection_chance) //Some martial arts users can even reflect projectiles!
-		if(body_position != LYING_DOWN && !(HULK in mutations) && prob(mind.martial_art.reflection_chance)) //But only if they're not lying down, and hulks can't do it
+		if(body_position != LYING_DOWN && !HAS_TRAIT(src, TRAIT_HULK) && prob(mind.martial_art.reflection_chance)) //But only if they're not lying down, and hulks can't do it
 			var/checks_passed = TRUE
 			if(istype(mind.martial_art, /datum/martial_art/ninja_martial_art))
 				var/datum/martial_art/ninja_martial_art/creeping_widow = mind.martial_art
@@ -53,7 +53,7 @@ emp_act
 			return FALSE
 
 	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
-		if(body_position != LYING_DOWN && !(HULK in mutations) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
+		if(body_position != LYING_DOWN && !HAS_TRAIT(src, TRAIT_HULK) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
 			add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by martial arts '[mind.martial_art]'")
 			if(HAS_TRAIT(src, TRAIT_PACIFISM) || !P.is_reflectable(REFLECTABILITY_PHYSICAL)) //if it cannot be reflected, it hits the floor. This is the exception to the rule
 				// Pacifists can deflect projectiles, but not reflect them.
@@ -463,8 +463,11 @@ emp_act
 	// if the targeted limb doesn't exist, pick its parent or torso
 	if(!affecting)
 		var/list/species_bodyparts = dna.species.has_limbs[attack_zone]
-		var/obj/item/organ/external/affecting_path = species_bodyparts["path"]
-		affecting = get_organ(initial(affecting_path.parent_organ_zone)) || get_organ(BODY_ZONE_CHEST)
+		if(species_bodyparts)
+			var/obj/item/organ/external/affecting_path = species_bodyparts["path"]
+			affecting = get_organ(initial(affecting_path.parent_organ_zone)) || get_organ(BODY_ZONE_CHEST)
+		else	// has no targeted species bodypart (wings/tail)
+			affecting = get_organ(BODY_ZONE_CHEST)
 		if(!affecting)
 			stack_trace("Human somehow has no chest bodypart.")
 			return ATTACK_CHAIN_BLOCKED_ALL
@@ -624,7 +627,7 @@ emp_act
 		skipcatch = TRUE
 		blocked = TRUE
 
-	else if(I && (((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold) && can_embed(I) && !(EMBEDIMMUNE in dna.species.species_traits) && prob(I.embed_chance))
+	else if(I && (((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold) && can_embed(I) && !HAS_TRAIT(src, TRAIT_EMBEDIMMUNE) && prob(I.embed_chance))
 		embed_item_inside(I)
 		hitpush = FALSE
 		skipcatch = TRUE //can't catch the now embedded item
