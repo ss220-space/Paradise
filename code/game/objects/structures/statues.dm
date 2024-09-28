@@ -594,3 +594,6 @@
 	desc = "It's staggering to think that something this big could have lived, let alone died."
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "rib"
+	anchored = TRUE
+	obj_flags = NODECONSTRUCT
+
