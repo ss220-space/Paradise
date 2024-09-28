@@ -42,7 +42,7 @@
 	var/gasefficency = 0.125
 
 	base_icon_state = "darkmatter_shard"
-	var/zap_extrarange = 5
+	var/zap_sound_extrarange = 5
 
 	var/damage = 0
 	var/damage_archived = 0
