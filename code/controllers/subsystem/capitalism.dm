@@ -76,8 +76,8 @@ SUBSYSTEM_DEF(capitalism)
 	return total_salary
 
 /datum/controller/subsystem/capitalism/proc/accounts_init()
-	if(!GLOB.trull_account)
-		create_trull_account()
+	if(!GLOB.CC_account)
+		create_CC_account()
 
 	if(!GLOB.station_account)
 		create_station_account()
@@ -89,7 +89,7 @@ SUBSYSTEM_DEF(capitalism)
 /datum/controller/subsystem/capitalism/proc/salary_account_init()
 
 	base_account = GLOB.station_account		//Аккаунт на который идут баунти, деньги за цель и баблишко с ведроматов.
-	payment_account = GLOB.trull_account 	//GLOB.trull_account 	//Это аккаунт с которого списываются деньги на зарплату. Сделано для тестов catsmile
+	payment_account = GLOB.CC_account 	//GLOB.CC_account 	//Это аккаунт с которого списываются деньги на зарплату. Сделано для тестов catsmile
 
 	if(!GLOB.vendor_account)
 		GLOB.vendor_account = base_account //:catsmile:
