@@ -398,7 +398,6 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		var/mob/living/L = usr
 		return L.clear_forced_look()
 
-
 //ALIENS
 
 /atom/movable/screen/alert/alien_tox
@@ -562,6 +561,39 @@ so as to remain in compliance with the most up-to-date laws."
 	name = "Maintenance Protocols"
 	desc = "Maintenance protocols are currently in effect, most actions disabled."
 	icon_state = "locked"
+
+/atom/movable/screen/alert/empty_alert
+	name = ""
+	desc = ""
+
+//MECH MODULES
+
+//cage module
+/atom/movable/screen/alert/mech_cage
+	name = "You shouldn't see this"
+	desc = "This as well"
+	icon = 'icons/obj/mecha/mecha_equipment_alerts/mecha_cage.dmi'
+
+/atom/movable/screen/alert/mech_cage/zero
+	name = "Stage Zero"
+	desc = "You are currently not doing anything."
+	icon_state = "stage_0"
+
+/atom/movable/screen/alert/mech_cage/one
+	name = "Stage One"
+	desc = "You are currently supressing someone."
+	icon_state = "stage_1"
+
+/atom/movable/screen/alert/mech_cage/two
+	name = "Stage Two"
+	desc = "You are currently supressing someone handcuffed."
+	icon_state = "stage_2"
+
+/atom/movable/screen/alert/mech_cage/three
+	name = "Stage Three"
+	desc = "You are currently having someone inside the containment chamber."
+	icon_state = "stage_3"
+
 
 //GUARDIANS
 /atom/movable/screen/alert/cancharge
