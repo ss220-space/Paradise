@@ -371,6 +371,11 @@
 	name = "Mining Station Maintenance";
 	req_access = list(48)
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "dM" = (
@@ -895,6 +900,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
@@ -2210,6 +2218,11 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -3207,6 +3220,7 @@
 /obj/machinery/power/smes{
 	charge = 1e+006
 	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "wK" = (
