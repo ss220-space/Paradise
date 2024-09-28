@@ -1,4 +1,4 @@
-//Оставь надежду надежду всяк сюда входящий
+
 /datum/cargo_quest/thing
 	quest_type_name = "generic thing"
 	var/list/easy_items
