@@ -32,7 +32,7 @@
 	return TRUE
 
 /mob/living/carbon/true_devil/proc/set_name()
-	name = devilinfo.truename
+	name = devilinfo.info.truename
 	real_name = name
 
 /mob/living/carbon/true_devil/Login()

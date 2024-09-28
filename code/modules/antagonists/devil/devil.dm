@@ -98,7 +98,7 @@
 		owner.RemoveSpell(spell)
 
 /datum/antagonist/devil/proc/give_obligation_spells()
-	switch(obligation)
+	switch(info.obligation)
 		if(OBLIGATION_FIDDLE)
 			owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/violin(null))
 		if(OBLIGATION_DANCEOFF)
@@ -148,7 +148,7 @@
 
 /datum/antagonist/devil/proc/init_devil()
 	info = new info()
-	GLOB.allDevils[lowertext(truename)] = src
+	GLOB.allDevils[lowertext(info.truename)] = src
 
 	return
 
