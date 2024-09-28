@@ -282,7 +282,7 @@
 
 	rank_spells = list(
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
-		/obj/effect/proc_holder/spell/aoe/devil_haunt
+		/obj/effect/proc_holder/spell/aoe/devil_fire
 	)
 
 /datum/devil_rank/blood_lizard
@@ -292,7 +292,7 @@
 	rank_spells = list(
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
 		/obj/effect/proc_holder/spell/fireball/hellish,
-		/obj/effect/proc_holder/spell/aoe/devil_haunt,
+		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt
 	)
 
@@ -323,7 +323,7 @@
 	rank_spells = list(
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork/greater,
 		/obj/effect/proc_holder/spell/fireball/hellish,
-		/obj/effect/proc_holder/spell/aoe/devil_haunt,
+		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt,
 		/obj/effect/proc_holder/spell/sintouch
 	)

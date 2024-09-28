@@ -255,27 +255,32 @@
 			T.ChangeTurf((i % 2 == 0) ? /turf/simulated/floor/light/colour_cycle/dancefloor_a : /turf/simulated/floor/light/colour_cycle/dancefloor_b)
 			i++
 
-/obj/effect/proc_holder/spell/aoe/devil_haunt
-	name = "Demonical haunt"
-	desc = "Causes living creatures to move slower and haunts every object in spell radius."
+/obj/effect/proc_holder/spell/aoe/devil_fire
+	name = "Devil fire"
+	desc = "Causes hotspots on random locations and slows every living creature."
 	action_icon_state = "explosion_old"
 
 	base_cooldown = 60 SECONDS
 	aoe_range = 10
 
+	var/fire_prob = 50
 	var/slow_time = 5 SECONDS
 
-/obj/effect/proc_holder/spell/aoe/devil_haunt/create_new_targeting()
+/obj/effect/proc_holder/spell/aoe/devil_fire/create_new_targeting()
 	var/datum/spell_targeting/aoe/T = new()
 	T.range = aoe_range
 	return T
 
-/obj/effect/proc_holder/spell/aoe/devil_haunt/cast(list/targets, mob/living/carbon/carbon = usr)
-	var/obj/effect/proc_holder/spell/aoe/revenant/haunt_object/haunt = new
-
-	haunt.max_targets = 20
-	haunt.haunt_time = 1 MINUTES
-	haunt.cast(targets)
-
+/obj/effect/proc_holder/spell/aoe/devil_fire/cast(list/targets, mob/living/carbon/carbon = usr)
 	for(var/mob/living/living in targets)
 		living.Slowed(slow_time)
+
+	for(var/turf/turf in targets)
+		if(turf == get_turf(carbon))
+			continue
+
+		if(!prob(fire_prob))
+			continue
+
+		new /obj/effect/hotspot(turf)
+		turf.hotspot_expose(2000, 50, 1)
