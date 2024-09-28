@@ -733,7 +733,6 @@
 /area/mine/necropolis)
 "gk" = (
 /obj/item/radio/intercom{
-	pixel_x = 30;
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
@@ -1940,6 +1939,10 @@
 	},
 /area/mine/laborcamp)
 "ok" = (
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	pixel_y = -4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -22852,7 +22855,7 @@ bB
 CO
 CO
 CO
-Ls
+gk
 us
 Dd
 mY
@@ -23623,7 +23626,7 @@ Ne
 Ne
 bB
 oL
-gk
+Ls
 AQ
 iB
 uL
