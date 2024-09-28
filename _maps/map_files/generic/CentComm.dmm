@@ -6025,7 +6025,6 @@
 	layer = 5;
 	locked = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door_control/secure{
 	id = "CC_supply_internal";
 	name = "Supply External Shutters";
@@ -14381,7 +14380,6 @@
 	layer = 5;
 	locked = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowalt"
 	},
@@ -34033,7 +34031,10 @@
 	req_access = list(114);
 	pixel_x = -24
 	},
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellowalt"
+	},
 /area/centcom/supply)
 "pLm" = (
 /obj/machinery/light{
@@ -35552,7 +35553,6 @@
 	layer = 5;
 	locked = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowalt"
 	},
@@ -40026,7 +40026,7 @@
 "syr" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access = list(2)
+	req_access = list(63)
 	},
 /turf/simulated/floor/shuttle/objective_check{
 	icon = 'icons/turf/floors.dmi';
@@ -50769,7 +50769,6 @@
 	layer = 5;
 	locked = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door_control/secure{
 	id = "CC_supply_external";
 	name = "Supply Internal Shutters";
@@ -104393,7 +104392,7 @@ rgL
 coX
 rLT
 mpv
-hTD
+mTv
 fAg
 fAg
 fAg
@@ -104650,7 +104649,7 @@ fqL
 eiV
 mMp
 aWp
-cFn
+wRu
 gvy
 hHu
 mzs

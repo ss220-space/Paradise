@@ -1391,3 +1391,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	set_varspeed(initial(speed))
 	to_chat(src, span_notice("Now you are moving at your normal speed."))
 
+/obj/machinery/bot_core/syndicate
+	req_access = list(ACCESS_SYNDICATE)
+
