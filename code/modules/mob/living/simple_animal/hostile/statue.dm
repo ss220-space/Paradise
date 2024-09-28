@@ -45,12 +45,15 @@
 	move_force = MOVE_FORCE_EXTREMELY_STRONG
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	pull_force = MOVE_FORCE_EXTREMELY_STRONG
-	status_flags = GODMODE // Cannot push also
+	status_flags = NONE
 	AI_delay_max = 0 SECONDS
 
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null
 
+/mob/living/simple_animal/hostile/statue/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_GODMODE, INNATE_TRAIT)
 
 // No movement while seen code.
 

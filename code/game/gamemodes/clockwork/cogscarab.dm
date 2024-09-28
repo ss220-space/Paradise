@@ -199,14 +199,14 @@
 
 
 /mob/living/silicon/robot/cogscarab/updatehealth(reason = "none given", should_log = FALSE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()
 	set_health(maxHealth - (getBruteLoss() + getFireLoss() + (suiciding ? getOxyLoss() : 0)))
 	update_stat("updatehealth([reason])", should_log)
 
 
 /mob/living/silicon/robot/cogscarab/update_stat(reason = "none given", should_log = FALSE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()
 	if(health <= 0 && stat != DEAD)
 		ghostize(TRUE)

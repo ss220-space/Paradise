@@ -305,6 +305,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	update_preview_icon()
 	user << browse_rsc(preview_icon_front, "previewicon.png")
 	user << browse_rsc(preview_icon_side, "previewicon2.png")
+	SStitle.update_preview(user.client)
 
 	var/list/dat = list()
 	dat += {"<meta charset="UTF-8">"}
@@ -606,6 +607,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b> - TGUI Input:</b> <a href='byond://?_src_=prefs;preference=tgui_input'>[(toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT) ? "No" : "Yes"]</a><br>"
 			dat += "<b> - TGUI Input - Large Buttons:</b> <a href='byond://?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
 			dat += "<b> - TGUI Input - Swap Buttons:</b> <a href='byond://?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Title menu style:</b> <a href='byond://?_src_=prefs;preference=pixelated_menu'>[(toggles2 & PREFTOGGLE_2_PIXELATED_MENU) ? "Pixelated" : "Basic"]</a><br>"
 			dat += "</td></tr></table>"
 
 		if(TAB_SPEC) // Antagonist's Preferences
@@ -691,8 +693,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					for(var/role in G.allowed_roles)
 						dat += role + " "
 					dat += "</font>"
-				var/donor_info = G.donator_tier > 0 ? "\[Tier [G.donator_tier]\] " : ""
-				dat += "</td><td style='vertical-align:middle'><font size=2>[donor_info]<i>[ticked ? ticked.description : G.description] <br/></i></font></td></tr>"
+				dat += "</td><td style='vertical-align:middle'><font size=2>[G.get_header_tips()]<i>[ticked ? ticked.description : G.description] <br/></i></font></td></tr>"
 			dat += "</table>"
 		if(TAB_KEYS)
 			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
@@ -1496,8 +1497,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				loadout_gear -= TG.display_name
 				choosen_gears -= TG.display_name
 			else
-				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
-					to_chat(user, span_warning("That gear is only available at [TG.donator_tier] and higher donation tier."))
+				if(!TG.can_select(cl = user.client, species_name = S.name)) // all gear checks there, no jobs while prefs
 					return
 				var/total_cost = 0
 				var/list/type_blacklist = list()
@@ -1540,9 +1540,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			switch(href_list["preference"])
 				if("name")
 					real_name = random_name(gender,species)
-					if(isnewplayer(user))
-						var/mob/new_player/N = user
-						N.new_player_panel_proc()
+					user.client << output(real_name, "title_browser:update_current_character")
 				if("age")
 					age = rand(AGE_MIN, AGE_MAX)
 				if("hair")
@@ -1616,9 +1614,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						var/new_name = reject_bad_name(raw_name, 1)
 						if(new_name)
 							real_name = new_name
-							if(isnewplayer(user))
-								var/mob/new_player/N = user
-								N.new_player_panel_proc()
+							user.client << output(real_name, "title_browser:update_current_character")
 						else
 							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 
@@ -2449,6 +2445,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					toggles2 ^= PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE
 					user?.client?.tgui_say?.load()
 
+				if("pixelated_menu")
+					toggles2 ^= PREFTOGGLE_2_PIXELATED_MENU
+					if(user?.client)
+						SStitle?.show_title_screen_to(user.client)
+
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
 
@@ -2509,9 +2510,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("randomslot")
 					toggles2 ^= PREFTOGGLE_2_RANDOMSLOT
-					if(isnewplayer(usr))
-						var/mob/new_player/N = usr
-						N.new_player_panel_proc()
 
 				if("hear_midis")
 					sound ^= SOUND_MIDI
@@ -2569,9 +2567,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						real_name = random_name(gender)
 						save_character(user)
 					close_load_dialog(user)
-					if(isnewplayer(user))
-						var/mob/new_player/N = user
-						N.new_player_panel_proc()
+					user.client << output(real_name, "title_browser:update_current_character")
 
 				if("tab")
 					if(href_list["tab"])
@@ -2781,8 +2777,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(href_list["toggle"])
 						var/datum/preference_toggle/toggle = locateUID(href_list["toggle"])
 						toggle.set_toggles(user.client)
-
-
 
 	ShowChoices(user)
 	return TRUE

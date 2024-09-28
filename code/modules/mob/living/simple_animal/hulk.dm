@@ -151,12 +151,12 @@
 	Mx.Scale(1.5)
 	RH.transform = Mx
 
-	for(var/mob/M in contents)
-		M.forceMove(loc)
-		M.status_flags &= ~GODMODE
-		if(isliving(M))
-			var/mob/living/L = M
-			L.Paralyse(30 SECONDS)
+	for(var/mob/mob in contents)
+		mob.forceMove(loc)
+		REMOVE_TRAIT(mob, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
+		if(isliving(mob))
+			var/mob/living/living = mob
+			living.Paralyse(30 SECONDS)
 
 	if(mind && original_body)
 		mind.transfer_to(original_body)
