@@ -275,10 +275,7 @@
 
 	haunt.max_targets = 20
 	haunt.haunt_time = 1 MINUTES
-	haunt.cast(targets, carbon)
+	haunt.cast(targets)
 
 	for(var/mob/living/living in targets)
-		if(living == carbon)
-			continue
-
 		living.Slowed(slow_time)

@@ -71,6 +71,9 @@
     ADD_TRAIT(human, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
     to_chat(human, span_revenbignotice("Hellish powers are resurrecting you."))
     
+    human.metabolism_efficiency = 0
+    human.digestion_ratio = 0
+
     playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
     linked_timer = addtimer(CALLBACK(src, PROC_REF(apply_regeneration), human, devil), devil.rank.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE)
 
@@ -80,14 +83,19 @@
     if(!linked_timer)
         return
 
+    var/mob/living/carbon/human = source
+
     deltimer(linked_timer)
     linked_timer = null
 
-    if(HAS_TRAIT_FROM(source, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src)))
-        REMOVE_TRAIT(source, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
+    if(HAS_TRAIT_FROM(human, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src)))
+        REMOVE_TRAIT(human, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
 
-    if(HAS_TRAIT_FROM(source, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src)))
-        REMOVE_TRAIT(source, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
+    if(HAS_TRAIT_FROM(human, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src)))
+        REMOVE_TRAIT(human, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
+
+    human.metabolism_efficiency = initial(human.metabolism_efficiency)
+    human.digestion_ratio = initial(human.digestion_ratio)
 
 /datum/element/devil_regeneration/proc/apply_regeneration(mob/living/carbon/human, datum/antagonist/devil/devil)
     if(human.health >= human.maxHealth)
