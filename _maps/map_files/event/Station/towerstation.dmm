@@ -3688,7 +3688,7 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/engine,
 /area/security/permabrig)
 "cth" = (

@@ -22082,7 +22082,7 @@
 "cRn" = (
 /obj/structure/table,
 /obj/item/clothing/mask/muzzle,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
 "cRo" = (
@@ -39842,7 +39842,7 @@
 "hFt" = (
 /obj/structure/table,
 /obj/item/taperecorder,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/engine,
 /area/security/execution)
 "hFw" = (
@@ -66054,9 +66054,9 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/bible,
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
-/obj/item/clothing/glasses/sunglasses/blindfold,
-/obj/item/clothing/glasses/sunglasses/blindfold,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/security/processing)
 "oYe" = (
