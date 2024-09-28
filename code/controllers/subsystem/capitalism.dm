@@ -1,5 +1,5 @@
 #define FREQUENCY_SALARY 5 MINUTES
-#define TEN_THOUSAND_CREDITS 10000 //Хз честно как иначе назвать roflcat
+#define EXTRA_MONEY 10000 //Хз честно как иначе назвать roflcat
 
 SUBSYSTEM_DEF(capitalism)
 	name = "Capitalism"
@@ -42,7 +42,7 @@ SUBSYSTEM_DEF(capitalism)
 		set_security_level(SEC_LEVEL_EPSILON)
 
 	//Если денег хватит оплатить зарплаты минимум два раза до дефолт снят
-	if(default_status && (payment_account.money > (potential_salary_payments() + TEN_THOUSAND_CREDITS)))
+	if(default_status && (payment_account.money > (potential_salary_payments() + EXTRA_MONEY)))
 		default_status = FALSE
 		default_annonce(default_status)
 		payment_process() //Выплатить нищебродам сразу после объявления
