@@ -19,7 +19,9 @@
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
 		/obj/effect/proc_holder/spell/conjure_item/violin,
 		/obj/effect/proc_holder/spell/summon_dancefloor,
-		/obj/effect/proc_holder/spell/sintouch
+		/obj/effect/proc_holder/spell/sintouch,
+		/obj/effect/proc_holder/spell/dark_conversion,
+		/obj/effect/proc_holder/spell/aoe/devil_fire
 		))
 
 /datum/antagonist/devil/can_be_owned(datum/mind/new_owner)
@@ -98,8 +100,6 @@
 			continue
 
 		owner.RemoveSpell(spell)
-
-	rank?.remove_spells()
 
 /datum/antagonist/devil/proc/give_obligation_spells()
 	switch(obligation)
@@ -288,7 +288,8 @@
 
 	rank_spells = list(
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
-		/obj/effect/proc_holder/spell/aoe/devil_fire
+		/obj/effect/proc_holder/spell/aoe/devil_fire,
+		/obj/effect/proc_holder/spell/dark_conversion
 	)
 
 /datum/devil_rank/blood_lizard

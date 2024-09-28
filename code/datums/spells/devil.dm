@@ -287,3 +287,46 @@
 
 		new /obj/effect/hotspot(turf)
 		turf.hotspot_expose(2000, 50, 1)
+
+/obj/effect/proc_holder/spell/dark_conversion
+	name = "Dark conversion"
+	desc = "Transforms any humanoid into shadowpeople."
+
+	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon_state = "horror"
+
+	base_cooldown = 300 SECONDS
+	var/cast_time = 5 SECONDS
+
+	clothes_req = FALSE
+	human_req = FALSE
+
+/obj/effect/proc_holder/spell/dark_conversion/create_new_targeting()
+	var/datum/spell_targeting/aoe/targeting = new()
+
+	targeting.range = 5
+	targeting.allowed_type = /mob/living/carbon/human
+
+	return targeting
+
+/obj/effect/proc_holder/spell/dark_conversion/valid_target(mob/living/carbon/human/target, mob/user)
+	return target.mind && !isshadowperson(target)
+
+/obj/effect/proc_holder/spell/dark_conversion/cast(list/targets, mob/user = usr)
+	var/mob/living/carbon/human/human = targets[1]
+
+	if(!do_after(user, cast_time, user, NONE))
+		revert_cast(user)
+		return
+
+	human.set_species(/datum/species/shadow)
+	human.store_memory("Вы - создание тьмы. Старайтесь сохранить свою истинную форму и выполнить свои задания.")
+
+	var/datum/objective/assassinate/kill = new
+	kill.owner = human.mind
+	kill.find_target()
+
+	LAZYADD(human.mind.objectives, kill)
+	LAZYADD(human.faction, "hell")
+
+	human.mind.prepare_announce_objectives()

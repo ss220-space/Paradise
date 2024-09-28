@@ -22,6 +22,8 @@
     UnregisterSignal(human, COMSIG_PARENT_ATTACKBY)
 
 /datum/element/devil_bane/proc/flash_eyes(datum/source, intensity, override_blindness_check, affect_silicon, visual, type)
+    SIGNAL_HANDLER
+    
     var/mob/living/carbon/human = source
     if(!istype(human))
         return
@@ -32,16 +34,18 @@
 
     var/damage = intensity - human.check_eye_prot()
 
-    if(devil.bane != BANE_LIGHT)
-        return STOP_FLASHING_EYES
+    if(devil.bane == BANE_LIGHT)
+        if(!damage)
+            human.mind?.disrupt_spells(0)
+            return
 
-    if(!damage)
-        human.mind?.disrupt_spells(0)
-        return
+        human.mind?.disrupt_spells(-500)
 
-    human.mind?.disrupt_spells(-500)
+    return STOP_FLASHING_EYES
 
 /datum/element/devil_bane/proc/check_reagents(datum/source, datum/reagent/reagent, method, volume)
+    SIGNAL_HANDLER
+
     var/mob/living/carbon/human = source
     if(!istype(human))
         return
