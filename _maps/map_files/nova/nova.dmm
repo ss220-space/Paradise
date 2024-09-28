@@ -115184,10 +115184,8 @@
 /area/maintenance/engineering)
 "rmT" = (
 /obj/effect/decal/warning_stripes/southwest,
-/obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+/obj/machinery/r_n_d/destructive_analyzer{
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -154472,8 +154470,10 @@
 /area/hallway/primary/starboard)
 "xdA" = (
 /obj/effect/decal/warning_stripes/northeast,
-/obj/machinery/r_n_d/destructive_analyzer{
-	pixel_y = 2
+/obj/structure/table/reinforced,
+/obj/machinery/recharger{
+	pixel_x = 1;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
