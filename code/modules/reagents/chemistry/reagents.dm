@@ -51,7 +51,7 @@
 	if(holder)  //for catching rare runtimes
 		if(method == REAGENT_TOUCH && penetrates_skin && M.reagents && volume >= 1)
 			M.reagents.add_reagent(id, volume)
-      SEND_SIGNAL(M, COMSIG_REAGENT_ADDED, src, method, volume)
+			SEND_SIGNAL(M, COMSIG_REAGENT_ADDED, src, method, volume)
 
 		if(method == REAGENT_INGEST) //Yes, even Xenos can get addicted to drugs.
 			var/can_become_addicted = M.reagents.reaction_check(M, src)
