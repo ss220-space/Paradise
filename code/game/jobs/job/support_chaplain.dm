@@ -14,7 +14,7 @@
 	alt_titles = list("Priest","Monk","Preacher","Reverend","Oracle","Nun","Imam","Exorcist")
 	outfit = /datum/outfit/job/chaplain
 	
-	//Бог зарплаты тебе не даст roflcat
+	//God will not give you a salary roflcat
 	salary = 60
 	min_start_money = 10
 	max_start_money = 200
