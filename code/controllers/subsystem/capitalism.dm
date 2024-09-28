@@ -1,4 +1,4 @@
-#define FREQUENCY_SALARY 1 MINUTES
+#define FREQUENCY_SALARY 5 MINUTES
 #define TEN_THOUSAND_CREDITS 10000 //Хз честно как иначе назвать roflcat
 
 SUBSYSTEM_DEF(capitalism)
