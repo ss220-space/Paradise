@@ -490,8 +490,7 @@
 	effect.desc = "It's shaped an awful lot like [user.name]."
 	effect.setDir(user.dir)
 	user.forceMove(effect)
-	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	user.status_flags |= GODMODE
+	user.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 
 	addtimer(CALLBACK(src, PROC_REF(reappear), user, effect), 10 SECONDS)
 
@@ -505,8 +504,7 @@
 		stack_trace("[effect] is outside of the turf contents")
 		return
 
-	user.status_flags &= ~GODMODE
-	REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+	user.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	user.forceMove(effect_turf)
 	user.visible_message(span_danger("[user] pops back into reality!"))
 	effect.can_destroy = TRUE

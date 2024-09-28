@@ -78,7 +78,7 @@
 
 /mob/living/simple_animal/shade/sword/Initialize(mapload)
 	.=..()
-	status_flags |= GODMODE
+	ADD_TRAIT(src, TRAIT_GODMODE, INNATE_TRAIT)
 
 /mob/living/simple_animal/shade/talisman
 	faction = list("neutral")
@@ -88,7 +88,7 @@
 
 /mob/living/simple_animal/shade/talisman/Initialize(mapload)
 	.=..()
-	status_flags |= GODMODE
+	ADD_TRAIT(src, TRAIT_GODMODE, INNATE_TRAIT)
 
 /mob/living/simple_animal/shade/talisman/New()
 	..()

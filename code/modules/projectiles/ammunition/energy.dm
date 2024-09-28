@@ -270,6 +270,10 @@
 	e_cost = 500
 	fire_sound = 'sound/weapons/gunshots/1heavysuppres.ogg'
 
+/obj/item/ammo_casing/energy/bolt/bolttoy
+	projectile_type = /obj/item/projectile/energy/bolttoy
+	select_name = "bolttoy"
+
 /obj/item/ammo_casing/energy/bolt/large
 	projectile_type = /obj/item/projectile/energy/bolt/large
 	select_name = "heavy bolt"
