@@ -144743,7 +144743,7 @@
 "vHo" = (
 /obj/machinery/power/supermatter_shard{
 	anchored = 1;
-	zap_extrarange = -6
+	zap_sound_extrarange = -6
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
