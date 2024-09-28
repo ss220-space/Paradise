@@ -2967,9 +2967,7 @@
 /turf/simulated/floor/engine/hull/ceiling,
 /area/mine/unexplored/cere/orbiting)
 "ayE" = (
-/obj/machinery/computer/prisoner{
-	req_access = list(2)
-	},
+/obj/machinery/computer/brigcells,
 /turf/simulated/floor/wood/fancy/light,
 /area/security/hos)
 "ayK" = (
@@ -54856,7 +54854,7 @@
 	},
 /area/security/medbay)
 "jbZ" = (
-/obj/machinery/computer/brigcells,
+/obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -119604,11 +119602,6 @@
 	name = "Security Lockdown";
 	pixel_y = -3;
 	req_access = list(2)
-	},
-/obj/machinery/computer/secure_data/laptop{
-	pixel_y = -17;
-	dir = 4;
-	pixel_x = 3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
