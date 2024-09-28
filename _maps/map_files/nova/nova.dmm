@@ -2609,7 +2609,6 @@
 	pixel_y = 3
 	},
 /obj/item/flashlight/seclite,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -6313,6 +6312,11 @@
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig Customs";
+	req_access = list(63);
+	security_level = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull";
@@ -19860,9 +19864,10 @@
 /turf/simulated/floor/wood,
 /area/maintenance/casino)
 "cRC" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
-	dir = 1
+	dir = 1;
+	icon_state = "red"
 	},
 /area/security/processing)
 "cRI" = (
@@ -20262,10 +20267,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cVh" = (
-/obj/structure/table,
 /obj/machinery/light,
-/obj/item/reagent_containers/food/drinks/mug/sec,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -25720,13 +25725,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/starboard/east)
-"dNb" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "red"
-	},
-/area/security/processing)
 "dNd" = (
 /obj/machinery/door/airlock/security/glass{
 	id = "Interrogation";
@@ -28547,7 +28545,6 @@
 	req_access = list(63);
 	pixel_y = -24
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "red"
@@ -45923,6 +45920,11 @@
 /obj/machinery/atm{
 	pixel_x = 32
 	},
+/obj/machinery/camera{
+	c_tag = "Locker Room Antechamber";
+	dir = 9;
+	pixel_y = 0
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/serviceyard)
 "gKE" = (
@@ -61359,13 +61361,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/launch)
-"jgw" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "redcorner"
-	},
-/area/security/processing)
 "jgD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
@@ -71251,12 +71246,12 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Secure Tech Storage";
-	req_access = list(20,30,56);
-	security_level = 6
+	req_access = list(19,23);
+	check_one_access = 0
 	},
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/storage/tech)
 "kHT" = (
@@ -95118,7 +95113,7 @@
 /area/maintenance/fsmaint3)
 "ooE" = (
 /obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/drinks/mug/sec,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -96034,8 +96029,14 @@
 	},
 /area/aisat/aihallway)
 "ovA" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/obj/structure/table,
+/obj/item/flashlight/lamp{
+	layer = 4;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
 /area/security/processing)
 "ovD" = (
 /obj/structure/cable{
@@ -100136,9 +100137,9 @@
 	},
 /area/hallway/primary/central/second/south)
 "pao" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 0;
 	icon_state = "red"
 	},
 /area/security/processing)
@@ -101015,7 +101016,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -105018,6 +105018,11 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Brig Customs";
+	req_access = list(63);
+	security_level = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
@@ -105859,15 +105864,6 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
-"pSc" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/security/processing)
 "pSd" = (
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
@@ -112814,7 +112810,6 @@
 /area/maintenance/apmaint)
 "qTd" = (
 /obj/structure/chair,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -146380,10 +146375,6 @@
 /turf/simulated/wall/r_wall,
 /area/engine/controlroom)
 "vSY" = (
-/obj/machinery/camera{
-	c_tag = "Locker Room Antechamber";
-	dir = 8
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -244604,7 +244595,7 @@ jop
 uRK
 oQu
 phh
-pao
+oQu
 xjq
 auE
 xAy
@@ -244862,8 +244853,8 @@ laB
 vqa
 fdg
 pTl
-cRC
-jgw
+pTl
+cDE
 qTd
 ooE
 xAy
@@ -245118,10 +245109,10 @@ oQu
 oQu
 iCm
 pTl
+fUu
+kWp
+miE
 pTl
-pTl
-cRC
-ovA
 cVh
 asI
 jfh
@@ -245375,11 +245366,11 @@ uSi
 vkV
 kJt
 pTl
-pTl
-pTl
-pTl
+cRC
 ovA
-pSc
+pao
+pTl
+dCj
 asI
 obM
 xUJ
@@ -245632,11 +245623,11 @@ xJJ
 rlo
 rFZ
 pTl
+uMr
+rlo
+jzQ
 pTl
-pTl
-pTl
-cRC
-dNb
+eJv
 asI
 puy
 omp
