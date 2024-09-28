@@ -257,26 +257,29 @@
 
 /obj/effect/proc_holder/spell/aoe/devil_fire
 	name = "Devil fire"
-	desc = "Causes hotspots on random locations and slows every living creature."
+	desc = "Causes hotspots on random locations and slows every living creature in spell radius."
 	action_icon_state = "explosion_old"
 
 	base_cooldown = 60 SECONDS
 	aoe_range = 10
+	
+	clothes_req = FALSE
+	human_req = FALSE
 
 	var/fire_prob = 50
 	var/slow_time = 5 SECONDS
 
 /obj/effect/proc_holder/spell/aoe/devil_fire/create_new_targeting()
-	var/datum/spell_targeting/aoe/T = new()
-	T.range = aoe_range
-	return T
+	var/datum/spell_targeting/aoe/targeting = new()
+	targeting.range = aoe_range
+	return targeting
 
-/obj/effect/proc_holder/spell/aoe/devil_fire/cast(list/targets, mob/living/carbon/carbon = usr)
+/obj/effect/proc_holder/spell/aoe/devil_fire/cast(list/targets, mob/user = usr)
 	for(var/mob/living/living in targets)
 		living.Slowed(slow_time)
 
 	for(var/turf/turf in targets)
-		if(turf == get_turf(carbon))
+		if(turf == get_turf(user))
 			continue
 
 		if(!prob(fire_prob))
