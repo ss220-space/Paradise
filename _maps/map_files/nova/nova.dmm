@@ -365,7 +365,6 @@
 	layer = 2.9
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -12215,7 +12214,6 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -17490,7 +17488,6 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced,
@@ -19546,7 +19543,6 @@
 /area/medical/medrest)
 "cPP" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /turf/simulated/floor/engine,
@@ -20302,7 +20298,6 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/grass,
@@ -21410,7 +21405,6 @@
 /area/bridge)
 "dfy" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/engine,
@@ -23612,7 +23606,6 @@
 	layer = 2.9
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/grass,
@@ -29242,7 +29235,6 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced,
@@ -29801,7 +29793,6 @@
 "erC" = (
 /obj/structure/showcase,
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -31065,7 +31056,6 @@
 /area/maintenance/asmaint4)
 "eAo" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/closet/secure_closet/medical1,
@@ -31131,7 +31121,6 @@
 	},
 /obj/item/robotanalyzer,
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -31174,7 +31163,6 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/grass,
@@ -33542,7 +33530,6 @@
 	pixel_y = 2
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/table/reinforced,
@@ -45843,7 +45830,6 @@
 /area/maintenance/asmaint3)
 "gJO" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/glass/reinforced,
@@ -46280,7 +46266,6 @@
 /area/hallway/secondary/entry)
 "gNK" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /turf/simulated/floor/glass/reinforced,
@@ -47816,7 +47801,6 @@
 	layer = 2.9
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -49011,7 +48995,6 @@
 "hiv" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/item/twohanded/required/kirbyplants,
@@ -49239,7 +49222,6 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/effect/decal/straw/medium,
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/grass,
@@ -52625,7 +52607,6 @@
 /obj/structure/flora/ausbushes/hell,
 /obj/structure/flora/ausbushes/stalkybush,
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -54774,7 +54755,6 @@
 /obj/structure/flora/ausbushes/fernybush,
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -57646,7 +57626,6 @@
 /area/maintenance/trading)
 "izX" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -68372,7 +68351,6 @@
 /area/maintenance/casino)
 "kjF" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -71250,7 +71228,8 @@
 /obj/machinery/door/airlock/highsecurity{
 	name = "Secure Tech Storage";
 	req_access = list(19,23);
-	check_one_access = 0
+	check_one_access = 0;
+	security_level = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/tech)
@@ -71639,7 +71618,6 @@
 	layer = 2.9
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -77377,7 +77355,6 @@
 /area/maintenance/ai)
 "lFQ" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -80365,7 +80342,6 @@
 /area/quartermaster/delivery)
 "mdh" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/chair{
@@ -80834,7 +80810,6 @@
 	},
 /obj/effect/landmark/start/civilian,
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -81422,7 +81397,6 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -86044,7 +86018,6 @@
 /area/medical/virology/lab)
 "mVb" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -88012,7 +87985,6 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/grass,
@@ -89721,7 +89693,6 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/grass,
@@ -91261,7 +91232,6 @@
 "nJj" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/item/mmi,
@@ -95493,14 +95463,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/fitness)
-"osa" = (
-/obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 8
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "osb" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -109670,7 +109632,6 @@
 /area/medical/medbay)
 "qvc" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -110250,7 +110211,6 @@
 /area/hallway/primary/fore)
 "qzn" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 4
 	},
 /turf/simulated/floor/glass/reinforced,
@@ -113067,7 +113027,6 @@
 	layer = 2.9
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced,
@@ -118426,7 +118385,6 @@
 /obj/structure/flora/firebush,
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/grass,
@@ -118449,7 +118407,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/engine,
@@ -121843,12 +121800,11 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/reedbush,
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	dir = 8
-	},
-/obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 8
 	},
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
@@ -123076,7 +123032,6 @@
 /area/security/permabrig)
 "suh" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/closet/secure_closet/medical1,
@@ -131024,7 +130979,6 @@
 /area/maintenance/xenozoo)
 "tAw" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -138093,7 +138047,6 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -144058,7 +144011,6 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -147269,7 +147221,6 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/grass,
@@ -151778,7 +151729,6 @@
 /area/engine/controlroom)
 "wIl" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /turf/simulated/floor/glass/reinforced,
@@ -153367,7 +153317,6 @@
 /area/hallway/secondary/exit)
 "wUN" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/computerframe,
@@ -153906,7 +153855,6 @@
 /area/assembly/showroom)
 "wZj" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
@@ -159626,7 +159574,6 @@
 /area/hallway/secondary/entry/commercial)
 "xRN" = (
 /obj/structure/window/reinforced{
-	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	dir = 8
 	},
 /obj/machinery/chem_master,
@@ -220697,8 +220644,8 @@ wRr
 gqc
 gqc
 gqc
-osa
-osa
+tmr
+tmr
 ylG
 ylG
 ybG
