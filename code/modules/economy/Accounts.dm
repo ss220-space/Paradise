@@ -14,18 +14,18 @@ GLOBAL_DATUM(centcomm_account_db, /obj/machinery/computer/account_database) // t
 GLOBAL_DATUM(vendor_account, /datum/money_account)
 GLOBAL_LIST_EMPTY(all_money_accounts)
 
-GLOBAL_DATUM(trull_account, /datum/money_account)
+GLOBAL_DATUM(CC_account, /datum/money_account)
 
-/proc/create_trull_account()
-	if(!GLOB.trull_account)
+/proc/create_CC_account()
+	if(!GLOB.CC_account)
 		GLOB.next_account_number = rand(111111, 999999)
 
-		GLOB.trull_account = new()
-		GLOB.trull_account.owner_name = "Account of the personnel department of the Central Command"
-		GLOB.trull_account.account_number = rand(111111, 999999)
-		GLOB.trull_account.remote_access_pin = rand(111111, 999999)
-		GLOB.trull_account.money = INFINITY
-		GLOB.trull_account.security_level = 2
+		GLOB.CC_account = new()
+		GLOB.CC_account.owner_name = "Account of the personnel department of the Central Command"
+		GLOB.CC_account.account_number = rand(111111, 999999)
+		GLOB.CC_account.remote_access_pin = rand(111111, 999999)
+		GLOB.CC_account.money = INFINITY
+		GLOB.CC_account.security_level = 2
 
 
 /proc/create_station_account()
