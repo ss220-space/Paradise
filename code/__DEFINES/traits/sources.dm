@@ -151,3 +151,4 @@
 #define CORGI_HARDSUIT_TRAIT "corgi_hardsuit"
 /// inherited from riding vehicles
 #define VEHICLE_TRAIT "vehicle"
+#define VENDOR_FLATTENING_TRAIT "vendor_flattening"

@@ -16661,7 +16661,7 @@
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin1)
 "oIK" = (
 /obj/structure/table/wood,
-/obj/item/toy/plushie/orange_fox/grump,
+/obj/item/toy/plushie/black_fox,
 /turf/simulated/floor/wood,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin1)
 "oJk" = (
@@ -20821,14 +20821,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
-"rRZ" = (
-/obj/effect/spawner/random_spawners/syndicate/turret/grenade{
-	active_power_usage = 1000;
-	idle_power_usage = 200;
-	use_power = 1
-	},
-/turf/simulated/mineral/silver,
-/area/ruin/unpowered)
 "rSi" = (
 /obj/structure/rack{
 	dir = 8;
@@ -22080,8 +22072,8 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/item/toy/plushie/orange_fox/grump{
-	pixel_y = 10
+/obj/item/toy/plushie/coffee_fox{
+	desc = "Extremely soft toy, sewn by a truly professional artist who loves his job. There is a tag with the inscription \"Fur...\" hanging on the paw."
 	},
 /obj/item/storage/toolbox/syndicate,
 /turf/simulated/floor/carpet/black,
@@ -46479,7 +46471,7 @@ mEC
 mEC
 mEC
 mEC
-rRZ
+xiM
 pdd
 pdd
 pdd

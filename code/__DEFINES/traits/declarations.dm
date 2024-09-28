@@ -76,8 +76,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
 #define TRAIT_STRONG_GRABBER "strong_grabber"
 #define TRAIT_PUSHIMMUNE "push_immunity"
-/// trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
 #define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
+#define TRAIT_FLATTENED	"flattened"
+
 /// Not a genetic obesity but just a mob who overate
 #define	TRAIT_FAT "trait_fat"
 #define TRAIT_HUSK "husk"
