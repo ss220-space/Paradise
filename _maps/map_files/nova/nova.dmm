@@ -26208,15 +26208,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
-"dQr" = (
-/obj/machinery/light/small,
-/obj/machinery/photocopier,
-/obj/effect/decal/warning_stripes/red,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
-	},
-/area/hallway/primary/command/west)
 "dQt" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -48592,6 +48583,9 @@
 	icon_state = "darkred"
 	},
 /area/maintenance/secpost)
+"hfh" = (
+/turf/simulated/wall/r_wall,
+/area/security/brig)
 "hfj" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -71930,9 +71924,6 @@
 /obj/structure/railing,
 /turf/simulated/floor/glass/reinforced,
 /area/engine/mechanic_workshop/hangar)
-"kNw" = (
-/turf/simulated/wall/r_wall,
-/area/security/brig)
 "kNC" = (
 /obj/structure/cable,
 /obj/machinery/door/poddoor{
@@ -89428,6 +89419,22 @@
 	icon_state = "dark"
 	},
 /area/maintenance/trading)
+"nvo" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "Bar";
+	name = "Bar Privacy Shutters"
+	},
+/obj/item/storage/box/papersack,
+/obj/item/storage/box/papersack,
+/obj/item/storage/box/papersack,
+/turf/simulated/floor/light{
+	icon_state = "light_on-p";
+	state = 7
+	},
+/area/crew_quarters/bar)
 "nvr" = (
 /obj/structure/chair/sofa,
 /turf/simulated/floor/plasteel{
@@ -96658,6 +96665,15 @@
 	tag = "icon-whitepurple (SOUTHWEST)"
 	},
 /area/medical/research/nhallway)
+"oAa" = (
+/obj/machinery/light/small,
+/obj/machinery/photocopier,
+/obj/effect/decal/warning_stripes/red,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark"
+	},
+/area/hallway/primary/command/west)
 "oAi" = (
 /obj/structure/table,
 /obj/item/kitchen/knife/plastic,
@@ -120459,6 +120475,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/storage/box/papersack,
+/obj/item/storage/box/papersack,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -196040,7 +196058,7 @@ pGz
 rRW
 kWJ
 hdm
-auP
+nvo
 mtv
 bFk
 eJz
@@ -250514,7 +250532,7 @@ uRS
 reI
 aFq
 pfm
-kNw
+hfh
 tjC
 hEP
 nGQ
@@ -253806,7 +253824,7 @@ nbb
 nbb
 jhe
 ehF
-dQr
+oAa
 lIv
 eLO
 fev
