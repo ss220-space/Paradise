@@ -27,7 +27,6 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 		GLOB.CC_account.money = INFINITY
 		GLOB.CC_account.security_level = 2
 
-
 /proc/create_station_account()
 	if(!GLOB.station_account)
 		GLOB.next_account_number = rand(111111, 999999)
