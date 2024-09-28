@@ -278,4 +278,7 @@
 	haunt.cast(targets, carbon)
 
 	for(var/mob/living/living in targets)
+		if(living == carbon)
+			continue
+
 		living.Slowed(slow_time)
