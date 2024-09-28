@@ -2,13 +2,13 @@
 #define NUMBER_OF_CORP_QUEST 4
 #define NUMBER_OF_PLASMA_QUEST 1
 
-//Оставь надежду надежду всяк сюда входящий
+//Abandon hope, everyone who enters here
 
-//Это место проклято, не пытайтесь понять его и изменить. Это убьет вас
+//This place is cursed, don't try to understand it and change it. It will kill you
 
-//Все больше вчитываясь в строки я понимаю, ох зря я сюда полез.
+//Reading the lines more and more, I realize that I shouldn't have come here.
 
-//ДАЛЬШЕ БОГА НЕТ
+//THERE IS NO GOD BEYOND THAT
 SUBSYSTEM_DEF(cargo_quests)
 	name = "Cargo Quests"
 	flags = SS_NO_FIRE
