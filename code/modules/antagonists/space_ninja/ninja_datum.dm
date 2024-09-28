@@ -443,19 +443,14 @@
 			add_objective(/datum/objective/research_corrupt)
 
 	var/pick_chance = rand(0, 100)
-	if(pick_chance <= 25)
+	if(pick_chance <= 50)
 		var/datum/objective/plant_explosive/bomb_objective = add_objective(/datum/objective/plant_explosive)
 		bomb_objective.give_bomb(delayed = 0)
 
-	else if(pick_chance <= 50)
+	else
 		var/datum/objective/set_up/set_up_objective = add_objective(/datum/objective/set_up)
 		if(!set_up_objective.target)
 			qdel(set_up_objective)
-
-	else
-		var/datum/objective/pain_hunter/pain_hunter_objective = add_objective(/datum/objective/pain_hunter)
-		if(!pain_hunter_objective.target)
-			qdel(pain_hunter_objective)
 
 	switch(pick(1,2))
 		if(1)

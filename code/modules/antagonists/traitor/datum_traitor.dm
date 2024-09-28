@@ -192,13 +192,10 @@
 		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
 			add_objective(/datum/objective/destroy)
 
-		else if(prob(5))
+		else if(prob(10))
 			add_objective(/datum/objective/debrain)
 
 		else if(prob(30))
-			add_objective(/datum/objective/pain_hunter)
-
-		else if(prob(20))
 			add_objective(/datum/objective/protect)
 
 		else
