@@ -7,16 +7,14 @@
 #define GROUP_MATERIALS "Raw Materials"
 #define GROUP_VEND "Vending"
 
-#define PERCENTAGE_PAYMENTS_STATION	 	0.25 	//25 процентов станции
-#define	PERCENTAGE_PAYMENTS_CARGO 		0.6 	//60 процентов на счет карго
-#define PERCENTAGE_PAYMENTS_PERSONAL 	0.15	//15 процентов на счет нищебродов
+#define PERCENTAGE_PAYMENTS_STATION	 	0.25 	//25 percent on the account of the station
+#define	PERCENTAGE_PAYMENTS_CARGO 		0.6 	//60 percent on the cargo account
+#define PERCENTAGE_PAYMENTS_PERSONAL 	0.15	//15 percent on the account of the beggars
 
 #define POINT_TO_CREDITS 10
 #define COMMERCIAL_MODIFIER 3 
 
-//Оставь надежду надежду всяк сюда входящий
-//Оставь надежду надежду всяк сюда входящий
-//Оставь надежду надежду всяк сюда входящий
+//Give up hope, hope, everyone who enters here
 
 /datum/quest_customer
 	var/departament_name
