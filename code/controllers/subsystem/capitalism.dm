@@ -155,8 +155,8 @@ SUBSYSTEM_DEF(capitalism)
 
 	var/datum/money_account/account = base_account
 
-	for(var/key_account_deportament in  keys_departament)
-		account = GLOB.department_accounts?[key_account_deportament]
+	for(var/key_account_departament in  keys_departament)
+		account = GLOB.department_accounts?[key_account_departament]
 		if(!account)
 			list_payment_account += account
 			. = TRUE
