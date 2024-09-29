@@ -112,7 +112,7 @@
 
 
 /obj/item/hair_dye_bottle/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(ishuman(target) || user.a_intent != INTENT_HELP || !(target in view(1)))
+	if(!ishuman(target) || user.a_intent != INTENT_HELP || !(target in view(1)))
 		return ..()
 
 	. = ATTACK_CHAIN_PROCEED

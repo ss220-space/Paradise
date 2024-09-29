@@ -195,14 +195,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/enchant_type = NO_SPELL // What's the type on enchantment on it? 0
 	var/list/enchants = null // List(datum)
 
-	//eat_items.dm
-	var/material_type = MATERIAL_CLASS_NONE
-	var/max_bites = 1 			//The maximum amount of bites before item is depleted
-	var/current_bites = 0	//How many bites did
-	var/integrity_bite = 10		// Integrity used
-	var/nutritional_value = 20 	// How much nutrition add
-	var/is_only_grab_intent = FALSE	//Grab if help_intent was used
-
 	///In deciseconds, how long an item takes to equip/unequip; counts only for normal clothing slots, not pockets, hands etc.
 	var/equip_delay_self = 0 SECONDS
 
@@ -230,7 +222,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			hitsound = 'sound/items/welder.ogg'
 		if(damtype == "brute")
 			hitsound = "swing_hit"
+	add_eatable_component()
 
+/obj/item/proc/add_eatable_component()
+	AddComponent(/datum/component/eatable)
 
 /obj/item/proc/determine_move_resist()
 	switch(w_class)
@@ -294,9 +289,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(WEIGHT_CLASS_GIGANTIC)
 			size = "gigantic"
 
-	var/material_string = item_string_material(user)
-
-	. = ..(user, "", "It is a [size] item. [material_string]")
+	. = ..(user, "", "It is a [size] item.")
 
 	if(user.research_scanner) //Mob has a research scanner active.
 		var/msg = "*--------* <BR>"
@@ -1008,18 +1001,19 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/MouseEntered(location, control, params)
 	if(item_flags & (IN_INVENTORY|IN_STORAGE))
-		var/timedelay = 8
-		var/mob/user = usr
-		tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)
+		var/mob/living/user = usr
+		if(user.client.prefs.toggles2 & PREFTOGGLE_2_DESC_TIPS)
+			var/timedelay = 8
+			tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)
+
 		if(QDELETED(src))
 			return
-		var/mob/living/L = user
 		if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES))
 			return
-		if(istype(L) && L.incapacitated())
-			apply_outline(L, COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
+		if(istype(user) && user.incapacitated())
+			apply_outline(user, COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
 		else
-			apply_outline(L) //if the player's alive and well we send the command with no color set, so it uses the theme's color
+			apply_outline(user) //if the player's alive and well we send the command with no color set, so it uses the theme's color
 
 
 /obj/item/MouseExited()

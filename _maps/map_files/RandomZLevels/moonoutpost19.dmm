@@ -7100,7 +7100,6 @@
 /area/moonoutpost19/mo19arrivals)
 "oL" = (
 /obj/structure/closet/secure_closet{
-	icon_state = "secure";
 	locked = 0;
 	name = "kitchen Cabinet";
 	req_access = list(271)

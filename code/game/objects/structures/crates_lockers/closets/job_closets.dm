@@ -43,8 +43,7 @@
 /obj/structure/closet/chefcloset
 	name = "chef's closet"
 	desc = "It's a storage unit for foodservice garments."
-	icon_state = "closed"
-	custom_door_overlay = "black"
+	icon_state = "chef"
 
 /obj/structure/closet/chefcloset/populate_contents()
 	new /obj/item/clothing/under/waiter(src)
@@ -72,8 +71,7 @@
 /obj/structure/closet/jcloset
 	name = "custodial closet"
 	desc = "It's a storage unit for janitorial clothes and gear."
-	icon_state = "closed"
-	custom_door_overlay = "mixed"
+	icon_state = "janitor"
 
 /obj/structure/closet/jcloset/populate_contents()
 	new /obj/item/flashlight(src)
@@ -137,8 +135,7 @@
 /obj/structure/closet/paramedic
 	name = "paramedic wardrobe"
 	desc = "It's a storage unit for paramedic equipment."
-	icon_state = "closed"
-	custom_door_overlay = "blue"
+	icon_state = "paramed"
 
 
 /obj/structure/closet/paramedic/populate_contents()

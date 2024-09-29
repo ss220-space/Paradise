@@ -21,8 +21,7 @@
 
 /obj/structure/closet/wardrobe/miner
 	name = "mining wardrobe"
-	icon_state = "closed"
-	custom_door_overlay = "mixed"
+	icon_state = "mine_ward"
 
 /obj/structure/closet/wardrobe/miner/populate_contents()
 	new /obj/item/storage/backpack/duffel(src)

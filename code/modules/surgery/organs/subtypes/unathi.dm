@@ -45,3 +45,24 @@
 /obj/item/organ/internal/lungs/unathi/ash_walker
 	name = "ash walker lungs"
 	safe_oxygen_min = 8 // can breathe on lavaland
+
+/obj/item/organ/internal/eyes/unathi/ash_walker
+	name = "ash walker eyes"
+	vision_flags = SEE_TURFS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	see_in_dark = 3
+
+/obj/item/organ/internal/eyes/unathi/ash_walker_shaman
+	name = "ash walker shaman eyes"
+	vision_flags = SEE_TURFS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
+/obj/item/organ/internal/eyes/unathi/ash_walker_shaman/insert(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	H.add_hud_to(target)
+
+/obj/item/organ/internal/eyes/unathi/ash_walker_shaman/remove(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	H.remove_hud_from(target)

@@ -3809,7 +3809,6 @@
 /area/awaymission/UO45/crew_quarters)
 "jg" = (
 /obj/structure/closet/secure_closet{
-	icon_state = "secure";
 	locked = 0;
 	name = "kitchen Cabinet";
 	req_access = list(201)
@@ -7065,7 +7064,7 @@
 /obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "UO45_air_sensor";
-	output = 7
+	output = 23
 	},
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO45/engineering)
@@ -9235,7 +9234,7 @@
 "tg" = (
 /obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO45_waste_sensor";
-	output = 63
+	output = 127
 	},
 /turf/simulated/floor/engine{
 	name = "vacuum floor";
@@ -9758,8 +9757,7 @@
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 4;
 	filter_type = 2;
-	on = 1;
-	req_access = null
+	on = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -9840,8 +9838,7 @@
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 4;
 	filter_type = 1;
-	on = 1;
-	req_access = null
+	on = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;

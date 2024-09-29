@@ -25,6 +25,9 @@
 
 /datum/surgery_step/tune_vocal_cords
 	name = "tune vocal cords"
+	begin_sound = 'sound/surgery/scalpel1.ogg'
+	end_sound = 'sound/surgery/scalpel2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(TOOL_SCALPEL = 100, /obj/item/kitchen/knife = 50, /obj/item/wirecutters = 35)
 	time = 6.4 SECONDS
 	var/target_vocal = "vocal cords"
@@ -59,5 +62,7 @@
 
 /datum/surgery_step/tune_vocal_cords/ipc
 	name = "microphone setup"
+	begin_sound = 'sound/items/taperecorder/taperecorder_open.ogg'
+	end_sound = 'sound/items/taperecorder/taperecorder_close.ogg'
 	allowed_tools = list(/obj/item/multitool = 100, /obj/item/screwdriver = 55, /obj/item/kitchen/knife = 20, TOOL_SCALPEL = 25)
 	target_vocal = "microphone"
