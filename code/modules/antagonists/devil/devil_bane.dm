@@ -1,18 +1,18 @@
 /datum/devil_bane
 	var/name 
 	var/desc
-    var/law
+	var/law    
 
 	var/mob/living/carbon/owner
 	var/datum/antagonist/devil/devil
 
-    var/bonus_damage = 1
+	var/bonus_damage = 1	
 
 /datum/devil_bane/Destroy(force)
 	owner = null
 	devil = null
 
-    remove_bane()
+	remove_bane()
 	return ..()
 
 /datum/devil_bane/proc/remove_bane()
