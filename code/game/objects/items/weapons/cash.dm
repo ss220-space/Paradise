@@ -88,7 +88,7 @@
 /obj/item/stack/spacecash/c1000000
 	amount = 1000000
 
-//Костыль для шахтерского ведромата, ну или гениальное решение roflcat
+//A crutch for the vending machine, well, or an ingenious roflcat solution
 /obj/item/stack/spacecash/magic_linked/New(loc, amt = 150)
 	. = ..()
 	//roflcat
