@@ -78,7 +78,7 @@
 		JOB_TITLE_CORONER,
 		JOB_TITLE_INTERN
 	)
-	linked_deportament = "Science"
+	linked_departament = "Science"
 
 	easy_items = list(
 		/obj/item/slime_extract/grey = 45,
@@ -123,7 +123,7 @@
 		JOB_TITLE_CORONER,
 		JOB_TITLE_INTERN
 	)
-	linked_deportament = "Medical"
+	linked_departament = "Medical"
 
 	normal_items = list(
 		/obj/item/organ/internal/eyes/tajaran = 105,
@@ -161,7 +161,7 @@
 /datum/cargo_quest/thing/foods
 	quest_type_name = "Food"
 	bounty_jobs = list(JOB_TITLE_CHEF)
-	linked_deportament = "Support"
+	linked_departament = "Support"
 
 	easy_items = list(
 		/obj/item/reagent_containers/food/snacks/friedegg = 10,
@@ -241,7 +241,7 @@
 /datum/cargo_quest/thing/miner
 	quest_type_name = "Shaft Miner Loot"
 	bounty_jobs = list(JOB_TITLE_MINER)
-	linked_deportament = "Cargo"
+	linked_departament = "Cargo"
 
 	easy_items = list(
 		/obj/item/crusher_trophy/legion_skull = 60,
@@ -276,7 +276,7 @@
 /datum/cargo_quest/thing/minerals
 	quest_type_name = "Minerals"
 	bounty_jobs = list(JOB_TITLE_MINER)
-	linked_deportament = "Cargo"
+	linked_departament = "Cargo"
 
 	var/list/required_minerals = list()
 	unique_things = FALSE
@@ -363,7 +363,7 @@
 /datum/cargo_quest/thing/seeds
 	quest_type_name = "Seeds"
 	bounty_jobs = list(JOB_TITLE_BOTANIST)
-	linked_deportament = "Support"
+	linked_departament = "Support"
 
 	easy_items = list(
 		/obj/item/seeds/harebell = 0, //Why? - Becouse we can
@@ -445,7 +445,7 @@
 	item_for_show = /obj/item/disk/plantgene
 	req_items = list(/obj/item/disk/plantgene)
 	bounty_jobs = list(JOB_TITLE_BOTANIST)
-	linked_deportament = "Support"
+	linked_departament = "Support"
 	
 	var/list/required_genes = list()
 	easy_items = list(
@@ -515,7 +515,7 @@
 	item_for_show = /obj/item/dnainjector
 	req_items = list(/obj/item/dnainjector)
 	bounty_jobs = list(JOB_TITLE_GENETICIST)
-	linked_deportament = "Medical"
+	linked_departament = "Medical"
 
 	var/list/required_blocks = list()
 	normal_items = list(
@@ -621,7 +621,7 @@
 	item_for_show = /obj/item/reagent_containers/glass/beaker/vial
 	req_items = list(/obj/item/reagent_containers/glass/beaker/vial)
 	bounty_jobs = list(JOB_TITLE_VIROLOGIST)
-	linked_deportament = "Medical"
+	linked_departament = "Medical"
 
 	var/list/required_symptoms = list()
 
@@ -730,7 +730,7 @@
 	var/list/required_mobs = list()
 	var/list/capsules
 	bounty_jobs = list(JOB_TITLE_MINER)
-	linked_deportament = "Cargo"
+	linked_departament = "Cargo"
 
 	normal_items = list(
 		/mob/living/simple_animal/hostile/asteroid/goliath/beast = 180,
