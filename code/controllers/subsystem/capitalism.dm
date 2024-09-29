@@ -14,7 +14,6 @@ SUBSYSTEM_DEF(capitalism)
 	var/datum/money_account/base_account 	= null //the account that receives money for orders and vending machines
 	var/datum/money_account/payment_account = null //The account from which the salary is deducted badguy
 
-
 	//Attention. Statistics for greentext
 	//And why did I make tabs?...
 	var/total_salary_payment 	= 0 //How much money was spent on salaries
@@ -113,16 +112,12 @@ SUBSYSTEM_DEF(capitalism)
 	var/list_payment_account = list() //which people should I pay
 	var/bounty = 0 //What kind of money for each person
 	total_personal_bounty += money
-	for(var/prom in jobs_payment)
-		to_chat(world, prom)
 
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
-		to_chat(world, account.owner_name)
 		if(jobs_payment.Find(account.linked_job.title) && account.salary_payment_active && !account.suspended)
 			list_payment_account += account
 			. = TRUE
 
-	
 	if(money == 0 || length(list_payment_account) == 0)
 		return FALSE
 	bounty = round(money / length(list_payment_account))
@@ -133,7 +128,6 @@ SUBSYSTEM_DEF(capitalism)
 			account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [bounty] кредитов за помощь в выполнении заказа.\" (Невозможно Ответить)", FALSE)
 
 	return
-
 // In short, as for beggars, but for departments
 /datum/controller/subsystem/capitalism/proc/smart_deportament_payment(var/list/keys_deportament, var/money)
 	. = FALSE 							//Если никому ничего не уплочено
@@ -156,9 +150,7 @@ SUBSYSTEM_DEF(capitalism)
 	bounty = round(money / length(list_payment_account))
 	//If it did not find that, the payment of the station (well, or what is indicated in the base_account)
 
-
 	for(var/datum/money_account/account_pay in list_payment_account)
-		//пупупу
 		account_pay.credit(bounty, "Начисление награды за выполнение заказа.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name)
 
 	return
