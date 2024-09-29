@@ -1,5 +1,6 @@
 #define FREQUENCY_SALARY 5 MINUTES
 #define EXTRA_MONEY 10000
+#define ORDINARY_ENGINERS list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_MECHANIC)
 // TODO done, SScapitalism
 SUBSYSTEM_DEF(capitalism)
 	name = "Capitalism"
@@ -49,6 +50,8 @@ SUBSYSTEM_DEF(capitalism)
 		default_annonce()
 
 	var/total_station_goal_bounty = 0
+	var/s_ex_personal_bounry = list() //Extended staff rewards
+
 	for(var/datum/station_goal/goal in SSticker.mode.station_goals)
 		if(!goal)
 			continue
@@ -58,6 +61,8 @@ SUBSYSTEM_DEF(capitalism)
 
 	if(total_station_goal_bounty)
 		base_account.credit(total_station_goal_bounty, "Начисление награды за выполнение цели.", "Отдел развития Нанотрейзен", base_account.owner_name)
+		smart_job_payment(1000, ORDINARY_ENGINERS)
+		smart_job_payment(2000, list(JOB_TITLE_CHIEF))
 
 //status - TRUE/FALSE
 /datum/controller/subsystem/capitalism/proc/default_annonce()
@@ -128,6 +133,18 @@ SUBSYSTEM_DEF(capitalism)
 			account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [bounty] кредитов за помощь в выполнении заказа.\" (Невозможно Ответить)", FALSE)
 
 	return
+
+/datum/controller/subsystem/capitalism/proc/smart_job_payment(var/list/jobs_payment, var/money)
+	. = FALSE //If nothing is paid to anyone
+	total_personal_bounty += money
+
+	for(var/datum/money_account/account in GLOB.all_money_accounts)
+		if(jobs_payment.Find(account.linked_job.title) && account.salary_payment_active && !account.suspended)
+			if(account.credit(bounty, "Начисление награды за выполнение цели.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name))
+				account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [bounty] кредитов за помощь в выполнении цель станции.\" (Невозможно Ответить)", FALSE)
+				. = TRUE
+	return
+
 // In short, as for beggars, but for departments
 /datum/controller/subsystem/capitalism/proc/smart_deportament_payment(var/list/keys_deportament, var/money)
 	. = FALSE 							//Если никому ничего не уплочено
@@ -154,3 +171,4 @@ SUBSYSTEM_DEF(capitalism)
 		account_pay.credit(bounty, "Начисление награды за выполнение заказа.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name)
 
 	return
+#undef ORDINARY_ENGINERS
