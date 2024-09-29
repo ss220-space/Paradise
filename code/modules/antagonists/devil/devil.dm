@@ -197,6 +197,7 @@
 	remove_spells()
 	remove_hud()
 
+	info.banish.remove_banish()
 	info.bane.remove_bane()
 
 	LAZYREMOVE(owner.current.faction, "hell")

@@ -10,11 +10,12 @@
     owner = carbon
     devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
 
-/datum/devil_banish/Destroy(force)
-    remove_banish()
-
+/datum/devil_banish/proc/remove_banish()
     owner = null
     devil = null
+
+/datum/devil_banish/Destroy(force)
+    remove_banish()
 
     return ..()
 
