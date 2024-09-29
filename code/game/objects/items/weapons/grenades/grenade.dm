@@ -3,7 +3,7 @@
 	desc = "A hand held grenade, with an adjustable timer."
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/weapons/grenade.dmi'
-	icon_state = "grenade"
+	icon_state = "chemg"
 	item_state = "flashbang"
 	belt_icon = "grenade"
 	throw_speed = 4

@@ -1608,7 +1608,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ..()
 
 	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && HAS_TRAIT(src, TRAIT_NO_GUNS))
-		to_chat(src, span_warning("Your fingers don't fit in the trigger guard!"))
+		balloon_alert(src, span_warning("слишком толстые пальцы"))
 		return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
