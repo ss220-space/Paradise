@@ -23,8 +23,8 @@ SUBSYSTEM_DEF(capitalism)
 	var/total_personal_bounty 	= 0 //How much money was distributed to the beggars
 	var/income_vedromat 		= 0 //Income with a bucket or in
 
-	var/list/complited_goals = list() 	//Нужно чтобы не платить повторно за цель, гагага
-	var/default_status = FALSE 			//TRUE если на станции действует дефолт, можно в будущем к примеру как модификатор карго сделать
+	var/list/complited_goals = list() 	//It is necessary not to pay again for the goal, gagaga
+	var/default_status = FALSE 			//TRUE if the default is in effect at the station, you can do it in the future, for example, as a cargo modifier
 
 	var/default_counter = 0 		//Счетсчик количества дефолтов, я точно не сделаю смешнявку
 
@@ -91,8 +91,8 @@ SUBSYSTEM_DEF(capitalism)
 
 /datum/controller/subsystem/capitalism/proc/salary_account_init()
 
-	base_account = GLOB.station_account		//Аккаунт на который идут баунти, деньги за цель и баблишко с ведроматов.
-	payment_account = GLOB.CC_account 	//GLOB.CC_account 	//Это аккаунт с которого списываются деньги на зарплату. Сделано для тестов catsmile
+	base_account = GLOB.station_account		//The account that the bounty goes to, the money for the goal and the money from the machines.
+	payment_account = GLOB.CC_account 	//GLOB.CC_account 	//This is the account from which money is debited for salary. Made for catsmile tests
 
 	if(!GLOB.vendor_account)
 		GLOB.vendor_account = base_account //:catsmile:
