@@ -106,7 +106,7 @@ SUBSYSTEM_DEF(capitalism)
 
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
 		if(account.salary_payment_active && account.linked_job.salary && !account.suspended)
-			if(payment_account.charge(account.linked_job.salary, account, "Выплата зарплаты персоналу.", "Nanotrasen personal departament" , payment_account.owner_name, payment_account.owner_name , payment_account.owner_name))
+			if(payment_account.charge(account.linked_job.salary, account, "Выплата зарплаты персоналу.", "Nanotrasen personal departament" , "Поступление зарплаты.", "Biesel TCD Terminal #[rand(111,333)]" , payment_account.owner_name))
 				account.notify_pda_owner("<b>Поступление зарплаты </b>\"На ваш привязанный аккаунт поступило [account.linked_job.salary] кредитов\" (Невозможно Ответить)", FALSE)
 				total_salary_payment += account.linked_job.salary
 			else
