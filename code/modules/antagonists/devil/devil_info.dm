@@ -8,10 +8,10 @@
 
 /datum/devilinfo/New(name = randomDevilName())
 	truename = name
-	bane = randomdevilbane()
+	randomdevilbane()
 	obligation = randomdevilobligation()
 	ban = randomdevilban()
-	banish = randomdevilbanish()
+	randomdevilbanish()
 
 /datum/devilinfo/Destroy(force)
 	QDEL_NULL(banish)
@@ -55,9 +55,7 @@
 		LAZYADD(banes, bane)
 
 	var/new_bane = pick(banes)
-	new new_bane
-
-	return new_bane
+	bane = new new_bane()
 
 /datum/devilinfo/proc/randomdevilbanish()
 	var/list/banishes = list()
@@ -69,6 +67,4 @@
 		LAZYADD(banishes, banish)
 
 	var/new_banish = pick(banishes)
-	new new_banish
-
-	return new_banish
+	banish = new new_banish()

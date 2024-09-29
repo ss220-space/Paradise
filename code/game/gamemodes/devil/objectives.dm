@@ -4,7 +4,7 @@
 	var/list/target_minds = list()
 	needs_target = FALSE
 	check_cryo = FALSE
-	explanation_text = "meow"
+	explanation_text = ""
 
 /datum/objective/devil/sacrifice/New()
 	get_targets()
@@ -36,7 +36,11 @@
 		else
 			LAZYADD(other_minds, mind)
 
-	LAZYADD(target_minds, safepick(command_minds))
+	if(!LAZYLEN(command_minds) || LAZYLEN(security_minds < 3) || LAZYLEN(other_minds < 8))
+		addtimer(CALLBACK(src, PROC_REF(get_targets)), 60 SECONDS)
+		return
+
+	LAZYADD(target_minds, pick(command_minds))
 	LAZYADD(target_minds, security_minds.Copy(1, 4))
 	LAZYADD(target_minds, other_minds.Copy(1, 9))
 

@@ -5,7 +5,7 @@
 	special_role = ROLE_DEVIL
 	antag_hud_type = ANTAG_HUD_DEVIL
 
-	var/datum/devilinfo/info
+	var/datum/devilinfo/info = new
 	var/list/datum/mind/soulsOwned = new
 	var/datum/devil_rank/rank
 
@@ -118,7 +118,7 @@
 	if(!living.hud_used?.devilsouldisplay)
 		return
 
-	QDEL_NULL(living.hud_used.devilsouldisplay)
+	living.hud_used.devilsouldisplay = null
 
 /datum/antagonist/devil/greet()
 	var/list/messages = list()
@@ -135,21 +135,18 @@
 
 /datum/antagonist/devil/on_gain()
 	init_devil()
+	init_new_rank(BASIC_DEVIL_RANK)
 
 	. = ..()
 	if(!.)
 		return FALSE
-	
-	init_bane()
 
 	var/mob/living/carbon/human/human = owner.current
 	human.store_memory("Your devilic true name is [info.truename]<br>[GLOB.lawlorify[LAW][info.ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[info.bane.law]<br>[GLOB.lawlorify[LAW][info.obligation]]<br>[info.banish.law]<br>")
 
 	update_hud()
-	init_new_rank(BASIC_DEVIL_RANK)
 
 /datum/antagonist/devil/proc/init_devil()
-	info = new info()
 	GLOB.allDevils[lowertext(info.truename)] = src
 
 	return

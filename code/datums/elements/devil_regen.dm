@@ -74,16 +74,13 @@
     
     linked_timer = addtimer(CALLBACK(src, PROC_REF(apply_regeneration), human, devil), devil.rank.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE)
 
-/datum/element/devil_regeneration/proc/on_revive(mob/living/carbon/carbon)
-    if(!linked_timer)
-        return
-
+/datum/element/devil_regeneration/proc/on_revive()
     deltimer(linked_timer)
     linked_timer = null
 
 /datum/element/devil_regeneration/proc/apply_regeneration(mob/living/carbon/human, datum/antagonist/devil/devil)
     if(human.health >= human.maxHealth)
-        on_revive(human)
+        on_revive()
 
     human.heal_damages(
         devil.rank.regen_amount, 
