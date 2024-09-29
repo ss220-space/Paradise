@@ -12,8 +12,17 @@
 	var/removable = null     //Can the kit be removed?
 	var/list/allowed_types = list() //Types of mech that the kit will work on.
 
+	///This var opens an advanced interaction for mech reskins
+	var/advanced = FALSE
+
 //If you want to add new paintkit, grab a paintkit sprite from: "icons/obj/paintkit.dmi" or make a new one
 //Then throw the sprites of the new mecha skin to the "icons/obj/mecha/mecha.dmi and add a new object below"
+
+/obj/item/universal_paintkit
+	name = "universal customisation kit"
+	desc = "A kit containing all the needed tools and parts to repaint the mech as many times as they wish."
+	icon = 'icons/obj/paintkit.dmi'
+	icon_state = "paintkit"
 
 /obj/item/paintkit/ripley_titansfist
 	name = "APLU \"Titan's Fist\" customisation kit"

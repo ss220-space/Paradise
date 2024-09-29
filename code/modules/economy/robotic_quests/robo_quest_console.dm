@@ -379,13 +379,15 @@
 /obj/machinery/roboquest_pad/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/roboquest_pad(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	if(advanced)
 		component_parts += new /obj/item/stock_parts/capacitor/purple(null)
 		component_parts += new /obj/item/stock_parts/manipulator/purple(null)
 		component_parts += new /obj/item/stock_parts/scanning_module/purple(src)
+		component_parts += new /obj/item/circuitboard/advanced_roboquest_pad(null)
+	else
+		component_parts += new /obj/item/circuitboard/roboquest_pad(null)
 	RefreshParts()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
@@ -409,7 +411,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I)
+	default_deconstruction_screwdriver(user, "pad-idle-o", icon_state, I)
 
 /obj/machinery/roboquest_pad/proc/teleport(atom/destination, datum/roboquest/quest, obj/machinery/computer/roboquest/console, var/penalty)
 	do_sparks(5, 1, get_turf(src))

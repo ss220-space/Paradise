@@ -138,8 +138,8 @@ export const RoboQuest = (props, context) => {
                   <Box>
                     Магазин чертежей
                     <Box>
-                      Очки: <b style={{ color: 'brown' }}>{points.working}</b>
-                      |<b style={{ color: 'lightblue' }}>{points.medical}</b>|
+                      Очки: <b style={{ color: 'brown' }}>{points.working}</b>|
+                      <b style={{ color: 'lightblue' }}>{points.medical}</b>|
                       <b style={{ color: 'red' }}>{points.security}</b>
                     </Box>
                   </Box>
@@ -200,11 +200,11 @@ export const RoboQuest = (props, context) => {
                     icon="cog"
                     tooltipPosition="bottom"
                     tooltip="Изменение стиля интерфейса."
-                    onClick={() => act('ChangeStyle')} />
+                    onClick={() => act('ChangeStyle')}
+                  />
                 </>
               }
             >
-
               {!!name && (
                 <>
                   Здраствуйте,
@@ -216,21 +216,31 @@ export const RoboQuest = (props, context) => {
 
               <>
                 <br />
-                При получении заказа на экзкостюм,
-                выбор подтипа меха определяет
-                тип специализированных очков, которые
-                будут начислены за выполнение заказа.
+                При получении заказа на экзкостюм, выбор подтипа меха определяет
+                тип специализированных очков, которые будут начислены за
+                выполнение заказа.
                 <br />
                 <br />
-                Рабочие экзокостюмы приносят <Box inline color={'brown'}> коричневые</Box> очки.
-                Медицинские экзокостюмы приносят <Box inline color={'teal'}> голубые</Box> очки.
-                Боевые экзокостюмы приносят <Box inline color={'red'}> красные</Box> очки.
+                Рабочие экзокостюмы приносят{' '}
+                <Box inline color={'brown'}>
+                  {' '}
+                  коричневые
+                </Box>{' '}
+                очки. Медицинские экзокостюмы приносят{' '}
+                <Box inline color={'teal'}>
+                  {' '}
+                  голубые
+                </Box>{' '}
+                очки. Боевые экзокостюмы приносят{' '}
+                <Box inline color={'red'}>
+                  {' '}
+                  красные
+                </Box>{' '}
+                очки.
                 <br />
                 <br />
-                Каждый мех, вне зависимости от подтипа,
-                приносит некоторое количество очков
-                для магазина особых наград.
-
+                Каждый мех, вне зависимости от подтипа, приносит некоторое
+                количество очков для магазина особых наград.
               </>
             </Section>
           </Stack.Item>
@@ -318,17 +328,23 @@ export const RoboQuest = (props, context) => {
                   />
                 </Box>
                 <box mb="1.5rem" textAlign="center">
-                <Button
-                  icon="arrow-up"
-                  width="30rem"
-                  bold
-                  content="Телепортировать мех"
-                  textAlign="center"
-                  tooltipPosition="bottom"
-                  tooltip="Мгновенная телепортация меха заказчику."
-                  disabled={!hasID || !hasTask || !canSend || cooldown || !instant_teleport }
-                  onClick={() => act('SendMech', { type: 'instant' })}
-                />
+                  <Button
+                    icon="arrow-up"
+                    width="30rem"
+                    bold
+                    content="Телепортировать мех"
+                    textAlign="center"
+                    tooltipPosition="bottom"
+                    tooltip="Мгновенная телепортация меха заказчику."
+                    disabled={
+                      !hasID ||
+                      !hasTask ||
+                      !canSend ||
+                      cooldown ||
+                      !instant_teleport
+                    }
+                    onClick={() => act('SendMech', { type: 'instant' })}
+                  />
                 </box>
               </Section>
             )}
@@ -361,7 +377,7 @@ export const RoboQuest = (props, context) => {
                         content={i.desc}
                         onClick={() =>
                           act('buyItem', {
-                            item: i.path,
+                            item: i.actual_item,
                           })
                         }
                       />
