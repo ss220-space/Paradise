@@ -87,7 +87,6 @@
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
 
-	//я бы таким гандонам вобще не платил
 	salary = 100
 	min_start_money = 100
 	max_start_money = 300
