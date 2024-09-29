@@ -81,7 +81,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/list/current_painting
 
 /obj/item/pda/emag_act(mob/user)
-	if (!user.mind.special_role && !is_admin(user) || !hidden_uplink)
+	if(!user.mind.special_role && !is_admin(user) || !hidden_uplink)
 		explode()
 	else
 		hidden_uplink.trigger(user)
