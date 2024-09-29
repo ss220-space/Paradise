@@ -65,10 +65,10 @@
 	var/spawn_ert = 0
 	var/syndicate_command = 0
 
-	//legacy_system 
+	//legacy_system_start
 	var/money_factor = 1 // multiplier of starting funds
 	var/random_money_factor = FALSE // is miltiplier randomized (from 4x to 0.25x for now)
-
+	//legacy_system_end
 	var/salary = 0
 	var/min_start_money = 0
 	var/max_start_money = 0
