@@ -627,7 +627,6 @@
 	minimal_access = list()
 	outfit = /datum/outfit/job/barber
 
-	//вот бы вырезать это...
 	salary = 100
 	min_start_money = 100
 	max_start_money = 300
