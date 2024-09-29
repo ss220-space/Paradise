@@ -734,10 +734,10 @@
 	desc = "A sinister, thin sheath, suitable for a rapier."
 	icon_state = "syndie_sheath"
 	item_state = "syndie_sheath"
-	can_hold = list(/obj/item/melee/rapier/poisoned/syndie)
+	can_hold = list(/obj/item/melee/rapier/syndie)
 
 /obj/item/storage/belt/rapier/syndie/populate_contents()
-	new /obj/item/melee/rapier/poisoned/syndie(src)
+	new /obj/item/melee/rapier/syndie(src)
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/rapier/centcomm
@@ -745,10 +745,10 @@
 	desc = "Украшенные ножны, корпоративный кич в комплекте."
 	icon_state = "centcomm_sheath"
 	item_state = "centcomm_sheath"
-	can_hold = list(/obj/item/melee/rapier/poisoned/centcomm)
+	can_hold = list(/obj/item/melee/rapier/centcomm)
 
 /obj/item/storage/belt/rapier/centcomm/populate_contents()
-	new /obj/item/melee/rapier/poisoned/centcomm(src)
+	new /obj/item/melee/rapier/centcomm(src)
 	update_appearance(UPDATE_ICON_STATE)
 
 // -------------------------------------

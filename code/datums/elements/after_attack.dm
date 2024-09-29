@@ -10,6 +10,7 @@
 
 /datum/element/after_attack/Attach(datum/target)
 	. = ..()
+	target.AddComponent(/datum/component/after_attacks_hub)
 	SEND_SIGNAL(target, COMSIG_ITEM_REGISTER_AFTERATTACK, src, PROC_REF(on_attack))
 
 /datum/element/after_attack/Detach(datum/source, force)
@@ -18,7 +19,7 @@
 
 /datum/element/after_attack/proc/on_attack(datum/source, mob/living/target, mob/living/user, proximity, params, status)
 	SIGNAL_HANDLER
-	if(ATTACK_CHAIN_SUCCESS_CHECK(status) || !has_block_different_effect)
+	if(!has_block_different_effect || ATTACK_CHAIN_SUCCESS_CHECK(status))
 		on_success(source, target, user, proximity, params)
 		return
 	on_block(source, target, user, proximity, params)

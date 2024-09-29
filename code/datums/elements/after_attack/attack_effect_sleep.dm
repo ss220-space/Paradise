@@ -1,5 +1,7 @@
 /datum/element/after_attack/attack_effect_sleep
+	/// How much stamina damage we deal on a successful hit against a living, non-cyborg mob.
 	var/stamina_damage
+	/// How long will the victim sleep.
 	var/sleep_time
 
 

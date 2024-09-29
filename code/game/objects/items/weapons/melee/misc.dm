@@ -37,7 +37,6 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 50
-	block_type = MELEE_ATTACKS
 	armour_penetration = 75
 	sharp = TRUE
 	origin_tech = "combat=5"
@@ -53,42 +52,37 @@
 	desc = "An elegant weapon, for a more civilized age."
 	icon_state = "rapier"
 	item_state = "rapier"
+	block_type = MELEE_ATTACKS
 
-/obj/item/melee/rapier/poisoned
-	block_type = ALL
-	origin_tech = "combat=5;biotech=5;syndicate=4"
-	materials = null
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	/// How much stamina damage we deal on a successful hit against a living, non-cyborg mob.
-	var/stamina_damage = 30
-	var/sleep_time = 10 SECONDS
-
-
-/obj/item/melee/rapier/poisoned/Initialize()
-	. = ..()
-	AddComponent(/datum/component/after_attacks_hub)
-	AddElement(/datum/element/after_attack/attack_effect_sleep, stamina_damage, sleep_time)
-
-
-/obj/item/melee/rapier/poisoned/syndie
+/obj/item/melee/rapier/syndie
 	name = "plastitanium rapier"
 	desc = "A thin blade made of plastitanium with a diamond tip. It appears to be coated in a persistent layer of an unknown substance."
 	icon_state = "syndie_rapier"
 	item_state = "syndie_rapier"
+	origin_tech = "combat=5;biotech=5;syndicate=4"
+	materials = null
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/item/melee/rapier/poisoned/centcomm
+
+/obj/item/melee/rapier/syndie/ComponentInitialize()
+	AddElement(/datum/element/after_attack/attack_effect_sleep, 30, 10 SECONDS)
+
+
+/obj/item/melee/rapier/centcomm
 	name = "centcomm plastitanium rapier"
 	desc = "Симбиоз непозволительной роскоши и статуса с титановым лезвием на вашем поясе, обладатель этого шедевра оружейного дела может похвастаться тем, что постиг корпоративную вершину."
 	icon_state = "centcomm_rapier"
 	item_state = "centcomm_rapier"
+	origin_tech = "combat=5;biotech=5;syndicate=4"
+	materials = null
 	force = 25
 	throwforce = 20
 	block_chance = 95
 	armour_penetration = 100
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	stamina_damage = 100
 	actions_types = list(/datum/action/item_action/toggle_rapier_nodrop)
 
+/obj/item/melee/rapier/centcomm/ComponentInitialize()
+	AddElement(/datum/element/after_attack/attack_effect_sleep, 100, 10 SECONDS)
 
 
 /obj/item/melee/rapier/poisoned/centcomm/attack_self(mob/user)
@@ -101,6 +95,7 @@
 	else
 		ADD_TRAIT(src, TRAIT_NODROP, CENTCOMM_RAPIER_TRAIT)
 		to_chat(usr, span_warning("Вы сжимаете рукоятку [src] со всей силы. Теперь ничто не может выбить у вас оружие из рук!"))
+
 
 /obj/item/melee/mantisblade
 	name = "Gorlex mantis blade"
