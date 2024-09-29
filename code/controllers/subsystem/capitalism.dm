@@ -147,7 +147,7 @@ SUBSYSTEM_DEF(capitalism)
 	return
 
 // In short, as for beggars, but for departments
-/datum/controller/subsystem/capitalism/proc/smart_deportament_payment(var/list/keys_deportament, var/money)
+/datum/controller/subsystem/capitalism/proc/smart_departament_payment(var/list/keys_departament, var/money)
 	. = FALSE 							//Если никому ничего не уплочено
 	var/list_payment_account = list() 	//каким челикам платить
 	var/bounty = 0 						//Какую денежку каждому депортаменту
