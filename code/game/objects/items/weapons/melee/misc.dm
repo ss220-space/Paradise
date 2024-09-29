@@ -85,7 +85,7 @@
 	AddElement(/datum/element/after_attack/attack_effect_sleep, 100, 10 SECONDS)
 
 
-/obj/item/melee/rapier/poisoned/centcomm/attack_self(mob/user)
+/obj/item/melee/rapier/centcomm/attack_self(mob/user)
 	. = ..()
 	if(!usr.is_in_hands(src))
 		return .

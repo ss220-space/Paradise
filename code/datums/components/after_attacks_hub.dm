@@ -1,7 +1,5 @@
 /datum/component/after_attacks_hub
 	dupe_mode = COMPONENT_DUPE_UNIQUE
-	/// List of after-attack procs
-	var/list/after_attacks_procs = list()
 	/// List of after-attack effects for various items
 	var/list/after_attacks = list()
 
@@ -25,19 +23,17 @@
 
 /datum/component/after_attacks_hub/proc/on_after_attack(datum/source, mob/living/target, mob/living/user, proximity, params, status)
 	SIGNAL_HANDLER
-	for(var/ref in after_attacks_procs)
-		call(after_attacks[ref], ref)(source, target, user, proximity, params, status);
+	for(var/datum/sender in after_attacks)
+		call(sender, after_attacks[sender])(source, target, user, proximity, params, status);
 
 
 /datum/component/after_attacks_hub/proc/on_register_after_attack(datum/source, datum/sender, proc_ref)
 	SIGNAL_HANDLER
-	after_attacks_procs |= proc_ref
-	after_attacks[proc_ref] = sender
+	after_attacks[sender] = proc_ref
 
 
-/datum/component/after_attacks_hub/proc/on_unregister_after_attack(datum/source, proc_ref)
+/datum/component/after_attacks_hub/proc/on_unregister_after_attack(datum/source, datum/sender)
 	SIGNAL_HANDLER
-	after_attacks_procs -= proc_ref
-	after_attacks -= proc_ref
+	after_attacks -= sender
 	if(!after_attacks.len)
-		_RemoveFromParent()
+		qdel(src)
