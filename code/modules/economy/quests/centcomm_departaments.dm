@@ -177,15 +177,15 @@
 
 /datum/quest_customer/corp/send_reward(reward, var/list/copmpleted_quests = list())
 	var/list/nishebrod_jobs = list()
-	var/list/linked_deportaments = list() //HEHE HI HA
+	var/list/linked_departaments = list() //HEHE HI HA
 	var/personals_reward = round(reward * PERCENTAGE_PAYMENTS_PERSONAL)
 	for(var/datum/cargo_quest/quest in copmpleted_quests)
 		nishebrod_jobs |= quest.bounty_jobs
-		linked_deportaments |= quest.linked_deportament
+		linked_departaments |= quest.linked_departament
 
 	//Если не то платит на счет отдела
 	if(!SScapitalism.smart_bounty_payment(nishebrod_jobs, personals_reward))
-		SScapitalism.smart_deportament_payment(linked_deportaments, personals_reward)
+		SScapitalism.smart_deportament_payment(linked_departaments, personals_reward)
 
 	SScapitalism.total_station_bounty += round(reward * PERCENTAGE_PAYMENTS_STATION)
 	var/datum/money_account/station_money_account = SScapitalism.base_account
