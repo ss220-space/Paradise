@@ -5,7 +5,7 @@
 	quest_type_name = "Chemical"
 	req_items = list(/obj/item/reagent_containers)
 	bounty_jobs = (JOB_TITLE_CHEMIST)
-	linked_deportament = "Medical"
+	linked_departament = "Medical"
 
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL)
 
@@ -84,7 +84,7 @@
 /datum/cargo_quest/reagents/drinks
 	quest_type_name = "Drink"
 	bounty_jobs = list(JOB_TITLE_BARTENDER)
-	linked_deportament = "Support"
+	linked_departament = "Support"
 
 	repeated_reagents = list(
 		"b52" = list("volume" = 30,"reward" = 60),
