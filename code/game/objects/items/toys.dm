@@ -1508,7 +1508,7 @@
 	LAZYADD(messages, devil.bane.law)
 	LAZYADD(messages, GLOB.lawlorify[LAW][devil.ban])
 	LAZYADD(messages, GLOB.lawlorify[LAW][devil.obligation])
-	LAZYADD(messages, GLOB.lawlorify[LAW][devil.banish])
+	LAZYADD(messages, devil.banish.law)
 
 	playsound(loc, 'sound/machines/click.ogg', 20, 1)
 	COOLDOWN_START(src, cooldown, 2 SECONDS)

@@ -107,12 +107,6 @@ GLOBAL_LIST_INIT(lawlorify, list (
 			BAN_STRIKEUNCONSCIOUS = "This devil only shows interest in those who are awake.",
 			BAN_HURTLIZARD = "This devil will not strike a lizardman first.",
 			BAN_HURTANIMAL = "This devil avoids hurting animals.",
-			BANISH_WATER = "To banish the devil, you must infuse its body with holy water.",
-			BANISH_COFFIN = "This devil will return to life if its remains are not placed within a coffin.",
-			BANISH_FORMALDYHIDE = "To banish the devil, you must inject its lifeless body with embalming fluid.",
-			BANISH_RUNES = "This devil will resurrect after death, unless its remains are within a rune.",
-			BANISH_CANDLES = "A large number of nearby lit candles will prevent it from resurrecting.",
-			BANISH_FUNERAL_GARB = "If clad in funeral garments, this devil will be unable to resurrect.  Should the clothes not fit, lay them gently on top of the devil's corpse."
 		),
 		LAW = list(
 			OBLIGATION_FOOD = "When not acting in self defense, you must always offer your victim food before harming them.",
@@ -130,12 +124,6 @@ GLOBAL_LIST_INIT(lawlorify, list (
 			BAN_STRIKEUNCONSCIOUS = "You must never strike an unconscious person.",
 			BAN_HURTLIZARD = "You must never harm a lizardman outside of self defense.",
 			BAN_HURTANIMAL = "You must never harm a non-sentient creature or robot outside of self defense.",
-			BANISH_WATER = "If your corpse is filled with holy water, you will be unable to resurrect.",
-			BANISH_COFFIN = "If your corpse is in a coffin, you will be unable to resurrect.",
-			BANISH_FORMALDYHIDE = "If your corpse is embalmed, you will be unable to resurrect.",
-			BANISH_RUNES = "If your corpse is placed within a rune, you will be unable to resurrect.",
-			BANISH_CANDLES = "If your corpse is near lit candles, you will be unable to resurrect.",
-			BANISH_FUNERAL_GARB = "If your corpse is clad in funeral garments, you will be unable to resurrect."
 		)
 	))
 

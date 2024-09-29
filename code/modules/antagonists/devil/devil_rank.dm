@@ -9,6 +9,14 @@
 	var/regen_threshold
 	var/regen_amount
 
+/datum/devil_rank/Destroy(force)
+	remove_spells()
+
+	devil = null
+	owner = null
+
+	return ..()
+
 /datum/devil_rank/proc/link_rank(mob/living/carbon/carbon)
 	owner = carbon
 	devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)

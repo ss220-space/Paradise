@@ -38,7 +38,7 @@
         stop_banishment_check()
         return
 
-    if(!check_banishment(human, devil))
+    if(!devil.info.banish.check_banishment())
         return
 
     human.dust()
@@ -49,39 +49,3 @@
 
     deltimer(linked_timer)
     linked_timer = null
-
-/datum/element/devil_banishment/proc/check_banishment(mob/living/carbon/human, datum/antagonist/devil/devil)
-	switch(devil.info.banish)
-		if(BANISH_WATER)
-			return human.reagents?.has_reagent("holy water")
-
-		if(BANISH_COFFIN)
-			return (istype(human?.loc, /obj/structure/closet/coffin))
-
-		if(BANISH_FORMALDYHIDE)
-			return human.reagents?.has_reagent("formaldehyde")
-
-		if(BANISH_RUNES)
-			for(var/obj/effect/decal/cleanable/crayon/R in range(0, human))
-				return R.name == "rune"
-
-		if(BANISH_CANDLES)
-			var/count = 0
-
-			for(var/obj/item/candle/candle in range(1, human))
-				count += candle.lit
-
-			return count >= 4
-
-		if(BANISH_FUNERAL_GARB)
-			if(!ishuman(human)) // can be true devil
-				return FALSE
-
-			var/mob/living/carbon/human/carbon = human 
-			if(carbon.w_uniform && istype(carbon.w_uniform, /obj/item/clothing/under/burial))
-				return TRUE
-			
-			for(var/obj/item/clothing/under/burial/burial in range(0, human))
-				return burial.loc == get_turf(burial)
-
-	return FALSE
