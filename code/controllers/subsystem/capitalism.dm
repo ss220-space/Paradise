@@ -138,11 +138,11 @@ SUBSYSTEM_DEF(capitalism)
 	. = FALSE //If nothing is paid to anyone
 
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
-		if(job_titles?[account.linked_job.title] && account.salary_payment_active && !account.suspended)
+		if(jobs_payment?[account.linked_job.title] && account.salary_payment_active && !account.suspended)
 			
-			if(account.credit(job_titles[account.linked_job.title], "Начисление награды за выполнение цели.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name))
+			if(account.credit(jobs_payment[account.linked_job.title], "Начисление награды за выполнение цели.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name))
 				total_personal_bounty += money
-				account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [job_titles[account.linked_job.title]] кредитов за помощь в выполнении цель станции.\" (Невозможно Ответить)", FALSE)
+				account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [jobs_payment[account.linked_job.title]] кредитов за помощь в выполнении цель станции.\" (Невозможно Ответить)", FALSE)
 				. = TRUE
 	return
 
