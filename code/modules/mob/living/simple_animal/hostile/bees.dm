@@ -12,8 +12,7 @@
 /mob/living/simple_animal/hostile/poison/bees
 	name = "bee"
 	desc = "Buzzy buzzy bee, stingy sti- Ouch!"
-	icon_state = ""
-	icon_living = ""
+	icon_state = "bee"
 	icon = 'icons/mob/bees.dmi'
 	gender = FEMALE
 	speak_emote = list("buzzes")
@@ -32,6 +31,7 @@
 	obj_damage = 0
 	environment_smash = 0
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
@@ -48,7 +48,6 @@
 	var/idle = 0
 	var/isqueen = FALSE
 	var/bee_syndicate = FALSE
-	var/icon_base = "bee"
 	var/static/list/bee_icons = list()
 	var/static/beehometypecache = typecacheof(/obj/structure/beebox)
 	var/static/hydroponicstypecache = typecacheof(/obj/machinery/hydroponics)
@@ -58,7 +57,7 @@
 
 /mob/living/simple_animal/hostile/poison/bees/Initialize(mapload)
 	. = ..()
-	generate_bee_visuals()
+	regenerate_icons()
 	AddComponent(/datum/component/swarming)
 	AddElement(/datum/element/simple_flying)
 
@@ -93,38 +92,26 @@
 		. += movable
 
 
-// All bee sprites are made up of overlays. They do not have any special sprite overlays for items placed on them, such as collars, so this proc is unneeded.
 /mob/living/simple_animal/hostile/poison/bees/regenerate_icons()
-	return
-
-/mob/living/simple_animal/hostile/poison/bees/proc/generate_bee_visuals()
-	cut_overlays()
+	..()
 
 	var/col = BEE_DEFAULT_COLOUR
 	if(beegent && beegent.color)
 		col = beegent.color
 
-	var/image/base
-	if(!bee_icons["[icon_base]_base"])
-		bee_icons["[icon_base]_base"] = image(icon = 'icons/mob/bees.dmi', icon_state = "[icon_base]_base")
-	base = bee_icons["[icon_base]_base"]
-	add_overlay(base)
-
 	var/image/greyscale
-	if(!bee_icons["[icon_base]_grey_[col]"])
-		bee_icons["[icon_base]_grey_[col]"] = image(icon = 'icons/mob/bees.dmi', icon_state = "[icon_base]_grey")
-	greyscale = bee_icons["[icon_base]_grey_[col]"]
+	if(!bee_icons["[initial(icon_state)]_grey_[col]"])
+		bee_icons["[initial(icon_state)]_grey_[col]"] = image(icon = 'icons/mob/bees.dmi', icon_state = "[initial(icon_state)]_grey")
+	greyscale = bee_icons["[initial(icon_state)]_grey_[col]"]
 	greyscale.color = col
 	add_overlay(greyscale)
 
 	var/image/wings
-	if(!bee_icons["[icon_base]_wings"])
-		bee_icons["[icon_base]_wings"] = image(icon = 'icons/mob/bees.dmi', icon_state = "[icon_base]_wings")
-	wings = bee_icons["[icon_base]_wings"]
+	if(!bee_icons["[initial(icon_state)]_wings"])
+		bee_icons["[initial(icon_state)]_wings"] = image(icon = 'icons/mob/bees.dmi', icon_state = "[initial(icon_state)]_wings")
+	wings = bee_icons["[initial(icon_state)]_wings"]
 	add_overlay(wings)
 
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
 
 //We don't attack beekeepers/people dressed as bees/wryns //Todo: bee costume
 /mob/living/simple_animal/hostile/poison/bees/CanAttack(atom/the_target)
@@ -177,7 +164,7 @@
 	if(istype(R))
 		beegent = R
 		name = "[initial(name)] ([R.name])"
-		generate_bee_visuals()
+		regenerate_icons()
 
 /mob/living/simple_animal/hostile/poison/bees/proc/pollinate(obj/machinery/hydroponics/Hydro)
 	if(!istype(Hydro) || !Hydro.myseed || Hydro.dead || Hydro.recent_bee_visit || Hydro.lid_closed)
@@ -234,7 +221,7 @@
 /mob/living/simple_animal/hostile/poison/bees/queen
  	name = "queen bee"
  	desc = "She's the queen of bees, BZZ BZZ"
- 	icon_base = "queen"
+ 	icon_state = "queen"
  	isqueen = TRUE
 
 

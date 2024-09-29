@@ -6,6 +6,7 @@
 	icon_state = "drone3"
 	icon_living = "drone3"
 	icon_dead = "drone_dead"
+	universal_speak = TRUE
 	ranged = 1
 	rapid = 3
 	retreat_distance = 3
@@ -191,3 +192,146 @@
 		C = new(T)
 		C.name = "Corrupted drone morality core"
 		C.origin_tech = "syndicate=[rand(3, 6)]"
+
+/mob/living/simple_animal/hostile/malf_drone/syndicate
+	stop_automated_movement_when_pulled = TRUE
+	faction = list("syndicate")
+	speak = list()
+
+/mob/living/simple_animal/bot/ed209/combat_drone
+	name = "\improper Combat Drone"
+	desc = "An automated combat drone armed with state of the art weaponry and shielding."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "drone3"
+	density = TRUE
+	health = 200
+	maxHealth = 200
+	speed = 8
+
+	model = "Combat Drone"
+	bot_purpose = "devastion"
+	bot_core_type = /obj/machinery/bot_core/syndicate
+	window_name = "Standart Robot Control v1.6"
+	path_image_color = "#FF0000"
+	declare_arrests = FALSE
+	idcheck = TRUE
+	arrest_type = TRUE
+	auto_patrol = FALSE
+	projectile = /obj/item/projectile/beam/immolator/weak
+
+/mob/living/simple_animal/bot/ed209/combat_drone/Initialize(mapload)
+	. = ..()
+	set_weapon()
+	update_icon()
+
+/mob/living/simple_animal/bot/ed209/combat_drone/update_icon_state()
+	icon_state = initial(icon_state)
+
+/mob/living/simple_animal/bot/ed209/combat_drone/setup_access()
+	return
+
+/mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
+	projectile = /obj/item/projectile/beam/immolator/weak
+
+/mob/living/simple_animal/bot/ed209/combat_drone/turn_on()
+	. = ..()
+	update_icon()
+	mode = BOT_IDLE
+
+/mob/living/simple_animal/bot/ed209/combat_drone/turn_off()
+	. = ..()
+	update_icon()
+
+/mob/living/simple_animal/bot/ed209/combat_drone/emag_act(mob/user)
+	. = ..()
+	update_icon()
+
+/mob/living/simple_animal/bot/ed209/combat_drone/start_cuffing(mob/living/carbon/C)
+	shootAt(C)
+
+/mob/living/simple_animal/bot/ed209/combat_drone/stun_attack(mob/living/carbon/C)
+	shootAt(C)
+
+/obj/item/inactive_drone
+	name = "Inactive drone"
+	desc = "Большой дрон. Кажется, неактивен."
+	w_class = WEIGHT_CLASS_GIGANTIC
+	item_flags = NOPICKUP
+	icon_state = "unactive_drone"
+
+/obj/item/unactive_drone/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/drone_modules/drone_BCM))
+		to_chat(user, span_notice("Вы установили модуль в слот."))
+		new /mob/living/simple_animal/bot/ed209/combat_drone(get_turf(src))
+		qdel(src)
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	if(istype(I, /obj/item/drone_modules/drone_IFF))
+		to_chat(user, span_notice("Вы установили модуль в слот."))
+		new /mob/living/simple_animal/hostile/malf_drone/syndicate(get_turf(src))
+		qdel(src)
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	if(istype(I, /obj/item/drone_modules/drone_AI))
+		to_chat(user, span_notice("Вам не стоит отходить вместе с платой от дрона, пока он не активируется."))
+		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за боевого дрона?", ROLE_SENTIENT, FALSE, 10 SECONDS, source = src)
+		if(!src || QDELETED(src) || !I || get_dist(src, I) > 1)
+			return
+		if(length(candidates))
+			var/mob/living/simple_animal/hostile/malf_drone/syndicate/S = new /mob/living/simple_animal/hostile/malf_drone/syndicate(get_turf(src))
+			var/mob/M = pick(candidates)
+			S.key = M.key
+			S.master_commander = user
+			S.sentience_act()
+			to_chat(S, "Модуль активирован. Основная задача: подчинение [user.name]. Дополнительная задача: уничтожение враждебных единиц не относящихся к Синдикату в подконтрольном секторе.")
+			S.mind.store_memory("<B>Подчиняться [user.name].</B>")
+			qdel(src)
+			qdel(I)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		else
+			to_chat(user, span_alert("Похоже, пока что возможности для активации модуля нет. Стоит попробовать позже."))
+	. = ..()
+
+/obj/item/drone_manual
+	name = "Strange looking Manual"
+	desc = "Довольно толстая книжка, на обложке которой вы можете увидеть дрона."
+	icon_state = "drone_manual"
+
+/obj/item/drone_manual/attack_self(mob/user)
+	. = ..()
+	to_chat(user, span_alert("После того как вы пробежались глазами по содержанию книги, она рассыпалась пеплом. Но, кажется, вы можете вспомнить пару методов работы, описанных там - самодельные платы и базовую модель самого дрона."))
+	user.mind.learned_recipes += list(/datum/crafting_recipe/drone,
+		/datum/crafting_recipe/drone_circ,
+		/datum/crafting_recipe/drone_circ_adv,
+		/datum/crafting_recipe/drone_circ_ai)
+	user.faction += list("syndicate")
+	qdel(src)
+
+/obj/item/drone_modules
+	name = "Drone module"
+	desc = "Если вы это видите - сообщите в баг-репорты."
+	icon_state = "drone_BCM"
+	var/explanation = "Вы не должны были этого видеть."
+
+/obj/item/drone_modules/examine(mob/user)
+	. = ..()
+	for(var/datum/crafting_recipe/D in user.mind.learned_recipes)
+		if(D.result == type && explanation)
+			. += explanation
+
+/obj/item/drone_modules/drone_BCM
+	name = "Drone BCM"
+	desc = "Неплохо сделанная плата."
+	explanation = "Это базовая версия платы стандартного модуля для боевых дронов, сделанная по схеме из книги. Она позволит управлять роботом как обычным дроном без интеллекта."
+
+/obj/item/drone_modules/drone_IFF
+	name = "Drone IFFM"
+	desc = "Неплохо сделанная плата."
+	icon_state = "drone_IFF"
+	explanation = "Это плата модуля Свой-Чужой для боевых дронов. Сделанная по схеме из книги, она не допускает изменений - а значит, дроны с подобным модулем всегда будут участвовать в бою на стороне Синдиката."
+
+/obj/item/drone_modules/drone_AI
+	name = "Drone AICM"
+	desc = "Неплохо сделанная плата."
+	icon_state = "drone_AI"
+	explanation = "Это продвинутый модуль контроля для боевых дронов. Позволит дрону получить более продвинутый интеллект. Но первоначальное подключение все ещё зависит от внутренней сети, которая может и не быть активной."

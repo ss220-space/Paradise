@@ -8,10 +8,16 @@
 
 /datum/surgery_step/open_encased/saw
 	name = "saw bone"
+	begin_sound = list(
+		TOOL_SAW = 'sound/surgery/saw1.ogg',
+		TOOL_WIRECUTTER = 'sound/surgery/scalpel1.ogg',
+		/obj/item/hatchet = 'sound/surgery/scalpel1.ogg',
+	)
+	end_sound = 'sound/surgery/amputation.ogg'
 	allowed_tools = list(
 		TOOL_SAW = 100,
 		/obj/item/hatchet = 90,
-		/obj/item/wirecutters = 70
+		TOOL_WIRECUTTER = 70
 	)
 
 	time = 5.4 SECONDS
@@ -55,6 +61,9 @@
 
 /datum/surgery_step/open_encased/retract
 	name = "retract bone"
+	begin_sound = 'sound/surgery/organ2.ogg'
+	end_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/scalpel/laser/manager = 100,
 		TOOL_RETRACTOR = 100,
@@ -104,6 +113,9 @@
 
 /datum/surgery_step/open_encased/close
 	name = "unretract bone" //i suck at names okay? give me a new one
+	begin_sound = 'sound/surgery/organ2.ogg'
+	end_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/scalpel/laser/manager = 100,
 		TOOL_RETRACTOR = 100,
@@ -150,6 +162,9 @@
 
 /datum/surgery_step/open_encased/mend
 	name = "mend bone"
+	begin_sound = 'sound/surgery/bonegel.ogg'
+	end_sound = 'sound/surgery/hemostat1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_BONEGEL = 100,
 		TOOL_SCREWDRIVER = 90

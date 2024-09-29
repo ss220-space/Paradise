@@ -13,6 +13,9 @@
 
 /datum/surgery_step/reshape_face
 	name = "reshape face"
+	begin_sound = 'sound/surgery/scalpel1.ogg'
+	end_sound = 'sound/surgery/scalpel2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(TOOL_SCALPEL = 100, /obj/item/kitchen/knife = 50, /obj/item/wirecutters = 35)
 	time = 6.4 SECONDS
 
