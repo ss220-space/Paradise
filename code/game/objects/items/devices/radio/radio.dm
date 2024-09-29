@@ -117,7 +117,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
 
 /obj/item/radio/emag_act(mob/user)
-	if (!user.mind.special_role && !is_admin(user) || !hidden_uplink)
+	if(!user.mind.special_role && !is_admin(user) || !hidden_uplink)
 		var/turf/T = get_turf(loc)
 
 		if(ismob(loc))
