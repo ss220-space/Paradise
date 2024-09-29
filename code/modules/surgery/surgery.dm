@@ -198,6 +198,14 @@
 	/// How many times this step has been automatically repeated.
 	var/times_repeated = 0
 
+	/// Sound played when the step is started. It can be a list. Format if it is a list `path/tool_behaviour = 'sound path'`.
+	/// Pay attention to the sequence in the list.
+	var/begin_sound
+	/// Sound played if the step succeeded
+	var/end_sound
+	/// Sound played if the step fails
+	var/fail_sound
+
 	// evil infection stuff that will make everyone hate me
 
 	/// Whether this surgery step can cause an infection.
@@ -332,6 +340,8 @@
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_SUCCESS
 
+	play_begin_sound(user, target, tool)
+
 	if(tool)
 		speed_mod = tool.toolspeed * user.get_actionspeed_by_category(DA_CAT_SURGERY)
 
@@ -342,10 +352,7 @@
 
 	// They also have some interesting ways that surgery success/fail prob get evaluated, maybe worth looking at
 	speed_mod /= (get_location_modifier(target) * 1 + surgery.speed_modifier) * implement_speed_mod
-	var/modded_time = time * speed_mod
-
-	if(slowdown_immune(user))
-		modded_time = time
+	var/modded_time = slowdown_immune(user) ? time : time * speed_mod
 
 	if(implement_type)	// If this is set, we aren't in an allow_hand or allow_any_item step.
 		prob_success = allowed_tools[implement_type]
@@ -363,8 +370,10 @@
 
 	if((prob(prob_success) || silicons_ignore_prob && isrobot(user)) && chem_check_result && !try_to_fail)
 		step_result = end_step(user, target, target_zone, tool, surgery)
+		play_end_sound(user, target, tool)
 	else
 		step_result = fail_step(user, target, target_zone, tool, surgery)
+		play_fail_sound(user, target, tool)
 	switch(step_result)
 		if(SURGERY_STEP_CONTINUE)
 			advance = TRUE
@@ -454,6 +463,21 @@
 				H.bloody_body(target)
 	return
 
+/datum/surgery_step/proc/play_begin_sound(mob/living/user, mob/living/carbon/human/target, obj/item/tool)
+	if(!begin_sound)
+		return
+
+	var/sound_file_use
+	if(islist(begin_sound))
+		for(var/typepath in begin_sound)
+			if(istype(tool, typepath) || tool.tool_behaviour == typepath)
+				sound_file_use = begin_sound[typepath]
+				break
+	else
+		sound_file_use = begin_sound
+
+	playsound(target, sound_file_use, 75, TRUE, falloff_exponent = 9, falloff_distance = 1, ignore_walls = FALSE)
+
 /**
  * Finish a surgery step, performing anything that runs on the tail-end of a successful surgery.
  * This runs if the surgery step passes the probability check, and therefore is a success.
@@ -463,6 +487,11 @@
 /datum/surgery_step/proc/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	return SURGERY_STEP_CONTINUE
 
+/datum/surgery_step/proc/play_end_sound(mob/living/user, mob/living/carbon/human/target, obj/item/tool)
+	if(!end_sound)
+		return
+	playsound(target, end_sound, 75, TRUE, falloff_exponent = 9, falloff_distance = 1, ignore_walls = FALSE)
+
 /**
  * Play out the failure state of a surgery step.
  * This runs if the surgery step fails the probability check, the right chems weren't present, or if the user deliberately failed the surgery.
@@ -471,6 +500,11 @@
  */
 /datum/surgery_step/proc/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	return SURGERY_STEP_INCOMPLETE
+
+/datum/surgery_step/proc/play_fail_sound(mob/living/user, mob/living/carbon/human/target, obj/item/tool)
+	if(!fail_sound)
+		return
+	playsound(target, fail_sound, 75, TRUE, falloff_exponent = 9, falloff_distance = 1, ignore_walls = FALSE)
 
 /**
  * Get the action that will be performed during this surgery step, in context of the surgery it is a part of.

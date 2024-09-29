@@ -56,8 +56,13 @@
 	unlimited_power = TRUE
 
 /obj/item/clothing/gloves/color/yellow/fake
-	desc = "These gloves will protect the wearer from electric shock. They don't feel like rubber..."
 	siemens_coefficient = 1
+
+/obj/item/clothing/gloves/color/yellow/fake/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += span_notice("They don't feel like rubber...")
+
 
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
 	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
