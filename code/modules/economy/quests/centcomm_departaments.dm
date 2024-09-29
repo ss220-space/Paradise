@@ -185,7 +185,7 @@
 
 	//Если не то платит на счет отдела
 	if(!SScapitalism.smart_bounty_payment(nishebrod_jobs, personals_reward))
-		SScapitalism.smart_deportament_payment(linked_departaments, personals_reward)
+		SScapitalism.smart_departament_payment(linked_departaments, personals_reward)
 
 	SScapitalism.total_station_bounty += round(reward * PERCENTAGE_PAYMENTS_STATION)
 	var/datum/money_account/station_money_account = SScapitalism.base_account
