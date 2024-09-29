@@ -1,7 +1,6 @@
 
 #define PRINT_COOLDOWN 10 SECONDS
-//Оставь надежду надежду всяк сюда входящий
-//Оставь надежду надежду всяк сюда входящий
+//Abandon hope, everyone who enters here
 
 /// The name of the strings file containing the data that will be used to fill in the notes in the order
 #define QUEST_NOTES_STRINGS "quest_workers.json"
