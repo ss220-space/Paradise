@@ -656,7 +656,6 @@
 	outfit = /datum/outfit/job/explorer
 	hidden_from_job_prefs = TRUE
 
-	//На них бы казнь ставть автоматически
 	salary = 100
 	min_start_money = 100
 	max_start_money = 300
