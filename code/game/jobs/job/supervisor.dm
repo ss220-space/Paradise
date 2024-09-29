@@ -144,7 +144,6 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	alt_titles = list("NT Consultant","Central Command Consultant")
 	outfit = /datum/outfit/job/nanotrasenrep
 
-	//Я честно не ебу кто это, но пусть столько платят
 	salary = 300
 	min_start_money = 400
 	max_start_money = 700
