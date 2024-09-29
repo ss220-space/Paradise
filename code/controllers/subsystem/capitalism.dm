@@ -148,9 +148,9 @@ SUBSYSTEM_DEF(capitalism)
 
 // In short, as for beggars, but for departments
 /datum/controller/subsystem/capitalism/proc/smart_departament_payment(var/list/keys_departament, var/money)
-	. = FALSE 							//Если никому ничего не уплочено
-	var/list_payment_account = list() 	//каким челикам платить
-	var/bounty = 0 						//Какую денежку каждому депортаменту
+	. = FALSE 							//If nothing is paid to anyone
+	var/list_payment_account = list() 	//which people should I pay
+	var/bounty = 0 						//What kind of money for each department
 	total_personal_bounty += money
 
 	var/datum/money_account/account = base_account
