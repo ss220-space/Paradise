@@ -100,13 +100,6 @@ GLOBAL_LIST_INIT(lawlorify, list (
 			OBLIGATION_SAYNAME = "He will always chant his name upon killing someone.",
 			OBLIGATION_ANNOUNCEKILL = "This devil always loudly announces his kills for the world to hear.",
 			OBLIGATION_ANSWERTONAME = "This devil always responds to his truename.",
-			BANE_SILVER = "Silver seems to gravely injure this devil.",
-			BANE_SALT = "Throwing salt at this devil will hinder his ability to use infernal powers temporarily.",
-			BANE_LIGHT = "Bright flashes will disorient the devil, likely causing him to flee.",
-			BANE_IRON = "Cold iron will slowly injure him, until he can purge it from his system.",
-			BANE_WHITECLOTHES = "Wearing clean white clothing will help ward off this devil.",
-			BANE_HARVEST = "Presenting the labors of a harvest will disrupt the devil.",
-			BANE_TOOLBOX = "That which holds the means of creation also holds the means of the devil's undoing.",
 			BAN_HURTWOMAN = "This devil seems to prefer hunting men.",
 			BAN_CHAPEL = "This devil avoids holy ground.",
 			BAN_HURTPRIEST = "The annointed clergy appear to be immune to his powers.",
@@ -119,7 +112,6 @@ GLOBAL_LIST_INIT(lawlorify, list (
 			BANISH_FORMALDYHIDE = "To banish the devil, you must inject its lifeless body with embalming fluid.",
 			BANISH_RUNES = "This devil will resurrect after death, unless its remains are within a rune.",
 			BANISH_CANDLES = "A large number of nearby lit candles will prevent it from resurrecting.",
-			BANISH_DESTRUCTION = "Its corpse must be utterly destroyed to prevent resurrection.",
 			BANISH_FUNERAL_GARB = "If clad in funeral garments, this devil will be unable to resurrect.  Should the clothes not fit, lay them gently on top of the devil's corpse."
 		),
 		LAW = list(
@@ -138,19 +130,11 @@ GLOBAL_LIST_INIT(lawlorify, list (
 			BAN_STRIKEUNCONSCIOUS = "You must never strike an unconscious person.",
 			BAN_HURTLIZARD = "You must never harm a lizardman outside of self defense.",
 			BAN_HURTANIMAL = "You must never harm a non-sentient creature or robot outside of self defense.",
-			BANE_SILVER = "Silver, in all of its forms shall be your downfall.",
-			BANE_SALT = "Salt will disrupt your magical abilities.",
-			BANE_LIGHT = "Blinding lights will prevent you from using offensive powers for a time.",
-			BANE_IRON = "Cold wrought iron shall act as poison to you.",
-			BANE_WHITECLOTHES = "Those clad in pristine white garments will strike you true.",
-			BANE_HARVEST = "The fruits of the harvest shall be your downfall.",
-			BANE_TOOLBOX = "Toolboxes are bad news for you, for some reason.",
 			BANISH_WATER = "If your corpse is filled with holy water, you will be unable to resurrect.",
 			BANISH_COFFIN = "If your corpse is in a coffin, you will be unable to resurrect.",
 			BANISH_FORMALDYHIDE = "If your corpse is embalmed, you will be unable to resurrect.",
 			BANISH_RUNES = "If your corpse is placed within a rune, you will be unable to resurrect.",
 			BANISH_CANDLES = "If your corpse is near lit candles, you will be unable to resurrect.",
-			BANISH_DESTRUCTION = "If your corpse is destroyed, you will be unable to resurrect.",
 			BANISH_FUNERAL_GARB = "If your corpse is clad in funeral garments, you will be unable to resurrect."
 		)
 	))

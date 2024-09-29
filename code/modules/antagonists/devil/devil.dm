@@ -140,8 +140,10 @@
 	if(!.)
 		return FALSE
 	
+	init_bane()
+
 	var/mob/living/carbon/human/human = owner.current
-	human.store_memory("Your devilic true name is [info.truename]<br>[GLOB.lawlorify[LAW][info.ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][info.bane]]<br>[GLOB.lawlorify[LAW][info.obligation]]<br>[GLOB.lawlorify[LAW][info.banish]]<br>")
+	human.store_memory("Your devilic true name is [info.truename]<br>[GLOB.lawlorify[LAW][info.ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[info.bane.law]<br>[GLOB.lawlorify[LAW][info.obligation]]<br>[GLOB.lawlorify[LAW][info.banish]]<br>")
 
 	update_hud()
 	init_new_rank(BASIC_DEVIL_RANK)
@@ -149,6 +151,12 @@
 /datum/antagonist/devil/proc/init_devil()
 	info = new info()
 	GLOB.allDevils[lowertext(info.truename)] = src
+
+	return
+
+/datum/antagonist/devil/proc/init_bane()
+	info.bane.link_bane(owner.current)
+	info.bane.init_bane()
 
 	return
 
@@ -168,11 +176,12 @@
 
 /datum/antagonist/devil/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	owner.current.AddElement(/datum/element/devil_bane)
 	owner.current.AddElement(/datum/element/devil_regeneration)
 	owner.current.AddElement(/datum/element/devil_banishment)
 
 	init_new_rank()
+	init_bane()
+
 	update_hud()
 	give_obligation_spells()
 
@@ -181,12 +190,12 @@
 
 /datum/antagonist/devil/remove_innate_effects()
 	. = ..()
-	owner.current.RemoveElement(/datum/element/devil_bane)
 	owner.current.RemoveElement(/datum/element/devil_regeneration)
 	owner.current.RemoveElement(/datum/element/devil_banishment)
 
 	remove_spells()
 	remove_hud()
+	info.bane.remove_bane()
 
 	LAZYREMOVE(owner.current.faction, "hell")
 	REMOVE_TRAIT(owner.current, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
@@ -239,111 +248,13 @@
 	W.access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS)
 	W.photo = get_id_photo(H)
 
-/datum/devil_rank
-	/// Antagonist datum of our owner
-	var/datum/antagonist/devil/devil
-	/// Rank owner
-	var/mob/living/carbon/owner
-	/// Which spells we'll give to rank owner when rank is applied
-	var/list/rank_spells
-	/// Regeneration things for devil. Used in devil elements
-	var/regen_threshold
-	var/regen_amount
-
-/datum/devil_rank/proc/link_rank(mob/living/carbon/carbon)
-	owner = carbon
-	devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
-
-/datum/devil_rank/proc/remove_spells()
-	for(var/obj/effect/proc_holder/spell/spell as anything in owner.mind?.spell_list)
-		if(!is_type_in_list(spell, rank_spells))
-			continue
-
-		owner.mind?.RemoveSpell(spell)
-
-/datum/devil_rank/proc/apply_rank(mob/living/carbon/carbon)
-	return
-
-/datum/devil_rank/proc/apply_spells()
-	for(var/obj/effect/proc_holder/spell/spell as anything in rank_spells)
-		owner.mind?.AddSpell(new spell)
-
-/datum/devil_rank/basic_devil
-	regen_threshold = BASIC_DEVIL_REGEN_THRESHOLD
-	regen_amount = BASIC_DEVIL_REGEN_AMOUNT
-
-	rank_spells = list() // TODO: new single spell which allows you to do rituals
-
-/datum/devil_rank/enraged_devil
-	regen_threshold = ENRAGED_DEVIL_REGEN_THRESHOLD
-	regen_amount = ENRAGED_DEVIL_REGEN_AMOUNT
-
-	rank_spells = list(
-		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
-		/obj/effect/proc_holder/spell/aoe/devil_fire,
-		/obj/effect/proc_holder/spell/dark_conversion
-	)
-
-/datum/devil_rank/blood_lizard
-	regen_threshold = BLOOD_LIZARD_REGEN_THRESHOLD
-	regen_amount = BLOOD_LIZARD_REGEN_AMOUNT
-
-	rank_spells = list(
-		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
-		/obj/effect/proc_holder/spell/fireball/hellish,
-		/obj/effect/proc_holder/spell/aoe/devil_fire,
-		/obj/effect/proc_holder/spell/infernal_jaunt
-	)
-
-/datum/devil_rank/blood_lizard/apply_rank()
-	if(!ishuman(owner))
-		owner.color = "#501010"
-		return
-
-	var/mob/living/carbon/human/human = owner
-	var/list/language_temp = LAZYLEN(human.languages) ? human.languages.Copy() : null
-
-	human.set_species(/datum/species/unathi)
-	if(language_temp)
-		human.languages = language_temp
-
-	human.underwear = "Nude"
-	human.undershirt = "Nude"
-	human.socks = "Nude"
-	human.change_skin_color(80, 16, 16) //A deep red
-	human.regenerate_icons()
-
-	return
-
-/datum/devil_rank/true_devil
-	regen_threshold = TRUE_DEVIL_REGEN_THRESHOLD
-	regen_amount = TRUE_DEVIL_REGEN_AMOUNT
-
-	rank_spells = list(
-		/obj/effect/proc_holder/spell/conjure_item/pitchfork/greater,
-		/obj/effect/proc_holder/spell/fireball/hellish,
-		/obj/effect/proc_holder/spell/aoe/devil_fire,
-		/obj/effect/proc_holder/spell/infernal_jaunt,
-		/obj/effect/proc_holder/spell/sintouch
-	)
-
-/datum/devil_rank/true_devil/apply_rank()
-	to_chat(owner, span_warning("You feel as though your current form is about to shed.  You will soon turn into a true devil."))
-	var/mob/living/carbon/true_devil/A = new /mob/living/carbon/true_devil(owner.loc)
-
-	owner.forceMove(A)
-	A.oldform = owner
-	owner.mind?.transfer_to(A)
-	A.set_name()
-
-	return
-
 /datum/devilinfo
 	var/truename
-	var/bane
 	var/obligation
 	var/ban
 	var/banish
+
+	var/datum/devil_bane/bane
 
 /datum/devilinfo/New(name = randomDevilName())
 	truename = name
@@ -379,7 +290,15 @@
 	return pick(BAN_HURTWOMAN, BAN_CHAPEL, BAN_HURTPRIEST, BAN_AVOIDWATER, BAN_HURTLIZARD, BAN_HURTANIMAL)
 
 /datum/devilinfo/proc/randomdevilbane()
-	return pick(BANE_SALT, BANE_LIGHT, BANE_IRON, BANE_WHITECLOTHES, BANE_SILVER, BANE_HARVEST, BANE_TOOLBOX)
+	var/list/banes = list()
+
+	for(var/datum/devil_bane/bane as anything in subtypesof(/datum/devil_bane))
+		LAZYADD(banes, bane)
+
+	var/new_bane = pick(banes)
+	new new_bane
+
+	return new_bane
 
 /datum/devilinfo/proc/randomdevilbanish()
 	return pick(BANISH_WATER, BANISH_COFFIN, BANISH_FORMALDYHIDE, BANISH_RUNES, BANISH_CANDLES, BANISH_FUNERAL_GARB)
