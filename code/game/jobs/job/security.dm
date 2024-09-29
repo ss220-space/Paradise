@@ -22,7 +22,6 @@
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed = 0
-	money_factor = 7
 	outfit = /datum/outfit/job/hos
 
 	salary = 300
