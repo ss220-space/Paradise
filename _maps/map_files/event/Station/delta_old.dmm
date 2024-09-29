@@ -6,14 +6,6 @@
 /obj/effect/landmark/event/carpspawn,
 /turf/space,
 /area/space)
-"aah" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/item/balltoy,
-/turf/simulated/floor/plating,
-/area/security/customs)
 "aam" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -10195,15 +10187,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/locker)
-"bwx" = (
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Brig_lockdown";
-	name = "Brig Lockdown"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/security/main)
 "bwy" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -47591,10 +47574,6 @@
 "fMt" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/starboardsolar)
-"fMu" = (
-/obj/structure/closet/secure_closet/pilot_sniper,
-/turf/space,
-/area/space)
 "fMD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -60415,8 +60394,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/closet/secure_closet/hos,
-/obj/item/megaphone,
-/obj/item/reagent_containers/food/drinks/flask/barflask,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -65205,15 +65182,15 @@
 	c_tag = "HoS Bedroom";
 	network = list("SS13","Security")
 	},
-/obj/item/ammo_box/a357{
+/obj/item/ammo_box/speedloader/a357{
 	pixel_x = -9;
 	pixel_y = 9
 	},
-/obj/item/ammo_box/a357{
+/obj/item/ammo_box/speedloader/a357{
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/ammo_box/a357,
+/obj/item/ammo_box/speedloader/a357,
 /obj/item/clothing/accessory/holster,
 /obj/structure/safe{
 	known_by = list("hos")
@@ -123042,7 +123019,7 @@ aaa
 aaa
 aaa
 aaa
-fMu
+aaa
 aaa
 aaa
 aaa
@@ -167915,7 +167892,7 @@ tzh
 pYG
 vQG
 tMU
-aah
+jTh
 dle
 ttw
 pcp
@@ -171004,7 +170981,7 @@ xFL
 syB
 mIk
 hvr
-bwx
+uEq
 eVO
 uFp
 iGw
