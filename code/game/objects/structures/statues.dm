@@ -396,6 +396,14 @@
 	anchored = TRUE
 	oreAmount = 0
 
+/obj/structure/statue/carp_mini
+	name = "Carp Statue"
+	desc = "A great inhabitant of space.."
+	icon = 'icons/obj/statuelarge.dmi'
+	icon_state = "carp_mini"
+	max_integrity = 200
+	anchored = TRUE
+
 /obj/structure/statue/noble
 	name = "Noble person"
 	desc = "Giant person, not like us... May be a hero from an ancient fairy tale?"
