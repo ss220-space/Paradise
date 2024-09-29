@@ -73,7 +73,7 @@
 	if(customer_account.owner_name == GLOB.station_account.owner_name)
 		add_game_logs("as silicon purchased [vended_name] in [COORD(src)]", M)
 
-	SScapitalism.income_vedromat += price //Для статистики бабок с ведроматов
+	SScapitalism.income_vedromat += price //For revenue statistics from the vending machine
 	return TRUE
 
 /datum/money_account/proc/fmtBalance()
