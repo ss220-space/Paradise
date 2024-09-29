@@ -430,3 +430,11 @@
 	However, it seems that hardly anyone is left on it now.. Or not?"
 	allow_duplicates = FALSE
 	cost = 2
+
+/datum/map_template/ruin/space/honkaltair
+	id = "honkaltair"
+	suffix = "cluwne_altair.dmm"
+	name = "Honk Altair"
+	description = "An abandoned workshop on an asteroid where clowns attempted to recreate a cursed mask."
+	allow_duplicates = FALSE
+	cost = 2

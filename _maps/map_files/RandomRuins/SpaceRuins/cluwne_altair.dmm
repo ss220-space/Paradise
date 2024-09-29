@@ -1,0 +1,1438 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ai" = (
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/cluwne_ruin)
+"cQ" = (
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/cluwne_ruin)
+"df" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"dy" = (
+/obj/structure/table/wood/fancy/cyan,
+/obj/item/clothing/mask/gas/clown_hat{
+	pixel_y = 4
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"dM" = (
+/obj/effect/spawner/random_spawners/cobweb_left_frequent{
+	pixel_y = 3;
+	pixel_x = -3
+	},
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/table/socle,
+/obj/item/candle/eternal{
+	start_lit = 1;
+	pixel_y = 5
+	},
+/turf/simulated/floor/mineral/uranium,
+/area/ruin/space/cluwne_ruin/altair)
+"dZ" = (
+/obj/structure/table/wood/fancy/green,
+/obj/item/scalpel{
+	pixel_y = 10
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"ed" = (
+/obj/structure/closet/fireaxecabinet{
+	pixel_y = -32
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"fH" = (
+/obj/structure/ore_box,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"gV" = (
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard,
+/turf/simulated/floor/mineral/silver/fancy,
+/area/ruin/space/cluwne_ruin)
+"he" = (
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/silver/fancy,
+/area/ruin/space/cluwne_ruin)
+"hF" = (
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_x = 32
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"hH" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/clothing/mask/gas/clown_hat{
+	pixel_y = 4
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"ih" = (
+/obj/item/flag/species/nian,
+/obj/effect/spawner/random_spawners/cobweb_left_frequent{
+	pixel_y = 2;
+	pixel_x = -3
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"ii" = (
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/cluwne_ruin)
+"iI" = (
+/obj/structure/window/reinforced/tinted{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/cluwne_ruin)
+"jF" = (
+/obj/structure/dispenser,
+/turf/simulated/floor/mineral/silver/fancy,
+/area/ruin/space/cluwne_ruin)
+"jP" = (
+/obj/structure/window/reinforced/tinted,
+/mob/living/simple_animal/hostile/retaliate/clown/goblin,
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/cluwne_ruin)
+"ke" = (
+/obj/structure/table/socle,
+/obj/item/reagent_containers/food/snacks/meatsteak/wryn,
+/obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"kl" = (
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/silver/fancy,
+/area/ruin/space/cluwne_ruin)
+"kV" = (
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"ma" = (
+/obj/item/stack/ore/bananium,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"mZ" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/reagent_containers/food/snacks/bananacakeslice,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"na" = (
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"oD" = (
+/mob/living/simple_animal/hostile/retaliate/clown/goblin,
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/cluwne_ruin)
+"oZ" = (
+/obj/item/chair/wood/wings,
+/turf/simulated/floor/mineral/silver/fancy,
+/area/ruin/space/cluwne_ruin)
+"pA" = (
+/obj/structure/table/wood/fancy/green,
+/obj/item/flashlight/lamp/bananalamp{
+	base_pixel_y = 10;
+	pixel_y = 10;
+	light_on = 1
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"qE" = (
+/obj/effect/spawner/random_spawners/cobweb_right_frequent{
+	pixel_y = 2;
+	pixel_x = 2
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"qS" = (
+/obj/structure/table/socle,
+/obj/item/flashlight/lamp/bananalamp{
+	base_pixel_y = 10;
+	pixel_y = 10;
+	light_on = 1
+	},
+/obj/effect/spawner/random_spawners/cobweb_right_frequent{
+	pixel_y = 3;
+	pixel_x = 1
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"sn" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"uS" = (
+/turf/simulated/mineral/volcanic,
+/area/asteroid)
+"vs" = (
+/obj/effect/decal/cleanable/confetti,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"vH" = (
+/mob/living/simple_animal/hostile/retaliate/clown/goblin,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"wk" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -32
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"wF" = (
+/obj/item/chair/stool/bar/dark{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/cluwne_ruin)
+"wL" = (
+/obj/item/grown/bananapeel/traitorpeel,
+/obj/structure/mineral_door/uranium,
+/obj/structure/curtain,
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/mineral/uranium,
+/area/ruin/space/cluwne_ruin/altair)
+"wO" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/book/manual/random{
+	pixel_y = 5
+	},
+/obj/effect/decal/ants,
+/obj/effect/decal/ants,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"xa" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/decal/cleanable/crayon,
+/turf/simulated/floor/mineral/uranium,
+/area/ruin/space/cluwne_ruin/altair)
+"yX" = (
+/obj/structure/table/wood/fancy/green,
+/obj/item/flag/species/taj{
+	pixel_y = 10
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"za" = (
+/turf/space,
+/area/space)
+"Aa" = (
+/turf/simulated/wall/mineral/uranium,
+/area/ruin/space/cluwne_ruin/altair)
+"BP" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/asteroid)
+"Cg" = (
+/obj/structure/table/wood/fancy/green,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"Do" = (
+/obj/structure/chair/sofa/left{
+	dir = 1
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"DC" = (
+/obj/item/pickaxe,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/asteroid)
+"Ep" = (
+/obj/structure/table/wood/fancy/cyan,
+/obj/item/gps{
+	pixel_y = 5;
+	gpstag = "ALTAIR"
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"Ex" = (
+/mob/living/simple_animal/hostile/retaliate/clown/goblin,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"FK" = (
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/simulated/floor/mineral/silver/fancy,
+/area/ruin/space/cluwne_ruin)
+"FY" = (
+/obj/structure/table/wood/fancy/green,
+/obj/item/clothing/mask/gas/clown_hat/sexy{
+	pixel_y = 2;
+	pixel_x = 1
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"He" = (
+/obj/effect/decal/cleanable/confetti,
+/mob/living/simple_animal/hostile/retaliate/clown/goblin,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"Hq" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/space,
+/area/space)
+"HP" = (
+/obj/structure/fans/tiny,
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/mineral/silver/fancy,
+/area/ruin/space/cluwne_ruin)
+"HS" = (
+/obj/item/cigbutt/cigarbutt,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"HW" = (
+/obj/structure/window/reinforced/tinted,
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/cluwne_ruin)
+"Im" = (
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/cluwne_ruin)
+"Jd" = (
+/obj/structure/curtain,
+/obj/item/grown/bananapeel/traitorpeel,
+/obj/structure/mineral_door/uranium,
+/obj/effect/turf_decal/sand/plating,
+/turf/simulated/floor/mineral/uranium,
+/area/ruin/space/cluwne_ruin/altair)
+"JH" = (
+/obj/item/flag/clown,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"Kb" = (
+/turf/simulated/floor/mineral/silver/fancy,
+/area/ruin/space/cluwne_ruin)
+"Kv" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/asteroid)
+"KJ" = (
+/obj/structure/table/wood/fancy/cyan,
+/obj/item/hatchet/unathiknife{
+	pixel_y = 8;
+	pixel_x = 3
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"Ls" = (
+/mob/living/simple_animal/hostile/retaliate/clown,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"LL" = (
+/obj/structure/table/wood/fancy/cyan,
+/obj/item/flashlight/lamp/bananalamp{
+	base_pixel_y = 10;
+	pixel_y = 10;
+	light_on = 1
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"LM" = (
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/mineral/silver/fancy,
+/area/ruin/space/cluwne_ruin)
+"Nf" = (
+/obj/effect/decal/cleanable/dust,
+/obj/item/shard,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"Nr" = (
+/turf/simulated/wall/rust,
+/area/ruin/space/cluwne_ruin)
+"On" = (
+/obj/structure/flora/ash/rock/style_random,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/asteroid)
+"Or" = (
+/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/cobweb_right_frequent{
+	pixel_y = 3;
+	pixel_x = 1
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"OO" = (
+/obj/structure/sacrificealtar{
+	pixel_y = 5
+	},
+/obj/item/clothing/mask/cursedclown/fake{
+	pixel_y = 7
+	},
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/turf_decal/bot_white,
+/turf/simulated/floor/mineral/uranium,
+/area/ruin/space/cluwne_ruin/altair)
+"OW" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/structure/table/socle,
+/obj/item/candle/eternal{
+	start_lit = 1;
+	pixel_y = 5
+	},
+/turf/simulated/floor/mineral/uranium,
+/area/ruin/space/cluwne_ruin/altair)
+"Pi" = (
+/obj/structure/statue/bananium/clown,
+/turf/simulated/floor/mineral/bananium,
+/area/ruin/space/cluwne_ruin)
+"Pw" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/toy/figure/clown{
+	pixel_y = 6
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"Qa" = (
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/obj/item/stack/ore/bananium,
+/turf/simulated/floor/mineral/silver/fancy,
+/area/ruin/space/cluwne_ruin)
+"Qh" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/asteroid)
+"Qx" = (
+/obj/effect/decal/ants,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"QT" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/flashlight/lamp/bananalamp{
+	base_pixel_y = 10;
+	pixel_y = 10;
+	light_on = 1
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"Rb" = (
+/obj/structure/table/wood/fancy/cyan,
+/obj/item/flag/species/unathi{
+	pixel_y = 10
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"Sn" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"SO" = (
+/obj/item/chair/wood,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"TU" = (
+/obj/structure/chair/sofa/right{
+	dir = 1
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"Vk" = (
+/obj/item/book/manual/random,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"VQ" = (
+/obj/structure/closet/walllocker/emerglocker/west,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"Wa" = (
+/obj/item/chair/wood/wings{
+	dir = 1
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"Xb" = (
+/obj/structure/table_frame/wood,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"Yw" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/cluwne_ruin)
+"Za" = (
+/obj/effect/decal/cleanable/glass,
+/obj/item/stack/ore/bananium,
+/turf/simulated/floor/mineral/silver/fancy,
+/area/ruin/space/cluwne_ruin)
+
+(1,1,1) = {"
+za
+za
+za
+za
+Kv
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+"}
+(2,1,1) = {"
+za
+za
+za
+Kv
+Kv
+Kv
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+Kv
+Kv
+uS
+uS
+Kv
+Kv
+za
+za
+za
+za
+za
+za
+za
+"}
+(3,1,1) = {"
+za
+Kv
+Kv
+Kv
+uS
+On
+Kv
+Kv
+za
+za
+za
+za
+za
+Hq
+za
+za
+Kv
+Kv
+uS
+uS
+uS
+uS
+Kv
+Kv
+za
+za
+za
+za
+za
+za
+"}
+(4,1,1) = {"
+Kv
+Kv
+uS
+Kv
+uS
+uS
+Kv
+za
+za
+za
+za
+za
+za
+za
+za
+za
+Kv
+uS
+uS
+uS
+uS
+uS
+uS
+Kv
+za
+za
+za
+za
+za
+za
+"}
+(5,1,1) = {"
+Kv
+Kv
+Kv
+Kv
+uS
+Kv
+za
+za
+Kv
+Kv
+Kv
+za
+za
+za
+za
+za
+Qh
+uS
+uS
+uS
+uS
+uS
+uS
+Kv
+Kv
+Kv
+za
+Hq
+za
+za
+"}
+(6,1,1) = {"
+Kv
+uS
+uS
+DC
+Kv
+Kv
+za
+Kv
+Kv
+Kv
+Kv
+Kv
+On
+Kv
+za
+za
+Kv
+Kv
+uS
+uS
+uS
+uS
+Kv
+Kv
+Kv
+Kv
+Kv
+za
+za
+za
+"}
+(7,1,1) = {"
+Kv
+uS
+uS
+uS
+uS
+Kv
+za
+Kv
+Kv
+Kv
+Kv
+Kv
+Kv
+Kv
+Kv
+Kv
+Kv
+Kv
+Kv
+Kv
+Kv
+Kv
+Kv
+Qh
+Kv
+Kv
+Kv
+za
+za
+za
+"}
+(8,1,1) = {"
+Kv
+Kv
+Kv
+Kv
+Kv
+za
+za
+Kv
+Nr
+Nr
+Nr
+Nr
+Kv
+Kv
+Kv
+Kv
+Kv
+Kv
+DC
+Kv
+BP
+Nr
+Nr
+Nr
+Nr
+Kv
+Kv
+Kv
+za
+za
+"}
+(9,1,1) = {"
+za
+za
+za
+za
+za
+za
+Kv
+Kv
+Nr
+ih
+na
+Nr
+Nr
+Nr
+Nr
+Nr
+HP
+Nr
+Nr
+Nr
+Nr
+Nr
+ke
+TU
+Nr
+Kv
+Kv
+Kv
+za
+za
+"}
+(10,1,1) = {"
+za
+za
+za
+za
+za
+za
+Kv
+Kv
+Nr
+fH
+kV
+na
+Ls
+na
+wk
+Kb
+Kb
+LM
+VQ
+na
+na
+Ls
+Qx
+Do
+Nr
+Kv
+Kv
+Kv
+za
+za
+"}
+(11,1,1) = {"
+za
+za
+za
+Hq
+za
+Kv
+Kv
+Kv
+Nr
+Nr
+na
+QT
+hH
+Pw
+kV
+Kb
+he
+Kb
+He
+Ep
+dy
+LL
+na
+Nr
+Nr
+Kv
+Kv
+Kv
+Kv
+za
+"}
+(12,1,1) = {"
+za
+za
+za
+za
+za
+Kv
+Kv
+Kv
+Kv
+Nr
+Qx
+mZ
+JH
+na
+na
+HW
+Pi
+ii
+Vk
+Wa
+JH
+KJ
+na
+Nr
+Kv
+On
+Kv
+uS
+Kv
+za
+"}
+(13,1,1) = {"
+za
+za
+za
+za
+za
+za
+Kv
+On
+Kv
+Nr
+na
+wO
+Qx
+SO
+oD
+ai
+cQ
+ai
+ai
+na
+na
+Rb
+sn
+Nr
+Kv
+Kv
+uS
+uS
+uS
+za
+"}
+(14,1,1) = {"
+za
+za
+za
+za
+za
+za
+za
+Kv
+Kv
+Nr
+ma
+na
+na
+ai
+Aa
+Aa
+wL
+Aa
+Aa
+Yw
+na
+na
+kV
+Nr
+Kv
+uS
+uS
+uS
+uS
+za
+"}
+(15,1,1) = {"
+za
+za
+za
+za
+za
+za
+Kv
+Kv
+Kv
+HP
+Kb
+Kb
+iI
+ai
+Aa
+dM
+xa
+OW
+Aa
+ai
+iI
+Kb
+Kb
+HP
+Kv
+uS
+uS
+uS
+Kv
+za
+"}
+(16,1,1) = {"
+za
+za
+za
+za
+za
+za
+za
+Kv
+Kv
+HP
+LM
+gV
+Pi
+ii
+Jd
+xa
+OO
+xa
+Jd
+HW
+Pi
+kl
+Kb
+HP
+Kv
+uS
+Kv
+Kv
+Kv
+za
+"}
+(17,1,1) = {"
+za
+za
+za
+za
+za
+za
+za
+Kv
+Kv
+HP
+Kb
+Za
+wF
+ai
+Aa
+OW
+xa
+OW
+Aa
+ai
+Im
+Kb
+oZ
+HP
+Kv
+Kv
+Kv
+za
+za
+za
+"}
+(18,1,1) = {"
+za
+za
+za
+Hq
+za
+za
+Kv
+Kv
+Kv
+Nr
+qE
+Xb
+Nf
+ai
+Aa
+Aa
+Jd
+Aa
+Aa
+ai
+kV
+ma
+na
+Nr
+Kv
+Kv
+Kv
+za
+za
+za
+"}
+(19,1,1) = {"
+za
+za
+za
+za
+za
+za
+za
+Kv
+Kv
+uS
+uS
+uS
+vH
+vs
+ai
+ai
+iI
+ai
+ai
+Ex
+na
+yX
+ed
+Nr
+Kv
+Kv
+Kv
+za
+za
+za
+"}
+(20,1,1) = {"
+za
+za
+za
+za
+za
+za
+za
+Kv
+uS
+uS
+uS
+uS
+uS
+df
+Sn
+jP
+Pi
+ii
+na
+na
+JH
+dZ
+na
+Nr
+Kv
+Kv
+Kv
+za
+za
+za
+"}
+(21,1,1) = {"
+za
+za
+za
+za
+za
+za
+za
+Kv
+Kv
+uS
+uS
+uS
+uS
+uS
+Sn
+Kb
+Qa
+Kb
+kV
+Cg
+pA
+FY
+Ls
+Nr
+Nr
+Kv
+BP
+za
+za
+za
+"}
+(22,1,1) = {"
+za
+za
+Kv
+Kv
+Kv
+Kv
+za
+za
+Kv
+Kv
+uS
+uS
+uS
+uS
+Or
+FK
+Kb
+jF
+na
+na
+hF
+na
+HS
+TU
+Nr
+Kv
+Kv
+za
+za
+za
+"}
+(23,1,1) = {"
+za
+Kv
+Kv
+uS
+uS
+Kv
+Kv
+za
+Kv
+uS
+uS
+uS
+uS
+uS
+Nr
+Nr
+HP
+Nr
+Nr
+Nr
+Nr
+Nr
+qS
+Do
+Nr
+Kv
+Kv
+za
+za
+za
+"}
+(24,1,1) = {"
+za
+Kv
+uS
+uS
+uS
+Kv
+za
+za
+Kv
+Kv
+Kv
+Qh
+uS
+uS
+Kv
+Kv
+Kv
+Kv
+Kv
+BP
+Kv
+Nr
+Nr
+Nr
+Nr
+On
+Kv
+za
+za
+za
+"}
+(25,1,1) = {"
+za
+Kv
+uS
+uS
+uS
+Kv
+za
+za
+za
+za
+za
+Kv
+Kv
+Kv
+DC
+Kv
+uS
+uS
+uS
+Kv
+Kv
+Kv
+Kv
+Kv
+Kv
+Kv
+Kv
+za
+za
+za
+"}
+(26,1,1) = {"
+za
+Kv
+uS
+uS
+Kv
+za
+za
+Kv
+Kv
+Kv
+za
+BP
+Kv
+Kv
+uS
+uS
+uS
+uS
+uS
+Kv
+Kv
+Kv
+On
+Kv
+Kv
+Kv
+Kv
+za
+za
+za
+"}
+(27,1,1) = {"
+za
+Kv
+uS
+Kv
+Kv
+za
+Kv
+uS
+uS
+Kv
+za
+Kv
+Kv
+Qh
+uS
+uS
+uS
+uS
+uS
+uS
+Kv
+Kv
+Kv
+Kv
+Kv
+za
+za
+za
+za
+za
+"}
+(28,1,1) = {"
+za
+Kv
+Kv
+Kv
+za
+za
+Kv
+uS
+Kv
+Kv
+za
+za
+Kv
+uS
+uS
+uS
+uS
+uS
+uS
+uS
+Kv
+za
+za
+za
+za
+za
+za
+za
+za
+za
+"}
+(29,1,1) = {"
+za
+za
+za
+za
+za
+Hq
+Kv
+Kv
+Kv
+za
+za
+za
+Kv
+On
+uS
+uS
+uS
+uS
+uS
+uS
+Kv
+za
+za
+za
+za
+za
+za
+za
+za
+za
+"}
+(30,1,1) = {"
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+za
+Kv
+Kv
+Kv
+uS
+uS
+uS
+uS
+Kv
+Kv
+za
+za
+za
+za
+za
+za
+za
+za
+za
+"}

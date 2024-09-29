@@ -613,22 +613,39 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
+/// Original cursed mask which will turn you into cluwne after you equip it
+/obj/item/clothing/mask/cursedclown/tumor
 
-/obj/item/clothing/mask/cursedclown/equipped(mob/user, slot, initial)
+/obj/item/clothing/mask/cursedclown/tumor/equipped(mob/living/carbon/human/human, slot, initial)
 	. = ..()
 
-	var/mob/living/carbon/human/H = user
-	if(istype(H) && slot == ITEM_SLOT_MASK)
-		to_chat(H, "<span class='danger'>[src] grips your face!</span>")
-		if(H.mind && H.mind.assigned_role != "Cluwne")
-			H.makeCluwne()
+	if(istype(human) && slot == ITEM_SLOT_MASK)
+		to_chat(human, span_danger("[src] grips your face!"))
+		if(human.mind?.assigned_role != "Cluwne")
+			human.makeCluwne()
 
 /obj/item/clothing/mask/cursedclown/suicide_act(mob/user)
-	user.visible_message("<span class='danger'>[user] gazes into the eyes of [src]. [src] gazes back!</span>")
+	user.visible_message(span_danger("[user] gazes into the eyes of [src]. [src] gazes back!"))
 	spawn(10)
 		if(user)
 			user.gib()
 	return OBLITERATION
+
+/obj/item/clothing/mask/cursedclown/fake
+	/// Datum, used to transform human into special cluwne.
+	var/datum/cluwne_mask/cluwne_mask = new
+
+/obj/item/clothing/mask/cursedclown/fake/equipped(mob/living/carbon/human/human, slot, initial)
+	. = ..()
+
+	if(istype(human) && slot == ITEM_SLOT_MASK)
+		to_chat(human, span_danger("[src] grips your face!"))
+		if(human.mind?.assigned_role != "Cluwne")
+			cluwne_mask.pre_transform(human)	
+
+/obj/item/clothing/mask/cursedclown/fake/Destroy(force)
+	QDEL_NULL(cluwne_mask) // will dust cluwne
+	return ..()
 
 //voice modulator
 

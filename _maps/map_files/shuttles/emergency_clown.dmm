@@ -390,7 +390,7 @@
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/escape)
 "HT" = (
-/obj/item/clothing/mask/cursedclown,
+/obj/item/clothing/mask/cursedclown/tumor,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "XG" = (

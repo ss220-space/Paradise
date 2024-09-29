@@ -637,6 +637,8 @@
 #define COMSIG_CARBON_GAIN_ORGAN "carbon_gain_organ"
 ///from /item/organ/proc/Remove() (/obj/item/organ/)
 #define COMSIG_CARBON_LOSE_ORGAN "carbon_lose_organ"
+/// Source: mob/living/carbon/human/equip_to_slot(obj/item/I, slot, initial)
+#define COMSIG_HUMAN_EQUIPPED_ITEM "human_equipped_item"
 ///from /mob/living/carbon/doUnEquip(obj/item/I, force, newloc, no_move, invdrop, silent)
 #define COMSIG_CARBON_EQUIP_HAT "carbon_equip_hat"
 ///from /mob/living/carbon/doUnEquip(obj/item/I, force, newloc, no_move, invdrop, silent)
@@ -922,6 +924,8 @@
 #define COMSIG_TURF_MAKE_DRY "make_turf_try"
 ///called on an object to clean it of cleanables. Usualy with soap: (num/strength)
 #define COMSIG_COMPONENT_CLEAN_ACT "clean_act"
+/// source: datum/component/slippery/Slip(atom/movable/arrived, atom/old_loc, list/atom/old_locs) 
+#define COMSIG_COMPONENT_PARENT_SLIP "slip_act"
 
 //Creamed
 

@@ -55,6 +55,11 @@
 #define COOLDOWN_CIRCUIT_TARGET_INTERCEPT "circuit_target_intercept"
 #define COOLDOWN_CIRCUIT_VIEW_SENSOR "circuit_view_sensor"
 
+/// Special cluwne cooldowns
+#define CLUWNE_BIKEHORN_GLOBALCOOLDOWN (6 SECONDS)
+#define CLUWNE_PDA_SLIP_GLOBALCOOLDOWN (10 SECONDS)
+#define CLUWNE_UNARMED_ATTACK_GLOBALCOOLDOWN (6 SECONDS)
+
 // mob cooldowns
 #define COOLDOWN_YAWN_PROPAGATION "yawn_propagation_cooldown"
 

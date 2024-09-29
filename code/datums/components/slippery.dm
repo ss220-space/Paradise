@@ -121,4 +121,5 @@
 		return
 	if(victim.slip(weaken_time, parent, lube_flags, slip_tiles))
 		on_slip_callback?.Invoke(victim)
+		SEND_SIGNAL(source, COMSIG_COMPONENT_PARENT_SLIP, arrived, old_loc, old_locs)
 
