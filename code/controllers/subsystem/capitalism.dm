@@ -51,18 +51,18 @@ SUBSYSTEM_DEF(capitalism)
 
 	var/total_station_goal_bounty = 0
 	var/s_ex_personal_bounry = list() //Extended staff rewards
-
+	//personal_reward
 	for(var/datum/station_goal/goal in SSticker.mode.station_goals)
 		if(!goal)
 			continue
 		if(goal.check_completion() && !(goal in complited_goals))
 			total_station_goal_bounty += goal.station_bounty
+			s_ex_personal_bounry |= goal.personal_reward
 			complited_goals += goal
 
 	if(total_station_goal_bounty)
 		base_account.credit(total_station_goal_bounty, "Начисление награды за выполнение цели.", "Отдел развития Нанотрейзен", base_account.owner_name)
-		smart_job_payment(1000, ORDINARY_ENGINERS)
-		smart_job_payment(2000, list(JOB_TITLE_CHIEF))
+		smart_job_payment(s_ex_personal_bounry)
 
 //status - TRUE/FALSE
 /datum/controller/subsystem/capitalism/proc/default_annonce()
@@ -134,14 +134,15 @@ SUBSYSTEM_DEF(capitalism)
 
 	return
 
-/datum/controller/subsystem/capitalism/proc/smart_job_payment(var/list/jobs_payment, var/money)
+/datum/controller/subsystem/capitalism/proc/smart_job_payment(var/list/jobs_payment)
 	. = FALSE //If nothing is paid to anyone
-	total_personal_bounty += money
 
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
-		if(jobs_payment.Find(account.linked_job.title) && account.salary_payment_active && !account.suspended)
-			if(account.credit(bounty, "Начисление награды за выполнение цели.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name))
-				account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [bounty] кредитов за помощь в выполнении цель станции.\" (Невозможно Ответить)", FALSE)
+		if(job_titles?[account.linked_job.title] && account.salary_payment_active && !account.suspended)
+			
+			if(account.credit(job_titles[account.linked_job.title], "Начисление награды за выполнение цели.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name))
+				total_personal_bounty += money
+				account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [job_titles[account.linked_job.title]] кредитов за помощь в выполнении цель станции.\" (Невозможно Ответить)", FALSE)
 				. = TRUE
 	return
 
