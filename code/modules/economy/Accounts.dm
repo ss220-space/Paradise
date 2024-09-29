@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(dna2account)
 //the current ingame time (hh:mm:ss) can be obtained by calling:
 //station_time_timestamp("hh:mm:ss")
 
-/proc/create_account(var/new_owner_name = "Default user", var/starting_funds = 0, var/obj/machinery/computer/account_database/source_db, is_roundstart)
+/proc/create_account(var/new_owner_name = "Default user", var/starting_funds = 0, var/obj/machinery/computer/account_database/source_db)
 
 	//create a new account
 	var/datum/money_account/M = new()
