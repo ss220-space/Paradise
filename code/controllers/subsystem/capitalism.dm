@@ -26,7 +26,7 @@ SUBSYSTEM_DEF(capitalism)
 	var/list/complited_goals = list() 	//It is necessary not to pay again for the goal, gagaga
 	var/default_status = FALSE 			//TRUE if the default is in effect at the station, you can do it in the future, for example, as a cargo modifier
 
-	var/default_counter = 0 		//Счетсчик количества дефолтов, я точно не сделаю смешнявку
+	var/default_counter = 0 		//The counter for the number of defaults, I definitely won't make a joke
 
 /datum/controller/subsystem/capitalism/Initialize()
 	accounts_init()
