@@ -171,7 +171,6 @@
 /datum/quest_customer/corp
 	group_name = "corporation"
 
-//Наследие. Легаси. Наследие пустоты.
 /datum/quest_customer/corp/change_reward(datum/cargo_quests_storage/quest)
 	quest.reward *= POINT_TO_CREDITS * COMMERCIAL_MODIFIER
 
@@ -183,7 +182,7 @@
 		nishebrod_jobs |= quest.bounty_jobs
 		linked_departaments |= quest.linked_departament
 
-	//Если не то платит на счет отдела
+	//If not, it pays to the account of the department
 	if(!SScapitalism.smart_bounty_payment(nishebrod_jobs, personals_reward))
 		SScapitalism.smart_departament_payment(linked_departaments, personals_reward)
 
