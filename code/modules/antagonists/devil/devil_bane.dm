@@ -36,7 +36,7 @@
 /datum/devil_bane/toolbox/init_bane()
 	RegisterSignal(owner, COMSIG_PARENT_ATTACKBY, PROC_REF(toolbox_attack))
 
-/datumm/devil_bane/toolbox/remove_bane()
+/datum/devil_bane/toolbox/remove_bane()
 	UnregisterSignal(owner, COMSIG_PARENT_ATTACKBY)
 
 /datum/devil_bane/toolbox/proc/toolbox_attack(datum/source, obj/item/item, mob/attacker, params)
@@ -59,7 +59,7 @@
 /datum/devil_bane/whiteclothes/init_bane()
 	RegisterSignal(owner, COMSIG_PARENT_ATTACKBY, PROC_REF(whiteclothes_attack))
 
-/datumm/devil_bane/whiteclothes/remove_bane()
+/datum/devil_bane/whiteclothes/remove_bane()
 	UnregisterSignal(owner, COMSIG_PARENT_ATTACKBY)
 
 /datum/devil_bane/whiteclothes/proc/whiteclothes_attack(datum/source, obj/item/item, mob/attacker, params)
@@ -91,7 +91,7 @@
 /datum/devil_bane/harvest/init_bane()
 	RegisterSignal(owner, COMSIG_PARENT_ATTACKBY, PROC_REF(harvest_attack))
 
-/datumm/devil_bane/harvest/remove_bane()
+/datum/devil_bane/harvest/remove_bane()
 	UnregisterSignal(owner, COMSIG_PARENT_ATTACKBY)
 
 /datum/devil_bane/harvest/proc/harvest_attack(datum/source, obj/item/item, mob/attacker, params)
@@ -103,7 +103,7 @@
 	owner.apply_damage(item.force * bonus_damage)               
 	item.visible_message(
 		span_warning("The spirits of the harvest aid in the exorcism."), 
-		span_notice("The harvest spirits are harming [human]."))
+		span_notice("The harvest spirits are harming [owner]."))
 
 	qdel(item)
 

@@ -1505,7 +1505,7 @@
 	var/datum/devilinfo/devil = new
 
 	LAZYADD(messages, "Some fun facts about: [devil.truename]")
-	LAZYADD(messages, bane.law)
+	LAZYADD(messages, devil.bane.law)
 	LAZYADD(messages, GLOB.lawlorify[LAW][devil.ban])
 	LAZYADD(messages, GLOB.lawlorify[LAW][devil.obligation])
 	LAZYADD(messages, GLOB.lawlorify[LAW][devil.banish])
