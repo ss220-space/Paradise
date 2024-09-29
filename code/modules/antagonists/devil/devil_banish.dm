@@ -51,7 +51,7 @@
     law = "If your corpse is placed within a rune, you will be unable to resurrect."
 
 /datum/devil_banish/rune/check_banishment()
-    for(var/obj/effect/decal/cleanable/crayon/rune in range(0, owner))
+	for(var/obj/effect/decal/cleanable/crayon/rune in range(0, owner))
 		return rune.name == "rune"
 
 /datum/devil_banish/candle
@@ -60,7 +60,7 @@
     law = "If your corpse is near lit candles, you will be unable to resurrect."
 
 /datum/devil_banish/candle/check_banishment()
-    var/count = 0
+	var/count = 0
 
 	for(var/obj/item/candle/candle in range(1, owner))
 		count += candle.lit
@@ -73,7 +73,7 @@
     law = "If your corpse is clad in funeral garments, you will be unable to resurrect."
 
 /datum/devil_banish/funeral/check_banishment()
-    if(!ishuman(owner)) // can be true devil
+	if(!ishuman(owner)) // can be true devil
 		return FALSE
 
 	var/mob/living/carbon/human/human = owner

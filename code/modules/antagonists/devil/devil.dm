@@ -177,7 +177,7 @@
 /datum/antagonist/devil/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	owner.current.AddElement(/datum/element/devil_regeneration)
-	owner.current.AddElement(/datum/element/devil_banishment)
+	owner.current.AddElement(/datum/element/devil_banishment) // handles devil banishes
 
 	init_new_rank()
 	init_bane()

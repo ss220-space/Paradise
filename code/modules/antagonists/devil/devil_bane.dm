@@ -9,7 +9,7 @@
 	var/bonus_damage = 1	
 
 /datum/devil_bane/Destroy(force)
-    remove_bane()
+	remove_bane()
     
 	owner = null
 	devil = null
