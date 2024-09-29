@@ -68,7 +68,7 @@
 	clothes_req = FALSE
 	base_cooldown = 2 SECONDS
 	stat_allowed = UNCONSCIOUS
-	action_icon_state = "select_class"
+	action_icon_state = "select_affiliate"
 	var/list/affiliates_to_choose
 
 
@@ -133,12 +133,12 @@
 		if("SelectAffiliate")
 			var/path = params["path"]
 			ui.close()
-			ui.user.RemoveSpell(src)
+			ui.user.mind.RemoveSpell(src)
 			traitor.give_affiliate(ui.user.mind, path)
 
 /datum/affiliate/proc/add_discount_item(I, cost_part)
 	var/datum/uplink_item/new_item = new I
 	new_item.cost = round(new_item.cost * (cost_part))
-	new_item.name += "[((1-(cost_part))*100)]%"
+	new_item.name += " ([round((1-(cost_part))*100)]% off!)"
 	new_item.category = "Скидки"
 	uplink.uplink_items.Add(new_item)

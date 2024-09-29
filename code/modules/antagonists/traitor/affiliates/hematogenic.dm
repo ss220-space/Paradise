@@ -109,6 +109,11 @@
 		else
 			to_chat(user, span_notice("[target] body rejects [src]"))
 
+/obj/item/hemophagus_extract/examine(mob/user)
+	. = ..()
+	if (target)
+		. += span_info("It is intended for [target]")
+
 /obj/item/hemophagus_extract/self
  	name = "Hemophagus Essence Auto Injector"
  	desc = "Инжектор странной формы, с неестественно двигающейся алой жидкостью внутри. На боку едва заметная гравировка \"Hematogenic Industries\"."

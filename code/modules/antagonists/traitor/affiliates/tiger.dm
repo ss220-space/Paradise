@@ -94,6 +94,11 @@
 		else
 			to_chat(user, span_notice("[target] body rejects [src]"))
 
+/obj/item/cling_extract/examine(mob/user)
+	. = ..()
+	if (target)
+		. += span_info("It is intended for [target]")
+
 /obj/item/cling_extract/self
 	free_inject = TRUE
 

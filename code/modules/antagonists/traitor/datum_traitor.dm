@@ -195,6 +195,8 @@
 
 	//Assign objectives
 	var/datum/objective/steal/exchange/exchange_objective = new
+	if (!exchange_objective.target)
+		return
 	exchange_objective.set_faction(faction, ((faction == "red") ? SSticker.mode.exchange_blue : SSticker.mode.exchange_red))
 	exchange_objective.owner = owner
 	objectives += exchange_objective
