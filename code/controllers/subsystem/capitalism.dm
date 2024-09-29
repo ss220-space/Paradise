@@ -6,7 +6,7 @@ SUBSYSTEM_DEF(capitalism)
 	name = "Capitalism"
 	ss_id = "capitalism_subsystem"
 	init_order =  INIT_ORDER_CAPITALISM
-	offline_implications = "Выплаты зарплат приостановлены, по идеи выплаты за задания карго не сломаются. Награда за цель не выплачивается. Немедленных действий не требуется."
+	offline_implications = "Выплаты зарплат приостановлены, по идее выплаты за задания карго не сломаются. Награда за цель не выплачивается. Немедленных действий не требуется."
 	runlevels = RUNLEVEL_GAME
 	wait = FREQUENCY_SALARY
 	flags = SS_BACKGROUND
