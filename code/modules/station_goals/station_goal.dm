@@ -15,6 +15,13 @@
 	var/list/datum/supply_packs/supply_list = list()
 
 	var/station_bounty = STATION_GOAL_DEFAULT_BOUNTY
+	var/list/personal_reward = list(
+		JOB_TITLE_ENGINEER = 1000,
+		JOB_TITLE_ENGINEER_TRAINEE = 1000,
+		JOB_TITLE_ATMOSTECH = 1000,
+		JOB_TITLE_MECHANIC = 1000,
+		JOB_TITLE_CHIEF = 1500
+	)
 
 /datum/station_goal/proc/send_report()
 	on_report()
