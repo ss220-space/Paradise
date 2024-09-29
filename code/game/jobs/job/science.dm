@@ -73,7 +73,6 @@
 	required_objectives = list(
 		/datum/job_objective/further_research
 	)
-	money_factor = 4
 	outfit = /datum/outfit/job/scientist
 
 	salary = 200
@@ -109,7 +108,6 @@
 	exp_max	= 600
 	exp_type_max = EXP_TYPE_SCIENCE
 	is_novice = TRUE
-	money_factor = 2
 	outfit = /datum/outfit/job/scientist/student
 
 /datum/outfit/job/scientist/student
@@ -153,7 +151,6 @@
 	exp_requirements = 900
 	exp_type = EXP_TYPE_SCIENCE
 
-	money_factor = 3
 	outfit = /datum/outfit/job/roboticist
 
 /datum/outfit/job/roboticist
