@@ -154,9 +154,9 @@
 	var/difficultly_flags
 	
 	
-	var/cargo_quest_reward = 0 			//Награда за квест, считайте дебаг залупа roflcat
-	var/list/bounty_jobs = list() 		//Должности которым будет идти зарплата. (Неееет я не буду делать часть этого в new)
-	var/linked_departament = "Cargo" 	//Указывается ключ депортамента чтобы брать его из глобального списка, нет я не сделаю загрузку в new, боюсь чет сломать
+	var/cargo_quest_reward = 0 			//The reward for the quest, consider the debut of the roflcat
+	var/list/bounty_jobs = list() 		//Positions that will be paid. (Noooo I won't do part of this in new)
+	var/linked_departament = "Cargo" 	//The department key is specified to take it from the global list, no, I will not upload to new, I'm afraid to break even
 
 /datum/cargo_quest/New(storage, read_datum = FALSE)
 	if(!read_datum)
