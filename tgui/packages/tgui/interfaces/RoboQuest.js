@@ -377,7 +377,7 @@ export const RoboQuest = (props, context) => {
                         content={i.desc}
                         onClick={() =>
                           act('buyItem', {
-                            item: i.actual_item,
+                            item: i.path,
                           })
                         }
                       />

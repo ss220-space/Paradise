@@ -60,6 +60,14 @@
 		new /obj/item/stock_parts/scanning_module/triphasic(src)
 		new /obj/item/stock_parts/cell/bluespace(src)
 
+/obj/item/storage/part_replacer/bluespace/experimental/populate_contents()
+	for(var/amount in 1 to 10)
+		new /obj/item/stock_parts/capacitor/purple(src)
+		new /obj/item/stock_parts/manipulator/purple(src)
+		new /obj/item/stock_parts/matter_bin/purple(src)
+		new /obj/item/stock_parts/micro_laser/purple(src)
+		new /obj/item/stock_parts/scanning_module/purple(src)
+
 /obj/item/storage/part_replacer/bluespace/drop_inventory(mob/user)
 	if(user.a_intent == INTENT_HARM) //Меняем режим выгрузки
 		empty_mode -= 1

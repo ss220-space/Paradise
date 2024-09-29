@@ -316,7 +316,7 @@
 					return
 			for(var/cat in r_item.cost)
 				points[cat] -= r_item.cost[cat]
-			new r_item.path(get_turf(src))
+			new r_item.actual_item(get_turf(src))
 			qdel(r_item)
 		if("printOrder")
 			if(print_delayed)
@@ -411,7 +411,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	default_deconstruction_screwdriver(user, "pad-idle-o", icon_state, I)
+	default_deconstruction_screwdriver(user, "pad-idle-o", initial(icon_state), I)
 
 /obj/machinery/roboquest_pad/proc/teleport(atom/destination, datum/roboquest/quest, obj/machinery/computer/roboquest/console, var/penalty)
 	do_sparks(5, 1, get_turf(src))

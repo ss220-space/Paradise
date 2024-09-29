@@ -127,7 +127,7 @@
 	var/desc
 	/// Path to shop item
 	var/atom/path
-	/// Actual Spawning item. Can be different when giving disks
+	/// Actual Spawning item. Can be different e.x. giving disks instead of items
 	var/actual_item
 	/// Cost in RoboPoints. Can be (*, 0, 0, 0) (*, *, 0, 0) (*, *, *, 0) (0, *, 0, 0) (0, *, *, 0) (0, 0, *, 0) (0, 0, 0, *)
 	var/list/cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 0)
@@ -169,6 +169,8 @@
 	name = "universal mech paintkit"
 	desc = "This device will allow the user to repaint the mech as many times as they wish."
 	path = /obj/item/universal_paintkit
+	actual_item = /obj/item/universal_paintkit
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
 
 /datum/roboshop_item/mecha_drop
 	name = "mecha drop tool"
@@ -197,7 +199,7 @@
 /datum/roboshop_item/experimental_parts
 	name = "\improper experimental parts"
 	path = /obj/item/storage/box/stockparts/experimental_parts
-	actual_item = /obj/item/storage/box/stockparts/experimental_parts
+	actual_item = /obj/item/storage/part_replacer/bluespace/experimental
 	cost = list("working" = 2, "medical" = 2, "security" = 2, "robo" = 0)
 
 
@@ -209,6 +211,14 @@
 	icon_state = "holodisk"
 	///used in examine hints
 	var/hint_name = "items"
+	var/design_type
+
+/obj/item/disk/design_disk/roboquest/Initialize()
+	. = ..()
+	if(isnull(design_type))
+		return INITIALIZE_HINT_QDEL
+
+	blueprint = new design_type()
 
 /obj/item/disk/design_disk/roboquest/examine(mob/user)
 	. = ..()
@@ -218,19 +228,19 @@
 /obj/item/disk/design_disk/roboquest/bluespace_bag_disk
 	name = "bluespace bag design"
 	desc = "This disk contains blueprints for production of bluespace bodybags."
-	blueprint = /datum/design/bbag
+	design_type = /datum/design/bbag
 	hint_name = "bluespace bodybags"
 
 /obj/item/disk/design_disk/roboquest/holotool
 	name = "holotool design"
 	desc = "This disk contains blueprints for production of holotools."
-	blueprint = /datum/design/holotool
+	design_type = /datum/design/holotool
 	hint_name = "holotools"
 
 /obj/item/disk/design_disk/roboquest/shield_breaker
 	name = "plasma pistol design"
 	desc = "his disk contains blueprints for production of plasma pistols."
-	blueprint = /datum/design/real_plasma_pistol
+	design_type = /datum/design/real_plasma_pistol
 	hint_name = "plasma pistols"
 
 #undef WORKING_CLASS
