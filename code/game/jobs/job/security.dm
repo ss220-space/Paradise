@@ -78,7 +78,6 @@
 	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/warden
 
-	//Гага вавден, больше работы но столько же зарплаты
 	salary = 170
 	min_start_money = 200
 	max_start_money = 550
