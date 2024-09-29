@@ -57,7 +57,11 @@ SUBSYSTEM_DEF(capitalism)
 			continue
 		if(goal.check_completion() && !(goal in complited_goals))
 			total_station_goal_bounty += goal.station_bounty
-			s_ex_personal_bounry |= goal.personal_reward
+			for(var/prom in goal.personal_reward)
+				if(s_ex_personal_bounry?[prom])
+					s_ex_personal_bounry[prom] += goal.personal_reward[prom]
+				else
+					s_ex_personal_bounry[prom] = goal.personal_reward[prom]
 			complited_goals += goal
 
 	if(total_station_goal_bounty)
