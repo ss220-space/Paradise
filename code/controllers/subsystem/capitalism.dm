@@ -141,7 +141,7 @@ SUBSYSTEM_DEF(capitalism)
 		if(jobs_payment?[account.linked_job.title] && account.salary_payment_active && !account.suspended)
 			
 			if(account.credit(jobs_payment[account.linked_job.title], "Начисление награды за выполнение цели.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name))
-				total_personal_bounty += money
+				total_personal_bounty += jobs_payment[account.linked_job.title]
 				account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [jobs_payment[account.linked_job.title]] кредитов за помощь в выполнении цель станции.\" (Невозможно Ответить)", FALSE)
 				. = TRUE
 	return
