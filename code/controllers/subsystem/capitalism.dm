@@ -101,14 +101,10 @@ SUBSYSTEM_DEF(capitalism)
 	. = TRUE
 
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
-
 		if(account.salary_payment_active && account.linked_job.salary && !account.suspended)
-
 			if(payment_account.charge(account.linked_job.salary, account, "Выплата зарплаты персоналу.", "Nanotrasen personal departament" , payment_account.owner_name, payment_account.owner_name , payment_account.owner_name))
-
 				account.notify_pda_owner("<b>Поступление зарплаты </b>\"На ваш привязанный аккаунт поступило [account.linked_job.salary] кредитов\" (Невозможно Ответить)", FALSE)
 				total_salary_payment += account.linked_job.salary
-
 			else
 				return FALSE
 
@@ -139,7 +135,6 @@ SUBSYSTEM_DEF(capitalism)
 
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
 		if(jobs_payment?[account.linked_job.title] && account.salary_payment_active && !account.suspended)
-			
 			if(account.credit(jobs_payment[account.linked_job.title], "Начисление награды за выполнение цели.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name))
 				total_personal_bounty += jobs_payment[account.linked_job.title]
 				account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [jobs_payment[account.linked_job.title]] кредитов за помощь в выполнении цель станции.\" (Невозможно Ответить)", FALSE)
