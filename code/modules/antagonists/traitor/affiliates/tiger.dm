@@ -3,11 +3,18 @@
 
 /datum/affiliate/tiger
 	name = "Tiger Cooperative"
-	desc = "Вы - послушник культа генокрадопоклонников и член организации Tiger Cooperative. \n\
-			Вышестоящие братья определили ваши задачи на станции NanoTrasen, не опозорьте их и явите миру новое дитя генокрада! \n\
-			Как вам стоит работать: не раскрывайте свое присутсвие и присутствие генокрада, позаботьтесь о его успешном внедрении. \n\
-			Особые условия: братья по вере не пользуются оружием дальнего боя, предпочитая стимуляторы и энергомечи.\n\
-			Стандартные цели: Сделать члена экипажа генокрадом вколов в его труп яйца генокрада, развести бореров, украсть пару вещей, убить пару еретиков."
+	desc = "Преимущества: \n\
+			Скидка 25% на имплант адреналина\n\
+			Скидка 50% на прототип импланта адреналина\n\
+			Скидка 30% на лазерный меч\n\
+			Новый предмет - \"Egg Implanter\"\n\
+			Недостатки: \n\
+			Вы не можете купить или использовать оружие дальнего боя\n\
+			Стандартные цели:\n\
+			Сделать члена экипажа генокрадом вколов в его труп яйца генокрада\n\
+			Увеличить популяцию бореров\n\
+			Украсть пару ценных вещей\n\
+			Убить пару еретиков"
 	objectives = list(/datum/objective/new_mini_changeling, // Oh, sorry, I forgot to make that stupid drug objective...
 					/datum/objective/borers,
 					list(/datum/objective/steal = 60, /datum/objective/maroon = 40),
@@ -22,6 +29,9 @@
 /datum/affiliate/tiger/finalize_affiliate(datum/mind/owner)
 	. = ..()
 	ADD_TRAIT(owner, TRAIT_NO_GUNS, TIGER_TRAIT)
+	add_discount_item(/datum/uplink_item/dangerous/sword, 0.70)
+	add_discount_item(/datum/uplink_item/implants/adrenal, 0.75)
+	add_discount_item(/datum/uplink_item/implants/adrenal/prototype, 0.5)
 
 /obj/item/cling_extract
 	name = "Egg Implanter"

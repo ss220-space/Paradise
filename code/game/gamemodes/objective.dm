@@ -2016,9 +2016,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
 		var/datum/uplink_item/affiliate/for_objective/cling_extract/I = new
-		var/obj/item/cling_extract/CE = I.item
-		CE.target = target
-		CE.desc += "\nIt is intended for [target.current.real_name], the [target.assigned_role]."
 		I.desc += "\nIt is intended for [target.current.real_name], the [target.assigned_role]."
 		traitor.hidden_uplink.uplink_items.Add(I)
 

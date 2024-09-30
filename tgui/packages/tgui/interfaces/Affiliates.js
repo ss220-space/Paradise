@@ -37,17 +37,6 @@ const ExploitableInfoPage = (_properties, context) => {
       <Flex>
         {affiliates.map((i) => (
           <Flex.Item grow={1} basis={0} key={i.name}>
-            <Section style={{ 'text-align': 'center' }}>
-              <img
-                height="256px"
-                width="256px"
-                src={`data:image/jpeg;base64,${i.icon}`}
-                style={{
-                  'margin-left': '0px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
-                }}
-              />
-            </Section>
             <Section title={i.name}>
               <Box>{i.desc}</Box>
             </Section>

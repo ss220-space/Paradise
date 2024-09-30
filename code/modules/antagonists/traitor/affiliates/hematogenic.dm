@@ -5,13 +5,15 @@
 
 /datum/affiliate/hematogenic
 	name = "Hematogenic Industries"
-	desc = "Вы один из представителей \"большой фирмы\" Hematogenic Industries, ваш наниматель \n\
-			рассчитывает провести некоторые исследования на объекте NanoTrasen. \n\
-			\"Кто первый надел халат - тот и врач\" на объекте вы работаете не один, будьте эффективнее своих оппонентов. \n\
-			Как вам стоит работать: действуйте на свое усмотрение, главное, не забывайте про фармакологическую этику - не навреди Корпорации. \n\
-			Для хирурга самое важное - его руки, поэтому для сотрудников Hematogenic Industries боевые искусства под запретом. \n\
-			Но взамен Корпорация предлагает вам опробовать её передовую разработку Hemophagus Essence Auto Injector.\n\
-			Стандартные цели: Собрать крови полной духовной энергии, украсть передовое медицинское снаряжение, сделать одного из членов экипажа вампиром, украсть что-то или убить кого-то."
+	desc = "Преимущества:\n\
+			Новый предмет - \"Bloody Injector\\n\
+			Недостатки:\n\
+			Вы не можете изучать боевые исскуства\n\
+			Стандартные цели:\n\
+			Собрать образцы крови полной различной духовной энергии\n\
+			Украсть передовые медицинские технологии\n\
+			Сделать одного из членов экипажа вампиром\n\
+			Украсть что-то ценное или убить кого-то"
 	tgui_icon = "hematogenic"
 	hij_desc = "Вы - опытный наёмный агент Hematogenic Industries.\n\
 			Основатель Hematogenic Industries высоко оценил ваши прошлые заслуги, а потому, дал вам возможность купить инжектор наполненный его собственной кровью... \n\
@@ -71,7 +73,14 @@
 			target.rejuvenate()
 			var/datum/antagonist/vampire/vamp = new()
 			vamp.give_objectives = FALSE
-			target.mind.add_antag_datum(vamp)
+
+			var/datum/mind/mind = target.mind
+			mind.add_antag_datum(vamp)
+
+			var/datum/antagonist/vampire/vampire = mind.has_antag_datum(/datum/antagonist/vampire)
+			vampire.add_objective(/datum/objective/blood)
+			vampire.add_objective(/datum/objective/escape)
+
 			to_chat(user, span_notice("You inject [target] with [src]"))
 			used = TRUE
 			item_state = "inj_used"
@@ -93,6 +102,8 @@
 			var/datum/antagonist/vampire/vamp = new()
 			vamp.give_objectives = FALSE
 			target.mind.add_antag_datum(vamp)
+			var/datum/antagonist/vampire/vampire = target.mind.has_antag_datum(/datum/antagonist/vampire)
+			vampire.add_objective(/datum/objective/blood)
 			to_chat(user, span_notice("You inject [target == user ? "yourself" : target] with [src]"))
 			used = TRUE
 			item_state = "inj_used"

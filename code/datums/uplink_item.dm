@@ -467,6 +467,7 @@
 	item = /obj/item/storage/belt/bandolier/booze
 	cost = 15
 	job = list(JOB_TITLE_BARTENDER)
+	exclude_from_affiliate = list(AFFIL_TIGER)
 
 //Barber
 /datum/uplink_item/jobspecific/safety_scissors //Hue
@@ -707,6 +708,7 @@
 	desc = "A modern, burst firing, mag-fed combat shotgun, that uses 12g ammo. Holds a 12/24 round drums, perfect for cleaning out crowds of people in narrow corridors. Welcome to the Minotaur's labyrinth!"
 	item = /obj/item/gun/projectile/automatic/shotgun/minotaur
 	cost = 80
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
@@ -731,6 +733,7 @@
 	desc = "A legendary high power pistol that uses 7 rounds .50AE magazines."
 	item = /obj/item/gun/projectile/automatic/pistol/deagle
 	cost = 50
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/uzi
@@ -738,6 +741,7 @@
 	desc = "A fully-loaded lightweight blowback-operated submachine gun that uses 30-rounds 9mm magazines."
 	item = /obj/item/gun/projectile/automatic/mini_uzi
 	cost = 60
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/smg
@@ -745,6 +749,7 @@
 	desc = "A fully-loaded Scarborough Arms bullpup submachine gun that fires .45 rounds with a 20-round magazine and is compatible with suppressors."
 	item = /obj/item/gun/projectile/automatic/c20r
 	cost = 70
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
 
@@ -753,6 +758,7 @@
 	desc = "A fully-loaded three-round burst carbine that uses 30-round 5.56mm magazines with a togglable underslung 40mm grenade launcher."
 	item = /obj/item/gun/projectile/automatic/m90
 	cost = 80
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
 
@@ -761,6 +767,7 @@
 	desc = "A fully-loaded Aussec Armory belt-fed machine gun. This deadly weapon has a massive 50-round magazine of devastating 7.62x51mm ammunition."
 	item = /obj/item/gun/projectile/automatic/l6_saw
 	cost = 175
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
@@ -776,6 +783,7 @@
 	item = /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	cost = 100
 	surplus = 25
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/sniper_compact //For when you really really hate that one guy.
@@ -904,6 +912,7 @@
 	desc = "A fully-loaded Donksoft bullpup submachine gun that fires riot grade rounds with a 20-round magazine."
 	item = /obj/item/gun/projectile/automatic/c20r/toy
 	cost = 20
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
@@ -912,6 +921,7 @@
 	desc = "A fully-loaded Donksoft belt-fed machine gun. This weapon has a massive 50-round magazine of devastating riot grade darts, that can briefly incapacitate someone in just one volley."
 	item = /obj/item/gun/projectile/automatic/l6_saw/toy
 	cost = 50
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
@@ -961,6 +971,7 @@
 	desc = "An additional 12-round buckshot magazine for use in the auto shotguns. Front towards enemy."
 	item = /obj/item/ammo_box/magazine/m12g
 	cost = 10
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldragon
@@ -968,6 +979,7 @@
 	desc = "An alternative 12-round dragon's breath magazine for use in the auto shotguns. I'm a fire starter, twisted fire starter!"
 	item = /obj/item/ammo_box/magazine/m12g/dragon
 	cost = 10
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bullflechette
@@ -975,6 +987,7 @@
 	desc = "An additional 12-round flechette magazine for use in the auto shotguns. Works well against armour."
 	item = /obj/item/ammo_box/magazine/m12g/flechette
 	cost = 10
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bullterror
@@ -982,6 +995,7 @@
 	desc = "An alternative 12-round bioterror magazine for use in the auto shotguns. Extremely toxic!"
 	item = /obj/item/ammo_box/magazine/m12g/bioterror
 	cost = 15
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bullmeteor
@@ -989,6 +1003,7 @@
 	desc = "An alternative 12-round breaching magazine for use in the auto shotguns. This ammo should be illegal!"
 	item = /obj/item/ammo_box/magazine/m12g/breach
 	cost = 25
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLbuck
@@ -996,6 +1011,7 @@
 	desc = "An additional 24-round buckshot magazine for use in the auto shotguns. Front towards enemy."
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg
 	cost = 20
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLflechette
@@ -1003,6 +1019,7 @@
 	desc = "An additional 24-round flechette magazine for use in the auto shotguns. Works well against armour."
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg/flechette
 	cost = 20
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLdragon
@@ -1010,6 +1027,7 @@
 	desc = "An additional 24-round dragon's breath magazine for use in the auto shotguns. I'm a fire starter, twisted fire starter!"
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
 	cost = 20
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldog_ammobag
@@ -1017,6 +1035,7 @@
 	desc = "A duffel bag filled with enough 12g ammo to supply an entire team, at a discounted price."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgun
 	cost = 60 // normally 90
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldog_XLmagsbag
@@ -1024,6 +1043,7 @@
 	desc = "A duffel bag containing three 24 round drum magazines(Buckshot, Flechette, Dragon's Breath)."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
 	cost = 45 // normally 90
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/uzi
@@ -1045,6 +1065,7 @@
 	desc = "An additional 20-round .45 magazine for use in the C-20r submachine gun. These bullets pack a lot of punch that can knock most targets down, but do limited overall damage."
 	item = /obj/item/ammo_box/magazine/smgm45
 	cost = 10
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/smg_ammobag
@@ -1080,6 +1101,7 @@
 	desc = "A 50-round magazine of 5.56x45mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
 	item = /obj/item/ammo_box/magazine/mm556x45
 	cost = 50
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
@@ -1131,6 +1153,7 @@
 	desc = "A box of 40 Donksoft foam riot darts, for reloading any compatible foam dart gun. Don't forget to share!"
 	item = /obj/item/ammo_box/foambox/riot
 	cost = 10
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
@@ -1153,6 +1176,7 @@
 	desc = "A magazine that contains seven additional .50AE round for Desert Eagle. Kill them all."
 	item = /obj/item/ammo_box/magazine/m50
 	cost = 5
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	surplus = 0
 
 /datum/uplink_item/ammo/rocketHE
@@ -1253,6 +1277,7 @@
 /datum/uplink_item/stealthy_weapons/false_briefcase
 	name = "False Bottomed Briefcase"
 	desc = "A modified briefcase capable of storing and firing a gun under a false bottom. Use a screwdriver to pry away the false bottom and make modifications. Distinguishable upon close examination due to the added weight."
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	item = /obj/item/storage/briefcase/false_bottomed
 	cost = 1
 
@@ -1404,7 +1429,8 @@
 	desc = "A reusable rocket propelled grenade launcher preloaded with a low-yield 84mm HE round. Guaranteed to send your target out with a bang or your money back!"
 	item = /obj/item/gun/projectile/revolver/rocketlauncher
 	cost = 50
-	surplus = 0 // no way
+	surplus = 0 // 1984
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/rocketbelt
@@ -1624,7 +1650,6 @@
 	desc = "The cryptographic sequencer, also known as an emag, is a small card that unlocks hidden functions in electronic devices, subverts intended functions and characteristically breaks security mechanisms."
 	item = /obj/item/card/emag
 	cost = 30 // No brainrot allowed
-	exclude_from_affiliate = list(AFFIL_SELF)
 
 /datum/uplink_item/device_tools/access_tuner
 	name = "Access Tuner"
@@ -1649,6 +1674,7 @@
 	name = "Shoulder Holster"
 	desc = "For holding your favourite gun close and always being ready for a cowboy duel with clown."
 	item = /obj/item/clothing/accessory/holster
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	cost = 2
 
 /datum/uplink_item/device_tools/holster/knives
@@ -2088,6 +2114,7 @@
 	name = "Desert Eagle"
 	desc = "A badass gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50AE ammo. Kill with style."
 	item = /obj/item/gun/projectile/automatic/pistol/deagle/gold
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	cost = 50
 
 /datum/uplink_item/badass/syndiecigs
@@ -2130,6 +2157,7 @@
 	name = "Syndicate Reverse Card"
 	desc = "Hidden in an ordinary-looking playing card, this device will teleport an opponent's gun to your hand when they fire at you. Just make sure to hold this in your hand!"
 	item = /obj/item/syndicate_reverse_card
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	cost = 10
 
 /datum/uplink_item/implants/macrobomb
@@ -2150,6 +2178,7 @@
 			Bulldog shotgun, two 12g buckshot drums, and a pair of Thermal imaging goggles."
 	item = /obj/item/storage/backpack/duffel/syndie/bulldogbundle
 	cost = 45 // normally 60
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/c20r
@@ -2182,6 +2211,7 @@
 			We'll throw in a free red tie if you order NOW."
 	item = /obj/item/storage/briefcase/sniperbundle
 	cost = 110 // normally 135
+	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/cyborg_maint
@@ -2380,10 +2410,10 @@
 	item = /obj/item/invasive_beacon
 	cost = 14
 
-/datum/uplink_item/affiliate/cybersun/CIndy_patcher
+/datum/uplink_item/affiliate/cybersun/Syndie_patcher
 	name = "Синди патчер"
 	desc = "Высокотехнологичное устройство для взлома боргов, разработанное Cybersun Industries. При взломе борга ставит ему прошивку борга Синдиката с нулевым законом на подчинение взломавшему. Устройство одноразовое."
-	item = /obj/item/CIndy_patcher
+	item = /obj/item/Syndie_patcher
 	cost = 28
 	limited_stock = 2
 

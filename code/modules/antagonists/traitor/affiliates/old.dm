@@ -1,6 +1,10 @@
 /datum/affiliate/old
 	name = "Unknown"
-	desc = "О вашем нанимателе нет информации."
+	desc = "Преимущества: -\n\
+			Недостатки: -\n\
+			Стандартные цели:\n\
+			Убить нескольких членов экипажа\n\
+			Украсть несколько ценных предметов"
 	can_take_bonus_objectives = FALSE
 
 /datum/affiliate/old/get_weight(mob/living/carbon/human/H)

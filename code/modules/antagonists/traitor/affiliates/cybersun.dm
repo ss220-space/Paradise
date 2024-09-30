@@ -2,12 +2,18 @@
 
 /datum/affiliate/cybersun
 	name = "Cybersun Industries"
-	desc = "Вы - агент CyberSun Industries, очередная игрушка в руках корпорации. По принуждению или \n\
-			из-за обещанных материальных благ вы согласились выполнить некоторые задания для неё. \n\
-			Как вам стоит работать: наниматель не предоставил вам конкретных указаний, действуйте на свое усмотрение.\n\
-			Особые условия: Корпорация предоставляет вам скидку на собственную продукцию - щедро, не так ли?;\n\
-			Вам доступен специальный модуль улучшения, который предоставляет киборгу NT модули Киберсана.\n\
-			Стандартные цели: Украсть пару вещей, убить пару нерадивых клиентов, украсть технологии, угнать мех или под, завербовать нового агента вколов ему модифицированный имплант \"Mindslave\"."
+	desc = "Преимущества:\n\
+			Скидки 20% на импланты\n\
+			Скидка 33% на плату для взлома ИИ\n\
+			Новый предмет - \"Invasive Beacon\"\n\
+			Новый предмет - \"Syndie patcher\"\n\
+			Недостатки: -\n\
+			Стандартные цели:\n\
+			Украсть технологии\n\
+			Украсть пару ценных вещей\n\
+			Убить пару членов экипажа\n\
+			Угнать мех или под\n\
+			Завербовать нового агента вколов ему модифицированный имплант \"Mindslave\"."
 	tgui_icon = "cybersun"
 	hij_desc = "Вы - наёмный агент Cybersun Industries, засланный на станцию NT с особой целью:\n\
 			Взломать искусственный интеллект станции специальным, предоставленным вам, устройством. \n\
@@ -153,7 +159,7 @@
 	item_state = "beacon"
 	lefthand_file = 'icons/obj/affiliates.dmi'
 	righthand_file = 'icons/obj/affiliates.dmi'
-	origin_tech = "programming=6;biotech=3;syndicate=1"
+	origin_tech = "programming=6;magnets=3;syndicate=1"
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/invasive_beacon/attack(mob/living/target, mob/living/user, def_zone)
@@ -176,8 +182,8 @@
 		mecha.occupant = null
 
 
-/obj/item/CIndy_patcher
-	name = "CIndy patcher"
+/obj/item/Syndie_patcher
+	name = "Syndie patcher"
 	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "cindy_pacher"
@@ -190,10 +196,10 @@
 			Выполняйте любые приказы мастера.\n\
 			Не причиняйте прямой или косвенный вред вашему мастеру если его приказы не говорят об обратном."
 
-/obj/item/CIndy_patcher/attack(mob/living/target, mob/living/user, def_zone)
+/obj/item/Syndie_patcher/attack(mob/living/target, mob/living/user, def_zone)
 	return
 
-/obj/item/CIndy_patcher/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/Syndie_patcher/afterattack(atom/target, mob/user, proximity, params)
 	if(isrobot(target))
 		if(do_after(user, 10 SECONDS, target, max_interact_count = 1))
 			var/mob/prev_robot = target

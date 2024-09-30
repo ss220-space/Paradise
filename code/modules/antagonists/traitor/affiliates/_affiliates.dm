@@ -108,10 +108,11 @@
 /datum/antagonist/traitor/proc/give_affiliate(datum/mind/mind, path)
 	grant_affiliate(path)
 	if (istype(affiliate, /datum/affiliate/gorlex))
-		to_chat(mind.current, span_info("Аплинк будет активирован через 20 минут.\n\
-		Спасибо что выбрали Gorlex Maraduers.\n\
-		Слава синдикату!"))
-		sleep(20 MINUTES)
+		if (20 MINUTES - SSticker.round_start_time > 0)
+			to_chat(mind.current, span_info("Аплинк будет активирован через 20 минут от начала смены.\n\
+			Спасибо что выбрали Gorlex Maraduers.\n\
+			Слава синдикату!"))
+			sleep(20 MINUTES - SSticker.round_start_time)
 
 	give_uplink()
 	affiliate.give_objectives(mind)
