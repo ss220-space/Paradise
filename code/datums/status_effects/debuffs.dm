@@ -1242,11 +1242,8 @@
 	return TRUE
 
 /datum/status_effect/tox_vomit/tick(seconds_between_ticks)
-	if(!TOX_VOMIT_THRESHOLD_REACHED(owner, TOX_VOMIT_REQUIRED_TOXLOSS) || HAS_TRAIT(owner, TRAIT_GODMODE))
+	if(owner.stat == DEAD || !TOX_VOMIT_THRESHOLD_REACHED(owner, TOX_VOMIT_REQUIRED_TOXLOSS) || HAS_TRAIT(owner, TRAIT_GODMODE))
 		qdel(src)
-		return
-
-	if(owner.stat == DEAD)
 		return
 
 	puke_counter++
