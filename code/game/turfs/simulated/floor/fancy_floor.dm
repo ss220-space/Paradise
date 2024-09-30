@@ -48,6 +48,10 @@
 	nitrogen = 82
 	temperature = 180
 
+/turf/simulated/floor/wood/dark
+	icon_state = "dark-wood"
+	floor_tile = /obj/item/stack/tile/wood/dark
+
 /turf/simulated/floor/wood/oak
 	icon_state = "wood-oak"
 	floor_tile = /obj/item/stack/tile/wood/oak
@@ -89,10 +93,6 @@
 
 /turf/simulated/floor/wood/fancy/cherry/broken_states()
 	return list("fancy-wood-cherry-broken", "fancy-wood-cherry-broken2", "fancy-wood-cherry-broken3", "fancy-wood-cherry-broken4", "fancy-wood-cherry-broken5", "fancy-wood-cherry-broken6", "fancy-wood-cherry-broken7")
-
-/turf/simulated/floor/wood/fancy/dark
-	icon_state = "dark-fancy-wood"
-	floor_tile = /obj/item/stack/tile/wood/fancy/dark
 
 /turf/simulated/floor/wood/fancy/light
 	icon_state = "light-fancy-wood"
