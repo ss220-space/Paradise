@@ -601,9 +601,11 @@
 					continue
 
 				var/mob/living/L = A
-				var/protection = L.get_permeability_protection()
-				if(protection)
-					to_chat(L, span_alert("Your clothes protects you from the reaction."))
+				var/protection = 0
+				if(method == REAGENT_TOUCH)
+					protection = L.get_permeability_protection()
+					if(protection)
+						to_chat(L, span_alert("Your clothes protects you from the reaction."))
 
 				R.reaction_mob(A, method, R.volume * volume_modifier * (1 - protection), show_message)
 
