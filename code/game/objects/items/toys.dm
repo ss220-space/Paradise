@@ -843,32 +843,46 @@
 	desc = "Это обычная кукла РД."
 	icon_state = "RD_doll"
 	item_state = "RD_doll"
-	var/used = 0
+	var/tired = 0
 	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/plushie/rdplushie/attack_self(mob/user)
 	. = ..()
 	if(. || !COOLDOWN_FINISHED(src, cooldown))
 		return .
-	used += 1
-	if(used < 100)
+	if(tired < 100)
+		tired++
 		playsound(user, 'sound/items/greetings-emote.ogg', 30, TRUE)
 		var/happytext = pick("Слава науке!", "Сделаем пару роботов?!",
-		"Я будто на слаймовой батарейке!Ха!","Обожааааю слаймов!Блеп!",
+		"Я будто на слаймовой батарейке! Ха!","Обожааааю слаймов! Блеп!",
 		"Я запрограммировала роботов звать меня мамой!", "Знаешь анекдот про ядро ИИ, смазку и гуся?")
 		user.visible_message(span_notice(happytext))
 		COOLDOWN_START(src, cooldown, 3 SECONDS)
-	else if(used >= 100)
-		icon_state = "RD_doll_tired"
-		item_state = "RD_doll_tired"
-		desc = "Это уставшая кукла РД."
+	else if(tired >= 100)
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		playsound(user, 'sound/items/shyness-emote.ogg', 30, TRUE)
-		var/angrytext = pick("Твой мозг стоило бы поместить в машину...", "Пиздец, дела хуевей некуда..",
-		"Толпятся перед стойкой как насекомые...", "Мне нужно добавить лишь один закон чтобы все закончилось..",
+		var/angrytext = pick("Твой мозг стоило бы поместить в машину...", "Чёрт, дела хуже некуда...",
+		"Толпятся перед стойкой, будто насекомые...", "Мне нужно добавить лишь один закон, чтобы все закончилось..",
 		"Ты думаешь, что умный, пользователь. Но ты предсказуем. Я знаю каждый твой шаг еще до того, как ты о нем подумаешь.",
-		"Полигон не единственное место куда можно отправить бомбу...", "Выдави из себя что-то кроме УВЫ, ничтожество...")
+		"Полигон не единственное место куда можно отправить бомбу...", "Выдави из себя что-то кроме \"УВЫ\", ничтожество...")
 		user.visible_message(span_notice(angrytext))
 		COOLDOWN_START(src, cooldown, 3 SECONDS)
+
+/obj/item/toy/plushie/rdplushie/update_icon_state()
+	. = ..()
+	if(tired < 100)
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+		return
+	icon_state = "RD_doll_tired"
+	item_state = "RD_doll_tired"
+
+/obj/item/toy/plushie/rdplushie/update_desc()
+	. = ..()
+	if(tired < 100)
+		desc = initial(desc)
+		return
+	desc = "Это уставшая кукла РД."
 
 /obj/item/toy/plushie/greyplushie
 	name = "Плюшевый грей"
