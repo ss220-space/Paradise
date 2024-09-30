@@ -344,11 +344,11 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			vamp.adjust_nullification(20, 4)
 			vamp.bloodusable = max(vamp.bloodusable - 3,0)
 			if(vamp.bloodusable)
-				V.vomit(VOMIT_BLOOD, stun = FALSE)
+				V.vomit(VOMIT_BLOOD, stun = 0 SECONDS)
 				V.adjustBruteLoss(3)
 			else
 				holder.remove_reagent(id, volume)
-				V.vomit(VOMIT_TOXIN, stun = FALSE)
+				V.vomit(VOMIT_TOXIN, stun = 0 SECONDS)
 				return
 		else
 			if(!vamp.bloodtotal)
