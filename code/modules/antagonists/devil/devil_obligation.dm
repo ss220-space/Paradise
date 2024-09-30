@@ -25,11 +25,11 @@
     return ..()
 
 /datum/devil_obligation/proc/give_spells()
-    for(var/obj/effect/proc_holder/spell/spell as anything in owner.mind?.spell_list)
+	for(var/obj/effect/proc_holder/spell/spell as anything in obligation_spells)
 		owner.mind?.AddSpell(spell)
 
 /datum/devil_obligation/proc/remove_spells()
-    for(var/obj/effect/proc_holder/spell/spell as anything in owner.mind?.spell_list)
+	for(var/obj/effect/proc_holder/spell/spell as anything in owner.mind?.spell_list)
 		if(!is_type_in_list(spell, obligation_spells))
 			continue
 
@@ -47,7 +47,7 @@
 	desc = "This devil seems to always offer its victims food before slaughtering them."
 	law = "When not acting in self defense, you must always offer your victim food before harming them."
 
-    obligation_spells = list(obj/effect/proc_holder/spell/conjure_item/violin)
+	obligation_spells = list(obj/effect/proc_holder/spell/conjure_item/violin)
 
 /datum/devil_obligation/fiddle
 	name = OBLIGATION_FIDDLE
@@ -61,7 +61,7 @@
 	desc = "This devil will never turn down a dance off."
 	law = "When not in immediate danger, if you are challenged to a dance off, you must accept it. You are not obligated to face off with the same person twice."
 
-    obligation_spells = list(/obj/effect/proc_holder/spell/summon_dancefloor)
+	obligation_spells = list(/obj/effect/proc_holder/spell/summon_dancefloor)
 
 /datum/devil_obligation/greet
 	name = OBLIGATION_GREET
