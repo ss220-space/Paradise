@@ -55,13 +55,17 @@
 
 
 /datum/event/spawn_pulsedemon/can_start()
-	if(..()) // override checks
+	var/player_count = num_station_players()
+	if(player_count > minplayers) // all passed
 		return TRUE
 
-	if(num_station_players() <= minplayers) // not enough
-		return FALSE
+	if(..()) //not passed, but forced
+		log_and_message_admins("Event \"[type]\" launched bypassing the minimum players limit!")
+		return TRUE
 
-	return TRUE
+	log_and_message_admins("Random event attempted to spawn a pulse demon, but there were only [player_count]/[minplayers] players.")
+
+	return FALSE
 
 
 #undef PULSEDEMON_MINPLAYERS

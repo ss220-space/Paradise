@@ -48,16 +48,18 @@
 	get_revenant()
 
 /datum/event/revenant/can_start()
-	if(..())
-		return TRUE
-
 	var/deadMobs = 0
 	for(var/mob/M in GLOB.dead_mob_list)
 		deadMobs++
 
 	//it's never FALSE, because roundstart amount of deadmobs ~40 i guess..
-	if(deadMobs < REVENANT_SPAWN_THRESHOLD)
-		message_admins("Random event attempted to spawn a revenant, but there were only [deadMobs]/[REVENANT_SPAWN_THRESHOLD] dead mobs.")
-		return FALSE
+	if(deadMobs >= REVENANT_SPAWN_THRESHOLD)
+		return TRUE
 
-	return TRUE
+	if(..()) // forced
+		log_and_message_admins("Event \"[type]\" launched bypassing the minimum deadmobs limits!")
+		return TRUE
+
+	log_and_message_admins("Random event attempted to spawn a revenant, but there were only [deadMobs]/[REVENANT_SPAWN_THRESHOLD] dead mobs.")
+
+	return FALSE

@@ -78,13 +78,17 @@
 	kill()
 
 /datum/event/spawn_slaughter/can_start()
-	if(..())
+	var/player_count = num_station_players()
+	if(player_count > minplayers) // all passed
 		return TRUE
 
-	if(num_station_players() <= minplayers)
-		return FALSE
+	if(..()) // forced
+		log_and_message_admins("Event \"[type]\" launched bypassing the minimum players limit!")
+		return TRUE
 
-	return TRUE
+	log_and_message_admins("Random event attempted to spawn a slaughter demon, but there were only [player_count]/[minplayers] players.")
+
+	return FALSE
 
 
 #undef SLAUGHTER_MINPLAYERS

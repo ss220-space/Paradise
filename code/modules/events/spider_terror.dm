@@ -70,13 +70,16 @@
 
 
 /datum/event/spider_terror/can_start(player_count)
-	if(..())
+	if(player_count > TS_MINPLAYERS_TRIGGER) // passed
 		return TRUE
 
-	if(player_count <= TS_MINPLAYERS_TRIGGER)
-		return FALSE
+	if(..()) // forced
+		log_and_message_admins("Event \"[type]\" launched bypassing the minimum players limit!")
+		return TRUE
 
-	return TRUE
+	log_and_message_admins("Random event attempted to spawn a terror spiders, but there were only [player_count]/[TS_MINPLAYERS_TRIGGER] players.")
+
+	return FALSE
 
 
 #undef TS_MINPLAYERS_TRIGGER

@@ -39,15 +39,17 @@
 
 
 /datum/event/space_dragon/can_start()
-	if(..())
+	var/player_count = num_station_players()
+	if(player_count >= SPACE_DRAGON_SPAWN_THRESHOLD) // all passed
 		return TRUE
 
-	var/player_count = num_station_players()
-	if(player_count < SPACE_DRAGON_SPAWN_THRESHOLD)
-		log_and_message_admins("Random event attempted to spawn a space dragon, but there were only [player_count]/[SPACE_DRAGON_SPAWN_THRESHOLD] players.")
-		return FALSE
+	if(..()) // forced
+		log_and_message_admins("Event \"[type]\" launched bypassing the minimum players limit!")
+		return TRUE
 
-	return TRUE
+	log_and_message_admins("Random event attempted to spawn a space dragon, but there were only [player_count]/[SPACE_DRAGON_SPAWN_THRESHOLD] players.")
+
+	return FALSE
 
 
 #undef SPACE_DRAGON_SPAWN_THRESHOLD

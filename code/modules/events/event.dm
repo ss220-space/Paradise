@@ -178,10 +178,12 @@
 	SSevents.active_events -= src
 	SSevents.event_complete(src)
 
-/datum/event/New(datum/event_meta/EM, skeleton = FALSE)
+/datum/event/New(datum/event_meta/EM, skeleton = FALSE, forced_event = FALSE)
 	// event needs to be responsible for this, as stuff like APLUs currently make their own events for curious reasons
 	if(!skeleton)
 		SSevents.active_events += src
+
+	src.forced_event = forced_event
 
 	if(!EM)
 		EM = new /datum/event_meta(EVENT_LEVEL_MAJOR, "Unknown, Most likely admin called", src.type)
