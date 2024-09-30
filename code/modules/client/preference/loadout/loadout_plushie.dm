@@ -106,9 +106,4 @@
 	path = /obj/item/toy/plushie/hampter/ert_squad
 	cost = 1
 
-/datum/gear/plushie/rdplushie
-	donator_tier = 3
-	cost = 1
-	display_name = "RD doll"
-	path = /obj/item/toy/plushie/rdplushie
 

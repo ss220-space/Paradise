@@ -368,4 +368,9 @@
 	display_name = "Short maid costume"
 	path = /obj/item/clothing/under/maid/short
 
+/datum/gear/donor/rdplushie
+	donator_tier = 3
+	cost = 1
+	display_name = "RD doll"
+	path = /obj/item/toy/plushie/rdplushie
 
