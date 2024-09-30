@@ -60,7 +60,7 @@
 				usedName += "x"
 
 			var/datum/antagonist/devil/devil = devilInfo(usedName, 0)
-			user << browse("Information on [devilName]<br><br><br>[GLOB.lawlorify[LORE][devil.info.ban]]<br>[devil.info.bane.desc]<br>[GLOB.lawlorify[LORE][devil.info.obligation]]<br>[devil.info.banish.desc]", "window=book")
+			user << browse("Information on [devilName]<br><br><br>[devil.info.ban.desc]<br>[devil.info.bane.desc]<br>[devil.info.obligation.desc]<br>[devil.info.banish.desc]", "window=book")
 
 		inUse = 0
 		sleep(10)

@@ -1,5 +1,6 @@
 /datum/devil_bane
-	var/name 
+	var/name
+	 
 	var/desc
 	var/law    
 

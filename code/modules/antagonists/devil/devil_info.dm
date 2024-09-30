@@ -1,26 +1,36 @@
 /datum/devilinfo
+	/// Devil's truename
 	var/truename
-	var/obligation
-	var/ban
-
+	/// Ban of our devil. 
+	var/datum/devil_ban/ban
+	/// Obligation of our devil.
+	var/datum/devil_obligation/obligation
+	/// Banish of our devil. Used to dust him. Works only with devil_banishment element
 	var/datum/devil_banish/banish
+	/// Bane of our devil. Used to make devil weaker
 	var/datum/devil_bane/bane
 
 /datum/devilinfo/New(name = randomDevilName())
 	truename = name
+
 	randomdevilbane()
-	obligation = randomdevilobligation()
-	ban = randomdevilban()
+	randomdevilobligation()
+
+	randomdevilban()
 	randomdevilbanish()
 
 /datum/devilinfo/Destroy(force)
 	QDEL_NULL(banish)
 	QDEL_NULL(bane)
 
+	QDEL_NULL(ban)
+	QDEL_NULL(obligation)
+
 	return ..()
 
 /datum/devilinfo/proc/randomDevilName()
 	var/name = ""
+
 	if(prob(65))
 		if(prob(35))
 			name = pick(GLOB.devil_pre_title)
@@ -40,10 +50,28 @@
 	return name
 
 /datum/devilinfo/proc/randomdevilobligation()
-	return pick(OBLIGATION_FOOD, OBLIGATION_FIDDLE, OBLIGATION_DANCEOFF, OBLIGATION_GREET, OBLIGATION_PRESENCEKNOWN, OBLIGATION_SAYNAME, OBLIGATION_ANNOUNCEKILL, OBLIGATION_ANSWERTONAME)
+	var/list/obligations = list()
+
+	for(var/datum/devil_obligation/obligation as anything in subtypesof(/datum/devil_obligation))
+		if(!obligation.name)
+			continue
+
+		LAZYADD(obligations, obligation)
+
+	var/new_obligation = pick(obligations)
+	obligation = new new_obligation()
 
 /datum/devilinfo/proc/randomdevilban()
-	return pick(BAN_HURTWOMAN, BAN_CHAPEL, BAN_HURTPRIEST, BAN_AVOIDWATER, BAN_HURTLIZARD, BAN_HURTANIMAL)
+	var/list/bans = list()
+
+	for(var/datum/devil_ban/ban as anything in subtypesof(/datum/devil_ban))
+		if(!ban.name)
+			continue
+
+		LAZYADD(bans, ban)
+
+	var/new_ban = pick(bans)
+	ban = new new_ban()
 
 /datum/devilinfo/proc/randomdevilbane()
 	var/list/banes = list()

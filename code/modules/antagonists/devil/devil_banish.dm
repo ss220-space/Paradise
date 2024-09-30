@@ -1,5 +1,6 @@
 /datum/devil_banish
     var/name
+    
     var/desc
     var/law
 
@@ -24,6 +25,7 @@
 
 /datum/devil_banish/water
     name = BANISH_WATER
+
     desc = "To banish the devil, you must infuse its body with holy water."
     law = "If your corpse is filled with holy water, you will be unable to resurrect."
 
@@ -32,6 +34,7 @@
 
 /datum/devil_banish/coffin
     name = BANISH_COFFIN
+
     desc = "This devil will return to life if its remains are not placed within a coffin."
     law = "If your corpse is in a coffin, you will be unable to resurrect."
 
@@ -40,6 +43,7 @@
 
 /datum/devil_banish/formaldehyde
     name = BANISH_FORMALDYHIDE
+
     desc = "To banish the devil, you must inject its lifeless body with embalming fluid."
     law = "If your corpse is embalmed, you will be unable to resurrect."
 
@@ -48,6 +52,7 @@
 
 /datum/devil_banish/rune
     name = BANISH_RUNES
+
     desc = "This devil will resurrect after death, unless its remains are within a rune."
     law = "If your corpse is placed within a rune, you will be unable to resurrect."
 
@@ -57,6 +62,7 @@
 
 /datum/devil_banish/candle
     name = BANISH_CANDLES
+
     desc = "A large number of nearby lit candles will prevent it from resurrecting."
     law = "If your corpse is near lit candles, you will be unable to resurrect."
 
@@ -70,6 +76,7 @@
 
 /datum/devil_banish/funeral
     name = BANISH_FUNERAL_GARB
+
     desc = "If clad in funeral garments, this devil will be unable to resurrect. Should the clothes not fit, lay them gently on top of the devil's corpse."
     law = "If your corpse is clad in funeral garments, you will be unable to resurrect."
 

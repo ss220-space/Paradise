@@ -31,7 +31,7 @@
 /datum/devil_rank/proc/apply_rank(mob/living/carbon/carbon)
 	return
 
-/datum/devil_rank/proc/apply_spells()
+/datum/devil_rank/proc/give_spells()
 	for(var/obj/effect/proc_holder/spell/spell as anything in rank_spells)
 		owner.mind?.AddSpell(new spell)
 

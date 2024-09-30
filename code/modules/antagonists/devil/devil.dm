@@ -9,16 +9,6 @@
 	var/list/datum/mind/soulsOwned = new
 	var/datum/devil_rank/rank
 
-	var/static/list/devil_spells = typecacheof(list(
-		/obj/effect/proc_holder/spell/fireball/hellish,
-		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
-		/obj/effect/proc_holder/spell/conjure_item/violin,
-		/obj/effect/proc_holder/spell/summon_dancefloor,
-		/obj/effect/proc_holder/spell/sintouch,
-		/obj/effect/proc_holder/spell/dark_conversion,
-		/obj/effect/proc_holder/spell/aoe/devil_fire
-		))
-
 /datum/antagonist/devil/can_be_owned(datum/mind/new_owner)
 	. = ..()
 	if(!.)
@@ -86,23 +76,13 @@
 
 	rank.link_rank(owner.current)
 	rank.apply_rank()
-	rank.apply_spells()
+	rank.give_spells()
 
 	return TRUE
 
 /datum/antagonist/devil/proc/remove_spells()
-	for(var/obj/effect/proc_holder/spell/spell as anything in owner.spell_list)
-		if(!is_type_in_typecache(spell, devil_spells))
-			continue
-
-		owner.RemoveSpell(spell)
-
-/datum/antagonist/devil/proc/give_obligation_spells()
-	switch(info.obligation)
-		if(OBLIGATION_FIDDLE)
-			owner.AddSpell(new /obj/effect/proc_holder/spell/conjure_item/violin(null))
-		if(OBLIGATION_DANCEOFF)
-			owner.AddSpell(new /obj/effect/proc_holder/spell/summon_dancefloor(null))
+	rank.remove_spells()
+	info.obligation.remove_spells()
 
 /datum/antagonist/devil/proc/update_hud()
 	var/mob/living/living = owner.current
@@ -127,8 +107,8 @@
 	LAZYADD(messages, "You may not use violence to coerce someone into selling their soul.")
 	LAZYADD(messages, "You may not directly and knowingly physically harm a devil, other than yourself.")
 	LAZYADD(messages, info.bane.law)
-	LAZYADD(messages, GLOB.lawlorify[LAW][info.ban])
-	LAZYADD(messages, GLOB.lawlorify[LAW][info.obligation])
+	LAZYADD(messages, info.ban.law)
+	LAZYADD(messages, info.obligation.law)
 	LAZYADD(messages, info.banish.law)
 	LAZYADD(messages, "[span_warning("Remember, the crew can research your weaknesses if they find out your devil name.")]<br>")
 	return messages
@@ -142,7 +122,7 @@
 		return FALSE
 
 	var/mob/living/carbon/human/human = owner.current
-	human.store_memory("Your devilic true name is [info.truename]<br>[GLOB.lawlorify[LAW][info.ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[info.bane.law]<br>[GLOB.lawlorify[LAW][info.obligation]]<br>[info.banish.law]<br>")
+	human.store_memory("Your devilic true name is [info.truename]<br>[info.ban.law].<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[info.bane.law]<br>[info.obligation.law]<br>[info.banish.law]<br>")
 
 	update_hud()
 
@@ -154,6 +134,19 @@
 /datum/antagonist/devil/proc/init_bane()
 	info.bane.link_bane(owner.current)
 	info.bane.init_bane()
+
+	return
+
+/datum/antagonist/devil/proc/init_obligation()
+	info.obligation.link_obligation(owner.current)
+	info.obligation.apply_obligation_effect()
+	info.obligation.give_spells()
+
+	return
+
+/datum/antagonist/devil/proc/init_ban()
+	info.ban.link_ban(owner.current)
+	info.ban.apply_ban_effect()
 
 	return
 
@@ -179,8 +172,12 @@
 	init_new_rank()
 	init_bane()
 
+	init_obligation()
+	init_ban()
+
 	update_hud()
 	give_obligation_spells()
+
 	info.banish.link_banish(owner.current)
 
 	LAZYADD(owner.current.faction, "hell")
@@ -197,6 +194,9 @@
 	info.banish.remove_banish()
 	info.bane.remove_bane()
 
+	info.obligation.remove_obligation()
+	info.ban.remove_ban()
+
 	LAZYREMOVE(owner.current.faction, "hell")
 	REMOVE_TRAIT(owner.current, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
 
@@ -205,8 +205,8 @@
 	LAZYADD(parts, "The devil's true name is: [info.truename]")
 	LAZYADD(parts, "The devil's bans were:")
 	LAZYADD(parts, info.bane.law)
-	LAZYADD(parts, (GLOB.lawlorify[LAW][info.ban]))
-	LAZYADD(parts, (GLOB.lawlorify[LAW][info.obligation]))
+	LAZYADD(parts, info.ban.law)
+	LAZYADD(parts, info.obligation.law)
 	LAZYADD(parts, info.banish.law)
 	return parts.Join("<br>")
 

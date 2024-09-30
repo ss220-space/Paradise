@@ -1506,8 +1506,8 @@
 
 	LAZYADD(messages, "Some fun facts about: [devil.truename]")
 	LAZYADD(messages, devil.bane.law)
-	LAZYADD(messages, GLOB.lawlorify[LAW][devil.ban])
-	LAZYADD(messages, GLOB.lawlorify[LAW][devil.obligation])
+	LAZYADD(messages, devil.ban.law)
+	LAZYADD(messages, devil.obligation.law)
 	LAZYADD(messages, devil.banish.law)
 
 	playsound(loc, 'sound/machines/click.ogg', 20, 1)

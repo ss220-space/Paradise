@@ -90,43 +90,6 @@ GLOBAL_LIST_INIT(whiteness, list(
 #define BANE_HARVEST_DAMAGE_MULTIPLIER 	2
 
 GLOBAL_LIST_EMPTY(allDevils)
-GLOBAL_LIST_INIT(lawlorify, list (
-		LORE = list(
-			OBLIGATION_FOOD = "This devil seems to always offer its victims food before slaughtering them.",
-			OBLIGATION_FIDDLE = "This devil will never turn down a musical challenge.",
-			OBLIGATION_DANCEOFF = "This devil will never turn down a dance off.",
-			OBLIGATION_GREET = "This devil seems to only be able to converse with people it knows the name of.",
-			OBLIGATION_PRESENCEKNOWN = "This devil seems to be unable to attack from stealth.",
-			OBLIGATION_SAYNAME = "He will always chant his name upon killing someone.",
-			OBLIGATION_ANNOUNCEKILL = "This devil always loudly announces his kills for the world to hear.",
-			OBLIGATION_ANSWERTONAME = "This devil always responds to his truename.",
-			BAN_HURTWOMAN = "This devil seems to prefer hunting men.",
-			BAN_CHAPEL = "This devil avoids holy ground.",
-			BAN_HURTPRIEST = "The annointed clergy appear to be immune to his powers.",
-			BAN_AVOIDWATER = "The devil seems to have some sort of aversion to water, though it does not appear to harm him.",
-			BAN_STRIKEUNCONSCIOUS = "This devil only shows interest in those who are awake.",
-			BAN_HURTLIZARD = "This devil will not strike a lizardman first.",
-			BAN_HURTANIMAL = "This devil avoids hurting animals.",
-		),
-		LAW = list(
-			OBLIGATION_FOOD = "When not acting in self defense, you must always offer your victim food before harming them.",
-			OBLIGATION_FIDDLE = "When not in immediate danger, if you are challenged to a musical duel, you must accept it.  You are not obligated to duel the same person twice.",
-			OBLIGATION_DANCEOFF = "When not in immediate danger, if you are challenged to a dance off, you must accept it. You are not obligated to face off with the same person twice.",
-			OBLIGATION_GREET = "You must always greet other people by their last name before talking with them.",
-			OBLIGATION_PRESENCEKNOWN = "You must always make your presence known before attacking.",
-			OBLIGATION_SAYNAME = "You must always say your true name after you kill someone.",
-			OBLIGATION_ANNOUNCEKILL = "Upon killing someone, you must make your deed known to all within earshot, over comms if reasonably possible.",
-			OBLIGATION_ANSWERTONAME = "If you are not under attack, you must always respond to your true name.",
-			BAN_HURTWOMAN = "You must never harm a female outside of self defense.",
-			BAN_CHAPEL = "You must never attempt to enter the chapel.",
-			BAN_HURTPRIEST = "You must never attack a priest.",
-			BAN_AVOIDWATER = "You must never willingly touch a wet surface.",
-			BAN_STRIKEUNCONSCIOUS = "You must never strike an unconscious person.",
-			BAN_HURTLIZARD = "You must never harm a lizardman outside of self defense.",
-			BAN_HURTANIMAL = "You must never harm a non-sentient creature or robot outside of self defense.",
-		)
-	))
-
 //These are also used in the codex gigas, so let's declare them globally.
 GLOBAL_LIST_INIT(devil_pre_title, list("Dark ", "Hellish ", "Fallen ", "Fiery ", "Sinful ", "Blood ", "Fluffy "))
 GLOBAL_LIST_INIT(devil_title, list("Lord ", "Prelate ", "Count ", "Viscount ", "Vizier ", "Elder ", "Adept "))
