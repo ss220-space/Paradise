@@ -141,7 +141,6 @@ SUBSYSTEM_DEF(capitalism)
 	var/list_payment_account = list() 	//which people should I pay
 	var/bounty = 0 						//What kind of money for each department
 	total_personal_bounty += money
-
 	var/datum/money_account/account = base_account
 
 	for(var/key_account_departament in  keys_departament)
@@ -158,5 +157,4 @@ SUBSYSTEM_DEF(capitalism)
 	//If it did not find that, the payment of the station (well, or what is indicated in the base_account)
 	for(var/datum/money_account/account_pay in list_payment_account)
 		account_pay.credit(bounty, "Начисление награды за выполнение заказа.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name)
-
 	return
