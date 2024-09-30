@@ -176,8 +176,6 @@
 	init_ban()
 
 	update_hud()
-	give_obligation_spells()
-
 	info.banish.link_banish(owner.current)
 
 	LAZYADD(owner.current.faction, "hell")

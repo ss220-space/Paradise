@@ -47,7 +47,7 @@
 	desc = "This devil seems to always offer its victims food before slaughtering them."
 	law = "When not acting in self defense, you must always offer your victim food before harming them."
 
-	obligation_spells = list(obj/effect/proc_holder/spell/conjure_item/violin)
+	obligation_spells = list(/obj/effect/proc_holder/spell/conjure_item/violin)
 
 /datum/devil_obligation/fiddle
 	name = OBLIGATION_FIDDLE

@@ -35,30 +35,36 @@
 
 /datum/devil_ban/chapel
 	name = BAN_CHAPEL
+
 	desc = "This devil avoids holy ground."
 	law = "You must never attempt to enter the chapel."
 
 /datum/devil_ban/hurtpriest
 	name = BAN_HURTPRIEST
+
 	desc = "The annointed clergy appear to be immune to his powers."
 	law = "You must never attack a priest."
 
 /datum/devil_ban/avoidwater
 	name = BAN_AVOIDWATER
+
 	desc = "The devil seems to have some sort of aversion to water, though it does not appear to harm him."
 	law = "You must never willingly touch a wet surface."
 
 /datum/devil_ban/strikeunconscious
-	name = BAN_STRIKEUNCONSCIOUS
+	name = BAN_STRIKEUNCONCIOUS
+
 	desc = "This devil only shows interest in those who are awake."
 	law = "You must never strike an unconscious person."
 
 /datum/devil_ban/hurtlizard
 	name = BAN_HURTLIZARD
+
 	desc = "This devil will not strike a lizardman first."
 	law = "You must never harm a lizardman outside of self defense."
 
 /datum/devil_ban/hurtanimal
 	name = BAN_HURTANIMAL
+
 	desc = "This devil avoids hurting animals."
 	law = "You must never harm a non-sentient creature or robot outside of self defense."
