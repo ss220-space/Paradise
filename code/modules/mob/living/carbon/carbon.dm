@@ -76,64 +76,66 @@
 
 /mob/living/carbon/proc/vomit(
 	lost_nutrition = VOMIT_NUTRITION_LOSS, 
-	blood = VOMIT_BLOOD_LOSS, 
+	mode = VOMIT_TOXIN, 
 	stun = VOMIT_STUN_TIME, 
 	distance = 0, 
 	message = TRUE
-)
-	. = FALSE
-	
+)	
 	if(ismachineperson(src)) //IPCs do not vomit particulates
-		return .
+		return FALSE
 
 	if(is_muzzled())
 		if(message)
-			to_chat(src, "<span class='warning'>Намордник препятствует рвоте!</span>")
-		return .
+			to_chat(src, span_warning("Намордник препятствует рвоте!"))
+
+		return FALSE
 
 	if(stun)
 		Stun(stun)
 
-	if(nutrition < VOMIT_REQUIRED_NUTRITION && !blood)
+	if(!nutrition)
+		return FALSE
+
+	if((nutrition < lost_nutrition) && (!(mode & VOMIT_BLOOD)))
 		if(message)
-			visible_message("<span class='warning'>[src.name] сухо кашля[pluralize_ru(src.gender,"ет","ют")]!</span>", \
-							"<span class='userdanger'>Вы пытаетесь проблеваться, но в вашем желудке пусто!</span>")
+			visible_message(span_warning("[src.name] сухо кашля[pluralize_ru(src.gender,"ет","ют")]!"), \
+							span_userdanger("Вы пытаетесь проблеваться, но в вашем желудке пусто!"))
 
 		if(stun)
 			Weaken(stun * 2.5)
 
-	else
-		. = TRUE
-		if(message)
-			visible_message("<span class='danger'>[src.name] блю[pluralize_ru(src.gender,"ет","ют")]!</span>", \
-							"<span class='userdanger'>Вас вырвало!</span>")
+		return FALSE
 
-		playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
-		var/turf/T = get_turf(src)
+	if(message)
+		visible_message(span_danger("[src.name] блю[pluralize_ru(src.gender,"ет","ют")]!"), \
+						span_userdanger("Вас вырвало!"))
 
-		for(var/i=0 to distance)
-			if(blood)
-				if(T)
-					add_splatter_floor(T)
+	playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
+	var/turf/turf = get_turf(src)
 
-				if(stun)
-					adjustBruteLoss(3)
+	if(!turf)
+		return FALSE
 
-			else
-				if(T)
-					T.add_vomit_floor()
+	for(var/i = 0 to distance)
+		if(mode & VOMIT_TOXIN)
+			turf.add_vomit_floor()
+			adjust_nutrition(-lost_nutrition)
+			
+			if(stun)
+				adjustToxLoss(-3)
+		
+		if(mode & VOMIT_BLOOD)
+			add_splatter_floor(turf)
 
-				adjust_nutrition(-lost_nutrition)
+			if(stun)
+				adjustBruteLoss(3)
 
-				if(stun)
-					adjustToxLoss(-3)
+		turf = get_step(turf, dir)
 
-			T = get_step(T, dir)
+		if(turf.is_blocked_turf())
+			break
 
-			if(T.is_blocked_turf())
-				break
-				
-	return .
+	return FALSE
 
 /mob/living/carbon/gib()
 	. = death(TRUE)
