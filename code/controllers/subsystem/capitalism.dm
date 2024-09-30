@@ -169,4 +169,3 @@ SUBSYSTEM_DEF(capitalism)
 		account_pay.credit(bounty, "Начисление награды за выполнение заказа.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name)
 
 	return
-#undef ORDINARY_ENGINERS
