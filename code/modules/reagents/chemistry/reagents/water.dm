@@ -389,7 +389,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			g_vamp.nullified = max(5, g_vamp.nullified + 2)
 			g_vamp.bloodusable = max(g_vamp.bloodusable - 3,0)
 			if(g_vamp.bloodusable)
-				V.vomit(0, VOMIT_TOXIN|VOMIT_BLOD)
+				V.vomit(0, VOMIT_TOXIN|VOMIT_BLOOD)
 			else
 				holder.remove_reagent(id, volume)
 				V.vomit(0, VOMIT_BLOOD)
