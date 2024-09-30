@@ -19,17 +19,16 @@ SUBSYSTEM_DEF(capitalism)
 	var/total_station_bounty 	= 0 //How much money did the money from the cargo bring to the station account
 	var/total_cargo_bounty 		= 0 //How much money was credited to the cargo account from the tasks
 	var/total_personal_bounty 	= 0 //How much money was distributed to the beggars
-	var/income_vedromat 		= 0 //Income with a bucket or in
+	var/income_vedromat 		= 0 //Income from vending machines
+	var/default_counter 		= 0 //The counter for the number of defaults, I definitely won't make a joke
 
 	var/list/complited_goals = list() 	//It is necessary not to pay again for the goal, gagaga
 	var/default_status = FALSE 			//TRUE if the default is in effect at the station, you can do it in the future, for example, as a cargo modifier
-
-	var/default_counter = 0 		//The counter for the number of defaults, I definitely won't make a joke
+	
 
 /datum/controller/subsystem/capitalism/Initialize()
 	accounts_init()
 	salary_account_init()
-
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/capitalism/fire()
@@ -92,7 +91,6 @@ SUBSYSTEM_DEF(capitalism)
 			create_department_account(department)
 
 /datum/controller/subsystem/capitalism/proc/salary_account_init()
-
 	base_account = GLOB.station_account		//The account that the bounty goes to, the money for the goal and the money from the machines.
 	payment_account = GLOB.CC_account 	//GLOB.CC_account 	//This is the account from which money is debited for salary. Made for catsmile tests
 
@@ -101,7 +99,6 @@ SUBSYSTEM_DEF(capitalism)
 
 /datum/controller/subsystem/capitalism/proc/payment_process()
 	. = TRUE
-
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
 		if(account.salary_payment_active && account.linked_job.salary && !account.suspended)
 			if(payment_account.charge(account.linked_job.salary, account, "Выплата зарплаты персоналу.", "Nanotrasen personal departament" , "Поступление зарплаты.", "Biesel TCD Terminal #[rand(111,333)]" , payment_account.owner_name))
@@ -115,7 +112,6 @@ SUBSYSTEM_DEF(capitalism)
 	var/list_payment_account = list() //which people should I pay
 	var/bounty = 0 //What kind of money for each person
 	total_personal_bounty += money
-
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
 		if(jobs_payment.Find(account.linked_job.title) && account.salary_payment_active && !account.suspended)
 			list_payment_account += account
@@ -124,17 +120,14 @@ SUBSYSTEM_DEF(capitalism)
 	if(money == 0 || length(list_payment_account) == 0)
 		return FALSE
 	bounty = round(money / length(list_payment_account))
-
 	for(var/datum/money_account/account in list_payment_account)
 		//It may be worth doing a type from the customer's company... But I'm too lazy
 		if(account.credit(bounty, "Начисление награды за выполнение заказа.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name))
 			account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [bounty] кредитов за помощь в выполнении заказа.\" (Невозможно Ответить)", FALSE)
-
 	return
 
 /datum/controller/subsystem/capitalism/proc/smart_job_payment(var/list/jobs_payment)
 	. = FALSE //If nothing is paid to anyone
-
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
 		if(jobs_payment?[account.linked_job.title] && account.salary_payment_active && !account.suspended)
 			if(account.credit(jobs_payment[account.linked_job.title], "Начисление награды за выполнение цели.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name))
@@ -164,7 +157,6 @@ SUBSYSTEM_DEF(capitalism)
 
 	bounty = round(money / length(list_payment_account))
 	//If it did not find that, the payment of the station (well, or what is indicated in the base_account)
-
 	for(var/datum/money_account/account_pay in list_payment_account)
 		account_pay.credit(bounty, "Начисление награды за выполнение заказа.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name)
 
