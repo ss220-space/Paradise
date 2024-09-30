@@ -25,7 +25,6 @@ GLOBAL_VAR(current_date_string)
 	// If someone ever makes a map without one of these consoles, the entire eco AND date system breaks
 	// This upsets me a lot
 	// AA Todo: SSeconomy
-	// TODO done, SScapitalism
 	
 	if(!GLOB.current_date_string)
 		GLOB.current_date_string = "[time2text(world.timeofday, "DD Month")], [GLOB.game_year]"
