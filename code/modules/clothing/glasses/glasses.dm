@@ -532,6 +532,7 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 3				//to make them blind
 	prescription_upgradable = FALSE
+	var/colour = null
 
 /obj/item/clothing/glasses/sunglasses/blindfold/Initialize(mapload)
 	. = ..()
