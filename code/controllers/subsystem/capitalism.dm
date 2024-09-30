@@ -1,7 +1,6 @@
 #define FREQUENCY_SALARY 5 MINUTES
 #define EXTRA_MONEY 10000
 #define ORDINARY_ENGINERS list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_MECHANIC)
-// TODO done, SScapitalism
 SUBSYSTEM_DEF(capitalism)
 	name = "Capitalism"
 	ss_id = "capitalism_subsystem"
