@@ -15,12 +15,12 @@ SUBSYSTEM_DEF(capitalism)
 
 	//Attention. Statistics for greentext
 	//And why did I make tabs?...
-	var/total_salary_payment 	= 0 //How much money was spent on salaries
-	var/total_station_bounty 	= 0 //How much money did the money from the cargo bring to the station account
-	var/total_cargo_bounty 		= 0 //How much money was credited to the cargo account from the tasks
-	var/total_personal_bounty 	= 0 //How much money was distributed to the beggars
-	var/income_vedromat 		= 0 //Income from vending machines
-	var/default_counter 		= 0 //The counter for the number of defaults, I definitely won't make a joke
+	var/total_salary_payment = 0 	//How much money was spent on salaries
+	var/total_station_bounty = 0 	//How much money did the money from the cargo bring to the station account
+	var/total_cargo_bounty 	= 0 	//How much money was credited to the cargo account from the tasks
+	var/total_personal_bounty = 0 	//How much money was distributed to the beggars
+	var/income_vedromat = 0 		//Income from vending machines
+	var/default_counter = 0 		//The counter for the number of defaults, I definitely won't make a joke
 
 	var/list/complited_goals = list() 	//It is necessary not to pay again for the goal, gagaga
 	var/default_status = FALSE 			//TRUE if the default is in effect at the station, you can do it in the future, for example, as a cargo modifier
