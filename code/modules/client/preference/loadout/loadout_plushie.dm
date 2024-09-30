@@ -109,6 +109,6 @@
 /datum/gear/plushie/rdplushie
 	donator_tier = 3
 	cost = 1
-	display_name = "Плюшевая кукла рд"
+	display_name = "Это обычная кукла РД"
 	path = /obj/item/toy/plushie/rdplushie
 

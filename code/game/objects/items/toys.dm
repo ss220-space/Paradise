@@ -839,8 +839,8 @@
 	var/cooldown = 0
 
 /obj/item/toy/plushie/rdplushie
-	name = "Плюшевый рд"
-	desc = "Плюшевая кукла рд. Выглядит веселой... пока что..."
+	name = "RD doll"
+	desc = "Это обычная кукла РД."
 	icon_state = "RD_doll"
 	item_state = "RD_doll"
 	var/used = 0
@@ -852,7 +852,7 @@
 		return .
 	used += 1
 	if(used < 100)
-		playsound(user, 'sound/items/greetings-emote.ogg', 10, TRUE)
+		playsound(user, 'sound/items/greetings-emote.ogg', 30, TRUE)
 		var/happytext = pick("Слава науке!", "Сделаем пару роботов?!",
 		"Я будто на слаймовой батарейке!Ха!","Обожааааю слаймов!Блеп!",
 		"Я запрограммировала роботов звать меня мамой!", "Знаешь анекдот про ядро ИИ, смазку и гуся?")
@@ -861,8 +861,8 @@
 	else if(used >= 100)
 		icon_state = "RD_doll_tired"
 		item_state = "RD_doll_tired"
-		desc = "Злая плюшевая кукла рд. Лучше не смотреть ей в глаза"
-		playsound(user, 'sound/items/shyness-emote.ogg', 10, TRUE)
+		desc = "Это уставшая кукла РД."
+		playsound(user, 'sound/items/shyness-emote.ogg', 30, TRUE)
 		var/angrytext = pick("Твой мозг стоило бы поместить в машину...", "Пиздец, дела хуевей некуда..",
 		"Толпятся перед стойкой как насекомые...", "Мне нужно добавить лишь один закон чтобы все закончилось..",
 		"Ты думаешь, что умный, пользователь. Но ты предсказуем. Я знаю каждый твой шаг еще до того, как ты о нем подумаешь.",
