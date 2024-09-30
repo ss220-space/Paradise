@@ -168,6 +168,9 @@
 	else
 		to_chat(user, span_notice("Cabinet unlocked."))
 
+/obj/structure/closet/fireaxecabinet/shove_impact(mob/living/target, mob/living/attacker)
+	// no, you can't shove people into a fireaxe cabinet either
+	return FALSE
 
 /obj/structure/closet/fireaxecabinet/proc/operate_panel()
 	if(operating)
