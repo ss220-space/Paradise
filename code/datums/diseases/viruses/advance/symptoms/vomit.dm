@@ -77,7 +77,7 @@ Bonus
 	severity = 5
 
 /datum/symptom/vomit/blood/Vomit(mob/living/carbon/M)
-	M.vomit(0, VOMIT_TOXIN|VOMIT_BLOOD)
+	M.vomit(0, VOMIT_BLOOD)
 
 
 /*
