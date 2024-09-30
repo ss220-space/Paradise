@@ -128,7 +128,7 @@
 	/// Path to shop item
 	var/atom/path
 	/// Actual Spawning item. Can be different e.x. giving disks instead of items
-	var/actual_item
+	var/actual_item = null
 	/// Cost in RoboPoints. Can be (*, 0, 0, 0) (*, *, 0, 0) (*, *, *, 0) (0, *, 0, 0) (0, *, *, 0) (0, 0, *, 0) (0, 0, 0, *)
 	var/list/cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 0)
 	/// Custom item, leave empty if you okay with standart icon
@@ -155,27 +155,23 @@
 	name = "bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
 	path = /obj/item/assembly/signaler/anomaly/bluespace
-	actual_item = /obj/item/assembly/signaler/anomaly/bluespace
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 15)
 
 /datum/roboshop_item/advanced_roboquest_pad
 	name = "robotics request advanced quantum pad"
 	desc = "This quantum pad is capable of instant teleportation of mech without need of send them to the cargo."
 	path = /obj/item/circuitboard/advanced_roboquest_pad
-	actual_item = /obj/item/circuitboard/advanced_roboquest_pad
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 7)
 
 /datum/roboshop_item/universal_paintkit
 	name = "universal mech paintkit"
 	desc = "This device will allow the user to repaint the mech as many times as they wish."
 	path = /obj/item/universal_paintkit
-	actual_item = /obj/item/universal_paintkit
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
 
 /datum/roboshop_item/mecha_drop
 	name = "mecha drop tool"
 	path = /obj/item/mecha_drop
-	actual_item = /obj/item/mecha_drop
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 20)
 	emag_only = TRUE
 

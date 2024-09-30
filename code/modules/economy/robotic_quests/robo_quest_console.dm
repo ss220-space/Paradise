@@ -316,7 +316,10 @@
 					return
 			for(var/cat in r_item.cost)
 				points[cat] -= r_item.cost[cat]
-			new r_item.actual_item(get_turf(src))
+			if(isnull(r_item.actual_item))
+				new r_item.path(get_turf(src))
+			else
+				new r_item.actual_item(get_turf(src))
 			qdel(r_item)
 		if("printOrder")
 			if(print_delayed)
