@@ -234,7 +234,7 @@
 			if(prob(1))
 				SEND_SOUND(owner, sound(pick(spooky_sounds)))
 			if(prob(2))
-				owner.vomit()
+				owner.vomit(VOMIT_TOXIN, VOMIT_NUTRITION_LOSS)
 		if(4, 5)
 			if(prob(2))
 				to_chat(owner, span_danger("Something flexes under your skin."))

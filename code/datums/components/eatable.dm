@@ -114,7 +114,7 @@
 			if (target != user)
 				chat_message_to_target = "В ваш рот насильно запихивают [item.name]!"
 			if(target.nutrition >= NUTRITION_LEVEL_FULL)
-				target.vomit(nutritional_value + 20)
+				target.vomit(VOMIT_TOXIN, nutritional_value + 20)
 				target.adjustStaminaLoss(15)
 
 	if(target != user)

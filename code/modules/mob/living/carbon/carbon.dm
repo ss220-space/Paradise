@@ -76,7 +76,7 @@
 
 /mob/living/carbon/proc/vomit(
 	mode = VOMIT_TOXIN,
-	lost_nutrition, 
+	lost_nutrition = 0, 
 	stun = VOMIT_STUN_TIME, 
 	distance = 0, 
 	message = TRUE
@@ -95,9 +95,6 @@
 
 	if(!nutrition)
 		return FALSE
-
-	if((mode & VOMIT_TOXIN) && (!lost_nutrition))
-		lost_nutrition = VOMIT_NUTRITION_LOSS
 
 	if((nutrition < lost_nutrition) && (!(mode & VOMIT_BLOOD)))
 		if(message)

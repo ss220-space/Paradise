@@ -231,7 +231,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	//VOMIT
 	else if((findtext(message, GLOB.vomit_words)))
 		for(var/mob/living/carbon/C in listeners)
-			C.vomit(10 * power_multiplier)
+			C.vomit(VOMIT_TOXIN, 10 * power_multiplier)
 		next_command = world.time + cooldown_stun
 
 	//SILENCE

@@ -134,7 +134,7 @@
 
 /obj/item/organ/internal/heart/gland/slime/activate()
 	to_chat(owner, "<span class='warning'>You feel nauseous!</span>")
-	owner.vomit(20)
+	owner.vomit(VOMIT_TOXIN, 20)
 
 	var/mob/living/simple_animal/slime/Slime = new(get_turf(owner), "grey")
 	Slime.Friends = list(owner)
@@ -348,4 +348,4 @@
 		var/turf/simulated/T = get_turf(owner)
 		if(istype(T))
 			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,50)
-		owner.vomit()
+		owner.vomit(VOMIT_TOXIN, VOMIT_NUTRITION_LOSS)

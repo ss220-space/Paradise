@@ -441,7 +441,6 @@
 #define SHOCK_KNOCKDOWN (1<<7)
 
 /// Vomit defines
-#define VOMIT_REQUIRED_NUTRITION 100
 #define VOMIT_NUTRITION_LOSS     10
 #define VOMIT_STUN_TIME          (8 SECONDS)
 #define VOMIT_DISTANCE           0

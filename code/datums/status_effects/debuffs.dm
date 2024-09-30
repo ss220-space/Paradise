@@ -1013,7 +1013,7 @@
 		if(prob(pukeprob))
 			carbon.AdjustConfused(9 SECONDS)
 			carbon.AdjustStuttering(3 SECONDS)
-			carbon.vomit(15, VOMIT_TOXIN, 8 SECONDS, 0, FALSE)
+			carbon.vomit(VOMIT_TOXIN, 15, 8 SECONDS, 0, FALSE)
 		carbon.Dizzy(15 SECONDS)
 	if(strength >= DISGUST_LEVEL_DISGUSTED)
 		if(prob(25))
@@ -1253,7 +1253,7 @@
 	var/mob/living/carbon/carbon = owner
 	puke_counter = initial(puke_counter)
 
-	if(!carbon.vomit(20))
+	if(!carbon.vomit(VOMIT_TOXIN, VOMIT_NUTRITION_LOSS))
 		return
 
 	carbon.adjustToxLoss(-3)

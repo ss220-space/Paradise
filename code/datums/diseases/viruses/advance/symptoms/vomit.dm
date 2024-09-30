@@ -43,7 +43,7 @@ Bonus
 	return
 
 /datum/symptom/vomit/proc/Vomit(mob/living/carbon/M)
-	M.vomit(20)
+	M.vomit(VOMIT_TOXIN, 20)
 
 /*
 //////////////////////////////////////

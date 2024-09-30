@@ -48,7 +48,7 @@
 				to_chat(H, span_userdanger("You feel your mind relax and your thoughts drift!"))
 				H.AdjustConfused(16 SECONDS, bound_lower = 0, bound_upper = 200 SECONDS)
 			if(prob(10))
-				H.vomit(20)
+				H.vomit(VOMIT_TOXIN, 20)
 			if(prob(3))
 				to_chat(H, span_warning("<i>[pick("Your stomach silently rumbles...", "Your stomach seizes up and falls limp, muscles dead and lifeless.", "You could eat a crayon")]</i>"))
 				H.overeatduration = max(H.overeatduration - 100, 0)

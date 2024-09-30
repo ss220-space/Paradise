@@ -34,7 +34,7 @@
 				stage_message++
 				to_chat(H, span_notice("You feel sick."))
 			if(prob(2))
-				H.vomit()
+				H.vomit(VOMIT_TOXIN, VOMIT_NUTRITION_LOSS)
 
 			radiate(H)
 

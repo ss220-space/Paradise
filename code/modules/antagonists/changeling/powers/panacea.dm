@@ -21,7 +21,7 @@
 		borer.leave_host()
 		if(iscarbon(user))
 			var/mob/living/carbon/c_user = user
-			c_user.vomit(FALSE)
+			c_user.vomit()
 
 	if(iscarbon(user))
 		var/mob/living/carbon/c_user = user

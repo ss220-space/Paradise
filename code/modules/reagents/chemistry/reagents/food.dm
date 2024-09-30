@@ -138,7 +138,7 @@
 		if(prob(3))
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
-				H.vomit()
+				H.vomit(VOMIT_TOXIN, VOMIT_NUTRITION_LOSS)
 	return ..() | update_flags
 
 
