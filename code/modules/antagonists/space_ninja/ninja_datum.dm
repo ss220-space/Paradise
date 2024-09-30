@@ -442,8 +442,7 @@
 			// RnD Hack: Flag set to complete in the DrainAct in ninjaDrainAct.dm
 			add_objective(/datum/objective/research_corrupt)
 
-	var/pick_chance = rand(0, 100)
-	if(pick_chance <= 50)
+	if(prob(50))
 		var/datum/objective/plant_explosive/bomb_objective = add_objective(/datum/objective/plant_explosive)
 		bomb_objective.give_bomb(delayed = 0)
 
@@ -452,25 +451,23 @@
 		if(!set_up_objective.target)
 			qdel(set_up_objective)
 
-	switch(pick(1,2))
-		if(1)
-			add_objective(/datum/objective/get_money)
+	if(prob(50))
+		add_objective(/datum/objective/get_money)
 
-		if(2)
-			add_objective(/datum/objective/find_and_scan)
+	else
+		add_objective(/datum/objective/find_and_scan)
 
-	switch(pick(1,2))
-		if(1)
-			for(var/i in 1 to 2)
-				var/datum/objective/assassinate/assassinate_objective = add_objective(/datum/objective/assassinate)
-				if(!assassinate_objective.target)
-					qdel(assassinate_objective)
+	if(prob(50))
+		for(var/i in 1 to 2)
+			var/datum/objective/assassinate/assassinate_objective = add_objective(/datum/objective/assassinate)
+			if(!assassinate_objective.target)
+				qdel(assassinate_objective)
 
-		if(2)
-			for(var/i in 1 to 2)
-				var/datum/objective/steal/steal_objective = add_objective(/datum/objective/steal)
-				if(!steal_objective.steal_target)
-					qdel(steal_objective)
+	else
+		for(var/i in 1 to 2)
+			var/datum/objective/steal/steal_objective = add_objective(/datum/objective/steal)
+			if(!steal_objective.steal_target)
+				qdel(steal_objective)
 
 	var/list/all_objectives = owner.get_all_objectives()
 	if(!(locate(/datum/objective/escape) in all_objectives) && !(locate(/datum/objective/survive) in all_objectives))
