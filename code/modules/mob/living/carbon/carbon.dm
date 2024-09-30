@@ -75,8 +75,8 @@
 
 
 /mob/living/carbon/proc/vomit(
-	lost_nutrition = VOMIT_NUTRITION_LOSS, 
-	mode = VOMIT_TOXIN, 
+	mode = VOMIT_TOXIN,
+	lost_nutrition, 
 	stun = VOMIT_STUN_TIME, 
 	distance = 0, 
 	message = TRUE
@@ -95,6 +95,9 @@
 
 	if(!nutrition)
 		return FALSE
+
+	if((mode & VOMIT_TOXIN) && (!lost_nutrition))
+		lost_nutrition = VOMIT_NUTRITION_LOSS
 
 	if((nutrition < lost_nutrition) && (!(mode & VOMIT_BLOOD)))
 		if(message)
@@ -120,7 +123,7 @@
 		if(mode & VOMIT_TOXIN)
 			turf.add_vomit_floor()
 			adjust_nutrition(-lost_nutrition)
-			
+
 			if(stun)
 				adjustToxLoss(-3)
 		
