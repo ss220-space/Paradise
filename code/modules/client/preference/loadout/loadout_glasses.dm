@@ -12,7 +12,7 @@
 	path = /obj/item/clothing/glasses/eyepatch
 
 /datum/gear/glasses/blindfold
-	display_name ="Blindfold"
+	display_name = "Blindfold"
 	path = /obj/item/clothing/glasses/sunglasses/blindfold
 
 /datum/gear/glasses/blindfold/New()
