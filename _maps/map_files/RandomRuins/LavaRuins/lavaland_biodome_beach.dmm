@@ -384,14 +384,15 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/powered/beach)
 "ry" = (
-/obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/storage/box/lights/mixed,
 /obj/item/stack/cable_coil,
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/storage/box/donkpockets,
+/obj/structure/closet/crate,
+/obj/item/reagent_containers/spray/spraytan,
+/obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "rC" = (
@@ -400,10 +401,19 @@
 /area/ruin/powered/beach)
 "rX" = (
 /obj/item/tank/internals/oxygen,
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12
+	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "sq" = (
 /turf/simulated/floor/plating,
+/area/ruin/powered/beach)
+"sJ" = (
+/obj/structure/flora/ausbushes/stalkybush,
+/obj/item/fish_eggs/babycarp,
+/turf/simulated/floor/beach/water,
 /area/ruin/powered/beach)
 "tq" = (
 /obj/structure/table/wood,
@@ -412,6 +422,11 @@
 	},
 /obj/item/clothing/glasses/sunglasses/big,
 /turf/simulated/floor/wood,
+/area/ruin/powered/beach)
+"tG" = (
+/obj/effect/turf_decal/sand/plating,
+/obj/machinery/vending/crittercare/free,
+/turf/simulated/floor/plasteel,
 /area/ruin/powered/beach)
 "uA" = (
 /obj/item/radio/beacon,
@@ -433,6 +448,7 @@
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
+/obj/item/fish_eggs/babycarp,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/beach)
 "wf" = (
@@ -485,9 +501,20 @@
 /area/ruin/powered/beach)
 "zM" = (
 /obj/structure/table,
-/obj/item/storage/box/beakers,
-/obj/item/reagent_containers/spray/spraytan,
-/obj/item/storage/box/drinkingglasses,
+/obj/item/storage/box/donkpockets{
+	pixel_x = -5;
+	pixel_y = 13
+	},
+/obj/item/storage/firstaid/aquatic_kit/full{
+	pixel_x = 7;
+	pixel_y = 14
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = -5
+	},
+/obj/item/storage/box/drinkingglasses{
+	pixel_x = 8
+	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "Bl" = (
@@ -572,6 +599,14 @@
 	},
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
+"Rx" = (
+/obj/structure/closet/secure_closet/freezer/meat/open,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/turf/simulated/floor/wood,
+/area/ruin/powered/beach)
 "SA" = (
 /obj/structure/urinal{
 	pixel_y = 28
@@ -603,7 +638,12 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/beach)
 "TS" = (
-/obj/structure/closet/secure_closet/freezer/meat,
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
+/obj/item/reagent_containers/food/condiment/flour,
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "UU" = (
@@ -629,6 +669,12 @@
 	light_power = 3
 	},
 /turf/simulated/floor/pod,
+/area/ruin/powered/beach)
+"XO" = (
+/obj/machinery/fishtank/wall{
+	opacity = 1
+	},
+/turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "YN" = (
 /obj/effect/turf_decal/sand/plating,
@@ -1158,7 +1204,7 @@ Ml
 zz
 oN
 Ml
-Ml
+XO
 NQ
 Ml
 UU
@@ -1218,7 +1264,7 @@ Ml
 qf
 Ky
 ZW
-TS
+Rx
 TS
 Ml
 gg
@@ -1279,7 +1325,7 @@ vu
 Ek
 KX
 YN
-gg
+tG
 gg
 gg
 gg
@@ -1356,7 +1402,7 @@ bT
 bU
 bU
 bU
-bV
+sJ
 bU
 bW
 "}

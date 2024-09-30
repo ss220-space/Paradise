@@ -52781,7 +52781,7 @@
 	id_tag = "emergency_home";
 	locked = 1;
 	name = "Security Escape Airlock";
-	req_access = list(1)
+	req_access = list(63)
 	},
 /obj/effect/turf_decal/caution/red{
 	dir = 8
@@ -68569,6 +68569,7 @@
 /obj/item/storage/box/bodybags,
 /obj/item/clothing/suit/apron/surgical,
 /obj/item/storage/box/bodybags/biohazard,
+/obj/item/storage/belt/medical/surgery/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -84367,6 +84368,7 @@
 /obj/item/storage/box/bodybags,
 /obj/item/clothing/suit/apron/surgical,
 /obj/item/storage/box/bodybags/biohazard,
+/obj/item/storage/belt/medical/surgery/loaded,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -93575,10 +93577,9 @@
 /area/engine/engineering)
 "qDc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood{
-	flipped = 1
-	},
+/obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/mapping_helpers/table_flip,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"

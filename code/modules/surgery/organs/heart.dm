@@ -214,7 +214,7 @@
 		owner.AdjustStunned(-2 SECONDS * boost)
 		owner.AdjustWeakened(-2 SECONDS * boost)
 		owner.SetSleeping(0)
-		owner.adjustStaminaLoss(-1 * boost)
+		owner.adjustStaminaLoss(-7 * boost)
 
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/proc/message_to_owner(mob/M, message)

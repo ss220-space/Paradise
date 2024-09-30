@@ -18,7 +18,9 @@
 /area/awaymission/academy/classrooms)
 "ag" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/jellyburger/slime,
+/obj/item/reagent_containers/food/snacks/jellyburger/slime{
+	antable = 0
+	},
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "ai" = (
@@ -1453,7 +1455,9 @@
 /area/awaymission/academy/classrooms)
 "gh" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/bluecherries,
+/obj/item/reagent_containers/food/snacks/grown/bluecherries{
+	antable = 0
+	},
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "gi" = (
@@ -3609,7 +3613,9 @@
 /area/awaymission/academy/classrooms)
 "uy" = (
 /obj/structure/disposalpipe/segment,
-/obj/item/reagent_containers/food/snacks/cheesewedge,
+/obj/item/reagent_containers/food/snacks/cheesewedge{
+	antable = 0
+	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "uA" = (
@@ -3655,7 +3661,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/item/reagent_containers/food/snacks/cheesewedge,
+/obj/item/reagent_containers/food/snacks/cheesewedge{
+	antable = 0
+	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "uZ" = (
@@ -4393,13 +4401,6 @@
 	icon_state = "cafeteria"
 	},
 /area/awaymission/academy/academyaft)
-"CA" = (
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/obj/item/reagent_containers/food/snacks/cheesewedge,
-/turf/simulated/floor/indestructible/carpet,
-/area/awaymission/academy/academyaft)
 "CG" = (
 /obj/structure/chair/sofa{
 	dir = 8
@@ -4686,7 +4687,9 @@
 /area/awaymission/academy)
 "Fx" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange{
+	antable = 0
+	},
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "FA" = (
@@ -5219,7 +5222,9 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/academyaft)
 "KX" = (
-/obj/item/reagent_containers/food/snacks/cheesewedge,
+/obj/item/reagent_containers/food/snacks/cheesewedge{
+	antable = 0
+	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
@@ -5379,7 +5384,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/obj/item/reagent_containers/food/snacks/cheesewedge,
+/obj/item/reagent_containers/food/snacks/cheesewedge{
+	antable = 0
+	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "MH" = (
@@ -6253,7 +6260,9 @@
 /obj/structure/disposalpipe/segment{
 	invisibility = 101
 	},
-/obj/item/reagent_containers/food/snacks/cheesewedge,
+/obj/item/reagent_containers/food/snacks/cheesewedge{
+	antable = 0
+	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "Vc" = (
@@ -17066,11 +17075,11 @@ HJ
 US
 US
 US
-US
 uy
 uy
 uy
-CA
+uy
+KD
 Zo
 US
 US
@@ -17195,13 +17204,13 @@ YQ
 Zo
 US
 US
-US
+uy
 uy
 uy
 uy
 uy
 MB
-uY
+HJ
 ra
 ra
 ra
@@ -17324,7 +17333,7 @@ rW
 YQ
 HJ
 US
-US
+uy
 uy
 uy
 uy
@@ -17332,7 +17341,7 @@ uy
 MB
 uY
 Vb
-Vb
+ra
 ra
 ra
 ra
@@ -17453,7 +17462,7 @@ rW
 rW
 YQ
 Zo
-US
+uy
 uy
 uy
 uy
@@ -17463,7 +17472,7 @@ uY
 uy
 uy
 uy
-uy
+US
 US
 US
 US
@@ -17583,7 +17592,7 @@ ip
 rW
 YQ
 HJ
-US
+uy
 uy
 uy
 uy
@@ -17594,7 +17603,7 @@ uy
 uy
 uy
 uy
-uy
+US
 US
 US
 US
@@ -17713,7 +17722,7 @@ ip
 rW
 YQ
 Zo
-US
+uy
 uy
 uy
 MB
@@ -17725,7 +17734,7 @@ uy
 uy
 uy
 uy
-uy
+US
 US
 US
 TG
@@ -17844,7 +17853,7 @@ rW
 YQ
 HJ
 US
-US
+uy
 MB
 uY
 Vb
@@ -17856,7 +17865,7 @@ Vb
 Vb
 Vb
 Vb
-Vb
+ra
 ra
 KD
 YQ
@@ -17975,7 +17984,7 @@ YQ
 Zo
 US
 TG
-HJ
+uY
 uy
 uy
 uy
@@ -17987,7 +17996,7 @@ uy
 uy
 uy
 uy
-uy
+US
 TG
 YQ
 Uu
@@ -18106,7 +18115,6 @@ UC
 TG
 HJ
 US
-US
 uy
 uy
 uy
@@ -18118,7 +18126,8 @@ uy
 uy
 uy
 uy
-CA
+uy
+KD
 YQ
 Uu
 Ra
@@ -18235,19 +18244,19 @@ YQ
 HJ
 JM
 US
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
 US
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
 TG
 YQ
 Uu
@@ -18364,19 +18373,19 @@ rW
 YQ
 Zo
 US
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
 US
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
 US
 KD
 YQ
@@ -18493,19 +18502,19 @@ sq
 rW
 YQ
 HJ
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
 US
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
 US
 US
 TG
@@ -18623,18 +18632,18 @@ ip
 rW
 YQ
 Zo
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
 US
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
 US
 US
 US
@@ -18753,17 +18762,17 @@ ip
 rW
 YQ
 HJ
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
 US
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
 US
 US
 US
@@ -18884,15 +18893,15 @@ rW
 YQ
 Zo
 US
+uy
+uy
+uy
+uy
+uy
+uy
+uy
+uy
 US
-uy
-uy
-uy
-uy
-uy
-uy
-uy
-uy
 US
 US
 US
@@ -19015,13 +19024,13 @@ YQ
 HJ
 US
 US
+uy
+uy
+uy
+uy
+uy
+uy
 US
-uy
-uy
-uy
-uy
-uy
-uy
 US
 US
 US
@@ -19146,11 +19155,11 @@ Zo
 US
 US
 US
+uy
+KX
+KX
+KX
 US
-KX
-KX
-KX
-KX
 US
 US
 US

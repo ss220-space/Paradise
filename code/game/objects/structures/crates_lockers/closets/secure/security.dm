@@ -111,7 +111,7 @@
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
 	req_access = list(ACCESS_SECURITY)
-	icon_state = "secward"
+	icon_state = "sec"
 
 /obj/structure/closet/secure_closet/security/populate_contents()
 	if(prob(50))

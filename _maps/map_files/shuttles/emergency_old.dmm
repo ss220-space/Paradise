@@ -327,7 +327,7 @@
 "db" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access = list(2)
+	req_access = list(63)
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)

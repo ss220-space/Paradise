@@ -27637,8 +27637,8 @@
 /area/maintenance/disposal/west)
 "dNS" = (
 /obj/structure/sign/atmosplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в работе с Фаррагусом, а также полной адаптации Стацнии под нужды НаноТрейзен. Благодарим вас за труд, SQUEEK!. Слава НаноТрейзен!";
-	name = "Благодарственное Письмо Для Старшего Рабочего Команды Архитекторов Фаррагуса.";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в работе с Фаррагусом, а также полную адаптацию станции под стандарты НаноТрейзен. Благодарим вас за труд, SQUEEK!. Слава НаноТрейзен!";
+	name = "Благодарственное Письмо Для Старшего Рабочего Команды Архитекторов Фаррагуса";
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -38068,8 +38068,8 @@
 /area/maintenance/port2)
 "hes" = (
 /obj/structure/sign/goldenplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в работе с Фаррагусом, а также полной адаптации Стацнии под нужды НаноТрейзен. Благодарим вас за труд, BeebBeebBoob. Слава НаноТрейзен!";
-	name = "Благодарственное Письмо Для Бригадира Команды Архитекторов Фаррагуса.";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в работе с Фаррагусом, а также полную адаптацию станции под нужды НаноТрейзен. Благодарим вас за труд, BeebBeebBoob. Слава НаноТрейзен!";
+	name = "Благодарственное Письмо Для Бригадира Команды Архитекторов Фаррагуса";
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -44360,9 +44360,9 @@
 "iWx" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access = list(2)
+	req_access = list(63)
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "iWA" = (
 /obj/item/lighter/zippo/nt_rep,
@@ -62534,6 +62534,8 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
+/obj/item/storage/belt/medical/surgery/loaded,
+/obj/item/storage/belt/medical/surgery/loaded,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -77320,7 +77322,7 @@
 "sgV" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access = list(2)
+	req_access = list(63)
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -94225,8 +94227,6 @@
 "xiZ" = (
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/closet/secure_closet/hos,
-/obj/item/megaphone,
-/obj/item/reagent_containers/food/drinks/flask/barflask,
 /obj/item/spacepod_equipment/key{
 	id = 100000
 	},
