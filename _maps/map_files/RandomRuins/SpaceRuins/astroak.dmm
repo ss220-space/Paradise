@@ -1,0 +1,2572 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aP" = (
+/obj/structure/cult/archives,
+/obj/item/clothing/suit/space/cult,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"bV" = (
+/obj/structure/flora/tree/dead,
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"cb" = (
+/obj/structure/cult/pylon,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"cD" = (
+/obj/effect/turf_decal{
+	dir = 5;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/unpowered)
+"cH" = (
+/obj/item/toy/sword,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"cT" = (
+/obj/item/trash/candle,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"dw" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"eH" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/item/stack/sheet/cloth,
+/obj/item/stack/rods,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"eJ" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered/no_grav)
+"eM" = (
+/obj/structure/table/wood/fancy,
+/obj/item/storage/fancy/cigarettes/cigpack_carp,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"fM" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"fW" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/item/fish_eggs/clownfish{
+	pixel_x = 3;
+	pixel_y = -5
+	},
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/ruin/unpowered)
+"gl" = (
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/unpowered)
+"gw" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"gy" = (
+/obj/item/trash/candle,
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 8
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"gE" = (
+/obj/machinery/shield/cult,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"gJ" = (
+/obj/effect/turf_decal{
+	dir = 6;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner";
+	name = "grass";
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/unpowered)
+"gK" = (
+/obj/structure/window/full/paperframe,
+/obj/structure/curtain/open/shower/security{
+	anchored = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"hC" = (
+/obj/item/trash/tastybread,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"kz" = (
+/obj/structure/closet,
+/obj/item/clothing/suit/hooded/salmon_costume,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"lt" = (
+/obj/item/flag/cult,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"ly" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/wood/fancy/birch{
+	oxygen = 0;
+	nitrogen = 0;
+	temperature = 2.7
+	},
+/area/ruin/unpowered/no_grav)
+"lA" = (
+/turf/simulated/wall/mineral/wood/nonmetal,
+/area/ruin/unpowered/no_grav)
+"lX" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"mw" = (
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/unpowered/no_grav)
+"mM" = (
+/obj/item/reagent_containers/glass/bucket/wooden,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"ne" = (
+/obj/structure/table_frame/wood,
+/obj/effect/landmark/tiles/damageturf,
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"nr" = (
+/obj/structure/wooden_sign{
+	desc = "Астроак открыт для посещения";
+	name = "Астроак"
+	},
+/obj/structure/sign/holy{
+	pixel_y = 32
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"nA" = (
+/obj/item/stack/sheet/wood{
+	amount = 2
+	},
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"nG" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/flashlight/lantern{
+	icon_state = "lantern-on"
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"nL" = (
+/turf/simulated/wall/cult_fake,
+/area/ruin/unpowered)
+"nO" = (
+/mob/living/simple_animal/hostile/carp/mcarp,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"oi" = (
+/obj/structure/table_frame/wood,
+/obj/effect/landmark/tiles/damageturf,
+/obj/item/stack/tile/carpet/red,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"oY" = (
+/obj/item/chair/wood,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"pq" = (
+/turf/simulated/wall/mineral/wood/nonmetal,
+/area/ruin/unpowered)
+"pB" = (
+/obj/structure/noticeboard{
+	pixel_y = 30
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"qF" = (
+/obj/structure/cult/archives,
+/obj/item/clothing/head/helmet/space/cult,
+/obj/structure/sign/poster/contraband/very_robust{
+	pixel_y = 32
+	},
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"qO" = (
+/obj/structure/statue/carp_mini{
+	pixel_y = 16
+	},
+/obj/structure/table/wood/fancy/red,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"rb" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/wood/fancy/birch{
+	oxygen = 0;
+	nitrogen = 0;
+	temperature = 2.7
+	},
+/area/ruin/unpowered/no_grav)
+"rA" = (
+/obj/item/reagent_containers/food/drinks/bottle/unholywater,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"rD" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/unpowered)
+"sF" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/noalarm{
+	pixel_y = 26;
+	dir = 1
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"sT" = (
+/obj/structure/sacrificealtar,
+/obj/item/nullrod/carp,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"sX" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 10
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"tE" = (
+/obj/structure/bookcase/random/religion,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"tR" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"uI" = (
+/obj/structure/sign/poster/official/religious{
+	pixel_x = 32
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"uJ" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"uP" = (
+/obj/structure/closet/crate/can,
+/obj/item/trash/gum,
+/obj/item/trash/doshik,
+/obj/item/hatchet/wooden,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"wh" = (
+/obj/effect/spawner/random_spawners/blood_20,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"wk" = (
+/obj/item/trash/candy,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"wU" = (
+/obj/item/trash/chips,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"yv" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered/no_grav)
+"yF" = (
+/mob/living/simple_animal/hostile/carp/mcarp,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"yT" = (
+/turf/template_noop,
+/area/template_noop)
+"zb" = (
+/obj/structure/cult/forge,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"zg" = (
+/obj/structure/sign/poster/contraband/wanted{
+	pixel_y = 32
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"zC" = (
+/obj/structure/railing,
+/obj/machinery/poolcontroller{
+	pixel_x = -25;
+	srange = 3;
+	deep_water = 1
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"zF" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"zK" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/unpowered)
+"zN" = (
+/obj/structure/closet/crate,
+/obj/item/pickaxe/diamond,
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"zR" = (
+/obj/item/melee/cultblade/dagger,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"Aa" = (
+/obj/structure/bed,
+/obj/item/bedsheet/wiz,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"Af" = (
+/mob/living/simple_animal/hostile/illusion/cult{
+	deathmessage = "disappears into the air with a cry of agony";
+	desc = "The deceived soul";
+	health = 200;
+	maxHealth = 200;
+	name = "The soul of the cultist";
+	icon = 'icons/mob/mob.dmi';
+	icon_living = "shade";
+	icon_state = "shade";
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
+	},
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"Av" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 9
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"Ay" = (
+/obj/structure/cult/altar,
+/obj/item/tome,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"Be" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	name = "window"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"Bj" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
+"BG" = (
+/obj/item/trash/candle{
+	pixel_y = 11
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"BY" = (
+/obj/structure/sign/poster/official/tsf_emblem{
+	pixel_y = 32
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"CG" = (
+/obj/item/shield/riot/buckler,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"DC" = (
+/obj/item/restraints/legcuffs/bola/cult,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"DN" = (
+/obj/item/fluff/rsik_katana,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"DP" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 6;
+	name = "window"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"DS" = (
+/obj/item/flashlight/lantern{
+	icon_state = "lantern-on";
+	pixel_x = 6
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"DX" = (
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"Eg" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered/no_grav)
+"ED" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/flag/cult,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"EW" = (
+/obj/structure/curtain/open/shower/security{
+	anchored = 1
+	},
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"EX" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/remains/human,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/wood/fancy/birch{
+	oxygen = 0;
+	nitrogen = 0;
+	temperature = 2.7
+	},
+/area/ruin/unpowered/no_grav)
+"FE" = (
+/obj/item/fish_eggs/clownfish{
+	pixel_x = -8;
+	pixel_y = -15
+	},
+/obj/structure/railing/corner,
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/ruin/unpowered)
+"Ga" = (
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"Ge" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"GG" = (
+/obj/item/fish_eggs/babycarp{
+	pixel_x = -8;
+	pixel_y = 6
+	},
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/ruin/unpowered)
+"GI" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/sign/poster/ripped{
+	pixel_x = -32
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"GL" = (
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"GT" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 8
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/unpowered)
+"Hb" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 10
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"Hc" = (
+/obj/effect/decal/cleanable/blood/gibs/old,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"Hd" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"HE" = (
+/obj/item/flashlight/lantern{
+	icon_state = "lantern-on"
+	},
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"HL" = (
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"HP" = (
+/obj/structure/sacrificealtar,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"Ih" = (
+/obj/effect/turf_decal{
+	dir = 9;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner";
+	name = "grass";
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/unpowered)
+"Ii" = (
+/obj/structure/bed,
+/obj/item/bedsheet/fluff/hugosheet,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"It" = (
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/landmark/tiles/damageturf,
+/mob/living/simple_animal/pet/dog/corgi/narsie{
+	name = "Nars-Corgi";
+	melee_damage_lower = 9;
+	melee_damage_upper = 15;
+	maxHealth = 75;
+	health = 75;
+	faction = list("neutral","cult", "illusion")
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"Jf" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"KJ" = (
+/obj/structure/railing,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "ramptop"
+	},
+/area/ruin/unpowered)
+"Lr" = (
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"LX" = (
+/obj/item/trash/candle{
+	pixel_y = 13
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"MC" = (
+/obj/effect/rune{
+	allow_excess_invokers = 1;
+	cultist_desc = "an ancient rune that will absorb the power of believers.";
+	cultist_name = "Sacrifice";
+	scribe_damage = 30
+	},
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"MH" = (
+/obj/item/stack/cable_coil{
+	amount = 5
+	},
+/turf/template_noop,
+/area/template_noop)
+"Ni" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner";
+	name = "grass";
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/unpowered)
+"Np" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"Nw" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 4
+	},
+/obj/structure/window/reinforced/survival_pod{
+	name = "window"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"NL" = (
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/unpowered)
+"Ou" = (
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/ruin/unpowered)
+"OQ" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner";
+	name = "grass";
+	dir = 8
+	},
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium_corner";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/unpowered)
+"OV" = (
+/obj/item/chair/wood,
+/mob/living/simple_animal/hostile/carp/mcarp,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"Py" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/toy/carpplushie/ice,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"PM" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/toy/carpplushie/nebula,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"PS" = (
+/obj/structure/closet/crate/trashcart/gibs,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"Qw" = (
+/obj/structure/closet,
+/obj/item/clothing/suit/hooded/carp_costume,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"Qy" = (
+/obj/structure/decorative_structures/corpse,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"QD" = (
+/obj/structure/mineral_door/wood,
+/obj/structure/barricade/wooden/crude,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"QI" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"QO" = (
+/obj/effect/turf_decal{
+	dir = 1;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	icon_state = "grass_edge_medium_corner";
+	name = "grass";
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/unpowered)
+"Rm" = (
+/obj/structure/cult/altar,
+/obj/item/book_of_babel,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"RO" = (
+/obj/item/stack/sheet/wood{
+	amount = 2
+	},
+/turf/template_noop,
+/area/template_noop)
+"Sb" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered/no_grav)
+"Sf" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 2
+	},
+/obj/effect/turf_decal{
+	dir = 8;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/obj/effect/turf_decal{
+	dir = 4;
+	icon_state = "grass_edge_medium";
+	name = "grass"
+	},
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/unpowered)
+"Tw" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window"
+	},
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"TW" = (
+/obj/structure/mineral_door/wood,
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"Uk" = (
+/obj/item/melee/cultblade,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"Uy" = (
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"UE" = (
+/obj/structure/closet,
+/obj/item/stack/sheet/runed_metal_fake/fifty,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"Vp" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 1
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	name = "window"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"VP" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/unpowered/no_grav)
+"Wd" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window"
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	name = "window"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"Wi" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window"
+	},
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered)
+"Yx" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"ZC" = (
+/obj/structure/bed,
+/obj/item/bedsheet/cult,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+"ZY" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(2,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(3,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(4,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+Bj
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(5,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+MH
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(6,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+RO
+ly
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+Bj
+yT
+yT
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(7,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+RO
+yT
+yT
+yT
+yT
+Sb
+ly
+ly
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+eJ
+eJ
+eJ
+eJ
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+Bj
+yT
+yT
+yT
+yT
+"}
+(8,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+Sb
+Eg
+ly
+ly
+lA
+lA
+yT
+yT
+yT
+yT
+yT
+eJ
+eJ
+eJ
+eJ
+eJ
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(9,1,1) = {"
+yT
+yT
+yT
+Bj
+yT
+yT
+yT
+yT
+yT
+yT
+ly
+ly
+VP
+yv
+ly
+lA
+mw
+mw
+yT
+yT
+yT
+eJ
+eJ
+eJ
+eJ
+Vp
+GT
+Be
+Wd
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(10,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+ly
+ly
+ly
+ly
+rb
+ly
+lA
+mw
+mw
+mw
+mw
+pq
+pq
+pq
+pq
+Be
+Av
+gl
+Np
+Hb
+Wd
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(11,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+lA
+lA
+lA
+ly
+EX
+ly
+lA
+mw
+mw
+mw
+mw
+pq
+GG
+Ou
+pq
+Np
+Uy
+OQ
+cD
+DP
+Wi
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(12,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+lA
+mw
+pq
+TW
+QD
+pq
+pq
+pq
+pq
+pq
+pq
+pq
+FE
+fW
+pq
+zg
+Uy
+bV
+rD
+fM
+eJ
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(13,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+pq
+dw
+ZY
+DX
+DX
+BG
+dw
+GI
+DX
+zC
+KJ
+mM
+pq
+Uy
+Uy
+Uy
+rD
+Tw
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(14,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+mw
+pq
+sF
+zF
+nO
+wU
+DX
+DX
+DX
+OV
+Jf
+Jf
+DX
+pq
+GL
+Uy
+gJ
+Ih
+Hb
+Wd
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(15,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+mw
+mw
+pq
+pq
+PM
+DX
+HP
+Qy
+uJ
+uJ
+uJ
+DX
+dw
+wk
+EW
+Uy
+gJ
+Ni
+Uy
+Uy
+fM
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(16,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+mw
+mw
+pq
+oi
+DX
+BG
+DX
+cH
+cT
+DX
+dw
+DX
+DX
+pq
+nr
+gl
+Np
+Uy
+DP
+Wi
+eJ
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(17,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+mw
+mw
+pq
+qO
+DX
+DX
+dw
+DX
+DX
+DX
+Hd
+DX
+oY
+Lr
+NL
+QO
+Uy
+GL
+fM
+eJ
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(18,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+mw
+pq
+nG
+dw
+DX
+LX
+dw
+DX
+DX
+DX
+dw
+eH
+pq
+pB
+zK
+cD
+Uy
+fM
+eJ
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(19,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+mw
+pq
+Py
+DX
+sT
+yF
+gw
+hC
+DX
+uI
+yF
+uP
+pq
+BY
+Uy
+zK
+NL
+Sf
+eJ
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(20,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+mw
+pq
+pq
+DX
+DX
+CG
+gy
+pq
+nA
+pq
+Lr
+pq
+pq
+GL
+Uy
+Uy
+Np
+fM
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(21,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+Bj
+yT
+yT
+mw
+mw
+mw
+pq
+tE
+tE
+DX
+QI
+pq
+DX
+DX
+wh
+DS
+pq
+pq
+Uy
+Uy
+Uy
+sX
+Wd
+eJ
+eJ
+eJ
+yT
+Bj
+yT
+yT
+yT
+yT
+yT
+"}
+(22,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+pq
+pq
+pq
+pq
+tE
+eM
+pq
+wh
+DX
+DN
+wh
+ne
+gK
+Uy
+Uy
+Uy
+Uy
+fM
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(23,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+nL
+lt
+gE
+pq
+pq
+pq
+pq
+dw
+DX
+wh
+Qw
+pq
+pq
+Uy
+Np
+Uy
+DP
+Wi
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(24,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+nL
+Hc
+gE
+gE
+gE
+gE
+pq
+dw
+nO
+DX
+kz
+pq
+zN
+Uy
+DP
+Ge
+Nw
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(25,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+nL
+nL
+HL
+Uk
+DX
+Ga
+gE
+pq
+ZC
+Aa
+Ii
+pq
+pq
+Ge
+Ge
+Nw
+eJ
+eJ
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(26,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+nL
+aP
+HL
+Af
+dw
+rA
+ED
+pq
+pq
+pq
+pq
+pq
+mw
+eJ
+eJ
+eJ
+eJ
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(27,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+mw
+nL
+qF
+MC
+tR
+tR
+lX
+HL
+Rm
+nL
+mw
+mw
+mw
+mw
+eJ
+eJ
+eJ
+eJ
+eJ
+eJ
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(28,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+nL
+zb
+HL
+Yx
+dw
+HL
+zR
+Ay
+nL
+mw
+mw
+mw
+mw
+mw
+eJ
+eJ
+yT
+yT
+eJ
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(29,1,1) = {"
+yT
+yT
+yT
+Bj
+yT
+yT
+yT
+yT
+mw
+mw
+mw
+pq
+HL
+DX
+DX
+HE
+Af
+HL
+cb
+nL
+mw
+mw
+mw
+mw
+mw
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(30,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+pq
+cb
+DC
+HL
+HL
+HL
+nL
+nL
+nL
+mw
+mw
+mw
+mw
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(31,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+pq
+nL
+nL
+PS
+It
+UE
+nL
+mw
+mw
+mw
+mw
+mw
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(32,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+mw
+nL
+nL
+pq
+pq
+nL
+mw
+mw
+mw
+mw
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(33,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+mw
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(34,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+mw
+mw
+mw
+mw
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+Bj
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(35,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+mw
+mw
+mw
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(36,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+Bj
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(37,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+Bj
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(38,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(39,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
+(40,1,1) = {"
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+yT
+"}
