@@ -225,7 +225,6 @@
 	var/lighting_alpha
 	/// List of things added to examine text, like security or medical records.
 	var/examine_extensions = EXAMINE_HUD_NONE
-	var/colour = null
 
 	var/emagged = FALSE
 	var/list/color_view = null//overrides client.color while worn
