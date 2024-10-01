@@ -67,7 +67,6 @@
 // Subsystems shutdown in the reverse of the order they initialize in
 // The numbers just define the ordering, they are meaningless otherwise.
 #define INIT_ORDER_TITLE 100 // This **MUST** load first or people will se blank lobby screens
-#define INIT_ORDER_CAPITALISM 20
 #define INIT_ORDER_SPEECH_CONTROLLER 19
 #define INIT_ORDER_GARBAGE 18
 #define INIT_ORDER_DBCORE 17
@@ -101,6 +100,7 @@
 #define INIT_ORDER_CARGO_QUESTS -23
 #define INIT_ORDER_NIGHTSHIFT -24
 #define INIT_ORDER_GAME_EVENTS -26
+#define INIT_ORDER_CAPITALISM -27
 #define INIT_ORDER_PATH -50
 #define INIT_ORDER_PERSISTENCE -95
 #define INIT_ORDER_STATPANELS -98
