@@ -33,7 +33,7 @@ const ExploitableInfoPage = (_properties, context) => {
   const { affiliates } = data;
 
   return (
-    <Section title="Affiliates">
+    <Section title="Подрядчики">
       <Flex>
         {affiliates.map((i) => (
           <Flex.Item grow={1} basis={0} key={i.name}>

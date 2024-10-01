@@ -34,7 +34,7 @@ const PickTab = (index) => {
     case 3:
       return <AffiliatesInfoPage />;
     default:
-      return 'SOMETHING WENT VERY WRONG PLEASE AHELP';
+      return 'ЧТО-ТО ПОШЛО НЕ ПО ПЛАНУ! НАПИШИТЕ АДМИНАМ';
   }
 };
 
@@ -393,18 +393,18 @@ const CartPage = (_properties, context) => {
           buttons={
             <>
               <Button.Checkbox
-                content="Show Descriptions"
+                content="Показывать описания"
                 checked={showDesc}
                 onClick={() => setShowDesc(!showDesc)}
               />
               <Button
-                content="Empty Cart"
+                content="Очистить корзину"
                 icon="trash"
                 onClick={() => act('empty_cart')}
                 disabled={!cart}
               />
               <Button
-                content={'Purchase Cart (' + cart_price + 'TC)'}
+                content={'Корзина (' + cart_price + 'TC)'}
                 icon="shopping-cart"
                 onClick={() => act('purchase_cart')}
                 disabled={!cart || cart_price > crystals}
@@ -506,7 +506,7 @@ const UplinkItemButtons = (props, context) => {
       <Button
         icon="shopping-cart"
         color={i.hijack_only === 1 && 'red'}
-        tooltip="Add to cart."
+        tooltip="Добавить в корзину."
         tooltipPosition="left"
         onClick={() =>
           act('add_to_cart', {
@@ -517,11 +517,11 @@ const UplinkItemButtons = (props, context) => {
       />
       <Button
         content={
-          'Buy (' + i.cost + 'TC)' + (i.refundable ? ' [Refundable]' : '')
+          'Купить (' + i.cost + 'TC)' + (i.refundable ? ' [Можно вернуть]' : '')
         }
         color={i.hijack_only === 1 && 'red'}
         // Yes I care this much about both of these being able to render at the same time
-        tooltip={i.hijack_only === 1 && 'Hijack Agents Only!'}
+        tooltip={i.hijack_only === 1 && 'Только при наличии серьезных целей!'}
         tooltipPosition="left"
         onClick={() =>
           act('buyItem', {
@@ -544,7 +544,7 @@ const CartButtons = (props, context) => {
       <Button
         icon="times"
         content={'(' + i.cost * i.amount + 'TC)'}
-        tooltip="Remove from cart."
+        tooltip="Убрать из корзины."
         tooltipPosition="left"
         onClick={() =>
           act('remove_from_cart', {
@@ -554,7 +554,7 @@ const CartButtons = (props, context) => {
       />
       <Button
         icon="minus"
-        tooltip={i.limit === 0 && 'Discount already redeemed!'}
+        tooltip={i.limit === 0 && 'Скидка уже использована!'}
         ml="5px"
         onClick={() =>
           act('set_cart_item_quantity', {
@@ -568,7 +568,7 @@ const CartButtons = (props, context) => {
         content={i.amount}
         width="45px"
         tooltipPosition="bottom-end"
-        tooltip={i.limit === 0 && 'Discount already redeemed!'}
+        tooltip={i.limit === 0 && 'Скидка уже использована!'}
         onCommit={(e, value) =>
           act('set_cart_item_quantity', {
             item: i.obj_path,
@@ -581,7 +581,7 @@ const CartButtons = (props, context) => {
         mb={0.3}
         icon="plus"
         tooltipPosition="bottom-start"
-        tooltip={i.limit === 0 && 'Discount already redeemed!'}
+        tooltip={i.limit === 0 && 'Скидка уже использована!'}
         onClick={() =>
           act('set_cart_item_quantity', {
             item: i.obj_path,
@@ -629,7 +629,7 @@ const ExploitableInfoPage = (_properties, context) => {
             <Input
               fluid
               mb={1}
-              placeholder="Search Crew"
+              placeholder="Найти члена экипажа"
               onInput={(e, value) => setSearchText(value)}
             />
             <Tabs vertical>
@@ -649,22 +649,22 @@ const ExploitableInfoPage = (_properties, context) => {
         <Stack.Item grow>
           <Section fill title={selectedRecord.name} scrollable>
             <LabeledList>
-              <LabeledList.Item label="Age">
+              <LabeledList.Item label="Возраст">
                 {selectedRecord.age}
               </LabeledList.Item>
-              <LabeledList.Item label="Fingerprint">
+              <LabeledList.Item label="Отпечатки пальцев">
                 {selectedRecord.fingerprint}
               </LabeledList.Item>
-              <LabeledList.Item label="Rank">
+              <LabeledList.Item label="Профессия">
                 {selectedRecord.rank}
               </LabeledList.Item>
-              <LabeledList.Item label="Sex">
+              <LabeledList.Item label="Пол">
                 {selectedRecord.sex}
               </LabeledList.Item>
-              <LabeledList.Item label="Species">
+              <LabeledList.Item label="Раса">
                 {selectedRecord.species}
               </LabeledList.Item>
-              <LabeledList.Item label="Records">
+              <LabeledList.Item label="Записи">
                 {selectedRecord.exploit_record}
               </LabeledList.Item>
             </LabeledList>
@@ -738,10 +738,10 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
         color="good"
         content={
           isAccepted ? (
-            'Accepted'
+            'Принято'
           ) : isAvailable ? (
             [
-              'Accept Offer',
+              'Стать Контрактником',
               <Countdown
                 key="countdown"
                 timeLeft={time_left}
@@ -749,15 +749,15 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
               />,
             ]
           ) : !isAffordable ? (
-            'Insufficient TC'
+            'Недостаточно TC'
           ) : !data.contractor.is_admin_forced ? (
             data.contractor.available_offers > 0 ? (
-              <i>[Left:{data.contractor.available_offers}]</i>
+              <i>[Осталось вакансий:{data.contractor.available_offers}]</i>
             ) : (
-              <i>[Offers are over]</i>
+              <i>[Все вакансии заняты]</i>
             )
           ) : (
-            'Offer expired'
+            'Предложение истекло'
           )
         }
         position="absolute"
