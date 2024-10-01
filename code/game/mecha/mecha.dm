@@ -21,6 +21,7 @@
 	var/can_move = 0 // time of next allowed movement
 	var/mech_enter_time = 4 SECONDS // Entering mecha time
 	var/mob/living/carbon/occupant = null
+	var/mob/living/carbon/last_occupant = null
 	var/step_in = 10 //make a step in step_in/10 sec.
 	var/dir_in = 2//What direction will the mech face when entered/powered on? Defaults to South.
 	var/normal_step_energy_drain = 10
@@ -406,6 +407,11 @@
 			occupant_message(span_danger("Unable to move while in zoom mode."))
 			last_message = world.time
 		return FALSE
+	if(locate(/obj/item/mecha_parts/mecha_equipment/cage) in equipment)
+		var/obj/item/mecha_parts/mecha_equipment/cage/H = locate(/obj/item/mecha_parts/mecha_equipment/cage) in equipment
+		if(H.holding)
+			occupant_message(span_notice("You stop supressing [H.holding]."))
+			H.stop_supressing(H.holding)
 
 	//Turns strafe OFF if not enough energy to step (with actuator module only)
 	if(strafe && actuator && !has_charge(actuator.energy_per_step))
@@ -1146,6 +1152,7 @@
 	AI.aiRestorePowerRoutine = 0
 	AI.forceMove(src)
 	occupant = AI
+	last_occupant = occupant
 	update_icon(UPDATE_ICON_STATE)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
@@ -1162,6 +1169,10 @@
 		GrantActions(AI, FALSE)
 	else
 		GrantActions(AI, !AI.can_dominate_mechs)
+	if(selected)
+		var/atom/movable/screen/alert/empty_alert/default_alert = AI.throw_alert(selected.alert_category, /atom/movable/screen/alert/empty_alert, new_master = selected)
+		default_alert.name = selected.name
+		default_alert.desc = "You currently have [selected.name] module selected"
 
 /////////////////////////////////////
 ////////  Atmospheric stuff  ////////
@@ -1303,6 +1314,7 @@
 /obj/mecha/proc/moved_inside(mob/living/carbon/human/H)
 	if(H && H.client && (H in range(1)))
 		occupant = H
+		last_occupant = occupant
 		H.forceMove(src)
 		add_fingerprint(H)
 		GrantActions(H, human_occupant = 1)
@@ -1318,6 +1330,10 @@
 			occupant << sound(nominalsound, volume = 50)
 		if(state)
 			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
+		if(selected)
+			var/atom/movable/screen/alert/empty_alert/default_alert = H.throw_alert(selected.alert_category, /atom/movable/screen/alert/empty_alert, new_master = selected)
+			default_alert.name = selected.name
+			default_alert.desc = "You currently have [selected.name] module selected"
 		return TRUE
 	else
 		return FALSE
@@ -1362,6 +1378,7 @@
 		var/mob/living/carbon/brain/brainmob = mmi_as_oc.brainmob
 		brainmob.reset_perspective(src)
 		occupant = brainmob
+		last_occupant = occupant
 		brainmob.forceMove(src) //should allow relaymove
 		if(istype(mmi_as_oc, /obj/item/mmi/robotic_brain))
 			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
@@ -1573,6 +1590,7 @@
 	regulate_temp()
 	give_air()
 	update_huds()
+	check_alert()
 
 /obj/mecha/proc/process_internal_damage()
 	if(!internal_damage)
@@ -1652,6 +1670,9 @@
 	diag_hud_set_mechstat()
 	diag_hud_set_mechtracking()
 
+/obj/mecha/proc/check_alert()
+	if(!occupant && last_occupant && selected)
+		last_occupant.clear_alert(selected.alert_category)
 
 /obj/mecha/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
