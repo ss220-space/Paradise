@@ -51,6 +51,9 @@
 	switch(mimic_option)
 		if("Real Voice")
 			var/mob/living/carbon/human/human = input(user, "Select a voice to copy from.", "Set Voice Changer") in GLOB.human_list
+			if(!human)
+				return
+				
 			mimic_voice = human.real_name
 			mimic_voice_tts = human.dna.tts_seed_dna
 		if("Custom Voice")
