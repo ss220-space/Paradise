@@ -25,6 +25,9 @@
 	var/list/learned_focuses = list() // what focuses learned borer
 	var/datum/borer_misc/change_host_and_scale/scaling = new // chemical scaling, gained when acquired unique host
 
+	var/reproductions = 0 // used to upgrade rank
+	var/evo_points = 0 // used for borer shopping, gained by reproductions
+
 	var/tick_interval = 1 SECONDS
 
 /datum/antagonist/borer/apply_innate_effects(mob/living/simple_animal/borer/borer)
@@ -49,7 +52,6 @@
 
 /datum/antagonist/borer/proc/sync()
 	user = owner.current
-	borer_rank = user.borer_rank
 	host = user.host
 	previous_host = host
 	parent_sync()
@@ -59,9 +61,11 @@
 	scaling?.parent = src
 	borer_rank.parent = src
 
-	if(LAZYLEN(learned_focuses))
-		for(var/datum/borer_focus/focus as anything in learned_focuses)
-			focus.parent = src
+	if(!LAZYLEN(learned_focuses))
+		return
+
+	for(var/datum/borer_focus/focus as anything in learned_focuses)
+		focus.parent = src
 
 	return
 
@@ -72,35 +76,71 @@
 	messages.Add("Сахар сводит на нет ваши способности, избегайте его любой ценой!")
 	messages.Add("Вы можете разговаривать со своими коллегами-борерами, используя '[get_language_prefix(LANGUAGE_HIVE_BORER)]'.")
 	messages.Add("Воспроизведение себе подобных увеличивает количество эволюционных очков и позволяет перейти на следующий ранг.")
-	messages.Add("Ваш текущий ранг - [borer_rank.rankname].")
 	return messages
-	
+
+/datum/antagonist/borer/proc/post_reproduce()
+	reproductions++
+	evo_points++
+
+	if(!borer_rank?.required_reproductions)
+		return
+		
+	if(reproductions < borer_rank.required_reproductions)
+		return
+
+	reproductions -= borer_rank.required_reproductions
+	update_rank()
+
+	return
+
+/datum/antagonist/borer/proc/process_focus_choice(datum/borer_focus/focus)
+	if(!user || !host || user.stat || user.docile)
+		return
+
+	if(locate(focus) in learned_focuses)
+		to_chat(user, span_notice("Вы не можете изучить уже изученный фокус."))
+		return
+
+	if(evo_points >= focus.cost)
+		evo_points -= focus.cost
+		learned_focuses += new focus(user)
+		
+		pre_grant_movable_effect()
+		to_chat(user, span_notice("Вы успешно приобрели [focus.bodypartname]"))
+		return
+
+	to_chat(user, span_notice("Вам требуется еще [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
+	return 
+
 /datum/antagonist/borer/proc/entered_host()
 	SIGNAL_HANDLER
 
 	host = user.host
+	previous_host = user.host
 
-	if(pre_grant_movable_effect())
-		previous_host = host
+	pre_grant_movable_effect()
 
 /datum/antagonist/borer/proc/left_host()
 	SIGNAL_HANDLER
 
 	host = null
 
-	if(pre_remove_movable_effect())
-		previous_host = host
+	pre_remove_movable_effect()
+	previous_host = null
 
 /datum/antagonist/borer/proc/pre_grant_movable_effect()
 	if(QDELETED(user) || QDELETED(host))
 		return
 		
 	for(var/datum/borer_focus/focus as anything in learned_focuses)
-		if(!focus.movable_granted)
-			focus.movable_granted = TRUE
-			if(!host.ckey)
-				focus.is_catathonic = TRUE
-			focus.grant_movable_effect()
+		if(focus.movable_granted)
+			continue
+
+		focus.movable_granted = TRUE
+		if(!host.ckey)
+			focus.is_catathonic = TRUE
+
+		focus.grant_movable_effect()
 
 	scaling?.grant_movable_effect()
 	
@@ -111,10 +151,12 @@
 		return
 
 	for(var/datum/borer_focus/focus as anything in learned_focuses)
-		if(focus.movable_granted)
-			focus.movable_granted = FALSE
-			focus.remove_movable_effect()
-			focus.is_catathonic = FALSE // now we can set it manually without checks.
+		if(!focus.movable_granted)
+			continue
+
+		focus.movable_granted = FALSE
+		focus.remove_movable_effect()
+		focus.is_catathonic = FALSE // now we can set it manually without checks.
 
 	return
 
@@ -168,6 +210,18 @@
 		if(QDELING(src))
 			return
 
+/datum/antagonist/borer/proc/update_rank()
+	switch(borer_rank.type)
+		if(BORER_RANK_YOUNG)
+			borer_rank = new BORER_RANK_MATURE(user)
+		if(BORER_RANK_MATURE)
+			borer_rank = new BORER_RANK_ADULT(user)
+		if(BORER_RANK_ADULT)
+			borer_rank = new BORER_RANK_ELDER(user)
+
+	to_chat(user.controlling ? host : user, span_notice("Вы эволюционировали. Ваш текущий ранг - [borer_rank.rankname]."))
+	return TRUE
+
 /datum/borer_misc // category for small datums.
 	var/datum/antagonist/borer/parent
 	var/movable_granted = FALSE
@@ -207,17 +261,6 @@
 	parent = null
 	owner = null
 	return ..()
-
-/datum/borer_rank/proc/update_rank()
-	switch(owner.borer_rank)
-		if(BORER_RANK_YOUNG)
-			owner.borer_rank = new BORER_RANK_MATURE(owner)
-		if(BORER_RANK_MATURE)
-			owner.borer_rank = new BORER_RANK_ADULT(owner)
-		if(BORER_RANK_ADULT)
-			owner.borer_rank = new BORER_RANK_ELDER(owner)
-
-	return TRUE
 
 /datum/borer_rank/New(mob/living/simple_animal/borer/borer)
 	owner = borer
@@ -290,7 +333,6 @@
 
 /datum/borer_focus/New(mob/living/simple_animal/borer/borer)
 	parent = borer.antag_datum
-	parent?.pre_grant_movable_effect()
 
 /datum/borer_focus/proc/tick(seconds_between_ticks)
 	return
@@ -367,10 +409,14 @@
 	return TRUE
 
 /datum/borer_focus/torso/tick(seconds_between_ticks)
-	if(parent.host?.stat != DEAD)
-		linked_organ = parent.host?.get_int_organ(/obj/item/organ/internal/heart)
-		if(linked_organ)
-			parent.host?.set_heartattack(FALSE)
+	if(parent.host?.stat == DEAD)
+		return
+
+	linked_organ = parent.host?.get_int_organ(/obj/item/organ/internal/heart)
+	if(!linked_organ)
+		return
+
+	parent.host?.set_heartattack(FALSE)
 
 /datum/borer_focus/torso/Destroy(force)
 	linked_organ = null
@@ -449,23 +495,23 @@
 
 /datum/action/innate/borer
 	background_icon_state = "bg_alien"
-	var/mob/living/simple_animal/borer/borer
-	var/mob/living/carbon/human/host
 	var/host_req = FALSE
+
+	var/mob/living/simple_animal/borer/borer
+	var/chem_cost
+
 	var/docile_message = span_notice("<font color='blue'>Вы слишком обессилели для этого.</font>")
 	var/stat_message = "Вы не можете сделать этого в вашем нынешнем состоянии."
-	var/chem_cost = 0
 	
 /datum/action/innate/borer/Grant(mob/user)
 	. = ..()
 	if(ishuman(user))
-		host = user
-		borer = host.has_brain_worms()
+		borer = user.has_brain_worms()
 
 	if(isborer(user))
 		borer = user
 
-/datum/action/innate/borer/IsAvailable()
+/datum/action/innate/borer/Trigger(left_click = TRUE)
 	if(!borer)
 		return FALSE
 
@@ -480,20 +526,21 @@
 	if(host_req && !borer.host)
 		return FALSE
 
-	if(borer.chemicals < chem_cost && borer.chemicals >= 0)
+	if(chem_cost && borer.chemicals < chem_cost)
 		to_chat(usr, "Вам требуется еще [chem_cost - borer.chemicals] химикатов для использования способности.")
 		return FALSE
+
+	if(chem_cost)
+		borer.chemicals -= chem_cost
 
 	. = ..()
 
 /datum/action/innate/borer/Remove(mob/user)
 	. = ..()
 	borer = null
-	host = null
 	
 /datum/action/innate/borer/Destroy(force)
 	borer = null
-	host = null
 	return ..()	
 	
 /datum/action/innate/borer/talk_to_host
@@ -595,7 +642,6 @@
 
 /datum/action/innate/borer/make_larvae/Activate()
 	borer.host = owner
-	borer.chemicals -= chem_cost
 	borer.host.spawn_larvae()
 
 /datum/action/innate/borer/torment
@@ -615,7 +661,6 @@
 
 /datum/action/innate/borer/sneak_mode/Activate()
 	borer.host = owner
-	borer.chemicals -= chem_cost
 	borer.host.sneak_mode()
 
 #undef REPRODUCTIONS_TO_MATURE

@@ -112,10 +112,7 @@
 	var/leaving = FALSE
 	var/sneaking = FALSE
 	var/hiding = FALSE
-	var/reproductions = 0 // used to upgrade rank
-	var/evo_points = 0 // used for borer shopping, gained by reproductions
-	var/datum/borer_rank/borer_rank
-	var/datum/antagonist/borer/antag_datum
+	var/datum/antagonist/borer/antag_datum = new
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
 	var/datum/action/innate/borer/toggle_hide/toggle_hide_action = new
 	var/datum/action/innate/borer/talk_to_borer/talk_to_borer_action = new
@@ -130,7 +127,7 @@
 	var/datum/action/innate/borer/focus_menu/focus_menu_action = new
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
-	borer_rank = new /datum/borer_rank/young(src)
+	antag_datum.borer_rank = new /datum/borer_rank/young(src)
 	..(newloc)
 	remove_from_all_data_huds()
 	generation = gen
@@ -172,8 +169,8 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Chemicals", chemicals)
-	status_tab_data[++status_tab_data.len] = list("Rank", borer_rank?.rankname)
-	status_tab_data[++status_tab_data.len] = list("Evolution points", evo_points)
+	status_tab_data[++status_tab_data.len] = list("Rank", antag_datum.borer_rank?.rankname)
+	status_tab_data[++status_tab_data.len] = list("Evolution points", antag_datum.evo_points)
 
 
 /mob/living/simple_animal/borer/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
@@ -211,17 +208,6 @@
 
 		to_chat(src, span_changeling("<i>[truename] [say_string]:</i> [sended_message]"))
 		talk_to_borer_action.Grant(host)
-
-/mob/living/simple_animal/borer/proc/post_reproduce()
-	reproductions += 1
-	evo_points += 1
-	if(borer_rank?.required_reproductions && reproductions >= borer_rank.required_reproductions)
-		reproductions -= borer_rank.required_reproductions
-
-		if(host && borer_rank.update_rank())
-			to_chat(host, span_notice("Вы эволюционировали. Ваш текущий ранг - [borer_rank.rankname]."))
-
-	return
 
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
 	set name = "Toggle speech inside Host"
@@ -400,10 +386,11 @@
 
 	content += "<table>"
 
-	for(var/datum in subtypesof(/datum/reagent))
-		var/datum/reagent/reagent = datum
-		if(LAZYIN(reagent.id, GLOB.borer_reagents) && reagent.name)
-			content += "<tr><td><a class='chem-select' href='byond://?_src_=[UID()];src=[UID()];borer_use_chem=[reagent]'>[reagent.name] ([initial(reagent.chemuse)])</a><p>[reagent.chemdesc ? initial(reagent.chemdesc) : initial(reagent.description)]</p></td></tr>"
+	for(var/datum/reagent/reagent as anything in subtypesof(/datum/reagent))
+		if(!LAZYIN(GLOB.borer_reagents, reagent.id) || !reagent.name)
+			continue
+			
+		content += "<tr><td><a class='chem-select' href='byond://?_src_=[UID()];src=[UID()];borer_use_chem=[reagent]'>[reagent.name] ([initial(reagent.chemuse)])</a><p>[reagent.chemdesc ? initial(reagent.chemdesc) : initial(reagent.description)]</p></td></tr>"
 
 	content += "</table>"
 
@@ -448,10 +435,11 @@
 		
 	var/list/content = list()
 	
-	for(var/datum in subtypesof(/datum/borer_focus))
-		var/datum/borer_focus/borer_datum = datum
-		if(!locate(borer_datum) in antag_datum.learned_focuses)
-			content += borer_datum.bodypartname
+	for(var/datum/borer_focus/focus as anything in subtypesof(/datum/borer_focus))
+		if(locate(focus) in antag_datum.learned_focuses)
+			continue
+
+		LAZYADD(content, focus.bodypartname)
 			
 	if(!LAZYLEN(content))
 		to_chat(src, span_notice("Вы приобрели все доступные фокусы."))
@@ -461,27 +449,14 @@
 	if(!tgui_menu)
 		return
 
-	for(var/datum in subtypesof(/datum/borer_focus))
-		var/datum/borer_focus/borer_datum = datum
-		if(tgui_menu == borer_datum.bodypartname)
-			process_focus_choice(borer_datum)
-			break
+	for(var/datum/borer_focus/focus as anything in subtypesof(/datum/borer_focus))
+		if(tgui_menu != focus.bodypartname)
+			continue
+
+		antag_datum.process_focus_choice(focus)
+		break
 
 	return
-
-/mob/living/simple_animal/borer/proc/process_focus_choice(datum/borer_focus/focus)
-	if(!src || !host || stat || docile)
-		return
-	if(locate(focus) in antag_datum.learned_focuses)
-		to_chat(src, span_notice("Вы не можете изучить уже изученный фокус."))
-		return
-	if(evo_points >= focus.cost)
-		evo_points -= focus.cost
-		to_chat(src, span_notice("Вы успешно приобрели [focus.bodypartname]"))
-		antag_datum.learned_focuses += new focus(src)
-		return
-	to_chat(src, span_notice("Вам требуется еще [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
-	return 
 
 /mob/living/simple_animal/borer/proc/hide_borer()
 	if(!hiding)
@@ -542,9 +517,11 @@
 
 	if(!host || !src || QDELETED(host) || QDELETED(src) || controlling)
 		return
+
 	if(stat)
 		to_chat(src, "Вы не можете освободить цель в вашем текущем состоянии.")
 		return
+
 	if(leaving)
 		to_chat(src, "Вы начинаете отсоединяться от синапсов носителя и пробираться наружу через его слуховой проход.")
 	else
@@ -560,28 +537,33 @@
 /mob/living/simple_animal/borer/proc/borer_leaving()
 	if(!leaving || docile || bonding)
 		return FALSE
+
 	return TRUE
 
 /mob/living/simple_animal/borer/proc/leave_host()
 
 	if(!host)
 		return
+
 	if(controlling)
 		detach()
+
 	GrantBorerActions()
 	GrantBorerSpells()
 	RemoveInfestActions()
 	forceMove(get_turf(host))
-	machine = null
 
+	machine = null
 	host.reset_perspective(null)
 	host.machine = null
 
 	var/mob/living/carbon/H = host
 	H.borer = null
+
 	talk_to_borer_action.Remove(host)
 	H.status_flags &= ~PASSEMOTES
 	host = null
+
 	SEND_SIGNAL(src, COMSIG_BORER_LEFT_HOST)
 	return
 
@@ -613,6 +595,7 @@
 /mob/living/simple_animal/borer/proc/borer_assuming()
 	if(!bonding || docile || leaving)
 		return FALSE
+
 	return TRUE
 
 /mob/living/simple_animal/borer/proc/assume_control()
@@ -713,10 +696,13 @@
 
 	to_chat(src, span_danger("Ваш хозяин дёргается и вздрагивает, когда вы быстро выводите личинку из своего слизнеподобного тела."))
 	visible_message(span_danger("[src] яростно блюёт, изрыгая рвотные массы вместе с извивающимся, похожим на слизня существом!"))
+
 	var/turf/turf = get_turf(src)
 	turf.add_vomit_floor()
+
 	new /mob/living/simple_animal/borer(turf, borer.generation + 1)
-	borer.post_reproduce()
+	borer.antag_datum.post_reproduce()
+
 	return
 
 /mob/living/carbon/proc/sneak_mode()
@@ -796,8 +782,7 @@
 		mind.transfer_to(src)
 		candidate.mob = src
 		ckey = candidate.ckey
-		mind.add_antag_datum(/datum/antagonist/borer)
-		antag_datum = mind.has_antag_datum(/datum/antagonist/borer)
+		mind.add_antag_datum(antag_datum)
 		GrantBorerSpells()
 		hide_borer()
 
