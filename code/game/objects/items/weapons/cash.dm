@@ -89,7 +89,7 @@
 	amount = 1000000
 
 //A crutch for the vending machine, well, or an ingenious roflcat solution
-/obj/item/stack/spacecash/magic_linked/Initialize(mapload, new_amount = 150, merge = TRUE))
+/obj/item/stack/spacecash/magic_linked/Initialize(mapload, new_amount = 150, merge = TRUE)
 	. = ..()
 	//roflcat
 	if(loc)
