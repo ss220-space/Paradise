@@ -49,12 +49,8 @@
 
 /datum/reagent/proc/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
 	if(holder)  //for catching rare runtimes
-		if(method == REAGENT_TOUCH && penetrates_skin)
-			var/block  = M.get_permeability_protection()
-			var/amount = round(volume * (1 - block), 0.1)
-			if(M.reagents)
-				if(amount >= 1)
-					M.reagents.add_reagent(id, amount)
+		if(method == REAGENT_TOUCH && penetrates_skin && M.reagents && volume >= 1)
+			M.reagents.add_reagent(id, volume)
 
 		if(method == REAGENT_INGEST) //Yes, even Xenos can get addicted to drugs.
 			var/can_become_addicted = M.reagents.reaction_check(M, src)
