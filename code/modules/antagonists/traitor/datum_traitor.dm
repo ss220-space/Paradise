@@ -351,7 +351,7 @@
 		target_pda.hidden_uplink = new_uplink
 		new_uplink.uplink_owner = "[traitor_mob.key]"
 
-		target_pda.lock_code = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
+		target_pda.lock_code = "[rand(100,999)] [pick("Альфа","Браво","Дельта","Омега")]"
 
 		antag_memory += ("<B>Uplink Passcode:</B> [target_pda.lock_code] ([uplink_holder.name].")
 		return TRUE
