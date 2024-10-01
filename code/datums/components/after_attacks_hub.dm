@@ -23,7 +23,7 @@
 
 /datum/component/after_attacks_hub/proc/on_after_attack(datum/source, mob/living/target, mob/living/user, proximity, params, status)
 	SIGNAL_HANDLER
-	for(var/datum/sender in after_attacks)
+	for(var/sender in after_attacks)
 		call(sender, after_attacks[sender])(source, target, user, proximity, params, status);
 
 
