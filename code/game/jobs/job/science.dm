@@ -110,6 +110,10 @@
 	is_novice = TRUE
 	outfit = /datum/outfit/job/scientist/student
 
+	salary = 200
+	min_start_money = 250
+	max_start_money = 500
+
 /datum/outfit/job/scientist/student
 	name = "Student Scientist"
 	jobtype = /datum/job/scientist/student
@@ -150,8 +154,11 @@
 	minimal_player_age = 3
 	exp_requirements = 900
 	exp_type = EXP_TYPE_SCIENCE
-
 	outfit = /datum/outfit/job/roboticist
+
+	salary = 200
+	min_start_money = 250
+	max_start_money = 500
 
 /datum/outfit/job/roboticist
 	name = "Roboticist"
