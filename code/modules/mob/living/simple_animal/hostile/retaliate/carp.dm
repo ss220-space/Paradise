@@ -29,12 +29,22 @@
 	maxbodytemp = 1500
 	faction = list("carp")
 	pressure_resistance = 200
-	gold_core_spawnable = HOSTILE_SPAWN
+	gold_core_spawnable = NO_SPAWN
 	AI_delay_max = 0.5 SECONDS
 	gender = MALE
+
+	var/carp_stamina_damage = 8
 
 /mob/living/simple_animal/hostile/retaliate/luu/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_CARP_RIFTS, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
 
+/mob/living/simple_animal/hostile/retaliate/luu/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
+	return TRUE	//No drifting in space for space carp!	//original comments do not steal
+
+/mob/living/simple_animal/hostile/retaliate/luu/AttackingTarget()
+	. = ..()
+	if(. && ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.apply_damage(carp_stamina_damage, STAMINA)

@@ -137,3 +137,38 @@
   - bugfix: fix name laser surgery tools (#5942)
   PiroMage:
   - add: New Station "Nova" (#5461)
+'2024-09-26':
+  Antoonij:
+  - bugfix: runtimes and implanter fix (#5947)
+  Den109G:
+  - add: Flipping helper (#5935)
+  NuSanya:
+  - add: riot scattershot, pointblank mech shooting, pointblank bugfix [bounty] (#5916)
+'2024-09-27':
+  Arc:
+  - unknown: surgical belts for medic (#5945)
+  Honker9999999:
+  - add: combat drones for traitors (#5906)
+  Mahimka42:
+  - add: new AI sprite - HAL900 (#5928)
+  Sheya:
+  - add: fake blindfold (#5943)
+  SyndiCat:
+  - bugfix: detective's access to the shuttle (#5936)
+  Valtor:
+  - bugfix: racial loadout  (#5939)
+  pilygun:
+  - qol: Перевод + балун алерты для часто применимых статус эффектов. (#5934)
+'2024-09-28':
+  Daeberdir:
+  - bugfix: Mapfixes. (#5905)
+  Den109G:
+  - bugfix: Now you can sit on chairs near walls. (#5953)
+  LiquidPotroh:
+  - add: Touch reaction now depends on the protection (#5880)
+  NightDawnFox:
+  - add: new shoves impact + brand intelligence tweaks (#5608)
+  - balance: projectiles once again can hit crawling people by default. (#5956)
+  - balance: fake insulated gloves now can be recognized only in close range (#5954)
+  PiroMage:
+  - bugfix: 'Nova Station #1 Patch (#5952)'
