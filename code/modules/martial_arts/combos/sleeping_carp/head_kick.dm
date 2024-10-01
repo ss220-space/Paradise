@@ -7,7 +7,7 @@
 	if(!target.stat && !target.IsWeakened())
 		user.do_attack_animation(target, ATTACK_EFFECT_KICK)
 		target.visible_message("<span class='warning'>[user] бьет [target] в голову!</span>", \
-						  "<span class='userdanger'>[user] бьет тебя ногой в челюсть!</span>")
+						  "<span class='userdanger'>[user] бьет вас ногой в челюсть!</span>")
 		target.apply_damage(20, BRUTE, "head")
 		objective_damage(user, target, 20, BRUTE)
 		target.drop_from_active_hand()
