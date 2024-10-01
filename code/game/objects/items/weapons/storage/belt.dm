@@ -138,8 +138,10 @@
 	max_combined_w_class = 17
 	use_to_pickup = 1
 	name = "surgical belt"
+	icon_state = "surgicalbelt"
+	item_state = "surgical"
 	desc = "Can hold various surgical tools."
-	storage_slots = 9
+	storage_slots = 11
 	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/scalpel,
@@ -151,7 +153,9 @@
 		/obj/item/FixOVein,
 		/obj/item/surgicaldrill,
 		/obj/item/cautery,
-		/obj/item/radio)
+		/obj/item/radio,
+		/obj/item/clothing/gloves/color/latex,
+		/obj/item/reagent_containers/spray/cleaner)
 
 /obj/item/storage/belt/medical/surgery/loaded/populate_contents()
 	new /obj/item/scalpel(src)

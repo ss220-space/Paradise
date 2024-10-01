@@ -147,18 +147,19 @@
 	if(!loc)
 		qdel(src)
 
-/obj/singularity/energy_ball/proc/dust_mobs(atom/A)
-	if(isliving(A))
-		var/mob/living/L = A
-		if(L.incorporeal_move || L.status_flags & GODMODE)
-			return
-	if(!iscarbon(A))
+/obj/singularity/energy_ball/proc/dust_mobs(atom/atom)
+	if(!isliving(atom))
 		return
-	for(var/obj/machinery/power/grounding_rod/GR in orange(src, 2))
-		if(GR.anchored)
+	var/mob/living/living = atom
+	if(living.incorporeal_move || HAS_TRAIT(living, TRAIT_GODMODE))
+		return
+	if(!iscarbon(atom))
+		return
+	for(var/obj/machinery/power/grounding_rod/rod in orange(src, 2))
+		if(rod.anchored)
 			return
-	var/mob/living/carbon/C = A
-	C.dust()
+	var/mob/living/carbon/carbon = atom
+	carbon.dust()
 
 /proc/tesla_zap(atom/source, zap_range = 3, power, explosive = FALSE, stun_mobs = TRUE)
 	. = source.dir

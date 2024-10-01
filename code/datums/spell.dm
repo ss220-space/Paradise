@@ -702,3 +702,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		if(!step_turf.density)
 			target_mob.Move(step_turf)
 
+/// Called when a spell is added
+/obj/effect/proc_holder/spell/proc/on_spell_gain(mob/user = usr)
+	return

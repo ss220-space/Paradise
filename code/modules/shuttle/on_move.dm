@@ -5,6 +5,7 @@
 	if(rotation)
 		shuttleRotate(rotation)
 	forceMove(T1)
+	SSdemo.mark_dirty(src)
 	return 1
 
 /obj/effect/landmark/shuttle_import/onShuttleMove()

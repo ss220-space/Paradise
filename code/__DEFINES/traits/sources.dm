@@ -69,6 +69,8 @@
 
 #define DNA_TRAIT "dna_trait"
 
+#define FATNESS_TRAIT "fatness"
+
 /// Traits applied to a silicon mob by their model.
 #define ROBOT_TRAIT "robot_trait"
 
@@ -147,4 +149,4 @@
 #define SCRYING_ORB_TRAIT "scrying_orb"
 #define EVIL_FAX_TRAIT "evil_fax"
 #define CORGI_HARDSUIT_TRAIT "corgi_hardsuit"
-
+#define VENDOR_FLATTENING_TRAIT "vendor_flattening"

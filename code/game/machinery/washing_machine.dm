@@ -209,14 +209,15 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		if(SPT_PROB(30, seconds_per_tick))
 			var/matrix/animatrix = new(transform)
 			animatrix.Translate(rand(-1, 1), rand(0, 1))
-			animate(src, transform = animatrix, time= 0.1 SECONDS)
+			animate(src, transform = animatrix, time = 0.1 SECONDS)
 			animate(transform = matrix(), time = 0.1 SECONDS)
 	else
-		if(SPT_PROB(2.5, seconds_per_tick))
+		if(SPT_PROB(15, seconds_per_tick))
 			step(src, pick(GLOB.cardinal))
 		var/matrix/animatrix = new(transform)
 		animatrix.Translate(rand(-3, 3), rand(-1, 3))
-		animate(src, transform = animatrix, time = 0.2 SECONDS)
+		animate(src, transform = animatrix, time = 0.1 SECONDS)
+		animate(transform = matrix(), time = 0.1 SECONDS)
 
 
 /obj/machinery/washing_machine/relaymove(mob/living/user, direction)

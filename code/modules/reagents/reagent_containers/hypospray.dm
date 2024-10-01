@@ -19,7 +19,6 @@
 	var/emagged = FALSE
 	var/safety_hypo = FALSE
 
-
 /obj/item/reagent_containers/hypospray/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
@@ -84,19 +83,19 @@
 	belt_icon = "medical_hypospray"
 	safety_hypo = TRUE
 	var/paint_color
+	var/color_overlay = "colour_hypo"
 
 
 /obj/item/reagent_containers/hypospray/safety/proc/update_state()
 	update_icon(UPDATE_ICON_STATE)
 	remove_filter("hypospray_handle")
 	if(paint_color)
-		var/icon/hypo_mask = icon('icons/obj/hypo.dmi', "colour_hypo")
+		var/icon/hypo_mask = icon('icons/obj/hypo.dmi', color_overlay)
 		add_filter("hypospray_handle", 1, layering_filter(icon = hypo_mask, color = paint_color))
 
 
 /obj/item/reagent_containers/hypospray/safety/update_icon_state()
 	icon_state = paint_color ? "whitehypo" : "medivend_hypo"
-
 
 /obj/item/reagent_containers/hypospray/safety/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
@@ -124,6 +123,20 @@
 
 	return ..()
 
+/obj/item/reagent_containers/hypospray/safety/upgraded
+	name = "upgraded medical hypospray"
+	desc = "Improved general-purpose medical hypospray for rapid administration of chemicals. This model has increased capacity."
+	item_state = "upg_hypo"
+	icon_state = "upg_hypo"
+	volume = 60
+	possible_transfer_amounts = list(1,2,5,10,15,20,25,30,40,60)
+	color_overlay = "colour_upgradedhypo"
+
+/obj/item/reagent_containers/hypospray/safety/upgraded/update_icon_state()
+	icon_state = paint_color ? "upg_hypo_white" : "upg_hypo"
+
+/obj/item/reagent_containers/hypospray/safety/upgraded/emag_act(mob/user)
+	return
 
 /obj/item/reagent_containers/hypospray/safety/ert
 	name = "medical hypospray (Omnizine)"

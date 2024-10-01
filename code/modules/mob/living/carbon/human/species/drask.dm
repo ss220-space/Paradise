@@ -43,7 +43,10 @@
 		"втягивает теплый воздух!",
 		"задерживает дыхание!")
 
-	species_traits = list(LIPS, EXOTIC_COLOR)
+	inherent_traits = list(
+		TRAIT_EXOTIC_BLOOD,
+		TRAIT_HAS_LIPS,
+	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	has_gender = FALSE
@@ -78,17 +81,18 @@
 
 	disliked_food = SUGAR | GROSS
 	liked_food = DAIRY
+	special_diet = MATERIAL_CLASS_SOAP
 
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_colour
 
 /datum/species/drask/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	add_verb(H, /mob/living/carbon/human/proc/emote_hum)
 
 /datum/species/drask/on_species_loss(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	remove_verb(H, /mob/living/carbon/human/proc/emote_hum)
 
 /datum/species/drask/handle_life(mob/living/carbon/human/H)

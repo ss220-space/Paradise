@@ -25,6 +25,7 @@
 #define DISABILITY_FLAG_TEA_ADDICT (1<<13)
 #define DISABILITY_FLAG_ALCOHOLE_ADDICT (1<<14)
 #define DISABILITY_FLAG_NICOTINE_ADDICT (1<<15)
+#define DISABILITY_FLAG_PARAPLEGIA 		  (1<<16)
 
 
 //Nutrition levels for humans. No idea where else to put it
@@ -69,37 +70,3 @@
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
 
-//Species traits.
-
-#define LIPS			"lips"
-#define NO_BLOOD		"no_blood"
-#define NO_BREATHE 		"no_breathe"
-#define NO_DNA			"no_dna"
-#define NO_SCAN 		"no_scan"
-#define NO_PAIN 		"no_pain"
-#define NO_PAIN_FEEL	"no_pain_feel"
-#define IS_PLANT 		"is_plant"
-#define NO_INTORGANS	"no_internal_organs"
-#define RADIMMUNE		"rad_immunity"
-#define NOGUNS			"no_guns"
-#define NOTRANSSTING	"no_trans_sting"
-#define VIRUSIMMUNE		"virus_immunity"
-#define NOCRITDAMAGE	"no_crit"
-#define RESISTHOT		"resist_heat"
-#define RESISTCOLD		"resist_cold"
-#define NO_EXAMINE		"no_examine"
-#define CAN_WINGDINGS	"can_wingdings"
-#define NO_GERMS		"no_germs"
-#define NO_DECAY		"no_decay"
-#define PIERCEIMMUNE	"pierce_immunity"
-#define EMBEDIMMUNE		"embed_immunity"
-#define NO_HUNGER		"no_hunger"
-#define EXOTIC_COLOR	"exotic_blood_colour"
-#define NO_OBESITY		"no_obesity"
-#define RUNIC_MIND		"runic_mind"
-#define REPEATSURGERY	"repeat_syrgery"
-#define HAVE_REGENERATION "have_regeneration"
-#define NO_ROBOPARTS 	"no_roboparts" // запрещает ставить робо-конечности, киберорганы(лёгкие, сердце, etc), аугменты
-#define ONLY_SPECIES_LIMBS "only_species_limbs" // запрещает ставить органические части тела, не относящиеся к виду(species) пациента
-#define NO_BIOCHIPS "no_biochips"  // запрещает ставить био-чипы(adrenaline, storage), не затрагивает "mindshield", "traitor" в угоду балансу
-#define NO_CYBERIMPS "no_cyberimps" // запрещает ставить киберимпланты(toolset, CNS Rebooter, etc), но не киберорганы

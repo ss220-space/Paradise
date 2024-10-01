@@ -54,7 +54,6 @@
 	if(cell.charge > shot.e_cost)
 		. += "decloner_spin"
 
-
 // Flora Gun //
 /obj/item/gun/energy/floragun
 	name = "floral somatoray"
@@ -62,11 +61,22 @@
 	icon_state = "flora"
 	item_state = "gun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
-	ammo_type = list(/obj/item/ammo_casing/energy/flora/yield, /obj/item/ammo_casing/energy/flora/mut)
-	origin_tech = "materials=2;biotech=4"
+	materials = list(MAT_GOLD = 2000, MAT_BLUESPACE = 1500, MAT_DIAMOND = 800, MAT_URANIUM = 500, MAT_GLASS = 500)
+	origin_tech = "materials=5;biotech=6;powerstorage=6;engineering=5"
+	ammo_type = list(/obj/item/ammo_casing/energy/flora/alpha, /obj/item/ammo_casing/energy/flora/beta, /obj/item/ammo_casing/energy/flora/gamma)
 	modifystate = TRUE
 	ammo_x_offset = 1
+	can_charge = FALSE
 	selfcharge = TRUE
+
+/obj/item/gun/energy/floragun/emag_act(mob/user)
+	. = ..()
+	ammo_type = list(/obj/item/ammo_casing/energy/flora/alpha/emag, /obj/item/ammo_casing/energy/flora/beta, /obj/item/ammo_casing/energy/flora/gamma)
+	update_ammo_types()
+
+/obj/item/gun/energy/floragun/examine(mob/user)
+	. = ..()
+	. += span_notice("Mode: [ammo_type[select]]\nCharge: [cell.percent()]%")
 
 // Meteor Gun //
 /obj/item/gun/energy/meteorgun
@@ -130,6 +140,17 @@
 	origin_tech = "combat=4;magnets=4;syndicate=2"
 	suppressed = 0
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
+
+/obj/item/gun/energy/kinetic_accelerator/crossbow/toy
+	name = "toy energy crossbow"
+	desc = "Игрушечное оружие, сделанное из тагерного пистолета со стильным дизайном контрабандного арбалета."
+	icon_state = "crossbowtoy"
+	w_class = WEIGHT_CLASS_SMALL
+	materials = list(MAT_METAL=4000)
+	origin_tech = "combat=4;magnets=4"
+	suppressed = 0
+	overheat_time = 8 SECONDS
+	ammo_type = list(/obj/item/ammo_casing/energy/bolt/bolttoy)
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/cyborg
 	desc = "One and done!"
@@ -621,13 +642,13 @@
 		dat += "<FONT color=blue><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
 	dat += "<BR>"
 	dat += "Target output temperature: "	//might be string idiocy, but at least it's easy to read
-	dat += "<A href='?src=[UID()];temp=-100'>-</A> "
-	dat += "<A href='?src=[UID()];temp=-10'>-</A> "
-	dat += "<A href='?src=[UID()];temp=-1'>-</A> "
+	dat += "<a href='byond://?src=[UID()];temp=-100'>-</A> "
+	dat += "<a href='byond://?src=[UID()];temp=-10'>-</A> "
+	dat += "<a href='byond://?src=[UID()];temp=-1'>-</A> "
 	dat += "[target_temperature] "
-	dat += "<A href='?src=[UID()];temp=1'>+</A> "
-	dat += "<A href='?src=[UID()];temp=10'>+</A> "
-	dat += "<A href='?src=[UID()];temp=100'>+</A>"
+	dat += "<a href='byond://?src=[UID()];temp=1'>+</A> "
+	dat += "<a href='byond://?src=[UID()];temp=10'>+</A> "
+	dat += "<a href='byond://?src=[UID()];temp=100'>+</A>"
 	dat += "<BR>"
 	dat += "Power cost: "
 	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"

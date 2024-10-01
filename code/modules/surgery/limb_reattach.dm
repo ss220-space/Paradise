@@ -149,7 +149,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	if(NO_ROBOPARTS in target.dna.species.species_traits)
+	if(HAS_TRAIT(target, TRAIT_NO_ROBOPARTS))
 		return FALSE
 
 /datum/surgery_step/limb
@@ -157,6 +157,8 @@
 
 /datum/surgery_step/limb/attach
 	name = "attach limb"
+	begin_sound = 'sound/surgery/organ2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(/obj/item/organ/external = 100)
 
 	time = 3.2 SECONDS
@@ -183,10 +185,9 @@
 	if(isnull(organ_data))
 		to_chat(user, span_warning("[target.dna.species] don't have the anatomy for [E.name]!"))
 		return SURGERY_BEGINSTEP_ABORT
-	if(ONLY_SPECIES_LIMBS in target.dna.species.species_traits)
-		if(!istype(E, organ_data["path"]))
-			to_chat(user, span_warning("Тело существа неспособно принять конечности от другого вида!"))
-			return SURGERY_BEGINSTEP_ABORT
+	if(!istype(E, organ_data["path"]) && HAS_TRAIT(target, TRAIT_SPECIES_LIMBS))
+		to_chat(user, span_warning("Тело существа неспособно принять конечности от другого вида!"))
+		return SURGERY_BEGINSTEP_ABORT
 	user.visible_message(
 		"[user] starts attaching [E.name] to [target]'s [E.amputation_point].",
 		"You start attaching [E.name] to [target]'s [E.amputation_point].",
@@ -255,6 +256,9 @@
 
 /datum/surgery_step/limb/connect
 	name = "connect limb"
+	begin_sound = 'sound/surgery/hemostat1.ogg'
+	end_sound = 'sound/surgery/hemostat2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_HEMOSTAT = 100,
 		/obj/item/stack/cable_coil = 90,

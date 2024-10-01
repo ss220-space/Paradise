@@ -153,21 +153,21 @@
 /obj/structure/engineeringcart/attack_hand(mob/user)
 	add_fingerprint(user)
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	if(myglass)
-		dat += "<a href='?src=[UID()];glass=1'>[myglass.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];glass=1'>[myglass.name]</a><br>"
 	if(mymetal)
-		dat += "<a href='?src=[UID()];metal=1'>[mymetal.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];metal=1'>[mymetal.name]</a><br>"
 	if(myplasteel)
-		dat += "<a href='?src=[UID()];plasteel=1'>[myplasteel.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];plasteel=1'>[myplasteel.name]</a><br>"
 	if(myflashlight)
-		dat += "<a href='?src=[UID()];flashlight=1'>[myflashlight.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];flashlight=1'>[myflashlight.name]</a><br>"
 	if(mybluetoolbox)
-		dat += "<a href='?src=[UID()];bluetoolbox=1'>[mybluetoolbox.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];bluetoolbox=1'>[mybluetoolbox.name]</a><br>"
 	if(myredtoolbox)
-		dat += "<a href='?src=[UID()];redtoolbox=1'>[myredtoolbox.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];redtoolbox=1'>[myredtoolbox.name]</a><br>"
 	if(myyellowtoolbox)
-		dat += "<a href='?src=[UID()];yellowtoolbox=1'>[myyellowtoolbox.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];yellowtoolbox=1'>[myyellowtoolbox.name]</a><br>"
 	var/datum/browser/popup = new(user, "engicart", name, 240, 160)
 	popup.set_content(dat)
 	popup.open()

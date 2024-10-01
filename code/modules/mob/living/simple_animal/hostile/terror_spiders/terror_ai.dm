@@ -9,7 +9,7 @@
 	for(var/mob/living/H in view(src, vision_range))
 		if(H.stat == DEAD)
 			continue
-		if(H.flags & GODMODE)
+		if(HAS_TRAIT(H, TRAIT_GODMODE))
 			continue
 		if(H.stat == UNCONSCIOUS && !stat_attack)
 			continue

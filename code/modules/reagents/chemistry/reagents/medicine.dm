@@ -140,7 +140,7 @@
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == id)
+		if(C.get_blood_id() == id && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
 			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 			C.reagents.del_reagent(id)
 
@@ -293,9 +293,9 @@
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	if(ishuman(M) && prob(33))
 		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
-			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.blood_volume += 1
+		//do not restore blood on things with no blood by nature.
+		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL)
+			H.blood_volume += 1
 	return ..() | update_flags
 
 /datum/reagent/medicine/synthflesh
@@ -348,7 +348,7 @@
 	update |= M.heal_damage_type(6, BURN, updating_health = FALSE)
 	if(update)
 		M.updatehealth()
-	if(prob(25) && ishuman(M) && !(NO_BLOOD in M.dna.species.species_traits))
+	if(prob(25) && ishuman(M) && !HAS_TRAIT(M, TRAIT_NO_BLOOD))
 		var/mob/living/carbon/human/H = M
 		H.bleed(20)
 	return ..()
@@ -1099,6 +1099,7 @@
 	reagent_state = LIQUID
 	color = "#FFDCFF"
 	taste_description = "stability"
+	harmless = FALSE
 	var/list/drug_list = list("crank","methamphetamine","space_drugs","psilocybin","ephedrine","epinephrine","stimulants","bath_salts","lsd","thc")
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
@@ -1426,7 +1427,7 @@
 					var/mob/living/carbon/human/H = M
 					for(var/obj/item/organ/internal/I as anything in M.internal_organs) // 56 healing to all internal organs.
 						I.heal_internal_damage(8)
-					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9 && !isdiona(H))// If below 90% blood, regenerate 210 units total
+					if(!HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9)// If below 90% blood, regenerate 210 units total
 						H.blood_volume += 30
 					for(var/datum/disease/critical/heart_failure/HF in H.diseases)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it

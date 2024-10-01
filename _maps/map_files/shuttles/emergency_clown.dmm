@@ -153,7 +153,7 @@
 "aI" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access = list(2)
+	req_access = list(63)
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
@@ -253,7 +253,6 @@
 /obj/machinery/door/airlock/shuttle{
 	aiControlDisabled = 1;
 	hackProof = 1;
-	id_tag = null;
 	name = "Shuttle Cargo Hatch"
 	},
 /turf/simulated/floor/shuttle{
@@ -274,7 +273,6 @@
 /area/shuttle/escape)
 "bb" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Escape Shuttle Infirmary"
 	},
 /turf/simulated/floor/plasteel{

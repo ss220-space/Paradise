@@ -246,28 +246,34 @@
 		if(!target)
 			return
 	var/mob/living/L = user
-	if(!target.Adjacent(src))
-		if(selected && selected.is_ranged())
-			if(HAS_TRAIT(L, TRAIT_PACIFISM) && selected.harmful)
-				to_chat(L, span_warning("You don't want to harm other living beings!"))
-				return
-			if(user.mind?.martial_art?.no_guns)
-				to_chat(L, span_warning("[L.mind.martial_art.no_guns_message]"))
-				return
+	if(selected && selected.is_ranged())
+		if(HAS_TRAIT(L, TRAIT_PACIFISM) && selected.harmful)
+			to_chat(L, span_warning("You don't want to harm other living beings!"))
+			return
+		if(user.mind?.martial_art?.no_guns)
+			to_chat(L, span_warning("[L.mind.martial_art.no_guns_message]"))
+			return
+		if(!target.Adjacent(src))
 			selected.action(target, params)
+			return
+		else
+			if(L.a_intent == INTENT_HELP) // point blank shooting
+				selected.action(target, params)
+				return
 	else if(selected && selected.is_melee())
 		if(isliving(target) && selected.harmful && HAS_TRAIT(L, TRAIT_PACIFISM))
 			to_chat(user, span_warning("You don't want to harm other living beings!"))
 			return
 		selected.action(target, params)
-	else
-		if(internal_damage & MECHA_INT_CONTROL_LOST)
-			target = safepick(oview(1, src))
-		if(!melee_can_hit || !isatom(target))
-			return
-		target.mech_melee_attack(src)
-		melee_can_hit = FALSE
-		addtimer(CALLBACK(src, PROC_REF(melee_hit_ready)), melee_cooldown)
+		return
+
+	if(internal_damage & MECHA_INT_CONTROL_LOST)
+		target = safepick(oview(1, src))
+	if(!melee_can_hit || !isatom(target))
+		return
+	target.mech_melee_attack(src)
+	melee_can_hit = FALSE
+	addtimer(CALLBACK(src, PROC_REF(melee_hit_ready)), melee_cooldown)
 
 /obj/mecha/proc/melee_hit_ready()
 	melee_can_hit = TRUE
@@ -559,7 +565,7 @@
 
 	else if(isliving(bumped_atom))
 		var/mob/living/bumped_living = bumped_atom
-		if(bumped_living.flags & GODMODE)
+		if(HAS_TRAIT(bumped_living, TRAIT_GODMODE))
 			return
 		var/static/list/mecha_hit_sound = list('sound/weapons/genhit1.ogg','sound/weapons/genhit2.ogg','sound/weapons/genhit3.ogg')
 		bumped_living.take_overall_damage(5)
@@ -1062,7 +1068,7 @@
 			to_chat(user, "[B.get_mecha_info_text()]")
 			break
 		//Nothing like a big, red link to make the player feel powerful!
-		to_chat(user, "<a href='?src=[user.UID()];ai_take_control=\ref[src]'>[span_userdanger("ASSUME DIRECT CONTROL?")]</a><br>")
+		to_chat(user, "<a href='byond://?src=[user.UID()];ai_take_control=\ref[src]'>[span_userdanger("ASSUME DIRECT CONTROL?")]</a><br>")
 	else
 		examine(user)
 		if(occupant)
@@ -1077,7 +1083,7 @@
 		if(!can_control_mech)
 			to_chat(user, span_warning("You cannot control exosuits without AI control beacons installed."))
 			return
-		to_chat(user, "<a href='?src=[user.UID()];ai_take_control=\ref[src]'>[span_boldnotice("Take control of exosuit?")]</a><br>")
+		to_chat(user, "<a href='byond://?src=[user.UID()];ai_take_control=\ref[src]'>[span_boldnotice("Take control of exosuit?")]</a><br>")
 
 /obj/mecha/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(!..())

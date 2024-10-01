@@ -112,7 +112,7 @@
 	/// If `TRUE`, projectile with dismemberment will forcefully cut head instead of gibbing them
 	var/dismember_head = FALSE
 	/// Probability to hit lying non-dead mobs
-	var/hit_crawling_mobs_chance = 0
+	var/hit_crawling_mobs_chance = 33
 
 
 /obj/item/projectile/Initialize(mapload)

@@ -237,7 +237,6 @@
 "iy" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	frequency = 1441;
 	id = "mix_in_gtl"
 	},
 /turf/simulated/floor/engine,
@@ -476,8 +475,8 @@
 /area/ruin/space/gasthelizards/jail)
 "rk" = (
 /obj/machinery/atmospherics/air_sensor{
-	frequency = 1441;
-	id_tag = "mix_sensor_gtl"
+	id_tag = "mix_sensor_gtl";
+	output = 127
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/gasthelizards/viewzone)
@@ -533,7 +532,6 @@
 /area/ruin/space/gasthelizards/jail)
 "tA" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
 	input_tag = "mix_in_gtl";
 	name = "Gas Mix Tank Control";
 	output_tag = "mix_out_gtl";
@@ -712,7 +710,6 @@
 /area/space)
 "Dg" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	frequency = 1441;
 	id = "mix_in"
 	},
 /obj/machinery/light/small,
