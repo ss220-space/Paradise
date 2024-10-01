@@ -92,8 +92,8 @@
 /obj/item/stack/spacecash/magic_linked/New(loc, amt = 150)
 	. = ..()
 	//roflcat
-	if(SScapitalism)
-		SScapitalism?.payment_account.credit(amt * -1, "Выдача наличности")
+	if(loc)
+		SScapitalism.payment_account.credit(amt * -1, "Выдача наличности")
 
 ///// USSP space cash
 
