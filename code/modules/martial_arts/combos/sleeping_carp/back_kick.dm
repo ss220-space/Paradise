@@ -1,7 +1,7 @@
 /datum/martial_combo/sleeping_carp/back_kick
 	name = "Back Kick"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_GRAB)
-	explaination_text = "Пинает оппонента в спину, заставляя его лежать 6 секунд от боли."
+	explaination_text = "Пинает оппонента в спину, заставляя его лежать от боли."
 
 /datum/martial_combo/sleeping_carp/back_kick/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(user.dir == target.dir && !target.stat && !target.IsWeakened())
