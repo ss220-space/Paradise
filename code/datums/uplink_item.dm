@@ -91,7 +91,7 @@
 	. = ..()
 	desc += " Предоставлено "
 	if (made_by == "")
-		desc += pick(AFFIL_CYBERSUN, AFFIL_GORLEX, AFFIL_HEMATOGENIC, AFFIL_MI13, AFFIL_SELF, AFFIL_TIGER, AFFIL_SHELLGUARD, AFFIL_DONK, AFFIL_WAFFLE, AFFIL_BIOTECH, AFFIL_MIME, AFFIL_CLOWN)
+		desc += pick(AFFIL_CYBERSUN, AFFIL_GORLEX, AFFIL_HEMATOGENIC, AFFIL_MI13, AFFIL_SELF, AFFIL_TIGER, AFFIL_SHELLGUARD, AFFIL_DONK, AFFIL_WAFFLE, AFFIL_BIOTECH, AFFIL_MIME, AFFIL_CLOWN, AFFIL_SOL)
 	desc += made_by + "."
 
 
@@ -2271,7 +2271,7 @@
 
 /datum/uplink_item/cyber_implants/mantisblade
 	name = "Лезвия Богомола"
-	desc = "Коробка с набором из двух имплантов Скрытых Клинков разработаных Gorlex Maraduers поставляется с самоуничтожающимися \
+	desc = "Коробка с набором из двух имплантов Скрытых Клинков поставляется с самоуничтожающимися \
 			автоимплантаторами. После ЭМИ они восстанавливаются, чтобы показать, что еще слишком рано списывать вас со счетов."
 	item = /obj/item/storage/box/syndie_kit/mantisblade
 	cost = 57

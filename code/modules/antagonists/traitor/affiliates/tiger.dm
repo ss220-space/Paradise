@@ -45,6 +45,7 @@
 	var/datum/mind/target
 	var/free_inject = FALSE
 	var/used = FALSE
+	origin_tech = "biotech=7;syndicate=3"
 
 /obj/item/cling_extract/attack(mob/living/target, mob/living/user, def_zone)
 	return
@@ -118,6 +119,7 @@
 /obj/item/reagent_containers/food/snacks/egg/borer
 	filling_color = "#C0C021"
 	list_reagents = list("protein" = 3, "egg" = 5, "rotatium" = 5)
+	origin_tech = "biotech=6;syndicate=1"
 
 // looks like normal
 /obj/item/reagent_containers/food/snacks/egg/borer/attack_self(mob/living/carbon/human/user)

@@ -9,7 +9,7 @@
 	can_take_bonus_objectives = TRUE
 
 /datum/affiliate/contractor/get_weight(mob/living/carbon/human/H)
-	return 1
+	return 0
 
 /datum/affiliate/contractor/give_objectives(datum/mind/mind)
 	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)

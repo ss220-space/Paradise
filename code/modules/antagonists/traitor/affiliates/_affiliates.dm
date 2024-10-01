@@ -140,6 +140,6 @@
 /datum/affiliate/proc/add_discount_item(I, cost_part)
 	var/datum/uplink_item/new_item = new I
 	new_item.cost = round(new_item.cost * (cost_part))
-	new_item.name += " ([round((1-(cost_part))*100)]% off!)"
+	new_item.name += " ([round((1-(cost_part))*100)]% скидка!)"
 	new_item.category = "Скидки"
 	uplink.uplink_items.Add(new_item)

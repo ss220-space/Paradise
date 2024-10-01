@@ -45,7 +45,7 @@
 	item_state = "disk"
 	lefthand_file = 'icons/obj/affiliates.dmi'
 	righthand_file = 'icons/obj/affiliates.dmi'
-	origin_tech = "syndicate=2"
+	origin_tech = "programming=4;syndicate=2"
 	w_class = WEIGHT_CLASS_TINY
 	var/datum/research/files
 
@@ -70,7 +70,8 @@
 
 
 	var/obj/machinery/r_n_d/server/server = target
-	if(do_after(user, 5 SECONDS, target, max_interact_count = 1)) // Добавить потом какой-нибудь сапер. Ну и коммент на русском убрать.
+
+	if(do_after(user, 30 SECONDS, target, max_interact_count = 1))
 		origin_tech = ""
 		for(var/I in server.files.known_tech)
 			var/datum/tech/T = server.files.known_tech[I]
@@ -221,7 +222,7 @@
 	name = "Mindslave Bio-chip"
 	desc = "На боку едва заметная гравировка \"Cybersun Industries\"."
 	implant_state = "implant-syndicate"
-	origin_tech = "programming=5;biotech=5;syndicate=8"
+	origin_tech = "programming=4;biotech=4;syndicate=7" // As original, but - 1 level of every tech
 	activated = BIOCHIP_ACTIVATED_PASSIVE
 	implant_data = /datum/implant_fluff/traitor
 

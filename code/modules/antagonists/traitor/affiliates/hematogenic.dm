@@ -45,6 +45,7 @@
 	var/free_inject = FALSE
 	var/used = FALSE
 	var/used_state = "hemophagus_extract_used"
+	origin_tech = "biotech=7;syndicate=3"
 
 /obj/item/hemophagus_extract/attack(mob/living/target, mob/living/user, def_zone)
 	return
@@ -145,6 +146,7 @@
 	var/used_state = "blood_harvester_used"
 	var/datum/mind/target
 	w_class = WEIGHT_CLASS_TINY
+	origin_tech = "biotech=5;syndicate=1"
 
 /obj/item/blood_harvester/attack(mob/living/target, mob/living/user, def_zone)
 	return

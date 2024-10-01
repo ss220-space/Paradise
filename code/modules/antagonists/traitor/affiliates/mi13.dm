@@ -52,3 +52,4 @@
 	. = ..()
 	if (prob(5))
 		icon_state = "joker"
+		new /obj/item/toy/plushie/blahaj/twohanded(src)

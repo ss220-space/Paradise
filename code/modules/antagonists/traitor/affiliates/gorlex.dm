@@ -34,7 +34,6 @@
 	. = ..()
 	add_discount_item(/datum/uplink_item/device_tools/stims, 0.7)
 	add_discount_item(/datum/uplink_item/suits/hardsuit, 0.75)
-	add_discount_item(/datum/uplink_item/cyber_implants/mantisblade, 0.6) // Gorlex Maraduers made it
 
 	var/datum/atom_hud/antag/gorlhud = GLOB.huds[ANTAG_HUD_AFFIL_GORLEX]
 	gorlhud.join_hud(owner.current)

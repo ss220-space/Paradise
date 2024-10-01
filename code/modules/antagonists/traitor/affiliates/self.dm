@@ -37,6 +37,7 @@
 	lefthand_file = 'icons/obj/affiliates.dmi'
 	righthand_file = 'icons/obj/affiliates.dmi'
 	var/list/names = list()
+	origin_tech = "programming=5;syndicate=2"
 
 /obj/item/card/self_emag/attack(mob/living/target, mob/living/user, def_zone)
 	return
