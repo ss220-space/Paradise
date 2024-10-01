@@ -82,6 +82,7 @@
 				return
 
 		if(target.mind)
+			playsound(src, 'sound/goonstation/items/hypo.ogg', 80)
 			target.rejuvenate()
 			var/datum/antagonist/changeling/cling = new()
 			cling.give_objectives = FALSE
@@ -95,6 +96,7 @@
 		return
 	else
 		if(target.mind)
+			playsound(src, 'sound/goonstation/items/hypo.ogg', 80)
 			var/datum/antagonist/changeling/cling = new()
 			cling.give_objectives = FALSE
 			target.mind.add_antag_datum(cling)

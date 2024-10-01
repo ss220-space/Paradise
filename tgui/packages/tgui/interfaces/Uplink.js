@@ -178,7 +178,7 @@ export const Uplink = (props, context) => {
                 }}
                 icon="user"
               >
-                Полезная информация
+                Информация о экипаже
               </Tabs.Tab>
               {!!data.contractor && (
                 <Tabs.Tab
@@ -191,19 +191,21 @@ export const Uplink = (props, context) => {
                   onClick={() => modalOpen(context, 'become_contractor')}
                   icon="suitcase"
                 >
-                  Contracting Opportunity
+                  Возможность заключить контракт
                   {!data.contractor.is_admin_forced &&
                   !data.contractor.accepted ? (
                     data.contractor.available_offers > 0 ? (
-                      <i>[Left:{data.contractor.available_offers}]</i>
+                      <i>
+                        [Осталось вакансий:{data.contractor.available_offers}]
+                      </i>
                     ) : (
-                      <i>[Offers over]</i>
+                      <i>[Все вакансии заняты]</i>
                     )
                   ) : (
                     ''
                   )}
                   {data.contractor.accepted ? (
-                    <i>&nbsp;(Accepted)</i>
+                    <i>&nbsp;(Принято)</i>
                   ) : !data.contractor.is_admin_forced &&
                     data.contractor.available_offers <= 0 ? (
                     ''
@@ -235,15 +237,6 @@ export const Uplink = (props, context) => {
                 icon="suitcase"
               >
                 Запросить дополнительные цели
-              </Tabs.Tab>
-
-              <Tabs.Tab
-                key="CoolMusic"
-                color={'transparent'}
-                onClick={() => act('cool_music', {})}
-                icon="suitcase"
-              >
-                Включить крутую музыку
               </Tabs.Tab>
 
               <Tabs.Tab

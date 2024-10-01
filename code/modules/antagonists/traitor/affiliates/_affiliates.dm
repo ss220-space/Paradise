@@ -31,6 +31,17 @@
 	if(!traitor)
 		return
 
+	var/hijacker_antag = (GLOB.master_mode == "antag-paradise" || GLOB.secret_force_mode == "antag-paradise") ? traitor.is_hijacker : prob(10)
+
+	if(!SSticker.mode.exchange_blue) 	//Set up an exchange if there are enough traitors
+		if(SSticker.mode.exchange_red)
+			SSticker.mode.exchange_blue = mind
+			traitor.assign_exchange_role(SSticker.mode.exchange_blue)
+
+	if(hijacker_antag && !mind.has_big_obj())
+		traitor.add_objective(hij_obj)
+		return
+
 	for(var/objective in objectives)
 		var/datum/objective/new_objective
 		if(islist(objective))

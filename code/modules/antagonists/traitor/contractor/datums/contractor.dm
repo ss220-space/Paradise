@@ -40,7 +40,7 @@
 
 
 /datum/antagonist/contractor/add_antag_hud(mob/living/antag_mob)
-	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
+	if(owner.has_big_obj())
 		antag_hud_name = contractor_uplink ? "hudhijackcontractor" : "hudhijack"
 	else
 		antag_hud_name = contractor_uplink ? "hudcontractor" : "hudsyndicate"

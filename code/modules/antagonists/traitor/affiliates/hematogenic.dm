@@ -71,6 +71,7 @@
 /obj/item/hemophagus_extract/proc/inject(mob/living/user, mob/living/carbon/human/target)
 	if(!free_inject)
 		if(target.mind)
+			playsound(src, 'sound/goonstation/items/hypo.ogg', 80)
 			target.rejuvenate()
 			var/datum/antagonist/vampire/vamp = new()
 			vamp.give_objectives = FALSE
@@ -100,6 +101,7 @@
 		return
 	else
 		if(target.mind)
+			playsound(src, 'sound/goonstation/items/hypo.ogg', 80)
 			var/datum/antagonist/vampire/vamp = new()
 			vamp.give_objectives = FALSE
 			target.mind.add_antag_datum(vamp)
@@ -190,6 +192,7 @@
 	if (!can_harvest(target, user))
 		return
 
+	playsound(src, 'sound/goonstation/items/hypo.ogg', 80)
 	to_chat(target, span_danger("[user] collected your blood using [src]!"))
 	user.visible_message(span_warning("[user] collected [target]'s blood using [src]!"))
 	target.emote("scream")

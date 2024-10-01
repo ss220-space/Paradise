@@ -131,9 +131,17 @@
 /datum/antagonist/traitor/remove_owner_from_gamemode()
 	SSticker.mode.traitors -= owner
 
+/datum/mind/proc/has_big_obj()
+	if (locate(/datum/objective/hijack) in get_all_objectives())
+		return TRUE
+	if (locate(/datum/objective/blood/ascend) in get_all_objectives())
+		return TRUE
+	if (locate(/datum/objective/make_ai_malf) in get_all_objectives())
+		return TRUE
+	return FALSE
 
 /datum/antagonist/traitor/add_antag_hud(mob/living/antag_mob)
-	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
+	if(owner.has_big_obj())
 		antag_hud_name = "hudhijack"
 	else
 		antag_hud_name = "hudsyndicate"
@@ -353,7 +361,7 @@
 
 		target_pda.lock_code = "[rand(100,999)] [pick("Альфа","Браво","Дельта","Омега")]"
 
-		antag_memory += ("<B>Uplink Passcode:</B> [target_pda.lock_code] ([uplink_holder.name].")
+		antag_memory += ("<B>Код от аплинка:</B> [target_pda.lock_code] ([uplink_holder.name].")
 		return TRUE
 
 	return FALSE

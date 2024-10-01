@@ -113,7 +113,7 @@
 /datum/uplink_item/proc/spawn_item(mob/buyer, obj/item/uplink/target_uplink)
 	. = null
 	//nukies get items that regular traitors only get with hijack. If a hijack-only item is not for nukies, then exclude it via the gamemode list.
-	if(hijack_only && !(buyer.mind.special_role == SPECIAL_ROLE_NUKEOPS) && !(locate(/datum/objective/hijack) in buyer.mind.get_all_objectives()) && target_uplink.uplink_type != UPLINK_TYPE_ADMIN)
+	if(hijack_only && !(buyer.mind.special_role == SPECIAL_ROLE_NUKEOPS) && !buyer.mind.has_big_obj() && target_uplink.uplink_type != UPLINK_TYPE_ADMIN)
 		to_chat(buyer, span_warning("Синдикат выдаст этот чрезвычайно опасный предмет только агентам, которым поручены особенно опасные задачи."))
 		return .
 

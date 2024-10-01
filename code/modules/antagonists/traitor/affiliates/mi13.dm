@@ -24,7 +24,7 @@
 	. = ..()
 	uplink.uses = 20
 	var/datum/antagonist/traitor/traitor = owner.has_antag_datum(/datum/antagonist/traitor)
-	traitor.assign_exchange_role()
+	traitor.assign_exchange_role(SSticker.mode.exchange_red)
 
 /obj/item/storage/box/bond_bundle
 	icon = 'icons/obj/affiliates.dmi'
