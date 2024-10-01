@@ -6,8 +6,8 @@
 /datum/martial_combo/sleeping_carp/head_kick/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.stat && !target.IsWeakened())
 		user.do_attack_animation(target, ATTACK_EFFECT_KICK)
-		target.visible_message("<span class='warning'>[user] kicks [target] in the head!</span>", \
-						  "<span class='userdanger'>[user] kicks you in the jaw!</span>")
+		target.visible_message("<span class='warning'>[user] бьет [target] в голову!</span>", \
+						  "<span class='userdanger'>[user] бьет тебя ногой в челюсть!</span>")
 		target.apply_damage(20, BRUTE, "head")
 		objective_damage(user, target, 20, BRUTE)
 		target.drop_from_active_hand()
