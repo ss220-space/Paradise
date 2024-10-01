@@ -110,8 +110,6 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival_security/warden
 
-
-
 /datum/job/detective
 	title = JOB_TITLE_DETECTIVE
 	flag = JOB_FLAG_DETECTIVE
@@ -129,6 +127,10 @@
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/detective
+
+	salary = 170
+	min_start_money = 200
+	max_start_money = 550
 
 /datum/outfit/job/detective
 	name = "Detective"
@@ -188,6 +190,10 @@
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/officer
+
+	salary = 170
+	min_start_money = 200
+	max_start_money = 550
 
 /datum/outfit/job/officer
 	name = "Security Officer"
