@@ -16,6 +16,6 @@
 		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Stomach Knee", ATKLOG_ALL)
 		if(prob(80))
-			user.say(pick("ВОХОП!", "КУХ!", "ЯКХУУ!", "ЗАДЕРЖИ ДЫХАНИЕ!", "УДАР КОЛЕНОМ!"))
+			user.say(pick("ВОХОП!", "КУХ!", "ДЫШИ ЖАБРАМИ!", "ЗАДЕРЖИ ДЫХАНИЕ!", "УДАР КОЛЕНОМ!"))
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_DONE_BASIC_HIT
