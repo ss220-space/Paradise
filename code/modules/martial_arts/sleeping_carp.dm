@@ -4,7 +4,7 @@
 	weight = 9
 	deflection_chance = 100
 	no_guns = TRUE
-	no_guns_message = "Use of ranged weaponry would bring dishonor to the clan."
+	no_guns_message = "Будь как карп. Карпы не стреляют из пушек. CARP!"
 	reroute_deflection = FALSE
 	has_explaination_verb = TRUE
 	grab_speed = 2 SECONDS
@@ -32,9 +32,9 @@
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	var/atk_verb = pick("punches", "kicks", "chops", "hits", "slams")
+	var/atk_verb = pick("кусает", "пинает", "ломает", "бьет", "крушит")
 	D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>", \
-					  "<span class='userdanger'>[A] [atk_verb] you!</span>")
+					  "<span class='userdanger'>[A] [atk_verb] вас!</span>")
 
 	var/damage = rand(10,15)
 	D.apply_damage(damage, BRUTE)
@@ -42,12 +42,12 @@
 
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, 1, -1)
 	if(prob(50))
-		A.say(pick("HUAH!", "HYA!", "CHOO!", "WUO!", "KYA!", "HUH!", "HIYOH!", "CARP STRIKE!", "CARP BITE!"))
+		A.say(pick("КУАХ!", "ХАЙЯ!", "КУОХ!", "ХУ!", "КИЯ!", "ХУХ!", "БУЙЯ!", "ХЛЫСТ ПРАВНИКА!", "УДАР КАРПА!"))
 	if(prob(D.getBruteLoss()) && D.body_position != LYING_DOWN)
-		D.visible_message("<span class='warning'>[D] stumbles and falls!</span>", "<span class='userdanger'>The blow sends you to the ground!</span>")
+		D.visible_message("<span class='warning'>[D] stumbles and falls!</span>", "<span class='userdanger'>Удар отправляет тебя на землю!</span>")
 		D.Weaken(6 SECONDS)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/the_sleeping_carp/explaination_header(user)
-	to_chat(usr, "<b><i>You retreat inward and recall the teachings of the Sleeping Carp...</i></b>")
+	to_chat(usr, "<b><i>Вы уходите в себя и вспоминаете учение Спящего Карпа...</i></b>")
