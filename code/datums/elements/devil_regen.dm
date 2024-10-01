@@ -78,7 +78,7 @@
 /datum/element/devil_regeneration/proc/on_revive()
     if(!linked_timer)
         return
-        
+
     deltimer(linked_timer)
     linked_timer = null
 
@@ -86,7 +86,7 @@
     if(human.health >= human.maxHealth)
         on_revive()
 
-    devil.setOxyLoss(0)
+    human.setOxyLoss(0)
     human.heal_damages(
         devil.rank.regen_amount, 
         devil.rank.regen_amount,
