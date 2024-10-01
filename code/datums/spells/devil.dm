@@ -271,7 +271,10 @@
 
 /obj/effect/proc_holder/spell/aoe/devil_fire/create_new_targeting()
 	var/datum/spell_targeting/aoe/targeting = new()
+
 	targeting.range = aoe_range
+	targeting.allowed_type = /atom
+	
 	return targeting
 
 /obj/effect/proc_holder/spell/aoe/devil_fire/cast(list/targets, mob/user = usr)
@@ -312,8 +315,27 @@
 /obj/effect/proc_holder/spell/dark_conversion/valid_target(mob/living/carbon/human/target, mob/user)
 	return target.mind && !isshadowperson(target)
 
+/obj/effect/proc_holder/spell/dark_conversion/can_cast(mob/user, charge_check, show_message)
+	. = ..()
+	if(!.)
+		return
+
+	if(!iscarbon(user))
+		return FALSE
+
+	if(!user.mind?.has_antag_datum(/datum/antagonist/devil))	
+		return FALSE
+
 /obj/effect/proc_holder/spell/dark_conversion/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/human = targets[1]
+	var/mob/living/carbon/carbon = user
+	var/datum/antagonist/devil/devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
+
+	if(!devil)
+		revert_cast()
+		return
+
+	carbon.say("INF' [devil.info.truename] NO")
 
 	if(!do_after(user, cast_time, user, NONE))
 		revert_cast(user)

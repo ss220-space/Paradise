@@ -32,13 +32,14 @@
 
     brain?.decoy_brain = FALSE	
 
-/datum/element/devil_regeneration/proc/start_regen_bodypart(datum/source, mob/living/carbon/human)
+/datum/element/devil_regeneration/proc/start_regen_bodypart(datum/source, obj/item/organ/organ)
     SIGNAL_HANDLER
 
-    var/obj/item/organ/external/external = source
+    var/obj/item/organ/external/external = organ
     if(!istype(external))
         return
-        
+    
+    var/mob/living/carbon/human = source
     var/datum/antagonist/devil/devil = human?.mind?.has_antag_datum(/datum/antagonist/devil)
 
     if(!devil)
@@ -72,9 +73,12 @@
     to_chat(human, span_revenbignotice("Hellish powers are resurrecting you."))
     playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
     
-    linked_timer = addtimer(CALLBACK(src, PROC_REF(apply_regeneration), human, devil), devil.rank.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE)
+    linked_timer = addtimer(CALLBACK(src, PROC_REF(apply_regeneration), human, devil), devil.rank.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE | TIMER_DELETE_ME)
 
 /datum/element/devil_regeneration/proc/on_revive()
+    if(!linked_timer)
+        return
+        
     deltimer(linked_timer)
     linked_timer = null
 
@@ -82,6 +86,7 @@
     if(human.health >= human.maxHealth)
         on_revive()
 
+    devil.setOxyLoss(0)
     human.heal_damages(
         devil.rank.regen_amount, 
         devil.rank.regen_amount,

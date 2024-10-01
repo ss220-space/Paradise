@@ -62,6 +62,9 @@
 		if(TRUE_THRESHOLD)
 			. = TRUE_DEVIL_RANK
 
+	if(istype(., rank))
+		. = FALSE
+
 	return .
 
 /datum/antagonist/devil/proc/init_new_rank(typepath)
