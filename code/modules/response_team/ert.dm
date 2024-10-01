@@ -50,9 +50,11 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	if(jobban_isbanned(src, ROLE_ERT))
 		to_chat(src, span_warning("You are jobbanned from playing on an emergency response team!"))
 		return FALSE
+	
 	if(jobban_isbanned(src, JOB_TITLE_OFFICER) || jobban_isbanned(src, JOB_TITLE_CAPTAIN) || jobban_isbanned(src, JOB_TITLE_CYBORG))
 		to_chat(src, span_warning("One of your jobbans forbids you from playing on an emergency response team!"))
 		return FALSE
+
 	var/player_age_check = check_client_age(client, GLOB.responseteam_age)
 	if(player_age_check && CONFIG_GET(flag/use_age_restriction_for_antags))
 		to_chat(src, span_warning("This role is not yet available to you. You need to wait another [player_age_check] days."))
