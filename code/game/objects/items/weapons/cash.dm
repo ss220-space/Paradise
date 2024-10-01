@@ -90,7 +90,7 @@
 
 //A crutch for the vending machine, well, or an ingenious roflcat solution
 /obj/item/stack/spacecash/magic_linked/New(loc, amt = 150)
-	. = ..()
+	. = ..(loc, amt)
 	//roflcat
 	if(SScapitalism)
 		SScapitalism.payment_account.credit(amt * -1, "Выдача наличности")
