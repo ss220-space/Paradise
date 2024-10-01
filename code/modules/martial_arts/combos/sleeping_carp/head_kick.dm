@@ -1,7 +1,7 @@
 /datum/martial_combo/sleeping_carp/head_kick
 	name = "Head Kick"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM)
-	explaination_text = "Decent damage, forces opponent to drop item in hand."
+	explaination_text = "Пинает оппонента в голову, нанося приличный урон и заставляя выбросить вещь из активной руки."
 
 /datum/martial_combo/sleeping_carp/head_kick/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.stat && !target.IsWeakened())
@@ -14,7 +14,7 @@
 		playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Head Kick", ATKLOG_ALL)
 		if(prob(60))
-			user.say(pick("OOHYOO!", "OOPYAH!", "HYOOAA!", "WOOAAA!", "SHURYUKICK!", "HIYAH!"))
+			user.say(pick("БАНЗАЙ!", "КИЯ!", "КАВАБАНГА!", "ПЛАВНИКОМ В ЛИЦО!", "УКУС В ГОЛОВУ!", "УДАР ПО ГОООЛОВЕ!"))
 		target.Weaken(6 SECONDS)
 		return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_DONE_BASIC_HIT
