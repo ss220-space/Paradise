@@ -19,7 +19,7 @@ export const Affiliates = (props, context) => {
   const { affiliates } = data;
 
   return (
-    <Window width={900} height={300} title="Выбор подрядчика" theme="syndicate">
+    <Window width={900} height={600} title="Выбор подрядчика" theme="syndicate">
       <ComplexModal />
       <Window.Content scrollable>
         <ExploitableInfoPage affiliates={affiliates} />
@@ -37,17 +37,19 @@ const ExploitableInfoPage = (_properties, context) => {
       <Flex>
         {affiliates.map((i) => (
           <Flex.Item grow={1} basis={0} key={i.name}>
-            {i.desc.map((j) => (
-              <Flex.Item grow={1} basis={0} key={j}>
-                <Box mx="0.5rem" mb="0.5rem">
-                  {j}
-                </Box>
-              </Flex.Item>
-            ))}
-            <Button
-              content="Выбрать подрядчика"
-              onClick={() => act('SelectAffiliate', { path: i.path })}
-            />
+            <Section title={i.name}>
+              {i.desc.map((j) => (
+                <Flex.Item grow={1} basis={0} key={j}>
+                  <Box mx="0.5rem" mb="0.5rem">
+                    {j}
+                  </Box>
+                </Flex.Item>
+              ))}
+              <Button
+                content="Выбрать подрядчика"
+                onClick={() => act('SelectAffiliate', { path: i.path })}
+              />
+            </Section>
           </Flex.Item>
         ))}
       </Flex>
