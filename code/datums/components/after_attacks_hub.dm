@@ -28,7 +28,7 @@
 /datum/component/after_attacks_hub/proc/on_after_attack(datum/source, mob/living/target, mob/living/user, proximity, params, status)
 	SIGNAL_HANDLER
 	for(var/after_attack in after_attacks)
-		INVOKE_ASYNC(after_attack, TYPE_PROC_REF(/datum/element/after_attack, on_attack), source, target, user, proximity, params, status);
+		INVOKE_ASYNC(after_attack, TYPE_PROC_REF(/datum/element/after_attack, on_attack), source, target, user, proximity, params, status)
 
 
 /datum/component/after_attacks_hub/proc/on_register_after_attack(datum/source, datum/sender)
