@@ -30,6 +30,8 @@
 
 /datum/surgery_step/augment
 	name = "augment limb with robotic part"
+	begin_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(/obj/item/robot_parts = 100)
 	time = 3.2 SECONDS
 
