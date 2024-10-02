@@ -359,7 +359,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	<b>Выплачено персоналу зарплат на сумму: </b> [SScapitalism.total_salary_payment].<br>
 	<b>Поступило денег с выполнения заказов карго на счет станции: </b> [SScapitalism.total_station_bounty].<br>
 	<b>Поступило денег с выполнения заказов карго на счет карго: </b> [SScapitalism.total_cargo_bounty].<br>
-	<b>Поступления баунти за помощь в выполнении карго квестов персоналу на сумму: </b> [SScapitalism.total_personal_bounty].<br>
+	<b>Общая сумма наград выплаченная персоналу за помощь в выполнении заказов карго: </b> [SScapitalism.total_personal_bounty].<br>
 	<b>Доход от автоматов: </b> [SScapitalism.income_vedromat].<br><br>"}
 
 	if(score_escapees)
