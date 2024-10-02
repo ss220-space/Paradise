@@ -251,7 +251,7 @@
 /mob/proc/get_npc_respawn_message()
 	return "Ты [name]."
 
-/mob/proc/can_use_machinery(obj/machinery)
+/mob/proc/can_use_machinery(obj/machinery/mach)
 	return FALSE
 
 /mob/proc/safe_respawn(mob/living/passed_mob, check_station_level = TRUE)
