@@ -247,6 +247,12 @@
 
 	qdel(src)
 
+//oh no, cringe
+/mob/proc/get_npc_respawn_message()
+	return "Ты [name]."
+
+/mob/proc/can_use_machinery(obj/machinery)
+	return FALSE
 
 /mob/proc/safe_respawn(mob/living/passed_mob, check_station_level = TRUE)
 	. = FALSE
@@ -267,7 +273,7 @@
 	if(isnymph(passed_mob) && !jobban_isbanned(src, ROLE_NYMPH))
 		return TRUE
 
-	// Whitelist typecache. Alphabetical order please!
+	// Whitelist typecache. Alphabeticalы order please!
 	var/static/list/safe_respawn_typecache_whitelist = typecacheof(list(
 		/mob/living/simple_animal/butterfly,
 		/mob/living/simple_animal/chick,
@@ -293,6 +299,7 @@
 		/mob/living/simple_animal/pig,
 		/mob/living/simple_animal/possum,
 		/mob/living/simple_animal/turkey,
+		/mob/living/carbon/human/lesser/monkey/punpun,
 	))
 
 	// Blacklist typecache.

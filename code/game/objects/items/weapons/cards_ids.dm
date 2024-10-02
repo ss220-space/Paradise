@@ -967,6 +967,9 @@
 	item_state = "cargo-id"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/supply/punpun
+	name = "Пун Пун"
+
 /obj/item/card/id/engineering
 	name = "Engineering ID"
 	registered_name = "Engineer"
@@ -1063,6 +1066,13 @@
 	icon_state = "IAA"
 	item_state = "iaa-id"
 	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
+
+/obj/item/card/id/punpun
+	name = "Pun Pun ID"
+	registered_name = "Пун Пун"
+	icon_state = "id"
+	item_state = "card-id"
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/rainbow
 	name = "Rainbow ID"
