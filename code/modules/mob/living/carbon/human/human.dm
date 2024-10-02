@@ -240,13 +240,8 @@
 
 		var/datum/antagonist/vampire/vamp = mind.has_antag_datum(/datum/antagonist/vampire)
 		if(vamp)
-			status_tab_data[++status_tab_data.len] = list("Total Blood:", "[vamp.bloodtotal]")
-			status_tab_data[++status_tab_data.len] = list("Usable Blood:", "[vamp.bloodusable]")
-
-		var/datum/antagonist/goon_vampire/g_vamp = mind.has_antag_datum(/datum/antagonist/goon_vampire)
-		if(g_vamp)
-			status_tab_data[++status_tab_data.len] = list("Всего крови", "[g_vamp.bloodtotal]")
-			status_tab_data[++status_tab_data.len] = list("Доступная кровь", "[g_vamp.bloodusable]")
+			status_tab_data[++status_tab_data.len] = list("Всего крови:", "[vamp.bloodtotal]")
+			status_tab_data[++status_tab_data.len] = list("Доступная кровь:", "[vamp.bloodusable]")
 
 		if(isclocker(mind.current))
 			status_tab_data[++status_tab_data.len] = list("Total Power", "[GLOB.clockwork_power]")
