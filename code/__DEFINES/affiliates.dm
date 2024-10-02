@@ -11,7 +11,7 @@
 #define AFFIL_BIOTECH		"BioTech Solutions"
 #define AFFIL_MIME			"World Association of Mimes"
 #define AFFIL_CLOWN			"Honk Corporation"
-#define AFFIL_SOL			"ТСФ"
+#define AFFIL_SOL			"TSF"
 
 
 #define LIMIT_KILLING_ENEMY_REWARDS 			2
