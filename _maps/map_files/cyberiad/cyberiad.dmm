@@ -10741,7 +10741,6 @@
 	pixel_y = 1
 	},
 /obj/item/book/manual/sop_legal,
-/obj/item/megaphone,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
