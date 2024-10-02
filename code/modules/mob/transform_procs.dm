@@ -252,7 +252,7 @@
 	return "Ты [name]."
 
 /mob/proc/can_use_machinery(obj/machinery/mach)
-	return FALSE
+	return IsAdvancedToolUser() 
 
 /mob/proc/safe_respawn(mob/living/passed_mob, check_station_level = TRUE)
 	. = FALSE
