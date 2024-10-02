@@ -40,9 +40,7 @@
 	GLOB.silicon_mob_list |= src
 	..()
 	add_language(LANGUAGE_GALACTIC_COMMON)
-	if(!(ispAI(src)))
-		gps = new
-		init_subsystems()
+	init_subsystems()
 	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
 	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 

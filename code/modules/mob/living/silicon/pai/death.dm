@@ -7,8 +7,9 @@
 			card.visible_message(span_warning("Экран персонального ИИ медленно угасает, когда личность покидает устройство..."))
 
 		name = "pAI debris"
-		desc = "Дымящиеся останки какого-то несчастного персонального ИИ.."
+		desc = "Дымящиеся останки какого-то несчастного персонального ИИ."
 		icon_state = "[chassis]_dead"
+		silence_time = null
 
 	// Only execute the below if we successfully died
 	. = ..(gibbed)

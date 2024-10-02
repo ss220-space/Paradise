@@ -30,11 +30,13 @@
 /obj/item/paicard/New()
 	..()
 	add_overlay("pai-off")
+	LAZYADD(GLOB.paiController.paicards, src)
 
 /obj/item/paicard/Destroy()
 	if(pai)
 		pai.ghostize()
 		QDEL_NULL(pai)
+	LAZYREMOVE(GLOB.paiController.paicards, src)
 	QDEL_NULL(radio)
 	return ..()
 
@@ -310,7 +312,10 @@
 	add_overlay("pai-happy")
 	pai.syndipai = is_syndicate_type
 
-	set_syndie_key()
+	if(upgrade)
+		upgrade.set_syndie_key(src)
+		upgrade.used = TRUE
+
 	pai.reset_software()
 
 	SSticker.mode.update_cult_icons_removed(pai.mind)
@@ -445,11 +450,11 @@
 		user.balloon_alert(user, "вы установили картридж!")
 		upgrade = new_upgrade
 		is_syndicate_type = TRUE
-		qdel(new_upgrade)
 		if(pai)
 			pai.syndipai = TRUE
 			pai.balloon_alert(pai, "разблокированы новые программы!")
-			set_syndie_key()
+			upgrade.set_syndie_key(src)
+			upgrade.used = TRUE
 			pai.reset_software()
 
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -471,43 +476,31 @@
 	return ..()
 
 
-/obj/item/paicard/proc/set_syndie_key() // sets syndicate encryption key if uplink SPAI chip installed
-	if(upgrade)
-		upgrade.used = TRUE
-		if(!istype(upgrade, /obj/item/paicard_upgrade/protolate)) // only uplink one
-			if(radio.keyslot2)
-				return
-			radio.keyslot2 = new /obj/item/encryptionkey/syndicate(radio)
-			if(radio.keyslot2.syndie)
-				radio.syndiekey = radio.keyslot2
-			radio.recalculateChannels(TRUE)
-			if(pai)
-				to_chat(pai, span_notice("Обнаружены новые частоты радиосообщения, калибровка.."))
-
-
 /obj/item/paicard/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 
-	if(!I.use_tool(src, user, 0, volume = 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	var/turf/T = get_turf(user)
 
 	if(upgrade && !pai)
 		is_syndicate_type = FALSE
+
 		if(T)
-			var/obj/item/paicard_upgrade/ejected_cartridge = new
-			ejected_cartridge.forceMove(T)
+			user.put_in_hands(upgrade)
 			upgrade = null
-		I.play_tool_sound(user, I.tool_volume)
+
 		to_chat(user, span_notice("Вы вытащили картридж улучшения пИИ."))
 
 	if(radio?.keyslot1)
 		for(var/ch_name in radio.channels)
 			SSradio.remove_object(radio, SSradio.radiochannels[ch_name])
 			radio.secure_radio_connections[ch_name] = null
+
 		if(T)
-			radio.keyslot1.forceMove(T)
+			user.put_in_hands(radio.keyslot1)
 			radio.keyslot1 = null
+
 		radio.recalculateChannels()
 		to_chat(user, span_notice("Вы извлекли ключ шифрования из [declent_ru(GENITIVE)]."))
 		I.play_tool_sound(user, I.tool_volume)
@@ -575,6 +568,27 @@
 	used = FALSE
 
 /obj/item/paicard_upgrade/protolate
+
+
+/obj/item/paicard_upgrade/proc/set_syndie_key(obj/item/paicard/paicard)
+	if(!paicard)
+		return
+
+	if(paicard.radio.keyslot2)
+		return
+
+	paicard.radio.keyslot2 = new /obj/item/encryptionkey/syndicate(paicard.radio)
+	if(paicard.radio.keyslot2.syndie)
+		paicard.radio.syndiekey = paicard.radio.keyslot2
+
+	paicard.radio.recalculateChannels(TRUE)
+	if(paicard.pai)
+		to_chat(paicard.pai, span_notice("Обнаружены новые частоты радиосообщения, калибровка..."))
+
+
+/obj/item/paicard_upgrade/protolate/set_syndie_key(obj/item/paicard)
+	return
+
 
 /obj/item/paper/pai_upgrade
 	name = "Инструкция по применению"

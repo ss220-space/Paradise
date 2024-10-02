@@ -85,7 +85,6 @@
 
 	var/obj/machinery/computer/security/camera_bug/integrated_console //Syndicate's pai camera bug
 	var/obj/machinery/computer/secure_data/integrated_records
-	var/obj/item/gps/internal/pai_gps/pai_internal_gps
 
 	var/translator_on = 0 // keeps track of the translator module
 	var/flashlight_on = FALSE //keeps track of the flashlight module
@@ -163,9 +162,6 @@
 	integrated_records.parent = src
 	integrated_records.req_access = list()
 
-	pai_internal_gps = new(src)
-	pai_internal_gps.parent = src
-
 	reset_software()
 
 /mob/living/silicon/pai/proc/reset_software()
@@ -179,7 +175,6 @@
 		if(PSD.default)
 			installed_software[PSD.id] = PSD
 
-	var/obj/item/gps/internal/pai_gps/gps = locate(/obj/item/gps/internal/pai_gps) in contents
 	gps.tracking = FALSE
 
 	active_software = installed_software["mainmenu"] // Default us to the main menu
@@ -188,14 +183,17 @@
 
 /mob/living/silicon/pai/proc/reset_memory()
 	// Handle RAM
-	var/total_memory = initial(ram)
-	if(card)
-		var/obj/item/pai_cartridge/memory/memory_cartridge = (locate(/obj/item/pai_cartridge/memory) in card.upgrades)
-		if(memory_cartridge)
-			total_memory += memory_cartridge.extra_memory
-		if(card.upgrade)
-			total_memory += card.upgrade.extra_memory
-	ram = total_memory
+	ram = initial(ram)
+
+	if(!card)
+		return
+
+	var/obj/item/pai_cartridge/memory/memory_cartridge = (locate(/obj/item/pai_cartridge/memory) in card.upgrades)
+	if(memory_cartridge)
+		ram += memory_cartridge.extra_memory
+
+	if(card.upgrade)
+		ram += card.upgrade.extra_memory
 
 
 /mob/living/silicon/pai/update_icons()
@@ -206,11 +204,13 @@
 
 // this function shows the information about being silenced as a pAI in the Status panel
 /mob/living/silicon/pai/proc/show_silenced()
-	if(QDELETED(src) || stat == DEAD)
-		return
 	if(silence_time)
 		var/timeleft = round((silence_time - world.timeofday)/10 ,1)
 		return list("Перезагрузка систем связи через:", "[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
+
+
+/mob/living/silicon/pai/init_subsystems()
+	gps = new(src, gpstag = "pAI0", upgraded = TRUE, tracking = FALSE)
 
 
 /mob/living/silicon/pai/get_status_tab_items()
@@ -236,9 +236,14 @@
 		return
 
 	silence_time = world.timeofday + 120 * 10		// Silence for 2 minutes
-	to_chat(src, span_danger("Системы связи перегружены! Инициирована перезагрузка повреждённых систем. Все модули общения недоступны на время перезагрузки."))
+	to_chat(src, span_danger("Системы связи перегружены! Инициирована перезагрузка повреждённых систем. Все модули коммуникации недоступны на время перезагрузки."))
 	if(prob(20))
-		to_chat(viewers(src), span_warning("[name] выходит из строя, испуская фонтан искр!"))
+		visible_message(
+			span_warning("[name] выходит из строя, испуская фонтан искр!"),
+			blind_message = ("Вы слышите шипение искр и чувствуете запах гари."),
+		)
+
+		do_sparks(3, FALSE, src)
 		return death(0)
 
 	switch(pick(1, 2 ,3))
@@ -255,7 +260,7 @@
 			pai_law0 = "[command] your master."
 			to_chat(src, "<font color=green>Pr1m3 d1r3c71v3 uPd473D.</font>")
 		if(3)
-			to_chat(src, span_warning("<font color=green> Вы чувствуете, как электрический разряд проходит сквозь ваши микросхемы и осознаёте, как сильно вам повезло, что вы вообще можете ещё чувствовать что-либо..</font>"))
+			to_chat(src, span_warning("<font color=green> Вы чувствуете, как электрический разряд проходит сквозь ваши микросхемы и осознаёте, как сильно вам повезло, что вы вообще можете ещё чувствовать что-либо...</font>"))
 
 /mob/living/silicon/pai/ex_act(severity)
 	..()
@@ -383,7 +388,6 @@
 	icon_state = my_choices[choice]
 
 	chassis = my_choices[choice]
-	remove_verb(src, /mob/living/silicon/pai/proc/choose_chassis)
 
 
 /mob/living/silicon/pai/proc/choose_verbs()
@@ -425,11 +429,11 @@
 	set name = "pAI Suicide"
 	set desc = "Kill yourself and become a ghost (You will recieve a confirmation prompt.)"
 
-	if(tgui_alert(src, "ДЕЙСТВИТЕЛЬНО хотите убить себя? Это действие нельзя отменить.", "Suicide", list("Suicide", "No")) == "Suicide")
+	if(tgui_alert(src, "ДЕЙСТВИТЕЛЬНО хотите убить себя? Это действие нельзя отменить.", "Выгрузка личности", list("Выгрузиться", "Нет")) == "Выгрузиться")
 		do_suicide()
-
 	else
-		balloon_alert(src, "протокол самоуничтожения отменён")
+		balloon_alert(src, "протокол выгрузки отменён")
+
 
 /mob/living/silicon/pai/update_sight()
 	if(!client)
@@ -469,20 +473,26 @@
 	if(istype(I, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/nanopaste = I
 		if(stat == DEAD)
-			user.balloon_alert(user, "пИИ не подлежит ремонту..")
+			user.balloon_alert(user, "пИИ не подлежит ремонту...")
 			return ATTACK_CHAIN_PROCEED
+
 		if(!getBruteLoss() && !getFireLoss())
-			user.balloon_alert(user, "пИИ в полном порядке.")
+			user.balloon_alert(user, "пИИ в полном порядке")
 			return ATTACK_CHAIN_PROCEED
+
 		if(!nanopaste.use(1))
 			user.balloon_alert(user, "нанопаста закончилась!")
 			return ATTACK_CHAIN_PROCEED
+
 		heal_overall_damage(15, 15)
-		to_chat(user, span_notice("Вы нанесли немного нанопасты на корпус. [name] выглядит получше."))
+		visible_message(
+			span_notice("[user] наносит немного нанопасты на корпус пИИ. [name] выглядит получше."),
+			span_notice("Вы нанесли немного нанопасты на корпус. [name] выглядит получше."),
+		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/paicard_upgrade) || istype(I, /obj/item/pai_cartridge))
-		to_chat(user, span_warning("пИИ должен быть в компактной форме."))
+		to_chat(user, span_warning("ПИИ должен быть в компактной форме."))
 		return ATTACK_CHAIN_PROCEED
 
 	user.do_attack_animation(src)
@@ -490,25 +500,28 @@
 	if(!I.force)
 		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), TRUE, -1)
 		visible_message(
-			span_warning("[user] bonks [src] harmlessly with [I]."),
-			span_warning("[user] bonks you harmlessly with [I]."),
+			span_warning("[user] бережно стука[pluralize_ru(user.gender, "ет", "ют")] по [name] [I.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] бережно стука[pluralize_ru(user.gender, "ет", "ют")] вас [I.declent_ru(INSTRUMENTAL)]."),
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	if(I.hitsound)
 		playsound(loc, I.hitsound, I.get_clamped_volume(), TRUE, -1)
 	add_attack_logs(user, src, "Attacked with [I.name] ([uppertext(user.a_intent)]) ([uppertext(I.damtype)]), DMG: [I.force])", (ckey && I.force > 0 && I.damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 	visible_message(
-		span_danger("[user] attacks [src] with [I]!"),
-		span_userdanger("[user] attacks you with [I]!"),
+		span_danger("[user] сильно бь[pluralize_ru(user.gender, "ёт", "ют")] по [name] [I.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] сильно бь[pluralize_ru(user.gender, "ёт", "ют")] вас [I.declent_ru(INSTRUMENTAL)]!"),
 	)
+
 	var/damage_type = I.damtype
 	if(damage_type != BRUTE && damage_type != BURN)
 		damage_type = BRUTE
-	apply_damage(I.force, damage_type)
 
+	apply_damage(I.force, damage_type)
 	spawn(1)	// thats dumb
 		if(stat != DEAD)
 			close_up()
+
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 
@@ -523,7 +536,7 @@
 		user.visible_message(span_notice("[user] гладит [name]."))
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	else
-		visible_message(span_danger("[user] шлёпает [name] по голове.."))
+		visible_message(span_danger("[user] бупает [name] по голове."))
 		spawn(1)
 			close_up()
 
@@ -573,11 +586,11 @@
 	switch(stat)
 		if(CONSCIOUS)
 			if(!client)
-				msg += span_notice("Кажется, находится в режиме ожидания.\n") //afk
+				msg += span_notice("Оно находится в режиме ожидания.\n") //afk
 		if(UNCONSCIOUS)
-			msg += span_warning("Похоже, его системы не отвечают..\n")
+			msg += span_warning("Оно кажется выключенным.\n")
 		if(DEAD)
-			msg += span_deadsay("Не подлежит восстановлению...\n")
+			msg += span_deadsay("Оно явно не подлежит восстановлению...\n")
 
 	if(print_flavor_text())
 		msg += "[print_flavor_text()]\n"
@@ -629,15 +642,17 @@
 /mob/living/silicon/pai/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
 	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
+
 	if(usr == src)
-		switch(tgui_alert(user, "[src] хочет, что-бы вы его подобрали. Подобрать?", "Подбор", list("Да", "Нет")))
+		switch(tgui_alert(user, "[src] хочет, чтобы вы его подобрали. Подобрать?", "Подбор", list("Да", "Нет")))
 			if("Да")
 				if(Adjacent(user))
 					get_scooped(user)
 				else
 					to_chat(src, span_warning("Вам нужно подойти поближе."))
-			if("No")
-				to_chat(src, span_warning("[user] не хо[pluralize_ru(user.gender,"чет","тят")] вас подбирать.."))
+
+			if("Нет")
+				to_chat(src, span_warning("[user] не хо[pluralize_ru(user.gender,"чет","тят")] вас подбирать..."))
 	else
 		if(Adjacent(user))
 			get_scooped(user)
@@ -671,7 +686,6 @@
 	name = "Choose Chassis"
 	desc = "Выбор внешности голографического каркаса"
 	button_icon_state = "pai-action3"
-	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/pai_soft/pai_choose_chassis/Activate()
 	var/mob/living/silicon/pai/pai = owner
@@ -708,7 +722,6 @@
 	name = "PAI Suicide"
 	desc = "Активация протокола самоуничтожения"
 	button_icon_state = "pai-action6"
-	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/pai_soft/pai_suicide/Activate()
 	var/mob/living/silicon/pai/pai = owner

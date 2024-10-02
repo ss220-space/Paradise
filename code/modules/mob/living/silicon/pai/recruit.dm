@@ -13,6 +13,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 /datum/paiController
 	var/list/pai_candidates = list()
 	var/list/asked = list()
+	var/list/paicards
 	var/summon_cooldown = 0
 
 	var/askDelay = 10 * 60 * 1	// One minute [ms * sec * min]
@@ -114,8 +115,8 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 					candidate.ready = !candidate.ready
 					if(candidate.ready)
 						to_chat(usr, span_notice("Вы отправили заявку на становление пИИ."))
-						for(var/obj/item/paicard/p in world)
-							if(p.looking_for_personality == 1)
+						for(var/obj/item/paicard/p in paicards)
+							if(p.looking_for_personality)
 								p.alertUpdate()
 					else
 						to_chat(usr, span_notice("Вы отменили заявку на становление пИИ."))
@@ -123,6 +124,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				usr << browse(null, "window=paiRecruit")
 				return
 		recruitWindow(usr)
+
 
 /datum/paiController/proc/recruitWindow(var/mob/M as mob)
 	var/datum/paiCandidate/candidate
@@ -245,7 +247,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			</tr>
 		</table><br>
 		<table>
-			<td class="button"><a href='byond://?src=[UID()];option=submit;new=1;candidate=[candidate.UID()]' class="button"><b><font size="4px">Submit/Reset Personality</font></b></a></td>
+			<td class="button"><a href='byond://?src=[UID()];option=submit;new=1;candidate=[candidate.UID()]' class="button"><b><font size="4px">[candidate.ready ? "Reset personality" : "Submit personality"]</font></b></a></td>
 		</table><br>
 
 	</body>

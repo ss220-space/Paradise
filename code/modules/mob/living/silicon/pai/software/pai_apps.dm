@@ -111,11 +111,12 @@
 				to_chat(usr, span_notice("Сканируемый: [M]"))
 				to_chat(usr, span_notice("UE код: [dna.unique_enzymes]"))
 				if(dna.unique_enzymes == pai_holder.master_dna)
-					to_chat(usr, span_notice("ДНК совпадает с записанным ДНК мастера."))
+					to_chat(usr, span_notice("<font color=green>ДНК совпадает с записанным ДНК мастера.</font>"))
 				else
 					to_chat(usr, span_warning("ДНК не совпадает с записанным ДНК мастера!"))
 			else
-				to_chat(usr, span_warning("[M] не гор[pluralize_ru(M.gender,"ит","ят")] желанием добровольно предоставлять вам образец ДНК."))
+				to_chat(usr, span_warning("[M] отказа[genderize_ru(M.gender,"лся","лась","лось","лись" )] предоставлять вам образец ДНК."))
+
 
 // Crew Manifest //
 /datum/pai_software/crew_manifest
@@ -334,6 +335,9 @@
 				QDEL_NULL(cable)
 			else // Extending
 				cable = new /obj/item/pai_cable(get_turf(pai_holder))
+				var/mob/living/carbon/human/H = get_holding_mob()
+				if(H)
+					H.put_in_hands(cable)
 				pai_holder.visible_message(span_warning("На интелкарте пИИ открывается порт, из которого тут же выпадает кабель."))
 
 /**
@@ -404,15 +408,6 @@
 	template_file = "pai_gps_module"
 	ui_icon = "location-arrow"
 
-/obj/item/gps/internal/pai_gps
-	icon_state = null
-	upgraded = TRUE
-	gpstag = "pAI0"
-	invisibility = INVISIBILITY_ABSTRACT
-	tracking = FALSE
-
-/obj/item/gps/internal/pai_gps/ui_state(mob/user)
-	return GLOB.self_state
 
 /datum/pai_software/gps/ui_act(action, list/params)
 	if(..())
@@ -420,7 +415,7 @@
 
 	switch(action)
 		if("ui_interact")
-			pai_holder.pai_internal_gps.ui_interact(pai_holder)
+			pai_holder.gps.ui_interact(pai_holder)
 
 // Host Bioscan //
 /datum/pai_software/host_scan
@@ -524,13 +519,15 @@
 				if(initial(test.key) == params["key"])
 					C = new test()
 					break
+
 			if(!C || !held || !src)
 				return
-			var/datum/reagent/R = GLOB.chemical_reagents_list[C.key]
 
-			to_chat(pai_holder, span_notice("Вы ввели вещество \"[R.name]\" из своего синтезатора веществ в кровоток носителя."))
+			var/datum/reagent/R = GLOB.chemical_reagents_list[C.key]
+			to_chat(pai_holder, span_notice("В кровоток носителя введён синтезированный реагент: \"[R.name]\"."))
 			held.reagents.add_reagent(C.key, C.quantity)
 			pai_holder.chemicals -= C.chemuse
+
 
 // Advanced Security Records //
 /datum/pai_software/adv_sec_records

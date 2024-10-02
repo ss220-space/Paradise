@@ -86,7 +86,10 @@
 	if(mobility_flags & MOBILITY_MOVE)
 		close_up()
 	card.removePersonality()
-	card.visible_message(span_notice("[name] выводит сообщение на экран: \"Стирание файлов личности. Чтобы продолжить использование устройства пИИ, загрузите новую личность.\""))
+	card.visible_message(
+		span_notice("[name] выводит сообщение на экран: \"Стирание файлов личности. Чтобы продолжить использование устройства пИИ, загрузите новую личность.\""),
+		blind_message = span_notice("[capitalize(declent_ru(NOMINATIVE))] электронно пищит."),
+		)
 	death(gibbed = FALSE, cleanWipe = TRUE)
 
 
