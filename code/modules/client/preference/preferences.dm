@@ -693,8 +693,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					for(var/role in G.allowed_roles)
 						dat += role + " "
 					dat += "</font>"
-				var/donor_info = G.donator_tier > 0 ? "\[Tier [G.donator_tier]\] " : ""
-				dat += "</td><td style='vertical-align:middle'><font size=2>[donor_info]<i>[ticked ? ticked.description : G.description] <br/></i></font></td></tr>"
+				dat += "</td><td style='vertical-align:middle'><font size=2>[G.get_header_tips()]<i>[ticked ? ticked.description : G.description] <br/></i></font></td></tr>"
 			dat += "</table>"
 		if(TAB_KEYS)
 			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
@@ -1498,8 +1497,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				loadout_gear -= TG.display_name
 				choosen_gears -= TG.display_name
 			else
-				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
-					to_chat(user, span_warning("That gear is only available at [TG.donator_tier] and higher donation tier."))
+				if(!TG.can_select(cl = user.client, species_name = S.name)) // all gear checks there, no jobs while prefs
 					return
 				var/total_cost = 0
 				var/list/type_blacklist = list()
@@ -1575,7 +1573,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						m_colours["head"] = rand_hex_color()
 				if("m_style_body")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings.
-						m_styles["body"] = random_marking_style("body", species)
+						m_styles["body"] = random_marking_style("body", species, gender = src.gender)
 				if("m_body_colour")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings.
 						m_colours["body"] = rand_hex_color()
@@ -1665,7 +1663,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							m_colours["head"] = "#000000"
 
 						if(NS.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
-							m_styles["body"] = random_marking_style("body", species)
+							m_styles["body"] = random_marking_style("body", species, gender = src.gender)
 						else
 							m_styles["body"] = "None"
 							m_colours["body"] = "#000000"
@@ -1922,6 +1920,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/M = GLOB.marking_styles_list[markingstyle]
+							if(gender == M.unsuitable_gender)
+								continue
 							if(!(species in M.species_allowed))
 								continue
 							if(M.marking_location != "body")
@@ -2012,9 +2012,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						if(facialhairstyle == "Shaved") //Just in case.
 							valid_facial_hairstyles += facialhairstyle
 							continue
-						if(gender == MALE && SA.gender == FEMALE)
-							continue
-						if(gender == FEMALE && SA.gender == MALE)
+						if(gender == SA.unsuitable_gender)
 							continue
 						if(S.bodyflags & ALL_RPARTS) //Species that can use prosthetic heads.
 							var/head_model
@@ -2041,9 +2039,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/list/valid_underwear = list()
 					for(var/underwear in GLOB.underwear_list)
 						var/datum/sprite_accessory/SA = GLOB.underwear_list[underwear]
-						if(gender == MALE && SA.gender == FEMALE)
-							continue
-						if(gender == FEMALE && SA.gender == MALE)
+						if(gender == SA.unsuitable_gender)
 							continue
 						if(!(species in SA.species_allowed))
 							continue
@@ -2063,9 +2059,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/list/valid_undershirts = list()
 					for(var/undershirt in GLOB.undershirt_list)
 						var/datum/sprite_accessory/SA = GLOB.undershirt_list[undershirt]
-						if(gender == MALE && SA.gender == FEMALE)
-							continue
-						if(gender == FEMALE && SA.gender == MALE)
+						if(gender == MALE && SA.unsuitable_gender)
 							continue
 						if(!(species in SA.species_allowed))
 							continue
@@ -2085,9 +2079,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/list/valid_sockstyles = list()
 					for(var/sockstyle in GLOB.socks_list)
 						var/datum/sprite_accessory/SA = GLOB.socks_list[sockstyle]
-						if(gender == MALE && SA.gender == FEMALE)
-							continue
-						if(gender == FEMALE && SA.gender == MALE)
+						if(gender == SA.unsuitable_gender)
 							continue
 						if(!(species in SA.species_allowed))
 							continue
@@ -2396,6 +2388,16 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							gender = FEMALE
 						else
 							gender = MALE
+
+					var/datum/robolimb/robohead
+					if(S.bodyflags & ALL_RPARTS)
+						var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
+						robohead = GLOB.all_robolimbs[head_model]
+
+					h_style = random_hair_style(gender, species, robohead)
+					f_style = random_facial_hair_style(gender, species, robohead)
+
+					m_styles["body"] = random_marking_style("body", species, gender = src.gender)
 					underwear = random_underwear(gender)
 
 				if("hear_adminhelps")

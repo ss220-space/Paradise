@@ -161,6 +161,9 @@
 
 /datum/surgery_step/fix_vein
 	name = "mend internal bleeding"
+	begin_sound = 'sound/surgery/fixovein1.ogg'
+	end_sound = 'sound/surgery/hemostat1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_FIXOVEIN = 100,
 		/obj/item/stack/cable_coil = 90,
@@ -213,6 +216,9 @@
 
 /datum/surgery_step/fix_dead_tissue		//Debridement
 	name = "remove dead tissue"
+	begin_sound = 'sound/surgery/scalpel1.ogg'
+	end_sound = 'sound/surgery/scalpel2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_SCALPEL = 100,
 		/obj/item/kitchen/knife = 90,
@@ -398,6 +404,7 @@
 
 /datum/surgery_step/internal/dethrall
 	name = "cleanse contamination"
+	begin_sound = 'sound/items/lighter/light.ogg'
 	allowed_tools = list(/obj/item/flash = 100, /obj/item/flashlight/pen = 80, /obj/item/flashlight = 40)
 	blood_level = SURGERY_BLOODSPREAD_NONE
 	time = 3 SECONDS

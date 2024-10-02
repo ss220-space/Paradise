@@ -279,7 +279,7 @@
 	updating_health = TRUE,
 	silent = FALSE,
 )
-	if(owner?.status_flags & GODMODE)
+	if(owner && HAS_TRAIT(owner, TRAIT_GODMODE))
 		return FALSE
 
 	var/brute_was = brute_dam
@@ -667,7 +667,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(!owner || cannot_amputate)
 		return
 
-	if(owner.status_flags & GODMODE)
+	if(HAS_TRAIT(owner, TRAIT_GODMODE))
 		return
 
 	if(!silent)
@@ -893,7 +893,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/internal_bleeding(silent = FALSE)
 	if(owner)
-		if(owner.status_flags & GODMODE)
+		if(HAS_TRAIT(owner, TRAIT_GODMODE))
 			return FALSE
 		if(HAS_TRAIT(owner, TRAIT_NO_BLOOD))
 			return FALSE
@@ -930,7 +930,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/fracture(silent = FALSE)
 	if(!CONFIG_GET(flag/bones_can_break))
 		return FALSE
-	if(owner?.status_flags & GODMODE)
+	if(owner && HAS_TRAIT(owner, TRAIT_GODMODE))
 		return FALSE
 	if(is_robotic())
 		return FALSE
@@ -1087,7 +1087,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/proc/mutate(silent = FALSE)
-	if(owner?.status_flags & GODMODE)
+	if(owner && HAS_TRAIT(owner, TRAIT_GODMODE))
 		return
 	if(is_robotic())
 		return
@@ -1143,7 +1143,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 
 	if(owner)
-		if(owner.status_flags & GODMODE)
+		if(HAS_TRAIT(owner, TRAIT_GODMODE))
 			return FALSE
 
 		if(!silent)
@@ -1174,7 +1174,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/proc/infection_check()
-	if(owner?.status_flags & GODMODE)
+	if(owner && HAS_TRAIT(owner, TRAIT_GODMODE))
 		return FALSE
 	var/total_damage = brute_dam + burn_dam
 	if(total_damage)

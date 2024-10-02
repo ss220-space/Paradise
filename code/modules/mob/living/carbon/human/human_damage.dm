@@ -1,6 +1,6 @@
 //Updates the mob's health from organs and mob damage variables
 /mob/living/carbon/human/updatehealth(reason = "none given", should_log = FALSE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()
 
 	var/total_burn  = 0
@@ -45,7 +45,7 @@
 	forced = FALSE,
 	used_weapon = null,
 )
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return STATUS_UPDATE_NONE
 
 	if(!forced && amount > 0)
@@ -67,7 +67,7 @@
 
 
 /mob/living/carbon/human/setBrainLoss(amount, updating_health = TRUE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return STATUS_UPDATE_NONE
 
 	if(dna.species.has_organ[INTERNAL_ORGAN_BRAIN])
@@ -84,7 +84,7 @@
 
 /mob/living/carbon/human/getBrainLoss()
 	. = 0
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return .
 
 	if(!dna.species.has_organ[INTERNAL_ORGAN_BRAIN])
@@ -102,7 +102,7 @@
 
 
 /mob/living/carbon/human/adjustHeartLoss(amount, updating_health = TRUE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return STATUS_UPDATE_NONE
 
 	if(dna.species.has_organ[INTERNAL_ORGAN_HEART])
@@ -115,7 +115,7 @@
 
 
 /mob/living/carbon/human/setHeartLoss(amount, updating_health = TRUE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return STATUS_UPDATE_NONE	//godmode
 
 	if(dna.species.has_organ[INTERNAL_ORGAN_HEART])
@@ -133,7 +133,7 @@
 
 /mob/living/carbon/human/getHeartLoss()
 	. = 0
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return .
 
 	if(!dna.species.has_organ[INTERNAL_ORGAN_HEART])
@@ -160,7 +160,7 @@
 //These procs fetch a cumulative total damage from all organs
 /mob/living/carbon/human/getBruteLoss()
 	. = 0
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return .
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		. += bodypart.brute_dam
@@ -168,7 +168,7 @@
 
 /mob/living/carbon/human/getFireLoss()
 	. = 0
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return .
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		. += bodypart.burn_dam
@@ -355,7 +355,7 @@
 	silent = FALSE,
 	affect_robotic = TRUE,
 )
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()
 	. = STATUS_UPDATE_NONE
 	var/obj/item/organ/external/picked = safepick(get_damageable_organs(affect_robotic))
@@ -426,7 +426,7 @@
 	silent = FALSE,
 	affect_robotic = TRUE,
 )
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()	//godmode
 
 	. = STATUS_UPDATE_NONE
