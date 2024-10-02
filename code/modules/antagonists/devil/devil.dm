@@ -118,7 +118,6 @@
 
 /datum/antagonist/devil/on_gain()
 	init_devil()
-	init_new_rank(BASIC_DEVIL_RANK)
 
 	. = ..()
 	if(!.)
@@ -131,7 +130,8 @@
 
 /datum/antagonist/devil/proc/init_devil()
 	GLOB.allDevils[lowertext(info.truename)] = src
-
+	rank = new BASIC_DEVIL_RANK()
+	
 	return
 
 /datum/antagonist/devil/proc/init_bane()

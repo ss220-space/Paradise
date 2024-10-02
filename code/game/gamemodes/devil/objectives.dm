@@ -4,6 +4,7 @@
 	var/list/target_minds = list()
 	needs_target = FALSE
 	check_cryo = FALSE
+	target_amount = 12
 	explanation_text = ""
 
 /datum/objective/devil/sacrifice/New()
@@ -17,9 +18,6 @@
 	var/list/security_minds = list()
 	var/list/other_minds = list()
 
-	var/list/command_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_HOP, JOB_TITLE_HOS, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE)
-	var/list/security_roles = list(JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
-
 	for(var/datum/mind/mind in SSticker.minds)
 		if(mind == owner)
 			continue
@@ -27,22 +25,42 @@
 		if(!ishuman(mind.current) || mind.current.stat == DEAD || mind.offstation_role)
 			continue
 
-		if(mind.assigned_role in command_roles)
+		if(LAZYIN(GLOB.command_positions, mind.assigned_role))
 			LAZYADD(command_minds, mind)
 
-		else if(mind.assigned_role in security_roles)
+		else if(LAZYIN(GLOB.security_positions, mind.assigned_role))
 			LAZYADD(security_minds, mind)
 
 		else
 			LAZYADD(other_minds, mind)
 
-	if(!LAZYLEN(command_minds) || LAZYLEN(security_minds < 3) || LAZYLEN(other_minds < 8))
+	var/command_target_count = ceil(target_amount / 12)
+	var/security_target_count = floor(target_amount / 4)
+	var/other_target_count = target_amount - command_target_count - security_target_count
+
+	if(LAZYLEN(command_minds) < command_target_count || LAZYLEN(security_minds) < security_target_count || LAZYLEN(other_minds) < other_target_count)
 		addtimer(CALLBACK(src, PROC_REF(get_targets)), 60 SECONDS)
 		return
 
-	LAZYADD(target_minds, pick(command_minds))
-	LAZYADD(target_minds, security_minds.Copy(1, 4))
-	LAZYADD(target_minds, other_minds.Copy(1, 9))
+	for(var/i in 1 to command_target_count)
+		LAZYADD(target_minds, pick(command_minds))
+
+	for(var/i in 1 to security_target_count)
+		LAZYADD(target_minds, pick(security_minds))
+
+	for(var/i in 1 to other_target_count)
+		LAZYADD(target_minds, pick(other_minds))
+
+/datum/objective/devil/sacrifice/check_completion()
+	var/list/collected_minds = list()
+
+	for(var/datum/mind/mind as anything in target_minds)
+		if(mind.hasSoul)
+			continue
+
+		LAZYADD(collected_minds, mind)
+
+	return LAZYLEN(collected_minds) > target_amount
 
 /datum/objective/devil/sintouch
 	needs_target = FALSE
