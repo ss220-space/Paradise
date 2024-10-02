@@ -267,7 +267,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	data["cart"] = generate_tgui_cart()
 	data["cart_price"] = calculate_cart_tc()
 	data["lucky_numbers"] = lucky_numbers
-	data["affiliate"] = affiliate.name
+	data["affiliate"] = affiliate ? affiliate.name : "None"
 	data["can_bonus_objectives"] = can_bonus_objectives
 	data["can_get_intelligence_data"] = get_intelligence_data || uplink_type == UPLINK_TYPE_ADMIN
 

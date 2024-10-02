@@ -38,7 +38,7 @@
 	desc = "Кажется, внутри что-то двигается. На боку этикетка \"Tiger Cooperative\""
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "cling_extract"
-	item_state = "inj_ful"
+	item_state = "inj_ful_r"
 	lefthand_file = 'icons/obj/affiliates.dmi'
 	righthand_file = 'icons/obj/affiliates.dmi'
 	var/used_state = "cling_extract_used"
@@ -89,7 +89,7 @@
 			target.mind.add_antag_datum(cling)
 			to_chat(user, span_notice("You inject [target] with [src]"))
 			used = TRUE
-			item_state = "inj_used"
+			item_state = "inj_used_r"
 			update_icon(UPDATE_ICON_STATE)
 		else
 			to_chat(user, span_notice("[target] body rejects [src]"))
@@ -102,7 +102,7 @@
 			target.mind.add_antag_datum(cling)
 			to_chat(user, span_notice("You inject [target == user ? "yourself" : target] with [src]"))
 			used = TRUE
-			item_state = "inj_used"
+			item_state = "inj_used_r"
 			update_icon(UPDATE_ICON_STATE)
 		else
 			to_chat(user, span_notice("[target] body rejects [src]"))

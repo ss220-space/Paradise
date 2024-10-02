@@ -1691,14 +1691,6 @@
 	cost = 20
 	made_by = AFFIL_TIGER + " и " + AFFIL_MI13
 
-/datum/uplink_item/stealthy_tools/syndigaloshes
-	name = "Маскировочные ботинки с защитой от скольжения"
-	desc = "Эта обувь позволяет владельцу бегать по мокрому полу и скользким предметам, не падая. Не защитит от смазки."
-	item = /obj/item/clothing/shoes/chameleon/noslip
-	cost = 8
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_CLOWN
-
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

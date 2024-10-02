@@ -42,7 +42,7 @@
 	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "proprietary_ssd"
-	item_state = "disk"
+	item_state = "disk_r"
 	lefthand_file = 'icons/obj/affiliates.dmi'
 	righthand_file = 'icons/obj/affiliates.dmi'
 	origin_tech = "programming=4;syndicate=2"
@@ -157,7 +157,7 @@
 	desc = "Сложное черное устройство. На боку едва заметная надпись \"Cybersun Industries\"."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "invasive_beacon"
-	item_state = "beacon"
+	item_state = "beacon_r"
 	lefthand_file = 'icons/obj/affiliates.dmi'
 	righthand_file = 'icons/obj/affiliates.dmi'
 	origin_tech = "programming=6;magnets=3;syndicate=1"
@@ -188,7 +188,7 @@
 	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "cindy_pacher"
-	item_state = "plata"
+	item_state = "plata_r"
 	lefthand_file = 'icons/obj/affiliates.dmi'
 	righthand_file = 'icons/obj/affiliates.dmi'
 	origin_tech = "programming=7;syndicate=6"

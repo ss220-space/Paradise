@@ -55,4 +55,38 @@
 		icon_state = "joker"
 		new /obj/item/toy/plushie/blahaj/twohanded(src)
 
-/obj/item/pen/intel_data
+/obj/item/pen/intel_data/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(target != user)
+		return .
+
+	for(var/obj/item/implant/uplink/uplink_imp in user)
+		if(uplink_imp.imp_in != user)
+			continue
+
+		if (uplink_imp.hidden_uplink.get_intelligence_data)
+			user.balloon_alert(user, "Уже улучшено")
+			return ATTACK_CHAIN_PROCEED
+
+		user.balloon_alert(user, "Улучшено")
+		uplink_imp.hidden_uplink.get_intelligence_data = TRUE
+		SStgui.update_uis(uplink_imp.hidden_uplink)
+
+		to_chat(user, span_notice("You press [src] onto yourself upgraded hidden uplink."))
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+/obj/item/pen/intel_data/afterattack(obj/item/I, mob/user, proximity, params)
+	if(!proximity)
+		return
+
+	if(istype(I) && I.hidden_uplink && I.hidden_uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.
+		if (I.hidden_uplink.get_intelligence_data)
+			user.balloon_alert(user, "Уже улучшено")
+			return
+
+		user.balloon_alert(user, "Улучшено")
+		I.hidden_uplink.get_intelligence_data = TRUE
+		SStgui.update_uis(I.hidden_uplink)
+		qdel(src)
+
