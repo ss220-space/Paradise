@@ -33,9 +33,9 @@
 	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "self_emag"
-	item_state = "card_r"
-	lefthand_file = 'icons/obj/affiliates.dmi'
-	righthand_file = 'icons/obj/affiliates.dmi'
+	item_state = "card"
+	lefthand_file = 'icons/obj/affiliates_l.dmi'
+	righthand_file = 'icons/obj/affiliates_r.dmi'
 	var/list/names = list()
 	origin_tech = "programming=5;syndicate=2"
 

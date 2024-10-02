@@ -38,9 +38,9 @@
 	desc = "Инжектор странной формы, с неестественно двигающейся алой жидкостью внутри. На боку едва заметная гравировка \"Hematogenic Industries\". Конкретно на этом инжекторе установлена блокировка, не позволяющая исспользовать его на случайном гуманойде."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "hemophagus_extract"
-	item_state = "inj_ful_r"
-	lefthand_file = 'icons/obj/affiliates.dmi'
-	righthand_file = 'icons/obj/affiliates.dmi'
+	item_state = "inj_ful"
+	lefthand_file = 'icons/obj/affiliates_l.dmi'
+	righthand_file = 'icons/obj/affiliates_r.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	var/datum/mind/target = null
 	var/free_inject = FALSE
@@ -81,7 +81,7 @@
 
 	vampire.add_objective((!isAdvanced) ? /datum/objective/blood : /datum/objective/blood/ascend)
 	used = TRUE
-	item_state = "inj_used_r"
+	item_state = "inj_used"
 	update_icon(UPDATE_ICON_STATE)
 	var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
 	if (!T)
@@ -120,9 +120,9 @@
 	desc = "Большой шприц для быстрого сбора больших объемов крови. На боку едва заметная гравировка \"Hematogenic Industries\""
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "blood_harvester"
-	item_state = "blood1_used_r"
-	lefthand_file = 'icons/obj/affiliates.dmi'
-	righthand_file = 'icons/obj/affiliates.dmi'
+	item_state = "blood1_used"
+	lefthand_file = 'icons/obj/affiliates_l.dmi'
+	righthand_file = 'icons/obj/affiliates_r.dmi'
 	var/used = FALSE
 	var/used_state = "blood_harvester_used"
 	var/datum/mind/target
@@ -185,7 +185,7 @@
 	target.blood_volume -= BLOOD_HARVEST_VOLUME
 	src.target = target.mind
 	used = TRUE
-	item_state = "blood1_ful_r"
+	item_state = "blood1_ful"
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/blood_harvester/update_icon_state()
@@ -201,7 +201,7 @@
 	if(new_gender == "Продолжить")
 		target = null
 		used = FALSE
-		item_state = "blood1_used_r"
+		item_state = "blood1_used"
 		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/blood_harvester/examine(mob/user)

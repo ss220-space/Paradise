@@ -42,9 +42,9 @@
 	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "proprietary_ssd"
-	item_state = "disk_r"
-	lefthand_file = 'icons/obj/affiliates.dmi'
-	righthand_file = 'icons/obj/affiliates.dmi'
+	item_state = "disk"
+	lefthand_file = 'icons/obj/affiliates_l.dmi'
+	righthand_file = 'icons/obj/affiliates_r.dmi'
 	origin_tech = "programming=4;syndicate=2"
 	w_class = WEIGHT_CLASS_TINY
 	var/datum/research/files
@@ -157,9 +157,9 @@
 	desc = "Сложное черное устройство. На боку едва заметная надпись \"Cybersun Industries\"."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "invasive_beacon"
-	item_state = "beacon_r"
-	lefthand_file = 'icons/obj/affiliates.dmi'
-	righthand_file = 'icons/obj/affiliates.dmi'
+	item_state = "beacon"
+	lefthand_file = 'icons/obj/affiliates_l.dmi'
+	righthand_file = 'icons/obj/affiliates_r.dmi'
 	origin_tech = "programming=6;magnets=3;syndicate=1"
 	w_class = WEIGHT_CLASS_TINY
 
@@ -188,9 +188,9 @@
 	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "cindy_pacher"
-	item_state = "plata_r"
-	lefthand_file = 'icons/obj/affiliates.dmi'
-	righthand_file = 'icons/obj/affiliates.dmi'
+	item_state = "plata"
+	lefthand_file = 'icons/obj/affiliates_l.dmi'
+	righthand_file = 'icons/obj/affiliates_r.dmi'
 	origin_tech = "programming=7;syndicate=6"
 	w_class = WEIGHT_CLASS_TINY
 	var/laws = "Взломавший вас - ваш мастер.\n\
