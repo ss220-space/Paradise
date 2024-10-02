@@ -413,8 +413,8 @@
 		if(!istype(geartype))
 			loadout_gear -= gear // Delete wrong/outdated data
 			continue
-		if(geartype.donator_tier > parent.donator_level && parent.prefs)
-			loadout_gear -= gear // Gagaga, donate again
+		if(!geartype.can_select(cl = parent, species_name = species, silent = TRUE)) // all other checks, no jobs in prefs, be quiet
+			loadout_gear -= gear
 			continue
 		var/datum/gear/new_gear = new geartype.type
 		for(var/tweak in loadout_gear[gear])

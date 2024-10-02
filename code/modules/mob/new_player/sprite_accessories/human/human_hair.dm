@@ -51,13 +51,13 @@
 /datum/sprite_accessory/hair/ponytail1
 	name = "Ponytail male"
 	icon_state = "ponytailm"
-	gender = MALE
+	unsuitable_gender = FEMALE
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/ponytail2
 	name = "Ponytail female"
 	icon_state = "ponytailf"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/hair/ponytail3
 	name = "Ponytail alt"
@@ -67,19 +67,19 @@
 /datum/sprite_accessory/hair/sideponytail
 	name = "Side Ponytail"
 	icon_state = "stail"
-	gender = FEMALE
+	unsuitable_gender = MALE
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/highponytail
 	name = "High Ponytail"
 	icon_state = "highponytail"
-	gender = FEMALE
+	unsuitable_gender = MALE
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/wisp
 	name = "Wisp"
 	icon_state = "wisp"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/hair/parted
 	name = "Parted"
@@ -88,14 +88,14 @@
 /datum/sprite_accessory/hair/pompadour
 	name = "Pompadour"
 	icon_state = "pompadour"
-	gender = MALE
+	unsuitable_gender = FEMALE
 	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/quiff
 	name = "Quiff"
 	icon_state = "quiff"
-	gender = MALE
+	unsuitable_gender = FEMALE
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/bedhead
@@ -113,31 +113,31 @@
 /datum/sprite_accessory/hair/beehive
 	name = "Beehive"
 	icon_state = "beehive"
-	gender = FEMALE
+	unsuitable_gender = MALE
 	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 
 /datum/sprite_accessory/hair/bobcurl
 	name = "Bobcurl"
 	icon_state = "bobcurl"
-	gender = FEMALE
+	unsuitable_gender = MALE
 	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 
 /datum/sprite_accessory/hair/bob
 	name = "Bob"
 	icon_state = "bobcut"
-	gender = FEMALE
+	unsuitable_gender = MALE
 	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 
 /datum/sprite_accessory/hair/bowl
 	name = "Bowl"
 	icon_state = "bowlcut"
-	gender = MALE
+	unsuitable_gender = FEMALE
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/braid2
 	name = "Long Braid"
 	icon_state = "hbraid"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/hair/braid_hip
 	name = "Hippie Braid"
@@ -147,20 +147,20 @@
 /datum/sprite_accessory/hair/buzz
 	name = "Buzzcut"
 	icon_state = "buzzcut"
-	gender = MALE
+	unsuitable_gender = FEMALE
 	species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_UNATHI)
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/crew
 	name = "Crewcut"
 	icon_state = "crewcut"
-	gender = MALE
+	unsuitable_gender = FEMALE
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/combover
 	name = "Combover"
 	icon_state = "combover"
-	gender = MALE
+	unsuitable_gender = FEMALE
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/devillock
@@ -188,12 +188,12 @@
 /datum/sprite_accessory/hair/afro_large
 	name = "Big Afro"
 	icon_state = "bigafro"
-	gender = MALE
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/hair/sergeant
 	name = "Flat Top"
 	icon_state = "sergeant"
-	gender = MALE
+	unsuitable_gender = FEMALE
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/emo
@@ -211,7 +211,7 @@
 /datum/sprite_accessory/hair/hitop
 	name = "Hitop"
 	icon_state = "hitop"
-	gender = MALE
+	unsuitable_gender = FEMALE
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/mohawk
@@ -223,31 +223,31 @@
 /datum/sprite_accessory/hair/jensen
 	name = "Adam Jensen Hair"
 	icon_state = "jensen"
-	gender = MALE
+	unsuitable_gender = FEMALE
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/cia
 	name = "CIA"
 	icon_state = "cia"
-	gender = MALE
+	unsuitable_gender = FEMALE
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/mulder
 	name = "Mulder"
 	icon_state = "mulder"
-	gender = MALE
+	unsuitable_gender = FEMALE
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/gelled
 	name = "Gelled Back"
 	icon_state = "gelled"
-	gender = FEMALE
+	unsuitable_gender = MALE
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/gentle
 	name = "Gentle"
 	icon_state = "gentle"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/hair/spiky
 	name = "Spiky"
@@ -262,50 +262,50 @@
 /datum/sprite_accessory/hair/kagami
 	name = "Pigtails"
 	icon_state = "kagami"
-	gender = FEMALE
+	unsuitable_gender = MALE
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/himecut
 	name = "Hime Cut"
 	icon_state = "himecut"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/hair/braid
 	name = "Floorlength Braid"
 	icon_state = "floorbraid"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/hair/odango
 	name = "Odango"
 	icon_state = "odango"
-	gender = FEMALE
-	glasses_over = 1
+	unsuitable_gender = MALE
+	glasses_over = TRUE
 
 /datum/sprite_accessory/hair/ombre
 	name = "Ombre"
 	icon_state = "ombre"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/hair/updo
 	name = "Updo"
 	icon_state = "updo"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/hair/skinhead
 	name = "Skinhead"
 	icon_state = "skinhead"
-	glasses_over = 1
+	glasses_over = TRUE
 
 /datum/sprite_accessory/hair/balding
 	name = "Balding Hair"
 	icon_state = "balding"
-	gender = MALE // turnoff!
-	glasses_over = 1
+	unsuitable_gender = FEMALE // turnoff!
+	glasses_over = TRUE
 
 /datum/sprite_accessory/hair/longemo
 	name = "Long Emo"
 	icon_state = "emolong"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 //////////////////////////////
 //////START VG HAIRSTYLES/////
@@ -321,28 +321,28 @@
 /datum/sprite_accessory/hair/duelist
 	name = "Duelist"
 	icon_state = "duelist"
-	gender = MALE
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/hair/modern
 	name = "Modern"
 	icon_state = "modern"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/hair/unshavenmohawk
 	name = "Unshaven Mohawk"
 	icon_state = "unshavenmohawk"
-	gender = MALE
-	glasses_over = 1
+	unsuitable_gender = FEMALE
+	glasses_over = TRUE
 
 /datum/sprite_accessory/hair/drills
 	name = "Twincurls"
 	icon_state = "twincurl"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/hair/minidrills
 	name = "Twincurls 2"
 	icon_state = "twincurl2"
-	gender = FEMALE
+	unsuitable_gender = MALE
 //////////////////////////////
 //////END VG HAIRSTYLES///////
 //////////////////////////////
@@ -418,57 +418,57 @@
 /datum/sprite_accessory/hair/partfade
 	name = "Parted Fade"
 	icon_state = "shavedpart"
-	gender = MALE
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/hair/undercut3
 	name = "Undercut Swept Left"
 	icon_state = "undercut3"
-	gender = MALE
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/hair/undercut2
 	name = "Undercut Swept Right"
 	icon_state = "undercut2"
-	gender = MALE
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/hair/undercut1
 	name = "Undercut"
 	icon_state = "undercut1"
-	gender = MALE
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/hair/coffeehouse
 	name = "Coffee House Cut"
 	icon_state = "coffeehouse"
-	gender = MALE
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/hair/tightbun
 	name = "Tight Bun"
 	icon_state = "tightbun"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/hair/trimmed
 	name = "Trimmed"
 	icon_state = "trimmed"
-	gender = MALE
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/hair/trimflat
 	name = "Trimmed Flat Top"
 	icon_state = "trimflat"
-	gender = MALE
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/hair/nofade
 	name = "Regulation Cut"
 	icon_state = "nofade"
-	gender = MALE
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/hair/baldfade
 	name = "Balding Fade"
 	icon_state = "baldfade"
-	gender = MALE
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/hair/highfade
 	name = "High Fade"
 	icon_state = "highfade"
-	gender = MALE
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/hair/medfade
 	name = "Medium Fade"
@@ -477,7 +477,7 @@
 /datum/sprite_accessory/hair/lowfade
 	name = "Low Fade"
 	icon_state = "lowfade"
-	gender = MALE
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/hair/oxton
 	name = "Oxton"
@@ -514,7 +514,7 @@
 /datum/sprite_accessory/hair/joestar
 	name = "Joestar"
 	icon_state = "joestar"
-	gender = MALE
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/hair/nitori
 	name = "Nitori"
@@ -762,7 +762,7 @@
 /datum/sprite_accessory/hair/wong
 	name = "Wong"
 	icon_state = "wong"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/hair/ponytail7
 	name = "Ponytail 7"

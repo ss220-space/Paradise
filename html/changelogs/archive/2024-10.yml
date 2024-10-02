@@ -1,0 +1,12 @@
+'2024-10-01':
+  Daeberdir:
+  - imageadd: 'Tajaran body resprite. && add: New tajaran haircuts. (#5676)'
+  L343-CJ:
+  - bugfix: prizecounter fix (#5964)
+  NoName:
+  - add: RD doll (#5963)
+  Valtor:
+  - bugfix: donor loadout (#5965)
+  dageavtobusnick:
+  - tweak: Traitor job ban not affect ert (#5966)
+  - unknown: goon vampire and new vampire now has common code (#5604)

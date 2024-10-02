@@ -18,7 +18,7 @@
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
-	if((status_flags & GODMODE) || HAS_TRAIT(src, TRAIT_NO_BLOOD))
+	if(HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		bleed_rate = 0
 		return
 
