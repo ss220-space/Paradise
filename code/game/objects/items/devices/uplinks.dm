@@ -30,14 +30,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
 	/// Can be bonus objectives taken on this uplink
-	var/can_bonus_objectives = TRUE
+	var/can_bonus_objectives = FALSE
 
 
 /obj/item/uplink/Initialize(mapload, uplink_type, uses)
 	. = ..()
 	src.uses = uses ? uses : src.uses
 	src.uplink_type = uplink_type ? uplink_type : src.uplink_type
-	can_bonus_objectives = (uplink_type == UPLINK_TYPE_TRAITOR)
 	uplink_items = get_uplink_items(src, generate_discounts = TRUE)
 	GLOB.world_uplinks += src
 
@@ -252,7 +251,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/hidden/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Uplink", name)
+		ui = new(user, src, "Uplink", "Аплинк")
 		ui.open()
 
 
@@ -441,6 +440,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			if (can_bonus_objectives)
 				can_bonus_objectives = FALSE
 				affiliate.give_bonus_objectives()
+				uses += 20
+				SStgui.update_uis(src)
 				visible_message("[src] beeps: Additional objectives and bonus TK have been sent.")
 				playsound(src, "sound/machines/boop.ogg", 50, TRUE)
 			else if (affiliate.can_take_bonus_objectives)

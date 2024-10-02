@@ -2,7 +2,7 @@
 	/// Affiliate name(OMG)
 	var/name
 	/// Description for tgui, better to have plus and minus
-	var/desc
+	var/affil_info = list()
 	/// Description for tgui, if you get hijack role
 	var/hij_desc
 	/// Type of hijack objective
@@ -109,7 +109,7 @@
 		var/affiliate_path = affiliates_to_choose[i]
 		var/datum/affiliate/affiliate = new affiliate_path
 		affiliates += list(list("name" = affiliate.name,
-								"desc" = affiliate.desc,
+								"desc" = affiliate.affil_info,
 								"path" = affiliate_path,
 								"icon" = icon2base64(icon('icons/misc/affiliates.dmi', affiliate.tgui_icon, SOUTH))))
 
@@ -125,12 +125,16 @@
 			Слава синдикату!"))
 			sleep(20 MINUTES - SSticker.round_start_time)
 
+	var/datum/antagonist/traitor/traitor = mind.has_antag_datum(/datum/antagonist/traitor)
+	if (!traitor)
+		return
 	give_uplink()
 	affiliate.give_objectives(mind)
 	show_objectives(mind)
 	hidden_uplink.affiliate = affiliate
 	affiliate.uplink = hidden_uplink
 	affiliate.finalize_affiliate(mind)
+	hidden_uplink.can_bonus_objectives = affiliate.can_take_bonus_objectives
 	announce_uplink_info()
 
 /obj/effect/proc_holder/spell/choose_affiliate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)

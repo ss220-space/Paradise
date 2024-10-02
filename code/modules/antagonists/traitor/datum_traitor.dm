@@ -395,6 +395,8 @@
 	else
 		to_chat(owner.current, span_warning("Unfortunately, the Syndicate wasn't able to get you a radio."))
 
+/datum/antagonist/traitor/on_remove()
+	owner.RemoveSpell(/obj/effect/proc_holder/spell/choose_affiliate)
 
 /**
  * Takes any datum `source` and checks it for traitor datum.

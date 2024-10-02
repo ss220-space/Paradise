@@ -5,15 +5,15 @@
 
 /datum/affiliate/hematogenic
 	name = "Hematogenic Industries"
-	desc = "Преимущества:\n\
-			Новый предмет - \"Bloody Injector\\n\
-			Недостатки:\n\
-			Вы не можете изучать боевые исскуства\n\
-			Стандартные цели:\n\
-			Собрать образцы крови полной различной духовной энергии\n\
-			Украсть передовые медицинские технологии\n\
-			Сделать одного из членов экипажа вампиром\n\
-			Украсть что-то ценное или убить кого-то"
+	affil_info = list("Преимущества:",
+			"Новый предмет - \"Bloody Injector\"",
+			"Недостатки:",
+			"Вы не можете изучать боевые исскуства",
+			"Стандартные цели:",
+			"Собрать образцы крови полной различной духовной энергии",
+			"Украсть передовые медицинские технологии",
+			"Сделать одного из членов экипажа вампиром",
+			"Украсть что-то ценное или убить кого-то")
 	tgui_icon = "hematogenic"
 	hij_desc = "Вы - опытный наёмный агент Hematogenic Industries.\n\
 			Основатель Hematogenic Industries высоко оценил ваши прошлые заслуги, а потому, дал вам возможность купить инжектор наполненный его собственной кровью... \n\
@@ -43,6 +43,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/datum/mind/target
 	var/free_inject = FALSE
+	var/isAdvanced = FALSE
 	var/used = FALSE
 	var/used_state = "hemophagus_extract_used"
 	origin_tech = "biotech=7;syndicate=3"
@@ -68,58 +69,40 @@
 	if(do_after(user, free_inject ? FREE_INJECT_TIME : TARGET_INJECT_TIME, target = target, max_interact_count = 1))
 		inject(user, H)
 
+/obj/item/hemophagus_extract/proc/make_vampire(mob/living/user, mob/living/carbon/human/target)
+	var/datum/antagonist/vampire/vamp = new()
+	if (isAdvanced)
+		vamp.add_subclass(SUBCLASS_ADVANCED, TRUE)
+
+	vamp.give_objectives = FALSE
+	target.mind.add_antag_datum(vamp)
+	var/datum/antagonist/vampire/vampire = target.mind.has_antag_datum(/datum/antagonist/vampire)
+
+	vampire.add_objective((!isAdvanced) ? /datum/objective/blood : /datum/objective/blood/ascend)
+	used = TRUE
+	item_state = "inj_used"
+	update_icon(UPDATE_ICON_STATE)
+	var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
+	if (!T)
+		return
+	for(var/datum/objective/new_mini_vampire/objective in T.objectives)
+		if(target.mind == objective.target)
+			objective.made = TRUE
+
 /obj/item/hemophagus_extract/proc/inject(mob/living/user, mob/living/carbon/human/target)
 	if(!free_inject)
 		if(target.mind)
 			playsound(src, 'sound/goonstation/items/hypo.ogg', 80)
-			target.rejuvenate()
-			var/datum/antagonist/vampire/vamp = new()
-			vamp.give_objectives = FALSE
-
-			var/datum/mind/mind = target.mind
-			mind.add_antag_datum(vamp)
-
-			var/datum/antagonist/vampire/vampire = mind.has_antag_datum(/datum/antagonist/vampire)
-			vampire.add_objective(/datum/objective/blood)
-			vampire.add_objective(/datum/objective/escape)
-
+			make_vampire(user, target)
 			to_chat(user, span_notice("You inject [target] with [src]"))
-			used = TRUE
-			item_state = "inj_used"
-			update_icon(UPDATE_ICON_STATE)
-
-			var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
-			if (!T)
-				return
-
-			for(var/datum/objective/new_mini_vampire/objective in T.objectives)
-				if(target.mind == objective.target)
-					objective.made = TRUE
-
 		else
 			to_chat(user, span_notice("[target] body rejects [src]"))
 		return
 	else
 		if(target.mind)
 			playsound(src, 'sound/goonstation/items/hypo.ogg', 80)
-			var/datum/antagonist/vampire/vamp = new()
-			vamp.give_objectives = FALSE
-			target.mind.add_antag_datum(vamp)
-			var/datum/antagonist/vampire/vampire = target.mind.has_antag_datum(/datum/antagonist/vampire)
-			vampire.add_objective(/datum/objective/blood)
+			make_vampire(user, target)
 			to_chat(user, span_notice("You inject [target == user ? "yourself" : target] with [src]"))
-			used = TRUE
-			item_state = "inj_used"
-			update_icon(UPDATE_ICON_STATE)
-
-			var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
-			if (!T)
-				return
-
-			for(var/datum/objective/new_mini_vampire/objective in T.objectives)
-				if(target.mind == objective.target)
-					objective.made = TRUE
-
 		else
 			to_chat(user, span_notice("[target] body rejects [src]"))
 
@@ -130,8 +113,11 @@
 
 /obj/item/hemophagus_extract/self
  	name = "Hemophagus Essence Auto Injector"
- 	desc = "Инжектор странной формы, с неестественно двигающейся алой жидкостью внутри. На боку едва заметная гравировка \"Hematogenic Industries\"."
  	free_inject = TRUE
+
+/obj/item/hemophagus_extract/self/advanced
+	name = "Advances Hemophagus Essence Auto Injector"
+	isAdvanced = TRUE
 
 /obj/item/hemophagus_extract/update_icon_state()
  	icon_state = used ? used_state : initial(icon_state)

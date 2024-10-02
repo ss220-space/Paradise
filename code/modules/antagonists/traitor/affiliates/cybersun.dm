@@ -2,18 +2,18 @@
 
 /datum/affiliate/cybersun
 	name = "Cybersun Industries"
-	desc = "Преимущества:\n\
-			Скидки 20% на импланты\n\
-			Скидка 33% на плату для взлома ИИ\n\
-			Новый предмет - \"Invasive Beacon\"\n\
-			Новый предмет - \"Syndie patcher\"\n\
-			Недостатки: -\n\
-			Стандартные цели:\n\
-			Украсть технологии\n\
-			Украсть пару ценных вещей\n\
-			Убить пару членов экипажа\n\
-			Угнать мех или под\n\
-			Завербовать нового агента вколов ему модифицированный имплант \"Mindslave\"."
+	affil_info = list("Преимущества:",
+			"Скидки 20% на импланты",
+			"Скидка 33% на плату для взлома ИИ",
+			"Новый предмет - ","Invasive Beacon","",
+			"Новый предмет - ","Syndie patcher","",
+			"Недостатки: -",
+			"Стандартные цели:",
+			"Украсть технологии",
+			"Украсть пару ценных вещей",
+			"Убить пару членов экипажа",
+			"Угнать мех или под",
+			"Завербовать нового агента вколов ему модифицированный имплант \"Mindslave\".")
 	tgui_icon = "cybersun"
 	hij_desc = "Вы - наёмный агент Cybersun Industries, засланный на станцию NT с особой целью:\n\
 			Взломать искусственный интеллект станции специальным, предоставленным вам, устройством. \n\
@@ -252,8 +252,10 @@
 
 	var/datum/antagonist/traitor/mini/traitor = mind.has_antag_datum(/datum/antagonist/traitor/mini)
 
-	traitor.add_objective(pick(/datum/objective/maroon, /datum/objective/steal))
-	traitor.add_objective(pick(/datum/objective/maroon, /datum/objective/steal))
+	traitor.forge_single_human_objective()
+	traitor.forge_single_human_objective()
+	traitor.forge_single_human_objective()
+
 	log_admin("[key_name_admin(user)] has made [key_name_admin(mindslave_target)] mini traitor.")
 
 	var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)

@@ -39,7 +39,7 @@
 			discount_item.category = "Скидки"
 			discount_item.name += " ([round(((init_cost - discount_item.cost) / init_cost) * 100)]% off!)"
 			discount_item.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
-			discount_item.desc += " Limit of [discount_item.limited_stock] per uplink. Normally costs [init_cost] TC."
+			discount_item.desc += " Не более [discount_item.limited_stock] на аплинк. Изначальная цена была [init_cost] TC."
 			discount_item.surplus = 0 // stops the surplus crate potentially giving out a bit too much
 
 			. += discount_item
@@ -91,7 +91,7 @@
 	. = ..()
 	desc += " Предоставлено "
 	if (made_by == "")
-		desc += pick(AFFIL_CYBERSUN, AFFIL_GORLEX, AFFIL_HEMATOGENIC, AFFIL_MI13, AFFIL_SELF, AFFIL_TIGER, AFFIL_SHELLGUARD, AFFIL_DONK, AFFIL_WAFFLE, AFFIL_BIOTECH, AFFIL_MIME, AFFIL_CLOWN, AFFIL_SOL)
+		desc += pick(AFFIL_CYBERSUN, AFFIL_GORLEX, AFFIL_HEMATOGENIC, AFFIL_MI13, AFFIL_SELF, AFFIL_TIGER, AFFIL_WAFFLE, AFFIL_DONK, AFFIL_WAFFLE, AFFIL_BIOTECH, AFFIL_MIME, AFFIL_CLOWN, AFFIL_SOL)
 	desc += made_by + "."
 
 
@@ -558,7 +558,7 @@
 	cost = 66
 	exclude_from_affiliate = list(AFFIL_TIGER)
 	job = list(JOB_TITLE_RD)
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi
@@ -580,7 +580,7 @@
 	surplus = 0
 	can_discount = FALSE
 	hijack_only = TRUE
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 //Librarian
 /datum/uplink_item/jobspecific/etwenty
@@ -759,7 +759,7 @@
 /datum/uplink_item/dangerous
 	category = "Хорошо заметное и опасное оружие"
 	exclude_from_affiliate = list(AFFIL_MI13)
-	made_by = AFFIL_GORLEX
+	made_by = AFFIL_SHELLGUARD
 
 /datum/uplink_item/dangerous/minotaur
 	name = "Дробовик AS-12 'Минотавр'"
@@ -769,7 +769,7 @@
 	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/pistol
 	name = "Пистолет Стечкина"
@@ -777,7 +777,7 @@
 	item = /obj/item/gun/projectile/automatic/pistol
 	cost = 20
 	exclude_from_affiliate = list(AFFIL_MI13, AFFIL_TIGER)
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/revolver
 	name = "Револьвер Синдиката .357 калибра"
@@ -787,7 +787,7 @@
 	exclude_from_affiliate = list(AFFIL_MI13, AFFIL_TIGER)
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/deagle
 	name = "Пустынный орел"
@@ -796,7 +796,7 @@
 	cost = 50
 	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/uzi
 	name = "Пистолет-пулемёт Узи"
@@ -805,7 +805,7 @@
 	cost = 60
 	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/smg
 	name = "Пистолет-Пулемёт С-20r"
@@ -815,7 +815,7 @@
 	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/carbine
 	name = "Карабин M-90gl"
@@ -825,7 +825,7 @@
 	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/machinegun
 	name = "Ручной пулемет L6"
@@ -835,7 +835,7 @@
 	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/rapid
 	name = "Перчатки Полярной звезды"
@@ -852,7 +852,7 @@
 	surplus = 25
 	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/sniper_compact //For when you really really hate that one guy.
 	name = "Компактная снайперская винтовка"
@@ -863,7 +863,7 @@
 	can_discount = FALSE
 	exclude_from_affiliate = list(AFFIL_TIGER)
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/crossbow
 	name = "Энергетический арбалет"
@@ -873,7 +873,7 @@
 	exclude_from_affiliate = list(AFFIL_TIGER)
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/flamethrower
 	name = "Огнемет"
@@ -882,6 +882,7 @@
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
+	made_by = AFFIL_GORLEX
 
 /datum/uplink_item/dangerous/sword
 	name = "Лазерный меч"
@@ -1019,7 +1020,7 @@
 /datum/uplink_item/ammo
 	category = "Боеприпасы"
 	surplus = 40
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/ammo/pistol
 	name = "Два пистолетных магазина (10мм)"
@@ -1426,7 +1427,7 @@
 
 /datum/uplink_item/explosives
 	category = "Гранаты и взрывчатые вещества"
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/explosives/plastic_explosives
 	name = "Заряд C-4"
@@ -1818,7 +1819,7 @@
 	item = /obj/item/clothing/accessory/holster
 	exclude_from_affiliate = list(AFFIL_TIGER)
 	cost = 2
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/device_tools/holster/knives
 	name = "Ножевая кобура"
@@ -1826,35 +1827,35 @@
 	item = /obj/item/clothing/accessory/holster/knives
 	cost = 2
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/device_tools/webbing
 	name = "Боевые разгрузки"
 	desc = "Прочные ремни и пряжки из синтетического хлопка, готовые разделить вашу ношу."
 	item = /obj/item/clothing/accessory/storage/webbing
 	cost = 2
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/device_tools/black_vest
 	name = "Черный жилет"
 	desc = "Прочный черный жилет из синтетического хлопка со множеством карманов для всего необходимого."
 	item = /obj/item/clothing/accessory/storage/black_vest
 	cost = 2
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/device_tools/brown_vest
 	name = "Коричневый жилет"
 	desc = "Прочный черный жилет из синтетического материала со множеством карманов."
 	item = /obj/item/clothing/accessory/storage/brown_vest
 	cost = 2
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/device_tools/blackops_kit
 	name = "Комплект одежды для секретных операций"
 	desc = "Комплект одежды для опасных тайных операций." // Yes, good desc...
 	item = /obj/item/storage/box/syndie_kit/blackops_kit
 	cost = 8
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Хирургическая спортивная сумка"
@@ -1962,6 +1963,7 @@
 			Поставляется в комплекте с внутренними компонентами. Осторожно, члены экипажа Нанотрейзен обучены сообщать о красных скафандрах."
 	item = /obj/item/storage/box/syndie_kit/space
 	cost = 18
+	made_by = AFFIL_GORLEX
 
 /datum/uplink_item/suits/hardsuit
 	name = "Хардсьют Синдиката"
@@ -2302,6 +2304,7 @@
 /datum/uplink_item/badass
 	category = "(Бессполезное) Крутое"
 	surplus = 0
+	made_by = AFFIL_DONK
 
 /datum/uplink_item/badass/desert_eagle
 	name = "Пустынный орел"
@@ -2309,14 +2312,13 @@
 	item = /obj/item/gun/projectile/automatic/pistol/deagle/gold
 	exclude_from_affiliate = list(AFFIL_TIGER)
 	cost = 50
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Сигареты Синдиката"
 	desc = "Насыщенный вкус, густой дым, насыщенный Синдизином."
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
-	made_by = AFFIL_DONK
 
 /datum/uplink_item/badass/syndiecards
 	name = "Игральные карты Синдиката"
@@ -2326,7 +2328,7 @@
 	cost = 2
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/badass/syndiecash
 	name = "Портфель Синдиката, полный наличных денег"
@@ -2335,7 +2337,6 @@
 			на случай, если ваш клиент не соглашается на кредиты."
 	item = /obj/item/storage/secure/briefcase/syndie
 	cost = 5
-	made_by = AFFIL_DONK
 
 /datum/uplink_item/badass/plasticbag
 	name = "Пластиковый пакет"
@@ -2343,6 +2344,7 @@
 	item = /obj/item/storage/bag/plasticbag
 	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	made_by = AFFIL_CLOWN
 
 /datum/uplink_item/badass/balloon
 	name = "\"Показать кто тут босс\""
@@ -2381,7 +2383,7 @@
 	cost = 45 // normally 60
 	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/bundles_TC/c20r
 	name = "Набор пистолета-пулемета C-20r"
@@ -2389,7 +2391,7 @@
 	item = /obj/item/storage/backpack/duffel/syndie/c20rbundle
 	cost = 90 // normally 105
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/bundles_TC/cyber_implants
 	name = "Набор кибернетических имплантов"
@@ -2418,7 +2420,7 @@
 	cost = 110 // normally 135
 	exclude_from_affiliate = list(AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/bundles_TC/cyborg_maint
 	name = "Набор для починки Киборгов"
@@ -2529,7 +2531,7 @@
 			Нельзя предугадать, когда тебя разоружат."
 	item = /obj/item/melee/baton/telescopic/contractor
 	cost = 40
-	made_by = AFFIL_SHELLGUARD
+	made_by = AFFIL_WAFFLE
 
 /datum/uplink_item/contractor/baton_cuffup
 	name = "Улучшение \"Стяжки\" для дубинки"
@@ -2698,6 +2700,14 @@
 	item = /obj/item/hemophagus_extract/self
 	cost = 74 // A little bit stronger than normal vampire because of 26 TC, but with more hard objectives.
 	limited_stock = 1 // Sorry, only one
+
+/datum/uplink_item/affiliate/hematogenic/advanced_hemophagus_extract
+	name = "Продвинутый Экстракт Гемофага"
+	desc = "Инжектор с кровью самого генерального директора " + AFFIL_HEMATOGENIC + ". При введении гуманойду, запускает сложные процессы, \
+			делающие вас молодым \"Древним\" вампиром."
+	item = /obj/item/hemophagus_extract/self/advanced
+	cost = 100
+	limited_stock = 1
 
 /datum/uplink_item/affiliate/for_objective/hemophagus_extract
 	name = "Экстракт Гемофага"
