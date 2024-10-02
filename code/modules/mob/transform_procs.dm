@@ -273,7 +273,7 @@
 	if(isnymph(passed_mob) && !jobban_isbanned(src, ROLE_NYMPH))
 		return TRUE
 
-	// Whitelist typecache. Alphabeticalы order please!
+	// Whitelist typecache. Alphabetical order please!
 	var/static/list/safe_respawn_typecache_whitelist = typecacheof(list(
 		/mob/living/simple_animal/butterfly,
 		/mob/living/simple_animal/chick,
