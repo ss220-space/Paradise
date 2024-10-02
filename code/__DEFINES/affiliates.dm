@@ -13,5 +13,20 @@
 #define AFFIL_CLOWN			"Honk Corporation"
 #define AFFIL_SOL			"Sol"
 
+#define RU_ABLATIVE_AFFIL_CYBERSUN 		"Киберсан Индастрис"
+#define RU_ABLATIVE_AFFIL_GORLEX	 	"Мародерами Горлекса"
+#define RU_ABLATIVE_AFFIL_MI13			"МИ13"
+#define RU_ABLATIVE_AFFIL_HEMATOGENIC	"Гематогеник Индастрис"
+#define RU_ABLATIVE_AFFIL_SELF 			"С.Е.Л.Ф."
+#define RU_ABLATIVE_AFFIL_TIGER 		"обществом Тигр"
+#define RU_ABLATIVE_AFFIL_CHANG			"компанией мистера Чанга"
+#define RU_ABLATIVE_AFFIL_SHELLGUARD	"Шеллгвард Амунишнс"
+#define RU_ABLATIVE_AFFIL_DONK			"корпорацией Донк"
+#define RU_ABLATIVE_AFFIL_WAFFLE		"корпорацией Ваффл"
+#define RU_ABLATIVE_AFFIL_BIOTECH		"Биотех солюшнс"
+#define RU_ABLATIVE_AFFIL_MIME			"Всемирной ассоциацией мимов"
+#define RU_ABLATIVE_AFFIL_CLOWN			"корпорацией ХОНК"
+#define RU_ABLATIVE_AFFIL_SOL			"Транс-Солнечной Федерацией"
+
 
 #define LIMIT_KILLING_ENEMY_REWARDS 			2

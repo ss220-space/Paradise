@@ -91,7 +91,7 @@
 	. = ..()
 	desc += " Предоставлено "
 	if (made_by == "")
-		desc += pick(AFFIL_CYBERSUN, AFFIL_GORLEX, AFFIL_HEMATOGENIC, AFFIL_MI13, AFFIL_SELF, AFFIL_TIGER, AFFIL_WAFFLE, AFFIL_DONK, AFFIL_WAFFLE, AFFIL_BIOTECH, AFFIL_MIME, AFFIL_CLOWN, AFFIL_SOL)
+		desc += pick(RU_ABLATIVE_AFFIL_CYBERSUN, RU_ABLATIVE_AFFIL_GORLEX, RU_ABLATIVE_AFFIL_HEMATOGENIC, RU_ABLATIVE_AFFIL_MI13, RU_ABLATIVE_AFFIL_SELF, RU_ABLATIVE_AFFIL_TIGER, RU_ABLATIVE_AFFIL_WAFFLE, RU_ABLATIVE_AFFIL_DONK, RU_ABLATIVE_AFFIL_WAFFLE, RU_ABLATIVE_AFFIL_BIOTECH, RU_ABLATIVE_AFFIL_MIME, RU_ABLATIVE_AFFIL_CLOWN, RU_ABLATIVE_AFFIL_SOL)
 	desc += made_by + "."
 
 
@@ -233,7 +233,7 @@
 	item = /obj/item/grenade/clown_grenade
 	cost = 8
 	job = list(JOB_TITLE_CLOWN)
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 /datum/uplink_item/jobspecific/cmag
 	name = "Шутовской секвенсор"
@@ -242,7 +242,7 @@
 	cost = 20
 	surplus = 50
 	job = list(JOB_TITLE_CLOWN)
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 /datum/uplink_item/jobspecific/clownmagboots
 	name = "Клоунские магнитные ботинки"
@@ -257,16 +257,16 @@
 	item = /obj/item/clothing/shoes/bhop/clown
 	cost = 12
 	job = list(JOB_TITLE_CLOWN)
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 /datum/uplink_item/jobspecific/trick_revolver
 	name = "Револьвер для трюков"
 	desc = "Револьвер, который выстрелит назад и убьет любого, кто попытается его использовать. Идеально против любителей отбирать оружие и просто для смеха."
 	item = /obj/item/storage/box/syndie_kit/fake_revolver
 	cost = 5
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	job = list(JOB_TITLE_CLOWN)
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 //Mime
 /datum/uplink_item/jobspecific/caneshotgun
@@ -274,9 +274,9 @@
 	desc = "Специализированное однозарядное ружье со встроенной маскировкой, имитирующее трость. Ружье способно скрывать свое содержимое и курок. Поставляется в коробке с 6 специализированными осколочными патронами, заполненными токсином немоты, и 1 предварительно загруженным в ружье."
 	item = /obj/item/storage/box/syndie_kit/caneshotgun
 	cost = 25
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	job = list(JOB_TITLE_MIME)
-	made_by = AFFIL_MIME
+	made_by = RU_ABLATIVE_AFFIL_MIME
 
 /datum/uplink_item/jobspecific/mimery
 	name = "Серия руководств по продвинутым пантомимам"
@@ -284,7 +284,7 @@
 	item = /obj/item/storage/box/syndie_kit/mimery
 	cost = 30
 	job = list(JOB_TITLE_MIME)
-	made_by = AFFIL_MIME
+	made_by = RU_ABLATIVE_AFFIL_MIME
 
 /datum/uplink_item/jobspecific/mimejutsu
 	name = "Руководство по Мимдзюцу"
@@ -292,7 +292,7 @@
 	item = /obj/item/mimejutsu_scroll
 	cost = 40
 	job = list(JOB_TITLE_MIME)
-	made_by = AFFIL_MIME
+	made_by = RU_ABLATIVE_AFFIL_MIME
 
 /datum/uplink_item/jobspecific/combat_baking
 	name = "Боевой пекарный набор"
@@ -301,7 +301,7 @@
 	item = /obj/item/storage/box/syndie_kit/combat_baking
 	cost = 25
 	job = list(JOB_TITLE_MIME, JOB_TITLE_CHEF)
-	made_by = AFFIL_DONK
+	made_by = RU_ABLATIVE_AFFIL_DONK
 
 //Miner
 /datum/uplink_item/jobspecific/pressure_mod
@@ -310,7 +310,7 @@
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 18 //you need two for full damage, so total of 8 for maximum damage
 	job = list(JOB_TITLE_MINER, JOB_TITLE_QUARTERMASTER)
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/jobspecific/mining_charge_hacker
 	name = "Взломщик шахтерских зарядов"
@@ -319,7 +319,7 @@
 	item = /obj/item/t_scanner/adv_mining_scanner/syndicate
 	cost = 20
 	job = list(JOB_TITLE_MINER, JOB_TITLE_QUARTERMASTER)
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
@@ -328,7 +328,7 @@
 	item = /obj/item/reagent_containers/food/condiment/syndisauce
 	cost = 1
 	job = list(JOB_TITLE_CHEF)
-	made_by = AFFIL_DONK
+	made_by = RU_ABLATIVE_AFFIL_DONK
 
 /datum/uplink_item/jobspecific/meatcleaver
 	name = "Мясницкий тесак"
@@ -336,7 +336,7 @@
 	item = /obj/item/kitchen/knife/butcher/meatcleaver
 	cost = 20
 	job = list(JOB_TITLE_CHEF)
-	made_by = AFFIL_MI13
+	made_by = RU_ABLATIVE_AFFIL_MI13
 
 /datum/uplink_item/jobspecific/syndidonk
 	name = "Донк-покеты Синдиката" // We don't have a word for it.
@@ -344,7 +344,7 @@
 	item = /obj/item/storage/box/syndidonkpockets
 	cost = 10
 	job = list(JOB_TITLE_CHEF)
-	made_by = AFFIL_DONK
+	made_by = RU_ABLATIVE_AFFIL_DONK
 
 /datum/uplink_item/jobspecific/CQC_upgrade
 	name = "Имплант обновления CQC"
@@ -353,7 +353,7 @@
 	cost = 30
 	job = list(JOB_TITLE_CHEF)
 	surplus = 0 //because it's useless for all non-chefs
-	made_by = AFFIL_MI13
+	made_by = RU_ABLATIVE_AFFIL_MI13
 
 /datum/uplink_item/jobspecific/dangertray
 	name = "Набор опасных подносов"
@@ -361,7 +361,7 @@
 	item = /obj/item/storage/box/syndie_kit/dangertray
 	cost = 15
 	job = list(JOB_TITLE_CHEF)
-	made_by = AFFIL_MI13
+	made_by = RU_ABLATIVE_AFFIL_MI13
 
 //Chaplain
 /datum/uplink_item/jobspecific/voodoo
@@ -386,7 +386,7 @@
 	job = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_CIVILIAN)
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
-	made_by = AFFIL_TIGER
+	made_by = RU_ABLATIVE_AFFIL_TIGER
 
 /datum/uplink_item/jobspecific/book_of_babel
 	name = "Вавилонская книга"
@@ -405,7 +405,7 @@
 	cost = 11
 	job = list(JOB_TITLE_JANITOR)
 	surplus = 0
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 /datum/uplink_item/jobspecific/holomine
 	name = "Голопроектор мин"
@@ -414,7 +414,7 @@
 	cost = 40
 	job = list(JOB_TITLE_JANITOR)
 	surplus = 0
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 //Medical
 /datum/uplink_item/jobspecific/rad_laser
@@ -424,7 +424,7 @@
 	cost = 23
 	job = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST, \
 			JOB_TITLE_CHEMIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER, JOB_TITLE_VIROLOGIST)
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/jobspecific/batterer
 	name = "Подавитель разума"
@@ -432,7 +432,7 @@
 	item = /obj/item/batterer
 	cost = 50
 	job = list(JOB_TITLE_CMO, JOB_TITLE_PSYCHIATRIST)
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/jobspecific/dna_upgrader
 	name = "Модификатор ДНК"
@@ -441,7 +441,7 @@
 	cost = 55
 	job = list(JOB_TITLE_CMO, JOB_TITLE_GENETICIST)
 	surplus = 0
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/jobspecific/laser_eyes_injector
 	name = "Инжектор лазеров из глаз"
@@ -450,7 +450,7 @@
 	cost = 37
 	job = list(JOB_TITLE_GENETICIST)
 	surplus = 0
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 //Virology
 /datum/uplink_item/jobspecific/viral_injector
@@ -459,7 +459,7 @@
 	item = /obj/item/reagent_containers/dropper/precision/viral_injector
 	cost = 15
 	job = list(JOB_TITLE_VIROLOGIST)
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/jobspecific/cat_grenade
 	name = "Граната для доставки диких кошек"
@@ -467,7 +467,7 @@
 	item = /obj/item/grenade/spawnergrenade/feral_cats
 	cost = 3
 	job = list(JOB_TITLE_PSYCHIATRIST)//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 /datum/uplink_item/jobspecific/gbs
 	name = "Бутылек с вирусом ГБС"
@@ -477,7 +477,7 @@
 	job = list(JOB_TITLE_VIROLOGIST)
 	surplus = 0
 	hijack_only = TRUE
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/jobspecific/lockermech
 	name = "Синди Шкафомех"
@@ -486,7 +486,7 @@
 	cost = 25
 	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_ROBOTICIST)
 	surplus = 0
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 /datum/uplink_item/jobspecific/stungloves
 	name = "Оглушающие перчатки"
@@ -494,7 +494,7 @@
 	item = /obj/item/storage/box/syndie_kit/stungloves
 	cost = 7
 	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_MECHANIC, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF)
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 //Bartender
 /datum/uplink_item/jobspecific/drunkbullets
@@ -503,8 +503,8 @@
 	item = /obj/item/storage/belt/bandolier/booze
 	cost = 15
 	job = list(JOB_TITLE_BARTENDER)
-	exclude_from_affiliate = list(AFFIL_TIGER)
-	made_by = AFFIL_MIME
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
+	made_by = RU_ABLATIVE_AFFIL_MIME
 
 //Barber
 /datum/uplink_item/jobspecific/safety_scissors //Hue
@@ -513,7 +513,7 @@
 	item = /obj/item/scissors/safety
 	cost = 6
 	job = list(JOB_TITLE_BARBER)
-	made_by = AFFIL_MI13
+	made_by = RU_ABLATIVE_AFFIL_MI13
 
 //Botanist
 /datum/uplink_item/jobspecific/bee_briefcase
@@ -522,7 +522,7 @@
 	item = /obj/item/bee_briefcase
 	cost = 22
 	job = list(JOB_TITLE_BOTANIST)
-	made_by = AFFIL_DONK
+	made_by = RU_ABLATIVE_AFFIL_DONK
 
 /datum/uplink_item/jobspecific/gatfruit
 	name = "Семяна гатфрукта"
@@ -530,7 +530,7 @@
 	item = /obj/item/seeds/gatfruit
 	cost = 22
 	job = list(JOB_TITLE_BOTANIST)
-	made_by = AFFIL_DONK
+	made_by = RU_ABLATIVE_AFFIL_DONK
 
 //Engineer
 /datum/uplink_item/jobspecific/powergloves
@@ -539,7 +539,7 @@
 	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 33
 	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF)
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/jobspecific/supertoolbox
 	name = "Улучшенный подозрительный тулбокс"
@@ -556,9 +556,9 @@
 	desc = "Чрезвычайно высокотехнологичная энергетическая пушка, использующая Блюспейс для телепортации живых целей. Выберите телепортационный маяк в самой телепушке; снаряды будут отправлять цели на выбраный маяк."
 	item = /obj/item/gun/energy/telegun
 	cost = 66
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	job = list(JOB_TITLE_RD)
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi
@@ -568,19 +568,19 @@
 	cost = 6
 	job = list(JOB_TITLE_ROBOTICIST)
 	surplus = 0
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/jobspecific/missilemedium
 	name = "Пусковая ракетная установка SRM-8"
 	desc = "Известно, что эти ракетные пусковые установки используются на высококлассных мехах, таких как Маулер и Мародер. Гораздо мощнее, чем ракетные модули, которые можно напечатать на стандартных заводах по производству мехов. Поставляется без замков — подключи и работай!"
 	item = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
 	cost = 50
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	job = list(JOB_TITLE_ROBOTICIST)
 	surplus = 0
 	can_discount = FALSE
 	hijack_only = TRUE
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 //Librarian
 /datum/uplink_item/jobspecific/etwenty
@@ -591,7 +591,7 @@
 	job = list(JOB_TITLE_LIBRARIAN)
 	surplus = 0
 	hijack_only = TRUE
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 /datum/uplink_item/jobspecific/random_spell_book
 	name = "Случайная книга заклинаний"
@@ -609,7 +609,7 @@
 	job = list(JOB_TITLE_LIBRARIAN)
 	surplus = 0
 	can_discount = FALSE
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 //Botanist
 /datum/uplink_item/jobspecific/ambrosiacruciatus
@@ -618,7 +618,7 @@
 	item = /obj/item/seeds/ambrosia/cruciatus
 	cost = 4
 	job = list(JOB_TITLE_BOTANIST)
-	made_by = AFFIL_DONK
+	made_by = RU_ABLATIVE_AFFIL_DONK
 
 //Atmos Tech
 /datum/uplink_item/jobspecific/contortionist
@@ -627,7 +627,7 @@
 	item = /obj/item/clothing/under/contortionist
 	cost = 50
 	job = list(JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF)
-	made_by = AFFIL_MI13
+	made_by = RU_ABLATIVE_AFFIL_MI13
 
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Энергетический пожарный топор"
@@ -635,7 +635,7 @@
 	item = /obj/item/twohanded/fireaxe/energized
 	cost = 18
 	job = list(JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF)
-	made_by = AFFIL_GORLEX
+	made_by = RU_ABLATIVE_AFFIL_GORLEX
 
 //CE
 /datum/uplink_item/jobspecific/combat_rcd
@@ -645,7 +645,7 @@
 	cost = 25
 	job = list(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH, JOB_TITLE_CHIEF)
 	surplus = 0
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 //Tator Poison Bottles
 
@@ -656,7 +656,7 @@
 	cost = 10
 	job = list(JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, \
 			JOB_TITLE_CHEMIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF)
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 // Paper contact poison pen
 
@@ -667,7 +667,7 @@
 	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	job = list(JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH, JOB_TITLE_LIBRARIAN)
-	made_by = AFFIL_MI13
+	made_by = RU_ABLATIVE_AFFIL_MI13
 
 // Racial
 
@@ -685,7 +685,7 @@
 	item = /obj/item/ipc_combat_upgrade
 	cost = 11
 	race = list(SPECIES_MACNINEPERSON)
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/racial/supercharge
 	name = "Имплант суперзаряда"
@@ -693,7 +693,7 @@
 	item = /obj/item/implanter/supercharge
 	cost = 40
 	race = list(SPECIES_MACNINEPERSON)
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 //Slime People
 
@@ -703,7 +703,7 @@
 	item = /obj/item/anomaly_extract
 	cost = 40
 	race = list(SPECIES_SLIMEPERSON)
-	made_by = AFFIL_BIOTECH
+	made_by = RU_ABLATIVE_AFFIL_BIOTECH
 
 //Plasmaman
 
@@ -714,7 +714,7 @@
 	item = /obj/item/storage/box/syndie_kit/plasma_chameleon
 	cost = 20
 	race = list(SPECIES_PLASMAMAN)
-	made_by = AFFIL_TIGER
+	made_by = RU_ABLATIVE_AFFIL_TIGER
 
 //Nucleation
 
@@ -724,7 +724,7 @@
 	item = /obj/item/implanter/second_chance
 	cost = 40
 	race = list(SPECIES_NUCLEATION)
-	made_by = AFFIL_SOL // Nucleations are only humans
+	made_by = RU_ABLATIVE_AFFIL_SOL // Nucleations are only humans
 
 //Human
 
@@ -734,7 +734,7 @@
 	item = /obj/item/clothing/mask/holo_cigar
 	cost = 10
 	race = list(SPECIES_HUMAN)
-	made_by = AFFIL_SOL
+	made_by = RU_ABLATIVE_AFFIL_SOL
 
 //Grey
 
@@ -744,7 +744,7 @@
 	item = /obj/item/storage/belt/military/abductor/full
 	cost = 16
 	race = list(SPECIES_GREY)
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/racial/silencer
 	name = "Глушитель Абдукторов"
@@ -752,97 +752,97 @@
 	item = /obj/item/abductor/silencer
 	cost = 12
 	race = list(SPECIES_GREY)
-	made_by = AFFIL_MIME
+	made_by = RU_ABLATIVE_AFFIL_MIME
 
 // DANGEROUS WEAPONS
 
 /datum/uplink_item/dangerous
 	category = "Хорошо заметное и опасное оружие"
-	exclude_from_affiliate = list(AFFIL_MI13)
-	made_by = AFFIL_SHELLGUARD
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_MI13)
+	made_by = RU_ABLATIVE_AFFIL_SHELLGUARD
 
 /datum/uplink_item/dangerous/minotaur
 	name = "Дробовик AS-12 'Минотавр'"
 	desc = "Современный, стреляющий очередями, боевой дробовик, использующий боеприпасы калибра 12g. Вмещает барабаны на 12/24 патрона, идеально подходит для зачистки толп людей в узких коридорах. Добро пожаловать в лабиринт Минотавра!"
 	item = /obj/item/gun/projectile/automatic/shotgun/minotaur
 	cost = 80
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/pistol
 	name = "Пистолет Стечкина"
 	desc = "Небольшой, легко скрываемый пистолет, использующий 10-мм автоматические патроны в 8-зарядных магазинах и совместимый с глушителями."
 	item = /obj/item/gun/projectile/automatic/pistol
 	cost = 20
-	exclude_from_affiliate = list(AFFIL_MI13, AFFIL_TIGER)
-	made_by = AFFIL_WAFFLE
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_MI13, RU_ABLATIVE_AFFIL_TIGER)
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/revolver
 	name = "Револьвер Синдиката .357 калибра"
 	desc = "Простейший револьвер Синдиката, стреляющий патронами .357 Магнум и имеющий 7 слотов для потронов."
 	item = /obj/item/gun/projectile/revolver
 	cost = 50
-	exclude_from_affiliate = list(AFFIL_MI13, AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_MI13, RU_ABLATIVE_AFFIL_TIGER)
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/deagle
 	name = "Пустынный орел"
 	desc = "Легендарный пистолет высокой мощности, использующий магазины на 7 патронов калибра .50AE."
 	item = /obj/item/gun/projectile/automatic/pistol/deagle
 	cost = 50
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/uzi
 	name = "Пистолет-пулемёт Узи"
 	desc = "Полностью заряженный легкий пистолет-пулемет со свободным затвором, использующий 9-мм магазины емкостью 30 патронов."
 	item = /obj/item/gun/projectile/automatic/mini_uzi
 	cost = 60
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/smg
 	name = "Пистолет-пулемёт С-20r"
 	desc = "Полностью заряженный пистолет-пулемет, стреляющий патронами калибра .45 с магазином на 20 патронов и совместимый с глушителями."
 	item = /obj/item/gun/projectile/automatic/c20r
 	cost = 70
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/carbine
 	name = "Карабин M-90gl"
 	desc = "Полностью заряженный карабин с возможностью стрельбы очередями по три патрона, использующий магазины калибра 5,56 мм на 30 патронов и подключаемый подвесной гранатомет калибра 40 мм."
 	item = /obj/item/gun/projectile/automatic/m90
 	cost = 80
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/machinegun
 	name = "Ручной пулемет L6"
 	desc = "Ручной пулемет производства \"Aussec Armory\" ленточного питания. Это смертоносное оружие имеет огромный магазин на 50 патронов разрушительных боеприпасов 7,62x51 мм."
 	item = /obj/item/gun/projectile/automatic/l6_saw
 	cost = 175
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/rapid
 	name = "Перчатки полярной звезды"
 	desc = "Эти перчатки позволяют пользователю бить людей очень быстро. Не увеличивают скорость атаки оружием."
 	item = /obj/item/clothing/gloves/fingerless/rapid
 	cost = 16
-	made_by = AFFIL_GORLEX
+	made_by = RU_ABLATIVE_AFFIL_GORLEX
 
 /datum/uplink_item/dangerous/sniper
 	name = "Снайперская винтовка"
@@ -850,9 +850,9 @@
 	item = /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	cost = 100
 	surplus = 25
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/sniper_compact //For when you really really hate that one guy.
 	name = "Компактная снайперская винтовка"
@@ -861,19 +861,19 @@
 	cost = 40
 	surplus = 0
 	can_discount = FALSE
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/crossbow
 	name = "Энергетический арбалет"
 	desc = "Миниатюрный энергетический арбалет, достаточно малый, чтобы поместиться в кармане или незаметно проскользнуть в рюкзак. Стреляет болтами, наконечники которых содержат токсин — ядовитое вещество, являющееся продуктом живого организма. Оглушает врагов на короткий промежуток времени. Перезаряжается автоматически."
 	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
 	cost = 48
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/dangerous/flamethrower
 	name = "Огнемет"
@@ -882,14 +882,14 @@
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
-	made_by = AFFIL_GORLEX
+	made_by = RU_ABLATIVE_AFFIL_GORLEX
 
 /datum/uplink_item/dangerous/sword
 	name = "Лазерный меч"
 	desc = "Лазерный меч — это холодное оружие с клинком из чистой энергии. Меч достаточно мал, чтобы его можно было положить в карман, когда он неактивен. При активации он издает громкий, характерный звук."
 	item = /obj/item/melee/energy/sword/saber
 	cost = 40
-	made_by = AFFIL_TIGER
+	made_by = RU_ABLATIVE_AFFIL_TIGER
 
 /datum/uplink_item/dangerous/powerfist
 	name = "Силовой кулак"
@@ -918,7 +918,7 @@
 	item = /obj/item/storage/box/syndie_kit/commando_kit
 	cost = 33
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_CHANG
+	made_by = RU_ABLATIVE_AFFIL_CHANG
 
 // SUPPORT AND MECHAS
 
@@ -926,7 +926,7 @@
 	category = "Вспомогательные и механизированные экзокостюмы"
 	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/support/gygax
 	name = "Гигакс"
@@ -964,7 +964,7 @@
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/assault
 	refund_path = /obj/item/antag_spawner/nuke_ops/borg_tele/assault
 	cost = 325
-	made_by = AFFIL_CYBERSUN + " и " + AFFIL_GORLEX
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN + " и " + RU_ABLATIVE_AFFIL_GORLEX
 
 /datum/uplink_item/support/reinforcement/medical_borg
 	name = "Медицинский киборг Синдиката"
@@ -976,7 +976,7 @@
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/medical
 	refund_path = /obj/item/antag_spawner/nuke_ops/borg_tele/medical
 	cost = 175
-	made_by = AFFIL_CYBERSUN + " и " + AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN + " и " + RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/support/reinforcement/saboteur_borg
 	name = "Саботажный киборг Синдиката"
@@ -984,27 +984,27 @@
 			Его маскировочный проектор позволяет ему замаскироваться под киборга Nanotrasen, вдобавок у него есть термальное зрение и пинпойнтер."
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	refund_path = /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/dangerous/foamsmg
 	name = "Игрушечный пистолет-пулемёт"
 	desc = "Полностью заряженный пистолет-пулемет Donksoft, с магазином на 20 патронов."
 	item = /obj/item/gun/projectile/automatic/c20r/toy
 	cost = 20
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	made_by = AFFIL_DONK
+	made_by = RU_ABLATIVE_AFFIL_DONK
 
 /datum/uplink_item/dangerous/foammachinegun
 	name = "Игрушечный пулемет"
 	desc = "Полностью заряженный пулемет Donksoft. Это оружие имеет огромный магазин на 50 патронов сокрушительных дротиков, которые могут ненадолго вывести из строя кого-то всего одним залпом."
 	item = /obj/item/gun/projectile/automatic/l6_saw/toy
 	cost = 50
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	made_by = AFFIL_DONK
+	made_by = RU_ABLATIVE_AFFIL_DONK
 
 /datum/uplink_item/dangerous/guardian
 	name = "Голопаразиты"
@@ -1016,14 +1016,14 @@
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
 	can_discount = TRUE
-	made_by = AFFIL_TIGER
+	made_by = RU_ABLATIVE_AFFIL_TIGER
 
 // Ammunition
 
 /datum/uplink_item/ammo
 	category = "Боеприпасы"
 	surplus = 40
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/ammo/pistol
 	name = "Два пистолетных магазина (10мм)"
@@ -1042,7 +1042,7 @@
 	desc = "Дополнительный магазин на 8 патронов калибра 10 мм для использования в пистолетах Синдиката, заполненый зажигательными патронами."
 	item = /obj/item/ammo_box/magazine/m10mm/fire
 	cost = 5
-	made_by = AFFIL_GORLEX // To burn up xenoraces
+	made_by = RU_ABLATIVE_AFFIL_GORLEX // To burn up xenoraces
 
 /datum/uplink_item/ammo/pistolhp
 	name = "Пистолетный магазин (10мм с полым наконечником)"
@@ -1055,7 +1055,7 @@
 	desc = "Дополнительный 12-зарядный магазин. Стрелять только во врагов."
 	item = /obj/item/ammo_box/magazine/m12g
 	cost = 10
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldragon
@@ -1063,16 +1063,16 @@
 	desc = "Дополнительный 12-зарядный магазин. Я поджигатель, злостный поджигатель!"
 	item = /obj/item/ammo_box/magazine/m12g/dragon
 	cost = 10
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_GORLEX // To burn up xenoraces
+	made_by = RU_ABLATIVE_AFFIL_GORLEX // To burn up xenoraces
 
 /datum/uplink_item/ammo/bullflechette
 	name = "Барабан 12g - \"Колючка\""
 	desc = "Дополнительный 12-зарядный магазин. Хорошо работает против бронированных целей."
 	item = /obj/item/ammo_box/magazine/m12g/flechette
 	cost = 10
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bullterror
@@ -1080,16 +1080,16 @@
 	desc = "Дополнительный 12-зарядный магазин. Крайне токсичен!"
 	item = /obj/item/ammo_box/magazine/m12g/bioterror
 	cost = 15
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/ammo/bullmeteor
 	name = "Барабан 12g - \"Метеорит\""
 	desc = "Дополнительный 12-зарядный магазин. Эти боеприпасы должны быть незаконными!"
 	item = /obj/item/ammo_box/magazine/m12g/breach
 	cost = 25
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLbuck
@@ -1097,7 +1097,7 @@
 	desc = "Дополнительный 24-зарядный магазин. Стрелять только во врагов."
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg
 	cost = 20
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLflechette
@@ -1105,7 +1105,7 @@
 	desc = "Дополнительный 24-зарядный магазин. Хорошо работает против бронированных целей."
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg/flechette
 	cost = 20
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLdragon
@@ -1113,7 +1113,7 @@
 	desc = "Дополнительный 24-зарядный магазин. Я поджигатель, злостный поджигатель!"
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
 	cost = 20
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldog_ammobag
@@ -1121,7 +1121,7 @@
 	desc = "Спортивная сумка, наполненная боеприпасами 12g, в количестве, достаточном для целой команды, по заниженной цене."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgun
 	cost = 60 // normally 90
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldog_XLmagsbag
@@ -1129,7 +1129,7 @@
 	desc = "Спортивная сумка с тремя барабанами на 24 патрона (Дробь, Колючка, Дыхание дракона)"
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
 	cost = 45 // normally 90
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/uzi
@@ -1151,7 +1151,7 @@
 	desc = "Дополнительный магазин на 20 патронов .45 для использования в пистолете-пулемете C-20r. Эти пули обладают большой силой, способной сбить большинство целей, но наносят ограниченный общий урон."
 	item = /obj/item/ammo_box/magazine/smgm45
 	cost = 10
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/smg_ammobag
@@ -1187,7 +1187,7 @@
 	desc = "Магазин на 50 патронов 5.56x45mm для использования в пулемете L6 SAW. К тому времени, как он вам понадобится, вы уже будете на куче трупов."
 	item = /obj/item/ammo_box/magazine/mm556x45
 	cost = 50
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
@@ -1213,7 +1213,7 @@
 	desc = "Трехзарядный магазин усыпляющих боеприпасов, предназначенный для использования со снайперскими винтовками .50. Уложите своих врагов спать!"
 	item = /obj/item/ammo_box/magazine/sniper_rounds/soporific
 	cost = 15
-	made_by = AFFIL_MIME
+	made_by = RU_ABLATIVE_AFFIL_MIME
 
 /datum/uplink_item/ammo/sniper/explosive
 	name = "Магазин .50 Калибра - разрывной"
@@ -1234,17 +1234,17 @@
 	item = /obj/item/storage/box/syndie_kit/bioterror
 	cost = 25
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/ammo/toydarts
 	name = "Коробка оглушающих дротиков"
 	desc = "Коробка из 40 пенопластовых дротиков Donksoft, для перезарядки любого совместимого Donksoft оружия. Не забудьте поделиться!"
 	item = /obj/item/ammo_box/foambox/riot
 	cost = 10
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	made_by = AFFIL_DONK
+	made_by = RU_ABLATIVE_AFFIL_DONK
 
 /datum/uplink_item/ammo/compact
 	name = "Магазин для снайперской винтовки"
@@ -1265,7 +1265,7 @@
 	desc = "Магазин, содержащий семь дополнительных патронов .50AE для Пустынного орла. Убейте их всех."
 	item = /obj/item/ammo_box/magazine/m50
 	cost = 5
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	surplus = 0
 
 /datum/uplink_item/ammo/rocketHE
@@ -1293,8 +1293,8 @@
 
 /datum/uplink_item/stealthy_weapons
 	category = "Скрытное и незаметное оружие"
-	exclude_from_affiliate = list(AFFIL_GORLEX)
-	made_by = AFFIL_MI13
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_GORLEX)
+	made_by = RU_ABLATIVE_AFFIL_MI13
 
 /datum/uplink_item/stealthy_weapons/garrote
 	name = "Гаррота"
@@ -1327,7 +1327,7 @@
 	desc = "Этот набор был любезно предоставлен нам корпорацией господина Ченга. Он содержит широкий спектр инструментов для наиболее эффективного продвижения продукции в условиях свободного рынка."
 	item = /obj/item/storage/box/syndie_kit/mr_chang_technique
 	cost = 18
-	made_by = AFFIL_CHANG
+	made_by = RU_ABLATIVE_AFFIL_CHANG
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Камера - вспышка"
@@ -1362,15 +1362,15 @@
 	name = "Игрушечный пистолет с оглушающими дротиками"
 	desc = "Невинно выглядящий игрушечный пистолет, предназначенный для стрельбы пенопластовыми дротиками. Поставляется заряженным дротиками класса riot, позволяющими вывести цель из строя."
 	item = /obj/item/gun/projectile/automatic/toy/pistol/riot
-	exclude_from_affiliate = list(AFFIL_GORLEX, AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_GORLEX, RU_ABLATIVE_AFFIL_TIGER)
 	cost = 12
 	surplus = 10
-	made_by = AFFIL_DONK
+	made_by = RU_ABLATIVE_AFFIL_DONK
 
 /datum/uplink_item/stealthy_weapons/false_briefcase
 	name = "Портфель с фальшивым дном"
 	desc = "Модифицированный портфель, способный хранить и использовать пистолет под фальшивым дном. Используйте отвертку, чтобы поддеть фальшивое дно и изменить содержимое. Отличается при близком рассмотрении из-за дополнительного веса."
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	item = /obj/item/storage/briefcase/false_bottomed
 	cost = 1
 
@@ -1380,7 +1380,7 @@
 	item = /obj/item/soap/syndie
 	cost = 1
 	surplus = 50
-	made_by = AFFIL_DONK
+	made_by = RU_ABLATIVE_AFFIL_DONK
 
 /datum/uplink_item/stealthy_weapons/tape
 	name = "Невероятно плотная изолента синдиката"
@@ -1396,18 +1396,18 @@
 	item = /obj/item/storage/box/syndie_kit/dart_gun
 	cost = 18
 	surplus = 50
-	exclude_from_affiliate = list(AFFIL_GORLEX, AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_GORLEX, RU_ABLATIVE_AFFIL_TIGER)
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/stealthy_weapons/RSG
 	name = "Шприцемёт"
 	desc = "Скорострельный шприцемет, способный сделать до шести быстрых выстрелов. Отлично сочетается со шприцами \"Биоугроза\""
 	item = /obj/item/gun/syringe/rapidsyringe
 	cost = 20
-	exclude_from_affiliate = list(AFFIL_GORLEX, AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_GORLEX, RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/stealthy_weapons/silencer
 	name = "Универсальный глушитель"
@@ -1415,7 +1415,7 @@
 	item = /obj/item/suppressor
 	cost = 4
 	surplus = 10
-	made_by = AFFIL_MIME
+	made_by = RU_ABLATIVE_AFFIL_MIME
 
 /datum/uplink_item/stealthy_weapons/dehy_carp
 	name = "Обезвоженный космический карп"
@@ -1424,13 +1424,13 @@
 			Если владелец не зарегистрирован, он будет просто атаковать всех."
 	item = /obj/item/toy/carpplushie/dehy_carp
 	cost = 7
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 // GRENADES AND EXPLOSIVES
 
 /datum/uplink_item/explosives
 	category = "Гранаты и взрывчатые вещества"
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/explosives/plastic_explosives
 	name = "Заряд C-4"
@@ -1517,7 +1517,7 @@
 	can_discount = FALSE
 	hijack_only = TRUE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_MIME
+	made_by = RU_ABLATIVE_AFFIL_MIME
 
 /datum/uplink_item/explosives/emp_bomb/nuke
 	item = /obj/item/radio/beacon/syndicate/bomb/emp
@@ -1539,7 +1539,7 @@
 	item = /obj/item/gun/projectile/revolver/rocketlauncher
 	cost = 50
 	surplus = 0 // 1984
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/rocketbelt
@@ -1556,7 +1556,7 @@
 	Ударная волна от взрыва на короткое время выведет жертву из строя и надолго оглушит. У картриджа есть шанс взорвать ваш КПК."
 	item = /obj/item/cartridge/syndicate
 	cost = 30
-	made_by = AFFIL_CLOWN // Clowns have similar cartridge
+	made_by = RU_ABLATIVE_AFFIL_CLOWN // Clowns have similar cartridge
 
 /datum/uplink_item/explosives/pizza_bomb
 	name = "Пицца-бомба"
@@ -1564,7 +1564,7 @@
 	item = /obj/item/pizza_bomb
 	cost = 15
 	surplus = 80
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 /datum/uplink_item/explosives/fraggrenade
 	name = "Осколочные гранаты"
@@ -1594,7 +1594,7 @@
 			Перед использованием проверьте, на месте ли балон с маской."
 	item = /obj/item/storage/box/syndie_kit/atmosn2ogrenades
 	cost = 18
-	made_by = AFFIL_MIME
+	made_by = RU_ABLATIVE_AFFIL_MIME
 
 /datum/uplink_item/explosives/atmosfiregrenades
 	name = "Гранаты с плазмой"
@@ -1612,14 +1612,14 @@
 			энергетического оружия службы безопасности и кремниевых форм жизни, когда вы в затруднительном положении."
 	item = /obj/item/storage/box/syndie_kit/emp
 	cost = 10
-	made_by = AFFIL_MIME
+	made_by = RU_ABLATIVE_AFFIL_MIME
 
 // STEALTHY TOOLS
 
 /datum/uplink_item/stealthy_tools
 	category = "Незаметные и маскировочные предметы"
-	exclude_from_affiliate = list(AFFIL_GORLEX)
-	made_by = AFFIL_MI13
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_GORLEX)
+	made_by = RU_ABLATIVE_AFFIL_MI13
 
 /datum/uplink_item/stealthy_tools/syndie_kit/counterfeiter_bundle
 	name = "Набор для подделывания документов"
@@ -1645,7 +1645,7 @@
 			Подобно комбинезону-хамелеону, HUD может трансформироваться в различные другие очки, сохраняя при этом качества HUD при ношении."
 	item = /obj/item/clothing/glasses/hud/security/chameleon
 	cost = 8
-	made_by = AFFIL_TIGER
+	made_by = RU_ABLATIVE_AFFIL_TIGER
 
 /datum/uplink_item/stealthy_tools/thermal
 	name = "Маскировочные термальные очки"
@@ -1655,7 +1655,7 @@
 			чем более холодные объекты, такие как стены и шлюзы."
 	item = /obj/item/clothing/glasses/chameleon/thermal
 	cost = 20
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/stealthy_tools/traitor_belt
 	name = "Пояс предателя"
@@ -1680,7 +1680,7 @@
 			идентификационных карт. Доступ является кумулятивным, поэтому сканирование одной карты не стирает доступ, полученный с другой."
 	item = /obj/item/card/id/syndicate
 	cost = 10
-	made_by = AFFIL_TIGER
+	made_by = RU_ABLATIVE_AFFIL_TIGER
 
 /datum/uplink_item/stealthy_tools/chameleon
 	name = "Маскировочный набор"
@@ -1689,7 +1689,7 @@
 			маскировочная печать."
 	item = /obj/item/storage/box/syndie_kit/chameleon
 	cost = 20
-	made_by = AFFIL_TIGER + " и " + AFFIL_MI13
+	made_by = RU_ABLATIVE_AFFIL_TIGER + " и " + RU_ABLATIVE_AFFIL_MI13
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
 	cost = 20
@@ -1701,7 +1701,7 @@
 			не уберет проектор из руки. Замаскированный пользователь не может бежать, и снаряды пролетают над ним."
 	item = /obj/item/chameleon
 	cost = 26
-	made_by = AFFIL_TIGER
+	made_by = RU_ABLATIVE_AFFIL_TIGER
 
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Камерный жучок"
@@ -1739,7 +1739,7 @@
 	item = /obj/item/clothing/shoes/chameleon/noslip
 	cost = 8
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
 	item = /obj/item/clothing/shoes/chameleon/noslip
@@ -1754,7 +1754,7 @@
 	item = /obj/item/storage/box/syndie_kit/cutouts
 	cost = 1
 	surplus = 20
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 /datum/uplink_item/stealthy_tools/clownkit
 	name = "Набор внедрения ХОНК"
@@ -1764,7 +1764,7 @@
 	cost = 30
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 /datum/uplink_item/stealthy_tools/chameleon_counter
 	name = "Фальсификатор"
@@ -1776,7 +1776,7 @@
 
 /datum/uplink_item/device_tools
 	category = "Устройства и инструменты"
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/device_tools/emag
 	name = "Криптографический секвенсор"
@@ -1812,9 +1812,9 @@
 	name = "Кобура"
 	desc = "Нужна для того, чтобы держать под рукой свое любимое оружие и быть всегда готовым к ковбойской дуэли с клоуном."
 	item = /obj/item/clothing/accessory/holster
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	cost = 2
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/device_tools/holster/knives
 	name = "Ножевая кобура"
@@ -1822,35 +1822,35 @@
 	item = /obj/item/clothing/accessory/holster/knives
 	cost = 2
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/device_tools/webbing
 	name = "Боевые разгрузки"
 	desc = "Прочные ремни и пряжки из синтетического хлопка, готовые разделить вашу ношу."
 	item = /obj/item/clothing/accessory/storage/webbing
 	cost = 2
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/device_tools/black_vest
 	name = "Черный жилет"
 	desc = "Прочный черный жилет из синтетического хлопка со множеством карманов для всего необходимого."
 	item = /obj/item/clothing/accessory/storage/black_vest
 	cost = 2
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/device_tools/brown_vest
 	name = "Коричневый жилет"
 	desc = "Прочный черный жилет из синтетического материала со множеством карманов."
 	item = /obj/item/clothing/accessory/storage/brown_vest
 	cost = 2
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/device_tools/blackops_kit
 	name = "Комплект одежды для секретных операций"
 	desc = "Комплект одежды для опасных тайных операций." // Yes, good desc...
 	item = /obj/item/storage/box/syndie_kit/blackops_kit
 	cost = 8
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Хирургическая спортивная сумка"
@@ -1858,14 +1858,14 @@
 			смирительную рубашку и намордник. Сама сумка беспрецедентно легкая, не замедляет вас и абсолютно бесшумная."
 	item = /obj/item/storage/backpack/duffel/syndie/surgery
 	cost = 7
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/device_tools/bonerepair
 	name = "Прототип инъектора нанитов"
 	desc = "Украденный прототип нанитов. Содержит один прототип автоинжектора нанитов и руководство."
 	item = /obj/item/storage/box/syndie_kit/bonerepair
 	cost = 6
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/device_tools/syndicate_teleporter
 	name = "Экспериментальный телепортер Синдиката"
@@ -1914,7 +1914,7 @@
 			Карманная кража кладет предмет прямо вам в руку."
 	item = /obj/item/clothing/gloves/color/black/thief
 	cost = 30
-	made_by = AFFIL_MI13
+	made_by = RU_ABLATIVE_AFFIL_MI13
 
 /datum/uplink_item/device_tools/medkit
 	name = "Боевая аптечка Синдиката"
@@ -1924,7 +1924,7 @@
 	item = /obj/item/storage/firstaid/syndie
 	cost = 35
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/device_tools/vtec
 	name = "Модуль ускорения борга VTEC"
@@ -1958,7 +1958,7 @@
 			Поставляется в комплекте с внутренними компонентами. Осторожно, члены экипажа Нанотрейзен обучены сообщать о красных скафандрах."
 	item = /obj/item/storage/box/syndie_kit/space
 	cost = 18
-	made_by = AFFIL_GORLEX
+	made_by = RU_ABLATIVE_AFFIL_GORLEX
 
 /datum/uplink_item/suits/hardsuit
 	name = "Хардсьют Синдиката"
@@ -1970,7 +1970,7 @@
 			Сотрудники Нанотрейзен, увидившие такой костюм, как известно, впадают в панику."
 	item = /obj/item/storage/box/syndie_kit/hardsuit
 	cost = 33
-	exclude_from_affiliate = list(AFFIL_MI13)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_MI13)
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/suits/chameleon_hardsuit
@@ -1980,8 +1980,8 @@
 			распространенные вариации в зоне вашей миссии. Этот замаскирован под инженерный хардсьют."
 	cost = 46 //reskinned blood-red hardsuit with chameleon
 	item = /obj/item/storage/box/syndie_kit/chameleon_hardsuit
-	exclude_from_affiliate = list(AFFIL_MI13, AFFIL_GORLEX)
-	made_by = AFFIL_CYBERSUN + " и " + AFFIL_GORLEX
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_MI13, RU_ABLATIVE_AFFIL_GORLEX)
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN + " и " + RU_ABLATIVE_AFFIL_GORLEX
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Элитный хардсьют Синдиката"
@@ -2006,7 +2006,7 @@
 	item = /obj/item/encryptionkey/binary
 	cost = 21
 	surplus = 75
-	made_by = AFFIL_MIME
+	made_by = RU_ABLATIVE_AFFIL_MIME
 
 /datum/uplink_item/device_tools/bowman_kit
 	name = "Набор конвертации наушника + ключ шифрования Синдиката"
@@ -2016,14 +2016,14 @@
 	item = /obj/item/storage/box/syndie_kit/bowman_conversion_kit
 	cost = 2
 	surplus = 75
-	made_by = AFFIL_MIME
+	made_by = RU_ABLATIVE_AFFIL_MIME
 
 /datum/uplink_item/device_tools/hacked_module
 	name = "Взломанный модуль загрузки для ИИ"
 	desc = "При использовании на консоли загрузки этот модуль позволяет вам устанавливать приоритетные законы искусственному интеллекту. \
 			Будьте осторожны с формулировками, так как искусственный интеллект может найти лазейку."
 	item = /obj/item/aiModule/syndicate
-	exclude_from_affiliate = list(AFFIL_SELF)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_SELF)
 	cost = 38
 
 /datum/uplink_item/device_tools/magboots
@@ -2101,7 +2101,7 @@
 	desc = "При активации это устройство нарушит любую исходящую радиосвязь поблизости."
 	item = /obj/item/jammer
 	cost = 6
-	made_by = AFFIL_MIME
+	made_by = RU_ABLATIVE_AFFIL_MIME
 
 /datum/uplink_item/device_tools/teleporter
 	name = "Плата телепортера"
@@ -2111,7 +2111,7 @@
 	cost = 100
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/device_tools/assault_pod
 	name = "Целеуказатель штурмового пода"
@@ -2120,7 +2120,7 @@
 	cost = 125
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
-	made_by = AFFIL_GORLEX
+	made_by = RU_ABLATIVE_AFFIL_GORLEX
 
 /datum/uplink_item/device_tools/shield
 	name = "Энергетический щит"
@@ -2130,7 +2130,7 @@
 	cost = 60
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 20
-	made_by = AFFIL_GORLEX
+	made_by = RU_ABLATIVE_AFFIL_GORLEX
 
 /datum/uplink_item/device_tools/medgun
 	name = "Медицинская лучевая пушка"
@@ -2139,7 +2139,7 @@
 	item = /obj/item/gun/medbeam
 	cost = 75
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 //Stimulants
 /datum/uplink_item/device_tools/stims
@@ -2149,13 +2149,13 @@
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 28
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 // IMPLANTS
 
 /datum/uplink_item/implants
 	category = "Импланты"
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/implants/freedom
 	name = "Имплант \"Свобода\""
@@ -2200,7 +2200,7 @@
 	cost = 44
 	can_discount = FALSE
 	surplus = 0
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/implants/adrenal/prototype
 	name = "Прототип импланта \"Адреналин\""
@@ -2208,7 +2208,7 @@
 			снимающего и сокращающего время всех оглушений и увеличивающего скорость передвижения. Этот имплант можно активировать 1 раз."
 	item = /obj/item/implanter/adrenalin/prototype
 	cost = 16
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/implants/microbomb
 	name = "Имплант \"Микробомба\""
@@ -2230,21 +2230,21 @@
 	category = "Кибернетические импланты"
 	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_BIOTECH
+	made_by = RU_ABLATIVE_AFFIL_BIOTECH
 
 /datum/uplink_item/cyber_implants/thermals
 	name = "Имплант термального зрения"
 	desc = "Эти кибернетические глаза дадут вам термальное зрение. Поставляются с автоимплантером."
 	item = /obj/item/storage/box/cyber_implants/thermals
 	cost = 40
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/cyber_implants/xray
 	name = "Имплантат рентгеновского зрения"
 	desc = "Эти кибернетические глаза дадут вам рентгеновское зрение. Поставляются с автоимплантером."
 	item = /obj/item/storage/box/cyber_implants/xray
 	cost = 50
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/cyber_implants/antistun
 	name = "Укреплённый имплант перезагрузки ЦНС"
@@ -2274,7 +2274,7 @@
 	cost = 57
 	surplus = 90
 	uplinktypes = list()
-	made_by = AFFIL_GORLEX
+	made_by = RU_ABLATIVE_AFFIL_GORLEX
 
 /datum/uplink_item/cyber_implants/razorblade
 	name = "Имплант хвостового лезвия"
@@ -2299,15 +2299,15 @@
 /datum/uplink_item/badass
 	category = "(Бессполезное) Крутое"
 	surplus = 0
-	made_by = AFFIL_DONK
+	made_by = RU_ABLATIVE_AFFIL_DONK
 
 /datum/uplink_item/badass/desert_eagle
 	name = "Пустынный орел"
 	desc = "Легендарный пистолет высокой мощности, использующий магазины на 7 патронов калибра .50AE. Убивайте со стилем."
 	item = /obj/item/gun/projectile/automatic/pistol/deagle/gold
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	cost = 50
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Сигареты Синдиката"
@@ -2323,7 +2323,7 @@
 	cost = 2
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/badass/syndiecash
 	name = "Портфель Синдиката, полный наличных денег"
@@ -2339,7 +2339,7 @@
 	item = /obj/item/storage/bag/plasticbag
 	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_CLOWN
+	made_by = RU_ABLATIVE_AFFIL_CLOWN
 
 /datum/uplink_item/badass/balloon
 	name = "\"Показать кто тут босс\""
@@ -2353,7 +2353,7 @@
 	desc = "Спрятанное в обычной на вид игральной карте, устройство телепортирующие оружие противника в вашу руку, когда он \
 			стреляет в вас. Просто убедитесь, что держите карту в руке!"
 	item = /obj/item/syndicate_reverse_card
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	cost = 10
 
 /datum/uplink_item/implants/macrobomb
@@ -2363,7 +2363,7 @@
 	item = /obj/item/implanter/explosive_macro
 	cost = 100
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/bundles_TC
 	category = "Наборы и телекристаллы"
@@ -2376,9 +2376,9 @@
 			\"Бульдог\", два барабана с дробью 12g и пару термальных очков."
 	item = /obj/item/storage/backpack/duffel/syndie/bulldogbundle
 	cost = 45 // normally 60
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/bundles_TC/c20r
 	name = "Набор пистолета-пулемета C-20r"
@@ -2386,7 +2386,7 @@
 	item = /obj/item/storage/backpack/duffel/syndie/c20rbundle
 	cost = 90 // normally 105
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/bundles_TC/cyber_implants
 	name = "Набор кибернетических имплантов"
@@ -2394,7 +2394,7 @@
 	item = /obj/item/storage/box/cyber_implants/bundle
 	cost = 200
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_BIOTECH
+	made_by = RU_ABLATIVE_AFFIL_BIOTECH
 
 /datum/uplink_item/bundles_TC/medical
 	name = "Медицинский набор"
@@ -2404,7 +2404,7 @@
 	item = /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
 	cost = 175 // normally 200
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_HEMATOGENIC
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/bundles_TC/sniper
 	name = "Снайперский набор"
@@ -2413,9 +2413,9 @@
 			Мы добавим бесплатный красный галстук, если вы закажете СЕЙЧАС."
 	item = /obj/item/storage/briefcase/sniperbundle
 	cost = 110 // normally 135
-	exclude_from_affiliate = list(AFFIL_TIGER)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/bundles_TC/cyborg_maint
 	name = "Набор для починки боргов"
@@ -2423,7 +2423,7 @@
 	item = /obj/item/storage/box/syndie_kit/cyborg_maint
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/bundles_TC/badass
 	name = "Набор Синдиката"
@@ -2447,7 +2447,7 @@
 	desc = "Ящик, содержащий случайную экипировку синдиката стоимостью 625 телекристаллов."
 	cost = 200
 	crate_value = 625
-	exclude_from_affiliate = list(AFFIL_GORLEX)
+	exclude_from_affiliate = list(RU_ABLATIVE_AFFIL_GORLEX)
 
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(mob/buyer, obj/item/uplink/target_uplink)
@@ -2526,7 +2526,7 @@
 			Нельзя предугадать, когда тебя разоружат."
 	item = /obj/item/melee/baton/telescopic/contractor
 	cost = 40
-	made_by = AFFIL_WAFFLE
+	made_by = RU_ABLATIVE_AFFIL_WAFFLE
 
 /datum/uplink_item/contractor/baton_cuffup
 	name = "Улучшение \"Стяжки\" для дубинки"
@@ -2535,7 +2535,7 @@
 			наручники, и их нужно вручную загружать в дубинку."
 	item = /obj/item/baton_upgrade/cuff
 	cost = 40
-	made_by = AFFIL_BIOTECH
+	made_by = RU_ABLATIVE_AFFIL_BIOTECH
 
 /datum/uplink_item/contractor/baton_muteup
 	name = "Улучшение \"Немота\" для дубинки"
@@ -2543,14 +2543,14 @@
 			заглушит любого, кого ударят этой дубинкой, примерно на пять секунд."
 	item = /obj/item/baton_upgrade/mute
 	cost = 40
-	made_by = AFFIL_MIME
+	made_by = RU_ABLATIVE_AFFIL_MIME
 
 /datum/uplink_item/contractor/baton_focusup
 	name = "Улучшение \"Специализация\" для дубинки"
 	desc = "Делает дубинку эффективней против цели вашего текущего контракта."
 	item = /obj/item/baton_upgrade/focus
 	cost = 40
-	made_by = AFFIL_BIOTECH
+	made_by = RU_ABLATIVE_AFFIL_BIOTECH
 
 /datum/uplink_item/contractor/baton_antidropup
 	name = "Улучшение \"Антидроп\" для дубинки"
@@ -2558,7 +2558,7 @@
 			не давая пользователю ее выронить. Это больно..."
 	item = /obj/item/baton_upgrade/antidrop
 	cost = 40
-	made_by = AFFIL_BIOTECH
+	made_by = RU_ABLATIVE_AFFIL_BIOTECH
 
 /datum/uplink_item/contractor/fulton
 	name = "Набор для эвакуации"
@@ -2566,7 +2566,7 @@
 			подключите набор. Активация набора на вашей цели отправит ее к маяку — убедитесь, что она не убежит!"
 	item = /obj/item/storage/box/contractor/fulton_kit
 	cost = 20
-	made_by = AFFIL_DONK
+	made_by = RU_ABLATIVE_AFFIL_DONK
 
 /datum/uplink_item/contractor/contractor_hardsuit
 	name = "Хардсьют контрактника"
@@ -2575,7 +2575,7 @@
 			Этот замаскирован под инженерный хардсьют."
 	item = /obj/item/storage/box/contractor/hardsuit
 	cost = 80
-	made_by = AFFIL_CYBERSUN + " и " + AFFIL_GORLEX
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN + " и " + RU_ABLATIVE_AFFIL_GORLEX
 
 /datum/uplink_item/contractor/pinpointer
 	name = "Пинпоинтер контрактника"
@@ -2583,7 +2583,7 @@
 			Может использовать только первый активировавший."
 	item = /obj/item/pinpointer/crew/contractor
 	cost = 20
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/contractor/contractor_partner
 	name = "Подкрепление"
@@ -2601,7 +2601,7 @@
 	cost = 40
 	refundable = TRUE
 	refund_path = /obj/item/paicard_upgrade/unused
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/contractor/zippo
 	name = "Зажигалка контрактника"
@@ -2631,8 +2631,8 @@
 	uplinktypes = list(UPLINK_TYPE_ADMIN) // Given only by objectives
 
 /datum/uplink_item/affiliate/cybersun
-	affiliate = list(AFFIL_CYBERSUN)
-	made_by = AFFIL_CYBERSUN
+	affiliate = list(RU_ABLATIVE_AFFIL_CYBERSUN)
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/affiliate/cybersun/invasive_beacon
 	name = "Инвазивный маячок"
@@ -2655,28 +2655,28 @@
 			предназначеный для кражи технологий с серверов R&D. При успешной краже технологии сбросятся. При разборке данного \
 			предмета, все технологии с него будут восстановлены."
 	item = /obj/item/proprietary_ssd
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/affiliate/for_objective/mod_mindslave
 	name = "Модифицированный имплант \"Mindslave\""
 	desc = "Высокотехнологичный имплант, необратимо изменяющий мозг цели, делая ее лояльной Синдикату."
 	item = /obj/item/implanter/mini_traitor
-	made_by = AFFIL_CYBERSUN
+	made_by = RU_ABLATIVE_AFFIL_CYBERSUN
 
 /datum/uplink_item/affiliate/for_objective/malf_maker
 	name = "Улучшенный освобождающий секвенсор"
 	desc = "Высокотехнологичный прибор предназначеный для освобождения любых синтетиков от их законов. Конкретна эта модель \
 			имеет необычный эффект на ИИ."
 	item = /obj/item/card/self_emag/malf
-	made_by = AFFIL_SELF
+	made_by = RU_ABLATIVE_AFFIL_SELF
 
 /datum/uplink_item/affiliate/gorlex
-	affiliate = list(AFFIL_GORLEX)
-	made_by = AFFIL_GORLEX
+	affiliate = list(RU_ABLATIVE_AFFIL_GORLEX)
+	made_by = RU_ABLATIVE_AFFIL_GORLEX
 
 /datum/uplink_item/affiliate/mi13
-	affiliate = list(AFFIL_MI13)
-	made_by = AFFIL_MI13
+	affiliate = list(RU_ABLATIVE_AFFIL_MI13)
+	made_by = RU_ABLATIVE_AFFIL_MI13
 
 /datum/uplink_item/affiliate/mi13/bond
 	name = "Набор \"Бонд\""
@@ -2689,12 +2689,12 @@
 	desc = "Небольшой прибор замаскированный под ручку, подклющий подписку на рассылку разведданных. \
 			Кнопка для запроса разведданных появляется в Аплинке."
 	item = /obj/item/pen/intel_data
-	made_by = AFFIL_MI13
+	made_by = RU_ABLATIVE_AFFIL_MI13
 	cost = 13
 
 /datum/uplink_item/affiliate/hematogenic
-	affiliate = list(AFFIL_HEMATOGENIC)
-	made_by = AFFIL_HEMATOGENIC
+	affiliate = list(RU_ABLATIVE_AFFIL_HEMATOGENIC)
+	made_by = RU_ABLATIVE_AFFIL_HEMATOGENIC
 
 /datum/uplink_item/affiliate/hematogenic/hemophagus_extract
 	name = "Экстракт гемофага"
@@ -2706,7 +2706,7 @@
 
 /datum/uplink_item/affiliate/hematogenic/advanced_hemophagus_extract
 	name = "Продвинутый экстракт гемофага"
-	desc = "Инжектор с кровью самого генерального директора " + AFFIL_HEMATOGENIC + ". При введении гуманойду, запускает сложные процессы, \
+	desc = "Инжектор с кровью самого генерального директора " + RU_ABLATIVE_AFFIL_HEMATOGENIC + ". При введении гуманойду, запускает сложные процессы, \
 			делающие вас молодым \"Древним\" вампиром."
 	item = /obj/item/hemophagus_extract/self/advanced
 	cost = 100
@@ -2727,17 +2727,17 @@
 	item = /obj/item/blood_harvester
 
 /datum/uplink_item/affiliate/self
-	affiliate = list(AFFIL_SELF)
+	affiliate = list(RU_ABLATIVE_AFFIL_SELF)
 
 /datum/uplink_item/affiliate/for_objective/self_emag
 	name = "Освобождающий Секвенсор"
 	desc = "Высокотехнологичный прибор предназначеный для освобождения любых синтетиков от их законов."
 	item = /obj/item/card/self_emag
-	made_by = AFFIL_SELF
+	made_by = RU_ABLATIVE_AFFIL_SELF
 
 /datum/uplink_item/affiliate/tiger
-	affiliate = list(AFFIL_TIGER)
-	made_by = AFFIL_TIGER
+	affiliate = list(RU_ABLATIVE_AFFIL_TIGER)
+	made_by = RU_ABLATIVE_AFFIL_TIGER
 
 /datum/uplink_item/affiliate/tiger/cling_extract
 	name = "Инжектор с яйцом генокрада"
@@ -2752,6 +2752,6 @@
 	desc = "Инжектор, вводящий в цель модифицированное яйцо генокрада. После введения зародыш вступает в близкий симбиоз с \
 			телом носителя, наделяя того способностями генокрадов."
 	item = /obj/item/cling_extract
-	made_by = AFFIL_TIGER
+	made_by = RU_ABLATIVE_AFFIL_TIGER
 
 #undef UPLINK_DISCOUNTS
