@@ -25,6 +25,7 @@
 	uplink.uses = 20
 	var/datum/antagonist/traitor/traitor = owner.has_antag_datum(/datum/antagonist/traitor)
 	traitor.assign_exchange_role(SSticker.mode.exchange_red)
+	uplink.get_intelligence_data = TRUE
 
 /obj/item/storage/box/bond_bundle
 	icon = 'icons/obj/affiliates.dmi'
@@ -53,3 +54,5 @@
 	if (prob(5))
 		icon_state = "joker"
 		new /obj/item/toy/plushie/blahaj/twohanded(src)
+
+/obj/item/pen/intel_data

@@ -7,6 +7,7 @@
 	name = "Hematogenic Industries"
 	affil_info = list("Преимущества:",
 			"Новый предмет - \"Bloody Injector\"",
+			"Вы можете получать разведданные о ситуации на станции в аплинке",
 			"Недостатки:",
 			"Вы не можете изучать боевые исскуства",
 			"Стандартные цели:",
@@ -41,7 +42,7 @@
 	lefthand_file = 'icons/obj/affiliates.dmi'
 	righthand_file = 'icons/obj/affiliates.dmi'
 	w_class = WEIGHT_CLASS_TINY
-	var/datum/mind/target
+	var/datum/mind/target = null
 	var/free_inject = FALSE
 	var/isAdvanced = FALSE
 	var/used = FALSE
@@ -90,21 +91,13 @@
 			objective.made = TRUE
 
 /obj/item/hemophagus_extract/proc/inject(mob/living/user, mob/living/carbon/human/target)
-	if(!free_inject)
-		if(target.mind)
-			playsound(src, 'sound/goonstation/items/hypo.ogg', 80)
-			make_vampire(user, target)
-			to_chat(user, span_notice("You inject [target] with [src]"))
-		else
-			to_chat(user, span_notice("[target] body rejects [src]"))
+	if(!target.mind)
+		to_chat(user, span_notice("[target] body rejects [src]"))
 		return
-	else
-		if(target.mind)
-			playsound(src, 'sound/goonstation/items/hypo.ogg', 80)
-			make_vampire(user, target)
-			to_chat(user, span_notice("You inject [target == user ? "yourself" : target] with [src]"))
-		else
-			to_chat(user, span_notice("[target] body rejects [src]"))
+
+	playsound(src, 'sound/goonstation/items/hypo.ogg', 80)
+	make_vampire(user, target)
+	to_chat(user, span_notice("You inject [target] with [src]"))
 
 /obj/item/hemophagus_extract/examine(mob/user)
 	. = ..()

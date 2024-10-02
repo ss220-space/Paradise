@@ -1199,6 +1199,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	gen_amount_goal(1000, 1200)
 	. = ..()
 
+/datum/objective/blood/ascend/on_objective_gain()
+	. = ..()
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/hematogenic/advanced_hemophagus_extract)
 
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)
 	target_amount = rand(low, high)

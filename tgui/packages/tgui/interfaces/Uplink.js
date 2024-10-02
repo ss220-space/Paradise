@@ -297,6 +297,18 @@ export const Uplink = (props, context) => {
               >
                 Информация о экипаже
               </Tabs.Tab>
+
+              {!!data.can_get_intelligence_data && (
+                <Tabs.Tab
+                  key="GetIntelligenceВata"
+                  // This cant ever be selected. Its just a close button.
+                  onClick={() => act('lock')}
+                  icon="intel_data"
+                >
+                  Запросить разведданные
+                </Tabs.Tab>
+              )}
+
               {!!data.contractor && (
                 <Tabs.Tab
                   key="BecomeContractor"
