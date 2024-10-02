@@ -967,9 +967,6 @@
 	item_state = "cargo-id"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 
-/obj/item/card/id/supply/punpun
-	name = "Пун Пун"
-
 /obj/item/card/id/engineering
 	name = "Engineering ID"
 	registered_name = "Engineer"
