@@ -20,7 +20,7 @@
 	tts_seed = "Chen"
 
 /mob/living/carbon/human/lesser/monkey/punpun/can_use_machinery(obj/machinery/mas)
-	. = FALSE
+	. = ..()
 	var/static/list/typecache_whitelist = typecacheof(list(
 		/obj/machinery/vending,
 		/obj/machinery/chem_dispenser/soda,
