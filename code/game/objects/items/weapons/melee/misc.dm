@@ -87,8 +87,10 @@
 
 /obj/item/melee/rapier/centcomm/attack_self(mob/user)
 	. = ..()
+
 	if(!usr.is_in_hands(src))
 		return .
+
 	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, CENTCOMM_RAPIER_TRAIT))
 		REMOVE_TRAIT(src, TRAIT_NODROP, CENTCOMM_RAPIER_TRAIT)
 		to_chat(usr, span_warning("Вы расслабляете руку и отпускаете рукоятку [src]."))
