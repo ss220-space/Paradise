@@ -47,8 +47,7 @@
 "aj" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/template_noop,
 /area/space/nearstation)
@@ -105,8 +104,7 @@
 "aq" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -157,12 +155,10 @@
 "av" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/template_noop,
 /area/space/nearstation)
@@ -175,8 +171,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/template_noop,
 /area/space/nearstation)
@@ -195,15 +190,13 @@
 /area/space/nearstation)
 "aA" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "aB" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	frequency = 1379;
@@ -213,8 +206,7 @@
 /area/ruin/spaceprison)
 "aC" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 1
@@ -224,8 +216,7 @@
 /area/ruin/spaceprison)
 "aD" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/structure/door_assembly/door_assembly_ext,
 /turf/simulated/floor/plating,
@@ -329,8 +320,7 @@
 	dir = 9
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/landmark/tiles/damageturf,
@@ -348,8 +338,7 @@
 /area/space/nearstation)
 "aW" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -500,8 +489,7 @@
 "bs" = (
 /obj/structure/table,
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -571,15 +559,13 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "bE" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -602,8 +588,7 @@
 "bJ" = (
 /obj/structure/table/reinforced,
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/door_control{
 	id = "spaceprisonnot";
@@ -641,8 +626,7 @@
 "bK" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -671,8 +655,7 @@
 /area/ruin/spaceprison)
 "bN" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Space Prison Engineering";
@@ -726,8 +709,7 @@
 /area/ruin/spaceprison)
 "bX" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/item/paper/crumpled/bloody,
 /turf/simulated/floor/plasteel{
@@ -747,8 +729,7 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
@@ -850,13 +831,11 @@
 /area/ruin/spaceprison)
 "co" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/door_timer/cell_1{
 	id = "Ruin Cell 1";
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
@@ -888,8 +867,7 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
@@ -923,8 +901,7 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
@@ -980,8 +957,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1055,8 +1031,7 @@
 /area/ruin/spaceprison)
 "ea" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
@@ -1084,8 +1059,7 @@
 	},
 /obj/machinery/door_timer/cell_3{
 	id = "Ruin Cell 3";
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
@@ -1163,8 +1137,7 @@
 	req_access = list(1)
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -1215,8 +1188,7 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
@@ -1438,8 +1410,7 @@
 "kH" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -1499,8 +1470,7 @@
 /area/ruin/spaceprison)
 "mK" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1671,8 +1641,7 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
@@ -1681,8 +1650,7 @@
 	dir = 8
 	},
 /obj/machinery/door_timer/cell_5{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
@@ -1743,8 +1711,7 @@
 /area/ruin/spaceprison)
 "tz" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
@@ -1778,8 +1745,7 @@
 /area/ruin/spaceprison)
 "uL" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -1818,8 +1784,7 @@
 	req_access = list(1)
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1989,8 +1954,7 @@
 "zk" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
@@ -2024,13 +1988,11 @@
 /area/ruin/spaceprison)
 "Aa" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/door_timer/cell_2{
 	id = "Ruin Cell 2";
-	pixel_x = -32;
-	pixel_y = 0
+	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
@@ -2244,8 +2206,7 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/door_timer/cell_6{
 	pixel_x = 32
@@ -2261,8 +2222,7 @@
 /area/space/nearstation)
 "EY" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
@@ -2272,15 +2232,13 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "Fr" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
@@ -2401,15 +2359,13 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "Ji" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/item/shard{
 	icon_state = "medium"
@@ -2500,8 +2456,7 @@
 /area/ruin/spaceprison)
 "Me" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
@@ -2584,8 +2539,7 @@
 "MW" = (
 /obj/structure/window/reinforced,
 /obj/machinery/door_timer/cell_4{
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -2654,8 +2608,7 @@
 /area/ruin/spaceprison)
 "OK" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Space Prison Armory";
@@ -2874,8 +2827,7 @@
 "TK" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
@@ -3081,8 +3033,7 @@
 	security_level = 1
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	pixel_y = 0
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;

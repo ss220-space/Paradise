@@ -117,8 +117,8 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	var/image/googly_eyes = null
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/hostile/mimic/copy/New(loc, obj/copy, mob/living/creator, destroy_original = 0)
-	..(loc)
+/mob/living/simple_animal/hostile/mimic/copy/Initialize(mapload, obj/copy, mob/living/creator, destroy_original = 0)
+	. = ..()
 	CopyObject(copy, creator, destroy_original)
 
 /mob/living/simple_animal/hostile/mimic/copy/Life()
@@ -286,3 +286,49 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		return
 	icon_state = TrueGun.icon_state
 	icon_living = TrueGun.icon_state
+
+/mob/living/simple_animal/hostile/mimic/copy/vendor
+	is_electronic = TRUE
+	/// The vendor we were turned from.
+	var/obj/machinery/vending/orig_vendor
+
+/mob/living/simple_animal/hostile/mimic/copy/vendor/CheckObject(obj/O)
+	return istype(O, /obj/machinery/vending)
+
+/mob/living/simple_animal/hostile/mimic/copy/vendor/Initialize(mapload, obj/machinery/base, mob/living/creator)
+	if(!base)
+		var/list/vendors = subtypesof(/obj/machinery/vending)
+		var/obj/machinery/vending/vendor_type = pick(vendors)
+		base = new vendor_type(src)
+
+	if(!istype(base))
+		qdel(src)
+		return
+
+	orig_vendor = base
+	orig_vendor.forceMove(src)
+	orig_vendor.aggressive = FALSE // just to be safe, in case this was converted
+
+	return ..(mapload, base, creator, destroy_original = FALSE)
+
+/mob/living/simple_animal/hostile/mimic/copy/vendor/AttackingTarget()
+	. = ..()
+	if(. && target && Adjacent(target))
+		visible_message(span_danger("[src] throws itself on top of [target], crushing [target.p_them()]!"))
+		orig_vendor.forceMove(get_turf(target))  // just to be sure it'll tilt onto them
+		orig_vendor.tilt(target, TRUE, FALSE)  // geeeeet dunked on
+		orig_vendor = null
+		qdel(src)
+
+/mob/living/simple_animal/hostile/mimic/copy/vendor/death(gibbed)
+	if(!QDELETED(orig_vendor))
+		orig_vendor.forceMove(get_turf(src))
+		// tilt over in place
+		orig_vendor.tilted = TRUE
+		orig_vendor.set_anchored(FALSE)
+		orig_vendor.tilt_over()
+		if(prob(70))
+			orig_vendor.obj_break()
+		orig_vendor = null
+	return ..()
+

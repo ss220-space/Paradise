@@ -383,8 +383,7 @@
 	. = ..()
 	if(isliving(arrived) && holder_animal)
 		var/mob/living/mob = arrived
-		mob.add_traits(list(TRAIT_MUTE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
-		mob.status_flags |= GODMODE
+		mob.add_traits(list(TRAIT_MUTE, TRAIT_GODMODE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
 		mob.mind.transfer_to(holder_animal)
 		holder_animal.mind.AddSpell(new /obj/effect/proc_holder/spell/exit_possession)
 
@@ -392,8 +391,7 @@
 /obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
-		L.status_flags &= ~GODMODE
-		L.remove_traits(list(TRAIT_MUTE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
+		L.remove_traits(list(TRAIT_MUTE, TRAIT_GODMODE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
 		if(holder_animal)
 			holder_animal.mind.transfer_to(L)
 			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/exit_possession)

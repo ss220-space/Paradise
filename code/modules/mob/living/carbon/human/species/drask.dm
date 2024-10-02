@@ -81,6 +81,7 @@
 
 	disliked_food = SUGAR | GROSS
 	liked_food = DAIRY
+	special_diet = MATERIAL_CLASS_SOAP
 
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)

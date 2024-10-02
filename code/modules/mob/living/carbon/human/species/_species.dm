@@ -254,6 +254,8 @@
 	var/toxic_food = TOXIC
 	var/disliked_food = GROSS
 	var/liked_food = FRIED | JUNKFOOD | SUGAR
+	/// Here are going material types. If material type in your diet, and item has eatable component - you will eat it.
+	var/special_diet = NONE
 
 	var/list/autohiss_basic_map = null
 	var/list/autohiss_extra_map = null
@@ -489,35 +491,18 @@
 	var/datum/antagonist/vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp && !vamp.draining && user.zone_selected == BODY_ZONE_HEAD && target != user)
 		if(HAS_TRAIT(target, TRAIT_NO_BLOOD) || HAS_TRAIT(target, TRAIT_EXOTIC_BLOOD) || !target.blood_volume)
-			to_chat(user, "<span class='warning'>They have no blood!</span>")
+			to_chat(user, span_warning("Отсутствует кровь!"))
 			return
 		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire) || target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)))
-			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
+			to_chat(user, span_warning("[pluralize_ru(user.gender,"Твои","Ваши")] клыки не могут пронзить холодную плоть [target.declent_ru(GENITIVE)]."))
 			return
 		if(HAS_TRAIT(target, TRAIT_SKELETON))
-			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
+			to_chat(user, span_warning("В скелете нет ни капли крови!"))
 			return
 		//we're good to suck the blood, blaah
 		vamp.handle_bloodsucking(target)
 		add_attack_logs(user, target, "vampirebit")
 		return
-
-	//Goon Vampire Dupe code
-	var/datum/antagonist/goon_vampire/g_vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(g_vamp && !g_vamp.draining && user.zone_selected == BODY_ZONE_HEAD && target != user)
-		if(HAS_TRAIT(target, TRAIT_NO_BLOOD) || HAS_TRAIT(target, TRAIT_EXOTIC_BLOOD) || !target.blood_volume)
-			to_chat(user, "<span class='warning'>Отсутствует кровь!</span>")
-			return
-		if(target.mind?.has_antag_datum(/datum/antagonist/goon_vampire))
-			to_chat(user, "<span class='warning'>[pluralize_ru(user.gender,"Твои","Ваши")] клыки не могут пронзить холодную плоть [target.declent_ru(GENITIVE)].</span>")
-			return
-		if(HAS_TRAIT(target, TRAIT_SKELETON))
-			to_chat(user, "<span class='warning'>В скелете нет ни капли крови!</span>")
-			return
-		g_vamp.handle_bloodsucking(target)
-		add_attack_logs(user, target, "vampirebit")
-		return
-		//end vampire codes
 
 	var/message = "<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] атаку [user.declent_ru(GENITIVE)]!</span>"
 	if(target.check_martial_art_defense(target, user, null, message))
@@ -1083,15 +1068,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			H.nightvision += 1 // base of 2, 2+1 is 3
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
-	var/datum/antagonist/goon_vampire/g_vamp = H.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(g_vamp)
-		if(g_vamp.get_ability(/datum/goon_vampire_passive/full))
-			H.add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
-			H.nightvision = 8
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		else if(g_vamp.get_ability(/datum/goon_vampire_passive/vision))
-			H.add_sight(SEE_MOBS)
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in H.internal_organs)
 		H.add_sight(cyber_eyes.vision_flags)

@@ -105,3 +105,5 @@
 	display_name = "Hampter, ERT"
 	path = /obj/item/toy/plushie/hampter/ert_squad
 	cost = 1
+
+

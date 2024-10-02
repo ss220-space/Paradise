@@ -37,6 +37,6 @@
 	if(!hardsuit.suit_adjusted)
 		return FALSE
 	var/obj/item/projectile/P = hitby
-	if(P.shockbull)
+	if(istype(P) && P.shockbull)
 		return TRUE
 	return FALSE

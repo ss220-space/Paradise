@@ -311,7 +311,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "greenfull"
 	},
 /area/security/permabrig)
@@ -834,8 +833,6 @@
 	dir = 5
 	},
 /obj/structure/closet/secure_closet/hos,
-/obj/item/megaphone,
-/obj/item/reagent_containers/food/drinks/flask/barflask,
 /obj/item/spacepod_equipment/key{
 	id = 100000
 	},
@@ -1167,7 +1164,6 @@
 /area/maintenance/maintcentral)
 "aky" = (
 /obj/machinery/door_timer/cell_6{
-	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -2971,9 +2967,7 @@
 /turf/simulated/floor/engine/hull/ceiling,
 /area/mine/unexplored/cere/orbiting)
 "ayE" = (
-/obj/machinery/computer/prisoner{
-	req_access = list(2)
-	},
+/obj/machinery/computer/brigcells,
 /turf/simulated/floor/wood/fancy/light,
 /area/security/hos)
 "ayK" = (
@@ -7801,14 +7795,11 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
+/obj/item/radio/intercom{
+	pixel_x = -28
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
@@ -10638,7 +10629,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "greenfull"
 	},
 /area/security/permabrig)
@@ -11835,20 +11825,11 @@
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "bGn" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 4;
-	name = "Труба смешивания"
+/obj/structure/chair/office/dark{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
-	dir = 2;
-	name = "Труба турбины"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/atmos)
+/turf/simulated/floor/wood/fancy/light,
+/area/security/hos)
 "bGt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -13776,6 +13757,10 @@
 /obj/machinery/computer/security{
 	name = "Labor Camp Monitoring";
 	network = list("Labor Camp")
+	},
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -18491,7 +18476,6 @@
 /area/library)
 "ctq" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/tcommsat/computer)
@@ -24567,7 +24551,6 @@
 	},
 /obj/item/seeds/chili,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "green"
 	},
 /area/security/permabrig)
@@ -27411,11 +27394,6 @@
 /turf/simulated/wall/r_wall/coated,
 /area/engine/supermatter)
 "dNS" = (
-/obj/structure/sign/atmosplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в работе с Фаррагусом, а также полной адаптации Стацнии под нужды НаноТрейзен. Благодарим вас за труд, SQUEEK!. Слава НаноТрейзен!";
-	name = "Благодарственное Письмо Для Старшего Рабочего Команды Архитекторов Фаррагуса.";
-	pixel_x = 32
-	},
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowcorners"
@@ -27743,7 +27721,6 @@
 /obj/structure/reagent_dispensers/watertank,
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "green"
 	},
 /area/security/permabrig)
@@ -28601,7 +28578,6 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/tcommsat/computer)
@@ -30792,7 +30768,6 @@
 /area/maintenance/fsmaint2)
 "eyp" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/aisat/maintenance)
@@ -31064,6 +31039,12 @@
 	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/crew_quarters/bar)
@@ -35203,7 +35184,6 @@
 	},
 /area/engine/mechanic_workshop/hangar)
 "fsW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
@@ -35215,7 +35195,12 @@
 	name = "Bar Junction";
 	sortType = 19
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -36766,7 +36751,6 @@
 /obj/item/seeds/chili,
 /obj/item/seeds/chili,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "green"
 	},
 /area/security/permabrig)
@@ -37739,7 +37723,6 @@
 "fPO" = (
 /obj/machinery/porta_turret,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/ai)
@@ -43487,7 +43470,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat_interior)
@@ -44597,11 +44579,6 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/dorms)
 "hes" = (
-/obj/structure/sign/goldenplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в работе с Фаррагусом, а также полной адаптации Стацнии под нужды НаноТрейзен. Благодарим вас за труд, BeebBeebBoob. Слава НаноТрейзен!";
-	name = "Благодарственное Письмо Для Бригадира Команды Архитекторов Фаррагуса.";
-	pixel_x = -32
-	},
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -52302,12 +52279,10 @@
 /turf/simulated/floor/plating,
 /area/security/prisonlockers)
 "iEd" = (
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Bridge";
-	departmentType = 5;
-	name = "Bridge Requests Console";
-	pixel_y = 30
+/obj/structure/sign/beautyplaque{
+	pixel_y = 32;
+	name = "Благодарственное Письмо Для Бригадира Команды Архитекторов Селестии";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в области инженерного менеджмента, а также успешное проектирование Селестии по всем стандартам НаноТрейзен. Благодарим вас за труд, Saad_f603. Слава НаноТрейзен!"
 	},
 /turf/simulated/floor/carpet/black,
 /area/bridge)
@@ -54190,7 +54165,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access = list(2)
+	req_access = list(63)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable/orange{
@@ -54879,9 +54854,7 @@
 	},
 /area/security/medbay)
 "jbZ" = (
-/obj/machinery/computer/secure_data{
-	dir = 1
-	},
+/obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -56630,10 +56603,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
 "jtI" = (
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /obj/machinery/door/window/brigdoor/southleft{
 	req_access = list(39)
 	},
@@ -57165,7 +57135,6 @@
 /obj/item/radio,
 /obj/item/t_scanner,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/ai)
@@ -57761,7 +57730,8 @@
 /area/security/lobby)
 "jFZ" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "mix_sensor"
+	id_tag = "mix_sensor";
+	output = 127
 	},
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
@@ -58538,7 +58508,6 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/ai)
@@ -59207,8 +59176,12 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/alarm{
-	pixel_y = 26
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Bridge";
+	departmentType = 5;
+	name = "Bridge Requests Console";
+	pixel_y = 30
 	},
 /turf/simulated/floor/carpet/black,
 /area/bridge)
@@ -62508,7 +62481,6 @@
 /obj/structure/table/reinforced,
 /obj/item/paicard,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/ai)
@@ -63865,7 +63837,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/aisat/maintenance)
@@ -64251,7 +64222,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navybluecornersalt"
 	},
 /area/turret_protected/aisat)
@@ -65031,7 +65001,6 @@
 /area/security/checkpoint/south)
 "laE" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat_interior/secondary)
@@ -73650,7 +73619,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/tcommsat/computer)
@@ -73883,7 +73851,6 @@
 /obj/item/tank/internals/emergency_oxygen,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/ai)
@@ -75118,7 +75085,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/aisat/maintenance)
@@ -80291,12 +80257,6 @@
 	},
 /turf/simulated/floor/glass,
 /area/hallway/primary/central)
-"odp" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/space/openspace,
-/area/space)
 "odx" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -80406,7 +80366,6 @@
 /area/engine/engineering/monitor)
 "oev" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/ai)
@@ -80576,12 +80535,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
-"ogP" = (
-/obj/machinery/computer/card/minor/hos{
-	dir = 1
-	},
-/turf/simulated/floor/wood/fancy/light,
-/area/security/hos)
 "ogS" = (
 /obj/effect/spawner/random_spawners/blood_20,
 /obj/effect/decal/cleanable/dirt,
@@ -81391,6 +81344,12 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -82450,7 +82409,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat_interior/secondary)
@@ -84382,7 +84340,6 @@
 /obj/structure/table,
 /obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat)
@@ -91222,7 +91179,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat_interior/secondary)
@@ -91280,7 +91236,6 @@
 	},
 /obj/machinery/porta_turret,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat_interior)
@@ -92093,7 +92048,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/aisat/maintenance)
@@ -97455,7 +97409,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -99745,10 +99698,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint/south)
 "rQQ" = (
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/beach/sand,
 /area/medical/virology/lab)
 "rQR" = (
@@ -102264,7 +102214,6 @@
 /area/crew_quarters/serviceyard)
 "sqX" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navybluecorners"
 	},
 /area/turret_protected/ai)
@@ -103051,6 +103000,12 @@
 	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -105612,6 +105567,12 @@
 	name = "Bar";
 	req_access = list(25)
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/bar)
 "sXp" = (
@@ -105660,7 +105621,6 @@
 /obj/machinery/porta_turret,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat_interior)
@@ -109931,7 +109891,6 @@
 /area/turret_protected/ai)
 "tMH" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navybluecorners"
 	},
 /area/turret_protected/aisat)
@@ -112448,7 +112407,7 @@
 "ukP" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access = list(2)
+	req_access = list(63)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -112883,7 +112842,6 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/aisat/maintenance)
@@ -113667,7 +113625,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat)
@@ -116637,10 +116594,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/beach/sand,
 /area/medical/genetics)
 "vbl" = (
@@ -117216,7 +117170,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/aisat_interior)
@@ -119365,7 +119318,8 @@
 /area/chapel/main)
 "vEd" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "air_sensor"
+	id_tag = "air_sensor";
+	output = 23
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -119585,10 +119539,7 @@
 /turf/simulated/floor/carpet/black,
 /area/chapel/office)
 "vFO" = (
-/mob/living/carbon/human/lesser/monkey{
-	icon = 'icons/mob/monkey.dmi';
-	icon_state = "monkey1"
-	},
+/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/beach/sand,
 /area/medical/genetics)
 "vFP" = (
@@ -119652,7 +119603,6 @@
 	pixel_y = -3;
 	req_access = list(2)
 	},
-/obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -120769,6 +120719,8 @@
 /obj/machinery/alarm{
 	pixel_y = 26
 	},
+/obj/item/storage/belt/medical/surgery/loaded,
+/obj/item/storage/belt/medical/surgery/loaded,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -121270,7 +121222,6 @@
 "vWX" = (
 /obj/machinery/porta_turret,
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navybluecornersalt"
 	},
 /area/turret_protected/aisat)
@@ -126415,7 +126366,6 @@
 /area/maintenance/fpmaint)
 "wVx" = (
 /mob/living/carbon/human/lesser/monkey/punpun{
-	icon = 'icons/mob/monkey.dmi';
 	icon_state = "punpun1"
 	},
 /obj/machinery/hologram/holopad,
@@ -126930,16 +126880,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/reception)
-"xaI" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
-	dir = 2;
-	name = "Труба турбины"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/atmos)
 "xaJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -131669,7 +131609,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/aisat/maintenance)
@@ -132279,7 +132218,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "navyblue"
 	},
 /area/turret_protected/ai)
@@ -219829,7 +219767,7 @@ eab
 liR
 xAa
 liR
-dJF
+bGn
 rWS
 qQo
 pNG
@@ -220085,7 +220023,7 @@ rWS
 oAE
 cVf
 dkU
-ogP
+dJF
 ayE
 rWS
 buS
@@ -220344,7 +220282,7 @@ rWS
 cgG
 rWS
 rWS
-iIO
+rWS
 qQo
 pNG
 mWc
@@ -227384,7 +227322,7 @@ dFy
 dFy
 dFy
 qdY
-odp
+soY
 qdY
 dFy
 dFy
@@ -230754,11 +230692,11 @@ jEA
 mAG
 rkl
 jmg
-xaI
-xaI
-xaI
-xaI
-bGn
+kmC
+kmC
+kmC
+kmC
+xBK
 tLu
 dZI
 bUV
