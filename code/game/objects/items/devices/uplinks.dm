@@ -471,22 +471,23 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/list/traitors = list()
 	var/hijacks = 0
 	var/list/datum/antagonist/vampire/vampires = list()
-	var/clings = 0
+	var/changelings = 0
 	var/thiefs = 0
 	var/ninjas = 0
 	var/wizards = 0
 
 	// Command humanoid antags
-	var/blood_cultists = 0
-	var/ratwar_cultists = 0
-	var/nuclears = 0
+	var/cultists = 0
+	var/clockers = 0
+	var/operatives = 0
 	var/revolutions = 0
 	var/shadowlings = 0
+	var/thralls = 0
 
 	// Bioterrors
-	//var/blobs = GLOB.blobs.len
+	var/blobs = GLOB.blobs.len
 	var/terrors = 0
-	var/xenos = 0
+	var/aliens = 0
 	var/dragons = 0
 	var/carps = 0
 
@@ -497,8 +498,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/morphs = 0
 	var/revenants = 0
 	var/demons = 0
-	var/demon_shadows = 0
-	var/demon_electros = 0
+	var/shadow_demons = 0
+	var/pulse_demons = 0
 
 	//var/seqs = 0
 
@@ -522,20 +523,20 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			var/datum/antagonist/vampire/vampire = M.mind.has_antag_datum(/datum/antagonist/vampire)
 			vampires[vampire.subclass] += vampire
 
-		clings += ischangeling(M)
+		changelings += ischangeling(M)
 		thiefs += isthief(M)
 		ninjas += isninja(M)
 		wizards += iswizard(M)
 
-		blood_cultists += iscultist(M)
-		ratwar_cultists += isclocker(M)
-		nuclears += (M.mind in SSticker.mode.syndicates)
+		cultists += iscultist(M)
+		clockers += isclocker(M)
+		operatives += (M.mind in SSticker.mode.syndicates)
 		revolutions += is_revolutionary(M)
 		shadowlings += isshadowling(M)
+		thralls += is_thrall(M)
 
-		// blobs made before
 		terrors += isterrorspider(M)
-		xenos += isalien(M)
+		aliens += isalien(M)
 		dragons += isspacedragon(M)
 		carps += isspacecarp(M)
 
@@ -545,8 +546,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		morphs += ismorph(M)
 		revenants += istype(M, /mob/living/simple_animal/revenant)
 		demons += isdemon(M)
-		demon_shadows += istype(M, /mob/living/simple_animal/demon/shadow)
-		demon_electros += istype(M, /mob/living/simple_animal/demon/pulse_demon)
+		shadow_demons += istype(M, /mob/living/simple_animal/demon/shadow)
+		pulse_demons += istype(M, /mob/living/simple_animal/demon/pulse_demon)
 
 	var/list/L = list()
 
@@ -570,25 +571,68 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 			L.Add("	" + key.name + ": [max(1, vamplist.len + (prob(10) - prob(10)))]" + (!ascend ? "" : " Количество высших этого класса - [ascend]."))
 
-	if (clings > 3 || clings == 2 && prob(60) || clings == 1 && prob(20) || prob(1))
-		L.Add("Обнаружены генокрады. Их примерное количество - [max(1, clings + (prob(10) - prob(10)))]")
+	if (changelings > 3 || changelings == 2 && prob(60) || changelings == 1 && prob(20) || prob(1))
+		L.Add("Обнаружены генокрады. Их примерное количество - [max(1, changelings + (prob(10) - prob(10)))].")
 
 	if (thiefs > 3 || thiefs == 2 && prob(60) || thiefs == 1 && prob(20) || prob(1))
-		L.Add("Обнаружены члены гильдии воров. Их примерное количество - [max(1, thiefs + (prob(10) - prob(10)))]")
+		L.Add("Обнаружены члены гильдии воров. Их примерное количество - [max(1, thiefs + (prob(10) - prob(10)))].")
 
 	if (ninjas && prob(50 + ninjas * 15) || prob(1))
 		L.Add("Очень вероятна деятельность клана Паука.")
 
 	if (wizards && prob(90) || prob(1))
-		L.Add("Обнаружена активная деятельность Федерации Космических Волшебников. Примерное количество ее представителей на станции - [max(1, wizards + prob(5) - prob(5))]")
+		L.Add("Обнаружена активная деятельность Федерации Космических Волшебников. Примерное количество ее представителей на станции - [max(1, wizards + prob(5) - prob(5))].")
 
-	if (blood_cultists > 3 && prob(30 + blood_cultists * 3))
-		if (prob(90) && blood_cultists < 6 || prob(2))
-			L.Add("Высокая вероятность наличия неизвестного культа на объекте! Будьте осторожны! Примерное количество культистов - [max(2, blood_cultists + rand(-2, 2))]")
+	if (cultists > 3 && prob(30 + cultists * 3))
+		if (prob(90) && cultists < 6 || prob(2))
+			L.Add("Высокая вероятность наличия неизвестного культа на объекте! Будьте осторожны! Примерное количество культистов - [max(2, cultists + rand(-2, 2))].")
 		else
-			L.Add("На объекте обнаружен культ крови! Будьте осторожны! Примерное количество культистов - [max(6, blood_cultists + rand(-3, 3))]")
+			L.Add("На объекте обнаружен культ крови! Будьте осторожны! Примерное количество культистов - [max(6, cultists + rand(-3, 3))].")
 
+	if (clockers > 3 && prob(30 + clockers * 3))
+		if (prob(90) && clockers < 6 || prob(2))
+			L.Add("Высокая вероятность наличия неизвестного культа на объекте! Будьте осторожны! Примерное количество культистов - [max(2, clockers + rand(-2, 2))].")
+		else
+			L.Add("На объекте обнаружен культ ратвара! Будьте осторожны! Примерное количество культистов - [max(6, clockers + rand(-3, 3))].")
 
+	if (operatives > 3 && prob(90 + operatives) || operatives == 2 && prob(50) || prob(1))
+		L.Add("Обнаружены оперативники Синдиката. Примерное количество - [max(3, operatives + rand(-1, 1))].")
+
+	if (revolutions > 4 && prob(40 + revolutions * 2) || prob(2))
+		if (revolutions < 9)
+			L.Add("Из множества источников поступают сведения о растущем недовольстве экипажа.")
+		else
+			L.Add("На станции происходит революция! Примерное число бунтующих - [revolutions + rand(-3, 3)].")
+
+	if (shadowlings > 1 && prob(30 + shadowlings * 10 + thralls) || prob(1))
+		L.Add("Обнаружены тенеморфы. Примерное количество рабов - [max(0, thralls + rand(-2, 2))].")
+
+	if (blobs && prob(90) || prob(2))
+		L.Add("Обнаружена биоугроза 5 уровня. Примерный размер - [max(9, GLOB.blobs.len + rand(-30, 30))].")
+
+	if (aliens && prob(40 + aliens * 5) || prob(2))
+		L.Add("Обнаружена биоугроза 4 уровня. Примерное количество особей - [max(1, aliens + rand(-1, 1))].")
+
+	if (terrors && prob(40 + terrors * 5) || prob(2))
+		L.Add("Обнаружена биоугроза 3 уровня. Примерное количество особей - [max(1, terrors + rand(-1, 1))].")
+
+	if (dragons && prob(60) || prob(1))
+		if (carps < 4)
+			L.Add("Велик шанс присутствия на станции огромного агрессивного существа.")
+		else
+			L.Add("На станции находится Космический дракон. Примерное количество карпов - [max(3, carps + rand(-3, 3))].")
+
+	if ((revenants || devils || demons || shadow_demons || pulse_demons) && prob(70) || prob(1))
+		L.Add("Паранормальный фон значительно выше среднего.")
+
+	if (malfs && prob(10 + malfs * 10) || prob(2))
+		L.Add("Высока вероятность наличия ошибок в работе ИИ станции.")
+
+	if (borers && prob(10 + borers * 5) || prob(1))
+		L.Add("На станции обнаружены мозговые черви. Примерное количество особей - [max(1, borers + rand(-1, 1))].")
+
+	if (morphs && prob(30 + morphs * 10) || prob(1))
+		L.Add("На станции обнаружена биоугроза 6 уровня. Примерное количество особей - [max(1, morphs + rand(-1, 1))].")
 
 	to_chat(user, chat_box_green(L.Join("<br>")))
 
