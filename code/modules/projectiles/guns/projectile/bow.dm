@@ -117,13 +117,12 @@
 
 /obj/item/projectile/bullet/reusable/arrow/prehit(atom/target)
 	var/mob/living/H = target
-	if(istype(target, /mob/))
-		if(LAZYLEN(nemesis_factions))
-			for(var/faction in H.faction)
-				if(faction in nemesis_factions)
-					nemesis_faction = TRUE
-					damage += faction_bonus_damage
-					break
+	if(ismob(H) && LAZYLEN(nemesis_factions))
+		for(var/faction in H.faction)
+			if(faction in nemesis_factions)
+				nemesis_faction = TRUE
+				damage += faction_bonus_damage
+				break
 	. = ..()
 
 /obj/item/projectile/bullet/reusable/arrow/bone //A fully upgraded normal arrow; it's got the stats to show. Still *less* damage than a slug, slower, and with negative AP. Only for bone bow!
