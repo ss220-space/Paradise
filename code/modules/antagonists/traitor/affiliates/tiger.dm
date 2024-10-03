@@ -93,6 +93,7 @@
 			update_icon(UPDATE_ICON_STATE)
 		else
 			to_chat(user, span_notice("[target] body rejects [src]"))
+
 		return
 	else
 		if(target.mind)
@@ -118,12 +119,12 @@
 /obj/item/cling_extract/update_icon_state()
 	icon_state = used ? used_state : initial(icon_state)
 
+// looks like normal egg
 /obj/item/reagent_containers/food/snacks/egg/borer
 	filling_color = "#C0C021"
 	list_reagents = list("protein" = 3, "egg" = 5, "rotatium" = 5)
 	origin_tech = "biotech=6;syndicate=1"
 
-// looks like normal
 /obj/item/reagent_containers/food/snacks/egg/borer/attack_self(mob/living/carbon/human/user)
 	. = ..()
 	var/mob/living/simple_animal/borer/borer = new /mob/living/simple_animal/borer(get_turf(src))
@@ -131,6 +132,135 @@
 	to_chat(user, span_notice("You squashed [src]. There was a [borer] inside."))
 	qdel(src)
 
+/obj/item/borer_scanner // Looks like normal analyzer
+	desc = "A hand-held environmental scanner which reports current gas levels."
+	name = "analyzer"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "atmos"
+	item_state = "analyzer"
+	w_class = WEIGHT_CLASS_SMALL
+	flags = CONDUCT
+	slot_flags = ITEM_SLOT_BELT
+	throwforce = 0
+	throw_speed = 3
+	throw_range = 7
+	origin_tech = "magnets=1;engineering=1;biotech=3;syndicate=1"
+	var/scan_cooldown_time = 3 SECONDS
+	COOLDOWN_DECLARE(scan_cooldown)
+
+/obj/item/borer_scanner/attack(mob/living/target, mob/living/user, def_zone)
+	return
+
+/obj/item/borer_scanner/proc/analyze(mob/user)
+	var/alive = 0
+	var/dead = 0
+	var/with_mind = 0
+	var/in_body_with_mind = 0
+	var/in_body_without_mind = 0
+
+	for (var/mob/living/simple_animal/borer/borer in GLOB.mob_list)
+		if (!is_station_level(get_turf(borer)))
+			continue
+
+		if (borer.stat == DEAD)
+			dead++
+			continue
+		else
+			alive++
+
+		if (borer.mind)
+			with_mind++
+
+		if (borer.host)
+			if (borer.host.mind)
+				in_body_with_mind++
+			else
+				in_body_without_mind++
+
+	var/list/scan_data = list()
+
+	scan_data += "Живых особей бореров: [alive]"
+	scan_data += "	Среди них разумны: [with_mind]"
+	scan_data += "	Количество особей с разумным носителем: [in_body_without_mind]"
+	scan_data += "	Количество особей с неразумным носителем: [in_body_without_mind]"
+	scan_data += "Мертвых особей: [dead]"
+
+	var/datum/browser/popup = new(user, "scanner", "Сканирование станции", 300, 300)
+	popup.set_content("[scan_data]")
+	popup.open(no_focus = 1)
+
+/obj/item/borer_scanner/proc/find_borer(mob/user)
+	var/list/mob/living/simple_animal/borer/borers = list()
+	for (var/mob/living/simple_animal/borer/borer in GLOB.mob_list)
+		if (istype(borer) && is_station_level(borer.z))
+			borers += borer
+
+	var/mob/living/simple_animal/borer/borer = input("Выберите искомого борера", "Выбор борера") as null|anything in borers
+
+	var/list/scan_data = list()
+	if (borer.stat == DEAD)
+		scan_data += "Выбранный борер мертв."
+
+	scan_data += "Местоположение - (X: [borer.x] Y: [borer.y])"
+
+	if (borer.host)
+		scan_data += "Имеется носитель" + (borer.host.dna?.species ? ("расы " + span_boldnotice("[borer.host.dna?.species]")) : ".")
+		scan_data += "Имя носителя - [borer.host.real_name]."
+	else
+		scan_data += "Носитель не обнаружен."
+		if (is_ventcrawling(borer))
+			scan_data += "Субъект находится в вентиляции."
+
+	var/datum/browser/popup = new(user, "scanner", "Поиск борера", 300, 300)
+	popup.set_content("[scan_data]")
+	popup.open(no_focus = 1)
+
+/obj/item/borer_scanner/attack_self(mob/user)
+	var/datum/antagonist/traitor/traitor = user?.mind?.has_antag_datum(/datum/antagonist/traitor)
+	if (!traitor || !istype(traitor?.affiliate, /datum/affiliate/tiger))
+		to_chat(user, span_warning("[src] looks broken."))
+		return
+
+	if (!COOLDOWN_FINISHED(src, scan_cooldown))
+		user.balloon_alert(user, "Перезарядка не завершена")
+		return
+
+	var/op_type = tgui_alert(user, "Сканер бореров", "Выберите тип операции", list("Сканирование станции", "Поиск борера"))
+
+	if(!op_type)
+		user.balloon_alert(user, "Сканирвание отменено")
+		return
+
+	COOLDOWN_START(src, scan_cooldown, scan_cooldown_time)
+
+	if(op_type == "Сканирование станции")
+		analyze(user)
+	else
+		find_borer(user)
+
+/obj/item/borer_scanner/afterattack(atom/target, mob/user, proximity, params)
+	var/datum/antagonist/traitor/traitor = user.mind.has_antag_datum(/datum/antagonist/traitor)
+	if (!traitor || !istype(traitor?.affiliate, /datum/affiliate/tiger))
+		to_chat(user, span_warning("[src] looks broken."))
+		return
+
+	if (!istype(target, /mob/living/simple_animal/borer))
+		return
+
+	if (!COOLDOWN_FINISHED(src, scan_cooldown))
+		user.balloon_alert(user, "Перезарядка не завершена")
+		return
+
+	var/mob/living/simple_animal/borer/borer = target
+
+
+
+// Добавить набор для разведения бореров за 29ТК
+// В набор будут входить:
+// Яйцо борера
+// Этот сканер
+// Имплантер фигни позволяющей слышать бореров и посылать сообщение сразу всем, включая контролирующих носителей.
+// Шлем позволяющий наблюдать через глаза бореров.
 
 #undef FREE_INJECT_TIME
 #undef TARGET_INJECT_TIME

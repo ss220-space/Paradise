@@ -2030,7 +2030,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/borers
 	needs_target = FALSE
-	var/req = 3
+	var/req = 4
 
 /datum/objective/borers/New()
 	. = ..()

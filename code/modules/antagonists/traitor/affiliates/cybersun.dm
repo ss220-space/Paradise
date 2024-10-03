@@ -176,10 +176,15 @@
 	mecha.operation_req_access = list()
 	mecha.internals_req_access = list()
 
+	user.visible_message(span_warning("[user] hacked [mecha] using [src]."))
+
 	if (mecha.occupant)
+		to_chat(mecha.occupant, span_danger("[user] hacked [mecha] using [src]. You were thrown out."))
+
 		mecha.occupant.forceMove(get_turf(mecha))
 		mecha.occupant.Knockdown(6 SECONDS)
 		mecha.occupant.electrocute_act(30, mecha)
+		mecha.occupant.throw_at(pick(orange(2)))
 		mecha.occupant = null
 
 
@@ -203,6 +208,9 @@
 /obj/item/Syndie_patcher/afterattack(atom/target, mob/user, proximity, params)
 	if(isrobot(target))
 		if(do_after(user, 10 SECONDS, target, max_interact_count = 1))
+			user.visible_message(span_warning("[user] upgraded [target] using [src]."))
+			to_chat(target, span_danger("[user] hacked and upgraded you using [src]."))
+
 			var/mob/prev_robot = target
 			var/mob/living/silicon/robot/syndicate/robot = new(get_turf(target))
 			prev_robot.mind?.transfer_to(robot)
@@ -216,11 +224,11 @@
 
 /obj/item/implanter/mini_traitor
 	name = "bio-chip implanter (Modified Mindslave)"
+	desc = "На боку едва заметная гравировка \"Cybersun Industries\"."
 	imp = /obj/item/implant/mini_traitor
 
 /obj/item/implant/mini_traitor // looks like normal but doesn't make you normal after removing
 	name = "Mindslave Bio-chip"
-	desc = "На боку едва заметная гравировка \"Cybersun Industries\"."
 	implant_state = "implant-syndicate"
 	origin_tech = "programming=4;biotech=4;syndicate=7" // As original, but - 1 level of every tech
 	activated = BIOCHIP_ACTIVATED_PASSIVE

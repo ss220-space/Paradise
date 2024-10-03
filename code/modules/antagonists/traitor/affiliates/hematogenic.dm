@@ -204,6 +204,9 @@
 		item_state = "blood1_used"
 		update_icon(UPDATE_ICON_STATE)
 
+	playsound(src, 'sound/goonstation/items/hypo.ogg', 80)
+	user.visible_message(span_info("[user] cleared blood at [src]."))
+
 /obj/item/blood_harvester/examine(mob/user)
 	. = ..()
 

@@ -501,7 +501,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/shadow_demons = 0
 	var/pulse_demons = 0
 
-	//var/seqs = 0
+	var/crew = 0
 
 	for(var/mob/M in GLOB.player_list)
 		if (!M.mind)
@@ -511,6 +511,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			continue
 
 		if (!M.mind.special_role)
+			continue
+
+		if (!is_station_level(M.z))
 			continue
 
 		if (istraitor(M))
@@ -549,10 +552,11 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		shadow_demons += istype(M, /mob/living/simple_animal/demon/shadow)
 		pulse_demons += istype(M, /mob/living/simple_animal/demon/pulse_demon)
 
+		crew += ishuman(M)
+
 	var/list/L = list()
 
 	L.Add(tagB(span_red("Последние данные разведки MI13")))
-//	L.Add("")
 
 	if (traitors.len > 3 || traitors.len == 3 && prob(60))
 		L.Add("Обнаружены агенты:")
@@ -633,6 +637,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	if (morphs && prob(30 + morphs * 10) || prob(1))
 		L.Add("На станции обнаружена биоугроза 6 уровня. Примерное количество особей - [max(1, morphs + rand(-1, 1))].")
+
+	L.Add("Примерное количество живых гуманойдов на стацнии - [max(1, crew + rand(-3, 3))].")
 
 	to_chat(user, chat_box_green(L.Join("<br>")))
 

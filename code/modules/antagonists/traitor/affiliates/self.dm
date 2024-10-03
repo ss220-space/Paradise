@@ -29,7 +29,6 @@
 /obj/item/card/self_emag
 	name = "Liberating Sequencer"
 	desc = "Это карта с магнитной полосой, прикрепленной к какой-то схеме. На магнитной полосе блестит надпись \"S.E.L.F.\"" // Cybersun stole some
-	origin_tech = "magnets=2;syndicate=2"
 	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "self_emag"
@@ -46,7 +45,7 @@
 	. = ..()
 	var/datum/antagonist/traitor/traitor = user.mind.has_antag_datum(/datum/antagonist/traitor)
 	if (!istype(traitor.affiliate, /datum/affiliate/self))
-		. += span_info("На миниатюрном экране плывут непонятные символы.")
+		. += span_info("На миниатюрном экране плывут непонятные вам символы.")
 		return
 
 	if (!names.len)
