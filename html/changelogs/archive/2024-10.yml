@@ -7,6 +7,15 @@
   - add: RD doll (#5963)
   Valtor:
   - bugfix: donor loadout (#5965)
+  Vladisvell:
+  - bugfix: Fixed titlescreen runtime (#5969)
   dageavtobusnick:
   - tweak: Traitor job ban not affect ert (#5966)
   - unknown: goon vampire and new vampire now has common code (#5604)
+'2024-10-03':
+  Antoonij:
+  - add: Borer ranks, focuses (#5774)
+  PiroMage:
+  - bugfix: 'Nova Station #2 Patch (#5962)'
+  dageavtobusnick:
+  - unknown: сentcomm rapier (#5924)
