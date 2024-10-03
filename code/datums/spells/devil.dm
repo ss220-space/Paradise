@@ -292,8 +292,10 @@
 
 		dancefloor_exists = TRUE
 		var/i = 1
-		LAZYLEN(dancefloor_turfs) = funky_turfs.len
+
+		dancefloor_turfs.len = funky_turfs.len
 		dancefloor_turfs_types.len = funky_turfs.len
+		
 		for(var/t in funky_turfs)
 			var/turf/T = t
 			dancefloor_turfs[i] = T
