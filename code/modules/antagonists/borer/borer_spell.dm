@@ -118,10 +118,10 @@
 	return /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/borer_force_say/can_cast(mob/living/simple_animal/borer/user, charge_check = TRUE, show_message = FALSE)
-	if (!src || user.stat || !user.host || user.host.stat)
+	if (user.stat || user.host?.stat)
 		return FALSE
 
-	if(user.evo_points < evo_cost)
+	if(user.antag_datum.evo_points < evo_cost)
 		to_chat(user, "Вам требуется еще [evo_cost - user.antag_datum.evo_points] очков эволюции для подчинения голосовых связок хозяина.")
 		return FALSE
 
@@ -138,4 +138,5 @@
 
 	user.host.say(force_say_content)
 	user.antag_datum.evo_points -= evo_cost
+	
 	add_attack_logs(user, user.host, "Forcesaid: [force_say_content]")
