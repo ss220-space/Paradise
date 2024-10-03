@@ -48,6 +48,10 @@
 	nitrogen = 82
 	temperature = 180
 
+/turf/simulated/floor/wood/dark
+	icon_state = "dark-wood"
+	floor_tile = /obj/item/stack/tile/wood/dark
+
 /turf/simulated/floor/wood/oak
 	icon_state = "wood-oak"
 	floor_tile = /obj/item/stack/tile/wood/oak
