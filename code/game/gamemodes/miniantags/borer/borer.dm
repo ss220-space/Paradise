@@ -216,16 +216,21 @@
 
 	if(talk_inside_host)
 		to_chat(src, span_notice("Теперь вы будете говорить в сознание носителя."))
-		return talk_inside_host = FALSE
+		talk_inside_host = FALSE
+		return
 		
 	to_chat(src, span_notice("Теперь вы сможете говорить, находясь внутри носителя."))
-	return talk_inside_host = TRUE
+	talk_inside_host = TRUE
+	return
 
 /mob/living/proc/borer_comm()
 	if(stat == DEAD) // This shouldn't appear if host is not alive, but double-check
 		return
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
+
+	if(!B)
+		return
 
 	var/input = stripped_input(src, "Введите сообщение для мозгового червя.", "Сообщение", "")
 	if(!input)
@@ -247,7 +252,7 @@
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 
-	if(!B.host_brain)
+	if(!B?.host_brain)
 		return
 
 	var/mob/living/captive_brain/CB = B.host_brain
@@ -318,69 +323,18 @@
 		to_chat(src, span_notice("Вы анализируете жизненные показатели [M]."))
 		healthscan(src, M, 1, TRUE)
 
-/obj/effect/proc_holder/spell/borer_infest
-	name = "Infest"
-	desc = "Infest a suitable humanoid host."
-	base_cooldown = 0
-	clothes_req = FALSE
-	action_icon_state = "infest"
-	action_background_icon_state = "bg_alien"
-	selection_activated_message = span_notice("Вы приготовились заразить жертву. <B>Left-click чтобы применить способность!</B>")
-	selection_deactivated_message = span_notice("Вы прекратили свои попытки заразить жертву.")
-	need_active_overlay = TRUE
-	human_req = FALSE
-	var/infesting = FALSE
-
-/obj/effect/proc_holder/spell/borer_infest/create_new_targeting()
-	var/datum/spell_targeting/click/T = new()
-	T.range = 1
-	T.click_radius = -1
-	return T
-
-/obj/effect/proc_holder/spell/borer_infest/can_cast(mob/living/user, charge_check = TRUE, show_message = FALSE)
-
-	if (is_ventcrawling(user) || !src || user.stat || infesting)
-		return FALSE
-
-	. = ..()
-
-/obj/effect/proc_holder/spell/borer_infest/valid_target(mob/living/carbon/human/target, user)
-	return istype(target) && target.stat != DEAD && !ismachineperson(target)
-
-/obj/effect/proc_holder/spell/borer_infest/cast(list/targets, mob/living/simple_animal/borer/user)
-	var/mob/living/carbon/human/target = targets[1]
-
-	if(!target)
-		return
-
-	infesting = TRUE
-	to_chat(user, "Вы подползаете к [target] и начинаете искать [genderize_ru(target.gender,"его","её","его","их" )] слуховой проход...")
-
-	if(!do_after(user, 5 SECONDS, target, NONE))
-		to_chat(user, "Как только [target] отходит, вы срываетесь и падаете на пол.")
-		infesting = FALSE
-		return
-
-	if(target.has_brain_worms())
-		to_chat(user, span_warning("[target] уже заражён!"))
-		infesting = FALSE
-		return
-
-	infesting = FALSE
-	user.host = target
-	add_attack_logs(user, user.host, "Infested as borer")
-	target.borer = user
-	user.forceMove(target)
-	user.host.status_flags |= PASSEMOTES
-
-	user.RemoveBorerActions()
-	user.RemoveBorerSpells()
-	user.GrantInfestActions()
-
-	to_chat(user, span_boldnotice("Вы можете анализировать здоровье носителя при помощи Left-click."))
-	SEND_SIGNAL(user, COMSIG_BORER_ENTERED_HOST)
-
 /mob/living/simple_animal/borer/proc/secrete_chemicals()
+	if(!host)
+		to_chat(src, "Вы не находитесь в теле носителя.")
+		return
+
+	if(stat)
+		to_chat(src, "Вы не можете производить химикаты в вашем нынешнем состоянии.")
+		return
+
+	if(docile)
+		to_chat(src, "<font color='blue'>Вы слишком обессилели для этого.</font>")
+		return
 
 	var/content = ""
 
@@ -432,6 +386,17 @@
 	..()
 
 /mob/living/simple_animal/borer/proc/focus_menu()
+	if(!host)
+		to_chat(src, "Вы не находитесь в теле носителя.")
+		return
+
+	if(stat)
+		to_chat(src, "Вы не можете эволюционировать в вашем нынешнем состоянии.")
+		return
+
+	if(docile)
+		to_chat(src, "<font color='blue'>Вы слишком обессилели для этого.</font>")
+		return
 		
 	var/list/content = list()
 	
@@ -470,45 +435,22 @@
 	hiding = FALSE
 	return
 
-/obj/effect/proc_holder/spell/borer_dominate
-	name = "Dominate Victim"
-	desc = "Freeze the limbs of a potential host with supernatural fear."
-	base_cooldown = 30 SECONDS
-	clothes_req = FALSE
-	action_icon_state = "genetic_cryo"
-	action_background_icon_state = "bg_alien"
-	selection_activated_message = span_notice("Вы приготовились поразить жертву. <B>Left-click чтобы применить способность!</B>")
-	selection_deactivated_message = span_notice("Вы решили дать своей жертве шанс. Пока что.")
-	need_active_overlay = TRUE
-	human_req = FALSE
-
-/obj/effect/proc_holder/spell/borer_dominate/create_new_targeting()
-	var/datum/spell_targeting/click/T = new()
-	T.range = 3
-	T.click_radius = -1
-	return T
-
-/obj/effect/proc_holder/spell/borer_dominate/can_cast(mob/living/user, charge_check = TRUE, show_message = FALSE)
-
-	if (is_ventcrawling(user) || !src || user.stat)
-		return FALSE
-	. = ..()
-
-/obj/effect/proc_holder/spell/borer_dominate/valid_target(mob/living/carbon/human/target, user)
-	return istype(target) && target.stat != DEAD
-
-/obj/effect/proc_holder/spell/borer_dominate/cast(list/targets, mob/living/simple_animal/borer/user)
-	var/mob/living/carbon/human/target = targets[1]
-
-	if(target.has_brain_worms())
-		to_chat(user, span_warning("Вы не можете позволить себе сделать это с тем, кто уже заражён.."))
+/mob/living/simple_animal/borer/proc/release_host()
+	if(!host)
+		to_chat(src, "Вы не находитесь в теле носителя.")
 		return
 
-	to_chat(user, span_warning("Вы пронзили разум [target] пси-потоком, парализуя [genderize_ru(target.gender,"его","её","его","их" )] конечности волной первородного ужаса!"))
-	to_chat(target, span_warning("Вы чувствуете, как на вас наваливается жуткое чувство страха, леденящее конечности и заставляющее сердце бешено колотиться."))
-	target.Weaken(6 SECONDS)
+	if(stat)
+		to_chat(src, "Вы не можете покинуть носителя в вашем текущем состоянии.")
+		return
 
-/mob/living/simple_animal/borer/proc/release_host()
+	if(docile)
+		to_chat(src, span_notice("<font color='blue'>Вы слишком обессилели для этого.</font>"))
+		return
+
+	if(!host || !src)
+		return
+
 	leaving = !leaving
 	let_go()
 	leaving = FALSE
@@ -568,8 +510,20 @@
 	return
 
 /mob/living/simple_animal/borer/proc/bond_brain()
+	if(!host)
+		to_chat(src, "Вы не находитесь в теле носителя.")
+		return
+
 	if(host.stat == DEAD)
 		to_chat(src, "Носитель не может быть взят под контроль в его текущем состоянии.")
+		return
+
+	if(stat)
+		to_chat(src, "Вы не можете сделать этого в вашем нынешнем состоянии.")
+		return
+
+	if(docile)
+		to_chat(src, span_notice("<font color='blue'>Вы слишком обессилели для этого.</font>"))
 		return
 
 	if(QDELETED(src) || QDELETED(host))
@@ -654,9 +608,10 @@
 /mob/living/carbon/proc/punish_host()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 
-	if(borer.host_brain)
+	if(borer?.host_brain)
 		to_chat(src, span_danger("Вы посылаете карающий всплеск психической агонии в мозг своего носителя."))
 		to_chat(borer.host_brain, span_danger("<FONT size=3>Ужасная, жгучая агония пронзает вас насквозь, вырывая беззвучный крик из глубин вашего запертого разума!</FONT>"))
+
 	return
 	
 //Brain slug proc for voluntary removal of control.
@@ -664,7 +619,7 @@
 
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 
-	if(borer.host_brain)
+	if(borer?.host_brain)
 		to_chat(src, span_danger("Вы убираете свои хоботки, освобождая [borer.host_brain]."))
 		borer.detach()
 		return 
@@ -692,21 +647,33 @@
 	return FALSE
 
 /mob/living/carbon/proc/spawn_larvae()
-	var/mob/living/simple_animal/borer/borer = has_brain_worms()
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
 
-	to_chat(src, span_danger("Ваш хозяин дёргается и вздрагивает, когда вы быстро выводите личинку из своего слизнеподобного тела."))
-	visible_message(span_danger("[src] яростно блюёт, изрыгая рвотные массы вместе с извивающимся, похожим на слизня существом!"))
+	if(!B)
+		return
 
-	var/turf/turf = get_turf(src)
-	turf.add_vomit_floor()
+	if(B.chemicals >= 100)
+		B.chemicals -= 100
 
-	new /mob/living/simple_animal/borer(turf, borer.generation + 1)
-	borer.antag_datum.post_reproduce()
+		to_chat(src, span_danger("Ваш хозяин дёргается и вздрагивает, когда вы быстро выводите личинку из своего слизнеподобного тела."))
+		visible_message(span_danger("[src] яростно блюёт, изрыгая рвотные массы вместе с извивающимся, похожим на слизня существом!"))
 
+		var/turf/T = get_turf(src)
+		T.add_vomit_floor()
+
+		new /mob/living/simple_animal/borer(T, B.generation + 1)
+		borer.antag_datum.post_reproduce()
+
+		return
+
+	to_chat(src, "Вам требуется 100 химикатов для размножения!")
 	return
 
 /mob/living/carbon/proc/sneak_mode()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
+
+	if(!borer)
+		return
 
 	if(borer.sneaking)
 		to_chat(src, span_danger("Вы перестаете скрывать свое присутствие!"))
@@ -718,9 +685,14 @@
 		to_chat(src, span_danger("Душа вашего хозяина не позволяет вам скрыть свое присутствие!"))
 		return
 
-	borer.sneaking = TRUE
-	to_chat(src, span_notice("Вы скрываете ваше присутствие внутри хозяина!"))
-	borer.host.med_hud_set_status()
+	if(borer.chemicals >= 50)
+		borer.sneaking = TRUE
+		to_chat(src, span_notice("Вы скрываете ваше присутствие внутри хозяина!"))
+		borer.chemicals -= 50
+		borer.host.med_hud_set_status()
+		return
+
+	to_chat(src, "Вам требуется 50 химикатов для сокрытия вашего присутствия!")
 	return
 
 /mob/living/simple_animal/borer/proc/detach()
