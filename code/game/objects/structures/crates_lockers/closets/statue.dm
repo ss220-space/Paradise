@@ -88,6 +88,9 @@
 /obj/structure/closet/statue/toggle()
 	return
 
+/obj/structure/closet/statue/shove_impact(mob/living/target, mob/living/attacker)
+	return FALSE
+
 /obj/structure/closet/statue/obj_destruction(damage_flag)
 	for(var/mob/M in src)
 		shatter(M)

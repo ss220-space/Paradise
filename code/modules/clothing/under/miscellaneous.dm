@@ -1175,7 +1175,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
-/obj/item/clothing/under/maid
+/obj/item/clothing/under/maid/short
 	name = "short maid costume"
 	desc = "Костюм для косплея горничной."
 	over_shoes = TRUE

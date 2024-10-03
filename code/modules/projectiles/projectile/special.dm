@@ -144,9 +144,59 @@
 		if(!mob.stat)
 			shake_camera(mob, 3, 1)
 
-
-/obj/item/projectile/energy/floramut
+// FLORAGUN
+/obj/item/projectile/energy/floraalpha
 	name = "alpha somatoray"
+	icon_state = "declone"
+	damage = 2
+	hitsound = 'sound/weapons/tap.ogg'
+	damage_type = BURN
+	nodamage = FALSE
+	flag = "energy"
+	range = 7
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
+	/// how strong the fire will be
+	var/fire_stacks = 0.3
+
+/obj/item/projectile/energy/floraalpha/prehit(atom/target)
+	if(target && !HAS_TRAIT(target, TRAIT_PLANT_ORIGIN)) // burn damage for only plant
+		damage = 0
+	. = ..()
+
+/obj/item/projectile/energy/floraalpha/on_range()
+	strike_thing()
+	. = ..()
+
+/obj/item/projectile/energy/floraalpha/on_hit(atom/target, blocked = 0, hit_zone)
+	strike_thing(target)
+	. = ..()
+
+/obj/item/projectile/energy/floraalpha/proc/strike_thing(atom/target)
+	var/turf/target_turf = get_turf(target)
+	if(!target_turf)
+		target_turf = get_turf(src)
+	new /obj/effect/temp_visual/explosion/florawave(target_turf)
+	for(var/currentTurf in RANGE_TURFS(1, target_turf))
+		for(var/object in currentTurf)
+			if(isdiona(object))
+				var/mob/living/plant = object
+				if(!plant.on_fire) // the hit has no effect if the target is on fire
+					plant.adjust_fire_stacks(fire_stacks)
+					plant.IgniteMob()
+			else if(is_type_in_list(object, list(/obj/structure/glowshroom, /obj/structure/spacevine)))
+				if(prob(5))
+					new /obj/effect/decal/cleanable/molten_object(get_turf(object))
+				else
+					new /obj/effect/temp_visual/removing_flora(get_turf(object))
+				qdel(object)
+
+/obj/item/projectile/energy/floraalpha/emag
+	range = 9
+	damage = 15
+	fire_stacks = 10
+
+/obj/item/projectile/energy/florabeta
+	name = "beta somatoray"
 	icon_state = "energy"
 	damage = 0
 	hitsound = 'sound/weapons/tap.ogg'
@@ -155,50 +205,15 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	flag = "energy"
 
-/obj/item/projectile/energy/floramut/on_hit(var/atom/target, var/blocked = 0)
-	..()
-	var/mob/living/M = target
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = M
-		if(IS_PLANT in H.dna.species.species_traits)
-			if(prob(15))
-				M.apply_effect((rand(30,80)),IRRADIATE)
-				M.Weaken(10 SECONDS)
-				M.visible_message("<span class='warning'>[M] writhes in pain as [M.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
-				if(prob(80))
-					randmutb(M)
-				else
-					randmutg(M)
-				M.check_genes()
-			else
-				M.adjustFireLoss(rand(5,15))
-				M.show_message("<span class='warning'>The radiation beam singes you!</span>")
-	else if(iscarbon(target))
-		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
-	else
-		return 1
-
-/obj/item/projectile/energy/florayield
-	name = "beta somatoray"
+/obj/item/projectile/energy/floragamma
+	name = "gamma somatoray"
 	icon_state = "energy2"
 	damage = 0
 	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = TOX
 	nodamage = TRUE
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	flag = "energy"
-
-/obj/item/projectile/energy/florayield/on_hit(var/atom/target, var/blocked = 0)
-	..()
-	var/mob/M = target
-	if(ishuman(target)) //These rays make plantmen fat.
-		var/mob/living/carbon/human/H = M
-		if(IS_PLANT in H.dna.species.species_traits)
-			H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
-	else if(iscarbon(target))
-		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
-	else
-		return 1
-
 
 /obj/item/projectile/beam/mindflayer
 	name = "flayer ray"

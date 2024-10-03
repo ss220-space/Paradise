@@ -218,7 +218,7 @@
 			to_chat(user, span_warning("The solar panel should be secured to the floor first."))
 			return ATTACK_CHAIN_PROCEED
 		var/cached_sound = glass.usesound
-		if(glass.use(2))
+		if(!glass.use(2))
 			to_chat(user, span_warning("You need at least two sheets of glass to put them into the solar panel."))
 			return ATTACK_CHAIN_PROCEED
 		playsound(loc, cached_sound, 50, TRUE)
@@ -249,7 +249,7 @@
 		tracker = TRUE
 		user.visible_message(
 			span_notice("[user] has inserted the tracker electronics into the solar assembly."),
-			span_notice("You have insert the tracker electronics into the solar assembly."),
+			span_notice("You have inserted the tracker electronics into the solar assembly."),
 		)
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL

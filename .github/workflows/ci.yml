@@ -2,16 +2,16 @@ name: CI
 on:
   push:
     branches:
-    - master220
-    - whitelist220
-    - testmerge
-    - tutorial
-    - dev
+      - master220
+      - whitelist220
+      - testmerge
+      - tutorial
+      - dev
   pull_request:
     branches:
-    - master220
-    - whitelist220
-    - tutorial
+      - master220
+      - whitelist220
+      - tutorial
   merge_group:
   workflow_call:
 
@@ -75,7 +75,14 @@ jobs:
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/cerestation', '/datum/map/celestation']
+        maptype:
+          [
+            '/datum/map/cyberiad',
+            '/datum/map/delta',
+            '/datum/map/cerestation',
+            '/datum/map/celestation',
+            '/datum/map/nova',
+          ]
         byondtype: ['STABLE']
     services:
       mariadb:
@@ -114,4 +121,3 @@ jobs:
           tools/ci/dm.sh -DCIBUILDING paradise.dme
           echo '${{ matrix.maptype }}' > data/next_map.txt
           tools/ci/run_server.sh
-

@@ -1,0 +1,186 @@
+'2024-09-01':
+  Den109G:
+  - bugfix: short maid dress now is diffrent dress (#5841)
+  MstrKabach:
+  - add: upgraded hypospray (#5822)
+  Pelmenik123:
+  - add: locator_pod (#5824)
+  Sheya:
+  - bugfix: lockers (#5840)
+'2024-09-02':
+  Den109G:
+  - bugfix: Now mine checks for both legs, not just left ones (#5845)
+  Mahimka42:
+  - add: Anti-epidemic equipment crate (#5842)
+  Sheya:
+  - bugfix: lockers 2 (#5847)
+  Valtor:
+  - bugfix: vox passive health regen (#5846)
+'2024-09-06':
+  Daeberdir:
+  - tweak: wallet can hold keys. (#5859)
+  - tweak: un-**loud**-ing shadowling's hatch. (#5858)
+  LiquidPotroh:
+  - bugfix: Xenomorphs can't devour (#5862)
+  Mahimka42:
+  - bugfix: Flowers and implants are correctly provided in hand (#5853)
+  MeowEmiya:
+  - server: Ashwalkers eyes (#5851)
+  NuSanya:
+  - bugfix: small delivery packages deleting the wrapped item (#5854)
+  SHODAN:
+  - bugfix: Laser damage in solid smoke (#5823)
+  Sheya:
+  - tweak: ninja rad armor (#5852)
+  SyndiCat:
+  - tweak: chameleon taipan stamp  (#5864)
+  - tweak: lower price from 50 to 30 for emag (#5861)
+'2024-09-07':
+  Anorak2020:
+  - bugfix: farvision after death (#5850)
+  - add: Leg paralysis (#5827)
+  Kray1k:
+  - bugfix: pod key now lock/unlock pods & cargo orders now can be multiple & borgos
+      now can unlock himself (#5868)
+  Mahimka42:
+  - tweak: add patch boxes and thick tape roll to the taipan (#5863)
+  NuSanya:
+  - bugfix: haloperidol being harmless (#5869)
+  SyndiCat:
+  - add: gamma shuttle transition (#5860)
+  - imageadd: charcoal olives (#5867)
+'2024-09-08':
+  Vladisvell:
+  - add: 1643 compatibility patch (#5866)
+'2024-09-10':
+  FanTik-Ratge:
+  - imageadd: colour fix4pants (#5882)
+  WolfLox:
+  - bugfix: we delete the wall that was in the wrong place (#5887)
+'2024-09-11':
+  Anorak2020:
+  - bugfix: Leg paralysis/no legs wheelchair (#5873)
+  Antoonij:
+  - refactor: Eatable component & stacks are now eatable & species special diet. (#5843)
+  Aziz Chynaliev:
+  - bugfix: blacklist check logic issue preventing spawn
+  BoshyG:
+  - bugfix: Leather satchel right inhand FIX (#5879)
+  Daeberdir:
+  - bugfix: Resonator and fleshmaul attackchain cooldowns. (#5878)
+  - bugfix: Taipan Spawn. (#5871)
+  - bugfix: Gas sensor actualization. (#5886)
+  Etrnlmelancholy:
+  - add: voxes banned from official NT jobs (#5865)
+  NuSanya:
+  - add: focus contractor baton module in contractor hub (#5883)
+  Ozen:
+  - tweak: Blueshield role requirements. (#5872)
+  ROdenFL:
+  - add: succumb alert (#5771)
+  pilygun:
+  - tweak: Удаление турелей тайпана + сапёр (#5848)
+'2024-09-13':
+  Antoonij:
+  - bugfix: Eatable component attack speed & cloth material fix (#5895)
+  Aziz Chynaliev:
+  - bugfix: revert bit shift define
+  Daeberdir:
+  - bugfix: Ghostrole spawner again, (#5897)
+  Den109G:
+  - bugfix: Dye bottle is working (#5901)
+  ROdenFL:
+  - unknown: title menu (#5819)
+  Vladisvell:
+  - add: Lockers and crates are now opened with chance when hit into wall (#5902)
+'2024-09-14':
+  Aziz Chynaliev:
+  - bugfix: status bar visibility
+  Sheya:
+  - add: stock parts, apc, cells, cell charger (#5904)
+'2024-09-15':
+  Aziz Chynaliev:
+  - del: xray removes tint and eyeprot" (#5908)
+  BoshyG:
+  - bugfix: New parts fix (#5911)
+  dageavtobusnick:
+  - bugfix: shadowlings ascend fix (#5912)
+'2024-09-17':
+  Daeberdir:
+  - experiment: Trash lines cleaning for map files. (#5899)
+'2024-09-21':
+  L343-CJ:
+  - bugfix: fixed the interaction of the holotool with the mechs (#5929)
+  SyndiCat:
+  - qol: toggle item tips (#5909)
+  Valtor:
+  - bugfix: deepfryer is now working (#5919)
+  - bugfix: no cyborg wheelchairs (#5925)
+'2024-09-22':
+  Antoonij:
+  - refactor: godmode (#5920)
+  Den109G:
+  - bugfix: Delete runtime from DeathSquad's upgrade (#5923)
+  - bugfix: Closets use correct sprite (#5918)
+  NoName:
+  - add: Advanced laser surgery tools (#5836)
+  Sheya:
+  - tweak: cyber heart stamina regen (#5927)
+'2024-09-23':
+  pilygun:
+  - imageadd: Респрайт мед. патчей  (#5933)
+'2024-09-24':
+  Etrnlmelancholy:
+  - bugfix: brig phys and pod pilot banned for voxes (#5941)
+'2024-09-25':
+  NoName:
+  - bugfix: fix name laser surgery tools (#5942)
+  PiroMage:
+  - add: New Station "Nova" (#5461)
+'2024-09-26':
+  Antoonij:
+  - bugfix: runtimes and implanter fix (#5947)
+  Den109G:
+  - add: Flipping helper (#5935)
+  NuSanya:
+  - add: riot scattershot, pointblank mech shooting, pointblank bugfix [bounty] (#5916)
+'2024-09-27':
+  Arc:
+  - unknown: surgical belts for medic (#5945)
+  Honker9999999:
+  - add: combat drones for traitors (#5906)
+  Mahimka42:
+  - add: new AI sprite - HAL900 (#5928)
+  Sheya:
+  - add: fake blindfold (#5943)
+  SyndiCat:
+  - bugfix: detective's access to the shuttle (#5936)
+  Valtor:
+  - bugfix: racial loadout  (#5939)
+  pilygun:
+  - qol: Перевод + балун алерты для часто применимых статус эффектов. (#5934)
+'2024-09-28':
+  Daeberdir:
+  - bugfix: Mapfixes. (#5905)
+  Den109G:
+  - bugfix: Now you can sit on chairs near walls. (#5953)
+  LiquidPotroh:
+  - add: Touch reaction now depends on the protection (#5880)
+  NightDawnFox:
+  - add: new shoves impact + brand intelligence tweaks (#5608)
+  - balance: projectiles once again can hit crawling people by default. (#5956)
+  - balance: fake insulated gloves now can be recognized only in close range (#5954)
+  PiroMage:
+  - bugfix: 'Nova Station #1 Patch (#5952)'
+  chomasuke:
+  - add: Add surgery sounds (#5937)
+  pilygun:
+  - add: Updates to the Dormitories prize slot machine + перевод (#5829)
+'2024-09-29':
+  KA8EP:
+  - add: New Space Ruin (#5577)
+  LiquidPotroh:
+  - bugfix: protection in touch reaction only (#5959)
+'2024-09-30':
+  NightDawnFox:
+  - balance: pain hunter is now excluded from antagonist objectives (#5955)

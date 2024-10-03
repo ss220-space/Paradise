@@ -177,4 +177,3 @@
 	target.visible_message(span_notice("[user] scans the wounds on [target]'s [limb] with [src]."))
 
 	add_data(limb)
-

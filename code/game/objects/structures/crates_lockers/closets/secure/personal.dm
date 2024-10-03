@@ -22,6 +22,7 @@
 
 /obj/structure/closet/secure_closet/personal/mining
 	name = "personal miner's locker"
+	icon_state = "mine_pers"
 
 /obj/structure/closet/secure_closet/personal/mining/populate_contents()
 	new /obj/item/stack/sheet/cardboard(src)

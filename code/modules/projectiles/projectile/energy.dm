@@ -27,7 +27,7 @@
 		do_sparks(1, 1, src)
 	else if(iscarbon(target))
 		var/mob/living/carbon/C = target
-		if(HULK in C.mutations)
+		if(HAS_TRAIT(C, TRAIT_HULK))
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		else if(C.status_flags & CANWEAKEN)
 			spawn(5)
@@ -85,6 +85,16 @@
 	damage = 20
 	weaken = 0.1 SECONDS
 	stamina = 30
+
+/obj/item/projectile/energy/bolttoy
+	name = "bolttoy"
+	icon_state = "cbbolttoy"
+	hitsound = 'sound/weapons/pierce.ogg'
+	damage_type = STAMINA
+	nodamage = TRUE
+	weaken = 0.1 SECONDS
+	stutter = 2 SECONDS
+	shockbull = TRUE
 
 /obj/item/projectile/energy/shock_revolver
 	name = "shock bolt"

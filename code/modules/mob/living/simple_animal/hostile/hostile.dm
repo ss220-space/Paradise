@@ -288,8 +288,8 @@
 		return FALSE
 
 	if(ismob(the_target)) //Target is in godmode, ignore it.
-		var/mob/M = the_target
-		if(M.status_flags & GODMODE)
+		var/mob/mob = the_target
+		if(HAS_TRAIT(mob, TRAIT_GODMODE))
 			return FALSE
 
 	if(see_invisible < the_target.invisibility) //Target's invisible to us, forget it
@@ -355,7 +355,7 @@
 		var/delay = SSnpcpool.wait / rapid_melee
 		for(var/i in 1 to rapid_melee)
 			addtimer(cb, (i - 1)*delay)
-	else
+	else if(target)
 		AttackingTarget()
 	if(patience)
 		GainPatience()

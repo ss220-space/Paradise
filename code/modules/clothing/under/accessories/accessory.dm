@@ -122,7 +122,7 @@
 
 	user.visible_message(
 		span_notice("[user] is putting [name] on [target]'s [uniform.name]!"),
-		span_notice("You begin to put [name] on [target]'s [uniform.name]..."),
+		span_notice("You start to put [name] on [target]'s [uniform.name]..."),
 	)
 	if(!do_after(user, 4 SECONDS, target, extra_checks = CALLBACK(src, PROC_REF(uniform_check), target, user, uniform), max_interact_count = 1))
 		return .
@@ -132,16 +132,16 @@
 
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	user.visible_message(
-		span_notice("[user] puts [name] on [target]'s [uniform.name]!"),
-		span_notice("You finish putting [name] on [target]'s [uniform.name]..."),
+		span_notice("[user] has put [name] on [target]'s [uniform.name]!"),
+		span_notice("You have finished puting [name] on [target]'s [uniform.name]..."),
 	)
 
 
 /obj/item/clothing/accessory/proc/uniform_check(mob/living/carbon/human/target, mob/living/user, obj/item/clothing/under/uniform)
 	SHOULD_CALL_PARENT(TRUE)
 	if(target.w_uniform != uniform)
-		return TRUE
-	return FALSE
+		return FALSE
+	return TRUE
 
 
 /obj/item/clothing/accessory/attack_hand(mob/user)
@@ -245,7 +245,7 @@
 
 		msg += "You hear <span class='[color]'>[heart_sound]</span> heart pulse"
 
-	if(lungs && !(BREATHLESS in target.mutations) && !(NO_BREATHE in target.dna.species.species_traits))
+	if(lungs && !HAS_TRAIT(target, TRAIT_NO_BREATH))
 		var/color = "notice"
 		var/lung_sound
 		var/respiration = TRUE
@@ -1046,9 +1046,9 @@
 
 /obj/item/clothing/accessory/head_strip/uniform_check(mob/living/carbon/human/target, mob/living/user, obj/item/clothing/under/uniform)
 	. = ..()
-	if(locate(/obj/item/clothing/accessory/head_strip, uniform.contents))
+	if(. && locate(/obj/item/clothing/accessory/head_strip, uniform.contents))
 		to_chat(user, span_warning("You can have only one strip attached to this uniform!"))
-		return TRUE
+		return FALSE
 
 
 /obj/item/clothing/accessory/head_strip/on_attached(obj/item/clothing/under/new_suit, mob/attacher)

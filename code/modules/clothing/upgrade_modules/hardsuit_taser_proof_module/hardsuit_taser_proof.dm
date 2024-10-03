@@ -31,12 +31,12 @@
 		for(var/I in 1 to 7)
 			new /obj/item/hardsuit_taser_proof/ert_locked(src)
 
-/obj/item/hardsuit_taser_proof/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/hardsuit_taser_proof/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!hardsuit)
 		return FALSE
 	if(!hardsuit.suit_adjusted)
 		return FALSE
 	var/obj/item/projectile/P = hitby
-	if(P.shockbull)
+	if(istype(P) && P.shockbull)
 		return TRUE
 	return FALSE

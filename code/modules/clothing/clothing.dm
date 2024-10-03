@@ -783,7 +783,7 @@ BLIND     // can't see anything
 	if(user.incapacitated())
 		return
 
-	if((HULK in user.mutations))
+	if(HAS_TRAIT(user, TRAIT_HULK))
 		if(user.can_unEquip(src)) //Checks to see if the item can be unequipped. If so, lets shred. Otherwise, struggle and fail.
 			for(var/obj/item/thing in src) //AVOIDING ITEM LOSS. Check through everything that's stored in the jacket and see if one of the items is a pocket.
 				if(istype(thing, /obj/item/storage/internal)) //If it's a pocket...
@@ -1112,7 +1112,7 @@ BLIND     // can't see anything
 	accessory.on_attached(src, user)
 	if(user)
 		accessory.add_fingerprint(user)
-		to_chat(user, span_notice("You attach [accessory] to [src]."))
+		to_chat(user, span_notice("You have attached [accessory] to [src]."))
 	return TRUE
 
 
@@ -1231,7 +1231,7 @@ BLIND     // can't see anything
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/neck.dmi'
 		)
 
-/obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!teleportation)
 		return ..()
 	if(prob(5))

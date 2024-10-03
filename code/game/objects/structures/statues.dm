@@ -317,6 +317,13 @@
 	anchored = TRUE
 	oreAmount = 0
 
+/obj/structure/statue/angel
+	name = "Stone Angel Statue"
+	desc = "An antique statue of a human angel made of stone."
+	icon_state = "angel"
+	anchored = TRUE
+	oreAmount = 0
+
 /obj/structure/statue/russian_mulebot
 	desc = "Like a MULEbot, but more Russian and less functional.";
 	icon = 'icons/obj/aibots.dmi';
@@ -388,6 +395,14 @@
 	pixel_y = 7
 	anchored = TRUE
 	oreAmount = 0
+
+/obj/structure/statue/carp_mini
+	name = "Carp Statue"
+	desc = "A great inhabitant of space.."
+	icon = 'icons/obj/statuelarge.dmi'
+	icon_state = "carp_mini"
+	max_integrity = 200
+	anchored = TRUE
 
 /obj/structure/statue/noble
 	name = "Noble person"
@@ -587,3 +602,6 @@
 	desc = "It's staggering to think that something this big could have lived, let alone died."
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "rib"
+	anchored = TRUE
+	obj_flags = NODECONSTRUCT
+

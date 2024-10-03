@@ -160,6 +160,7 @@
 	force = 45
 	armour_penetration = -30
 	block_chance = 50
+	block_type = MELEE_ATTACKS
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
@@ -181,13 +182,7 @@
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
 		parent_action = null
 	return ..()
-
-
-/obj/item/melee/arm_blade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //only blocks melee
-	return ..()
-
+	
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
@@ -266,8 +261,9 @@
 
 	else if(iswallturf(target))
 		var/turf/simulated/wall/wall = target
-		wall.take_damage(30)
 		user.do_attack_animation(wall)
+		user.changeNext_move(attack_speed)
+		wall.take_damage(30)
 		playsound(src, 'sound/weapons/smash.ogg', 50, TRUE)
 
 	else if(isliving(target))
@@ -601,7 +597,7 @@
 							span_italics("You hear organic matter ripping and tearing!"))
 
 
-/obj/item/shield/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/shield/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(remaining_uses < 1)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc

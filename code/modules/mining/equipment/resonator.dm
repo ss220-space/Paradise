@@ -48,6 +48,7 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !check_allowed_items(target, TRUE))
 		return .
 	. |= ATTACK_CHAIN_BLOCKED
+	user.changeNext_move(attack_speed)
 	create_resonance(target, user)
 
 

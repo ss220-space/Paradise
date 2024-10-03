@@ -544,7 +544,6 @@
 /area/ruin/powered)
 "Vf" = (
 /obj/machinery/power/apc/noalarm{
-	area = null;
 	dir = 8;
 	keep_preset_name = 1;
 	locked = 0;
@@ -574,7 +573,6 @@
 /area/ruin/space)
 "Xd" = (
 /obj/machinery/power/apc/noalarm{
-	area = null;
 	dir = 8;
 	keep_preset_name = 1;
 	light_power = 0;

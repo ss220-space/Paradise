@@ -67,7 +67,7 @@
 	last_random = world.time + rand(0, phrase_delay)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/arcade/minesweeper/proc/make_empty_matr()
+/obj/machinery/arcade/minesweeper/proc/make_empty_matr(pay = TRUE)
 	minesweeper_matrix = list()
 	for(var/i in 1 to generation_rows)
 		var/list/new_row = list()
@@ -76,7 +76,7 @@
 		minesweeper_matrix["[i]"] = new_row
 	first_touch = TRUE
 	ignore_touches = FALSE
-	if(!freeplay)
+	if(!freeplay && pay)
 		tokens -= 1
 		if(tokens < 0)
 			tokens = 0
@@ -102,7 +102,7 @@
 			generation_columns = 30
 			generation_bombs = 99
 			ui_width = MINESWEEPER_WIDTH * 2
-	make_empty_matr()
+	make_empty_matr(FALSE)
 	SStgui.update_uis(src)
 
 /obj/machinery/arcade/minesweeper/proc/speak(message)

@@ -47,7 +47,6 @@
 	GLOB.fakeblock2				= getAssignedBlock("", numsToAssign)
 	GLOB.fakeblock3				= getAssignedBlock("", numsToAssign)
 	GLOB.fakeblock4				= getAssignedBlock("", numsToAssign)
-	GLOB.fakeblock5				= getAssignedBlock("", numsToAssign)
 
 	// Bay muts
 	GLOB.breathlessblock		= getAssignedBlock("BREATHLESS", numsToAssign,		DNA_HARD_BOUNDS,		good = TRUE)
@@ -70,7 +69,7 @@
 	GLOB.lispblock				= getAssignedBlock("LISP", numsToAssign)
 	GLOB.muteblock				= getAssignedBlock("MUTE", numsToAssign)
 	GLOB.radblock				= getAssignedBlock("RAD", numsToAssign)
-	GLOB.fatblock				= getAssignedBlock("FAT", numsToAssign)
+	GLOB.obesityblock			= getAssignedBlock("OBESITY", numsToAssign)
 	GLOB.swedeblock				= getAssignedBlock("SWEDE", numsToAssign)
 	GLOB.scrambleblock			= getAssignedBlock("SCRAMBLE", numsToAssign)
 	GLOB.weakblock				= getAssignedBlock("WEAK", numsToAssign)
@@ -100,6 +99,7 @@
 
 	// Paradise1984 Disabilities
 	GLOB.auld_imperial_block	= getAssignedBlock("AULD_IMPERIAL", numsToAssign)
+	GLOB.paraplegiablock		= getAssignedBlock("PARAPLEGIA", numsToAssign)
 
 	//
 	// Static Blocks
