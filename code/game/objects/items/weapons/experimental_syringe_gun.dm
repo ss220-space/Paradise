@@ -12,6 +12,7 @@
 	var/obj/item/reagent_containers/glass/beaker/large/processed_reagents = new
 	var/synth_speed = 5
 	var/bank_size = 100
+	origin_tech = "bluespace=4;biotech=5"
 
 /obj/item/gun/syringe/rapidsyringe/experimental/Initialize()
 	. = ..()
@@ -58,7 +59,7 @@
 	name = "Experemintal syringe gun"
 	result = /obj/item/gun/syringe/rapidsyringe/experimental
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
-	reqs = list(/obj/item/relict_priduction/perfect_mix = 1,
+	reqs = list(/obj/item/relict_production/perfect_mix = 1,
 				/obj/item/assembly/signaler/anomaly/vortex = 1,
 				/obj/item/gun/syringe/rapidsyringe = 1,
 				/obj/item/stock_parts/matter_bin = 1)

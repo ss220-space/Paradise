@@ -22,6 +22,7 @@
 	var/emp_cooldown_min = 10 SECONDS // min cooldown for emp
 	var/emp_cooldown_max = 15 SECONDS // max cooldown for emp
 	var/tp_range = 5 // range of teleportations
+	origin_tech = "bluespace=5"
 
 /obj/item/tuned_anomalous_teleporter/attack_self(mob/user)
 	if(!COOLDOWN_FINISHED(src, emp_cooldown))
@@ -63,7 +64,7 @@
 	name = "Tuned anomalous teleporter"
 	result = /obj/item/tuned_anomalous_teleporter
 	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
-	reqs = list(/obj/item/relict_priduction/strange_teleporter = 1,
+	reqs = list(/obj/item/relict_production/strange_teleporter = 1,
 				/obj/item/assembly/signaler/anomaly/bluespace = 1,
 				/obj/item/gps = 1,
 				/obj/item/stack/ore/bluespace_crystal,

@@ -6,6 +6,7 @@
 	righthand_file = 'icons/mob/inhands/relics_production/inhandr.dmi'
 	name = "anomaly beacon"
 	desc = "A device that draws power from bluespace and creates a permanent tracking beacon."
+	origin_tech = "bluespace=6"
 
 /obj/item/assembly/anomaly_beacon/activate()
 	var/obj/effect/anomaly/anomaly_path = pick(subtypesof(/obj/effect/anomaly/))
@@ -21,7 +22,7 @@
 	result = /obj/item/assembly/anomaly_beacon
 	tools = list(TOOL_SCREWDRIVER)
 	reqs = list(/obj/item/assembly/signaler/anomaly = 1,
-				/obj/item/relict_priduction/rapid_dupe = 1,
+				/obj/item/relict_production/rapid_dupe = 1,
 				/obj/item/radio/beacon = 1,
 				/obj/item/stack/cable_coil = 5)
 	time = 300

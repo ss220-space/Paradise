@@ -11,6 +11,7 @@
 	var/amount = 3
 	COOLDOWN_DECLARE(fauna_bomb_cooldown)
 	var/mob/activator
+	origin_tech = "bluespace=4;biotech=5"
 
 /obj/item/grenade/fauna_bomb/attack_self(mob/user)
 	if(!COOLDOWN_FINISHED(src, fauna_bomb_cooldown))
@@ -54,7 +55,7 @@
 	name = "Fauna bomb"
 	result = /obj/item/grenade/fauna_bomb
 	tools = list(TOOL_SCREWDRIVER)
-	reqs = list(/obj/item/relict_priduction/pet_spray = 1,
+	reqs = list(/obj/item/relict_production/pet_spray = 1,
 				/obj/item/assembly/signaler/anomaly/pyro = 1,
 				/obj/item/grenade/chem_grenade/adv_release = 1,
 				/obj/item/stack/cable_coil = 5)

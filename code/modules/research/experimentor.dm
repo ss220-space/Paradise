@@ -162,9 +162,19 @@
 		var/techs_sum = 0
 		for(var/T in temp_tech)
 			techs_sum += temp_tech[T]
-		if(istype(I, /obj/item/relic) || techs_sum > 4 && !istype(src, /obj/item/storage/backpack/holding))
-			to_chat(user, span_notice("Этот предмет слишком сложен для копирования. Попробуйте вставить что-то попроще."))
+		if(istype(I, /obj/item/relic) || techs_sum > 4 && !istype(I, /obj/item/storage/backpack/holding))
+			to_chat(user, span_warning("Этот предмет слишком сложен для копирования. Попробуйте вставить что-то попроще."))
 			return ATTACK_CHAIN_PROCEED
+
+		if (I.contents)
+			to_chat(user, span_warning("Предмет должен быть цельным."))
+			return ATTACK_CHAIN_PROCEED
+
+		if (I.type in subtypesof(/obj/item/stack))
+			var/obj/item/stack/stack = I
+			if (stack.amount > 1)
+				to_chat(user, span_warning("Предмет должен быть цельным."))
+				return ATTACK_CHAIN_PROCEED
 
 		investigate_log("Experimentor has made a clone of [I]", INVESTIGATE_EXPERIMENTOR)
 		throwSmoke(get_turf(pick(oview(1,src))))
@@ -316,7 +326,7 @@
 		playsound(src.loc, 'sound/effects/supermatter.ogg', 50, 3, -1)
 		ejectItem()
 		throwSmoke(get_turf(exp_on))
-		var/obj/item/relict_priduction/strange_teleporter/teleporter = new /obj/item/relict_priduction/strange_teleporter(get_turf(exp_on))
+		var/obj/item/relict_production/strange_teleporter/teleporter = new /obj/item/relict_production/strange_teleporter(get_turf(exp_on))
 		teleporter.icon_state = exp_on.icon_state
 		qdel(exp_on)
 	else
@@ -417,7 +427,7 @@
 		playsound(src.loc, 'sound/effects/supermatter.ogg', 50, 3, -1)
 		ejectItem()
 		throwSmoke(get_turf(exp_on))
-		new /obj/item/relict_priduction/perfect_mix(get_turf(exp_on))
+		new /obj/item/relict_production/perfect_mix(get_turf(exp_on))
 		qdel(exp_on)
 	else
 		exp = FAIL
@@ -480,7 +490,7 @@
 		playsound(src.loc, 'sound/effects/supermatter.ogg', 50, 3, -1)
 		ejectItem()
 		throwSmoke(get_turf(exp_on))
-		var/obj/item/relict_priduction/pet_spray/R = new /obj/item/relict_priduction/pet_spray(get_turf(exp_on))
+		var/obj/item/relict_production/pet_spray/R = new /obj/item/relict_production/pet_spray(get_turf(exp_on))
 		R.icon_state = exp_on.icon_state
 		qdel(exp_on)
 	else
@@ -537,7 +547,7 @@
 		playsound(src.loc, 'sound/effects/supermatter.ogg', 50, 3, -1)
 		ejectItem()
 		throwSmoke(get_turf(exp_on))
-		var/obj/item/relict_priduction/R = new /obj/item/relict_priduction/rapid_dupe(get_turf(exp_on))
+		var/obj/item/relict_production/R = new /obj/item/relict_production/rapid_dupe(get_turf(exp_on))
 		R.icon_state = exp_on.icon_state
 		qdel(exp_on)
 	else
@@ -740,23 +750,23 @@
 
 #undef FAIL
 
-/obj/item/relict_priduction
+/obj/item/relict_production
 	name = "perfect mix"
 	desc = "Странный объект без эффекта и иконки. Щитспавн онли."
 	icon_state = ""
 	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "bluespace=3;materials=3"
 	var/cooldown = 5 SECONDS
-	COOLDOWN_DECLARE(relict_priduction_cooldown)
+	COOLDOWN_DECLARE(relict_production_cooldown)
 
-/obj/item/relict_priduction/attack_self(mob/user)
-	if(!COOLDOWN_FINISHED(src, relict_priduction_cooldown))
+/obj/item/relict_production/attack_self(mob/user)
+	if(!COOLDOWN_FINISHED(src, relict_production_cooldown))
 		to_chat(user, "<span class='notice'>[src] is not ready yet.</span>")
 		return FALSE
-	COOLDOWN_START(src, relict_priduction_cooldown, cooldown)
+	COOLDOWN_START(src, relict_production_cooldown, cooldown)
 	return TRUE
 
-/obj/item/relict_priduction/perfect_mix
+/obj/item/relict_production/perfect_mix
 	name = "perfect mix"
 	desc = "Странный объект из которого можно бесконечно заполнять емкости какой-то жидкостью."
 	icon_state = "beaker"
@@ -764,15 +774,15 @@
 	icon = 'icons/obj/weapons/techrelic.dmi'
 	lefthand_file = 'icons/mob/inhands/relics_production/inhandl.dmi'
 	righthand_file = 'icons/mob/inhands/relics_production/inhandr.dmi'
-	origin_tech = "materials=4"
+	origin_tech = "materials=4;bluespace=3"
 	var/datum/reagent/inner_reagent
 	var/transfer = 10
 
-/obj/item/relict_priduction/perfect_mix/New()
+/obj/item/relict_production/perfect_mix/New()
 	. = ..()
 	inner_reagent = pick(/datum/reagent/uranium, /datum/reagent/plasma, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/space_cleaner, /datum/reagent/consumable/drink/coffee, pick(/datum/reagent/consumable/drink/non_alcoholic_beer, /datum/reagent/consumable/ethanol/beer, /datum/reagent/beer2))
 
-/obj/item/relict_priduction/perfect_mix/afterattack(atom/target, mob/user, proximity)
+/obj/item/relict_production/perfect_mix/afterattack(atom/target, mob/user, proximity)
 	if(istype(target, /obj/item/reagent_containers/glass))
 		var/obj/item/reagent_containers/glass/beaker = target
 		beaker.reagents.add_reagent(inner_reagent.id, transfer)
@@ -780,15 +790,15 @@
 	else
 		to_chat(user, "<span class='notice'>You can't pour [src]'s content into this.</span>")
 
-/obj/item/relict_priduction/strange_teleporter
+/obj/item/relict_production/strange_teleporter
 	name = "strange teleporter"
 	desc = "Странный объект телепортирующий вас при активации."
 	icon_state = "prox-multitool2"
 	icon = 'icons/obj/assemblies.dmi'
-	origin_tech = "materials=4"
+	origin_tech = "materials=4;bluespace=4"
 	cooldown = 10 SECONDS
 
-/obj/item/relict_priduction/strange_teleporter/attack_self(mob/user)
+/obj/item/relict_production/strange_teleporter/attack_self(mob/user)
 	if(!..())
 		return
 	to_chat(user, "<span class='notice'>[src] begins to vibrate!</span>")
@@ -804,15 +814,15 @@
 			smoke.set_up(5, get_turf(user))
 			smoke.start()
 
-/obj/item/relict_priduction/pet_spray
+/obj/item/relict_production/pet_spray
 	name = "pet spray"
 	desc = "Странный объект создающий враждебных существ."
 	icon_state = "armor-igniter-analyzer"
 	icon = 'icons/obj/assemblies.dmi'
-	origin_tech = "biotech=4"
+	origin_tech = "biotech=5"
 	cooldown = 60 SECONDS
 
-/obj/item/relict_priduction/pet_spray/attack_self(mob/user)
+/obj/item/relict_production/pet_spray/attack_self(mob/user)
 	if(!..())
 		return
 	var/message = "<span class='danger'>[src] begins to shake, and in the distance the sound of rampaging animals arises!</span>"
@@ -842,12 +852,12 @@
 		to_chat(user, "<span class='warning'>[src] falls apart!</span>")
 		qdel(src)
 
-/obj/item/relict_priduction/rapid_dupe
+/obj/item/relict_production/rapid_dupe
 	name = "rapid dupe"
 	desc = "Странный объект создающий другие странные объекты при контакте с аномалиями."
 	icon_state = "shock_kit"
 	icon = 'icons/obj/assemblies.dmi'
-	origin_tech = "materials=4"
+	origin_tech = "materials=5"
 
 //////////////////////////////////SPECIAL ITEMS////////////////////////////////////////
 
