@@ -55,7 +55,6 @@
 #define PASSEMOTES (1<<6)      //Mob has a cortical borer or holders inside of it that need to see emotes.
 #define IGNORESLOWDOWN (1<<7)
 #define IGNORE_SPEED_CHANGES (1<<8)
-#define GODMODE (1<<9)
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
@@ -83,11 +82,12 @@
 
 //Attack types for checking shields/hit reactions
 
-#define MELEE_ATTACK 1
-#define UNARMED_ATTACK 2
-#define PROJECTILE_ATTACK 3
-#define THROWN_PROJECTILE_ATTACK 4
-#define LEAP_ATTACK 5
+#define ITEM_ATTACK						(1 << 0)
+#define UNARMED_ATTACK					(1 << 1)
+#define PROJECTILE_ATTACK				(1 << 2)
+#define THROWN_PROJECTILE_ATTACK		(1 << 3)
+#define LEAP_ATTACK						(1 << 4)
+#define MELEE_ATTACKS					(ITEM_ATTACK | THROWN_PROJECTILE_ATTACK | UNARMED_ATTACK | LEAP_ATTACK)
 
 //attack visual effects
 #define ATTACK_EFFECT_PUNCH		"punch"

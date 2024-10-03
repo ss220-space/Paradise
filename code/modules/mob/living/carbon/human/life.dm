@@ -39,12 +39,6 @@
 	if(vamp && life_tick == 1)
 		regenerate_icons() // Make sure the inventory updates
 
-	var/datum/antagonist/goon_vampire/g_vamp = mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(g_vamp)
-		g_vamp.handle_vampire()
-		if(life_tick == 1)
-			regenerate_icons()
-
 	var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
 	if(ninja)
 		ninja.handle_ninja()
@@ -322,7 +316,7 @@
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 	if(bodytemperature > dna.species.heat_level_1)
 		//Body temperature is too hot.
-		if(status_flags & GODMODE)
+		if(HAS_TRAIT(src, TRAIT_GODMODE))
 			return TRUE	//godmode
 		var/mult = dna.species.heatmod * physiology.heat_mod
 		if(mult>0)
@@ -348,7 +342,7 @@
 				heal_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3)
 
 	else if(bodytemperature < dna.species.cold_level_1)
-		if(status_flags & GODMODE)
+		if(HAS_TRAIT(src, TRAIT_GODMODE))
 			return TRUE
 		if(stat == DEAD)
 			return TRUE
@@ -390,7 +384,7 @@
 
 	var/pressure = environment.return_pressure()
 	var/adjusted_pressure = calculate_affecting_pressure(pressure) //Returns how much pressure actually affects the mob.
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return TRUE	//godmode
 
 	if(adjusted_pressure >= dna.species.hazard_high_pressure)
@@ -624,7 +618,7 @@
 /mob/living/carbon/human/handle_chemicals_in_body()
 	..()
 
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return 0	//godmode
 
 	var/is_vamp = isvampire(src)
@@ -695,7 +689,7 @@
 	return 0
 
 /mob/living/carbon/human/handle_critical_condition()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return 0
 
 	var/guaranteed_death_threshold = health + (getOxyLoss() * 0.5) - (getFireLoss() * 0.67) - (getBruteLoss() * 0.67)

@@ -49,7 +49,11 @@
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
-	status_flags = GODMODE|CANPUSH
+	status_flags = CANPUSH
+
+/mob/living/carbon/human/dummy/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_GODMODE, INNATE_TRAIT)
 
 /mob/living/carbon/human/skrell/Initialize(mapload)
 	. = ..(mapload, /datum/species/skrell)
@@ -224,10 +228,12 @@
 			status_tab_data[++status_tab_data.len] = list("Distribution Pressure:", "[internal.distribute_pressure]")
 
 	// I REALLY need to split up status panel things into datums
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
-	if(B && B.controlling)
-		status_tab_data[++status_tab_data.len] = list("Chemicals", B.chemicals)
-
+	var/mob/living/simple_animal/borer/borer = has_brain_worms()
+	if(borer?.controlling)
+		status_tab_data[++status_tab_data.len] = list("Chemicals", borer.chemicals)
+		status_tab_data[++status_tab_data.len] = list("Rank", borer.antag_datum.borer_rank.rankname)
+		status_tab_data[++status_tab_data.len] = list("Evolution points", borer.antag_datum.evo_points)
+	
 	if(mind)
 		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(cling)
@@ -236,13 +242,8 @@
 
 		var/datum/antagonist/vampire/vamp = mind.has_antag_datum(/datum/antagonist/vampire)
 		if(vamp)
-			status_tab_data[++status_tab_data.len] = list("Total Blood:", "[vamp.bloodtotal]")
-			status_tab_data[++status_tab_data.len] = list("Usable Blood:", "[vamp.bloodusable]")
-
-		var/datum/antagonist/goon_vampire/g_vamp = mind.has_antag_datum(/datum/antagonist/goon_vampire)
-		if(g_vamp)
-			status_tab_data[++status_tab_data.len] = list("Всего крови", "[g_vamp.bloodtotal]")
-			status_tab_data[++status_tab_data.len] = list("Доступная кровь", "[g_vamp.bloodusable]")
+			status_tab_data[++status_tab_data.len] = list("Всего крови:", "[vamp.bloodtotal]")
+			status_tab_data[++status_tab_data.len] = list("Доступная кровь:", "[vamp.bloodusable]")
 
 		if(isclocker(mind.current))
 			status_tab_data[++status_tab_data.len] = list("Total Power", "[GLOB.clockwork_power]")
@@ -264,7 +265,7 @@
 	var/bruteloss = 0
 	var/burnloss = 0
 
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 
 	var/armor = getarmor(attack_flag = BOMB)	//Average bomb protection
@@ -447,7 +448,6 @@
 		return
 
 	dna.species.update_sight(src)
-	update_tint()
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
@@ -726,22 +726,17 @@
 ///Returns a number between -1 to 2
 /mob/living/carbon/human/check_eye_prot()
 	var/eye_prot = ..()
-	var/check = (sight & (SEE_MOBS|SEE_OBJS|SEE_TURFS)) == (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 	if(istype(head, /obj/item/clothing/head))			//are they wearing something on their head
 		var/obj/item/clothing/head/HFP = head			//if yes gets the flash protection value from that item
-		if(!check || HFP.flash_protect < 0)
-			eye_prot += HFP.flash_protect
+		eye_prot += HFP.flash_protect
 	if(istype(glasses, /obj/item/clothing/glasses))		//glasses
 		var/obj/item/clothing/glasses/GFP = glasses
-		if(!check || GFP.flash_protect < 0)
-			eye_prot += GFP.flash_protect
+		eye_prot += GFP.flash_protect
 	if(istype(wear_mask, /obj/item/clothing/mask))		//mask
 		var/obj/item/clothing/mask/MFP = wear_mask
-		if(!check || MFP.flash_protect < 0)
-			eye_prot += MFP.flash_protect
+		eye_prot += MFP.flash_protect
 	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in internal_organs)
-		if(!check || EFP.flash_protect < 0)
-			eye_prot += EFP.flash_protect
+		eye_prot += EFP.flash_protect
 	return eye_prot
 
 
@@ -1610,7 +1605,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ..()
 
 	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && HAS_TRAIT(src, TRAIT_NO_GUNS))
-		to_chat(src, span_warning("Your fingers don't fit in the trigger guard!"))
+		balloon_alert(src, span_warning("слишком толстые пальцы"))
 		return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry

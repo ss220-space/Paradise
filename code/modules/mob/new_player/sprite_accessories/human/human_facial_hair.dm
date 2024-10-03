@@ -10,7 +10,7 @@
     icon = 'icons/mob/human_face.dmi' // Special case, use the bald icon in human face
     name = "Shaved"
     icon_state = "bald"
-    gender = NEUTER
+    unsuitable_gender = NONE
     species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_VOX, SPECIES_DIONA, SPECIES_KIDAN, SPECIES_GREY, SPECIES_VULPKANIN, SPECIES_SLIMEPERSON)
 
 /datum/sprite_accessory/facial_hair/watson

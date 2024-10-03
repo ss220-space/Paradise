@@ -1518,3 +1518,63 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 	always_availible = FALSE
+
+/datum/crafting_recipe/drone
+	name = "Inactive Drone"
+	result = list(/obj/item/inactive_drone)
+	reqs = list(
+			/obj/item/stack/sheet/plasteel = 10,
+			/obj/item/stack/sheet/glass = 5,
+			/obj/item/stack/rods = 25,
+			/obj/item/stack/cable_coil = 5,
+			/obj/item/stock_parts/cell = 2
+	)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	category = CAT_ROBOT
+	always_availible = FALSE
+	time = 5 SECONDS
+
+
+/datum/crafting_recipe/drone_circ
+	name = "Combat drone Basic Control Module"
+	result = list(/obj/item/drone_modules/drone_BCM)
+	reqs = list(
+			/obj/item/stack/sheet/plasteel = 2,
+			/obj/item/stack/sheet/glass = 1,
+			/obj/item/stack/sheet/mineral/gold = 1,
+			/obj/item/airlock_electronics = 1
+	)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	always_availible = FALSE
+	category = CAT_ROBOT
+	time = 1 SECONDS
+
+/datum/crafting_recipe/drone_circ_adv
+	name = "Combar drone Advanced IFF Module"
+	result = list(/obj/item/drone_modules/drone_IFF)
+	reqs = list(
+		/obj/item/stack/sheet/plasteel = 2,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/airlock_electronics = 1,
+		/obj/item/stack/sheet/mineral/gold = 2,
+		/obj/item/stack/sheet/bluespace_crystal = 1
+	)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	always_availible = FALSE
+	category = CAT_ROBOT
+	time = 1 SECONDS
+
+/datum/crafting_recipe/drone_circ_ai
+	name = "Combar drone AI Control Module"
+	result = list(/obj/item/drone_modules/drone_AI)
+	reqs = list(
+			/obj/item/stack/sheet/plasteel = 2,
+			/obj/item/stack/sheet/glass = 1,
+			/obj/item/stack/sheet/mineral/gold = 1,
+			/obj/item/stack/sheet/mineral/diamond = 12,
+			/obj/item/mmi/robotic_brain = 1
+	)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
+	category = CAT_ROBOT
+	always_availible = FALSE
+	time = 1 SECONDS

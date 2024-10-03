@@ -49,13 +49,13 @@
 	var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(ishuman(user) && vamp && !vamp.get_ability(/datum/vampire_passive/full) && user.mind.isholy)
 		to_chat(target, span_warning("The nullrod's power interferes with your own!"))
-		vamp.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
-		return .
+		switch(vamp.nullification)
+			if(OLD_NULLIFICATION)
+				vamp.base_nullification()
 
-	var/datum/antagonist/goon_vampire/g_vamp = target.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(ishuman(user) && g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full))
-		to_chat(target, span_warning("The nullrod's power interferes with your own!"))
-		g_vamp.nullified = max(5, g_vamp.nullified + 2)
+			if(NEW_NULLIFICATION)
+				vamp.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
+		return .
 
 
 /obj/item/nullrod/pickup(mob/living/user)
@@ -183,16 +183,12 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	block_chance = 30
+	block_type = MELEE_ATTACKS
 	sharp = TRUE
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-
-/obj/item/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
-	return ..()
 
 /obj/item/nullrod/claymore/darkblade
 	name = "dark blade"
@@ -553,6 +549,7 @@
 	)
 
 	praying = TRUE
+	
 	if(!do_after(user, 15 SECONDS, target))
 		to_chat(user, span_notice("Your prayer to [SSticker.Bible_deity_name] was interrupted."))
 		praying = FALSE
@@ -567,18 +564,16 @@
 		SSticker.mode.remove_clocker(target.mind)
 		praying = FALSE
 		return .|ATTACK_CHAIN_SUCCESS
-
+		
 	var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp && !vamp.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
-		vamp.adjust_nullification(120, 50)
-		to_chat(target, span_userdanger("[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!"))
-		praying = FALSE
-		return .|ATTACK_CHAIN_SUCCESS
+		switch(vamp.nullification)
+			if(OLD_NULLIFICATION)
+				vamp.adjust_nullification(120, 120)
 
-	var/datum/antagonist/goon_vampire/g_vamp = target.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full))
-		g_vamp.nullified = max(120, g_vamp.nullified + 120)
-		to_chat(target, span_userdanger("[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!"))
+			if(NEW_NULLIFICATION)
+				vamp.adjust_nullification(120, 50)
+		to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
 		praying = FALSE
 		return .|ATTACK_CHAIN_SUCCESS
 
@@ -603,14 +598,12 @@
 	var/mob/living/carbon/human/holder = loc
 	if(!holder.l_hand == src && !holder.r_hand == src) // Holding this in your hand will
 		return
-
 	for(var/mob/living/carbon/human/target in range(5, loc))
-		var/datum/antagonist/goon_vampire/g_vamp = target.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-		if(g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full))
-			g_vamp.nullified = max(5, g_vamp.nullified + 2)
+		var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)
+		if(vamp && vamp.nullification == OLD_NULLIFICATION && !vamp.get_ability(/datum/vampire_passive/full))
+			vamp.adjust_nullification(5, 2)
 			if(prob(10))
 				to_chat(target, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
-
 
 /obj/item/nullrod/salt
 	name = "Holy Salt"

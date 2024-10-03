@@ -48,6 +48,7 @@
 #define MECHA_EQUIPMENT_TRAIT "mecha-equip"
 #define HIS_GRACE_TRAIT "his-grace"
 #define CHAINSAW_TRAIT "chainsaw-wield"
+#define CENTCOMM_RAPIER_TRAIT "centcomm_rapier"
 #define PYRO_CLAWS_TRAIT "pyro-claws"
 #define CONTRACTOR_BATON_TRAIT "contractor-baton"
 #define MUZZLE_TRAIT "muzzle"
@@ -149,4 +150,4 @@
 #define SCRYING_ORB_TRAIT "scrying_orb"
 #define EVIL_FAX_TRAIT "evil_fax"
 #define CORGI_HARDSUIT_TRAIT "corgi_hardsuit"
-
+#define VENDOR_FLATTENING_TRAIT "vendor_flattening"
