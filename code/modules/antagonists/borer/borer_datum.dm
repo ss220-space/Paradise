@@ -1,17 +1,3 @@
-#define REPRODUCTIONS_TO_MATURE 3
-#define REPRODUCTIONS_TO_ADULT 6
-#define REPRODUCTIONS_TO_ELDER 10
-#define HEAD_FOCUS_COST 9
-#define TORSO_FOCUS_COST 15
-#define HANDS_FOCUS_COST 5
-#define LEGS_FOCUS_COST 10
-#define SCALING_MAX_CHEM 355
-#define SCALING_CHEM_GAIN 15
-#define BORER_RANK_YOUNG /datum/borer_rank/young
-#define BORER_RANK_MATURE /datum/borer_rank/mature
-#define BORER_RANK_ADULT /datum/borer_rank/adult
-#define BORER_RANK_ELDER /datum/borer_rank/elder
-
 /datum/antagonist/borer
 	name = "Cortical borer"
 	show_in_roundend = FALSE
@@ -192,8 +178,6 @@
 		START_PROCESSING(SSprocessing, src)
 
 /datum/antagonist/borer/process(seconds_per_tick)
-	SHOULD_NOT_OVERRIDE(TRUE)
-
 	if(QDELETED(user))
 		qdel(src)
 		return
@@ -250,17 +234,3 @@
 /datum/borer_misc/change_host_and_scale/Destroy(force)
 	LAZYNULL(used_UIDs)
 	return ..()
-
-#undef REPRODUCTIONS_TO_MATURE
-#undef REPRODUCTIONS_TO_ADULT
-#undef REPRODUCTIONS_TO_ELDER
-#undef HEAD_FOCUS_COST
-#undef TORSO_FOCUS_COST
-#undef HANDS_FOCUS_COST
-#undef LEGS_FOCUS_COST
-#undef SCALING_MAX_CHEM
-#undef SCALING_CHEM_GAIN
-#undef BORER_RANK_YOUNG
-#undef BORER_RANK_MATURE
-#undef BORER_RANK_ADULT
-#undef BORER_RANK_ELDER

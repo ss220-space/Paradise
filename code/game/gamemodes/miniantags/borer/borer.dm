@@ -185,6 +185,13 @@
 
 
 /mob/living/simple_animal/borer/proc/Communicate(var/sended_message)
+	if(!host)
+		to_chat(src, "У вас нет носителя!")
+		return
+
+	if(stat)
+		to_chat(src, "Сейчас вы не в состоянии этого сделать.")
+		return
 
 	if(host.stat == DEAD)
 		to_chat(src, span_warning("Мозг носителя не способен воспринимать вас сейчас!"))
@@ -424,6 +431,10 @@
 	return
 
 /mob/living/simple_animal/borer/proc/hide_borer()
+	if(host)
+		to_chat(src, span_warning("Вы не можете сделать этого, находясь внутри носителя."))
+		return
+
 	if(!hiding)
 		layer = TURF_LAYER+0.2
 		to_chat(src, span_notice("Вы прячетесь."))
