@@ -71,7 +71,7 @@
 			A.turret_controls -= src
 	return ..()
 
-/obj/machinery/turretid/Initialize()
+/obj/machinery/turretid/Initialize(mapload)
 	. = ..()
 	if(!control_area)
 		control_area = get_area(src)
@@ -88,9 +88,13 @@
 		else
 			control_area = null
 
-	updateTurrets()
 	update_icon(UPDATE_ICON_STATE)
 	update_turret_light()
+	return INITIALIZE_HINT_LATELOAD
+
+
+/obj/machinery/turretid/LateInitialize()
+	updateTurrets()
 
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
