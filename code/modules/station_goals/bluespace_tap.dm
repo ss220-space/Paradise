@@ -19,16 +19,24 @@
 	P.special_enabled = TRUE
 	supply_list.Add(P)
 
-/datum/station_goal/bluespace_tap/check_completion()
-	if(..())
-		return TRUE
+/datum/station_goal/bluespace_tap/proc/get_highscore()
 	var/highscore = 0
 	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
 		highscore = max(highscore, T.total_points)
-	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounceooc'>"][highscore]</span>")
+	return highscore
+
+/datum/station_goal/bluespace_tap/check_completion()
+	if(..())
+		return TRUE
+	var/highscore = get_highscore()
 	if(highscore >= goal)
 		return TRUE
 	return FALSE
+	
+/datum/station_goal/bluespace_tap/print_result()
+	..()
+	var/highscore = get_highscore()
+	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounceooc'>"][highscore]</span>")
 
 //needed for the vending part of it
 /datum/data/bluespace_tap_product
