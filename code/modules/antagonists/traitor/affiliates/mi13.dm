@@ -50,10 +50,11 @@
 	new /obj/item/CQC_manual(src)
 
 /obj/item/storage/box/bond_bundle/New()
-	. = ..()
 	if (prob(5))
 		icon_state = "joker"
 		new /obj/item/toy/plushie/blahaj/twohanded(src)
+
+	. = ..()
 
 /obj/item/pen/intel_data/proc/upgrade(obj/item/uplink/U)
 	if (!istype(U) || QDELETED(U))

@@ -132,6 +132,7 @@
 	to_chat(user, span_notice("You squashed [src]. There was a [borer] inside."))
 	qdel(src)
 
+
 /obj/item/borer_scanner // Looks like normal analyzer
 	desc = "A hand-held environmental scanner which reports current gas levels."
 	name = "analyzer"
@@ -159,7 +160,7 @@
 	var/in_body_without_mind = 0
 
 	for (var/mob/living/simple_animal/borer/borer in GLOB.mob_list)
-		if (!is_station_level(get_turf(borer)))
+		if (borer.z != src.z)
 			continue
 
 		if (borer.stat == DEAD)
@@ -274,12 +275,148 @@
 	popup.set_content("[scan_data]")
 	popup.open(no_focus = TRUE)
 
-// Добавить набор для разведения бореров за 29ТК
-// В набор будут входить:
-// Яйцо борера
-// Этот сканер
-// Имплантер фигни позволяющей слышать бореров и посылать сообщение сразу всем, включая контролирующих носителей.
-// Шлем позволяющий наблюдать через глаза бореров.
+
+/obj/item/implanter/borer
+	name = "bio-chip implanter (Hive)"
+	desc = "На боку едва заметная гравировка \"" + AFFIL_TIGER + "\"."
+	imp = /obj/item/implant/borer
+
+/obj/item/implant/borer
+	name = "Hive Bio-chip"
+	implant_state = "implant-syndicate"
+	origin_tech = "programming=4;biotech=6;bluespace=4"
+	activated = BIOCHIP_ACTIVATED_PASSIVE
+	implant_data = /datum/implant_fluff/borer
+
+/obj/item/implant/borer/implant(mob/living/carbon/human/target, mob/living/carbon/human/user, force = FALSE)
+	if(implanted == BIOCHIP_USED || !ishuman(target) || !ishuman(user)) // Both the target and the user need to be human.
+		return FALSE
+
+	target.add_language(LANGUAGE_HIVE_BORER)
+	target.AddSpell(/obj/effect/proc_holder/spell/remoteview/borer)
+	target.AddSpell(/obj/effect/proc_holder/spell/pm_for_borer)
+
+/obj/item/implant/borer/removed(mob/living/carbon/human/source)
+	imp_in.remove_language(LANGUAGE_HIVE_BORER)
+	imp_in.RemoveSpell(/obj/effect/proc_holder/spell/remoteview/borer)
+	imp_in.RemoveSpell(/obj/effect/proc_holder/spell/pm_for_borer)
+	return ..()
+
+/obj/effect/proc_holder/spell/remoteview/borer
+	name = "Connect to borer"
+	desc = "Смотрите глазами любого борера в том же секторе."
+	base_cooldown = 3 SECONDS
+	action_background_icon_state = "bg_alien"
+
+/obj/effect/proc_holder/spell/remoteview/borer/create_new_targeting()
+	return new /datum/spell_targeting/borer
+
+/datum/spell_targeting/borer/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
+	var/list/borers = list()
+	for(var/mob/living/simple_animal/borer/M in GLOB.alive_mob_list)
+		if (user.z != M.z)
+			continue
+
+		if (M.host && M.controlling)
+			borers += M.host
+		else
+			borers += M
+
+	if(!length(borers))
+		return
+
+	var/mob/living/simple_animal/borer/target = tgui_input_list(user, "Выберите чьими глазами вы хотите смотреть", "Выбор цели", borers)
+
+	if(QDELETED(target))
+		to_chat(user, span_warning("Цель больше не существует."))
+		return
+
+	if (target.stat == DEAD)
+		to_chat(user, span_warning("Цель мертва."))
+		return
+
+	if (target.host && target.controlling)
+		target = target.host
+
+	return list(target)
+
+
+/obj/effect/proc_holder/spell/msg_for_borers
+	name = "Message for all borers"
+	desc = "Послать сообщение всем борерам, включая тех, что контролируют носителей."
+	base_cooldown = 2 SECONDS
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
+	action_icon_state = "genetic_project"
+	action_background_icon_state = "bg_alien"
+
+/obj/effect/proc_holder/spell/msg_for_borers/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/msg_for_borers/cast(list/targets, mob/user = usr)
+	if(!ishuman(user))
+		return
+
+	if(user.mind?.miming)
+		to_chat(user, span_warning("Вы не можете общаться, пока не нарушите обет молчания."))
+		return
+
+	var/say = tgui_input_text(user, "Что вы хотите сообщить?", "Сообшение борерам")
+	if (!say)
+		return
+
+	for (var/mob/living/simple_animal/borer/borer in GLOB.player_list)
+		if (borer.z != user.z)
+			continue
+
+		to_chat(borer, span_alien(say))
+		SEND_SOUND(borer, 'sound/effects/adminhelp.ogg') // neuron activation
+
+
+/obj/effect/proc_holder/spell/pm_for_borer
+	name = "Privat message for borer"
+	desc = "Послать личное сообщение конкретному бореру."
+	base_cooldown = 2 SECONDS
+	clothes_req = FALSE
+	stat_allowed = CONSCIOUS
+	action_icon_state = "genetic_project"
+	action_background_icon_state = "bg_alien"
+
+/obj/effect/proc_holder/spell/pm_for_borer/create_new_targeting()
+	return new /datum/spell_targeting/borer
+
+/obj/effect/proc_holder/spell/pm_for_borer/cast(list/targets, mob/user = usr)
+	if(!ishuman(user))
+		return
+
+	if(user.mind?.miming)
+		to_chat(user, span_warning("Вы не можете общаться, пока не нарушите обет молчания."))
+		return
+
+	var/say = tgui_input_text(user, "Что вы хотите сообщить?", "[targets[1]]")
+
+	if (!say)
+		return
+
+	for(var/mob/living/target in targets)
+		to_chat(target, span_alien(say))
+		SEND_SOUND(target, 'sound/effects/adminhelp.ogg') // neuron activation
+
+
+/obj/item/storage/box/syndie_kit/borer
+	name = "Borer kit box"
+
+/obj/item/storage/box/syndie_kit/borer/populate_contents()
+	new /obj/item/reagent_containers/food/snacks/egg/borer(src)
+	new /obj/item/borer_scanner(src)
+	new /obj/item/implanter/borer(src)
+
+/obj/item/storage/box/syndie_kit/borer/New()
+	if (prob(5))
+		icon_state = "joker"
+		new /obj/item/toy/plushie/blahaj/twohanded(src)
+
+	. = ..()
 
 #undef FREE_INJECT_TIME
 #undef TARGET_INJECT_TIME

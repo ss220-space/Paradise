@@ -379,8 +379,8 @@
 	job = list(JOB_TITLE_CHAPLAIN)
 
 /datum/uplink_item/jobspecific/artistic_toolbox
-	name = "Артистический тулбокс"
-	desc = "Проклятый тулбокс, дающий своим последователям чрезвычайную силу ценой необходимости приносить жертвы. Если жертвы не предоставлены, он нападет на своего последователя."
+	name = "Артистический ящик для инструментов"
+	desc = "Проклятый ящик для инструментов, дающий своим последователям чрезвычайную силу ценой необходимости приносить жертвы. Если жертвы не предоставлены, он нападет на своего последователя."
 	item = /obj/item/storage/toolbox/green/memetic
 	cost = 100
 	job = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_CIVILIAN)
@@ -542,7 +542,7 @@
 	made_by = AFFIL_CYBERSUN
 
 /datum/uplink_item/jobspecific/supertoolbox
-	name = "Улучшенный подозрительный тулбокс"
+	name = "Улучшенный подозрительный ящик с инструментами"
 	desc = "Окончательная версия всех ящиков с инструментами, этот более прочный и полезный, чем его более дешевая версия. Поставляется с экспериментальными инструментами, боевыми перчатками и крутыми солнцезащитными очками."
 	item = /obj/item/storage/toolbox/syndisuper
 	cost = 8
@@ -1793,14 +1793,14 @@
 	cost = 30
 
 /datum/uplink_item/device_tools/toolbox
-	name = "Полностью укомплектованный тулбокс"
-	desc = "Подозрительный черно-красный тулбокс Синдиката. Помимо инструментов, в него входят изолирующие перчатки и мультитул."
+	name = "Полностью укомплектованный ящик с инструментами"
+	desc = "Подозрительный черно-красный ящик с инструментами Синдиката. Помимо инструментов, в него входят изолирующие перчатки и мультитул."
 	item = /obj/item/storage/toolbox/syndicate
 	cost = 3
 	made_by = ""
 
 /datum/uplink_item/device_tools/supertoolbox
-	name = "Улучшенный подозрительный тулбокс"
+	name = "Улучшенный подозрительный ящик с инструментами"
 	desc = "Окончательная версия всех ящиков с инструментами, этот более прочный и полезный, чем его более дешевая версия. \
 			Поставляется с экспериментальными инструментами, боевыми перчатками и крутыми солнцезащитными очками."
 	item = /obj/item/storage/toolbox/syndisuper
@@ -2746,6 +2746,13 @@
 	item = /obj/item/cling_extract/self
 	cost = 74 // A little bit stronger than normal changeling because of 26 TC, but with more hard objectives.
 	limited_stock = 1 // Sorry, only one
+
+/datum/uplink_item/affiliate/tiger/cling_extract
+	name = "Набор для разведения бореров"
+	desc = "Набор предметов для более эффективного разведения бореров. Содержит яйцо борера, анализатор бореров и имплант для телепатического \
+			общения с ними."
+	item = /obj/item/storage/box/syndie_kit/borer
+	cost = 29
 
 /datum/uplink_item/affiliate/for_objective/cling_extract
 	name = "Инжектор с яйцом генокрада"

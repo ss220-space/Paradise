@@ -189,3 +189,7 @@
 	life = "Lifetime warranty."
 	function = "The onboard gateway system has been modified to reject entry by individuals containing this bio-chip."
 
+/datum/implant_fluff/borer
+	name = "Hive"
+	life = "Известно, что срок действия составляет до года."
+	function = "Позволяет подключаться к сознанию Мозговых Червей и обмениваться с ними информацией."
