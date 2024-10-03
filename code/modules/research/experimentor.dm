@@ -145,29 +145,31 @@
 	if(disabled)
 		to_chat(user, span_warning("The [name] is offline."))
 		return ATTACK_CHAIN_PROCEED
+
 	if(!linked_console)
 		to_chat(user, span_warning("The [name] should be linked to an R&D console first."))
 		return ATTACK_CHAIN_PROCEED
+
 	if(loaded_item)
 		to_chat(user, span_warning("The [name] is already loaded."))
 		return ATTACK_CHAIN_PROCEED
+
 	if(!checkCircumstances(I))
 		to_chat(user, span_warning("The [I.name] is not yet valid for [src] and must be completed."))
 		return ATTACK_CHAIN_PROCEED
+
 	if(!I.origin_tech)
 		to_chat(user, span_warning("The [I.name] has no technological origin."))
 		return ATTACK_CHAIN_PROCEED
+
 	if(clone_next)
 		var/list/temp_tech = ConvertReqString2List(I.origin_tech)
 		var/techs_sum = 0
 		for(var/T in temp_tech)
 			techs_sum += temp_tech[T]
-		if(istype(I, /obj/item/relic) || techs_sum > 4 && !istype(I, /obj/item/storage/backpack/holding))
-			to_chat(user, span_warning("Этот предмет слишком сложен для копирования. Попробуйте вставить что-то попроще."))
-			return ATTACK_CHAIN_PROCEED
 
-		if (I.contents)
-			to_chat(user, span_warning("Предмет должен быть цельным."))
+		if(istype(I, /obj/item/relic) || (techs_sum > 4 || isstorage(I)) && !istype(I, /obj/item/storage/backpack/holding))
+			to_chat(user, span_warning("Этот предмет слишком сложен для копирования. Попробуйте вставить что-то попроще."))
 			return ATTACK_CHAIN_PROCEED
 
 		if (I.type in subtypesof(/obj/item/stack))
@@ -182,10 +184,13 @@
 			visible_message(span_notice("A duplicate [I] pops out!"))
 			var/type_to_make = I.type
 			new type_to_make(get_turf(pick(oview(1,src))))
+
 		clone_next = FALSE
 		return ATTACK_CHAIN_PROCEED
+
 	if(!user.drop_transfer_item_to_loc(I, src))
 		return ATTACK_CHAIN_PROCEED
+
 	loaded_item = I
 	to_chat(user, span_notice("You have added [I] to [src]."))
 	flick("h_lathe_load", src)
