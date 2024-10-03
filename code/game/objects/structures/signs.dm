@@ -256,6 +256,20 @@
 	does_emissive = TRUE
 	blocks_emissive = FALSE
 
+/obj/structure/sign/portrait
+	name = "\improper creepy portrait"
+	desc = "A terrible picture"
+	icon_state = "Boo"
+	does_emissive = TRUE
+	blocks_emissive = FALSE
+
+/obj/structure/sign/carps
+	name = "\improper carp restaurant sign"
+	desc = "Incredibly delicious cartoon"
+	icon_state = "Carps"
+	does_emissive = TRUE
+	blocks_emissive = FALSE
+
 /obj/structure/sign/science
 	name = "\improper SCIENCE!"
 	desc = "A warning sign which reads 'SCIENCE!'"

@@ -234,7 +234,18 @@
 	/// If true, this light cannot ever have an emergency mode
 	var/no_emergency = FALSE
 
+/**
+  *
+  * старые микро лампочки, чисто для визуального балдежа.
+  *
+  */
 
+/obj/machinery/light/small/old
+	name = " old light fixture"
+	icon_state = "old_bulb1"
+	brightness_range = 5
+
+	brightness_color = "#cd7e00"
 /**
   * # Small light fixture
   *
