@@ -284,6 +284,9 @@
 	if (istype(target, /mob/living/carbon/human))
 		var/mob/living/carbon/human/host = target
 		target = host.has_brain_worms()
+		if (!target)
+			user.balloon_alert(user, "Бореров не обнаружено")
+			return
 
 	if (!istype(target, /mob/living/simple_animal/borer))
 		return
@@ -307,7 +310,7 @@
 	if (borer.master_name != "")
 		scan_data += span_info("Эта особь принадлежит к подвиду выведенному для помощи агентам.")
 
-	var/datum/browser/popup = new(user, "scanner", borer.name, 300, 300)
+	var/datum/browser/popup = new(user, "scanner", borer.truename, 300, 300)
 	popup.set_content(span_highlight("[jointext(scan_data, "<br>")]"))
 	popup.open(no_focus = TRUE)
 
@@ -403,7 +406,7 @@
 	stat_allowed = CONSCIOUS
 	action_icon_state = "genetic_project"
 	action_background_icon_state = "bg_alien"
-	break_remoteview = TRUE
+	break_remoteview = FALSE
 
 /obj/effect/proc_holder/spell/msg_for_borers/create_new_targeting()
 	return new /datum/spell_targeting/self
