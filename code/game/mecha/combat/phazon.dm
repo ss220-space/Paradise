@@ -20,6 +20,8 @@
 	phase_state = "phazon-phase"
 	max_equip = 3
 
+	mech_type = MECH_TYPE_PHAZON
+
 /obj/mecha/combat/phazon/GrantActions(mob/living/user, human_occupant = 0)
 	..()
 	phasing_action.Grant(user, src)

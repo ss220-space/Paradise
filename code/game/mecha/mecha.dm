@@ -121,6 +121,9 @@
 	///Is mecha strafing currently
 	var/strafe = FALSE
 
+	///Mech subtype. Currently used in paintkits.
+	var/mech_type = MECH_TYPE_NONE
+
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
 /obj/mecha/Initialize()
@@ -902,34 +905,6 @@
 		diag_hud_set_mechtracking()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype (I, /obj/item/universal_paintkit))
-		if(occupant)
-			to_chat(user, span_warning("You can't customize a mech while someone is piloting it - that would be unsafe!"))
-			return ATTACK_CHAIN_PROCEED
-		var/obj/item/universal_paintkit/uni_paintkit = I
-		var/list/possibilities = list()
-		for(var/path in subtypesof(/obj/item/paintkit))
-			var/obj/item/paintkit/kit = new path
-			for(var/type in kit.allowed_types)
-				if(type == initial(icon_state))
-					possibilities += kit
-		if(isemptylist(possibilities))
-			to_chat(user, span_warning("There aren't any skins for this mech."))
-			return ATTACK_CHAIN_PROCEED
-		var/choice = tgui_input_list(usr, "Pick your skin for mech.", "Paints", possibilities)
-		if(!choice)
-			return ATTACK_CHAIN_PROCEED
-		user.visible_message(span_notice("[user] opens [uni_paintkit] and spends some quality time customising [name]."))
-		var/obj/item/paintkit/chosen_kit = choice
-		if(chosen_kit.new_prefix)
-			initial_icon = "[chosen_kit.new_prefix][initial_icon]"
-		else
-			initial_icon = chosen_kit.new_icon
-		name = chosen_kit.new_name
-		desc = chosen_kit.new_desc
-		update_icon(UPDATE_ICON_STATE)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
 	if(istype(I, /obj/item/paintkit))
 		add_fingerprint(user)
 		if(occupant)
@@ -938,7 +913,7 @@
 		var/obj/item/paintkit/paintkit = I
 		var/found = FALSE
 		for(var/type in paintkit.allowed_types)
-			if(type == initial_icon)
+			if(type == mech_type)
 				found = TRUE
 				break
 		if(!found)
