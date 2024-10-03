@@ -59,7 +59,9 @@
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
 		/obj/effect/proc_holder/spell/fireball/hellish,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
-		/obj/effect/proc_holder/spell/infernal_jaunt
+		/obj/effect/proc_holder/spell/infernal_jaunt,
+		/obj/effect/proc_holder/spell/dark_conversion,
+		/obj/effect/proc_holder/spell/aoe/devil_fire
 	)
 
 /datum/devil_rank/blood_lizard/apply_rank()
@@ -91,7 +93,9 @@
 		/obj/effect/proc_holder/spell/fireball/hellish,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt,
-		/obj/effect/proc_holder/spell/sintouch
+		/obj/effect/proc_holder/spell/sintouch,
+		/obj/effect/proc_holder/spell/dark_conversion,
+		/obj/effect/proc_holder/spell/aoe/devil_fire
 	)
 
 /datum/devil_rank/true_devil/apply_rank()

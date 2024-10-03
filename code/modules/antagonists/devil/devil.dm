@@ -28,7 +28,7 @@
 	return ..()
 
 /datum/antagonist/devil/proc/add_soul(datum/mind/soul)
-	if(soulsOwned.Find(soul))
+	if(locate(soul) in soulsOwned)
 		return
 
 	LAZYADD(soulsOwned, soul)
@@ -45,6 +45,7 @@
 
 /datum/antagonist/devil/proc/try_update_rank()
 	var/devil_rank = update_rank()
+	
 	if(!devil_rank)
 		return FALSE
 
