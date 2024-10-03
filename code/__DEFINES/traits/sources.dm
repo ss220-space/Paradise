@@ -48,6 +48,7 @@
 #define MECHA_EQUIPMENT_TRAIT "mecha-equip"
 #define HIS_GRACE_TRAIT "his-grace"
 #define CHAINSAW_TRAIT "chainsaw-wield"
+#define CENTCOMM_RAPIER_TRAIT "centcomm_rapier"
 #define PYRO_CLAWS_TRAIT "pyro-claws"
 #define CONTRACTOR_BATON_TRAIT "contractor-baton"
 #define MUZZLE_TRAIT "muzzle"
