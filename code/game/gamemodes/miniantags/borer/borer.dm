@@ -51,8 +51,10 @@
 	to_chat(src, span_userdanger("Вы начинаете упорно сопротивляться контролю паразита (это займёт примерно минуту)."))
 	to_chat(B.host, span_userdanger("Вы чувствуете, как пленённый разум [src] начинает сопротивляться."))
 	var/delay = (rand(350,450) + B.host.getBrainLoss())
+
 	if(!do_after(src, delay, B.host, ALL))
 		return
+
 	return_control(B)
 	host_resisting = FALSE
 
@@ -70,48 +72,63 @@
 	name = "cortical borer"
 	real_name = "cortical borer"
 	desc = "A small, quivering sluglike creature."
+
 	speak_emote = list("chirrups")
 	emote_hear = list("chirrups")
+
 	tts_seed = "Gman_e2"
+
 	response_help = "pokes"
 	response_disarm = "prods the"
 	response_harm = "stomps on the"
+
 	icon_state = "brainslug"
 	icon_living = "brainslug"
 	icon_dead = "brainslug_dead"
-	speed = 5
+
 	a_intent = INTENT_HARM
-	stop_automated_movement = 1
-	status_flags = CANPUSH
 	attacktext = "щипает"
 	friendly = "prods"
-	wander = 0
+
 	mob_size = MOB_SIZE_TINY
-	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
+	status_flags = CANPUSH
+	density = FALSE
+
 	faction = list("creature")
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+
+	wander = FALSE
+	stop_automated_movement = TRUE
+	speed = 5
+
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
-	var/generation = 1
+
 	var/static/list/borer_names = list(
 			"Primary", "Secondary", "Tertiary", "Quaternary", "Quinary", "Senary",
 			"Septenary", "Octonary", "Novenary", "Decenary", "Undenary", "Duodenary",
 			)
-	var/talk_inside_host = FALSE			// So that borers don't accidentally give themselves away on a botched message
+
 	var/chemicals = 10						// Chemicals used for reproduction and chemical injection.
 	var/max_chems = 250
-	var/mob/living/carbon/human/host		// Human host for the brain worm.
+	var/generation = 1
+
 	var/truename							// Name used for brainworm-speak.
-	var/mob/living/captive_brain/host_brain	// Used for swapping control of the body back and forth.
 	var/controlling							// Used in human death check.
+	
+	var/mob/living/carbon/human/host		// Human host for the brain worm.
+	var/mob/living/captive_brain/host_brain	// Used for swapping control of the body back and forth.
+
 	var/docile = FALSE						// Sugar can stop borers from acting.
 	var/bonding = FALSE
 	var/leaving = FALSE
 	var/sneaking = FALSE
 	var/hiding = FALSE
+	var/talk_inside_host = FALSE			// So that borers don't accidentally give themselves away on a botched message
+
 	var/datum/antagonist/borer/antag_datum = new
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
 	var/datum/action/innate/borer/toggle_hide/toggle_hide_action = new
@@ -127,7 +144,7 @@
 	var/datum/action/innate/borer/focus_menu/focus_menu_action = new
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
-	antag_datum.borer_rank = new /datum/borer_rank/young(src)
+	antag_datum.borer_rank = new BORER_RANK_YOUNG(src)
 	..(newloc)
 	remove_from_all_data_huds()
 	generation = gen
