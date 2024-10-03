@@ -347,45 +347,6 @@
 		to_chat(src, span_notice("Вы анализируете жизненные показатели [M]."))
 		healthscan(src, M, 1, TRUE)
 
-/obj/effect/proc_holder/spell/borer_force_say
-	name = "Speak as host"
-	desc = "Force your host to say something."
-	base_cooldown = 15
-	clothes_req = FALSE
-	action_background_icon_state = "bg_alien"
-	action_icon_state = "god_transmit"
-	need_active_overlay = TRUE
-	human_req = FALSE
-	var/evo_cost = 0.3
-
-/obj/effect/proc_holder/spell/borer_force_say/create_new_targeting()
-	return /datum/spell_targeting/self
-
-/obj/effect/proc_holder/spell/borer_force_say/can_cast(mob/living/simple_animal/borer/user, charge_check = TRUE, show_message = FALSE)
-	if (!src || user.stat || !user.host || user.host.stat)
-		return FALSE
-	. = ..()
-
-/obj/effect/proc_holder/spell/borer_force_say/cast(list/targets, mob/living/simple_animal/borer/user)
-	if(user.evo_points < evo_cost)
-		to_chat(user, "Вам требуется еще [evo_cost - user.evo_points] очков эволюции для подчинения голосовых связок хозяина.")
-		return 
-		
-	var/force_say_content = tgui_input_text(user, "Content:", "Host forcesay")
-
-	if(!force_say_content)
-		return
-
-	if(!user.controlling && !user.stat && user.host && !user.host.stat && user.evo_points >= evo_cost) // we really need that double check
-		user.host.say(force_say_content)
-		user.evo_points -= evo_cost
-		add_attack_logs(user, user.host, "Forcesaid: [force_say_content]")
-
-/mob/living/simple_animal/borer/verb/secrete_chemicals()
-	set category = "Borer"
-	set name = "Secrete Chemicals"
-	set desc = "Push some chemicals into your host's bloodstream."
-
 /mob/living/simple_animal/borer/proc/secrete_chemicals()
 	if(!host)
 		to_chat(src, "Вы не находитесь в теле носителя.")
@@ -423,6 +384,7 @@
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
 			attack_ghost(ghost)
+
 	if(href_list["borer_use_chem"])
 		locate(href_list["src"])
 		if(!istype(src, /mob/living/simple_animal/borer))
