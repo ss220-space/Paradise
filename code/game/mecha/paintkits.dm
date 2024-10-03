@@ -396,7 +396,7 @@
 	user.visible_message(span_notice("[user] opens [src] and customises [mech.name]."))
 	var/obj/item/paintkit/chosen_kit = choice
 	if(chosen_kit.new_prefix)
-		mech.initial_icon = "[chosen_kit.new_prefix][mech.initial(initial_icon)]" //weird but ok
+		mech.initial_icon = "[chosen_kit.new_prefix][initial(mech.initial_icon)]" //weird but ok
 	else
 		mech.initial_icon = chosen_kit.new_icon
 	mech.name = chosen_kit.new_name
