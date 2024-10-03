@@ -513,7 +513,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		if (!M.mind.special_role)
 			continue
 
-		if (!is_station_level(M.z))
+		if (!is_station_level(get_turf(M.z)))
 			continue
 
 		if (istraitor(M))

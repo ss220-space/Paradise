@@ -2747,12 +2747,12 @@
 	cost = 74 // A little bit stronger than normal changeling because of 26 TC, but with more hard objectives.
 	limited_stock = 1 // Sorry, only one
 
-/datum/uplink_item/affiliate/tiger/cling_extract
+/datum/uplink_item/affiliate/tiger/borers_kit
 	name = "Набор для разведения бореров"
 	desc = "Набор предметов для более эффективного разведения бореров. Содержит яйцо борера, анализатор бореров и имплант для телепатического \
 			общения с ними."
 	item = /obj/item/storage/box/syndie_kit/borer
-	cost = 29
+	cost = 26
 
 /datum/uplink_item/affiliate/for_objective/cling_extract
 	name = "Инжектор с яйцом генокрада"

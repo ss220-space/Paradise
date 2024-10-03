@@ -302,7 +302,7 @@ export const Uplink = (props, context) => {
                 <Tabs.Tab
                   key="GetIntelligenceВata"
                   // This cant ever be selected. Its just a close button.
-                  onClick={() => act('lock')}
+                  onClick={() => act('intel_data')}
                   icon="intel_data"
                 >
                   Запросить разведданные

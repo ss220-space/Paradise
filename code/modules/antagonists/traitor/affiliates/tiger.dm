@@ -160,7 +160,9 @@
 	var/in_body_without_mind = 0
 
 	for (var/mob/living/simple_animal/borer/borer in GLOB.mob_list)
-		if (borer.z != src.z)
+		var/turf/T1 = get_turf(borer)
+		var/turf/T2 = get_turf(src)
+		if (T1.z != T2.z)
 			continue
 
 		if (borer.stat == DEAD)
@@ -187,7 +189,7 @@
 	scan_data += "Мертвых особей: [dead]"
 
 	var/datum/browser/popup = new(user, "scanner", "Сканирование станции", 300, 300)
-	popup.set_content("[scan_data]")
+	popup.set_content(span_highlight("[jointext(scan_data, "<br>")]"))
 	popup.open(no_focus = TRUE)
 
 /obj/item/borer_scanner/proc/find_borer(mob/user)
@@ -213,7 +215,7 @@
 			scan_data += "Субъект находится в вентиляции."
 
 	var/datum/browser/popup = new(user, "scanner", "Поиск борера", 300, 300)
-	popup.set_content("[scan_data]")
+	popup.set_content(span_highlight("[jointext(scan_data, "<br>")]"))
 	popup.open(no_focus = TRUE)
 
 /obj/item/borer_scanner/attack_self(mob/user)
@@ -272,7 +274,7 @@
 		scan_data += span_info("Эта особь принадлежит к подвиду выведенному для помощи агентам.")
 
 	var/datum/browser/popup = new(user, "scanner", borer.name, 300, 300)
-	popup.set_content("[scan_data]")
+	popup.set_content(span_highlight("[jointext(scan_data, "<br>")]"))
 	popup.open(no_focus = TRUE)
 
 
@@ -293,8 +295,9 @@
 		return FALSE
 
 	target.add_language(LANGUAGE_HIVE_BORER)
-	target.AddSpell(/obj/effect/proc_holder/spell/remoteview/borer)
-	target.AddSpell(/obj/effect/proc_holder/spell/pm_for_borer)
+	target.AddSpell(new /obj/effect/proc_holder/spell/remoteview/borer)
+	target.AddSpell(new /obj/effect/proc_holder/spell/pm_for_borer)
+	return ..()
 
 /obj/item/implant/borer/removed(mob/living/carbon/human/source)
 	imp_in.remove_language(LANGUAGE_HIVE_BORER)
@@ -312,20 +315,21 @@
 	return new /datum/spell_targeting/borer
 
 /datum/spell_targeting/borer/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
+	var/list/borers_names = list()
 	var/list/borers = list()
 	for(var/mob/living/simple_animal/borer/M in GLOB.alive_mob_list)
 		if (user.z != M.z)
 			continue
 
-		if (M.host && M.controlling)
-			borers += M.host
-		else
-			borers += M
+		borers_names += M.truename
+		borers[M.truename] = M
 
 	if(!length(borers))
 		return
 
-	var/mob/living/simple_animal/borer/target = tgui_input_list(user, "Выберите чьими глазами вы хотите смотреть", "Выбор цели", borers)
+	var/target_name = tgui_input_list(user, "Выберите чьими глазами вы хотите смотреть", "Выбор цели", borers)
+
+	var/mob/living/simple_animal/borer/target = borers[target_name]
 
 	if(QDELETED(target))
 		to_chat(user, span_warning("Цель больше не существует."))
