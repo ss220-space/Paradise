@@ -229,7 +229,7 @@
 
 	// I REALLY need to split up status panel things into datums
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
-	if(borer?.controlling)
+	if(borer && borer.controlling)
 		status_tab_data[++status_tab_data.len] = list("Chemicals", borer.chemicals)
 		status_tab_data[++status_tab_data.len] = list("Rank", borer.antag_datum.borer_rank.rankname)
 		status_tab_data[++status_tab_data.len] = list("Evolution points", borer.antag_datum.evo_points)
