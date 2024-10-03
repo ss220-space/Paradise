@@ -188,7 +188,8 @@
 	severity = BIOHAZARD
 	curable = FALSE
 	can_immunity = FALSE
-	virus_heal_resistant = TRUE
+	ignore_immunity = TRUE
+	resistance_to_ABM = TRUE
 	var/obj/item/storage/toolbox/green/memetic/progenitor = null
 	var/absorption_applied = FALSE
 

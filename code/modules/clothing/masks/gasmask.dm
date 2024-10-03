@@ -7,7 +7,7 @@
 	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "gas_alt"
-	gas_transfer_coefficient = 0.01
+	gas_transfer_coefficient = 1
 	permeability_coefficient = 0.01
 	resistance_flags = NONE
 	undyeable = TRUE
@@ -102,6 +102,7 @@
 	. = ..()
 	force_adjust_mask()
 
+
 //Bane gas mask
 /obj/item/clothing/mask/banemask
 	name = "bane mask"
@@ -112,7 +113,7 @@
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "bane_mask"
-	gas_transfer_coefficient = 0.01
+	gas_transfer_coefficient = 0.99
 	permeability_coefficient = 0.01
 
 

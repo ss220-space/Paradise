@@ -25,6 +25,8 @@
 	var/tint = 0
 	/// Tint when its up
 	var/tint_up = 0
+	/// How much air can clothes store
+	var/internal_volume
 
 	/// Whether clothing is currently adjusted.
 	var/up = FALSE
@@ -130,6 +132,9 @@
 
 /obj/item/clothing/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
+	if((slot == ITEM_SLOT_CLOTH_OUTER) || (slot == ITEM_SLOT_HEAD))
+		try_adding_air_supply(user)
+
 	if(!istype(user) || !LAZYLEN(clothing_traits) || !(slot_flags & slot))
 		return .
 
@@ -142,6 +147,17 @@
   */
 /obj/item/clothing/proc/catch_fire() //Called in handle_fire()
 	return
+
+///
+/obj/item/clothing/proc/try_adding_air_supply(mob/living/carbon/human/user)
+	if(!isclothing(user.wear_suit) || !isclothing(user.head))
+		return
+
+	var/obj/item/clothing/suit = user.wear_suit
+	var/obj/item/clothing/helmet = user.head
+
+	if(suit.clothing_flags & BLOCK_GASES && helmet.clothing_flags & BLOCK_GASES)
+		user.AddComponent(/datum/component/internal_air_supply, suit.internal_volume + helmet.internal_volume)
 
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
@@ -450,6 +466,7 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/hats.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_HEAD
+	internal_volume = 30
 	var/blockTracking // Do we block AI tracking?
 	var/HUDType = null
 
@@ -519,6 +536,8 @@ BLIND     // can't see anything
 	slot_flags = ITEM_SLOT_MASK
 	strip_delay = 40
 	put_on_delay = 40
+	/// shows how tightly the mask fits to the face and lets air out of the turf. 0 = completely air-permeable. 1 = completely sealed.
+	var/gas_transfer_coefficient = 0
 	var/adjusted_slot_flags = NONE
 	var/adjusted_flags_inv = NONE
 	var/adjusted_flags_inv_transparent = NONE
@@ -544,8 +563,8 @@ BLIND     // can't see anything
 
 	if(up)
 		to_chat(user, span_notice("You push [src] out of the way."))
-		gas_transfer_coefficient = null
-		permeability_coefficient = null
+		gas_transfer_coefficient = 0
+		permeability_coefficient = 1
 		if(adjusted_slot_flags)
 			slot_flags = adjusted_slot_flags
 		if(adjusted_flags_inv)
@@ -752,6 +771,7 @@ BLIND     // can't see anything
 	var/list/hide_tail_by_species = null
 	max_integrity = 400
 	integrity_failure = 160
+	internal_volume = 90
 
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -833,9 +853,10 @@ BLIND     // can't see anything
 /obj/item/clothing/suit/proc/can_store_weighted(obj/item/I, item_weight = WEIGHT_CLASS_BULKY)
 	return I.w_class <= item_weight
 
-/obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot, initial) //Handle tail-hiding on a by-species basis.
+/obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
 
+	//Handle tail-hiding on a by-species basis.
 	if(ishuman(user) && hide_tail_by_species && slot == ITEM_SLOT_CLOTH_OUTER)
 		if(user.dna.species.name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
@@ -861,7 +882,7 @@ BLIND     // can't see anything
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
 	w_class = WEIGHT_CLASS_NORMAL
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
+	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL|BLOCK_GASES
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = parent_type::flags_inv|HIDEHAIR|HIDENAME|HIDEMASK
 	item_state = "s_helmet"
@@ -887,9 +908,8 @@ BLIND     // can't see anything
 	icon_state = "space"
 	item_state = "s_suit"
 	w_class = WEIGHT_CLASS_BULKY
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.02
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
+	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL|BLOCK_GASES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	slowdown = 1

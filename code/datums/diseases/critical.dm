@@ -2,7 +2,7 @@
 	visibility_flags = HIDDEN_PANDEMIC
 	can_immunity = FALSE
 	ignore_immunity = TRUE
-	virus_heal_resistant = TRUE
+	resistance_to_ABM = TRUE
 	severity = DANGEROUS
 
 /datum/disease/critical/stage_act() //overriden to ensure unique behavior

@@ -154,7 +154,6 @@
 	desc = "An envirohelmet designed for plasmamen employed as the chief medical officer."
 	icon_state = "cmo_envirohelm"
 	item_state = "cmo_envirohelm"
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 	examine_extensions = EXAMINE_HUD_MEDICAL | EXAMINE_HUD_SCIENCE
@@ -178,7 +177,6 @@
 	desc = "A plasmaman envirohelmet designed for chemists, two orange stripes going down its face."
 	icon_state = "chemist_envirohelm"
 	item_state = "chemist_envirohelm"
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	examine_extensions = EXAMINE_HUD_SCIENCE
 
@@ -187,7 +185,6 @@
 	desc = "A plasmaman envirohelmet designed for scientists."
 	icon_state = "scientist_envirohelm"
 	item_state = "scientist_envirohelm"
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	examine_extensions = EXAMINE_HUD_SCIENCE
 
@@ -196,7 +193,6 @@
 	desc = "A plasmaman envirohelmet designed for scientists."
 	icon_state = "scientist_envirohelm"
 	item_state = "scientist_envirohelm"
-	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
 	examine_extensions = EXAMINE_HUD_NONE
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
@@ -206,7 +202,6 @@
 	desc = "A plasmaman envirohelmet designed for the research director."
 	icon_state = "rd_envirohelm"
 	item_state = "rd_envirohelm"
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	examine_extensions = EXAMINE_HUD_SCIENCE
 	HUDType = DATA_HUD_DIAGNOSTIC
@@ -239,7 +234,6 @@
 	desc = "A space-worthy helmet specially designed for plasmamen employed as the chief engineer."
 	icon_state = "ce_envirohelm"
 	item_state = "ce_envirohelm"
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	armor = list("melee" = 40, "bullet" = 5, "laser" = 10, "energy" = 25, "bomb" = 50, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 90)
 	heat_protection = HEAD
@@ -323,7 +317,6 @@
 	desc = "A green and blue envirohelmet designating its wearer as a botanist. While not specially designed for it, it would protect against minor plant-related injuries."
 	icon_state = "botany_envirohelm"
 	item_state = "botany_envirohelm"
-	clothing_flags = THICKMATERIAL
 	HUDType = DATA_HUD_HYDROPONIC
 	examine_extensions = EXAMINE_HUD_BOTANY
 
@@ -379,7 +372,6 @@
 	desc = "A magical plasmaman containment helmet designed to spread chaos in safety and comfort."
 	icon_state = "wizard_envirohelm"
 	item_state = "wizard_envirohelm"
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF

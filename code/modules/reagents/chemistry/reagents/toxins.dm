@@ -46,7 +46,7 @@
 	reagent_state = LIQUID
 	color = "#ff932f"
 	taste_description = "pain"
-	overdose_threshold = 30
+	overdose_threshold = 20
 
 /datum/reagent/bee_venom_beesease/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -58,7 +58,7 @@
 	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	switch(severity)
-		//30-60 units
+		//20-40 units
 		if(1)
 			M.Slowed(3 SECONDS, 3)
 			M.damageoverlaytemp = 50
@@ -67,7 +67,7 @@
 				M.Jitter(8 SECONDS)
 			else if(effect <= 7)
 				M.Stuttering(8 SECONDS)
-		//60 - Infinity units
+		//40 - Infinity units
 		if(2)
 			M.Slowed(3 SECONDS, 6)
 			M.damageoverlaytemp = 90
@@ -342,6 +342,7 @@
 /datum/reagent/lexorin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(1, FALSE)
+	M.AdjustLoseBreath(3 SECONDS, bound_upper = 3 SECONDS)
 	return ..() | update_flags
 
 

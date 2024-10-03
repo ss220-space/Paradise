@@ -18,25 +18,19 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 GLOBAL_LIST_EMPTY(archive_diseases)
 
-/*
-
-	PROPERTIES
-
- */
-
 /datum/disease/virus/advance
-
 	name = "Unknown" // We will always let our Virologist name our disease.
 	desc = "Спроектированная болезнь, может содержать сразу несколько симптомов."
 	form = "Продвинутая болезнь" // Will let med-scanners know that this disease was engineered.
 	agent = "advance microbes"
 	max_stages = 5
 
-	// NEW VARS
-
-	var/list/symptoms = list() // The symptoms of the disease.
+	/// The symptoms of the disease.
+	var/list/symptoms = list()
+	/// Auto-generated unique identifier
 	var/id = ""
-	var/processing = 0
+	/// Used for activation of symptoms code
+	var/started = 0
 
 /datum/disease/virus/advance/New()
 	if(!symptoms || !symptoms.len)
@@ -47,7 +41,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	..()
 
 /datum/disease/virus/advance/Destroy()
-	if(processing)
+	if(started)
 		for(var/datum/symptom/S in symptoms)
 			S.End(src)
 	return ..()
@@ -58,8 +52,8 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 		return FALSE
 	if(symptoms && symptoms.len)
 
-		if(!processing)
-			processing = 1
+		if(!started)
+			started = 1
 			for(var/datum/symptom/S in symptoms)
 				S.Start(src)
 
@@ -90,17 +84,8 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 // Returns the advance disease with a different reference memory.
 /datum/disease/virus/advance/Copy()
-	var/datum/disease/virus/advance/copy = new
-	var/list/required_vars = list(
-		"name","severity","id","visibility_flags","spread_flags", "additional_info", "stage_prob", "cures",
-		"cure_prob","cure_text", "permeability_mod", "mutation_chance", "mutation_reagents", "possible_mutations")
-	for(var/V in required_vars)
-		if(istype(vars[V], /list))
-			var/list/L = vars[V]
-			copy.vars[V] = L.Copy()
-		else
-			copy.vars[V] = vars[V]
-	copy.symptoms = list()
+	var/datum/disease/virus/advance/copy = ..()
+	copy.id = id
 	for(var/datum/symptom/S in symptoms)
 		copy.symptoms += new S.type
 	return copy

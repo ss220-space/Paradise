@@ -71,7 +71,7 @@ Bonus
 	var/cured = 0
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
-		if(D.virus_heal_resistant)
+		if(D.resistance_to_ABM)
 			continue
 		if(D != A)
 			cured = 1

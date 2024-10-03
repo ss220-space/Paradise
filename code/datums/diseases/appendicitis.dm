@@ -11,7 +11,7 @@
 	visibility_flags = HIDDEN_PANDEMIC
 	required_organs = list(/obj/item/organ/internal/appendix)
 	ignore_immunity = TRUE
-	virus_heal_resistant = TRUE
+	resistance_to_ABM = TRUE
 	var/ruptured = FALSE
 
 /datum/disease/appendicitis/stage_act()

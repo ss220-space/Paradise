@@ -6,8 +6,8 @@
 	clothing_flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_SMALL
-	gas_transfer_coefficient = 0.10
-	permeability_coefficient = 0.50
+	gas_transfer_coefficient = 0.8
+	permeability_coefficient = 0.5
 	actions_types = list(/datum/action/item_action/adjust)
 	resistance_flags = NONE
 	can_toggle = TRUE
@@ -46,6 +46,7 @@
 	name = "medical mask"
 	icon_state = "medical"
 	item_state = "medical"
+	gas_transfer_coefficient = 0.9
 	permeability_coefficient = 0.01
 	put_on_delay = 10
 

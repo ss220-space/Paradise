@@ -19,18 +19,19 @@
 		if(2, 3)
 			if(prob(stage))
 				affected_mob.emote("sneeze")
+				spread(spread_range = 5)
 			if(prob(stage))
 				affected_mob.emote("cough")
+				spread(spread_range = 3)
 			if(prob(stage))
 				to_chat(affected_mob, span_danger("Your throat feels sore."))
 			if(prob(stage))
 				to_chat(affected_mob, span_danger("Mucous runs down the back of your throat."))
 		if(3)
-			if(prob(1) && prob(50))
-				if(!LAZYIN(affected_mob.resistances, /datum/disease/virus/flu))
-					var/datum/disease/virus/flu/Flu = new
-					Flu.Contract(affected_mob)
-					cure()
+			if(prob(1))
+				var/datum/disease/virus/flu/Flu = new
+				if(Flu.Contract(affected_mob))
+					cure(need_immunity = FALSE)
 
 /datum/disease/virus/cold/has_cure()
 	//if has spaceacillin

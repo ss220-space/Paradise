@@ -2,7 +2,6 @@
 	name = "wizard hat"
 	desc = "Strange-looking hat-wear that most certainly belongs to a real magic user."
 	icon_state = "wizard"
-	gas_transfer_coefficient = 0.01 // IT'S MAGICAL OKAY JEEZ +1 TO NOT DIE
 	permeability_coefficient = 0.01
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -53,7 +52,6 @@
 	name = "wizard hat"
 	desc = "It has WIZZARD written across it in sequins. Comes with a cool beard."
 	icon_state = "wizard-fake"
-	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	magical = FALSE
@@ -151,7 +149,6 @@
 	desc = "A magnificant, gem-lined robe that seems to radiate power."
 	icon_state = "wizard"
 	item_state = "wizrobe"
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
@@ -292,7 +289,6 @@
 	desc = "A rather dull, blue robe meant to mimick real wizard robes."
 	icon_state = "wizard-fake"
 	item_state = "wizrobe"
-	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	resistance_flags = FLAMMABLE
@@ -302,7 +298,6 @@
 	name = "Witch Hat"
 	desc = "Strange-looking hat-wear, makes you want to cast fireballs."
 	icon_state = "marisa"
-	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	resistance_flags = FLAMMABLE
@@ -317,7 +312,6 @@
 	desc = "Magic is all about the spell power, ZE!"
 	icon_state = "marisa"
 	item_state = "marisarobe"
-	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	resistance_flags = FLAMMABLE

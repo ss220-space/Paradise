@@ -54,12 +54,22 @@
 	if(!iscarbon(user))
 		return
 
+	// user beats src, try contract user with src's viruses
 	for(var/datum/disease/virus/V in diseases)
 		if(V.spread_flags & CONTACT)
+			//check src's protection in zone of contact
+			if(CheckVirusProtection(V, act_type = CONTACT, zone = user.zone_selected))
+				return
+			//check user's protection in zone of contact (active hand)
 			V.Contract(user, act_type = CONTACT, need_protection_check = TRUE, zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 
+	// user beats src, try contract src with user's viruses
 	for(var/datum/disease/virus/V in user.diseases)
 		if(V.spread_flags & CONTACT)
+			//check user's protection in zone of contact (active hand)
+			if(user.CheckVirusProtection(V, act_type = CONTACT, zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND))
+				return
+			//check src's protection in zone of contact
 			V.Contract(src, act_type = CONTACT, need_protection_check = TRUE, zone = user.zone_selected)
 
 	if(body_position == LYING_DOWN && surgeries.len)

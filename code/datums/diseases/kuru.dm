@@ -9,7 +9,7 @@
 	curable = FALSE
 	can_immunity = FALSE
 	ignore_immunity = TRUE //Kuru is a prion disorder, not a virus
-	virus_heal_resistant = TRUE
+	resistance_to_ABM = TRUE
 
 /datum/disease/kuru/stage_act()
 	if(!..())

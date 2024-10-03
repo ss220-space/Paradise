@@ -72,4 +72,6 @@
 #define FIXED_SLOWDOWN (1<<5)
 /// Checks for finger coverage, prevents damage from nettles
 #define FINGERS_COVERED (1<<6)
+/// Does it pass gases inside the clothes
+#define BLOCK_GASES (1<<7)
 

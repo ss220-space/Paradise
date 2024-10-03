@@ -3,7 +3,7 @@
 	name = "Fungal Tuberculosis"
 	agent = "Fungal Tubercle bacillus Cosmosis"
 	desc = "A rare highly transmittable virulent virus. Few samples exist, rumoured to be carefully grown and cultured by clandestine bio-weapon specialists. Causes fever, blood vomiting, lung damage, weight loss, and fatigue."
-	spread_flags = AIRBORNE
+	spread_flags = CONTACT|AIRBORNE
 	cures = list("spaceacillin", "salbutamol")
 	cure_prob = 5
 	required_organs = list(/obj/item/organ/internal/lungs)

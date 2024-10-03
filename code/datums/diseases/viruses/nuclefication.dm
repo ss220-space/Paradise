@@ -5,12 +5,11 @@
 	max_stages = 5
 	spread_flags = NON_CONTAGIOUS
 	cures = list()              // YOU
-	virus_heal_resistant = TRUE // CAN'T
+	resistance_to_ABM = TRUE 	// CAN'T
 	can_immunity = FALSE		// ESCAPE
 	severity = DANGEROUS
 	stage_prob = 5
-	can_contract_dead = TRUE
-	cure_text = null
+	can_progress_in_dead = TRUE
 	var/stage_message = 1
 
 /datum/disease/virus/nuclefication/stage_act()

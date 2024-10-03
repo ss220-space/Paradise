@@ -11,6 +11,7 @@
 	cures = list("sugar")
 	severity = DANGEROUS
 	possible_mutations = list(/datum/disease/virus/lycan)
+	carrier_mobtypes = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/hostile/poison/bees)
 	var/bees_spawned = 0
 
 /datum/disease/virus/beesease/stage_act()

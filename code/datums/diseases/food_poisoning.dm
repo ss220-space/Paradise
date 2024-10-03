@@ -10,7 +10,7 @@
 	severity = MINOR
 	can_immunity = FALSE
 	ignore_immunity = TRUE
-	virus_heal_resistant = TRUE
+	resistance_to_ABM = TRUE
 	visibility_flags = HIDDEN_PANDEMIC
 	possible_mutations = list(/datum/disease/virus/tuberculosis)
 

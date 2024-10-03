@@ -44,14 +44,15 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	/// Does it skip TRAIT_VIRUSIMMUNE
 	var/ignore_immunity = FALSE
 	/// Immunity to Anti-Bodies Metabolism symptom
-	var/virus_heal_resistant = FALSE
+	var/resistance_to_ABM = FALSE
+
 	/// Message when cured
 	var/cured_message = "You feel better."
 
 	//Mutations
 
 	/// Probability of mutation if the necessary reagents are in the body
-	var/mutation_chance = 1
+	var/mutation_chance = 2
 	/// Necessary reagents
 	var/list/mutation_reagents = list("mutagen")
 	/// List of diseases in which it can mutate
@@ -69,10 +70,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/can_progress_in_dead = FALSE
 	/// If TRUE, disease can contract dead mobs
 	var/can_contract_dead = FALSE
-	/// Disease can contract others, if carrier is dead with this chance. Set to 0, if can't. Must be in [0, 100].
-	var/spread_from_dead_prob = 0
-	/// If TRUE, host not affected by virus, but can spread it (mostly for viruses)
-	var/carrier = FALSE
 	/// Infectable mob types, that can only be carriers
 	var/list/carrier_mobtypes = list()
 
@@ -189,14 +186,13 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
  * Attempt to infect a mob
  * Arguments:
  * * act_type - type of contract. Can be BITES, CONTACT, AIRBORNE or combination of them, for example CONTACT|AIRBORNE
- * * is_carrier - make this mob a carrier of the virus
  * * need_protection_check - check mob's clothing, internals, special masks etc
  * * zone - zone of contact ("l_leg", "head", etc or /obj/item/organ/external)
  * Returns:
  * * /datum/disease/D - a new instance of the virus that contract the mob
  * * FALSE - otherwise
  */
-/datum/disease/proc/Contract(mob/living/M, act_type, is_carrier = FALSE, need_protection_check = FALSE, zone)
+/datum/disease/proc/Contract(mob/living/M, act_type, need_protection_check = FALSE, zone)
 	if(!CanContract(M, act_type, need_protection_check, zone))
 		return FALSE
 
@@ -204,7 +200,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	LAZYADD(M.diseases, D)
 	D.affected_mob = M
 	GLOB.active_diseases += D
-	D.carrier = is_carrier
 	D.affected_mob.med_hud_set_status()
 	return D
 
@@ -216,8 +211,18 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 
 
 /datum/disease/proc/Copy()
-	var/datum/disease/D = new type()
-	return D
+	var/datum/disease/copy = new type()
+	var/list/required_vars = list(
+		"name", "severity", "visibility_flags", "additional_info", "stage_prob", "cures",
+		"cure_prob", "cure_text", "mutation_chance", "mutation_reagents", "possible_mutations")
+	for(var/V in required_vars)
+		if(istype(vars[V], /list))
+			var/list/L = vars[V]
+			copy.vars[V] = L.Copy()
+		else
+			copy.vars[V] = vars[V]
+
+	return copy
 
 
 /datum/disease/proc/GetDiseaseID()

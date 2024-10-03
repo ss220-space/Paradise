@@ -39,7 +39,7 @@
 	if(isnucleation(target))
 		return //no need to apply disease to nucleation
 	var/datum/disease/virus/nuclefication/D = new()
-	D.Contract(target, need_protection_check = FALSE)
+	D.Contract(target)
 
 
 

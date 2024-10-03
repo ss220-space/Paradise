@@ -70,65 +70,25 @@
 	return FALSE
 
 /mob/living/CheckBitesProtection(datum/disease/virus/V, zone = BODY_ZONE_CHEST)
-	return ..() || prob(run_armor_check(zone, "melee") / V.permeability_mod)
+	var/x = run_armor_check(zone, MELEE)/V.permeability_mod
+	// parabola from (0, 0) to (100, 100)
+	return prob(sqrtor0(100*x))
 
 /mob/living/carbon/human/CheckContactProtection(datum/disease/virus/V, zone)
-	if(..())
-		return TRUE
-
-	var/zone_text
 	if(!zone)
-		zone_text = pick(40; BODY_ZONE_HEAD, 40; BODY_ZONE_CHEST, 10; BODY_ZONE_L_ARM, 10; BODY_ZONE_L_LEG)
-	else
-		if(istype(zone, /obj/item/organ/external))
-			var/obj/item/organ/external/E = zone
-			zone_text = E.limb_zone
-		else
-			zone_text = zone
-
-	switch(zone_text)
-		if(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
-			if(ClothingVirusProtection(head) || ClothingVirusProtection(wear_mask))
-				return TRUE
-		if(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_TAIL, BODY_ZONE_WING)
-			if(ClothingVirusProtection(wear_suit) || ClothingVirusProtection(w_uniform))
-				return TRUE
-		if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
-			if(istype(wear_suit) && (wear_suit.body_parts_covered & HANDS) && ClothingVirusProtection(wear_suit))
-				return TRUE
-			if(ClothingVirusProtection(gloves))
-				return TRUE
-		if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-			if(istype(wear_suit) && (wear_suit.body_parts_covered & FEET) && ClothingVirusProtection(wear_suit))
-				return TRUE
-			if(ClothingVirusProtection(shoes))
-				return TRUE
-
+		zone = pick(40; BODY_ZONE_HEAD, 40; BODY_ZONE_CHEST, 10; BODY_ZONE_L_ARM, 10; BODY_ZONE_L_LEG)
+	if(prob(getarmor(zone, BIO)/V.permeability_mod))
+		return TRUE
 	return FALSE
 
 /mob/living/carbon/human/CheckAirborneProtection(datum/disease/virus/V, zone)
-	if(..())
-		return TRUE
-
 	var/internals_mod = internal ? 1 : 0.2
 	var/permeability_mod = clamp((2 - V.permeability_mod), 0.1, 1)
-	var/mask_protection_mod = 1
+	var/mask_protection_mod = 0
 	if(wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH))
-		mask_protection_mod = 0.5
-		if(istype(wear_mask, /obj/item/clothing/mask/breath))
-			mask_protection_mod = 0.7
-		if(istype(wear_mask, /obj/item/clothing/mask/gas))
-			mask_protection_mod = 0.9
-		if(istype(wear_mask, /obj/item/clothing/mask/surgical) || istype(wear_mask, /obj/item/clothing/mask/breath/medical))
-			mask_protection_mod = 0.99
+		mask_protection_mod = wear_mask.gas_transfer_coefficient
 
-	if(prob(100 * permeability_mod * internals_mod * mask_protection_mod))
+	if(prob((internals_mod + permeability_mod + mask_protection_mod)/3*100))
 		return TRUE
 
-	return FALSE
-
-/mob/living/carbon/human/proc/ClothingVirusProtection(obj/item/Clothing)
-	//permeability_coefficient == 0.01 => 99% defense; permeability_coefficient == 1 => 0% defense
-	if(istype(Clothing) && prob(100 * (1 - Clothing.permeability_coefficient)))
-		return TRUE
 	return FALSE

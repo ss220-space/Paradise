@@ -3,7 +3,7 @@
 	agent = "1nqu1s1t10n flu virion"
 	desc = "If left untreated the subject will burn to death for being a heretic."
 	max_stages = 3
-	spread_flags = AIRBORNE
+	spread_flags = CONTACT|AIRBORNE
 	cure_text = "Spaceacillin & Anti-bodies to the common flu"
 	cures = list("spaceacillin")
 	cure_prob = 10

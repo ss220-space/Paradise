@@ -176,7 +176,6 @@ do { \
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/chameleon
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 100)

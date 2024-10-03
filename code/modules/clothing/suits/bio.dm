@@ -4,7 +4,7 @@
 	icon_state = "bio"
 	desc = "A hood that protects the head and face from biological comtaminants."
 	permeability_coefficient = 0.01
-	clothing_flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL|BLOCK_GASES
 	flags_inv = HIDEHAIR|HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 80, "fire" = 30, "acid" = 100)
@@ -33,9 +33,8 @@
 	icon_state = "bio"
 	item_state = "bio_suit"
 	w_class = WEIGHT_CLASS_BULKY
-	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	clothing_flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL|BLOCK_GASES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 1
 	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/pen,/obj/item/flashlight/pen)

@@ -665,6 +665,9 @@
 #define COMSIG_CARBON_APPLY_OVERLAY "carbon_apply_overlay"
 ///Called from remove_overlay(cache_index, overlay)
 #define COMSIG_CARBON_REMOVE_OVERLAY "carbon_remove_overlay"
+///From /mob/living/carbon/proc/get_breath()
+#define COMSIG_CARBON_BREATH "carbon_breath"
+	#define COMPONENT_BLOCK_BREATH_FROM_INTERNAL_SUPPLY (1<<0)
 
 // /mob/living/simple_animal signals
 ///from /mob/living/attack_animal():	(mob/living/simple_animal/M)
@@ -894,7 +897,13 @@
 #define COMSIG_HUMAN_REGENERATE_ICONS "human_regenerate_icons"
 ///From /mob/living/carbon/human/proc/set_species(): (datum/species/old_species)
 #define COMSIG_HUMAN_SPECIES_CHANGED "human_species_changed"
-
+///From /obj/item/proc/equipped()
+#define COMSIG_HUMAN_ITEM_EQUIPED "human_item_equiped"
+///From /obj/item/proc/dropped()
+#define COMSIG_HUMAN_ITEM_DROPPED "human_item_dropped"
+///From /mob/living/carbon/human/handle_environment()
+#define COMSIG_HUMAN_HANDLE_ENVIROMENT "human_handle_environment"
+	#define COMPONENT_BLOCK_HANLE_INTERNAL_ENVIROMENT (1<<0)
 
 ///from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
 #define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"
@@ -1175,4 +1184,3 @@
 
 ///From base of datum/controller/subsystem/Initialize
 #define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"
-
