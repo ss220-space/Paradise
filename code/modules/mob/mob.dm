@@ -637,6 +637,9 @@
 /mob/proc/IsAdvancedToolUser()//This might need a rename but it should replace the can this mob use things check
 	return FALSE
 
+/mob/proc/can_use_machinery(obj/machinery/mach)
+	return IsAdvancedToolUser() 
+
 /mob/proc/swap_hand()
 	return
 
