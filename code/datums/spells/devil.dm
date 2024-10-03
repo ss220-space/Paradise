@@ -73,13 +73,14 @@
 
 		if(C.stat == DEAD)
 			if(!user.drop_from_active_hand())
-					continue
+				continue
 
 			var/obj/item/paper/contract/infernal/revive/contract = new(user.loc, C.mind, user.mind)
 			user.put_in_hands(contract)
 		else
 			var/obj/item/paper/contract/infernal/contract
-			var/contractTypeName = input(user, "What type of contract?") in list (CONTRACT_POWER, CONTRACT_WEALTH, CONTRACT_PRESTIGE, CONTRACT_MAGIC, CONTRACT_KNOWLEDGE, CONTRACT_FRIENDSHIP)  // no todo: contracts deprecated and soon will be deleted
+			var/contractTypeName = input(user, "What type of contract?") in list (CONTRACT_POWER, CONTRACT_WEALTH, CONTRACT_PRESTIGE, CONTRACT_MAGIC, CONTRACT_KNOWLEDGE, CONTRACT_FRIENDSHIP)  // no todo: contracts are deprecated and soon will be deleted
+
 			switch(contractTypeName)
 				if(CONTRACT_POWER)
 					contract = new /obj/item/paper/contract/infernal/power(C.loc, C.mind, user.mind)
@@ -92,7 +93,8 @@
 				if(CONTRACT_KNOWLEDGE)
 					contract = new /obj/item/paper/contract/infernal/knowledge(C.loc, C.mind, user.mind)
 				if(CONTRACT_FRIENDSHIP)
-						contract = new /obj/item/paper/contract/infernal/friendship(C.loc, C.mind, user.mind)
+					contract = new /obj/item/paper/contract/infernal/friendship(C.loc, C.mind, user.mind)
+
 			C.put_in_hands(contract)
 
 
