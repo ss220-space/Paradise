@@ -82,7 +82,7 @@
 		return .
 	var/mob/target = grabbed_thing
 	if(occupant)
-		grabber.balloon_alert(grabber, "[src] is already occupied!")
+		grabber.balloon_alert(grabber, "tent is occupied!")
 		return .
 
 	visible_message("[grabber] starts putting [target] into [src].")
@@ -110,7 +110,7 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf))
 		return
 	if(occupant)
-		usr.balloon_alert(usr, "The tent is already occupied!")
+		usr.balloon_alert(usr, "tent is occupied!")
 		return TRUE
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
@@ -133,7 +133,7 @@
 		return
 
 	if(occupant)
-		user.balloon_alert(user, "The tent is already occupied!")
+		user.balloon_alert(user, "tent is occupied!")
 		return
 	if(!L)
 		return
@@ -149,7 +149,7 @@
 	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled)
 		return
 	if(occupant)
-		usr.balloon_alert(usr, "The tent is already occupied!")
+		usr.balloon_alert(usr, "tent is occupied!")
 		return
 	visible_message("[usr] starts climbing into the tent.")
 	put_in(usr, usr)
