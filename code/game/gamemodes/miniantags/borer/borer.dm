@@ -95,6 +95,7 @@
 			"Primary", "Secondary", "Tertiary", "Quaternary", "Quinary", "Senary",
 			"Septenary", "Octonary", "Novenary", "Decenary", "Undenary", "Duodenary",
 			)
+	var/birth_time = 0						// Moment of birth
 	var/talk_inside_host = FALSE			// So that borers don't accidentally give themselves away on a botched message
 	var/chemicals = 10						// Chemicals used for reproduction and chemical injection.
 	var/max_chems = 250
@@ -119,6 +120,7 @@
 	var/datum/action/innate/borer/torment/torment_action = new
 	var/datum/action/innate/borer/sneak_mode/sneak_mode_action = new
 	var/master_name = ""
+	var/children = 0
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
 	..(newloc)
@@ -129,6 +131,7 @@
 	real_name = "Cortical Borer [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
+	birth_time = world.time
 
 /mob/living/simple_animal/borer/attack_ghost(mob/user)
 	if(cannotPossess(user))
@@ -747,6 +750,7 @@
 		var/turf/T = get_turf(src)
 		T.add_vomit_floor()
 		var/mob/living/simple_animal/borer/new_B = new B.type(T, B.generation + 1)
+		B.children++
 		new_B.master_name = B.master_name
 	else
 		to_chat(src, "Вам требуется 100 химикатов для размножения!")

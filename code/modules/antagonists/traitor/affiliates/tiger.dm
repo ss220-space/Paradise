@@ -181,13 +181,13 @@
 
 	scan_data += "Живых особей бореров: [alive]"
 	scan_data += "	Среди них разумны: [with_mind]"
-	scan_data += "	Количество особей с разумным носителем: [in_body_without_mind]"
+	scan_data += "	Количество особей с разумным носителем: [in_body_with_mind]"
 	scan_data += "	Количество особей с неразумным носителем: [in_body_without_mind]"
 	scan_data += "Мертвых особей: [dead]"
 
 	var/datum/browser/popup = new(user, "scanner", "Сканирование станции", 300, 300)
 	popup.set_content("[scan_data]")
-	popup.open(no_focus = 1)
+	popup.open(no_focus = TRUE)
 
 /obj/item/borer_scanner/proc/find_borer(mob/user)
 	var/list/mob/living/simple_animal/borer/borers = list()
@@ -204,7 +204,7 @@
 	scan_data += "Местоположение - (X: [borer.x] Y: [borer.y])"
 
 	if (borer.host)
-		scan_data += "Имеется носитель" + (borer.host.dna?.species ? ("расы " + span_boldnotice("[borer.host.dna?.species]")) : ".")
+		scan_data += "Имеется носитель" + (borer.host.dna?.species ? (" расы " + span_boldnotice("[borer.host.dna?.species]")) : ".")
 		scan_data += "Имя носителя - [borer.host.real_name]."
 	else
 		scan_data += "Носитель не обнаружен."
@@ -213,7 +213,7 @@
 
 	var/datum/browser/popup = new(user, "scanner", "Поиск борера", 300, 300)
 	popup.set_content("[scan_data]")
-	popup.open(no_focus = 1)
+	popup.open(no_focus = TRUE)
 
 /obj/item/borer_scanner/attack_self(mob/user)
 	var/datum/antagonist/traitor/traitor = user?.mind?.has_antag_datum(/datum/antagonist/traitor)
@@ -244,6 +244,10 @@
 		to_chat(user, span_warning("[src] looks broken."))
 		return
 
+	if (istype(target, /mob/living/carbon/human))
+		var/mob/living/carbon/human/host = target
+		target = host.has_brain_worms()
+
 	if (!istype(target, /mob/living/simple_animal/borer))
 		return
 
@@ -253,7 +257,22 @@
 
 	var/mob/living/simple_animal/borer/borer = target
 
+	var/list/scan_data = list()
+	if (borer.stat == DEAD)
+		scan_data += "Текущая особь мертва." // OMG! REALLY? 0_0
 
+	scan_data += "Здоровье: [round(borer.health / borer.maxHealth * 100)]%"
+	scan_data += "Поколение: [borer.generation]"
+	scan_data += "Возраст в минутах: [((world.time - borer.birth_time) / (1 MINUTES))]"
+	scan_data += "Количество размножений: [borer.children]"
+	scan_data += "Химикаты: [borer.chemicals]"
+
+	if (borer.master_name != "")
+		scan_data += span_info("Эта особь принадлежит к подвиду выведенному для помощи агентам.")
+
+	var/datum/browser/popup = new(user, "scanner", borer.name, 300, 300)
+	popup.set_content("[scan_data]")
+	popup.open(no_focus = TRUE)
 
 // Добавить набор для разведения бореров за 29ТК
 // В набор будут входить:
