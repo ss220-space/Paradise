@@ -669,7 +669,7 @@
 /mob/living/carbon/proc/BorerControlling()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 
-	if(borer?.controlling)
+	if(borer && borer.controlling)
 		return TRUE
 
 	return FALSE
