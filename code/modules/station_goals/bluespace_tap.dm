@@ -3,6 +3,7 @@
 	name = "Bluespace Harvester"
 	var/goal = 25000
 
+
 /datum/station_goal/bluespace_tap/get_report()
 	return {"<b>Bluespace Harvester Experiment</b><br>
 	Another research station has developed a device called a Bluespace Harvester.
@@ -14,29 +15,29 @@
 	<br>
 	Nanotrasen Science Directorate"}
 
+
 /datum/station_goal/bluespace_tap/on_report()
 	var/datum/supply_packs/misc/station_goal/bluespace_tap/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bluespace_tap]"]
 	P.special_enabled = TRUE
 	supply_list.Add(P)
 
+
 /datum/station_goal/bluespace_tap/proc/get_highscore()
-	var/highscore = 0
-	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
-		highscore = max(highscore, T.total_points)
-	return highscore
+	. = 0
+
+	for(var/obj/machinery/power/bluespace_tap/harvester in GLOB.machines)
+		. = max(., harvester.total_points)
+
 
 /datum/station_goal/bluespace_tap/check_completion()
-	if(..())
-		return TRUE
-	var/highscore = get_highscore()
-	if(highscore >= goal)
-		return TRUE
-	return FALSE
-	
+	return ..() || get_highscore() >= goal
+
+
 /datum/station_goal/bluespace_tap/print_result()
 	..()
 	var/highscore = get_highscore()
 	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounceooc'>"][highscore]</span>")
+
 
 //needed for the vending part of it
 /datum/data/bluespace_tap_product
