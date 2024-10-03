@@ -159,23 +159,35 @@
 	var/in_body_with_mind = 0
 	var/in_body_without_mind = 0
 
-	for (var/mob/living/simple_animal/borer/borer in GLOB.mob_list)
-		var/turf/T1 = get_turf(borer)
-		var/turf/T2 = get_turf(src)
+	for(var/mob/living/M in GLOB.alive_mob_list)
+		var/mob/living/simple_animal/borer/B
+
+		if (istype(M, /mob/living/simple_animal/borer))
+			B = M
+
+		if (ishuman(M))
+			var/mob/living/carbon/human/H = M
+			B = H.has_brain_worms()
+
+		if (!B)
+			continue
+
+		var/turf/T1 = get_turf(user)
+		var/turf/T2 = get_turf(B)
 		if (T1.z != T2.z)
 			continue
 
-		if (borer.stat == DEAD)
+		if (B.stat == DEAD)
 			dead++
 			continue
 		else
 			alive++
 
-		if (borer.mind)
+		if (M.mind)
 			with_mind++
 
-		if (borer.host)
-			if (borer.host.mind)
+		if (B.host)
+			if (B.host.mind)
 				in_body_with_mind++
 			else
 				in_body_without_mind++
@@ -193,12 +205,34 @@
 	popup.open(no_focus = TRUE)
 
 /obj/item/borer_scanner/proc/find_borer(mob/user)
-	var/list/mob/living/simple_animal/borer/borers = list()
-	for (var/mob/living/simple_animal/borer/borer in GLOB.mob_list)
-		if (istype(borer) && is_station_level(borer.z))
-			borers += borer
+	var/list/borers = list()
+	var/list/borer_names = list()
+	for(var/mob/living/M in GLOB.alive_mob_list)
+		var/mob/living/simple_animal/borer/B
 
-	var/mob/living/simple_animal/borer/borer = input("Выберите искомого борера", "Выбор борера") as null|anything in borers
+		if (istype(M, /mob/living/simple_animal/borer))
+			B = M
+
+		if (ishuman(M))
+			var/mob/living/carbon/human/H = M
+			B = H.has_brain_worms()
+
+		if (!B)
+			continue
+
+		var/turf/T1 = get_turf(user)
+		var/turf/T2 = get_turf(B)
+		if (T1.z != T2.z)
+			continue
+
+		borers[B.truename] = B
+		borer_names += B.truename
+
+	var/borer_name = input("Выберите искомого борера", "Выбор борера") as null|anything in borer_names
+	if (!borer_name)
+		return
+
+	var/mob/living/simple_animal/borer/borer = borers[borer_name]
 
 	var/list/scan_data = list()
 	if (borer.stat == DEAD)
@@ -266,7 +300,7 @@
 
 	scan_data += "Здоровье: [round(borer.health / borer.maxHealth * 100)]%"
 	scan_data += "Поколение: [borer.generation]"
-	scan_data += "Возраст в минутах: [((world.time - borer.birth_time) / (1 MINUTES))]"
+	scan_data += "Возраст в минутах: [round(((world.time - borer.birth_time) / (1 MINUTES)))]"
 	scan_data += "Количество размножений: [borer.children]"
 	scan_data += "Химикаты: [borer.chemicals]"
 
@@ -297,12 +331,14 @@
 	target.add_language(LANGUAGE_HIVE_BORER)
 	target.AddSpell(new /obj/effect/proc_holder/spell/remoteview/borer)
 	target.AddSpell(new /obj/effect/proc_holder/spell/pm_for_borer)
+	target.AddSpell(new /obj/effect/proc_holder/spell/msg_for_borers)
 	return ..()
 
 /obj/item/implant/borer/removed(mob/living/carbon/human/source)
 	imp_in.remove_language(LANGUAGE_HIVE_BORER)
 	imp_in.RemoveSpell(/obj/effect/proc_holder/spell/remoteview/borer)
 	imp_in.RemoveSpell(/obj/effect/proc_holder/spell/pm_for_borer)
+	imp_in.RemoveSpell(/obj/effect/proc_holder/spell/msg_for_borers)
 	return ..()
 
 /obj/effect/proc_holder/spell/remoteview/borer
@@ -317,12 +353,26 @@
 /datum/spell_targeting/borer/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
 	var/list/borers_names = list()
 	var/list/borers = list()
-	for(var/mob/living/simple_animal/borer/M in GLOB.alive_mob_list)
-		if (user.z != M.z)
+	for(var/mob/living/M in GLOB.alive_mob_list)
+		var/mob/living/simple_animal/borer/B
+
+		if (istype(M, /mob/living/simple_animal/borer))
+			B = M
+
+		if (ishuman(M))
+			var/mob/living/carbon/human/H = M
+			B = H.has_brain_worms()
+
+		if (!B)
 			continue
 
-		borers_names += M.truename
-		borers[M.truename] = M
+		var/turf/T1 = get_turf(user)
+		var/turf/T2 = get_turf(B)
+		if (T1.z != T2.z)
+			continue
+
+		borers_names += B.truename
+		borers[B.truename] = B
 
 	if(!length(borers))
 		return
@@ -353,6 +403,7 @@
 	stat_allowed = CONSCIOUS
 	action_icon_state = "genetic_project"
 	action_background_icon_state = "bg_alien"
+	break_remoteview = TRUE
 
 /obj/effect/proc_holder/spell/msg_for_borers/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -369,12 +420,30 @@
 	if (!say)
 		return
 
-	for (var/mob/living/simple_animal/borer/borer in GLOB.player_list)
-		if (borer.z != user.z)
+	for(var/mob/living/M in GLOB.alive_mob_list)
+		var/mob/living/simple_animal/borer/B
+
+		if (istype(M, /mob/living/simple_animal/borer))
+			B = M
+
+		if (ishuman(M))
+			var/mob/living/carbon/human/H = M
+			B = H.has_brain_worms()
+
+		if (!B)
 			continue
 
-		to_chat(borer, span_alien(say))
-		SEND_SOUND(borer, 'sound/effects/adminhelp.ogg') // neuron activation
+		var/turf/T1 = get_turf(user)
+		var/turf/T2 = get_turf(B)
+		if (T1.z != T2.z)
+			continue
+
+		if (B.host && B.controlling)
+			to_chat(B.host, "Голос в голове говорит: \"" + span_alien(say) + "\"")
+			SEND_SOUND(B.host, 'sound/effects/adminhelp.ogg')
+		else
+			to_chat(B, "Голос в голове говорит: \"" + span_alien(say) + "\"")
+			SEND_SOUND(B, 'sound/effects/adminhelp.ogg') // neuron activation
 
 
 /obj/effect/proc_holder/spell/pm_for_borer
@@ -385,6 +454,7 @@
 	stat_allowed = CONSCIOUS
 	action_icon_state = "genetic_project"
 	action_background_icon_state = "bg_alien"
+	break_remoteview = FALSE
 
 /obj/effect/proc_holder/spell/pm_for_borer/create_new_targeting()
 	return new /datum/spell_targeting/borer
@@ -417,6 +487,7 @@
 
 /obj/item/storage/box/syndie_kit/borer/New()
 	if (prob(5))
+		icon = 'icons/obj/affiliates.dmi'
 		icon_state = "joker"
 		new /obj/item/toy/plushie/blahaj/twohanded(src)
 

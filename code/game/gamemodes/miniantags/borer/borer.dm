@@ -137,18 +137,24 @@
 	if(cannotPossess(user))
 		to_chat(user, span_boldnotice("Upon using the antagHUD you forfeited the ability to join the round."))
 		return
+
 	if(jobban_isbanned(user, "Syndicate"))
 		to_chat(user, span_warning("You are banned from antagonists!"))
 		return
+
 	if(key)
 		return
+
 	if(stat != CONSCIOUS)
 		return
-	var/be_borer = tgui_alert(user, "Become a cortical borer? (Warning, You can no longer be cloned!)", "Cortical Borer", list("Yes", "No"))
+
+	var/be_borer = tgui_alert(user, "Желаете стать мозговым червем? (Внимание, вашего прошлого персонажа не смогут воскресить!)", "Cortical Borer", list("Yes", "No"))
 	if(be_borer != "Yes" || !src || QDELETED(src))
 		return
+
 	if(key)
 		return
+
 	transfer_personality(user.client)
 
 /mob/living/simple_animal/borer/sentience_act()
@@ -760,7 +766,7 @@
 	if (master_name == "")
 		return
 
-	to_chat(src, span_warning("[master_name] - ваш мастер. Выполняйте приказы мастера. Помогите мастеру выполнить цели либой ценой!"))
+	to_chat(src, span_dangerbigger("[master_name] - ваш мастер. Выполняйте приказы мастера. Помогите мастеру выполнить цели либой ценой!"))
 	mind.store_memory("<B>[master_name] - мой мастер. Я выполню цели мастера любой ценой!</B>")
 	add_game_logs("стал питомцем master_name", src)
 

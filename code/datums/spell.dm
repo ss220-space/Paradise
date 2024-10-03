@@ -205,7 +205,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/static/list/spell_handlers = list()
 	/// Handles a given spells cooldowns. Tracks the time until its off cooldown.
 	var/datum/spell_cooldown/cooldown_handler
-
+	/// If true, it will break remoteview when you'll try to cust it.
+	var/break_remoteview = TRUE
 
 /**
  * Checks if the user can cast the spell
@@ -221,7 +222,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
 
-	if(ishuman(user))
+	if(ishuman(user) && break_remoteview)
 		var/mob/living/carbon/human/caster = user
 		if(caster.remoteview_target)
 			caster.remoteview_target = null
@@ -408,7 +409,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/try_perform(list/targets, mob/user)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	if(!length(targets))
-		to_chat(user, span_warning("No suitable target found."))
+		to_chat(user, span_warning("Подходящих целей не найдено."))
 		return FALSE
 
 	if(should_remove_click_intercept(user)) // returns TRUE by default
