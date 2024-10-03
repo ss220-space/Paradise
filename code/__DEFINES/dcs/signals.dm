@@ -1167,6 +1167,11 @@
 	/// Return COMPONENT_NO_DEFAULT_MESSAGE to prevent the transforming component from displaying the default transform message / sound.
 	#define COMPONENT_NO_DEFAULT_MESSAGE (1<<0)
 
+///from base of /datum/element/after_attack/Attach(): (datum/sender, proc_ref)
+#define COMSIG_ITEM_REGISTER_AFTERATTACK "register_item_afterattack"
+///from base of /datum/element/after_attack/Detach(): (proc_ref)
+#define COMSIG_ITEM_UNREGISTER_AFTERATTACK "unregister_item_afterattack"
+
 
 ///From base of datum/controller/subsystem/Initialize
 #define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"

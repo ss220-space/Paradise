@@ -130,6 +130,7 @@
 	jobtype = /datum/job/ntspecops/supreme
 
 	suit = /obj/item/clothing/suit/space/deathsquad/officer/supreme
+	belt = /obj/item/storage/belt/rapier/centcomm
 	head = /obj/item/clothing/head/helmet/space/deathsquad/beret/supreme
 	shoes =	/obj/item/clothing/shoes/cowboy/white
 	gloves = /obj/item/clothing/gloves/color/white
