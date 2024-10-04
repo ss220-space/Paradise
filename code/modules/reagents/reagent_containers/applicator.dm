@@ -124,7 +124,7 @@
 	if(reagents && reagents.total_volume)
 		var/fractional_applied_amount = total_applied_amount  / reagents.total_volume
 
-		reagents.reaction(M, REAGENT_TOUCH, fractional_applied_amount, show_message, emagged)
+		reagents.reaction(M, REAGENT_TOUCH, fractional_applied_amount, show_message, ignore_flags)
 		reagents.trans_to(M, total_applied_amount * 0.5)
 		reagents.remove_any(total_applied_amount * 0.5)
 
