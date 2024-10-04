@@ -14,6 +14,8 @@
 	tool_behaviour = NONE
 	maximum_fuel = 50
 	origin_tech = "combat=3;magnets=4;plasmatech=5;"
+	/// Сan be combined with other similar item
+	var/combinable = TRUE
 
 
 /obj/item/weldingtool/sword/toggle_welder(turn_off)
@@ -39,7 +41,7 @@
 		remove_fuel(1)
 
 /obj/item/weldingtool/sword/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/weldingtool/sword))
+	if(istype(I, /obj/item/weldingtool/sword) && combinable)
 		add_fingerprint(user)
 		if(I == src)
 			to_chat(user, span_warning("You try to attach the end of sword to... itself. You're not very smart, are you?"))
@@ -69,6 +71,7 @@
 	block_chance = 75
 	maximum_fuel = 70
 	origin_tech = "combat=5;magnets=5;plasmatech=6;"
+	combinable = FALSE
 
 /obj/item/weldingtool/sword/double/ComponentInitialize()
 	AddComponent(/datum/component/two_handed, \
