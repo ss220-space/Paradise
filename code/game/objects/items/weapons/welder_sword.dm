@@ -43,14 +43,22 @@
 /obj/item/weldingtool/sword/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/weldingtool/sword) && combinable)
 		add_fingerprint(user)
+		var/obj/item/weldingtool/sword/sword = I
+
+		if(!sword.combinable)
+			return ATTACK_CHAIN_PROCEED
+
 		if(I == src)
 			to_chat(user, span_warning("You try to attach the end of sword to... itself. You're not very smart, are you?"))
 			user.apply_damage(10, BRAIN)
 			return ATTACK_CHAIN_PROCEED
+
 		if(loc == user && !user.can_unEquip(src))
 			return ATTACK_CHAIN_PROCEED
+
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
+
 		to_chat(user,  span_notice("You attach the ends of the two welder swords, making a single double-bladed weapon! You're cool."))
 		var/obj/item/weldingtool/sword/double/dual_sword = new(drop_location())
 		user.temporarily_remove_item_from_inventory(src)
@@ -70,6 +78,7 @@
 	force = 5
 	block_chance = 75
 	maximum_fuel = 70
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	origin_tech = "combat=5;magnets=5;plasmatech=6;"
 	combinable = FALSE
 
@@ -80,12 +89,26 @@
 		wieldsound = activation_sound, \
 		unwieldsound = deactivation_sound, \
 		sharp_when_wielded = TRUE, \
-		unwield_callback = CALLBACK(src, PROC_REF(unwield)) \
+		wield_callback = CALLBACK(src, PROC_REF(wield)), \
+		unwield_callback = CALLBACK(src, PROC_REF(unwield)), \
 	)
 
+/obj/item/weldingtool/sword/double/proc/wield(obj/item/source, mob/living/carbon/user)
+	toggle_welder()
+
 /obj/item/weldingtool/sword/double/proc/unwield(obj/item/source, mob/living/carbon/user)
-	if(tool_enabled)
-		toggle_welder()
+	toggle_welder()
+
+/obj/item/weldingtool/sword/double/try_toggle_welder(mob/user, manual_toggle = TRUE)
+	return ..(user, manual_toggle = FALSE)
+
+/obj/item/weldingtool/sword/double/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
+		return .
+
+	if(prob(50))
+		INVOKE_ASYNC(src, GLOBAL_PROC_REF(jedi_spin), user)
 
 /obj/item/weldingtool/sword/double/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(tool_enabled)

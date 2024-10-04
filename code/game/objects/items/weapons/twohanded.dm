@@ -271,10 +271,10 @@
 		return .
 
 	if(prob(50))
-		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
+		INVOKE_ASYNC(src, GLOBAL_PROC_REF(jedi_spin), user)
 
 
-/obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user)
+/proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
 		user.setDir(i)
 		if(i == WEST)
