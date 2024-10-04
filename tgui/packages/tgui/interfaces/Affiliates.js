@@ -33,26 +33,24 @@ const ExploitableInfoPage = (_properties, context) => {
   const { affiliates } = data;
 
   return (
-    <Section title="Подрядчики">
-      <Flex>
-        {affiliates.map((i) => (
-          <Flex.Item grow={1} basis={0} key={i.name}>
-            <Section title={i.name}>
-              {i.desc.map((j) => (
-                <Flex.Item grow={1} basis={0} key={j}>
-                  <Box mx="0.5rem" mb="0.5rem">
-                    {j}
-                  </Box>
-                </Flex.Item>
-              ))}
-              <Button
-                content="Выбрать подрядчика"
-                onClick={() => act('SelectAffiliate', { path: i.path })}
-              />
-            </Section>
-          </Flex.Item>
-        ))}
-      </Flex>
-    </Section>
+    <Flex>
+      {affiliates.map((i) => (
+        <Flex.Item grow={1} basis={0} key={i.name}>
+          <Section title={i.name}>
+            {i.desc.map((j) => (
+              <Flex.Item grow={1} basis={0} key={j}>
+                <Box mx="0.5rem" mb="0.5rem">
+                  {j}
+                </Box>
+              </Flex.Item>
+            ))}
+            <Button
+              content="Выбрать подрядчика"
+              onClick={() => act('SelectAffiliate', { path: i.path })}
+            />
+          </Section>
+        </Flex.Item>
+      ))}
+    </Flex>
   );
 };

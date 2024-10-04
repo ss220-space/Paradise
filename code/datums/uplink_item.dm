@@ -2754,6 +2754,20 @@
 	item = /obj/item/storage/box/syndie_kit/borer
 	cost = 26
 
+/datum/uplink_item/affiliate/tiger/cling_hivemind
+	name = "Имплант разума улья генокрадов"
+	desc = "Имплант позволяющий слышать разум улья генокрадов и общаться в нем. Поставляется в автоимплантере."
+	item = /obj/item/implanter/cling_hivemind
+	cost = 4
+
+/datum/uplink_item/affiliate/tiger/cling_rejuv
+	name = "Имплант воскрешения"
+	desc = "Имплант разработанный на основе регенеративного стазиса генокрадов, позволяющий единоразово воскреснуть. \
+			Поставляется в автоимплантере."
+	item = /obj/item/implanter/cling_rejuv
+	cost = 34
+
+
 /datum/uplink_item/affiliate/for_objective/cling_extract
 	name = "Инжектор с яйцом генокрада"
 	desc = "Инжектор, вводящий в цель модифицированное яйцо генокрада. После введения зародыш вступает в близкий симбиоз с \

@@ -8,9 +8,10 @@
 			"Вы не можете купить предметы для скрытной работы",
 			"Вы не можете купить Ящик снабжения синдиката",
 			"Аплинк заблокирован первые 20 минут",
+			"	",
 			"Стандартные цели:",
-			"Убивать важных корпоративных крыс",
-			"Убивать рядовых корпоративных крыс",
+			"Убить важных корпоративных крыс",
+			"Убить рядовых корпоративных крыс",
 			"Умереть героем")
 	tgui_icon = "gorlex"
 	hij_desc = "Вы - наёмный солдат Gorlex Marauders, засланный на станцию NT с особой целью:\n\
@@ -56,5 +57,5 @@
 	if(!traitor)
 		return
 
-	traitor.add_objective(new /datum/objective/assassinate)
-	traitor.add_objective(new /datum/objective/assassinate)
+	traitor.add_objective(/datum/objective/assassinate)
+	traitor.add_objective(/datum/objective/assassinate)

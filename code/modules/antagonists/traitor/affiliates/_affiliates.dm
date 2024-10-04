@@ -67,9 +67,9 @@
 		return
 
 	var/obj1 = pick(/datum/objective/maroon, /datum/objective/steal)
-	traitor.add_objective(new obj1)
+	traitor.add_objective(obj1)
 	var/obj2 = pick(/datum/objective/maroon, /datum/objective/steal)
-	traitor.add_objective(new obj2)
+	traitor.add_objective(obj2)
 
 /obj/effect/proc_holder/spell/choose_affiliate
 	name = "Choose Affiliate"

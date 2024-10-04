@@ -1880,6 +1880,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/mod_mindslave)
 
 /datum/objective/new_mini_traitor/check_completion()
+	if(!target) //If it's a free objective.
+		return TRUE
+
 	return made
 
 /datum/objective/harvest_blood
@@ -1936,6 +1939,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		traitor.hidden_uplink.uplink_items.Add(I)
 
 /datum/objective/new_mini_vampire/check_completion()
+	if(!target) //If it's a free objective.
+		return TRUE
+
 	return made
 
 /datum/objective/steal/documents
@@ -2026,6 +2032,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		traitor.hidden_uplink.uplink_items.Add(I)
 
 /datum/objective/new_mini_changeling/check_completion()
+	if(!target) //If it's a free objective.
+		return TRUE
+
 	return made
 
 /datum/objective/borers
@@ -2038,6 +2047,16 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/borers/check_completion()
 	var/borers = 0
+
+	for(var/mob/living/M in GLOB.alive_mob_list)
+		if (istype(M, /mob/living/simple_animal/borer))
+			borers++
+			continue
+
+		if (ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if (H.has_brain_worms())
+				borers++
 
 	for(var/mob/living/simple_animal/borer/C in GLOB.alive_mob_list)
 		borers++

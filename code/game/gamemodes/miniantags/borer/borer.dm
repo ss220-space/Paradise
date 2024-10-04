@@ -148,7 +148,7 @@
 	if(stat != CONSCIOUS)
 		return
 
-	var/be_borer = tgui_alert(user, "Желаете стать мозговым червем? (Внимание, вашего прошлого персонажа не смогут воскресить!)", "Cortical Borer", list("Yes", "No"))
+	var/be_borer = tgui_alert(user, "Желаете стать мозговым червем? (Внимание, вы не сможете вернуться в свое старое тело!)", "Cortical Borer", list("Yes", "No"))
 	if(be_borer != "Yes" || !src || QDELETED(src))
 		return
 
