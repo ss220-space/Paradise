@@ -98,6 +98,11 @@
 	return ..()
 
 
+/obj/structure/reagent_dispensers/fueltank/take_damage(damage_amount, damage_type = BRUTE, damage_flag = NONE, sound_effect = TRUE, attack_dir)
+	. = ..()
+	if(damage_type == BURN && damage_amount > 0)
+		boom(FALSE, TRUE)
+
 /obj/structure/reagent_dispensers/fueltank/bullet_act(obj/item/projectile/P)
 	var/will_explode = !QDELETED(src) && !P.nodamage && (P.damage_type == BURN || P.damage_type == BRUTE)
 
@@ -105,6 +110,7 @@
 		add_attack_logs(P.firer, src, "shot with [P.name]", ATKLOG_FEW)
 		investigate_log("[key_name_log(P.firer)] triggered a fueltank explosion with [P.name]", INVESTIGATE_BOMB)
 	..()
+
 
 /obj/structure/reagent_dispensers/fueltank/boom(rigtrigger = FALSE, log_attack = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
 	if(rigtrigger) // If the explosion is triggered by an assembly holder

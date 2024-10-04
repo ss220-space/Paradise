@@ -90,12 +90,13 @@
 	if(tool_enabled) //Turn off the welder if it's on
 		to_chat(user, "<span class='notice'>You switch off [src].</span>")
 		toggle_welder()
-		return
+		return ..()
 	else if(GET_FUEL) //The welder is off, but we need to check if there is fuel in the tank
 		to_chat(user, "<span class='notice'>You switch on [src].</span>")
 		toggle_welder()
 	else //The welder is off and unfuelled
 		to_chat(user, "<span class='notice'>[src] is out of fuel!</span>")
+	. = ..()
 
 /obj/item/weldingtool/proc/toggle_welder(turn_off = FALSE) //Turn it on or off, forces it to deactivate
 	tool_enabled = turn_off ? FALSE : !tool_enabled
