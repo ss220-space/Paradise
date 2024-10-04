@@ -7,10 +7,10 @@
 			"Скидка 33% на плату для взлома ИИ",
 			"Новые предметы - \"Invasive Beacon\" и \"Syndie patcher\"",
 			"Недостатки: -",
-			"	",
-			"	",
-			"	",
-			"	",
+			" ",
+			" ",
+			" ",
+			" ",
 			"Стандартные цели:",
 			"Украсть технологии",
 			"Украсть определенное количество ценных вещей",
@@ -25,7 +25,7 @@
 			Ваше выживание опционально;\n\
 			Возможны помехи от агентов других корпораций - действуйте на свое усмотрение."
 	hij_obj = /datum/objective/make_ai_malf
-	objectives = list(list(/datum/objective/steal = 70, /datum/objective/steal/ai = 30),
+	objectives = list(list(/datum/objective/steal = 80, /datum/objective/steal/ai = 20),
 						/datum/objective/download_data,
 						/datum/objective/new_mini_traitor,
 						/datum/objective/mecha_or_pod_hijack,
@@ -74,6 +74,7 @@
 
 	var/obj/machinery/r_n_d/server/server = target
 
+	server.AI_notify_hack()
 	if(do_after(user, 30 SECONDS, target, max_interact_count = 1))
 		origin_tech = ""
 		for(var/I in server.files.known_tech)

@@ -33,7 +33,9 @@
 /datum/antagonist/traitor/mini/on_gain()
 	if(!owner.som)
 		owner.som = new /datum/mindslaves
+
 	owner.som.masters += owner
+	return ..()
 
 /datum/antagonist/traitor/on_gain()
 	// Create this in case the traitor wants to mindslaves someone.

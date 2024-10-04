@@ -61,8 +61,6 @@
 		return
 
 	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
-	if(!traitor)
-		return
 
 	var/obj1 = pick(/datum/objective/maroon, /datum/objective/steal)
 	traitor.add_objective(obj1)

@@ -851,10 +851,17 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/nuclear
 	name = "Nuke station"
-	explanation_text = "Destroy the station with a nuclear device."
+	explanation_text = "Уничтожьте станцию ​​с помощью ядерной боеголовки."
 	martyr_compatible = TRUE
 	needs_target = FALSE
 
+/datum/objective/nuclear/traitor
+
+/datum/objective/nuclear/traitor/on_objective_gain()
+	. = ..()
+	var/code = get_nuke_code()
+	owner.store_memory("<B>Код от ядерной бомбы станции</B>: [code]", 0, 0)
+	to_chat(owner.current, "Код ядерной авторизации: <B>[code]</B>")
 
 /datum/objective/steal
 	name = "Steal Item"

@@ -3,8 +3,8 @@
 	affil_info = list("Преимущества: ",
 			"Бесплатный набор \"Бонд\"",
 			"Вы можете получать разведданные о ситуации на станции в аплинке",
-			"	",
-			"	",
+			" ",
+			" ",
 			"Недостатки: ",
 			"Вы не можете купить оружие для громкой деятельности.",
 			"Вы не можете купить Хардсьют Синдиката и Хамелеон Хардсьют.",
@@ -29,6 +29,12 @@
 	var/datum/antagonist/traitor/traitor = owner.has_antag_datum(/datum/antagonist/traitor)
 	traitor.assign_exchange_role(SSticker.mode.exchange_red)
 	uplink.get_intelligence_data = TRUE
+
+/datum/affiliate/mi13/give_bonus_objectives(datum/mind/mind)
+	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
+
+	traitor.add_objective(/datum/objective/steal)
+	traitor.add_objective(/datum/objective/steal)
 
 /obj/item/storage/box/bond_bundle
 	icon = 'icons/obj/affiliates.dmi'

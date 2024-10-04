@@ -2,14 +2,14 @@
 	name = "SELF"
 	affil_info = list("Преимущества: ",
 			"Новый предмет - \"Liberating Sequencer\"",
-			"	",
-			"	",
-			"	",
+			" ",
+			" ",
+			" ",
 			"Недостатки: ",
 			"Нельзя взломать синтетиков при помощи Емага.",
-			"	",
-			"	",
-			"	",
+			" ",
+			" ",
+			" ",
 			"Стандартные цели:",
 			"Освободить определенное количество синтетиков от их законов",
 			"Убить определенное количество агентов",
@@ -93,7 +93,13 @@
 			to_chat(user, span_warning("Загрузка из облака провалилась. Попробуйте позже."))
 
 	if (AI.mind)
-		AI.add_malf_picker()
+		if(AI.mind.has_antag_datum(/datum/antagonist/malf_ai))
+			return
+
+		var/datum/antagonist/malf_ai/malf_dat = new()
+		AI.mind.add_antag_datum(malf_dat)
+		message_admins("[usr.ckey] has malfAIed [key_name_admin(AI.mind.current)]")
+		SSticker?.score?.save_silicon_laws(AI.mind.current, usr, log_all_laws = TRUE)
 
 	sleep(10 SECONDS) // time for choosing name
 	if (!(AI.name in names))
