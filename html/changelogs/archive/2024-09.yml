@@ -172,3 +172,15 @@
   - balance: fake insulated gloves now can be recognized only in close range (#5954)
   PiroMage:
   - bugfix: 'Nova Station #1 Patch (#5952)'
+  chomasuke:
+  - add: Add surgery sounds (#5937)
+  pilygun:
+  - add: Updates to the Dormitories prize slot machine + перевод (#5829)
+'2024-09-29':
+  KA8EP:
+  - add: New Space Ruin (#5577)
+  LiquidPotroh:
+  - bugfix: protection in touch reaction only (#5959)
+'2024-09-30':
+  NightDawnFox:
+  - balance: pain hunter is now excluded from antagonist objectives (#5955)

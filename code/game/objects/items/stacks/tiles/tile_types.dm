@@ -70,6 +70,12 @@
 	turf_type = /turf/simulated/floor/wood
 	resistance_flags = FLAMMABLE
 
+/obj/item/stack/tile/wood/dark
+	name = "dark wood floor tiles"
+	singular_name = "dark wood floor tile"
+	icon_state = "tile-wood-dark"
+	turf_type = /turf/simulated/floor/wood/dark
+
 /obj/item/stack/tile/wood/oak
 	name = "oak wood floor tiles"
 	singular_name = "oak wood floor tile"
