@@ -7,7 +7,6 @@
 			"Скидка 25% на имплант адреналина",
 			"Скидка 50% на прототип импланта адреналина",
 			"Скидка 30% на лазерный меч",
-			"Новый предмет - \"Egg Implanter\"",
 			"Недостатки: ",
 			"Вы не можете купить или использовать оружие дальнего боя",
 			" ",
@@ -31,7 +30,7 @@
 
 /datum/affiliate/tiger/finalize_affiliate(datum/mind/owner)
 	. = ..()
-	ADD_TRAIT(owner.current, TRAIT_NO_GUNS, TIGER_TRAIT)
+	ADD_TRAIT(owner, TRAIT_NO_GUNS, TIGER_TRAIT)
 	add_discount_item(/datum/uplink_item/dangerous/sword, 0.70)
 	add_discount_item(/datum/uplink_item/implants/adrenal, 0.75)
 	add_discount_item(/datum/uplink_item/implants/adrenal/prototype, 0.5)

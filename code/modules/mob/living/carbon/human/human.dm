@@ -1603,7 +1603,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/can_use_guns(obj/item/gun/check_gun)
 	. = ..()
 
-	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && HAS_TRAIT(src, TRAIT_NO_GUNS))
+	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && (HAS_TRAIT(src, TRAIT_NO_GUNS) || HAS_TRAIT(mind, TRAIT_NO_GUNS)))
 		to_chat(src, span_warning("Your fingers don't fit in the trigger guard!"))
 		return FALSE
 

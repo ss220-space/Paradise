@@ -1532,6 +1532,7 @@
 	desc = "Минибомба представляет собой гранату с пятисекундным взрывателем."
 	item = /obj/item/grenade/syndieminibomb
 	cost = 30
+	exclude_from_affiliate = list(AFFIL_MI13)
 
 /datum/uplink_item/explosives/rocketlauncher
 	name = "Реактивный гранатомёт 84mm"
@@ -2683,6 +2684,19 @@
 	desc = "Взболтайте свой мартини и поднимите переполох с этого набора смертельного снаряжения, совмещенного с капелькой гаджетов, чтобы все оставалось интересным."
 	item = /obj/item/storage/box/bond_bundle
 	limited_stock = 1
+
+/datum/uplink_item/affiliate/mi13/pen_bomb
+	name = "Ручка-бомба"
+	desc = "Минибомба замаскированная под стильную ручку. Активируйте три раза для взрыва."
+	item = /obj/item/pen/fancy/bomb
+	cost = 10 // Only for MI13 agents who have 20 TK, so it's normal cost
+
+/datum/uplink_item/affiliate/mi13/sound_ring
+	name = "Звуковое кольцо"
+	desc = "Элегантный гаджет замаскированный под кольцо. Имеет встроенный миниатюрный маскировочный модуль. \
+			Может ломать стекла, к которым его прикладывают, короткими звуковыми импульсами."
+	item = /obj/item/clothing/gloves/ring/gadget
+	cost = 14 // Only for MI13 agents who have 20 TK, so it's normal cost
 
 /datum/uplink_item/badass/intelligence_data
 	name = "Подписка на рассылку разведданных"

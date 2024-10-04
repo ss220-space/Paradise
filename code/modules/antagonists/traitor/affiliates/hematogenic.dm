@@ -5,8 +5,7 @@
 
 /datum/affiliate/hematogenic
 	name = "Hematogenic Industries"
-	affil_info = list("Преимущества:",
-			"Новый предмет - \"Bloody Injector\"",
+	affil_info = list("Преимущества: -",
 			" ",
 			" ",
 			" ",
@@ -167,8 +166,7 @@
 
 	var/mob/living/carbon/human/H = target
 
-	to_chat(target, span_danger("[user] started collecting your blood using [src]!"))
-	user.visible_message(span_warning("[user] started collecting [target]'s blood using [src]!"))
+	target.visible_message(span_warning("[user] started collecting [target]'s blood using [src]!"), span_danger("[user] started collecting your blood using [src]!"))
 	if(do_after(user, BLOOD_HARVEST_TIME, target = target, max_interact_count = 1))
 		harvest(user, H)
 
@@ -177,8 +175,7 @@
 		return
 
 	playsound(src, 'sound/goonstation/items/hypo.ogg', 80)
-	to_chat(target, span_danger("[user] collected your blood using [src]!"))
-	user.visible_message(span_warning("[user] collected [target]'s blood using [src]!"))
+	target.visible_message(span_warning("[user] collected [target]'s blood using [src]!"), span_danger("[user] collected your blood using [src]!"))
 	target.emote("scream")
 	for (var/i = 0; i < 3; ++i)
 		if (prob(60))
@@ -210,7 +207,7 @@
 		update_icon(UPDATE_ICON_STATE)
 
 	playsound(src, 'sound/goonstation/items/hypo.ogg', 80)
-	user.visible_message(span_info("[user] cleared blood at [src]."))
+	user.visible_message(span_info("[user] cleared blood at [src]."), span_info("You cleared blood at [src]."))
 
 /obj/item/blood_harvester/examine(mob/user)
 	. = ..()

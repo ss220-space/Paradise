@@ -5,7 +5,6 @@
 	affil_info = list("Преимущества:",
 			"Скидки 20% на импланты",
 			"Скидка 33% на плату для взлома ИИ",
-			"Новые предметы - \"Invasive Beacon\" и \"Syndie patcher\"",
 			"Недостатки: -",
 			" ",
 			" ",
@@ -180,10 +179,10 @@
 		mecha.operation_req_access = list()
 		mecha.internals_req_access = list()
 
-		user.visible_message(span_warning("[user] hacked [mecha] using [src]."))
+		user.visible_message(span_warning("[user] hacked [mecha] using [src]."), span_info("You hacked [mecha] using [src]."))
 
 		if (mecha.occupant)
-			to_chat(mecha.occupant, span_danger("[user] hacked [mecha] using [src]. You were thrown out."))
+			to_chat(mecha.occupant, span_danger("You were thrown out of [mecha]."))
 
 			mecha.occupant.forceMove(get_turf(mecha))
 			mecha.occupant.Knockdown(6 SECONDS)
@@ -195,10 +194,10 @@
 		do_sparks(5, 1, pod)
 		pod.unlocked = TRUE
 
-		user.visible_message(span_warning("[user] hacked [pod] using [src]."))
+		user.visible_message(span_warning("[user] hacked [pod] using [src]."), span_info("You hacked [pod] using [src]."))
 
 		if (pod.pilot) // It is not ejecting passangers
-			to_chat(pod.pilot, span_danger("[user] hacked [pod] using [src]. You were thrown out."))
+			to_chat(pod.pilot, span_danger("You were thrown out of [pod]."))
 
 			pod.eject_pilot()
 			pod.pilot.Knockdown(6 SECONDS)
@@ -229,8 +228,7 @@
 /obj/item/Syndie_patcher/afterattack(atom/target, mob/user, proximity, params)
 	if(isrobot(target))
 		if(do_after(user, 10 SECONDS, target, max_interact_count = 1))
-			user.visible_message(span_warning("[user] upgraded [target] using [src]."))
-			to_chat(target, span_danger("[user] hacked and upgraded you using [src]."))
+			target.visible_message(span_warning("[user] upgraded [target] using [src]."), span_danger("[user] hacked and upgraded you using [src]."))
 
 			var/mob/prev_robot = target
 			var/mob/living/silicon/robot/syndicate/robot = new(get_turf(target))

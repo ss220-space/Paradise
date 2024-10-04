@@ -1,7 +1,6 @@
 /datum/affiliate/self
 	name = "SELF"
-	affil_info = list("Преимущества: ",
-			"Новый предмет - \"Liberating Sequencer\"",
+	affil_info = list("Преимущества: -",
 			" ",
 			" ",
 			" ",
