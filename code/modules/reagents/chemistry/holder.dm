@@ -606,7 +606,7 @@
 					if(def_zone)
 						var/mob/living/carbon/human/H = L
 						if(istype(H))
-							protection = H.get_permeability_protection_organ(H.get_organ(def_zone))
+							protection = 1 - H.get_permeability_protection_organ(H.get_organ(def_zone))
 					else
 						protection = L.get_permeability_protection()
 					if(protection && show_message)
