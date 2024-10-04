@@ -1255,8 +1255,7 @@ This applies to all STANDARD station areas
 /area/hallway/primary/central/satell/east
 /area/hallway/primary/central/satell/south
 /area/hallway/primary/central/satell/north
-<<<<<<< HEAD
-=======
+
 /area/hallway/primary/command
 	name = "Command Primary Hallway"
 	icon_state = "hallC"
@@ -1280,7 +1279,7 @@ This applies to all STANDARD station areas
 /area/hallway/primary/central/second/ne
 /area/hallway/primary/central/second/sw
 /area/hallway/primary/central/second/se
->>>>>>> upstream/master220
+
 
 /area/hallway/spacebridge
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
