@@ -249,6 +249,14 @@
 	does_emissive = TRUE
 	blocks_emissive = FALSE
 
+/obj/structure/sign/Atele
+	name = "\improper label of the atelier"
+	desc = "This sign is silent and standard."
+	icon = 'icons/obj/barsigns.dmi'
+	icon_state = "quietden"
+	does_emissive = TRUE
+	blocks_emissive = FALSE
+
 /obj/structure/sign/chinese
 	name = "\improper chinese restaurant sign"
 	desc = "A glowing dragon invites you in."
