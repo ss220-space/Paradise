@@ -218,7 +218,7 @@
 	)
 	brute_mod = 1.15
 	burn_mod = 1.15
-	speed_mod = -0.35 //less fast as ash walkers
+	speed_mod = -0.37 //less fast as ash walkers
 	punchdamagelow = 4
 	punchdamagehigh = 7
 	punchstunthreshold = 7 //still can stun people pretty often
