@@ -545,7 +545,7 @@
 			can_process = TRUE
 	return can_process
 
-/datum/reagents/proc/reaction(atom/A, method = REAGENT_TOUCH, volume_modifier = 1, show_message = TRUE)
+/datum/reagents/proc/reaction(atom/A, method = REAGENT_TOUCH, volume_modifier = 1, show_message = TRUE, ignore_protection = FALSE)
 	var/react_type
 	if(isliving(A))
 		react_type = "LIVING"
@@ -602,7 +602,7 @@
 
 				var/mob/living/L = A
 				var/protection = 0
-				if(method == REAGENT_TOUCH)
+				if(method == REAGENT_TOUCH && !ignore_protection)
 					protection = L.get_permeability_protection()
 					if(protection)
 						to_chat(L, span_alert("Your clothes protects you from the reaction."))
