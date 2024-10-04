@@ -15,8 +15,6 @@
 	var/list/objectives
 	/// Bad thing that I can`t delete, used as tool to give traitor his affeliate. If you dont doing refactor, you dont neew this one.
 	var/obj/item/uplink/hidden/uplink
-	/// List of enemy affiliates. Used for paying reward for killing their agents.
-	var/list/datum/affiliate/enemys = list()
 	/// Reward for killing enemy agents.
 	var/reward_for_enemys = 10
 	/// TRUE if it can take bonus objectives

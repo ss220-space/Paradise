@@ -443,12 +443,17 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 		if ("give_bonus_objectives")
 			if (can_bonus_objectives)
-				can_bonus_objectives = FALSE
-				affiliate.give_bonus_objectives()
-				uses += 20
-				SStgui.update_uis(src)
-				visible_message("[src] beeps: Additional objectives and bonus TK have been sent.")
-				playsound(src, "sound/machines/boop.ogg", 50, TRUE)
+				if (ui.user.mind.has_antag_datum(/datum/antagonist/traitor))
+					can_bonus_objectives = FALSE
+					affiliate.give_bonus_objectives(ui.user.mind)
+					SStgui.update_uis(src)
+
+					visible_message("[src] beeps: Additional objectives and bonus TK have been sent.")
+					playsound(src, "sound/machines/boop.ogg", 50, TRUE)
+				else
+					visible_message("[src] beeps: You have been added to the list of targets to eliminate. Have a nice day.")
+					playsound(src, "sound/machines/boop.ogg", 50, TRUE)
+
 			else if (affiliate.can_take_bonus_objectives)
 				visible_message("[src] beeps: You have already requested additional objectives.")
 				playsound(src, "sound/machines/boop.ogg", 50, TRUE)

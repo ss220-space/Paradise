@@ -2297,7 +2297,7 @@
 // POINTLESS BADASSERY
 
 /datum/uplink_item/badass
-	category = "(Бессполезное) Крутое"
+	category = "(Бесполезное) Крутое"
 	surplus = 0
 	made_by = AFFIL_DONK
 
@@ -2774,5 +2774,17 @@
 			телом носителя, наделяя того способностями генокрадов."
 	item = /obj/item/cling_extract
 	made_by = AFFIL_TIGER
+
+/datum/uplink_item/affiliate/for_objective/supermatter
+	name = "Набор для кражи осколка суперматерии"
+	desc = "Коробка со всем необходимым для кражи осколка суперматерии."
+	item = /obj/item/storage/box/syndie_kit/supermatter
+	made_by = AFFIL_MI13
+
+/datum/uplink_item/affiliate/for_objective/plutonium_core
+	name = "Набор для кражи ядра ядерной боеголовки"
+	desc = "Коробка со всем необходимым для кражи ядра ядерной боеголовки."
+	item = /obj/item/storage/box/syndie_kit/nuke
+	made_by = AFFIL_MI13
 
 #undef UPLINK_DISCOUNTS

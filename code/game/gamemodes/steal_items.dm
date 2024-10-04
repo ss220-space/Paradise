@@ -259,7 +259,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	typepath = /obj/item/nuke_core/supermatter_sliver
 	protected_jobs = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ATMOSTECH) //Unlike other steal objectives, all jobs in the department have easy access, and would not be noticed at all stealing this
 	location_override = "Engineering. You can use the box and instructions provided to harvest the sliver"
-	special_equipment = /obj/item/storage/box/syndie_kit/supermatter
+	special_equipment = /datum/uplink_item/affiliate/for_objective/supermatter
 	job_possession = FALSE //The CE / engineers / atmos techs do not carry around supermater slivers.
 
 /datum/theft_objective/highrisk/plutonium_core
@@ -267,7 +267,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	name = "the plutonium core from the stations nuclear device"
 	typepath = /obj/item/nuke_core/plutonium
 	location_override = "the Vault. You can use the box and instructions provided to remove the core, with some extra tools"
-	special_equipment = /obj/item/storage/box/syndie_kit/nuke
+	special_equipment = /datum/uplink_item/affiliate/for_objective/plutonium_core
 
 
 //==========================

@@ -712,6 +712,12 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(istype(location, /turf/simulated/floor/shuttle/objective_check) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig))
 			return FALSE
 
+		var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+		if(traitor)
+			for (var/datum/objective/mecha_or_pod_hijack/O in traitor.objectives)
+				if (isspacepod(player.current.loc))
+					return TRUE
+
 		if(!location.onCentcom() && !location.onSyndieBase())
 			return FALSE
 
@@ -953,8 +959,13 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	return FALSE
 
 
-/datum/objective/steal/proc/give_kit(obj/item/item_path)
-	var/item = new item_path
+/datum/objective/steal/proc/give_kit(datum/uplink_item/affiliate/for_objective/item_path)
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor && traitor?.hidden_uplink)
+		traitor.hidden_uplink.uplink_items.Add(new item_path)
+		return
+
+	var/item = new item_path.item
 	var/list/slots = list(
 		"backpack" = ITEM_SLOT_BACKPACK,
 		"left pocket" = ITEM_SLOT_POCKET_LEFT,

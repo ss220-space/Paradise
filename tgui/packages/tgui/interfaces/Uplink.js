@@ -348,14 +348,16 @@ export const Uplink = (props, context) => {
                 </Tabs.Tab>
               )}
 
-              <Tabs.Tab
-                key="BonusObjectives"
-                color={'transparent'}
-                onClick={() => act('give_bonus_objectives', {})}
-                icon="suitcase"
-              >
-                Запросить дополнительные цели
-              </Tabs.Tab>
+              {!!data.can_bonus_objectives && (
+                <Tabs.Tab
+                  key="BonusObjectives"
+                  color={'transparent'}
+                  onClick={() => act('give_bonus_objectives', {})}
+                  icon="suitcase"
+                >
+                  Запросить дополнительные цели
+                </Tabs.Tab>
+              )}
 
               <Tabs.Tab
                 key="LockUplink"

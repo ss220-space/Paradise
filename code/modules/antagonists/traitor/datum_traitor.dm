@@ -52,9 +52,6 @@
 		if (!another_traitor)
 			continue
 
-		if (!(src.affiliate in another_traitor.affiliate.enemys))
-			continue
-
 		if (another_traitor.killed_enemy_agents.len >= LIMIT_KILLING_ENEMY_REWARDS)
 			continue
 
