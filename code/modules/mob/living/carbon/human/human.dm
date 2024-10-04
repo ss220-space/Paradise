@@ -233,7 +233,7 @@
 		status_tab_data[++status_tab_data.len] = list("Chemicals", borer.chemicals)
 		status_tab_data[++status_tab_data.len] = list("Rank", borer.antag_datum.borer_rank.rankname)
 		status_tab_data[++status_tab_data.len] = list("Evolution points", borer.antag_datum.evo_points)
-	
+
 	if(mind)
 		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(cling)
