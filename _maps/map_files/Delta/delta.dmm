@@ -15481,7 +15481,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/maintenance)
+/area/turret_protected/aisat)
 "bRt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -60397,7 +60397,7 @@
 /obj/effect/decal/warning_stripes/southwest,
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/engine,
 /area/security/execution)
 "iJV" = (
@@ -102731,7 +102731,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat)
+/area/turret_protected/aisat)
 "sOS" = (
 /obj/machinery/disposal,
 /obj/effect/decal/warning_stripes/red/hollow,
@@ -135109,13 +135109,13 @@ qni
 qni
 bJW
 bJW
-cvf
-cvf
-cvf
+bJW
+bJW
+bJW
 bRr
-cvf
-cvf
-cvf
+bJW
+bJW
+bJW
 qrT
 qrT
 qrT
@@ -136144,7 +136144,7 @@ bPM
 bRy
 bTA
 bTA
-wRH
+bTA
 dxt
 wRH
 iox
@@ -137165,13 +137165,13 @@ qni
 qni
 bJW
 bJW
-cvg
-cvg
-cvg
+bJW
+bJW
+bJW
 sOI
-cvg
-cvg
-cvg
+bJW
+bJW
+bJW
 qrT
 qrT
 qrT

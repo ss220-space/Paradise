@@ -317,7 +317,7 @@
 					log_and_message_admins("[antag] was not assigned for AI role. Report this to coders.")
 
 			if(ROLE_VAMPIRE)
-				antag.add_antag_datum(/datum/antagonist/vampire)
+				antag.add_antag_datum(/datum/antagonist/vampire/new_vampire)
 			if(ROLE_CHANGELING)
 				antag.add_antag_datum(/datum/antagonist/changeling)
 			if(ROLE_TRAITOR)
@@ -330,7 +330,7 @@
 	for(var/datum/mind/antag as anything in pre_double_antags)
 		switch(pre_double_antags[antag])
 			if(ROLE_VAMPIRE)
-				antag.add_antag_datum(/datum/antagonist/vampire)
+				antag.add_antag_datum(/datum/antagonist/vampire/new_vampire)
 			if(ROLE_CHANGELING)
 				antag.add_antag_datum(/datum/antagonist/changeling)
 

@@ -7835,7 +7835,7 @@
 /turf/simulated/floor/wood,
 /area/secret/gaybar)
 "fTJ" = (
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /obj/structure/table,
 /obj/item/taperecorder,
 /obj/item/camera/digital,

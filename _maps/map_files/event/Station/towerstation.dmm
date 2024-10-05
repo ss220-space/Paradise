@@ -3688,7 +3688,7 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/engine,
 /area/security/permabrig)
 "cth" = (
@@ -22902,7 +22902,7 @@
 /area/medical/psych)
 "oNd" = (
 /obj/machinery/turretid{
-	control_area = "/area/turret_protected/ai_upload";
+	control_area = "AI Upload Chamber";
 	icon_state = "control_stun";
 	name = "AI Upload turret control";
 	pixel_y = 28

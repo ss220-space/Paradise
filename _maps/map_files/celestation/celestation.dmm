@@ -13210,6 +13210,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/turretid/stun{
+	control_area = "AI Satellite Secondary Antechamber";
+	name = "AI Satellite Secondary Antechamber Turret Control";
+	req_access = list(75);
+	pixel_x = -30;
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15893,6 +15900,10 @@
 "cdq" = (
 /obj/machinery/cryopod/robot,
 /obj/effect/landmark/join_late_cyborg,
+/obj/item/radio/intercom{
+	pixel_y = 22;
+	pixel_x = 0
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "navyblue"
@@ -18759,7 +18770,7 @@
 "cvQ" = (
 /obj/structure/table,
 /obj/item/taperecorder,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/engine,
 /area/security/execution)
 "cvR" = (
@@ -18890,6 +18901,13 @@
 	},
 /obj/machinery/camera/autoname{
 	dir = 8
+	},
+/obj/machinery/turretid/lethal{
+	check_synth = 1;
+	name = "AI Chamber Turret Control";
+	req_access = list(75);
+	pixel_x = 32;
+	pixel_y = 0
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/turret_protected/ai)
@@ -27539,13 +27557,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/cele/servise)
 "dOS" = (
-/obj/machinery/turretid/lethal{
-	check_synth = 1;
-	name = "AI Chamber Turret Control";
-	req_access = list(75)
+/obj/machinery/turretid/stun{
+	name = "AI Satellite Turret Control";
+	req_access = list(75);
+	pixel_x = 0;
+	pixel_y = -26
 	},
-/turf/simulated/wall/r_wall,
-/area/turret_protected/ai)
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat)
 "dOW" = (
 /obj/effect/spawner/random_spawners/rock_50,
 /turf/simulated/floor/plating{
@@ -33943,14 +33962,6 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"fgB" = (
-/obj/machinery/turretid/stun{
-	control_area = "AI Satellite Antechamber";
-	name = "AI Satellite Antechamber Turret Control";
-	req_access = list(75)
-	},
-/turf/simulated/wall/r_wall,
-/area/turret_protected/aisat_interior)
 "fgL" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -60528,12 +60539,13 @@
 /area/toxins/lab)
 "kiQ" = (
 /obj/machinery/turretid/stun{
-	control_area = "AI Satellite Secondary Antechamber";
-	name = "AI Satellite Secondary Antechamber Turret Control";
-	req_access = list(75)
+	name = "AI Satellite Turret Control";
+	req_access = list(75);
+	pixel_x = 0;
+	pixel_y = 28
 	},
-/turf/simulated/wall/r_wall,
-/area/turret_protected/aisat_interior/secondary)
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat)
 "kiY" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -69565,9 +69577,9 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/bible,
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
-/obj/item/clothing/glasses/sunglasses/blindfold,
-/obj/item/clothing/glasses/sunglasses/blindfold,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/plating/asteroid,
 /area/security/processing)
 "lXK" = (
@@ -90255,14 +90267,6 @@
 /obj/item/storage/box/mousetraps,
 /turf/simulated/floor/plasteel,
 /area/janitor)
-"pWZ" = (
-/obj/machinery/turretid/stun{
-	control_area = "AI Satellite";
-	name = "AI Satellite Turret Control";
-	req_access = list(75)
-	},
-/turf/simulated/wall/r_wall,
-/area/turret_protected/aisat)
 "pXa" = (
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
@@ -102861,7 +102865,7 @@
 "sxI" = (
 /obj/structure/table,
 /obj/item/clothing/mask/muzzle,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "sxK" = (
@@ -118304,6 +118308,13 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/machinery/turretid/stun{
+	control_area = "AI Satellite Antechamber";
+	name = "AI Satellite Antechamber Turret Control";
+	req_access = list(75);
+	pixel_x = -28;
+	pixel_y = 0
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "navyblue"
@@ -131605,8 +131616,12 @@
 	dir = 1;
 	network = list("SS13","MiniSat")
 	},
-/obj/item/radio/intercom{
-	pixel_y = -28
+/obj/machinery/turretid/stun{
+	control_area = "AI Satellite Antechamber";
+	name = "AI Satellite Antechamber Turret Control";
+	req_access = list(75);
+	pixel_x = 0;
+	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "navyblue"
@@ -225726,7 +225741,7 @@ vZy
 vZy
 vZy
 qZf
-kiQ
+vZy
 vZy
 vZy
 rjo
@@ -227781,7 +227796,7 @@ kCa
 kCa
 mMX
 wJb
-fgB
+mMX
 aXe
 mMX
 eph
@@ -228032,7 +228047,7 @@ ntZ
 clk
 gKY
 oAd
-oAd
+dOS
 gKY
 vWt
 roh
@@ -228043,8 +228058,8 @@ jHo
 ktZ
 roh
 dMW
-pWZ
-oAd
+gKY
+kiQ
 oAd
 gKY
 umH
@@ -287663,7 +287678,7 @@ oVi
 oVi
 oVi
 pip
-dOS
+cnV
 gmZ
 oVi
 oVi

@@ -51,7 +51,7 @@
 
 /datum/game_mode/vampire/post_setup()
 	for(var/datum/mind/vampire in pre_vampires)
-		vampire.add_antag_datum(/datum/antagonist/vampire)
+		vampire.add_antag_datum(/datum/antagonist/vampire/new_vampire)
 	..()
 
 

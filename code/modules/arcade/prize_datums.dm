@@ -284,7 +284,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/enforce
 	name = "Foam Force Enforce"
 	desc = "Точная копия стандартного вооружения службы безопасности НТ."
-	typepath = /obj/item/ammo_box/magazine/toy/enforcer
+	typepath = /obj/item/gun/projectile/automatic/toy/pistol/enforcer
 	cost = 350
 
 /datum/prize_item/shotgun

@@ -51,7 +51,7 @@
 	if(prob(delimb_chance))
 		if(L.stat != DEAD) //no dismemberment for dead carbons, less griefy
 			do_attack_animation(L)
-			if(L.check_shields(src, 25, "[name]", MELEE_ATTACK, armour_penetration))
+			if(L.check_shields(src, 25, "[name]", ITEM_ATTACK, armour_penetration))
 				return FALSE
 			L.adjustBruteLoss(25)
 			L.Weaken(2 SECONDS)

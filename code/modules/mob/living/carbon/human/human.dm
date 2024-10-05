@@ -228,9 +228,11 @@
 			status_tab_data[++status_tab_data.len] = list("Distribution Pressure:", "[internal.distribute_pressure]")
 
 	// I REALLY need to split up status panel things into datums
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
-	if(B && B.controlling)
-		status_tab_data[++status_tab_data.len] = list("Chemicals", B.chemicals)
+	var/mob/living/simple_animal/borer/borer = has_brain_worms()
+	if(borer && borer.controlling)
+		status_tab_data[++status_tab_data.len] = list("Chemicals", borer.chemicals)
+		status_tab_data[++status_tab_data.len] = list("Rank", borer.antag_datum.borer_rank.rankname)
+		status_tab_data[++status_tab_data.len] = list("Evolution points", borer.antag_datum.evo_points)
 
 	if(mind)
 		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
@@ -240,13 +242,8 @@
 
 		var/datum/antagonist/vampire/vamp = mind.has_antag_datum(/datum/antagonist/vampire)
 		if(vamp)
-			status_tab_data[++status_tab_data.len] = list("Total Blood:", "[vamp.bloodtotal]")
-			status_tab_data[++status_tab_data.len] = list("Usable Blood:", "[vamp.bloodusable]")
-
-		var/datum/antagonist/goon_vampire/g_vamp = mind.has_antag_datum(/datum/antagonist/goon_vampire)
-		if(g_vamp)
-			status_tab_data[++status_tab_data.len] = list("Всего крови", "[g_vamp.bloodtotal]")
-			status_tab_data[++status_tab_data.len] = list("Доступная кровь", "[g_vamp.bloodusable]")
+			status_tab_data[++status_tab_data.len] = list("Всего крови:", "[vamp.bloodtotal]")
+			status_tab_data[++status_tab_data.len] = list("Доступная кровь:", "[vamp.bloodusable]")
 
 		if(isclocker(mind.current))
 			status_tab_data[++status_tab_data.len] = list("Total Power", "[GLOB.clockwork_power]")
