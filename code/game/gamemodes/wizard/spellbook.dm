@@ -1029,7 +1029,7 @@
 	if(prob(80))
 		visible_message(span_warning("[src] catches fire!"))
 		qdel(src)
-		return RECHARGE_FAILED
+		return RECHARGE_BURNOUT
 
 	used = FALSE
 	return RECHARGE_SUCCESSFUL
