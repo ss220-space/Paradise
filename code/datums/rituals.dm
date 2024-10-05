@@ -145,15 +145,16 @@
 	return do_ritual(invoker)
 
 /datum/ritual/proc/cast(mob/living/carbon/human/invoker)
-	if(LAZYLEN(invokers))
-		for(var/mob/living/carbon/human/human as anything in invokers)
-			if(!do_after(human, cast_time, ritual_object, progress = FALSE, extra_checks = CALLBACK(src, PROC_REF(action_check_contents))))
-				return FALSE
+	. = TRUE
+	LAZYADD(invokers, invoker)
 
-	if(!do_after(invoker, cast_time, ritual_object, extra_checks = CALLBACK(src, PROC_REF(action_check_contents))))
-		return FALSE
+	for(var/mob/living/carbon/human/human as anything in invokers)
+		if(!do_after(human, cast_time, ritual_object, extra_checks = CALLBACK(src, PROC_REF(action_check_contents))))
+			. = FALSE
 
-	return TRUE
+	LAZYREMOVE(invokers, invoker)
+	
+	return .
 
 /datum/ritual/proc/check_invokers(mob/living/carbon/human/invoker)
 	for(var/mob/living/carbon/human/human in range(finding_range, ritual_object))
@@ -372,16 +373,16 @@
 	extra_invokers = 1
 	cooldown_after_cast = 480 SECONDS
 	cast_time = 70 SECONDS
-	require_allowed_species = FALSE
 	ritual_should_del_things_on_fail = TRUE
 	required_things = list(
 		/obj/item/twohanded/spear = 3,
-		/obj/item/organ/internal/regenerative_core = 1
+		/obj/item/organ/internal/regenerative_core = 1,
+		/mob/living/carbon/human/human = 1
 	)
 
 /datum/ritual/ashwalker/mind_transfer/do_ritual(mob/living/carbon/human/invoker)
-	var/mob/living/carbon/human/human = invokers[1]
-	if(!human.mind || !human.ckey)
+	var/mob/living/carbon/human/human = locate() in used_things
+	if(!human || !human.mind || !human.ckey)
 		return RITUAL_FAILED_ON_PROCEED // Your punishment
 
 	var/obj/effect/proc_holder/spell/mind_transfer/transfer = new
