@@ -128,10 +128,6 @@
 	display_name ="TTS device"
 	path = /obj/item/ttsdevice
 
-/datum/gear/blindfold
-	display_name ="Blindfold"
-	path = /obj/item/clothing/glasses/sunglasses/blindfold
-
 /datum/gear/lipstick
 	display_name = "lipstick, select"
 	path = /obj/item/lipstick

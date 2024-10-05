@@ -97,3 +97,46 @@
 	to_chat(user, span_warning("Вы пронзили разум [target] пси-потоком, парализуя [genderize_ru(target.gender,"его","её","его","их" )] конечности волной первородного ужаса!"))
 	to_chat(target, span_warning("Вы чувствуете, как на вас наваливается жуткое чувство страха, леденящее конечности и заставляющее сердце бешено колотиться."))
 	target.Weaken(6 SECONDS)
+
+/obj/effect/proc_holder/spell/borer_force_say
+	name = "Speak as host"
+	desc = "Force your host to say something."
+
+	base_cooldown = 15
+
+	clothes_req = FALSE
+	human_req = FALSE
+
+	action_icon = 'icons/mob/actions/actions_animal.dmi'
+	action_background_icon_state = "bg_alien"
+	action_icon_state = "god_transmit"
+	need_active_overlay = TRUE
+
+	var/evo_cost = 0.3
+
+/obj/effect/proc_holder/spell/borer_force_say/create_new_targeting()
+	return /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/borer_force_say/can_cast(mob/living/simple_animal/borer/user, charge_check = TRUE, show_message = FALSE)
+	if (user.stat || user.host?.stat)
+		return FALSE
+
+	if(user.antag_datum.evo_points < evo_cost)
+		to_chat(user, "Вам требуется еще [evo_cost - user.antag_datum.evo_points] очков эволюции для подчинения голосовых связок хозяина.")
+		return FALSE
+
+	. = ..()
+
+/obj/effect/proc_holder/spell/borer_force_say/cast(list/targets, mob/living/simple_animal/borer/user)
+	var/force_say_content = tgui_input_text(user, "Content:", "Host forcesay")
+
+	if(!force_say_content)
+		return
+
+	if(user.controlling || user.stat || user.host?.stat || user.antag_datum.evo_points < evo_cost) // we really need that double check
+		return
+
+	user.host.say(force_say_content)
+	user.antag_datum.evo_points -= evo_cost
+	
+	add_attack_logs(user, user.host, "Forcesaid: [force_say_content]")

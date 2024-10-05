@@ -23,8 +23,11 @@
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed = 0
-	money_factor = 7
 	outfit = /datum/outfit/job/hos
+
+	salary = 300
+	min_start_money = 400
+	max_start_money = 700
 
 /datum/outfit/job/hos
 	name = "Head of Security"
@@ -75,8 +78,11 @@
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 2100
 	exp_type = EXP_TYPE_SECURITY
-	money_factor = 6
 	outfit = /datum/outfit/job/warden
+
+	salary = 170
+	min_start_money = 200
+	max_start_money = 550
 
 /datum/outfit/job/warden
 	name = "Warden"
@@ -106,8 +112,6 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival_security/warden
 
-
-
 /datum/job/detective
 	title = JOB_TITLE_DETECTIVE
 	flag = JOB_FLAG_DETECTIVE
@@ -125,8 +129,11 @@
 	exp_requirements = 1200
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_type = EXP_TYPE_SECURITY
-	money_factor = 4
 	outfit = /datum/outfit/job/detective
+
+	salary = 170
+	min_start_money = 200
+	max_start_money = 550
 
 /datum/outfit/job/detective
 	name = "Detective"
@@ -186,8 +193,11 @@
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
-	money_factor = 3
 	outfit = /datum/outfit/job/officer
+
+	salary = 170
+	min_start_money = 200
+	max_start_money = 550
 
 /datum/outfit/job/officer
 	name = "Security Officer"
@@ -251,8 +261,11 @@
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 1800
 	exp_type = EXP_TYPE_MEDICAL
-	money_factor = 4
 	outfit = /datum/outfit/job/brigdoc
+
+	salary = 170
+	min_start_money = 200
+	max_start_money = 550
 
 /datum/outfit/job/brigdoc
 	name = "Brig Physician"
@@ -289,8 +302,11 @@
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_SECURITY
-	money_factor = 4
 	outfit = /datum/outfit/job/pilot
+
+	salary = 170
+	min_start_money = 200
+	max_start_money = 550
 
 /datum/outfit/job/pilot
 	name = "Security Pod Pilot"

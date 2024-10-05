@@ -18614,7 +18614,7 @@
 "bgZ" = (
 /obj/structure/table,
 /obj/item/taperecorder,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -24
@@ -71663,7 +71663,6 @@
 "nMn" = (
 /obj/machinery/light/small,
 /obj/machinery/turretid/stun{
-	control_area = "AI Satellite Antechamber";
 	name = "AI Antechamber Turret Control";
 	pixel_y = -24;
 	req_access = list(75)

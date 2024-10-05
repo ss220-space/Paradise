@@ -2003,15 +2003,52 @@
 	else if(href_list["delay_blob_end"])
 		if(!check_rights(R_ADMIN) || !check_rights(R_EVENT))
 			return
-		if(alert(usr,"Вы действительно хотите преостановить конец раунда в случае победы блоба?", "", "Да", "Нет") == "Нет")
+
+		if(!SSticker || !SSticker.mode)
+			return
+		var/datum/game_mode/mode = SSticker.mode
+		if(tgui_alert(usr,"Вы действительно хотите [mode.delay_blob_end? "вернуть" : "преостановить"] конец раунда в случае победы блоба?", "", list("Да", "Нет")) == "Нет")
+			return
+
+		if(!mode.delay_blob_end)
+			mode.delay_blob_win()
+		else
+			mode.return_blob_win()
+
+		log_admin("[key_name(usr)] has [mode.delay_blob_end? "stopped" : "returned"] stopped delayed blob win")
+		message_admins("[key_name_admin(usr)] has [mode.delay_blob_end? "stopped" : "returned"] delayed blob win")
+
+	else if(href_list["toggle_auto_nuke_codes"])
+		if(!check_rights(R_ADMIN))
 			return
 
 		if(!SSticker || !SSticker.mode)
 			return
 
-		SSticker.mode.delay_blob_win()
-		log_admin("[key_name(usr)] has stopped delayed blob win")
-		message_admins("[key_name_admin(usr)] has stopped delayed blob win")
+		var/datum/game_mode/mode = SSticker.mode
+		if(tgui_alert(usr,"Вы действительно хотите [mode.off_auto_nuke_codes? "вернуть" : "убрать"] автоматические коды от ядерной боеголовки?", "", list("Да", "Нет")) == "Нет")
+			return
+
+		mode.off_auto_nuke_codes = !mode.off_auto_nuke_codes
+
+		log_admin("[key_name(usr)] has [mode.off_auto_nuke_codes? "remove" : "returned"] automatic nuke codes")
+		message_admins("[key_name_admin(usr)] has [mode.off_auto_nuke_codes? "remove" : "returned"] automatic nuke codes")
+
+	else if(href_list["toggle_auto_gamma"])
+		if(!check_rights(R_ADMIN) || !check_rights(R_EVENT))
+			return
+
+		if(!SSticker || !SSticker.mode)
+			return
+
+		var/datum/game_mode/mode = SSticker.mode
+		if(tgui_alert(usr,"Вы действительно хотите [mode.off_auto_gamma? "вернуть" : "убрать"] автоматический ГАММА код?", "", list("Да", "Нет")) == "Нет")
+			return
+
+		mode.off_auto_gamma = !mode.off_auto_gamma
+
+		log_admin("[key_name(usr)] has [mode.off_auto_gamma? "remove" : "returned"] automatic GAMMA code")
+		message_admins("[key_name_admin(usr)] has [mode.off_auto_gamma? "remove" : "returned"] automatic GAMMA code")
 
 	else if(href_list["team_command"])
 		if(!check_rights(R_ADMIN))
