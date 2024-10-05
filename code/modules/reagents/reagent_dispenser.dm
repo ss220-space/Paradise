@@ -98,11 +98,6 @@
 	return ..()
 
 
-/obj/structure/reagent_dispensers/fueltank/take_damage(damage_amount, damage_type = BRUTE, damage_flag = NONE, sound_effect = TRUE, attack_dir)
-	. = ..()
-	if(damage_type == BURN && damage_amount > 0)
-		boom(FALSE, TRUE)
-
 /obj/structure/reagent_dispensers/fueltank/bullet_act(obj/item/projectile/P)
 	var/will_explode = !QDELETED(src) && !P.nodamage && (P.damage_type == BURN || P.damage_type == BRUTE)
 
@@ -157,6 +152,12 @@
 
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/user, params)
+
+	if(istype(I, /obj/item/weldingtool/sword))
+		if(I.tool_enabled)
+			boom(FALSE, TRUE)
+			return ATTACK_CHAIN_BLOCKED_ALL
+			
 	if(istype(I, /obj/item/assembly_holder))
 		add_fingerprint(user)
 		var/obj/item/assembly_holder/assembly = I
