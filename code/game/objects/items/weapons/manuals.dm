@@ -12,7 +12,7 @@
 		</head>
 
 		<body>
-		If you see this - hello! Please write a report to NXB Janitor about \"issue #164-e\", they know how what to do next.
+		If you see this - hello! Please write a report to NXB Janitor about \"issue #164-e\", they know what to do next.
 		</body>
 
 		</html>
