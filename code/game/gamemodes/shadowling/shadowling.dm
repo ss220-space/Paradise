@@ -125,7 +125,7 @@ Made by Xhuis
 	messages.Add("<b>Currently, you are disguised as an employee aboard [station_name()].</b>")
 	messages.Add("<b>In your limited state, you have two abilities: Hatch and Shadowling Hivemind '[get_language_prefix(LANGUAGE_HIVE_SHADOWLING)]'.</b>")
 	messages.Add("<b>Any other shadowlings are your allies. You must assist them as they shall assist you.</b>")
-	messages.Add("<b>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Shadowling\">Тенеморф</a></b><br>")
+	messages.Add("<b>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Shadowling\">Тенеморф</a></b><br>")
 	return messages
 
 
