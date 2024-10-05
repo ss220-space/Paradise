@@ -3,7 +3,7 @@
 	check_module_damage()
 
 /mob/living/silicon/robot/getBruteLoss(repairable_only = FALSE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return 0
 	var/amount = 0
 	for(var/V in components)
@@ -13,7 +13,7 @@
 	return amount
 
 /mob/living/silicon/robot/getFireLoss(repairable_only = FALSE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return 0
 	var/amount = 0
 	for(var/V in components)
@@ -118,7 +118,7 @@
 	silent = FALSE,
 	affect_robotic = TRUE,
 )
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()
 
 	var/list/components = get_damageable_components()
@@ -178,7 +178,7 @@
 	silent = FALSE,
 	affect_robotic = TRUE,
 )
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()
 
 	. = STATUS_UPDATE_NONE

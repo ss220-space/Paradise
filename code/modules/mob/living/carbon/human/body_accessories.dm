@@ -82,12 +82,6 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 	return ..()
 
 //Tajaran
-/datum/body_accessory/tail/wingler_tail // Jay wingler fluff tail
-	name = "Striped Tail"
-	icon_state = "winglertail"
-	animated_icon_state = "winglertail_a"
-	allowed_species = list(SPECIES_TAJARAN)
-
 /datum/body_accessory/tail/leopard_tail
 	name = "Leopard Tail"
 	icon_state = "leopard"

@@ -152,7 +152,11 @@
 	var/list/req_items = list()
 	///possible difficultly
 	var/difficultly_flags
-
+	
+	
+	var/cargo_quest_reward = 0 			//The reward for the quest, consider the debut of the roflcat
+	var/list/bounty_jobs = list() 		//Positions that will be paid. (Noooo I won't do part of this in new)
+	var/linked_departament = "Cargo" 	//The department key is specified to take it from the global list, no, I will not upload to new, I'm afraid to break even
 
 /datum/cargo_quest/New(storage, read_datum = FALSE)
 	if(!read_datum)

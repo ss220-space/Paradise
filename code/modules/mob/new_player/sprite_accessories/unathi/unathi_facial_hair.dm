@@ -1,8 +1,8 @@
 /datum/sprite_accessory/facial_hair/unathi
 	icon = 'icons/mob/sprite_accessories/unathi/unathi_facial_hair.dmi'
 	species_allowed = list(SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
-	gender = NEUTER
-	over_hair = 1
+	unsuitable_gender = null
+	over_hair = TRUE
 
 /datum/sprite_accessory/facial_hair/unathi/una_spines_long
 	name = "Long Spines"
@@ -75,10 +75,10 @@
 	secondary_theme = "webbing"
 
 /datum/sprite_accessory/facial_hair/unathi/una_frills_dorsal
-	over_hair = null
 	name = "Dorsal Frills"
 	icon_state = "dorsalfrills"
 	secondary_theme = "webbing"
+	over_hair = FALSE
 
 /datum/sprite_accessory/facial_hair/unathi/una_chin_horns
 	name = "Chin Horns"

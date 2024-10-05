@@ -18,9 +18,12 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_COMMAND
 	disabilities_allowed = 0
-	money_factor = 10
 	outfit = /datum/outfit/job/captain
 	insurance_type = INSURANCE_TYPE_DELUXE
+
+	salary = 500
+	min_start_money = 600
+	max_start_money = 1200
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -86,9 +89,12 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_LAWYER,
 			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
-	money_factor = 9
 	outfit = /datum/outfit/job/hop
 	insurance_type = INSURANCE_TYPE_DELUXE
+
+	salary = 300
+	min_start_money = 400
+	max_start_money = 700
 
 /datum/outfit/job/hop
 	name = "Head of Personnel"
@@ -141,9 +147,12 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_NTREP)
 	alt_titles = list("NT Consultant","Central Command Consultant")
-	money_factor = 9
 	outfit = /datum/outfit/job/nanotrasenrep
 	insurance_type = INSURANCE_TYPE_DELUXE
+
+	salary = 300
+	min_start_money = 400
+	max_start_money = 700
 
 /datum/outfit/job/nanotrasenrep
 	name = "Nanotrasen Representative"
@@ -160,8 +169,6 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 		/obj/item/melee/baton/ntcane = 1
 	)
 	implants = list(/obj/item/implant/mindshield/ert)
-
-
 
 /datum/job/blueshield
 	title = JOB_TITLE_BLUESHIELD
@@ -188,9 +195,12 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_BLUESHIELD)
 	minimal_access = list(ACCESS_FORENSICS_LOCKERS, ACCESS_SEC_DOORS, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_ENGINE, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH,
 			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS, ACCESS_BLUESHIELD, ACCESS_WEAPONS)
-	money_factor = 7
 	outfit = /datum/outfit/job/blueshield
 	insurance_type = INSURANCE_TYPE_DELUXE
+
+	salary = 300
+	min_start_money = 400
+	max_start_money = 700
 
 /datum/outfit/job/blueshield
 	name = "Blueshield"
@@ -244,9 +254,12 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MAGISTRATE)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_LAWYER, ACCESS_MAGISTRATE, ACCESS_HEADS)
 	alt_titles = list("Judge")
-	money_factor = 9
 	outfit = /datum/outfit/job/judge
 	insurance_type = INSURANCE_TYPE_DELUXE
+
+	salary = 170
+	min_start_money = 200
+	max_start_money = 550
 
 /datum/outfit/job/judge
 	name = "Magistrate"
@@ -291,9 +304,12 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW
-	money_factor = 6
 	outfit = /datum/outfit/job/lawyer
 	insurance_type = INSURANCE_TYPE_DELUXE
+
+	salary = 170
+	min_start_money = 200
+	max_start_money = 550
 
 /datum/outfit/job/lawyer
 	name = "Internal Affairs Agent"

@@ -54,7 +54,7 @@
 		mark_target(target)
 		return .
 
-	afterattack(target, user, TRUE, params)
+	afterattack(target, user, TRUE, params, .)
 	mark_target(target)
 
 /// Used to mark a target for the demo system during a melee attack chain, call this before return

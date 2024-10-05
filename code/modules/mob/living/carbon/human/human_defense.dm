@@ -192,6 +192,18 @@ emp_act
 	return 100 - protection
 
 
+/// This proc returns the permeability protection for a particular external organ.
+/mob/living/carbon/human/proc/get_permeability_protection_organ(obj/item/organ/external/def_zone)
+	if(!def_zone)
+		return 1
+	var/permeability_protection = 1
+	var/list/clothing_items = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck)
+	for(var/obj/item/clothing/cloth in clothing_items)
+		if(cloth.body_parts_covered & def_zone.limb_body_flag)
+			permeability_protection *= cloth.permeability_coefficient
+	return permeability_protection
+
+
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
 /mob/living/carbon/human/proc/get_siemens_coefficient_organ(obj/item/organ/external/def_zone)
 	if(!def_zone)
@@ -226,7 +238,7 @@ emp_act
 
 //End Here
 
-/mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0, shields_penetration = 0)
+/mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = ITEM_ATTACK, armour_penetration = 0, shields_penetration = 0)
 	var/block_chance_modifier = round(damage / -3) - shields_penetration
 	var/is_crawling = (body_position == LYING_DOWN)
 	if(l_hand && !isclothing(l_hand))
@@ -472,7 +484,7 @@ emp_act
 			stack_trace("Human somehow has no chest bodypart.")
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(user != src && check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
+	if(user != src && check_shields(I, I.force, "the [I.name]", ITEM_ATTACK, I.armour_penetration))
 		return ATTACK_CHAIN_BLOCKED
 
 	if(check_martial_art_defense(src, user, I, span_warning("[src] blocks [I]!")))
@@ -724,7 +736,7 @@ emp_act
 	. = ..()
 	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		if(check_shields(M, damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))
+		if(check_shields(M, damage, "the [M.name]", ITEM_ATTACK, M.armour_penetration))
 			return FALSE
 		var/dam_zone = pick(
 			BODY_ZONE_CHEST,

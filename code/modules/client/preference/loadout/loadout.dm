@@ -19,12 +19,10 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/cost = 1           //Number of points used. Items in general cost 1 point, storage/armor/gloves/special use costs 2 points.
 	var/slot               //Slot to equip to.
 	var/list/allowed_roles //Roles that can spawn with this item.
-	var/whitelisted        //Term to check the whitelist for..
 	var/sort_category = "General"
 	var/list/gear_tweaks = list() //List of datums which will alter the item after it has been spawned.
 	var/subtype_path = /datum/gear //for skipping organizational subtypes (optional)
 	var/subtype_cost_overlap = TRUE //if subtypes can take points at the same time
-	var/donator_tier = 0
 	var/implantable = FALSE    //For organ-like implants (huds, pumps, etc)
 
 /datum/gear/New()
@@ -64,3 +62,19 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	for(var/datum/gear_tweak/gt in gear_tweaks)
 		gt.tweak_item(item, metadata["[gt]"])
 	return item
+
+/datum/gear/proc/can_select(client/cl, job_name, species_name, silent = FALSE)
+	if(!job_name || !LAZYLEN(allowed_roles))
+		return TRUE
+
+	if(job_name in allowed_roles)
+		return TRUE
+
+	if(cl && !silent)
+		to_chat(cl, span_warning("\"[capitalize(display_name)]\" недоступно для вашей профессии!"))
+
+	return FALSE
+
+
+/datum/gear/proc/get_header_tips()
+	return

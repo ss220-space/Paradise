@@ -271,7 +271,7 @@
 
 	uniform = /obj/item/clothing/under/rank/centcom/captain
 	back = /obj/item/storage/backpack/satchel
-	belt = /obj/item/gun/energy/pulse/pistol
+	belt = /obj/item/storage/belt/rapier/centcomm
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
 	head = /obj/item/clothing/head/beret/centcom/captain
@@ -281,6 +281,7 @@
 	pda = /obj/item/pda/centcom
 	backpack_contents = list(
 		/obj/item/storage/box/centcomofficer = 1,
+		/obj/item/gun/energy/pulse/pistol = 1,
 		/obj/item/implanter/death_alarm = 1
 	)
 	implants = list(

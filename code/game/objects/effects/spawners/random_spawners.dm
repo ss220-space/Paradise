@@ -55,28 +55,28 @@
 	name = "blood maybe"
 	icon_state = "blood"
 	result = list(
-	/turf/simulated/floor/plating = 20,
+	/datum/nothing = 20,
 	/obj/effect/decal/cleanable/blood/splatter = 1)
 
 /obj/effect/spawner/random_spawners/blood_20
 	name = "blood often"
 	icon_state = "blood"
 	result = list(
-	/turf/simulated/floor/plating = 5,
+	/datum/nothing = 5,
 	/obj/effect/decal/cleanable/blood/splatter = 1)
 
 /obj/effect/spawner/random_spawners/oil_5
 	name = "oil maybe"
 	icon_state = "oil"
 	result = list(
-	/turf/simulated/floor/plating = 20,
+	/datum/nothing = 20,
 	/obj/effect/decal/cleanable/blood/oil = 1)
 
 /obj/effect/spawner/random_spawners/oil_20
 	name = "oil often"
 	icon_state = "oil"
 	result = list(
-	/turf/simulated/floor/plating = 5,
+	/datum/nothing = 5,
 	/obj/effect/decal/cleanable/blood/oil = 1)
 
 /obj/effect/spawner/random_spawners/wall_rusted_70
@@ -97,42 +97,42 @@
 	name = "cobweb left frequent"
 	icon_state = "coweb"
 	result = list(
-	/turf/simulated/floor/plating = 1,
+	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/cobweb = 1)
 
 /obj/effect/spawner/random_spawners/cobweb_right_frequent
 	name = "cobweb right frequent"
 	icon_state = "coweb1"
 	result = list(
-	/turf/simulated/floor/plating = 1,
+	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/cobweb2 = 1)
 
 /obj/effect/spawner/random_spawners/cobweb_left_rare
 	name = "cobweb left rare"
 	icon_state = "coweb"
 	result = list(
-	/turf/simulated/floor/plating = 10,
+	/datum/nothing = 10,
 	/obj/effect/decal/cleanable/cobweb = 1)
 
 /obj/effect/spawner/random_spawners/cobweb_right_rare
 	name = "cobweb right rare"
 	icon_state = "coweb1"
 	result = list(
-	/turf/simulated/floor/plating = 10,
+	/datum/nothing = 10,
 	/obj/effect/decal/cleanable/cobweb2 = 1)
 
 /obj/effect/spawner/random_spawners/dirt_50
 	name = "dirt frequent"
 	icon_state = "dirt"
 	result = list(
-	/turf/simulated/floor/plating = 1,
+	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/dirt = 1)
 
 /obj/effect/spawner/random_spawners/dirt_10
 	name = "dirt rare"
 	icon_state = "dirt"
 	result = list(
-	/turf/simulated/floor/plating = 10,
+	/datum/nothing = 10,
 	/obj/effect/decal/cleanable/dirt = 1)
 
 /obj/effect/spawner/random_spawners/fungus_30

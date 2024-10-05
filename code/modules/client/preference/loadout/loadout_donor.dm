@@ -1,7 +1,31 @@
 /datum/gear/donor
-	donator_tier = 2
+	var/donator_tier = 2
 	sort_category = "Donor"
 	subtype_path = /datum/gear/donor
+
+/datum/gear/donor/can_select(client/cl, job_name, species_name, silent = FALSE)
+	if(!..()) // there's no point in being here
+		return FALSE
+
+	if(!donator_tier) // why are you here?.. allowed, but
+		stack_trace("Item with no donator tier in loadout donor items: [display_name].")
+		return TRUE
+
+	if(!cl.prefs) // DB loading, skip this check now
+		return TRUE
+
+	if(cl?.donator_level >= donator_tier)
+		return TRUE
+
+	if(cl && !silent)
+		to_chat(cl, span_warning("Для получения \"[display_name]\" необходим [donator_tier] или более высокий уровень пожертвований."))
+
+	return FALSE
+
+
+/datum/gear/donor/get_header_tips()
+	return "\[Tier [donator_tier]\] "
+
 
 /datum/gear/donor/ussptracksuit_black
 	donator_tier = 1
@@ -368,4 +392,9 @@
 	display_name = "Short maid costume"
 	path = /obj/item/clothing/under/maid/short
 
+/datum/gear/donor/rdplushie
+	donator_tier = 3
+	cost = 1
+	display_name = "RD doll"
+	path = /obj/item/toy/plushie/rdplushie
 

@@ -41,6 +41,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_LAVA_STOPPED "lava_stopped"
 
 //mob traits
+#define TRAIT_GODMODE "godmode"
 #define TRAIT_PACIFISM "pacifism"
 #define TRAIT_WATERBREATH "waterbreathing"
 #define TRAIT_BLOODCRAWL "bloodcrawl"
@@ -66,6 +67,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
 #define TRAIT_STRONG_GRABBER "strong_grabber"
 #define TRAIT_PUSHIMMUNE "push_immunity"
+#define TRAIT_FLATTENED	"flattened"
+
 /// Not a genetic obesity but just a mob who overate
 #define	TRAIT_FAT "trait_fat"
 #define TRAIT_HUSK "husk"
