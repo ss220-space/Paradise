@@ -18,18 +18,17 @@
 /obj/effect/proc_holder/spell/charge/cast(list/targets, mob/user = usr)
 	var/charged_item
 	var/charge_result
-	for(var/mob/living/living in targets)
-		var/list/hand_items = list(living.get_active_hand(), living.get_inactive_hand())
 
-		if(living.pulling)
-			charge_result = pulling.magic_charge_act(pulling)
+	var/mob/living/living = targets[1]
+	var/list/hand_items = list(living.get_active_hand(), living.get_inactive_hand())
 
-			if(charge_result & RECHARGE_NO_EFFECT)
-				continue
+	if(living.pulling)
+		charge_result = pulling.magic_charge_act(pulling)
 
+		if(!(charge_result & RECHARGE_NO_EFFECT))
 			charged_item = pulling
-			break
-
+		
+	if(!charged_item)
 		for(var/obj/item in hand_items)
 			charge_result = item.magic_charge_act(living)
 
