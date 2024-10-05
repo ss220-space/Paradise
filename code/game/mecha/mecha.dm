@@ -910,15 +910,12 @@
 		if(occupant)
 			to_chat(user, span_warning("You can't customize a mech while someone is piloting it - that would be unsafe!"))
 			return ATTACK_CHAIN_PROCEED
+
 		var/obj/item/paintkit/paintkit = I
-		var/found = FALSE
-		for(var/type in paintkit.allowed_types)
-			if(type == mech_type)
-				found = TRUE
-				break
-		if(!found)
+		if(!(paintkit.allowed_types & mech_type))
 			to_chat(user, span_warning("This paintkit isn't meant for use on this class of exosuit."))
 			return ATTACK_CHAIN_PROCEED
+
 		if(!user.drop_transfer_item_to_loc(paintkit, src))
 			return ..()
 		user.visible_message(span_notice("[user] opens [paintkit] and spends some quality time customising [name]."))

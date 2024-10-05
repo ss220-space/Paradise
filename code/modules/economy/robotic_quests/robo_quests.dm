@@ -125,10 +125,10 @@
 /datum/roboshop_item
 	var/name
 	var/desc
-	/// Path to shop item
+	/// Path to shop item. Left undefined to use `visual_item` path.
 	var/atom/path
-	/// Actual Spawning item. Can be different e.x. giving disks instead of items
-	var/actual_item = null
+	/// The item we want to show visually in roboshop.
+	var/atom/visual_item
 	/// Cost in RoboPoints. Can be (*, 0, 0, 0) (*, *, 0, 0) (*, *, *, 0) (0, *, 0, 0) (0, *, *, 0) (0, 0, *, 0) (0, 0, 0, *)
 	var/list/cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 0)
 	/// Custom item, leave empty if you okay with standart icon
@@ -139,63 +139,69 @@
 	/// If emag only(Really??)
 	var/emag_only = FALSE
 
+
 /datum/roboshop_item/New()
-	if(!name)
-		name = path::name
 	if(!desc)
-		desc = path::desc
+		desc = visual_item::desc
+
 	if(!icon_name)
-		icon_name = path::icon_state
+		icon_name = visual_item::icon_state
+
 	if(!icon_file)
-		icon_file = path::icon
+		icon_file = visual_item::icon
+
+	if(!path)
+		path = visual_item
+
+	if(!name)
+		name = path::name	// It is better to know exactly what we are buying.
+
 	src.tgui_icon = icon(icon_file, icon_name, SOUTH, 1, FALSE)
 
 
 /datum/roboshop_item/bluespace_core
 	name = "bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	path = /obj/item/assembly/signaler/anomaly/bluespace
+	visual_item = /obj/item/assembly/signaler/anomaly/bluespace
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 15)
 
 /datum/roboshop_item/advanced_roboquest_pad
 	name = "robotics request advanced quantum pad"
 	desc = "This quantum pad is capable of instant teleportation of mech without need of send them to the cargo."
-	path = /obj/item/circuitboard/advanced_roboquest_pad
+	visual_item = /obj/item/circuitboard/advanced_roboquest_pad
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 7)
 
 /datum/roboshop_item/universal_paintkit
 	name = "universal mech paintkit"
 	desc = "This device will allow the user to repaint the mech as many times as they wish."
-	path = /obj/item/universal_paintkit
+	visual_item = /obj/item/universal_paintkit
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
 
 /datum/roboshop_item/mecha_drop
 	name = "mecha drop tool"
-	path = /obj/item/mecha_drop
+	visual_item = /obj/item/mecha_drop
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 20)
 	emag_only = TRUE
 
 /datum/roboshop_item/bbag
-	name = "bluespace bodybag"
-	path = /obj/item/bodybag/bluespace
-	actual_item = /obj/item/disk/design_disk/roboquest/bluespace_bag_disk
+	path = /obj/item/disk/design_disk/roboquest/bluespace_bag_disk
+	visual_item = /obj/item/bodybag/bluespace
 	cost = list("working" = 0, "medical" = 6, "security" = 0, "robo" = 0)
 
 /datum/roboshop_item/holotool
-	name = "holotool"
-	path = /obj/item/holotool
-	actual_item = /obj/item/disk/design_disk/roboquest/holotool
+	path = /obj/item/disk/design_disk/roboquest/holotool
+	visual_item = /obj/item/holotool
 	cost = list("working" = 6, "medical" = 0, "security" = 0, "robo" = 0)
 
 /datum/roboshop_item/shield_breacker
-	path = /obj/item/gun/energy/plasma_pistol
-	actual_item = /obj/item/disk/design_disk/roboquest/shield_breaker
+	path = /obj/item/disk/design_disk/roboquest/shield_breaker
+	visual_item = /obj/item/gun/energy/plasma_pistol
 	cost = list("working" = 0, "medical" = 0, "security" = 6, "robo" = 0)
 
 /datum/roboshop_item/experimental_parts
 	name = "\improper experimental parts"
-	path = /obj/item/storage/box/stockparts/experimental_parts
-	actual_item = /obj/item/storage/part_replacer/bluespace/experimental
+	path = /obj/item/storage/part_replacer/bluespace/experimental
+	visual_item = /obj/item/storage/box/stockparts/experimental_parts
 	cost = list("working" = 2, "medical" = 2, "security" = 2, "robo" = 0)
 
 
