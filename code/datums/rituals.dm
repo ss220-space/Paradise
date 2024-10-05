@@ -227,8 +227,6 @@
 
 	if(LAZYLEN(what_are_we_missing))
 		ritual_object.balloon_alert(invoker, "требуется больше компонентов!")
-		to_chat(invoker, span_notice("Вам требуется [required_things] для завершения \"[name]\"."))
-		
 		return FALSE
 
 	return TRUE
