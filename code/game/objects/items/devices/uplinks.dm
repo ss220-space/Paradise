@@ -203,6 +203,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/list/cached_cart
 	/// A list of 3 categories and item indexes in uplink_cats, to show as recommendedations
 	var/list/lucky_numbers
+	/// Code of uplink
+	var/lock_code
 
 
 /obj/item/uplink/hidden/Initialize(mapload)

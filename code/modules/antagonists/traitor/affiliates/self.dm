@@ -26,7 +26,10 @@
 					list(/datum/objective/steal = 60, /datum/objective/maroon = 40),
 					/datum/objective/escape
 					)
-	reward_for_enemys = 20
+
+/datum/affiliate/self/finalize_affiliate(datum/mind/owner)
+	. = ..()
+	add_discount_item(/datum/uplink_item/device_tools/binary, 0.5)
 
 /datum/affiliate/self/get_weight(mob/living/carbon/human/H)
 	return 2 + (ismachineperson(H) * 2)

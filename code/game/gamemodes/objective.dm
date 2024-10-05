@@ -2021,7 +2021,10 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	if(length(possible_targets))
 		target = pick(possible_targets)
-		explanation_text += " Target is agent." // No uplink code. SELF agents already get 40TK for killing both agents + 20TK for bonus objectives.
+		var/datum/antagonist/traitor/traitor = target.has_antag_datum(/datum/antagonist/traitor)
+		explanation_text += " Target is agent."
+		if (traitor.hidden_uplink)
+			explanation_text += " Target's uplink lock code is \"[traitor.hidden_uplink.lock_code]\"."
 		SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
 	else
 		return ..()

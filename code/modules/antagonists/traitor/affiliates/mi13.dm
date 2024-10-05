@@ -169,10 +169,9 @@
 			changing = FALSE
 			return
 
-	to_chat(usr, span_notice("Смена маскировки..."))
-	sleep(25)
 	usr.visible_message(span_warning("[usr] changes the look of his ring!"), span_notice("[selected_chameleon] selected."))
 	playsound(loc, 'sound/items/screwdriver2.ogg', 50, 1)
+	to_chat(usr, span_notice("Смена маскировки..."))
 	update_icon(UPDATE_ICON_STATE)
 	changing = FALSE
 
@@ -198,7 +197,7 @@
 		return
 
 	if (!COOLDOWN_FINISHED(ring, operation_cooldown))
-		user.balloon_alert("Идет перезарядка")
+		user.balloon_alert(user, "Идет перезарядка")
 		return
 
 	ring.breaking = TRUE
@@ -209,11 +208,14 @@
 		playsound(ring, 'sound/effects/bang.ogg', 100, TRUE)
 
 		for (var/mob/living/M in range(ring, 3))
-			if (!M.check_ear_prot())
+			if (M.check_ear_prot() == HEARING_PROTECTION_NONE)
 				M.Deaf(6 SECONDS)
 
 		for (var/obj/structure/grille/grille in A.loc)
 			grille.obj_break()
+
+		for (var/obj/structure/window/window in range(A, 2))
+			window.take_damage(rand(5, 15))
 
 		var/obj/structure/window/window = A
 		window.deconstruct()

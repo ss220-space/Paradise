@@ -61,7 +61,7 @@
 			continue
 
 		another_traitor.killed_enemy_agents.Add(src)
-		another_traitor.hidden_uplink.uses += another_traitor.affiliate.reward_for_enemys
+		another_traitor.hidden_uplink.uses += 10
 
 /datum/antagonist/traitor/proc/give_affiliates()
 	var/list/possible_affiliates = list()
@@ -346,6 +346,7 @@
 		hidden_uplink = new_uplink
 		target_radio.hidden_uplink = new_uplink
 		new_uplink.uplink_owner = "[traitor_mob.key]"
+		new_uplink.lock_code = freq
 		target_radio.traitor_frequency = freq
 		antag_memory += ("<B>Radio Freq:</B> [format_frequency(freq)] ([target_radio.name]).")
 		return TRUE
@@ -359,6 +360,7 @@
 		new_uplink.uplink_owner = "[traitor_mob.key]"
 
 		target_pda.lock_code = "[rand(100,999)] [pick("Альфа","Браво","Дельта","Омега")]"
+		new_uplink.lock_code = target_pda.lock_code
 
 		antag_memory += ("<B>Код от аплинка:</B> [target_pda.lock_code] ([uplink_holder.name].")
 		return TRUE
