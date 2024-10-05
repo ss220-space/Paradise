@@ -463,6 +463,38 @@
 		M.AdjustHallucinate(60 SECONDS, bound_upper = 300 SECONDS) //Lets not let them get more than 5 minutes of hallucinations
 		new /obj/effect/temp_visual/revenant(get_turf(M))
 
+/**
+ * Infects targets with a ectoplasmic disease
+ */
+/obj/effect/proc_holder/spell/aoe/revenant/blight
+	name = "Blight"
+	desc = "Infects people nearby with a disease that slowly debilitates them."
+	action_icon_state = "blight"
+	base_cooldown = 60 SECONDS
+	unlock_amount = 200
+	cast_amount = 40
+	stun = 3 SECONDS
+	reveal = 7 SECONDS
+	aoe_range = 4
+
+
+/obj/effect/proc_holder/spell/aoe/revenant/blight/create_new_targeting()
+	var/datum/spell_targeting/aoe/target = new()
+	target.range = aoe_range
+	target.allowed_type = /mob/living/carbon/human
+	return target
+
+/obj/effect/proc_holder/spell/aoe/revenant/blight/valid_target(mob/living/carbon/human/target, mob/living/simple_animal/revenant/user = usr)
+	if(!target.mind)
+		return
+	if(target.mind in SSticker.mode.sintouched)
+		return
+
+/obj/effect/proc_holder/spell/aoe/revenant/blight/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+	for(var/mob/living/carbon/human/human as anything in targets)
+		var/datum/disease/ectoplasmic/disease = new
+		disease.Contract(human)
+		new /obj/effect/temp_visual/revenant(get_turf(human))
 
 /**
  * Defiling atoms.
