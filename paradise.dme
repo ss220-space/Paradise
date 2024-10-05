@@ -900,6 +900,7 @@
 #include "code\game\machinery\constructable_frame.dm"
 #include "code\game\machinery\cryo.dm"
 #include "code\game\machinery\cryopod.dm"
+#include "code\game\machinery\customat.dm"
 #include "code\game\machinery\dance_machine.dm"
 #include "code\game\machinery\defib_mount.dm"
 #include "code\game\machinery\deployable.dm"
