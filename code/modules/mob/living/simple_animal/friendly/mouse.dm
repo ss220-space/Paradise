@@ -418,9 +418,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	gold_core_spawnable = NO_SPAWN
-	var/cycles_alive = 0
-	var/cycles_limit = 60
-	var/has_burst = FALSE
+
 
 /mob/living/simple_animal/mouse/blobinfected/Initialize(mapload)
 	. = ..()
@@ -440,7 +438,8 @@
 		return
 	var/mob/M = pick(candidates)
 	key = M.key
-	var/datum/antagonist/blob_infected/blob_datum = new
+	var/datum_type = mind.get_blob_infected_type()
+	var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 	blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
 	blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
 	mind.add_antag_datum(blob_datum)
