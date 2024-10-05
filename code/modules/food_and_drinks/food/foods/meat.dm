@@ -58,7 +58,7 @@
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/meat/burn()
-	visible_message("<span class='notice'>[src] finishes cooking!</span>")
+	visible_message(span_notice("[src] finishes cooking!"))
 	new /obj/item/reagent_containers/food/snacks/roasted_meat(loc)
 	qdel(src)
 
@@ -434,7 +434,7 @@
 	tastes = list("cobwebs" = 1, "creepy motion" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg/burn()
-	visible_message("<span class='notice'>[src] finishes cooking!</span>")
+	visible_message(span_notice("[src] finishes cooking!"))
 	new /obj/item/reagent_containers/food/snacks/roasted_spiderleg(loc)
 	qdel(src)
 
@@ -461,7 +461,7 @@
 	tastes = list("tough meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goliath/burn()
-	visible_message("<span class='notice'>[src] finishes cooking!</span>")
+	visible_message(span_notice("[src] finishes cooking!"))
 	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
 	qdel(src)
 
@@ -474,7 +474,7 @@
 	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goldgrub/burn()
-	visible_message("<span class='notice'>[src] finishes cooking!</span>")
+	visible_message(span_notice("[src] finishes cooking!"))
 	new /obj/item/reagent_containers/food/snacks/goldgrubmeat(loc)
 	qdel(src)
 

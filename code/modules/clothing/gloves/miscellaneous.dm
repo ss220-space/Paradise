@@ -43,7 +43,7 @@
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		add_attack_logs(user, target, "Melee attacked with weaver gloves")
 
-		target.visible_message("<span class='danger'>[user] smash [target] with weaver gloves!</span>")
+		target.visible_message(span_danger("[user] smash [target] with weaver gloves!"))
 
 		target.apply_damage(damage, BRUTE, affecting)
 		target.apply_damage(stamindamage, STAMINA, affecting)

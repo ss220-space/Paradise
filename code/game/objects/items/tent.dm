@@ -85,7 +85,7 @@
 		grabber.balloon_alert(grabber, "палатка занята!")
 		return .
 
-	visible_message("[grabber] starts putting [target] into [src].")
+	visible_message(span_notice("[grabber] starts putting [target] into [src]."))
 	if(!do_after(grabber, 2 SECONDS, target) || !target || !grabber || grabber.pulling != target || !grabber.Adjacent(src))
 		return .
 
@@ -116,9 +116,9 @@
 	if(!istype(L) || L.buckled)
 		return
 	if(L == user)
-		visible_message("[user] starts climbing into the tent.")
+		visible_message(span_notice("[user] starts climbing into the tent."))
 	else
-		visible_message("[user] starts putting [L.name] into the tent.")
+		visible_message(span_notice("[user] starts putting [L.name] into the tent."))
 	. = TRUE
 	INVOKE_ASYNC(src, PROC_REF(put_in), L, user)
 
@@ -151,7 +151,7 @@
 	if(occupant)
 		usr.balloon_alert(usr, "палатка занята!")
 		return
-	visible_message("[usr] starts climbing into the tent.")
+	visible_message(span_notice("[usr] starts climbing into the tent."))
 	put_in(usr, usr)
 
 /obj/structure/tent/verb/eject()
