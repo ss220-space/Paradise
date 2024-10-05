@@ -14271,6 +14271,10 @@
 	icon_state = "4-8"
 	},
 /obj/structure/table,
+/obj/machinery/recharger{
+	pixel_x = 1;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -48142,11 +48146,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
 "hbK" = (
-/obj/structure/table,
-/obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
-	},
+/obj/machinery/mineral/equipment_vendor,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "hbO" = (
@@ -139708,6 +139708,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/maintenance/casino)
+"uMB" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/trading)
 "uMI" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -276667,7 +276674,7 @@ uYI
 tpl
 oSn
 dGT
-gCx
+uMB
 uUw
 uUw
 mRE
