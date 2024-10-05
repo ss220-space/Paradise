@@ -85,6 +85,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 	/// Saved in and associatove list format: "icon" -> icon_state/item_state, "base64" - > base64icon, "desc" -> desc
 	var/list/current_painting
 
+/obj/item/pda/emag_act(mob/user)
+	if(!user.mind.special_role && !is_admin(user) || !hidden_uplink)
+		explode()
+	else
+		hidden_uplink.trigger(user)
+		to_chat(usr, "The PDA softly beeps.")
+		close(usr)
 
 /*
  *	The Actual PDA

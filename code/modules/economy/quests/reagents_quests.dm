@@ -1,6 +1,11 @@
+//Abandon hope, everyone who enters here
+
+//When changing reagents, remember about the horror hidden under the hood
 /datum/cargo_quest/reagents
 	quest_type_name = "Chemical"
 	req_items = list(/obj/item/reagent_containers)
+	bounty_jobs = (JOB_TITLE_CHEMIST)
+	linked_departament = "Medical"
 
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL)
 
@@ -50,7 +55,8 @@
 	var/list/possible_reagents_list = repeated_reagents.Copy() + unique_reagents.Copy()
 	var/our_reagent = pick(possible_reagents_list)
 	required_reagents[our_reagent] += possible_reagents_list[our_reagent]
-	q_storage.reward += possible_reagents_list[our_reagent]["reward"]
+	cargo_quest_reward = possible_reagents_list[our_reagent]["reward"]
+	q_storage.reward += cargo_quest_reward
 	update_desc(our_reagent, possible_reagents_list[our_reagent]["volume"])
 	if(our_reagent in unique_reagents)
 		unique_reagents.Remove(our_reagent)
@@ -77,6 +83,9 @@
 
 /datum/cargo_quest/reagents/drinks
 	quest_type_name = "Drink"
+	bounty_jobs = list(JOB_TITLE_BARTENDER)
+	linked_departament = "Support"
+
 	repeated_reagents = list(
 		"b52" = list("volume" = 30,"reward" = 60),
 		"bacchus_blessing" = list("volume" = 30,"reward" = 100),

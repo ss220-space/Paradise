@@ -13354,7 +13354,7 @@
 "bLO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Antechamber";
+	control_area = "AI Satellite Antechamber";
 	name = "AI Antechamber Turret Control";
 	pixel_y = 28;
 	req_access = list(75)
@@ -14557,7 +14557,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/maintenance)
+/area/turret_protected/aisat)
 "bRt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -14608,15 +14608,6 @@
 	icon_state = "darkbluecorners"
 	},
 /area/turret_protected/aisat)
-"bRC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/wall/r_wall,
-/area/aisat)
 "bRD" = (
 /obj/structure/showcase{
 	density = 0;
@@ -14631,7 +14622,7 @@
 	dir = 4
 	},
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite";
+	control_area = "AI Satellite";
 	name = "AI Antechamber Turret Control";
 	pixel_x = -32;
 	req_access = list(75)
@@ -14770,7 +14761,7 @@
 	dir = 4
 	},
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite";
+	control_area = "AI Satellite";
 	name = "AI Antechamber Turret Control";
 	pixel_x = 32;
 	req_access = list(75)
@@ -14955,7 +14946,7 @@
 	dir = 4
 	},
 /turf/simulated/wall/r_wall,
-/area/aisat/maintenance)
+/area/turret_protected/aisat)
 "bTy" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -58732,7 +58723,7 @@
 /obj/effect/decal/warning_stripes/southwest,
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -95711,7 +95702,7 @@
 "sNY" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/turretid/stun{
-	control_area = "\improper Telecoms Central Compartment";
+	control_area = "Telecoms Central Compartment";
 	name = "AI Antechamber Turret Control";
 	pixel_y = -26;
 	req_access = list(75)
@@ -95743,19 +95734,6 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research)
-"sOI" = (
-/obj/machinery/door/airlock/hatch{
-	name = "MiniSat Chamber Hallway";
-	req_access = list(75)
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/aisat)
 "sOS" = (
 /obj/machinery/disposal,
 /obj/effect/decal/warning_stripes/red/hollow,
@@ -124454,13 +124432,13 @@ qni
 qni
 bJW
 bJW
-cvf
-cvf
-cvf
+bJW
+bJW
+bJW
 bRr
 bTx
-cvf
-cvf
+bJW
+bJW
 qrT
 qrT
 qrT
@@ -125489,7 +125467,7 @@ bPM
 bRy
 bTA
 bTA
-wRH
+bTA
 dxt
 wRH
 iox
@@ -126510,13 +126488,13 @@ qni
 qni
 bJW
 bJW
-cvg
-cvg
-cvg
-sOI
-bRC
-cvg
-cvg
+bJW
+bJW
+bJW
+bRr
+bTx
+bJW
+bJW
 qrT
 qrT
 qrT

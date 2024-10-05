@@ -1,17 +1,21 @@
 /datum/game_mode
-	//List of of blobs, their offsprings and blobburnouts spawned by them
+	/// List of of blobs, their offsprings and blobburnouts spawned by them
 	var/list/blobs = list("infected"=list(), "offsprings"=list(), "blobernauts"=list())
-	//Count of blob tiles to blob win
+	/// Count of blob tiles to blob win
 	var/blob_win_count = BLOB_BASE_TARGET_POINT
-	//Number of resource produced by the core
+	/// Number of resource produced by the core
 	var/blob_point_rate = 3
-	//Number of bursted blob infected
+	/// Number of bursted blob infected
 	var/bursted_blobs_count = 0
-	//Total blob submode stage
+	/// Total blob submode stage
 	var/blob_stage = BLOB_STAGE_NONE
-	//The need to delay the end of the game when the blob wins
+	/// The need to delay the end of the game when the blob wins
 	var/delay_blob_end = FALSE
-	//Total blobs objective
+	/// Disables automatic GAMMA code
+	var/off_auto_gamma = FALSE
+	/// Disables automatic nuke codes
+	var/off_auto_nuke_codes = FALSE
+	/// Total blobs objective
 	var/datum/objective/blob_critical_mass/blob_objective
 
 
@@ -25,9 +29,9 @@
 	restricted_jobs = BLOB_RESTRICTED_JOBS
 	protected_species = BLOB_RESTRICTED_SPECIES
 
-	//Base count of roundstart blobs
+	/// Base count of roundstart blobs
 	var/cores_to_spawn = 1
-	//The number of players for which 1 more roundstart blob will be added.
+	/// The number of players for which 1 more roundstart blob will be added.
 	var/players_per_core = BLOB_PLAYERS_PER_CORE
 
 
@@ -61,7 +65,8 @@
 
 /datum/game_mode/blob/post_setup()
 	for(var/datum/mind/blob in blobs["infected"])
-		var/datum/antagonist/blob_infected/blob_datum = new
+		var/datum_type = blob.get_blob_infected_type()
+		var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 		blob_datum.need_new_blob = TRUE
 		blob_datum.time_to_burst_hight = TIME_TO_BURST_HIGHT
 		blob_datum.time_to_burst_low = TIME_TO_BURST_LOW
@@ -133,7 +138,7 @@
 		if (BLOB_DEATH_REPORT_SECOND)
 			SSshuttle?.stop_lockdown()
 		if (BLOB_DEATH_REPORT_THIRD)
-			if(blob_stage >= BLOB_STAGE_SECOND && GLOB.security_level == SEC_LEVEL_GAMMA)
+			if(!off_auto_gamma && GLOB.security_level == SEC_LEVEL_GAMMA)
 				set_security_level(SEC_LEVEL_RED)
 		if (BLOB_DEATH_REPORT_FOURTH)
 			blob_stage = BLOB_STAGE_ZERO
@@ -150,7 +155,8 @@
 	count = min(count, candidates.len)
 	for(var/i = 0, i < count, i++)
 		blob = pick(candidates)
-		var/datum/antagonist/blob_infected/blob_datum = new
+		var/datum_type = blob.mind.get_blob_infected_type()
+		var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 		blob_datum.need_new_blob = need_new_blob
 		blob.mind.add_antag_datum(blob_datum)
 		candidates -= blob
@@ -174,7 +180,8 @@
 			var/mob/M = pick(candidates)
 			candidates.Remove(M)
 			B.key = M.key
-			var/datum/antagonist/blob_infected/blob_datum = new
+			var/datum_type = B.mind.get_blob_infected_type()
+			var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 			blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
 			blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
 			B.mind.add_antag_datum(blob_datum)
@@ -189,17 +196,18 @@
 		return
 	if(blob_stage == BLOB_STAGE_NONE)
 		blob_stage = BLOB_STAGE_ZERO
-	if(blob_stage == BLOB_STAGE_ZERO && GLOB.blobs.len >= FIRST_STAGE_COEF * blob_win_count)
+	if(blob_stage == BLOB_STAGE_ZERO && GLOB.blobs.len >= min(FIRST_STAGE_COEF * blob_win_count, FIRST_STAGE_THRESHOLD))
 		blob_stage = BLOB_STAGE_FIRST
 		send_intercept(BLOB_FIRST_REPORT)
 		SSshuttle?.emergency?.cancel()
 		SSshuttle?.lockdown_escape()
 
-	if(blob_stage == BLOB_STAGE_FIRST && GLOB.blobs.len >= SECOND_STAGE_COEF * blob_win_count)
+	if(blob_stage == BLOB_STAGE_FIRST && GLOB.blobs.len >= min(SECOND_STAGE_COEF * blob_win_count, SECOND_STAGE_THRESHOLD))
 		blob_stage = BLOB_STAGE_SECOND
 		GLOB.event_announcement.Announce("Подтверждена вспышка биологической угрозы пятого уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.",
 										 "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/AI/outbreak5.ogg')
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/set_security_level, SEC_LEVEL_GAMMA), TIME_TO_SWITCH_CODE)
+		if(!off_auto_gamma)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/set_security_level, SEC_LEVEL_GAMMA), TIME_TO_SWITCH_CODE)
 
 	if(blob_stage == BLOB_STAGE_SECOND && GLOB.blobs.len >= THIRD_STAGE_COEF * blob_win_count)
 		blob_stage = BLOB_STAGE_THIRD

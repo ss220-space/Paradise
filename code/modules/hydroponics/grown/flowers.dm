@@ -591,7 +591,7 @@
 	potency = 20
 	growthstages = 3
 	icon_grow = "whiterose-grow"
-	mutatelist = (/obj/item/seeds/rose/red)
+	mutatelist = list(/obj/item/seeds/rose/red)
 	genes = list(/datum/plant_gene/trait/stinging)
 
 /obj/item/reagent_containers/food/snacks/grown/whiterose
