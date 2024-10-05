@@ -10,7 +10,7 @@
 	/// If invoker special role isn't in allowed - he won't do ritual.
 	var/list/allowed_special_role
 	/// Required to ritual invoke things are located here
-	var/required_things
+	var/list/required_things
 	/// If true - only whitelisted species will be added as invokers
 	var/require_allowed_species = TRUE
 	/// Same as require_allowed_species, but requires special role to be counted as invoker.
@@ -59,7 +59,6 @@
 		if(RITUAL_SUCCESSFUL)
 			start_cooldown = TRUE
 			addtimer(CALLBACK(src, PROC_REF(handle_ritual_object), RITUAL_ENDED), 1 SECONDS)
-			del_things = TRUE
 			charges--
 		if(RITUAL_FAILED_INVALID_SPECIES)
 			failed = TRUE
@@ -72,8 +71,9 @@
 		if(RITUAL_FAILED_ON_PROCEED)
 			failed = TRUE
 			cause_disaster = TRUE
-			del_things = TRUE
 			start_cooldown = TRUE
+		if(NONE)
+			failed = TRUE
 	
 	if(start_cooldown)
 		COOLDOWN_START(src, ritual_cooldown, cooldown_after_cast)
@@ -81,16 +81,21 @@
 	if(cause_disaster && prob(disaster_prob))
 		disaster(invoker)
 
-	if((ritual_should_del_things_on_fail || ritual_should_del_things) && (del_things))
+	if(ritual_should_del_things && !failed)
+		del_things = TRUE
+
+	if(ritual_should_del_things_on_fail && failed)
+		del_things = TRUE
+
+	if(del_things)
 		del_things()
 
 	if(failed)
-		addtimer(CALLBACK(src, PROC_REF(handle_ritual_object), RITUAL_FAILED), 1 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(handle_ritual_object), RITUAL_FAILED), 2 SECONDS)
 	
 	/// We use pre-defines
 	LAZYCLEARLIST(invokers)
 	LAZYCLEARLIST(used_things)
-	required_things = initial(required_things)
 
 	return .
 
@@ -119,10 +124,10 @@
 
 /datum/ritual/proc/ritual_invoke_check(mob/living/carbon/human/invoker)
 	if(!COOLDOWN_FINISHED(src, ritual_cooldown))
-		return
+		return NONE
 
 	if(charges == 0)
-		return 
+		return NONE
 
 	if(allowed_special_role && !is_type_in_list(invoker.mind?.special_role, allowed_special_role))
 		return RITUAL_FAILED_INVALID_SPECIAL_ROLE
@@ -130,7 +135,7 @@
 	if(allowed_species && !is_type_in_list(invoker.dna.species, allowed_species)) // double check to avoid funny situations
 		return RITUAL_FAILED_INVALID_SPECIES
 
-	if(extra_invokers && !check_invokers(invoker))
+	if(!check_invokers(invoker))
 		return RITUAL_FAILED_EXTRA_INVOKERS
 
 	if(required_things && !check_contents(invoker))
@@ -157,6 +162,9 @@
 	return .
 
 /datum/ritual/proc/check_invokers(mob/living/carbon/human/invoker)
+	if(!extra_invokers)
+		return TRUE
+
 	for(var/mob/living/carbon/human/human in range(finding_range, ritual_object))
 		if(human == invoker)
 			continue
@@ -201,9 +209,10 @@
 
 		LAZYADD(atoms, obj)
 
+	var/list/requirements = required_things.Copy()
 	for(var/atom/atom as anything in atoms)
-		for(var/req_type in required_things)
-			if(required_things[req_type] <= 0)
+		for(var/req_type in requirements)
+			if(requirements[req_type] <= 0)
 				continue
 			
 			if(!istype(atom, req_type))
@@ -213,13 +222,13 @@
 
 			if(isstack(atom))
 				var/obj/item/stack/picked_stack = atom
-				LAZYREMOVE(required_things[req_type], picked_stack.amount)
+				LAZYREMOVE(requirements[req_type], picked_stack.amount)
 			else
-				required_things[req_type]--
+				requirements[req_type]--
 
 	var/list/what_are_we_missing = list()
-	for(var/req_type in required_things)
-		var/number_of_things = required_things[req_type]
+	for(var/req_type in requirements)
+		var/number_of_things = requirements[req_type]
 		
 		if(number_of_things <= 0)
 			continue
@@ -1011,7 +1020,10 @@
 	if(!.)
 		return FALSE
 
-	var/mob/living/carbon/human/human = used_things[1]
+	var/mob/living/carbon/human/human = locate() in used_things
+	if(!human || QDELETED(human))
+		return RITUAL_FAILED_ON_PROCEED
+		
 	if(human.stat == DEAD || !human.mind)
 		to_chat(invoker, "Гуманоид должен быть жив и иметь разум.")
 		return FALSE
@@ -1159,7 +1171,11 @@
 	return TRUE
 
 /datum/ritual/ashwalker/command/do_ritual(mob/living/carbon/human/invoker)
-	var/mob/living/simple_animal/animal = used_things[1]
+	var/mob/living/simple_animal/animal = locate() in used_things
+	
+	if(!animal || QDELETED(animal))
+		return RITUAL_FAILED_ON_PROCEED
+
 	animal.faction = invoker.faction
 	animal.revive()
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за раба пеплоходцев?", ROLE_SENTIENT, TRUE, source = animal)
