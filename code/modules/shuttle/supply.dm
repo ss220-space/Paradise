@@ -207,13 +207,15 @@
 					var/datum/tech/tech = disk.stored
 
 					var/cost = tech.getCost(SSshuttle.techLevels[tech.id])
+					if(tech.level >= 7)
+						SScapitalism.base_account.credit(7000, "Благодарность за вклад в науку.", "Nanotrasen Institute terminal#[rand(111,333)]", "Nanotrasen Institute")
 					if(cost)
 						SSshuttle.techLevels[tech.id] = tech.level
 						for(var/mob/mob in GLOB.player_list)
 							if(!mob.mind)
 								continue
 							for(var/datum/job_objective/further_research/objective in mob.mind.job_objectives)
-								objective.unit_completed(cost)
+								objective.unit_completed(round(cost / 3))
 						msg += "[tech.name] - new data.<br>"
 
 		if(istype(MA, /obj/structure/closet/critter/mecha))

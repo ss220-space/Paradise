@@ -232,6 +232,19 @@
 	qdel(src)
 
 
+/obj/machinery/disposal/shove_impact(mob/living/target, mob/living/attacker)
+	target.visible_message(
+		span_warning("[attacker] shoves [target] inside of [src]!"),
+		span_userdanger("[attacker] shoves you inside of [src]!"),
+		span_warning("You hear the sound of something being thrown in the trash.")
+	)
+	target.forceMove(src)
+	add_attack_logs(attacker, target, "Shoved into disposals")
+	playsound(src, "sound/effects/bang.ogg")
+	update()
+	return TRUE
+
+
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user, params)

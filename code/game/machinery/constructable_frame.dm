@@ -360,7 +360,8 @@ to destroy them and players will be able to make replacements.
 		"Departament Law ClothesMate" =			/obj/machinery/vending/clothing/departament/law,
 		"Service Departament ClothesMate Botanical" = /obj/machinery/vending/clothing/departament/service/botanical,
 		"Service Departament ClothesMate Chaplain" 	= /obj/machinery/vending/clothing/departament/service/chaplain,
-		"RoboFriends" =                         /obj/machinery/vending/pai,)
+		"RoboFriends" =                         /obj/machinery/vending/pai,
+		"Customat" =						 	/obj/machinery/customat,)
 
 	var/static/list/unique_vendors = list(
 		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach,

@@ -11,6 +11,22 @@
 	display_name = "Eyepatch"
 	path = /obj/item/clothing/glasses/eyepatch
 
+/datum/gear/glasses/blindfold
+	display_name = "Blindfold"
+	path = /obj/item/clothing/glasses/sunglasses/blindfold
+
+/datum/gear/glasses/blindfold/New()
+	..()
+	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
+/datum/gear/glasses/blindfold_fake
+	display_name = "Fake blindfold"
+	path = /obj/item/clothing/glasses/sunglasses/blindfold_fake
+
+/datum/gear/glasses/blindfold_fake/New()
+	..()
+	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
 /datum/gear/glasses/hipster
 	display_name = "Hipster glasses"
 	path = /obj/item/clothing/glasses/regular/hipster

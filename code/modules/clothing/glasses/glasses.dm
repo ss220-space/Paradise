@@ -527,11 +527,33 @@
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"
 	desc = "Covers the eyes, preventing sight."
-	icon_state = "blindfold"
-	item_state = "blindfold"
+	icon_state = "blindfold_white"
+	item_state = "blindfold_white"
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 3				//to make them blind
 	prescription_upgradable = FALSE
+	var/colour = null
+
+/obj/item/clothing/glasses/sunglasses/blindfold/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+	add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
+
+/obj/item/clothing/glasses/sunglasses/blindfold/black
+	colour = "#2a2a2a"
+
+/obj/item/clothing/glasses/sunglasses/blindfold_fake
+	name = "thin blindfold"
+	desc = "Covers the eyes, but not thick enough to obscure vision. Mostly for aesthetic."
+	icon_state = "blindfold_white"
+	item_state = "blindfold_white"
+	flash_protect = FLASH_PROTECTION_NONE
+	tint = 0
+	prescription_upgradable = FALSE
+
+/obj/item/clothing/glasses/sunglasses/blindfold_fake/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/glasses/sunglasses/prescription
 	prescription = TRUE

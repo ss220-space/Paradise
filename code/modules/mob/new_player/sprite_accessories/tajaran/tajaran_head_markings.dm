@@ -11,6 +11,10 @@
 	name = "Tajaran Tiger Head and Face"
 	icon_state = "tiger_face"
 
+/datum/sprite_accessory/body_markings/head/tajara/lynx
+	name = "Tajaran Lynx Ears and Cheeks"
+	icon_state = "lynx"
+
 /datum/sprite_accessory/body_markings/head/tajara/outears_taj
 	name = "Tajaran Outer Ears"
 	icon_state = "outears"
