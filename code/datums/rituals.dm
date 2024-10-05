@@ -153,7 +153,7 @@
 			. = FALSE
 
 	LAZYREMOVE(invokers, invoker)
-	
+
 	return .
 
 /datum/ritual/proc/check_invokers(mob/living/carbon/human/invoker)
@@ -377,7 +377,7 @@
 	required_things = list(
 		/obj/item/twohanded/spear = 3,
 		/obj/item/organ/internal/regenerative_core = 1,
-		/mob/living/carbon/human/human = 1
+		/mob/living/carbon/human = 1
 	)
 
 /datum/ritual/ashwalker/mind_transfer/do_ritual(mob/living/carbon/human/invoker)
