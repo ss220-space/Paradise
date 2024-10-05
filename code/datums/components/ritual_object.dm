@@ -64,16 +64,17 @@
 
 	if(allowed_special_role && !is_type_in_list(human.mind?.special_role, allowed_special_role))
 		return
-		
+
 	active_ui = TRUE
 	INVOKE_ASYNC(src, PROC_REF(open_ritual_ui), human)
-	
+
 	return COMPONENT_CANCEL_ATTACK_CHAIN 
 
 /datum/component/ritual_object/proc/open_ritual_ui(mob/living/carbon/human/human)
 	var/list/rituals_list = get_available_rituals(human)
 
 	if(!LAZYLEN(rituals_list))
+		active_ui = FALSE
 		to_chat(human, "Не имеется доступных для выполнения ритуалов.")
 		return
 
@@ -90,7 +91,6 @@
 			continue
 
 		ritual_status = ritual.pre_ritual_check(human)
-		active_ui = TRUE
 		break
 
 	if(ritual_status)

@@ -86,9 +86,11 @@
 
 	if(failed)
 		addtimer(CALLBACK(src, PROC_REF(handle_ritual_object), RITUAL_FAILED), 1 SECONDS)
-
+	
+	/// We use pre-defines
 	LAZYCLEARLIST(invokers)
 	LAZYCLEARLIST(used_things)
+	required_things = initial(required_things)
 
 	return .
 
@@ -322,7 +324,7 @@
 		return FALSE
 
 	if(!invoker.fire_stacks)
-		to_chat(invoker, "Инициатор ритуала должны быть в воспламеняемой субстанции.")
+		to_chat(invoker, "Инициатор ритуала должнен быть в воспламеняемой субстанции.")
 		return FALSE
 
 	for(var/mob/living/carbon/human/human as anything in invokers)
