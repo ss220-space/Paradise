@@ -134,8 +134,6 @@
 	/// Custom item, leave empty if you okay with standart icon
 	var/icon_name
 	var/icon_file
-	/// Don`t touch
-	var/icon/tgui_icon
 	/// If emag only(Really??)
 	var/emag_only = FALSE
 
@@ -155,8 +153,6 @@
 
 	if(!name)
 		name = path::name	// It is better to know exactly what we are buying.
-
-	src.tgui_icon = icon(icon_file, icon_name, SOUTH, 1, FALSE)
 
 
 /datum/roboshop_item/bluespace_core
@@ -241,7 +237,7 @@
 
 /obj/item/disk/design_disk/roboquest/shield_breaker
 	name = "plasma pistol design"
-	desc = "his disk contains blueprints for production of plasma pistols."
+	desc = "This disk contains blueprints for production of plasma pistols."
 	design_type = /datum/design/real_plasma_pistol
 	hint_name = "plasma pistols"
 
