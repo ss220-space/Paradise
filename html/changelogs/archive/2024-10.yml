@@ -15,7 +15,24 @@
 '2024-10-03':
   Antoonij:
   - add: Borer ranks, focuses (#5774)
+  - bugfix: runtime null.controlling  (#5972)
+  Pelmenik123:
+  - bugfix: bluespace_tap (#5973)
   PiroMage:
   - bugfix: 'Nova Station #2 Patch (#5962)'
   dageavtobusnick:
   - unknown: сentcomm rapier (#5924)
+'2024-10-04':
+  L343-CJ:
+  - balance: Nerf ashwalkers speedmod (#5977)
+'2024-10-05':
+  Daeberdir:
+  - bugfix: turret protection map and initialize fix. (#5974)
+  LiquidPotroh:
+  - tweak: TOUCH reaction tweaks (#5975)
+  Mahimka42:
+  - bugfix: Minor flower fixes (#5979)
+  Sheya:
+  - unknown: inhand sprites, colourable blindfolds (#5957)
+  dageavtobusnick:
+  - bugfix: vampires now spend blood on cast (#5978)
