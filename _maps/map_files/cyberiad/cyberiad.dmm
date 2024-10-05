@@ -18614,7 +18614,7 @@
 "bgZ" = (
 /obj/structure/table,
 /obj/item/taperecorder,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -24

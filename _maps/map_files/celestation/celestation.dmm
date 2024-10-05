@@ -18770,7 +18770,7 @@
 "cvQ" = (
 /obj/structure/table,
 /obj/item/taperecorder,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/engine,
 /area/security/execution)
 "cvR" = (
@@ -69577,9 +69577,9 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/bible,
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
-/obj/item/clothing/glasses/sunglasses/blindfold,
-/obj/item/clothing/glasses/sunglasses/blindfold,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/plating/asteroid,
 /area/security/processing)
 "lXK" = (
@@ -102865,7 +102865,7 @@
 "sxI" = (
 /obj/structure/table,
 /obj/item/clothing/mask/muzzle,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "sxK" = (
