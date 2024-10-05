@@ -83222,7 +83222,7 @@
 "myQ" = (
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /obj/structure/window/reinforced{
 	color = "red";
 	dir = 8

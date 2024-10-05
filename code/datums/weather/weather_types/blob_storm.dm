@@ -48,7 +48,8 @@
 
 
 /datum/weather/blob_storm/weather_act(mob/living/target)
-	var/datum/antagonist/blob_infected/blob_datum = new
+	var/datum_type = target.mind.get_blob_infected_type()
+	var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 	blob_datum.add_to_mode = FALSE
 	blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
 	blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW

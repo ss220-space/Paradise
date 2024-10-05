@@ -384,6 +384,7 @@
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
 			attack_ghost(ghost)
+
 	if(href_list["borer_use_chem"])
 		locate(href_list["src"])
 		if(!istype(src, /mob/living/simple_animal/borer))
@@ -812,6 +813,7 @@
 	leave_body_action.Grant(src)
 	take_control_action.Grant(src)
 	make_chems_action.Grant(src)
+	mind?.AddSpell(new /obj/effect/proc_holder/spell/borer_force_say)
 	focus_menu_action.Grant(src)
 
 /mob/living/simple_animal/borer/proc/RemoveInfestActions()
@@ -819,6 +821,7 @@
 	take_control_action.Remove(src)
 	leave_body_action.Remove(src)
 	make_chems_action.Remove(src)
+	mind?.RemoveSpell(/obj/effect/proc_holder/spell/borer_force_say)
 	focus_menu_action.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantControlActions()
