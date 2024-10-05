@@ -104,7 +104,7 @@
 
 //Third link in a breath chain, calls handle_breath_temperature()
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 
 	var/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
@@ -386,10 +386,10 @@
 		var/obj/item/reagent_containers/food/pill/patch/P = patch
 
 		if(P.reagents && P.reagents.total_volume)
-			var/fractional_applied_amount = applied_amount  / P.reagents.total_volume
-			P.reagents.reaction(src, REAGENT_TOUCH, fractional_applied_amount, P.needs_to_apply_reagents)
+			var/fractional_applied_amount = (applied_amount  / P.reagents.total_volume) * P.protection_on_apply
+			P.reagents.reaction(src, REAGENT_TOUCH, fractional_applied_amount, show_message = FALSE, ignore_protection = TRUE, def_zone = P.application_zone)
 			P.needs_to_apply_reagents = FALSE
-			P.reagents.trans_to(src, applied_amount * 0.5)
+			P.reagents.trans_to(src, applied_amount * 0.5 * P.protection_on_apply)
 			P.reagents.remove_any(applied_amount * 0.5)
 		else
 			if(!P.reagents || P.reagents.total_volume <= 0)

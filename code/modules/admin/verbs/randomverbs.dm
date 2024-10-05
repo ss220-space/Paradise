@@ -192,17 +192,21 @@
 
 
 
-/client/proc/cmd_admin_godmode(mob/M as mob in GLOB.mob_list)
+/client/proc/cmd_admin_godmode(mob/mob as mob in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Godmode"
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	M.status_flags ^= GODMODE
-	to_chat(usr, "<span class='notice'>Toggled [(M.status_flags & GODMODE) ? "ON" : "OFF"]</span>", confidential=TRUE)
+	var/had_trait = HAS_TRAIT_FROM(mob, TRAIT_GODMODE, ADMIN_TRAIT)
+	if(had_trait)
+		REMOVE_TRAIT(mob, TRAIT_GODMODE, ADMIN_TRAIT)
+	else
+		ADD_TRAIT(mob, TRAIT_GODMODE, ADMIN_TRAIT)
 
-	log_and_message_admins("has toggled [key_name_admin(M)]'s nodamage to [(M.status_flags & GODMODE) ? "On" : "Off"]")
+	to_chat(usr, span_notice("Toggled [had_trait ? "OFF" : "ON"]"), confidential=TRUE)
+	log_and_message_admins("has toggled [key_name_admin(mob)]'s nodamage to [had_trait ? "Off" : "On"]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Godmode") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 

@@ -18,6 +18,7 @@
 	var/self_recharge = 0 //does it self recharge, over time, or not?
 	var/ratingdesc = TRUE
 	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
+	var/overlay_charged = "cell-o2" // for custom overlays
 
 /obj/item/stock_parts/cell/laser
 	maxcharge = 1500
@@ -62,7 +63,7 @@
 	if(charge < 0.01)
 		return
 	else if(charge/maxcharge >=0.995)
-		. += "cell-o2"
+		. += overlay_charged
 	else
 		. += "cell-o1"
 
@@ -250,7 +251,7 @@
 /obj/item/stock_parts/cell/high/plus
 	name = "high-capacity power cell+"
 	desc = "Where did these come from?"
-	icon_state = "h+cell"
+	icon_state = "hcell"
 	maxcharge = 15000
 	chargerate = 2250
 
@@ -296,6 +297,7 @@
 	materials = list(MAT_GLASS = 600)
 	rating = 6
 	chargerate = 4000
+	overlay_charged = "cell-o2-bs"
 
 /obj/item/stock_parts/cell/bluespace/empty/New()
 	..()

@@ -19,9 +19,12 @@
 	min_age_allowed = 30
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_MEDICAL
-	money_factor = 7
 	outfit = /datum/outfit/job/cmo
 	insurance_type = INSURANCE_TYPE_DELUXE
+
+	salary = 300
+	min_start_money = 400
+	max_start_money = 700
 
 /datum/outfit/job/cmo
 	name = JOB_TITLE_CMO
@@ -61,8 +64,11 @@
 	minimal_player_age = 3
 	exp_requirements = 600
 	exp_type = EXP_TYPE_MEDICAL
-	money_factor = 3
 	outfit = /datum/outfit/job/doctor
+
+	salary = 150
+	min_start_money = 200
+	max_start_money = 400
 
 /datum/outfit/job/doctor
 	name = JOB_TITLE_DOCTOR
@@ -95,8 +101,11 @@
 	exp_max	= 600
 	exp_type_max = EXP_TYPE_MEDICAL
 	is_novice = TRUE
-	money_factor = 2
 	outfit = /datum/outfit/job/doctor/intern
+
+	salary = 150
+	min_start_money = 200
+	max_start_money = 400
 
 /datum/outfit/job/doctor/intern
 	name = JOB_TITLE_INTERN
@@ -141,8 +150,11 @@
 	minimal_player_age = 3
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
-	money_factor = 3
 	outfit = /datum/outfit/job/coroner
+
+	salary = 150
+	min_start_money = 200
+	max_start_money = 400
 
 /datum/outfit/job/coroner
 	name = "Coroner"
@@ -205,8 +217,11 @@
 	minimal_player_age = 7
 	exp_requirements = 600
 	exp_type = EXP_TYPE_MEDICAL
-	money_factor = 4
 	outfit = /datum/outfit/job/chemist
+
+	salary = 150
+	min_start_money = 200
+	max_start_money = 400
 
 /datum/outfit/job/chemist
 	name = "Chemist"
@@ -240,8 +255,11 @@
 	minimal_player_age = 3
 	exp_requirements = 900
 	exp_type = EXP_TYPE_MEDICAL
-	money_factor = 4
 	outfit = /datum/outfit/job/geneticist
+
+	salary = 150
+	min_start_money = 200
+	max_start_money = 400
 
 /datum/outfit/job/geneticist
 	name = "Geneticist"
@@ -276,8 +294,11 @@
 	minimal_player_age = 7
 	exp_requirements = 900
 	exp_type = EXP_TYPE_MEDICAL
-	money_factor = 4
 	outfit = /datum/outfit/job/virologist
+
+	salary = 150
+	min_start_money = 200
+	max_start_money = 400
 
 /datum/outfit/job/virologist
 	name = "Virologist"
@@ -310,8 +331,11 @@
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_PSYCHIATRIST)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_PSYCHIATRIST)
 	alt_titles = list("Psychologist","Therapist")
-	money_factor = 3
 	outfit = /datum/outfit/job/psychiatrist
+
+	salary = 150
+	min_start_money = 200
+	max_start_money = 400
 
 /datum/outfit/job/psychiatrist
 	name = "Psychiatrist"
@@ -352,8 +376,11 @@
 	minimal_player_age = 3
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
-	money_factor = 3
 	outfit = /datum/outfit/job/paramedic
+
+	salary = 150
+	min_start_money = 200
+	max_start_money = 400
 
 /datum/outfit/job/paramedic
 	name = "Paramedic"

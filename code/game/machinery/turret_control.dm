@@ -4,7 +4,7 @@
 
 /area
 	// Turrets use this list to see if individual power/lethal settings are allowed
-	var/list/turret_controls = list()
+	var/list/obj/machinery/turretid/turret_controls = list()
 
 /obj/machinery/turretid
 	name = "turret control panel"
@@ -71,7 +71,7 @@
 			A.turret_controls -= src
 	return ..()
 
-/obj/machinery/turretid/Initialize()
+/obj/machinery/turretid/Initialize(mapload)
 	. = ..()
 	if(!control_area)
 		control_area = get_area(src)
@@ -88,9 +88,13 @@
 		else
 			control_area = null
 
-	updateTurrets()
 	update_icon(UPDATE_ICON_STATE)
 	update_turret_light()
+	return INITIALIZE_HINT_LATELOAD
+
+
+/obj/machinery/turretid/LateInitialize()
+	updateTurrets()
 
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
@@ -177,35 +181,61 @@
 	)
 	return data
 
+
 /obj/machinery/turretid/ui_act(action, params)
-	if (..())
+	if(..())
 		return
+
 	if(isLocked(usr))
 		return
+
 	. = TRUE
-	switch(action)
-		if("power")
-			enabled = !enabled
-		if("lethal")
-			if(lethal_is_configurable)
-				lethal = !lethal
-	if(targetting_is_configurable)
-		switch(action)
-			if("authweapon")
-				check_weapons = !check_weapons
-			if("authaccess")
-				check_access = !check_access
-			if("authnorecord")
-				check_records = !check_records
-			if("autharrest")
-				check_arrest = !check_arrest
-			if("authxeno")
-				check_anomalies = !check_anomalies
-			if("authsynth")
-				check_synth = !check_synth
-			if("authborgs")
-				check_borgs = !check_borgs
+	if(!updateTurretId(action))
+		return
+
+	for(var/obj/machinery/turretid/panel as anything in (control_area.turret_controls - src))
+		panel.updateTurretId(action, force = TRUE)
+		panel.update_icon(UPDATE_ICON_STATE)
+		panel.update_turret_light()
+
+	update_icon(UPDATE_ICON_STATE)
+	update_turret_light()
 	updateTurrets()
+
+
+/obj/machinery/turretid/proc/updateTurretId(action, force = FALSE)
+	if(action == "power")
+		enabled = !enabled
+		return TRUE
+
+	if(action == "lethal")
+		if(!lethal_is_configurable && !force)
+			return FALSE
+
+		lethal = !lethal
+		return TRUE
+
+	if(!targetting_is_configurable && !force)
+		return FALSE
+
+	switch(action)
+		if("authweapon")
+			check_weapons = !check_weapons
+		if("authaccess")
+			check_access = !check_access
+		if("authnorecord")
+			check_records = !check_records
+		if("autharrest")
+			check_arrest = !check_arrest
+		if("authxeno")
+			check_anomalies = !check_anomalies
+		if("authsynth")
+			check_synth = !check_synth
+		if("authborgs")
+			check_borgs = !check_borgs
+
+	return TRUE
+
 
 /obj/machinery/turretid/proc/updateTurrets()
 	var/datum/turret_checks/TC = new
@@ -224,9 +254,6 @@
 		for(var/obj/machinery/porta_turret/aTurret in control_area.machinery_cache)
 			if(faction == aTurret.faction)
 				aTurret.setState(TC)
-
-	update_icon(UPDATE_ICON_STATE)
-	update_turret_light()
 
 
 /obj/machinery/turretid/power_change(forced = FALSE)

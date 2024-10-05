@@ -544,16 +544,14 @@ SUBSYSTEM_DEF(jobs)
 					G.upgrade_prescription()
 					H.update_nearsighted_effects()
 
-		// Wheelchair necessary?
-		var/obj/item/organ/external/l_foot = H.get_organ(BODY_ZONE_PRECISE_L_FOOT)
-		var/obj/item/organ/external/r_foot = H.get_organ(BODY_ZONE_PRECISE_R_FOOT)
-		if(!l_foot && !r_foot || (H.client.prefs.disabilities & DISABILITY_FLAG_PARAPLEGIA) && !(H.dna.species.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
-			var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(H.loc)
-			W.buckle_mob(H, TRUE)
+		if(!issilicon(H))
+			// Wheelchair necessary?
+			var/obj/item/organ/external/l_foot = H.get_organ(BODY_ZONE_PRECISE_L_FOOT)
+			var/obj/item/organ/external/r_foot = H.get_organ(BODY_ZONE_PRECISE_R_FOOT)
+			if(!l_foot && !r_foot || (H.client.prefs.disabilities & DISABILITY_FLAG_PARAPLEGIA) && !(H.dna.species.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
+				var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(H.loc)
+				W.buckle_mob(H, TRUE)
 	return H
-
-
-
 
 
 /datum/controller/subsystem/jobs/proc/LoadJobsFile(jobsfile, highpop) //ran during round setup, reads info from jobs.txt -- Urist
@@ -638,8 +636,8 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/money_amount = job ? rand(500, 1500) * get_job_factor(job, job.random_money_factor) : rand(500, 1500)
-	var/datum/money_account/M = create_account(H.real_name, money_amount, null)
+	var/money_amount = rand(job.min_start_money, job.max_start_money)
+	var/datum/money_account/M = create_account(H.real_name, money_amount, null, job, TRUE)
 	if (H.dna)
 		GLOB.dna2account[H.dna] = M
 	var/remembered_info = ""
@@ -685,12 +683,6 @@ SUBSYSTEM_DEF(jobs)
 	spawn(0)
 		to_chat(H, "<span class='boldnotice'>Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]</span>")
 
-/datum/controller/subsystem/jobs/proc/get_job_factor(datum/job/job, randomized)
-	if(randomized)
-		return job.money_factor*rand(0.25, 4) // for now only used for civillians
-	else
-		return job.money_factor
-
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
 	if(tgtcard)
@@ -732,6 +724,14 @@ SUBSYSTEM_DEF(jobs)
 		if(!(oldjobdatum.title in GLOB.command_positions) && !(newjobdatum.title in GLOB.command_positions))
 			oldjobdatum.current_positions--
 			newjobdatum.current_positions++
+
+/datum/controller/subsystem/jobs/proc/account_job_transfer(name_owner, job_title, salary_capcap = TRUE)
+
+	var/datum/money_account/account_job = get_account_with_name(name_owner)
+
+	if(account_job)
+		account_job.linked_job = SSjobs.GetJob(job_title)
+		account_job.salary_payment_active = salary_capcap
 
 /datum/controller/subsystem/jobs/proc/notify_dept_head(jobtitle, antext)
 	// Used to notify the department head of jobtitle X that their employee was brigged, demoted or terminated

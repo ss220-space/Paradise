@@ -21,9 +21,12 @@
 	min_age_allowed = 30
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_ENGINEERING
-	money_factor = 7
 	outfit = /datum/outfit/job/chief_engineer
 	insurance_type = INSURANCE_TYPE_DELUXE
+
+	salary = 300
+	min_start_money = 400
+	max_start_money = 700
 
 /datum/outfit/job/chief_engineer
 	name = "Chief Engineer"
@@ -65,8 +68,11 @@
 	minimal_player_age = 7
 	exp_requirements = 600
 	exp_type = EXP_TYPE_ENGINEERING
-	money_factor = 3
 	outfit = /datum/outfit/job/engineer
+
+	salary = 150
+	min_start_money = 200
+	max_start_money = 400
 
 /datum/outfit/job/engineer
 	name = "Station Engineer"
@@ -101,8 +107,11 @@
 	exp_max	= 600
 	exp_type_max = EXP_TYPE_ENGINEERING
 	is_novice = TRUE
-	money_factor = 2
 	outfit = /datum/outfit/job/engineer/trainee
+
+	salary = 150
+	min_start_money = 200
+	max_start_money = 400
 
 /datum/outfit/job/engineer/trainee
 	name = "Trainee Engineer"
@@ -150,8 +159,11 @@
 	minimal_player_age = 7
 	exp_requirements = 900
 	exp_type = EXP_TYPE_ENGINEERING
-	money_factor = 4
 	outfit = /datum/outfit/job/atmos
+
+	salary = 150
+	min_start_money = 200
+	max_start_money = 400
 
 /datum/outfit/job/atmos
 	name = "Life Support Specialist"
@@ -184,8 +196,11 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_EMERGENCY_STORAGE, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
 	exp_requirements = 900
 	exp_type = EXP_TYPE_ENGINEERING
-	money_factor = 3
 	outfit = /datum/outfit/job/mechanic
+
+	salary = 150
+	min_start_money = 200
+	max_start_money = 400
 
 /datum/outfit/job/mechanic
 	name = "Mechanic"
