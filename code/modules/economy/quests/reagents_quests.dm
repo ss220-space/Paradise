@@ -11,41 +11,51 @@
 
 	var/list/required_reagents = list()
 	var/list/repeated_reagents = list(
-			"antiburn_stimulant" = list("volume" = 5, "reward" = 500),
+			// Чисто с ботаники
+			"earthsblood" = list("volume" = 30, "reward" = 150),
+			"weak_omnizine" = list("volume" = 30, "reward" = 125),
+			"thc" = list("volume" = 30, "reward" = 100),
+
+			// Чистый химик
 			"synthflesh" = list("volume" = 30, "reward" = 80),
-			"rezadone" = list("volume" = 30, "reward" = 250),
+			"pen_acid" = list("volume" = 30, "reward" = 175),
+			"mitocholide" = list("volume" = 30, "reward" = 150),
+			"antiburn_stimulant" = list("volume" = 5, "reward" = 500),
 			"sterilizine" = list("volume" = 30, "reward" = 100),
-			"earthsblood" = list("volume" = 30, "reward" = 120),
-			"pen_acid" = list("volume" = 30, "reward" = 120),
-			"mitocholide" = list("volume" = 30, "reward" = 95),
-			"condensedcapsaicin" = list("volume" = 30, "reward" = 300),
 			"napalm" = list("volume" = 30, "reward" = 75),
-			"thc" = list("volume" = 30, "reward" = 90),
-			"fliptonium" = list("volume" = 10, "reward" = 450),
+			"pyrosium" = list("volume" = 30, "reward" = 75),
+
+			// Смешанный заказ
+			"rezadone" = list("volume" = 30, "reward" = 250),
 			"glycerol" = list("volume" = 30, "reward" = 380),
-			"weak_omnizine" = list("volume" = 30, "reward" = 85),
+			"condensedcapsaicin" = list("volume" = 30, "reward" = 300),
+			"fliptonium" = list("volume" = 10, "reward" = 450),
+			"hairgrownium" = list("volume" = 30, "reward" = 250),
 			"super_hairgrownium" = list("volume" = 15, "reward" = 300),
-			"pyrosium" = list("volume" = 30, "reward" = 45),
-			"hairgrownium" = list("volume" = 30, "reward" = 175),
-			"itching_powder" = list("volume" = 30, "reward" = 60),
+			"itching_powder" = list("volume" = 30, "reward" = 100),
 		)
 	var/list/unique_reagents = list(
-			"strange_reagent" = list("volume" = 15, "reward" = 250),
-			"fomepizole" = list("volume" = 20, "reward" = 160),
-	  		"synaptizine" = list("volume" = 30, "reward" = 150),
-			"hair_dye" = list("volume" = 10, "reward" = 310),
-			"colorful_reagent" = list("volume" = 10, "reward" = 220),
-			"vhfcs" = list("volume" = 30, "reward" = 135),
-			"moonlin" = list("volume" = 30, "reward" = 85),
-			"tirizene" = list("volume" = 30, "reward" = 120),
+			// Чистый ботаник
+			"synaptizine" = list("volume" = 30, "reward" = 125),
+			"moonlin" = list("volume" = 30, "reward" = 100),
+			"tirizene" = list("volume" = 30, "reward" = 125),
+			"growthserum" = list("volume" = 15, "reward" = 100),
+
+			// Чистый химик
+			"fomepizole" = list("volume" = 20, "reward" = 125),
+			"capulettium_plus" = list("volume" = 15, "reward" = 225),
+			"facid" = list("volume" = 15, "reward" = 100),
+			"minttoxin" = list("volume" = 15, "reward" = 100),
+			"sarin" = list("volume" = 10, "reward" = 200),
+
+			// Смешанный заказ
 			"bath_salts" = list("volume" = 10, "reward" = 220),
-			"capulettium_plus" = list("volume" = 15, "reward" = 150),
-			"facid" = list("volume" = 15, "reward" = 90),
-			"growthserum" = list("volume" = 15, "reward" = 55),
-			"minttoxin" = list("volume" = 15, "reward" = 90),
-			"sarin" = list("volume" = 10, "reward" = 120),
-			"initropidril" = list("volume" = 5, "reward" = 510),
-			"rotatium" = list("volume" = 15, "reward" = 135),
+			"strange_reagent" = list("volume" = 15, "reward" = 300),
+			"initropidril" = list("volume" = 5, "reward" = 750),
+			"hair_dye" = list("volume" = 10, "reward" = 400),
+			"colorful_reagent" = list("volume" = 15, "reward" = 225),
+			"vhfcs" = list("volume" = 30, "reward" = 200),
+			"rotatium" = list("volume" = 15, "reward" = 200),
 		)
 
 /datum/cargo_quest/reagents/update_interface_icon()
