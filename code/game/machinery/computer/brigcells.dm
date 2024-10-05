@@ -1,6 +1,6 @@
 /obj/machinery/computer/brigcells
     name = "cell management computer"
-    desc = "Used to manage prison cells."
+    desc = "Используется для дистанционного управления камерами заключённых."
     icon_keyboard = "security_key"
     icon_screen = "cell_monitor"
     use_power = IDLE_POWER_USE
@@ -64,7 +64,7 @@
 		var/obj/machinery/door_timer/T = locate(ref)
 		if (T)
 			T.timer_end()
-			T.Radio.autosay("Timer stopped manually from a cell management console.", T.name, "Security", list(z))
+			T.Radio.autosay("Таймер был вручную остановлен через консоль.", T.name, "Security", list(z))
 		return TRUE
 
 	return FALSE

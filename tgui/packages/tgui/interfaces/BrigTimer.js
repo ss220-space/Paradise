@@ -26,45 +26,43 @@ export const BrigTimer = (props, context) => {
   return (
     <Window width={500} height={!data.timing ? 396 : 237}>
       <Window.Content>
-        <Section title="Cell Information">
+        <Section title="Информация">
           <LabeledList>
-            <LabeledList.Item label="Cell ID">{data.cell_id}</LabeledList.Item>
-            <LabeledList.Item label="Occupant">
+            <LabeledList.Item label="Камера">{data.cell_id}</LabeledList.Item>
+            <LabeledList.Item label="Заключённый">
               {data.nameText}
             </LabeledList.Item>
-            <LabeledList.Item label="Crimes">{data.crimes}</LabeledList.Item>
-            <LabeledList.Item label="Brigged By">
+            <LabeledList.Item label="Обвинения">{data.crimes}</LabeledList.Item>
+            <LabeledList.Item label="Сотрудник">
               {data.brigged_by}
             </LabeledList.Item>
-            <LabeledList.Item label="Time Brigged For">
-              {data.time_set}
-            </LabeledList.Item>
-            <LabeledList.Item label="Time Left">
+            <LabeledList.Item label="Срок">{data.time_set}</LabeledList.Item>
+            <LabeledList.Item label="Осталось">
               {data.time_left}
             </LabeledList.Item>
-            <LabeledList.Item label="Actions">
+            <LabeledList.Item label="Действия">
               <>
                 <Button
                   icon="lightbulb-o"
-                  content="Flash"
+                  content="Флеш"
                   disabled={!data.isAllowed}
                   onClick={() => act('flash')}
                 />
                 <Button
                   icon="angle-up"
-                  content="Add Timer"
+                  content="Добавить время"
                   disabled={!data.timing || !data.isAllowed}
                   onClick={() => act('add_timer')}
                 />
                 <Button
                   icon="sync"
-                  content="Reset Timer"
+                  content="Перезапустить таймер"
                   disabled={!data.timing || !data.isAllowed}
                   onClick={() => act('restart_timer')}
                 />
                 <Button
                   icon="eject"
-                  content="Release Prisoner"
+                  content="Остановить таймер"
                   disabled={!data.timing || !data.isAllowed}
                   onClick={() => act('stop')}
                 />
@@ -73,9 +71,9 @@ export const BrigTimer = (props, context) => {
           </LabeledList>
         </Section>
         {!data.timing && (
-          <Section title="New Prisoner">
+          <Section title="Новый заключённый">
             <LabeledList>
-              <LabeledList.Item label="Prisoner Name">
+              <LabeledList.Item label="Имя">
                 <Button
                   icon={nameIcon}
                   content={data.prisoner_name ? data.prisoner_name : '-----'}
@@ -95,7 +93,7 @@ export const BrigTimer = (props, context) => {
                   />
                 )}
               </LabeledList.Item>
-              <LabeledList.Item label="Prisoner Crimes">
+              <LabeledList.Item label="Обвинения">
                 <Button
                   icon="pencil-alt"
                   content={
@@ -105,7 +103,7 @@ export const BrigTimer = (props, context) => {
                   onClick={() => act('prisoner_charge')}
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Prisoner Time">
+              <LabeledList.Item label="Время">
                 <Button
                   icon="pencil-alt"
                   content={data.prisoner_time ? data.prisoner_time : '-----'}
@@ -113,10 +111,10 @@ export const BrigTimer = (props, context) => {
                   onClick={() => act('prisoner_time')}
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Start">
+              <LabeledList.Item label="Начать">
                 <Button
                   icon="gavel"
-                  content="Start Sentence"
+                  content="Назначить наказание"
                   disabled={
                     !data.prisoner_name ||
                     !data.prisoner_charge ||
