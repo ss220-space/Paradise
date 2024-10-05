@@ -26,13 +26,27 @@
   L343-CJ:
   - balance: Nerf ashwalkers speedmod (#5977)
 '2024-10-05':
+  Anorak2020:
+  - add: Emag opens uplinks (#5892)
+  - add: Customat (#5849)
+  Antoonij:
+  - add: borer host force say (#5775)
+  - add: Revenant blight | ectoplasmic disease | sin update (#5644)
   Daeberdir:
   - bugfix: turret protection map and initialize fix. (#5974)
+  Kray1k:
+  - bugfix: devil revive contract, spell targeting fix & gravemarker rename fix (#5907)
   LiquidPotroh:
   - tweak: TOUCH reaction tweaks (#5975)
   Mahimka42:
   - bugfix: Minor flower fixes (#5979)
+  Pelmenik123:
+  - add: Capitalism (#5958)
+  - add: npc pun pun [bounty] (#5970)
+  RamleyDude:
+  - tweak: cqc kick (#5885)
   Sheya:
   - unknown: inhand sprites, colourable blindfolds (#5957)
   dageavtobusnick:
   - bugfix: vampires now spend blood on cast (#5978)
+  - tweak: some blob small tweaks (#5772)
