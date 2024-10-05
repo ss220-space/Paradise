@@ -403,10 +403,14 @@ REAGENT SCANNER
 	acc.addInsurancePoints(-from_insurance)
 
 	if (connected_acc)
-		connected_acc.money += round(round(req / 2))
+		var/datum/money_account/money_account = attempt_account_access_nosec(connected_acc)
+		if (money_account)
+			money_account.money += round(round(req / 2))
+
 	user.visible_message("Страховка списанна в размере: [req].")
 	if (from_money_acc)
 		user.visible_message("Страховки не хватило. [from_money_acc / 2] недостающих очков страховки восполнено за счет [from_money_acc] кредитов со счета пациента.")
+
 	return TRUE
 
 /obj/item/healthanalyzer/proc/print_report(var/mob/living/user)
