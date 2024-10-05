@@ -2439,12 +2439,13 @@
 				var/start_process = alert(usr,"Начинать отсчет до момента вылупления?", "", "Да", "Нет") == "Да"
 				if(isnull(burst_time) || QDELETED(current) || current.stat == DEAD)
 					return
-				var/datum/antagonist/blob_infected/blob_datum = new
+				var/datum_type = get_blob_infected_type()
+				var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 				blob_datum.need_new_blob = need_new_blob
 				blob_datum.start_process = start_process
 				blob_datum.time_to_burst_hight = burst_time
 				blob_datum.time_to_burst_low = burst_time
-				src.add_antag_datum(blob_datum)
+				add_antag_datum(blob_datum)
 				log_admin("[key_name(usr)] has made [key_name(current)] into a \"Blob\"")
 				message_admins("[key_name_admin(usr)] has made [key_name_admin(current)] into a \"Blob\"")
 
@@ -2960,6 +2961,14 @@
 			if("Scientist")
 				L = agent_landmarks[team]
 		H.forceMove(L.loc)
+
+/datum/mind/proc/get_blob_infected_type()
+	if(!current)
+		stack_trace("The mind is not attached to the mob.")
+	if(isanimal(current))
+		return /datum/antagonist/blob_infected/simple_animal
+	if(ishuman(current))
+		return /datum/antagonist/blob_infected/human
 
 
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/spell)

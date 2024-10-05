@@ -637,6 +637,9 @@
 /mob/proc/IsAdvancedToolUser()//This might need a rename but it should replace the can this mob use things check
 	return FALSE
 
+/mob/proc/can_use_machinery(obj/machinery/mach)
+	return IsAdvancedToolUser() 
+
 /mob/proc/swap_hand()
 	return
 
@@ -670,25 +673,27 @@
 	var/mob/living/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", allowed_creatures)
 	if(!picked)
 		return
-
+		
 	if(picked == "Mouse")
 		become_mouse()
 		return
 
 	var/mob/living/picked_mob = allowed_creatures[picked]
+	var/message = picked_mob.get_npc_respawn_message()
 
 	if(QDELETED(picked_mob) || picked_mob.key || picked_mob.stat == DEAD)
 		to_chat(usr, span_warning("[capitalize(picked_mob)] is no longer available to respawn!"))
 		return
-
+	
 	if(istype(picked_mob, /mob/living/simple_animal/borer))
 		var/mob/living/simple_animal/borer/borer = picked_mob
 		borer.transfer_personality(usr.client)
 		return
 
+	to_chat(usr, span_notify(message))
 	GLOB.respawnable_list -= usr
 	picked_mob.key = key
-
+		
 
 /mob/proc/become_mouse()
 	var/timedifference = world.time - client.time_joined_as_mouse

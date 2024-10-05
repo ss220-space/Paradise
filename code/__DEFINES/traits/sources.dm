@@ -152,4 +152,8 @@
 #define CORGI_HARDSUIT_TRAIT "corgi_hardsuit"
 /// inherited from riding vehicles
 #define VEHICLE_TRAIT "vehicle"
+
+// blob trait sourses
+#define BLOB_INFECTED_TRAIT "blob_infected"
+
 #define VENDOR_FLATTENING_TRAIT "vendor_flattening"
