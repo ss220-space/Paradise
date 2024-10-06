@@ -32,6 +32,8 @@
   Antoonij:
   - add: borer host force say (#5775)
   - add: Revenant blight | ectoplasmic disease | sin update (#5644)
+  Aziz Chynaliev:
+  - add: new 10 TTS voices from Warhammer 40k (9) and Last Years Snow Man (1)
   Daeberdir:
   - bugfix: turret protection map and initialize fix. (#5974)
   Kray1k:
@@ -43,6 +45,8 @@
   Pelmenik123:
   - add: Capitalism (#5958)
   - add: npc pun pun [bounty] (#5970)
+  PiroMage:
+  - bugfix: 'Nova Station #3 Patch (#5982)'
   RamleyDude:
   - tweak: cqc kick (#5885)
   Sheya:
@@ -50,3 +54,4 @@
   dageavtobusnick:
   - bugfix: vampires now spend blood on cast (#5978)
   - tweak: some blob small tweaks (#5772)
+  - bugfix: fix tilted vending machine help intent runtime (#5980)

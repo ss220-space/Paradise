@@ -461,7 +461,7 @@
 	if(tilted)
 		if(user.a_intent == INTENT_HELP)
 			to_chat(user, span_warning("[src] is tipped over and non-functional! You'll need to right it first."))
-			return
+			return ATTACK_CHAIN_BLOCKED_ALL
 		return ..()
 
 	if(user.a_intent == INTENT_HARM)
