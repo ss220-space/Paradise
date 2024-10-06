@@ -106,13 +106,13 @@ jobs:
           ./tools/hooks/install.sh
           ./tgui/bin/tgui --install-git-hooks
 
-          MERGED_PRS=""
+          MERGED_PRS=()
 
           # Print debug information
           echo "PR details JSON:"
           echo '${{ steps.get_labeled_prs.outputs.labeled_pr_details }}'
 
-          echo '${{ steps.get_labeled_prs.outputs.labeled_pr_details }}' | jq -c '.[]' | while read -r PR_DETAIL; do
+          while read -r PR_DETAIL; do
             PR_NUMBER=$(echo "$PR_DETAIL" | jq -r '.number')
             PR_TITLE=$(echo "$PR_DETAIL" | jq -r '.title')
             PR_LAST_COMMIT=$(echo "$PR_DETAIL" | jq -r '.sha' | head -c 7)
@@ -139,10 +139,8 @@ jobs:
             # Perform your git actions here, for example:
             echo "::endgroup::"
             echo "$(green "$PR_STRING:  Successfully merged!")"
-            echo "$PR_NUMBER"
-            MERGED_PRS="$MERGED_PRS $PR_NUMBER"
-            echo "$MERGED_PRS"
-          done
+            MERGED_PRS+=("$PR_NUMBER")
+          done << (echo '${{ steps.get_labeled_prs.outputs.labeled_pr_details }}' | jq -c '.[]')
 
           # Generate changelog
           python3 tools/changelog/gen_changelog.py
@@ -157,9 +155,8 @@ jobs:
           git push -f origin ${{ env.TESTMERGE_BRANCH }}
 
           # Output the list of merged PRs
-          MERGED_PRS="$MERGED_PRS TEST"
-          echo "$MERGED_PRS"
-          echo "merged_prs=$MERGED_PRS" >> $GITHUB_OUTPUT
+          echo "${MERGED_PRS[@]}"
+          echo "merged_prs=${MERGED_PRS[@]}" >> $GITHUB_OUTPUT
           echo "END"
 
       - name: Comment on merged PRs
