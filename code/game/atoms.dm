@@ -722,9 +722,7 @@
 /atom/proc/magic_charge_act(mob/user)
 	if(contents)
 		for(var/obj/item/stock_parts/cell/cell in contents)
-			cell.magic_charge_act()
-		
-		. |= RECHARGE_SUCCESSFUL
+			. |= cell.magic_charge_act()
 			
 	return .
 
