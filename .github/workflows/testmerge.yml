@@ -44,7 +44,8 @@ jobs:
                 if (prInfo.mergeable) {
                   labeledPRs.push({
                     number: pr.number,
-                    title: pr.title
+                    title: pr.title,
+                    sha: pr.head.sha
                   });
                 }
               }
@@ -84,6 +85,8 @@ jobs:
         run: |
           set -e
 
+          export FORCE_COLOR=false
+
           # Define the color functions
           red() {
             echo -e "\033[31m$1\033[0m"
@@ -114,10 +117,11 @@ jobs:
           echo '${{ steps.get_labeled_prs.outputs.labeled_pr_details }}' | jq -c '.[]' | while read -r PR_DETAIL; do
             PR_NUMBER=$(echo "$PR_DETAIL" | jq -r '.number')
             PR_TITLE=$(echo "$PR_DETAIL" | jq -r '.title')
-            git fetch origin pull/$PR_NUMBER/head:pr-$PR_NUMBER
-            PR_LAST_COMMIT=$(git rev-parse --short pr-$PR_NUMBER | head -c 7)
+            PR_LAST_COMMIT=$(echo "$PR_DETAIL" | jq -r '.sha' | head -c 7)
             PR_STRING="$PR_TITLE (#$PR_NUMBER) [$PR_LAST_COMMIT]"
             echo "::group::$PR_STRING"
+
+            git fetch origin pull/$PR_NUMBER/head:pr-$PR_NUMBER
             echo "Preparing..."
 
             # Check for merge conflicts
@@ -160,7 +164,9 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            console.log('${{ steps.prepare_testmerge_branch.outputs.merged_prs }}')
             const mergedPRs = '${{ steps.prepare_testmerge_branch.outputs.merged_prs }}'.split(' ');
+            console.log(mergedPRs);
             for (const prNumber of mergedPRs) {
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
