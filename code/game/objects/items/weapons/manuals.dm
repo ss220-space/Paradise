@@ -55,7 +55,7 @@
 
 /obj/item/book/manual/supermatter_engine
 	name = "Двигатель на Суперматерии: Руководство Пользователя"
-	icon_state = "bookParticleAccelerator"   //TEMP FIXME
+	icon_state = "bookSupermatter"
 	author = "Инженерная Энциклопедия"
 	title = "Двигатель на Суперматерии: Руководство Пользователя"
 	wiki_title = "Двигатель_Суперматерии"
