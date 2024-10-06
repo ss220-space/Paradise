@@ -29,12 +29,19 @@ jobs:
             const labeledPRs = [];
             for (const pr of pullRequests) {
               if (pr.labels.some(label => label.name === label_needed)) {
-                const prInfo = await github.rest.pulls.get({
+                const { data: status } = await github.rest.repos.getCombinedStatusForRef({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  ref: pr.head.sha
+                });
+
+                const { data: prInfo } = await github.rest.pulls.get({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   pull_number: pr.number
                 });
-                if (prInfo.data.mergeable) {
+
+                if (status.state === 'success' || prInfo.mergeable) {
                   labeledPRs.push({
                     number: pr.number,
                     title: pr.title
