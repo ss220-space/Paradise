@@ -26,12 +26,14 @@ jobs:
               repo: context.repo.repo,
               state: 'open',
               sort: 'updated',
-              direction: 'desc'
+              direction: 'desc',
+              per_page: 100
             });
             const labeledPRs = [];
             for (const pr of pullRequests) {
-              console.log(`PR ${pr.title}`);
               if (pr.labels.some(label => label.name === label_needed)) {
+                console.log(`PR ${pr.title}`);
+
                 const { data: prInfo } = await github.rest.pulls.get({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
