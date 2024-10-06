@@ -8,7 +8,7 @@ on:
 
 env:
   BASE_BRANCH: master220
-  TESTMERGE_BRANCH: testmerge2
+  TESTMERGE_BRANCH: testmerge
   REQUIRED_LABEL: testmerge
 
 jobs:
@@ -30,7 +30,8 @@ jobs:
               per_page: 100
             });
             const labeledPRs = [];
-            for (const pr of pullRequests) {
+            const sortedPRsASC = pullRequests.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+            for (const pr of sortedPRsASC) {
               if (pr.labels.some(label => label.name === label_needed)) {
                 console.log(`PR ${pr.title}`);
 
@@ -83,6 +84,19 @@ jobs:
         run: |
           set -e
 
+          # Define the color functions
+          red() {
+            echo -e "\033[31m$1\033[0m"
+          }
+
+          green() {
+            echo -e "\033[32m$1\033[0m"
+          }
+
+          yellow() {
+            echo -e "\033[33m$1\033[0m"
+          }
+
           git config --local user.email "action@github.com"
           git config --local user.name "Testmerge Worker"
           git switch ${{ env.TESTMERGE_BRANCH }} || git switch -c ${{ env.TESTMERGE_BRANCH }}
@@ -90,6 +104,8 @@ jobs:
 
           ./tools/hooks/install.sh
           ./tgui/bin/tgui --install-git-hooks
+
+          MERGED_PRS=()
 
           # Print debug information
           echo "PR details JSON:"
@@ -101,13 +117,15 @@ jobs:
             git fetch origin pull/$PR_NUMBER/head:pr-$PR_NUMBER
             PR_LAST_COMMIT=$(git rev-parse --short pr-$PR_NUMBER | head -c 7)
             PR_STRING="$PR_TITLE (#$PR_NUMBER) [$PR_LAST_COMMIT]"
-            echo "$PR_STRING: Preparing..."
+            echo "::group::$PR_STRING"
+            echo "Preparing..."
 
             # Check for merge conflicts
             git merge --no-commit --no-ff pr-$PR_NUMBER || true
             CONFLICTS=$(git ls-files -u | wc -l)
             if [ "$CONFLICTS" -gt 0 ] ; then
-              echo "$PR_STRING: There is a merge conflict. Skipping!"
+              echo "::endgroup::"
+              echo "$(red "$PR_STRING: There is a merge conflict. Skipping!")"
               git merge --abort
               continue
             fi
@@ -117,7 +135,9 @@ jobs:
             git commit -m "$PR_TITLE (#$PR_NUMBER) [testmerge][$PR_LAST_COMMIT]"
 
             # Perform your git actions here, for example:
-            echo "$PR_STRING: Successfully merged!"
+            echo "::endgroup::"
+            echo "$(green "$PR_STRING:  Successfully merged!")"
+            MERGED_PRS+=("$PR_NUMBER")
           done
 
           # Generate changelog
@@ -131,3 +151,22 @@ jobs:
           fi
 
           git push -f origin ${{ env.TESTMERGE_BRANCH }}
+
+          # Output the list of merged PRs
+          echo "merged_prs=${MERGED_PRS[*]}" >> $GITHUB_OUTPUT
+
+      - name: Comment on merged PRs
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const mergedPRs = '${{ steps.prepare_testmerge_branch.outputs.merged_prs }}'.split(' ');
+            for (const prNumber of mergedPRs) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: parseInt(prNumber),
+                body: 'Данный PR был добавлен в ветку "${{ env.TESTMERGE_BRANCH }}" для тестов. Он попадёт на сервер после деплоя.'
+              });
+              console.log(`Commented on PR #${prNumber}`);
+            }
