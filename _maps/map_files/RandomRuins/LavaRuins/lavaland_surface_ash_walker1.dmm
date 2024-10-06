@@ -907,11 +907,8 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "cn" = (
-/obj/structure/stone_tile/block,
-/obj/structure/stone_tile/block/cracked{
-	dir = 1
-	},
 /obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/cleanable/ashrune,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "co" = (
@@ -1584,9 +1581,9 @@ bz
 ak
 cb
 df
-bX
-co
-bO
+bM
+bM
+bM
 dq
 bZ
 cJ
@@ -1606,9 +1603,9 @@ ak
 ak
 cg
 cb
-cg
+bM
 cn
-bL
+bM
 dr
 dw
 dA
@@ -1628,9 +1625,9 @@ bA
 cZ
 dd
 cg
-cb
-di
-dn
+bM
+bM
+bM
 ds
 dx
 cK

@@ -81,10 +81,10 @@
 	if(cause_disaster && prob(disaster_prob))
 		disaster(invoker)
 
-	if(ritual_should_del_things && !failed)
+	if((. & RITUAL_SUCCESSFUL) && (ritual_should_del_things))
 		del_things = TRUE
 
-	if(ritual_should_del_things_on_fail && failed)
+	if((. & RITUAL_FAILED_ON_PROCEED) && (ritual_should_del_things_on_fail))
 		del_things = TRUE
 
 	if(del_things)
