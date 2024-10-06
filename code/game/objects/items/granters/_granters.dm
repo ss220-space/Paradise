@@ -89,15 +89,17 @@
 	return TRUE
 
 /obj/item/book/granter/magic_charge_act(mob/user)
+	. |= RECHARGE_SUCCESSFUL
+
 	if(prob(80))
 		visible_message(span_warning("[src] catches fire!"))
 		qdel(src)
+
 		. |= RECHARGE_BURNOUT
+		
 		return .
 
 	uses++
-	. |= RECHARGE_SUCCESSFUL
-
 	return .
 
 // Generic action giver

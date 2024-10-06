@@ -24,7 +24,7 @@
 	if(living.pulling)
 		charge_result = pulling.magic_charge_act(pulling)
 
-		if(!(charge_result & NONE))
+		if(!(charge_result & RECHARGE_SUCCESSFUL))
 			charged_item = pulling
 		
 	if(!charged_item)
@@ -33,7 +33,7 @@
 		for(var/obj/item in hand_items)
 			charge_result = item.magic_charge_act(living)
 
-			if(charge_result & RECHARGE_NO_EFFECT)
+			if(!(charge_result & RECHARGE_SUCCESSFUL))
 				continue
 
 			charged_item = item
@@ -44,7 +44,7 @@
 		return
 		
 	if(charge_result & RECHARGE_BURNOUT)
-		to_chat(user, span_caution("[charged_item] doesn't seem to be reacting to the spell..."))
+		to_chat(user, span_caution("[charged_item] is reacting poorly to the spell!"))
 		return
 
 	to_chat(user, span_notice("[charged_item] suddenly feels very warm!"))
