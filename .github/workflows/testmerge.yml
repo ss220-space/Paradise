@@ -29,7 +29,7 @@ jobs:
             const labeledPRs = [];
             for (const pr of pullRequests) {
               if (pr.labels.some(label => label.name === label_needed)) {
-                console.log(`PR ${pr.title})
+                console.log(`PR ${pr.title}`);
                 const { data: status } = await github.rest.repos.getCombinedStatusForRef({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
