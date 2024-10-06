@@ -159,6 +159,7 @@ jobs:
           MERGED_PRS+=("test")
           echo "${MERGED_PRS[@]}"
           echo "merged_prs=${MERGED_PRS[@]}" >> $GITHUB_OUTPUT
+          echo "END"
 
       - name: Comment on merged PRs
         uses: actions/github-script@v7
