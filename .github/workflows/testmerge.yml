@@ -30,7 +30,7 @@ jobs:
               per_page: 100
             });
             const labeledPRs = [];
-            const sortedPRsASC = pullRequests.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+            const sortedPRsASC = pullRequests.sort((a, b) => a.created_at.localeCompare(b.created_at));
             for (const pr of sortedPRsASC) {
               if (pr.labels.some(label => label.name === label_needed)) {
                 console.log(`PR ${pr.title}`);
