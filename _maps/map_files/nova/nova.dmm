@@ -117166,7 +117166,7 @@
 /obj/machinery/computer/rdconsole/core,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/requests_console{
-	department = "Science";
+	department = "Research";
 	departmentType = 2;
 	name = "Research Request Console";
 	pixel_x = -30

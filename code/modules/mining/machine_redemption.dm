@@ -29,6 +29,7 @@
 	/// A list may be provided as entry value to only notify when specific ore is dumped.
 	var/list/supply_consoles = list(
 		"Science",
+		"Research",
 		"Robotics",
 		"Research Director's Desk",
 		"Mechanic",

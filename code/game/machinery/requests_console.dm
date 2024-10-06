@@ -23,9 +23,9 @@
 #define ENGI_ROLES list("Atmospherics","Mechanic","Engineering","Chief Engineer's Desk","Telecoms Admin")
 #define SEC_ROLES list("Warden","Security","Brig Medbay","Head of Security's Desk")
 #define MISC_ROLES list("Bar","Chapel","Kitchen","Hydroponics","Janitorial")
-#define MED_ROLES list("Virology","Chief Medical Officer's Desk","Medbay")
+#define MED_ROLES list("Virology","Genetics","Chief Medical Officer's Desk","Medbay")
 #define COM_ROLES list("Blueshield","NT Representative","Head of Personnel's Desk","Captain's Desk","Bridge")
-#define SCI_ROLES list("Robotics","Science","Research Director's Desk")
+#define SCI_ROLES list("Robotics","Science","Research","Research Director's Desk")
 
 #define RQ_NONEW_MESSAGES 0
 #define RQ_NORMALPRIORITY 1
@@ -292,37 +292,45 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		return ..()
 
 	if(istype(I, /obj/item/card/id))
-		var/obj/item/card/id/id = I
 		add_fingerprint(user)
-		switch(screen)
-			if(RCS_MESSAUTH)
-				msgVerified = "Verified by [id.registered_name] ([id.assignment])"
-				SStgui.update_uis(src)
-				return ATTACK_CHAIN_PROCEED_SUCCESS
-			if(RCS_ANNOUNCE)
-				if(ACCESS_RC_ANNOUNCE in id.GetAccess())
-					announceAuth = TRUE
-					announcement.announcer = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
-					SStgui.update_uis(src)
-					return ATTACK_CHAIN_PROCEED_SUCCESS
-				reset_message()
-				to_chat(user, span_warning("You are not authorized to send announcements."))
-				SStgui.update_uis(src)
-				return ATTACK_CHAIN_PROCEED_SUCCESS
-			if(RCS_SHIPPING)
-				msgVerified = "Sender verified as [id.registered_name] ([id.assignment])"
-				SStgui.update_uis(src)
-				return ATTACK_CHAIN_PROCEED_SUCCESS
+		return login_console(screen, I, src)
 
 	if(istype(I, /obj/item/stamp))
-		if(screen == RCS_MESSAUTH)
-			add_fingerprint(user)
-			msgStamped = "Stamped with the [I.name]"
-			SStgui.update_uis(src)
-			return ATTACK_CHAIN_PROCEED_SUCCESS
+		return stamp_messauth(screen, I, src, user)
 
 	return ..()
 
+
+/obj/machinery/requests_console/proc/stamp_messauth(screen, obj/item/stamp/stamp, obj/ui_object, mob/user, is_distant=FALSE)
+	if(screen == RCS_MESSAUTH)
+		if(!is_distant)
+			add_fingerprint(user)
+		msgStamped = "Stamped with the [stamp.name]"
+		SStgui.update_uis(ui_object)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ATTACK_CHAIN_PROCEED
+
+/obj/machinery/requests_console/proc/login_console(screen, obj/item/card/id/id, obj/ui_object, mob/user)
+	switch(screen)
+		if(RCS_MESSAUTH)
+			msgVerified = "Verified by [id.registered_name] ([id.assignment])"
+			SStgui.update_uis(ui_object)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		if(RCS_ANNOUNCE)
+			if(ACCESS_RC_ANNOUNCE in id.GetAccess())
+				announceAuth = TRUE
+				announcement.announcer = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
+				SStgui.update_uis(ui_object)
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+			reset_message()
+			to_chat(user, span_warning("You are not authorized to send announcements."))
+			SStgui.update_uis(ui_object)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		if(RCS_SHIPPING)
+			msgVerified = "Sender verified as [id.registered_name] ([id.assignment])"
+			SStgui.update_uis(ui_object)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ATTACK_CHAIN_PROCEED
 
 /obj/machinery/requests_console/proc/reset_message(mainmenu = FALSE)
 	message = ""
@@ -353,14 +361,19 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 		atom_say(title)
 
+	var/rendered_message
 	switch(priority)
 		if(RQ_HIGHPRIORITY) // High
-			write_to_message_log("Высокий приоритет - От: [linkedSender] - [message]")
+			rendered_message = "Высокий приоритет - От: [linkedSender] - [message]"
 		else // Normal
-			write_to_message_log("От: [linkedSender] - [message]")
+			rendered_message = "От: [linkedSender] - [message]"
+	
+	if(!isnull(rendered_message))
+		write_to_message_log(rendered_message)
 
 
 /obj/machinery/requests_console/proc/write_to_message_log(message)
+	SEND_SIGNAL(src, COMSIG_RC_MESSAGE_RECEIVED, message)
 	message_log = list(message) + message_log
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)

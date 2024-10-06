@@ -1179,3 +1179,6 @@
 /// Source: /mob/living/simple_animal/borer, listening in datum/antagonist/borer
 #define	COMSIG_BORER_ENTERED_HOST "borer_on_enter" // when borer entered host
 #define COMSIG_BORER_LEFT_HOST "borer_on_leave" // when borer left host
+
+/// From /obj/machinery/message_server/proc/send_rc_message(recipient, sender, message, stamp, id_auth, priority): (message)
+#define COMSIG_RC_MESSAGE_RECEIVED "rc_message_received"

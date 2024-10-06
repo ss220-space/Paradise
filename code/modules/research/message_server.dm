@@ -100,17 +100,20 @@ GLOBAL_LIST_EMPTY(message_servers)
 			if(RC.newmessagepriority < priority)
 				RC.newmessagepriority = priority
 				RC.update_icon(UPDATE_OVERLAYS)
+			var/rendered_message = null
 			switch(priority)
 				if(2)
 					if(!RC.silent)
 						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
 						RC.atom_say("PRIORITY Alert in [sender]")
-					RC.message_log += "High Priority message from [sender]: [authmsg]"
+					rendered_message = "High Priority message from [sender]: [authmsg]"
 				else
 					if(!RC.silent)
 						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
 						RC.atom_say("Message from [sender]")
-					RC.message_log += "Message [sender]: [authmsg]"
+					rendered_message = "Message [sender]: [authmsg]"
+			if(!isnull(rendered_message))
+				RC.write_to_message_log(rendered_message)
 
 /obj/machinery/message_server/attack_hand(user)
 //	to_chat(user, "<span class='notice'>There seem to be some parts missing from this server. They should arrive on the station in a few days, give or take a few CentComm delays.</span>")

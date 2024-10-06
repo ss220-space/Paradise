@@ -2,38 +2,38 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Box, Section } from '../components';
 import { Window } from '../layouts';
 
+export const pickPage = (index) => {
+  switch (index) {
+    case 0:
+      return <MainMenu />;
+    case 1:
+      return <DepartmentList purpose="ASSISTANCE" />;
+    case 2:
+      return <DepartmentList purpose="SUPPLIES" />;
+    case 3:
+      return <DepartmentList purpose="INFO" />;
+    case 4:
+      return <MessageResponse type="SUCCESS" />;
+    case 5:
+      return <MessageResponse type="FAIL" />;
+    case 6:
+      return <MessageLog type="MESSAGES" />;
+    case 7:
+      return <MessageAuth />;
+    case 8:
+      return <StationAnnouncement />;
+    case 9:
+      return <PrintShippingLabel />;
+    case 10:
+      return <MessageLog type="SHIPPING" />;
+    default:
+      return "WE SHOULDN'T BE HERE!";
+  }
+};
+
 export const RequestConsole = (props, context) => {
   const { act, data } = useBackend(context);
   const { screen } = data;
-
-  const pickPage = (index) => {
-    switch (index) {
-      case 0:
-        return <MainMenu />;
-      case 1:
-        return <DepartmentList purpose="ASSISTANCE" />;
-      case 2:
-        return <DepartmentList purpose="SUPPLIES" />;
-      case 3:
-        return <DepartmentList purpose="INFO" />;
-      case 4:
-        return <MessageResponse type="SUCCESS" />;
-      case 5:
-        return <MessageResponse type="FAIL" />;
-      case 6:
-        return <MessageLog type="MESSAGES" />;
-      case 7:
-        return <MessageAuth />;
-      case 8:
-        return <StationAnnouncement />;
-      case 9:
-        return <PrintShippingLabel />;
-      case 10:
-        return <MessageLog type="SHIPPING" />;
-      default:
-        return "WE SHOULDN'T BE HERE!";
-    }
-  };
 
   return (
     <Window width={520} height={410}>
