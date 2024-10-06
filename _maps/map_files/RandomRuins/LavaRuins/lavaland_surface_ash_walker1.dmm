@@ -907,6 +907,10 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "cn" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/decal/cleanable/ashrune,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
