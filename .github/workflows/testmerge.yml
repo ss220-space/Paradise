@@ -155,8 +155,8 @@ jobs:
           git push -f origin ${{ env.TESTMERGE_BRANCH }}
 
           # Output the list of merged PRs
-          echo "${MERGED_PRS[*]}"
-          echo "merged_prs=${MERGED_PRS[*]}" >> $GITHUB_OUTPUT
+          echo "${MERGED_PRS[@]}"
+          echo "merged_prs=${MERGED_PRS[@]}" >> $GITHUB_OUTPUT
 
       - name: Comment on merged PRs
         uses: actions/github-script@v7
