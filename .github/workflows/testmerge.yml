@@ -45,7 +45,7 @@ jobs:
 
                 // Check if all checks are passing
                 const allChecksPassing = checkRuns.check_runs.every(check => {
-                  console.log(`Check ${check.name}: ${check.state}`);
+                  console.log(`Check ${check.name}: ${check.status}`);
                   return check.status === 'completed' && check.conclusion === 'success'
                 });
 
