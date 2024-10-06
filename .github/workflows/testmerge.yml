@@ -139,6 +139,7 @@ jobs:
             # Perform your git actions here, for example:
             echo "::endgroup::"
             echo "$(green "$PR_STRING:  Successfully merged!")"
+            echo "$PR_NUMBER"
             MERGED_PRS+=("$PR_NUMBER")
           done
 
