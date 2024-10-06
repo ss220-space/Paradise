@@ -35,10 +35,12 @@
 
 /obj/item/gun/magic/wand/magic_charge_act(mob/user)
 	. = ..()
+
 	if(!max_charges)
-		. = RECHARGE_BURNOUT
+		. |= RECHARGE_BURNOUT
 		
 	update_icon_state()
+	
 	return .
 
 /obj/item/gun/magic/wand/afterattack(atom/target, mob/living/user, proximity, params)

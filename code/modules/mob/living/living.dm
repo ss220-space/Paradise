@@ -2310,7 +2310,7 @@
 				continue
 				
 			spell.revert_cast()
-		. = RECHARGE_SUCCESSFUL
+		. |= RECHARGE_SUCCESSFUL
 
 	if(LAZYLEN(mind?.spell_list))
 		for(var/obj/effect/proc_holder/spell/spell as anything in mind?.spell_list)
@@ -2318,11 +2318,11 @@
 				continue
 
 			spell.revert_cast()
-		. = RECHARGE_SUCCESSFUL
+		. |= RECHARGE_SUCCESSFUL
 
 	if(!.)
 		to_chat(src, span_notice("You feel very strange for a moment, but then it passes."))
-		return RECHARGE_NO_EFFECT
+		return .
 
 	to_chat(src, span_notice("You feel raw magical energy flowing through you, it feels good!"))
 	return .

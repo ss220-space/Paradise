@@ -20,15 +20,16 @@
 	var/charge_result
 
 	var/mob/living/living = targets[1]
-	var/list/hand_items = list(living.get_active_hand(), living.get_inactive_hand())
 
 	if(living.pulling)
 		charge_result = pulling.magic_charge_act(pulling)
 
-		if(!(charge_result & RECHARGE_NO_EFFECT))
+		if(!(charge_result & NONE))
 			charged_item = pulling
 		
 	if(!charged_item)
+		var/list/hand_items = list(living.get_active_hand(), living.get_inactive_hand())
+
 		for(var/obj/item in hand_items)
 			charge_result = item.magic_charge_act(living)
 
@@ -42,9 +43,10 @@
 		to_chat(user, span_notice("You feel magical power surging to your hands, but the feeling rapidly fades..."))
 		return
 		
-	switch(charge_result)
-		if(RECHARGE_BURNOUT)
-			to_chat(user, span_caution("[charged_item] doesn't seem to be reacting to the spell..."))
-		if(RECHARGE_SUCCESSFUL)
-			to_chat(user, span_notice("[charged_item] suddenly feels very warm!"))
+	if(charge_result & RECHARGE_BURNOUT)
+		to_chat(user, span_caution("[charged_item] doesn't seem to be reacting to the spell..."))
+		return
+
+	to_chat(user, span_notice("[charged_item] suddenly feels very warm!"))
+	return
 

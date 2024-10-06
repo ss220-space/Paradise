@@ -92,10 +92,13 @@
 	if(prob(80))
 		visible_message(span_warning("[src] catches fire!"))
 		qdel(src)
-		return RECHARGE_BURNOUT
+		. |= RECHARGE_BURNOUT
+		return .
 
 	uses++
-	return RECHARGE_SUCCESSFUL
+	. |= RECHARGE_SUCCESSFUL
+
+	return .
 
 // Generic action giver
 /obj/item/book/granter/action

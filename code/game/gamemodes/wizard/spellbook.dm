@@ -773,8 +773,10 @@
 				"SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", \
 				"CUTE!", \
 				"YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")))
-				
-	return RECHARGE_BURNOUT
+
+	. |= RECHARGE_BURNOUT
+
+	return .
 
 /obj/item/spellbook/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM || skip_refunds)
@@ -1029,10 +1031,15 @@
 	if(prob(80))
 		visible_message(span_warning("[src] catches fire!"))
 		qdel(src)
-		return RECHARGE_BURNOUT
+		
+		. |= RECHARGE_BURNOUT
+
+		return .
 
 	used = FALSE
-	return RECHARGE_SUCCESSFUL
+	. |= RECHARGE_SUCCESSFUL
+
+	return .
 
 /obj/item/spellbook/oneuse/New()
 	..()

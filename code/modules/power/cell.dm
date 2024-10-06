@@ -40,12 +40,14 @@
 	return ..()
 
 /obj/item/stock_parts/cell/magic_charge_act(mob/user)
-	. = RECHARGE_SUCCESSFUL
+	. |= RECHARGE_SUCCESSFUL
+
 	if(prob(80) && !adjust_maxcharge(-200))
-		. = RECHARGE_BURNOUT
+		. |= RECHARGE_BURNOUT
 		
 	charge = maxcharge
 	update_icon()
+	
 	return .
 
 /obj/item/stock_parts/cell/proc/adjust_maxcharge(amount)

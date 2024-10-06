@@ -723,8 +723,10 @@
 	if(contents)
 		for(var/obj/item/stock_parts/cell/cell in contents)
 			cell.magic_charge_act()
+		
+		. |= RECHARGE_SUCCESSFUL
 			
-	return RECHARGE_NO_EFFECT
+	return .
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(density && !AM.has_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
