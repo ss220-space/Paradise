@@ -456,14 +456,6 @@
 	level = 1.4
 	},
 /obj/structure/curtain/open,
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 26
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue";
@@ -6574,12 +6566,10 @@
 /area/medical/medrest)
 "aWz" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
 /obj/machinery/power/apc{
-	cell_type = 0;
-	name = "south bump";
 	pixel_y = -26
 	},
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
 "aWH" = (
@@ -8930,6 +8920,10 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/machinery/camera{
+	c_tag = "Medbay Patient Room";
+	network = list("SS13","Medical")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -36710,14 +36704,12 @@
 /turf/simulated/floor/redgrid,
 /area/turret_protected/aisat_interior)
 "frq" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/machinery/power/apc{
+	dir = 1;
+	pixel_y = 26
 	},
-/obj/machinery/camera{
-	c_tag = "Medbay Patient Room";
-	network = list("SS13","Medical")
+/obj/structure/cable{
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -44336,14 +44328,6 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "gwk" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 26
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/structure/closet/cardboard,
 /obj/item/storage/box/lights/mixed,
 /turf/simulated/floor/plating,
@@ -74852,12 +74836,17 @@
 	},
 /area/security/reception)
 "lhO" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 26
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
