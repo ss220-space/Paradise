@@ -175,10 +175,10 @@
 /obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
 	if (istype(I, /obj/item/card/id))
 		if (inserted_id)
-			user.balloon_alert(user, "Занято")
+			user.balloon_alert(user, "занято")
 		else if (user.drop_transfer_item_to_loc(I, src))
 			inserted_id = I
-			user.balloon_alert(user, "Карта вставлена")
+			user.balloon_alert(user, "карта вставлена")
 
 	. = ..()
 

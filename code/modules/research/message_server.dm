@@ -131,6 +131,12 @@ GLOBAL_LIST_EMPTY(message_servers)
 	else
 		icon_state = "server-on"
 
+/proc/find_pda_server()
+	if(GLOB.message_servers)
+		for(var/obj/machinery/message_server/check in GLOB.message_servers)
+			if(check.active)
+				return check
+
 /obj/machinery/blackbox_recorder
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "blackbox"
