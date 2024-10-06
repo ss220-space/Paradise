@@ -96,7 +96,7 @@
 	if(!nutrition)
 		return FALSE
 
-	if((nutrition < lost_nutrition) && (!(mode & VOMIT_BLOOD)))
+	if((nutrition < 100 || nutrition < lost_nutrition) && (!(mode & VOMIT_BLOOD)))
 		if(message)
 			visible_message(span_warning("[src.name] сухо кашля[pluralize_ru(src.gender,"ет","ют")]!"), \
 							span_userdanger("Вы пытаетесь проблеваться, но в вашем желудке пусто!"))
