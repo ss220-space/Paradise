@@ -69,6 +69,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/print_cooldown = 0	//cooldown on shipping label printer, stores the  in-game time of when the printer will next be ready
 	var/obj/item/radio/Radio
 	var/radiochannel = ""
+	var/list/connected_apps = list()
 
 
 /obj/machinery/requests_console/Initialize(mapload)
@@ -109,6 +110,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if(departmentType & RC_INFO)
 			GLOB.req_console_information -= department
 	QDEL_NULL(Radio)
+	for(var/datum/data/pda/app/request_console/console as anything in connected_apps)
+		if(istype(console))
+			console.on_rc_destroyed()
 	return ..()
 
 /obj/machinery/requests_console/attack_ghost(user as mob)

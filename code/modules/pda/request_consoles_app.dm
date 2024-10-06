@@ -20,15 +20,18 @@
 			title = requests_console.name
 			break
 	if(requests_console)
+		requests_console.connected_apps |= src
 		RegisterSignal(requests_console, COMSIG_RC_MESSAGE_RECEIVED, PROC_REF(on_rc_message_recieved))
-
 
 /datum/data/pda/app/request_console/Destroy()
 	if(requests_console)
 		UnregisterSignal(requests_console, COMSIG_RC_MESSAGE_RECEIVED)
-	requests_console = null
+		requests_console = null
 	. = ..()
-
+/datum/data/pda/app/request_console/proc/on_rc_destroyed()
+	UnregisterSignal(requests_console, COMSIG_RC_MESSAGE_RECEIVED)
+	requests_console = null
+	SStgui.update_uis(pda)
 
 /datum/data/pda/app/request_console/proc/on_rc_message_recieved(datum/source, message)
 	SIGNAL_HANDLER
@@ -38,6 +41,7 @@
 /datum/data/pda/app/request_console/update_ui(mob/user, list/data)
 	if(requests_console)
 		data += requests_console.ui_data(user)
+		data["not_found"] = null
 	else
 		data["not_found"] = TRUE
 
