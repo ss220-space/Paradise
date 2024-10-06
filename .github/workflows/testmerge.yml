@@ -140,7 +140,7 @@ jobs:
             echo "::endgroup::"
             echo "$(green "$PR_STRING:  Successfully merged!")"
             MERGED_PRS+=("$PR_NUMBER")
-          done << (echo '${{ steps.get_labeled_prs.outputs.labeled_pr_details }}' | jq -c '.[]')
+          done < <(echo '${{ steps.get_labeled_prs.outputs.labeled_pr_details }}' | jq -c '.[]')
 
           # Generate changelog
           python3 tools/changelog/gen_changelog.py
