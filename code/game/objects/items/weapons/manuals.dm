@@ -23,7 +23,7 @@
 
 /obj/item/book/manual/Initialize(mapload)
 	. = ..()
-	if(!wiki_title) //it means, it doesnt relies on wiki
+	if(!wiki_title || !CONFIG_GET(string/wikiurl)) //it means, manual doesnt rely on wiki, or we dont have wiki
 		return
 	dat = {"
 
