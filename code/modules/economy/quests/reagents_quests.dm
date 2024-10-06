@@ -36,6 +36,7 @@
 	var/list/unique_reagents = list(
 			// Mixed Order
 			"itching_powder" = list("volume" = 30, "reward" = 100),
+			"fliptonium" = list("volume" = 10, "reward" = 150),
 			"vhfcs" = list("volume" = 30, "reward" = 200),
 			"rotatium" = list("volume" = 15, "reward" = 200),
 			"bath_salts" = list("volume" = 10, "reward" = 220),
@@ -48,7 +49,6 @@
 			"condensedcapsaicin" = list("volume" = 30, "reward" = 300),
 			"glycerol" = list("volume" = 30, "reward" = 380),
 			"hair_dye" = list("volume" = 10, "reward" = 400),
-			"fliptonium" = list("volume" = 10, "reward" = 450),
 			"initropidril" = list("volume" = 5, "reward" = 750),
 		)
 
