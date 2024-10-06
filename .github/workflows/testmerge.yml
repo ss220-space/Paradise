@@ -29,10 +29,24 @@ jobs:
             const labeledPRs = [];
             for (const pr of pullRequests) {
               if (pr.labels.some(label => label.name === label_needed)) {
+                console.log(`PR ${pr.title})
                 const { data: status } = await github.rest.repos.getCombinedStatusForRef({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   ref: pr.head.sha
+                });
+
+                const { data: checkRuns } = await github.rest.checks.listForRef({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  ref: pr.head.sha,
+                  per_page: 100
+                });
+
+                // Check if all checks are passing
+                const allChecksPassing = checkRuns.check_runs.every(check => {
+                  console.log(`Check ${check.name}: ${check.state}`);
+                  return check.status === 'completed' && check.conclusion === 'success'
                 });
 
                 const { data: prInfo } = await github.rest.pulls.get({
@@ -41,7 +55,7 @@ jobs:
                   pull_number: pr.number
                 });
 
-                if (status.state === 'success' || prInfo.mergeable) {
+                if (allChecksPassing || status.state === 'success' || prInfo.mergeable) {
                   labeledPRs.push({
                     number: pr.number,
                     title: pr.title
@@ -50,7 +64,7 @@ jobs:
               }
             }
             const prDetails = JSON.stringify(labeledPRs);
-            console.log(`Pull Requests with the label "${label_needed}" and no merge conflicts: ${prDetails}`);
+            console.log(`Pull Requests with the label "${label_needed}" and no merge conflicts:\n${prDetails}`);
             if (prDetails.length == 0) {
               core.setFailed(`No pull requests with the label "${label_needed}" and no merge conflicts found.`);
             }
