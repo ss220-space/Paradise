@@ -106,7 +106,7 @@ jobs:
           ./tools/hooks/install.sh
           ./tgui/bin/tgui --install-git-hooks
 
-          MERGED_PRS=()
+          declare -a MERGED_PRS
 
           # Print debug information
           echo "PR details JSON:"
@@ -156,6 +156,7 @@ jobs:
           git push -f origin ${{ env.TESTMERGE_BRANCH }}
 
           # Output the list of merged PRs
+          MERGED_PRS+=("test")
           echo "${MERGED_PRS[@]}"
           echo "merged_prs=${MERGED_PRS[@]}" >> $GITHUB_OUTPUT
 
