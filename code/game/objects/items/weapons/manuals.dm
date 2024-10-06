@@ -3,8 +3,8 @@
 //Oh god what the fuck I am not good at computer
 /obj/item/book/manual
 	icon = 'icons/obj/library.dmi'
-	due_date = 0 // Game time in 1/10th seconds
-	unique = TRUE   // FALSE - Normal book, TRUE - Should not be treated as normal book, unable to be copied, unable to be modified
+	due_date = 0
+	unique = TRUE
 	has_drm = TRUE // No reuploading. Piracy is a crime
 	dat = {"
 
@@ -18,7 +18,7 @@
 		</html>
 
 		"}
-	// Put name of wiki page to open frame to. If none set - it will not link any wiki.
+	/// Put name of wiki page to open frame to. If none set - it will not link any wiki.
 	var/wiki_title = ""
 
 /obj/item/book/manual/Initialize(mapload)
@@ -31,7 +31,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://[CONFIG_GET(string/wikiurl)]/index.php?action=render&title=[wiki_title]" frameborder="0" id="main_frame"></iframe>
+		<iframe width='100%' height='97%' src="[CONFIG_GET(string/wikiurl)]/index.php?action=render&title=[wiki_title]" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
@@ -42,7 +42,7 @@
 /obj/item/book/manual/engineering_construction
 	name = "Руководство по Ремонту и Строительству"
 	icon_state ="bookEngineering"
-	author = "Инженерная Энциклопедия"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	author = "Инженерная Энциклопедия"
 	title = "Руководство по Ремонту и Строительству"
 	wiki_title = "Руководство_по_строительству"
 
@@ -1094,7 +1094,7 @@
 	icon_state = "sop_science"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Научного Отдела"
-	wiki_title = "Standard_Operating_Procedure_(Science)"
+	wiki_title = "Стандартные_рабочие_процедуры_(Исследование)"
 
 /obj/item/book/manual/sop_medical
 	name = "Стандартные Рабочие Процедуры Медицинского Отдела"
@@ -1102,7 +1102,7 @@
 	icon_state = "sop_medical"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Медицинского Отдела"
-	wiki_title = "Standard_Operating_Procedure_(Medical)"
+	wiki_title = "Стандартные_рабочие_процедуры_(Медицина)"
 
 /obj/item/book/manual/sop_engineering
 	name = "Стандартные Рабочие Процедуры Инженерного Отдела"
@@ -1110,7 +1110,7 @@
 	icon_state = "sop_engineering"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Инженерного Отдела"
-	wiki_title = "Standard_Operating_Procedure_(Engineering)"
+	wiki_title = "Стандартные_рабочие_процедуры_(Инженерия)"
 
 /obj/item/book/manual/sop_service
 	name = "Стандартные Рабочие Процедуры Отдела Обслуживания"
@@ -1134,7 +1134,7 @@
 	icon_state = "sop_security"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Службы Безопасности"
-	wiki_title = "Standard_Operating_Procedure_(Security)"
+	wiki_title = "Стандартные_рабочие_процедуры_(Охрана)"
 
 /obj/item/book/manual/sop_legal
 	name = "Правовые Стандартные Рабочие Процедуры"
@@ -1142,7 +1142,7 @@
 	icon_state = "sop_legal"
 	author = "Nanotrasen"
 	title = "Правовые Стандартные Рабочие Процедуры"
-	wiki_title = "Legal_Standard_Operating_Procedure"
+	wiki_title = "Стандартные_рабочие_процедуры_(Закон)"
 
 /obj/item/book/manual/sop_general
 	name = "Стандартные Рабочие Процедуры"
@@ -1150,7 +1150,7 @@
 	icon_state = "sop"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры"
-	wiki_title = "Standard_Operating_Procedure"
+	wiki_title = "Стандартные_Рабочие_Процедуры"
 
 /obj/item/book/manual/sop_command
 	name = "Стандартные Рабочие Процедуры Коммандования"
@@ -1158,4 +1158,4 @@
 	icon_state = "sop_command"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Коммандования"
-	wiki_title = "Standard_Operating_Procedure_(Command)"
+	wiki_title = "Стандартные_рабочие_процедуры_(Командование)"
