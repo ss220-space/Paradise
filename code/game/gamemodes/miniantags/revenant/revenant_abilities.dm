@@ -160,8 +160,8 @@
 				return
 
 			log_say("(REVENANT to [key_name(M)]) [msg]", user)
-			to_chat(user, span_revennotice("<b>You transmit to [M]:</b> [msg]"))
-			to_chat(M, "[span_revennotice("<b>An alien voice resonates from all around...</b>")]<i>[msg]</I>")
+			to_chat(user, "[span_revenboldnotice("You transmit to [M]:)] [span_revennotice(msg)]"))
+			to_chat(M, "[span_revenboldnotice("An alien voice resonates from all around...")] [span_italic([msg])]")
 
 
 /obj/effect/proc_holder/spell/aoe/revenant
@@ -271,7 +271,7 @@
 	if(!L.on)
 		return
 
-	L.visible_message(span_warning("<b>\The [L] suddenly flares brightly and begins to spark!</b>"))
+	L.visible_message(span_boldwarning("\The [L] suddenly flares brightly and begins to spark!"))
 	do_sparks(4, 0, L)
 	new /obj/effect/temp_visual/revenant(L.loc)
 	sleep(2 SECONDS)
