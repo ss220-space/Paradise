@@ -161,7 +161,7 @@
 
 			log_say("(REVENANT to [key_name(M)]) [msg]", user)
 			to_chat(user, "[span_revenboldnotice("You transmit to [M]:")] [span_revennotice(msg)]")
-			to_chat(M, "[span_revenboldnotice("An alien voice resonates from all around...")] [span_italics([msg])]")
+			to_chat(M, "[span_revenboldnotice("An alien voice resonates from all around...")] [span_italics(msg)]")
 
 
 /obj/effect/proc_holder/spell/aoe/revenant
