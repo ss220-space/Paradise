@@ -61,6 +61,8 @@
 
 /datum/surgery_step/extract_implant
 	name = "extract implant"
+	begin_sound = 'sound/surgery/hemostat1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 65)
 	time = 6.4 SECONDS
 	repeatable = TRUE

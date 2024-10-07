@@ -42,6 +42,7 @@
 	var/gasefficency = 0.125
 
 	base_icon_state = "darkmatter_shard"
+	var/zap_sound_extrarange = 5
 
 	var/damage = 0
 	var/damage_archived = 0
@@ -577,7 +578,7 @@
         post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
 
 /obj/machinery/power/supermatter_shard/proc/supermatter_zap()
-	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
+	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = zap_sound_extrarange)
 	tesla_zap(src, 10, max(1000,power * damage / explosion_point))
 
 // SM shard that can't be moved for ruins and gates

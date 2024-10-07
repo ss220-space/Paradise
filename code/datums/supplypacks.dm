@@ -2961,6 +2961,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containername = "chinese supply crate"
 
+/datum/supply_packs/vending/customat
+	name = "Customat Resupply Canister Crate"
+	contains = list(/obj/item/vending_refill/custom,
+					/obj/item/vending_refill/custom)
+	cost = 30
+	containername = "customat canister supply crate"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// CONTRABAND SUPPLY ///////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

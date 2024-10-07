@@ -191,6 +191,19 @@
 	gold_core_spawnable = NO_SPAWN
 	var/carp_color = "carp" //holder for icon set
 
+/mob/living/simple_animal/hostile/carp/mcarp
+	name = "mutated Carp"
+	desc = "Strange-looking space carp."
+	icon_state = "Mcarp"
+	icon_living = "Mcarp"
+	icon_dead = "MCarp_Dead"
+
+	obj_damage = 50
+	melee_damage_lower = 25
+	melee_damage_upper = 30
+	maxHealth = 150
+	health = 150
+
 /mob/living/simple_animal/hostile/carp/koi
 	name = "space koi"
 	desc = "A gentle space-faring koi."

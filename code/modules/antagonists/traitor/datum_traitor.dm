@@ -195,9 +195,6 @@
 		else if(prob(5))
 			add_objective(/datum/objective/debrain)
 
-		else if(prob(30))
-			add_objective(/datum/objective/pain_hunter)
-
 		else if(prob(20))
 			add_objective(/datum/objective/protect)
 

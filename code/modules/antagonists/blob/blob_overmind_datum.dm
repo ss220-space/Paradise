@@ -7,13 +7,13 @@
 	russian_wiki_name = "Блоб"
 	show_in_roundend = FALSE
 	show_in_orbit = FALSE
-	//Variable responsible for the need to add a mind to blob_infected list in game mode
+	/// Variable responsible for the need to add a mind to blob_infected list in game mode
 	var/add_to_mode = TRUE
-	//Is a blob a offspring of another blob.
+	/// Is a blob a offspring of another blob.
 	var/is_offspring = FALSE
-	//Was the blob with this datum bursted blob_infected.
+	/// Was the blob with this datum bursted blob_infected.
 	var/is_tranformed = FALSE
-	//Link to the datum of the selected blob reagent.
+	/// Link to the datum of the selected blob reagent.
 	var/datum/reagent/blob/reagent
 
 /datum/antagonist/blob_overmind/on_gain()

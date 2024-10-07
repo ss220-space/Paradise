@@ -138,8 +138,10 @@
 	max_combined_w_class = 17
 	use_to_pickup = 1
 	name = "surgical belt"
+	icon_state = "surgicalbelt"
+	item_state = "surgical"
 	desc = "Can hold various surgical tools."
-	storage_slots = 9
+	storage_slots = 11
 	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/scalpel,
@@ -151,7 +153,9 @@
 		/obj/item/FixOVein,
 		/obj/item/surgicaldrill,
 		/obj/item/cautery,
-		/obj/item/radio)
+		/obj/item/radio,
+		/obj/item/clothing/gloves/color/latex,
+		/obj/item/reagent_containers/spray/cleaner)
 
 /obj/item/storage/belt/medical/surgery/loaded/populate_contents()
 	new /obj/item/scalpel(src)
@@ -683,11 +687,11 @@
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_BULKY
-	can_hold = list(/obj/item/melee/rapier)
+	can_hold = list(/obj/item/melee/rapier/captain)
 
 /obj/item/storage/belt/rapier/populate_contents()
-	new /obj/item/melee/rapier(src)
-	update_icon()
+	new /obj/item/melee/rapier/captain(src)
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/rapier/attack_hand(mob/user)
 	if(loc != user)
@@ -730,12 +734,22 @@
 	desc = "A sinister, thin sheath, suitable for a rapier."
 	icon_state = "syndie_sheath"
 	item_state = "syndie_sheath"
-	can_hold = list(/obj/item/melee/syndie_rapier)
+	can_hold = list(/obj/item/melee/rapier/syndie)
 
 /obj/item/storage/belt/rapier/syndie/populate_contents()
-	new /obj/item/melee/syndie_rapier(src)
-	update_icon()
+	new /obj/item/melee/rapier/syndie(src)
+	update_appearance(UPDATE_ICON_STATE)
 
+/obj/item/storage/belt/rapier/centcomm
+	name = "centcomm rapier sheath"
+	desc = "Украшенные ножны, корпоративный кич в комплекте."
+	icon_state = "centcomm_sheath"
+	item_state = "centcomm_sheath"
+	can_hold = list(/obj/item/melee/rapier/centcomm)
+
+/obj/item/storage/belt/rapier/centcomm/populate_contents()
+	new /obj/item/melee/rapier/centcomm(src)
+	update_appearance(UPDATE_ICON_STATE)
 
 // -------------------------------------
 //     Bluespace Belt

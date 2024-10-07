@@ -3688,7 +3688,7 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/engine,
 /area/security/permabrig)
 "cth" = (
@@ -17818,22 +17818,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
-"lAI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/door/airlock/external{
-	hackProof = 1;
-	id_tag = "emergency_home";
-	locked = 1;
-	name = "Security Escape Airlock";
-	req_access = list(1)
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/exit)
 "lAL" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -22918,7 +22902,7 @@
 /area/medical/psych)
 "oNd" = (
 /obj/machinery/turretid{
-	control_area = "/area/turret_protected/ai_upload";
+	control_area = "AI Upload Chamber";
 	icon_state = "control_stun";
 	name = "AI Upload turret control";
 	pixel_y = 28
@@ -668030,7 +668014,7 @@ nKk
 nKk
 nKk
 nKk
-lAI
+fpx
 qPe
 eqo
 kIC
