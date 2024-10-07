@@ -43,6 +43,9 @@
 
 /datum/surgery_step/remove_object
 	name = "Remove Embedded Objects"
+	begin_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
+
 	time = 3.2 SECONDS
 	accept_hand = TRUE
 	var/obj/item/organ/external/L = null

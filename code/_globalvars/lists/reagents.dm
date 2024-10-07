@@ -54,3 +54,7 @@ GLOBAL_LIST_INIT(safe_chem_list, list("antihol", "charcoal", "epinephrine", "ins
 									  "mitocholide", "rezadone"))
 
 GLOBAL_LIST_INIT(safe_chem_applicator_list, list("silver_sulfadiazine", "styptic_powder", "synthflesh"))
+
+GLOBAL_LIST_INIT(borer_reagents, list("charcoal", "epinephrine", "salbutamol", "mannitol", "capulettium_plus",
+									  "spaceacillin", "salglu_solution", "hydrocodone",
+									  "methamphetamine", "mitocholide", "fliptonium"))

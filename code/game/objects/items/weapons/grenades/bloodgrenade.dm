@@ -1,6 +1,7 @@
 /obj/item/grenade/bloodgrenade
 	name = "Bloody Grenade"
 	desc = "Красная граната с гравировкой \"" + AFFIL_HEMATOGENIC +  "\"."
+	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "bloody"
 	item_state = "flashbang"
 	w_class = WEIGHT_CLASS_SMALL

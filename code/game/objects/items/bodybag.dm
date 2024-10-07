@@ -142,6 +142,8 @@
 			return FALSE
 	return ..()
 
+/obj/structure/closet/body_bag/shove_impact(mob/living/target, mob/living/attacker)
+	return FALSE
 
 /obj/structure/closet/body_bag/relaymove(mob/user)
 	if(user.stat)

@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 /datum/theft_objective/highrisk/captains_rapier
 	id = "cap_rapier"
 	name = "the captain's rapier"
-	typepath = /obj/item/melee/rapier
+	typepath = /obj/item/melee/rapier/captain
 	protected_jobs = list(JOB_TITLE_CAPTAIN)
 
 /datum/theft_objective/highrisk/hoslaser

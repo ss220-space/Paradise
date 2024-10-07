@@ -23,7 +23,7 @@
 /datum/vampire_passive/New()
 	..()
 	if(!gain_desc)
-		gain_desc = "You can now use [src]."
+		gain_desc = "Вы получили способность «[src]»."
 
 
 /datum/vampire_passive/Destroy(force)
@@ -36,18 +36,20 @@
 
 
 /datum/vampire_passive/regen
-	gain_desc = "Your rejuvenation abilities have improved and will now heal you over time when used."
+	gain_desc = "Ваша способность «Восстановление» улучшена. Теперь она будет постепенно исцелять вас после использования."
 
 
 /datum/vampire_passive/vision
-	gain_desc = "Your vampiric vision has improved."
+	gain_desc = "Ваше вампирское зрение улучшено."
 
 
 /datum/vampire_passive/full
-	gain_desc = "You have reached your full potential. You are no longer weak to the effects of anything holy and your vision has improved greatly."
+	gain_desc = "Вы достигли полной силы и ничто святое больше не может ослабить вас. Ваше зрение значительно улучшилось."
 
 
 /obj/effect/proc_holder/spell/vampire
+	name = "Report Me"
+	desc = "You shouldn't see this!"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	human_req = TRUE

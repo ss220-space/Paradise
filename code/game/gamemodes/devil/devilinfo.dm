@@ -220,13 +220,13 @@ GLOBAL_LIST_INIT(lawlorify, list (
 	form = BASIC_DEVIL
 
 /datum/devilinfo/proc/regress_blood_lizard()
-	var/mob/living/carbon/true_devil/D = owner.current
-	to_chat(D, "<span class='warning'>Your powers weaken, have more contracts be signed to regain power.</span>")
-	D.oldform.loc = D.loc
-	owner.transfer_to(D.oldform)
-	D.oldform.status_flags &= ~GODMODE
+	var/mob/living/carbon/true_devil/devil = owner.current
+	to_chat(devil, span_warning("Your powers weaken, have more contracts be signed to regain power."))
+	devil.oldform.loc = devil.loc
+	owner.transfer_to(devil.oldform)
+	REMOVE_TRAIT(devil.oldform, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 	give_lizard_spells()
-	qdel(D)
+	qdel(devil)
 	form = BLOOD_LIZARD
 	update_hud()
 
@@ -251,14 +251,14 @@ GLOBAL_LIST_INIT(lawlorify, list (
 
 
 /datum/devilinfo/proc/increase_true_devil()
-	var/mob/living/carbon/true_devil/A = new /mob/living/carbon/true_devil(owner.current.loc, owner.current)
-	A.faction |= "hell"
+	var/mob/living/carbon/true_devil/ascended = new /mob/living/carbon/true_devil(owner.current.loc, owner.current)
+	ascended.faction |= "hell"
 	// Put the old body in stasis
-	owner.current.status_flags |= GODMODE
-	owner.current.loc = A
-	A.oldform = owner.current
-	owner.transfer_to(A)
-	A.set_name()
+	ADD_TRAIT(owner.current, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
+	owner.current.loc = ascended
+	ascended.oldform = owner.current
+	owner.transfer_to(ascended)
+	ascended.set_name()
 	give_true_spells()
 	form = TRUE_DEVIL
 	update_hud()

@@ -43,6 +43,7 @@
 
 /obj/effect/proc_holder/spell/summon_contract/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
+	T.try_auto_target = FALSE
 	T.range = 5
 	T.click_radius = -1
 	T.allowed_type = /mob/living/carbon
@@ -50,7 +51,7 @@
 
 
 /obj/effect/proc_holder/spell/summon_contract/valid_target(mob/living/carbon/target, mob/user)
-	return target.mind && target.ckey && !target.stat
+	return target.mind
 
 
 /obj/effect/proc_holder/spell/summon_contract/cast(list/targets, mob/user = usr)

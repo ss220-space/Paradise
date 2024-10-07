@@ -21,7 +21,7 @@
 	brawler_type = /obj/effect/mob_spawn/human/thunderdome/cqc
 	random_items_count = 2
 	item_pool = list(
-		/obj/item/melee/rapier = 1,
+		/obj/item/melee/rapier/captain = 1,
 		/obj/item/melee/energy/axe = 1,
 		/obj/item/melee/energy/sword/saber/red = 1,
 		/obj/item/melee/energy/cleaving_saw = 1,
@@ -137,7 +137,7 @@
 		/obj/item/storage/box/thunderdome/crossbow/energy = 1,
 		/obj/item/storage/box/thunderdome/laser_eyes = 1,
 		/obj/item/implanter/adrenalin = 1,
-		/obj/item/melee/rapier = 1,
+		/obj/item/melee/rapier/captain = 1,
 		/obj/item/melee/energy/axe = 1,
 		/obj/item/melee/energy/sword/saber/red = 1,
 		/obj/item/melee/energy/cleaving_saw = 1,

@@ -488,6 +488,13 @@
 	surplus = 0
 	made_by = AFFIL_CLOWN
 
+/datum/uplink_item/jobspecific/lockermech
+	name = "Combat Drone Manual"
+	desc = "Manual that will allow you to construct combat drones and control plates for them."
+	item = /obj/item/drone_manual
+	cost = 45
+	job = list(JOB_TITLE_ROBOTICIST)
+
 /datum/uplink_item/jobspecific/stungloves
 	name = "Оглушающие перчатки"
 	desc = "Пара прочных оглушающих перчаток с изолирующим слоем. Защищает пользователя от поражения электрическим током и позволяет оглушать врагов."

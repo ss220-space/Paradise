@@ -416,6 +416,7 @@
 	force = 15
 	armour_penetration = 15
 	block_chance = 50
+	block_type = MELEE_ATTACKS
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
@@ -452,12 +453,6 @@
 		drew_blood = TRUE
 		if(ishostile(target))
 			user.changeNext_move(CLICK_CD_RAPID)
-	return ..()
-
-
-/obj/item/cursed_katana/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
 	return ..()
 
 /obj/item/cursed_katana/proc/can_combo_attack(mob/user, mob/living/target)
