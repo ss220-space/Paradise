@@ -154,9 +154,11 @@
 	for(var/mob/living/M in targets)
 		spawn(0)
 			var/msg = tgui_input_text(usr, "What do you wish to tell [M]?", null, "")
+			
 			if(!msg)
 				cooldown_handler.revert_cast()
 				return
+
 			log_say("(REVENANT to [key_name(M)]) [msg]", user)
 			to_chat(user, span_revennotice("<b>You transmit to [M]:</b> [msg]"))
 			to_chat(M, "[span_revennotice("<b>An alien voice resonates from all around...</b>")]<i>[msg]</I>")
