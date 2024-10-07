@@ -26,6 +26,11 @@
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE
 
+/obj/machinery/computer/teleporter/robotics //to do: limit targets to station only
+	desc = "Used to control a linked teleportation Hub and Station. Only Research Director can change destination target."
+	circuit = /obj/item/circuitboard/teleporter/robotics
+	req_access = list(ACCESS_RD)
+
 /obj/machinery/computer/teleporter/Initialize()
 	. = ..()
 	link_power_station()
@@ -47,18 +52,25 @@
 			break
 	return power_station
 
+
 /obj/machinery/computer/teleporter/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/gps))
-		var/obj/item/gps/L = I
-		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
-			if(!user.drop_transfer_item_to_loc(L, src))
-				to_chat(user, span_warning("[I] is stuck to your hand, you cannot put it in [src]"))
-				return
-			add_fingerprint(user)
-			locked = L
-			to_chat(user, span_caution("You insert the GPS device into the [src]'s slot."))
-	else
+	if(user.a_intent == INTENT_HARM || (stat & (NOPOWER|BROKEN)))
 		return ..()
+
+	if(istype(I, /obj/item/gps))
+		add_fingerprint(user)
+		var/obj/item/gps/gps = I
+		if(!gps.locked_location)
+			to_chat(user, span_warning("The [gps.name] has no specified location."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(gps, src))
+			return ..()
+		locked = gps
+		to_chat(user, span_caution("You insert the GPS device into the [src]'s slot."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/machinery/computer/teleporter/emag_act(mob/user)
 	if(!emagged)
@@ -78,12 +90,12 @@
 	ui_interact(user)
 
 
-/obj/machinery/computer/teleporter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/teleporter/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Teleporter", "Teleporter Console", 380, 260)
+		ui = new(user, src, "Teleporter", "Teleporter Console")
 		ui.open()
 
 /obj/machinery/computer/teleporter/ui_data(mob/user)
@@ -349,7 +361,7 @@
 	RefreshParts()
 
 /obj/machinery/teleport/hub/Initialize()
-	..()
+	. = ..()
 	link_power_station()
 	update_icon()
 
@@ -375,25 +387,28 @@
 			break
 	return power_station
 
-/obj/machinery/teleport/hub/Bumped(atom/movable/moving_atom)
-	..()
 
+/obj/machinery/teleport/hub/Bumped(atom/movable/moving_atom)
+	. = ..()
 	if(!is_teleport_allowed(z) && !admin_usage)
 		if(ismob(moving_atom))
 			to_chat(moving_atom, "You can't use this here.")
-		return
+		return .
 	if(power_station && power_station.engaged && !panel_open && !blockAI(moving_atom) && !isspacepod(moving_atom))
 		if(!teleport(moving_atom) && isliving(moving_atom)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message(span_warning("[src] emits a loud buzz, as its teleport portal flickers and fails!"))
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 			power_station.toggle() // turn off the portal.
 		use_power(5000)
-	return
+
 
 /obj/machinery/teleport/hub/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/machinery/teleport/hub/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -497,22 +512,21 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/teleport/perma/Bumped(atom/movable/moving_atom)
-	..()
 
-	if(stat & (BROKEN|NOPOWER))
-		return
+/obj/machinery/teleport/perma/Bumped(atom/movable/moving_atom)
+	. = ..()
+	if((stat & (BROKEN|NOPOWER)) || !target || recalibrating || panel_open || blockAI(moving_atom))
+		return .
 	if(!is_teleport_allowed(z))
 		to_chat(moving_atom, "You can't use this here.")
-		return
+		return .
+	do_teleport(moving_atom, target)
+	use_power(5000)
+	if(tele_delay)
+		recalibrating = TRUE
+		update_icon()
+		addtimer(CALLBACK(src, PROC_REF(BumpedCallback)), tele_delay)
 
-	if(target && !recalibrating && !panel_open && !blockAI(moving_atom))
-		do_teleport(moving_atom, target)
-		use_power(5000)
-		if(tele_delay)
-			recalibrating = TRUE
-			update_icon()
-			addtimer(CALLBACK(src, PROC_REF(BumpedCallback)), tele_delay)
 
 /obj/machinery/teleport/perma/proc/BumpedCallback()
 	recalibrating = FALSE
@@ -549,9 +563,12 @@
 
 
 /obj/machinery/teleport/perma/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/machinery/teleport/perma/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -621,16 +638,26 @@
 		teleporter_console = null
 	return ..()
 
+
 /obj/machinery/teleport/station/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(exchange_parts(user, I))
-		return
-	if(panel_open && istype(I, /obj/item/circuitboard/teleporter_perma))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/circuitboard/teleporter_perma))
 		add_fingerprint(user)
-		var/obj/item/circuitboard/teleporter_perma/C = I
-		C.target = teleporter_console.target
-		to_chat(user, span_caution("You copy the targeting information from [src] to [C]"))
-		return
+		if(!panel_open)
+			to_chat(user, span_warning("Open th panel first!"))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/circuitboard/teleporter_perma/circuit = I
+		circuit.target = teleporter_console.target
+		to_chat(user, span_caution("You copy the targeting information from [src] to [circuit]"))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
 
 /obj/machinery/teleport/station/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))

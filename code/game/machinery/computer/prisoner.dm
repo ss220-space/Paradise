@@ -24,16 +24,21 @@
 
 
 /obj/machinery/computer/prisoner/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	var/datum/ui_login/state = ui_login_get()
 	if(state.logged_in)
 		var/obj/item/card/id/prisoner/id_card = I
-		if(istype(id_card) && user.drop_transfer_item_to_loc(id_card, src))
+		if(istype(id_card))
+			if(!user.drop_transfer_item_to_loc(id_card, src))
+				return ..()
 			inserted_id_uid = id_card.UID()
-			return
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(ui_login_attackby(I, user))
 		add_fingerprint(user)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 
@@ -58,10 +63,10 @@
 	return TRUE
 
 
-/obj/machinery/computer/prisoner/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/prisoner/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PrisonerImplantManager", name, 500, 500, master_ui, state)
+		ui = new(user, src, "PrisonerImplantManager", name)
 		ui.open()
 
 

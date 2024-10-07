@@ -33,6 +33,12 @@
 	melee_damage_lower = 6
 	melee_damage_upper = 12
 
+
+/mob/living/simple_animal/pet/dog/fox/forest/winter
+	minbodytemp = 0
+	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
+
+
 //Captain fox
 /mob/living/simple_animal/pet/dog/fox/Renault
 	name = "Renault"
@@ -48,7 +54,6 @@
 	icon_living = "Syndifox"
 	icon_dead = "Syndifox_dead"
 	icon_resting = "Syndifox_rest"
-	mutations = list(BREATHLESS)
 	faction = list("syndicate")
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
@@ -57,9 +62,12 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 
+
 /mob/living/simple_animal/pet/dog/fox/Syndifox/Initialize(mapload)
 	. = ..()
 	add_language(LANGUAGE_GALACTIC_COMMON)
+	ADD_TRAIT(src, TRAIT_NO_BREATH, INNATE_TRAIT)
+
 
 //Central Command Fox
 /mob/living/simple_animal/pet/dog/fox/alisa
@@ -69,7 +77,6 @@
 	icon_living = "alisa"
 	icon_dead = "alisa_dead"
 	icon_resting = "alisa_rest"
-	mutations = list(BREATHLESS)
 	faction = list("nanotrasen")
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
@@ -77,6 +84,12 @@
 	minbodytemp = 0
 	melee_damage_lower = 10
 	melee_damage_upper = 20
+
+
+/mob/living/simple_animal/pet/dog/fox/alisa/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_BREATH, INNATE_TRAIT)
+
 
 /mob/living/simple_animal/pet/dog/fox/fennec
 	name = "фенек"

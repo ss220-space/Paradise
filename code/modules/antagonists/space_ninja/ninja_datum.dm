@@ -113,7 +113,10 @@
 /datum/antagonist/ninja/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
 	user.faction = list(ROLE_NINJA)
-	human_ninja = ishuman(user) ? user : null
+
+
+/datum/antagonist/ninja/proc/change_species(mob/living/mob_to_change = null) // This should be used to fully to remove robo-limbs & change species for lack of sprites
+	human_ninja = ishuman(mob_to_change) ? mob_to_change : null
 	if(human_ninja)
 		human_ninja.set_species(/datum/species/human)	// only human ninjas for now
 		human_ninja.revive()
@@ -356,8 +359,7 @@
 	for(var/datum/mind/traitor in pre_antags)
 		var/datum/antagonist/traitor/traitor_datum = new
 		traitor_datum.give_objectives = FALSE
-		if(prob(10))
-			traitor_datum.is_contractor = TRUE
+		traitor_datum.is_contractor = TRUE
 		traitor.add_antag_datum(traitor_datum)
 
 		var/objective_amount = protect_objective ? CONFIG_GET(number/traitor_objectives_amount) - 1 : CONFIG_GET(number/traitor_objectives_amount)
@@ -390,7 +392,7 @@
 
 /datum/antagonist/ninja/proc/generate_vampires()
 	for(var/datum/mind/vampire in pre_antags)
-		vampire.add_antag_datum(/datum/antagonist/vampire)
+		vampire.add_antag_datum(/datum/antagonist/vampire/new_vampire)
 
 
 /datum/antagonist/ninja/proc/generate_changelings()
@@ -440,40 +442,32 @@
 			// RnD Hack: Flag set to complete in the DrainAct in ninjaDrainAct.dm
 			add_objective(/datum/objective/research_corrupt)
 
-	var/pick_chance = rand(0, 100)
-	if(pick_chance <= 25)
+	if(prob(50))
 		var/datum/objective/plant_explosive/bomb_objective = add_objective(/datum/objective/plant_explosive)
 		bomb_objective.give_bomb(delayed = 0)
 
-	else if(pick_chance <= 50)
+	else
 		var/datum/objective/set_up/set_up_objective = add_objective(/datum/objective/set_up)
 		if(!set_up_objective.target)
 			qdel(set_up_objective)
 
+	if(prob(50))
+		add_objective(/datum/objective/get_money)
+
 	else
-		var/datum/objective/pain_hunter/pain_hunter_objective = add_objective(/datum/objective/pain_hunter)
-		if(!pain_hunter_objective.target)
-			qdel(pain_hunter_objective)
+		add_objective(/datum/objective/find_and_scan)
 
-	switch(pick(1,2))
-		if(1)
-			add_objective(/datum/objective/get_money)
+	if(prob(50))
+		for(var/i in 1 to 2)
+			var/datum/objective/assassinate/assassinate_objective = add_objective(/datum/objective/assassinate)
+			if(!assassinate_objective.target)
+				qdel(assassinate_objective)
 
-		if(2)
-			add_objective(/datum/objective/find_and_scan)
-
-	switch(pick(1,2))
-		if(1)
-			for(var/i in 1 to 2)
-				var/datum/objective/assassinate/assassinate_objective = add_objective(/datum/objective/assassinate)
-				if(!assassinate_objective.target)
-					qdel(assassinate_objective)
-
-		if(2)
-			for(var/i in 1 to 2)
-				var/datum/objective/steal/steal_objective = add_objective(/datum/objective/steal)
-				if(!steal_objective.steal_target)
-					qdel(steal_objective)
+	else
+		for(var/i in 1 to 2)
+			var/datum/objective/steal/steal_objective = add_objective(/datum/objective/steal)
+			if(!steal_objective.steal_target)
+				qdel(steal_objective)
 
 	var/list/all_objectives = owner.get_all_objectives()
 	if(!(locate(/datum/objective/escape) in all_objectives) && !(locate(/datum/objective/survive) in all_objectives))

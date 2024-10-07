@@ -6,21 +6,23 @@
 
 
 /obj/item/clothing/glasses/attackby(obj/item/I, mob/living/carbon/human/user, params)
-	if(!prescription_upgradable || user.incapacitated() || !ishuman(user))
+	if(!ishuman(user) || user.incapacitated())
 		return ..()
 
+	if(istype(I, /obj/item/clothing/glasses/regular))
+		add_fingerprint(user)
+		if(!prescription_upgradable)
+			to_chat(user, span_warning("You cannot add prescription lenses to [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(prescription)
+			to_chat(user, span_warning("You cannot possibly imagine how adding more lenses would improve [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))	// Store the glasses for later removal
+			return ..()
+		upgrade_prescription(I, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(!istype(I, /obj/item/clothing/glasses/regular))
-		return ..()
-
-	if(prescription)
-		to_chat(user, span_warning("You can't possibly imagine how adding more lenses would improve [src]."))
-		return
-
-	if(!user.drop_transfer_item_to_loc(I, src))	// Store the glasses for later removal
-		return
-
-	upgrade_prescription(I, user)
+	return ..()
 
 
 /obj/item/clothing/glasses/update_name(updates = ALL)
@@ -69,7 +71,7 @@
 	return TRUE
 
 
-/obj/item/clothing/glasses/visor_toggling()
+/obj/item/clothing/glasses/visor_toggling(mob/user)
 	. = ..()
 	if(!.)
 		return .
@@ -85,7 +87,7 @@
 	name = "Optical Meson Scanner"
 	desc = "Used for seeing walls, floors, and stuff through anything."
 	icon_state = "meson"
-	item_state = "glasses"
+	item_state = "meson"
 	origin_tech = "magnets=1;engineering=2"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -108,14 +110,14 @@
 	desc = "An Optical Meson Scanner that protects your eyes"
 	icon_state = "sunmeson"
 	item_state = "sunmeson"
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
 /obj/item/clothing/glasses/meson/night
 	name = "Night Vision Optical Meson Scanner"
 	desc = "An Optical Meson Scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
 	icon_state = "nvgmeson"
-	item_state = "glasses"
+	item_state = "nvgmeson"
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -154,10 +156,10 @@
 	name = "science goggles"
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
 	icon_state = "purple"
-	item_state = "glasses"
+	item_state = "purple"
 	origin_tech = "magnets=2;engineering=1"
 	prescription_upgradable = FALSE
-	scan_reagents = TRUE //You can see reagents while wearing science goggles
+	examine_extensions = EXAMINE_HUD_SCIENCE
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	sprite_sheets = list(
@@ -172,7 +174,7 @@
 		)
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
-/obj/item/clothing/glasses/science/item_action_slot_check(slot)
+/obj/item/clothing/glasses/science/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
@@ -180,7 +182,7 @@
 	name = "Night Vision Science Goggle"
 	desc = "Now you can science in darkness."
 	icon_state = "nvpurple"
-	item_state = "glasses"
+	item_state = "purple"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
@@ -188,7 +190,7 @@
 	name = "Janitorial Goggles"
 	desc = "These'll keep the soap out of your eyes."
 	icon_state = "purple"
-	item_state = "glasses"
+	item_state = "purple"
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -364,7 +366,7 @@
 	icon_state = "sun"
 	item_state = "sunglasses"
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 	prescription_upgradable = TRUE
 	dog_fashion = /datum/dog_fashion/head
@@ -413,7 +415,7 @@
 /obj/item/clothing/glasses/sunglasses/noir/attack_self(mob/user)
 	toggle_noir(user)
 
-/obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
+/obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
@@ -424,25 +426,28 @@
 /obj/item/clothing/glasses/sunglasses/yeah
 	name = "agreeable glasses"
 	desc = "H.C Limited edition."
-	var/punused = null
+	var/punused = FALSE
 	actions_types = list(/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH)
 
 /obj/item/clothing/glasses/sunglasses/yeah/attack_self(mob/user)
 	pun(user)
 
 /obj/item/clothing/glasses/sunglasses/yeah/proc/pun(mob/user)
-	if(!punused)//one per round
-		punused = 1
-		playsound(src.loc, 'sound/misc/yeah.ogg', 100, 0)
-		user.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
-	else
+	if(punused) // one per round..
 		to_chat(user, "The moment is gone.")
+		return
+
+	punused = TRUE
+	playsound(loc, 'sound/misc/yeah.ogg', 100, FALSE)
+	user.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
+	if(HAS_TRAIT(user, TRAIT_BADASS)) //unless you're badass
+		addtimer(VARSET_CALLBACK(src, punused, FALSE), 5 MINUTES)
 
 
 /obj/item/clothing/glasses/sunglasses/reagent
 	name = "sunscanners"
 	desc = "Strangely ancient technology used to help provide rudimentary eye color. Outfitted with apparatus to scan individual reagents."
-	scan_reagents = TRUE
+	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/glasses/virussunglasses
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
@@ -450,7 +455,7 @@
 	icon_state = "sun"
 	item_state = "sunglasses"
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
 	sprite_sheets = list(
@@ -474,11 +479,19 @@
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
 
-/obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot, initial) //grant them laser eyes upon equipping it.
+/obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot, initial = FALSE) //grant them laser eyes upon equipping it.
+	. = ..()
 	if(slot == ITEM_SLOT_EYES)
-		ADD_TRAIT(user, TRAIT_LASEREYES, "admin_zapglasses")
-		user.regenerate_icons()
-	. = ..(user, slot)
+		ADD_TRAIT(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src))
+		user.update_mutations()
+
+
+/obj/item/clothing/glasses/sunglasses/lasers/dropped(mob/living/user, slot, silent = FALSE)
+	. = ..()
+	if(slot == ITEM_SLOT_EYES)
+		REMOVE_TRAIT(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src))
+		user.update_mutations()
+
 
 /obj/item/clothing/glasses/welding
 	name = "welding goggles"
@@ -486,7 +499,7 @@
 	icon_state = "welding-g"
 	item_state = "welding-g"
 	actions_types = list(/datum/action/item_action/toggle)
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	can_toggle = TRUE
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
@@ -514,11 +527,33 @@
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"
 	desc = "Covers the eyes, preventing sight."
-	icon_state = "blindfold"
-	item_state = "blindfold"
-	flash_protect = 2
+	icon_state = "blindfold_white"
+	item_state = "blindfold_white"
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 3				//to make them blind
 	prescription_upgradable = FALSE
+	var/colour = null
+
+/obj/item/clothing/glasses/sunglasses/blindfold/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+	add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
+
+/obj/item/clothing/glasses/sunglasses/blindfold/black
+	colour = "#2a2a2a"
+
+/obj/item/clothing/glasses/sunglasses/blindfold_fake
+	name = "thin blindfold"
+	desc = "Covers the eyes, but not thick enough to obscure vision. Mostly for aesthetic."
+	icon_state = "blindfold_white"
+	item_state = "blindfold_white"
+	flash_protect = FLASH_PROTECTION_NONE
+	tint = 0
+	prescription_upgradable = FALSE
+
+/obj/item/clothing/glasses/sunglasses/blindfold_fake/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/glasses/sunglasses/prescription
 	prescription = TRUE
@@ -532,11 +567,11 @@
 	name = "Optical Thermal Scanner"
 	desc = "Thermals in the shape of glasses."
 	icon_state = "thermal"
-	item_state = "glasses"
+	item_state = "thermal"
 	origin_tech = "magnets=3"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	flash_protect = -1
+	flash_protect = FLASH_PROTECTION_SENSITIVE
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -555,10 +590,10 @@
 		var/obj/item/organ/internal/eyes/eyes = H.get_organ_slot(INTERNAL_ORGAN_EYES)
 		if(eyes && H.glasses == src)
 			to_chat(H, span_warning("[src] overloads and blinds you!"))
-			H.flash_eyes(visual = TRUE)
+			H.flash_eyes(3, visual = TRUE)
 			H.EyeBlind(6 SECONDS)
 			H.EyeBlurry(10 SECONDS)
-			eyes.receive_damage(5)
+			eyes.internal_receive_damage(5)
 	..()
 
 /obj/item/clothing/glasses/thermal/sunglasses
@@ -566,7 +601,7 @@
 	desc = "How does it even works?.."
 	icon_state = "sunthermal"
 	item_state = "sunthermal"
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
 /obj/item/clothing/glasses/thermal/monocle
@@ -606,7 +641,7 @@
 	item_state = "godeye"
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	see_in_dark = 8
-	scan_reagents = TRUE
+	examine_extensions = EXAMINE_HUD_SCIENCE
 	flags_cover = null
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
@@ -642,17 +677,19 @@
 	desc = "A pair of strange eyes, said to have been torn from an omniscient creature that used to roam the wastes. There's no real reason to have two, but that isn't stopping you."
 
 
-/obj/item/clothing/glasses/hud/godeye/attackby(obj/item/W, mob/user, params)
-	if(istype(W, type) && W != src && W.loc == user)
+/obj/item/clothing/glasses/hud/godeye/attackby(obj/item/I, mob/user, params)
+	if(istype(I, type) && I != src && I.loc == user)
+		add_fingerprint(user)
 		if(double_eye)
 			to_chat(user, span_notice("The eye winks at you and vanishes into the abyss, you feel really unlucky."))
 		else
 			double_eye = TRUE
 			update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 			user.wear_glasses_update(src)
-		qdel(W)
-		return
-	..()
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/clothing/glasses/tajblind
@@ -682,12 +719,12 @@
 	item_state = "tajblind_engi"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	flash_protect = 2
-	var/flash_protect_up = 0
+	flash_protect = FLASH_PROTECTION_WELDER
+	var/flash_protect_up = FLASH_PROTECTION_NONE
 
 
 /obj/item/clothing/glasses/tajblind/eng/sunglasses
-	flash_protect_up = 1
+	flash_protect_up = FLASH_PROTECTION_FLASH
 	tint_up = 1
 
 
@@ -702,11 +739,11 @@
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This ones are with reagent and research scanners."
 	icon_state = "tajblind_sci"
 	item_state = "tajblind_sci"
-	scan_reagents = TRUE
+	examine_extensions = EXAMINE_HUD_SCIENCE
 	actions_types = list(/datum/action/item_action/toggle_research_scanner,/datum/action/item_action/toggle)
 
 /obj/item/clothing/glasses/tajblind/sci/sunglasses
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint_up = 1
 
 /obj/item/clothing/glasses/tajblind/cargo
@@ -719,7 +756,7 @@
 	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/tajblind/cargo/sunglasses
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint_up = 1
 
 
@@ -734,7 +771,7 @@
 	up = !up
 	tint = up ? tint_up : initial(tint)
 	if(user.glasses == src)
-		to_chat(user, span_notice("[up ? "You deactivate [src], obscuring your vision." : "You activate [src], allowing you to see."]"))
+		to_chat(user, span_notice("[up ? "You activate [src], allowing you to see." : "You deactivate [src], obscuring your vision."]"))
 		user.wear_glasses_update(src)
 
 

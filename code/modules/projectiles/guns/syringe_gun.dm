@@ -45,7 +45,7 @@
 
 /obj/item/gun/syringe/attack_self(mob/living/user)
 	if(!length(syringes) && !chambered.BB)
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		balloon_alert(user, "уже разряжено!")
 		return FALSE
 
 	var/obj/item/reagent_containers/syringe/S
@@ -60,23 +60,26 @@
 	user.put_in_hands(S)
 	syringes.Remove(S)
 	process_chamber()
-	to_chat(user, "<span class='notice'>You unload [S] from \the [src]!</span>")
+	balloon_alert(user, "шприц разряжен!")
 	return TRUE
 
-/obj/item/gun/syringe/attackby(obj/item/A, mob/user, params, show_msg = TRUE)
-	if(istype(A, /obj/item/reagent_containers/syringe))
+
+/obj/item/gun/syringe/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/syringe))
+		add_fingerprint(user)
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
-		if(in_clip < max_syringes)
-			if(!user.drop_transfer_item_to_loc(A, src))
-				return
-			to_chat(user, "<span class='notice'>You load [A] into \the [src]!</span>")
-			syringes.Add(A)
-			process_chamber() // Chamber the syringe if none is already
-			return TRUE
-		else
-			to_chat(user, "<span class='notice'>[src] cannot hold more syringes.</span>")
-	else
-		return ..()
+		if(in_clip >= max_syringes)
+			balloon_alert(user, "недостаточно места!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		balloon_alert(user, "заряжено!")
+		syringes += I
+		process_chamber() // chamber the syringe if none is already
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"
@@ -105,7 +108,6 @@
 /obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	visible_message("<span class='danger'>[user] starts aiming with a blowgun!</span>")
 	if(do_after(user, 1.5 SECONDS, src))
-		user.adjustStaminaLoss(20)
-		user.adjustOxyLoss(20)
+		user.apply_damages(oxy = 20, stamina = 20)
 		..()
 

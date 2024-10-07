@@ -302,31 +302,28 @@
 
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
-	if(shocked)
+	if(shocked && shock(user, 100))
 		add_fingerprint(user)
-		if(shock(user, 100))
-			return
-	if(!is_operational())
-		add_fingerprint(user)
-		if(panel_open)
-			to_chat(usr, span_warning("Close the maintenance panel first."))
-		else
-			to_chat(usr, span_warning("The unit is not operational."))
-		return
-	if(panel_open)
-		add_fingerprint(user)
-		wires.Interact(user)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(state_open)
 		add_fingerprint(user)
-		if(store_item(I, user))
-			update_icon(UPDATE_OVERLAYS)
-			SStgui.update_uis(src)
-			to_chat(user, span_notice("You load the [I] into the storage compartment."))
-		else
+		if(!is_operational())
+			return ..()
+		add_fingerprint(user)
+		if(!store_item(I, user))
 			to_chat(user, span_warning("You can't fit [I] into [src]!"))
-		return
+			return ..()
+		update_icon(UPDATE_OVERLAYS)
+		SStgui.update_uis(src)
+		to_chat(user, span_notice("You load [I] into the storage compartment."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/machinery/suit_storage_unit/screwdriver_act(mob/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = 0))
@@ -337,25 +334,31 @@
 			return
 	default_deconstruction_screwdriver(user, "[icon_state]_panel", "[initial(icon_state)]", I)
 
+
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
 	. = FALSE
+	if(panel_open)
+		return .
 	if(istype(I, /obj/item/clothing/suit/space) && !suit)
-		suit = I
-		. = TRUE
-	if(istype(I, /obj/item/clothing/head/helmet) && !helmet)
-		helmet = I
-		. = TRUE
-	if(istype(I, /obj/item/clothing/mask) && !mask)
-		mask = I
-		. = TRUE
-	if(istype(I, /obj/item/clothing/shoes/magboots) && !magboots)
-		magboots = I
-		. = TRUE
-	if((istype(I, /obj/item/tank)) && !storage)
-		storage = I
-		. = TRUE
-	if(.)
-		user.drop_transfer_item_to_loc(I, src)
+		. = user.drop_transfer_item_to_loc(I, src)
+		if(.)
+			suit = I
+	else if(istype(I, /obj/item/clothing/head/helmet) && !helmet)
+		. = user.drop_transfer_item_to_loc(I, src)
+		if(.)
+			helmet = I
+	else if(istype(I, /obj/item/clothing/mask) && !mask)
+		. = user.drop_transfer_item_to_loc(I, src)
+		if(.)
+			mask = I
+	else if(istype(I, /obj/item/clothing/shoes/magboots) && !magboots)
+		. = user.drop_transfer_item_to_loc(I, src)
+		if(.)
+			magboots = I
+	else if((istype(I, /obj/item/tank)) && !storage)
+		. = user.drop_transfer_item_to_loc(I, src)
+		if(.)
+			storage = I
 
 
 /obj/machinery/suit_storage_unit/power_change(forced = FALSE)
@@ -544,10 +547,10 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/suit_storage_unit/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/suit_storage_unit/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SuitStorage", name, 402, 268, master_ui, state)
+		ui = new(user, src, "SuitStorage", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -718,7 +721,6 @@
 		return
 	visible_message("[usr] starts squeezing into the suit storage unit!")
 	if(do_after(usr, 1 SECONDS, usr))
-		usr.stop_pulling()
 		usr.forceMove(src)
 		occupant = usr
 		state_open = FALSE //Close the thing after the guy gets inside
@@ -750,6 +752,23 @@
 		to_chat(user, span_warning("You burn the locking mechanism, unlocking it forever."))
 	do_sparks(5, 0, loc)
 	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+
+/obj/machinery/suit_storage_unit/shove_impact(mob/living/target, mob/living/attacker)
+	if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || target.buckled)
+		return
+	if(!state_open && !locked)
+		state_open = TRUE
+		update_icon(UPDATE_OVERLAYS)
+		return ..()
+
+	if(broken)
+		return ..()
+
+	if((occupant) || (helmet) || (suit) || (storage))
+		return ..()
+
+	close_machine(target)
+	return TRUE
 
 //pirate ssu
 /obj/machinery/suit_storage_unit/industrial

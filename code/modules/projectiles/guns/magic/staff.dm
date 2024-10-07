@@ -9,6 +9,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/change
 	icon_state = "staffofchange"
 	item_state = "staffofchange"
+	recharge_rate = 12
 	fire_sound = 'sound/magic/Staff_Change.ogg'
 
 /obj/item/gun/magic/staff/animate
@@ -84,10 +85,6 @@
 	force = 25
 	armour_penetration = 75
 	block_chance = 50
+	block_type = MELEE_ATTACKS
 	sharp = 1
 	max_charges = 4
-
-/obj/item/gun/magic/staff/spellblade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0
-	return ..()

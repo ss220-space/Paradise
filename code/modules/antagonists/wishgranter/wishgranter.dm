@@ -27,6 +27,7 @@
 	H.ignore_gene_stability = TRUE
 	H.force_gene_block(GLOB.hulkblock, TRUE)
 	H.force_gene_block(GLOB.xrayblock, TRUE)
+	H.force_gene_block(GLOB.farvisionblock, TRUE)
 	H.force_gene_block(GLOB.fireblock, TRUE)
 	H.force_gene_block(GLOB.coldblock, TRUE)
 	H.force_gene_block(GLOB.teleblock, TRUE)
@@ -42,5 +43,6 @@
 	H.force_gene_block(GLOB.eatblock, TRUE)
 	H.force_gene_block(GLOB.jumpblock, TRUE)
 	H.force_gene_block(GLOB.immolateblock, TRUE)
-	ADD_TRAIT(H, TRAIT_LASEREYES, "wishgranter")
+	ADD_TRAIT(H, TRAIT_LASEREYES, WISHGRANTER_TRAIT)
+	H.update_mutations()
 

@@ -79,25 +79,24 @@
 		update_icon(UPDATE_ICON_STATE)
 
 
-/obj/item/deck/attackby(obj/O, mob/user)
-	if(istype(O, /obj/item/cardhand))
-		var/obj/item/cardhand/cardhand = O
+/obj/item/deck/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/cardhand))
+		var/obj/item/cardhand/cardhand = I
 		if(cardhand.parentdeck != src)
-			to_chat(user, span_warning("You can't mix cards from different decks!"))
-			return
-
+			to_chat(user, span_warning("You cannot mix cards from different decks."))
+			return ATTACK_CHAIN_PROCEED
 		if(length(cardhand.cards) > 1)
-			var/confirm = alert("Are you sure you want to put your [length(cardhand.cards)] cards back into the deck?", "Return Hand", "Yes", "No")
-			if(confirm == "No" || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-				return
-
+			var/confirm = tgui_alert(user, "Are you sure you want to put your [length(cardhand.cards)] cards back into the deck?", "Return Hand", list("Yes", "No"))
+			if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+				return ATTACK_CHAIN_PROCEED
 		for(var/datum/playingcard/card in cardhand.cards)
 			cards += card
 		qdel(cardhand)
 		to_chat(user, span_notice("You place your cards on the bottom of [src]."))
 		update_icon(UPDATE_ICON_STATE)
-		return
-	..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/deck/examine(mob/user)
@@ -228,9 +227,8 @@
 		to_chat(user, span_warning("There are no cards in the deck!"))
 		return
 
-	var/maxcards = clamp(length(cards), 1, 10)
-	var/dcard = input("How many card(s) do you wish to deal? You may deal up to [maxcards] cards.", "Card Dealing", 1) as num|null
-	if(!dcard || !length(cards) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	var/dcard = tgui_input_number(usr, "How many card(s) do you wish to deal? You may deal up to [length(cards)] cards.", "Deal Cards", 1, length(cards), 1)
+	if(isnull(dcard) || !length(cards) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	dcard = clamp(min(round(abs(dcard)), length(cards)), 1, 10)	// we absolutely trust our players
@@ -369,30 +367,35 @@
 	resistance_flags = deck.card_resistance_flags
 
 
-/obj/item/cardhand/attackby(obj/O, mob/user)
-	if(length(cards) == 1 && is_pen(O))
+/obj/item/cardhand/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		if(length(cards) > 1)
+			to_chat(user, span_warning("You can only write on a single card at once."))
+			return ATTACK_CHAIN_PROCEED
 		var/datum/playingcard/card = cards[1]
 		if(card.name != "Blank Card")
 			to_chat(user, span_notice("You cannot write on that card."))
-			return
+			return ATTACK_CHAIN_PROCEED
 		var/rename = rename_interactive(user, card, use_prefix = FALSE, actually_rename = FALSE)
 		if(rename && card.name == "Blank Card")
 			card.name = rename
 		// SNOWFLAKE FOR CAG, REMOVE IF OTHER CARDS ARE ADDED THAT USE THIS.
 		card.card_icon = "cag_white_card"
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	else if(istype(O, /obj/item/cardhand))
-		var/obj/item/cardhand/cardhand = O
-		if(cardhand.parentdeck == parentdeck)
-			cardhand.concealed = concealed
-			cards += cardhand.cards
-			qdel(cardhand)
-			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-			return
-		else
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/cardhand))
+		var/obj/item/cardhand/cardhand = I
+		if(cardhand.parentdeck != parentdeck)
 			to_chat(user, span_notice("You cannot mix cards from other decks!"))
-			return
-	..()
+			return ATTACK_CHAIN_PROCEED
+		cardhand.concealed = concealed
+		cards += cardhand.cards
+		qdel(cardhand)
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/cardhand/attack_self(mob/user)
@@ -412,11 +415,10 @@
 /obj/item/cardhand/interact(mob/user)
 	var/dat = "You have:<br>"
 	for(var/card in cards)
-		dat += "<a href='?src=[UID()];pick=[card]'>The [card]</a><br>"
+		dat += "<a href='byond://?src=[UID()];pick=[card]'>The [card]</a><br>"
 	dat += "Which card will you remove next?<br>"
-	dat += "<a href='?src=[UID()];pick=Turn'>Turn the hand over</a>"
+	dat += "<a href='byond://?src=[UID()];pick=Turn'>Turn the hand over</a>"
 	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.set_content(dat)
 	popup.open()
 
@@ -533,7 +535,7 @@
 		return
 
 	var/maxcards = min(length(cards), 5)
-	var/discards = input("How many cards do you want to discard? You may discard up to [maxcards] card(s)") as num
+	var/discards = tgui_input_number(usr, "How many cards do you want to discard? You may discard up to [maxcards] card(s)", "Discard Cards", max_value = maxcards)
 	if(discards > maxcards || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 

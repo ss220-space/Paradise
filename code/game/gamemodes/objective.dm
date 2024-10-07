@@ -687,7 +687,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(..() || !possible_target.current.client)
 		return TRUE
 	// If the target is geneless, then it's an invalid target.
-	return has_no_DNA(possible_target.current)
+	return HAS_TRAIT(possible_target.current, TRAIT_NO_DNA)
 
 
 /datum/objective/escape/escape_with_identity/find_target(list/target_blacklist)
@@ -705,7 +705,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/escape/escape_with_identity/proc/special_objective_checking_target(datum/source, datum/mind/possible_target)
 	SIGNAL_HANDLER
-	if(!possible_target.current.client || has_no_DNA(possible_target.current))
+	if(!possible_target.current.client || HAS_TRAIT(possible_target.current, TRAIT_NO_DNA))
 		// Stop our linked special objective from choosing a clientless/geneless target.
 		return OBJECTIVE_INVALID_TARGET
 	return OBJECTIVE_VALID_TARGET
@@ -1002,7 +1002,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 		else if(SSticker.current_state == GAME_STATE_PLAYING)
 			for(var/mob/living/carbon/human/player in GLOB.player_list)
-				if(has_no_DNA(player))
+				if(HAS_TRAIT(player, TRAIT_NO_DNA))
 					continue
 
 				if(player.client && !(player.mind in SSticker.mode.changelings) && !(player.mind in get_owners()))
@@ -1140,10 +1140,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/player in get_owners())
 		var/datum/antagonist/vampire/vampire = player.has_antag_datum(/datum/antagonist/vampire)
 		if(vampire && (vampire.bloodtotal >= target_amount))
-			return TRUE
-
-		var/datum/antagonist/goon_vampire/g_vampire = player.has_antag_datum(/datum/antagonist/goon_vampire)
-		if(g_vampire && (g_vampire.bloodtotal >= target_amount))
 			return TRUE
 
 		return FALSE
@@ -1734,3 +1730,24 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	Подойдёт только консоль в этой зоне из-за уязвимости оставленной заранее для вируса. \
 	Учтите, что установка займёт время и ИИ скорее всего будет уведомлён о вашей попытке взлома!"
 
+
+/datum/objective/blob_critical_mass
+	needs_target = FALSE
+	//Total blob tiles count
+	var/critical_mass = -2
+	//Needed blob tiles count
+	var/needed_critical_mass = -1
+
+
+/datum/objective/blob_critical_mass/check_completion()
+	if(!completed)
+		completed = needed_critical_mass <= critical_mass && GLOB.security_level < SEC_LEVEL_DELTA
+	return ..()
+
+
+/datum/objective/blob_critical_mass/proc/set_target()
+	explanation_text = "Наберите критическую массу, распостраняясь по станции. Текущаяя масса [critical_mass]. Необходимо набрать [needed_critical_mass]. Масса может изменяться в зависимости от количества блобов."
+
+/datum/objective/blob_find_place_to_burst
+	needs_target = FALSE
+	explanation_text = "Найдите укромное место на станции, в котором вас не смогут найти после вылупления до тех пор, пока вы не наберетесь сил."

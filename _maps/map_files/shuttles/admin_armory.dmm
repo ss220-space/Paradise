@@ -931,7 +931,7 @@
 	},
 /area/shuttle/administration)
 "Az" = (
-/turf/simulated/wall/shuttle/nodiagonal{
+/turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/administration)
@@ -1232,11 +1232,6 @@
 /obj/effect/spawner/window/shuttle/gray,
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/shuttle/plating,
-/area/shuttle/administration)
-"Jg" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
 /area/shuttle/administration)
 "Jt" = (
 /obj/item/clothing/shoes/combat/swat,
@@ -1600,11 +1595,6 @@
 	icon_state = "navybluealt"
 	},
 /area/shuttle/administration)
-"XL" = (
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/shuttle/administration)
 "XP" = (
 /obj/item/clothing/head/helmet/swat,
 /obj/item/clothing/head/helmet/swat,
@@ -1641,112 +1631,112 @@
 (1,1,1) = {"
 Vc
 Vc
-XL
+Az
 UX
 UX
 UX
-XL
+Az
 wS
 Vc
 Vc
 wS
-XL
-XL
-XL
-XL
-XL
+Az
+Az
+Az
+Az
+Az
 Vc
 Vc
 "}
 (2,1,1) = {"
 Vc
-XL
-XL
+Az
+Az
 Mj
 aP
 dP
-XL
+Az
 rW
 Ir
 Ir
 rW
-XL
+Az
 MY
 vA
 cl
 aH
-XL
+Az
 Vc
 "}
 (3,1,1) = {"
-XL
-XL
+Az
+Az
 mw
 Cl
 Cl
 Qt
-XL
+Az
 hP
 ua
 gh
 bQ
-XL
+Az
 FF
 VQ
 VQ
 VQ
 aH
-XL
+Az
 "}
 (4,1,1) = {"
-XL
+Az
 xZ
 Cl
 Cl
 Cl
 zd
-XL
+Az
 Ru
 qQ
 mZ
 xF
-XL
+Az
 uv
 Jt
 XP
 VQ
 GS
-XL
+Az
 "}
 (5,1,1) = {"
-XL
+Az
 Gx
 Cl
 Cl
 Cl
 Cl
-XL
+Az
 Az
 VQ
 VQ
 Az
-XL
+Az
 oG
 cP
 xH
 VQ
 dl
-XL
+Az
 "}
 (6,1,1) = {"
-XL
+Az
 bi
 Cl
 Cl
-XL
+Az
 VI
 Az
-Jg
+rW
 cV
 cV
 rW
@@ -1756,11 +1746,11 @@ VQ
 VQ
 VQ
 Lz
-XL
+Az
 "}
 (7,1,1) = {"
-XL
-XL
+Az
+Az
 VI
 VI
 Az
@@ -1769,17 +1759,17 @@ XG
 rA
 xQ
 so
-XL
+Az
 we
 Pe
 Dw
 HX
 VQ
 oj
-XL
+Az
 "}
 (8,1,1) = {"
-XL
+Az
 oY
 VQ
 Ev
@@ -1789,14 +1779,14 @@ Ur
 Ur
 Ur
 al
-XL
+Az
 LK
 TF
 Uc
 vV
 VQ
 BZ
-XL
+Az
 "}
 (9,1,1) = {"
 UX
@@ -1816,14 +1806,14 @@ VQ
 VQ
 VQ
 Vi
-XL
+Az
 "}
 (10,1,1) = {"
 UX
 dH
 VQ
 VQ
-XL
+Az
 zg
 RS
 Mv
@@ -1836,7 +1826,7 @@ VQ
 VQ
 VQ
 vz
-XL
+Az
 "}
 (11,1,1) = {"
 rW
@@ -1844,12 +1834,12 @@ Pj
 VQ
 VQ
 Az
-XL
+Az
 Hc
 YF
-XL
-XL
-XL
+Az
+Az
+Az
 eY
 uY
 wh
@@ -1869,7 +1859,7 @@ VQ
 VQ
 BR
 BR
-XL
+Az
 we
 VQ
 VQ
@@ -1889,7 +1879,7 @@ VQ
 VQ
 VQ
 VQ
-XL
+Az
 PE
 VQ
 Bc
@@ -1919,12 +1909,12 @@ AH
 UX
 "}
 (15,1,1) = {"
-XL
+Az
 Du
 jF
 Gn
-XL
-XL
+Az
+Az
 Az
 rW
 le
@@ -1936,47 +1926,47 @@ Az
 Du
 jF
 Gn
-XL
+Az
 "}
 (16,1,1) = {"
-XL
+Az
 Fd
 Fd
 Fd
-XL
-XL
-XL
+Az
+Az
+Az
 fq
 iK
 pc
 iz
-XL
-XL
-XL
+Az
+Az
+Az
 Fd
 Fd
 Fd
-XL
+Az
 "}
 (17,1,1) = {"
-XL
+Az
 Ki
 FT
 Ki
 Ni
 Pn
-XL
+Az
 eG
 iz
 yu
 sq
-XL
+Az
 Pn
 ce
 Ki
 FT
 Ki
-XL
+Az
 "}
 (18,1,1) = {"
 Vc
@@ -1985,12 +1975,12 @@ Ki
 Ki
 Vc
 qE
-XL
+Az
 rW
 nl
 lf
 rW
-XL
+Az
 qE
 Vc
 Ki

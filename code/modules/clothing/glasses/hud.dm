@@ -6,8 +6,6 @@
 	prescription_upgradable = TRUE
 	/// The visual icons granted by wearing these glasses.
 	var/HUDType = null
-	/// List of things added to examine text, like security or medical records.
-	var/examine_extensions = 0
 
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot, initial)
@@ -78,7 +76,7 @@ MEDICAL
 	name = "\improper Night Vision Medical HUD"
 	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
 	icon_state = "healthhudnight"
-	item_state = "glasses"
+	item_state = "nvghud"
 	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -89,7 +87,7 @@ MEDICAL
 	desc = "Sunglasses with a medical HUD."
 	icon_state = "sunhudmed"
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
 /obj/item/clothing/glasses/hud/health/tajblind
@@ -114,7 +112,7 @@ MEDICAL
 
 /obj/item/clothing/glasses/hud/health/tajblind/sunglasses
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint_up = 1
 
 /obj/item/clothing/glasses/hud/health/tajblind/attack_self(mob/user)
@@ -153,7 +151,7 @@ DIAGNOSTIC
 	name = "\improper Night Vision Diagnostic HUD"
 	desc = "A robotics diagnostic HUD fitted with a light amplifier."
 	icon_state = "diagnostichudnight"
-	item_state = "glasses"
+	item_state = "nvghud"
 	origin_tech = "magnets=4;powerstorage=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -163,8 +161,8 @@ DIAGNOSTIC
 	name = "diagnostic sunglasses"
 	desc = "Sunglasses with a diagnostic HUD."
 	icon_state = "sunhuddiag"
-	item_state = "glasses"
-	flash_protect = 1
+	item_state = "sunhuddiag"
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
 /obj/item/clothing/glasses/hud/diagnostic/tajblind
@@ -178,7 +176,7 @@ DIAGNOSTIC
 
 /obj/item/clothing/glasses/hud/diagnostic/tajblind/sunglasses
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint_up = 1
 
 /obj/item/clothing/glasses/hud/diagnostic/tajblind/attack_self(mob/user)
@@ -226,7 +224,7 @@ SECURITY
 	icon_state = "sunhud"
 	origin_tech = "magnets=3;combat=3;engineering=3"
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
 	sprite_sheets = list(
@@ -333,7 +331,7 @@ HYDROPONIC
 	name = "\improper Night Vision Hydroponic HUD"
 	desc = "A hydroponic HUD fitted with a light amplifier."
 	icon_state = "hydroponichudnight"
-	item_state = "glasses"
+	item_state = "nvghud"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = FALSE
@@ -344,7 +342,7 @@ HYDROPONIC
 	icon_state = "sunhudhydro"
 	item_state = "sunhudhydro"
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
 /obj/item/clothing/glasses/hud/hydroponic/tajblind
@@ -357,7 +355,7 @@ HYDROPONIC
 
 /obj/item/clothing/glasses/hud/hydroponic/tajblind/sunglasses
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint_up = 1
 
 /obj/item/clothing/glasses/hud/hydroponic/tajblind/attack_self(mob/user)
@@ -371,7 +369,7 @@ SKILLS
 	name = "\improper Skills HUD"
 	desc = "A heads-up display capable of showing the employment history records of NT crew members."
 	icon_state = "skill"
-	item_state = "glasses"
+	item_state = "skill"
 	HUDType = DATA_HUD_SECURITY_BASIC
 	examine_extensions = EXAMINE_HUD_SKILLS
 	sprite_sheets = list(
@@ -390,7 +388,7 @@ SKILLS
 	desc = "Sunglasses with a build-in skills HUD, showing the employment history of nearby NT crew members."
 	icon_state = "sunhudskill"
 	see_in_dark = 1 // None of these three can be converted to booleans. Do not try it.
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 	prescription_upgradable = TRUE
 	sprite_sheets = list(
@@ -415,7 +413,7 @@ SKILLS
 
 /obj/item/clothing/glasses/hud/skills/tajblind/sunglasses
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint_up = 1
 
 /obj/item/clothing/glasses/hud/skills/tajblind/attack_self(mob/user)

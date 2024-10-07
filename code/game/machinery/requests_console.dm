@@ -141,10 +141,10 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	underlays += emissive_appearance(icon, "req_comp_lightmask", src)
 
 
-/obj/machinery/requests_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/requests_console/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RequestConsole", "[department] Request Console", 520, 410, master_ui, state)
+		ui = new(user, src, "RequestConsole", "[department] Request Console")
 		ui.open()
 
 /obj/machinery/requests_console/ui_data(mob/user)
@@ -186,26 +186,25 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(reject_bad_text(params["write"]))
 				recipient = params["write"] //write contains the string of the receiving department's name
 
-				var/new_message = sanitize(input("Write your message:", "Awaiting Input", ""))
-				if(new_message)
-					message = new_message
-					screen = RCS_MESSAUTH
-					switch(params["priority"])
-						if("1")
-							priority = RQ_NORMALPRIORITY
-						if("2")
-							priority = RQ_HIGHPRIORITY
-						else
-							priority = RQ_NONEW_MESSAGES
-				else
-					reset_message(TRUE)
+				var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE)
+				if(isnull(new_message))
+					reset_message(FALSE)
+					return
+				message = new_message
+				screen = RCS_MESSAUTH
+				switch(params["priority"])
+					if("1")
+						priority = RQ_NORMALPRIORITY
+					if("2")
+						priority = RQ_HIGHPRIORITY
+					else
+						priority = RQ_NONEW_MESSAGES
 
 		if("writeAnnouncement")
-			var/new_message = sanitize(input("Write your message:", "Awaiting Input", "") as message|null)
-			if(new_message)
-				message = new_message
-			else
-				reset_message(TRUE)
+			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE)
+			if(isnull(new_message))
+				return
+			message = new_message
 
 		if("sendAnnouncement")
 			if(!announcementConsole)
@@ -288,39 +287,42 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			silent = !silent
 
 
-/obj/machinery/requests_console/attackby(obj/item/I, mob/user)
-	if(I.GetID())
-		if(inoperable(MAINT))
-			return
-		var/obj/item/card/id/id = I.GetID()
-		if(screen == RCS_MESSAUTH)
-			add_fingerprint(user)
-			msgVerified = "Verified by [id.registered_name] ([id.assignment])"
-			SStgui.update_uis(src)
-		if(screen == RCS_ANNOUNCE)
-			add_fingerprint(user)
-			if(ACCESS_RC_ANNOUNCE in id.GetAccess())
-				announceAuth = 1
-				announcement.announcer = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
-			else
+/obj/machinery/requests_console/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || inoperable(MAINT))
+		return ..()
+
+	if(istype(I, /obj/item/card/id))
+		var/obj/item/card/id/id = I
+		add_fingerprint(user)
+		switch(screen)
+			if(RCS_MESSAUTH)
+				msgVerified = "Verified by [id.registered_name] ([id.assignment])"
+				SStgui.update_uis(src)
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+			if(RCS_ANNOUNCE)
+				if(ACCESS_RC_ANNOUNCE in id.GetAccess())
+					announceAuth = TRUE
+					announcement.announcer = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
+					SStgui.update_uis(src)
+					return ATTACK_CHAIN_PROCEED_SUCCESS
 				reset_message()
 				to_chat(user, span_warning("You are not authorized to send announcements."))
-			SStgui.update_uis(src)
-		if(screen == RCS_SHIPPING)
-			add_fingerprint(user)
-			msgVerified = "Sender verified as [id.registered_name] ([id.assignment])"
-			SStgui.update_uis(src)
-		return
+				SStgui.update_uis(src)
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+			if(RCS_SHIPPING)
+				msgVerified = "Sender verified as [id.registered_name] ([id.assignment])"
+				SStgui.update_uis(src)
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	if(istype(I, /obj/item/stamp))
-		if(inoperable(MAINT))
-			return
 		if(screen == RCS_MESSAUTH)
 			add_fingerprint(user)
-			var/obj/item/stamp/T = I
-			msgStamped = "Stamped with the [T.name]"
+			msgStamped = "Stamped with the [I.name]"
 			SStgui.update_uis(src)
-		return
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
 
 /obj/machinery/requests_console/proc/reset_message(mainmenu = FALSE)
 	message = ""
@@ -364,7 +366,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
 	var/obj/item/shippingPackage/sp = new /obj/item/shippingPackage(get_turf(src))
 	sp.sortTag = tag_index
-	sp.update_desc()
+	sp.update_appearance(UPDATE_DESC)
 	print_cooldown = world.time + 600	//1 minute cooldown before you can print another label, but you can still configure the next one during this time
 
 #undef RQ_NONEW_MESSAGES

@@ -217,7 +217,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		var/datum/objective/maroon/maroon_objective = add_objective(/datum/objective/maroon)
 		var/mob/living/carbon/human/maroon_target = maroon_objective.target?.current
 
-		if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && maroon_target && !has_no_DNA(maroon_target))
+		if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && maroon_target && !HAS_TRAIT(maroon_target, TRAIT_NO_DNA))
 			var/datum/objective/escape/escape_with_identity/identity_theft = new(_special_objective = maroon_objective)
 			identity_theft.owner = owner
 			objectives += identity_theft
@@ -253,7 +253,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
  */
 /datum/antagonist/changeling/proc/try_respec()
 	var/mob/living/carbon/human/user = owner.current
-	if(!istype(user) || issmall(user))
+	if(!istype(user) || is_monkeybasic(user))
 		to_chat(user, span_danger("We can't readapt our evolutions in this form!"))
 		return FALSE
 	if(can_respec)
@@ -490,15 +490,15 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		return FALSE
 
 	var/mob/living/carbon/human/human_target = target
-	if(!istype(human_target) || issmall(human_target))
+	if(!istype(human_target) || is_monkeybasic(human_target))
 		to_chat(user, span_warning("[human_target] is not compatible with our biology."))
 		return FALSE
 
-	if((NOCLONE || SKELETON || HUSK) in human_target.mutations)
+	if(HAS_TRAIT(human_target, TRAIT_HUSK) || HAS_TRAIT(human_target, TRAIT_SKELETON) || HAS_TRAIT(human_target, TRAIT_NO_CLONE))
 		to_chat(user, span_warning("DNA of [target] is ruined beyond usability!"))
 		return FALSE
 
-	if(has_no_DNA(human_target))
+	if(HAS_TRAIT(human_target, TRAIT_NO_DNA))
 		to_chat(user, span_warning("This creature does not have DNA!"))
 		return FALSE
 
@@ -613,8 +613,3 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	return mind_holder.mind.has_antag_datum(/datum/antagonist/changeling)
 
-
-/proc/has_no_DNA(mob/living/carbon/user)
-	if(!istype(user) || !user.dna)
-		return TRUE
-	return NO_DNA in user.dna.species.species_traits

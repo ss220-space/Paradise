@@ -48,22 +48,21 @@
 		item_state = initial(item_state)
 
 
-/obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/cultblade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscultist(user))
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
-		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
-							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			H.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
-		else
-			user.adjustBruteLoss(rand(force/2, force))
-		return
-	..()
+		user.visible_message(
+			span_warning("A powerful force shoves [user] away from [target]!"),
+			span_cultlarge("\"You shouldn't play with sharp things. You'll poke someone's eye out.\""),
+		)
+		user.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
-	if(HULK in user.mutations)
+	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
 		return FALSE
 
@@ -82,7 +81,7 @@
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
 	breakouttime = 45
-	weaken_amt = 2 SECONDS
+	knockdown_amt = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
@@ -151,6 +150,7 @@
 	slowdown = 1
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
+	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
@@ -164,6 +164,7 @@
 	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list("melee" = 50, "bullet" = 40, "laser" = 50, "energy" = 30, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 50, "acid" = 60)
+	flags_inv_transparent = HIDEGLOVES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
@@ -190,7 +191,7 @@
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.drop_item_ground(src, force = TRUE)
 		user.Confused(20 SECONDS)
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/setup_shielding()
 	AddComponent(/datum/component/shielded, recharge_start_delay = 0 SECONDS, shield_icon_file = 'icons/effects/cult_effects.dmi', shield_icon = "shield-cult", run_hit_callback = CALLBACK(src, PROC_REF(shield_damaged)))
@@ -207,7 +208,6 @@
 	desc = "Blood-soaked robes infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
 	icon_state = "flagellantrobe"
 	item_state = "flagellantrobe"
-	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list("melee" = -50, "bullet" = -50, "laser" = -50,"energy" = -50, "bomb" = -50, "bio" = -50, "rad" = -50, "fire" = 0, "acid" = 0)
@@ -231,7 +231,7 @@
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.drop_item_ground(src, force = TRUE)
 		user.Confused(20 SECONDS)
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 	else if(slot == ITEM_SLOT_CLOTH_OUTER)
 		user.add_movespeed_modifier(/datum/movespeed_modifier/cult_robe)
 
@@ -267,16 +267,28 @@
 	increment = 5
 	max = 40
 	prefix = "darkened"
-	claw_damage_increase = 4
+	claws_increment = 4
+
 
 /obj/item/whetstone/cult/update_icon_state()
-	icon_state = "cult_sharpener[used ? "_used" : ""]"
+	icon_state = "cult_sharpener[!uses ? "_used" : ""]"
+
 
 /obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
-	..()
-	if(used)
-		to_chat(user, "<span class='notice'>[src] crumbles to ashes.</span>")
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || uses)
+		return .
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	to_chat(user, span_notice("[src] crumbles to ashes."))
+	qdel(src)
+
+
+/obj/item/whetstone/cult/attack_self(mob/user)
+	. = ..()
+	if(!uses)
+		to_chat(user, span_notice("[src] crumbles to ashes."))
 		qdel(src)
+
 
 /obj/item/reagent_containers/food/drinks/bottle/unholywater
 	name = "flask of unholy water"
@@ -292,7 +304,7 @@
 	item_state = "blindfold"
 	see_in_dark = 8
 	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
-	flash_protect = TRUE
+	flash_protect = FLASH_PROTECTION_FLASH
 	prescription = TRUE
 	origin_tech = null
 
@@ -303,7 +315,7 @@
 		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
 		user.drop_item_ground(src, force = TRUE)
 		user.Confused(60 SECONDS)
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 		user.EyeBlind(60 SECONDS)
 
 /obj/item/shuttle_curse
@@ -316,7 +328,7 @@
 /obj/item/shuttle_curse/attack_self(mob/living/user)
 	if(!iscultist(user))
 		user.drop_item_ground(src, force = TRUE)
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
 		return
 	if(curselimit > 1)
@@ -344,6 +356,9 @@
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shifter"
 	var/uses = 4
+
+/obj/item/cult_shift/attack_self_tk(mob/user)
+	return
 
 /obj/item/cult_shift/examine(mob/user)
 	. = ..()
@@ -405,7 +420,11 @@
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
 		C.forceMove(destination)
 		if(pulled)
-			C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
+			if(C.pull_hand == PULL_WITHOUT_HANDS)
+				C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
+			else if(!C.get_inactive_hand() && C.swap_hand())
+				C.start_pulling(pulled)
+				C.swap_hand()
 
 		new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -439,7 +458,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0, fire = 10, acid = 10)
-	flags_inv = HIDEJUMPSUIT
 	item_flags = DROPDEL
 	hoodtype = /obj/item/clothing/head/hooded/culthood/alt/ghost
 
@@ -521,7 +539,7 @@
   * If they are blocked, and the shield has an illusion charge, an illusion will be spawned at src.
   * The illusion has a 60% chance to be hostile and attack non-cultists, and a 40% chance to just run away from the user.
   */
-/obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(iscultist(owner)) // Cultist holding the shield
 
 		// Hit by a projectile
@@ -539,7 +557,7 @@
 			// 10 * 3 gives it a 30% chance to shatter per hit.
 			shatter_chance = min((P.damage - threshold) * 3, 75) // Maximum of 75% chance
 
-			if(prob(shatter_chance))
+			if(prob(shatter_chance) || P.shield_buster)
 				var/turf/T = get_turf(owner)
 				T.visible_message("<span class='warning'>The sheer force from [P] shatters the mirror shield!</span>")
 				new /obj/effect/temp_visual/cult/sparks(T)
@@ -606,7 +624,6 @@
 	desc = "A sickening spear composed entirely of crystallized blood."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "bloodspear0"
-	slot_flags = 0
 	force = 17
 	force_unwielded = 17
 	force_wielded = 24
@@ -656,7 +673,7 @@
 		playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
 
-/obj/item/twohanded/cult_spear/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/twohanded/cult_spear/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(wielded)
 		final_block_chance *= 2
 	if(prob(final_block_chance))

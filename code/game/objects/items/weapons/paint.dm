@@ -15,7 +15,7 @@
 	volume = 70
 	container_type = OPENCONTAINER
 
-/obj/item/reagent_containers/glass/paint/afterattack(turf/simulated/target, mob/user, proximity)
+/obj/item/reagent_containers/glass/paint/afterattack(turf/simulated/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(!is_open_container())

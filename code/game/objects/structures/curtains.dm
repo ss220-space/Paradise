@@ -6,13 +6,15 @@
 	name = "curtain"
 	icon_state = "closed"
 	layer = SHOWER_CLOSED_LAYER
-	opacity = 1
+	opacity = TRUE
 	density = FALSE
+
 
 /obj/structure/curtain/open
 	icon_state = "open"
 	layer = SHOWER_OPEN_LAYER
-	opacity = 0
+	opacity = FALSE
+
 
 /obj/structure/curtain/attack_hand(mob/user)
 	playsound(get_turf(loc), "rustle", 15, 1, -5)
@@ -29,21 +31,28 @@
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
+
 /obj/structure/curtain/proc/toggle()
 	set_opacity(!opacity)
-	if(opacity)
-		icon_state = "closed"
-		layer = SHOWER_CLOSED_LAYER
-	else
-		icon_state = "open"
-		layer = SHOWER_OPEN_LAYER
+	layer = opacity ? SHOWER_CLOSED_LAYER : SHOWER_OPEN_LAYER
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/curtain/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/toy/crayon))
+
+/obj/structure/curtain/update_icon_state()
+	icon_state = opacity ? "closed" : "open"
+
+
+/obj/structure/curtain/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/toy/crayon))
 		add_fingerprint(user)
 		color = input(user, "Choose Color") as color
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
 
 /obj/structure/curtain/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

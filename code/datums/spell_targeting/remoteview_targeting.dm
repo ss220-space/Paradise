@@ -9,9 +9,9 @@
 	for(var/mob/M in GLOB.alive_mob_list)
 		if(M == user)
 			continue
-		if(M.dna?.GetSEState(GLOB.psyresistblock))
+		if(HAS_TRAIT(M, TRAIT_PSY_RESIST))
 			continue
-		if(M.dna?.GetSEState(GLOB.remoteviewblock))
+		if(HAS_TRAIT(M, TRAIT_OPEN_MIND))
 			remoteviewers += M
 
 	if(!length(remoteviewers))

@@ -233,9 +233,9 @@
 		if(QDELETED(target))
 			continue
 
-		if(ishuman(target) && (RADIMMUNE in target.dna?.species?.species_traits))
+		if(HAS_TRAIT(target, TRAIT_RADIMMUNE))
 			continue
 
-		var/resist = target.getarmor(type = "rad")
+		var/resist = target.getarmor(attack_flag = RAD)
 		target.apply_effect(rad_damage, IRRADIATE, resist, negate_armor)
 

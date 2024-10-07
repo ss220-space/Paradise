@@ -60,14 +60,16 @@
 	var/disabilities_allowed = 1
 	var/transfer_allowed = TRUE // If false, ID computer will always discourage transfers to this job, even if player is eligible
 	var/hidden_from_job_prefs = FALSE // if true, job preferences screen never shows this job.
+	var/list/blocked_race_for_job = list()
 
 	var/admin_only = 0
 	var/spawn_ert = 0
 	var/syndicate_command = 0
 
-	var/money_factor = 1 // multiplier of starting funds
-	var/random_money_factor = FALSE // is miltiplier randomized (from 4x to 0.25x for now)
-
+	var/salary = 0
+	var/min_start_money = 0
+	var/max_start_money = 0
+	
 	var/outfit = null
 
 	/////////////////////////////////
@@ -142,6 +144,13 @@
 		return TRUE
 	return FALSE
 
+/datum/job/proc/species_in_blacklist(client/C)
+	if(!C)
+		return FALSE
+	if(C.prefs.species in blocked_race_for_job)
+		return TRUE
+	return FALSE
+
 /datum/job/proc/is_position_available()
 	return (current_positions < total_positions) || (total_positions == -1)
 
@@ -193,22 +202,8 @@
 			var/datum/gear/G = H.client.prefs.choosen_gears[gear]
 			if(!istype(G))
 				continue
-			var/permitted = FALSE
 
-			if(G.allowed_roles)
-				if(name in G.allowed_roles)
-					permitted = TRUE
-			else
-				permitted = TRUE
-
-			if(G.whitelisted && (G.whitelisted != H.dna.species.name || !is_alien_whitelisted(H, G.whitelisted)))
-				permitted = FALSE
-
-			if(H.client.donator_level < G?.donator_tier)
-				permitted = FALSE
-
-			if(!permitted)
-				to_chat(H, "<span class='warning'>Your current job, donator tier or whitelist status does not permit you to spawn with [G.display_name]!</span>")
+			if(!G.can_select(cl = H.client, job_name = name, species_name = H.dna.species.name)) // some checks
 				continue
 
 			if(G.implantable) //only works for organ-implants
@@ -283,23 +278,20 @@
 		PDA.owner = H.real_name
 		PDA.ownjob = C.assignment
 		PDA.ownrank = C.rank
-		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
+		PDA.update_appearance(UPDATE_NAME)
 
-/datum/outfit/job/proc/get_chameleon_disguise_info()
-	var/on_back = (allow_backbag_choice) ? backpack : back
-	var/list/types = list(uniform, suit, on_back, belt, gloves, shoes, head, mask, neck, l_ear, r_ear, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand, pda)
-	types += chameleon_extras
-	listclearnulls(types)
+
+
+/datum/outfit/job/get_chameleon_disguise_info()
+	var/list/types = ..()
+	if(allow_backbag_choice && backpack)
+		types -= back
+		types += backpack
 	return types
 
+
 /datum/job/proc/would_accept_job_transfer_from_player(mob/player)
-	if(!transfer_allowed)
-		return FALSE
-	if(!guest_jobbans(title)) // actually checks if job is a whitelisted position
-		return TRUE
-	if(!istype(player))
-		return FALSE
-	return is_job_whitelisted(player, title)
+	return transfer_allowed
 
 
 /datum/job/proc/can_novice_play(client/C)

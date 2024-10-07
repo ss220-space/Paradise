@@ -97,15 +97,19 @@
 
 	return ghost_counter
 
-/obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/carbon/human/user)
+
+/obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	force = 0
 	var/ghost_counter = ghost_check()
-
 	force = clamp((ghost_counter * 4), 0, 75)
-	user.visible_message("<span class='danger'>[user] strikes with the force of [ghost_counter] vengeful spirits!</span>")
-	..()
+	user.visible_message(
+		span_danger("[user] strikes with the force of [ghost_counter] vengeful spirits!"),
+		span_notice("You strikes with the force of [ghost_counter] vengeful spirits!"),
+	)
+	return ..()
 
-/obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+
+/obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	var/ghost_counter = ghost_check()
 	final_block_chance += clamp((ghost_counter * 5), 0, 75)
 	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghosts!</span>")
@@ -120,29 +124,28 @@
 	icon_state = "vial"
 
 /obj/item/dragons_blood/attack_self(mob/living/carbon/human/user)
-	if(!istype(user))
+	if(!ishuman(user))
 		return
 
-	var/mob/living/carbon/human/H = user
 	var/random = rand(1,3)
 
 	switch(random)
 		if(1)
-			to_chat(user, "<span class='danger'>Your flesh begins to melt! Miraculously, you seem fine otherwise.</span>")
-			H.set_species(/datum/species/skeleton)
+			to_chat(user, span_danger("Your flesh begins to melt! Miraculously, you seem fine otherwise."))
+			user.set_species(/datum/species/skeleton)
 		if(2)
 			if(user.mind)
 				if(locate(/obj/effect/proc_holder/spell/shapeshift/dragon) in user.mind.spell_list)
-					to_chat(user, "<span class='danger'>Familiar power courses through you! But you already can shift into dragons...")
+					to_chat(user, span_danger("Familiar power courses through you! But you already can shift into dragons..."))
 				else
-					to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.")
-					var/obj/effect/proc_holder/spell/shapeshift/dragon/D = new
-					user.mind.AddSpell(D)
+					to_chat(user, span_danger("Power courses through you! You can now shift your form at will."))
+					var/obj/effect/proc_holder/spell/shapeshift/dragon/shapeshift = new
+					user.mind.AddSpell(shapeshift)
 		if(3)
-			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")
-			H.weather_immunities |= "lava"
+			to_chat(user, span_danger("You feel like you could walk straight through lava now."))
+			ADD_TRAIT(user, TRAIT_LAVA_IMMUNE, name)
 
-	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
+	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 	qdel(src)
 
 /obj/item/dragons_blood/refined
@@ -191,7 +194,7 @@
 	hitsound = 'sound/weapons/sear.ogg'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	needs_permit = TRUE
-	var/turf_type = /turf/simulated/floor/plating/lava/smooth
+	var/turf_type = /turf/simulated/floor/lava
 	var/transform_string = "lava"
 	var/reset_turf_type = /turf/simulated/floor/plating/asteroid/basalt
 	var/reset_string = "basalt"

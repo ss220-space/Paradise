@@ -60,36 +60,30 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 
-/obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
-	if(exchange_parts(user, I))
-		return
 
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/TYPECAST_YOUR_SHIT = I
-		if(panel_open)
-			to_chat(user, span_notice("Close the maintenance panel first."))
-			return
-		if(!ishuman(TYPECAST_YOUR_SHIT.affecting))
-			return
-		if(occupant)
-			to_chat(user, span_notice("The scanner is already occupied!"))
-			return
-		if(TYPECAST_YOUR_SHIT.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, span_warning("[TYPECAST_YOUR_SHIT.affecting] will not fit into [src] because [TYPECAST_YOUR_SHIT.affecting.p_they()] [TYPECAST_YOUR_SHIT.affecting.p_have()] a fucking slime latched onto [TYPECAST_YOUR_SHIT.affecting.p_their()] head."))
-			return
-		var/mob/living/carbon/human/M = TYPECAST_YOUR_SHIT.affecting
-		if(M.abiotic())
-			to_chat(user, span_notice("Subject cannot have abiotic items on."))
-			return
-		M.forceMove(src)
-		occupant = M
-		update_icon(UPDATE_ICON_STATE)
-		add_fingerprint(user)
-		qdel(TYPECAST_YOUR_SHIT)
-		SStgui.update_uis(src)
-		return
+/obj/machinery/bodyscanner/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !ishuman(grabbed_thing))
+		return .
+	if(panel_open)
+		to_chat(grabber, span_warning("Close the maintenance panel first."))
+		return .
+	var/mob/living/carbon/human/target = grabbed_thing
+	if(occupant)
+		to_chat(grabber, span_warning("[src] is already occupied!"))
+		return .
+	if(target.abiotic())
+		to_chat(grabber, span_warning("Subject cannot have abiotic items on."))
+		return .
+	if(target.has_buckled_mobs()) //mob attached to us
+		to_chat(grabber, span_warning("[grabbed_thing] will not fit into the [src] because [grabbed_thing.p_they()] [grabbed_thing.p_have()] a slime latched onto [grabbed_thing.p_their()] head."))
+		return .
+	grabbed_thing.forceMove(src)
+	occupant = grabbed_thing
+	update_icon(UPDATE_ICON_STATE)
+	add_fingerprint(grabber)
+	SStgui.update_uis(src)
 
-	return ..()
 
 /obj/machinery/bodyscanner/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -227,10 +221,10 @@
 	new /obj/effect/decal/cleanable/blood/gibs/clock(get_turf(src))
 	qdel(src)
 
-/obj/machinery/bodyscanner/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/bodyscanner/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BodyScanner", "Body Scanner", 690, 600)
+		ui = new(user, src, "BodyScanner", "Body Scanner")
 		ui.open()
 
 /obj/machinery/bodyscanner/ui_data(mob/user)
@@ -273,7 +267,7 @@
 
 		var/bloodData[0]
 		bloodData["hasBlood"] = FALSE
-		if(!(NO_BLOOD in occupant.dna.species.species_traits))
+		if(!HAS_TRAIT(occupant, TRAIT_NO_BLOOD))
 			bloodData["hasBlood"] = TRUE
 			bloodData["volume"] = occupant.blood_volume
 			bloodData["percent"] = round(((occupant.blood_volume / BLOOD_VOLUME_NORMAL)*100))
@@ -353,9 +347,9 @@
 
 		occupantData["intOrgan"] = intOrganData
 
-		occupantData["blind"] = (BLINDNESS in occupant.mutations)
-		occupantData["colourblind"] = (COLOURBLIND in occupant.mutations)
-		occupantData["nearsighted"] = (NEARSIGHTED in occupant.mutations)
+		occupantData["blind"] = HAS_TRAIT(occupant, TRAIT_BLIND)
+		occupantData["colourblind"] = HAS_TRAIT(occupant, TRAIT_COLORBLIND)
+		occupantData["nearsighted"] = HAS_TRAIT(occupant, TRAIT_NEARSIGHTED)
 
 	data["occupant"] = occupantData
 	return data
@@ -552,11 +546,11 @@
 			dat += "<td>[organ.name]</td><td>N/A</td><td>[organ.damage]</td><td>[infection]:[mech][dead]</td><td></td>"
 			dat += "</tr>"
 		dat += "</table>"
-		if(BLINDNESS in occupant.mutations)
+		if(HAS_TRAIT(occupant, TRAIT_BLIND))
 			dat += "<font color='red'>Cataracts detected.</font><BR>"
-		if(COLOURBLIND in occupant.mutations)
+		if(HAS_TRAIT(occupant, TRAIT_COLORBLIND))
 			dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
-		if(NEARSIGHTED in occupant.mutations)
+		if(HAS_TRAIT(occupant, TRAIT_NEARSIGHTED))
 			dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 	else
 		dat += "[src] is empty."

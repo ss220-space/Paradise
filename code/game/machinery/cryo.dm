@@ -227,10 +227,10 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Cryo", "Криокапсула", 520, 490)
+		ui = new(user, src, "Cryo", "Криокапсула")
 		ui.open()
 
 /obj/machinery/atmospherics/unary/cryo_cell/ui_data(mob/user)
@@ -309,41 +309,50 @@
 
 	add_fingerprint(usr)
 
-/obj/machinery/atmospherics/unary/cryo_cell/attackby(var/obj/item/G, var/mob/user, params)
-	if(istype(G, /obj/item/reagent_containers/glass))
-		var/obj/item/reagent_containers/B = G
+
+/obj/machinery/atmospherics/unary/cryo_cell/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/reagent_containers/glass))
+		add_fingerprint(user)
+		var/obj/item/reagent_containers/glass/glass = I
 		if(beaker)
 			to_chat(user, span_warning("В криокапсулу уже загружена другая ёмкость."))
-			return
-		if(!user.drop_transfer_item_to_loc(B, src))
-			to_chat(user, "Вы не можете бросить [B]!")
-			return
-		add_fingerprint(user)
-		beaker =  B
-		add_attack_logs(user, null, "Added [B] containing [B.reagents.log_list()] to a cryo cell at [COORD(src)]")
-		user.visible_message("[user] загружа[pluralize_ru(user.gender,"ет","ют")] [B] в криокапсулу!", "Вы загружаете [B] в криокапсулу!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(glass, src))
+			return ..()
+		beaker = glass
+		add_attack_logs(user, null, "Added [glass] containing [glass.reagents.log_list()] to a cryo cell at [COORD(src)]")
+		user.visible_message(
+			span_notice("[user] загружа[pluralize_ru(user.gender,"ет","ют")] [glass] в криокапсулу!"),
+			span_notice("Вы загружаете [glass] в криокапсулу!"),
+		)
 		SStgui.update_uis(src)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(exchange_parts(user, G))
-		return
-
-	if(istype(G, /obj/item/grab))
-		var/obj/item/grab/GG = G
-		if(panel_open)
-			to_chat(user, span_boldnotice("Сначала закройте панель техобслуживания."))
-			return
-		if(!ismob(GG.affecting))
-			return
-		if(GG.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, span_warning("[GG.affecting] не влеза[pluralize_ru(GG.affecting.gender,"ет","ют")] в [src] потому что к [genderize_ru(GG.affecting.gender,"его","её","его","их")] голове прилеплен слайм."))
-			return
-		var/mob/M = GG.affecting
-		if(put_mob(M))
-			add_fingerprint(user)
-			qdel(GG)
-		return
 	return ..()
+
+
+/obj/machinery/atmospherics/unary/cryo_cell/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !ismob(grabbed_thing))
+		return .
+	if(panel_open)
+		to_chat(grabber, span_warning("Сначала закройте панель техобслуживания."))
+		return .
+	if(occupant)
+		to_chat(grabber, span_warning("Криокапсула уже занята!"))
+		return .
+	if(grabbed_thing.has_buckled_mobs()) //mob attached to us
+		to_chat(grabber, span_warning("[grabbed_thing] не влеза[pluralize_ru(grabbed_thing.gender,"ет","ют")] в [src] потому что к [genderize_ru(grabbed_thing.gender,"его","её","его","их")] голове прилеплен слайм."))
+		return .
+	if(put_mob(grabbed_thing))
+		add_fingerprint(grabber)
+
 
 /obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -474,7 +483,6 @@
 	if(!node)
 		to_chat(usr, span_warning("Криокапсула не подключена к трубам!"))
 		return
-	M.stop_pulling()
 	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.IsSleeping()))
 		to_chat(M, span_boldnotice("Вас окружает холодная жидкость. Кожа начинает замерзать."))
@@ -506,7 +514,7 @@
 			return
 		go_out()//and release him from the eternal prison.
 	else
-		if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
+		if(usr.default_can_use_topic(src) != UI_INTERACTIVE)
 			return
 		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 			return

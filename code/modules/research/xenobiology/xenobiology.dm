@@ -15,15 +15,22 @@
 	origin_tech = "biotech=3"
 	var/Uses = 1 // uses before it goes inert
 
-/obj/item/slime_extract/attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/slimepotion/enhancer))
+
+/obj/item/slime_extract/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/slimepotion/enhancer))
+		add_fingerprint(user)
 		if(Uses >= 5)
-			to_chat(user, "<span class='warning'>You cannot enhance this extract further!</span>")
+			to_chat(user, span_warning("You cannot enhance this extract any further."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, "<span class='notice'>You apply the enhancer to the slime extract. It may now be reused one more time.</span>")
+		to_chat(user, span_notice("You have applied the enhancer to the slime extract. It may now be reused one more time."))
 		Uses++
-		qdel(O)
-	..()
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/slime_extract/New()
 	..()
@@ -126,7 +133,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=4"
 
-/obj/item/slimepotion/afterattack(obj/item/reagent_containers/target, mob/user, proximity_flag)
+/obj/item/slimepotion/afterattack(obj/item/reagent_containers/target, mob/user, proximity_flag, params)
 	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(istype(target))
@@ -140,34 +147,39 @@
 	icon_state = "bottle19"
 	var/being_used = FALSE
 
-/obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/M, mob/user)
-	if(!isslime(M))
-		to_chat(user, "<span class='warning'>The potion only works on slimes!</span>")
-		return
-	if(M.stat)
-		to_chat(user, "<span class='warning'>The slime is dead!</span>")
-		return
-	if(being_used)
-		to_chat(user, "<span class='warning'>You're already using this on another slime!</span>")
-		return
-	if(M.rabid) //Stops being rabid, but doesn't become truly docile.
-		to_chat(M, "<span class='warning'>You absorb the potion, and your rabid hunger finally settles to a normal desire to feed.</span>")
-		to_chat(user, "<span class='notice'>You feed the slime the potion, calming its rabid rage.</span>")
-		M.rabid = FALSE
-		qdel(src)
-		return
-	M.docile = TRUE
-	M.set_nutrition(700)
-	to_chat(M, "<span class='warning'>You absorb the potion and feel your intense desire to feed melt away.</span>")
-	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
-	being_used = TRUE
-	var/newname = sanitize(copytext_char(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 
+/obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(!isslime(target))
+		to_chat(user, span_warning("The potion only works on slimes!"))
+		return .
+	if(target.stat)
+		to_chat(user, span_warning("The slime is dead!"))
+		return .
+	if(being_used)
+		to_chat(user, span_warning("You're already using this on another slime!"))
+		return .
+	if(!user.drop_transfer_item_to_loc(src, target))
+		return .
+	if(target.rabid) //Stops being rabid, but doesn't become truly docile.
+		to_chat(target, span_warning("You absorb the potion, and your rabid hunger finally settles to a normal desire to feed."))
+		to_chat(user, span_notice("You feed the slime the potion, calming its rabid rage."))
+		target.rabid = FALSE
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	target.docile = TRUE
+	target.set_nutrition(700)
+	to_chat(target, span_warning("You absorb the potion and feel your intense desire to feed melt away."))
+	to_chat(user, span_notice("You feed the slime the potion, removing its hunger and calming it."))
+	being_used = TRUE
+	var/newname = tgui_input_text(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime", MAX_NAME_LEN, TRUE)
 	if(!newname)
 		newname = "pet slime"
-	M.name = newname
-	M.real_name = newname
+	target.name = newname
+	target.real_name = newname
 	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/item/slimepotion/sentience
 	name = "sentience potion"
@@ -180,12 +192,12 @@
 	var/being_used = FALSE
 	var/sentience_type = SENTIENCE_ORGANIC
 
-/obj/item/slimepotion/sentience/afterattack(mob/living/M, mob/user, proximity_flag)
+/obj/item/slimepotion/sentience/afterattack(mob/living/M, mob/user, proximity_flag, params)
 	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(being_used || !ismob(M))
 		return
-	if(!isanimal(M) && !ismonkeybasic(M)) //работает только на животных и низших формах карбонов
+	if(!isanimal(M) && !is_monkeybasic(M))
 		to_chat(user, "<span class='warning'>[M] is not animal nor lesser life form!</span>")
 		return ..()
 	if(istype(M, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
@@ -219,7 +231,7 @@
 			SM.universal_speak = TRUE
 			SM.faction = user.faction
 			SM.master_commander = user
-			SM.can_collar = TRUE
+			SM.set_can_collar(TRUE)
 			to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 			if(SM.flags & HOLOGRAM) //Check to see if it's a holodeck creature
@@ -249,7 +261,9 @@
 			to_chat(user, "<span class='warning'>[src] won't work on [SM].</span>")
 			return ..()
 
-		var/reason_text = input(user, "Enter reason for giving sentience", "Reason for sentience potion", "") as null|text
+		var/reason_text = tgui_input_text(user, "Enter reason for giving sentience", "Reason for sentience potion")
+		if(!reason_text)
+			return
 
 		to_chat(user, "<span class='notice'>You offer [src.name] to [SM]...</span>")
 		being_used = TRUE
@@ -267,7 +281,7 @@
 			SM.faction = user.faction
 			SM.master_commander = user
 			SM.sentience_act()
-			SM.can_collar = TRUE
+			SM.set_can_collar(TRUE)
 			to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 			if(SM.flags & HOLOGRAM) //Check to see if it's a holodeck creature
@@ -295,15 +309,16 @@
 
 		return
 
-	//обработка низших форм: Обезьяны, стока, фарвы, неары, вульпина
-	if(ismonkeybasic(M) && !M.ckey)
+	if(is_monkeybasic(M) && !M.ckey)
 		var/mob/living/carbon/human/lesser/monkey/LF = M
 
 		if(LF.sentience_type != sentience_type)
 			to_chat(user, "<span class='warning'>[LF] совершенно безразлично смотрит на [src.name] в ваших руках.</span>")
 			return ..()
 
-		var/reason_text = input(user, "Enter reason for giving sentience", "Reason for sentience potion", "") as null|text
+		var/reason_text = tgui_input_text(user, "Enter reason for giving sentience", "Reason for sentience potion")
+		if(!reason_text)
+			return
 
 		to_chat(user, "<span class='notice'>Вы предлагаете [src] [LF]... Он[genderize_ru(LF.gender, "", "а", "о", "и")] осторожно осматрива[pluralize_ru(LF.gender,"ет","ют")] его</span>")
 		being_used = TRUE
@@ -353,7 +368,7 @@
 	var/prompted = FALSE
 	var/animal_type = SENTIENCE_ORGANIC
 
-/obj/item/slimepotion/transference/afterattack(mob/living/M, mob/user, proximity_flag)
+/obj/item/slimepotion/transference/afterattack(mob/living/M, mob/user, proximity_flag, params)
 	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(prompted || !ismob(M))
@@ -373,7 +388,7 @@
 		return
 
 	prompted = TRUE
-	if(alert("This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?",,"Yes","No")=="No")
+	if(tgui_alert(user, "This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?", "Consciousness Transfer", list("Yes", "No")) != "Yes")
 		prompted = FALSE
 		return
 
@@ -383,7 +398,7 @@
 	SM.universal_speak = TRUE
 	SM.faction = user.faction
 	SM.sentience_act() //Same deal here as with sentience
-	SM.can_collar = TRUE
+	SM.set_can_collar(TRUE)
 	user.death()
 	to_chat(SM, "<span class='notice'>In a quick flash, you feel your consciousness flow into [SM]!</span>")
 	to_chat(SM, "<span class='warning'>You are now [SM]. Your allegiances, alliances, and roles are still the same as they were prior to consciousness transfer!</span>")
@@ -400,23 +415,28 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
 
-/obj/item/slimepotion/slime/steroid/attack(mob/living/simple_animal/slime/M, mob/user)
-	if(!isslime(M))//If target is not a slime.
-		to_chat(user, "<span class='warning'>The steroid only works on baby slimes!</span>")
-		return ..()
-	if(M.age_state.age != SLIME_BABY) //Can't steroidify adults
-		to_chat(user, "<span class='warning'>Only baby slimes can use the steroid!</span>")
-		return ..()
-	if(M.stat)
-		to_chat(user, "<span class='warning'>The slime is dead!</span>")
-		return ..()
-	if(M.cores >= 5)
-		to_chat(user, "<span class='warning'>The slime already has the maximum amount of extract!</span>")
-		return ..()
 
-	to_chat(user, "<span class='notice'>You feed the slime the steroid. It will now produce one more extract.</span>")
-	M.cores++
+/obj/item/slimepotion/slime/steroid/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(!isslime(target))//If target is not a slime.
+		to_chat(user, span_warning("The steroid only works on baby slimes!"))
+		return .
+	if(target.age_state.age != SLIME_BABY) //Can't steroidify adults
+		to_chat(user, span_warning("Only baby slimes can use the steroid!"))
+		return .
+	if(target.stat)
+		to_chat(user, span_warning("The slime is dead!"))
+		return .
+	if(target.cores >= 5)
+		to_chat(user, span_warning("The slime already has the maximum amount of extract!"))
+		return .
+	if(!user.drop_transfer_item_to_loc(src, target))
+		return .
+	to_chat(user, span_notice("You feed the slime the steroid. It will now produce one more extract."))
+	target.cores++
 	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/item/slimepotion/enhancer
 	name = "extract enhancer"
@@ -432,20 +452,25 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle15"
 
-/obj/item/slimepotion/slime/stabilizer/attack(mob/living/simple_animal/slime/M, mob/user)
-	if(!isslime(M))
-		to_chat(user, "<span class='warning'>The stabilizer only works on slimes!</span>")
-		return ..()
-	if(M.stat)
-		to_chat(user, "<span class='warning'>The slime is dead!</span>")
-		return ..()
-	if(M.mutation_chance == 0)
-		to_chat(user, "<span class='warning'>The slime already has no chance of mutating!</span>")
-		return ..()
 
-	to_chat(user, "<span class='notice'>You feed the slime the stabilizer. It is now less likely to mutate.</span>")
-	M.mutation_chance = clamp(M.mutation_chance-15,0,100)
+/obj/item/slimepotion/slime/stabilizer/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(!isslime(target))
+		to_chat(user, span_warning("The stabilizer only works on slimes!"))
+		return .
+	if(target.stat)
+		to_chat(user, span_warning("The slime is dead!"))
+		return .
+	if(target.mutation_chance == 0)
+		to_chat(user, span_warning("The slime already has no chance of mutating!"))
+		return .
+	if(!user.drop_transfer_item_to_loc(src, target))
+		return .
+	to_chat(user, span_notice("You feed the slime the stabilizer. It is now less likely to mutate."))
+	target.mutation_chance = clamp(target.mutation_chance-15,0,100)
 	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/item/slimepotion/slime/mutator
 	name = "slime mutator"
@@ -454,24 +479,29 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle3"
 
-/obj/item/slimepotion/slime/mutator/attack(mob/living/simple_animal/slime/M, mob/user)
-	if(!isslime(M))
-		to_chat(user, "<span class='warning'>The mutator only works on slimes!</span>")
-		return ..()
-	if(M.stat)
-		to_chat(user, "<span class='warning'>The slime is dead!</span>")
-		return ..()
-	if(M.mutator_used)
-		to_chat(user, "<span class='warning'>This slime has already consumed a mutator, any more would be far too unstable!</span>")
-		return ..()
-	if(M.mutation_chance == 100)
-		to_chat(user, "<span class='warning'>The slime is already guaranteed to mutate!</span>")
-		return ..()
 
-	to_chat(user, "<span class='notice'>You feed the slime the mutator. It is now more likely to mutate.</span>")
-	M.mutation_chance = clamp(M.mutation_chance+12,0,100)
-	M.mutator_used = TRUE
+/obj/item/slimepotion/slime/mutator/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(!isslime(target))
+		to_chat(user, span_warning("The mutator only works on slimes!"))
+		return .
+	if(target.stat)
+		to_chat(user, span_warning("The slime is dead!"))
+		return .
+	if(target.mutator_used)
+		to_chat(user, span_warning("This slime has already consumed a mutator, any more would be far too unstable!"))
+		return .
+	if(target.mutation_chance >= 100)
+		to_chat(user, span_warning("The slime is already guaranteed to mutate!"))
+		return .
+	if(!user.drop_transfer_item_to_loc(src, target))
+		return .
+	to_chat(user, span_notice("You feed the slime the mutator. It is now more likely to mutate."))
+	target.mutation_chance = clamp(target.mutation_chance+12,0,100)
+	target.mutator_used = TRUE
 	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/item/slimepotion/speed
 	name = "slime speed potion"
@@ -481,7 +511,7 @@
 	icon_state = "bottle3"
 	origin_tech = "biotech=5"
 
-/obj/item/slimepotion/speed/afterattack(obj/O, mob/user, proximity_flag, drop = FALSE)
+/obj/item/slimepotion/speed/afterattack(obj/O, mob/user, proximity_flag, params, drop = FALSE)
 	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	..()
@@ -501,19 +531,19 @@
 		I.item_flags |= IGNORE_SLOWDOWN
 		I.update_equipped_item()
 
-	if(istype(O, /obj/vehicle))
-		var/obj/vehicle/V = O
-		var/vehicle_speed_mod = CONFIG_GET(number/movedelay/run_delay)
-		if(V.vehicle_move_delay <= vehicle_speed_mod)
-			to_chat(user, "<span class='warning'>[V] can't be made any faster!</span>")
-			return ..()
-		V.vehicle_move_delay = vehicle_speed_mod
+	else if(istype(O, /obj/vehicle))
+		var/obj/vehicle/vehicle = O
+		if(vehicle.check_potion(src, user))
+			return
+		return ..()
+
 	else if (!drop && istype(O, /obj/machinery/smartfridge))
 		// apply speed potion to smart fridge only if the potions drag'n'drop onto it
 		return ..()
 
+	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	O.add_atom_colour(COLOR_RED, WASHABLE_COLOUR_PRIORITY)
 	to_chat(user, "<span class='notice'>You slather the red gunk over [O], making it faster.</span>")
-	O.add_atom_colour("#FF0000", WASHABLE_COLOUR_PRIORITY)
 	qdel(src)
 
 
@@ -529,7 +559,7 @@
 	if(over_object == user || loc != user || !ishuman(user))
 		return FALSE
 
-	afterattack(over_object, user, TRUE, drop = TRUE)
+	afterattack(over_object, user, TRUE, params, drop = TRUE)
 
 
 /obj/item/slimepotion/clothing
@@ -554,7 +584,7 @@
 /obj/item/slimepotion/clothing/proc/cancel_effect(obj/item/clothing/C)
 	C.armor = C.armor.detachArmor(armor)
 
-/obj/item/slimepotion/clothing/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
+/obj/item/slimepotion/clothing/afterattack(obj/item/clothing/C, mob/user, proximity_flag, params)
 	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(!uses)
@@ -595,7 +625,7 @@
 	if(over_object == user || loc != user || !ishuman(user))
 		return FALSE
 
-	afterattack(over_object, user, TRUE)
+	afterattack(over_object, user, TRUE, params)
 
 
 /obj/item/slimepotion/clothing/fireproof

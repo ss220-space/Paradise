@@ -30,7 +30,7 @@
 		sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 /mob/living/update_nearsighted_effects()
-	if(NEARSIGHTED in mutations)
+	if(HAS_TRAIT(src, TRAIT_NEARSIGHTED))
 		overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/impaired, 1)
 	else
 		clear_fullscreen("nearsighted")
@@ -52,7 +52,7 @@
 // `information_only` is for stuff that's purely informational - like blindness overlays
 // This flag exists because certain things like angel statues expect this to be false for dead people
 /mob/living/has_vision(information_only = FALSE)
-	return (information_only && stat == DEAD) || !(AmountBlinded() || (BLINDNESS in mutations) || stat || get_total_tint() >= 3)
+	return (information_only && stat == DEAD) || !(AmountBlinded() || HAS_TRAIT(src, TRAIT_BLIND) || stat || get_total_tint() >= 3)
 
 // Whether the mob is capable of talking
 /mob/living/can_speak()
@@ -83,10 +83,8 @@
 
 	if(!(ignore_flags & INC_IGNORE_RESTRAINED) && HAS_TRAIT(src, TRAIT_RESTRAINED))
 		return TRUE
-	if(!(ignore_flags & INC_IGNORE_GRABBED) && LAZYLEN(grabbed_by))
-		for(var/obj/item/grab/grab as anything in grabbed_by)
-			if(grab.state > GRAB_PASSIVE)
-				return TRUE
+	if(!(ignore_flags & INC_IGNORE_GRABBED) && pulledby && pulledby.grab_state > GRAB_PASSIVE)
+		return TRUE
 	return FALSE
 
 

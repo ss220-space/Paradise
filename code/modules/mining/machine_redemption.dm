@@ -193,27 +193,37 @@
 		message_sent = TRUE
 
 // Interactions
-/obj/machinery/mineral/ore_redemption/attackby(obj/item/W, mob/user, params)
-	if(exchange_parts(user, W))
-		return
+/obj/machinery/mineral/ore_redemption/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	if(!powered())
 		return ..()
 
-	if(istype(W, /obj/item/card/id))
-		if(try_insert_id(user))
-			add_fingerprint(user)
-		return
-	else if(istype(W, /obj/item/disk/design_disk))
-		if(!user.drop_transfer_item_to_loc(W, src))
-			return
+	if(istype(I, /obj/item/card/id))
 		add_fingerprint(user)
-		inserted_disk = W
+		if(!try_insert_id(user))
+			return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/disk/design_disk))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_fingerprint(user)
+		inserted_disk = I
 		SStgui.update_uis(src)
 		interact(user)
-		user.visible_message("<span class='notice'>[user] inserts [W] into [src].</span>", \
-						 	 "<span class='notice'>You insert [W] into [src].</span>")
-		return
+		user.visible_message(
+			span_notice("[user] has inserted [I] into [src]."),
+			span_notice("You have inserted [I] into [src]."),
+		)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/machinery/mineral/ore_redemption/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -377,15 +387,18 @@
 			return FALSE
 	add_fingerprint(usr)
 
-/obj/machinery/mineral/ore_redemption/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	var/datum/asset/materials_assets = get_asset_datum(/datum/asset/simple/materials)
-	materials_assets.send(user)
-
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/mineral/ore_redemption/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "OreRedemption", name, 500, 820)
+		ui = new(user, src, "OreRedemption", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
+
+/obj/machinery/mineral/ore_redemption/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/materials),
+		get_asset_datum(/datum/asset/spritesheet/alloys)
+	)
 
 /**
   * Smelts the given stack of ore.

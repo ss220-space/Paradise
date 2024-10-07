@@ -2,6 +2,7 @@
 	name = "mecha weapon"
 	range = MECHA_RANGED
 	origin_tech = "materials=3;combat=3"
+	var/pb_knockback = 0
 	var/projectile
 	var/fire_sound
 	var/size = 0
@@ -58,6 +59,14 @@
 			projectiles--
 			A.fire()
 			playsound(chassis, fire_sound, 50, 1)
+
+	if(isliving(target))
+		if((get_dist(chassis, target) == 1) && pb_knockback)
+			var/mob/living/living_target = target
+			if(!(living_target.move_resist > MOVE_FORCE_NORMAL))
+				var/atom/throw_target = get_edge_target_turf(living_target, chassis.dir)
+				living_target.throw_at(throw_target, pb_knockback, 2)
+
 	log_message("Fired from [name], targeting [target].")
 	add_attack_logs(chassis.occupant, target, "fired a [src]")
 	start_cooldown()
@@ -169,20 +178,6 @@
 /obj/item/projectile/beam/pulse/heavy
 	name = "heavy pulse laser"
 	icon_state = "pulse1_bl"
-	var/life = 20
-
-/obj/item/projectile/beam/pulse/heavy/Bump(atom/A)
-	A.bullet_act(src, def_zone)
-	life -= 10
-	if(ismob(A))
-		var/mob/M = A
-		if(istype(firer, /mob))
-			add_attack_logs(firer, M, "Mecha-shot with <b>[src]</b>")
-		else
-			add_attack_logs(null, M, "Mecha-shot with <b>[src]</b>")
-	if(life <= 0)
-		qdel(src)
-	return
 
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
@@ -239,10 +234,10 @@
 			if(isobj(H.shoes) && !HAS_TRAIT(H.shoes, TRAIT_NODROP))
 				var/thingy = H.shoes
 				H.drop_item_ground(H.shoes)
-				walk_away(thingy,chassis,15,2)
+				SSmove_manager.move_away(thingy, chassis, 15, 2)
 				spawn(20)
 					if(thingy)
-						walk(thingy,0)
+						SSmove_manager.stop_looping(thingy)
 	for(var/obj/mecha/combat/reticence/R in oview(6, chassis))
 		R.occupant_message("\The [R] has protected you from [chassis]'s HONK at the cost of some power.")
 		R.use_power(R.get_charge() / 4)
@@ -265,7 +260,7 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_module_equip_info()
-	return "\[[projectiles]\][(projectiles < initial(projectiles))?" - <a href='?src=[UID()];rearm=1'>Rearm</a>":null]"
+	return "\[[projectiles]\][(projectiles < initial(projectiles))?" - <a href='byond://?src=[UID()];rearm=1'>Rearm</a>":null]"
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/proc/rearm()
 	if(projectiles < initial(projectiles))
@@ -323,6 +318,20 @@
 	projectiles_per_shot = 4
 	variance = 25
 	harmful = TRUE
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/riot
+	name = "LBX AC 9 \"Riot Scattershot\""
+	icon_state = "mecha_scatter"
+	origin_tech = "combat=2, materials=2"
+	equip_cooldown = 2 SECONDS
+	projectile = /obj/item/projectile/bullet/pellet/rubber
+	fire_sound = 'sound/weapons/gunshots/1shotgun_auto.ogg'
+	projectiles = 32
+	projectile_energy_cost = 75
+	projectiles_per_shot = 4
+	variance = 15
+	pb_knockback = 3
+	harmful = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/syndi
 	name = "LBX AC 11 \"Ram\""

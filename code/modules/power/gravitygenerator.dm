@@ -54,8 +54,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 
 // You aren't allowed to move.
-/obj/machinery/gravity_generator/Move()
-	. = ..()
+/obj/machinery/gravity_generator/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	qdel(src)
 
 
@@ -85,7 +84,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 /obj/machinery/gravity_generator/part/attackby(obj/item/I, mob/user, params)
 	if(!main_part)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return main_part.attackby(I, user, params)
 
 
@@ -163,7 +162,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/main/proc/setup_parts()
 	var/turf/our_turf = get_turf(src)
 	// 9x9 block obtained from the bottom middle of the block
-	var/list/spawn_turfs = block(locate(our_turf.x - 1, our_turf.y + 2, our_turf.z), locate(our_turf.x + 1, our_turf.y, our_turf.z))
+	var/list/spawn_turfs = block(our_turf.x - 1, our_turf.y + 2, our_turf.z, our_turf.x + 1, our_turf.y, our_turf.z)
 	var/count = 10
 	for(var/turf/part_turf as anything in spawn_turfs)
 		count--
@@ -223,18 +222,19 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 
 /obj/machinery/gravity_generator/main/attackby(obj/item/I, mob/user, params)
-	if(!(stat & BROKEN) || broken_state != GRAV_NEEDS_PLASTEEL || !istype(I, /obj/item/stack/sheet/plasteel))
+	if(user.a_intent == INTENT_HARM || !(stat & BROKEN) || broken_state != GRAV_NEEDS_PLASTEEL || !istype(I, /obj/item/stack/sheet/plasteel))
 		return ..()
 
-	var/obj/item/stack/sheet/plasteel/plasteel = I
-	if(plasteel.get_amount() < 10)
-		to_chat(user, span_notice("You need 10 sheets of plasteel."))
-		return
-
 	add_fingerprint(user)
-	plasteel.use(10)
-	to_chat(user, span_notice("You add the plating to the framework."))
-	playsound(loc, plasteel.usesound, 75, TRUE)
+	var/obj/item/stack/sheet/plasteel/plasteel = I
+	var/cached_sound = plasteel.usesound
+	if(!plasteel.use(10))
+		to_chat(user, span_warning("You need at least ten sheets of plasteel to repair the framework."))
+		return ATTACK_CHAIN_PROCEED
+
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	to_chat(user, span_notice("You have repaired the plating of the framework."))
+	playsound(loc, cached_sound, 75, TRUE)
 	broken_state++
 	update_icon(UPDATE_ICON_STATE)
 
@@ -292,9 +292,9 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 	var/dat = {"<meta charset="UTF-8">Gravity Generator Breaker: "}
 	if(breaker)
-		dat += "<span class='linkOn'>ON</span> <A href='?src=[UID()];gentoggle=1'>OFF</A>"
+		dat += "<span class='linkOn'>ON</span> <a href='byond://?src=[UID()];gentoggle=1'>OFF</A>"
 	else
-		dat += "<A href='?src=[UID()];gentoggle=1'>ON</A> <span class='linkOn'>OFF</span> "
+		dat += "<a href='byond://?src=[UID()];gentoggle=1'>ON</A> <span class='linkOn'>OFF</span> "
 
 	dat += "<br>Generator Status:<br><div class='statusDisplay'>"
 	if(charging_state != GRAV_POWER_IDLE)

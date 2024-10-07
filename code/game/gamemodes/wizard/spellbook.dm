@@ -242,13 +242,13 @@
 
 /datum/spellbook_entry/sacred_flame/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
 	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
-	ADD_TRAIT(user, RESISTHOT, MAGIC_TRAIT)
+	ADD_TRAIT(user, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	//ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	return ..()
 
 /datum/spellbook_entry/sacred_flame/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)
 	to_chat(user, "<span class='warning'>You no longer feel fireproof.</span>")
-	REMOVE_TRAIT(user, RESISTHOT, MAGIC_TRAIT)
+	REMOVE_TRAIT(user, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	//REMOVE_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	return ..()
 
@@ -318,7 +318,7 @@
 
 /datum/spellbook_entry/healtouch
 	name = "Healing Touch"
-	spell_type = /obj/effect/proc_holder/spell/touch/healtouch
+	spell_type = /obj/effect/proc_holder/spell/touch/healtouch/advanced
 	category = "Assistance"
 	cost = 1
 
@@ -422,12 +422,13 @@
 
 /datum/spellbook_entry/item/scryingorb/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(..())
-		if(!(XRAY in user.mutations))
-			user.mutations.Add(XRAY)
-			user.add_sight(SEE_MOBS|SEE_OBJS|SEE_TURFS)
+		if(!HAS_TRAIT_FROM(user, TRAIT_XRAY, SCRYING_ORB_TRAIT))
+			ADD_TRAIT(user, TRAIT_XRAY, SCRYING_ORB_TRAIT)
 			user.see_in_dark = 8
 			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-			to_chat(user, "<span class='notice'>The walls suddenly disappear.</span>")
+			user.update_sight()
+			user.update_misc_effects()
+			to_chat(user, span_notice("The walls suddenly disappear."))
 	return TRUE
 
 /datum/spellbook_entry/item/soulstones
@@ -447,6 +448,99 @@
 	desc = "A collection of wands that allow for a wide variety of utility. Wands do not recharge, so be conservative in use. Comes in a handy belt."
 	item_path = /obj/item/storage/belt/wands/full
 	category = "Artefacts"
+
+//Spell books
+
+/datum/spellbook_entry/item/kit_spell_book
+	name = "Kit random spell book"
+	desc = " Kit random spell book! Gives you 4 books at once for the price of 4 books? Or more expensive!"
+	item_path = /obj/item/storage/box/wizard/kit_spell_book
+	category = "Spell books"
+	cost = 4
+
+/datum/spellbook_entry/item/fireball_spell_book
+	name = "Fireball spell book"
+	desc = "Teaches the fireball spell."
+	item_path = /obj/item/spellbook/oneuse/fireball
+	category = "Spell books"
+	cost = 2
+
+/datum/spellbook_entry/item/smoke_spell_book
+	name = "Smoke spell book"
+	desc = "Teaches the smoke spell."
+	item_path = /obj/item/spellbook/oneuse/smoke
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/blind_spell_book
+	name = "Blind spell book"
+	desc = "Teaches the blind spell."
+	item_path = /obj/item/spellbook/oneuse/blind
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/mindswap_spell_book
+	name = "Mindswap spell book"
+	desc = "Teaches the mindswap spell."
+	item_path = /obj/item/spellbook/oneuse/mindswap
+	category = "Spell books"
+	cost = 2
+
+/datum/spellbook_entry/item/forcewall_spell_book
+	name = "Forcewall spell book"
+	desc = "Teaches the forcewall spell."
+	item_path = /obj/item/spellbook/oneuse/forcewall
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/knock_spell_book
+	name = "Knock spell book"
+	desc = "Teaches the knock spell."
+	item_path = /obj/item/spellbook/oneuse/knock
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/horsemask_spell_book
+	name = "Horsemask spell book"
+	desc = "Teaches the horsemask spell."
+	item_path = /obj/item/spellbook/oneuse/horsemask
+	category = "Spell books"
+	cost = 2
+
+/datum/spellbook_entry/item/charge_spell_book
+	name = "Charge spell book"
+	desc = "Teaches the charge spell."
+	item_path = /obj/item/spellbook/oneuse/charge
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/summonitem_spell_book
+	name = "Summon item spell book"
+	desc = "Teaches the summon item spell."
+	item_path = /obj/item/spellbook/oneuse/summonitem
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/sacredflame_spell_book
+	name = "Sacred flame spell book"
+	desc = "Teaches the sacred flame spell."
+	item_path = /obj/item/spellbook/oneuse/sacredflame
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/goliath_dash_spell_book
+	name = "Goliath dash spell book"
+	desc = "Teaches the goliath dash spell."
+	item_path = /obj/item/spellbook/oneuse/goliath_dash
+	category = "Spell books"
+	cost = 1
+
+/datum/spellbook_entry/item/watchers_look_spell_book
+	name = "Watchers look spell book"
+	desc = "Teaches the watchers look spell."
+	item_path = /obj/item/spellbook/oneuse/watchers_look
+	category = "Spell books"
+	cost = 1
 
 //Weapons and Armors
 /datum/spellbook_entry/item/battlemage
@@ -613,14 +707,14 @@
 
 /datum/spellbook_entry/loadout/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(destroy_spellbook)
-		var/response = alert(user, "The [src] loadout cannot be refunded once bought. Are you sure this is what you want?", "No refunds!", "No", "Yes")
-		if(response == "No")
+		var/response = tgui_alert(user, "The [src] loadout cannot be refunded once bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
+		if(response != "Yes")
 			return FALSE
 		to_chat(user, "<span class='notice'>[book] crumbles to ashes as you acquire its knowledge.</span>")
 		qdel(book)
 	else if(items_path.len)
-		var/response = alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", "No", "Yes")
-		if(response == "No")
+		var/response = tgui_alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
+		if(response != "Yes")
 			return FALSE
 	if(items_path.len)
 		var/obj/item/storage/box/wizard/B = new(src)
@@ -640,6 +734,8 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
+	/// If TRUE spellbook will not accept any refunds (demon's vial, morph's bottle etc.)
+	var/skip_refunds = FALSE
 	var/uses = 10
 	var/temp = null
 	var/op = 1
@@ -650,7 +746,7 @@
 	var/list/categories = list()
 	var/list/main_categories = list("Spells", "Magical Items", "Loadouts")
 	var/list/spell_categories = list("Offensive", "Defensive", "Mobility", "Assistance", "Rituals")
-	var/list/item_categories = list("Artefacts", "Weapons and Armors", "Staves", "Summons")
+	var/list/item_categories = list("Artefacts", "Spell books", "Weapons and Armors", "Staves", "Summons")
 	var/list/loadout_categories = list("Standard", "Unique")
 
 /obj/item/spellbook/proc/initialize()
@@ -670,59 +766,70 @@
 	..()
 	initialize()
 
-/obj/item/spellbook/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/contract/apprentice))
-		var/obj/item/contract/apprentice/contract = O
+
+/obj/item/spellbook/attackby(obj/item/I, mob/living/user, params)
+	if(user.a_intent == INTENT_HARM || skip_refunds)
+		return ..()
+
+	if(istype(I, /obj/item/contract/apprentice))
+		add_fingerprint(user)
+		var/obj/item/contract/apprentice/contract = I
 		if(contract.used)
-			to_chat(user, "<span class='warning'>The contract has been used, you can't get your points back now!</span>")
-		else
-			to_chat(user, "<span class='notice'>You feed the contract back into the spellbook, refunding your points.</span>")
-			uses+=2
-			qdel(O)
-		return
+			to_chat(user, span_warning("The contract has been used, you can't get your points back now!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You feed the contract back into the spellbook, refunding your points."))
+		uses += 2
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(O, /obj/item/guardiancreator))
-		var/obj/item/guardiancreator/guardian = O
+	if(istype(I, /obj/item/guardiancreator))
+		add_fingerprint(user)
+		var/obj/item/guardiancreator/guardian = I
 		if(guardian.used)
-			to_chat(user, "<span class='warning'>The deck of tarot cards has been used, you can't get your points back now!</span>")
-		else
-			to_chat(user, "<span class='notice'>You feed the deck of tarot cards back into the spellbook, refunding your points.</span>")
-			uses+=2
-			for(var/datum/spellbook_entry/item/tarotdeck/deck in entries)
-				if(!isnull(deck.limit))
-					deck.limit++
-			qdel(O)
-		return
+			to_chat(user, span_warning("The deck of tarot cards has been used, you can't get your points back now!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You feed the deck of tarot cards back into the spellbook, refunding your points.<"))
+		uses += 2
+		for(var/datum/spellbook_entry/item/tarotdeck/deck in entries)
+			if(!isnull(deck.limit))
+				deck.limit++
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(O, /obj/item/antag_spawner/slaughter_demon))
-		to_chat(user, "<span class='notice'>On second thought, maybe summoning a demon is a bad idea. You refund your points.</span>")
-		if(istype(O, /obj/item/antag_spawner/slaughter_demon/laughter))
-			uses += 1
-			for(var/datum/spellbook_entry/item/hugbottle/HB in entries)
-				if(!isnull(HB.limit))
-					HB.limit++
-		else if(istype(O, /obj/item/antag_spawner/slaughter_demon/shadow))
-			uses += 1
-			for(var/datum/spellbook_entry/item/shadowbottle/SB in entries)
-				if(!isnull(SB.limit))
-					SB.limit++
-		else
-			uses += 2
-			for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
-				if(!isnull(BB.limit))
-					BB.limit++
-		qdel(O)
-		return
+	if(istype(I, /obj/item/antag_spawner/slaughter_demon))
+		add_fingerprint(user)
+		to_chat(user, span_notice("On second thought, maybe summoning a demon is a bad idea. You refund your points."))
+		switch(I.type)
+			if(/obj/item/antag_spawner/slaughter_demon/laughter)
+				uses += 1
+				for(var/datum/spellbook_entry/item/hugbottle/bottle in entries)
+					if(!isnull(bottle.limit))
+						bottle.limit++
+			if(/obj/item/antag_spawner/slaughter_demon/shadow)
+				uses += 1
+				for(var/datum/spellbook_entry/item/shadowbottle/bottle in entries)
+					if(!isnull(bottle.limit))
+						bottle.limit++
+			else
+				uses += 2
+				for(var/datum/spellbook_entry/item/bloodbottle/bottle in entries)
+					if(!isnull(bottle.limit))
+						bottle.limit++
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(O, /obj/item/antag_spawner/morph))
-		to_chat(user, "<span class='notice'>On second thought, maybe awakening a morph is a bad idea. You refund your points.</span>")
+	if(istype(I, /obj/item/antag_spawner/morph))
+		add_fingerprint(user)
+		to_chat(user, span_notice("On second thought, maybe awakening a morph is a bad idea. You refund your points."))
 		uses += 1
-		for(var/datum/spellbook_entry/item/oozebottle/OB in entries)
-			if(!isnull(OB.limit))
-				OB.limit++
-		qdel(O)
-		return
+		for(var/datum/spellbook_entry/item/oozebottle/bottle in entries)
+			if(!isnull(bottle.limit))
+				bottle.limit++
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/item/spellbook/proc/GetCategoryHeader(category)
 	var/dat = ""
@@ -754,6 +861,9 @@
 		if("Artefacts")
 			dat += "Various magical artefacts to aid you.<BR><BR>"
 			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
+		if("Spell books")
+			dat += "Spell books to train your companions.<BR><BR>"
+			dat += "Various sets of spell books that will help you and your partner in creating chaos.<BR>"
 		if("Summons")
 			dat += "Magical items geared towards bringing in outside forces to aid you.<BR><BR>"
 			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
@@ -901,6 +1011,7 @@
 	var/spell = /obj/effect/proc_holder/spell/projectile/magic_missile //just a placeholder to avoid runtimes if someone spawned the generic
 	var/spellname = "sandbox"
 	var/used = 0
+	skip_refunds = TRUE
 	name = "spellbook of "
 	uses = 1
 	desc = "This template spellbook was never meant for the eyes of man..."
@@ -937,8 +1048,6 @@
 	used = 1
 	user.visible_message("<span class='caution'>[src] glows dark for a second!</span>")
 
-/obj/item/spellbook/oneuse/attackby()
-	return
 
 /obj/item/spellbook/oneuse/fireball
 	spell = /obj/effect/proc_holder/spell/fireball
@@ -1043,7 +1152,7 @@
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
 		ADD_TRAIT(magichead, TRAIT_NODROP, CURSED_ITEM_TRAIT(magichead.type))
 		magichead.item_flags |= DROPDEL	//curses!
-		magichead.flags_inv = NONE	//so you can still see their face
+		magichead.flags_inv &= ~HIDENAME	//so you can still see their face
 		magichead.voicechange = TRUE	//NEEEEIIGHH
 		if(!user.drop_item_ground(user.wear_mask))
 			qdel(user.wear_mask)
@@ -1103,7 +1212,7 @@
 
 /obj/item/spellbook/oneuse/random/Initialize()
 	. = ..()
-	var/static/banned_spells = list(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/fingergun/fake, /obj/item/spellbook/oneuse/mime/greaterwall)
+	var/static/banned_spells = list(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/fingergun/fake, /obj/item/spellbook/oneuse/mime/greaterwall, /obj/item/spellbook/oneuse/fake_gib, /obj/item/spellbook/oneuse/emp/used)
 	var/real_type = pick(subtypesof(/obj/item/spellbook/oneuse) - banned_spells)
 	new real_type(loc)
 	qdel(src)

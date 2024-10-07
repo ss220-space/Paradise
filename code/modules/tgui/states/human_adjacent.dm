@@ -1,3 +1,8 @@
+/*!
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 /**
  * tgui state: human_adjacent_state
  *
@@ -7,10 +12,10 @@
 
 GLOBAL_DATUM_INIT(human_adjacent_state, /datum/ui_state/human_adjacent_state, new)
 
-/datum/ui_state/human_adjacent_state/can_use_topic(src_object, mob/user)
+/datum/ui_state/human_adjacent_state/can_use_topic(src_object, mob/user, atom/ui_source)
 	. = user.default_can_use_topic(src_object)
 
 	var/dist = get_dist(src_object, user)
 	if((dist > 1) || (!ishuman(user)))
 		// Can't be used unless adjacent and human, even with TK
-		. = min(., STATUS_UPDATE)
+		. = min(., UI_UPDATE)

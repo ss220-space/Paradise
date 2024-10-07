@@ -3,7 +3,7 @@
 	desc = "A device used to project your voice. Loudly."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "megaphone"
-	item_state = "radio"
+	item_state = "megaphone"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 
@@ -13,8 +13,8 @@
 	var/span = ""
 	var/list/insultmsg = list("ИДИТЕ НАХУЙ!", "Я АГЕНТ СИНДИКАТА!", "СБ, ЗАСТРЕЛИТЕ МЕНЯ НЕМЕДЛЕННО!", "У МЕНЯ БОМБА!", "КАПИТАН ГАНДОН!", "ЗА СИНДИКАТ!")
 
-/obj/item/megaphone/attack_self(mob/living/user as mob)
-	if(user.client && (user.client.prefs.muted & MUTE_IC))
+/obj/item/megaphone/attack_self(mob/living/user)
+	if(check_mute(user.ckey, MUTE_IC))
 		to_chat(src, "<span class='warning'>You cannot speak in IC (muted).</span>")
 		return
 	if(!ishuman(user))
@@ -33,13 +33,13 @@
 		if(H && H.mind && H.mind.miming)
 			to_chat(user, "<span class='warning'>Your vow of silence prevents you from speaking.</span>")
 			return
-		if((COMIC in H.mutations) || H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/clown_voice))
+		if(HAS_TRAIT(H, TRAIT_COMIC) || H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/clown_voice))
 			span = "sans"
 	if(spamcheck)
 		to_chat(user, "<span class='warning'>\The [src] needs to recharge!</span>")
 		return
 
-	var/message = input(user, "Shout a message:", "Megaphone") as text|null
+	var/message = tgui_input_text(user, "Shout a message:", "Megaphone")
 	if(!message)
 		return
 	message = sanitize(copytext_char(message, 1, MAX_MESSAGE_LEN))
@@ -80,7 +80,7 @@
 		if(isrobot(user))
 			effect = SOUND_EFFECT_MEGAPHONE_ROBOT
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, user, M, message_tts, user.tts_seed, FALSE, effect)
-		log_debug("megaphone.saymsg(): [message]")
+		//log_debug("megaphone.saymsg(): [message]")
 
 /obj/item/megaphone/emag_act(mob/user)
 	if(!emagged)

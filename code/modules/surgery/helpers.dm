@@ -8,7 +8,7 @@
 		// or "sleeping" due to being hard knocked out (N2O or similar), rather than just napping.
 		// Either way, not easily woken up.
 		return 1
-	if(NO_PAIN in target.dna.species.species_traits)//if you don't feel pain, you can hold still
+	if(HAS_TRAIT(target, TRAIT_NO_PAIN))//if you don't feel pain, you can hold still
 		return 1
 	if(target.reagents.has_reagent("hydrocodone"))//really good pain killer
 		return 0.99

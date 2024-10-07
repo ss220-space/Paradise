@@ -23,24 +23,20 @@
 	. = ..()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
-/obj/item/storage/toolbox/attack(mob/living/carbon/human/H, mob/living/carbon/user)
+
+/obj/item/storage/toolbox/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
-
-	if(!istype(H))
-		return
-
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
+		return .
+	if(!ishuman(target))
+		return .
 	if(user.zone_selected != BODY_ZONE_PRECISE_EYES && user.zone_selected != BODY_ZONE_HEAD)
-		return
-
+		return .
 	if(!prob(blurry_chance))
-		return
+		return .
+	target.AdjustEyeBlurry(8 SECONDS)
+	to_chat(target, span_danger("You feel a buzz in your head and your vision gets blurry."))
 
-	if(force && (HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
-		to_chat(user, span_warning("You don't want to harm other living beings!"))
-		return
-
-	H.AdjustEyeBlurry(8 SECONDS)
-	to_chat(H, span_danger("You feel a buzz in your head and your vision gets blurry."))
 
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"
@@ -140,7 +136,7 @@
 	new /obj/item/crowbar/power(src)
 	new /obj/item/multitool/cyborg(src)
 	new /obj/item/stack/cable_coil(src, MAXCOIL)
-	new /obj/item/clothing/gloves/combat(src)
+	new /obj/item/clothing/gloves/combat/swat/syndicate(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 
 /obj/item/storage/toolbox/fakesyndi

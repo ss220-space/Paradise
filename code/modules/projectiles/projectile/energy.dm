@@ -27,7 +27,7 @@
 		do_sparks(1, 1, src)
 	else if(iscarbon(target))
 		var/mob/living/carbon/C = target
-		if(HULK in C.mutations)
+		if(HAS_TRAIT(C, TRAIT_HULK))
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		else if(C.status_flags & CANWEAKEN)
 			spawn(5)
@@ -75,10 +75,26 @@
 	stutter = 2 SECONDS
 	shockbull = TRUE
 
+/obj/item/projectile/energy/bolt/on_hit(atom/target)
+	. = ..()
+	var/mob/living/simple_animal/hostile/carp/carp = target
+	if(istype(carp))
+		carp.gib()
+
 /obj/item/projectile/energy/bolt/large
 	damage = 20
 	weaken = 0.1 SECONDS
 	stamina = 30
+
+/obj/item/projectile/energy/bolttoy
+	name = "bolttoy"
+	icon_state = "cbbolttoy"
+	hitsound = 'sound/weapons/pierce.ogg'
+	damage_type = STAMINA
+	nodamage = TRUE
+	weaken = 0.1 SECONDS
+	stutter = 2 SECONDS
+	shockbull = TRUE
 
 /obj/item/projectile/energy/shock_revolver
 	name = "shock bolt"
@@ -98,9 +114,24 @@
 	qdel(chain)
 
 /obj/item/projectile/energy/toxplasma
-	name = "plasma bolt"
+	name = "toxin bolt"
 	icon_state = "energy"
 	damage = 20
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	damage_type = TOX
 	irradiate = 20
+
+/obj/item/projectile/energy/weak_plasma
+	name = "plasma bolt"
+	icon_state = "plasma_light"
+	damage = 20
+	damage_type = BURN
+
+/obj/item/projectile/energy/charged_plasma
+	name = "charged plasma bolt"
+	icon_state = "plasma_heavy"
+	damage = 50
+	damage_type = BURN
+	armour_penetration = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
+	shield_buster = TRUE
+	reflectability = REFLECTABILITY_NEVER //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard.

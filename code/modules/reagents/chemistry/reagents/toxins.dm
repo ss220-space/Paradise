@@ -89,8 +89,8 @@
 	taste_description = "mint"
 
 /datum/reagent/minttoxin/on_mob_life(mob/living/M)
-	if(FAT in M.mutations)
-		M.gib()
+	if(HAS_TRAIT(M, TRAIT_FAT) && M.gib())
+		return STATUS_UPDATE_NONE
 	return ..()
 
 /datum/reagent/slimejelly
@@ -131,7 +131,7 @@
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == id)
+		if(C.get_blood_id() == id && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
 			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 			C.reagents.del_reagent(id)
 
@@ -297,7 +297,7 @@
 	if(current_cycle != 10 || !ishuman(target) || !target.dna || !islist(data) || !istype(data["dna"], /datum/dna))
 		return ..()
 	var/datum/dna/reagent_dna = data["dna"]
-	if(!reagent_dna.species.is_small)
+	if(!reagent_dna.species.is_monkeybasic)
 		target.change_dna(reagent_dna, TRUE, TRUE)
 		target.special_post_clone_handling()
 	return ..()
@@ -426,7 +426,7 @@
 						isDamaged = TRUE
 						if(H.has_pain())
 							H.emote("scream")
-					bodypart.receive_damage(0, clamp((volume - 5) * 3, 8, 75) * damage_coef / length(H.bodyparts))
+					H.apply_damage(clamp((volume - 5) * 3, 8, 75) * damage_coef / length(H.bodyparts), BURN, def_zone = bodypart)
 
 			if(volume > 9 && (H.wear_mask || H.head))
 				if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
@@ -462,15 +462,14 @@
 				var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 				if(affecting)
 					affecting.disfigure()
-				H.adjustBruteLoss(5)
-				H.adjustFireLoss(15)
+				H.take_overall_damage(5, 15)
 				H.emote("scream")
 			else
 				H.adjustBruteLoss(min(5, volume * 0.25))
 		else
 			to_chat(H, "<span class='warning'>The transparent acidic substance stings[volume < 25 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
 			if(volume >= 25)
-				H.adjustBruteLoss(2)
+				H.take_overall_damage(2)
 				H.emote("scream")
 
 
@@ -1119,20 +1118,19 @@
 		var/obj/structure/spacevine/SV = O
 		SV.on_chem_effect(src)
 
+
 /datum/reagent/glyphosate/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(!C.wear_mask) // If not wearing a mask
 			C.adjustToxLoss(lethality)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(IS_PLANT in H.dna.species.species_traits) //plantmen take extra damage
-				H.adjustToxLoss(3)
-				..()
+		if(HAS_TRAIT(C, TRAIT_PLANT_ORIGIN))	//plantmen take extra damage
+			C.adjustToxLoss(3)
+			..()
 	else if(istype(M, /mob/living/simple_animal/diona)) //nymphs take EVEN MORE damage
-		var/mob/living/simple_animal/diona/D = M
-		D.adjustHealth(100)
+		M.apply_damage(100)
 		..()
+
 
 /datum/reagent/glyphosate/atrazine
 	name = "Atrazine"
@@ -1194,6 +1192,9 @@
 			M.AdjustEyeBlurry(20 SECONDS)
 	return ..() | update_flags
 
+/datum/reagent/capulettium/on_mob_delete(mob/living/M)
+	fakerevive(M)
+	..()
 
 /datum/reagent/capulettium_plus
 	name = "Capulettium Plus"
@@ -1214,8 +1215,7 @@
 	return ..()
 
 /datum/reagent/capulettium_plus/on_mob_delete(mob/living/M)
-	if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
-		fakerevive(M)
+	fakerevive(M)
 	..()
 
 /datum/reagent/toxic_slurry
@@ -1301,13 +1301,29 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "electricity"
 
-/datum/reagent/teslium/on_mob_life(mob/living/M)
+
+/datum/reagent/teslium/on_mob_life(mob/living/affected_mob)
 	shock_timer++
 	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
 		shock_timer = 0
-		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, TRUE) //Override because it's caused from INSIDE of you
-		playsound(M, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		affected_mob.electrocute_act(rand(5, 20), "теслиума внутри организма", flags = SHOCK_NOGLOVES)	//SHOCK_NOGLOVES because it's caused from INSIDE of you
+		playsound(affected_mob, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return ..()
+
+
+/datum/reagent/teslium/on_mob_add(mob/living/carbon/human/affected_mob)
+	. = ..()
+	if(!ishuman(affected_mob))
+		return .
+	affected_mob.physiology.siemens_coeff *= 2
+
+
+/datum/reagent/teslium/on_mob_delete(mob/living/carbon/human/affected_mob)
+	. = ..()
+	if(!ishuman(affected_mob))
+		return .
+	affected_mob.physiology.siemens_coeff *= 0.5
+
 
 /datum/reagent/gluttonytoxin
 	name = "Gluttony's Blessing"
@@ -1392,6 +1408,6 @@
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		for(var/obj/item/organ/internal/organ in C.get_organs_zone(BODY_ZONE_PRECISE_GROIN))
-			organ.receive_damage(rand(5, 10))
+			organ.internal_receive_damage(rand(5, 10))
 
 	return ..()

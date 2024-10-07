@@ -87,7 +87,7 @@
 	suit = /obj/item/clothing/suit/space/deathsquad/officer
 	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/storage/belt/military/assault
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/combat
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
 	head = /obj/item/clothing/head/helmet/space/deathsquad/beret
@@ -130,6 +130,7 @@
 	jobtype = /datum/job/ntspecops/supreme
 
 	suit = /obj/item/clothing/suit/space/deathsquad/officer/supreme
+	belt = /obj/item/storage/belt/rapier/centcomm
 	head = /obj/item/clothing/head/helmet/space/deathsquad/beret/supreme
 	shoes =	/obj/item/clothing/shoes/cowboy/white
 	gloves = /obj/item/clothing/gloves/color/white

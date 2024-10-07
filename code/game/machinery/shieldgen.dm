@@ -18,7 +18,7 @@
 	..()
 
 /obj/machinery/shield/Destroy()
-	opacity = FALSE
+	set_opacity(FALSE)
 	set_density(FALSE)
 	air_update_turf(1)
 	return ..()
@@ -26,7 +26,7 @@
 /obj/machinery/shield/has_prints()
 	return FALSE
 
-/obj/machinery/shield/Move()
+/obj/machinery/shield/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
@@ -56,7 +56,8 @@
 				qdel(src)
 
 /obj/machinery/shield/blob_act()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/machinery/shield/cult
 	name = "cult barrier"
@@ -236,36 +237,50 @@
 		else
 			to_chat(user, "The device must first be secured to the floor.")
 
-/obj/machinery/shieldgen/attackby(obj/item/I as obj, mob/user as mob, params)
+
+/obj/machinery/shieldgen/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/emag))
 		add_fingerprint(user)
 		malfunction = TRUE
 		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else if(istype(I, /obj/item/stack/cable_coil) && malfunction && is_open)
-		var/obj/item/stack/cable_coil/coil = I
-		to_chat(user, span_notice("You begin to replace the wires."))
-		if(do_after(user, 3 SECONDS * coil.toolspeed * gettoolspeedmod(user), src))
-			if(!src || !coil)
-				return
-			add_fingerprint(user)
-			coil.use(1)
-			health = max_health
-			malfunction = TRUE
-			playsound(loc, coil.usesound, 50, 1)
-			to_chat(user, span_notice("You repair the [src]!"))
-			update_icon(UPDATE_ICON_STATE)
-
-	else if(I.GetID())
-		if(allowed(user))
-			add_fingerprint(user)
-			locked = !locked
-			to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
-		else
-			to_chat(user, span_warning("Access denied."))
-
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/stack/cable_coil))
+		add_fingerprint(user)
+		if(!malfunction)
+			to_chat(user, span_warning("The [name] is not malfunctioning!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!is_open)
+			to_chat(user, span_warning("Open panel first!"))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/stack/cable_coil/coil = I
+		if(coil.get_amount() < 1)
+			to_chat(user, span_warning("You need more cable for this!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You begin to replace the wires..."))
+		playsound(loc, coil.usesound, 50, TRUE)
+		if(!do_after(user, 3 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || !malfunction || !is_open || QDELETED(coil) || !coil.use(1))
+			return ATTACK_CHAIN_PROCEED
+		health = max_health
+		malfunction = FALSE
+		to_chat(user, span_notice("You repair the [src]!"))
+		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(I.GetID() || is_pda(I))
+		add_fingerprint(user)
+		if(!allowed(user))
+			to_chat(user, span_warning("Access denied."))
+			return ATTACK_CHAIN_PROCEED
+		locked = !locked
+		to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/machinery/shieldgen/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -313,7 +328,6 @@
 	req_access = list(ACCESS_TELEPORTER)
 	var/active = 0
 	var/power = 0
-	var/state = 0
 	var/steps = 0
 	var/last_check = 0
 	var/check_delay = 10
@@ -360,7 +374,7 @@
 //		use_power(250) //uses APC power
 
 /obj/machinery/shieldwallgen/attack_hand(mob/user)
-	if(state != 1)
+	if(!anchored)
 		to_chat(user, span_warning("The shield generator needs to be firmly secured to the floor first."))
 		return 1
 	if(locked && !issilicon(user))
@@ -398,7 +412,7 @@
 		storedpower = 0
 
 	if(active == 1)
-		if(!state == 1)
+		if(!anchored)
 			active = 0
 			return
 		spawn(1)
@@ -464,38 +478,32 @@
 		CF.dir = field_dir
 
 
+/obj/machinery/shieldwallgen/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(active)
+		to_chat(user, span_warning("Turn off the field generator first."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	set_anchored(!anchored)
+	to_chat(user, "You [anchored ? "secure" : "loosen"] the external reinforcing bolts [anchored ? "to" : "from"] the floor.")
+
+
 /obj/machinery/shieldwallgen/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_WRENCH)
-		if(active)
-			to_chat(user, "Turn off the field generator first.")
-			return
-
-		else if(state == 0)
-			add_fingerprint(user)
-			state = 1
-			playsound(loc, I.usesound, 75, 1)
-			to_chat(user, "You secure the external reinforcing bolts to the floor.")
-			set_anchored(TRUE)
-			return
-
-		else if(state == 1)
-			add_fingerprint(user)
-			state = 0
-			playsound(loc, I.usesound, 75, 1)
-			to_chat(user, "You undo the external reinforcing bolts.")
-			set_anchored(FALSE)
-			return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 	if(I.GetID() || is_pda(I))
-		if(allowed(user))
-			add_fingerprint(user)
-			locked = !locked
-			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
-		else
+		add_fingerprint(user)
+		if(!allowed(user))
 			to_chat(user, span_warning("Access denied."))
+			return ATTACK_CHAIN_PROCEED
+		locked = !locked
+		to_chat(user, span_notice("Controls are now [locked ? "locked." : "unlocked."]"))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else
-		..()
+	return ..()
+
 
 /obj/machinery/shieldwallgen/proc/cleanup(NSEW)
 	var/obj/machinery/shieldwall/F
@@ -643,12 +651,10 @@
 		return FALSE
 
 
-/obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	if(isliving(caller))
-		var/mob/living/M = caller
-		if("syndicate" in M.faction)
-			return TRUE
-	return ..(ID, to_dir, caller)
+/obj/machinery/shieldwall/syndicate/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(pass_info.faction && ("syndicate" in pass_info.faction))
+		return TRUE
+	return ..()
 
 
 /obj/machinery/shieldwall/syndicate/proc/phaseout()
@@ -663,9 +669,12 @@
 	phaseout()
 	return ..()
 
-/obj/machinery/shieldwall/syndicate/attackby(obj/item/W, mob/user, params)
-	phaseout()
-	return ..()
+
+/obj/machinery/shieldwall/syndicate/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
+		phaseout()
+
 
 /obj/machinery/shieldwall/syndicate/bullet_act(obj/item/projectile/Proj)
 	phaseout()

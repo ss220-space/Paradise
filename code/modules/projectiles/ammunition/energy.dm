@@ -3,12 +3,15 @@
 	desc = "The part of the gun that makes the laser go pew"
 	caliber = "energy"
 	projectile_type = /obj/item/projectile/energy
-	var/e_cost = 100 //The amount of energy a cell needs to expend to create this shot.
-	var/select_name = "energy"
-	var/alt_select_name = null
 	fire_sound = 'sound/weapons/gunshots/1laser10.ogg'
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
-	leaves_residue = 0
+	leaves_residue = FALSE
+	/// The amount of energy a cell needs to expend to create this shot.
+	var/e_cost = 100
+	/// Identifier for the firemode, mostly used in icon updates.
+	var/select_name = "energy"
+	/// Fluff fire mode name showed to the user.
+	var/fluff_select_name
 
 /obj/item/ammo_casing/energy/laser
 	projectile_type = /obj/item/projectile/beam/laser
@@ -150,21 +153,46 @@
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	harmful = FALSE
 
-/obj/item/ammo_casing/energy/flora/yield
-	projectile_type = /obj/item/projectile/energy/florayield
-	select_name = "yield"
+/obj/item/ammo_casing/energy/flora/alpha
+	name = "alpha"
+	select_name = "floraalpha"
+	fire_sound = 'sound/weapons/gunshots/1declone.ogg'
+	projectile_type = /obj/item/projectile/energy/floraalpha
+	harmful = TRUE
+	click_cooldown_override = 2
+	e_cost = 150
 
-/obj/item/ammo_casing/energy/flora/mut
-	projectile_type = /obj/item/projectile/energy/floramut
-	select_name = "mutation"
+/obj/item/ammo_casing/energy/flora/alpha/emag
+	projectile_type = /obj/item/projectile/energy/floraalpha/emag
+	e_cost = 225
+
+/obj/item/ammo_casing/energy/flora/beta
+	name = "beta"
+	select_name = "florabeta"
+	projectile_type = /obj/item/projectile/energy/florabeta
+	click_cooldown_override = 1
+	e_cost = 75
+
+/obj/item/ammo_casing/energy/flora/gamma
+	name = "gamma"
+	select_name = "floragamma"
+	projectile_type = /obj/item/projectile/energy/floragamma
+	delay = 10
+	e_cost = 675
+
+/obj/item/ammo_casing/energy/flora/gamma/fire(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/firer_source_atom)
+	playsound(src.loc, 'sound/weapons/floragun_gamma.ogg', 75, TRUE)
+	if(!do_after(user, 0.5 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE, progress = FALSE))
+		return FALSE
+	. = ..()
 
 /obj/item/ammo_casing/energy/temp
 	projectile_type = /obj/item/projectile/temp
 	fire_sound = 'sound/weapons/gunshots/1laser7.ogg'
 	var/temp = 300
 
-/obj/item/ammo_casing/energy/temp/New()
-	..()
+/obj/item/ammo_casing/energy/temp/Initialize(mapload)
+	. = ..()
 	BB = null
 
 /obj/item/ammo_casing/energy/temp/newshot()
@@ -241,6 +269,10 @@
 	select_name = "bolt"
 	e_cost = 500
 	fire_sound = 'sound/weapons/gunshots/1heavysuppres.ogg'
+
+/obj/item/ammo_casing/energy/bolt/bolttoy
+	projectile_type = /obj/item/projectile/energy/bolttoy
+	select_name = "bolttoy"
 
 /obj/item/ammo_casing/energy/bolt/large
 	projectile_type = /obj/item/projectile/energy/bolt/large
@@ -335,6 +367,20 @@
 	fire_sound = 'sound/weapons/gunshots/1plasma.ogg'
 	select_name = "plasma dart"
 
+/obj/item/ammo_casing/energy/weak_plasma
+	projectile_type = /obj/item/projectile/energy/weak_plasma
+	e_cost = 60 // With no charging, 500 damage from 25 shots.
+	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
+	fire_sound = 'sound/weapons/gunshots/1plasma.ogg'
+	select_name = null //If the select name is null, it does not send a message of switching modes to the user, important on the pistol.
+
+/obj/item/ammo_casing/energy/charged_plasma
+	projectile_type = /obj/item/projectile/energy/charged_plasma
+	e_cost = 0 //Charge is used when you charge the gun. Prevents issues.
+	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
+	fire_sound = 'sound/weapons/marauder.ogg' //Should be different enough to get attention
+	select_name = null
+
 /obj/item/ammo_casing/energy/clown
 	projectile_type = /obj/item/projectile/clown
 	muzzle_flash_effect = null
@@ -357,6 +403,22 @@
 	fire_sound = 'sound/weapons/marauder.ogg'
 	delay = 50
 	select_name = "snipe"
+
+/obj/item/ammo_casing/energy/podsniper/disabler
+	projectile_type = /obj/item/projectile/beam/podsniper/disabler
+	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	fire_sound = 'sound/weapons/LSR-39_disabler.ogg'
+	delay = 3 SECONDS
+	e_cost = 100
+	select_name = "disable"
+
+/obj/item/ammo_casing/energy/podsniper/laser
+	projectile_type = /obj/item/projectile/beam/podsniper/laser
+	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	fire_sound = 'sound/weapons/LSR-39_kill.ogg'
+	delay = 3 SECONDS
+	e_cost = 150
+	select_name = "kill"
 
 /obj/item/ammo_casing/energy/teleport
 	projectile_type = /obj/item/projectile/energy/teleport
@@ -390,8 +452,8 @@
 /obj/item/ammo_casing/energy/dominator/stun
 	projectile_type = /obj/item/projectile/energy/electrode/dominator
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
-	select_name = "stun"
-	alt_select_name = "taser"
+	select_name = "taser"
+	fluff_select_name = "stun"
 	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
 	e_cost = 250
 	delay = 15
@@ -400,8 +462,8 @@
 /obj/item/ammo_casing/energy/dominator/paralyzer
 	projectile_type = /obj/item/projectile/beam/dominator/paralyzer
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
-	select_name  = "non-lethal paralyzer"
-	alt_select_name = "disable"
+	select_name = "disable"
+	fluff_select_name  = "non-lethal paralyzer"
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	e_cost = 100
 	harmful = FALSE
@@ -409,16 +471,16 @@
 /obj/item/ammo_casing/energy/dominator/eliminator
 	projectile_type = /obj/item/projectile/beam/dominator/eliminator
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
-	select_name = "lethal-eliminator"
-	alt_select_name = "lethal"
+	select_name = "lethal"
+	fluff_select_name = "lethal-eliminator"
 	fire_sound = 'sound/weapons/gunshots/1laser10.ogg'
 	e_cost = 200
 
 /obj/item/ammo_casing/energy/dominator/slaughter
 	projectile_type = /obj/item/projectile/beam/dominator/slaughter
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
-	select_name  = "execution-slaughter"
-	alt_select_name = "destroy"
+	select_name = "destroy"
+	fluff_select_name  = "execution-slaughter"
 	fire_sound = 'sound/weapons/marauder.ogg'
 	e_cost = 250
 	delay = 30
@@ -430,6 +492,7 @@
 	delay = 25
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	select_name  = "emitter"
+
 /obj/item/ammo_casing/energy/emittergunborg
 	projectile_type = /obj/item/projectile/beam/emitter
 	fire_sound = 'sound/weapons/emitter.ogg'

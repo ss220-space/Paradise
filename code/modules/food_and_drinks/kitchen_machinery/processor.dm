@@ -12,8 +12,8 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 50
-	var/rating_speed = 1
-	var/rating_amount = 1
+	var/rating_speed = 0
+	var/rating_amount = 0
 
 /obj/machinery/processor/New()
 		..()
@@ -24,10 +24,12 @@
 		RefreshParts()
 
 /obj/machinery/processor/RefreshParts()
+	rating_speed = 0
+	rating_amount = 0
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		rating_amount = B.rating
+		rating_amount += B.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		rating_speed = M.rating
+		rating_speed += M.rating
 
 /obj/machinery/processor/process()
 	if(processing)
@@ -56,7 +58,7 @@
 
 /datum/food_processor_process/proc/process_food(loc, what, obj/machinery/processor/processor)
 	if(output && loc && processor)
-		for(var/i = 0, i < processor.rating_amount, i++)
+		for(var/i in 1 to processor.rating_amount)
 			new output(loc)
 	if(what)
 		qdel(what)
@@ -160,44 +162,72 @@
 		return P
 	return 0
 
-/obj/machinery/processor/attackby(obj/item/O, mob/user, params)
-	add_fingerprint(user)
+
+/obj/machinery/processor/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 	if(processing)
-		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
-		return 1
+		to_chat(user, span_warning("The [name] is working."))
+		return ATTACK_CHAIN_PROCEED
 
-	if(default_deconstruction_screwdriver(user, "processor_open", "processor", O))
-		add_fingerprint(user)
-		return
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(exchange_parts(user, O))
-		return
+	add_fingerprint(user)
+	var/datum/food_processor_process/recipe = select_recipe(I)
+	if(!recipe)
+		to_chat(user, span_warning("The [I.name] probably won't blend."))
+		return ATTACK_CHAIN_PROCEED
 
-	if(default_unfasten_wrench(user, O))
-		return
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
 
-	default_deconstruction_crowbar(user, O)
-	var/obj/item/what = O
-	var/obj/item/grab/grab
-	if(istype(O, /obj/item/grab))
-		grab = O
-		what = grab.affecting
+	user.visible_message(
+		span_notice("[user] puts [I.name] into [src]."),
+		span_notice("You have put [I] into [src]."),
+	)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
-	var/datum/food_processor_process/P = select_recipe(what)
 
-	if(!P)
-		to_chat(user, "<span class='warning'>That probably won't blend.</span>")
+/obj/machinery/processor/screwdriver_act(mob/living/user, obj/item/I)
+	if(processing)
+		to_chat(user, span_warning("The [name] is working."))
 		return TRUE
+	return default_deconstruction_screwdriver(user, "processor_open", "processor", I)
 
-	if(grab)
-		qdel(grab)
-		what.forceMove(src)
-	else if(!user.drop_transfer_item_to_loc(what, src))
-		return
 
-	user.visible_message("<span class='notice'>\the [user] puts \the [what] into \the [src].</span>", \
-		"<span class='notice'>You put \the [what] into \the [src].")
+/obj/machinery/processor/wrench_act(mob/living/user, obj/item/I)
+	if(processing)
+		to_chat(user, span_warning("The [name] is working."))
+		return TRUE
+	return default_unfasten_wrench(user, I)
+
+
+/obj/machinery/processor/crowbar_act(mob/living/user, obj/item/I)
+	if(processing)
+		to_chat(user, span_warning("The [name] is working."))
+		return TRUE
+	return default_deconstruction_crowbar(user, I)
+
+
+/obj/machinery/processor/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE)
+		return .
+	if(processing)
+		to_chat(grabber, span_warning("[src] is already processing something!"))
+		return .
+	var/datum/food_processor_process/recipe = select_recipe(grabbed_thing)
+	if(!recipe)
+		to_chat(grabber, span_warning("That probably won't blend."))
+		return .
+	add_fingerprint(grabber)
+	grabbed_thing.forceMove(src)
+	grabber.visible_message(
+		span_notice("[grabber] puts [grabbed_thing.name] into [src]."),
+		span_notice("You put [grabbed_thing.name] into [src]."),
+	)
 
 
 /obj/machinery/processor/attack_hand(mob/user)

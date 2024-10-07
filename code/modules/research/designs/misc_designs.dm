@@ -141,3 +141,13 @@
 	reagents_list = list("firefighting_foam" = 1)
 	build_path = /obj/item/extinguisher_refill
 	category = list("Miscellaneous")
+
+/datum/design/customat_canister
+	name = "Customat Canister"
+	desc = "Канистра для Кастомата."
+	id = "customat_canister"
+	req_tech = list("programming" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 800, MAT_GLASS = 600)
+	build_path = /obj/item/vending_refill/custom
+	category = list("Miscellaneous")

@@ -62,12 +62,12 @@
 		return FALSE
 
 
-/obj/structure/barricade/attack_hand(mob/user)
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+/obj/structure/barricade/attack_hand(mob/living/carbon/human/user)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
-		attack_generic(user, user.dna.species.obj_damage)
+		attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		return
 	else
 		..()
@@ -85,22 +85,26 @@
 	stacktype = /obj/item/stack/sheet/wood
 
 
-/obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
-	if(istype(I,/obj/item/stack/sheet/wood))
-		var/obj/item/stack/sheet/wood/W = I
-		if(W.get_amount() < 5)
+/obj/structure/barricade/wooden/attackby(obj/item/I, mob/living/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I,/obj/item/stack/sheet/wood) && isturf(loc))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/wood/wood = I
+		if(wood.get_amount() < 5)
 			to_chat(user, span_warning("You need at least five wooden planks to make a wall!"))
-			return
-		else
-			to_chat(user, span_notice("You start adding [I] to [src]..."))
-			if(do_after(user, 5 SECONDS, src))
-				if(!W.use(5))
-					return
-				var/turf/T = get_turf(src)
-				T.ChangeTurf(/turf/simulated/wall/mineral/wood/nonmetal)
-				qdel(src)
-			return
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You start adding [I] to [src]..."))
+		if(do_after(user, 5 SECONDS, src) || QDELETED(wood) || !wood.use(5) || !isturf(loc))
+			return ATTACK_CHAIN_PROCEED
+		var/turf/our_turf = loc
+		our_turf.ChangeTurf(/turf/simulated/wall/mineral/wood/nonmetal)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/structure/barricade/wooden/crude
 	name = "crude plank barricade"
@@ -120,13 +124,15 @@
 	desc = "Bags of sand. Self explanatory."
 	icon = 'icons/obj/smooth_structures/sandbags.dmi'
 	icon_state = "sandbags"
+	base_icon_state = "sandbags"
 	max_integrity = 280
 	proj_pass_rate = 20
 	pass_flags_self = LETPASSTHROW
 	bar_material = SAND
 	climbable = TRUE
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/barricade/sandbags, /turf/simulated/wall, /turf/simulated/wall/r_wall, /obj/structure/falsewall, /obj/structure/falsewall/reinforced, /turf/simulated/wall/rust, /turf/simulated/wall/r_wall/rust, /obj/structure/barricade/security)
+	smooth = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_SANDBAGS
+	canSmoothWith = SMOOTH_GROUP_SECURITY_BARRICADE + SMOOTH_GROUP_SANDBAGS + SMOOTH_GROUP_WALLS
 	stacktype = null
 
 /obj/structure/barricade/security
@@ -159,7 +165,7 @@
 	name = "barrier grenade"
 	desc = "Instant cover."
 	icon = 'icons/obj/weapons/grenade.dmi'
-	icon_state = "flashbang"
+	icon_state = "barrier"
 	item_state = "flashbang"
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
 	var/mode = SINGLE
@@ -205,7 +211,7 @@
 				new /obj/structure/barricade/security(target_turf2)
 	qdel(src)
 
-/obj/item/grenade/barrier/ui_action_click(mob/user)
+/obj/item/grenade/barrier/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_mode(user)
 
 

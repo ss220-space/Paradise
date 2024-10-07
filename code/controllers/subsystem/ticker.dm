@@ -27,6 +27,8 @@ SUBSYSTEM_DEF(ticker)
 	var/datum/game_mode/mode = null
 	/// The current pick of lobby music played in the lobby
 	var/login_music
+	var/login_music_data
+	var/selected_lobby_music
 	/// List of all minds in the game. Used for objective tracking
 	var/list/datum/mind/minds = list()
 	/// icon_state the chaplain has chosen for his bible
@@ -75,20 +77,18 @@ SUBSYSTEM_DEF(ticker)
 	var/list/randomtips = list()
 	var/list/memetips = list()
 
+	var/music_available = 0
 
 /datum/controller/subsystem/ticker/Initialize()
-	login_music = pick(\
-	'sound/music/thunderdome.ogg',\
-	'sound/music/space.ogg',\
-	'sound/music/pilotpriest-origin-one.ogg',\
-	'sound/music/pilotpriest-tell-them-now.ogg',\
-	'sound/music/pilotpriest-now-be-the-light.ogg',\
-	'sound/music/title1.ogg',\
-	'sound/music/title2.ogg',\
-	'sound/music/title3.ogg',)
+	login_music_data = list()
+	login_music = choose_lobby_music()
+
+	if(!login_music)
+		to_chat(world, span_boldwarning("Could not load lobby music.")) //yogs end
 
 	randomtips = file2list("strings/tips.txt")
 	memetips = file2list("strings/sillytips.txt")
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/ticker/fire()
@@ -100,9 +100,6 @@ SUBSYSTEM_DEF(ticker)
 			to_chat(world, "Please, setup your character and select ready. Game will start in [CONFIG_GET(number/pregame_timestart)] seconds")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
-			for(var/mob/new_player/N in GLOB.player_list)
-				if (N.client)
-					N.new_player_panel_proc() // to enable the observe option
 		if(GAME_STATE_PREGAME)
 			if(!SSticker.ticker_going) // This has to be referenced like this, and I dont know why. If you dont put SSticker. it will break
 				return
@@ -319,9 +316,25 @@ SUBSYSTEM_DEF(ticker)
 
 	// Generate code phrases and responses
 	if(!GLOB.syndicate_code_phrase)
-		GLOB.syndicate_code_phrase = generate_code_phrase()
+		var/list/temp_syndicate_code_phrase = generate_code_phrase(return_list=TRUE)
+
+		var/codewords = jointext(temp_syndicate_code_phrase, "|")
+		var/regex/codeword_match = new("([codewords])", "ig")
+
+		GLOB.syndicate_code_phrase_regex = codeword_match
+		temp_syndicate_code_phrase = jointext(temp_syndicate_code_phrase, ", ")
+		GLOB.syndicate_code_phrase = temp_syndicate_code_phrase
+
+
 	if(!GLOB.syndicate_code_response)
-		GLOB.syndicate_code_response = generate_code_phrase()
+		var/list/temp_syndicate_code_response = generate_code_phrase(return_list=TRUE)
+
+		var/codewords = jointext(temp_syndicate_code_response, "|")
+		var/regex/codeword_match = new("([codewords])", "ig")
+
+		GLOB.syndicate_code_response_regex = codeword_match
+		temp_syndicate_code_response = jointext(temp_syndicate_code_response, ", ")
+		GLOB.syndicate_code_response = temp_syndicate_code_response
 
 	// Run post setup stuff
 	mode.post_setup()
@@ -359,7 +372,7 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)
-			N.new_player_panel_proc()
+			SStitle.show_title_screen_to(N.client) // New Title Screen
 
 	#ifdef UNIT_TESTS
 	// Run map tests first in case unit tests futz with map state
@@ -369,7 +382,57 @@ SUBSYSTEM_DEF(ticker)
 
 	// Do this 10 second after roundstart because of roundstart lag, and make it more visible
 	addtimer(CALLBACK(src, PROC_REF(handle_antagfishing_reporting)), 10 SECONDS)
+	// We delay gliding adjustment with time dilation to stop stuttering on the round start
+	//addtimer(VARSET_CALLBACK(SStime_track, update_gliding, TRUE), 1 MINUTES)
 	return TRUE
+
+/datum/controller/subsystem/ticker/proc/choose_lobby_music()
+	var/list/songs = CONFIG_GET(str_list/lobby_music)
+	if(LAZYLEN(songs))
+		selected_lobby_music = pick(songs)
+
+	if(SSholiday.holidays) // What's this? Events are initialized before tickers? Let's do something with that!
+		for(var/holidayname in SSholiday.holidays)
+			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
+			if(LAZYLEN(holiday.lobby_music))
+				selected_lobby_music = pick(holiday.lobby_music)
+				break
+
+	if(!selected_lobby_music)
+		return
+
+	var/ytdl = CONFIG_GET(string/invoke_youtubedl)
+	if(!ytdl)
+		to_chat(world, span_boldwarning("yt-dlp was not configured."))
+		log_world("Could not play lobby song because yt-dlp is not configured properly, check the config.")
+		return
+
+	var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o \"cache/songs/%(id)s.%(ext)s\" --dump-single-json --no-simulate \"[selected_lobby_music]\"")
+	var/errorlevel = output[SHELLEO_ERRORLEVEL]
+	var/stdout = output[SHELLEO_STDOUT]
+	var/stderr = output[SHELLEO_STDERR]
+
+	if(!errorlevel)
+		var/list/data
+		try
+			data = json_decode(stdout)
+		catch(var/exception/e)
+			to_chat(world, span_boldwarning("yt-dlp JSON parsing FAILED."))
+			log_world(span_boldwarning("yt-dlp JSON parsing FAILED:"))
+			log_world(span_warning("[e]: [stdout]"))
+			return
+		if(data["title"])
+			login_music_data["title"] = data["title"]
+			login_music_data["url"] = data["url"]
+			login_music_data["link"] = data["webpage_url"]
+			login_music_data["path"] = "cache/songs/[data["id"]].mp3"
+			login_music_data["title_link"] = data["webpage_url"] ? "<a href=\"[data["webpage_url"]]\">[data["title"]]</a>" : data["title"]
+
+	if(errorlevel)
+		to_chat(world, span_boldwarning("yt-dlp failed."))
+		log_world("Could not play lobby song [selected_lobby_music]: [stderr]")
+		return
+	return stdout
 
 
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
@@ -469,7 +532,7 @@ SUBSYSTEM_DEF(ticker)
 
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
-	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
+	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up  past this point.
 	if(toogle_gv)
 		set_observer_default_invisibility(0) //spooks things up
 	//Round statistics report
@@ -610,7 +673,7 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/reboot_helper(reason, end_string, delay)
 	// Admins delayed round end. Just alert and dont bother with anything else.
 	if(delay_end)
-		to_chat(world, "<span class='boldannounce'>An admin has delayed the round end.</span>")
+		to_chat(world, span_boldannounceooc("An admin has delayed the round end."))
 		return
 
 	if(!isnull(delay))
@@ -620,14 +683,14 @@ SUBSYSTEM_DEF(ticker)
 		// Use default restart timeout
 		delay = restart_timeout
 
-	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
+	to_chat(world, span_boldannounceooc("Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]"))
 
 	real_reboot_time = world.time + delay
 	UNTIL(world.time > real_reboot_time) // Hold it here
 
 	// And if we re-delayed, bail again
 	if(delay_end)
-		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
+		to_chat(world, span_boldannounceooc("Reboot was cancelled by an admin."))
 		return
 
 	if(end_string)
@@ -654,7 +717,7 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/ckey in flagged_antag_rollers)
 		log_admin("[ckey] just got booted back to lobby with no jobs, but antags enabled.")
-		log_text += "<small>- <a href='?priv_msg=[ckey]'>[ckey]</a></small>"
+		log_text += "<small>- <a href='byond://?priv_msg=[ckey]'>[ckey]</a></small>"
 
 	log_text += "Investigation is advised."
 

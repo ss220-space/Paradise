@@ -38,15 +38,20 @@
 	throw_speed = 3
 	throw_range = 7
 
-/obj/item/grown/corncob/attackby(obj/item/grown/W, mob/user, params)
-	if(is_sharp(W))
-		to_chat(user, "<span class='notice'>You use [W] to fashion a pipe out of the corn cob!</span>")
-		new /obj/item/clothing/mask/cigarette/pipe/cobpipe (user.loc)
-		user.temporarily_remove_item_from_inventory(src)
+
+/obj/item/grown/corncob/attackby(obj/item/I, mob/user, params)
+	if(is_sharp(I))
+		to_chat(user, span_notice("You have used [I] to fashion a pipe out of the corn cob."))
+		var/obj/item/clothing/mask/cigarette/pipe/cobpipe/pipe = new(drop_location())
+		transfer_fingerprints_to(pipe)
+		pipe.add_fingerprint(user)
+		if(loc == user)
+			user.temporarily_remove_item_from_inventory(src, force = TRUE)
+			user.put_in_hands(pipe)
 		qdel(src)
-		return
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 // Snapcorn
 /obj/item/seeds/corn/snapcorn

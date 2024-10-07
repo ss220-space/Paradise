@@ -41,7 +41,7 @@
 	light_on = FALSE
 
 /obj/item/weldingtool/Initialize(mapload)
-	..()
+	. = ..()
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
@@ -157,7 +157,7 @@
 	. = ..()
 	if(. && user)
 		if(progress_flash_divisor == 0)
-			user.flash_eyes(min(light_intensity, 1))
+			user.flash_eyes(min(light_intensity, TRUE))
 			progress_flash_divisor = initial(progress_flash_divisor)
 		else
 			progress_flash_divisor--

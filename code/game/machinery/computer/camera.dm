@@ -46,9 +46,8 @@
 	. = ..()
 	update_camera_view()
 
-/obj/machinery/computer/security/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	// Update UI
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/security/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	// Show static if can't use the camera
 	if(!active_camera?.can_use())
 		show_camera_static()
@@ -67,8 +66,13 @@
 		cam_screen.display_to(user)
 		user.client.register_map_obj(cam_background)
 		// Open UI
-		ui = new(user, src, ui_key, "CameraConsole", name, 1200, 600, master_ui, state)
+		ui = new(user, src, "CameraConsole", name)
 		ui.open()
+
+/obj/machinery/computer/security/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/nanomaps)
+	)
 
 /obj/machinery/computer/security/ui_close(mob/user)
 	..()
@@ -232,14 +236,12 @@
 	network = list("news")
 	layer = 4 //becouse of plasma glass with layer = 3
 	circuit = /obj/item/circuitboard/camera/telescreen/entertainment
-	/// Icon utilised when feeds_on is true
+	/// Icon utilised when `GLOB.active_video_cameras` list have anything inside.
 	var/icon_screen_on = "entertainment"
-	/// Used to detect how many video cameras are active
-	var/feeds_on = 0
 
 
 /obj/machinery/computer/security/telescreen/entertainment/update_overlays()
-	icon_screen = feeds_on ? icon_screen_on : initial(icon_screen)
+	icon_screen = length(GLOB.active_video_cameras) ? icon_screen_on : initial(icon_screen)
 	return ..()
 
 

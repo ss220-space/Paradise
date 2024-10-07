@@ -38,36 +38,42 @@
 	desc = "Generates cannon pulse. Needs to be linked with a fusor. "
 	icon_state = "power_box"
 
-/obj/machinery/bsa/back/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		add_fingerprint(user)
-		var/obj/item/multitool/M = W
-		M.buffer = src
-		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(W.tool_behaviour == TOOL_WRENCH)
-		add_fingerprint(user)
-		default_unfasten_wrench(user, W, 10)
-		return TRUE
-	else
-		return ..()
+
+/obj/machinery/bsa/back/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I, 1 SECONDS)
+
+
+/obj/machinery/bsa/back/multitool_act(mob/living/user, obj/item/I)
+	if(!istype(I, /obj/item/multitool))
+		return FALSE
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	var/obj/item/multitool/multitool = I
+	multitool.buffer = src
+	to_chat(user, span_notice("You have stored the linkage information in [multitool]'s buffer."))
+
 
 /obj/machinery/bsa/front
 	name = "Bluespace Artillery Bore"
 	desc = "Do not stand in front of cannon during operation. Needs to be linked with a fusor."
 	icon_state = "emitter_center"
 
-/obj/machinery/bsa/front/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		add_fingerprint(user)
-		var/obj/item/multitool/M = W
-		M.buffer = src
-		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(W.tool_behaviour == TOOL_WRENCH)
-		add_fingerprint(user)
-		default_unfasten_wrench(user, W, 10)
-		return TRUE
-	else
-		return ..()
+
+/obj/machinery/bsa/front/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I, 1 SECONDS)
+
+
+/obj/machinery/bsa/front/multitool_act(mob/living/user, obj/item/I)
+	if(!istype(I, /obj/item/multitool))
+		return FALSE
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	var/obj/item/multitool/multitool = I
+	multitool.buffer = src
+	to_chat(user, span_notice("You have stored the linkage information in [multitool]'s buffer."))
+
 
 /obj/machinery/bsa/middle
 	name = "Bluespace Artillery Fusor"
@@ -76,25 +82,31 @@
 	var/obj/machinery/bsa/back/back
 	var/obj/machinery/bsa/front/front
 
-/obj/machinery/bsa/middle/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		if(M.buffer)
-			add_fingerprint(user)
-			if(istype(M.buffer,/obj/machinery/bsa/back))
-				back = M.buffer
-				M.buffer = null
-				to_chat(user, "<span class='notice'>You link [src] with [back].</span>")
-			else if(istype(M.buffer,/obj/machinery/bsa/front))
-				front = M.buffer
-				M.buffer = null
-				to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
-	else if(W.tool_behaviour == TOOL_WRENCH)
+
+/obj/machinery/bsa/middle/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I, 1 SECONDS)
+
+
+/obj/machinery/bsa/middle/multitool_act(mob/living/user, obj/item/I)
+	if(!istype(I, /obj/item/multitool))
+		return FALSE
+	. = TRUE
+	var/obj/item/multitool/multitool = I
+	if(!multitool.buffer)
 		add_fingerprint(user)
-		default_unfasten_wrench(user, W, 10)
-		return TRUE
-	else
-		return ..()
+		to_chat(user, span_warning("The [multitool.name]'s buffer has no stored information."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	if(istype(multitool.buffer, /obj/machinery/bsa/back))
+		back = multitool.buffer
+		multitool.buffer = null
+		to_chat(user, span_notice("You have linked [src] with [back]."))
+	else if(istype(multitool.buffer, /obj/machinery/bsa/front))
+		front = multitool.buffer
+		multitool.buffer = null
+		to_chat(user, span_notice("You have linked [src] with [front]."))
+
 
 /obj/machinery/bsa/middle/proc/check_completion()
 	if(!front || !back)
@@ -118,7 +130,7 @@
 			x_min = x + BSA_SIZE_BACK
 			x_max = x - BSA_SIZE_FRONT
 
-	for(var/turf/T in block(locate(x_min,y-1,z),locate(x_max,y+1,z)))
+	for(var/turf/T in block(x_min,y-1,z, x_max,y+1,z))
 		if(T.density || isspaceturf(T))
 			return FALSE
 	return TRUE
@@ -218,7 +230,7 @@
 		for(var/atom/A in T)
 			A.ex_act(1)
 
-	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/deadly) //ZZZAP
+	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/reacting/deadly) //ZZZAP
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
 
 	message_admins("[key_name_admin(user)] has launched an artillery strike into [ADMIN_COORDJMP(bullseye)].")
@@ -283,7 +295,7 @@
 	target_all_areas = TRUE
 
 /obj/machinery/computer/bsa_control/admin/Initialize()
-	..()
+	. = ..()
 	if(!cannon)
 		cannon = deploy()
 
@@ -314,10 +326,10 @@
 		return 1
 	ui_interact(user)
 
-/obj/machinery/computer/bsa_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/bsa_control/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BlueSpaceArtilleryControl", name, 400, 155, master_ui, state)
+		ui = new(user, src, "BlueSpaceArtilleryControl", name)
 		ui.open()
 
 /obj/machinery/computer/bsa_control/ui_data(mob/user)
@@ -360,8 +372,10 @@
 	var/list/options = gps_locators
 	if(area_aim)
 		options += target_all_areas ? GLOB.ghostteleportlocs : GLOB.teleportlocs
-	var/V = input(user,"Select target", "Select target",null) in options|null
-	target = options[V]
+	var/choose = tgui_input_list(user, "Select target", "Target",  options)
+	if(!choose)
+		return
+	target = options[choose]
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
 	if(istype(target,/area))

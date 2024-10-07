@@ -32,52 +32,62 @@
 	toolspeed = 1
 	usesound = 'sound/items/welder2.ogg'
 
-/obj/item/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
+
+/obj/item/fluff/tattoo_gun/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
 	if(user.a_intent == INTENT_HARM)
-		user.visible_message("<span class='warning'>[user] stabs [M] with the [src]!</span>", "<span class='warning'>You stab [M] with the [src]!</span>")
-		to_chat(M, "<span class='userdanger'>[user] stabs you with the [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
-		return
+		user.visible_message(
+			span_warning("[user] stabs [target] with the [src]!"),
+			span_warning("You stab [target] with the [src]!"),
+			ignored_mobs = target,
+		)
+		to_chat(target, span_warning("You feel a tiny prick!"))
+		return .
 
 	if(used)
-		to_chat(user, "<span class= 'notice'>The [src] is out of ink.</span>")
-		return
+		to_chat(user, span_notice("The [src] is out of ink."))
+		return .
 
-	if(!ishuman(M))
-		to_chat(user, "<span class= 'notice'>You don't think tattooing [M] is the best idea.</span>")
-		return
-
-	var/mob/living/carbon/human/target = M
+	if(!ishuman(target))
+		to_chat(user, span_notice("You don't think tattooing [target] is the best idea."))
+		return .
 
 	if(ismachineperson(target))
-		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo [target.p_them()]?</span>")
-		return
+		to_chat(user, span_notice("[target] has no skin, how do you expect to tattoo [target.p_them()]?"))
+		return .
 
 	if(target.m_styles["body"] != "None")
-		to_chat(user, "<span class= 'notice'>[target] already has body markings, any more would look silly!</span>")
-		return
+		to_chat(user, span_notice("[target] already has body markings, any more would look silly!"))
+		return .
 
 	var/datum/sprite_accessory/body_markings/tattoo/temp_tatt = GLOB.marking_styles_list[tattoo_icon]
 	if(!(target.dna.species.name in temp_tatt.species_allowed))
-		to_chat(user, "<span class= 'notice'>You can't think of a way to make the [tattoo_name] design work on [target == user ? "your" : "[target]'s"] body type.</span>")
-		return
+		to_chat(user, span_notice("You can't think of a way to make the [tattoo_name] design work on [target == user ? "your" : "[target]'s"] body type."))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
 
 	if(target == user)
-		to_chat(user, "<span class= 'notice'>You use the [src] to apply a [tattoo_name] to yourself!</span>")
-
+		to_chat(user, span_notice("You use [src] to apply a [tattoo_name] to yourself!"))
 	else
-		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
-		if(!do_after(user, 3 SECONDS * toolspeed * gettoolspeedmod(user), M))
-			return
-		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
+		user.visible_message(
+			span_notice("[user] begins to apply a [tattoo_name] [target] with the [src]."),
+			span_notice("You begin to tattoo [target] with the [src]!"),
+		)
+		if(!do_after(user, 3 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
+			return .
+		if(used || ismachineperson(target) || target.m_styles["body"] != "None" || !(target.dna.species.name in temp_tatt.species_allowed))
+			return .
+		user.visible_message(
+			span_notice("[user] finishes the [tattoo_name] on [target]."),
+			span_notice("You finish the [tattoo_name]."),
+		)
 
-	if(!used) // No exploiting do_after to tattoo multiple folks.
-		target.change_markings(tattoo_icon, "body")
-		target.change_marking_color(rgb(tattoo_r, tattoo_g, tattoo_b), "body")
-
-		playsound(src.loc, usesound, 20, 1)
-		used = 1
-		update_icon(UPDATE_OVERLAYS)
-
+	target.change_markings(tattoo_icon, "body")
+	target.change_marking_color(rgb(tattoo_r, tattoo_g, tattoo_b), "body")
+	playsound(loc, usesound, 20, TRUE)
+	used = TRUE
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/item/fluff/tattoo_gun/update_overlays()
@@ -134,7 +144,7 @@
 	force = 5
 	sharp = 0
 
-/obj/item/claymore/fluff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/claymore/fluff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	return 0
 
 /obj/item/fluff/rsik_katana //Xydonus: Rsik Ugsharki Atan
@@ -155,7 +165,9 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/fluff/rsik_katana/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] tries to stab [src] into [user.p_their()] stomach! Except [src] shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.</span>")
+	user.visible_message(span_suicide("[user] tries to stab [src] into [user.p_their()] stomach! Except [src] shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame."))
+	user.temporarily_remove_item_from_inventory(src, force = TRUE)
+	qdel(src)
 	return BRUTELOSS
 
 /obj/item/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley
@@ -182,26 +194,26 @@
 	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
 	icon_state = "thermoncle"
 
+
 /obj/item/fluff/rapid_wheelchair_kit //Rapidvalj: Hakikarahiti
 	name = "wheelchair conversion kit"
 	desc = "An assorted set of exchangable parts for a wheelchair."
 	icon_state = "modkit"
+	var/new_icon_state = "vox_wheelchair"
+	var/new_overlay = "vox_wheelchair_overlay"
+	var/new_name = "vox wheelchair"
+	var/new_desc = "A luxurious Vox Wheelchair, weathered from use."
 
-/obj/item/fluff/rapid_wheelchair_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/structure/chair/wheelchair/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
-	if(istype(target, /obj/structure/chair/wheelchair) && !istype(target, /obj/structure/chair/wheelchair/bike))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
-		var/obj/structure/chair/wheelchair/chair = target
-		chair.icon_state = "vox_wheelchair"
-		chair.name = "vox wheelchair"
-		chair.desc = "A luxurious Vox Wheelchair, weathered from use."
-		chair.handle_rotation()
-		qdel(src)
+	if(istype(target))
+		target.on_skin_apply(src, user)
 		return
 
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, span_warning("You cannot modify [target]!"))
+
 
 /obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
 	name = "purple engraved zippo"
@@ -300,7 +312,7 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/desolate_coat_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/desolate_coat_kit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -332,7 +344,7 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/fei_gasmask_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/fei_gasmask_kit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -364,20 +376,20 @@
 	icon_state = "scifikit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
-	if(istype(target, /obj/item/melee/baton) && !istype(target, /obj/item/melee/baton/cattleprod))
+	if(istype(target, /obj/item/melee/baton/security) && !istype(target, /obj/item/melee/baton/security/cattleprod))
 		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
 		var/obj/item/melee/baton/the_baton = target
-		the_baton.base_icon = "desolate_baton"
+		the_baton.base_icon_state = "desolate_baton"
 		the_baton.item_state = "desolate_baton"
 		the_baton.icon = 'icons/obj/custom_items.dmi'
 		the_baton.lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 		the_baton.righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 		the_baton.update_icon()
-		user.update_icons()
+		the_baton.update_equipped_item()
 		qdel(src)
 		return
 
@@ -391,7 +403,7 @@
 	force = 0
 	throwforce = 0
 
-/obj/item/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -413,7 +425,7 @@
 	force = 0
 	throwforce = 0
 
-/obj/item/fluff/merchant_sallet_modkit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/merchant_sallet_modkit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -435,6 +447,7 @@
 		sallet.flags_cover = helm.flags_cover
 		sallet.visor_clothing_flags = helm.visor_clothing_flags
 		sallet.visor_flags_inv = helm.visor_flags_inv
+		sallet.visor_flags_inv_transparent = helm.visor_flags_inv_transparent
 		sallet.flags_inv |= HIDEHAIR
 
 		sallet.add_fingerprint(H)
@@ -455,7 +468,7 @@
 	force = 0
 	throwforce = 0
 
-/obj/item/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -478,7 +491,7 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/pyro_wintersec_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/pyro_wintersec_kit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 	var/mob/living/carbon/human/H = user
@@ -531,7 +544,7 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/sylus_conversion_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/sylus_conversion_kit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 	var/mob/living/carbon/human/H = user
@@ -730,7 +743,6 @@
 /obj/item/clothing/suit/fluff
 	icon = 'icons/obj/custom_items.dmi'
 	actions_types = null
-	ignore_suitadjust = 1
 	adjust_flavour = null
 	sprite_sheets = null
 
@@ -740,7 +752,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "pulsecoat"
 	item_state = "pulsecoat"
-	ignore_suitadjust = 1
+	ignore_suitadjust = TRUE
 	actions_types = null
 
 /obj/item/clothing/suit/jacket/miljacket/patch // sniper_fairy : P.A.T.C.H.
@@ -748,8 +760,7 @@
 	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable. This one has a medical patch on it."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shazjacket_purple_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unbutton"
 
@@ -808,8 +819,7 @@
 	desc = "A faded leather overcoat bearing a worn out badge from the NAS Crescent on the shoulder, and a designation tag of Supply Master on the front.  A tarnished gold nameplate says H.Gadow on it."
 	icon_state = "supplymaster_jacket_open"
 	item_state = "supplymaster_jacket_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -829,7 +839,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kidosvest"
 	item_state = "kidosvest"
-	ignore_suitadjust = 1
+	ignore_suitadjust = TRUE
 	actions_types = null
 	adjust_flavour = null
 	sprite_sheets = null
@@ -941,7 +951,7 @@
 	desc = "A somewhat worn but well kept set of vox tactical webbing. It has a couple of pouches attached."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "k3_webbing"
-
+	ignore_suitadjust = FALSE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -951,25 +961,25 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 	actions_types = list(/datum/action/item_action/toggle)
-	suit_adjusted = FALSE
 
 
 /obj/item/clothing/suit/storage/fluff/k3_webbing/update_icon_state()
-	var/base_icon_state = copytext(icon_state, 1, findtext(icon_state, "_on"))
-	var/base_item_state = copytext(item_state, 1, findtext(item_state, "_on"))
+	var/base_icon_state = replacetext("[icon_state]", "_on", "")
+	var/base_item_state = replacetext("[item_state]", "_on", "")
 
-	icon_state = suit_adjusted ? base_icon_state : "[base_icon_state]_on"
-	item_state = suit_adjusted ? base_item_state : "[base_item_state]_on"
+	icon_state = suit_adjusted ? "[base_icon_state]_on" : base_icon_state
+	item_state = suit_adjusted ? "[base_item_state]_on" : base_item_state
 
 
 /obj/item/clothing/suit/storage/fluff/k3_webbing/adjustsuit(mob/user)
 	if(user.incapacitated())
 		return
 
+	suit_adjusted = !suit_adjusted
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item(update_speedmods = FALSE)
-	to_chat(user, "You turn the [src]'s lighting system [suit_adjusted ? "off" : "on"].")
-	suit_adjusted = !suit_adjusted
+	to_chat(user, "You turn the [src]'s lighting system [suit_adjusted ? "on" : "off"].")
+
 
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur
@@ -994,7 +1004,6 @@
 	desc = "Made for Unathi who likes to show off their big horns."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xydonus_jacket"
-	ignore_suitadjust = 0
 	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/xydonus
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -1056,7 +1065,8 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "dtxbomber"
 	item_state = "dtxbomber"
-	ignore_suitadjust = 0
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -1273,7 +1283,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user)
+/obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user, datum/action/action, leftclick)
 	change_color()
 
 
@@ -1327,7 +1337,7 @@
 	var/adjusted = FALSE
 
 
-/obj/item/clothing/head/fluff/chronx/ui_action_click()
+/obj/item/clothing/head/fluff/chronx/ui_action_click(mob/user, datum/action/action, leftclick)
 	adjust()
 
 
@@ -1351,7 +1361,8 @@
 	item_state = "chronx_robe"
 	actions_types = list(/datum/action/item_action/toggle)
 	adjust_flavour = "untransform"
-	ignore_suitadjust = 0
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 
 /obj/item/clothing/shoes/black/fluff/chronx //chronx100: Hughe O'Splash
 	name = "Cthulhu's Boots"
@@ -1381,7 +1392,6 @@
 	icon_state = "elliot_windbreaker_open"
 	item_state = "elliot_windbreaker_open"
 	adjust_flavour = "unzip"
-	suit_adjusted = 1
 	sprite_sheets = null
 
 /obj/item/storage/backpack/fluff/syndiesatchel //SkeletalElite: Rawkkihiki
@@ -1514,7 +1524,7 @@
 	desc = "a kit on tools and a blueprint detailing how to reconfigure a spacepod"
 	icon_state = "modkit"
 
-/obj/item/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -1658,9 +1668,6 @@
 	fluff_material = TRUE
 
 /obj/item/clothing/gloves/ring/fluff/update_icon_state()
-	return
-
-/obj/item/clothing/gloves/ring/fluff/attackby(obj/item/I, mob/user, params)
 	return
 
 

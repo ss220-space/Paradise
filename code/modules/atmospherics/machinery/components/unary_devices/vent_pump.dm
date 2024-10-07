@@ -335,44 +335,43 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
 
-/obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/paper) || istype(W, /obj/item/stack/spacecash))
-		if(!welded)
-			if(open)
-				add_fingerprint(user)
-				user.drop_transfer_item_to_loc(W, src)
-			if(!open)
-				to_chat(user, "You can't shove that down there when it is closed")
-		else
-			to_chat(user, "The vent is welded.")
-		return 1
-	if(W.tool_behaviour == TOOL_WRENCH)
-		if(!(stat & NOPOWER) && on)
-			to_chat(user, span_danger("You cannot unwrench this [src], turn it off first."))
-			return 1
+/obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/I, mob/user, params)
+	. = ..()
 
-	return ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(istype(I, /obj/item/paper) || istype(I, /obj/item/stack/spacecash))
+		add_fingerprint(user)
+		if(welded)
+			to_chat(user, span_warning("The vent is welded."))
+			return .
+		if(!open)
+			to_chat(user, span_warning("You can't shove that down there when it is closed"))
+			return .
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return .
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/machinery/atmospherics/unary/vent_pump/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	multitool_menu_interact(user, I)
 
+
 /obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/user, obj/item/I)
 	if(welded)
 		return FALSE
 	. = TRUE
-	if(open)
-		to_chat(user, span_notice("Now closing the vent."))
-		if(do_after(user, 2 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
-			playsound(loc, I.usesound, 100, 1)
-			open = 0
-			user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
-	else
-		to_chat(user, span_notice("Now opening the vent."))
-		if(do_after(user, 2 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
-			playsound(loc, I.usesound, 100, 1)
-			open = 1
-			user.visible_message("[user] screwdrivers the vent open.", "You screwdriver the vent open.", "You hear a screwdriver.")
+	to_chat(user, span_notice("Now [open ? "closing" : "opening"] the vent."))
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		return .
+	open = !open
+	user.visible_message(
+		"[user] screwdrivers the vent [open ? "open" : "shut"].",
+		"You screwdriver the vent [open ? "open" : "shut"].",
+		"You hear a screwdriver.",
+	)
 
 
 /obj/machinery/atmospherics/unary/vent_pump/welder_act(mob/user, obj/item/I)
@@ -395,15 +394,19 @@
 		)
 
 
-/obj/machinery/atmospherics/unary/vent_pump/attack_hand()
-	if(!welded)
-		if(open)
-			add_fingerprint(usr)
-			for(var/obj/item/W in src)
-				if(istype(W, /obj/item/pipe))
-					continue
-				W.add_fingerprint(usr)
-				W.forceMove(get_turf(src))
+/obj/machinery/atmospherics/unary/vent_pump/attack_hand(mob/user)
+	if(welded || !open)
+		return ..()
+
+	add_fingerprint(user)
+	var/turf/our_turf = get_turf(src)
+	if(!our_turf)
+		return
+
+	for(var/obj/item/thing as anything in src)
+		if(istype(thing, /obj/item/paper) || istype(thing, /obj/item/stack/spacecash))
+			thing.forceMove(our_turf)
+			user.put_in_hands(thing, ignore_anim = FALSE)
 
 
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)

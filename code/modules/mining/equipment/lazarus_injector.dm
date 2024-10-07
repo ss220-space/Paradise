@@ -19,14 +19,14 @@
 	icon_state = "lazarus_[loaded ? "hypo" : "empty"]"
 
 
-/obj/item/lazarus_injector/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/lazarus_injector/afterattack(atom/target, mob/user, proximity_flag, params)
 	if(!loaded)
 		return
 	if(isliving(target) && proximity_flag)
 		if(isanimal(target))
 			var/mob/living/simple_animal/M = target
 			if(M.sentience_type != revive_type)
-				to_chat(user, "<span class='info'>[src] does not work on this sort of creature.</span>")
+				balloon_alert(user, "неподходящее животное!")
 				return
 			if(M.stat == DEAD)
 				M.faction = list("neutral")
@@ -48,10 +48,10 @@
 				update_icon(UPDATE_ICON_STATE)
 				return
 			else
-				to_chat(user, "<span class='info'>[src] is only effective on the dead.</span>")
+				balloon_alert(user, "нельзя использовать на мёртвых!")
 				return
 		else
-			to_chat(user, "<span class='info'>[src] is only effective on lesser beings.</span>")
+			balloon_alert(user, "оно слишком разумно!")
 			return
 
 /obj/item/lazarus_injector/emag_act(mob/user)
@@ -59,7 +59,7 @@
 		add_attack_logs(user, src, "emagged")
 		malfunctioning = 1
 		if(user)
-			to_chat(user, "<span class='notice'>You override [src]'s safety protocols.</span>")
+			balloon_alert(user, "протоколы защиты сняты!")
 
 /obj/item/lazarus_injector/emp_act()
 	if(!malfunctioning)
@@ -91,11 +91,12 @@
 		QDEL_NULL(captured)
 	return ..()
 
-/obj/item/mobcapsule/attack(mob/living/simple_animal/S, mob/user, prox_flag)
-	if(istype(S) && S.sentience_type == capture_type)
-		capture(S, user)
-		return TRUE
+
+/obj/item/mobcapsule/attack(mob/living/simple_animal/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(istype(target) && target.sentience_type == capture_type && capture(target, user))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/item/mobcapsule/proc/capture(mob/living/simple_animal/S, mob/living/M)
 	if(captured)

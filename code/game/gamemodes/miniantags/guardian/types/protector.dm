@@ -64,22 +64,34 @@
 				summoner.forceMove(get_turf(src))
 				new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))//Protector
 
-/mob/living/simple_animal/hostile/guardian/protector/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
-	var/damage = amount * damage_transfer
-	if(prob(85)) //15% chance of block
-		if(summoner)
-			if(loc == summoner)
-				return
-			summoner.adjustBruteLoss(damage)
-			if(damage)
-				to_chat(summoner, "<span class='danger'>Ваш [name] под атакой! Вы получаете урон!</span>")
-				summoner.visible_message("<span class='danger'>Кровь хлещет из [summoner] ибо [src] получает урон!</span>")
-			if(summoner.stat == UNCONSCIOUS)
-				to_chat(summoner, "<span class='danger'>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span>")
-				summoner.adjustCloneLoss(damage/2)
-	else
-		to_chat(summoner, "<span class='danger'>Ваш [name] под атакой, поглощая урон!</span>")
-		visible_message("<span class='danger'>[src] поглотил урон!</span>")
+
+/mob/living/simple_animal/hostile/guardian/protector/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	. = STATUS_UPDATE_NONE
+	if(!summoner || loc == summoner)
+		return .
+
+	if(prob(15))	// 15% chance of block
+		to_chat(summoner, span_danger("Ваш [name] под атакой, поглощает урон!"))
+		visible_message(span_danger("[src] поглотил урон!"))
+		return .
+
+	amount *= damage_transfer
+	summoner.adjustBruteLoss(amount)
+	if(amount <= 0)
+		return .
+
+	to_chat(summoner, span_danger("Ваш [name] под атакой! Вы получаете урон!"))
+	summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [src] получает урон!"))
+	if(summoner.stat == UNCONSCIOUS)
+		to_chat(summoner, span_danger("Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!"))
+		summoner.adjustCloneLoss(amount / 2)
+
 
 /obj/effect/proc_holder/spell/forcewall/greater/guardian
 	name = "Голографическая силовая стена"

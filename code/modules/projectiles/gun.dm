@@ -4,7 +4,7 @@
 	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "detective"
 	item_state = "gun"
-	appearance_flags = TILE_BOUND|PIXEL_SCALE|KEEP_TOGETHER
+	appearance_flags = TILE_BOUND|PIXEL_SCALE|KEEP_TOGETHER|LONG_GLIDE
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
@@ -102,6 +102,9 @@
 
 	light_on = FALSE
 
+	/// Responsible for the range of the throwing back when shooting at point blank range
+	var/pb_knockback = 0
+
 
 /obj/item/gun/Initialize()
 	. = ..()
@@ -186,6 +189,11 @@
 		if(message)
 			if(pointblank)
 				user.visible_message("<span class='danger'>[user] fires [src] point blank at [target]!</span>", "<span class='danger'>You fire [src] point blank at [target]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
+				if(pb_knockback > 0 && isliving(target))
+					var/mob/living/living_target = target
+					if(!(living_target.move_resist > MOVE_FORCE_NORMAL)) //no knockbacking prince of terror or somethin
+						var/atom/throw_target = get_edge_target_turf(living_target, user.dir)
+						living_target.throw_at(throw_target, pb_knockback, 2)
 			else
 				user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!")
 	if(chambered.muzzle_flash_effect)
@@ -217,21 +225,21 @@
 
 	if(flag)
 		if(user.zone_selected == "mouth")
-			handle_suicide(user, target, params)
+			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
+				user.visible_message("<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>")
+			else
+				handle_suicide(user, target, params)
 			return
 
-
 	//Exclude lasertag guns from the CLUMSY check.
-	if(clumsy_check)
-		if(istype(user))
-			if((CLUMSY in user.mutations) && prob(40))
-				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
-				var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-				process_fire(user, user, 0, params, zone_override = shot_leg)
-				user.drop_from_active_hand()
-				return
+	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
+		to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
+		var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+		process_fire(user, user, 0, params, zone_override = shot_leg)
+		user.drop_from_active_hand()
+		return
 
-	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_hand())
+	if(weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
 		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")
 		return
 
@@ -244,7 +252,8 @@
 			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
 				continue
 			else if(G.can_trigger_gun(user))
-				bonus_spread += dual_wield_spread * G.weapon_weight
+				if(!HAS_TRAIT(user, TRAIT_BADASS))
+					bonus_spread += dual_wield_spread * G.weapon_weight
 				loop_counter++
 				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
 
@@ -293,7 +302,7 @@
 	if(burst_size > 1)
 		if(chambered && chambered.harmful)
 			if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
-				to_chat(user, "<span class='warning'>[src] is lethally chambered! You don't want to risk harming anyone...</span>")
+				to_chat(user, span_warning("[src] is lethally chambered! You don't want to risk harming anyone..."))
 				return
 		firing_burst = 1
 		for(var/i = 1 to burst_size)
@@ -326,7 +335,7 @@
 		if(chambered)
 			if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 				if(chambered.harmful) // Is the bullet chambered harmful?
-					to_chat(user, "<span class='warning'>[src] is lethally chambered! You don't want to risk harming anyone...</span>")
+					to_chat(user, span_warning("[src] is lethally chambered! You don't want to risk harming anyone..."))
 					return
 			sprd = round((pick(1,-1)) * (randomized_gun_spread + randomized_bonus_spread))
 			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
@@ -360,77 +369,84 @@
 			if (malf_counter <= 0 && prob(50))
 				user.drop_item_ground(user.tkgrabbed_objects[src])
 				new /obj/effect/decal/cleanable/ash(loc)
-				to_chat(user, "<span class='userdanger'>WOAH! [src] blows up!</span>")
-				playsound(user, 'sound/effects/explosion1.ogg', 30, 1)
+				to_chat(user, span_userdanger("WOAH! [src] blows up!"))
+				playsound(user, 'sound/effects/explosion1.ogg', 30, TRUE)
 				qdel(src)
 				return FALSE
 			return TRUE
 		if(malf_counter <= 0 && prob(50))
 			new /obj/effect/decal/cleanable/ash(user.loc)
-			user.take_organ_damage(0,30)
+			user.take_organ_damage(0, 30)
 			user.flash_eyes()
-			to_chat(user, "<span class='userdanger'>WOAH! [src] blows up in your hands!</span>")
-			playsound(user, 'sound/effects/explosion1.ogg', 30, 1)
+			to_chat(user, span_userdanger("WOAH! [src] blows up in your hands!"))
+			playsound(user, 'sound/effects/explosion1.ogg', 30, TRUE)
 			qdel(src)
 			return FALSE
 		if(prob(40 - (malf_counter > 0 ? round(malf_counter / self_shot_divisor) : 0)))
-			playsound(user, fire_sound, 30, 1)
-			to_chat(user, "<span class='userdanger'>[src] blows up in your face!</span>")
-			user.take_organ_damage(0,10)
+			playsound(user, fire_sound, 30, TRUE)
+			to_chat(user, span_userdanger("[src] blows up in your face!"))
+			user.take_organ_damage(0, 10)
 			return FALSE
 
-/obj/item/gun/attack(mob/M, mob/user)
-	if(user.a_intent == INTENT_HARM) //Flogging
-		if(bayonet)
-			M.attackby(bayonet, user)
-		else
-			return ..()
 
-/obj/item/gun/attack_obj(obj/O, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
-		if(bayonet)
-			O.attackby(bayonet, user)
-			return
+/obj/item/gun/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(user.a_intent != INTENT_HARM)
+		return ATTACK_CHAIN_BLOCKED
+	if(bayonet) //Flogging
+		bayonet.melee_attack_chain(user, target, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
+
+/obj/item/gun/attack_obj(obj/object, mob/user, params)
+	if(bayonet)
+		bayonet.melee_attack_chain(user, object, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 
 /obj/item/gun/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/flashlight/seclite))
-		if(can_flashlight)
-			if(!gun_light)
-				if(!user.drop_transfer_item_to_loc(I, src))
-					return
-				to_chat(user, span_notice("You click [I] into place on [src]."))
-				set_gun_light(I)
-			else
-				to_chat(user, span_warning("There is already [gun_light] attached to [src]!"))
-		else
-			to_chat(user, span_warning("You cannot attach [I] to [src]!"))
-
-	else if(is_pen(I))
-		if(unique_rename)
-			var/t = rename_interactive(user, I, use_prefix = FALSE)
-			if(!isnull(t))
-				to_chat(user, span_notice("You name the gun '[name]'. Say hello to your new friend."))
-		else
+	if(is_pen(I))
+		if(!unique_rename)
+			add_fingerprint(user)
 			to_chat(user, span_warning("You cannot rename [src]!"))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
+		if(!isnull(new_name))
+			to_chat(user, span_notice("You name the gun '[name]'. Say hello to your new friend."))
+		return ATTACK_CHAIN_BLOCKED
 
-	else if(istype(I, /obj/item/kitchen/knife))
+	if(istype(I, /obj/item/flashlight/seclite))
+		add_fingerprint(user)
+		if(!can_flashlight)
+			to_chat(user, span_warning("You cannot attach [I] to [src]!"))
+			return ATTACK_CHAIN_PROCEED
+		if(gun_light)
+			to_chat(user, span_warning("There is already [gun_light] attached to [src]!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You click [I] into place on [src]."))
+		set_gun_light(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/kitchen/knife))
+		add_fingerprint(user)
 		var/obj/item/kitchen/knife/knife = I
 		//ensure the gun has an attachment point available and that the knife is compatible with it.
 		if(!can_bayonet || !knife.bayonet_suitable)
 			to_chat(user, span_warning("You cannot attach [knife] to [src]!"))
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(bayonet)
 			to_chat(user, span_warning("There is already [knife] attached to [src]!"))
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(knife, src))
-			return
+			return ..()
 		to_chat(user, span_notice("You attach [knife] to [src]'s bayonet lug."))
 		set_bayonet(knife)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else
-		return ..()
+	return ..()
 
 
 /obj/item/gun/screwdriver_act(mob/user, obj/item/I)
@@ -535,7 +551,7 @@
 			bayonet.forceMove(src)
 
 		var/overlay_type = "bayonet"	//Generic state.
-		if(bayonet.icon_state in icon_states('icons/obj/weapons/bayonets.dmi'))	//Snowflake state?
+		if(icon_exists('icons/obj/weapons/bayonets.dmi', bayonet.icon_state))	//Snowflake state?
 			overlay_type = bayonet.icon_state
 		bayonet_overlay = mutable_appearance('icons/obj/weapons/bayonets.dmi', overlay_type)
 		bayonet_overlay.pixel_x = bayonet_x_offset
@@ -619,7 +635,7 @@
 	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='userdanger'>[user] pulls the trigger!</span>")
 
 	if(chambered && chambered.BB)
-		chambered.BB.damage *= 5
+		chambered.BB.damage *= 15
 
 	process_fire(target, user, 1, params)
 

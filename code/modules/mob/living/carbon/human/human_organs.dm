@@ -27,7 +27,7 @@
 			if(bodypart.is_traumatized() && prob(15))
 				if(LAZYLEN(bodypart.internal_organs))
 					var/obj/item/organ/internal/organ = pick(bodypart.internal_organs)
-					organ.receive_damage(rand(3,5))
+					organ.internal_receive_damage(rand(3,5))
 				custom_pain("Вы чувствуете как в вашей [bodypart.declent_ru(PREPOSITIONAL)] двигаются сломанные кости!")
 
 	handle_grasp()
@@ -88,20 +88,8 @@
 		gloves.germ_level += 1
 
 
-/mob/living/carbon/human/proc/becomeSlim()
-	to_chat(src, span_notice("[pluralize_ru(src.gender,"Ты","Вы")] снова чувствуе[pluralize_ru(src.gender,"шь","те")] себя в форме!"))
-	mutations.Remove(FAT)
-	update_obesity_slowdown()
-
-
-/mob/living/carbon/human/proc/becomeFat()
-	to_chat(src, span_alert("[pluralize_ru(src.gender,"Ты","Вы")] вдруг чувствуе[pluralize_ru(src.gender,"шь","те")] себя пухлым!"))
-	mutations.Add(FAT)
-	update_obesity_slowdown()
-
-
-/mob/living/carbon/human/proc/update_obesity_slowdown()
-	if(FAT in mutations)
+/mob/living/carbon/human/proc/update_fat_slowdown()
+	if(HAS_TRAIT(src, TRAIT_FAT))
 		add_movespeed_modifier(/datum/movespeed_modifier/obesity)
 		add_movespeed_modifier(/datum/movespeed_modifier/obesity_flying)
 	else
@@ -200,7 +188,7 @@
 
 	bodypart.add_embedded_object(thing)
 	thing.add_mob_blood(src)	// it embedded itself in you, of course it's bloody!
-	bodypart.receive_damage(thing.w_class * thing.embedded_impact_pain_multiplier, silent = silent)
+	apply_damage(thing.w_class * thing.embedded_impact_pain_multiplier, def_zone = bodypart, silent = silent)
 	if(!silent)
 		visible_message(
 			span_danger("[thing] embeds itself in [src]'s [bodypart.name]!"),
@@ -245,4 +233,5 @@
 		for(var/obj/item/thing as anything in bodypart.embedded_objects)
 			embedded_items += thing
 	return embedded_items
+
 

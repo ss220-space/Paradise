@@ -129,35 +129,31 @@
 
 
 /mob/living/simple_animal/pet/cat/post_lying_on_rest()
-	if(stat == DEAD)
-		return
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-	if(!icon_resting || !icon_sit)
-		return
 	if(sitting)
 		custom_emote(EMOTE_VISIBLE, pick("сад%(ит,ят)%ся.", "приседа%(ет,ют)% на задних лапах.", "выгляд%(ит,ят)% настороженным%(*,и)%."))
+
+
+/mob/living/simple_animal/pet/cat/on_standing_up()
+	sitting = FALSE
+	. = ..()
+
+
+/mob/living/simple_animal/pet/cat/update_icons()
+	if(stat == DEAD)
+		icon_state = icon_dead
+		regenerate_icons()
+		return
+	if(sitting)
 		icon_state = "[icon_living]_[icon_sit]"
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_[icon_sit]"
-			regenerate_icons()
-	else
+	else if(resting || body_position == LYING_DOWN)
 		icon_state = icon_resting
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_rest"
-			regenerate_icons()
-
-
-/mob/living/simple_animal/pet/cat/post_get_up()
-	sitting = FALSE
-	if(stat == DEAD)
-		return
-	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-	if(!icon_resting || !icon_sit)
-		return
-	icon_state = icon_living
-	if(collar_type)
-		collar_type = initial(collar_type)
-		regenerate_icons()
+	else
+		icon_state = icon_living
+	regenerate_icons()
 
 
 /mob/living/simple_animal/pet/cat/handle_automated_action()
@@ -196,7 +192,7 @@
 	if(!stat && !resting && !buckled)
 		turns_since_scan++
 		if(turns_since_scan > 5)
-			walk_to(src,0)
+			SSmove_manager.stop_looping(src)
 			turns_since_scan = 0
 			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
 				movement_target = null
@@ -210,8 +206,7 @@
 						break
 			if(movement_target)
 				stop_automated_movement = 1
-				glide_for(3)
-				walk_to(src,movement_target,0,3)
+				SSmove_manager.move_to(src, movement_target, 1, 4)
 
 
 /mob/living/simple_animal/pet/cat/Proc
@@ -241,7 +236,6 @@
 	icon_resting = "Syndicat_rest"
 	meow_sound = null	//Need robo-meow.
 	gender = FEMALE
-	mutations = list(BREATHLESS)
 	faction = list("syndicate")
 	gold_core_spawnable = NO_SPAWN
 	eats_mice = 0
@@ -250,9 +244,12 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 
+
 /mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
 	. = ..()
 	add_language(LANGUAGE_GALACTIC_COMMON)
+	ADD_TRAIT(src, TRAIT_NO_BREATH, INNATE_TRAIT)
+
 
 /mob/living/simple_animal/pet/cat/cak
 	name = "Keeki"
@@ -304,10 +301,11 @@
 	to_chat(src, "<span class='big bold'>You are a cak!</span><b> You're a harmless cat/cake hybrid that everyone loves. People can take bites out of you if they're hungry, but you regenerate health \
 	so quickly that it generally doesn't matter. You're remarkably resilient to any damage besides this and it's hard for you to really die at all. You should go around and bring happiness and \
 	free cake to the station!</b>")
-	var/new_name = stripped_input(src, "Enter your name, or press \"Cancel\" to stick with Keeki.", "Name Change")
-	if(new_name)
-		to_chat(src, "<span class='notice'>Your name is now <b>\"[new_name]\"</b>!</span>")
-		name = new_name
+	var/new_name = tgui_input_text(src, "Enter your name, or press \"Cancel\" to stick with Keeki.", "Name Change", name)
+	if(!new_name)
+		return
+	to_chat(src, "<span class='notice'>Your name is now <b>\"[new_name]\"</b>!</span>")
+	name = new_name
 
 /mob/living/simple_animal/pet/cat/white
 	name = "white"

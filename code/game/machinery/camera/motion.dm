@@ -56,26 +56,28 @@
 	detectTime = -1
 	return TRUE
 
-/// Returns TRUE if the camera can see the target.
-/obj/machinery/camera/proc/can_see(atom/target, length=7) // I stole this from global and modified it to work with Xray cameras.
-	var/turf/current = get_turf(src)
-	var/turf/target_turf = get_turf(target)
-	if(target.invisibility > SEE_INVISIBLE_LIVING || target.alpha == NINJA_ALPHA_INVISIBILITY)
-		return FALSE
-	if(get_dist(current, target_turf) > length)
-		return FALSE
-	if(current == target_turf || isXRay())
-		return TRUE
 
-	var/list/line_of_sight = get_line(src, target)
-	line_of_sight = line_of_sight.Cut(1, 2)
-	for(var/turf/current_turf as anything in line_of_sight)
-		if(current_turf.opacity)
+/// Returns TRUE if the camera can see the target.
+/obj/machinery/camera/proc/can_see(atom/target, length = 7) // I stole this from global and modified it to work with Xray cameras.
+	if(!target || target.invisibility > SEE_INVISIBLE_LIVING || target.alpha == NINJA_ALPHA_INVISIBILITY)
+		return FALSE
+	var/turf/current_turf = get_turf(src)
+	var/turf/target_turf = get_turf(target)
+	if(!current_turf || !target_turf || get_dist(current_turf, target_turf) > length)
+		return FALSE
+	if(current_turf == target_turf || isXRay())
+		return TRUE
+	var/steps = 1
+	current_turf = get_step_towards(current_turf, target_turf)
+	while(current_turf != target_turf)
+		if(steps > length)
 			return FALSE
-		for(var/atom/movable/thing as anything in current_turf)
-			if(thing.opacity)
-				return FALSE
+		if(IS_OPAQUE_TURF(current_turf))
+			return FALSE
+		current_turf = get_step_towards(current_turf, target_turf)
+		steps++
 	return TRUE
+
 
 /obj/machinery/camera/HasProximity(atom/movable/AM)
 	if(isliving(AM))

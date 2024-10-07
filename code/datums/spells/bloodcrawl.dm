@@ -15,7 +15,6 @@
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_demon"
-	panel = "Demon"
 	var/allowed_type = /obj/effect/decal/cleanable
 	var/phased = FALSE
 
@@ -137,10 +136,9 @@
 		user.stop_pulling()
 		return
 
-	victim.forceMove(holder)
 	victim.emote("scream")
+	victim.forceMove(holder)
 	enter_point.visible_message(span_warning("<b>[user] drags [victim] into [enter_point]!</b>"))
-	user.stop_pulling()
 	to_chat(user, "<b>You begin to feast on [victim]. You can not move while you are doing this.</b>")
 	enter_point.visible_message(span_warning("<B>Loud eating sounds come from the blood...</b>"))
 	var/sound
@@ -160,14 +158,10 @@
 
 	if(ishuman(victim) || isrobot(victim))
 		to_chat(user, span_warning("You devour [victim]. Your health is fully restored."))
-		user.adjustBruteLoss(-1000)
-		user.adjustFireLoss(-1000)
-		user.adjustOxyLoss(-1000)
-		user.adjustToxLoss(-1000)
+		user.heal_damages(brute = 1000, burn = 1000, tox = 1000, oxy = 1000)
 	else
 		to_chat(user, span_warning("You devour [victim], but this measly meal barely sates your appetite!"))
-		user.adjustBruteLoss(-25)
-		user.adjustFireLoss(-25)
+		user.heal_damages(brute = 25, burn = 25)
 
 	if(isslaughterdemon(user))
 		var/mob/living/simple_animal/demon/slaughter/demon = user
@@ -209,9 +203,10 @@
 	var/turf/mobloc = get_turf(user)
 	sink_animation(enter_point, user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
+	var/victim = user.pulling
 	user.forceMove(holder)
 	user.ExtinguishMob()
-	handle_consumption(user, user.pulling, enter_point, holder)
+	handle_consumption(user, victim, enter_point, holder)
 	post_phase_in(user, holder)
 
 

@@ -24,7 +24,7 @@
 	var/cuttable = TRUE
 	var/hole_size = NO_HOLE
 	var/invulnerable = FALSE
-	var/shock_cooldown = FALSE
+	COOLDOWN_DECLARE(shock_cooldown)
 
 /obj/structure/fence/Initialize()
 	. = ..()
@@ -102,7 +102,7 @@
 	var/current_stage = hole_size
 	user.visible_message("<span class='warning'>[user] starts cutting through [src] with [W].</span>",\
 	"<span class='warning'>You start cutting through [src] with [W].</span>")
-	if(W.use_tool(src, user, CUT_TIME * W.toolspeed * gettoolspeedmod(user), volume = W.tool_volume))
+	if(W.use_tool(src, user, CUT_TIME, volume = W.tool_volume))
 		if(current_stage == hole_size)
 			switch(hole_size)
 				if(NO_HOLE)
@@ -120,41 +120,44 @@
 					return
 			update_cut_status()
 
-/obj/structure/fence/attackby(obj/item/C, mob/user)
+
+/obj/structure/fence/attackby(obj/item/I, mob/user, params)
 	if(shock(user, 90))
 		add_fingerprint(user)
-		return
-	if(istype(C, /obj/item/stack/rods))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/stack/rods))
+		add_fingerprint(user)
 		if(hole_size == NO_HOLE)
-			return
-		var/obj/item/stack/rods/R = C
-		if(R.get_amount() < HOLE_REPAIR)
-			to_chat(user, "<span class='warning'>You need [HOLE_REPAIR] rods to fix this fence!</span>")
-			return
-		to_chat(user, "<span class='notice'>You begin repairing the fence...</span>")
-		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
-			add_fingerprint(user)
-			playsound(src, C.usesound, 80, 1)
-			hole_size = NO_HOLE
-			obj_integrity = max_integrity
-			to_chat(user, "<span class='notice'>You repair the fence.</span>")
-			update_cut_status()
-		return
-	. = ..()
+			to_chat(user, span_warning("The [name] is completely intact!"))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/stack/rods/rods = I
+		if(rods.get_amount() < HOLE_REPAIR)
+			to_chat(user, span_warning("You need [HOLE_REPAIR] rod\s to fix this fence!"))
+			return ATTACK_CHAIN_PROCEED
+		rods.play_tool_sound(src)
+		to_chat(user, span_notice("You start repairing the fence..."))
+		if(!do_after(user, 3 SECONDS * rods.toolspeed, src, category = DA_CAT_TOOL) || hole_size == NO_HOLE || !rods.use(HOLE_REPAIR))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You repair the fence."))
+		hole_size = NO_HOLE
+		obj_integrity = max_integrity
+		update_cut_status()
+		return ATTACK_CHAIN_PROCEED
+
+	return  ..()
+
 
 /obj/structure/fence/Bumped(atom/movable/moving_atom)
-	..()
-
-	if(!ismob(moving_atom))
-		return
-	if(shock_cooldown)
-		return
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, shock_cooldown) || !ismob(moving_atom))
+		return .
 	shock(moving_atom, 70)
-	shock_cooldown = TRUE // We do not want bump shock spam!
-	addtimer(CALLBACK(src, PROC_REF(shock_cooldown)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	COOLDOWN_START(src, shock_cooldown, 1 SECONDS) // We do not want bump shock spam!
 
-/obj/structure/fence/proc/shock_cooldown()
-	shock_cooldown = FALSE
 
 /obj/structure/fence/attack_animal(mob/user)
 	. = ..()

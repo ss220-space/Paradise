@@ -22,10 +22,10 @@
 	create_reagents(volume)
 	noz = make_noz()
 
-/obj/item/watertank/ui_action_click()
+/obj/item/watertank/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_mister()
 
-/obj/item/watertank/item_action_slot_check(slot, mob/user)
+/obj/item/watertank/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_BACK)
 		return TRUE
 
@@ -67,11 +67,12 @@
 	if(slot != ITEM_SLOT_BACK)
 		remove_noz()
 
+
 /obj/item/watertank/proc/remove_noz()
 	if(ismob(noz.loc))
-		var/mob/M = noz.loc
-		M.drop_item_ground(noz, force = TRUE)
-	return
+		var/mob/user = noz.loc
+		user.drop_item_ground(noz, force = TRUE)
+
 
 /obj/item/watertank/Destroy()
 	if(on)
@@ -79,18 +80,20 @@
 		QDEL_NULL(noz)
 	return ..()
 
-/obj/item/watertank/attack_hand(mob/user as mob)
-	if(src.loc == user)
+
+/obj/item/watertank/attack_hand(mob/user)
+	if(loc == user)
 		ui_action_click()
 		return
-	..()
+	return ..()
 
 
-/obj/item/watertank/attackby(obj/item/W, mob/user, params)
-	if(W == noz)
+/obj/item/watertank/attackby(obj/item/I, mob/user, params)
+	if(I == noz)
 		remove_noz()
-		return
-	..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 // This mister item is intended as an extension of the watertank and always attached to it.
 // Therefore, it's designed to be "locked" to the player's hands or extended back onto
@@ -135,12 +138,14 @@
 	else
 		return 1
 
-/obj/item/reagent_containers/spray/mister/Move()
+
+/obj/item/reagent_containers/spray/mister/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(loc != tank.loc)
-		loc = tank.loc
+		forceMove(tank.loc)
 
-/obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity)
+
+/obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity, params)
 	if(target.loc == loc || target == tank) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it putting it away
 		return
 	..()
@@ -247,10 +252,10 @@
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
 
-/obj/item/extinguisher/mini/nozzle/Move()
+/obj/item/extinguisher/mini/nozzle/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(tank && loc != tank.loc)
-		loc = tank
+		forceMove(tank)
 
 
 /obj/item/extinguisher/mini/nozzle/attack_self(mob/user)
@@ -276,7 +281,7 @@
 	tank.on = 0
 	loc = tank
 
-/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user)
+/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user, proximity, params)
 	if(nozzle_mode == EXTINGUISHER)
 		..()
 		return

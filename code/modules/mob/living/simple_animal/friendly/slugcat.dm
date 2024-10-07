@@ -34,6 +34,7 @@
 	//Шляпы для слизнекота!
 	var/obj/item/inventory_head
 	var/obj/item/inventory_hand
+	var/list/strippable_inventory_slots = list()
 
 	var/hat_offset_y = -8
 	var/hat_offset_y_rest = -19
@@ -44,6 +45,9 @@
 
 	var/is_pacifist = FALSE
 	var/is_reduce_damage = TRUE
+
+/mob/living/simple_animal/pet/slugcat/add_strippable_element()
+	AddElement(/datum/element/strippable, length(strippable_inventory_slots) ? create_strippable_list(strippable_inventory_slots) : GLOB.strippable_slugcat_items)
 
 /mob/living/simple_animal/pet/slugcat/monk
 	name = "слизнекот-монах"
@@ -84,73 +88,36 @@
 	health = 300
 	maxHealth = 300
 
-/mob/living/simple_animal/pet/slugcat/New()
-	..()
-	regenerate_icons()
 
+/mob/living/simple_animal/pet/slugcat/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-/mob/living/simple_animal/pet/slugcat/attackby(obj/item/W, mob/user, params)
-	if(stat != DEAD)
-		if(istype(W, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
-			place_on_head(user.get_active_hand(), user)
-			return
-		if(istype(W, /obj/item/twohanded/spear) && user.a_intent != INTENT_HARM)
-			place_to_hand(user.get_active_hand(), user)
-			return
+	if(istype(I, /obj/item/clothing/head))
+		add_fingerprint(user)
+		if(place_on_head(I, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
 
-	. = ..()
+	if(istype(I, /obj/item/twohanded/spear))
+		add_fingerprint(user)
+		if(place_to_hand(I, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
 
 /mob/living/simple_animal/pet/slugcat/death(gibbed)
 	drop_hat()
 	drop_hand()
 	. = ..()
 
-/mob/living/simple_animal/pet/slugcat/Topic(href, href_list)
-	if(..())
-		return TRUE
-
-	if(!(iscarbon(usr) || usr.incapacitated() || !Adjacent(usr)))
-		usr << browse(null, "window=mob[UID()]")
-		usr.unset_machine()
-		return
-
-	if(stat == DEAD)
-		return FALSE
-
-	if(href_list["remove_inv"])
-		var/remove_from = href_list["remove_inv"]
-		switch(remove_from)
-			if("head")
-				remove_from_head(usr)
-			if("hand")
-				remove_from_hand(usr)
-			if("collar")
-				if(pcollar)
-					var/the_collar = pcollar
-					drop_item_ground(pcollar)
-					usr.put_in_hands(the_collar, ignore_anim = FALSE)
-					pcollar = null
-		show_inv(usr)
-
-	else if(href_list["add_inv"])
-		var/add_to = href_list["add_inv"]
-		switch(add_to)
-			if("head")
-				place_on_head(usr.get_active_hand(), usr)
-			if("hand")
-				place_to_hand(usr.get_active_hand(), usr)
-			if("collar")
-				add_collar(usr.get_active_hand(), usr)
-		show_inv(usr)
-
-	if(usr != src)
-		return TRUE
-
 /mob/living/simple_animal/pet/slugcat/regenerate_icons()
-	..()
-	if(inventory_hand)
-		if(istype(inventory_hand, /obj/item/twohanded/spear))
-			speared()
+	cut_overlays()
+	if(pcollar && collar_type)
+		add_overlay("[collar_type]collar")
+		add_overlay("[collar_type]tag")
 
 	if(inventory_head)
 		var/image/head_icon
@@ -168,32 +135,28 @@
 
 		add_overlay(head_icon)
 
+	update_fire()
+
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
 
-/mob/living/simple_animal/pet/slugcat/post_lying_on_rest()
-	if(stat == DEAD)
-		return
-	drop_hand()
+/mob/living/simple_animal/pet/slugcat/on_lying_down(new_lying_angle)
 	if(inventory_head)
 		hat_offset_y = hat_offset_y_rest
-		regenerate_icons()
+	drop_hand()
 	. = ..()
 
 
-/mob/living/simple_animal/pet/slugcat/post_get_up()
+/mob/living/simple_animal/pet/slugcat/on_standing_up()
 	if(inventory_head)
 		hat_offset_y = initial(hat_offset_y)
-		regenerate_icons()
 	. = ..()
 
 
 /mob/living/simple_animal/pet/slugcat/proc/speared()
-	icon_state = "[initial(icon_state)]_spear"
-
+	icon_living = "[icon_living]_spear"
 	var/obj/item/twohanded/spear = inventory_hand
-
 	attacktext = "бьёт копьём"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	melee_damage_type = BRUTE
@@ -201,9 +164,10 @@
 	melee_damage_upper = round(spear.force_wielded / (is_reduce_damage ? 2 : 1))
 	armour_penetration = spear.armour_penetration
 	obj_damage = spear.force
+	update_icons()
 
 /mob/living/simple_animal/pet/slugcat/proc/unspeared()
-	icon_state = initial(icon_state)
+	icon_living = initial(icon_living)
 	attacktext = initial(attacktext)
 	attack_sound = initial(attack_sound)
 	melee_damage_type = initial(melee_damage_type)
@@ -211,6 +175,7 @@
 	melee_damage_upper = initial(melee_damage_upper)
 	armour_penetration = initial(armour_penetration)
 	obj_damage = initial(obj_damage)
+	update_icons()
 
 /mob/living/simple_animal/pet/slugcat/proc/get_hat_overlay()
 	if(hat_icon_file && hat_icon_state)
@@ -221,46 +186,47 @@
 		//slugI.transform = matrix(1, 0, 1, 0, 1, 0)
 		return slugI
 
-/mob/living/simple_animal/pet/slugcat/show_inv(mob/user)
-	if(user.incapacitated() || !Adjacent(user))
-		return
-	user.set_machine(src)
-
-	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
-	dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[inventory_head]" : "add_inv=head'>Nothing"]</A>"
-	dat += "<br><B>Hand:</B> <A href='?src=[UID()];[inventory_hand ? "remove_inv=hand'>[inventory_hand]" : "add_inv=hand'>Nothing"]</A>"
-	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
-	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
 
 /mob/living/simple_animal/pet/slugcat/proc/place_on_head(obj/item/item_to_add, mob/user)
+	if(stat != CONSCIOUS)
+		to_chat(user, span_warning("[declent_ru(NOMINATIVE)] не в том состоянии, чтобы пользоваться предметами!"))
+		return FALSE
+
 	if(!item_to_add)
-		if(flags & HOLOGRAM) //Can't touch ephemeral dudes(
+		if(user)
+			user.visible_message(
+				span_notice("[user] похлопывает по голове [declent_ru(GENITIVE)]."),
+				span_notice("Вы положили руку на голову [declent_ru(DATIVE)]."),
+			)
+		if(flags & HOLOGRAM)
 			return FALSE
-		user.visible_message(span_notice("[user] похлопывает по голове [src.name]."), span_notice("Вы положили руку на голову [src.name]."))
 		return FALSE
 
 	if(!istype(item_to_add, /obj/item/clothing/head))
-		to_chat(user, span_warning("[item_to_add.name] нельзя надеть на голову [src.name]!"))
+		if(user)
+			to_chat(user, span_warning("Предмет нельзя надеть на голову [declent_ru(DATIVE)]!"))
 		return FALSE
 
 	if(inventory_head)
 		if(user)
-			to_chat(user, span_warning("Нельзя надеть больше одного головного убора на голову [src.name]!"))
+			to_chat(user, span_warning("Нельзя надеть больше одного головного убора!"))
 		return FALSE
 
-	if(user && !user.drop_transfer_item_to_loc(item_to_add, src))
-		to_chat(user, span_warning("[item_to_add.name] застрял в ваших руках, вы не можете его надеть на голову [src.name]!"))
+	if(user && item_to_add.loc == user && !user.drop_transfer_item_to_loc(item_to_add, src))
 		return FALSE
 
-	user.visible_message(span_notice("[user] надевает [item_to_add.name] на голову [real_name]."),
-		span_notice("Вы надеваете [item_to_add.name] на голову [real_name]."),
-		span_italics("Вы слышите как что-то нацепили."))
+	if(user)
+		user.visible_message(
+			span_notice("[user] надевает головной убор на голову [declent_ru(DATIVE)]."),
+			span_notice("Вы надеваете головной убор на голову [declent_ru(DATIVE)]."),
+			span_italics("Вы слышите как что-то нацепили."),
+		)
+	if(item_to_add.loc != src)
+		item_to_add.forceMove(src)
 	inventory_head = item_to_add
 	regenerate_icons()
-
 	return TRUE
+
 
 /mob/living/simple_animal/pet/slugcat/proc/remove_from_head(mob/user)
 	if(inventory_head)
@@ -294,44 +260,59 @@
 	hat_alpha = null
 	hat_color = null
 
+
 /mob/living/simple_animal/pet/slugcat/proc/place_to_hand(obj/item/item_to_add, mob/user)
+	if(stat != CONSCIOUS)
+		to_chat(user, span_warning("[declent_ru(NOMINATIVE)] не в том состоянии, чтобы пользоваться предметами!"))
+		return FALSE
+
 	if(!item_to_add)
-		if(flags & HOLOGRAM) //Can't touch ephemeral dudes(
+		if(user)
+			user.visible_message(
+				span_notice("[user] пощупал лапки [declent_ru(DATIVE)]."),
+				span_notice("Вы пощупали лапки [declent_ru(DATIVE)]."),
+			)
+		if(flags & HOLOGRAM)
 			return FALSE
-		user.visible_message(span_notice("[user] пощупал лапки [src]."), span_notice("Вы пощупали лапки [src]."))
 		return FALSE
 
 	if(resting)
-		to_chat(user, span_warning("[src.name] спит и не принимает [item_to_add.name]!"))
+		to_chat(user, span_warning("[declent_ru(NOMINATIVE)] спит и не может принять предмет!"))
 		return FALSE
 
 	if(!istype(item_to_add, /obj/item/twohanded/spear))
-		to_chat(user, span_warning("[src.name] не принимает [item_to_add.name]!"))
-		return FALSE
-	if(inventory_hand)
 		if(user)
-			to_chat(user, span_warning("Лапки [src.name] заняты [inventory_hand.name]!"))
+			to_chat(user, span_warning("Предмет нельзя поместить в лапки [declent_ru(DATIVE)]!"))
 		return FALSE
 
-	if(user && !user.drop_item_ground(item_to_add))
-		to_chat(user, span_warning("[item_to_add.name] застрял в ваших руках, вы не можете его дать [src.name]!"))
+	if(inventory_hand)
+		if(user)
+			to_chat(user, span_warning("Лапки [declent_ru(GENITIVE)] уже заняты!"))
 		return FALSE
 
 	if(is_pacifist)
-		to_chat(user, span_warning("[src.name] пацифист и не пользуется [item_to_add.name]!"))
+		if(user)
+			to_chat(user, span_warning("[declent_ru(NOMINATIVE)] пацифист и не пользуется копьями!"))
 		return FALSE
 
-	user.visible_message(span_notice("[real_name] выхватывает [item_to_add] с рук [user]."),
-		span_notice("[real_name] выхватывает [item_to_add] с ваших рук."),
-		span_italics("Вы видите довольные глаза."))
-	move_item_to_hand(item_to_add)
+	if(user && item_to_add.loc == user && !user.drop_transfer_item_to_loc(item_to_add, src))
+		return FALSE
 
+	if(user)
+		user.visible_message(
+			span_notice("[declent_ru(NOMINATIVE)] выхватывает копьё из рук [user]."),
+			span_notice("[declent_ru(NOMINATIVE)] выхватывает копьё из Ваших рук."),
+		)
+	move_item_to_hand(item_to_add)
 	return TRUE
 
+
 /mob/living/simple_animal/pet/slugcat/proc/move_item_to_hand(obj/item/item_to_add)
-	item_to_add.forceMove(src)
+	if(item_to_add.loc != src)
+		item_to_add.forceMove(src)
 	inventory_hand = item_to_add
-	regenerate_icons()
+	speared()
+
 
 /mob/living/simple_animal/pet/slugcat/proc/remove_from_hand(mob/user)
 	if(inventory_hand)
@@ -342,21 +323,19 @@
 		to_chat(user, span_warning("Вы забрали [inventory_hand.name] с лап [src]."))
 		drop_item_ground(inventory_hand)
 		user.put_in_hands(inventory_hand, ignore_anim = FALSE)
-
 		null_hand()
-
-		regenerate_icons()
 	else
 		to_chat(user, span_warning("В лапах [src] нечего отбирать!"))
 		return FALSE
 
 	return TRUE
 
+
 /mob/living/simple_animal/pet/slugcat/proc/drop_hand()
 	if(inventory_hand)
 		drop_item_ground(inventory_hand)
 		null_hand()
-		regenerate_icons()
+
 
 /mob/living/simple_animal/pet/slugcat/proc/null_hand()
 	unspeared()

@@ -23,7 +23,9 @@
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!iscarbon(target) || owner == target)
-		return
+		return FALSE
+
+	. = TRUE
 
 	do_pickup_animation(src, target)
 
@@ -93,7 +95,8 @@
 		action.Remove(organ_owner)
 
 	if(send_signal)
-		SEND_SIGNAL(src, COMSIG_CARBON_LOSE_ORGAN)
+		SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src)
+		SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
 
 	owner = null
 	START_PROCESSING(SSobj, src)
@@ -105,17 +108,17 @@
 		return
 	switch(severity)
 		if(1)
-			receive_damage(20, 1)
+			internal_receive_damage(20, silent = TRUE)
 		if(2)
-			receive_damage(7, 1)
+			internal_receive_damage(7, silent = TRUE)
 
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
     insert(target)
 
 
-/obj/item/organ/internal/item_action_slot_check(slot, mob/user)
-	return
+/obj/item/organ/internal/item_action_slot_check(slot, mob/user, datum/action/action)
+	return FALSE
 
 
 /obj/item/organ/internal/proc/on_find(mob/living/finder)
@@ -163,17 +166,19 @@
 	list_reagents = list("nutriment" = 5)
 
 
-/obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
-	if(M == user && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/reagent_containers/food/snacks/S = prepare_eat()
-		if(S)
-			H.drop_from_active_hand()
-			H.put_in_active_hand(S)
-			S.attack(H, H)
-			qdel(src)
-	else
-		..()
+/obj/item/organ/internal/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(target != user || !ishuman(target) || !user.can_unEquip(src))
+		return ..()
+
+	var/obj/item/reagent_containers/food/snacks/snack = prepare_eat()
+	if(!snack)
+		return ATTACK_CHAIN_PROCEED
+
+	user.temporarily_remove_item_from_inventory(src)
+	target.put_in_active_hand(snack, silent = TRUE)
+	snack.attack(target, target, params)
+	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /****************************************************
@@ -285,7 +290,7 @@
 	M.force_gene_block(GLOB.comicblock, TRUE)
 	organhonked = world.time
 	M.AddElement(/datum/element/waddling)
-	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20)
+	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'), 50, falloff_exponent = 20)
 
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -316,10 +321,10 @@
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
 				if(H.drop_item_ground(H.shoes))
-					walk_away(thingy,H,15,2)
+					SSmove_manager.move_away(thingy, H, 15, 2)
 					spawn(20)
 						if(thingy)
-							walk(thingy,0)
+							SSmove_manager.stop_looping(thingy)
 
 
 /obj/item/organ/internal/honktumor/cursed
@@ -328,7 +333,7 @@
 
 /obj/item/organ/internal/honktumor/cursed/on_life() //No matter what you do, no matter who you are, no matter where you go, you're always going to be a fat, stuttering dimwit.
 	..()
-	owner.setBrainLoss(80, use_brain_mod = FALSE)
+	owner.setBrainLoss(80)
 	owner.set_nutrition(9000)
 	owner.overeatduration = 9000
 
@@ -345,7 +350,7 @@
 
 
 /obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50, falloff_exponent = 20)
+	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg'), 50, falloff_exponent = 20)
 
 
 /obj/item/organ/internal/honkbladder/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -386,22 +391,14 @@
 			H.update_fhair()
 
 
-/obj/item/organ/internal/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
-	switch(severity)
-		if(1)
-			receive_damage(20, 1)
-		if(2)
-			receive_damage(7, 1)
-
-
 /obj/item/organ/internal/handle_germs()
 	..()
-	if(germ_level >= INFECTION_LEVEL_TWO)
-		if(prob(3 * owner.dna.species.germs_growth_rate))
-			// big message from every 1 damage is not good. If germs growth rate is big, it will spam the chat.
-			receive_damage(1, silent = prob(30*owner.dna.species.germs_growth_rate))
+	if(!ishuman(owner))
+		return
+	var/germs_mod = owner.dna.species.germs_growth_mod * owner.physiology.germs_growth_mod
+	if(germ_level >= INFECTION_LEVEL_TWO && prob(3 * germs_mod))
+		// big message from every 1 damage is not good. If germs growth rate is big, it will spam the chat.
+		internal_receive_damage(1, silent = prob(30 * germs_mod))
 
 
 /mob/living/carbon/human/proc/check_infections()

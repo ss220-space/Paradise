@@ -21,6 +21,9 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_UI_BLOCKED), PROC_REF(on_ui_blocked_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_UI_BLOCKED), PROC_REF(on_ui_blocked_trait_loss))
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_PULL_BLOCKED), PROC_REF(on_pull_blocked_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_PULL_BLOCKED), PROC_REF(on_pull_blocked_trait_loss))
+
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), PROC_REF(on_incapacitated_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED), PROC_REF(on_incapacitated_trait_loss))
 
@@ -29,6 +32,10 @@
 
 	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_ENABLED, PROC_REF(on_movement_type_flag_enabled))
 	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_DISABLED, PROC_REF(on_movement_type_flag_disabled))
+
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NO_BREATH), PROC_REF(on_no_breath_trait_gain))
+
+	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_IGNOREDAMAGESLOWDOWN), SIGNAL_REMOVETRAIT(TRAIT_IGNOREDAMAGESLOWDOWN)), PROC_REF(on_ignore_damage_slowdown))
 
 	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_UNDENSE), SIGNAL_REMOVETRAIT(TRAIT_UNDENSE)), PROC_REF(undense_changed))
 
@@ -150,6 +157,19 @@
 	update_action_buttons()
 
 
+/// Called when [TRAIT_PULL_BLOCKED] is added to the mob.
+/mob/living/proc/on_pull_blocked_trait_gain(datum/source)
+	SIGNAL_HANDLER
+	mobility_flags &= ~(MOBILITY_PULL)
+	if(pulling)
+		stop_pulling()
+
+/// Called when [TRAIT_PULL_BLOCKED] is removed from the mob.
+/mob/living/proc/on_pull_blocked_trait_loss(datum/source)
+	SIGNAL_HANDLER
+	mobility_flags |= MOBILITY_PULL
+
+
 /// Called when [TRAIT_INCAPACITATED] is added to the mob.
 /mob/living/proc/on_incapacitated_trait_gain(datum/source)
 	SIGNAL_HANDLER
@@ -223,4 +243,32 @@
 		set_density(FALSE)
 	else
 		set_density(TRUE)
+
+
+/// Called when [TRAIT_NO_BREATH] is gained or lost
+/mob/living/proc/on_no_breath_trait_gain(datum/source)
+	SIGNAL_HANDLER
+
+	setOxyLoss(0)
+
+	clear_alert(ALERT_TOO_MUCH_OXYGEN)
+	clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
+
+	clear_alert(ALERT_TOO_MUCH_TOX)
+	clear_alert(ALERT_NOT_ENOUGH_TOX)
+
+	clear_alert(ALERT_TOO_MUCH_NITRO)
+	clear_alert(ALERT_NOT_ENOUGH_NITRO)
+
+	clear_alert(ALERT_TOO_MUCH_CO2)
+	clear_alert(ALERT_NOT_ENOUGH_CO2)
+
+	clear_alert(ALERT_TOO_MUCH_N2O)
+	clear_alert(ALERT_NOT_ENOUGH_N2O)
+
+
+/// Called when [TRAIT_IGNOREDAMAGESLOWDOWN] is gained or lost
+/mob/living/proc/on_ignore_damage_slowdown(datum/source)
+	SIGNAL_HANDLER
+	update_movespeed_damage_modifiers()
 

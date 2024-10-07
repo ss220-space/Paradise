@@ -97,8 +97,8 @@
 	description = "The organic compound commonly known as table sugar and sometimes called saccharose. This white, odorless, crystalline powder has a pleasing, sweet taste."
 	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 255, 255, 255
-	nutriment_factor = 5 * REAGENTS_METABOLISM
-	overdose_threshold = 200 // Hyperglycaemic shock
+	nutriment_factor = 2.5 * REAGENTS_METABOLISM
+	overdose_threshold = 30
 	taste_description = "sweetness"
 	taste_mult = 1.5
 
@@ -115,18 +115,39 @@
 		M.reagents.add_reagent("epinephrine", 1.2)
 	return ..() | update_flags
 
-/datum/reagent/consumable/sugar/overdose_start(mob/living/M)
-	to_chat(M, "<span class='danger'>You pass out from hyperglycemic shock!</span>")
-	M.emote("collapse")
+/datum/reagent/consumable/sugar/overdose_start(mob/living/carbon/human/affected)
+	to_chat(affected, "<span class='danger'>Вы теряете сознание от гипергликемического шока!</span>")
+	affected.overlay_fullscreen("hyperglycemia", /atom/movable/screen/fullscreen/impaired, 1)
+	affected.emote("faint")
+	if(ishuman(affected))
+		affected.physiology.hunger_mod *= 2
 	..()
 
 /datum/reagent/consumable/sugar/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.Paralyse(6 SECONDS * severity)
-	M.Weaken(8 SECONDS * severity)
-	if(prob(8))
-		update_flags |= M.adjustToxLoss(severity, FALSE)
-	return list(0, update_flags)
+	M.AdjustJitter(5 SECONDS)
+	if(prob(10))
+		to_chat(M, "<span class='danger'>У вас болит голова.</span>")
+	if(prob(5))
+		to_chat(M, "<span class='danger'>Вы чувствуете, как силы покидают вас.</span>")
+	if(volume >= 60)
+		M.AdjustKnockdown(5 SECONDS)
+		M.adjustToxLoss(1)
+		if(prob(3))
+			M.emote("collapse")
+		if(prob(3))
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				H.vomit()
+	return ..() | update_flags
+
+
+/datum/reagent/consumable/sugar/overdose_end(mob/living/carbon/human/affected)
+	affected.clear_fullscreen("hyperglycemia")
+	if(ishuman(affected))
+		affected.physiology.hunger_mod *= 0.5
+	..()
+
 
 /datum/reagent/consumable/soysauce
 	name = "Soysauce"
@@ -459,8 +480,8 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/datum/antagonist/goon_vampire/g_vamp = H.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-		if(g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full)) //incapacitating but not lethal.
+		var/datum/antagonist/vampire/vamp = H.mind?.has_antag_datum(/datum/antagonist/vampire)
+		if(vamp && vamp.is_garlic_affected && !vamp.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
 			if(prob(min(25, current_cycle)))
 				to_chat(H, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")
 				H.Weaken(2 SECONDS)
@@ -923,7 +944,7 @@
 		if(H.dna.species.taste_sensitivity < TASTE_SENSITIVITY_NO_TASTE) // If you can taste it, then you know how awful it is.
 			H.Weaken(4 SECONDS)
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
-		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
+		if(HAS_TRAIT(H, TRAIT_NO_HUNGER)) //If you don't eat, then you can't get food poisoning
 			return
 		var/datum/disease/food_poisoning/D = new
 		D.Contract(H)

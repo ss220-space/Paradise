@@ -406,11 +406,8 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
 "bi" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/shuttle/pirate_corvette)
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/unpowered)
 "bj" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(162);
@@ -782,7 +779,6 @@
 	},
 /area/shuttle/pirate_corvette)
 "cm" = (
-/obj/structure/disposalpipe/trunk,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -871,8 +867,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -900,8 +895,7 @@
 /area/ruin/space/pirate_base/laboratory)
 "cy" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/fyellow/old,
@@ -1295,9 +1289,8 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 8;
-	icon_state = "pipe-j2"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 8
 	},
 /obj/structure/sign/custodian{
 	pixel_y = 32
@@ -1345,14 +1338,6 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
-"dB" = (
-/obj/structure/table/reinforced,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
-/obj/item/melee/baton/loaded,
-/obj/item/melee/baton/loaded,
-/turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
 "dD" = (
 /turf/simulated/floor/engine,
@@ -1881,8 +1866,7 @@
 	do_not_delete_me = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2667,8 +2651,7 @@
 /area/ruin/space/pirate_base/virus_lab)
 "ho" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -2680,8 +2663,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
@@ -2899,8 +2881,7 @@
 	},
 /obj/effect/turf_decal/caution,
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -3415,8 +3396,7 @@
 /area/ruin/space/pirate_base/lab_hall)
 "jw" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -5409,8 +5389,7 @@
 /area/ruin/space/pirate_base/lab_hall)
 "ph" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -5569,19 +5548,6 @@
 /obj/item/stack/cable_coil/random,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/telecomms)
-"pI" = (
-/obj/structure/shuttle/engine/propulsion,
-/obj/structure/legionnaire_bonfire{
-	invisibility = 90
-	},
-/obj/structure/legionnaire_bonfire{
-	invisibility = 90
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 8
-	},
-/turf/simulated/floor/shuttle/plating,
-/area/shuttle/pirate_corvette)
 "pK" = (
 /obj/machinery/light{
 	dir = 1
@@ -6382,7 +6348,7 @@
 /area/ruin/space/pirate_base/entertainment)
 "sj" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -6677,9 +6643,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 8;
-	icon_state = "pipe-y"
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6854,8 +6819,7 @@
 /area/ruin/space/pirate_base/observ)
 "tA" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/barricade/wooden,
 /obj/effect/decal/cleanable/dirt,
@@ -6876,8 +6840,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/effect/decal/cleanable/dirt,
@@ -7112,10 +7075,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/mob/living/simple_animal/mouse/brown{
-	desc = "Главный помощник архитектора станции.";
-	real_name = "Инспектор Мышь"
-	},
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "ul" = (
@@ -7552,8 +7512,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -7943,8 +7902,7 @@
 /area/ruin/space/pirate_base/security_atrium)
 "wC" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
@@ -8157,8 +8115,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -8183,6 +8140,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/arrivals)
+"xq" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/item/melee/baton/security/loaded,
+/obj/item/melee/baton/security/loaded,
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
 "xt" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/pirate_base/lab_maint)
@@ -9117,8 +9082,7 @@
 /area/ruin/space/pirate_base/laboratory)
 "Aw" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/machinery/power/apc/noalarm{
 	req_access = list(160);
@@ -9371,8 +9335,7 @@
 	dir = 9
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -10255,8 +10218,7 @@
 /area/ruin/space/pirate_base/security_maint)
 "Eb" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11228,8 +11190,7 @@
 	},
 /obj/effect/turf_decal/siding/wood/corner,
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/pirate_base/security_atrium)
@@ -11279,7 +11240,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/space/pirate_base/security_atrium)
 "GT" = (
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
@@ -11319,8 +11280,7 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -11502,8 +11462,7 @@
 /area/ruin/space/pirate_base/security_maint)
 "HF" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -12175,8 +12134,7 @@
 /area/ruin/space/pirate_base/laboratory)
 "JA" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -12640,8 +12598,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -12659,8 +12616,7 @@
 /area/ruin/space/pirate_base/observ)
 "KS" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -12861,8 +12817,7 @@
 /area/ruin/space/pirate_base/virus_lab)
 "Lz" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/virus_lab)
@@ -13825,8 +13780,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
@@ -14119,6 +14073,7 @@
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 36
 	},
+/obj/item/camera,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -15172,8 +15127,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
@@ -15491,7 +15445,7 @@
 	},
 /obj/item/storage/backpack,
 /obj/item/card/id/syndicate/anyone{
-	access = list(160,161,162,26)
+	initial_access = list(160,161,162,26)
 	},
 /obj/item/radio/headset/syndicate/alt/syndteam{
 	name = "headset"
@@ -16027,8 +15981,7 @@
 /area/ruin/space/pirate_base/arrivals)
 "Vo" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -16340,8 +16293,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -16377,10 +16329,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "WA" = (
-/mob/living/simple_animal/mouse/brown{
-	desc = "Главный помощник архитектора станции.";
-	real_name = "Инспектор Мышь"
-	},
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
 "WD" = (
@@ -16789,11 +16738,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/pirate_base/atrium)
-"XR" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/shuttle/pirate_corvette)
 "XS" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/cleanable/dirt,
@@ -16989,7 +16933,7 @@
 	},
 /obj/item/storage/backpack,
 /obj/item/card/id/syndicate/anyone{
-	access = list(160,161,162,26)
+	initial_access = list(160,161,162,26)
 	},
 /obj/item/radio/headset/syndicate/alt/syndteam{
 	name = "headset"
@@ -17380,8 +17324,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -17426,15 +17369,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
-"ZE" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/shuttle/pirate_corvette)
 "ZH" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	name = "Connector Port (Air Supply)"
@@ -18152,8 +18086,8 @@ AK
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -18249,7 +18183,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -18322,7 +18256,7 @@ mM
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 qc
@@ -18334,9 +18268,9 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 qc
@@ -18436,6 +18370,9 @@ AK
 AK
 AK
 AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -18449,10 +18386,7 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
-AK
+bi
 AK
 AK
 mM
@@ -18463,7 +18397,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -18520,9 +18454,9 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 Zw
@@ -18533,6 +18467,8 @@ Zw
 AK
 AK
 AK
+bi
+bi
 AK
 AK
 AK
@@ -18551,10 +18487,8 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -18620,12 +18554,12 @@ mM
 AK
 AK
 AK
+bi
 AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
+bi
 AK
 Zw
 qs
@@ -18634,6 +18568,8 @@ Iz
 Zw
 AK
 AK
+bi
+bi
 AK
 AK
 AK
@@ -18647,6 +18583,14 @@ AK
 AK
 AK
 AK
+bi
+bi
+bi
+AK
+AK
+AK
+AK
+bi
 AK
 AK
 AK
@@ -18657,19 +18601,9 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -18751,9 +18685,9 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -18769,14 +18703,14 @@ mM
 AK
 AK
 AK
+bi
 AK
 AK
 AK
 AK
 AK
 AK
-AK
-AK
+bi
 AK
 AK
 AK
@@ -18818,10 +18752,10 @@ cY
 vZ
 AK
 AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
+bi
 AK
 AK
 AK
@@ -18853,8 +18787,8 @@ PD
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -18920,8 +18854,8 @@ IZ
 Af
 IZ
 AK
-AK
-AK
+bi
+bi
 IZ
 IZ
 IZ
@@ -18955,31 +18889,31 @@ PD
 AK
 AK
 AK
+bi
+bi
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
+bi
+bi
 AK
 AK
 AK
 AK
 mM
 mM
+bi
+bi
+bi
+bi
+bi
+bi
 AK
 AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
+bi
 AK
 AK
 AK
@@ -19057,22 +18991,28 @@ PD
 PD
 AK
 AK
+bi
 AK
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
+bi
+bi
 AK
 AK
 AK
 AK
 AK
 mM
+bi
+bi
+bi
+bi
+bi
+bi
 AK
 AK
 AK
@@ -19082,13 +19022,7 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
+bi
 AK
 qc
 qc
@@ -19168,7 +19102,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -19178,6 +19112,9 @@ mM
 AK
 AK
 AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -19187,11 +19124,8 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
 qc
 qc
 qc
@@ -19271,7 +19205,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -19293,7 +19227,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 qc
 qc
 qc
@@ -19321,7 +19255,7 @@ mM
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 IZ
@@ -19395,7 +19329,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 qc
 qc
 qc
@@ -19493,7 +19427,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -19593,9 +19527,9 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -19624,6 +19558,9 @@ AK
 AK
 AK
 AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -19632,14 +19569,11 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
+bi
+bi
 AK
 AK
 AK
@@ -19691,13 +19625,13 @@ mM
 AK
 AK
 AK
+bi
 AK
 AK
 AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -19726,9 +19660,9 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -19737,16 +19671,16 @@ AK
 XM
 AK
 AK
+bi
+bi
+bi
+bi
+bi
 AK
 AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 Zw
 Ka
@@ -19781,9 +19715,9 @@ PD
 mM
 mM
 mM
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -19793,11 +19727,11 @@ AK
 AK
 AK
 AK
+bi
+bi
 AK
 AK
-AK
-AK
-AK
+bi
 AK
 AK
 AK
@@ -19833,6 +19767,8 @@ AK
 AK
 AK
 AK
+bi
+bi
 AK
 AK
 AK
@@ -19845,9 +19781,7 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
+bi
 AK
 AK
 Zw
@@ -19884,8 +19818,8 @@ AK
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -19895,8 +19829,8 @@ AK
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -19935,7 +19869,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 mM
 mM
 mM
@@ -20002,7 +19936,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -20030,7 +19964,7 @@ qc
 qc
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -20086,7 +20020,7 @@ CC
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -20132,8 +20066,8 @@ qc
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 mM
@@ -20188,7 +20122,7 @@ CC
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -20196,8 +20130,8 @@ AK
 AK
 AK
 PE
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -20234,8 +20168,8 @@ qc
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 DM
 mM
@@ -20256,7 +20190,7 @@ mM
 mM
 AK
 AK
-AK
+bi
 AK
 Zw
 CF
@@ -20290,24 +20224,24 @@ CC
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
 AK
 AK
 PE
+bi
+bi
 AK
 AK
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -20392,9 +20326,9 @@ CC
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -20403,12 +20337,12 @@ mM
 XL
 AK
 AK
+bi
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -20494,7 +20428,7 @@ CC
 CC
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -20596,7 +20530,7 @@ Pn
 CC
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -20714,7 +20648,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -20751,11 +20685,11 @@ qc
 qc
 qc
 Qf
-XR
+it
 Kl
 Ay
 Ay
-XR
+it
 sx
 qc
 qc
@@ -20815,13 +20749,13 @@ AK
 AK
 AK
 AK
+bi
 AK
 AK
 AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 qc
@@ -20851,15 +20785,15 @@ qc
 qc
 qc
 en
-XR
-XR
-XR
-XR
+it
+it
+wI
+it
 NK
-XR
-XR
-XR
-XR
+it
+wI
+wI
+wI
 mZ
 qc
 qc
@@ -20903,7 +20837,7 @@ CC
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -20914,16 +20848,16 @@ AK
 AK
 AK
 AK
+bi
+bi
 AK
 AK
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 qc
@@ -20952,7 +20886,7 @@ qc
 Qf
 Ok
 Ok
-XR
+it
 cj
 op
 cA
@@ -20962,7 +20896,7 @@ wI
 My
 gi
 Ey
-XR
+it
 Ok
 wI
 sx
@@ -21022,9 +20956,9 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -21058,9 +20992,9 @@ Xo
 Cz
 nf
 nf
-XR
+wI
 HJ
-XR
+wI
 Xp
 sT
 KQ
@@ -21116,8 +21050,8 @@ AK
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -21160,7 +21094,7 @@ Cz
 RP
 Ns
 ej
-XR
+wI
 iL
 tk
 Ys
@@ -21212,14 +21146,14 @@ AK
 AK
 AK
 AK
+bi
 AK
 AK
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -21257,7 +21191,7 @@ qc
 qc
 yL
 Ok
-XR
+it
 OI
 GZ
 JS
@@ -21270,7 +21204,7 @@ Hh
 sT
 ei
 Mp
-XR
+it
 sX
 qc
 Th
@@ -21312,16 +21246,16 @@ AK
 AK
 AK
 AK
+bi
+bi
+bi
+bi
 AK
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -21360,18 +21294,18 @@ qc
 qc
 qc
 yL
-XR
+it
 wI
 wI
 wI
-XR
-XR
-XR
+wI
+wI
+wI
 PN
-XR
-XR
+it
+it
 ME
-XR
+it
 sX
 qc
 qc
@@ -21409,14 +21343,14 @@ vo
 Up
 lX
 pw
+bi
+bi
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -21470,10 +21404,10 @@ wI
 mP
 qK
 Dm
-XR
+wI
 cm
-bi
-ZE
+it
+it
 qc
 qc
 qc
@@ -21524,7 +21458,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -21568,21 +21502,21 @@ ey
 jN
 An
 vc
-XR
+wI
 fr
 uy
 Dm
-XR
+wI
 oQ
 eh
-pI
+xb
 qc
 qc
 qc
 Th
 qY
-AK
-AK
+bi
+bi
 AK
 cc
 SV
@@ -21636,7 +21570,7 @@ mM
 mM
 AK
 AK
-AK
+bi
 AK
 qc
 qc
@@ -21684,7 +21618,7 @@ qc
 Th
 qY
 AK
-AK
+bi
 AK
 cc
 FJ
@@ -21724,16 +21658,16 @@ AK
 AK
 AK
 AK
+bi
 AK
 AK
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
+bi
 mM
 mM
 AK
@@ -21772,11 +21706,11 @@ ey
 WE
 vJ
 zQ
-XR
+wI
 DE
 bh
 Fb
-XR
+wI
 cU
 eh
 xb
@@ -21826,16 +21760,16 @@ AK
 AK
 AK
 AK
+bi
 AK
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
+bi
+bi
 AK
 AK
 AK
@@ -21876,12 +21810,12 @@ qv
 yz
 wI
 dZ
-dB
+xq
 Dm
-XR
+wI
 pT
-XR
-XR
+it
+it
 qc
 qc
 qc
@@ -21922,8 +21856,8 @@ pw
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -21936,9 +21870,9 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -21972,18 +21906,18 @@ qc
 qc
 qc
 en
-XR
+it
 wI
 wI
 wI
-XR
-XR
-XR
+wI
+wI
+wI
 Wf
-XR
-XR
+it
+it
 gU
-XR
+it
 mZ
 qc
 qc
@@ -22011,6 +21945,12 @@ AK
 AK
 AK
 AK
+bi
+bi
+AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -22018,13 +21958,7 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
+bi
 AK
 AK
 AK
@@ -22038,9 +21972,9 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -22073,7 +22007,7 @@ qc
 qc
 en
 Ok
-XR
+it
 hc
 WN
 vy
@@ -22086,7 +22020,7 @@ ji
 dd
 jl
 Om
-XR
+it
 mZ
 qc
 Ac
@@ -22113,8 +22047,8 @@ AK
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -22141,9 +22075,9 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -22180,7 +22114,7 @@ zq
 oI
 Xu
 Jk
-XR
+wI
 Kb
 kG
 bT
@@ -22239,7 +22173,7 @@ mM
 mM
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -22282,9 +22216,9 @@ xu
 zq
 uy
 Ri
-XR
+wI
 HJ
-XR
+wI
 KQ
 Wx
 Mj
@@ -22297,7 +22231,7 @@ Th
 Kf
 mM
 AK
-AK
+bi
 Iv
 Ir
 VY
@@ -22338,8 +22272,8 @@ xt
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -22390,7 +22324,7 @@ wI
 My
 Jt
 Jt
-XR
+it
 Ok
 wI
 uc
@@ -22440,13 +22374,13 @@ xt
 AK
 AK
 AK
+bi
+bi
 AK
 AK
 AK
-AK
-AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -22483,15 +22417,15 @@ qc
 qc
 qc
 yL
-XR
-XR
-XR
-XR
+wI
+wI
+wI
+it
 jg
-XR
-XR
-XR
-XR
+it
+wI
+wI
+wI
 sX
 qc
 qc
@@ -22542,17 +22476,17 @@ xt
 AK
 AK
 AK
+bi
+bi
+bi
 AK
 AK
+bi
+bi
 AK
 AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -22587,11 +22521,11 @@ qc
 qc
 qc
 je
-XR
+it
 YQ
 ce
 HH
-XR
+it
 uc
 qc
 qc
@@ -22645,12 +22579,12 @@ bJ
 bJ
 AK
 AK
+bi
+bi
 AK
 AK
-AK
-AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -22779,7 +22713,7 @@ lY
 qc
 AK
 AK
-AK
+bi
 qc
 qc
 qc
@@ -22879,9 +22813,9 @@ lY
 lY
 lY
 qc
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -22957,7 +22891,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -22982,8 +22916,8 @@ lY
 lY
 qc
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -23020,7 +22954,7 @@ hU
 xI
 Mz
 Iv
-AK
+bi
 AK
 AK
 cr
@@ -23122,8 +23056,8 @@ dn
 tw
 Is
 Iv
-AK
-AK
+bi
+bi
 AK
 AK
 cS
@@ -23164,8 +23098,8 @@ AK
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 qc
@@ -23265,9 +23199,9 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 qc
@@ -23315,7 +23249,7 @@ mM
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 Iv
@@ -23393,12 +23327,12 @@ qc
 qc
 qc
 AK
+bi
 AK
 AK
 AK
 AK
 AK
-AK
 mM
 mM
 mM
@@ -23417,7 +23351,7 @@ mM
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 Iv
@@ -23458,7 +23392,7 @@ xt
 AK
 AK
 AK
-AK
+bi
 AK
 mM
 mM
@@ -23494,14 +23428,14 @@ qc
 qc
 qc
 qc
+bi
+bi
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -23518,7 +23452,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -23559,19 +23493,19 @@ vw
 xt
 AK
 AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
+bi
 mM
 mM
 AK
 AK
+bi
 AK
 AK
-AK
-AK
-AK
+bi
+bi
 AK
 AK
 qc
@@ -23596,6 +23530,20 @@ qc
 qc
 qc
 qc
+bi
+AK
+AK
+AK
+AK
+AK
+AK
+bi
+AK
+AK
+AK
+AK
+bi
+bi
 AK
 AK
 AK
@@ -23606,21 +23554,7 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
-AK
+bi
 AK
 AK
 AK
@@ -23661,8 +23595,8 @@ iM
 xt
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 mM
 mM
@@ -23672,9 +23606,9 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 qc
 qc
@@ -23710,8 +23644,8 @@ AK
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -23812,8 +23746,8 @@ AK
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -23839,8 +23773,8 @@ BM
 BM
 BM
 BM
-AK
-AK
+bi
+bi
 cS
 HR
 NE
@@ -23917,7 +23851,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 AK
 mc
 Tk
@@ -23941,8 +23875,8 @@ AK
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 cS
 xK
 Ml
@@ -23977,8 +23911,8 @@ mM
 mM
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -24043,7 +23977,7 @@ BM
 AK
 AK
 AK
-AK
+bi
 AK
 cS
 ok
@@ -24080,9 +24014,9 @@ AK
 AK
 AK
 AK
+bi
 AK
-AK
-AK
+bi
 AK
 qc
 qc
@@ -24377,8 +24311,8 @@ mM
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -24479,9 +24413,9 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -24583,9 +24517,9 @@ AK
 AK
 AK
 AK
+bi
 AK
-AK
-AK
+bi
 AK
 AK
 AK
@@ -24662,9 +24596,9 @@ mM
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -24764,9 +24698,9 @@ mM
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -24832,7 +24766,7 @@ qc
 AK
 AK
 AK
-AK
+bi
 AK
 mc
 gg
@@ -25107,9 +25041,9 @@ AK
 AK
 AK
 AK
+bi
 AK
-AK
-AK
+bi
 qc
 qc
 qc
@@ -25205,15 +25139,15 @@ AK
 AK
 AK
 AK
+bi
+bi
+bi
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
 qc
 qc
 qc
@@ -25235,9 +25169,9 @@ qc
 qc
 qc
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -25307,15 +25241,15 @@ ci
 ci
 ci
 AK
+bi
+bi
+bi
 AK
 AK
 AK
-AK
-AK
-AK
-AK
-AK
-AK
+bi
+bi
+bi
 qc
 qc
 qc
@@ -25337,9 +25271,9 @@ qc
 qc
 qc
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -25409,15 +25343,15 @@ CE
 BS
 ci
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
 qc
-AK
-AK
+bi
+bi
 qc
 qc
 qc
@@ -25438,8 +25372,8 @@ qc
 qc
 qc
 qc
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -25475,7 +25409,7 @@ MH
 Bv
 yr
 AK
-AK
+bi
 AK
 AK
 MD
@@ -25513,13 +25447,13 @@ ci
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 qc
 qc
-AK
-AK
+bi
+bi
 qc
 qc
 qc
@@ -25546,8 +25480,8 @@ AK
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 BX
 wE
 Fn
@@ -25648,8 +25582,8 @@ AK
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 BX
 Jh
 Fn
@@ -25716,8 +25650,8 @@ Cc
 ci
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 qc
@@ -26015,7 +25949,7 @@ mh
 AK
 AK
 AK
-AK
+bi
 TU
 ci
 gl
@@ -26295,8 +26229,8 @@ mM
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 MD
 fM
@@ -26467,7 +26401,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 AK
 BX
 BX
@@ -26492,7 +26426,7 @@ PP
 fp
 fW
 AK
-AK
+bi
 AK
 AK
 Ik
@@ -26521,8 +26455,8 @@ DQ
 pB
 mh
 AK
-AK
-AK
+bi
+bi
 AK
 qc
 qc
@@ -26569,7 +26503,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 BX
@@ -26623,7 +26557,7 @@ Xa
 mh
 mh
 AK
-AK
+bi
 AK
 AK
 qc
@@ -26706,11 +26640,11 @@ AK
 AK
 AK
 AK
+bi
+bi
 AK
 AK
-AK
-AK
-AK
+bi
 AK
 AK
 AK
@@ -26724,7 +26658,7 @@ mh
 hD
 QF
 mh
-AK
+bi
 AK
 qc
 qc
@@ -26798,7 +26732,7 @@ fW
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -26810,7 +26744,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -26826,7 +26760,7 @@ mh
 Uh
 WF
 mh
-AK
+bi
 AK
 AK
 qc
@@ -26873,9 +26807,9 @@ qc
 qc
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -26900,7 +26834,7 @@ fW
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -26908,11 +26842,11 @@ AK
 mM
 AK
 AK
+bi
 AK
 AK
 AK
-AK
-AK
+bi
 AK
 AK
 AK
@@ -26928,7 +26862,7 @@ mh
 sH
 cH
 mh
-AK
+bi
 AK
 AK
 qc
@@ -26975,6 +26909,9 @@ qc
 qc
 AK
 AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -26983,10 +26920,7 @@ AK
 AK
 AK
 AK
-AK
-AK
-AK
-AK
+bi
 AK
 AK
 fW
@@ -27001,8 +26935,8 @@ AK
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 AK
@@ -27083,12 +27017,12 @@ AK
 AK
 AK
 AK
+bi
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
 AK
 AK
 fW
@@ -27126,9 +27060,9 @@ qc
 AK
 AK
 AK
-AK
-AK
-AK
+bi
+bi
+bi
 AK
 AK
 AK
@@ -27229,12 +27163,12 @@ AK
 AK
 AK
 AK
+bi
+bi
 AK
 AK
 AK
-AK
-AK
-AK
+bi
 AK
 AK
 qc
@@ -27331,8 +27265,8 @@ AK
 AK
 AK
 AK
-AK
-AK
+bi
+bi
 mM
 mM
 AK
@@ -27400,7 +27334,7 @@ qc
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -27502,8 +27436,8 @@ qc
 qc
 AK
 AK
-AK
-AK
+bi
+bi
 AK
 AK
 qc

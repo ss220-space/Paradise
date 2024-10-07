@@ -12,6 +12,7 @@
 	ranged = 1
 	ranged_message = "leaps"
 	ranged_cooldown_time = 40
+	AI_delay_max = 0.5 SECONDS
 	var/jumpdistance = 4
 	var/jumpspeed = 1
 	attacktext = "грызёт"

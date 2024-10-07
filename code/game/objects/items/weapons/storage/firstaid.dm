@@ -22,7 +22,6 @@
 	var/treatment_virus = "spaceacillin"
 	var/med_bot_skin = null
 	var/syndicate_aligned = FALSE
-	var/robot_arm // This is for robot construction
 
 
 /obj/item/storage/firstaid/fire
@@ -87,7 +86,7 @@
 
 /obj/item/storage/firstaid/toxin/Initialize(mapload)
 	. = ..()
-	icon_state = pick("antitoxin", "antitoxfirstaid", "antitoxfirstaid2", "antitoxfirstaid3")
+	icon_state = pick("antitoxin", "antitoxfirstaid")
 
 /obj/item/storage/firstaid/toxin/populate_contents()
 	new /obj/item/reagent_containers/syringe/charcoal(src)
@@ -156,6 +155,25 @@
 	new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/adv/empty/populate_contents()
+	return
+
+/obj/item/storage/firstaid/paramed
+	name = "paramed first-aid kit"
+	desc = "A medical kit that contains several medical patches and injectors for the treatment of various diseases."
+	icon_state = "firstaid_paramed"
+	item_state = "firstaid_paramed"
+	med_bot_skin = "paramed"
+
+/obj/item/storage/firstaid/paramed/populate_contents()
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+	new	/obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+	new /obj/item/stack/medical/bruise_pack(src)
+	new /obj/item/stack/medical/ointment(src)
+
+/obj/item/storage/firstaid/paramed/empty/populate_contents()
 	return
 
 /obj/item/storage/firstaid/machine
@@ -333,6 +351,7 @@
 	if(allow_wrap)
 		apply_wrap()
 
+
 /obj/item/storage/pill_bottle/proc/apply_wrap()
 	if(wrapper_color)
 		cut_overlays()
@@ -342,20 +361,18 @@
 		if(blocks_emissive)
 			add_overlay(get_emissive_block())
 
-/obj/item/storage/pill_bottle/attack(mob/M, mob/user)
-	if(iscarbon(M) && contents.len)
-		if(applying_meds)
-			to_chat(user, "<span class='warning'>You are already applying meds.</span>")
-			return
-		applying_meds = TRUE
-		for(var/obj/item/reagent_containers/food/pill/P in contents)
-			if(P.attack(M, user))
-				applying_meds = FALSE
-			else
-				applying_meds = FALSE
-			break
-	else
+
+/obj/item/storage/pill_bottle/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!iscarbon(target) || !length(contents))
 		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
+
+	// we pick random pill/patch and try to feed it
+	var/obj/item/reagent_containers/food/pill/pill = locate() in contents
+	if(pill)
+		return pill.attack(target, user, params, def_zone, skip_attack_anim)
+
 
 /obj/item/storage/pill_bottle/ert
 	wrapper_color = COLOR_MAROON
@@ -390,8 +407,9 @@
 /obj/item/storage/pill_bottle/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		rename_interactive(user, I)
-	else
-		return ..()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
+
 
 /obj/item/storage/pill_bottle/patch_pack
 	name = "patch pack"

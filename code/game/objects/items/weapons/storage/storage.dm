@@ -117,7 +117,7 @@
 	if((!istype(src, /obj/item/storage/lockbox) && (istype(over_object, /obj/structure/table) || isfloorturf(over_object)) \
 		&& length(contents) && loc == user && !user.incapacitated() && user.Adjacent(over_object)))
 
-		if(alert(user, "Empty [src] onto [over_object]?", "Confirm", "Yes", "No") != "Yes")
+		if(tgui_alert(user, "Empty [src] onto [over_object]?", "Confirm", list("Yes", "No")) != "Yes")
 			return FALSE
 
 		if(!user || !over_object || user.incapacitated() || loc != user || !user.Adjacent(over_object))
@@ -312,7 +312,7 @@
 //Set the stop_messages to stop it from printing messages
 /obj/item/storage/proc/can_be_inserted(obj/item/W, stop_messages = FALSE)
 	if(!istype(W) || (W.item_flags & ABSTRACT)) //Not an item
-		return
+		return FALSE
 
 	if(loc == W)
 		return FALSE //Means the item is already in the storage item
@@ -386,10 +386,10 @@
 			span_notice("[usr] начинает снимать [W.name]..."),
 			span_notice("Вы начинаете снимать [W.name]..."),
 		)
-		if(!do_after(usr, W.equip_delay_self, usr, max_interact_count = 1, cancel_message = span_warning("Снятие [W.name] было прервано!")))
+		if(!do_after(usr, W.equip_delay_self, usr, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [W.name] было прервано!")))
 			return FALSE
 
-		if(!usr.drop_item_ground(W))
+		if(!usr.can_unEquip(W))
 			return FALSE
 
 	return TRUE
@@ -401,7 +401,7 @@
 	if(!istype(W))
 		return FALSE
 	if(usr)
-		if(!usr.drop_item_ground(W))
+		if(W.loc == usr && !usr.drop_item_ground(W))
 			return FALSE
 		usr.update_icons()	//update our overlays
 	if(silent)
@@ -476,6 +476,7 @@
 		W.forceMove(new_location)
 
 	if(usr)
+		W.add_fingerprint(usr)
 		orient2hud(usr)
 		if(usr.s_active && !QDELETED(src))
 			usr.s_active.show_to(usr)
@@ -485,9 +486,9 @@
 	update_icon()
 	return TRUE
 
-/obj/item/storage/Exited(atom/movable/AM, atom/newLoc)
-	remove_from_storage(AM, newLoc) //worry not, comrade; this only gets called once
-	..()
+/obj/item/storage/Exited(atom/movable/departed, atom/newLoc)
+	remove_from_storage(departed, newLoc) //worry not, comrade; this only gets called once
+	. = ..()
 
 /obj/item/storage/deconstruct(disassembled = TRUE)
 	var/drop_loc = loc
@@ -497,23 +498,28 @@
 		remove_from_storage(I, drop_loc)
 	qdel(src)
 
+
 //This proc is called when you want to place an item into the storage item.
 /obj/item/storage/attackby(obj/item/I, mob/user, params)
-	..()
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 	if(istype(I, /obj/item/hand_labeler))
 		var/obj/item/hand_labeler/labeler = I
-		if(labeler.mode)
-			return FALSE
-	. = TRUE //no afterattack
+		if(labeler.mode)	// labeling with afterattack
+			return .
+
 	if(isrobot(user))
-		return //Robots can't interact with storage items.
+		return .|ATTACK_CHAIN_BLOCKED_ALL //Robots can't interact with storage items.
 
 	if(!can_be_inserted(I))
-		if(contents.len >= storage_slots) //don't use items on the backpack if they don't fit
-			return TRUE
-		return FALSE
+		if(length(contents) >= storage_slots) //don't use items on the backpack if they don't fit
+			return .|ATTACK_CHAIN_BLOCKED_ALL
+		return .
 
 	handle_item_insertion(I)
+	return .|ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/item/storage/attack_hand(mob/user)
 	if(ishuman(user))

@@ -129,9 +129,9 @@
 						theAPC = null
 
 /mob/living/silicon/ai/updatehealth(reason = "none given", should_log = FALSE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()
-	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
+	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss())
 	update_stat("updatehealth([reason])", should_log)
 
 /mob/living/silicon/ai/proc/lacks_power()

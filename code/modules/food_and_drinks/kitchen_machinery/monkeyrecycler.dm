@@ -47,82 +47,91 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 
 /obj/machinery/monkey_recycler/RefreshParts()
 	var/req_grind = 5
-	var/cubes_made = 1
+	var/cubes_made = 0
 	for(var/obj/item/stock_parts/manipulator/B in component_parts)
 		req_grind -= B.rating
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		cubes_made = M.rating
+		cubes_made += M.rating
 	cube_production = cubes_made
-	required_grind = req_grind
+	required_grind = max(req_grind, 1)
 
-/obj/machinery/monkey_recycler/attackby(obj/item/O, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", O))
-		add_fingerprint(user)
-		return
 
-	if(exchange_parts(user, O))
-		return
+/obj/machinery/monkey_recycler/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-	if(default_unfasten_wrench(user, O))
-		add_fingerprint(user)
-		power_change()
-		return
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(default_deconstruction_crowbar(user, O))
-		return
-
-	if(O.tool_behaviour == TOOL_MULTITOOL)
-		add_fingerprint(user)
-		if(!panel_open)
-			cycle_through++
-			switch(cycle_through)
-				if(1)
-					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
-				if(2)
-					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
-				if(3)
-					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
-				if(4)
-					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/neaeracube
-				if(5)
-					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
-					cycle_through = 0
-			to_chat(user, "<span class='notice'>You change the monkeycube type to [initial(cube_type.name)].</span>")
-		else
-			var/obj/item/multitool/M = O
-			M.buffer = src
-			to_chat(user, "<span class='notice'>You log [src] in the [M]'s buffer.</span>")
-		return
-	if(stat != 0) //NOPOWER etc
-		return
-	if(istype(O, /obj/item/grab))
-		var/obj/item/grab/G = O
-		var/grabbed = G.affecting
-		if(ishuman(grabbed))
-			var/mob/living/carbon/human/target = grabbed
-			if(issmall(target))
-				if(target.stat == 0)
-					to_chat(user, "<span class='warning'>The monkey is struggling far too much to put it in the recycler.</span>")
-				else
-					add_fingerprint(user)
-					user.drop_from_active_hand()
-					qdel(target)
-					target = null //we sleep in this proc, clear reference NOW
-					to_chat(user, "<span class='notice'>You stuff the monkey in the machine.</span>")
-					playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
-					var/offset = prob(50) ? -2 : 2
-					animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
-					use_power(500)
-					grinded++
-					sleep(50)
-					pixel_x = initial(pixel_x)
-					to_chat(user, "<span class='notice'>The machine now has [grinded] monkey\s worth of material stored.</span>")
-			else
-				to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
-		else
-			to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
-		return
 	return ..()
+
+
+/obj/machinery/monkey_recycler/screwdriver_act(mob/living/user, obj/item/I)
+	return default_deconstruction_screwdriver(user, "grinder_open", "grinder", I)
+
+
+/obj/machinery/monkey_recycler/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I)
+
+
+/obj/machinery/monkey_recycler/crowbar_act(mob/living/user, obj/item/I)
+	return default_deconstruction_crowbar(user, I)
+
+
+/obj/machinery/monkey_recycler/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(panel_open)
+		if(!ismultitool(I))
+			return FALSE
+		if(!I.use_tool(src, user, volume = I.tool_volume))
+			return .
+		var/obj/item/multitool/multitool = I
+		multitool.buffer = src
+		to_chat(user, span_notice("You log [src] in [multitool]'s buffer."))
+		return .
+	cycle_through++
+	switch(cycle_through)
+		if(1)
+			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
+		if(2)
+			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
+		if(3)
+			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
+		if(4)
+			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/neaeracube
+		if(5)
+			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
+			cycle_through = 0
+	to_chat(user, span_notice("You have changed the monkeycube type to [initial(cube_type.name)]."))
+
+
+/obj/machinery/monkey_recycler/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || (stat & (NOPOWER|BROKEN)))
+		return .
+	if(!ishuman(grabbed_thing))
+		to_chat(grabber, span_warning("This machine only accepts humanoid!"))
+		return .
+	var/mob/living/carbon/human/victim = grabbed_thing
+	if(!is_monkeybasic(victim))
+		to_chat(grabber, span_warning("This machine only accepts lesser forms!"))
+		return .
+	if(!victim.stat)
+		to_chat(grabber, span_warning("[victim] is struggling far too much to put it in the recycler."))
+		return .
+	add_fingerprint(grabber)
+	to_chat(grabber, span_notice("You stuff [victim] in [src]."))
+	grabber.stop_pulling()
+	qdel(victim)
+	playsound(loc, 'sound/machines/juicer.ogg', 50, TRUE)
+	var/offset = prob(50) ? -2 : 2
+	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
+	use_power(500)
+	grinded++
+	sleep(5 SECONDS)
+	pixel_x = initial(pixel_x)
+	to_chat(grabber, span_notice("The machine now has [grinded] monkey\s worth of material stored."))
+
 
 /obj/machinery/monkey_recycler/attack_hand(mob/user)
 	if(stat != 0) //NOPOWER etc

@@ -35,11 +35,13 @@
 	SHOULD_CALL_PARENT(FALSE)
 	if(!istype(src, /turf/space/transit) && !istype(src, /turf/space/openspace))
 		icon_state = SPACE_ICON_STATE
-	vis_contents.Cut() //removes inherited overlays
 
-	if(initialized)
+	if(length(vis_contents))
+		vis_contents.Cut() //removes inherited overlays
+
+	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
-	initialized = TRUE
+	flags |= INITIALIZED
 
 	// We make the assumption that the space plane will never be blacklisted, as an optimization
 	if(SSmapping.max_plane_offset)
@@ -55,8 +57,8 @@
 	if (light_power && light_range)
 		update_light()
 
-	if (opacity)
-		has_opaque_atom = TRUE
+	if(opacity)
+		directional_opacity = ALL_CARDINALS
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -83,102 +85,108 @@
 			return
 		set_light_on(FALSE)
 
-/turf/space/attackby(obj/item/C as obj, mob/user as mob, params)
-	..()
-	if(istype(C, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = C
-		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-		var/obj/structure/lattice/catwalk/W = locate(/obj/structure/lattice/catwalk, src)
-		if(W)
+
+/turf/space/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(istype(I, /obj/item/stack/rods))
+		var/obj/item/stack/rods/rods = I
+		if(locate(/obj/structure/lattice/catwalk, src))
 			to_chat(user, span_warning("There is already a catwalk here!"))
-			return
-		if(L)
-			if(R.use(1))
-				to_chat(user, span_notice("You construct a catwalk."))
-				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				new/obj/structure/lattice/catwalk(src)
-			else
+			return .
+		if(locate(/obj/structure/lattice, src))
+			if(!rods.use(1))
 				to_chat(user, span_warning("You need two rods to build a catwalk!"))
-			return
-		if(R.use(1))
-			to_chat(user, span_notice("Constructing support lattice..."))
-			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-			ReplaceWithLattice()
-		else
+				return .
+			to_chat(user, span_notice("You construct a catwalk."))
+			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+			new /obj/structure/lattice/catwalk(src)
+			return .|ATTACK_CHAIN_SUCCESS
+		if(!rods.use(1))
 			to_chat(user, span_warning("You need one rod to build a lattice."))
-		return
+			return .
+		to_chat(user, span_notice("Constructing support lattice..."))
+		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+		ReplaceWithLattice()
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(C, /obj/item/stack/tile/plasteel))
-		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-		if(L)
-			var/obj/item/stack/tile/plasteel/S = C
-			if(S.use(1))
-				qdel(L)
-				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, span_notice("You build a floor."))
-				ChangeTurf(/turf/simulated/floor/plating)
-			else
-				to_chat(user, span_warning("You need one floor tile to build a floor!"))
-		else
+	if(istype(I, /obj/item/stack/tile/plasteel))
+		var/obj/item/stack/tile/plasteel/plasteel = I
+		var/obj/structure/lattice/lattice = locate() in src
+		if(!lattice)
 			to_chat(user, span_warning("The plating is going to need some support! Place metal rods first."))
+			return .
+		if(!plasteel.use(1))
+			to_chat(user, span_warning("You need one floor tile to build a floor!"))
+			return .
+		qdel(lattice)
+		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+		to_chat(user, span_notice("You build a floor."))
+		ChangeTurf(/turf/simulated/floor/plating)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(C, /obj/item/stack/fireproof_rods))
-		var/obj/item/stack/fireproof_rods/R = C
-		var/obj/structure/lattice/fireproof/L = locate(/obj/structure/lattice/fireproof, src)
-		var/obj/structure/lattice/catwalk/fireproof/W = locate(/obj/structure/lattice/catwalk/fireproof, src)
-		if(W)
+	if(istype(I, /obj/item/stack/fireproof_rods))
+		var/obj/item/stack/fireproof_rods/rods = I
+		if(locate(/obj/structure/lattice/catwalk/fireproof, src))
 			to_chat(user, span_warning("Здесь уже есть мостик!"))
-			return
-		if(!L)
-			if(R.use(1))
-				to_chat(user, span_notice("Вы установили прочную решётку."))
-				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				new /obj/structure/lattice/fireproof(src)
-			else
-				to_chat(user, span_warning("Вам нужен один огнеупорный стержень для постройки решётки."))
-			return
-		if(L)
-			if(R.use(2))
-				qdel(L)
-				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, span_notice("Вы установили мостик."))
-				new /obj/structure/lattice/catwalk/fireproof(src)
+			return .
+		var/obj/structure/lattice/fireproof/lattice = locate() in src
+		if(!lattice)
+			if(!rods.use(1))
+				to_chat(user, span_warning("Вам нужен один огнеупорный стержень для постройки решётки!"))
+				return .
+			to_chat(user, span_notice("Вы установили прочную решётку."))
+			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+			new /obj/structure/lattice/fireproof(src)
+			return .|ATTACK_CHAIN_SUCCESS
+		if(!rods.use(2))
+			to_chat(user, span_warning("Вам нужно два огнеупорных стержня для постройки мостика!"))
+			return .
+		qdel(lattice)
+		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+		to_chat(user, span_notice("Вы установили огнеупорный мостик."))
+		new /obj/structure/lattice/catwalk/fireproof(src)
+		return .|ATTACK_CHAIN_SUCCESS
 
-/turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
-	..()
-	if((!(A) || !(src in A.locs)))
-		return
+
+/turf/space/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(!arrived || !(src in arrived.locs))
+		return .
 
 	if(destination_z && destination_x && destination_y)
-		destination_z = check_taipan_availability(A, destination_z)
-		A.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED)
+		destination_z = check_taipan_availability(arrived, destination_z)
+		arrived.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED)
 
-		if(isliving(A))
-			var/mob/living/L = A
-			if(L.pulling)
-				var/turf/T = get_step(L.loc,turn(A.dir, 180))
-				L.pulling.zMove(null, T, ZMOVE_ALLOW_BUCKLED)
+		var/atom/movable/current_pull = arrived.pulling
+		while(current_pull)
+			var/turf/target_turf = get_step(current_pull.pulledby.loc, REVERSE_DIR(current_pull.pulledby.dir)) || current_pull.pulledby.loc
+			current_pull.zMove(null, target_turf, ZMOVE_ALLOW_BUCKLED)
+			current_pull = current_pull.pulling
 
-		//now we're on the new z_level, proceed the space drifting
-		spawn(0)//Let a diagonal move finish, if necessary
-			A.newtonian_move(A.inertia_dir)
 
-/turf/space/proc/check_taipan_availability(atom/movable/A as mob|obj, destination_z)
-	var/mob/living/check_mob = A
-	// if we are from taipan's crew, then we can easily access it.
-	if(istype(check_mob) && is_taipan(destination_z))
-		if(check_mob.mind in GLOB.taipan_players_active)
-			to_chat(A, span_info("Вы вернулись в ваш родной скрытый от чужих глаз сектор..."))
-			return destination_z
+/turf/space/proc/check_taipan_availability(atom/movable/arrived, destination_z)
+	if(!is_taipan(destination_z))
+		return destination_z
+	var/arrived_is_mob = isliving(arrived)
+	var/mob/living/arrived_mob = arrived
+	if(arrived_is_mob && (arrived_mob.mind in GLOB.taipan_players_active))
+		to_chat(arrived_mob, span_info("Вы вернулись в ваш родной скрытый от чужих глаз сектор..."))
+		return destination_z
 	// if we are not from taipan's crew, then we cannot get there until there is enought players on Taipan
-	if(is_taipan(destination_z) && length(GLOB.taipan_players_active) < TAIPAN_PLAYER_LIMIT)
+	if(length(GLOB.taipan_players_active) < TAIPAN_PLAYER_LIMIT)
 		var/datum/space_level/taipan_zlvl
 		var/datum/space_level/direct
 		for(var/list_parser in GLOB.space_manager.z_list)
 			var/datum/space_level/lvl = GLOB.space_manager.z_list[list_parser]
 			if(TAIPAN in lvl.flags)
 				taipan_zlvl = lvl
-		switch(A.dir)
+		if(!arrived.dir)
+			arrived.dir = SOUTH
+		switch(arrived.dir)
 			if(NORTH)
 				direct = taipan_zlvl.get_connection(Z_LEVEL_NORTH)
 			if(SOUTH)
@@ -187,14 +195,15 @@
 				direct = taipan_zlvl.get_connection(Z_LEVEL_EAST)
 			if(WEST)
 				direct = taipan_zlvl.get_connection(Z_LEVEL_WEST)
-		destination_z = direct.zpos
+		destination_z = direct?.zpos
 		// if we are still going to get to taipan after all the checks... Then get random available z_lvl instead
-		if(is_taipan(destination_z))
+		if(!destination_z || is_taipan(destination_z))
 			destination_z = pick(get_all_linked_levels_zpos())
-	//notification if we do get to taipan
-	if(istype(check_mob) && is_taipan(destination_z))
-		to_chat(check_mob, span_warning("Вы попадаете в загадочный сектор полный астероидов... Тут стоит быть осторожнее..."))
+		return destination_z
+	if(arrived_is_mob)
+		to_chat(arrived_mob, span_warning("Вы попадаете в загадочный сектор полный астероидов... Тут стоит быть осторожнее..."))
 	return destination_z
+
 
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
 	var/cur_x
@@ -205,7 +214,7 @@
 	var/list/y_arr
 
 	if(src.x <= 1)
-		if(istype(A, /obj/effect/meteor)||istype(A, /obj/effect/space_dust))
+		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
 
@@ -280,7 +289,7 @@
 					A.loc.Entered(A)
 
 	else if(src.y >= world.maxy)
-		if(istype(A, /obj/effect/meteor)||istype(A, /obj/effect/space_dust))
+		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
 		var/list/cur_pos = src.get_global_map_pos()
@@ -310,8 +319,8 @@
 
 /turf/space/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /turf/space/proc/set_transition_north(dest_z)
 	destination_x = x
@@ -359,9 +368,7 @@
 	return RCD_ACT_FAILED
 
 /turf/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	underlay_appearance.icon = 'icons/turf/space.dmi'
-	underlay_appearance.icon_state = SPACE_ICON_STATE
-	SET_PLANE(underlay_appearance, PLANE_SPACE, src)
+	generate_space_underlay(underlay_appearance, asking_turf)
 	return TRUE
 
 // the space turf SHOULD be on first z level. meaning we have invisible floor but only for movable atoms.

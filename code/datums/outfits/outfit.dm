@@ -140,13 +140,21 @@
 	if(!H.head && toggle_helmet)
 		if(istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
 			var/obj/item/clothing/suit/space/hardsuit/hardsuit = H.wear_suit
-			hardsuit.ToggleHelmet(H)
+			hardsuit.ToggleHelmet()
 		else if(istype(H.wear_suit, /obj/item/clothing/suit/hooded))
 			var/obj/item/clothing/suit/hooded/S = H.wear_suit
-			S.ToggleHood(H)
+			S.ToggleHood()
 
 	H.regenerate_icons()
 	return TRUE
+
+
+/datum/outfit/proc/get_chameleon_disguise_info()
+	var/list/types = list(uniform, suit, back, belt, gloves, shoes, head, mask, neck, l_ear, r_ear, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand, pda)
+	types += chameleon_extras
+	listclearnulls(types)
+	return types
+
 
 /datum/outfit/proc/apply_fingerprints(mob/living/carbon/human/H)
 	if(!istype(H))

@@ -17,9 +17,12 @@
 	var/prefix = null
 	var/suffix = null
 
+	var/can_found = FALSE //Can the ruin be found by the locator
+
 /datum/map_template/ruin/New()
 	if(!name && id)
 		name = id
 
 	mappath = prefix + suffix
 	..(path = mappath)
+

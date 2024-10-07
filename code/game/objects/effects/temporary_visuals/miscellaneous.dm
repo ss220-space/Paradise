@@ -235,6 +235,15 @@
 	icon_state = "explosionfast"
 	duration = 4
 
+/obj/effect/temp_visual/explosion/florawave
+	icon_state = "florawave"
+	duration = 4
+
+/obj/effect/temp_visual/removing_flora
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "greenshatter2"
+	duration = 2
+
 /obj/effect/temp_visual/heart
 	name = "heart"
 	icon = 'icons/mob/animal.dmi'
@@ -324,7 +333,7 @@
 		else
 			pixel_x = rand(-1,1)
 			pixel_y = rand(-1,1)
-	..()
+	return ..()
 
 /obj/effect/temp_visual/dir_setting/firing_effect/energy
 	icon_state = "firing_effect_energy"

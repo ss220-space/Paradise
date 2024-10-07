@@ -108,13 +108,28 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 
 /obj/item/radio/Initialize()
-	..()
+	. = ..()
 	if(frequency < RADIO_LOW_FREQ || frequency > RADIO_HIGH_FREQ)
 		frequency = sanitize_frequency(frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
 	set_frequency(frequency)
 
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
+
+/obj/item/radio/emag_act(mob/user)
+	if(!user.mind.special_role && !is_admin(user) || !hidden_uplink)
+		var/turf/T = get_turf(loc)
+
+		if(ismob(loc))
+			var/mob/M = loc
+			M.show_message(span_danger("Your [src] explodes!"), 1)
+
+		if(T)
+			T.hotspot_expose(700,125)
+			explosion(T, -1, -1, 2, 3, cause = src)
+		qdel(src)
+	else
+		hidden_uplink.trigger(user)
 
 /obj/item/radio/attack_ghost(mob/user)
 	return interact(user)
@@ -129,13 +144,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		wires.Interact(user)
 	ui_interact(user)
 
-/obj/item/radio/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/radio/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/list/schannels = list_secure_channels(user)
-		var/list/ichannels = list_internal_channels(user)
-		var/calc_height = 150 + (schannels.len * 20) + (ichannels.len * 10)
-		ui = new(user, src, ui_key, "Radio", name, 400, calc_height, master_ui, state)
+		ui = new(user, src, "Radio", name)
 		ui.open()
 
 /obj/item/radio/ui_data(mob/user)
@@ -182,8 +194,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			if(freqlock)
 				return
 			var/freq = params["ichannel"]
-			if(has_channel_access(usr, freq))
-				set_frequency(text2num(freq))
+			if(has_channel_access(usr, num2text(freq)))
+				set_frequency(freq)
 		if("listen")
 			listening = !listening
 		if("broadcast")
@@ -312,6 +324,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	name = "security shortwave radio"
 	desc = "A basic handheld radio that can communicate with local telecommunication networks. This model is painted in black colors."
 	icon_state = "walkietalkie_sec"
+	item_state = "walkietalkie_sec"
 	frequency = SEC_FREQ
 
 // Just a dummy mob used for making announcements, so we don't create AIs to do this
@@ -423,7 +436,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	// --- Cyborg ---
 	else if(isrobot(M))
-		jobname = JOB_TITLE_CYBORG
+		var/mob/living/silicon/robot/R = M
+		jobname = R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG
 		rank = JOB_TITLE_CYBORG
 
 	// --- Personal AI (pAI) ---
@@ -691,8 +705,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/borg/syndicate/ui_status(mob/user, datum/ui_state/state)
 	. = ..()
-	if(. == STATUS_UPDATE && istype(user, /mob/living/silicon/robot/syndicate))
-		. = STATUS_INTERACTIVE
+	if(. == UI_UPDATE && istype(user, /mob/living/silicon/robot/syndicate))
+		. = UI_INTERACTIVE
 
 /obj/item/radio/borg/Destroy()
 	myborg = null
@@ -722,20 +736,22 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/borg/ert/specops
 	keyslot = new /obj/item/encryptionkey/centcom
 
-/obj/item/radio/borg/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/encryptionkey/))
+
+/obj/item/radio/borg/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/encryptionkey))
+		add_fingerprint(user)
 		user.set_machine(src)
 		if(keyslot)
-			to_chat(user, "The radio can't hold another key!")
-			return
-
-		if(!keyslot)
-			user.drop_transfer_item_to_loc(W, src)
-			keyslot = W
-
+			to_chat(user, span_warning("The radio can't hold another key!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return .()
+		keyslot = I
 		recalculateChannels()
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/radio/borg/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

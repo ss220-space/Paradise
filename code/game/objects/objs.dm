@@ -1,5 +1,4 @@
 /obj
-	//var/datum/module/mod		//not used
 	var/obj_flags = NONE
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = FALSE
@@ -21,8 +20,6 @@
 
 	var/acid_level = 0 //how much acid is on that obj
 
-	var/can_be_hit = TRUE //can this be bludgeoned by items?
-
 	var/being_shocked = FALSE
 	var/speed_process = FALSE
 
@@ -31,6 +28,10 @@
 
 	var/multitool_menu_type = null // Typepath of a datum/multitool_menu subtype or null.
 	var/datum/multitool_menu/multitool_menu
+
+	/// Amount of multiplicative slowdown applied if pulled/pushed. >1 makes you slower, <1 makes you faster.
+	var/pull_push_slowdown = 0
+
 
 /obj/New()
 	..()
@@ -58,7 +59,7 @@
 
 	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
 	// Instead any such checks are made in CanUseTopic()
-	if(ui_status(usr, state, href_list) == STATUS_INTERACTIVE)
+	if(ui_status(usr, state, href_list) == UI_INTERACTIVE)
 		CouldUseTopic(usr)
 		return FALSE
 
@@ -203,6 +204,7 @@
 /obj/proc/hear_message(mob/M, text)
 
 /obj/proc/default_welder_repair(mob/user, obj/item/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
+	add_fingerprint(user)
 	if(obj_integrity >= max_integrity)
 		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
 		return
@@ -219,6 +221,7 @@
 	return TRUE
 
 /obj/proc/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
+	add_fingerprint(user)
 	if(!anchored && !isfloorturf(loc))
 		user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
 		return FALSE
@@ -247,7 +250,7 @@
 /obj/proc/container_resist(mob/living)
 	return
 
-/obj/proc/on_mob_move(dir, mob/user)
+/obj/proc/on_mob_move(mob/user, dir)
 	return
 
 /obj/proc/makeSpeedProcess()
@@ -332,3 +335,15 @@
 	C.Weaken(3 SECONDS)
 
 #undef CARBON_DAMAGE_FROM_OBJECTS_MODIFIER
+
+
+/// Relay movement for when user controls object via [/proc/possess()]
+/obj/proc/possessed_relay_move(mob/user, direction)
+	var/turf/new_turf = get_step(src, direction)
+	if(!new_turf)
+		return null
+	if(density)
+		. = Move(new_turf, direction)
+	else
+		. = forceMove(new_turf)
+

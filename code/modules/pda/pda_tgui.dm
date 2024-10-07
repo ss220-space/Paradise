@@ -1,9 +1,12 @@
 // All the TGUI interactions are in their own file to keep things simpler
 
-/obj/item/pda/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/pda/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/pda/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PDA", name, 600, 650, master_ui, state)
+		ui = new(user, src, "PDA", name)
 		ui.open()
 
 
@@ -94,9 +97,9 @@
 				cartridge = null
 				update_shortcuts()
 		if("Authenticate")//Checks for ID
-			id_check(usr, 1)
+			id_check(usr, in_pda_usage = TRUE)
 		if("Ringtone")
-			return set_ringtone()
+			return set_ringtone(ui.user)
 		else
 			if(current_app)
 				. = current_app.ui_act(action, params, ui, state) // It needs proxying through down here so apps actually have their interacts called

@@ -1,7 +1,6 @@
 /mob
 	density = TRUE
 	layer = MOB_LAYER
-	glide_size = 1.5
 	animate_movement = SLIDE_STEPS
 	pressure_resistance = 8
 	throwforce = 10
@@ -23,13 +22,32 @@
 	/// Contains /atom/movable/screen/alert only // On /mob so clientless mobs will throw alerts properly
 	var/list/alerts
 
+	var/bloody_hands = 0
+	/// Basically a lazy list, copies the DNA of blood you step in
+	var/list/feet_blood_DNA
+	/// affects the blood color of your feet, color taken from the blood you step in
+	var/feet_blood_color
+	/// Weirdly named, effects how blood transfers onto objects
+	var/blood_state = BLOOD_STATE_NOT_BLOODY
+	/// Assoc list for tracking how "bloody" a mobs feet are, used for creating bloody foot/shoeprints on turfs when moving
+	var/list/bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
+
+	/// Affects if you have a typing indicator
+	var/typing
+	/// Affects if you have a thinking indicator
+	var/thinking
+	/// Last thing we typed in to the typing indicator, probably does not need to exist
+	var/last_typed
+	/// Last time we typed something in to the typing popup
+	var/last_typed_time
+
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	var/stat = CONSCIOUS //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 
 	/// The zone this mob is currently targeting
-	var/zone_selected = null
+	var/zone_selected = BODY_ZONE_CHEST
 
 	var/atom/movable/screen/hands = null
 	var/atom/movable/screen/pullin = null
@@ -61,10 +79,10 @@
 	var/last_known_ckey = null	// Used in logging
 
 	var/obj/machinery/machine = null
-	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
 	var/memory = ""
 	var/next_move = null
-	var/hand = null			// 0 - right hand is active, 1 - left hand is active
+	/// Currently active mob's hand.
+	var/hand = ACTIVE_HAND_RIGHT
 	var/real_name = null
 	var/flavor_text = ""
 	var/med_record = ""
@@ -72,7 +90,6 @@
 	var/gen_record = ""
 	var/exploit_record = ""
 	var/lastpuke = 0
-	var/can_strip = 1
 	/// For speaking/listening.
 	var/list/languages
 	/// For reagents that grant language knowlege.
@@ -88,7 +105,6 @@
 	var/bodytemperature = BODYTEMP_NORMAL	//98.7 F
 	var/nutrition = NUTRITION_LEVEL_FED + 50 //Carbon
 	var/satiety = 0 //Carbon
-	var/hunger_drain = HUNGER_FACTOR // how quickly the mob gets hungry; largely utilized by species.
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/intent = null //Living
@@ -113,8 +129,6 @@
 
 	var/research_scanner = 0 //For research scanner equipped mobs. Enable to show research data when examining.
 
-	var/list/obj/item/grab/grabbed_by
-	var/list/obj/item/twohanded/garrote/garroted_by
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs
 
@@ -139,7 +153,6 @@
 	var/datum/dna/dna = null //Carbon
 	var/radiation = 0 //Carbon
 
-	var/list/mutations = list() //Carbon -- Doohl
 	//see: setup.dm for list of mutations
 
 	var/voice_name = "неизвестный голос"
@@ -203,8 +216,8 @@
 	///How many usable hands does this mob currently have. Should only be changed through set_usable_hands()
 	var/usable_hands = 2
 
-	//SSD var, changed it up some so people can have special things happen for different mobs when SSD.
-	var/player_logged = 0
+	/// SSD var. When mob has SSD status it contains num value (in deciseconds), since last mob logout. Always null otherwise.
+	var/player_logged
 
 	//Ghosted var, set only if a player has manually ghosted out of this mob.
 	var/player_ghosted = 0
@@ -222,7 +235,6 @@
 	var/list/huds_counter = list("huds" = list(), "icons" = list()) // Counters for huds and icon types
 
 	var/list/actions = list()
-	var/list/datum/action/chameleon_item_actions
 
 	///List of progress bars this mob is currently seeing for actions
 	var/list/progressbars = null	//for stacking do_after bars
@@ -236,8 +248,9 @@
 
 	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
 
-	/// The datum receiving keyboard input. parent mob by default.
-	var/datum/input_focus = null
+	/// The datum receiving keyboard input. src by default
+	var/datum/focus
+
 	var/last_emote = null
 
 	var/ghost_orbiting = 0
@@ -248,4 +261,10 @@
 	var/list/movespeed_mod_immunities //Lazy list, see mob_movespeed.dm
 	/// The calculated mob speed slowdown based on the modifiers list
 	var/cached_multiplicative_slowdown
+	/// List of action speed modifiers applying to this mob
+	var/list/actionspeed_modification
+	/// List of action speed modifiers ignored by this mob. List -> List (id) -> List (sources)
+	var/list/actionspeed_mod_immunities
+	/// The calculated mob action speed slowdown based on the modifiers list, sorted by category in associvative list
+	var/list/cached_multiplicative_actions_slowdown
 

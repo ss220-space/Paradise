@@ -1,17 +1,29 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Box, Input, Icon } from '../components';
-import { LabeledList, LabeledListItem } from '../components/LabeledList';
+import { Button, Section, Box, LabeledList, Input, Icon } from '../components';
 import { Window } from '../layouts';
 
 export const ImplantPad = (props, context) => {
   const { act, data } = useBackend(context);
   const { implant, contains_case, tag } = data;
-  const [newTag, setNewTag] = useLocalState(context, "newTag", tag);
+  const [newTag, setNewTag] = useLocalState(context, 'newTag', tag);
 
   return (
-    <Window resizable>
+    <Window width={410} height={325}>
       <Window.Content>
-        <Section title="Bio-chip Information">
+        <Section
+          fill
+          title="Bio-chip Mini-Computer"
+          buttons={
+            <Box>
+              <Button
+                content="Eject Case"
+                icon="eject"
+                disabled={!contains_case}
+                onClick={() => act('eject_case')}
+              />
+            </Box>
+          }
+        >
           {implant && contains_case ? (
             <>
               <Box bold mb={2}>
@@ -27,9 +39,32 @@ export const ImplantPad = (props, context) => {
                 {implant.name}
               </Box>
               <LabeledList>
-                <LabeledListItem label="Life">{implant.life}</LabeledListItem>
-                <LabeledListItem label="Notes">{implant.notes}</LabeledListItem>
-                <LabeledListItem label="Function">{implant.function}</LabeledListItem>
+                <LabeledList.Item label="Life">{implant.life}</LabeledList.Item>
+                <LabeledList.Item label="Notes">
+                  {implant.notes}
+                </LabeledList.Item>
+                <LabeledList.Item label="Function">
+                  {implant.function}
+                </LabeledList.Item>
+                {!!tag && (
+                  <LabeledList.Item label="Tag">
+                    <Input
+                      width="5.5rem"
+                      value={tag}
+                      onEnter={() => act('tag', { newtag: newTag })}
+                      onInput={(e, value) => setNewTag(value)}
+                    />
+                    <Button
+                      disabled={tag === newTag}
+                      width="20px"
+                      mb="0"
+                      ml="0.25rem"
+                      onClick={() => act('tag', { newtag: newTag })}
+                    >
+                      <Icon name="pen" />
+                    </Button>
+                  </LabeledList.Item>
+                )}
               </LabeledList>
             </>
           ) : contains_case ? (
@@ -38,39 +73,7 @@ export const ImplantPad = (props, context) => {
             <Box>Please insert a bio-chip casing!</Box>
           )}
         </Section>
-        <Section title="Options">
-          {tag && contains_case ? (
-            <LabeledList>
-              <Input
-                ml={1}
-                width="8rem"
-                value={tag}
-                onEnter={() => act('tag', { newtag: newTag })}
-                onInput={(e, value) => setNewTag(value)}
-              />
-              <Button
-                disabled={tag === newTag}
-                width="20px"
-                mb="0"
-                ml="0.25rem"
-                onClick={() => act('tag', { newtag: newTag })}>
-                <Icon name="pen" />
-              </Button>
-            </LabeledList>
-          ) : null}
-          {contains_case ? (
-            <Button
-              mt={1}
-              content="Eject Case"
-              icon="eject"
-              disabled={!contains_case}
-              onClick={() => act('eject_case')}
-            />
-          ) : null}
-        </Section>
       </Window.Content>
     </Window>
   );
 };
-
-

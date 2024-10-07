@@ -100,6 +100,14 @@
 	new /obj/item/security_voucher(src)
 	new /obj/item/security_voucher(src)
 
+/obj/structure/closet/secure_closet/pilot_sniper
+	name = "sniper gun cabinet"
+	req_access = list(ACCESS_PILOT)
+	icon_state = "sniper"
+
+/obj/structure/closet/secure_closet/pilot_sniper/populate_contents()
+	new /obj/item/gun/energy/sniperrifle/pod_pilot(src)
+
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
 	req_access = list(ACCESS_SECURITY)
@@ -124,7 +132,7 @@
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
 	req_access = list(ACCESS_BRIG)
-	icon_state = "med"
+	icon_state = "brigmed"
 
 /obj/structure/closet/secure_closet/brigdoc/populate_contents()
 	if(prob(50))
@@ -211,19 +219,14 @@
 	new /obj/item/encryptionkey/headset_med(src)
 
 
-/obj/structure/closet/secure_closet/detective
+/obj/structure/closet/secure_closet/cabinet/detective
 	name = "detective's cabinet"
-	req_access = list(ACCESS_FORENSICS_LOCKERS)
 	icon_state = "cabinetdetective"
-	overlay_unlocked = "c_unlocked"
-	overlay_locked = "c_locked"
-	overlay_locker = "c_locker"
-	resistance_flags = FLAMMABLE
-	max_integrity = 70
-	open_sound = 'sound/machines/wooden_closet_open.ogg'
-	close_sound = 'sound/machines/wooden_closet_close.ogg'
+	overlay_locker = "cd_locker"
+	req_access = list(ACCESS_FORENSICS_LOCKERS)
 
-/obj/structure/closet/secure_closet/detective/populate_contents()
+
+/obj/structure/closet/secure_closet/cabinet/detective/populate_contents()
 	new /obj/item/storage/backpack/satchel_detective(src)
 	new /obj/item/storage/backpack/detective(src)
 	new /obj/item/storage/backpack/duffel/detective(src)

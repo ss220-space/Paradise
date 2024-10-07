@@ -56,26 +56,24 @@
 		dat += "<B>Status:</B> [cooldown_timer ? "<FONT color=red>Recharging... For <B>[remaining_time]</B> more seconds</FONT><BR>" : "<FONT color=green><B>READY</B></FONT>"]<BR>"
 	else
 		dat += "<B>Status:</B> [cooldown_timer ? "<FONT color=red>Replenishing... For <B>[remaining_time]</B> more seconds</FONT><BR>" : "<FONT color=green><B>READY</B></FONT>"]<BR>"
-	dat += "<B>Implants:</B> [implants_length ? "[implants_length]<BR>" : cooldown_timer ? "<FONT color=red>0</FONT><BR>" : "<A href='?src=[UID()];replenish=1'>Replenish</A>"]<BR>"
+	dat += "<B>Implants:</B> [implants_length ? "[implants_length]<BR>" : cooldown_timer ? "<FONT color=red>0</FONT><BR>" : "<a href='byond://?src=[UID()];replenish=1'>Replenish</A>"]<BR>"
 	if(occupant)
 		if(locate(/obj/item/implant/mindshield) in occupant)
 			dat += "Occupant is already <FONT color=green>implanted</FONT><BR>"
 		if(!cooldown_timer && implants_length)
-			dat += "<A href='?src=[UID()];implant=1'>Implant</A><BR>"
-		dat += "<A href='?src=[UID()];eject=1'>Eject Occupant</A><BR>"
-	dat += "<A href='?src=[UID()];refresh=1'>Refresh</A>"
+			dat += "<a href='byond://?src=[UID()];implant=1'>Implant</A><BR>"
+		dat += "<a href='byond://?src=[UID()];eject=1'>Eject Occupant</A><BR>"
+	dat += "<a href='byond://?src=[UID()];refresh=1'>Refresh</A>"
 	user.set_machine(src)
 	user << browse(dat, "window=implant")
 	onclose(user, "implant")
 
 
-/obj/machinery/implantchair/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/grab = I
-		if(put_mob(grab.affecting, user))
-			qdel(grab)
-	else
-		return ..()
+/obj/machinery/implantchair/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE)
+		return .
+	put_mob(grabbed_thing, grabber)
 
 
 /obj/machinery/implantchair/Topic(href, href_list)
@@ -127,7 +125,6 @@
 /obj/machinery/implantchair/proc/put_mob(mob/living/carbon/human/target, mob/living/user)
 	if(!put_mob_check(target, user))
 		return FALSE
-	target.stop_pulling()
 	target.pulledby?.stop_pulling()
 	target.forceMove(src)
 	occupant = target

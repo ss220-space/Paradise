@@ -127,7 +127,7 @@
 		/datum/surgery_step/proxy/cavity_manipulation/robotic,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN)
+	possible_locs = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN)
 	requires_organic_bodypart = FALSE
 
 /datum/surgery_step/proxy/cavity_manipulation
@@ -148,7 +148,7 @@
 	)
 
 /datum/surgery/intermediate/open_cavity
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
+	possible_locs = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN)
 
 /datum/surgery/intermediate/open_cavity/implant
 	name = "implant object"
@@ -206,11 +206,12 @@
 		span_warning("[user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!"),
 		span_warning("Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!")
 	)
-	affected.receive_damage(20)
+	target.apply_damage(20, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/cavity/make_space
 	name = "make cavity space"
+	begin_sound = 'sound/surgery/surgicaldrill.ogg'
 	allowed_tools = list(
 		TOOL_DRILL = 100,
 		/obj/item/screwdriver/power = 90,
@@ -240,6 +241,8 @@
 
 /datum/surgery_step/cavity/close_space
 	name = "close cavity space"
+	begin_sound = 'sound/surgery/cautery2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/scalpel/laser = 100,
 		TOOL_CAUTERY = 100,
@@ -271,6 +274,8 @@
 
 /datum/surgery_step/cavity/remove_item
 	name = "extract object"
+	begin_sound = 'sound/surgery/organ2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	accept_hand = TRUE
 
 /datum/surgery_step/cavity/remove_item/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -310,13 +315,14 @@
 		span_warning("[user] grabs onto something else by mistake, damaging it!."),
 		span_warning("You grab onto something else inside [target]'s [get_cavity(affected)] cavity by mistake, damaging it!")
 	)
-
-	affected.receive_damage(rand(3,7))
+	target.apply_damage(rand(3,7), def_zone = affected)
 
 	return SURGERY_STEP_INCOMPLETE
 
 /datum/surgery_step/cavity/place_item
 	name = "implant object"
+	begin_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	accept_any_item = TRUE
 
 	time = 3.2 SECONDS

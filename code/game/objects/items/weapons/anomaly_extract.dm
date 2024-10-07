@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/used = FALSE
 
+
 /obj/item/anomaly_extract/attack_self(mob/user)
 	if(used)
 		to_chat(user, span_notice("Looks like somebody already used it."))
@@ -27,12 +28,18 @@
 	H.replaced(user)
 	to_chat(user, span_warning("Something changes inside you. It feel SOO warm!"))
 	used = TRUE
-	icon_state = "slime_extract0"
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-/obj/item/anomaly_extract/attack(mob/living/target, mob/living/user, def_zone)
-	if(target == user)
-		return attack_self(user)
+
+/obj/item/anomaly_extract/update_icon_state()
+	icon_state = "slime_extract[used ? "0" : "1"]"
+
+
+/obj/item/anomaly_extract/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(target == user && attack_self(user))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ATTACK_CHAIN_PROCEED
 
 
 /obj/effect/proc_holder/spell/slime_degradation
@@ -115,10 +122,8 @@
 						span_notice("You hear something squishing..."))
 
 	original_body = user
-	ADD_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	ADD_TRAIT(slimeme, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	slimeme.status_flags |= GODMODE
-	user.status_flags |= GODMODE
+	original_body.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
+	slimeme.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	user.mind.transfer_to(slimeme)
 	slimeme.update_sight()
 	user.move_to_null_space()
@@ -134,8 +139,7 @@
 	if(QDELETED(src) || QDELETED(slimeme))
 		return
 
-	REMOVE_TRAIT(slimeme, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	slimeme.status_flags &= ~GODMODE
+	slimeme.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	is_transformed = TRUE
 
 
@@ -167,8 +171,7 @@
 		stack_trace("Spell or original_body was qdeled during the [src] work.")
 		return
 
-	REMOVE_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	original_body.status_flags &= ~GODMODE
+	original_body.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	is_transformed = FALSE
 	original_body = null
 

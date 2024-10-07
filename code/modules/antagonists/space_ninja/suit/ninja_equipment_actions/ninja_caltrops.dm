@@ -69,26 +69,21 @@
 	var/destroy_after = 10 SECONDS
 	var/self_destroy = TRUE
 
+
 /obj/structure/energy_caltrops/noselfdestroy
 	self_destroy = FALSE
 
+
 /obj/structure/energy_caltrops/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/caltrop, 5, 10, 100, CALTROP_BYPASS_SHOES|CALTROP_BYPASS_ROBOTIC_FOOTS|CALTROP_BYPASS_WALKERS)
+	AddComponent(/datum/component/caltrop, 5, 10, 100, 6 SECONDS, CALTROP_BYPASS_SHOES|CALTROP_BYPASS_ROBOTIC_FOOTS|CALTROP_BYPASS_WALKERS|CALTROP_BYPASS_CRAWLING, null, 'sound/weapons/bladeslice.ogg', TRUE)
 	for(var/obj/structure/energy_caltrops/other_caltrop in src.loc.contents)
 		if(other_caltrop!=src)
 			qdel(other_caltrop)	//Не больше одной кучки калтропов на тайле!
 	if(self_destroy)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), destroy_after)
 
+
 /obj/structure/energy_caltrops/has_prints()
 	return FALSE
 
-/obj/structure/energy_caltrops/Crossed(mob/living/L, oldloc)
-	if(istype(L) && has_gravity())
-		if(L.incorporeal_move || (L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
-			return
-		add_attack_logs(L, src, "Stepped on Caltrop")
-		playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE)
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), 1)	//На нас наступили? Удаляемся быстрее. Нужно в целях баланса.
-	return ..()

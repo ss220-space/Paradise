@@ -54,26 +54,30 @@
 
 
 /obj/item/gun/projectile/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
-	var/obj/item/ammo_casing/AC = chambered //Find chambered round
-	if(isnull(AC) || !istype(AC))
+	var/obj/item/ammo_casing/hold_casing = chambered //Find chambered round
+	if(isnull(hold_casing) || !istype(hold_casing))
 		chamber_round()
 		return
 	if(eject_casing)
-		AC.loc = get_turf(src) //Eject casing onto ground.
-		AC.SpinAnimation(10, 1) //next gen special effects
-		playsound(src, chambered.casing_drop_sound, 100, TRUE)
+		hold_casing.forceMove(drop_location())	//Eject casing onto ground.
+		hold_casing.pixel_x = rand(-10, 10)
+		hold_casing.pixel_y = rand(-10, 10)
+		hold_casing.setDir(pick(GLOB.alldirs))
+		hold_casing.update_appearance()
+		hold_casing.SpinAnimation(10, 1) //next gen special effects
+		playsound(hold_casing.loc, chambered.casing_drop_sound, 100, TRUE)
 	if(empty_chamber)
 		chambered = null
 	chamber_round()
-	return
+
 
 /obj/item/gun/projectile/proc/chamber_round()
 	if(chambered || !magazine)
 		return
-	else if(magazine.ammo_count())
+	if(magazine.ammo_count())
 		chambered = magazine.get_round()
-		chambered.loc = src
-	return
+		chambered.forceMove(src)
+
 
 /obj/item/gun/projectile/can_shoot(mob/user)
 	if(!magazine || !magazine.ammo_count(FALSE))
@@ -84,61 +88,68 @@
 	return !magazine
 
 
-/obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user)
-	user.drop_item_ground(AM)
-	magazine = AM
-	magazine.loc = src
-	playsound(src, magin_sound, 50, 1)
+/obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/new_magazine, mob/user)
+	if(user && magazine.loc == user && !user.drop_transfer_item_to_loc(new_magazine, src))
+		return FALSE
+	. = TRUE
+	magazine = new_magazine
+	if(magazine.loc != src)
+		magazine.forceMove(src)
+	playsound(loc, magin_sound, 50, TRUE)
 	chamber_round()
 	update_weight()
-	AM.update_icon()
+	magazine.update_icon()
 	update_icon()
 
 
-/obj/item/gun/projectile/attackby(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/ammo_box/magazine))
-		var/obj/item/ammo_box/magazine/AM = A
-		if(istype(AM, mag_type))
-			if(can_reload())
-				reload(AM, user)
-				to_chat(user, span_notice("You load a new magazine into \the [src]."))
-				return TRUE
-			else if(!can_tactical)
-				to_chat(user, span_notice("There's already a magazine in \the [src]."))
-				return TRUE
-			else
-				to_chat(user, span_notice("You perform a tactical reload on \the [src], replacing the magazine."))
-				magazine.loc = get_turf(loc)
-				magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
-				magazine = null
-				reload(AM, user)
-				return TRUE
-		else
-			to_chat(user, span_notice("You can't put this type of ammo in \the [src]."))
-			return TRUE
-	if(istype(A, /obj/item/suppressor))
-		var/obj/item/suppressor/S = A
-		if(can_suppress)
-			if(!suppressed)
-				if(!user.drop_transfer_item_to_loc(A, src))
-					return
-				to_chat(user, span_notice("You screw [S] onto [src]."))
-				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
-				suppressed = A
-				S.oldsound = fire_sound
-				S.initial_w_class = w_class
-				fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
-				w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
-				update_icon()
-				return
-			else
-				to_chat(user, span_warning("[src] already has a suppressor."))
-				return
-		else
-			to_chat(user, span_warning("You can't seem to figure out how to fit [S] on [src]."))
-			return
-	else
-		return ..()
+/obj/item/gun/projectile/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/ammo_box/magazine))
+		add_fingerprint(user)
+		var/obj/item/ammo_box/magazine/new_magazine = I
+		if(!istype(new_magazine, mag_type))
+			balloon_alert(user, "не совместимо!")
+			return ATTACK_CHAIN_PROCEED
+		if(can_reload())
+			if(!user.can_unEquip(new_magazine))
+				return ..()
+			reload(new_magazine, user)
+			balloon_alert(user, "заряжено")
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(!can_tactical)
+			balloon_alert(user, "уже заряжено!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.can_unEquip(new_magazine))
+			return ..()
+		balloon_alert(user, "заряжено")
+		magazine.forceMove(drop_location())
+		magazine.update_appearance(UPDATE_ICON|UPDATE_DESC)
+		magazine = null
+		reload(new_magazine, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/suppressor))
+		add_fingerprint(user)
+		var/obj/item/suppressor/suppressor = I
+		if(!can_suppress)
+			balloon_alert(user, "не совместимо!")
+			return ATTACK_CHAIN_PROCEED
+		if(suppressed)
+			balloon_alert(user, "уже установлено!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(suppressor, src))
+			return ..()
+		balloon_alert(user, "установлено")
+		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
+		suppressed = suppressor
+		suppressor.oldsound = fire_sound
+		suppressor.initial_w_class = w_class
+		fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
+		w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
+		update_icon()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/gun/projectile/attack_hand(mob/user)
 	if(loc == user)
@@ -147,7 +158,8 @@
 			if(user.l_hand != src && user.r_hand != src)
 				..()
 				return
-			to_chat(user, span_notice("You unscrew [suppressed] from [src]."))
+
+			balloon_alert(user, "глушитель снят!")
 			playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 			user.put_in_hands(suppressed)
 			fire_sound = S.oldsound
@@ -157,26 +169,32 @@
 			return
 	..()
 
+
 /obj/item/gun/projectile/attack_self(mob/living/user)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
 	if(magazine)
-		magazine.loc = get_turf(loc)
+		magazine.forceMove(drop_location())
 		user.put_in_hands(magazine)
-		magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
+		magazine.update_appearance()
 		magazine = null
 		update_weight()
-		to_chat(user, span_notice("You pull the magazine out of \the [src]!"))
-		playsound(src, magout_sound, 50, 1)
+		balloon_alert(user, "магазин извлечён")
+		playsound(loc, magout_sound, 50, TRUE)
 	else if(chambered)
-		AC.loc = get_turf(src)
+		AC.forceMove(drop_location())
+		AC.pixel_x = rand(-10, 10)
+		AC.pixel_y = rand(-10, 10)
+		AC.setDir(pick(GLOB.alldirs))
+		AC.update_appearance()
 		AC.SpinAnimation(10, 1)
 		chambered = null
-		to_chat(user, span_notice("You unload the round from \the [src]'s chamber."))
-		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
+		balloon_alert(user, "патрон извлечён")
+		playsound(loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)
+		playsound(AC.loc, AC.casing_drop_sound, 50, TRUE)
 	else
-		to_chat(user, span_notice("There's no magazine in \the [src]."))
+		balloon_alert(user, "уже разряжено!")
 	update_icon()
-	return
+
 
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
@@ -206,24 +224,26 @@
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
 		return OXYLOSS
 
+
 /obj/item/gun/projectile/proc/sawoff(mob/user)
+	. = FALSE
 	if(sawn_state == SAWN_OFF)
-		to_chat(user, span_warning("\The [src] is already shortened!"))
-		return
+		balloon_alert(user, "уже укорочено!")
+		return .
 	if(bayonet)
-		to_chat(user, span_warning("You cannot saw-off [src] with [bayonet] attached!"))
-		return
+		balloon_alert(user, "мешает штык-нож!")
+		return .
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("[user] begins to shorten \the [src].", span_notice("You begin to shorten \the [src]..."))
 
 	//if there's any live ammo inside the gun, makes it go off
 	if(blow_up(user))
 		user.visible_message(span_danger("\The [src] goes off!"), span_danger("\The [src] goes off in your face!"))
-		return
+		return .
 
 	if(do_after(user, 3 SECONDS, src))
 		if(sawn_state == SAWN_OFF)
-			return
+			return .
 		user.visible_message("[user] shortens \the [src]!", span_notice("You shorten \the [src]."))
 		w_class = WEIGHT_CLASS_NORMAL
 		item_state = "gun"//phil235 is it different with different skin?
@@ -233,6 +253,7 @@
 		update_appearance()
 		update_equipped_item()
 		return TRUE
+
 
 // Sawing guns related proc
 /obj/item/gun/projectile/proc/blow_up(mob/user)

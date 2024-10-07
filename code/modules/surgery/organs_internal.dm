@@ -279,6 +279,9 @@
 
 /datum/surgery_step/internal/manipulate_organs/mend
 	name = "mend organs"
+	begin_sound = 'sound/surgery/bonegel.ogg'
+	end_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/stack/medical/bruise_pack/advanced = 100,
 		/obj/item/stack/medical/bruise_pack = 20,
@@ -374,17 +377,18 @@
 
 	else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))
 		dam_amt = 5
-		target.adjustToxLoss(10)
-		affected?.receive_damage(5)
+		target.apply_damages(brute = 5, tox = 10, def_zone = affected)
 
 	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
 		if(organ.damage && !(organ.tough))
-			organ.receive_damage(dam_amt,0)
+			organ.internal_receive_damage(dam_amt)
 
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/internal/manipulate_organs/extract
 	name = "extract organ"
+	begin_sound = 'sound/surgery/hemostat1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_HEMOSTAT = 100,
 		/obj/item/kitchen/utensil/fork = 70
@@ -397,6 +401,14 @@
 	if(!length(organs))
 		to_chat(user, span_notice("There are no removeable organs in [target]'s [parse_zone(target_zone)]!"))
 		return SURGERY_BEGINSTEP_SKIP
+
+	var/mob/living/simple_animal/borer/B = target.has_brain_worms()
+	if(target_zone == BODY_ZONE_HEAD && B && B.host == target)
+		user.visible_message(
+			"[user] begins to extract [B] from [target]'s [parse_zone(target_zone)].",
+			span_notice("You begin to extract [B] from [target]'s [parse_zone(target_zone)]...")
+		)
+		return ..()
 
 	for(var/obj/item/organ/internal/organ as anything in organs)
 		if(organ.unremovable)
@@ -424,14 +436,6 @@
 	return ..()
 
 /datum/surgery_step/internal/manipulate_organs/extract/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!extracting || extracting.owner != target)
-		user.visible_message(
-			span_notice("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!"),
-			span_notice("You can't extract anything from [target]'s [parse_zone(target_zone)]!")
-		)
-		return SURGERY_STEP_CONTINUE
-
-
 	var/mob/living/simple_animal/borer/B = target.has_brain_worms()
 	if(target_zone == BODY_ZONE_HEAD && B && B.host == target)
 		user.visible_message(
@@ -440,6 +444,13 @@
 		)
 		add_attack_logs(user, target, "Surgically removed [B]. INTENT: [uppertext(user.a_intent)]")
 		B.leave_host()
+		return SURGERY_STEP_CONTINUE
+
+	if(!extracting || extracting.owner != target)
+		user.visible_message(
+			span_notice("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!"),
+			span_notice("You can't extract anything from [target]'s [parse_zone(target_zone)]!")
+		)
 		return SURGERY_STEP_CONTINUE
 
 	user.visible_message(
@@ -470,7 +481,7 @@
 				span_warning("[user]'s hand slips, damaging [target]'s [affected.name] with [tool]!"),
 				span_warning("Your hand slips, damaging [target]'s [affected.name] with [tool]!")
 			)
-			affected.receive_damage(20)
+			target.apply_damage(20, def_zone = affected)
 		else
 			user.visible_message(
 				span_warning("[user]'s hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!"),
@@ -486,6 +497,8 @@
 
 /datum/surgery_step/internal/manipulate_organs/implant
 	name = "implant an organ"
+	begin_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/organ/internal = 100,
 		/obj/item/reagent_containers/food/snacks/organ = 0  // there for the flavor text
@@ -503,11 +516,15 @@
 		// dunno how you got here but okay
 		return SURGERY_BEGINSTEP_SKIP
 
+	if(istype(organ, /obj/item/organ/internal/wryn/hivenode) && !iswryn(target)) // If they make more "unique" organs, I'll make some vars and a separate proc, but now..
+		to_chat(user, span_warning("Данное существо не способно принять этот орган!"))
+		return SURGERY_BEGINSTEP_SKIP
+
 	if(target_zone != organ.parent_organ_zone || target.get_organ_slot(organ.slot))
 		to_chat(user, span_notice("There is no room for [organ] in [target]'s [parse_zone(target_zone)]!"))
 		return SURGERY_BEGINSTEP_SKIP
 
-	if((RUNIC_MIND in target.dna.species.species_traits) && istype(organ, /obj/item/organ/internal/brain) && !istype(organ, /obj/item/organ/internal/brain/golem))
+	if(isskeleton(target) && istype(organ, /obj/item/organ/internal/brain) && !istype(organ, /obj/item/organ/internal/brain/golem))
 		to_chat(user, span_notice("There is no room for [organ] in [target]'s [parse_zone(target_zone)]!"))
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -517,6 +534,14 @@
 
 	if(target.get_int_organ(organ) && !affected)
 		to_chat(user, span_warning("[target] already has [organ]."))
+		return SURGERY_BEGINSTEP_SKIP
+
+	if((istype(organ, /obj/item/organ/internal/cyberimp)) && HAS_TRAIT(target, TRAIT_NO_CYBERIMPLANTS))
+		to_chat(user, span_notice("Cyberimplants won't take root in the [target]."))
+		return SURGERY_BEGINSTEP_SKIP
+
+	if((organ.status == ORGAN_ROBOT) && HAS_TRAIT(target, TRAIT_NO_ROBOPARTS))
+		to_chat(user, span_notice("You can't install cybernetic organs into the [target]."))
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(affected)
@@ -562,13 +587,16 @@
 	)
 	var/obj/item/organ/internal/I = tool
 	if(istype(I) && !I.tough)
-		I.receive_damage(rand(3,5),0)
+		I.internal_receive_damage(rand(3,5))
 
 	return SURGERY_STEP_RETRY
 
 
 /datum/surgery_step/internal/manipulate_organs/clean
 	name = "clean and/or revive organs"
+	begin_sound = 'sound/surgery/bonegel.ogg'
+	end_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/reagent_containers/dropper = 100,
 		/obj/item/reagent_containers/syringe = 100,
@@ -702,7 +730,7 @@
 
 	for(var/obj/item/organ/internal/organ as anything in target.get_organs_zone(target_zone))
 		organ.germ_level = max(organ.germ_level-ethanol, 0)
-		organ.receive_damage(rand(4, 8), 0)
+		organ.internal_receive_damage(rand(4, 8))
 
 	R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
 	R.reaction(target, REAGENT_INGEST)
@@ -717,6 +745,9 @@
 // FINISH
 /datum/surgery_step/internal/manipulate_organs/finish
 	name = "finish manipulation"
+	begin_sound = 'sound/surgery/retractor1.ogg'
+	end_sound = 'sound/surgery/retractor2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/scalpel/laser/manager = 100,
 		TOOL_RETRACTOR = 100,
@@ -766,8 +797,7 @@
 	else
 		msg = span_warning("[user]'s hand slips, tearing the skin!")
 		self_msg = span_warning("Your hand slips, tearing skin!")
-	if(affected)
-		affected.receive_damage(20)
+	target.apply_damage(20, def_zone = affected)
 	user.visible_message(msg, self_msg)
 	return SURGERY_STEP_RETRY
 
@@ -777,6 +807,8 @@
 
 /datum/surgery_step/saw_carapace
 	name = "saw carapace"
+	begin_sound = 'sound/surgery/saw1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_SAW = 100,
 		/obj/item/melee/energy/sword/cyborg/saw = 100,
@@ -785,7 +817,6 @@
 	)
 
 	time = 5.4 SECONDS
-
 
 /datum/surgery_step/saw_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
@@ -813,6 +844,9 @@
 
 /datum/surgery_step/cut_carapace
 	name = "cut carapace"
+	begin_sound = 'sound/surgery/scalpel1.ogg'
+	end_sound = 'sound/surgery/scalpel2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_SCALPEL = 100,
 		/obj/item/kitchen/knife = 90,
@@ -830,14 +864,17 @@
 
 	user.visible_message(
 		"[user] starts the incision on [target]'s [target_zone] with [tool].",
-		"You start the incision on [target]'s [target_zone] with [tool].")
+		"You start the incision on [target]'s [target_zone] with [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
+		)
 	return ..()
 
 /datum/surgery_step/cut_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 	user.visible_message(
 		span_notice("[user] has made an incision on [target]'s [target_zone] with [tool]."),
-		span_notice("You have made an incision on [target]'s [target_zone] with [tool].")
+		span_notice("You have made an incision on [target]'s [target_zone] with [tool]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_CONTINUE
 
@@ -845,13 +882,16 @@
 
 	user.visible_message(
 		span_warning("[user]'s hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!"),
-		span_warning("Your hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!")
+		span_warning("Your hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/retract_carapace
 	name = "retract carapace"
-
+	begin_sound = 'sound/surgery/retractor1.ogg'
+	end_sound = 'sound/surgery/retractor2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/scalpel/laser/manager = 100,
 		TOOL_RETRACTOR = 100,
@@ -870,7 +910,7 @@
 	if(target_zone == BODY_ZONE_PRECISE_GROIN)
 		msg = "[user] starts to pry open the incision and rearrange the organs in [target]'s lower abdomen with [tool]."
 		self_msg = "You start to pry open the incision and rearrange the organs in [target]'s lower abdomen with [tool]."
-	user.visible_message(msg, self_msg)
+	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	return ..()
 
 /datum/surgery_step/retract_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -882,7 +922,7 @@
 	if(target_zone == BODY_ZONE_PRECISE_GROIN)
 		msg = span_notice("[user] keeps the incision open on [target]'s lower abdomen with [tool].")
 		self_msg = span_notice("You keep the incision open on [target]'s lower abdomen with [tool].")
-	user.visible_message(msg, self_msg)
+	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/retract_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -894,13 +934,15 @@
 	if(target_zone == BODY_ZONE_PRECISE_GROIN)
 		msg = span_warning("[user]'s hand slips, damaging several organs [target]'s lower abdomen with [tool]")
 		self_msg = span_warning("Your hand slips, damaging several organs [target]'s lower abdomen with [tool]!")
-	user.visible_message(msg, self_msg)
+	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_RETRY
 
 // redefine cauterize for every step because of course it relies on get_organ()
 /datum/surgery_step/generic/seal_carapace/
 	name = "seal carapace"
-
+	begin_sound = 'sound/surgery/cautery1.ogg'
+	end_sound = 'sound/surgery/cautery2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/scalpel/laser = 100,
 		TOOL_CAUTERY = 100,
@@ -925,7 +967,8 @@
 	var/zone = zone_name(target_zone)
 	user.visible_message(
 		"[user] is beginning to cauterize the incision on [target]'s [zone] with \the [tool].",
-		"You are beginning to cauterize the incision on [target]'s [zone] with \the [tool]."
+		"You are beginning to cauterize the incision on [target]'s [zone] with \the [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.custom_pain("Your [zone] is being burned!")
 	return ..()
@@ -934,7 +977,8 @@
 	var/zone = zone_name(target_zone)
 	user.visible_message(
 		span_notice("[user] cauterizes the incision on [target]'s [zone] with \the [tool]."),
-		span_notice("You cauterize the incision on [target]'s [zone] with \the [tool].")
+		span_notice("You cauterize the incision on [target]'s [zone] with \the [tool]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_CONTINUE
 
@@ -942,7 +986,8 @@
 	var/zone = zone_name(target_zone)
 	user.visible_message(
 		span_warning("[user]'s hand slips, leaving a small burn on [target]'s [zone] with \the [tool]!"),
-		span_warning("Your hand slips, leaving a small burn on [target]'s [zone] with \the [tool]!")
+		span_warning("Your hand slips, leaving a small burn on [target]'s [zone] with \the [tool]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(3, BURN, target_zone)
 	return SURGERY_STEP_RETRY

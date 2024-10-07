@@ -60,13 +60,13 @@
 		movable.set_currently_z_moving(CURRENTLY_Z_FALLING_FROM_MOVE)
 
 ///Makes movables fall when forceMove()'d to this turf.
-/turf/simulated/openspace/Entered(atom/movable/movable)
+/turf/simulated/openspace/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	var/mob/AM = movable
-	if(ismob(AM) && AM.buckled && AM.currently_z_moving == CURRENTLY_Z_MOVING_GENERIC)
+	var/mob/mob = arrived
+	if(ismob(mob) && mob.buckled && mob.currently_z_moving == CURRENTLY_Z_MOVING_GENERIC)
 		return
-	if(movable.set_currently_z_moving(CURRENTLY_Z_FALLING))
-		zFall(movable, falling_from_move = TRUE)
+	if(arrived.set_currently_z_moving(CURRENTLY_Z_FALLING))
+		zFall(arrived, falling_from_move = TRUE)
 /**
  * Drops movables spawned on this turf only after they are successfully initialized.
  * so flying mobs, qdeleted movables and things that were moved somewhere else during
@@ -126,72 +126,72 @@
 /turf/simulated/openspace/proc/CanBuildHere()
 	return can_build_on
 
-/turf/simulated/openspace/attackby(obj/item/C, mob/user, params)
-	if(!C || !user)
-		return TRUE
 
-	if(!CanBuildHere())
-		return
+/turf/simulated/openspace/attackby(obj/item/I, mob/user, params)
+	. = ..()
 
-	if(istype(C, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = C
-		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-		var/obj/structure/lattice/catwalk/W = locate(/obj/structure/lattice/catwalk, src)
-		if(W)
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !CanBuildHere())
+		return .
+
+	if(istype(I, /obj/item/stack/rods))
+		var/obj/item/stack/rods/rods = I
+		if(locate(/obj/structure/lattice/catwalk, src))
 			to_chat(user, span_warning("There is already a catwalk here!"))
-			return
-		if(L)
-			if(R.use(1))
-				to_chat(user, span_notice("You construct a catwalk."))
-				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				new/obj/structure/lattice/catwalk(src)
-			else
+			return .
+		if(locate(/obj/structure/lattice, src))
+			if(!rods.use(1))
 				to_chat(user, span_warning("You need two rods to build a catwalk!"))
-			return
-		if(R.use(1))
-			to_chat(user, span_notice("Constructing support lattice..."))
-			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-			ReplaceWithLattice()
-		else
+				return .
+			to_chat(user, span_notice("You construct a catwalk."))
+			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+			new /obj/structure/lattice/catwalk(src)
+			return .|ATTACK_CHAIN_SUCCESS
+		if(!rods.use(1))
 			to_chat(user, span_warning("You need one rod to build a lattice."))
-		return
+			return .
+		to_chat(user, span_notice("Constructing support lattice..."))
+		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+		ReplaceWithLattice()
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(C, /obj/item/stack/tile/plasteel))
-		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-		if(L)
-			var/obj/item/stack/tile/plasteel/S = C
-			if(S.use(1))
-				qdel(L)
-				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, span_notice("You build a floor."))
-				ChangeTurf(/turf/simulated/floor/plating)
-			else
-				to_chat(user, span_warning("You need one floor tile to build a floor!"))
-		else
+	if(istype(I, /obj/item/stack/tile/plasteel))
+		var/obj/item/stack/tile/plasteel/plasteel = I
+		var/obj/structure/lattice/lattice = locate() in src
+		if(!lattice)
 			to_chat(user, span_warning("The plating is going to need some support! Place metal rods first."))
+			return .
+		if(!plasteel.use(1))
+			to_chat(user, span_warning("You need one floor tile to build a floor!"))
+			return .
+		qdel(lattice)
+		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+		to_chat(user, span_notice("You build a floor."))
+		ChangeTurf(/turf/simulated/floor/plating)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(C, /obj/item/stack/fireproof_rods))
-		var/obj/item/stack/fireproof_rods/R = C
-		var/obj/structure/lattice/fireproof/L = locate(/obj/structure/lattice/fireproof, src)
-		var/obj/structure/lattice/catwalk/fireproof/W = locate(/obj/structure/lattice/catwalk/fireproof, src)
-		if(W)
+	if(istype(I, /obj/item/stack/fireproof_rods))
+		var/obj/item/stack/fireproof_rods/rods = I
+		if(locate(/obj/structure/lattice/catwalk/fireproof, src))
 			to_chat(user, span_warning("Здесь уже есть мостик!"))
-			return
-		if(!L)
-			if(R.use(1))
-				to_chat(user, span_notice("Вы установили прочную решётку."))
-				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				new /obj/structure/lattice/fireproof(src)
-			else
-				to_chat(user, span_warning("Вам нужен один огнеупорный стержень для постройки решётки."))
-			return
-		if(L)
-			if(R.use(2))
-				qdel(L)
-				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, span_notice("Вы установили мостик."))
-				new /obj/structure/lattice/catwalk/fireproof(src)
-	..()
+			return .
+		var/obj/structure/lattice/fireproof/lattice = locate() in src
+		if(!lattice)
+			if(!rods.use(1))
+				to_chat(user, span_warning("Вам нужен один огнеупорный стержень для постройки решётки!"))
+				return .
+			to_chat(user, span_notice("Вы установили прочную решётку."))
+			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+			new /obj/structure/lattice/fireproof(src)
+			return .|ATTACK_CHAIN_SUCCESS
+		if(!rods.use(2))
+			to_chat(user, span_warning("Вам нужно два огнеупорных стержня для постройки мостика!"))
+			return .
+		qdel(lattice)
+		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+		to_chat(user, span_notice("Вы установили огнеупорный мостик."))
+		new /obj/structure/lattice/catwalk/fireproof(src)
+		return .|ATTACK_CHAIN_SUCCESS
+
 
 /turf/simulated/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
@@ -223,7 +223,9 @@
 
 // Every new proc that should be edited or added here. Also needs to be copied into /turf/space/openspace. I'm not sorry.
 
-/turf/simulated/openspace/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	if(caller && !caller.can_z_move(DOWN, get_turf(src), null, ZMOVE_FALL_FLAGS)) //If we can't fall (flying/lattice), it's fine to path through
+/turf/simulated/openspace/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	var/atom/movable/our_movable = pass_info.caller_ref.resolve()
+	if(our_movable && !our_movable.can_z_move(DOWN, src, null, ZMOVE_FALL_FLAGS)) //If we can't fall here (flying/lattice), it's fine to path through
 		return TRUE
 	return FALSE
+

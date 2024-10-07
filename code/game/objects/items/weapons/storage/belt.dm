@@ -56,7 +56,8 @@
 		/obj/item/extinguisher/mini,
 		/obj/item/holosign_creator,
 		/obj/item/radio,
-		/obj/item/robotanalyzer)
+		/obj/item/robotanalyzer,
+		/obj/item/clothing/gloves)
 
 /obj/item/storage/belt/utility/full/populate_contents()
 	new /obj/item/screwdriver(src)
@@ -137,8 +138,10 @@
 	max_combined_w_class = 17
 	use_to_pickup = 1
 	name = "surgical belt"
+	icon_state = "surgicalbelt"
+	item_state = "surgical"
 	desc = "Can hold various surgical tools."
-	storage_slots = 9
+	storage_slots = 11
 	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/scalpel,
@@ -150,7 +153,9 @@
 		/obj/item/FixOVein,
 		/obj/item/surgicaldrill,
 		/obj/item/cautery,
-		/obj/item/radio)
+		/obj/item/radio,
+		/obj/item/clothing/gloves/color/latex,
+		/obj/item/reagent_containers/spray/cleaner)
 
 /obj/item/storage/belt/medical/surgery/loaded/populate_contents()
 	new /obj/item/scalpel(src)
@@ -217,11 +222,11 @@
 		/obj/item/reagent_containers/food/snacks/donut,
 		/obj/item/reagent_containers/food/snacks/candy/confectionery/toffee,
 		/obj/item/kitchen/knife/combat,
+		/obj/item/melee/baton/security,
 		/obj/item/melee/baton,
-		/obj/item/melee/classic_baton,
 		/obj/item/flashlight/seclite,
 		/obj/item/holosign_creator/security,
-		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/melee/baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/forensics/sample_kit/powder,
 		/obj/item/forensics/sample_kit,
@@ -233,7 +238,7 @@
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/flash(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/melee/baton/security/loaded(src)
 	update_icon()
 
 /obj/item/storage/belt/security/detective
@@ -251,14 +256,14 @@
 
 /obj/item/storage/belt/security/response_team/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/melee/baton/security/loaded(src)
 	new /obj/item/flash(src)
-	new /obj/item/melee/classic_baton/telescopic(src)
+	new /obj/item/melee/baton/telescopic(src)
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
 
 /obj/item/storage/belt/security/response_team_gamma/populate_contents()
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/melee/baton/security/loaded(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/flash(src)
 	new /obj/item/grenade/flashbang(src)
@@ -475,7 +480,7 @@
 	new /obj/item/storage/pouch/fast(src)
 	new /obj/item/storage/pouch/fast(src)
 	new /obj/item/storage/pouch/fast(src)
-	new /obj/item/melee/classic_baton/telescopic(src)
+	new /obj/item/melee/baton/telescopic(src)
 
 /obj/item/storage/belt/janitor
 	name = "janibelt"
@@ -533,11 +538,13 @@
 /obj/item/storage/belt/lazarus/update_icon_state()
 	icon_state = "[initial(icon_state)]_[length(contents)]"
 
-/obj/item/storage/belt/lazarus/attackby(obj/item/W, mob/user)
+
+/obj/item/storage/belt/lazarus/attackby(obj/item/I, mob/user, params)
 	var/amount = length(contents)
 	. = ..()
 	if(amount != length(contents))
 		update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
@@ -569,11 +576,13 @@
 /obj/item/storage/belt/bandolier/update_icon_state()
 	icon_state = "[initial(icon_state)]_[length(contents)]"
 
-/obj/item/storage/belt/bandolier/attackby(obj/item/W, mob/user)
+
+/obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user, params)
 	var/amount = length(contents)
 	. = ..()
 	if(amount != length(contents))
 		update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/storage/belt/holster
 	name = "shoulder holster"
@@ -678,11 +687,11 @@
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_BULKY
-	can_hold = list(/obj/item/melee/rapier)
+	can_hold = list(/obj/item/melee/rapier/captain)
 
 /obj/item/storage/belt/rapier/populate_contents()
-	new /obj/item/melee/rapier(src)
-	update_icon()
+	new /obj/item/melee/rapier/captain(src)
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/rapier/attack_hand(mob/user)
 	if(loc != user)
@@ -720,6 +729,27 @@
 		item_state = "[item_state]-rapier"
 	update_equipped_item(update_speedmods = FALSE)
 
+/obj/item/storage/belt/rapier/syndie
+	name = "suspicious rapier sheath"
+	desc = "A sinister, thin sheath, suitable for a rapier."
+	icon_state = "syndie_sheath"
+	item_state = "syndie_sheath"
+	can_hold = list(/obj/item/melee/rapier/syndie)
+
+/obj/item/storage/belt/rapier/syndie/populate_contents()
+	new /obj/item/melee/rapier/syndie(src)
+	update_appearance(UPDATE_ICON_STATE)
+
+/obj/item/storage/belt/rapier/centcomm
+	name = "centcomm rapier sheath"
+	desc = "Украшенные ножны, корпоративный кич в комплекте."
+	icon_state = "centcomm_sheath"
+	item_state = "centcomm_sheath"
+	can_hold = list(/obj/item/melee/rapier/centcomm)
+
+/obj/item/storage/belt/rapier/centcomm/populate_contents()
+	new /obj/item/melee/rapier/centcomm(src)
+	update_appearance(UPDATE_ICON_STATE)
 
 // -------------------------------------
 //     Bluespace Belt
@@ -798,8 +828,10 @@
 				if(H.s_active && H.s_active == src)
 					H.s_active.show_to(H)
 
-/obj/item/storage/belt/bluespace/attack(mob/M as mob, mob/user as mob, def_zone)
-	return
+
+/obj/item/storage/belt/bluespace/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
+
 
 /obj/item/storage/belt/bluespace/admin
 	name = "Admin's Tool-belt"

@@ -7,18 +7,33 @@
 	invisibility = INVISIBILITY_ABSTRACT // nope cant see this shit
 	anchored = TRUE
 
-/obj/effect/step_trigger/proc/Trigger(var/atom/movable/A)
+
+/obj/effect/step_trigger/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/effect/step_trigger/proc/Trigger(atom/movable/A)
 	return FALSE
 
-/obj/effect/step_trigger/Crossed(var/H, oldloc)
-	. = ..()
-	if(!H)
+
+/obj/effect/step_trigger/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!arrived)
 		return
-	if(isobserver(H) && !affect_ghosts)
+
+	if(!affect_ghosts && isobserver(arrived))
 		return
-	if(!ismob(H) && mobs_only)
+
+	if(mobs_only && !ismob(arrived))
 		return
-	Trigger(H)
+
+	INVOKE_ASYNC(src, PROC_REF(Trigger), arrived)
+
 
 /obj/effect/step_trigger/singularity_act()
 	return
@@ -103,12 +118,13 @@
 	var/teleport_x = 0	// teleportation coordinates (if one is null, then no teleport!)
 	var/teleport_y = 0
 	var/teleport_z = 0
+	density = 0
+	opacity = 0
 
 /obj/effect/step_trigger/teleporter/Trigger(atom/movable/A)
 	if(teleport_x && teleport_y && teleport_z)
 
-		var/turf/T = locate(teleport_x, teleport_y, teleport_z)
-		A.forceMove(T)
+		A.loc = locate(teleport_x, teleport_y, teleport_z)
 
 /* Random teleporter, teleports atoms to locations ranging from teleport_x - teleport_x_offset, etc */
 

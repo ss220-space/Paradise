@@ -4,6 +4,7 @@
 	icon_state = "cargosoft"
 	item_state = "helmet"
 	item_color = "cargo"
+	dying_key = DYE_REGISTRY_SOFTCAP
 	var/flipped = FALSE
 	actions_types = list(/datum/action/item_action/flip_cap)
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
@@ -15,7 +16,6 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
-	dyeable = TRUE
 
 
 /obj/item/clothing/head/soft/update_icon_state()
@@ -111,9 +111,17 @@
 	item_color = "rainbow"
 	dog_fashion = null
 
+/obj/item/clothing/head/soft/paramedic
+	name = "paramedic`s cap"
+	desc = "A soft cap worn by a paramedic."
+	icon_state = "paramedicsoft"
+	item_state = "paramedicsoft"
+	item_color = "paramedic"
+	dog_fashion = null
+
 /obj/item/clothing/head/soft/brigphys
 	name = "brigphysic`s cap"
-	desc = "Кепи бригмедика"
+	desc = "A soft cap worn by a brig physician."
 	icon_state = "brigphyssoft"
 	item_state = "brigphyssoft"
 	item_color = "brigphys"

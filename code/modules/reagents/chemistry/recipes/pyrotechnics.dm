@@ -105,11 +105,9 @@
 
 /datum/chemical_reaction/sorium_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	if(ismob(holder.my_atom))
-		var/mob/living/carbon/victim = holder.my_atom
-		victim.adjustBruteLoss(created_volume)
-		victim.adjustStaminaLoss(created_volume)
-		victim.adjustToxLoss(created_volume)
+	if(isliving(holder.my_atom))
+		var/mob/living/victim = holder.my_atom
+		victim.apply_damages(brute = created_volume, tox = created_volume, stamina = created_volume, spread_damage = TRUE)
 		to_chat(victim, span_danger("You feel like you are being torn apart!"))
 
 	if(!T)
@@ -295,6 +293,29 @@
 	forbidden_reagents = list("stimulants")
 	mix_sound = null
 
+/datum/chemical_reaction/smoke_solid
+	name = "smoke"
+	id = "smoke_solid"
+	result = null
+	required_reagents = list("aluminum" = 1, "sodium" = 1, "potassium" = 1, "chlorine" = 1)
+	result_amount = 1
+	mix_message = "The mixture quickly turns into a thick cloud of smoke!"
+
+/datum/chemical_reaction/smoke_solid/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	var/datum/effect_system/smoke_spread/solid/S = new
+	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
+	if(S)
+		if(created_volume < 15)
+			S.set_up(3, 0, location, range = 0)
+		if(created_volume >= 15 && created_volume < 30)
+			S.set_up(3, 0, location, range = "2x2")
+		if(created_volume >= 30 && created_volume < 48)
+			S.set_up(3, 0, location, range = 1)
+		if(created_volume >= 48)
+			S.set_up(3, 0, location, range = 2)
+		S.start()
+
 /datum/chemical_reaction/sonic_powder
 	name = "sonic_powder"
 	id = "sonic_powder"
@@ -387,7 +408,7 @@
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/mob/living/L in view(min(8, round(created_volume * 2)), T))
 		L.Beam(T, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
-		L.electrocute_act(3.5, "electrical blast")
+		L.electrocute_act(3.5, "взрыва электричества")
 	holder.del_reagent("teslium") //Clear all remaining Teslium and Uranium, but leave all other reagents untouched.
 	holder.del_reagent("uranium")
 

@@ -30,17 +30,21 @@
 /obj/item/gun/throw/update_overlays()
 	return list()
 
+
 /obj/item/gun/rocketlauncher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_casing/rocket))
-		if(rockets.len < max_rockets)
-			user.drop_transfer_item_to_loc(I, src)
-			rockets += I
-			to_chat(user, "<span class='notice'>You put the rocket in [src].</span>")
-			to_chat(user, "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>")
-		else
-			to_chat(user, "<span class='notice'>[src] cannot hold more rockets.</span>")
-	else
-		return ..()
+		add_fingerprint(user)
+		if(length(rockets) >= max_rockets)
+			to_chat(user, span_warning("The [name] cannot hold more rockets."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		rockets += I
+		to_chat(user, span_notice("You have put [I] into [src]. In now contains <b>[length(rockets)]/[max_rockets]</b> rockets."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/gun/rocketlauncher/can_shoot(mob/user)
 	return rockets.len

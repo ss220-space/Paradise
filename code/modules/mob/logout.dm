@@ -1,8 +1,10 @@
 /mob/Logout()
 	SEND_SIGNAL(src, COMSIG_MOB_LOGOUT)
+	set_typing_indicator(FALSE)
 	SStgui.on_logout(src) // Cleanup any TGUIs the user has open
 	unset_machine()
 	GLOB.player_list -= src
+	GLOB.keyloop_list -= src
 	log_access_out(src)
 	add_game_logs("OWNERSHIP: [key_name(src)] is no longer owning mob [src]([src.type])")
 	// `holder` is nil'd out by now, so we check the `admin_datums` array directly

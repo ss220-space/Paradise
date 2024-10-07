@@ -12,7 +12,7 @@
 	var/table_smacks_left = 3
 
 
-/obj/item/slapper/attack(mob/living/carbon/target, mob/living/carbon/human/user)
+/obj/item/slapper/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	user.do_attack_animation(target)
 	playsound(target, hitsound, 50, TRUE, -1)
 	user.visible_message(
@@ -22,8 +22,9 @@
 	)
 	if(iscarbon(target) && target.IsSleeping())
 		target.AdjustSleeping(-15 SECONDS)
-	if(force)
-		return ..()
+	if(!force)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
 
 
 /obj/item/slapper/attack_self(mob/living/user)
@@ -33,16 +34,17 @@
 	user.emote("highfive", intentional = TRUE)
 
 
-/obj/item/slapper/attack_obj(obj/O, mob/living/user, params)
-	if(!istype(O, /obj/structure/table))
+/obj/item/slapper/attack_obj(obj/object, mob/living/user, params)
+	if(!istype(object, /obj/structure/table))
 		return ..()
 
-	user.changeNext_move(CLICK_CD_MELEE)
-	var/obj/structure/table/the_table = O
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	var/obj/structure/table/the_table = object
 
 	if(user.a_intent == INTENT_HARM && table_smacks_left == initial(table_smacks_left)) // so you can't do 2 weak slaps followed by a big slam
+		. = ATTACK_CHAIN_BLOCKED
 		transform = transform.Scale(1.5) // BIG slap
-		if(HULK in user.mutations)
+		if(HAS_TRAIT(user, TRAIT_HULK))
 			transform = transform.Scale(2)
 			color = COLOR_GREEN
 		user.do_attack_animation(the_table)
@@ -52,16 +54,21 @@
 				human_user.say(pick("Вот чёрт!", "Чёрт подери!", "Чёрт возьми!"))
 
 		playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 120, TRUE)
-		user.visible_message(span_danger("<b>[user] slams [user.p_their()] fist down on [the_table]!</b>"),
-							span_danger("<b>You slam your fist down on [the_table]!</b>"))
+		user.visible_message(
+			span_danger("<b>[user] slams [user.p_their()] fist down on [the_table]!</b>"),
+			span_danger("<b>You slam your fist down on [the_table]!</b>"),
+		)
 		qdel(src)
 	else
 		user.do_attack_animation(the_table)
 		playsound(get_turf(the_table), 'sound/effects/tableslam.ogg', 40, TRUE)
-		user.visible_message(span_notice("[user] slaps [user.p_their()] hand on [the_table]."),
-							span_notice("You slap your hand on [the_table]."))
+		user.visible_message(
+			span_notice("[user] slaps [user.p_their()] hand on [the_table]."),
+			span_notice("You slap your hand on [the_table]."),
+		)
 		table_smacks_left--
 		if(table_smacks_left <= 0)
+			. = ATTACK_CHAIN_BLOCKED
 			qdel(src)
 
 
@@ -80,9 +87,8 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (1 / 3) SECONDS) //75% uptime
 	return ..()
 
-/obj/item/slapper/parry/attack(mob/M, mob/living/carbon/human/user)
-	if(isliving(M))
-		var/mob/living/creature = M
+/obj/item/slapper/parry/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(isliving(target))
 		SEND_SOUND(creature, sound('sound/weapons/flash_ring.ogg'))
 		creature.Confused(10 SECONDS) //SMACK CAM
 		creature.EyeBlind(2 SECONDS) //OH GOD MY EARS ARE RINGING

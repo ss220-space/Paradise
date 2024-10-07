@@ -43,6 +43,9 @@
 
 /datum/surgery_step/remove_object
 	name = "Remove Embedded Objects"
+	begin_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
+
 	time = 3.2 SECONDS
 	accept_hand = TRUE
 	var/obj/item/organ/external/L = null
@@ -52,9 +55,17 @@
 /datum/surgery_step/remove_object/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	L = surgery.organ_to_manipulate
 	if(L)
-		user.visible_message("[user] looks for objects embedded in [target]'s [parse_zone(user.zone_selected)].", span_notice("You look for objects embedded in [target]'s [parse_zone(user.zone_selected)]..."))
+		user.visible_message(
+			"[user] looks for objects embedded in [target]'s [parse_zone(user.zone_selected)].",
+			span_notice("You look for objects embedded in [target]'s [parse_zone(user.zone_selected)]..."),
+			chat_message_type = MESSAGE_TYPE_COMBAT
+			)
 	else
-		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_selected)].", span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
+		user.visible_message(
+			"[user] looks for [target]'s [parse_zone(user.zone_selected)].",
+			span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."),
+			chat_message_type = MESSAGE_TYPE_COMBAT
+			)
 	return ..()
 
 
@@ -62,7 +73,10 @@
 	if(L)
 		var/objects_removed = L.remove_all_embedded_objects()
 		if(objects_removed)
-			user.visible_message("[user] sucessfully removes [objects_removed] embedded objects from [target]'s [L.name]!", span_notice("You successfully remove [objects_removed] embedded objects from [target]'s [L.name]."))
+			user.visible_message(
+				"[user] sucessfully removes [objects_removed] embedded objects from [target]'s [L.name]!",
+				span_notice("You successfully remove [objects_removed] embedded objects from [target]'s [L.name]."),
+				chat_message_type = MESSAGE_TYPE_COMBAT)
 		else
 			to_chat(user, span_warning("You find no objects embedded in [target]'s [L.name]!"))
 

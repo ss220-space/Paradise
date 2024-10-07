@@ -1,12 +1,12 @@
 /turf/simulated/floor/vault
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "rockvault"
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
 /turf/simulated/wall/vault
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rockvault"
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
 /turf/simulated/floor/bluegrid
 	icon = 'icons/turf/floors.dmi'
@@ -50,6 +50,9 @@
 /turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
 
+/turf/simulated/floor/beach/can_have_cabling()
+	return FALSE
+
 /turf/simulated/floor/beach/sand
 	name = "sand"
 	icon_state = "sand"
@@ -62,29 +65,26 @@
 	if(user)
 		to_chat(user, span_notice("Looks like someone has dug here already."))
 
+
 /turf/simulated/floor/beach/sand/attackby(obj/item/I, mob/user, params)
-	//note that this proc does not call ..()
-	if(!I|| !user)
-		return FALSE
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 
 	if((istype(I, /obj/item/shovel) || istype(I, /obj/item/pickaxe)))
 		if(!can_dig(user))
-			return TRUE
-
-		var/turf/T = get_turf(user)
-		if(!istype(T))
-			return
-
+			return .
+		I.play_tool_sound()
 		to_chat(user, span_notice("You start digging..."))
-
-		playsound(src, I.usesound, 50, TRUE)
-		if(do_after(user, 4 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
-			if(!can_dig(user))
-				return TRUE
-			to_chat(user, span_notice("You dig a hole."))
-			new /obj/structure/pit(src)
-			dug = TRUE
-
+		if(!do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || !can_dig(user))
+			return .
+		I.play_tool_sound()
+		to_chat(user, span_notice("You have dug a hole."))
+		new /obj/structure/pit(src)
+		new /obj/item/stack/ore/glass(src, 5)
+		dug = TRUE
+		return .|ATTACK_CHAIN_SUCCESS
 
 
 /turf/simulated/floor/beach/coastline
@@ -133,22 +133,20 @@
 	add_overlay(overlay_image)
 
 
-/turf/simulated/floor/beach/water/Entered(atom/movable/AM, atom/OldLoc)
+/turf/simulated/floor/beach/water/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	if(!linkedcontroller)
-		return
-	if(ismob(AM))
-		if(isliving(AM))
-			var/mob/living/creature = AM
-			creature.ExtinguishMob()
-		linkedcontroller.mobinpool += AM
+	if(!linkedcontroller || !ismob(arrived))
+		return .
+	if(isliving(arrived))
+		var/mob/living/creature = arrived
+		creature.ExtinguishMob()
+	linkedcontroller.mobinpool += arrived
 
-/turf/simulated/floor/beach/water/Exited(atom/movable/AM, atom/newloc)
+/turf/simulated/floor/beach/water/Exited(atom/movable/departed, atom/newLoc)
 	. = ..()
-	if(!linkedcontroller)
-		return
-	if(ismob(AM))
-		linkedcontroller.mobinpool -= AM
+	if(!linkedcontroller || !ismob(departed))
+		return .
+	linkedcontroller.mobinpool -= departed
 
 /turf/simulated/floor/beach/water/InitializedOn(atom/A)
 	if(!linkedcontroller)
@@ -189,7 +187,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		to_chat(H, span_warning("You lose your footing trying to pry off the tile!"))
-		H.slip(10 SECONDS, src, TURF_WET_LUBE, tilesSlipped = 4)
+		H.slip(10 SECONDS, src, TURF_WET_LUBE)
 	return
 
 //Clockwork floor: Slowly heals toxin damage on nearby servants.

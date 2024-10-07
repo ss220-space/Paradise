@@ -63,7 +63,7 @@
 	if(!T)
 		return
 	calculate_anger_mod(user)
-	timer = world.time + CLICK_CD_MELEE //by default, melee attacks only cause melee blasts, and have an accordingly short cooldown
+	timer = world.time + attack_speed //by default, melee attacks only cause melee blasts, and have an accordingly short cooldown
 	if(proximity_flag)
 		INVOKE_ASYNC(src, PROC_REF(aoe_burst), T, user)
 		if(is_station_level(T.z))
@@ -122,8 +122,8 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
-/obj/item/hierophant_club/ui_action_click(mob/user, actiontype)
-	if(actiontype == /datum/action/item_action/toggle_unfriendly_fire) //toggle friendly fire...
+/obj/item/hierophant_club/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/toggle_unfriendly_fire)) //toggle friendly fire...
 		friendly_fire_check = !friendly_fire_check
 		to_chat(user, "<span class='warning'>You toggle friendly fire [friendly_fire_check ? "off":"on"]!</span>")
 		return
@@ -146,6 +146,7 @@
 				playsound(T,'sound/magic/blind.ogg', 200, TRUE, -4)
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
 				beacon = new/obj/effect/hierophant(T)
+				beacon.add_fingerprint(user)
 				user.update_action_buttons_icon()
 				user.visible_message("<span class='hierophant_warning'>[user] places a strange machine beneath [user.p_their()] feet!</span>", \
 				"<span class='hierophant'>You detach the hierophant beacon, allowing you to teleport yourself and any allies to it at any time!</span>\n\
@@ -344,13 +345,12 @@
 		name = "Talisman of warding"
 		slave.real_name = name
 		slave.name = name
-		var/input = stripped_input(slave, "What are you named?", null, "", MAX_NAME_LEN)
-		if(QDELETED(src))
+		var/input = tgui_input_text(slave, "What are you named?", "Change Name", max_length = MAX_NAME_LEN)
+		if(QDELETED(src) || isnull(input))
 			return
-		if(input)
-			name = input
-			slave.real_name = input
-			slave.name = input
+		name = input
+		slave.real_name = input
+		slave.name = input
 		log_game("[slave.ckey] has become spirit of [user.real_name]'s talisman.")
 		to_chat(slave, span_hierophant("Now you are serving to [user.real_name]. You must ward him."))
 		update_icon(UPDATE_ICON_STATE)
@@ -393,7 +393,6 @@
 	stat_allowed = UNCONSCIOUS
 	action_icon_state = "hierophant_talisman_heal"
 	action_background_icon_state = "bg_hierophant_talisman"
-	panel = "Hierophant Talisman"
 
 /obj/effect/proc_holder/spell/hierophant_talisman_heal/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
@@ -410,9 +409,11 @@
 
 /obj/effect/proc_holder/spell/hierophant_talisman_heal/cast(list/targets, mob/living/simple_animal/shade/talisman/user  = usr)
 	var/mob/living/carbon/human/target = targets[1]
-	target.adjustBruteLoss(-15)
-	target.adjustFireLoss(-15)
-	target.adjustToxLoss(-15)
+	var/update = NONE
+	update |= target.heal_overall_damage(15, 15, updating_health = FALSE, affect_robotic = TRUE)
+	update |= target.heal_damage_type(15, TOX, updating_health = FALSE)
+	if(update)
+		target.updatehealth()
 	if(target.health / target.maxHealth <= 0.25)
 		cooldown_handler.start_recharge(10 SECONDS)
 		to_chat(user, span_hierophant("This creature is dying... Pathetic but... You must protect this creature..."))
@@ -433,7 +434,6 @@
 	centcom_cancast = FALSE
 	action_icon_state = "hierophant_talisman_teleport"
 	action_background_icon_state = "bg_hierophant_talisman"
-	panel = "Hierophant Talisman"
 
 /obj/effect/proc_holder/spell/hierophant_talisman_teleport/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -486,7 +486,6 @@
 	stat_allowed = UNCONSCIOUS
 	action_icon_state = "hierophant_talisman_message"
 	action_background_icon_state = "bg_hierophant_talisman"
-	panel = "Hierophant Talisman"
 
 /obj/effect/proc_holder/spell/hierophant_talisman_message/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -496,7 +495,7 @@
 
 /obj/effect/proc_holder/spell/hierophant_talisman_message/cast(list/targets, mob/living/simple_animal/shade/talisman/user)
 	var/mob/living/carbon/human/choice = targets[1]
-	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
+	var/msg = tgui_input_text(usr, "What do you wish to tell [choice]?", null, "")
 	if(!(msg))
 		return
 	add_say_logs(usr, msg, choice, "SLAUGHTER")

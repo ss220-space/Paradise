@@ -44,18 +44,6 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_ABDUCTOR = 50,
 ))
 
-// Client Verbs
-
-/client/verb/cmd_check_own_playtime()
-	set category = "Special Verbs"
-	set name = "Check my playtime"
-
-	if(!CONFIG_GET(flag/use_exp_tracking))
-		to_chat(src, "<span class='warning'>Playtime tracking is not enabled.</span>")
-		return
-
-	to_chat(src, "<span class='notice'>Your [EXP_TYPE_CREW] playtime is [get_exp_type(EXP_TYPE_CREW)].</span>")
-
 // Admin Verbs
 
 /client/proc/cmd_mentor_check_player_exp()	//Allows admins to determine who the newer players are.
@@ -84,7 +72,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 				jtext = theirjob.title
 		msg += "<TD>[jtext]</TD>"
 
-		msg += "<TD><A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_type(EXP_TYPE_CREW) + "</a></TD>"
+		msg += "<TD><a href='byond://?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_type(EXP_TYPE_CREW) + "</a></TD>"
 		msg += "[C.get_exp_dept_string()]"
 		msg += "</TR>"
 

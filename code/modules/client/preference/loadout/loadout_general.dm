@@ -119,11 +119,6 @@
 							)
 	gear_tweaks += new /datum/gear_tweak/path(bands, src)
 
-/datum/gear/mob_hunt_game
-	display_name = "Nano-Mob Hunter GO! Cartridge"
-	path = /obj/item/cartridge/mob_hunt_game
-	cost = 2
-
 /datum/gear/piano_synth
 	display_name ="synthesizer"
 	path = /obj/item/instrument/piano_synth
@@ -132,10 +127,6 @@
 /datum/gear/tts
 	display_name ="TTS device"
 	path = /obj/item/ttsdevice
-
-/datum/gear/blindfold
-	display_name ="Blindfold"
-	path = /obj/item/clothing/glasses/sunglasses/blindfold
 
 /datum/gear/lipstick
 	display_name = "lipstick, select"

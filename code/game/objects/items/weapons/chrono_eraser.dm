@@ -24,7 +24,7 @@
 	QDEL_NULL(PA)
 	return ..()
 
-/obj/item/chrono_eraser/ui_action_click(mob/user)
+/obj/item/chrono_eraser/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if(C.back == src)
@@ -32,7 +32,7 @@
 			PA = new(user, src)
 			user.put_in_hands(PA)
 
-/obj/item/chrono_eraser/item_action_slot_check(slot, mob/user)
+/obj/item/chrono_eraser/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_BACK)
 		return TRUE
 
@@ -250,8 +250,8 @@
 	GM.temperature = T20C
 	return GM
 
-/obj/structure/chrono_field/Move()
-	return
+/obj/structure/chrono_field/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	return FALSE
 
 /obj/structure/chrono_field/singularity_act()
 	return

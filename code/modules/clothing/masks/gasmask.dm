@@ -10,6 +10,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	resistance_flags = NONE
+	undyeable = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -36,7 +37,7 @@
 	icon_state = "weldingmask"
 	item_state = "weldingmask"
 	materials = list(MAT_METAL=4000, MAT_GLASS=2000)
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	can_toggle = TRUE
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 55)
@@ -90,6 +91,11 @@
 	. = ..()
 	if(.)
 		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+
+
+/obj/item/clothing/mask/gas/explorer/force_adjust_mask()
+	. = ..()
+	w_class = WEIGHT_CLASS_SMALL
 
 
 /obj/item/clothing/mask/gas/explorer/folded/Initialize(mapload)
@@ -349,14 +355,22 @@
 								"dredd"			= "I am, the LAW!"
 								)
 
+
 /obj/item/clothing/mask/gas/sechailer/adjustmask(user)
 	. = ..()
 	if(.)
 		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
 
+
+/obj/item/clothing/mask/gas/sechailer/force_adjust_mask()
+	. = ..()
+	w_class = WEIGHT_CLASS_SMALL
+
+
 /obj/item/clothing/mask/gas/sechailer/folded/Initialize(mapload)
 	. = ..()
 	force_adjust_mask()
+
 
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"
@@ -408,12 +422,12 @@
 	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
-/obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, actiontype)
-	if(actiontype == /datum/action/item_action/halt)
+/obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/halt))
 		halt()
-	else if(actiontype == /datum/action/item_action/adjust)
+	else if(istype(action, /datum/action/item_action/adjust))
 		adjustmask(user)
-	else if(actiontype == /datum/action/item_action/selectphrase)
+	else if(istype(action, /datum/action/item_action/selectphrase))
 		var/key = phrase_list[phrase]
 		var/message = phrase_list[key]
 
@@ -451,38 +465,49 @@
 			halt_action.UpdateButtonIcon()
 
 
-/obj/item/clothing/mask/gas/sechailer/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(W.tool_behaviour == TOOL_SCREWDRIVER)
-		switch(aggressiveness)
-			if(1)
-				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the second position.</span>")
-				aggressiveness = 2
-				phrase = 7
-			if(2)
-				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the third position.</span>")
-				aggressiveness = 3
-				phrase = 13
-			if(3)
-				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the fourth position.</span>")
-				aggressiveness = 4
-				phrase = 1
-			if(4)
-				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the first position.</span>")
-				aggressiveness = 1
-				phrase = 1
-			if(5)
-				to_chat(user, "<span class='warning'>You adjust the restrictor but nothing happens, probably because its broken.</span>")
-	else if(W.tool_behaviour == TOOL_WIRECUTTER)
-		if(aggressiveness != 5)
-			to_chat(user, "<span class='warning'>You broke it!</span>")
-			aggressiveness = 5
-	else
-		..()
+/obj/item/clothing/mask/gas/sechailer/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	switch(aggressiveness)
+		if(1)
+			to_chat(user, span_notice("You set the aggressiveness restrictor to the second position."))
+			aggressiveness = 2
+			phrase = 7
+		if(2)
+			to_chat(user, span_notice("You set the aggressiveness restrictor to the third position."))
+			aggressiveness = 3
+			phrase = 13
+		if(3)
+			to_chat(user, span_notice("You set the aggressiveness restrictor to the fourth position."))
+			aggressiveness = 4
+			phrase = 1
+		if(4)
+			to_chat(user, span_notice("You set the aggressiveness restrictor to the first position."))
+			aggressiveness = 1
+			phrase = 1
+		if(5)
+			to_chat(user, span_warning("You adjust the restrictor but nothing happens, probably because its broken."))
+
+
+/obj/item/clothing/mask/gas/sechailer/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(aggressiveness == 5)
+		to_chat(user, span_warning("The [name] is already broken."))
+		return .
+	var/confirm = tgui_alert(user, "Do you want to cut off the voice modulator? Warning: It will destroy mask's functionality.", "Cut voice modulator?", list("Yes", "No"))
+	if(confirm != "Yes" || aggressiveness == 5 || !Adjacent(user) || user.incapacitated())
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	aggressiveness = 5
+	to_chat(user, span_warning("You have cut off the voice modulator, the mask is broken now."))
+
 
 /obj/item/clothing/mask/gas/sechailer/attack_self()
 	halt()
 
-/obj/item/clothing/mask/gas/sechailer/emag_act(mob/user as mob)
+/obj/item/clothing/mask/gas/sechailer/emag_act(mob/user)
 	if(safety)
 		safety = 0
 		if(user)

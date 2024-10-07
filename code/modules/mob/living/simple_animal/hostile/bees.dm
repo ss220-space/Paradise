@@ -12,8 +12,7 @@
 /mob/living/simple_animal/hostile/poison/bees
 	name = "bee"
 	desc = "Buzzy buzzy bee, stingy sti- Ouch!"
-	icon_state = ""
-	icon_living = ""
+	icon_state = "bee"
 	icon = 'icons/mob/bees.dmi'
 	gender = FEMALE
 	speak_emote = list("buzzes")
@@ -32,6 +31,7 @@
 	obj_damage = 0
 	environment_smash = 0
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
@@ -48,17 +48,16 @@
 	var/idle = 0
 	var/isqueen = FALSE
 	var/bee_syndicate = FALSE
-	var/icon_base = "bee"
 	var/static/list/bee_icons = list()
 	var/static/beehometypecache = typecacheof(/obj/structure/beebox)
 	var/static/hydroponicstypecache = typecacheof(/obj/machinery/hydroponics)
 
-/mob/living/simple_animal/hostile/poison/bees/Process_Spacemove(movement_dir = NONE)
+/mob/living/simple_animal/hostile/poison/bees/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/poison/bees/Initialize(mapload)
 	. = ..()
-	generate_bee_visuals()
+	regenerate_icons()
 	AddComponent(/datum/component/swarming)
 	AddElement(/datum/element/simple_flying)
 
@@ -84,49 +83,35 @@
 	if(!bee_syndicate && !beehome)
 		. += "<span class='warning'>This bee is homeless!</span>"
 
+
 /mob/living/simple_animal/hostile/poison/bees/ListTargets() // Bee processing is expessive, so we override them finding targets here.
 	if(!search_objects) //In case we want to have purely hostile bees
 		return ..()
-	else
-		. = list() // The following code is only very slightly slower than just returning oview(vision_range, targets_from), but it saves us much more work down the line
-		var/list/searched_for = oview(vision_range, targets_from)
-		for(var/obj/A in searched_for)
-			. += A
-		for(var/mob/A in searched_for)
-			. += A
+	. = list() // The following code is only very slightly slower than just returning oview(vision_range, targets_from), but it saves us much more work down the line
+	for(var/atom/movable/movable in oview(vision_range, targets_from))
+		. += movable
 
-// All bee sprites are made up of overlays. They do not have any special sprite overlays for items placed on them, such as collars, so this proc is unneeded.
+
 /mob/living/simple_animal/hostile/poison/bees/regenerate_icons()
-	return
-
-/mob/living/simple_animal/hostile/poison/bees/proc/generate_bee_visuals()
-	cut_overlays()
+	..()
 
 	var/col = BEE_DEFAULT_COLOUR
 	if(beegent && beegent.color)
 		col = beegent.color
 
-	var/image/base
-	if(!bee_icons["[icon_base]_base"])
-		bee_icons["[icon_base]_base"] = image(icon = 'icons/mob/bees.dmi', icon_state = "[icon_base]_base")
-	base = bee_icons["[icon_base]_base"]
-	add_overlay(base)
-
 	var/image/greyscale
-	if(!bee_icons["[icon_base]_grey_[col]"])
-		bee_icons["[icon_base]_grey_[col]"] = image(icon = 'icons/mob/bees.dmi', icon_state = "[icon_base]_grey")
-	greyscale = bee_icons["[icon_base]_grey_[col]"]
+	if(!bee_icons["[initial(icon_state)]_grey_[col]"])
+		bee_icons["[initial(icon_state)]_grey_[col]"] = image(icon = 'icons/mob/bees.dmi', icon_state = "[initial(icon_state)]_grey")
+	greyscale = bee_icons["[initial(icon_state)]_grey_[col]"]
 	greyscale.color = col
 	add_overlay(greyscale)
 
 	var/image/wings
-	if(!bee_icons["[icon_base]_wings"])
-		bee_icons["[icon_base]_wings"] = image(icon = 'icons/mob/bees.dmi', icon_state = "[icon_base]_wings")
-	wings = bee_icons["[icon_base]_wings"]
+	if(!bee_icons["[initial(icon_state)]_wings"])
+		bee_icons["[initial(icon_state)]_wings"] = image(icon = 'icons/mob/bees.dmi', icon_state = "[initial(icon_state)]_wings")
+	wings = bee_icons["[initial(icon_state)]_wings"]
 	add_overlay(wings)
 
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
 
 //We don't attack beekeepers/people dressed as bees/wryns //Todo: bee costume
 /mob/living/simple_animal/hostile/poison/bees/CanAttack(atom/the_target)
@@ -179,14 +164,14 @@
 	if(istype(R))
 		beegent = R
 		name = "[initial(name)] ([R.name])"
-		generate_bee_visuals()
+		regenerate_icons()
 
 /mob/living/simple_animal/hostile/poison/bees/proc/pollinate(obj/machinery/hydroponics/Hydro)
 	if(!istype(Hydro) || !Hydro.myseed || Hydro.dead || Hydro.recent_bee_visit || Hydro.lid_closed)
-		target = null
+		GiveTarget(null)
 		return
 
-	target = null //so we pick a new hydro tray next FindTarget(), instead of loving the same plant for eternity
+	GiveTarget(null) //so we pick a new hydro tray next FindTarget(), instead of loving the same plant for eternity
 	wanted_objects -= hydroponicstypecache //so we only hunt them while they're alive/seeded/not visisted
 	Hydro.recent_bee_visit = TRUE
 	spawn(BEE_TRAY_RECENT_VISIT)
@@ -236,7 +221,7 @@
 /mob/living/simple_animal/hostile/poison/bees/queen
  	name = "queen bee"
  	desc = "She's the queen of bees, BZZ BZZ"
- 	icon_base = "queen"
+ 	icon_state = "queen"
  	isqueen = TRUE
 
 
@@ -273,48 +258,68 @@
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
 
 
-/obj/item/queen_bee/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/syringe))
-		var/obj/item/reagent_containers/syringe/S = I
-		if(S.reagents.has_reagent("royal_bee_jelly")) //checked twice, because I really don't want royal bee jelly to be duped
-			if(S.reagents.has_reagent("royal_bee_jelly", 5))
-				S.reagents.remove_reagent("royal_bee_jelly", 5)
-				var/obj/item/queen_bee/qb = new(user.drop_location())
-				qb.queen = new(qb)
-				if(queen && queen.beegent)
-					qb.queen.assign_reagent(queen.beegent) //Bees use the global singleton instances of reagents, so we don't need to worry about one bee being deleted and her copies losing their reagents.
-				user.put_in_active_hand(qb)
-				user.visible_message("<span class='notice'>[user] injects [src] with royal bee jelly, causing it to split into two bees, MORE BEES!</span>","<span class ='warning'>You inject [src] with royal bee jelly, causing it to split into two bees, MORE BEES!</span>")
-			else
-				to_chat(user, "<span class='warning'>You don't have enough royal bee jelly to split a bee in two!</span>")
-		else
-			var/datum/reagent/R = GLOB.chemical_reagents_list[S.reagents.get_master_reagent_id()]
-			if(R && S.reagents.has_reagent(R.id, 5))
-				S.reagents.remove_reagent(R.id, 5)
-				queen.assign_reagent(R)
-				user.visible_message("<span class='warning'>[user] injects [src]'s genome with [R.name], mutating its DNA!</span>", "<span class='warning'>You inject [src]'s genome with [R.name], mutating its DNA!</span>")
-				name = queen.name
-			else
-				to_chat(user, "<span class='warning'>You don't have enough units of that chemical to modify the bee's DNA!</span>")
-	else
-		return ..()
-
 /obj/item/queen_bee/bought/Initialize(mapload)
 	. = ..()
 	queen = new(src)
+
 
 /obj/item/queen_bee/Destroy()
 	QDEL_NULL(queen)
 	return ..()
 
+
+/obj/item/queen_bee/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/syringe))
+		add_fingerprint(user)
+		var/obj/item/reagent_containers/syringe/syringe = I
+		if(syringe.mode != 1)	// injecting
+			to_chat(user, span_warning("The [syringe.name] should be in inject mode."))
+			return ATTACK_CHAIN_PROCEED
+		if(!syringe.reagents.total_volume)
+			to_chat(user, span_warning("The [syringe.name] is empty."))
+			return ATTACK_CHAIN_PROCEED
+		if(syringe.reagents.has_reagent("royal_bee_jelly"))
+			if(!syringe.reagents.has_reagent("royal_bee_jelly", 5))
+				to_chat(user, span_warning("You don't have enough royal bee jelly to split a bee in two!"))
+				return ATTACK_CHAIN_PROCEED
+			var/obj/item/queen_bee/new_queen = new(drop_location())
+			new_queen.add_fingerprint(user)
+			new_queen.queen = new(new_queen)	// inserting the mob in the holder
+			if(queen?.beegent)
+				// bees use the global singleton instances of reagents,
+				// so we don't need to worry about one bee being deleted and her copies losing their reagents.
+				new_queen.queen.assign_reagent(queen.beegent)
+			syringe.reagents.remove_reagent("royal_bee_jelly", 5, TRUE)
+			syringe.update_icon()
+			user.visible_message(
+				span_warning("[user] has injected [src] with royal bee jelly, causing it to split into two bees, MORE BEES!"),
+				span_notice("You have injected [src] with royal bee jelly, causing it to split into two bees, MORE BEES!"),
+			)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		var/datum/reagent/new_reagent = GLOB.chemical_reagents_list[syringe.reagents.get_master_reagent_id()]
+		if(!new_reagent || !syringe.reagents.has_reagent(new_reagent.id, 5))
+			to_chat(user, span_warning("You don't have enough units of [new_reagent.name] to modify the bee's DNA!"))
+			return ATTACK_CHAIN_PROCEED
+		syringe.reagents.remove_reagent(new_reagent.id, 5, TRUE)
+		syringe.update_icon()
+		queen.assign_reagent(new_reagent)
+		user.visible_message(
+			span_warning("[user] has injected [src] with [new_reagent.name], mutating its DNA!"),
+			span_notice("You have injected [src] with [new_reagent.name], mutating its DNA!"),
+		)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+
 /mob/living/simple_animal/hostile/poison/bees/consider_wakeup()
-	if(beehome && loc == beehome) // If bees are chilling in their nest, they're not actively looking for targets
-		idle = min(100, ++idle)
-		if(idle >= BEE_IDLE_ROAMING && prob(BEE_PROB_GOROAM))
-			toggle_ai(AI_ON)
-			forceMove(beehome.drop_location())
-	else
-		..()
+	if(!beehome || loc != beehome) // If bees are chilling in their nest, they're not actively looking for targets
+		return ..()
+	idle = min(100, ++idle)
+	if(idle >= BEE_IDLE_ROAMING && prob(BEE_PROB_GOROAM))
+		forceMove(beehome.loc)
+		toggle_ai(AI_ON)
+
 
 //Syndicate Bees
 /mob/living/simple_animal/hostile/poison/bees/syndi
@@ -327,6 +332,7 @@
 	faction = list("hostile", "syndicate")
 	search_objects = FALSE //these bees don't care about trivial things like plants, especially when there is havoc to sow
 	bee_syndicate = TRUE
+	AI_delay_max = 0 SECONDS
 	var/list/master_and_friends = list()
 
 /mob/living/simple_animal/hostile/poison/bees/syndi/New()

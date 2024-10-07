@@ -24,6 +24,7 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/Initialize()
 	SetupOccupations()
+	return SS_INIT_SUCCESS
 
 
 // Only fires every 5 minutes
@@ -93,7 +94,7 @@ SUBSYSTEM_DEF(jobs)
 			return 0
 		if(!job.character_old_enough(player.client))
 			return 0
-		if(!is_job_whitelisted(player, rank))
+		if(job.species_in_blacklist(player.client))
 			return 0
 
 		var/position_limit = job.total_positions
@@ -159,6 +160,8 @@ SUBSYSTEM_DEF(jobs)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
+		if(job.species_in_blacklist(player.client))
+			Debug("FOC player character race isn't right for job, Player: [player]")
 		if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
 			Debug("FOC pass, Player: [player], Level:[level]")
 			candidates += player
@@ -208,6 +211,10 @@ SUBSYSTEM_DEF(jobs)
 
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
+			continue
+
+		if(job.species_in_blacklist(player.client))
+			Debug("GRJ player character race rendering them ineligible for job, Player: [player]")
 			continue
 
 		if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
@@ -381,9 +388,8 @@ SUBSYSTEM_DEF(jobs)
 				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
-
-				if(!is_job_whitelisted(player, job.title))
-					Debug("DO player not whitelisted, Player: [player], Job:[job.title]")
+				if(job.species_in_blacklist(player.client))
+					Debug("DO player character race rendering them ineligible for job, Player: [player]")
 					continue
 
 				// If the player wants that job on this level, then try give it to him.
@@ -530,17 +536,22 @@ SUBSYSTEM_DEF(jobs)
 		job.after_spawn(H)
 
 		//Gives glasses to the vision impaired
-		if(NEARSIGHTED in H.mutations)
+		if(HAS_TRAIT(H, TRAIT_NEARSIGHTED))
 			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), ITEM_SLOT_EYES)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
 				if(istype(G) && !G.prescription)
 					G.upgrade_prescription()
 					H.update_nearsighted_effects()
+
+		if(!issilicon(H))
+			// Wheelchair necessary?
+			var/obj/item/organ/external/l_foot = H.get_organ(BODY_ZONE_PRECISE_L_FOOT)
+			var/obj/item/organ/external/r_foot = H.get_organ(BODY_ZONE_PRECISE_R_FOOT)
+			if(!l_foot && !r_foot || (H.client.prefs.disabilities & DISABILITY_FLAG_PARAPLEGIA) && !(H.dna.species.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
+				var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(H.loc)
+				W.buckle_mob(H, TRUE)
 	return H
-
-
-
 
 
 /datum/controller/subsystem/jobs/proc/LoadJobsFile(jobsfile, highpop) //ran during round setup, reads info from jobs.txt -- Urist
@@ -625,8 +636,8 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/money_amount = job ? rand(500, 1500) * get_job_factor(job, job.random_money_factor) : rand(500, 1500)
-	var/datum/money_account/M = create_account(H.real_name, money_amount, null)
+	var/money_amount = rand(job.min_start_money, job.max_start_money)
+	var/datum/money_account/M = create_account(H.real_name, money_amount, null, job, TRUE)
 	var/remembered_info = ""
 
 	remembered_info += "<b>Номер вашего аккаунта:</b> #[M.account_number]<br>"
@@ -654,12 +665,6 @@ SUBSYSTEM_DEF(jobs)
 
 	spawn(0)
 		to_chat(H, "<span class='boldnotice'>Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]</span>")
-
-/datum/controller/subsystem/jobs/proc/get_job_factor(datum/job/job, randomized)
-	if(randomized)
-		return job.money_factor*rand(0.25, 4) // for now only used for civillians
-	else
-		return job.money_factor
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
@@ -703,6 +708,14 @@ SUBSYSTEM_DEF(jobs)
 			oldjobdatum.current_positions--
 			newjobdatum.current_positions++
 
+/datum/controller/subsystem/jobs/proc/account_job_transfer(name_owner, job_title, salary_capcap = TRUE)
+
+	var/datum/money_account/account_job = get_account_with_name(name_owner)
+				
+	if(account_job)
+		account_job.linked_job = SSjobs.GetJob(job_title)
+		account_job.salary_payment_active = salary_capcap
+	
 /datum/controller/subsystem/jobs/proc/notify_dept_head(jobtitle, antext)
 	// Used to notify the department head of jobtitle X that their employee was brigged, demoted or terminated
 	if(!jobtitle || !antext)

@@ -33,7 +33,7 @@
 		m_styles["head"] = random_marking_style("head", species, robohead, null, alt_head)
 		m_colours["head"] = randomize_skin_color(1)
 	if(S.bodyflags & HAS_BODY_MARKINGS)
-		m_styles["body"] = random_marking_style("body", species)
+		m_styles["body"] = random_marking_style("body", species, gender = src.gender)
 		m_colours["body"] = randomize_skin_color(1)
 	if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 		m_styles["tail"] = random_marking_style("tail", species, null, body_accessory)
@@ -735,7 +735,7 @@
 				clothes_s = new /icon(uniform_dmi, "paramedic_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "cigoff"), ICON_OVERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "bluesoft"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "paramedicsoft"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "medicalpack"), ICON_OVERLAY)

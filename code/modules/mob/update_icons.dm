@@ -83,3 +83,12 @@
 /mob/proc/update_inv_ears()
 	return
 
+/mob/proc/update_ssd_overlay()
+	return
+
+/mob/proc/update_unconscious_overlay()
+	return
+
+/mob/proc/update_misc_effects()
+	return
+

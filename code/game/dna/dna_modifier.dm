@@ -113,7 +113,6 @@
 
 /obj/machinery/dna_scannernew/verb/eject()
 	set src in oview(1)
-	set category = null
 	set name = "Eject DNA Scanner"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -139,7 +138,6 @@
 
 /obj/machinery/dna_scannernew/verb/move_inside()
 	set src in oview(1)
-	set category = null
 	set name = "Enter DNA Scanner"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other
@@ -156,7 +154,6 @@
 	if(usr.has_buckled_mobs()) //mob attached to us
 		to_chat(usr, "<span class='warning'>[usr] will not fit into the [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
 		return
-	usr.stop_pulling()
 	usr.forceMove(src)
 	occupant = usr
 	icon_state = "scanner_occupied"
@@ -199,47 +196,54 @@
 	else
 		visible_message("[user] puts [L.name] into the [src].")
 	put_in(L)
-	L.pulledby?.stop_pulling()
 	return TRUE
 
+
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(exchange_parts(user, I))
-		return
-	else if(istype(I, /obj/item/reagent_containers/glass))
-		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
-			return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-		if(!user.drop_transfer_item_to_loc(I, src))
-			to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
-			return
-
+	if(istype(I, /obj/item/reagent_containers/glass))
 		add_fingerprint(user)
+		if(beaker)
+			to_chat(user, span_warning("A beaker is already loaded into the machine."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		beaker = I
 		SStgui.update_uis(src)
-		user.visible_message("[user] adds \a [I] to \the [src]!", "You add \a [I] to \the [src]!")
-		return
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-		if(!ismob(G.affecting))
-			return
-		if(occupant)
-			to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
-			return
-		if(G.affecting.abiotic())
-			to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
-			return
-		if(G.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>will not fit into the [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
-			return
-		if(panel_open)
-			to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-			return
-		put_in(G.affecting)
-		add_fingerprint(user)
-		qdel(G)
-		return
+		user.visible_message(
+			span_notice("[user] inserts [I] into [src]!"),
+			span_notice("You insert [I] to [src]!"),
+		)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
+
+/obj/machinery/dna_scannernew/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !ismob(grabbed_thing))
+		return .
+	if(panel_open)
+		to_chat(grabber, span_warning("Close the maintenance panel first."))
+		return .
+	var/mob/target = grabbed_thing
+	if(occupant)
+		to_chat(grabber, span_warning("[src] is already occupied!"))
+		return .
+	if(target.abiotic())
+		to_chat(grabber, span_warning("Subject cannot have abiotic items on."))
+		return .
+	if(target.has_buckled_mobs()) //mob attached to us
+		to_chat(grabber, span_warning("[target] will not fit into the [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head."))
+		return .
+	put_in(target)
+	add_fingerprint(grabber)
+
 
 /obj/machinery/dna_scannernew/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -308,10 +312,8 @@
 	if(!occupant)
 		return TRUE
 
-	if(ishuman(occupant))
-		var/mob/living/carbon/human/H = occupant
-		if(NO_DNA in H.dna.species.species_traits)
-			return TRUE
+	if(HAS_TRAIT(occupant, TRAIT_NO_DNA))
+		return TRUE
 
 	var/radiation_protection = occupant.run_armor_check(null, "rad", "Your clothes feel warm.", "Your clothes feel warm.")
 	if(radiation_protection > NEGATE_MUTATION_THRESHOLD)
@@ -345,18 +347,24 @@
 	idle_power_usage = 10
 	active_power_usage = 400
 
+
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS
-		if(!disk)
-			add_fingerprint(user)
-			user.drop_from_active_hand()
-			I.forceMove(src)
-			disk = I
-			to_chat(user, "You insert [I].")
-			SStgui.update_uis(src)
-			return
-	else
-		return ..()
+		add_fingerprint(user)
+		if(disk)
+			to_chat(user, "There is already [disk] inserted.")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		disk = I
+		user.visible_message(
+			span_notice("[user] inserts [I.name] into [src]."),
+			span_notice("You insert [I.name] into [src]."),
+		)
+		SStgui.update_uis(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/machinery/computer/scan_consolenew/New()
 	..()
@@ -385,6 +393,8 @@
 		return FALSE
 	I.block = id
 	I.buf = buffer
+	I.origin_tech = GetInjectorTechs(I)
+
 	return TRUE
 
 /obj/machinery/computer/scan_consolenew/attack_ai(mob/user)
@@ -408,13 +418,13 @@
 
 		ui_interact(user)
 
-/obj/machinery/computer/scan_consolenew/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/scan_consolenew/ui_interact(mob/user, datum/tgui/ui = null)
 	if(user == connected.occupant)
 		return
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "DNAModifier", name, 660, 700, master_ui, state)
+		ui = new(user, src, "DNAModifier", name)
 		ui.open()
 
 /obj/machinery/computer/scan_consolenew/ui_data(mob/user)
@@ -471,7 +481,7 @@
 		occupantData["name"] = connected.occupant.dna.real_name
 		occupantData["stat"] = connected.occupant.stat
 		occupantData["isViableSubject"] = 1
-		if((NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !connected.occupant.dna || (NO_DNA in connected.occupant.dna.species.species_traits))
+		if((HAS_TRAIT(connected.occupant, TRAIT_NO_CLONE) && connected.scan_level < 3) || !connected.occupant.dna || HAS_TRAIT(connected.occupant, TRAIT_NO_DNA))
 			occupantData["isViableSubject"] = 0
 		occupantData["health"] = connected.occupant.health
 		occupantData["maxHealth"] = connected.occupant.maxHealth
@@ -721,7 +731,7 @@
 				if("changeLabel")
 					ui_modal_input(src, "changeBufferLabel", "Please enter the new buffer label:", null, list("id" = bufferId), buffer.name, UI_MODAL_INPUT_MAX_LENGTH_NAME)
 				if("transfer")
-					if(!connected.occupant || (NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !connected.occupant.dna)
+					if(!connected.occupant || (HAS_TRAIT(connected.occupant, TRAIT_NO_CLONE) && connected.scan_level < 3) || !connected.occupant.dna)
 						return
 
 					irradiating = 2

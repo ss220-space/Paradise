@@ -151,7 +151,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if((HULK in mutations) && health >= 25)
+		if(HAS_TRAIT(src, TRAIT_HULK) && health >= 25)
 			S.message = "[uppertext(S.message)]!!!"
 			verb = pick("yells", "roars", "hollers")
 
@@ -202,7 +202,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	if(client)
 		client.check_say_flood(5)
-		if(client?.prefs.muted & MUTE_IC)
+		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 			return FALSE
 
@@ -282,12 +282,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		muffledspeech_all(message_pieces)
 		verb = "gurgles"
 
-	if(!wear_mask)
-		for(var/obj/item/grab/grab in grabbed_by)
-			if(grab.assailant.zone_selected == BODY_ZONE_PRECISE_MOUTH && grab.state == GRAB_AGGRESSIVE)
-				muffledspeech_all(message_pieces)
-				verb = "mumbles"
-				break
+	if(!wear_mask && pulledby && pulledby.grab_state > GRAB_PASSIVE && pulledby.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+		muffledspeech_all(message_pieces)
+		verb = "mumbles"
 
 	if(!ignore_speech_problems)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)
@@ -442,7 +439,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 
 /mob/living/whisper_say(list/message_pieces, verb = "whispers")
-	if(client?.prefs.muted & MUTE_IC)
+	if(client && check_mute(client.ckey, MUTE_IC))
 		to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 		return
 

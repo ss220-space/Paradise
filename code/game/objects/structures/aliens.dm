@@ -49,25 +49,26 @@
 	desc = "Looks like some kind of thick resin."
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
 	icon_state = "resin"
+	base_icon_state = "resin_wall"
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
-	canSmoothWith = list(/obj/structure/alien/resin)
+	canSmoothWith = SMOOTH_GROUP_ALIEN_WALLS
+	smoothing_groups = SMOOTH_GROUP_ALIEN_WALLS
 	max_integrity = 200
-	smooth = SMOOTH_TRUE
-	var/resintype = null
+	smooth = SMOOTH_BITMASK
 
 /obj/structure/alien/resin/Initialize()
 	air_update_turf(1)
-	..()
+	. = ..()
 
 /obj/structure/alien/resin/Destroy()
 	var/turf/T = get_turf(src)
-	playsound(T, 'sound/creatures/alien/xeno_resin_break.ogg', 80, TRUE)
+	playdestroysound(T)
 	. = ..()
 	T.air_update_turf(TRUE)
 
-/obj/structure/alien/resin/Move()
+/obj/structure/alien/resin/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
@@ -75,32 +76,41 @@
 /obj/structure/alien/resin/CanAtmosPass(turf/T, vertical)
 	return !density
 
+
+/obj/structure/alien/resin/proc/playdestroysound(source)
+	playsound(source, 'sound/creatures/alien/xeno_resin_break.ogg', 80, TRUE)
+
+
 /obj/structure/alien/resin/wall
 	name = "resin wall"
 	desc = "Thick resin solidified into a wall."
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
-	icon_state = "resin"
-	resintype = "wall"
-	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
+	icon_state = "resin_wall-0"
+	base_icon_state = "resin_wall"
 
 /obj/structure/alien/resin/wall/BlockSuperconductivity()
 	return 1
+
 
 /obj/structure/alien/resin/wall/shadowling //For chrysalis
 	name = "chrysalis wall"
 	desc = "Some sort of purple substance in an egglike shape. It pulses and throbs from within and seems impenetrable."
 	max_integrity = INFINITY
 
+
+/obj/structure/alien/resin/wall/shadowling/playdestroysound(source)
+	playsound(source, 'sound/effects/splat.ogg', 30, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+
+
 /obj/structure/alien/resin/membrane
 	name = "resin membrane"
 	desc = "Resin just thin enough to let light pass through."
 	icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi'
-	icon_state = "membrane0"
-	opacity = 0
+	icon_state = "resin_membrane-0"
+	opacity = FALSE
 	max_integrity = 160
-	resintype = "membrane"
+	base_icon_state = "resin_membrane"
 	pass_flags_self = PASSGLASS
-	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
 
 
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/A)
@@ -127,9 +137,8 @@
 	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
 	icon_state = "resin_door_closed"
 	max_integrity = 160
-	resintype = "door"
 	canSmoothWith = null
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 	pass_flags_self = PASSDOOR
 	var/state = RESIN_DOOR_CLOSED
 	var/operating = FALSE
@@ -181,10 +190,10 @@
 
 
 /obj/structure/alien/resin/door/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 
 	if(operating)
-		return
+		return .
 
 	if(isliving(moving_atom))
 		var/mob/living/living = moving_atom
@@ -293,7 +302,7 @@
 
 /obj/structure/alien/resin/door/proc/update_freelook_sight()
 	if(GLOB.cameranet)
-		GLOB.cameranet.updateVisibility(src, FALSE)
+		GLOB.cameranet.updateVisibility(src, opacity_check = FALSE)
 
 
 #undef RESIN_DOOR_CLOSED
@@ -325,7 +334,7 @@
 	. = ..()
 	linked_node = node
 	if(!forbidden_turf_types)
-		forbidden_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/plating/lava))
+		forbidden_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/lava))
 
 	if(is_type_in_typecache(loc, forbidden_turf_types))
 		qdel(src)

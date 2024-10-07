@@ -17,7 +17,7 @@
 				if(ore.Adjacent(src) && ((get_dir(src, ore) & dir) || ore.loc == loc)) //we can reach it and it's in front of us? grab it!
 					ore.forceMove(ore_box)
 
-/obj/mecha/working/Move()
+/obj/mecha/working/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(.)
 		collect_ore()

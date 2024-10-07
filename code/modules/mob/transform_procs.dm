@@ -28,7 +28,8 @@
 
 /mob/proc/AIize()
 	if(client)
-		stop_sound_channel(CHANNEL_LOBBYMUSIC)
+		// stop_sound_channel(CHANNEL_LOBBYMUSIC)
+		client?.tgui_panel?.stop_music()
 
 	var/mob/living/silicon/ai/O = new (loc,,,1)//No MMI but safety is in effect.
 	O.invisibility = 0
@@ -246,6 +247,9 @@
 
 	qdel(src)
 
+//oh no, cringe
+/mob/proc/get_npc_respawn_message()
+	return "Ты [name]."
 
 /mob/proc/safe_respawn(mob/living/passed_mob, check_station_level = TRUE)
 	. = FALSE
@@ -292,6 +296,7 @@
 		/mob/living/simple_animal/pig,
 		/mob/living/simple_animal/possum,
 		/mob/living/simple_animal/turkey,
+		/mob/living/carbon/human/lesser/monkey/punpun,
 	))
 
 	// Blacklist typecache.

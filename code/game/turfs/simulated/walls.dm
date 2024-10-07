@@ -6,7 +6,8 @@
 	name = "wall"
 	desc = "A huge chunk of metal used to seperate rooms."
 	icon = 'icons/turf/walls/wall.dmi'
-	icon_state = "wall"
+	icon_state = "wall-0"
+	base_icon_state = "wall"
 	plane = WALL_PLANE
 	var/rotting = 0
 
@@ -40,25 +41,29 @@
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
 
-	canSmoothWith = list(
-	/turf/simulated/wall,
-	/turf/simulated/wall/r_wall,
-	/obj/structure/falsewall,
-	/obj/structure/falsewall/reinforced,
-	/obj/structure/falsewall/clockwork,
-	/turf/simulated/wall/rust,
-	/turf/simulated/wall/r_wall/rust,
-	/turf/simulated/wall/r_wall/coated,
-	/turf/simulated/wall/indestructible/metal,
-	/turf/simulated/wall/indestructible/reinforced,
-	/turf/simulated/wall/indestructible/reinforced/rusted,
-	)
-	smooth = SMOOTH_TRUE
+	smoothing_groups = SMOOTH_GROUP_WALLS
+	canSmoothWith = SMOOTH_GROUP_WALLS
+	smooth = SMOOTH_BITMASK
+
+/turf/simulated/wall/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	return FALSE
 
 /turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/overlay/wall_rot/WR in src)
 		qdel(WR)
 	. = ..()
+
+/turf/simulated/wall/Initialize(mapload)
+	. = ..()
+	if(smooth & SMOOTH_DIAGONAL_CORNERS && fixed_underlay) //Set underlays for the diagonal walls.
+		var/mutable_appearance/underlay_appearance = mutable_appearance(layer = TURF_LAYER, offset_spokesman = src, plane = FLOOR_PLANE)
+		if(fixed_underlay["space"])
+			generate_space_underlay(underlay_appearance, src)
+		else
+			underlay_appearance.icon = fixed_underlay["icon"]
+			underlay_appearance.icon_state = fixed_underlay["icon_state"]
+		fixed_underlay = string_assoc_list(fixed_underlay)
+		underlays += underlay_appearance
 
 //Appearance
 /turf/simulated/wall/examine(mob/user) // If you change this, consider changing the examine_status proc of false walls to match
@@ -151,13 +156,6 @@
 		if(newgirder) //maybe we don't /want/ a girder!
 			transfer_fingerprints_to(newgirder)
 
-	for(var/obj/O in src.contents) //Eject contents!
-		if(istype(O,/obj/structure/sign/poster))
-			var/obj/structure/sign/poster/P = O
-			P.roll_and_drop(src)
-		else
-			O.forceMove(src)
-
 	ChangeTurf(/turf/simulated/floor/plating)
 	return TRUE
 
@@ -208,7 +206,7 @@
 	if(our_rcd.checkResource(5, user))
 		to_chat(user, "Deconstructing wall...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 4 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 4 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 			if(!our_rcd.useResource(5, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -381,32 +379,33 @@
 	add_fingerprint(user)
 	return ..()
 
-/turf/simulated/wall/attackby(obj/item/I, mob/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
 
-	if(!isturf(user.loc))
-		return // No touching walls unless you're on a turf (pretty sure attackby can't be called anyways but whatever)
+/turf/simulated/wall/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !isturf(user.loc))
+		return .
 
 	if(rotting && try_rot(I, user, params))
-		return
+		user.changeNext_move(I.attack_speed)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 	if(try_decon(I, user, params))
-		return
+		user.changeNext_move(I.attack_speed)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 	if(try_destroy(I, user, params))
-		return
+		user.changeNext_move(I.attack_speed)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 	if(try_wallmount(I, user, params))
-		return
+		user.changeNext_move(I.attack_speed)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 	if(try_reform(I, user, params))
-		return
+		user.changeNext_move(I.attack_speed)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	// The magnetic gripper does a separate attackby, so bail from this one
-	if(istype(I, /obj/item/gripper))
-		return
-
-	return ..()
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -467,7 +466,7 @@
 		playsound(src, I.usesound, 100, 1)
 
 		var/delay = istype(sheet_type, /obj/item/stack/sheet/mineral/diamond) ? 12 SECONDS : 6 SECONDS
-		if(do_after(user, delay * I.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, delay * I.toolspeed, src, category = DA_CAT_TOOL))
 			to_chat(user, span_notice("You remove the outer plating."))
 			dismantle_wall()
 			visible_message(span_warning("[user] slices apart [src]!"), span_warning("You hear metal being sliced apart."))
@@ -482,7 +481,7 @@
 		to_chat(user, span_notice("You begin to drill though the wall."))
 
 		var/delay = isdiamond ? 48 SECONDS : 24 SECONDS
-		if(do_after(user, delay * I.toolspeed * gettoolspeedmod(user), src)) // Diamond pickaxe has 0.25 toolspeed, so 12s./6s.
+		if(do_after(user, delay * I.toolspeed, src, category = DA_CAT_TOOL)) // Diamond pickaxe has 0.25 toolspeed, so 12s./6s.
 			to_chat(user, span_notice("Your [I.name] tears though the last of the reinforced plating."))
 			dismantle_wall()
 			visible_message(span_warning("[user] drills through [src]!"), span_italics("You hear the grinding of metal."))
@@ -492,7 +491,7 @@
 		to_chat(user, span_notice("You begin to disintegrates the wall."))
 		var/obj/item/pickaxe/drill/jackhammer/jh = I
 		var/delay = isdiamond ? 60 SECONDS : 30 SECONDS
-		if(do_after(user, delay * jh.wall_toolspeed * gettoolspeedmod(user), src)) // Jackhammer has 0.1 toolspeed, so 6s./3s.
+		if(do_after(user, delay * jh.wall_toolspeed, src, category = DA_CAT_TOOL)) // Jackhammer has 0.1 toolspeed, so 6s./3s.
 			to_chat(user, span_notice("Your [I.name] disintegrates the reinforced plating."))
 			dismantle_wall()
 			visible_message(span_warning("[user] disintegrates [src]!"),span_warning("You hear the grinding of metal."))
@@ -501,7 +500,7 @@
 	else if(istype(I, /obj/item/twohanded/required/pyro_claws))
 		to_chat(user, span_notice("You begin to melt the wall."))
 		var/delay = isdiamond ? 6 SECONDS : 3 SECONDS
-		if(do_after(user, delay * I.toolspeed * gettoolspeedmod(user), src)) // claws has 0.5 toolspeed, so 3/1.5 seconds
+		if(do_after(user, delay * I.toolspeed, src, category = DA_CAT_TOOL)) // claws has 0.5 toolspeed, so 3/1.5 seconds
 			to_chat(user, span_notice("Your [I.name] melts the reinforced plating."))
 			dismantle_wall()
 			visible_message(span_warning("[user] melts [src]!"),span_italics("You hear the hissing of steam."))
@@ -511,7 +510,7 @@
 
 /turf/simulated/wall/proc/try_wallmount(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mounted))
-		return TRUE // We don't want attack_hand running and doing stupid shit with this
+		return FALSE	// afterattack will handle this
 
 	if(istype(I, /obj/item/poster))
 		place_poster(I, user)
@@ -527,7 +526,7 @@
 				span_notice("You start drilling a hole in [src]."),
 				span_italics("You hear a drill."))
 
-			if(do_after(user, 8 SECONDS * P.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 8 SECONDS * P.toolspeed, src, category = DA_CAT_TOOL))
 				user.visible_message(
 					span_notice("[user] drills a hole in [src] and pushes [P] into the void."),
 					span_notice("You finish drilling [src] and push [P] into the void."),

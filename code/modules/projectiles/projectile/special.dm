@@ -133,21 +133,70 @@
 	damage_type = BRUTE
 	nodamage = TRUE
 	flag = "bullet"
+	hitsound = 'sound/effects/meteorimpact.ogg'
 
-/obj/item/projectile/meteor/Bump(atom/A, yes)
-	if(yes)
-		return
-	if(A == firer)
-		loc = A.loc
-		return
-	playsound(loc, 'sound/effects/meteorimpact.ogg', 40, 1)
-	for(var/mob/M in urange(10, src))
-		if(!M.stat)
-			shake_camera(M, 3, 1)
-	qdel(src)
 
-/obj/item/projectile/energy/floramut
+/obj/item/projectile/meteor/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	if(blocked >= 100)
+		return FALSE
+	for(var/mob/mob in urange(10, src))
+		if(!mob.stat)
+			shake_camera(mob, 3, 1)
+
+// FLORAGUN
+/obj/item/projectile/energy/floraalpha
 	name = "alpha somatoray"
+	icon_state = "declone"
+	damage = 2
+	hitsound = 'sound/weapons/tap.ogg'
+	damage_type = BURN
+	nodamage = FALSE
+	flag = "energy"
+	range = 7
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
+	/// how strong the fire will be
+	var/fire_stacks = 0.3
+
+/obj/item/projectile/energy/floraalpha/prehit(atom/target)
+	if(target && !HAS_TRAIT(target, TRAIT_PLANT_ORIGIN)) // burn damage for only plant
+		damage = 0
+	. = ..()
+
+/obj/item/projectile/energy/floraalpha/on_range()
+	strike_thing()
+	. = ..()
+
+/obj/item/projectile/energy/floraalpha/on_hit(atom/target, blocked = 0, hit_zone)
+	strike_thing(target)
+	. = ..()
+
+/obj/item/projectile/energy/floraalpha/proc/strike_thing(atom/target)
+	var/turf/target_turf = get_turf(target)
+	if(!target_turf)
+		target_turf = get_turf(src)
+	new /obj/effect/temp_visual/explosion/florawave(target_turf)
+	for(var/currentTurf in RANGE_TURFS(1, target_turf))
+		for(var/object in currentTurf)
+			if(isdiona(object))
+				var/mob/living/plant = object
+				if(!plant.on_fire) // the hit has no effect if the target is on fire
+					plant.adjust_fire_stacks(fire_stacks)
+					plant.IgniteMob()
+			else if(is_type_in_list(object, list(/obj/structure/glowshroom, /obj/structure/spacevine)))
+				if(prob(5))
+					new /obj/effect/decal/cleanable/molten_object(get_turf(object))
+				else
+					new /obj/effect/temp_visual/removing_flora(get_turf(object))
+				qdel(object)
+
+/obj/item/projectile/energy/floraalpha/emag
+	range = 9
+	damage = 15
+	fire_stacks = 10
+
+/obj/item/projectile/energy/florabeta
+	name = "beta somatoray"
 	icon_state = "energy"
 	damage = 0
 	hitsound = 'sound/weapons/tap.ogg'
@@ -156,50 +205,15 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	flag = "energy"
 
-/obj/item/projectile/energy/floramut/on_hit(var/atom/target, var/blocked = 0)
-	..()
-	var/mob/living/M = target
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = M
-		if(IS_PLANT in H.dna.species.species_traits)
-			if(prob(15))
-				M.apply_effect((rand(30,80)),IRRADIATE)
-				M.Weaken(10 SECONDS)
-				M.visible_message("<span class='warning'>[M] writhes in pain as [M.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
-				if(prob(80))
-					randmutb(M)
-				else
-					randmutg(M)
-				M.check_genes()
-			else
-				M.adjustFireLoss(rand(5,15))
-				M.show_message("<span class='warning'>The radiation beam singes you!</span>")
-	else if(iscarbon(target))
-		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
-	else
-		return 1
-
-/obj/item/projectile/energy/florayield
-	name = "beta somatoray"
+/obj/item/projectile/energy/floragamma
+	name = "gamma somatoray"
 	icon_state = "energy2"
 	damage = 0
 	hitsound = 'sound/weapons/tap.ogg'
 	damage_type = TOX
 	nodamage = TRUE
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	flag = "energy"
-
-/obj/item/projectile/energy/florayield/on_hit(var/atom/target, var/blocked = 0)
-	..()
-	var/mob/M = target
-	if(ishuman(target)) //These rays make plantmen fat.
-		var/mob/living/carbon/human/H = M
-		if(IS_PLANT in H.dna.species.species_traits)
-			H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
-	else if(iscarbon(target))
-		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
-	else
-		return 1
-
 
 /obj/item/projectile/beam/mindflayer
 	name = "flayer ray"
@@ -208,7 +222,7 @@
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
-		M.adjustBrainLoss(20)
+		M.apply_damage(20, BRAIN)
 		M.AdjustHallucinate(20 SECONDS)
 		M.last_hallucinator_log = name
 
@@ -216,13 +230,20 @@
 	name = "snap-pop"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "snappop"
+	nodamage = TRUE
+	damage = 0
 
-/obj/item/projectile/clown/Bump(atom/A as mob|obj|turf|area)
-	do_sparks(3, 1, src)
-	new /obj/effect/decal/cleanable/ash(loc)
-	visible_message("<span class='warning'>The [name] explodes!</span>","<span class='warning'>You hear a snap!</span>")
-	playsound(src, 'sound/effects/snap.ogg', 50, 1)
-	qdel(src)
+
+/obj/item/projectile/clown/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	if(blocked >= 100)
+		return .
+	do_sparks(3, 1, target)
+	target.visible_message(span_warning("The [name] explodes!"))
+	playsound(target, 'sound/effects/snap.ogg', 50, TRUE)
+	if(isturf(target.loc) && !target.loc.density)
+		new /obj/effect/decal/cleanable/ash(target.loc)
+
 
 /obj/item/projectile/beam/wormhole
 	name = "bluespace beam"
@@ -393,7 +414,7 @@
 	G.forceMove(T)
 	var/mob/living/simple_animal/hostile/mimic/copy/ranged/R = new /mob/living/simple_animal/hostile/mimic/copy/ranged(T, G, firer)
 	if(ismob(target))
-		R.target = target
+		R.GiveTarget(target)
 
 /obj/item/projectile/bullet/a84mm_hedp
 	name ="\improper HEDP rocket"
@@ -430,7 +451,7 @@
 
 /obj/item/projectile/bullet/a84mm_hedp/proc/embed_shrapnel(mob/living/carbon/human/H, amount)
 	for(var/i = 0, i < amount, i++)
-		if(prob(embed_prob - H.getarmor(null, "bomb")))
+		if(prob(embed_prob - H.getarmor(attack_flag = BOMB)))
 			var/obj/item/embedded/S = new embedded_type(src)
 			H.hitby(S, skipcatch = 1)
 			S.throwforce = 1

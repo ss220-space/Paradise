@@ -11,12 +11,17 @@
 	gender = new_gender
 
 	var/datum/sprite_accessory/hair/current_hair = GLOB.hair_styles_full_list[H.h_style]
-	if(current_hair.gender != NEUTER && current_hair.gender != gender)
+	if(current_hair.unsuitable_gender == gender)
 		reset_head_hair()
 
 	var/datum/sprite_accessory/hair/current_fhair = GLOB.facial_hair_styles_list[H.f_style]
-	if(current_fhair.gender != NEUTER && current_fhair.gender != gender)
+	if(current_fhair.unsuitable_gender == gender)
 		reset_facial_hair()
+
+	var/body_marking = m_styles["body"]
+	var/datum/sprite_accessory/current_bmarking = GLOB.marking_styles_list[body_marking]
+	if(current_bmarking.unsuitable_gender == gender)
+		reset_markings("body")
 
 	if(update_dna)
 		update_dna()
@@ -353,17 +358,13 @@
 	dna.ready_dna(src)
 	SEND_SIGNAL(src, COMSIG_HUMAN_UPDATE_DNA)
 
-/mob/living/carbon/human/proc/generate_valid_species(var/check_whitelist = 1, var/list/whitelist = list(), var/list/blacklist = list())
+/mob/living/carbon/human/proc/generate_valid_species(check_whitelist = TRUE, list/whitelist = list(), list/blacklist = list())
 	var/list/valid_species = new()
 	for(var/current_species_name in GLOB.all_species)
-		var/datum/species/current_species = GLOB.all_species[current_species_name]
-
 		if(check_whitelist && !check_rights(R_ADMIN, 0, src)) //If we're using the whitelist, make sure to check it!
 			if(whitelist.len && !(current_species_name in whitelist))
 				continue
 			if(blacklist.len && (current_species_name in blacklist))
-				continue
-			if((IS_WHITELISTED in current_species.species_traits) && !is_alien_whitelisted(src, current_species_name))
 				continue
 
 		valid_species += current_species_name
@@ -382,7 +383,7 @@
 		if(hairstyle == "Bald") //Just in case.
 			valid_hairstyles += hairstyle
 			continue
-		if((H.gender == MALE && S.gender == FEMALE) || (H.gender == FEMALE && S.gender == MALE))
+		if(H.gender == S.unsuitable_gender)
 			continue
 		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
@@ -410,7 +411,7 @@
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
 			continue
-		if((H.gender == MALE && S.gender == FEMALE) || (H.gender == FEMALE && S.gender == MALE))
+		if(H.gender == S.unsuitable_gender)
 			continue
 		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
@@ -442,7 +443,7 @@
 
 	return sortTim(valid_head_accessories, cmp = /proc/cmp_text_asc)
 
-/mob/living/carbon/human/proc/generate_valid_markings(var/location = "body")
+/mob/living/carbon/human/proc/generate_valid_markings(location = "body")
 	var/list/valid_markings = new()
 	var/obj/item/organ/external/head/H = get_organ(BODY_ZONE_HEAD)
 	var/obj/item/organ/external/tail/bodypart_tail = get_organ(BODY_ZONE_TAIL)
@@ -456,7 +457,11 @@
 		if(S.name == "None")
 			valid_markings += marking
 			continue
-		if(S.marking_location != location) //If the marking isn't for the location we desire, skip.
+		if(S.marking_location != location)	//If the marking isn't for the location we desire, skip.
+			continue
+		if(gender == S.unsuitable_gender)	// If the marking isn't allowed for the user's gender, skip.
+			continue
+		if(!(dna.species.name in S.species_allowed)) //If the user is not of a species the marking style allows, skip it. Otherwise, add it to the list.
 			continue
 		if(location == "tail")
 			if(!(bodypart_tail.dna.species.name in S.species_allowed)) //If the user is not of a species the marking style allows, skip it. Otherwise, add it to the list.
@@ -467,8 +472,6 @@
 			else
 				if(!S.tails_allowed || !(bodypart_tail.body_accessory.name in S.tails_allowed))
 					continue
-		else if(!(dna.species.name in S.species_allowed)) //If the user is not of a species the marking style allows, skip it. Otherwise, add it to the list.
-			continue
 		if(location == "head")
 			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
 			if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species that can have a robotic head...

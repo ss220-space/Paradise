@@ -62,7 +62,8 @@
 	var/obj/item/photo/P = new/obj/item/photo()
 	P.construct(selection)
 	P.show(usr)
-	to_chat(usr, P.desc)
+	if(P.desc)
+		to_chat(usr, P.desc)
 
 	// TG uses a special garbage collector.. qdel(P)
 	qdel(P) //so 10 thousand pictures items are not left in memory should an AI take them and then view them all.
@@ -94,6 +95,10 @@
 	src.in_camera_mode = 1
 	to_chat(usr, "<B>Camera Mode activated</B>")
 
+/obj/item/camera/siliconcam/proc/toggle_camera_flash()
+	flashing_lights = !flashing_lights
+	to_chat(usr, span_notice("Camera flash [flashing_lights ? "activated" : "deactivated"]."))
+
 /obj/item/camera/siliconcam/ai_camera/printpicture(mob/user, datum/picture/P)
 	injectaialbum(P)
 	to_chat(usr, "<span class='unconscious'>Image recorded</span>")
@@ -102,7 +107,7 @@
 	injectmasteralbum(P)
 
 /obj/item/camera/siliconcam/ai_camera/verb/take_image()
-	set category = "AI Commands"
+	set category = "Subsystems"
 	set name = "Take Image"
 	set desc = "Takes an image"
 	set src in usr
@@ -110,7 +115,7 @@
 	toggle_camera_mode()
 
 /obj/item/camera/siliconcam/ai_camera/verb/view_images()
-	set category = "AI Commands"
+	set category = "Subsystems"
 	set name = "View Images"
 	set desc = "View images"
 	set src in usr
@@ -118,15 +123,23 @@
 	viewpictures()
 
 /obj/item/camera/siliconcam/ai_camera/verb/delete_images()
-	set category = "AI Commands"
+	set category = "Subsystems"
 	set name = "Delete Image"
 	set desc = "Delete image"
 	set src in usr
 
 	deletepicture(src)
 
+/obj/item/camera/siliconcam/ai_camera/verb/toggle_camera_flash_verb()
+	set category = "Subsystems"
+	set name = "Toggle camera flashing"
+	set desc = "Toggle camera flashing"
+	set src in usr
+
+	toggle_camera_flash(src)
+
 /obj/item/camera/siliconcam/robot_camera/verb/take_image()
-	set category ="Robot Commands"
+	set category ="Subsystems"
 	set name = "Take Image"
 	set desc = "Takes an image"
 	set src in usr
@@ -134,7 +147,7 @@
 	toggle_camera_mode()
 
 /obj/item/camera/siliconcam/robot_camera/verb/view_images()
-	set category ="Robot Commands"
+	set category ="Subsystems"
 	set name = "View Images"
 	set desc = "View images"
 	set src in usr
@@ -142,13 +155,22 @@
 	viewpictures()
 
 /obj/item/camera/siliconcam/robot_camera/verb/delete_images()
-	set category = "Robot Commands"
+	set category = "Subsystems"
 	set name = "Delete Image"
 	set desc = "Delete a local image"
 	set src in usr
 
 	// Explicitly only allow deletion from the local camera
 	deletepicture(src)
+
+/obj/item/camera/siliconcam/robot_camera/verb/toggle_camera_flash_verb()
+	set category = "Subsystems"
+	set name = "Toggle camera flash"
+	set desc = "Toggle camera flash"
+	set src in usr
+
+	// Explicitly only allow deletion from the local camera
+	toggle_camera_flash(src)
 
 /obj/item/camera/siliconcam/proc/getsource()
 	if(istype(src.loc, /mob/living/silicon/ai))

@@ -25,22 +25,18 @@
 	ui_interact(user)
 
 
-/obj/item/implantpad/attackby(obj/item/implantcase/new_case, mob/user, params)
-	if(istype(new_case))
-		addcase(user, new_case)
-	else
-		return ..()
-
-
-/obj/item/implantpad/proc/addcase(mob/user, obj/item/implantcase/new_case)
-	if(!user || !new_case)
-		return
-	if(case)
-		to_chat(user, span_warning("There's already a bio-chip in the pad!"))
-		return
-	user.drop_transfer_item_to_loc(new_case, src)
-	case = new_case
-	update_icon(UPDATE_ICON_STATE)
+/obj/item/implantpad/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/implantcase))
+		add_fingerprint(user)
+		if(case)
+			to_chat(user, span_warning("There's already a bio-chip in the pad!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		case = I
+		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 
 /obj/item/implantpad/proc/eject_case(mob/user)
@@ -63,10 +59,10 @@
 	eject_case(user)
 
 
-/obj/item/implantpad/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/implantpad/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ImplantPad", name, 410, 400, master_ui, state)
+		ui = new(user, src, "ImplantPad", name)
 		ui.open()
 
 

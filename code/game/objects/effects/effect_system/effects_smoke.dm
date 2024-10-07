@@ -10,11 +10,29 @@
 	icon = 'icons/effects/96x96.dmi'
 	pixel_x = -32
 	pixel_y = -32
-	opacity = 1
+	opacity = TRUE
 	anchored = FALSE
 	var/steps = 0
 	var/lifetime = 5
 	var/direction
+	///Responsible for the damage of the laser passing through the smoke. If 0, damage is not calculated.
+	var/beam_resistance
+
+
+/obj/effect/particle_effect/smoke/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+	lifetime += rand(-1,1)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/effect/particle_effect/smoke/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
 
 /obj/effect/particle_effect/smoke/proc/fade_out(frames = 16)
 	if(alpha == 0) //Handle already transparent case
@@ -25,22 +43,15 @@
 	for(var/i = 0, i < frames, i++)
 		alpha -= step
 		if(alpha < 160)
-			set_opacity(0)
+			set_opacity(FALSE)
 		stoplag()
 
-/obj/effect/particle_effect/smoke/New()
-	..()
-	START_PROCESSING(SSobj, src)
-	lifetime += rand(-1,1)
-
-/obj/effect/particle_effect/smoke/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
 
 /obj/effect/particle_effect/smoke/proc/kill_smoke()
 	STOP_PROCESSING(SSobj, src)
 	INVOKE_ASYNC(src, PROC_REF(fade_out))
 	QDEL_IN(src, 10)
+
 
 /obj/effect/particle_effect/smoke/process()
 	lifetime--
@@ -52,27 +63,39 @@
 		steps--
 	return 1
 
-/obj/effect/particle_effect/smoke/Crossed(mob/living/M, oldloc)
-	if(!istype(M))
-		return
-	smoke_mob(M)
 
-/obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/C)
-	if(!istype(C))
+/obj/effect/particle_effect/smoke/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	smoke_mob(arrived)
+	smoke_beam(arrived)
+
+
+/obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/victim)
+	if(!istype(victim))
 		return FALSE
-	if(lifetime<1)
+	if(lifetime < 1)
 		return FALSE
-	if(!C.can_breathe_gas())
+	if(!victim.can_breathe_gas())
 		return FALSE
-	if(C.smoke_delay)
+	if(victim.smoke_delay)
 		return FALSE
-	C.smoke_delay++
-	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), C), 10)
+	victim.smoke_delay++
+	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), victim), 1 SECONDS)
 	return TRUE
 
-/obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)
-	if(C)
-		C.smoke_delay = 0
+
+/obj/effect/particle_effect/smoke/proc/smoke_beam(obj/item/projectile/beam/mover)
+	if(!beam_resistance)
+		return FALSE
+	if(istype(mover))
+		var/obj/item/projectile/beam/beam = mover
+		beam.damage = (beam.damage / beam_resistance)
+
+
+/obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/victim)
+	victim?.smoke_delay = 0
+
 
 /datum/effect_system/smoke_spread
 	effect_type = /obj/effect/particle_effect/smoke
@@ -112,30 +135,82 @@
 		S.process()
 
 /////////////////////////////////////////////
+// Solid chem smoke
+/////////////////////////////////////////////
+
+/obj/effect/particle_effect/smoke/solid/process()
+	if(..())
+		for(var/mob/living/carbon/M in range(1,src))
+			smoke_mob(M)
+
+
+/obj/effect/particle_effect/smoke/solid/smoke_mob(mob/living/carbon/victim)
+	. = ..()
+	if(!.)
+		return .
+	INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "cough")
+
+
+/datum/effect_system/smoke_spread/solid
+	effect_type = /obj/effect/particle_effect/smoke/solid
+	custom_lifetime = 9
+	var/effect_range
+
+
+/obj/effect/particle_effect/smoke/solid
+	beam_resistance = 2
+
+
+/datum/effect_system/smoke_spread/solid/set_up(n = 5, c = 0, loca, direct, range = 0)
+	..()
+	effect_range = range
+
+/datum/effect_system/smoke_spread/solid/start()
+	set waitfor = FALSE
+
+	INVOKE_ASYNC(src, PROC_REF(SmokeEm))
+
+/datum/effect_system/smoke_spread/solid/proc/SmokeEm()
+	for(var/turf/T in view(effect_range, get_turf(location)))
+		for(var/i = 0, i < number, i++)
+			location = get_turf(T)
+			var/obj/effect/particle_effect/smoke/S = new effect_type(location)
+			if(custom_lifetime)
+				S.lifetime = rand(custom_lifetime - 3, custom_lifetime)
+			if(color)
+				S.color = color
+			if(!direction)
+				if(cardinals)
+					S.direction = pick(GLOB.cardinal)
+				else
+					S.direction = pick(GLOB.alldirs)
+			else
+				S.direction = direction
+			S.steps = pick(0,1,1,1,2,2,2,3)
+			S.process()
+
+/////////////////////////////////////////////
 // Bad smoke
 /////////////////////////////////////////////
 
 /obj/effect/particle_effect/smoke/bad
 	lifetime = 8
+	beam_resistance = 2
+
 
 /obj/effect/particle_effect/smoke/bad/process()
 	if(..())
 		for(var/mob/living/carbon/M in range(1,src))
 			smoke_mob(M)
 
-/obj/effect/particle_effect/smoke/bad/smoke_mob(mob/living/carbon/M)
-	if(..())
-		M.drop_from_active_hand()
-		M.adjustOxyLoss(1)
-		M.emote("cough")
-		return 1
 
-
-/obj/effect/particle_effect/smoke/bad/CanAllowThrough(atom/movable/mover, border_dir)
+/obj/effect/particle_effect/smoke/bad/smoke_mob(mob/living/carbon/victim)
 	. = ..()
-	if(istype(mover, /obj/item/projectile/beam))
-		var/obj/item/projectile/beam/beam = mover
-		beam.damage = (beam.damage / 2)
+	if(!.)
+		return .
+	victim.drop_from_active_hand()
+	victim.adjustOxyLoss(1)
+	INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "cough")
 
 
 /datum/effect_system/smoke_spread/bad
@@ -148,7 +223,7 @@
 /obj/effect/particle_effect/smoke/freezing
 	name = "nanofrost smoke"
 	color = "#B2FFFF"
-	opacity = 0
+	opacity = FALSE
 
 /datum/effect_system/smoke_spread/freezing
 	effect_type = /obj/effect/particle_effect/smoke/freezing
@@ -204,12 +279,15 @@
 		for(var/mob/living/carbon/M in range(1,src))
 			smoke_mob(M)
 
-/obj/effect/particle_effect/smoke/sleeping/smoke_mob(mob/living/carbon/M)
-	if(..())
-		M.drop_from_active_hand()
-		M.Sleeping(20 SECONDS)
-		M.emote("cough")
-		return 1
+
+/obj/effect/particle_effect/smoke/sleeping/smoke_mob(mob/living/carbon/victim)
+	. = ..()
+	if(!.)
+		return .
+	victim.drop_from_active_hand()
+	victim.Sleeping(20 SECONDS)
+	INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "cough")
+
 
 /datum/effect_system/smoke_spread/sleeping
 	effect_type = /obj/effect/particle_effect/smoke/sleeping

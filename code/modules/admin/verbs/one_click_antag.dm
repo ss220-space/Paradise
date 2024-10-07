@@ -13,17 +13,18 @@
 /datum/admins/proc/one_click_antag()
 
 	var/dat = {"<meta charset="UTF-8"><B>One-click Antagonist</B><br>
-		<a href='?src=[UID()];makeAntag=1'>Make Traitors</a><br>
-		<a href='?src=[UID()];makeAntag=2'>Make Changelings</a><br>
-		<a href='?src=[UID()];makeAntag=3'>Make Revolutionaries</a><br>
-		<a href='?src=[UID()];makeAntag=4'>Make Cult</a><br>
-		<a href='?src=[UID()];makeAntag=5'>Make Clockwork Cult</a><br>
-		<a href='?src=[UID()];makeAntag=6'>Make Wizard (Requires Ghosts)</a><br>
-		<a href='?src=[UID()];makeAntag=7'>Make Vampires</a><br>
-		<a href='?src=[UID()];makeAntag=8'>Make Vox Raiders (Requires Ghosts)</a><br>
-		<a href='?src=[UID()];makeAntag=9'>Make Abductor Team (Requires Ghosts)</a><br>
-		<a href='?src=[UID()];makeAntag=10'>Make Space Ninja (Requires Ghosts)</a><br>
-		<a href='?src=[UID()];makeAntag=11'>Make Thieves</a><br>
+		<a href='byond://?src=[UID()];makeAntag=1'>Make Traitors</a><br>
+		<a href='byond://?src=[UID()];makeAntag=2'>Make Changelings</a><br>
+		<a href='byond://?src=[UID()];makeAntag=3'>Make Revolutionaries</a><br>
+		<a href='byond://?src=[UID()];makeAntag=4'>Make Cult</a><br>
+		<a href='byond://?src=[UID()];makeAntag=5'>Make Clockwork Cult</a><br>
+		<a href='byond://?src=[UID()];makeAntag=6'>Make Wizard (Requires Ghosts)</a><br>
+		<a href='byond://?src=[UID()];makeAntag=7'>Make Vampires</a><br>
+		<a href='byond://?src=[UID()];makeAntag=8'>Make Vox Raiders (Requires Ghosts)</a><br>
+		<a href='byond://?src=[UID()];makeAntag=9'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='byond://?src=[UID()];makeAntag=10'>Make Space Ninja (Requires Ghosts)</a><br>
+		<a href='byond://?src=[UID()];makeAntag=11'>Make Thieves</a><br>
+		<a href='byond://?src=[UID()];makeAntag=12'>Make Blobs</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -106,6 +107,21 @@
 
 		return TRUE
 	return FALSE
+
+/datum/admins/proc/makeBlobs()
+
+	var/antnum = input(owner, "Сколько вы хотите создать? Введите 0 для отмены.","Кол-во:", 0) as num
+	if(!antnum || antnum <= 0)
+		return
+	log_admin("[key_name(owner)] tried making [antnum] blobs with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] blobs with One-Click-Antag")
+	var/result = FALSE
+	switch(alert(usr, "Вы хотите создать блобов из членов экипажа или же с помощью инфицированных мышек?", "", "Из экипажа", "С помощью мышек"))
+		if("Из экипажа")
+			result = SSticker?.mode?.make_blobs(antnum)
+		if("С помощью мышек")
+			result = SSticker?.mode?.make_blobized_mouses(antnum)
+	return result
 
 /datum/admins/proc/makeRevs()
 
@@ -485,8 +501,7 @@
 		var/teamOneMembers = 5
 		var/teamTwoMembers = 5
 		var/datum/preferences/A = new()
-		for(var/thing in GLOB.landmarks_list)
-			var/obj/effect/landmark/L = thing
+		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 			if(L.name == "tdome1")
 				if(teamOneMembers<=0)
 					break

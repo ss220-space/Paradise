@@ -8,13 +8,10 @@ RLF
 	desc = "A device used to rapidly deploy lollipop."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rlf"
-	opacity = 0
-	density = FALSE
-	anchored = FALSE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/rlf/afterattack(atom/A, mob/user as mob, proximity)
+/obj/item/rlf/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(!isrobot(user))

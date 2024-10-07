@@ -100,11 +100,10 @@
 		can_reproduce = FALSE
 		RemoveSpell(/obj/effect/proc_holder/spell/morph_spell/reproduce)
 
-/mob/living/simple_animal/hostile/morph/Stat(Name, Value)
-	..()
-	if(statpanel("Status"))
-		stat(null, "Food Stored: [gathered_food]")
-		return TRUE
+/mob/living/simple_animal/hostile/morph/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Food Stored:", "[gathered_food]")
 
 /mob/living/simple_animal/hostile/morph/wizard
 	name = "magical morph"
@@ -156,7 +155,7 @@
 	if(!istype(living))
 		return -ITEM_EAT_COST // Anything other than a tasty mob will make me sad ;(
 	var/gained_food = max(5, 10 * living.mob_size) // Tiny things are worth less
-	if(ishuman(living) && !ismonkeybasic(living))
+	if(ishuman(living) && !is_monkeybasic(living))
 		gained_food += 10 // Humans are extra tasty
 
 	return gained_food
@@ -244,8 +243,7 @@
 		return TRUE
 	else if (!morphed)
 		to_chat(attacker, "<span class='warning'>Touching [src] with your hands hurts you!</span>")
-		var/obj/item/organ/external/affecting = attacker.get_organ(attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-		affecting.receive_damage(20)
+		attacker.apply_damage(20, def_zone = attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		add_food(5)
 
 	restore_form()
@@ -255,35 +253,36 @@
 	if (morphed)
 		return mimic_spell.restore_form(src);
 
+
 /mob/living/simple_animal/hostile/morph/attackby(obj/item/item, mob/living/user)
-	if (stat == DEAD)
+	if(stat == DEAD)
 		restore_form()
 		return ..()
 
 	if(user.a_intent == INTENT_HELP && ambush_prepared)
-		to_chat(user, "<span class='warning'>You try to use [item] on [src]... it seems different than no-</span>")
+		to_chat(user, span_warning("You try to use [item] on [src]... it seems different than no-"))
 		ambush_attack(user, TRUE)
-		return TRUE
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if (!morphed && istype(user, /mob/living/silicon/robot))
+	if(!morphed && isrobot(user))
 		var/food_value = calc_food_gained(item)
 		if(food_value + gathered_food > 0)
-			to_chat(user, "<span class='warning'>Attacking [src] damaging your systems!</span>")
-			var/mob/living/silicon/robot/borg = user
-			borg.adjustBruteLoss(70)
+			to_chat(user, span_warning("Attacking [src] damaging your systems!"))
+			user.apply_damage(70)
 			add_food(-5)
 		return ..()
 
-	if (!morphed && prob(50))
+	if(!morphed && prob(50))
 		var/food_value = calc_food_gained(item)
-		if(food_value + gathered_food > 0)
-			to_chat(user, "<span class='warning'>[src] just ate your [item]!</span>")
-			user.drop_item_ground(item)
+		if(food_value + gathered_food > 0 && !(item.item_flags & ABSTRACT) && user.drop_item_ground(item))
+			to_chat(user, span_warning("[src] just ate your [item]!"))
 			eat(item)
-			return ..()
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ..()
 
 	restore_form()
 	return ..()
+
 
 /mob/living/simple_animal/hostile/morph/attack_animal(mob/living/simple_animal/animal)
 	if(animal.a_intent == INTENT_HELP && ambush_prepared)

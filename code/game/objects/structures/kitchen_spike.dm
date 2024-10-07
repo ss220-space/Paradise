@@ -11,15 +11,24 @@
 	max_integrity = 200
 
 
-/obj/structure/kitchenspike_frame/attackby(obj/item/stack/rods/rods, mob/user, params)
-	if(!istype(rods, /obj/item/stack/rods))
+/obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
-	if(!rods.use(4))
-		return
-	to_chat(user, span_notice("You add spikes to the frame."))
-	var/obj/structure/kitchenspike/spikes = new(loc)
-	spikes.add_fingerprint(user)
-	qdel(src)
+
+	if(istype(I, /obj/item/stack/rods))
+		add_fingerprint(user)
+		var/obj/item/stack/rods/rods = I
+		if(!rods.use(4))
+			to_chat(user, span_warning("You need at least four rods to add the meat spikes."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You add meat spikes to the frame."))
+		var/obj/structure/kitchenspike/spikes = new(loc)
+		transfer_fingerprints_to(spikes)
+		spikes.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/structure/kitchenspike_frame/wrench_act(mob/living/user, obj/item/I)
@@ -48,21 +57,21 @@
 	return ..()
 
 
-/obj/structure/kitchenspike/attackby(obj/item/grab/grab, mob/user)
-	if(!istype(grab, /obj/item/grab) || !isliving(grab.affecting))
-		return ..()
+/obj/structure/kitchenspike/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
+		return .
 	if(has_buckled_mobs())
-		to_chat(user, span_danger("The spike already has something on it, finish collecting its meat first!"))
-		return
-	if(!do_after(user, 12 SECONDS, src, NONE) || QDELETED(grab))
-		return
-	var/mob/living/affected = grab.affecting
-	if(!spike(affected))
-		return
-	add_fingerprint(user)
-	affected.visible_message(
-		span_danger("[user] slams [affected] onto the meat spike!"),
-		span_userdanger("[user] slams you onto the meat spike!"),
+		to_chat(grabber, span_danger("The spike already has something on it, finish collecting its meat first!"))
+		return .
+	if(!do_after(grabber, 12 SECONDS, src, NONE) || !grabber || !grabbed_thing || grabber.pulling != grabbed_thing)
+		return .
+	if(!spike(grabbed_thing))
+		return .
+	add_fingerprint(grabber)
+	grabbed_thing.visible_message(
+		span_danger("[grabber] slams [grabbed_thing] onto the meat spike!"),
+		span_userdanger("[grabber] slams you onto the meat spike!"),
 		span_italics("You hear a squishy wet noise."),
 	)
 
@@ -85,7 +94,6 @@
 		return FALSE
 	if(victim.buckled)
 		return FALSE
-	QDEL_LIST(victim.grabbed_by)
 	victim.forceMove(loc)
 	return buckle_mob(victim, force = TRUE, check_loc = FALSE)
 

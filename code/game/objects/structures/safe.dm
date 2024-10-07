@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY(safes)
 		return TRUE
 
 	if(drill && !broken)
-		switch(alert("What would you like to do?", "Thermal Drill", "Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel"))
+		switch(tgui_alert(user, "What would you like to do?", "Thermal Drill", list("Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel")))
 			if("Turn On")
 				if(do_after(user, 2 SECONDS, src))
 					drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
@@ -182,52 +182,74 @@ GLOBAL_LIST_EMPTY(safes)
 	else
 		ui_interact(user)
 
+
 /obj/structure/safe/attackby(obj/item/item, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(open)
 		if(item.item_flags & ABSTRACT)
-			return
-		if(broken && istype(item, /obj/item/safe_internals) && do_after(user, 2 SECONDS, src))
+			return ..()
+		add_fingerprint(user)
+		if(broken && istype(item, /obj/item/safe_internals))
+			to_chat(user, span_notice("You start to replace the broken mechanism."))
+			if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || !broken)
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(item, src))
+				return ..()
 			to_chat(user, span_notice("You replace the broken mechanism."))
-			qdel(item)
 			broken = FALSE
 			locked = FALSE
 			update_icon()
-		else if(item.w_class + space <= maxspace)
-			if(!user.drop_transfer_item_to_loc(item, src))
-				to_chat(user, span_warning("\The [item] is stuck to your hand, you cannot put it in the safe!"))
-				return
-			space += item.w_class
-			to_chat(user, span_notice("You put [item] in [src]."))
-			SStgui.update_uis(src)
-		else
-			to_chat(user, span_warning("[item] won't fit in [src]."))
-	else
-		if(istype(item, /obj/item/clothing/accessory/stethoscope))
-			attack_hand(user)
-			return
-		else if(istype(item, /obj/item/thermal_drill))
-			if(drill)
-				to_chat(user, span_warning("There is already a drill attached!"))
-			else if(do_after(user, 2 SECONDS, src))
-				if(!user.drop_transfer_item_to_loc(item, src))
-					to_chat(user, span_warning("[item] is stuck to your hand, you cannot put it in the safe!"))
-					return
-				drill = item
-				time_to_drill = DRILL_TIME * drill.time_multiplier
-				update_icon()
-		else
-			to_chat(user, span_warning("You can't put [item] into the safe while it is closed!"))
-			return
+			qdel(item)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(item.w_class + space > maxspace)
+			to_chat(user, span_warning("The [item.name] won't fit in [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(item, src))
+			return ATTACK_CHAIN_PROCEED
+		space += item.w_class
+		to_chat(user, span_notice("You put [item] in [src]."))
+		SStgui.update_uis(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/structure/safe/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	var/datum/asset/safe_assets = get_asset_datum(/datum/asset/simple/safe)
-	safe_assets.send(user)
+	if(istype(item, /obj/item/clothing/accessory/stethoscope))
+		attack_hand(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	add_fingerprint(user)
+	if(istype(item, /obj/item/thermal_drill))
+		if(drill)
+			to_chat(user, span_warning("There is already a drill attached!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You start to install [item]."))
+		if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || drill)
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(item, src))
+			return ATTACK_CHAIN_PROCEED
+		drill = item
+		time_to_drill = DRILL_TIME * drill.time_multiplier
+		update_icon()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	to_chat(user, span_warning("You cannot put [item] into the safe while it is closed!"))
+	return ATTACK_CHAIN_PROCEED
+
+
+/obj/structure/safe/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/structure/safe/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Safe", name, 600, 750)
+		ui = new(user, src, "Safe", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
+
+/obj/structure/safe/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/safe)
+	)
 
 /obj/structure/safe/ui_data(mob/user)
 	var/list/data = list()

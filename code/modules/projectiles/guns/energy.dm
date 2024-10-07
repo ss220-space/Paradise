@@ -33,17 +33,27 @@
 	if(sibyl_mod)
 		. += span_notice("Вы видите индикаторы модуля Sibyl System.")
 
+
 /obj/item/gun/energy/attackby(obj/item/I, mob/user, params)
-	..()
-	if(can_add_sibyl_system)
-		if(istype(I, /obj/item/sibyl_system_mod))
-			if(!sibyl_mod)
-				var/obj/item/sibyl_system_mod/M = I
-				M.install(src, user)
-				return
-		if(istype(I, /obj/item/card/id/))
-			sibyl_mod?.toggleAuthorization(I, user)
-			return
+	if(istype(I, /obj/item/sibyl_system_mod))
+		add_fingerprint(user)
+		var/obj/item/sibyl_system_mod/new_sibyl = I
+		if(!can_add_sibyl_system)
+			to_chat(user, span_warning("The [name] is incompatible with the sibyl systems module."))
+			return ATTACK_CHAIN_PROCEED
+		if(sibyl_mod)
+			to_chat(user, span_warning("The [name] is already has a sibyl systems module installed."))
+			return ATTACK_CHAIN_PROCEED
+		new_sibyl.install(src, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(sibyl_mod && istype(I, /obj/item/card/id))
+		add_fingerprint(user)
+		sibyl_mod.toggleAuthorization(I, user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/gun/energy/proc/toggle_voice()
 	set name = "Переключить голос Sibyl System"
@@ -234,8 +244,51 @@
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
-	if(!isnull(user) && shot.select_name)
-		to_chat(user, span_notice("[src] is now set to [shot.select_name]."))
+	if(!isnull(user) && (shot.select_name || shot.fluff_select_name))
+		var/static/gun_modes_ru = list( //about 2/3 of them will never be shown in game, but better save, than sorry
+			"practice" = "режим практики",
+			"kill" = "летальный режим",
+			"shuriken" = "метатель сюрикенов",
+			"energy" = "стандартный режим",
+			"anti-vehicle" = "тяжелый лазер",
+			"DESTROY" = "режим УНИЧТОЖЕНИЯ",
+			"ANNIHILATE" = "режим ИСТРЕБЛЕНИЯ",
+			"bluetag" = "синий режим",
+			"redtag" = "красный режим",
+			"precise" = "точный выстрел", //both used in multi-lens scattershot
+			"scatter" = "рассеянный выстрел",
+			"stun" = "тазер",
+			"ion" = "ионный выстрел",
+			"declone" = "деклонер",
+			"MINDFUCK" = "мозгодавка",
+			"floraalpha" = "альфа режим",
+			"florabeta" = "бета режим",
+			"floragamma" = "гамма режим",
+			"goddamn meteor" = "стрельба чертовым метеоритом",
+			"disable" = "нейтрализатор",
+			"plasma burst" = "пучок плазмы",
+			"blue" = "синий портал",
+			"orange" = "оранжевый портал",
+			"bolt" = "дротик", //used in e-crossbows
+			"heavy bolt" = "тяжелый дротик",
+			"toxic dart" = "токсичный дротик",
+			"lightning beam" = "луч молнии",
+			"plasma dart" = "плазменный дротик",
+			"clown" = "клоунский режим",
+			"snipe" = "снайперский режим",
+			"teleport beam" = "режим телепортации",
+			"gun mimic" = "режим мимикрии",
+			"non-lethal paralyzer" = "нелетальный парализатор",
+			"lethal-eliminator" = "летальный устранитель",
+			"execution-slaughter" = "режим казни",
+			"emitter" = "режим эмиттера",
+			"spraydown" = "режим распыления",
+			"spike" = "стрельба шипами",
+			"kinetic" = "кинетический выстрел",
+			"accelerator" = "ускоренный выстрел",
+		)
+
+		balloon_alert(user, "[gun_modes_ru[shot.fluff_select_name ? shot.fluff_select_name : shot.select_name]]")
 	if(chambered)//phil235
 		if(chambered.BB)
 			qdel(chambered.BB)
@@ -292,7 +345,7 @@
 		. += bayonet_overlay
 
 
-/obj/item/gun/energy/ui_action_click()
+/obj/item/gun/energy/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_gunlight()
 
 

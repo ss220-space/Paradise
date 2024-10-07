@@ -261,12 +261,12 @@
 			return
 	user.set_machine(src)
 
-	var/dat = {"<meta charset="UTF-8">"}
-	dat += "<A href='?src=[UID()];close=1'>Close</A><BR><BR>"
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
+	dat += "<a href='byond://?src=[UID()];close=1'>Close</A><BR><BR>"
 	dat += "<h3>Status</h3>"
 	if(!assembled)
 		dat += "Unable to detect all parts!<BR>"
-		dat += "<A href='?src=[UID()];scan=1'>Run Scan</A><BR><BR>"
+		dat += "<a href='byond://?src=[UID()];scan=1'>Run Scan</A><BR><BR>"
 	else
 		dat += "All parts in place.<BR><BR>"
 		dat += "Power:"
@@ -274,14 +274,13 @@
 			dat += "On<BR>"
 		else
 			dat += "Off <BR>"
-		dat += "<A href='?src=[UID()];togglep=1'>Toggle Power</A><BR><BR>"
+		dat += "<a href='byond://?src=[UID()];togglep=1'>Toggle Power</A><BR><BR>"
 		dat += "Particle Strength: [strength] "
-		dat += "<A href='?src=[UID()];strengthdown=1'>--</A>|<A href='?src=[UID()];strengthup=1'>++</A><BR><BR>"
+		dat += "<a href='byond://?src=[UID()];strengthdown=1'>--</A>|<a href='byond://?src=[UID()];strengthup=1'>++</A><BR><BR>"
 
 	//user << browse(dat, "window=pacontrol;size=420x500")
 	//onclose(user, "pacontrol")
 	var/datum/browser/popup = new(user, "pacontrol", name, 420, 500, src)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 	return

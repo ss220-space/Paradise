@@ -51,10 +51,14 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 
+
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/machinery/recycler/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -88,25 +92,14 @@
 	icon_state = icon_name + "[is_powered]" + "[(blood ? "bld" : "")]" // add the blood tag at the end
 
 
-// This is purely for admin possession !FUN!.
-/obj/machinery/recycler/Bump(atom/movable/AM)
-	..()
-	if(AM)
-		Bumped(AM)
-
 /obj/machinery/recycler/Bumped(atom/movable/moving_atom)
-	..()
-
-	if(stat & (BROKEN|NOPOWER))
-		return
-	if(!anchored)
-		return
-	if(emergency_mode)
-		return
-
+	. = ..()
+	if((stat & (BROKEN|NOPOWER)) || !anchored || emergency_mode)
+		return .
 	var/move_dir = get_dir(loc, moving_atom.loc)
 	if(move_dir == eat_dir)
 		eat(moving_atom)
+
 
 /obj/machinery/recycler/proc/eat(atom/AM0, sound = 1)
 	var/list/to_eat = list(AM0)
@@ -124,6 +117,8 @@
 			else
 				emergency_stop(AM)
 		else if(isitem(AM))
+			if(ismob(AM.loc) || ismob(AM.loc.loc))
+				continue
 			recycle_item(AM)
 			items_recycled++
 		else

@@ -214,7 +214,6 @@
 /area/shuttle/escape)
 "aI" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Escape Shuttle Infirmary"
 	},
 /turf/simulated/floor/plasteel{
@@ -229,7 +228,6 @@
 /area/shuttle/escape)
 "aL" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Escape Shuttle Infirmary";
 	normalspeed = 0;
 	req_access = list(5)
@@ -388,7 +386,7 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
 	normalspeed = 0;
-	req_access = list(2)
+	req_access = list(63)
 	},
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
@@ -785,7 +783,6 @@
 /area/shuttle/escape)
 "sc" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Escape Shuttle Medical Seating";
 	normalspeed = 0;
 	req_access = list(5)

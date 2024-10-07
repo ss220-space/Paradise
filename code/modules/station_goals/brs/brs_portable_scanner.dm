@@ -308,10 +308,10 @@
 
 	RefreshParts()
 
-/obj/machinery/brs_portable_scanner/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/brs_portable_scanner/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BluespaceRiftScanner", name, 475, 400)
+		ui = new(user, src, "BluespaceRiftScanner", name)
 		ui.open()
 
 /obj/machinery/brs_portable_scanner/ui_data(mob/user)

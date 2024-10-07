@@ -30,7 +30,7 @@
 /obj/item/chameleon/attack_self(mob/user)
 	toggle(user)
 
-/obj/item/chameleon/afterattack(atom/target, mob/user , proximity)
+/obj/item/chameleon/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(!check_sprite(target))
@@ -50,7 +50,7 @@
 			saved_appearance = temp.appearance
 
 /obj/item/chameleon/proc/check_sprite(atom/target)
-	if(target.icon_state in icon_states(target.icon))
+	if(icon_exists(target.icon, target.icon_state))
 		return TRUE
 	return FALSE
 
@@ -101,10 +101,13 @@
 	master = C
 	master.active_dummy = src
 
-/obj/effect/dummy/chameleon/attackby()
-	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon projector deactivates.</span>")
+
+/obj/effect/dummy/chameleon/attackby(obj/item/I, mob/user, params)
+	for(var/mob/snake in src)
+		to_chat(snake, span_danger("Your chameleon projector deactivates."))
 	master.disrupt()
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/effect/dummy/chameleon/attack_hand()
 	for(var/mob/M in src)

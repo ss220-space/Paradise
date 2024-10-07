@@ -45,11 +45,15 @@
 	move_force = MOVE_FORCE_EXTREMELY_STRONG
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	pull_force = MOVE_FORCE_EXTREMELY_STRONG
-	status_flags = GODMODE // Cannot push also
+	status_flags = NONE
+	AI_delay_max = 0 SECONDS
 
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null
 
+/mob/living/simple_animal/hostile/statue/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_GODMODE, INNATE_TRAIT)
 
 // No movement while seen code.
 
@@ -64,8 +68,8 @@
 	if(creator)
 		src.creator = creator
 
-/mob/living/simple_animal/hostile/statue/Move(turf/NewLoc)
-	if(can_be_seen(NewLoc))
+/mob/living/simple_animal/hostile/statue/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	if(can_be_seen(newloc))
 		if(client)
 			to_chat(src, "<span class='warning'>You cannot move, there are eyes on you!</span>")
 		return 0

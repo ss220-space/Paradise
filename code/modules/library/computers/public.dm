@@ -1,31 +1,29 @@
 /obj/machinery/computer/library/public
 	name = "visitor computer"
 
-/obj/machinery/computer/library/public/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/library/public/attack_hand(mob/user)
 	if(..())
 		return
 	interact(user)
 
-/obj/machinery/computer/library/public/attackby(obj/item/W as obj, mob/user as mob)
-	if(default_unfasten_wrench(user, W))
-		add_fingerprint(user)
-		power_change()
-		return
-	return ..()
 
-/obj/machinery/computer/library/public/interact(var/mob/user)
+/obj/machinery/computer/library/public/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I)
+
+
+/obj/machinery/computer/library/public/interact(mob/user)
 	if(interact_check(user))
 		return
 
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	switch(screenstate)
 		if(0)
 
 			dat += {"<h2>Search Settings</h2><br />
-				<A href='?src=[UID()];settitle=1'>Filter by Title: [query.title]</A><br />
-				<A href='?src=[UID()];setcategory=1'>Filter by Category: [query.category]</A><br />
-				<A href='?src=[UID()];setauthor=1'>Filter by Author: [query.author]</A><br />
-				<A href='?src=[UID()];search=1'>\[Start Search\]</A><br />"}
+				<a href='byond://?src=[UID()];settitle=1'>Filter by Title: [query.title]</A><br />
+				<a href='byond://?src=[UID()];setcategory=1'>Filter by Category: [query.category]</A><br />
+				<a href='byond://?src=[UID()];setauthor=1'>Filter by Author: [query.author]</A><br />
+				<a href='byond://?src=[UID()];search=1'>\[Start Search\]</A><br />"}
 		if(1)
 			if(!SSdbcore.IsConnected())
 				dat += "<font color=red><b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</font><br />"
@@ -58,7 +56,7 @@
 					</tr>"}
 
 				dat += "</table><br />[pagelist]"
-			dat += "<A href='?src=[UID()];back=1'>\[Go Back\]</A><br />"
+			dat += "<a href='byond://?src=[UID()];back=1'>\[Go Back\]</A><br />"
 	var/datum/browser/B = new /datum/browser(user, "library", "Library Visitor")
 	B.set_content(dat)
 	B.open()

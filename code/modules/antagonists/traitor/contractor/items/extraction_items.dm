@@ -17,11 +17,13 @@
 	new /obj/effect/decal/cleanable/ash(loc)
 	return ..()
 
-/obj/effect/contractor_flare/attackby(obj/item/clothing/mask/cigarette/C, mob/user, params)
-	..()
-	if(istype(C) && !C.lit)
-		C.light("<span class='rose'>[user] with a familiar motion lights [user.p_their()] well-deserved [C.name] on a [name]. The air smells of TK.</span>")
-	return
+
+/obj/effect/contractor_flare/attackby(obj/item/clothing/mask/cigarette/cigarette, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(cigarette) || cigarette.lit)
+		return .
+	. |= ATTACK_CHAIN_SUCCESS
+	cigarette.light(span_rose("[user] with a familiar motion lights [user.p_their()] well-deserved [cigarette.name] on a [name]. The air smells of TK."))
 
 
 /**
@@ -39,19 +41,23 @@
 	/// The mind of the kidnapping target. Prevents non-targets from taking the portal.
 	var/datum/mind/target_mind = null
 
-/obj/effect/portal/redspace/contractor/can_teleport(atom/movable/A)
+
+/obj/effect/portal/redspace/contractor/can_teleport(atom/movable/A, silent = FALSE)
 	var/mob/living/M = A
 	if(!istype(M))
 		return FALSE
 	if(M == usr && M.mind == contractor_mind)
-		to_chat(M, "<span class='warning'>The portal is here to extract the contract target, not you!</span>")
+		if(!silent)
+			to_chat(M, "<span class='warning'>The portal is here to extract the contract target, not you!</span>")
 		return FALSE
 	if(M.mind != target_mind)
 		if(usr?.mind == contractor_mind) // Contractor shoving a non-target into the portal
-			to_chat(M, "<span class='warning'>Somehow you are not sure [M] is the target you have to kidnap.</span>")
+			if(!silent)
+				to_chat(M, "<span class='warning'>Somehow you are not sure [M] is the target you have to kidnap.</span>")
 			return FALSE
 		else if(usr == M) // Non-target trying to enter the portal
-			to_chat(M, "<span class='warning'>Somehow you are not sure this is a good idea.</span>")
+			if(!silent)
+				to_chat(M, "<span class='warning'>Somehow you are not sure this is a good idea.</span>")
 			return FALSE
 		return FALSE
 	return ..()

@@ -11,7 +11,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 
 /obj/machinery/gateway/Initialize()
-	..()
+	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 	update_density_from_dir()
 
@@ -142,11 +142,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 //okay, here's the good teleporting stuff
 /obj/machinery/gateway/centerstation/Bumped(atom/movable/moving_atom)
-	if(!ready)
-		return
-	if(!active)
-		return
-	if(!awaygate)
+	. = ..()
+	if(!ready || !active || !awaygate)
 		return
 	if(awaygate.calibrated)
 		moving_atom.forceMove(get_step(awaygate.loc, SOUTH))
@@ -160,12 +157,11 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		use_power(5000)
 
 
-/obj/machinery/gateway/centerstation/attackby(obj/item/W, mob/user, params)
-	if(ismultitool(W))
-		add_fingerprint(user)
-		to_chat(user, "The gate is already calibrated, there is no work for you to do here.")
-		return
-	return ..()
+/obj/machinery/gateway/centerstation/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	add_fingerprint(user)
+	to_chat(user, span_warning("The gate is already calibrated, there is no work for you to do here."))
+
 
 /////////////////////////////////////Away////////////////////////
 
@@ -181,7 +177,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 
 /obj/machinery/gateway/centeraway/Initialize()
-	..()
+	. = ..()
 	update_icon()
 	stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines
 
@@ -254,11 +250,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 
 /obj/machinery/gateway/centeraway/Bumped(atom/movable/moving_atom)
-	if(!ready)
-		return
-	if(!active)
-		return
-	if(!stationgate || QDELETED(stationgate))
+	. = ..()
+	if(!ready || !active || QDELETED(stationgate))
 		return
 	if(isliving(moving_atom))
 		if(exilecheck(moving_atom))
@@ -290,15 +283,13 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	return FALSE
 
 
-/obj/machinery/gateway/centeraway/attackby(obj/item/W, mob/user, params)
-	if(ismultitool(W))
-		if(calibrated)
-			to_chat(user, "<span class='notice'>The gate is already calibrated, there is no work for you to do here.</span>")
-			return
-		else
-			add_fingerprint(user)
-			to_chat(user, "<span class='boldnotice'>Recalibration successful!</span><span class='notice'>: This gate's systems have been fine tuned.  Travel to this gate will now be on target.</span>")
-			calibrated = TRUE
-		return
-	return ..()
+/obj/machinery/gateway/centeraway/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(calibrated)
+		to_chat(user, span_warning("The gate is already calibrated, there is no work for you to do here."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	to_chat(user, "[span_boldnotice("Recalibration successful! ")][span_notice("This gate's systems have been fine tuned. Travel to this gate will now be on target.")]")
+	calibrated = TRUE
 

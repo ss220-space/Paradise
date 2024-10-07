@@ -3,7 +3,7 @@
 	desc = "A hand held grenade, with an adjustable timer."
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/weapons/grenade.dmi'
-	icon_state = "grenade"
+	icon_state = "chemg"
 	item_state = "flashbang"
 	belt_icon = "grenade"
 	throw_speed = 4
@@ -17,12 +17,6 @@
 	var/display_timer = TRUE
 
 
-/obj/item/grenade/Destroy()
-	///We need to clear the walk_to on destroy to allow a grenade which uses walk_to or related to properly GC
-	walk_to(src, 0)
-	return ..()
-
-
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
 		prime()
@@ -31,7 +25,7 @@
 
 
 /obj/item/grenade/proc/clown_check(mob/living/user)
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, span_warning("Huh? How does this thing work?"))
 		active = TRUE
 		update_icon(UPDATE_ICON_STATE)
@@ -104,7 +98,7 @@
 	return TRUE
 
 
-/obj/item/grenade/attack_hand()
-	walk(src, null, null)
-	..()
+/obj/item/grenade/attack_hand(mob/user)
+	SSmove_manager.stop_looping(src)
+	. = ..()
 

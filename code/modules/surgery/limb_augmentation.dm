@@ -22,12 +22,16 @@
 	. = ..()
 	if(!.)
 		return FALSE
+	if(HAS_TRAIT(target, TRAIT_NO_ROBOPARTS))
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(affected.has_fracture()) //The arm has to be in prime condition to augment it.
 		return FALSE
 
 /datum/surgery_step/augment
 	name = "augment limb with robotic part"
+	begin_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(/obj/item/robot_parts = 100)
 	time = 3.2 SECONDS
 
@@ -41,7 +45,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"[user] starts augmenting [affected] with [tool].",
-		"You start augmenting [affected] with [tool]."
+		"You start augmenting [affected] with [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
 
@@ -50,7 +55,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		span_notice("[user] has finished augmenting [affected] with [tool]."),
-		span_notice("You augment [affected] with [tool].")
+		span_notice("You augment [affected] with [tool]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	if(L.part)

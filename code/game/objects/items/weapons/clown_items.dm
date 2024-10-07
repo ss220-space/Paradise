@@ -18,7 +18,7 @@
 	hitsound = null
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
-	var/list/honk_sounds = list('sound/items/bikehorn.ogg' = 1)
+	var/list/honk_sounds = list('sound/items/bikehorn.ogg')
 	throw_speed = 3
 	throw_range = 15
 	attack_verb = list("HONKED")
@@ -32,7 +32,7 @@
 	desc = "Damn son, where'd you find this?"
 	icon_state = "air_horn"
 	origin_tech = "materials=4;engineering=4"
-	honk_sounds = list('sound/items/airhorn2.ogg' = 1)
+	honk_sounds = list('sound/items/airhorn2.ogg')
 
 /obj/item/bikehorn/golden
 	name = "golden bike horn"
@@ -40,9 +40,12 @@
 	icon_state = "gold_horn"
 	item_state = "gold_horn"
 
-/obj/item/bikehorn/golden/attack()
-	flip_mobs()
-	return ..()
+
+/obj/item/bikehorn/golden/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
+		flip_mobs()
+
 
 /obj/item/bikehorn/golden/attack_self(mob/user)
 	flip_mobs()

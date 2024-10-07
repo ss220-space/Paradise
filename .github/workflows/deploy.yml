@@ -7,40 +7,40 @@ on:
   workflow_dispatch:
     inputs:
       ci_required:
-        description: "CI Suite is required"
+        description: 'CI Suite is required'
         type: boolean
         required: true
         default: true
       perform_deploy_main:
-        description: "Deploy Paradise Main/Secondary"
+        description: 'Deploy Paradise Main/Secondary'
         type: boolean
         required: true
         default: true
       perform_deploy_vega:
-        description: "Deploy Paradise Vega"
+        description: 'Deploy Paradise Vega'
         type: boolean
         required: true
         default: true
       perform_deploy_cleo:
-        description: "Deploy Paradise Cleo"
+        description: 'Deploy Paradise Cleo'
         type: boolean
         required: true
         default: true
       perform_deploy_prime:
-        description: "Deploy Paradise Prime"
+        description: 'Deploy Paradise Prime'
         type: boolean
         required: true
-        default: true
+        default: false
       perform_deploy_wl:
-        description: "Deploy Paradise WL"
+        description: 'Deploy Paradise WL'
         type: boolean
         required: true
-        default: true
+        default: false
       perform_deploy_tutorial:
-        description: "Deploy Paradise Tutorial"
+        description: 'Deploy Paradise Tutorial'
         type: boolean
         required: true
-        default: true
+        default: false
 
 jobs:
   check:
@@ -120,13 +120,13 @@ jobs:
         name: Create GitHub deployment
         id: deployment
         with:
-          token: "${{ github.token }}"
+          token: '${{ github.token }}'
           environment: ${{ matrix.environment }}
           environment-url: ${{ vars.ENVIRONMENT_URL }}
-          log-url: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          log-url: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
           ref: ${{ vars.BRANCH }}
           production-environment: true
-          initial-status: "in_progress"
+          initial-status: 'in_progress'
 
       - name: Update and Build Paradise Main
         if: matrix.environment == 'Main' && inputs.perform_deploy_main
@@ -228,22 +228,22 @@ jobs:
           success()
         uses: chrnorm/deployment-status@v2
         with:
-          token: "${{ github.token }}"
+          token: '${{ github.token }}'
           environment-url: ${{ steps.deployment.outputs.environment_url }}
-          log-url: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          log-url: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-          state: "success"
+          state: 'success'
 
       - name: Update deployment status (failure)
         if: |
           failure()
         uses: chrnorm/deployment-status@v2
         with:
-          token: "${{ github.token }}"
+          token: '${{ github.token }}'
           environment-url: ${{ steps.deployment.outputs.environment_url }}
-          log-url: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          log-url: '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-          state: "failure"
+          state: 'failure'
 
   delete-automatic-deployments:
     name: Delete Automatic Deployments

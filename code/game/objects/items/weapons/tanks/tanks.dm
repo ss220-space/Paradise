@@ -18,8 +18,9 @@
 	var/volume = 70
 	var/fillable = TRUE
 
-/obj/item/tank/New()
-	..()
+
+/obj/item/tank/Initialize(mapload)
+	. = ..()
 
 	air_contents = new /datum/gas_mixture()
 	air_contents.volume = volume //liters
@@ -28,7 +29,7 @@
 	populate_gas()
 
 	START_PROCESSING(SSobj, src)
-	return
+
 
 /obj/item/tank/Destroy()
 	QDEL_NULL(air_contents)
@@ -40,7 +41,7 @@
 /obj/item/tank/proc/populate_gas()
 	return
 
-/obj/item/tank/ui_action_click(mob/user)
+/obj/item/tank/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_internals(user)
 
 
@@ -124,7 +125,7 @@
 	. += "<span class='notice'>The pressure gauge displays [round(air_contents.return_pressure())] kPa</span>"
 
 /obj/item/tank/blob_act(obj/structure/blob/B)
-	if(B && B.loc == loc)
+	if(B && B.loc == loc && !QDELETED(src))
 		var/turf/location = get_turf(src)
 		if(!location)
 			qdel(src)
@@ -143,15 +144,19 @@
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	qdel(src)
 
-/obj/item/tank/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
 
-	add_fingerprint(user)
+/obj/item/tank/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
 	if(isassembly(loc))
 		icon = loc
 
-	if(istype(W, /obj/item/assembly_holder))
-		bomb_assemble(W,user)
+	if(istype(I, /obj/item/assembly_holder) && bomb_assemble(I, user))
+		. |= ATTACK_CHAIN_SUCCESS
+
+
 
 /obj/item/tank/attack_self(mob/user as mob)
 	if(!(air_contents))
@@ -159,10 +164,13 @@
 
 	ui_interact(user)
 
-/obj/item/tank/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/tank/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/tank/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Tank",  name, 300, 150, master_ui, state)
+		ui = new(user, src, "Tank", name)
 		ui.open()
 
 /obj/item/tank/ui_data(mob/user)

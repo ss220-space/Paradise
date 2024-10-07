@@ -14,6 +14,8 @@
 	var/cover_open = 0
 	can_suppress = 0
 	fire_delay = 1
+	burst_size = 1
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/l6_saw/Initialize(mapload)
 	. = ..()
@@ -21,7 +23,7 @@
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_self(mob/user)
 	cover_open = !cover_open
-	to_chat(user, "<span class='notice'>You [cover_open ? "open" : "close"] [src]'s cover.</span>")
+	balloon_alert(user, "крышка [cover_open ? "от" : "за"]крыта")
 	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, 1)
 	update_icon()
 
@@ -31,12 +33,12 @@
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 
 
-/obj/item/gun/projectile/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
+/obj/item/gun/projectile/automatic/l6_saw/can_shoot(mob/user)
 	if(cover_open)
-		to_chat(user, "<span class='notice'>[src]'s cover is open! Close it before firing!</span>")
-	else
-		..()
-		update_icon()
+		balloon_alert(user, "крышка не закрыта!")
+		return FALSE
+	return ..()
+
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_hand(mob/user)
 	if(loc != user)
@@ -47,22 +49,20 @@
 	else if(cover_open && magazine)
 		//drop the mag
 		magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
-		magazine.loc = get_turf(loc)
+		magazine.forceMove(drop_location())
 		user.put_in_hands(magazine)
 		magazine = null
 		playsound(src, magout_sound, 50, 1)
 		update_icon()
-		to_chat(user, "<span class='notice'>You remove the magazine from [src].</span>")
+		balloon_alert(user, "магазин вынут")
 
 
-/obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/ammo_box/magazine))
-		var/obj/item/ammo_box/magazine/AM = A
-		if(istype(AM, mag_type))
-			if(!cover_open)
-				to_chat(user, "<span class='warning'>[src]'s cover is closed! You can't insert a new mag.</span>")
-				return
+/obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/I, mob/user, params)
+	if(istype(I, mag_type) && !cover_open)
+		balloon_alert(user, "крышка закрыта!")
+		return ATTACK_CHAIN_PROCEED
 	return ..()
+
 
 //ammo//
 
@@ -95,7 +95,7 @@
 	damage = 7
 	armour_penetration = 0
 
-/obj/item/projectile/bullet/saw/incen/Move()
+/obj/item/projectile/bullet/saw/incen/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	var/turf/location = get_turf(src)
 	if(location)
@@ -113,7 +113,7 @@
 
 /obj/item/ammo_box/magazine/mm556x45
 	name = "box magazine (5.56x45mm)"
-	icon_state = "a762-200"
+	icon_state = "a762"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/mm556x45/weak
 	caliber = "mm55645"

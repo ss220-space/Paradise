@@ -17,12 +17,15 @@
 	desc = "Looks like some kind of thick wax."
 	icon = 'icons/obj/smooth_structures/wryn/wall.dmi'
 	icon_state = "wall"
+	base_icon_state = "wall"
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
-	canSmoothWith = list(/obj/structure/wryn/wax)
+	canSmoothWith = SMOOTH_GROUP_WRYN_WAX_WALL + SMOOTH_GROUP_WRYN_WAX_WINDOW
 	max_integrity = 30
-	smooth = SMOOTH_TRUE
+	smoothing_groups = SMOOTH_GROUP_WRYN_WAX
+	smooth = SMOOTH_BITMASK
+
 
 /obj/structure/wryn/wax/Initialize()
 	if(usr)
@@ -35,7 +38,7 @@
 	. = ..()
 	T.air_update_turf(TRUE)
 
-/obj/structure/wryn/wax/Move()
+/obj/structure/wryn/wax/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
@@ -46,17 +49,18 @@
 /obj/structure/wryn/wax/wall
 	name = "wax wall"
 	desc = "Thick wax solidified into a wall."
-	canSmoothWith = list(/obj/structure/wryn/wax/wall, /obj/structure/wryn/wax/window)
+	smoothing_groups = SMOOTH_GROUP_WRYN_WAX_WALL + SMOOTH_GROUP_WRYN_WAX_WINDOW
 	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 
 /obj/structure/wryn/wax/window
 	name = "wax window"
 	desc = "Wax just thin enough to let light pass through."
 	icon = 'icons/obj/smooth_structures/wryn/window.dmi'
-	icon_state = "window"
-	opacity = 0
+	base_icon_state = "window"
+	icon_state = "window-0"
+	smoothing_groups = SMOOTH_GROUP_WRYN_WAX_WALL + SMOOTH_GROUP_WRYN_WAX_WINDOW
+	opacity = FALSE
 	max_integrity = 20
-	canSmoothWith = list(/obj/structure/wryn/wax/wall, /obj/structure/wryn/wax/window)
 
 /obj/structure/wryn/floor
 	icon = 'icons/obj/smooth_structures/wryn/floor.dmi'
@@ -71,7 +75,7 @@
 	max_integrity = 10
 	var/current_dir
 	var/static/list/floorImageCache
-	obj_flags = BLOCK_Z_OUT_DOWN
+	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 
 
 /obj/structure/wryn/floor/update_overlays()

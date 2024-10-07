@@ -27,9 +27,13 @@
 	var/obj/item/assembly/signaler/sig = null
 
 
-/obj/item/restraints/legcuffs/beartrap/New()
-	..()
-	icon_state = "[initial(icon_state)][armed]"
+/obj/item/restraints/legcuffs/beartrap/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /obj/item/restraints/legcuffs/beartrap/Destroy()
@@ -57,37 +61,43 @@
 		to_chat(user, span_notice("[src] is now [armed ? "armed" : "disarmed"]"))
 
 
-/obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user) //Let's get explosive.
-	if(istype(I, /obj/item/grenade/iedcasing))
+/obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/grenade/iedcasing))	//Let's get explosive.
+		add_fingerprint(user)
 		if(IED)
 			to_chat(user, span_warning("This beartrap already has an IED hooked up to it!"))
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(sig)
 			to_chat(user, span_warning("This beartrap already has a signaler hooked up to it!"))
-			return
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		IED = I
-		user.drop_transfer_item_to_loc(I, src)
 		message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
 		add_game_logs("has rigged a beartrap with an IED.", user)
 		to_chat(user, span_notice("You sneak [IED] underneath the pressure plate and connect the trigger wire."))
 		desc = "A trap used to catch bears and other legged creatures. [span_warning("There is an IED hooked up to it.")]"
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(issignaler(I))
+		add_fingerprint(user)
 		if(IED)
 			to_chat(user, span_warning("This beartrap already has an IED hooked up to it!"))
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(sig)
 			to_chat(user, span_warning("This beartrap already has a signaler hooked up to it!"))
-			return
-		sig = I
+			return ATTACK_CHAIN_PROCEED
 		if(sig.secured)
-			to_chat(user, span_notice("The signaler is secured."))
-			sig = null
-			return
-		user.drop_transfer_item_to_loc(I, src)
+			to_chat(user, span_warning("The signaler should not be secured."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		sig = I
 		to_chat(user, span_notice("You sneak the [sig] underneath the pressure plate and connect the trigger wire."))
 		desc = "A trap used to catch bears and other legged creatures. [span_warning("There is a remote signaler hooked up to it.")]"
-	..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/restraints/legcuffs/beartrap/screwdriver_act(mob/user, obj/item/I)
@@ -109,16 +119,19 @@
 		return
 
 
-/obj/item/restraints/legcuffs/beartrap/Crossed(atom/movable/AM, oldloc)
-	..()
+/obj/item/restraints/legcuffs/beartrap/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
 
+	INVOKE_ASYNC(src, PROC_REF(triggered), arrived)
+
+
+/obj/item/restraints/legcuffs/beartrap/proc/triggered(mob/living/moving_thing)
 	if(!armed || !isturf(loc))
 		return
 
-	if(!iscarbon(AM) && !isanimal(AM))
+	if(!iscarbon(moving_thing) && !isanimal(moving_thing))
 		return
 
-	var/mob/living/moving_thing = AM
 	if(moving_thing.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return
 
@@ -183,6 +196,8 @@
 	var/reusable = TRUE
 	/// Duration of the weakening in seconds
 	var/weaken_amt = 0
+	/// Duration of the knockdown in seconds
+	var/knockdown_amt = 0
 	/// Cyclic bola spin sound.
 	var/spin_sound = 'sound/items/bola_spin.ogg'
 
@@ -215,7 +230,7 @@
 
 
 /obj/item/restraints/legcuffs/bola/proc/spin_loop(mob/living/user)
-	if(QDELETED(src) || !spinning || can_spin_check(user))
+	if(QDELETED(src) || !spinning || !can_spin_check(user))
 		reset_values(user)
 		return
 
@@ -237,16 +252,16 @@
 
 
 /**
- * If it returns `TRUE`, it breaks the loop, returning `FALSE`, continues the loop.
+ * If it returns `FALSE`, it breaks the loop, returning `TRUE`, continues the loop.
  */
 /obj/item/restraints/legcuffs/bola/proc/can_spin_check(mob/living/user)
 	if(QDELETED(user))
-		return TRUE
+		return FALSE
 	if(user.get_active_hand() != src)
-		return TRUE
+		return FALSE
 	if(!user.in_throw_mode)
-		return TRUE
-	return FALSE
+		return FALSE
+	return TRUE
 
 
 /obj/item/restraints/legcuffs/bola/carbon_skip_catch_check(mob/living/carbon/user)
@@ -293,6 +308,8 @@
 	target.apply_restraints(src, ITEM_SLOT_LEGCUFFED)
 	if(weaken_amt)
 		target.Weaken(weaken_amt)
+	if(knockdown_amt)
+		target.Knockdown(knockdown_amt)
 	playsound(loc, hitsound, 50, TRUE)
 	SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 	if(!reusable)

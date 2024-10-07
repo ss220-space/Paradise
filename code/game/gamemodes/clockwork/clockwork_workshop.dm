@@ -86,22 +86,25 @@
 /obj/structure/clockwork/functional/workshop/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/structure/clockwork/functional/workshop/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/stack/sheet/brass) && isclocker(user))
-		var/obj/item/stack/sheet/brass/B = O
-		if(user.temporarily_remove_item_from_inventory(B))
-			add_fingerprint(user)
-			to_chat(user, "<span class='notice'>You reconstruct [B] for workshop to work with.")
-			brass_amount += MINERAL_MATERIAL_AMOUNT*B.amount
-			qdel(B)
-			flick("workshop_b", src)
-			return
+
+/obj/structure/clockwork/functional/workshop/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/sheet/brass) && isclocker(user))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/brass/brass = I
+		if(!user.drop_transfer_item_to_loc(brass, src))
+			return ..()
+		to_chat(user, span_notice("You reconstruct [brass] for workshop to work with."))
+		brass_amount += MINERAL_MATERIAL_AMOUNT*brass.amount
+		qdel(brass)
+		flick("workshop_b", src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/structure/clockwork/functional/workshop/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/structure/clockwork/functional/workshop/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Workshop", name, 400, 500, master_ui, state)
+		ui = new(user, src, "Workshop", name)
 		ui.open()
 
 /obj/structure/clockwork/functional/workshop/ui_static_data(mob/user)

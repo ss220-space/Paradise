@@ -289,6 +289,12 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	new /datum/stack_recipe("Empty sandbag", /obj/item/emptysandbag, 4),
 	new /datum/stack_recipe("Improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, res_amount = 2, max_res_amount = 6),
 	new /datum/stack_recipe("Rag", /obj/item/reagent_containers/glass/rag),
+	new /datum/stack_recipe_list("Towels", list(
+		new /datum/stack_recipe("Short towel", /obj/item/clothing/suit/towel/short, 2),
+		new /datum/stack_recipe("Short towel alt", /obj/item/clothing/suit/towel/short/alt, 2),
+		new /datum/stack_recipe("Long towel", /obj/item/clothing/suit/towel, 3),
+		new /datum/stack_recipe("Long towel alt", /obj/item/clothing/suit/towel/alt, 3),
+	)),
 ))
 /obj/item/stack/sheet/cloth
 	name = "cloth"
@@ -376,7 +382,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 	new /datum/stack_recipe("large box", /obj/item/storage/box/large, 4),
 	new /datum/stack_recipe("cardboard box", /obj/structure/closet/cardboard, 4),
 	null,
-	new /datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5),
+	new /datum/stack_recipe("cardboard cutout", /obj/item/twohanded/cardboard_cutout, 5),
 	new /datum/stack_recipe("cardborg helmet", /obj/item/clothing/head/cardborg),
 	new /datum/stack_recipe("cardborg suit", /obj/item/clothing/suit/cardborg, 3),
 	new /datum/stack_recipe("folder", /obj/item/folder),
@@ -388,15 +394,22 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 	new /datum/stack_recipe("glowstick box", /obj/item/storage/fancy/glowsticks_box/empty, 2),
 ))
 
+
 /obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stamp/clown) && !isstorage(loc))
+		add_fingerprint(user)
 		var/atom/droploc = drop_location()
-		if(use(1))
-			playsound(I, 'sound/items/bikehorn.ogg', 50, 1, -1)
-			to_chat(user, "<span class='notice'>You stamp the cardboard! It's a clown box! Honk!</span>")
-			new/obj/item/storage/box/clown(droploc) //bugfix
-	else
-		. = ..()
+		if(!use(1))
+			to_chat(user, span_warning("There is not enough cardboard."))
+			return ATTACK_CHAIN_PROCEED
+		playsound(droploc, 'sound/items/bikehorn.ogg', 50, TRUE, -1)
+		to_chat(user, span_notice("You stamp the cardboard! It's a clown box! Honk!"))
+		var/obj/item/storage/box/clown/new_box = new(droploc)
+		new_box.add_fingerprint(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/stack/sheet/cardboard	//BubbleWrap
 	name = "cardboard"

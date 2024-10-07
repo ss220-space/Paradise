@@ -158,7 +158,7 @@
 	else
 		UnlockBlastDoors()
 
-/area/vision_change_area/awaymission/evil_santa/end/santa/Entered(mob/living/carbon/naughty)
+/area/vision_change_area/awaymission/evil_santa/end/santa/Entered(mob/living/carbon/naughty, area/old_area)
 	. = ..()
 	if(ismecha(naughty))
 		var/obj/mecha/robot = naughty
@@ -272,7 +272,7 @@
 /obj/effect/spawner/lootdrop/evil_santa_gift
 	name = "evil santa reward gift spawner 1 to 3"
 	icon_state = "evil_santa_gift"
-	lootdoubles = 0
+	lootdoubles = FALSE
 
 	loot = list(
 				/obj/item/a_gift/evil_santa_reward = 33,

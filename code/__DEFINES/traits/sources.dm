@@ -19,6 +19,9 @@
 #define EAR_DAMAGE "ear_damage"
 #define EYE_DAMAGE "eye_damage"
 
+/// Trait sorce for "was recently shocked by something"
+#define WAS_SHOCKED "was_shocked"
+
 /// cannot be removed without admin intervention
 #define ROUNDSTART_TRAIT "roundstart"
 
@@ -45,6 +48,7 @@
 #define MECHA_EQUIPMENT_TRAIT "mecha-equip"
 #define HIS_GRACE_TRAIT "his-grace"
 #define CHAINSAW_TRAIT "chainsaw-wield"
+#define CENTCOMM_RAPIER_TRAIT "centcomm_rapier"
 #define PYRO_CLAWS_TRAIT "pyro-claws"
 #define CONTRACTOR_BATON_TRAIT "contractor-baton"
 #define MUZZLE_TRAIT "muzzle"
@@ -52,6 +56,10 @@
 #define SUPERHERO_TRAIT "super-hero"
 #define AUGMENT_TRAIT "augment"
 #define ANTIDROP_TRAIT "antidrop"
+#define HOLO_CIGAR_TRAIT "holo_cigar"
+
+#define WISHGRANTER_TRAIT "wishgranter"
+#define THUNDERDOME_TRAIT "thunderdome"
 
 /// A trait given by any status effect
 #define STATUS_EFFECT_TRAIT "status-effect"
@@ -61,6 +69,8 @@
 #define CLOTHING_TRAIT "clothing"
 
 #define DNA_TRAIT "dna_trait"
+
+#define FATNESS_TRAIT "fatness"
 
 /// Traits applied to a silicon mob by their model.
 #define ROBOT_TRAIT "robot_trait"
@@ -104,6 +114,8 @@
 #define RESTING_TRAIT "resting"
 /// trait associated to a stat value or range of
 #define STAT_TRAIT "stat"
+/// trait associated to being held in a chokehold
+#define CHOKEHOLD_TRAIT "chokehold"
 
 #define COCOONED_TRAIT "cocooned_stat"
 #define LOCKED_BORG_TRAIT "locked-borg"
@@ -111,6 +123,8 @@
 #define SLIME_TRAIT "slime"
 
 #define FULTON_TRAIT "fulton"
+
+#define ANOMALOUS_CRYSTAL_TRAIT "anomalous_crystal"
 
 #define FLOOR_CLUWNE_TRAIT "floor_cluwne"
 
@@ -131,3 +145,13 @@
 #define SPELL_LEAP_TRAIT "spell_leap_trait"
 #define SPELL_LUNGE_TRAIT "spell_lunge_trait"
 
+// item trait sources
+#define BROODMOTHER_TONGUE_TRAIT "broodmother_tongue"
+#define SCRYING_ORB_TRAIT "scrying_orb"
+#define EVIL_FAX_TRAIT "evil_fax"
+#define CORGI_HARDSUIT_TRAIT "corgi_hardsuit"
+
+// blob trait sourses
+#define BLOB_INFECTED_TRAIT "blob_infected"
+
+#define VENDOR_FLATTENING_TRAIT "vendor_flattening"
