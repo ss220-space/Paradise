@@ -28,8 +28,10 @@
 
 /proc/power_failure(announce=TRUE)
 	var/list/skipped_areas_apc = list(
-		/area/engine/engineering,
-		/area/turret_protected/ai)
+		/area/engineering/engine,
+		/area/engineering/supermatter,
+		/area/turret_protected/ai,
+	)
 
 	if(announce)
 		GLOB.event_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.", "ВНИМАНИЕ: СБОЙ СИСТЕМЫ ПИТАНИЯ.", new_sound = 'sound/AI/attention.ogg')
