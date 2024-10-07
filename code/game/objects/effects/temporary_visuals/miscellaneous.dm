@@ -348,7 +348,7 @@
 	duration = 5
 
 /obj/effect/temp_visual/pea_destroy
-	icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun.dmi'
+	icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun_new.dmi'
 	icon_state = "pea-bullet_effect"
 	duration = 4
 

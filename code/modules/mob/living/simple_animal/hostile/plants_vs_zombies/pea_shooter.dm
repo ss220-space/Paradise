@@ -59,7 +59,7 @@
 
 /obj/item/projectile/pea
 	name = "pea"
-	icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun.dmi'
+	icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun_new.dmi'
 	icon_state = "pea-bullet"
 	damage = 20
 	damage_type = BRUTE
@@ -126,7 +126,7 @@
 /mob/living/simple_animal/hostile/plant/pea_shooter
 	name = "pea shooter"
 	desc = "Выглядит как живой и слегка разумный горох."
-	icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun.dmi'
+	icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun_new.dmi'
 	icon_state = "peagun-static"
 	icon_living = "peagun-static"
 	icon_dead = "peagun-dead"

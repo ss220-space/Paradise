@@ -1,15 +1,15 @@
 /obj/item/seeds/terraformers_plant/pea_shooter
 	name = "pack of pea shooter seeds"
 	desc = "Эти семена выростут в Горохострел"
-	icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun.dmi'
-	growing_icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun.dmi'
+	icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun_new.dmi'
+	growing_icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun_new.dmi'
 	icon_state = "seed-peagun"
 	species = "peagun"
 	plantname = "Pea shooter"
 	lifespan = 55
 	endurance = 35
 	yield = 0
-	growing_icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun.dmi'
+	growing_icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun_new.dmi'
 	icon_grow = "peagun-grow"
 	icon_dead = "peagun-dead"
 	mutatelist = list(/obj/item/seeds/terraformers_plant/pea_shooter/double, /obj/item/seeds/terraformers_plant/pea_shooter/frost)
