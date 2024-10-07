@@ -592,6 +592,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		message_admins("[key_name_admin(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.") //Since they were on antag hud earlier, this feels important to log
 		qdel(src)
 
+/datum/objective/law
+	needs_target = FALSE
 
 /datum/objective/protect/contractor //subtype for support units
 

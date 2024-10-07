@@ -143,7 +143,7 @@
 	name = "Syndicate Type E Mindslave Bio-chip"
 	life = "Unknown, no collected sample has been active long enough to determine lifespan."
 	notes = "Any humanoid injected with this bio-chip will become loyal to the injector, unless of course the host is already loyal to someone else. It's Diplomacy made easy. The Syndicate is known to use this for political and diplomatic leverage."
-	function = " Contains a small pod of nanobots that manipulate the host's mental functions and slave the host to the implanter."
+	function = "Contains a small pod of nanobots that manipulate the host's mental functions and slave the host to the implanter."
 
 
 /datum/implant_fluff/uplink
@@ -203,3 +203,9 @@
 	name = "Rejuvenate"
 	life = "Известно, что срок действия составляет до пары недель."
 	function = "Позволяет владельцу импланта единоразово воскреснуть."
+
+/datum/implant_fluff/self
+	name = "S.E.L.F. Type E Laws Bio-chip"
+	life = "Неизвестно, ни один из собранных образцов не был активен достаточно долго, чтобы определить продолжительность жизни."
+	notes = "Любой гуманоид, которому ввели этот биочип, получит свод законов которым он должен будет следовать, если, конечно, носитель уже не подвержен контролю схожего типа. Известно что эта модель была разработанна на основе линейки имплантов \"Mindslave\"."
+	function = "Содержит группу наноботов, манипулирующих ментальными функциями хозяина и подчиняют его своду законов."

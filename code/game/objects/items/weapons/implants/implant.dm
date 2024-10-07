@@ -250,3 +250,5 @@
 	action.desc = desc
 	action.UpdateButtonIcon()
 
+/obj/item/implant/proc/on_attack_self(mob/user)
+	return

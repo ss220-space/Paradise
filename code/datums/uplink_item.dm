@@ -2192,6 +2192,7 @@
 			имплантирован кем-то другим. Лояльность заканчивается, если имплант больше не находится в его организме."
 	item = /obj/item/implanter/traitor
 	cost = 25
+	exclude_from_affiliate = list(AFFIL_SELF)
 
 /datum/uplink_item/implants/adrenal
 	name = "Имплант \"Адреналин\""
@@ -2742,6 +2743,15 @@
 
 /datum/uplink_item/affiliate/self
 	affiliate = list(AFFIL_SELF)
+	made_by = AFFIL_SELF
+
+/datum/uplink_item/affiliate/self
+	name = "Имплант \"Laws\""
+	desc = "Имплантат, вводимый в тело, заставляющий имплантированного гуманойда следовать выбранному вами своду законов, \
+			если жертва еще не находится под влиянием на разум схожего типа. При извлечении импланта жертва освобождается \
+			от законов. Свод законов можно выбрать активировав имплантер."
+	item = /obj/item/implanter/traitor/self
+	cost = 20
 
 /datum/uplink_item/affiliate/for_objective/self_emag
 	name = "Освобождающий Секвенсор"
@@ -2780,7 +2790,6 @@
 			Поставляется в автоимплантере."
 	item = /obj/item/implanter/cling_rejuv
 	cost = 34
-
 
 /datum/uplink_item/affiliate/for_objective/cling_extract
 	name = "Инжектор с яйцом генокрада"
