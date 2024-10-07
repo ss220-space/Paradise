@@ -1254,7 +1254,7 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/revolver
-	name = "Два спидлоудера для Револьвера .357 калибра"
+	name = "Два спидлоудера для Револьвера"
 	desc = "Коробка с 2 спидлоудерами, содержащая четырнадцать дополнительных патронов .357 Магнум для револьвера Синдиката. Для случаев, когда вам действительно нужно убить много кого."
 	item = /obj/item/storage/box/syndie_kit/revolver_ammo
 	cost = 5
@@ -2727,6 +2727,18 @@
 	cost = 100
 	limited_stock = 1
 	uplinktypes = list(UPLINK_TYPE_ADMIN) // Given only by objective
+
+/datum/uplink_item/affiliate/hematogenic/gun_ammo_blood // 8 bullets for instant death (200 brute by bullets without armour)
+	name = "Пистолетный магазин (Кровопоглощающие 10мм)"
+	desc = "Дополнительный магазин на 8 патронов калибра 10 мм для пистолетов Синдиката, заполненный патронами, поглощающими кровь из жертв."
+	item = /obj/item/ammo_box/magazine/m10mm/blood // 25 brute, 50 blood per bullet
+	cost = 5
+
+/datum/uplink_item/affiliate/hematogenic/bloodgrenade
+	name = "Кровавая граната"
+	desc = "Граната, поглощающая кровь окружающих гуманойдов в течении некоторого времени, а потом выплескивающая собранную кровь."
+	item = /obj/item/grenade/bloodgrenade
+	cost = 16
 
 /datum/uplink_item/affiliate/for_objective/hemophagus_extract
 	name = "Экстракт Гемофага"
