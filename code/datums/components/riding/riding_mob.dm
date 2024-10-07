@@ -93,7 +93,7 @@
 		formerly_ridden.log_message("is no longer being ridden by [former_rider].", LOG_GAME, color="pink")
 		former_rider.log_message("is no longer riding [formerly_ridden].", LOG_GAME, color="pink")
 		*/
-	remove_abilities(former_rider)
+	//remove_abilities(former_rider)
 	if(!formerly_ridden.buckled_mobs.len)
 		REMOVE_TRAIT(formerly_ridden, TRAIT_AI_PAUSED, src)
 	// We gotta reset those layers at some point, don't we?
