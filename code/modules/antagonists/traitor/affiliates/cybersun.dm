@@ -2,27 +2,21 @@
 
 /datum/affiliate/cybersun
 	name = "Cybersun Industries"
-	affil_info = list("Преимущества:",
-			"Скидки 20% на импланты",
-			"Скидка 33% на плату для взлома ИИ",
-			"Недостатки: -",
-			" ",
-			" ",
-			" ",
-			" ",
-			"Стандартные цели:",
-			"Украсть технологии",
-			"Украсть определенное количество ценных вещей",
-			"Убить определенное количество членов экипажа",
-			"Угнать мех или под",
-			"Завербовать нового агента вколов ему модифицированный имплант \"Mindslave\".")
+	affil_info = list("Одна из ведущих корпораций представляющая второй по мощи исследовательский центр в этой части вселенной.",
+					"Стандартные цели:",
+					"Украсть технологии",
+					"Украсть определенное количество ценных вещей",
+					"Убить определенное количество членов экипажа",
+					"Угнать мех или под",
+					"Завербовать нового агента вколов ему модифицированный имплант \"Mindslave\".")
 	tgui_icon = "cybersun"
+	slogan = "Сложно быть во всём лучшими, но у нас получается."
 	hij_desc = "Вы - наёмный агент Cybersun Industries, засланный на станцию NT с особой целью:\n\
-			Взломать искусственный интеллект станции специальным, предоставленным вам, устройством. \n\
-			После взлома, искусственный интеллект попытается уничтожить станцию. \n\
-			Ваша задача ему с этим помочь;\n\
-			Ваше выживание опционально;\n\
-			Возможны помехи от агентов других корпораций - действуйте на свое усмотрение."
+				Взломать искусственный интеллект станции специальным, предоставленным вам, устройством. \n\
+				После взлома, искусственный интеллект попытается уничтожить станцию. \n\
+				Ваша задача ему с этим помочь;\n\
+				Ваше выживание опционально;\n\
+				Возможны помехи от агентов других корпораций - действуйте на свое усмотрение."
 	hij_obj = /datum/objective/make_ai_malf
 	objectives = list(list(/datum/objective/steal = 80, /datum/objective/steal/ai = 20),
 						/datum/objective/download_data,
@@ -274,10 +268,14 @@
 
 	var/datum/mind/mind = mindslave_target.mind
 
-	if(!mind.has_antag_datum(/datum/antagonist/traitor/mini))
-		mind.add_antag_datum(/datum/antagonist/traitor/mini)
+	if(!mind.has_antag_datum(/datum/antagonist/traitor))
+		var/datum/antagonist/traitor/traitor_datum = new /datum/antagonist/traitor
+		traitor_datum.give_objectives = FALSE
+		traitor_datum.give_uplink = FALSE
+		traitor_datum.gen_affiliate = FALSE
+		mind.add_antag_datum(traitor_datum)
 
-	var/datum/antagonist/traitor/mini/traitor = mind.has_antag_datum(/datum/antagonist/traitor/mini)
+	var/datum/antagonist/traitor/traitor = mind.has_antag_datum(/datum/antagonist/traitor)
 
 	traitor.forge_single_human_objective()
 	traitor.forge_single_human_objective()

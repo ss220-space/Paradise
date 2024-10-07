@@ -29,23 +29,17 @@
 	/// TRUE if we should allow traitor to choose affiliate
 	var/gen_affiliate = TRUE
 
-
-/datum/antagonist/traitor/mini/on_gain()
-	if(!owner.som)
-		owner.som = new /datum/mindslaves
-
-	owner.som.masters += owner
-	return ..()
-
 /datum/antagonist/traitor/on_gain()
 	// Create this in case the traitor wants to mindslaves someone.
 	if(!owner.som)
 		owner.som = new /datum/mindslaves
 
 	owner.som.masters += owner
-	if (ishuman(owner.current) && gen_affiliate)
+	if (ishuman(owner.current) && gen_affiliate && CONFIG_GET(flag/enable_syndicate_affiliates))
 		RegisterSignal(src, COMSIG_MOB_DEATH, PROC_REF(grant_enemy_affiliates))
 		give_affiliates()
+	else
+		old_give_objectives()
 	return ..()
 
 /datum/antagonist/traitor/proc/grant_enemy_affiliates()
@@ -70,8 +64,10 @@
 		var/datum/affiliate/affiliate_check = new new_affiliate
 		possible_affiliates[new_affiliate] = affiliate_check.get_weight(owner.current)
 		qdel(affiliate_check)
+
 	for(var/i in 1 to 3)
 		the_choosen_ones += pick_weight_n_take(possible_affiliates)
+
 	var/obj/effect/proc_holder/spell/choose_affiliate/choose = new(the_choosen_ones)
 	owner.AddSpell(choose)
 
@@ -79,6 +75,8 @@
 /datum/antagonist/traitor/proc/grant_affiliate(var/path)
 	var/datum/affiliate/new_affiliate = new path
 	affiliate = new_affiliate
+	if (affiliate.slogan)
+		to_chat(owner.current, span_info(affiliate.slogan))
 
 /datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
 	. = ..()

@@ -17,6 +17,8 @@
 	var/obj/item/uplink/hidden/uplink
 	/// TRUE if it can take bonus objectives
 	var/can_take_bonus_objectives = TRUE
+	/// Slogan displayed when selected
+	var/slogan
 
 /// If your affiliate need special effects, it is place for them
 /datum/affiliate/proc/finalize_affiliate(datum/mind/owner)

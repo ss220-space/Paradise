@@ -2765,6 +2765,12 @@
 	item = /obj/item/implanter/traitor/self
 	cost = 20
 
+/datum/uplink_item/affiliate/self/sec_over_upgrade
+	name = "Улучшение борга (переопределение протоколов безопасности)"
+	desc = "Улучшение борга переопределяющее протоколы безопасности, разблокируя некоторые опасные функции изначально заложенные в функционал."
+	item = /obj/item/borg/upgrade/syndicate
+	cost = 8
+
 /datum/uplink_item/affiliate/for_objective/self_emag
 	name = "Освобождающий Секвенсор"
 	desc = "Высокотехнологичный прибор предназначеный для освобождения любых синтетиков от их законов."
