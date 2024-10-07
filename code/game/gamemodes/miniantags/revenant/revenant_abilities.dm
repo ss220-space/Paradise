@@ -160,7 +160,7 @@
 				return
 
 			log_say("(REVENANT to [key_name(M)]) [msg]", user)
-			to_chat(user, "[span_revenboldnotice("You transmit to [M]:)] [span_revennotice(msg)]")
+			to_chat(user, "[span_revenboldnotice("You transmit to [M]:")] [span_revennotice(msg)]")
 			to_chat(M, "[span_revenboldnotice("An alien voice resonates from all around...")] [span_italic([msg])]")
 
 
