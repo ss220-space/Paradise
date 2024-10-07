@@ -86862,7 +86862,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
-/obj/machinery/camera{
+/obj/machinery/camera/emp_proof{
 	c_tag = "Particle Accellerator";
 	dir = 4;
 	network = list("Engineering","SS13")
@@ -100569,11 +100569,10 @@
 	icon_state = "1-4"
 	},
 /obj/effect/decal/warning_stripes/south,
-/obj/structure/cable/yellow,
 /obj/machinery/light,
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -22
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -109420,8 +109419,9 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
+	cell_type = 25000;
+	shock_proof = 1;
+	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -162352,13 +162352,8 @@
 	},
 /obj/effect/decal/warning_stripes/southwest,
 /obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -26;
+	dir = 2;
 	pixel_y = -28
-	},
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -22
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
