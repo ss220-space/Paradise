@@ -572,7 +572,7 @@
 		if(!length(traitor_datum.objectives))
 			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];traitor=autoobjectives'>Randomize!</a>"
 	else
-		. += "<a href='byond://?src=[UID()];traitor=traitor'>traitor</a>|<a href='byond://?src=[UID()];traitor=traitor_affil'>traitor with specific affiliate</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];traitor=traitor'>just traitor</a>|<a href='byond://?src=[UID()];traitor=traitor_choose_affil'>traitor with affiliate</a>|<a href='byond://?src=[UID()];traitor=traitor_affil'>traitor with specific affiliate</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_TRAITOR)
 	// Contractor
@@ -2030,6 +2030,17 @@
 					var/datum/antagonist/traitor/traitor_datum = new()
 					traitor_datum.give_objectives = FALSE
 					traitor_datum.give_uplink = FALSE
+					traitor_datum.gen_affiliate = FALSE
+					add_antag_datum(traitor_datum)
+					log_admin("[key_name(usr)] has traitored [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
+
+			if ("traitor_choose_affil")
+				if(!(has_antag_datum(/datum/antagonist/traitor)))
+					var/datum/antagonist/traitor/traitor_datum = new()
+					traitor_datum.give_objectives = FALSE
+					traitor_datum.give_uplink = FALSE
+					traitor_datum.force_affiliate = TRUE
 					add_antag_datum(traitor_datum)
 					log_admin("[key_name(usr)] has traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
@@ -2041,7 +2052,6 @@
 					if (type)
 						var/datum/antagonist/traitor/traitor_datum = new()
 						traitor_datum.gen_affiliate = FALSE
-						traitor_datum.give_objectives = FALSE
 						traitor_datum.give_uplink = FALSE
 						add_antag_datum(traitor_datum)
 						log_admin("[key_name(usr)] has traitored [key_name(current)]")

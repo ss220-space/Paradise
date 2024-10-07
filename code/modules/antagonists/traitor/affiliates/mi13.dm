@@ -200,7 +200,7 @@
 		ring.visible_message(span_warning("BANG"))
 		playsound(ring, 'sound/effects/bang.ogg', 100, TRUE)
 
-		for (var/mob/living/M in range(ring, 3))
+		for (var/mob/living/M in range(A, 3))
 			if (M.check_ear_prot() == HEARING_PROTECTION_NONE)
 				M.Deaf(6 SECONDS)
 
@@ -208,7 +208,7 @@
 			grille.obj_break()
 
 		for (var/obj/structure/window/window in range(A, 2))
-			window.take_damage(rand(5, 15))
+			window.take_damage(window.max_integrity * rand(20, 60) / 100)
 
 		var/obj/structure/window/window = A
 		window.deconstruct()

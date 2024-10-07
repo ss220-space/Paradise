@@ -13,19 +13,19 @@
 /obj/item/grenade/bloodgrenade/prime()
 	..()
 
-	START_PROCESSING(SSobj, src)
+	START_PROCESSING(SSprocessing, src)
 	sleep(process_time)
-	STOP_PROCESSING(SSobj, src)
+	STOP_PROCESSING(SSprocessing, src)
 	do_sparks(10, TRUE, src)
 
-	for (var/turf/T in view(min(10, sqrt(blood / 10)), src)) // 100% of one human -> radius == 7
+	for (var/turf/T in view(min(10, sqrt(blood / 10)), src))
 		var/D = get_dist(src, T)
 		if (prob(D * D / 2))
 			continue
 
-		new/obj/effect/decal/cleanable/blood/drip(T)
+		new/obj/effect/decal/cleanable/blood(T)
 		for (var/mob/living/M in T)
-			M.adjustFireLoss(blood / 25) // 100% of one human -> 22.5
+			M.adjustFireLoss(blood / 25)
 
 	qdel(src)
 	return

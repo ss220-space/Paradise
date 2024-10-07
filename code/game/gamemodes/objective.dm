@@ -1211,7 +1211,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/blood/New()
-	gen_amount_goal()
+	if (!target_amount)
+		gen_amount_goal()
+
 	. = ..()
 
 

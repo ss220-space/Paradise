@@ -127,10 +127,12 @@
 	give_uplink()
 	affiliate.give_objectives(mind)
 	show_objectives(mind)
-	hidden_uplink.affiliate = affiliate
-	affiliate.uplink = hidden_uplink
+	if (hidden_uplink)
+		hidden_uplink.affiliate = affiliate
+		hidden_uplink.can_bonus_objectives = affiliate.can_take_bonus_objectives
+		affiliate.uplink = hidden_uplink
+
 	affiliate.finalize_affiliate(mind)
-	hidden_uplink.can_bonus_objectives = affiliate.can_take_bonus_objectives
 	announce_uplink_info()
 
 /obj/effect/proc_holder/spell/choose_affiliate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)

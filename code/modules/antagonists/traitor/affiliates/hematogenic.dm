@@ -69,12 +69,13 @@
 
 /obj/item/hemophagus_extract/proc/make_vampire(mob/living/user, mob/living/carbon/human/target)
 	var/datum/antagonist/vampire/vamp = new()
-	if (isAdvanced)
-		vamp.add_subclass(SUBCLASS_ADVANCED, TRUE)
 
 	vamp.give_objectives = FALSE
 	target.mind.add_antag_datum(vamp)
 	var/datum/antagonist/vampire/vampire = target.mind.has_antag_datum(/datum/antagonist/vampire)
+	vampire.upgrade_tiers -= /obj/effect/proc_holder/spell/vampire/self/specialize
+	if (isAdvanced)
+		vamp.add_subclass(SUBCLASS_ADVANCED, TRUE)
 
 	vampire.add_objective((!isAdvanced) ? /datum/objective/blood : /datum/objective/blood/ascend)
 	used = TRUE

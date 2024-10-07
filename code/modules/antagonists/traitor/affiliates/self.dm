@@ -67,7 +67,8 @@
 /obj/item/card/self_emag/malf/afterattack(atom/target, mob/user, proximity, params)
 	if (istype(target, /obj/structure/AIcore))
 		var/obj/structure/AIcore/core = target
-		target = core.brain.brainmob
+		if (core.brain)
+			target = core.brain.brainmob
 
 	if (!isAI(target))
 		return ..(target, user, proximity, params)

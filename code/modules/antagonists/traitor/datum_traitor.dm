@@ -28,6 +28,8 @@
 	var/list/killed_enemy_agents = list()
 	/// TRUE if we should allow traitor to choose affiliate
 	var/gen_affiliate = TRUE
+	/// If true, ignore config and give affiliate
+	var/force_affiliate = FALSE
 
 /datum/antagonist/traitor/on_gain()
 	// Create this in case the traitor wants to mindslaves someone.
@@ -35,10 +37,10 @@
 		owner.som = new /datum/mindslaves
 
 	owner.som.masters += owner
-	if (ishuman(owner.current) && gen_affiliate && CONFIG_GET(flag/enable_syndicate_affiliates))
+	if (ishuman(owner.current) && gen_affiliate && (force_affiliate || CONFIG_GET(flag/enable_syndicate_affiliates)))
 		RegisterSignal(src, COMSIG_MOB_DEATH, PROC_REF(grant_enemy_affiliates))
 		give_affiliates()
-	else
+	else if (give_objectives)
 		old_give_objectives()
 	return ..()
 
