@@ -530,6 +530,8 @@
 	if(target.mind in SSticker.mode.sintouched)
 		return FALSE
 
+	return TRUE
+
 /obj/effect/proc_holder/spell/aoe/revenant/blight/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(!attempt_cast(user))
 		return
