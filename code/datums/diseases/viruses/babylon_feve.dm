@@ -14,7 +14,7 @@
 	// We'll store the languages the mob knew before the fever here
 	var/list/datum/language/stored_languages = list()
 
-/datum/disease/virus/babylonian_fever/Contract(mob/living/M, act_type, is_carrier, need_protection_check, zone)
+/datum/disease/virus/babylonian_fever/New()
 	if(!..())
   		return FALSE
 	RegisterSignal(M, COMSIG_LIVING_RECEIVED_LANGUAGE , PROC_REF(store_and_remove_languages))
