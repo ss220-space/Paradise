@@ -441,14 +441,13 @@
 #define SHOCK_KNOCKDOWN (1<<7)
 
 /// Vomit defines
-#define VOMIT_NUTRITION_LOSS     10
-#define VOMIT_STUN_TIME          (8 SECONDS)
-#define VOMIT_DISTANCE           0
+#define VOMIT_NUTRITION_LOSS	10
+#define VOMIT_STUN_TIME			(8 SECONDS)
+#define VOMIT_DISTANCE			0
+#define VOMIT_SAFE_NUTRITION	90
 /// Vomit modes
-#define VOMIT_TOXIN 			(1<<0)
-#define VOMIT_BLOOD     		(1<<1)
-#define VOMIT_BOTH				(VOMIT_TOXIN|VOMIT_BLOOD)
+#define VOMIT_BLOOD	(1<<0)
 
 /// When reached - we'll apply status effect which will force carbon to vomit
-#define TOX_VOMIT_THRESHOLD_REACHED(mob, toxloss) (mob.getToxLoss() >= toxloss)
-#define TOX_VOMIT_REQUIRED_TOXLOSS 	 45
+#define TOX_VOMIT_THRESHOLD_REACHED(mob, toxloss)	(mob.getToxLoss() >= toxloss)
+#define TOX_VOMIT_REQUIRED_TOXLOSS	45

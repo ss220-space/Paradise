@@ -385,7 +385,7 @@
 	if(!.)
 		return .
 	victim.drop_from_active_hand()
-	victim.vomit(VOMIT_TOXIN, VOMIT_NUTRITION_LOSS)
+	victim.vomit()
 	INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "cough")
 
 

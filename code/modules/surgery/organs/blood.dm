@@ -119,7 +119,7 @@
 	// +2.5% chance per internal bleeding site that we'll cough up blood on a given tick.
 	// Must be bleeding internally in more than one place to have a chance at this.
 	if(amt >= 1 && prob(5 * amt))
-		vomit(VOMIT_BLOOD, 10)
+		vomit(mode = VOMIT_BLOOD)
 
 
 /mob/living/carbon/human/bleed_internal(amt)

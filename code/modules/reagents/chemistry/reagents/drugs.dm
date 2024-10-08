@@ -790,7 +790,7 @@
 					M.emote(pick("laugh"))
 				if(60 to 69)
 					M.adjust_bodytemperature(rand(1, 5))
-					M.vomit(VOMIT_TOXIN, VOMIT_NUTRITION_LOSS)
+					M.vomit()
 					update_flags |= M.adjustBrainLoss(rand(1, 5))
 				if(70 to 74)
 					to_chat(M, "<span class='warning'>You are literally bursting with laughter</span>")

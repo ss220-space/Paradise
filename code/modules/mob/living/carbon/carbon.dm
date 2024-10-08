@@ -75,13 +75,13 @@
 
 
 /mob/living/carbon/proc/vomit(
-	mode = VOMIT_TOXIN,
-	lost_nutrition = 0, 
-	stun = VOMIT_STUN_TIME, 
-	distance = 0, 
+	lost_nutrition = VOMIT_NUTRITION_LOSS,
+	mode = NONE,
+	stun = VOMIT_STUN_TIME,
+	distance = 1,
 	message = TRUE
-)	
-	if(ismachineperson(src)) //IPCs do not vomit particulates
+)
+	if(ismachineperson(src)) // IPCs do not vomit particulates.
 		return FALSE
 
 	if(is_muzzled())
@@ -93,12 +93,9 @@
 	if(stun)
 		Stun(stun)
 
-	if(!nutrition)
-		return FALSE
-
-	if((nutrition < 100 || nutrition < lost_nutrition) && (!(mode & VOMIT_BLOOD)))
+	if((nutrition - VOMIT_SAFE_NUTRITION) < lost_nutrition && (!(mode & VOMIT_BLOOD)))
 		if(message)
-			visible_message(span_warning("[src.name] сухо кашля[pluralize_ru(src.gender,"ет","ют")]!"), \
+			visible_message(span_warning("[name] сухо кашля[pluralize_ru(gender,"ет","ют")]!"), \
 							span_userdanger("Вы пытаетесь проблеваться, но в вашем желудке пусто!"))
 
 		if(stun)
@@ -107,23 +104,27 @@
 		return FALSE
 
 	if(message)
-		visible_message(span_danger("[src.name] блю[pluralize_ru(src.gender,"ет","ют")]!"), \
+		visible_message(span_danger("[name] блю[pluralize_ru(gender,"ет","ют")]!"), \
 						span_userdanger("Вас вырвало!"))
 
-	playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
+	playsound(get_turf(src), 'sound/effects/splat.ogg', 50, TRUE)
 	var/turf/turf = get_turf(src)
 
 	if(!turf)
 		return FALSE
 
-	for(var/i = 0 to distance)
-		if(mode & VOMIT_TOXIN)
+	var/max_nutriment_vomit_dist = 0
+	if(lost_nutrition)
+		max_nutriment_vomit_dist = floor((nutrition - VOMIT_SAFE_NUTRITION) / lost_nutrition)
+
+	for(var/i = 1 to distance)
+		if(max_nutriment_vomit_dist >= distance)
 			turf.add_vomit_floor()
 			adjust_nutrition(-lost_nutrition)
 
 			if(stun)
 				adjustToxLoss(-3)
-		
+
 		if(mode & VOMIT_BLOOD)
 			add_splatter_floor(turf)
 
@@ -136,6 +137,7 @@
 			break
 
 	return FALSE
+
 
 /mob/living/carbon/gib()
 	. = death(TRUE)

@@ -642,7 +642,7 @@
 			user.visible_message("<span class='warning'>As [user] picks [src] up, it flickers off their arms!</span>", "<span class='warning'>The buckler flicker off your arms, leaving only nausea!</span>")
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
-				C.vomit(VOMIT_TOXIN, VOMIT_NUTRITION_LOSS)
+				C.vomit()
 				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, "<span class='clocklarge'>\"Did you like having head?\"</span>")
@@ -772,7 +772,7 @@
 			user.visible_message("<span class='warning'>As [user] picks [src] up, it flickers off their arms!</span>", "<span class='warning'>The robe flicker off your arms, leaving only nausea!</span>")
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
-				C.vomit(VOMIT_TOXIN, VOMIT_NUTRITION_LOSS)
+				C.vomit()
 				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, "<span class='clocklarge'>\"I think this armor is too hot for you to handle.\"</span>")
@@ -899,7 +899,7 @@
 			user.visible_message("<span class='warning'>As [user] puts [src] on, it flickers off their body!</span>", "<span class='warning'>The curiass flickers off your body, leaving only nausea!</span>")
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
-				C.vomit(VOMIT_TOXIN, 20)
+				C.vomit(20)
 				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, "<span class='clocklarge'>\"I think this armor is too hot for you to handle.\"</span>")
@@ -1026,7 +1026,7 @@
 			user.visible_message("<span class='warning'>As [user] puts [src] on, it flickers off their arms!</span>", "<span class='warning'>The gauntlets flicker off your arms, leaving only nausea!</span>")
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
-				C.vomit(VOMIT_TOXIN, VOMIT_NUTRITION_LOSS)
+				C.vomit()
 				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, "<span class='clocklarge'>\"Did you like having arms?\"</span>")
@@ -1066,7 +1066,7 @@
 			user.visible_message("<span class='warning'>As [user] puts [src] on, it flickers off their feet!</span>", "<span class='warning'>The treads flicker off your feet, leaving only nausea!</span>")
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
-				C.vomit(VOMIT_TOXIN, VOMIT_NUTRITION_LOSS)
+				C.vomit()
 				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, "<span class='clocklarge'>\"Let's see if you can dance with these.\"</span>")
@@ -1113,7 +1113,7 @@
 			user.visible_message("<span class='warning'>As [user] puts [src] on, it flickers off their head!</span>", "<span class='warning'>The helmet flickers off your head, leaving only nausea!</span>")
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
-				C.vomit(VOMIT_TOXIN, 20)
+				C.vomit(20)
 				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, "<span class='heavy_brass'>\"Do you have a hole in your head? You're about to.\"</span>")

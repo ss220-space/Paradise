@@ -43,7 +43,7 @@ Bonus
 	return
 
 /datum/symptom/vomit/proc/Vomit(mob/living/carbon/M)
-	M.vomit(VOMIT_TOXIN, 20)
+	M.vomit(20)
 
 /*
 //////////////////////////////////////
@@ -77,7 +77,7 @@ Bonus
 	severity = 5
 
 /datum/symptom/vomit/blood/Vomit(mob/living/carbon/M)
-	M.vomit(VOMIT_BLOOD)
+	M.vomit(0, VOMIT_BLOOD)
 
 
 /*
@@ -106,4 +106,4 @@ Bonus
 	level = 4
 
 /datum/symptom/vomit/projectile/Vomit(mob/living/carbon/M)
-	M.vomit(VOMIT_TOXIN, 6, 8 SECONDS, 5, 1)
+	M.vomit(6, stun = 8 SECONDS, distance = 5)
