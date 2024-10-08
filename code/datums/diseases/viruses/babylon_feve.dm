@@ -12,16 +12,17 @@
 	severity = MEDIUM
 	var/known_languages = list()
 
+
 /datum/disease/virus/babylonian_fever/stage_act()
 	if(!..())
 		return FALSE
 	switch(stage)
-		if(1)
+		if(2, 3)
 			if(affected_mob.languages && !LAZYLEN(known_languages))
 				for(var/datum/language/lan in affected_mob.languages)
 					LAZYADD(known_languages, lan)
 					affected_mob.remove_language(lan.name)
-		if(2, 3)
+
 			if(prob(stage))
 				affected_mob.adjustBrainLoss(0.5)
 			if(prob(stage))
