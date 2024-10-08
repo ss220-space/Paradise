@@ -15,17 +15,14 @@
 	var/list/datum/language/stored_languages = list()
 
 /datum/disease/virus/babylonian_fever/Contract(mob/living/M, act_type, is_carrier, need_protection_check, zone)
-	var/datum/disease/disease = ..()
+	var/datum/disease/virus/babylonian_fever/disease = ..()
+
 	if(!disease)
 		return FALSE
-	RegisterSignal(disease.affected_mob, COMSIG_LIVING_RECEIVED_LANGUAGE, PROC_REF(store_and_remove_languages))
-	// Store languages on first stage activation
-	if(M.languages)
-		stored_languages += M.languages.Copy()
-	// Remove existing languages
-	if(M.languages)
-		for(var/datum/language/lan in M.languages)
-			M.remove_language(lan.name)
+	disease.RegisterSignal(disease.affected_mob, COMSIG_LIVING_RECEIVED_LANGUAGE, PROC_REF(store_and_remove_languages))
+
+	affected_mob = disease.affected_mob
+	store_and_remove_languages()
 
 /datum/disease/virus/babylonian_fever/stage_act()
 	if(!..())
@@ -34,7 +31,6 @@
 		if(2, 3)
 			if(prob(stage))
 				affected_mob.adjustBrainLoss(0.5)
-			if(prob(stage))
 				affected_mob.say(pick(
 					"Ммм... гхм...",
 					"А-а-а... эээ...",
@@ -52,20 +48,30 @@
 					"Двести... двадцать..."\
 					)
 				)
+
 	return TRUE
 
-/datum/disease/virus/babylonian_fever/has_cure()
-	if(..())
-		// Restore previously known languages
-		if(stored_languages.len)
-			for(var/datum/language/lan in stored_languages)
-				affected_mob.add_language(lan.name)
-			stored_languages.Cut() // Clear the stored languages
-		return TRUE
+/datum/disease/virus/babylonian_fever/cure()
+	if(!affected_mob)
+		qdel(src)
+
+	UnregisterSignal(affected_mob, COMSIG_LIVING_RECEIVED_LANGUAGE)
+
+	// Restore previously known languages
+	if(LAZYLEN(stored_languages))
+		for(var/datum/language/lan in stored_languages)
+			affected_mob.add_language(lan.name)
+	..()
+
+/datum/disease/virus/babylonian_fever/Destroy()
+	LAZYCLEARLIST(stored_languages)
+
+	return ..()
 
 /datum/disease/virus/babylonian_fever/proc/store_and_remove_languages()
 	// Remove existing languages
 	if(affected_mob.languages)
 		stored_languages += affected_mob.languages.Copy()
+
 		for(var/datum/language/lan in affected_mob.languages)
 			affected_mob.remove_language(lan.name)
