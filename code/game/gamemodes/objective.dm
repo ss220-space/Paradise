@@ -716,8 +716,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 		var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 		if(traitor)
-			for (var/datum/objective/mecha_or_pod_hijack/O in traitor.objectives)
-				if (isspacepod(player.current.loc))
+			for(var/datum/objective/mecha_or_pod_hijack/O in traitor.objectives)
+				if(isspacepod(player.current.loc))
 					return TRUE
 
 		if(!location.onCentcom() && !location.onSyndieBase())
@@ -892,7 +892,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			return list(/datum/theft_objective/highrisk/ai)
 		if(THEFT_FLAG_HYPO_OR_DEFIB)
 			return list(/datum/theft_objective/highrisk/hypospray, /datum/theft_objective/highrisk/defib)
-		if (THEFT_FLAG_DOCUMENTS)
+		if(THEFT_FLAG_DOCUMENTS)
 			return list(/datum/theft_objective/highrisk/documents)
 		else
 			return GLOB.potential_theft_objectives
@@ -1211,7 +1211,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/blood/New()
-	if (!target_amount)
+	if(!target_amount)
 		gen_amount_goal()
 
 	. = ..()
@@ -1851,7 +1851,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		for(var/I in ssd.files.known_tech)
 			var/datum/tech/T = ssd.files.known_tech[I]
 			sum_of_techs += T.level
-			if (sum_of_techs >= req_techs)
+			if(sum_of_techs >= req_techs)
 				return TRUE
 	return FALSE
 
@@ -1861,18 +1861,18 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	explanation_text = "Украдите любого меха или любой под."
 
 /datum/objective/mecha_or_pod_hijack/check_completion()
-	for (var/obj/mecha/mecha in range(3, owner.current))
-		if (mecha.occupant == owner.current)
+	for(var/obj/mecha/mecha in range(3, owner.current))
+		if(mecha.occupant == owner.current)
 			return TRUE
 
-		if (!mecha.occupant)
+		if(!mecha.occupant)
 			return TRUE
 
-	for (var/obj/spacepod/pod in range(3, owner.current))
-		if (pod.pilot == owner.current)
+	for(var/obj/spacepod/pod in range(3, owner.current))
+		if(pod.pilot == owner.current)
 			return TRUE
 
-		if (!pod.pilot)
+		if(!pod.pilot)
 			return TRUE
 
 	return FALSE
@@ -1883,13 +1883,13 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/new_mini_traitor/find_target(list/target_blacklist)
 	..()
-	if (target)
+	if(target)
 		update_explanation()
 
 	return target
 
 /datum/objective/new_mini_traitor/proc/update_explanation()
-	if (target)
+	if(target)
 		explanation_text = "Implant [target.current.real_name], the [target.assigned_role] with a modified mindslave implant. You can find it in uplink."
 
 /datum/objective/new_mini_traitor/on_objective_gain()
@@ -1921,10 +1921,10 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/harvest_blood/check_completion()
 	var/list/minds = list()
 	for(var/obj/item/blood_harvester/BH in owner.current.get_contents())
-		if (!BH.target)
+		if(!BH.target)
 			continue
 
-		if (BH.target in minds)
+		if(BH.target in minds)
 			continue
 
 		minds += BH.target
@@ -1940,7 +1940,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/new_mini_vampire/find_target(list/target_blacklist)
 	..()
-	if (target)
+	if(target)
 		update_explanation()
 
 	return target
@@ -1952,7 +1952,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
 		var/datum/uplink_item/affiliate/for_objective/hemophagus_extract/I = new
-		if (target)
+		if(target)
 			I.desc += "\nIt is intended for [target.current.real_name], the [target.assigned_role]."
 		traitor.hidden_uplink.uplink_items.Add(I)
 
@@ -2023,7 +2023,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		target = pick(possible_targets)
 		var/datum/antagonist/traitor/traitor = target.has_antag_datum(/datum/antagonist/traitor)
 		explanation_text += " Target is agent."
-		if (traitor.hidden_uplink)
+		if(traitor.hidden_uplink)
 			explanation_text += " Target's uplink lock code is \"[traitor.hidden_uplink.lock_code]\"."
 		SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
 	else
@@ -2036,7 +2036,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/new_mini_changeling/find_target(list/target_blacklist)
 	..()
-	if (target)
+	if(target)
 		update_explanation()
 
 	return target
@@ -2048,7 +2048,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor)
 		var/datum/uplink_item/affiliate/for_objective/cling_extract/I = new
-		if (target)
+		if(target)
 			I.desc += "\nIt is intended for [target.current.real_name], the [target.assigned_role]."
 		traitor.hidden_uplink.uplink_items.Add(I)
 
@@ -2070,13 +2070,13 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/borers = 0
 
 	for(var/mob/living/M in GLOB.alive_mob_list)
-		if (istype(M, /mob/living/simple_animal/borer))
+		if(istype(M, /mob/living/simple_animal/borer))
 			borers++
 			continue
 
-		if (ishuman(M))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if (H.has_brain_worms())
+			if(H.has_brain_worms())
 				borers++
 
 	for(var/mob/living/simple_animal/borer/C in GLOB.alive_mob_list)

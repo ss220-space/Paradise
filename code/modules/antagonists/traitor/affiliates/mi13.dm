@@ -52,17 +52,17 @@
 	new /obj/item/CQC_manual(src)
 
 /obj/item/storage/box/bond_bundle/New()
-	if (prob(5))
+	if(prob(5))
 		icon_state = "joker"
 		new /obj/item/toy/plushie/blahaj/twohanded(src)
 
 	. = ..()
 
 /obj/item/pen/intel_data/proc/upgrade(obj/item/uplink/U)
-	if (!istype(U) || QDELETED(U))
+	if(!istype(U) || QDELETED(U))
 		return
 
-	if (U.get_intelligence_data)
+	if(U.get_intelligence_data)
 		usr.balloon_alert(usr, "Уже улучшено")
 		return ATTACK_CHAIN_PROCEED
 
@@ -106,7 +106,7 @@
 /obj/item/clothing/gloves/ring/gadget/attack_self(mob/user)
 	. = ..()
 
-	if (changing)
+	if(changing)
 		user.balloon_alert(user, "Подождите")
 		return
 
@@ -114,7 +114,7 @@
 
 	var/list/choices // only types that we can meet in the game
 
-	if (!stud)
+	if(!stud)
 		choices = list(
 			"iron" = image(icon = 'icons/obj/clothing/rings.dmi', icon_state = "ironring"),
 			"silver" = image(icon = 'icons/obj/clothing/rings.dmi', icon_state = "silverring"),
@@ -175,7 +175,7 @@
 	if(user.a_intent != INTENT_DISARM)
 		return
 
-	if (get_dist(user, A) > 1)
+	if(get_dist(user, A) > 1)
 		return
 
 	if(user.incapacitated())
@@ -183,25 +183,25 @@
 
 	var/obj/item/clothing/gloves/ring/gadget/ring = user.gloves
 
-	if (ring.breaking)
+	if(ring.breaking)
 		return
 
-	if (!istype(A, /obj/structure/window))
+	if(!istype(A, /obj/structure/window))
 		return
 
-	if (!COOLDOWN_FINISHED(ring, operation_cooldown))
+	if(!COOLDOWN_FINISHED(ring, operation_cooldown))
 		user.balloon_alert(user, "Идет перезарядка")
 		return
 
 	ring.breaking = TRUE
-	if (do_after(user, ring.stud ? ring.op_time_upgaded : ring.op_time))
+	if(do_after(user, ring.stud ? ring.op_time_upgaded : ring.op_time))
 		COOLDOWN_START(ring, operation_cooldown, ring.stud ? ring.op_cd_time_upgaded : ring.op_cd_time)
 
 		ring.visible_message(span_warning("BANG"))
 		playsound(ring, 'sound/effects/bang.ogg', 100, TRUE)
 
 		for (var/mob/living/M in range(A, 3))
-			if (M.check_ear_prot() == HEARING_PROTECTION_NONE)
+			if(M.check_ear_prot() == HEARING_PROTECTION_NONE)
 				M.Deaf(6 SECONDS)
 
 		for (var/obj/structure/grille/grille in A.loc)

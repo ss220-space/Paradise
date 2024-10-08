@@ -107,7 +107,7 @@
 
 /obj/item/cling_extract/examine(mob/user)
 	. = ..()
-	if (target)
+	if(target)
 		. += span_info("It is intended for [target]")
 
 /obj/item/cling_extract/self
@@ -159,32 +159,32 @@
 	for(var/mob/living/M in GLOB.alive_mob_list)
 		var/mob/living/simple_animal/borer/B
 
-		if (istype(M, /mob/living/simple_animal/borer))
+		if(istype(M, /mob/living/simple_animal/borer))
 			B = M
 
-		if (ishuman(M))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			B = H.has_brain_worms()
 
-		if (!B)
+		if(!B)
 			continue
 
 		var/turf/T1 = get_turf(user)
 		var/turf/T2 = get_turf(B)
-		if (T1.z != T2.z)
+		if(T1.z != T2.z)
 			continue
 
-		if (B.stat == DEAD)
+		if(B.stat == DEAD)
 			dead++
 			continue
 		else
 			alive++
 
-		if (M.mind)
+		if(M.mind)
 			with_mind++
 
-		if (B.host)
-			if (B.host.mind)
+		if(B.host)
+			if(B.host.mind)
 				in_body_with_mind++
 			else
 				in_body_without_mind++
@@ -207,42 +207,42 @@
 	for(var/mob/living/M in GLOB.alive_mob_list)
 		var/mob/living/simple_animal/borer/B
 
-		if (istype(M, /mob/living/simple_animal/borer))
+		if(istype(M, /mob/living/simple_animal/borer))
 			B = M
 
-		if (ishuman(M))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			B = H.has_brain_worms()
 
-		if (!B)
+		if(!B)
 			continue
 
 		var/turf/T1 = get_turf(user)
 		var/turf/T2 = get_turf(B)
-		if (T1.z != T2.z)
+		if(T1.z != T2.z)
 			continue
 
 		borers[B.truename] = B
 		borer_names += B.truename
 
 	var/borer_name = input("Выберите искомого борера", "Выбор борера") as null|anything in borer_names
-	if (!borer_name)
+	if(!borer_name)
 		return
 
 	var/mob/living/simple_animal/borer/borer = borers[borer_name]
 
 	var/list/scan_data = list()
-	if (borer.stat == DEAD)
+	if(borer.stat == DEAD)
 		scan_data += "Выбранный борер мертв."
 
 	scan_data += "Местоположение - (X: [borer.x] Y: [borer.y])"
 
-	if (borer.host)
+	if(borer.host)
 		scan_data += "Имеется носитель" + (borer.host.dna?.species ? (" расы " + span_boldnotice("[borer.host.dna?.species]")) : ".")
 		scan_data += "Имя носителя - [borer.host.real_name]."
 	else
 		scan_data += "Носитель не обнаружен."
-		if (is_ventcrawling(borer))
+		if(is_ventcrawling(borer))
 			scan_data += "Субъект находится в вентиляции."
 
 	var/datum/browser/popup = new(user, "scanner", "Поиск борера", 300, 300)
@@ -251,11 +251,11 @@
 
 /obj/item/borer_scanner/attack_self(mob/user)
 	var/datum/antagonist/traitor/traitor = user?.mind?.has_antag_datum(/datum/antagonist/traitor)
-	if (!traitor || !istype(traitor?.affiliate, /datum/affiliate/tiger))
+	if(!traitor || !istype(traitor?.affiliate, /datum/affiliate/tiger))
 		to_chat(user, span_warning("[src] looks broken."))
 		return
 
-	if (!COOLDOWN_FINISHED(src, scan_cooldown))
+	if(!COOLDOWN_FINISHED(src, scan_cooldown))
 		user.balloon_alert(user, "Перезарядка не завершена")
 		return
 
@@ -274,28 +274,28 @@
 
 /obj/item/borer_scanner/afterattack(atom/target, mob/user, proximity, params)
 	var/datum/antagonist/traitor/traitor = user.mind.has_antag_datum(/datum/antagonist/traitor)
-	if (!traitor || !istype(traitor?.affiliate, /datum/affiliate/tiger))
+	if(!traitor || !istype(traitor?.affiliate, /datum/affiliate/tiger))
 		to_chat(user, span_warning("[src] looks broken."))
 		return
 
-	if (istype(target, /mob/living/carbon/human))
+	if(istype(target, /mob/living/carbon/human))
 		var/mob/living/carbon/human/host = target
 		target = host.has_brain_worms()
-		if (!target)
+		if(!target)
 			user.balloon_alert(user, "Бореров не обнаружено")
 			return
 
-	if (!istype(target, /mob/living/simple_animal/borer))
+	if(!istype(target, /mob/living/simple_animal/borer))
 		return
 
-	if (!COOLDOWN_FINISHED(src, scan_cooldown))
+	if(!COOLDOWN_FINISHED(src, scan_cooldown))
 		user.balloon_alert(user, "Перезарядка не завершена")
 		return
 
 	var/mob/living/simple_animal/borer/borer = target
 
 	var/list/scan_data = list()
-	if (borer.stat == DEAD)
+	if(borer.stat == DEAD)
 		scan_data += "Текущая особь мертва." // OMG! REALLY? 0_0
 
 	scan_data += "Здоровье: [round(borer.health / borer.maxHealth * 100)]%"
@@ -304,7 +304,7 @@
 	scan_data += "Количество размножений: [borer.children]"
 	scan_data += "Химикаты: [borer.chemicals]"
 
-	if (borer.master_name != "")
+	if(borer.master_name != "")
 		scan_data += span_info("Эта особь принадлежит к подвиду выведенному для помощи агентам.")
 
 	var/datum/browser/popup = new(user, "scanner", borer.truename, 300, 300)
@@ -356,19 +356,19 @@
 	for(var/mob/living/M in GLOB.alive_mob_list)
 		var/mob/living/simple_animal/borer/B
 
-		if (istype(M, /mob/living/simple_animal/borer))
+		if(istype(M, /mob/living/simple_animal/borer))
 			B = M
 
-		if (ishuman(M))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			B = H.has_brain_worms()
 
-		if (!B)
+		if(!B)
 			continue
 
 		var/turf/T1 = get_turf(user)
 		var/turf/T2 = get_turf(B)
-		if (T1.z != T2.z)
+		if(T1.z != T2.z)
 			continue
 
 		borers_names += B.truename
@@ -385,11 +385,11 @@
 		to_chat(user, span_warning("Цель больше не существует."))
 		return
 
-	if (target.stat == DEAD)
+	if(target.stat == DEAD)
 		to_chat(user, span_warning("Цель мертва."))
 		return
 
-	if (target.host && target.controlling)
+	if(target.host && target.controlling)
 		target = target.host
 
 	return list(target)
@@ -417,28 +417,28 @@
 		return
 
 	var/say = tgui_input_text(user, "Что вы хотите сообщить?", "Сообшение борерам")
-	if (!say)
+	if(!say)
 		return
 
 	for(var/mob/living/M in GLOB.alive_mob_list)
 		var/mob/living/simple_animal/borer/B
 
-		if (istype(M, /mob/living/simple_animal/borer))
+		if(istype(M, /mob/living/simple_animal/borer))
 			B = M
 
-		if (ishuman(M))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			B = H.has_brain_worms()
 
-		if (!B)
+		if(!B)
 			continue
 
 		var/turf/T1 = get_turf(user)
 		var/turf/T2 = get_turf(B)
-		if (T1.z != T2.z)
+		if(T1.z != T2.z)
 			continue
 
-		if (B.host && B.controlling)
+		if(B.host && B.controlling)
 			to_chat(B.host, "Голос в голове говорит: \"" + span_alien(say) + "\"")
 			SEND_SOUND(B.host, 'sound/effects/adminhelp.ogg')
 		else
@@ -469,7 +469,7 @@
 
 	var/say = tgui_input_text(user, "Что вы хотите сообщить?", "[targets[1]]")
 
-	if (!say)
+	if(!say)
 		return
 
 	for(var/mob/living/target in targets)
@@ -486,7 +486,7 @@
 	new /obj/item/implanter/borer(src)
 
 /obj/item/storage/box/syndie_kit/borer/New()
-	if (prob(5))
+	if(prob(5))
 		icon = 'icons/obj/affiliates.dmi'
 		icon_state = "joker"
 		new /obj/item/toy/plushie/blahaj/twohanded(src)
@@ -532,7 +532,7 @@
 	uses = 1
 
 /obj/item/implant/cling_rejuv/activate()
-	if (imp_in.stat != DEAD)
+	if(imp_in.stat != DEAD)
 		imp_in.balloon_alert(imp_in, "Вы все еще живы!")
 		return
 

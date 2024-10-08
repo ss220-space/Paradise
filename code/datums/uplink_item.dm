@@ -90,7 +90,7 @@
 /datum/uplink_item/New()
 	. = ..()
 	desc += " Предоставлено "
-	if (made_by == "")
+	if(made_by == "")
 		desc += pick(AFFIL_CYBERSUN, AFFIL_GORLEX, AFFIL_HEMATOGENIC, AFFIL_MI13, AFFIL_SELF, AFFIL_TIGER, AFFIL_WAFFLE, AFFIL_DONK, AFFIL_WAFFLE, AFFIL_BIOTECH, AFFIL_MIME, AFFIL_CLOWN, AFFIL_SOL)
 	desc += made_by + "."
 

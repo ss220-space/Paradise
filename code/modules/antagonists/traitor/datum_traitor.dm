@@ -37,23 +37,23 @@
 		owner.som = new /datum/mindslaves
 
 	owner.som.masters += owner
-	if (ishuman(owner.current) && gen_affiliate && (force_affiliate || CONFIG_GET(flag/enable_syndicate_affiliates)))
+	if(ishuman(owner.current) && gen_affiliate && (force_affiliate || CONFIG_GET(flag/enable_syndicate_affiliates)))
 		RegisterSignal(src, COMSIG_MOB_DEATH, PROC_REF(grant_enemy_affiliates))
 		give_affiliates()
-	else if (give_objectives)
+	else if(give_objectives)
 		old_give_objectives()
 	return ..()
 
 /datum/antagonist/traitor/proc/grant_enemy_affiliates()
 	for (var/mob/M in range(5, owner.current))
 		var/datum/antagonist/traitor/another_traitor = M.mind.has_antag_datum(/datum/antagonist/traitor)
-		if (!another_traitor)
+		if(!another_traitor)
 			continue
 
-		if (another_traitor.killed_enemy_agents.len >= LIMIT_KILLING_ENEMY_REWARDS)
+		if(another_traitor.killed_enemy_agents.len >= LIMIT_KILLING_ENEMY_REWARDS)
 			continue
 
-		if (src in another_traitor.killed_enemy_agents)
+		if(src in another_traitor.killed_enemy_agents)
 			continue
 
 		another_traitor.killed_enemy_agents.Add(src)
@@ -77,7 +77,7 @@
 /datum/antagonist/traitor/proc/grant_affiliate(var/path)
 	var/datum/affiliate/new_affiliate = new path
 	affiliate = new_affiliate
-	if (affiliate.slogan)
+	if(affiliate.slogan)
 		to_chat(owner.current, span_info(affiliate.slogan))
 
 /datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
@@ -131,11 +131,11 @@
 	SSticker.mode.traitors -= owner
 
 /datum/mind/proc/has_big_obj()
-	if (locate(/datum/objective/hijack) in get_all_objectives())
+	if(locate(/datum/objective/hijack) in get_all_objectives())
 		return TRUE
-	if (locate(/datum/objective/blood/ascend) in get_all_objectives())
+	if(locate(/datum/objective/blood/ascend) in get_all_objectives())
 		return TRUE
-	if (locate(/datum/objective/make_ai_malf) in get_all_objectives())
+	if(locate(/datum/objective/make_ai_malf) in get_all_objectives())
 		return TRUE
 	return FALSE
 
@@ -202,7 +202,7 @@
 
 	//Assign objectives
 	var/datum/objective/steal/exchange/exchange_objective = new
-	if (!exchange_objective.target)
+	if(!exchange_objective.target)
 		return
 	exchange_objective.set_faction(faction, ((faction == "red") ? SSticker.mode.exchange_blue : SSticker.mode.exchange_red))
 	exchange_objective.owner = owner

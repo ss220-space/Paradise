@@ -53,10 +53,10 @@
 	return
 
 /obj/item/proprietary_ssd/afterattack(atom/target, mob/user, proximity, params)
-	if (istype(target, /obj/machinery/r_n_d/destructive_analyzer))
+	if(istype(target, /obj/machinery/r_n_d/destructive_analyzer))
 		return
 
-	if (get_dist(user, target) > 1)
+	if(get_dist(user, target) > 1)
 		user.balloon_alert(user, "Слишком далеко")
 		return
 
@@ -167,7 +167,7 @@
 	var/obj/mecha/mecha = target
 	var/obj/spacepod/pod = target
 
-	if (istype(mecha))
+	if(istype(mecha))
 		do_sparks(5, 1, mecha)
 		mecha.dna = null
 		mecha.operation_req_access = list()
@@ -175,7 +175,7 @@
 
 		user.visible_message(span_warning("[user] hacked [mecha] using [src]."), span_info("You hacked [mecha] using [src]."))
 
-		if (mecha.occupant)
+		if(mecha.occupant)
 			to_chat(mecha.occupant, span_danger("You were thrown out of [mecha]."))
 
 			mecha.occupant.forceMove(get_turf(mecha))
@@ -184,13 +184,13 @@
 			mecha.occupant.throw_at(pick(orange(2)))
 			mecha.occupant = null
 
-	else if (istype(pod))
+	else if(istype(pod))
 		do_sparks(5, 1, pod)
 		pod.unlocked = TRUE
 
 		user.visible_message(span_warning("[user] hacked [pod] using [src]."), span_info("You hacked [pod] using [src]."))
 
-		if (pod.pilot) // It is not ejecting passangers
+		if(pod.pilot) // It is not ejecting passangers
 			to_chat(pod.pilot, span_danger("You were thrown out of [pod]."))
 
 			pod.eject_pilot()
@@ -284,7 +284,7 @@
 	log_admin("[key_name_admin(user)] has made [key_name_admin(mindslave_target)] mini traitor.")
 
 	var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
-	if (!T)
+	if(!T)
 		return ..()
 
 	for(var/datum/objective/new_mini_traitor/objective in T.objectives)

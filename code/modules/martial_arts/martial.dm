@@ -397,7 +397,7 @@
 		if(ischangeling(user)) //Changelings
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
-		else if (isvampire(user)) //Vampires
+		else if(isvampire(user)) //Vampires
 			to_chat(user, "<span class ='warning'>Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!</span>")
 			return
 		else
@@ -444,7 +444,7 @@
 		else
 			var/datum/antagonist/traitor/traitor = user?.mind?.has_antag_datum(/datum/antagonist/traitor)
 			var/datum/affiliate/aff = traitor?.affiliate
-			if (istype(aff, /datum/affiliate/hematogenic) || istype(aff, /datum/affiliate/tiger))
+			if(istype(aff, /datum/affiliate/hematogenic) || istype(aff, /datum/affiliate/tiger))
 				to_chat(user, span_warning("Изучение этого боевого искусства противоречит вашей идеологии."))
 				return
 

@@ -74,7 +74,7 @@
 	target.mind.add_antag_datum(vamp)
 	var/datum/antagonist/vampire/vampire = target.mind.has_antag_datum(/datum/antagonist/vampire)
 	vampire.upgrade_tiers -= /obj/effect/proc_holder/spell/vampire/self/specialize
-	if (isAdvanced)
+	if(isAdvanced)
 		vamp.add_subclass(SUBCLASS_ADVANCED, TRUE)
 
 	vampire.add_objective((!isAdvanced) ? /datum/objective/blood : /datum/objective/blood/ascend)
@@ -82,7 +82,7 @@
 	item_state = "inj_used"
 	update_icon(UPDATE_ICON_STATE)
 	var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
-	if (!T)
+	if(!T)
 		return
 	for(var/datum/objective/new_mini_vampire/objective in T.objectives)
 		if(target.mind == objective.target)
@@ -99,7 +99,7 @@
 
 /obj/item/hemophagus_extract/examine(mob/user)
 	. = ..()
-	if (target)
+	if(target)
 		. += span_info("It is intended for [target]")
 
 /obj/item/hemophagus_extract/self
@@ -140,7 +140,7 @@
 		to_chat(user, span_warning("[src] is already used!"))
 		return
 
-	if (HAS_TRAIT(target, TRAIT_NO_BLOOD) || HAS_TRAIT(target, TRAIT_EXOTIC_BLOOD))
+	if(HAS_TRAIT(target, TRAIT_NO_BLOOD) || HAS_TRAIT(target, TRAIT_EXOTIC_BLOOD))
 		user.balloon_alert(target, "Кровь не обнаружена!")
 		return
 
@@ -155,7 +155,7 @@
 	return TRUE
 
 /obj/item/blood_harvester/afterattack(atom/target, mob/user, proximity, params)
-	if (!can_harvest(target, user))
+	if(!can_harvest(target, user))
 		return
 
 	var/mob/living/carbon/human/H = target
@@ -165,14 +165,14 @@
 		harvest(user, H)
 
 /obj/item/blood_harvester/proc/harvest(mob/living/carbon/human/user, mob/living/carbon/human/target)
-	if (!can_harvest(target, user))
+	if(!can_harvest(target, user))
 		return
 
 	playsound(src, 'sound/goonstation/items/hypo.ogg', 80)
 	target.visible_message(span_warning("[user] collected [target]'s blood using [src]!"), span_danger("[user] collected your blood using [src]!"))
 	target.emote("scream")
 	for (var/i = 0; i < 3; ++i)
-		if (prob(60))
+		if(prob(60))
 			continue
 
 		var/obj/item/organ/external/bodypart = pick(target.bodyparts)
@@ -189,7 +189,7 @@
 
 /obj/item/blood_harvester/attack_self(mob/user)
 	. = ..()
-	if (!used)
+	if(!used)
 		user.balloon_alert(src, "уже пусто")
 		return
 
@@ -206,11 +206,11 @@
 /obj/item/blood_harvester/examine(mob/user)
 	. = ..()
 
-	if (!used)
+	if(!used)
 		. += span_info("Кровь не собрана.")
 		return
 
-	if (user?.mind.has_antag_datum(/datum/antagonist/traitor))
+	if(user?.mind.has_antag_datum(/datum/antagonist/traitor))
 		. += span_info("Собрана кровь с отпечатком души [target.name].")
 	else
 		. += span_info("Кровь собрана.")

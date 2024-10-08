@@ -846,7 +846,7 @@
 /datum/mind/Topic(href, href_list)
 	//проверяем на амбиции, после чего прерываем выполнение, иначе он залезет в админский антаг-панель
 	var/ambition_func = ambition_topic(href, href_list)
-	if (ambition_func)
+	if(ambition_func)
 		return
 
 	if(!check_rights(R_ADMIN))
@@ -1544,7 +1544,7 @@
 					log_admin("[key_name(usr)] has automatically forged wizard objectives for [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has automatically forged wizard objectives for [key_name_admin(current)]")
 				else if(src in SSticker.mode.apprentices)
-					if (SSticker.mode.wizards.len)
+					if(SSticker.mode.wizards.len)
 						var/datum/mind/wizard = pick(SSticker.mode.wizards)
 						SSticker.mode.forge_wizard_apprentice_objectives(wizard, src)
 					else
@@ -1966,7 +1966,7 @@
 					log_admin("[key_name(usr)] has traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
 
-			if ("traitor_choose_affil")
+			if("traitor_choose_affil")
 				if(!(has_antag_datum(/datum/antagonist/traitor)))
 					var/datum/antagonist/traitor/traitor_datum = new()
 					traitor_datum.give_objectives = FALSE
@@ -1980,7 +1980,7 @@
 				if(!(has_antag_datum(/datum/antagonist/traitor)))
 					var/type = input(usr, "Выберите подрядчика", "Выбор подрядчика") as null|anything in subtypesof(/datum/affiliate)
 
-					if (type)
+					if(type)
 						var/datum/antagonist/traitor/traitor_datum = new()
 						traitor_datum.gen_affiliate = FALSE
 						traitor_datum.give_uplink = FALSE

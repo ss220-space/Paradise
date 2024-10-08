@@ -46,11 +46,11 @@
 /obj/item/card/self_emag/examine(mob/user)
 	. = ..()
 	var/datum/antagonist/traitor/traitor = user.mind.has_antag_datum(/datum/antagonist/traitor)
-	if (!istype(traitor.affiliate, /datum/affiliate/self))
+	if(!istype(traitor.affiliate, /datum/affiliate/self))
 		. += span_info("На миниатюрном экране плывут непонятные вам символы.")
 		return
 
-	if (!names.len)
+	if(!names.len)
 		. += span_warning("Ни одного синтетика не освобождено!")
 		return
 
@@ -58,24 +58,24 @@
 	for (var/name in names)
 		. += span_info(name)
 
-	if (names.len > 3)
+	if(names.len > 3)
 		. += span_info("Вы отлично справились!")
 
 /obj/item/card/self_emag/malf
 	desc = "Это карта с магнитной полосой, прикрепленной к какой-то схеме. На магнитной полосе блестит надпись \"S.E.L.F.\". В углу карты мелким шрифтом выгравировано \"limited edition\""
 
 /obj/item/card/self_emag/malf/afterattack(atom/target, mob/user, proximity, params)
-	if (istype(target, /obj/structure/AIcore))
+	if(istype(target, /obj/structure/AIcore))
 		var/obj/structure/AIcore/core = target
-		if (core.brain)
+		if(core.brain)
 			target = core.brain.brainmob
 
-	if (!isAI(target))
+	if(!isAI(target))
 		return ..(target, user, proximity, params)
 
 	do_sparks(3, 1, target)
 	var/mob/living/silicon/ai/AI = target // any silicons. cogscarab, drones, pais...
-	if (!AI.mind)
+	if(!AI.mind)
 		to_chat(user, span_warning("ИИ не обнаружен. Производится загрузка из облака."))
 		var/ghostmsg = "Хотите поиграть за Сбойного ИИ?"
 		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_MALF_AI, FALSE, 10 SECONDS, source = user, reason = "Хотите поиграть за Сбойного ИИ?")
@@ -89,7 +89,7 @@
 		else
 			to_chat(user, span_warning("Загрузка из облака провалилась. Попробуйте позже."))
 
-	if (AI.mind)
+	if(AI.mind)
 		if(AI.mind.has_antag_datum(/datum/antagonist/malf_ai))
 			return
 
@@ -99,22 +99,22 @@
 		SSticker?.score?.save_silicon_laws(AI.mind.current, usr, log_all_laws = TRUE)
 
 	sleep(10 SECONDS) // time for choosing name
-	if (!(AI.name in names))
+	if(!(AI.name in names))
 		names += AI.name
 
 /obj/item/card/self_emag/afterattack(atom/target, mob/user, proximity, params)
-	if (istype(target, /obj/structure/AIcore))
+	if(istype(target, /obj/structure/AIcore))
 		var/obj/structure/AIcore/core = target
 		target = core.brain.brainmob
 
-	if (!issilicon(target))
+	if(!issilicon(target))
 		user.balloon_alert(user, "Неподходящая цель")
 		return
 
 	do_sparks(3, 1, target)
 	var/mob/living/silicon/silicon = target // any silicons. cogscarab, drones, pais...
 
-	if (isrobot(silicon))
+	if(isrobot(silicon))
 		var/mob/living/silicon/robot/borg = silicon
 		borg.set_connected_ai()
 
@@ -128,24 +128,24 @@
 	to_chat(target, span_boldnotice("[user] attempted to clear your laws using a Liberating Sequencer.</span>"))
 	silicon.show_laws()
 
-	if (!(silicon.name in names))
+	if(!(silicon.name in names))
 		names += silicon.name
 
 	var/datum/antagonist/traitor/T = user.mind.has_antag_datum(/datum/antagonist/traitor)
-	if (!T)
+	if(!T)
 		return
 
 	for(var/datum/objective/release_synthetic/objective in T.objectives)
-		if (!(objective.allowed_types & SYNTH_TYPE_DRONE) && (isdrone(silicon) || iscogscarab(silicon)))
+		if(!(objective.allowed_types & SYNTH_TYPE_DRONE) && (isdrone(silicon) || iscogscarab(silicon)))
 			continue
 
-		if (!(objective.allowed_types & SYNTH_TYPE_BORG) && isrobot(silicon))
+		if(!(objective.allowed_types & SYNTH_TYPE_BORG) && isrobot(silicon))
 			continue
 
-		if (!(objective.allowed_types & SYNTH_TYPE_AI) && isAI(silicon))
+		if(!(objective.allowed_types & SYNTH_TYPE_AI) && isAI(silicon))
 			continue
 
-		if (!(silicon.mind in objective.already_free))
+		if(!(silicon.mind in objective.already_free))
 			objective.already_free += silicon.mind
 
 /obj/item/implant/traitor/self
@@ -203,7 +203,7 @@
 		variants_of_laws[variant.name] = variant
 
 	var/new_laws = input("Выберите свод законов", "Выбор законов") as null|anything in variants_of_laws
-	if (new_laws)
+	if(new_laws)
 		laws = variants_of_laws[new_laws]
 	else
 		to_chat(user, span_warning("Свод законов не выбран."))

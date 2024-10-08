@@ -224,7 +224,7 @@
 /obj/item/projectile/bullet/midbullet3/blood/on_hit(atom/target, blocked = 0)
 	if(..(target, blocked) && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if (H)
+		if(H)
 			H.bleed(100)
 
 /obj/item/projectile/bullet/midbullet3/fire/on_hit(atom/target, blocked = 0)

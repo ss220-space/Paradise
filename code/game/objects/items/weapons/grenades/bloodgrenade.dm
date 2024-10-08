@@ -19,13 +19,13 @@
 	STOP_PROCESSING(SSprocessing, src)
 	do_sparks(10, TRUE, src)
 
-	for (var/turf/T in view(min(10, sqrt(blood / 10)), src))
+	for(var/turf/T in view(min(10, sqrt(blood / 10)), src))
 		var/D = get_dist(src, T)
-		if (prob(D * D / 2))
+		if(prob(D * D / 2))
 			continue
 
 		new/obj/effect/decal/cleanable/blood(T)
-		for (var/mob/living/M in T)
+		for(var/mob/living/M in T)
 			M.adjustFireLoss(blood / 25)
 
 	qdel(src)

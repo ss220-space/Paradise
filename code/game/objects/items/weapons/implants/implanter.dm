@@ -82,5 +82,5 @@
 	return ..()
 
 /obj/item/implanter/attack_self(mob/user)
-	if (imp)
+	if(imp)
 		imp.on_attack_self(user)

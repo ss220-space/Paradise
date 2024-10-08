@@ -57,7 +57,7 @@
 	mob_override.RemoveSpell(/obj/effect/proc_holder/spell/choose_affiliate)
 
 /datum/affiliate/proc/give_bonus_objectives(datum/mind/mind)
-	if (!can_take_bonus_objectives)
+	if(!can_take_bonus_objectives)
 		return
 
 	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
@@ -114,20 +114,20 @@
 
 /datum/antagonist/traitor/proc/give_affiliate(datum/mind/mind, path)
 	grant_affiliate(path)
-	if (istype(affiliate, /datum/affiliate/gorlex))
-		if (20 MINUTES - SSticker.round_start_time > 0)
+	if(istype(affiliate, /datum/affiliate/gorlex))
+		if(20 MINUTES - SSticker.round_start_time > 0)
 			to_chat(mind.current, span_info("Аплинк будет активирован через 20 минут от начала смены.\n\
 			Спасибо что выбрали Gorlex Maraduers.\n\
 			Слава синдикату!"))
 			sleep(20 MINUTES - SSticker.round_start_time)
 
 	var/datum/antagonist/traitor/traitor = mind.has_antag_datum(/datum/antagonist/traitor)
-	if (!traitor)
+	if(!traitor)
 		return
 	give_uplink()
 	affiliate.give_objectives(mind)
 	show_objectives(mind)
-	if (hidden_uplink)
+	if(hidden_uplink)
 		hidden_uplink.affiliate = affiliate
 		hidden_uplink.can_bonus_objectives = affiliate.can_take_bonus_objectives
 		affiliate.uplink = hidden_uplink
@@ -140,7 +140,7 @@
 		return
 
 	var/datum/antagonist/traitor/traitor = ui.user.mind.has_antag_datum(/datum/antagonist/traitor)
-	if (traitor.affiliate)
+	if(traitor.affiliate)
 		return
 
 	switch(action)

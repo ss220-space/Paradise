@@ -16,7 +16,7 @@
 
 	var/datum/antagonist/traitor/traitor = user.mind.has_antag_datum(/datum/antagonist/traitor)
 	var/datum/affiliate/aff = traitor?.affiliate
-	if (istype(aff, /datum/affiliate/self))
+	if(istype(aff, /datum/affiliate/self))
 		to_chat(user, span_warning("Это сильно противоречит вашим убеждениям!"))
 		return ATTACK_CHAIN_PROCEED
 
