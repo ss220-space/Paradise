@@ -19,10 +19,11 @@
 
 	if(!disease)
 		return FALSE
-	disease.RegisterSignal(disease.affected_mob, COMSIG_LIVING_RECEIVED_LANGUAGE, PROC_REF(store_and_remove_languages))
 
 	affected_mob = disease.affected_mob
 	store_and_remove_languages()
+
+	disease.RegisterSignal(affected_mob, COMSIG_LIVING_RECEIVED_LANGUAGE, PROC_REF(store_and_remove_languages))
 
 /datum/disease/virus/babylonian_fever/stage_act()
 	if(!..())
@@ -63,10 +64,10 @@
 			affected_mob.add_language(lan.name)
 	..()
 
-/datum/disease/virus/babylonian_fever/Destroy()
-	LAZYCLEARLIST(stored_languages)
+//datum/disease/virus/babylonian_fever/Destroy()
+	//LAZYCLEARLIST(stored_languages)
 
-	return ..()
+	//return ..()
 
 /datum/disease/virus/babylonian_fever/proc/store_and_remove_languages()
 	// Remove existing languages
