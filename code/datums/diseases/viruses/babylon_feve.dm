@@ -61,3 +61,4 @@
 			stored_languages.Cut() // Clear the stored languages
 
 		return TRUE
+
