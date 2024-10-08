@@ -42,11 +42,8 @@
 				)
 
 	// Store languages on first stage activation
-	if(stage == 1 && !stored_languages.len && affected_mob.languages)
-		stored_languages = affected_mob.languages.Copy()
-	else
-		if(affected_mob.languages)
-			stored_languages += affected_mob.languages.Copy()
+	if(affected_mob.languages)
+		stored_languages += affected_mob.languages.Copy()
 
 	// Remove existing languages
 	if(affected_mob.languages)
