@@ -97,14 +97,14 @@
 
 	applying = TRUE
 	update_icon()
-	apply_to(target, user, 0.2) // We apply a very weak application up front, then loop.
+	apply_to(target, user, 0.2, TRUE, def_zone) // We apply a very weak application up front, then loop.
 	add_attack_logs(user, target, "Started mending with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
 	var/cycle_count = 0
 
 	var/measured_health = 0
 	while(do_after(user, 1 SECONDS, target))
 		measured_health = target.health
-		apply_to(target, user, 1, FALSE)
+		apply_to(target, user, 1, FALSE, def_zone)
 		if(measured_health == target.health)
 			to_chat(user, span_notice("[target] is finished healing and [src] powers down automatically."))
 			break
@@ -118,13 +118,13 @@
 	update_icon()
 
 
-/obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/M, mob/user, multiplier = 1, show_message = TRUE)
+/obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/M, mob/user, multiplier = 1, show_message = TRUE, def_zone)
 	var/total_applied_amount = applied_amount * multiplier
 
 	if(reagents && reagents.total_volume)
 		var/fractional_applied_amount = total_applied_amount  / reagents.total_volume
 
-		reagents.reaction(M, REAGENT_TOUCH, fractional_applied_amount, show_message)
+		reagents.reaction(M, REAGENT_TOUCH, fractional_applied_amount, show_message, ignore_flags, def_zone)
 		reagents.trans_to(M, total_applied_amount * 0.5)
 		reagents.remove_any(total_applied_amount * 0.5)
 

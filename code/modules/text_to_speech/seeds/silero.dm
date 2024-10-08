@@ -5302,3 +5302,73 @@
 	category = TTS_CATEGORY_OTHER
 	gender = TTS_GENDER_MALE
 	donator_level = 1
+
+/datum/tts_seed/silero/last_years_snow_man
+	name = "last_years_snow_man"
+	value = "last_years_snow_man"
+	category = TTS_CATEGORY_OTHER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/marine2_titus
+	name = "Titus"
+	value = "marine2_titus"
+	category = TTS_CATEGORY_WARHAMMER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/marine2_berserk
+	name = "Berserk"
+	value = "marine2_berserk"
+	category = TTS_CATEGORY_WARHAMMER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/marine2_gadriel
+	name = "Gadriel"
+	value = "marine2_gadriel"
+	category = TTS_CATEGORY_WARHAMMER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/marine2_chairon
+	name = "Chairon"
+	value = "marine2_chairon"
+	category = TTS_CATEGORY_WARHAMMER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/marine2_acheran
+	name = "Acheran"
+	value = "marine2_acheran"
+	category = TTS_CATEGORY_WARHAMMER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/marine2_machine_spirit_4
+	name = "Machine_spirit_4"
+	value = "marine2_machine_spirit_4"
+	category = TTS_CATEGORY_WARHAMMER
+	gender = TTS_GENDER_FEMALE
+	donator_level = 1
+
+/datum/tts_seed/silero/marine2_magos_galeo
+	name = "Magos_galeo"
+	value = "marine2_magos_galeo"
+	category = TTS_CATEGORY_WARHAMMER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/marine2_servo_skull
+	name = "Servo-skull"
+	value = "marine2_servo-skull"
+	category = TTS_CATEGORY_WARHAMMER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/marine2_balthazar
+	name = "Balthazar"
+	value = "marine2_balthazar"
+	category = TTS_CATEGORY_WARHAMMER
+	gender = TTS_GENDER_MALE
+	donator_level = 1

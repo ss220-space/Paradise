@@ -448,7 +448,7 @@
 			uniform = /obj/item/clothing/under/color/black
 			shoes = /obj/item/clothing/shoes/black
 			suit = /obj/item/clothing/suit/storage/labcoat
-			glasses = /obj/item/clothing/glasses/sunglasses/blindfold
+			glasses = /obj/item/clothing/glasses/sunglasses/blindfold/black
 			back = /obj/item/tank/internals/oxygen
 			mask = /obj/item/clothing/mask/breath
 		if("Cultist")

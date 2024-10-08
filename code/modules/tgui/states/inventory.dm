@@ -6,7 +6,7 @@
 
 GLOBAL_DATUM_INIT(inventory_state, /datum/ui_state/inventory_state, new)
 
-/datum/ui_state/inventory_state/can_use_topic(src_object, mob/user)
+/datum/ui_state/inventory_state/can_use_topic(src_object, mob/user, atom/ui_source)
 	if(!(src_object in user))
 		if(issilicon(user))
 			var/mob/living/silicon/robot/R = user

@@ -51,7 +51,7 @@
 
 
 /datum/spell_handler/vampire/proc/calculate_blood_cost(datum/antagonist/vampire/vampire)
-	var/blood_cost_modifier = 1 + (vampire.nullification == OLD_NULLIFICATION)? 0 : vampire.nullified / 100
+	var/blood_cost_modifier = 1 + ((vampire.nullification == OLD_NULLIFICATION)? 0 : vampire.nullified / 100)
 	var/blood_cost = round(required_blood * blood_cost_modifier)
 	return clamp(blood_cost, 0, vampire.bloodusable)
 

@@ -214,20 +214,23 @@
 	anchored = TRUE
 	var/message = "Unknown."
 
+/obj/structure/gravemarker/update_desc(updates = ALL)
+	. = ..()
+	desc = "[message]"
+
 /obj/structure/gravemarker/cross
 	icon_state = "cross"
 
 /obj/structure/gravemarker/random/Initialize(mapload)
 	. = ..()
 	generate()
-	desc = "[message]"
 
 /obj/structure/gravemarker/random/proc/generate()
 	var/nam
 	icon_state = pick("wood","cross")
 	var/female = (prob(1) ?  TRUE : FALSE)
 	if(female)
-		name = pick(GLOB.first_names_female)
+		nam = pick(GLOB.first_names_female)
 		nam += " " + pick(GLOB.last_names_female)
 	else
 		nam = pick(GLOB.first_names_male)
@@ -237,6 +240,7 @@
 	var/died = max(cur_year - rand(0,70),born)
 
 	message = "Здесь упокоен [nam], [born] - [died]."
+	update_appearance(UPDATE_DESC)
 
 
 /obj/structure/gravemarker/attackby(obj/item/I, mob/user, params)
@@ -244,9 +248,10 @@
 		return ..()
 
 	if(is_pen(I))
-		var/msg = tgui_input_text(user, "What should it say?", "Grave marker", "Rest In Peace")
+		var/msg = tgui_input_text(user, "What should it say?", "Grave marker", desc)
 		if(msg)
 			message = msg
+			update_appearance(UPDATE_DESC)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/hatchet))

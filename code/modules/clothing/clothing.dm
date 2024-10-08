@@ -1231,7 +1231,7 @@ BLIND     // can't see anything
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/neck.dmi'
 		)
 
-/obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!teleportation)
 		return ..()
 	if(prob(5))
