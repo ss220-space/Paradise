@@ -10,19 +10,16 @@
 	cure_prob = 30
 	permeability_mod = 0.75
 	severity = MEDIUM
-	var/known_languages = list()
 
+	// We'll store the languages the mob knew before the fever here
+	var/list/datum/language/stored_languages = list()
 
 /datum/disease/virus/babylonian_fever/stage_act()
 	if(!..())
 		return FALSE
+
 	switch(stage)
 		if(2, 3)
-			if(affected_mob.languages && !LAZYLEN(known_languages))
-				for(var/datum/language/lan in affected_mob.languages)
-					LAZYADD(known_languages, lan)
-					affected_mob.remove_language(lan.name)
-
 			if(prob(stage))
 				affected_mob.adjustBrainLoss(0.5)
 			if(prob(stage))
@@ -37,15 +34,30 @@
 					"Шш... шш... шш...",
 					"Ыы... ыы... ыы...",
 					"Оо... оо... оо...",
+					"Уээ... Уэээ... УЭЭЭЭ..."
 					"Ээ... ээ... ээ...",
 					"Ии... ии... ии...",
+					"Двести... двадцать..."
 					)
 				)
-	return FALSE
+
+	// Store languages on first stage activation
+	if(stage == 1 && !stored_languages.len && affected_mob.languages)
+		stored_languages = affected_mob.languages.Copy()
+	else
+		if(affected_mob.languages)
+			stored_languages += affected_mob.languages.Copy()
+
+	// Remove existing languages
+	affected_mob.languages.Cut()
+
+	return TRUE
 
 /datum/disease/virus/babylonian_fever/has_cure()
 	if(..())
-		if(LAZYLEN(known_languages))
-			for(var/datum/language/lan in known_languages)
-				affected_mob.add_language(lan.name)
+		// Restore previously known languages
+		if(stored_languages.len)
+			affected_mob.languages = stored_languages.Copy()
+			stored_languages.Cut() // Clear the stored languages
+
 		return TRUE
