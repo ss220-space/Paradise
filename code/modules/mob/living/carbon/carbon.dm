@@ -118,7 +118,7 @@
 		max_nutriment_vomit_dist = floor((nutrition - VOMIT_SAFE_NUTRITION) / lost_nutrition)
 
 	for(var/i = 1 to distance)
-		if(max_nutriment_vomit_dist >= distance)
+		if(max_nutriment_vomit_dist >= i)
 			turf.add_vomit_floor()
 			adjust_nutrition(-lost_nutrition)
 
