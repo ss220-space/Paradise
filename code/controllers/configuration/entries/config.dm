@@ -835,6 +835,5 @@
 
 /datum/config_entry/str_list/lobby_music
 
-/// log debugging
 /datum/config_entry/flag/enable_syndicate_affiliates
 	default = FALSE
