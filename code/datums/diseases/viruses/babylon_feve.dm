@@ -52,7 +52,7 @@
 
 	return TRUE
 
-/datum/disease/virus/babylonian_fever/cure()
+/datum/disease/virus/babylonian_fever/cure((id = type, need_immunity = TRUE))
 	if(!affected_mob)
 		qdel(src)
 
