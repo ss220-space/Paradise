@@ -291,6 +291,7 @@
 
 /obj/item/ammo_box/magazine/m10mm/blood
 	name = "pistol magazine (10mm incendiary)"
+	icon_state = "9x19blood"
 	desc = "Магазин для пистолета. Заряжен патронами, поглощающими кровь."
 	ammo_type = /obj/item/ammo_casing/c10mm/blood
 

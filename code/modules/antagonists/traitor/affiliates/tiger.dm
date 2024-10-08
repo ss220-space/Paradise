@@ -304,7 +304,7 @@
 	scan_data += "Количество размножений: [borer.children]"
 	scan_data += "Химикаты: [borer.chemicals]"
 
-	if(borer.master_name != "")
+	if(borer.master_name)
 		scan_data += span_info("Эта особь принадлежит к подвиду выведенному для помощи агентам.")
 
 	var/datum/browser/popup = new(user, "scanner", borer.truename, 300, 300)
@@ -382,11 +382,11 @@
 	var/mob/living/simple_animal/borer/target = borers[target_name]
 
 	if(QDELETED(target))
-		to_chat(user, span_warning("Цель больше не существует."))
+		user.balloon_alert(user, "цели не существует")
 		return
 
 	if(target.stat == DEAD)
-		to_chat(user, span_warning("Цель мертва."))
+		user.balloon_alert(user, "цель мертва")
 		return
 
 	if(target.host && target.controlling)
