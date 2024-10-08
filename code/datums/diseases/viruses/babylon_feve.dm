@@ -15,10 +15,9 @@
 	var/list/datum/language/stored_languages = list()
 
 /datum/disease/virus/babylonian_fever/Contract(mob/living/M, act_type, is_carrier, need_protection_check, zone)
-	. = ..()
-	if(. != src)
+	if(!..())
   		return FALSE
-	RegisterSignal(M, "living_recieved_language", PROC_REF(store_and_remove_languages))
+	RegisterSignal(M, COMSIG_LIVING_RECEIVED_LANGUAGE , PROC_REF(store_and_remove_languages))
 	// Store languages on first stage activation
 	if(M.languages)
 		stored_languages += M.languages.Copy()
