@@ -128,6 +128,10 @@
 			if(used_uplink)
 				text += " (used [TC_uses] TC) [purchases]"
 
+			var/datum/antagonist/traitor/traitor_datum = traitor.has_antag_datum(/datum/antagonist/traitor)
+			if (traitor_datum && traitor_datum?.affiliate)
+				text += "<br> Affiliate was " + traitor_datum?.affiliate.name
+
 			var/all_objectives = traitor.get_all_objectives()
 
 			if(length(all_objectives))//If the traitor had no objectives, don't need to process this.
