@@ -510,10 +510,12 @@
 		return FALSE
 
 	target.add_language(LANGUAGE_HIVE_CHANGELING)
+	target.add_language(LANGUAGE_HIVE_EVENTLING)
 	return ..()
 
 /obj/item/implant/cling_hivemind/removed(mob/living/carbon/human/source)
 	imp_in.remove_language(LANGUAGE_HIVE_CHANGELING)
+	imp_in.remove_language(LANGUAGE_HIVE_EVENTLING)
 	return ..()
 
 /obj/item/implanter/cling_rejuv
