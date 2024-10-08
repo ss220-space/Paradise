@@ -861,6 +861,7 @@
 	. = !LAZYIN(languages, new_language)
 	if(.)
 		LAZYADD(languages, new_language)
+		SEND_SIGNAL(src, COMSIG_LIVING_RECEIVED_LANGUAGE, language_name)
 
 
 /mob/proc/remove_language(language_name)
@@ -873,6 +874,7 @@
 	. = LAZYIN(languages, rem_language)
 	if(.)
 		LAZYREMOVE(languages, rem_language)
+		SEND_SIGNAL(src, COMSIG_LIVING_LOST_LANGUAGE, language_name)
 
 
 /mob/living/remove_language(language_name)

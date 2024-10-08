@@ -602,6 +602,11 @@
 #define COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK "living_check_incapacitate"
 	#define COMPONENT_NO_EFFECT (1<<0) //For all of them
 
+///From /mob/proc/add_language
+#define COMSIG_LIVING_RECEIVED_LANGUAGE "living_recieved_language"
+///FROM /mob/proc/remove_language
+#define COMSIG_LIVING_LOST_LANGUAGE "living_losted_language"
+
 /// Sent to a mob grabbing another mob: (mob/living/grabbing)
 #define COMSIG_LIVING_GRAB "living_grab"
 	// Return COMPONENT_CANCEL_ATTACK_CHAIN to stop the grab

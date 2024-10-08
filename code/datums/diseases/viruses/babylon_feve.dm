@@ -14,10 +14,22 @@
 	// We'll store the languages the mob knew before the fever here
 	var/list/datum/language/stored_languages = list()
 
+/datum/disease/virus/babylonian_fever/Contract(mob/living/M, act_type, is_carrier, need_protection_check, zone)
+	. = ..()
+	if(. != src)
+  		return FALSE
+	RegisterSignal(M, "living_recieved_language", PROC_REF(store_and_remove_languages))
+	// Store languages on first stage activation
+	if(M.languages)
+		stored_languages += M.languages.Copy()
+	// Remove existing languages
+	if(M.languages)
+		for(var/datum/language/lan in M.languages)
+			M.remove_language(lan.name)
+
 /datum/disease/virus/babylonian_fever/stage_act()
 	if(!..())
 		return FALSE
-
 	switch(stage)
 		if(2, 3)
 			if(prob(stage))
@@ -40,16 +52,6 @@
 					"Двести... двадцать..."\
 					)
 				)
-
-	// Store languages on first stage activation
-	if(affected_mob.languages)
-		stored_languages += affected_mob.languages.Copy()
-
-	// Remove existing languages
-	if(affected_mob.languages)
-		for(var/datum/language/lan in affected_mob.languages)
-			affected_mob.remove_language(lan.name)
-
 	return TRUE
 
 /datum/disease/virus/babylonian_fever/has_cure()
@@ -59,6 +61,11 @@
 			for(var/datum/language/lan in stored_languages)
 				affected_mob.add_language(lan.name)
 			stored_languages.Cut() // Clear the stored languages
-
 		return TRUE
 
+/datum/disease/virus/babylonian_fever/proc/store_and_remove_languages()
+	// Remove existing languages
+	if(affected_mob.languages)
+		stored_languages += affected_mob.languages.Copy()
+		for(var/datum/language/lan in affected_mob.languages)
+			affected_mob.remove_language(lan.name)
