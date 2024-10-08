@@ -37,7 +37,7 @@
 					"Уээ... Уэээ... УЭЭЭЭ...",
 					"Ээ... ээ... ээ...",
 					"Ии... ии... ии...",
-					"Двести... двадцать..."
+					"Двести... двадцать..."\
 					)
 				)
 
@@ -49,7 +49,9 @@
 			stored_languages += affected_mob.languages.Copy()
 
 	// Remove existing languages
-	affected_mob.languages.Cut()
+	if(affected_mob.languages)
+		for(var/datum/language/lan in affected_mob.languages)
+			affected_mob.remove_language(lan.name)
 
 	return TRUE
 
@@ -57,7 +59,8 @@
 	if(..())
 		// Restore previously known languages
 		if(stored_languages.len)
-			affected_mob.languages = stored_languages.Copy()
+			for(var/datum/language/lan in stored_languages)
+				affected_mob.add_language(lan.name)
 			stored_languages.Cut() // Clear the stored languages
 
 		return TRUE
