@@ -704,7 +704,7 @@
 	return
 
 /mob/living/simple_animal/borer/proc/grant_master_info()
-	if (master_name == "")
+	if(master_name == "")
 		return
 
 	to_chat(src, span_dangerbigger("[master_name] - ваш мастер. Выполняйте приказы мастера. Помогите мастеру выполнить цели либой ценой!"))

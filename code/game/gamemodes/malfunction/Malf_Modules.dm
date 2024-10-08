@@ -323,7 +323,7 @@
 
 	for(var/datum/mind/M in SSticker.minds)
 		var/datum/antagonist/traitor/T = M.has_antag_datum(/datum/antagonist/traitor)
-		if (!T)
+		if(!T)
 			continue
 
 		for(var/datum/objective/make_ai_malf/objective in T.objectives)
