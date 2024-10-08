@@ -143,7 +143,7 @@
 	var/datum/action/innate/borer/torment/torment_action = new
 	var/datum/action/innate/borer/sneak_mode/sneak_mode_action = new
 	var/datum/action/innate/borer/focus_menu/focus_menu_action = new
-	var/master_name = ""
+	var/master_name
 	var/children = 0
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
@@ -704,7 +704,7 @@
 	return
 
 /mob/living/simple_animal/borer/proc/grant_master_info()
-	if(master_name == "")
+	if(!master_name)
 		return
 
 	to_chat(src, span_dangerbigger("[master_name] - ваш мастер. Выполняйте приказы мастера. Помогите мастеру выполнить цели либой ценой!"))
