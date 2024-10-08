@@ -63,7 +63,7 @@
 	duration = 2 SECONDS
 	var/modifier
 
-/datum/status_effect/fang_exhaust/on_creation(mob/living/simple_animal/new_owner, modifier)
+/datum/status_effect/fang_exhaust/on_creation(mob/living/simple_animal/new_owner, modifier = 1.1)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -75,14 +75,22 @@
 
 /datum/status_effect/fang_exhaust/on_apply()
 	var/mob/living/simple_animal/new_owner = owner
+
 	for(var/thing in new_owner.damage_coeff)
+		if(!new_owner.damage_coeff[thing])
+			continue
+
 		new_owner.damage_coeff[thing] *= modifier
 
 	return ..()
 
 /datum/status_effect/fang_exhaust/on_remove()
 	var/mob/living/simple_animal/new_owner = owner
+	
 	for(var/thing in new_owner.damage_coeff)
+		if(!new_owner.damage_coeff[thing])
+			continue
+
 		new_owner.damage_coeff[thing] /= modifier
 		
 	return ..()

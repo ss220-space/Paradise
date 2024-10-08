@@ -389,7 +389,7 @@
 	desc = "Уродливый и отравленный коготь. Может быть установлен как трофей крашера."
 	icon_state = "ob_gniga"
 	denied_type = /obj/item/crusher_trophy/fang
-	bonus_value = 0.9
+	bonus_value = 1.1
 
 /obj/item/crusher_trophy/fang/effect_desc()
 	return "causes fauna to get 10% more damage after mark destroyed for 2 seconds"

@@ -1543,7 +1543,6 @@
 		/obj/item/stack/sheet/mineral/gold = 5
 	)
 	result = list(/obj/item/pickaxe/gold)
-	category = CAT_PRIMAL
 
 /datum/crafting_recipe/pickaxe/diamond
 	name = "Diamond pickaxe"

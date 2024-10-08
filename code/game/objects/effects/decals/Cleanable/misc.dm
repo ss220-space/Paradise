@@ -263,10 +263,9 @@
 	desc = "A rune drawn in ash."
 	icon = 'icons/effects/ashwalker_rune.dmi'
 	icon_state = "AshRuneFilled"
-	layer = MID_TURF_LAYER
-	plane = GAME_PLANE
 	anchored = TRUE
 	mergeable_decal = FALSE
+	mouse_opacity = MOUSE_OPACITY_ICON
 
 /obj/effect/decal/cleanable/ashrune/ComponentInitialize()
 	AddComponent( \
