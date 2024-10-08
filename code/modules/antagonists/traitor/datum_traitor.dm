@@ -50,9 +50,6 @@
 		if(!another_traitor)
 			continue
 
-		if(another_traitor.killed_enemy_agents.len >= LIMIT_KILLING_ENEMY_REWARDS)
-			continue
-
 		if(src in another_traitor.killed_enemy_agents)
 			continue
 
