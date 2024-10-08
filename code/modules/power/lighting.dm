@@ -442,7 +442,7 @@
 
 /obj/machinery/light/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
-		if(light_hit_check(I, user))
+		if(!light_hit_check(I, user))
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ..()
 
@@ -482,7 +482,7 @@
 			explode()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(light_hit_check(I, user))
+	if(!light_hit_check(I, user))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
