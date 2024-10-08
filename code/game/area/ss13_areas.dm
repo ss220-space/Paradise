@@ -3184,21 +3184,3 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 /area/ruin/space/pirate_base/black_market
 	name = "Black Market"
 	icon_state = "awaycontent23"
-
-//Abandoned Storage
-/area/ruin/space/abandoned_storage
-	name = "Abandoned Storage"
-	icon_state = "abandoned_storage"
-	requires_power = TRUE
-	power_equip = FALSE
-	power_light = FALSE
-	power_environ = FALSE
-
-/area/ruin/space/abandoned_storage/abandoned_storage_shuttle
-	name = "Abandoned Shuttle"
-	icon_state = "abandoned_storage_shuttle"
-	has_gravity = FALSE
-
-/area/ruin/space/abandoned_storage_asteroid
-	name = "Abandoned Storage Asteroid"
-	icon_state = "abandoned_storage_asteroid"

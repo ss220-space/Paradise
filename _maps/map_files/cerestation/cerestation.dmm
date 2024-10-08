@@ -11025,7 +11025,7 @@
 	},
 /area/engine/engineering)
 "bBk" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -16901,7 +16901,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/asmaint5)
 "ceO" = (
@@ -19143,7 +19143,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -19167,7 +19167,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/fsmaint3)
 "cvI" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/starboard)
 "cvO" = (
@@ -35421,7 +35421,7 @@
 /area/maintenance/fore2)
 "grs" = (
 /obj/item/stack/sheet/metal,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/port)
 "grA" = (
@@ -36501,7 +36501,7 @@
 /turf/space,
 /area/solar/auxstarboard)
 "gHX" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/port)
 "gId" = (
@@ -47154,7 +47154,7 @@
 	},
 /area/ntrep)
 "jHM" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -51479,7 +51479,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "kTL" = (
@@ -53308,7 +53308,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -55472,7 +55472,7 @@
 /turf/simulated/floor/glass/reinforced,
 /area/maintenance/apmaint2)
 "mbi" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -59288,7 +59288,7 @@
 	},
 /area/hallway/secondary/garden)
 "ngz" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/atmospherics)
 "ngA" = (
@@ -68760,7 +68760,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -73242,7 +73242,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/fore)
 "qZI" = (
@@ -79854,7 +79854,7 @@
 	},
 /area/storage/primary)
 "sVu" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -84501,7 +84501,7 @@
 	},
 /area/hydroponics)
 "unS" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/asmaint5)
 "unZ" = (
@@ -86597,7 +86597,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/library)
 "uVO" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/apmaint2)
 "uVQ" = (
@@ -87171,7 +87171,7 @@
 	},
 /area/maintenance/gambling_den2)
 "vgm" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/engineering)
 "vgt" = (
@@ -87295,7 +87295,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/clownoffice/secret)
 "viL" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/gambling_den2)
 "viX" = (
