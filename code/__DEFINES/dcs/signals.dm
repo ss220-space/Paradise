@@ -1179,7 +1179,3 @@
 /// Source: /mob/living/simple_animal/borer, listening in datum/antagonist/borer
 #define	COMSIG_BORER_ENTERED_HOST "borer_on_enter" // when borer entered host
 #define COMSIG_BORER_LEFT_HOST "borer_on_leave" // when borer left host
-
-/// From /obj/machinery/requests_console/proc/write_to_message_log(): (message)
-#define COMSIG_RC_MESSAGE_RECEIVED "rc_message_received"
-

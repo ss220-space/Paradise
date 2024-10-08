@@ -1,32 +1,6 @@
 /******************** Requests Console ********************/
 /** Originally written by errorage, updated by: Carn, needs more work though. I just added some security fixes */
 
-//Request Console Department Types
-#define RC_ASSIST 1		//Request Assistance
-#define RC_SUPPLY 2		//Request Supplies
-#define RC_INFO   4		//Relay Info
-
-//Request Console Screens
-#define RCS_MAINMENU 0	// Main menu
-#define RCS_RQSUPPLY 1	// Request supplies
-#define RCS_RQASSIST 2	// Request assistance
-#define RCS_SENDINFO 3	// Relay information
-#define RCS_SENTPASS 4	// Message sent successfully
-#define RCS_SENTFAIL 5	// Message sent unsuccessfully
-#define RCS_VIEWMSGS 6	// View messages
-#define RCS_MESSAUTH 7	// Authentication before sending
-#define RCS_ANNOUNCE 8	// Send announcement
-#define RCS_SHIPPING 9	// Print Shipping Labels/Packages
-#define RCS_SHIP_LOG 10	// View Shipping Label Log
-
-//Radio list
-#define ENGI_ROLES list("Atmospherics","Mechanic","Engineering","Chief Engineer's Desk","Telecoms Admin")
-#define SEC_ROLES list("Warden","Security","Brig Medbay","Head of Security's Desk")
-#define MISC_ROLES list("Bar","Chapel","Kitchen","Hydroponics","Janitorial")
-#define MED_ROLES list("Virology","Genetics","Chief Medical Officer's Desk","Medbay")
-#define COM_ROLES list("Blueshield","NT Representative","Head of Personnel's Desk","Captain's Desk","Bridge")
-#define SCI_ROLES list("Robotics","Science","Research","Research Director's Desk")
-
 #define RQ_NONEW_MESSAGES 0
 #define RQ_NORMALPRIORITY 1
 #define RQ_HIGHPRIORITY 2
@@ -91,7 +65,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		GLOB.req_console_supplies |= department
 	if(departmentType & RC_INFO)
 		GLOB.req_console_information |= department
-
 	update_icon(UPDATE_OVERLAYS)
 
 
@@ -110,9 +83,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if(departmentType & RC_INFO)
 			GLOB.req_console_information -= department
 	QDEL_NULL(Radio)
-	for(var/datum/data/pda/app/request_console/console as anything in connected_apps)
-		if(istype(console))
-			console.on_rc_destroyed()
+	for(var/datum/data/pda/app/request_console/app as anything in connected_apps)
+		if(istype(app))
+			app.on_rc_destroyed(src)
 	return ..()
 
 /obj/machinery/requests_console/attack_ghost(user as mob)
@@ -124,7 +97,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console/attack_hand(user as mob)
 	if(..(user))
 		return
-
 	ui_interact(user)
 
 
@@ -197,9 +169,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				message = new_message
 				screen = RCS_MESSAUTH
 				switch(params["priority"])
-					if("1")
+					if(1)
 						priority = RQ_NORMALPRIORITY
-					if("2")
+					if(2)
 						priority = RQ_HIGHPRIORITY
 					else
 						priority = RQ_NONEW_MESSAGES
@@ -242,9 +214,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 					radiochannel = "Command"
 				else if(recipient in SCI_ROLES)
 					radiochannel = "Science"
-				else if(recipient == "AI")
+				else if(recipient == RC_AI)
 					radiochannel = "AI Private"
-				else if(recipient == "Cargo Bay")
+				else if(recipient == RC_CARGO_BAY)
 					radiochannel = "Supply"
 				write_to_message_log("Message sent to [recipient] at [station_time_timestamp()] - [message]")
 				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
@@ -371,13 +343,15 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			rendered_message = "Высокий приоритет - От: [linkedSender] - [message]"
 		else // Normal
 			rendered_message = "От: [linkedSender] - [message]"
-	
+
 	if(!isnull(rendered_message))
 		write_to_message_log(rendered_message)
 
 
 /obj/machinery/requests_console/proc/write_to_message_log(message)
-	SEND_SIGNAL(src, COMSIG_RC_MESSAGE_RECEIVED, message)
+	for(var/datum/data/pda/app/request_console/app as anything in connected_apps)
+		if(istype(app))
+			app.on_rc_message_recieved(src, message)
 	message_log = list(message) + message_log
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)

@@ -1,12 +1,13 @@
 /datum/data/pda/app/request_console
 	name = "Request Console"
-	title = "Request Console"
+	title = "Request Consoles"
 	icon = "archive"
 	template = "pda_request_console"
 	category = "Request Console"
 	update = PDA_APP_UPDATE
-	var/department_name = ""
-	var/obj/machinery/requests_console/requests_console
+	var/list/department_list
+	var/list/possible_consoles = list()
+	var/obj/machinery/requests_console/selected_console
 
 /datum/data/pda/app/request_console/New()
 	. = ..()
@@ -14,41 +15,54 @@
 		var/obj/machinery/requests_console/console = C
 		if(QDELETED(console) || !istype(console))
 			continue
-		if(console.department == department_name)
-			requests_console = console
-			name = requests_console.name
-			title = requests_console.name
-			break
-	if(requests_console)
-		requests_console.connected_apps |= src
-		RegisterSignal(requests_console, COMSIG_RC_MESSAGE_RECEIVED, PROC_REF(on_rc_message_recieved))
+		if(console.department in department_list)
+			possible_consoles |= console
+			department_list -= console.department
+			console.connected_apps |= src
+
 
 /datum/data/pda/app/request_console/Destroy()
-	if(requests_console)
-		UnregisterSignal(requests_console, COMSIG_RC_MESSAGE_RECEIVED)
-		requests_console = null
+	if(selected_console)
+		selected_console = null
+	qdel(possible_consoles)
 	. = ..()
-/datum/data/pda/app/request_console/proc/on_rc_destroyed()
-	UnregisterSignal(requests_console, COMSIG_RC_MESSAGE_RECEIVED)
-	requests_console = null
+/datum/data/pda/app/request_console/proc/on_rc_destroyed(datum/source)
+	possible_consoles -= source
 	SStgui.update_uis(pda)
 
-/datum/data/pda/app/request_console/proc/on_rc_message_recieved(datum/source, message)
+/datum/data/pda/app/request_console/proc/on_rc_message_recieved(atom/source, message)
 	SIGNAL_HANDLER
-	notify(message)
+	var/rendered_message = "Recieved on [source.name] : [message]"
+	notify(rendered_message)
 
 
 /datum/data/pda/app/request_console/update_ui(mob/user, list/data)
-	if(requests_console)
-		data += requests_console.ui_data(user)
-		data["not_found"] = null
+	if(selected_console)
+		data += selected_console.ui_data(user)
+		data["selected_console"] = selected_console.name
 	else
-		data["not_found"] = TRUE
-
+		data["selected_console"] = null
+		var/list/possible_consoles_data= list()
+		for(var/obj/machinery/requests_console/console as anything in possible_consoles)
+			possible_consoles_data += list(list("name" = console.name, "priority" = console.newmessagepriority))
+		data["consoles_data"] = possible_consoles_data
 
 /datum/data/pda/app/request_console/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	requests_console?.ui_act(action, params, ui, state)
-	login()
+	switch(action)
+		if("select")
+			var/name = params["name"]
+			for(var/atom/console as anything in possible_consoles)
+				if(console.name == name)
+					selected_console = console
+					title = console.name
+					break
+			unnotify()
+		if("back")
+			selected_console = null
+			title = initial(title)
+		else
+			selected_console?.ui_act(action, params, ui, state)
+			login()
 	SStgui.update_uis(pda)
 
 
@@ -57,120 +71,232 @@
 
 
 /datum/data/pda/app/request_console/proc/login()
-	if(pda.id)
-		requests_console.login_console(requests_console.screen, pda.id, pda, usr)
+	if(pda.id && selected_console)
+		selected_console.login_console(selected_console.screen, pda.id, pda, usr)
 
 
 /datum/data/pda/app/request_console/stamp_act(obj/item/stamp/stamp)
-	if(!..())
+	if(!..() || !selected_console)
 		return FALSE
-	var/result = requests_console.stamp_messauth(requests_console.screen, stamp, pda, usr)
+	var/result = selected_console.stamp_messauth(selected_console.screen, stamp, pda, usr)
 	if(ATTACK_CHAIN_SUCCESS_CHECK(result))
 		return TRUE
 	return FALSE
 
+/datum/data/pda/app/request_console/cargo
+	department_list = list(RC_CARGO_BAY)
 
-/datum/data/pda/app/request_console/medbay
-	department_name = "Medbay"
+/datum/data/pda/app/request_console/shaftminer
+	department_list = list(RC_CARGO_BAY)
 
-/datum/data/pda/app/request_console/virology
-	department_name = "Virology"
+/datum/data/pda/app/request_console/botanist
+	department_list = list(RC_HYDROPONICS)
 
-/datum/data/pda/app/request_console/engineering
-	department_name = "Engineering"
-
-/datum/data/pda/app/request_console/security
-	department_name = "Security"
-
-/datum/data/pda/app/request_console/detective
-	department_name = "Detective"
-
-/datum/data/pda/app/request_console/warden
-	department_name = "Warden"
-
-/datum/data/pda/app/request_console/research_director_desk
-	department_name = "Research Director's Desk"
+/datum/data/pda/app/request_console/chef
+	department_list = list(RC_KITCHEN)
 
 /datum/data/pda/app/request_console/bar
-	department_name = "Bar"
+	department_list = list(RC_BAR)
 
-/datum/data/pda/app/request_console/tech_storage
-	department_name = "Tech storage"
+/datum/data/pda/app/request_console/janitor
+	department_list = list(RC_JANITORIAL)
 
-/datum/data/pda/app/request_console/head_of_personnel_desk
-	department_name = "Head of Personnel's Desk"
+/datum/data/pda/app/request_console/chaplain
+	department_list = list(RC_CHAPEL)
 
-/datum/data/pda/app/request_console/ai
-	department_name = "AI"
+/datum/data/pda/app/request_console/security
+	department_list = list(RC_SECURITY)
 
-/datum/data/pda/app/request_console/robotics
-	department_name = "Robotics"
+/datum/data/pda/app/request_console/clown_security
+	department_list = list(RC_SECURITY)
+	
+/datum/data/pda/app/request_console/lawyer
+	department_list = list(RC_INTERNAL_AFFAIRS_OFFICE)
 
-/datum/data/pda/app/request_console/science
-	department_name = "Science"
+/datum/data/pda/app/request_console/medical
+	department_list = list(
+							RC_MEDBAY,
+							RC_MORGUE
+						)
 
-/datum/data/pda/app/request_console/bridge
-	department_name = "Bridge"
+/datum/data/pda/app/request_console/viro
+	department_list = list(
+							RC_MEDBAY,
+							RC_VIROLOGY,
+							RC_MORGUE
+						)
 
-/datum/data/pda/app/request_console/cargo_bay
-	department_name = "Cargo Bay"
+/datum/data/pda/app/request_console/engineering
+	department_list = list(
+							RC_TECH_STORAGE,
+							RC_ENGINEERING,
+							RC_ATMOSPHERICS,
+							RC_MECHANIC
+						)
 
-/datum/data/pda/app/request_console/captain_desk
-	department_name = "Captain's Desk"
 
-/datum/data/pda/app/request_console/xenobiology
-	department_name = "Xenobiology"
+/datum/data/pda/app/request_console/detective
+	department_list = list(
+							RC_SECURITY,
+							RC_DETECTIVE
+						)
 
-/datum/data/pda/app/request_console/genetics
-	department_name = "Genetics"
+/datum/data/pda/app/request_console/warden
+	department_list = list(
+							RC_SECURITY,
+							RC_WARDEN,
+							RC_LABOR_CAMP
+						)
 
-/datum/data/pda/app/request_console/hydroponics
-	department_name = "Hydroponics"
+/datum/data/pda/app/request_console/toxins
+	department_list = list(
+							RC_SCIENCE,
+							RC_ROBOTICS,
+							RC_RESEARCH,
+							RC_XENOBIOLOGY
+						)
+
+/datum/data/pda/app/request_console/hop
+	department_list = list(
+							RC_BAR,
+							RC_KITCHEN,
+							RC_HEAD_OF_PERSONNEL_DESK,
+							RC_BRIDGE,
+							RC_HYDROPONICS,
+							RC_JANITORIAL,
+							RC_CHAPEL
+						)
+
+/datum/data/pda/app/request_console/hos
+	department_list =	list(RC_SECURITY,
+							RC_WARDEN,
+							RC_LABOR_CAMP,
+							RC_HEAD_OF_SECURITY_DESK,
+							RC_BRIDGE,
+							RC_DETECTIVE)
+
+/datum/data/pda/app/request_console/ce
+	department_list = list(
+							RC_TECH_STORAGE,
+							RC_ENGINEERING,
+							RC_ATMOSPHERICS,
+							RC_MECHANIC,
+							RC_BRIDGE,
+							RC_AI,
+							RC_CHIEF_ENGINEER_DESK
+						)
+
+/datum/data/pda/app/request_console/cmo
+	department_list = list(
+							RC_MEDBAY,
+							RC_VIROLOGY,
+							RC_MORGUE,
+							RC_GENETICS,
+							RC_BRIDGE,
+							RC_CHEMISTRY,
+							RC_CHIEF_MEDICAL_OFFICER_DESK
+						)
+
+/datum/data/pda/app/request_console/rd
+	department_list = list(
+							RC_SCIENCE,
+							RC_ROBOTICS,
+							RC_RESEARCH,
+							RC_XENOBIOLOGY,
+							RC_GENETICS,
+							RC_BRIDGE,
+							RC_AI,
+							RC_RESEARCH_DIRECTOR_DESK
+						)
+
+/datum/data/pda/app/request_console/captain
+	department_list = list(
+							RC_CHIEF_ENGINEER_DESK,
+							RC_CHIEF_MEDICAL_OFFICER_DESK,
+							RC_HEAD_OF_PERSONNEL_DESK,
+							RC_HEAD_OF_SECURITY_DESK,
+							RC_BRIDGE,
+							RC_QUARTERMASTER_DESK,
+							RC_AI,
+							RC_CAPTAIN_DESK,
+							RC_RESEARCH_DIRECTOR_DESK
+						)
+
+/datum/data/pda/app/request_console/ntrep
+	department_list = list(
+							RC_NT_REPRESENTATIVE,
+							RC_BLUESHIELD,
+							RC_INTERNAL_AFFAIRS_OFFICE,
+							RC_BRIDGE
+						)
+
+/datum/data/pda/app/request_console/magistrate
+	department_list = list(
+							RC_INTERNAL_AFFAIRS_OFFICE,
+							RC_BRIDGE
+						)
 
 /datum/data/pda/app/request_console/blueshield
-	department_name = "Blueshield"
+	department_list = list(
+							RC_BLUESHIELD,
+							RC_BRIDGE
+						)
 
-/datum/data/pda/app/request_console/head_of_security_desk
-	department_name = "Head of Security's Desk"
+/datum/data/pda/app/request_console/quartermaster
+	department_list = list(
+							RC_CARGO_BAY,
+							RC_QUARTERMASTER_DESK,
+							RC_BRIDGE
+						)
 
-/datum/data/pda/app/request_console/internal_affairs_office
-	department_name = "Internal Affairs Office"
 
-/datum/data/pda/app/request_console/chief_engineer_desk
-	department_name = "Chief Engineer's Desk"
+/datum/data/pda/app/request_console/roboticist
+	department_list = list(
+							RC_RESEARCH,
+							RC_SCIENCE,
+							RC_ROBOTICS
+						)
 
-/datum/data/pda/app/request_console/nt_representative
-	department_name = "NT Representative"
+/datum/data/pda/app/request_console/roboticist
+	department_list = list(
+							RC_RESEARCH,
+							RC_SCIENCE,
+							RC_ROBOTICS
+						)
 
-/datum/data/pda/app/request_console/chief_medical_officer_desk
-	department_name = "Chief Medical Officer's Desk"
+/datum/data/pda/app/request_console/atmos
+	department_list = list(
+							RC_TECH_STORAGE,
+							RC_ATMOSPHERICS,
+							RC_ENGINEERING
+						)
 
-/datum/data/pda/app/request_console/quartermaster_desk
-	department_name = "Quartermaster's Desk"
+/datum/data/pda/app/request_console/atmos
+	department_list = list(
+							RC_TECH_STORAGE,
+							RC_ATMOSPHERICS,
+							RC_ENGINEERING
+						)
 
-/datum/data/pda/app/request_console/mechanic
-	department_name = "Mechanic"
+/datum/data/pda/app/request_console/chemist
+	department_list = list(
+							RC_CHEMISTRY,
+							RC_MEDBAY
+						)
 
-/datum/data/pda/app/request_console/morgue
-	department_name = "Morgue"
+/datum/data/pda/app/request_console/geneticist
+	department_list = list(
+							RC_GENETICS,
+							RC_MEDBAY
+						)
 
-/datum/data/pda/app/request_console/chemistry
-	department_name = "Chemistry"
-
-/datum/data/pda/app/request_console/atmospherics
-	department_name = "Atmospherics"
-
-/datum/data/pda/app/request_console/janitorial
-	department_name = "Janitorial"
-
-/datum/data/pda/app/request_console/kitchen
-	department_name = "Kitchen"
-
-/datum/data/pda/app/request_console/chapel
-	department_name = "Chapel"
-
-/datum/data/pda/app/request_console/research
-	department_name = "Research"
-
-/datum/data/pda/app/request_console/central_command
-	department_name = "Central Command"
+/datum/data/pda/app/request_console/centcom
+	department_list = list(
+							RC_BRIDGE,
+							RC_AI,
+							RC_BLUESHIELD,
+							RC_INTERNAL_AFFAIRS_OFFICE,
+							RC_NT_REPRESENTATIVE,
+							RC_CENTRAL_COMMAND,
+							RC_CAPTAIN_DESK
+						)
