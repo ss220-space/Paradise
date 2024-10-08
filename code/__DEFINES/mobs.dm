@@ -443,7 +443,7 @@
 /// Vomit defines
 #define VOMIT_NUTRITION_LOSS	10
 #define VOMIT_STUN_TIME			(8 SECONDS)
-#define VOMIT_DISTANCE			0
+#define VOMIT_DISTANCE			1
 #define VOMIT_SAFE_NUTRITION	90
 /// Vomit modes
 #define VOMIT_BLOOD	(1<<0)

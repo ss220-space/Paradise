@@ -78,7 +78,7 @@
 	lost_nutrition = VOMIT_NUTRITION_LOSS,
 	mode = NONE,
 	stun = VOMIT_STUN_TIME,
-	distance = 1,
+	distance = VOMIT_DISTANCE,
 	message = TRUE
 )
 	if(ismachineperson(src)) // IPCs do not vomit particulates.

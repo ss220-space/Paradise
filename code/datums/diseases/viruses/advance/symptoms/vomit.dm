@@ -106,4 +106,4 @@ Bonus
 	level = 4
 
 /datum/symptom/vomit/projectile/Vomit(mob/living/carbon/M)
-	M.vomit(6, stun = 8 SECONDS, distance = 5)
+	M.vomit(6, distance = 5)
