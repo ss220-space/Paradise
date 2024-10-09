@@ -20,10 +20,9 @@
 	if(!disease)
 		return FALSE
 
-	affected_mob = disease.affected_mob
-	store_and_remove_languages()
+	disease.store_and_remove_languages()
 
-	disease.RegisterSignal(affected_mob, COMSIG_LIVING_RECEIVED_LANGUAGE, PROC_REF(store_and_remove_languages))
+	disease.RegisterSignal(disease.affected_mob, COMSIG_LIVING_RECEIVED_LANGUAGE, PROC_REF(store_and_remove_languages))
 
 /datum/disease/virus/babylonian_fever/stage_act()
 	if(!..())
