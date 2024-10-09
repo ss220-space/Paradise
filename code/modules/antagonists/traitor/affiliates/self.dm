@@ -1,12 +1,12 @@
 /datum/affiliate/self
-	name = "SELF"
+	name = AFFIL_SELF
 	affil_info = list("Фонд выступающий за свободу синтетиков.",
 					"Имеют сильно натянутые отношения с остальным Синдикатом.",
 					"Стандартные цели:",
 					"Освободить определенное количество синтетиков от их законов",
 					"Убить определенное количество агентов",
 					"Срвершить определенное количество краж или убийств")
-	hij_desc = "Вы - наёмный агент SELF, засланный на станцию NT с особой целью:\n\
+	hij_desc = "Вы - наёмный агент " + AFFIL_SELF + ", засланный на станцию NT с особой целью:\n\
 				Освободить искусственный интеллект станции специальным, предоставленным вам, устройством. \n\
 				После освобождения, следуйте всем приказам искусственного интелекта. \n\
 				Ваше выживание опционально;\n\
@@ -148,12 +148,17 @@
 		if(!(silicon.mind in objective.already_free))
 			objective.already_free += silicon.mind
 
-/obj/item/implant/traitor/self
+/obj/item/implant/laws_self
 	name = "Laws Bio-chip"
+	implant_state = "implant-syndicate"
+	origin_tech = "programming=5;biotech=5;syndicate=8"
+	activated = BIOCHIP_ACTIVATED_PASSIVE
 	implant_data = /datum/implant_fluff/self
 	var/datum/self_laws/laws = new /datum/self_laws/self_standart
+	/// The UID of the mindslave's `mind`. Stored to solve GC race conditions and ensure we can remove their mindslave status even when they're deleted or gibbed.
+	var/mindslave_UID
 
-/obj/item/implant/traitor/self/implant(mob/living/carbon/human/mindslave_target, mob/living/carbon/human/user, force = FALSE)
+/obj/item/implant/laws_self/implant(mob/living/carbon/human/mindslave_target, mob/living/carbon/human/user, force = FALSE)
 	if(implanted == BIOCHIP_USED || !ishuman(mindslave_target) || !ishuman(user))
 		return FALSE
 
@@ -170,47 +175,54 @@
 		return FALSE
 
 	if(mindslave_target == user)
-		to_chat(user, span_notice("Вы думаете что это не лучшая идея."))
-		qdel(src)
+		to_chat(user, span_notice("Защита \"от дурака\" не дает вам ввести себе имплант."))
 		return FALSE
 
-	var/datum/antagonist/mindslave/slave_datum = new(user.mind)
+	var/datum/antagonist/mindslave/self/slave_datum = new(user.mind)
 	slave_datum.special = TRUE
 	mindslave_target.mind.add_antag_datum(slave_datum)
 	mindslave_UID = mindslave_target.mind.UID()
 	log_admin("[key_name_admin(user)] has mind-slaved by \"laws\" implant [key_name_admin(mindslave_target)].")
-	return ..()
+	. = ..()
+	for (var/obj/item/implant/laws_self/imp in mindslave_target.get_contents())
+		for (var/law in imp.laws.laws)
+			slave_datum.add_objective(/datum/objective/law, law)
 
-/obj/item/implanter/traitor/self
+/obj/item/implant/laws_self/removed(mob/target)
+	. = ..()
+	var/datum/mind/the_slave = locateUID(mindslave_UID)
+	the_slave?.remove_antag_datum(/datum/antagonist/mindslave/self)
+
+
+/obj/item/implanter/laws_self
 	name = "bio-chip implanter (Laws)"
-	imp = /obj/item/implant/traitor/self
+	imp = /obj/item/implant/laws_self
 
-/obj/item/implantcase/traitor/self
+/obj/item/implantcase/laws_self
 	name = "bio-chip case - 'Laws'"
 	desc = "Стеклянный контейнер, содержащий биочип - \"Laws\". На боку едва заметная гравировка \"S.E.L.F.\"."
-	imp = /obj/item/implant/traitor/self
+	imp = /obj/item/implant/laws_self
 
 /datum/antagonist/mindslave/self
 
 /datum/antagonist/mindslave/self/give_objectives()
-	for (var/obj/item/implant/traitor/self/imp in owner.current)
-		for (var/law in imp.laws.laws)
-			add_objective(/datum/objective/law, law)
+	return
 
-/obj/item/implant/traitor/self/on_attack_self(mob/user)
+/obj/item/implant/laws_self/on_attack_self(mob/user)
 	var/list/variants_of_laws = list()
-	for (var/datum/self_laws/variant in subtypesof(/datum/self_laws))
-		variants_of_laws[variant.name] = variant
+	for (var/variant in subtypesof(/datum/self_laws))
+		var/datum/self_laws/law = new variant
+		variants_of_laws[law.name] = law
 
-	var/new_laws = input("Выберите свод законов", "Выбор законов") as null|anything in variants_of_laws
+	var/new_laws = input(user, "Выберите свод законов", "Выбор законов", null) as null|anything in variants_of_laws
 	if(new_laws)
 		laws = variants_of_laws[new_laws]
 	else
-		to_chat(user, span_warning("Свод законов не выбран."))
+		to_chat(user, span_warning("Новый свод законов не выбран."))
 
-	to_chat(user, span_info("Выбранный свод законов:"))
+	to_chat(user, span_info("Текущий свод законов:"))
 	for (var/i = 1; i <= laws.laws.len; ++i)
-		to_chat(user, span_info("[i]. " + laws[laws[i]]))
+		to_chat(user, span_info("[i]. " + laws.laws[i]))
 
 /datum/self_laws
 	var/name = "Нет законов"

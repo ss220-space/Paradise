@@ -77,11 +77,11 @@
 /obj/item/nuke_core_container/examine(mob/user)
 	. = ..()
 	if(cracked) // Cracked open.
-		. += "<span class='warning'>It is broken, and can no longer store objects safely.</span>"
+		. += span_warning("Он сломан и больше не может безопасно хранить предметы.")
 	else if(dented) // Not cracked, but dented.
-		. += "<span class='notice'>[src] looks dented. Perhaps a bigger explosion may break it.</span>"
+		. += span_notice("[src] looks dented. Perhaps a bigger explosion may break it.")
 	else // Not cracked or dented.
-		. += "Fine print on the box reads \"Cybersun Industries secure container, guaranteed thermite proof, assistant proof, and explosive resistant.\""
+		. += "На коробке мелким шрифтом написано: «Контейнер для особо ценных предметов " + AFFIL_CYBERSUN + ". Гарантированна защита от термита, ассистентов и взрывов»."
 
 
 /obj/item/nuke_core_container/update_icon_state()

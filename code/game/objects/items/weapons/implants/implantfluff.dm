@@ -19,23 +19,23 @@
 
 
 /datum/implant_fluff/adrenaline
-	name = "Cybersun Industries RX-2 Adrenaline Bio-chip"
+	name = AFFIL_CYBERSUN + " RX-2 Adrenaline Bio-chip"
 	life = "Five days."
-	notes = "One of Cybersun Industries oldest and simplest implants, even in its simplicity it is rumoured to be one of Cybersun Industries best-selling products."
+	notes = "One of " + AFFIL_CYBERSUN + " oldest and simplest implants, even in its simplicity it is rumoured to be one of " + AFFIL_CYBERSUN + " best-selling products."
 	function = "Subjects injected with this bio-chip can activate an injection of medical cocktails that removes stuns, increases speed, and has mild healing effects."
 
 
 /datum/implant_fluff/protoadrenaline
-	name = "Cybersun Industries X-2 Adrenaline Bio-chip"
+	name = AFFIL_CYBERSUN + " X-2 Adrenaline Bio-chip"
 	life = "One day."
-	notes = "One of Cybersun Industries oldest and simplest implants. This is the early prototype version of the RX-2. It's significantly cheaper than it's newer version."
+	notes = "One of " + AFFIL_CYBERSUN + " oldest and simplest implants. This is the early prototype version of the RX-2. It's significantly cheaper than it's newer version."
 	function = "Subjects injected with this bio-chip can activate an injection of cheap medical cocktails that removes stuns, increases speed, and has mild healing effects."
 
 
 /datum/implant_fluff/supercharge
-	name = "Cybersun Industries RX-4 Synthetic Supercharge Bio-chip"
+	name = AFFIL_CYBERSUN + " RX-4 Synthetic Supercharge Bio-chip"
 	life = "Known to last for up to a year."
-	notes = "One of Cybersun Industries simplest implants, it's rumored that synthetic rights groups maintain stockpiles of these."
+	notes = "One of " + AFFIL_CYBERSUN + " simplest implants, it's rumored that synthetic rights groups maintain stockpiles of these."
 	function = "Synthetic subjects injected with this bio-chip can activate an injection of lubricants, coolants, and positronic patching fluid."
 
 
@@ -60,42 +60,42 @@
 
 
 /datum/implant_fluff/emp
-	name = "Cybersun Industries RX-22 Electromagnetic Pulse Emitter Bio-chip"
+	name = AFFIL_CYBERSUN + " RX-22 Electromagnetic Pulse Emitter Bio-chip"
 	life = "Destroyed upon final activation."
 	notes = "An minituarized nuclear squib fit snuggly into a bio-chip."
 	function = "Upon detonization the bio-chip will release an EMP affecting the immediate area around the user."
 
 
 /datum/implant_fluff/explosive
-	name = "Cybersun Industries RX-78 Employee Management Bio-chip"
+	name = AFFIL_CYBERSUN + " RX-78 Employee Management Bio-chip"
 	life = "Destroyed upon activation."
 	notes = "Appears to contain a small, dense explosive device wired to a signaller chip, the serial number on the side is scratched out."
 	function = "Contains a compact, electrically detonated explosive that detonates upon receiving a specially encoded signal or upon host death."
 
 
 /datum/implant_fluff/explosive_macro
-	name = "Cybersun Industries RX-79 Employee Management Bio-chip"
+	name = AFFIL_CYBERSUN + " RX-79 Employee Management Bio-chip"
 	life = "Destroyed upon activation."
 	notes = "Compared to its predecessor, the RX-79 contains a much larger explosive; sometimes you just need a bigger boom. Due to its bulkiness, it has been known to press into the user's frontal lobe, impairing judgement."
 	function = "Contains a bulky, electrically triggered explosive that detonates upon receiving a specially encoded signal or upon host death."
 
 
 /datum/implant_fluff/second_chance
-	name = "Cybersun Industries RX-87 Employee Management Bio-chip"
+	name = AFFIL_CYBERSUN + " RX-87 Employee Management Bio-chip"
 	life = "Destroyed upon activation."
 	notes = "A small chip containing a familiar explosive device, the warhead of which has been partially replaced by a redspace crystal."
 	function = "Contains a compact, electrically triggered explosive that detonates upon receiving a specially encoded signal and teleports the operator to an exact safe location."
 
 
 /datum/implant_fluff/freedom
-	name = "Cybersun Industries RX-92 Quick Escape Bio-chip"
+	name = AFFIL_CYBERSUN + " RX-92 Quick Escape Bio-chip"
 	life = "Destroyed after 4 uses."
 	notes = "A bio-chip that is illegal in many systems. It is notoriously known for allowing users to grotesquely fracture bones and over-exert joints in order to slip out of the tightest of restraints."
 	function = "Uses a mixture of cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restraints."
 
 
 /datum/implant_fluff/protofreedom
-	name = "Cybersun Industries X-92 Quick Escape Bio-chip"
+	name = AFFIL_CYBERSUN + " X-92 Quick Escape Bio-chip"
 	life = "Destroyed after 1 use."
 	notes = "A bio-chip that is illegal in many systems. This is the early prototype version of the RX-92. It's significantly cheaper than it's newer version."
 	function = "Uses a mixture of cheap cybernetic nanobots, bone regrowth chemicals, and radio signals to quickly break the user out of restraints."
@@ -127,7 +127,7 @@
 
 
 /datum/implant_fluff/storage
-	name = "Cybersun Industries RX-16 Collapsible Body Cavity Bio-chip"
+	name = AFFIL_CYBERSUN + " RX-16 Collapsible Body Cavity Bio-chip"
 	notes = "Prolonged usage of this bio-chip often results in the users bones being fractured and occassionaly complete organ failure."
 	function = "Allows the user to store two small objects within a cybernetic body cavity."
 

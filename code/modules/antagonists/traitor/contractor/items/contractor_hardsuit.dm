@@ -2,7 +2,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/contractor
 	name = "Contractor hardsuit helmet"
-	desc = "A top-tier syndicate helmet, a favorite of Syndicate field Contractors. Property of the Gorlex Marauders, with assistance from Cybersun Industries."
+	desc = "A top-tier syndicate helmet, a favorite of Syndicate field Contractors. Property of the Gorlex Marauders, with assistance from " + AFFIL_CYBERSUN + "."
 	icon_state = "hardsuit0-contractor"
 	item_state = "contractor_helm"
 	item_color = "contractor"
@@ -11,7 +11,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/contractor
 	name = "Contractor hardsuit"
-	desc = "A top-tier syndicate hardsuit, a favorite of Syndicate field Contractors. Property of the Gorlex Marauders, with assistance from Cybersun Industries."
+	desc = "A top-tier syndicate hardsuit, a favorite of Syndicate field Contractors. Property of the Gorlex Marauders, with assistance from " + AFFIL_CYBERSUN + "."
 	icon_state = "hardsuit-contractor"
 	item_state = "contractor_hardsuit"
 	item_color = "contractor"

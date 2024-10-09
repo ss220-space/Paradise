@@ -1458,7 +1458,7 @@
 	prices = list()
 
 /obj/machinery/vending/chinese
-	name = "\improper Mr. Chang"
+	name = "\improper " + AFFIL_CHANG
 	desc = "A self-serving Chinese food machine, for all your Chinese food needs."
 	slogan_list = list("Попробуйте 5000 лет культуры!","Мистер Чанг, одобрен для безопасного потребления в более чем 10 секторах!","Китайская кухня отлично подходит для вечернего свидания или одинокого вечера!","Вы не ошибетесь, если попробуете настоящую китайскую кухню от мистера Чанга.!")
 

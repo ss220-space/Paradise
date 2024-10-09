@@ -34,7 +34,7 @@
 			outfit.shoes = /obj/item/clothing/shoes/black
 			outfit.back = /obj/item/storage/backpack
 		if(2)
-			flavour_text += "you're an exile from the Tiger Cooperative. Their technological fanaticism drove you to question the power and beliefs of the Exolitics, and they saw you as a \
+			flavour_text += "you're an exile from the " + AFFIL_TIGER + ". Their technological fanaticism drove you to question the power and beliefs of the Exolitics, and they saw you as a \
 			heretic and subjected you to hours of horrible torture. You were hours away from execution when a high-ranking friend of yours in the Cooperative managed to secure you a pod, \
 			scrambled its destination's coordinates, and launched it. You awoke from stasis when you landed and have been surviving - barely - ever since."
 			outfit.uniform = /obj/item/clothing/under/color/orange

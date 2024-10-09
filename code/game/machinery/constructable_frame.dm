@@ -329,7 +329,7 @@ to destroy them and players will be able to make replacements.
 		"Booze-O-Mat" =							/obj/machinery/vending/boozeomat,
 		"Solar's Best Hot Drinks" =				/obj/machinery/vending/coffee,
 		"Getmore Chocolate Corp" =				/obj/machinery/vending/snack,
-		"Mr. Chang" =							/obj/machinery/vending/chinese,
+		AFFIL_CHANG =							/obj/machinery/vending/chinese,
 		"Robust Softdrinks" =					/obj/machinery/vending/cola,
 		"ShadyCigs Deluxe" =					/obj/machinery/vending/cigarette,
 		"Hatlord 9000" =						/obj/machinery/vending/hatdispenser,

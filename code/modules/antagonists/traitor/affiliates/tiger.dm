@@ -2,7 +2,7 @@
 #define TARGET_INJECT_TIME 3 SECONDS
 
 /datum/affiliate/tiger
-	name = "Tiger Cooperative"
+	name = AFFIL_TIGER
 	affil_info = list("Группа фанатиков верующих в Генокрадов.",
 					"Стандартные цели:",
 					"Сделать члена экипажа генокрадом вколов в его труп яйца генокрада",
@@ -30,7 +30,7 @@
 
 /obj/item/cling_extract
 	name = "Egg Implanter"
-	desc = "Кажется, внутри что-то двигается. На боку этикетка \"Tiger Cooperative\""
+	desc = "Кажется, внутри что-то двигается. На боку этикетка \"" + AFFIL_TIGER + "\""
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "cling_extract"
 	item_state = "inj_ful"
@@ -530,19 +530,17 @@
 	implant_state = "implant-syndicate"
 	origin_tech = "programming=4;biotech=4;bluespace=5;combat=3;syndicate=2"
 	activated = BIOCHIP_ACTIVATED_ACTIVE
+	trigger_causes = BIOCHIP_TRIGGER_DEATH_ONCE
 	implant_data = /datum/implant_fluff/cling_rejuv
 	uses = 1
 
-/obj/item/implant/cling_rejuv/activate()
-	if(imp_in.stat != DEAD)
-		imp_in.balloon_alert(imp_in, "Вы все еще живы!")
-		return
+/obj/item/implant/cling_rejuv/death_trigger(mob/source, gibbed)
+	activate()
 
+/obj/item/implant/cling_rejuv/activate()
 	uses--
 
-	playsound(imp_in, 'sound/effects/sparks4.ogg', 50, TRUE)
-	do_sparks(4, TRUE, imp_in)
-
+	do_sparks(10, TRUE, imp_in)
 	to_chat(imp_in, span_changeling("We... I have regenerated."))
 
 	if(imp_in.pulledby)

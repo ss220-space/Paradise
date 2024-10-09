@@ -117,7 +117,7 @@
 	if(istype(affiliate, /datum/affiliate/gorlex))
 		if(20 MINUTES - SSticker.round_start_time > 0)
 			to_chat(mind.current, span_info("Аплинк будет активирован через 20 минут от начала смены.\n\
-			Спасибо что выбрали Gorlex Maraduers.\n\
+			Спасибо что выбрали " + AFFIL_GORLEX + ".\n\
 			Слава синдикату!"))
 			sleep(20 MINUTES - SSticker.round_start_time)
 

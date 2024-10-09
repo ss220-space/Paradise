@@ -1982,8 +1982,9 @@
 
 					if(type)
 						var/datum/antagonist/traitor/traitor_datum = new()
-						traitor_datum.gen_affiliate = FALSE
+						traitor_datum.give_objectives = FALSE
 						traitor_datum.give_uplink = FALSE
+						traitor_datum.gen_affiliate = FALSE
 						add_antag_datum(traitor_datum)
 						log_admin("[key_name(usr)] has traitored [key_name(current)]")
 						message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
