@@ -60,3 +60,57 @@
 		user.visible_message("Страховки не хватило. [from_money_acc / 2] недостающих очков страховки восполнено за счет [from_money_acc] кредитов со счета пациента.")
 
 	return TRUE
+
+/proc/get_req_insurance(mob/living/carbon/human/user)
+	var/insurance = 0
+
+	insurance += user.getBruteLoss() * REQ_INSURANCE_BRUT
+	insurance += user.getFireLoss() * REQ_INSURANCE_BURN
+	insurance += user.getOxyLoss() * REQ_INSURANCE_OXY
+	insurance += user.getToxLoss() * REQ_INSURANCE_TOX
+	insurance += user.getCloneLoss() * REQ_INSURANCE_CLONE
+
+	var/internal_organs_damage = 0
+	for(var/obj/item/organ/internal/organ as anything in user.internal_organs)
+		internal_organs_damage += organ.damage
+
+	insurance += internal_organs_damage * REQ_INSURANCE_ORGAN
+
+	insurance += user.radiation * REQ_INSURANCE_RAD
+	insurance += max(0, round((BLOOD_VOLUME_NORMAL - user.blood_volume) / BLOOD_VOLUME_NORMAL * 100)) * REQ_INSURANCE_BLOOD
+
+	var/internal_bleedings = 0
+	for(var/obj/item/organ/external/bodypart as anything in user.bodyparts)
+		if(bodypart.has_internal_bleeding())
+			internal_bleedings++
+
+	insurance += internal_bleedings * REQ_INSURANCE_INTBLEED
+
+	var/broken_bones = 0
+	for(var/obj/item/organ/external/bodypart as anything in user.bodyparts)
+		if(bodypart.has_fracture())
+			broken_bones++
+
+	insurance += broken_bones * REQ_INSURANCE_BONE
+
+	var/missed_organs = 0
+	for (var/organ in user.dna.species.has_organ)
+		if (!(organ in user.internal_organs_slot))
+			missed_organs++
+
+	insurance += missed_organs * REQ_INSURANCE_LOST_ORGAN
+
+	var/missed_limbs = 0
+	for (var/limb in user.dna.species.has_limbs)
+		if (!(user.bodyparts_by_name[limb] in user.bodyparts))
+			missed_limbs++
+
+	insurance += missed_limbs * REQ_INSURANCE_LOST_LIMB
+
+	if (user.health < HEALTH_THRESHOLD_CRIT)
+		insurance += REQ_INSURANCE_CRIT
+
+	if (user.stat == DEAD)
+		insurance += REQ_INSURANCE_DEATH
+
+	return insurance

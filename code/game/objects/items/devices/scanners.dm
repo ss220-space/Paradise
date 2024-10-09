@@ -446,54 +446,6 @@ REAGENT SCANNER
 	. = "<span class='highlight'>[jointext(., "<br>")]</span>"
 	scanner.scanned = scan_subject
 
-/proc/get_req_insurance(mob/living/carbon/human/user)
-	var/insurance = 0
-
-	insurance += user.getBruteLoss() * REQ_INSURANCE_BRUT
-	insurance += user.getFireLoss() * REQ_INSURANCE_BURN
-	insurance += user.getOxyLoss() * REQ_INSURANCE_OXY
-	insurance += user.getToxLoss() * REQ_INSURANCE_TOX
-
-	var/internal_organs_damage = 0
-	for(var/obj/item/organ/internal/organ as anything in user.internal_organs)
-		internal_organs_damage += organ.damage
-	insurance += user.getToxLoss() * REQ_INSURANCE_ORGAN
-
-	insurance += user.radiation * REQ_INSURANCE_RAD
-	insurance += user.getCloneLoss() * REQ_INSURANCE_CLONE
-	insurance += round((BLOOD_VOLUME_NORMAL - user.blood_volume) / BLOOD_VOLUME_NORMAL) * 100 * REQ_INSURANCE_BLOOD
-
-	var/internal_bleedings = 0
-	for(var/obj/item/organ/external/bodypart as anything in user.bodyparts)
-		if(bodypart.has_internal_bleeding())
-			internal_bleedings++
-	insurance += internal_bleedings * REQ_INSURANCE_INTBLEED
-
-	var/broken_bones = 0
-	for(var/obj/item/organ/external/bodypart as anything in user.bodyparts)
-		if(bodypart.has_fracture())
-			broken_bones++
-	insurance += broken_bones * REQ_INSURANCE_BONE
-
-	var/missed_organs = 0
-	for (var/organ in user.dna.species.has_organ)
-		if (!(organ in user.internal_organs_slot))
-			missed_organs++
-	insurance += missed_organs * REQ_INSURANCE_LOST_ORGAN
-
-	var/missed_limbs = 0
-	for (var/limb in user.dna.species.has_limbs)
-		if (!(user.bodyparts_by_name[limb] in user.bodyparts))
-			missed_limbs++
-	insurance += missed_limbs * REQ_INSURANCE_LOST_LIMB
-
-	if (user.health < HEALTH_THRESHOLD_CRIT)
-		insurance += REQ_INSURANCE_CRIT
-
-	if (user.stat == DEAD)
-		insurance += REQ_INSURANCE_DEATH
-
-	return insurance
 
 /proc/medical_scan_results(var/mob/living/M, var/mode = 1, var/advanced = FALSE)
 	. = list()
@@ -679,9 +631,9 @@ REAGENT SCANNER
 		. += "Тип страховки - [acc.insurance_type]"
 	else
 		. += "Аккаунт не обнаружен"
-	. += "Требуемое количество очков страховки - [get_req_insurance(H)]"
+	. += "Требуемое количество очков страховки: [get_req_insurance(H)]"
 	if (acc)
-		. += "Текущее количество очков страховки - [acc.insurance]"
+		. += "Текущее количество очков страховки: [acc.insurance]"
 
 // This is the output to the chat
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
