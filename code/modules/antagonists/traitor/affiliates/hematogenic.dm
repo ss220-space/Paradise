@@ -28,7 +28,7 @@
 					)
 
 /datum/affiliate/hematogenic/get_weight(mob/living/carbon/human/H)
-	return (!ismachineperson(H)) * 2
+	return (!ismachineperson(H) && H.mind?.assigned_role != JOB_TITLE_CHAPLAIN) * 2
 
 /obj/item/hemophagus_extract
 	name = "Bloody Injector"

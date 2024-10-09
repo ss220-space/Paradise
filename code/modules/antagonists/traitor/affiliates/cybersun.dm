@@ -225,7 +225,7 @@
 			target.visible_message(span_warning("[user] upgraded [target] using [src]."), span_danger("[user] hacked and upgraded you using [src]."))
 
 			var/mob/prev_robot = target
-			var/mob/living/silicon/robot/syndicate/robot = new(get_turf(target))
+			var/mob/living/silicon/robot/syndicate/saboteur/robot = new(get_turf(target))
 			prev_robot.mind?.transfer_to(robot)
 			robot.reset_module()
 			robot.law_manager.zeroth_law = laws

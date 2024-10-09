@@ -694,9 +694,8 @@
 
 		var/turf/T = get_turf(src)
 		T.add_vomit_floor()
-		var/mob/living/simple_animal/borer/new_B = new B.type(T, B.generation + 1)
+		new B.type(T, B.generation + 1)
 		B.children++
-		new_B.master_name = B.master_name
 		borer.antag_datum.post_reproduce()
 		return
 

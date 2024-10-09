@@ -1653,7 +1653,7 @@
 			Подобно комбинезону-хамелеону, HUD может трансформироваться в различные другие очки, сохраняя при этом качества HUD при ношении."
 	item = /obj/item/clothing/glasses/hud/security/chameleon
 	cost = 8
-	made_by = AFFIL_TIGER
+	made_by = AFFIL_MI13
 
 /datum/uplink_item/stealthy_tools/thermal
 	name = "Маскировочные термальные очки"
@@ -2647,7 +2647,7 @@
 	name = "Инвазивный маячок"
 	desc = "Высокотехнологичное устройство для взлома мехов. При взломе меха мгновенно сбивает все блокировки и выкидывает текущего пилота."
 	item = /obj/item/invasive_beacon
-	cost = 14
+	cost = 9
 
 /datum/uplink_item/affiliate/cybersun/Syndie_patcher
 	name = "Синди патчер"
@@ -2687,25 +2687,34 @@
 	affiliate = list(AFFIL_MI13)
 	made_by = AFFIL_MI13
 
+/*
 /datum/uplink_item/affiliate/mi13/bond
 	name = "Набор \"Бонд\""
 	desc = "Взболтайте свой мартини и поднимите переполох с этого набора смертельного снаряжения, совмещенного с капелькой гаджетов, чтобы все оставалось интересным."
 	item = /obj/item/storage/box/bond_bundle
 	limited_stock = 1
+*/
 
 /datum/uplink_item/affiliate/mi13/pen_bomb
 	name = "Ручка-бомба"
 	desc = "Минибомба замаскированная под стильную ручку. Активируйте три раза для взрыва."
 	item = /obj/item/pen/fancy/bomb
-	cost = 10 // Only for MI13 agents who have 20 TK, so it's normal cost
+	cost = 16
 
 /datum/uplink_item/affiliate/mi13/sound_ring
 	name = "Звуковое кольцо"
 	desc = "Элегантный гаджет замаскированный под кольцо. Имеет встроенный миниатюрный маскировочный модуль. \
 			Может ломать стекла, к которым его прикладывают, короткими звуковыми импульсами."
 	item = /obj/item/clothing/gloves/ring/gadget
-	cost = 14 // Only for MI13 agents who have 20 TK, so it's normal cost
+	cost = 8 // Not so useful
 
+/datum/uplink_item/affiliate/mi13/cool_clothes_kit
+	name = "Набор стильной защитной одежды"
+	desc = "Набор стильной одежды,предоставляющей очень неплохие защитные характеристики. Позволяет быть защищенным не жертвуя элегантностью."
+	item = /obj/item/storage/box/cool_clothes_kit
+	cost = 16
+
+/*
 /datum/uplink_item/badass/intelligence_data
 	name = "Подписка на рассылку разведданных"
 	desc = "Небольшой прибор замаскированный под ручку, подклющий подписку на рассылку разведданных. \
@@ -2713,11 +2722,13 @@
 	item = /obj/item/pen/intel_data
 	made_by = AFFIL_MI13
 	cost = 13
+*/
 
 /datum/uplink_item/affiliate/hematogenic
 	affiliate = list(AFFIL_HEMATOGENIC)
 	made_by = AFFIL_HEMATOGENIC
 
+/*
 /datum/uplink_item/affiliate/hematogenic/hemophagus_extract
 	name = "Экстракт гемофага"
 	desc = "Инжектор с дорогой и сложной в производстве сывороткой. При введении гуманоиду запускает сложные процессы, \
@@ -2725,6 +2736,7 @@
 	item = /obj/item/hemophagus_extract/self
 	cost = 74 // A little bit stronger than normal vampire because of 26 TC, but with more hard objectives.
 	limited_stock = 1 // Sorry, only one
+*/
 
 /datum/uplink_item/affiliate/hematogenic/advanced_hemophagus_extract
 	name = "Продвинутый экстракт гемофага"
@@ -2788,6 +2800,7 @@
 	affiliate = list(AFFIL_TIGER)
 	made_by = AFFIL_TIGER
 
+/*
 /datum/uplink_item/affiliate/tiger/cling_extract
 	name = "Инжектор с яйцом генокрада"
 	desc = "Инжектор, вводящий в цель модифицированное яйцо генокрада. После введения зародыш вступает в близкий симбиоз с \
@@ -2795,6 +2808,7 @@
 	item = /obj/item/cling_extract/self
 	cost = 74 // A little bit stronger than normal changeling because of 26 TC, but with more hard objectives.
 	limited_stock = 1 // Sorry, only one
+*/
 
 /datum/uplink_item/affiliate/tiger/borers_kit
 	name = "Набор для разведения бореров"
@@ -2814,7 +2828,7 @@
 	desc = "Имплант разработанный на основе регенеративного стазиса генокрадов, позволяющий единоразово воскреснуть. \
 			Поставляется в автоимплантере."
 	item = /obj/item/implanter/cling_rejuv
-	cost = 34
+	cost = 49
 
 /datum/uplink_item/affiliate/for_objective/cling_extract
 	name = "Инжектор с яйцом генокрада"

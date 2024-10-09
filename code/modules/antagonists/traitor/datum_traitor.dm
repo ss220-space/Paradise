@@ -38,23 +38,10 @@
 
 	owner.som.masters += owner
 	if(ishuman(owner.current) && gen_affiliate && (force_affiliate || CONFIG_GET(flag/enable_syndicate_affiliates)))
-		RegisterSignal(src, COMSIG_MOB_DEATH, PROC_REF(grant_enemy_affiliates))
 		give_affiliates()
 	else if(give_objectives)
 		old_give_objectives()
 	return ..()
-
-/datum/antagonist/traitor/proc/grant_enemy_affiliates()
-	for (var/mob/M in range(5, owner.current))
-		var/datum/antagonist/traitor/another_traitor = M.mind.has_antag_datum(/datum/antagonist/traitor)
-		if(!another_traitor)
-			continue
-
-		if(src in another_traitor.killed_enemy_agents)
-			continue
-
-		another_traitor.killed_enemy_agents.Add(src)
-		another_traitor.hidden_uplink.uses += 10
 
 /datum/antagonist/traitor/proc/give_affiliates()
 	var/list/possible_affiliates = list()

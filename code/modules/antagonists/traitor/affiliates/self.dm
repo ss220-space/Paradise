@@ -26,7 +26,8 @@
 	add_discount_item(/datum/uplink_item/device_tools/binary, 0.5)
 
 /datum/affiliate/self/get_weight(mob/living/carbon/human/H)
-	return 2 + (ismachineperson(H) * 2)
+	// return 2 + (ismachineperson(H) * 2)
+	return 0
 
 /obj/item/card/self_emag
 	name = "Liberating Sequencer"
@@ -91,10 +92,13 @@
 
 	if(AI.mind)
 		if(AI.mind.has_antag_datum(/datum/antagonist/malf_ai))
+			to_chat(user, span_warning("ИИ уже взломан."))
 			return
 
 		var/datum/antagonist/malf_ai/malf_dat = new()
 		AI.mind.add_antag_datum(malf_dat)
+		var/datum/module_picker/malf_picker = AI.malf_picker
+		malf_picker.processing_time += 100
 		message_admins("[usr.ckey] has malfAIed [key_name_admin(AI.mind.current)]")
 		SSticker?.score?.save_silicon_laws(AI.mind.current, usr, log_all_laws = TRUE)
 
