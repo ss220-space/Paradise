@@ -52,22 +52,18 @@
 
 	return TRUE
 
-/datum/disease/virus/babylonian_fever/cure((id = type, need_immunity = TRUE))
-	if(!affected_mob)
-		qdel(src)
+/datum/disease/virus/babylonian_fever/Destroy()
+	if(affected_mob)
+		UnregisterSignal(affected_mob, COMSIG_LIVING_RECEIVED_LANGUAGE)
 
-	UnregisterSignal(affected_mob, COMSIG_LIVING_RECEIVED_LANGUAGE)
+		// Restore previously known languages
+		if(LAZYLEN(stored_languages))
+			for(var/datum/language/lan in stored_languages)
+				affected_mob.add_language(lan.name)
 
-	// Restore previously known languages
-	if(LAZYLEN(stored_languages))
-		for(var/datum/language/lan in stored_languages)
-			affected_mob.add_language(lan.name)
-	..()
+	LAZYCLEARLIST(stored_languages)
 
-//datum/disease/virus/babylonian_fever/Destroy()
-	//LAZYCLEARLIST(stored_languages)
-
-	//return ..()
+	return ..()
 
 /datum/disease/virus/babylonian_fever/proc/store_and_remove_languages()
 	// Remove existing languages
