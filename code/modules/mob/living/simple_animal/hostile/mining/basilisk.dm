@@ -117,7 +117,7 @@
 	projectiletype = /obj/item/projectile/temp/basilisk/icewing
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/bone = 1) //No sinew; the wings are too fragile to be usable
 	jewelry_loot = /obj/item/gem/fdiamond
-	crusher_loot = list(/obj/item/crusher_trophy/watcher_wing/ice_wing, /obj/item/crusher_trophy/gland)
+	crusher_loot = /obj/item/crusher_trophy/watcher_wing/ice_wing
 	crusher_drop_mod = 60
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random/Initialize(mapload)

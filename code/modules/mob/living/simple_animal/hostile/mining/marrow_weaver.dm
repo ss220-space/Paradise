@@ -137,14 +137,19 @@
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/frost
 	name = "frostbite weaver"
 	desc = "A big, angry, venomous ice spider. It likes to snack on bone marrow. Its preferred food source is you."
+
 	icon_state = "weaver_ice"
 	icon_living = "weaver_ice"
 	icon_aggro = "weaver_ice"
 	icon_dead = "weaver_ice_dead"
+
 	melee_damage_lower = 10 //stronger venom, but weaker attack.
 	melee_damage_upper = 13
+
 	poison_type = "frostoil"
 	poison_per_bite = 5
+
+	crusher_loot = /obj/item/crusher_trophy/gland
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/tendril
 	fromtendril = TRUE
