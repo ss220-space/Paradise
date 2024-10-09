@@ -115,6 +115,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/breakouttime = 0
 
 	var/block_chance = 0
+	var/block_type = ALL
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
 	// Needs to be in /obj/item because corgis can wear a lot of
@@ -339,8 +340,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		..()
 
 
-/obj/item/proc/afterattack(atom/target, mob/user, proximity, params)
-	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params)
+/obj/item/proc/afterattack(atom/target, mob/user, proximity, params, status)
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params, status)
 
 
 /obj/item/attack_hand(mob/user, pickupfireoverride = FALSE)
@@ -504,7 +505,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return ..()
 
 
-/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+	if (!block_type || !(block_type & attack_type))
+		final_block_chance = 0
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) + prob(final_block_chance)
 	if(signal_result != 0)
 		owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))

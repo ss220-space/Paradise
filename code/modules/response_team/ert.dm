@@ -44,23 +44,27 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 /mob/dead/observer/proc/JoinResponseTeam()
 	if(!GLOB.send_emergency_team)
-		to_chat(src, "<span class='warning'>No emergency response team is currently being sent.</span>")
-		return 0
+		to_chat(src, span_warning("No emergency response team is currently being sent."))
+		return FALSE
 
 	if(jobban_isbanned(src, ROLE_ERT))
-		to_chat(src, "<span class='warning'>You are jobbanned from playing on an emergency response team!</span>")
-		return 0
+		to_chat(src, span_warning("You are jobbanned from playing on an emergency response team!"))
+		return FALSE
+	
+	if(jobban_isbanned(src, JOB_TITLE_OFFICER) || jobban_isbanned(src, JOB_TITLE_CAPTAIN) || jobban_isbanned(src, JOB_TITLE_CYBORG))
+		to_chat(src, span_warning("One of your jobbans forbids you from playing on an emergency response team!"))
+		return FALSE
 
 	var/player_age_check = check_client_age(client, GLOB.responseteam_age)
 	if(player_age_check && CONFIG_GET(flag/use_age_restriction_for_antags))
-		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
-		return 0
+		to_chat(src, span_warning("This role is not yet available to you. You need to wait another [player_age_check] days."))
+		return FALSE
 
 	if(cannotPossess(src))
-		to_chat(src, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
-		return 0
+		to_chat(src, span_boldnotice("Upon using the antagHUD you forfeited the ability to join the round."))
+		return FALSE
 
-	return 1
+	return TRUE
 
 /proc/trigger_armed_response_team(datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 	GLOB.response_team_members = list()
@@ -76,8 +80,6 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 	// Respawnable players get first dibs
 	for(var/mob/dead/observer/M in ert_candidates)
-		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, JOB_TITLE_OFFICER) || jobban_isbanned(M, JOB_TITLE_CAPTAIN) || jobban_isbanned(M, JOB_TITLE_CYBORG))
-			continue
 		if((M in GLOB.respawnable_list) && M.JoinResponseTeam())
 			GLOB.response_team_members |= M
 	// If there's still open slots, non-respawnable players can fill them

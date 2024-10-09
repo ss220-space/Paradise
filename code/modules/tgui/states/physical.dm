@@ -11,7 +11,7 @@
 
 GLOBAL_DATUM_INIT(physical_state, /datum/ui_state/physical, new)
 
-/datum/ui_state/physical/can_use_topic(src_object, mob/user)
+/datum/ui_state/physical/can_use_topic(src_object, mob/user, atom/ui_source)
 	. = user.shared_ui_interaction(src_object)
 	if(. > UI_CLOSE)
 		return min(., user.physical_can_use_topic(src_object))
@@ -42,7 +42,7 @@ GLOBAL_DATUM_INIT(physical_state, /datum/ui_state/physical, new)
 
 GLOBAL_DATUM_INIT(physical_obscured_state, /datum/ui_state/physical_obscured_state, new)
 
-/datum/ui_state/physical_obscured_state/can_use_topic(src_object, mob/user)
+/datum/ui_state/physical_obscured_state/can_use_topic(src_object, mob/user, atom/ui_source)
 	. = user.shared_ui_interaction(src_object)
 	if(. > UI_CLOSE)
 		return min(., user.physical_obscured_can_use_topic(src_object))

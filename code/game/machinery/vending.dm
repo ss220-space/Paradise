@@ -6,6 +6,14 @@
 /// Machine is currently denying wares, and will not update its icon, unless its stat change.
 #define FLICK_DENY 2
 
+// Using these to decide how a vendor crush should be handled after crushing a carbon.
+/// Just jump ship, the crit handled everything it needs to.
+#define VENDOR_CRUSH_HANDLED 0
+/// Throw the vendor at the target's tile.
+#define VENDOR_THROW_AT_TARGET 1
+/// Don't actually throw at the target, just tip it in place.
+#define VENDOR_TIP_IN_PLACE 2
+
 
 /**
  *  Datum used to hold information about a product in a vending machine
@@ -136,6 +144,37 @@
 	var/light_range_on = 1
 	var/light_power_on = 0.5
 
+	/// If this vending machine can be tipped or not
+	var/tiltable = TRUE
+	/// If this vendor is currently tipped
+	var/tilted = FALSE
+	/// If tilted, this variable should always be the rotation that was applied when we were tilted. Stored for the purposes of unapplying it.
+	var/tilted_rotation = 0
+	/// Amount of damage to deal when tipped
+	var/squish_damage = 30  // yowch
+	/// Factor of extra damage to deal when triggering a crit
+	var/crit_damage_factor = 2
+	/// Factor of extra damage to deal when you knock it over onto yourself
+	var/self_knockover_factor = 1.5
+	/// All possible crits that could be applied. We only need to build this up once
+	var/static/list/all_possible_crits = list()
+	/// Possible crit effects from this vending machine tipping.
+	var/list/possible_crits = list(
+		// /datum/vendor_crit/pop_head, //too much i think
+		/datum/vendor_crit/embed,
+		/datum/vendor_crit/pin,
+		/datum/vendor_crit/shatter,
+		/datum/vendor_crit/lucky
+	)
+	/// number of shards to apply when a crit embeds
+	var/num_shards = 4
+	/// How long to wait before resetting the warning cooldown
+	var/hit_warning_cooldown_length = 10 SECONDS
+	/// Cooldown for warning cooldowns
+	COOLDOWN_DECLARE(last_hit_time)
+	/// If the vendor should tip on anyone who walks by. Mainly used for brand intelligence
+	var/aggressive = FALSE
+
 /obj/machinery/vending/Initialize(mapload)
 	. = ..()
 	var/build_inv = FALSE
@@ -164,8 +203,26 @@
 		// so if slogantime is 10 minutes, it will say it at somewhere between 10 and 20 minutes after the machine is created.
 		last_slogan = world.time + rand(0, slogan_delay)
 
+	if(!length(all_possible_crits))
+		for(var/typepath in subtypesof(/datum/vendor_crit))
+			all_possible_crits[typepath] = new typepath()
+
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/vending/examine(mob/user)
+	. = ..()
+	if(tilted)
+		. += span_warning("It's been tipped over and won't be usable unless it's righted.")
+		if(Adjacent(user))
+			. += span_notice("You can <b>Alt-Click</b> it to right it.")
+	if(aggressive)
+		. += span_warning("Its product lights seem to be blinking ominously...")
+
+/obj/machinery/vending/AltClick(mob/user)
+	if(!tilted || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	untilt(user)
 
 /obj/machinery/vending/Destroy()
 	SStgui.close_uis(wires)
@@ -401,6 +458,12 @@
 
 
 /obj/machinery/vending/attackby(obj/item/I, mob/user, params)
+	if(tilted)
+		if(user.a_intent == INTENT_HELP)
+			to_chat(user, span_warning("[src] is tipped over and non-functional! You'll need to right it first."))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ..()
+
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -447,23 +510,84 @@
 		insert_item(user, I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
+	try_tilt(I, user)
 	return ..()
 
+/obj/machinery/vending/proc/try_tilt(obj/item/I, mob/user)
+	if(tiltable && !tilted && I.force)
+		if(resistance_flags & INDESTRUCTIBLE)
+			// no goodies, but also no tilts
+			return
+		if(COOLDOWN_FINISHED(src, last_hit_time))
+			visible_message(span_warning("[src] seems to sway a bit!"))
+			to_chat(user, span_userdanger("You might want to think twice about doing that again, [src] looks like it could come crashing down!"))
+			COOLDOWN_START(src, last_hit_time, hit_warning_cooldown_length)
+			return
+
+		switch(rand(1, 100))
+			if(1 to 5)
+				freebie(user, 3)
+			if(6 to 15)
+				freebie(user, 2)
+			if(16 to 25)
+				freebie(user, 1)
+			if(26 to 75)
+				return
+			if(76 to 90)
+				tilt(user)
+			if(91 to 100)
+				tilt(user, crit = TRUE)
+
+/obj/machinery/vending/proc/freebie(mob/user, num_freebies)
+	visible_message(span_notice("[num_freebies] free goodie\s tumble[num_freebies > 1 ? "" : "s"] out of [src]!"))
+	for(var/i in 1 to num_freebies)
+		for(var/datum/data/vending_product/R in shuffle(product_records))
+			if(R.amount <= 0)
+				continue
+			var/dump_path = R.product_path
+			if(!dump_path)
+				continue
+			new dump_path(get_turf(src))
+			R.amount--
+			break
+
+/obj/machinery/vending/HasProximity(atom/movable/AM)
+	if(!aggressive  || tilted || !tiltable)
+		return
+
+	if(isliving(AM) && prob(25))
+		AM.visible_message(
+			span_warning("[src] suddenly topples over onto [AM]!"),
+			span_userdanger("[src] topples over onto you without warning!")
+		)
+	tilt(AM, prob(5), FALSE)
+	aggressive = FALSE
+	//Not making same mistakes as offs did.
+	// Don't make this brob more than 5%
 
 /obj/machinery/vending/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
 		return
 	. = TRUE
+	if(tilted)
+		to_chat(user, span_warning("You'll need to right it first!"))
+		return
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/vending/multitool_act(mob/user, obj/item/I)
 	. = TRUE
+	if(tilted)
+		to_chat(user, span_warning("You'll need to right it first!"))
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	wires.Interact(user)
 
 /obj/machinery/vending/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(tilted)
+		to_chat(user, span_warning("You'll need to right it first!"))
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(anchored)
@@ -474,14 +598,35 @@
 
 /obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
+	if(tilted)
+		to_chat(user, span_warning("You'll need to right it first!"))
+		return
 	if(I.use_tool(src, user, 0, volume = 0))
 		wires.Interact(user)
 
 /obj/machinery/vending/wrench_act(mob/user, obj/item/I)
 	. = TRUE
+	if(tilted)
+		to_chat(user, span_warning("The fastening bolts aren't on the ground, you'll need to right it first!"))
+		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	default_unfasten_wrench(user, I, time = 60)
+
+/obj/machinery/vending/ex_act(severity)
+	. = ..()
+	if(QDELETED(src) || (resistance_flags & INDESTRUCTIBLE) || tilted || !tiltable)
+		return
+	var/tilt_prob = 0
+	switch(severity)
+		if(EXPLODE_LIGHT)
+			tilt_prob = 10
+		if(EXPLODE_HEAVY)
+			tilt_prob = 50
+		if(EXPLODE_DEVASTATE)
+			tilt_prob = 80
+	if(prob(tilt_prob))
+		tilt()
 
 //Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
 /obj/machinery/vending/proc/item_slot_check(mob/user, obj/item/I)
@@ -565,6 +710,10 @@
 
 /obj/machinery/vending/attack_hand(mob/user)
 	if(stat & (BROKEN|NOPOWER))
+		return
+
+	if(tilted)
+		to_chat(user, span_warning("[src] is tipped over and non-functional! You'll need to right it first."))
 		return
 
 	if(..())
@@ -947,6 +1096,175 @@
 		return
 	throw_item.throw_at(target, 16, 3)
 	visible_message("<span class='danger'>[src] launches [throw_item.name] at [target.name]!</span>")
+
+
+/obj/machinery/vending/shove_impact(mob/living/target, mob/living/attacker)
+	if(HAS_TRAIT(target, TRAIT_FLATTENED))
+		return
+	if(!HAS_TRAIT(attacker, TRAIT_PACIFISM) || !GLOB.pacifism_after_gt)
+		add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
+		tilt(target, from_combat = TRUE)
+		target.visible_message(
+			span_danger("[attacker] slams [target] into [src]!"),
+			span_userdanger("You get slammed into [src] by [attacker]!"),
+			span_danger(">You hear a loud crunch.")
+		)
+	else
+		attacker.visible_message(
+			span_notice("[attacker] lightly presses [target] against [src]."),
+			span_userdanger("You lightly press [target] against [src], you don't want to hurt [target.p_them()]!")
+			)
+	return TRUE
+
+/**
+ * Select a random valid crit.
+ */
+/obj/machinery/vending/proc/choose_crit(mob/living/carbon/victim)
+	if(!length(possible_crits))
+		return
+	for(var/crit_path in shuffle(possible_crits))
+		var/datum/vendor_crit/C = all_possible_crits[crit_path]
+		if(C.is_valid(src, victim))
+			return C
+
+/obj/machinery/vending/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, crit, from_combat)
+
+	// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
+	var/crit_rebate = 0
+
+	var/should_throw_at_target = TRUE
+
+	var/datum/vendor_crit/critical_attack = choose_crit(victim)
+	if(!from_combat && crit && critical_attack)
+		crit_rebate = critical_attack.tip_crit_effect(src, victim)
+		if(critical_attack.harmless)
+			tilt_over(critical_attack.fall_towards_mob ? victim : null)
+			return VENDOR_CRUSH_HANDLED
+
+		should_throw_at_target = critical_attack.fall_towards_mob
+		add_attack_logs(null, victim, "critically crushed by [src] causing [critical_attack]")
+
+	else
+		victim.visible_message(
+			span_danger("[victim] is crushed by [src]!"),
+			span_userdanger("[src] crushes you!"),
+			span_warning("You hear a loud crunch!")
+		)
+		add_attack_logs(null, victim, "crushed by [src]")
+
+	// 30% chance to spread damage across the entire body, 70% chance to target two limbs in particular
+	damage_to_deal = max(damage_to_deal - crit_rebate, 0)
+	if(prob(30))
+		victim.apply_damage(damage_to_deal, BRUTE, spread_damage = TRUE)
+	else
+		var/picked_zone
+		var/num_parts_to_pick = 2
+		for(var/i = 1 to num_parts_to_pick)
+			picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
+			victim.apply_damage((damage_to_deal) * (1 / num_parts_to_pick), BRUTE, picked_zone)
+
+	victim.AddElement(/datum/element/tilt_protection, 80 SECONDS) // use "/datum/element/squish" when people are ready for that.
+	if(victim.has_pain())
+		victim.emote("scream")
+
+	return should_throw_at_target ? VENDOR_THROW_AT_TARGET : VENDOR_TIP_IN_PLACE
+
+/**
+ * Tilts the machine onto the atom passed in.
+ *
+ * Arguments:
+ * * target_atom - The thing the machine is falling on top of
+ * * crit - if true, some special damage effects might happen.
+ * * from_combat - If true, hold off on some of the additional damage and extra effects.
+ */
+
+/obj/machinery/vending/proc/tilt(atom/target_atom, crit = FALSE, from_combat = FALSE)
+	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)
+		return
+
+	tilted = TRUE
+	set_anchored(FALSE)
+	layer = ABOVE_MOB_LAYER
+
+	var/should_throw_at_target = TRUE
+
+	. = FALSE
+
+	if(!target_atom || !in_range(target_atom, src))
+		tilt_over()
+		return
+	for(var/mob/living/victim in get_turf(target_atom))
+		// Damage to deal outright
+		var/damage_to_deal = squish_damage
+		if(!from_combat)
+			if(crit)
+				// increase damage if you knock it over onto yourself
+				damage_to_deal *= crit_damage_factor
+			else
+				damage_to_deal *= self_knockover_factor
+
+		if(iscarbon(victim))
+			var/throw_spec = handle_squish_carbon(target_atom, damage_to_deal, crit, from_combat)
+			switch(throw_spec)
+				if(VENDOR_CRUSH_HANDLED)
+					return TRUE
+				if(VENDOR_THROW_AT_TARGET)
+					should_throw_at_target = TRUE
+				if(VENDOR_TIP_IN_PLACE)
+					should_throw_at_target = FALSE
+		else
+			victim.visible_message(
+				span_danger("[victim] is crushed by [src]!"),
+				span_userdanger("[src] falls on top of you, crushing you!"),
+				span_warning("You hear a loud crunch!")
+			)
+			victim.apply_damage(damage_to_deal, BRUTE)
+			add_attack_logs(null, victim, "crushed by [src]")
+
+		. = TRUE
+		victim.Weaken(4 SECONDS)
+		victim.Knockdown(8 SECONDS)
+
+		playsound(victim, "sound/effects/blobattack.ogg", 40, TRUE)
+		playsound(victim, "sound/effects/splat.ogg", 50, TRUE)
+
+		tilt_over(should_throw_at_target ? target_atom : null)
+
+/obj/machinery/vending/proc/tilt_over(mob/victim)
+	visible_message( span_danger("[src] tips over!"))
+	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
+	var/picked_rotation = pick(90, 270)
+	tilted_rotation = picked_rotation
+	var/matrix/to_turn = turn(transform, tilted_rotation)
+	animate(src, transform = to_turn, 0.2 SECONDS)
+
+	if(victim && get_turf(victim) != get_turf(src))
+		throw_at(get_turf(victim), 1, 1, spin = FALSE)
+
+/obj/machinery/vending/proc/untilt(mob/user)
+	if(!tilted)
+		return
+
+	if(user)
+		user.visible_message(
+			"[user] begins to right [src].",
+			"You begin to right [src]."
+		)
+		if(!do_after(user, 7 SECONDS, src))
+			return
+		user.visible_message(
+			span_notice("[user] rights [src]."),
+			span_notice("You right [src]."),
+			span_notice(">You hear a loud clang.")
+		)
+
+	unbuckle_all_mobs(TRUE)
+
+	tilted = FALSE
+	layer = initial(layer)
+
+	var/matrix/to_turn = turn(transform, -tilted_rotation)
+	animate(src, transform = to_turn, 0.2 SECONDS)
 
 /obj/machinery/vending/assist
 
@@ -1468,6 +1786,7 @@
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed
+	tiltable = FALSE
 
 /obj/machinery/vending/wallmed/syndicate
 	name = "\improper SyndiWallMed"
@@ -1707,6 +2026,7 @@
 	contraband = list(/obj/item/reagent_containers/glass/bottle/wizarditis = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
+	tiltable = FALSE
 
 
 /obj/machinery/vending/autodrobe
@@ -3000,6 +3320,7 @@
 	)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/grenade/clusterbuster/apocalypsefake = 1)
 	refill_canister = /obj/item/vending_refill/nta
+	tiltable = FALSE //no ert tilt
 
 /obj/machinery/vending/nta/ertarmory
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
@@ -3624,3 +3945,6 @@
 #undef FLICK_VEND
 #undef FLICK_DENY
 
+#undef VENDOR_CRUSH_HANDLED
+#undef VENDOR_THROW_AT_TARGET
+#undef VENDOR_TIP_IN_PLACE

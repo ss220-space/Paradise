@@ -12,8 +12,12 @@
 	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Priest","Monk","Preacher","Reverend","Oracle","Nun","Imam","Exorcist")
-	money_factor = 2
 	outfit = /datum/outfit/job/chaplain
+	
+	//God will not give you a salary roflcat
+	salary = 60
+	min_start_money = 10
+	max_start_money = 200
 
 /datum/outfit/job/chaplain
 	name = "Chaplain"

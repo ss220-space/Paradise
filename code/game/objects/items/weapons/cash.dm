@@ -88,6 +88,13 @@
 /obj/item/stack/spacecash/c1000000
 	amount = 1000000
 
+//A crutch for the vending machine, well, or an ingenious roflcat solution
+/obj/item/stack/spacecash/magic_linked/Initialize(mapload, new_amount = 150, merge = TRUE)
+	. = ..()
+	//roflcat
+	if(loc)
+		SScapitalism.payment_account.credit(new_amount * -1, "Выдача наличности")
+
 ///// USSP space cash
 
 /obj/item/stack/spacecash/ussp

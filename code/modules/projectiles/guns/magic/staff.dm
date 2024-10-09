@@ -85,10 +85,6 @@
 	force = 25
 	armour_penetration = 75
 	block_chance = 50
+	block_type = MELEE_ATTACKS
 	sharp = 1
 	max_charges = 4
-
-/obj/item/gun/magic/staff/spellblade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0
-	return ..()

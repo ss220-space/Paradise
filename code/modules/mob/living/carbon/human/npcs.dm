@@ -9,8 +9,28 @@
 	. = ..()
 	name = "Pun Pun"
 	real_name = name
-	equip_to_slot_if_possible(new /obj/item/clothing/under/punpun(src), ITEM_SLOT_CLOTH_INNER)
+	
+	var/obj/item/clothing/under/punpun/prom = new(src)
+	var/obj/item/clothing/accessory/petcollar/prom_collar = new(src)
+	var/obj/item/card/id/punpun/punpun_id = new(prom_collar)
+	prom_collar.access_id = punpun_id
+	prom_collar.on_attached(prom, src)
+	equip_to_slot_if_possible(prom, ITEM_SLOT_CLOTH_INNER)
+
 	tts_seed = "Chen"
+
+/mob/living/carbon/human/lesser/monkey/punpun/can_use_machinery(obj/machinery/mas)
+	. = ..()
+	var/static/list/typecache_whitelist = typecacheof(list(
+		/obj/machinery/vending,
+		/obj/machinery/chem_dispenser/soda,
+		/obj/machinery/chem_dispenser/beer,
+	))
+	if(is_type_in_typecache(mas, typecache_whitelist))
+		return TRUE
+
+/mob/living/carbon/human/lesser/monkey/punpun/get_npc_respawn_message()
+	return "Вы подчиняетесь Повару, Бармену и ГП. Вам нельзя покидать бар без их разрешения. Ваша задача  развлекать посетителей, обслуживать их и слушаться ваших хозяев."
 
 /mob/living/carbon/human/lesser/monkey/teeny/Initialize(mapload)
 	. = ..()
