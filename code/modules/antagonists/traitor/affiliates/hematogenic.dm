@@ -314,7 +314,6 @@
 
 
 /obj/item/reagent_containers/hypospray/autoinjector/hemat
-	icon = 'icons/obj/affiliates.dmi'
 	volume = 15
 	amount_per_transfer_from_this = 15
 
@@ -322,14 +321,12 @@
 	name = "Blue Lagoon autoinjector"
 	desc = "Вещество разработанное Hematogenic Industries, на основе криоксадона из тел Драсков обладающих душой, \
 			сильно охлаждающее тело и замедляющее многие биологические процессы, не вредя организму."
-	icon_state = ""
 	list_reagents = list("hemat_blue_lagoon" = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/hemat/bloody_mary
 	name = "Bloody Mary autoinjector"
 	desc = "Вещество разработанное Hematogenic Industries, на основе крови воксов обладающих душой, быстро восстанавливающее \
 			объем крови и количество кислорода в ней."
-	icon_state = ""
 	list_reagents = list("hemat_bloody_mary" = 15)
 
 
@@ -337,14 +334,12 @@
 	name = "Demons Blood autoinjector"
 	desc = "Вещество разработанное Hematogenic Industries, на основе крови вампиров подкласса \"hemomancer\", быстро \
 			лечащае, в зависимости от суммарных повреждений."
-	icon_state = ""
 	list_reagents = list("hemat_demons_blood" = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/hemat/white_russian
 	name = "White Russian autoinjector"
 	desc = "Вещество разработанное Hematogenic Industries, на основе крови вампиров подкласса \"gargantua\", временно \
 			повышающее скорость бега."
-	icon_state = ""
 	list_reagents = list("hemat_white_russian" = 15)
 
 /obj/item/storage/box/syndie_kit/stimulants

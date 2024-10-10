@@ -19,6 +19,10 @@
 					/datum/objective/escape
 					)
 
+/proc/is_MI13_agent(mob/living/user)
+	var/datum/antagonist/traitor/traitor = user?.mind?.has_antag_datum(/datum/antagonist/traitor)
+	return istype(traitor?.affiliate, /datum/affiliate/mi13)
+
 /datum/affiliate/mi13/finalize_affiliate(datum/mind/owner)
 	. = ..()
 	var/datum/antagonist/traitor/traitor = owner.has_antag_datum(/datum/antagonist/traitor)
@@ -200,7 +204,7 @@
 /obj/item/pen/intel_data/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(target != user)
-		return .
+		return
 
 	for(var/obj/item/implant/uplink/uplink_imp in user)
 		if(uplink_imp.imp_in != user)
@@ -342,6 +346,105 @@
 
 	ring.breaking = FALSE
 
-/proc/is_MI13_agent(mob/living/user)
-	var/datum/antagonist/traitor/traitor = user?.mind?.has_antag_datum(/datum/antagonist/traitor)
-	return istype(traitor?.affiliate, /datum/affiliate/mi13)
+/obj/machinery/camera/emp_proof/mi13
+	network = list("MI13")
+	use_power = NO_POWER_USE
+
+/obj/item/spy_bug
+	name = "spy bug"
+	desc = "Миниатюрное устройство с камерой и микрофоном. На обратной стороне можно заметить миниатюрную гравировку \"MI13\""
+	icon = 'icons/obj/affiliates.dmi'
+	icon_state = "spy_bug"
+	item_state = "nothing"
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
+	throwforce = 0
+	w_class = WEIGHT_CLASS_TINY
+	throw_speed = 3
+	throw_range = 7
+	materials = list(MAT_METAL=30, MAT_GLASS=20)
+	var/obj/machinery/camera/emp_proof/mi13/camera
+
+/obj/item/spy_bug/Initialize(mapload)
+	. = ..()
+	camera = new(src)
+
+/obj/item/spy_bug/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
+	return ATTACK_CHAIN_BLOCKED
+
+/obj/item/spy_bug/afterattack(atom/target, mob/user, proximity, params, status)
+	. = ..()
+	if (!isitem(target))
+		return
+
+	var/obj/item/I = target
+	if (do_after(user, 3 SECONDS, I, max_interact_count = 1))
+		hook(user, I)
+
+/obj/item/spy_bug/proc/unhook()
+	qdel(loc.GetComponent(/datum/component/spy_bug))
+	forceMove(get_turf(loc))
+	remove_verb(loc, /obj/item/verb/unhook_bug)
+
+/obj/item/spy_bug/proc/hook(mob/user, obj/item/I)
+	if (!I)
+		return
+
+	I.AddComponent(/datum/component/spy_bug)
+	forceMove(I)
+	to_chat(user, span_notice("You have silently attached [src] on [I]."))
+
+/obj/item/spy_bug/strip_action(mob/user, mob/living/carbon/human/owner, obj/item/I)
+	if (!I)
+		return FALSE
+
+	if (do_after(user, 3 SECONDS, I, max_interact_count = 1))
+		hook(user, I)
+
+	return TRUE
+
+/datum/component/spy_bug
+
+/datum/component/spy_bug/Initialize()
+	if(!isitem(parent))
+		return COMPONENT_INCOMPATIBLE
+
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+
+/datum/component/spy_bug/proc/on_examine(datum/source, mob/living/carbon/human/human, list/examine_list)
+	SIGNAL_HANDLER
+
+	if(!istype(human))
+		return
+
+	if(!isstack(parent))
+		examine_list += "Вы видите небольшое устройство с микрофоном и камерой."
+
+/datum/component/spy_bug/_JoinParent()
+	. = ..()
+	var/obj/item/I = parent
+	var/mob/M = I.loc
+	add_verb(M, /obj/item/verb/unhook_bug)
+
+/obj/item/verb/unhook_bug()
+	set name = "Unhook the bug"
+	set category = "Object"
+	set desc = "Отцепляет шпионский жучок."
+	set src in usr
+
+	if (!GetComponent(/datum/component/spy_bug))
+		return
+
+	for (var/obj/item/spy_bug/bug in contents)
+		bug.unhook()
+
+/obj/item/camera_bug/spy_monitor
+	name = "spy monitor"
+	desc = ""
+	icon = 'icons/obj/affiliates.dmi'
+	icon_state = "spy_monitor"
+	item_state	= "qm_tablet"
+	integrated_console_type = /obj/machinery/computer/security/camera_bug/spy_monitor
+
+/obj/machinery/computer/security/camera_bug/spy_monitor
+	network = list("MI13")
+
