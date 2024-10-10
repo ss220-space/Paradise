@@ -401,3 +401,27 @@
 	item_state = "centcomm_envirohelm"
 	HUDType = DATA_HUD_SECURITY_BASIC
 	examine_extensions = EXAMINE_HUD_SKILLS
+
+/obj/item/clothing/head/helmet/space/plasmaman/centcomm_green_commander
+	name = "CentCom commander plasma envirosuit helmet"
+	desc = "Специальный защитный шлем, предназначенный для Высшего состава Центрального Командования. Их не так много, поскольку Центком обычно не нанимает плазмаменов на более высокие должности из-за их сложностей."
+	icon_state = "commander_envirohelm"
+	item_state = "commander_envirohelm"
+	HUDType = DATA_HUD_SECURITY_BASIC
+	examine_extensions = EXAMINE_HUD_SKILLS
+
+/obj/item/clothing/head/helmet/space/plasmaman/centcomm_green_intern
+	name = "Central command officer envirosuit helmet"
+	desc = "Специальный защитный шлем, предназначенный для сотрудников ЦентКома.Чтобы любые пролитые кофе не убили беднягу."
+	icon_state = "intern_envirohelm"
+	item_state = "intern_envirohelm"
+	HUDType = DATA_HUD_SECURITY_BASIC
+	examine_extensions = EXAMINE_HUD_SKILLS
+
+/obj/item/clothing/head/helmet/space/plasmaman/centcomm_green_official
+	name = "Central command officer envirosuit helmet"
+	desc = "Специальный защитный шлем, предназначенный для сотрудников ЦентКома. Специально сделано для любителей зелёного."
+	icon_state = "official_envirohelm"
+	item_state = "official_envirohelm"
+	HUDType = DATA_HUD_SECURITY_BASIC
+	examine_extensions = EXAMINE_HUD_SKILLS

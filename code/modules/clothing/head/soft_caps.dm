@@ -169,3 +169,22 @@
 	desc = "A cap worn by marines of the Trans-Solar Federation Specops division. The insignia signifies the wearer bears the rank of a Lieutenant."
 	icon_state = "solgovcelitesoft"
 	item_color = "solgovcelite"
+
+/obj/item/clothing/head/caphat/centcom_green
+	name = "\improper CentCom hat"
+	desc = "Хорошо быть императором."
+	icon_state = "centcom_green_hat"
+	item_color = "centcom_green_hat"
+
+/obj/item/clothing/head/caphat/centcom_green/cap
+	name = "\improper CentCom commander cap"
+	desc = "Его носят лучшие адмиралы ЦентКома. На подкладке кепки расположены два слабых инициала."
+	icon_state = "centcom_green_cap"
+	item_color = "centcom_green_cap"
+
+/obj/item/clothing/head/soft/centcom_green_intern
+	name = "\improper CentCom Head Intern beancap"
+	desc = "Ужасающая смесь шапки и мягкой кепки зеленого цвета ЦентКом. Вам придется отчаянно нуждаться в власти над своими сверстниками, чтобы согласиться носить это."
+	icon_state = "intern_hat"
+	item_color = "intern_hat"
+
