@@ -544,8 +544,8 @@ BLIND     // can't see anything
 
 	if(up)
 		to_chat(user, span_notice("You push [src] out of the way."))
-		gas_transfer_coefficient = null
-		permeability_coefficient = null
+		gas_transfer_coefficient = 1
+		permeability_coefficient = 1
 		if(adjusted_slot_flags)
 			slot_flags = adjusted_slot_flags
 		if(adjusted_flags_inv)
