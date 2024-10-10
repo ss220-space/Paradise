@@ -11,6 +11,9 @@
 		stack_trace("Item with no donator tier in loadout donor items: [display_name].")
 		return TRUE
 
+	if(!cl.prefs) // DB loading, skip this check now
+		return TRUE
+
 	if(cl?.donator_level >= donator_tier)
 		return TRUE
 
@@ -389,4 +392,9 @@
 	display_name = "Short maid costume"
 	path = /obj/item/clothing/under/maid/short
 
+/datum/gear/donor/rdplushie
+	donator_tier = 3
+	cost = 1
+	display_name = "RD doll"
+	path = /obj/item/toy/plushie/rdplushie
 

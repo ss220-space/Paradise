@@ -11,42 +11,46 @@
 	clown_removal_text = "Избавившись от заражения блобом ты возвращаешься к своему неуклюжему, клоунскому \"я\"."
 	show_in_roundend = FALSE
 	show_in_orbit = FALSE
-	//Variable responsible for the need to add a mind to blob_infected list in game mode.
+	/// Variable responsible for the need to add a mind to blob_infected list in game mode.
 	var/add_to_mode = TRUE
-	//Countdown to burst start.
+	/// Countdown to burst start.
 	var/start_process = TRUE
-	//Warnings about soon burst start.
+	/// Warnings about soon burst start.
 	var/start_messages = FALSE
-	//Is a new blob needed from the station crew if this one dies when trying to burst outside the station.
+	/// Is a new blob needed from the station crew if this one dies when trying to burst outside the station.
 	var/need_new_blob = FALSE
-	//Blob in the countdown to burst.
+	/// Blob in the countdown to burst.
 	var/is_processing = FALSE
-	//Сountdown to burst process is interrupted.
+	/// Сountdown to burst process is interrupted.
 	var/stop_process = FALSE
-	//Need to warn about an attempt to burst outside the station.
+	/// Need to warn about an attempt to burst outside the station.
 	var/warn_blob = TRUE
-	//Time elapsed from the start of the countdown to the bursting.
+	/// Time elapsed from the start of the countdown to the bursting.
 	var/burst_waited_time = 0
-	//Time elapsed from last burst warning message.
+	/// Time elapsed from last burst warning message.
 	var/message_time = 0
-	//Was there a transformation into a blob when bursting.
+	/// Was there a transformation into a blob when bursting.
 	var/is_tranformed = FALSE
-	//Maximum time to burst.
+	/// Maximum time to burst.
 	var/time_to_burst_hight = TIME_TO_BURST_ADDED_HIGHT
-	//Minimum time to burst.
+	/// Minimum time to burst.
 	var/time_to_burst_low = TIME_TO_BURST_ADDED_LOW
-	//Blob infected hud screen.
+	/// Blob infected hud screen.
 	var/atom/movable/screen/time_to_burst_display
-	//Blob talk ability
+	/// Blob talk ability
 	var/datum/action/innate/blob/comm/blob_talk_action
-	//Blob burst ability
+	/// Blob burst ability
 	var/datum/action/innate/blob/self_burst/blob_burst_action
-	//Final time to burst.
+	/// Final time to burst.
 	var/burst_wait_time
-	//Total burst warning text
+	/// Total burst warning text
 	var/player_message
+	/// valid mob type
+	var/mob_type
 
 /datum/antagonist/blob_infected/on_gain()
+	if(!is_type_suitable(owner.current))
+		stack_trace("This antag datum cannot be attached to a mob of this type.")
 	add_game_logs("has been blobized", owner)
 	var/return_value = ..()
 	burst_wait_time = rand(time_to_burst_low, time_to_burst_hight)
@@ -86,20 +90,21 @@
 
 
 /datum/antagonist/blob_infected/apply_innate_effects(mob/living/mob_override)
-	var/user = ..(mob_override)
+	var/mob/living/user = ..(mob_override)
 	add_blob_actions(user)
 	add_burst_display(user)
+	add_atmos_immunity(user)
 	is_processing = TRUE
 	return user
 
 
 /datum/antagonist/blob_infected/remove_innate_effects(mob/living/mob_override)
-	var/user = ..(mob_override)
+	var/mob/living/user = ..(mob_override)
 	remove_blob_actions(user)
 	remove_burst_display(user)
+	remove_atmos_immunity(user)
 	is_processing = FALSE
 	return user
-
 
 /datum/antagonist/blob_infected/roundend_report_header()
 	return
@@ -120,6 +125,8 @@
 	SEND_SOUND(owner.current, 'sound/magic/mutate.ogg')
 	return messages
 
+/datum/antagonist/blob_infected/proc/is_type_suitable(mob/living/affected)
+	return mob_type && istype(affected, mob_type)
 
 /datum/antagonist/blob_infected/proc/process_blob_player()
 	if(stop_process)
@@ -194,6 +201,18 @@
 	hud.show_hud(hud.hud_version)
 
 
+/datum/antagonist/blob_infected/proc/add_atmos_immunity(mob/living/affected)
+	if(is_type_suitable(affected))
+		return TRUE
+	return FALSE
+
+
+/datum/antagonist/blob_infected/proc/remove_atmos_immunity(mob/living/affected)
+	if(is_type_suitable(affected))
+		return TRUE
+	return FALSE
+
+
 /datum/antagonist/blob_infected/proc/burst_blob_in_space(warned=FALSE)
 	if(!owner || !owner.current)
 		return
@@ -253,11 +272,67 @@
 	overmind.is_tranformed = TRUE
 	return overmind
 
+
 /datum/antagonist/blob_infected/proc/kill_borer_inside()
 	var/mob/living/simple_animal/borer/borer = owner?.current?.has_brain_worms()
 	if(borer)
 		borer.leave_host()
 		borer.death()
+
+
+/datum/antagonist/blob_infected/human
+	mob_type = /mob/living/carbon/human
+
+
+/datum/antagonist/blob_infected/human/add_atmos_immunity(mob/living/carbon/human/affected)
+	if(..(affected))
+		var/datum/species/S = affected.dna.species
+		if(!HAS_TRAIT_FROM(affected, TRAIT_NO_BREATH, BLOB_INFECTED_TRAIT))
+			ADD_TRAIT(affected, TRAIT_NO_BREATH, BLOB_INFECTED_TRAIT)
+		S.cold_level_1 = BLOB_INFECTED_MIN_BODY_TEMP
+		S.cold_level_2 = BLOB_INFECTED_MIN_BODY_TEMP
+		S.cold_level_3 = BLOB_INFECTED_MIN_BODY_TEMP
+		S.warning_low_pressure = BLOB_INFECTED_MIN_PRESSURE
+		S.hazard_low_pressure =  BLOB_INFECTED_MIN_PRESSURE
+		return TRUE
+	return FALSE
+
+
+/datum/antagonist/blob_infected/human/remove_atmos_immunity(mob/living/carbon/human/affected)
+	if(..(affected))
+		var/datum/species/S = affected.dna.species
+		if(HAS_TRAIT_FROM(affected, TRAIT_NO_BREATH, BLOB_INFECTED_TRAIT))
+			REMOVE_TRAIT_NOT_FROM(affected, TRAIT_NO_BREATH, BLOB_INFECTED_TRAIT)
+		S.cold_level_1 = initial(S.cold_level_1)
+		S.cold_level_2 = initial(S.cold_level_2)
+		S.cold_level_3 = initial(S.cold_level_3)
+		S.warning_low_pressure = initial(S.warning_low_pressure)
+		S.hazard_low_pressure = initial(S.hazard_low_pressure)
+		return TRUE
+	return FALSE
+
+
+/datum/antagonist/blob_infected/simple_animal
+	mob_type = /mob/living/simple_animal
+	/// Contains mob atmos that existed before the change
+	var/list/old_atmos_requirements
+
+
+/datum/antagonist/blob_infected/simple_animal/add_atmos_immunity(mob/living/simple_animal/affected)
+	if(..(affected))
+		old_atmos_requirements = affected.atmos_requirements
+		affected.atmos_requirements = BLOB_INFECTED_ATMOS_REC
+		affected.minbodytemp = BLOB_INFECTED_MIN_BODY_TEMP
+		return TRUE
+	return FALSE
+
+
+/datum/antagonist/blob_infected/simple_animal/remove_atmos_immunity(mob/living/simple_animal/affected)
+	if(..(affected))
+		affected.atmos_requirements = old_atmos_requirements
+		affected.minbodytemp = initial(affected.minbodytemp)
+		return TRUE
+	return FALSE
 
 
 /**

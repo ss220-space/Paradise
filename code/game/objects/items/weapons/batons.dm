@@ -103,7 +103,7 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
-		if(human_target.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
+		if(human_target.check_shields(src, 0, "[user]'s [name]", ITEM_ATTACK))
 			return BATON_ATTACK_DONE
 		if(check_martial_counter(target, user))
 			return BATON_ATTACK_DONE

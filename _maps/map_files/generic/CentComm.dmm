@@ -12758,7 +12758,7 @@
 /area/shuttle/administration)
 "fVC" = (
 /obj/machinery/turretid{
-	control_area = "\improper Centcom Special Operations";
+	control_area = "Centcom Special Operations Forces";
 	name = "Quarantine Turret";
 	pixel_x = 3;
 	pixel_y = -26

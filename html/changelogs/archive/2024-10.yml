@@ -1,0 +1,93 @@
+'2024-10-01':
+  Daeberdir:
+  - imageadd: 'Tajaran body resprite. && add: New tajaran haircuts. (#5676)'
+  L343-CJ:
+  - bugfix: prizecounter fix (#5964)
+  NoName:
+  - add: RD doll (#5963)
+  Valtor:
+  - bugfix: donor loadout (#5965)
+  Vladisvell:
+  - bugfix: Fixed titlescreen runtime (#5969)
+  dageavtobusnick:
+  - tweak: Traitor job ban not affect ert (#5966)
+  - unknown: goon vampire and new vampire now has common code (#5604)
+'2024-10-03':
+  Antoonij:
+  - add: Borer ranks, focuses (#5774)
+  - bugfix: runtime null.controlling  (#5972)
+  Pelmenik123:
+  - bugfix: bluespace_tap (#5973)
+  PiroMage:
+  - bugfix: 'Nova Station #2 Patch (#5962)'
+  dageavtobusnick:
+  - unknown: сentcomm rapier (#5924)
+'2024-10-04':
+  L343-CJ:
+  - balance: Nerf ashwalkers speedmod (#5977)
+'2024-10-05':
+  Anorak2020:
+  - add: Emag opens uplinks (#5892)
+  - add: Customat (#5849)
+  Antoonij:
+  - add: borer host force say (#5775)
+  - add: Revenant blight | ectoplasmic disease | sin update (#5644)
+  Aziz Chynaliev:
+  - add: new 10 TTS voices from Warhammer 40k (9) and Last Years Snow Man (1)
+  Daeberdir:
+  - bugfix: turret protection map and initialize fix. (#5974)
+  Kray1k:
+  - bugfix: devil revive contract, spell targeting fix & gravemarker rename fix (#5907)
+  LiquidPotroh:
+  - tweak: TOUCH reaction tweaks (#5975)
+  Mahimka42:
+  - bugfix: Minor flower fixes (#5979)
+  Pelmenik123:
+  - add: Capitalism (#5958)
+  - add: npc pun pun [bounty] (#5970)
+  PiroMage:
+  - bugfix: 'Nova Station #3 Patch (#5982)'
+  RamleyDude:
+  - tweak: cqc kick (#5885)
+  Sheya:
+  - unknown: inhand sprites, colourable blindfolds (#5957)
+  dageavtobusnick:
+  - bugfix: vampires now spend blood on cast (#5978)
+  - tweak: some blob small tweaks (#5772)
+  - bugfix: fix tilted vending machine help intent runtime (#5980)
+'2024-10-06':
+  Aziz Chynaliev:
+  - server: tooling minor update (#5988)
+  - server: improve testmerge worker
+  - server: improve testmerge worker 2
+  - server: improve testmerge worker 3
+  - server: improve testmerge worker 4
+  - server: improve testmerge worker 5
+  - server: improve testmerge worker 6
+  - server: improve testmerge worker 7
+  - server: improve testmerge worker 8
+  - server: improve testmerge worker 9
+  - server: improve testmerge worker 10
+  Den109G:
+  - bugfix: Now robo can make both scattershots (#5985)
+  Mahimka42:
+  - tweak: Emagged cyborg have amanitin instead heparine (#5981)
+'2024-10-07':
+  Antoonij:
+  - bugfix: attempt_cast on rev blight (#5991)
+  FlitchTime:
+  - tweak: cargo reagent reward (#5984)
+  PiroMage:
+  - bugfix: 'Nova Station #4 Patch (#5986)'
+  - bugfix: 'Nova Station #5 Patch (#5992)'
+  - bugfix: 'Nova Station #6 Patch (#5994)'
+'2024-10-08':
+  Anorak2020:
+  - bugfix: dupe of materials (#5998)
+  Antoonij:
+  - refactor: Upgrade vomit from life cycle to debuff (#5931)
+  Valtor:
+  - imageadd: tajaran small hair fixes (#6000)
+'2024-10-09':
+  kartowkar:
+  - bugfix: eatable component multitool fix (#6001)

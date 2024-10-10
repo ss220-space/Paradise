@@ -480,8 +480,8 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/datum/antagonist/goon_vampire/g_vamp = H.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-		if(g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full)) //incapacitating but not lethal.
+		var/datum/antagonist/vampire/vamp = H.mind?.has_antag_datum(/datum/antagonist/vampire)
+		if(vamp && vamp.is_garlic_affected && !vamp.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
 			if(prob(min(25, current_cycle)))
 				to_chat(H, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")
 				H.Weaken(2 SECONDS)
