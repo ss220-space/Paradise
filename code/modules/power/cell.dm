@@ -39,28 +39,31 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+
 /obj/item/stock_parts/cell/magic_charge_act(mob/user)
+	. = NONE
+
+	if(charge >= maxcharge)
+		return
+
+	if(prob(80) && adjust_maxcharge(-200))
+		. |= RECHARGE_BURNOUT
+
+	charge = maxcharge
 	. |= RECHARGE_SUCCESSFUL
 
-	if(prob(80) && !adjust_maxcharge(-200))
-		. |= RECHARGE_BURNOUT
-		
-	charge = maxcharge
-	update_icon()
-	
-	return .
+	update_appearance(UPDATE_ICON)
+
 
 /obj/item/stock_parts/cell/proc/adjust_maxcharge(amount)
 	if(self_recharge)
 		return FALSE	// SelfCharging uses static charge values ​​per tick, so we don't want it to mess up the recharge balance.
 
-	var/oldcharge = maxcharge
+	var/old_maxcharge = maxcharge
 	maxcharge = max(maxcharge + amount, 1)
 
-	if(charge > maxcharge)
-		charge = maxcharge
+	return maxcharge != old_maxcharge
 
-	return maxcharge != oldcharge
 
 /obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)
 	. = ..()

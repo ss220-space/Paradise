@@ -33,15 +33,11 @@
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
+
 /obj/item/gun/magic/wand/magic_charge_act(mob/user)
 	. = ..()
+	update_appearance(UPDATE_ICON_STATE)
 
-	if(!max_charges)
-		. |= RECHARGE_BURNOUT
-		
-	update_icon_state()
-	
-	return .
 
 /obj/item/gun/magic/wand/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!charges)

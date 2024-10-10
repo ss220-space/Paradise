@@ -88,19 +88,22 @@
 /obj/item/book/granter/proc/can_learn(mob/living/user)
 	return TRUE
 
+
 /obj/item/book/granter/magic_charge_act(mob/user)
+	. = NONE
+
+	if(uses >= initial(uses))
+		return
+
+	uses++
 	. |= RECHARGE_SUCCESSFUL
 
 	if(prob(80))
 		visible_message(span_warning("[src] catches fire!"))
+		user.temporarily_remove_item_from_inventory(src)
 		qdel(src)
-
 		. |= RECHARGE_BURNOUT
-		
-		return .
 
-	uses++
-	return .
 
 // Generic action giver
 /obj/item/book/granter/action

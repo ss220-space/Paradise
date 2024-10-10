@@ -719,12 +719,16 @@
 /atom/proc/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
 	return RCD_NO_ACT
 
+
 /atom/proc/magic_charge_act(mob/user)
-	if(contents)
-		for(var/obj/item/stock_parts/cell/cell in contents)
-			. |= cell.magic_charge_act()
-			
-	return .
+	. = NONE
+
+	if(!contents)
+		return
+
+	for(var/obj/item/stock_parts/cell/cell in contents)
+		. |= cell.magic_charge_act(user)
+
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(density && !AM.has_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).

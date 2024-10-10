@@ -16,7 +16,7 @@
 
 
 /obj/effect/proc_holder/spell/charge/cast(list/targets, mob/user = usr)
-	var/charged_item
+	var/atom/charged_item
 	var/charge_result
 
 	var/mob/living/living = targets[1]
@@ -24,9 +24,9 @@
 	if(living.pulling)
 		charge_result = pulling.magic_charge_act(pulling)
 
-		if(!(charge_result & RECHARGE_SUCCESSFUL))
+		if(charge_result & RECHARGE_SUCCESSFUL)
 			charged_item = pulling
-		
+
 	if(!charged_item)
 		var/list/hand_items = list(living.get_active_hand(), living.get_inactive_hand())
 
@@ -39,14 +39,12 @@
 			charged_item = item
 			break
 
-	if(!charged_item)
+	if(!(charge_result & RECHARGE_SUCCESSFUL) || QDELETED(charged_item))
 		to_chat(user, span_notice("You feel magical power surging to your hands, but the feeling rapidly fades..."))
 		return
-		
+
 	if(charge_result & RECHARGE_BURNOUT)
 		to_chat(user, span_caution("[charged_item] is reacting poorly to the spell!"))
 		return
 
 	to_chat(user, span_notice("[charged_item] suddenly feels very warm!"))
-	return
-
