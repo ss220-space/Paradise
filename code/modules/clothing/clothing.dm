@@ -289,6 +289,7 @@ BLIND     // can't see anything
 	gender = PLURAL //Carn: for grammarically correct text-parsing
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
+	var/basic_item_state
 	belt_icon = "bgloves"
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
@@ -313,9 +314,13 @@ BLIND     // can't see anything
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi'
 		)
 
+/obj/item/clothing/gloves/Initialize(mapload)
+	. = ..()
+	basic_item_state = item_state
 
 /obj/item/clothing/gloves/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
+	update_icon_state()
 	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
 		return .
 	if(surgeryspeedmod)
@@ -365,6 +370,20 @@ BLIND     // can't see anything
 /obj/item/clothing/gloves/update_desc(updates = ALL)
 	. = ..()
 	desc = clipped ? "[initial(desc)] They have had the fingertips cut off of them." : initial(desc)
+
+/obj/item/clothing/gloves/update_icon_state()
+	.=..()
+	var/mob/living/carbon/human/user = loc
+	if(!user || !istype(user, /mob/living/carbon/human))
+		return
+	var/obj/item/organ/external/r_hand_status = user.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
+	var/obj/item/organ/external/l_hand_status = user.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
+	if(r_hand_status && l_hand_status)
+		item_state = basic_item_state
+	if(!r_hand_status)
+		item_state = "[basic_item_state]_l"
+	else if(!l_hand_status)
+		item_state = "[basic_item_state]_r"
 
 
 /obj/item/clothing/under/proc/set_sensors(mob/living/user)
