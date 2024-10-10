@@ -2,6 +2,7 @@
 	name = "contractor pinpointer"
 	desc = "A handheld tracking device that points to crew without needing suit sensors at the cost of accuracy."
 	icon_state = "pinoff_contractor"
+	item_state = "pinoff_contractor"
 	icon_off = "pinoff_contractor"
 	icon_null = "pinonnull_contractor"
 	icon_direct = "pinondirect_contractor"
