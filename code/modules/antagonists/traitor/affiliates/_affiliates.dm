@@ -19,6 +19,8 @@
 	var/can_take_bonus_objectives = TRUE
 	/// Slogan displayed when selected
 	var/slogan
+	/// Number of normal objectives
+	var/normal_objectives = 0
 
 /// If your affiliate need special effects, it is place for them
 /datum/affiliate/proc/finalize_affiliate(datum/mind/owner)
@@ -39,6 +41,9 @@
 	if(hijacker_antag && !mind.has_big_obj())
 		traitor.add_objective(hij_obj)
 		return
+
+	for(var/i = 1; i <= normal_objectives; ++i)
+		traitor.forge_single_human_objective()
 
 	for(var/objective in objectives)
 		var/datum/objective/new_objective
@@ -62,10 +67,8 @@
 
 	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
 
-	var/obj1 = pick(/datum/objective/maroon, /datum/objective/steal)
-	traitor.add_objective(obj1)
-	var/obj2 = pick(/datum/objective/maroon, /datum/objective/steal)
-	traitor.add_objective(obj2)
+	traitor.forge_single_human_objective()
+	traitor.forge_single_human_objective()
 
 /obj/effect/proc_holder/spell/choose_affiliate
 	name = "Choose Affiliate"

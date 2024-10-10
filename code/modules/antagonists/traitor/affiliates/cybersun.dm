@@ -18,12 +18,11 @@
 				Ваше выживание опционально;\n\
 				Возможны помехи от агентов других корпораций - действуйте на свое усмотрение."
 	hij_obj = /datum/objective/make_ai_malf
+	normal_objectives = 4
 	objectives = list(list(/datum/objective/steal = 80, /datum/objective/steal/ai = 20),
 						/datum/objective/download_data,
-						/datum/objective/new_mini_traitor,
-						/datum/objective/mecha_or_pod_hijack,
-						list(/datum/objective/steal = 60, /datum/objective/maroon = 40),
-						list(/datum/objective/steal = 60, /datum/objective/maroon = 40),
+//						/datum/objective/new_mini_traitor,
+//						/datum/objective/mecha_or_pod_hijack,
 						/datum/objective/escape,
 						)
 

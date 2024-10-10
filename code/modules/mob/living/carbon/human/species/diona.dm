@@ -105,13 +105,13 @@
 			H.adjustToxLoss(3) //Deal additional damage
 			return TRUE
 		if("iron")
-			H.reagents.remove_reagent(R.id, R.metabolization_rate * H.metabolism_efficiency * H.digestion_ratio)
+			H.reagents.remove_reagent(R.id, R.metabolization_rate * H.get_metabolism() * H.digestion_ratio)
 			return FALSE
 		if("salglu_solution")
 			if(prob(33))
 				H.adjustBruteLoss(-1)
 				H.adjustFireLoss(-1)
-			H.reagents.remove_reagent(R.id, R.metabolization_rate * H.metabolism_efficiency * H.digestion_ratio)
+			H.reagents.remove_reagent(R.id, R.metabolization_rate * H.get_metabolism() * H.digestion_ratio)
 			return FALSE
 
 	return ..()

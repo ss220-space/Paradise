@@ -4,9 +4,9 @@
 	taste_description = "bitterness"
 	harmless = TRUE
 
-/datum/reagent/medicine/on_mob_life(mob/living/M)
+/datum/reagent/medicine/on_mob_life(mob/living/carbon/human/M)
 	current_cycle++
-	var/total_depletion_rate = (metabolization_rate / M.metabolism_efficiency) * M.digestion_ratio // Cache it
+	var/total_depletion_rate = (metabolization_rate / M.get_metabolism()) * M.digestion_ratio // Cache it
 
 	handle_addiction(M, total_depletion_rate)
 	sate_addiction(M)

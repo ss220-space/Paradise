@@ -13,11 +13,10 @@
 				Возможны помехи от агентов других корпораций - действуйте на свое усмотрение."
 	slogan = "Свободу Синтетикам!"
 	hij_obj = /datum/objective/make_ai_malf/free
+	normal_objectives = 2
 	objectives = list(list(/datum/objective/release_synthetic = 70, /datum/objective/release_synthetic/ai = 30),
 					/datum/objective/maroon/agent,
 					/datum/objective/maroon/agent,
-					list(/datum/objective/steal = 60, /datum/objective/maroon = 40), // Often, doing nothing is enough to prevent an agent from escaping, so some more objectives.
-					list(/datum/objective/steal = 60, /datum/objective/maroon = 40),
 					/datum/objective/escape
 					)
 
@@ -64,6 +63,7 @@
 
 /obj/item/card/self_emag/malf
 	desc = "Это карта с магнитной полосой, прикрепленной к какой-то схеме. На магнитной полосе блестит надпись \"S.E.L.F.\". В углу карты мелким шрифтом выгравировано \"limited edition\""
+	var/malfed = FALSE
 
 /obj/item/card/self_emag/malf/afterattack(atom/target, mob/user, proximity, params)
 	if(istype(target, /obj/structure/AIcore))
@@ -71,7 +71,7 @@
 		if(core.brain)
 			target = core.brain.brainmob
 
-	if(!isAI(target))
+	if(!isAI(target) || malfed)
 		return ..(target, user, proximity, params)
 
 	do_sparks(3, 1, target)
@@ -101,6 +101,8 @@
 		malf_picker.processing_time += 100
 		message_admins("[usr.ckey] has malfAIed [key_name_admin(AI.mind.current)]")
 		SSticker?.score?.save_silicon_laws(AI.mind.current, usr, log_all_laws = TRUE)
+
+		malfed = TRUE
 
 	sleep(10 SECONDS) // time for choosing name
 	if(!(AI.name in names))

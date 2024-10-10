@@ -347,7 +347,7 @@
 		if(stat == DEAD)
 			return TRUE
 
-		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell) && !HAS_TRAIT(src, TRAIT_IGNORECOLDSLOWDOWN))
 			var/mult = dna.species.coldmod * physiology.cold_mod
 			if(mult>0)
 				add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/cold, multiplicative_slowdown = ((dna.species.cold_level_1 - bodytemperature) / COLD_SLOWDOWN_FACTOR))
@@ -448,9 +448,9 @@
 	var/body_temperature_difference = dna.species.body_temperature - bodytemperature
 
 	if(bodytemperature <= dna.species.cold_level_1) //260.15 is 310.15 - 50, the temperature where you start to feel effects.
-		adjust_bodytemperature(max(metabolism_efficiency * (body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM))
+		adjust_bodytemperature(max(get_metabolism() * (body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM))
 	if(bodytemperature >= dna.species.heat_level_1) //360.15 is 310.15 + 50, the temperature where you start to feel effects.
-		adjust_bodytemperature(min(metabolism_efficiency * (body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM))	//We're dealing with negative numbers
+		adjust_bodytemperature(min(get_metabolism() * (body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM))	//We're dealing with negative numbers
 
 	// simple thermal regulation when the body temperature is OK for our species
 	if(bodytemperature > dna.species.cold_level_1 && bodytemperature < dna.species.heat_level_1)
@@ -460,11 +460,11 @@
 		if(dna.species.body_temperature < bodytemperature)
 			// body temperature is HIGHER than that of our species, we are cooling
 			var/clothing_factor = 2 - get_heat_protection(loc_temp) // thermal clothing with heat protection slows down recovery
-			adjust_bodytemperature(max(clothing_factor * metabolism_efficiency * ((body_temperature_difference + enviro_shift) / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_COOLING_MAX))
+			adjust_bodytemperature(max(clothing_factor * get_metabolism() * ((body_temperature_difference + enviro_shift) / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_COOLING_MAX))
 		else
 			// body temperature is LOWER than that of our species, we are heating
 			var/clothing_factor = 2 - get_cold_protection(loc_temp) // thermal clothing with cold protection slows down recovery
-			adjust_bodytemperature(min(clothing_factor * metabolism_efficiency * ((body_temperature_difference + enviro_shift) / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_HEATING_MAX))
+			adjust_bodytemperature(min(clothing_factor * get_metabolism() * ((body_temperature_difference + enviro_shift) / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_HEATING_MAX))
 
 
 	//This proc returns a number made up of the flags for body parts which you are protected on. (such as HEAD, UPPER_TORSO, LOWER_TORSO, etc. See setup.dm for the full list)

@@ -452,13 +452,13 @@
 /datum/reagent/consumable/ethanol/bloody_mary
 	name = "Bloody Mary"
 	id = "bloodymary"
-	description = "A strange yet pleasurable mixture made of vodka, tomato and lime juice. Or at least you THINK the red stuff is tomato juice."
+	description = "Странная, но приятная смесь из водки, томата и сока лайма. Или, по крайней мере, вы ДУМАЕТЕ, что красная штука — это томатный сок."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "bloodymaryglass"
 	drink_name = "Bloody Mary"
-	drink_desc = "Tomato juice, mixed with Vodka and a lil' bit of lime. Tastes like liquid murder."
+	drink_desc = "Томатный сок, смешанный с водкой и небольшим количеством лайма. На вкус как жидкое убийство."
 	taste_description = "tomatoes with booze"
 
 /datum/reagent/consumable/ethanol/bloody_mary/on_mob_life(mob/living/M)
@@ -732,7 +732,7 @@
 	drink_icon = "demonsblood"
 	drink_name = "Demons Blood"
 	drink_desc = "Just looking at this thing makes the hair at the back of your neck stand up."
-	taste_description = "<span class='warning'>evil</span>"
+	taste_description = span_warning("evil")
 
 /datum/reagent/consumable/ethanol/vodkatonic
 	name = "Vodka and Tonic"
@@ -2171,12 +2171,12 @@
 /datum/reagent/consumable/ethanol/blue_lagoon
 	name = "Blue Lagoon"
 	id = "blue_lagoon"
-	description = "What could be better than relaxing on the beach with a good drink?"
+	description = "Что может быть лучше, чем расслабиться на пляже с хорошим напитком?"
 	color = "#1edddd"
 	alcohol_perc = 0.5
 	drink_icon = "blue_lagoon"
 	drink_name = "Blue Lagoon"
-	drink_desc = "What could be better than relaxing on the beach with a good drink?"
+	drink_desc = "Что может быть лучше, чем расслабиться на пляже с хорошим напитком?"
 	taste_description = "beach relaxation"
 
 /datum/reagent/consumable/ethanol/green_fairy

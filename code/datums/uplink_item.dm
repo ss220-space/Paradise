@@ -2764,6 +2764,12 @@
 	name = "Кровавая граната"
 	desc = "Граната, поглощающая кровь окружающих гуманойдов в течении некоторого времени, а потом выплескивающая собранную кровь."
 	item = /obj/item/grenade/bloodgrenade
+	cost = 12
+
+/datum/uplink_item/affiliate/hematogenic/stimulants
+	name = "Набор стимулирующих веществ"
+	desc = "Набор из 4 инжекторов с различными стимулирующими веществами, разработанными на основе различных видов крови."
+	item = /obj/item/storage/box/syndie_kit/stimulants
 	cost = 16
 
 /datum/uplink_item/affiliate/for_objective/hemophagus_extract

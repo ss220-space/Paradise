@@ -1914,3 +1914,5 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return FALSE
 	return ..()
 
+/mob/living/carbon/human/proc/get_metabolism()
+	return metabolism_efficiency * physiology.metabolism_mod

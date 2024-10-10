@@ -10,11 +10,10 @@
 					"Украсть определенное количество ценных вещей",
 					"Убить определенное количество еретиков")
 	slogan = "Душой и телом, с беспределом."
-	objectives = list(/datum/objective/new_mini_changeling, // Oh, sorry, I forgot to make that stupid drug objective...
+	normal_objectives = 4
+	objectives = list(
+//					/datum/objective/new_mini_changeling, // Oh, sorry, I forgot to make that stupid drug objective...
 					/datum/objective/borers,
-					list(/datum/objective/steal = 60, /datum/objective/maroon = 40),
-					list(/datum/objective/steal = 60, /datum/objective/maroon = 40),
-					/datum/objective/maroon,
 					/datum/objective/escape
 					)
 

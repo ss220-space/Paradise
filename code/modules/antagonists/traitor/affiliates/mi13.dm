@@ -9,9 +9,12 @@
 					"Выглядеть стильно")
 	tgui_icon = "mi13"
 	slogan = "Да, я Бонд. Джеймс Бонд."
-	objectives = list(/datum/objective/steal/documents,
-					list(/datum/objective/steal = 30, /datum/objective/maroon = 70),
-					list(/datum/objective/steal = 30, /datum/objective/maroon/blueshield = 70), // blueshield also has CQC.
+	normal_objectives = 2
+	objectives = list(
+//					/datum/objective/steal/documents,
+//					list(/datum/objective/steal = 30, /datum/objective/maroon/blueshield = 70), // blueshield also has CQC.
+					/datum/objective/maroon/agent,
+					/datum/objective/maroon/agent,
 					/datum/objective/steal,
 					/datum/objective/escape
 					)
@@ -141,6 +144,18 @@
 		for(var/datum/objective/objective in traitor.objectives)
 			info += "<B>Objective #[obj_num]</B>: [objective.explanation_text]<br>"
 			obj_num++
+
+		var/TC_uses = 0
+		var/used_uplink = FALSE
+		var/purchases = ""
+		for(var/obj/item/uplink/uplink in GLOB.world_uplinks)
+			if(uplink?.uplink_owner && uplink.uplink_owner == target.mind.key)
+				TC_uses += uplink.used_TC
+				purchases += uplink.purchase_log
+				used_uplink = TRUE
+
+		if(used_uplink)
+			text += " (использовал" + ((target.gender == FEMALE ? "a " : " ")) + "[TC_uses] TC) [purchases]<br>"
 
 	if(vampire)
 		info += choise + " обладает способностями " + (vampire.isAscended() ? "высшего " : "") + "вампира " + (vampire.subclass ? "подкласса \"" + vampire.subclass.name + "\"" : "без подкласса") + ".<br>"

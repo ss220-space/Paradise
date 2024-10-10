@@ -42,6 +42,8 @@
 	var/bleed_mod = 1
 	/// Hunger drain rate modifier
 	var/hunger_mod = 1
+	/// Metabolism speed rate modifier
+	var/metabolism_mod = 1
 	/// Fractures chance reduction/amplification
 	var/bone_fragility = 1
 
