@@ -118,7 +118,7 @@
 
 /obj/item/book_of_babel/attack_self(mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_NO_BABEL))
-		user.visible_message("<span class='notice'>[user] suddenly stops, releasing the [src]</span>")
+		user.visible_message(span_notice("[user] suddenly stops, releasing the [src]"))
 		to_chat(user, span_warning("You don't know what a book is or what to do with it."))
 
 		return
