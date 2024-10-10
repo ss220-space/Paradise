@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/explosion
 	name = "Explosion"
-	desc = "This spell explodes an area."
+	desc = "Это заклинание подрывает область."
 	action_icon_state = "explosion"
 	var/ex_severe = 0
 	var/ex_heavy = 0

@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/lichdom
 	name = "Bind Soul"
-	desc = "A dark necromantic pact that can forever bind your soul to an item of your choosing. So long as both your body and the item remain intact and on the same plane you can revive from death, though the time between reincarnations grows steadily with use."
+	desc = "Тёмный некромантический пакт, который навсегда привязывает вашу душу к предмету по вашему выбору. Пока и ваше тело, и предмет остаются нетронутыми и находятся на одном Z-уровне, вы можете возрождаться после смерти, хотя время между перевоплощениями будет неуклонно расти с каждым использованием."
 	school = "necromancy"
 	base_cooldown = 1 SECONDS
 	cooldown_min = 1 SECONDS
@@ -49,19 +49,19 @@
 
 	if(phylactery_made) //Death is not my end!
 		if(iscarbon(user) && !user.stat)
-			to_chat(user, span_notice("You aren't dead enough to revive!"))	//Usually a good problem to have
+			to_chat(user, span_notice("Вы недостаточно мертвы, чтобы воскреснуть!"))	//Usually a good problem to have
 			cooldown_handler.revert_cast()
 			return
 
 		if(QDELETED(marked_item)) //Wait nevermind
-			to_chat(user, span_warning("Your phylactery is gone!"))
+			to_chat(user, span_warning("Ваша филактерия разрушена!"))
 			return
 
 		var/turf/user_turf = get_turf(user)
 		var/turf/item_turf = get_turf(marked_item)
 
 		if(user_turf.z != item_turf.z)
-			to_chat(user, span_warning("Your phylactery is out of range!"))
+			to_chat(user, span_warning("Ваша филактерия слишком далеко!"))
 			return
 
 		var/mob/living/carbon/human/lich = new(item_turf)
@@ -69,7 +69,7 @@
 		lich.real_name = user.mind.name
 		lich.set_species(/datum/species/skeleton) // Wizard variant
 		user.mind.transfer_to(lich)
-		to_chat(lich, span_warning("Your bones clatter and shutter as they're pulled back into this world!"))
+		to_chat(lich, span_warning("Ваши кости стучат и ломаются, медленно вытягиваясь обратно в этот мир!"))
 		cooldown_handler.recharge_duration += 1 MINUTES
 		cooldown_handler.start_recharge()
 
@@ -88,7 +88,7 @@
 
 			var/wheres_wizdo = dir2text(get_dir(body_turf, item_turf))
 			if(wheres_wizdo)
-				old_body.visible_message(span_warning("Suddenly [old_body.name]'s corpse falls to pieces! You see a strange energy rise from the remains, and speed off towards the [wheres_wizdo]!"))
+				old_body.visible_message(span_warning("Неожиданно труп [old_body.name] разваливается на куски! Вы видите, как из останков поднимается странная энергия и устремляется к [wheres_wizdo]!"))
 				body_turf.Beam(item_turf,icon_state="lichbeam",icon='icons/effects/effects.dmi',time=stun_time,maxdistance=INFINITY)
 
 			old_body.dust()
@@ -98,14 +98,14 @@
 	//linking item to the spell
 	var/obj/item/item = user.get_active_hand()
 	if(!item)
-		to_chat(user, span_warning("You must hold an item you wish to make your phylactery..."))
+		to_chat(user, span_warning("Вы должны держать предмет, который желаете сделать своей филактерией..."))
 		return
 
 	if((item.item_flags & ABSTRACT) || HAS_TRAIT(item, TRAIT_NODROP))
-		to_chat(user, span_warning("[item.name] can not be used for the ritual..."))
+		to_chat(user, span_warning("[item.name] нельзя использовать для ритуала!"))
 		return
 
-	to_chat(user, span_warning("You begin to focus your very being into [item]..."))
+	to_chat(user, span_warning("Вы начинаете фокусировать само своё естество в [item]..."))
 
 	focusing = TRUE
 	if(!do_after(user, 5 SECONDS, user))
@@ -114,7 +114,7 @@
 	focusing = FALSE
 
 	if(QDELETED(item) || item.loc != user) //I changed my mind I don't want to put my soul in a cheeseburger!
-		to_chat(user, span_warning("Your soul snaps back to your body since [item] is out of reach!"))
+		to_chat(user, span_warning("Ваша душа возвращается в ваше тело, так как [item] пропал из зоны действия!"))
 		return
 
 	if(!CONFIG_GET(flag/continuous_rounds))
@@ -122,7 +122,7 @@
 		CONFIG_SET(flag/continuous_rounds, TRUE)
 
 	name = "RISE!"
-	desc = "Rise from the dead! You will reform at the location of your phylactery and your old body will crumble away."
+	desc = "Восстаньте из мёртвых! Вы появитесь на месте расположения филактерии, а ваше старое тело рассыпется в прах."
 	updateButtonIcon(change_name = TRUE)
 
 	cooldown_handler.recharge_duration = 3 MINUTES
@@ -133,9 +133,9 @@
 	current_body = user.mind.current
 	marked_item = item
 	marked_item.name = "Ensouled [marked_item.name]"
-	marked_item.desc = "A terrible aura surrounds this item, its very existence is offensive to life itself..."
+	marked_item.desc = "Ужасная аура окружает этот предмет, само его существование оскорбительно для жизни..."
 	marked_item.color = "#003300"
-	to_chat(user, span_userdanger("With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lich!"))
+	to_chat(user, span_userdanger("Ты с ужасом и восхищением наблюдаешь, как кожа отслаивается от костей! Кровь кипит, нервы гниют, глаза вылезают из орбит! Когда твои органы рассыпаются в прах, ты смиряешься со своим выбором. Отныне ты лич!"))
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/h_user = user

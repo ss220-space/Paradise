@@ -1,10 +1,10 @@
 /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall
 	name = "Invisible Wall"
-	desc = "The mime's performance transmutates into physical reality."
+	desc = "Представление мима превращается в реальность."
 	school = "mime"
 	summon_type = list(/obj/effect/forcefield/mime)
 	invocation_type = "emote"
-	invocation_emote_self = "<span class='notice'>You form a wall in front of yourself.</span>"
+	invocation_emote_self = "<span class='notice'>Вы формируете перед собой стену.</span>"
 	summon_lifespan = 30 SECONDS
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
@@ -18,9 +18,9 @@
 /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall/Click()
 	if(usr && usr.mind)
 		if(!usr.mind.miming)
-			to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
+			to_chat(usr, "<span class='notice'>Сначала вы должны посвятить себя тишине.</span>")
 			return
-		invocation = "<B>[usr.name]</B> looks as if a wall is in front of [usr.p_them()]."
+		invocation = "<B>[usr.name]</B> кажется, что перед [usr.p_them()] стена."
 	else
 		invocation_type ="none"
 	..()
@@ -32,7 +32,7 @@
 
 /obj/effect/proc_holder/spell/mime/speak
 	name = "Speech"
-	desc = "Make or break a vow of silence."
+	desc = "Дайте или нарушьте обет молчания."
 	school = "mime"
 	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
@@ -49,9 +49,9 @@
 		return
 	var/mob/living/carbon/human/user = usr
 	if(user.mind.miming)
-		still_recharging_msg = "<span class='warning'>You can't break your vow of silence that fast!</span>"
+		still_recharging_msg = "<span class='warning'>Вы не можете так быстро нарушить обет молчания!</span>"
 	else
-		still_recharging_msg = "<span class='warning'>You'll have to wait before you can give your vow of silence again!</span>"
+		still_recharging_msg = "<span class='warning'>Вам придется подождать, прежде чем снова давать обет молчания!</span>"
 	..()
 
 
@@ -64,9 +64,9 @@
 	target.mind.miming = !target.mind.miming
 
 	if(target.mind.miming)
-		to_chat(target, "<span class='notice'>You make a vow of silence.</span>")
+		to_chat(target, "<span class='notice'>Вы даёте обет молчания.</span>")
 	else
-		to_chat(target, "<span class='notice'>You break your vow of silence.</span>")
+		to_chat(target, "<span class='notice'>Вы нарушаете обет молчания.</span>")
 
 
 /obj/effect/proc_holder/spell/mime/speak/mask
@@ -82,11 +82,11 @@
 
 /obj/effect/proc_holder/spell/forcewall/mime
 	name = "Invisible Greater Wall"
-	desc = "Form an invisible three tile wide blockade."
+	desc = "Сформируйте невидимую стену шириной в три тайла"
 	school = "mime"
 	wall_type = /obj/effect/forcefield/mime/advanced
 	invocation_type = "emote"
-	invocation_emote_self = "<span class='notice'>You form a blockade in front of yourself.</span>"
+	invocation_emote_self = "<span class='notice'>Вы формируете стену перед собой.</span>"
 	base_cooldown = 60 SECONDS
 	sound =  null
 	clothes_req = FALSE
@@ -99,9 +99,9 @@
 /obj/effect/proc_holder/spell/forcewall/mime/Click()
 	if(usr && usr.mind)
 		if(!usr.mind.miming)
-			to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
+			to_chat(usr, "<span class='notice'>Сначала вы должны посвятить себя тишине.</span>")
 			return
-		invocation = "<B>[usr.name]</B> looks as if a blockade is in front of [usr.p_them()]."
+		invocation = "<B>[usr.name]</B> кажется, что перед [usr.p_them()] стена."
 	else
 		invocation_type ="none"
 	..()
@@ -109,7 +109,7 @@
 
 /obj/effect/proc_holder/spell/mime/fingergun
 	name = "Finger Gun"
-	desc = "Shoot lethal, silencing bullets out of your fingers! 3 bullets available per cast. Use your fingers to holster them manually."
+	desc = "Беззвучно стреляйте боевыми патронами прямо из пальцев! Для каждого прочтения доступно по три пули. Выроните пальцы из рук, чтобы спрятать их."
 	school = "mime"
 	clothes_req = FALSE
 	base_cooldown = 1 MINUTES
@@ -122,7 +122,7 @@
 
 
 /obj/effect/proc_holder/spell/mime/fingergun/fake
-	desc = "Pretend you're shooting bullets out of your fingers! 6 bullets available per cast. Use your fingers to holster them manually."
+	desc = "Представьте что из ваших пальцев вылетают пули! Для каждого прочтения доступно по шесть пуль. Выроните пальцы из рук, чтобы спрятать их."
 	gun = /obj/item/gun/projectile/revolver/fingergun/fake
 
 
@@ -134,7 +134,7 @@
 /obj/effect/proc_holder/spell/mime/fingergun/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/target in targets)
 		if(!current_gun)
-			to_chat(user, span_notice("You draw your fingers!"))
+			to_chat(user, span_notice("Вы достаёте пальцы!"))
 			current_gun = new gun(get_turf(user), src)
 			target.drop_from_active_hand()
 			target.put_in_hands(current_gun)
@@ -148,7 +148,7 @@
 	SIGNAL_HANDLER
 	if(!current_gun || action.owner.get_active_hand() != current_gun)
 		return
-	to_chat(action.owner, span_notice("You holster your fingers. Another time perhaps..."))
+	to_chat(action.owner, span_notice("Вы убираете пальцы в кобуру до лучших времён."))
 	QDEL_NULL(current_gun)
 	return COMPONENT_CANCEL_DROP
 
@@ -159,7 +159,7 @@
 	spell = /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall
 	spellname = "Invisible Wall"
 	name = "Miming Manual : "
-	desc = "It contains various pictures of mimes mid-performance, aswell as some illustrated tutorials."
+	desc = "В нём содержатся фотографии выступления мимов, а также несколько иллюстрированных руководств."
 	icon_state = "bookmime"
 
 
@@ -168,33 +168,33 @@
 		return
 	for(var/obj/effect/proc_holder/spell/knownspell as anything in user.mind.spell_list)
 		if(knownspell.type == spell)
-			to_chat(user, "<span class='notice'>You've already read this one.</span>")
+			to_chat(user, "<span class='notice'>Эту вы уже читали.</span>")
 			return
 	if(used)
 		recoil(user)
 	else
 		user.mind.AddSpell(new spell)
-		to_chat(user, "<span class='notice'>You flip through the pages. Your understanding of the boundaries of reality increases. You can cast [spellname]!</span>")
+		to_chat(user, "<span class='notice'>Вы пробегаетесь взглядом по страницам. Ваше понимание границ реального увеличивается. Вы можете использовать [spellname]!</span>")
 		user.create_log(MISC_LOG, "learned the spell [spellname]")
 		user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname].</font>")
 		onlearned(user)
 
 
 /obj/item/spellbook/oneuse/mime/recoil(mob/user)
-	to_chat(user, "<span class='notice'>You flip through the pages. Nothing of interest to you.</span>")
+	to_chat(user, "<span class='notice'>Вы листаете страницы. Ничего не зацепило вашего внимания.</span>")
 
 
 /obj/item/spellbook/oneuse/mime/onlearned(mob/user)
 	used = TRUE
 	if(!locate(/obj/effect/proc_holder/spell/mime/speak) in user.mind.spell_list) //add vow of silence if not known by user
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak)
-		to_chat(user, "<span class='notice'>You have learned how to use silence to improve your performance.</span>")
+		to_chat(user, "<span class='notice'>Вы узнали, как использовать тишину для улучшения выступлений.</span>")
 
 
 /obj/item/spellbook/oneuse/mime/fingergun
 	spell = /obj/effect/proc_holder/spell/mime/fingergun
 	spellname = "Finger Gun"
-	desc = "It contains illustrations of guns and how to mime them."
+	desc = "Эта книга содержит изображение оружия и способы имитировать его использование."
 
 
 /obj/item/spellbook/oneuse/mime/fingergun/fake
@@ -204,5 +204,5 @@
 /obj/item/spellbook/oneuse/mime/greaterwall
 	spell = /obj/effect/proc_holder/spell/forcewall/mime
 	spellname = "Invisible Greater Wall"
-	desc = "It contains illustrations of the great walls of human history."
+	desc = "Она содержит иллюстрации великих стен в истории человечества."
 

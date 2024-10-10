@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/aoe/conjure
-	desc = "This spell conjures objs of the specified types in range."
+	desc = "Данное заклинание призывает объекты определённых типов в определённом радиусе."
 	/// Determines what exactly will be summoned. Should be text, like list("/mob/simple_animal/bot/ed209").
 	var/list/summon_type = list()
 	/// 0=permanent, any other time in deciseconds.
@@ -46,7 +46,7 @@
 				targets -= spawn_place
 			if(ispath(summoned_object_type,/turf))
 				if(istype(get_turf(user), /turf/simulated/floor/shuttle) || istype(get_turf(user), /turf/simulated/wall/shuttle))
-					to_chat(user, "<span class='warning'>You can't build things on shuttles!</span>")
+					to_chat(user, "<span class='warning'>Вы не можете строить что-либо на шаттлах!</span>")
 					break
 				var/turf/O = spawn_place
 				var/N = summoned_object_type
@@ -71,7 +71,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/summonEdSwarm //test purposes
 	name = "Dispense Wizard Justice"
-	desc = "This spell dispenses wizard justice."
+	desc = "Это заклинание вершит магическое правосудие."
 	summon_type = list(/mob/living/simple_animal/bot/ed209)
 	summon_amt = 10
 	newVars = list("emagged" = 1,"name" = "Wizard's Justicebot")

@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/inflict_handler
 	name = "Inflict Handler"
-	desc = "This spell blinds and/or destroys/damages/heals and/or weakens/stuns the target."
+	desc = "Это заклинание ослепляет и/или уничтожает/повреждает/лечит и/или ослабляет/оглушает цель." // я честно хз как это перевести нормально
 
 	var/amt_weakened = 0
 	var/amt_paralysis = 0

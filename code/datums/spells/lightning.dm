@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning
 	name = "Lightning Bolt"
-	desc = "Throws a lightning bolt at your enemies. Classic. When clicked will start to charge in power. Then click on a mob to send the bolt before it overloads with power."
+	desc = "Классика. Метает молнии в ваших врагов. При нажатии начнёт накапливаться энергия. Нажмите на цель, чтобы отправить заряд до того, как он перегрузится."
 	base_cooldown = 30 SECONDS
 	cooldown_min = 3 SECONDS
 	clothes_req = TRUE
@@ -9,9 +9,9 @@
 	action_icon_state = "lightning"
 	charge_sound = new /sound('sound/magic/lightning_chargeup.ogg', channel = 7)
 	max_charge_time = 10 SECONDS
-	stop_charging_text = "You stop charging the lightning around you."
-	stop_charging_fail_text = "The lightning around you is too strong to stop now!"
-	start_charging_text = "You start gathering lightning around you."
+	stop_charging_text = "Вы перестаёте заряжать молнию."
+	stop_charging_fail_text = "Молния слишком сильна, заряд не удержать!"
+	start_charging_text = "Вы начинаете заряжать молнию."
 	bounce_hit_sound = 'sound/magic/lightningshock.ogg'
 	var/damaging = TRUE
 	var/energy_divisor = 2
@@ -25,7 +25,7 @@
 
 /obj/effect/proc_holder/spell/charge_up/bounce/lightning/guardian
 	name = "Малая молния"
-	desc = "Копит в себе заряд электричества, поражающий всех врагов. Чем больше зарядка, тем выше урон и дальность. Не так силен как оригинал, но все еще опасен. После выпуска молнии имеет перезарядку в 30 секунд."
+	desc = "Копит в себе заряд электричества, поражающий всех врагов. Чем больше заряда, тем выше урон и дальность. Не так силён, как оригинал, но все еще опасен. После активации имеет перезарядку в 30 секунд."
 	clothes_req = FALSE
 	invocation = "За С+инд+ик+ат!"
 	energy_divisor = 4

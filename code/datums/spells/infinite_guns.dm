@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/infinite_guns
 	name = "Lesser Summon Guns"
-	desc = "Why reload when you have infinite guns? Summons an unending stream of bolt action rifles. Requires both hands free to use."
+	desc = "Зачем перезаряжаться, если у вас есть бесконечное количество пушек? Вызывает нескончаемый поток винтовок с затвором. Для использования требуются обе руки."
 	school = "conjuration"
 	base_cooldown = 60 SECONDS
 	cooldown_min = 1 SECONDS //Gun wizard

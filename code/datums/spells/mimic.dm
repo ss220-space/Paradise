@@ -1,11 +1,11 @@
 /obj/effect/proc_holder/spell/mimic
 	name = "Mimic"
-	desc =  "Learn a new form to mimic or become one of your known forms"
+	desc =  "Изучите новую форму для мимикрии или станьте одной из известных вам форм."
 	clothes_req = FALSE
 	human_req = FALSE
 	base_cooldown = 3 SECONDS
 	action_icon_state = "genetic_morph"
-	selection_activated_message = span_sinister("Click on a target to remember it's form. Click on yourself to change form.")
+	selection_activated_message = span_sinister("Нажмите на цель, чтобы запомнить её форму. Нажмите на себя, чтобы изменить форму.")
 	create_attack_logs = FALSE
 	action_icon_state = "morph_mimic"
 	need_active_overlay = TRUE
@@ -65,14 +65,14 @@
 
 /obj/effect/proc_holder/spell/mimic/proc/remember_form(atom/movable/A, mob/user)
 	if(A.name in available_forms)
-		to_chat(user, span_warning("[A] is already an available form."))
+		to_chat(user, span_warning("[A] уже является доступной формой."))
 		revert_cast(user)
 		return
 
 	if(length(available_forms) >= max_forms)
-		to_chat(user, span_warning("You start to forget the form of [available_forms[next_override_index]] to learn a new one."))
+		to_chat(user, span_warning("Вы начинаете забывать форму [available_forms[next_override_index]] чтобы запомнить новую."))
 
-	to_chat(user, span_sinister("You start remembering the form of [A]."))
+	to_chat(user, span_sinister("Вы начинаете запоминать форму [A]."))
 	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		to_chat(user, span_warning("You lose focus."))
 		return
@@ -86,12 +86,12 @@
 			next_override_index = 1
 
 	available_forms[A.name] = new /datum/mimic_form(A, user)
-	to_chat(user, span_sinister("You learn the form of [A]."))
+	to_chat(user, span_sinister("Вы запомнили форму [A]."))
 
 
 /obj/effect/proc_holder/spell/mimic/proc/pick_form(mob/user)
 	if(!length(available_forms) && !selected_form)
-		to_chat(user, span_warning("No available forms. Learn more forms by using this spell on other objects first."))
+		to_chat(user, span_warning("Доступных форм нет. Изучите больше форм, применив это заклинание к другим существам."))
 		revert_cast(user)
 		return
 
@@ -100,18 +100,18 @@
 		forms += "Original Form"
 
 	forms += available_forms.Copy()
-	var/what = tgui_input_list(user, "Which form do you want to become?", "Mimic", forms)
+	var/what = tgui_input_list(user, "Какую форму вы хотите принять?", "Мимик", forms)
 	if(!what)
-		to_chat(user, span_notice("You decide against changing forms."))
+		to_chat(user, span_notice("Вы отказываетесь от изменения формы."))
 		revert_cast(user)
 		return
 
 	if(what == "Original Form")
 		restore_form(user)
 		return
-	to_chat(user, span_sinister("You start becoming [what]."))
+	to_chat(user, span_sinister("Вы начинаете превращаться в [what]."))
 	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-		to_chat(user, span_warning("You lose focus."))
+		to_chat(user, span_warning("Вы теряете концентрацию."))
 		return
 	take_form(available_forms[what], user)
 
@@ -141,9 +141,9 @@
 
 
 /obj/effect/proc_holder/spell/mimic/proc/show_change_form_message(mob/user, old_name, new_name)
-	user.visible_message(span_warning("[old_name] contorts and slowly becomes [new_name]!"), \
-						span_sinister("You take form of [new_name]."), \
-						span_italics("You hear loud cracking noises!"))
+	user.visible_message(span_warning("[old_name] искажается и медленно превращается в [new_name]!"), \
+						span_sinister("Вы приняли форму [new_name]."), \
+						span_italics("Вы слышите громкий треск!"))
 
 
 /obj/effect/proc_holder/spell/mimic/proc/restore_form(mob/user, show_message = TRUE)
@@ -170,16 +170,16 @@
 
 
 /obj/effect/proc_holder/spell/mimic/proc/show_restore_form_message(mob/user, old_name, new_name)
-	user.visible_message(span_warning("[old_name] shakes and contorts and quickly becomes [new_name]!"), \
-						span_sinister("You take return to your normal self."), \
-						span_italics("You hear loud cracking noises!"))
+	user.visible_message(span_warning("[old_name] трясётся, корчится и превращается в [new_name]!"), \
+						span_sinister("Вы возвращаетесь к своей обычной форме."), \
+						span_italics("Вы слышите громкий треск!"))
 
 
 /obj/effect/proc_holder/spell/mimic/proc/examine_override(datum/source, mob/user, list/examine_list)
 	examine_list.Cut()
 	examine_list += selected_form.examine_text
 	if(!perfect_disguise && get_dist(user, source) <= 3)
-		examine_list += span_warning("It doesn't look quite right...")
+		examine_list += span_warning("Что-то не так...")
 
 
 /obj/effect/proc_holder/spell/mimic/proc/on_death(mob/user, gibbed)
@@ -189,9 +189,9 @@
 
 
 /obj/effect/proc_holder/spell/mimic/proc/show_death_message(mob/user)
-	user.visible_message(span_warning("[user] shakes and contorts as [user.p_they()] die[user.p_s()], returning to [user.p_their()] true form!"), \
-						span_deadsay("Your disguise fails as your life forces drain away."), \
-						span_italics("You hear loud cracking noises followed by a thud!"))
+	user.visible_message(span_warning("[user] трясётся и корчится, в то время как [user.p_they()] умирает, принимая истинную форму!"), \
+						span_deadsay("Ваша маскировка спадает по мере угасания ваших жизненных сил."), \
+						span_italics("Вы слышите громкий треск, за которым следует глухой удар!"))
 
 
 /datum/mimic_form
@@ -245,16 +245,16 @@
 
 
 /obj/effect/proc_holder/spell/mimic/morph/show_change_form_message(mob/user, old_name, new_name)
-	user.visible_message(span_warning("[old_name] suddenly twists and changes shape, becoming a copy of [new_name]!"), \
-						span_notice("You twist your body and assume the form of [new_name]."))
+	user.visible_message(span_warning("[old_name] внезапно искажается и меняет форму, становясь копией [new_name]!"), \
+						span_notice("Вы искажаете своё тело и принимаете форму [new_name]."))
 
 
 /obj/effect/proc_holder/spell/mimic/morph/show_restore_form_message(mob/user, old_name, new_name)
-	user.visible_message(span_warning("[old_name] suddenly collapses in on itself, dissolving into a pile of green flesh!"), \
-						span_notice("You reform to your normal body."))
+	user.visible_message(span_warning("[old_name] внезапно сворачивается сам в себя, превращаясь в груду зеленой плоти!"), \
+						span_notice("Ты принимаешь свою обычную форму."))
 
 
 /obj/effect/proc_holder/spell/mimic/morph/show_death_message(mob/user)
-	user.visible_message(span_warning("[user] twists and dissolves into a pile of green flesh!"), \
-						span_userdanger("Your skin ruptures! Your flesh breaks apart! No disguise can ward off de--"))
+	user.visible_message(span_warning("[user] сворачивается и превращается в груду зеленой плоти!"), \
+						span_userdanger("Твоя кожа лопается! Твоя плоть распадается на части! Никакая маскировка не спасет тебя от смер--"))
 

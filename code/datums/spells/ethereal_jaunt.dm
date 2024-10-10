@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/ethereal_jaunt
 	name = "Ethereal Jaunt"
-	desc = "This spell creates your ethereal form, temporarily making you invisible and able to pass through walls."
+	desc = "Это заклинание временно делает вас бесплотным, позволяя проходить сквозь стены."
 	school = "transmutation"
 	action_icon_state = "jaunt"
 	base_cooldown = 30 SECONDS
@@ -25,7 +25,7 @@
 /obj/effect/proc_holder/spell/ethereal_jaunt/cast(list/targets, mob/user = usr) //magnets, so mostly hardcoded
 	for(var/mob/living/target in targets)
 		if(!target.can_safely_leave_loc()) // No more brainmobs hopping out of their brains
-			to_chat(target, "<span class='warning'>You are somehow too bound to your current location to abandon it.</span>")
+			to_chat(target, "<span class='warning'>Вы каким-то образом привязаны к месту, и не можете покинуть его.</span>")
 			continue
 		INVOKE_ASYNC(src, PROC_REF(do_jaunt), target)
 
@@ -118,7 +118,7 @@
 	if(can_move(newLoc, user))
 		forceMove(newLoc)
 	else
-		to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
+		to_chat(user, "<span class='warning'>Что-то заграждает путь!</span>")
 	movedelay = world.time + movespeed
 
 
@@ -142,7 +142,7 @@
 
 /obj/effect/dummy/spell_jaunt/blood_pool
 	name = "sanguine pool"
-	desc = "a pool of living blood."
+	desc = "лужа живой крови."
 	movespeed = 1.5
 
 

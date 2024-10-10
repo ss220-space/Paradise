@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/watchers_look
 	name = "Watcher's Look"
-	desc = "Shoot one of the watcher's beams. To change the mode, use alt-click on the icon."
+	desc = "Стреляйте одним из лучей наблюдателя. Чтобы изменить режим, сделайте альт-клик по значку."
 	invocation = "ONI DRAKT'CEHOR!"
 	invocation_type = "shout"
 	base_cooldown = 3 SECONDS

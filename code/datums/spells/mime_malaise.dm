@@ -1,8 +1,8 @@
 /obj/effect/proc_holder/spell/touch/mime_malaise
 	name = "Mime Malaise"
-	desc = "A spell popular with theater nerd wizards and contrarian pranksters, this spell will put on a mime costume on the target, \
-		stun them so that they may contemplate Art, and silence them. \
-		Warning : Effects are permanent on non-wizards."
+	desc = "Заклинание, популярное среди театральных зануд и пранкстеров нон-конформистов. Одевает цель в костюм мима, \
+ оглушает её и заставляет принять обет молчания.\
+ Внимание: эффекты необратимы для всех целей за исключением магов."
 	hand_path = /obj/item/melee/touch_attack/mime_malaise
 	school = "transmutation"
 
@@ -53,4 +53,3 @@
 		equip_to_slot_or_del(new /obj/item/clothing/under/mime/nodrop, ITEM_SLOT_CLOTH_INNER)
 		equip_to_slot_or_del(new /obj/item/clothing/suit/suspenders/nodrop, ITEM_SLOT_CLOTH_OUTER)
 		force_gene_block(GLOB.muteblock, TRUE, TRUE)
-

@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/shapeshift
 	name = "Shapechange"
-	desc = "Take on the shape of another for a time to use their natural abilities. Once you've made your choice it cannot be changed."
+	desc = "Примите на время облик другого существа, чтобы использовать его способности. Выбирайте мудро, так как изменить выбор нельзя."
 	clothes_req = FALSE
 	human_req = FALSE
 	base_cooldown = 20 SECONDS
@@ -38,7 +38,7 @@
 			for(var/path in possible_shapes)
 				var/mob/living/simple_animal/A = path
 				animal_list[initial(A.name)] = path
-			shapeshift_type = tgui_input_list(M, "Choose Your Animal Form!", "It's Morphing Time!", animal_list)
+			shapeshift_type = tgui_input_list(M, "Выберите свою животную форму!", "Пришло время превращения!", animal_list)
 			if(!shapeshift_type) //If you aren't gonna decide I am!
 				shapeshift_type = pick(animal_list)
 			shapeshift_type = animal_list[shapeshift_type]
@@ -51,7 +51,7 @@
 /obj/effect/proc_holder/spell/shapeshift/proc/Shapeshift(mob/living/caster)
 	for(var/mob/living/mob in caster)
 		if(HAS_TRAIT_FROM(mob, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src)))
-			to_chat(caster, span_warning("You're already shapeshifted!"))
+			to_chat(caster, span_warning("Вы уже перевоплотились!"))
 			return
 
 	var/mob/living/shape = new shapeshift_type(get_turf(caster))
@@ -88,7 +88,7 @@
 
 /obj/effect/proc_holder/spell/shapeshift/dragon
 	name = "Dragon Form"
-	desc = "Take on the shape a lesser ash drake after a short delay."
+	desc = "После небольшой задержки примите форму пепельного дракона."
 	invocation = "*scream"
 
 	shapeshift_type = /mob/living/simple_animal/hostile/megafauna/dragon/lesser
@@ -98,21 +98,21 @@
 
 
 /obj/effect/proc_holder/spell/shapeshift/dragon/Shapeshift(mob/living/caster)
-	caster.visible_message("<span class='danger'>[caster] screams in agony as bones and claws erupt out of their flesh!</span>",
-		"<span class='danger'>You begin channeling the transformation.</span>")
+	caster.visible_message("<span class='danger'>[caster] кричит в агонии из-за костей и когтей, вырывающихся из плоти!</span>",
+		"<span class='danger'>Вы начинаете трансформацию.</span>")
 	if(!do_after(caster, 5 SECONDS, caster, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-		to_chat(caster, "<span class='warning'>You lose concentration of the spell!</span>")
+		to_chat(caster, "<span class='warning'>Вы теряете концентрацию на заклинании!</span>")
 		return
 	return ..()
 
 
 /obj/effect/proc_holder/spell/shapeshift/bats
 	name = "Bat Form"
-	desc = "Take on the shape of a swarm of bats."
+	desc = "Примите форму стаи летучих мышей."
 	invocation = "none"
 	invocation_type = "none"
 	action_icon_state = "vampire_bats"
-	gain_desc = "You have gained the ability to shapeshift into bat form. This is a weak form with no abilities, only useful for stealth."
+	gain_desc = "Вы получили способность превращаться в летучую мышь. Это слабая форма, не имеющая способностей, полезная только для скрытности."
 
 	shapeshift_type = /mob/living/simple_animal/hostile/scarybat/batswarm
 	current_shapes = list(/mob/living/simple_animal/hostile/scarybat/batswarm)
@@ -122,12 +122,12 @@
 
 /obj/effect/proc_holder/spell/shapeshift/hellhound
 	name = "Lesser Hellhound Form"
-	desc = "Take on the shape of a Hellhound."
+	desc = "Примите форму Адской гончей."
 	invocation = "none"
 	invocation_type = "none"
 	action_background_icon_state = "bg_demon"
 	action_icon_state = "glare"
-	gain_desc = "You have gained the ability to shapeshift into lesser hellhound form. This is a combat form with different abilities, tough but not invincible. It can regenerate itself over time by resting."
+	gain_desc = "Вы получили возможность превращаться в меньшую адскую гончую. Это боевая форма с различными способностями, выносливая, но не неуязвимая. Она имеет медленную регенерацию."
 
 	shapeshift_type = /mob/living/simple_animal/hostile/hellhound
 	current_shapes = list(/mob/living/simple_animal/hostile/hellhound)

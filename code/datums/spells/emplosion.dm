@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/emplosion
 	name = "Emplosion"
-	desc = "This spell emplodes an area."
+	desc = "Это заклинание за-ЭМИ-нирует область."
 	action_icon_state = "emp"
 	var/emp_heavy = 2
 	var/emp_light = 3

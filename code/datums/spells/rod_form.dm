@@ -3,7 +3,7 @@
 
 /obj/effect/proc_holder/spell/rod_form
 	name = "Rod Form"
-	desc = "Take on the form of an immovable rod, destroying all in your path."
+	desc = "Примите форму незыблемого стержня, уничтожающего всё на своем пути."
 	clothes_req = TRUE
 	human_req = FALSE
 	base_cooldown = 1 MINUTES
@@ -26,7 +26,7 @@
 /obj/effect/proc_holder/spell/rod_form/cast(list/targets, mob/user = usr)
 	var/turf/start = get_turf(user)
 	if(!start || start != user.loc)
-		to_chat(user, span_warning("You cannot summon a rod in the ether, the spell fizzles out!"))
+		to_chat(user, span_warning("Вы не можете вызвать стержень в эфире, заклинание рассыпается!"))
 		revert_cast()
 		return FALSE
 
@@ -63,7 +63,7 @@
 	return ..()
 
 
-/obj/effect/immovablerod/wizard/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+/obj/effect/immovablerod/wizard/Move(atom/newloc, direct = NONE, glide_size_override = 0)
 	if(get_dist(start_turf, get_turf(src)) >= max_distance)
 		qdel(src)
 		return

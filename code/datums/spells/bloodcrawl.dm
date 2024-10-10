@@ -5,7 +5,7 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl
 	name = "Blood Crawl"
-	desc = "Use pools of blood to phase out of existence."
+	desc = "Используйте лужи крови, чтобы развоплотиться."
 	base_cooldown = 0
 	clothes_req = FALSE
 	human_req = FALSE
@@ -54,7 +54,7 @@
 
 /obj/item/bloodcrawl
 	name = "blood crawl"
-	desc = "You are unable to hold anything while in this form."
+	desc = "В этой форме вы не можете ничего держать в руках."
 	icon = 'icons/effects/blood.dmi'
 	item_flags = ABSTRACT
 
@@ -92,7 +92,7 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/block_hands(mob/living/carbon/user)
 	if(user.l_hand || user.r_hand)
-		to_chat(user, span_warning("You may not hold items while blood crawling!"))
+		to_chat(user, span_warning("Вы не можете держать предметы, пока находитесь в этой форме!"))
 		return FALSE
 
 	var/obj/item/bloodcrawl/left_hand = new(user)
@@ -132,15 +132,16 @@
 		return
 
 	if(victim.stat == CONSCIOUS)
-		enter_point.visible_message(span_warning("[victim] kicks free of [enter_point] just before entering it!"))
+		enter_point.visible_message(span_warning("[victim] вырывается из [enter_point] перед тем, как войти туда!"))
 		user.stop_pulling()
 		return
 
 	victim.emote("scream")
 	victim.forceMove(holder)
-	enter_point.visible_message(span_warning("<b>[user] drags [victim] into [enter_point]!</b>"))
-	to_chat(user, "<b>You begin to feast on [victim]. You can not move while you are doing this.</b>")
-	enter_point.visible_message(span_warning("<B>Loud eating sounds come from the blood...</b>"))
+	enter_point.visible_message(span_warning("<b>[user] тащит [victim] в [enter_point]!</b>"))
+	user.stop_pulling()
+	to_chat(user, "<b>Вы начинаете поедать [victim]. Вы не можете двигаться в процессе.</b>")
+	enter_point.visible_message(span_warning("<B>Громкие звуки чавканья исходят от крови...</b>"))
 	var/sound
 	if(isslaughterdemon(user))
 		var/mob/living/simple_animal/demon/slaughter/demon = user
@@ -153,20 +154,20 @@
 		sleep(3 SECONDS)
 
 	if(!victim)
-		to_chat(user, span_danger("You happily devour... nothing? Your meal vanished at some point!"))
+		to_chat(user, span_danger("Вы наконец поглощаете... ничего? Ваш обед испарился!"))
 		return
 
 	if(ishuman(victim) || isrobot(victim))
-		to_chat(user, span_warning("You devour [victim]. Your health is fully restored."))
+		to_chat(user, span_warning("Вы поглотили [victim]. Ваше здоровье полностью восстановлено."))
 		user.heal_damages(brute = 1000, burn = 1000, tox = 1000, oxy = 1000)
 	else
-		to_chat(user, span_warning("You devour [victim], but this measly meal barely sates your appetite!"))
+		to_chat(user, span_warning("Вы поглотили [victim], но жертва едва ли насытила вас!"))
 		user.heal_damages(brute = 25, burn = 25)
 
 	if(isslaughterdemon(user))
 		var/mob/living/simple_animal/demon/slaughter/demon = user
 		demon.devoured++
-		to_chat(victim, span_userdanger("You feel teeth sink into your flesh, and the--"))
+		to_chat(victim, span_userdanger("Ты чувствуешь, как зубы вонзаются в твою плоть, и..."))
 		var/obj/item/organ/internal/regenerative_core/legion/core = victim.get_int_organ(/obj/item/organ/internal/regenerative_core/legion)
 		if(core)
 			core.remove(victim)
@@ -215,7 +216,7 @@
 	if(prob(25) && isdemon(user))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
 		playsound(tele_loc, pick(voice), 50, TRUE, -1)
-	exit_point.visible_message(span_warning("<b>[user] rises out of [exit_point]!</b>"))
+	exit_point.visible_message(span_warning("<b>[user] поднимается из [exit_point]!</b>"))
 	playsound(get_turf(tele_loc), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
 
 
@@ -227,7 +228,7 @@
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/rise_message(atom/exit_point)
-	exit_point.visible_message(span_warning("[exit_point] starts to bubble..."))
+	exit_point.visible_message(span_warning("[exit_point] начинает пузыриться..."))
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/post_phase_out(atom/exit_point, mob/living/user)
@@ -242,7 +243,7 @@
 	if(HAS_TRAIT_NOT_FROM(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src)))
 		return FALSE
 	if(HAS_TRAIT_FROM(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src)))
-		to_chat(user, span_warning("Finish eating first!"))
+		to_chat(user, span_warning("Сначала доешьте!"))
 		return FALSE
 	rise_message(enter_point)
 	if(!do_after(user, 2 SECONDS, enter_point))
@@ -266,7 +267,7 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl
 	name = "Shadow Crawl"
-	desc = "Use darkness to phase out of existence."
+	desc = "Используйте тьму, чтобы развоплотиться."
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_crawl"
 	allowed_type = /turf
@@ -289,7 +290,7 @@
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/sink_animation(atom/enter_point, mob/living/user)
-	enter_point.visible_message(span_danger("[user] sinks into the shadows..."))
+	enter_point.visible_message(span_danger("[user] погружается в тень..."))
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(get_turf(user), user.dir, "shadowwalk_disappear")
 
 

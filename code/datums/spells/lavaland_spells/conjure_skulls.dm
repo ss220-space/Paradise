@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/aoe/conjure/legion_skulls
 	name = "Summon Skulls"
-	desc = "This spell summons three friendly to you legion's skulls."
+	desc = "Данное заклинание призывает три дружественных черепа легиона."
 
 	school = "lavaland"
 	base_cooldown = 15 SECONDS

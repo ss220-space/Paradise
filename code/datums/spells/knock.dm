@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/aoe/knock
 	name = "Knock"
-	desc = "This spell opens nearby doors and does not require wizard garb."
+	desc = "Данное заклинание открывает ближайшие двери."
 
 	school = "transmutation"
 	base_cooldown = 10 SECONDS
@@ -48,7 +48,7 @@
 
 /obj/effect/proc_holder/spell/aoe/knock/greater
 	name = "Greater Knock"
-	desc = "On first cast, will remove access restrictions on all airlocks on the station, and announce this spell's use to the station. On any further cast, will open all doors in sight. Cannot be refunded once bought!"
+	desc = "При первом прочтении снимет ограничения на доступ всех шлюзов на станции и объявит о прочтении этого заклинания. При любом последующем прочтении откроет все шлюзы в поле зрения. Нельзя вернуть после покупки!"
 
 	action_icon_state = "greater_knock"
 	base_cooldown = 20 SECONDS
@@ -67,7 +67,7 @@
 			if(is_station_level(A.z))
 				A.req_access = list()
 		GLOB.command_announcement.Announce(
-			message = "Мы убрали все доступы у шл+юзов вашей станции. Вы сможете поблагодарить нас позже!",
+			message = "Мы убрали все доступы у шл+юзов вашей станции. Вы можете поблагодарить нас позже!",
 			new_title = "Приветствуем!",
 			new_sound = 'sound/misc/announce_dig.ogg',
 			from = "Послание Федерации Космических Волшебников."

@@ -5,9 +5,9 @@
 	/// Link to the spawned item
 	var/obj/item/melee/touch_attack/attached_hand = null
 	/// Special message shown on item gain
-	var/on_gain_message = span_notice("You channel the power of the spell to your hand.")
+	var/on_gain_message = span_notice("Вы направляете силу заклинания в свою руку.")
 	/// Special message shown on item withdrowal
-	var/on_withdraw_message = span_notice("You draw the power out of your hand.")
+	var/on_withdraw_message = span_notice("Вы лишаете руку силы заклинания.")
 
 
 /obj/effect/proc_holder/spell/touch/create_new_targeting()
@@ -16,7 +16,7 @@
 
 /obj/effect/proc_holder/spell/touch/Click()
 	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		to_chat(usr, span_warning("You can't control your hands!!"))
+		to_chat(usr, span_warning("Вы не можете управлять своими руками!"))
 		return FALSE
 	if(attached_hand)
 		discharge_hand(usr, TRUE)
@@ -39,7 +39,7 @@
 		if(on_withdraw_message)
 			new_hand.on_withdraw_message = on_withdraw_message
 	else
-		to_chat(user, span_warning("Your hands are full!"))
+		to_chat(user, span_warning("Ваши руки заняты!"))
 
 
 /obj/effect/proc_holder/spell/touch/proc/discharge_hand(atom/target, any_hand = FALSE)
@@ -59,7 +59,7 @@
 
 /obj/effect/proc_holder/spell/touch/disintegrate
 	name = "Disintegrate"
-	desc = "This spell charges your hand with vile energy that can be used to violently explode victims."
+	desc = "Это заклинание заряжает вашу руку энергией, которая может быть использована для дезинтеграции жертв."
 	hand_path = /obj/item/melee/touch_attack/disintegrate
 
 	school = "evocation"
@@ -72,7 +72,7 @@
 
 /obj/effect/proc_holder/spell/touch/flesh_to_stone
 	name = "Flesh to Stone"
-	desc = "This spell charges your hand with the power to turn victims into inert statues for a long period of time."
+	desc = "Это заклинание заряжает вашу руку силой, способной превращать жертв в неподвижные каменные изваяния."
 	hand_path = /obj/item/melee/touch_attack/fleshtostone
 
 	school = "transmutation"

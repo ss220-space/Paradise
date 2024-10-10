@@ -1,8 +1,8 @@
 /obj/effect/proc_holder/spell/touch/banana
 	name = "Banana Touch"
-	desc = "A spell popular at wizard birthday parties, this spell will put on a clown costume on the target, \
-		stun them with a loud HONK, and mutate them to make them more entertaining! \
-		Warning : Effects are permanent on non-wizards."
+	desc = "Заклинание, популярное на вечеринках по случаю дня рождения магов. Позволяет одеть жертву в костюм клоуна, \
+		оглушить громким ХОНКОМ и изменить внешность! \
+		Внимание: эффекты необратимы для всех целей за исключением магов."
 	hand_path = /obj/item/melee/touch_attack/banana
 	school = "transmutation"
 
@@ -14,7 +14,7 @@
 
 /obj/item/melee/touch_attack/banana
 	name = "banana touch"
-	desc = "It's time to start clowning around."
+	desc = "Пришло время клоунствовать."
 	catchphrase = "NWOLC YRGNA"
 	on_use_sound = 'sound/items/AirHorn.ogg'
 	icon_state = "banana_touch"
