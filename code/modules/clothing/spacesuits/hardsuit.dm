@@ -555,7 +555,7 @@
 	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100, fire = 100, acid = 100) //Almost as good as DS gear, but unlike DS can switch to combat for mobility
 	item_color = "sst"
 	combat_rad = 100
-	combat_slow= -0.1
+	combat_slow = -0.1
 	eva_slow = 0
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst
