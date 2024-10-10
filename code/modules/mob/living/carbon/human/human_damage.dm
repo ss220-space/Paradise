@@ -291,11 +291,30 @@
 	used_weapon = null,
 )
 	. = ..()
-	if(. && amount > 0 && mind)
-		for(var/datum/objective/pain_hunter/objective in GLOB.all_objectives)
-			if(mind == objective.target)
-				objective.take_damage(amount, TOX)
+	if(. == STATUS_UPDATE_NONE)
+		return .
 
+	if(TOX_VOMIT_THRESHOLD_REACHED(src, TOX_VOMIT_REQUIRED_TOXLOSS))
+		apply_status_effect(STATUS_EFFECT_VOMIT)
+
+	if(!mind)
+		return . 
+
+	for(var/datum/objective/pain_hunter/objective in GLOB.all_objectives)
+		if(mind == objective.target)
+			objective.take_damage(amount, TOX)
+
+	return .
+
+/mob/living/carbon/human/setToxLoss(amount, updating_health = TRUE)
+	. = ..()
+	if(. == STATUS_UPDATE_NONE)
+		return .
+
+	if(TOX_VOMIT_THRESHOLD_REACHED(src, TOX_VOMIT_REQUIRED_TOXLOSS))
+		apply_status_effect(STATUS_EFFECT_VOMIT)
+
+	return .
 
 ////////////////////////////////////////////
 

@@ -34,6 +34,11 @@
 	return ..()
 
 
+/obj/item/gun/magic/wand/magic_charge_act(mob/user)
+	. = ..()
+	update_appearance(UPDATE_ICON_STATE)
+
+
 /obj/item/gun/magic/wand/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!charges)
 		shoot_with_empty_chamber(user)
