@@ -209,7 +209,6 @@
 
 // This toilet made specially for map editor, collects objects on same turf at map loading as well as closets do.
 // regular toilet can't do this. has the same restrictions for objects like regular toilet has.
-// собирает в себя предметы на своём атоме при загрузки карты, сделано специально для редактора карт, обычный так не может.
 /obj/structure/toilet/cancollectmapitems/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
