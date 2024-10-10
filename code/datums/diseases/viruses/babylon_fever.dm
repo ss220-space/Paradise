@@ -64,7 +64,7 @@
 
 	LAZYCLEARLIST(stored_languages)
 
-	REMOVE_TRAIT(affected_mob, TRAIT_NO_BABEL, UNIQUE_TRAIT_SOURCE(disease))
+	REMOVE_TRAIT(affected_mob, TRAIT_NO_BABEL, UNIQUE_TRAIT_SOURCE(src))
 
 	return ..()
 
