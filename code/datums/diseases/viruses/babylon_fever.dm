@@ -24,6 +24,8 @@
 
 	disease.RegisterSignal(disease.affected_mob, COMSIG_LIVING_RECEIVED_LANGUAGE, PROC_REF(store_and_remove_languages))
 
+	ADD_TRAIT(disease.affected_mob, TRAIT_NO_BABEL, UNIQUE_TRAIT_SOURCE(disease))
+
 /datum/disease/virus/babylonian_fever/stage_act()
 	if(!..())
 		return FALSE
@@ -61,6 +63,8 @@
 				affected_mob.add_language(lan.name)
 
 	LAZYCLEARLIST(stored_languages)
+
+	REMOVE_TRAIT(affected_mob, TRAIT_NO_BABEL, UNIQUE_TRAIT_SOURCE(disease))
 
 	return ..()
 

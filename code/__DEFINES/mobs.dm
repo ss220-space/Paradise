@@ -440,4 +440,5 @@
 #define SHOCK_DELAY_STUN (1<<6)
 /// Makes the weaken into a knockdown
 #define SHOCK_KNOCKDOWN (1<<7)
-
+/// For babylon fever,
+#define DISEASE_LIVING_LANGUAGE_PROCESSED (1<<0)

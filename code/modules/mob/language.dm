@@ -851,6 +851,8 @@
 // Language handling.
 /mob/proc/add_language(language_name)
 	var/datum/language/new_language = GLOB.all_languages[language_name]
+	if(SEND_SIGNAL(src, COMSIG_LIVING_RECEIVED_LANGUAGE, language_name) & DISEASE_LIVING_LANGUAGE_PROCESSED)
+		return FALSE
 	if(new_language in languages)
 		return FALSE
 	if(!istype(new_language))
@@ -861,11 +863,12 @@
 	. = !LAZYIN(languages, new_language)
 	if(.)
 		LAZYADD(languages, new_language)
-		SEND_SIGNAL(src, COMSIG_LIVING_RECEIVED_LANGUAGE, language_name)
 
 
 /mob/proc/remove_language(language_name)
 	var/datum/language/rem_language = GLOB.all_languages[language_name]
+	if(SEND_SIGNAL(src, COMSIG_LIVING_LOST_LANGUAGE, language_name) & DISEASE_LIVING_LANGUAGE_PROCESSED)
+		return FALSE
 	if(!istype(rem_language))
 		rem_language = GLOB.all_languages[convert_lang_key_to_name(language_name)]
 		if(!istype(rem_language))
@@ -874,7 +877,6 @@
 	. = LAZYIN(languages, rem_language)
 	if(.)
 		LAZYREMOVE(languages, rem_language)
-		SEND_SIGNAL(src, COMSIG_LIVING_LOST_LANGUAGE, language_name)
 
 
 /mob/living/remove_language(language_name)
