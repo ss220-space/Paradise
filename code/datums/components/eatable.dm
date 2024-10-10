@@ -29,7 +29,7 @@
 )
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
-		
+
 	src.current_bites = current_bites
 	src.material_type = material_type
 	src.max_bites = max_bites
