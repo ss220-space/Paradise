@@ -116,7 +116,7 @@
 	icon_state = "book1"
 	w_class = 2
 
-/obj/item/book_of_babel/attack_self(mob/living/carbon/human/user)
+/obj/item/book_of_babel/attack_self(mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_NO_BABEL))
 		user.visible_message("<span class='notice'>[user] suddenly stops, releasing the [src]</span>")
 		to_chat(user, span_warning("You don't know what a book is or what to do with it."))
