@@ -912,7 +912,6 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/obj/effect/decal/cleanable/ashrune,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "co" = (
@@ -1403,6 +1402,14 @@
 	},
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"qj" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/cleanable/ashrune,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "zz" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/stone_tile{
@@ -1585,9 +1592,9 @@ bz
 ak
 cb
 df
-bM
-bM
-bM
+bX
+co
+bO
 dq
 bZ
 cJ
@@ -1607,9 +1614,9 @@ ak
 ak
 cg
 cb
-bM
+qj
 cn
-bM
+bL
 dr
 dw
 dA
@@ -1629,9 +1636,9 @@ bA
 cZ
 dd
 cg
-bM
-bM
-bM
+cb
+di
+dn
 ds
 dx
 cK
