@@ -16,8 +16,8 @@
 
 
 /obj/effect/proc_holder/spell/charge/cast(list/targets, mob/user = usr)
+	var/charge_result = NONE
 	var/atom/charged_item
-	var/charge_result
 
 	var/mob/living/living = targets[1]
 
