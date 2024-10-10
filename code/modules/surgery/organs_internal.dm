@@ -279,6 +279,9 @@
 
 /datum/surgery_step/internal/manipulate_organs/mend
 	name = "mend organs"
+	begin_sound = 'sound/surgery/bonegel.ogg'
+	end_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/stack/medical/bruise_pack/advanced = 100,
 		/obj/item/stack/medical/bruise_pack = 20,
@@ -384,6 +387,8 @@
 
 /datum/surgery_step/internal/manipulate_organs/extract
 	name = "extract organ"
+	begin_sound = 'sound/surgery/hemostat1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_HEMOSTAT = 100,
 		/obj/item/kitchen/utensil/fork = 70
@@ -492,6 +497,8 @@
 
 /datum/surgery_step/internal/manipulate_organs/implant
 	name = "implant an organ"
+	begin_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/organ/internal = 100,
 		/obj/item/reagent_containers/food/snacks/organ = 0  // there for the flavor text
@@ -587,6 +594,9 @@
 
 /datum/surgery_step/internal/manipulate_organs/clean
 	name = "clean and/or revive organs"
+	begin_sound = 'sound/surgery/bonegel.ogg'
+	end_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/reagent_containers/dropper = 100,
 		/obj/item/reagent_containers/syringe = 100,
@@ -735,6 +745,9 @@
 // FINISH
 /datum/surgery_step/internal/manipulate_organs/finish
 	name = "finish manipulation"
+	begin_sound = 'sound/surgery/retractor1.ogg'
+	end_sound = 'sound/surgery/retractor2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/scalpel/laser/manager = 100,
 		TOOL_RETRACTOR = 100,
@@ -794,6 +807,8 @@
 
 /datum/surgery_step/saw_carapace
 	name = "saw carapace"
+	begin_sound = 'sound/surgery/saw1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_SAW = 100,
 		/obj/item/melee/energy/sword/cyborg/saw = 100,
@@ -802,7 +817,6 @@
 	)
 
 	time = 5.4 SECONDS
-
 
 /datum/surgery_step/saw_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
@@ -830,6 +844,9 @@
 
 /datum/surgery_step/cut_carapace
 	name = "cut carapace"
+	begin_sound = 'sound/surgery/scalpel1.ogg'
+	end_sound = 'sound/surgery/scalpel2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		TOOL_SCALPEL = 100,
 		/obj/item/kitchen/knife = 90,
@@ -872,7 +889,9 @@
 
 /datum/surgery_step/retract_carapace
 	name = "retract carapace"
-
+	begin_sound = 'sound/surgery/retractor1.ogg'
+	end_sound = 'sound/surgery/retractor2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/scalpel/laser/manager = 100,
 		TOOL_RETRACTOR = 100,
@@ -921,7 +940,9 @@
 // redefine cauterize for every step because of course it relies on get_organ()
 /datum/surgery_step/generic/seal_carapace/
 	name = "seal carapace"
-
+	begin_sound = 'sound/surgery/cautery1.ogg'
+	end_sound = 'sound/surgery/cautery2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/scalpel/laser = 100,
 		TOOL_CAUTERY = 100,

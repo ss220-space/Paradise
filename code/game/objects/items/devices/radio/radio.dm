@@ -116,6 +116,21 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
 
+/obj/item/radio/emag_act(mob/user)
+	if(!user.mind.special_role && !is_admin(user) || !hidden_uplink)
+		var/turf/T = get_turf(loc)
+
+		if(ismob(loc))
+			var/mob/M = loc
+			M.show_message(span_danger("Your [src] explodes!"), 1)
+
+		if(T)
+			T.hotspot_expose(700,125)
+			explosion(T, -1, -1, 2, 3, cause = src)
+		qdel(src)
+	else
+		hidden_uplink.trigger(user)
+
 /obj/item/radio/attack_ghost(mob/user)
 	return interact(user)
 

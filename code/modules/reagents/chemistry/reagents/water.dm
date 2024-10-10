@@ -300,7 +300,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		M.AdjustConfused(6 SECONDS)
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
-			M.mind.remove_antag_datum(/datum/antagonist/mindslave/goon_thrall)
 			holder.remove_reagent(id, volume)
 			M.visible_message("<span class='biggerdanger'>[M] recoils, their skin flushes with colour, regaining their sense of control!</span>")
 			M.SetJitter(0)
@@ -341,22 +340,24 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			update_flags |= M.adjustStaminaLoss(5, FALSE)
 			if(prob(20))
 				M.emote("scream")
-			vamp.adjust_nullification(20, 4)
+			vamp.base_nullification()
 			vamp.bloodusable = max(vamp.bloodusable - 3,0)
+			var/vomit_stun = (vamp.nullification == OLD_NULLIFICATION)? 8 SECONDS : FALSE
 			if(vamp.bloodusable)
-				V.vomit(0, TRUE, FALSE)
-				V.adjustBruteLoss(3)
+				V.vomit(0, VOMIT_BLOOD, vomit_stun)
+				if(!vomit_stun)
+					V.adjustBruteLoss(3)
 			else
 				holder.remove_reagent(id, volume)
-				V.vomit(0, FALSE, FALSE)
+				V.vomit(0, stun = vomit_stun)
 				return
 		else
-			if(!vamp.bloodtotal)
+			if(!vamp.bloodtotal && vamp.nullification == NEW_NULLIFICATION)
 				return ..() | update_flags
 			switch(current_cycle)
 				if(1 to 4)
 					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-					vamp.adjust_nullification(20, 4)
+					vamp.base_nullification()
 				if(5 to 12)
 					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
 					update_flags |= M.adjustFireLoss(1, FALSE)
@@ -364,7 +365,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 					M.Jitter(40 SECONDS)
 					if(prob(20))
 						M.emote("scream")
-					vamp.adjust_nullification(20, 4)
+					vamp.base_nullification()
 				if(13 to INFINITY)
 					M.visible_message("<span class='danger'>[M] suddenly bursts into flames!</span>",
 									"<span class='danger'>You suddenly ignite in a holy fire!</span>")
@@ -375,49 +376,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 					M.Jitter(60 SECONDS)
 					if(prob(40))
 						M.emote("scream")
-					vamp.adjust_nullification(20, 4)
-
-	var/datum/antagonist/goon_vampire/g_vamp = M.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(ishuman(M) && g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full) && prob(80))
-		var/mob/living/carbon/V = M
-		if(g_vamp.bloodusable)
-			M.Stuttering(2 SECONDS)
-			M.Jitter(60 SECONDS)
-			update_flags |= M.adjustStaminaLoss(5, FALSE)
-			if(prob(20))
-				M.emote("scream")
-			g_vamp.nullified = max(5, g_vamp.nullified + 2)
-			g_vamp.bloodusable = max(g_vamp.bloodusable - 3,0)
-			if(g_vamp.bloodusable)
-				V.vomit(0,1)
-			else
-				holder.remove_reagent(id, volume)
-				V.vomit(0,0)
-				return
-		else
-			switch(current_cycle)
-				if(1 to 4)
-					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-					g_vamp.nullified = max(5, g_vamp.nullified + 2)
-				if(5 to 12)
-					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
-					update_flags |= M.adjustFireLoss(1, FALSE)
-					M.Stuttering(2 SECONDS)
-					M.Jitter(40 SECONDS)
-					if(prob(20))
-						M.emote("scream")
-					g_vamp.nullified = max(5, g_vamp.nullified + 2)
-				if(13 to INFINITY)
-					M.visible_message("<span class='danger'>[M] suddenly bursts into flames!</span>",
-									"<span class='danger'>You suddenly ignite in a holy fire!</span>")
-					M.fire_stacks = min(5,M.fire_stacks + 3)
-					M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
-					update_flags |= M.adjustFireLoss(3, FALSE)		//Hence the other damages... ain't I a bastard?
-					M.Stuttering(2 SECONDS)
-					M.Jitter(60 SECONDS)
-					if(prob(40))
-						M.emote("scream")
-					g_vamp.nullified = max(5, g_vamp.nullified + 2)
+					vamp.base_nullification()
 
 	if(ishuman(M) && !M.mind?.isholy)
 		switch(current_cycle)
@@ -452,19 +411,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 				to_chat(target, "<span class='warning'>Something holy interferes with your powers!</span>")
 				vamp.adjust_nullification(5, 2)
 
-	var/datum/antagonist/goon_vampire/g_vamp = target.mind.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full))
-
-		if(method == REAGENT_TOUCH)
-			if(target.wear_mask)
-				to_chat(target, "<span class='warning'>Your mask protects you from the holy water!</span>")
-				return
-			else if(target.head)
-				to_chat(target, "<span class='warning'>Your helmet protects you from the holy water!</span>")
-				return
-			else
-				to_chat(target, "<span class='warning'>Something holy interferes with your powers!</span>")
-				g_vamp.nullified = max(5, g_vamp.nullified + 2)
 
 
 /datum/reagent/holywater/reaction_turf(turf/simulated/T, volume)

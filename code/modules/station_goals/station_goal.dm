@@ -2,6 +2,7 @@
 // Admin button to override with your own
 // Sabotage objective for tators
 // Multiple goals with less impact but more department focused
+#define STATION_GOAL_DEFAULT_BOUNTY 30000
 
 /datum/station_goal
 	var/name = "Generic Goal"
@@ -12,6 +13,15 @@
 	var/report_message = "Complete this goal."
 	var/list/obj/item/paper/papers_list = list()
 	var/list/datum/supply_packs/supply_list = list()
+
+	var/station_bounty = STATION_GOAL_DEFAULT_BOUNTY
+	var/list/personal_reward = list(
+		JOB_TITLE_ENGINEER = 1000,
+		JOB_TITLE_ENGINEER_TRAINEE = 1000,
+		JOB_TITLE_ATMOSTECH = 1000,
+		JOB_TITLE_MECHANIC = 1000,
+		JOB_TITLE_CHIEF = 1500
+	)
 
 /datum/station_goal/proc/send_report()
 	on_report()

@@ -923,7 +923,7 @@
 
 	var/mob/living/carbon/human/target = targets[1]
 
-	target.vomit(lost_nutrition = 0, blood = TRUE, stun = 8 SECONDS, distance = 1, message = FALSE)
+	target.vomit(0, VOMIT_BLOOD, distance = 2, message = FALSE)
 	playsound(user.loc, 'sound/hallucinations/veryfar_noise.ogg', 50, TRUE)
 	to_chat(user, "<span class='shadowling'>You instantly rearrange <b>[target]</b>'s memories, hyptonitizing [target.p_them()] into a thrall.</span>")
 	to_chat(target, "<span class='userdanger'><font size=3>An agonizing spike of pain drives into your mind, and--</font></span>")

@@ -320,7 +320,7 @@
 		EQUIPMENT("Luxury Shelter Capsule", 		/obj/item/survivalcapsule/luxury, 									5000),
 		EQUIPMENT("Luxury Elite Bar Capsule",		/obj/item/survivalcapsule/luxuryelite,								10000),
 		EQUIPMENT("Soap", 							/obj/item/soap/nanotrasen, 											400),
-		EQUIPMENT("Space Cash", 					/obj/item/stack/spacecash/c1000, 									2500),
+		EQUIPMENT("Space Cash", 					/obj/item/stack/spacecash/magic_linked, 							2500),
 		EQUIPMENT("Whiskey", 						/obj/item/reagent_containers/food/drinks/bottle/whiskey, 			500),
 		EQUIPMENT("HRD-MDE Project Box",			/obj/item/storage/box/hardmode_box,									2500),
 	)

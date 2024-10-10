@@ -1,3 +1,5 @@
+#define SALARY_FOR_NISHEBROD 60
+
 /datum/job/civilian
 	title = JOB_TITLE_CIVILIAN
 	flag = JOB_FLAG_CIVILIAN
@@ -10,8 +12,11 @@
 	access = list()			//See /datum/job/assistant/get_access()
 	minimal_access = list()	//See /datum/job/assistant/get_access()
 	alt_titles = list("Tourist","Businessman","Trader","Assistant")
-	random_money_factor = TRUE
 	outfit = /datum/outfit/job/assistant
+
+	salary = SALARY_FOR_NISHEBROD
+	min_start_money = 10
+	max_start_money = 200
 
 /datum/job/civilian/get_access()
 	if(CONFIG_GET(flag/assistant_maint))
@@ -27,4 +32,4 @@
 	l_pocket = /obj/item/paper/deltainfo
 	shoes = /obj/item/clothing/shoes/black
 
-
+#undef SALARY_FOR_NISHEBROD

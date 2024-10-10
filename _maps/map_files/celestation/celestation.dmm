@@ -833,8 +833,6 @@
 	dir = 5
 	},
 /obj/structure/closet/secure_closet/hos,
-/obj/item/megaphone,
-/obj/item/reagent_containers/food/drinks/flask/barflask,
 /obj/item/spacepod_equipment/key{
 	id = 100000
 	},
@@ -2969,9 +2967,7 @@
 /turf/simulated/floor/engine/hull/ceiling,
 /area/mine/unexplored/cere/orbiting)
 "ayE" = (
-/obj/machinery/computer/prisoner{
-	req_access = list(2)
-	},
+/obj/machinery/computer/brigcells,
 /turf/simulated/floor/wood/fancy/light,
 /area/security/hos)
 "ayK" = (
@@ -7799,14 +7795,11 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_x = -32
+/obj/item/radio/intercom{
+	pixel_x = -28
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
@@ -11831,6 +11824,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
+"bGn" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/security/hos)
 "bGt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -13211,6 +13210,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/turretid/stun{
+	control_area = "AI Satellite Secondary Antechamber";
+	name = "AI Satellite Secondary Antechamber Turret Control";
+	req_access = list(75);
+	pixel_x = -30;
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13758,6 +13764,10 @@
 /obj/machinery/computer/security{
 	name = "Labor Camp Monitoring";
 	network = list("Labor Camp")
+	},
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -15890,6 +15900,10 @@
 "cdq" = (
 /obj/machinery/cryopod/robot,
 /obj/effect/landmark/join_late_cyborg,
+/obj/item/radio/intercom{
+	pixel_y = 22;
+	pixel_x = 0
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "navyblue"
@@ -18756,7 +18770,7 @@
 "cvQ" = (
 /obj/structure/table,
 /obj/item/taperecorder,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/engine,
 /area/security/execution)
 "cvR" = (
@@ -18887,6 +18901,13 @@
 	},
 /obj/machinery/camera/autoname{
 	dir = 8
+	},
+/obj/machinery/turretid/lethal{
+	check_synth = 1;
+	name = "AI Chamber Turret Control";
+	req_access = list(75);
+	pixel_x = 32;
+	pixel_y = 0
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/turret_protected/ai)
@@ -27391,11 +27412,6 @@
 /turf/simulated/wall/r_wall/coated,
 /area/engine/supermatter)
 "dNS" = (
-/obj/structure/sign/atmosplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в работе с Фаррагусом, а также полной адаптации Стацнии под нужды НаноТрейзен. Благодарим вас за труд, SQUEEK!. Слава НаноТрейзен!";
-	name = "Благодарственное Письмо Для Старшего Рабочего Команды Архитекторов Фаррагуса.";
-	pixel_x = 32
-	},
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowcorners"
@@ -27541,13 +27557,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/cele/servise)
 "dOS" = (
-/obj/machinery/turretid/lethal{
-	check_synth = 1;
-	name = "AI Chamber Turret Control";
-	req_access = list(75)
+/obj/machinery/turretid/stun{
+	name = "AI Satellite Turret Control";
+	req_access = list(75);
+	pixel_x = 0;
+	pixel_y = -26
 	},
-/turf/simulated/wall/r_wall,
-/area/turret_protected/ai)
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat)
 "dOW" = (
 /obj/effect/spawner/random_spawners/rock_50,
 /turf/simulated/floor/plating{
@@ -31042,6 +31059,12 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/crew_quarters/bar)
 "eBF" = (
@@ -33939,14 +33962,6 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"fgB" = (
-/obj/machinery/turretid/stun{
-	control_area = "AI Satellite Antechamber";
-	name = "AI Satellite Antechamber Turret Control";
-	req_access = list(75)
-	},
-/turf/simulated/wall/r_wall,
-/area/turret_protected/aisat_interior)
 "fgL" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -35180,7 +35195,6 @@
 	},
 /area/engine/mechanic_workshop/hangar)
 "fsW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
@@ -35192,7 +35206,12 @@
 	name = "Bar Junction";
 	sortType = 19
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -44571,11 +44590,6 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/dorms)
 "hes" = (
-/obj/structure/sign/goldenplaque{
-	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в работе с Фаррагусом, а также полной адаптации Стацнии под нужды НаноТрейзен. Благодарим вас за труд, BeebBeebBoob. Слава НаноТрейзен!";
-	name = "Благодарственное Письмо Для Бригадира Команды Архитекторов Фаррагуса.";
-	pixel_x = -32
-	},
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -52276,12 +52290,10 @@
 /turf/simulated/floor/plating,
 /area/security/prisonlockers)
 "iEd" = (
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Bridge";
-	departmentType = 5;
-	name = "Bridge Requests Console";
-	pixel_y = 30
+/obj/structure/sign/beautyplaque{
+	pixel_y = 32;
+	name = "Благодарственное Письмо Для Бригадира Команды Архитекторов Селестии";
+	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За выдающиеся успехи в области инженерного менеджмента, а также успешное проектирование Селестии по всем стандартам НаноТрейзен. Благодарим вас за труд, Saad_f603. Слава НаноТрейзен!"
 	},
 /turf/simulated/floor/carpet/black,
 /area/bridge)
@@ -54164,7 +54176,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access = list(2)
+	req_access = list(63)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable/orange{
@@ -54853,9 +54865,7 @@
 	},
 /area/security/medbay)
 "jbZ" = (
-/obj/machinery/computer/secure_data{
-	dir = 1
-	},
+/obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -59177,8 +59187,12 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/alarm{
-	pixel_y = 26
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Bridge";
+	departmentType = 5;
+	name = "Bridge Requests Console";
+	pixel_y = 30
 	},
 /turf/simulated/floor/carpet/black,
 /area/bridge)
@@ -60525,12 +60539,13 @@
 /area/toxins/lab)
 "kiQ" = (
 /obj/machinery/turretid/stun{
-	control_area = "AI Satellite Secondary Antechamber";
-	name = "AI Satellite Secondary Antechamber Turret Control";
-	req_access = list(75)
+	name = "AI Satellite Turret Control";
+	req_access = list(75);
+	pixel_x = 0;
+	pixel_y = 28
 	},
-/turf/simulated/wall/r_wall,
-/area/turret_protected/aisat_interior/secondary)
+/turf/simulated/floor/plating,
+/area/turret_protected/aisat)
 "kiY" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -69562,9 +69577,9 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/bible,
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
-/obj/item/clothing/glasses/sunglasses/blindfold,
-/obj/item/clothing/glasses/sunglasses/blindfold,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/plating/asteroid,
 /area/security/processing)
 "lXK" = (
@@ -80254,12 +80269,6 @@
 	},
 /turf/simulated/floor/glass,
 /area/hallway/primary/central)
-"odp" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/space/openspace,
-/area/space)
 "odx" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -80538,12 +80547,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
-"ogP" = (
-/obj/machinery/computer/card/minor/hos{
-	dir = 1
-	},
-/turf/simulated/floor/wood/fancy/light,
-/area/security/hos)
 "ogS" = (
 /obj/effect/spawner/random_spawners/blood_20,
 /obj/effect/decal/cleanable/dirt,
@@ -81353,6 +81356,12 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -90258,14 +90267,6 @@
 /obj/item/storage/box/mousetraps,
 /turf/simulated/floor/plasteel,
 /area/janitor)
-"pWZ" = (
-/obj/machinery/turretid/stun{
-	control_area = "AI Satellite";
-	name = "AI Satellite Turret Control";
-	req_access = list(75)
-	},
-/turf/simulated/wall/r_wall,
-/area/turret_protected/aisat)
 "pXa" = (
 /turf/simulated/wall/r_wall,
 /area/engine/engineering)
@@ -97412,7 +97413,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -102865,7 +102865,7 @@
 "sxI" = (
 /obj/structure/table,
 /obj/item/clothing/mask/muzzle,
-/obj/item/clothing/glasses/sunglasses/blindfold,
+/obj/item/clothing/glasses/sunglasses/blindfold/black,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "sxK" = (
@@ -103004,6 +103004,12 @@
 	},
 /obj/structure/cable/orange{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -105564,6 +105570,12 @@
 /obj/machinery/door/window/eastright{
 	name = "Bar";
 	req_access = list(25)
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/bar)
@@ -112399,7 +112411,7 @@
 "ukP" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access = list(2)
+	req_access = list(63)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -118296,6 +118308,13 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/machinery/turretid/stun{
+	control_area = "AI Satellite Antechamber";
+	name = "AI Satellite Antechamber Turret Control";
+	req_access = list(75);
+	pixel_x = -28;
+	pixel_y = 0
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "navyblue"
@@ -119595,7 +119614,6 @@
 	pixel_y = -3;
 	req_access = list(2)
 	},
-/obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -120712,6 +120730,8 @@
 /obj/machinery/alarm{
 	pixel_y = 26
 	},
+/obj/item/storage/belt/medical/surgery/loaded,
+/obj/item/storage/belt/medical/surgery/loaded,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -131596,8 +131616,12 @@
 	dir = 1;
 	network = list("SS13","MiniSat")
 	},
-/obj/item/radio/intercom{
-	pixel_y = -28
+/obj/machinery/turretid/stun{
+	control_area = "AI Satellite Antechamber";
+	name = "AI Satellite Antechamber Turret Control";
+	req_access = list(75);
+	pixel_x = 0;
+	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "navyblue"
@@ -219758,7 +219782,7 @@ eab
 liR
 xAa
 liR
-dJF
+bGn
 rWS
 qQo
 pNG
@@ -220014,7 +220038,7 @@ rWS
 oAE
 cVf
 dkU
-ogP
+dJF
 ayE
 rWS
 buS
@@ -220273,7 +220297,7 @@ rWS
 cgG
 rWS
 rWS
-iIO
+rWS
 qQo
 pNG
 mWc
@@ -225717,7 +225741,7 @@ vZy
 vZy
 vZy
 qZf
-kiQ
+vZy
 vZy
 vZy
 rjo
@@ -227313,7 +227337,7 @@ dFy
 dFy
 dFy
 qdY
-odp
+soY
 qdY
 dFy
 dFy
@@ -227772,7 +227796,7 @@ kCa
 kCa
 mMX
 wJb
-fgB
+mMX
 aXe
 mMX
 eph
@@ -228023,7 +228047,7 @@ ntZ
 clk
 gKY
 oAd
-oAd
+dOS
 gKY
 vWt
 roh
@@ -228034,8 +228058,8 @@ jHo
 ktZ
 roh
 dMW
-pWZ
-oAd
+gKY
+kiQ
 oAd
 gKY
 umH
@@ -287654,7 +287678,7 @@ oVi
 oVi
 oVi
 pip
-dOS
+cnV
 gmZ
 oVi
 oVi

@@ -6025,7 +6025,6 @@
 	layer = 5;
 	locked = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door_control/secure{
 	id = "CC_supply_internal";
 	name = "Supply External Shutters";
@@ -12759,7 +12758,7 @@
 /area/shuttle/administration)
 "fVC" = (
 /obj/machinery/turretid{
-	control_area = "\improper Centcom Special Operations";
+	control_area = "Centcom Special Operations Forces";
 	name = "Quarantine Turret";
 	pixel_x = 3;
 	pixel_y = -26
@@ -14381,7 +14380,6 @@
 	layer = 5;
 	locked = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowalt"
 	},
@@ -35555,7 +35553,6 @@
 	layer = 5;
 	locked = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowalt"
 	},
@@ -40029,7 +40026,7 @@
 "syr" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access = list(2)
+	req_access = list(63)
 	},
 /turf/simulated/floor/shuttle/objective_check{
 	icon = 'icons/turf/floors.dmi';
@@ -50772,7 +50769,6 @@
 	layer = 5;
 	locked = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door_control/secure{
 	id = "CC_supply_external";
 	name = "Supply Internal Shutters";
@@ -104396,7 +104392,7 @@ rgL
 coX
 rLT
 mpv
-hTD
+mTv
 fAg
 fAg
 fAg
@@ -104653,7 +104649,7 @@ fqL
 eiV
 mMp
 aWp
-cFn
+wRu
 gvy
 hHu
 mzs

@@ -1104,6 +1104,17 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_scattershot_riot
+	name = "Exosuit Non-lethal Weapon (LBX AC 9 \"Riot Scattershot\")"
+	desc = "Allows for the construction of LBX AC 9."
+	id = "mech_scattershot_riot"
+	build_type = MECHFAB
+	req_tech = list("combat" = 3, "materials" = 3)
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/riot
+	materials = list(MAT_METAL=10000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_laser_heavy
 	name = "Exosuit Lethal Weapon (CH-LC \"Solaris\" Laser Cannon)"
 	desc = "Allows for the construction of CH-LC Laser Cannon."
