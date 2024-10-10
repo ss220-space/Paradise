@@ -21,7 +21,8 @@
 		borer.leave_host()
 		if(iscarbon(user))
 			var/mob/living/carbon/c_user = user
-			c_user.vomit(FALSE)
+			c_user.fakevomit()
+			c_user.Stun(VOMIT_STUN_TIME)
 
 	if(iscarbon(user))
 		var/mob/living/carbon/c_user = user

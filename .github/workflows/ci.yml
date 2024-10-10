@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup Cache
         uses: actions/cache@v4
         with:
@@ -37,13 +38,19 @@ jobs:
           python-version: '3.11.6'
           cache: 'pip'
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+          cache-dependency-path: ./tgui/yarn.lock
+
       - name: Install python packages
         run: pip3 install -r tools/requirements.txt
 
       - name: Run Linters
         run: |
           find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/ci/json_verifier.py
-          tools/ci/build_tgui.sh
+          tgui/bin/tgui --ci
           tools/ci/check_grep.sh
           python3 tools/ci/check_line_endings.py
           python3 tools/ci/unticked_files.py ${GITHUB_WORKSPACE}

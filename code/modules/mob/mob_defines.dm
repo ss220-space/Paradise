@@ -89,7 +89,6 @@
 	var/sec_record = ""
 	var/gen_record = ""
 	var/exploit_record = ""
-	var/lastpuke = 0
 	/// For speaking/listening.
 	var/list/languages
 	/// For reagents that grant language knowlege.

@@ -857,18 +857,6 @@
 		throw_alert(ALERT_NUTRITION, text2path("/atom/movable/screen/alert/hunger/[new_hunger]"), icon_override = dna.species.hunger_icon)
 		med_hud_set_status()
 
-
-/mob/living/carbon/human/handle_random_events()
-	// Puke if toxloss is too high
-	if(!stat)
-		if(getToxLoss() >= 45 && nutrition > 20)
-			lastpuke ++
-			if(lastpuke >= 25) // about 25 second delay I guess
-				vomit(20, 0, 8 SECONDS, 0, 1)
-				adjustToxLoss(-3)
-				lastpuke = 0
-
-
 /mob/living/carbon/human/proc/handle_embedded_objects()
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		for(var/obj/item/thing in bodypart.embedded_objects)
