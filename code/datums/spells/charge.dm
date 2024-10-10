@@ -22,8 +22,8 @@
 	var/mob/living/living = targets[1]
 
 	if(living.pulling)
-		charge_target_name = pulling.name
-		charge_result = pulling.magic_charge_act(pulling)
+		charge_target_name = living.pulling.name
+		charge_result = living.pulling.magic_charge_act(living)
 
 	if(!(charge_result & RECHARGE_SUCCESSFUL))
 		var/list/hand_items = list(living.get_active_hand(), living.get_inactive_hand())
