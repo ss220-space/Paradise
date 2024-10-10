@@ -437,7 +437,7 @@
 		announce_new_power(old_powers)
 
 /datum/antagonist/vampire/proc/isAscended()
-	return length(drained_humans) >= FULLPOWER_DRAINED_REQUIREMENT && bloodtotal >= FULLPOWER_BLOODTOTAL_REQUIREMENT
+	return subclass && length(drained_humans) >= FULLPOWER_DRAINED_REQUIREMENT && bloodtotal >= FULLPOWER_BLOODTOTAL_REQUIREMENT
 
 /datum/antagonist/vampire/proc/check_full_power_upgrade()
 	if(subclass.full_power_override || isAscended())

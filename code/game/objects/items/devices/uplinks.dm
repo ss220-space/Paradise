@@ -563,7 +563,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	var/list/L = list()
 
-	L.Add(tagB(span_red("Последние данные разведки " + AFFIL_MI13)))
+	L.Add(tagB(span_red("Последние данные разведки MI13")))
 
 	if(traitors.len > 3 || traitors.len == 3 && prob(60))
 		L.Add("Обнаружены агенты:")

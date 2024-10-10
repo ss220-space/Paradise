@@ -11,7 +11,7 @@
 					"Завербовать нового агента вколов ему модифицированный имплант \"Mindslave\".")
 	tgui_icon = "cybersun"
 	slogan = "Сложно быть во всём лучшими, но у нас получается."
-	hij_desc = "Вы - наёмный агент " + AFFIL_CYBERSUN + ", засланный на станцию NT с особой целью:\n\
+	hij_desc = "Вы - наёмный агент Cybersun Industries, засланный на станцию NT с особой целью:\n\
 				Взломать искусственный интеллект станции специальным, предоставленным вам, устройством. \n\
 				После взлома, искусственный интеллект попытается уничтожить станцию. \n\
 				Ваша задача ему с этим помочь;\n\
@@ -35,7 +35,7 @@
 
 /obj/item/proprietary_ssd
 	name = "Proprietary SSD"
-	desc = "На боку едва заметная надпись \"" + AFFIL_CYBERSUN + "\"."
+	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "proprietary_ssd"
 	item_state = "disk"
@@ -151,7 +151,7 @@
 
 /obj/item/invasive_beacon
 	name = "Invasive Beacon"
-	desc = "Сложное черное устройство. На боку едва заметная надпись \"" + AFFIL_CYBERSUN + "\"."
+	desc = "Сложное черное устройство. На боку едва заметная надпись \"Cybersun Industries\"."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "invasive_beacon"
 	item_state = "beacon"
@@ -204,7 +204,7 @@
 
 /obj/item/Syndie_patcher
 	name = "Syndie patcher"
-	desc = "На боку едва заметная надпись \"" + AFFIL_CYBERSUN + "\"."
+	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "cindy_pacher"
 	item_state = "plata"
@@ -237,7 +237,7 @@
 
 /obj/item/implanter/mini_traitor
 	name = "bio-chip implanter (Modified Mindslave)"
-	desc = "На боку едва заметная гравировка \"" + AFFIL_CYBERSUN + "\"."
+	desc = "На боку едва заметная гравировка \"Cybersun Industries\"."
 	imp = /obj/item/implant/mini_traitor
 
 /obj/item/implant/mini_traitor // looks like normal but doesn't make you normal after removing

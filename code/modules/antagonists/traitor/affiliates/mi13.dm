@@ -21,7 +21,7 @@
 	var/datum/antagonist/traitor/traitor = owner.has_antag_datum(/datum/antagonist/traitor)
 	traitor.assign_exchange_role(SSticker.mode.exchange_red)
 	uplink.get_intelligence_data = TRUE
-	add_discount_item(/datum/uplink_item/stealthy_weapons/cqc, 0.5)
+	add_discount_item(/datum/uplink_item/stealthy_weapons/cqc, 0.8)
 
 /datum/affiliate/mi13/give_bonus_objectives(datum/mind/mind)
 	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
@@ -100,6 +100,73 @@
 
 /obj/item/clothing/shoes/laceup/bond
 	armor = list(melee = 25, bullet = 25, laser = 15, energy = 15, bomb = 25, bio = 0, rad = 0, fire = 30, acid = 60)
+
+
+/obj/item/paper/agent_info
+	name = "Agent information"
+	info = ""
+	var/content
+
+/obj/item/paper/agent_info/proc/choose_agent(mob/user)
+	. = TRUE
+	var/list/crew
+	for (var/mob/living/carbon/human/H in GLOB.mob_list)
+		if (H.mind.assigned_role)
+			crew[H.mind.original_mob_name] = H
+
+	var/choise = input(src, "О каком агенте написано в отчете?","Выбор агента",null) as null|anything in crew
+
+	if (!choise)
+		return FALSE
+
+	var/mob/living/carbon/human/target = crew[choise]
+
+	if (!target)
+		to_chat(user, span_warning("Цель больше не существует."))
+		return FALSE
+
+	var/datum/antagonist/traitor/traitor = target?.mind?.has_antag_datum(/datum/antagonist/traitor)
+	var/datum/antagonist/vampire/vampire = target?.mind?.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/antagonist/changeling/changeling = target?.mind?.has_antag_datum(/datum/antagonist/changeling)
+	var/datum/antagonist/thief/thief = target?.mind?.has_antag_datum(/datum/antagonist/thief)
+
+	if(!traitor && !vampire && !changeling)
+		info = "Согласно последним разведданным, " + choise + " не имеет никаких прямых связей с синдикатом."
+		return
+
+	if(traitor)
+		info += choise + " является агентом " + (traitor?.affiliate ? "нанятым " + traitor?.affiliate.name : "с неизвестным нанимателем") + ".<br>"
+		info += "Назначеные " + (target.gender == FEMALE ? "ей " : "ему ") + "нанимателем цели следующие:"
+		var/obj_num = 1
+		for(var/datum/objective/objective in traitor.objectives)
+			info += "<B>Objective #[obj_num]</B>: [objective.explanation_text]<br>"
+			obj_num++
+
+	if(vampire)
+		info += choise + " обладает способностями " + (vampire.isAscended() ? "высшего " : "") + "вампира " + (vampire.subclass ? "подкласса \"" + vampire.subclass.name + "\"" : "без подкласса") + ".<br>"
+
+	if(changeling)
+		info += choise + " обладает способностями генокрада.<br>"
+
+	if(thief)
+		info += choise + " является членом гильдии воров.<br>"
+
+/obj/item/paper/agent_info/examine(mob/user)
+	if (!is_MI13_agent(user))
+		to_chat(user, span_warning("Вы не можете разобрать содержимое."))
+		return
+
+	if (info)
+		return ..()
+
+	if(user.is_literate())
+		if(in_range(user, src) || istype(user, /mob/dead/observer))
+			if (choose_agent(user))
+				show_content(user)
+		else
+			. += span_notice("Вам нужно подойти поближе, чтобы прочитать то что здесь написано.")
+	else
+		. += span_notice("Вы не умеете читать.")
 
 /obj/item/pen/intel_data/proc/upgrade(obj/item/uplink/U)
 	if(!istype(U) || QDELETED(U))
@@ -259,3 +326,7 @@
 		return TRUE
 
 	ring.breaking = FALSE
+
+/proc/is_MI13_agent(mob/living/user)
+	var/datum/antagonist/traitor/traitor = user?.mind?.has_antag_datum(/datum/antagonist/traitor)
+	return istype(traitor?.affiliate, /datum/affiliate/mi13)

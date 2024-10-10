@@ -367,7 +367,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		new /obj/item/storage/bag/dangertray(src)
 
 /obj/item/storage/box/syndie_kit/mr_chang_technique
-	name = AFFIL_CHANG + "'s Aggressive Marketing Technique"
+	name = "Mr. Chang's Aggressive Marketing Technique"
 	desc = "Специальная посылка, содержащая набор предметов, предназначенных для максимизации дохода. Продайте мне эту ручку."
 	icon_state = "box_mr_chang"
 

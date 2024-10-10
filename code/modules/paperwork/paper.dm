@@ -25,6 +25,7 @@
 	dog_fashion = /datum/dog_fashion/head
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
+	var/is_redable = TRUE // TRUE if we can read it be examine()
 	var/header //Above the main body, displayed at the top
 	var/info		//What's actually written on the paper.
 	var/footer 	//The bottom stuff before the stamp but after the body
@@ -80,9 +81,9 @@
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			show_content(user)
 		else
-			. += "<span class='notice'>You have to go closer if you want to read it.</span>"
+			. += span_notice("Вам нужно подойти поближе, чтобы прочитать то что здесь написано.")
 	else
-		. += "<span class='notice'>You don't know how to read.</span>"
+		. += span_notice("Вы не умеете читать.")
 
 
 /obj/item/paper/proc/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE)

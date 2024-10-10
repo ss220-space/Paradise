@@ -1506,8 +1506,8 @@
 
 
 /obj/item/storage/box/crayfish_bucket
-	name = AFFIL_CHANG + "'s Spicy Lobsters"
-	desc = "Supply of lobsters from " + AFFIL_CHANG + ". Crayfish instead of lobsters, super discount, great rating!"
+	name = "Mr. Chang's Spicy Lobsters"
+	desc = "Supply of lobsters from Mr. Chang. Crayfish instead of lobsters, super discount, great rating!"
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "crayfish_bucket"
 	item_state = "chinese2"

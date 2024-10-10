@@ -971,7 +971,7 @@
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/assault
 	refund_path = /obj/item/antag_spawner/nuke_ops/borg_tele/assault
 	cost = 325
-	made_by = AFFIL_CYBERSUN + " и " + AFFIL_GORLEX
+	made_by = "Cybersun Industries и Gorlex Maraduers"
 
 /datum/uplink_item/support/reinforcement/medical_borg
 	name = "Медицинский киборг Синдиката"
@@ -983,7 +983,7 @@
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/medical
 	refund_path = /obj/item/antag_spawner/nuke_ops/borg_tele/medical
 	cost = 175
-	made_by = AFFIL_CYBERSUN + " и " + AFFIL_HEMATOGENIC
+	made_by = "Cybersun Industries и Hematogenic Industries"
 
 /datum/uplink_item/support/reinforcement/saboteur_borg
 	name = "Саботажный киборг Синдиката"
@@ -1697,7 +1697,7 @@
 			маскировочная печать."
 	item = /obj/item/storage/box/syndie_kit/chameleon
 	cost = 20
-	made_by = AFFIL_TIGER + " и " + AFFIL_MI13
+	made_by = "Tiger Cooperative и MI13"
 
 /datum/uplink_item/stealthy_tools/syndigaloshes/nuke
 	cost = 20
@@ -1983,13 +1983,13 @@
 
 /datum/uplink_item/suits/chameleon_hardsuit
 	name = "Маскировочный хардсьют"
-	desc = "Высококлассный хардкостюм, разработанный в сотрудничестве " + AFFIL_CYBERSUN + " и " + AFFIL_GORLEX + ", является фаворитом \
+	desc = "Высококлассный хардсьют, разработанный в сотрудничестве Cybersun Industries и Gorlex Maraduers, является фаворитом \
 			Контрактников. Он имеет встроенную маскировочную систему, позволяющую вам замаскировать свой хардсьют под наиболее \
 			распространенные вариации в зоне вашей миссии. Этот замаскирован под инженерный хардсьют."
 	cost = 46 //reskinned blood-red hardsuit with chameleon
 	item = /obj/item/storage/box/syndie_kit/chameleon_hardsuit
 	exclude_from_affiliate = list(AFFIL_MI13, AFFIL_GORLEX)
-	made_by = AFFIL_CYBERSUN + " и " + AFFIL_GORLEX
+	made_by = "Cybersun Industries и Gorlex Maraduers"
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Элитный хардсьют Синдиката"
@@ -2584,7 +2584,7 @@
 			Этот замаскирован под инженерный хардсьют."
 	item = /obj/item/storage/box/contractor/hardsuit
 	cost = 80
-	made_by = AFFIL_CYBERSUN + " и " + AFFIL_GORLEX
+	made_by = "Cybersun Industries и Gorlex Maraduers"
 
 /datum/uplink_item/contractor/pinpointer
 	name = "Пинпоинтер контрактника"
@@ -2708,11 +2708,18 @@
 	item = /obj/item/clothing/gloves/ring/gadget
 	cost = 8 // Not so useful
 
-/datum/uplink_item/affiliate/mi13/cool_clothes_kit
+/datum/uplink_item/affiliate/mi13/cool_clothes_kit // a little bit weaker than syndie hardsuit, don't protect from space and non protected legs
 	name = "Набор стильной защитной одежды"
 	desc = "Набор стильной одежды,предоставляющей очень неплохие защитные характеристики. Позволяет быть защищенным не жертвуя элегантностью."
 	item = /obj/item/storage/box/cool_clothes_kit
 	cost = 16
+
+/datum/uplink_item/affiliate/mi13/agent_info
+	name = "Информация об агенте"
+	desc = "Достаточно полная информация об одном из агентов засланых на тот же объект. Хоть вы никому не \
+			рассказывали про то, о ком вы хотите узнать, но информация которую вам предоставят будет о нужном агенте."
+
+	cost = 4
 
 /*
 /datum/uplink_item/badass/intelligence_data
@@ -2740,7 +2747,7 @@
 
 /datum/uplink_item/affiliate/hematogenic/advanced_hemophagus_extract
 	name = "Продвинутый экстракт гемофага"
-	desc = "Инжектор с кровью самого генерального директора " + AFFIL_HEMATOGENIC + ". При введении гуманойду, запускает сложные процессы, \
+	desc = "Инжектор с кровью самого генерального директора Hematogenic Industries. При введении гуманойду, запускает сложные процессы, \
 			делающие вас молодым \"Древним\" вампиром."
 	item = /obj/item/hemophagus_extract/self/advanced
 	cost = 100

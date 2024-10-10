@@ -3,7 +3,7 @@
   */
 /datum/rep_purchase/item/contractor_hardsuit
 	name = "Contractor Hardsuit"
-	description = "A top-tier Hardsuit developed with cooperation of " + AFFIL_CYBERSUN + " and the Gorlex Marauders, a favorite of Syndicate Contractors. \
+	description = "A top-tier Hardsuit developed with cooperation of Cybersun Industries and the Gorlex Marauders, a favorite of Syndicate Contractors. \
 	In addition, it has an in-built chameleon system, allowing you to disguise your hardsuit to the most common variations on your mission area."
 	cost = 4 //free reskinned blood-red hardsuit with chameleon
 	stock = 1

@@ -30,7 +30,7 @@
 
 /obj/item/cling_extract
 	name = "Egg Implanter"
-	desc = "Кажется, внутри что-то двигается. На боку этикетка \"" + AFFIL_TIGER + "\""
+	desc = "Кажется, внутри что-то двигается. На боку этикетка \"Tiger Cooperative\""
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "cling_extract"
 	item_state = "inj_ful"
@@ -314,7 +314,7 @@
 
 /obj/item/implanter/borer
 	name = "bio-chip implanter (Hive)"
-	desc = "На боку едва заметная гравировка \"" + AFFIL_TIGER + "\"."
+	desc = "На боку едва заметная гравировка \"Tiger Cooperative\"."
 	imp = /obj/item/implant/borer
 
 /obj/item/implant/borer
@@ -495,7 +495,7 @@
 
 /obj/item/implanter/cling_hivemind
 	name = "bio-chip implanter (Hivemind)"
-	desc = "На боку едва заметная гравировка \"" + AFFIL_TIGER + "\"."
+	desc = "На боку едва заметная гравировка \"Tiger Cooperative\"."
 	imp = /obj/item/implant/borer
 
 /obj/item/implant/cling_hivemind
@@ -520,7 +520,7 @@
 
 /obj/item/implanter/cling_rejuv
 	name = "bio-chip implanter (Rejuvenate)"
-	desc = "На боку едва заметная гравировка \"" + AFFIL_TIGER + "\"."
+	desc = "На боку едва заметная гравировка \"Tiger Cooperative\"."
 	imp = /obj/item/implant/cling_rejuv
 
 /obj/item/implant/cling_rejuv
