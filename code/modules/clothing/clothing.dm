@@ -320,7 +320,7 @@ BLIND     // can't see anything
 
 /obj/item/clothing/gloves/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
-	update_icon_state()
+	update_icon(UPDATE_ICON_STATE)
 	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
 		return .
 	if(surgeryspeedmod)
