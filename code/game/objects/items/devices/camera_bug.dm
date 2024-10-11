@@ -12,6 +12,7 @@
 	/// Integrated camera console to serve UI data
 	var/integrated_console_type = /obj/machinery/computer/security/camera_bug
 	var/obj/machinery/computer/security/camera_bug/integrated_console
+	var/list/default_networks = list("SS13")
 
 /obj/machinery/computer/security/camera_bug
 	name = "invasive camera utility"
@@ -22,7 +23,7 @@
 	. = ..()
 	integrated_console = new integrated_console_type(src)
 	integrated_console.parent = src
-	integrated_console.network = list("SS13")
+	integrated_console.network = default_networks
 
 /obj/item/camera_bug/Destroy()
 	QDEL_NULL(integrated_console)

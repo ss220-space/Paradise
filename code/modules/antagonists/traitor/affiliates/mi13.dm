@@ -362,38 +362,56 @@
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
+	var/list/network = list("MI13")
+	var/c_tag
 	var/obj/machinery/camera/emp_proof/mi13/camera
 
-/obj/item/spy_bug/Initialize(mapload)
+/obj/item/spy_bug/Initialize(mapload, list/network = list("MI13"), c_tag)
 	. = ..()
-	camera = new(src)
+	src.network = network
+	if (c_tag)
+		src.c_tag = pick("Альфа", "Бета", "Гамма", "Дельта") + " [rand(111111, 999999)]"
+	else
+		src.c_tag = c_tag
+
+	name = "spy bug \"" + c_tag + "\""
+	camera = new(src, network, c_tag)
 
 /obj/item/spy_bug/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
 	return ATTACK_CHAIN_BLOCKED
 
 /obj/item/spy_bug/afterattack(atom/target, mob/user, proximity, params, status)
 	. = ..()
-	if (!isitem(target))
+
+	if (istype(target, /obj/item/camera_bug/spy_monitor))
+		var/obj/item/camera_bug/spy_monitor/monitor = target
+		network = monitor.network
+		user.balloon_alert(user, "Подключено")
 		return
 
-	var/obj/item/I = target
-	if (do_after(user, 3 SECONDS, I, max_interact_count = 1))
-		hook(user, I)
+	if (do_after(user, 3 SECONDS, target, max_interact_count = 1))
+		hook(user, target)
 
-/obj/item/spy_bug/proc/unhook()
+/obj/item/spy_bug/proc/unhook(mob/user)
 	qdel(loc.GetComponent(/datum/component/spy_bug))
 	forceMove(get_turf(loc))
-	remove_verb(loc, /obj/item/verb/unhook_bug)
 
-/obj/item/spy_bug/proc/hook(mob/user, obj/item/I)
+	if (user)
+		to_chat(user, span_notice("You unhooked [src]."))
+	else
+		loc.visible_message(span_warning("[src] falls off the [loc]."))
+
+/obj/item/spy_bug/proc/hook(mob/user, atom/I)
 	if (!I)
 		return
 
+	if (!user.drop_transfer_item_to_loc(src, I))
+		return
+
 	I.AddComponent(/datum/component/spy_bug)
-	forceMove(I)
 	to_chat(user, span_notice("You have silently attached [src] on [I]."))
 
-/obj/item/spy_bug/strip_action(mob/user, mob/living/carbon/human/owner, obj/item/I)
+/obj/item/spy_bug/strip_action(mob/user, mob/living/carbon/human/owner, atom/I)
 	if (!I)
 		return FALSE
 
@@ -402,40 +420,62 @@
 
 	return TRUE
 
+/obj/item/spy_bug/emp_act(severity)
+	. = ..()
+	do_sparks(3, TRUE, src.loc)
+	unhook()
+
+/obj/item/spy_bug/attack_self(mob/user)
+	. = ..()
+	var/new_name = tgui_input_text(src, "Назовите жучок.", "Смена имени", name)
+	if (new_name)
+		name = "spy bug \"" + new_name + "\""
+		qdel(camera)
+		c_tag = new_name
+		camera = new(src, network, c_tag)
+
 /datum/component/spy_bug
+	var/obj/item/spy_bug/bug
 
-/datum/component/spy_bug/Initialize()
-	if(!isitem(parent))
-		return COMPONENT_INCOMPATIBLE
-
+/datum/component/spy_bug/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(on_altclick))
+	RegisterSignal(parent, COMSIG_PREQDELETED, PROC_REF(deleted_handler))
 
-/datum/component/spy_bug/proc/on_examine(datum/source, mob/living/carbon/human/human, list/examine_list)
+/datum/component/spy_bug/UnregisterFromParent()
+	UnregisterSignal(parent, COMSIG_PARENT_EXAMINE)
+	UnregisterSignal(parent, COMSIG_CLICK_ALT)
+	RegisterSignal(parent, COMSIG_PREQDELETED)
+
+/datum/component/spy_bug/_JoinParent()
+	. = ..()
+	var/atom/par = parent
+	for (var/obj/item/spy_bug/spy_bug in par.contents)
+		bug = spy_bug
+
+/datum/component/spy_bug/proc/on_examine(datum/source, mob/living/carbon/human/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	if(!istype(human))
+	if(!istype(user))
 		return
 
 	if(!isstack(parent))
 		examine_list += "Вы видите небольшое устройство с микрофоном и камерой."
 
-/datum/component/spy_bug/_JoinParent()
-	. = ..()
-	var/obj/item/I = parent
-	var/mob/M = I.loc
-	add_verb(M, /obj/item/verb/unhook_bug)
+/datum/component/spy_bug/proc/on_altclick(datum/source, mob/living/carbon/human/user)
+	SIGNAL_HANDLER
 
-/obj/item/verb/unhook_bug()
-	set name = "Unhook the bug"
-	set category = "Object"
-	set desc = "Отцепляет шпионский жучок."
-	set src in usr
-
-	if (!GetComponent(/datum/component/spy_bug))
+	if(!istype(user))
 		return
 
-	for (var/obj/item/spy_bug/bug in contents)
-		bug.unhook()
+	INVOKE_ASYNC(bug, TYPE_PROC_REF(/datum/component/spy_bug, try_unhook), list(user, source))
+
+/datum/component/spy_bug/proc/try_unhook(mob/user, obj/item/I)
+	if(do_after(user, 1 SECONDS, I))
+		bug.unhook(user)
+
+/datum/component/spy_bug/proc/deleted_handler()
+	bug.unhook()
 
 /obj/item/camera_bug/spy_monitor
 	name = "spy monitor"
@@ -443,8 +483,22 @@
 	icon = 'icons/obj/affiliates.dmi'
 	icon_state = "spy_monitor"
 	item_state	= "qm_tablet"
-	integrated_console_type = /obj/machinery/computer/security/camera_bug/spy_monitor
+	integrated_console_type = /obj/machinery/computer/security/camera_bug
+	var/list/network = list("MI13")
 
-/obj/machinery/computer/security/camera_bug/spy_monitor
-	network = list("MI13")
+/obj/item/camera_bug/spy_monitor/Initialize(mapload, list/network)
+	. = ..()
 
+	if (network)
+		src.network = network
+
+/obj/item/storage/box/syndie_kit/spy_bugs_kit
+
+/obj/item/storage/box/syndie_kit/spy_bugs_kit/populate_contents()
+	var/network = "MI13_[rand(111111, 999999)]"
+	new /obj/item/camera_bug/spy_monitor(src, list(network))
+	new /obj/item/spy_bug(src, list(network), "1")
+	new /obj/item/spy_bug(src, list(network), "2")
+	new /obj/item/spy_bug(src, list(network), "3")
+	new /obj/item/spy_bug(src, list(network), "4")
+	new /obj/item/spy_bug(src, list(network), "5")
