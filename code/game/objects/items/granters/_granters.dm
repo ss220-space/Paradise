@@ -26,11 +26,14 @@
 	if(reading)
 		to_chat(user, span_warning("You're already reading this!"))
 		return FALSE
+
 	if(!user.has_vision())
 		to_chat(user, span_warning("You are blind and can't read anything!"))
 		return FALSE
+
 	if(!isliving(user))
 		return FALSE
+
 	if(!can_learn(user))
 		return FALSE
 
@@ -40,14 +43,17 @@
 
 	on_reading_start(user)
 	reading = TRUE
+
 	for(var/i in 1 to pages_to_mastery)
 		if(!turn_page(user))
 			on_reading_stopped(user)
 			reading = FALSE
 			return
+
 	if(do_after(user, reading_time, user))
 		uses--
 		on_reading_finished(user)
+
 	reading = FALSE
 
 	return TRUE
@@ -82,6 +88,23 @@
 /obj/item/book/granter/proc/can_learn(mob/living/user)
 	return TRUE
 
+
+/obj/item/book/granter/magic_charge_act(mob/user)
+	. = NONE
+
+	if(uses >= initial(uses))
+		return
+
+	uses++
+	. |= RECHARGE_SUCCESSFUL
+
+	if(prob(80))
+		visible_message(span_warning("[src] catches fire!"))
+		user.temporarily_remove_item_from_inventory(src)
+		qdel(src)
+		. |= RECHARGE_BURNOUT
+
+
 // Generic action giver
 /obj/item/book/granter/action
 	/// The typepath of action that is given
@@ -92,9 +115,11 @@
 /obj/item/book/granter/action/can_learn(mob/living/user)
 	if(!granted_action)
 		CRASH("Someone attempted to learn [type], which did not have an action set.")
+
 	if(locate(granted_action) in user.actions)
 		to_chat(user, span_warning("You already know all about [action_name]!"))
 		return FALSE
+
 	return TRUE
 
 /obj/item/book/granter/action/on_reading_start(mob/living/user)
