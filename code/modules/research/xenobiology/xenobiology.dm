@@ -532,7 +532,9 @@
 				return
 		I.item_flags |= IGNORE_SLOWDOWN
 		I.update_equipped_item()
-		return ..()
+
+	if(isvehicle(O)) //simple solution
+			return
 
 	else if (!drop && istype(O, /obj/machinery/smartfridge))
 		// apply speed potion to smart fridge only if the potions drag'n'drop onto it
