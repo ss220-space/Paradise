@@ -32,11 +32,10 @@
 		map_pool -= SSmapping.map_datum.type
 
 	if(CONFIG_GET(string/map_vote_mode) == "notriples")
-		if(SSmapping.played_map)
+		if(SSmapping.previous_maps && length(SSmapping.previous_maps))
 			var/current_map = SSmapping.map_datum.type
-			var/previous_map = SSmapping.played_map
-			if(current_map == previous_map)
-				map_pool -= previous_map
+			if(current_map == SSmapping.previous_maps[1])
+				map_pool -= current_map
 
 	for(var/datum/map/possible_map as anything in map_pool)
 		if(initial(possible_map.admin_only))
