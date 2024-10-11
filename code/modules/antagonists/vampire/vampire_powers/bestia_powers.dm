@@ -409,7 +409,7 @@
 
 	var/obj/item/thing = organ_to_dissect.remove(target)
 	qdel(thing)
-	target.vomit(50, TRUE, FALSE)
+	target.vomit(50, VOMIT_BLOOD, 0 SECONDS)
 	if(target.has_pain())
 		target.emote("scream")
 
@@ -688,7 +688,7 @@
 
 		if(iscarbon(victim))
 			var/mob/living/carbon/c_victim = victim
-			c_victim.vomit(50, TRUE, FALSE)
+			c_victim.vomit(50, VOMIT_BLOOD, 0 SECONDS)
 
 		if(prob(10 + vampire.get_trophies(INTERNAL_ORGAN_LIVER) * 3))
 			new /obj/effect/temp_visual/cult/sparks(get_turf(victim))
