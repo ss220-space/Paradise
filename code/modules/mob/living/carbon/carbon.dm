@@ -74,43 +74,70 @@
 	return FALSE
 
 
-/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, stun = 8 SECONDS, distance = 0, message = 1)
-	if(ismachineperson(src)) //IPCs do not vomit particulates
+/mob/living/carbon/proc/vomit(
+	lost_nutrition = VOMIT_NUTRITION_LOSS,
+	mode = NONE,
+	stun = VOMIT_STUN_TIME,
+	distance = VOMIT_DISTANCE,
+	message = TRUE
+)
+	if(ismachineperson(src)) // IPCs do not vomit particulates.
 		return FALSE
+
 	if(is_muzzled())
 		if(message)
-			to_chat(src, "<span class='warning'>Намордник препятствует рвоте!</span>")
+			to_chat(src, span_warning("Намордник препятствует рвоте!"))
+
 		return FALSE
+
 	if(stun)
 		Stun(stun)
-	if(nutrition < 100 && !blood)
+
+	if((nutrition - VOMIT_SAFE_NUTRITION) < lost_nutrition && (!(mode & VOMIT_BLOOD)))
 		if(message)
-			visible_message("<span class='warning'>[src.name] сухо кашля[pluralize_ru(src.gender,"ет","ют")]!</span>", \
-							"<span class='userdanger'>Вы пытаетесь проблеваться, но в вашем желудке пусто!</span>")
+			visible_message(span_warning("[name] сухо кашля[pluralize_ru(gender,"ет","ют")]!"), \
+							span_userdanger("Вы пытаетесь проблеваться, но в вашем желудке пусто!"))
+
 		if(stun)
 			Weaken(stun * 2.5)
-	else
-		if(message)
-			visible_message("<span class='danger'>[src.name] блю[pluralize_ru(src.gender,"ет","ют")]!</span>", \
-							"<span class='userdanger'>Вас вырвало!</span>")
-		playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
-		var/turf/T = get_turf(src)
-		for(var/i=0 to distance)
-			if(blood)
-				if(T)
-					add_splatter_floor(T)
-				if(stun)
-					adjustBruteLoss(3)
-			else
-				if(T)
-					T.add_vomit_floor()
-				adjust_nutrition(-lost_nutrition)
-				if(stun)
-					adjustToxLoss(-3)
-			T = get_step(T, dir)
-			if(T.is_blocked_turf())
-				break
-	return TRUE
+
+		return FALSE
+
+	if(message)
+		visible_message(span_danger("[name] блю[pluralize_ru(gender,"ет","ют")]!"), \
+						span_userdanger("Вас вырвало!"))
+
+	playsound(get_turf(src), 'sound/effects/splat.ogg', 50, TRUE)
+	var/turf/turf = get_turf(src)
+
+	if(!turf)
+		return FALSE
+
+	var/max_nutriment_vomit_dist = 0
+	if(lost_nutrition)
+		max_nutriment_vomit_dist = floor((nutrition - VOMIT_SAFE_NUTRITION) / lost_nutrition)
+
+	for(var/i = 1 to distance)
+		if(max_nutriment_vomit_dist >= i)
+			turf.add_vomit_floor()
+			adjust_nutrition(-lost_nutrition)
+
+			if(stun)
+				adjustToxLoss(-3)
+
+		if(mode & VOMIT_BLOOD)
+			add_splatter_floor(turf)
+
+			if(stun)
+				adjustBruteLoss(3)
+
+		turf = get_step(turf, dir)
+
+		if(turf.is_blocked_turf())
+			break
+
+	return FALSE
+
 
 /mob/living/carbon/gib()
 	. = death(TRUE)
