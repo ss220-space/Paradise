@@ -116,17 +116,19 @@
 	icon_state = "book1"
 	w_class = 2
 
+
 /obj/item/book_of_babel/attack_self(mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_NO_BABEL))
-		user.visible_message(span_notice("[user] suddenly stops, releasing the [src]"))
+		user.visible_message(span_notice("[user] suddenly stops, releasing [src]."))
 		to_chat(user, span_warning("You don't know what a book is or what to do with it."))
-
 		return
 
 	to_chat(user, "You flip through the pages of the book, quickly and conveniently learning every language in existence. Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops.")
 	user.grant_all_babel_languages()
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
+	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
+
 
 //Potion of Flight: as we do not have the "Angel" species this currently does not work.
 

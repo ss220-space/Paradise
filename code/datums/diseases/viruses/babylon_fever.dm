@@ -12,7 +12,8 @@
 	severity = MEDIUM
 
 	// We'll store the languages the mob knew before the fever here
-	var/list/datum/language/stored_languages = list()
+	var/list/datum/language/stored_languages
+
 
 /datum/disease/virus/babylonian_fever/Contract(mob/living/M, act_type, is_carrier, need_protection_check, zone)
 	var/datum/disease/virus/babylonian_fever/disease = ..()
@@ -22,9 +23,11 @@
 
 	disease.store_and_remove_languages()
 
-	disease.RegisterSignal(disease.affected_mob, COMSIG_LIVING_RECEIVED_LANGUAGE, PROC_REF(store_and_remove_languages))
+	disease.RegisterSignal(disease.affected_mob, COMSIG_LIVING_LANGUAGE_ADD, PROC_REF(store_language))
+	disease.RegisterSignal(disease.affected_mob, COMSIG_LIVING_LANGUAGE_REMOVE, PROC_REF(remove_language))
 
 	ADD_TRAIT(disease.affected_mob, TRAIT_NO_BABEL, UNIQUE_TRAIT_SOURCE(disease))
+
 
 /datum/disease/virus/babylonian_fever/stage_act()
 	if(!..())
@@ -53,25 +56,47 @@
 
 	return TRUE
 
+
 /datum/disease/virus/babylonian_fever/Destroy()
 	if(affected_mob)
-		UnregisterSignal(affected_mob, COMSIG_LIVING_RECEIVED_LANGUAGE)
+		UnregisterSignal(affected_mob, list(
+			COMSIG_LIVING_LANGUAGE_ADD,
+			COMSIG_LIVING_LANGUAGE_REMOVE,
+		))
 
-		// Restore previously known languages
+		// Restore previously known languages.
 		if(LAZYLEN(stored_languages))
-			for(var/datum/language/lan in stored_languages)
+			for(var/datum/language/lan as anything in stored_languages)
 				affected_mob.add_language(lan.name)
 
-	LAZYCLEARLIST(stored_languages)
+	LAZYNULL(stored_languages)
 
 	REMOVE_TRAIT(affected_mob, TRAIT_NO_BABEL, UNIQUE_TRAIT_SOURCE(src))
 
 	return ..()
 
-/datum/disease/virus/babylonian_fever/proc/store_and_remove_languages()
-	// Remove existing languages
-	if(affected_mob.languages)
-		stored_languages += affected_mob.languages.Copy()
 
-		for(var/datum/language/lan in affected_mob.languages)
-			affected_mob.remove_language(lan.name)
+/datum/disease/virus/babylonian_fever/proc/store_and_remove_languages()
+	if(!LAZYLEN(affected_mob.languages))
+		return
+
+	stored_languages = LAZYCOPY(affected_mob.languages)
+
+	for(var/datum/language/lan as anything in affected_mob.languages)
+		affected_mob.remove_language(lan.name)
+
+
+/datum/disease/virus/babylonian_fever/proc/store_language(language_name)
+	SIGNAL_HANDLER
+
+	var/datum/language/new_language = GLOB.all_languages[language_name]
+	LAZYOR(stored_languages, new_language)
+	return TRUE
+
+
+/datum/disease/virus/babylonian_fever/proc/remove_language(language_name)
+	SIGNAL_HANDLER
+
+	var/datum/language/rem_language = GLOB.all_languages[language_name]
+	LAZYREMOVE(stored_languages, rem_language)
+	return TRUE

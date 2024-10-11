@@ -602,10 +602,10 @@
 #define COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK "living_check_incapacitate"
 	#define COMPONENT_NO_EFFECT (1<<0) //For all of them
 
-///From /mob/proc/add_language
-#define COMSIG_LIVING_RECEIVED_LANGUAGE "living_recieved_language"
-///FROM /mob/proc/remove_language
-#define COMSIG_LIVING_LOST_LANGUAGE "living_losted_language"
+/// From /mob/add_language() (language_name)
+#define COMSIG_LIVING_LANGUAGE_ADD		"living_language_add"
+/// From /mob/remove_language() (language_name)
+#define COMSIG_LIVING_LANGUAGE_REMOVE	"living_language_remove"
 
 /// Sent to a mob grabbing another mob: (mob/living/grabbing)
 #define COMSIG_LIVING_GRAB "living_grab"
