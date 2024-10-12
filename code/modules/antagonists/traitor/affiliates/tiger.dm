@@ -12,7 +12,7 @@
 	slogan = "Душой и телом, с беспределом."
 	normal_objectives = 4
 	objectives = list(
-//					/datum/objective/new_mini_changeling, // Oh, sorry, I forgot to make that stupid drug objective...
+					list(/datum/objective/steal = 40, /datum/objective/maroon = 40, /datum/objective/new_mini_changeling = 20),
 					/datum/objective/borers,
 					/datum/objective/escape
 					)

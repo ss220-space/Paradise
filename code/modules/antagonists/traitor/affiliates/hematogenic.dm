@@ -22,8 +22,7 @@
 	normal_objectives = 2
 	objectives = list(/datum/objective/harvest_blood,
 					/datum/objective/steal/hypo_or_defib,
-					list(/datum/objective/steal = 60, /datum/objective/steal/hypo_or_defib = 40),
-//					/datum/objective/new_mini_vampire,
+					list(/datum/objective/steal = 50, /datum/objective/steal/hypo_or_defib = 30, /datum/objective/new_mini_vampire = 20),
 					/datum/objective/escape
 					)
 
