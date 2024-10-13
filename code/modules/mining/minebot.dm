@@ -34,10 +34,11 @@
 	healable = 0
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	del_on_death = TRUE
-	var/mode = MINEDRONE_COLLECT
 	light_system = MOVABLE_LIGHT
 	light_range = 6
 	light_on = FALSE
+	weather_immunities = list(TRAIT_ASHSTORM_IMMUNE)
+	var/mode = MINEDRONE_COLLECT
 	var/mesons_active
 	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_gun
 
