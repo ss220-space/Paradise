@@ -723,7 +723,7 @@
 
 
 /obj/effect/proc_holder/spell/vampire/lunge/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED) || user.buckled || (iscarbon(user) && user.legcuffed) || HAS_TRAIT(user, TRAIT_CANNOT_CAST_SPELLS))
+	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED) || user.buckled || (iscarbon(user) && user.legcuffed))
 		if(show_message)
 			to_chat(user, span_warning("You can't use this ability right now!"))
 		return FALSE
@@ -962,7 +962,7 @@
 			to_chat(user, span_warning("You are too weak to use this ability!"))
 		return FALSE
 
-	if(!isturf(user.loc) || HAS_TRAIT(user, TRAIT_ISMMI))
+	if(!isturf(user.loc) || HAS_TRAIT(user, TRAIT_NOSPELLS))
 		if(show_message)
 			to_chat(user, span_warning("You can't use this ability inside [user.loc]!"))
 		return FALSE
