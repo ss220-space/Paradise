@@ -166,15 +166,6 @@
 				"" = 61
 				)
 
-/obj/effect/spawner/lootdrop/crate_spawner // for ruins
-	name = "lootcrate spawner"
-	icon_state = "lootcrate"
-	lootdoubles = FALSE
-	loot = list(
-				/obj/structure/closet/crate/secure/loot = 20,
-				"" = 80,
-				)
-
 /obj/effect/spawner/lootdrop/maintenance/double
 	icon_state = "x2"
 	lootcount = 2

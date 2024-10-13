@@ -4804,7 +4804,7 @@
 	},
 /area/crew_quarters/fitness)
 "aJZ" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 1
@@ -84388,7 +84388,7 @@
 /area/maintenance/maintcentral)
 "mEp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -87453,7 +87453,7 @@
 /area/engine/engineering)
 "nan" = (
 /obj/effect/decal/cleanable/dust,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/wood,
 /area/maintenance/casino)
 "nap" = (
@@ -89622,7 +89622,7 @@
 /area/maintenance/starboard)
 "npG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
