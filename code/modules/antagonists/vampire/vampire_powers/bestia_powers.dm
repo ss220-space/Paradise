@@ -962,7 +962,7 @@
 			to_chat(user, span_warning("You are too weak to use this ability!"))
 		return FALSE
 
-	if(!isturf(user.loc) || HAS_TRAIT(user, TRAIT_NOSPELLS))
+	if(!isturf(user.loc))
 		if(show_message)
 			to_chat(user, span_warning("You can't use this ability inside [user.loc]!"))
 		return FALSE
