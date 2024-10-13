@@ -271,7 +271,7 @@
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a magical morph awakened by [user.real_name]?", ROLE_MORPH, 1, 10 SECONDS, source = morph_type)
 
-	if(LAZYLEN(candidates) > 0)
+	if(LAZYLEN(candidates))
 		var/mob/C = pick(candidates)
 		spawn_antag(C, get_turf(src.loc), initial(morph_type.name), user)
 		to_chat(user, "[shatter_msg]")

@@ -1914,8 +1914,8 @@
 			if("toggle_reproduce")
 				var/datum/antagonist/morph/antag_datum = has_antag_datum(/datum/antagonist/morph)
 
-				antag_datum.morph.switch_reproduce()
-				to_chat(usr, "You toggled [morph] reproduce [morph.can_reproduce ? "on": "off"]")
+				antag_datum.switch_reproduce()
+				to_chat(usr, "You toggled [antag_datum.morph] reproduce [antag_datum.morph.can_reproduce ? "on": "off"]")
 
 	else if(href_list["nuclear"])
 		var/mob/living/carbon/human/H = current
