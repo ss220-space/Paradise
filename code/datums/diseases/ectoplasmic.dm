@@ -14,9 +14,12 @@
 /datum/disease/ectoplasmic/stage_act()
 	if(!..())
 		return FALSE
+
 	var/create_effect = FALSE
+	var/cure_disease = FALSE
+
 	var/mob/living/carbon/human/human = affected_mob
-	var/turf/turf = get_turf(human)
+
 	switch(stage)
 		if(3)
 			if(prob(10))
@@ -49,11 +52,16 @@
 				human.apply_damage(80, STAMINA)
 				to_chat(human, "You feel very tired, but disease left you.")
 				create_effect = TRUE
-				cure()
+				cure_disease = TRUE
+				
 			if(prob(30))
-				if(human.influenceSin())
-					create_effect = TRUE
-					to_chat(human, span_revenbignotice("You suddenly feel your soul become corrupted."))
-					cure()
-	if(create_effect && turf)
-		new /obj/effect/temp_visual/revenant(turf)
+				human.influenceSin()
+				to_chat(human, span_revenbignotice("You suddenly feel your soul become corrupted."))
+				cure_disease = TRUE
+				create_effect = TRUE
+
+	if(cure_disease)
+		cure()
+
+	if(create_effect && isturf(human.loc))
+		new /obj/effect/temp_visual/revenant(get_turf(human))

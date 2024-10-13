@@ -18,7 +18,6 @@
 	return
 
 /datum/objective/sintouched/New(mob/living/carbon/human/human)
-	..()
 	user = human // Currently not to mind
 	on_apply()
 	

@@ -1770,7 +1770,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/influenceSin()
 	if(!mind)
 		return
+
 	var/datum/objective/sintouched/sin_objective
+
 	switch(rand(1,7))//traditional seven deadly sins... except lust.
 		if(1) // acedia
 			add_game_logs("[src] was influenced by the sin of Acedia.", src)
@@ -1793,10 +1795,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(7) // Pride
 			add_game_logs("[src] was influenced by the sin of pride.", src)
 			sin_objective = new /datum/objective/sintouched/pride(src)
-	SSticker.mode.sintouched += mind
-	mind.objectives += sin_objective
+
+	LAZYADD(SSticker.mode.sintouched, mind)
+	LAZYADD(mind.objectives, sin_objective)
+	
 	var/obj_count = 1
-	to_chat(src, "<span class='notice'> Your current objectives:")
+	to_chat(src, span_notice("Your current objectives:"))
+
 	for(var/datum/objective/objective in mind.objectives)
 		to_chat(src, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
