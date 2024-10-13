@@ -14,6 +14,8 @@
 	normal_step_energy_drain = 6
 	var/builtin_hud_user = 0
 
+	mech_type = MECH_TYPE_ODYSSEUS
+
 /obj/mecha/medical/odysseus/moved_inside(var/mob/living/carbon/human/H)
 	. = ..()
 	if(. && ishuman(H))
