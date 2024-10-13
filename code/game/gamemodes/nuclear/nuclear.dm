@@ -442,7 +442,7 @@
 		else if(is_type_in_list(A, fiftythousand_penalty))
 			scoreboard.nuked_penalty = 50000
 
-		else if(istype(A, /area/engine))
+		else if(istype(A, /area/engineering))
 			scoreboard.nuked_penalty = 100000
 
 		else
