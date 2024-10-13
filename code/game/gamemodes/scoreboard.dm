@@ -353,7 +353,14 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 
 	<U>Прочее</U><br>
 	<b>Съедено еды:</b> [score_food_eaten] [declension_ru(score_food_eaten, "укус", "укуса", "укусов")]/[declension_ru(score_food_eaten, "глоток", "глотка", "глотков")].<br>
-	<b>Клоуна избили:</b> [score_clown_abuse] [declension_ru(score_clown_abuse, "раз", "раза", "раз")]<br><br>"}
+	<b>Клоуна избили:</b> [score_clown_abuse] [declension_ru(score_clown_abuse, "раз", "раза", "раз")]<br><br>
+	
+	<U>Финансовая статистка</U><br>
+	<b>Выплачено персоналу зарплат на сумму: </b> [SScapitalism.total_salary_payment].<br>
+	<b>Поступило денег с выполнения заказов карго на счет станции: </b> [SScapitalism.total_station_bounty].<br>
+	<b>Поступило денег с выполнения заказов карго на счет карго: </b> [SScapitalism.total_cargo_bounty].<br>
+	<b>Общая сумма наград выплаченная персоналу за помощь в выполнении заказов карго: </b> [SScapitalism.total_personal_bounty].<br>
+	<b>Доход от автоматов: </b> [SScapitalism.income_vedromat].<br><br>"}
 
 	if(score_escapees)
 		dat += "<b>Самый богатый из эвакуировавшихся:</b> [richest_name], [richest_job]: $[num2text(richest_cash, 50)] ([richest_key])<br>"

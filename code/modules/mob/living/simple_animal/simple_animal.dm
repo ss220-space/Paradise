@@ -41,13 +41,6 @@
 	/// Was this mob spawned by xenobiology magic? Used for mobcapping.
 	var/xenobiology_spawned = FALSE
 
-	//Temperature effect
-	var/minbodytemp = 250
-	var/maxbodytemp = 350
-	/// Amount of damage applied if animal's body temperature is higher than maxbodytemp
-	var/heat_damage_per_tick = 2
-	/// Same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
-	var/cold_damage_per_tick = 2
 	/// If the mob can catch fire
 	var/can_be_on_fire = FALSE
 	/// Damage the mob will take if it is on fire
@@ -177,6 +170,8 @@
 
 	return ..()
 
+/mob/living/simple_animal/ComponentInitialize()
+	AddComponent(/datum/component/animal_temperature)
 
 ///Extra effects to add when the mob is tamed, such as adding a riding or whatever.
 /mob/living/simple_animal/proc/tamed(whomst)
@@ -231,7 +226,7 @@
 
 
 /mob/living/simple_animal/update_stat(reason = "none given", should_log = FALSE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()
 	if(stat != DEAD)
 		if(health <= 0)
@@ -308,13 +303,6 @@
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
 	var/atmos_suitable = TRUE
 
-	var/areatemp = get_temperature(environment)
-
-	if(abs(areatemp - bodytemperature) > 5)
-		var/diff = areatemp - bodytemperature
-		diff = diff / 5
-		adjust_bodytemperature(diff)
-
 	if(!HAS_TRAIT(src, TRAIT_NO_BREATH))
 		var/tox = environment.toxins
 		var/oxy = environment.oxygen
@@ -354,15 +342,7 @@
 		if(!atmos_suitable)
 			adjustHealth(unsuitable_atmos_damage)
 
-	handle_temperature_damage()
-
-
-/mob/living/simple_animal/proc/handle_temperature_damage()
-	if(bodytemperature < minbodytemp)
-		adjustHealth(cold_damage_per_tick)
-	else if(bodytemperature > maxbodytemp)
-		adjustHealth(heat_damage_per_tick)
-
+	SEND_SIGNAL(src, COMSIG_ANIMAL_HANDLE_ENVIRONMENT, environment)
 
 /mob/living/simple_animal/gib()
 	if(icon_gib)
@@ -446,8 +426,8 @@
 	if(see_invisible < the_target.invisibility)
 		return FALSE
 	if(ismob(the_target))
-		var/mob/M = the_target
-		if(M.status_flags & GODMODE)
+		var/mob/mob = the_target
+		if(HAS_TRAIT(mob, TRAIT_GODMODE))
 			return FALSE
 	if(isliving(the_target))
 		var/mob/living/L = the_target
@@ -630,6 +610,9 @@
 	if(AIStatus == togglestatus)
 		return
 	if(!can_have_ai && (togglestatus != AI_OFF))
+		return
+	if(HAS_TRAIT(src, TRAIT_AI_PAUSED))
+		AIStatus = AI_OFF
 		return
 	var/turf/our_turf = get_turf(src)
 	if(QDELETED(src) || !our_turf)

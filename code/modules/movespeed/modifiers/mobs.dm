@@ -210,6 +210,13 @@
 	variable = TRUE
 	blacklisted_movetypes = FLOATING
 
+/datum/movespeed_modifier/borer_leg_focus
+	multiplicative_slowdown = -0.25
+	movetypes = GROUND
+	blacklisted_movetypes = (FLYING|FLOATING)
+
+/datum/movespeed_modifier/borer_leg_focus/lesser
+	multiplicative_slowdown = -0.125
 
 /*
 /datum/movespeed_modifier/carbon_softcrit
@@ -218,3 +225,6 @@
 
 */
 
+/datum/movespeed_modifier/human_carry
+	multiplicative_slowdown = HUMAN_CARRY_SLOWDOWN
+	blacklisted_movetypes = FLOATING

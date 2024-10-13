@@ -430,3 +430,23 @@
 	However, it seems that hardly anyone is left on it now.. Or not?"
 	allow_duplicates = FALSE
 	cost = 2
+
+
+/datum/map_template/ruin/space/astroak
+	id = "astroak"
+	suffix = "astroak.dmm"
+	name = "Astroak"
+	description = "An ordinary church of Carp'Sie, it seems that the carps punished the believers..."
+	cost = 2
+	allow_duplicates = FALSE
+	can_found = TRUE
+
+
+/datum/map_template/ruin/space/abandoned_storage
+	id = "abandoned_storage"
+	suffix = "abandoned_storage.dmm"
+	name = "Abandoned Storage"
+	description = "Just an old and abandoned place, previously used for storing various supplies."
+	allow_duplicates = FALSE
+	cost = 2
+	can_found = TRUE

@@ -9,7 +9,7 @@
 	/// integrity spend after bite
 	var/integrity_bite // integrity spend after bite
 	/// How much nutrition add
-	var/nutritional_value 
+	var/nutritional_value
 	/// Grab if help_intent was used
 	var/is_only_grab_intent
 	/// If true - your item can be eaten without special diet check.
@@ -29,6 +29,7 @@
 )
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
+
 	src.current_bites = current_bites
 	src.material_type = material_type
 	src.max_bites = max_bites
@@ -37,7 +38,7 @@
 	src.is_only_grab_intent = is_only_grab_intent
 	src.is_always_eatable = is_always_eatable
 	src.stack_use = stack_use
-	
+
 /datum/component/eatable/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACKBY, PROC_REF(pre_try_eat_item))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
@@ -52,23 +53,29 @@
 
 	if(!istype(human))
 		return
-	
+
 	if(material_type & human.dna.species.special_diet)
 		examine_list += "Вкуснятина! [is_only_grab_intent ? "\nНужно аккуратно есть." : ""]"
+
 	if(!isstack(parent))
 		examine_list += get_bite_info()
 
 /datum/component/eatable/proc/get_bite_info()
 	var/text
 	var/bites_split = max_bites > 3 ? round(max_bites / 4) : 1
+
 	if(current_bites >= 1 && current_bites <= bites_split)
 		text = "Выглядит покусанным..."
+
 	else if(current_bites >= bites_split && current_bites <= (bites_split * 2))
 		text = "Видны оторванные части..."
+
 	else if((current_bites >= bites_split * 2) && current_bites <= (bites_split * 3))
 		text = "Видна внутренняя часть..."
+
 	else if((current_bites >= bites_split * 3))
 		text = "Осталась одна труха..."
+
 	return text
 
 /datum/component/eatable/proc/item_string_material()
@@ -89,13 +96,16 @@
 
 	if(!istype(target))
 		return FALSE
+
 	if(!(material_type & target.dna.species.special_diet) && !is_always_eatable)
 		return FALSE
+
 	if(is_only_grab_intent && user.a_intent != INTENT_GRAB)
 		return FALSE
 
 	target.changeNext_move(CLICK_CD_MELEE)
 	INVOKE_ASYNC(src, PROC_REF(try_eat_item), target, user)
+
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/eatable/proc/try_eat_item(mob/living/carbon/human/target, mob/user)
@@ -121,11 +131,13 @@
 	if(target != user)
 		if(!forceFed(target, user, FALSE, NONE))
 			return FALSE
+
 		to_chat(target, span_notice("[chat_message_to_target]"))
 		add_attack_logs(user, item, "Force Fed [target], item [item]")
-		
+
 	if(!isstack(item))
 		to_chat(user, span_notice("[chat_message_to_user]"))
+
 	eat(target, user)
 	return
 
@@ -135,6 +147,7 @@
 	playsound(target.loc, 'sound/items/eatfood.ogg', 50, FALSE)
 	if(!isvampire(target)) //Dont give nutrition to vampires
 		target.adjust_nutrition(nutritional_value)
+
 	SSticker.score.score_food_eaten++
 
 	if(isstack(item))
@@ -157,18 +170,23 @@
 		item.visible_message(span_warning("[user] пытается накормить [target], запихивая в рот [item.name]."))
 		if(!do_after(user, target, 2 SECONDS, NONE))
 			return FALSE
-			
+
 	return TRUE
 
 /datum/component/eatable/proc/get_colour()
 	var/bites_split = max_bites > 3 ? round(max_bites / 4) : 1
 	var/colour
+
 	if(current_bites >= 1 && current_bites <= bites_split)
 		colour = "#d9e0e7ff"
+
 	else if(current_bites >= bites_split && current_bites <= (bites_split * 2))
 		colour = "#b7c3ccff"
+
 	else if((current_bites >= bites_split * 2) && current_bites <= (bites_split * 3))
 		colour = "#929eabff"
+
 	else if((current_bites >= bites_split * 3))
 		colour = "#697581ff"
+
 	return colour

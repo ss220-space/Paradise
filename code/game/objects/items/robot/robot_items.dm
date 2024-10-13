@@ -12,7 +12,7 @@
 
 /obj/item/borg/stun/attack(mob/living/carbon/human/target, mob/living/silicon/robot/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
-	if(ishuman(target) && target.check_shields(src, 0, "[target]'s [name]", MELEE_ATTACK))
+	if(ishuman(target) && target.check_shields(src, 0, "[target]'s [name]", ITEM_ATTACK))
 		playsound(target, 'sound/weapons/genhit.ogg', 50, TRUE)
 		return .
 

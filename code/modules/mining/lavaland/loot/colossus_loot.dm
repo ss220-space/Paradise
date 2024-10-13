@@ -284,8 +284,6 @@
 	universal_understand = 1
 	del_on_death = 1
 	unsuitable_atmos_damage = 0
-	minbodytemp = 0
-	maxbodytemp = 1500
 	environment_smash = 0
 	AIStatus = AI_OFF
 	stop_automated_movement = 1
@@ -298,6 +296,13 @@
 	remove_verb(src, /mob/verb/me_verb)
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
+
+/mob/living/simple_animal/hostile/lightgeist/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 1500, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/lightgeist/AttackingTarget()
 	. = ..()
@@ -383,8 +388,7 @@
 	. = ..()
 	if(isliving(arrived) && holder_animal)
 		var/mob/living/mob = arrived
-		mob.add_traits(list(TRAIT_MUTE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
-		mob.status_flags |= GODMODE
+		mob.add_traits(list(TRAIT_MUTE, TRAIT_GODMODE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
 		mob.mind.transfer_to(holder_animal)
 		holder_animal.mind.AddSpell(new /obj/effect/proc_holder/spell/exit_possession)
 
@@ -392,8 +396,7 @@
 /obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
-		L.status_flags &= ~GODMODE
-		L.remove_traits(list(TRAIT_MUTE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
+		L.remove_traits(list(TRAIT_MUTE, TRAIT_GODMODE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
 		if(holder_animal)
 			holder_animal.mind.transfer_to(L)
 			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/exit_possession)

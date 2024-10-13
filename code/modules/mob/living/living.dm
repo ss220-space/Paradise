@@ -566,7 +566,7 @@
 		add_attack_logs(user, src, "set on fire with [I]")
 
 /mob/living/update_stat(reason = "none given", should_log = FALSE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		set_stat(CONSCIOUS)
 	med_hud_set_health()
 	med_hud_set_status()
@@ -574,7 +574,7 @@
 	update_stamina_hud()
 	update_damage_hud()
 	if(should_log)
-		log_debug("[src] update_stat([reason][status_flags & GODMODE ? ", GODMODE" : ""])")
+		log_debug("[src] update_stat([reason][HAS_TRAIT(src, TRAIT_GODMODE) ? ", GODMODE" : ""])")
 
 
 ///Sets the current mob's health value. Do not call directly if you don't know what you are doing, use the damage procs, instead.
@@ -584,7 +584,7 @@
 
 
 /mob/living/proc/updatehealth(reason = "none given", should_log = FALSE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		set_health(maxHealth)
 		update_stat("updatehealth([reason])", should_log)
 		return
@@ -1248,7 +1248,7 @@
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
 	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)))
 		overlay_fullscreen("flash", type)
@@ -2303,3 +2303,22 @@
 /mob/living/proc/update_movespeed_damage_modifiers()
 	return
 
+
+/mob/living/magic_charge_act(mob/user)
+	if(LAZYLEN(mob_spell_list))
+		for(var/obj/effect/proc_holder/spell/spell as anything in mob_spell_list)
+			if(spell.cooldown_handler.is_on_cooldown())
+				continue
+
+			spell.revert_cast()
+			. |= RECHARGE_SUCCESSFUL
+
+	if(LAZYLEN(mind?.spell_list))
+		for(var/obj/effect/proc_holder/spell/spell as anything in mind?.spell_list)
+			if(spell.cooldown_handler.is_on_cooldown())
+				continue
+
+			spell.revert_cast()
+			. |= RECHARGE_SUCCESSFUL
+
+	to_chat(src, span_notice("You feel [(. & RECHARGE_SUCCESSFUL) ? "raw magical energy flowing through you, it feels good!" : "very strange for a moment, but then it passes."]"))

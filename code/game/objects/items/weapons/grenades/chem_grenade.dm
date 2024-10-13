@@ -5,8 +5,6 @@
 /obj/item/grenade/chem_grenade
 	name = "grenade casing"
 	desc = "A do it yourself grenade casing!"
-	icon_state = "chemg"
-	item_state = "flashbang"
 	var/bomb_state = "chembomb"
 	var/payload_name = null // used for spawned grenades
 	w_class = WEIGHT_CLASS_SMALL
@@ -31,7 +29,7 @@
 	create_reagents(1000)
 	if(payload_name)
 		payload_name += " " // formatting, ignore me
-	update_icon()
+	update_appearance(UPDATE_ICON|UPDATE_NAME)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -62,60 +60,83 @@
 	if(nadeassembly)
 		icon = 'icons/obj/assemblies/new_assemblies.dmi'
 		icon_state = bomb_state
-		var/obj/item/assembly/A = get_trigger()
-		if(stage != READY)
-			name = "bomb casing[label]"
-		else
-			if(!A)
-				name = "[payload_name]de-fused bomb[label]" // this should not actually happen
-			else
-				name = payload_name + A.bomb_name + label // time bombs, remote mines, etc
-	else
-		icon = 'icons/obj/weapons/grenade.dmi'
-		icon_state = initial(icon_state)
-		switch(stage)
-			if(EMPTY)
-				name = "grenade casing[label]"
-			if(WIRED)
-				icon_state += "_ass"
-				name = "grenade casing[label]"
-			if(READY)
-				if(active)
-					icon_state += "_active"
-				else
-					icon_state += "_locked"
-				name = payload_name + "grenade" + label
+		return
 
+	icon = initial(icon)
+
+	switch(stage)
+		if(EMPTY)
+			icon_state = "[initial(icon_state)]_unlocked"
+		if(WIRED)
+			icon_state = "[initial(icon_state)]_ass"
+		if(READY)
+			icon_state = "[initial(icon_state)][active ? "_active" : null]"
+
+
+/obj/item/grenade/chem_grenade/update_overlays()
+	. = ..()
 	underlays.Cut()
+
 	if(nadeassembly)
 		underlays += "[nadeassembly.a_left.icon_state]_left"
 		for(var/O in nadeassembly.a_left.attached_overlays)
 			underlays += "[O]_l"
+
 		underlays += "[nadeassembly.a_right.icon_state]_right"
 		for(var/O in nadeassembly.a_right.attached_overlays)
 			underlays += "[O]_r"
 
 
-/obj/item/grenade/chem_grenade/attack_self(mob/user)
-	if(stage == READY &&  !active)
-		if(nadeassembly)
-			nadeassembly.attack_self(user)
-			update_icon(UPDATE_ICON_STATE)
-		else if(clown_check(user))
-			// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
-			investigate_log("[key_name_log(usr)] has primed a [name] for detonation [contained].", INVESTIGATE_BOMB)
-			add_attack_logs(user, src, "has primed (contained [contained])", ATKLOG_FEW)
-			to_chat(user, "<span class='warning'>You prime the [name]! [det_time / 10] second\s!</span>")
-			playsound(user.loc, 'sound/weapons/armbomb.ogg', 60, 1)
-			active = 1
-			update_icon()
-			if(iscarbon(user))
-				var/mob/living/carbon/C = user
-				C.throw_mode_on()
-			spawn(det_time)
-				prime(user)
+/obj/item/grenade/chem_grenade/update_name(updates)
+	. = ..()
 
-/obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(nadeassembly)
+		if(stage != READY)
+			name = "bomb casing[label]"
+
+		else
+			var/obj/item/assembly/A = get_trigger()
+			if(!A)
+				name = "[payload_name]de-fused bomb[label]" // this should not actually happen
+			else
+				name = payload_name + A.bomb_name + label // time bombs, remote mines, etc
+
+		return .
+
+	switch(stage)
+		if(EMPTY)
+			name = "grenade casing[label]"
+		if(WIRED)
+			name = "grenade casing[label]"
+		if(READY)
+			name = payload_name + "grenade" + label
+
+
+/obj/item/grenade/chem_grenade/attack_self(mob/user)
+	if(active || stage != READY)
+		return
+
+	if(nadeassembly)
+		nadeassembly.attack_self(user)
+		update_appearance(UPDATE_ICON)
+
+	else if(clown_check(user))
+		// This used to go before the assembly check, but that has absolutely zero to do with priming the damn thing.  You could spam the admins with it.
+		investigate_log("[key_name_log(usr)] has primed a [name] for detonation [contained].", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "has primed (contained [contained])", ATKLOG_FEW)
+		to_chat(user, span_warning("You prime the [name]! [det_time / 10] second\s!"))
+		playsound(user.loc, 'sound/weapons/armbomb.ogg', 60, TRUE)
+		active = TRUE
+		update_appearance(UPDATE_ICON_STATE)
+
+		if(iscarbon(user))
+			var/mob/living/carbon/C = user
+			C.throw_mode_on()
+
+		addtimer(CALLBACK(src, PROC_REF(prime), user), det_time)
+
+
+/obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	var/obj/item/projectile/P = hitby
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
 		owner.visible_message("<span class='danger'>[attack_text] hits [owner]'s [src], setting it off! What a shot!</span>")
@@ -128,14 +149,16 @@
 	if(istype(I, /obj/item/hand_labeler))
 		add_fingerprint(user)
 		var/obj/item/hand_labeler/labeler = I
+
 		if(length(labeler.label))
 			label = " ([labeler.label])"
-			update_icon(UPDATE_ICON_STATE)
+			update_appearance(UPDATE_NAME)
 			to_chat(user, span_notice("You apply new label to [src]."))
 			playsound(user.loc, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
 			return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
+
 		label = null
-		update_icon(UPDATE_ICON_STATE)
+		update_appearance(UPDATE_NAME)
 		to_chat(user, span_notice("You remove the label from [src]."))
 		playsound(user.loc, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
@@ -176,7 +199,7 @@
 				assemblyattacher = user.ckey
 				stage = WIRED
 				to_chat(user, span_notice("You have added [nadeassembly] to [src]."))
-				update_icon(UPDATE_ICON_STATE)
+				update_appearance(UPDATE_ICON|UPDATE_NAME)
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 			if(iscoil(I))
@@ -186,7 +209,7 @@
 					to_chat(user, span_warning("You need more cable length."))
 					return ATTACK_CHAIN_PROCEED
 				stage = WIRED
-				update_icon(UPDATE_ICON_STATE)
+				update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 				to_chat(user, span_notice("You rig [src]."))
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -201,7 +224,7 @@
 		return .
 	to_chat(user, span_notice("You unlock the assembly."))
 	stage = WIRED
-	update_icon(UPDATE_ICON_STATE)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 
 
 /obj/item/grenade/chem_grenade/wrench_act(mob/living/user, obj/item/I)
@@ -226,7 +249,7 @@
 		for(var/obj/item/beaker as anything in beakers)
 			beaker.forceMove(drop_loc)
 		beakers = list()
-	update_icon(UPDATE_ICON_STATE)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 
 
 /obj/item/grenade/chem_grenade/screwdriver_act(mob/living/user, obj/item/I)
@@ -253,7 +276,7 @@
 			to_chat(user, span_notice("You lock the assembly."))
 			playsound(loc, prime_sound, 25, TRUE, -3)
 			stage = READY
-			update_icon(UPDATE_ICON_STATE)
+			update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 			contained = ""
 			cores = "" // clear them out so no recursive logging by accidentally
 			for(var/obj/item/thing as anything in beakers)
@@ -344,7 +367,7 @@
 				container.forceMove(source_turf)
 			beakers = list()
 		stage = EMPTY
-		update_icon(UPDATE_ICON_STATE)
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 		return
 
 	if(nadeassembly)
@@ -371,7 +394,7 @@
 		nadeassembly.master = src
 		nadeassembly.update_icon()
 		stage = READY
-		update_icon()
+		update_appearance(UPDATE_ICON|UPDATE_NAME)
 
 
 //Large chem grenades accept slime cores and use the appropriately.
@@ -495,7 +518,6 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/grenade/chem_grenade/firefighting
@@ -516,7 +538,6 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/grenade/chem_grenade/incendiary
 	payload_name = "incendiary"
@@ -536,7 +557,6 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/grenade/chem_grenade/antiweed
@@ -560,7 +580,6 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/grenade/chem_grenade/cleaner
@@ -582,7 +601,6 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/item/grenade/chem_grenade/teargas
@@ -606,7 +624,6 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/grenade/chem_grenade/facid
 	payload_name = "acid smoke"
@@ -627,7 +644,6 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/grenade/chem_grenade/saringas
 	payload_name = "sarin gas"
@@ -648,7 +664,6 @@
 
 	beakers += B1
 	beakers += B2
-	update_icon(UPDATE_ICON_STATE)
 
 #undef EMPTY
 #undef WIRED

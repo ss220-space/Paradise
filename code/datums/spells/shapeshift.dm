@@ -49,14 +49,14 @@
 
 
 /obj/effect/proc_holder/spell/shapeshift/proc/Shapeshift(mob/living/caster)
-	for(var/mob/living/M in caster)
-		if(M.status_flags & GODMODE)
-			to_chat(caster, "<span class='warning'>You're already shapeshifted!</span>")
+	for(var/mob/living/mob in caster)
+		if(HAS_TRAIT_FROM(mob, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src)))
+			to_chat(caster, span_warning("You're already shapeshifted!"))
 			return
 
 	var/mob/living/shape = new shapeshift_type(get_turf(caster))
 	caster.forceMove(shape)
-	caster.status_flags |= GODMODE
+	ADD_TRAIT(caster, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 
 	current_shapes |= shape
 	current_casters |= caster
@@ -75,7 +75,7 @@
 	if(!caster)
 		return
 	caster.forceMove(get_turf(shape))
-	caster.status_flags &= ~GODMODE
+	REMOVE_TRAIT(caster, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 
 	clothes_req = initial(clothes_req)
 	human_req = initial(human_req)

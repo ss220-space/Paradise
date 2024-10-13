@@ -240,7 +240,7 @@
 	desc = "This thing looks dangerous... Dangerously good at baseball, that is."
 	homerun_able = 1
 
-/obj/item/melee/baseball_bat/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/melee/baseball_bat/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	. = ..()
 	if(!isitem(hitby) || attack_type != THROWN_PROJECTILE_ATTACK)
 		return FALSE

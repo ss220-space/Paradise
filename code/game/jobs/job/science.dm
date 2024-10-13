@@ -25,8 +25,11 @@
 	required_objectives = list(
 		/datum/job_objective/further_research
 	)
-	money_factor = 8
 	outfit = /datum/outfit/job/rd
+
+	salary = 300
+	min_start_money = 400
+	max_start_money = 700
 
 
 /datum/outfit/job/rd
@@ -70,9 +73,11 @@
 	required_objectives = list(
 		/datum/job_objective/further_research
 	)
-	money_factor = 4
 	outfit = /datum/outfit/job/scientist
 
+	salary = 200
+	min_start_money = 250
+	max_start_money = 500
 
 /datum/outfit/job/scientist
 	name = "Scientist"
@@ -103,8 +108,11 @@
 	exp_max	= 600
 	exp_type_max = EXP_TYPE_SCIENCE
 	is_novice = TRUE
-	money_factor = 2
 	outfit = /datum/outfit/job/scientist/student
+
+	salary = 200
+	min_start_money = 250
+	max_start_money = 500
 
 /datum/outfit/job/scientist/student
 	name = "Student Scientist"
@@ -146,9 +154,11 @@
 	minimal_player_age = 3
 	exp_requirements = 900
 	exp_type = EXP_TYPE_SCIENCE
-
-	money_factor = 3
 	outfit = /datum/outfit/job/roboticist
+
+	salary = 200
+	min_start_money = 250
+	max_start_money = 500
 
 /datum/outfit/job/roboticist
 	name = "Roboticist"

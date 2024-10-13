@@ -3809,7 +3809,6 @@
 /area/awaymission/UO45/crew_quarters)
 "jg" = (
 /obj/structure/closet/secure_closet{
-	icon_state = "secure";
 	locked = 0;
 	name = "kitchen Cabinet";
 	req_access = list(201)
@@ -9758,8 +9757,7 @@
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 4;
 	filter_type = 2;
-	on = 1;
-	req_access = null
+	on = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -9840,8 +9838,7 @@
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 4;
 	filter_type = 1;
-	on = 1;
-	req_access = null
+	on = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;

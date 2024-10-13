@@ -101,7 +101,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_BE_PURE(TRUE)
 
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return TRUE
 
 	if(force_apply) // Does not take priority over god mode? I guess
@@ -136,7 +136,7 @@
  * Sets [confusion][/datum/status_effect/decaying/confusion] if it's higher than current.
  */
 /mob/living/proc/Confused(amount)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SetConfused(max(get_confusion(), amount))
 
@@ -167,7 +167,7 @@
  * Sets [disoriented][/datum/status_effect/decaying/disoriented] if it's higher than current.
  */
 /mob/living/proc/Disoriented(amount)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SetDisoriented(max(get_disoriented(), amount))
 
@@ -183,7 +183,7 @@
  * Sets [dizziness][/datum/status_effect/decaying/dizziness] if it's higher than zero.
  */
 /mob/living/proc/SetDizzy(amount)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DIZZINESS, amount)
 
@@ -216,7 +216,7 @@
  * Sets [drowsiness][/datum/status_effect/decaying/drowsiness] if it's higher than zero.
  */
 /mob/living/proc/SetDrowsy(amount)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DROWSINESS, amount)
 
@@ -249,7 +249,7 @@
  * Sets [drunkenness][/datum/status_effect/decaying/drunkenness] if it's higher than zero.
  */
 /mob/living/proc/SetDrunk(amount)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DRUNKENNESS, amount)
 
@@ -276,7 +276,7 @@
 	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_DRUGGED)
 
 /mob/living/proc/Druggy(amount)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SetDruggy(max(AmountDruggy(), amount))
 
@@ -294,7 +294,7 @@
 	SetEyeBlind(max(AmountBlinded(), amount))
 
 /mob/living/proc/SetEyeBlind(amount)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_BLINDED, amount)
 
@@ -309,7 +309,7 @@
 	SetEyeBlurry(max(AmountEyeBlurry(), amount))
 
 /mob/living/proc/SetEyeBlurry(amount)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_BLURRY_EYES, amount)
 
@@ -324,7 +324,7 @@
 	SetHallucinate(max(AmountHallucinate(), amount))
 
 /mob/living/proc/SetHallucinate(amount)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		amount = 0
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_HALLUCINATION, amount)
 
@@ -340,7 +340,7 @@
 
 /mob/living/proc/SetJitter(amount)
 	// Jitter is also associated with stun
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_JITTER, amount)
 
@@ -358,7 +358,7 @@
 /mob/living/proc/SetLoseBreath(amount)
 	if(HAS_TRAIT(src, TRAIT_NO_BREATH))
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_LOSE_BREATH, amount)
 
@@ -423,7 +423,7 @@
 	SetSilence(max(amount, AmountSilenced()))
 
 /mob/living/proc/SetSilence(amount)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SILENCED, amount)
 
@@ -434,7 +434,7 @@
 	SetAbsoluteSilence(max(amount, AmountAbsoluteSilenced()))
 
 /mob/living/proc/SetAbsoluteSilence(amount)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_ABSSILENCED, amount)
 
@@ -457,7 +457,7 @@
 /mob/living/proc/Sleeping(amount)
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, amount) & COMPONENT_NO_EFFECT)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
@@ -470,7 +470,7 @@
 /mob/living/proc/SetSleeping(amount)
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, amount) & COMPONENT_NO_EFFECT)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(frozen) // If the mob has been admin frozen, sleeping should not be changeable
 		return
@@ -489,7 +489,7 @@
 /mob/living/proc/PermaSleeping() /// used for admin freezing.
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, -1) & COMPONENT_NO_EFFECT)
 		return
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
@@ -517,7 +517,7 @@
 	return S
 
 /mob/living/proc/SetSlowed(amount, slowdown_value)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	var/datum/status_effect/incapacitating/slowed/S = IsSlowed()
 	if(amount <= 0 || slowdown_value <= 0)
@@ -550,7 +550,7 @@
 	SetSlur(max(AmountSluring(), amount))
 
 /mob/living/proc/SetSlur(amount)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SLURRING, amount)
 
@@ -565,7 +565,7 @@
 	SetCultSlur(max(AmountCultSlurring(), amount))
 
 /mob/living/proc/SetCultSlur(amount)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CULT_SLUR, amount)
 
@@ -580,7 +580,7 @@
 	SetClockSlur(max(AmountClockSlurring(), amount))
 
 /mob/living/proc/SetClockSlur(amount)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_CLOCK_CULT_SLUR, amount)
 

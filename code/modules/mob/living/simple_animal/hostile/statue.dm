@@ -27,7 +27,6 @@
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 
 	faction = list("statue")
 	move_to_delay = 0 // Very fast
@@ -45,12 +44,15 @@
 	move_force = MOVE_FORCE_EXTREMELY_STRONG
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	pull_force = MOVE_FORCE_EXTREMELY_STRONG
-	status_flags = GODMODE // Cannot push also
+	status_flags = NONE
 	AI_delay_max = 0 SECONDS
 
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null
 
+/mob/living/simple_animal/hostile/statue/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_GODMODE, INNATE_TRAIT)
 
 // No movement while seen code.
 
@@ -64,6 +66,12 @@
 	// Set creator
 	if(creator)
 		src.creator = creator
+
+/mob/living/simple_animal/hostile/statue/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/statue/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(can_be_seen(newloc))

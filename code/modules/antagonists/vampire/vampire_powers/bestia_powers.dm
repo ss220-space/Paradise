@@ -409,7 +409,7 @@
 
 	var/obj/item/thing = organ_to_dissect.remove(target)
 	qdel(thing)
-	target.vomit(50, TRUE, FALSE)
+	target.vomit(50, VOMIT_BLOOD, 0 SECONDS)
 	if(target.has_pain())
 		target.emote("scream")
 
@@ -688,7 +688,7 @@
 
 		if(iscarbon(victim))
 			var/mob/living/carbon/c_victim = victim
-			c_victim.vomit(50, TRUE, FALSE)
+			c_victim.vomit(50, VOMIT_BLOOD, 0 SECONDS)
 
 		if(prob(10 + vampire.get_trophies(INTERNAL_ORGAN_LIVER) * 3))
 			new /obj/effect/temp_visual/cult/sparks(get_turf(victim))
@@ -1010,10 +1010,8 @@
 
 	vampire.stop_sucking()
 	original_body = user
-	user.status_flags |= GODMODE
-	vampire_animal.status_flags |= GODMODE
-	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	ADD_TRAIT(vampire_animal, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+	original_body.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
+	vampire_animal.add_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	user.forceMove(vampire_animal)
 	user.mind.transfer_to(vampire_animal)
 	vampire.draw_HUD()
@@ -1027,8 +1025,7 @@
 	if(QDELETED(src) || QDELETED(vampire_animal))
 		return
 
-	vampire_animal.status_flags &= ~GODMODE
-	REMOVE_TRAIT(vampire_animal, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+	vampire_animal.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	is_transformed = TRUE
 	var/list/all_spells = vampire_animal.mind.spell_list + vampire_animal.mob_spell_list
 	for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
@@ -1072,8 +1069,7 @@
 		stack_trace("Spell or original_body was qdeled during the [src] work.")
 		return
 
-	REMOVE_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	original_body.status_flags &= ~GODMODE
+	original_body.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 	is_transformed = FALSE
 	var/list/all_spells = original_body.mind.spell_list + original_body.mob_spell_list
 	for(var/obj/effect/proc_holder/spell/vampire/spell in all_spells)
@@ -1334,7 +1330,7 @@
 	user_image.add_overlay(user)
 	user_image.set_light(2, 10, "#700000")
 	user.forceMove(user_image)
-	user.status_flags |= GODMODE
+	ADD_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 
 	animate(user_image, pixel_y = 40, time = 3.7 SECONDS, easing = BOUNCE_EASING|EASE_IN)
 	animate(pixel_y = 0, time = 0.3 SECONDS, easing = BOUNCE_EASING|EASE_OUT)
@@ -1378,7 +1374,7 @@
 		return
 
 	coffin.close()
-	user.status_flags &= ~GODMODE
+	REMOVE_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 
 	// we need no companions inside the coffin
 	for(var/mob/living/victim in (coffin.contents - user))
@@ -1895,9 +1891,6 @@
 	mob_size = MOB_SIZE_LARGE
 	nightvision = 8	// full night vision
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)	// we need oxygen only
-	minbodytemp = 0
-	maxbodytemp = 600	// better than human vampire but still dangerous
-	heat_damage_per_tick = 5 	// we are a vampire animal and high temperatures are pretty bad
 	AI_delay_max = 0 SECONDS
 	var/dead_for_sure = FALSE	// we need this to prevent death() proc to invoke nultiple times
 	var/datum/antagonist/vampire/vampire
@@ -1916,6 +1909,13 @@
 	if(meta_spell)
 		parent_spell = meta_spell
 
+/mob/living/simple_animal/hostile/vampire/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 600, \
+		minbodytemp = 0, \
+		heat_damage = 5, \
+	)
 
 /mob/living/simple_animal/hostile/vampire/Destroy()
 	vampire = null
@@ -2103,13 +2103,18 @@
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	obj_damage = 50
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)	// ultimate form, no need in oxy
-	maxbodytemp = 1200	// we are still a vampire
 	/// How many cycles will be skipped between blood cost apply.
 	var/life_cycles_skip = 2
 	var/life_cycles_current = 0
 	/// Needed to stop warnings spam on low blood.
 	var/warning_done = FALSE
 
+/mob/living/simple_animal/hostile/vampire/hound/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 1200, \
+	)
 
 /mob/living/simple_animal/hostile/vampire/hound/Initialize(mapload, datum/antagonist/vampire/vamp, mob/living/carbon/human/h_vampire, obj/effect/proc_holder/spell/vampire/metamorphosis/meta_spell)
 	. = ..()

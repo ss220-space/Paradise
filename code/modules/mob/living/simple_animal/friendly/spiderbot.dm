@@ -26,8 +26,6 @@
 	tts_seed = "Antimage"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	maxbodytemp = 500
 
 	can_hide = 1
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
@@ -37,6 +35,13 @@
 	var/emagged = 0               //is it getting ready to explode?
 	var/obj/item/mmi/mmi = null
 	var/mob/emagged_master = null //for administrative purposes, to see who emagged the spiderbot; also for a holder for if someone emags an empty frame first then inserts an MMI.
+
+/mob/living/simple_animal/spiderbot/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 500, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/spiderbot/Destroy()
 	if(emagged)

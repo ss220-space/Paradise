@@ -823,6 +823,10 @@ This applies to all STANDARD station areas
 	name = "Arrivals Maintenance"
 	icon_state = "asmaint"
 
+/area/maintenance/asmaint6
+	name = "RnD Restroom Maintenance"
+	icon_state = "asmaint"
+
 /area/maintenance/apmaint
 	name = "Cargo Maintenance"
 	icon_state = "apmaint"
@@ -1131,6 +1135,30 @@ This applies to all STANDARD station areas
 /area/hallway/primary/central/sw
 /area/hallway/primary/central/se
 
+/area/hallway/primary/command
+	name = "Command Primary Hallway"
+	icon_state = "hallC"
+
+/area/hallway/primary/command/north
+/area/hallway/primary/command/south
+/area/hallway/primary/command/west
+/area/hallway/primary/command/east
+/area/hallway/primary/command/nw
+/area/hallway/primary/command/ne
+
+/area/hallway/primary/central/second
+	name = "Second Floor Central Primary Hallway"
+	icon_state = "hallC"
+
+/area/hallway/primary/central/second/north
+/area/hallway/primary/central/second/south
+/area/hallway/primary/central/second/west
+/area/hallway/primary/central/second/east
+/area/hallway/primary/central/second/nw
+/area/hallway/primary/central/second/ne
+/area/hallway/primary/central/second/sw
+/area/hallway/primary/central/second/se
+
 /area/hallway/spacebridge
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	icon_state = "hall_space"
@@ -1170,6 +1198,9 @@ This applies to all STANDARD station areas
 
 /area/hallway/spacebridge/comeng
 	name = "Command-Engineering Bridge"
+
+/area/hallway/spacebridge/comcar
+	name = "Command-Cargo Bridge"
 
 /area/hallway/secondary/exit
 	name = "Escape Shuttle Hallway"
@@ -1346,6 +1377,21 @@ This applies to all STANDARD station areas
 
 /area/crew_quarters/toilet
 	name = "Dormitory Toilets"
+	icon_state = "toilet"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/crew_quarters/toilet2
+	name = "West Toilets"
+	icon_state = "toilet"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/crew_quarters/toilet3
+	name = "Theatre Toilets"
+	icon_state = "toilet"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/crew_quarters/toilet4
+	name = "Arrivals Toilets"
 	icon_state = "toilet"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
@@ -1587,65 +1633,65 @@ This applies to all STANDARD station areas
 
 
 //Engineering
-/area/engine
+/area/engineering
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
-/area/engine/engine_smes
+/area/engineering/engine/smes
 	name = "Engineering SMES"
 	icon_state = "engine_smes"
 
-/area/engine/engineering
+/area/engineering/engine
 	name = "Engineering"
 	icon_state = "engine_smes"
 
-/area/engine/engineering/monitor
+/area/engineering/engine/monitor
 	name = "Engineering Monitoring Room"
 	icon_state = "engine_control"
 
-/area/engine/break_room
+/area/engineering/break_room
 	name = "Engineering Foyer"
 	icon_state = "engine"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
-/area/engine/aienter
+/area/engineering/aienter
 	name = "AI Sattelit Access Point"
 	icon_state = "engine"
 
-/area/engine/equipmentstorage
+/area/engineering/equipmentstorage
 	name = "Engineering Equipment Storage"
 	icon_state = "storage"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
-/area/engine/hardsuitstorage
+/area/engineering/hardsuitstorage
 	name = "Engineering Hardsuit Storage"
 	icon_state = "storage"
 
-/area/engine/controlroom
+/area/engineering/controlroom
 	name = "Engineering Control Room"
 	icon_state = "engine_control"
 
-/area/engine/gravitygenerator
+/area/engineering/gravitygenerator
 	name = "Gravity Generator"
 	icon_state = "engine"
 
-/area/engine/chiefs_office
+/area/engineering/chiefs_office
 	name = "Chief Engineer's Office"
 	icon_state = "engine_control"
 
-/area/engine/mechanic_workshop
+/area/engineering/mechanic_workshop
 	name = "Mechanic Workshop"
 	icon_state = "engine"
 
-/area/engine/mechanic_workshop/expedition
+/area/engineering/mechanic_workshop/expedition
 	name = "Hangar Expedition"
 	icon_state = "engine"
 
-/area/engine/mechanic_workshop/hangar
+/area/engineering/mechanic_workshop/hangar
 	name = "Hangаr Bay"
 	icon_state = "engine"
 
-/area/engine/supermatter
+/area/engineering/supermatter
 	name = "Supermatter Engine"
 	icon_state = "engine"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
@@ -1835,6 +1881,10 @@ This applies to all STANDARD station areas
 
 /area/medical/medbreak
 	name = "Break Room"
+	icon_state = "medbaybreak"
+
+/area/medical/medrest
+	name = "Med Restroom"
 	icon_state = "medbaybreak"
 
 /area/medical/patients_rooms
@@ -2073,7 +2123,7 @@ This applies to all STANDARD station areas
 
 /area/security/visiting_room
 	name = "Visiting Room"
-	icon_state = "red"
+	icon_state = "visiting-room"
 
 /area/security/prisonlockers
 	name = "Prisoner Lockers"
@@ -2671,6 +2721,10 @@ This applies to all STANDARD station areas
 
 /area/aisat
 	name = "AI Satellite Hallway"
+	icon_state = "yellow"
+
+/area/aisat/aihallway
+	name = "AI Satellite Exterior Hallway"
 	icon_state = "yellow"
 
 /area/aisat/entrance
