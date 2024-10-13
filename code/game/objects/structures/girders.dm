@@ -168,11 +168,11 @@
 			qdel(src)
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-		if(glass.get_amount() < 1)
-			to_chat(user, span_warning("You need at least one pile of [glass] to finalize the wall!"))
+		if(glass.get_amount() < 2)
+			to_chat(user, span_warning("You need at least two piles of [glass] to finalize the wall!"))
 			return .
 		to_chat(user, span_notice("You start adding [glass]..."))
-		if(!do_after(user, 4 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(glass) || !glass.use(1))
+		if(!do_after(user, 4 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(glass) || !glass.use(2))
 			return .
 		to_chat(user, span_notice("You have finalized basalt wall."))
 		var/turf/floor = loc
@@ -203,11 +203,11 @@
 			qdel(src)
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-		if(wood.get_amount() < 1)
-			to_chat(user, span_warning("You need at least one plank of wood to finalize the wall!"))
+		if(wood.get_amount() < 2)
+			to_chat(user, span_warning("You need at least two planks of wood to finalize the wall!"))
 			return .
 		to_chat(user, span_notice("You start adding plating..."))
-		if(!do_after(user, 4 SECONDS * wood.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(wood) || !wood.use(1))
+		if(!do_after(user, 4 SECONDS * wood.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(wood) || !wood.use(2))
 			return .
 		to_chat(user, span_notice("You have finalized the wooden wall."))
 		var/turf/floor = loc
@@ -233,11 +233,11 @@
 			qdel(src)
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-		if(metal.get_amount() < 1)
-			to_chat(user, span_warning("You need at least one sheet of metal to finalize the wall!"))
+		if(metal.get_amount() < 2)
+			to_chat(user, span_warning("You need at least two sheets of metal to finalize the wall!"))
 			return .
 		to_chat(user, span_notice("You start adding plating..."))
-		if(!do_after(user, 4 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(metal) || !metal.use(1))
+		if(!do_after(user, 4 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(metal) || !metal.use(2))
 			return .
 		to_chat(user, span_notice("You have finalized the wall."))
 		var/turf/floor = loc
@@ -265,11 +265,11 @@
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 			if(GIRDER_REINF)
-				if(plasteel.get_amount() < 1)
-					to_chat(user, span_warning("You need at least one sheet of plasteel to finalize the reinforced wall!"))
+				if(plasteel.get_amount() < 2)
+					to_chat(user, span_warning("You need at least two sheets of plasteel to finalize the reinforced wall!"))
 					return .
 				to_chat(user, span_notice("You start finalizing the reinforced wall..."))
-				if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_REINF || !isfloorturf(loc) || QDELETED(plasteel) || !plasteel.use(1))
+				if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_REINF || !isfloorturf(loc) || QDELETED(plasteel) || !plasteel.use(2))
 					return .
 				to_chat(user, span_notice("You have finalized the reinforced wall."))
 				var/turf/floor = loc
@@ -280,11 +280,11 @@
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 			else
-				if(plasteel.get_amount() < 1)
-					to_chat(user, span_warning("You need at least one sheet of plasteel to reinforce the girder!"))
+				if(plasteel.get_amount() < 2)
+					to_chat(user, span_warning("You need at least two sheets of plasteel to reinforce the girder!"))
 					return .
 				to_chat(user, span_notice("You start reinforcing the girder..."))
-				if(!do_after(user, 6 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || state == GIRDER_REINF || QDELETED(plasteel) || !plasteel.use(1))
+				if(!do_after(user, 6 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || state == GIRDER_REINF || QDELETED(plasteel) || !plasteel.use(2))
 					return .
 				to_chat(user, span_notice("You reinforce the girder."))
 				var/obj/structure/girder/reinforced/girder = new(loc)
@@ -313,11 +313,11 @@
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(sheet.get_amount() < 1)
-		to_chat(user, span_warning("You need at least one sheet of [cached_sheet_type] to add plating!"))
+	if(sheet.get_amount() < 2)
+		to_chat(user, span_warning("You need at least two sheets of [cached_sheet_type] to add plating!"))
 		return .
 	to_chat(user, span_notice("You start adding plating..."))
-	if(!do_after(user, 4 SECONDS * sheet.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(sheet) || !sheet.use(1))
+	if(!do_after(user, 4 SECONDS * sheet.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(sheet) || !sheet.use(2))
 		return .
 	to_chat(user, span_notice("You have finalized the [cached_sheet_type] wall."))
 	var/turf/floor = loc

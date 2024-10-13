@@ -317,7 +317,7 @@ Class Procs:
 	if(user.incapacitated())
 		return TRUE
 
-	if(!user.IsAdvancedToolUser())
+	if(!user.can_use_machinery(src))
 		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return TRUE
 

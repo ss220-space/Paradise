@@ -5,7 +5,16 @@
 
 /datum/martial_combo/cqc/kick/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	. = MARTIAL_COMBO_FAIL
-	if(!target.stat || !target.IsWeakened())
+
+	if(!target.stat && target.body_position == LYING_DOWN)
+		target.visible_message("<span class='warning'>[user] kicks [target]'s head, knocking [target.p_them()] out!</span>", \
+					  		"<span class='userdanger'>[user] kicks your head, knocking you out!</span>")
+		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 50, 1, -1)
+		target.SetSleeping(5 SECONDS)
+		target.apply_damage(5, BRAIN)
+		add_attack_logs(user, target, "Knocked out with martial-art [src] : Kick", ATKLOG_ALL)
+		. = MARTIAL_COMBO_DONE
+	else
 		target.visible_message("<span class='warning'>[user] kicks [target] back!</span>", \
 							"<span class='userdanger'>[user] kicks you back!</span>")
 		playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
@@ -16,18 +25,10 @@
 		objective_damage(user, target, 10, BRUTE)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
-	if(!target.stat && target.IsWeakened())
-		target.visible_message("<span class='warning'>[user] kicks [target]'s head, knocking [target.p_them()] out!</span>", \
-					  		"<span class='userdanger'>[user] kicks your head, knocking you out!</span>")
-		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 50, 1, -1)
-		target.SetSleeping(8 SECONDS)
-		target.apply_damage(5, BRAIN)
-		add_attack_logs(user, target, "Knocked out with martial-art [src] : Kick", ATKLOG_ALL)
-		. = MARTIAL_COMBO_DONE
 
 /datum/martial_combo/cqc/kick/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
 	if(target && !iscarbon(hit_atom) && hit_atom.density)
-		target.Weaken(2 SECONDS)
+		target.Knockdown(2 SECONDS)
 		target.take_organ_damage(10)
 
 /datum/martial_combo/cqc/kick/proc/unregister_bump_impact(mob/living/target)

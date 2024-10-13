@@ -7,7 +7,7 @@
 
 GLOBAL_DATUM_INIT(strippable_state, /datum/ui_state/strippable_state, new)
 
-/datum/ui_state/strippable_state/can_use_topic(src_object, mob/user)
+/datum/ui_state/strippable_state/can_use_topic(src_object, mob/user, atom/ui_source)
 	if(!ismob(src_object))
 		return UI_CLOSE
 	. = user.default_can_use_topic(src_object)

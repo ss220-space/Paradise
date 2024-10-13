@@ -6,7 +6,7 @@
 
 GLOBAL_DATUM_INIT(observer_state, /datum/ui_state/observer_state, new)
 
-/datum/ui_state/observer_state/can_use_topic(src_object, mob/user)
+/datum/ui_state/observer_state/can_use_topic(src_object, mob/user, atom/ui_source)
 	if(isobserver(user))
 		return UI_INTERACTIVE
 	if(check_rights(R_ADMIN, 0, src))

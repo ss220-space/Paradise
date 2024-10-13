@@ -28,8 +28,6 @@
 	obj_damage = 60
 	melee_damage_lower = 15
 	melee_damage_upper = 20
-	heat_damage_per_tick = 20	//amount of damage applied if animal's body temperature is higher than maxbodytemp
-	cold_damage_per_tick = 20	//same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
 	faction = list("spiders")
 	pass_flags = PASSTABLE
 	move_to_delay = 6
@@ -42,6 +40,13 @@
 	var/busy = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
 	AI_delay_max = 0.5 SECONDS
+
+/mob/living/simple_animal/hostile/poison/giant_spider/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		heat_damage = 20, \
+		cold_damage = 20, \
+	)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/get_spacemove_backup(moving_direction, continuous_move)
 	. = ..()

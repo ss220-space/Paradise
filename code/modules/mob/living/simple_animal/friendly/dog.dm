@@ -247,7 +247,8 @@
 	set_light_on(FALSE)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	REMOVE_TRAIT(src, TRAIT_NO_BREATH, CORGI_HARDSUIT_TRAIT)
-	minbodytemp = initial(minbodytemp)
+	var/datum/component/animal_temperature/temp = GetComponent(/datum/component/animal_temperature)
+	temp?.minbodytemp = initial(temp?.minbodytemp)
 
 	if(inventory_head && inventory_head.dog_fashion)
 		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
@@ -554,12 +555,17 @@
 	icon_dead = "void_puppy_dead"
 	nofur = TRUE
 	unsuitable_atmos_damage = 0
-	minbodytemp = TCMB
-	maxbodytemp = T0C + 40
 	tts_seed = "Kael"
 	holder_type = /obj/item/holder/void_puppy
 	maxHealth = 60
 	health = 60
+
+/mob/living/simple_animal/pet/dog/corgi/puppy/void/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = T0C + 40, \
+		minbodytemp = TCMB, \
+	)
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE	//Void puppies can navigate space.
@@ -573,8 +579,13 @@
 	icon_dead = "slime_puppy_dead"
 	nofur = TRUE
 	holder_type = /obj/item/holder/slime_puppy
-	minbodytemp = 250 //Weak to cold
-	maxbodytemp = INFINITY
+
+/mob/living/simple_animal/pet/dog/corgi/puppy/slime/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = INFINITY, \
+		minbodytemp = 250, \
+	)
 
 //LISA! SQUEEEEEEEEE~
 /mob/living/simple_animal/pet/dog/corgi/Lisa
@@ -632,13 +643,18 @@
 	tts_seed = "Glados"
 	var/emagged = 0
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	del_on_death = 1
 	deathmessage = "blows apart!"
 	animal_species = /mob/living/simple_animal/pet/dog/corgi/borgi
 	nofur = TRUE
 	holder_type = /obj/item/holder/borgi
+
+/mob/living/simple_animal/pet/dog/corgi/borgi/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/emag_act(mob/user)
 	if(!emagged)

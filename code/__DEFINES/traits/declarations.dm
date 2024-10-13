@@ -59,6 +59,15 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SHOCKIMMUNE "shock_immunity"
 /// Are we immune to specifically tesla / SM shocks?
 #define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
+
+/// We place people into a fireman carry quicker than standard
+#define TRAIT_QUICK_CARRY "quick-carry"
+/// We place people into a fireman carry especially quickly compared to quick_carry
+#define TRAIT_QUICKER_CARRY "quicker-carry"
+/// Prevents mob from riding mobs when buckled onto something
+#define TRAIT_CANT_RIDE "cant_ride"
+#define TRAIT_CHUNKYFINGERS "chunkyfingers"	//means that you can't use weapons with normal trigger guards.
+
 /// Means that you can't use weapons with normal trigger guards.
 #define TRAIT_NO_GUNS "no_guns"
 #define TRAIT_FORCE_DOORS "force_doors"
@@ -67,6 +76,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
 #define TRAIT_STRONG_GRABBER "strong_grabber"
 #define TRAIT_PUSHIMMUNE "push_immunity"
+#define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
 #define TRAIT_FLATTENED	"flattened"
 
 /// Not a genetic obesity but just a mob who overate
@@ -255,4 +265,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_CYBERIMPLANTS "no_cyberimplants"
 /// Prohibits the installation of the limbs, which do not belong to our species
 #define TRAIT_SPECIES_LIMBS "only_species_limbs"
-
+/// Phohibits using the "Book Of Babel"
+#define TRAIT_NO_BABEL "cannot_use_babel"
