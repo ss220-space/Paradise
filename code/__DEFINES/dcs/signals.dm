@@ -602,11 +602,6 @@
 #define COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK "living_check_incapacitate"
 	#define COMPONENT_NO_EFFECT (1<<0) //For all of them
 
-/// From /mob/add_language() (language_name)
-#define COMSIG_LIVING_LANGUAGE_ADD		"living_language_add"
-/// From /mob/remove_language() (language_name)
-#define COMSIG_LIVING_LANGUAGE_REMOVE	"living_language_remove"
-
 /// Sent to a mob grabbing another mob: (mob/living/grabbing)
 #define COMSIG_LIVING_GRAB "living_grab"
 	// Return COMPONENT_CANCEL_ATTACK_CHAIN to stop the grab
@@ -614,6 +609,11 @@
 ///from base of /mob/living/can_track(): (mob/user)
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
+
+/// From /mob/add_language() (language_name)
+#define COMSIG_MOB_LANGUAGE_ADD		"mob_language_add"
+/// From /mob/remove_language() (language_name)
+#define COMSIG_MOB_LANGUAGE_REMOVE	"mob_language_remove"
 
 /// From base of /client/Move(): (new_loc, direction)
 #define COMSIG_MOB_CLIENT_PRE_MOVE "mob_client_pre_move"

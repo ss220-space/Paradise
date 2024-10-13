@@ -23,8 +23,8 @@
 
 	disease.store_and_remove_languages()
 
-	disease.RegisterSignal(disease.affected_mob, COMSIG_LIVING_LANGUAGE_ADD, PROC_REF(store_language))
-	disease.RegisterSignal(disease.affected_mob, COMSIG_LIVING_LANGUAGE_REMOVE, PROC_REF(remove_language))
+	disease.RegisterSignal(disease.affected_mob, COMSIG_MOB_LANGUAGE_ADD, PROC_REF(store_language))
+	disease.RegisterSignal(disease.affected_mob, COMSIG_MOB_LANGUAGE_REMOVE, PROC_REF(remove_language))
 
 	ADD_TRAIT(disease.affected_mob, TRAIT_NO_BABEL, UNIQUE_TRAIT_SOURCE(disease))
 
@@ -60,8 +60,8 @@
 /datum/disease/virus/babylonian_fever/Destroy()
 	if(affected_mob)
 		UnregisterSignal(affected_mob, list(
-			COMSIG_LIVING_LANGUAGE_ADD,
-			COMSIG_LIVING_LANGUAGE_REMOVE,
+			COMSIG_MOB_LANGUAGE_ADD,
+			COMSIG_MOB_LANGUAGE_REMOVE,
 		))
 
 		// Restore previously known languages.
@@ -86,17 +86,17 @@
 		affected_mob.remove_language(lan.name)
 
 
-/datum/disease/virus/babylonian_fever/proc/store_language(language_name)
+/datum/disease/virus/babylonian_fever/proc/store_language(datum/signal_source, language_name)
 	SIGNAL_HANDLER
 
 	var/datum/language/new_language = GLOB.all_languages[language_name]
 	LAZYOR(stored_languages, new_language)
-	return TRUE
+	return DISEASE_MOB_LANGUAGE_PROCESSED
 
 
-/datum/disease/virus/babylonian_fever/proc/remove_language(language_name)
+/datum/disease/virus/babylonian_fever/proc/remove_language(datum/signal_source, language_name)
 	SIGNAL_HANDLER
 
 	var/datum/language/rem_language = GLOB.all_languages[language_name]
 	LAZYREMOVE(stored_languages, rem_language)
-	return TRUE
+	return DISEASE_MOB_LANGUAGE_PROCESSED

@@ -850,8 +850,8 @@
 
 // Language handling.
 /mob/proc/add_language(language_name)
-	if(SEND_SIGNAL(src, COMSIG_LIVING_LANGUAGE_ADD, language_name))
-		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_MOB_LANGUAGE_ADD, language_name) & DISEASE_MOB_LANGUAGE_PROCESSED)
+		return TRUE
 
 	var/datum/language/new_language = GLOB.all_languages[language_name]
 	if(new_language in languages)
@@ -868,8 +868,8 @@
 
 
 /mob/proc/remove_language(language_name)
-	if(SEND_SIGNAL(src, COMSIG_LIVING_LANGUAGE_REMOVE, language_name))
-		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_MOB_LANGUAGE_REMOVE, language_name) & DISEASE_MOB_LANGUAGE_PROCESSED)
+		return TRUE
 
 	var/datum/language/rem_language = GLOB.all_languages[language_name]
 	if(!istype(rem_language))

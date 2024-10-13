@@ -452,3 +452,6 @@
 /// When reached - we'll apply status effect which will force carbon to vomit
 #define TOX_VOMIT_THRESHOLD_REACHED(mob, toxloss)	(mob.getToxLoss() >= toxloss)
 #define TOX_VOMIT_REQUIRED_TOXLOSS	45
+
+/// For babylon fever disease.
+#define DISEASE_MOB_LANGUAGE_PROCESSED (1<<0)
