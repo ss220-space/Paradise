@@ -88,6 +88,7 @@
 		brainmob.set_stat(CONSCIOUS)
 		brainmob.set_invis_see(initial(brainmob.see_invisible))
 		held_brain = brain
+		ADD_TRAIT(brainmob, TRAIT_NOSPELLS, UNIQUE_TRAIT_SOURCE(src)) // Dont use spells, little brain.
 		alien = istype(brain, /obj/item/organ/internal/brain/xeno)
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 		if(radio_action)
@@ -191,6 +192,7 @@
 	brainmob = null//Set mmi brainmob var to null
 	held_brain.forceMove(dropspot)
 	held_brain = null
+	REMOVE_TRAIT(brainmob, TRAIT_NOSPELLS, UNIQUE_TRAIT_SOURCE(src))
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 
 
