@@ -638,6 +638,8 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
 	var/money_amount = rand(job.min_start_money, job.max_start_money)
 	var/datum/money_account/M = create_account(H.real_name, money_amount, null, job, TRUE)
+	if (H.dna)
+		GLOB.dna2account[H.dna] = M
 	var/remembered_info = ""
 
 	remembered_info += "<b>Номер вашего аккаунта:</b> #[M.account_number]<br>"
@@ -662,6 +664,21 @@ SUBSYSTEM_DEF(jobs)
 		H.mind.store_memory(remembered_info)
 
 	H.mind.initial_account = M
+
+	H.mind.initial_account.insurance_type = job.insurance_type
+	switch (job.insurance_type)
+		if (INSURANCE_TYPE_NONE)
+			H.mind.initial_account.insurance = INSURANCE_NONE
+		if (INSURANCE_TYPE_BUDGETARY)
+			H.mind.initial_account.insurance = INSURANCE_BUDGETARY
+		if (INSURANCE_TYPE_STANDART)
+			H.mind.initial_account.insurance = INSURANCE_STANDART
+		if (INSURANCE_TYPE_EXTENDED)
+			H.mind.initial_account.insurance = INSURANCE_EXTENDED
+		if (INSURANCE_TYPE_DELUXE)
+			H.mind.initial_account.insurance = INSURANCE_DELUXE
+		if (INSURANCE_TYPE_NT_SPECIAL)
+			H.mind.initial_account.insurance = INSURANCE_NT_SPECIAL
 
 	spawn(0)
 		to_chat(H, "<span class='boldnotice'>Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]</span>")
@@ -711,11 +728,11 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/proc/account_job_transfer(name_owner, job_title, salary_capcap = TRUE)
 
 	var/datum/money_account/account_job = get_account_with_name(name_owner)
-				
+
 	if(account_job)
 		account_job.linked_job = SSjobs.GetJob(job_title)
 		account_job.salary_payment_active = salary_capcap
-	
+
 /datum/controller/subsystem/jobs/proc/notify_dept_head(jobtitle, antext)
 	// Used to notify the department head of jobtitle X that their employee was brigged, demoted or terminated
 	if(!jobtitle || !antext)
