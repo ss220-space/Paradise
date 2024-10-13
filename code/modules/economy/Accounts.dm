@@ -3,14 +3,29 @@
 #define STATION_START_CASH 75000
 #define STATION_SOURCE_TERMINAL "Biesel GalaxyNet Terminal #227"
 #define DEPARTMENT_START_CASH 5000
+#define NISHEBROD_SALARY 0
 
 GLOBAL_VAR_INIT(num_financial_terminals, 1)
 GLOBAL_DATUM(station_account, /datum/money_account)
 GLOBAL_LIST_EMPTY(department_accounts)
+GLOBAL_LIST_EMPTY(active_salary_system)
 GLOBAL_VAR_INIT(next_account_number, 0)
 GLOBAL_DATUM(centcomm_account_db, /obj/machinery/computer/account_database) // this being an object hurts me deeply on the inside
 GLOBAL_DATUM(vendor_account, /datum/money_account)
 GLOBAL_LIST_EMPTY(all_money_accounts)
+
+GLOBAL_DATUM(CC_account, /datum/money_account)
+
+/proc/create_CC_account()
+	if(!GLOB.CC_account)
+		GLOB.next_account_number = rand(111111, 999999)
+
+		GLOB.CC_account = new()
+		GLOB.CC_account.owner_name = "Account of the personnel department of the Central Command"
+		GLOB.CC_account.account_number = rand(111111, 999999)
+		GLOB.CC_account.remote_access_pin = rand(111111, 999999)
+		GLOB.CC_account.money = INFINITY
+		GLOB.CC_account.security_level = 2
 
 /proc/create_station_account()
 	if(!GLOB.station_account)
@@ -50,13 +65,15 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 //the current ingame time (hh:mm:ss) can be obtained by calling:
 //station_time_timestamp("hh:mm:ss")
 
-/proc/create_account(var/new_owner_name = "Default user", var/starting_funds = 0, var/obj/machinery/computer/account_database/source_db)
+/proc/create_account(var/new_owner_name = "Default user", var/starting_funds = 0, var/obj/machinery/computer/account_database/source_db, var/datum/job/link_job = /datum/job ,var/salary_active = FALSE)
 
 	//create a new account
 	var/datum/money_account/M = new()
 	M.owner_name = new_owner_name
 	M.remote_access_pin = rand(111111, 999999)
 	M.money = starting_funds
+	M.linked_job = link_job
+	M.salary_payment_active = salary_active
 
 	//create an entry in the account transaction log for when it was created
 	var/datum/transaction/T = new()
@@ -122,8 +139,24 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 							//1 - require manual login / account number and pin
 							//2 - require card and manual login
 
+	var/datum/job/linked_job = /datum/job
+	var/salary_payment_active = FALSE
+
 /datum/money_account/New()
 	..()
+
+/datum/money_account/proc/notify_pda_owner(var/text, var/noti = FALSE)
+	for(var/obj/item/pda/send_pda in GLOB.PDAs)
+		if(owner_name == send_pda.owner)
+			var/datum/data/pda/app/messenger/PM = send_pda.find_program(/datum/data/pda/app/messenger)
+
+			if(PM && PM.can_receive())
+				PM.notify(text, noti)
+				return TRUE
+
+			return FALSE
+
+	return FALSE
 
 /datum/transaction
 	var/target_name = ""
@@ -156,6 +189,11 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 		if(D.account_number == account_number)
 			return D
 
+/proc/get_account_with_name(var/name_owner)
+	for(var/datum/money_account/D in GLOB.all_money_accounts)
+		if(D.owner_name == name_owner)
+			return D
+
 /proc/attempt_account_access_nosec(var/attempt_account_number)
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == attempt_account_number)
@@ -166,3 +204,4 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 #undef STATION_START_CASH
 #undef STATION_SOURCE_TERMINAL
 #undef DEPARTMENT_START_CASH
+#undef NISHEBROD_SALARY

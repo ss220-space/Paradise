@@ -753,6 +753,23 @@
 	do_sparks(5, 0, loc)
 	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
+/obj/machinery/suit_storage_unit/shove_impact(mob/living/target, mob/living/attacker)
+	if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || target.buckled)
+		return
+	if(!state_open && !locked)
+		state_open = TRUE
+		update_icon(UPDATE_OVERLAYS)
+		return ..()
+
+	if(broken)
+		return ..()
+
+	if((occupant) || (helmet) || (suit) || (storage))
+		return ..()
+
+	close_machine(target)
+	return TRUE
+
 //pirate ssu
 /obj/machinery/suit_storage_unit/industrial
 	name = "industrial suit storage unit"

@@ -139,7 +139,7 @@
 		"[rand(0,99999)]",". = ..() RETURN FUCK_NT","IT'S OVER 9000!","three hundred bucks",
 		"Nineteen Eighty-Four","alla money frum ur bank acc"))
 	if(linked_account && linked_account.security_level == 0)
-		//если уровень защиты привязанного аккаунта нулевой, то глобально переписывает имя владельца
+		//if the security level of the linked account is zero, then globally rewrites the owner's name
 		linked_account.owner_name = pick(list(
 			"Taargüs Taargüs","n4n07r453n 7074lly 5ux","Maya Normousbutt","Al Coholic","Stu Piddiddiot",
 			"Yuri Nator","HAI GUYZ! LEARN HA TO CHANGE SECURITY SETTINGS! LOL!!"))
@@ -193,7 +193,7 @@
 			print_reference(user)
 		if("link_account")
 			if(duty_mode)
-				//запрещает редактировать это поле на служебном устройстве
+				//prevents editing of this field on the service device
 				to_chat(user, "[bicon(src)]<span class='notice'> Feature not available on this device.</span>")
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
 				return
@@ -227,17 +227,15 @@
 				return
 			transaction_amount = try_num
 		if("toggle_lock")
-			//вообще, это три разные кнопки, по-хорошему, их надо разбить на три события
-			//но для этого нужно eftpos.js редактировать, заодно и все input перевести на tgui
 			if(transaction_locked && !transaction_paid)
-				//выход из режима оплаты c помощью карты или если код 0 (приоритетный выход)
+				//exit from card payment mode or if code 0 (priority exit)
 				var/list/access = user.get_access()
 				if((ACCESS_CENT_COMMANDER in access) || (ACCESS_CAPTAIN in access) || (ACCESS_HOP in access) || !access_code)
 					transaction_locked = 0
 					transaction_paid = 0
 					playsound(src, 'sound/machines/terminal_prompt.ogg', 30, 0)
 					return
-				//выход с проверкой кода доступа
+				//exit with access code verification
 				var/attempt_code = tgui_input_number(user, "Enter EFTPOS access code", "Reset Transaction", max_value = 9999, min_value = 1000)
 				if(!Adjacent(user))
 					return
@@ -250,13 +248,13 @@
 				playsound(src, 'sound/machines/terminal_prompt.ogg', 30, 0)
 				return
 			if(transaction_locked && transaction_paid)
-				//завершение оплаты с печатью чека
+				//completion of payment with receipt printing
 				transaction_locked = 0
 				transaction_paid = 0
 				print_check(user)
 				return
 			if(linked_account && !transaction_locked)
-				//переводит EFTPOS в режим оплаты, если введен аккаунт получателя
+				//switches EFTPOS to payment mode if the recipient account is entered
 				transaction_locked = 1
 				playsound(src, 'sound/machines/terminal_prompt.ogg', 30, 0)
 			else
@@ -291,13 +289,13 @@
 		reconnect_database()
 	if(linked_db)
 		if(during_paid)
-			//такая проверка необходима для предотвращения множественных операций оплаты при закликивании
+			//This check is necessary to prevent multiple payment transactions when clicking
 			to_chat(user, "[bicon(src)]<span class='notice'> End the current operation first.</span>")
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
 			return
 
 		if(!transaction_locked || transaction_paid)
-			//прерывает процедуру, если EFTPOS не был переведен в режим оплаты или транзакция уже была оплачена
+			//aborts the procedure if EFTPOS has not been switched to payment mode or the transaction has already been paid
 			return
 
 		during_paid = TRUE

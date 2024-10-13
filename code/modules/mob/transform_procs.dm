@@ -247,6 +247,9 @@
 
 	qdel(src)
 
+//oh no, cringe
+/mob/proc/get_npc_respawn_message()
+	return "Ты [name]."
 
 /mob/proc/safe_respawn(mob/living/passed_mob, check_station_level = TRUE)
 	. = FALSE
@@ -293,6 +296,7 @@
 		/mob/living/simple_animal/pig,
 		/mob/living/simple_animal/possum,
 		/mob/living/simple_animal/turkey,
+		/mob/living/carbon/human/lesser/monkey/punpun,
 	))
 
 	// Blacklist typecache.

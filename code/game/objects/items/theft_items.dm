@@ -223,7 +223,7 @@
 	if(!isliving(hit_atom))
 		return ..()
 	var/mob/living/victim = hit_atom
-	if(victim.incorporeal_move || victim.status_flags & GODMODE) //try to keep this in sync with supermatter's consume fail conditions
+	if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE)) //try to keep this in sync with supermatter's consume fail conditions
 		return ..()
 	if(throwingdatum?.thrower)
 		var/mob/user = throwingdatum.thrower
@@ -244,7 +244,7 @@
 
 
 /obj/item/nuke_core/supermatter_sliver/pickup(mob/living/user)
-	if(!isliving(user) || user.status_flags & GODMODE) //try to keep this in sync with supermatter's consume fail conditions
+	if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE)) //try to keep this in sync with supermatter's consume fail conditions
 		return ..()
 	user.visible_message(
 		span_danger("[user] reaches out and tries to pick up [src]. [user.p_their()] body starts to glow and bursts into flames before bursting into flames!"),
@@ -331,7 +331,7 @@
 
 /obj/item/nuke_core_container/supermatter/attack_hand(mob/user)
 	if(cracked && sliver) //What did we say about touching the shard...
-		if(!isliving(user) || user.status_flags & GODMODE)
+		if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE))
 			return FALSE
 		user.visible_message("<span class='danger'>[user] reaches out and tries to pick up [sliver]. [user.p_their()] body starts to glow and bursts into flames!</span>",
 				"<span class='userdanger'>You reach for [sliver] with your hands. That was dumb.</span>",
@@ -413,7 +413,7 @@
 		if(!isliving(AM))
 			return
 		var/mob/living/victim = AM
-		if(victim.incorporeal_move || victim.status_flags & GODMODE) //try to keep this in sync with supermatter's consume fail conditions
+		if(victim.incorporeal_move || HAS_TRAIT(victim, TRAIT_GODMODE)) //try to keep this in sync with supermatter's consume fail conditions
 			return
 		victim.gib()
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)].")

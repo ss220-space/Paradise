@@ -117,6 +117,8 @@ SUBSYSTEM_DEF(title)
 	show_title_screen_to_all_new_players()
 
 /datum/controller/subsystem/title/proc/update_preview(client/viewer)
+	if(!viewer)
+		return
 	if(viewer.byond_version < 516)
 		viewer << output("", "title_browser:update_preview_515")
 	else

@@ -205,6 +205,7 @@
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/defile(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/malfunction(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/overload(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/blight(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/haunt_object(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/hallucinations(null))
 	return TRUE
