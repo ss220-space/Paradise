@@ -7,7 +7,7 @@
 	var/drain_total = 0
 	add_game_logs("draining energy from [src] [COORD(src)]", ninja)
 	var/area/area = get_area(src)
-	if(area && (istype(area, /area/engine/engineering) || istype(area, /area/engine/supermatter)))
+	if(area && (istype(area, /area/engineering/engine) || istype(area, /area/engineering/supermatter)))
 		//На русском чтобы даже полному идиоту было ясно, почему им не даётся сосать ток из этого АПЦ
 		to_chat(ninja, span_danger("Внимание: Высасывание энергии из АПЦ в этой зоне потенциально может привести к неконтролируемым разрушениям. Процесс отменён."))
 		return INVALID_DRAIN

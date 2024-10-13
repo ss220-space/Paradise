@@ -240,7 +240,6 @@
 	gold_core_spawnable = NO_SPAWN
 	eats_mice = 0
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 
@@ -250,6 +249,11 @@
 	add_language(LANGUAGE_GALACTIC_COMMON)
 	ADD_TRAIT(src, TRAIT_NO_BREATH, INNATE_TRAIT)
 
+/mob/living/simple_animal/pet/cat/Syndi/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/pet/cat/cak
 	name = "Keeki"
@@ -337,9 +341,14 @@
 	icon_dead = "spacecat_dead"
 	icon_resting = "spacecat_rest"
 	unsuitable_atmos_damage = 0
-	minbodytemp = TCMB
-	maxbodytemp = T0C + 40
 	holder_type = /obj/item/holder/spacecat
+
+/mob/living/simple_animal/pet/cat/spacecat/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = T0C + 40, \
+		minbodytemp = TCMB, \
+	)
 
 /mob/living/simple_animal/pet/cat/fat
 	name = "FatCat"

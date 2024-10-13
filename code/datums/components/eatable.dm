@@ -9,7 +9,7 @@
 	/// integrity spend after bite
 	var/integrity_bite // integrity spend after bite
 	/// How much nutrition add
-	var/nutritional_value 
+	var/nutritional_value
 	/// Grab if help_intent was used
 	var/is_only_grab_intent
 	/// If true - your item can be eaten without special diet check.
@@ -29,7 +29,7 @@
 )
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
-		
+
 	src.current_bites = current_bites
 	src.material_type = material_type
 	src.max_bites = max_bites
@@ -38,7 +38,7 @@
 	src.is_only_grab_intent = is_only_grab_intent
 	src.is_always_eatable = is_always_eatable
 	src.stack_use = stack_use
-	
+
 /datum/component/eatable/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACKBY, PROC_REF(pre_try_eat_item))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
@@ -53,7 +53,7 @@
 
 	if(!istype(human))
 		return
-	
+
 	if(material_type & human.dna.species.special_diet)
 		examine_list += "Вкуснятина! [is_only_grab_intent ? "\nНужно аккуратно есть." : ""]"
 
@@ -134,7 +134,7 @@
 
 		to_chat(target, span_notice("[chat_message_to_target]"))
 		add_attack_logs(user, item, "Force Fed [target], item [item]")
-		
+
 	if(!isstack(item))
 		to_chat(user, span_notice("[chat_message_to_user]"))
 
@@ -170,7 +170,7 @@
 		item.visible_message(span_warning("[user] пытается накормить [target], запихивая в рот [item.name]."))
 		if(!do_after(user, target, 2 SECONDS, NONE))
 			return FALSE
-			
+
 	return TRUE
 
 /datum/component/eatable/proc/get_colour()

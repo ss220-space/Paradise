@@ -160,7 +160,7 @@
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
 "aJ" = (
-/obj/vehicle/atv,
+/obj/vehicle/ridden/atv,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
 "aK" = (

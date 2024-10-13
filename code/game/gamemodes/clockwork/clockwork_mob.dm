@@ -17,7 +17,6 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	tts_seed = "Earth"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	pressure_resistance = 100
 	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
@@ -31,6 +30,12 @@
 	light_range = 2
 	light_power = 1.1
 	var/deflect_chance = 30
+
+/mob/living/simple_animal/hostile/clockwork/marauder/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/clockwork/marauder/hostile
 	AIStatus = AI_ON
@@ -128,11 +133,17 @@
 	icon_resting = "mouse_clockwork_sleep"
 	icon = 'icons/mob/clockwork_mobs.dmi'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	pressure_resistance = 100
 	universal_speak = 1
 	gold_core_spawnable = NO_SPAWN
 	tts_seed = "Earth"
+
+/mob/living/simple_animal/mouse/clockwork/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/mouse/clockwork/handle_automated_action()
 	if(!isturf(loc))

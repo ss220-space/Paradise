@@ -27,8 +27,6 @@
 	attacktext = "кромсает"
 	attack_sound = 'sound/weapons/slash.ogg'
 
-	minbodytemp = 0
-	maxbodytemp = INFINITY
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 
 	faction = list("faithless")
@@ -42,6 +40,13 @@
 		icon_state = "NurnKal"
 		icon_living = "NurnKal"
 	update_icon(UPDATE_OVERLAYS)
+
+/mob/living/simple_animal/ascendant_shadowling/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = INFINITY, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/ascendant_shadowling/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE //copypasta from carp code

@@ -12,6 +12,7 @@
 	var/apply_tape_delay = 5 SECONDS
 	/// If `TRUE` removes targets's mask on apply
 	var/drop_mask = FALSE
+	var/tapegag_type = /obj/item/clothing/mask/muzzle/tapegag
 
 
 /obj/item/stack/tape_roll/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -47,7 +48,7 @@
 		span_warning("[user] tapes [target]'s mouth shut!"),
 		span_notice("You cover [target == user ? "your own" : "[target]'s"] mouth with a piece of duct tape.[target == user ? null : " That will shut them up."]"),
 	)
-	var/obj/item/clothing/mask/muzzle/tapegag/tapegag = new(null)
+	var/obj/item/clothing/mask/muzzle/tapegag/tapegag = new tapegag_type(null)
 	tapegag.add_fingerprint(user)
 	target.equip_to_slot_if_possible(tapegag, ITEM_SLOT_MASK, qdel_on_fail = TRUE)
 
@@ -75,4 +76,4 @@
 	max_amount = 40
 	apply_tape_delay = 1 SECONDS
 	drop_mask = TRUE
-
+	tapegag_type = /obj/item/clothing/mask/muzzle/tapegag/thick

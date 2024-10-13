@@ -284,8 +284,6 @@
 	universal_understand = 1
 	del_on_death = 1
 	unsuitable_atmos_damage = 0
-	minbodytemp = 0
-	maxbodytemp = 1500
 	environment_smash = 0
 	AIStatus = AI_OFF
 	stop_automated_movement = 1
@@ -298,6 +296,13 @@
 	remove_verb(src, /mob/verb/me_verb)
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
+
+/mob/living/simple_animal/hostile/lightgeist/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 1500, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/lightgeist/AttackingTarget()
 	. = ..()

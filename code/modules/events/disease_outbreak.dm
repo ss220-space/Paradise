@@ -22,7 +22,8 @@
 		1; /datum/disease/virus/pierrot_throat,
 		1; /datum/disease/virus/pierrot_throat/advanced,
 		1; /datum/disease/virus/tuberculosis,
-		1; /datum/disease/virus/wizarditis
+		1; /datum/disease/virus/wizarditis,
+		2; /datum/disease/virus/babylonian_fever
 	)
 	if(virus_type == /datum/disease/virus/advance)
 		//creates only contagious viruses, that are always visible in Pandemic

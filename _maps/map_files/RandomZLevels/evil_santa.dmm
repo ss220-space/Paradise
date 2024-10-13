@@ -32,7 +32,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "ae" = (
-/obj/vehicle/snowmobile/blue/key{
+/obj/vehicle/ridden/snowmobile/blue/key{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -527,7 +527,6 @@
 /mob/living/simple_animal/pet/penguin/emperor{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	faction = list("hostile","syndicate","winter");
-	minbodytemp = 0
 	},
 /turf/simulated/floor/plating/ice/smooth,
 /area/vision_change_area/awaymission/evil_santa_storm)
@@ -2327,7 +2326,7 @@
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "sE" = (
-/obj/vehicle/snowmobile/blue/key,
+/obj/vehicle/ridden/snowmobile/blue/key,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},
@@ -4533,7 +4532,6 @@
 "MD" = (
 /mob/living/simple_animal/pet/penguin/baby{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	minbodytemp = 0
 	},
 /turf/simulated/floor/plating/ice/smooth,
 /area/vision_change_area/awaymission/evil_santa_storm)
@@ -5263,7 +5261,6 @@
 "Sx" = (
 /mob/living/simple_animal/pet/penguin/eldrich{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	minbodytemp = 0
 	},
 /turf/simulated/floor/plating/ice/smooth,
 /area/vision_change_area/awaymission/evil_santa_storm)

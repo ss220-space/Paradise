@@ -19,6 +19,7 @@
 	talk_sound = list('sound/creatures/rat_talk.ogg')
 	damaged_sound = list('sound/creatures/rat_wound.ogg')
 	death_sound = 'sound/creatures/rat_death.ogg'
+	faction = list("neutral", "rodent")
 	tts_seed = "Gyro"
 	speak_chance = 1
 	turns_per_move = 5
@@ -37,8 +38,6 @@
 	mob_size = MOB_SIZE_TINY
 	layer = MOB_LAYER
 	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 223		//Below -50 Degrees Celcius
-	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = FALSE
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
@@ -60,6 +59,13 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/mob/living/simple_animal/mouse/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 323, \
+		minbodytemp = 223, \
+	)
 
 /mob/living/simple_animal/mouse/add_strippable_element()
 	AddElement(/datum/element/strippable, GLOB.strippable_mouse_items)
@@ -416,7 +422,6 @@
 	maxHealth = 100
 	health = 100
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	gold_core_spawnable = NO_SPAWN
 
 
@@ -424,6 +429,12 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(get_mind)), MOUSE_REVOTE_TIME)
 
+/mob/living/simple_animal/mouse/blobinfected/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/mouse/blobinfected/get_scooped(mob/living/carbon/grabber)
 	to_chat(grabber, span_warning("You try to pick up [src], but they slip out of your grasp!"))
