@@ -605,7 +605,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			to_chat(user, span_warning("You shouldn't have this spell! Something's wrong."))
 		return FALSE
 
-	if(HAS_TRAIT(user, TRAIT_NOSPELLS))
+	if(HAS_TRAIT(user, TRAIT_NO_SPELLS))
 		return FALSE
 
 	if(!centcom_cancast) //Certain spells are not allowed on the centcom zlevel
