@@ -257,3 +257,21 @@
 
 /obj/effect/decal/cleanable/glass/plasma
 	icon_state = "plasmatiny"
+
+/obj/effect/decal/cleanable/ashrune
+	name = "Ash rune"
+	desc = "A rune drawn in ash."
+	icon = 'icons/effects/ashwalker_rune.dmi'
+	icon_state = "AshRuneFilled"
+	anchored = TRUE
+	mergeable_decal = FALSE
+	mouse_opacity = MOUSE_OPACITY_ICON
+
+/obj/effect/decal/cleanable/ashrune/ComponentInitialize()
+	AddComponent( \
+		/datum/component/ritual_object, \
+		/datum/ritual/ashwalker, \
+	)
+
+/obj/effect/decal/cleanable/ashrune/is_cleanable()
+	return FALSE
