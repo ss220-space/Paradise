@@ -49,10 +49,8 @@
 	var/ambush_weaken = 6 SECONDS
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
-	/// If TRUE it will grant magical abilities when received antag datum.
-	var/is_magical = FALSE
 	/// Antagonist datum, simplifies interaction with morph
-	var/datum/antagonist/morph/antag_datum
+	var/datum/antagonist/morph/antag_datum = new
 
 /mob/living/simple_animal/hostile/morph/proc/check_morphs()
 	if((LAZYLEN(GLOB.morphs_alive_list) >= MORPHS_ANNOUNCE_THRESHOLD) && (!GLOB.morphs_announced))
@@ -74,8 +72,11 @@
 	name = "magical morph"
 	real_name = "magical morph"
 	desc = "A revolting, pulsating pile of flesh. This one looks somewhat.. magical."
-	is_magical = TRUE
 	can_reproduce = FALSE
+
+/mob/living/simple_animal/hostile/morph/wizard/make_morph_antag(grant_objectives = TRUE)
+	antag_datum.is_magical = TRUE
+	. = ..()
 
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
 	var/food_value = calc_food_gained(item)
@@ -291,6 +292,23 @@
 	var/list/not_allowed = list(/atom/movable/screen, /obj/singularity, /mob/living/simple_animal/hostile/morph)
 	return !is_type_in_list(item, not_allowed)
 
+/mob/living/simple_animal/hostile/morph/AIShouldSleep(list/possible_targets)
+	. = ..()
+
+	if(!. || morphed)
+		return
+
+	var/list/things = list()
+	for(var/atom/movable/item_in_view in view(src))
+		if(isobj(item_in_view) && allowed(item_in_view))
+			LAZYADD(things, item_in_view)
+
+	var/atom/movable/picked_thing = pick(things)
+	
+	if(picked_thing)
+		antag_datum.mimic_spell.take_form(new /datum/mimic_form(picked_thing, src), src)
+		prepare_ambush() // They cheat okay
+
 /mob/living/simple_animal/hostile/morph/AttackingTarget()
 	if(isliving(target)) // Eat Corpses to regen health
 		var/mob/living/living = target
@@ -316,10 +334,7 @@
 	if(!mind)
 		return // It can be called by gluttony blessing on mindless mob.
 		
-	antag_datum = new
-	if(!grant_objectives)
-		antag_datum.give_objectives = FALSE
-
+	antag_datum.give_objectives = grant_objectives
 	mind.add_antag_datum(antag_datum)
 
 /mob/living/simple_animal/hostile/morph/sentience_act()

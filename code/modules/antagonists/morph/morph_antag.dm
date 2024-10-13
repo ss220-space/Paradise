@@ -5,7 +5,10 @@
 	special_role = SPECIAL_ROLE_MORPH
 	roundend_category = "morphs"
 	show_in_orbit = TRUE
+
+	var/is_magical = FALSE
 	var/mob/living/simple_animal/hostile/morph/morph
+	
 	/// morph default abilities are going here.
 	var/obj/effect/proc_holder/spell/mimic/morph/mimic_spell = new
 	var/obj/effect/proc_holder/spell/morph_spell/ambush/ambush_spell = new
@@ -23,6 +26,7 @@
 		return FALSE
 		
 	var/datum/mind/mind = new_mind || owner
+
 	if(!mind || !ismorph(mind.current))
 		return FALSE
 
@@ -53,7 +57,7 @@
 	if(morph.can_reproduce)
 		owner.AddSpell(reproduce_spell)
 
-	if(morph.is_magical)
+	if(is_magical)
 		grant_magic()
 
 	return
@@ -67,7 +71,7 @@
 	if(morph.can_reproduce)
 		owner.RemoveSpell(reproduce_spell)
 
-	if(morph.is_magical)
+	if(is_magical)
 		remove_magic()
 
 	return

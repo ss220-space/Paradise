@@ -1889,27 +1889,32 @@
 		switch(href_list["morph"])
 			if("make_morph")
 				var/mob/living/living = current
+
 				if(!isturf(living.loc))
 					return
 					
 				for(var/obj/item/check as anything in living.get_equipped_items(TRUE, TRUE))
 					living.drop_item_ground(check, force = TRUE)
 
-				var/mob/living/simple_animal/hostile/morph/morph = new(get_turf(living.loc))
+				var/mob/living/simple_animal/hostile/morph/morph = new(living.loc)
+
 				morph.key = living.key
 				morph.make_morph_antag()
+
 				qdel(living)
 
 			if("handle_ability")
 				var/datum/antagonist/morph/morph = has_antag_datum(/datum/antagonist/morph)
+
 				if(LAZYLEN(spell_list))
 					morph.remove_abilities()
+
 				morph.grant_abilities()
 
 			if("toggle_reproduce")
 				var/datum/antagonist/morph/antag_datum = has_antag_datum(/datum/antagonist/morph)
-				var/mob/living/simple_animal/hostile/morph/morph = current
-				antag_datum.switch_reproduce()
+
+				antag_datum.morph.switch_reproduce()
 				to_chat(usr, "You toggled [morph] reproduce [morph.can_reproduce ? "on": "off"]")
 
 	else if(href_list["nuclear"])
