@@ -5,7 +5,7 @@
 	item_state = "pai"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
-	origin_tech = "programming=2"
+	origin_tech = "programming=3;powerstorage=2" // Or it will be cloned in the experimentor
 	var/request_cooldown = 5 // five seconds
 	var/last_request
 	var/obj/item/radio/headset/radio
@@ -531,7 +531,7 @@
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pai-spai"
 	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "programming=2;syndicate=2"
+	origin_tech = "programming=3;syndicate=2" // Or it will be cloned in the experimentor
 	var/extra_memory = 50
 	var/used = TRUE
 
