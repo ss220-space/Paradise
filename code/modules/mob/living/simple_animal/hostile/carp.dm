@@ -30,8 +30,6 @@
 
 	//Space carp aren't affected by atmos.
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	maxbodytemp = 1500
 	faction = list("carp")
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
@@ -70,6 +68,12 @@
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_CARP_RIFTS, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
 
+/mob/living/simple_animal/hostile/carp/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 1500, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/carp/proc/carp_randomify(rarechance)
 	if(random_color)
@@ -127,9 +131,15 @@
 /mob/living/simple_animal/hostile/carp/holocarp
 	icon_state = "holocarp"
 	icon_living = "holocarp"
-	maxbodytemp = INFINITY
 	del_on_death = 1
 	random_color = FALSE
+
+/mob/living/simple_animal/hostile/carp/holocarp/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = INFINITY, \
+	)
 
 /mob/living/simple_animal/hostile/carp/megacarp
 	icon = 'icons/mob/alienqueen.dmi'
@@ -186,10 +196,15 @@
 	retreat_distance = 6
 	vision_range = 5
 	retaliate_only = TRUE
-	minbodytemp = 250
-	maxbodytemp = 350
 	gold_core_spawnable = NO_SPAWN
 	var/carp_color = "carp" //holder for icon set
+
+/mob/living/simple_animal/hostile/carp/sea/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 350, \
+		minbodytemp = 250, \
+	)
 
 /mob/living/simple_animal/hostile/carp/mcarp
 	name = "mutated Carp"

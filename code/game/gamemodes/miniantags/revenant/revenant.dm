@@ -27,8 +27,6 @@
 	response_disarm = "swings at"
 	response_harm   = "punches"
 	unsuitable_atmos_damage = 0
-	minbodytemp = 0
-	maxbodytemp = INFINITY
 	harm_intent_damage = 0
 	friendly = "touches"
 	status_flags = 0
@@ -62,6 +60,12 @@
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
 
+/mob/living/simple_animal/revenant/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = INFINITY, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/revenant/Life(seconds, times_fired)
 	..()

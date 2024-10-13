@@ -26,10 +26,8 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
-	heat_damage_per_tick = 20
 	faction = list("alien")
 	status_flags = CANPUSH
-	minbodytemp = 0
 	nightvision = 8
 	AI_delay_max = 0.5 SECONDS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -37,6 +35,13 @@
 	death_sound = 'sound/voice/hiss6.ogg'
 	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	footstep_type = FOOTSTEP_MOB_CLAW
+
+/mob/living/simple_animal/hostile/alien/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		heat_damage = 20, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/alien/drone
 	name = "alien drone"

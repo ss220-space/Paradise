@@ -25,8 +25,6 @@
 	speak_emote = list("gnashes")
 	unique_pet = TRUE
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	maxbodytemp = 1500
 	faction = list("carp")
 	pressure_resistance = 200
 	gold_core_spawnable = NO_SPAWN
@@ -48,3 +46,10 @@
 	if(. && ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.apply_damage(carp_stamina_damage, STAMINA)
+
+/mob/living/simple_animal/hostile/retaliate/luu/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+		maxbodytemp = 1500, \
+	)

@@ -101,9 +101,10 @@
 				occupantData["temperatureSuitability"] = 1
 		else if(isanimal(occupant))
 			var/mob/living/simple_animal/silly = occupant
-			if(silly.bodytemperature < silly.minbodytemp)
+			var/datum/component/animal_temperature/temp = silly.GetComponent(/datum/component/animal_temperature)
+			if(silly.bodytemperature < temp?.minbodytemp)
 				occupantData["temperatureSuitability"] = -3
-			else if(silly.bodytemperature > silly.maxbodytemp)
+			else if(silly.bodytemperature > temp?.maxbodytemp)
 				occupantData["temperatureSuitability"] = 3
 		// Blast you, imperial measurement system
 		occupantData["btCelsius"] = occupant.bodytemperature - T0C

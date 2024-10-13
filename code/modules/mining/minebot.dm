@@ -14,7 +14,6 @@
 	faction = list("neutral")
 	a_intent = INTENT_HARM
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	move_to_delay = 10
 	health = 125
 	maxHealth = 125
@@ -60,6 +59,12 @@
 	dump_ore_action.Grant(src)
 
 	SetCollectBehavior()
+
+/mob/living/simple_animal/hostile/mining_drone/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/mining_drone/emp_act(severity)
 	adjustHealth(100 / severity)
