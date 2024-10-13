@@ -15,7 +15,7 @@
 	if(!..())
 		return FALSE
 
-	var/cure_disease = FALSE
+	var/create_effect = FALSE
 	var/mob/living/carbon/human/human = affected_mob
 
 	switch(stage)
