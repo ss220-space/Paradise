@@ -15,9 +15,7 @@
 	if(!..())
 		return FALSE
 
-	var/create_effect = FALSE
 	var/cure_disease = FALSE
-
 	var/mob/living/carbon/human/human = affected_mob
 
 	switch(stage)
@@ -48,20 +46,15 @@
 				to_chat(human, span_warning("You suddenly feel [pick("sick and tired", "nauseated", "dizzy", "stabbing pain in your head")]."))
 				create_effect = TRUE	
 		if(5)
-			if(prob(70))
-				human.apply_damage(80, STAMINA)
-				to_chat(human, "You feel very tired, but disease left you.")
-				create_effect = TRUE
-				cure_disease = TRUE
-				
-			if(prob(30))
+			if(prob(SYMPTOM_ACTIVATION_PROB * 10))
 				human.influenceSin()
 				to_chat(human, span_revenbignotice("You suddenly feel your soul become corrupted."))
-				cure_disease = TRUE
-				create_effect = TRUE
+			else
+				human.apply_damage(80, STAMINA)
+				to_chat(human, "You feel very tired, but disease left you.")
 
-	if(cure_disease)
-		cure()
+			create_effect = TRUE
+			cure()
 
 	if(create_effect && isturf(human.loc))
-		new /obj/effect/temp_visual/revenant(get_turf(human))
+		new /obj/effect/temp_visual/revenant(human.loc)
