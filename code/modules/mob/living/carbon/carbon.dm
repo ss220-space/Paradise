@@ -562,14 +562,9 @@
 					to_chat(src, span_notice("Вы осторожно отпускаете [throwable_mob.declent_ru(ACCUSATIVE)]."))
 					return FALSE
 	else
-		if(held_item.override_throw(src, target) || (held_item.item_flags & ABSTRACT))	//can't throw abstract items
+		if(held_item.override_throw(src, target))
 			return FALSE
-		if(!drop_item_ground(held_item, silent = TRUE))
-			return FALSE
-		if(held_item.throwforce && (GLOB.pacifism_after_gt || HAS_TRAIT(src, TRAIT_PACIFISM)))
-			to_chat(src, span_notice("Вы осторожно опускаете [held_item.declent_ru(ACCUSATIVE)] на землю."))
-			return FALSE
-		thrown_thing = held_item
+		thrown_thing = held_item.on_thrown(src, target)
 
 	if(!thrown_thing)
 		return FALSE

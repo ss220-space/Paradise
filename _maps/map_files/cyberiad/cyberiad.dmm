@@ -8724,7 +8724,7 @@
 	},
 /area/security/permabrig)
 "aBT" = (
-/obj/vehicle/secway,
+/obj/vehicle/ridden/secway,
 /obj/item/key/security,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -30504,7 +30504,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "bTG" = (
-/obj/vehicle/ambulance,
+/obj/vehicle/ridden/ambulance,
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/warning_stripes/east,
@@ -68651,7 +68651,7 @@
 	name = "north newscaster";
 	pixel_y = 34
 	},
-/obj/vehicle/janicart,
+/obj/vehicle/ridden/janicart,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "lPa" = (

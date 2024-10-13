@@ -631,6 +631,9 @@
 		return
 	if(!can_have_ai && (togglestatus != AI_OFF))
 		return
+	if(HAS_TRAIT(src, TRAIT_AI_PAUSED))
+		AIStatus = AI_OFF
+		return
 	var/turf/our_turf = get_turf(src)
 	if(QDELETED(src) || !our_turf)
 		return

@@ -15588,7 +15588,7 @@
 	pixel_x = -28;
 	pixel_y = 2
 	},
-/obj/vehicle/janicart{
+/obj/vehicle/ridden/janicart{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -30829,7 +30829,7 @@
 /area/medical/paramedic)
 "djT" = (
 /obj/effect/decal/warning_stripes/northeastsouth,
-/obj/vehicle/ambulance{
+/obj/vehicle/ridden/ambulance{
 	dir = 4
 	},
 /obj/machinery/light{

@@ -225,3 +225,6 @@
 
 */
 
+/datum/movespeed_modifier/human_carry
+	multiplicative_slowdown = HUMAN_CARRY_SLOWDOWN
+	blacklisted_movetypes = FLOATING

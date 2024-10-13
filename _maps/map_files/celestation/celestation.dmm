@@ -19835,7 +19835,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
-/obj/vehicle/ambulance{
+/obj/vehicle/ridden/ambulance{
 	dir = 4
 	},
 /obj/machinery/light,
@@ -25169,7 +25169,7 @@
 	dir = 8;
 	pixel_x = -28
 	},
-/obj/vehicle/janicart,
+/obj/vehicle/ridden/janicart,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "duG" = (
@@ -78220,7 +78220,7 @@
 	},
 /area/medical/research)
 "nHI" = (
-/obj/vehicle/janicart,
+/obj/vehicle/ridden/janicart,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "nHL" = (
@@ -79485,7 +79485,7 @@
 /area/maintenance/fsmaint2)
 "nVx" = (
 /obj/effect/turf_decal/delivery/red,
-/obj/vehicle/secway,
+/obj/vehicle/ridden/secway,
 /obj/structure/sign/poster/official/help_others{
 	pixel_y = 32
 	},
@@ -85874,7 +85874,7 @@
 /area/crew_quarters/captain)
 "pgx" = (
 /obj/effect/turf_decal/delivery/red,
-/obj/vehicle/secway,
+/obj/vehicle/ridden/secway,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -102947,7 +102947,7 @@
 /turf/simulated/floor/grass,
 /area/hallway/spacebridge/scidock)
 "syE" = (
-/obj/vehicle/ambulance{
+/obj/vehicle/ridden/ambulance{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/end{

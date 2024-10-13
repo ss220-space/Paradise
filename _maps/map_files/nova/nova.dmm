@@ -16049,7 +16049,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "con" = (
-/obj/vehicle/janicart{
+/obj/vehicle/ridden/janicart{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -49701,7 +49701,7 @@
 	color = "red";
 	dir = 1
 	},
-/obj/vehicle/secway,
+/obj/vehicle/ridden/secway,
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/security/securearmory)
 "hlN" = (
@@ -49793,7 +49793,7 @@
 /area/security/securearmory)
 "hmk" = (
 /obj/effect/decal/warning_stripes/northeastsouth,
-/obj/vehicle/ambulance{
+/obj/vehicle/ridden/ambulance{
 	dir = 4
 	},
 /obj/machinery/light{
@@ -159281,7 +159281,7 @@
 /area/hallway/secondary/entry/commercial)
 "xEE" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/vehicle/secway,
+/obj/vehicle/ridden/secway,
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/security/securearmory)
 "xEN" = (
