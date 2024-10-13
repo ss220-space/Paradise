@@ -286,7 +286,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		if(!do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You cut the hair from [src]."))
-		var/obj/item/stack/sheet/hairlesshide/hide = new(drop_location(), amount)
+		var/obj/item/stack/sheet/hairlesshide/hide = new(drop_location(), 3 * amount)
 		hide.add_fingerprint(user)
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL

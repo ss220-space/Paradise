@@ -89,7 +89,7 @@
 	item_state = "goliath_shield"
 	materials = list()
 	origin_tech = "materials=1;combat=3;biotech=2"
-	block_chance = 30
+	block_chance = 45
 	obj_integrity = 380
 	max_integrity = 380
 
