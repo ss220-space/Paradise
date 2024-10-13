@@ -610,6 +610,11 @@
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
 
+/// From /mob/add_language() (language_name)
+#define COMSIG_MOB_LANGUAGE_ADD		"mob_language_add"
+/// From /mob/remove_language() (language_name)
+#define COMSIG_MOB_LANGUAGE_REMOVE	"mob_language_remove"
+
 /// From base of /client/Move(): (new_loc, direction)
 #define COMSIG_MOB_CLIENT_PRE_MOVE "mob_client_pre_move"
 	/// Should always match COMPONENT_MOVABLE_BLOCK_PRE_MOVE as these are interchangeable and used to block movement.
