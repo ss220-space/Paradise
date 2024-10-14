@@ -649,10 +649,10 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
             data.contractor.available_offers > 0 ? (
               <i>[Left:{data.contractor.available_offers}]</i>
             ) : (
-              'Offer expired'
+              <i>[Offers are over]</i>
             )
           ) : (
-            'Предложение истекло'
+            'Offer expired'
           )
         }
         position="absolute"
