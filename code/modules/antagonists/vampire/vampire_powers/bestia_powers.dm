@@ -1891,9 +1891,6 @@
 	mob_size = MOB_SIZE_LARGE
 	nightvision = 8	// full night vision
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)	// we need oxygen only
-	minbodytemp = 0
-	maxbodytemp = 600	// better than human vampire but still dangerous
-	heat_damage_per_tick = 5 	// we are a vampire animal and high temperatures are pretty bad
 	AI_delay_max = 0 SECONDS
 	var/dead_for_sure = FALSE	// we need this to prevent death() proc to invoke nultiple times
 	var/datum/antagonist/vampire/vampire
@@ -1912,6 +1909,13 @@
 	if(meta_spell)
 		parent_spell = meta_spell
 
+/mob/living/simple_animal/hostile/vampire/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 600, \
+		minbodytemp = 0, \
+		heat_damage = 5, \
+	)
 
 /mob/living/simple_animal/hostile/vampire/Destroy()
 	vampire = null
@@ -2099,13 +2103,18 @@
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	obj_damage = 50
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)	// ultimate form, no need in oxy
-	maxbodytemp = 1200	// we are still a vampire
 	/// How many cycles will be skipped between blood cost apply.
 	var/life_cycles_skip = 2
 	var/life_cycles_current = 0
 	/// Needed to stop warnings spam on low blood.
 	var/warning_done = FALSE
 
+/mob/living/simple_animal/hostile/vampire/hound/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 1200, \
+	)
 
 /mob/living/simple_animal/hostile/vampire/hound/Initialize(mapload, datum/antagonist/vampire/vamp, mob/living/carbon/human/h_vampire, obj/effect/proc_holder/spell/vampire/metamorphosis/meta_spell)
 	. = ..()

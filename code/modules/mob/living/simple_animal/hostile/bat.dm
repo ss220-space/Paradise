@@ -26,7 +26,6 @@
 	taunt_chance = 20
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 
 //	break_stuff_probability = 2
 
@@ -44,6 +43,11 @@
 	. = ..()
 	AddElement(/datum/element/simple_flying)
 
+/mob/living/simple_animal/hostile/scarybat/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/scarybat/Found(var/atom/A)//This is here as a potential override to pick a specific target if available
 	if(istype(A) && A == owner)

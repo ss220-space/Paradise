@@ -5,6 +5,7 @@
 	desc = "A folded bag designed for the storage and transportation of cadavers."
 	icon = 'icons/obj/bodybag.dmi'
 	icon_state = "bodybag_folded"
+	item_state = "bodybag"
 	w_class = WEIGHT_CLASS_SMALL
 	///Stored path we use for spawning a new body bag entity when unfolded.
 	var/unfoldedbag_path = /obj/structure/closet/body_bag
@@ -162,6 +163,7 @@
 	name = "biohazard bodybag"
 	desc = "A folded bag designed for the storage and transportation of infected cadavers."
 	icon_state = "bodybag_biohazard_folded"
+	item_state = "bodybag_biohazard"
 	unfoldedbag_path = /obj/structure/closet/body_bag/biohazard
 
 /obj/structure/closet/body_bag/biohazard

@@ -55,9 +55,16 @@
     melee_damage_upper = 40
     can_hide = TRUE
     xenobiology_spawned = FALSE
-    heat_damage_per_tick = 0
     aggro_vision_range = 6
     damage_coeff = list("brute" = 1, "fire" = -0.1, "tox" = 0, "clone" = 0, "stamina" = 0, "oxy" = 0)
+
+/mob/living/simple_animal/hostile/killertomato/spacebotany/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 500, \
+		minbodytemp = 150, \
+		heat_damage = 0, \
+	)
 
 /mob/living/simple_animal/hostile/tree/palm
 

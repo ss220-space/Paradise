@@ -9,10 +9,15 @@
 	/// An assoc list of keys to /datum/strippable_item
 	var/list/items
 
+	/// A proc path that returns TRUE/FALSE if we should show the strip panel for this entity.
+	/// If it does not exist, the strip menu will always show.
+	/// Will be called with (mob/user).
+	var/should_strip_proc_path
+
 	/// An existing strip menus
 	var/list/strip_menus
 
-/datum/element/strippable/Attach(datum/target, list/items = list())
+/datum/element/strippable/Attach(datum/target, list/items = list(), should_strip_proc_path)
 	. = ..()
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
@@ -20,6 +25,7 @@
 	RegisterSignal(target, COMSIG_DO_MOB_STRIP, PROC_REF(mouse_drop_onto))
 
 	src.items = items
+	src.should_strip_proc_path = should_strip_proc_path
 
 /datum/element/strippable/Detach(datum/source)
 	. = ..()
@@ -37,6 +43,9 @@
 		return
 
 	if(over != user)
+		return
+
+	if(!isnull(should_strip_proc_path) && !call(source, should_strip_proc_path)(user))
 		return
 
 	var/datum/strip_menu/strip_menu = LAZYACCESS(strip_menus, source)
