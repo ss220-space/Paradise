@@ -189,7 +189,7 @@
 	GLOB.alive_mob_list -= brainmob//Get outta here
 	held_brain.brainmob = brainmob//Set the brain to use the brainmob
 	held_brain.brainmob.cancel_camera()
-	ADD_TRAIT(brainmob, TRAIT_NO_SPELLS, UNIQUE_TRAIT_SOURCE(src)) // Dont use spells, little brain.
+	REMOVE_TRAIT(brainmob, TRAIT_NO_SPELLS, UNIQUE_TRAIT_SOURCE(src))
 	brainmob = null//Set mmi brainmob var to null
 	held_brain.forceMove(dropspot)
 	held_brain = null
