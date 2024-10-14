@@ -306,7 +306,7 @@
 //Miner
 /datum/uplink_item/jobspecific/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
-	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity.
+	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity."
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 18 //you need two for full damage, so total of 8 for maximum damage
 	job = list(JOB_TITLE_MINER, JOB_TITLE_QUARTERMASTER)
@@ -373,7 +373,7 @@
 
 /datum/uplink_item/jobspecific/missionary_kit
 	name = "Missionary Starter Kit"
-	desc = "A box containing a missionary staff, missionary robes, and bible. The robes and staff can be linked to allow you to convert victims at range for a short time to do your bidding. The bible is for bible stuff.
+	desc = "A box containing a missionary staff, missionary robes, and bible. The robes and staff can be linked to allow you to convert victims at range for a short time to do your bidding. The bible is for bible stuff."
 	item = /obj/item/storage/box/syndie_kit/missionary_set
 	cost = 72
 	job = list(JOB_TITLE_CHAPLAIN)
@@ -1003,7 +1003,7 @@
 
 /datum/uplink_item/dangerous/foammachinegun
 	name = "Toy Machine Gun"
-	desc = "A fully-loaded Donksoft belt-fed machine gun. This weapon has a massive 50-round magazine of devastating riot grade darts, that can briefly incapacitate someone in just one volley.
+	desc = "A fully-loaded Donksoft belt-fed machine gun. This weapon has a massive 50-round magazine of devastating riot grade darts, that can briefly incapacitate someone in just one volley."
 	item = /obj/item/gun/projectile/automatic/l6_saw/toy
 	cost = 50
 	exclude_from_affiliate = list(AFFIL_TIGER)
