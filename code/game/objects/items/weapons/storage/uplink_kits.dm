@@ -368,7 +368,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/mr_chang_technique
 	name = "Mr. Chang's Aggressive Marketing Technique"
-	desc = "Специальная посылка, содержащая набор предметов, предназначенных для максимизации дохода. Продайте мне эту ручку."
+	desc = "Special delivery package that contains a set of items dedicated to maximize the income. Sell me that pen."
 	icon_state = "box_mr_chang"
 
 /obj/item/storage/box/syndie_kit/mr_chang_technique/populate_contents()
