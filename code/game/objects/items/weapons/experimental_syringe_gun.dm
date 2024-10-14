@@ -65,3 +65,4 @@
 				/obj/item/stock_parts/matter_bin = 1)
 	time = 300
 	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
