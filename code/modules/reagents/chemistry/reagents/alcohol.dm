@@ -2176,7 +2176,7 @@
 	alcohol_perc = 0.5
 	drink_icon = "blue_lagoon"
 	drink_name = "Blue Lagoon"
-	drink_desc = "Что может быть лучше, чем расслабиться на пляже с хорошим напитком?"
+	drink_desc = "What could be better than relaxing on the beach with a good drink?"
 	taste_description = "beach relaxation"
 
 /datum/reagent/consumable/ethanol/green_fairy
