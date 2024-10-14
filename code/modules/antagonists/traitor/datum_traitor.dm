@@ -118,7 +118,7 @@
 			return
 
 	for(var/i = objective_count, i < objective_amount)
-		forge_single_human_objective()
+		forge_single_objective()
 		i += 1
 
 	var/martyr_compatibility = TRUE //You can't succeed in stealing if you're dead.
