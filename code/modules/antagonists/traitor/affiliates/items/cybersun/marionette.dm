@@ -1,7 +1,8 @@
 
 /datum/action/innate/detach
 	var/mob/living/carbon/human/master_body = null
-	button_icon = 'icons/obj/affiliates.dmi'
+	name = "Вернуться в свое тело"
+	icon_icon = 'icons/obj/affiliates.dmi'
 	button_icon_state = "brain1"
 
 /datum/action/innate/cult/comm/Activate()
@@ -181,17 +182,22 @@
 	implant_state = "implant-syndicate"
 	origin_tech = "materials=2;biotech=4;syndicate=2"
 	activated = BIOCHIP_ACTIVATED_ACTIVE
+	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
 	implant_data = /datum/implant_fluff/mar_master
 	var/list/obj/item/implant/marionette/connected_imps = list()
 	var/obj/item/implant/marionette/cur_connection = null
 
 /obj/item/implant/mar_master/removed(mob/living/carbon/human/source)
-	. = ..()
 	cur_connection?.detach()
+	. = ..()
+
+/obj/item/implant/mar_master/death_trigger(mob/source, gibbed)
+	cur_connection?.detach()
+	. = ..()
 
 /obj/item/implant/mar_master/Destroy()
-	. = ..()
 	cur_connection?.detach()
+	. = ..()
 
 /obj/item/implant/mar_master/activate()
 	var/op = tgui_alert(imp_in, "Выберите операцию.", "Выбор операции", list("Подключение импланта", "Контроль"))
