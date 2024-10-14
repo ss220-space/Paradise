@@ -83,7 +83,7 @@
 		else
 			. += span_notice("You have to go closer if you want to read it.")
 	else
-		. += span_notice("Вы не умеете читать.")
+		. += span_notice("You don't know how to read.")
 
 
 /obj/item/paper/proc/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE)
