@@ -64,14 +64,14 @@
 	var/modifier
 
 /datum/status_effect/fang_exhaust/on_creation(mob/living/simple_animal/new_owner, modifier = 1.1)
+	src.modifier = modifier
 	. = ..()
+
 	if(!.)
 		return FALSE
 
 	if(!istype(new_owner))
 		return FALSE
-
-	src.modifier = modifier
 
 /datum/status_effect/fang_exhaust/on_apply()
 	var/mob/living/simple_animal/new_owner = owner
