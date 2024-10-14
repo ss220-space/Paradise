@@ -445,3 +445,23 @@ GLOBAL_LIST_EMPTY(antagonists)
  */
 /datum/antagonist/proc/roundend_report_footer()
 	return
+
+/**
+ * Create and assign a single randomized objective.
+ */
+/datum/antagonist/proc/forge_single_human_objective()
+	if(prob(50))
+		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
+			add_objective(/datum/objective/destroy)
+
+		else if(prob(5))
+			add_objective(/datum/objective/debrain)
+
+		else if(prob(20))
+			add_objective(/datum/objective/protect)
+
+		else
+			add_objective(/datum/objective/maroon)
+
+	else
+		add_objective(/datum/objective/steal)

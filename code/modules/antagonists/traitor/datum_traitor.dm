@@ -185,27 +185,6 @@
 
 
 /**
- * Create and assign a single randomized traitor objective.
- */
-/datum/antagonist/traitor/proc/forge_single_human_objective()
-	if(prob(50))
-		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
-			add_objective(/datum/objective/destroy)
-
-		else if(prob(5))
-			add_objective(/datum/objective/debrain)
-
-		else if(prob(20))
-			add_objective(/datum/objective/protect)
-
-		else
-			add_objective(/datum/objective/maroon)
-
-	else
-		add_objective(/datum/objective/steal)
-
-
-/**
  * Give traitors their uplink. Play the traitor an alert sound.
  */
 /datum/antagonist/traitor/finalize_antag()
