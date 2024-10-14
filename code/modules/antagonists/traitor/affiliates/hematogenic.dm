@@ -24,3 +24,16 @@
 /datum/affiliate/hematogenic/get_weight(mob/living/carbon/human/H)
 	return (!ismachineperson(H) && H.mind?.assigned_role != JOB_TITLE_CHAPLAIN) * 2
 
+/datum/affiliate/hematogenic/give_default_objective()
+	if(prob(60))
+		if(prob(5))
+			traitor.add_objective(/datum/objective/debrain)
+
+		else if(prob(10))
+			traitor.add_objective(/datum/objective/protect)
+
+		else
+			traitor.add_objective(/datum/objective/maroon)
+
+	else
+		traitor.add_objective(/datum/objective/steal)

@@ -21,6 +21,8 @@
 	var/slogan
 	/// Number of normal objectives
 	var/normal_objectives = 0
+	/// Traitor datum that owns src
+	var/datum/antagonist/traitor/traitor
 
 /// If your affiliate need special effects, it is place for them
 /datum/affiliate/proc/finalize_affiliate(datum/mind/owner)
@@ -43,7 +45,7 @@
 		return
 
 	for(var/i = 1; i <= normal_objectives; ++i)
-		traitor.forge_single_human_objective()
+		give_default_objective()
 
 	for(var/objective in objectives)
 		var/datum/objective/new_objective
@@ -65,10 +67,8 @@
 	if(!can_take_bonus_objectives)
 		return
 
-	var/datum/antagonist/traitor/traitor = mind?.has_antag_datum(/datum/antagonist/traitor)
-
-	traitor.forge_single_human_objective()
-	traitor.forge_single_human_objective()
+	give_default_objective()
+	give_default_objective()
 
 /obj/effect/proc_holder/spell/choose_affiliate
 	name = "Choose Affiliate"
@@ -127,6 +127,7 @@
 	var/datum/antagonist/traitor/traitor = mind.has_antag_datum(/datum/antagonist/traitor)
 	if(!traitor)
 		return
+	affiliate.traitor = traitor
 	give_uplink()
 	affiliate.give_objectives(mind)
 	show_objectives(mind)
@@ -159,3 +160,6 @@
 	new_item.name += " ([round((1-(cost_part))*100)]% скидка!)"
 	new_item.category = "Скидки"
 	uplink.uplink_items.Add(new_item)
+
+/datum/affiliate/proc/give_default_objective()
+	traitor.forge_single_human_objective()

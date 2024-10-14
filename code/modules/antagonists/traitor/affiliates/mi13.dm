@@ -36,3 +36,22 @@
 	traitor.add_objective(/datum/objective/steal)
 	traitor.add_objective(/datum/objective/steal)
 
+/datum/affiliate/mi13/give_default_objective()
+	if(prob(40))
+		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
+			traitor.add_objective(/datum/objective/destroy)
+
+		else if(prob(5))
+			traitor.add_objective(/datum/objective/debrain)
+
+		else if(prob(10))
+			traitor.add_objective(/datum/objective/protect)
+
+		else if(prob(5))
+			traitor.add_objective(/datum/objective/steal/documents)
+
+		else
+			traitor.add_objective(/datum/objective/maroon)
+
+	else
+		traitor.add_objective(/datum/objective/steal)

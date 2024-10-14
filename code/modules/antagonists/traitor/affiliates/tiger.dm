@@ -24,3 +24,19 @@
 	add_discount_item(/datum/uplink_item/implants/adrenal, 0.75)
 	add_discount_item(/datum/uplink_item/implants/adrenal/prototype, 0.5)
 
+/datum/affiliate/tiger/give_default_objective()
+	if(prob(65))
+		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
+			traitor.add_objective(/datum/objective/destroy)
+
+		else if(prob(5))
+			traitor.add_objective(/datum/objective/debrain)
+
+		else if(prob(15))
+			traitor.add_objective(/datum/objective/protect)
+
+		else
+			traitor.add_objective(/datum/objective/maroon)
+
+	else
+		traitor.add_objective(/datum/objective/steal)
