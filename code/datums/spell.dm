@@ -397,7 +397,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/try_perform(list/targets, mob/user)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	if(!length(targets))
-		to_chat(user, span_warning("Подходящих целей не найдено."))
+		to_chat(user, span_warning("No suitable target found."))
 		return FALSE
 
 	if(should_remove_click_intercept(user)) // returns TRUE by default

@@ -142,8 +142,5 @@
 /obj/item/storage/box/syndie_kit/spy_bugs_kit/populate_contents()
 	var/network = "MI13_[rand(111111, 999999)]"
 	new /obj/item/camera_bug/spy_monitor(src, list(network))
-	new /obj/item/spy_bug(src, list(network), "1")
-	new /obj/item/spy_bug(src, list(network), "2")
-	new /obj/item/spy_bug(src, list(network), "3")
-	new /obj/item/spy_bug(src, list(network), "4")
-	new /obj/item/spy_bug(src, list(network), "5")
+	for(var/i = 1; i <= 5; ++i)
+		new /obj/item/spy_bug(src, list(network), "[i]")
