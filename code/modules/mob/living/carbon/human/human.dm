@@ -258,6 +258,11 @@
 		status_tab_data[++status_tab_data.len] = list("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
 		status_tab_data[++status_tab_data.len] = list("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
 
+	var/obj/item/implant/marionette/imp = locate(/obj/item/implant/marionette) in src
+	if (imp && imp.controlling)
+		status_tab_data[++status_tab_data.len] = list("Заряд импланта Марионетки","[imp.charge]/[imp.max_charge]")
+		status_tab_data[++status_tab_data.len] = list("Расстояние до основного тела","[get_dist(src, imp.mar_master)]/[imp.max_dist]")
+
 ///Define used for calculating explosve damage and effects upon humanoids. Result is >= 0
 #define ex_armor_reduction(value, armor) (clamp(value * (1 - (armor / 100)), 0, INFINITY))
 
