@@ -14,12 +14,13 @@
 	implant_state = "implant-syndicate"
 	origin_tech = "programming=5;biotech=5;syndicate=3"
 	activated = BIOCHIP_ACTIVATED_PASSIVE
+	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
 	implant_data = /datum/implant_fluff/marionette
 	var/mob/living/captive_brain/host_brain
 	var/code
 	var/controlling = FALSE
-	var/charge = 3 MINUTES
-	var/max_charge = 3 MINUTES
+	var/charge = 180
+	var/max_charge = 180
 	var/mob/living/carbon/human/mar_master = null
 	var/obj/item/implant/mar_master/master_imp = null
 	var/datum/action/innate/detach/detach_action = new
@@ -46,15 +47,18 @@
 	detach()
 	. = ..()
 
+/obj/item/implant/marionette/death_trigger(mob/source, gibbed)
+	mar_master?.adjustBrainLoss(rand(5, 15))
+	mar_master?.emote("scream")
+	mar_master?.Knockdown(3 SECONDS)
+	detach()
+	. = ..()
+
 /obj/item/implant/marionette/Destroy()
 	. = ..()
 	STOP_PROCESSING(SSprocessing, src)
 
 /obj/item/implant/marionette/process(seconds_per_tick)
-	if(QDELETED(imp_in))
-		qdel(src)
-		return
-
 	if (get_dist(imp_in, mar_master) > max_dist)
 		detach()
 		mar_master.balloon_alert(mar_master, "марионетка слишком далеко")
@@ -178,7 +182,7 @@
 	origin_tech = "materials=2;biotech=4;syndicate=2"
 	activated = BIOCHIP_ACTIVATED_ACTIVE
 	implant_data = /datum/implant_fluff/mar_master
-	var/list/obj/item/implant/marionette/connected_imps
+	var/list/obj/item/implant/marionette/connected_imps = list()
 	var/obj/item/implant/marionette/cur_connection = null
 
 /obj/item/implant/mar_master/removed(mob/living/carbon/human/source)
@@ -195,20 +199,26 @@
 		return
 
 	if(op == "Подключение импланта")
-		var/code = tgui_input_number(imp_in, "Укажите код подключаемого импланта.", "Подключение импланта")
+		var/code = tgui_input_number(imp_in, "Укажите код подключаемого импланта.", "Подключение импланта", 0, 999999, 111111)
 		if(!code)
+			imp_in.balloon_alert(imp_in, "имплант не найден")
 			return
 
 		var/found = FALSE
-		for (var/mob/M in GLOB.mob_list)
+		for (var/mob/M in GLOB.human_list)
 			var/obj/item/implant/marionette/imp = locate(/obj/item/implant/marionette) in M
-			if(imp.code == code)
+
+			if (imp in connected_imps)
+				imp_in.balloon_alert(imp_in, "уже подключен")
+				return
+
+			if(imp?.code == code)
 				connected_imps += imp
 				imp_in.balloon_alert(imp_in, "имплант подключен")
 				found = TRUE
 
 		if(!found)
-			imp_in.balloon_alert(imp_in, "неверный код")
+			imp_in.balloon_alert(imp_in, "имплант не найден")
 
 		return
 
@@ -216,7 +226,7 @@
 		var/list/marionettes = list()
 		for (var/obj/item/implant/marionette/imp in connected_imps)
 			var/mob/M = imp.imp_in
-			if (M)
+			if (M && M.stat != DEAD)
 				marionettes[M.real_name] = imp
 
 		var/choosen = input(imp_in, "Выберите к кому вы хотите подключиться.", "Подключение", null) as null|anything in marionettes
@@ -254,4 +264,5 @@
 	var/obj/item/implant/marionette/imp = implanter.imp
 	var/obj/item/paper/P = new /obj/item/paper(src)
 	P.info = "Код импланта: [imp.code]<br>\
-				Необходим для подключения импланта к импланту \"Мастер марионеток\""
+				Необходим для подключения импланта к импланту \"Мастер марионеток\"<br>\
+				Имплант можно подключить только когда он уже находится в марионетке."

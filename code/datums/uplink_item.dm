@@ -2669,7 +2669,7 @@
 	desc = "Высокотехнологичный имплант, позволяющий владельцам парных имплантов временно захватывать контроль над \
 			телом. Время контроля и радиус контроля повышаются по мере установки новых аналогичных имплантов. \
 			Часто используется на не обладающих разумом целях."
-	item = /obj/item/implanter/marionette
+	item = /obj/item/storage/box/syndie_kit/marionette
 	cost = 10
 
 /datum/uplink_item/affiliate/for_objective/proprietary_ssd
