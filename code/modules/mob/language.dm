@@ -257,6 +257,53 @@
 	flags = RESTRICTED
 	syllables = list("qr","qrr","xuq","qil","quum","xuqm","vol","xrim","zaoo","qu-uu","qix","qoo","zix","*","!")
 
+/datum/language/skrell/get_random_name() // Name generator authors: @saichi23 & @cadavrik
+	var/full_name = ""
+
+	// Now I love making list in list in list in list in list
+	var/list/ru_name_syllables = list(
+		list( // list 1
+			list("заоо","зао","зикс","зо","йуо","кью","кьюм","кси","ксу","квум","кву", // sublist1
+				"кви","квей","квиш","куу","кюан","киэн","ку","кил","лиа","люик","луи",
+				"рио","сейу","тсой","уль","улур","урр","ур","цу","эль","эо","эу"),
+
+			list("аг","вум","вул","вол","гли","зи","заоо","зао","зикс","зуо","зук","зуво", // sublist2
+				"икс","илл","ис","йук","кву","квум","куум","куо","куа","куак","кул","квол",
+				"кью","кьюа","кэ","кин","кии","кс","ки","киу","кос","лоа","лак","лум","лик",
+				"лии","ллак","мзикс","мвол","ори","ору","орр","ррум","ру","руум","руа","рл",
+				"сэк","су","сиа","тейе","тейку","тсу","туа","туи","ту","тал","уат","уок","урр",
+				"уоо","уо","уик","уии","уэк","эйкс","эль","эрр","эй","эйс","о","у","а","з","э","м","к","с","р"),
+		),
+
+		list( // list 2
+			list("заоо","зао","зо","йуо","лиа","луи","рио","сейу","эо"), // sublist1
+
+			list("вум","вул","вол","гли","зи","заоо","зао","зикс","зуо","зук","зуво", // sublist2
+				"йук","кву","квум","куум","куо","куа","куак","кул","квол","кью","кьюа",
+				"кэ","кин","кии","кс","ки","киу","кос","лоа","лак","лум","лик","лии","ллак",
+				"мзикс","мвол","ррум","ру","руум","руа","рл","сэк","су","сиа","тейе","тейку",
+				"тсу","туа","туи","ту","тал","з","м","к","с","р"),
+		),
+	)
+
+	for(var/i=0, i<2; i++) // First and second names, making from 2-3 syllables each
+		var/apostrophe = "'"
+		var/new_name = ""
+		var/list/using_syllables_list = pick(ru_name_syllables) // We use only one list for the first name and one list for the second name, without mixing syllables sublists between lists
+
+		new_name += pick(using_syllables_list[1]) // The first syllable is only from the first sublist
+
+		for(var/additional_syllables = pick(1,2), additional_syllables>0, additional_syllables--) // Additional 1-2 syllables, taken from sublist2
+			if(prob(50))
+				new_name += apostrophe
+				apostrophe = "" // Adding "'", but only once for first and second names
+
+			new_name += pick(using_syllables_list[2])
+
+		full_name += " [capitalize(new_name)]"
+
+	return "[trim(full_name)]"
+
 /datum/language/vox
 	name = "Vox-pidgin"
 	desc = "The common tongue of the various Vox ships making up the Shoal. It sounds like chaotic shrieking to everyone else."
