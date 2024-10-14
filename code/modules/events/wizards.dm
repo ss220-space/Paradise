@@ -1,6 +1,6 @@
 #define MINIMUM_CREW_REQ 10
 #define CREW_REQUIREMENT 30
-GLOBAL_VAR_INIT(wizard_event_triggered, 0)
+GLOBAL_VAR_INIT(wizard_events_triggered, 0)
 /datum/event/space_wizards
 	name = "Рейд ФКВ"
 	var/mages_made
