@@ -34,6 +34,13 @@
 	set_antag_hud(owner.current, "hudaffilgorlex")
 
 /datum/affiliate/gorlex/get_weight(mob/living/carbon/human/H)
+	var/gorlexes = 0
+	for (var/datum/antagonist/traitor/traitor in GLOB.antagonists)
+		gorlexes += traitor?.affiliate?.type == /datum/affiliate/gorlex
+
+	if (gorlexes > 2)
+		return 0
+
 	switch (H.dna.species.type)
 		if(/datum/species/human)
 			return 1
@@ -41,6 +48,7 @@
 			return 0.2
 		if(/datum/species/slime)
 			return 0.2
+
 	return 0
 
 /datum/affiliate/gorlex/give_bonus_objectives(datum/mind/mind)

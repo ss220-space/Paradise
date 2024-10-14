@@ -8,13 +8,12 @@
 					"Обменяться секретными документами с другим агентом",
 					"Выглядеть стильно")
 	slogan = "Да, я Бонд. Джеймс Бонд."
-	normal_objectives = 2
+	normal_objectives = 3
 	objectives = list(
 //					/datum/objective/steal/documents,
 //					list(/datum/objective/steal = 30, /datum/objective/maroon/blueshield = 70), // blueshield also has CQC.
 					/datum/objective/maroon/agent,
 					/datum/objective/maroon/agent,
-					/datum/objective/steal,
 					/datum/objective/escape
 					)
 

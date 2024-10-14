@@ -2786,7 +2786,7 @@
 	desc = "Имплант разработанный на основе регенеративного стазиса генокрадов, позволяющий единоразово воскреснуть. \
 			Поставляется в автоимплантере."
 	item = /obj/item/implanter/cling_rejuv
-	cost = 49
+	cost = 38
 
 /datum/uplink_item/affiliate/for_objective/cling_extract
 	name = "Инжектор с яйцом генокрада"

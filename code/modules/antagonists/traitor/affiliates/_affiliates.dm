@@ -120,10 +120,13 @@
 			Спасибо что выбрали Gorlex Maraduers.\n\
 			Слава синдикату!"))
 			sleep(20 MINUTES - SSticker.round_start_time)
+			if (!istype(affiliate, /datum/affiliate/gorlex))
+				return
 
 	var/datum/antagonist/traitor/traitor = mind.has_antag_datum(/datum/antagonist/traitor)
 	if(!traitor)
 		return
+
 	affiliate.traitor = traitor
 	give_uplink()
 	affiliate.give_objectives(mind)
