@@ -5,7 +5,7 @@
 /obj/machinery/camera/emp_proof/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(new_assembly))
-	. = ..(mapload, network, c_tag, input_assembly = new_assembly)
+	. = ..(mapload, network, c_tag, new_assembly)
 // X-RAY
 
 
