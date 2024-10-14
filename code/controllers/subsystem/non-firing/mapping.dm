@@ -69,8 +69,6 @@ SUBSYSTEM_DEF(mapping)
 		var/F = file("data/next_map.txt")
 		F << next_map.type
 
-	var/played_map = file("data/played_map.txt")
-	played_map << map_datum.type
 
 /datum/controller/subsystem/mapping/proc/convert_map_datums()
 	var/list/map_subtypes = subtypesof(/datum/map)
