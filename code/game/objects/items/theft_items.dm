@@ -77,7 +77,7 @@
 /obj/item/nuke_core_container/examine(mob/user)
 	. = ..()
 	if(cracked) // Cracked open.
-		. += span_warning("Он сломан и больше не может безопасно хранить предметы.")
+		. += span_warning("It is broken, and can no longer store objects safely.")
 	else if(dented) // Not cracked, but dented.
 		. += span_notice("[src] looks dented. Perhaps a bigger explosion may break it.")
 	else // Not cracked or dented.
