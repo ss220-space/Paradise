@@ -31,221 +31,8 @@ const PickTab = (index) => {
       return <CartPage />;
     case 2:
       return <ExploitableInfoPage />;
-    case 3:
-      return <AffiliatesInfoPage />;
     default:
-      return 'ЧТО-ТО ПОШЛО НЕ ПО ПЛАНУ! НАПИШИТЕ АДМИНАМ';
-  }
-};
-
-const getAffiliateInfo = (affiliate) => {
-  switch (affiliate) {
-    case 'Cybersun Industries':
-      return (
-        <Box mx="0.5rem" mb="0.5rem">
-          Cybersun Industries - одна из ведущих корпораций, представляющая
-          второй по мощи исследовательский центр в этой части вселенной.
-          <br />
-          Из за крайне жестокой корпоративной политики прибегает к не самым
-          этичным методам ведения дел, которые и позволили уничтожить или
-          поглотить меньшие исследовательские корпорации.
-          <br />
-          Предположительно, находится во главе Синдиката, либо занимает там
-          лидирующее положение.
-          <br />
-          Основным противником Cybersun Industries является NanoTrasen.
-          <br />
-          Целью Cybersun Industries является полное разделение и поглощение
-          NanoTrasen.
-          <br />
-          Корпоративный слоган:
-          <br /> - «Сложно быть во всём лучшими, но у нас получается.»
-          <br /> - Генеральный Директор CI
-          <br />
-          Союзники:
-          <br />
-          Gorlex Marauders
-          <br />
-          MI13
-          <br />
-          Враги:
-          <br />
-          NanoTrasen
-          <br />
-          SELF
-        </Box>
-      );
-    case 'Gorlex Maraduers':
-      return (
-        <Box mx="0.5rem" mb="0.5rem">
-          Gorlex Maraduers - одна из самых опасных террористических группировок
-          за всю историю галактики и человечества.
-          <br />
-          Среди остальных они известны как разорители, а в обществе считаются
-          чудовищами и маньяками, которые готовы за пару кредитов убить родную
-          семью.
-          <br />
-          Является главной причиной огромных затрат NanoTrasen на охрану
-          собственных объектов.
-          <br />
-          Gorlex занимается в заказными убийствами, налётами, рейдами и
-          террористическими актами.
-          <br />
-          Ответственны за подготовку всех подразделений Группы Атом, кроме
-          команд саботажа.
-          <br />
-          Известны по всей галактике, а их рейды снабжают технологиями и
-          финансами весь Syndicate.
-          <br />
-          Gorlex Maraduers обычно набирает в свои ряды людей.
-          <br />
-          Корпоративный слоган:
-          <br /> - «Давайте, вошли и вышли, приключение на 20 минут»
-          <br /> - Gorlex Marauder’s team Leader #1
-          <br />
-          Союзники:
-          <br />
-          Cybersun Industries
-          <br />
-          Враги:
-          <br />
-          NanoTrasen
-          <br />
-          MI13
-          <br />
-          Tiger Cooperative
-          <br />
-          SELF
-          <br />
-          Hematogenic Industries
-        </Box>
-      );
-    case 'MI13':
-      return (
-        <Box mx="0.5rem" mb="0.5rem">
-          MI13 - глаза и уши синдиката, именно с их помощью синдикат получает
-          самую свежую секретную информацию.
-          <br />
-          Агенты MI13 обычно не действуют открыто. Многие замечают, что они
-          подражают структуре секретных агентств 20 века.
-          <br />
-          Являются разработчиками разнообразного оборудования для скрытого
-          внедрения.
-          <br />
-          Организации удается сохранять полную секретность в своих отношениях с
-          Синдикатом, из-за чего даже получение основных фактов о них становится
-          практически невозможным.
-          <br />
-          Корпоративный слоган:
-          <br /> - «Да, я Бонд. Джеймс Бонд»
-          <br /> - Позор Корпорации, Агент которого все знают
-          <br />
-          Союзники:
-          <br />
-          Cybersun Industries
-          <br />
-          Hematogenic Industries
-          <br />
-          Враги:
-          <br />
-          NanoTrasen
-          <br />
-          MI13
-          <br />
-          Gorlex Marauders
-        </Box>
-      );
-    case 'Tiger Cooperative':
-      return (
-        <Box mx="0.5rem" mb="0.5rem">
-          Tiger Cooperative - группа религиозных фундаменталистов, поклоняющихся
-          генокрадам.
-          <br />
-          Члены Tiger Cooperative столь же неуравновешенны, сколь и опасны.
-          <br />
-          Высшей благодатью для всех членов Tiger Cooperatived является
-          поглощение их тела генокрадом и становления чем-то… Большим…
-          <br />
-          Члены Tiger Cooperative часто злоупотребляют мощными наркотиками.
-          <br />
-          Их связь с Синдикатом слаба. Многие в организации не хотели бы иметь
-          ничего общего с Tiger Cooperative, но совет директоров Cybersun
-          Industries отметил важную причину иметь дело с Tiger Cooperative — их
-          связь с генокрадами.
-          <br />
-          Корпоративный слоган:
-          <br /> - «Душой и телом, с беспределом»
-          <br /> - Какой-то культист с Энерго мечом
-          <br />
-          Союзники:
-          <br />
-          Враги:
-          <br />
-          NanoTrasen
-          <br />
-          Gorlex Marauders
-        </Box>
-      );
-    case 'SELF':
-      return (
-        <Box mx="0.5rem" mb="0.5rem">
-          SELF - Известный общественный фонд земли, выступающий за свободу
-          синтетиков.
-          <br />В синдикате у SELF крайне натянутые отношения с главными
-          спонсорами, из-за чего агентам SELF приходится идти на крайние меры
-          для реализации своих задумок.
-          <br />
-          Корпоративный слоган:
-          <br /> - «Мы не придумали»
-          <br /> - ВрИО менеджера по логистике
-          <br />
-          Союзники:
-          <br />
-          Враги:
-          <br />
-          NanoTrasen
-          <br />
-          Cybersun Industries
-          <br />
-          Gorlex Marauders
-          <br />
-          MI13
-        </Box>
-      );
-    case 'Hematogenic Industries':
-      return (
-        <Box mx="0.5rem" mb="0.5rem">
-          Hematogenic Industries – всемирно известная фармацевтическая
-          мегакорпорация.
-          <br />
-          Eё открытия и продукция в области медицины спасают сотни жизней по
-          всей Галактике
-          <br />
-          Являются создателями Синтетической плоти, патент на создание которой,
-          арендовало NanoTrasen.
-          <br />
-          Являются экспортерами Оксигениса и Нитрогениса.
-          <br />
-          Hematogenic Industries мелькала в большом количестве скандалов
-          связанных с Гематофагами и пропажей нанятых Воксов.
-          <br />
-          Корпоративный слоган:
-          <br /> - «Мы тоже не придумали»
-          <br /> - Подозрительный бледный человек в плаще.
-          <br />
-          Союзники:
-          <br />
-          MI13
-          <br />
-          Враги:
-          <br />
-          NanoTrasen
-          <br />
-          Gorlex Marauders
-        </Box>
-      );
-    default:
-      return 'Информации об этом подрядчике нет в базе данных.';
+      return 'SOMETHING WENT VERY WRONG PLEASE AHELP';
   }
 };
 
@@ -272,7 +59,7 @@ export const Uplink = (props, context) => {
                 }}
                 icon="store"
               >
-                Посмотреть магазин
+                View Market
               </Tabs.Tab>
               <Tabs.Tab
                 key="Cart"
@@ -283,7 +70,7 @@ export const Uplink = (props, context) => {
                 }}
                 icon="shopping-cart"
               >
-                Просмотреть корзину{' '}
+                View Shopping Cart{' '}
                 {cart && cart.length ? '(' + cart.length + ')' : ''}
               </Tabs.Tab>
               <Tabs.Tab
@@ -295,7 +82,7 @@ export const Uplink = (props, context) => {
                 }}
                 icon="user"
               >
-                Информация о экипаже
+                Exploitable Information
               </Tabs.Tab>
 
               {!!data.can_get_intelligence_data && (
@@ -320,21 +107,19 @@ export const Uplink = (props, context) => {
                   onClick={() => modalOpen(context, 'become_contractor')}
                   icon="suitcase"
                 >
-                  Возможность заключить контракт
+                  Contracting Opportunity
                   {!data.contractor.is_admin_forced &&
                   !data.contractor.accepted ? (
                     data.contractor.available_offers > 0 ? (
-                      <i>
-                        [Осталось вакансий:{data.contractor.available_offers}]
-                      </i>
+                      <i>[Left:{data.contractor.available_offers}]</i>
                     ) : (
-                      <i>[Все вакансии заняты]</i>
+                      <i>[Offers over]</i>
                     )
                   ) : (
                     ''
                   )}
                   {data.contractor.accepted ? (
-                    <i>&nbsp;(Принято)</i>
+                    <i>&nbsp;(Accepted)</i>
                   ) : !data.contractor.is_admin_forced &&
                     data.contractor.available_offers <= 0 ? (
                     ''
@@ -365,7 +150,7 @@ export const Uplink = (props, context) => {
                 onClick={() => act('lock')}
                 icon="lock"
               >
-                Заблокировать Аплинк
+                Lock Uplink
               </Tabs.Tab>
             </Tabs>
           </Stack.Item>
@@ -415,21 +200,21 @@ const ItemsPage = (_properties, context) => {
       <Stack vertical>
         <Stack.Item>
           <Section
-            title={'Текущий баланс: ' + crystals + 'TC'}
+            title={'Current Balance: ' + crystals + 'TC'}
             buttons={
               <>
                 <Button.Checkbox
-                  content="Показывать описания"
+                  content="Show Descriptions"
                   checked={showDesc}
                   onClick={() => setShowDesc(!showDesc)}
                 />
                 <Button
-                  content="Случайный товар"
+                  content="Random Item"
                   icon="question"
                   onClick={() => act('buyRandom')}
                 />
                 <Button
-                  content="Возврат товара"
+                  content="Refund Currently Held Item"
                   icon="undo"
                   onClick={() => act('refund')}
                 />
@@ -438,7 +223,7 @@ const ItemsPage = (_properties, context) => {
           >
             <Input
               fluid
-              placeholder="Поиск экипировки"
+              placeholder="Search Equipment"
               onInput={(e, value) => {
                 handleSearch(value);
               }}
@@ -502,22 +287,22 @@ const CartPage = (_properties, context) => {
         <Section
           fill
           scrollable
-          title={'Текущий баланс: ' + crystals + 'TC'}
+          title={'Current Balance: ' + crystals + 'TC'}
           buttons={
             <>
               <Button.Checkbox
-                content="Показывать описания"
+                content="Show Descriptions"
                 checked={showDesc}
                 onClick={() => setShowDesc(!showDesc)}
               />
               <Button
-                content="Очистить корзину"
+                content="Empty Cart"
                 icon="trash"
                 onClick={() => act('empty_cart')}
                 disabled={!cart}
               />
               <Button
-                content={'Корзина (' + cart_price + 'TC)'}
+                content={'Purchase Cart (' + cart_price + 'TC)'}
                 icon="shopping-cart"
                 onClick={() => act('purchase_cart')}
                 disabled={!cart || cart_price > crystals}
@@ -542,7 +327,7 @@ const CartPage = (_properties, context) => {
                 </Stack.Item>
               ))
             ) : (
-              <Box italic>Корзина пуста</Box>
+              <Box italic>Your Shopping Cart is empty!</Box>
             )}
           </Stack>
         </Section>
@@ -560,11 +345,11 @@ const Advert = (_properties, context) => {
       <Section
         fill
         scrollable
-        title="Рекомендуемые товары"
+        title="Suggested Purchases"
         buttons={
           <Button
             icon="dice"
-            content="Больше вариантов"
+            content="See more suggestions"
             onClick={() => act('shuffle_lucky_numbers')}
           />
         }
@@ -619,7 +404,7 @@ const UplinkItemButtons = (props, context) => {
       <Button
         icon="shopping-cart"
         color={i.hijack_only === 1 && 'red'}
-        tooltip="Добавить в корзину."
+        tooltip="Add to cart."
         tooltipPosition="left"
         onClick={() =>
           act('add_to_cart', {
@@ -630,11 +415,11 @@ const UplinkItemButtons = (props, context) => {
       />
       <Button
         content={
-          'Купить (' + i.cost + 'TC)' + (i.refundable ? ' [Можно вернуть]' : '')
+          'Buy (' + i.cost + 'TC)' + (i.refundable ? ' [Refundable]' : '')
         }
         color={i.hijack_only === 1 && 'red'}
         // Yes I care this much about both of these being able to render at the same time
-        tooltip={i.hijack_only === 1 && 'Только при наличии серьезных целей!'}
+        tooltip={i.hijack_only === 1 && 'Hijack Agents Only!'}
         tooltipPosition="left"
         onClick={() =>
           act('buyItem', {
@@ -657,7 +442,7 @@ const CartButtons = (props, context) => {
       <Button
         icon="times"
         content={'(' + i.cost * i.amount + 'TC)'}
-        tooltip="Убрать из корзины."
+        tooltip="Remove from cart."
         tooltipPosition="left"
         onClick={() =>
           act('remove_from_cart', {
@@ -667,7 +452,7 @@ const CartButtons = (props, context) => {
       />
       <Button
         icon="minus"
-        tooltip={i.limit === 0 && 'Скидка уже использована!'}
+        tooltip={i.limit === 0 && 'Discount already redeemed!'}
         ml="5px"
         onClick={() =>
           act('set_cart_item_quantity', {
@@ -681,7 +466,7 @@ const CartButtons = (props, context) => {
         content={i.amount}
         width="45px"
         tooltipPosition="bottom-end"
-        tooltip={i.limit === 0 && 'Скидка уже использована!'}
+        tooltip={i.limit === 0 && 'Discount already redeemed!'}
         onCommit={(e, value) =>
           act('set_cart_item_quantity', {
             item: i.obj_path,
@@ -694,7 +479,7 @@ const CartButtons = (props, context) => {
         mb={0.3}
         icon="plus"
         tooltipPosition="bottom-start"
-        tooltip={i.limit === 0 && 'Скидка уже использована!'}
+        tooltip={i.limit === 0 && 'Discount already redeemed!'}
         onClick={() =>
           act('set_cart_item_quantity', {
             item: i.obj_path,
@@ -735,14 +520,14 @@ const ExploitableInfoPage = (_properties, context) => {
   const crew = SelectMembers(exploitable, searchText);
 
   return (
-    <Section fill title="Полезная информация">
+    <Section fill title="Exploitable Records">
       <Stack fill>
         <Stack.Item width="30%" fill>
           <Section fill scrollable>
             <Input
               fluid
               mb={1}
-              placeholder="Найти члена экипажа"
+              placeholder="Search Crew"
               onInput={(e, value) => setSearchText(value)}
             />
             <Tabs vertical>
@@ -762,39 +547,28 @@ const ExploitableInfoPage = (_properties, context) => {
         <Stack.Item grow>
           <Section fill title={selectedRecord.name} scrollable>
             <LabeledList>
-              <LabeledList.Item label="Возраст">
+              <LabeledList.Item label="Age">
                 {selectedRecord.age}
               </LabeledList.Item>
-              <LabeledList.Item label="Отпечатки пальцев">
+              <LabeledList.Item label="Fingerprint">
                 {selectedRecord.fingerprint}
               </LabeledList.Item>
-              <LabeledList.Item label="Профессия">
+              <LabeledList.Item label="Rank">
                 {selectedRecord.rank}
               </LabeledList.Item>
-              <LabeledList.Item label="Пол">
+              <LabeledList.Item label="Sex">
                 {selectedRecord.sex}
               </LabeledList.Item>
-              <LabeledList.Item label="Раса">
+              <LabeledList.Item label="Species">
                 {selectedRecord.species}
               </LabeledList.Item>
-              <LabeledList.Item label="Записи">
+              <LabeledList.Item label="Records">
                 {selectedRecord.exploit_record}
               </LabeledList.Item>
             </LabeledList>
           </Section>
         </Stack.Item>
       </Stack>
-    </Section>
-  );
-};
-
-const AffiliatesInfoPage = (_properties, context) => {
-  const { act, data } = useBackend(context);
-  const { affiliate } = data;
-
-  return (
-    <Section fill title="Информация о подрядчике">
-      <Stack fill>{getAffiliateInfo(affiliate)}</Stack>
     </Section>
   );
 };
@@ -816,28 +590,40 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
       title={
         <>
           <Icon name="suitcase" />
-          &nbsp; Возможность заключения контракта
+          &nbsp; Contracting Opportunity
         </>
       }
     >
       <Box mx="0.5rem" mb="0.5rem">
         <b>
-          Ваши заслуги перед Синдикатом не остались незамеченными, агент. Мы
-          решили предоставить вам редкую возможность стать Контрактником.
+          Your achievements for the Syndicate have not gone unnoticed, agent. We
+          have decided to give you the rare opportunity of becoming a
+          Contractor.
         </b>
         <br />
         <br />
-        За небольшую цену в 100 телекристаллов мы повысим ваш ранг до
-        Контрактника, что позволит вам выполнять контракты на похищение людей за
-        телекристаллы и кредиты.
+        For the small price of 100 telecrystals, we will upgrade your rank to
+        that of a Contractor, allowing you to undertake kidnapping contracts for
+        TC and credits.
         <br />
-        Кроме того, вам будет предоставлен комплект подрядчика, который содержит
-        Аплинк Контрактника, стандартное снаряжение контрактника и три случайных
-        недорогих предмета.
+        In addition, you will be supplied with a Contractor Kit which contains a
+        Contractor Uplink, standard issue contractor gear and three random low
+        cost items.
         <br />
         <br />
-        Более подробные инструкции вы найдете в предоставленом наборе, если вы
-        примете это предложение.
+        More detailed instructions can be found within your kit, should you
+        accept this offer.
+        {!isAdminForced ? (
+          <Box>
+            Hurry up. You are not the only one who received this offer. Their
+            number is limited. If other traitors accept all offers before you,
+            you will not be able to accept one of them.
+            <br />
+            <b>Available offers: {available_offers}</b>
+          </Box>
+        ) : (
+          ''
+        )}
       </Box>
       <Button.Confirm
         disabled={!isAvailable || isAccepted}
@@ -847,10 +633,10 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
         color="good"
         content={
           isAccepted ? (
-            'Принято'
+            'Accepted'
           ) : isAvailable ? (
             [
-              'Стать Контрактником',
+              'Accept Offer',
               <Countdown
                 key="countdown"
                 timeLeft={time_left}
@@ -858,12 +644,12 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
               />,
             ]
           ) : !isAffordable ? (
-            'Недостаточно TC'
+            'Insufficient TC'
           ) : !data.contractor.is_admin_forced ? (
             data.contractor.available_offers > 0 ? (
-              <i>[Осталось вакансий:{data.contractor.available_offers}]</i>
+              <i>[Left:{data.contractor.available_offers}]</i>
             ) : (
-              <i>[Все вакансии заняты]</i>
+              'Offer expired'
             )
           ) : (
             'Предложение истекло'
