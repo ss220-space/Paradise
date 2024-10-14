@@ -7,8 +7,6 @@
 	var/hij_desc
 	/// Type of hijack objective
 	var/hij_obj = /datum/objective/hijack
-	/// Icon for tgui 256X256
-	var/tgui_icon = "1"
 	/// Cats, which this affeliate does not have.
 	var/cats_to_exclude
 	/// Special objectives, use lists with weight to roll them. Ex. list(kill = 10, steal = 90), and just a objectives for 100% giving them.
@@ -109,8 +107,7 @@
 		var/datum/affiliate/affiliate = new affiliate_path
 		affiliates += list(list("name" = affiliate.name,
 								"desc" = affiliate.affil_info,
-								"path" = affiliate_path,
-								"icon" = icon2base64(icon('icons/misc/affiliates.dmi', affiliate.tgui_icon, SOUTH))))
+								"path" = affiliate_path))
 
 	data["affiliates"] = affiliates
 	return data
