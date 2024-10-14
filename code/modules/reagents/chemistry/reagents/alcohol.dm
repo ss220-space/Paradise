@@ -452,7 +452,7 @@
 /datum/reagent/consumable/ethanol/bloody_mary
 	name = "Bloody Mary"
 	id = "bloodymary"
-	description = "Странная, но приятная смесь из водки, томата и сока лайма. Или, по крайней мере, вы ДУМАЕТЕ, что красная штука — это томатный сок."
+	description = "A strange yet pleasurable mixture made of vodka, tomato and lime juice. Or at least you THINK the red stuff is tomato juice."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
