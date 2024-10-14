@@ -179,6 +179,11 @@
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 20)
 	emag_only = TRUE
 
+/datum/roboshop_item/alien_prototype
+	name = "unknown alien prototype"
+	visual_item = /obj/item/machineprototype/alien
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 10)
+
 /datum/roboshop_item/bbag
 	path = /obj/item/disk/design_disk/roboquest/bluespace_bag_disk
 	visual_item = /obj/item/bodybag/bluespace
