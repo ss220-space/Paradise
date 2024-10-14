@@ -81,7 +81,7 @@
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			show_content(user)
 		else
-			. += span_notice("Вам нужно подойти поближе, чтобы прочитать то что здесь написано.")
+			. += span_notice("You have to go closer if you want to read it.")
 	else
 		. += span_notice("Вы не умеете читать.")
 
