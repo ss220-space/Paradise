@@ -14,7 +14,6 @@
 	faction = list("neutral")
 	a_intent = INTENT_HARM
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	move_to_delay = 10
 	health = 125
 	maxHealth = 125
@@ -35,10 +34,11 @@
 	healable = 0
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	del_on_death = TRUE
-	var/mode = MINEDRONE_COLLECT
 	light_system = MOVABLE_LIGHT
 	light_range = 6
 	light_on = FALSE
+	weather_immunities = list(TRAIT_ASHSTORM_IMMUNE)
+	var/mode = MINEDRONE_COLLECT
 	var/mesons_active
 	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_gun
 
@@ -60,6 +60,12 @@
 	dump_ore_action.Grant(src)
 
 	SetCollectBehavior()
+
+/mob/living/simple_animal/hostile/mining_drone/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/mining_drone/emp_act(severity)
 	adjustHealth(100 / severity)

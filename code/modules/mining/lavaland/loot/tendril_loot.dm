@@ -116,11 +116,19 @@
 	icon_state = "book1"
 	w_class = 2
 
-/obj/item/book_of_babel/attack_self(mob/user)
+
+/obj/item/book_of_babel/attack_self(mob/living/carbon/user)
+	if(HAS_TRAIT(user, TRAIT_NO_BABEL))
+		user.visible_message(span_notice("[user] suddenly stops, releasing [src]."))
+		to_chat(user, span_warning("You don't know what a book is or what to do with it."))
+		return
+
 	to_chat(user, "You flip through the pages of the book, quickly and conveniently learning every language in existence. Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops.")
 	user.grant_all_babel_languages()
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
+	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
+
 
 //Potion of Flight: as we do not have the "Angel" species this currently does not work.
 
@@ -188,82 +196,6 @@
 /obj/structure/ladder/unbreakable/jacob
 	name = "jacob's ladder"
 	desc = "An indestructible celestial ladder that violates the laws of physics."
-
-//Boat
-
-/obj/vehicle/lavaboat
-	name = "lava boat"
-	desc = "A boat used for traversing lava."
-	icon_state = "goliath_boat"
-	icon = 'icons/obj/lavaland/dragonboat.dmi'
-	layer = ABOVE_MOB_LAYER
-	key_type = /obj/item/oar
-	key_in_hands = TRUE
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
-
-
-/obj/vehicle/lavaboat/relaymove(mob/user, direction)
-	if(!COOLDOWN_FINISHED(src, vehicle_move_cooldown))
-		return FALSE
-	//We can move from land to lava, or lava to land, but not from land to land
-	if(!istype(get_step(src, direction), /turf/simulated/floor/lava) && !istype(get_turf(src), /turf/simulated/floor/lava))
-		to_chat(user, span_warning("You cannot traverse futher!"))
-		COOLDOWN_START(src, vehicle_move_cooldown, 0.5 SECONDS)
-		return FALSE
-	return ..()
-
-
-/obj/vehicle/lavaboat/handle_vehicle_layer()
-	return
-
-
-/obj/item/oar
-	name = "oar"
-	icon = 'icons/obj/vehicles/vehicles.dmi'
-	icon_state = "oar"
-	item_state = "rods"
-	desc = "Not to be confused with the kind Research hassles you for."
-	force = 12
-	w_class = WEIGHT_CLASS_NORMAL
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
-
-/datum/crafting_recipe/oar
-	name = "goliath bone oar"
-	result = /obj/item/oar
-	reqs = list(/obj/item/stack/sheet/bone = 2)
-	time = 15
-	category = CAT_PRIMAL
-
-/datum/crafting_recipe/boat
-	name = "goliath hide boat"
-	result = /obj/vehicle/lavaboat
-	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 3)
-	time = 50
-	category = CAT_PRIMAL
-
-//Dragon Boat
-
-/obj/item/ship_in_a_bottle
-	name = "ship in a bottle"
-	desc = "A tiny ship inside a bottle."
-	icon = 'icons/obj/lavaland/artefacts.dmi'
-	icon_state = "ship_bottle"
-
-/obj/item/ship_in_a_bottle/attack_self(mob/user)
-	to_chat(user, "You're not sure how they get the ships in these things, but you're pretty sure you know how to get it out.")
-	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
-	new /obj/vehicle/lavaboat/dragon(get_turf(src))
-	qdel(src)
-
-/obj/vehicle/lavaboat/dragon
-	name = "mysterious boat"
-	desc = "This boat moves where you will it, without the need for an oar."
-	key_type = null
-	key_in_hands = FALSE
-	icon_state = "dragon_boat"
-	generic_pixel_y = 2
-	generic_pixel_x = 1
-	vehicle_move_delay = 0.25 SECONDS
 
 //Wisp Lantern
 /obj/item/wisp_lantern

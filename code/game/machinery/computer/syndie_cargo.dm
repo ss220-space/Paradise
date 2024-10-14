@@ -328,7 +328,6 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 /obj/machinery/computer/syndie_supplycomp/proc/sell() //Этот код ищет зоны где находятся телепады отправки и продаёт ящики и товар в них
 
 	var/plasma_count = 0
-	var/intel_count = 0
 	var/crate_count = 0
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
@@ -418,9 +417,13 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 						var/obj/item/stack/sheet/mineral/plasma/P = thing
 						plasma_count += P.amount
 
-					// Sell nanotrasen intel
-					if(istype(thing, /obj/item/documents/nanotrasen))
-						++intel_count
+					// Sell intel
+					if(istype(thing, /obj/item/documents))
+						var/obj/item/documents/docs = thing
+						if(INTEREST_SYNDICATE & docs.sell_interest)
+							cashEarned = round(data_storage.cash_per_intel * docs.sell_multiplier)
+							data_storage.cash += cashEarned
+							msg += "[span_good("+[cashEarned]")]: Received enemy intelligence.<br>"
 
 					// Sell tech levels
 					if(istype(thing, /obj/item/disk/tech_disk))
@@ -479,11 +482,6 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	if(plasma_count > 0)
 		cashEarned = round(plasma_count * data_storage.cash_per_plasma)
 		msg += "[span_good("+[cashEarned]")]: Received [plasma_count] unit(s) of exotic material.<br>"
-		data_storage.cash += cashEarned
-
-	if(intel_count > 0)
-		cashEarned = round(intel_count * data_storage.cash_per_intel)
-		msg += "[span_good("+[cashEarned]")]: Received [intel_count] article(s) of enemy intelligence.<br>"
 		data_storage.cash += cashEarned
 
 	if(crate_count > 0)

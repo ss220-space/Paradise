@@ -326,6 +326,8 @@
 	name = "shaker"
 	desc = "A metal shaker to mix drinks in."
 	icon_state = "shaker"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	amount_per_transfer_from_this = 10
 	materials = list(MAT_METAL=1500)
 	volume = 100

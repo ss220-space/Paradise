@@ -33,7 +33,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "k" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "l" = (

@@ -18,8 +18,6 @@
 	stop_automated_movement = 1
 	universal_speak = TRUE
 	attack_sound = 'sound/weapons/punch1.ogg'
-	minbodytemp = 0
-	maxbodytemp = INFINITY
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	attacktext = "бьёт"
 	maxHealth = INFINITY //The spirit itself is invincible
@@ -53,6 +51,13 @@
 		return
 	summoner = host
 	host.grant_guardian_actions(src)
+
+/mob/living/simple_animal/hostile/guardian/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = INFINITY, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/guardian/med_hud_set_health()
 	if(summoner)
