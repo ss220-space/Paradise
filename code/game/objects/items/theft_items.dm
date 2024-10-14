@@ -81,7 +81,7 @@
 	else if(dented) // Not cracked, but dented.
 		. += span_notice("[src] looks dented. Perhaps a bigger explosion may break it.")
 	else // Not cracked or dented.
-		. += "На коробке мелким шрифтом написано: «Контейнер для особо ценных предметов Cybersun Industries. Гарантированна отличная защита от термита, ассистентов и хорошая от взрывов»."
+		. += "Fine print on the box reads \"Cybersun Industries secure container, guaranteed thermite proof, assistant proof, and explosive resistant.\""
 
 
 /obj/item/nuke_core_container/update_icon_state()
