@@ -7,6 +7,7 @@
 		return FALSE
 
 	var/datum/mind/tested = new_owner || owner
+    
 	if(!tested || !ishuman(tested.current))
 		return FALSE
 
@@ -23,7 +24,7 @@
 		if(4) // sloth
 			add_objective(/datum/objective/sintouched/sloth)
 		if(5) // Wrath
-			add_objectives(/datum/objective/sintouched/wrath)
+			add_objective(/datum/objective/sintouched/wrath)
 		if(6) // Envy
 			add_objective(/datum/objective/sintouched/envy)
 		if(7) // Pride
@@ -41,7 +42,7 @@
 	var/mob/living/carbon/human/human = mob_override || owner.current
 
 	for(var/datum/objective/sintouched/sin_objective in owner.objectives)
-		sin_objective.init_sin(owner.current)
+		sin_objective.init_sin(human)
     
 /datum/antagonist/sintouched/on_body_transfer(mob/living/old_body, mob/living/new_body)
     return // No.
