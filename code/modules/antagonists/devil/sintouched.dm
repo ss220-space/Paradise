@@ -21,13 +21,13 @@
 		if(3) // Greed
 			add_objective(/datum/objective/sintouched/greed)
 		if(4) // sloth
-		    add_objective(/datum/objective/sintouched/sloth)
+			add_objective(/datum/objective/sintouched/sloth)
 		if(5) // Wrath
 			add_objectives(/datum/objective/sintouched/wrath)
 		if(6) // Envy
 			add_objective(/datum/objective/sintouched/envy)
 		if(7) // Pride
-		    add_objective(/datum/objective/sintouched/pride)
+			add_objective(/datum/objective/sintouched/pride)
 
 /datum/antagonist/sintouched/add_owner_to_gamemode()
 	LAZYADD(SSticker.mode.sintouched, owner)
@@ -40,8 +40,8 @@
 
 	var/mob/living/carbon/human/human = mob_override || owner.current
 
-    for(var/datum/objective/sintouched/sin_objective in owner.objectives)
-        sin_objective.init_sin(owner.current)
+	for(var/datum/objective/sintouched/sin_objective in owner.objectives)
+		sin_objective.init_sin(owner.current)
     
 /datum/antagonist/sintouched/on_body_transfer(mob/living/old_body, mob/living/new_body)
     return // No.
