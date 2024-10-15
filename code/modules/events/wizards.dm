@@ -1,5 +1,5 @@
 #define MINIMUM_CREW_REQ 10
-#define CREW_REQUIREMENT 30
+#define CREW_PER_WIZARD 30
 GLOBAL_VAR_INIT(wizard_events_triggered, 0)
 /datum/event/space_wizards
 	name = "Рейд ФКВ"
@@ -12,23 +12,23 @@ GLOBAL_VAR_INIT(wizard_events_triggered, 0)
 	if(num_station_players() <= MINIMUM_CREW_REQ)
 		return 0
 
-	return min(round(num_station_players() / CREW_REQUIREMENT) + 1) //every mage each 30 crew
+	return floor(num_station_players() / CREW_REQUIREMENT) || 1 //every mage each 30 crew
 
 
 /datum/event/space_wizards/proc/wrappedstart()
 	var/mages_number = get_wizards_number()
 
 	if(mages_number < 1)
-		log_and_message_admins("Warning: Could not spawn any mobs for event Headslug Infestation. Reason - not enough players.")
+		log_and_message_admins("Warning: Could not spawn any mobs for event Wizard Raid. Reason - not enough players.")
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
-		EC.next_event_time = world.time + (60 * 10)
+		EC.next_event_time = world.time + (60 SECONDS)
 
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a Space Wizard?", ROLE_WIZARD, TRUE, poll_time = 60 SECONDS, source = source)
 	if(!candidates.len)
-		log_and_message_admins("Warning: Could not spawn any mobs for event Headslug Infestation. Reason - not enough candidates.")
+		log_and_message_admins("Warning: Could not spawn any mobs for event Wizard Raid. Reason - not enough candidates.")
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
-		EC.next_event_time = world.time + (60 * 10)
+		EC.next_event_time = world.time + (60 SECONDS)
 
 	while(mages_number && length(candidates))
 		var/mob/new_mage = pick_n_take(candidates)
@@ -40,4 +40,4 @@ GLOBAL_VAR_INIT(wizard_events_triggered, 0)
 			log_game("Spawned [new_character] (ckey: [new_character.key]) as midround Wizard.")
 
 #undef MINIMUM_CREW_REQ
-#undef CREW_REQUIREMENT
+#undef CREW_PER_WIZARD
