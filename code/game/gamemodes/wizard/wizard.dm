@@ -159,7 +159,7 @@
 		messages.Add("<span class='danger'>You are the Space Wizard!</span>")
 	messages.Add("<b>The Space Wizards Federation has given you the following tasks:</b>")
 	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
-	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Wizard\">Маг</a></span>")
+	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Wizard\">Маг</a></span>")
 	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
 	return
 

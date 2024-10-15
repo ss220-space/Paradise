@@ -120,7 +120,7 @@
 	if(ridable_atom.has_buckled_mobs()) // effect won't take place til the next time someone mounts it, so just prevent that situation
 		to_chat(user, span_warning("It's too dangerous to smear [speed_potion] on [ridable_atom] while it's being ridden!"))
 		return
-	var/speed_limit = round(CONFIG_GET(number/movedelay/run_delay) * 0.85, 0.01)
+	var/speed_limit = round(CONFIG_GET(number/movedelay/run_delay) * 1.5, 0.01)
 	var/datum/component/riding/theoretical_riding_component = riding_component_type
 	var/theoretical_speed = initial(theoretical_riding_component.vehicle_move_delay)
 	if(theoretical_speed <= speed_limit) // i say speed but this is actually move delay, so you have to be ABOVE the speed limit to pass
