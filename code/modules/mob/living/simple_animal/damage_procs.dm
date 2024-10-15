@@ -69,6 +69,16 @@
 	if(updating_health)
 		updatehealth("setDamage")
 
+/**
+ * Proc-setter for health of simple mobs.
+ * Any passed amount will be converted to bruteloss calculated from (maxHealth - amount). No resists will be applied.
+ *
+ * Arguments:
+ * * amount - Amount of health to set.
+ * * updating_health - If TRUE calls update health on success.
+ *
+ * Returns STATUS_UPDATE_HEALTH if any changes were made, STATUS_UPDATE_NONE otherwise
+ */
 /mob/living/simple_animal/proc/setHealth(amount, updating_health = TRUE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		var/oldbruteloss = bruteloss
