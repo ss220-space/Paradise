@@ -58,6 +58,7 @@
 	display_name = "Security HUD eyepatch (read only)"
 	path = /obj/item/clothing/glasses/hud/security/patch/read_only
 	allowed_roles = list(JOB_TITLE_LAWYER)
+
 /datum/gear/glasses/hydrohudpatch
 	display_name = "Hydroponic HUD eyepatch"
 	path = /obj/item/clothing/glasses/hud/hydroponic/patch
