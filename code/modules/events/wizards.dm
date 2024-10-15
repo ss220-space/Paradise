@@ -12,7 +12,7 @@ GLOBAL_VAR_INIT(wizard_events_triggered, 0)
 	if(num_station_players() <= MINIMUM_CREW_REQ)
 		return 0
 
-	return floor(num_station_players() / CREW_REQUIREMENT) || 1 //every mage each 30 crew
+	return floor(num_station_players() / CREW_PER_WIZARD) || 1 //every mage each 30 crew
 
 
 /datum/event/space_wizards/proc/wrappedstart()
