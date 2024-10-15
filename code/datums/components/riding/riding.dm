@@ -57,7 +57,7 @@
 	ride_check_flags |= buckle_mob_flags
 
 	if(potion_boost)
-		vehicle_move_delay = round(CONFIG_GET(number/movedelay/run_delay) * 0.85, 0.01)
+		vehicle_move_delay = round(CONFIG_GET(number/movedelay/run_delay) * 1.5, 0.01)
 
 /datum/component/riding/RegisterWithParent()
 	. = ..()
