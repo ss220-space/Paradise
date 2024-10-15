@@ -241,7 +241,7 @@
 			if(prob(2))
 				SEND_SOUND(owner, sound(pick(spooky_sounds)))
 			if(prob(3))
-				owner.vomit(0, 1)
+				owner.vomit(0, VOMIT_BLOOD)
 				if(prob(50))
 					var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/child = new(owner.loc)
 					child.faction = owner.faction.Copy()

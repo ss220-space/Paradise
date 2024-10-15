@@ -17,6 +17,9 @@
 /datum/game_mode/proc/delay_blob_win()
 	delay_blob_end = TRUE
 
+/datum/game_mode/proc/return_blob_win()
+	delay_blob_end = FALSE
+
 /datum/game_mode/proc/declare_blob_completion()
 	if(station_was_nuked && blob_stage != BLOB_STAGE_POST_END)
 		if(GAMEMODE_IS_BLOB)
