@@ -88,3 +88,5 @@
 	/// Holder for the phisiology datum
 	var/datum/physiology/physiology
 
+	/// What types of mobs are allowed to ride/buckle to this mob. Only human for now
+	var/static/list/can_ride_typecache = typecacheof(list(/mob/living/carbon/human))

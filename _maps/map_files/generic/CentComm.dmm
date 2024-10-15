@@ -1990,7 +1990,7 @@
 /turf/simulated/floor/wood,
 /area/centcom/jail)
 "aQh" = (
-/obj/vehicle/motorcycle{
+/obj/vehicle/ridden/motorcycle{
 	dir = 8
 	},
 /obj/structure/sign/poster/contraband/random{
@@ -6025,7 +6025,6 @@
 	layer = 5;
 	locked = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door_control/secure{
 	id = "CC_supply_internal";
 	name = "Supply External Shutters";
@@ -7605,7 +7604,7 @@
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "dxs" = (
-/obj/vehicle/motorcycle{
+/obj/vehicle/ridden/motorcycle{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -12759,7 +12758,7 @@
 /area/shuttle/administration)
 "fVC" = (
 /obj/machinery/turretid{
-	control_area = "\improper Centcom Special Operations";
+	control_area = "Centcom Special Operations Forces";
 	name = "Quarantine Turret";
 	pixel_x = 3;
 	pixel_y = -26
@@ -14381,7 +14380,6 @@
 	layer = 5;
 	locked = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowalt"
 	},
@@ -20409,7 +20407,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
 "jGg" = (
-/obj/vehicle/secway{
+/obj/vehicle/ridden/secway{
 	layer = 3.5
 	},
 /obj/item/key/security,
@@ -21927,7 +21925,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
 "kqc" = (
-/obj/vehicle/janicart{
+/obj/vehicle/ridden/janicart{
 	dir = 4
 	},
 /obj/item/key/janitor,
@@ -24982,7 +24980,7 @@
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "lLd" = (
-/obj/vehicle/janicart{
+/obj/vehicle/ridden/janicart{
 	dir = 4
 	},
 /obj/item/key/janitor,
@@ -34033,7 +34031,10 @@
 	req_access = list(114);
 	pixel_x = -24
 	},
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellowalt"
+	},
 /area/centcom/supply)
 "pLm" = (
 /obj/machinery/light{
@@ -35552,7 +35553,6 @@
 	layer = 5;
 	locked = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowalt"
 	},
@@ -40026,7 +40026,7 @@
 "syr" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access = list(2)
+	req_access = list(63)
 	},
 /turf/simulated/floor/shuttle/objective_check{
 	icon = 'icons/turf/floors.dmi';
@@ -46732,7 +46732,7 @@
 /area/syndicate_mothership)
 "vwk" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/vehicle/motorcycle{
+/obj/vehicle/ridden/motorcycle{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -47220,7 +47220,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "vLc" = (
-/obj/vehicle/motorcycle{
+/obj/vehicle/ridden/motorcycle{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -49334,7 +49334,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "wGg" = (
-/obj/vehicle/motorcycle{
+/obj/vehicle/ridden/motorcycle{
 	dir = 8
 	},
 /turf/simulated/floor/wood{
@@ -50769,7 +50769,6 @@
 	layer = 5;
 	locked = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door_control/secure{
 	id = "CC_supply_external";
 	name = "Supply Internal Shutters";
@@ -104393,7 +104392,7 @@ rgL
 coX
 rLT
 mpv
-hTD
+mTv
 fAg
 fAg
 fAg
@@ -104650,7 +104649,7 @@ fqL
 eiV
 mMp
 aWp
-cFn
+wRu
 gvy
 hHu
 mzs

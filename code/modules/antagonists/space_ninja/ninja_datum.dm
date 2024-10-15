@@ -370,7 +370,7 @@
 			protect_objective.killers_objectives |= killer_objective
 
 		for(var/i in 1 to objective_amount)
-			traitor_datum.forge_single_human_objective()
+			traitor_datum.forge_single_objective()
 
 		var/list/all_objectives = traitor.get_all_objectives()
 		var/martyr_compatibility = TRUE
@@ -392,7 +392,7 @@
 
 /datum/antagonist/ninja/proc/generate_vampires()
 	for(var/datum/mind/vampire in pre_antags)
-		vampire.add_antag_datum(/datum/antagonist/vampire)
+		vampire.add_antag_datum(/datum/antagonist/vampire/new_vampire)
 
 
 /datum/antagonist/ninja/proc/generate_changelings()
@@ -442,40 +442,32 @@
 			// RnD Hack: Flag set to complete in the DrainAct in ninjaDrainAct.dm
 			add_objective(/datum/objective/research_corrupt)
 
-	var/pick_chance = rand(0, 100)
-	if(pick_chance <= 25)
+	if(prob(50))
 		var/datum/objective/plant_explosive/bomb_objective = add_objective(/datum/objective/plant_explosive)
 		bomb_objective.give_bomb(delayed = 0)
 
-	else if(pick_chance <= 50)
+	else
 		var/datum/objective/set_up/set_up_objective = add_objective(/datum/objective/set_up)
 		if(!set_up_objective.target)
 			qdel(set_up_objective)
 
+	if(prob(50))
+		add_objective(/datum/objective/get_money)
+
 	else
-		var/datum/objective/pain_hunter/pain_hunter_objective = add_objective(/datum/objective/pain_hunter)
-		if(!pain_hunter_objective.target)
-			qdel(pain_hunter_objective)
+		add_objective(/datum/objective/find_and_scan)
 
-	switch(pick(1,2))
-		if(1)
-			add_objective(/datum/objective/get_money)
+	if(prob(50))
+		for(var/i in 1 to 2)
+			var/datum/objective/assassinate/assassinate_objective = add_objective(/datum/objective/assassinate)
+			if(!assassinate_objective.target)
+				qdel(assassinate_objective)
 
-		if(2)
-			add_objective(/datum/objective/find_and_scan)
-
-	switch(pick(1,2))
-		if(1)
-			for(var/i in 1 to 2)
-				var/datum/objective/assassinate/assassinate_objective = add_objective(/datum/objective/assassinate)
-				if(!assassinate_objective.target)
-					qdel(assassinate_objective)
-
-		if(2)
-			for(var/i in 1 to 2)
-				var/datum/objective/steal/steal_objective = add_objective(/datum/objective/steal)
-				if(!steal_objective.steal_target)
-					qdel(steal_objective)
+	else
+		for(var/i in 1 to 2)
+			var/datum/objective/steal/steal_objective = add_objective(/datum/objective/steal)
+			if(!steal_objective.steal_target)
+				qdel(steal_objective)
 
 	var/list/all_objectives = owner.get_all_objectives()
 	if(!(locate(/datum/objective/escape) in all_objectives) && !(locate(/datum/objective/survive) in all_objectives))

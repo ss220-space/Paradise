@@ -24,7 +24,7 @@
 		return get_money_account(id.associated_account_number)
 	return null
 
-/obj/machinery/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user, price, vended_name)
+/obj/machinery/proc/pay_with_cash(obj/item/stack/spacecash/cashmoney, mob/user, price, vended_name, datum/money_account/account_we_pay_on = GLOB.vendor_account)
 	if(price > cashmoney.amount)
 		// This is not a status display message, since it's something the character
 		// themselves is meant to see BEFORE putting the money in
@@ -42,10 +42,10 @@
 	visible_message("<span class='notice'>[user] inserts a credit chip into [src].</span>")
 
 	// Vending machines have no idea who paid with cash
-	GLOB.vendor_account.credit(price, "Sale of [vended_name]", name, "(cash)")
+	account_we_pay_on.credit(price, "Sale of [vended_name]", name, "(cash)")
 	return TRUE
 
-/obj/machinery/proc/pay_with_card(mob/M, price, vended_name)
+/obj/machinery/proc/pay_with_card(mob/M, price, vended_name, datum/money_account/account_we_pay_on = GLOB.vendor_account)
 	if(iscarbon(M))
 		visible_message("<span class='notice'>[M] swipes a card through [src].</span>")
 	var/datum/money_account/customer_account = get_card_account(M)
@@ -67,11 +67,13 @@
 		to_chat(M, "<span class='warning'>Your bank account has insufficient money to purchase this.</span>")
 		return FALSE
 	// Okay to move the money at this point
-	customer_account.charge(price, GLOB.vendor_account,
-		"Purchase of [vended_name]", name, GLOB.vendor_account.owner_name,
+	customer_account.charge(price, account_we_pay_on,
+		"Purchase of [vended_name]", name, account_we_pay_on.owner_name,
 		"Sale of [vended_name]", customer_account.owner_name)
 	if(customer_account.owner_name == GLOB.station_account.owner_name)
 		add_game_logs("as silicon purchased [vended_name] in [COORD(src)]", M)
+
+	SScapitalism.income_vedromat += price //For revenue statistics from the vending machine
 	return TRUE
 
 /datum/money_account/proc/fmtBalance()

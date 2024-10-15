@@ -17,7 +17,7 @@
 	conversion in savefile.dm
 */
 
-/proc/init_sprite_accessory_subtypes(var/prototype, var/list/L, var/list/male, var/list/female, var/list/full_list)
+/proc/init_sprite_accessory_subtypes(prototype, list/L, list/male, list/female, list/full_list)
 	if(!istype(L))	L = list()
 	if(!istype(male))	male = list()
 	if(!istype(female))	female = list()
@@ -33,19 +33,19 @@
 				L[D.name] = D
 				full_list[D.name] = D
 
-			switch(D.gender)
-				if(MALE)	male[D.name] = D
-				if(FEMALE)	female[D.name] = D
+			switch(D.unsuitable_gender)
+				if(FEMALE)	male[D.name] = D
+				if(MALE)	female[D.name] = D
 				else
 					male[D.name] = D
 					female[D.name] = D
 	return L
 
 /datum/sprite_accessory
-	var/icon			//the icon file the accessory is located in
-	var/icon_state		//the icon_state of the accessory
-	var/name			//the preview name of the accessory
-	var/gender = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
+	var/icon				//the icon file the accessory is located in
+	var/icon_state			//the icon_state of the accessory
+	var/name				//the preview name of the accessory
+	var/unsuitable_gender	//Determines if the accessory will be skipped or included in random generations
 
 	// Restrict some styles to specific species
 	var/list/species_allowed = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON)
@@ -55,8 +55,8 @@
 	var/list/tails_allowed = null //Specifies which, if any, tails a tail marking is compatible with.
 	var/list/wings_allowed
 	var/marking_location //Specifies which bodypart a body marking is located on.
-	var/secondary_theme = null //If exists, there's a secondary colour to that hair style and the secondary theme's icon state's suffix is equal to this.
-	var/no_sec_colour = null //If exists, prohibit the colouration of the secondary theme.
+	var/secondary_theme	//If exists, there's a secondary colour to that hair style and the secondary theme's icon state's suffix is equal to this.
+	var/no_sec_colour = FALSE	//If TRUE, prohibit the colouration of the secondary theme.
 	var/fluff = 0
 	// Whether or not the accessory can be affected by colouration
 	var/do_colouration = 1
@@ -75,7 +75,7 @@
 	glasses_over = 1
 
 /datum/sprite_accessory/facial_hair
-	gender = MALE // barf (unless you're a dorf, dorfs dig chix /w beards :P)
+	unsuitable_gender = FEMALE // barf (unless you're a dorf, dorfs dig chix /w beards :P)
 	icon = 'icons/mob/sprite_accessories/human/human_facial_hair.dmi'
 	var/over_hair
 
@@ -175,7 +175,7 @@
 	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
 	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
 	)
-	gender = NEUTER
+
 	var/allow_change_color = FALSE
 
 /datum/sprite_accessory/underwear/nude
@@ -184,7 +184,7 @@
 	species_allowed = list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_KIDAN, SPECIES_GREY, SPECIES_PLASMAMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_DRASK, SPECIES_VOX, SPECIES_MOTH)
 
 /datum/sprite_accessory/underwear/male
-	gender = MALE
+	unsuitable_gender = FEMALE
 
 /datum/sprite_accessory/underwear/male/male_striped_alt
 	name = "Mens Striped Alt"
@@ -228,19 +228,37 @@
 	icon_state = "male_kinky"
 
 /datum/sprite_accessory/underwear/female
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/underwear/female/female_red_alt
 	name = "Ladies Red Alt"
 	icon_state = "female_red_alt"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/underwear.dmi',
+	)
 
 /datum/sprite_accessory/underwear/female/female_babydoll
 	name = "Ladies Full Grey"
 	icon_state = "female_babydoll"
+	sprite_sheets = list(
+	SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
+	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
+	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/underwear.dmi',
+	)
 
 /datum/sprite_accessory/underwear/female/female_kinky_alt
 	name = "Ladies Kinky Alt"
 	icon_state = "female_kinky_alt"
+	sprite_sheets = list(
+	SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
+	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
+	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
+	SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/underwear.dmi',
+	)
 
 /datum/sprite_accessory/underwear/female/female_kinky_black
 	name = "Ladies Kinky Full Black"
@@ -304,7 +322,6 @@
 	SPECIES_GREY = 'icons/mob/clothing/species/grey/underwear.dmi',
 	SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/underwear.dmi',
 	)
-	gender = NEUTER
 	var/allow_change_color = FALSE
 
 /datum/sprite_accessory/undershirt/nude
@@ -345,7 +362,7 @@
 /datum/sprite_accessory/undershirt/shirt_colorized/female
 	name = "Female Colorized Shirt"
 	icon_state = "female_shirt"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/undershirt/shirt_colorized/female/female_cuttedshirt
 	name = "Female Colorized Cutted Shirt"
@@ -496,18 +513,18 @@
 /datum/sprite_accessory/undershirt/tank_top_colorize
 	name = "Female Crop-Top"
 	icon_state = "tank_top"
-	gender = FEMALE
+	unsuitable_gender = MALE
 	allow_change_color = TRUE
 
 /datum/sprite_accessory/undershirt/tank_whitetop
 	name = "White Crop-Top"
 	icon_state = "tank_whitetop"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/undershirt/tank_midriff
 	name = "Mid Tank-Top"
 	icon_state = "tank_midriff_female"
-	gender = FEMALE
+	unsuitable_gender = MALE
 	allow_change_color = TRUE
 	sprite_sheets = list(
 	SPECIES_VOX = 'icons/mob/clothing/species/vox/underwear.dmi',
@@ -546,7 +563,6 @@
 	SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/underwear.dmi',
 	SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/underwear.dmi',
 	SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/underwear.dmi')
-	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
@@ -580,7 +596,7 @@
 /datum/sprite_accessory/socks/thin_knee
 	name = "Knee-high Thin"
 	icon_state = "thin_knee"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/socks/striped_norm
 	name = "Normal Striped"
@@ -605,7 +621,7 @@
 /datum/sprite_accessory/socks/thin_thigh
 	name = "Thigh-high Thin"
 	icon_state = "thin_thigh"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/socks/striped_thigh
 	name = "Thigh-high Striped"
@@ -618,7 +634,7 @@
 /datum/sprite_accessory/socks/pantyhose
 	name = "Pantyhose"
 	icon_state = "pantyhose"
-	gender = FEMALE
+	unsuitable_gender = MALE
 
 /datum/sprite_accessory/socks/black_fishnet
 	name = "Black Fishnet"

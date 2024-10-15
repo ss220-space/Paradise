@@ -34,8 +34,12 @@
 				. = max(., UI_UPDATE)
 
 	// Check if the state allows interaction
-	var/result = state.can_use_topic(src_object, user)
+	var/result = state.can_use_topic(src_object, user, state.ui_source)
 	. = max(., result)
+
+
+/datum/ui_state
+	var/atom/ui_source = null
 
 /**
  * private
@@ -48,7 +52,7 @@
  *
  * return UI_state The state of the UI.
  */
-/datum/ui_state/proc/can_use_topic(src_object, mob/user)
+/datum/ui_state/proc/can_use_topic(src_object, mob/user, atom/ui_source)
 	// Don't allow interaction by default.
 	return UI_CLOSE
 

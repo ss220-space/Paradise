@@ -136,7 +136,7 @@ task-merge-bundle() {
   echo "----------------------"
   echo "tgui: prepping to replace a conflicted bundle"
   cat $file_path > $file_current
-  task-rebuild-conflicted-bundle &
+  task-rebuild-conflicted-bundle
   exit 0
 }
 
@@ -145,8 +145,6 @@ task-rebuild-conflicted-bundle() {
   echo "tgui: rebuilding a conflicted tgui bundle, ${file_path}"
   task-install
   task-webpack --mode=production
-  echo "tgui: committing new bundle"
-	git commit -am "TGUI Bundle Rebuild"
   exit 0
 }
 

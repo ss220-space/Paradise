@@ -144,7 +144,7 @@
 	force = 5
 	sharp = 0
 
-/obj/item/claymore/fluff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/claymore/fluff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	return 0
 
 /obj/item/fluff/rsik_katana //Xydonus: Rsik Ugsharki Atan
@@ -165,7 +165,9 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/fluff/rsik_katana/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] tries to stab [src] into [user.p_their()] stomach! Except [src] shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.</span>")
+	user.visible_message(span_suicide("[user] tries to stab [src] into [user.p_their()] stomach! Except [src] shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame."))
+	user.temporarily_remove_item_from_inventory(src, force = TRUE)
+	qdel(src)
 	return BRUTELOSS
 
 /obj/item/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley

@@ -544,8 +544,8 @@ BLIND     // can't see anything
 
 	if(up)
 		to_chat(user, span_notice("You push [src] out of the way."))
-		gas_transfer_coefficient = null
-		permeability_coefficient = null
+		gas_transfer_coefficient = 1
+		permeability_coefficient = 1
 		if(adjusted_slot_flags)
 			slot_flags = adjusted_slot_flags
 		if(adjusted_flags_inv)
@@ -596,8 +596,8 @@ BLIND     // can't see anything
 /obj/item/clothing/mask/proc/force_adjust_mask()
 	up = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	gas_transfer_coefficient = null
-	permeability_coefficient = null
+	gas_transfer_coefficient = 1
+	permeability_coefficient = 1
 	if(adjusted_slot_flags)
 		slot_flags = adjusted_slot_flags
 	if(adjusted_flags_inv)
@@ -1231,7 +1231,7 @@ BLIND     // can't see anything
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/neck.dmi'
 		)
 
-/obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!teleportation)
 		return ..()
 	if(prob(5))

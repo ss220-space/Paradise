@@ -453,23 +453,23 @@ SUBSYSTEM_DEF(jobs)
 	var/list/L = list()
 	L.Add("<B>Вы <span class='red'>[alt_title ? alt_title : rank]</span>.</B>")
 	L.Add("<b>На этой должности вы отвечаете непосредственно перед <span class='red'>[replacetext(job.supervisors,"the ","")]</span>. Особые обстоятельства могут это изменить.</b>")
-	L.Add("<b>Для получения дополнительной информации о работе на станции, см. <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure\">Стандартные Рабочие Процедуры (СРП)</a></b>")
+	L.Add("<b>Для получения дополнительной информации о работе на станции, см. <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure\">Стандартные Рабочие Процедуры (СРП)</a></b>")
 	if(job.is_service)
-		L.Add("<b>Будучи работником отдела Обслуживания, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником отдела Обслуживания, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Service&#41\">СРП своего отдела</a></b>")
 	if(job.is_supply)
-		L.Add("<b>Будучи работником отдела Снабжения, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником отдела Снабжения, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">СРП своего отдела</a></b>")
 	if(job.is_command)
-		L.Add("<b>Будучи важным членом Командования, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи важным членом Командования, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Command&#41\">СРП своего отдела</a></b>")
 	if(job.is_legal)
-		L.Add("<b>Ваша должность требует полного знания <a href=\"https://ss220.space/wiki/index.php/Space_Law\">Космического Закона</a> и <a href=\"https://ss220.space/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых Стандартных Рабочих Процедур</a></b>")
+		L.Add("<b>Ваша должность требует полного знания <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Space_Law\">Космического Закона</a> и <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Legal_Standard_Operating_Procedure\">Правовых Стандартных Рабочих Процедур</a></b>")
 	if(job.is_engineering)
-		L.Add("<b>Будучи работником Инженерного отдела, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником Инженерного отдела, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">СРП своего отдела</a></b>")
 	if(job.is_medical)
-		L.Add("<b>Будучи работником Медицинского отдела, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником Медицинского отдела, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">СРП своего отдела</a></b>")
 	if(job.is_science)
-		L.Add("<b>Будучи работником Научного отдела, убедитесь что прочли <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником Научного отдела, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Science&#41\">СРП своего отдела</a></b>")
 	if(job.is_security)
-		L.Add("<b>Будучи работником Службы Безопасности, вам необходимо знание <a href=\"https://ss220.space/wiki/index.php/Space_Law\">Космического Закона</a>, <a href=\"https://ss220.space/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых СРП</a>, а также <a href=\"https://ss220.space/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">СРП своего отдела</a></b>")
+		L.Add("<b>Будучи работником Службы Безопасности, вам необходимо знание <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Space_Law\">Космического Закона</a>, <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Legal_Standard_Operating_Procedure\">Правовых СРП</a>, а также <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Security&#41\">СРП своего отдела</a></b>")
 	if(job.req_admin_notify)
 		L.Add("<b>Вы играете на важной для игрового процесса должности. Если вам необходимо покинуть игру, пожалуйста, используйте крио и проинформируйте командование. Если вы не можете это сделать, пожалуйста, проинформируйте админов через админхэлп.</b>")
 	if(job.is_novice)
@@ -636,8 +636,8 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/money_amount = job ? rand(500, 1500) * get_job_factor(job, job.random_money_factor) : rand(500, 1500)
-	var/datum/money_account/M = create_account(H.real_name, money_amount, null)
+	var/money_amount = rand(job.min_start_money, job.max_start_money)
+	var/datum/money_account/M = create_account(H.real_name, money_amount, null, job, TRUE)
 	var/remembered_info = ""
 
 	remembered_info += "<b>Номер вашего аккаунта:</b> #[M.account_number]<br>"
@@ -665,12 +665,6 @@ SUBSYSTEM_DEF(jobs)
 
 	spawn(0)
 		to_chat(H, "<span class='boldnotice'>Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]</span>")
-
-/datum/controller/subsystem/jobs/proc/get_job_factor(datum/job/job, randomized)
-	if(randomized)
-		return job.money_factor*rand(0.25, 4) // for now only used for civillians
-	else
-		return job.money_factor
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
@@ -713,6 +707,14 @@ SUBSYSTEM_DEF(jobs)
 		if(!(oldjobdatum.title in GLOB.command_positions) && !(newjobdatum.title in GLOB.command_positions))
 			oldjobdatum.current_positions--
 			newjobdatum.current_positions++
+
+/datum/controller/subsystem/jobs/proc/account_job_transfer(name_owner, job_title, salary_capcap = TRUE)
+
+	var/datum/money_account/account_job = get_account_with_name(name_owner)
+
+	if(account_job)
+		account_job.linked_job = SSjobs.GetJob(job_title)
+		account_job.salary_payment_active = salary_capcap
 
 /datum/controller/subsystem/jobs/proc/notify_dept_head(jobtitle, antext)
 	// Used to notify the department head of jobtitle X that their employee was brigged, demoted or terminated

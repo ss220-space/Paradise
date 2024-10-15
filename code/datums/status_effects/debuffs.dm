@@ -1013,7 +1013,7 @@
 		if(prob(pukeprob))
 			carbon.AdjustConfused(9 SECONDS)
 			carbon.AdjustStuttering(3 SECONDS)
-			carbon.vomit(15, FALSE, 8 SECONDS, 0, FALSE)
+			carbon.vomit(15, message = FALSE)
 		carbon.Dizzy(15 SECONDS)
 	if(strength >= DISGUST_LEVEL_DISGUSTED)
 		if(prob(25))
@@ -1227,3 +1227,33 @@
 	if(new_filter)
 		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
 		animate(offset = 0, time = 10 SECONDS)
+
+/datum/status_effect/tox_vomit
+	id = "vomitting_from_toxins"
+	alert_type = null
+	processing_speed = STATUS_EFFECT_NORMAL_PROCESS
+	tick_interval = 2 SECONDS
+	var/puke_counter = 0
+
+/datum/status_effect/tox_vomit/on_apply()
+	if(!iscarbon(owner))
+		return FALSE
+
+	return TRUE
+
+/datum/status_effect/tox_vomit/tick(seconds_between_ticks)
+	if(owner.stat == DEAD || !TOX_VOMIT_THRESHOLD_REACHED(owner, TOX_VOMIT_REQUIRED_TOXLOSS) || HAS_TRAIT(owner, TRAIT_GODMODE))
+		qdel(src)
+		return
+
+	puke_counter++
+	if(puke_counter < 25)
+		return
+
+	var/mob/living/carbon/carbon = owner
+	puke_counter = initial(puke_counter)
+
+	if(!carbon.vomit())
+		return
+
+	carbon.adjustToxLoss(-3)

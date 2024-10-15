@@ -297,6 +297,7 @@
 #define isslaughterdemon(A) (istype((A), /mob/living/simple_animal/demon/slaughter))
 #define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
 #define ismorph(A)		(istype((A), /mob/living/simple_animal/hostile/morph))
+#define isborer(A)		(istype((A), /mob/living/simple_animal/borer))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
@@ -408,6 +409,7 @@
 
 #define PULL_LYING_MOB_SLOWDOWN 1.3
 #define PUSH_STANDING_MOB_SLOWDOWN 1.3
+#define HUMAN_CARRY_SLOWDOWN 0.6
 
 #define ACTIVE_HAND_RIGHT 0
 #define ACTIVE_HAND_LEFT 1
@@ -440,3 +442,17 @@
 /// Makes the weaken into a knockdown
 #define SHOCK_KNOCKDOWN (1<<7)
 
+/// Vomit defines
+#define VOMIT_NUTRITION_LOSS	10
+#define VOMIT_STUN_TIME			(8 SECONDS)
+#define VOMIT_DISTANCE			1
+#define VOMIT_SAFE_NUTRITION	90
+/// Vomit modes
+#define VOMIT_BLOOD	(1<<0)
+
+/// When reached - we'll apply status effect which will force carbon to vomit
+#define TOX_VOMIT_THRESHOLD_REACHED(mob, toxloss)	(mob.getToxLoss() >= toxloss)
+#define TOX_VOMIT_REQUIRED_TOXLOSS	45
+
+/// For babylon fever disease.
+#define DISEASE_MOB_LANGUAGE_PROCESSED (1<<0)

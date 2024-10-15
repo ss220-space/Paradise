@@ -1,46 +1,55 @@
+//Abandon hope, everyone who enters here
+
+//When changing reagents, remember about the horror hidden under the hood
 /datum/cargo_quest/reagents
 	quest_type_name = "Chemical"
 	req_items = list(/obj/item/reagent_containers)
+	bounty_jobs = (JOB_TITLE_CHEMIST)
+	linked_departament = "Medical"
 
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL)
 
 	var/list/required_reagents = list()
 	var/list/repeated_reagents = list(
-			"antiburn_stimulant" = list("volume" = 5, "reward" = 500),
-			"synthflesh" = list("volume" = 30, "reward" = 80),
-			"rezadone" = list("volume" = 30, "reward" = 250),
-			"sterilizine" = list("volume" = 30, "reward" = 100),
-			"earthsblood" = list("volume" = 30, "reward" = 120),
-			"pen_acid" = list("volume" = 30, "reward" = 120),
-			"mitocholide" = list("volume" = 30, "reward" = 95),
-			"condensedcapsaicin" = list("volume" = 30, "reward" = 300),
+			// Botanic order
+			"thc" = list("volume" = 30, "reward" = 100),
+			"moonlin" = list("volume" = 30, "reward" = 100),
+			"growthserum" = list("volume" = 15, "reward" = 100),
+			"tirizene" = list("volume" = 30, "reward" = 125),
+			"synaptizine" = list("volume" = 30, "reward" = 125),
+			"weak_omnizine" = list("volume" = 30, "reward" = 125),
+			"earthsblood" = list("volume" = 30, "reward" = 150),
+
+			// Chemist order
+			"pyrosium" = list("volume" = 30, "reward" = 75),
 			"napalm" = list("volume" = 30, "reward" = 75),
-			"thc" = list("volume" = 30, "reward" = 90),
-			"fliptonium" = list("volume" = 10, "reward" = 450),
-			"glycerol" = list("volume" = 30, "reward" = 380),
-			"weak_omnizine" = list("volume" = 30, "reward" = 85),
-			"super_hairgrownium" = list("volume" = 15, "reward" = 300),
-			"pyrosium" = list("volume" = 30, "reward" = 45),
-			"hairgrownium" = list("volume" = 30, "reward" = 175),
-			"itching_powder" = list("volume" = 30, "reward" = 60),
+			"synthflesh" = list("volume" = 30, "reward" = 80),
+			"facid" = list("volume" = 15, "reward" = 100),
+			"minttoxin" = list("volume" = 15, "reward" = 100),
+			"sterilizine" = list("volume" = 30, "reward" = 100),
+			"fomepizole" = list("volume" = 20, "reward" = 125),
+			"mitocholide" = list("volume" = 30, "reward" = 150),
+			"pen_acid" = list("volume" = 30, "reward" = 175),
+			"sarin" = list("volume" = 10, "reward" = 200),
+			"antiburn_stimulant" = list("volume" = 5, "reward" = 500),
 		)
 	var/list/unique_reagents = list(
-			"strange_reagent" = list("volume" = 15, "reward" = 250),
-			"fomepizole" = list("volume" = 20, "reward" = 160),
-	  		"synaptizine" = list("volume" = 30, "reward" = 150),
-			"hair_dye" = list("volume" = 10, "reward" = 310),
-			"colorful_reagent" = list("volume" = 10, "reward" = 220),
-			"vhfcs" = list("volume" = 30, "reward" = 135),
-			"moonlin" = list("volume" = 30, "reward" = 85),
-			"tirizene" = list("volume" = 30, "reward" = 120),
+			// Mixed Order
+			"itching_powder" = list("volume" = 30, "reward" = 100),
+			"fliptonium" = list("volume" = 10, "reward" = 150),
+			"vhfcs" = list("volume" = 30, "reward" = 200),
+			"rotatium" = list("volume" = 15, "reward" = 200),
 			"bath_salts" = list("volume" = 10, "reward" = 220),
-			"capulettium_plus" = list("volume" = 15, "reward" = 150),
-			"facid" = list("volume" = 15, "reward" = 90),
-			"growthserum" = list("volume" = 15, "reward" = 55),
-			"minttoxin" = list("volume" = 15, "reward" = 90),
-			"sarin" = list("volume" = 10, "reward" = 120),
-			"initropidril" = list("volume" = 5, "reward" = 510),
-			"rotatium" = list("volume" = 15, "reward" = 135),
+			"colorful_reagent" = list("volume" = 15, "reward" = 225),
+			"capulettium_plus" = list("volume" = 15, "reward" = 225),
+			"rezadone" = list("volume" = 30, "reward" = 250),
+			"hairgrownium" = list("volume" = 30, "reward" = 250),
+			"super_hairgrownium" = list("volume" = 15, "reward" = 300),
+			"strange_reagent" = list("volume" = 15, "reward" = 300),
+			"condensedcapsaicin" = list("volume" = 30, "reward" = 300),
+			"glycerol" = list("volume" = 30, "reward" = 380),
+			"hair_dye" = list("volume" = 10, "reward" = 400),
+			"initropidril" = list("volume" = 5, "reward" = 750),
 		)
 
 /datum/cargo_quest/reagents/update_interface_icon()
@@ -50,7 +59,8 @@
 	var/list/possible_reagents_list = repeated_reagents.Copy() + unique_reagents.Copy()
 	var/our_reagent = pick(possible_reagents_list)
 	required_reagents[our_reagent] += possible_reagents_list[our_reagent]
-	q_storage.reward += possible_reagents_list[our_reagent]["reward"]
+	cargo_quest_reward = possible_reagents_list[our_reagent]["reward"]
+	q_storage.reward += cargo_quest_reward
 	update_desc(our_reagent, possible_reagents_list[our_reagent]["volume"])
 	if(our_reagent in unique_reagents)
 		unique_reagents.Remove(our_reagent)
@@ -77,6 +87,9 @@
 
 /datum/cargo_quest/reagents/drinks
 	quest_type_name = "Drink"
+	bounty_jobs = list(JOB_TITLE_BARTENDER)
+	linked_departament = "Support"
+
 	repeated_reagents = list(
 		"b52" = list("volume" = 30,"reward" = 60),
 		"bacchus_blessing" = list("volume" = 30,"reward" = 100),

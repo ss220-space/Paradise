@@ -310,6 +310,9 @@
 	null_linked_refs()
 	linked = null
 	var/turf/our_turf = get_turf(src)
+	var/obj/machinery/customat/customat = locate() in our_turf
+	if(customat)
+		set_linked(customat)
 	var/obj/machinery/disposal/disposal = locate() in our_turf
 	if(disposal)
 		set_linked(disposal)
@@ -357,7 +360,11 @@
 			outlet.expel(holder) // expel at outlet
 		else
 			var/obj/machinery/disposal/disposal = linked
-			disposal.expel(holder) // expel at disposal
+			if(istype(disposal))
+				disposal.expel(holder) // expel at disposal
+			else
+				var/obj/machinery/customat/customat = linked
+				customat.expel(holder) // expel at customat
 
 	// Returning null without expelling holder makes the holder expell itself
 	return null

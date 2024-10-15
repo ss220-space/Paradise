@@ -529,6 +529,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				modify.access = access
 				modify.rank = t1
 				modify.assignment = assignment
+				SSjobs.account_job_transfer(modify.registered_name, t1)
+
 			regenerate_id_name()
 			return
 		if("demote")
@@ -559,6 +561,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			modify.access = access
 			modify.assignment = "Demoted"
 			modify.icon_state = "id"
+
+			SSjobs.account_job_transfer(modify.registered_name, JOB_TITLE_CIVILIAN)
 			regenerate_id_name()
 			return
 		if("terminate")
@@ -583,6 +587,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				job.current_positions--
 			modify.assignment = "Terminated"
 			modify.access = list()
+
+			SSjobs.account_job_transfer(modify.registered_name, modify.rank, FALSE)
 			regenerate_id_name()
 			return
 		if("make_job_available") // MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS

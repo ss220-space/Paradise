@@ -39,12 +39,6 @@
 	if(vamp && life_tick == 1)
 		regenerate_icons() // Make sure the inventory updates
 
-	var/datum/antagonist/goon_vampire/g_vamp = mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(g_vamp)
-		g_vamp.handle_vampire()
-		if(life_tick == 1)
-			regenerate_icons()
-
 	var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
 	if(ninja)
 		ninja.handle_ninja()
@@ -862,18 +856,6 @@
 		dna.species.hunger_level = new_hunger
 		throw_alert(ALERT_NUTRITION, text2path("/atom/movable/screen/alert/hunger/[new_hunger]"), icon_override = dna.species.hunger_icon)
 		med_hud_set_status()
-
-
-/mob/living/carbon/human/handle_random_events()
-	// Puke if toxloss is too high
-	if(!stat)
-		if(getToxLoss() >= 45 && nutrition > 20)
-			lastpuke ++
-			if(lastpuke >= 25) // about 25 second delay I guess
-				vomit(20, 0, 8 SECONDS, 0, 1)
-				adjustToxLoss(-3)
-				lastpuke = 0
-
 
 /mob/living/carbon/human/proc/handle_embedded_objects()
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)

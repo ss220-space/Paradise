@@ -56,8 +56,13 @@
 	unlimited_power = TRUE
 
 /obj/item/clothing/gloves/color/yellow/fake
-	desc = "These gloves will protect the wearer from electric shock. They don't feel like rubber..."
 	siemens_coefficient = 1
+
+/obj/item/clothing/gloves/color/yellow/fake/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += span_notice("They don't feel like rubber...")
+
 
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
 	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
@@ -246,14 +251,16 @@
 	item_color="white"
 	transfer_prints = TRUE
 	resistance_flags = NONE
+	clothing_traits = list(TRAIT_QUICK_CARRY)
 
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
 	desc = "Pricy sterile gloves that are stronger than latex."
 	icon_state = "nitrile"
-	item_state = "nitrilegloves"
+	item_state = "nitrile"
 	transfer_prints = FALSE
 	item_color = "medical"
+	clothing_traits = list(TRAIT_QUICKER_CARRY)
 
 /obj/item/clothing/gloves/color/latex/modified
 	name = "modified medical gloves"
