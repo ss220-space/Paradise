@@ -1905,16 +1905,15 @@
 				remove_devil_role()
 			if("devil")
 				var/datum/antagonist/devil/devil = has_antag_datum(/datum/antagonist/devil)
-				if(!ishuman(current) || devil)
+				if(!iscarbon(current) || devil)
 					return
 
 				add_antag_datum(/datum/antagonist/devil)
 				message_admins("[key_name_admin(usr)] has devil'ed [current].")
 				log_admin("[key_name(usr)] has devil'ed [current].")
 			if("sintouched")
-				var/mob/living/carbon/human/H = current
-				H.influenceSin()
-
+				
+				add_antag_datum(/datum/antagonist/sintouched)
 				message_admins("[key_name_admin(usr)] has sintouch'ed [current].")
 				log_admin("[key_name(usr)] has sintouch'ed [current].")
 
@@ -2651,7 +2650,7 @@
 		remove_antag_datum(/datum/antagonist/devil)
 
 	else if(src in SSticker.mode.sintouched)
-		LAZYREMOVE(SSticker.mode.sintouched, src)
+		remove_antag_datum(/datum/antagonist/sintouched)
 
 
 /datum/mind/proc/remove_contractor_role()

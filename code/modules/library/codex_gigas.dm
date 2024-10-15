@@ -72,6 +72,6 @@
 
 /obj/item/book/codex_gigas/proc/close(mob/living/carbon/human/human, willpower)
 	if(!prob(willpower))
-		human.influenceSin()
+		human.mind?.add_antag_datum(/datum/antagonist/sintouched)
 
 	onclose(user, "book")

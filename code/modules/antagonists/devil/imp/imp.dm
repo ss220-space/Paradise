@@ -18,8 +18,6 @@
 	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 250 //Weak to cold
-	maxbodytemp = INFINITY
 	faction = list("hell")
 	attacktext = "неистово терзает"
 	maxHealth = 200

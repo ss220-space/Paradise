@@ -234,27 +234,29 @@
 
 
 /obj/effect/proc_holder/spell/sintouch/create_new_targeting()
-	var/datum/spell_targeting/targeted/T = new()
-	T.selection_type = SPELL_SELECTION_RANGE
-	T.random_target = TRUE
-	T.target_priority = SPELL_TARGET_RANDOM
-	T.use_turf_of_user = TRUE
-	T.range = 2
-	T.max_targets = 3
-	return T
+	var/datum/spell_targeting/targeted/targeting = new()
+	
+	targeting.selection_type = SPELL_SELECTION_RANGE
+	targeting.random_target = TRUE
+	targeting.target_priority = SPELL_TARGET_RANDOM
+	targeting.use_turf_of_user = TRUE
+
+	targeting.range = 2
+	targeting.max_targets = 3
+
+	return targeting
 
 
 /obj/effect/proc_holder/spell/sintouch/sintouch/cast(list/targets, mob/living/user = usr)
-	for(var/mob/living/carbon/human/H in targets)
-		if(!H.mind)
+	for(var/mob/living/carbon/human/human in targets)
+		if(!human.mind)
 			continue
 
-		for(var/datum/objective/sintouched/A in H.mind.objectives)
+		if(human.mind.has_antag_datum(/datum/antagonist/sintouched))
 			continue
 
-		H.influenceSin()
-		H.Weaken(4 SECONDS)
-
+		human.mind.add_antag_datum(/datum/antagonist/sintouched)
+		human.Weaken(4 SECONDS)
 
 /obj/effect/proc_holder/spell/summon_dancefloor
 	name = "Summon Dancefloor"
