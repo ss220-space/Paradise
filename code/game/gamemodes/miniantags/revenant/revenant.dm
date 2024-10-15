@@ -27,8 +27,6 @@
 	response_disarm = "swings at"
 	response_harm   = "punches"
 	unsuitable_atmos_damage = 0
-	minbodytemp = 0
-	maxbodytemp = INFINITY
 	harm_intent_damage = 0
 	friendly = "touches"
 	status_flags = 0
@@ -62,6 +60,12 @@
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
 
+/mob/living/simple_animal/revenant/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = INFINITY, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/revenant/Life(seconds, times_fired)
 	..()
@@ -188,7 +192,7 @@
 			messages.Add("<b>You are invincible and invisible to everyone but other ghosts. Most abilities will reveal you, rendering you vulnerable.</b>")
 			messages.Add("<b>To function, you are to drain the life essence from humans. This essence is a resource, as well as your health, and will power all of your abilities.</b>")
 			messages.Add("<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>")
-			messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Revenant\">Ревенант</a></span>")
+			messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Revenant\">Ревенант</a></span>")
 			var/datum/objective/revenant/objective = new
 			objective.owner = mind
 			mind.objectives += objective
@@ -205,6 +209,7 @@
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/defile(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/malfunction(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/overload(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/blight(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/haunt_object(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/hallucinations(null))
 	return TRUE

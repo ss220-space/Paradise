@@ -89,9 +89,8 @@
 	var/sec_record = ""
 	var/gen_record = ""
 	var/exploit_record = ""
-	var/lastpuke = 0
 	/// For speaking/listening.
-	var/list/languages
+	var/list/datum/language/languages
 	/// For reagents that grant language knowlege.
 	var/list/temporary_languages
 	var/list/speak_emote = list("says")   // Verbs used when speaking. Defaults to 'say' if speak_emote is null.

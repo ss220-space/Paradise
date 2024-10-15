@@ -221,6 +221,7 @@
 	material_type = MATERIAL_CLASS_TECH, \
 	max_bites = 5, \
 	nutritional_value = 10, \
+	is_only_grab_intent = TRUE, \
 	)
 
 /obj/item/multitool/abductor/add_eatable_component()
@@ -229,6 +230,7 @@
 	material_type = MATERIAL_CLASS_TECH, \
 	max_bites = 5, \
 	nutritional_value = 50, \
+	is_only_grab_intent = TRUE, \
 	)
 
 /obj/item/multitool/ai_detect/add_eatable_component()
@@ -237,6 +239,7 @@
 	material_type = MATERIAL_CLASS_TECH, \
 	max_bites = 5, \
 	nutritional_value = 50, \
+	is_only_grab_intent = TRUE, \
 	)
 
 /obj/item/radio/headset/add_eatable_component()

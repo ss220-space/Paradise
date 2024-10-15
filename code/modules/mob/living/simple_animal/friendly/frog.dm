@@ -31,8 +31,6 @@
 	mob_size = MOB_SIZE_TINY
 	layer = MOB_LAYER
 	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 223		//Below -50 Degrees Celcius
-	maxbodytemp = 323	//Above 50 Degrees Celcius
 	universal_speak = 0
 	can_hide = 1
 	holder_type = /obj/item/holder/frog
@@ -47,6 +45,12 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+/mob/living/simple_animal/frog/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 323, \
+		minbodytemp = 223, \
+	)
 
 /mob/living/simple_animal/frog/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
@@ -140,14 +144,12 @@
 	real_name = "Маппер"
 	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0)
 	butcher_results = list(/obj/item/areaeditor/blueprints=1)
-	cold_damage_per_tick = 0
 	damage_coeff = list("brute"=0,"fire"=0,"tox"=0,"clone"=0,"stamina"=0,"oxy"=0)
 	death_sound = 'sound/creatures/mapper_death.ogg'
 	desc = "Окупировавшая один из офисов на Центральном командовании лягушка. Постоянно кричит что-то в монитор."
 	emote_hear = list("МГРЛЬК","МРГЛ","УААМРГЛ")
 	emote_see = list("лежит расслабленная","увлажнена","издает гортанные звуки","лупает глазками","сильно недовольна","ищет рантаймы")
 	maxHealth = 1000
-	maxbodytemp = 1000
 	scream_sound = list('sound/creatures/mapper_disappointed.ogg','sound/creatures/mapper_angry.ogg','sound/creatures/mapper_annoyed.ogg')
 	speak = list("МРГЛЬК!","ТРУБА В ТРУБЕ! РАНТАЙМ! ПИЗДЕЦ!","ЧЕРЕЗ ЧАС!","ЗЕРО НА ВАЙТЛИСТЕ!","1.5.7. В РЕЛИЗЕЕЕ!","ВОТ БИ СМ НА КОРОБКУ!","ДА КТО ЭТОТ ВАШ ПР?!","МУЛЬТИЗЕТА ХОЧЕТСЯ!")
 	squeak_sound = list('sound/creatures/mapper_disappointed.ogg','sound/creatures/mapper_angry.ogg','sound/creatures/mapper_annoyed.ogg')
@@ -157,3 +159,10 @@
 /mob/living/simple_animal/frog/scream/mapper/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SILENCED_SOUND_EXTRARANGE) //as quiet as a frog or whatever
+
+/mob/living/simple_animal/frog/scream/mapper/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 1000, \
+		cold_damage = 0, \
+	)

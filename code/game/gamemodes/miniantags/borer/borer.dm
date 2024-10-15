@@ -104,8 +104,6 @@
 	speed = 5
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	maxbodytemp = 1500
 
 	var/static/list/borer_names = list(
 			"Primary", "Secondary", "Tertiary", "Quaternary", "Quinary", "Senary",
@@ -153,6 +151,13 @@
 	real_name = "Cortical Borer [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
+
+/mob/living/simple_animal/borer/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 1500, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/borer/attack_ghost(mob/user)
 	if(cannotPossess(user))
@@ -384,6 +389,7 @@
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
 			attack_ghost(ghost)
+
 	if(href_list["borer_use_chem"])
 		locate(href_list["src"])
 		if(!istype(src, /mob/living/simple_animal/borer))
@@ -669,7 +675,7 @@
 /mob/living/carbon/proc/BorerControlling()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 
-	if(borer?.controlling)
+	if(borer && borer.controlling)
 		return TRUE
 
 	return FALSE
@@ -812,6 +818,7 @@
 	leave_body_action.Grant(src)
 	take_control_action.Grant(src)
 	make_chems_action.Grant(src)
+	mind?.AddSpell(new /obj/effect/proc_holder/spell/borer_force_say)
 	focus_menu_action.Grant(src)
 
 /mob/living/simple_animal/borer/proc/RemoveInfestActions()
@@ -819,6 +826,7 @@
 	take_control_action.Remove(src)
 	leave_body_action.Remove(src)
 	make_chems_action.Remove(src)
+	mind?.RemoveSpell(/obj/effect/proc_holder/spell/borer_force_say)
 	focus_menu_action.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantControlActions()

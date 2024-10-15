@@ -192,6 +192,18 @@ emp_act
 	return 100 - protection
 
 
+/// This proc returns the permeability protection for a particular external organ.
+/mob/living/carbon/human/proc/get_permeability_protection_organ(obj/item/organ/external/def_zone)
+	if(!def_zone)
+		return 1
+	var/permeability_protection = 1
+	var/list/clothing_items = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id, neck)
+	for(var/obj/item/clothing/cloth in clothing_items)
+		if(cloth.body_parts_covered & def_zone.limb_body_flag)
+			permeability_protection *= cloth.permeability_coefficient
+	return permeability_protection
+
+
 //this proc returns the Siemens coefficient of electrical resistivity for a particular external organ.
 /mob/living/carbon/human/proc/get_siemens_coefficient_organ(obj/item/organ/external/def_zone)
 	if(!def_zone)

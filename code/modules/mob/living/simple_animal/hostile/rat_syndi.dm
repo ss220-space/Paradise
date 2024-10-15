@@ -32,7 +32,6 @@
 	AI_delay_max = 0 SECONDS
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 
 
 	ranged =  1
@@ -57,6 +56,11 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+/mob/living/simple_animal/hostile/retaliate/syndirat/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/retaliate/syndirat/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))

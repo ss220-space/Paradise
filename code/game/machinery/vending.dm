@@ -461,7 +461,7 @@
 	if(tilted)
 		if(user.a_intent == INTENT_HELP)
 			to_chat(user, span_warning("[src] is tipped over and non-functional! You'll need to right it first."))
-			return
+			return ATTACK_CHAIN_BLOCKED_ALL
 		return ..()
 
 	if(user.a_intent == INTENT_HARM)
@@ -1250,13 +1250,15 @@
 			"[user] begins to right [src].",
 			"You begin to right [src]."
 		)
-		if(!do_after(user, 7 SECONDS, src))
+		if(!do_after(user, 7 SECONDS, src, max_interact_count = 1, cancel_on_max = TRUE))
 			return
 		user.visible_message(
 			span_notice("[user] rights [src]."),
 			span_notice("You right [src]."),
 			span_notice(">You hear a loud clang.")
 		)
+	if(!tilted) //Sanity check
+		return
 
 	unbuckle_all_mobs(TRUE)
 
