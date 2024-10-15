@@ -83,7 +83,7 @@ MEDICAL
 	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/hud/health/patch
-	name = "medical HUD eyepatch"
+	name = "\improper Medical HUD Eyepatch"
 	desc = "A heads-up eyepatch that scans the humans in view and provides accurate data about their health status."
 	icon_state = "medhudpatch"
 	item_state = "medhudpatch"
@@ -155,7 +155,7 @@ DIAGNOSTIC
 		)
 
 /obj/item/clothing/glasses/hud/diagnostic/patch
-	name = "diagnostic HUD eyepatch"
+	name = "\improper Diagnostic HUD Eyepatch"
 	desc = "A heads-up eyepatch capable of analyzing the integrity and status of robotics and exosuits."
 	icon_state = "diaghudpatch"
 	item_state = "diaghudpatch"
@@ -221,11 +221,14 @@ SECURITY
 		)
 
 /obj/item/clothing/glasses/hud/security/patch
-	name = "security HUD eyepatch"
+	name = "\improper Security HUD Eyepatch"
 	desc = "A heads-up eyepatch that scans the humans in view and provides accurate data about their ID status and security records."
 	icon_state = "sechudpatch"
 	item_state = "sechudpatch"
 	prescription_upgradable = FALSE
+
+/obj/item/clothing/glasses/hud/security/patch/read_only
+	examine_extensions = EXAMINE_HUD_SECURITY_READ
 
 /obj/item/clothing/glasses/hud/security/read_only
 	examine_extensions = EXAMINE_HUD_SECURITY_READ
@@ -349,7 +352,7 @@ HYDROPONIC
 		)
 
 /obj/item/clothing/glasses/hud/hydroponic/patch
-	name = "hydroponic HUD eyepatch"
+	name = "\improper Hydroponic HUD Eyepatch"
 	desc = "A heads-up eyepatch capable of analyzing the health and status of plants growing in hydro trays and soil."
 	icon_state = "hydrohudpatch"
 	item_state = "hydrohudpatch"
@@ -412,7 +415,7 @@ SKILLS
 	)
 
 /obj/item/clothing/glasses/hud/skills/patch
-	name = "skills HUD eyepatch"
+	name = "\improper Skills HUD Eyepatch"
 	desc = "A heads-up eyepatch capable of showing the employment history records of NT crew members."
 	icon_state = "skillhudpatch"
 	item_state = "skillhudpatch"
