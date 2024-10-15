@@ -74,4 +74,4 @@
 	if(!prob(willpower))
 		human.mind?.add_antag_datum(/datum/antagonist/sintouched)
 
-	onclose(user, "book")
+	onclose(human, "book")

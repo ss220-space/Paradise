@@ -1604,6 +1604,7 @@
 #include "code\modules\antagonists\changeling\powers\tiny_prick.dm"
 #include "code\modules\antagonists\changeling\powers\transform.dm"
 #include "code\modules\antagonists\devil\devil.dm"
+#include "code\modules\antagonists\devil\sintouched.dm"
 #include "code\modules\antagonists\devil\devil_banish.dm"
 #include "code\modules\antagonists\devil\devil_bane.dm"
 #include "code\modules\antagonists\devil\devil_ban.dm"
