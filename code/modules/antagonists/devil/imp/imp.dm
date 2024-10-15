@@ -34,6 +34,12 @@
 							Though you are not obligated to help, perhaps by aiding a higher ranking devil, you might just get a promotion.  However, you are incapable	\
 							of intentionally harming a fellow devil.</B>"
 
+/mob/living/simple_animal/imp/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 250, \
+		maxbodytemp = INFINITY, \
+	)
 
 /mob/living/simple_animal/imp/Initialize(mapload)
 	. = ..()

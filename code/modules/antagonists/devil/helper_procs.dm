@@ -17,15 +17,6 @@
 	
 	devil.remove_soul(mind)
 
-/mob/living/proc/check_acedia()
-	if(!mind?.objectives)
-		return FALSE
-
-	for(var/datum/objective/sintouched/acedia/A in mind.objectives)
-		return TRUE
-
-	return FALSE
-
 /proc/devilInfo(name)
 	if(GLOB.allDevils[lowertext(name)])
 		return GLOB.allDevils[lowertext(name)]

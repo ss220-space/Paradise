@@ -30,6 +30,7 @@
 
 /datum/devil_ban/hurtwoman
 	name = BAN_HURTWOMAN
+	
 	desc = "This devil seems to prefer hunting men."
 	law = "You must never harm a female outside of self defense."
 
