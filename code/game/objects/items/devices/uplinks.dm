@@ -552,7 +552,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 		devils += isdevil(M)
 		malfs += ismalfAI(M)
-		borers += istype(M, /mob/living/simple_animal/borer)
+		borers += isborer(M)
 		morphs += ismorph(M)
 		revenants += istype(M, /mob/living/simple_animal/revenant)
 		demons += isdemon(M)

@@ -42,12 +42,13 @@
 		if(!free_inject)
 			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть за генокрада?", ROLE_CHANGELING, FALSE, 10 SECONDS, source = src, role_cleanname = "Генокрад")
 			var/mob/dead/observer/theghost = null
-			if(candidates.len)
-				theghost = pick(candidates)
-				theghost.mind.transfer_to(target)
-			else
+			if(!candidates.len)
 				to_chat(user, span_notice("[target] body rejects [src]"))
 				return
+
+			theghost = pick(candidates)
+			theghost.mind.transfer_to(target)
+
 
 		if(target.mind)
 			playsound(src, 'sound/goonstation/items/hypo.ogg', 80)

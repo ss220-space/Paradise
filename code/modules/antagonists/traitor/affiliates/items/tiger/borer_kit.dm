@@ -40,7 +40,7 @@
 	for(var/mob/living/M in GLOB.alive_mob_list)
 		var/mob/living/simple_animal/borer/B
 
-		if(istype(M, /mob/living/simple_animal/borer))
+		if(isborer(M))
 			B = M
 
 		if(ishuman(M))
@@ -88,7 +88,7 @@
 	for(var/mob/living/M in GLOB.alive_mob_list)
 		var/mob/living/simple_animal/borer/B
 
-		if(istype(M, /mob/living/simple_animal/borer))
+		if(isborer(M))
 			B = M
 
 		if(ishuman(M))
@@ -159,14 +159,14 @@
 		to_chat(user, span_warning("[src] looks broken."))
 		return
 
-	if(istype(target, /mob/living/carbon/human))
+	if(ishuman(target))
 		var/mob/living/carbon/human/host = target
 		target = host.has_brain_worms()
 		if(!target)
 			user.balloon_alert(user, "Бореров не обнаружено")
 			return
 
-	if(!istype(target, /mob/living/simple_animal/borer))
+	if(!isborer(target))
 		return
 
 	if(!COOLDOWN_FINISHED(src, scan_cooldown))
@@ -237,7 +237,7 @@
 	for(var/mob/living/M in GLOB.alive_mob_list)
 		var/mob/living/simple_animal/borer/B
 
-		if(istype(M, /mob/living/simple_animal/borer))
+		if(isborer(M))
 			B = M
 
 		if(ishuman(M))
@@ -304,7 +304,7 @@
 	for(var/mob/living/M in GLOB.alive_mob_list)
 		var/mob/living/simple_animal/borer/B
 
-		if(istype(M, /mob/living/simple_animal/borer))
+		if(isborer(M))
 			B = M
 
 		if(ishuman(M))

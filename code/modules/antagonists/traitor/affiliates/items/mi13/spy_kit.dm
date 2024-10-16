@@ -117,6 +117,9 @@
 	if(!istype(user))
 		return
 
+	if (!user.Adjacent(source))
+		return
+
 	bug.unhook(user)
 
 /datum/component/spy_bug/proc/deleted_handler()

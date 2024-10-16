@@ -397,7 +397,7 @@
 
 	if(href_list["borer_use_chem"])
 		locate(href_list["src"])
-		if(!istype(src, /mob/living/simple_animal/borer))
+		if(!isborer(src))
 			return
 
 		var/datum/reagent/reagent = href_list["borer_use_chem"]
