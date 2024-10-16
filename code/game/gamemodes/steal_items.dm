@@ -8,6 +8,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives_medium, subtypesof(/datum/theft_obje
 GLOBAL_LIST_INIT(potential_theft_objectives_structure, subtypesof(/datum/theft_objective/structure))
 GLOBAL_LIST_INIT(potential_theft_objectives_animal, subtypesof(/datum/theft_objective/animal))
 GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_objective/collect) - /datum/theft_objective/collect/number)
+GLOBAL_LIST_INIT(potential_theft_objectives_unique, subtypesof(/datum/theft_objective/unique))
+GLOBAL_LIST_INIT(potential_theft_objectives_ai, list(/datum/theft_objective/highrisk/ai))
+GLOBAL_LIST_INIT(potential_theft_objectives_hypo_or_defib, list(/datum/theft_objective/highrisk/hypospray, /datum/theft_objective/highrisk/defib))
+GLOBAL_LIST_INIT(potential_theft_objectives_documents, list(/datum/theft_objective/highrisk/documents))
 
 GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 

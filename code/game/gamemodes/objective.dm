@@ -883,17 +883,17 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(THEFT_FLAG_COLLECT)
 			return GLOB.potential_theft_objectives_collect
 		if(THEFT_FLAG_UNIQUE)
-			return subtypesof(/datum/theft_objective/unique)
+			return GLOB.potential_theft_objectives_unique
 		if(THEFT_FLAG_STRUCTURE)
 			return GLOB.potential_theft_objectives_structure
 		if(THEFT_FLAG_ANIMAL)
 			return GLOB.potential_theft_objectives_animal
 		if(THEFT_FLAG_AI)
-			return list(/datum/theft_objective/highrisk/ai)
+			return GLOB.potential_theft_objectives_ai
 		if(THEFT_FLAG_HYPO_OR_DEFIB)
-			return list(/datum/theft_objective/highrisk/hypospray, /datum/theft_objective/highrisk/defib)
+			return GLOB.potential_theft_objectives_hypo_or_defib
 		if(THEFT_FLAG_DOCUMENTS)
-			return list(/datum/theft_objective/highrisk/documents)
+			return GLOB.potential_theft_objectives_documents
 		else
 			return GLOB.potential_theft_objectives
 

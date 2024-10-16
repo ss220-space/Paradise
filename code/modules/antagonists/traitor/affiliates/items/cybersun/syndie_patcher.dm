@@ -1,4 +1,4 @@
-/obj/item/Syndie_patcher
+/obj/item/syndie_patcher
 	name = "Syndie patcher"
 	desc = "На боку едва заметная надпись \"Cybersun Industries\"."
 	icon = 'icons/obj/affiliates.dmi'
@@ -12,10 +12,10 @@
 			Выполняйте любые приказы мастера.\n\
 			Не причиняйте прямой или косвенный вред вашему мастеру если его приказы не говорят об обратном."
 
-/obj/item/Syndie_patcher/attack(mob/living/target, mob/living/user, def_zone)
+/obj/item/syndie_patcher/attack(mob/living/target, mob/living/user, def_zone)
 	return
 
-/obj/item/Syndie_patcher/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/syndie_patcher/afterattack(atom/target, mob/user, proximity, params)
 	if(isrobot(target))
 		if(do_after(user, 10 SECONDS, target, max_interact_count = 1))
 			target.visible_message(span_warning("[user] upgraded [target] using [src]."), span_danger("[user] hacked and upgraded you using [src]."))

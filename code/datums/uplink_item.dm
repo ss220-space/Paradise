@@ -1757,7 +1757,6 @@
 	name = "Cryptographic Sequencer"
 	desc = "The cryptographic sequencer, also known as an emag, is a small card that unlocks hidden functions in electronic devices, subverts intended functions and characteristically breaks security mechanisms."
 	item = /obj/item/card/emag
-	cost = 30 // Brainrot allowed
 	cost = 30
 
 /datum/uplink_item/device_tools/access_tuner
@@ -1949,7 +1948,7 @@
 	cost = 46 //reskinned blood-red hardsuit with chameleon
 	item = /obj/item/storage/box/syndie_kit/chameleon_hardsuit
 	exclude_from_affiliate = list(AFFIL_MI13, AFFIL_GORLEX)
-	made_by = "Cybersun Industries и Gorlex Maraduers"
+	made_by = AFFIL_CYBERSUN + " и " + AFFIL_GORLEX
 
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"
@@ -2570,11 +2569,11 @@
 	item = /obj/item/invasive_beacon
 	cost = 9
 
-/datum/uplink_item/affiliate/cybersun/Syndie_patcher
+/datum/uplink_item/affiliate/cybersun/syndie_patcher
 	name = "Синди патчер"
 	desc = "Высокотехнологичное устройство для взлома боргов. При взломе борга ставит ему прошивку борга Синдиката с \
 			нулевым законом на подчинение взломавшему. Устройство одноразовое."
-	item = /obj/item/Syndie_patcher
+	item = /obj/item/syndie_patcher
 	cost = 28
 	limited_stock = 2
 

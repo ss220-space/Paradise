@@ -162,4 +162,4 @@
 	uplink.uplink_items.Add(new_item)
 
 /datum/affiliate/proc/give_default_objective()
-	traitor.forge_single_human_objective()
+	traitor.forge_single_objective()
