@@ -147,14 +147,18 @@
 	frame_stack = /obj/item/stack/sheet/wood
 
 /obj/structure/stairs_frame/AltClick(mob/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!Adjacent(user))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+
 	if(anchored)
 		to_chat(user, "It is fastened to the floor!")
 		return
+
 	add_fingerprint(usr)
 	setDir(turn(dir, 90))
 

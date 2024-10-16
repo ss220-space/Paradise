@@ -44,6 +44,7 @@
 	to_chat(usr, "<span class='notice'>[src] will now transfer [N] units at a time.</span>")
 
 /obj/item/reagent_containers/AltClick(mob/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(Adjacent(user))
 		set_APTFT()
 

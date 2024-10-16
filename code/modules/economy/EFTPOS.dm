@@ -44,6 +44,7 @@
 
 
 /obj/item/paper/check/AltClick(mob/living/carbon/human/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(ishuman(user) && user.is_in_hands(src))
 		to_chat(user, span_warning("Paper is too small! You fail to fold [src] into the shape of a plane!"))
 

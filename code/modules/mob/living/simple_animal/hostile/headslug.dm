@@ -56,6 +56,7 @@
 	if(egg_layed || !istype(carbon_target) || carbon_target.stat != DEAD || !Adjacent(carbon_target) || is_monkeybasic(carbon_target))
 		return ..()
 
+	SEND_SIGNAL(A, COMSIG_CLICK_ALT_ON, src, A)
 	changeNext_move(CLICK_CD_MELEE)
 
 	if(carbon_target.stat != DEAD)

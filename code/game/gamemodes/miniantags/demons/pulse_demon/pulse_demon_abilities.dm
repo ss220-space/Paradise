@@ -84,6 +84,7 @@
 	if(!istype(user))
 		return
 
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(locked)
 		if(user.charge >= unlock_cost)
 			user.adjust_charge(-unlock_cost)
@@ -279,6 +280,7 @@
 	if(!istype(user))
 		return
 
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	var/amount = text2num(input(user, "Input a value between 1 and [user.max_drain_rate]. 0 will reset it to the maximum.", "Drain Speed Setting"))
 	if(amount == null || amount < 0)
 		to_chat(user, span_warning("Invalid input. Drain speed has not been modified."))
@@ -327,12 +329,15 @@
 /obj/effect/proc_holder/spell/pulse_demon/cycle_camera/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
 	if(!istype(user))
 		return
-	current_camera = 0
 
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
+	current_camera = 0
 	if(!isapc(user.current_power))
 		return
+
 	if(get_area(user.loc) != user.controlling_area)
 		return
+
 	user.forceMove(user.current_power)
 
 /obj/effect/proc_holder/spell/pulse_demon/cycle_camera/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
@@ -430,6 +435,7 @@
 	if(!istype(user))
 		return
 
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	to_chat(user, "<b>Pulse Demon upgrades:</b>")
 	for(var/upgrade in upgrade_descs)
 		var/cost = calc_cost(user, upgrade)

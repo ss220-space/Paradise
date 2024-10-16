@@ -123,6 +123,7 @@
 
 
 /obj/item/taperecorder/AltClick(mob/living/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(istype(user) && mytape && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && Adjacent(user))
 		var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
 						"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
@@ -131,6 +132,7 @@
 		var/choice = show_radial_menu(user, src, options, require_near = TRUE)
 		if(!choice || user.incapacitated())
 			return
+
 		switch(choice)
 			if("Playback Tape")
 				play(user)

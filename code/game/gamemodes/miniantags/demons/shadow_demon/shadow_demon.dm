@@ -139,10 +139,13 @@
 /obj/structure/shadowcocoon/AltClick(mob/user)
 	if(!isdemon(user) || user.incapacitated())
 		return ..()
+
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(silent)
 		to_chat(user, span_notice("You twist and change your trapped victim in [src] to lure in more prey."))
 		silent = FALSE
 		return
+
 	to_chat(user, span_notice("The tendrils from [src] snap back to their orignal form."))
 	silent = TRUE
 

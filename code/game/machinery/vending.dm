@@ -219,6 +219,7 @@
 		. += span_warning("Its product lights seem to be blinking ominously...")
 
 /obj/machinery/vending/AltClick(mob/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!tilted || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 

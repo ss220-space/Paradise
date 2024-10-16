@@ -611,13 +611,17 @@ Difficulty: Medium
 	attack_action_types = list()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser/AltClickOn(atom/movable/A)
+	SEND_SIGNAL(A, COMSIG_CLICK_ALT_ON, src, A)
 	if(a_intent == INTENT_HELP || intent == INTENT_HELP)
 		return
+
 	if(!istype(A))
 		return
+
 	if(player_cooldown >= world.time)
 		to_chat(src, "<span class='warning'>You need to wait [(player_cooldown - world.time) / 10] seconds before swooping again!</span>")
 		return
+
 	swoop_attack(FALSE, A)
 	lava_pools(10, 2) // less pools but longer delay before spawns
 	player_cooldown = world.time + 200 // needs seperate cooldown or cant use fire attacks
@@ -693,4 +697,5 @@ Difficulty: Medium
 
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/AltClickOn(atom/movable/A)
+	SEND_SIGNAL(A, COMSIG_CLICK_ALT_ON, src, A)
 	return

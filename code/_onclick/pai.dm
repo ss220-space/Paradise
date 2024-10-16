@@ -71,6 +71,7 @@
 	return ..()
 
 /mob/living/silicon/pai/AltClickOn(atom/A)
+	SEND_SIGNAL(A, COMSIG_CLICK_ALT_ON, src, A)
 	if(!ai_capability)
 		return ..()
 	if(!capa_is_cooldown)

@@ -424,6 +424,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	return
 
 /obj/item/paper/abductor/AltClick()
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	return
 
 

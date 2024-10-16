@@ -577,9 +577,12 @@
 /obj/item/gun/AltClick(mob/user)
 	if(!unique_reskin || current_skin || loc != user)
 		return ..()
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
 		return ..()
+
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	reskin_gun(user)
 
 

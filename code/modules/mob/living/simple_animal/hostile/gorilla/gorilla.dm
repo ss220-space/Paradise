@@ -123,6 +123,8 @@
 /mob/living/simple_animal/hostile/gorilla/AltClick(mob/living/simple_animal/hostile/gorilla/user)
 	if(!istype(user) || src != user || !gorilla_toggle)
 		return ..()
+
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	gorilla_toggle.Activate()
 
 

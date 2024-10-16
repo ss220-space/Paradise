@@ -401,6 +401,7 @@
 /obj/machinery/disposal/AltClick(mob/user)
 	if(!Adjacent(user) || !ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
+
 	user.visible_message(
 		"<span class='notice'>[user] tries to eject the contents of [src] manually.</span>",
 		"<span class='notice'>You operate the manual ejection lever on [src].</span>"
@@ -408,6 +409,7 @@
 	if(!do_after(user, 5 SECONDS, src))
 		return ..()
 
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	user.visible_message(
 		"<span class='notice'>[user] ejects the contents of [src].</span>",
 		"<span class='notice'>You eject the contents of [src].</span>",

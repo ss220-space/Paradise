@@ -21,6 +21,7 @@
 
 /obj/item/clipboard/AltClick(mob/user)
 	if(Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 		if(is_pen(user.get_active_hand()))
 			penPlacement(user, user.get_active_hand(), TRUE)
 		else

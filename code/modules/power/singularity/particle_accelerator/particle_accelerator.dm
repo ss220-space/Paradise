@@ -96,6 +96,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	rotate_accelerator(usr)
 
 /obj/structure/particle_accelerator/AltClick(mob/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	rotate_accelerator(user)
 
 /obj/structure/particle_accelerator/proc/rotate_accelerator(mob/user)
@@ -277,6 +278,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	rotate_accelerator(usr)
 
 /obj/machinery/particle_accelerator/AltClick(mob/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	rotate_accelerator(user)
 
 

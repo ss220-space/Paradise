@@ -397,6 +397,7 @@
 
 //Feeds a potion to slime
 /mob/living/simple_animal/slime/AltClick(mob/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	SEND_SIGNAL(user, COMSIG_XENO_SLIME_CLICK_ALT, src)
 
 //Picks up slime

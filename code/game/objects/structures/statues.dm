@@ -288,14 +288,18 @@
 	icon_state = "mime"
 
 /obj/structure/statue/tranquillite/mime/AltClick(mob/user)//has 4 dirs
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!Adjacent(user))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+
 	if(anchored)
 		to_chat(user, "It is fastened to the floor!")
 		return
+
 	setDir(turn(dir, 90))
 
 /obj/structure/statue/tranquillite/mime/unique

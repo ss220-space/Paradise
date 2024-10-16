@@ -34,11 +34,14 @@
 	adjustmask(user)
 
 /obj/item/clothing/mask/breath/AltClick(mob/living/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!istype(user) || !Adjacent(user))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+
 	adjustmask(user)
 
 /obj/item/clothing/mask/breath/medical
@@ -62,4 +65,5 @@
 	return
 
 /obj/item/clothing/mask/breath/vox/AltClick(mob/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	return

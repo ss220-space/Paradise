@@ -93,13 +93,17 @@
 	return air_contents
 
 /obj/machinery/portable_atmospherics/AltClick(mob/living/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!ishuman(user) && !issilicon(user))
 		return
+
 	if(!Adjacent(user))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
 		return
+
 	if(holding)
 		to_chat(user, span_notice("You remove [holding] from [src]."))
 		replace_tank(user, TRUE)

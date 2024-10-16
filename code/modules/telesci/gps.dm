@@ -57,13 +57,17 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), EMP_DISABLE_TIME)
 
 /obj/item/gps/AltClick(mob/living/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!Adjacent(user))
 		return
+
 	if(!iscarbon(usr) && !isrobot(usr))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+
 	toggle_gps(user)
 
 /obj/item/gps/proc/toggle_gps(mob/living/user)

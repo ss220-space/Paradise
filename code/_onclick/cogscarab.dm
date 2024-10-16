@@ -93,6 +93,7 @@
 	return
 
 /mob/living/silicon/robot/cogscarab/AltClickOn(atom/A)
+	SEND_SIGNAL(A, COMSIG_CLICK_ALT_ON, src, A)
 	A.AltClick(src)
 	return
 

@@ -116,13 +116,19 @@
 
 /obj/item/paper/AltClick(mob/living/carbon/human/user)
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 		return
+
 	if(is_pen(user.get_active_hand()))
+		SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 		rename(user)
 		return
+
 	if(user.is_in_hands(src))
+		SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 		ProcFoldPlane(user, src)
 		return
+
 	return ..()
 
 

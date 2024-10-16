@@ -510,6 +510,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 
 /obj/machinery/conveyor_switch/AltClick(mob/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(Adjacent(user))
 		on_user_activation(user, CONVEYOR_BACKWARDS)
 

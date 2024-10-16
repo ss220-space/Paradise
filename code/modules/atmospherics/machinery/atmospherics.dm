@@ -391,8 +391,10 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/AltClick(mob/living/user)
 	if((vent_movement & VENTCRAWL_ALLOWED) && istype(user))
+		SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 		user.handle_ventcrawl(src)
 		return
+
 	return ..()
 
 

@@ -11,15 +11,15 @@
 	reagent_state = LIQUID
 
 /datum/reagent/hemat_blue_lagoon/on_mob_add(mob/living/carbon/human/H)
-	ADD_TRAIT(H, TRAIT_IGNORECOLDSLOWDOWN, CHEM_TRAIT(src))
-	ADD_TRAIT(H, TRAIT_IGNORECOLDDAMAGE, CHEM_TRAIT(src))
+	ADD_TRAIT(H, TRAIT_IGNORECOLDSLOWDOWN, id)
+	ADD_TRAIT(H, TRAIT_IGNORECOLDDAMAGE, id)
 	H.physiology.metabolism_mod /= 8
 	H.bodytemperature = T0C - 100
 	. = ..()
 
 /datum/reagent/hemat_blue_lagoon/on_mob_delete(mob/living/carbon/human/H)
-	REMOVE_TRAIT(H, TRAIT_IGNORECOLDSLOWDOWN, CHEM_TRAIT(src))
-	REMOVE_TRAIT(H, TRAIT_IGNORECOLDDAMAGE, CHEM_TRAIT(src))
+	REMOVE_TRAIT(H, TRAIT_IGNORECOLDSLOWDOWN, id)
+	REMOVE_TRAIT(H, TRAIT_IGNORECOLDDAMAGE, id)
 	H.physiology.metabolism_mod *= 8
 	var/turf/T = get_turf(H)
 	var/datum/gas_mixture/environment = T.return_air()

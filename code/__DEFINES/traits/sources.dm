@@ -9,8 +9,6 @@
 #define ELEMENT_TRAIT(source) "element_trait_[source]"
 /// A trait given by a specific status effect (not sure why we need both but whatever!)
 #define TRAIT_STATUS_EFFECT(effect_id) "[effect_id]-trait"
-/// Trait applied by chemical substance
-#define CHEM_TRAIT(source) "chem_trait_[source]"
 
 // common trait sources
 #define GENERIC_TRAIT "generic"

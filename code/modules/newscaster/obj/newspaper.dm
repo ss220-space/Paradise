@@ -189,6 +189,7 @@
 
 
 /obj/item/newspaper/AltClick(mob/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		rolled = !rolled
 		icon_state = "newspaper[rolled ? "_rolled" : ""]"

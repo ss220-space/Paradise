@@ -127,8 +127,10 @@
 
 
 /obj/machinery/hydroponics/AltClick(mob/living/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!istype(user) || !Adjacent(user))
 		return
+
 	toggle_lid(user)
 
 

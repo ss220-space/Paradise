@@ -465,10 +465,12 @@ GLOBAL_LIST_EMPTY(closets)
 
 
 /obj/structure/closet/AltClick(mob/living/simple_animal/hostile/gorilla/gorilla)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(istype(gorilla) && !gorilla.incapacitated() && !HAS_TRAIT(gorilla, TRAIT_HANDS_BLOCKED) && Adjacent(gorilla))
 		gorilla.face_atom(src)
 		toggle()
 		gorilla.oogaooga()
+
 	return ..()
 
 /obj/structure/closet/shove_impact(mob/living/target, mob/living/attacker)

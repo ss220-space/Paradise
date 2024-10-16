@@ -88,6 +88,8 @@
 /obj/machinery/fishtank/AltClick(mob/user)
 	if(!Adjacent(user))
 		return ..()
+
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	toggle_lid(user)
 
 

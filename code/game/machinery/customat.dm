@@ -715,9 +715,11 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/customat/AltClick(atom/movable/A)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if (!panel_open)
 		balloon_alert(A, "панель закрыта")
 		return
+
 	if (isLocked())
 		balloon_alert(A, "автомат заблокирован")
 		return

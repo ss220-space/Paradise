@@ -118,6 +118,7 @@
 /mob/living/silicon/robot/CtrlClickOn(atom/A)
 	A.BorgCtrlClick(src)
 /mob/living/silicon/robot/AltClickOn(atom/A)
+	SEND_SIGNAL(A, COMSIG_CLICK_ALT_ON, src, A)
 	A.BorgAltClick(src)
 /mob/living/silicon/robot/CtrlShiftClickOn(atom/A)
 	A.BorgCtrlShiftClick(src)

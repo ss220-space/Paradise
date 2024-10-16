@@ -1124,6 +1124,7 @@ BLIND     // can't see anything
 
 
 /obj/item/clothing/under/AltClick(mob/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(Adjacent(user))
 		handle_accessories_removal(user)
 

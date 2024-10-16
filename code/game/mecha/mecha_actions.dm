@@ -273,8 +273,10 @@
 	chassis.toggle_strafe()
 
 /obj/mecha/AltClick(mob/living/user) //Strafing is toggled by interface button or by Alt-clicking on mecha
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!occupant || occupant != user)
 		return
+
 	toggle_strafe()
 
 /**
