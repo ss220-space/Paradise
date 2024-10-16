@@ -322,7 +322,7 @@
 	activation_sound = 'sound/magic/timeparadox2.ogg'
 	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
 										   /obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink,
-										   /obj/item/dice/d20/fate, /obj/item/gem)
+										   /obj/item/dice/d20/fate, /obj/item/gem, /obj/item/guardiancreator)
 
 /obj/machinery/anomalous_crystal/refresher/New()
 	..()
