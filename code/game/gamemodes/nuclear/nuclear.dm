@@ -220,7 +220,7 @@
 	if(you_are)
 		messages.Add("<span class='notice'>You are a [syndicate_name()] agent!</span>")
 	messages.Add(syndicate.prepare_announce_objectives(FALSE))
-	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Nuclear_Agent\">Ядерный Оперативник</a></span>")
+	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Nuclear_Agent\">Ядерный Оперативник</a></span>")
 	to_chat(syndicate.current, chat_box_red(messages.Join("<br>")))
 	return
 

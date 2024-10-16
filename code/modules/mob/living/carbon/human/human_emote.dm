@@ -527,6 +527,8 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
+	audio_cooldown = 1 MINUTES
+	cooldown = 10 SECONDS
 	species_type_blacklist_typecache = list(/datum/species/machine)
 	// Credits: Ultimate Fart Series
 	// https://freesound.org/people/Jagadamba
@@ -632,6 +634,7 @@
 	message_postfix = ", смотря на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
+	audio_cooldown = 15 SECONDS
 	vary = TRUE
 	volume = 80
 	sound = 'sound/voice/plas_rattle.ogg'
@@ -927,7 +930,7 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	muzzled_noises = list("тихие")
-	audio_cooldown = 3 SECONDS
+	audio_cooldown = 15 SECONDS
 	// Credit to DrMinky (freesound.org) for the sound.
 	sound = 'sound/effects/Kidanclack.ogg'
 
@@ -955,7 +958,7 @@
 	message_postfix = ", смотря на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
-	audio_cooldown = 3 SECONDS
+	audio_cooldown = 9 SECONDS
 	sound = list(
 		'sound/voice/kidan/wiggles_antennae1.ogg',
 		'sound/voice/kidan/wiggles_antennae2.ogg',
@@ -970,7 +973,7 @@
 	message_postfix = ", смотря на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
-	audio_cooldown = 2 SECONDS
+	audio_cooldown = 6 SECONDS
 	sound = list(
 		'sound/voice/kidan/waves_antennae_sharply1.ogg',
 		'sound/voice/kidan/waves_antennae_sharply2.ogg',
@@ -1030,7 +1033,7 @@
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	muzzled_noises = list("раздражённые", "свистящие", "шипящие")
 	age_based = TRUE
-	audio_cooldown = 3 SECONDS
+	audio_cooldown = 15 SECONDS
 	// Credit to Jamius (freesound.org) for the sound.
 	sound = 'sound/effects/unathihiss.ogg'
 
@@ -1044,7 +1047,7 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	muzzled_noises = list("урчащие", "гортанные")
-	audio_cooldown = 6 SECONDS
+	audio_cooldown = 30 SECONDS
 	age_based = TRUE
 	volume = 65
 	sound = list(
@@ -1062,7 +1065,7 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	muzzled_noises = list("раздражённые", "утробные", "громкие")
-	audio_cooldown = 6 SECONDS
+	audio_cooldown = 30 SECONDS
 	age_based = TRUE
 	sound = list(
 		'sound/voice/unathi/roar.ogg',
@@ -1080,7 +1083,7 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	muzzled_noises = list("очень раздражённые", "громкие")
-	audio_cooldown = 6 SECONDS
+	audio_cooldown = 16 SECONDS
 	age_based = TRUE
 	volume = 80
 	sound = list(
@@ -1099,7 +1102,7 @@
 	emote_type = EMOTE_AUDIBLE
 	tail_required = TRUE
 	volume = 100
-	audio_cooldown = 3 SECONDS
+	audio_cooldown = 15 SECONDS
 	sound = 'sound/voice/unathi/whip_short.ogg'
 
 
@@ -1107,7 +1110,7 @@
 	key = "whip_l"
 	key_third_person = ""
 	message = "хлещ%(ет,ут)% хвостом."
-	audio_cooldown = 6 SECONDS
+	audio_cooldown = 15 SECONDS
 	sound = 'sound/voice/unathi/whip.ogg'
 
 
@@ -1127,6 +1130,7 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 	age_based = TRUE
+	audio_cooldown = 15 SECONDS
 	//Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 	sound = 'sound/voice/dionatalk1.ogg'
 
@@ -1139,7 +1143,7 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 	age_based = TRUE
-	audio_cooldown = 3 SECONDS
+	audio_cooldown = 15 SECONDS
 
 
 /datum/emote/living/carbon/human/slime/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
