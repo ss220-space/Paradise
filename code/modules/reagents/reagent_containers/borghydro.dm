@@ -218,7 +218,7 @@
 	var/emagged = TRUE
 	var/safety_hypo = FALSE
 	reagent_ids = list( \
-		"heparin" = list('icons/effects/bleed.dmi', "bleed10"), \
+		"amanitin" = list('icons/obj/hydroponics/harvest.dmi', "amanita"), \
 		"cyanide" = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		"sodium_thiopental" = list('icons/obj/surgery.dmi', "lungs"))
 	upgrade_path = null //no upgrades
