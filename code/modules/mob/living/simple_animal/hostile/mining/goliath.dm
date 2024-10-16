@@ -244,6 +244,7 @@
 	speed = 4
 	pre_attack_icon = "Goliath_preattack"
 	throw_message = "does nothing to the rocky hide of the"
+	crusher_loot = /obj/item/crusher_trophy/eyed_tentacle
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide) //A throwback to the asteroid days
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath = 2, /obj/item/stack/sheet/bone = 2)
 	crusher_drop_mod = 30
