@@ -430,7 +430,9 @@
 			dat += "<tr><td><a href='byond://?src=[UID()];send_warning=1'>Send warning to all living blobs</a><br></td></tr>"
 			dat += "<tr><td><a href='byond://?src=[UID()];burst_all_blobs=1'>Burst all blobs</a><br></td></tr>"
 			if(check_rights(R_EVENT))
-				dat += "<tr><td><a href='byond://?src=[UID()];delay_blob_end=1'>Delay blob end</a><br></td></tr>"
+				dat += "<tr><td><a href='byond://?src=[UID()];delay_blob_end=1'>Delay blob end</a> Now: [mode.delay_blob_end? "ON" : "OFF"]<br></td></tr>"
+				dat += "<tr><td><a href='byond://?src=[UID()];toggle_auto_gamma=1'>Toggle auto GAMMA</a> Now: [mode.off_auto_gamma? "OFF" : "ON"]<br></td></tr>"
+			dat += "<tr><td><a href='byond://?src=[UID()];toggle_auto_nuke_codes=1'>Toggle auto nuke codes</a> Now: [mode.off_auto_nuke_codes? "OFF" : "ON"]<br></td></tr>"
 			dat += "</table>"
 			dat += "<br><table cellspacing=5><tr><td><B>Blobs</B></td><td></td></tr>"
 			for(var/datum/mind/blob in mode.blobs["infected"])

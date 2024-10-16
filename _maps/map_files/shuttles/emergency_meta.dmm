@@ -408,7 +408,7 @@
 "bj" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig";
-	req_access = list(2)
+	req_access = list(63)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"

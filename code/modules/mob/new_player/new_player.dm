@@ -65,6 +65,8 @@
 		query.warn_execute()
 		qdel(query)
 		src << browse(null, "window=privacy_consent")
+		client.tos_consent = TRUE
+
 	if(href_list["consent_rejected"])
 		client.tos_consent = FALSE
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")

@@ -66,9 +66,10 @@
 	var/spawn_ert = 0
 	var/syndicate_command = 0
 
-	var/money_factor = 1 // multiplier of starting funds
-	var/random_money_factor = FALSE // is miltiplier randomized (from 4x to 0.25x for now)
-
+	var/salary = 0
+	var/min_start_money = 0
+	var/max_start_money = 0
+	
 	var/outfit = null
 
 	/////////////////////////////////
@@ -201,22 +202,8 @@
 			var/datum/gear/G = H.client.prefs.choosen_gears[gear]
 			if(!istype(G))
 				continue
-			var/permitted = FALSE
 
-			if(G.allowed_roles)
-				if(name in G.allowed_roles)
-					permitted = TRUE
-			else
-				permitted = TRUE
-
-			if(G.whitelisted && G.whitelisted != H.dna.species.name)
-				permitted = FALSE
-
-			if(H.client.donator_level < G?.donator_tier)
-				permitted = FALSE
-
-			if(!permitted)
-				to_chat(H, "<span class='warning'>Your current job, donator tier or whitelist status does not permit you to spawn with [G.display_name]!</span>")
+			if(!G.can_select(cl = H.client, job_name = name, species_name = H.dna.species.name)) // some checks
 				continue
 
 			if(G.implantable) //only works for organ-implants

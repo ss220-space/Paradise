@@ -13,6 +13,8 @@
 	temperature_min = 270
 	temperature_max = 350
 	var/needs_to_apply_reagents = TRUE
+	var/application_zone = null
+	var/protection_on_apply = 1
 
 
 /obj/item/reagent_containers/food/pill/patch/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -25,6 +27,10 @@
 	if(!target.eat(src, user) || !user.can_unEquip(src))
 		return .
 	user.drop_transfer_item_to_loc(src, target)
+	var/mob/living/carbon/human/H = target
+	if(istype(H))
+		protection_on_apply = H.get_permeability_protection_organ(target.get_organ(def_zone))
+	application_zone = def_zone
 	LAZYADD(target.processing_patches, src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 

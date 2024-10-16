@@ -1142,10 +1142,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(vampire && (vampire.bloodtotal >= target_amount))
 			return TRUE
 
-		var/datum/antagonist/goon_vampire/g_vampire = player.has_antag_datum(/datum/antagonist/goon_vampire)
-		if(g_vampire && (g_vampire.bloodtotal >= target_amount))
-			return TRUE
-
 		return FALSE
 
 
@@ -1408,7 +1404,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	///Where we should KABOOM
 	var/area/detonation_location
 	var/list/area_blacklist = list(
-		/area/engine/engineering, /area/engine/supermatter,
+		/area/engineering/engine, /area/engineering/supermatter,
 		/area/toxins/test_area, /area/turret_protected/ai)
 	needs_target = FALSE
 

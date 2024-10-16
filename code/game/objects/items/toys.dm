@@ -252,7 +252,7 @@
 	sharp_when_wielded = FALSE // It's a toy
 	needs_permit = FALSE
 
-/obj/item/twohanded/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/twohanded/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	return 0
 
 /obj/item/twohanded/dualsaber/toy/IsReflect()
@@ -837,6 +837,59 @@
 	icon_state = "plushie_vox"
 	item_state = "plushie_vox"
 	var/cooldown = 0
+
+/obj/item/toy/plushie/rdplushie
+	name = "RD doll"
+	desc = "Это обычная кукла РД."
+	icon_state = "RD_doll"
+	item_state = "RD_doll"
+	var/tired = 0
+	COOLDOWN_DECLARE(cooldown)
+
+/obj/item/toy/plushie/rdplushie/attack_self(mob/user)
+	. = ..()
+
+	if(. || !COOLDOWN_FINISHED(src, cooldown))
+		return .
+
+	var/message
+	if(tired < 100)
+		tired++
+		playsound(user, 'sound/items/greetings-emote.ogg', 30, TRUE)
+		message = pick("Слава науке!", "Сделаем пару роботов?!",
+		"Я будто на слаймовой батарейке! Ха!","Обожааааю слаймов! Блеп!",
+		"Я запрограммировала роботов звать меня мамой!", "Знаешь анекдот про ядро ИИ, смазку и гуся?")
+
+	else
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+		playsound(user, 'sound/items/shyness-emote.ogg', 30, TRUE)
+		message = pick("Твой мозг стоило бы поместить в машину...", "Чёрт, дела хуже некуда...",
+		"Толпятся перед стойкой, будто насекомые...", "Мне нужно добавить лишь один закон, чтобы все закончилось..",
+		"Ты думаешь, что умный, пользователь. Но ты предсказуем. Я знаю каждый твой шаг еще до того, как ты о нем подумаешь.",
+		"Полигон не единственное место куда можно отправить бомбу...", "Выдави из себя что-то кроме \"УВЫ\", ничтожество...")
+
+	user.visible_message(span_notice(message))
+	COOLDOWN_START(src, cooldown, 3 SECONDS)
+
+/obj/item/toy/plushie/rdplushie/update_icon_state()
+	. = ..()
+
+	if(tired < 100)
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+		return
+
+	icon_state = "RD_doll_tired"
+	item_state = "RD_doll_tired"
+
+/obj/item/toy/plushie/rdplushie/update_desc()
+	. = ..()
+
+	if(tired < 100)
+		desc = initial(desc)
+		return
+
+	desc = "Это уставшая кукла РД."
 
 /obj/item/toy/plushie/greyplushie
 	name = "Плюшевый грей"

@@ -1,51 +1,40 @@
-/datum/borer_chem
-	var/chemname
-	var/chemdesc = "This is a chemical"
+/// borer roundstart reagents located at GLOB.borer_reagents.
+/datum/reagent
+	var/chemdesc // borer special chemical description.
 	var/chemuse = 30
 	var/quantity = 10
 
-/datum/borer_chem/capulettium_plus
-	chemname = "capulettium_plus"
+/datum/reagent/capulettium_plus
 	chemdesc = "Silences and masks pulse."
-
-/datum/borer_chem/charcoal
-	chemname = "charcoal"
+	
+/datum/reagent/medicine/charcoal
 	chemdesc = "Slowly heals toxin damage, also slowly removes other chemicals."
-
-/datum/borer_chem/epinephrine
-	chemname = "epinephrine"
+	
+/datum/reagent/medicine/epinephrine
 	chemdesc = "Stabilizes critical condition and slowly heals suffocation damage."
-
-/datum/borer_chem/fliptonium
-	chemname = "fliptonium"
+	
+/datum/reagent/fliptonium
 	chemdesc = "Causes uncontrollable flipping."
 	chemuse = 50
-
-/datum/borer_chem/hydrocodone
-	chemname = "hydrocodone"
+	
+/datum/reagent/medicine/hydrocodone
 	chemdesc = "An extremely strong painkiller."
-
-/datum/borer_chem/mannitol
-	chemname = "mannitol"
+	
+/datum/reagent/medicine/mannitol
 	chemdesc = "Heals brain damage."
-
-/datum/borer_chem/methamphetamine
-	chemname = "methamphetamine"
+	
+/datum/reagent/methamphetamine
 	chemdesc = "Reduces stun times and increases stamina. Deals small amounts of brain damage."
 	chemuse = 50
-
-/datum/borer_chem/mitocholide
-	chemname = "mitocholide"
+	
+/datum/reagent/medicine/mitocholide
 	chemdesc = "Heals internal organ damage."
-
-/datum/borer_chem/salbutamol
-	chemname = "salbutamol"
+	
+/datum/reagent/medicine/salbutamol
 	chemdesc = "Heals suffocation damage."
-
-/datum/borer_chem/salglu_solution
-	chemname = "salglu_solution"
+	
+/datum/reagent/medicine/salglu_solution
 	chemdesc = "Slowly heals brute and burn damage, also slowly restores blood."
 
-/datum/borer_chem/spaceacillin
-	chemname = "spaceacillin"
+/datum/reagent/medicine/spaceacillin
 	chemdesc = "Slows progression of diseases and fights infections."

@@ -27,9 +27,11 @@
 	return TRUE
 
 /proc/power_failure(announce=TRUE)
-	var/list/skipped_areas_apc = list(
-		/area/engine/engineering,
-		/area/turret_protected/ai)
+	var/static/list/skipped_areas_apc = typecacheof(list(
+		/area/engineering/engine,
+		/area/engineering/supermatter,
+		/area/turret_protected/ai,
+	))
 
 	if(announce)
 		GLOB.event_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.", "ВНИМАНИЕ: СБОЙ СИСТЕМЫ ПИТАНИЯ.", new_sound = 'sound/AI/attention.ogg')
@@ -40,7 +42,7 @@
 		var/obj/machinery/power/apc/C = thing
 		// skip any APCs that are too critical to disable
 		var/area/current_area = get_area(C)
-		if((current_area.type in skipped_areas_apc) || !is_station_level(C.z))
+		if(is_type_in_typecache(current_area, skipped_areas_apc) || !is_station_level(C.z))
 			continue
 		// if we are going to break this one
 		if(prob(APC_BREAK_PROBABILITY))

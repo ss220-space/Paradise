@@ -28,10 +28,10 @@
 	return OXYLOSS
 
 /obj/item/melee/rapier
-	name = "captain's rapier"
-	desc = "An elegant weapon, for a more civilized age."
-	icon_state = "rapier"
-	item_state = "rapier"
+	name = "rapier"
+	desc = "If you see this, it means there's a bug."
+	icon_state = "rods-1"
+	item_state = "rods"
 	flags = CONDUCT
 	force = 15
 	throwforce = 10
@@ -47,49 +47,56 @@
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
 
-/obj/item/melee/rapier/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
-	return ..()
+/obj/item/melee/rapier/captain
+	name = "captain's rapier"
+	desc = "An elegant weapon, for a more civilized age."
+	icon_state = "rapier"
+	item_state = "rapier"
+	block_type = MELEE_ATTACKS
 
-/obj/item/melee/syndie_rapier
+/obj/item/melee/rapier/syndie
 	name = "plastitanium rapier"
 	desc = "A thin blade made of plastitanium with a diamond tip. It appears to be coated in a persistent layer of an unknown substance."
 	icon_state = "syndie_rapier"
 	item_state = "syndie_rapier"
-	flags = CONDUCT
-	force = 15
-	throwforce = 10
-	w_class = WEIGHT_CLASS_BULKY
-	block_chance = 50
-	armour_penetration = 75
-	sharp = TRUE
 	origin_tech = "combat=5;biotech=5;syndicate=4"
-	attack_verb = list("lunged at", "stabbed")
-	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
-	drop_sound = 'sound/items/handling/knife_drop.ogg'
-	hitsound = 'sound/weapons/rapierhit.ogg'
+	materials = null
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	/// How much stamina damage we deal on a successful hit against a living, non-cyborg mob.
-	var/stamina_damage = 30
 
 
-/obj/item/melee/syndie_rapier/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/melee/rapier/syndie/ComponentInitialize()
+	AddElement(/datum/element/after_attack/attack_effect_sleep, 30, 10 SECONDS)
+
+
+/obj/item/melee/rapier/centcomm
+	name = "centcomm plastitanium rapier"
+	desc = "Симбиоз непозволительной роскоши и статуса с титановым лезвием на вашем поясе, обладатель этого шедевра оружейного дела может похвастаться тем, что постиг корпоративную вершину."
+	icon_state = "centcomm_rapier"
+	item_state = "centcomm_rapier"
+	origin_tech = "combat=5;biotech=5;syndicate=4"
+	materials = null
+	force = 25
+	throwforce = 20
+	block_chance = 95
+	armour_penetration = 100
+	actions_types = list(/datum/action/item_action/toggle_rapier_nodrop)
+
+/obj/item/melee/rapier/centcomm/ComponentInitialize()
+	AddElement(/datum/element/after_attack/attack_effect_sleep, 100, 10 SECONDS)
+
+
+/obj/item/melee/rapier/centcomm/attack_self(mob/user)
 	. = ..()
-	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
+
+	if(!usr.is_in_hands(src))
 		return .
-	syndie_rapier_effect(target, user)
 
-
-/obj/item/melee/syndie_rapier/proc/syndie_rapier_effect(mob/living/target, mob/living/user)
-	if(target.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
-		target.visible_message(
-			span_danger("[user] puts [target] to sleep with [src]!"),
-			span_userdanger("You suddenly feel very drowsy!"),
-		)
-		target.Sleeping(10 SECONDS)
-		add_attack_logs(user, target, "put to sleep with [src]")
-	target.apply_damage(stamina_damage, STAMINA)
+	if(HAS_TRAIT_FROM(src, TRAIT_NODROP, CENTCOMM_RAPIER_TRAIT))
+		REMOVE_TRAIT(src, TRAIT_NODROP, CENTCOMM_RAPIER_TRAIT)
+		to_chat(usr, span_warning("Вы расслабляете руку и отпускаете рукоятку [src]."))
+	else
+		ADD_TRAIT(src, TRAIT_NODROP, CENTCOMM_RAPIER_TRAIT)
+		to_chat(usr, span_warning("Вы сжимаете рукоятку [src] со всей силы. Теперь ничто не может выбить у вас оружие из рук!"))
 
 
 /obj/item/melee/mantisblade
@@ -168,13 +175,9 @@
 	force = 15
 	armour_penetration = 20
 	block_chance = 20
+	block_type = MELEE_ATTACKS
 	icon_state = "mantis"
 	item_state = "mantis"
-
-/obj/item/melee/mantisblade/shellguard/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
-	return ..()
 
 /obj/item/melee/icepick
 	name = "ice pick"

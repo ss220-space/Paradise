@@ -1,15 +1,3 @@
-#define SPELL_TARGET_CLOSEST 1
-#define SPELL_TARGET_RANDOM 2
-
-#define SPELL_SELECTION_RANGE "range"
-#define SPELL_SELECTION_VIEW "view"
-
-#define SMOKE_NONE		0
-#define SMOKE_HARMLESS	1
-#define SMOKE_COUGHING	2
-#define SMOKE_SLEEPING	3
-
-
 /obj/effect/proc_holder
 	var/active = FALSE //Used by toggle based abilities.
 	var/ranged_mousepointer
@@ -603,6 +591,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if((!user.mind || !LAZYIN(user.mind.spell_list, src)) && !LAZYIN(user.mob_spell_list, src))
 		if(show_message)
 			to_chat(user, span_warning("You shouldn't have this spell! Something's wrong."))
+		return FALSE
+
+	if(HAS_TRAIT(user, TRAIT_NO_SPELLS))
 		return FALSE
 
 	if(!centcom_cancast) //Certain spells are not allowed on the centcom zlevel
