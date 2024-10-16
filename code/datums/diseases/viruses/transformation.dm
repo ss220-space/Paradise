@@ -261,3 +261,7 @@
 	Хоть Вы и трансформировались в отвратительную зелёную жижу, но это не повлияло на Ваше сознание \
 	и память. Вы не являетесь антагонистом."))
 	new_form = /mob/living/simple_animal/hostile/morph
+
+/datum/disease/virus/transformation/morph/do_disease_transformation()
+	var/mob/living/simple_animal/hostile/morph/morph = ..()
+	morph?.make_morph_antag(FALSE)
