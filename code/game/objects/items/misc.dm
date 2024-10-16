@@ -66,18 +66,24 @@
 		var/obj/item/projectile/P = hitby
 		if(P?.firer && P.firer_source_atom && (P.firer != P.firer_source_atom)) //if the projectile comes from YOU, like your spit or some shit, you can't steal that bro. Also protects mechs
 			if(iscarbon(P.firer)) //You can't switcharoo with turrets or simplemobs, or borgs
-				switcharoo(P.firer, owner, P.firer_source_atom)
-				return TRUE //this means the attack is blocked
-	return ..()
+				return switcharoo(P.firer, owner, P.firer_source_atom)
+	return FALSE
 
 /obj/item/syndicate_reverse_card/proc/switcharoo(mob/firer, mob/user, obj/item/gun/target_gun) //this proc teleports the target_gun out of the firer's hands and into the user's. The firer gets the card.
+	if(!user.drop_item_ground(src)) //firstly, check for ani-drop on card owner
+		return FALSE
+
+	if(!firer.drop_item_ground(target_gun)) //then, check for anti-drop on gun owner. Don't do it in the same proc
+		user.put_in_hands(src)
+		return FALSE
 	//first, the sparks!
 	do_sparks(12, TRUE, user)
 	//next, we move the gun to the user and the card to the firer
-	if(firer.drop_item_ground(target_gun) && user.drop_item_ground(src))
-		to_chat(user, span_warning("The [src] vanishes from your hands, and [target_gun] appears in them!"))
-		to_chat(firer, span_warning("[target_gun] vanishes from your hands, and a [src] appears in them!"))
-		user.put_in_hands(target_gun)
-		firer.put_in_hands(src)
-		used = TRUE
-		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+	to_chat(user, span_warning("The [src] vanishes from your hands, and [target_gun] appears in them!"))
+	to_chat(firer, span_warning("[target_gun] vanishes from your hands, and a [src] appears in them!"))
+	user.put_in_hands(target_gun)
+	firer.put_in_hands(src)
+	used = TRUE
+	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+	return TRUE
+
