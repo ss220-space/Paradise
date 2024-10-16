@@ -1037,6 +1037,7 @@
 	// Credit to Jamius (freesound.org) for the sound.
 	sound = 'sound/effects/unathihiss.ogg'
 
+
 /datum/emote/living/carbon/human/unathi/roar
 	key = "roar"
 	key_third_person = "roar"
