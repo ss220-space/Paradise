@@ -41,6 +41,8 @@ SUBSYSTEM_DEF(mapping)
 	var/list/critical_planes
 	/// The largest plane offset we've generated so far
 	var/max_plane_offset = 0
+	/// Maps played in previous rounds, stores typepaths
+	var/list/previous_maps
 
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
@@ -57,7 +59,9 @@ SUBSYSTEM_DEF(mapping)
 		catch
 			map_datum = fallback_map // Assume delta if non-existent
 		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
+
 		return
+
 	map_datum = fallback_map // Assume delta if non-existent
 
 /datum/controller/subsystem/mapping/Shutdown()
@@ -65,9 +69,41 @@ SUBSYSTEM_DEF(mapping)
 		var/F = file("data/next_map.txt")
 		F << next_map.type
 
+
+/datum/controller/subsystem/mapping/proc/convert_map_datums()
+	var/list/map_subtypes = subtypesof(/datum/map)
+	var/list/result = list()
+	for(var/datum/map/subtype as anything in map_subtypes)
+		result[initial(subtype.name)] = subtype
+
+	return result
+
+/datum/controller/subsystem/mapping/proc/find_last_played_maps()
+	if(CONFIG_GET(flag/sql_enabled))
+		var/datum/db_query/query = \
+		SSdbcore.NewQuery("SELECT id, map_name \
+		FROM [format_table_name("round")] \
+		WHERE server_port=[world.port] \
+		AND end_state IS NOT NULL \
+		ORDER BY id DESC LIMIT 1") //Generally gets the last played map, but can be configured to get any count.
+
+		if(!query.warn_execute())
+			qdel(query)
+			return
+
+		var/list/map_names = convert_map_datums()
+		var/list/maps = list()
+		//Query row structure: id, map_name
+		for(var/map in query.rows)
+			var/map_path = map_names[map[2]]
+			if(map_path)
+				maps += map_path
+
+		previous_maps = maps
+
 /datum/controller/subsystem/mapping/Initialize()
 	setupPlanes()
-
+	find_last_played_maps()
 	var/datum/lavaland_theme/lavaland_theme_type = pick(subtypesof(/datum/lavaland_theme))
 	ASSERT(lavaland_theme_type)
 	lavaland_theme = new lavaland_theme_type

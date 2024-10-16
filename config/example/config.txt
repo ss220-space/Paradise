@@ -663,6 +663,7 @@ MAP_ROTATE none
 ## Server map voting mode:
 ## all - all maps can be selected
 ## nodoubles - current map can't be selected as next
+## notriples - current map can't be selected as next if played twice in a row
 MAP_VOTE_MODE all
 
 ## Default server map
