@@ -50,7 +50,7 @@
 		to_chat(user, span_warning("ИИ не обнаружен. Производится загрузка из облака."))
 		var/ghostmsg = "Хотите поиграть за Сбойного ИИ?"
 		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_MALF_AI, FALSE, 10 SECONDS, source = user, reason = "Хотите поиграть за Сбойного ИИ?")
-		if(!src)
+		if(QDELETED(AI))
 			return
 
 		if(length(candidates))
