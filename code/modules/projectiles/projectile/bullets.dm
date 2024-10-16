@@ -221,7 +221,7 @@
 /obj/item/projectile/bullet/midbullet3/blood
 	damage = 25
 
-/obj/item/projectile/bullet/midbullet3/blood/on_hit(atom/target, blocked = 0)
+/obj/item/projectile/bullet/midbullet3/blood/on_hit(atom/target, blocked = 0, hit_zone)
 	if(..() && ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(H)

@@ -9,7 +9,7 @@
 	var/hij_obj = /datum/objective/hijack
 	/// Special objectives, use lists with weight to roll them. Ex. list(kill = 10, steal = 90), and just a objectives for 100% giving them.
 	var/list/objectives
-	/// Bad thing that I can`t delete, used as tool to give traitor his affeliate. If you dont doing refactor, you dont neew this one.
+	/// Bad thing that I can`t delete, used as tool to give traitor his affeliate. If you dont doing refactor, you dont need this one.
 	var/obj/item/uplink/hidden/uplink
 	/// TRUE if it can take bonus objectives
 	var/can_take_bonus_objectives = TRUE
