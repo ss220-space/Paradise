@@ -96,9 +96,7 @@
 	evolve_action.Grant(src)
 	steal_blood_action.Grant(src)
 
-/mob/living/simple_animal/diona/UnarmedAttack(atom/A)
-	if(!can_unarmed_attack())
-		return
+/mob/living/simple_animal/diona/OnUnarmedAttack(atom/A)
 	if(isdiona(A) && (src in A.contents)) //can't attack your gestalt
 		visible_message("[src] wiggles around a bit.")
 	else

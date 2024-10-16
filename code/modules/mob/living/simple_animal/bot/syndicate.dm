@@ -201,11 +201,14 @@
 	return
 
 
-/mob/living/simple_animal/bot/ed209/syndicate/UnarmedAttack(atom/A)
-	if(!on || !can_unarmed_attack())
+/mob/living/simple_animal/bot/ed209/syndicate/OnUnarmedAttack(atom/A)
+	if(!on)
 		return
+		
 	shootAt(A)
 
+/mob/living/simple_animal/bot/ed209/syndicate/pre_grab_attack(atom/atom, proximity_flag)
+	return FALSE
 
 /mob/living/simple_animal/bot/ed209/syndicate/start_cuffing(mob/living/carbon/C)
 	shootAt(C)
