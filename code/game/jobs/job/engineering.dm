@@ -22,6 +22,7 @@
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/chief_engineer
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 300
 	min_start_money = 400
