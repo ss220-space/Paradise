@@ -409,6 +409,7 @@
 
 #define PULL_LYING_MOB_SLOWDOWN 1.3
 #define PUSH_STANDING_MOB_SLOWDOWN 1.3
+#define HUMAN_CARRY_SLOWDOWN 0.6
 
 #define ACTIVE_HAND_RIGHT 0
 #define ACTIVE_HAND_LEFT 1
@@ -452,3 +453,6 @@
 /// When reached - we'll apply status effect which will force carbon to vomit
 #define TOX_VOMIT_THRESHOLD_REACHED(mob, toxloss)	(mob.getToxLoss() >= toxloss)
 #define TOX_VOMIT_REQUIRED_TOXLOSS	45
+
+/// For babylon fever disease.
+#define DISEASE_MOB_LANGUAGE_PROCESSED (1<<0)

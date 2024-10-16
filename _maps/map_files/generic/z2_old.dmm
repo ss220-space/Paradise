@@ -1562,7 +1562,7 @@
 	},
 /area/centcom/specops)
 "bpL" = (
-/obj/vehicle/snowmobile/blue/key,
+/obj/vehicle/ridden/snowmobile/blue/key,
 /turf/simulated/floor/indestructible/snow,
 /area/syndicate_mothership)
 "bpU" = (
@@ -22780,7 +22780,7 @@
 	},
 /area/holodeck/source_meetinghall)
 "qwX" = (
-/obj/vehicle/snowmobile/key,
+/obj/vehicle/ridden/snowmobile/key,
 /turf/simulated/floor/indestructible/snow,
 /area/syndicate_mothership)
 "qxr" = (

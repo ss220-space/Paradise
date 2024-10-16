@@ -19,9 +19,9 @@
 	create_reagents(330)
 
 	handcrafting = new()
-
+	AddElement(/datum/element/ridable, /datum/component/riding/creature/human)
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
-	AddElement(/datum/element/strippable, GLOB.strippable_human_items)
+	AddElement(/datum/element/strippable, GLOB.strippable_human_items,  TYPE_PROC_REF(/mob/living/carbon/human/, should_strip))
 	UpdateAppearance()
 	GLOB.human_list += src
 
@@ -1770,33 +1770,39 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/influenceSin()
 	if(!mind)
 		return
+
 	var/datum/objective/sintouched/sin_objective
+
 	switch(rand(1,7))//traditional seven deadly sins... except lust.
 		if(1) // acedia
 			add_game_logs("[src] was influenced by the sin of Acedia.", src)
-			sin_objective = new /datum/objective/sintouched/acedia(src)
+			sin_objective = new /datum/objective/sintouched/acedia
 		if(2) // Gluttony
 			add_game_logs("[src] was influenced by the sin of gluttony.", src)
-			sin_objective = new /datum/objective/sintouched/gluttony(src)
+			sin_objective = new /datum/objective/sintouched/gluttony
 		if(3) // Greed
 			add_game_logs("[src] was influenced by the sin of greed.", src)
-			sin_objective = new /datum/objective/sintouched/greed(src)
+			sin_objective = new /datum/objective/sintouched/greed
 		if(4) // sloth
 			add_game_logs("[src] was influenced by the sin of sloth.", src)
-			sin_objective = new /datum/objective/sintouched/sloth(src)
+			sin_objective = new /datum/objective/sintouched/sloth
 		if(5) // Wrath
 			add_game_logs("[src] was influenced by the sin of wrath.", src)
-			sin_objective = new /datum/objective/sintouched/wrath(src)
+			sin_objective = new /datum/objective/sintouched/wrath
 		if(6) // Envy
 			add_game_logs("[src] was influenced by the sin of envy.", src)
-			sin_objective = new /datum/objective/sintouched/envy(src)
+			sin_objective = new /datum/objective/sintouched/envy
 		if(7) // Pride
 			add_game_logs("[src] was influenced by the sin of pride.", src)
-			sin_objective = new /datum/objective/sintouched/pride(src)
-	SSticker.mode.sintouched += mind
-	mind.objectives += sin_objective
+			sin_objective = new /datum/objective/sintouched/pride
+
+	sin_objective.init_sin(src)
+	LAZYADD(SSticker.mode.sintouched, mind)
+	LAZYADD(mind.objectives, sin_objective)
+
 	var/obj_count = 1
-	to_chat(src, "<span class='notice'> Your current objectives:")
+	to_chat(src, span_notice("Your current objectives:"))
+
 	for(var/datum/objective/objective in mind.objectives)
 		to_chat(src, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
@@ -1914,3 +1920,56 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return FALSE
 	return ..()
 
+/mob/living/carbon/human/mouse_buckle_handling(mob/living/M, mob/living/user)
+	if(pulling != M || grab_state != GRAB_AGGRESSIVE || stat != CONSCIOUS)
+		return FALSE
+	//If you dragged them to you and you're aggressively grabbing try to fireman carry them
+	if(can_be_firemanned(M))
+		var/active_hand_available = can_pull(hand, supress_message = TRUE)
+		var/inactive_hand_available = can_pull(!hand, supress_message = TRUE)
+		if(!active_hand_available && !inactive_hand_available)
+			return
+		if(!active_hand_available && !swap_hand())
+			to_chat(user, span_warning("освободи одну из рук!"))
+			return FALSE
+		fireman_carry(M)
+		return TRUE
+
+/mob/living/carbon/human/proc/can_be_firemanned(mob/living/carbon/target)
+	return ishuman(target) && target.body_position == LYING_DOWN
+
+/mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
+	if(!can_be_firemanned(target) || incapacitated(INC_IGNORE_GRABBED))
+		to_chat(src, span_warning("You can't fireman carry [target] while [target.p_they()] [target.p_are()] standing!"))
+		return
+
+	var/carrydelay = 5 SECONDS //if you have latex you are faster at grabbing
+	var/skills_space
+	if(HAS_TRAIT(src, TRAIT_QUICKER_CARRY))
+		carrydelay -= 2 SECONDS
+	else if(HAS_TRAIT(src, TRAIT_QUICK_CARRY))
+		carrydelay -= 1 SECONDS
+
+	/*
+	var/obj/item/organ/internal/cyberimp/chest/spine/potential_spine = get_organ_slot(ORGAN_SLOT_SPINE)
+	if(istype(potential_spine))
+		carrydelay *= potential_spine.athletics_boost_multiplier
+	*/
+
+	if(carrydelay <= 3 SECONDS)
+		skills_space = " very quickly"
+	else if(carrydelay <= 4 SECONDS)
+		skills_space = " quickly"
+
+	visible_message(span_notice("[src] starts[skills_space] lifting [target] onto [p_their()] back..."),
+		span_notice("You[skills_space] start to lift [target] onto your back..."))
+	if(!do_after(src, carrydelay, target))
+		visible_message(span_warning("[src] fails to fireman carry [target]!"))
+		return
+
+	//Second check to make sure they're still valid to be carried
+	if(!can_be_firemanned(target) || incapacitated(INC_IGNORE_GRABBED) || target.buckled)
+		visible_message(span_warning("[src] fails to fireman carry [target]!"))
+		return
+
+	return buckle_mob(target, TRUE, FALSE, CARRIER_NEEDS_ARM) //checkloc is false because we usually grab people from nearest tile

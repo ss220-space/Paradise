@@ -516,7 +516,6 @@
 	reveal = 7 SECONDS
 	aoe_range = 4
 
-
 /obj/effect/proc_holder/spell/aoe/revenant/blight/create_new_targeting()
 	var/datum/spell_targeting/aoe/target = new()
 	target.range = aoe_range
@@ -528,6 +527,9 @@
 		return FALSE
 
 	if(target.mind in SSticker.mode.sintouched)
+		return FALSE
+
+	if(locate(/datum/disease/ectoplasmic) in target.diseases)
 		return FALSE
 
 	return TRUE
