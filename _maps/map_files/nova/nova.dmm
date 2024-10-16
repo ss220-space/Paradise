@@ -5635,7 +5635,7 @@
 	turf_type = /turf/simulated/floor/plating;
 	area_type = /area/quartermaster/miningdock
 	},
-/turf/space{
+/turf/space/openspace{
 	icon_state = "black"
 	},
 /area/quartermaster/miningdock)
@@ -40041,6 +40041,7 @@
 /obj/structure/sign/poster/contraband/tools{
 	pixel_y = 32
 	},
+/obj/item/clothing/gloves/color/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -40836,6 +40837,7 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/showroom)
 "fVo" = (
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5";
 	tag = "icon-wood-broken5"
@@ -54438,6 +54440,7 @@
 "iaB" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/moth,
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/maintenance/livingcomplex)
 "iaP" = (
@@ -68132,6 +68135,7 @@
 /area/engineering/break_room)
 "kcN" = (
 /obj/effect/decal/remains/mouse,
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/maintenance/livingcomplex)
 "kcQ" = (
@@ -76142,6 +76146,7 @@
 /area/maintenance/tourist)
 "lpK" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3";
 	tag = "icon-wood-broken3"
@@ -83628,9 +83633,9 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc{
+/obj/machinery/power/apc/worn_out{
+	cell_type = 0;
 	dir = 1;
-	name = "north bump";
 	pixel_y = 26
 	},
 /turf/simulated/floor/plating,
@@ -87751,6 +87756,7 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6";
 	tag = "icon-wood-broken6"
@@ -92114,6 +92120,7 @@
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
 "nIR" = (
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken";
 	tag = "icon-wood-broken"
@@ -96710,7 +96717,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
-/area/medical/medrest)
+/area/maintenance/asmaint)
 "otS" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
 /obj/effect/decal/warning_stripes/east,
@@ -110944,12 +110951,12 @@
 /obj/item/rcd_ammo,
 /obj/item/clothing/glasses/meson,
 /obj/item/clothing/glasses/meson,
-/obj/item/clothing/gloves/color/yellow/fake,
-/obj/item/clothing/gloves/color/yellow/fake,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/gloves/color/fyellow,
+/obj/item/clothing/gloves/color/fyellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -119463,7 +119470,7 @@
 /turf/simulated/floor/plasteel,
 /area/storage/eva)
 "rKn" = (
-/turf/space{
+/turf/space/openspace{
 	icon_state = "black"
 	},
 /area/quartermaster/miningdock)
@@ -180748,7 +180755,7 @@ eIe
 eIe
 vte
 eIe
-eIe
+tkq
 eIe
 eIe
 ocY
@@ -181258,7 +181265,7 @@ lBr
 lBr
 eIe
 lBr
-eIe
+tkq
 dFQ
 qOG
 pOS
@@ -186364,7 +186371,7 @@ tkq
 tkq
 eIe
 eIe
-tkq
+eIe
 eIe
 ucR
 quA
@@ -186620,7 +186627,7 @@ tkq
 tkq
 tkq
 eIe
-tkq
+eIe
 ucR
 gxN
 ucR
@@ -191107,7 +191114,7 @@ xQs
 hUD
 pcS
 tkq
-eIe
+lBr
 tkq
 tkq
 tkq
@@ -191364,7 +191371,7 @@ jOw
 eGy
 wsu
 eIe
-lBr
+eIe
 tkq
 tkq
 tkq
@@ -191878,7 +191885,7 @@ ttn
 bYW
 eIe
 eIe
-eIe
+lBr
 tkq
 tkq
 tkq
@@ -192134,8 +192141,8 @@ fXy
 eXZ
 bYW
 eIe
-lBr
 tkq
+lBr
 tkq
 tkq
 tkq
@@ -192391,8 +192398,8 @@ fXy
 ttn
 bYW
 eIe
-lBr
-tkq
+eIe
+eIe
 tkq
 tkq
 tkq
@@ -192907,12 +192914,12 @@ bYW
 bYW
 eIe
 lBr
-eIe
-rSe
-lBr
 lBr
 eIe
 lBr
+lBr
+eIe
+lBr
 eIe
 rSe
 rSe
@@ -192929,7 +192936,7 @@ tkq
 tkq
 tkq
 lBr
-eIe
+lBr
 tkq
 tkq
 eIe
@@ -193696,10 +193703,10 @@ rSe
 rSe
 rSe
 rSe
-tkq
+eIe
 rSe
 rSe
-tkq
+eIe
 eIe
 rGI
 rGI
@@ -202025,9 +202032,9 @@ tkq
 tkq
 tkq
 tkq
-eIe
-eIe
 tkq
+eIe
+eIe
 tkq
 eIe
 tkq
@@ -202285,7 +202292,7 @@ tkq
 tkq
 tkq
 lBr
-tkq
+eIe
 eIe
 tkq
 tkq
@@ -206272,7 +206279,7 @@ xXx
 pWK
 pWK
 eIe
-tkq
+eIe
 tkq
 tkq
 tkq
@@ -206762,7 +206769,7 @@ wuh
 wuh
 rSe
 rSe
-tkq
+eIe
 rSe
 eIe
 xXx
@@ -206782,8 +206789,8 @@ aSY
 rMb
 xXx
 eIe
-tkq
-tkq
+eIe
+eIe
 rSe
 rSe
 rSe
@@ -207791,7 +207798,7 @@ eIe
 eIe
 tkq
 tkq
-tkq
+eIe
 eIe
 pWK
 pWK
@@ -209852,7 +209859,7 @@ osb
 laS
 eIe
 eIe
-tkq
+eIe
 tkq
 tkq
 tkq
@@ -210623,7 +210630,7 @@ kBa
 pyF
 lWk
 eIe
-tkq
+eIe
 tkq
 tkq
 tkq
@@ -239105,15 +239112,15 @@ bkc
 bkc
 bkc
 sLA
-bkc
+uJG
 wTd
 sLA
 wTd
 sLA
-bkc
+uJG
 sLA
 sLA
-bkc
+uJG
 bkc
 bkc
 bkc
@@ -239363,18 +239370,18 @@ bkc
 sLA
 sLA
 uJG
+bkc
+uJG
+bkc
 uJG
 uJG
-uJG
-uJG
-uJG
-uJG
+bkc
 uJG
 uJG
 ngN
 ngN
-bkc
-bkc
+uJG
+uJG
 bkc
 bkc
 bkc
@@ -239612,13 +239619,13 @@ bkc
 bkc
 sLA
 sLA
+uJG
+sLA
+sLA
+sLA
+uJG
+uJG
 bkc
-sLA
-sLA
-sLA
-uJG
-uJG
-uJG
 uJG
 jKG
 iXN
@@ -239628,7 +239635,7 @@ ptL
 oLX
 jKG
 uJG
-uJG
+bkc
 uJG
 uJG
 ngN
@@ -239869,9 +239876,9 @@ bkc
 bkc
 sLA
 uJG
+bkc
 uJG
-uJG
-uJG
+bkc
 uJG
 uJG
 jKG
@@ -240124,7 +240131,7 @@ bkc
 bkc
 bkc
 bkc
-bkc
+uJG
 uJG
 jKG
 iAa
@@ -240146,7 +240153,7 @@ jqG
 jKG
 uJG
 uJG
-bkc
+uJG
 bkc
 bkc
 bkc
@@ -240382,7 +240389,7 @@ bkc
 bkc
 bkc
 sLA
-uJG
+bkc
 jKG
 naa
 vDU
@@ -240637,7 +240644,7 @@ bkc
 ngN
 ngN
 ngN
-bkc
+uJG
 sLA
 uJG
 jKG
@@ -240659,7 +240666,7 @@ fuE
 uCv
 jKG
 fvL
-bkc
+uJG
 ngN
 bkc
 bkc
@@ -240894,7 +240901,7 @@ bkc
 ngN
 uJG
 uJG
-uJG
+bkc
 uJG
 uJG
 jKG
@@ -240916,7 +240923,7 @@ pWX
 aJw
 jKG
 fvL
-uJG
+bkc
 uJG
 bkc
 bkc
@@ -241149,7 +241156,7 @@ bkc
 bkc
 bkc
 ngN
-uJG
+bkc
 nNF
 nNF
 nNF
@@ -241173,7 +241180,7 @@ dgS
 mll
 jKG
 fvL
-bkc
+uJG
 ngN
 bkc
 bkc
@@ -241404,8 +241411,8 @@ bkc
 bkc
 ngN
 ngN
-bkc
-bkc
+uJG
+uJG
 uJG
 nNF
 txs
@@ -241430,7 +241437,7 @@ jpI
 kZm
 jKG
 fvL
-uJG
+bkc
 ngN
 bkc
 bkc
@@ -241662,7 +241669,7 @@ bkc
 ngN
 uJG
 uJG
-uJG
+bkc
 uJG
 nNF
 tfW
@@ -241916,7 +241923,7 @@ bkc
 bkc
 bkc
 bkc
-bkc
+uJG
 uJG
 nNF
 nNF
@@ -241944,7 +241951,7 @@ kmU
 qtJ
 jKG
 uJG
-uJG
+bkc
 bkc
 uJG
 bkc
@@ -242174,7 +242181,7 @@ bkc
 bkc
 bkc
 ngN
-uJG
+bkc
 nNF
 wZC
 xId
@@ -242943,7 +242950,7 @@ bkc
 bkc
 bkc
 bkc
-bkc
+uJG
 uJG
 xoL
 xoL
@@ -243201,7 +243208,7 @@ bkc
 bkc
 bkc
 ngN
-uJG
+bkc
 xoL
 ajW
 xoL
@@ -243715,7 +243722,7 @@ bkc
 bkc
 bkc
 ngN
-uJG
+bkc
 xoL
 ajW
 xoL
@@ -243971,7 +243978,7 @@ bkc
 bkc
 bkc
 bkc
-bkc
+uJG
 uJG
 xoL
 ajW
@@ -244229,7 +244236,7 @@ bkc
 bkc
 bkc
 ngN
-uJG
+bkc
 xoL
 ajW
 xoL
@@ -244270,7 +244277,7 @@ hcX
 ueH
 jsA
 uJG
-bkc
+uJG
 bkc
 bkc
 bkc
@@ -244485,7 +244492,7 @@ bkc
 bkc
 bkc
 bkc
-bkc
+uJG
 uJG
 xoL
 ajW
@@ -244743,7 +244750,7 @@ bkc
 bkc
 bkc
 ngN
-uJG
+bkc
 xoL
 ajW
 xoL
@@ -245256,8 +245263,8 @@ bkc
 bkc
 bkc
 bkc
-bkc
 uJG
+bkc
 xoL
 ajW
 xoL
@@ -245770,7 +245777,7 @@ bkc
 bkc
 bkc
 bkc
-bkc
+uJG
 uJG
 xoL
 ajW
@@ -246283,8 +246290,8 @@ uJG
 uJG
 bkc
 uJG
-bkc
 uJG
+bkc
 uJG
 uJG
 jHy
@@ -246794,7 +246801,7 @@ ngN
 ngN
 uJG
 ngN
-uJG
+bkc
 rzS
 gHR
 wFz
@@ -249169,7 +249176,7 @@ nxU
 sZA
 sef
 uJG
-bkc
+uJG
 bkc
 bkc
 bkc
@@ -252782,10 +252789,10 @@ wsu
 bkc
 uJG
 uJG
-wTd
-wTd
+sLA
+sLA
 uJG
-wTd
+sLA
 uJG
 sLA
 sLA
@@ -254074,7 +254081,7 @@ wsu
 uJG
 ngN
 uJG
-wTd
+sLA
 bkc
 bkc
 bkc
@@ -254588,7 +254595,7 @@ wsu
 wsu
 uJG
 uJG
-wTd
+sLA
 bkc
 bkc
 bkc
