@@ -738,14 +738,14 @@
 	stat |= BROKEN
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/customat/AltClick(atom/movable/A)
-  SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
+/obj/machinery/customat/AltClick(mob/living/user)
+	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!panel_open)
-		balloon_alert(A, "панель закрыта")
+		balloon_alert(user, "панель закрыта")
 		return
 
 	if(isLocked())
-		balloon_alert(A, "автомат заблокирован")
+		balloon_alert(user, "автомат заблокирован")
 		return
 
 	balloon_alert(user, "быстрый режим " + (fast_insert ? "отключен" : "включен"))
