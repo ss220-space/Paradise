@@ -204,7 +204,7 @@
 		if(obj == ritual_object)
 			continue
 
-		if(is_type_in_list(obj, invokers))
+		if(locate(obj) in invokers)
 			continue
 
 		LAZYADD(atoms, obj)
@@ -391,10 +391,12 @@
 
 /datum/ritual/ashwalker/mind_transfer/do_ritual(mob/living/carbon/human/invoker)
 	var/mob/living/carbon/human/human = locate() in used_things
+
 	if(!human || !human.mind || !human.ckey)
 		return RITUAL_FAILED_ON_PROCEED // Your punishment
 
 	var/obj/effect/proc_holder/spell/mind_transfer/transfer = new
+	
 	if(!transfer.cast(human, invoker))
 		return RITUAL_FAILED_ON_PROCEED
 
