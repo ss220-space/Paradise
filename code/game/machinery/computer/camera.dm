@@ -244,6 +244,28 @@
 	icon_screen = length(GLOB.active_video_cameras) ? icon_screen_on : initial(icon_screen)
 	return ..()
 
+/obj/machinery/computer/security/telescreen/entertainment/ui_state(mob/user)
+	if(issilicon(user))
+		if(isAI(user))
+			var/mob/living/silicon/ai/AI = user
+			if(!AI.lacks_power() || AI.apc_override)
+				return GLOB.always_state
+		if(isrobot(user))
+			return GLOB.always_state
+
+	else if(ishuman(user))
+		for(var/obj/machinery/computer/security/telescreen/entertainment/TV in range(6, user))
+			if(!TV.stat)
+				return GLOB.range_state
+
+	return GLOB.default_state
+
+/obj/machinery/computer/security/telescreen/entertainment/view_act(mob/user)
+	if(stat)
+		user.unset_machine()
+		return
+	ui_interact(user)
+
 
 /obj/machinery/computer/security/telescreen/singularity
 	name = "Singularity Engine Telescreen"
