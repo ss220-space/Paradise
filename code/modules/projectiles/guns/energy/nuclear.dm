@@ -56,6 +56,7 @@
 	desc = "An advanced stun revolver with the capacity to shoot both electrodes and lasers."
 	icon_state = "bsgun"
 	item_state = "gun"
+	var/emagged = FALSE
 	force = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/blueshield, /obj/item/ammo_casing/energy/disabler/blueshield, /obj/item/ammo_casing/energy/laser/blueshield)
 	ammo_x_offset = 1
@@ -63,9 +64,26 @@
 
 /obj/item/gun/energy/gun/blueshield/can_shoot(mob/user)
 	. = ..()
-	if(. && !isertmindshielded(user))
+	if(. && !isertmindshielded(user) && !emagged)
 		balloon_alert(usr, "имплант \"ERT Mindshield\" не обнаружен!")
 		return FALSE
+	else if(. && emagged && ismindshielded(user))
+		balloon_alert(usr, "имплант защиты разума обнаружен. Самоликвидация.")
+		var/turf/T = get_turf(src.loc)
+		user.show_message(span_danger("[src] has been exploded!"))
+		T.hotspot_expose(700,125)
+		explosion(T, -1, -1, 2, 3, cause = src)
+		qdel(src)
+	else if(. && !ismindshielded(user) && emagged)
+		return TRUE
+
+
+/obj/item/gun/energy/gun/blueshield/emag_act(mob/user)
+	if(!emagged)
+		emagged = TRUE
+		user.visible_message(span_warning("Sparks fly out of the [src]!</span>"), span_notice("Revolver can't work rightly for now."))
+		desc = "An advanced stun revolver with the capacity to shoot both electrodes and lasers. Something wrong in indetification systems."
+		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 
 /obj/item/gun/energy/gun/pdw9
 	name = "PDW-9 taser pistol"
