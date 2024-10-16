@@ -41,7 +41,7 @@
 		else if(prob(15))
 			traitor.add_objective(/datum/objective/protect)
 
-		else if (prob(5))
+		else if(prob(5))
 			traitor.add_objective(/datum/objective/mecha_or_pod_hijack)
 
 		else

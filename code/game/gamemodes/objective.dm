@@ -1861,14 +1861,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	explanation_text = "Украдите любого меха или любой под."
 
 /datum/objective/mecha_or_pod_hijack/check_completion()
-	for(var/obj/mecha/mecha in range(3, owner.current))
+	var/turf/T = get_turf(owner.current)
+	for(var/obj/mecha/mecha in range(3, T))
 		if(mecha.occupant == owner.current)
 			return TRUE
 
 		if(!mecha.occupant)
 			return TRUE
 
-	for(var/obj/spacepod/pod in range(3, owner.current))
+	for(var/obj/spacepod/pod in range(3, T))
 		if(pod.pilot == owner.current)
 			return TRUE
 
@@ -2068,19 +2069,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/borers/check_completion()
 	var/borers = 0
-
-	for(var/mob/living/M in GLOB.alive_mob_list)
-		if(istype(M, /mob/living/simple_animal/borer))
-			borers++
-			continue
-
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(H.has_brain_worms())
-				borers++
-
 	for(var/mob/living/simple_animal/borer/C in GLOB.alive_mob_list)
 		borers++
+
 	return borers >= req
 
 

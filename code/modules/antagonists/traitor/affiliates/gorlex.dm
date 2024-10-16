@@ -38,7 +38,7 @@
 	for (var/datum/antagonist/traitor/traitor in GLOB.antagonists)
 		gorlexes += traitor?.affiliate?.type == /datum/affiliate/gorlex
 
-	if (gorlexes > 2)
+	if(gorlexes > 2)
 		return 0
 
 	switch (H.dna.species.type)

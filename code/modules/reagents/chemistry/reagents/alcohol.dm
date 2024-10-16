@@ -458,7 +458,7 @@
 	alcohol_perc = 0.2
 	drink_icon = "bloodymaryglass"
 	drink_name = "Bloody Mary"
-	drink_desc = "Томатный сок, смешанный с водкой и небольшим количеством лайма. На вкус как жидкое убийство."
+	drink_desc = "Tomato juice, mixed with Vodka and a lil' bit of lime. Tastes like liquid murder."
 	taste_description = "tomatoes with booze"
 
 /datum/reagent/consumable/ethanol/bloody_mary/on_mob_life(mob/living/M)
@@ -2171,7 +2171,7 @@
 /datum/reagent/consumable/ethanol/blue_lagoon
 	name = "Blue Lagoon"
 	id = "blue_lagoon"
-	description = "Что может быть лучше, чем расслабиться на пляже с хорошим напитком?"
+	description = "What could be better than relaxing on the beach with a good drink?"
 	color = "#1edddd"
 	alcohol_perc = 0.5
 	drink_icon = "blue_lagoon"

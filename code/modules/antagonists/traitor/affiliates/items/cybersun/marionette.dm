@@ -60,17 +60,17 @@
 	STOP_PROCESSING(SSprocessing, src)
 
 /obj/item/implant/marionette/process(seconds_per_tick)
-	if (get_dist(imp_in, mar_master) > max_dist)
+	if(get_dist(imp_in, mar_master) > max_dist)
 		detach()
 		mar_master.balloon_alert(mar_master, "марионетка слишком далеко")
 
-	if (controlling)
-		if (charge > 0)
+	if(controlling)
+		if(charge > 0)
 			charge--
 		else
 			detach()
 
-	else if (charge < max_charge)
+	else if(charge < max_charge)
 		charge++
 
 /obj/item/implant/marionette/proc/assume_control(mob/living/carbon/human/mar_master, obj/item/implant/mar_master/master_imp)
@@ -214,7 +214,7 @@
 		for (var/mob/M in GLOB.human_list)
 			var/obj/item/implant/marionette/imp = locate(/obj/item/implant/marionette) in M
 
-			if (imp in connected_imps)
+			if(imp in connected_imps)
 				imp_in.balloon_alert(imp_in, "уже подключен")
 				return
 
@@ -232,7 +232,7 @@
 		var/list/marionettes = list()
 		for (var/obj/item/implant/marionette/imp in connected_imps)
 			var/mob/M = imp.imp_in
-			if (M && M.stat != DEAD)
+			if(M && M.stat != DEAD)
 				marionettes[M.real_name] = imp
 
 		var/choosen = input(imp_in, "Выберите к кому вы хотите подключиться.", "Подключение", null) as null|anything in marionettes
@@ -247,7 +247,7 @@
 		if(!imp.imp_in || !imp_in)
 			return
 
-		if (imp.controlling)
+		if(imp.controlling)
 			imp_in.balloon_alert(imp_in, "целевой имплант занят")
 			return
 

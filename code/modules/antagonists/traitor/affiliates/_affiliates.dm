@@ -7,8 +7,6 @@
 	var/hij_desc
 	/// Type of hijack objective
 	var/hij_obj = /datum/objective/hijack
-	/// Cats, which this affeliate does not have.
-	var/cats_to_exclude
 	/// Special objectives, use lists with weight to roll them. Ex. list(kill = 10, steal = 90), and just a objectives for 100% giving them.
 	var/list/objectives
 	/// Bad thing that I can`t delete, used as tool to give traitor his affeliate. If you dont doing refactor, you dont neew this one.
@@ -120,7 +118,7 @@
 			Спасибо что выбрали Gorlex Maraduers.\n\
 			Слава синдикату!"))
 			sleep(20 MINUTES - SSticker.round_start_time)
-			if (!istype(affiliate, /datum/affiliate/gorlex))
+			if(!istype(affiliate, /datum/affiliate/gorlex))
 				return
 
 	var/datum/antagonist/traitor/traitor = mind.has_antag_datum(/datum/antagonist/traitor)

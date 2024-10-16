@@ -102,12 +102,12 @@
 
 /mob/living/carbon/human/diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona)
-	if (!tts_seed)
+	if(!tts_seed)
 		tts_seed = "Priest"
 
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona/pod)
-	if (!tts_seed)
+	if(!tts_seed)
 		tts_seed = "Priest"
 
 /mob/living/carbon/human/machine/Initialize(mapload)
@@ -259,7 +259,7 @@
 		status_tab_data[++status_tab_data.len] = list("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
 
 	var/obj/item/implant/marionette/imp = locate(/obj/item/implant/marionette) in src
-	if (imp && imp.controlling)
+	if(imp && imp.controlling)
 		status_tab_data[++status_tab_data.len] = list("Заряд импланта Марионетки","[imp.charge]/[imp.max_charge]")
 		status_tab_data[++status_tab_data.len] = list("Расстояние до основного тела","[get_dist(src, imp.mar_master)]/[imp.max_dist]")
 

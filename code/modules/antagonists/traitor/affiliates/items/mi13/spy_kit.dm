@@ -21,7 +21,7 @@
 /obj/item/spy_bug/Initialize(mapload, list/network = list("MI13"), c_tag)
 	. = ..()
 	src.network = network
-	if (!c_tag)
+	if(!c_tag)
 		src.c_tag = pick("Альфа ", "Бета ", "Гамма ", "Дельта ") + " [rand(111111, 999999)]"
 	else
 		src.c_tag = c_tag
@@ -35,10 +35,10 @@
 /obj/item/spy_bug/afterattack(atom/target, mob/user, proximity, params, status)
 	. = ..()
 
-	if (!ismovable(target))
+	if(!ismovable(target))
 		return
 
-	if (istype(target, /obj/item/camera_bug/spy_monitor))
+	if(istype(target, /obj/item/camera_bug/spy_monitor))
 		var/obj/item/camera_bug/spy_monitor/monitor = target
 		network = monitor.network
 		user.balloon_alert(user, "Подключено")
@@ -50,23 +50,23 @@
 	qdel(loc.GetComponent(/datum/component/spy_bug))
 	forceMove(get_turf(loc))
 
-	if (user)
+	if(user)
 		to_chat(user, span_notice("You unhooked [src]."))
 	else
 		loc.visible_message(span_warning("[src] falls off the [loc]."))
 
 /obj/item/spy_bug/proc/hook(mob/user, atom/movable/I)
-	if (!istype(I))
+	if(!istype(I))
 		return
 
-	if (!user.drop_transfer_item_to_loc(src, I))
+	if(!user.drop_transfer_item_to_loc(src, I))
 		return
 
 	I.AddComponent(/datum/component/spy_bug)
 	to_chat(user, span_notice("You have silently attached [src] on [I]."))
 
 /obj/item/spy_bug/strip_action(mob/user, mob/living/carbon/human/owner, atom/I)
-	if (!I)
+	if(!I)
 		return FALSE
 
 	hook(user, I)
@@ -80,7 +80,7 @@
 /obj/item/spy_bug/attack_self(mob/user)
 	. = ..()
 	var/new_name = tgui_input_text(user, "Назовите жучок.", "Смена имени", name)
-	if (new_name)
+	if(new_name)
 		name = "spy bug \"" + new_name + "\""
 		qdel(camera)
 		c_tag = new_name
@@ -132,7 +132,7 @@
 	network = list("MI13")
 
 /obj/item/camera_bug/spy_monitor/Initialize(mapload, list/network)
-	if (network)
+	if(network)
 		src.network = network
 
 	. = ..()

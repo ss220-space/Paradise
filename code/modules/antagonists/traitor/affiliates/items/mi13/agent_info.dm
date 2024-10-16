@@ -7,17 +7,17 @@
 	. = TRUE
 	var/list/crew = list()
 	for (var/mob/living/carbon/human/H in GLOB.mob_list) // Also catonic/dead agents
-		if (H?.mind?.assigned_role)
+		if(H?.mind?.assigned_role)
 			crew[H?.real_name] = H
 
 	var/choise = input(user, "О каком агенте написано в отчете?","Выбор агента", null) as null|anything in crew
 
-	if (!choise)
+	if(!choise)
 		return FALSE
 
 	var/mob/living/carbon/human/target = crew[choise]
 
-	if (!target)
+	if(!target)
 		to_chat(user, span_warning("Цель больше не существует."))
 		return FALSE
 
@@ -60,16 +60,16 @@
 		info += choise + " является членом гильдии воров.<br>"
 
 /obj/item/paper/agent_info/examine(mob/user)
-	if (!is_MI13_agent(user))
+	if(!is_MI13_agent(user))
 		to_chat(user, span_warning("Вы не можете разобрать содержимое."))
 		return
 
-	if (info)
+	if(info)
 		return ..()
 
 	if(user.is_literate())
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
-			if (choose_agent(user))
+			if(choose_agent(user))
 				show_content(user)
 		else
 			. += span_notice("Вам нужно подойти поближе, чтобы прочитать то что здесь написано.")
