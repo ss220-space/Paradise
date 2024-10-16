@@ -396,7 +396,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 33
+#define SQL_VERSION 34
 
 // Vending machine stuff
 #define CAT_NORMAL 1

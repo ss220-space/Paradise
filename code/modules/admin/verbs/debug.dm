@@ -1022,3 +1022,160 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	render_stats(SSoverlays.stats, src)
 
+
+/client/proc/randomcheck_gamemode_roll()
+	set category = "Debug"
+	set name = "Randomcheck gamemode roll"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	var/use_db = 0
+	var/use_pseudorandom = 0
+	if(alert(usr, "WARNING: Use pseudorandom?",, "Yes", "No") == "Yes")
+		use_pseudorandom = 1
+		if(alert(usr, "WARNING: Use DB and real proc? If yes, size will be limited to 5, and will modify existing db, generally you shouldn't do that unless on local server",, "Yes", "No") == "Yes")
+			use_db = 1
+
+	var/size_text = input("Size (rolls amount)") as message
+
+	if(!size_text || length(size_text) < 1)
+		return
+
+	var/size_int = text2num(size_text)
+	if(size_int < 1)
+		return
+	if (use_db == 1 && size_int > 5)
+		size_int = 5
+		alert(usr, "WARNING: Only up to 5 rolls available with db enabled, reducing size to 5", "WARNING", "OK")
+
+	if (size_int > 1000) // Might create a lot of garbage if increase size, there's no real need for more than 1000 (and possible to crash by a lot of message_admins)
+		size_int = 1000
+		alert(usr, "WARNING: Only up to 1000 rolls available, reducing size to 1000", "WARNING", "OK")
+
+	// valid string example (for copy+paste):
+	// antag-paradise&extend-a-traitormongous&clockwork&cult&extended&nuclear&shadowling&wizard
+	var/modes_text = input("Type gamemodes exactly config lowercase names separated with ampersand sign (see debug.dm code for example)") as message
+
+	if(!modes_text || length(modes_text) < 1)
+		return
+
+	var/modes_list = params2list(modes_text) // list of strings (tags)
+	if(!modes_list || length(modes_list) < 1)
+		alert(usr, "ERROR: Invalid modes text (null or empty), returning verb", "ERROR", "OK")
+		return
+
+	// Unccomment for testing only! In live server will break all random
+	//rand_seed(42)
+	
+	var/msg = {"<html><meta charset="UTF-8"><head><title>Randomcheck Gamemode Roll</title></head><body>"}
+	msg += "<h1>New random selection enabled state: [use_pseudorandom && CONFIG_GET(flag/use_new_random_selection)]</h1>"
+	msg += "<TABLE border ='1'><TR>"
+	msg += "<TH>Mode</TH>"
+	msg += "<TH>Rolled Times</TH>"
+	msg += "<TH>Weight from config</TH>"
+	msg += "<TH>C constant from probability (from weight)</TH>"
+	msg += "<TH>Hightest amount, when didn't happened sequentally</TH>"
+	msg += "<TH>Hightest amount, when happened sequentally</TH>"
+	msg += "</TR>"
+
+	var/rolls_list = list()
+	var/runnable_modes = list() // associative list of INSTANCES of mode with probability(weights). Required for actual proc
+	var/list_of_current_n = list()
+	var/c_list = list()
+	var/hightest_n = list()
+	var/hightest_happened_sequentally = list() // max
+	var/hightest_happened_sequentally_temp = list()
+	var/mode_cache = config.GetModesFromCache()
+	if (!mode_cache || length(mode_cache) < 1)
+		alert(usr, "ERROR: mode cache is not loaded yet, try to call this verb once server finish load or start", "ERROR", "OK")
+		return
+
+	// Config tag used here
+	for(var/T in mode_cache)
+		var/datum/game_mode/M = T
+		if (M && (M.config_tag in modes_list))
+			var/p = config.GetModeWeightFromInstance(M)
+			// Set probability from config
+			runnable_modes[M] = p
+			// calculate C constant from p
+			c_list[M] = CfromP(p)
+			// Set current roll amount
+			rolls_list[M] = 0 // init with 0 rolls
+			// Setup list on how much events didn't happen
+			list_of_current_n[M] = 0 // init with 0 n
+			hightest_n[M] = 0
+			hightest_happened_sequentally[M] = 0 // init with 0
+			hightest_happened_sequentally_temp[M] = 0 // init with 0
+
+	if (use_db == 1 && SSticker)
+		message_admins("[key_name_admin(usr)] is using Randomcheck gamemode roll with use_db enabled, this shouldn't be done on live server as it is manually modifies database.")
+
+	// Iterating for given size
+	var/i
+	var/old_gm
+	var/counter_gm = 0
+	for(i=0, i<size_int, i++)
+		var/datum/game_mode/result_mode
+		if (use_db == 1 && SSticker) // use db can only be true (1) if using pseudorandom
+			result_mode = SSticker.select_gamemode_from_list(runnable_modes)
+		else
+			if (use_pseudorandom == 1)
+				result_mode = new_weighted_pick(runnable_modes,list_of_current_n, 1)
+			else
+				result_mode = pick_weight_classic(runnable_modes)
+		if (!result_mode)
+			continue
+
+		if (old_gm) // if not null
+			if (old_gm == result_mode)
+				counter_gm = counter_gm + 1
+				hightest_happened_sequentally_temp[result_mode] = counter_gm
+			else
+				hightest_happened_sequentally_temp[old_gm] = counter_gm
+				counter_gm = 0
+		
+		if (hightest_happened_sequentally_temp[result_mode] > hightest_happened_sequentally[result_mode])
+			hightest_happened_sequentally[result_mode] = hightest_happened_sequentally_temp[result_mode]
+		
+		old_gm = result_mode
+			
+		for (var/T_iter in runnable_modes)
+			var/datum/game_mode/mode_iterating = T_iter
+			// not updating db here
+			if (mode_iterating == result_mode)
+				list_of_current_n[mode_iterating] = 0 // reset counter
+			else
+				var/new_val = list_of_current_n[mode_iterating] + 1 // increase counter
+				list_of_current_n[mode_iterating] = new_val
+				if (new_val > hightest_n[mode_iterating])
+					hightest_n[mode_iterating] = new_val
+
+		rolls_list[result_mode] = rolls_list[result_mode] + 1
+
+	for(var/T1 in runnable_modes) // have to be looped that way otherwise doesn't loops
+		var/datum/game_mode/M = T1
+		msg += "<TR>"
+		msg += "<TD>[M.config_tag]</TD>"
+		msg += "<TD>[rolls_list[M]]</TD>"
+		msg += "<TD>[runnable_modes[M]]</TD>"
+		msg += "<TD>[c_list[M]]</TD>"
+		msg += "<TD>[hightest_n[M]]</TD>"
+		msg += "<TD>[hightest_happened_sequentally[M]]</TD>"
+		msg += "</TR>"
+
+	msg += "</TABLE></BODY></HTML>"
+	src << browse(msg, "window=randomcheck_gamemode_roll;size=800x600")
+	
+	// cleanup:
+	// user input
+	qdel(modes_list)
+	// generated by script
+	qdel(rolls_list)
+	qdel(runnable_modes)
+	qdel(list_of_current_n)
+	qdel(c_list)
+	qdel(hightest_n)
+	qdel(hightest_happened_sequentally)
+	qdel(hightest_happened_sequentally_temp)
+

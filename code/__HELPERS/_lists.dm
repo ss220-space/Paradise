@@ -1109,7 +1109,6 @@ proc/dd_sortedObjectList(list/incoming)
 
 	return TRUE
 
-
 /proc/assert_sorted(list/list, name, cmp = GLOBAL_PROC_REF(cmp_numeric_asc))
 	var/last_value = list[1]
 
@@ -1166,6 +1165,37 @@ proc/dd_sortedObjectList(list/incoming)
 			inserted_list.Swap(start++, end--)
 
 	return inserted_list
+  
+	
+// Same as pick_weight_classic, but fixes problem with floating numbers
+// required_accuracy_digits values lower than 1 ignored, if required_accuracy_digits is floating, will be rounded down.
+// https://www.byond.com/docs/guide/chap16.html
+// The rand instruction generates a random number in the specified range. 
+// The number returned is always an integer, so to get fractional numbers, you would need to specify some larger range and then divide the result.
+/proc/pick_weight_fixed(list/list_to_pick, required_accuracy_digits as num)
+	var/total = 0
+	var/weight_mult = 1
+	if (required_accuracy_digits >= 1)
+		weight_mult = 10 * round(required_accuracy_digits) // round down
+	for(var/item in list_to_pick)
+		var/weight = list_to_pick[item]
+		if(!weight)
+			continue
+		total += weight * weight_mult
+	
+	//var/total_source = total
+	total = rand(0, total)
+	for(var/item in list_to_pick)
+		var/weight = list_to_pick[item]
+		if(!weight)
+			weight = 0
+		total -= weight * weight_mult
+		if(total <= 0)
+			return item
+	
+	//message_admins("going to return null, total = [total], total_source = [total_source].")
+		
+	return null
 
 
 ///takes an input_key, as text, and the list of keys already used, outputting a replacement key in the format of "[input_key] ([number_of_duplicates])" if it finds a duplicate
@@ -1180,3 +1210,49 @@ proc/dd_sortedObjectList(list/incoming)
 		used_key_list[input_key] = 1
 	return input_key
 
+
+// uses pseudo-random similar to dota 2 to get more consistent random while keeping old value
+// does not modify input lists!
+// expecting as input:
+// list: associative list (like antag-paradise=1,cult=10)
+// list_of_current_n: associative list with counter how much times 'event' didn't happened (like antag-paradise=0, cult=20)
+// required_accuracy_digits is amount of floating digits (example: for 1.5, required_accuracy_digits should be at least 1)
+// returns picked value or null, you should manually modify list_of_current_n after that
+/proc/new_weighted_pick(list/list, list/list_of_current_n, required_accuracy_digits as num)
+	if (!list || length(list) < 1)
+		message_admins("new_weighted_pick got null or empty list, contact coder and explain WHEN this happened.")
+		return null
+	if (!list_of_current_n || length(list_of_current_n) < 1)
+		message_admins("new_weighted_pick got null or empty list_of_current_n, contact coder and explain WHEN this happened.")
+		return null
+	if (length(list) != length(list_of_current_n))
+		message_admins("new_weighted_pick got list of length [length(list)] and list_of_current_n of length [length(list_of_current_n)], length should match, data is invalid. Contact coder and explain WHEN this happened.")
+		return null
+
+	var/new_probabilities = list()
+
+	for (var/item in list)
+		var/p = list[item]// Might be named as Weight with example above
+		if (!p)
+			// this shouldn't normally happen
+			message_admins("p in new_weighted_pick is null for item, using 0 for it (unlikely to break game, but depends where happened). Contact coder and explain WHEN this happened.")
+			p = 0
+		var/C = CfromP(p) // For P >=1, C = P/2
+		var/n = list_of_current_n[item] + 1 // in case there's 0
+		
+		if (n < 1)
+			n = 1 // for safety
+
+		if (n > 1) // if it's not the time, when 'event' could happen
+			C = C * 2 // If C = P/2 for first time, then for second and beyond multiply by 2
+		
+		var/actual_probability = C * n
+		new_probabilities[item] = actual_probability
+
+	var/picked = pick_weight_fixed(new_probabilities, required_accuracy_digits)
+	//if (!picked)
+	//	message_admins("picked is null.")
+
+	qdel(new_probabilities)
+
+	return picked
