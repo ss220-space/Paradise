@@ -351,8 +351,8 @@
 	message = "нюха%(ет,ют)%!"
 	emote_type = EMOTE_AUDIBLE
 	muzzled_noises = list("гортанные", "громкие")
-	cooldown = 1 MINUTES
-	audio_cooldown = 1 MINUTES
+	cooldown = 10 SECONDS
+	audio_cooldown = 10 SECONDS
 	var/anim_type = SNIFF
 	volume = 1
 	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
