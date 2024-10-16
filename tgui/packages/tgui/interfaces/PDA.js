@@ -75,7 +75,13 @@ export const PDA = (props, context) => {
 
 const PDAHeader = (props, context) => {
   const { act, data } = useBackend(context);
-  const { idInserted, idLink, stationTime, cartridge_name } = data;
+  const {
+    idInserted,
+    idLink,
+    stationTime,
+    cartridge_name,
+    request_cartridge_name,
+  } = data;
 
   return (
     <Stack fill>
@@ -96,6 +102,18 @@ const PDAHeader = (props, context) => {
             cartridge_name
               ? ['Eject ' + cartridge_name]
               : 'No Cartridge Inserted'
+          }
+        />
+      </Stack.Item>
+      <Stack.Item>
+        <Button
+          icon="sd-card"
+          color="transparent"
+          onClick={() => act('Eject_Request')}
+          content={
+            request_cartridge_name
+              ? ['Eject ' + request_cartridge_name]
+              : 'No Request Cartridge Inserted'
           }
         />
       </Stack.Item>
