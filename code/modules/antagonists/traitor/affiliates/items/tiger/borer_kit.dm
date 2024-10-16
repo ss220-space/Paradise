@@ -40,7 +40,7 @@
 	for(var/mob/living/M in GLOB.alive_mob_list)
 		var/mob/living/simple_animal/borer/B
 
-		if(istype(M, /mob/living/simple_animal/borer))
+		if(isborer(M))
 			B = M
 
 		if(ishuman(M))
