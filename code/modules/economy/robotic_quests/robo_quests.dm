@@ -125,217 +125,126 @@
 /datum/roboshop_item
 	var/name
 	var/desc
-	/// Path to shop item
+	/// Path to shop item. Left undefined to use `visual_item` path.
 	var/atom/path
+	/// The item we want to show visually in roboshop.
+	var/atom/visual_item
 	/// Cost in RoboPoints. Can be (*, 0, 0, 0) (*, *, 0, 0) (*, *, *, 0) (0, *, 0, 0) (0, *, *, 0) (0, 0, *, 0) (0, 0, 0, *)
 	var/list/cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 0)
 	/// Custom item, leave empty if you okay with standart icon
 	var/icon_name
 	var/icon_file
-	/// Don`t touch
-	var/icon/tgui_icon
 	/// If emag only(Really??)
 	var/emag_only = FALSE
 
+
 /datum/roboshop_item/New()
-	if(!name)
-		name = path::name
 	if(!desc)
-		desc = path::desc
+		desc = visual_item::desc
+
 	if(!icon_name)
-		icon_name = path::icon_state
+		icon_name = visual_item::icon_state
+
 	if(!icon_file)
-		icon_file = path::icon
-	src.tgui_icon = icon(icon_file, icon_name, SOUTH, 1, FALSE)
+		icon_file = visual_item::icon
+
+	if(!path)
+		path = visual_item
+
+	if(!name)
+		name = path::name	// It is better to know exactly what we are buying.
 
 
 /datum/roboshop_item/bluespace_core
 	name = "bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	path = /obj/item/assembly/signaler/anomaly/bluespace
+	visual_item = /obj/item/assembly/signaler/anomaly/bluespace
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 15)
+
+/datum/roboshop_item/advanced_roboquest_pad
+	name = "robotics request advanced quantum pad"
+	desc = "This quantum pad is capable of instant teleportation of mech without need of send them to the cargo."
+	visual_item = /obj/item/circuitboard/advanced_roboquest_pad
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 7)
+
+/datum/roboshop_item/universal_paintkit
+	name = "universal mech paintkit"
+	desc = "This device will allow the user to repaint the mech as many times as they wish."
+	visual_item = /obj/item/universal_paintkit
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
 
 /datum/roboshop_item/mecha_drop
 	name = "mecha drop tool"
-	path = /obj/item/mecha_drop
+	visual_item = /obj/item/mecha_drop
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 20)
 	emag_only = TRUE
 
+/datum/roboshop_item/alien_prototype
+	name = "unknown alien prototype"
+	visual_item = /obj/item/machineprototype/alien
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 10)
+
 /datum/roboshop_item/bbag
-	name = "bluespace bodybag"
-	path = /obj/item/bodybag/bluespace
+	path = /obj/item/disk/design_disk/roboquest/bluespace_bag_disk
+	visual_item = /obj/item/bodybag/bluespace
 	cost = list("working" = 0, "medical" = 6, "security" = 0, "robo" = 0)
 
 /datum/roboshop_item/holotool
-	name = "holotool"
-	path = /obj/item/holotool
+	path = /obj/item/disk/design_disk/roboquest/holotool
+	visual_item = /obj/item/holotool
 	cost = list("working" = 6, "medical" = 0, "security" = 0, "robo" = 0)
 
 /datum/roboshop_item/shield_breacker
-	path = /obj/item/gun/energy/plasma_pistol
+	path = /obj/item/disk/design_disk/roboquest/shield_breaker
+	visual_item = /obj/item/gun/energy/plasma_pistol
 	cost = list("working" = 0, "medical" = 0, "security" = 6, "robo" = 0)
 
 /datum/roboshop_item/experimental_parts
 	name = "\improper experimental parts"
-	path = /obj/item/storage/box/stockparts/experimental_parts
+	path = /obj/item/storage/part_replacer/bluespace/experimental
+	visual_item = /obj/item/storage/box/stockparts/experimental_parts
 	cost = list("working" = 2, "medical" = 2, "security" = 2, "robo" = 0)
 
-//Paintkits
-/datum/roboshop_item/paint_ripley_titan
-	name = "Ripley, Firefighter \"Titan's Fist\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
-	path = /obj/item/paintkit/ripley_titansfist
 
-/datum/roboshop_item/paint_ripley_earth
-	name = "Ripley, Firefighter \"Strike the Earth!\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
-	path = /obj/item/paintkit/ripley_mercenary
+//design disks
 
-/datum/roboshop_item/paint_ripley_red
-	name = "Ripley, Firefighter \"Firestarter\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
-	path = /obj/item/paintkit/ripley_red
+/obj/item/disk/design_disk/roboquest
+	name = "roboquests design disk"
+	desc = "Вы этого не должны видеть. Напишите в баг-репорты."
+	icon_state = "holodisk"
+	///used in examine hints
+	var/hint_name = "items"
+	var/design_type
 
-/datum/roboshop_item/paint_firefighter_hauler
-	name = "Ripley, Firefighter \"Hauler\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
-	path = /obj/item/paintkit/firefighter_Hauler
+/obj/item/disk/design_disk/roboquest/Initialize()
+	. = ..()
+	if(isnull(design_type))
+		return INITIALIZE_HINT_QDEL
 
-/datum/roboshop_item/paint_firefighter_zairjah
-	name = "Ripley, Firefighter \"Zairjah\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
-	path = /obj/item/paintkit/firefighter_zairjah
+	blueprint = new design_type()
 
-/datum/roboshop_item/paint_firefighter_combat
-	name = "Ripley, Firefighter \"Combat Ripley\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
-	path = /obj/item/paintkit/firefighter_combat
+/obj/item/disk/design_disk/roboquest/examine(mob/user)
+	. = ..()
+	. += span_notice("Insert disk into R&D concole and download it for mass production of [hint_name].")
 
-/datum/roboshop_item/paint_firefighter_reaper
-	name = "Ripley, Firefighter \"Reaper\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
-	path = /obj/item/paintkit/firefighter_Reaper
 
-/datum/roboshop_item/paint_firefighter_aluminizer
-	name = "Ripley, Firefighter \"Aluminizer\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
-	path = /obj/item/paintkit/firefighter_aluminizer
+/obj/item/disk/design_disk/roboquest/bluespace_bag_disk
+	name = "bluespace bag design"
+	desc = "This disk contains blueprints for production of bluespace bodybags."
+	design_type = /datum/design/bbag
+	hint_name = "bluespace bodybags"
 
-/datum/roboshop_item/paint_ripley_nt
-	name = "Ripley, Firefighter \"NT Special\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
-	path = /obj/item/paintkit/ripley_nt
+/obj/item/disk/design_disk/roboquest/holotool
+	name = "holotool design"
+	desc = "This disk contains blueprints for production of holotools."
+	design_type = /datum/design/holotool
+	hint_name = "holotools"
 
-/datum/roboshop_item/paint_clarke_orangey
-	name = "Clarke \"Orangey\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
-	path = /obj/item/paintkit/clarke_orangey
-
-/datum/roboshop_item/paint_clarke_spiderclarke
-	name = "Clarke \"Spiderclarke\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
-	path = /obj/item/paintkit/clarke_spiderclarke
-
-/datum/roboshop_item/paint_odysseus_hermes
-	name = "Odysseus \"Hermes\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
-	path = /obj/item/paintkit/odysseus_hermes
-
-/datum/roboshop_item/paint_odysseus_reaper
-	name = "Odysseus \"Reaper\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
-	path = /obj/item/paintkit/odysseus_death
-
-/datum/roboshop_item/paint_gygax_alt
-	name = "Gygax \"Old\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
-	path = /obj/item/paintkit/gygax_alt
-
-/datum/roboshop_item/paint_gygax_pobeda
-	name = "Gygax \"Pobeda\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
-	path = /obj/item/paintkit/gygax_pobeda
-
-/datum/roboshop_item/paint_gygax_white
-	name = "Gygax \"White\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
-	path = /obj/item/paintkit/gygax_white
-
-/datum/roboshop_item/paint_gygax_medgax
-	name = "Gygax \"Medgax\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
-	path = /obj/item/paintkit/gygax_medgax
-
-/datum/roboshop_item/paint_gygax_black
-	name = "Gygax \"Syndicate\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
-	emag_only = TRUE
-	path = /obj/item/paintkit/gygax_syndie
-
-/datum/roboshop_item/paint_gygax_pirate
-	name = "Gygax \"Pirate\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
-	path = /obj/item/paintkit/gygax_pirate
-
-/datum/roboshop_item/paint_durand_unathi
-	name = "Durand \"Kharn MK. IV\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
-	path = /obj/item/paintkit/durand_unathi
-
-/datum/roboshop_item/paint_durand_shire
-	name = "Durand \"Shire\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
-	path = /obj/item/paintkit/durand_shire
-
-/datum/roboshop_item/paint_durand_pirate
-	name = "Durand \"Pirate\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
-	path = /obj/item/paintkit/durand_pirate
-
-/datum/roboshop_item/paint_durand_nt
-	name = "Durand \"NT Special\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
-	path = /obj/item/paintkit/durand_nt
-
-/datum/roboshop_item/paint_durand_soviet
-	name = "Durand \"Dollhouse\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
-	path = /obj/item/paintkit/durand_soviet
-
-/datum/roboshop_item/paint_durand_executor
-	name = "Durand \"mk.V Executioner\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
-	path = /obj/item/paintkit/durand_executor
-
-/datum/roboshop_item/paint_phazon_imperion
-	name = "Phazon \"Imperion\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
-	path = /obj/item/paintkit/phazon_imperion
-
-/datum/roboshop_item/paint_phazon_janus
-	name = "Phazon \"Janus\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
-	path = /obj/item/paintkit/phazon_janus
-
-/datum/roboshop_item/paint_phazon_plazmus
-	name = "Phazon \"Plazmus\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
-	path = /obj/item/paintkit/phazon_plazmus
-
-/datum/roboshop_item/paint_phazon_blanco
-	name = "Phazon \"Blanco\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
-	path = /obj/item/paintkit/phazon_blanco
-
-/datum/roboshop_item/paint_phazon_nt
-	name = "Phazon \"NT Special\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
-	path = /obj/item/paintkit/phazon_nt
-
-/datum/roboshop_item/paint_ashed
-	name = "Ashed \"Mechs\""
-	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
-	path = /obj/item/paintkit/ashed
+/obj/item/disk/design_disk/roboquest/shield_breaker
+	name = "plasma pistol design"
+	desc = "This disk contains blueprints for production of plasma pistols."
+	design_type = /datum/design/real_plasma_pistol
+	hint_name = "plasma pistols"
 
 #undef WORKING_CLASS
 #undef MEDICAL_CLASS

@@ -60,6 +60,14 @@
 		new /obj/item/stock_parts/scanning_module/triphasic(src)
 		new /obj/item/stock_parts/cell/bluespace(src)
 
+/obj/item/storage/part_replacer/bluespace/experimental/populate_contents()
+	for(var/amount in 1 to 10)
+		new /obj/item/stock_parts/capacitor/purple(src)
+		new /obj/item/stock_parts/manipulator/purple(src)
+		new /obj/item/stock_parts/matter_bin/purple(src)
+		new /obj/item/stock_parts/micro_laser/purple(src)
+		new /obj/item/stock_parts/scanning_module/purple(src)
+
 /obj/item/storage/part_replacer/bluespace/drop_inventory(mob/user)
 	if(user.a_intent == INTENT_HARM) //Меняем режим выгрузки
 		empty_mode -= 1
@@ -272,7 +280,7 @@
 	name = "experimental capacitor"
 	desc = "An capacity capacitor used in the construction of a variety of devices."
 	icon_state = "ps_capacitor"
-	origin_tech = "powerstorage=5;materials=4;engineering=4"
+	origin_tech = "powerstorage=6;materials=5;engineering=5"
 	rating = 5
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 
@@ -280,7 +288,7 @@
 	name = "experimental scanning module"
 	desc = "A compact, ultra resolution triphasic scanning module used in the construction of certain devices."
 	icon_state = "ps_scan_module"
-	origin_tech = "magnets=5;materials=4;engineering=4"
+	origin_tech = "magnets=5;materials=5;engineering=5"
 	rating = 5
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 
@@ -288,7 +296,7 @@
 	name = "experimental manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "ps_mani"
-	origin_tech = "materials=6;programming=4;engineering=4"
+	origin_tech = "materials=6;programming=5;engineering=5"
 	rating = 5
 	materials = list(MAT_METAL=30)
 
@@ -296,7 +304,7 @@
 	name = "experimental micro-laser"
 	icon_state = "ps_micro_laser"
 	desc = "A tiny laser used in certain devices."
-	origin_tech = "magnets=5;materials=4;engineering=4"
+	origin_tech = "magnets=6;materials=5;engineering=5"
 	rating = 5
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 
@@ -304,7 +312,7 @@
 	name = "experimental matter bin"
 	desc = "A container for hold compressed matter awaiting re-construction."
 	icon_state = "ps_matter_bin"
-	origin_tech = "materials=6;programming=4;engineering=4"
+	origin_tech = "materials=6;programming=5;engineering=5"
 	rating = 5
 	materials = list(MAT_METAL=80)
 
