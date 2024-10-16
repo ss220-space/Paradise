@@ -65,10 +65,12 @@
 	if(istype(hitby, /obj/item/projectile))
 		var/obj/item/projectile/P = hitby
 		if(P?.firer && P.firer_source_atom && (P.firer != P.firer_source_atom)) //if the projectile comes from YOU, like your spit or some shit, you can't steal that bro. Also protects mechs
+			if(!owner.drop_item_ground(src) || !P.firer.drop_item_ground(P.firer_source_atom))
+				return FALSE
 			if(iscarbon(P.firer)) //You can't switcharoo with turrets or simplemobs, or borgs
 				switcharoo(P.firer, owner, P.firer_source_atom)
 				return TRUE //this means the attack is blocked
-	return ..()
+	return FALSE
 
 /obj/item/syndicate_reverse_card/proc/switcharoo(mob/firer, mob/user, obj/item/gun/target_gun) //this proc teleports the target_gun out of the firer's hands and into the user's. The firer gets the card.
 	//first, the sparks!
