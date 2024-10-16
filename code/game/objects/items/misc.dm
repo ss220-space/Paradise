@@ -74,6 +74,7 @@
 		return FALSE
 
 	if(!firer.drop_item_ground(target_gun)) //then, check for anti-drop on gun owner. Don't do it in the same proc
+		user.put_in_hands(src)
 		return FALSE
 	//first, the sparks!
 	do_sparks(12, TRUE, user)
