@@ -321,7 +321,7 @@ REAGENT SCANNER
 			print_report(user)
 		return 1
 	if(href_list["insurance"])
-		do_insurance_collection(scanned, connected_acc)
+		do_insurance_collection(user, scanned, connected_acc)
 		return 1
 	if(href_list["mode"])
 		toggle_mode()

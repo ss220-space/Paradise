@@ -408,7 +408,7 @@
 			P.name = "Body Scan - [name]"
 			isPrinting = FALSE
 		if ("insurance")
-			do_insurance_collection(occupant, inserted_id ? inserted_id.associated_account_number : null)
+			do_insurance_collection(usr, occupant, inserted_id ? inserted_id.associated_account_number : null)
 		if ("eject_id")
 			eject_id()
 		else

@@ -16,21 +16,25 @@
 	else
 		return null
 
-/proc/do_insurance_collection(mob/living/carbon/human/user, datum/money_account/connected_acc)
-	if(!istype(user))
-		user.visible_message("Некорректная цель списания страховки.")
+/proc/do_insurance_collection(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/money_account/connected_acc)
+	if(!istype(target))
+		target.visible_message("Некорректная цель списания страховки.")
 		return FALSE
 
-	var/req = get_req_insurance(user)
+	var/list/access = user?.get_access()
+	if (user && !(ACCESS_MEDICAL in access))
+		target.visible_message("Недостаточно доступа для списания страховки.")
+		return FALSE
 
-	var/datum/money_account/acc = get_insurance_account(user)
+	var/req = get_req_insurance(target)
+	var/datum/money_account/acc = get_insurance_account(target)
 
 	if (!acc)
-		user.visible_message("Аккаунт не обнаружен.")
+		target.visible_message("Аккаунт не обнаружен.")
 		return FALSE
 
 	if (!COOLDOWN_FINISHED(acc, insurance_collecting))
-		user.visible_message("С цели недавно уже списывалась страховка. Подождите немного.")
+		target.visible_message("С цели недавно уже списывалась страховка. Подождите немного.")
 		return FALSE
 	COOLDOWN_START(acc, insurance_collecting, 60 SECONDS)
 
@@ -39,10 +43,10 @@
 
 	if (from_money_acc)
 		if (!acc.insurance_auto_replen)
-			user.visible_message(span_warning("Страховки не хватает на оплату лечения. Автопополнение страховки отключено."))
+			target.visible_message(span_warning("Страховки не хватает на оплату лечения. Автопополнение страховки отключено."))
 			return FALSE
 		if (!acc.charge(from_money_acc))
-			user.visible_message(span_warning("Страховки не хватает на оплату лечения. Автопополнение страховки провалилось."))
+			target.visible_message(span_warning("Страховки не хватает на оплату лечения. Автопополнение страховки провалилось."))
 			return FALSE
 
 	if (from_money_acc)
@@ -55,9 +59,9 @@
 		if (money_account)
 			money_account.money += round(round(req / 2))
 
-	user.visible_message("Страховка списанна в размере: [req].")
+	target.visible_message("Страховка списанна в размере: [req].")
 	if (from_money_acc)
-		user.visible_message("Страховки не хватило. [from_money_acc / 2] недостающих очков страховки восполнено за счет [from_money_acc] кредитов со счета пациента.")
+		target.visible_message("Страховки не хватило. [from_money_acc / 2] недостающих очков страховки восполнено за счет [from_money_acc] кредитов со счета пациента.")
 
 	return TRUE
 
