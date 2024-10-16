@@ -14,9 +14,7 @@
 
 
 /datum/event/space_dragon/start()
-	var/player_count = num_station_players()
-	if(player_count < SPACE_DRAGON_SPAWN_THRESHOLD)
-		log_and_message_admins("Random event attempted to spawn a space dragon, but there were only [player_count]/[SPACE_DRAGON_SPAWN_THRESHOLD] players.")
+	if(!can_start())
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
 		EC.next_event_time = world.time + (60 * 10)
 		return
@@ -38,6 +36,20 @@
 	log_and_message_admins("[ADMIN_LOOKUPFLW(space_dragon)] has been made into a Space Dragon by an event.")
 	log_game("[space_dragon.key] was spawned as a Space Dragon by an event.")
 	successSpawn = TRUE
+
+
+/datum/event/space_dragon/can_start()
+	var/player_count = num_station_players()
+	if(player_count >= SPACE_DRAGON_SPAWN_THRESHOLD) // all passed
+		return TRUE
+
+	if(..()) // forced
+		log_and_message_admins("Event \"[type]\" launched bypassing the minimum players limit!")
+		return TRUE
+
+	log_and_message_admins("Random event attempted to spawn a space dragon, but there were only [player_count]/[SPACE_DRAGON_SPAWN_THRESHOLD] players.")
+
+	return FALSE
 
 
 #undef SPACE_DRAGON_SPAWN_THRESHOLD

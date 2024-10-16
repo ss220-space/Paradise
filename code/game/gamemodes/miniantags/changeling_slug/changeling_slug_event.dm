@@ -23,7 +23,7 @@
 
 /datum/event/headslug_infestation/proc/wrappedstart()
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE) //check for amount of people
-	if(eventcheck())
+	if(!can_start())
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
 		EC.next_event_time = world.time + (60 * 10)
 		return
@@ -42,9 +42,39 @@
 			successSpawn = TRUE
 			log_game("[new_slug.key] has become Changeling Headslug.")
 
-/datum/event/headslug_infestation/proc/eventcheck()
-	if((num_station_players() <= HI_MINPLAYERS_TRIGGER) ||GAMEMODE_IS_CULTS || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_SHADOWLING)
+/datum/event/headslug_infestation/can_start()
+	var/list/adm_message
+	var/min_player_passed = (num_station_players() > HI_MINPLAYERS_TRIGGER)
+	var/gamemode_passed = !(GAMEMODE_IS_CULTS || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_SHADOWLING)
+
+	. = ..() // true == forced by admins
+
+	if(min_player_passed && gamemode_passed) // all checks passed
 		return TRUE
+
+	if(. && !min_player_passed) // forced, bypassing player limits
+		LAZYADD(adm_message, "Minimum players")
+
+	if(. && !gamemode_passed) // forced, bypassing gamemode limits
+		LAZYADD(adm_message, "Gamemode(not Nuclear, Shadowling or Cults)")
+
+	if(LAZYLEN(adm_message))
+		adm_message = english_list(adm_message)
+		log_and_message_admins("Event \"[type]\" launched bypassing the limits: [adm_message]!")
+		return TRUE
+
+	// not forced, not passed
+	var/list/fail_messsage
+	if(!min_player_passed) // not enough players to start
+		LAZYADD(fail_messsage, "Minimum players")
+
+	if(!gamemode_passed) // not allowed in this gamemode
+		LAZYADD(fail_messsage, "Gamemode(not Nuclear, Shadowling or Cults)")
+
+	fail_messsage = english_list(fail_messsage)
+	log_and_message_admins("Random event attempted to spawn a headslug, but failed this checks: [fail_messsage]!")
+
+	return FALSE
 
 
 #undef GAMEMODE_IS_CULTS
