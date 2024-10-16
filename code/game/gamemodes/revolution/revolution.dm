@@ -150,6 +150,8 @@
 		messages.Add("<span class='userdanger'>You are a member of the revolutionaries' leadership!</span>")
 	messages.Add(rev_mind.prepare_announce_objectives())
 	to_chat(rev_mind.current, chat_box_red(messages.Join("<br>")))
+	if(rev_mind.current)
+		SEND_SOUND(rev_mind.current, 'sound/ambience/antag/revolutionary_tide.ogg')
 
 /////////////////////////////////////////////////////////////////////////////////
 //This are equips the rev heads with their gear, and makes the clown not clumsy//
@@ -231,6 +233,8 @@
 	update_rev_icons_added(rev_mind)
 	if(jobban_isbanned(rev_mind.current, ROLE_REV) || jobban_isbanned(rev_mind.current, ROLE_SYNDICATE))
 		replace_jobbanned_player(rev_mind.current, ROLE_REV)
+	if(rev_mind.current)
+		SEND_SOUND(rev_mind.current, 'sound/ambience/antag/revolutionary_tide.ogg')
 	return 1
 //////////////////////////////////////////////////////////////////////////////
 //Deals with players being converted from the revolution (Not a rev anymore)//  // Modified to handle borged MMIs.  Accepts another var if the target is being borged at the time  -- Polymorph.
