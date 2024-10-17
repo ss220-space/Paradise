@@ -24,8 +24,6 @@
 	stop_automated_movement = 1
 	animate_movement = SYNC_STEPS
 
-	minbodytemp = 0
-	maxbodytemp = 350
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
 	a_intent = INTENT_HARM //so they don't get pushed around
@@ -56,6 +54,12 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 
+/mob/living/simple_animal/hostile/spaceWorm/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 350, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/spaceWorm/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE //space worms can flyyyyyy

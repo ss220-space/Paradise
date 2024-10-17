@@ -1404,7 +1404,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	///Where we should KABOOM
 	var/area/detonation_location
 	var/list/area_blacklist = list(
-		/area/engine/engineering, /area/engine/supermatter,
+		/area/engineering/engine, /area/engineering/supermatter,
 		/area/toxins/test_area, /area/turret_protected/ai)
 	needs_target = FALSE
 

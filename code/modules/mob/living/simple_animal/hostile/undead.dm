@@ -46,13 +46,17 @@
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	pressure_resistance = 300
 	gold_core_spawnable = NO_SPAWN //too spooky for science
 	faction = list("undead") // did I mention ghost
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = 1
 
+/mob/living/simple_animal/hostile/ghost/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/ghost/Initialize(mapload)
 	. = ..()
@@ -88,8 +92,6 @@
 	harm_intent_damage = 5
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	minbodytemp = 0
-	maxbodytemp = 1500
 	healable = FALSE //they're skeletons how would bruise packs help them??
 	attacktext = "бьёт"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
@@ -104,6 +106,13 @@
 	deathmessage = "collapses into a pile of bones!"
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/remains/human)
+
+/mob/living/simple_animal/hostile/skeleton/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 1500, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/skeleton/eskimo
 	name = "undead eskimo"
@@ -146,11 +155,16 @@
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 
 	faction = list("undead")
 	loot = list(/obj/effect/decal/cleanable/blood/gibs)
 	del_on_death = 1
+
+/mob/living/simple_animal/hostile/zombie/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/zombie/whiteship
 	speak = list("RAWR!","Rawr!","GRR!","Growl!")

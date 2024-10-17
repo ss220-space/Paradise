@@ -24,11 +24,16 @@
 	footstep_type = FOOTSTEP_MOB_SHOE
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 
 	faction = list("faithless")
 	gold_core_spawnable = HOSTILE_SPAWN
 	AI_delay_max = 0 SECONDS
+
+/mob/living/simple_animal/hostile/faithless/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/faithless/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
