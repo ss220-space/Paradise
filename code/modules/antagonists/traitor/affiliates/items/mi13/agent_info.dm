@@ -32,7 +32,7 @@
 
 	if(traitor)
 		info += choise + " является агентом " + (traitor?.affiliate ? "нанятым " + traitor?.affiliate.name : "с неизвестным нанимателем") + ".<br>"
-		info += "Назначеные " + (target.gender == FEMALE ? "ей " : "ему ") + "нанимателем цели следующие:"
+		info += "Назначеные " + (target.gender == FEMALE ? "ей " : "ему ") + "нанимателем цели следующие:<br>"
 		var/obj_num = 1
 		for(var/datum/objective/objective in traitor.objectives)
 			info += "<B>Objective #[obj_num]</B>: [objective.explanation_text]<br>"
@@ -48,7 +48,7 @@
 				used_uplink = TRUE
 
 		if(used_uplink)
-			text += " (использовал" + ((target.gender == FEMALE ? "a " : " ")) + "[TC_uses] TC) [purchases]<br>"
+			info += " (использовал" + ((target.gender == FEMALE ? "a " : " ")) + "[TC_uses] TC) [purchases]<br>"
 
 	if(vampire)
 		info += choise + " обладает способностями " + (vampire.isAscended() ? "высшего " : "") + "вампира " + (vampire.subclass ? "подкласса \"" + vampire.subclass.name + "\"" : "без подкласса") + ".<br>"
@@ -59,18 +59,21 @@
 	if(thief)
 		info += choise + " является членом гильдии воров.<br>"
 
-/obj/item/paper/agent_info/examine(mob/user)
-	if(!is_MI13_agent(user))
+/obj/item/paper/agent_info/show_content(mob/user)
+	if(!isobserver(user) && !is_MI13_agent(user))
 		to_chat(user, span_warning("Вы не можете разобрать содержимое."))
 		return
 
-	if(info)
+	if (info || isobserver(user))
 		return ..()
 
+	if(choose_agent(user))
+		return ..()
+
+/obj/item/paper/agent_info/examine(mob/user)
 	if(user.is_literate())
-		if(in_range(user, src) || istype(user, /mob/dead/observer))
-			if(choose_agent(user))
-				show_content(user)
+		if(in_range(user, src) || isobserver(user))
+			show_content(user)
 		else
 			. += span_notice("Вам нужно подойти поближе, чтобы прочитать то что здесь написано.")
 	else
