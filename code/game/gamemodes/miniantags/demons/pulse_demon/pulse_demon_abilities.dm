@@ -84,7 +84,7 @@
 	if(!istype(user))
 		return
 
-		if(locked)
+	if(locked)
 		if(user.charge >= unlock_cost)
 			user.adjust_charge(-unlock_cost)
 			locked = FALSE
@@ -328,7 +328,7 @@
 	if(!istype(user))
 		return
 
-		current_camera = 0
+	current_camera = 0
 	if(!isapc(user.current_power))
 		return
 
@@ -432,7 +432,7 @@
 	if(!istype(user))
 		return
 
-		to_chat(user, "<b>Pulse Demon upgrades:</b>")
+	to_chat(user, "<b>Pulse Demon upgrades:</b>")
 	for(var/upgrade in upgrade_descs)
 		var/cost = calc_cost(user, upgrade)
 		to_chat(user, "<b>[upgrade]</b> ([cost == -1 ? "Fully Upgraded" : "[format_si_suffix(cost)]W"]) - [upgrade_descs[upgrade]]")
