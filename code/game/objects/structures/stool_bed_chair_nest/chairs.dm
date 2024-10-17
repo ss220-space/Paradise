@@ -153,8 +153,7 @@
 
 
 /obj/structure/chair/AltClick(mob/living/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
-	rotate(user)
+		rotate(user)
 
 
 // CHAIR TYPES
@@ -536,7 +535,6 @@
 	return
 
 /obj/structure/chair/brass/AltClick(mob/living/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!istype(user) || !Adjacent(user))
 		return
 

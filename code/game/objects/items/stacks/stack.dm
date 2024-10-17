@@ -290,7 +290,6 @@
 
 
 /obj/item/stack/AltClick(mob/living/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!ishuman(user) || amount < 1 || !Adjacent(user))
 		return
 

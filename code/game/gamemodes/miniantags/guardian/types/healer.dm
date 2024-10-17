@@ -115,7 +115,6 @@
 	if(!istype(A))
 		return
 
-	SEND_SIGNAL(A, COMSIG_CLICK_ALT_ON, src, A)
 	if(loc == summoner)
 		to_chat(src, "<span class='danger'>Вы должны явить себя для телепортации вещей!</span>")
 		return

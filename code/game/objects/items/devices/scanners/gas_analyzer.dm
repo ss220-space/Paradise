@@ -40,7 +40,6 @@
 	return BRUTELOSS
 
 /obj/item/analyzer/AltClick(mob/living/user) //Barometer output for measuring when the next storm happens
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!istype(user) || !Adjacent(user))
 		return
 

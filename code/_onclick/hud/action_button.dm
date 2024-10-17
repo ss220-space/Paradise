@@ -84,7 +84,6 @@
 
 
 /atom/movable/screen/movable/action_button/AltClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	. = linked_action.AltTrigger()
 	linked_action.UpdateButtonIcon()
 
@@ -137,7 +136,6 @@
 
 
 /atom/movable/screen/movable/action_button/hide_toggle/AltClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	for(var/datum/action/action as anything in user.actions)
 		var/atom/movable/screen/movable/action_button/our_button = action.button
 		our_button.moved = FALSE

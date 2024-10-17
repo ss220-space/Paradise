@@ -48,6 +48,7 @@
 		ShiftClickOn(A)
 		return
 	if(modifiers["alt"])
+		SEND_SIGNAL(A, COMSIG_CLICK_ALT, src)
 		AltClickOn(A)
 		return
 	// You are responsible for checking CONFIG_GET(flag/ghost_interaction) when you override this function

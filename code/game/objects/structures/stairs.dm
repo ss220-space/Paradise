@@ -147,7 +147,6 @@
 	frame_stack = /obj/item/stack/sheet/wood
 
 /obj/structure/stairs_frame/AltClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!Adjacent(user))
 		return
 

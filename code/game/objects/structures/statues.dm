@@ -288,7 +288,6 @@
 	icon_state = "mime"
 
 /obj/structure/statue/tranquillite/mime/AltClick(mob/user)//has 4 dirs
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!Adjacent(user))
 		return
 

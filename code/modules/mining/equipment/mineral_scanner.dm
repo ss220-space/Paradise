@@ -17,7 +17,6 @@
 	origin_tech = "engineering=1;magnets=1"
 
 /obj/item/mining_scanner/AltClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
@@ -62,7 +61,6 @@
 	origin_tech = "engineering=3;magnets=3"
 
 /obj/item/t_scanner/adv_mining_scanner/AltClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 

@@ -57,7 +57,6 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), EMP_DISABLE_TIME)
 
 /obj/item/gps/AltClick(mob/living/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!Adjacent(user))
 		return
 

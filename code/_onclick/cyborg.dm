@@ -37,6 +37,7 @@
 		ShiftClickOn(A)
 		return
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
+		SEND_SIGNAL(A, COMSIG_CLICK_ALT, src)
 		AltClickOn(A)
 		return
 	if(modifiers["ctrl"])
@@ -118,7 +119,6 @@
 /mob/living/silicon/robot/CtrlClickOn(atom/A)
 	A.BorgCtrlClick(src)
 /mob/living/silicon/robot/AltClickOn(atom/A)
-	SEND_SIGNAL(A, COMSIG_CLICK_ALT_ON, src, A)
 	A.BorgAltClick(src)
 /mob/living/silicon/robot/CtrlShiftClickOn(atom/A)
 	A.BorgCtrlShiftClick(src)

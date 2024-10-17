@@ -41,7 +41,6 @@ Thus, the two variables affect pump operation are set in New():
 	return ..()
 
 /obj/machinery/atmospherics/binary/volume_pump/AltClick(mob/living/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!ishuman(user) && !issilicon(user))
 		return
 

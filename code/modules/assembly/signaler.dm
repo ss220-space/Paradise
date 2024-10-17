@@ -42,7 +42,6 @@
 	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return ..()
 
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	to_chat(user, span_notice("You activate [src]."))
 	activate()
 

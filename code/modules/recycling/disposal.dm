@@ -409,7 +409,6 @@
 	if(!do_after(user, 5 SECONDS, src))
 		return ..()
 
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	user.visible_message(
 		"<span class='notice'>[user] ejects the contents of [src].</span>",
 		"<span class='notice'>You eject the contents of [src].</span>",

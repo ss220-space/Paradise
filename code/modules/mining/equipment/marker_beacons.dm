@@ -58,7 +58,6 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		transfer_fingerprints_to(M)
 
 /obj/item/stack/marker_beacon/AltClick(mob/living/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!istype(user) || ui_status(user, GLOB.physical_state) != UI_INTERACTIVE)
 		return
 

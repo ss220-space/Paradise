@@ -486,7 +486,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 
 /obj/machinery/washing_machine/AltClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(Adjacent(user) && generic_check(user))
 		turn_on(user)
 

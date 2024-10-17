@@ -54,6 +54,7 @@
 		ShiftClickOn(A)
 		return TRUE
 	if(modifiers["alt"])
+		SEND_SIGNAL(A, COMSIG_CLICK_ALT, src)
 		AltClickOn(A)
 		return TRUE
 	if(modifiers["ctrl"])
@@ -73,7 +74,6 @@
 		examinate(A)
 
 /mob/living/simple_animal/demon/pulse_demon/AltClickOn(atom/A)
-	SEND_SIGNAL(A, COMSIG_CLICK_ALT_ON, src, A)
 	if(get_area(A) == controlling_area)
 		A.AIAltClick(src)
 	else

@@ -611,7 +611,6 @@ Difficulty: Medium
 	attack_action_types = list()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser/AltClickOn(atom/movable/A)
-	SEND_SIGNAL(A, COMSIG_CLICK_ALT_ON, src, A)
 	if(a_intent == INTENT_HELP || intent == INTENT_HELP)
 		return
 
@@ -697,5 +696,4 @@ Difficulty: Medium
 
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/AltClickOn(atom/movable/A)
-	SEND_SIGNAL(A, COMSIG_CLICK_ALT_ON, src, A)
 	return

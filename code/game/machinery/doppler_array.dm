@@ -71,8 +71,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 
 /obj/machinery/doppler_array/AltClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
-	rotate(user)
+		rotate(user)
 
 
 /obj/machinery/doppler_array/verb/rotate_verb()

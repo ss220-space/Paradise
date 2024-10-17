@@ -46,7 +46,6 @@
 	return ..()
 
 /obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!ishuman(usr) && !issilicon(usr))
 		return
 

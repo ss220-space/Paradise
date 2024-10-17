@@ -33,7 +33,6 @@
 	if(!(src in user))
 		return ..()
 
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	flip(user)
 
 

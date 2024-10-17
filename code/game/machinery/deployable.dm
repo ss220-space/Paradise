@@ -175,7 +175,6 @@
 	. += span_notice("Alt-click to toggle modes.")
 
 /obj/item/grenade/barrier/AltClick(mob/living/carbon/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!istype(user) || !user.Adjacent(src) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 

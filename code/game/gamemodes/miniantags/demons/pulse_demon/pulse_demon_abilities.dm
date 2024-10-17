@@ -84,8 +84,7 @@
 	if(!istype(user))
 		return
 
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
-	if(locked)
+		if(locked)
 		if(user.charge >= unlock_cost)
 			user.adjust_charge(-unlock_cost)
 			locked = FALSE
@@ -280,7 +279,6 @@
 	if(!istype(user))
 		return
 
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	var/amount = text2num(input(user, "Input a value between 1 and [user.max_drain_rate]. 0 will reset it to the maximum.", "Drain Speed Setting"))
 	if(amount == null || amount < 0)
 		to_chat(user, span_warning("Invalid input. Drain speed has not been modified."))
@@ -330,8 +328,7 @@
 	if(!istype(user))
 		return
 
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
-	current_camera = 0
+		current_camera = 0
 	if(!isapc(user.current_power))
 		return
 
@@ -435,8 +432,7 @@
 	if(!istype(user))
 		return
 
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
-	to_chat(user, "<b>Pulse Demon upgrades:</b>")
+		to_chat(user, "<b>Pulse Demon upgrades:</b>")
 	for(var/upgrade in upgrade_descs)
 		var/cost = calc_cost(user, upgrade)
 		to_chat(user, "<b>[upgrade]</b> ([cost == -1 ? "Fully Upgraded" : "[format_si_suffix(cost)]W"]) - [upgrade_descs[upgrade]]")

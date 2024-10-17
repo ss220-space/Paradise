@@ -140,7 +140,6 @@
 	add_fingerprint(user)
 
 /obj/structure/railing/AltClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!Adjacent(user))
 		return
 
@@ -186,7 +185,6 @@
 		layer = HIGH_OBJ_LAYER
 
 /obj/structure/railing/wooden/AltClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!Adjacent(user))
 		return
 

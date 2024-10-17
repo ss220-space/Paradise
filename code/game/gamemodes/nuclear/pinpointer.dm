@@ -223,7 +223,6 @@
 /obj/item/pinpointer/advpinpointer/AltClick(mob/user)
 	if(Adjacent(user))
 		toggle_mode(user)
-		SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 		return
 
 	..()
@@ -502,7 +501,6 @@
 /obj/item/pinpointer/crew/AltClick(mob/user)
 	if(Adjacent(user))
 		choose_signal(user)
-		SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 		return
 
 	..()
@@ -618,7 +616,6 @@
 /obj/item/pinpointer/thief/AltClick(mob/user)
 	if(Adjacent(user))
 		toggle_mode(user)
-		SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 		return
 
 	..()

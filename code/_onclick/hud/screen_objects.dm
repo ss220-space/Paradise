@@ -299,7 +299,6 @@
 	return set_selected_zone(choice)
 
 /atom/movable/screen/zone_sel/AltClick(mob/user, choice)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(user.next_click > world.time || user.next_move > world.time)
 		return FALSE
 

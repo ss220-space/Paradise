@@ -75,6 +75,7 @@
 		ShiftClickOn(A)
 		return
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
+		SEND_SIGNAL(A, COMSIG_CLICK_ALT, src)
 		AltClickOn(A)
 		return
 	if(modifiers["ctrl"])
@@ -127,7 +128,6 @@
 /mob/living/silicon/ai/CtrlClickOn(atom/A)
 	A.AICtrlClick(src)
 /mob/living/silicon/ai/AltClickOn(atom/A)
-	SEND_SIGNAL(A, COMSIG_CLICK_ALT_ON, src, A)
 	A.AIAltClick(src)
 /mob/living/silicon/ai/MiddleClickOn(atom/A)
     A.AIMiddleClick(src)

@@ -10,6 +10,7 @@
 		ShiftClickOn(A)
 		return
 	if(modifiers["alt"])
+		SEND_SIGNAL(A, COMSIG_CLICK_ALT, src)
 		AltClickOn(A)
 		return
 	if(modifiers["ctrl"])
@@ -30,7 +31,6 @@
 		create_shield(T)
 
 /mob/camera/blob/AltClickOn(atom/A) //Remove a blob
-	SEND_SIGNAL(A, COMSIG_CLICK_ALT_ON, src, A)
 	var/turf/T = get_turf(A)
 	if(T)
 		remove_blob(T)

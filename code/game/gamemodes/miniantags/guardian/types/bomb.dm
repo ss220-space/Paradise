@@ -20,7 +20,6 @@
 	if(!istype(A))
 		return
 
-	SEND_SIGNAL(A, COMSIG_CLICK_ALT_ON, src, A)
 	if(get_dist(get_turf(src), get_turf(A)) > 3)
 		to_chat(src, span_danger("Слишком далеко от [A] чтобы скрыть это как бомбу."))
 		return

@@ -739,7 +739,6 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/customat/AltClick(mob/living/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!panel_open)
 		balloon_alert(user, "панель закрыта")
 		return

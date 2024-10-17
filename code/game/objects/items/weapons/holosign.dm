@@ -75,7 +75,6 @@
 	var/wet_enabled = TRUE
 
 /obj/item/holosign_creator/janitor/AltClick(mob/living/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!istype(user) || !Adjacent(user))
 		return
 

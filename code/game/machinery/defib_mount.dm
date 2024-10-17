@@ -143,7 +143,6 @@
 
 
 /obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/human/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!istype(user) || !Adjacent(user))
 		return
 

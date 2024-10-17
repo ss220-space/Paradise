@@ -465,7 +465,6 @@ GLOBAL_LIST_EMPTY(closets)
 
 
 /obj/structure/closet/AltClick(mob/living/simple_animal/hostile/gorilla/gorilla)
-	SEND_SIGNAL(gorilla, COMSIG_CLICK_ALT, src, gorilla)
 	if(istype(gorilla) && !gorilla.incapacitated() && !HAS_TRAIT(gorilla, TRAIT_HANDS_BLOCKED) && Adjacent(gorilla))
 		gorilla.face_atom(src)
 		toggle()

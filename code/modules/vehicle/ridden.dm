@@ -41,7 +41,6 @@
 	return ATTACK_CHAIN_PROCEED
 
 /obj/vehicle/ridden/AltClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!inserted_key)
 		return
 

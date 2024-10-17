@@ -36,7 +36,6 @@
 	. += "<span class='notice'>Alt-click to [opened ? "close":"open"] it.</span>"
 
 /obj/structure/extinguisher_cabinet/AltClick(mob/living/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!iscarbon(usr) && !isrobot(usr))
 		return
 

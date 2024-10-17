@@ -792,7 +792,6 @@
 
 
 /obj/machinery/power/apc/AltClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	var/mob/living/carbon/human/human = user
 	if(!istype(human) || human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
 		return

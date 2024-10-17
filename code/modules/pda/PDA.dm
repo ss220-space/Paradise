@@ -212,7 +212,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
 /obj/item/pda/AltClick(mob/living/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!iscarbon(user))
 		return
 

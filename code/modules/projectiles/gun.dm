@@ -582,7 +582,6 @@
 		to_chat(user, span_warning("You can't do that right now!"))
 		return ..()
 
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	reskin_gun(user)
 
 

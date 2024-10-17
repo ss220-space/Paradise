@@ -610,7 +610,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		. += "<span class='info'>Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.</span>"
 
 /obj/item/radio/AltClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_CLICK_ALT, src, user)
 	if(!iscarbon(user) && !isrobot(user))
 		return
 
