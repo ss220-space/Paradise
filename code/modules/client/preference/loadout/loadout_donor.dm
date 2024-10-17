@@ -238,19 +238,19 @@
 
 /datum/gear/donor/strip/syndi
 	display_name = "strip, Syndicate"
-	/obj/item/clothing/accessory/head_strip/syndicate
+	path = /obj/item/clothing/accessory/head_strip/syndicate
 	donator_tier = 3
 	cost = 1
 
 /datum/gear/donor/strip/comrad
 	display_name = "strip, SSSP"
-	/obj/item/clothing/accessory/head_strip/comrad
+	path = /obj/item/clothing/accessory/head_strip/comrad
 	donator_tier = 3
 	cost = 1
 
 /datum/gear/donor/strip/federal
 	display_name = "strip, TSF"
-	/obj/item/clothing/accessory/head_strip/federal
+	path = /obj/item/clothing/accessory/head_strip/federal
 	donator_tier = 3
 	cost = 1
 
