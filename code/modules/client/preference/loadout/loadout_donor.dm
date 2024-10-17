@@ -236,6 +236,24 @@
 	cost = 1
 	allowed_roles = list(JOB_TITLE_REPRESENTATIVE)
 
+/datum/gear/donor/strip/syndi
+	display_name = "strip, Syndicate"
+	path = /obj/item/clothing/accessory/head_strip/syndicate
+	donator_tier = 3
+	cost = 1
+
+/datum/gear/donor/strip/comrad
+	display_name = "strip, SSSP"
+	path = /obj/item/clothing/accessory/head_strip/comrad
+	donator_tier = 3
+	cost = 1
+
+/datum/gear/donor/strip/federal
+	display_name = "strip, TSF"
+	path = /obj/item/clothing/accessory/head_strip/federal
+	donator_tier = 3
+	cost = 1
+
 /datum/gear/donor/heartglasses
 	display_name = "heart-shaped glasses, color"
 	path = /obj/item/clothing/glasses/heart
