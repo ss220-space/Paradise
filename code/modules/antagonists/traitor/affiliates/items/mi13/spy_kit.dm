@@ -120,6 +120,12 @@
 	if (!user.Adjacent(parent))
 		return
 
+	if (user.stat)
+		return
+
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
 	bug.unhook(user)
 
 /datum/component/spy_bug/proc/deleted_handler()
