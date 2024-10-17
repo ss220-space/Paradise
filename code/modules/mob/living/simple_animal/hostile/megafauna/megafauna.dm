@@ -16,8 +16,6 @@
 	stat_attack = DEAD
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	damage_coeff = list(BRUTE = 1, BURN = 0.5, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
-	minbodytemp = 0
-	maxbodytemp = INFINITY
 	vision_range = 5
 	aggro_vision_range = 18
 	move_force = MOVE_FORCE_OVERPOWERING
@@ -55,6 +53,13 @@
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
 		attack_action.Grant(src)
+
+/mob/living/simple_animal/hostile/megafauna/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = INFINITY, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
 	QDEL_NULL(internal_gps)

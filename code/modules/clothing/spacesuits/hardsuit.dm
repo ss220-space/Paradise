@@ -374,6 +374,8 @@
 	visor_flags_inv = HIDEMASK|HIDEGLASSES|HIDENAME|HIDETAIL
 	visor_clothing_flags = STOPSPRESSUREDMAGE
 	var/combat_rad = 50
+	var/combat_slow = 0
+	var/eva_slow = 1
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/Destroy()
@@ -439,12 +441,12 @@
 		linkedsuit.on = !linkedsuit.on
 
 	if(linkedsuit.on)
-		linkedsuit.slowdown = 1
+		linkedsuit.slowdown = eva_slow
 		linkedsuit.clothing_flags |= STOPSPRESSUREDMAGE
 		linkedsuit.cold_protection |= (UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL)
 		linkedsuit.armor.rad = 100
 	else
-		linkedsuit.slowdown = 0
+		linkedsuit.slowdown = combat_slow
 		linkedsuit.clothing_flags &= ~STOPSPRESSUREDMAGE
 		linkedsuit.cold_protection &= ~(UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL)
 		linkedsuit.armor.rad = combat_rad
@@ -553,6 +555,8 @@
 	armor = list(melee = 70, bullet = 70, laser = 50, energy = 40, bomb = 80, bio = 100, rad = 100, fire = 100, acid = 100) //Almost as good as DS gear, but unlike DS can switch to combat for mobility
 	item_color = "sst"
 	combat_rad = 100
+	combat_slow = -0.1
+	eva_slow = 0
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst
 	icon_state = "hardsuit0-sst"

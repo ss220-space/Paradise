@@ -37,10 +37,6 @@
 		//Breathing, if applicable
 		handle_breathing(times_fired)
 
-	if(stat != DEAD)
-		//Random events (vomiting etc)
-		handle_random_events()
-
 	if(LAZYLEN(diseases))
 		handle_diseases()
 
@@ -115,9 +111,6 @@
 	for(var/thing in diseases)
 		var/datum/disease/D = thing
 		D.stage_act()
-
-/mob/living/proc/handle_random_events()
-	return
 
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
 	return

@@ -40,7 +40,6 @@
 
 	//Spaceborn beings don't get hurt by space
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	del_on_death = TRUE
 
 	var/datum/reagent/beegent = null //hehe, beegent
@@ -60,6 +59,12 @@
 	regenerate_icons()
 	AddComponent(/datum/component/swarming)
 	AddElement(/datum/element/simple_flying)
+
+/mob/living/simple_animal/hostile/poison/bees/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
 	beegent = null

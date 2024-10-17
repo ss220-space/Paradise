@@ -217,7 +217,7 @@
 	icon_state = "demonomicon"
 	author = "Немрис Мудрый"
 	title = "Философия смерти"
-	unique = 1
+	unique = TRUE
 	forbidden = 1
 	has_drm = TRUE
 	dat = {"

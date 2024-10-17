@@ -141,9 +141,7 @@
 			if(update)
 				H.updatehealth()
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.blood_volume += 0.4
-		else if(light_amount < 0.2)
-			H.blood_volume -= 0.1
+				H.blood_volume += 0.5
 
 	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.adjustBruteLoss(2)
