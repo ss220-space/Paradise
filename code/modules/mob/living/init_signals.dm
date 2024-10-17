@@ -35,6 +35,7 @@
 
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NO_BREATH), PROC_REF(on_no_breath_trait_gain))
 
+	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_IGNORECOLDSLOWDOWN), SIGNAL_REMOVETRAIT(TRAIT_IGNORECOLDSLOWDOWN)), PROC_REF(on_ignore_cold_slowdown))
 	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_IGNOREDAMAGESLOWDOWN), SIGNAL_REMOVETRAIT(TRAIT_IGNOREDAMAGESLOWDOWN)), PROC_REF(on_ignore_damage_slowdown))
 
 	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_UNDENSE), SIGNAL_REMOVETRAIT(TRAIT_UNDENSE)), PROC_REF(undense_changed))
@@ -272,3 +273,6 @@
 	SIGNAL_HANDLER
 	update_movespeed_damage_modifiers()
 
+/mob/living/proc/on_ignore_cold_slowdown(datum/source)
+	SIGNAL_HANDLER
+	update_movespeed_damage_modifiers()

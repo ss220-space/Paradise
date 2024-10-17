@@ -10,6 +10,7 @@
 		ShiftClickOn(A)
 		return
 	if(modifiers["alt"])
+		SEND_SIGNAL(A, COMSIG_CLICK_ALT, src)
 		AltClickOn(A)
 		return
 	if(modifiers["ctrl"])

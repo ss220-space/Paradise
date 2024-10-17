@@ -97,6 +97,11 @@
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 200)
 	projectile_type = /obj/item/projectile/bullet/midbullet3/hp
 
+/obj/item/ammo_casing/c10mm/blood
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 200, MAT_PLASMA = 300)
+	projectile_type = /obj/item/projectile/bullet/midbullet3/blood
+	muzzle_flash_color = LIGHT_COLOR_PURE_RED
+
 /obj/item/ammo_casing/c9mm
 	desc = "A 9mm bullet casing."
 	caliber = "9mm"

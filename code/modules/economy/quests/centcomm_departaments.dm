@@ -12,7 +12,7 @@
 #define PERCENTAGE_PAYMENTS_PERSONAL 	0.15	//15 percent on the account of the beggars
 
 #define POINT_TO_CREDITS 10
-#define COMMERCIAL_MODIFIER 3 
+#define COMMERCIAL_MODIFIER 3
 
 //Give up hope, hope, everyone who enters here
 
@@ -190,7 +190,7 @@
 	var/datum/money_account/station_money_account = SScapitalism.base_account
 	station_money_account.credit(round(reward * PERCENTAGE_PAYMENTS_STATION), "Completed Order!", "Biesel TCD Terminal #[rand(111,333)]", "Station Account")
 
-	
+
 	SScapitalism.total_cargo_bounty += round(reward * PERCENTAGE_PAYMENTS_CARGO)
 	var/datum/money_account/cargo_money_account = GLOB.department_accounts["Cargo"]
 	cargo_money_account.credit(round(reward * PERCENTAGE_PAYMENTS_CARGO), "Completed Order!", "Biesel TCD Terminal #[rand(111,333)]", "Cargo Account")
@@ -199,25 +199,25 @@
 
 
 /datum/quest_customer/corp/chang
-	departament_name = "Mr. Chang"
+	departament_name = AFFIL_CHANG
 
 /datum/quest_customer/corp/donk
-	departament_name = "Donk Co."
+	departament_name = AFFIL_DONK
 
 /datum/quest_customer/corp/waffle
-	departament_name = "Waffle Co."
+	departament_name = AFFIL_WAFFLE
 
 /datum/quest_customer/corp/biotech
-	departament_name = "BioTech Solutions"
+	departament_name = AFFIL_BIOTECH
 
 /datum/quest_customer/corp/einstein
 	departament_name = "Einstein Engines Inc."
 
 /datum/quest_customer/corp/cybersun
-	departament_name = "Cybersun Industries"
+	departament_name = AFFIL_CYBERSUN
 
 /datum/quest_customer/corp/shellguard
-	departament_name = "Shellguard Ammunitions"
+	departament_name = AFFIL_SHELLGUARD
 
 /datum/quest_customer/corp/ward
 	departament_name = "Ward-Takanashi"

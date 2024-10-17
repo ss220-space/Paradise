@@ -200,23 +200,29 @@
 /obj/item/reagent_containers/food/snacks/sliceable/AltClick(mob/living/user)
 	if(!iscarbon(user))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+
 	var/obj/item/I = user.get_active_hand()
 	if(!I)
 		return
+
 	if(I.w_class > WEIGHT_CLASS_SMALL)
 		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
 		return
+
 	var/newweight = GetTotalContentsWeight() + I.GetTotalContentsWeight() + I.w_class
 	if(newweight > MAX_WEIGHT_CLASS)
 		// Nope, no bluespace slice food
 		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
 		return
+
 	if(!user.drop_transfer_item_to_loc(I, src))
 		to_chat(user, "<span class='warning'>You cannot slip [I] inside [src]!</span>")
 		return
+
 	to_chat(user, "<span class='warning'>You slip [I] inside [src].</span>")
 	total_w_class += I.w_class
 	add_fingerprint(user)

@@ -102,12 +102,12 @@
 
 /mob/living/carbon/human/diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona)
-	if (!tts_seed)
+	if(!tts_seed)
 		tts_seed = "Priest"
 
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
 	. = ..(mapload, /datum/species/diona/pod)
-	if (!tts_seed)
+	if(!tts_seed)
 		tts_seed = "Priest"
 
 /mob/living/carbon/human/machine/Initialize(mapload)
@@ -257,6 +257,11 @@
 		var/obj/spacepod/S = loc
 		status_tab_data[++status_tab_data.len] = list("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
 		status_tab_data[++status_tab_data.len] = list("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
+
+	var/obj/item/implant/marionette/imp = locate(/obj/item/implant/marionette) in src
+	if(imp && imp.controlling)
+		status_tab_data[++status_tab_data.len] = list("Заряд импланта Марионетки","[imp.charge]/[imp.max_charge]")
+		status_tab_data[++status_tab_data.len] = list("Расстояние до основного тела","[get_dist(src, imp.mar_master)]/[imp.max_dist]")
 
 ///Define used for calculating explosve damage and effects upon humanoids. Result is >= 0
 #define ex_armor_reduction(value, armor) (clamp(value * (1 - (armor / 100)), 0, INFINITY))
@@ -1604,7 +1609,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/can_use_guns(obj/item/gun/check_gun)
 	. = ..()
 
-	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && HAS_TRAIT(src, TRAIT_NO_GUNS))
+	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && (HAS_TRAIT(src, TRAIT_NO_GUNS) || HAS_TRAIT(mind, TRAIT_NO_GUNS)))
 		balloon_alert(src, span_warning("слишком толстые пальцы"))
 		return FALSE
 
@@ -1919,6 +1924,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			to_chat(src, span_warning("Ваша [(hand_to_check == ACTIVE_HAND_LEFT) ? "левая рука" : "правая рука"] слишком травмирована."))
 		return FALSE
 	return ..()
+
+/mob/living/carbon/human/proc/get_metabolism()
+	return metabolism_efficiency * physiology.metabolism_mod
 
 /mob/living/carbon/human/mouse_buckle_handling(mob/living/M, mob/living/user)
 	if(pulling != M || grab_state != GRAB_AGGRESSIVE || stat != CONSCIOUS)

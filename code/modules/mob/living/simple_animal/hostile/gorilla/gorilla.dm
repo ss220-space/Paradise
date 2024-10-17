@@ -123,6 +123,7 @@
 /mob/living/simple_animal/hostile/gorilla/AltClick(mob/living/simple_animal/hostile/gorilla/user)
 	if(!istype(user) || src != user || !gorilla_toggle)
 		return ..()
+
 	gorilla_toggle.Activate()
 
 

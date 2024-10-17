@@ -49,9 +49,11 @@
 /obj/structure/inflatable/AltClick(mob/living/user)
 	if(!istype(user) || !Adjacent(user))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+
 	deconstruct(TRUE)
 
 

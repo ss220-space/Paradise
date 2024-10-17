@@ -62,8 +62,9 @@
 #define TAIPAN_HUD 23
 #define ANTAG_HUD_THIEF 24
 #define THOUGHTS_HUD 25
+#define ANTAG_HUD_AFFIL_GORLEX 26
 //species hud
-#define DATA_HUD_KIDAN_PHEROMONES 26
+#define DATA_HUD_KIDAN_PHEROMONES 27
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

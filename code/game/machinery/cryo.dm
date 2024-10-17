@@ -496,6 +496,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/AltClick(mob/living/carbon/user)
 	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
+
 	go_out()
 	add_fingerprint(user)
 

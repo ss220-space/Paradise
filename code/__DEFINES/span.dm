@@ -65,6 +65,8 @@
 //#define span_hypnophrase(str) ("<span class='hypnophrase'>" + str + "</span>")
 //#define span_icon(str) ("<span class='icon'>" + str + "</span>")
 #define span_info(str) ("<span class='info'>" + str + "</span>")
+#define tagB(str) ("<B>" + str + "</B>")
+#define tagb(str) ("<b>" + str + "</b>")
 //#define span_infoplain(str) ("<span class='infoplain'>" + str + "</span>")
 #define span_interface(str) ("<span class='interface'>" + str + "</span>")
 #define span_italics(str) ("<span class='italics'>" + str + "</span>")
