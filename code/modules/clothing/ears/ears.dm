@@ -16,7 +16,6 @@
 	icon_state = "earring_gold"
 	item_state = "earring_gold"
 	slot_flags = ITEM_SLOT_EARS
-	slot_flags_2 = ITEM_FLAG_TWOEARS
 
 /obj/item/clouthing/ears/earrings/Nt
 	name = "Earrings NT"
