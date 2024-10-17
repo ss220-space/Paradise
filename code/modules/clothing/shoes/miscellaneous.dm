@@ -407,6 +407,11 @@
  	silence_steps = TRUE
  	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/clothing/shoes/footwraps/Initialize(mapload)
+	. = ..()
+	if(type == /obj/item/clothing/shoes/footwraps)
+		AddComponent(/datum/component/spraycan_paintable)
+
 /obj/item/clothing/shoes/footwraps/yellow
  	name = "yellow cloth footwraps"
  	icon_state = "yellow_wrap"
