@@ -406,41 +406,48 @@
  	force = 0
  	silence_steps = TRUE
  	w_class = WEIGHT_CLASS_SMALL
+	var/paintable = TRUE
 
 /obj/item/clothing/shoes/footwraps/Initialize(mapload)
 	. = ..()
-	if(type == /obj/item/clothing/shoes/footwraps)
+	if (paintable)
 		AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/shoes/footwraps/yellow
  	name = "yellow cloth footwraps"
  	icon_state = "yellow_wrap"
  	item_state = "yellow_wrap"
+	paintable = FALSE
 
 /obj/item/clothing/shoes/footwraps/silver
  	name = "silver cloth footwraps"
  	icon_state = "silver_wrap"
  	item_state = "silver_wrap"
+	paintable = FALSE
 
 /obj/item/clothing/shoes/footwraps/red
  	name = "red cloth footwraps"
  	icon_state = "red_wrap"
  	item_state = "red_wrap"
+	paintable = FALSE
 
 /obj/item/clothing/shoes/footwraps/blue
  	name = "blue cloth footwraps"
  	icon_state = "blue_wrap"
  	item_state = "blue_wrap"
+	paintable = FALSE
 
 /obj/item/clothing/shoes/footwraps/black
  	name = "black cloth footwraps"
  	icon_state = "black_wrap"
  	item_state = "black_wrap"
+	paintable = FALSE
 
 /obj/item/clothing/shoes/footwraps/brown
  	name = "brown cloth footwraps"
  	icon_state = "brown_wrap"
  	item_state = "brown_wrap"
+	paintable = FALSE
 
 /obj/item/clothing/shoes/footwraps/goliath
 	name = "goliath hide footwraps"
@@ -449,6 +456,7 @@
 	item_state = "footwraps_goliath"
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 10, "acid" = 0)
 	resistance_flags = FIRE_PROOF
+	paintable = FALSE
 
 /obj/item/clothing/shoes/footwraps/dragon
 	name = "ash drake hide footwraps"
@@ -457,6 +465,7 @@
 	item_state = "footwraps_dragon"
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 15, "energy" = 10, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 15, "acid" = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	paintable = FALSE
 
 /obj/item/clothing/shoes/bhop
 	name = "jump boots"
