@@ -408,9 +408,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/paintable = TRUE
 
-/obj/item/clothing/shoes/footwraps/Initialize(mapload)
-	. = ..()
-	if (paintable)
+/obj/item/clothing/shoes/footwraps/ComponentInitialize()
+	if(paintable)
 		AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/shoes/footwraps/yellow
