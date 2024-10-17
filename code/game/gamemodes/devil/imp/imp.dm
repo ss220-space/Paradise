@@ -18,8 +18,6 @@
 	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 250 //Weak to cold
-	maxbodytemp = INFINITY
 	faction = list("hell")
 	attacktext = "неистово терзает"
 	maxHealth = 200
@@ -34,6 +32,13 @@
 							Though you are not obligated to help, perhaps by aiding a higher ranking devil, you might just get a promotion.  However, you are incapable	\
 							of intentionally harming a fellow devil.</B>"
 
+
+/mob/living/simple_animal/imp/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 250, \
+		maxbodytemp = INFINITY, \
+	)
 
 /mob/living/simple_animal/imp/Initialize(mapload)
 	. = ..()

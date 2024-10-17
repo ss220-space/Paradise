@@ -169,6 +169,7 @@
 /obj/item/clothing/head/radiation
 	name = "Radiation Hood"
 	icon_state = "rad"
+	item_state = "rad"
 	desc = "A hood with radiation protective properties. Label: Made with lead, do not eat insulation"
 	clothing_flags = THICKMATERIAL
 	flags_inv = HIDEHAIR|HIDEMASK|HIDEHEADSETS|HIDEGLASSES

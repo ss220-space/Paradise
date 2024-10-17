@@ -75,6 +75,8 @@
 	add_objective(/datum/objective/blood)
 	add_objective(/datum/objective/maroon)
 	add_objective(/datum/objective/steal)
+	forge_single_objective()
+	forge_single_objective()
 
 	if(prob(20)) // 20% chance of getting survive. 80% chance of getting escape.
 		add_objective(/datum/objective/survive)

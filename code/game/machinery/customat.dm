@@ -178,7 +178,7 @@
 
 /obj/machinery/customat/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	. = ..(AM, skipcatch, hitpush, blocked, throwingdatum)
-	if (!AM.throwforce)
+	if(!AM.throwforce)
 		return
 
 	if(COOLDOWN_FINISHED(src, emp_cooldown) && COOLDOWN_FINISHED(src, alarm_cooldown))
@@ -205,7 +205,7 @@
 
 /obj/machinery/customat/Destroy()
 	eject_all()
-	if (trunk)
+	if(trunk)
 		var/obj/structure/disposalholder/holder = locate() in trunk
 		if(holder)
 			trunk.expel(holder)
@@ -346,34 +346,35 @@
 		..()
 
 /obj/machinery/customat/proc/idcard_act(mob/user, obj/item/I)
-	if (!isLocked())
+	if(!isLocked())
 		connected_id = I
 		balloon_alert(user, "заблокировано")
-	else if (connected_id == I)
+	else if(connected_id == I)
 		connected_id = null
 		balloon_alert(user, "разблокировано")
 	else
 		balloon_alert(user, "карта не подходит")
 
 /obj/machinery/customat/proc/get_key(obj/item/I, cost)
-	return I.name + "_[cost]"
+	return format_text("[I]_[cost]")
 
 /obj/machinery/customat/proc/insert(mob/user, obj/item/I, cost)
-	if (inserted_items_count >= max_items_inside)
-		if (user)
+	if(inserted_items_count >= max_items_inside)
+		if(user)
 			to_chat(user, span_warning("Лимит в [max_items_inside] предметов достигнут."))
 		return
+
 	remembered_costs[I.name] = cost
 	var/key = get_key(I, cost)
 	if(user && !user.drop_transfer_item_to_loc(I, src))
 		to_chat(user, span_warning("Вы не можете положить это внутрь."))
 		return
 
-	if (!user) // If from pipe, transfer into src.
+	if(!user) // If from pipe, transfer into src.
 		I.forceMove(src)
 
 	var/datum/data/customat_product/product
-	if (!(key in products))
+	if(!(key in products))
 		product = new /datum/data/customat_product(I)
 		product.price = !emagged ? cost : 0
 		product.key = key
@@ -386,20 +387,23 @@
 
 /obj/machinery/customat/proc/try_insert(mob/user, obj/item/I, from_tube = FALSE)
 	var/cost = 100
-	if (from_tube)
-		if (I.name in remembered_costs)
+	if(from_tube)
+		if(I.name in remembered_costs)
 			cost = remembered_costs[I.name]
-	else if (fast_insert && (I.name in remembered_costs))
+
+	else if(fast_insert && (I.name in remembered_costs))
 		cost = remembered_costs[I.name]
 	else
 		var/input_cost = tgui_input_number(user, "Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0, 1000000, 0)
-		if (!input_cost)
+		if(!input_cost)
 			to_chat(user, span_warning("Цена не указанна!"))
 			return
+
 		cost = input_cost
-	if (user && get_dist(get_turf(user), get_turf(src)) > 1)
+	if(user && get_dist(get_turf(user), get_turf(src)) > 1)
 		to_chat(user, span_warning("Вы слишком далеко!"))
 		return
+
 	insert(user, I, cost)
 
 /obj/machinery/customat/attackby(obj/item/I, mob/user, params)
@@ -411,15 +415,15 @@
 	if(istype(I, /obj/item/crowbar) || istype(I, /obj/item/wrench))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if (panel_open)
-		if (istype(I, /obj/item/card/id))
+	if(panel_open)
+		if(istype(I, /obj/item/card/id))
 			idcard_act(user, I)
 			return ATTACK_CHAIN_BLOCKED_ALL
-		else if (!isLocked())
+		else if(!isLocked())
 			try_insert(user, I)
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-	if (!istype(I, /obj/item/stack/nanopaste) && !istype(I, /obj/item/detective_scanner) && COOLDOWN_FINISHED(src, emp_cooldown) && COOLDOWN_FINISHED(src, alarm_cooldown))
+	if(!istype(I, /obj/item/stack/nanopaste) && !istype(I, /obj/item/detective_scanner) && COOLDOWN_FINISHED(src, emp_cooldown) && COOLDOWN_FINISHED(src, alarm_cooldown))
 		COOLDOWN_START(src, alarm_cooldown, alarm_delay)
 		playsound(src, 'sound/machines/burglar_alarm.ogg', I.force * 5, 0)
 
@@ -429,9 +433,11 @@
 /obj/machinery/customat/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
 		return
-	if (isLocked())
+
+	if(isLocked())
 		to_chat(user, span_warning("[src] is locked."))
 		return
+
 	. = TRUE
 	eject_all()
 	default_deconstruction_crowbar(user, I)
@@ -440,6 +446,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+
 	if(anchored)
 		panel_open = !panel_open
 		panel_open ? SCREWDRIVER_OPEN_PANEL_MESSAGE : SCREWDRIVER_CLOSE_PANEL_MESSAGE
@@ -450,15 +457,18 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
+
 	default_unfasten_wrench(user, I, time = 60)
-	if (anchored)
+	if(anchored)
 		trunk_check()
 
 /obj/machinery/customat/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	if(!istype(W))
 		return FALSE
+
 	if(!W.works_from_distance)
 		return FALSE
+
 	if(!component_parts || !canister)
 		return FALSE
 
@@ -466,11 +476,14 @@
 	if(panel_open || W.works_from_distance)
 		if(W.works_from_distance)
 			to_chat(user, display_parts(user))
+
 	else
 		to_chat(user, display_parts(user))
+
 	if(moved)
 		to_chat(user, "[moved] items restocked.")
 		W.play_rped_sound()
+
 	return TRUE
 
 /obj/machinery/customat/emag_act(mob/user)
@@ -479,6 +492,7 @@
 		var/datum/data/customat_product/product = products[key]
 		product.price = 0
 		products[key] = product
+
 	if(user)
 		to_chat(user, "You short out the product lock on [src]")
 
@@ -516,6 +530,7 @@
 		data["user"]["name"] = account.owner_name
 		data["userMoney"] = account.money
 		data["user"]["job"] = "Silicon"
+
 	if(ishuman(user))
 		account = get_card_account(user)
 		var/mob/living/carbon/human/H = user
@@ -532,6 +547,7 @@
 				data["user"]["job"] = (istype(idcard) && idcard.rank) ? idcard.rank : "No Job"
 			else
 				data["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
+
 	data["products"] = list()
 	for (var/key in products)
 		var/datum/data/customat_product/product = products[key]
@@ -543,6 +559,7 @@
 			Key = product.key
 		)
 		data["products"] += list(data_pr)
+
 	data["vend_ready"] = vend_ready
 	data["panel_open"] = panel_open ? TRUE : FALSE
 	data["speaker"] = shut_up ? FALSE : TRUE
@@ -560,11 +577,13 @@
 	if(issilicon(usr) && !isrobot(usr))
 		to_chat(usr, span_warning("The vending machine refuses to interface with you, as you are not in its target demographic!"))
 		return
+
 	switch(action)
 		if("toggle_voice")
 			if(panel_open)
 				shut_up = !shut_up
 				. = TRUE
+
 		if("vend")
 			if(!vend_ready)
 				to_chat(usr, span_warning("The vending machine is busy!"))
@@ -574,7 +593,7 @@
 				return
 			var/key = params["Key"]
 			var/datum/data/customat_product/product = products[key]
-			if (product.amount <= 0)
+			if(product.amount <= 0)
 				to_chat(usr, "Sold out of [product.name].")
 				flick_vendor_overlay(FLICK_VEND)
 				return
@@ -630,12 +649,14 @@
 				flick_vendor_overlay(FLICK_DENY)
 				. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
 				return
+
 			if(paid)
 				vend(currently_vending, usr)
 				. = TRUE
 			else
 				to_chat(usr, span_warning("Payment failure: unable to process payment."))
 				vend_ready = TRUE
+
 	if(.)
 		add_fingerprint(usr)
 
@@ -678,9 +699,11 @@
 	if(istype(vended) && user && iscarbon(user) && user.Adjacent(src))
 		if(user.put_in_hands(vended, ignore_anim = FALSE))
 			put_on_turf = FALSE
+
 	if(put_on_turf)
 		var/turf/T = get_turf(src)
 		vended.forceMove(T)
+
 	product.containtment.Remove(product.containtment[1])
 	inserted_items_count--
 	return TRUE
@@ -702,6 +725,7 @@
 /obj/machinery/customat/proc/speak(message)
 	if(stat & NOPOWER)
 		return
+
 	if(!message)
 		return
 
@@ -715,10 +739,11 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/customat/AltClick(atom/movable/A)
-	if (!panel_open)
+	if(!panel_open)
 		balloon_alert(A, "панель закрыта")
 		return
-	if (isLocked())
+
+	if(isLocked())
 		balloon_alert(A, "автомат заблокирован")
 		return
 
@@ -736,10 +761,11 @@
 	var/turf/origin_turf = get_turf(src)
 	var/list/contents = holder.contents
 	for (var/atom/movable/content in contents)
-		if (istype(content, /obj/item))
+		if(istype(content, /obj/item))
 			try_insert(null, content, TRUE)
 		else
 			content.forceMove(origin_turf)
+
 	qdel(holder)
 
 /obj/machinery/customat/proc/trunk_check()

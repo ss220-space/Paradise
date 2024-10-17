@@ -68,6 +68,8 @@
 
 #define iseffect(A) (istype(A, /obj/effect))
 
+#define isvehicle(A) (istype(A, /obj/vehicle))
+
 #define isprojectile(A) (istype(A, /obj/item/projectile))
 
 #define isgun(A) (istype(A, /obj/item/gun))
@@ -114,6 +116,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isspaceturf(A) istype(A, /turf/space)
 
 #define isopenspaceturf(A) (istype(A, /turf/simulated/openspace) || istype(A, /turf/space/openspace))
+
+#define is_space_or_openspace(A) (isopenspaceturf(A) || isspaceturf(A))
 
 #define isfloorturf(A) istype(A, /turf/simulated/floor)
 

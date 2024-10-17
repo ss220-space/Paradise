@@ -11,13 +11,19 @@
 	layer = 4
 	pressure_resistance = 2
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	var/sell_multiplier = 0
+	var/sell_interest = NONE
 
 /obj/item/documents/nanotrasen
 	desc = "\"Top Secret\" Nanotrasen documents printed on special copy-protected paper. It is filled with complex diagrams and lists of names, dates and coordinates."
 	icon_state = "docs_verified"
+	sell_multiplier = 1
+	sell_interest = INTEREST_SYNDICATE
 
 /obj/item/documents/syndicate
 	desc = "\"Top Secret\" documents printed on special copy-protected paper. It details sensitive Syndicate operational intelligence."
+	sell_multiplier = 1
+	sell_interest = INTEREST_NANOTRASEN
 
 /obj/item/documents/syndicate/red
 	name = "'Red' secret documents"
@@ -53,3 +59,9 @@
 			poison_total -= poison_dose
 			add_attack_logs(src, user, "Picked up [src], the trapped syndicate documents")
 	return ..()
+
+/obj/item/documents/ussp
+	desc = "\"Top Secret\" USSP documents printed on special copy-protected paper. These time-yellowed folders contain shocking secrets of the USSP. Among them are reports of experiments on humans, plans to capture other stations and schemes of top-secret weapons. Some of the pages are covered with dried blood, and crazy scribbles are visible in the margins. Who knows what terrible secrets these documents still hide? But be careful - knowing these secrets can cost you your life!"
+	icon_state = "docs_red"
+	sell_multiplier = 0.8
+	sell_interest = ALL

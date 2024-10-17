@@ -1633,65 +1633,65 @@ This applies to all STANDARD station areas
 
 
 //Engineering
-/area/engine
+/area/engineering
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
-/area/engine/engine_smes
+/area/engineering/engine/smes
 	name = "Engineering SMES"
 	icon_state = "engine_smes"
 
-/area/engine/engineering
+/area/engineering/engine
 	name = "Engineering"
 	icon_state = "engine_smes"
 
-/area/engine/engineering/monitor
+/area/engineering/engine/monitor
 	name = "Engineering Monitoring Room"
 	icon_state = "engine_control"
 
-/area/engine/break_room
+/area/engineering/break_room
 	name = "Engineering Foyer"
 	icon_state = "engine"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
-/area/engine/aienter
+/area/engineering/aienter
 	name = "AI Sattelit Access Point"
 	icon_state = "engine"
 
-/area/engine/equipmentstorage
+/area/engineering/equipmentstorage
 	name = "Engineering Equipment Storage"
 	icon_state = "storage"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
-/area/engine/hardsuitstorage
+/area/engineering/hardsuitstorage
 	name = "Engineering Hardsuit Storage"
 	icon_state = "storage"
 
-/area/engine/controlroom
+/area/engineering/controlroom
 	name = "Engineering Control Room"
 	icon_state = "engine_control"
 
-/area/engine/gravitygenerator
+/area/engineering/gravitygenerator
 	name = "Gravity Generator"
 	icon_state = "engine"
 
-/area/engine/chiefs_office
+/area/engineering/chiefs_office
 	name = "Chief Engineer's Office"
 	icon_state = "engine_control"
 
-/area/engine/mechanic_workshop
+/area/engineering/mechanic_workshop
 	name = "Mechanic Workshop"
 	icon_state = "engine"
 
-/area/engine/mechanic_workshop/expedition
+/area/engineering/mechanic_workshop/expedition
 	name = "Hangar Expedition"
 	icon_state = "engine"
 
-/area/engine/mechanic_workshop/hangar
+/area/engineering/mechanic_workshop/hangar
 	name = "Hangаr Bay"
 	icon_state = "engine"
 
-/area/engine/supermatter
+/area/engineering/supermatter
 	name = "Supermatter Engine"
 	icon_state = "engine"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
@@ -2123,7 +2123,7 @@ This applies to all STANDARD station areas
 
 /area/security/visiting_room
 	name = "Visiting Room"
-	icon_state = "red"
+	icon_state = "visiting-room"
 
 /area/security/prisonlockers
 	name = "Prisoner Lockers"
