@@ -14,21 +14,12 @@
 	return TRUE
 
 /datum/antagonist/sintouched/give_objectives()
-	switch(rand(1, 7)) // traditional seven deadly sins... except lust.
-		if(1) // acedia
-			add_objective(/datum/objective/sintouched/acedia)
-		if(2) // Gluttony
-			add_objective(/datum/objective/sintouched/gluttony)
-		if(3) // Greed
-			add_objective(/datum/objective/sintouched/greed)
-		if(4) // sloth
-			add_objective(/datum/objective/sintouched/sloth)
-		if(5) // Wrath
-			add_objective(/datum/objective/sintouched/wrath)
-		if(6) // Envy
-			add_objective(/datum/objective/sintouched/envy)
-		if(7) // Pride
-			add_objective(/datum/objective/sintouched/pride)
+	var/list/sins = list()
+
+	for(var/datum/objective/sintouched/sin as anything in subtypesof(/datum/objective/sintouched))
+		LAZYADD(sins, sin)
+
+	add_objective(pick(sins))
 
 /datum/antagonist/sintouched/add_owner_to_gamemode()
 	LAZYADD(SSticker.mode.sintouched, owner)
