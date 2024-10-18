@@ -290,6 +290,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)
 		verb = hsp["verb"]
 
+	if(cannot_speak_loudly())
+		return whisper(message)
+
 	var/list/used_radios = list()
 	if(handle_message_mode(message_mode, message_pieces, verb, used_radios))
 		return TRUE
