@@ -46,11 +46,26 @@
 	return pick(spawn_centers)
 
 /datum/event/spawn_pulsedemon/start()
-	if(num_station_players() <= minplayers)
+	if(!can_start())
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MODERATE]
 		EC.next_event_time = world.time + (60 * 10)
 		return	//we don't spawn demons on lowpop. Instead, we reroll!
 
 	INVOKE_ASYNC(src, PROC_REF(get_pulsedemon))
+
+
+/datum/event/spawn_pulsedemon/can_start()
+	var/player_count = num_station_players()
+	if(player_count > minplayers) // all passed
+		return TRUE
+
+	if(..()) //not passed, but forced
+		log_and_message_admins("Event \"[type]\" launched bypassing the minimum players limit!")
+		return TRUE
+
+	log_and_message_admins("Random event attempted to spawn a pulse demon, but there were only [player_count]/[minplayers] players.")
+
+	return FALSE
+
 
 #undef PULSEDEMON_MINPLAYERS
