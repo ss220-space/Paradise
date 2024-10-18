@@ -18,12 +18,17 @@
 /datum/vote/map
 	question = "Map Vote"
 	vote_type_text = "map"
+	var/static/list/map_reference_list = list()
 
 /datum/vote/map/New()
 	if(!SSmapping.map_datum)
 		CRASH("Map Vote triggered before the `map_datum` is defined!")
 	..()
 	no_dead_vote = FALSE
+
+/datum/vote/map/proc/is_map_aviable(datum/map/possible_map)
+	var/current_players = GLOB.player_list.len
+	return possible_map.min_players <= current_players && current_players <= possible_map.max_players
 
 /datum/vote/map/generate_choices()
 	var/list/map_pool = subtypesof(/datum/map)
@@ -38,9 +43,15 @@
 				map_pool -= current_map
 
 	for(var/datum/map/possible_map as anything in map_pool)
-		if(initial(possible_map.admin_only))
+		if(initial(possible_map.admin_only) || !is_map_aviable(possible_map))
 			continue
-		choices.Add("[initial(possible_map.station_name)] ([initial(possible_map.name)])")
+
+		var/map_ref = "[initial(possible_map.station_name)] ([initial(possible_map.name)])"
+
+		if(!map_reference_list[map_ref])
+			map_reference_list[map_ref] = possible_map
+
+		choices.Add(map_ref)
 
 /datum/vote/map/announce()
 	..()
@@ -50,19 +61,29 @@
 			continue
 		voter.immediate_vote()
 
+/datum/vote/map/result_corrections(list/results)
+	var/list/deleted_maps
+	for(var/result in results)
+		var/datum/map/possible_map = map_reference_list[result]
+		if(!is_map_aviable(possible_map))
+			results -= result
+			LAZYADD(deleted_maps, possible_map)
+	var/deleted_number = LAZYLEN(deleted_maps)
+	if(deleted_number)
+		var/message
+		while(deleted_maps.len)
+			var/datum/map/deleted_map = deleted_maps[1]
+			deleted_maps -= deleted_map
+			message = "[message][deleted_map.station_name][deleted_maps.len ? ", " : ""]"
+		to_chat(world, "<b>[message] [deleted_number > 1 ? "were" : "was"] removed from the vote due to the player limit.</b>")
+	return results
+
 /datum/vote/map/handle_result(result)
-	// Find target map.
 	if(!result)
 		return
-	var/datum/map/top_voted_map
-	for(var/x in subtypesof(/datum/map))
-		var/datum/map/M = x
-		if(!initial(M.admin_only))
-			// Set top voted map
-			if(result == "[initial(M.station_name)] ([initial(M.name)])")
-				top_voted_map = M
-	to_chat(world, "<b>Map for next round: [initial(top_voted_map.station_name)] ([initial(top_voted_map.name)])</b>")
-	SSmapping.next_map = new top_voted_map
+	var/winner_map = map_reference_list[result]
+	to_chat(world, "<b>Map for next round: [result]</b>")
+	SSmapping.next_map = new winner_map
 
 /datum/vote/gamemode
 	question = "Gamemode Vote"
