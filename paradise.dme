@@ -427,7 +427,10 @@
 #include "code\datums\components\_component.dm"
 #include "code\datums\components\after_attacks_hub.dm"
 #include "code\datums\components\aura_healing.dm"
+<<<<<<< HEAD
+=======
 #include "code\datums\components\animal_temperature.dm"
+>>>>>>> upstream/master220
 #include "code\datums\components\boomerang.dm"
 #include "code\datums\components\boss_music.dm"
 #include "code\datums\components\caltrop.dm"

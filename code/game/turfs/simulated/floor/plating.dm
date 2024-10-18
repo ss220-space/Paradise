@@ -484,3 +484,17 @@
 
 /turf/simulated/floor/plating/ice/smooth
 	icon_state = "smooth"
+
+/turf/simulated/floor/engine/randomised
+	var/static/list/random_air = list()
+
+/turf/simulated/floor/engine/randomised/Initialize(mapload)
+	. = ..()
+	if(!length(random_air))
+		random_air = list("OXYGEN" = rand(500,2000), "plasma" = rand(500,2000), "N2O" = rand(500,2000),"NITROGEN" = rand(500,2000), "CO2" = rand(500,2000))
+
+	oxygen = random_air["OXYGEN"]
+	sleeping_agent = random_air["N2O"]
+	toxins = random_air["Plasma"]
+	nitrogen = random_air["NITROGEN"]
+	carbon_dioxide = random_air["CO2"]
