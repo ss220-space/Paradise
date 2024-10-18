@@ -369,3 +369,13 @@
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_SILVER = 2000, MAT_DIAMOND = 1500)
 	build_path = /obj/item/t_scanner/science
 	category = list("Equipment")
+
+/datum/design/holotool
+	name = "holotool"
+	desc = "A highly experimental holographic tool projector"
+	id = "holotool"
+	req_tech = null //only from disks
+	build_type = PROTOLATHE
+	materials = list(MAT_SILVER = 2000, MAT_TITANIUM = 4000, MAT_DIAMOND = 2000, MAT_BLUESPACE = 2000)
+	build_path = /obj/item/holotool
+	category = list("Equipment")

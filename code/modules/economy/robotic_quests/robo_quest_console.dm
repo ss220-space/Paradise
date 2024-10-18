@@ -31,10 +31,6 @@
 	var/style = "ntos_roboquest"
 	/// Can we send mecha?
 	var/canSend = FALSE
-	/// Is there mecha and pad for check?
-	var/canCheck = FALSE
-	/// Timer to clear checkMessage
-	var/check_timer
 	/// Message after check
 	var/checkMessage = ""
 	/// Level of success of last mecha check
@@ -46,21 +42,26 @@
 	var/obj/item/card/id/currentID
 	/// This console pad
 	var/obj/machinery/roboquest_pad/pad
-	var/list/shop_items = list()
+	var/static/list/shop_items
 
 /obj/machinery/computer/roboquest/Initialize(mapload)
 	..()
-	generate_roboshop()
-	if(mapload)
-		var/mapping_pad = locate(/obj/machinery/roboquest_pad) in get_area(src)
-		if(mapping_pad)
-			pad = mapping_pad
-			pad.console = src
-			canCheck = TRUE
 
-/obj/machinery/computer/roboquest/New()
-	generate_roboshop()
-	. = ..()
+	if(!shop_items)
+		generate_roboshop()
+
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
+
+
+/obj/machinery/computer/roboquest/LateInitialize()
+	var/mapping_pad = locate(/obj/machinery/roboquest_pad) in get_area(src)
+	if(!mapping_pad)
+		return
+
+	pad = mapping_pad
+	pad.console = src
+
 
 /obj/machinery/computer/roboquest/Destroy()
 	for(var/obj/item/I in contents)
@@ -93,26 +94,35 @@
 /obj/machinery/computer/roboquest/multitool_act(mob/living/user, obj/item/I)
 	if(!istype(I, /obj/item/multitool))
 		return FALSE
+
 	. = TRUE
+
 	var/obj/item/multitool/multitool = I
 	if(!istype(multitool.buffer, /obj/machinery/roboquest_pad))
 		add_fingerprint(user)
 		to_chat(user, span_warning("The [multitool.name]'s buffer has no valid information."))
 		return .
+
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
+
 	pad = multitool.buffer
 	if(pad.console && pad.console != src)
+		pad.console.canSend = null
 		pad.console.pad = null
+
 	pad.console = src
-	canCheck = TRUE
-	multitool.buffer = null
+	if(pad.advanced)
+		atom_say("Advanced quantum pad detected. Instant mech teleportation is available.")
+
 	to_chat(user, span_notice("You have uploaded the data from [multitool]'s buffer."))
+	multitool.buffer = null
 
 
 /obj/machinery/computer/roboquest/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
+		atom_say("System override detected. Instant mech teleportation is available.")
 		playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 
@@ -146,6 +156,10 @@
 	var/list/newshop = list()
 	for(var/path in subtypesof(/datum/roboshop_item))
 		var/datum/roboshop_item/item = new path
+		if(!item.path)
+			qdel(item)
+			continue
+
 		var/category
 		for(var/cat in item.cost)
 			if(item.cost[cat])
@@ -153,15 +167,24 @@
 					category += "_[cat]"
 				else
 					category = cat
+
 		var/newitem = list("name" = item.name, "desc" = item.desc, "cost" = item.cost, "icon" = path2assetID(path), "path" = path, "emagOnly" = item.emag_only)
 		newshop[category] += list(newitem)
+		qdel(item)
+
 	shop_items = newshop
+
 
 /obj/machinery/computer/roboquest/proc/clear_checkMessage()
 	checkMessage = ""
 
 /obj/machinery/computer/roboquest/proc/on_quest_complete()
-	return // чето будет наверно
+	return // Unused for now.
+
+
+/obj/machinery/computer/roboquest/proc/can_instant_teleport()
+	return emagged || pad?.advanced
+
 
 /obj/machinery/computer/roboquest/attack_hand(mob/user)
 	if(..())
@@ -191,11 +214,12 @@
 		data["questInfo"] = FALSE
 		data["hasTask"] = FALSE
 	data["points"] = points
-	data["canCheck"] = canCheck
+	data["canCheck"] = pad
 	data["canSend"] = canSend
 	data["checkMessage"] = checkMessage
 	data["style"] = style
 	data["cooldown"] = currentID?.bounty_penalty ? time2text((currentID.bounty_penalty-world.time), "mm:ss") : FALSE
+	data["instant_teleport"] = can_instant_teleport()
 	return data
 
 /obj/machinery/computer/roboquest/ui_static_data(mob/user)
@@ -231,20 +255,21 @@
 			currentID.bounty_penalty = world.time + 5 MINUTES
 		if("Check")
 			if(!pad)
-				checkMessage = "Привязанный пад не обнаружен"
+				checkMessage = "Привязанный пад не обнаружен."
 			else
 				var/amount = check_pad()
 				switch(success)
 					if(NO_SUCCESS)
-						checkMessage = "Мех отсутствует или не соответствует заказу"
+						checkMessage = "Мех отсутствует или не соответствует заказу."
 					if(CORRECT_MECHA)
-						checkMessage = "Мех соответствует заказу, но не имеет заказанных модулей. Награда Будет сильно урезана"
+						checkMessage = "Мех соответствует заказу, но не имеет заказанных модулей. Награда Будет сильно урезана."
 					if(SOME_CORRECT_MODULES)
 						checkMessage = "Мех соответствует заказу, но имеет лишь [amount]/[currentID.robo_bounty.modules_amount] модулей. Награда будет слегка урезана."
 					if(ALL_CORRECT_MODULES)
 						checkMessage = "Мех и модули полностью соответствуют заказу. Награда будет максимальной."
-			check_timer = null
-			check_timer = addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS)
+
+			addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
+
 		if("SendMech")
 			check_pad()
 			if(canSend)
@@ -263,7 +288,7 @@
 					else // Else, 1
 						areaindex[locname] = 1
 					L[locname] = T
-				if(params["type"] != "only_packing")
+				if(params["type"] == "send")
 					var/select = tgui_input_list(ui.user, "Please select a telepad.", "RCS", L)
 					if(!select)
 						return
@@ -271,11 +296,16 @@
 						return
 					else // Else choose the value of the selection
 						quantum = L[select]
-				flick("sqpad-beam", pad)
-				pad.teleport(quantum, currentID.robo_bounty, src, (3-success))
-				checkMessage = "Вы отправили меха с оценкой успеха [success] из трех"
-				check_timer = null
-				check_timer = addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS)
+
+				if(params["type"] == "instant")
+					pad.clear(currentID.robo_bounty, src, (3-success))
+				else
+					pad.teleport(quantum, currentID.robo_bounty, src, (3-success))
+
+				flick("[initial(pad.icon_state)]-beam", pad)
+				checkMessage = "Вы отправили меха с оценкой успеха [success] из трех."
+				addtimer(CALLBACK(src, PROC_REF(clear_checkMessage)), 15 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
+
 		if("ChangeStyle")
 			switch(style)
 				if("ntos_roboquest")
@@ -301,8 +331,10 @@
 					return
 			for(var/cat in r_item.cost)
 				points[cat] -= r_item.cost[cat]
+
 			new r_item.path(get_turf(src))
 			qdel(r_item)
+
 		if("printOrder")
 			if(print_delayed)
 				return FALSE
@@ -346,24 +378,49 @@
 
 /obj/machinery/roboquest_pad
 	name = "Robotics Request Quantum Pad"
-	desc = "A bluespace quantum-linked telepad linked to a orbital long-range matter transmitter."
+	desc = "A bluespace quantum-linked telepad linked to a local telepad network."
 	icon = 'icons/obj/telescience.dmi'
-	icon_state = "sqpad-idle"
+	icon_state = "sqpad"
 	idle_power_usage = 500
 	/// Current pad`s console
 	var/obj/machinery/computer/roboquest/console
+	/// whether our robopad is advanced
+	var/advanced = FALSE
 
 /obj/machinery/roboquest_pad/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/roboquest_pad(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/circuitboard/roboquest_pad(null)
 	RefreshParts()
+
+
+/obj/machinery/roboquest_pad/ComponentInitialize()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/machinery/roboquest_pad/advanced
+	name = "Robotics Request Advanced Quantum Pad"
+	desc = "A bluespace quantum-linked telepad linked to a orbital long-range matter transmitter. Capable of instant teleportation of mech without need of send them to the cargo."
+	icon_state = "advqpad"
+	advanced = TRUE
+
+
+/obj/machinery/roboquest_pad/advanced/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stock_parts/capacitor/purple(null)
+	component_parts += new /obj/item/stock_parts/manipulator/purple(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/purple(src)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/circuitboard/advanced_roboquest_pad(null)
+	RefreshParts()
+
 
 /obj/machinery/roboquest_pad/Destroy()
 	if(console)
@@ -382,7 +439,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I)
+	default_deconstruction_screwdriver(user, "pad-o", initial(icon_state), I)
 
 /obj/machinery/roboquest_pad/proc/teleport(atom/destination, datum/roboquest/quest, obj/machinery/computer/roboquest/console, var/penalty)
 	do_sparks(5, 1, get_turf(src))
@@ -393,6 +450,26 @@
 		if(destination)
 			do_teleport(box, destination)
 		console.canSend = FALSE
+
+/obj/machinery/roboquest_pad/proc/clear(datum/roboquest/quest, obj/machinery/computer/roboquest/console, var/penalty)
+	do_sparks(5, 1, get_turf(src))
+	var/obj/mecha/M = (locate(/obj/mecha) in get_turf(src))
+	if(istype(M))
+		qdel(M)
+	if(quest && console)
+		for(var/category in quest.reward)
+			quest.reward[category] -= penalty
+			if(quest.reward[category] < 0)
+				quest.reward[category] = 0
+			console.points[category] += quest.reward[category]
+		SSshuttle.points += quest.reward["robo"] * 30
+		if(quest.id)
+			var/datum/money_account/A = get_money_account(quest.id.associated_account_number)
+			if(A)
+				A.money += quest.maximum_cash - round(quest.maximum_cash * penalty / 4)
+		console.on_quest_complete()
+		quest.id.robo_bounty = null
+		quest = null
 
 /obj/machinery/roboquest_pad/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
 	SIGNAL_HANDLER

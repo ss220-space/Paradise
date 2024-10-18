@@ -211,7 +211,7 @@
 		var/turf/target = locate(trueX, trueY, z_co)
 		last_target = target
 		var/area/A = get_area(target)
-		flick("pad-beam", telepad)
+		flick("[initial(telepad.icon_state)]-beam", telepad)
 
 		if(spawn_time > 15) // 1.5 seconds
 			playsound(telepad.loc, 'sound/weapons/flash.ogg', 25, 1)
@@ -252,7 +252,7 @@
 				source = dest
 				dest = target
 
-			flick("pad-beam", telepad)
+			flick("[initial(telepad.icon_state)]-beam", telepad)
 			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', 50, TRUE)
 			for(var/atom/movable/ROI in source)
 				// if is anchored, don't let through
