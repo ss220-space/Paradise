@@ -490,7 +490,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(isitem(new_item) && !istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
 					var/obj/item/new_item_item = new_item
 					new_item_item.update_materials_coeff(coeff)
-				if(being_built.locked)
+				if(being_built.locked && !is_taipan(z))
 					var/obj/item/storage/lockbox/research/L = new/obj/item/storage/lockbox/research(machine.loc)
 					new_item.forceMove(L)
 					L.name += " ([new_item.name])"
