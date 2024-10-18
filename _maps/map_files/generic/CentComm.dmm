@@ -825,13 +825,10 @@
 	},
 /area/centcom/zone1)
 "aqp" = (
-/obj/structure/table/reinforced{
-	color = "#444444"
-	},
 /obj/item/radio/intercom/specops{
 	pixel_x = 30
 	},
-/obj/item/assault_pod/nt,
+/obj/machinery/computer/camera_advanced,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "navybluealt"
@@ -7169,6 +7166,7 @@
 /obj/structure/sign/poster/official/kill_syndicate{
 	pixel_x = 32
 	},
+/obj/item/assault_pod/nt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "navybluealt"
