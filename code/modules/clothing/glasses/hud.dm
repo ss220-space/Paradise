@@ -492,6 +492,6 @@ SKILLS
 		icon_state = "sunhud"
 		update_equipped_item(update_speedmods = FALSE)
 
-	if (HUDType)
+	if(HUDType)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.add_hud_to(user)
