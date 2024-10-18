@@ -286,6 +286,8 @@
 /obj/item/organ/external/hand/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	owner.set_num_hands(owner.num_hands + 1)
+	if(owner.gloves)
+		owner.gloves.update_icon(UPDATE_ICON_STATE)
 	if(is_usable())
 		owner.set_usable_hands(owner.usable_hands + 1, special, limb_zone)
 
@@ -296,7 +298,10 @@
 	if(is_usable())
 		user.set_usable_hands(user.usable_hands - 1, special, limb_zone)
 	if(special == ORGAN_MANIPULATION_DEFAULT)
-		user.drop_item_ground(user.gloves, force = TRUE)
+		if(user.num_hands == 0)
+			user.drop_item_ground(user.gloves, force = TRUE)
+		else if(user && user.gloves)
+			user.gloves.update_icon(UPDATE_ICON_STATE)
 		user.drop_item_ground(limb_zone == BODY_ZONE_PRECISE_L_HAND ? user.l_hand : user.r_hand, force = TRUE)
 
 
