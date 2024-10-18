@@ -348,6 +348,7 @@
 /obj/structure/windoor_assembly/AltClick(mob/user)
 	if(!Adjacent(user))
 		return
+
 	revrotate()
 
 //Flips the windoor assembly, determines whather the door opens to the left or the right

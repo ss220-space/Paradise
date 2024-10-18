@@ -19,15 +19,18 @@
 /mob/living/simple_animal/hostile/guardian/bomb/AltClickOn(atom/movable/A)
 	if(!istype(A))
 		return
+
 	if(get_dist(get_turf(src), get_turf(A)) > 3)
 		to_chat(src, span_danger("Слишком далеко от [A] чтобы скрыть это как бомбу."))
 		return
+
 	if(isobj(A) && can_plant(A))
 		if(bomb_cooldown <= world.time && !stat)
 			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
 			to_chat(src, span_danger("Успех! Бомба на [A] взведена!"))
 			if(summoner)
 				to_chat(summoner, span_warning("Ваш Подрывник взвел [A] для взрыва!"))
+
 			bomb_cooldown = world.time + default_bomb_cooldown
 			A.AddComponent(/datum/component/guardian_mine, src)
 		else

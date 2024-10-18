@@ -114,24 +114,30 @@
 /mob/living/simple_animal/hostile/guardian/healer/AltClickOn(atom/movable/A)
 	if(!istype(A))
 		return
+
 	if(loc == summoner)
 		to_chat(src, "<span class='danger'>Вы должны явить себя для телепортации вещей!</span>")
 		return
+
 	if(!beacon)
 		to_chat(src, "<span class='danger'>Вам нужно установить маяк чтобы телепортировать вещи!</span>")
 		return
+
 	if(!Adjacent(A))
 		to_chat(src, "<span class='danger'>Вам нужно быть рядом с целью!</span>")
 		return
+
 	if((A.anchored))
 		to_chat(src, "<span class='danger'>Цель прикреплена к полу. Телепортация невозможна.</span>")
 		return
+
 	to_chat(src, "<span class='danger'>Вы начинаете телепортировать [A]</span>")
 	if(do_after(src, 5 SECONDS, A, NONE))
 		if(!A.anchored)
 			if(!beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
 				to_chat(src, "<span class='danger'>Вам нужно установить маяк чтобы телепортировать вещи!</span>")
 				return
+
 			var/turf/T = beacon
 			if(T.is_safe())
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(A))
@@ -139,6 +145,7 @@
 				investigate_log("[key_name_log(src)] teleported [key_name_log(A)] to [COORD(beacon)].", INVESTIGATE_TELEPORTATION)
 				new /obj/effect/temp_visual/guardian/phase(get_turf(A))
 				return
+
 			to_chat(src, "<span class='danger'>Маячок не в безопасном месте, нужен кислород для хозяина.</span>")
 			return
 	else

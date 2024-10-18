@@ -308,7 +308,7 @@
 	if(!V)
 		return FALSE
 
-	if(is_type_in_list(V.subclass, list(SUBCLASS_HEMOMANCER, SUBCLASS_ANCIENT)))
+	if(is_type_in_list(V.subclass, list(SUBCLASS_HEMOMANCER, SUBCLASS_ANCIENT, SUBCLASS_ADVANCED)))
 		return TRUE
 
 

@@ -412,8 +412,8 @@
 				return
 
 			var/item = strippable_item.get_item(owner)
+			var/obj/item/held_item = user.get_active_hand()
 			if(isnull(item))
-				var/obj/item/held_item = user.get_active_hand()
 				if(isnull(held_item))
 					return
 
@@ -448,7 +448,8 @@
 
 				// Update just before the delay starts
 				SStgui.update_uis(src)
-				var/should_unequip = strippable_item.start_unequip(owner, user)
+
+				var/should_unequip = !held_item.strip_action(user, owner, item) && strippable_item.start_unequip(owner, user)
 
 				LAZYREMOVEASSOC(interactions, user, key)
 

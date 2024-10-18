@@ -32,6 +32,7 @@
 /obj/item/clothing/neck/poncho/AltClick(mob/living/carbon/human/user)
 	if(!(src in user))
 		return ..()
+
 	flip(user)
 
 

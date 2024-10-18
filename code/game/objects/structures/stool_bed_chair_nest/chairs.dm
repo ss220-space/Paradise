@@ -153,7 +153,7 @@
 
 
 /obj/structure/chair/AltClick(mob/living/user)
-	rotate(user)
+		rotate(user)
 
 
 // CHAIR TYPES
@@ -537,9 +537,11 @@
 /obj/structure/chair/brass/AltClick(mob/living/user)
 	if(!istype(user) || !Adjacent(user))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
 		return
+
 	add_fingerprint(user)
 	turns = 0
 	if(!isprocessing)

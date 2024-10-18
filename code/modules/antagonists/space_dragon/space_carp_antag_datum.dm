@@ -42,3 +42,19 @@
 /datum/objective/space_carp/check_completion()
 	return rift
 
+/proc/isspacecarp(datum/source)
+	if(!source)
+		return FALSE
+
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/space_carp)
+
+	if(!ismob(source))
+		return FALSE
+
+	var/mob/mind_holder = source
+	if(!mind_holder.mind)
+		return FALSE
+
+	return mind_holder.mind.has_antag_datum(/datum/antagonist/space_carp)

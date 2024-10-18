@@ -131,6 +131,7 @@
 		var/choice = show_radial_menu(user, src, options, require_near = TRUE)
 		if(!choice || user.incapacitated())
 			return
+
 		switch(choice)
 			if("Playback Tape")
 				play(user)

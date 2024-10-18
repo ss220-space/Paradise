@@ -43,9 +43,11 @@
 /obj/vehicle/ridden/AltClick(mob/user)
 	if(!inserted_key)
 		return
+
 	if(!is_occupant(user))
 		to_chat(user, span_warning("You must be riding the [src] to remove [src]'s key!"))
 		return
+
 	to_chat(user, span_notice("You remove \the [inserted_key] from \the [src]."))
 	inserted_key.forceMove_turf()
 	user.put_in_hands(inserted_key)

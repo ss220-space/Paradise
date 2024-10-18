@@ -145,20 +145,25 @@
 /obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/human/user)
 	if(!istype(user) || !Adjacent(user))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
 		return
+
 	if(!defib)
 		to_chat(user, span_warning("It'd be hard to remove a defib unit from a mount that has none."))
 		return
+
 	var/obj/item/organ/external/hand_right = user.get_organ(BODY_ZONE_PRECISE_R_HAND)
 	var/obj/item/organ/external/hand_left = user.get_organ(BODY_ZONE_PRECISE_L_HAND)
 	if((!hand_right || !hand_right.is_usable()) && (!hand_left || !hand_left.is_usable()))
 		to_chat(user, span_warning("You can't use your hand to take out the defibrillator!"))
 		return
+
 	if(clamps_locked)
 		to_chat(user, span_warning("You try to tug out [defib], but the mount's clamps are locked tight!"))
 		return
+
 	defib.forceMove_turf()
 	user.put_in_hands(defib, ignore_anim = FALSE)
 	user.visible_message(span_notice("[user] unhooks [defib] from [src]."), \

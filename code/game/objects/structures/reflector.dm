@@ -140,6 +140,7 @@
 /obj/structure/reflector/AltClick(mob/user)
 	if(!Adjacent(user))
 		return
+
 	rotate()
 
 

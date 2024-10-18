@@ -214,6 +214,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/AltClick(mob/living/user)
 	if(!iscarbon(user))
 		return
+
 	if(can_use(user))
 		if(id)
 			remove_id(user)
@@ -449,7 +450,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(is_pen(I))
+	if(is_pen(I) && !istype(I, /obj/item/pen/intel_data))
 		add_fingerprint(user)
 		var/obj/item/pen/holded_pen = locate() in src
 		if(holded_pen)

@@ -15,6 +15,7 @@
 		return
 
 	if(modifiers["alt"])
+		SEND_SIGNAL(A, COMSIG_CLICK_ALT, src)
 		AltClickOn(A)
 		return
 
@@ -537,7 +538,7 @@
 /obj/effect/proc_holder/spell/aoe/revenant/blight/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(!attempt_cast(user))
 		return
-		
+
 	for(var/mob/living/carbon/human/human as anything in targets)
 		var/datum/disease/ectoplasmic/disease = new
 		disease.Contract(human)

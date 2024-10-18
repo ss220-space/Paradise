@@ -90,7 +90,7 @@
 		temp_drop *= cold_protection
 		freeze_chance *= cold_protection
 
-	else if(istype(target, /mob/living/simple_animal/borer))
+	else if(isborer(target))
 		var/mob/living/simple_animal/borer/borer = target
 		var/cold_protection = 2 - borer.host?.get_cold_protection()
 		temp_drop *= cold_protection

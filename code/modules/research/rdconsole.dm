@@ -320,6 +320,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
+	if(istype(linked_destroy.loaded_item, /obj/item/proprietary_ssd)) // We can deconstruct ssd here, but can't in experimentor
+		var/obj/item/proprietary_ssd/ssd = linked_destroy.loaded_item
+		temp_tech = ssd.files.known_tech
+
 	var/pointless = FALSE
 
 	for(var/T in temp_tech)
@@ -759,7 +763,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
 	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
 
-	if (!is_lathe && !is_imprinter)
+	if(!is_lathe && !is_imprinter)
 		return
 
 	var/coeff = machine.efficiency_coeff

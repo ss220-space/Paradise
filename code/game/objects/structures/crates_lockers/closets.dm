@@ -469,6 +469,7 @@ GLOBAL_LIST_EMPTY(closets)
 		gorilla.face_atom(src)
 		toggle()
 		gorilla.oogaooga()
+
 	return ..()
 
 /obj/structure/closet/shove_impact(mob/living/target, mob/living/attacker)

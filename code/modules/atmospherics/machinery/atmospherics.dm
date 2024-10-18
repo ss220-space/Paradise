@@ -393,6 +393,7 @@ Pipelines + Other Objects -> Pipe network
 	if((vent_movement & VENTCRAWL_ALLOWED) && istype(user))
 		user.handle_ventcrawl(src)
 		return
+
 	return ..()
 
 

@@ -142,6 +142,7 @@
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		open(user)
+
 	else if(isobserver(user))
 		show_to(user)
 

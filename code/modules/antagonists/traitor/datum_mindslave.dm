@@ -30,7 +30,7 @@
 
 
 /datum/antagonist/mindslave/Destroy(force)
-	if(owner.som)
+	if(owner?.som)
 		owner.som.serv -= owner
 		owner.som.leave_serv_hud(owner)
 	// Remove the reference but turn this into a string so it can still be used in /datum/antagonist/mindslave/farewell().
