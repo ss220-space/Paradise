@@ -2,7 +2,7 @@
 	name = "quantum pad"
 	desc = "A bluespace quantum-linked telepad used for teleporting objects to other quantum pads."
 	icon = 'icons/obj/telescience.dmi'
-	icon_state = "qpad-idle"
+	icon_state = "qpad"
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
@@ -79,7 +79,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I)
+	default_deconstruction_screwdriver(user, "pad-o", initial(icon_state), I)
 
 /obj/machinery/quantumpad/attack_hand(mob/user)
 	if(panel_open)
@@ -141,9 +141,9 @@
 			sparks()
 			linked_pad.sparks()
 
-			flick("qpad-beam", src)
+			flick("[initial(icon_state)]-beam", src)
 			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
-			flick("qpad-beam", linked_pad)
+			flick("[initial(linked_pad.icon_state)]-beam", linked_pad)
 			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 			var/tele_success = TRUE
 			for(var/atom/movable/ROI in get_turf(src))

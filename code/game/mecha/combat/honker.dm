@@ -18,6 +18,8 @@
 	starting_voice = /obj/item/mecha_modkit/voice/honk
 	var/squeak = 0
 
+	mech_type = MECH_TYPE_HONKER
+
 /obj/mecha/combat/honker/loaded/New()
 	..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/honker

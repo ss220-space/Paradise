@@ -2,7 +2,7 @@
 	name = "Syndicate quantum pad"
 	desc = "Syndicate redspace quantumpads! Can transport goods through galaxies and completely ignores bluespace interference!"
 	icon = 'icons/obj/telescience.dmi'
-	icon_state = "sqpad-idle"
+	icon_state = "sqpad"
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
@@ -144,7 +144,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	default_deconstruction_screwdriver(user, "pad-idle-o", "sqpad-idle", I)
+	default_deconstruction_screwdriver(user, "pad-o", initial(icon_state), I)
 
 /obj/machinery/syndiepad/proc/pad_sync()
 	for(var/obj/machinery/syndiepad/S in GLOB.machines)
@@ -235,9 +235,9 @@
 			use_power(10000 / power_efficiency)
 			sparks()
 			linked_pad.sparks()
-			flick("sqpad-beam", src)
+			flick("[initial(icon_state)]-beam", src)
 			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
-			flick("sqpad-beam", linked_pad)
+			flick("[initial(linked_pad.icon_state)]-beam", linked_pad)
 			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 			var/tele_success = FALSE
 

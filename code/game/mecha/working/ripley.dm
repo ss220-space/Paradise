@@ -16,6 +16,8 @@
 	var/hides = 0
 	var/plates = 0
 
+	mech_type = MECH_TYPE_RIPLEY
+
 
 /obj/mecha/working/ripley/Destroy()
 	for(var/i=1, i <= hides, i++)
