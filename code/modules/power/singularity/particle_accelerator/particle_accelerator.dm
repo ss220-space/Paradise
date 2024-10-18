@@ -96,7 +96,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	rotate_accelerator(usr)
 
 /obj/structure/particle_accelerator/AltClick(mob/user)
-		rotate_accelerator(user)
+	rotate_accelerator(user)
 
 /obj/structure/particle_accelerator/proc/rotate_accelerator(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -277,7 +277,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	rotate_accelerator(usr)
 
 /obj/machinery/particle_accelerator/AltClick(mob/user)
-		rotate_accelerator(user)
+	rotate_accelerator(user)
 
 
 /obj/machinery/particle_accelerator/proc/rotate_accelerator(mob/user)

@@ -91,7 +91,7 @@
 		. += span_info("You can <b>Alt-Click</b> [src] to rotate it.")
 
 /obj/structure/musician/drumkit/AltClick(mob/living/user)
-		rotate(user)
+	rotate(user)
 
 
 /obj/structure/musician/drumkit/proc/rotate(mob/living/user)

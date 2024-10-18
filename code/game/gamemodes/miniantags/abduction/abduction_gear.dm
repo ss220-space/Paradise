@@ -424,7 +424,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	return
 
 /obj/item/paper/abductor/AltClick(mob/user)
-		return
+	return
 
 
 #define BATON_STUN 0
