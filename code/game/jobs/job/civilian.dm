@@ -13,6 +13,7 @@
 	minimal_access = list()	//See /datum/job/assistant/get_access()
 	alt_titles = list("Tourist","Businessman","Trader","Assistant")
 	outfit = /datum/outfit/job/assistant
+	insurance_type = INSURANCE_TYPE_BUDGETARY
 
 	salary = SALARY_FOR_NISHEBROD
 	min_start_money = 10
