@@ -15,6 +15,7 @@
 	icon_state = "ninja_mask_classic_thermals"
 	item_state = "ninja_mask_classic_thermals"
 	strip_delay = 120
+	permeability_coefficient = 1
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = MASKCOVERSEYES	//We don't need to cover mouth
 	clothing_flags = BLOCK_GAS_SMOKE_EFFECT|AIRTIGHT|BLOCK_CAPSAICIN
