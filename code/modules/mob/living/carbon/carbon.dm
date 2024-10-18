@@ -396,16 +396,11 @@
 
 			else
 				to_chat(src, span_warning("Ваши глаза начинают изрядно болеть. Это определенно не очень хорошо!"))
-		if(mind && has_bane(BANE_LIGHT))
-			mind.disrupt_spells(-500)
 		return TRUE
 
 	else if(damage == 0) // just enough protection
 		if(prob(20))
 			to_chat(src, span_notice("Что-то яркое вспыхнуло на периферии вашего зрения!"))
-			if(mind && has_bane(BANE_LIGHT))
-				mind.disrupt_spells(0)
-
 
 /mob/living/carbon/proc/create_dna()
 	if(!dna)

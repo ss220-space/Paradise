@@ -43,6 +43,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //mob traits
 #define TRAIT_GODMODE "godmode"
 #define TRAIT_PACIFISM "pacifism"
+#define TRAIT_NO_DEATH "nodeath"
 #define TRAIT_WATERBREATH "waterbreathing"
 #define TRAIT_BLOODCRAWL "bloodcrawl"
 #define TRAIT_BLOODCRAWL_EAT "bloodcrawl_eat"
