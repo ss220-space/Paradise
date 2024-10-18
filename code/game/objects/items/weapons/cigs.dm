@@ -98,6 +98,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weldingtool/sword))
+		if(I.tool_enabled)
+			light(span_notice("[user] casually lights the [name] with [I], what a badass."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+		
 	if(istype(I, /obj/item/lighter/zippo))
 		add_fingerprint(user)
 		var/obj/item/lighter/zippo/zippo = I
