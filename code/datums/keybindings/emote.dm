@@ -608,10 +608,6 @@
 	linked_emote = /datum/emote/living/carbon/human/unathi/threat
 	name = "Угрожать (унати)"
 
-/datum/keybinding/emote/carbon/human/unathi/rumble
-	linked_emote = /datum/emote/living/carbon/human/unathi/rumble
-	name = "Урчать (унати)"
-
 /datum/keybinding/emote/carbon/human/unathi/roar
 	linked_emote = /datum/emote/living/carbon/human/unathi/roar
 	name = "Рычать (унати)"
