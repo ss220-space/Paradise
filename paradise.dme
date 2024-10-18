@@ -2053,6 +2053,7 @@
 #include "code\modules\events\undead.dm"
 #include "code\modules\events\vent_clog.dm"
 #include "code\modules\events\wallrot.dm"
+#include "code\modules\events\wizards.dm"
 #include "code\modules\events\wormholes.dm"
 #include "code\modules\events\wizard\ghost.dm"
 #include "code\modules\fish\fish_eggs.dm"
