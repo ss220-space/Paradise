@@ -64,4 +64,4 @@
 	return
 
 /obj/item/clothing/mask/breath/vox/AltClick(mob/user)
-		return
+	return
