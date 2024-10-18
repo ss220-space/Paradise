@@ -91,3 +91,75 @@
 '2024-10-09':
   kartowkar:
   - bugfix: eatable component multitool fix (#6001)
+'2024-10-10':
+  Antoonij:
+  - qol: recharge spell million istypes removal (#5915)
+  LiquidPotroh:
+  - bugfix: permeability of adjusted mask (#6003)
+  Valtor:
+  - imageadd: tajaran pathes head sprite fix (#6008)
+  kartowkar:
+  - bugfix: Borer spell datum fix (#6002)
+'2024-10-11':
+  Arceniu:
+  - qol: sst hardsuit speed (#6009)
+'2024-10-13':
+  Antoonij:
+  - bugfix: Sintouched fixes (#6016)
+  - refactor: Animal temperature  (#5930)
+  Daeberdir:
+  - add: NektoeN Abandoned Storage Map. (#5996)
+  - tweak: Engi areas type shuffling. Supermatter and sub-engine areas overload-protected
+      APCs. (#5995)
+  - tweak: ashstorm immunity for minebots. (#6006)
+  NightDawnFox:
+  - add: basic ridable element and components & fireman carry (#5705)
+  PiroMage:
+  - bugfix: 'Nova Station #7 Patch (#6014)'
+  TimChi:
+  - add: Disease - Babylonian Fever (#5997)
+  Valtor:
+  - bugfix: diona blood regen (#6011)
+  - bugfix: thick tape roll fix (#6013)
+  Vladisvell:
+  - bugfix: Fixed tos consent acception (#6012)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5946)
+  kartowkar:
+  - bugfix: fix some inhand sprites (#6004)
+  - bugfix: reinforced.wall deconstruction Fix (#6017)
+'2024-10-14':
+  TimChi:
+  - bugfix: Babylon Fever runtime fix (#6020)
+  Vladisvell:
+  - tweak: sets up audio emotes cooldown (#6019)
+'2024-10-15':
+  Anorak2020:
+  - add: more objectives for vampires and clings (#6024)
+  Den109G:
+  - refactor: Now wiki comes from config and not hardcoded. (#5983)
+  Etrnlmelancholy:
+  - add: Повязки на глаза с ХУДом. (#6010)
+  NightDawnFox:
+  - bugfix: holoparasites are no longer can be refreshed in colossus crystal (#6028)
+  - bugfix: no more multiple tipping (#6027)
+  - tweak: decreased speed of vehicles (#6022)
+  PlayerUnknown14:
+  - imageadd: SP-91-RC - new sprites (#6026)
+  TimChi:
+  - bugfix: Brains in mmi can cast spells (#6021)
+  Vladisvell:
+  - bugfix: fixes elite fauna (#6032)
+'2024-10-16':
+  Anorak2020:
+  - bugfix: '[customat] some items has wrong keys (#6040)'
+  NightDawnFox:
+  - spellcheck: ревьеюру (#6037)
+  - bugfix: you can no longer be immortal with sindie uno card (#6038)
+  TimChi:
+  - bugfix: Keybind "Y" resulted in the use of an item in hand. (#6039)
+  Vladisvell:
+  - add: byond 1644 compat (#6041)
+'2024-10-18':
+  PiroMage:
+  - bugfix: 'Nova Station #8 Patch (#6033)'
