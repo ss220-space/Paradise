@@ -200,7 +200,7 @@ SUBSYSTEM_DEF(ticker)
 			if(M.can_start())
 				mode = config.pick_mode(GLOB.secret_force_mode)
 		if(!mode)
-			mode = pickweight(runnable_modes)
+			mode = select_gamemode_from_list(runnable_modes)
 		if(mode)
 			var/mtype = mode.type
 			mode = new mtype
@@ -724,3 +724,80 @@ SUBSYSTEM_DEF(ticker)
 	message_admins(log_text.Join("<br>"))
 
 	flagged_antag_rollers.Cut()
+
+// Select gamemode from list, list is expected to be list of
+/datum/controller/subsystem/ticker/proc/select_gamemode_from_list(list/runnable_modes)
+	if (!CONFIG_GET(flag/use_new_random_selection)) // if pseudorandom disabled
+		return pick_weight_classic(runnable_modes) // use 'old' system
+
+	var/server_port = world.port
+	var/list_of_current_n = list()
+	for (var/game_mode_iterating in runnable_modes) // game_mode_iterating of type game_mode, values are weights numbers
+		var/datum/game_mode/gm = game_mode_iterating
+		var/config_tag = gm.config_tag
+		var/n_not_happened = 0 // counter for how much times game mode wasn't selected before (if not found or didn't exist yet, use 0 as default)
+		// db stuff
+
+		// 1. try to get value
+		var/datum/db_query/query = SSdbcore.NewQuery("SELECT n_not_happened FROM [format_table_name("pseudorandom_gamemodes")] WHERE server_port=:server_port AND gamemode_config_tag=:config_tag", list(
+			"server_port" = server_port, "config_tag" = config_tag
+		))
+		if(!query.warn_execute()) // Goes if some error in request, not when requested value not exist in any row!
+			log_runtime(EXCEPTION("Failed to select n_not_happened in ticker/proc/setup() for gamemode with tag [config_tag], is pseudorandom_gamemodes table created?"))
+			qdel(query)
+			return pick_weight_classic(runnable_modes) // most likely iterating further will spam errors, just use 'old' system
+		else // If not exist such row, will go here!
+			var/length_returned = 0
+			while(query.NextRow()) // Normally length should be 1
+				n_not_happened = query.item[1]
+				length_returned = length_returned + 1
+			if (length_returned == 0)
+				// 2. try insert if there's no such mode
+				var/datum/db_query/query_insert = SSdbcore.NewQuery(
+				"INSERT INTO [format_table_name("pseudorandom_gamemodes")] (server_port, gamemode_config_tag, n_not_happened) VALUES (:server_port, :config_tag, :n_not_happened)", list(
+					"server_port" = server_port, "config_tag" = config_tag, "n_not_happened" = 0
+				))
+				if (!query_insert.warn_execute())
+					log_runtime(EXCEPTION("Failed to use pseudorandom gamemode selection in ticker/proc/setup() for gamemode with tag [config_tag], no such gamemode and failed to insert it into database."))
+				qdel(query_insert)
+		qdel(query)
+
+		// Setup list on how much events didn't happen, default is 0
+		list_of_current_n[gm] = n_not_happened
+
+	var/datum/game_mode/result_mode = new_weighted_pick(runnable_modes, list_of_current_n, 1)
+	if (!result_mode)
+		message_admins("Failed to use pseudorandom gamemode selection. Using backward compatibility with old system. Please inform coder and post list of possible game modes (Possibilities: ...)")
+		return pick_weight_classic(runnable_modes) // use 'old' system
+	else
+		var/gamemode_config_tag_selected = result_mode.config_tag
+
+		for (var/T in list_of_current_n)
+			var/datum/game_mode/mode = T
+			var/n_not_happened_iter = list_of_current_n[mode]
+			var/gm_tag = mode.config_tag
+
+			if (gm_tag == gamemode_config_tag_selected)
+				n_not_happened_iter = 0 // reset counter
+			else
+				n_not_happened_iter = n_not_happened_iter + 1 // increase counter
+
+			// unsigned tinyint limitations of range 0... 255 inclusive
+			if (n_not_happened_iter > 254) // If gone to 255 reduce back to 254 to stay in range next time
+				n_not_happened_iter = 254
+				log_runtime(EXCEPTION("Gamemode with tag [gm_tag] had n_not_happened higher than 254, normally it shouldn't ever rise above 50 (depending on gamemodes count), make sure code is working properly. Gamemode weight (nominal): [runnable_modes[mode]]"))
+
+			// update DB
+			var/datum/db_query/query_update = SSdbcore.NewQuery(
+			"UPDATE [format_table_name("pseudorandom_gamemodes")] SET n_not_happened=:n_not_happened_selected_gm WHERE server_port=:server_port AND gamemode_config_tag=:gamemode_config_tag", list(
+				"n_not_happened_selected_gm" = n_not_happened_iter, "server_port" = server_port, "gamemode_config_tag" = gm_tag
+			))
+			if (!query_update.warn_execute())
+				log_runtime(EXCEPTION("Failed to update pseudorandom value of n_not_happened for gamemode with tag [result_mode.config_tag]."))
+			qdel(query_update)
+
+	qdel(list_of_current_n) // not needed anymore
+
+	// return at any case even if update failed
+	return result_mode
+
