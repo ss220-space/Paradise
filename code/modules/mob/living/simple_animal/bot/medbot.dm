@@ -470,9 +470,7 @@
 		return TRUE //If a valid medicine option for the patient exists, they require treatment
 
 
-/mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A)
-	if(!can_unarmed_attack())
-		return
+/mob/living/simple_animal/bot/medbot/OnUnarmedAttack(atom/A)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		patient = C

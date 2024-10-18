@@ -131,9 +131,10 @@
 	..()
 
 
-/mob/living/simple_animal/bot/honkbot/UnarmedAttack(atom/A)
-	if(!on || !can_unarmed_attack())
+/mob/living/simple_animal/bot/honkbot/OnUnarmedAttack(atom/A)
+	if(!on)
 		return
+		
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(emagged <= 1)

@@ -37,7 +37,6 @@
 	talk_sound = list('sound/creatures/spider_talk1.ogg', 'sound/creatures/spider_talk2.ogg')
 	damaged_sound = list('sound/creatures/spider_attack1.ogg', 'sound/creatures/spider_attack2.ogg')
 	gold_core_spawnable = HOSTILE_SPAWN
-	var/venom_per_bite = 0 // While the /poison/ type path remains as-is for consistency reasons, we're really talking about venom, not poison.
 	var/busy = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
 	AI_delay_max = 0.5 SECONDS
@@ -48,15 +47,6 @@
 		heat_damage = 20, \
 		cold_damage = 20, \
 	)
-
-/mob/living/simple_animal/hostile/poison/giant_spider/AttackingTarget()
-	// This is placed here, NOT on /poison, because the other subtypes of /poison/ already override AttackingTarget() completely, and as such it would do nothing but confuse people there.
-	. = ..()
-	if(. && venom_per_bite > 0 && iscarbon(target) && (!client || a_intent == INTENT_HARM))
-		var/mob/living/carbon/C = target
-		var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
-		if(C.can_inject(null, FALSE, inject_target, FALSE))
-			C.reagents.add_reagent("spidertoxin", venom_per_bite)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/get_spacemove_backup(moving_direction, continuous_move)
 	. = ..()
@@ -77,9 +67,12 @@
 	health = 40
 	melee_damage_lower = 5
 	melee_damage_upper = 10
-	venom_per_bite = 30
 	var/atom/cocoon_target
 	var/fed = 0
+
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/reagent_attack, "spidertoxin", 30, FALSE, null, list(BODY_ZONE_CHEST, BODY_ZONE_HEAD))
 
 //hunters have the most poison and move the fastest, so they can find prey
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter
@@ -91,9 +84,11 @@
 	health = 120
 	melee_damage_lower = 10
 	melee_damage_upper = 20
-	venom_per_bite = 10
 	move_to_delay = 5
 
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/reagent_attack, "spidertoxin", 10, FALSE, null, list(BODY_ZONE_CHEST, BODY_ZONE_HEAD))
 
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_movement() //Hacky and ugly.
 	. = ..()
