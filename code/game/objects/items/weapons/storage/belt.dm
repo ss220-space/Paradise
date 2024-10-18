@@ -42,8 +42,6 @@
 	drop_sound = 'sound/items/handling/toolbelt_drop.ogg'
 	pickup_sound = 'sound/items/handling/toolbelt_pickup.ogg'
 	use_item_overlays = TRUE
-	max_combined_w_class = 15	// 6 `WEIGHT_CLASS_SMALL` items + RCD.
-	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/crowbar,
 		/obj/item/screwdriver,
@@ -92,7 +90,6 @@
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
 	storage_slots = 8
-	max_combined_w_class = 17	// 7 `WEIGHT_CLASS_SMALL` items + RCD.
 
 /obj/item/storage/belt/utility/chief/full/populate_contents()
 	new /obj/item/screwdriver/power(src)
