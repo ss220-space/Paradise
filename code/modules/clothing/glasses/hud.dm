@@ -456,3 +456,42 @@ SKILLS
 
 /obj/item/clothing/glasses/hud/skills/tajblind/attack_self(mob/user)
 	toggle_veil(user)
+
+/obj/item/clothing/glasses/hud/blueshield
+	name = "blueshield HUD glasses"
+	desc = "A HUD with multiple functions."
+	actions_types = list(/datum/action/item_action/switch_hud)
+	icon_state = "sunhudmed"
+	origin_tech = "magnets=4;combat=4;engineering=4;biotech=4"
+	see_in_dark = 1
+	flash_protect = FLASH_PROTECTION_FLASH
+	tint = 1
+	HUDType = DATA_HUD_MEDICAL_ADVANCED
+
+/obj/item/clothing/glasses/hud/blueshield/attack_self(mob/user)
+	if(user && !can_use(user))
+		return FALSE
+
+	if(HUDType)
+		var/datum/atom_hud/H = GLOB.huds[HUDType]
+		H.remove_hud_from(user)
+
+	if(HUDType == DATA_HUD_MEDICAL_ADVANCED)
+		HUDType = null
+		examine_extensions = null
+		icon_state = "sun"
+		update_equipped_item(update_speedmods = FALSE)
+	else if (HUDType == DATA_HUD_SECURITY_ADVANCED)
+		HUDType = DATA_HUD_MEDICAL_ADVANCED
+		examine_extensions = EXAMINE_HUD_MEDICAL
+		icon_state = "sunhudmed"
+		update_equipped_item(update_speedmods = FALSE)
+	else
+		HUDType = DATA_HUD_SECURITY_ADVANCED
+		examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
+		icon_state = "sunhud"
+		update_equipped_item(update_speedmods = FALSE)
+
+	if (HUDType)
+		var/datum/atom_hud/H = GLOB.huds[HUDType]
+		H.add_hud_to(user)
