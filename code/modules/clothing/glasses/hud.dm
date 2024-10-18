@@ -481,7 +481,7 @@ SKILLS
 		examine_extensions = null
 		icon_state = "sun"
 		update_equipped_item(update_speedmods = FALSE)
-	else if (HUDType == DATA_HUD_SECURITY_ADVANCED)
+	else if(HUDType == DATA_HUD_SECURITY_ADVANCED)
 		HUDType = DATA_HUD_MEDICAL_ADVANCED
 		examine_extensions = EXAMINE_HUD_MEDICAL
 		icon_state = "sunhudmed"
