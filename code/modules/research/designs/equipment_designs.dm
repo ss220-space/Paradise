@@ -369,3 +369,13 @@
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_SILVER = 2000, MAT_DIAMOND = 1500)
 	build_path = /obj/item/t_scanner/science
 	category = list("Equipment")
+
+/datum/design/fishingrod
+	name = "Ol' reliable"
+	desc = "Hey! I caught a miner!"
+	id = "fishingrod"
+	req_tech = list("materials" = 5, "engineering" = 4, "plasmatech" = 6, "biotech" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_TITANIUM = 15000, MAT_SILVER = 2500, MAT_DIAMOND = 2500)
+	build_path = /obj/item/twohanded/fishingrod
+	category = list("Equipment")
