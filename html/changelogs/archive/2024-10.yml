@@ -163,3 +163,9 @@
 '2024-10-18':
   PiroMage:
   - bugfix: 'Nova Station #8 Patch (#6033)'
+  Testmerge Worker:
+  - add: Experimentor relics rework (#5683) [testmerge][8c55b01]
+  - bugfix: pAI bugfixes + localization (#5874) [testmerge][eb10085]
+  - add: ASHIE UPDATE (#5875) [testmerge][0e93f51]
+  - add: health insurance (#5921) [testmerge][a4236a6]
+  - add: a lot of roboquest tweaks. (#5961) [testmerge][e01a58e]
