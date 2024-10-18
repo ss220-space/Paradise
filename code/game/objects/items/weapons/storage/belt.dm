@@ -57,7 +57,8 @@
 		/obj/item/holosign_creator,
 		/obj/item/radio,
 		/obj/item/robotanalyzer,
-		/obj/item/clothing/gloves)
+		/obj/item/clothing/gloves,
+		/obj/item/rcd)
 
 /obj/item/storage/belt/utility/full/populate_contents()
 	new /obj/item/screwdriver(src)
@@ -88,6 +89,7 @@
 	desc = "Holds tools, looks snazzy"
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
+	storage_slots = 8
 
 /obj/item/storage/belt/utility/chief/full/populate_contents()
 	new /obj/item/screwdriver/power(src)
