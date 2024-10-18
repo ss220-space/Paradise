@@ -20,6 +20,14 @@
 /datum/data/pda/proc/program_process()
 	return
 
+/datum/data/pda/proc/on_id_updated()
+	return
+
+/datum/data/pda/proc/stamp_act(obj/item/stamp/stamp)
+	if(!istype(stamp))
+		return FALSE
+	return TRUE
+
 /datum/data/pda/proc/program_hit_check()
 	return
 

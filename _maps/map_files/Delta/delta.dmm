@@ -20735,6 +20735,14 @@
 /area/atmos)
 "crr" = (
 /obj/machinery/suit_storage_unit/blueshield,
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Blueshield";
+	departmentType = 5;
+	name = "Blueshield Requests Console";
+	pixel_x = -30;
+	pixel_y = 4
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/blueshield)
 "crv" = (
@@ -28148,6 +28156,12 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -28
+	},
+/obj/machinery/requests_console{
+	department = "Chemistry";
+	departmentType = 2;
+	name = "Chemistry Requests Console";
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -62142,7 +62156,7 @@
 	pixel_y = 3
 	},
 /obj/machinery/requests_console{
-	department = "Science";
+	department = "Research";
 	departmentType = 2;
 	name = "Research Request Console";
 	pixel_x = 30
@@ -112906,6 +112920,13 @@
 /obj/structure/table/glass,
 /obj/item/reagent_containers/applicator/burn,
 /obj/item/reagent_containers/glass/bottle/charcoal,
+/obj/machinery/requests_console{
+	department = "Genetics";
+	departmentType = 1;
+	name = "Genetics Requests Console";
+	pixel_x = -2;
+	pixel_y = 25
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
