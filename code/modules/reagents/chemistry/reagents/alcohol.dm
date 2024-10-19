@@ -138,8 +138,8 @@
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
 	if(M.mind && M.mind.assigned_role == JOB_TITLE_CIVILIAN)
 		var/update_flags = STATUS_UPDATE_NONE
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 		return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/rum
@@ -1468,8 +1468,8 @@
 
 /datum/reagent/consumable/ethanol/rainbow_sky/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-1, FALSE)
-	update_flags |= M.adjustFireLoss(-1, FALSE)
+	update_flags |= M.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
+	update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 	M.Druggy(30 SECONDS)
 	M.Jitter(10 SECONDS)
 	M.AdjustHallucinate(10 SECONDS)
@@ -1711,13 +1711,13 @@
 
 /datum/reagent/consumable/ethanol/alcomender/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustFireLoss(-0.7, FALSE)
+	update_flags |= M.adjustFireLoss(-0.7, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/alcomender/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) // It is alcohol after all, so don't try to pour it on someone who's on fire ... please.
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
-			M.adjustFireLoss(-volume * 0.7)
+			M.adjustFireLoss(-volume * 0.7, affect_robotic = FALSE)
 			to_chat(M, "<span class='notice'>The diluted silver sulfadiazine soothes your burns.</span>")
 	return STATUS_UPDATE_NONE
 
