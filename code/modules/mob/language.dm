@@ -257,6 +257,9 @@
 	flags = RESTRICTED
 	syllables = list("qr","qrr","xuq","qil","quum","xuqm","vol","xrim","zaoo","qu-uu","qix","qoo","zix","*","!")
 
+
+#define SKRELL_ADDITIONAL_SYLLABLES 2 // Maximum of additional syllables for first and second names
+
 /datum/language/skrell/get_random_name() // Name generator authors: @saichi23 && @cadavrik
 	// Now I love making list in list in list in list in list
 	// Two sublists were made by authors so that the names would turn out most consonant for reading (in a way that's possible for skrells)
@@ -286,7 +289,6 @@
 	)
 
 	var/full_name = ""
-	var/max_add_syllables = 2 // Maximum of additional syllables for first and second names
 
 	for(var/i=0, i<2; i++) // First and second names, making from 2-3 syllables each
 		var/apostrophe = "'"
@@ -295,7 +297,7 @@
 
 		new_name += pick(ru_name_syllables[using_list][1]) // The first syllable is only from the first sublist
 
-		for(var/additional_syllables = rand(1, max_add_syllables), additional_syllables>0, additional_syllables--) // Additional 1-2 syllables, taken from sublist2
+		for(var/add_syllables = rand(1, SKRELL_ADDITIONAL_SYLLABLES), add_syllables>0, add_syllables--) // Additional 1-2 syllables, taken from sublist2
 			if(apostrophe && prob(50))
 				new_name += apostrophe
 				apostrophe = null // Adding "'" with chance, but only once for first and second names
@@ -305,6 +307,9 @@
 		full_name += " [capitalize(new_name)]"
 
 	return "[trim(full_name)]"
+
+#undef SKRELL_ADDITIONAL_SYLLABLES
+
 
 /datum/language/vox
 	name = "Vox-pidgin"
