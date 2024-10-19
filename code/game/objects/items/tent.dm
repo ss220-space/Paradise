@@ -44,10 +44,10 @@
 	var/folding_tent = new foldedtent_path(get_turf(src))
 	the_folder.put_in_hands(folding_tent)
 
-
 /obj/structure/tent/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(!do_after(usr, 5 SECONDS, usr))
 		return
+
 	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !length(contents) && usr.Adjacent(src))
 		usr.visible_message(
 			span_notice("[usr] folds up [src]."),
@@ -66,20 +66,24 @@
 			perform_fold(usr)
 			qdel(src)
 			return FALSE
+
 	return ..()
 
 /obj/structure/tent/proc/attempt_fold(mob/living/carbon/human/the_folder)
 	. = FALSE
 	if(!istype(the_folder))
 		return
-	if(length(contents))
+
+	if(LAZYLEN(contents))
 		return
+
 	return TRUE
 
 /obj/structure/tent/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !ismob(grabbed_thing))
 		return .
+
 	var/mob/target = grabbed_thing
 	if(occupant)
 		grabber.balloon_alert(grabber, "палатка занята!")
@@ -95,30 +99,35 @@
 /obj/structure/tent/MouseDrop_T(atom/movable/O, mob/user, params)
 	if(O.loc == user)
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
+
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src))
 		return
+
 	if(!ismob(O))
 		return
-	if(isanimal(O) || istype(O, /mob/living/silicon))
+
+	if(isanimal(O) || issilicon(O))
 		return
-	if(!ishuman(user) && !isrobot(user))
+
+	if(!isturf(user.loc) || !isturf(O.loc))
 		return
-	if(user.loc==null)
-		return
-	if(!istype(user.loc, /turf) || !istype(O.loc, /turf))
-		return
+
 	if(occupant)
 		usr.balloon_alert(usr, "палатка занята!")
 		return TRUE
+
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
+
 	if(L == user)
 		visible_message(span_notice("[user] starts climbing into the tent."))
 	else
 		visible_message(span_notice("[user] starts putting [L.name] into the tent."))
+
 	. = TRUE
 	INVOKE_ASYNC(src, PROC_REF(put_in), L, user)
 
@@ -126,6 +135,7 @@
 	for(var/mob/M in contents)
 		M.forceMove(get_turf(src))
 		REMOVE_TRAIT(M, TRAIT_ASHSTORM_IMMUNE, "ash")
+
 	return ..()
 
 /obj/structure/tent/proc/put_in(mob/living/L, mob/user)
@@ -135,6 +145,7 @@
 	if(occupant)
 		user.balloon_alert(user, "палатка занята!")
 		return
+
 	if(!L)
 		return
 
@@ -148,9 +159,11 @@
 	set src in oview(1)
 	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled)
 		return
+
 	if(occupant)
 		usr.balloon_alert(usr, "палатка занята!")
 		return
+
 	visible_message(span_notice("[usr] starts climbing into the tent."))
 	put_in(usr, usr)
 
@@ -161,6 +174,7 @@
 
 	if(usr.default_can_use_topic(src) != UI_INTERACTIVE)
 		return
+
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
@@ -173,6 +187,7 @@
 /obj/structure/tent/proc/go_out()
 	if(!occupant)
 		return
+
 	occupant.forceMove(loc)
 	if(!istype(occupant, /datum/species/unathi/draconid))
 		REMOVE_TRAIT(occupant, TRAIT_ASHSTORM_IMMUNE, "ash")

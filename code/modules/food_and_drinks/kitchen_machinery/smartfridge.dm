@@ -814,6 +814,7 @@
 /obj/machinery/smartfridge/drying_rack/power_change(forced = FALSE)
 	if(primitive)
 		return
+
 	if(powered() && anchored)
 		stat &= ~NOPOWER
 	else

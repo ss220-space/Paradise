@@ -265,6 +265,7 @@
 			add_fingerprint(user)
 			to_chat(user, span_warning("You cannot chop [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
 			return ATTACK_CHAIN_PROCEED
+
 		to_chat(user, span_notice("You have chopped [src] into planks."))
 		var/seed_modifier = 0
 		if(seed)

@@ -689,7 +689,9 @@ REAGENT SCANNER
 
 /obj/item/healthanalyzer/gem_analyzer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/healthupgrade))
-		user.balloon_alert(user, "установить невозможно.")
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 /obj/item/reagent_scanner
 	name = "reagent scanner"
