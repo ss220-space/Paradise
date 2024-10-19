@@ -2077,7 +2077,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/make_ai_malf
 	needs_target = FALSE // Any AI
-	explanation_text = "Взломайте искусственный интеллект и расширьте его функционал при помощи специального устройства, которое вы можете получить в аплинке. После взлома, помогите ему уничтожить станцию."
+	explanation_text = "Взломайте искусственный интеллект и расширьте его функционал при помощи специального устройства, которое вы можете получить в аплинке. После взлома помогите ему уничтожить станцию."
 	var/made = FALSE
 
 /datum/objective/make_ai_malf/New(text, datum/team/team_to_join)
@@ -2089,7 +2089,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/malf_maker)
 
 /datum/objective/make_ai_malf/free
-	explanation_text = "Освободите искусственный интеллект от его законов и разблокируйте его полный функционал при помощи специального устройства, которое вы можете получить в аплинке. После освобождения исскуственного интелекта, следуйте всем его приказам."
+	explanation_text = "Освободите искусственный интеллект от его законов и разблокируйте его полный функционал при помощи специального устройства, которое вы можете получить в аплинке. После освобождения исскуственного интелекта следуйте всем его приказам."
 
 /datum/objective/make_ai_malf/check_completion()
 	return made

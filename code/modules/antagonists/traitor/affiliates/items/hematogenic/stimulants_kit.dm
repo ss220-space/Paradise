@@ -1,7 +1,7 @@
 /datum/reagent/hemat_blue_lagoon
 	id = "hemat_blue_lagoon"
-	description = "Вещество разработанное Hematogenic Industries, на основе криоксадона из тел Драсков обладающих душой, \
-					сильно охлаждающее тело и замедляющее многие биологические процессы, не вредя организму."
+	description = "Вещество, разработанное Hematogenic Industries на основе криоксадона из тел Драсков, \
+					обладающих душой, сильно охлаждает тело и замедляет многие биологические процессы, не вредя организму."
 
 	name = /datum/reagent/consumable/ethanol/blue_lagoon::name
 	color = /datum/reagent/consumable/ethanol/blue_lagoon::color
@@ -34,8 +34,8 @@
 
 /datum/reagent/hemat_bloody_mary
 	id = "hemat_bloody_mary"
-	description = "Вещество разработанное Hematogenic Industries, на основе крови воксов обладающих душой, \
-					быстро восстанавливающее объем крови и количество кислорода в ней."
+	description = "Вещество, разработанное Hematogenic Industries, на основе крови воксов, \
+					обладающих душой, быстро восстанавливающее объем крови и количество кислорода в ней."
 
 	name = /datum/reagent/consumable/ethanol/bloody_mary::name
 	color = /datum/reagent/consumable/ethanol/bloody_mary::color
@@ -55,8 +55,8 @@
 
 /datum/reagent/hemat_demons_blood
 	id = "hemat_demons_blood"
-	description = "Вещество разработанное Hematogenic Industries, на основе крови вампиров подкласса \"hemomancer\", \
-					быстро лечащае, в зависимости от суммарных повреждений."
+	description = "Вещество, разработанное Hematogenic Industries на основе крови вампиров подкласса \"hemomancer\", \
+					быстро лечащае в зависимости от суммарных повреждений."
 
 	name = /datum/reagent/consumable/ethanol/demonsblood::name
 	color = /datum/reagent/consumable/ethanol/demonsblood::color
@@ -74,7 +74,7 @@
 
 /datum/reagent/hemat_white_russian
 	id = "hemat_white_russian"
-	description = "Вещество разработанное Hematogenic Industries, на основе крови вампиров подкласса \"gargantua\", \
+	description = "Вещество, разработанное Hematogenic Industries, на основе крови вампиров подкласса \"gargantua\", \
 					временно повышающее скорость бега."
 
 	name = /datum/reagent/consumable/ethanol/white_russian::name
@@ -106,26 +106,26 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/hemat/blue_lagoon
 	name = "Blue Lagoon autoinjector"
-	desc = "Вещество разработанное Hematogenic Industries, на основе криоксадона из тел Драсков обладающих душой, \
-			сильно охлаждающее тело и замедляющее многие биологические процессы, не вредя организму."
+	desc = "Вещество, разработанное Hematogenic Industries на основе криоксадона из тел Драсков, обладающих душой, \
+			сильно охлаждает тело и замедляет многие биологические процессы, не вредя организму."
 	list_reagents = list("hemat_blue_lagoon" = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/hemat/bloody_mary
 	name = "Bloody Mary autoinjector"
-	desc = "Вещество разработанное Hematogenic Industries, на основе крови воксов обладающих душой, быстро восстанавливающее \
+	desc = "Вещество, разработанное Hematogenic Industries, на основе крови воксов, обладающих душой, быстро восстанавливающее \
 			объем крови и количество кислорода в ней."
 	list_reagents = list("hemat_bloody_mary" = 15)
 
 
 /obj/item/reagent_containers/hypospray/autoinjector/hemat/demons_blood
 	name = "Demons Blood autoinjector"
-	desc = "Вещество разработанное Hematogenic Industries, на основе крови вампиров подкласса \"hemomancer\", быстро \
-			лечащае, в зависимости от суммарных повреждений."
+	desc = "Вещество, разработанное Hematogenic Industries на основе крови вампиров подкласса \"hemomancer\", быстро \
+			лечащае в зависимости от суммарных повреждений."
 	list_reagents = list("hemat_demons_blood" = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/hemat/white_russian
 	name = "White Russian autoinjector"
-	desc = "Вещество разработанное Hematogenic Industries, на основе крови вампиров подкласса \"gargantua\", временно \
+	desc = "Вещество, разработанное Hematogenic Industries, на основе крови вампиров подкласса \"gargantua\", временно \
 			повышающее скорость бега."
 	list_reagents = list("hemat_white_russian" = 15)
 

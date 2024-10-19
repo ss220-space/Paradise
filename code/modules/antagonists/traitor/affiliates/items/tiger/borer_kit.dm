@@ -258,7 +258,7 @@
 	if(!length(borers))
 		return
 
-	var/target_name = tgui_input_list(user, "Выберите чьими глазами вы хотите смотреть", "Выбор цели", borers)
+	var/target_name = tgui_input_list(user, "Выберите, чьими глазами вы хотите смотреть", "Выбор цели", borers)
 
 	var/mob/living/simple_animal/borer/target = borers[target_name]
 

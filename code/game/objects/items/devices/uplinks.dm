@@ -570,7 +570,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		for (var/datum/affiliate/key in traitors)
 			L.Add("	" + key.name + ": [traitors[key] + (prob(10) - prob(10))]")
 		if(hijacks && prob(80 + hijacks * 5) || prob(2))
-			L.Add(span_warning("Очень вероятно что среди них есть агенты с крайне разрушительными задачами."))
+			L.Add(span_warning("Очень вероятно, что среди них есть агенты с крайне разрушительными задачами."))
 
 	if(vampires.len > 3 || vampires.len == 2 && prob(60) || vampires == 1 && prob(2))
 		L.Add("Обнаружены вампиры:")
