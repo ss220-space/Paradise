@@ -264,40 +264,44 @@
 	// Now I love making list in list in list in list in list
 	// Two sublists were made by authors so that the names would turn out most consonant for reading (in a way that's possible for skrells)
 	var/list/ru_name_syllables = list(
-		list( // list 1
-			list("заоо","зао","зикс","зо","йуо","кью","кьюм","кси","ксу","квум","кву", // sublist1
-				"кви","квей","квиш","куу","кюан","киэн","ку","кил","лиа","люик","луи",
-				"рио","сейу","тсой","уль","улур","урр","ур","цу","эль","эо","эу"),
+		list(	// list 1
+			list("заоо", "зао", "зикс", "зо", "йуо", "кью", "кьюм", "кси", "ксу", "квум", "кву",	// sublist1
+				"кви", "квей", "квиш", "куу", "кюан", "киэн", "ку", "кил", "лиа", "люик", "луи",
+				"рио", "сейу", "тсой", "уль", "улур", "урр", "ур", "цу", "эль", "эо", "эу"),
 
-			list("аг","вум","вул","вол","гли","зи","заоо","зао","зикс","зуо","зук","зуво", // sublist2
-				"икс","ил","ис","йук","кву","квум","куум","куо","куа","куак","кул","квол",
-				"кью","кьюа","кэ","кин","кии","кс","ки","киу","кос","лоа","лак","лум","лик",
-				"лии","ллак","мзикс","мвол","ори","ору","орр","ррум","ру","руум","руа","рл",
-				"сэк","су","сиа","тейе","тейку","тсу","туа","туи","ту","тал","уат","уок","урр",
-				"уоо","уо","уик","уии","уэк","эйкс","эль","эрр","эй","эйс","о","у","а","з","э","м","к","с","р"),
+			list(
+			"аг", "вум", "вул", "вол", "гли", "зи", "заоо", "зао", "зикс", "зуо", "зук", "зуво",	// sublist2
+			"икс", "ил", "ис", "йук", "кву", "квум", "куум", "куо", "куа", "куак", "кул", "квол",
+			"кью", "кьюа", "кэ", "кин", "кии", "кс", "ки", "киу", "кос", "лоа", "лак", "лум", "лик",
+			"лии", "ллак", "мзикс", "мвол", "ори", "ору", "орр", "ррум", "ру", "руум", "руа", "рл",
+			"сэк", "су", "сиа", "тейе", "тейку", "тсу", "туа", "туи", "ту", "тал", "уат", "уок", "урр",
+			"уоо", "уо", "уик", "уии", "уэк", "эйкс", "эль", "эрр", "эй", "эйс", "о", "у", "а", "з", "э", "м" ,"к", "с", "р"
+			)
 		),
 
-		list( // list 2
-			list("заоо","зао","зо","йуо","лиа","луи","рио","сейу","эо"), // sublist1
+		list(	// list 2
+			list("заоо", "зао", "зо", "йуо", "лиа", "луи", "рио", "сейу", "эо"),	// sublist1
 
-			list("вум","вул","вол","гли","зи","заоо","зао","зикс","зуо","зук","зуво", // sublist2
-				"йук","кву","квум","куум","куо","куа","куак","кул","квол","кью","кьюа",
-				"кэ","кин","кии","кс","ки","киу","кос","лоа","лак","лум","лик","лии","ллак",
-				"мзикс","мвол","ррум","ру","руум","руа","рл","сэк","су","сиа","тейе","тейку",
-				"тсу","туа","туи","ту","тал","з","м","к","с","р"),
-		),
+			list(
+			"вум", "вул", "вол", "гли", "зи", "заоо", "зао", "зикс", "зуо", "зук", "зуво",	// sublist2
+			"йук", "кву", "квум", "куум", "куо", "куа", "куак", "кул", "квол", "кью", "кьюа",
+			"кэ", "кин", "кии", "кс", "ки", "киу", "кос", "лоа", "лак", "лум", "лик", "лии", "ллак",
+			"мзикс", "мвол", "ррум", "ру", "руум", "руа", "рл", "сэк", "су", "сиа", "тейе", "тейку",
+			"тсу", "туа", "туи", "ту", "тал", "з", "м", "к", "с", "р"
+			)
+		)
 	)
 
 	var/full_name = ""
 
-	for(var/i=0, i<2; i++) // First and second names, making from 2-3 syllables each
+	for(var/i in 1 to 2)	// First and second names, making from 2-3 syllables each.
 		var/apostrophe = "'"
 		var/new_name = ""
-		var/using_list = rand(1, LAZYLEN(ru_name_syllables)) // We use only one list for the first name and one list for the second name, without mixing syllables from different lists
+		var/using_list = rand(1, LAZYLEN(ru_name_syllables))	// We use only one list for the first name and one list for the second name, without mixing syllables from different lists.
 
-		new_name += pick(ru_name_syllables[using_list][1]) // The first syllable is only from the first sublist
+		new_name += pick(ru_name_syllables[using_list][1])	// The first syllable is only from the first sublist.
 
-		for(var/add_syllables = rand(1, SKRELL_ADDITIONAL_SYLLABLES), add_syllables>0, add_syllables--) // Additional 1-2 syllables, taken from sublist2
+		for(var/add_syllables in 1 to rand(1, SKRELL_ADDITIONAL_SYLLABLES))	// Additional 1-2 syllables, taken from sublist2.
 			if(apostrophe && prob(50))
 				new_name += apostrophe
 				apostrophe = null // Adding "'" with chance, but only once for first and second names
