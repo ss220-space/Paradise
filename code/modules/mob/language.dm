@@ -296,9 +296,9 @@
 		new_name += pick(ru_name_syllables[using_list][1]) // The first syllable is only from the first sublist
 
 		for(var/additional_syllables = rand(1, max_add_syllables), additional_syllables>0, additional_syllables--) // Additional 1-2 syllables, taken from sublist2
-			if(prob(50))
+			if(apostrophe && prob(50))
 				new_name += apostrophe
-				apostrophe = "" // Adding "'" with chance, but only once for first and second names
+				apostrophe = null // Adding "'" with chance, but only once for first and second names
 
 			new_name += pick(ru_name_syllables[using_list][2])
 
