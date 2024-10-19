@@ -189,12 +189,13 @@
 		lines = lines_to_add
 		SStgui.update_uis(parent)
 
+///Checks string for containing only midi-sequence characters.
 /datum/song/proc/legality_check(mob/user, text)
 	var/static/regex/regex = regex(@"[^A-G0-9n\#\-\,\/\.(\r\n|\r|\n)]")
 	var/detection = regex.Find(text)
 	if(detection)
-		var/position_prev = clamp(detection - 16, 1, length(l))
-		var/position_next = clamp(detection + 16, 1, length(l))
+		var/position_prev = clamp(detection - 16, 1, length(text))
+		var/position_next = clamp(detection + 16, 1, length(text))
 		var/illegal_text = copytext_char(text, position_prev, position_next + 1)
 		message_admins("[user] ([user.ckey]) tried to put an illegal string into a song. Part of a string: [illegal_text]")
 		log_admin("[user] ([user.ckey]) tried to put an illegal string into a song. Part of a string: [illegal_text]")
