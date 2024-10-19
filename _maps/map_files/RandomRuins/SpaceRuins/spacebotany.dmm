@@ -1329,7 +1329,7 @@
 	},
 /area/ruin/space/spacebotany/Chem)
 "qw" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
 "qz" = (
@@ -1911,7 +1911,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Dorm)
 "zn" = (
-/obj/effect/spawner/lootdrop/crate_spawner{
+/obj/effect/spawner/random_spawners/crate_spawner{
 	pixel_y = -2
 	},
 /turf/simulated/floor/plating,
@@ -1995,7 +1995,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Vault)
 "An" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Hydro)
 "Ap" = (

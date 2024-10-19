@@ -23,7 +23,6 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-	minbodytemp = 0
 	maxHealth = 150
 	health = 150
 	environment_smash = 1
@@ -85,6 +84,11 @@
 	GLOB.morphs_alive_list += src
 	check_morphs()
 
+/mob/living/simple_animal/hostile/morph/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /**
  * This proc enables or disables morph reproducing ability
@@ -372,7 +376,7 @@
 	messages.Add("<span class='specialnotice'>From this form you can however <span class='specialnoticebold'>Prepare an Ambush</span> using your ability.</span>")
 	messages.Add("<span class='specialnotice'>This will allow you to deal a lot of damage the first hit. And if they touch you then even more.</span>")
 	messages.Add("<span class='specialnotice'>Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health and will add to your stored food while eating items will reduce your stored food.</span>")
-	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Morph\">Морф</a></span>")
+	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Morph\">Морф</a></span>")
 
 	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
 	if(give_default_objectives)

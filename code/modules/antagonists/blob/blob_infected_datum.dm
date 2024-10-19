@@ -322,16 +322,22 @@
 	if(..(affected))
 		old_atmos_requirements = affected.atmos_requirements
 		affected.atmos_requirements = BLOB_INFECTED_ATMOS_REC
-		affected.minbodytemp = BLOB_INFECTED_MIN_BODY_TEMP
+
+		var/datum/component/animal_temperature/temp = affected.GetComponent(/datum/component/animal_temperature)
+		temp?.minbodytemp = BLOB_INFECTED_MIN_BODY_TEMP
+
 		return TRUE
+
 	return FALSE
 
 
 /datum/antagonist/blob_infected/simple_animal/remove_atmos_immunity(mob/living/simple_animal/affected)
 	if(..(affected))
 		affected.atmos_requirements = old_atmos_requirements
-		affected.minbodytemp = initial(affected.minbodytemp)
+		var/datum/component/animal_temperature/temp = affected.GetComponent(/datum/component/animal_temperature)
+		temp?.minbodytemp = initial(temp?.minbodytemp)
 		return TRUE
+
 	return FALSE
 
 

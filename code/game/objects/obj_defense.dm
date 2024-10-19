@@ -261,6 +261,13 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		return TRUE
 	return FALSE
 
+///Only tesla coils, vehicles, and grounding rods currently call this because mobs are already targeted over all other objects, but this might be useful for more things later.
+/obj/proc/zap_buckle_check(strength)
+	if(has_buckled_mobs())
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
+			buckled_mob.electrocute_act((clamp(round(strength * 1.25e-3), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
+
 ///returns how much the object blocks an explosion. Used by subtypes.
 /obj/proc/GetExplosionBlock()
 	CRASH("Unimplemented GetExplosionBlock()")

@@ -14,7 +14,7 @@
 	var/idle_power_usage = null // Сколько энергии оно тратит в пассивном режиме
 
 /obj/effect/spawner/random_spawners/Initialize(mapload)
-	. = ..()	
+	. = ..()
 	var/turf/T = get_turf(src)
 	if(!T)
 		log_runtime(EXCEPTION("Spawner placed in nullspace!"), src)
@@ -167,10 +167,19 @@
 	name = "random color rat"
 	icon_state = "rat"
 	result = list(
-		/mob/living/simple_animal/mouse/rat,
-		/mob/living/simple_animal/mouse/rat/white,
-		/mob/living/simple_animal/mouse/rat/irish,
+		/mob/living/simple_animal/mouse/rat = 1,
+		/mob/living/simple_animal/mouse/rat/white = 1,
+		/mob/living/simple_animal/mouse/rat/irish = 1,
 	)
+
+
+/obj/effect/spawner/random_spawners/crate_spawner // for ruins
+	name = "lootcrate spawner"
+	icon_state = "lootcrate"
+	result = list(
+				/obj/structure/closet/crate/secure/loot = 20,
+				/datum/nothing = 80,
+				)
 
 
 // z6 DEPOT SPAWNERS

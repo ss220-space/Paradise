@@ -2,7 +2,7 @@
 	name = "personal AI device"
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "pai"
-	item_state = "electronic"
+	item_state = "pai"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=2"
