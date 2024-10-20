@@ -33377,6 +33377,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/storage/eva)
+"eQx" = (
+/obj/item/reagent_containers/food/snacks/grown/tomato,
+/turf/simulated/floor/plasteel{
+	icon_state = "tranquillite"
+	},
+/area/maintenance/trading)
 "eQD" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
@@ -49313,6 +49319,12 @@
 	icon_state = "neutral"
 	},
 /area/crew_quarters/serviceyard)
+"hhB" = (
+/obj/structure/sign/directions/floor/alt{
+	dir = 6
+	},
+/turf/simulated/wall,
+/area/crew_quarters/theatre)
 "hhF" = (
 /obj/structure/chair/sofa/pew/left{
 	dir = 1
@@ -61901,6 +61913,20 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
+"jfx" = (
+/obj/structure/curtain/open/shower/security{
+	alpha = 255;
+	icon_state = "closed";
+	name = "backstage";
+	opacity = 1;
+	anchored = 1
+	},
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/snacks/grown/tomato,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/trading)
 "jfA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
@@ -112504,6 +112530,10 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/north)
+"qHS" = (
+/obj/effect/spawner/random_spawners/fungus_30,
+/turf/simulated/wall,
+/area/maintenance/trading)
 "qHU" = (
 /obj/structure/chair{
 	dir = 1
@@ -130057,6 +130087,16 @@
 	icon_state = "red"
 	},
 /area/security/securehallway)
+"tiq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/grown/tomato{
+	pixel_x = -10;
+	pixel_y = -7
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/trading)
 "tiu" = (
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 4
@@ -134009,6 +134049,13 @@
 	icon_state = "neutral"
 	},
 /area/hallway/primary/central/se)
+"tLm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/grown/tomato,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/trading)
 "tLn" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -259750,7 +259797,7 @@ baL
 baL
 aJc
 aJc
-aJc
+hhB
 aJc
 mJT
 vyJ
@@ -277688,9 +277735,9 @@ iup
 bio
 sld
 uUw
+qHS
 uUw
-uUw
-uUw
+dTH
 pci
 tpe
 dTH
@@ -277946,8 +277993,8 @@ bio
 wXI
 aYZ
 xij
-uYI
-qsm
+tLm
+jfx
 dvK
 tpe
 uUw
@@ -278459,10 +278506,10 @@ vNX
 rMz
 sld
 nvm
-uYI
-uYI
+tLm
+tiq
 qsm
-vuF
+eQx
 tpe
 uUw
 fPn
@@ -278722,7 +278769,7 @@ uUw
 fRz
 sFK
 uUw
-uUw
+dTH
 weL
 uUw
 uUw
@@ -278974,7 +279021,7 @@ bio
 wXI
 hfk
 uYI
-uYI
+tLm
 xZm
 dvK
 tpe
