@@ -164,7 +164,6 @@
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/storage/belt/security/sec(src)
 	new /obj/item/flashlight/seclite(src)
-	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/clothing/mask/gas/sechailer/blue(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
