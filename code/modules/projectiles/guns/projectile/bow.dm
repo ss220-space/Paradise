@@ -118,7 +118,7 @@
 /obj/item/projectile/bullet/reusable/arrow/prehit(atom/target)
 	var/mob/living/H = target
 
-	if(!ismob(H) || LAZYLEN(!nemesis_factions))
+	if(!ismob(H) || !LAZYLEN(nemesis_factions))
 		return
 
 	for(var/faction in H.faction)
