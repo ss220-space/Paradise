@@ -469,7 +469,7 @@ SKILLS
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 
 /obj/item/clothing/glasses/hud/blueshield/attack_self(mob/user)
-	if(user && !can_use(user))
+	if(!can_use(user))
 		return FALSE
 
 	if(HUDType)
