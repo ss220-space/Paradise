@@ -1615,6 +1615,14 @@
 	result = /obj/item/folded_tent
 	time = 15 SECONDS
 	reqs = list(/obj/item/stack/sheet/bone = 2,
-				 /obj/item/stack/sheet/animalhide/goliath_hide = 2,
-				 /obj/item/stack/sheet/sinew = 1)
+				/obj/item/stack/sheet/animalhide/goliath_hide = 2,
+				/obj/item/stack/sheet/sinew = 1)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/primitive_kolotushka
+	name = "Primitive kolotushka"
+	result = /obj/item/primitive_kolotushka
+	time = 4 SECONDS
+	reqs = list(/obj/item/stack/sheet/bone = 2,
+				/obj/item/stack/sheet/animalhide/weaver_chitin = 2)
 	category = CAT_PRIMAL
