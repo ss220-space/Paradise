@@ -44712,15 +44712,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/storage/pouch/fast,
-/obj/item/storage/pouch/fast{
-	pixel_y = 2;
-	pixel_x = 2
-	},
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -47736,15 +47727,6 @@
 	dir = 4;
 	network = list("SS13","Security")
 	},
-/obj/item/storage/belt/bandolier,
-/obj/item/storage/belt/bandolier{
-	pixel_y = 2;
-	pixel_x = 2
-	},
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -49299,15 +49281,6 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -28
-	},
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/item/ammo_box/speedloader/shotgun,
-/obj/item/ammo_box/speedloader/shotgun{
-	pixel_y = 2;
-	pixel_x = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -62132,6 +62105,8 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
+/obj/item/storage/belt/bandolier,
+/obj/item/storage/belt/bandolier,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
