@@ -10784,6 +10784,21 @@
 	icon_state = "darkred"
 	},
 /area/security/evidence)
+"bBs" = (
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai)
 "bBt" = (
 /obj/structure/rack{
 	dir = 8;
@@ -28127,6 +28142,12 @@
 	icon_state = "neutralfull"
 	},
 /area/security/nuke_storage)
+"edG" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai)
 "edO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
@@ -40671,6 +40692,14 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain/bedroom)
+"fTL" = (
+/obj/machinery/ai_slipper{
+	uses = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai)
 "fTO" = (
 /obj/machinery/atmospherics/trinary/mixer{
 	dir = 8
@@ -44683,6 +44712,15 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/storage/pouch/fast,
+/obj/item/storage/pouch/fast{
+	pixel_y = 2;
+	pixel_x = 2
+	},
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -45270,9 +45308,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/caution/stand_clear,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -47701,6 +47736,15 @@
 	dir = 4;
 	network = list("SS13","Security")
 	},
+/obj/item/storage/belt/bandolier,
+/obj/item/storage/belt/bandolier{
+	pixel_y = 2;
+	pixel_x = 2
+	},
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -47948,16 +47992,15 @@
 /turf/simulated/floor/plating/airless,
 /area/space)
 "gYE" = (
-/obj/machinery/ai_slipper{
-	uses = 10
-	},
 /obj/machinery/turretid/lethal{
 	check_synth = 1;
 	name = "AI Chamber Turret Control";
 	pixel_y = 28;
 	req_access = list(75)
 	},
-/turf/simulated/floor/greengrid,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/turret_protected/ai)
 "gYJ" = (
 /obj/structure/cable/yellow{
@@ -49256,6 +49299,15 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -28
+	},
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/ammo_box/speedloader/shotgun,
+/obj/item/ammo_box/speedloader/shotgun{
+	pixel_y = 2;
+	pixel_x = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -53565,6 +53617,10 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/structure/sign/directions/floor/alt{
+	dir = 8;
+	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
@@ -58925,14 +58981,6 @@
 	departmentType = 5;
 	name = "AI Requests Console";
 	pixel_y = 32
-	},
-/obj/machinery/camera{
-	c_tag = "Minisat AI Core Centre";
-	network = list("Minisat","SS13");
-	dir = 10
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
 	},
 /turf/simulated/floor/greengrid,
 /area/turret_protected/ai)
@@ -74715,6 +74763,21 @@
 	icon_state = "freezerfloor"
 	},
 /area/medical/virology/lab)
+"lcB" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai)
 "lcH" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/siding/wood{
@@ -74842,6 +74905,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/hallway/primary/central/west)
+"ldZ" = (
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -26
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/greengrid,
+/area/turret_protected/ai)
 "led" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -85040,13 +85113,6 @@
 /obj/machinery/newscaster{
 	dir = 1;
 	pixel_y = 32
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -26
 	},
 /turf/simulated/floor/greengrid,
 /area/turret_protected/ai)
@@ -95406,6 +95472,17 @@
 	icon_state = "red"
 	},
 /area/security/interrogation)
+"ohI" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/camera{
+	c_tag = "Minisat AI Core Centre";
+	network = list("Minisat","SS13");
+	dir = 10
+	},
+/turf/simulated/floor/greengrid,
+/area/turret_protected/ai)
 "ohJ" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Security";
@@ -105280,6 +105357,10 @@
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/structure/sign/directions/floor/alt{
+	dir = 6;
+	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -124750,6 +124831,15 @@
 /obj/structure/flora/ausbushes/ywflowers/hell,
 /turf/simulated/floor/grass,
 /area/hydroponics)
+"swm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/turret_protected/ai)
 "swp" = (
 /obj/machinery/door/airlock{
 	name = "Unisex Showers"
@@ -137984,9 +138074,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/simulated/floor/plasteel{
@@ -285178,11 +285265,11 @@ kUq
 vNO
 wSw
 sLA
+ngN
 uJG
 sLA
 sLA
 sLA
-bkc
 bkc
 bkc
 bkc
@@ -285436,10 +285523,10 @@ vNO
 mpD
 vet
 vet
+vet
 kVS
 uJG
 sLA
-bkc
 bkc
 bkc
 bkc
@@ -285682,7 +285769,7 @@ uJG
 tXL
 tXL
 tXL
-uJG
+tXL
 uJG
 uJG
 uJG
@@ -285690,13 +285777,13 @@ uJG
 uJG
 kUq
 bHU
+mcT
 bVc
 bVc
 bVc
 bbr
 mYD
 uJG
-bkc
 bkc
 bkc
 bkc
@@ -285942,18 +286029,18 @@ tXL
 tXL
 tXL
 tXL
+tXL
 aAp
 bkc
 bkc
-bkc
 vKV
+eTm
 eTm
 vKV
 fUm
 tVj
 wSw
 ngN
-bkc
 bkc
 bkc
 bkc
@@ -286194,6 +286281,7 @@ tXL
 tXL
 tXL
 tXL
+tXL
 weZ
 tXL
 tXL
@@ -286210,7 +286298,6 @@ kUq
 aOB
 mYD
 uJG
-bkc
 bkc
 bkc
 bkc
@@ -286448,6 +286535,7 @@ alj
 alj
 tXL
 azJ
+edG
 bAf
 tXL
 lpw
@@ -286468,7 +286556,6 @@ pYO
 mYD
 ngN
 ngN
-bkc
 bkc
 bkc
 bkc
@@ -286706,6 +286793,7 @@ nFp
 tXL
 fQg
 uuN
+uuN
 uZd
 uuN
 uuN
@@ -286726,7 +286814,6 @@ sra
 uJG
 ngN
 ngN
-bkc
 bkc
 bkc
 bkc
@@ -286969,6 +287056,7 @@ mwk
 swI
 uHe
 cgz
+swI
 dBr
 qQJ
 tXL
@@ -286983,7 +287071,6 @@ pfy
 mpD
 bkc
 uJG
-bkc
 bkc
 bkc
 bkc
@@ -287227,6 +287314,7 @@ eYy
 dxb
 eYy
 eYy
+swm
 alh
 pQj
 tXL
@@ -287240,7 +287328,6 @@ fXw
 rsL
 wSw
 ngN
-bkc
 bkc
 bkc
 bkc
@@ -287480,6 +287567,7 @@ swI
 dlQ
 kqz
 gDw
+bBs
 xYH
 nMc
 inj
@@ -287497,7 +287585,6 @@ rre
 vGQ
 mYD
 ngN
-bkc
 bkc
 bkc
 bkc
@@ -287737,6 +287824,7 @@ swI
 faA
 tNm
 iGZ
+ohI
 tNm
 tNm
 soF
@@ -287754,7 +287842,6 @@ rre
 vGQ
 wSw
 ngN
-bkc
 bkc
 bkc
 bkc
@@ -287994,6 +288081,7 @@ cux
 bzx
 tNm
 gYE
+fTL
 lZX
 tNm
 gSd
@@ -288011,7 +288099,6 @@ aCS
 vGQ
 mYD
 uJG
-bkc
 bkc
 bkc
 bkc
@@ -288251,6 +288338,7 @@ swI
 mvU
 tNm
 mIu
+ldZ
 tNm
 tNm
 pVK
@@ -288268,7 +288356,6 @@ rre
 vGQ
 wSw
 ngN
-bkc
 bkc
 bkc
 bkc
@@ -288508,6 +288595,7 @@ swI
 suK
 kqz
 uqh
+lcB
 xYH
 nMc
 qcV
@@ -288525,7 +288613,6 @@ rre
 vGQ
 mYD
 ngN
-bkc
 bkc
 bkc
 bkc
@@ -288769,6 +288856,7 @@ oHL
 jJM
 eYy
 eYy
+eYy
 gKX
 erC
 tXL
@@ -288782,7 +288870,6 @@ fnN
 yeF
 wSw
 ngN
-bkc
 bkc
 bkc
 bkc
@@ -289025,6 +289112,7 @@ joi
 swI
 ajO
 smD
+swI
 xoA
 bvE
 tXL
@@ -289039,7 +289127,6 @@ uhg
 urV
 bkc
 uJG
-bkc
 bkc
 bkc
 bkc
@@ -289276,6 +289363,7 @@ pFH
 tXL
 pRz
 vuk
+vuk
 kUX
 vuk
 vuk
@@ -289296,7 +289384,6 @@ cua
 uJG
 ngN
 ngN
-bkc
 bkc
 bkc
 bkc
@@ -289532,6 +289619,7 @@ alj
 alj
 tXL
 dJk
+edG
 bAf
 tXL
 fgT
@@ -289552,7 +289640,6 @@ pYO
 mYD
 ngN
 ngN
-bkc
 bkc
 bkc
 bkc
@@ -289792,6 +289879,7 @@ tXL
 tXL
 tXL
 tXL
+tXL
 apj
 tXL
 tXL
@@ -289808,7 +289896,6 @@ kUq
 aOB
 mYD
 uJG
-bkc
 bkc
 bkc
 bkc
@@ -290054,18 +290141,18 @@ tXL
 tXL
 tXL
 tXL
+tXL
 tCb
 bkc
 bkc
-bkc
 kVS
+vet
 vet
 kVS
 uCS
 tVj
 wSw
 ngN
-bkc
 bkc
 bkc
 bkc
@@ -290308,7 +290395,7 @@ uJG
 tXL
 tXL
 tXL
-uJG
+tXL
 uJG
 uJG
 uJG
@@ -290319,10 +290406,10 @@ fsj
 bVc
 bVc
 bVc
+bVc
 sSY
 mYD
 uJG
-bkc
 bkc
 bkc
 bkc
@@ -290576,10 +290663,10 @@ tVj
 urV
 vKV
 eTm
+eTm
 vKV
 uJG
 sLA
-bkc
 bkc
 bkc
 bkc
@@ -290832,11 +290919,11 @@ kUq
 tVj
 wSw
 sLA
+ngN
 uJG
 sLA
 sLA
 sLA
-bkc
 bkc
 bkc
 bkc
