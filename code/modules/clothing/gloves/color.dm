@@ -256,7 +256,7 @@
 	name = "nitrile gloves"
 	desc = "Pricy sterile gloves that are stronger than latex."
 	icon_state = "nitrile"
-	item_state = "nitrilegloves"
+	item_state = "nitrile"
 	transfer_prints = FALSE
 	item_color = "medical"
 
