@@ -1198,7 +1198,7 @@
 			return
 
 		if(!LAZYLEN(H.languages))
-			to_chat(usr, "This mob knows no languages.", confidential=TRUE)
+			to_chat(usr, "This mob knows no languages (Perhaps because he was stricken with Babylonian Fewer).", confidential=TRUE)
 			return
 
 		var/datum/language/rem_language = tgui_input_list(usr, "Please choose a language to remove.","Language", H.languages)
@@ -1210,7 +1210,7 @@
 			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
 			return
 
-		if(H.remove_language(rem_language))
+		if(H.remove_language(rem_language.name))
 			to_chat(usr, "Removed [rem_language] from [H].", confidential=TRUE)
 			log_and_message_admins("has removed language [rem_language] from [key_name(H)]")
 		else

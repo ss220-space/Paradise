@@ -614,7 +614,6 @@ Difficulty: Very Hard
 	faction = list("mining", "boss") // No attacking your leg
 	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 	check_friendly_fire = 1
 	ranged = TRUE
 	projectilesound = 'sound/weapons/gunshots/1autorifle.ogg'
@@ -653,6 +652,12 @@ Difficulty: Very Hard
 	who_am_i = who
 	ranged_cooldown_time = rand(30, 60) // keeps them not running on the same time
 	addtimer(CALLBACK(src, PROC_REF(beam_setup)), 1 SECONDS)
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/death(gibbed)
 	return //It shouldn't get gibbed by shuttle.

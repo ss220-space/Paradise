@@ -42,6 +42,8 @@
 	var/sound_cooldown = 1 SECONDS
 	//Emag vulnerability.
 	var/hackable = TRUE
+	/// Whether or not the door can be opened by hand (used for blast doors and shutters)
+	var/can_open_with_hands = TRUE
 
 /obj/machinery/door/New()
 	..()
@@ -97,7 +99,7 @@
 /obj/machinery/door/Bumped(atom/movable/moving_atom, skip_effects = FALSE)
 	. = ..()
 
-	if(skip_effects || operating || emagged)
+	if(skip_effects || operating || emagged || (!can_open_with_hands && density) )
 		return .
 	if(ismob(moving_atom))
 		var/mob/B = moving_atom
@@ -160,7 +162,7 @@
 
 
 /obj/machinery/door/proc/bumpopen(mob/user)
-	if(operating)
+	if(operating || !can_open_with_hands)
 		return
 	add_fingerprint(user)
 
@@ -233,7 +235,7 @@
 
 /obj/machinery/door/proc/try_to_activate_door(mob/user)
 	add_fingerprint(user)
-	if(operating || emagged)
+	if(operating || emagged || !can_open_with_hands)
 		return
 	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)

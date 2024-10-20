@@ -19,7 +19,7 @@
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_PDA|ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
-	item_state = "electronic"
+	item_state = "pinoff"
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=500)
@@ -455,6 +455,7 @@
 	desc = "A handheld tracking device that points to crew suit sensors."
 	shows_nuke_timer = FALSE
 	icon_state = "pinoff_crew"
+	item_state = "pinoff_crew"
 	icon_off = "pinoff_crew"
 	icon_null = "pinonnull_crew"
 	icon_direct = "pinondirect_crew"

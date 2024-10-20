@@ -22755,7 +22755,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/vehicle/motorcycle,
+/obj/vehicle/ridden/motorcycle,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";
@@ -22763,7 +22763,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "tAt" = (
-/obj/vehicle/motorcycle,
+/obj/vehicle/ridden/motorcycle,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";
@@ -23238,7 +23238,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "tOd" = (
-/obj/vehicle/snowmobile/blue,
+/obj/vehicle/ridden/snowmobile/blue,
 /turf/simulated/floor/plating/ice,
 /area/ruin/unpowered)
 "tOv" = (

@@ -6,6 +6,7 @@
 	icon_living = "regalrat"
 	icon_dead = "regalrat_dead"
 	icon_gib = "regalrat_dead"
+	faction = list("hostile", "rodent")
 	speak_chance = 0
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/rotten = 3)
@@ -37,4 +38,4 @@
 		if(prob(15) && iscarbon(target))
 			var/mob/living/carbon/C = target
 			C.Weaken(6 SECONDS)
-			C.visible_message("<span class='danger'>\the [src] knocks down \the [C]!</span>")
+			C.visible_message(span_danger("\the [src] knocks down \the [C]!"))

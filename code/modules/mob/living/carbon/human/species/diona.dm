@@ -109,8 +109,8 @@
 			return FALSE
 		if("salglu_solution")
 			if(prob(33))
-				H.adjustBruteLoss(-1)
-				H.adjustFireLoss(-1)
+				H.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
+				H.adjustFireLoss(-1, affect_robotic = FALSE)
 			H.reagents.remove_reagent(R.id, R.metabolization_rate * H.metabolism_efficiency * H.digestion_ratio)
 			return FALSE
 
@@ -141,9 +141,7 @@
 			if(update)
 				H.updatehealth()
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.blood_volume += 0.4
-		else if(light_amount < 0.2)
-			H.blood_volume -= 0.1
+				H.blood_volume += 0.5
 
 	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.adjustBruteLoss(2)

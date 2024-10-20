@@ -788,7 +788,7 @@
  *
  * You can buckle on mobs if you're next to them since most are dense
  */
-/mob/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE)
+/mob/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, buckle_mob_flags= NONE)
 	if(target.buckled)
 		return FALSE
 	return ..()

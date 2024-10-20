@@ -104,8 +104,6 @@
 	speed = 5
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	maxbodytemp = 1500
 
 	var/static/list/borer_names = list(
 			"Primary", "Secondary", "Tertiary", "Quaternary", "Quinary", "Senary",
@@ -153,6 +151,13 @@
 	real_name = "Cortical Borer [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
+
+/mob/living/simple_animal/borer/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 1500, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/borer/attack_ghost(mob/user)
 	if(cannotPossess(user))
