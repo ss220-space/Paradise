@@ -42,9 +42,8 @@
 		for(var/turf/T in turfs)
 			atoms += T
 			for(var/atom/movable/A in T)
-				if(istype(A, /atom/movable/lighting_object))
-					if(flashing_lights)
-						continue //Do not apply lighting, making whole image full bright.
+				if(flashing_lights && istype(A, /atom/movable/lighting_object))
+					continue //Do not apply lighting, making whole image full bright.
 				if(A.invisibility)
 					if(!(see_ghosts && isobserver(A)))
 						continue

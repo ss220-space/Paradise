@@ -229,6 +229,11 @@
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
 
+			if(time_left <= 100) // 9 seconds left - start requesting transit zones for emergency and pods
+				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
+					M.check_transit_zone() // yeah, we even check for pods that aren't at station. just for safety
+				check_transit_zone()
+
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
 				for(var/area/shuttle/escape/E in GLOB.areas)
@@ -281,7 +286,7 @@
 /obj/docking_port/mobile/pod/New()
 	..()
 	if(id == "pod")
-		WARNING("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc.")
+		log_runtime(EXCEPTION("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc."))
 
 /obj/docking_port/mobile/pod/cancel()
 	return
