@@ -908,7 +908,10 @@
 #define COMSIG_HUMAN_REGENERATE_ICONS "human_regenerate_icons"
 ///From /mob/living/carbon/human/proc/set_species(): (datum/species/old_species)
 #define COMSIG_HUMAN_SPECIES_CHANGED "human_species_changed"
-
+/// Source: /mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
+#define COMSIG_HUMAN_EARLY_HANDLE_ENVIRONMENT "human_early_handle_environment"
+/// Source: /mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
+#define COMSIG_HUMAN_HANDLE_ENVIRONMENT "human_handle_environment"
 
 ///from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
 #define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"

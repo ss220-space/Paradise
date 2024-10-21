@@ -291,12 +291,15 @@
 	if(!environment)
 		return
 
+	SEND_SIGNAL(src, COMSIG_HUMAN_EARLY_HANDLE_ENVIRONMENT, environment)
+	
 	var/loc_temp = get_temperature(environment)
 //	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]")
 
 	//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
 	if(stat != DEAD)
 		body_thermal_regulation(loc_temp)
+		SEND_SIGNAL(src, COMSIG_HUMAN_HANDLE_ENVIRONMENT, environment)
 
 	// After then, it reacts to the surrounding atmosphere based on your thermal protection
 	// If we are on fire, we do not heat up or cool down based on surrounding gases

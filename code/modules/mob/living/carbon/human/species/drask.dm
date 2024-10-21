@@ -1,6 +1,3 @@
-#define DRASK_COOLINGSTARTTEMP 280
-#define ENVIRONMENT_COOLINGSTOPTEMP 400
-
 /datum/species/drask
 	name = SPECIES_DRASK
 	name_plural = "Drask"
@@ -95,21 +92,14 @@
 	. = ..()
 	remove_verb(H, /mob/living/carbon/human/proc/emote_hum)
 
-/datum/species/drask/handle_life(mob/living/carbon/human/H)
-	..()
-	if(H.stat == DEAD)
+/datum/species/drask/handle_life(mob/living/carbon/human/human)
+	. = ..()
+
+	if(human.stat == DEAD)
 		return
-	var/datum/gas_mixture/environment = H.return_air()
-	if(environment && H.bodytemperature > DRASK_COOLINGSTARTTEMP && environment.temperature <= ENVIRONMENT_COOLINGSTOPTEMP)
-		H.adjust_bodytemperature(-5)
-	if(H.bodytemperature < TCRYO)
-		var/update = NONE
-		update |= H.heal_overall_damage(2, 4, updating_health = FALSE)
-		update |= H.heal_damages(tox = 0.5, oxy = 2, clone = 1, updating_health = FALSE)
-		if(update)
-			H.updatehealth()
-		var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
-		head?.undisfigure()
+
+	var/datum/reagent/reagent = GLOB.chemical_reagents_list[exotic_blood]
+	reagent.on_mob_life(human)
 
 /datum/species/drask/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	switch(R.id)
@@ -119,9 +109,8 @@
 		if("salglu_solution")
 			if(prob(33))
 				H.heal_overall_damage(1, 1, updating_health = FALSE)
+				
 			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM * H.metabolism_efficiency * H.digestion_ratio)
 			return FALSE
+			
 	return ..()
-
-#undef DRASK_COOLINGSTARTTEMP
-#undef ENVIRONMENT_COOLINGSTOPTEMP

@@ -774,3 +774,48 @@
 /datum/status_effect/drill_payback/on_remove()
 	..()
 	owner.clear_fullscreen("payback")
+
+/datum/status_effect/drask_coma
+	id = "drask_coma"
+	tick_interval = 2 SECONDS
+	
+	var/temp_step
+	var/sleep_delay
+
+	var/sleep_time
+	COOLDOWN_DECLARE(sleep_timer)
+	
+/datum/status_effect/drask_coma/on_creation(
+	mob/living/new_owner, 
+	duration = 0 SECONDS, 
+	temp_step = 5,
+	sleep_delay = 5 SECONDS,
+	sleep_time = 30 SECONDS
+	)
+	src.duration = duration
+	src.temp_step = temp_step
+	src.sleep_delay = sleep_delay
+	src.sleep_time = sleep_time
+
+	return ..()
+
+/datum/status_effect/drask_coma/on_apply()
+	to_chat(owner, span_notice("Your metabolical processes are stopping."))
+
+	COOLDOWN_START(src, sleep_time, sleep_time + sleep_delay)
+	addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living, AdjustSleeping), sleep_time), sleep_delay)
+
+	return TRUE
+
+/datum/status_effect/drask_coma/tick(seconds_between_ticks)
+	if(COOLDOWN_FINISHED(src, sleep_timer) || owner.stat == DEAD)
+		qdel(src)
+		return
+
+	if(owner.stat != UNCONSCIOUS)
+		return
+
+	owner.adjust_bodytemperature(-temp_step)
+
+/datum/status_effect/drask_coma/on_remove()
+	to_chat(owner, span_notice("You feel that your metabolism restored to normal state."))
