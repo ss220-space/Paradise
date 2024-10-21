@@ -36,25 +36,38 @@
 
 /datum/action/innate/drask_coma
 	name = "Enter coma"
-	desc = "Постепенно останавливает метаболизм, понижает температуру тела и заставляет уснуть на некоторое время."
-
-	check_flags = AB_CHECK_CONSCIOUS
+	desc = "Постепенно усыпляет, понижает температуру тела. Повторная активация способности позволит прервать вход в кому, либо выйти из нее."
 
 	button_icon = 'icons/obj/species_organs/drask.dmi'
 	button_icon_state = "heart_on"
 
+	COOLDOWN_DECLARE(wake_up_cooldown)
+	var/activation_time
+
 /datum/action/innate/drask_coma/activate()
-	. = TRUE
+	activation_time = world.time
 
-	if(owner.has_status_effect(STATUS_EFFECT_DRASK_COMA))
-		owner.remove_status_effect(STATUS_EFFECT_DRASK_COMA)
-		. = FALSE
+	if(!owner.has_status_effect(STATUS_EFFECT_DRASK_COMA))
+		if(!do_after(owner, 5 SECONDS, owner, ALL, extra_checks = CALLBACK(src, PROC_REF(stopped_channeling)), max_interaction_count = 1))
+			to_chat(owner, span_notice("Вы подсознательно возобновляете метаболизм"))
+			return FALSE
 
-	if(.)
 		owner.apply_status_effect(STATUS_EFFECT_DRASK_COMA)
+		COOLDOWN_START(src, wake_up_cooldown, 10 SECONDS)
+		return
 
-	UpdateButtonIcon()
+	if(!COOLDOWN_FINISHED(src, wake_up_cooldown))
+		to_chat(owner, span_warning("Вы не можете пробудиться сейчас."))
+		return
 
-/datum/action/innate/drask_coma/UpdateButtonIcon()
-	button_icon_state = owner.has_status_effect(STATUS_EFFECT_DRASK_COMA) ? "heart_off" : initial(button_icon_state)
-	return ..()
+	to_chat(owner, span_notice("Вы начинаете пробуждаться."))
+
+	if(!do_after(owner, 10 SECONDS, owner, ALL, extra_checks = CALLBACK(src, PROC_REF(stopped_channeling)) max_interaction_count = 1))
+		to_chat(owner, span_notice("Вы решили продолжить сон."))
+		return
+
+	owner.remove_status_effect(STATUS_EFFECT_DRASK_COMA)
+	return
+
+/datum/action/innate/drask_coma/proc/stopped_channeling()
+	return activation_time != 0

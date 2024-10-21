@@ -780,41 +780,32 @@
 	tick_interval = 2 SECONDS
 	
 	var/temp_step
-	var/sleep_delay
-
-	var/sleep_time
-	COOLDOWN_DECLARE(sleep_timer)
 	
 /datum/status_effect/drask_coma/on_creation(
 	mob/living/new_owner, 
-	duration = 0 SECONDS, 
+	duration = 300 SECONDS, 
 	temp_step = 5,
-	sleep_delay = 5 SECONDS,
-	sleep_time = 20 SECONDS
 	)
 	src.duration = duration
 	src.temp_step = temp_step
-	src.sleep_delay = sleep_delay
-	src.sleep_time = sleep_time
 
 	return ..()
 
 /datum/status_effect/drask_coma/on_apply()
-	to_chat(owner, span_notice("Your metabolical processes are stopping."))
+	to_chat(owner, span_notice("Your metabolical processes are stopped."))
 
-	COOLDOWN_START(src, sleep_time, sleep_time + sleep_delay)
-	addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living, AdjustSleeping), sleep_time), sleep_delay)
+	owner.AdjustSleeping(duration)
+	RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(stat_change))
 
 	return TRUE
 
-/datum/status_effect/drask_coma/tick(seconds_between_ticks)
-	if(COOLDOWN_FINISHED(src, sleep_timer) || owner.stat == DEAD)
+/datum/status_effect/drask_coma/proc/stat_change(datum/source, new_stat, old_stat)
+	SIGNAL_HANDLER
+
+	if(new_stat == CONSCIOUS || new_stat == DEAD)
 		qdel(src)
-		return
 
-	if(owner.stat != UNCONSCIOUS)
-		return
-
+/datum/status_effect/drask_coma/tick(seconds_between_ticks)
 	owner.adjust_bodytemperature(-temp_step)
 
 /datum/status_effect/drask_coma/on_remove()
