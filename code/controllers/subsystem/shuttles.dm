@@ -131,8 +131,7 @@ SUBSYSTEM_DEF(shuttle)
 	for(var/obj/docking_port/stationary/S in stationary)
 		if(S.id == id)
 			return S
-	if(!alone_shuttle)
-		log_runtime(EXCEPTION("couldn't find dock with id: [id]"))
+	log_runtime(EXCEPTION("couldn't find dock with id: [id]"))
 
 /datum/controller/subsystem/shuttle/proc/secondsToRefuel()
 	var/elapsed = world.time - SSticker.round_start_time
