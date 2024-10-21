@@ -19,24 +19,10 @@
 	icon_state = "kidneys"
 	alcohol_intensity = 0.8
 
-/obj/item/organ/internal/liver/drask/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
-	. = ..()
-
-	if(!.)
-		return FALSE
-
-	var/datum/action/innate/drask_coma/coma = new
-	coma.Grant(owner)
-
-/obj/item/organ/internal/liver/drask/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
-	var/datum/action/innate/drask_coma/coma = locate() in owner.actions
-	coma?.Remove(owner)
-
-	return ..()
-
 /datum/action/innate/drask_coma
 	name = "Enter coma"
 	check_flags = AB_CHECK_CONSCIOUS
+	organ_actions = list(/datum/action/innate/drask_coma)
 
 /datum/action/innate/drask_coma/activate()
 	if(owner.has_status_effect(STATUS_EFFECT_DRASK_COMA))
@@ -44,7 +30,6 @@
 		return
 
 	owner.apply_status_effect(STATUS_EFFECT_DRASK_COMA)
-	
 
 /obj/item/organ/internal/brain/drask
 	species_type = /datum/species/drask

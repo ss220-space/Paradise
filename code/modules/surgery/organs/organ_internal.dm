@@ -114,6 +114,7 @@
 
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
     insert(target)
 
 

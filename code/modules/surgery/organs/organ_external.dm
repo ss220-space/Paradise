@@ -168,6 +168,8 @@
 
 
 /obj/item/organ/external/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+	
 	owner = target
 
 	forceMove(owner)
@@ -181,8 +183,10 @@
 		return
 
 	var/obj/item/organ/external/replaced = owner.bodyparts_by_name[limb_zone]
+
 	if(!isnull(replaced))
 		replaced.remove(target, ORGAN_MANIPULATION_NOEFFECT)
+
 	owner.bodyparts_by_name[limb_zone] = src
 	owner.bodyparts |= src
 
