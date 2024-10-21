@@ -3966,6 +3966,9 @@
 /area/shuttle/spacebar)
 "bRc" = (
 /obj/structure/chair/comfy/shuttle,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_2)
 "bRi" = (
@@ -11610,6 +11613,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/machinery/light,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_2)
 "fBA" = (
@@ -13629,6 +13633,9 @@
 /area/ninja/outpost)
 "gyE" = (
 /obj/structure/chair/comfy/shuttle,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_4)
 "gyV" = (
@@ -15042,6 +15049,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/machinery/light,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_4)
 "hpq" = (
@@ -20024,6 +20032,9 @@
 /area/centcom/zone1)
 "jLG" = (
 /obj/structure/chair/comfy/shuttle,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_1)
 "jLN" = (
@@ -32856,6 +32867,9 @@
 /area/syndicate_mothership/control)
 "pvN" = (
 /obj/structure/chair/comfy/shuttle,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_3)
 "pvS" = (
@@ -38696,6 +38710,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/machinery/light,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_1)
 "ser" = (
@@ -39836,6 +39851,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
+/obj/machinery/light,
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_3)
 "sGK" = (
@@ -79252,7 +79268,7 @@ sKg
 sKg
 sXM
 prf
-sKg
+oJI
 oJI
 mVX
 mVX
@@ -80280,7 +80296,7 @@ sKg
 oJI
 sKg
 dhK
-sKg
+oJI
 oJI
 mVX
 mVX
