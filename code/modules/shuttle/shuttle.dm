@@ -227,12 +227,21 @@
 
 	var/timer						//used as a timer (if you want time left to complete move, use timeLeft proc)
 	var/last_timer_length
-	var/mode = SHUTTLE_IDLE			//current shuttle mode
-	var/rechargeTime = 5 SECONDS	// time recharging before ready to launch again
-	var/callTime = 5 SECONDS		//time spent in transit (deciseconds)
-	var/ignitionTime = 2 SECONDS	// time spent "starting the engines". Also rate limits how often we try to reserve transit space if its ever full of transiting shuttles.
-	var/roundstart_move				//id of port to send shuttle to at roundstart
-	var/rebuildable = 0				//can build new shuttle consoles for this one
+	/// current shuttle state
+	var/mode = SHUTTLE_IDLE
+	/// time recharging before ready to launch again
+	var/rechargeTime = 5 SECONDS
+	/// time spent in transit (deciseconds)
+	var/callTime = 5 SECONDS
+	/// time spent "starting the engines". Also rate limits how often we try to reserve transit space if its ever full of transiting shuttles.
+	/// DO NOT set under 3 seconds. We need to reserve space before we can launch the shuttle. Also it'll break launch sound(not by not playing. it'll be unsynced)
+	var/ignitionTime = 3 SECONDS
+	/// id of port to send shuttle to at roundstart
+	var/roundstart_move
+	/// can build new shuttle consoles for this one
+	var/rebuildable = 0
+	/// Doesn't throw runtimes if can't find the dock. Used by away shuttles(example ussp shuttle) which cannot get docks loaded in map.
+	var/alone_shuttle = FALSE
 
 	/// The direction the shuttle prefers to travel in, ie what direction the animation will cause it to appear to be traveling in
 	var/preferred_direction = NORTH
@@ -386,12 +395,12 @@
 	var/obj/docking_port/stationary/S1 = assigned_transit
 	if(S1)
 		if(dock(S1, transit = TRUE))
-			WARNING("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"].")
+			log_runtime(EXCEPTION("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"]."))
 		else
 			previous = S0
 			return TRUE
 	else
-		WARNING("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]")
+		log_runtime(EXCEPTION("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]"))
 
 
 

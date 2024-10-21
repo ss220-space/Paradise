@@ -8561,7 +8561,8 @@
 	id = "admin";
 	name = "administration shuttle";
 	roundstart_move = "admin_away";
-	width = 18
+	width = 18;
+	port_direction = 4
 	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;
@@ -13261,6 +13262,7 @@
 	id = "ruins_transport_shuttle";
 	name = "USSP Cargo Shuttle";
 	roundstart_move = "ussp_dock";
+	alone_shuttle = 1;
 	width = 8;
 	port_direction = 4
 	},
@@ -16446,7 +16448,8 @@
 /obj/docking_port/mobile/emergency{
 	dwidth = 11;
 	height = 18;
-	width = 29
+	width = 29;
+	port_direction = 8
 	},
 /obj/docking_port/stationary{
 	dir = 4;
@@ -19694,6 +19697,7 @@
 	name = "Regular Civilian Shuttle";
 	rebuildable = 1;
 	roundstart_move = "spacebar";
+	alone_shuttle = 1;
 	width = 6;
 	port_direction = 4
 	},
@@ -33198,7 +33202,8 @@
 	id = "ferry";
 	name = "ferry shuttle";
 	roundstart_move = "ferry_away";
-	width = 5
+	width = 5;
+	port_direction = 4
 	},
 /obj/docking_port/stationary{
 	dir = 8;
@@ -37978,8 +37983,10 @@
 	id = "funeral";
 	name = "Funeral shuttle";
 	roundstart_move = "graveyard_dock";
+	alone_shuttle = 1;
 	width = 10;
-	port_direction = 4
+	port_direction = 4;
+	preferred_direction = 2
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/funeral)
@@ -78548,7 +78555,7 @@ aWY
 giC
 giC
 gmU
-giC
+jvI
 jvI
 mVX
 mVX
