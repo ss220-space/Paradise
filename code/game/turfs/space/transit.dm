@@ -18,11 +18,26 @@
 /turf/space/transit/west
 	dir = WEST
 
+/turf/space/transit/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_TURF_RESERVATION_RELEASED, PROC_REF(launch_contents))
+
+/turf/space/transit/Destroy()
+	//Signals are NOT removed from turfs upon replacement, and we get replaced ALOT, so unregister our signal
+	UnregisterSignal(src, list(COMSIG_TURF_RESERVATION_RELEASED))
+
+	return ..()
 
 /turf/space/transit/attackby(obj/item/I, mob/user, params)
 	//Overwrite because we dont want people building rods in space.
 	return ATTACK_CHAIN_BLOCKED_ALL
 
+///Get rid of all our contents, called when our reservation is released (which in our case means the shuttle arrived)
+/turf/space/transit/proc/launch_contents(datum/turf_reservation/reservation)
+	SIGNAL_HANDLER
+
+	for(var/atom/movable/movable in contents)
+		dump_in_space(movable)
 
 /turf/space/transit/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	if(!arrived)
