@@ -58,18 +58,6 @@
 /obj/structure/stone_tile/center/cracked,
 /turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
-"aw" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	pixel_y = -9
-	},
-/obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/wood{
-	pixel_y = 9
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/mine/laborcamp/old)
 "ax" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -523,9 +511,6 @@
 /area/mine/eva)
 "dB" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/wood{
-	pixel_y = 9
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp/old)
@@ -1193,13 +1178,6 @@
 "hi" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
-	pixel_y = 9
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	pixel_y = -9
-	},
-/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1238,13 +1216,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/barricade/wooden,
 /obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	pixel_y = -9
-	},
-/obj/effect/turf_decal/siding/wood{
-	pixel_y = 9
-	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp/old)
 "ht" = (
@@ -2097,13 +2068,6 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/effect/turf_decal/siding/wood{
-	pixel_y = 9
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	pixel_y = -9
-	},
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/sign/poster/contraband/clown{
 	pixel_y = 32
@@ -2141,13 +2105,6 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "mi" = (
-/obj/effect/turf_decal/siding/wood{
-	pixel_y = 9
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	pixel_y = -9
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/constructable_frame/machine_frame,
 /obj/machinery/light/small{
@@ -2209,13 +2166,6 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
-"mC" = (
-/obj/effect/turf_decal/siding/wood{
-	pixel_y = 9
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/mine/laborcamp/old)
 "mI" = (
 /obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -3365,13 +3315,6 @@
 /area/mine/production)
 "tj" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/wood{
-	pixel_y = 9
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	pixel_y = -9
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plating,
@@ -3645,9 +3588,6 @@
 "uK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood{
-	pixel_y = 9
-	},
-/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -3745,18 +3685,6 @@
 	icon_state = "Dark"
 	},
 /area/mine/production)
-"vm" = (
-/obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/wood{
-	pixel_y = 9
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	pixel_y = -9
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/mine/laborcamp/old)
 "vo" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -5050,13 +4978,6 @@
 "CU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	pixel_y = -9
-	},
-/obj/effect/turf_decal/siding/wood{
-	pixel_y = 9
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -6721,15 +6642,6 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
-"MS" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1;
-	pixel_y = -9
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/turf/simulated/floor/plasteel,
-/area/mine/laborcamp/old)
 "MW" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -7877,9 +7789,6 @@
 "Ug" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
-	pixel_y = 9
-	},
-/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /obj/machinery/constructable_frame/machine_frame,
@@ -8412,9 +8321,6 @@
 "Xi" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/turf_decal/siding/wood{
-	pixel_y = 9
-	},
-/obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -8895,9 +8801,6 @@
 /area/mine/eva)
 "ZT" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/effect/turf_decal/siding/wood{
-	pixel_y = 9
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -29157,7 +29060,7 @@ pv
 pv
 pv
 eI
-MS
+lu
 II
 hi
 rZ
@@ -29673,7 +29576,7 @@ pv
 eI
 hi
 II
-mC
+II
 rZ
 LU
 Bs
@@ -30185,7 +30088,7 @@ pv
 pv
 pv
 eI
-vm
+dB
 kP
 dB
 rZ
@@ -30444,7 +30347,7 @@ pv
 rZ
 rZ
 GA
-aw
+dB
 oM
 II
 cE
