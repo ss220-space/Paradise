@@ -248,6 +248,7 @@
 	// Create the status effect with our mob + our arguments
 	var/datum/status_effect/new_instance = new new_effect(arguments)
 	if(!QDELETED(new_instance))
+		SEND_SIGNAL(src, COMSIG_LIVING_GAINED_STATUS_EFFECT, new_instance)
 		return new_instance
 
 
@@ -265,6 +266,7 @@
 	. = FALSE
 	for(var/datum/status_effect/existing_effect as anything in status_effects)
 		if(existing_effect.id == initial(removed_effect.id) && existing_effect.before_remove(arglist(arguments)))
+			SEND_SIGNAL(src, COMSIG_LIVING_EARLY_LOST_STATUS_EFFECT, existing_effect)
 			qdel(existing_effect)
 			. = TRUE
 

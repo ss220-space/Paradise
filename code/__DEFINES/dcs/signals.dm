@@ -577,6 +577,11 @@
 #define COMSIG_LIVING_RESTING "living_resting"
 ///from base of mob/update_transform()
 #define COMSIG_LIVING_POST_UPDATE_TRANSFORM "living_post_update_transform"
+/// Source: /mob/living/proc/apply_status_effect(datum/status_effect/new_instance)
+#define COMSIG_LIVING_GAINED_STATUS_EFFECT "living_gained_status_effect"
+/// Source: /mob/living/proc/remove_status_effect(datum/status_effect/existing_effect)
+#define COMSIG_LIVING_EARLY_LOST_STATUS_EFFECT "living_lost_status_effect"
+	// Called before qdel
 
 ///called on /living when someone starts pulling (atom/movable/pulled, state, force)
 #define COMSIG_LIVING_START_PULL "living_start_pull"
