@@ -57,7 +57,7 @@ This applies to all STANDARD station areas
 	outdoors = TRUE
 	ambientsounds = SPACE_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
-	there_can_be_many = TRUE
+	area_flags = UNIQUE_AREA
 
 /area/space/nearstation
 	icon_state = "space_near"
@@ -381,6 +381,7 @@ This applies to all STANDARD station areas
 /area/shuttle/supply
 	name = "Supply Shuttle"
 	icon_state = "shuttle3"
+	parallax_movedir = WEST // I dunno why lol
 
 /area/shuttle/ussp
 	name = "USSP Shuttle"
@@ -415,6 +416,14 @@ This applies to all STANDARD station areas
 /area/shuttle/pirate_corvette
 	name = "Pirate Corvette"
 	icon_state = "shuttle"
+
+/area/shuttle/transit
+	name = "Hyperspace"
+	desc = "Weeeeee"
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
+
 
 /area/airtunnel1/      // referenced in airtunnel.dm:759
 
@@ -642,7 +651,7 @@ This applies to all STANDARD station areas
 /area/exploration/methlab
 	name = "Abandoned Drug Lab"
 	icon_state = "green"
-	there_can_be_many = TRUE
+	area_flags = UNIQUE_AREA
 	has_gravity = STANDARD_GRAVITY
 
 //Abductors
@@ -1835,7 +1844,7 @@ This applies to all STANDARD station areas
 	name = "Unknown Teleporter"
 	icon_state = "teleporter"
 	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
-	there_can_be_many = TRUE
+	area_flags = UNIQUE_AREA
 
 /area/toxins/explab
 	name = "E.X.P.E.R.I-MENTOR Lab"
@@ -2436,7 +2445,7 @@ This applies to all STANDARD station areas
 /area/djstation
 	name = "Ruskie DJ Station"
 	icon_state = "DJ"
-	there_can_be_many = TRUE
+	area_flags = UNIQUE_AREA
 	has_gravity = STANDARD_GRAVITY
 
 /area/djstation/solars
@@ -2559,7 +2568,7 @@ This applies to all STANDARD station areas
 /area/derelict/teleporter
 	name = "Derelict Teleporter"
 	icon_state = "teleporter"
-	there_can_be_many = TRUE
+	area_flags = UNIQUE_AREA
 
 /area/derelict/annex
 	name = "Derelict Annex"

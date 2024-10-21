@@ -83,12 +83,14 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				var/xcrd
 				var/ycrd = text2num(dmmRegex.group[4]) + y_offset - 1
 				var/zcrd = text2num(dmmRegex.group[5]) + z_offset - 1
+				var/new_z = FALSE
 
 				if(!measureOnly)
 					if(zcrd > world.maxz)
 						if(shouldCropMap)
 							continue
 						else
+							new_z = TRUE
 							GLOB.space_manager.increase_max_zlevel_to(zcrd) // create a new z_level if needed
 
 				bounds[MAP_MINX] = min(bounds[MAP_MINX], xcrdStart)
@@ -137,7 +139,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 									var/model_key = copytext(line, tpos, tpos + key_len)
 									if(!grid_models[model_key])
 										throw EXCEPTION("Undefined model key in DMM: [model_key]. Map file: [fname].")
-									parse_grid(grid_models[model_key], xcrd, ycrd, zcrd, LM)
+									parse_grid(grid_models[model_key], xcrd, ycrd, zcrd, LM, new_z)
 									// After this call, it is NOT safe to reference `dmmRegex` without another call to
 									// "Find" - we might've hit a map loader here and changed its state
 									CHECK_TICK
@@ -162,7 +164,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 			for(var/t in block(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ], bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ]))
 				var/turf/T = t
 				// we do this after we load everything in. if we don't; we'll have weird atmos bugs regarding atmos adjacent turfs
-				T.AfterChange(TRUE, keep_cabling = TRUE)
+				T.AfterChange(CHANGETURF_IGNORE_AIR|CHANGETURF_KEEP_CABLING)
 				CHECK_TICK
 		return bounds
 
@@ -184,7 +186,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
  * 4) Instanciates the atom with its variables
  *
  */
-/datum/dmm_suite/proc/parse_grid(model = "", xcrd = 0, ycrd = 0, zcrd = 0, datum/dmm_suite/loaded_map/LM)
+/datum/dmm_suite/proc/parse_grid(model = "", xcrd = 0, ycrd = 0, zcrd = 0, datum/dmm_suite/loaded_map/LM, new_z)
 	/*Method parse_grid()
 	- Accepts a text string containing a comma separated list of type paths of the
 		same construction as those contained in a .dmm file, and instantiates them.
@@ -255,7 +257,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 	// first instance the /area and remove it from the members list
 	index = members.len
-
+	var/area/old_area
 	var/turf/crds = locate(xcrd, ycrd, zcrd)
 	if(members[index] != /area/template_noop)
 		// We assume `members[index]` is an area path, as above, yes? I will operate
@@ -264,13 +266,17 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 			throw EXCEPTION("Oh no, I thought this was an area!")
 
 		GLOB._preloader.setup(members_attributes[index]) // preloader for assigning  set variables on atom creation
-		var/atom/instance = LM.area_path_to_real_area(members[index])
+		// If this parsed map doesn't have that area already, we check the global cache
+		var/area/area_instance = LM.area_path_to_real_area(members[index])
 
-		if(crds)
-			instance.contents.Add(crds)
+		if(!new_z)
+			old_area = crds.loc
+			old_area.turfs_to_uncontain += crds
+			area_instance.contained_turfs.Add(crds)
+		area_instance.contents.Add(crds)
 
-		if(GLOB.use_preloader && instance)
-			GLOB._preloader.load(instance)
+		if(GLOB.use_preloader && area_instance)
+			GLOB._preloader.load(area_instance)
 
 	// then instance the /turf and, if multiple tiles are presents, simulates the DMM underlays piling effect
 
@@ -480,22 +486,25 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 // yet have a single area type for use of mapping, instead of creating
 // a new area type for each new ruin
 /datum/dmm_suite/loaded_map
-	var/list/area_list = list()
+	/// List of area types we've loaded AS A PART OF THIS MAP
+	/// We do this to allow non unique areas, so we'll only load one per map
+	var/list/area/loaded_areas = list()
 	var/index = 1 // To store the state of the regex
 
 /datum/dmm_suite/loaded_map/proc/area_path_to_real_area(area/A)
-	if(!ispath(A, /area))
-		throw EXCEPTION("Wrong argument to `area_path_to_real_area`")
+	var/area/area_instance = loaded_areas[A]
+	if(!area_instance)
+		var/area_type = A
+		// If this parsed map doesn't have that area already, we check the global cache
+		area_instance = GLOB.areas_by_type[area_type]
+		// If the global list DOESN'T have this area it's either not a unique area, or it just hasn't been created yet
+		if (!area_instance)
+			area_instance = new area_type(null)
+			if(!area_instance)
+				CRASH("[area_type] failed to be new'd, what'd you do?")
+		loaded_areas[area_type] = area_instance
 
-	if(!(A in area_list))
-		if(initial(A.there_can_be_many))
-			area_list[A] = new A
-		else
-			if(!GLOB.all_unique_areas[A])
-				GLOB.all_unique_areas[A] = new A // No locate here else it will find a subtype of the one we're looking for
-			area_list[A] = GLOB.all_unique_areas[A]
-
-	return area_list[A]
+	return area_instance
 
 /area/template_noop
 	name = "Area Passthrough"

@@ -612,8 +612,8 @@
 		if(M.reagents.get_reagent_amount("thc") <= 20)
 			M.Drowsy(20 SECONDS)
 	if(prob(25))
-		update_flags |= M.adjustBruteLoss(-2, FALSE)
-		update_flags |= M.adjustFireLoss(-2, FALSE)
+		update_flags |= M.adjustBruteLoss(-2, FALSE, affect_robotic = FALSE)
+		update_flags |= M.adjustFireLoss(-2, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 

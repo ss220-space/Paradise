@@ -42,7 +42,7 @@
 
 
 /datum/game_mode/antag_paradise/process()
-	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return PROCESS_KILL
 
 	if(!COOLDOWN_STARTED(src, antag_making_cooldown) || !COOLDOWN_FINISHED(src, antag_making_cooldown))

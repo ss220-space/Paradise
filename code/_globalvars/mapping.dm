@@ -1,8 +1,3 @@
-#define Z_NORTH 1
-#define Z_EAST 2
-#define Z_SOUTH 3
-#define Z_WEST 4
-
 GLOBAL_LIST_INIT(cardinal, list(NORTH, SOUTH, EAST, WEST))
 GLOBAL_LIST_INIT(diagonals, list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
 GLOBAL_LIST_INIT(alldirs, list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
@@ -27,6 +22,15 @@ GLOBAL_LIST(global_map) // This is the array of zlevels | list(list(1,5),list(4,
 	//4 - Derelict
 	//3 - AI satellite
 	//5 - empty space
+
+/// Just a list of all the area objects in the game
+/// Note, areas can have duplicate types
+GLOBAL_LIST_EMPTY(areas)
+/// Used by jump-to-area etc. Updated by area/updateName()
+/// If this is null, it needs to be recalculated. Use get_sorted_areas() as a getter please
+GLOBAL_LIST_EMPTY(sortedAreas)
+/// An association from typepath to area instance. Only includes areas with `unique` set.
+GLOBAL_LIST_EMPTY_TYPED(areas_by_type, /area)
 
 GLOBAL_LIST_EMPTY(wizardstart)
 GLOBAL_LIST_EMPTY(newplayer_start)

@@ -16,7 +16,7 @@
 	name = "shuttle ceiling plating"
 	var/old_turf_type = /turf/simulated/openspace // set to this one, if getting oldtype got ruined somehow
 
-/turf/simulated/floor/engine/hull/ceiling/AfterChange(ignore_air, keep_cabling, oldType)
+/turf/simulated/floor/engine/hull/ceiling/AfterChange(flags, oldType)
 	. = ..()
 	old_turf_type = oldType
 

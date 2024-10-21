@@ -29,8 +29,8 @@
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(!isvampire(M))
-		update_flags |= M.adjustBruteLoss(-brute_heal, FALSE)
-		update_flags |= M.adjustFireLoss(-burn_heal, FALSE)
+		update_flags |= M.adjustBruteLoss(-brute_heal, FALSE, affect_robotic = FALSE)
+		update_flags |= M.adjustFireLoss(-burn_heal, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/nutriment/on_new(list/supplied_data)
@@ -490,8 +490,8 @@
 		else
 			if(H.job == JOB_TITLE_CHEF)
 				if(prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
-					update_flags |= H.adjustBruteLoss(-1, FALSE)
-					update_flags |= H.adjustFireLoss(-1, FALSE)
+					update_flags |= H.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
+					update_flags |= H.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/sprinkles
@@ -504,8 +504,8 @@
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && (M.job in list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_JUDGE)))
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/cornoil
@@ -686,8 +686,8 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.reagents.add_reagent("sugar", 3)
 	if(prob(20))
-		update_flags |= M.adjustBruteLoss(-3, FALSE)
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-3, FALSE, affect_robotic = FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/onion
@@ -743,8 +743,8 @@
 		if(M.mind.special_role == SPECIAL_ROLE_WIZARD || M.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
 			update_flags |= M.adjustToxLoss(-0.5, FALSE)
 			update_flags |= M.adjustOxyLoss(-0.5, FALSE)
-			update_flags |= M.adjustBruteLoss(-0.5, FALSE)
-			update_flags |= M.adjustFireLoss(-0.5, FALSE)
+			update_flags |= M.adjustBruteLoss(-0.5, FALSE, affect_robotic = FALSE)
+			update_flags |= M.adjustFireLoss(-0.5, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/porktonium
@@ -962,8 +962,8 @@
 /datum/reagent/msg/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(istype(M.mind?.martial_art, /datum/martial_art/mr_chang))
-		update_flags |= M.adjustBruteLoss(-0.75)
-		update_flags |= M.adjustFireLoss(-0.75)
+		update_flags |= M.adjustBruteLoss(-0.75, affect_robotic = FALSE)
+		update_flags |= M.adjustFireLoss(-0.75, affect_robotic = FALSE)
 	else
 		if(prob(5))
 			if(prob(10))
@@ -1138,8 +1138,8 @@
 /datum/reagent/consumable/vitfro/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(80))
-		update_flags |= M.adjustBruteLoss(-0.5, FALSE)
-		update_flags |= M.adjustFireLoss(-0.5, FALSE)
+		update_flags |= M.adjustBruteLoss(-0.5, FALSE, affect_robotic = FALSE)
+		update_flags |= M.adjustFireLoss(-0.5, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/animal_feed
@@ -1153,8 +1153,8 @@
 /datum/reagent/consumable/animal_feed/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(isvulpkanin(M) || istajaran(M))
-		update_flags |= M.adjustBruteLoss(-0.25, FALSE)
-		update_flags |= M.adjustFireLoss(-0.25, FALSE)
+		update_flags |= M.adjustBruteLoss(-0.25, FALSE, affect_robotic = FALSE)
+		update_flags |= M.adjustFireLoss(-0.25, FALSE, affect_robotic = FALSE)
 		M.AdjustDisgust(-5 SECONDS)
 		if(prob(2))
 			to_chat(M, span_notice("You feel delicious yummy snack taste!"))

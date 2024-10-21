@@ -430,7 +430,10 @@
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
 	else if(direction & (UP|DOWN))
-		var/turf/above = GET_TURF_ABOVE(loc)
+		var/turf/T = get_turf(loc)
+		if(!isturf(T))
+			return
+		var/turf/above = GET_TURF_ABOVE(T)
 		if(!(direction & UP) || !can_z_move(DOWN, above, null, ZMOVE_FALL_FLAGS|ZMOVE_CAN_FLY_CHECKS|ZMOVE_FEEDBACK, occupant))
 			if(zMove(direction, z_move_flags = ZMOVE_FLIGHT_FLAGS))
 				playsound(src, stepsound, 40, 1)

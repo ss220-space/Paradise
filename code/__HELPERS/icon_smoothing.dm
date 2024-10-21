@@ -346,13 +346,13 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 			var/turned_adjacency = REVERSE_DIR(junction_dir)
 			var/turf/neighbor_turf = get_step(src, turned_adjacency & (NORTH|SOUTH))
 			var/mutable_appearance/underlay_appearance = mutable_appearance(layer = TURF_LAYER, offset_spokesman = src, plane = FLOOR_PLANE)
-			if(!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
+			if(!neighbor_turf?.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
 				neighbor_turf = get_step(src, turned_adjacency & (EAST|WEST))
 
-				if(!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
+				if(!neighbor_turf?.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
 					neighbor_turf = get_step(src, turned_adjacency)
 
-					if(!neighbor_turf.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
+					if(!neighbor_turf?.get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency))
 						if(!get_smooth_underlay_icon(underlay_appearance, src, turned_adjacency)) //if all else fails, ask our own turf
 							underlay_appearance.icon = DEFAULT_UNDERLAY_ICON
 							underlay_appearance.icon_state = DEFAULT_UNDERLAY_ICON_STATE
