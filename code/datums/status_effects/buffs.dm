@@ -790,7 +790,7 @@
 	duration = 0 SECONDS, 
 	temp_step = 5,
 	sleep_delay = 5 SECONDS,
-	sleep_time = 30 SECONDS
+	sleep_time = 20 SECONDS
 	)
 	src.duration = duration
 	src.temp_step = temp_step

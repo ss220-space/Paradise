@@ -106,6 +106,7 @@
 /obj/item/organ/internal/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return
+		
 	switch(severity)
 		if(1)
 			internal_receive_damage(20, silent = TRUE)

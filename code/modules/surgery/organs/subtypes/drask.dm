@@ -11,6 +11,7 @@
 	name = "drask heart"
 	icon = 'icons/obj/species_organs/drask.dmi'
 	parent_organ_zone = BODY_ZONE_HEAD
+	organ_actions = list(/datum/action/innate/drask_coma)
 
 /obj/item/organ/internal/liver/drask
 	species_type = /datum/species/drask
@@ -18,18 +19,6 @@
 	icon = 'icons/obj/species_organs/drask.dmi'
 	icon_state = "kidneys"
 	alcohol_intensity = 0.8
-
-/datum/action/innate/drask_coma
-	name = "Enter coma"
-	check_flags = AB_CHECK_CONSCIOUS
-	organ_actions = list(/datum/action/innate/drask_coma)
-
-/datum/action/innate/drask_coma/activate()
-	if(owner.has_status_effect(STATUS_EFFECT_DRASK_COMA))
-		owner.remove_status_effect(STATUS_EFFECT_DRASK_COMA)
-		return
-
-	owner.apply_status_effect(STATUS_EFFECT_DRASK_COMA)
 
 /obj/item/organ/internal/brain/drask
 	species_type = /datum/species/drask
@@ -44,3 +33,28 @@
 	icon = 'icons/obj/species_organs/drask.dmi'
 	desc = "Drask eyes. They look even stranger disembodied."
 	see_in_dark = 5
+
+/datum/action/innate/drask_coma
+	name = "Enter coma"
+	desc = "Постепенно останавливает метаболизм, понижает температуру тела и заставляет уснуть на некоторое время."
+
+	check_flags = AB_CHECK_CONSCIOUS
+
+	button_icon = 'icons/obj/species_organs/drask.dmi'
+	button_icon_state = "heart_on"
+
+/datum/action/innate/drask_coma/activate()
+	. = TRUE
+
+	if(owner.has_status_effect(STATUS_EFFECT_DRASK_COMA))
+		owner.remove_status_effect(STATUS_EFFECT_DRASK_COMA)
+		. = FALSE
+
+	if(.)
+		owner.apply_status_effect(STATUS_EFFECT_DRASK_COMA)
+
+	UpdateButtonIcon()
+
+/datum/action/innate/drask_coma/UpdateButtonIcon()
+	button_icon_state = owner.has_status_effect(STATUS_EFFECT_DRASK_COMA) ? "heart_off" : initial(button_icon_state)
+	return ..()
