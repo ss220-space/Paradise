@@ -308,6 +308,7 @@
 
 /datum/ritual/ashwalker/summon_ashstorm/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -378,7 +379,7 @@
 
 	return .
 
-/datum/ritual/ashwalker/transform_ritual
+/datum/ritual/ashwalker/transformation
 	name = "Transformation ritual"
 	disaster_prob = 30
 	fail_chance = 50
@@ -392,7 +393,7 @@
 		/mob/living/carbon/human = 1
 	)
 
-/datum/ritual/ashwalker/transform_ritual/do_ritual(mob/living/carbon/human/invoker)
+/datum/ritual/ashwalker/transformation/do_ritual(mob/living/carbon/human/invoker)
 	var/mob/living/carbon/human/human = locate() in used_things
 
 	if(!human || !human.mind || !human.ckey)
@@ -403,13 +404,13 @@
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/transform_ritual/disaster(mob/living/carbon/human/invoker)
+/datum/ritual/ashwalker/transformation/disaster(mob/living/carbon/human/invoker)
 	invoker.adjustBrainLoss(15)
 	invoker.SetKnockdown(5 SECONDS)
 	
 	var/mob/living/carbon/human/human = locate() in used_things
 
-	if(!human)
+	if(QDELETED(human))
 		return
 
 	var/list/destinations = list()
@@ -418,9 +419,11 @@
 		LAZYADD(destinations, get_turf(beacon))
 
 	human.forceMove(safepick(destinations))
+	playsound(get_turf(human), 'sound/magic/invoke_general.ogg', 50, TRUE)
+
 	return
 
-/datum/ritual/ashwalker/transform_ritual/handle_ritual_object(bitflags, silent = FALSE)
+/datum/ritual/ashwalker/transformation/handle_ritual_object(bitflags, silent = FALSE)
 	. = ..(bitflags, TRUE)
 
 	if(. == RITUAL_ENDED)
