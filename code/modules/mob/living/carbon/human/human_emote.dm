@@ -518,56 +518,6 @@
 	return ..()
 
 
-/datum/emote/living/carbon/human/fart
-	key = "fart"
-	key_third_person = "farts"
-	message = list("перд%(ит,ят)%.", "пуска%(ет,ют)% газы.")
-	message_mime = "туж%(ит,ат)%ся, а затем довольно расслабля%(ет,ют)%ся."
-	message_postfix = ", смотря на %t."
-	message_param = EMOTE_PARAM_USE_POSTFIX
-	emote_type = EMOTE_AUDIBLE
-	vary = TRUE
-	audio_cooldown = 1 MINUTES
-	cooldown = 10 SECONDS
-	species_type_blacklist_typecache = list(/datum/species/machine)
-	// Credits: Ultimate Fart Series
-	// https://freesound.org/people/Jagadamba
-	sound = list(
-		'sound/effects/mob_effects/fart1.ogg',
-		'sound/effects/mob_effects/fart2.ogg',
-		'sound/effects/mob_effects/fart3.ogg',
-		'sound/effects/mob_effects/fart4.ogg',
-		'sound/effects/mob_effects/fart5.ogg',
-		'sound/effects/mob_effects/fart6.ogg',
-	)
-
-
-/datum/emote/living/carbon/human/fart/run_emote(mob/user, params, type_override, intentional)
-	var/farted_on_something = FALSE
-	for(var/atom/check in get_turf(user))
-		var/fart_act = check.fart_act(user)
-		if(fart_act)
-			farted_on_something = TRUE
-	if(!farted_on_something)
-		if(user.mind?.assigned_role == JOB_TITLE_CLOWN && prob(30))
-			confettigibs(user)
-		return ..()
-
-
-/datum/emote/living/carbon/human/fart/get_volume(mob/living/user)
-	if(prob(5))	// critical success!
-		return rand(150, 250)
-	return rand(30, 100)
-
-
-/datum/emote/living/carbon/human/fart/machine
-	message = "изда%(ёт,ют)% звук пердежа."
-	message_mime = "беззвучно выпуска%(ет,ют)% облачко пара."
-	species_type_whitelist_typecache = list(/datum/species/machine)
-	species_type_blacklist_typecache = null
-	sound = 'sound/effects/mob_effects/fart_IPC.ogg'
-
-
 /datum/emote/living/carbon/sign/signal
 	key = "signal"
 	key_third_person = "signals"

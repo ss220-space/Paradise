@@ -39,17 +39,6 @@
 	return OBLITERATION
 
 
-/obj/item/storage/bible/fart_act(mob/living/user)
-	if(QDELETED(user) || user.stat == DEAD)
-		return FALSE
-	user.visible_message(span_danger("[user] farts on \the [name]!"))
-	user.visible_message(span_userdanger("A mysterious force smites [user]!"))
-	user.suiciding = TRUE
-	do_sparks(3, 1, user)
-	user.gib()
-	return TRUE // Don't run the fart emote
-
-
 /obj/item/storage/bible/booze
 	name = "bible"
 	desc = "To be applied to the head repeatedly."
