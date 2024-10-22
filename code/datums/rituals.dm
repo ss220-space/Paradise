@@ -266,6 +266,7 @@
 
 /datum/ritual/ashwalker/check_invokers(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -302,9 +303,7 @@
 	fail_chance = 20
 	extra_invokers = 2
 	required_things = list(
-		/mob/living/simple_animal/hostile/asteroid/goldgrub = 2,
-		/mob/living/simple_animal/hostile/asteroid/goliath = 1,
-		/obj/item/candle = 1
+		/mob/living/simple_animal/hostile/asteroid/goldgrub = 1
 	)
 
 /datum/ritual/ashwalker/summon_ashstorm/check_contents(mob/living/carbon/human/invoker)
@@ -321,6 +320,7 @@
 
 /datum/ritual/ashwalker/summon_ashstorm/del_things()
 	. = ..()
+
 	for(var/mob/living/living in used_things)
 		living.gib()
 
@@ -328,6 +328,7 @@
 
 /datum/ritual/ashwalker/summon_ashstorm/check_invokers(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -350,6 +351,7 @@
 
 /datum/ritual/ashwalker/summon_ashstorm/disaster(mob/living/carbon/human/invoker)
 	var/list/targets = list()
+
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
 		if(isashwalker(human))
 			LAZYADD(targets, human)
@@ -365,6 +367,7 @@
 
 /datum/ritual/ashwalker/summon_ashstorm/handle_ritual_object(bitflags, silent = FALSE)
 	. = ..(bitflags, TRUE)
+
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/magic/fleshtostone.ogg', 50, TRUE)
@@ -375,8 +378,8 @@
 
 	return .
 
-/datum/ritual/ashwalker/mind_transfer
-	name = "Mind transfer"
+/datum/ritual/ashwalker/transform_ritual
+	name = "Transformation ritual"
 	disaster_prob = 30
 	fail_chance = 50
 	extra_invokers = 1
@@ -389,31 +392,37 @@
 		/mob/living/carbon/human = 1
 	)
 
-/datum/ritual/ashwalker/mind_transfer/do_ritual(mob/living/carbon/human/invoker)
+/datum/ritual/ashwalker/transform_ritual/do_ritual(mob/living/carbon/human/invoker)
 	var/mob/living/carbon/human/human = locate() in used_things
 
 	if(!human || !human.mind || !human.ckey)
 		return RITUAL_FAILED_ON_PROCEED // Your punishment
 
-	var/obj/effect/proc_holder/spell/mind_transfer/transfer = new
-	
-	if(!transfer.cast(human, invoker))
-		return RITUAL_FAILED_ON_PROCEED
+	human.set_species(/datum/species/unathi/ashwalker)
+	human.mind.store_memory("Теперь вы пеплоходец, вы часть племени! Вы довольно смутно помните о прошлой жизни, и вы не помните, как пользоваться технологиями!")
 
-	message_admins("[key_name(human)] accomplished mindtransfer ritual on [key_name(invoker)]")
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/mind_transfer/disaster(mob/living/carbon/human/invoker)
-	invoker.apply_damage(rand(10, 30), spread_damage = TRUE)
-	invoker.emote("scream")
+/datum/ritual/ashwalker/transform_ritual/disaster(mob/living/carbon/human/invoker)
+	invoker.adjustBrainLoss(15)
+	invoker.SetKnockdown(5 SECONDS)
+	
+	var/mob/living/carbon/human/human = locate() in used_things
 
-	if(prob(5))
-		new /obj/item/organ/internal/legion_tumour(invoker)
+	if(!human)
+		return
 
+	var/list/destinations = list()
+
+	for(var/obj/item/radio/beacon/beacon in GLOB.global_radios)
+		LAZYADD(destinations, get_turf(beacon))
+
+	human.forceMove(safepick(destinations))
 	return
 
-/datum/ritual/ashwalker/mind_transfer/handle_ritual_object(bitflags, silent = FALSE)
+/datum/ritual/ashwalker/transform_ritual/handle_ritual_object(bitflags, silent = FALSE)
 	. = ..(bitflags, TRUE)
+
 	if(. == RITUAL_ENDED)
 		playsound(ritual_object.loc, 'sound/effects/clone_jutsu.ogg', 50, TRUE)
 		return
@@ -429,26 +438,11 @@
 	cooldown_after_cast = 900 SECONDS
 	cast_time = 50 SECONDS
 	extra_invokers = 1
-	required_things = list(
-		/obj/item/stack/sheet/sinew = 3,
-		/obj/item/organ/internal/regenerative_core = 1,
-		/obj/item/stack/sheet/animalhide/goliath_hide = 1
-	)
-
-/datum/ritual/ashwalker/summon/del_things()
-	var/obj/item/stack/sheet/sinew/sinew = locate() in used_things
-	var/obj/item/stack/sheet/animalhide/goliath_hide/hide = locate() in used_things
-	var/obj/item/organ/internal/regenerative_core/core = locate() in used_things
-
-	sinew.use(3)
-	hide.use(1)
-	qdel(core)
-
-	return
 
 /datum/ritual/ashwalker/summon/do_ritual(mob/living/carbon/human/invoker)
 	var/list/ready_for_summoning = list()
-	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
+
+	for(var/mob/living/carbon/human/human in GLOB.mob_list)
 		if(isashwalker(human))
 			LAZYADD(ready_for_summoning, human)
 
@@ -456,14 +450,24 @@
 		return RITUAL_FAILED_ON_PROCEED
 
 	var/mob/living/carbon/human/human = tgui_input_list(invoker, "Who will be summoned?", "Summon ritual", ready_for_summoning)
+
 	if(!human)
 		return RITUAL_FAILED_ON_PROCEED
 
+	LAZYADD(invokers, invoker)
+
+	for(var/mob/living/carbon/human/summoner as anything in invokers)
+		summoner.blood_volume -= (summoner.blood_volume * 0.20)
+		summoner.apply_damage(25, def_zone = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+
 	human.forceMove(ritual_object)
+	human.vomit()
+	human.Weaken(10 SECONDS)
+
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/ashwalker/summon/disaster(mob/living/carbon/human/invoker)
-	if(!prob(disaster_prob))
+	if(!prob(70))
 		return
 
 	var/obj/item/organ/external/limb = invoker.get_organ(pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
@@ -473,6 +477,7 @@
 
 /datum/ritual/ashwalker/summon/handle_ritual_object(bitflags, silent = FALSE)
 	. = ..(bitflags, TRUE)
+
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/weapons/zapbang.ogg', 50, TRUE)
@@ -507,6 +512,7 @@
 
 /datum/ritual/ashwalker/curse/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -560,7 +566,6 @@
 	shaman_only = TRUE
 	extra_invokers = 4
 	required_things = list(
-		/mob/living/carbon/human = 5,
 		/mob/living/simple_animal/hostile/asteroid/goliath = 3,
 		/obj/item/organ/internal/regenerative_core = 3
 	)
@@ -573,6 +578,7 @@
 
 /datum/ritual/ashwalker/power/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -581,16 +587,16 @@
 			to_chat(invoker, "Существа должны быть мертвы.")
 			return FALSE
 
-	for(var/mob/living/carbon/human/human in used_things)
-		if(!isashwalker(human))
-			to_chat(invoker, "Гуманоиды должны быть пеплоходцами.")
-			return FALSE
-
 	return TRUE
 
 /datum/ritual/ashwalker/power/do_ritual(mob/living/carbon/human/invoker)
-	var/mob/living/carbon/human/human = pick(invokers)
-	human.force_gene_block(GLOB.hulkblock, TRUE)
+	LAZYADD(invokers, invoker)
+
+	for(var/mob/living/carbon/human/human as anything in invokers)
+		if(LAZYIN(human.dna?.default_blocks, GLOB.weakblock))
+			human.force_gene_block(GLOB.weakblock)
+
+		human.force_gene_block(GLOB.strongblock, TRUE)
 
 	return RITUAL_SUCCESSFUL
 
@@ -615,6 +621,7 @@
 
 /datum/ritual/ashwalker/power/handle_ritual_object(bitflags, silent =  FALSE)
 	. = ..(bitflags, TRUE)
+
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/magic/castsummon.ogg', 50, TRUE)
@@ -625,38 +632,25 @@
 
 	return .
 
-/datum/ritual/ashwalker/cure
-	name = "Cure ritual"
+/datum/ritual/ashwalker/resurrection
+	name = "Resurrection ritual"
 	charges = 3
 	extra_invokers = 2
 	cooldown_after_cast = 180 SECONDS
 	cast_time = 100 SECONDS
+	shaman_only = TRUE
+	disaster_prob = 25
+	fail_chance = 35
 	required_things = list(
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher = 1,
-		/mob/living/simple_animal/hostile/asteroid/goliath = 3,
-		/obj/item/organ/internal/regenerative_core = 3
+		/obj/item/organ/internal/regenerative_core = 2,
+		/mob/living/carbon/human = 1,
+		/obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom = 4,
+		/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit = 1
 	)
 
-/datum/ritual/ashwalker/cure/del_things()
+/datum/ritual/ashwalker/resurrection/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
-	for(var/mob/living/living in used_things)
-		living.gib()
 
-	return
-
-/datum/ritual/ashwalker/cure/check_invokers(mob/living/carbon/human/invoker)
-	. = ..()
-	if(!.)
-		return FALSE
-
-	if(!isashwalkershaman(invoker))
-		fail_chance = 50
-		disaster_prob = 50
-
-	return TRUE
-
-/datum/ritual/ashwalker/cure/check_contents(mob/living/carbon/human/invoker)
-	. = ..()
 	if(!.)
 		return FALSE
 
@@ -665,36 +659,35 @@
 			to_chat(invoker, "Существа должны быть мертвы.")
 			return FALSE
 
+	var/mob/living/carbon/human/human = locate() in used_things
+
+	if(!human.mind || !human.ckey)
+		return FALSE
+
+	if(!isashwalker(human))
+		fail_chance = 15
+
 	return TRUE
 
-/datum/ritual/ashwalker/cure/do_ritual(mob/living/carbon/human/invoker)
-	for(var/mob/living/carbon/human/human in range(finding_range, ritual_object))
-		if(!isashwalker(human) || human.stat == DEAD)
-			continue
-
-		human.reagents.add_reagent("nutriment", 15)
-		human.adjustBrainLoss(-20)
-		human.adjustBruteLoss(-100)
-		human.adjustToxLoss(-30)
-		human.remove_all_parasites()
-		for(var/datum/disease/disease in human.diseases)
-			disease.cure()
+/datum/ritual/ashwalker/resurrection/do_ritual(mob/living/carbon/human/invoker)
+	var/mob/living/carbon/human/human = locate() in used_things
+	human.revive()
+	human.adjustBrainLoss(20)
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/cure/disaster(mob/living/carbon/human/invoker)
+/datum/ritual/ashwalker/resurrection/disaster(mob/living/carbon/human/invoker)
 	for(var/mob/living/carbon/human/human in range(10, ritual_object))
-		if(!isashwalker(human) || human.stat == DEAD || !prob(disaster_prob))
+		if(!isashwalker(human) || human.stat == DEAD)
 			continue
 
-		var/datum/disease/appendicitis/disease = new
-		disease.Contract(human)
-		human.adjustBrainLoss(20)
+		human.adjustBrainLoss(15)
 
 	return
 
-/datum/ritual/ashwalker/cure/handle_ritual_object(bitflags, silent =  FALSE)
+/datum/ritual/ashwalker/resurrection/handle_ritual_object(bitflags, silent =  FALSE)
 	. = ..(bitflags, TRUE)
+
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/magic/clockwork/reconstruct.ogg', 50, TRUE)
@@ -723,6 +716,7 @@
 
 /datum/ritual/ashwalker/recharge/del_things()
 	. = ..()
+
 	for(var/mob/living/living in used_things)
 		living.gib()
 
@@ -730,6 +724,7 @@
 
 /datum/ritual/ashwalker/recharge/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -742,6 +737,7 @@
 
 /datum/ritual/ashwalker/recharge/do_ritual(mob/living/carbon/human/invoker)
 	var/datum/component/ritual_object/component = ritual_object.GetComponent(/datum/component/ritual_object)
+
 	if(!component)
 		return RITUAL_FAILED_ON_PROCEED
 
@@ -773,6 +769,7 @@
 
 /datum/ritual/ashwalker/recharge/handle_ritual_object(bitflags, silent =  FALSE)
 	. = ..(bitflags, TRUE)
+
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/magic/castsummon.ogg', 50, TRUE)
@@ -786,15 +783,22 @@
 /datum/ritual/ashwalker/population
 	name = "Population ritual"
 	extra_invokers = 2
+	charges = 1
 	cooldown_after_cast = 120 SECONDS
 	cast_time = 40 SECONDS
 	ritual_should_del_things_on_fail = TRUE
 	required_things = list(
-		/mob/living = 7
+		/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit = 1,
+		/obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom = 1,
+		/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_stem = 1,
+		/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf = 1,
+		/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap = 1,
+		/obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings = 1
 	)
 
 /datum/ritual/ashwalker/population/check_invokers(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -812,6 +816,7 @@
 
 /datum/ritual/ashwalker/population/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -823,10 +828,7 @@
 	return TRUE
 
 /datum/ritual/ashwalker/population/do_ritual(mob/living/carbon/human/invoker)
-	if(prob(10))
-		new /obj/effect/mob_spawn/human/ash_walker/shaman(ritual_object.loc)
-
-	new /obj/effect/mob_spawn/human/ash_walker(ritual_object.loc)
+	new /obj/effect/mob_spawn/human/ash_walker/shaman(ritual_object.loc)
 
 	return RITUAL_SUCCESSFUL
 
@@ -849,6 +851,7 @@
 
 /datum/ritual/ashwalker/population/handle_ritual_object(bitflags, silent =  FALSE)
 	. = ..(bitflags, TRUE)
+
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/magic/demon_consume.ogg', 50, TRUE)
@@ -874,6 +877,7 @@
 
 /datum/ritual/ashwalker/soul/check_invokers(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -894,6 +898,7 @@
 
 /datum/ritual/ashwalker/soul/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -929,6 +934,7 @@
 
 /datum/ritual/ashwalker/soul/handle_ritual_object(bitflags, silent =  FALSE)
 	. = ..(bitflags, TRUE)
+
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/effects/whoosh.ogg', 50, TRUE)
@@ -949,6 +955,7 @@
 
 /datum/ritual/ashwalker/transmutation/check_invokers(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -987,6 +994,7 @@
 
 /datum/ritual/ashwalker/transmutation/handle_ritual_object(bitflags, silent =  FALSE)
 	. = ..(bitflags, TRUE)
+
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/effects/bin_close.ogg', 50, TRUE)
@@ -1008,6 +1016,7 @@
 
 /datum/ritual/ashwalker/interrogation/check_invokers(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -1019,6 +1028,7 @@
 
 /datum/ritual/ashwalker/interrogation/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -1060,6 +1070,7 @@
 
 /datum/ritual/ashwalker/interrogation/handle_ritual_object(bitflags, silent =  FALSE)
 	. = ..(bitflags, TRUE)
+
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/effects/anvil_start.ogg', 50, TRUE)
@@ -1082,6 +1093,7 @@
 
 /datum/ritual/ashwalker/creation/check_invokers(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -1094,6 +1106,7 @@
 
 /datum/ritual/ashwalker/creation/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -1132,6 +1145,7 @@
 
 /datum/ritual/ashwalker/creation/handle_ritual_object(bitflags, silent =  FALSE)
 	. = ..(bitflags, TRUE)
+
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/magic/demon_consume.ogg', 50, TRUE)
@@ -1146,14 +1160,18 @@
 	name = "Command ritual"
 	cooldown_after_cast = 150 SECONDS
 	shaman_only = TRUE
+	disaster_prob = 35
 	extra_invokers = 1
 	cast_time = 60 SECONDS
 	required_things = list(
-		/mob/living/simple_animal = 1
+		/mob/living/simple_animal = 1,
+		/obj/item/organ/internal/regenerative_core = 1,
+		/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg = 1
 	)
 
 /datum/ritual/ashwalker/command/check_contents(mob/living/carbon/human/invoker)
 	. = ..()
+
 	if(!.)
 		return FALSE
 
@@ -1175,7 +1193,7 @@
 /datum/ritual/ashwalker/command/do_ritual(mob/living/carbon/human/invoker)
 	var/mob/living/simple_animal/animal = locate() in used_things
 	
-	if(!animal || QDELETED(animal))
+	if(QDELETED(animal))
 		return RITUAL_FAILED_ON_PROCEED
 
 	animal.faction = invoker.faction
@@ -1193,6 +1211,7 @@
 	animal.maxHealth = max(animal.maxHealth, 200)
 	animal.del_on_death = FALSE
 	animal.master_commander = invoker
+
 	animal.mind.store_memory("<B>Мой хозяин [invoker.name], выполню [genderize_ru(invoker.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
 	to_chat(animal, chat_box_green("Вы - раб пеплоходцев. Всегда подчиняйтесь и помогайте им."))
 	add_game_logs("стал питомцем игрока [key_name(invoker)]", animal)
@@ -1210,15 +1229,17 @@
 		var/datum/effect_system/smoke_spread/smoke = new
 		smoke.set_up(5, FALSE, get_turf(human.loc))
 		smoke.start()
-		human.SetKnockdown(10 SECONDS)
-		var/turf/turf = human.loc
-		new /obj/effect/hotspot(turf)
-		turf.hotspot_expose(700, 50, 1)
+		
+	var/mob/living/simple_animal/mob = locate() in used_things
+	qdel(mob)
+
+	new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(get_turf(ritual_object))
 
 	return
 
 /datum/ritual/ashwalker/command/handle_ritual_object(bitflags, silent = FALSE)
 	. = ..(bitflags, TRUE)
+
 	switch(.)
 		if(RITUAL_ENDED)
 			playsound(ritual_object.loc, 'sound/magic/demon_consume.ogg', 50, TRUE)
