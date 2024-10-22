@@ -84,13 +84,24 @@
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_colour
 
-/datum/species/drask/on_species_gain(mob/living/carbon/human/H)
+/datum/species/drask/on_species_gain(mob/living/carbon/human/human)
 	. = ..()
-	add_verb(H, /mob/living/carbon/human/proc/emote_hum)
 
-/datum/species/drask/on_species_loss(mob/living/carbon/human/H)
+	var/datum/action/innate/drask/coma/coma = locate() in human.actions
+
+	if(!coma)
+		coma = new
+		coma.Grant(human)
+
+	add_verb(human, /mob/living/carbon/human/proc/emote_hum)
+
+/datum/species/drask/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
-	remove_verb(H, /mob/living/carbon/human/proc/emote_hum)
+
+	var/datum/action/innate/drask/coma/coma = locate() in human.actions
+	coma?.Remove(human)
+
+	remove_verb(human, /mob/living/carbon/human/proc/emote_hum)
 
 /datum/species/drask/handle_life(mob/living/carbon/human/human)
 	. = ..()
@@ -98,8 +109,16 @@
 	if(human.stat == DEAD)
 		return
 
-	var/datum/reagent/reagent = GLOB.chemical_reagents_list[exotic_blood]
-	reagent.on_mob_life(human)
+	if(human.bodytemperature < TCRYO)
+		var/update = NONE
+		update |= human.heal_overall_damage(2, 4, updating_health = FALSE)
+		update |= human.heal_damages(tox = 0.5, oxy = 2, clone = 1, updating_health = FALSE)
+
+		if(update)
+			human.updatehealth()
+
+		var/obj/item/organ/external/head/head = human.get_organ(BODY_ZONE_HEAD)
+		head?.undisfigure()
 
 /datum/species/drask/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	switch(R.id)
@@ -114,3 +133,42 @@
 			return FALSE
 			
 	return ..()
+
+/datum/action/innate/drask
+
+/datum/action/innate/drask/Grant(mob/user)
+	. = ..()
+
+	if(!. && !isdrask(user))
+		return FALSE
+
+	return .
+
+/datum/action/innate/drask/coma
+	name = "Enter coma"
+	desc = "Постепенно вводит в состояние комы, понижает температуру тела. Повторная активация способности позволит прервать вход в кому, либо выйти из нее."
+
+	button_icon_state = "heal"
+
+	COOLDOWN_DECLARE(wake_up_cooldown)
+
+/datum/action/innate/drask/coma/Activate()
+	var/mob/living/living = owner
+
+	if(!living.has_status_effect(STATUS_EFFECT_DRASK_COMA))
+		if(!do_after(living, 5 SECONDS, living, ALL, cancel_on_max = TRUE, max_interact_count = 1))
+			return
+
+		living.apply_status_effect(STATUS_EFFECT_DRASK_COMA)
+		COOLDOWN_START(src, wake_up_cooldown, 10 SECONDS)
+
+		return
+
+	if(!COOLDOWN_FINISHED(src, wake_up_cooldown))
+		to_chat(living, span_warning("Вы не можете пробудиться сейчас."))
+		return
+
+	if(!do_after(living, 10 SECONDS, living, ALL, cancel_on_max = TRUE, max_interact_count = 1))
+		return
+
+	living.remove_status_effect(STATUS_EFFECT_DRASK_COMA)

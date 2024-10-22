@@ -168,8 +168,6 @@
 
 
 /obj/item/organ/external/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
-	. = ..()
-	
 	owner = target
 
 	forceMove(owner)

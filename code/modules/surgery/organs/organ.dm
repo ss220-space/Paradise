@@ -48,8 +48,6 @@
 	var/emp_proof = FALSE
 	/// Will it skip pain messages?
 	var/hidden_pain = FALSE
-	/// Put your spells/actions here. They will be granted if organ inserted and removed with organ removal.
-	var/list/organ_actions
 
 
 /obj/item/organ/New(mob/living/carbon/human/holder)
@@ -395,31 +393,11 @@
 		add_attack_logs(user, owner, "Removed vital organ ([src])")
 		owner.death()
 
-	if(LAZYLEN(organ_actions))
-		for(var/datum/action/action in owner.actions)
-			if(!is_type_in_list(action, organ_actions))
-				continue
-			
-			action.Remove(owner)
-
-		for(var/obj/effect/proc_holder/spell/spell in owner.mind?.spell_list)
-			if(!is_type_in_list(spell, organ_actions))
-				continue
-
-			owner.mind.RemoveSpell(spell)
-
 	owner = null
 	return src
 
 
 /obj/item/organ/proc/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
-	if(LAZYLEN(organ_actions))
-		for(var/datum/action/action in organ_actions)
-			action.Grant(target)
-
-		for(var/obj/effect/proc_holder/spell/spell in organ_actions)
-			target.mind?.AddSpell(new spell)
-
 	return
 
 

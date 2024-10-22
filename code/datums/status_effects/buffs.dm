@@ -780,6 +780,7 @@
 	tick_interval = 2 SECONDS
 	
 	var/temp_step
+	var/cached_sleep_time
 	
 /datum/status_effect/drask_coma/on_creation(
 	mob/living/new_owner, 
@@ -794,6 +795,7 @@
 /datum/status_effect/drask_coma/on_apply()
 	to_chat(owner, span_notice("Your metabolical processes are stopped."))
 
+	cached_sleep_time = world.time
 	owner.AdjustSleeping(duration)
 	RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(stat_change))
 
@@ -810,3 +812,5 @@
 
 /datum/status_effect/drask_coma/on_remove()
 	to_chat(owner, span_notice("You feel that your metabolism restored to normal state."))
+	owner.AdjustSleeping(duration - cached_sleep_time)
+	UnregisterSignal(owner, COMSIG_MOB_STATCHANGE)
