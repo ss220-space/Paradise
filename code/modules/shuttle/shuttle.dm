@@ -606,7 +606,7 @@
 	for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
 		if(S.id == roundstart_move)
 			return S
-	if(alone_shuttle)
+	if(!alone_shuttle)
 		log_runtime(EXCEPTION("couldn't find roundstart dock for \"[name]\" with id: [id]"))
 
 /obj/docking_port/mobile/proc/dockRoundstart()
