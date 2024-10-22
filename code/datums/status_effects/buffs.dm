@@ -812,5 +812,10 @@
 
 /datum/status_effect/drask_coma/on_remove()
 	to_chat(owner, span_notice("You feel that your metabolism restored to normal state."))
-	owner.AdjustSleeping(duration - cached_sleep_time)
+
+	var/elapsed_time = world.time - cached_sleep_time
+
+	if(elapsed_time < duration)
+		owner.AdjustSleeping(-(duration - elapsed_time))
+
 	UnregisterSignal(owner, COMSIG_MOB_STATCHANGE)

@@ -139,7 +139,7 @@
 /datum/action/innate/drask/Grant(mob/user)
 	. = ..()
 
-	if(!. && !isdrask(user))
+	if(!. && !isliving(user))
 		return FALSE
 
 	return .
