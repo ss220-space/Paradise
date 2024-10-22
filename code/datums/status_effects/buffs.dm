@@ -785,7 +785,7 @@
 /datum/status_effect/drask_coma/on_creation(
 	mob/living/new_owner, 
 	duration = 300 SECONDS, 
-	temp_step = 5,
+	temp_step = 10,
 	)
 	src.duration = duration
 	src.temp_step = temp_step
