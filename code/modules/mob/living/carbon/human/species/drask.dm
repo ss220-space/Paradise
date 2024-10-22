@@ -156,6 +156,9 @@
 	var/mob/living/living = owner
 
 	if(!living.has_status_effect(STATUS_EFFECT_DRASK_COMA))
+		if(living.stat)
+			return
+
 		if(!do_after(living, 5 SECONDS, living, ALL, cancel_on_max = TRUE, max_interact_count = 1))
 			return
 
