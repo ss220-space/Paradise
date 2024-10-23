@@ -16,6 +16,7 @@
 	icon_state = "earring_gold"
 	item_state = "earring_gold"
 	slot_flags = ITEM_SLOT_EARS
+	species_restricted = list(SPECIES_HUMAN, SPECIES_VOX, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_DIONA, SPECIES_DRASK, SPECIES_SLIMEPERSON, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_MOTH, SPECIES_NUCLEATION)
 
 /obj/item/clouthing/ears/earrings/Nt
 	name = "Earrings NT"
