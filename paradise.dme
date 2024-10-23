@@ -1609,6 +1609,7 @@
 #include "code\modules\antagonists\borer\borer_action.dm"
 #include "code\modules\antagonists\borer\borer_spell.dm"
 #include "code\modules\antagonists\malf_ai\malf_ai_datum.dm"
+#include "code\modules\antagonists\morph\morph_antag.dm"
 #include "code\modules\antagonists\space_dragon\action.dm"
 #include "code\modules\antagonists\space_dragon\carp.dm"
 #include "code\modules\antagonists\space_dragon\carp_rift.dm"

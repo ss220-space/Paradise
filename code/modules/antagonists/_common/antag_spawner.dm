@@ -271,7 +271,7 @@
 
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a magical morph awakened by [user.real_name]?", ROLE_MORPH, 1, 10 SECONDS, source = morph_type)
 
-	if(candidates.len > 0)
+	if(LAZYLEN(candidates))
 		var/mob/C = pick(candidates)
 		spawn_antag(C, get_turf(src.loc), initial(morph_type.name), user)
 		to_chat(user, "[shatter_msg]")
@@ -282,27 +282,22 @@
 		used = FALSE
 		to_chat(user, "<span class='notice'>The sludge does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
 
-/obj/item/antag_spawner/morph/spawn_antag(client/C, turf/T, type = "", mob/user)
-	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(pick(GLOB.xeno_spawn))
-	M.key = C.key
-	M.mind.assigned_role = SPECIAL_ROLE_MORPH
-	M.mind.special_role = SPECIAL_ROLE_MORPH
-	to_chat(M, M.playstyle_string)
-	SSticker.mode.traitors += M.mind
+/obj/item/antag_spawner/morph/spawn_antag(client/client, turf/turf, type = "", mob/user)
+	var/mob/living/simple_animal/hostile/morph/wizard/morph = new /mob/living/simple_animal/hostile/morph/wizard(pick(GLOB.xeno_spawn))
+	morph.key = client.key
+	morph.make_morph_antag(FALSE) // We'll receive MAGICAL morph objectives
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
-	KillDaWiz.owner = M.mind
+	KillDaWiz.owner = morph.mind
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
-	M.mind.objectives += KillDaWiz
+	morph.mind.objectives += KillDaWiz
 	var/datum/objective/KillDaCrew = new /datum/objective
-	KillDaCrew.owner = M.mind
+	KillDaCrew.owner = morph.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
 	KillDaCrew.completed = TRUE
-	M.mind.objectives += KillDaCrew
-	var/list/messages = M.mind.prepare_announce_objectives()
-	to_chat(M, chat_box_red(messages.Join("<br>")))
-	M << 'sound/magic/mutate.ogg'
-
+	morph.mind.objectives += KillDaCrew
+	var/list/messages = morph.mind.prepare_announce_objectives()
+	to_chat(morph, chat_box_red(messages.Join("<br>")))
 
 ///////////Pulse Demon
 
