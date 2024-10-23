@@ -353,3 +353,16 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 					probabilities[initial(M.config_tag)] = probabilities_conf[initial(M.config_tag)]
 
 	votable_modes += "secret"
+
+// mode should be instance, not a string, that means don't forget to delete mode instance once you no longer need it
+/datum/controller/configuration/proc/GetModeWeightFromInstance(datum/game_mode/mode)
+	if (!mode)
+		return 0
+
+	var/result = probabilities[mode.config_tag]
+	if (!result)
+		return 0
+	return result
+
+/datum/controller/configuration/proc/GetModesFromCache()
+	return gamemode_cache

@@ -2,3 +2,7 @@
 
 ## Enables bombarda craft.
 ENABLE_BOMBARDA_CRAFT 
+
+## Use pseudorandom system
+USE_NEW_RANDOM_SELECTION
+
