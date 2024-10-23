@@ -249,6 +249,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Теневой Демон", /datum/event/spawn_slaughter/shadow,	20, 	is_one_shot = TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Космический Дракон", /datum/event/space_dragon, 20, 						list(ASSIGNMENT_SECURITY = 4), TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Рейд ФКВ",		/datum/event/space_wizards,		30,						list(ASSIGNMENT_SECURITY = 5), TRUE),
 	)
 
 
