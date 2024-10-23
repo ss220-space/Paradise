@@ -368,23 +368,23 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/talk_into(mob/living/M as mob, list/message_pieces, channel, verbage = "says")
 	if(!on)
-		return 0 // the device has to be on
+		return FALSE // the device has to be on
 	//  Fix for permacell radios, but kinda eh about actually fixing them.
 	if(!M || !message_pieces)
-		return 0
+		return FALSE
 
 	//  Uncommenting this. To the above comment:
 	// 	The permacell radios aren't suppose to be able to transmit, this isn't a bug and this "fix" is just making radio wires useless. -Giacom
 	if(wires.is_cut(WIRE_RADIO_TRANSMIT)) // The device has to have all its wires and shit intact
-		return 0
+		return FALSE
 
-	if(!M.IsVocal())
-		return 0
+	if(!M.IsVocal()  || M.cannot_speak_loudly())
+		return FALSE
 
 	if(M.is_muzzled())
 		var/obj/item/clothing/mask/muzzle/muzzle = M.wear_mask
 		if(muzzle.radio_mute)
-			return 0
+			return FALSE
 
 	var/jammed = FALSE
 	var/turf/position = get_turf(src)
@@ -398,10 +398,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	switch(message_mode) //special cases
 		// This is if the connection fails
 		if(RADIO_CONNECTION_FAIL)
-			return 0
+			return FALSE
 		// This is if were using either a binary key, or a hivemind through a headset somehow. Dont ask.
 		if(RADIO_CONNECTION_NON_SUBSPACE)
-			return 1
+			return TRUE
 
 	if(!istype(message_mode, /datum/radio_frequency)) //if not a special case, it should be returning a radio connection
 		return
