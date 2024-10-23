@@ -161,5 +161,35 @@
   Vladisvell:
   - add: byond 1644 compat (#6041)
 '2024-10-18':
+  Arc:
+  - add: suppressor for sp91 and wt550 (#5960)
   PiroMage:
   - bugfix: 'Nova Station #8 Patch (#6033)'
+  Vladisvell:
+  - add: New map voting mode "Notriples" - next map can't be selected if played twice
+      in a row (#5452)
+'2024-10-19':
+  Valtor:
+  - bugfix: no prothesis heal from food and etc (#6055)
+'2024-10-20':
+  PiroMage:
+  - bugfix: 'Nova Station #9 Patch (#6053)'
+  Sheya:
+  - add: fake blindfold recipe (#6047)
+  Valtor:
+  - qol: Skrell New Name Generator (#6052)
+  Vladisvell:
+  - add: Instrument censorship (#6054)
+  kartowkar:
+  - bugfix: nitrilegloves onmob sprite fix (#6056)
+'2024-10-23':
+  NightDawnFox:
+  - bugfix: firemanned people are can no longer be teleported when buckled (#6058)
+  PlayerUnknown14:
+  - bugfix: bandanas cover hair (#6061)
+  Testmerge Worker:
+  - add: Experimentor relics rework (#5683) [testmerge][8c55b01]
+  - bugfix: pAI bugfixes + localization (#5874) [testmerge][eb10085]
+  - add: ASHIE UPDATE (#5875) [testmerge][46ffda3]
+  - add: health insurance (#5921) [testmerge][a4236a6]
+  - add: a lot of roboquest tweaks. (#5961) [testmerge][e01a58e]
