@@ -14,6 +14,7 @@
 			Вам предоставлен код от системы самоуничтожения станции, а также система отслеживания диска ядерной аутентификации;\n\
 			Каждый наёмник Gorlex Maraduers будет обязан помочь вам;\n\
 			Возможны помехи от агентов других корпораций - действуйте на свое усмотрение."
+	icon_state = "gorlex"
 	hij_obj = /datum/objective/nuclear/traitor
 	objectives = list(/datum/objective/assassinate/headofstaff,
 						/datum/objective/assassinate/headofstaff,

@@ -7,6 +7,7 @@
 					"Украсть определенное количество ценных вещей",
 					"Убить определенное количество еретиков")
 	slogan = "Душой и телом, с беспределом."
+	icon_state = "tiger"
 	normal_objectives = 4
 	objectives = list(
 					list(/datum/objective/steal = 40, /datum/objective/maroon = 40, /datum/objective/new_mini_changeling = 20),

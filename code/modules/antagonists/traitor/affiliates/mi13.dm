@@ -8,6 +8,7 @@
 					"Обменяться секретными документами с другим агентом",
 					"Выглядеть стильно")
 	slogan = "Да, я Бонд. Джеймс Бонд."
+	icon_state = "mi13"
 	normal_objectives = 3
 	objectives = list(
 //					/datum/objective/steal/documents,

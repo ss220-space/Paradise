@@ -12,6 +12,7 @@
 				Вас предупредили, что после инъекции вы будете продолжительное время испытывать сильный голод. \n\
 				Ваша задача - утолить этот голод.\n\
 				Возможны помехи от агентов других корпораций - действуйте на свое усмотрение."
+	icon_state = "hematogenic"
 	hij_obj = /datum/objective/blood/ascend
 	normal_objectives = 2
 	objectives = list(/datum/objective/harvest_blood,

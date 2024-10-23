@@ -15,6 +15,8 @@
 	var/can_take_bonus_objectives = TRUE
 	/// Slogan displayed when selected
 	var/slogan
+	/// Icon state for tgui
+	var/icon_state = "gorlex"
 	/// Number of normal objectives
 	var/normal_objectives = 0
 	/// Traitor datum that owns src
@@ -105,7 +107,8 @@
 		var/datum/affiliate/affiliate = new affiliate_path
 		affiliates += list(list("name" = affiliate.name,
 								"desc" = affiliate.affil_info,
-								"path" = affiliate_path))
+								"path" = affiliate_path,
+								"icon" = icon2base64(icon('icons/misc/affiliates.dmi', affiliate.icon_state, SOUTH))))
 
 	data["affiliates"] = affiliates
 	return data

@@ -16,6 +16,7 @@
 				Ваша задача ему с этим помочь;\n\
 				Ваше выживание опционально;\n\
 				Возможны помехи от агентов других корпораций - действуйте на свое усмотрение."
+	icon_state = "cybersun"
 	hij_obj = /datum/objective/make_ai_malf
 	normal_objectives = 4
 	objectives = list(list(/datum/objective/steal = 60, /datum/objective/steal/ai = 20, /datum/objective/new_mini_traitor = 20),

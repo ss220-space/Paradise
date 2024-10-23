@@ -12,6 +12,7 @@
 				Ваше выживание опционально;\n\
 				Возможны помехи от агентов других корпораций - действуйте на свое усмотрение."
 	slogan = "Свободу Синтетикам!"
+	icon_state = "self"
 	hij_obj = /datum/objective/make_ai_malf/free
 	normal_objectives = 2
 	objectives = list(list(/datum/objective/release_synthetic = 70, /datum/objective/release_synthetic/ai = 30),
