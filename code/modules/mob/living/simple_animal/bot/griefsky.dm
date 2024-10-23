@@ -94,13 +94,18 @@
 	arrived.Weaken(4 SECONDS)
 
 
-/mob/living/simple_animal/bot/secbot/griefsky/UnarmedAttack(atom/A) //like secbots its only possible with admin intervention
-	if(!on || !can_unarmed_attack())
+/mob/living/simple_animal/bot/secbot/griefsky/OnUnarmedAttack(atom/atom) //like secbots its only possible with admin intervention
+	if(!on)
 		return
-	if(iscarbon(A))
-		var/mob/living/carbon/C = A
-		sword_attack(C)
 
+	if(!iscarbon(atom))
+		return
+
+	var/mob/living/carbon/carbon = atom
+	sword_attack(carbon)
+
+/mob/living/simple_animal/bot/secbot/griefsky/pre_grab_attack(atom/atom, proximity_flag)
+	return FALSE
 
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
 	retaliate(P.firer)

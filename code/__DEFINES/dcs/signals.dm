@@ -640,6 +640,10 @@
 /// from base of /client/proc/handle_popup_close() : (window_id)
 #define COMSIG_POPUP_CLEARED "popup_cleared"
 
+/// Source: /mob/living/UnarmedAttack(atom/atom, proximity_flag)
+#define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
+	#define COMPONENT_CANCEL_UNARMED_ATTACK (1<<0)
+
 // /mob/living/carbon signals
 
 ///from base of mob/living/carbon/soundbang_act(): (list(intensity))
@@ -1131,6 +1135,10 @@
 ///from base of [/datum/element/light_eater/proc/devour]: (atom/eaten_light)
 #define COMSIG_LIGHT_EATER_DEVOUR "light_eater_devour"
 
+/// datum/element/reagent_attack
+/// Source: /datum/element/reagent_attack/proc/inject(atom/source, mob/living/carbon/target)
+#define COMSIG_REAGENT_INJECTED "reagent_inject"
+	// sends: datum/element/reagent_attack, mob/living/carbon/target, reagent_id, reagent_amount, target_zone
 
 // /datum/element/movetype_handler signals
 /// Called when the floating anim has to be temporarily stopped and restarted later: (timer)

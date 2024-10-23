@@ -587,9 +587,10 @@
 	lasercolor = "r"
 
 
-/mob/living/simple_animal/bot/ed209/UnarmedAttack(atom/A)
-	if(!on || !can_unarmed_attack())
+/mob/living/simple_animal/bot/ed209/OnUnarmedAttack(atom/A)
+	if(!on)
 		return
+		
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.staminaloss < 110 || arrest_type && !baton_delayed)
@@ -599,6 +600,8 @@
 	else
 		..()
 
+/mob/living/simple_animal/bot/ed209/pre_grab_attack(atom/atom, proximity_flag)
+	return FALSE
 
 /mob/living/simple_animal/bot/ed209/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(isitem(AM))
