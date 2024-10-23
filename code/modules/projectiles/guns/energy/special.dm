@@ -821,7 +821,7 @@
 	icon_state = "plasmagun"
 	item_state = "plasmagun"
 	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "combat=4;magnets=4;powerstorage=3"
+	origin_tech = "combat=6;magnets=5;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/weak_plasma, /obj/item/ammo_casing/energy/charged_plasma)
 	shaded_charge = 1
 	can_holster = TRUE

@@ -523,3 +523,16 @@
 /// Disposal: How frequently disposals can make sounds, to prevent huge sound stacking
 #define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)
 
+/// Mech Subtypes
+#define MECH_TYPE_NONE			(1<<0)
+#define MECH_TYPE_RIPLEY		(1<<1)
+#define MECH_TYPE_CLARKE		(1<<2)
+#define MECH_TYPE_ODYSSEUS		(1<<3)
+#define MECH_TYPE_GYGAX			(1<<4)
+#define MECH_TYPE_DURAND		(1<<5)
+#define MECH_TYPE_PHAZON		(1<<6)
+#define MECH_TYPE_HONKER		(1<<7)
+#define MECH_TYPE_RETICENCE		(1<<8)
+#define MECH_TYPE_LOCKER		(1<<9)
+#define MECH_TYPE_MARAUDER		(1<<10)
+#define MECH_TYPE_SIDEWINTER	(1<<11)

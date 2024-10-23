@@ -1,5 +1,6 @@
 /datum/asset/spritesheet/roboquest
 	name = "roboquest"
+	cross_round_cachable = FALSE
 
 /datum/asset/spritesheet/roboquest/create_spritesheets()
 	for(var/equip_path in subtypesof(/obj/item/mecha_parts/mecha_equipment))

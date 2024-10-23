@@ -21,6 +21,8 @@
 	turnsound = null
 	starting_voice = /obj/item/mecha_modkit/voice/silent
 
+	mech_type = MECH_TYPE_RETICENCE
+
 /obj/mecha/combat/reticence/loaded/New()
 	..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
