@@ -163,19 +163,19 @@
 	hitsound = 'sound/weapons/sear.ogg'
 
 /obj/item/scalpel/laser/laser1 //lasers also count as catuarys
-	name = "laser scalpel"
+	name = "basic laser scalpel"
 	desc = "A scalpel augmented with a directed laser.  This one looks basic and could be improved."
 	icon_state = "scalpel_laser1_on"
 	toolspeed = 0.8
 
 /obj/item/scalpel/laser/laser2
-	name = "laser scalpel"
+	name = "improved laser scalpel"
 	desc = "A scalpel augmented with a directed laser. This one looks somewhat advanced."
 	icon_state = "scalpel_laser2_on"
 	toolspeed = 0.6
 
 /obj/item/scalpel/laser/laser3
-	name = "laser scalpel"
+	name = "advanced laser scalpel"
 	desc = "A scalpel augmented with a directed laser.  This one looks to be the pinnacle of precision energy cutlery!"
 	icon_state = "scalpel_laser3_on"
 	toolspeed = 0.4
