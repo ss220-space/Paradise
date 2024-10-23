@@ -851,7 +851,8 @@
 	. = ..()
 	if(isliving(user))
 		var/mob/living/U = user
-		if(U.mind && !U.mind.devilinfo && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
+		var/datum/antagonist/devil/devilinfo = U.mind?.has_antag_datum(/datum/antagonist/devil)
+		if(devilinfo && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
 			U.visible_message("<span class='warning'>As [U] picks [src] up, [U]'s arms briefly catch fire.</span>", \
 				"<span class='warning'>\"As you pick up the [src] your arms ignite, reminding you of all your past sins.\"</span>")
 			if(ishuman(U))
@@ -866,7 +867,7 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
 
-	if(!user.mind || user.mind.devilinfo || (user.mind.soulOwner == user.mind))
+	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner == user.mind))
 		return .
 
 	to_chat(user, span_warning("The [name] burns in your hands!"))

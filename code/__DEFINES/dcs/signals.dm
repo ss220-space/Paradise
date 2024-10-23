@@ -535,6 +535,9 @@
 #define COMSIG_LIVING_SHOCK_PREVENTED "living_shock_prevented"
 ///sent by stuff like stunbatons and tasers: ()
 #define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"
+/// Source: /mob/living/proc/flash_eyes(intensity, override_blindness_check, affect_silicon, visual, type)
+#define COMSIG_LIVING_EARLY_FLASH_EYES "living_flash_eyes"
+	#define STOP_FLASHING_EYES	(1<<0)
 ///from base of mob/living/revive() (full_heal, admin_revive)
 #define COMSIG_LIVING_REVIVE "living_revive"
 ///from base of /mob/living/regenerate_limbs(): (noheal, excluded_limbs)
@@ -561,6 +564,8 @@
 #define COMSIG_LIVING_AHEAL "living_aheal"
 ///From living/Life(). (deltatime, times_fired)
 #define COMSIG_LIVING_LIFE "living_life"
+///from base of mob/living/death(): (gibbed)
+#define COMSIG_LIVING_EARLY_DEATH "living_early_death"
 ///from base of mob/living/death(): (gibbed)
 #define COMSIG_LIVING_DEATH "living_death"
 //sent from mobs when they exit their body as a ghost
@@ -946,6 +951,11 @@
 
 ///from base of obj/item/reagent_containers/food/snacks/attack(): (mob/living/eater, mob/feeder)
 #define COMSIG_FOOD_EATEN "food_eaten"
+
+/// Reagents
+/// Source: /datum/reagent/proc/reaction_mob(mob/living/M, method, volume, show_message)
+#define COMSIG_REAGENT_ADDED "reagent_added"
+	// Sends to living, args: src, method, volume
 
 //Gibs
 

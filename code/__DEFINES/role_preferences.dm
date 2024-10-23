@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_CULTIST = /datum/game_mode/cult, 				// Cultist
 	ROLE_CLOCKER = /datum/game_mode/clockwork,			// Clockwork Cultist
 	ROLE_DEMON, 										// Demons (Slaughter/Laughter/Shadow)
-	ROLE_DEVIL = /datum/game_mode/devil/devil_agents, 	// Devil
+	ROLE_DEVIL, 										// Devil
 	ROLE_GSPIDER, 										// Giant spider
 	ROLE_GUARDIAN, 										// Guardian
 	ROLE_ELITE,											// Lavaland Elite
