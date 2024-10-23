@@ -2,11 +2,14 @@
 	if(can_die())
 		if(!cleanWipe)
 			force_fold_out()
+			visible_message(span_warning("[name] издаёт последний протяжный писк прежде, чем теряет питание и рассыпается на части.."))
+		else
+			card.visible_message(span_warning("Экран персонального ИИ медленно угасает, когда личность покидает устройство..."))
 
-		visible_message("<span class=warning>[src] emits a dull beep before it loses power and collapses.</span>", "<span class=warning>You hear a dull beep followed by the sound of glass crunching.</span>")
 		name = "pAI debris"
-		desc = "The unfortunate remains of some poor personal AI device."
+		desc = "Дымящиеся останки какого-то несчастного персонального ИИ."
 		icon_state = "[chassis]_dead"
+		silence_time = null
 
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
