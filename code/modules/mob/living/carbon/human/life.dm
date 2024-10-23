@@ -292,7 +292,7 @@
 		return
 
 	var/loc_temp = get_temperature(environment)
-//	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]")
+//	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_main_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]")
 
 	//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
 	if(stat != DEAD)
@@ -415,20 +415,22 @@
 	. = ..()
 	if(!. || HAS_TRAIT(src, TRAIT_RESIST_HEAT))
 		return
-	var/thermal_protection = get_thermal_protection()
+	var/thermal_protection_main = get_main_thermal_protection()
+	var/thermal_protection_secondary = get_secondary_thermal_protection()
 
-	if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+	if(thermal_protection_main >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 		return
-	if(thermal_protection >= FIRE_SUIT_MAX_TEMP_PROTECT)
-		adjust_bodytemperature(11)
+
+	if(thermal_protection_main >= FIRE_SUIT_MAX_TEMP_PROTECT)
+		adjust_bodytemperature(11 * (1 - thermal_protection_secondary))
 	else
-		adjust_bodytemperature(BODYTEMP_HEATING_MAX + (fire_stacks * 12))
+		adjust_bodytemperature((BODYTEMP_HEATING_MAX + (fire_stacks * 12)) * (1 - thermal_protection_secondary))
 		var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
 		if(vamp && !vamp.get_ability(/datum/vampire_passive/full) && stat != DEAD)
 			vamp.bloodusable = max(vamp.bloodusable - 5, 0)
 
 
-/mob/living/carbon/human/proc/get_thermal_protection()
+/mob/living/carbon/human/proc/get_main_thermal_protection()
 	if(HAS_TRAIT(src, TRAIT_RESIST_HEAT))
 		return FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
@@ -441,6 +443,25 @@
 			thermal_protection += (head.max_heat_protection_temperature*THERMAL_PROTECTION_HEAD)
 	thermal_protection = round(thermal_protection)
 	return thermal_protection
+
+/mob/living/carbon/human/proc/get_secondary_thermal_protection()
+	var/result = 0
+
+	result += getarmor(BODY_ZONE_HEAD, FIRE) / 100 * THERMAL_PROTECTION_HEAD
+	result += getarmor(BODY_ZONE_CHEST, FIRE) / 100 * THERMAL_PROTECTION_UPPER_TORSO
+	result += getarmor(BODY_ZONE_PRECISE_GROIN, FIRE) / 100 * THERMAL_PROTECTION_LOWER_TORSO
+
+	result += getarmor(BODY_ZONE_L_ARM, FIRE) / 100 * THERMAL_PROTECTION_ARM_LEFT
+	result += getarmor(BODY_ZONE_PRECISE_L_HAND, FIRE) / 100 * THERMAL_PROTECTION_HAND_LEFT
+	result += getarmor(BODY_ZONE_R_ARM, FIRE) / 100 * THERMAL_PROTECTION_ARM_RIGHT
+	result += getarmor(BODY_ZONE_PRECISE_R_HAND, FIRE) / 100 * THERMAL_PROTECTION_HAND_RIGHT
+
+	result += getarmor(BODY_ZONE_L_LEG, FIRE) / 100 * THERMAL_PROTECTION_LEG_LEFT
+	result += getarmor(BODY_ZONE_PRECISE_L_FOOT, FIRE) / 100 * THERMAL_PROTECTION_FOOT_LEFT
+	result += getarmor(BODY_ZONE_R_LEG, FIRE) / 100 * THERMAL_PROTECTION_LEG_RIGHT
+	result += getarmor(BODY_ZONE_PRECISE_R_FOOT, FIRE) / 100 * THERMAL_PROTECTION_FOOT_RIGHT
+
+	return result
 
 //END FIRE CODE
 

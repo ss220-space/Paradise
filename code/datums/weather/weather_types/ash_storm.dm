@@ -109,16 +109,32 @@
 		return .
 	if(ishuman(mob_to_check))
 		var/mob/living/carbon/human/human_mob = mob_to_check
-		if(human_mob.get_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+		if(human_mob.get_main_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 			return FALSE
 	else if(istype(mob_to_check, /mob/living/simple_animal/borer))
 		var/mob/living/simple_animal/borer/borer = mob_to_check
-		if(borer.host?.get_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+		if(borer.host?.get_main_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 			return FALSE
 
 
 /datum/weather/ash_storm/weather_act(mob/living/target)
-	target.adjustFireLoss(4)
+	if(!ishuman(target))
+		target.adjustFireLoss(4)
+		return
+
+	target.apply_damage((1 - target.getarmor(BODY_ZONE_HEAD, FIRE) / 100) * THERMAL_PROTECTION_HEAD * 4, BURN, BODY_ZONE_HEAD)
+	target.apply_damage((1 - target.getarmor(BODY_ZONE_CHEST, FIRE) / 100) * THERMAL_PROTECTION_UPPER_TORSO * 4, BURN, BODY_ZONE_CHEST)
+	target.apply_damage((1 - target.getarmor(BODY_ZONE_PRECISE_GROIN, FIRE) / 100) * THERMAL_PROTECTION_LOWER_TORSO * 4, BURN, BODY_ZONE_PRECISE_GROIN)
+
+	target.apply_damage((1 - target.getarmor(BODY_ZONE_L_ARM, FIRE) / 100) * THERMAL_PROTECTION_ARM_LEFT * 4, BURN, BODY_ZONE_L_ARM)
+	target.apply_damage((1 - target.getarmor(BODY_ZONE_PRECISE_L_HAND, FIRE) / 100) * THERMAL_PROTECTION_HAND_LEFT * 4, BURN, BODY_ZONE_PRECISE_L_HAND)
+	target.apply_damage((1 - target.getarmor(BODY_ZONE_R_ARM, FIRE) / 100) * THERMAL_PROTECTION_ARM_RIGHT * 4, BURN, BODY_ZONE_R_ARM)
+	target.apply_damage((1 - target.getarmor(BODY_ZONE_PRECISE_R_HAND, FIRE) / 100) * THERMAL_PROTECTION_HAND_RIGHT * 4, BURN, BODY_ZONE_PRECISE_R_HAND)
+
+	target.apply_damage((1 - target.getarmor(BODY_ZONE_L_LEG, FIRE) / 100) * THERMAL_PROTECTION_LEG_LEFT * 4, BURN, BODY_ZONE_L_LEG)
+	target.apply_damage((1 - target.getarmor(BODY_ZONE_PRECISE_L_FOOT, FIRE) / 100) * THERMAL_PROTECTION_FOOT_LEFT * 4, BURN, BODY_ZONE_PRECISE_L_FOOT)
+	target.apply_damage((1 - target.getarmor(BODY_ZONE_R_LEG, FIRE) / 100) * THERMAL_PROTECTION_LEG_RIGHT * 4, BURN, BODY_ZONE_R_LEG)
+	target.apply_damage((1 - target.getarmor(BODY_ZONE_PRECISE_R_FOOT, FIRE) / 100) * THERMAL_PROTECTION_FOOT_RIGHT * 4, BURN, BODY_ZONE_PRECISE_R_FOOT)
 
 
 //Emberfalls are the result of an ash storm passing by close to the playable area of lavaland. They have a 10% chance to trigger in place of an ash storm.
