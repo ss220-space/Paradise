@@ -392,20 +392,20 @@
 		return
 	if(user.mind && (ischangeling(user) || isvampire(user))) //Prevents changelings and vampires from being able to learn it
 		if(ischangeling(user)) //Changelings
-			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
+			to_chat(user, "<span class ='warning'>Мы пытаемся много раз, но не можем понять содержимое свитка!</span>")
 			return
 		else //Vampires
-			to_chat(user, "<span class ='warning'>Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!</span>")
+			to_chat(user, "<span class ='warning'>Жажда крови отвлекает вас слишком сильно, чтобы вы могли сосредоточиться на содержимом свитка!</span>")
 			return
 
 	if(istype(user.mind.martial_art, /datum/martial_art/the_sleeping_carp))
-		to_chat(user, span_warning("You realise, that you have learned everything from Carp Teachings and decided to not read the scroll."))
+		to_chat(user, span_warning("Вы понимаете, что узнали все из Учения Карпа и решили не читать этот свиток."))
 		return
 
-	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! \
-					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
-					However, you are also unable to use any ranged weaponry. \
-					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>")
+	to_chat(user, "<span class='sciradio'>Вы изучили древнее боевое искусство Спящего карпа! \
+					Ваш рукопашный бой стал намного эффективнее, и теперь вы можете отклонять любые снаряды, направленные в вашу сторону. \
+					Однако вы также не можете использовать любое дальнобойное оружие. \
+					Вы можете узнать больше о своем новом боевом искусстве, во вкладке Sleeping Carp.</span>")
 
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
