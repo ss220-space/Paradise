@@ -16,3 +16,5 @@
 
 #define NEW_NULLIFICATION 1 //nulifiaction like the new vampires
 #define OLD_NULLIFICATION 2 //nulifiaction like the goon vampires
+
+#define REQ_BLOOD_FOR_SUBCLASS_ACT 400 // total blood required for a special subclass action
