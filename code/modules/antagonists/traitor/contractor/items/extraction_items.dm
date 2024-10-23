@@ -46,6 +46,10 @@
 	var/mob/living/M = A
 	if(!istype(M))
 		return FALSE
+	if(M.buckled)
+		if(!silent)
+			to_chat(M, span_warning("You can't teleport while buckled to something!"))
+		return FALSE
 	if(M == usr && M.mind == contractor_mind)
 		if(!silent)
 			to_chat(M, "<span class='warning'>The portal is here to extract the contract target, not you!</span>")
