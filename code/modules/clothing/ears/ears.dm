@@ -12,7 +12,7 @@
 
 /obj/item/clouthing/ears/earrings
 	name = "Earrings"
-	desc = "Простые золотые сережки"
+	desc = "Простые золотые серёжки"
 	icon_state = "earring_gold"
 	item_state = "earring_gold"
 	slot_flags = ITEM_SLOT_EARS
