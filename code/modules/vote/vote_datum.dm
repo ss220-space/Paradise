@@ -65,6 +65,9 @@
 	return max(((started_time + CONFIG_GET(number/vote_period)) - world.time), 0)
 
 
+/datum/vote/proc/result_corrections(list/results)
+	return results	// Endless possibilities for rigging this democratic vote.
+
 // Returns the result
 /datum/vote/proc/calculate_result()
 	switch(vote_result_type)
@@ -81,6 +84,9 @@
 					results[voted[ck]]++
 				else
 					results[voted[ck]] = 1
+			results = result_corrections(results)
+			if(!length(results))
+				return null
 
 			// Get the biggest vote count, since we can also use this to pick tiebreaks
 			var/maxvotes = 0

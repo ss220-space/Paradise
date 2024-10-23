@@ -8,6 +8,8 @@
 	var/list/traits = null // null for default 1 z-level space station.
 	var/linkage = CROSSLINKED
 	var/space_ruins_levels = null //null for default number of ruins. use it to override. Can be used to neglect lagging from multi-z station.
+	var/min_players = 0
+	var/max_players = INFINITY
 
 	var/station_name  = "BAD Station"
 	var/station_short = "Baddy"

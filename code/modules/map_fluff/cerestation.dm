@@ -6,6 +6,8 @@
 	map_path = "_maps/map_files/cerestation/cerestation.dmm"
 	lavaland_path = "_maps/map_files/cerestation/Lavaland.dmm"
 
+	min_players = 40
+
 	station_name  = "NSS Farragus"
 	station_short = "Farragus"
 	dock_name     = "NAV Trurl"
