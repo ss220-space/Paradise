@@ -4754,26 +4754,13 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/control)
 "cjN" = (
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = 3;
-	pixel_y = 8
-	},
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = 3;
-	pixel_y = 8
-	},
-/obj/item/gun/projectile/shotgun/riot/short,
-/obj/item/gun/projectile/shotgun/riot/short,
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = 3;
-	pixel_y = 8
-	},
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = 3;
-	pixel_y = 8
-	},
 /obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/green/hollow,
+/obj/item/gun/projectile/automatic/m90,
+/obj/item/gun/projectile/automatic/m90,
+/obj/item/gun/projectile/automatic/m90,
+/obj/item/gun/projectile/automatic/m90,
+/obj/item/gun/projectile/automatic/m90,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -43372,10 +43359,17 @@
 /area/centcom/specops)
 "tYP" = (
 /obj/structure/rack,
-/obj/item/ammo_box/shotgun/rubbershot,
-/obj/item/ammo_box/shotgun/rubbershot,
-/obj/item/ammo_box/shotgun/rubbershot,
 /obj/effect/decal/warning_stripes/green/hollow,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/magazine/m556,
+/obj/item/ammo_box/a40mm,
+/obj/item/ammo_box/a40mm,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
