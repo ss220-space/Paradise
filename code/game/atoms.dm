@@ -688,18 +688,6 @@
 /atom/proc/cmag_act(mob/user)
 	return
 
-
-/**
- * Special treatment of [/datum/emote/living/carbon/human/fart].
- * Returning `TRUE` will stop emote execution.
- *
- * Arguments:
- * * user - mob who used the emote.
- */
-/atom/proc/fart_act(mob/living/user)
-	return FALSE
-
-
 /atom/proc/rpd_act()
 	return
 
