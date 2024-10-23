@@ -473,7 +473,7 @@
 	if(prob(10))
 		M.emote("giggle")
 	if(M?.mind.assigned_role == JOB_TITLE_CLOWN || M?.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
-		update_flags |= M.adjustBruteLoss(-0.75) //Screw those pesky clown beatings!
+		update_flags |= M.adjustBruteLoss(-0.75, affect_robotic = FALSE) //Screw those pesky clown beatings!
 	else
 		M.AdjustDizzy(20 SECONDS, 0, 1000 SECONDS)
 		M.Druggy(30 SECONDS)

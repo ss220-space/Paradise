@@ -195,8 +195,8 @@
 		return
 	return rider
 
-/obj/item/riding_offhand/afterattack(atom/movable/interacting_with, mob/living/user, list/modifiers)
-	if(!istype(interacting_with) || !interacting_with.can_buckle)
+/obj/item/riding_offhand/afterattack(atom/movable/interacting_with, mob/living/user, proximity, list/modifiers, status)
+	if(!istype(interacting_with) || !interacting_with.can_buckle || !proximity)
 		return NONE
 	if(rider == user) // Piggyback user
 		return
