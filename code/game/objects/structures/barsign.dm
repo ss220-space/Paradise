@@ -379,6 +379,11 @@
 	icon = "vacation"
 	desc = "Отдохните от мира информации, преисполнившись свободой не выбирать!"
 
+/datum/barsign/evahumanspace
+	name = "EVA Human Space"
+	icon = "evahumanspace"
+	desc = "Safety is a privilege"
+
 /datum/barsign/hiddensigns
 	hidden = 1
 
