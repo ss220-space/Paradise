@@ -11,6 +11,7 @@
 	admin_only = 1
 	syndicate_command = 1
 	outfit = /datum/outfit/job/syndicateofficer
+	insurance_type = INSURANCE_TYPE_NONE
 
 /datum/job/syndicateofficer/get_access()
 	return get_syndicate_access(title)
