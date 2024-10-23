@@ -493,7 +493,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	var/list/areas_with_multiple_APCs = list()
 	var/list/areas_with_multiple_air_alarms = list()
 
-	for(var/area/A in world)
+	for(var/area/A as anything in GLOB.areas)
 		areas_all |= A.type
 
 	for(var/thing in GLOB.apcs)
@@ -1022,3 +1022,17 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	render_stats(SSoverlays.stats, src)
 
+
+/client/proc/clear_dynamic_transit()
+	set category = "Debug"
+	set name = "Clear Dynamic Turf Reservations"
+	set desc = "Deallocates all reserved space, restoring it to round start \
+		conditions."
+	if(!check_rights(R_DEBUG))
+		return
+	var/answer = alert("WARNING: THIS WILL WIPE ALL RESERVED SPACE TO A CLEAN SLATE! ANY MOVING SHUTTLES, ELEVATORS, OR IN-PROGRESS PHOTOGRAPHY WILL BE DELETED!", "Really wipe dynamic turfs?", "YES", "NO")
+	if(answer != "YES")
+		return
+	log_and_message_admins("cleared dynamic transit space.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "CDT") // If...
+	SSmapping.wipe_reservations() //this goes after it's logged, incase something horrible happens.

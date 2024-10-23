@@ -237,7 +237,7 @@
 				user.visible_message("<span class='danger'>[user] turns \the [T] into [transform_string]!</span>")
 				message_admins("[key_name_admin(user)] fired the lava staff at [ADMIN_COORDJMP(T)]")
 				add_attack_logs(user, target, "fired lava staff", ATKLOG_MOST)
-				T.TerraformTurf(turf_type, keep_icon = FALSE)
+				T.ChangeTurf(turf_type, keep_icon = FALSE)
 				timer = world.time + create_cooldown
 				qdel(L)
 			else
@@ -246,7 +246,7 @@
 				return
 		else
 			user.visible_message("<span class='danger'>[user] turns \the [T] into [reset_string]!</span>")
-			T.TerraformTurf(reset_turf_type, keep_icon = FALSE)
+			T.ChangeTurf(reset_turf_type, keep_icon = FALSE)
 			timer = world.time + reset_cooldown
 		playsound(T,'sound/magic/fireball.ogg', 200, 1)
 

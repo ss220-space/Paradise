@@ -41,6 +41,8 @@
 	switch(mode)
 		if(SHUTTLE_IDLE)
 			. = "idle"
+		if(SHUTTLE_IGNITING)
+			. = "engines charging"
 		if(SHUTTLE_RECALL)
 			. = "recalled"
 		if(SHUTTLE_CALL)
@@ -51,6 +53,8 @@
 			. = "stranded"
 		if(SHUTTLE_ESCAPE)
 			. = "escape"
+		if(SHUTTLE_RECHARGING)
+			. = "recharging"
 	if(!.)
 		. = "ERROR"
 
@@ -265,7 +269,7 @@
 
 /obj/machinery/shuttle_manipulator/proc/load_template(datum/map_template/shuttle/S)
 	// load shuttle template, centred at shuttle import landmark,
-	var/turf/landmark_turf = get_turf(locate("landmark*Shuttle Import"))
+	var/turf/landmark_turf = get_turf(locate("landmark*Shuttle Import")) // e.g. /obj/effect/landmark/shuttle_import
 	S.load(landmark_turf, centered = TRUE)
 
 	var/affected = S.get_affected_turfs(landmark_turf, centered=TRUE)

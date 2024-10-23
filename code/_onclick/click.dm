@@ -471,13 +471,21 @@
 
 /atom/movable/screen/click_catcher/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
-	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, PROC_REF(offset_increased))
-	offset_increased(SSmapping, 0, SSmapping.max_plane_offset)
+	var/client/boss = hud_owner?.mymob?.canon_client
+	if(!boss)
+		return
+	var/static/list/connections = list(
+		COMSIG_MOVABLE_Z_CHANGED = PROC_REF(on_z_change),
+	)
 
-// Draw to the lowest plane level offered
-/atom/movable/screen/click_catcher/proc/offset_increased(datum/source, old_offset, new_offset)
+// I fucking hate this.
+// So, hear me out. Due to how planes now work, on multiz server the clickcatcher can cause troubles to ones who on upper planes.
+// The 'offset_increased' "should" fixed that but it didn't.
+// The bug is when you on the upper floor(or single-level z-level) and you try interact with space. It fucks up due to clickcatcher somehow OVERLAPS
+// Even though it's on the lowest plane ever. I don't know why and I don't want to know how, but this is the least I can do. I'm not sorry either.
+/atom/movable/screen/click_catcher/proc/on_z_change(mob/source)
 	SIGNAL_HANDLER
-	SET_PLANE_W_SCALAR(src, initial(plane), new_offset)
+	SET_PLANE(src, PLANE_TO_TRUE(src.plane), source)
 
 /atom/movable/screen/click_catcher/Click(location, control, params)
 	var/list/modifiers = params2list(params)

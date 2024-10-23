@@ -355,11 +355,11 @@
 		dat += "Current Game Mode: <B>[SSticker.mode.name]</B><BR>"
 		dat += "Round Duration: <B>[ROUND_TIME_TEXT()]</B><BR>"
 		dat += "<B>Emergency shuttle</B><BR>"
-		if(SSshuttle.emergency.mode < SHUTTLE_CALL)
+		if(SSshuttle.emergency.mode == SHUTTLE_IDLE)
 			dat += "<a href='byond://?src=[UID()];call_shuttle=1'>Call Shuttle</a><br>"
 		else
 			var/timeleft = SSshuttle.emergency.timeLeft()
-			if(SSshuttle.emergency.mode < SHUTTLE_DOCKED)
+			if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 				dat += "ETA: <a href='byond://?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
 				dat += "<a href='byond://?_src_=holder;call_shuttle=2'>Send Back</a><br>"
 			else

@@ -41,19 +41,12 @@
 /datum/weather/ash_storm/proc/update_eligible_areas()
 	var/list/eligible_areas = list()
 	for(var/z in impacted_z_levels)
-		eligible_areas += GLOB.space_manager.areas_in_z["[z]"]
-
-	// Don't play storm audio to shuttles that are not at lavaland
-	var/miningShuttleDocked = is_shuttle_docked("mining", "mining_away")
-	if(!miningShuttleDocked)
-		eligible_areas -= get_areas(/area/shuttle/mining)
-
-	var/laborShuttleDocked = is_shuttle_docked("laborcamp", "laborcamp_away")
-	if(!laborShuttleDocked)
-		eligible_areas -= get_areas(/area/shuttle/siberia)
+		eligible_areas += SSmapping.areas_in_z["[z]"]
 
 	for(var/i in 1 to eligible_areas.len)
 		var/area/place = eligible_areas[i]
+		if(istype(place, /area/shuttle)) // Don't play storm audio to shuttles that are not at lavaland
+			continue
 		if(place.outdoors)
 			outside_areas |= place
 		else

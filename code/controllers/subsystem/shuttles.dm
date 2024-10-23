@@ -1,4 +1,5 @@
 #define CALL_SHUTTLE_REASON_LENGTH 12
+#define MAX_TRANSIT_REQUEST_RETRIES 10
 
 SUBSYSTEM_DEF(shuttle)
 	name = "Shuttle"
@@ -12,6 +13,11 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/transit = list()
+
+	/// A list of all the mobile docking ports currently requesting a spot in hyperspace.
+	var/list/transit_requesters = list()
+	/// An associative list of the mobile docking ports that have failed a transit request, with the amount of times they've actually failed that transit request, up to MAX_TRANSIT_REQUEST_RETRIES
+	var/list/transit_request_failures = list()
 
 		//emergency shuttle stuff
 	var/obj/docking_port/mobile/emergency/emergency
@@ -49,11 +55,12 @@ SUBSYSTEM_DEF(shuttle)
 	cargo_money_account = GLOB.department_accounts["Cargo"]
 
 	if(!emergency)
-		WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
-	if(!backup_shuttle)
-		WARNING("No /obj/docking_port/mobile/emergency/backup placed on the map!")
+		log_runtime(EXCEPTION("No /obj/docking_port/mobile/emergency placed on the map!"))
+		if(!backup_shuttle)
+			message_admins("There's no emergency docking ports on the map! The game will be unresolvable. To resolve this problem load emergency shuttle template manually, and call register() on the mobile docking port.")
+			log_runtime(EXCEPTION("AND NO /obj/docking_port/mobile/emergency/backup placed on the map!"))
 	if(!supply)
-		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
+		log_runtime(EXCEPTION("No /obj/docking_port/mobile/supply placed on the map!"))
 
 	initial_load()
 
@@ -79,24 +86,52 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/fire(resumed = FALSE)
 	points += points_per_decisecond * wait
 	for(var/thing in mobile)
-		if(thing)
-			var/obj/docking_port/mobile/P = thing
-			P.check()
+		if(!thing)
+			mobile.Remove(thing)
 			continue
+		var/obj/docking_port/mobile/P = thing
+		P.check()
 		CHECK_TICK
-		mobile.Remove(thing)
+	for(var/obj/docking_port/stationary/transit/T in transit)
+		if(!T.owner)
+			qdel(T, force=TRUE)
+			continue
+		// This next one removes transit docks/zones that aren't
+		// immediately being used. This will mean that the zone creation
+		// code will be running a lot.
+		var/obj/docking_port/mobile/owner = T.owner
+		if(owner)
+			var/idle = owner.mode == SHUTTLE_IDLE
+			var/not_centcom_evac = owner != emergency
+			var/not_in_use = (!T.get_docked())
+			if(idle && not_centcom_evac && not_in_use)
+				qdel(T, force=TRUE)
+
+	if(!SSmapping.clearing_reserved_turfs)
+		while(transit_requesters.len)
+			var/requester = popleft(transit_requesters)
+			var/success = generate_transit_dock(requester)
+			if(!success) // BACK OF THE QUEUE
+				transit_request_failures[requester]++
+				if(transit_request_failures[requester] < MAX_TRANSIT_REQUEST_RETRIES)
+					transit_requesters += requester
+				else
+					var/obj/docking_port/mobile/M = requester
+					M.transit_failure()
+			if(MC_TICK_CHECK)
+				break
 
 /datum/controller/subsystem/shuttle/proc/getShuttle(id)
 	for(var/obj/docking_port/mobile/M in mobile)
 		if(M.id == id)
 			return M
-	WARNING("couldn't find shuttle with id: [id]")
+	log_runtime(EXCEPTION("couldn't find shuttle with id: [id]"))
 
 /datum/controller/subsystem/shuttle/proc/getDock(id)
 	for(var/obj/docking_port/stationary/S in stationary)
 		if(S.id == id)
 			return S
-	WARNING("couldn't find dock with id: [id]")
+	log_runtime(EXCEPTION("couldn't find dock with id: [id]"))
 
 /datum/controller/subsystem/shuttle/proc/secondsToRefuel()
 	var/elapsed = world.time - SSticker.round_start_time
@@ -105,9 +140,11 @@ SUBSYSTEM_DEF(shuttle)
 
 /datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason)
 	if(!emergency)
-		WARNING("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead.")
+		log_runtime(EXCEPTION("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead."))
+		message_admins("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead.")
 		if(!backup_shuttle)
-			WARNING("requestEvac(): There is no emergency shuttle, or backup shuttle!\
+			message_admins("requestEvac(): There is no emergency shuttle, or backup shuttle! The game will be unresolvable. This is possibly a mapping error. To resolve this problem load emergency shuttle template manually, and call register() on the mobile docking port.")
+			WARNING("requestEvac(): There is no emergency shuttle, or backup shuttle! \
 			The game will be unresolvable.This is possibly a mapping error, \
 			more likely a bug with the shuttle \
 			manipulation system, or badminry. It is possible to manually \
@@ -130,6 +167,9 @@ SUBSYSTEM_DEF(shuttle)
 			return
 		if(SHUTTLE_DOCKED)
 			to_chat(user, "The emergency shuttle is already here.")
+			return
+		if(SHUTTLE_IGNITING)
+			to_chat(user, "The emergency shuttle is firing its engines to leave.")
 			return
 		if(SHUTTLE_ESCAPE)
 			to_chat(user, "The emergency shuttle is moving away to a safe distance.")
@@ -157,9 +197,6 @@ SUBSYSTEM_DEF(shuttle)
 
 	add_game_logs("has called the shuttle.", user)
 	message_admins("[key_name_admin(user)] has called the shuttle.")
-
-	return
-
 
 // Called when an emergency shuttle mobile docking port is
 // destroyed, which will only happen with admin intervention
@@ -211,7 +248,7 @@ SUBSYSTEM_DEF(shuttle)
 			break
 
 	if(callShuttle)
-		if(emergency.mode < SHUTTLE_CALL)
+		if(emergency.mode == SHUTTLE_IDLE)
 			emergency.request(null, 2.5)
 			add_game_logs("There is no means of calling the shuttle anymore. Shuttle automatically called.")
 			message_admins("All the communications consoles were destroyed and all AIs are inactive. Shuttle called.")
@@ -252,6 +289,106 @@ SUBSYSTEM_DEF(shuttle)
 			return 2
 	M.areaInstance << M.fly_sound
 	return 0	//dock successful
+
+
+/datum/controller/subsystem/shuttle/proc/request_transit_dock(obj/docking_port/mobile/M)
+	if(!istype(M))
+		throw EXCEPTION("[M] is not a mobile docking port")
+
+	if(M.assigned_transit)
+		return
+	else
+		if(!(M in transit_requesters))
+			transit_requesters += M
+
+/datum/controller/subsystem/shuttle/proc/generate_transit_dock(obj/docking_port/mobile/M)
+	// First, determine the size of the needed zone
+	// Because of shuttle rotation, the "width" of the shuttle is not
+	// always x.
+	var/travel_dir = M.preferred_direction
+	// Remember, the direction is the direction we appear to be
+	// coming from
+	var/dock_angle = dir2angle(M.preferred_direction) + dir2angle(M.port_direction) + 180
+	var/dock_dir = angle2dir(dock_angle)
+
+	var/transit_width = SHUTTLE_TRANSIT_BORDER * 2
+	var/transit_height = SHUTTLE_TRANSIT_BORDER * 2
+
+	// Shuttles travelling on their side have their dimensions swapped
+	// from our perspective
+	switch(dock_dir)
+		if(NORTH, SOUTH)
+			transit_width += M.width
+			transit_height += M.height
+		if(EAST, WEST)
+			transit_width += M.height
+			transit_height += M.width
+
+
+	var/transit_path = /turf/space/transit
+	switch(travel_dir)
+		if(NORTH)
+			transit_path = /turf/space/transit/north
+		if(SOUTH)
+			transit_path = /turf/space/transit/south
+		if(EAST)
+			transit_path = /turf/space/transit/east
+		if(WEST)
+			transit_path = /turf/space/transit/west
+
+	var/datum/turf_reservation/proposal = SSmapping.request_turf_block_reservation(
+		transit_width,
+		transit_height,
+		1,
+		reservation_type = /datum/turf_reservation/transit,
+		turf_type_override = transit_path,
+	)
+
+	if(!istype(proposal))
+		return FALSE
+
+	var/turf/bottomleft = proposal.bottom_left_turfs[1]
+	// Then create a transit docking port in the middle
+	var/coords = M.return_coords(0, 0, dock_dir)
+	/*  0------2
+        |      |
+        |      |
+        |  x   |
+        3------1
+	*/
+
+	var/x0 = coords[1]
+	var/y0 = coords[2]
+	var/x1 = coords[3]
+	var/y1 = coords[4]
+	// Then we want the point closest to -infinity,-infinity
+	var/x2 = min(x0, x1)
+	var/y2 = min(y0, y1)
+	// Then invert the numbers
+	var/transit_x = bottomleft.x + SHUTTLE_TRANSIT_BORDER + abs(x2)
+	var/transit_y = bottomleft.y + SHUTTLE_TRANSIT_BORDER + abs(y2)
+
+	var/turf/midpoint = locate(transit_x, transit_y, bottomleft.z)
+	if(!midpoint)
+		return FALSE
+	var/area/old_area = midpoint.loc
+	old_area.turfs_to_uncontain += proposal.reserved_turfs
+	var/area/shuttle/transit/A = new()
+	A.parallax_movedir = travel_dir
+	A.contents = proposal.reserved_turfs
+	A.contained_turfs = proposal.reserved_turfs
+	var/obj/docking_port/stationary/transit/new_transit_dock = new(midpoint)
+	new_transit_dock.reserved_area = proposal
+	new_transit_dock.name = "Transit for [M.id]/[M.name]"
+	new_transit_dock.owner = M
+	new_transit_dock.assigned_area = A
+
+	// Add 180, because ports point inwards, rather than outwards
+	new_transit_dock.setDir(angle2dir(dock_angle))
+
+	M.assigned_transit = new_transit_dock
+	return new_transit_dock
+
 
 /datum/controller/subsystem/shuttle/proc/initial_move()
 	for(var/obj/docking_port/mobile/M in mobile)
@@ -344,3 +481,4 @@ SUBSYSTEM_DEF(shuttle)
 
 
 #undef CALL_SHUTTLE_REASON_LENGTH
+#undef MAX_TRANSIT_REQUEST_RETRIES

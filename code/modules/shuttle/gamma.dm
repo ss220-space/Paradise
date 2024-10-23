@@ -6,9 +6,8 @@
 	width = 7
 	dir = 4
 	fly_sound = 'sound/effects/hyperspace_end.ogg'
-	callTime = 10 SECONDS
-	ignitionTime = 0
-	roundstart_move = "gamma_away"
+	rechargeTime = 0
+	callTime = 8 SECONDS
 
 /obj/docking_port/mobile/gamma/request(obj/docking_port/stationary/S)
 	. = ..()

@@ -80,7 +80,8 @@
 	},
 /obj/docking_port/mobile/emergency{
 	name = "Secure Transport Vessel 5";
-	timid = 1
+	timid = 1;
+	port_direction = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';

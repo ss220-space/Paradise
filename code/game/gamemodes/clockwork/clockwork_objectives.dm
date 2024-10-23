@@ -141,7 +141,7 @@
 		ritual_spots = new()
 	var/sanity = 0
 	while(length(ritual_spots) < RATVAR_SUMMON_POSSIBILITIES && sanity < 100)
-		var/area/summon = pick(return_sorted_areas() - ritual_spots)
+		var/area/summon = pick(get_sorted_areas() - ritual_spots)
 		var/valid_spot = FALSE
 		if(summon && is_station_level(summon.z) && summon.valid_territory) // Check if there's a turf that you can walk on, if not it's not valid
 			for(var/turf/T as anything in get_area_turfs(summon))

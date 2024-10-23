@@ -85,7 +85,6 @@
 	width = 22
 	height = 11
 	dir = 4
-	travelDir = 0
 	roundstart_move = "emergency_away"
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
@@ -114,35 +113,14 @@
 
 	return ..()
 
-/obj/docking_port/mobile/emergency/timeLeft(divisor)
-	if(divisor <= 0)
-		divisor = 10
-	if(!timer)
-		return round(SSshuttle.emergencyCallTime/divisor, 1)
-
-	var/dtime = world.time - timer
-	switch(mode)
-		if(SHUTTLE_ESCAPE)
-			dtime = max(SSshuttle.emergencyEscapeTime - dtime, 0)
-		if(SHUTTLE_DOCKED)
-			dtime = max(SSshuttle.emergencyDockTime - dtime, 0)
-		else
-
-			dtime = max(SSshuttle.emergencyCallTime - dtime, 0)
-	return round(dtime/divisor, 1)
-
 /obj/docking_port/mobile/emergency/request(obj/docking_port/stationary/S, coefficient=1, area/signalOrigin, reason, redAlert)
-	SSshuttle.emergencyCallTime = initial(SSshuttle.emergencyCallTime) * coefficient
+	var/call_time = SSshuttle.emergencyCallTime * coefficient
 	switch(mode)
-		if(SHUTTLE_RECALL)
+		// The shuttle can not normally be called while "recalling", so
+		// if this proc is called, it's via admin fiat
+		if(SHUTTLE_RECALL, SHUTTLE_IDLE, SHUTTLE_CALL)
 			mode = SHUTTLE_CALL
-			timer = world.time - timeLeft(1)
-		if(SHUTTLE_IDLE)
-			mode = SHUTTLE_CALL
-			timer = world.time
-		if(SHUTTLE_CALL)
-			if(world.time < timer)	//this is just failsafe
-				timer = world.time
+			setTimer(call_time)
 		else
 			return
 
@@ -161,7 +139,7 @@
 	if(mode != SHUTTLE_CALL)
 		return
 
-	timer = world.time - timeLeft(1)
+	invertTimer()
 	mode = SHUTTLE_RECALL
 
 	if(prob(70))
@@ -233,7 +211,7 @@
 					setTimer(20)
 					return
 				mode = SHUTTLE_DOCKED
-				timer = world.time
+				setTimer(SSshuttle.emergencyDockTime)
 				emergency_shuttle_docked.Announce("Эвакуационный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт эвакуационного шаттла.")
 
 /*
@@ -251,9 +229,14 @@
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
 
+			if(time_left <= 100) // 9 seconds left - start requesting transit zones for emergency and pods
+				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
+					M.check_transit_zone() // yeah, we even check for pods that aren't at station. just for safety
+				check_transit_zone()
+
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
-				for(var/area/shuttle/escape/E in world)
+				for(var/area/shuttle/escape/E in GLOB.areas)
 					E << 'sound/effects/hyperspace_begin_new.ogg'
 
 			if(time_left <= 0 && !SSshuttle.emergencyNoEscape)
@@ -262,10 +245,9 @@
 					if(is_station_level(M.z)) //Will not launch from the mine/planet
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
-				for(var/area/shuttle/escape/E in world)
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
-				timer = world.time
+				setTimer(SSshuttle.emergencyEscapeTime)
 				GLOB.priority_announcement.Announce("Эвакуационный шаттл покинул станцию. До прибытия в доки ЦК осталось [timeLeft(600)] минуты.")
 				for(var/mob/M in GLOB.player_list)
 					if(!isnewplayer(M) && !M.client.karma_spent && !(M.client.ckey in GLOB.karma_spenders) && !M.get_preference(PREFTOGGLE_DISABLE_KARMA_REMINDER))
@@ -277,7 +259,7 @@
 				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
 					M.dock(SSshuttle.getDock("[M.id]_away"))
 
-				for(var/area/shuttle/escape/E in world)
+				for(var/area/shuttle/escape/E in GLOB.areas)
 					E << 'sound/effects/hyperspace_end_new.ogg'
 
 				// now move the actual emergency shuttle to centcomm
@@ -291,17 +273,6 @@
 
 				mode = SHUTTLE_ENDGAME
 				timer = 0
-				open_dock()
-
-/obj/docking_port/mobile/emergency/proc/open_dock()
-	pass()
-/*
-	for(var/obj/machinery/door/poddoor/shuttledock/D in airlocks)
-		var/turf/T = get_step(D, D.checkdir)
-		if(!isspaceturf(T))
-			spawn(0)
-				D.open()
-*/ //Leaving this here incase someone decides to port -tg-'s escape shuttle stuff:
 
 // This basically opens a big-ass row of blast doors when the shuttle arrives at centcom
 /obj/docking_port/mobile/pod
@@ -315,17 +286,10 @@
 /obj/docking_port/mobile/pod/New()
 	..()
 	if(id == "pod")
-		WARNING("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc.")
+		log_runtime(EXCEPTION("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc."))
 
 /obj/docking_port/mobile/pod/cancel()
 	return
-
-/*
-	findTransitDock()
-		. = SSshuttle.getDock("[id]_transit")
-		if(.)	return .
-		return ..()
-*/
 
 /obj/machinery/computer/shuttle/pod
 	name = "pod control computer"
