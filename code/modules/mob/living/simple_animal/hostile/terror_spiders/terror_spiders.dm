@@ -135,9 +135,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/datum/action/innate/terrorspider/web/web_action
 	var/datum/action/innate/terrorspider/wrap/wrap_action
 
-	// Temperature
-	heat_damage_per_tick = 6.5 // Takes 250% normal damage from being in a hot environment ("kill it with fire!")
-
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_growinstantly = FALSE
 	var/spider_debug = FALSE
@@ -147,6 +144,11 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, INNATE_TRAIT)
 
+/mob/living/simple_animal/hostile/poison/terror_spider/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		heat_damage = 6.5, \
+	)
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------

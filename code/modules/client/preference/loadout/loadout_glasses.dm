@@ -43,3 +43,34 @@
 	display_name = "Security tactical glasses"
 	path = /obj/item/clothing/glasses/hud/security/sunglasses/tacticool
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
+
+/datum/gear/glasses/medhudpatch
+	display_name = "Medical HUD eyepatch"
+	path = /obj/item/clothing/glasses/hud/health/patch
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC, JOB_TITLE_CORONER)
+
+/datum/gear/glasses/sechudpatch
+	display_name = "Security HUD eyepatch"
+	path = /obj/item/clothing/glasses/hud/security/patch
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_JUDGE, JOB_TITLE_DETECTIVE)
+
+/datum/gear/glasses/sechudpatch/read_only
+	display_name = "Security HUD eyepatch (read only)"
+	path = /obj/item/clothing/glasses/hud/security/patch/read_only
+	allowed_roles = list(JOB_TITLE_LAWYER)
+
+/datum/gear/glasses/hydrohudpatch
+	display_name = "Hydroponic HUD eyepatch"
+	path = /obj/item/clothing/glasses/hud/hydroponic/patch
+	allowed_roles = list(JOB_TITLE_BOTANIST)
+
+/datum/gear/glasses/diaghudpatch
+	display_name = "Diagnostic HUD eyepatch"
+	path = /obj/item/clothing/glasses/hud/diagnostic/patch
+	allowed_roles = list(JOB_TITLE_ROBOTICIST, JOB_TITLE_RD)
+
+/datum/gear/glasses/skillhudpatch
+	display_name = "Skills HUD eyepatch"
+	path = /obj/item/clothing/glasses/hud/skills/patch
+	allowed_roles = list(JOB_TITLE_HOP, JOB_TITLE_CAPTAIN)
+

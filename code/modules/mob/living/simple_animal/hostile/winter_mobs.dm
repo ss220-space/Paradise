@@ -15,13 +15,17 @@
 	icon_dead = "placeholder"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 
 	melee_damage_lower = 3
 	melee_damage_upper = 7
 	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
 	AI_delay_max = 0 SECONDS
 
+/mob/living/simple_animal/hostile/winter/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/winter/snowman
 	name = "snowman"
@@ -33,10 +37,15 @@
 	icon_dead = "snowman-dead"
 
 	bodytemperature = 73.0		//it's made of snow and hatred, so it's pretty cold.
-	maxbodytemp = 280.15		//at roughly 7 C, these will start melting (dying) from the warmth. Mind over matter or something.
-	heat_damage_per_tick = 10	//Now With Rapid Thawing Action!
 	gold_core_spawnable = HOSTILE_SPAWN
 
+/mob/living/simple_animal/hostile/winter/snowman/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = 280, \
+		minbodytemp = 0, \
+		heat_damage = 10, \
+	)
 
 /mob/living/simple_animal/hostile/winter/snowman/death(gibbed)
 	if(can_die())

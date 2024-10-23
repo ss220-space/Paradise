@@ -144,7 +144,8 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	icon_state = "bigscanner"
 	anchored = TRUE
 	density = TRUE
-	var/obj/item/book/cache		// Last scanned book
+	/// Last scanned book
+	var/obj/item/book/cache
 
 
 /obj/machinery/libraryscanner/attackby(obj/item/I, mob/user, params)

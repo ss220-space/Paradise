@@ -344,12 +344,12 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			vamp.bloodusable = max(vamp.bloodusable - 3,0)
 			var/vomit_stun = (vamp.nullification == OLD_NULLIFICATION)? 8 SECONDS : FALSE
 			if(vamp.bloodusable)
-				V.vomit(0, TRUE, vomit_stun)
+				V.vomit(0, VOMIT_BLOOD, vomit_stun)
 				if(!vomit_stun)
 					V.adjustBruteLoss(3)
 			else
 				holder.remove_reagent(id, volume)
-				V.vomit(0, FALSE, vomit_stun)
+				V.vomit(0, stun = vomit_stun)
 				return
 		else
 			if(!vamp.bloodtotal && vamp.nullification == NEW_NULLIFICATION)

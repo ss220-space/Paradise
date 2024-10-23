@@ -17,9 +17,8 @@
 /datum/objective/sintouched/proc/on_apply()
 	return
 
-/datum/objective/sintouched/New(mob/living/carbon/human/human)
-	..()
-	user = human // Currently not to mind
+/datum/objective/sintouched/proc/init_sin(mob/living/carbon/human/human)
+	user = human
 	on_apply()
 	
 /datum/objective/sintouched/Destroy(force)

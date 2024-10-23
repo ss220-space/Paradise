@@ -251,14 +251,16 @@
 	item_color="white"
 	transfer_prints = TRUE
 	resistance_flags = NONE
+	clothing_traits = list(TRAIT_QUICK_CARRY)
 
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
 	desc = "Pricy sterile gloves that are stronger than latex."
 	icon_state = "nitrile"
-	item_state = "nitrilegloves"
+	item_state = "nitrile"
 	transfer_prints = FALSE
 	item_color = "medical"
+	clothing_traits = list(TRAIT_QUICKER_CARRY)
 
 /obj/item/clothing/gloves/color/latex/modified
 	name = "modified medical gloves"

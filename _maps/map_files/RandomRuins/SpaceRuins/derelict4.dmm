@@ -105,7 +105,7 @@
 	},
 /area/ruin/unpowered)
 "D" = (
-/obj/effect/spawner/lootdrop/crate_spawner,
+/obj/effect/spawner/random_spawners/crate_spawner,
 /turf/simulated/floor/mineral/titanium/blue/airless,
 /area/ruin/unpowered)
 "G" = (

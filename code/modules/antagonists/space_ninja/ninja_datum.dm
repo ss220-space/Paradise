@@ -370,7 +370,7 @@
 			protect_objective.killers_objectives |= killer_objective
 
 		for(var/i in 1 to objective_amount)
-			traitor_datum.forge_single_human_objective()
+			traitor_datum.forge_single_objective()
 
 		var/list/all_objectives = traitor.get_all_objectives()
 		var/martyr_compatibility = TRUE

@@ -7,8 +7,6 @@
 	maxHealth = 1
 	turns_per_move = 5
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 270
-	maxbodytemp = INFINITY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	response_help  = "pokes"
@@ -23,6 +21,12 @@
 	del_on_death = 1
 	tts_seed = "Villagerm"
 
+/mob/living/simple_animal/cockroach/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 270, \
+		maxbodytemp = INFINITY, \
+	)
 
 /mob/living/simple_animal/cockroach/Initialize(mapload)
 	. = ..()

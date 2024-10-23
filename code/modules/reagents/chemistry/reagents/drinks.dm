@@ -37,7 +37,7 @@
 /datum/reagent/consumable/drink/tomatojuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(20))
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/limejuice
@@ -179,8 +179,8 @@
 /datum/reagent/consumable/drink/banana/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(HAS_TRAIT(M, TRAIT_COMIC) || is_monkeybasic(M))
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/nothing
@@ -195,8 +195,8 @@
 /datum/reagent/consumable/drink/nothing/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && M.mind && M.mind.miming)
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/potato_juice
@@ -223,7 +223,7 @@
 /datum/reagent/consumable/drink/milk/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(20))
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
 	if(holder.has_reagent("capsaicin"))
 		holder.remove_reagent("capsaicin", 2)
 	return ..() | update_flags
@@ -329,7 +329,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.SetSleeping(0)
 	if(prob(20))
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee/cafe_latte
@@ -348,7 +348,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.SetSleeping(0)
 	if(prob(20))
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee/cafe_latte/cafe_mocha
@@ -414,8 +414,8 @@
 /datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(HAS_TRAIT(src, TRAIT_COMIC) || is_monkeybasic(M))
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/silencer
@@ -431,8 +431,8 @@
 /datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && (M.job in list(JOB_TITLE_MIME)))
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/chocolatepudding
