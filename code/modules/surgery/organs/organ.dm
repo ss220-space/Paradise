@@ -65,11 +65,15 @@
 
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)
+
 	if(owner)
 		remove(owner, ORGAN_MANIPULATION_NOEFFECT)
+
 	QDEL_LIST_ASSOC_VAL(autopsy_data)
+
 	if(dna)
 		QDEL_NULL(dna)
+
 	return ..()
 
 
@@ -86,6 +90,7 @@
 	if(is_robotic() && !species_type)	// no DNA for cybernetics, except IPC parts
 		if(update_blood)
 			update_blood()
+
 		return
 
 	if(!dna)
@@ -117,6 +122,7 @@
 /obj/item/organ/proc/update_blood()
 	if(!dna || (TRAIT_NO_BLOOD in dna.species.inherent_traits))
 		return
+
 	LAZYSET(blood_DNA, dna.unique_enzymes, dna.blood_type)
 
 
@@ -127,13 +133,17 @@
 /obj/item/organ/proc/necrotize(silent = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
 		return FALSE
+
 	damage = max_damage
 	status |= ORGAN_DEAD
 	STOP_PROCESSING(SSobj, src)
+
 	if(dead_icon && !is_robotic())
 		icon_state = dead_icon
+
 	if(owner && vital)
 		owner.death()
+
 	return TRUE
 
 
@@ -144,6 +154,7 @@
 /obj/item/organ/proc/unnecrotize()
 	if(!is_dead())
 		return FALSE
+
 	status &= ~ORGAN_DEAD
 	return TRUE
 
@@ -152,12 +163,15 @@
 	if(istype(I, /obj/item/stack/nanopaste))
 		add_fingerprint(user)
 		var/obj/item/stack/nanopaste/nanopaste = I
+
 		if(!is_robotic())
 			to_chat(user, span_warning("The [nanopaste.name] can only be used on robotic bodyparts."))
 			return ATTACK_CHAIN_PROCEED
+
 		if(!nanopaste.use(1))
 			to_chat(user, span_warning("You need at least one unit of [nanopaste] to proceed."))
 			return ATTACK_CHAIN_PROCEED
+
 		to_chat(user, span_notice("You have repaired the damage on [src]."))
 		rejuvenate()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -183,10 +197,13 @@
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
 		// Another mercy for surgeons preparing transplant organs
 		germ_level++
+
 		if(germ_level >= INFECTION_LEVEL_ONE)
 			germ_level += rand(2,6)
+
 		if(germ_level >= INFECTION_LEVEL_TWO)
 			germ_level += rand(2,6)
+
 		if(germ_level >= INFECTION_LEVEL_THREE)
 			necrotize()
 
@@ -210,12 +227,15 @@
 	for(var/typepath in preserved_holders)
 		if(is_found_within(typepath))
 			return TRUE
+
 	if(istype(loc,/obj/item/mmi))	// So a brain can slowly recover from being left out of an MMI
 		germ_level = max(0, germ_level - 1)
 		return TRUE
+
 	if(istype(loc, /mob/living/simple_animal/hostile/headslug) || istype(loc, /obj/item/organ/internal/body_egg/changeling_egg))
 		germ_level = 0 // weird stuff might happen, best to be safe
 		return TRUE
+
 	if(isturf(loc))
 		var/is_in_freezer = FALSE
 		if(world.time - last_freezer_update_time > freezer_update_period)
@@ -341,6 +361,7 @@
 /obj/item/organ/proc/heal_internal_damage(amount, robo_repair = FALSE)
 	if(is_robotic() && !robo_repair)
 		return
+
 	damage = max(damage - amount, 0)
 
 
@@ -371,12 +392,13 @@
 	if(owner?.stat != DEAD && vital && !special)
 		add_attack_logs(user, owner, "Removed vital organ ([src])")
 		owner.death()
+
 	owner = null
 	return src
 
 
 /obj/item/organ/proc/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
-	return // Nothing uses this, it is always overridden
+	return
 
 
 // A version of `replaced` that "flattens" the process of insertion, making organs "Plug'n'play"
@@ -395,6 +417,7 @@
 /obj/item/organ/proc/has_damage()
 	if(damage)
 		return TRUE
+
 	return FALSE
 
 /obj/item/organ/proc/is_robotic()
@@ -403,6 +426,7 @@
 
 /obj/item/organ/serialize()
 	var/data = ..()
+
 	if(status != 0)
 		data["status"] = status
 
@@ -410,6 +434,7 @@
 	// the owner
 	if(!(owner && dna.unique_enzymes == owner.dna.unique_enzymes))
 		data["dna"] = dna.serialize()
+
 	return data
 
 

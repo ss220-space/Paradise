@@ -14,6 +14,7 @@
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()
+	
 	if(istype(holder))
 		insert(holder)
 
@@ -30,6 +31,7 @@
 	do_pickup_animation(src, target)
 
 	var/obj/item/organ/internal/replaced = target.get_organ_slot(slot)
+
 	if(replaced)
 		replaced.remove(target, ORGAN_MANIPULATION_NOEFFECT)
 
@@ -44,6 +46,7 @@
 			stack_trace("[src] attempted to insert into a [parent_organ_zone], but [parent_organ_zone] wasn't an organ! [atom_loc_line(h_target)]")
 		else
 			LAZYOR(parent.internal_organs, src)
+
 		h_target.update_int_organs()
 
 	loc = null
@@ -75,10 +78,13 @@
 
 	if(iscarbon(organ_owner))
 		organ_owner.internal_organs -= src
+
 		if(organ_owner.internal_organs_slot[slot] == src)
 			organ_owner.internal_organs_slot[slot] = null
+
 			if(!special)
 				send_signal = TRUE
+
 		if(vital && !special && organ_owner.stat != DEAD)
 			organ_owner.death()
 
@@ -106,6 +112,7 @@
 /obj/item/organ/internal/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return
+
 	switch(severity)
 		if(1)
 			internal_receive_damage(20, silent = TRUE)
@@ -137,6 +144,7 @@
 /obj/item/organ/internal/proc/prepare_eat()
 	if(is_robotic())
 		return //no eating cybernetic implants!
+
 	var/obj/item/reagent_containers/food/snacks/organ/S = new
 	S.name = name
 	S.desc = desc
@@ -150,6 +158,7 @@
 /obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(parent_organ_zone != parent.limb_zone)
 		return FALSE
+
 	insert(target, special)
 	return TRUE
 
@@ -171,6 +180,7 @@
 		return ..()
 
 	var/obj/item/reagent_containers/food/snacks/snack = prepare_eat()
+
 	if(!snack)
 		return ATTACK_CHAIN_PROCEED
 
@@ -197,9 +207,11 @@
 			H.icon_base = "[slot]-c"
 			H.dead_icon = "[slot]-c-off"
 			H.update_icon()
+
 		else if("[slot]-c" in states) //Give the robotic organ its robotic organ icons if they exist.
 			icon = icon('icons/obj/surgery.dmi')
 			icon_state = "[slot]-c"
+
 		name = "cybernetic [slot]"
 	..() //Go apply all the organ flags/robotic statuses.
 
@@ -216,12 +228,14 @@
 	for(var/datum/disease/appendicitis/A in M.diseases)
 		A.cure()
 		inflamed = TRUE
+
 	update_icon()
 	. = ..()
 
 
 /obj/item/organ/internal/appendix/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
+
 	if(inflamed)
 		var/datum/disease/appendicitis/D = new
 		D.Contract(M)
@@ -229,8 +243,10 @@
 
 /obj/item/organ/internal/appendix/prepare_eat()
 	var/obj/S = ..()
+
 	if(inflamed)
 		S.reagents.add_reagent("????", 5)
+
 	return S
 
 
@@ -262,8 +278,10 @@
 		var/light_count = T.get_lumcount()*10
 		if(light_count > 4 && obj_integrity > 0) //Die in the light
 			obj_integrity--
+
 		else if(light_count < 2 && obj_integrity < max_integrity) //Heal in the dark
 			obj_integrity++
+
 		if(obj_integrity <= 0)
 			visible_message(span_warning("[src] collapses in on itself!"))
 			qdel(src)
@@ -286,6 +304,7 @@
 
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
+
 	M.force_gene_block(GLOB.clumsyblock, TRUE)
 	M.force_gene_block(GLOB.comicblock, TRUE)
 	organhonked = world.time
@@ -333,6 +352,7 @@
 
 /obj/item/organ/internal/honktumor/cursed/on_life() //No matter what you do, no matter who you are, no matter where you go, you're always going to be a fat, stuttering dimwit.
 	..()
+
 	owner.setBrainLoss(80)
 	owner.set_nutrition(9000)
 	owner.overeatduration = 9000
@@ -378,13 +398,16 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
+
 		if(!(head_organ.h_style == "Very Long Hair" || head_organ.h_style == "Mohawk"))
 			if(prob(10))
 				head_organ.h_style = "Mohawk"
 			else
 				head_organ.h_style = "Very Long Hair"
+
 			head_organ.hair_colour = "#D8C078"
 			H.update_hair()
+
 		if(!(head_organ.f_style == "Very Long Beard"))
 			head_organ.f_style = "Very Long Beard"
 			head_organ.facial_colour = "#D8C078"
@@ -395,7 +418,9 @@
 	..()
 	if(!ishuman(owner))
 		return
+
 	var/germs_mod = owner.dna.species.germs_growth_mod * owner.physiology.germs_growth_mod
+
 	if(germ_level >= INFECTION_LEVEL_TWO && prob(3 * germs_mod))
 		// big message from every 1 damage is not good. If germs growth rate is big, it will spam the chat.
 		internal_receive_damage(1, silent = prob(30 * germs_mod))
@@ -403,16 +428,19 @@
 
 /mob/living/carbon/human/proc/check_infections()
 	var/list/infections = list()
+
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
 		if(organ.germ_level > 0)
 			infections.Add(organ)
+
 	return infections
 
 
 /mob/living/carbon/human/proc/check_damaged_organs()
 	var/list/damaged = list()
+
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
 		if(organ.damage > 0)
 			damaged.Add(organ)
-	return damaged
 
+	return damaged
