@@ -111,6 +111,23 @@
 	range = 10
 	damage = 25
 	damage_type = BRUTE
+	var/faction_bonus_damage = 13
+	var/nemesis_factions = list("mining", "boss")
+	var/nemesis_faction = FALSE
+
+/obj/item/projectile/bullet/reusable/arrow/prehit(atom/target)
+	var/mob/living/H = target
+
+	if(!ismob(H) || !LAZYLEN(nemesis_factions))
+		return
+
+	for(var/faction in H.faction)
+		if(faction in nemesis_factions)
+			nemesis_faction = TRUE
+			damage += faction_bonus_damage
+			break
+
+	. = ..()
 
 /obj/item/projectile/bullet/reusable/arrow/bone //A fully upgraded normal arrow; it's got the stats to show. Still *less* damage than a slug, slower, and with negative AP. Only for bone bow!
 	name = "bone-tipped arrow"
@@ -119,11 +136,15 @@
 	range = 12
 	damage = 45
 	armour_penetration = -10
+	faction_bonus_damage = 23
 
 /obj/item/ammo_casing/caseless/arrow
 	name = "arrow"
 	desc = "Stab, stab, stab."
 	icon_state = "arrow"
+	item_state = "arrow"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 10
 	projectile_type = /obj/item/projectile/bullet/reusable/arrow
 	muzzle_flash_effect = null
@@ -133,6 +154,9 @@
 	name = "bone-tipped arrow"
 	desc = "An arrow made from bone, wood, and sinew. Sturdy and sharp."
 	icon_state = "bone_arrow"
+	item_state = "bone_arrow"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 12
 	projectile_type = /obj/item/projectile/bullet/reusable/arrow/bone
 	caliber = "bone_arrow"

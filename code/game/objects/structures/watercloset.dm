@@ -702,6 +702,14 @@
 	can_rotate = 0
 	resistance_flags = UNACIDABLE
 
+/obj/structure/sink/puddle/Initialize(mapload)
+	. = ..()
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/structure/sink/puddle/attack_hand(mob/user)
 	flick("puddle-splash", src)
@@ -731,6 +739,22 @@
 
 	return ..()
 
+/obj/structure/sink/puddle/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+	wash(arrived)
+
+/obj/structure/sink/puddle/proc/wash(atom/target)
+	if(isitem(target))
+		var/obj/item/item = target
+		item.extinguish()
+
+	if(isliving(target))
+		var/mob/living/l_target = target
+		l_target.ExtinguishMob()
+		l_target.adjust_fire_stacks(-20)
+		to_chat(l_target, span_warning("You've been drenched in water!"))
+
+	target.clean_blood()
 
 //////////////////////////////////
 //		Bathroom Fixture Items	//

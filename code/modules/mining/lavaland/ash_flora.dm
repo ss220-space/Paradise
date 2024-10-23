@@ -178,6 +178,21 @@
 	regrowth_time_low = 2500
 	regrowth_time_high = 4000
 
+/obj/structure/flora/ash/coaltree
+	icon_state = "coaltree"
+	name = "coaltree"
+	desc = "Небольшое мрачное дерево, растущее на просторах такой же мрачной планеты."
+	harvested_name = "coaltree stump"
+	harvested_desc = "Голый ствол дерева, оставшийся без своей уродливой кроны."
+	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
+	harvest_amount_high = 5
+	harvest_time = 40
+	harvest_message_low = "Вы обрезаете небольшое дерево."
+	harvest_message_med = "Вы обрезаете дерево среднего размера."
+	harvest_message_high = "Вы обрезаете большое дерево."
+	regrowth_time_low = 4000
+	regrowth_time_high = 6000
+
 /obj/item/reagent_containers/food/snacks/grown/ash_flora
 	name = "mushroom shavings"
 	desc = "Some shavings from a tall mushroom. With enough, might serve as a bowl."
@@ -231,6 +246,35 @@
 	slot_flags = ITEM_SLOT_HEAD
 	seed = /obj/item/seeds/lavaland/fireblossom
 	wine_power = 0.4
+
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
+	name = "coaltree log"
+	desc = "Бревно угледрева, на ощупь мягкое."
+	icon_state = "coaltree_log"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	item_state = "coaltree_log"
+	seed = /obj/item/seeds/lavaland/coaltree
+	wine_power = 0.5
+	item_flags = NOBLUDGEON
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log/attackby(obj/item/I, mob/user, params)
+	if(is_sharp(I))
+		if(!isturf(loc))
+			add_fingerprint(user)
+			to_chat(user, span_warning("You cannot chop [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+			return ATTACK_CHAIN_PROCEED
+
+		to_chat(user, span_notice("You have chopped [src] into planks."))
+		var/seed_modifier = 0
+		if(seed)
+			seed_modifier = round(seed.potency / 25)
+		var/obj/item/stack/planks = new /obj/item/stack/sheet/wood(loc, 1 + seed_modifier)
+		transfer_fingerprints_to(planks)
+		planks.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 //SEEDS
 
@@ -315,6 +359,18 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
 	genes = list(/datum/plant_gene/trait/fire_resistance, /datum/plant_gene/trait/glow/yellow)
 	reagents_add = list("tinlux" = 0.04, "nutriment" = 0.03, "carbon" = 0.05)
+
+/obj/item/seeds/lavaland/coaltree
+	name = "pack of coaltree seeds"
+	desc = "These seeds grow into coaltree."
+	icon_state = "seed-coaltree"
+	species = "coaltree"
+	plantname = "Coaltree"
+	growthstages = 3
+	growing_icon = 'icons/obj/hydroponics/growing.dmi'
+	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
+	genes = list(/datum/plant_gene/trait/fire_resistance)
+	reagents_add = list("nutriment" = 0.04, "coaltree_extract" = 0.1)
 
 //CRAFTING
 

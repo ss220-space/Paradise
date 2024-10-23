@@ -26,6 +26,15 @@
 	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.5
 
+/obj/item/retractor/primitive_retractor
+	name = "primitive bone retractor"
+	desc = "Retracts stuff."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_retractor"
+	item_state = "primitive_retractor"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+
 /obj/item/hemostat
 	name = "hemostat"
 	desc = "You think you have seen this before."
@@ -54,6 +63,15 @@
 	desc = "Tiny servos power a pair of pincers to stop bleeding."
 	toolspeed = 0.5
 
+/obj/item/hemostat/primitive_hemostat
+	name = "primitive hemostat"
+	desc = "You think you have seen this before."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_hemostat"
+	item_state = "primitive_hemostat"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+
 /obj/item/cautery
 	name = "cautery"
 	desc = "This stops bleeding."
@@ -75,6 +93,15 @@
 	desc = "A heated element that cauterizes wounds."
 	toolspeed = 0.5
 
+/obj/item/cautery/primitive_cautery
+	name = "primitive cautery"
+	desc = "This stops bleeding."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_cautery"
+	item_state = "primitive_cautery"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+
 /obj/item/surgicaldrill
 	name = "surgical drill"
 	desc = "You can drill using this item. You dig?"
@@ -90,6 +117,10 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
 	tool_behaviour = TOOL_DRILL
+	icon_state = "primitive_cautery"
+	item_state = "primitive_cautery"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /obj/item/surgicaldrill/Initialize(mapload)
 	. = ..()
@@ -151,6 +182,15 @@
 /obj/item/scalpel/augment
 	desc = "Ultra-sharp blade attached directly to your bone for extra-accuracy."
 	toolspeed = 0.5
+
+/obj/item/scalpel/primitive_scalpel
+	name = "primitive scalpel"
+	desc = "Cut, cut, and once more cut."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_scalpel"
+	item_state = "primitive_scalpel"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /*
  * Researchable Scalpels
@@ -241,6 +281,16 @@
 	w_class = WEIGHT_CLASS_SMALL
 	toolspeed = 0.5
 
+/obj/item/circular_saw/primitive_saw
+	name = "primitive circular saw"
+	desc = "For heavy duty cutting."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_saw"
+	item_state = "primitive_saw"
+	hitsound = 'sound/weapons/slice.ogg'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+
 //misc, formerly from code/defines/weapons.dm
 /obj/item/bonegel
 	name = "bone gel"
@@ -260,6 +310,14 @@
 /obj/item/bonegel/augment
 	toolspeed = 0.5
 
+/obj/item/bonegel/primitive_bonegel
+	name = "primitive bone gel"
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_bonegel"
+	item_state = "primitive_bonegel"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+
 /obj/item/FixOVein
 	name = "FixOVein"
 	icon = 'icons/obj/surgery.dmi'
@@ -277,6 +335,14 @@
 
 /obj/item/FixOVein/augment
 	toolspeed = 0.5
+
+/obj/item/FixOVein/primitive_FixOVein
+	name = "primitive FixOVein"
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_fixovein"
+	item_state = "primitive_fixovein"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /obj/item/bonesetter
 	name = "bone setter"
@@ -305,6 +371,14 @@
 
 /obj/item/bonesetter/augment
 	toolspeed = 0.5
+
+/obj/item/bonesetter/primitive_bonesetter
+	name = "primitive bone setter"
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_bonesetter"
+	item_state = "primitive_bonesetter"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /obj/item/surgical_drapes
 	name = "surgical drapes"
