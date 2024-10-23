@@ -1409,6 +1409,14 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"AT" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/decal/cleanable/ashrune,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "EV" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/stone_tile{
@@ -1606,7 +1614,7 @@ ak
 ak
 cg
 cb
-cg
+AT
 cn
 bL
 dr
