@@ -52,7 +52,7 @@
 
 
 /datum/event/spawn_slaughter/start()
-	if(num_station_players() <= minplayers)
+	if(!can_start())
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
 		EC.next_event_time = world.time + (60 * 10)
 		return	//we don't spawn demons on lowpop. Instead, we reroll!
@@ -76,6 +76,20 @@
 			continue
 		return check // return the first turf that is dark nearby.
 	kill()
+
+/datum/event/spawn_slaughter/can_start()
+	var/player_count = num_station_players()
+	if(player_count > minplayers) // all passed
+		return TRUE
+
+	if(..()) // forced
+		log_and_message_admins("Event \"[type]\" launched bypassing the minimum players limit!")
+		return TRUE
+
+	log_and_message_admins("Random event attempted to spawn a slaughter demon, but there were only [player_count]/[minplayers] players.")
+
+	return FALSE
+
 
 #undef SLAUGHTER_MINPLAYERS
 #undef LAUGHTER_MINPLAYERS

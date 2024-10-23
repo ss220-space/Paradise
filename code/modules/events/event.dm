@@ -72,6 +72,8 @@
 	var/endedAt			= 0
 	/// Does the event end automatically after endWhen passes?
 	var/noAutoEnd       = FALSE
+	/// If the event was triggered by admins and should bypass start checks?
+	var/forced_event 	= FALSE
 	/// The area the event will hit
 	var/area/impact_area
 	var/datum/event_meta/event_meta = null
@@ -176,10 +178,12 @@
 	SSevents.active_events -= src
 	SSevents.event_complete(src)
 
-/datum/event/New(datum/event_meta/EM, skeleton = FALSE)
+/datum/event/New(datum/event_meta/EM, skeleton = FALSE, forced_event = FALSE)
 	// event needs to be responsible for this, as stuff like APLUs currently make their own events for curious reasons
 	if(!skeleton)
 		SSevents.active_events += src
+
+	src.forced_event = forced_event
 
 	if(!EM)
 		EM = new /datum/event_meta(EVENT_LEVEL_MAJOR, "Unknown, Most likely admin called", src.type)
@@ -214,4 +218,12 @@
   * If this proc returns TRUE, the regular Announce() won't be called.
   */
 /datum/event/proc/fake_announce()
+	return FALSE
+
+//Optional proc that can be owerwritten with ..() check and used in start() to check if the event can start
+//May contain checks for number of players, round gamemodes, phases of the moon, etc
+/datum/event/proc/can_start()
+	if(forced_event) // admin spawned
+		return TRUE
+
 	return FALSE
