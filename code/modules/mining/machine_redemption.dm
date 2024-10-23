@@ -28,15 +28,16 @@
 	/// List of supply console department names that can receive a notification about ore dumps.
 	/// A list may be provided as entry value to only notify when specific ore is dumped.
 	var/list/supply_consoles = list(
-		"Science",
-		"Robotics",
-		"Research Director's Desk",
-		"Mechanic",
-		"Engineering" = list(MAT_METAL, MAT_GLASS, MAT_PLASMA),
-		"Chief Engineer's Desk" = list(MAT_METAL, MAT_GLASS, MAT_PLASMA),
-		"Atmospherics" = list(MAT_METAL, MAT_GLASS, MAT_PLASMA),
-		"Bar" = list(MAT_URANIUM, MAT_PLASMA),
-		"Virology" = list(MAT_PLASMA, MAT_URANIUM, MAT_GOLD)
+		RC_SCIENCE,
+		RC_RESEARCH,
+		RC_ROBOTICS,
+		RC_RESEARCH_DIRECTOR_DESK,
+		RC_MECHANIC,
+		RC_ENGINEERING = list(MAT_METAL, MAT_GLASS, MAT_PLASMA),
+		RC_CHIEF_ENGINEER_DESK = list(MAT_METAL, MAT_GLASS, MAT_PLASMA),
+		RC_ATMOSPHERICS = list(MAT_METAL, MAT_GLASS, MAT_PLASMA),
+		RC_BAR = list(MAT_URANIUM, MAT_PLASMA),
+		RC_VIROLOGY = list(MAT_PLASMA, MAT_URANIUM, MAT_GOLD)
 	)
 	// Variables
 	/// The currently inserted ID.

@@ -134,6 +134,7 @@
 //=========== security clown equipment ===========
 /obj/item/pda/clown/security
 	default_cartridge = /obj/item/cartridge/clown
+	default_request_console_cartridge = /obj/item/cartridge/request_console/clown_security
 	icon_state = "pda-security-clown"
 	desc = "Переносной микрокомпьютер от Синктроник Системс, LTD. Этот КПК разработан по заказу тайного покупателя, пожелавшего хонкнуться нераскрытым. Поверхность покрыта политетрафторэтиленом и банановым налётом."
 	ttone = "honk"
