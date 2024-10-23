@@ -26,6 +26,7 @@
 		/datum/job_objective/further_research
 	)
 	outfit = /datum/outfit/job/rd
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 300
 	min_start_money = 400

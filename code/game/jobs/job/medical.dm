@@ -20,6 +20,7 @@
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/cmo
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 300
 	min_start_money = 400
