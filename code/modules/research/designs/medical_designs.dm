@@ -796,3 +796,13 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_SILVER = 800, MAT_GLASS = 800, MAT_DIAMOND = 600, MAT_GOLD = 400)
 	category = list("Medical")
+
+/datum/design/bbag
+	name = "bluespace bodybag"
+	desc = "A bluespace body bag designed for the storage and transportation of cadavers."
+	id = "bbag"
+	req_tech = null //only for roboquests
+	build_type = PROTOLATHE
+	materials = list(MAT_SILVER = 1200, MAT_GLASS = 800, MAT_DIAMOND = 1200, MAT_GOLD = 400, MAT_BLUESPACE = 2000)
+	build_path = /obj/item/bodybag/bluespace
+	category = list("Medical")

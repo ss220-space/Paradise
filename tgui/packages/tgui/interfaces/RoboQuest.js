@@ -25,6 +25,7 @@ export const RoboQuest = (props, context) => {
     checkMessage,
     style,
     cooldown,
+    instant_teleport,
     shopItems,
     points,
     cats,
@@ -53,11 +54,13 @@ export const RoboQuest = (props, context) => {
             {!shopState && (
               <Section
                 fill
-                title="Mecha"
+                title="Выбранный заказ"
                 buttons={
                   <Button
-                    content="Check Mech"
+                    content="Проверка меха"
                     icon="search"
+                    tooltipPosition="bottom"
+                    tooltip="Проверка экзокостюма на наличие необходимых для заказа модулей."
                     disabled={!hasID || !hasTask || !canCheck || cooldown}
                     onClick={() => act('Check')}
                   />
@@ -133,10 +136,10 @@ export const RoboQuest = (props, context) => {
                 fill
                 title={
                   <Box>
-                    Corps bounties
+                    Магазин чертежей
                     <Box>
-                      Points: <b style={{ color: 'brown' }}>{points.working}</b>
-                      |<b style={{ color: 'lightblue' }}>{points.medical}</b>|
+                      Очки: <b style={{ color: 'brown' }}>{points.working}</b>|
+                      <b style={{ color: 'lightblue' }}>{points.medical}</b>|
                       <b style={{ color: 'red' }}>{points.security}</b>
                     </Box>
                   </Box>
@@ -184,15 +187,21 @@ export const RoboQuest = (props, context) => {
           <Stack.Item basis={20}>
             <Section
               fill
-              title="Other"
+              title="Другое"
               buttons={
                 <>
                   <Button
-                    content="Shop"
+                    content="Магазин"
+                    width="7rem"
                     icon="shopping-cart"
                     onClick={() => changeShopState(!shopState)}
                   />
-                  <Button icon="cog" onClick={() => act('ChangeStyle')} />
+                  <Button
+                    icon="cog"
+                    tooltipPosition="bottom"
+                    tooltip="Изменение стиля интерфейса."
+                    onClick={() => act('ChangeStyle')}
+                  />
                 </>
               }
             >
@@ -204,6 +213,35 @@ export const RoboQuest = (props, context) => {
                   <br />
                 </>
               )}
+
+              <>
+                <br />
+                При получении заказа на экзкостюм, выбор подтипа меха определяет
+                тип специализированных очков, которые будут начислены за
+                выполнение заказа.
+                <br />
+                <br />
+                Рабочие экзокостюмы приносят{' '}
+                <Box inline color={'brown'}>
+                  {' '}
+                  коричневые
+                </Box>{' '}
+                очки. Медицинские экзокостюмы приносят{' '}
+                <Box inline color={'teal'}>
+                  {' '}
+                  голубые
+                </Box>{' '}
+                очки. Боевые экзокостюмы приносят{' '}
+                <Box inline color={'red'}>
+                  {' '}
+                  красные
+                </Box>{' '}
+                очки.
+                <br />
+                <br />
+                Каждый мех, вне зависимости от подтипа, приносит некоторое
+                количество очков для магазина особых наград.
+              </>
             </Section>
           </Stack.Item>
           <Stack.Item basis={38}>
@@ -211,19 +249,19 @@ export const RoboQuest = (props, context) => {
               <Section
                 fill
                 scrollable
-                title="Info"
+                title="Инфо"
                 buttons={
                   <>
                     <Button
                       icon="id-card"
-                      content="Eject ID"
+                      content="Вынуть ID"
                       disabled={!hasID}
                       onClick={() => act('RemoveID')}
                     />
                     {!hasTask && (
                       <Button
                         icon="arrow-down"
-                        content="Get Task"
+                        content="Получить мех"
                         disabled={!hasID || cooldown}
                         onClick={() => act('GetTask')}
                       />
@@ -231,14 +269,14 @@ export const RoboQuest = (props, context) => {
                     {!!hasTask && (
                       <>
                         <Button
-                          content="Print"
+                          content="Печать"
                           icon="print"
                           onClick={() => act('printOrder')}
                           disabled={!hasTask}
                         />
                         <Button
                           icon="trash"
-                          content="Remove Task"
+                          content="Отказаться"
                           disabled={!hasID || cooldown}
                           onClick={() => act('RemoveTask')}
                         />
@@ -248,13 +286,13 @@ export const RoboQuest = (props, context) => {
                 }
               >
                 <Box mx="0.5rem" mb="1rem">
-                  <b>Name: </b>
+                  <b>Название: </b>
                   {questInfo.name}
                   <br />
-                  <b>Desc: </b>
+                  <b>Описание: </b>
                   {questInfo.desc}
                 </Box>
-                <Section title="Modules" level={2}>
+                <Section title="Требуемые Модули:" level={2}>
                   <Box mx="0.5rem" mb="0.5rem">
                     {!!hasTask &&
                       questInfo.modules.map((i) => (
@@ -268,23 +306,46 @@ export const RoboQuest = (props, context) => {
                 <Box mb="0.5rem" textAlign="center">
                   <Button
                     icon="arrow-up"
-                    width="15rem"
+                    width="14rem"
                     bold
-                    content="Send Mech"
+                    content="Отправить мех"
                     textAlign="center"
+                    tooltipPosition="top"
+                    tooltip="Отправка меха на выбранный вами телепад."
                     disabled={!hasID || !hasTask || !canSend || cooldown}
                     onClick={() => act('SendMech', { type: 'send' })}
                   />
                   <Button
                     icon="arrow-up"
-                    width="15rem"
+                    width="14rem"
                     bold
-                    content="Pack"
+                    content="Упаковать мех"
                     textAlign="center"
+                    tooltipPosition="top"
+                    tooltip="Упаковка меха для самостоятельной доставки в карго."
                     disabled={!hasID || !hasTask || !canSend || cooldown}
                     onClick={() => act('SendMech', { type: 'only_packing' })}
                   />
                 </Box>
+                <box mb="1.5rem" textAlign="center">
+                  <Button
+                    icon="arrow-up"
+                    width="30rem"
+                    bold
+                    content="Телепортировать мех"
+                    textAlign="center"
+                    tooltipPosition="bottom"
+                    tooltip="Мгновенная телепортация меха заказчику."
+                    disabled={
+                      !hasID ||
+                      !hasTask ||
+                      !canSend ||
+                      cooldown ||
+                      !instant_teleport
+                    }
+                    onClick={() => act('SendMech', { type: 'instant' })}
+                  />
+                </box>
               </Section>
             )}
             {!!shopState && (
@@ -293,8 +354,8 @@ export const RoboQuest = (props, context) => {
                 scrollable
                 title={
                   <>
-                    RoboQuest Shop
-                    <Box>Points: {points.robo}</Box>
+                    Магазин особых наград
+                    <Box>Очки: {points.robo}</Box>
                   </>
                 }
               >

@@ -19,6 +19,8 @@
 	step_energy_drain = 3
 	normal_step_energy_drain = 3
 
+	mech_type = MECH_TYPE_GYGAX
+
 /obj/mecha/combat/gygax/GrantActions(mob/living/user, human_occupant = 0)
 	..()
 	overload_action.Grant(user, src)

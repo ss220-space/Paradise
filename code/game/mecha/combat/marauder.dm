@@ -20,6 +20,8 @@
 	destruction_sleep_duration = 2 SECONDS
 	strafe_allowed = TRUE
 
+	mech_type = MECH_TYPE_MARAUDER
+
 /obj/mecha/combat/marauder/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()
 	thrusters_action.Grant(user, src)
