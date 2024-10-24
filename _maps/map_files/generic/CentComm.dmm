@@ -4758,9 +4758,18 @@
 /obj/effect/decal/warning_stripes/green/hollow,
 /obj/item/gun/projectile/automatic/m90,
 /obj/item/gun/projectile/automatic/m90,
-/obj/item/gun/projectile/automatic/m90,
-/obj/item/gun/projectile/automatic/m90,
-/obj/item/gun/projectile/automatic/m90,
+/obj/item/gun/projectile/automatic/m90{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/automatic/m90{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/automatic/m90{
+	pixel_x = -3;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
