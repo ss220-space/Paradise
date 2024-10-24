@@ -720,29 +720,38 @@
 
 /datum/game_mode/proc/apocalypse()
 	set_security_level(SEC_LEVEL_DELTA)
-	GLOB.priority_announcement.Announce("Обнаружена угроза класса 'Разрушитель миров'. Самостоятельное решение задачи маловероятно. Моделирование пути решения начато, ожидайте.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
-	sleep(50 SECONDS)
-	GLOB.priority_announcement.Announce("Моделирование завершено. Меры будут приняты в ближайшем времени. Всему живому персоналу: не допустите усиления угрозы любой ценой.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
-	sleep(30 SECONDS)
+	GLOB.priority_announcement.Announce("Обнаружена угроза класса 'Разрушитель миров'. Моделирование пути решения угрозы начато, ожидайте", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
+	sleep(1 SECONDS)
+	GLOB.priority_announcement.Announce("Моделирование завершено. Всему живому персоналу: не допустите усиления угрозы любой ценой. Меры будут приняты в ближайщее время", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
+	sleep(1 SECONDS)
 	var/obj/singularity/narsie/N = locate(/obj/singularity/narsie) in GLOB.poi_list
 	var/obj/singularity/ratvar/R = locate(/obj/singularity/ratvar) in GLOB.poi_list
 	if(!N && !R)
-		GLOB.priority_announcement.Announce("Угроза пропала с наших сенсоров. Нам требуется срочный отчет о вашей ситуации. Но, мгм, пока что мы санкционировали вам экстренную эвакуацию.", 'sound/AI/commandreport.ogg')
+		GLOB.priority_announcement.Announce("Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
 		SSshuttle.emergency.request(null, 0.3)
 		SSshuttle.emergency.canRecall = FALSE
 		return
-	if(SSticker.cultdat.name == "Cult of Nar'Sie")
-		if(N.soul_devoured > 20)
+	if (N)
+		if(SSticker.cultdat.name == "Cult of Nar'Sie")
 			play_cinematic(/datum/cinematic/cult_arm, world)
 			sleep(15 SECONDS)
 			SSticker.force_ending = TRUE
 			return
-	play_cinematic(/datum/cinematic/nuke/self_destruct, world)
-	sleep(8 SECONDS)
-	SSticker.force_ending = TRUE
-	qdel(R)
-	qdel(N)
-
+		if(SSticker.cultdat.name == "Cult of Kha'Rin")
+			play_cinematic(/datum/cinematic/cult_arm_kharin, world)
+			sleep(15 SECONDS)
+			SSticker.force_ending = TRUE
+			return
+		if(SSticker.cultdat.name == "Cult of Mortality")
+			play_cinematic(/datum/cinematic/cult_arm_reaper, world)
+			sleep(15 SECONDS)
+			SSticker.force_ending = TRUE
+			return
+	if (R)
+		play_cinematic(/datum/cinematic/cult_arm_ratvar, world)
+		sleep(15 SECONDS)
+		SSticker.force_ending = TRUE
+		return
 
 #undef NUKE_INTACT
 #undef NUKE_CORE_MISSING
