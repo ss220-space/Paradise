@@ -314,13 +314,15 @@
 
 
 /obj/item/tank/jetpack/suit/ninja/allow_thrust(num, use_fuel = TRUE)
-	var/mob/user = get_owner()
+	var/mob/living/user = get_owner()
 	if(!user)
 		return FALSE
-	if(!skip_trails && user.alpha == NINJA_ALPHA_INVISIBILITY)
+
+	if(!skip_trails && user.alpha_get(ALPHA_SOURCE_NINJA) == NINJA_ALPHA_INVISIBILITY / LIGHTING_PLANE_ALPHA_VISIBLE)
 		configure_jetpack(skip_trails = TRUE)
-	else if(skip_trails && user.alpha != NINJA_ALPHA_INVISIBILITY)
+	else if(skip_trails && user.alpha_get(ALPHA_SOURCE_NINJA) != NINJA_ALPHA_INVISIBILITY / LIGHTING_PLANE_ALPHA_VISIBLE)
 		configure_jetpack(skip_trails = FALSE)
+
 	return ..()
 
 
