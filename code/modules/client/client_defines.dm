@@ -215,6 +215,9 @@
 	/// Our object window datum. It stores info about and handles behavior for the object tab
 	var/datum/object_window_info/obj_window
 
+	/// If true, antags can take client out of the round without objective.
+	var/can_they_gib_me = FALSE
+
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS

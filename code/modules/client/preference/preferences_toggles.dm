@@ -590,3 +590,17 @@
     enable_message = "You will see item description tips now."
     disable_message = "You will not see item description tips now."
     blackbox_message = "Toggle item description tips on hover"
+
+/datum/preference_toggle/toggle_take_out_of_the_round_without_obj
+    name = "Переключить разрешение выводить вас из раунда"
+    description = "Переключает разрешение другим игрокам выводить вас из раунда без соответствующей цели."
+    preftoggle_bitflag = PREFTOGGLE_2_GIB_WITHOUT_OBJECTIVE
+    preftoggle_toggle = PREFTOGGLE_TOGGLE2
+    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+    enable_message = "Другие игроки теперь имеют право выводить вас из раунда без цели."
+    disable_message = "Другие игроки больше не имеют права выводить вас из раунда без цели."
+    blackbox_message = "Переключение разрешения выводить игрока из раунда"
+
+/datum/preference_toggle/toggle_take_out_of_the_round_without_obj/set_toggles(client/user)
+	. = ..()
+	log_admin("[user.ckey] " + (user.prefs.toggles2 & PREFTOGGLE_2_GIB_WITHOUT_OBJECTIVE ? "enabled" : "disabled") + " permission to take him/her out of the round.")

@@ -426,6 +426,9 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
+	if(client && mind && mind.assigned_role) // No ashes, monkeys etc
+		msg += "\n" + (user.client.prefs.toggles2 & PREFTOGGLE_2_GIB_WITHOUT_OBJECTIVE ? "Вы можете вывести этого игрока без игры не имея соответствующей цели." : ("Вы " + span_warning("НЕ") + " можете вывести этого игрока без игры не имея соответствующей цели."))
+
 	. = list(msg)
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
