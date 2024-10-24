@@ -2535,7 +2535,7 @@
 
 /datum/uplink_item/contractor/zippo
 	name = "Contractor Zippo Lighter"
-	desc = "A kit with your personal assistant. It comes with an increased amount of memory and special programs."
+	desc = "An unique black and gold zippo lighter with no purpose other than showing off."
 	item = /obj/item/lighter/zippo/contractor
 	cost = 120
 
