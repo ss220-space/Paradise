@@ -155,6 +155,9 @@
 	/// Direct ref to the trunk pipe underneath us
 	var/obj/structure/disposalpipe/trunk/trunk
 
+	/// If true, there is somebody who is inserting sth right now.
+	var/inserting = FALSE
+
 /obj/machinery/customat/proc/set_up_components()
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new
@@ -386,6 +389,10 @@
 	inserted_items_count++
 
 /obj/machinery/customat/proc/try_insert(mob/user, obj/item/I, from_tube = FALSE)
+	if(inserting)
+		return
+
+	inserting = TRUE
 	var/cost = 100
 	if(from_tube)
 		if(I.name in remembered_costs)
@@ -397,14 +404,17 @@
 		var/input_cost = tgui_input_number(user, "Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0, 1000000, 0)
 		if(!input_cost)
 			to_chat(user, span_warning("Цена не указанна!"))
+			inserting = FALSE
 			return
 
 		cost = input_cost
 	if(user && get_dist(get_turf(user), get_turf(src)) > 1)
 		to_chat(user, span_warning("Вы слишком далеко!"))
+		inserting = FALSE
 		return
 
 	insert(user, I, cost)
+	inserting = FALSE
 
 /obj/machinery/customat/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM && COOLDOWN_FINISHED(src, emp_cooldown) && COOLDOWN_FINISHED(src, alarm_cooldown))
