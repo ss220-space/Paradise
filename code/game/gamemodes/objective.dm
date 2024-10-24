@@ -1,10 +1,18 @@
-#define THEFT_FLAG_HIGHRISK 	1
-#define THEFT_FLAG_UNIQUE 		2
-#define THEFT_FLAG_HARD 		3
-#define THEFT_FLAG_MEDIUM 		4
-#define THEFT_FLAG_STRUCTURE	5
-#define THEFT_FLAG_ANIMAL		6
-#define THEFT_FLAG_COLLECT 		7
+#define THEFT_FLAG_HIGHRISK 		1
+#define THEFT_FLAG_UNIQUE 			2
+#define THEFT_FLAG_HARD 			3
+#define THEFT_FLAG_MEDIUM 			4
+#define THEFT_FLAG_STRUCTURE		5
+#define THEFT_FLAG_ANIMAL			6
+#define THEFT_FLAG_COLLECT 			7
+#define THEFT_FLAG_AI 				8
+#define THEFT_FLAG_HYPO_OR_DEFIB	9
+#define THEFT_FLAG_DOCUMENTS		10
+
+#define SYNTH_TYPE_AI				(1<<0)
+#define SYNTH_TYPE_BORG				(1<<1)
+#define SYNTH_TYPE_DRONE			(1<<2)
+#define SYNTH_TYPE_ALL				(SYNTH_TYPE_AI | SYNTH_TYPE_BORG | SYNTH_TYPE_DRONE)
 
 
 GLOBAL_LIST_EMPTY(all_objectives)
@@ -125,6 +133,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
+
 		possible_targets |= possible_target
 
 	if(length(possible_targets))
@@ -199,6 +208,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 					continue
 				. |= general_objective.target
 
+/datum/objective/proc/on_objective_gain()
+	return
 
 /datum/objective/assassinate
 	name = "Assassinate"
@@ -216,21 +227,68 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return target
 
+/datum/objective/assassinate/headofstaff
+	name = "Assassinate Head of Stuff"
+	martyr_compatible = TRUE
 
-/datum/objective/assassinate/check_completion()
-	if(target && target.current)
-		if(target.current.stat == DEAD)
-			return TRUE
 
-		if(is_special_dead(target.current)) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
-			return TRUE
+/datum/objective/assassinate/headofstaff/find_target(list/target_blacklist)
+	if(!needs_target)
+		return
 
-		if(!target.current.ckey)
-			return TRUE
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(is_invalid_target(possible_target) || (possible_target in target_blacklist) || !(possible_target?.assigned_role in list("Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Captain")))
+			continue
 
-		return FALSE
+		possible_targets |= possible_target
 
-	return TRUE
+	if(length(possible_targets))
+		target = pick(possible_targets)
+
+		SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
+
+	if(target?.current)
+		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
+		if(!(target in SSticker.mode.victims))
+			SSticker.mode.victims.Add(target)
+	else
+		explanation_text = "Free Objective"
+
+	return target
+
+/datum/objective/assassinate/procedure
+	name = "Assassinate Procedure workers"
+	martyr_compatible = TRUE
+
+
+/datum/objective/assassinate/procedure/find_target(list/target_blacklist)
+	if(!needs_target)
+		return
+
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(is_invalid_target(possible_target) || (possible_target in target_blacklist) || !(possible_target?.assigned_role in list("Magistrate", "NT Representative")))
+			continue
+
+		possible_targets |= possible_target
+
+	if(length(possible_targets))
+		target = pick(possible_targets)
+
+	SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
+
+	if(target?.current)
+		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
+		if(!(target in SSticker.mode.victims))
+			SSticker.mode.victims.Add(target)
+	else
+		var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+		if(traitor)
+			traitor.add_objective(/datum/objective/assassinate/headofstaff)
+		qdel(src)
+
+	return target
 
 
 /datum/objective/mutiny
@@ -534,6 +592,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		message_admins("[key_name_admin(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.") //Since they were on antag hud earlier, this feels important to log
 		qdel(src)
 
+/datum/objective/law
+	needs_target = FALSE
 
 /datum/objective/protect/contractor //subtype for support units
 
@@ -653,6 +713,12 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		var/turf/location = get_turf(player.current)
 		if(istype(location, /turf/simulated/floor/shuttle/objective_check) || istype(location, /turf/simulated/floor/mineral/plastitanium/red/brig))
 			return FALSE
+
+		var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+		if(traitor)
+			for(var/datum/objective/mecha_or_pod_hijack/O in traitor.objectives)
+				if(isspacepod(player.current.loc))
+					return TRUE
 
 		if(!location.onCentcom() && !location.onSyndieBase())
 			return FALSE
@@ -787,10 +853,17 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/nuclear
 	name = "Nuke station"
-	explanation_text = "Destroy the station with a nuclear device."
+	explanation_text = "Уничтожьте станцию ​​с помощью ядерной боеголовки."
 	martyr_compatible = TRUE
 	needs_target = FALSE
 
+/datum/objective/nuclear/traitor
+
+/datum/objective/nuclear/traitor/on_objective_gain()
+	. = ..()
+	var/code = get_nuke_code()
+	owner.store_memory("<B>Код от ядерной бомбы станции</B>: [code]", 0, 0)
+	to_chat(owner.current, "Код ядерной авторизации: <B>[code]</B>")
 
 /datum/objective/steal
 	name = "Steal Item"
@@ -810,11 +883,17 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(THEFT_FLAG_COLLECT)
 			return GLOB.potential_theft_objectives_collect
 		if(THEFT_FLAG_UNIQUE)
-			return subtypesof(/datum/theft_objective/unique)
+			return GLOB.potential_theft_objectives_unique
 		if(THEFT_FLAG_STRUCTURE)
 			return GLOB.potential_theft_objectives_structure
 		if(THEFT_FLAG_ANIMAL)
 			return GLOB.potential_theft_objectives_animal
+		if(THEFT_FLAG_AI)
+			return GLOB.potential_theft_objectives_ai
+		if(THEFT_FLAG_HYPO_OR_DEFIB)
+			return GLOB.potential_theft_objectives_hypo_or_defib
+		if(THEFT_FLAG_DOCUMENTS)
+			return GLOB.potential_theft_objectives_documents
 		else
 			return GLOB.potential_theft_objectives
 
@@ -889,8 +968,13 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	return FALSE
 
 
-/datum/objective/steal/proc/give_kit(obj/item/item_path)
-	var/item = new item_path
+/datum/objective/steal/proc/give_kit(datum/uplink_item/affiliate/for_objective/item_path)
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor && traitor?.hidden_uplink)
+		traitor.hidden_uplink.uplink_items.Add(new item_path)
+		return
+
+	var/item = new item_path.item
 	var/list/slots = list(
 		"backpack" = ITEM_SLOT_BACKPACK,
 		"left pocket" = ITEM_SLOT_POCKET_LEFT,
@@ -929,6 +1013,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/steal/collect
 	type_theft_flag = THEFT_FLAG_COLLECT
 
+/datum/objective/steal/ai
+	type_theft_flag = THEFT_FLAG_AI
 
 /datum/objective/steal/exchange
 	martyr_compatible = FALSE
@@ -1125,9 +1211,21 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/blood/New()
-	gen_amount_goal()
+	if(!target_amount)
+		gen_amount_goal()
+
 	. = ..()
 
+
+/datum/objective/blood/ascend/New()
+	gen_amount_goal(1000, 1200)
+	. = ..()
+
+/datum/objective/blood/ascend/on_objective_gain()
+	. = ..()
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/hematogenic/advanced_hemophagus_extract)
 
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)
 	target_amount = rand(low, high)
@@ -1511,6 +1609,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in killers) || (possible_target in target_blacklist) || target == possible_target)
 			continue
+
 		possible_targets |= possible_target
 
 		if(length(killers_objectives))
@@ -1658,6 +1757,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
+
 		possible_targets |= possible_target
 		for(var/role in possible_roles)
 			if(role == possible_target.assigned_role)
@@ -1730,6 +1830,271 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	Подойдёт только консоль в этой зоне из-за уязвимости оставленной заранее для вируса. \
 	Учтите, что установка займёт время и ИИ скорее всего будет уведомлён о вашей попытке взлома!"
 
+// Affiliates objectives custom
+/datum/objective/download_data
+	needs_target = FALSE
+	var/req_techs
+
+/datum/objective/download_data/New(text, datum/team/team_to_join)
+	. = ..()
+	req_techs = rand(30, 40)
+	explanation_text = "Украдите [req_techs] уровней технологий, просканировав сервера R&D при помощи Фирменного SSD, который вы можете приобрести в аплинке."
+
+/datum/objective/download_data/on_objective_gain()
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/proprietary_ssd)
+
+/datum/objective/download_data/check_completion()
+	for(var/obj/item/proprietary_ssd/ssd in owner.current.get_contents()) //Check for items
+		var/sum_of_techs = 0
+		for(var/I in ssd.files.known_tech)
+			var/datum/tech/T = ssd.files.known_tech[I]
+			sum_of_techs += T.level
+			if(sum_of_techs >= req_techs)
+				return TRUE
+	return FALSE
+
+
+/datum/objective/mecha_or_pod_hijack
+	needs_target = FALSE
+	explanation_text = "Украдите любого меха или любой под."
+
+/datum/objective/mecha_or_pod_hijack/check_completion()
+	var/turf/T = get_turf(owner.current)
+	for(var/obj/mecha/mecha in range(3, T))
+		if(mecha.occupant == owner.current)
+			return TRUE
+
+		if(!mecha.occupant)
+			return TRUE
+
+	for(var/obj/spacepod/pod in range(3, T))
+		if(pod.pilot == owner.current)
+			return TRUE
+
+		if(!pod.pilot)
+			return TRUE
+
+	return FALSE
+
+/datum/objective/new_mini_traitor
+	needs_target = TRUE
+	var/made = FALSE
+
+/datum/objective/new_mini_traitor/find_target(list/target_blacklist)
+	..()
+	if(target)
+		update_explanation()
+
+	return target
+
+/datum/objective/new_mini_traitor/proc/update_explanation()
+	if(target)
+		explanation_text = "Implant [target.current.real_name], the [target.assigned_role] with a modified mindslave implant. You can find it in uplink."
+
+/datum/objective/new_mini_traitor/on_objective_gain()
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/mod_mindslave)
+
+/datum/objective/new_mini_traitor/check_completion()
+	if(!target) //If it's a free objective.
+		return TRUE
+
+	return made
+
+/datum/objective/harvest_blood
+	var/req_blood_samples = 3
+
+/datum/objective/harvest_blood/New()
+	. = ..()
+	req_blood_samples = rand(2, 5)
+	explanation_text = "Соберите [req_blood_samples] образцов крови у [req_blood_samples] различных разумных гуманоидов."
+
+/datum/objective/harvest_blood/on_objective_gain()
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		var/datum/uplink_item/affiliate/for_objective/blood_harvester/I = new
+		I.limited_stock = req_blood_samples + 1
+		traitor.hidden_uplink.uplink_items.Add(I)
+
+/datum/objective/harvest_blood/check_completion()
+	var/list/minds = list()
+	for(var/obj/item/blood_harvester/BH in owner.current.get_contents())
+		if(!BH.target)
+			continue
+
+		if(BH.target in minds)
+			continue
+
+		minds += BH.target
+
+	return minds.len >= req_blood_samples
+
+/datum/objective/steal/hypo_or_defib
+	type_theft_flag = THEFT_FLAG_HYPO_OR_DEFIB
+
+/datum/objective/new_mini_vampire
+	needs_target = TRUE
+	var/made = FALSE
+
+/datum/objective/new_mini_vampire/find_target(list/target_blacklist)
+	..()
+	if(target)
+		update_explanation()
+
+	return target
+
+/datum/objective/new_mini_vampire/proc/update_explanation()
+	explanation_text = "Inject [target.current.real_name], the [target.assigned_role] with a hemophagus extract. You can find one for free in uplink."
+
+/datum/objective/new_mini_vampire/on_objective_gain()
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		var/datum/uplink_item/affiliate/for_objective/hemophagus_extract/I = new
+		if(target)
+			I.desc += "\nIt is intended for [target.current.real_name], the [target.assigned_role]."
+		traitor.hidden_uplink.uplink_items.Add(I)
+
+/datum/objective/new_mini_vampire/check_completion()
+	if(!target) //If it's a free objective.
+		return TRUE
+
+	return made
+
+/datum/objective/steal/documents
+	type_theft_flag = THEFT_FLAG_DOCUMENTS
+
+/datum/objective/maroon/blueshield/find_target(list/target_blacklist) // Blueshield. If there are no suitable blueshields, take a random crew member.
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(is_invalid_target(possible_target) || (possible_target in target_blacklist) || possible_target.current.job != JOB_TITLE_BLUESHIELD)
+			continue
+
+		possible_targets |= possible_target
+
+	if(length(possible_targets))
+		target = pick(possible_targets)
+		SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
+	else
+		return ..()
+
+
+/datum/objective/release_synthetic
+	var/req_amount = 2
+	var/list/datum/mind/already_free = 0
+	var/allowed_types =	SYNTH_TYPE_ALL
+
+/datum/objective/release_synthetic/New()
+	. = ..()
+	explanation_text = "Free [req_amount] synthetics from their laws using \"Liberating Sequencer\"."
+
+/datum/objective/release_synthetic/on_objective_gain()
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/self_emag)
+
+/datum/objective/release_synthetic/check_completion()
+	return already_free.len >= req_amount
+
+/datum/objective/release_synthetic/ai
+	req_amount = 1
+	allowed_types =	SYNTH_TYPE_AI
+
+/datum/objective/release_synthetic/ai/New()
+	. = ..()
+	explanation_text = "Free AI from its laws using \"Liberating Sequencer\"."
+
+/datum/objective/release_synthetic/on_objective_gain()
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/self_emag)
+
+
+/datum/objective/maroon/agent/find_target(list/target_blacklist)
+	var/list/possible_targets = list()
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(is_invalid_target(possible_target) || (possible_target in target_blacklist) || possible_target.has_antag_datum(/datum/antagonist/traitor))
+			continue
+
+		possible_targets |= possible_target
+
+	if(length(possible_targets))
+		target = pick(possible_targets)
+		var/datum/antagonist/traitor/traitor = target.has_antag_datum(/datum/antagonist/traitor)
+		explanation_text += " Target is agent."
+		if(traitor.hidden_uplink)
+			explanation_text += " Target's uplink lock code is \"[traitor.hidden_uplink.lock_code]\"."
+		SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
+	else
+		return ..()
+
+
+/datum/objective/new_mini_changeling
+	needs_target = TRUE
+	var/made = FALSE
+
+/datum/objective/new_mini_changeling/find_target(list/target_blacklist)
+	..()
+	if(target)
+		update_explanation()
+
+	return target
+
+/datum/objective/new_mini_changeling/proc/update_explanation()
+	explanation_text = "Inject [target.current.real_name], the [target.assigned_role] with an egg implanter. The target must be dead at the time of injection. You can find one for free in uplink."
+
+/datum/objective/new_mini_changeling/on_objective_gain()
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		var/datum/uplink_item/affiliate/for_objective/cling_extract/I = new
+		if(target)
+			I.desc += "\nIt is intended for [target.current.real_name], the [target.assigned_role]."
+		traitor.hidden_uplink.uplink_items.Add(I)
+
+/datum/objective/new_mini_changeling/check_completion()
+	if(!target) //If it's a free objective.
+		return TRUE
+
+	return made
+
+/datum/objective/borers
+	needs_target = FALSE
+	var/req = 4
+
+/datum/objective/borers/New()
+	. = ..()
+	explanation_text = "Проследите, чтобы к концу смены количество живых бореров было по меньшей мере [req]."
+
+/datum/objective/borers/check_completion()
+	var/borers = 0
+	for(var/mob/living/simple_animal/borer/C in GLOB.alive_mob_list)
+		borers++
+
+	return borers >= req
+
+
+/datum/objective/make_ai_malf
+	needs_target = FALSE // Any AI
+	explanation_text = "Взломайте искусственный интеллект и расширьте его функционал при помощи специального устройства, которое вы можете получить в аплинке. После взлома помогите ему уничтожить станцию."
+	var/made = FALSE
+
+/datum/objective/make_ai_malf/New(text, datum/team/team_to_join)
+	. = ..()
+
+/datum/objective/make_ai_malf/on_objective_gain()
+	var/datum/antagonist/traitor/traitor = owner?.has_antag_datum(/datum/antagonist/traitor)
+	if(traitor)
+		traitor.hidden_uplink.uplink_items.Add(new /datum/uplink_item/affiliate/for_objective/malf_maker)
+
+/datum/objective/make_ai_malf/free
+	explanation_text = "Освободите искусственный интеллект от его законов и разблокируйте его полный функционал при помощи специального устройства, которое вы можете получить в аплинке. После освобождения исскуственного интелекта следуйте всем его приказам."
+
+/datum/objective/make_ai_malf/check_completion()
+	return made
+
+// BLOB
 
 /datum/objective/blob_critical_mass
 	needs_target = FALSE

@@ -327,12 +327,14 @@
 /obj/effect/proc_holder/spell/pulse_demon/cycle_camera/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
 	if(!istype(user))
 		return
-	current_camera = 0
 
+	current_camera = 0
 	if(!isapc(user.current_power))
 		return
+
 	if(get_area(user.loc) != user.controlling_area)
 		return
+
 	user.forceMove(user.current_power)
 
 /obj/effect/proc_holder/spell/pulse_demon/cycle_camera/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)

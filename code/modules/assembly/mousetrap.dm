@@ -165,6 +165,7 @@
 /obj/item/assembly/mousetrap/AltClick(mob/user)
 	if(!Adjacent(user))
 		return ..()
+
 	hide_under(user)
 
 

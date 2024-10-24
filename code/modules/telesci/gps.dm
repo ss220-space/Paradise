@@ -59,11 +59,14 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/AltClick(mob/living/user)
 	if(!Adjacent(user))
 		return
+
 	if(!iscarbon(usr) && !isrobot(usr))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+
 	toggle_gps(user)
 
 /obj/item/gps/proc/toggle_gps(mob/living/user)

@@ -94,7 +94,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/dnaforensics/AltClick(mob/user)
-	remove_sample(user)
+		remove_sample(user)
 
 /obj/machinery/dnaforensics/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(usr == over_object)

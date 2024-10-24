@@ -733,3 +733,6 @@ CACHE_ASSETS 0
 
 ## Enable the replay demo recording subsystem
 #DEMOS_ENABLED
+
+## Enables syndicate affiliates
+#ENABLE_SYNDICATE_AFFILIATES

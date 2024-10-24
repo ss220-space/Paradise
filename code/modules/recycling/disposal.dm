@@ -401,6 +401,7 @@
 /obj/machinery/disposal/AltClick(mob/user)
 	if(!Adjacent(user) || !ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
+
 	user.visible_message(
 		"<span class='notice'>[user] tries to eject the contents of [src] manually.</span>",
 		"<span class='notice'>You operate the manual ejection lever on [src].</span>"

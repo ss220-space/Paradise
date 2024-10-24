@@ -1,6 +1,7 @@
 /// List of all uplinks in the world.
 GLOBAL_LIST_EMPTY(world_uplinks)
 
+#define INTELLIGANCE_DATA_COOLDOWN 5 MINUTES
 
 /obj/item/uplink
 	/// Uplink TC amount. Specified on initialization by different uplink types.
@@ -21,13 +22,20 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/race
 	/// Job assigned to uplink owner.
 	var/job
+	/// Affiliate assigned of uplink owner
+	var/datum/affiliate/affiliate
 	/// Allows or blocks ordering of certain items. Specified on initialization by different uplink types.
 	var/uplink_type = UPLINK_TYPE_TRAITOR
 	/// If set, the uplink will show the option to become a contractor through this variable.
 	var/datum/antagonist/contractor/contractor
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
-
+	/// Can be bonus objectives taken on this uplink
+	var/can_bonus_objectives = FALSE
+	/// Cooldown for getting intelligence data (alive antags)
+	COOLDOWN_DECLARE(intelligence_data)
+	/// TRUE if you can ask intelligence data in uplink. TRUE for all MI13
+	var/get_intelligence_data = FALSE
 
 /obj/item/uplink/Initialize(mapload, uplink_type, uses)
 	. = ..()
@@ -56,6 +64,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/proc/generate_item_lists(mob/user)
 	if(!job)
 		job = user.mind?.assigned_role
+
 	if(!race)
 		race = user.dna?.species.name
 
@@ -64,6 +73,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		if(!uplink_items_by_category[uplink_item.category])
 			uplink_items_by_category[uplink_item.category] = list()
 		uplink_items_by_category[uplink_item.category] += uplink_item
+
 	var/list/cats = list()
 
 	for(var/category in uplink_items_by_category)
@@ -71,8 +81,16 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		for(var/datum/uplink_item/uplink_item as anything in uplink_items_by_category[category])
 			if(length(uplink_item.job) && !uplink_item.job.Find(job) && uplink_type != UPLINK_TYPE_ADMIN)
 				continue
+
 			if(length(uplink_item.race) && !uplink_item.race.Find(race) && uplink_type != UPLINK_TYPE_ADMIN)
 				continue
+
+			if((length(uplink_item.affiliate) && !uplink_item.affiliate.Find(affiliate?.name) && uplink_type != UPLINK_TYPE_ADMIN))
+				continue
+
+			if((length(uplink_item.exclude_from_affiliate) && uplink_item.exclude_from_affiliate.Find(affiliate?.name) && uplink_type != UPLINK_TYPE_ADMIN))
+				continue
+
 			cats[cats.len]["items"] += list(list("name" = sanitize(uplink_item.name), "desc" = sanitize(uplink_item.description()), "cost" = uplink_item.cost, "hijack_only" = uplink_item.hijack_only, "obj_path" = ref(uplink_item), "refundable" = uplink_item.refundable))
 
 	uplink_cats = cats
@@ -185,6 +203,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/list/cached_cart
 	/// A list of 3 categories and item indexes in uplink_cats, to show as recommendedations
 	var/list/lucky_numbers
+	/// Code of uplink
+	var/lock_code
 
 
 /obj/item/uplink/hidden/Initialize(mapload)
@@ -237,7 +257,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/hidden/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Uplink", name)
+		ui = new(user, src, "Uplink", "Аплинк")
 		ui.open()
 
 
@@ -249,6 +269,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	data["cart"] = generate_tgui_cart()
 	data["cart_price"] = calculate_cart_tc()
 	data["lucky_numbers"] = lucky_numbers
+	data["affiliate"] = affiliate ? affiliate.name : "None"
+	data["can_bonus_objectives"] = can_bonus_objectives
+	data["can_get_intelligence_data"] = get_intelligence_data || uplink_type == UPLINK_TYPE_ADMIN
 
 	if(contractor)
 		var/list/contractor_data = list(
@@ -420,6 +443,212 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			// lets see paul allen's random uplink item
 			shuffle_lucky_numbers()
 
+		if("give_bonus_objectives")
+			if(can_bonus_objectives)
+				if(ui.user.mind.has_antag_datum(/datum/antagonist/traitor))
+					can_bonus_objectives = FALSE
+					affiliate.give_bonus_objectives(ui.user.mind)
+					SStgui.update_uis(src)
+
+					visible_message("[src] beeps: Additional objectives and bonus TK have been sent.")
+					playsound(src, "sound/machines/boop.ogg", 50, TRUE)
+				else
+					visible_message("[src] beeps: You have been added to the list of targets to eliminate. Have a nice day.")
+					playsound(src, "sound/machines/boop.ogg", 50, TRUE)
+
+			else if(affiliate.can_take_bonus_objectives)
+				visible_message("[src] beeps: You have already requested additional objectives.")
+				playsound(src, "sound/machines/boop.ogg", 50, TRUE)
+			else
+				visible_message("[src] beeps: Your affiliate don't want to give you additional objectives.")
+				playsound(src, "sound/machines/boop.ogg", 50, TRUE)
+
+		if("intel_data")
+			if(!COOLDOWN_FINISHED(src, intelligence_data))
+				visible_message("[src] beeps: There is no new intelligence yet.")
+				playsound(src, "sound/machines/boop.ogg", 50, TRUE)
+			else
+				visible_message("[src] beeps: Intelligence data has been sent.")
+				playsound(src, "sound/machines/boop.ogg", 50, TRUE)
+				show_intelligence_data(ui.user)
+				COOLDOWN_START(src, intelligence_data, INTELLIGANCE_DATA_COOLDOWN)
+
+/obj/item/uplink/proc/show_intelligence_data(mob/user)
+	// Solo humanoid antags
+	var/list/traitors = list()
+	var/hijacks = 0
+	var/list/datum/antagonist/vampire/vampires = list()
+	var/changelings = 0
+	var/thiefs = 0
+	var/ninjas = 0
+	var/wizards = 0
+
+	// Command humanoid antags
+	var/cultists = 0
+	var/clockers = 0
+	var/operatives = 0
+	var/revolutions = 0
+	var/shadowlings = 0
+	var/thralls = 0
+
+	// Bioterrors
+	var/blobs = GLOB.blobs.len
+	var/terrors = 0
+	var/aliens = 0
+	var/dragons = 0
+	var/carps = 0
+
+	// Mix antags
+	var/devils = 0
+	var/malfs = 0
+	var/borers = 0
+	var/morphs = 0
+	var/revenants = 0
+	var/demons = 0
+	var/shadow_demons = 0
+	var/pulse_demons = 0
+
+	var/crew = 0
+
+	for(var/mob/M in GLOB.player_list)
+		if(!M.mind)
+			continue
+
+		if(M.stat == DEAD)
+			continue
+
+		if(!M.mind.special_role)
+			continue
+
+		if(!is_station_level(get_turf(M.z)))
+			continue
+
+		if(istraitor(M))
+			var/datum/antagonist/traitor/traitor = M.mind.has_antag_datum(/datum/antagonist/traitor)
+			traitors[traitor.affiliate] ++
+			if(traitor.owner.has_big_obj())
+				hijacks++
+
+		if(isvampire(M))
+			var/datum/antagonist/vampire/vampire = M.mind.has_antag_datum(/datum/antagonist/vampire)
+			vampires[vampire.subclass] += vampire
+
+		changelings += ischangeling(M)
+		thiefs += isthief(M)
+		ninjas += isninja(M)
+		wizards += iswizard(M)
+
+		cultists += iscultist(M)
+		clockers += isclocker(M)
+		operatives += (M.mind in SSticker.mode.syndicates)
+		revolutions += is_revolutionary(M)
+		shadowlings += isshadowling(M)
+		thralls += is_thrall(M)
+
+		terrors += isterrorspider(M)
+		aliens += isalien(M)
+		dragons += isspacedragon(M)
+		carps += isspacecarp(M)
+
+		devils += isdevil(M)
+		malfs += ismalfAI(M)
+		borers += isborer(M)
+		morphs += ismorph(M)
+		revenants += istype(M, /mob/living/simple_animal/revenant)
+		demons += isdemon(M)
+		shadow_demons += istype(M, /mob/living/simple_animal/demon/shadow)
+		pulse_demons += istype(M, /mob/living/simple_animal/demon/pulse_demon)
+
+		crew += ishuman(M)
+
+	var/list/L = list()
+
+	L.Add(tagB(span_red("Последние данные разведки MI13")))
+
+	if(traitors.len > 3 || traitors.len == 3 && prob(60))
+		L.Add("Обнаружены агенты:")
+		for (var/datum/affiliate/key in traitors)
+			L.Add("	" + key.name + ": [traitors[key] + (prob(10) - prob(10))]")
+		if(hijacks && prob(80 + hijacks * 5) || prob(2))
+			L.Add(span_warning("Очень вероятно, что среди них есть агенты с крайне разрушительными задачами."))
+
+	if(vampires.len > 3 || vampires.len == 2 && prob(60) || vampires == 1 && prob(2))
+		L.Add("Обнаружены вампиры:")
+		for (var/datum/vampire_subclass/key in vampires)
+			var/ascend = 0
+			var/list/vamplist = vampires[key]
+			for (var/datum/antagonist/vampire/vampire in vamplist)
+				ascend += vampire.isAscended()
+
+			L.Add("	" + key.name + ": [max(1, vamplist.len + (prob(10) - prob(10)))]" + (!ascend ? "" : " Количество высших этого класса - [ascend]."))
+
+	if(changelings > 3 || changelings == 2 && prob(60) || changelings == 1 && prob(20) || prob(1))
+		L.Add("Обнаружены генокрады. Их примерное количество - [max(1, changelings + (prob(10) - prob(10)))].")
+
+	if(thiefs > 3 || thiefs == 2 && prob(60) || thiefs == 1 && prob(20) || prob(1))
+		L.Add("Обнаружены члены гильдии воров. Их примерное количество - [max(1, thiefs + (prob(10) - prob(10)))].")
+
+	if(ninjas && prob(50 + ninjas * 15) || prob(1))
+		L.Add("Очень вероятна деятельность клана Паука.")
+
+	if(wizards && prob(90) || prob(1))
+		L.Add("Обнаружена активная деятельность Федерации Космических Волшебников. Примерное количество ее представителей на станции - [max(1, wizards + prob(5) - prob(5))].")
+
+	if(cultists > 3 && prob(30 + cultists * 3))
+		if(prob(90) && cultists < 6 || prob(2))
+			L.Add("Высокая вероятность наличия неизвестного культа на объекте! Будьте осторожны! Примерное количество культистов - [max(2, cultists + rand(-2, 2))].")
+		else
+			L.Add("На объекте обнаружен культ крови! Будьте осторожны! Примерное количество культистов - [max(6, cultists + rand(-3, 3))].")
+
+	if(clockers > 3 && prob(30 + clockers * 3))
+		if(prob(90) && clockers < 6 || prob(2))
+			L.Add("Высокая вероятность наличия неизвестного культа на объекте! Будьте осторожны! Примерное количество культистов - [max(2, clockers + rand(-2, 2))].")
+		else
+			L.Add("На объекте обнаружен культ ратвара! Будьте осторожны! Примерное количество культистов - [max(6, clockers + rand(-3, 3))].")
+
+	if(operatives > 3 && prob(90 + operatives) || operatives == 2 && prob(50) || prob(1))
+		L.Add("Обнаружены оперативники Синдиката. Примерное количество - [max(3, operatives + rand(-1, 1))].")
+
+	if(revolutions > 4 && prob(40 + revolutions * 2) || prob(2))
+		if(revolutions < 9)
+			L.Add("Из множества источников поступают сведения о растущем недовольстве экипажа.")
+		else
+			L.Add("На станции происходит революция! Примерное число бунтующих - [revolutions + rand(-3, 3)].")
+
+	if(shadowlings > 1 && prob(30 + shadowlings * 10 + thralls) || prob(1))
+		L.Add("Обнаружены тенеморфы. Примерное количество рабов - [max(0, thralls + rand(-2, 2))].")
+
+	if(blobs && prob(90) || prob(2))
+		L.Add("Обнаружена биоугроза 5 уровня. Примерный размер - [max(9, GLOB.blobs.len + rand(-30, 30))].")
+
+	if(aliens && prob(40 + aliens * 5) || prob(2))
+		L.Add("Обнаружена биоугроза 4 уровня. Примерное количество особей - [max(1, aliens + rand(-1, 1))].")
+
+	if(terrors && prob(40 + terrors * 5) || prob(2))
+		L.Add("Обнаружена биоугроза 3 уровня. Примерное количество особей - [max(1, terrors + rand(-1, 1))].")
+
+	if(dragons && prob(60) || prob(1))
+		if(carps < 4)
+			L.Add("Велик шанс присутствия на станции огромного агрессивного существа.")
+		else
+			L.Add("На станции находится Космический дракон. Примерное количество карпов - [max(3, carps + rand(-3, 3))].")
+
+	if((revenants || devils || demons || shadow_demons || pulse_demons) && prob(70) || prob(1))
+		L.Add("Паранормальный фон значительно выше среднего.")
+
+	if(malfs && prob(10 + malfs * 10) || prob(2))
+		L.Add("Высока вероятность наличия ошибок в работе ИИ станции.")
+
+	if(borers && prob(10 + borers * 5) || prob(1))
+		L.Add("На станции обнаружены мозговые черви. Примерное количество особей - [max(1, borers + rand(-1, 1))].")
+
+	if(morphs && prob(30 + morphs * 10) || prob(1))
+		L.Add("На станции обнаружена биоугроза 6 уровня. Примерное количество особей - [max(1, morphs + rand(-1, 1))].")
+
+	L.Add("Примерное количество живых гуманойдов на стацнии - [max(1, crew + rand(-3, 3))].")
+
+	to_chat(user, chat_box_green(L.Join("<br>")))
+
 /obj/item/uplink/hidden/proc/shuffle_lucky_numbers()
 	lucky_numbers = list()
 	for(var/i in 1 to 4)
@@ -549,3 +778,4 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	. = ..()
 	hidden_uplink = new(src, UPLINK_TYPE_TRAITOR)
 
+#undef INTELLIGANCE_DATA_COOLDOWN

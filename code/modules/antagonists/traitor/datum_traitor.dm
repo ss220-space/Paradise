@@ -22,7 +22,14 @@
 	var/is_hijacker = FALSE
 	/// The associated traitor's uplink. Only present if `give_uplink` is set to `TRUE`.
 	var/obj/item/uplink/hidden/hidden_uplink = null
-
+	/// Current traitor affiliate
+	var/datum/affiliate/affiliate
+	/// List of killed agents from enemy affiliates
+	var/list/killed_enemy_agents = list()
+	/// TRUE if we should allow traitor to choose affiliate
+	var/gen_affiliate = TRUE
+	/// If true, ignore config and give affiliate
+	var/force_affiliate = FALSE
 
 /datum/antagonist/traitor/on_gain()
 	// Create this in case the traitor wants to mindslaves someone.
@@ -30,7 +37,32 @@
 		owner.som = new /datum/mindslaves
 
 	owner.som.masters += owner
+	if(ishuman(owner.current) && gen_affiliate && (force_affiliate || CONFIG_GET(flag/enable_syndicate_affiliates)))
+		give_affiliates()
+	else if(give_objectives)
+		old_give_objectives()
 	return ..()
+
+/datum/antagonist/traitor/proc/give_affiliates()
+	var/list/possible_affiliates = list()
+	var/list/the_choosen_ones = list()
+	for(var/new_affiliate in subtypesof(/datum/affiliate))
+		var/datum/affiliate/affiliate_check = new new_affiliate
+		possible_affiliates[new_affiliate] = affiliate_check.get_weight(owner.current)
+		qdel(affiliate_check)
+
+	for(var/i in 1 to 3)
+		the_choosen_ones += pick_weight_n_take(possible_affiliates)
+
+	var/obj/effect/proc_holder/spell/choose_affiliate/choose = new(the_choosen_ones)
+	owner.AddSpell(choose)
+
+
+/datum/antagonist/traitor/proc/grant_affiliate(var/path)
+	var/datum/affiliate/new_affiliate = new path
+	affiliate = new_affiliate
+	if(affiliate.slogan)
+		to_chat(owner.current, span_info(affiliate.slogan))
 
 /datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -82,23 +114,29 @@
 /datum/antagonist/traitor/remove_owner_from_gamemode()
 	SSticker.mode.traitors -= owner
 
+/datum/mind/proc/has_big_obj()
+	if(locate(/datum/objective/hijack) in get_all_objectives())
+		return TRUE
+	if(locate(/datum/objective/blood/ascend) in get_all_objectives())
+		return TRUE
+	if(locate(/datum/objective/make_ai_malf) in get_all_objectives())
+		return TRUE
+	return FALSE
 
 /datum/antagonist/traitor/add_antag_hud(mob/living/antag_mob)
-	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
+	if(owner.has_big_obj())
 		antag_hud_name = "hudhijack"
 	else
 		antag_hud_name = "hudsyndicate"
 	return ..()
 
 
-/datum/antagonist/traitor/give_objectives()
-
+/datum/antagonist/traitor/proc/old_give_objectives()
 	// delete these start
 
 	var/hijacker_antag = (GLOB.master_mode == "antag-paradise" || GLOB.secret_force_mode == "antag-paradise") ? is_hijacker : prob(10)
 
 	// delete these end
-
 
 	var/objective_count = hijacker_antag 			//Hijacking counts towards number of objectives
 	if(!SSticker.mode.exchange_blue && SSticker.mode.traitors.len >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED) 	//Set up an exchange if there are enough traitors
@@ -138,6 +176,9 @@
 		add_objective(/datum/objective/escape)
 
 
+/datum/antagonist/traitor/give_objectives() //Objectives will be given after choosing affiliates
+	return
+
 /**
  * Assigning exchange role.
  */
@@ -149,6 +190,8 @@
 
 	//Assign objectives
 	var/datum/objective/steal/exchange/exchange_objective = new
+	if(!exchange_objective.target)
+		return
 	exchange_objective.set_faction(faction, ((faction == "red") ? SSticker.mode.exchange_blue : SSticker.mode.exchange_red))
 	exchange_objective.owner = owner
 	objectives += exchange_objective
@@ -191,9 +234,6 @@
 	var/list/messages = list()
 	if(give_codewords)
 		messages.Add(give_codewords())
-
-	if(give_uplink)
-		give_uplink()
 
 	announce_uplink_info()
 
@@ -270,6 +310,7 @@
 		hidden_uplink = new_uplink
 		target_radio.hidden_uplink = new_uplink
 		new_uplink.uplink_owner = "[traitor_mob.key]"
+		new_uplink.lock_code = freq
 		target_radio.traitor_frequency = freq
 		antag_memory += ("<B>Radio Freq:</B> [format_frequency(freq)] ([target_radio.name]).")
 		return TRUE
@@ -282,9 +323,10 @@
 		target_pda.hidden_uplink = new_uplink
 		new_uplink.uplink_owner = "[traitor_mob.key]"
 
-		target_pda.lock_code = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
+		target_pda.lock_code = "[rand(100,999)] [pick("Альфа","Браво","Дельта","Омега")]"
+		new_uplink.lock_code = target_pda.lock_code
 
-		antag_memory += ("<B>Uplink Passcode:</B> [target_pda.lock_code] ([uplink_holder.name].")
+		antag_memory += ("<B>Код от аплинка:</B> [target_pda.lock_code] ([uplink_holder.name].")
 		return TRUE
 
 	return FALSE
@@ -318,6 +360,9 @@
 	else
 		to_chat(owner.current, span_warning("Unfortunately, the Syndicate wasn't able to get you a radio."))
 
+/datum/antagonist/traitor/Destroy(force)
+	. = ..()
+	owner.RemoveSpell(/obj/effect/proc_holder/spell/choose_affiliate)
 
 /**
  * Takes any datum `source` and checks it for traitor datum.

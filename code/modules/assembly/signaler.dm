@@ -41,6 +41,7 @@
 /obj/item/assembly/signaler/AltClick(mob/user)
 	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return ..()
+
 	to_chat(user, span_notice("You activate [src]."))
 	activate()
 

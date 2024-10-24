@@ -738,16 +738,16 @@
 	stat |= BROKEN
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/customat/AltClick(atom/movable/A)
+/obj/machinery/customat/AltClick(mob/living/user)
 	if(!panel_open)
-		balloon_alert(A, "панель закрыта")
+		balloon_alert(user, "панель закрыта")
 		return
 
 	if(isLocked())
-		balloon_alert(A, "автомат заблокирован")
+		balloon_alert(user, "автомат заблокирован")
 		return
 
-	balloon_alert(A, "быстрый режим " + (fast_insert ? "отключен" : "включен"))
+	balloon_alert(user, "быстрый режим " + (fast_insert ? "отключен" : "включен"))
 	fast_insert = !fast_insert
 
 /obj/machinery/customat/emp_act(severity)

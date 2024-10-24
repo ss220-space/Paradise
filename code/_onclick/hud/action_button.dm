@@ -139,8 +139,10 @@
 	for(var/datum/action/action as anything in user.actions)
 		var/atom/movable/screen/movable/action_button/our_button = action.button
 		our_button.moved = FALSE
+
 	if(moved)
 		moved = FALSE
+
 	user.update_action_buttons(reload_screen = TRUE)
 	to_chat(user, span_notice("Action button positions have been reset."))
 

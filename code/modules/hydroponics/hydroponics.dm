@@ -129,6 +129,7 @@
 /obj/machinery/hydroponics/AltClick(mob/living/user)
 	if(!istype(user) || !Adjacent(user))
 		return
+
 	toggle_lid(user)
 
 

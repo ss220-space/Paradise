@@ -138,8 +138,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
 	return TRUE
 
-
-
 /**
  * Adds the owner to their respective gamemode's list. For example `SSticker.mode.traitors |= owner`.
  */
@@ -343,6 +341,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 	if(!new_objective.needs_target)
 		objectives += new_objective
+		new_objective.on_objective_gain()
 		return new_objective
 
 	var/found_valid_target = FALSE
@@ -379,6 +378,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		new_objective.target = null
 
 	objectives += new_objective
+	new_objective.on_objective_gain()
 	return new_objective
 
 

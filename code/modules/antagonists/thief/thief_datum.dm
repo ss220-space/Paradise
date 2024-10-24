@@ -77,3 +77,20 @@
 		message_admins("[ADMIN_LOOKUPFLW(owner.current)] Failed to spawn thief kit.")
 		return
 	to_chat(owner.current, span_notice("Набор гильдии воров [isstorage(kit.loc) ? "положен Вам в [kit.loc]" : "находится у Вас в инвентаре"]."))
+
+/proc/isthief(datum/source)
+	if(!source)
+		return FALSE
+
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/thief)
+
+	if(!ismob(source))
+		return FALSE
+
+	var/mob/mind_holder = source
+	if(!mind_holder.mind)
+		return FALSE
+
+	return mind_holder.mind.has_antag_datum(/datum/antagonist/thief)

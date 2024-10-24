@@ -612,11 +612,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/AltClick(mob/user)
 	if(!iscarbon(user) && !isrobot(user))
 		return
+
 	if(!Adjacent(user))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+
 	broadcasting = !broadcasting
 	to_chat(user, "<span class='notice'>You toggle broadcasting [broadcasting ? "on" : "off"].</span>")
 

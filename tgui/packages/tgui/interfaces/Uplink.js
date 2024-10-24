@@ -84,6 +84,18 @@ export const Uplink = (props, context) => {
               >
                 Exploitable Information
               </Tabs.Tab>
+
+              {!!data.can_get_intelligence_data && (
+                <Tabs.Tab
+                  key="GetIntelligenceВata"
+                  // This cant ever be selected. Its just a close button.
+                  onClick={() => act('intel_data')}
+                  icon="intel_data"
+                >
+                  Запросить разведданные
+                </Tabs.Tab>
+              )}
+
               {!!data.contractor && (
                 <Tabs.Tab
                   key="BecomeContractor"
@@ -120,6 +132,18 @@ export const Uplink = (props, context) => {
                   )}
                 </Tabs.Tab>
               )}
+
+              {!!data.can_bonus_objectives && (
+                <Tabs.Tab
+                  key="BonusObjectives"
+                  color={'transparent'}
+                  onClick={() => act('give_bonus_objectives', {})}
+                  icon="suitcase"
+                >
+                  Запросить дополнительные цели
+                </Tabs.Tab>
+              )}
+
               <Tabs.Tab
                 key="LockUplink"
                 // This cant ever be selected. Its just a close button.
@@ -578,7 +602,7 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
         </b>
         <br />
         <br />
-        For the small price of 20 telecrystals, we will upgrade your rank to
+        For the small price of 100 telecrystals, we will upgrade your rank to
         that of a Contractor, allowing you to undertake kidnapping contracts for
         TC and credits.
         <br />

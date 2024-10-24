@@ -5,27 +5,27 @@
 /obj/machinery/camera/emp_proof/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(new_assembly))
-	. = ..(input_assembly = new_assembly)
+	. = ..(mapload, network, c_tag, new_assembly)
 // X-RAY
 
 
 /obj/machinery/camera/xray/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/analyzer(new_assembly))
-	. = ..(input_assembly = new_assembly)
+	. = ..(mapload, network, c_tag, input_assembly = new_assembly)
 // MOTION
 
 /obj/machinery/camera/motion/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(new_assembly))
-	. = ..(input_assembly = new_assembly)
+	. = ..(mapload, network, c_tag, input_assembly = new_assembly)
 // ALL UPGRADES
 
 
 /obj/machinery/camera/all/Initialize(mapload, list/network, c_tag, obj/item/camera_assembly/input_assembly)
 	var/obj/item/camera_assembly/new_assembly = new(src)
 	new_assembly.upgrades.Add(new /obj/item/stack/sheet/mineral/plasma(new_assembly), new /obj/item/assembly/prox_sensor(new_assembly), new /obj/item/analyzer(new_assembly))
-	. = ..(input_assembly = new_assembly)
+	. = ..(mapload, network, c_tag, input_assembly = new_assembly)
 // AUTONAME
 
 /obj/machinery/camera/autoname

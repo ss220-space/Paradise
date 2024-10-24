@@ -21,7 +21,7 @@
 		add_say_logs(src, message)
 		if(stat == DEAD)
 			return say_dead(message)
-			
+
 		var/mob/living/simple_animal/borer/B = loc
 		to_chat(src, "Вы тихо шепчете, \"[message]\"")
 		to_chat(B.host, span_alien("<i>Пленённый разум [src] шепчет, \"[message]\"</i>"))
@@ -110,13 +110,15 @@
 			"Septenary", "Octonary", "Novenary", "Decenary", "Undenary", "Duodenary",
 			)
 
+	var/birth_time = 0						// Moment of birth
+	var/talk_inside_host = FALSE			// So that borers don't accidentally give themselves away on a botched message
 	var/chemicals = 10						// Chemicals used for reproduction and chemical injection.
 	var/max_chems = 250
 	var/generation = 1
 
 	var/truename							// Name used for brainworm-speak.
 	var/controlling							// Used in human death check.
-	
+
 	var/mob/living/carbon/human/host		// Human host for the brain worm.
 	var/mob/living/captive_brain/host_brain	// Used for swapping control of the body back and forth.
 
@@ -125,7 +127,6 @@
 	var/leaving = FALSE
 	var/sneaking = FALSE
 	var/hiding = FALSE
-	var/talk_inside_host = FALSE			// So that borers don't accidentally give themselves away on a botched message
 
 	var/datum/antagonist/borer/antag_datum = new
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
@@ -140,6 +141,8 @@
 	var/datum/action/innate/borer/torment/torment_action = new
 	var/datum/action/innate/borer/sneak_mode/sneak_mode_action = new
 	var/datum/action/innate/borer/focus_menu/focus_menu_action = new
+	var/master_name
+	var/children = 0
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
 	antag_datum.borer_rank = new BORER_RANK_YOUNG(src)
@@ -151,6 +154,7 @@
 	real_name = "Cortical Borer [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
+	birth_time = world.time
 
 /mob/living/simple_animal/borer/ComponentInitialize()
 	AddComponent( \
@@ -174,7 +178,8 @@
 	if(stat != CONSCIOUS)
 		return
 
-	var/be_borer = tgui_alert(user, "Become a cortical borer? (Warning, You can no longer be cloned!)", "Cortical Borer", list("Yes", "No"))
+	var/be_borer = tgui_alert(user, "Желаете стать мозговым червем? (Внимание, вы не сможете вернуться в свое старое тело!)", "Cortical Borer", list("Yes", "No"))
+
 	if(be_borer != "Yes" || !src || QDELETED(src))
 		return
 
@@ -247,7 +252,7 @@
 		to_chat(src, span_notice("Теперь вы будете говорить в сознание носителя."))
 		talk_inside_host = FALSE
 		return
-		
+
 	to_chat(src, span_notice("Теперь вы сможете говорить, находясь внутри носителя."))
 	talk_inside_host = TRUE
 	return
@@ -372,7 +377,7 @@
 	for(var/datum/reagent/reagent as anything in subtypesof(/datum/reagent))
 		if(!LAZYIN(GLOB.borer_reagents, reagent.id) || !reagent.name)
 			continue
-			
+
 		content += "<tr><td><a class='chem-select' href='byond://?_src_=[UID()];src=[UID()];borer_use_chem=[reagent]'>[reagent.name] ([initial(reagent.chemuse)])</a><p>[reagent.chemdesc ? initial(reagent.chemdesc) : initial(reagent.description)]</p></td></tr>"
 
 	content += "</table>"
@@ -392,7 +397,7 @@
 
 	if(href_list["borer_use_chem"])
 		locate(href_list["src"])
-		if(!istype(src, /mob/living/simple_animal/borer))
+		if(!isborer(src))
 			return
 
 		var/datum/reagent/reagent = href_list["borer_use_chem"]
@@ -427,19 +432,19 @@
 	if(docile)
 		to_chat(src, "<font color='blue'>Вы слишком обессилели для этого.</font>")
 		return
-		
+
 	var/list/content = list()
-	
+
 	for(var/datum/borer_focus/focus as anything in subtypesof(/datum/borer_focus))
 		if(locate(focus) in antag_datum.learned_focuses)
 			continue
 
 		LAZYADD(content, focus.bodypartname)
-			
+
 	if(!LAZYLEN(content))
 		to_chat(src, span_notice("Вы приобрели все доступные фокусы."))
 		return
-		
+
 	var/tgui_menu = tgui_input_list(src, "Choose focus", "Focus Menu", content)
 	if(!tgui_menu)
 		return
@@ -463,7 +468,7 @@
 		to_chat(src, span_notice("Вы прячетесь."))
 		hiding = TRUE
 		return
-		
+
 	layer = MOB_LAYER
 	to_chat(src, span_notice("Вы перестали прятаться."))
 	hiding = FALSE
@@ -647,7 +652,7 @@
 		to_chat(borer.host_brain, span_danger("<FONT size=3>Ужасная, жгучая агония пронзает вас насквозь, вырывая беззвучный крик из глубин вашего запертого разума!</FONT>"))
 
 	return
-	
+
 //Brain slug proc for voluntary removal of control.
 /mob/living/carbon/proc/release_control()
 
@@ -656,8 +661,8 @@
 	if(borer?.host_brain)
 		to_chat(src, span_danger("Вы убираете свои хоботки, освобождая [borer.host_brain]."))
 		borer.detach()
-		return 
-		
+		return
+
 	log_runtime(EXCEPTION("Missing borer or missing host brain upon borer release."), src)
 	return
 
@@ -694,14 +699,21 @@
 
 		var/turf/T = get_turf(src)
 		T.add_vomit_floor()
-
-		new /mob/living/simple_animal/borer(T, B.generation + 1)
+		new B.type(T, B.generation + 1)
+		B.children++
 		borer.antag_datum.post_reproduce()
-
 		return
 
 	to_chat(src, "Вам требуется 100 химикатов для размножения!")
 	return
+
+/mob/living/simple_animal/borer/proc/grant_master_info()
+	if(!master_name)
+		return
+
+	to_chat(src, span_dangerbigger("[master_name] - ваш мастер. Выполняйте приказы мастера. Помогите мастеру выполнить цели либой ценой!"))
+	mind.store_memory("<B>[master_name] - мой мастер. Я выполню цели мастера любой ценой!</B>")
+	add_game_logs("стал питомцем master_name", src)
 
 /mob/living/carbon/proc/sneak_mode()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
@@ -791,6 +803,7 @@
 		mind.add_antag_datum(antag_datum)
 		GrantBorerSpells()
 		hide_borer()
+		grant_master_info()
 
 /proc/create_borer_mind(key)
 	var/datum/mind/M = new /datum/mind(key)

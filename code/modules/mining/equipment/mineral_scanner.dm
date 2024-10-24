@@ -19,6 +19,7 @@
 /obj/item/mining_scanner/AltClick(mob/user)
 	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
+
 	speaker = !speaker
 	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
 
@@ -62,6 +63,7 @@
 /obj/item/t_scanner/adv_mining_scanner/AltClick(mob/user)
 	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
+
 	speaker = !speaker
 	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
 

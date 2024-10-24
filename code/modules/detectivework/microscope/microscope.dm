@@ -118,7 +118,7 @@
 	return stringpercent(print) <= fingerprint_complete
 
 /obj/machinery/microscope/AltClick(mob/user)
-	remove_sample(user)
+		remove_sample(user)
 
 /obj/machinery/microscope/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(usr == over_object)

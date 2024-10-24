@@ -64,12 +64,15 @@
 /obj/structure/tribune/AltClick(mob/user)
 	if(!Adjacent(user))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+
 	if(anchored)
 		to_chat(user, "It is fastened to the floor!")
 		return
+
 	setDir(turn(dir, 90))
 	after_rotation(user)
 

@@ -427,7 +427,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 
 /obj/structure/window/AltClick(mob/user)
-
 	if(!Adjacent(user))
 		to_chat(user, "<span class='warning'>Move closer to the window!</span>")
 		return

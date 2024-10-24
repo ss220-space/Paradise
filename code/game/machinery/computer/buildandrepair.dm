@@ -576,12 +576,15 @@
 /obj/structure/computerframe/AltClick(mob/user)
 	if(!Adjacent(user))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
 		return
+
 	if(anchored)
 		to_chat(user, span_warning("The frame is anchored to the floor!"))
 		return
+
 	setDir(turn(dir, 90))
 
 

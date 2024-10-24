@@ -167,6 +167,7 @@ GLOBAL_LIST_EMPTY(holopads)
 /obj/machinery/hologram/holopad/AltClick(mob/living/carbon/human/user)
 	if(..())
 		return
+
 	if(isAI(user))
 		hangup_all_calls()
 		return

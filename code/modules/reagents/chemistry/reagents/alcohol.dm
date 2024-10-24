@@ -732,7 +732,7 @@
 	drink_icon = "demonsblood"
 	drink_name = "Demons Blood"
 	drink_desc = "Just looking at this thing makes the hair at the back of your neck stand up."
-	taste_description = "<span class='warning'>evil</span>"
+	taste_description = span_warning("evil")
 
 /datum/reagent/consumable/ethanol/vodkatonic
 	name = "Vodka and Tonic"

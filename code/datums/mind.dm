@@ -553,11 +553,11 @@
 	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp", "traitorthief"))
 	var/datum/antagonist/traitor/traitor_datum = has_antag_datum(/datum/antagonist/traitor)
 	if(traitor_datum)
-		. += "<b><font color='red'>TRAITOR</font></b>|<a href='byond://?src=[UID()];traitor=clear'>no</a>"
+		. += "<b><font color='red'>TRAITOR" + (!traitor_datum.affiliate ? " without affiliate" : " from [traitor_datum.affiliate.name]") + "</font></b>|<a href='byond://?src=[UID()];traitor=clear'>no</a>"
 		if(!length(traitor_datum.objectives))
 			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];traitor=autoobjectives'>Randomize!</a>"
 	else
-		. += "<a href='byond://?src=[UID()];traitor=traitor'>traitor</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];traitor=traitor'>just traitor</a>|<a href='byond://?src=[UID()];traitor=traitor_choose_affil'>traitor with affiliate</a>|<a href='byond://?src=[UID()];traitor=traitor_affil'>traitor with specific affiliate</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_TRAITOR)
 	// Contractor
@@ -846,7 +846,7 @@
 /datum/mind/Topic(href, href_list)
 	//проверяем на амбиции, после чего прерываем выполнение, иначе он залезет в админский антаг-панель
 	var/ambition_func = ambition_topic(href, href_list)
-	if (ambition_func)
+	if(ambition_func)
 		return
 
 	if(!check_rights(R_ADMIN))
@@ -1544,7 +1544,7 @@
 					log_admin("[key_name(usr)] has automatically forged wizard objectives for [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has automatically forged wizard objectives for [key_name_admin(current)]")
 				else if(src in SSticker.mode.apprentices)
-					if (SSticker.mode.wizards.len)
+					if(SSticker.mode.wizards.len)
 						var/datum/mind/wizard = pick(SSticker.mode.wizards)
 						SSticker.mode.forge_wizard_apprentice_objectives(wizard, src)
 					else
@@ -1961,9 +1961,34 @@
 					var/datum/antagonist/traitor/traitor_datum = new()
 					traitor_datum.give_objectives = FALSE
 					traitor_datum.give_uplink = FALSE
+					traitor_datum.gen_affiliate = FALSE
 					add_antag_datum(traitor_datum)
 					log_admin("[key_name(usr)] has traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
+
+			if("traitor_choose_affil")
+				if(!(has_antag_datum(/datum/antagonist/traitor)))
+					var/datum/antagonist/traitor/traitor_datum = new()
+					traitor_datum.give_objectives = FALSE
+					traitor_datum.give_uplink = FALSE
+					traitor_datum.force_affiliate = TRUE
+					add_antag_datum(traitor_datum)
+					log_admin("[key_name(usr)] has traitored [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
+
+			if("traitor_affil")
+				if(!(has_antag_datum(/datum/antagonist/traitor)))
+					var/type = input(usr, "Выберите подрядчика", "Выбор подрядчика") as null|anything in subtypesof(/datum/affiliate)
+
+					if(type)
+						var/datum/antagonist/traitor/traitor_datum = new()
+						traitor_datum.give_objectives = FALSE
+						traitor_datum.give_uplink = FALSE
+						traitor_datum.gen_affiliate = FALSE
+						add_antag_datum(traitor_datum)
+						log_admin("[key_name(usr)] has traitored [key_name(current)]")
+						message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
+						traitor_datum.give_affiliate(src, type)
 
 			if("autoobjectives")
 				var/datum/antagonist/traitor/traitor_datum = has_antag_datum(/datum/antagonist/traitor)

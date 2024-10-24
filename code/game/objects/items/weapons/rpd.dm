@@ -189,9 +189,11 @@
 /obj/item/rpd/AltClick(mob/living/user)
 	if(!istype(user) || !Adjacent(user))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+
 	radial_menu(user)
 
 /obj/item/rpd/ui_data(mob/user)

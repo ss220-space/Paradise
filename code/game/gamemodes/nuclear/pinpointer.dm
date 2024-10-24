@@ -224,6 +224,7 @@
 	if(Adjacent(user))
 		toggle_mode(user)
 		return
+
 	..()
 
 
@@ -501,6 +502,7 @@
 	if(Adjacent(user))
 		choose_signal(user)
 		return
+
 	..()
 
 
@@ -615,6 +617,7 @@
 	if(Adjacent(user))
 		toggle_mode(user)
 		return
+
 	..()
 
 

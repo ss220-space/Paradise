@@ -264,7 +264,7 @@
 	if(check_station_level && !is_admin(src) && !is_station_level(passed_mob.z))
 		return FALSE
 
-	if(istype(passed_mob, /mob/living/simple_animal/borer) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, ROLE_SYNDICATE))
+	if(isborer(passed_mob) && !jobban_isbanned(src, ROLE_BORER) && !jobban_isbanned(src, ROLE_SYNDICATE))
 		return TRUE
 
 	if(isnymph(passed_mob) && !jobban_isbanned(src, ROLE_NYMPH))

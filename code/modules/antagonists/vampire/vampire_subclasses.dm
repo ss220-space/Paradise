@@ -160,3 +160,63 @@
 	dissect_cap = 6
 	crit_organ_cap = 6
 
+/datum/vampire_subclass/advanced
+	name = "advanced"
+	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/cloak = 150,
+							/obj/effect/proc_holder/spell/vampire/self/vamp_claws = 175,
+							/obj/effect/proc_holder/spell/vampire/self/blood_swell = 200,
+							/obj/effect/proc_holder/spell/vampire/enthrall = 225,
+							/obj/effect/proc_holder/spell/vampire/thrall_commune = 225,
+							/obj/effect/proc_holder/spell/vampire/self/dissect_info = 250,
+							/obj/effect/proc_holder/spell/vampire/self/dissect = 250,
+							/obj/effect/proc_holder/spell/vampire/self/infected_trophy = 250,
+
+							/obj/effect/proc_holder/spell/vampire/shadow_snare = 275,
+							/obj/effect/proc_holder/spell/vampire/soul_anchor = 300,
+							/obj/effect/proc_holder/spell/vampire/blood_tendrils = 325,
+							/obj/effect/proc_holder/spell/vampire/blood_barrier = 350,
+							/obj/effect/proc_holder/spell/vampire/self/blood_rush = 375,
+							/obj/effect/proc_holder/spell/vampire/self/stomp = 400,
+							/obj/effect/proc_holder/spell/vampire/pacify = 425,
+							/obj/effect/proc_holder/spell/vampire/switch_places = 450,
+							/obj/effect/proc_holder/spell/vampire/lunge = 475,
+							/obj/effect/proc_holder/spell/vampire/mark = 500,
+
+							/obj/effect/proc_holder/spell/vampire/dark_passage = 525,
+							/obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool = 550,
+							/datum/vampire_passive/blood_swell_upgrade = 575,
+							/obj/effect/proc_holder/spell/vampire/self/decoy = 600,
+							/datum/vampire_passive/increment_thrall_cap = 625,
+							/obj/effect/proc_holder/spell/vampire/metamorphosis/bats = 650,
+
+							/obj/effect/proc_holder/spell/vampire/vamp_extinguish = 675,
+							/obj/effect/proc_holder/spell/vampire/predator_senses = 700,
+							/obj/effect/proc_holder/spell/vampire/self/overwhelming_force = 725,
+							/obj/effect/proc_holder/spell/vampire/rally_thralls = 750,
+							/datum/vampire_passive/increment_thrall_cap/two = 775,
+							/obj/effect/proc_holder/spell/vampire/self/anabiosis = 800,
+							/datum/vampire_passive/dissection_cap = 825,
+
+							/obj/effect/proc_holder/spell/vampire/shadow_boxing = 850,
+							/obj/effect/proc_holder/spell/vampire/blood_eruption = 875,
+							/obj/effect/proc_holder/spell/fireball/demonic_grasp = 900,
+							/obj/effect/proc_holder/spell/vampire/self/share_damage = 925,
+							/obj/effect/proc_holder/spell/vampire/self/bats_spawn = 950,
+							/datum/vampire_passive/upgraded_grab = 975
+							)
+
+	fully_powered_abilities = list(/datum/vampire_passive/full,
+
+								/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
+								/datum/vampire_passive/xray,
+
+								/obj/effect/proc_holder/spell/vampire/self/blood_spill,
+
+								/obj/effect/proc_holder/spell/vampire/charge,
+
+								/obj/effect/proc_holder/spell/vampire/hysteria,
+								/datum/vampire_passive/increment_thrall_cap/three,
+
+								/obj/effect/proc_holder/spell/vampire/metamorphosis/hound,
+
+								/datum/vampire_passive/dissection_cap/two)

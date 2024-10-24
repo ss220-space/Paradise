@@ -189,6 +189,7 @@
 /obj/item/assembly/infra/AltClick(mob/user)
 	if(!Adjacent(user))
 		return ..()
+
 	rotate(user)
 
 

@@ -275,6 +275,7 @@
 /obj/mecha/AltClick(mob/living/user) //Strafing is toggled by interface button or by Alt-clicking on mecha
 	if(!occupant || occupant != user)
 		return
+
 	toggle_strafe()
 
 /**

@@ -54,6 +54,7 @@
 		ShiftClickOn(A)
 		return TRUE
 	if(modifiers["alt"])
+		SEND_SIGNAL(A, COMSIG_CLICK_ALT, src)
 		AltClickOn(A)
 		return TRUE
 	if(modifiers["ctrl"])

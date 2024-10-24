@@ -28,12 +28,15 @@
 /obj/item/ttsdevice/AltClick(mob/living/user)
 	if(!istype(user) || !Adjacent(user))
 		return
+
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+
 	var/noisechoice = input(user, "What noise would you like to make?", "Robot Noises") as null|anything in list("Beep","Buzz","Ping")
 	if(!noisechoice || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
+
 	switch(noisechoice)
 		if("Beep")
 			user.visible_message("<span class='notice'>[user] has made their TTS beep!</span>", "You make your TTS beep!")

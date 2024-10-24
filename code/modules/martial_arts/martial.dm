@@ -390,12 +390,18 @@
 /obj/item/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	if(user.mind && (ischangeling(user) || isvampire(user))) //Prevents changelings and vampires from being able to learn it
+
+	var/datum/antagonist/traitor/traitor = user?.mind?.has_antag_datum(/datum/antagonist/traitor)
+	var/datum/affiliate/aff = traitor?.affiliate
+	if(user.mind && (ischangeling(user) || isvampire(user) || istype(aff, /datum/affiliate/hematogenic) || istype(aff, /datum/affiliate/tiger))) //Prevents changelings and vampires from being able to learn it
 		if(ischangeling(user)) //Changelings
 			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
-		else //Vampires
+		else if(isvampire(user)) //Vampires
 			to_chat(user, "<span class ='warning'>Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!</span>")
+			return
+		else
+			to_chat(user, span_warning("Изучение этого боевого искусства противоречит вашей идеологии."))
 			return
 
 	if(istype(user.mind.martial_art, /datum/martial_art/the_sleeping_carp))
@@ -435,6 +441,12 @@
 		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
 			return
+		else
+			var/datum/antagonist/traitor/traitor = user?.mind?.has_antag_datum(/datum/antagonist/traitor)
+			var/datum/affiliate/aff = traitor?.affiliate
+			if(istype(aff, /datum/affiliate/hematogenic) || istype(aff, /datum/affiliate/tiger))
+				to_chat(user, span_warning("Изучение этого боевого искусства противоречит вашей идеологии."))
+				return
 
 	to_chat(user, span_boldannounceic("You remember the basics of CQC."))
 

@@ -177,6 +177,7 @@
 /obj/item/grenade/barrier/AltClick(mob/living/carbon/user)
 	if(!istype(user) || !user.Adjacent(src) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
+
 	toggle_mode(user)
 
 /obj/item/grenade/barrier/proc/toggle_mode(mob/user)

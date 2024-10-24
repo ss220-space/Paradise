@@ -88,6 +88,7 @@
 /obj/machinery/fishtank/AltClick(mob/user)
 	if(!Adjacent(user))
 		return ..()
+
 	toggle_lid(user)
 
 
