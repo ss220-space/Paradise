@@ -21,7 +21,7 @@
 
 
 /datum/cinematic/cult_fail/play_cinematic()
-	screen.icon_state = "summary_cult"
+	screen.icon_state = "station_intact"
 	stoplag(2 SECONDS)
 	play_cinematic_sound(sound('sound/effects/narsie_summon.ogg'))
 	stoplag(6 SECONDS)

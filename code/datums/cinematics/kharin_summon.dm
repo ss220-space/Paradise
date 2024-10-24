@@ -15,7 +15,7 @@
 
 /datum/cinematic/cult_fail_kharin
 /datum/cinematic/cult_fail_kharin/play_cinematic()
-	screen.icon_state = "summary_cult_Kharin"
+	screen.icon_state = "station_intact"
 	stoplag(2 SECONDS)
 	play_cinematic_sound(sound('sound/effects/narsie_summon.ogg'))
 	stoplag(6 SECONDS)

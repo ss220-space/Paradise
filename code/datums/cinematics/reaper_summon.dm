@@ -15,7 +15,7 @@
 
 /datum/cinematic/cult_fail_reaper
 /datum/cinematic/cult_fail_reaper/play_cinematic()
-	screen.icon_state = "summary_cult_Reaper"
+	screen.icon_state = "station_intact"
 	stoplag(2 SECONDS)
 	play_cinematic_sound(sound('sound/effects/narsie_summon.ogg'))
 	stoplag(6 SECONDS)

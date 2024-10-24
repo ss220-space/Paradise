@@ -14,7 +14,7 @@
 
 /datum/cinematic/cult_fail_ratvar
 /datum/cinematic/cult_fail_ratvar/play_cinematic()
-	screen.icon_state = "summary_cult_Ratvar"
+	screen.icon_state = "station_intact"
 	stoplag(2 SECONDS)
 	play_cinematic_sound(sound('sound/effects/narsie_summon.ogg'))
 	stoplag(6 SECONDS)
