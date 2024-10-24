@@ -721,9 +721,9 @@
 /datum/game_mode/proc/apocalypse()
 	set_security_level(SEC_LEVEL_DELTA)
 	GLOB.priority_announcement.Announce("Обнаружена угроза класса 'Разрушитель миров'. Моделирование пути решения угрозы начато, ожидайте", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
-	sleep(1 SECONDS)
+	sleep(50 SECONDS)
 	GLOB.priority_announcement.Announce("Моделирование завершено. Всему живому персоналу: не допустите усиления угрозы любой ценой. Меры будут приняты в ближайщее время", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
-	sleep(1 SECONDS)
+	sleep(30 SECONDS)
 	var/obj/singularity/narsie/N = locate(/obj/singularity/narsie) in GLOB.poi_list
 	var/obj/singularity/ratvar/R = locate(/obj/singularity/ratvar) in GLOB.poi_list
 	if(!N && !R)
