@@ -249,7 +249,7 @@
 
 /obj/structure/sign/bathhouse
 	name = "\improper bathhouse sign"
-	desc = "Старая разбитая, но рабочая табличка. Щас бы в баньку."
+	desc = "Старая разбитая, но рабочая табличка. Щас бы в баньку..."
 	icon_state = "banya"
 
 /obj/structure/sign/barber
