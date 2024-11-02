@@ -5,14 +5,7 @@
 
 /datum/event/pda_spam/setup()
 	last_spam_time = world.time
-	pick_message_server()
-
-/datum/event/pda_spam/proc/pick_message_server()
-	if(GLOB.message_servers)
-		for(var/obj/machinery/message_server/MS in GLOB.message_servers)
-			if(MS.active)
-				useMS = MS
-				break
+	find_pda_server()
 
 /datum/event/pda_spam/tick()
 	if(world.time > last_spam_time + 3000)
@@ -21,8 +14,7 @@
 		return
 
 	if(!useMS || !useMS.active)
-		useMS = null
-		pick_message_server()
+		useMS = find_pda_server()
 
 	if(useMS)
 		if(prob(5))

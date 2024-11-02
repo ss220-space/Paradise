@@ -265,8 +265,8 @@
 /datum/reagent/consumable/drink/cold/zaza/on_mob_life(mob/living/user)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(user) && prob(40))
-		update_flags |= user.adjustBruteLoss(-healamount, FALSE)
-		update_flags |= user.adjustFireLoss(-healamount, FALSE)
+		update_flags |= user.adjustBruteLoss(-healamount, FALSE, affect_robotic = FALSE)
+		update_flags |= user.adjustFireLoss(-healamount, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
 
 

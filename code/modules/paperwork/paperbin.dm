@@ -93,7 +93,14 @@
 			return ..()
 		to_chat(user, span_notice("You have put [I] into [src]."))
 		papers.Add(I)
+		var/do_update = FALSE
+		if(amount == 0)
+			do_update = TRUE
+
 		amount++
+		if(do_update)
+			update_icon(UPDATE_ICON_STATE)
+
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()

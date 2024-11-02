@@ -24,6 +24,7 @@
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/hos
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 300
 	min_start_money = 400
@@ -74,11 +75,11 @@
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	alt_titles = list("Brig Sergeant")
 	minimal_player_age = 21
-	min_age_allowed = 30
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 2100
 	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/warden
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 170
 	min_start_money = 200
@@ -130,6 +131,7 @@
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/detective
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 170
 	min_start_money = 200
@@ -194,6 +196,7 @@
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/officer
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 170
 	min_start_money = 200
@@ -262,6 +265,7 @@
 	exp_requirements = 1800
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brigdoc
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 170
 	min_start_money = 200
@@ -303,6 +307,7 @@
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/pilot
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 170
 	min_start_money = 200

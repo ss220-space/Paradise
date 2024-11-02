@@ -87,6 +87,10 @@
 				return
 			if(length(newline) > MUSIC_MAXLINECHARS)
 				newline = copytext(newline, 1, MUSIC_MAXLINECHARS)
+
+			if(!legality_check(user, newline))
+				return
+
 			lines.Add(newline)
 		if("deleteline")
 			var/num = round(text2num(params["line"]))
@@ -98,8 +102,13 @@
 			var/content = tgui_input_text(user, "Enter your line:", parent.name, lines[num], max_length = MUSIC_MAXLINECHARS)
 			if(!content || !(state.can_use_topic(parent, user) == UI_INTERACTIVE))
 				return
+
 			if(num > length(lines) || num < 1)
 				return
+
+			if(!legality_check(user, content))
+				return
+
 			lines[num] = content
 		if("stop")
 			stop_playing()
@@ -143,6 +152,7 @@
 			set_dropoff_volume(initial(sustain_dropoff_volume), TRUE)
 		else
 			return FALSE
+
 	parent.add_fingerprint(user)
 
 /**
@@ -150,25 +160,45 @@
   */
 /datum/song/proc/parse_song(text, mob/user)
 	set waitfor = FALSE
-	//split into lines
 	stop_playing()
-	lines = splittext(text, "\n")
-	if(length(lines))
+	//split into lines
+	var/list/lines_to_add = splittext(text, "\n")
+	if(length(lines_to_add))
 		var/bpm_string = "BPM: "
-		if(findtext(lines[1], bpm_string, 1, length(bpm_string) + 1))
-			var/divisor = text2num(copytext(lines[1], length(bpm_string) + 1)) || 120 // default
+		if(findtext(lines_to_add[1], bpm_string, 1, length(bpm_string) + 1))
+			var/divisor = text2num(copytext(lines_to_add[1], length(bpm_string) + 1)) || 120 // default
 			tempo = sanitize_tempo(600 / round(divisor, 1))
-			lines.Cut(1, 2)
+			lines_to_add.Cut(1, 2)
 		else
 			tempo = sanitize_tempo(5) // default 120 BPM
-		if(length(lines) > MUSIC_MAXLINES)
+		if(length(lines_to_add) > MUSIC_MAXLINES)
 			to_chat(user, "Too many lines!")
-			lines.Cut(MUSIC_MAXLINES + 1)
+			lines_to_add.Cut(MUSIC_MAXLINES + 1)
 		var/linenum = 1
-		for(var/l in lines)
+		for(var/l in lines_to_add)
 			if(length_char(l) > MUSIC_MAXLINECHARS)
 				to_chat(user, "Line [linenum] too long!")
-				lines.Remove(l)
+				lines_to_add.Remove(l)
+				continue
 			else
 				linenum++
+
+			if(!legality_check(user, l))
+				break
+
+		lines = lines_to_add
 		SStgui.update_uis(parent)
+
+///Checks string for containing only midi-sequence characters.
+/datum/song/proc/legality_check(mob/user, text)
+	var/static/regex/regex = regex(@"[^A-G0-9n\#\-\,\/\.(\r\n|\r|\n)]")
+	var/detection = regex.Find(text)
+	if(detection)
+		var/position_prev = clamp(detection - 16, 1, length(text))
+		var/position_next = clamp(detection + 16, 1, length(text))
+		var/illegal_text = copytext_char(text, position_prev, position_next + 1)
+		message_admins("[user] ([user.ckey]) tried to put an illegal string into a song. Part of a string: [illegal_text]")
+		log_admin("[user] ([user.ckey]) tried to put an illegal string into a song. Part of a string: [illegal_text]")
+		return FALSE
+
+	return TRUE

@@ -13,6 +13,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 /datum/paiController
 	var/list/pai_candidates = list()
 	var/list/asked = list()
+	var/list/paicards
 	var/summon_cooldown = 0
 
 	var/askDelay = 10 * 60 * 1	// One minute [ms * sec * min]
@@ -41,25 +42,12 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				pai.name = candidate.name
 			pai.real_name = pai.name
 			pai.key = candidate.key
-			if(card.is_syndicate_type)
-				pai.syndipai = card.is_syndicate_type
-				pai.ram += card.extra_memory
-
 			card.setPersonality(pai)
 			card.looking_for_personality = 0
-			if(card.upgrade)
-				card.upgrade.used = TRUE
-				if(!istype(card.upgrade, /obj/item/paicard_upgrade/protolate))
-					card.radio.keyslot2 = new /obj/item/encryptionkey/syndicate(card.radio)
-					if(card.radio.keyslot2.syndie)
-						card.radio.syndiekey = card.radio.keyslot2
-					card.radio.recalculateChannels(TRUE)
-
-			SSticker.mode.update_cult_icons_removed(card.pai.mind)
-			SSticker.mode.update_rev_icons_removed(card.pai.mind)
 
 			pai_candidates -= candidate
 			usr << browse(null, "window=findPai")
+			usr << browse(null, "window=paicard")
 		return
 
 	if("signup" in href_list)
@@ -70,7 +58,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				return
 
 		if(!(O in GLOB.respawnable_list))
-			to_chat(O, "You've given up your ability to respawn!")
+			to_chat(O, span_notice("Вы отказались от возможности возрождения!"))
 			return
 		if(!check_recruit(O))
 			return
@@ -124,13 +112,19 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 
 			if("submit")
 				if(candidate)
-					candidate.ready = 1
-					for(var/obj/item/paicard/p in world)
-						if(p.looking_for_personality == 1)
-							p.alertUpdate()
+					candidate.ready = !candidate.ready
+					if(candidate.ready)
+						to_chat(usr, span_notice("Вы отправили заявку на становление пИИ."))
+						for(var/obj/item/paicard/p in paicards)
+							if(p.looking_for_personality)
+								p.alertUpdate()
+					else
+						to_chat(usr, span_notice("Вы отменили заявку на становление пИИ."))
+
 				usr << browse(null, "window=paiRecruit")
 				return
 		recruitWindow(usr)
+
 
 /datum/paiController/proc/recruitWindow(var/mob/M as mob)
 	var/datum/paiCandidate/candidate
@@ -253,7 +247,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			</tr>
 		</table><br>
 		<table>
-			<td class="button"><a href='byond://?src=[UID()];option=submit;new=1;candidate=[candidate.UID()]' class="button"><b><font size="4px">Submit Personality</font></b></a></td>
+			<td class="button"><a href='byond://?src=[UID()];option=submit;new=1;candidate=[candidate.UID()]' class="button"><b><font size="4px">[candidate.ready ? "Reset personality" : "Submit personality"]</font></b></a></td>
 		</table><br>
 
 	</body>

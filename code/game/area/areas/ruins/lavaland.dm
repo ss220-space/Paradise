@@ -101,6 +101,7 @@
 
 // This area exists so that lavaland ruins dont overwrite the baseturfs on regular space ruins
 /area/ruin/unpowered/misc_lavaruin
+	outdoors = FALSE
 
 //'safe' caves
 /area/ruin/unpowered/safe_cave

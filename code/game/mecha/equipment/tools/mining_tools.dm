@@ -16,6 +16,13 @@
 	var/drill_delay = 7
 	var/drill_level = DRILL_BASIC
 
+/obj/item/mecha_parts/mecha_equipment/drill/action_checks(atom/target)
+	. = ..()
+	if(!.)
+		return
+
+	return chassis.Adjacent(target)
+
 /obj/item/mecha_parts/mecha_equipment/drill/action(atom/target)
 	if(!action_checks(target))
 		return FALSE
