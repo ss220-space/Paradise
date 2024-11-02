@@ -172,6 +172,9 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/enrage()
 	. = ..()
+	if(!.)
+		return
+
 	armour_penetration = 66
 	TL.armour_penetration = 66
 	TR.armour_penetration = 66

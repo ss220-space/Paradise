@@ -155,6 +155,7 @@
 	/// Direct ref to the trunk pipe underneath us
 	var/obj/structure/disposalpipe/trunk/trunk
 
+
 /obj/machinery/customat/proc/set_up_components()
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new
@@ -400,8 +401,16 @@
 			return
 
 		cost = input_cost
-	if(user && get_dist(get_turf(user), get_turf(src)) > 1)
+
+	if(!user || user.stat)
+		return
+
+	if(!Adjacent(user))
 		to_chat(user, span_warning("Вы слишком далеко!"))
+		return
+
+	if(!user.is_in_hands(I))
+		to_chat(user, span_warning("Нечего положить внутрь!"))
 		return
 
 	insert(user, I, cost)

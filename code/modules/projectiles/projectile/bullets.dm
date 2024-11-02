@@ -214,6 +214,11 @@
 	damage = 50
 	armour_penetration = -50
 
+/obj/item/projectile/bullet/midbullet3/hp/on_hit(atom/target, blocked, hit_zone)
+	if(..(target, blocked))
+		var/mob/living/M = target
+		M.Slowed(2 SECONDS)
+
 /obj/item/projectile/bullet/midbullet3/ap
 	damage = 27
 	armour_penetration = 40

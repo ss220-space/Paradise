@@ -504,7 +504,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	flags_inv = HIDENAME|HIDEFACIALHAIR
 	adjusted_slot_flags = ITEM_SLOT_HEAD
-	adjusted_flags_inv = HIDENAME|HIDEFACIALHAIR|HIDEHEADHAIR
+	adjusted_flags_inv = HIDENAME|HIDEFACIALHAIR
 	can_toggle = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',

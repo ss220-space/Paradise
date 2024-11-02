@@ -263,6 +263,7 @@
 	anchored = TRUE
 	density = TRUE
 	pixel_y = -32
+	move_resist = MOVE_FORCE_STRONG
 
 
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)

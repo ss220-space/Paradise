@@ -285,6 +285,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	null,
 	new /datum/stack_recipe("Bedsheet", /obj/item/bedsheet, 3),
 	new /datum/stack_recipe("Blindfold", /obj/item/clothing/glasses/sunglasses/blindfold, 3),
+	new /datum/stack_recipe("Fake blindfold", /obj/item/clothing/glasses/sunglasses/blindfold_fake, 2),
 	new /datum/stack_recipe("Fingerless gloves", /obj/item/clothing/gloves/fingerless),
 	new /datum/stack_recipe("Empty sandbag", /obj/item/emptysandbag, 4),
 	new /datum/stack_recipe("Improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, res_amount = 2, max_res_amount = 6),

@@ -272,8 +272,18 @@
 			var/possible_target_distance = get_dist(targets_from, A)
 			if(target_dist < possible_target_distance)
 				Targets -= A
+
+	var/list/mob/high_priority_targets = list()
+	for(var/mob/T in Targets)
+		if (!(T.UID() in low_priority_targets))
+			high_priority_targets.Add(T)
+
+	if (high_priority_targets.len)
+		Targets = high_priority_targets
+
 	if(!Targets.len)//We didnt find nothin!
 		return
+
 	var/chosen_target = pick(Targets)//Pick the remaining targets (if any) at random
 	return chosen_target
 

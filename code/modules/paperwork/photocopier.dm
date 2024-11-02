@@ -586,13 +586,13 @@
 	if(istype(I, /obj/item/toner))
 		add_fingerprint(user)
 		var/obj/item/toner/toner = I
-		if(toner > 10) //allow replacing when low toner is affecting the print darkness
+		if(src.toner > 10) //allow replacing when low toner is affecting the print darkness
 			to_chat(user, span_warning("This cartridge is not yet ready for replacement! Use up the rest of the toner."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		to_chat(user, span_notice("You have inserted the toner cartridge into [src]."))
-		toner += toner.toner_amount
+		src.toner += toner.toner_amount
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

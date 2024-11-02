@@ -103,7 +103,7 @@
 
 		if(ROLE_MALF_AI)
 			if(special_antag_amount)
-				var/datum/mind/special_antag = roundstart ? safepick(get_players_for_role(ROLE_MALF_AI, req_job_rank = JOB_TITLE_AI)) : safepick(antag_possibilities[ROLE_MALF_AI])
+				var/datum/mind/special_antag = safepick(antag_possibilities[ROLE_MALF_AI])
 				if(special_antag)
 					special_antag.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)
 					special_antag.restricted_roles -= JOB_TITLE_AI
@@ -215,6 +215,7 @@
 	antag_possibilities[ROLE_CHANGELING] = get_players_for_role(ROLE_CHANGELING)
 	antag_possibilities[ROLE_TRAITOR] =	get_players_for_role(ROLE_TRAITOR)
 	antag_possibilities[ROLE_THIEF] = get_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
+	antag_possibilities[ROLE_MALF_AI] = get_players_for_role(ROLE_MALF_AI)
 
 	calculate_antags()
 

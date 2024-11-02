@@ -1132,7 +1132,7 @@
 	name = "50. compact ammo box"
 	desc = "A box of 50. cal sniper ammo."
 	item = /obj/item/ammo_box/magazine/sniper_rounds/compact
-	cost = 10
+	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/revolver

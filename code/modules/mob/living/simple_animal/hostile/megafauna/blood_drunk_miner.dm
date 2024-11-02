@@ -288,6 +288,9 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/enrage()
 	. = ..()
+	if(!.)
+		return
+
 	miner_saw = new /obj/item/melee/energy/cleaving_saw(src) //Real saw for real men.
 	dash_cooldown_to_use = 0.5 SECONDS //Becomes a teleporting shit.
 	ranged_cooldown_time = 5 //They got some cooldown mods.

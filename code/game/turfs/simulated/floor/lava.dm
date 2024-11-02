@@ -156,7 +156,7 @@
 		if(burn_obj.resistance_flags & FIRE_PROOF)
 			burn_obj.resistance_flags &= ~FIRE_PROOF
 		if(burn_obj.armor.getRating(FIRE) > 50) //obj with 100% fire armor still get slowly burned away.
-			burn_obj.armor.setRating(fire_value = 50)
+			burn_obj.armor = burn_obj.armor.setRating(fire_value = 50)
 		burn_obj.fire_act(exposed_temperature = temperature_damage, exposed_volume = 1000)
 		return TRUE
 

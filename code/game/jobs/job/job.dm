@@ -78,6 +78,9 @@
 	var/required_objectives=list() // Objectives that are ALWAYS added.
 	var/optional_objectives=list() // Objectives that are SOMETIMES added.
 
+	var/insurance = INSURANCE_STANDART
+	var/insurance_type = INSURANCE_TYPE_STANDART
+
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
 

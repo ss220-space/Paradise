@@ -16,6 +16,7 @@
 	exp_type = EXP_TYPE_CREW
 	alt_titles = list("Chief Supply Manager")
 	outfit = /datum/outfit/job/qm
+	insurance_type = INSURANCE_TYPE_DELUXE // Always has been.
 
 	//QM IS NOT THE HEAD!!
 	salary = 300
@@ -86,6 +87,7 @@
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
+	insurance_type = INSURANCE_TYPE_EXTENDED
 
 	salary = 100
 	min_start_money = 100

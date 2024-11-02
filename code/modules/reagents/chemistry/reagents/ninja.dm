@@ -51,8 +51,8 @@
 			our_mob.AdjustDrunk(-8 SECONDS)
 			our_mob.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 8, 0, 1)
 			//Basic damage types
-			update_flags |= our_mob.adjustBruteLoss(-5, FALSE)
-			update_flags |= our_mob.adjustFireLoss(-5, FALSE)
+			update_flags |= our_mob.adjustBruteLoss(-5, FALSE, affect_robotic = FALSE)
+			update_flags |= our_mob.adjustFireLoss(-5, FALSE, affect_robotic = FALSE)
 			update_flags |= our_mob.adjustOxyLoss(-5, FALSE)
 			update_flags |= our_mob.adjustToxLoss(-5, FALSE)
 			//Eyes and ears
