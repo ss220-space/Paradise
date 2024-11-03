@@ -250,7 +250,7 @@
 
 /obj/item/robot_module/medical/on_apply(mob/living/silicon/robot/robot)
 	if(robot.camera && ("Robots" in robot.camera.network))
-		LAZYADD(robot.camera.network, ("Medical"))
+		LAZYADD(robot.camera.network, "Medical")
 
 	robot.status_flags &= ~CANPUSH
 	robot.see_reagents = TRUE
@@ -664,7 +664,7 @@
 	has_transform_animation = TRUE
 
 /obj/item/robot_module/syndicate/on_apply(mob/living/silicon/robot/robot)
-	spawn_syndicate_borgs(robot, "Bloodhound", get_turf(robot))
+	robot.spawn_syndicate_borgs(robot, "Bloodhound", get_turf(robot))
 	qdel(robot)
 
 /obj/item/robot_module/syndicate/New()
@@ -961,7 +961,7 @@
 	default_skin = "cyborg"
 	borg_skins = list("cyborg" = "cyborg")
 
-/obj/item/robot_module/clockwork/on_apply()
+/obj/item/robot_module/clockwork/on_apply(mob/living/silicon/robot/robot)
 	robot.icon = 'icons/mob/clockwork_mobs.dmi'
 	robot.icon_state = "cyborg"
 

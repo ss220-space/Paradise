@@ -46,7 +46,7 @@
 	radio.recalculateChannels()
 
 	if(playstyle_string)
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, src, playstile_string), 5 DECISECONDS)
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, src, playstyle_string), 5 DECISECONDS)
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
