@@ -50,6 +50,9 @@
 /obj/item/robot_module/proc/add_default_robot_items()
 	modules += new /obj/item/flash/cyborg(src)
 
+/obj/item/robot_module/proc/on_apply(mob/living/silicon/robot/robot)
+	return
+
 /obj/item/robot_module/proc/fix_modules()
 	for(var/obj/item/I in modules)
 		ADD_TRAIT(I, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
@@ -245,6 +248,13 @@
 	)
 	has_transform_animation = TRUE
 
+/obj/item/robot_module/medical/on_apply(mob/living/silicon/robot/robot)
+	if(robot.camera && ("Robots" in robot.camera.network))
+		LAZYADD(robot.camera.network, ("Medical"))
+
+	robot.status_flags &= ~CANPUSH
+	robot.see_reagents = TRUE
+
 /obj/item/robot_module/medical/New()
 	..()
 	modules += new /obj/item/healthanalyzer/advanced(src)
@@ -321,6 +331,12 @@
 	)
 	has_transform_animation = TRUE
 
+/obj/item/robot_module/engineering/on_apply(mob/living/silicon/robot/robot)
+	if(robot.camera && ("Robots" in robot.camera.network))
+		LAZYADD(robot.camera.network, ("Engineering"))
+
+	ADD_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
+
 /obj/item/robot_module/engineering/New()
 	..()
 	modules += new /obj/item/rcd/borg(src)
@@ -371,6 +387,24 @@
 		"Cricket" = "Cricket-SEC"
 	)
 	has_transform_animation = TRUE
+
+/obj/item/robot_module/security/on_apply(mob/living/silicon/robot/robot)
+	if(!robot.weapons_unlock)
+		var/count_secborgs = 0
+
+		for(var/mob/living/silicon/robot/R in GLOB.alive_mob_list)
+			if(R && R.stat != DEAD && R.module && istype(R.module, /obj/item/robot_module/security))
+				count_secborgs++
+
+		var/max_secborgs = 2
+		if(GLOB.security_level == SEC_LEVEL_GREEN)
+			max_secborgs = 1
+
+		if(count_secborgs >= max_secborgs)
+			to_chat(robot, span_warning("There are too many Security cyborgs active. Please choose another module."))
+			return
+
+	robot.status_flags &= ~CANPUSH
 
 /obj/item/robot_module/security/New()
 	..()
@@ -434,6 +468,9 @@
 		"Cricket" = "Cricket-SERV"
 	)
 	has_transform_animation = TRUE
+
+/obj/item/robot_module/butler/on_apply(mob/living/silicon/robot/robot)
+	robot.see_reagents = TRUE
 
 /obj/item/robot_module/butler/New()
 	..()
@@ -540,6 +577,10 @@
 	)
 	has_transform_animation = TRUE
 
+/obj/item/robot_module/miner/on_apply(mob/living/silicon/robot/robot)
+	if(robot.camera && ("Robots" in robot.camera.network))
+		LAZYADD(robot.camera.network, ("Mining Outpost"))
+
 /obj/item/robot_module/miner/New()
 	..()
 	modules += new /obj/item/storage/bag/ore/cyborg(src)
@@ -599,6 +640,11 @@
 	borg_skins = list("Deathsquad" = "nano_bloodhound")
 	has_transform_animation = TRUE
 
+/obj/item/robot_module/deathsquad/on_apply(mob/living/silicon/robot/robot)
+	var/mob/living/silicon/robot/deathsquad/death = new(get_turf(robot))
+	robot.mind?.transfer_to(death)
+	qdel(robot)
+
 /obj/item/robot_module/deathsquad/New()
 	..()
 	modules += new /obj/item/melee/energy/sword/cyborg(src)
@@ -616,6 +662,10 @@
 	default_skin = "syndie_bloodhound"
 	borg_skins = list("Syndicate Bloodhound" = "syndie_bloodhound")
 	has_transform_animation = TRUE
+
+/obj/item/robot_module/syndicate/on_apply(mob/living/silicon/robot/robot)
+	spawn_syndicate_borgs(robot, "Bloodhound", get_turf(robot))
+	qdel(robot)
 
 /obj/item/robot_module/syndicate/New()
 	..()
@@ -638,6 +688,10 @@
 	default_skin = "syndi-medi"
 	borg_skins = list("Syndicate Medical" = "syndi-medi")
 	has_transform_animation = TRUE
+
+/obj/item/robot_module/syndicate_medical/on_apply(mob/living/silicon/robot/robot)
+	robot.spawn_syndicate_borgs(robot, "Medical", get_turf(robot))
+	qdel(robot)
 
 /obj/item/robot_module/syndicate_medical/New()
 	..()
@@ -681,6 +735,10 @@
 	borg_skins = list("Syndicate Saboteur" = "syndi-engi")
 	has_transform_animation = TRUE
 
+/obj/item/robot_module/syndicate_saboteur/on_apply(mob/living/silicon/robot/robot)
+	robot.spawn_syndicate_borgs(robot, "Saboteur", get_turf(robot))
+	qdel(src)
+
 /obj/item/robot_module/syndicate_saboteur/New()
 	..()
 	modules += new /obj/item/rcd/borg/syndicate(src)
@@ -723,6 +781,11 @@
 	borg_skins = list("Destroyer" = "droidcombat")
 	has_transform_animation = TRUE
 
+/obj/item/robot_module/destroyer/on_apply(mob/living/silicon/robot/robot)
+	var/mob/living/silicon/robot/destroyer/destroy = new(get_turf(robot.))
+	robot.mind.transfer_to(destroy)
+	qdel(robot)
+
 /obj/item/robot_module/destroyer/New()
 	..()
 
@@ -746,6 +809,9 @@
 	default_skin = "ertgamma"
 	borg_skins = list("ERT-GAMMA" = "ertgamma")
 	has_transform_animation = TRUE
+
+/obj/item/robot_module/combat/on_apply(mob/living/silicon/robot/robot)
+	robot.status_flags &= ~CANPUSH
 
 /obj/item/robot_module/combat/New()
 	..()
@@ -775,6 +841,9 @@
 	default_skin = "xenoborg"
 	borg_skins = list("Xenoborg" = "xenoborg")
 
+/obj/item/robot_module/hunter/on_apply(mob/living/silicon/robot/robot)
+	robot.modtype = "Xeno-Hu"
+
 /obj/item/robot_module/hunter/add_default_robot_items()
 	return
 
@@ -801,6 +870,11 @@
 /obj/item/robot_module/drone
 	name = "Drone"
 	module_type = "Engineer"
+
+/obj/item/robot_module/drone/on_apply(mob/living/silicon/robot/robot)
+	var/mob/living/silicon/robot/drone/drone = new(get_turf(robot))
+	robot.mind?.transfer_to(drone)
+	qdel(robot)
 
 /obj/item/robot_module/drone/New()
 	..()
@@ -849,6 +923,11 @@
 	name = "Cogscarab"
 	module_type = "Cogscarab"
 
+/obj/item/robot_module/cogscarab/on_apply(mob/living/silicon/robot/robot)
+	var/mob/living/silicon/robot/cogscarab/cogscarab = new(get_turf(robot))
+	robot.mind?.transfer_to(cogscarab)
+	qdel(robot)
+
 /obj/item/robot_module/cogscarab/Initialize()
 	. = ..()
 	modules += new /obj/item/weldingtool/experimental/brass(src)
@@ -881,6 +960,15 @@
 	module_type = "Cogscarab" //icon_state
 	default_skin = "cyborg"
 	borg_skins = list("cyborg" = "cyborg")
+
+/obj/item/robot_module/clockwork/on_apply()
+	robot.icon = 'icons/mob/clockwork_mobs.dmi'
+	robot.icon_state = "cyborg"
+
+	robot.status_flags &= ~CANPUSH
+	QDEL_NULL(robot.mmi)
+
+	robot.mmi = new /obj/item/mmi/robotic_brain/clockwork(src)
 
 /obj/item/robot_module/clockwork/Initialize()
 	. = ..()
@@ -916,6 +1004,11 @@
 	name = "Ninja"
 	name_disguise = "Service"
 	module_type = "ninja"
+
+/obj/item/robot_module/ninja/on_apply(mob/living/silicon/robot/robot)
+	var/mob/living/silicon/robot/syndicate/saboteur/ninja/ninja = new(get_turf(robot))
+	robot.mind?.transfer_to(ninja)
+	qdel(robot)
 
 /obj/item/robot_module/ninja/New()
 	..()

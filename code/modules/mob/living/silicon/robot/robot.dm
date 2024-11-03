@@ -357,24 +357,24 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/list/modules = list("Generalist", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
 
-	if(islist(limited_modules) && limited_modules.len)
+	if(islist(limited_modules) && LAZYLEN(limited_modules))
 		modules = limited_modules.Copy()
 
-	switch(mmi)
-		if(alien)
-			forced_module = "Hunter"
-		if(syndicate)
-			modules = list("Syndicate Saboteur", "Syndicate Medical", "Syndicate Bloodhound")
-		if(ninja)
-			forced_module = "Ninja"
-		if(clock)
-			forced_module = "Clockwork"
+	if(mmi?.alien)
+		forced_module = "Hunter"
 
-	if(isclocker(src))
+	if(mmi?.syndicate)
+		modules = list("Syndicate Saboteur", "Syndicate Medical", "Syndicate Bloodhound")	
+
+	if(mmi?.ninja)
+		forced_module = "Ninja"
+
+	if(mmi?.clock || isclocker(src))
 		forced_module = "Clockwork"
 
 	if(forced_module)
 		modtype = forced_module
+
 	else
 		modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
 
@@ -387,132 +387,32 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(module)
 		return
 
-	switch(modtype)
-		if("Generalist")
-			module = new /obj/item/robot_module/standard(src)
+	for(var/obj/item/robot_module/r_module as anything in subtypesof(/obj/item/robot_module))
+		if(modtype != r_module.name)
+			continue
 
-		if("Service")
-			module = new /obj/item/robot_module/butler(src)
-			see_reagents = TRUE
+		module = r_module
+		break
 
-		if("Miner")
-			module = new /obj/item/robot_module/miner(src)
-			if(camera && ("Robots" in camera.network))
-				camera.network.Add("Mining Outpost")
-
-		if("Medical")
-			module = new /obj/item/robot_module/medical(src)
-			if(camera && ("Robots" in camera.network))
-				camera.network.Add("Medical")
-			status_flags &= ~CANPUSH
-			see_reagents = TRUE
-
-		if("Security")
-			if(!weapons_unlock)
-				var/count_secborgs = 0
-				for(var/mob/living/silicon/robot/R in GLOB.alive_mob_list)
-					if(R && R.stat != DEAD && R.module && istype(R.module, /obj/item/robot_module/security))
-						count_secborgs++
-
-				var/max_secborgs = 2
-				if(GLOB.security_level == SEC_LEVEL_GREEN)
-					max_secborgs = 1
-
-				if(count_secborgs >= max_secborgs)
-					to_chat(src, span_warning("There are too many Security cyborgs active. Please choose another module."))
-					return
-
-			module = new /obj/item/robot_module/security(src)
-			status_flags &= ~CANPUSH
-
-		if("Engineering")
-			module = new /obj/item/robot_module/engineering(src)
-			if(camera && ("Robots" in camera.network))
-				camera.network.Add("Engineering")
-
-			ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
-
-		if("Janitor")
-			module = new /obj/item/robot_module/janitor(src)
-
-		if("Combat") // Gamma ERT
-			module = new /obj/item/robot_module/combat(src)
-			status_flags &= ~CANPUSH
-
-		if("Hunter")
-			module = new /obj/item/robot_module/hunter(src)
-			modtype = "Xeno-Hu"
-
-		if("Syndicate Saboteur")
-			spawn_syndicate_borgs(src, "Saboteur", get_turf(src))
-			qdel(src)
-			return
-
-		if("Syndicate Medical")
-			spawn_syndicate_borgs(src, "Medical", get_turf(src))
-			qdel(src)
-			return
-
-		if("Syndicate Bloodhound")
-			spawn_syndicate_borgs(src, "Bloodhound", get_turf(src))
-			qdel(src)
-			return
-
-		if("Clockwork")
-			module = new /obj/item/robot_module/clockwork(src)
-			icon = 'icons/mob/clockwork_mobs.dmi'
-			icon_state = "cyborg"
-			status_flags &= ~CANPUSH
-			QDEL_NULL(mmi)
-			mmi = new /obj/item/mmi/robotic_brain/clockwork(src)
-
-		if("Drone")
-			var/mob/living/silicon/robot/drone/drone = new(get_turf(src))
-			mind.transfer_to(drone)
-			qdel(src)
-			return
-
-		if("Cogscarab")
-			var/mob/living/silicon/robot/cogscarab/cogscarab = new(get_turf(src))
-			mind.transfer_to(cogscarab)
-			qdel(src)
-			return
-
-		if("Ninja")
-			var/mob/living/silicon/robot/syndicate/saboteur/ninja/ninja = new(get_turf(src))
-			mind.transfer_to(ninja)
-			qdel(src)
-			return
-
-		if("Deathsquad")
-			var/mob/living/silicon/robot/deathsquad/death = new(get_turf(src))
-			mind.transfer_to(death)
-			qdel(src)
-			return
-
-		if("Destroyer") // Rolling Borg
-			var/mob/living/silicon/robot/destroyer/destroy = new(get_turf(src))
-			mind.transfer_to(destroy)
-			qdel(src)
-			return
+	module = new module(src)
 
 	if(!module)
 		CRASH("[key_name_log(src)] tried to choose non-existent '[modtype]' module!")
 
-	//languages
+	/// module effects
+	module.on_apply(src)
+	/// languages
 	module.add_languages(src)
-	//subsystems
+	/// subsystems
 	module.add_subsystems_and_actions(src)
 
 
 	hands.icon_state = lowertext(module.module_type)
 	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(modtype)]")
+	
 	rename_character(real_name, get_default_name())
-
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat")
-		status_flags &= ~CANPUSH
-
 	choose_icon()
+
 	if(client.stat_tab == "Status")
 		SSstatpanels.set_status_tab(client)
 

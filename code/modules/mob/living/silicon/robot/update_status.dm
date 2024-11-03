@@ -36,7 +36,7 @@
 			var/mob/dead/observer/ghost = get_ghost()
 
 			if(ghost)
-				to_chat(ghost, "[span_ghostaler("Your cyborg shell has been repaired, re-enter if you want to continue!")] (Verbs -> Ghost -> Re-enter corpse)")
+				to_chat(ghost, "[span_ghostalert("Your cyborg shell has been repaired, re-enter if you want to continue!")] (Verbs -> Ghost -> Re-enter corpse)")
 				playsound(ghost, 'sound/effects/genetics.ogg', 50, TRUE)
 
 			add_misc_logs(src, "revived, trigger reason: [reason]")
