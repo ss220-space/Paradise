@@ -503,37 +503,48 @@
 /obj/item/soulstone/proc/init_shade(mob/living/M, mob/user, forced = FALSE)
 	var/type = get_shade_type()
 	var/mob/living/simple_animal/shade/S = new type(src)
+
 	S.name = "Shade of [M.real_name]"
 	S.real_name = "Shade of [M.real_name]"
 	S.key = M.key
 	S.cancel_camera()
+
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 	log_game("[S.key] has become [S.name] with [purified ? "holy" : "corrupted"] essence.")
 	if(user)
 		S.faction |= "\ref[user]" //Add the master as a faction, allowing inter-mob cooperation
-		if(iswizard(user))
-			SSticker.mode.update_wiz_icons_added(S.mind)
-			S.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
-		if(iscultist(user))
-			SSticker.mode.add_cultist(S.mind)
-			S.mind.special_role = SPECIAL_ROLE_CULTIST
-			S.mind.store_memory("<b>Serve the cult's will.</b>")
-			to_chat(S, "<span class='userdanger'>Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs.</span>")
-		else
-			S.mind.store_memory("<b>Serve [user.real_name], your creator.</b>")
-			to_chat(S, "<span class='userdanger'>Your soul has been captured! You are now bound to [user.real_name]'s will. Help them succeed in their goals at all costs.</span>")
+
+		if(S.mind)
+			if(iswizard(user))
+				SSticker.mode.update_wiz_icons_added(S.mind)
+				S.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
+
+			if(iscultist(user))
+				SSticker.mode.add_cultist(S.mind)
+				S.mind.special_role = SPECIAL_ROLE_CULTIST
+				S.mind.store_memory("<b>Serve the cult's will.</b>")
+				to_chat(S, span_userdanger("Your soul has been captured! You are now bound to the cult's will. Help them succeed in their goals at all costs."))
+
+			else
+				S.mind.store_memory("<b>Serve [user.real_name], your creator.</b>")
+				to_chat(S, span_userdanger("Your soul has been captured! You are now bound to [user.real_name]'s will. Help them succeed in their goals at all costs."))
+
 	if(forced && user)
-		to_chat(user, "<span class='info'><b>Capture successful!</b>:</span> [M.real_name]'s soul has been ripped from [user.p_their()] body and stored within the soul stone.")
+		to_chat(user, "[span_info("<b>Capture successful!</b>:")] [M.real_name]'s soul has been ripped from [user.p_their()] body and stored within the soul stone.")
+
 	if(isrobot(M))//Robots have to dust or else they spill out an empty robot brain, and unequiping them spills robot components that shouldn't spawn.
 		M.dust()
+
 	else
 		for(var/obj/item/I in M)
 			M.drop_item_ground(I)
+
 		M.dust()
 
 /obj/item/soulstone/proc/get_shade_type()
 	if(purified)
 		return /mob/living/simple_animal/shade/holy
+
 	return /mob/living/simple_animal/shade/cult
 
 /obj/item/soulstone/proc/get_cult_ghost(mob/living/M, mob/user, get_new_player = FALSE)

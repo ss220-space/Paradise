@@ -71,16 +71,19 @@
 /obj/item/assembly_holder/proc/process_activation(obj/D, normal = TRUE, special = TRUE, mob/user)
 	if(!D)
 		return FALSE
+
 	if(normal && a_right && a_left)
 		if(a_right != D)
 			a_right.pulsed()
 		if(a_left != D)
 			a_left.pulsed()
+
 	if(master)
 		var/datum/signal/signal = new
 		signal.source = src
 		signal.user = user
 		master.receive_signal(signal)
+		
 	return TRUE
 
 

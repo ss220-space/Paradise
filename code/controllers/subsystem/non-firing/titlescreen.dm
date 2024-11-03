@@ -229,7 +229,7 @@ SUBSYSTEM_DEF(title)
 	var/screen_image_url = SSassets.transport.get_asset_url(asset_cache_item = screen_image)
 
 	//hope that client won`t use custom theme
-	html += {"<body class="[color2tguitheme[winget(viewer, "mainwindow", "background-color")]][viewer.prefs.toggles2 & PREFTOGGLE_2_PIXELATED_MENU ? " pixelated" : ""]" style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
+	html += {"<body class="[color2tguitheme[winget(viewer, "mainwindow", "background-color")]][viewer?.prefs?.toggles2 & PREFTOGGLE_2_PIXELATED_MENU ? " pixelated" : ""]" style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
 
 	html += {"<input type="checkbox" id="hide_menu">"}
 

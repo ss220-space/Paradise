@@ -216,9 +216,7 @@
 	qdel(preview_icon_side)
 	qdel(preview_icon)
 
-	var/g = "m"
-	if(gender == FEMALE)	g = "f"
-
+	var/g = gender == female ? "f" : "g"
 	var/icon/icobase
 	var/datum/species/current_species = GLOB.all_species[species]
 
@@ -228,6 +226,7 @@
 		if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
 			var/mob/living/carbon/human/H = new
 
+			H.dna = new
 			H.dna.species = current_species
 			H.s_tone = s_tone
 			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.

@@ -37,13 +37,19 @@ SUBSYSTEM_DEF(chat)
 		var/oldest = text2num(client_history[1])
 		for(var/index in 2 to length(client_history))
 			var/test = text2num(client_history[index])
+
 			if(test < oldest)
 				oldest = test
+
 		client_history -= "[oldest]"
+
 	return payload
 
 /datum/controller/subsystem/chat/proc/send_payload_to_client(client/target, datum/chat_payload/payload)
-	target.tgui_panel.window.send_message("chat/message", payload.into_message())
+	if(!target || !payload)
+		return
+
+	target.tgui_panel?.window?.send_message("chat/message", payload.into_message())
 	SEND_TEXT(target, payload.get_content_as_html())
 
 /datum/controller/subsystem/chat/fire()

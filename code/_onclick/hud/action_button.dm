@@ -153,11 +153,13 @@
 		icon = initial(icon)
 		icon_state = "bg_default"
 		if(user.client) // Apply the client's UI style
-			icon = ui_style2icon(user.client.prefs.UI_style)
+			icon = ui_style2icon(user.client.prefs?.UI_style)
 			icon_state = "template"
+			
 	if(user.client)
-		alpha = user.client.prefs.UI_style_alpha
-		color = user.client.prefs.UI_style_color
+		alpha = user.client.prefs?.UI_style_alpha
+		color = user.client.prefs?.UI_style_color
+
 	update_icon(UPDATE_OVERLAYS)
 
 
