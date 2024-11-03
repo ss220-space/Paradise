@@ -15,7 +15,6 @@
 	height = 7
 	roundstart_move = "supply_away"
 
-/// return TRUE if all clear, FALSE for forbidden onboard
 /obj/docking_port/mobile/supply/proc/forbidden_atoms_check(atom/A)
 	var/static/list/cargo_blacklist = list(
 		/obj/structure/blob,
@@ -39,17 +38,17 @@
 	if(A)
 		if(isliving(A))
 			if(!istype(A.loc, /obj/item/mobcapsule))
-				return FALSE
+				return TRUE
 			var/mob/living/living = A
 			if(living.client) //You cannot get out of the capsule and you will be destroyed. Saving clients
-				return FALSE
+				return TRUE
 		if(is_type_in_list(A, cargo_blacklist))
-			return FALSE
+			return TRUE
 		for(var/thing in A)
 			if(.(thing))
-				return FALSE
+				return TRUE
 
-	return TRUE
+	return FALSE
 
 /obj/docking_port/mobile/supply/register()
 	if(!..())
@@ -468,7 +467,7 @@
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
 	data["timeleft"] = SSshuttle.supply.timeLeft(600)
-	data["can_launch"] = SSshuttle.supply.canMove()
+	data["can_launch"] = !SSshuttle.supply.canMove()
 
 	return data
 
@@ -522,7 +521,7 @@
 			// Public consoles cant move the shuttle. Dont allow exploiters.
 			if(is_public)
 				return
-			if(!SSshuttle.supply.canMove())
+			if(SSshuttle.supply.canMove())
 				to_chat(usr, span_warning("For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons."))
 			else if(SSshuttle.supply.getDockedId() == "supply_home")
 				SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)

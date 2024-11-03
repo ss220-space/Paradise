@@ -196,7 +196,7 @@
 /// Calculates the effective bounds information for the given turf. Returns a list of the information, or null if not applicable.
 /datum/turf_reservation/proc/calculate_turf_bounds_information(turf/target)
 	for(var/z_idx in 1 to z_size)
-		log_debug("[list2params(bottom_left_turfs)], [z_idx]")
+		//log_debug("[list2params(bottom_left_turfs)], [z_idx]")
 		var/turf/bottom_left = bottom_left_turfs[z_idx]
 		var/turf/top_right = top_right_turfs[z_idx]
 		var/bl_x = bottom_left.x
