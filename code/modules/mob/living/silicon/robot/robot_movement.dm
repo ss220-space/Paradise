@@ -2,8 +2,10 @@
 	. = ..()
 	if(.)
 		return TRUE
+		
 	if(ionpulse())
 		return TRUE
+
 	return FALSE
 
 
@@ -17,6 +19,7 @@
 	if(movement_type & (FLYING|FLOATING) && !(old_movement_type & (FLYING|FLOATING)))
 		if(locate(/obj/item/borg/upgrade/vtec) in upgrades)
 			remove_movespeed_modifier(/datum/movespeed_modifier/robot_vtec_upgrade)
+
 		if(ionpulse_on)
 			add_movespeed_modifier(/datum/movespeed_modifier/robot_jetpack_upgrade)
 
@@ -26,6 +29,7 @@
 	if(old_movement_type & (FLYING|FLOATING) && !(movement_type & (FLYING|FLOATING)))
 		if(locate(/obj/item/borg/upgrade/vtec) in upgrades)
 			add_movespeed_modifier(/datum/movespeed_modifier/robot_vtec_upgrade)
+
 		if(ionpulse_on)
 			remove_movespeed_modifier(/datum/movespeed_modifier/robot_jetpack_upgrade)
 

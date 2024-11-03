@@ -28,13 +28,15 @@
 	if(modules)
 		for(var/obj/O in modules)
 			O.emp_act(severity)
+
 	if(emag)
 		emag.emp_act(severity)
+
 	..()
 
 
-/obj/item/robot_module/New()
-	..()
+/obj/item/robot_module/Initialize(mapload)
+	. = ..()
 	add_default_robot_items()
 	emag = new /obj/item/toy/sword(src)
 	emag.name = "Placeholder Emag Item"
@@ -52,6 +54,7 @@
 	for(var/obj/item/I in modules)
 		ADD_TRAIT(I, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 		I.mouse_opacity = MOUSE_OPACITY_OPAQUE
+
 	if(emag)
 		ADD_TRAIT(emag, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 		emag.mouse_opacity = MOUSE_OPACITY_OPAQUE
@@ -114,6 +117,7 @@
 /obj/item/robot_module/proc/rebuild()//Rebuilds the list so it's possible to add/remove items from the module
 	var/list/temp_list = modules
 	modules = list()
+
 	for(var/obj/O in temp_list)
 		if(!QDELETED(O)) //so items getting deleted don't stay in module list and haunt you
 			modules += O
@@ -140,6 +144,7 @@
 
 /obj/item/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
 	add_verb(R, subsystems)
+
 	for(var/A in module_actions)
 		var/datum/action/act = new A()
 		act.Grant(R)
@@ -147,9 +152,11 @@
 
 /obj/item/robot_module/proc/remove_subsystems_and_actions(mob/living/silicon/robot/R)
 	remove_verb(R, subsystems)
+
 	for(var/datum/action/A in R.module_actions)
 		A.Remove(R)
 		qdel(A)
+
 	R.module_actions.Cut()
 
 // Return true in an overridden subtype to prevent normal removal handling
@@ -284,12 +291,14 @@
 /obj/item/robot_module/medical/unemag()
 	for(var/obj/item/twohanded/shockpaddles/borg/defib in modules)
 		defib.emag_act()
+
 	return ..()
 
 /obj/item/robot_module/medical/respawn_consumable(mob/living/silicon/robot/R)
 	if(emag)
 		var/obj/item/reagent_containers/spray/PS = emag
 		PS.reagents.add_reagent("sacid", 2)
+
 	..()
 
 /obj/item/robot_module/engineering
@@ -474,8 +483,10 @@
 	if(emag)
 		var/obj/item/reagent_containers/food/drinks/cans/beer/B = emag
 		B.reagents.add_reagent("beer2", 2)
+
 	var/obj/item/reagent_containers/spray/pestspray/spray = locate() in modules
 	spray?.reagents.add_reagent("pestkiller", 3)
+
 	..()
 
 /obj/item/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)
@@ -499,9 +510,11 @@
 	R.add_language(LANGUAGE_MOTH, 1)
 
 /obj/item/robot_module/butler/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
+	var/obj/item/storage/bag/tray/cyborg/T = locate() in modules
+
 	if(istype(T))
 		T.drop_inventory(R)
+
 	var/obj/item/gripper/service/G = locate() in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
@@ -551,6 +564,7 @@
 		if(!istype(D, /obj/item/pickaxe/drill/cyborg/diamond))
 			qdel(D)
 			modules -= D // Remove it from this list so it doesn't get added in the rebuild.
+			
 	modules += new /obj/item/pickaxe/drill/cyborg/diamond(src)
 	rebuild()
 
@@ -559,15 +573,19 @@
 	for(var/obj/item/pickaxe/drill/cyborg/diamond/drill in modules)
 		qdel(drill)
 		modules -= drill
+
 	modules += new /obj/item/pickaxe/drill/cyborg(src)
 	rebuild()
+
 	return ..()
 
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
 	if(component_id == "KA modkits")
 		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src)
 			W.melee_attack_chain(user, D)
+
 		return TRUE
+
 	return ..()
 
 /obj/item/robot_module/deathsquad
@@ -717,6 +735,7 @@
 	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/pinpointer(src)
 	emag = new /obj/item/gun/energy/pulse/destroyer/annihilator(src)
+
 	fix_modules()
 
 
@@ -743,6 +762,7 @@
 	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/pinpointer(src)
 	emag = null
+
 	fix_modules()
 
 
@@ -889,7 +909,7 @@
 	return
 
 /obj/item/robot_module/clockwork/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper/cogscarab/G = locate(/obj/item/gripper/cogscarab) in modules
+	var/obj/item/gripper/cogscarab/G = locate() in modules
 	G?.drop_gripped_item(silent = TRUE)
 
 /obj/item/robot_module/ninja
@@ -944,6 +964,7 @@
 	cham_proj.disguise = "maximillion"
 	modules += cham_proj
 	emag = null
+
 	fix_modules()
 	handle_storages()
 
@@ -969,8 +990,10 @@
 /datum/robot_energy_storage/New(var/obj/item/robot_module/R = null)
 	if(!energy)
 		energy = max_energy
+
 	if(R)
 		R.storages |= src
+
 	return
 
 /datum/robot_energy_storage/proc/use_charge(amount)
@@ -978,7 +1001,9 @@
 		energy -= amount
 		if (energy == 0)
 			return TRUE
+
 		return TRUE
+		
 	else
 		return FALSE
 
