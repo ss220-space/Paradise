@@ -782,7 +782,7 @@
 	has_transform_animation = TRUE
 
 /obj/item/robot_module/destroyer/on_apply(mob/living/silicon/robot/robot)
-	var/mob/living/silicon/robot/destroyer/destroy = new(get_turf(robot.))
+	var/mob/living/silicon/robot/destroyer/destroy = new(get_turf(robot))
 	robot.mind.transfer_to(destroy)
 	qdel(robot)
 
