@@ -51,7 +51,10 @@
 	modules += new /obj/item/flash/cyborg(src)
 
 /obj/item/robot_module/proc/on_apply(mob/living/silicon/robot/robot)
-	return
+	return TRUE
+
+/obj/item/robot_module/proc/set_appearance(mob/living/silicon/robot/robot)
+	return TRUE
 
 /obj/item/robot_module/proc/fix_modules()
 	for(var/obj/item/I in modules)
@@ -255,6 +258,8 @@
 	robot.status_flags &= ~CANPUSH
 	robot.see_reagents = TRUE
 
+	return TRUE
+
 /obj/item/robot_module/medical/New()
 	..()
 	modules += new /obj/item/healthanalyzer/advanced(src)
@@ -333,9 +338,11 @@
 
 /obj/item/robot_module/engineering/on_apply(mob/living/silicon/robot/robot)
 	if(robot.camera && ("Robots" in robot.camera.network))
-		LAZYADD(robot.camera.network, ("Engineering"))
+		LAZYADD(robot.camera.network, "Engineering")
 
 	ADD_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
+
+	return TRUE
 
 /obj/item/robot_module/engineering/New()
 	..()
@@ -402,9 +409,11 @@
 
 		if(count_secborgs >= max_secborgs)
 			to_chat(robot, span_warning("There are too many Security cyborgs active. Please choose another module."))
-			return
+			return FALSE
 
 	robot.status_flags &= ~CANPUSH
+
+	return TRUE
 
 /obj/item/robot_module/security/New()
 	..()
@@ -471,6 +480,8 @@
 
 /obj/item/robot_module/butler/on_apply(mob/living/silicon/robot/robot)
 	robot.see_reagents = TRUE
+
+	return TRUE
 
 /obj/item/robot_module/butler/New()
 	..()
@@ -579,7 +590,9 @@
 
 /obj/item/robot_module/miner/on_apply(mob/living/silicon/robot/robot)
 	if(robot.camera && ("Robots" in robot.camera.network))
-		LAZYADD(robot.camera.network, ("Mining Outpost"))
+		LAZYADD(robot.camera.network, "Mining Outpost")
+
+	return TRUE
 
 /obj/item/robot_module/miner/New()
 	..()
@@ -645,6 +658,8 @@
 	robot.mind?.transfer_to(death)
 	qdel(robot)
 
+	return TRUE
+
 /obj/item/robot_module/deathsquad/New()
 	..()
 	modules += new /obj/item/melee/energy/sword/cyborg(src)
@@ -666,6 +681,8 @@
 /obj/item/robot_module/syndicate/on_apply(mob/living/silicon/robot/robot)
 	robot.spawn_syndicate_borgs(robot, "Bloodhound", get_turf(robot))
 	qdel(robot)
+
+	return TRUE
 
 /obj/item/robot_module/syndicate/New()
 	..()
@@ -692,6 +709,8 @@
 /obj/item/robot_module/syndicate_medical/on_apply(mob/living/silicon/robot/robot)
 	robot.spawn_syndicate_borgs(robot, "Medical", get_turf(robot))
 	qdel(robot)
+
+	return TRUE
 
 /obj/item/robot_module/syndicate_medical/New()
 	..()
@@ -739,6 +758,8 @@
 	robot.spawn_syndicate_borgs(robot, "Saboteur", get_turf(robot))
 	qdel(src)
 
+	return TRUE
+
 /obj/item/robot_module/syndicate_saboteur/New()
 	..()
 	modules += new /obj/item/rcd/borg/syndicate(src)
@@ -783,8 +804,10 @@
 
 /obj/item/robot_module/destroyer/on_apply(mob/living/silicon/robot/robot)
 	var/mob/living/silicon/robot/destroyer/destroy = new(get_turf(robot))
-	robot.mind.transfer_to(destroy)
+	robot.mind?.transfer_to(destroy)
 	qdel(robot)
+
+	return TRUE
 
 /obj/item/robot_module/destroyer/New()
 	..()
@@ -812,6 +835,8 @@
 
 /obj/item/robot_module/combat/on_apply(mob/living/silicon/robot/robot)
 	robot.status_flags &= ~CANPUSH
+
+	return TRUE
 
 /obj/item/robot_module/combat/New()
 	..()
@@ -844,6 +869,8 @@
 /obj/item/robot_module/hunter/on_apply(mob/living/silicon/robot/robot)
 	robot.modtype = "Xeno-Hu"
 
+	return TRUE
+
 /obj/item/robot_module/hunter/add_default_robot_items()
 	return
 
@@ -875,6 +902,8 @@
 	var/mob/living/silicon/robot/drone/drone = new(get_turf(robot))
 	robot.mind?.transfer_to(drone)
 	qdel(robot)
+
+	return TRUE
 
 /obj/item/robot_module/drone/New()
 	..()
@@ -928,6 +957,8 @@
 	robot.mind?.transfer_to(cogscarab)
 	qdel(robot)
 
+	return TRUE
+
 /obj/item/robot_module/cogscarab/Initialize()
 	. = ..()
 	modules += new /obj/item/weldingtool/experimental/brass(src)
@@ -962,13 +993,16 @@
 	borg_skins = list("cyborg" = "cyborg")
 
 /obj/item/robot_module/clockwork/on_apply(mob/living/silicon/robot/robot)
-	robot.icon = 'icons/mob/clockwork_mobs.dmi'
-	robot.icon_state = "cyborg"
-
 	robot.status_flags &= ~CANPUSH
 	QDEL_NULL(robot.mmi)
 
 	robot.mmi = new /obj/item/mmi/robotic_brain/clockwork(src)
+
+	return TRUE
+
+/obj/item/robot_module/clockwork/set_appearance(mob/living/silicon/robot/robot)
+	robot.icon = 'icons/mob/clockwork_mobs.dmi'
+	robot.icon_state = "cyborg"
 
 /obj/item/robot_module/clockwork/Initialize()
 	. = ..()
@@ -1009,6 +1043,8 @@
 	var/mob/living/silicon/robot/syndicate/saboteur/ninja/ninja = new(get_turf(robot))
 	robot.mind?.transfer_to(ninja)
 	qdel(robot)
+
+	return TRUE
 
 /obj/item/robot_module/ninja/New()
 	..()

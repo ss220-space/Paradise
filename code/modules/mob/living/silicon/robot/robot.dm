@@ -400,7 +400,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		CRASH("[key_name_log(src)] tried to choose non-existent '[modtype]' module!")
 
 	/// module effects
-	module.on_apply(src)
+	if(!module.on_apply(src))
+		module = initial(module)
+		return
 	/// languages
 	module.add_languages(src)
 	/// subsystems
@@ -1307,6 +1309,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
+
+	if(module)
+		module.set_appearance(src)
 
 
 /mob/living/silicon/robot/proc/borg_icons() // Exists so that robot/destroyer can override it
