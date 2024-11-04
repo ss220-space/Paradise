@@ -1313,7 +1313,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(module)
 		module.set_appearance(src)
 
-
 /mob/living/silicon/robot/proc/borg_icons() // Exists so that robot/destroyer can override it
 	return
 
