@@ -94131,6 +94131,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/space)
 "qHH" = (
@@ -121746,9 +121747,8 @@
 	},
 /area/medical/research)
 "vAP" = (
-/obj/structure/grille,
-/obj/structure/curtain/black,
 /obj/structure/cable,
+/obj/structure/curtain/black,
 /turf/simulated/floor/plating,
 /area/space)
 "vAX" = (
@@ -126334,10 +126334,6 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry/westarrival)
-"wqd" = (
-/obj/effect/spawner/random_spawners/fakewall,
-/turf/simulated/floor/plating,
-/area/space)
 "wqg" = (
 /obj/structure/sign/poster/official/safety_report{
 	pixel_x = 32
@@ -152142,7 +152138,7 @@ xlH
 vix
 vix
 uNo
-wqd
+uNo
 wYQ
 vix
 uNo
@@ -153677,7 +153673,7 @@ bsL
 ttl
 ljX
 ifP
-wqd
+uNo
 iOO
 iOO
 ifP

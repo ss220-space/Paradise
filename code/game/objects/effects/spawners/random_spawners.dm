@@ -172,16 +172,6 @@
 		/mob/living/simple_animal/mouse/rat/irish = 1,
 	)
 
-/obj/effect/spawner/random_spawners/fakewall
-	name = "fake door spawner"
-	icon_state = "rand_door"
-	result = list(
-		/turf/simulated/wall
-		/obj/structure/sign/poster/secret/fakerdoor,
-		/turf/simulated/floor/plating
-		/obj/structure/falsewall,
-		/turf/simulated/wall,
-	)
 
 /obj/structure/sign/poster/secret/fakerdoor
 
