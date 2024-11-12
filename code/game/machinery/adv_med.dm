@@ -1,5 +1,14 @@
 /obj/machinery/bodyscanner
 	name = "body scanner"
+	desc = "Сложное медицинское устройство, используется для сканирования физического состояния гуманоидов."
+	ru_names = list(
+		NOMINATIVE = "медицинский сканер",
+		GENITIVE = "медицинского сканера",
+		DATIVE = "медицинскому сканеру",
+		ACCUSATIVE = "медицинский сканер",
+		INSTRUMENTAL = "медицинским сканером",
+		PREPOSITIONAL = "медицинском сканере"
+	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
 	density = TRUE
@@ -31,7 +40,7 @@
 	. = ..()
 	if(occupant)
 		if(occupant.is_dead())
-			. += span_warning("You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!>")
+			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [genderize_ru(occupant.gender, "Он мёртв", "")]!")
 		else
 			. += span_notice("You see [occupant.name] inside.")
 	if(Adjacent(user))
