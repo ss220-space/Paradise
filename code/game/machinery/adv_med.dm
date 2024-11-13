@@ -44,7 +44,7 @@
 		else
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
-		. += span_info("Используйте <b>Alt-ЛКМ</b>, чтобы вытащить пациента. Наведите курсор на пациента, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить пациента внутрь.")
+		. += span_info("Наведите курсор на пациента, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить пациента внутрь.")
 
 
 /obj/machinery/bodyscanner/update_icon_state()
@@ -87,11 +87,13 @@
 		balloon_alert(grabber, "руки пациента заняты")
 		return .
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[grabbed_thing] не помест[pluralize_ru(grabbed_thing, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(grabbed_thing, "нём", "ней", "нём", "них")]  сидит слайм."))
+		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(grabbed_thing, "нём", "ней", "нём", "них")]  сидит слайм."))
 		return .
-	grabbed_thing.forceMove(src)
-	occupant = grabbed_thing
+
+	target.forceMove(src)
+	occupant = target
 	update_icon(UPDATE_ICON_STATE)
+	to_chat(target, span_boldnotice("Крышка [declent_ru(GENITIVE)] закрывается и окружающие звуки сразу становятся тише. Вы видите вокруг множество датчиков и слышите тихое гудение внутренних систем аппарата."))
 	add_fingerprint(grabber)
 	SStgui.update_uis(src)
 
@@ -139,7 +141,7 @@
 	if(H.buckled)
 		return FALSE
 	if(H.abiotic())
-		balloon_alert(user, "ваши руки заняты")
+		balloon_alert(user, "руки пациента заняты")
 		return TRUE
 	if(H.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм."))
@@ -154,6 +156,7 @@
 	H.forceMove(src)
 	occupant = H
 	update_icon(UPDATE_ICON_STATE)
+	to_chat(H, span_boldnotice("Крышка [declent_ru(GENITIVE)] закрывается и окружающие звуки сразу становятся тише. Вы видите вокруг множество датчиков и слышите тихое гудение внутренних систем аппарата."))
 	add_fingerprint(user)
 	SStgui.update_uis(src)
 	return TRUE
@@ -221,7 +224,7 @@
 	if(!inserted_id)
 		return
 	inserted_id.forceMove(loc)
-	inserted_id = null/
+	inserted_id = null
 	SStgui.update_uis(src)
 
 /obj/machinery/bodyscanner/force_eject_occupant(mob/target)
@@ -436,7 +439,7 @@
 				t1 = "без сознания"
 			else
 				t1 = "*[genderize_ru(occupant.gender, "мёртв", "мертва", "мертво", "мертвы")]*"
-		dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tПроцентная оценка состояния: [occupant.health]%, ([t1])</font><br>"
+		dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tПроцентная оценка состояния: [occupant.health]%, [t1]</font><br>"
 
 		var/found_disease = FALSE
 		for(var/thing in occupant.diseases)
@@ -450,7 +453,7 @@
 
 		var/extra_font = null
 		extra_font = (occupant.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Травмы: [occupant.getBruteLoss()]</font><br>"
+		dat += "[extra_font]\t-Физ. повреждения: [occupant.getBruteLoss()]</font><br>"
 
 		extra_font = (occupant.getOxyLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\t-Удушение: [occupant.getOxyLoss()]</font><br>"
@@ -462,10 +465,10 @@
 		dat += "[extra_font]\t-Ожоги: [occupant.getFireLoss()]</font><br>"
 
 		extra_font = (occupant.radiation < 10 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tРадиация: [occupant.radiation]</font><br>"
+		dat += "[extra_font]\tРадиационное поражение: [occupant.radiation]</font><br>"
 
 		extra_font = (occupant.getCloneLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tГенетическое повреждение: [occupant.getCloneLoss()]<br>"
+		dat += "[extra_font]\tГенетические повреждения: [occupant.getCloneLoss()]<br>"
 
 		extra_font = (occupant.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tПовреждение мозга: [occupant.getBrainLoss()]<br>"
@@ -501,7 +504,7 @@
 		dat += "<tr>"
 		dat += "<th>Орган</th>"
 		dat += "<th>Ожоги</th>"
-		dat += "<th>Травмы</th>"
+		dat += "<th>Физ. повреждения</th>"
 		dat += "<th>Другие повреждения</th>"
 		dat += "</tr>"
 
@@ -513,7 +516,6 @@
 			var/dead = ""
 			var/robot = ""
 			var/imp = ""
-			var/bled = ""
 			var/splint = ""
 			var/internal_bleeding = ""
 			var/lung_ruptured = ""
@@ -549,14 +551,16 @@
 
 			if(LAZYLEN(e.embedded_objects) || e.hidden)
 				imp += "Обнаружено инородное тело"
-			if(!AN && !open && !infected && !imp)
+			if(!AN && !open && !infected && !imp && !internal_bleeding && !lung_ruptured)
 				AN = "Отсутствуют"
-			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
+			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot] [AN] [splint] [open] [infected] [imp] [internal_bleeding] [lung_ruptured] [dead]</td>"
 			dat += "</tr>"
 		for(var/obj/item/organ/internal/organ as anything in occupant.internal_organs)
-			var/mech = organ.desc
-			var/infection = "Отсутствуют"
+			var/robot = ""
+			var/infection = ""
 			var/dead = ""
+			if(organ.is_robotic())
+				robot = "Синтетическое"
 			if(organ.is_dead())
 				dead = "Мертво"
 			switch(organ.germ_level)
@@ -574,9 +578,10 @@
 					infection = "Острая инфекция++"
 				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
 					infection = "Сепсис"
-
+			if(!infection && !dead)
+				infection = "Отсутствуют"
 			dat += "<tr>"
-			dat += "<td>[organ.name]</td><td>Н/Д</td><td>[organ.damage]</td><td>[infection]:[mech][dead]</td><td></td>"
+			dat += "<td>[organ.name]</td><td>Н/Д</td><td>[organ.damage]</td><td>[infection] [robot] [dead]</td>"
 			dat += "</tr>"
 		dat += "</table>"
 		if(HAS_TRAIT(occupant, TRAIT_BLIND))
