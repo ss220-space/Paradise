@@ -941,7 +941,7 @@
 	name = "Ammo Box (10mm)"
 	id = "c10mm"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30500)
+	materials = list(MAT_METAL = 45750)
 	build_path = /obj/item/ammo_box/c10mm
 	category = list("hacked", "Security")
 

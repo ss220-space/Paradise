@@ -586,7 +586,7 @@
 				numbers += H.mind.initial_account.account_number
 				numbers += H.mind.initial_account.remote_access_pin
 			if(numbers.len>0)
-				to_chat(user, span_notice("<b>Числа</b>: Вы чувствуете, что [numbers.len > 1?"число является важным" : "числа являются важными"] для [M.name]."))
+				to_chat(user, span_notice("<b>Числа</b>: Вы чувствуете, что [numbers.len > 1 ? "числа" : "число"] [english_list(numbers)] [numbers.len > 1 ? "являются важными" : "является важным"] для [M.name]."))
 		to_chat(user, span_notice("<b>Мысли</b>: [M.name] сейчас [thoughts]."))
 
 		if(HAS_TRAIT(M, TRAIT_EMPATHY))

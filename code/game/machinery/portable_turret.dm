@@ -1037,6 +1037,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	use_power = NO_POWER_USE
 	has_cover = FALSE
 	raised = TRUE
+	density = TRUE
 	scan_range = 9
 
 	faction = "syndicate"
@@ -1059,6 +1060,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	. = ..()
 	if(istype(depotarea))
 		depotarea.turret_died()
+
+	density = FALSE	
 
 /obj/machinery/porta_turret/syndicate/shootAt(mob/living/target)
 	if(istype(depotarea))

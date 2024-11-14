@@ -49,6 +49,7 @@
 	// if given a multi-z template
 	// it might need to be adapted for that when that time comes
 	GLOB.space_manager.add_dirt(placement.z)
+	SSicon_smooth.add_halt_source(src)
 	try
 		var/list/bounds = GLOB.maploader.load_map(get_file(), min_x, min_y, placement.z, shouldCropMap = TRUE)
 		if(!bounds)
@@ -58,11 +59,13 @@
 		if(ST_bot_left == null || ST_top_right == null)
 			stack_trace("One of the smoothing corners is bust")
 	catch(var/exception/e)
+		SSicon_smooth.remove_halt_source(src)
 		GLOB.space_manager.remove_dirt(placement.z)
 		message_admins("Map template [name] threw an error while loading. Safe exit attempted, but check for errors at [ADMIN_COORDJMP(placement)].")
 		log_admin("Map template [name] threw an error while loading. Safe exit attempted.")
 		throw e
 
+	SSicon_smooth.remove_halt_source(src)
 	GLOB.space_manager.remove_dirt(placement.z)
 
 	add_game_logs("[name] loaded at [min_x],[min_y],[placement.z]")

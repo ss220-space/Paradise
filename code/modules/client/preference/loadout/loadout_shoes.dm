@@ -71,17 +71,9 @@
 	path = /obj/item/clothing/shoes/leather_boots
 
 /datum/gear/shoes/footwraps
-	display_name = "cloth footwraps, select"
+	display_name = "cloth footwraps, color"
 	path = /obj/item/clothing/shoes/footwraps
 
 /datum/gear/shoes/footwraps/New()
 	..()
-	var/list/feet = list("classic" = /obj/item/clothing/shoes/footwraps,
-						 "yellow" = /obj/item/clothing/shoes/footwraps/yellow,
-						 "silver" = /obj/item/clothing/shoes/footwraps/silver,
-						 "red" = /obj/item/clothing/shoes/footwraps/red,
-						 "blue" = /obj/item/clothing/shoes/footwraps/blue,
-						 "black" = /obj/item/clothing/shoes/footwraps/black,
-						 "brown" = /obj/item/clothing/shoes/footwraps/brown,
-						 )
-	gear_tweaks += new /datum/gear_tweak/path(feet, src)
+	gear_tweaks += new /datum/gear_tweak/color(parent = src)

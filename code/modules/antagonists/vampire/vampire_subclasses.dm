@@ -28,6 +28,9 @@
 	)
 
 
+/datum/vampire_subclass/proc/on_blood_sucking(mob/living/carbon/human/H)
+	return
+
 /datum/vampire_subclass/proc/add_subclass_ability(datum/antagonist/vampire/vamp)
 	for(var/thing in standard_powers)
 		if(vamp.bloodtotal >= standard_powers[thing])
@@ -51,6 +54,14 @@
 								/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
 								/datum/vampire_passive/xray)
 
+/datum/vampire_subclass/umbrae/on_blood_sucking(mob/living/carbon/human/H)
+	var/list/lights = list()
+	for(var/obj/machinery/light/L in GLOB.machines)
+		if(L.status && L.z == H.z)
+			lights += L
+
+	var/obj/machinery/light/L = pick(lights)
+	L.break_light_tube()
 
 /datum/vampire_subclass/hemomancer
 	name = "hemomancer"
@@ -63,6 +74,8 @@
 	fully_powered_abilities = list(/datum/vampire_passive/full,
 								/obj/effect/proc_holder/spell/vampire/self/blood_spill)
 
+/datum/vampire_subclass/hemomancer/on_blood_sucking(mob/living/carbon/human/H)
+	H.blood_volume = min(H.blood_volume + 5, BLOOD_VOLUME_NORMAL)
 
 /datum/vampire_subclass/gargantua
 	name = "gargantua"
@@ -76,6 +89,9 @@
 								/obj/effect/proc_holder/spell/vampire/charge)
 	improved_rejuv_healing = TRUE
 
+/datum/vampire_subclass/gargantua/on_blood_sucking(mob/living/carbon/human/H)
+	H.adjustBruteLoss(-2)
+	H.adjustFireLoss(-2)
 
 /datum/vampire_subclass/dantalion
 	name = "dantalion"
@@ -92,6 +108,11 @@
 								/obj/effect/proc_holder/spell/vampire/hysteria,
 								/datum/vampire_passive/increment_thrall_cap/three)
 
+/datum/vampire_subclass/dantalion/on_blood_sucking(mob/living/carbon/human/H)
+	for(var/datum/mind/thrall in H?.mind?.som?.serv)
+		thrall.current?.adjustBruteLoss(-3)
+		thrall.current?.adjustFireLoss(-3)
+		thrall.current?.adjustOxyLoss(-5)
 
 /datum/vampire_subclass/bestia
 	name = "bestia"
@@ -110,6 +131,9 @@
 								/datum/vampire_passive/dissection_cap/two)
 	improved_rejuv_healing = TRUE
 
+/datum/vampire_subclass/bestia/on_blood_sucking(mob/living/carbon/human/H)
+	H.adjustBruteLoss(-2)
+	H.adjustFireLoss(-2)
 
 /datum/vampire_subclass/ancient
 	name = "ancient"

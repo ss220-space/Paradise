@@ -30,6 +30,9 @@
 
 
 /obj/effect/proc_holder/spell/alien_spell/evolve/can_cast(mob/living/carbon/alien/user, charge_check, show_message)
+	if(!..())
+		return FALSE
+
 	if(!user.can_evolve)
 		if(show_message)
 			to_chat(user, span_warning("We have nowhere to evolve further!"))
@@ -118,11 +121,15 @@
 
 
 /obj/effect/proc_holder/spell/alien_spell/evolve/queen/can_cast(mob/living/carbon/alien/user, charge_check, show_message)
+	if(!..())
+		return FALSE
+
 	if(user.queen_count >= user.queen_maximum)
 		if(show_message)
 			to_chat(user, span_warning("We already have a queen."))
 		return FALSE
 
+	return TRUE
 
 /obj/effect/proc_holder/spell/alien_spell/evolve/queen/cast(list/targets, mob/living/carbon/alien/user)
 	..()
