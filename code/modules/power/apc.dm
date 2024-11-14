@@ -1700,6 +1700,33 @@
 		aidisabled = FALSE
 		updateDialog()
 
+/obj/machinery/power/apc/proc/is_channel_on(chan = EQUIP)
+	var/channel_type
+	switch(chan)
+		if(EQUIP)
+			channel_type = equipment_channel
+
+		if(LIGHT)
+			channel_type = lighting_channel
+
+		if(ENVIRON)
+			channel_type = environment_channel
+
+	return channel_type == CHANNEL_SETTING_ON || channel_type == CHANNEL_SETTING_AUTO_ON
+
+/obj/machinery/power/apc/proc/is_channel_force_on(chan = EQUIP)
+	var/channel_type
+	switch(chan)
+		if(EQUIP)
+			channel_type = equipment_channel
+
+		if(LIGHT)
+			channel_type = lighting_channel
+
+		if(ENVIRON)
+			channel_type = environment_channel
+
+	return channel_type == CHANNEL_SETTING_ON
 
 #undef UPSTATE_CELL_IN
 #undef UPSTATE_OPENED1

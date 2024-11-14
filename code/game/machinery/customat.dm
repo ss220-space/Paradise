@@ -18,7 +18,7 @@
 	///The key by which the object is pushed into the machine's row
 	var/key = "generic_0"
 	///List of items in row
-	var/list/obj/item/containtment = list()
+	var/list/obj/item/containment = list()
 	/// Price to buy one
 	var/price = 0
 	///Icon in tgui
@@ -27,7 +27,7 @@
 /datum/data/customat_product/New(obj/item/I)
 	name = I.name
 	amount = 0
-	containtment = list()
+	containment = list()
 	price = 0
 	icon = icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1, FALSE))
 
@@ -198,11 +198,11 @@
 /obj/machinery/customat/proc/eject_all()
 	for (var/key in products)
 		var/datum/data/customat_product/product = products[key]
-		for (var/obj/item/I in product.containtment)
+		for (var/obj/item/I in product.containment)
 			I.forceMove(get_turf(src))
 		product.amount = 0
-		inserted_items_count -= product.containtment.len
-		product.containtment = list()
+		inserted_items_count -= product.containment.len
+		product.containment = list()
 
 /obj/machinery/customat/Destroy()
 	eject_all()
@@ -382,7 +382,7 @@
 		products[key] = product
 
 	product = products[key]
-	product.containtment += I
+	product.containment += I
 	product.amount++
 	inserted_items_count++
 
@@ -704,7 +704,7 @@
  */
 /obj/machinery/customat/proc/do_vend(datum/data/customat_product/product, mob/user)
 	var/put_on_turf = TRUE
-	var/obj/item/vended = product.containtment[1]
+	var/obj/item/vended = product.containment[1]
 	if(istype(vended) && user && iscarbon(user) && user.Adjacent(src))
 		if(user.put_in_hands(vended, ignore_anim = FALSE))
 			put_on_turf = FALSE
@@ -713,7 +713,7 @@
 		var/turf/T = get_turf(src)
 		vended.forceMove(T)
 
-	product.containtment.Remove(product.containtment[1])
+	product.containment.Remove(product.containment[1])
 	inserted_items_count--
 	return TRUE
 

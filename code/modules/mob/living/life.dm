@@ -261,6 +261,24 @@
 	var/grav_strength = gravity - GRAVITY_DAMAGE_THRESHOLD
 	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * seconds_per_tick)
 
+/mob/living/carbon/handle_high_gravity(gravity, seconds_per_tick, times_fired)
+	. = ..()
+
+	if(gravity < HIGH_GRAVITY_SLOWDOWN)
+		REMOVE_TRAIT(src, TRAIT_FLOORED, GRAVITATION_TRAIT)
+		if(has_movespeed_modifier(/datum/movespeed_modifier/high_gravity))
+			remove_movespeed_modifier(/datum/movespeed_modifier/high_gravity)
+
+		return
+
+	if(!has_movespeed_modifier(/datum/movespeed_modifier/high_gravity))
+		add_movespeed_modifier(/datum/movespeed_modifier/high_gravity)
+
+	if(gravity < GRAVITY_CANT_STAY)
+		REMOVE_TRAIT(src, TRAIT_FLOORED, GRAVITATION_TRAIT)
+		return
+
+	ADD_TRAIT(src, TRAIT_FLOORED, GRAVITATION_TRAIT)
 
 /// Updates grabbed victim status effects.
 /mob/living/proc/pull_on_life()

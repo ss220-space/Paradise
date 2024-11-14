@@ -968,7 +968,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	var/on_cooldown = FALSE
 	var/used = FALSE
-	var/obj/item/assembly/signaler/anomaly/pyro/core
+	var/obj/item/assembly/signaler/anomaly/tier2/pyro/core
 
 /obj/item/clothing/gloves/color/black/pyro_claws/Destroy()
 	QDEL_NULL(core)
@@ -1012,7 +1012,7 @@
 
 
 /obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/assembly/signaler/anomaly/pyro))
+	if(istype(I, /obj/item/assembly/signaler/anomaly/tier2/pyro))
 		add_fingerprint(user)
 		if(core)
 			to_chat(user, span_warning("The [core.name] is already installed."))

@@ -51,7 +51,7 @@
 
 //must succeed in most cases
 /datum/teleport/proc/setTeleatom(atom/movable/ateleatom)
-	if(iseffect(ateleatom) && !istype(ateleatom, /obj/effect/dummy/chameleon))
+	if(iseffect(ateleatom) && !istype(ateleatom, /obj/effect/dummy/chameleon) && !istype(ateleatom, /obj/effect/anomaly))
 		qdel(ateleatom)
 		return 0
 	if(istype(ateleatom))

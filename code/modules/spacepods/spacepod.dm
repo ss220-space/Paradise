@@ -1213,7 +1213,7 @@
 		if(!next_step)
 			COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
 			return FALSE
-		var/calculated_move_delay = has_gravity(loc) ? GRAVITY_SPEED : NO_GRAVITY_SPEED
+		var/calculated_move_delay = !no_gravity(loc) ? GRAVITY_SPEED : NO_GRAVITY_SPEED
 		. = Move(next_step, direction)
 		if(ISDIAGONALDIR(direction) && loc == next_step)
 			calculated_move_delay *= sqrt(2)

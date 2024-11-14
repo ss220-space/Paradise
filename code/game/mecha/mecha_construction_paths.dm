@@ -1191,7 +1191,7 @@
 	result = "/obj/mecha/combat/phazon"
 	steps = list(
  					//1
-					list("key" = /obj/item/assembly/signaler/anomaly/bluespace,
+					list("key" = /obj/item/assembly/signaler/anomaly/tier2/bluespace,
 						 "backkey"=null, //Cannot remove the anomaly core once it's in
 						 "desc"="Anomaly core socket is open and awaiting connection."),
 					//2

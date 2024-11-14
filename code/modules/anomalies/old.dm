@@ -3,7 +3,7 @@
 /// Chance of taking a step per second
 #define ANOMALY_MOVECHANCE 70
 
-/obj/effect/anomaly
+/obj/effect/old_anomaly
 	name = "anomaly"
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
 	icon_state = "bhole3"
@@ -23,7 +23,7 @@
 	/// Do we drop a core when we're neutralized?
 	var/drops_core = TRUE
 
-/obj/effect/anomaly/Initialize(mapload, new_lifespan, _drops_core = TRUE)
+/obj/effect/old_anomaly/Initialize(mapload, new_lifespan, _drops_core = TRUE)
 	. = ..()
 	GLOB.poi_list |= src
 	START_PROCESSING(SSobj, src)
@@ -51,14 +51,14 @@
 		countdown.color = countdown_colour
 	countdown.start()
 
-/obj/effect/anomaly/Destroy()
+/obj/effect/old_anomaly/Destroy()
 	GLOB.poi_list.Remove(src)
 	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(countdown)
 	QDEL_NULL(aSignal)
 	return ..()
 
-/obj/effect/anomaly/process()
+/obj/effect/old_anomaly/process()
 	for(var/obj/item/I in get_turf(src))
 		if(!I.origin_tech)
 			continue
@@ -81,18 +81,18 @@
 			detonate()
 		qdel(src)
 
-/obj/effect/anomaly/proc/anomalyEffect()
+/obj/effect/old_anomaly/proc/anomalyEffect()
 	if(prob(movechance))
 		step(src, pick(GLOB.alldirs))
 
-/obj/effect/anomaly/proc/detonate()
+/obj/effect/old_anomaly/proc/detonate()
 	return
 
-/obj/effect/anomaly/ex_act(severity)
+/obj/effect/old_anomaly/ex_act(severity)
 	if(severity == EXPLODE_DEVASTATE)
 		qdel(src)
 
-/obj/effect/anomaly/proc/anomalyNeutralize()
+/obj/effect/old_anomaly/proc/anomalyNeutralize()
 	new /obj/effect/particle_effect/smoke/bad(loc)
 
 	if(drops_core)
@@ -103,7 +103,7 @@
 	qdel(src)
 
 
-/obj/effect/anomaly/attackby(obj/item/I, mob/user, params)
+/obj/effect/old_anomaly/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/analyzer))
 		to_chat(user, span_notice("Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code]."))
 	return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -111,16 +111,16 @@
 
 ///////////////////////
 
-/obj/effect/anomaly/grav
+/obj/effect/old_anomaly/grav
 	name = "gravitational anomaly"
 	icon_state = "shield2"
 	density = FALSE
 	var/boing = FALSE
 	var/knockdown = FALSE
-	aSignal = /obj/item/assembly/signaler/anomaly/grav
+	aSignal = /obj/item/assembly/signaler/anomaly/tier2/grav
 
 
-/obj/effect/anomaly/grav/Initialize(mapload, new_lifespan, _drops_core)
+/obj/effect/old_anomaly/grav/Initialize(mapload, new_lifespan, _drops_core)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -128,7 +128,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-/obj/effect/anomaly/grav/anomalyEffect()
+/obj/effect/old_anomaly/grav/anomalyEffect()
 	..()
 	boing = TRUE
 	for(var/obj/O in orange(4, src))
@@ -146,25 +146,25 @@
 				O.throw_at(target, 5, 10)
 
 
-/obj/effect/anomaly/grav/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+/obj/effect/old_anomaly/grav/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	gravShock(arrived)
 
 
-/obj/effect/anomaly/grav/Bump(atom/bumped_atom)
+/obj/effect/old_anomaly/grav/Bump(atom/bumped_atom)
 	. = ..()
 	if(.)
 		return .
 	gravShock(bumped_atom)
 
 
-/obj/effect/anomaly/grav/Bumped(atom/movable/moving_atom)
+/obj/effect/old_anomaly/grav/Bumped(atom/movable/moving_atom)
 	. = ..()
 	gravShock(moving_atom)
 
 
-/obj/effect/anomaly/grav/proc/gravShock(mob/living/A)
+/obj/effect/old_anomaly/grav/proc/gravShock(mob/living/A)
 	if(boing && isliving(A) && !A.stat)
 		if(!knockdown) // no hardstuns with megafauna
 			A.Weaken(4 SECONDS)
@@ -174,17 +174,17 @@
 
 /////////////////////
 
-/obj/effect/anomaly/flux
+/obj/effect/old_anomaly/flux
 	name = "flux wave anomaly"
 	icon_state = "electricity2"
 	density = TRUE
-	aSignal = /obj/item/assembly/signaler/anomaly/flux
+	aSignal = /obj/item/assembly/signaler/anomaly/tier2/flux
 	var/canshock = FALSE
 	var/shockdamage = 20
 	var/explosive = TRUE
 
 
-/obj/effect/anomaly/flux/Initialize(mapload, new_lifespan, drops_core = TRUE, _explosive = TRUE)
+/obj/effect/old_anomaly/flux/Initialize(mapload, new_lifespan, drops_core = TRUE, _explosive = TRUE)
 	. = ..()
 	explosive = _explosive
 	var/static/list/loc_connections = list(
@@ -193,35 +193,35 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-/obj/effect/anomaly/flux/anomalyEffect()
+/obj/effect/old_anomaly/flux/anomalyEffect()
 	..()
 	canshock = TRUE
 	for(var/mob/living/M in get_turf(src))
 		mobShock(M)
 
 
-/obj/effect/anomaly/flux/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+/obj/effect/old_anomaly/flux/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	mobShock(arrived)
 
 
-/obj/effect/anomaly/flux/Bump(atom/bumped_atom)
+/obj/effect/old_anomaly/flux/Bump(atom/bumped_atom)
 	. = ..()
 	if(.)
 		return .
 	mobShock(bumped_atom)
 
-/obj/effect/anomaly/flux/Bumped(atom/movable/moving_atom)
+/obj/effect/old_anomaly/flux/Bumped(atom/movable/moving_atom)
 	. = ..()
 	mobShock(moving_atom)
 
-/obj/effect/anomaly/flux/proc/mobShock(mob/living/M)
+/obj/effect/old_anomaly/flux/proc/mobShock(mob/living/M)
 	if(canshock && istype(M))
 		canshock = FALSE //Just so you don't instakill yourself if you slam into the anomaly five times in a second.
 		M.electrocute_act(shockdamage, "потоковой аномалии", flags = SHOCK_NOGLOVES)
 
-/obj/effect/anomaly/flux/detonate()
+/obj/effect/old_anomaly/flux/detonate()
 	if(explosive)
 		explosion(src, 1, 4, 16, 18, cause = src) //Low devastation, but hits a lot of stuff.
 	else
@@ -229,31 +229,31 @@
 
 /////////////////////
 
-/obj/effect/anomaly/bluespace
+/obj/effect/old_anomaly/bluespace
 	name = "bluespace anomaly"
 	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "bluespace"
 	density = TRUE
 	var/mass_teleporting = TRUE
-	aSignal = /obj/item/assembly/signaler/anomaly/bluespace
+	aSignal = /obj/item/assembly/signaler/anomaly/tier2/bluespace
 
-/obj/effect/anomaly/bluespace/Initialize(mapload, new_lifespan, drops_core = TRUE, _mass_teleporting = TRUE)
+/obj/effect/old_anomaly/bluespace/Initialize(mapload, new_lifespan, drops_core = TRUE, _mass_teleporting = TRUE)
 	. = ..()
 	mass_teleporting = _mass_teleporting
 
-/obj/effect/anomaly/bluespace/anomalyEffect()
+/obj/effect/old_anomaly/bluespace/anomalyEffect()
 	..()
 	for(var/mob/living/M in range(1, src))
 		do_teleport(M, M, 4)
 		investigate_log("teleported [key_name_log(M)] to [COORD(M)]", INVESTIGATE_TELEPORTATION)
 
-/obj/effect/anomaly/bluespace/Bumped(atom/movable/moving_atom)
+/obj/effect/old_anomaly/bluespace/Bumped(atom/movable/moving_atom)
 	. = ..()
 	if(isliving(moving_atom))
 		do_teleport(moving_atom, moving_atom, 8)
 		investigate_log("teleported [key_name_log(moving_atom)] to [COORD(moving_atom)]", INVESTIGATE_TELEPORTATION)
 
-/obj/effect/anomaly/bluespace/detonate()
+/obj/effect/old_anomaly/bluespace/detonate()
 	if(!mass_teleporting)
 		return
 	var/turf/T = pick(get_area_turfs(impact_area))
@@ -299,7 +299,7 @@
 					if(M.client)
 						INVOKE_ASYNC(src, PROC_REF(blue_effect), M)
 
-/obj/effect/anomaly/bluespace/proc/blue_effect(mob/M)
+/obj/effect/old_anomaly/bluespace/proc/blue_effect(mob/M)
 	var/obj/blueeffect = new /obj(src)
 	blueeffect.screen_loc = "WEST,SOUTH to EAST,NORTH"
 	blueeffect.icon = 'icons/effects/effects.dmi'
@@ -315,18 +315,18 @@
 
 /////////////////////
 
-/obj/effect/anomaly/pyro
+/obj/effect/old_anomaly/pyro
 	name = "pyroclastic anomaly"
 	icon_state = "mustard"
 	var/ticks = 0
 	var/produces_slime = TRUE
-	aSignal = /obj/item/assembly/signaler/anomaly/pyro
+	aSignal = /obj/item/assembly/signaler/anomaly/tier2/pyro
 
-/obj/effect/anomaly/pyro/Initialize(mapload, new_lifespan, drops_core = TRUE, _produces_slime = TRUE)
+/obj/effect/old_anomaly/pyro/Initialize(mapload, new_lifespan, drops_core = TRUE, _produces_slime = TRUE)
 	. = ..()
 	produces_slime = _produces_slime
 
-/obj/effect/anomaly/pyro/anomalyEffect()
+/obj/effect/old_anomaly/pyro/anomalyEffect()
 	..()
 	ticks++
 	if(ticks < 5)
@@ -337,11 +337,11 @@
 	if(istype(T))
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 5)
 
-/obj/effect/anomaly/pyro/detonate()
+/obj/effect/old_anomaly/pyro/detonate()
 	if(produces_slime)
 		INVOKE_ASYNC(src, PROC_REF(makepyroslime))
 
-/obj/effect/anomaly/pyro/proc/makepyroslime()
+/obj/effect/old_anomaly/pyro/proc/makepyroslime()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 500) //Make it hot and burny for the new slime
@@ -359,13 +359,13 @@
 
 /////////////////////
 
-/obj/effect/anomaly/bhole
+/obj/effect/old_anomaly/bhole
 	name = "vortex anomaly"
 	icon_state = "bhole3"
 	desc = "That's a nice station you have there. It'd be a shame if something happened to it."
-	aSignal = /obj/item/assembly/signaler/anomaly/vortex
+	aSignal = /obj/item/assembly/signaler/anomaly/tier2/vortex
 
-/obj/effect/anomaly/bhole/anomalyEffect()
+/obj/effect/old_anomaly/bhole/anomalyEffect()
 	..()
 	if(!isturf(loc)) //blackhole cannot be contained inside anything. Weird stuff might happen
 		qdel(src)
@@ -384,14 +384,14 @@
 		else
 			O.ex_act(EXPLODE_HEAVY)
 
-/obj/effect/anomaly/bhole/proc/grav(r, ex_act_force, pull_chance, turf_removal_chance)
+/obj/effect/old_anomaly/bhole/proc/grav(r, ex_act_force, pull_chance, turf_removal_chance)
 	for(var/t = -r, t < r, t++)
 		affect_coord(x + t, y - r, ex_act_force, pull_chance, turf_removal_chance)
 		affect_coord(x - t, y + r, ex_act_force, pull_chance, turf_removal_chance)
 		affect_coord(x + r, y + t, ex_act_force, pull_chance, turf_removal_chance)
 		affect_coord(x - r, y - t, ex_act_force, pull_chance, turf_removal_chance)
 
-/obj/effect/anomaly/bhole/proc/affect_coord(x, y, ex_act_force, pull_chance, turf_removal_chance)
+/obj/effect/old_anomaly/bhole/proc/affect_coord(x, y, ex_act_force, pull_chance, turf_removal_chance)
 	//Get turf at coordinate
 	var/turf/T = locate(x, y, z)
 	if(isnull(T))

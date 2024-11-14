@@ -195,7 +195,7 @@
 	underlays += emissive_appearance(icon, "[icon_state]_lightmask", src)
 
 
-/obj/machinery/recharger/proc/get_cell_from(obj/item/I)
+/proc/get_cell_from(obj/item/I)
 	if(istype(I, /obj/item/gun/energy))
 		var/obj/item/gun/energy/E = I
 		return E.cell

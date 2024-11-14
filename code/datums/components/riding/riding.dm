@@ -288,7 +288,7 @@
 
 /datum/component/riding/proc/Process_Spacemove(direction, continuous_move)
 	var/atom/movable/AM = parent
-	return override_allow_spacemove || AM.has_gravity()
+	return override_allow_spacemove || !AM.no_gravity()
 
 /// currently replicated from ridable because we need this behavior here too, see if we can deal with that
 /datum/component/riding/proc/unequip_buckle_inhands(mob/living/carbon/user)

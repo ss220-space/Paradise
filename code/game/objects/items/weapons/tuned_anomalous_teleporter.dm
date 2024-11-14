@@ -65,7 +65,7 @@
 	result = /obj/item/tuned_anomalous_teleporter
 	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
 	reqs = list(/obj/item/relict_production/strange_teleporter = 1,
-				/obj/item/assembly/signaler/anomaly/bluespace = 1,
+				/obj/item/assembly/signaler/anomaly/tier2/bluespace = 1,
 				/obj/item/gps = 1,
 				/obj/item/stack/ore/bluespace_crystal,
 				/obj/item/stack/sheet/metal = 2,

@@ -157,3 +157,5 @@
 #define BLOB_INFECTED_TRAIT "blob_infected"
 
 #define VENDOR_FLATTENING_TRAIT "vendor_flattening"
+
+#define GRAVITATION_TRAIT	"gravitation"

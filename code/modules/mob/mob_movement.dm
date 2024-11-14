@@ -320,7 +320,7 @@
 		return rebound
 
 
-/mob/has_gravity(turf/gravity_turf)
+/mob/get_gravity(turf/gravity_turf)
 	if(!isnull(GLOB.gravity_is_on))	// global admin override.
 		return GLOB.gravity_is_on
 	return mob_negates_gravity() || ..()

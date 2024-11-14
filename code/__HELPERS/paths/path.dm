@@ -345,7 +345,7 @@
 	src.movement_type = construct_from.movement_type
 	src.thrown = !!construct_from.throwing
 	src.anchored = construct_from.anchored
-	src.has_gravity = construct_from.has_gravity()
+	src.has_gravity = construct_from.get_gravity()
 	if(ismob(construct_from))
 		var/mob/mob_construct = construct_from
 		src.faction = mob_construct.faction?.Copy()

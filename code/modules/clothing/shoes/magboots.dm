@@ -189,7 +189,7 @@
 	var/recharging_time = 0 // Time until next dash
 	var/dash_cost = 1000 // Cost to dash.
 	var/power_consumption_rate = 30 // How much power is used by the boots each cycle when magboots are active
-	var/obj/item/assembly/signaler/anomaly/grav/core = null
+	var/obj/item/assembly/signaler/anomaly/tier2/grav/core = null
 	var/obj/item/stock_parts/cell/cell = null
 
 
@@ -276,7 +276,7 @@
 		update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/assembly/signaler/anomaly/grav))
+	if(istype(I, /obj/item/assembly/signaler/anomaly/tier2/grav))
 		add_fingerprint(user)
 		if(core)
 			to_chat(user, span_warning("The [name] already has [core]."))

@@ -1,0 +1,122 @@
+/datum/anomaly_impulse/energ_fastmove
+	name = "Рывок"
+	desc = "Аномалия совершает несколько коротких прыжков в случайном направлении. \
+			В процессе прыжков аномалия игнорирует любые перпятствия."
+	stability_high = 60
+	do_shake = FALSE
+	/// Minimum number of jumps.
+	var/jumps_low = 0
+	/// Maximum number of jumps.
+	var/jumps_high = 0
+
+/datum/anomaly_impulse/energ_fastmove/impulse()
+	var/obj/effect/anomaly/flux/anomaly = owner
+
+	var/list/turf/possible_targets = list()
+	var/jumps = scale_by_strenght(jumps_low, jumps_high)
+	for(var/turf/T in orange(jumps, owner))
+		if(get_dist(owner, T) == jumps)
+			possible_targets.Add(T)
+
+	var/turf/target = pick(possible_targets)
+	if(!target)
+		return
+
+	for(var/i = 1; i <= jumps; ++i)
+		var/cur_dir = get_dir(anomaly, target)
+		anomaly.jump(get_step(owner, cur_dir))
+		anomaly.after_move()
+		sleep(2)
+
+/datum/anomaly_impulse/energ_fastmove/tier1
+	period_low = 5 SECONDS
+	period_high = 20 SECONDS
+	jumps_low = 3
+	jumps_high = 5
+
+/datum/anomaly_impulse/energ_fastmove/tier2
+	period_low = 10 SECONDS
+	period_high = 30 SECONDS
+	jumps_low = 3
+	jumps_high = 7
+
+/datum/anomaly_impulse/energ_fastmove/tier3
+	period_low = 20 SECONDS
+	period_high = 40 SECONDS
+	jumps_low = 3
+	jumps_high = 11
+
+
+/datum/anomaly_impulse/energ_shock_ex
+	name = "Удар током"
+	desc = "Аномалия бьет окружающих живых существ током."
+	/// Minimum range of shock.
+	var/effect_range_low = 0
+	/// Maximum range of shock.
+	var/effect_range_high = 0
+	/// Minimum damage of shock.
+	var/shock_damage_low = 0
+	/// Maximum damage of shock.
+	var/shock_damage_high = 0
+
+/datum/anomaly_impulse/energ_shock_ex/impulse()
+	var/radius = scale_by_strenght(effect_range_low, effect_range_high)
+	var/damage = scale_by_strenght(shock_damage_low, shock_damage_high)
+	owner.do_shock_ex(radius, damage, TRUE)
+
+/datum/anomaly_impulse/energ_shock_ex/tier1
+	period_low = 15 SECONDS
+	period_high = 45 SECONDS
+	effect_range_low = 1
+	effect_range_high = 3
+	shock_damage_low = 5
+	shock_damage_high = 10
+
+/datum/anomaly_impulse/energ_shock_ex/tier2
+	period_low = 10 SECONDS
+	period_high = 20 SECONDS
+	effect_range_low = 1
+	effect_range_high = 4
+	shock_damage_low = 10
+	shock_damage_high = 30
+
+/datum/anomaly_impulse/energ_shock_ex/tier3
+	period_low = 5 SECONDS
+	period_high = 10 SECONDS
+	effect_range_low = 3
+	effect_range_high = 7
+	shock_damage_low = 30
+	shock_damage_high = 70
+
+
+/datum/anomaly_impulse/machinery_jump
+	name = "Перемещение по машинерии"
+	desc = "Аномалия прыгает по энергосети к ближайшей машинерии."
+	do_shake = FALSE
+	stability_high = 60
+	/// Minimum damage that machinery takes when teleports.
+	var/damage_low = 0
+	/// Maximum damage that machinery takes when teleports.
+	var/damage_high = 0
+
+/datum/anomaly_impulse/machinery_jump/impulse()
+	var/obj/effect/anomaly/flux/anomaly = owner
+	anomaly.jump_to_machinery(scale_by_strenght(damage_low, damage_high))
+
+/datum/anomaly_impulse/machinery_jump/tier1
+	period_low = 15 SECONDS
+	period_high = 45 SECONDS
+	damage_low = 20
+	damage_high = 40
+
+/datum/anomaly_impulse/machinery_jump/tier2
+	period_low = 10 SECONDS
+	period_high = 25 SECONDS
+	damage_low = 40
+	damage_high = 60
+
+/datum/anomaly_impulse/machinery_jump/tier3
+	period_low = 5 SECONDS
+	period_high = 15 SECONDS
+	damage_low = 60
+	damage_high = 80

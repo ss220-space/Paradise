@@ -1551,7 +1551,7 @@
 		/obj/item/stack/sheet/mineral/diamond = 5
 	)
 	result = list(/obj/item/pickaxe/diamond)
-  
+
 /datum/crafting_recipe/drone
 	name = "Inactive Drone"
 	result = list(/obj/item/inactive_drone)

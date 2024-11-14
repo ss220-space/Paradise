@@ -9,7 +9,7 @@
 	origin_tech = "bluespace=6"
 
 /obj/item/assembly/anomaly_beacon/activate()
-	var/obj/effect/anomaly/anomaly_path = pick(subtypesof(/obj/effect/anomaly/))
+	var/obj/effect/old_anomaly/anomaly_path = pick(subtypesof(/obj/effect/old_anomaly/))
 	var/newAnomaly = new anomaly_path(get_turf(src))
 	notify_ghosts("[name] has an object of interest: [newAnomaly]!", title = "Something's Interesting!", source = newAnomaly, action = NOTIFY_FOLLOW)
 	qdel(src)

@@ -452,7 +452,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/assembly/signaler/anomaly/flux))
+	if(istype(I, /obj/item/assembly/signaler/anomaly/tier2/flux))
 		add_fingerprint(user)
 		if(has_core)
 			balloon_alert(user, "уже установлено!")

@@ -84,7 +84,7 @@
 		sleep(1)
 	animate(A, transform = M, pixel_z = 0, alpha = 255, time = 1, loop = 1, easing = LINEAR_EASING)
 
-/proc/animate_shake(var/atom/A, var/amount = 5, var/x_severity = 2, var/y_severity = 2)
+/proc/animate_shake(atom/A, amount = 5, x_severity = 2, y_severity = 2)
 	// Wiggles the sprite around on its tile then returns it to normal
 	if(!istype(A))
 		return
@@ -180,9 +180,10 @@
 	animate(transform = matrix(M, turn, MATRIX_ROTATE | MATRIX_MODIFY), time = T, loop = looping)
 	animate(transform = matrix(M, turn, MATRIX_ROTATE | MATRIX_MODIFY), time = T, loop = looping)
 
-/proc/animate_shockwave(var/atom/A)
+/proc/animate_shockwave(atom/A)
 	if(!istype(A))
 		return
+
 	var/punchstr = rand(10, 20)
 	var/original_y = A.pixel_y
 	animate(A, transform = matrix(punchstr, MATRIX_ROTATE), pixel_y = 16, time = 2, color = "#eeeeee", easing = BOUNCE_EASING)

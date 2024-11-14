@@ -60,7 +60,7 @@
 	result = /obj/item/gun/syringe/rapidsyringe/experimental
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	reqs = list(/obj/item/relict_production/perfect_mix = 1,
-				/obj/item/assembly/signaler/anomaly/vortex = 1,
+				/obj/item/assembly/signaler/anomaly/tier2/vortex = 1,
 				/obj/item/gun/syringe/rapidsyringe = 1,
 				/obj/item/stock_parts/matter_bin = 1)
 	time = 300

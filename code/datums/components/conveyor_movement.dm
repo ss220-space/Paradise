@@ -30,7 +30,7 @@
 		if((moving_mob.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && !moving_mob.stat)
 			return MOVELOOP_SKIP_STEP
 	var/atom/movable/moving_parent = parent
-	if(moving_parent.anchored || !moving_parent.has_gravity())
+	if(moving_parent.anchored || moving_parent.get_gravity() > NO_GRAVITY) // No moving on convey with negative gravity.
 		return MOVELOOP_SKIP_STEP
 
 

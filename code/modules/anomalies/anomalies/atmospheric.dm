@@ -1,0 +1,156 @@
+/obj/effect/anomaly/pyro
+	anomaly_type = ANOMALY_TYPE_ATMOS
+	icon_state = "mustard"
+	/// Range of collapse effects.
+	var/collapse_range = 0
+	/// Amount of gases spawned when anomaly collapses.
+	var/collapse_gas_amount = 0
+	/// Minimum amount of slimes spawned when anomaly collapses.
+	var/collapse_slimes_low = 0
+	/// Maximum amount of slimes spawned when anomaly collapses.
+	var/collapse_slimes_high = 0
+
+/obj/effect/anomaly/pyro/collapse()
+	for(var/turf/simulated/T in range(collapse_range * 2, src))
+		T.temperature = rand(0, 50)
+
+	for(var/turf/simulated/T in range(collapse_range, src))
+		var/near_ice = 0 // Generation will be more beautiful.
+		for(var/turf/simulated/checked in range(1, T))
+			if(checked.GetComponent(/datum/component/wet_floor))
+				near_ice++
+
+		if(prob(80 - near_ice*20))
+			new /obj/effect/snow(T)
+		else
+			T.MakeSlippery(TURF_WET_ICE, 120 SECONDS)
+
+	for(var/mob/living/M in range(collapse_range, src))
+		if(prob(50))
+			M.adjust_fire_stacks(20)
+			M.IgniteMob()
+			continue
+
+		M.adjust_bodytemperature(-100)
+		M.apply_status_effect(/datum/status_effect/freon)
+		if(ishuman(M))
+			M.reagents.add_reagent("frostoil", 5)
+
+	var/turf/simulated/T = get_turf(src)
+	if(istype(T))
+		T.atmos_spawn_air(LINDA_SPAWN_OXYGEN, collapse_gas_amount * 2/7)
+		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, collapse_gas_amount * 5/7)
+
+	for(var/i = 0 to rand(collapse_slimes_low, collapse_slimes_high))
+		INVOKE_ASYNC(src, PROC_REF(make_slime))
+
+	. = ..()
+
+/obj/effect/anomaly/pyro/mob_touch_effect(mob/living/M)
+	. = ..()
+	var/new_temp = rand(0, 500)
+	M.adjust_bodytemperature(new_temp - M.bodytemperature)
+	if(new_temp >= T0C + 100 && prob(70))
+		M.adjust_fire_stacks(new_temp / 50)
+		M.IgniteMob()
+	else
+		M.ExtinguishMob()
+
+/obj/effect/anomaly/pyro/item_touch_effect(obj/item/I)
+	. = ..()
+	I.fire_act(null, rand(0, 1000), rand(20, 200))
+
+/obj/effect/anomaly/pyro/proc/make_slime()
+	var/turf/simulated/T = get_turf(src)
+	var/new_colour = pick("red", "orange", "blue", "dark blue")
+	var/mob/living/simple_animal/slime/random/S = new(T, new_colour)
+	S.rabid = TRUE
+	S.set_nutrition(S.get_max_nutrition())
+
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Хотите сыграть за слайма из атмосферной аномалии?", ROLE_SENTIENT, FALSE, 100, source = S, role_cleanname = "pyroclastic anomaly slime")
+	if(LAZYLEN(candidates))
+		var/mob/dead/observer/chosen = pick(candidates)
+		S.key = chosen.key
+		S.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
+		add_game_logs("was made into a slime by pyroclastic anomaly at [AREACOORD(T)].", S)
+
+/obj/effect/anomaly/pyro/tier1
+	name = "малая атмосферная аномалия"
+	ru_names = list(NOMINATIVE = "малая атмосферная аномалия", \
+					GENITIVE = "малой атмосферной аномалии", \
+					DATIVE = "малой атмосферной аномалии", \
+					ACCUSATIVE = "малую ​​атмосферную аномалию", \
+					INSTRUMENTAL = "малой ​атмосферной аномалией", \
+					PREPOSITIONAL = "малой ​​атмосферной аномалии")
+	core_type = /obj/item/assembly/signaler/anomaly/tier1/pyro
+	stronger_anomaly_type = /obj/effect/anomaly/pyro/tier2
+	tier = 1
+	impulses_types = list(
+		/datum/anomaly_impulse/random_temp/tier1,
+		/datum/anomaly_impulse/freese/tier1,
+		/datum/anomaly_impulse/fire/tier1,
+	)
+
+	collapse_range = 2
+	collapse_gas_amount = 150
+
+/obj/effect/anomaly/pyro/tier2
+	name = "атмосферная аномалия"
+	ru_names = list(NOMINATIVE = "атмосферная аномалия", \
+					GENITIVE = "атмосферной аномалии", \
+					DATIVE = "атмосферной аномалии", \
+					ACCUSATIVE = "​​атмосферную аномалию", \
+					INSTRUMENTAL = "​атмосферной аномалией", \
+					PREPOSITIONAL = "​​атмосферной аномалии")
+	core_type = /obj/item/assembly/signaler/anomaly/tier2/pyro
+	weaker_anomaly_type = /obj/effect/anomaly/pyro/tier1
+	stronger_anomaly_type = /obj/effect/anomaly/pyro/tier3
+	tier = 2
+	impulses_types = list(
+		/datum/anomaly_impulse/random_temp/tier2,
+		/datum/anomaly_impulse/freese/tier2,
+		/datum/anomaly_impulse/fire/tier2,
+	)
+
+	collapse_range = 5
+	collapse_gas_amount = 350
+	collapse_slimes_low = 0
+	collapse_slimes_high = 2
+
+/obj/effect/anomaly/pyro/tier3
+	name = "большая атмосферная аномалия"
+	ru_names = list(NOMINATIVE = "большая атмосферная аномалия", \
+					GENITIVE = "большой атмосферной аномалии", \
+					DATIVE = "большой атмосферной аномалии", \
+					ACCUSATIVE = "большую ​​атмосферную аномалию", \
+					INSTRUMENTAL = "большой ​атмосферной аномалией", \
+					PREPOSITIONAL = "большой ​​атмосферной аномалии")
+	core_type = /obj/item/assembly/signaler/anomaly/tier3/pyro
+	weaker_anomaly_type = /obj/effect/anomaly/pyro/tier2
+	tier = 3
+	impulses_types = list(
+		/datum/anomaly_impulse/random_temp/tier3,
+		/datum/anomaly_impulse/freese/tier3,
+		/datum/anomaly_impulse/fire/tier3,
+	)
+
+	collapse_range = 7
+	collapse_gas_amount = 700
+	collapse_slimes_low = 0
+	collapse_slimes_high = 3
+
+/obj/effect/anomaly/pyro/tier3/New()
+	. = ..()
+
+	for(var/mob/living/M in GLOB.player_list)
+		if(M.stat)
+			continue
+
+		M.playsound_local(null, 'sound/effects/comfyfire.ogg', 15, TRUE)
+		to_chat(M, "<span class='atmospferic_anomaly'>Вас накрывает волнами эфемерного жара! Воздух вокруг дрожит.</span>") // It used in one place.
+
+/obj/effect/anomaly/pyro/tier3/collapse()
+	for(var/obj/item/paper in range(30)) // Just for fan.
+		paper.fire_act(null, 1000, 1000)
+
+	. = ..()

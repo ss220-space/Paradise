@@ -150,7 +150,7 @@
 /// Handles gravity effects. Call if something about our gravity has potentially changed!
 /mob/living/proc/refresh_gravity()
 	var/old_grav_state = gravity_state
-	gravity_state = has_gravity()
+	gravity_state = get_gravity()
 	if(gravity_state == old_grav_state)
 		return
 

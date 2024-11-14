@@ -301,11 +301,11 @@
 		/obj/item/slime_extract/adamantine = 50,
 		/obj/item/slime_extract/rainbow = 50,
 		/obj/item/slime_extract/sepia = 50,
-		/obj/item/assembly/signaler/anomaly/vortex = 50,
-		/obj/item/assembly/signaler/anomaly/bluespace = 50,
-		/obj/item/assembly/signaler/anomaly/flux = 50,
-		/obj/item/assembly/signaler/anomaly/grav = 50,
-		/obj/item/assembly/signaler/anomaly/pyro = 50,
+		/obj/item/assembly/signaler/anomaly/tier2/vortex = 50,
+		/obj/item/assembly/signaler/anomaly/tier2/bluespace = 50,
+		/obj/item/assembly/signaler/anomaly/tier2/flux = 50,
+		/obj/item/assembly/signaler/anomaly/tier2/grav = 50,
+		/obj/item/assembly/signaler/anomaly/tier2/pyro = 50,
 		/obj/item/t_scanner/science = 50,
 		/obj/item/t_scanner/experimental = 5)
 

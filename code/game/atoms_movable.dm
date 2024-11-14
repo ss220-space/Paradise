@@ -981,9 +981,9 @@
 			if(z_move_flags & ZMOVE_FEEDBACK)
 				to_chat(rider || src, span_warning("There's nowhere to go in that direction!"))
 			return FALSE
-	if(z_move_flags & ZMOVE_FALL_CHECKS && (throwing || (movement_type & (FLYING|FLOATING)) || !has_gravity(start)))
+	if(z_move_flags & ZMOVE_FALL_CHECKS && (throwing || (movement_type & (FLYING|FLOATING)) || no_gravity(start)))
 		return FALSE
-	if(z_move_flags & ZMOVE_CAN_FLY_CHECKS && !(movement_type & (FLYING|FLOATING)) && has_gravity(start))
+	if(z_move_flags & ZMOVE_CAN_FLY_CHECKS && !(movement_type & (FLYING|FLOATING)) && !no_gravity(start))
 		if(z_move_flags & ZMOVE_FEEDBACK)
 			if(rider)
 				to_chat(rider, span_notice("[src] is not capable of flight."))
@@ -1049,7 +1049,7 @@
  * * continuous_move - If this check is coming from something in the context of already drifting
  */
 /atom/movable/proc/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
-	if(has_gravity())
+	if(no_gravity())
 		return TRUE
 
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir, continuous_move) & COMSIG_MOVABLE_STOP_SPACEMOVE)
@@ -1166,6 +1166,13 @@
 
 	return TRUE
 
+/atom/movable/proc/random_throw(range_low, range_high, speed)
+	var/list/turf/targets = list()
+	for(var/turf/T in range(range_high, src))
+		if(get_dist(T, src) >= range_low && get_dist(T, src) <= range_high)
+			targets.Add(T)
+
+	return throw_at(pick(targets), speed)
 
 //Overlays
 /atom/movable/overlay
