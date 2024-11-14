@@ -6,7 +6,7 @@
 
 /obj/machinery/sleeper
 	name = "Sleeper"
-	desc = "Медицинское устройство, предназначено для стабилизации пациентов и манипуляций с веществами в кровотоке."
+	desc = "Медицинское устройство, предназначено для стабилизации пациентов. Позволяет вводить ограниченный набор веществ в организм пациента."
 	ru_names = list(
 		NOMINATIVE = "слипер",
 		GENITIVE = "слипера",
@@ -127,7 +127,7 @@
 			if(world.timeofday > (R.last_addiction_dose + ADDICTION_SPEEDUP_TIME)) // 2.5 minutes
 				addiction_removal_chance = 10
 			if(prob(addiction_removal_chance))
-				to_chat(occupant, span_notice("Вы больше не чувствуете себя зависимым от [R.name]!"))
+				to_chat(occupant, span_notice("Ваш разум проясняется, а навязчивые мысли уходят. Похоже, вы побороли свою зависимость от [R.name]!"))
 				occupant.reagents.addiction_list.Remove(R)
 				qdel(R)
 
@@ -149,7 +149,7 @@
 		return TRUE
 
 	if(panel_open)
-		balloon_alert(user, "сначала закройте техпанель")
+		balloon_alert(user, "техпанель открыта!")
 		return
 
 	add_fingerprint(user)
@@ -269,7 +269,7 @@
 	if(!controls_inside && usr == occupant)
 		return
 	if(panel_open)
-		balloon_alert(usr, "сначала закройте техпанель")
+		balloon_alert(usr, "техпанель открыта!")
 		return
 	if(stat & (NOPOWER|BROKEN))
 		return
@@ -315,7 +315,7 @@
 	if(istype(I, /obj/item/reagent_containers/glass))
 		add_fingerprint(user)
 		if(beaker)
-			balloon_alert(user, "слот для ёмкости уже занят")
+			balloon_alert(user, "слот для ёмкости занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -334,13 +334,13 @@
 		return .
 	var/mob/target = grabbed_thing
 	if(panel_open)
-		balloon_alert(grabber, "сначала закройте техпанель")
+		balloon_alert(grabber, "техпанель открыта!")
 		return .
 	if(occupant)
 		balloon_alert(grabber, "внутри кто-то есть!")
 		return .
 	if(target.abiotic())
-		balloon_alert(grabber, "руки пациента заняты")
+		balloon_alert(grabber, "руки пациента заняты!")
 		return .
 	if(target.has_buckled_mobs()) //mob attached to us
 		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target, "нём", "ней", "нём", "них")]  сидит слайм."))
@@ -364,7 +364,7 @@
 
 /obj/machinery/sleeper/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
-		balloon_alert(user, "сначала разблокируйте техпанель")
+		balloon_alert(user, "внутри кто-то есть!")
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "[base_icon]-o", "[base_icon]-open", I))
 		return TRUE
@@ -378,7 +378,7 @@
 		balloon_alert(user, "внутри кто-то есть!")
 		return
 	if(panel_open)
-		balloon_alert(user, "сначала закройте техпанель")
+		balloon_alert(user, "техпанель открыта!")
 		return
 
 	setDir(turn(dir, -90))
@@ -512,7 +512,7 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(panel_open)
-		balloon_alert(user, "сначала закройте техпанель")
+		balloon_alert(user, "техпанель открыта!")
 		return TRUE
 	if(occupant)
 		balloon_alert(user, "внутри кто-то есть!")
@@ -521,7 +521,7 @@
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		balloon_alert(user, "руки пациента заняты")
+		balloon_alert(user, "руки пациента заняты!")
 		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("[L] не помест[pluralize_ru(L, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L, "нём", "ней", "нём", "них")]  сидит слайм."))
@@ -565,7 +565,7 @@
 		balloon_alert(usr, "внутри кто-то есть!")
 		return
 	if(panel_open)
-		balloon_alert(usr, "сначала закройте техпанель")
+		balloon_alert(usr, "техпанель открыта")
 		return
 	if(usr.has_buckled_mobs()) //mob attached to us
 		to_chat(usr, span_warning("[usr] не помест[pluralize_ru(usr, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(usr, "нём", "ней", "нём", "них")]  сидит слайм."))
