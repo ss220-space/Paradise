@@ -24,7 +24,7 @@
 
 	if(bodytemperature >= TCRYO && !HAS_TRAIT(src, TRAIT_NO_CLONE)) //cryosleep or husked people do not pump the blood.
 		if(!HAS_TRAIT(src, TRAIT_NO_BLOOD_RESTORE) && blood_volume < BLOOD_VOLUME_NORMAL)
-			blood_volume += 0.1 // regenerate blood VERY slowly
+			adjustBloodLoss(-0.1) // regenerate blood VERY slowly
 
 
 		//Effects of bloodloss
@@ -134,6 +134,23 @@
 		return .
 	blood_reagent.reaction_turf(loc, amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
 
+/mob/living/proc/adjustBloodLoss(amount = 0)
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
+		return FALSE
+
+	if(SEND_SIGNAL(src, COMSIG_LIVING_BLOOD_ADJUST, amount, bleed_mode_affect) & COMPONENT_PREVENT_BLOODLOSS)
+		return FALSE
+
+	blood_volume = max(round(blood_volume - amount, DAMAGE_PRECISION), 0)
+	SEND_SIGNAL(src, COMSIG_LIVING_BLOOD_ADJUSTED, amount, bleed_mode_affect)
+
+	return TRUE
+
+/mob/living/carbon/human/adjustBloodLoss(amount = 0, bleed_mode_affect = FALSE)
+	if(bleed_mode_affect)
+		amount *= physiology.bleed_mod
+
+	return ..(amount)
 
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)
@@ -160,7 +177,7 @@
 	if(!blood_id)
 		return 0
 
-	blood_volume -= amount
+	adjustBloodLoss(amount)
 
 	var/list/blood_data = get_blood_data(blood_id)
 
