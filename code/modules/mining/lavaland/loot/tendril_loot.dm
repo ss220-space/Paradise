@@ -187,7 +187,7 @@
 	color = "#FFEBEB"
 
 /datum/reagent/flightpotion/reaction_mob(mob/living/M, method = REAGENT_TOUCH, reac_volume, show_message = 1)
-	balloon_alert(user, "нельзя использовать")
+	to_chat(M, span_warning("Этот предмет на данный момент не функционален.")
 	/*if(ishuman(M) && M.stat != DEAD)
 		var/mob/living/carbon/human/H = M
 		if(!ishumanbasic(H) || reac_volume < 5) // implying xenohumans are holy
@@ -195,7 +195,7 @@
 				to_chat(H, span_notice(span_italics("Кроме отвратительного послевкусия у вас во рту, вы ничего не почувствовали.")))
 			return ..()
 
-		span_danger("Невыносимая боль проходит через вашу спину, как вдруг оттуда вырываются крылья!")
+		to_chat(H, span_danger("Невыносимая боль проходит через вашу спину, как вдруг оттуда вырываются крылья!"))
 		H.set_species(/datum/species/angel)
 		playsound(H.loc, 'sound/items/poster_ripped.ogg', 50, 1, -1)
 		H.adjustBruteLoss(20)
@@ -220,7 +220,7 @@
 	var/turf/T = get_turf(src)
 	var/ladder_x = T.x
 	var/ladder_y = T.y
-	to_chat(user, span_notice("Вы разворачиваете лестницу. Она уходит значительно дальше, чем вы ожидали.</span>"))
+	to_chat(user, span_notice("Вы разворачиваете лестницу. Она уходит значительно дальше, чем вы ожидали."))
 	var/last_ladder = null
 	for(var/i in 1 to world.maxz)
 		if(is_admin_level(i) || is_away_level(i) || is_taipan(i))
@@ -284,7 +284,7 @@
 		set_light_on(FALSE)
 
 		user.update_sight()
-		balloon_alert(user, "дух улучшает ваше зрение")
+		to_chat(user, span_notice("Выпущенный дух улучшает ваше зрение")
 
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
 	else
@@ -296,7 +296,7 @@
 		set_light_on(TRUE)
 
 		user.update_sight()
-		balloon_alert(user, "ваше зрение вернулось в норму")
+		to_chat(user, span_notice("Ваше зрение возвращается в норму.")
 
 		update_icon(UPDATE_ICON_STATE)
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
