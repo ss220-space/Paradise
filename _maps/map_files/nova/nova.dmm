@@ -220,6 +220,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/delivery)
+"abM" = (
+/obj/item/gun/energy/floragun{
+	selfcharge = 0;
+	emagged = 1;
+	name = "old floral somatoray";
+	can_charge = 1;
+	cell_type = /obj/item/stock_parts/cell/degraded;
+	ammo_type = list(/obj/item/ammo_casing/energy/flora/beta,/obj/item/ammo_casing/energy/flora/gamma);
+	current_skin = "oldflora"
+	},
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
 "abP" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/structure/disposalpipe/segment,
@@ -89973,7 +89985,8 @@
 	name = "old floral somatoray";
 	can_charge = 1;
 	cell_type = /obj/item/stock_parts/cell/degraded;
-	ammo_type = list(/obj/item/ammo_casing/energy/flora/beta,/obj/item/ammo_casing/energy/flora/gamma)
+	ammo_type = list(/obj/item/ammo_casing/energy/flora/beta,/obj/item/ammo_casing/energy/flora/gamma);
+	current_skin = "oldflora"
 	},
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
@@ -260318,7 +260331,7 @@ fvL
 bkc
 bkc
 bkc
-bkc
+fvL
 bkc
 bkc
 bkc
@@ -264430,7 +264443,7 @@ fvL
 bkc
 bkc
 bkc
-bkc
+fvL
 bkc
 bkc
 bkc
@@ -269092,7 +269105,7 @@ mze
 mze
 bGG
 kOH
-qWo
+abM
 fzn
 rhb
 blB
