@@ -330,6 +330,10 @@
 		else
 			to_chat(H, "<span class='warning'>Вы теряете концентрацию.</span>")
 
+mob/living/carbon/human/slime/adjustToxLoss(amount, updating_health, blocked, forced, used_weapon)
+	amount = -amount
+	. = ..()
+
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD
 #undef SLIMEPERSON_BLOOD_SCALING_FACTOR
