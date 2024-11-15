@@ -68,6 +68,7 @@
 	ammo_x_offset = 1
 	can_charge = FALSE
 	selfcharge = TRUE
+	var/emagged = FALSE
 
 /obj/item/gun/energy/floragun/emag_act(mob/user)
 	. = ..()

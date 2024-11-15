@@ -13784,6 +13784,10 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central/north)
+"bWi" = (
+/obj/structure/flora/ausbushes/leafybush,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
 "bWj" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -24074,6 +24078,10 @@
 	},
 /turf/simulated/floor/carpet,
 /area/medical/psych)
+"dxq" = (
+/obj/structure/flora/ausbushes/grassybush,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
 "dxv" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -26677,6 +26685,7 @@
 	dir = 1;
 	pixel_y = -25
 	},
+/obj/item/reagent_containers/spray/pestspray,
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
 "dRw" = (
@@ -38154,6 +38163,7 @@
 	},
 /area/medical/genetics)
 "fzn" = (
+/obj/structure/flora/ausbushes/ppflowers,
 /obj/item/storage/bag/plants/portaseeder,
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
@@ -41701,6 +41711,11 @@
 	},
 /turf/simulated/floor/wood/dark,
 /area/ntrep)
+"fZu" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
 "fZz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip{
@@ -67739,6 +67754,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"jVi" = (
+/obj/structure/flora/ausbushes/lavendergrass,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
 "jVl" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "QMLoad";
@@ -69455,6 +69474,10 @@
 	slowdown = -0.3
 	},
 /area/hallway/primary/central)
+"kjI" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
 "kjL" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -89944,6 +89967,14 @@
 "nms" = (
 /obj/structure/safe/floor,
 /obj/item/seeds/wheat/meat,
+/obj/item/gun/energy/floragun{
+	selfcharge = 0;
+	emagged = 1;
+	name = "old floral somatoray";
+	can_charge = 1;
+	cell_type = /obj/item/stock_parts/cell/degraded;
+	ammo_type = list(/obj/item/ammo_casing/energy/flora/beta,/obj/item/ammo_casing/energy/flora/gamma)
+	},
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
 "nmx" = (
@@ -98677,7 +98708,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "oDB" = (
-/obj/item/reagent_containers/spray/pestspray,
+/obj/structure/flora/ausbushes/sunnybush,
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
 "oDL" = (
@@ -100265,6 +100296,10 @@
 	icon_state = "darkred"
 	},
 /area/bridge)
+"oPt" = (
+/obj/structure/flora/ausbushes/ywflowers/hell,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
 "oPu" = (
 /obj/structure/chair/comfy/brown,
 /turf/simulated/floor/wood,
@@ -145112,6 +145147,7 @@
 	},
 /area/hydroponics)
 "vlM" = (
+/obj/structure/flora/ausbushes/lavendergrass,
 /obj/item/hatchet,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/grass,
@@ -146791,6 +146827,11 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos)
+"vAn" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/fernybush,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
 "vAs" = (
 /obj/machinery/status_display{
 	pixel_y = -32
@@ -165217,6 +165258,10 @@
 	icon_state = "white"
 	},
 /area/medical/ward)
+"yjj" = (
+/obj/structure/flora/ausbushes/reedbush,
+/turf/simulated/floor/grass,
+/area/maintenance/garden)
 "yjl" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -267504,7 +267549,7 @@ jFL
 baa
 cCD
 foY
-qWo
+fZu
 hlb
 jhW
 bGG
@@ -267763,7 +267808,7 @@ nlt
 eJB
 qWo
 nzv
-qWo
+kjI
 eYr
 iik
 mze
@@ -268019,7 +268064,7 @@ qHX
 fSw
 lLh
 cgD
-qWo
+dxq
 oOi
 qeC
 blB
@@ -268275,7 +268320,7 @@ jFL
 cYx
 hmS
 wsH
-qWo
+oPt
 nms
 qWo
 oDB
@@ -268789,10 +268834,10 @@ hfp
 mze
 mze
 dUM
+vAn
 qWo
 qWo
-qWo
-qWo
+bWi
 bGG
 nBL
 eQH
@@ -269303,9 +269348,9 @@ xia
 mze
 mze
 bGG
+yjj
 qWo
-qWo
-qWo
+jVi
 jhW
 qQn
 bnw
