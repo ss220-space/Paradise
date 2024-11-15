@@ -72,6 +72,14 @@
 
 /obj/item/gun/energy/floragun/emag_act(mob/user)
 	. = ..()
+
+	if(emagged)
+		return
+
+	if(user)
+		balloon_alert(user, "протоколы защиты сняты!")
+
+	emagged = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/flora/alpha/emag, /obj/item/ammo_casing/energy/flora/beta, /obj/item/ammo_casing/energy/flora/gamma)
 	update_ammo_types()
 
