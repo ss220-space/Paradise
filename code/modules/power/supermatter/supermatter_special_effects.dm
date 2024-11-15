@@ -6,6 +6,9 @@
 #define SIMPLE_ANIMAL_MINDGIVING_CHANCE 2
 #define DNA_MUTATION_CHANCE 10
 
+///to prevent accent sounds from layering
+#define SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN (2 SECONDS)
+
 /datum/supermatter_explosive_effects
 	var/z = 0
 	///DNA mutation chance. Made this into var so admins can have fun messing up station
@@ -229,3 +232,4 @@
 #undef SPECIAL_EFFECTS_TIMER_DELAY
 #undef SIMPLE_ANIMAL_MINDGIVING_CHANCE
 #undef DNA_MUTATION_CHANCE
+#undef SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN
