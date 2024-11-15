@@ -138,11 +138,11 @@
 	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return FALSE
 
-	if(SEND_SIGNAL(src, COMSIG_LIVING_BLOOD_ADJUST, amount, bleed_mode_affect) & COMPONENT_PREVENT_BLOODLOSS)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_BLOOD_ADJUST, amount) & COMPONENT_PREVENT_BLOODLOSS)
 		return FALSE
 
 	blood_volume = max(round(blood_volume - amount, DAMAGE_PRECISION), 0)
-	SEND_SIGNAL(src, COMSIG_LIVING_BLOOD_ADJUSTED, amount, bleed_mode_affect)
+	SEND_SIGNAL(src, COMSIG_LIVING_BLOOD_ADJUSTED, amount)
 
 	return TRUE
 
