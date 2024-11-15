@@ -27,13 +27,21 @@
 		eballs.Add(new /obj/effect/energy_ball(loc, src))
 
 /obj/effect/anomaly/flux/Destroy()
+	if(tier != 3)
+		QDEL_LIST(eballs)
+		return ..()
+
+	for(var/obj/effect/energy_ball/eball in eballs)
+		if(prob(50))
+			new /obj/effect/anomaly/flux/tier1(eball.loc)
+
 	QDEL_LIST(eballs)
-	. = ..()
+	return ..()
 
 /obj/effect/anomaly/flux/process()
 	. = ..()
 	var/list/powernets = list()
-	for(var/obj/machinery/power/P in view(3))
+	for(var/obj/machinery/power/P in view(3, src))
 		if(!P.powernet)
 			continue
 
@@ -53,8 +61,9 @@
 
 /obj/effect/anomaly/flux/proc/jump_to_machinery(damage)
 	var/list/possible_targets = list()
-	for(var/obj/machinery/mach in view(5))
-		possible_targets += mach
+	for(var/obj/machinery/mach in view(5, src))
+		if(!(mach.stat & BROKEN))
+			possible_targets += mach
 
 	var/obj/target = pick(possible_targets)
 	target.take_damage(damage, BURN, ENERGY, TRUE, get_dir(src, target))
@@ -69,10 +78,12 @@
 
 	. = ..()
 
-/obj/effect/anomaly/flux/move()
-	var/turf/target = get_step(src, pick(get_move_dir()))
+/obj/effect/anomaly/flux/do_move(dir)
+	var/turf/target = get_step(src, dir)
 	if(target.Enter(src))
 		jump(target)
+
+	return TRUE
 
 // A jump accompanied by an electric shock.
 /obj/effect/anomaly/flux/proc/jump(target)
@@ -97,9 +108,9 @@
 	tier = 1
 	light_range = 5
 	impulses_types = list(
-		/datum/anomaly_impulse/energ_fastmove/tier1,
+		/datum/anomaly_impulse/move/energ_fastmove/tier1,
 		/datum/anomaly_impulse/energ_shock_ex/tier1,
-		/datum/anomaly_impulse/machinery_jump/tier1,
+		/datum/anomaly_impulse/move/machinery_jump/tier1,
 	)
 
 	voltage = 50000
@@ -123,9 +134,9 @@
 	tier = 2
 	light_range = 6
 	impulses_types = list(
-		/datum/anomaly_impulse/energ_fastmove/tier2,
+		/datum/anomaly_impulse/move/energ_fastmove/tier2,
 		/datum/anomaly_impulse/energ_shock_ex/tier2,
-		/datum/anomaly_impulse/machinery_jump/tier2,
+		/datum/anomaly_impulse/move/machinery_jump/tier2,
 	)
 
 	voltage = 250000
@@ -150,9 +161,9 @@
 	tier = 3
 	light_range = 7
 	impulses_types = list(
-		/datum/anomaly_impulse/energ_fastmove/tier3,
+		/datum/anomaly_impulse/move/energ_fastmove/tier3,
 		/datum/anomaly_impulse/energ_shock_ex/tier3,
-		/datum/anomaly_impulse/machinery_jump/tier3,
+		/datum/anomaly_impulse/move/machinery_jump/tier3,
 	)
 
 	voltage = 1000000 // A stabilized flux anomaly can be a useful source of energy.

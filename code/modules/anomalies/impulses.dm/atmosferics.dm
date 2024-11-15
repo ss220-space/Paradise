@@ -12,7 +12,7 @@
 
 /datum/anomaly_impulse/random_temp/impulse()
 	. = ..()
-	for(var/turf/simulated/T in range(scale_by_strenght(range_low, range_high), owner))
+	for(var/turf/simulated/T in view(scale_by_strenght(range_low, range_high), owner))
 		T.air.temperature += max(0, rand(temp_delta_low, temp_delta_high))
 
 /datum/anomaly_impulse/random_temp/tier1
@@ -50,10 +50,10 @@
 
 /datum/anomaly_impulse/freese/impulse()
 	. = ..()
-	for(var/turf/simulated/T in range(scale_by_strenght(range_low, range_high) * 2, owner))
+	for(var/turf/simulated/T in view(scale_by_strenght(range_low, range_high) * 2, owner))
 		T.temperature = rand(0, 50)
 
-	for(var/turf/simulated/T in spiral_range_turfs(scale_by_strenght(range_low, range_high), owner))
+	for(var/turf/simulated/floor/T in spiral_range_turfs(scale_by_strenght(range_low, range_high), owner))
 		T.MakeSlippery(TURF_WET_ICE, 120 SECONDS)
 
 /datum/anomaly_impulse/freese/tier1
@@ -89,7 +89,7 @@
 
 /datum/anomaly_impulse/fire/impulse()
 	. = ..()
-	for(var/turf/simulated/T in range(scale_by_strenght(range_low, range_high), owner))
+	for(var/turf/simulated/T in view(scale_by_strenght(range_low, range_high), owner))
 		var/gases_amount = scale_by_strenght(gases_low, gases_high)
 		T.atmos_spawn_air(LINDA_SPAWN_OXYGEN, gases_amount * 2/7)
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, gases_amount * 5/7)
@@ -107,13 +107,13 @@
 	period_high = 35 SECONDS
 	range_low = 1
 	range_high = 2
-	gases_low = 7
+	gases_low = 0
 	gases_high = 14
 
 /datum/anomaly_impulse/fire/tier3
 	period_low = 5 SECONDS
 	period_high = 20 SECONDS
 	range_low = 2
-	range_high = 4
-	gases_low = 14
-	gases_high = 21
+	range_high = 3
+	gases_low = 0
+	gases_high = 14

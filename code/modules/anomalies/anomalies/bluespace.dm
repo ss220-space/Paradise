@@ -29,19 +29,19 @@
 
 /obj/effect/anomaly/bluespace/mob_touch_effect(mob/living/M)
 	..()
-	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * strenght / 100)
+	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strenght() / 100)
 	teleport(M, radius)
 	return FALSE
 
 /obj/effect/anomaly/bluespace/item_touch_effect(obj/item/I)
 	..()
-	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * strenght / 100)
+	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strenght() / 100)
 	teleport(I, radius)
 	return FALSE
 
 /obj/effect/anomaly/bluespace/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
-	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * strenght / 100)
+	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strenght() / 100)
 	teleport(user, radius)
 
 /obj/effect/anomaly/bluespace/collapse()
@@ -63,7 +63,7 @@
 	stronger_anomaly_type = /obj/effect/anomaly/bluespace/tier2
 	tier = 1
 	impulses_types = list(
-		/datum/anomaly_impulse/bs_selftp/tier1,
+		/datum/anomaly_impulse/move/bs_selftp/tier1,
 	)
 
 	bump_tp_min = 1
@@ -71,8 +71,8 @@
 	collapse_radius = 3
 	collapse_tp_radius = 5
 
-// Moves only by /datum/anomaly_impulse/bs_selftp
-/obj/effect/anomaly/bluespace/tier1/move()
+// Moves only by /datum/anomaly_impulse/move/bs_selftp
+/obj/effect/anomaly/bluespace/tier1/normal_move()
 	return FALSE
 
 /obj/effect/anomaly/bluespace/tier2
@@ -89,7 +89,7 @@
 	stronger_anomaly_type = /obj/effect/anomaly/bluespace/tier3
 	tier = 2
 	impulses_types = list(
-		/datum/anomaly_impulse/bs_selftp/tier2,
+		/datum/anomaly_impulse/move/bs_selftp/tier2,
 		/datum/anomaly_impulse/bs_tp_other/tier2,
 		/datum/anomaly_impulse/wormholes/tier2,
 	)
@@ -112,7 +112,7 @@
 	weaker_anomaly_type = /obj/effect/anomaly/bluespace/tier2
 	tier = 3
 	impulses_types = list(
-		/datum/anomaly_impulse/bs_selftp/tier3,
+		/datum/anomaly_impulse/move/bs_selftp/tier3,
 		/datum/anomaly_impulse/bs_tp_other/tier3,
 		/datum/anomaly_impulse/wormholes/tier3,
 	)

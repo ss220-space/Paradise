@@ -11,20 +11,18 @@
 /obj/effect/anomaly/grav/collapse()
 	for(var/i = 1 to max(2, rand(tier, tier * 2)))
 		sleep(2)
-		for(var/atom/movable/A in range(tier * 2, src))
+		for(var/atom/movable/A in view(tier * 2, src))
 			if(!iseffect(A))
-				A.random_throw(tier, tier * 3, tier * 2)
+				A.random_throw(tier, tier * 3, 5)
 
 	. = ..()
 
 /obj/effect/anomaly/grav/proc/random_gravity_change(atom/A)
 	var/grav_delta = rand(-grav_change_level * 100, grav_change_level * 100) / 100
+	var/id = GRAVITY_SOURCE_ANOMALY + "[rand(1, 1000000)]"
 
-	if(GRAVITY_SOURCE_ANOMALY in A.gravity_sources)
-		grav_delta -= A.gravity_sources[GRAVITY_SOURCE_ANOMALY]
-
-	A.add_gravity(GRAVITY_SOURCE_ANOMALY, grav_delta)
-	addtimer(CALLBACK(A, TYPE_PROC_REF(/atom, add_gravity), GRAVITY_SOURCE_ANOMALY, -grav_delta), rand(grav_change_time_low, grav_change_time_high))
+	A.add_gravity(id, grav_delta)
+	addtimer(CALLBACK(A, TYPE_PROC_REF(/atom, remove_gravity_source), id), rand(grav_change_time_low, grav_change_time_high))
 
 /obj/effect/anomaly/grav/mob_touch_effect(mob/living/M)
 	. = ..()
@@ -94,6 +92,16 @@
 	grav_change_level = 3
 	grav_change_time_low = 5 SECONDS
 	grav_change_time_high = 20 SECONDS
+
+/obj/effect/anomaly/grav/tier3/New()
+	. = ..()
+
+	for(var/mob/living/M in GLOB.player_list)
+		if(M.stat)
+			continue
+
+		M.playsound_local(null, 'sound/effects/empulse.ogg', 15, TRUE)
+		to_chat(M, "<span class='gravitational_anomaly'>Ваше тело становится необычайно легким... Или тяжелым... Все вокруг неестественно подрагивает.</span>") // It used in one place.
 
 /obj/effect/anomaly/grav/tier3/collapse()
 	for(var/i = 1 to rand(30, 60))

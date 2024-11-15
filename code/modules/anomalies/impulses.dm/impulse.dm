@@ -23,6 +23,9 @@
 		return FALSE
 
 	addtimer(CALLBACK(src, PROC_REF(impulse_cycle)), scale_by_strenght(period_high, period_low))
+	if(world.time < owner.move_impulse_moment && istype(src, /datum/anomaly_impulse/move))
+		return
+
 	if(owner.stability < stability_high)
 		impulse()
 
@@ -31,4 +34,4 @@
 		animate_shake(src)
 
 /datum/anomaly_impulse/proc/scale_by_strenght(l_val, r_val)
-	return round(l_val + (r_val - l_val) * owner.strenght / 100)
+	return round(l_val + (r_val - l_val) * owner.get_strenght() / 100)

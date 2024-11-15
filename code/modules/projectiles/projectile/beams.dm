@@ -262,3 +262,48 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 
+
+/obj/item/projectile/beam/anomaly
+	name = "луч стабилизатора аномалий"
+	icon_state = "emitter"
+	damage = 0
+	hitsound = 'sound/weapons/resonator_blast.ogg'
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
+	light_color = LIGHT_COLOR_GREEN
+	/// The amount by which the stability of the anomaly changes upon impact.
+	var/stability_delta = 0
+	/// The distance the anomaly is pulled towards the shooter upon impact.
+	var/pull_strenght = 0
+	/// The amount of time that beam increase the blocking of the anomaly's normal movement.
+	var/move_block = 0
+	/// The amount of time that beam increase the blocking of the anomaly's impulsive movement.
+	var/move_impulces_block = 0
+	/// The amount by which the strength of the anomaly's effects is temporarily reduced.
+	var/anom_weaken = 0
+	/// The moment at which the reduction in the effects of the anomaly will be reset.
+	var/weaken_time = 0
+
+/obj/item/projectile/beam/anomaly/on_hit(atom/target, blocked, hit_zone)
+	if(!isanomaly(target))
+		return ..()
+
+	var/obj/effect/anomaly/anomaly = target
+	anomaly.stability = clamp(anomaly.stability + stability_delta, 0, 100)
+	anomaly.move_moment = max(world.time + move_block, anomaly.move_moment)
+	anomaly.move_impulse_moment = max(world.time + move_impulces_block, anomaly.move_impulse_moment)
+	if(anom_weaken)
+		anomaly.weaken = anom_weaken
+		anomaly.weaken_moment = world.time + weaken_time
+
+	INVOKE_ASYNC(anomaly, TYPE_PROC_REF(/obj/effect/anomaly, go_to), get_turf(firer_source_atom), pull_strenght)
+	return TRUE
+
+/obj/item/projectile/beam/anomaly/stabilizer
+	name = "стабилизирующий луч"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	light_color = LIGHT_COLOR_BLUE
+
+/obj/item/projectile/beam/anomaly/destabilizer
+	name = "дестабилизирующий луч"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
+	light_color = LIGHT_COLOR_RED

@@ -6,7 +6,16 @@
 	item_state = "electronic"
 	resistance_flags = FIRE_PROOF
 	receiving = TRUE
+	/// The type of anomaly that leaves nuclei of this type.
 	var/anomaly_type = /obj/effect/old_anomaly
+	/// The strength of the anomaly at the moment of stabilization. Used to scale some effects of items using anomaly cores.
+	var/strenght = 50
+	/// The level of the anomaly from which the core was collected.
+	var/tier = 0
+
+/obj/item/assembly/signaler/anomaly/tier2/New(spawnloc, strenght = rand(40, 60))
+	. = ..()
+	src.strenght = strenght
 
 /obj/item/assembly/signaler/anomaly/tier2/receive_signal(datum/signal/signal)
 	if(..())
@@ -16,6 +25,12 @@
 /obj/item/assembly/signaler/anomaly/attack_self()
 	return
 
+/*
+100 of tier 1 == 50 of tier 2 == 25 of tier 3
+100 of tier 3 == 200 of tier 2 == 400 of tier 1
+*/
+/obj/item/assembly/signaler/anomaly/proc/get_strenght()
+	return strenght * (1 << (tier - 1))
 
 // ============================ Tier 1 ===================================
 /obj/item/assembly/signaler/anomaly/tier1
@@ -30,6 +45,7 @@
 	icon_state = "pyro_core"
 	anomaly_type = null
 	origin_tech = "materials=3" // clonable by experimentor
+	tier = 1
 
 /obj/item/assembly/signaler/anomaly/tier1/pyro
 	name = "ядро малой атмосферной аномалии"
@@ -109,7 +125,8 @@
 	desc = "Вероятно, его можно как-то зарядить."
 	icon_state = "pyro_core"
 	anomaly_type = null
-	origin_tech = "materials=5" // not clonable by experimentor 😹🫵
+	origin_tech = "materials=5" // not clonable by experimentor
+	tier = 2
 
 /obj/item/assembly/signaler/anomaly/tier2/pyro
 	name = "\improper pyroclastic anomaly core"
@@ -159,7 +176,8 @@
 	desc = "Вероятно, его можно как-то зарядить."
 	icon_state = "pyro_core"
 	anomaly_type = null
-	origin_tech = "materials=7" // Sorry, not clonable by experimentor 🫡
+	origin_tech = "materials=7" // Sorry, not clonable by experimentor
+	tier = 3
 
 /obj/item/assembly/signaler/anomaly/tier3/pyro
 	name = "ядро большой атмосферной аномалии"

@@ -1,4 +1,4 @@
-/datum/anomaly_impulse/bs_selftp
+/datum/anomaly_impulse/move/bs_selftp
 	name = "Пространственный сдвиг"
 	desc = "Аномалия перемещается из одной точки в другую без пересечения физического пространства между ними. \
 			Высокий уровень стабильности аномалии полностью убирает данный вид импульсов, как и Пространственные \
@@ -10,31 +10,31 @@
 	/// Maximum range of teleportation.
 	var/tp_range_high = -1
 
-/datum/anomaly_impulse/bs_selftp/impulse()
+/datum/anomaly_impulse/move/bs_selftp/impulse()
 	var/matrix/M = matrix()
 	M.Scale(0.1, 0.1)
 	animate(owner, transform = M, time = 0.5 SECONDS, alpha = 0)
 
+	sleep(0.5 SECONDS)
 	var/obj/effect/anomaly/bluespace/anomaly = owner
 	anomaly.teleport(owner, scale_by_strenght(tp_range_low, tp_range_high))
-	sleep(0.5 SECONDS)
 
 	M.Scale(10, 10)
 	animate(owner, transform = M, time = 0.5 SECONDS, alpha = 255)
 
-/datum/anomaly_impulse/bs_selftp/tier1
+/datum/anomaly_impulse/move/bs_selftp/tier1
 	period_low = 3 SECONDS
 	period_high = 5 SECONDS
 	tp_range_low = 1
 	tp_range_high = 2
 
-/datum/anomaly_impulse/bs_selftp/tier2
+/datum/anomaly_impulse/move/bs_selftp/tier2
 	period_low = 5 SECONDS
 	period_high = 10 SECONDS
 	tp_range_low = 1
 	tp_range_high = 4
 
-/datum/anomaly_impulse/bs_selftp/tier3
+/datum/anomaly_impulse/move/bs_selftp/tier3
 	period_low = 5 SECONDS
 	period_high = 10 SECONDS
 	tp_range_low = 2
@@ -52,7 +52,7 @@
 /datum/anomaly_impulse/bs_tp_other/impulse()
 	var/obj/effect/anomaly/bluespace/anomaly = owner
 	var/tp_range = scale_by_strenght(tp_range_low, tp_range_high)
-	for(var/atom/movable/atom in range(tp_range, owner))
+	for(var/atom/movable/atom in view(tp_range, owner))
 		if(atom != owner)
 			anomaly.teleport(atom, tp_range)
 

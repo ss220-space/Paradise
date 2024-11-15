@@ -10,6 +10,30 @@
 	/// The radius at which collapse effects are applied.
 	var/collapse_range = 0
 
+/obj/effect/anomaly/vortex/collapse()
+	var/list/affected = list()
+	for(var/turf/T in range(collapse_range, src))
+		var/key = "[get_dist(src, T)]"
+		if(!(key in affected))
+			affected[key] = list()
+
+		var/list/list = affected[key]
+		list.Add(T)
+
+	for(var/key in affected)
+		var/matrix/M = matrix()
+		var/mult = text2num(key)
+		M.Scale(mult, mult)
+		animate(src, transform = M, time = 0.2 SECONDS)
+		var/list/list = affected[key]
+		for(var/turf/T in list)
+			if(prob(100 - mult * 10))
+				T.singularity_act(grav_pull_strenght)
+
+		sleep(2)
+
+	. = ..()
+
 /obj/effect/anomaly/vortex/proc/pull(atom/movable/A)
 	// a - vector A->src
 	var/ax = x - A.x
@@ -24,7 +48,7 @@
 	var/bx = -a1y
 	var/by = a1x
 
-	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * strenght / 100)
+	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * get_strenght() / 100)
 
 	// c - vector of moving. Always move 1
 	var/cx = ax * radius + bx * (a_len - 1)
@@ -32,11 +56,12 @@
 
 	var/turf/target = get_turf(locate(A.x + cx, A.y + cy, z))
 	A.singularity_pull(target, grav_pull_strenght)
+	A.update_icon()
 
 /obj/effect/anomaly/vortex/proc/do_pulls()
-	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * strenght / 100)
-	for(var/atom/movable/A in range(radius, src))
-		if(!iseffect(A))
+	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * get_strenght() / 100)
+	for(var/atom/movable/A in view(radius, src))
+		if(!A.anchored || ismachinery(A))
 			pull(A)
 
 /obj/effect/anomaly/vortex/process()
@@ -45,11 +70,18 @@
 
 /obj/effect/anomaly/vortex/mob_touch_effect(mob/living/M)
 	. = ..()
-	M.random_throw(tier * 2, tier * 3, tier * 2)
+	M.random_throw(tier * 2, tier * 3, 5)
 
 /obj/effect/anomaly/vortex/item_touch_effect(obj/item/I)
 	. = ..()
-	I.random_throw(tier * 2, tier * 3, tier * 2)
+	I.random_throw(tier * 2, tier * 3, 5)
+
+/obj/effect/anomaly/vortex/process()
+	. = ..()
+
+	for(var/atom/movable/A in loc.contents)
+		if(!A.anchored)
+			A.random_throw(tier * 2, tier * 3, 5)
 
 /obj/effect/anomaly/vortex/tier1
 	name = "малая вихревая аномалия"
@@ -63,13 +95,14 @@
 	stronger_anomaly_type = /obj/effect/anomaly/vortex/tier2
 	tier = 1
 	impulses_types = list(
-		/datum/anomaly_impulse/energ_fastmove/tier1,
+		/datum/anomaly_impulse/move/energ_fastmove/tier1,
 		/datum/anomaly_impulse/superpull/tier1,
 	)
 
 	grav_pull_range_low = 1
 	grav_pull_range_high = 2
 	grav_pull_strenght = STAGE_THREE
+	collapse_range = 0
 
 /obj/effect/anomaly/vortex/tier2
 	name = "вихревая аномалия"
@@ -84,13 +117,14 @@
 	stronger_anomaly_type = /obj/effect/anomaly/vortex/tier3
 	tier = 2
 	impulses_types = list(
-		/datum/anomaly_impulse/energ_fastmove/tier2,
+		/datum/anomaly_impulse/move/energ_fastmove/tier2,
 		/datum/anomaly_impulse/superpull/tier2,
 	)
 
 	grav_pull_range_low = 2
 	grav_pull_range_high = 3
 	grav_pull_strenght = STAGE_FOUR
+	collapse_range = 1
 
 /obj/effect/anomaly/vortex/tier3
 	name = "большая вихревая аномалия"
@@ -104,10 +138,20 @@
 	weaker_anomaly_type = /obj/effect/anomaly/vortex/tier2
 	tier = 3
 	impulses_types = list(
-		/datum/anomaly_impulse/energ_fastmove/tier3,
+		/datum/anomaly_impulse/move/energ_fastmove/tier3,
 		/datum/anomaly_impulse/superpull/tier3,
 	)
 
 	grav_pull_range_low = 2
 	grav_pull_range_high = 4
 	grav_pull_strenght = STAGE_FIVE
+	collapse_range = 3
+
+/obj/effect/anomaly/vortex/tier3/New()
+	. = ..()
+
+	for(var/mob/living/M in GLOB.player_list)
+		if(M.stat)
+			continue
+
+		to_chat(M, "<span class='vortex_anomaly'>Вы чувствуете силу едва заметно тянущую вас куда-то.</span>") // It used in one place.

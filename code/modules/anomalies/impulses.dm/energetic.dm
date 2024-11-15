@@ -1,4 +1,4 @@
-/datum/anomaly_impulse/energ_fastmove
+/datum/anomaly_impulse/move/energ_fastmove
 	name = "Рывок"
 	desc = "Аномалия совершает несколько коротких прыжков в случайном направлении. \
 			В процессе прыжков аномалия игнорирует любые перпятствия."
@@ -9,7 +9,7 @@
 	/// Maximum number of jumps.
 	var/jumps_high = 0
 
-/datum/anomaly_impulse/energ_fastmove/impulse()
+/datum/anomaly_impulse/move/energ_fastmove/impulse()
 	var/obj/effect/anomaly/flux/anomaly = owner
 
 	var/list/turf/possible_targets = list()
@@ -28,19 +28,19 @@
 		anomaly.after_move()
 		sleep(2)
 
-/datum/anomaly_impulse/energ_fastmove/tier1
+/datum/anomaly_impulse/move/energ_fastmove/tier1
 	period_low = 5 SECONDS
 	period_high = 20 SECONDS
 	jumps_low = 3
 	jumps_high = 5
 
-/datum/anomaly_impulse/energ_fastmove/tier2
+/datum/anomaly_impulse/move/energ_fastmove/tier2
 	period_low = 10 SECONDS
 	period_high = 30 SECONDS
 	jumps_low = 3
 	jumps_high = 7
 
-/datum/anomaly_impulse/energ_fastmove/tier3
+/datum/anomaly_impulse/move/energ_fastmove/tier3
 	period_low = 20 SECONDS
 	period_high = 40 SECONDS
 	jumps_low = 3
@@ -89,7 +89,7 @@
 	shock_damage_high = 70
 
 
-/datum/anomaly_impulse/machinery_jump
+/datum/anomaly_impulse/move/machinery_jump
 	name = "Перемещение по машинерии"
 	desc = "Аномалия прыгает по энергосети к ближайшей машинерии."
 	do_shake = FALSE
@@ -99,23 +99,23 @@
 	/// Maximum damage that machinery takes when teleports.
 	var/damage_high = 0
 
-/datum/anomaly_impulse/machinery_jump/impulse()
+/datum/anomaly_impulse/move/machinery_jump/impulse()
 	var/obj/effect/anomaly/flux/anomaly = owner
 	anomaly.jump_to_machinery(scale_by_strenght(damage_low, damage_high))
 
-/datum/anomaly_impulse/machinery_jump/tier1
+/datum/anomaly_impulse/move/machinery_jump/tier1
 	period_low = 15 SECONDS
 	period_high = 45 SECONDS
 	damage_low = 20
 	damage_high = 40
 
-/datum/anomaly_impulse/machinery_jump/tier2
+/datum/anomaly_impulse/move/machinery_jump/tier2
 	period_low = 10 SECONDS
 	period_high = 25 SECONDS
 	damage_low = 40
 	damage_high = 60
 
-/datum/anomaly_impulse/machinery_jump/tier3
+/datum/anomaly_impulse/move/machinery_jump/tier3
 	period_low = 5 SECONDS
 	period_high = 15 SECONDS
 	damage_low = 60

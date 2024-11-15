@@ -340,29 +340,29 @@ or something covering your eyes."
 
 
 /atom/movable/screen/alert/negative
-	name = "Negative Gravity"
-	desc = "You're getting pulled upwards. While you won't have to worry about falling down anymore, you may accidentally fall upwards!"
+	name = "Обратная гравитация"
+	desc = "Вас тянет вверх. Хотя вам больше не придется беспокоиться о падении вниз, вы можете случайно упасть вверх!"
 	icon_state = "negative"
 
 
 /atom/movable/screen/alert/weightless
-	name = "Weightless"
-	desc = "Gravity has ceased affecting you, and you're floating around aimlessly. You'll need something large and heavy, like a \
-wall or lattice, to push yourself off if you want to move. A jetpack would enable free range of motion. A pair of \
-magboots would let you walk around normally on the floor. Barring those, you can throw things, use a fire extinguisher, \
-or shoot a gun to move around via Newton's 3rd Law of Motion."
+	name = "Невесомость"
+	desc = "Гравитация перестала на вас влиять, и вы парите. Вам понадобится что-то большое и тяжелое, например, \
+стена или решетка, чтобы оттолкнуться, если вы хотите двигаться. Реактивный ранец обеспечит вам свободу движений. Пара \
+магнитных ботинков позволит вам нормально ходить по полу. За исключением этого, вы можете бросать вещи, использовать огнетушитель или \
+стрелять из пистолета, чтобы перемещаться согласно третьему закону Ньютона."
 	icon_state = "weightless"
 
 
 /atom/movable/screen/alert/highgravity
-	name = "High Gravity"
-	desc = "You're getting crushed by high gravity, picking up items and movement will be slowed."
+	name = "Повышенная гравитация"
+	desc = "На вас давит высокая гравитация."
 	icon_state = "paralysis"
 
 
 /atom/movable/screen/alert/veryhighgravity
-	name = "Crushing Gravity"
-	desc = "You're getting crushed by high gravity, picking up items and movement will be slowed. You'll also accumulate brute damage!"
+	name = "Сокрушительная гравитация"
+	desc = "На вас давит невероятно высокая гравитация. Это пагубно сказывается на вашем организме!"
 	icon_state = "paralysis"
 
 

@@ -26,19 +26,31 @@
 	/// List of impulses datums.
 	var/list/datum/anomaly_impulse/impulses = list()
 
+	/// The moment from which the anomaly will be able to move.
+	var/move_moment = 0
+	/// The moment from which the anomaly will be able to move by impulse.
+	var/move_impulse_moment = 0
+	/// The amount by which the strength of the anomaly's effects is temporarily reduced.
+	var/weaken = 0
+	/// The moment at which the reduction in the effects of the anomaly will be reset.
+	var/weaken_moment = 0
+
+/obj/effect/anomaly/proc/init_animation()
+	var/matrix/M = matrix()
+	M.Scale(0.1, 0.1)
+	animate(src, transform = M, time = 0)
+	var/mult = (strenght + 50) / 100 * 20
+	mult *= tier * tier
+	M.Scale(mult, mult)
+	animate(src, transform = M, time = 1 SECONDS, alpha = 255)
+	sleep(1 SECONDS)
+
 /obj/effect/anomaly/Initialize(spawnloc, spawn_strenght = rand(30, 70), spawn_stability = rand(10, 29))
 	. = ..()
 	if(!get_area(src))
 		return INITIALIZE_HINT_QDEL
 
-	var/matrix/M = matrix()
-	M.Scale(0.1, 0.1)
-	animate(src, transform = M, time = 0)
-	var/mult = (spawn_strenght + 50) / 100 * 20
-	mult *= tier * tier
-	M.Scale(mult, mult)
-	animate(src, transform = M, time = 1 SECONDS, alpha = 255)
-
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/effect/anomaly, init_animation))
 	set_strenght(spawn_strenght)
 	stability = spawn_stability
 
@@ -60,11 +72,11 @@
 
 // It is in function because the size will change depending on the strength of the anomaly.
 /obj/effect/anomaly/proc/set_strenght(new_strenght)
-	var/matrix/M = matrix()
-	var/mult = (new_strenght + 50) / (strenght + 50)
-	M.Scale(mult, mult)
-	animate(src, transform = M, time = 0)
 	strenght = new_strenght
+	var/matrix/M = matrix()
+	var/mult = (strenght + 100) / 200
+	M.Scale(mult, mult)
+	animate(src, transform = M, time = 0.1 SECONDS)
 
 /obj/effect/anomaly/proc/collapse()
 	visible_message(span_warning("Вы видите как [src] достигает критической массы, в следствии чего, разрушается!"))
@@ -80,7 +92,10 @@
 	smoke.set_up(tier * 3, FALSE, loc)
 	smoke.start()
 
-	new core_type(loc)
+	if(strenght < 50)
+		core_type = text2path("/obj/item/assembly/signaler/anomaly/tier[tier]")
+
+	new core_type(loc, strenght)
 	GLOB.poi_list.Remove(src)
 	qdel(src)
 
@@ -107,6 +122,9 @@
 
 /obj/effect/anomaly/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
+	if(istype(mover, /obj/item/projectile/beam/anomaly))
+		return FALSE
+
 	if(ismob(mover))
 		return mob_touch_effect(mover)
 
@@ -162,9 +180,19 @@
 	for(var/mob/living/M in get_turf(src))
 		mob_touch_effect(M)
 
-/obj/effect/anomaly/proc/move()
-	step(src, get_move_dir())
+/obj/effect/anomaly/proc/normal_move()
+	if(world.time > move_moment)
+		return do_move(get_move_dir())
+
+/obj/effect/anomaly/proc/do_move(dir)
+	step(src, dir)
 	return TRUE
+
+/obj/effect/anomaly/proc/get_strenght()
+	if(world.time > weaken_moment)
+		weaken = 0
+
+	return max(min(strenght, 10), strenght - weaken)
 
 /obj/effect/anomaly/process()
 	if(stability < 30)
@@ -189,8 +217,24 @@
 		level_down()
 		return
 
-	if(!prob(strenght))
+	if(!prob(get_strenght()))
 		return
 
-	if(move())
+	if(normal_move())
 		after_move()
+
+/obj/effect/anomaly/proc/go_to(target, steps)
+	var/reversed = steps < 0
+	if(reversed)
+		steps = -steps
+
+	for(var/i = 1 to steps)
+		var/move_dir
+		if(reversed)
+			move_dir = get_dir(target, src)
+		else
+			move_dir = get_dir(src, target)
+
+		do_move(move_dir)
+		sleep(2)
+

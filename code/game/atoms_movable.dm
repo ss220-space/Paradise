@@ -1049,7 +1049,7 @@
  * * continuous_move - If this check is coming from something in the context of already drifting
  */
 /atom/movable/proc/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
-	if(no_gravity())
+	if(!no_gravity())
 		return TRUE
 
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir, continuous_move) & COMSIG_MOVABLE_STOP_SPACEMOVE)
@@ -1164,6 +1164,7 @@
 	SSthrowing.processing[src] = thrown_thing
 	thrown_thing.tick()
 
+	update_icon()
 	return TRUE
 
 /atom/movable/proc/random_throw(range_low, range_high, speed)
@@ -1172,7 +1173,8 @@
 		if(get_dist(T, src) >= range_low && get_dist(T, src) <= range_high)
 			targets.Add(T)
 
-	return throw_at(pick(targets), speed)
+	var/turf/target = pick(targets)
+	return throw_at(target, get_dist(src, target), speed)
 
 //Overlays
 /atom/movable/overlay

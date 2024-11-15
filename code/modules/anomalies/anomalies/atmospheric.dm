@@ -11,12 +11,12 @@
 	var/collapse_slimes_high = 0
 
 /obj/effect/anomaly/pyro/collapse()
-	for(var/turf/simulated/T in range(collapse_range * 2, src))
+	for(var/turf/simulated/T in view(collapse_range * 2, src))
 		T.temperature = rand(0, 50)
 
-	for(var/turf/simulated/T in range(collapse_range, src))
+	for(var/turf/simulated/floor/T in view(collapse_range, src))
 		var/near_ice = 0 // Generation will be more beautiful.
-		for(var/turf/simulated/checked in range(1, T))
+		for(var/turf/simulated/checked in view(1, T))
 			if(checked.GetComponent(/datum/component/wet_floor))
 				near_ice++
 
@@ -25,7 +25,7 @@
 		else
 			T.MakeSlippery(TURF_WET_ICE, 120 SECONDS)
 
-	for(var/mob/living/M in range(collapse_range, src))
+	for(var/mob/living/M in view(collapse_range, src))
 		if(prob(50))
 			M.adjust_fire_stacks(20)
 			M.IgniteMob()

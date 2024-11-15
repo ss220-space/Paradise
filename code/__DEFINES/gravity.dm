@@ -6,7 +6,7 @@
  */
 #define NEGATIVE_GRAVITY -1
 
-#define NO_GRAVITY 0.1
+#define NO_GRAVITY 0.3
 
 #define STANDARD_GRAVITY 1 //Anything above this is high gravity, anything below no grav until negative gravity
 /// The gravity strength threshold for slownown.

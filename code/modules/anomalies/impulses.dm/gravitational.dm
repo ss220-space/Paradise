@@ -8,7 +8,7 @@
 
 /datum/anomaly_impulse/change_grav/impulse()
 	var/obj/effect/anomaly/grav/anomaly = owner
-	for(var/atom/movable/A in range(scale_by_strenght(effect_radius_low, effect_radius_high), owner))
+	for(var/atom/movable/A in view(scale_by_strenght(effect_radius_low, effect_radius_high), owner))
 		if(!iseffect(A))
 			anomaly.random_gravity_change(A)
 
@@ -48,8 +48,8 @@
 	var/throw_speed_high = 0
 
 /datum/anomaly_impulse/random_throws/impulse()
-	for(var/atom/movable/A in range(scale_by_strenght(effect_radius_low, effect_radius_high), owner))
-		if(!iseffect(A))
+	for(var/atom/movable/A in view(scale_by_strenght(effect_radius_low, effect_radius_high), owner))
+		if(!A.anchored)
 			A.random_throw(throw_range_low, throw_range_high, scale_by_strenght(throw_speed_low, throw_speed_high))
 
 /datum/anomaly_impulse/random_throws/tier1

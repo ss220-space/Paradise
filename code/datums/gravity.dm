@@ -11,6 +11,16 @@
 	if(!gravity_sources[id])
 		gravity_sources.Remove(id)
 
+	if(isliving(src))
+		var/mob/living/M = src
+		M.refresh_gravity()
+
+/atom/proc/remove_gravity_source(id)
+	gravity_sources.Remove(id)
+	if(isliving(src))
+		var/mob/living/M = src
+		M.refresh_gravity()
+
 /atom/proc/add_ignored_gravity_source(id)
 	if(!(id in ignored_gravity_sources))
 		ignored_gravity_sources[id] = 1

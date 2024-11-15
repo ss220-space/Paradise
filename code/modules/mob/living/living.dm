@@ -422,23 +422,32 @@
 	// all this repeated spaghetti code is used to properly register projectiles
 	if(mover.pass_flags == PASSEVERYTHING)
 		return TRUE
+
 	if(mover.pass_flags & pass_flags_self)
 		return TRUE
-	if(mover.throwing && (pass_flags_self & LETPASSTHROW))
+
+	// We can pass through low buildings if we walk on the ceiling.
+	if((mover.throwing || get_gravity(mover) < -NO_GRAVITY) && (pass_flags_self & LETPASSTHROW))
 		return TRUE
+
 	if(mover in buckled_mobs)
 		return TRUE
+
 	var/is_projectile = isprojectile(mover)
 	if(!density || is_projectile)
 		if(is_projectile)
 			return projectile_allow_through(mover, border_dir)
 		return TRUE
+
 	if(mover.throwing)
 		return body_position == LYING_DOWN || mover.throwing.thrower == src
+
 	if(pulling && pulling == mover && grab_state >= GRAB_NECK)	// pulled mob can step through us
 		return TRUE
+
 	if(buckled == mover)
 		return TRUE
+
 	return !mover.density || body_position == LYING_DOWN
 
 
@@ -2014,8 +2023,10 @@
 	add_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED, TRAIT_UNDENSE), LYING_DOWN_TRAIT)
 	if(HAS_TRAIT(src, TRAIT_FLOORED) && !(dir & (NORTH|SOUTH)))
 		setDir(pick(NORTH, SOUTH)) // We are and look helpless.
+
 	if(rotate_on_lying)
-		body_position_pixel_y_offset = PIXEL_Y_OFFSET_LYING
+		body_position_pixel_y_offset = gravity_state >= 0 ? PIXEL_Y_OFFSET_LYING : PIXEL_Y_OFFSET_LYING_REVERSED
+
 	if(!buckled || buckled.buckle_lying == NO_BUCKLE_LYING)
 		lying_angle_on_lying_down(new_lying_angle)
 
