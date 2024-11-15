@@ -557,7 +557,7 @@
 		if(bodypart.internal_bleeding())
 			to_chat(user, span_warning("You tear through [human]'s skin releasing the blood from [human.p_their()] [bodypart.name]!"))
 			playsound(get_turf(human), 'sound/effects/pierce.ogg', 30, TRUE)
-			human.blood_volume = max(human.blood_volume - 100, 0)
+			human.setBlood(max(human.blood_volume - 100, 0))
 			var/splatter_dir = get_dir(user, human)
 			blood_color = human.dna.species.blood_color
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(human.drop_location(), splatter_dir, blood_color)

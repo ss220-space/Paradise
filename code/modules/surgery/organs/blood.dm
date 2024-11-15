@@ -84,12 +84,17 @@
 /mob/living/carbon/proc/bleed(amt)
 	if(!blood_volume)
 		return FALSE
+
 	. = TRUE
-	blood_volume = max(blood_volume - amt, 0)
+
+	setBlood(max(blood_volume - amt, 0))
+
 	if(!isturf(loc)) //Blood loss still happens in locker, floor stays clean
 		return .
+
 	if(amt >= 10)
 		add_splatter_floor(loc)
+
 	else
 		add_splatter_floor(loc, small_drip = TRUE)
 
@@ -110,12 +115,16 @@
 /mob/living/carbon/proc/bleed_internal(amt)
 	if(!blood_volume)
 		return FALSE
+
 	. = TRUE
-	blood_volume = max(blood_volume - amt, 0)
+
+	setBlood(max(blood_volume - amt, 0))
+
 	if(prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
-		custom_emote(EMOTE_AUDIBLE, "кашля%(ет,ют)% кровью!")
+		custom_emote(EMOTE_AUDIBLE, "кашля%(ет, ют)% кровью!")
 		add_splatter_floor(loc, small_drip = TRUE)
 		return .
+
 	// +2.5% chance per internal bleeding site that we'll cough up blood on a given tick.
 	// Must be bleeding internally in more than one place to have a chance at this.
 	if(amt >= 1 && prob(5 * amt))
@@ -152,11 +161,23 @@
 
 	return ..(amount)
 
+/mob/living/proc/setBlood(amount)
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
+		return FALSE
+
+	if(SEND_SIGNAL(src, COMSIG_LIVING_EARLY_SET_BLOOD, amount) & COMPONENT_PREVENT_BLOODLOSS)
+		return FALSE
+
+	blood_volume = max(round(amount, DAMAGE_PRECISION), 0)
+	SEND_SIGNAL(src, COMSIG_LIVING_SET_BLOOD, amount)
+
+	return TRUE
+
 /mob/living/proc/restore_blood()
-	blood_volume = initial(blood_volume)
+	setBlood(initial(blood_volume))
 
 /mob/living/carbon/human/restore_blood()
-	blood_volume = BLOOD_VOLUME_NORMAL
+	setBlood(BLOOD_VOLUME_NORMAL)
 	bleed_rate = 0
 
 /****************************************************
@@ -194,7 +215,7 @@
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
 
-			C.blood_volume = min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_NORMAL)
+			C.setBlood(min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_NORMAL))
 			return 1
 
 	AM.reagents.add_reagent(blood_id, amount, blood_data, bodytemperature)

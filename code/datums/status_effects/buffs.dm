@@ -374,22 +374,30 @@
 	active_instances += instance_duration
 
 /datum/status_effect/fleshmend/tick(seconds_between_ticks)
-	if(length(active_instances) >= 1)
+	if(LAZYLEN(active_instances) >= 1)
 		var/heal_amount = (length(active_instances) / tolerance) * (freezing ? 2 : 10)
 		var/blood_restore = 30 * length(active_instances)
 		var/update = NONE
+
 		update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
 		update |= owner.heal_damage_type(heal_amount, OXY, FALSE)
+		
 		if(update)
 			owner.updatehealth("fleshmend")
+
 		if(!HAS_TRAIT(owner, TRAIT_NO_BLOOD_RESTORE))
-			owner.blood_volume = min(owner.blood_volume + blood_restore, BLOOD_VOLUME_NORMAL)
+			owner.setBlood(min(owner.blood_volume + blood_restore, BLOOD_VOLUME_NORMAL))
+
 		var/list/expired_instances = list()
+
 		for(var/i in 1 to length(active_instances))
 			active_instances[i]--
+
 			if(active_instances[i] <= 0)
 				expired_instances += active_instances[i]
+
 		active_instances -= expired_instances
+
 	tolerance = max(tolerance - 0.05, 1)
 	if(tolerance <= 1 && length(active_instances) == 0)
 		qdel(src)

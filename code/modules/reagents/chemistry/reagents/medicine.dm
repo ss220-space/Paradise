@@ -141,7 +141,7 @@
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.get_blood_id() == id && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
-			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
+			C.setBlood(min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL))
 			C.reagents.del_reagent(id)
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
@@ -1053,20 +1053,20 @@
 	if(severity == 1)
 		if(effect <= 2)
 			M.vomit(0, VOMIT_BLOOD, 0 SECONDS)
-			M.blood_volume = max(M.blood_volume - rand(5, 10), 0)
+			M.setBlood(max(M.blood_volume - rand(5, 10), 0))
 		else if(effect <= 4)
 			M.vomit(0, VOMIT_BLOOD, 0 SECONDS)
-			M.blood_volume = max(M.blood_volume - rand(1, 2), 0)
+			M.setBlood(max(M.blood_volume - rand(1, 2), 0))
 	else if(severity == 2)
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M] is bleeding from [M.p_their()] very pores!</span>")
 			M.bleed(rand(10, 20))
 		else if(effect <= 4)
 			M.vomit(0, VOMIT_BLOOD, 0 SECONDS)
-			M.blood_volume = max(M.blood_volume - rand(5, 10), 0)
+			M.setBlood(max(M.blood_volume - rand(5, 10), 0))
 		else if(effect <= 8)
 			M.vomit(0, VOMIT_BLOOD, 0 SECONDS)
-			M.blood_volume = max(M.blood_volume - rand(1, 2), 0)
+			M.setBlood(max(M.blood_volume - rand(1, 2), 0))
 	return list(effect, update_flags)
 
 

@@ -316,9 +316,9 @@
 	uses = -1
 
 /obj/item/organ/internal/heart/gland/bloody/activate()
-	owner.blood_volume = max(owner.blood_volume - 20, 0)
-	owner.visible_message("<span class='danger'>[owner]'s skin erupts with blood!</span>",\
-	"<span class='userdanger'>Blood pours from your skin!</span>")
+	owner.setBlood(max(owner.blood_volume - 20, 0))
+	owner.visible_message(span_danger("[owner]'s skin erupts with blood!"), \
+	span_userdanger("Blood pours from your skin!"))
 
 	for(var/turf/T in oview(3,owner)) //Make this respect walls and such
 		owner.add_splatter_floor(T)

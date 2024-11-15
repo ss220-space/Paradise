@@ -266,7 +266,7 @@
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
 				to_chat(owner.current, span_warning("Вы поглотили всю жизненную эссенцию [target], дальнейшее питьё крови будет только утолять голод!"))
-				target.blood_volume = max(target.blood_volume - 25, 0)
+				target.setBlood(max(target.blood_volume - 25, 0))
 				owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
 				continue
 
@@ -277,7 +277,7 @@
 				adjust_blood(target, blood * BLOOD_GAINED_MODIFIER)
 				to_chat(owner.current, span_boldnotice("Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
 
-		target.blood_volume = max(target.blood_volume - 25, 0)
+		target.setBlood(max(target.blood_volume - 25, 0))
 
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(target.blood_volume)
