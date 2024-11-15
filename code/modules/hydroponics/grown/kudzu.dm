@@ -40,11 +40,11 @@
 /obj/item/seeds/kudzu/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/seeds/kudzu))
 		var/obj/item/seeds/kudzu/AttackerSeed = I
-		src.mutations |= AttackerSeed.mutations
+		mutations |= AttackerSeed.mutations
 
 		add_fingerprint(user)
 		qdel(I)
-		return ATTACK_CHAIN_BLOCKED
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 /obj/item/seeds/kudzu/attack_self(mob/user)
