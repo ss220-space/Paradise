@@ -623,9 +623,9 @@
 	#define COMPONENT_PREVENT_BLOODLOSS	(1<<0)
 /// Source: /mob/living/adjustBloodLoss(amount)
 #define COMSIG_LIVING_BLOOD_ADJUSTED 	"living_blood_adjusted"
-/// Source: /mob/living/setBloodLoss(amount)
+/// Source: /mob/living/setBlood(amount)
 #define COMSIG_LIVING_EARLY_SET_BLOOD	"living_early_set_blood"
-/// Source: /mob/living/setBloodLoss(amount)
+/// Source: /mob/living/setBlood(amount)
 #define COMSIG_LIVING_SET_BLOOD			"living_set_blood"
 
 /// From /mob/add_language() (language_name)
