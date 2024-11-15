@@ -266,7 +266,7 @@
 /datum/dna/gene/disability/wingdings
 	name = "Alien Voice"
 	desc = "Искажает голос субъекта, превращая его в непонятную речь."
-	activation_message = list(span_wingdings("Ваши голосовые связки кажутся инородными."))
+	activation_message = list(span_wingdings("Vashi golosovyye svyazki kazhutsya chuzhimi."))
 	deactivation_message = list("Ваши голосовые связки больше не кажутся инородными.")
 	instability = -GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_WINGDINGS)
@@ -303,7 +303,7 @@
 /datum/dna/gene/disability/weak
 	name = "Weak"
 	desc = "Делает мышцы субъекта более слабыми."
-	activation_message = list("Вы чуствуете внезапную слабость в мышцах.")
+	activation_message = list("Вы чувствуете внезапную слабость в мышцах.")
 	deactivation_message = list("Вы снова ощущаете силу в мышцах.")
 	instability = -GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_GENE_WEAK)
@@ -378,7 +378,7 @@
 /datum/dna/gene/disability/paraplegia
 	name = "Paraplegia"
 	desc = "Парализует мышцы ног."
-	activation_message = list("Вы не чуствуете своих ног.")
+	activation_message = list("Вы не чувствуете своих ног.")
 	deactivation_message = list("Вы возвращаете контроль над ногами.")
 	instability = -GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_FLOORED)

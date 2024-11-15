@@ -508,7 +508,7 @@
 	)
 
 /datum/ritual/ashwalker/curse/del_things()
-	for(var/mob/living/carbon/human/human as anything in used_things)
+	for(var/mob/living/carbon/human/human in used_things)
 		human.gib()
 
 	return
@@ -519,7 +519,7 @@
 	if(!.)
 		return FALSE
 
-	for(var/mob/living/carbon/human/human as anything in used_things)
+	for(var/mob/living/carbon/human/human in used_things)
 		if(human.stat != DEAD)
 			to_chat(invoker, "Гуманоиды должны быть мертвы.")
 			return FALSE
@@ -812,7 +812,7 @@
 	return TRUE
 
 /datum/ritual/ashwalker/population/del_things()
-	for(var/mob/living/living as anything in used_things)
+	for(var/mob/living/living in used_things)
 		living.gib()
 
 	return
@@ -823,7 +823,7 @@
 	if(!.)
 		return FALSE
 
-	for(var/mob/living/living as anything in used_things)
+	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
 			to_chat(invoker, "Существа должны быть мертвы.")
 			return FALSE
@@ -969,13 +969,9 @@
 	return TRUE
 
 /datum/ritual/ashwalker/transmutation/do_ritual(mob/living/carbon/human/invoker)
-	var/list/ore_types = list()
+	var/ore_type = pick(subtypesof(/obj/item/stack/ore))
 
-	for(var/obj/item/stack/ore/ore as anything in subtypesof(/obj/item/stack/ore))
-		LAZYADD(ore_types, ore)
-
-	var/obj/item/stack/ore/ore = pick(ore_types)
-	ore = new(get_turf(ritual_object))
+	var/obj/item/stack/ore/ore = new ore_type(get_turf(ritual_object))
 	ore.add(10)
 
 	return RITUAL_SUCCESSFUL
@@ -1113,7 +1109,7 @@
 	if(!.)
 		return FALSE
 
-	for(var/mob/living/carbon/human/human as anything in used_things)
+	for(var/mob/living/carbon/human/human in used_things)
 		if(human.stat != DEAD)
 			to_chat(invoker, "Гуманоиды должны быть мертвы.")
 			return FALSE
@@ -1178,7 +1174,7 @@
 	if(!.)
 		return FALSE
 
-	for(var/mob/living/simple_animal/living as anything in used_things)
+	for(var/mob/living/simple_animal/living in used_things)
 		if(living.client)
 			to_chat(invoker, "Существо должно быть бездушным.")
 			return FALSE
