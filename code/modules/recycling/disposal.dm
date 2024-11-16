@@ -50,6 +50,7 @@
 /obj/machinery/disposal/Initialize(mapload, obj/structure/disposalconstruct/made_from)
 	// this will get a copy of the air turf and take a SEND PRESSURE amount of air from it
 	. = ..()
+	air_contents = new
 	if(made_from)
 		setDir(made_from.dir)
 	return INITIALIZE_HINT_LATELOAD
@@ -60,7 +61,6 @@
 	var/datum/gas_mixture/env = new
 	env.copy_from(loc.return_air())
 	var/datum/gas_mixture/removed = env.remove(SEND_PRESSURE + 1)
-	air_contents = new
 	air_contents.merge(removed)
 	trunk_check()
 	update()

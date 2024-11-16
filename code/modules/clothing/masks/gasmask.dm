@@ -26,7 +26,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
 	)
 
 // **** Welding gas mask ****
@@ -79,7 +80,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
 	)
 
 
@@ -187,7 +189,8 @@
 	icon_state = "rainbow"
 	item_state = "rainbow"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
 	)
 
 /obj/item/clothing/mask/gas/clownwiz

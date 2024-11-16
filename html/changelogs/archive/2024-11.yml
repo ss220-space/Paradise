@@ -63,3 +63,43 @@
   - server: Automatic NanoMap Update (#6025)
   littleboobs:
   - qol: DNA effects translation (#6114)
+'2024-11-06':
+  Antoonij:
+  - bugfix: ash walker rituals fix (#6138)
+  - bugfix: some rituals fix (#6140)
+  LiquidPotroh:
+  - bugfix: Xeno cant evolve to queen (#6136)
+  PlayerUnknown14:
+  - imageadd: Riot shield - new sprites (#6095)
+  - bugfix: RD doll now works properly (#6106)
+  Vladisvell:
+  - bugfix: Fixed headphones not unable to play songs (#6139)
+  - bugfix: Wooden wall creation fix (#6141)
+  - bugfix: Syndicate turrets are now dense (#6142)
+  userbaza:
+  - add: cloth footwraps now paintable, craftable and edible (#6042)
+'2024-11-07':
+  Anorak2020:
+  - add: vampire sucking effects (#6029)
+  KefirTT:
+  - bugfix: singularity hammer no longer pulling ghosts (#6143)
+'2024-11-09':
+  Vitalya:
+  - bugfix: Wryn hair color change  (#6152)
+  Vladisvell:
+  - bugfix: Removes density on syndicate turret upon destruction (#6146)
+  - add: Titlescreen optimization for dreamseeker debug mode (#6148)
+  - bugfix: Setups Malfunctioning AI as a special role to prevent double antaging
+      (#6151)
+'2024-11-11':
+  Den109G:
+  - bugfix: Now clock-structure can disguise (#6156)
+  Mahimka42:
+  - add: New robust security backpack (#6135)
+  - tweak: 30 bullets instead 20 in 10mm ammo box. (#6163)
+  PlayerUnknown14:
+  - add: warden got more access (#6157)
+  - add: Security tactical flashlight (#5948)
+  - balance: maintenance tunnels access for everyone (#6158)
+  Vitalya:
+  - imageadd: New sprites for some Wryn masks (#6144)
