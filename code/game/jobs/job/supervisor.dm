@@ -30,7 +30,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 /datum/job/captain/announce(mob/living/carbon/human/H)
 	. = ..()
-	GLOB.captain_announcement.Announce("Экипажу станции, капитан [H.real_name] взошел на борт!")
+	GLOB.captain_announcement.Announce("Экипажу станции, капитан [H.real_name] взош[genderize_ru(H.gender, "ёл", "ла", "ло", "ли")] на борт!")
 
 /datum/outfit/job/captain
 	name = "Captain"
