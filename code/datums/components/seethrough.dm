@@ -17,7 +17,13 @@
 	var/clickthrough
 
 /// see_through_map is a define pointing to a specific map. It's basically defining the area which is considered behind. See see_through_maps.dm for a list of maps
-/datum/component/seethrough/Initialize(see_through_map = SEE_THROUGH_MAP_DEFAULT, target_alpha = 100, animation_time = 0.5 SECONDS, perimeter_reset_timer = 2 SECONDS, clickthrough = TRUE)
+/datum/component/seethrough/Initialize(
+	see_through_map = SEE_THROUGH_MAP_DEFAULT,
+	target_alpha = 100,
+	animation_time = 0.5 SECONDS,
+	perimeter_reset_timer = 2 SECONDS,
+	clickthrough = TRUE
+	)
 	. = ..()
 
 	relative_turf_coords = GLOB.see_through_maps[see_through_map]
