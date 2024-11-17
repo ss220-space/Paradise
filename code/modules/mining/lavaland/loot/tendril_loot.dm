@@ -10,7 +10,7 @@
 		DATIVE = "парадоксальной сумке",
 		ACCUSATIVE = "парадоксальную сумку",
 		INSTRUMENTAL = "парадоксальной сумкой",
-		PREPOSITIONAL = "парадоксальной сумке",
+		PREPOSITIONAL = "парадоксальной сумке"
 	)
 	max_combined_w_class = 60
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -21,7 +21,7 @@
 	// basically we cannot put one bag in the storage if another one is already there
 	if(istype(I) && I.bag && I.bag == src && I.twin_storage && I.twin_storage.loc == src)
 		if(!stop_messages)
-			balloon_alert(usr, "нельзя положить в себя")
+			to_chat(usr, span_warning("И как ты собираешься это сделать?"))
 		return FALSE
 	return ..()
 
@@ -36,7 +36,7 @@
 		DATIVE = "парадоксальной сумке",
 		ACCUSATIVE = "парадоксальную сумку",
 		INSTRUMENTAL = "парадоксальной сумкой",
-		PREPOSITIONAL = "парадоксальной сумке",
+		PREPOSITIONAL = "парадоксальной сумке"
 	)
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "cultpack"
@@ -134,7 +134,7 @@
 		DATIVE = "книге вавилона",
 		ACCUSATIVE = "книгу вавилона",
 		INSTRUMENTAL = "книгой вавилона",
-		PREPOSITIONAL = "книге вавилона",
+		PREPOSITIONAL = "книге вавилона"
 	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book1"
@@ -169,7 +169,7 @@
 		DATIVE = "странному эликсиру",
 		ACCUSATIVE = "странный эликсир",
 		INSTRUMENTAL = "странным эликсиром",
-		PREPOSITIONAL = "странном эликсире",
+		PREPOSITIONAL = "странном эликсире"
 	)
 	list_reagents = list("flightpotion" = 5)
 
@@ -211,7 +211,7 @@
 		DATIVE = "лестнице иакова",
 		ACCUSATIVE = "лестницу иакова",
 		INSTRUMENTAL = "лестницей иакова",
-		PREPOSITIONAL = "лестнице иакова",
+		PREPOSITIONAL = "лестнице иакова
 	)
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "ladder"
@@ -247,7 +247,7 @@
 		DATIVE = "жуткой лампе",
 		ACCUSATIVE = "жуткою лампу",
 		INSTRUMENTAL = "жуткой лампой",
-		PREPOSITIONAL = "жуткой лампе",
+		PREPOSITIONAL = "жуткой лампе"
 	)
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern-blue"
@@ -270,7 +270,7 @@
 
 /obj/item/wisp_lantern/attack_self(mob/user)
 	if(!wisp)
-		balloon_alert(user, "дух исчез!")
+		to_chat(user, span_warning("Дух пропадает.")
 		update_icon(UPDATE_ICON_STATE)
 		return
 
@@ -337,7 +337,7 @@
 		DATIVE = "синему кубу",
 		ACCUSATIVE = "синий куб",
 		INSTRUMENTAL = "синим кубом",
-		PREPOSITIONAL = "синем кубе",
+		PREPOSITIONAL = "синем кубе"
 	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "blue_cube"
@@ -351,11 +351,11 @@
 
 /obj/item/warp_cube/attack_self(mob/user)
 	if(!linked)
-		balloon_alert(user, "[src] искрится и шипит")
+		balloon_alert(user, "куб искрится и шипит")
 		return
 
 	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
-		balloon_alert(user, "[src] искрится и шипит")
+		balloon_alert(user, "куб искрится и шипит")
 		return
 	if(do_after(user, 1.5 SECONDS, user))
 		var/datum/effect_system/smoke_spread/smoke = new
@@ -381,7 +381,7 @@
 		DATIVE = "красному кубу",
 		ACCUSATIVE = "красный куб",
 		INSTRUMENTAL = "красным кубом",
-		PREPOSITIONAL = "красном кубе",
+		PREPOSITIONAL = "красном кубе"
 	)
 	icon_state = "red_cube"
 
@@ -403,7 +403,7 @@
 		DATIVE = "мясному крюку",
 		ACCUSATIVE = "мясной крюк",
 		INSTRUMENTAL = "мясным крюком",
-		PREPOSITIONAL = "мясном крюке",
+		PREPOSITIONAL = "мясном крюке"
 	)
 	ammo_type = /obj/item/ammo_casing/magic/hook
 	icon_state = "hook"
@@ -464,7 +464,7 @@
 		DATIVE = "талисману бессмертия",
 		ACCUSATIVE = "талисман бессмертия",
 		INSTRUMENTAL = "талисманом бессмертия",
-		PREPOSITIONAL = "талисмане бессмертия",
+		PREPOSITIONAL = "талисмане бессмертия"
 	)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "talisman"
