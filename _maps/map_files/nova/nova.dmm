@@ -17549,7 +17549,9 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/twohanded/required/kirbyplants{
+	layer = 3.1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -45021,14 +45023,12 @@
 /area/maintenance/fore)
 "gxY" = (
 /obj/structure/window/reinforced,
-/obj/structure/statue/gold/hop{
-	pixel_y = 7
-	},
 /obj/structure/sign/goldenplaque{
 	pixel_y = 32;
 	desc = "Важное Уточнение! Рабочие пожелали оставаться анонимными, поэтому, обойдёмся их прозвищами. За помощь Главному Инженеру Новы в поисках и устранении неисправностей на станции НаноТрейзен. С благодарностью, Den10g. Слава НаноТрейзен!";
 	name = "Благодарственное Письмо от Главного Инженера станции Нова"
 	},
+/obj/structure/statue/gold/ce,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -49646,7 +49646,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/twohanded/required/kirbyplants{
+	layer = 3.1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -60181,7 +60183,9 @@
 /area/quartermaster/qm)
 "iOP" = (
 /obj/structure/window/reinforced,
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/twohanded/required/kirbyplants{
+	layer = 3.1
+	},
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
@@ -127463,7 +127467,9 @@
 /area/maintenance/casino)
 "sKl" = (
 /obj/structure/window/reinforced,
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/twohanded/required/kirbyplants{
+	layer = 3.1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
