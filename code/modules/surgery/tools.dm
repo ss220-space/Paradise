@@ -105,12 +105,13 @@
 
 /obj/item/surgicaldrill/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] наматыва[pluralize_ru(user.gender,"ет","ют")] себя на [declent_ru(ACCUSATIVE)]! Похоже [genderize_ru(user.gender,"он","она","оно","они")] соверша[pluralize_ru(user.gender,"ет","ют")] суицид!"))
+	addtimer(CALLBACK(src, PROC_REF(second_act), user), 2.5 SECONDS)
 	user.SpinAnimation(3, 10)
 	user.Immobilize(5 SECONDS)
 	playsound(user, 'sound/machines/juicer.ogg', 20, TRUE)
+	return OBLITERATION
 
-	sleep(25)
-
+/obj/item/surgicaldrill/proc/second_act(mob/user)
 	if(!user)
 		return
 
@@ -118,8 +119,6 @@
 		user.drop_item_ground(W)
 
 	user.gib()
-
-	return BRUTELOSS
 
 /obj/item/surgicaldrill/laser
 	name = "Advanced Laser Surgical Drill"
