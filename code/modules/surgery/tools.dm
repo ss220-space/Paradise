@@ -79,6 +79,14 @@
 	name = "surgical drill"
 	desc = "You can drill using this item. You dig?"
 	icon = 'icons/obj/surgery.dmi'
+	ru_names = list(
+		NOMINATIVE = "хирургическая дрель",
+		GENITIVE = "хирургической дрели",
+		DATIVE = "хирургической дрели",
+		ACCUSATIVE = "хирургическую дрель",
+		INSTRUMENTAL = "хирургической дрелью",
+		PREPOSITIONAL = "хирургической дрели",
+	)
 	icon_state = "drill"
 	item_state = "drills"
 	hitsound = 'sound/weapons/drill.ogg'
@@ -95,9 +103,22 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/surgicaldrill/suicide_act(mob/user)
-	to_chat(viewers(user), pick(span_suicide("[user] is pressing [src] to [user.p_their()] temple and activating it! It looks like [user.p_theyre()] trying to commit suicide."),
-						span_suicide("[user] is pressing [src] to [user.p_their()] chest and activating it! It looks like [user.p_theyre()] trying to commit suicide.")))
+/obj/item/surgicaldrill/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("[user] наматыва[pluralize_ru(user.gender,"ет","ют")] себя на [declent_ru(ACCUSATIVE)]! Похоже [genderize_ru(user.gender,"он","она","оно","они")] соверша[pluralize_ru(user.gender,"ет","ют")] суицид!"))
+	user.SpinAnimation(3, 10)
+	user.Immobilize(5 SECONDS)
+	playsound(user, 'sound/machines/juicer.ogg', 20, TRUE)
+
+	sleep(25)
+
+	if(!user)
+		return
+
+	for(var/obj/item/W in user)
+		user.drop_item_ground(W)
+
+	user.gib()
+
 	return BRUTELOSS
 
 /obj/item/surgicaldrill/laser
