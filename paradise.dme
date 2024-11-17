@@ -466,7 +466,7 @@
 #include "code\datums\components\proximity_monitor.dm"
 #include "code\datums\components\radioactivity.dm"
 #include "code\datums\components\ritual_object.dm"
-#include "code\datums\components\seetouch.dm"
+#include "code\datums\components\seethrough.dm"
 #include "code\datums\components\shielded.dm"
 #include "code\datums\components\slippery.dm"
 #include "code\datums\components\spawner.dm"
