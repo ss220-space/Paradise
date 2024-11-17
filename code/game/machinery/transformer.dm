@@ -357,3 +357,17 @@
 
 	return ..()
 
+/obj/machinery/transformer/ipc
+	name = "species transmogrifier"
+	desc = "БЫЛЯЯЯЯТЬ"
+	var/datum/species/target_species = /datum/species/machine
+	var/obj/item/organ/external/head/ipc/new_limb = (company = "Bishop Castle")
+
+
+
+/obj/machinery/transformer/ipc/do_transform(mob/living/carbon/human/victim)
+	if(!ispath(target_species))
+		to_chat(victim, span_warning("'[target_species]' is not a valid species!"))
+		return
+	victim.set_species(target_species)
+	victim.set_species(new_limb)
