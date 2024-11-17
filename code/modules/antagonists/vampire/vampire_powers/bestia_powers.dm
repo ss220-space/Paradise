@@ -215,19 +215,19 @@
 
 
 /datum/vampire_passive/ears_bang_protection
-	gain_desc = "Your eardrums feels more durable now. You can ignore high frequency sounds."
+	gain_desc = "Ваши барабанные перепонки теперь более прочные. Вы можете не обращать внимания на высокочастотные звуки."
 
 
 /datum/vampire_passive/eyes_flash_protection
-	gain_desc = "The corneas of your eyes have adapted to the bright flashes."
+	gain_desc = "Роговицы ваших глаз адаптировались к ярким вспышкам."
 
 
 /datum/vampire_passive/eyes_welding_protection
-	gain_desc = "Your eyes have been infused with the trophies power and no longer react to any bright light."
+	gain_desc = "Ваши глаза напитались силой трофея и больше не реагируют на яркий свет."
 
 
 /datum/vampire_passive/upgraded_grab
-	gain_desc = "Power of the blood allows you to take your victims in a tighter grab."
+	gain_desc = "Сила крови позволяет брать жертву в плотный захват."
 	/// Time (in deciseconds) required to reinforce aggressive/neck grab to the next state.
 	var/grab_speed = 2 SECONDS
 	/// Resist chance overrides for the victim.
@@ -250,7 +250,7 @@
 /datum/vampire_passive/dissection_cap/on_apply(datum/antagonist/vampire/vampire)
 	vampire.subclass.dissect_cap++
 	vampire.subclass.crit_organ_cap += 2
-	gain_desc = "You can now dissect one more organ from the same victim, up to a maximum of [vampire.subclass.dissect_cap]. Also new limit for critical organs dissection is now [vampire.subclass.crit_organ_cap]."
+	gain_desc = "Теперь вы можете извлекать еще один орган у одной и той же жертвы, но не более чем [vampire.subclass.dissect_cap]. Также новый предел для иссечения критических органов теперь составляет [vampire.subclass.crit_organ_cap]."
 
 
 /datum/vampire_passive/dissection_cap/two
@@ -262,9 +262,9 @@
  * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/////////////////////////////////////////////////////////////////////// *
 \*======================================================================================================================================*/
 /obj/effect/proc_holder/spell/vampire/self/dissect
-	name = "Dissect"
-	desc = "Precise blow that rips out victim's internal organ. Requires agressive grab and victim must be alive. Organs are used as trophies to passively increase our powers."
-	gain_desc = "You have gained the ability to collect victim's internal organs. Which will pasively increase your other powers strength."
+	name = "Иссечение"
+	desc = "Точный удар, вырывающий внутренний орган жертвы. Требуется агрессивный захват, жертва должна быть жива. Органы используются в качестве трофеев, чтобы пассивно увеличить наши силы."
+	gain_desc = "Вы получили способность собирать внутренние органы жертвы. Это пассивно увеличит силу других ваших способностей."
 	action_icon_state = "vampire_claws"
 	create_attack_logs = FALSE
 	base_cooldown = 5 SECONDS
@@ -298,18 +298,18 @@
 
 	if(!user.pulling || user.pull_hand != user.hand)
 		if(show_message)
-			to_chat(user, span_warning("You must be grabbing a victim in your active hand to dissect them!"))
+			to_chat(user, span_warning("Вы должны схватить жертву в активную руку, чтобы препарировать ее!"))
 		return FALSE
 
 	if(user.grab_state < GRAB_NECK)
 		if(show_message)
-			to_chat(user, span_warning("You must have a tighter grip to dissect this victim!"))
+			to_chat(user, span_warning("У вас должна быть более крепкая хватка, чтобы препарировать эту жертву!"))
 		return FALSE
 
 	var/mob/living/carbon/human/target = user.pulling
 	if(!ishuman(target) || is_monkeybasic(target) || ismachineperson(target) || target.stat == DEAD || !target.mind || !target.ckey)
 		if(show_message)
-			to_chat(user, span_warning("[target] is not compatible!"))
+			to_chat(user, span_warning("[target] не подходит!"))
 		return FALSE
 
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
@@ -319,7 +319,7 @@
 	var/unique_dissect_id = target.UID()
 	if((unique_dissect_id in vampire.dissected_humans) && vampire.dissected_humans[unique_dissect_id] >= vampire.subclass.dissect_cap)
 		if(show_message)
-			to_chat(user, span_warning("You have already dissected [target]!"))
+			to_chat(user, span_warning("Вы уже препарировали [target]!"))
 		return FALSE
 
 	return TRUE
@@ -357,14 +357,14 @@
 		all_organs += organ
 
 	if(!length(all_organs))
-		to_chat(user, span_warning("[target] has no compatible organs to dissect!"))
+		to_chat(user, span_warning("У [target] нет допустимых органов для препарирования!"))
 		return
 
 	for(var/obj/item/organ/internal/organ as anything in all_organs)
 		all_organs -= organ
 		all_organs[organ.slot] = organ
 
-	var/obj/item/organ/internal/organ_to_dissect = input("Select organ to dissect:", "Organ dissection", null, null) as null|anything in all_organs
+	var/obj/item/organ/internal/organ_to_dissect = input("Выберите орган для иссечения:", "Иссечение органа", null, null) as null|anything in all_organs
 	if(!organ_to_dissect || !special_check(user, TRUE))
 		return
 
@@ -375,32 +375,32 @@
 	for(var/stage in 1 to 3)
 		switch(stage)
 			if(1)
-				to_chat(user, span_notice("This victim is compatible. You must hold still..."))
+				to_chat(user, span_notice("Эта жертва допустима. Вы должны держать себя в руках..."))
 
 			if(2)
-				user.visible_message(span_warning("[user] extends claws from their fingers!"), \
-									span_notice("You extend claws from your fingers."))
+				user.visible_message(span_warning("[user] выпускает когти из пальцев!"), \
+									span_notice("Вы вытягиваете из пальцев когти."))
 
 			if(3)
-				user.visible_message(span_danger("[user] stabs [target] with the claws!"), \
-									span_notice("You stab [target] with the claws and start dissection process..."))
-				to_chat(target, span_danger("You feel a sharp stabbing pain!"))
+				user.visible_message(span_danger("[user] наносит удары когтями по [target]!"), \
+									span_notice("Вы пронзаете [target] когтями и начинаете процесс вскрытия..."))
+				to_chat(target, span_danger("Вы почувствовали острую колющую боль!"))
 				target.take_overall_damage(30)
 				add_attack_logs(user, target, "Vampire dissection. BRUTE: 30. Skill: [src]")
 
 		if(!do_after(user, 5 SECONDS, target, NONE) || !special_check(user, TRUE, TRUE))
-			to_chat(user, span_warning("Our dissection of [target] has been interrupted!"))
+			to_chat(user, span_warning("Процесс вскрытия [target] был прерван!"))
 			is_dissecting = FALSE
 			return
 
 	is_dissecting = FALSE
 
 	if(!organ_to_dissect)	// organ is magically disappered, what a shame!
-		to_chat(user, span_warning("Our victim somehow lost desired organ trophie in a process!"))
+		to_chat(user, span_warning("Наша жертва каким-то образом лишилась желанного трофея в виде органа!"))
 		return
 
 	if(target.stat == DEAD)	// grip was too strong mr. vampire
-		to_chat(user, span_warning("[target] is dead and no longer fit for the ritual"))
+		to_chat(user, span_warning("[target] мертв[genderize_ru(target, "", "а", "о", "ы")] и больше не пригодн[genderize_ru(target, "", "а", "о", "ы")] для ритуала."))
 		return
 
 	var/datum/spell_handler/vampire/handler = custom_handler
@@ -423,37 +423,37 @@
 		if(INTERNAL_ORGAN_HEART)
 			vampire.adjust_trophies(INTERNAL_ORGAN_HEART, 1)
 			if(vampire.get_trophies(INTERNAL_ORGAN_HEART) >= MAX_TROPHIES_PER_TYPE_CRITICAL)
-				msg = "hearts"
+				msg = "сердце"
 			else if(vampire.get_trophies(INTERNAL_ORGAN_HEART) >= vampire.subclass.crit_organ_cap)
-				to_chat(user, span_warning("We reached our limit to dissect critical organs of type <b>hearts</b>!"))
+				to_chat(user, span_warning("Мы достигли предела в иссечении критических органов типа <b>hearts</b>!"))
 		if(INTERNAL_ORGAN_LUNGS)
 			vampire.adjust_trophies(INTERNAL_ORGAN_LUNGS, 1)
 			if(vampire.get_trophies(INTERNAL_ORGAN_LUNGS) >= MAX_TROPHIES_PER_TYPE_CRITICAL)
-				msg = "lungs"
+				msg = "легкие"
 			else if(vampire.get_trophies(INTERNAL_ORGAN_LUNGS) >= vampire.subclass.crit_organ_cap)
-				to_chat(user, span_warning("We reached our limit to dissect critical organs of type <b>lungs</b>!"))
+				to_chat(user, span_warning("Мы достигли предела в иссечении критических органов типа <b>lungs</b>!"))
 		if(INTERNAL_ORGAN_LIVER)
 			vampire.adjust_trophies(INTERNAL_ORGAN_LIVER, 1)
 			if(vampire.get_trophies(INTERNAL_ORGAN_LIVER) >= MAX_TROPHIES_PER_TYPE_GENERAL)
-				msg = "livers"
+				msg = "печени"
 		if(INTERNAL_ORGAN_KIDNEYS)
 			vampire.adjust_trophies(INTERNAL_ORGAN_KIDNEYS, 1)
 			if(vampire.get_trophies(INTERNAL_ORGAN_KIDNEYS) >= MAX_TROPHIES_PER_TYPE_GENERAL)
-				msg = "kidneys"
+				msg = "почек"
 		if(INTERNAL_ORGAN_EYES)
 			vampire.adjust_trophies(INTERNAL_ORGAN_EYES, 1)
 			if(vampire.get_trophies(INTERNAL_ORGAN_EYES) >= MAX_TROPHIES_PER_TYPE_GENERAL)
-				msg = "eyes"
+				msg = "глаз"
 		if(INTERNAL_ORGAN_EARS)
 			vampire.adjust_trophies(INTERNAL_ORGAN_EARS, 1)
 			if(vampire.get_trophies(INTERNAL_ORGAN_EARS) >= MAX_TROPHIES_PER_TYPE_GENERAL)
-				msg = "ears"
+				msg = "ушей"
 
 	if(msg)
-		to_chat(user, span_warning("We reached maximum amount of <b>[msg]</b> as trophies!"))
+		to_chat(user, span_warning("Мы достигли максимального количества <b>[msg]</b> в качестве трофеев!"))
 
-	user.visible_message(span_danger("[user] rips [organ_name] from [target]'s body!"), \
-						span_notice("You collect <b>[organ_name]</b> from [target]'s body."))
+	user.visible_message(span_danger("[user] вырыва[pluralize_ru(user, "ет", "ют")] [organ_name] из тела [target]!"),
+						span_notice("Вы забираете <b>[organ_name]</b> из тела [target]."))
 	add_attack_logs(user, target, "Vampire removed [organ_name]. Skill: [src]")
 
 
@@ -463,9 +463,9 @@
  * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/////////////////////////////////////////////////////////////////////// *
 \*======================================================================================================================================*/
 /obj/effect/proc_holder/spell/vampire/self/dissect_info
-	name = "Check Trophies"
-	desc = "Allows us to inspect all progress and passives we get from collected organ trophies."
-	gain_desc = "You can now use the ability Check Trophies to familiarize yourself with all the passive effects granted."
+	name = "Посмотреть трофеи"
+	desc = "Позволяет просмотреть весь прогресс и пассивки, полученные за трофеи органов."
+	gain_desc = "Теперь вы можете использовать способность <b>«Посмотреть трофеи»</b>, чтобы ознакомиться со всеми получаемыми пассивными эффектами."
 	action_icon_state = "blood_rush"
 	human_req = FALSE
 	stat_allowed = UNCONSCIOUS
@@ -476,7 +476,7 @@
 /obj/effect/proc_holder/spell/vampire/self/dissect_info/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.stat == DEAD)
 		if(show_message)
-			to_chat(user, span_warning("You can't use this ability while dead!"))
+			to_chat(user, span_warning("Вы не можете использовать эту способность, будучи мертвым!"))
 		return FALSE
 	return ..()
 
@@ -542,9 +542,9 @@
  * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/////////////////////////////////////////////////////////////////////// *
 \*======================================================================================================================================*/
 /obj/effect/proc_holder/spell/vampire/self/infected_trophy
-	name = "Infected Trophy"
-	desc = "Summons malformed skull infected with grave fever. You can use it to weaken your victims from a distance."
-	gain_desc = "You have gained the ability to spread grave fever. Various additional effects applied, depending on the collected trophies."
+	name = "Зараженный трофей"
+	desc = "Призывает деформированный череп, зараженный могильной лихорадкой. Вы можете использовать его, чтобы ослабить жертву на расстоянии."
+	gain_desc = "Вы получили способность распространять могильную лихорадку. Применяются различные дополнительные эффекты, зависящие от собранных трофеев."
 	action_icon_state = "infected_trophy"
 	base_cooldown = 10 SECONDS
 	required_blood = 60
@@ -554,14 +554,14 @@
 /obj/effect/proc_holder/spell/vampire/self/infected_trophy/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incapacitated(INC_IGNORE_GRABBED))
 		if(show_message)
-			to_chat(user, span_warning("You can't use this ability right now!"))
+			to_chat(user, span_warning("Вы не можете использовать эту способность прямо сейчас!"))
 		return FALSE
 	return ..()
 
 
 /obj/effect/proc_holder/spell/vampire/self/infected_trophy/cast(list/targets, mob/living/user = usr)
 	if(user.get_active_hand())
-		to_chat(user, span_warning("Your active hand should be empty to use this ability!"))
+		to_chat(user, span_warning("Ваша активная рука должна быть пустой, чтобы использовать эту способность!"))
 		revert_cast()
 		return FALSE
 
@@ -619,7 +619,7 @@
 
 /obj/item/ammo_casing/magic/skull_gun_casing
 	name = "skull gun casing"
-	desc = "WTF is this..."
+	desc = "Что это за..."
 	icon_state = "skulls"
 	projectile_type = /obj/item/projectile/skull_projectile
 	muzzle_flash_effect = null
@@ -684,7 +684,7 @@
 
 		victim.apply_damage(applied_damage, BRUTE, BODY_ZONE_CHEST)
 		victim.Stun(stun_amt)
-		to_chat(victim, span_userdanger("You feel a dull pain inside your chest!"))
+		to_chat(victim, span_userdanger("Вы чувствуете тупую боль в груди!"))
 
 		if(iscarbon(victim))
 			var/mob/living/carbon/c_victim = victim
@@ -702,9 +702,9 @@
  * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/////////////////////////////////////////////////////////////////////// *
 \*======================================================================================================================================*/
 /obj/effect/proc_holder/spell/vampire/lunge
-	name = "Lunge"
-	desc = "Swift lunge to a specified location. Can get various effects, depending on the trophies."
-	gain_desc = "You have gained the ability to rapidly close distances. Various additional effects applied, depending on the collected trophies."
+	name = "Рывок"
+	desc = "Стремительный рывок в указанное место. Можно получить различные эффекты, в зависимости от трофеев."
+	gain_desc = "Вы получили способность быстро преодолевать расстояния. Применяются различные дополнительные эффекты, зависящие от собранных трофеев."
 	action_icon_state = "vampire_charge"
 	need_active_overlay = TRUE
 	human_req = FALSE
@@ -725,7 +725,7 @@
 /obj/effect/proc_holder/spell/vampire/lunge/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED) || user.buckled || (iscarbon(user) && user.legcuffed))
 		if(show_message)
-			to_chat(user, span_warning("You can't use this ability right now!"))
+			to_chat(user, span_warning("Вы не можете использовать эту способность прямо сейчас!"))
 		return FALSE
 	return ..()
 
@@ -738,8 +738,8 @@
 	user.buckled?.unbuckle_mob(user, TRUE)
 	user.pulledby?.stop_pulling()
 
-	user.visible_message(span_danger("[user] starts moving with unnatural speed!"), \
-						span_notice("You lunge into the air..."))
+	user.visible_message(span_danger("[user] начинает двигаться с неестественной скоростью!"), \
+						span_notice("Вы делаете выпад в сторону..."))
 
 	var/leap_range = targeting.range
 
@@ -824,7 +824,7 @@
 			victim.Weaken(weaken_amt)
 			user.do_item_attack_animation(victim, ATTACK_EFFECT_CLAW)
 			playsound(victim.loc, 'sound/weapons/slice.ogg', 40, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			to_chat(victim, span_userdanger("You can't resist a sudden gust of wind which slams you to the ground!"))
+			to_chat(victim, span_userdanger("Вы не можете устоять перед внезапным порывом ветра, который швыряет вас на пол!"))
 
 		if(t_kidneys > 0 && ishuman(victim))
 			var/mob/living/carbon/human/h_victim = victim
@@ -834,14 +834,14 @@
 			h_victim.bleed(actual_blood_loss)
 			h_victim.Confused(confusion_amt)
 			h_victim.emote("moan")
-			to_chat(h_victim, span_userdanger("You sense a sharp pain inside your body and suddenly feel very weak!"))
+			to_chat(h_victim, span_userdanger("Вы чувствуете острую боль внутри тела и внезапно ощущаете сильную слабость!"))
 
 			if(h_victim.mind && h_victim.ckey && !HAS_TRAIT(h_victim, TRAIT_EXOTIC_BLOOD))
 				blood_gained += blood_vamp_get
 				vampire.adjust_blood(h_victim, blood_vamp_get)
 
 	if(blood_gained)
-		to_chat(user, span_notice("You pinch arteries on fly and absorb <b>[blood_gained]</b> amount of blood!"))
+		to_chat(user, span_notice("Вы пережимаете артерии на лету и поглощаете <b>[blood_gained]</b> количество крови!"))
 
 
 /obj/effect/proc_holder/spell/vampire/lunge/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
@@ -861,9 +861,9 @@
  * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/////////////////////////////////////////////////////////////////////// *
 \*======================================================================================================================================*/
 /obj/effect/proc_holder/spell/vampire/mark
-	name = "Mark the Prey"
-	desc = "Mark your victim to slow their movement, reduce resistances and forces them to make spontaneous actions."
-	gain_desc = "You have gained the ability to mark your victim. Various additional effects applied, depending on the collected trophies."
+	name = "Пометить добычу"
+	desc = "Пометьте свою жертву, чтобы замедлить ее движение, уменьшить сопротивление и заставить ее совершать спонтанные действия."
+	gain_desc = "Вы получили возможность пометить свою жертву. Различные дополнительные эффекты применяются в зависимости от собранных трофеев."
 	action_icon_state = "predator_sense"
 	need_active_overlay = TRUE
 	human_req = FALSE
@@ -910,9 +910,9 @@
  * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/////////////////////////////////////////////////////////////////////// *
 \*======================================================================================================================================*/
 /obj/effect/proc_holder/spell/vampire/metamorphosis
-	name = "Metamorphosis"
-	desc = "Transform into reporting this issue!"
-	gain_desc = "You have gained the ability to rapidly inform this issue into the discord's bugs channel."
+	name = "Метаморфоза"
+	desc = "Преобразуйтесь и сообщите об этом!"
+	gain_desc = "Вы получили возможность быстро сообщить об этом в баг-репорт в Discord."
 	action_icon_state = "default"
 	sound = 'sound/creatures/wings_flapping.ogg'
 	human_req = FALSE

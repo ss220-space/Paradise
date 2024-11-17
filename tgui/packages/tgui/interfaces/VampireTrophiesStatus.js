@@ -492,7 +492,7 @@ const InfectedTrophy = (props, context) => {
   } = data;
   return (
     <Section
-      title="Infected Trophy"
+      title="Зараженный трофей"
       color="red"
       textAlign="center"
       verticalAlign="middle"
