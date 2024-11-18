@@ -139,7 +139,7 @@
     name = "Tactical cleaner"
     desc = "Бутылочка из прочнейшего тёмно-синего пластика, распылитель чёрного цвета украшен тактическим снаряжением, разработана уборочно-силовыми структурами Нанотрейзен для ЗАЧИСТКИ и контроля грязи в помещениях."
     icon_state = "cleaner_tactical"
-    item_state = "cleaner_tactic"
+    item_state = "cleaner_tactical"
 
 /obj/item/reagent_containers/spray/blue_cleaner
     name = "bluespace cleaner"
