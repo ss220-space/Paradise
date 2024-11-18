@@ -20,7 +20,7 @@
 
 //trees cant see through
 /obj/structure/flora/tree/ComponentInitialize()
-	AddComponent(datum/component/seethrough, get_seethrough_map())
+	AddComponent(/datum/component/seethrough, get_seethrough_map())
 
 /obj/structure/flora/tree/cant_see_through/ComponentInitialize()
 	return
