@@ -220,3 +220,42 @@
 /obj/item/storage/toolbox/surgery/empty/populate_contents()
 	return
 
+/obj/item/storage/toolbox/surgery/advanced
+	name = "Advanced Laser Surgery Kit"
+	desc = "Содержит в себе хирургические инструменты. Имеет зелёные неоновые накладки."
+	icon_state = "surgerykit_advanced"
+	item_state = "surgerykit_advanced"
+
+/obj/item/storage/toolbox/surgery/advanced/populate_contents()
+	new /obj/item/scalpel/laser/laser3(src)
+	new /obj/item/hemostat/laser(src)
+	new /obj/item/retractor/laser(src)
+	new /obj/item/surgicaldrill/laser(src)
+	new /obj/item/circular_saw/laser(src)
+	new /obj/item/bonesetter/laser(src)
+	new /obj/item/bonegel(src)
+	new /obj/item/FixOVein(src)
+
+
+/obj/item/storage/toolbox/surgery/advanced/empty/populate_contents()
+	return
+
+/obj/item/storage/toolbox/surgery/alien
+	name = "Alien Surgery Kit"
+	desc = "Содержит в себе хирургические инструменты. Выглядит очень футуристично."
+	icon_state = "surgerykit_alien"
+	item_state = "surgerykit_alien"
+
+/obj/item/storage/toolbox/surgery/alien/populate_contents()
+	new /obj/item/scalpel/alien(src)
+	new /obj/item/hemostat/alien(src)
+	new /obj/item/retractor/alien(src)
+	new /obj/item/circular_saw/alien(src)
+	new /obj/item/surgicaldrill/alien(src)
+	new /obj/item/cautery/alien(src)
+	new /obj/item/bonegel/alien(src)
+	new /obj/item/bonesetter/alien(src)
+	new /obj/item/FixOVein/alien(src)
+
+/obj/item/storage/toolbox/surgery/alien/empty/populate_contents()
+	return

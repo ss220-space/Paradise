@@ -77,6 +77,7 @@
 				pre_malf_AI = traitor
 				pre_malf_AI.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)	// All jobs are restricted for malf AI despite the config.
 				pre_malf_AI.restricted_roles -= JOB_TITLE_AI
+				traitor.special_role = SPECIAL_ROLE_MALFAI
 				SSjobs.new_malf = traitor.current
 		else
 			pre_traitors += traitor

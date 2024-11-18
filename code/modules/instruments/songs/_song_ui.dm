@@ -191,7 +191,7 @@
 
 ///Checks string for containing only midi-sequence characters.
 /datum/song/proc/legality_check(mob/user, text)
-	var/static/regex/regex = regex(@"[^A-G0-9n\#\-\,\/\.(\r\n|\r|\n)]")
+	var/static/regex/regex = regex(@"[^A-Ga-g0-9n\ \#\-\,\/\.(\r\n|\r|\n)]")
 	var/detection = regex.Find(text)
 	if(detection)
 		var/position_prev = clamp(detection - 16, 1, length(text))

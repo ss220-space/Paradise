@@ -239,11 +239,45 @@
 	/// Icon utilised when `GLOB.active_video_cameras` list have anything inside.
 	var/icon_screen_on = "entertainment"
 
+/obj/machinery/computer/security/telescreen/entertainment/Initialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_MOB_ATTACKED_RANGED, PROC_REF(on_ranged_attack))
+
+/obj/machinery/computer/security/telescreen/entertainment/Destroy()
+	. = ..()
+	UnregisterSignal(src, COMSIG_MOB_ATTACKED_RANGED)
+
+/obj/machinery/computer/security/telescreen/entertainment/proc/on_ranged_attack(datum/source, mob/user, params)
+	SIGNAL_HANDLER
+
+	if(stat)
+		user.unset_machine()
+		return
+
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/datum, ui_interact), user)
 
 /obj/machinery/computer/security/telescreen/entertainment/update_overlays()
 	icon_screen = length(GLOB.active_video_cameras) ? icon_screen_on : initial(icon_screen)
 	return ..()
 
+/obj/machinery/computer/security/telescreen/entertainment/ui_state(mob/user)
+	if(issilicon(user))
+		if(isAI(user))
+			var/mob/living/silicon/ai/AI = user
+			if(!AI.lacks_power() || AI.apc_override)
+				return GLOB.always_state
+
+		if(isrobot(user))
+			return GLOB.always_state
+
+	else if(ishuman(user))
+		if(get_dist(src, user) > 6)
+			return GLOB.default_state
+
+		if(!stat)
+			return GLOB.range_state
+
+	return GLOB.default_state
 
 /obj/machinery/computer/security/telescreen/singularity
 	name = "Singularity Engine Telescreen"

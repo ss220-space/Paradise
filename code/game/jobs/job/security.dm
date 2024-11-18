@@ -36,7 +36,7 @@
 
 	uniform = /obj/item/clothing/under/rank/head_of_security
 	suit = /obj/item/clothing/suit/armor/hos
-	gloves = /obj/item/clothing/gloves/color/black/hos
+	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/HoS
 	l_ear = /obj/item/radio/headset/heads/hos/alt
@@ -71,8 +71,8 @@
 	supervisors = "the head of security"
 	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
-	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_PILOT, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_GATEWAY, ACCESS_WEAPONS)
+	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_PILOT, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_WEAPONS)
 	alt_titles = list("Brig Sergeant")
 	minimal_player_age = 21
 	blocked_race_for_job = list(SPECIES_VOX)

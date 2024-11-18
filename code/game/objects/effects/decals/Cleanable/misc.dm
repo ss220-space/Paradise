@@ -262,10 +262,21 @@
 	name = "Ash rune"
 	desc = "A rune drawn in ash."
 	icon = 'icons/effects/ashwalker_rune.dmi'
-	icon_state = "AshRuneFilled"
+	icon_state = "AshRuneSmall"
 	anchored = TRUE
 	mergeable_decal = FALSE
 	mouse_opacity = MOUSE_OPACITY_ICON
+
+/obj/effect/decal/cleanable/ashrune/Initialize(mapload)
+	. = ..()
+
+	update_icon(UPDATE_ICON_STATE)
+
+	pixel_x = -32
+	pixel_y = -32
+
+/obj/effect/decal/cleanable/ashrune/update_icon_state()
+	icon_state = "AshRuneFilled"
 
 /obj/effect/decal/cleanable/ashrune/ComponentInitialize()
 	AddComponent( \

@@ -132,6 +132,13 @@
 	light_range = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
 
+/obj/item/flashlight/sectaclight
+	name = "security tactical flashlight"
+	desc = "Прочный тактический фонарь, оборудованный для комфортного ношения на голове. Используется представителями службы безопасности."
+	icon_state = "sectaclight"
+	item_state = ""
+	slot_flags = ITEM_SLOT_EARS
+
 /obj/item/flashlight/drone
 	name = "low-power flashlight"
 	desc = "A miniature lamp, that might be used by small robots."

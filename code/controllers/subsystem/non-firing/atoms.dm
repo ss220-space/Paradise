@@ -27,6 +27,7 @@ SUBSYSTEM_DEF(atoms)
 	if(initialized == INITIALIZATION_INSSATOMS)
 		return
 
+	SSicon_smooth.add_halt_source(src)
 	initialized = INITIALIZATION_INNEW_MAPLOAD
 
 	LAZYINITLIST(late_loaders)
@@ -79,6 +80,7 @@ SUBSYSTEM_DEF(atoms)
 			log_debug("	Late initialized [length(late_loaders)] atoms in [stop_watch(watch)]s")
 		late_loaders.Cut()
 
+	SSicon_smooth.remove_halt_source(src)
 
 /datum/controller/subsystem/atoms/proc/InitAtom(atom/A, list/arguments)
 	var/the_type = A.type
@@ -127,11 +129,12 @@ SUBSYSTEM_DEF(atoms)
 /datum/controller/subsystem/atoms/proc/map_loader_begin()
 	old_initialized = initialized
 	initialized = INITIALIZATION_INSSATOMS
+	SSicon_smooth.add_halt_source(src)
 
 
 /datum/controller/subsystem/atoms/proc/map_loader_stop()
 	initialized = old_initialized
-
+	SSicon_smooth.remove_halt_source(src)
 
 /datum/controller/subsystem/atoms/Recover()
 	initialized = SSatoms.initialized

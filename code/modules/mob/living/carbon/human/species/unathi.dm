@@ -113,8 +113,7 @@
 		/mob/living/carbon/human/proc/emote_roar,
 		/mob/living/carbon/human/proc/emote_threat,
 		/mob/living/carbon/human/proc/emote_whip,
-		/mob/living/carbon/human/proc/emote_whip_l,
-		/mob/living/carbon/human/proc/emote_rumble))
+		/mob/living/carbon/human/proc/emote_whip_l))
 	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	if(!lash)
 		lash = new
@@ -130,8 +129,7 @@
 		/mob/living/carbon/human/proc/emote_roar,
 		/mob/living/carbon/human/proc/emote_threat,
 		/mob/living/carbon/human/proc/emote_whip,
-		/mob/living/carbon/human/proc/emote_whip_l,
-		/mob/living/carbon/human/proc/emote_rumble))
+		/mob/living/carbon/human/proc/emote_whip_l))
 	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	lash?.Remove(H)
 
