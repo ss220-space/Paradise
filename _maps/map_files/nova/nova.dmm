@@ -220,18 +220,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/delivery)
-"abM" = (
-/obj/item/gun/energy/floragun{
-	selfcharge = 0;
-	emagged = 1;
-	name = "old floral somatoray";
-	can_charge = 1;
-	cell_type = /obj/item/stock_parts/cell/degraded;
-	ammo_type = list(/obj/item/ammo_casing/energy/flora/beta,/obj/item/ammo_casing/energy/flora/gamma);
-	current_skin = "oldflora"
-	},
-/turf/simulated/floor/grass,
-/area/maintenance/garden)
 "abP" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/structure/disposalpipe/segment,
@@ -89992,7 +89980,9 @@
 	can_charge = 1;
 	cell_type = /obj/item/stock_parts/cell/degraded;
 	ammo_type = list(/obj/item/ammo_casing/energy/flora/beta,/obj/item/ammo_casing/energy/flora/gamma);
-	current_skin = "oldflora"
+	current_skin = "oldflora";
+	description_info = "This is an energy weapon. Has 2 shooting modes: beta, gamma. Beta improves plant genes. Gamma accelerates plant growth. To recharge this weapon, use a weapon recharger.";
+	desc = "A old tool that discharges controlled radiation which induces mutation in plant cells, has no self-charge. To recharge this weapon, use a weapon recharger."
 	},
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
@@ -269111,7 +269101,7 @@ mze
 mze
 bGG
 kOH
-abM
+qWo
 fzn
 rhb
 blB
