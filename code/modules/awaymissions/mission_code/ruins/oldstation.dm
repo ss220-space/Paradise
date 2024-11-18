@@ -349,8 +349,7 @@
 	list_reagents = list("bromine" = 30)
 
 // areas
-
-//drugoe
+// Ruin of ancient Space Station
 
 /area/ruin/space/ancientstation
 	name = "Charlie Station Main Corridor"
