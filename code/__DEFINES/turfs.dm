@@ -34,9 +34,6 @@
 #define TURF_WET_LUBE (1<<3)
 
 
-//spisjeno with TG
-
-
 ///Returns all turfs in a zlevel
 #define Z_TURFS(ZLEVEL) block(locate(1,1,ZLEVEL), locate(world.maxx, world.maxy, ZLEVEL))
 
