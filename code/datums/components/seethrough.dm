@@ -3,7 +3,9 @@
 	/// List of lists that represent relative coordinates to the source atom
 	var/list/relative_turf_coords
 	/// A list of turfs on which we make ourself transparent
-
+	var/list/watched_turfs
+	/// Associate list, with client = trickery_image. Track which client is being tricked with which image
+	var/list/tricked_mobs = list()
 	/// Which alpha do we animate towards?
 	var/target_alpha
 	/// How long our fase in/out takes
