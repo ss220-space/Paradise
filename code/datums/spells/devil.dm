@@ -342,7 +342,7 @@
 		new /obj/effect/hotspot(turf)
 		turf.hotspot_expose(2000, 50, 1)
 	
-	playsound(get_turf(carbon), 'sound/magic/fireball.ogg', 50, TRUE)
+	playsound(get_turf(user), 'sound/magic/blind.ogg', 50, TRUE)
 
 /obj/effect/proc_holder/spell/dark_conversion
 	name = "Dark conversion"
