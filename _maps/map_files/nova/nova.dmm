@@ -80184,6 +80184,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"lSD" = (
+/obj/machinery/alarm{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/hallway/primary/central/south)
 "lSL" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/east,
@@ -108994,11 +109003,11 @@
 /obj/structure/table/wood{
 	color = "#996633"
 	},
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office"
-	},
 /obj/item/radio/intercom{
 	pixel_x = 28
+	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "NT Representative's Office"
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
@@ -113826,12 +113835,16 @@
 	req_access = list(1);
 	color = "red"
 	},
-/obj/item/clothing/head/helmet/night,
-/obj/item/clothing/head/helmet/night{
-	pixel_y = -2
+/obj/item/flashlight/sectaclight{
+	pixel_y = -4;
+	pixel_x = 4
 	},
-/obj/item/clothing/head/helmet/night{
-	pixel_y = -4
+/obj/item/flashlight/sectaclight{
+	pixel_y = -2;
+	pixel_x = 2
+	},
+/obj/item/flashlight/sectaclight{
+	pixel_y = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -150239,6 +150252,9 @@
 "vZY" = (
 /obj/machinery/cryopod/robot,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/computer/cryopod/robot{
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "purple"
@@ -195572,7 +195588,7 @@ tkq
 tkq
 tkq
 dTS
-hOz
+lSD
 fDj
 iBU
 aHe
@@ -198142,7 +198158,7 @@ tkq
 tkq
 tkq
 dTS
-hOz
+lSD
 tlq
 xTw
 hhx
