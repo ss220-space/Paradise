@@ -1,5 +1,14 @@
 /obj/item/gun/medbeam
 	name = "Medical Beamgun"
+	ru_names = list(
+		NOMINATIVE = "Медицинская Лучпушка",
+		GENITIVE = "Медицинской Лучпушки",
+		DATIVE = "Медицинской Лучпушке",
+		ACCUSATIVE = "Медицинскую Лучпушку",
+		INSTRUMENTAL = "Медицинской Лучпушкой",
+		PREPOSITIONAL = "Медицинской Лучпушку"
+	)
+
 	desc = "Передает целебные наниты своим сфокусированным лучом. Не скрещивайте лучи!"
 
 	icon = 'icons/obj/chronos.dmi'
