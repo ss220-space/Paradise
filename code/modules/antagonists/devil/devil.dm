@@ -6,7 +6,7 @@
 	antag_hud_type = ANTAG_HUD_DEVIL
 
 	var/datum/devilinfo/info = new
-	var/list/datum/mind/soulsOwned = new
+	var/list/soulsOwned = list()
 	var/datum/devil_rank/rank
 
 	var/datum/component/ritual_object/ritual_component = new
@@ -26,13 +26,10 @@
 	QDEL_NULL(rank)
 	QDEL_NULL(ritual_component)
 	QDEL_NULL(info)
-	
-	LAZYNULL(soulsOwned)
-	
 	return ..()
 
 /datum/antagonist/devil/proc/add_soul(datum/mind/soul)
-	if(!istype(soul) || locate(soul) in soulsOwned)
+	if(!istype(soul) || soul in soulsOwned)
 		return
 
 	LAZYADD(soulsOwned, soul)
@@ -125,6 +122,9 @@
 /datum/antagonist/devil/proc/init_devil()
 	GLOB.allDevils[lowertext(info.truename)] = src
 	rank = new BASIC_DEVIL_RANK()
+
+	ritual_component.allowed_categories = /datum/ritual/devil
+	ritual_component.allowed_special_role = list(ROLE_DEVIL)
 	
 	return
 
