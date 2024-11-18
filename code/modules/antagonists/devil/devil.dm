@@ -29,7 +29,7 @@
 	return ..()
 
 /datum/antagonist/devil/proc/add_soul(datum/mind/soul)
-	if(!istype(soul) || soul in soulsOwned)
+	if((!istype(soul)) || (LAZYIN(soulsOwned, soul))
 		return
 
 	LAZYADD(soulsOwned, soul)
