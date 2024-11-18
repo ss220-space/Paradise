@@ -90463,7 +90463,6 @@
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
-/obj/item/reagent_containers/spray/cleaner/tactical,
 /turf/simulated/floor/wood/fancy/light,
 /area/blueshield)
 "pVP" = (

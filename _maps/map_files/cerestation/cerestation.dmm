@@ -43543,9 +43543,6 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/spray/cleaner/tactical{
-	pixel_x = -10
-	},
 /turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "iLn" = (

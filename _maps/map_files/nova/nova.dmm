@@ -121727,7 +121727,6 @@
 /obj/machinery/newscaster{
 	pixel_y = -30
 	},
-/obj/item/reagent_containers/spray/cleaner/tactical,
 /turf/simulated/floor/wood,
 /area/blueshield)
 "rVf" = (

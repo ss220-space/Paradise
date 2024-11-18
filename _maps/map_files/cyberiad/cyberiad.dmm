@@ -37388,9 +37388,6 @@
 "cns" = (
 /obj/structure/table/wood,
 /obj/item/paper/blueshield,
-/obj/item/reagent_containers/spray/cleaner/tactical{
-	pixel_x = 10
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},

@@ -3592,7 +3592,6 @@
 	dir = 8;
 	pixel_x = 26
 	},
-/obj/item/reagent_containers/spray/cleaner/tactical,
 /turf/simulated/floor/wood/fancy/light,
 /area/blueshield)
 "aDT" = (
