@@ -174,6 +174,7 @@
 	new /obj/item/sensor_device/advanced/command(src)
 	new /obj/item/storage/garmentbag/blueshield(src)
 	new /obj/item/storage/belt/security/webbing(src)
+	new /obj/item/reagent_containers/spray/cleaner/tactical(src)
 
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"
