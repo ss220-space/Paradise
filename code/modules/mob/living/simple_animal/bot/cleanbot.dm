@@ -94,10 +94,10 @@
 		add_fingerprint(user)
 		var/obj/item/toy/crayon/spraycan/can = I
 		if(can.capped)
-			balloon_alert(user, "крышка баллончика закрыта")
+			balloon_alert(user, "баллончик закрыт!")
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		playsound(loc, 'sound/effects/spray.ogg', 20, TRUE)
-		balloon_alert(user, "вы покрасили чистобота")
+		balloon_alert(user, "краска нанесена")
 		mask_color = can.colour
 		update_icon()
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK

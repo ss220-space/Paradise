@@ -226,7 +226,7 @@
 		emagged = 1
 	if(!open)
 		locked = !locked
-		balloon_alert(user, "вы [locked ? "заблокировали" : "разблокировали"] техпанель")
+		balloon_alert(user, "техпанель [locked ? "заблокирована" : "разблокирована"]")
 	flick("mulebot-emagged", src)
 	playsound(loc, 'sound/effects/sparks1.ogg', 100, FALSE)
 
@@ -352,7 +352,7 @@
 		update_controls()
 		return TRUE
 	else
-		balloon_alert(user, "отказано в доступе")
+		balloon_alert(user, "отказано в доступе!")
 		return FALSE
 
 

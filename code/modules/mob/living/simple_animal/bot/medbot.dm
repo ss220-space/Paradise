@@ -266,10 +266,10 @@
 	else if(href_list["eject"] && (!isnull(reagent_glass)))
 		if(ishuman(usr))
 			usr.put_in_active_hand(reagent_glass, ignore_anim = FALSE)
-			balloon_alert(usr, "ёмкость извлечена")
 		else
 			reagent_glass.forceMove(get_turf(src))
 		reagent_glass = null
+		balloon_alert(usr, "ёмкость извлечена")
 
 	else if(href_list["togglevoice"])
 		shut_up = !shut_up
@@ -304,7 +304,7 @@
 			balloon_alert(user, "техпанель заблокирована!")
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		if(reagent_glass)
-			balloon_alert(user, "внутри уже находится ёмкость!")
+			balloon_alert(user, "слот для ёмкости занят!")
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..() | ATTACK_CHAIN_NO_AFTERATTACK

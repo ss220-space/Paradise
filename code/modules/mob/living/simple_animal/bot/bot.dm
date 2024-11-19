@@ -308,7 +308,7 @@
 		return
 
 	if(user) //Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
-		balloon_alert(user, "сначала откройте панель техобслуживания")
+		balloon_alert(user, "техпанель закрыта!")
 
 
 /mob/living/simple_animal/bot/examine(mob/user)
@@ -415,32 +415,32 @@
 			balloon_alert(user, "ошибка")
 			return ATTACK_CHAIN_PROCEED
 		if(open)
-			balloon_alert(user, "сначала закройте панель техобслуживания")
+			balloon_alert(user, "техпанель открыта!")
 			return ATTACK_CHAIN_PROCEED
 		if(!bot_core.allowed(user))
-			balloon_alert(user, "отказано в доступе")
+			balloon_alert(user, "отказано в доступе!")
 			return ATTACK_CHAIN_PROCEED
 		locked = !locked
-		balloon_alert(user, "панель управления [locked ? "заблокирована" : "разблокирована"]")
+		balloon_alert(user, "техпанель [locked ? "заблокирована" : "разблокирована"]")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/paicard))
 		add_fingerprint(user)
 		var/obj/item/paicard/card = I
 		if(locked || open || hijacked)
-			balloon_alert(user, "слот для ПИИ заблокирован")
+			balloon_alert(user, "слот для ПИИ заблокирован!")
 			return ATTACK_CHAIN_PROCEED
 		if(paicard)
-			balloon_alert(user, "внутри уже находится ПИИ")
+			balloon_alert(user, "слот для ПИИ занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!card.pai || !card.pai.mind)
-			balloon_alert(user, "ПИИ не активен")
+			balloon_alert(user, "ПИИ не активен!")
 			return ATTACK_CHAIN_PROCEED
 		if(key || (!allow_pai && !card.pai.syndipai))
-			balloon_alert(user, "робот не совместим с ПИИ")
+			balloon_alert(user, "робот не совместим с ПИИ!")
 			return ATTACK_CHAIN_PROCEED
 		if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
-			balloon_alert(user, "ПИИ не может подключиться к роботу")
+			balloon_alert(user, "ПИИ не совместим с роботом!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(card, src))
 			return ..()
@@ -460,15 +460,15 @@
 
 	if(istype(I, /obj/item/hemostat))
 		if(open)
-			balloon_alert(user, "закройте панель техобслуживания перед манипуляцией с ПИИ")
+			balloon_alert(user, "техпанель открыта!")
 			return ATTACK_CHAIN_PROCEED
 		if(!paicard)
-			balloon_alert(user, "слот для ПИИ пуст")
+			balloon_alert(user, "слот для ПИИ пуст!")
 			return ATTACK_CHAIN_PROCEED
-		balloon_alert(user, "вы начинаете вынимать ПИИ из слота")
+		balloon_alert(user, "извлечение ПИИ")
 		if(!do_after(user, 3 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || open || !paicard)
 			return ATTACK_CHAIN_PROCEED
-		balloon_alert(user, "вы вытащили ПИИ из слота")
+		balloon_alert(user, "ПИИ извлечён")
 		visible_message(
 			span_notice("[user] вытащи[genderize_ru(user.gender, "л", "ла", "ло", "ли")] [paicard] из [declent_ru(GENITIVE)]!"),
 			span_notice("Вы вытащили [paicard] из [declent_ru(GENITIVE)]."),
@@ -484,12 +484,12 @@
 		return FALSE
 	. = TRUE
 	if(locked)
-		balloon_alert(user, "сначала разблокируйте панель техобслуживания")
+		balloon_alert(user, "техпанель заблокирована!")
 		return . // must be true or we attempt to stab the bot
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	open = !open
-	balloon_alert(user, "панель техобслуживания [open ? "открыта" : "закрыта"]")
+	balloon_alert(user, "техпанель [open ? "открыта" : "закрыта"]!")
 
 
 /mob/living/simple_animal/bot/welder_act(mob/user, obj/item/I)
@@ -502,7 +502,7 @@
 		balloon_alert(user, "ремонт не требуется")
 		return
 	if(!open)
-		balloon_alert(user, "откройте панель техобслуживания перед ремонтом")
+		balloon_alert(user, "техпанель закрыта!")
 		return
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
@@ -1398,7 +1398,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	if(QDELETED(src))
 		return
 	set_varspeed(initial(speed))
-	balloon_alert(src, "скорость движения возвращается в норму")
+	balloon_alert(src, "вы замедляетесь")
 
 /obj/machinery/bot_core/syndicate
 	req_access = list(ACCESS_SYNDICATE)
