@@ -6,7 +6,7 @@ GLOBAL_VAR(current_date_string)
 
 /obj/machinery/computer/account_database
 	name = "Accounts Uplink Terminal"
-	desc = "Access transaction logs, account data and all kinds of other financial records."
+	desc = "Получите доступ к журналам транзакций, данным учетной записи и всем видам других финансовых записей."
 	icon_screen = "accounts"
 	req_access = list(ACCESS_HOP, ACCESS_CAPTAIN, ACCESS_CENT_COMMANDER)
 	light_color = LIGHT_COLOR_GREEN
@@ -25,7 +25,7 @@ GLOBAL_VAR(current_date_string)
 	// If someone ever makes a map without one of these consoles, the entire eco AND date system breaks
 	// This upsets me a lot
 	// AA Todo: SSeconomy
-	
+
 	if(!GLOB.current_date_string)
 		GLOB.current_date_string = "[time2text(world.timeofday, "DD Month")], [GLOB.game_year]"
 

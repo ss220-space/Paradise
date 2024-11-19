@@ -60,7 +60,7 @@
 
 /obj/machinery/computer/shuttle/mining
 	name = "Mining Shuttle Console"
-	desc = "Used to call and send the mining shuttle."
+	desc = "Используется для вызова и отправки шахтёрского шаттла."
 	circuit = /obj/item/circuitboard/mining_shuttle
 	shuttleId = "mining"
 	possible_destinations = "mining_home;mining_away"

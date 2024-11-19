@@ -375,7 +375,7 @@
  **************************/
 /obj/machinery/computer/supplycomp
 	name = "Supply Shuttle Console"
-	desc = "Used to order supplies."
+	desc = "Используется для оформления заказов."
 	icon_screen = "supply"
 	req_access = list(ACCESS_CARGO)
 	circuit = /obj/item/circuitboard/supplycomp
@@ -388,7 +388,7 @@
 
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"
-	desc = "Used to order supplies from cargo staff."
+	desc = "Используется для оформления заказов. Предназначено для общего пользования."
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "request"
 	circuit = /obj/item/circuitboard/ordercomp
