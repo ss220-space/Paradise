@@ -358,10 +358,10 @@
 	return ..()
 
 /obj/machinery/transformer/ipc
-	name = "species transmogrifier"
-	desc = "БЫЛЯЯЯЯТЬ"
+	name = "transformer"
+	desc = "машина по переработке"
 	var/datum/species/target_species = /datum/species/machine
-	var/obj/item/organ/external/head/ipc/new_limb = (company = "Bishop Castle")
+	var/selected_outfit = /datum/outfit/admin/ipc
 
 
 
@@ -370,4 +370,18 @@
 		to_chat(victim, span_warning("'[target_species]' is not a valid species!"))
 		return
 	victim.set_species(target_species)
-	victim.set_species(new_limb)
+	var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+	hud.add_hud_to(victim)
+	victim.equipOutfit(selected_outfit)
+
+
+/obj/machinery/transformer/shadowling
+	name = "Bio tranformer"
+	desc "странное устройство похожее на стандартный трансформер"
+	var/datum/species/target_species = /datum/species/shadow
+
+/obj/machinery/transformer/shadowling/do_transformer(mob/living/carbon/human/victim)
+	if(!ispath(target_species))
+		to_chat(victim, span_warning("'[target_species]' is not a valid species!"))
+		return
+	victim.set_species(target_species)

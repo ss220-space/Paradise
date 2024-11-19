@@ -1417,3 +1417,18 @@
 	if(istype(R))
 		ADD_TRAIT(R, TRAIT_NODROP, INNATE_TRAIT)
 
+// дрип для ивента ODD AI
+
+/datum/outfit/admin/ipc
+	name = "IPC DRIP"
+	uniform = /obj/item/clothing/under/rank/security
+	suit = /obj/item/clothing/suit/armor/vest/security
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/jackboots
+	head = /obj/item/clothing/head/helmet
+	l_ear = /obj/item/radio/headset/headset_sec/alt
+	id = /obj/item/card/id/security
+	l_pocket = /obj/item/flash
+	suit_store = /obj/item/gun/energy/gun/advtaser
+
+
