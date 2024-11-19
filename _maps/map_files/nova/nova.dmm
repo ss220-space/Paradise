@@ -62247,7 +62247,17 @@
 /area/hallway/secondary/exit)
 "jfO" = (
 /obj/structure/table/reinforced,
-/obj/item/lock_buster,
+/obj/item/flashlight/sectaclight{
+	pixel_y = 2;
+	pixel_x = -2
+	},
+/obj/item/flashlight/sectaclight{
+	pixel_y = 0
+	},
+/obj/item/flashlight/sectaclight{
+	pixel_y = -2;
+	pixel_x = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -113819,16 +113829,14 @@
 	req_access = list(1);
 	color = "red"
 	},
-/obj/item/flashlight/sectaclight{
-	pixel_y = -4;
-	pixel_x = 4
+/obj/item/gun/energy/gun/advtaser{
+	pixel_x = -3;
+	pixel_y = 3
 	},
-/obj/item/flashlight/sectaclight{
-	pixel_y = -2;
-	pixel_x = 2
-	},
-/obj/item/flashlight/sectaclight{
-	pixel_y = 0
+/obj/item/gun/energy/gun/advtaser,
+/obj/item/gun/energy/gun/advtaser{
+	pixel_x = 3;
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -129253,12 +129261,6 @@
 	layer = 2.9
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/storage/lockbox/mindshield,
-/obj/item/storage/box/trackimp,
-/obj/item/storage/box/chemimp{
-	pixel_x = 4;
-	pixel_y = 3
-	},
 /obj/structure/window/reinforced{
 	color = "red"
 	},
@@ -129272,6 +129274,13 @@
 	req_access = list(1);
 	color = "red"
 	},
+/obj/item/lock_buster,
+/obj/item/storage/box/trackimp,
+/obj/item/storage/box/chemimp{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/storage/lockbox/mindshield,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
