@@ -275,6 +275,7 @@
 	if(isitem(new_owner))
 		new_owner.add_gravity("[UID()]", -1)
 
+	old_owner = new_owner
 	return ..()
 
 /obj/item/assembly/signaler/anomaly/tier3/energetic
