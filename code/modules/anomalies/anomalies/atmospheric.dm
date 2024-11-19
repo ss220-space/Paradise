@@ -1,4 +1,4 @@
-/obj/effect/anomaly/pyro
+/obj/effect/anomaly/atmospheric
 	anomaly_type = ANOMALY_TYPE_ATMOS
 	icon_state = "mustard"
 	/// Range of collapse effects.
@@ -10,7 +10,7 @@
 	/// Maximum amount of slimes spawned when anomaly collapses.
 	var/collapse_slimes_high = 0
 
-/obj/effect/anomaly/pyro/collapse()
+/obj/effect/anomaly/atmospheric/collapse()
 	for(var/turf/simulated/T in view(collapse_range * 2, src))
 		T.temperature = rand(0, 50)
 
@@ -46,7 +46,7 @@
 
 	. = ..()
 
-/obj/effect/anomaly/pyro/mob_touch_effect(mob/living/M)
+/obj/effect/anomaly/atmospheric/mob_touch_effect(mob/living/M)
 	. = ..()
 	var/new_temp = rand(0, 500)
 	M.adjust_bodytemperature(new_temp - M.bodytemperature)
@@ -56,11 +56,11 @@
 	else
 		M.ExtinguishMob()
 
-/obj/effect/anomaly/pyro/item_touch_effect(obj/item/I)
+/obj/effect/anomaly/atmospheric/item_touch_effect(obj/item/I)
 	. = ..()
 	I.fire_act(null, rand(0, 1000), rand(20, 200))
 
-/obj/effect/anomaly/pyro/proc/make_slime()
+/obj/effect/anomaly/atmospheric/proc/make_slime()
 	var/turf/simulated/T = get_turf(src)
 	var/new_colour = pick("red", "orange", "blue", "dark blue")
 	var/mob/living/simple_animal/slime/random/S = new(T, new_colour)
@@ -74,7 +74,7 @@
 		S.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
 		add_game_logs("was made into a slime by pyroclastic anomaly at [AREACOORD(T)].", S)
 
-/obj/effect/anomaly/pyro/tier1
+/obj/effect/anomaly/atmospheric/tier1
 	name = "малая атмосферная аномалия"
 	ru_names = list(NOMINATIVE = "малая атмосферная аномалия", \
 					GENITIVE = "малой атмосферной аномалии", \
@@ -82,8 +82,8 @@
 					ACCUSATIVE = "малую ​​атмосферную аномалию", \
 					INSTRUMENTAL = "малой ​атмосферной аномалией", \
 					PREPOSITIONAL = "малой ​​атмосферной аномалии")
-	core_type = /obj/item/assembly/signaler/anomaly/tier1/pyro
-	stronger_anomaly_type = /obj/effect/anomaly/pyro/tier2
+	core_type = /obj/item/assembly/signaler/anomaly/tier1/atmospheric
+	stronger_anomaly_type = /obj/effect/anomaly/atmospheric/tier2
 	tier = 1
 	impulses_types = list(
 		/datum/anomaly_impulse/random_temp/tier1,
@@ -94,7 +94,7 @@
 	collapse_range = 2
 	collapse_gas_amount = 150
 
-/obj/effect/anomaly/pyro/tier2
+/obj/effect/anomaly/atmospheric/tier2
 	name = "атмосферная аномалия"
 	ru_names = list(NOMINATIVE = "атмосферная аномалия", \
 					GENITIVE = "атмосферной аномалии", \
@@ -102,9 +102,9 @@
 					ACCUSATIVE = "​​атмосферную аномалию", \
 					INSTRUMENTAL = "​атмосферной аномалией", \
 					PREPOSITIONAL = "​​атмосферной аномалии")
-	core_type = /obj/item/assembly/signaler/anomaly/tier2/pyro
-	weaker_anomaly_type = /obj/effect/anomaly/pyro/tier1
-	stronger_anomaly_type = /obj/effect/anomaly/pyro/tier3
+	core_type = /obj/item/assembly/signaler/anomaly/tier2/atmospheric
+	weaker_anomaly_type = /obj/effect/anomaly/atmospheric/tier1
+	stronger_anomaly_type = /obj/effect/anomaly/atmospheric/tier3
 	tier = 2
 	impulses_types = list(
 		/datum/anomaly_impulse/random_temp/tier2,
@@ -117,7 +117,7 @@
 	collapse_slimes_low = 0
 	collapse_slimes_high = 2
 
-/obj/effect/anomaly/pyro/tier3
+/obj/effect/anomaly/atmospheric/tier3
 	name = "большая атмосферная аномалия"
 	ru_names = list(NOMINATIVE = "большая атмосферная аномалия", \
 					GENITIVE = "большой атмосферной аномалии", \
@@ -125,8 +125,8 @@
 					ACCUSATIVE = "большую ​​атмосферную аномалию", \
 					INSTRUMENTAL = "большой ​атмосферной аномалией", \
 					PREPOSITIONAL = "большой ​​атмосферной аномалии")
-	core_type = /obj/item/assembly/signaler/anomaly/tier3/pyro
-	weaker_anomaly_type = /obj/effect/anomaly/pyro/tier2
+	core_type = /obj/item/assembly/signaler/anomaly/tier3/atmospheric
+	weaker_anomaly_type = /obj/effect/anomaly/atmospheric/tier2
 	tier = 3
 	impulses_types = list(
 		/datum/anomaly_impulse/random_temp/tier3,
@@ -139,7 +139,7 @@
 	collapse_slimes_low = 0
 	collapse_slimes_high = 3
 
-/obj/effect/anomaly/pyro/tier3/New()
+/obj/effect/anomaly/atmospheric/tier3/New()
 	. = ..()
 
 	for(var/mob/living/M in GLOB.player_list)
@@ -149,7 +149,7 @@
 		M.playsound_local(null, 'sound/effects/comfyfire.ogg', 15, TRUE)
 		to_chat(M, "<span class='atmospferic_anomaly'>Вас накрывает волнами эфемерного жара! Воздух вокруг дрожит.</span>") // It used in one place.
 
-/obj/effect/anomaly/pyro/tier3/collapse()
+/obj/effect/anomaly/atmospheric/tier3/collapse()
 	for(var/obj/item/paper in range(30)) // Just for fan.
 		paper.fire_act(null, 1000, 1000)
 

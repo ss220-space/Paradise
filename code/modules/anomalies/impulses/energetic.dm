@@ -10,7 +10,7 @@
 	var/jumps_high = 0
 
 /datum/anomaly_impulse/move/energ_fastmove/impulse()
-	var/obj/effect/anomaly/flux/anomaly = owner
+	var/obj/effect/anomaly/energetic/anomaly = owner
 
 	var/list/turf/possible_targets = list()
 	var/jumps = scale_by_strenght(jumps_low, jumps_high)
@@ -100,7 +100,7 @@
 	var/damage_high = 0
 
 /datum/anomaly_impulse/move/machinery_jump/impulse()
-	var/obj/effect/anomaly/flux/anomaly = owner
+	var/obj/effect/anomaly/energetic/anomaly = owner
 	anomaly.jump_to_machinery(scale_by_strenght(damage_low, damage_high))
 
 /datum/anomaly_impulse/move/machinery_jump/tier1

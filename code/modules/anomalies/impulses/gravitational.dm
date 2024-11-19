@@ -7,7 +7,7 @@
 	var/effect_radius_high = 0
 
 /datum/anomaly_impulse/change_grav/impulse()
-	var/obj/effect/anomaly/grav/anomaly = owner
+	var/obj/effect/anomaly/gravitational/anomaly = owner
 	for(var/atom/movable/A in view(scale_by_strenght(effect_radius_low, effect_radius_high), owner))
 		if(!iseffect(A))
 			anomaly.random_gravity_change(A)

@@ -1,4 +1,4 @@
-/obj/effect/anomaly/flux
+/obj/effect/anomaly/energetic
 	anomaly_type = ANOMALY_TYPE_FLUX
 	icon_state = "electricity2"
 	icon = 'icons/effects/anomalies.dmi'
@@ -21,24 +21,24 @@
 	/// List of energy balls connected to rhis anomaly.
 	var/list/obj/effect/energy_ball/eballs = list()
 
-/obj/effect/anomaly/flux/New()
+/obj/effect/anomaly/energetic/New()
 	. = ..()
 	for(var/i = 1 to rand(eballs_num_low, eballs_num_high))
 		eballs.Add(new /obj/effect/energy_ball(loc, src))
 
-/obj/effect/anomaly/flux/Destroy()
+/obj/effect/anomaly/energetic/Destroy()
 	if(tier != 3)
 		QDEL_LIST(eballs)
 		return ..()
 
 	for(var/obj/effect/energy_ball/eball in eballs)
 		if(prob(50))
-			new /obj/effect/anomaly/flux/tier1(eball.loc)
+			new /obj/effect/anomaly/energetic/tier1(eball.loc)
 
 	QDEL_LIST(eballs)
 	return ..()
 
-/obj/effect/anomaly/flux/process()
+/obj/effect/anomaly/energetic/process()
 	. = ..()
 	var/list/powernets = list()
 	for(var/obj/machinery/power/P in view(3, src))
@@ -51,15 +51,15 @@
 	for(var/datum/powernet/P in powernets)
 		P.newavail += voltage / powernets.len
 
-/obj/effect/anomaly/flux/mob_touch_effect(mob/living/M)
+/obj/effect/anomaly/energetic/mob_touch_effect(mob/living/M)
 	. = ..()
 	M.electrocute_act(collapse_shock_damage, "энергетической аномалии", flags = SHOCK_NOGLOVES)
 
-/obj/effect/anomaly/flux/item_touch_effect(obj/item/I)
+/obj/effect/anomaly/energetic/item_touch_effect(obj/item/I)
 	. = ..()
 	do_shock_ex(collapse_shock_range / 2, collapse_shock_damage / 2, TRUE)
 
-/obj/effect/anomaly/flux/proc/jump_to_machinery(damage)
+/obj/effect/anomaly/energetic/proc/jump_to_machinery(damage)
 	var/list/possible_targets = list()
 	for(var/obj/machinery/mach in view(5, src))
 		if(!(mach.stat & BROKEN))
@@ -70,7 +70,7 @@
 	jump(target)
 	after_move()
 
-/obj/effect/anomaly/flux/collapse()
+/obj/effect/anomaly/energetic/collapse()
 	for(var/i = 1 to rand(collapse_jumps_low, collapse_jumps_high))
 		jump_to_machinery(collapse_shock_damage * 2)
 		do_shock_ex(collapse_shock_range, collapse_shock_damage, TRUE)
@@ -78,7 +78,7 @@
 
 	. = ..()
 
-/obj/effect/anomaly/flux/do_move(dir)
+/obj/effect/anomaly/energetic/do_move(dir)
 	var/turf/target = get_step(src, dir)
 	if(target.Enter(src))
 		jump(target)
@@ -86,7 +86,7 @@
 	return TRUE
 
 // A jump accompanied by an electric shock.
-/obj/effect/anomaly/flux/proc/jump(target)
+/obj/effect/anomaly/energetic/proc/jump(target)
 	var/turf/target_turf = get_turf(target)
 	if(!target_turf)
 		return
@@ -94,7 +94,7 @@
 	Beam(target_turf, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 	forceMove(target_turf)
 
-/obj/effect/anomaly/flux/tier1
+/obj/effect/anomaly/energetic/tier1
 	name = "малая энергетическая аномалия"
 	ru_names = list(NOMINATIVE = "малая энергетическая аномалия", \
 					GENITIVE = "малой энергетической аномалии", \
@@ -103,8 +103,8 @@
 					INSTRUMENTAL = "малой энергетической аномалией", \
 					PREPOSITIONAL = "малой энергетической аномалии")
 	icon_state = "energetic1"
-	core_type = /obj/item/assembly/signaler/anomaly/tier1/flux
-	stronger_anomaly_type = /obj/effect/anomaly/flux/tier2
+	core_type = /obj/item/assembly/signaler/anomaly/tier1/energetic
+	stronger_anomaly_type = /obj/effect/anomaly/energetic/tier2
 	tier = 1
 	light_range = 5
 	impulses_types = list(
@@ -119,7 +119,7 @@
 	collapse_shock_range = 3
 	collapse_shock_damage = 10
 
-/obj/effect/anomaly/flux/tier2
+/obj/effect/anomaly/energetic/tier2
 	name = "энергетическая аномалия"
 	ru_names = list(NOMINATIVE = "энергетическая аномалия", \
 					GENITIVE = "энергетической аномалии", \
@@ -128,9 +128,9 @@
 					INSTRUMENTAL = "энергетической аномалией", \
 					PREPOSITIONAL = "энергетической аномалии")
 	icon_state = "energetic2"
-	core_type = /obj/item/assembly/signaler/anomaly/tier2/flux
-	weaker_anomaly_type = /obj/effect/anomaly/flux/tier1
-	stronger_anomaly_type = /obj/effect/anomaly/flux/tier3
+	core_type = /obj/item/assembly/signaler/anomaly/tier2/energetic
+	weaker_anomaly_type = /obj/effect/anomaly/energetic/tier1
+	stronger_anomaly_type = /obj/effect/anomaly/energetic/tier3
 	tier = 2
 	light_range = 6
 	impulses_types = list(
@@ -147,7 +147,7 @@
 	eballs_num_low = 2
 	eballs_num_high = 3
 
-/obj/effect/anomaly/flux/tier3
+/obj/effect/anomaly/energetic/tier3
 	name = "большая энергетическая аномалия"
 	ru_names = list(NOMINATIVE = "большая энергетическая аномалия", \
 					GENITIVE = "большой энергетической аномалии", \
@@ -156,8 +156,8 @@
 					INSTRUMENTAL = "большой энергетической аномалией", \
 					PREPOSITIONAL = "большой энергетической аномалии")
 	icon_state = "energetic3"
-	core_type = /obj/item/assembly/signaler/anomaly/tier3/flux
-	weaker_anomaly_type = /obj/effect/anomaly/flux/tier2
+	core_type = /obj/item/assembly/signaler/anomaly/tier3/energetic
+	weaker_anomaly_type = /obj/effect/anomaly/energetic/tier2
 	tier = 3
 	light_range = 7
 	impulses_types = list(
@@ -174,7 +174,7 @@
 	eballs_num_low = 3
 	eballs_num_high = 5
 
-/obj/effect/anomaly/flux/tier3/New()
+/obj/effect/anomaly/energetic/tier3/New()
 	. = ..()
 	for(var/mob/living/M in GLOB.player_list)
 		if(M.stat)
@@ -199,7 +199,7 @@
 	alpha = 0
 	light = 5
 	/// Anomaly that src conected with.
-	var/obj/effect/anomaly/flux/owner
+	var/obj/effect/anomaly/energetic/owner
 
 /obj/effect/energy_ball/New(loc, owner)
 	. = ..()

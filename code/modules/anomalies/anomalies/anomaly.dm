@@ -152,7 +152,8 @@
 											но остается пустым из-за низкого заряда."))
 		return
 
-	var/obj/item/assembly/signaler/anomaly/new_core = new core_type(core.loc, new_charge)
+	var/path = text2path("/obj/item/assembly/signaler/anomaly/tier[core.tier]/[anomaly_type]")
+	var/obj/item/assembly/signaler/anomaly/new_core = new path(core.loc, new_charge)
 	new_core.visible_message(span_warning("[core.declent_ru(NOMINATIVE)] заряжается от [declent_ru(GENITIVE)], \
 											и становится [new_core.declent_ru(INSTRUMENTAL)]."))
 	qdel(core)

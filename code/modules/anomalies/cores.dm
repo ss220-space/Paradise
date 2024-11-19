@@ -59,7 +59,7 @@
 	origin_tech = "materials=3"
 	tier = 1
 
-/obj/item/assembly/signaler/anomaly/tier1/pyro
+/obj/item/assembly/signaler/anomaly/tier1/atmospheric
 	name = "ядро малой атмосферной аномалии"
 	ru_names = list(NOMINATIVE = "ядро малой атмосферной аномалии", \
 					GENITIVE = "ядра малой атмосферной аномалии", \
@@ -69,10 +69,10 @@
 					PREPOSITIONAL = "ядре малой атмосферной аномалии")
 	desc = "Стабилизированное ядро ​малой атмосферной аномалии. На ощупь прохладное. Вероятно, оно пригодится для исследований."
 	icon_state = "pyro_core"
-	anomaly_type = /obj/effect/anomaly/pyro/tier1
+	anomaly_type = /obj/effect/anomaly/atmospheric/tier1
 	origin_tech = "plasmatech=5"
 
-/obj/item/assembly/signaler/anomaly/tier1/grav
+/obj/item/assembly/signaler/anomaly/tier1/gravitational
 	name = "ядро малой гравитационной аномалии"
 	ru_names = list(NOMINATIVE = "ядро малой гравитационной аномалии", \
 					GENITIVE = "ядра малой гравитационной аномалии", \
@@ -82,10 +82,10 @@
 					PREPOSITIONAL = "ядре малой гравитационной аномалии")
 	desc = "Нейтрализованное ядро малой ​​гравитационной аномалии. Слегка легче, чем выглядит. Вероятно, оно пригодится для исследований."
 	icon_state = "grav_core"
-	anomaly_type = /obj/effect/anomaly/grav/tier1
+	anomaly_type = /obj/effect/anomaly/gravitational/tier1
 	origin_tech = "magnets=5"
 
-/obj/item/assembly/signaler/anomaly/tier1/flux
+/obj/item/assembly/signaler/anomaly/tier1/energetic
 	name = "ядро малой ​​энергетической аномалии"
 	ru_names = list(NOMINATIVE = "ядро малой ​​энергетической аномалии", \
 					GENITIVE = "ядра малой ​​энергетической аномалии", \
@@ -95,7 +95,7 @@
 					PREPOSITIONAL = "ядре малой ​​энергетической аномалии")
 	desc = "Стабилизированное ядро малой ​​энергетической аномалии. Прикосновение к нему вызывает легкое покалывание. Вероятно, оно пригодится для исследований."
 	icon_state = "flux_core"
-	anomaly_type = /obj/effect/anomaly/flux/tier1
+	anomaly_type = /obj/effect/anomaly/energetic/tier1
 	origin_tech = "powerstorage=5"
 
 /obj/item/assembly/signaler/anomaly/tier1/bluespace
@@ -141,25 +141,25 @@
 	origin_tech = "materials=5" // not clonable by experimentor
 	tier = 2
 
-/obj/item/assembly/signaler/anomaly/tier2/pyro
+/obj/item/assembly/signaler/anomaly/tier2/atmospheric
 	name = "\improper pyroclastic anomaly core"
 	desc = "Стабилизированное ядро ​атмосферной аномалии. На ощупь теплое. Вероятно, оно пригодится для исследований."
 	icon_state = "pyro_core"
-	anomaly_type = /obj/effect/anomaly/pyro/tier2
+	anomaly_type = /obj/effect/anomaly/atmospheric/tier2
 	origin_tech = "plasmatech=7"
 
-/obj/item/assembly/signaler/anomaly/tier2/grav
+/obj/item/assembly/signaler/anomaly/tier2/gravitational
 	name = "\improper gravitational anomaly core"
 	desc = "Стабилизированное ядро ​​гравитационной аномалии. Гораздо тяжелее, чем выглядит. Вероятно, оно пригодится для исследований."
 	icon_state = "grav_core"
-	anomaly_type = /obj/effect/anomaly/grav/tier2
+	anomaly_type = /obj/effect/anomaly/gravitational/tier2
 	origin_tech = "magnets=7"
 
-/obj/item/assembly/signaler/anomaly/tier2/flux
+/obj/item/assembly/signaler/anomaly/tier2/energetic
 	name = "\improper flux anomaly core"
 	desc = "Стабилизированное ядро ​​энергетической аномалии. Прикосновение к нему вызывает легкое покалывание. Вероятно, оно пригодится для исследований."
 	icon_state = "flux_core"
-	anomaly_type = /obj/effect/anomaly/flux/tier2
+	anomaly_type = /obj/effect/anomaly/energetic/tier2
 	origin_tech = "powerstorage=7"
 
 /obj/item/assembly/signaler/anomaly/tier2/bluespace
@@ -193,7 +193,7 @@
 	origin_tech = "materials=7" // Sorry, not clonable by experimentor
 	tier = 3
 
-/obj/item/assembly/signaler/anomaly/tier3/pyro
+/obj/item/assembly/signaler/anomaly/tier3/atmospheric
 	name = "ядро большой атмосферной аномалии"
 	ru_names = list(NOMINATIVE = "ядро большой атмосферной аномалии", \
 					GENITIVE = "ядра большой атмосферной аномалии", \
@@ -203,10 +203,10 @@
 					PREPOSITIONAL = "ядре большой атмосферной аномалии")
 	desc = "Стабилизированное ядро большой атмосферной аномалии. От одного его вида вас бросает то в жар, то в холод, причем буквально."
 	icon_state = "pyro_core"
-	anomaly_type = /obj/effect/anomaly/pyro/tier3
+	anomaly_type = /obj/effect/anomaly/atmospheric/tier3
 	origin_tech = "plasmatech=8"
 
-/obj/item/assembly/signaler/anomaly/tier3/grav
+/obj/item/assembly/signaler/anomaly/tier3/gravitational
 	name = "ядро большой гравитационной аномалии"
 	ru_names = list(NOMINATIVE = "ядро большой гравитационной аномалии", \
 					GENITIVE = "ядра большой гравитационной аномалии", \
@@ -216,10 +216,10 @@
 					PREPOSITIONAL = "ядре большой гравитационной аномалии")
 	desc = "Нейтрализованное ядро большой ​​гравитационной аномалии. Вы чувствуете сильное несоответствие веса многих окружающих предметов с их внешним видом."
 	icon_state = "grav_core"
-	anomaly_type = /obj/effect/anomaly/grav/tier3
+	anomaly_type = /obj/effect/anomaly/gravitational/tier3
 	origin_tech = "magnets=8"
 
-/obj/item/assembly/signaler/anomaly/tier3/flux
+/obj/item/assembly/signaler/anomaly/tier3/energetic
 	name = "ядро большой ​​энергетической аномалии"
 	ru_names = list(NOMINATIVE = "ядро большой ​​энергетической аномалии", \
 					GENITIVE = "ядра большой ​​энергетической аномалии", \
@@ -229,7 +229,7 @@
 					PREPOSITIONAL = "ядре большой ​​энергетической аномалии")
 	desc = "Стабилизированное ядро большой ​​энергетической аномалии. Вокруг ядра периодически возникают электрические разряды. Окружающая электроника напряженно гудит."
 	icon_state = "flux_core"
-	anomaly_type = /obj/effect/anomaly/flux/tier3
+	anomaly_type = /obj/effect/anomaly/energetic/tier3
 	origin_tech = "powerstorage=8"
 
 /obj/item/assembly/signaler/anomaly/tier3/bluespace

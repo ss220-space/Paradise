@@ -153,11 +153,11 @@ Difficulty: Very Hard
 		if(BLUESPACE)
 			core_type = /obj/item/assembly/signaler/anomaly/tier2/bluespace
 		if(GRAV)
-			core_type = /obj/item/assembly/signaler/anomaly/tier2/grav
+			core_type = /obj/item/assembly/signaler/anomaly/tier2/gravitational
 		if(PYRO)
-			core_type = /obj/item/assembly/signaler/anomaly/tier2/pyro
+			core_type = /obj/item/assembly/signaler/anomaly/tier2/atmospheric
 		if(FLUX)
-			core_type = /obj/item/assembly/signaler/anomaly/tier2/flux
+			core_type = /obj/item/assembly/signaler/anomaly/tier2/energetic
 		if(VORTEX)
 			core_type = /obj/item/assembly/signaler/anomaly/tier2/vortex
 
@@ -433,13 +433,13 @@ Difficulty: Very Hard
 				var/obj/effect/old_anomaly/bluespace/A = new(spot, time_to_use, FALSE)
 				A.mass_teleporting = FALSE
 			if(GRAV)
-				var/obj/effect/old_anomaly/grav/A = new(spot, time_to_use, FALSE, FALSE)
+				var/obj/effect/old_anomaly/gravitational/A = new(spot, time_to_use, FALSE, FALSE)
 				A.knockdown = TRUE
 			if(PYRO)
-				var/obj/effect/old_anomaly/pyro/A = new(spot, time_to_use, FALSE)
+				var/obj/effect/old_anomaly/atmospheric/A = new(spot, time_to_use, FALSE)
 				A.produces_slime = FALSE
 			if(FLUX)
-				var/obj/effect/old_anomaly/flux/A = new(spot, time_to_use, FALSE)
+				var/obj/effect/old_anomaly/energetic/A = new(spot, time_to_use, FALSE)
 				A.explosive = FALSE
 			if(VORTEX)
 				new /obj/effect/old_anomaly/bhole(spot, time_to_use, FALSE)

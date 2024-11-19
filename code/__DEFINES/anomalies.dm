@@ -1,9 +1,9 @@
 #define ANOMALY_TYPE_RANDOM			"random"
-#define ANOMALY_TYPE_ATMOS			"pyroclastic"
+#define ANOMALY_TYPE_ATMOS			"atmospheric"
 #define ANOMALY_TYPE_BLUESPACE		"bluespace"
 #define ANOMALY_TYPE_GRAV			"gravitational"
 #define ANOMALY_TYPE_VORTEX			"vortex"
-#define ANOMALY_TYPE_FLUX			"flux"
+#define ANOMALY_TYPE_FLUX			"energetic"
 
 #define isanomaly(A)	(istype((A), /obj/effect/anomaly))
 
@@ -15,43 +15,43 @@
 #define iscoreempty(A)		((A.type == /obj/item/assembly/signaler/anomaly/tier1) || \
 							(A.type == /obj/item/assembly/signaler/anomaly/tier2) || \
 							(A.type == /obj/item/assembly/signaler/anomaly/tier3))
-#define iscoreatmos(A)		((A.type == /obj/item/assembly/signaler/anomaly/tier1/pyro) || \
-							(A.type == /obj/item/assembly/signaler/anomaly/tier2/pyro) || \
-							(A.type == /obj/item/assembly/signaler/anomaly/tier3/pyro))
+#define iscoreatmos(A)		((A.type == /obj/item/assembly/signaler/anomaly/tier1/atmospheric) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier2/atmospheric) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier3/atmospheric))
 #define iscorebluespace(A)	((A.type == /obj/item/assembly/signaler/anomaly/tier1/bluespace) || \
 							(A.type == /obj/item/assembly/signaler/anomaly/tier2/bluespace) || \
 							(A.type == /obj/item/assembly/signaler/anomaly/tier3/bluespace))
-#define iscoregrav(A)		((A.type == /obj/item/assembly/signaler/anomaly/tier1/grav) || \
-							(A.type == /obj/item/assembly/signaler/anomaly/tier2/grav) || \
-							(A.type == /obj/item/assembly/signaler/anomaly/tier3/grav))
+#define iscoregrav(A)		((A.type == /obj/item/assembly/signaler/anomaly/tier1/gravitational) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier2/gravitational) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier3/gravitational))
 #define iscorevortex(A)		((A.type == /obj/item/assembly/signaler/anomaly/tier1/vortex) || \
 							(A.type == /obj/item/assembly/signaler/anomaly/tier2/vortex) || \
 							(A.type == /obj/item/assembly/signaler/anomaly/tier3/vortex))
-#define iscoreflux(A)		((A.type == /obj/item/assembly/signaler/anomaly/tier1/flux) || \
-							(A.type == /obj/item/assembly/signaler/anomaly/tier2/flux) || \
-							(A.type == /obj/item/assembly/signaler/anomaly/tier3/flux))
+#define iscoreflux(A)		((A.type == /obj/item/assembly/signaler/anomaly/tier1/energetic) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier2/energetic) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier3/energetic))
 
 GLOBAL_LIST_INIT(anomaly_types, list(
 	"1" = list(
 		ANOMALY_TYPE_ATMOS = /datum/anomaly_gen_datum/tier1/pyroclastic,
 		ANOMALY_TYPE_BLUESPACE = /datum/anomaly_gen_datum/tier1/bluespace,
-		ANOMALY_TYPE_GRAV = /datum/anomaly_gen_datum/tier1/grav,
+		ANOMALY_TYPE_GRAV = /datum/anomaly_gen_datum/tier1/gravitational,
 		ANOMALY_TYPE_VORTEX = /datum/anomaly_gen_datum/tier1/vortex,
-		ANOMALY_TYPE_FLUX = /obj/item/assembly/signaler/anomaly/tier1/flux,
+		ANOMALY_TYPE_FLUX = /obj/item/assembly/signaler/anomaly/tier1/energetic,
 	),
 	"2" = list(
 		ANOMALY_TYPE_ATMOS = /datum/anomaly_gen_datum/tier2/pyroclastic,
 		ANOMALY_TYPE_BLUESPACE = /datum/anomaly_gen_datum/tier2/bluespace,
-		ANOMALY_TYPE_GRAV = /datum/anomaly_gen_datum/tier2/grav,
+		ANOMALY_TYPE_GRAV = /datum/anomaly_gen_datum/tier2/gravitational,
 		ANOMALY_TYPE_VORTEX = /datum/anomaly_gen_datum/tier2/vortex,
-		ANOMALY_TYPE_FLUX = /obj/item/assembly/signaler/anomaly/tier2/flux,
+		ANOMALY_TYPE_FLUX = /obj/item/assembly/signaler/anomaly/tier2/energetic,
 	),
 	"3" = list(
 		ANOMALY_TYPE_ATMOS = /datum/anomaly_gen_datum/tier3/pyroclastic,
 		ANOMALY_TYPE_BLUESPACE = /datum/anomaly_gen_datum/tier3/bluespace,
-		ANOMALY_TYPE_GRAV = /datum/anomaly_gen_datum/tier3/grav,
+		ANOMALY_TYPE_GRAV = /datum/anomaly_gen_datum/tier3/gravitational,
 		ANOMALY_TYPE_VORTEX = /datum/anomaly_gen_datum/tier3/vortex,
-		ANOMALY_TYPE_FLUX = /obj/item/assembly/signaler/anomaly/tier3/flux,
+		ANOMALY_TYPE_FLUX = /obj/item/assembly/signaler/anomaly/tier3/energetic,
 	),
 ))
 

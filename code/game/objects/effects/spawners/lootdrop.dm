@@ -303,9 +303,9 @@
 		/obj/item/slime_extract/sepia = 50,
 		/obj/item/assembly/signaler/anomaly/tier2/vortex = 50,
 		/obj/item/assembly/signaler/anomaly/tier2/bluespace = 50,
-		/obj/item/assembly/signaler/anomaly/tier2/flux = 50,
-		/obj/item/assembly/signaler/anomaly/tier2/grav = 50,
-		/obj/item/assembly/signaler/anomaly/tier2/pyro = 50,
+		/obj/item/assembly/signaler/anomaly/tier2/energetic = 50,
+		/obj/item/assembly/signaler/anomaly/tier2/gravitational = 50,
+		/obj/item/assembly/signaler/anomaly/tier2/atmospheric = 50,
 		/obj/item/t_scanner/science = 50,
 		/obj/item/t_scanner/experimental = 5)
 

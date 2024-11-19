@@ -111,16 +111,16 @@
 
 ///////////////////////
 
-/obj/effect/old_anomaly/grav
+/obj/effect/old_anomaly/gravitational
 	name = "gravitational anomaly"
 	icon_state = "shield2"
 	density = FALSE
 	var/boing = FALSE
 	var/knockdown = FALSE
-	aSignal = /obj/item/assembly/signaler/anomaly/tier2/grav
+	aSignal = /obj/item/assembly/signaler/anomaly/tier2/gravitational
 
 
-/obj/effect/old_anomaly/grav/Initialize(mapload, new_lifespan, _drops_core)
+/obj/effect/old_anomaly/gravitational/Initialize(mapload, new_lifespan, _drops_core)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -128,7 +128,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-/obj/effect/old_anomaly/grav/anomalyEffect()
+/obj/effect/old_anomaly/gravitational/anomalyEffect()
 	..()
 	boing = TRUE
 	for(var/obj/O in orange(4, src))
@@ -146,25 +146,25 @@
 				O.throw_at(target, 5, 10)
 
 
-/obj/effect/old_anomaly/grav/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+/obj/effect/old_anomaly/gravitational/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	gravShock(arrived)
 
 
-/obj/effect/old_anomaly/grav/Bump(atom/bumped_atom)
+/obj/effect/old_anomaly/gravitational/Bump(atom/bumped_atom)
 	. = ..()
 	if(.)
 		return .
 	gravShock(bumped_atom)
 
 
-/obj/effect/old_anomaly/grav/Bumped(atom/movable/moving_atom)
+/obj/effect/old_anomaly/gravitational/Bumped(atom/movable/moving_atom)
 	. = ..()
 	gravShock(moving_atom)
 
 
-/obj/effect/old_anomaly/grav/proc/gravShock(mob/living/A)
+/obj/effect/old_anomaly/gravitational/proc/gravShock(mob/living/A)
 	if(boing && isliving(A) && !A.stat)
 		if(!knockdown) // no hardstuns with megafauna
 			A.Weaken(4 SECONDS)
@@ -174,17 +174,17 @@
 
 /////////////////////
 
-/obj/effect/old_anomaly/flux
+/obj/effect/old_anomaly/energetic
 	name = "flux wave anomaly"
 	icon_state = "electricity2"
 	density = TRUE
-	aSignal = /obj/item/assembly/signaler/anomaly/tier2/flux
+	aSignal = /obj/item/assembly/signaler/anomaly/tier2/energetic
 	var/canshock = FALSE
 	var/shockdamage = 20
 	var/explosive = TRUE
 
 
-/obj/effect/old_anomaly/flux/Initialize(mapload, new_lifespan, drops_core = TRUE, _explosive = TRUE)
+/obj/effect/old_anomaly/energetic/Initialize(mapload, new_lifespan, drops_core = TRUE, _explosive = TRUE)
 	. = ..()
 	explosive = _explosive
 	var/static/list/loc_connections = list(
@@ -193,35 +193,35 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-/obj/effect/old_anomaly/flux/anomalyEffect()
+/obj/effect/old_anomaly/energetic/anomalyEffect()
 	..()
 	canshock = TRUE
 	for(var/mob/living/M in get_turf(src))
 		mobShock(M)
 
 
-/obj/effect/old_anomaly/flux/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+/obj/effect/old_anomaly/energetic/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	mobShock(arrived)
 
 
-/obj/effect/old_anomaly/flux/Bump(atom/bumped_atom)
+/obj/effect/old_anomaly/energetic/Bump(atom/bumped_atom)
 	. = ..()
 	if(.)
 		return .
 	mobShock(bumped_atom)
 
-/obj/effect/old_anomaly/flux/Bumped(atom/movable/moving_atom)
+/obj/effect/old_anomaly/energetic/Bumped(atom/movable/moving_atom)
 	. = ..()
 	mobShock(moving_atom)
 
-/obj/effect/old_anomaly/flux/proc/mobShock(mob/living/M)
+/obj/effect/old_anomaly/energetic/proc/mobShock(mob/living/M)
 	if(canshock && istype(M))
 		canshock = FALSE //Just so you don't instakill yourself if you slam into the anomaly five times in a second.
 		M.electrocute_act(shockdamage, "потоковой аномалии", flags = SHOCK_NOGLOVES)
 
-/obj/effect/old_anomaly/flux/detonate()
+/obj/effect/old_anomaly/energetic/detonate()
 	if(explosive)
 		explosion(src, 1, 4, 16, 18, cause = src) //Low devastation, but hits a lot of stuff.
 	else
@@ -315,18 +315,18 @@
 
 /////////////////////
 
-/obj/effect/old_anomaly/pyro
+/obj/effect/old_anomaly/atmospheric
 	name = "pyroclastic anomaly"
 	icon_state = "mustard"
 	var/ticks = 0
 	var/produces_slime = TRUE
-	aSignal = /obj/item/assembly/signaler/anomaly/tier2/pyro
+	aSignal = /obj/item/assembly/signaler/anomaly/tier2/atmospheric
 
-/obj/effect/old_anomaly/pyro/Initialize(mapload, new_lifespan, drops_core = TRUE, _produces_slime = TRUE)
+/obj/effect/old_anomaly/atmospheric/Initialize(mapload, new_lifespan, drops_core = TRUE, _produces_slime = TRUE)
 	. = ..()
 	produces_slime = _produces_slime
 
-/obj/effect/old_anomaly/pyro/anomalyEffect()
+/obj/effect/old_anomaly/atmospheric/anomalyEffect()
 	..()
 	ticks++
 	if(ticks < 5)
@@ -337,11 +337,11 @@
 	if(istype(T))
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 5)
 
-/obj/effect/old_anomaly/pyro/detonate()
+/obj/effect/old_anomaly/atmospheric/detonate()
 	if(produces_slime)
 		INVOKE_ASYNC(src, PROC_REF(makepyroslime))
 
-/obj/effect/old_anomaly/pyro/proc/makepyroslime()
+/obj/effect/old_anomaly/atmospheric/proc/makepyroslime()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 500) //Make it hot and burny for the new slime

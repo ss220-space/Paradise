@@ -83,7 +83,7 @@
 
 /datum/anomaly_gen_datum/tier1/pyroclastic
 	anomaly_type = "малая атмосферная"
-	anomaly = /obj/effect/anomaly/pyro/tier1
+	anomaly = /obj/effect/anomaly/atmospheric/tier1
 	req_item = "-"
 
 /datum/anomaly_gen_datum/tier1/bluespace
@@ -96,14 +96,14 @@
 	anomaly = /obj/effect/anomaly/vortex/tier1
 	req_item = "-"
 
-/datum/anomaly_gen_datum/tier1/grav
+/datum/anomaly_gen_datum/tier1/gravitational
 	anomaly_type = "малая гравитационная"
-	anomaly = /obj/effect/anomaly/grav/tier1
+	anomaly = /obj/effect/anomaly/gravitational/tier1
 	req_item = "-"
 
-/datum/anomaly_gen_datum/tier1/flux
+/datum/anomaly_gen_datum/tier1/energetic
 	anomaly_type = "малая энергетическая"
-	anomaly = /obj/effect/anomaly/flux/tier1
+	anomaly = /obj/effect/anomaly/energetic/tier1
 	req_item = "-"
 
 //==================================== TIER 2 ===========================================
@@ -113,11 +113,11 @@
 
 /datum/anomaly_gen_datum/tier2/pyroclastic
 	anomaly_type = "атмосферная"
-	anomaly = /obj/effect/anomaly/pyro/tier2
+	anomaly = /obj/effect/anomaly/atmospheric/tier2
 	req_item = "Ядро малой атмосферной аноамлии"
 
 /datum/anomaly_gen_datum/tier2/pyroclastic/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/anomaly/tier1/pyro)
+	return istype(I, /obj/item/assembly/signaler/anomaly/tier1/atmospheric)
 
 
 /datum/anomaly_gen_datum/tier2/bluespace
@@ -138,22 +138,22 @@
 	return istype(I, /obj/item/assembly/signaler/anomaly/tier1/vortex)
 
 
-/datum/anomaly_gen_datum/tier2/grav
+/datum/anomaly_gen_datum/tier2/gravitational
 	anomaly_type = "гравитационная"
-	anomaly = /obj/effect/anomaly/grav/tier2
+	anomaly = /obj/effect/anomaly/gravitational/tier2
 	req_item = "Ядро малой гравитационной аномалии"
 
-/datum/anomaly_gen_datum/tier2/grav/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/anomaly/tier1/grav)
+/datum/anomaly_gen_datum/tier2/gravitational/is_req_item(obj/item/I)
+	return istype(I, /obj/item/assembly/signaler/anomaly/tier1/gravitational)
 
 
-/datum/anomaly_gen_datum/tier2/flux
+/datum/anomaly_gen_datum/tier2/energetic
 	anomaly_type = "энергетическая"
-	anomaly = /obj/effect/anomaly/flux/tier2
+	anomaly = /obj/effect/anomaly/energetic/tier2
 	req_item = "Ядро малой энергетической аномалии"
 
-/datum/anomaly_gen_datum/tier2/flux/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/anomaly/tier1/flux)
+/datum/anomaly_gen_datum/tier2/energetic/is_req_item(obj/item/I)
+	return istype(I, /obj/item/assembly/signaler/anomaly/tier1/energetic)
 
 
 //==================================== TIER 3 ===========================================
@@ -170,11 +170,11 @@
 
 /datum/anomaly_gen_datum/tier3/pyroclastic
 	anomaly_type = "большая атмосферная"
-	anomaly = /obj/effect/anomaly/pyro/tier3
+	anomaly = /obj/effect/anomaly/atmospheric/tier3
 	req_item = "Два ядра атмосферных аномалий"
 
 /datum/anomaly_gen_datum/tier3/pyroclastic/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/anomaly/tier2/pyro)
+	return istype(I, /obj/item/assembly/signaler/anomaly/tier2/atmospheric)
 
 
 /datum/anomaly_gen_datum/tier3/bluespace
@@ -195,19 +195,19 @@
 	return istype(I, /obj/item/assembly/signaler/anomaly/tier2/vortex)
 
 
-/datum/anomaly_gen_datum/tier3/grav
+/datum/anomaly_gen_datum/tier3/gravitational
 	anomaly_type = "большая гравитационная"
-	anomaly = /obj/effect/anomaly/grav/tier3
+	anomaly = /obj/effect/anomaly/gravitational/tier3
 	req_item = "Два ядра гравитационных аномалий"
 
-/datum/anomaly_gen_datum/tier3/grav/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/anomaly/tier2/grav)
+/datum/anomaly_gen_datum/tier3/gravitational/is_req_item(obj/item/I)
+	return istype(I, /obj/item/assembly/signaler/anomaly/tier2/gravitational)
 
 
-/datum/anomaly_gen_datum/tier3/flux
+/datum/anomaly_gen_datum/tier3/energetic
 	anomaly_type = "большая энергетическая"
-	anomaly = /obj/effect/anomaly/flux/tier3
+	anomaly = /obj/effect/anomaly/energetic/tier3
 	req_item = "Два ядра энергетических аномалий"
 
-/datum/anomaly_gen_datum/tier3/flux/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/anomaly/tier2/flux)
+/datum/anomaly_gen_datum/tier3/energetic/is_req_item(obj/item/I)
+	return istype(I, /obj/item/assembly/signaler/anomaly/tier2/energetic)
