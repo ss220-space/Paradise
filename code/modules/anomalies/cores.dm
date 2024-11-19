@@ -9,7 +9,7 @@
 	/// The type of anomaly that leaves nuclei of this type.
 	var/anomaly_type = /obj/effect/old_anomaly
 	/// The strength of the anomaly at the moment of stabilization. Used to scale some effects of items using anomaly cores.
-	var/strenght = 50
+	var/charge = 50
 	/// The level of the anomaly from which the core was collected.
 	var/tier = 0
 	/// Moment whet this core was created. Used to prevent the core from instantly disintegrating when charging.
@@ -17,12 +17,12 @@
 
 /obj/item/assembly/signaler/anomaly/examine(mob/user)
 	. = ..()
-	. += span_info("Текущий заряд: [strenght].")
+	. += span_info("Текущий заряд: [charge].")
 	. += span_info("Текущая сила: [get_strenght()].")
 
-/obj/item/assembly/signaler/anomaly/New(spawnloc, strenght = rand(51, 60))
+/obj/item/assembly/signaler/anomaly/New(spawnloc, charge = rand(51, 60))
 	. = ..()
-	src.strenght = strenght
+	src.charge = charge
 	born_moment = world.time
 
 // Used in old anomalies.
@@ -41,7 +41,7 @@
 100 of tier 3 == 200 of tier 2 == 400 of tier 1
 */
 /obj/item/assembly/signaler/anomaly/proc/get_strenght()
-	return strenght * (1 << (tier - 1))
+	return charge * (1 << (tier - 1))
 
 // ============================ Tier 1 ===================================
 /obj/item/assembly/signaler/anomaly/tier1
@@ -206,6 +206,35 @@
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier3
 	origin_tech = "plasmatech=8"
 
+/obj/item/assembly/signaler/anomaly/tier3/atmospheric/forceMove(atom/destination)
+	if(ishuman(destination))
+		START_PROCESSING(SSobj, src)
+		if(prob(1))
+			var/mob/living/carbon/human/H = destination
+			H.adjust_fire_stacks(charge/10)
+			H.IgniteMob()
+	else
+		STOP_PROCESSING(SSobj, src)
+
+	return ..()
+
+/obj/item/assembly/signaler/anomaly/tier3/atmospheric/process()
+	var/mob/living/carbon/human/H = loc
+	if(!istype(H))
+		return
+
+	if(prob(98))
+		return
+
+	if(H.bodytemperature < T0C - 100)
+		H.adjust_fire_stacks(charge/10)
+		H.IgniteMob()
+	else if(H.bodytemperature > T0C + 500)
+		H.apply_status_effect(/datum/status_effect/freon)
+		if(ishuman(H))
+			H.reagents.add_reagent("frostoil", 5)
+
+
 /obj/item/assembly/signaler/anomaly/tier3/gravitational
 	name = "ядро большой гравитационной аномалии"
 	ru_names = list(NOMINATIVE = "ядро большой гравитационной аномалии", \
@@ -218,6 +247,35 @@
 	icon_state = "grav_core"
 	anomaly_type = /obj/effect/anomaly/gravitational/tier3
 	origin_tech = "magnets=8"
+	var/atom/old_owner = null
+
+/obj/item/assembly/signaler/anomaly/tier3/gravitational/Initialize()
+	. = ..()
+	old_owner = get_external_loc()
+
+/atom/proc/get_external_loc()
+	var/atom/ext_loc = src
+	while(!isturf(ext_loc.loc))
+		ext_loc = ext_loc.loc
+
+	return ext_loc
+
+// Mobs will be in reversed gravity. Items will be without gravity.
+/obj/item/assembly/signaler/anomaly/tier3/gravitational/forceMove(atom/target)
+	var/atom/new_owner = target.get_external_loc()
+	if(ismob(old_owner))
+		old_owner.add_gravity("[UID()]", 2)
+
+	if(isitem(old_owner))
+		old_owner.add_gravity("[UID()]", 1)
+
+	if(ismob(new_owner))
+		new_owner.add_gravity("[UID()]", -2)
+
+	if(isitem(new_owner))
+		new_owner.add_gravity("[UID()]", -1)
+
+	return ..()
 
 /obj/item/assembly/signaler/anomaly/tier3/energetic
 	name = "ядро большой ​​энергетической аномалии"
@@ -232,6 +290,26 @@
 	anomaly_type = /obj/effect/anomaly/energetic/tier3
 	origin_tech = "powerstorage=8"
 
+/obj/item/assembly/signaler/anomaly/tier3/energetic/Bump(atom/bumped_atom)
+	. = ..()
+	try_shock(bumped_atom)
+
+/obj/item/assembly/signaler/anomaly/tier3/energetic/proc/try_shock(atom/target)
+	if(!iscarbon(target))
+		return FALSE
+
+	var/mob/living/carbon/human/H = target
+	if(H.electrocute_act(charge, "[declent_ru(GENITIVE)]"))
+		return TRUE
+
+	return FALSE
+
+/obj/item/assembly/signaler/anomaly/tier3/energetic/forceMove(atom/destination)
+	if(!try_shock(destination))
+		return ..()
+	else
+		return FALSE
+
 /obj/item/assembly/signaler/anomaly/tier3/bluespace
 	name = "ядро большой ​​блюспейс аномалии"
 	ru_names = list(NOMINATIVE = "ядро большой ​​блюспейс аномалии", \
@@ -244,6 +322,23 @@
 	icon_state = "anomaly_core"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier3
 	origin_tech = "bluespace=8"
+
+/obj/item/assembly/signaler/anomaly/tier3/bluespace/Bump(atom/bumped_atom)
+	. = ..()
+	try_teleport()
+
+/obj/item/assembly/signaler/anomaly/tier3/bluespace/proc/try_teleport()
+	if(prob(80))
+		return FALSE
+
+	return do_teleport(src, src, 2, asoundin = 'sound/effects/phasein.ogg')
+
+/obj/item/assembly/signaler/anomaly/tier3/bluespace/forceMove(atom/destination)
+	if(!try_teleport())
+		return ..()
+	else
+		return FALSE
+
 
 /obj/item/assembly/signaler/anomaly/tier3/vortex
 	name = "ядро большой вихревой аномалии"

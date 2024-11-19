@@ -134,19 +134,19 @@
 
 	if(!iscoreempty(core))
 		core.visible_message(span_warning("[core.declent_ru(NOMINATIVE)] распадается передавая свой заряд [declent_ru(DATIVE)]."))
-		set_strenght(strenght + core.strenght / mult)
+		set_strenght(strenght + core.charge / mult)
 		qdel(core)
 		do_sparks(5, FALSE, src)
 		return
 
 	var/charge_delta = min(100, round(strenght / 3 * mult))
-	var/new_charge = core.strenght + charge_delta
+	var/new_charge = core.charge + charge_delta
 
 	do_sparks(5, FALSE, src)
 	set_strenght(strenght - round(charge_delta / mult))
 
 	if(new_charge <= 50)
-		core.strenght = new_charge
+		core.charge = new_charge
 		core.random_throw(3, 6, 5)
 		core.visible_message(span_warning("[core.declent_ru(NOMINATIVE)] заряжается от [declent_ru(GENITIVE)], \
 											но остается пустым из-за низкого заряда."))

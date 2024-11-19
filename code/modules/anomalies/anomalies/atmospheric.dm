@@ -26,11 +26,6 @@
 			T.MakeSlippery(TURF_WET_ICE, 120 SECONDS)
 
 	for(var/mob/living/M in view(collapse_range, src))
-		if(prob(50))
-			M.adjust_fire_stacks(20)
-			M.IgniteMob()
-			continue
-
 		M.adjust_bodytemperature(-100)
 		M.apply_status_effect(/datum/status_effect/freon)
 		if(ishuman(M))
