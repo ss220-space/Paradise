@@ -127,10 +127,8 @@
 	if(!force_say_content)
 		return
 
-	if(user.controlling || user.stat || user.host?.stat || user.antag_datum.evo_points < evo_cost) // we really need that double check
+	if(user.controlling || user.stat || user.host?.stat) // we really need that double check
 		return
 
 	user.host.say(force_say_content)
-	user.antag_datum.evo_points -= evo_cost
-
 	add_attack_logs(user, user.host, "Forcesaid: [force_say_content]")
