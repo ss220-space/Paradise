@@ -12,12 +12,24 @@
 #define iscoret2(A)			(istype((A), /obj/item/assembly/signaler/anomaly/tier2))
 #define iscoret3(A)			(istype((A), /obj/item/assembly/signaler/anomaly/tier3))
 
-#define iscoreempty(A)		(type in list(/obj/item/assembly/signaler/anomaly/tier1, /obj/item/assembly/signaler/anomaly/tier2, /obj/item/assembly/signaler/anomaly/tier3))
-#define iscoreatmos(A)		(type in list(/obj/item/assembly/signaler/anomaly/tier1/pyro, /obj/item/assembly/signaler/anomaly/tier2/pyro, /obj/item/assembly/signaler/anomaly/tier3/pyro))
-#define iscorebluespace(A)	(type in list(/obj/item/assembly/signaler/anomaly/tier1/bluespace, /obj/item/assembly/signaler/anomaly/tier2/bluespace, /obj/item/assembly/signaler/anomaly/tier3/bluespace))
-#define iscoregrav(A)		(type in list(/obj/item/assembly/signaler/anomaly/tier1/grav, /obj/item/assembly/signaler/anomaly/tier2/grav, /obj/item/assembly/signaler/anomaly/tier3/grav))
-#define iscorevortex(A)		(type in list(/obj/item/assembly/signaler/anomaly/tier1/vortex, /obj/item/assembly/signaler/anomaly/tier2/vortex, /obj/item/assembly/signaler/anomaly/tier3/vortex))
-#define iscoreflux(A)		(type in list(/obj/item/assembly/signaler/anomaly/tier1/flux, /obj/item/assembly/signaler/anomaly/tier2/flux, /obj/item/assembly/signaler/anomaly/tier3/flux))
+#define iscoreempty(A)		((A.type == /obj/item/assembly/signaler/anomaly/tier1) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier2) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier3))
+#define iscoreatmos(A)		((A.type == /obj/item/assembly/signaler/anomaly/tier1/pyro) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier2/pyro) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier3/pyro))
+#define iscorebluespace(A)	((A.type == /obj/item/assembly/signaler/anomaly/tier1/bluespace) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier2/bluespace) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier3/bluespace))
+#define iscoregrav(A)		((A.type == /obj/item/assembly/signaler/anomaly/tier1/grav) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier2/grav) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier3/grav))
+#define iscorevortex(A)		((A.type == /obj/item/assembly/signaler/anomaly/tier1/vortex) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier2/vortex) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier3/vortex))
+#define iscoreflux(A)		((A.type == /obj/item/assembly/signaler/anomaly/tier1/flux) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier2/flux) || \
+							(A.type == /obj/item/assembly/signaler/anomaly/tier3/flux))
 
 GLOBAL_LIST_INIT(anomaly_types, list(
 	"1" = list(
@@ -42,3 +54,14 @@ GLOBAL_LIST_INIT(anomaly_types, list(
 		ANOMALY_TYPE_FLUX = /obj/item/assembly/signaler/anomaly/tier3/flux,
 	),
 ))
+
+GLOBAL_LIST_INIT(created_anomalies, list(
+	ANOMALY_TYPE_ATMOS = 0,
+	ANOMALY_TYPE_BLUESPACE = 0,
+	ANOMALY_TYPE_GRAV = 0,
+	ANOMALY_TYPE_VORTEX = 0,
+	ANOMALY_TYPE_FLUX = 0,
+))
+
+#define ANOMALY_GROW_STABILITY			30
+#define ANOMALY_DECREASE_STABILITY		70

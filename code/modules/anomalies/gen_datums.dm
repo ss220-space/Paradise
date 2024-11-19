@@ -37,7 +37,6 @@
 		if(!T.is_safe())
 			return FALSE
 
-		// Не забыть добавить проверку на наличие других аномалий.
 	return TRUE
 
 /datum/anomaly_gen_datum/proc/is_possible_turf(turf/T)
@@ -47,7 +46,7 @@
 	var/list/used = list()
 	if(use_items)
 		used = get_used(containment)
-		if(!used.len)
+		if(!used.len && !istype(src, /datum/anomaly_gen_datum/tier1))
 			return FALSE
 
 	var/turf/choosen
@@ -85,47 +84,27 @@
 /datum/anomaly_gen_datum/tier1/pyroclastic
 	anomaly_type = "малая атмосферная"
 	anomaly = /obj/effect/anomaly/pyro/tier1
-	req_item = "Балон"
-
-/datum/anomaly_gen_datum/tier1/pyroclastic/is_req_item(obj/item/I)
-	return istype(I, /obj/item/tank/internals)
-
+	req_item = "-"
 
 /datum/anomaly_gen_datum/tier1/bluespace
 	anomaly_type = "малая блюспейс"
 	anomaly = /obj/effect/anomaly/bluespace/tier1
-	req_item = "Блюспейс кристалл"
-
-/datum/anomaly_gen_datum/tier1/bluespace/is_req_item(obj/item/I)
-	return istype(I, /obj/item/stack/sheet/bluespace_crystal)
-
+	req_item = "-"
 
 /datum/anomaly_gen_datum/tier1/vortex
 	anomaly_type = "малая вихревая"
 	anomaly = /obj/effect/anomaly/vortex/tier1
-	req_item = "Контейнер с жидкой темной материей"
-
-/datum/anomaly_gen_datum/tier1/vortex/is_req_item(obj/item/I)
-	return istype(I, /obj/item/reagent_containers/glass)
-
+	req_item = "-"
 
 /datum/anomaly_gen_datum/tier1/grav
 	anomaly_type = "малая гравитационная"
 	anomaly = /obj/effect/anomaly/grav/tier1
-	req_item = "Лист урана"
-
-/datum/anomaly_gen_datum/tier1/grav/is_req_item(obj/item/I)
-	return istype(I, /obj/item/stack/sheet/mineral/uranium)
-
+	req_item = "-"
 
 /datum/anomaly_gen_datum/tier1/flux
 	anomaly_type = "малая энергетическая"
 	anomaly = /obj/effect/anomaly/flux/tier1
-	req_item = "Что угодно обладающее энергией"
-
-/datum/anomaly_gen_datum/tier1/flux/is_req_item(obj/item/I)
-	return istype(I, /obj/item/stock_parts/cell) || get_cell_from(I)
-
+	req_item = "-"
 
 //==================================== TIER 2 ===========================================
 

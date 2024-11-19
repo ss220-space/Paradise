@@ -4,6 +4,7 @@
 	icon_state = "bhole3"
 	gender = FEMALE
 	anchored = TRUE
+	density = TRUE
 	alpha = 0
 	light_range = 3
 	layer = ABOVE_ALL_MOB_LAYER
@@ -46,6 +47,7 @@
 	sleep(1 SECONDS)
 
 /obj/effect/anomaly/Initialize(spawnloc, spawn_strenght = rand(30, 70), spawn_stability = rand(10, 29))
+	GLOB.created_anomalies[anomaly_type]++
 	. = ..()
 	if(!get_area(src))
 		return INITIALIZE_HINT_QDEL
@@ -72,7 +74,7 @@
 
 // It is in function because the size will change depending on the strength of the anomaly.
 /obj/effect/anomaly/proc/set_strenght(new_strenght)
-	strenght = new_strenght
+	strenght = clamp(new_strenght, 0, 100)
 	var/matrix/M = matrix()
 	var/mult = (strenght + 100) / 200
 	M.Scale(mult, mult)
@@ -120,25 +122,55 @@
 		new stronger_anomaly_type(loc, rand(20, 50), clamp(stability - rand(10, 20), 0, 100))
 		qdel(src)
 
-/obj/effect/anomaly/CanAllowThrough(atom/movable/mover, border_dir)
-	. = ..()
-	if(istype(mover, /obj/item/projectile/beam/anomaly))
-		return FALSE
-
-	if(ismob(mover))
-		return mob_touch_effect(mover)
-
-	if(isitem(mover))
-		return item_touch_effect(mover)
-
-
 /obj/effect/anomaly/proc/mob_touch_effect(mob/living/M)
 	return TRUE
+
+/obj/effect/anomaly/proc/core_touch_effect(obj/item/assembly/signaler/anomaly/core)
+	var/mult = 1
+	if(core.tier <= tier)
+		mult *= 1 << (core.tier - tier)
+	else
+		mult /= 1 << (core.tier - tier)
+
+	if(!iscoreempty(core))
+		core.visible_message(span_warning("[core.declent_ru(NOMINATIVE)] распадается передавая свой заряд [declent_ru(DATIVE)]."))
+		set_strenght(strenght + core.strenght / mult)
+		qdel(core)
+		do_sparks(5, FALSE, src)
+		return
+
+	var/charge_delta = min(100, round(strenght / 3 * mult))
+	var/new_charge = core.strenght + charge_delta
+
+	do_sparks(5, FALSE, src)
+	set_strenght(strenght - round(charge_delta / mult))
+
+	if(new_charge <= 50)
+		core.strenght = new_charge
+		core.random_throw(3, 6, 5)
+		core.visible_message(span_warning("[core.declent_ru(NOMINATIVE)] заряжается от [declent_ru(GENITIVE)], \
+											но остается пустым из-за низкого заряда."))
+		return
+
+	var/obj/item/assembly/signaler/anomaly/new_core = new core_type(core.loc, new_charge)
+	new_core.visible_message(span_warning("[core.declent_ru(NOMINATIVE)] заряжается от [declent_ru(GENITIVE)], \
+											и становится [new_core.declent_ru(INSTRUMENTAL)]."))
+	qdel(core)
+	new_core.random_throw(3, 6, 5)
+	return
 
 /obj/effect/anomaly/proc/item_touch_effect(obj/item/I)
 	. = TRUE
 	if(!istype(I))
 		return
+
+	if(iscore(I))
+		var/obj/item/assembly/signaler/anomaly/core = I
+		if(core.born_moment + 1 SECONDS >= world.time)
+			return TRUE
+
+		core_touch_effect(core)
+		return FALSE
 
 	if(!I.origin_tech)
 		return
@@ -171,7 +203,11 @@
 
 /obj/effect/anomaly/Bumped(atom/movable/moving_atom)
 	. = ..()
-	item_touch_effect(moving_atom)
+	if(isitem(moving_atom))
+		item_touch_effect(moving_atom)
+
+	if(isliving(moving_atom))
+		mob_touch_effect(moving_atom)
 
 /obj/effect/anomaly/proc/after_move()
 	for(var/obj/item/I in get_turf(src))
@@ -195,10 +231,10 @@
 	return max(min(strenght, 10), strenght - weaken)
 
 /obj/effect/anomaly/process()
-	if(stability < 30)
+	if(stability < ANOMALY_GROW_STABILITY)
 		set_strenght(strenght + 1)
 
-	if(stability > 70)
+	if(stability > ANOMALY_DECREASE_STABILITY)
 		set_strenght(strenght - 1)
 
 	if(strenght == 100)
@@ -217,7 +253,7 @@
 		level_down()
 		return
 
-	if(!prob(get_strenght()))
+	if(!prob(get_strenght()) || stability > 60)
 		return
 
 	if(normal_move())

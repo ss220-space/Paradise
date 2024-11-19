@@ -10,10 +10,14 @@
 		PREPOSITIONAL = "стабилизаторе аномалий"
 	)
 	desc = "Продвинутое устройство предназначенное для стабилизации аномалий. \
-			Можно вставить до двух ядер аномалий, для улучшения."
+			Можно вставить до двух любых не пустых ядер аномалий, для улучшения, \
+			в зависимости от типа и уровня ядер."
 	icon = 'icons/obj/weapons/energy.dmi'
+	gender = MALE
 	gun_light_overlay = "flight"
 	can_add_sibyl_system = FALSE
+	origin_tech = "programming=3;magnets=3"
+	cell_type = /obj/item/stock_parts/cell/high
 	/// Cores inserted into this anomaly stabilizer.
 	var/list/obj/item/assembly/signaler/anomaly/cores = list()
 	/// Range of allowed stability deltas. If val - X, range is [-x; x].
@@ -30,20 +34,18 @@
 	var/block_move_impulses_time = 0
 	/// The amount by which the strength of the anomaly's effects is temporarily reduced.
 	var/weaken_val = 0
-	/// The moment at which the reduction in the effects of the anomaly will be reset.
+	/// The time after hit at which the reduction in the effects of the anomaly will be reset.
 	var/weaken_time = 0
+	/// If true, tgui will show more info about this anomaly_stabilizer.
+	var/full_info = FALSE
+
+/obj/item/gun/energy/anomaly_stabilizer/Initialize(mapload, ...)
+	. = ..()
+	update_stability_delta()
 
 /obj/item/gun/energy/anomaly_stabilizer/attack_self(mob/living/user)
+	add_fingerprint(user)
 	ui_interact(user)
-
-
-/obj/item/gun/energy/anomaly_stabilizer/ui_interact(mob/user, datum/tgui/ui = null)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "Anomaly_Stabilizer", "Стабилизатор аномалий")
-		ui.set_autoupdate(TRUE)
-		ui.open()
-
 
 /obj/item/gun/energy/anomaly_stabilizer/newshot()
 	if(!ammo_type || !cell)
@@ -53,12 +55,12 @@
 	if(cell.charge < shot.e_cost)
 		return
 
-	chambered = shot //...prepare a new shot based on the current ammo type selected
+	chambered = new shot
 	if(!chambered.BB)
 		chambered.newshot()
 
 	var/obj/item/ammo_casing/energy/anomaly/en_chambered = chambered
-	en_chambered.e_cost *= stability_delta * stability_delta
+	en_chambered.e_cost *= max(1, stability_delta * stability_delta)
 
 	var/obj/item/projectile/beam/anomaly/BB = chambered.BB
 	BB.stability_delta = stability_delta
@@ -68,7 +70,7 @@
 	BB.anom_weaken = weaken_val
 	BB.weaken_time = weaken_time
 
-/obj/item/gun/energy/anomaly_stabilizer/proc/update_stability_delta(mob/user, new_val)
+/obj/item/gun/energy/anomaly_stabilizer/proc/update_stability_delta(new_val)
 	new_val = clamp(new_val, -stability_range, stability_range)
 	stability_delta = new_val
 
@@ -80,10 +82,10 @@
 		ammo_type = list(/obj/item/ammo_casing/energy/anomaly)
 
 
-/obj/item/gun/energy/anomaly_stabilizer/proc/eject_core(index)
-	if(ishuman(loc))
-		var/mob/living/carbon/human/user = loc
+/obj/item/gun/energy/anomaly_stabilizer/proc/eject_core(index, mob/user)
+	if(user)
 		user.put_in_hands(cores[index])
+		user.balloon_alert(user, "ядро извлечено")
 	else
 		cores[index].forceMove(get_turf(src))
 
@@ -92,21 +94,26 @@
 
 
 /obj/item/gun/energy/anomaly_stabilizer/proc/insert_core(obj/item/assembly/signaler/anomaly/core, mob/user)
+	add_fingerprint(user)
 	if(iscoreempty(core))
-		user.balloon_alert("ядро пусто")
+		user.balloon_alert(user, "ядро пусто")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!user.drop_transfer_item_to_loc(core, src))
-		user.balloon_alert("не отпустить")
+		user.balloon_alert(user, "не отпустить")
 		return ATTACK_CHAIN_PROCEED
 
 	if(cores.len >= 2)
-		balloon_alert(user, "нет места")
+		user.balloon_alert(user, "нет места")
+		return ATTACK_CHAIN_PROCEED
+
+	if(!user.drop_transfer_item_to_loc(core, src))
+		user.balloon_alert(user, "не отпустить")
 		return ATTACK_CHAIN_PROCEED
 
 	cores.Add(core)
 	update_cores()
-	balloon_alert(user, "ядро вставлено")
+	user.balloon_alert(user, "ядро вставлено")
 	return ATTACK_CHAIN_PROCEED
 
 /obj/item/gun/energy/anomaly_stabilizer/proc/update_cores()
@@ -133,17 +140,17 @@
 			strenght_gravitation += strenght
 
 	stability_range = 1 + round(strenght_energetic / 50)
-	stability_delta = clamp(stability_delta, -stability_range, stability_range)
+	update_stability_delta(stability_delta)
 
 	pull_range = strenght_gravitation / 50
 	choosen_pull_dist = clamp(choosen_pull_dist, -pull_range, pull_range)
 
-	block_move_time = strenght_vortex / 100
+	block_move_time = (strenght_vortex / 100) SECONDS
 
-	block_move_impulses_time = strenght_bluespace / 100
+	block_move_impulses_time = (strenght_bluespace / 100) SECONDS
 
 	weaken_val = strenght_atmospheric / 3
-	weaken_time = strenght_atmospheric / 50
+	weaken_time = (strenght_atmospheric / 50) SECONDS
 
 	newshot()
 
@@ -151,8 +158,82 @@
 	if(user.intent == INTENT_HARM)
 		return ..()
 
+	add_fingerprint(user)
+	if(istype(I, /obj/item/stock_parts/cell))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			user.balloon_alert(user, "не отпустить")
+			return ATTACK_CHAIN_PROCEED
+
+		user.put_in_hands(cell)
+		cell = I
+		cell_type = I.type
+		user.balloon_alert(user, "батарейка заменена")
+		return ATTACK_CHAIN_PROCEED
+
 	if(!iscore(I))
 		return ..()
 
-	insert_core(I, user)
-	return ATTACK_CHAIN_PROCEED
+	return insert_core(I, user)
+
+
+/obj/item/gun/energy/anomaly_stabilizer/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "AnomalyStabilizer", name)
+		ui.set_autoupdate(TRUE)
+		ui.open()
+
+/obj/item/gun/energy/anomaly_stabilizer/ui_data(mob/user)
+	var/list/data = list()
+	data["full_info"] = full_info
+	data["core1_name"] = null
+	data["core2_name"] = null
+	if(cores.len > 0)
+		data["core1_name"] = cores[1].name
+
+	if(cores.len > 1)
+		data["core2_name"] = cores[2].name
+
+	data["possible_stability"] = stability_range
+	data["stability_delta"] = stability_delta
+	data["pull_range"] = pull_range
+	data["choosen_pull_dist"] = choosen_pull_dist
+	data["block_move_time"] = block_move_time
+	data["block_move_impulses_time"] = block_move_impulses_time
+	data["weaken_val"] = weaken_val
+	data["weaken_time"] = weaken_time
+	return data
+
+/obj/item/gun/energy/anomaly_stabilizer/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	. = TRUE
+	switch(action)
+		if("eject1")
+			eject_core(1, ui.user)
+
+		if("eject2")
+			eject_core(2, ui.user)
+
+		if("change_stability")
+			var/new_val = text2num(params["new_val"])
+			update_stability_delta(new_val)
+			newshot()
+
+		if("change_pull_dist")
+			var/new_val = text2num(params["new_val"])
+			pull_range = new_val
+			newshot()
+
+		if("toggle_full_info")
+			full_info = !full_info
+
+		else
+			return FALSE
+
+/obj/item/gun/energy/anomaly_stabilizer/examine(mob/user)
+	. = ..()
+	var/shots = round(cell.charge / (/obj/item/ammo_casing/energy/anomaly::e_cost) / stability_delta / stability_delta)
+	. += span_notice("Текущий заряд: [cell.charge]\\[cell.maxcharge].")
+	. += span_notice("Этого хватит на [shots] выстрелов и изменение стабильности на [shots * stability_delta] при текущих настройках.")

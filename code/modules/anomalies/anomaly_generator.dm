@@ -19,6 +19,7 @@
 	max_integrity = 200
 	integrity_failure = 100
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	processing_flags = START_PROCESSING_MANUALLY
 
 	/// Usage of energy from powernet.
 	var/powernet_usage = 0
@@ -32,7 +33,7 @@
 	/// Last charge per second.
 	var/last_charge = 0
 	/// List of items placed inside.
-	var/list/obj/item/containment = list()
+	var/list/obj/item/assembly/signaler/anomaly/containment = list()
 
 	/// The maximum number of items that can be in the anomaly generator.
 	var/containment_limit = 2
@@ -107,6 +108,9 @@
 
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(!iscore(I))
+		return ..()
 
 	if(user.drop_transfer_item_to_loc(I, src))
 		add_fingerprint(user)
@@ -211,9 +215,11 @@
 	containment.Remove(I)
 
 /obj/machinery/power/anomaly_generator/proc/get_req_energy()
-	var/mult = 1
+	var/mult
 	if(selected_type == ANOMALY_TYPE_RANDOM)
-		mult = 3
+		mult = selected_tier == 1 ? 0.3 : 3
+	else
+		mult = 1 + GLOB.created_anomalies[selected_type] / 4
 
 	switch(selected_tier)
 		if("1")
@@ -258,13 +264,11 @@
 /obj/machinery/power/anomaly_generator/process()
 	if((stat & BROKEN) || !cur_anomaly)
 		STOP_PROCESSING(SSprocessing, src)
-		return
 
-	if(charge == get_req_energy())
-		STOP_PROCESSING(SSprocessing, src)
+	if(charge >= get_req_energy())
 		finish_generation()
 		cur_anomaly = null
-		return
+		STOP_PROCESSING(SSprocessing, src)
 
 	if(stat & NOPOWER)
 		return

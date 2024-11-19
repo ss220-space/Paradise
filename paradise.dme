@@ -1579,6 +1579,7 @@
 #include "code\modules\admin\verbs\SDQL2\SDQL_2.dm"
 #include "code\modules\admin\verbs\SDQL2\SDQL_2_parser.dm"
 #include "code\modules\admin\verbs\SDQL2\useful_procs.dm"
+#include "code\modules\anomalies\anomaly_analyzer.dm"
 #include "code\modules\anomalies\anomaly_generator.dm"
 #include "code\modules\anomalies\anomaly_stabilizer.dm"
 #include "code\modules\anomalies\cores.dm"

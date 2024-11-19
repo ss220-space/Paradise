@@ -1167,7 +1167,7 @@
 	update_icon()
 	return TRUE
 
-/atom/movable/proc/random_throw(range_low, range_high, speed)
+/atom/movable/proc/random_throw(range_low = 0, range_high = 5, speed = 4)
 	var/list/turf/targets = list()
 	for(var/turf/T in range(range_high, src))
 		if(get_dist(T, src) >= range_low && get_dist(T, src) <= range_high)

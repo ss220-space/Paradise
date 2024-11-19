@@ -922,7 +922,14 @@
 //pyro claws
 /obj/item/twohanded/required/pyro_claws
 	name = "hardplasma energy claws"
-	desc = "The power of the sun, in the claws of your hand."
+	ru_names = list(NOMINATIVE = "энергокогти", \
+					GENITIVE = "энергокогтей", \
+					DATIVE = "энергокогтям", \
+					ACCUSATIVE = "энергокогти", \
+					INSTRUMENTAL = "энергокогтями", \
+					PREPOSITIONAL = "энергокогтях")
+	desc = "Сила солнца в ваших когтях."
+	gender = PLURAL
 	icon_state = "pyro_claws"
 	item_flags = ABSTRACT|DROPDEL
 	force = 25
@@ -950,8 +957,10 @@
 /obj/item/twohanded/required/pyro_claws/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
+
 	if(prob(60))
 		do_sparks(rand(1,6), 1, loc)
+
 	if(istype(target, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = target
 
@@ -959,20 +968,33 @@
 			return
 
 		if(A.locked)
-			to_chat(user, "<span class='notice'>The airlock's bolts prevent it from being forced.</span>")
+			to_chat(user, span_notice("Болты шлюза не позволяют взломать его силой."))
 			return
 
 		if(A.arePowerSystemsOn())
-			user.visible_message("<span class='warning'>[user] jams [user.p_their()] [name] into the airlock and starts prying it open!</span>", "<span class='warning'>You start forcing the airlock open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+			user.visible_message(span_warning("[user] вставляет [declent_ru(NOMINATIVE)] в шлюз и начинает открывать его!"), \
+								span_warning("Вы начинаете силой открывать шлюз."), \
+								span_warning("Вы слышите металлический скрежет."))
 			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
 			if(!do_after(user, 2.5 SECONDS, A))
 				return
-		user.visible_message("<span class='warning'>[user] forces the airlock open with [user.p_their()] [name]!</span>", "<span class='warning'>You force open the airlock.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+
+		user.visible_message(span_warning("[user] силой открыл шлюз при помощи [declent_ru(GENITIVE)]!"), \
+							span_warning("Вы силой открыли шлюз."), \
+							span_warning("Вы слышите металлический скрежет."))
 		A.open(2)
 
 /obj/item/clothing/gloves/color/black/pyro_claws
 	name = "Fusion gauntlets"
-	desc = "Cybersun Industries developed these gloves after a grifter fought one of their soldiers, who attached a pyro core to an energy sword, and found it mostly effective."
+	ru_names = list(NOMINATIVE = "плавящие перчатки", \
+					GENITIVE = "плавящих перчаток", \
+					DATIVE = "плавящим перчаткам", \
+					ACCUSATIVE = "плавящие перчатки", \
+					INSTRUMENTAL = "плавящими перчатками", \
+					PREPOSITIONAL = "плавящих перчатках")
+	desc = "Перчатки разработаенные Cybersun Industries после того, как один из солдат прикрепил атмосферное ядро ​​к \
+			энергетическому мечу, и нашел результат весьма эффективными."
+	gender = PLURAL
 	item_state = "pyro"
 	item_color = "pyro"
 	icon_state = "pyro"
@@ -980,7 +1002,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	var/on_cooldown = FALSE
 	var/used = FALSE
-	var/obj/item/assembly/signaler/anomaly/tier2/pyro/core
+	var/obj/item/assembly/signaler/anomaly/core
 
 /obj/item/clothing/gloves/color/black/pyro_claws/Destroy()
 	QDEL_NULL(core)
@@ -989,59 +1011,94 @@
 /obj/item/clothing/gloves/color/black/pyro_claws/examine(mob/user)
 	. = ..()
 	if(core)
-		. += "<span class='notice'>[src] are fully operational!</span>"
+		. += span_notice("[declent_ru(NOMINATIVE)] полностью работоспособны.")
 	else
-		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
+		. += span_warning("[declent_ru(NOMINATIVE)] требуют атмосферное ядро для работы!")
 
 /obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot, mob/user, datum/action/action)
-	if(slot == ITEM_SLOT_GLOVES)
-		return TRUE
+	return slot == ITEM_SLOT_GLOVES
 
 /obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(!core)
-		to_chat(user, "<span class='notice'>[src] has no core to power it!</span>")
+		to_chat(user, span_notice("В [declent_ru(PREPOSITIONAL)] не хватает ядра!"))
 		return
+
 	if(on_cooldown)
-		to_chat(user, "<span class='notice'>[src] is on cooldown!</span>")
+		to_chat(user, span_notice("[declent_ru(NOMINATIVE)] перезаряжаются."))
 		do_sparks(rand(1,6), 1, loc)
 		return
+
 	if(used)
-		visible_message("<span class='warning'>Energy claws slides back into the depths of [loc]'s wrists.</span>")
+		visible_message(span_warning("Энергетические когти скользят обратно в [declent_ru(ACCUSATIVE)]."))
 		user.drop_from_active_hand(force = TRUE)//dropdel stuff. only ui act, without hotkeys
 		do_sparks(rand(1,6), 1, loc)
 		on_cooldown = TRUE
 		addtimer(CALLBACK(src, PROC_REF(reboot)), 1 MINUTES)
 		return
+
 	if(user.get_active_hand() && !user.drop_from_active_hand())
-		to_chat(user, "<span class='notice'>[src] are unable to deploy the blades with the items in your hands!</span>")
+		to_chat(user, span_notice("[declent_ru(NOMINATIVE)] не могут выпустить клинки, пока у вас в руках есть предметы!"))
 		return
-	var/obj/item/W = new /obj/item/twohanded/required/pyro_claws
-	user.visible_message("<span class='warning'>[user] deploys [W] from [user.p_their()] wrists in a shower of sparks!</span>", "<span class='notice'>You deploy [W] from your wrists!</span>", "<span class='warning'>You hear the shower of sparks!</span>")
-	user.put_in_hands(W)
+
+	var/obj/item/twohanded/required/pyro_claws/claws = new /obj/item/twohanded/required/pyro_claws
+	var/strenght_mult = core.get_strenght() / 150
+	claws.force = 25 * strenght_mult
+	claws.force_wielded = 25 * strenght_mult
+	claws.armour_penetration = 100 * (1 - 0.6 / strenght_mult)
+	claws.block_chance = 100 * (1 - 0.5 / strenght_mult)
+	claws.toolspeed = 0.5 / strenght_mult
+
+	user.visible_message(span_warning("[user] со снопом искр выпуска[genderize_ru(user.gender, "е", "е", "е", "ю")]т [claws.declent_ru(NOMINATIVE)] из запястий!"), \
+						span_notice("Вы выпускаете [claws.declent_ru(NOMINATIVE)] из [declent_ru(GENITIVE)]!"), \
+						span_warning("Вы слышите сноп искр!"))
+	user.put_in_hands(claws)
 	ADD_TRAIT(src, TRAIT_NODROP, PYRO_CLAWS_TRAIT)
 	used = TRUE
 	do_sparks(rand(1,6), 1, loc)
 
 
 /obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/assembly/signaler/anomaly/tier2/pyro))
+	if(iscoreatmos(I))
+		var/obj/item/assembly/signaler/anomaly/I_core = I
+		if(I_core.get_strenght() < 100)
+			user.balloon_alert(user, "ядро слишком слабо")
+			return
+
 		add_fingerprint(user)
+		var/msg = "ядро вставлено"
 		if(core)
-			to_chat(user, span_warning("The [core.name] is already installed."))
-			return ATTACK_CHAIN_PROCEED
+			user.put_in_hands(core)
+			msg = "ядро заменено"
+
 		if(!user.drop_transfer_item_to_loc(I, src))
-			return ..()
-		to_chat(user, span_notice("You insert [I] into [src], and it starts to warm up."))
+			user.balloon_alert(user, "не отпустить")
+			return
+
+		user.balloon_alert(user, msg)
+		to_chat(user, span_notice("Вы вставили [I.declent_ru(NOMINATIVE)] в [declent_ru(ACCUSATIVE)]. \
+		От [declent_ru(GENITIVE)] начал исходить жар."))
 		core = I
 		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
+/obj/item/clothing/gloves/color/black/pyro_claws/AltClick(mob/user)
+	if(!user.contains(src))
+		return
+
+	if(!core)
+		user.balloon_alert(user, "нет ядра")
+		return
+
+	user.put_in_active_hand(core)
+	core = null
+	user.balloon_alert(user, "ядро извлечено")
 
 /obj/item/clothing/gloves/color/black/pyro_claws/proc/reboot()
 	on_cooldown = FALSE
 	used = FALSE
 	REMOVE_TRAIT(src, TRAIT_NODROP, PYRO_CLAWS_TRAIT)
-	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
+	atom_say("Внутренние плазменные баллоны перезаряжены. Перчатки достаточно охлаждены.")
 
 /obj/item/twohanded/fishingrod
 	name = "ol' reliable"

@@ -1,6 +1,6 @@
 /mob/living/carbon/human/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	if(!forced && (!old_loc || old_loc.no_gravity()) && no_gravity())
+	if(!forced && (!old_loc || old_loc.no_gravity()) && !no_gravity())
 		thunk()
 
 

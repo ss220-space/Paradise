@@ -12,15 +12,26 @@
 	var/strenght = 50
 	/// The level of the anomaly from which the core was collected.
 	var/tier = 0
+	/// Moment whet this core was created. Used to prevent the core from instantly disintegrating when charging.
+	var/born_moment = 0
 
-/obj/item/assembly/signaler/anomaly/tier2/New(spawnloc, strenght = rand(40, 60))
+/obj/item/assembly/signaler/anomaly/examine(mob/user)
+	. = ..()
+	. += span_info("Текущий заряд: [strenght].")
+	. += span_info("Текущая сила: [get_strenght()].")
+
+/obj/item/assembly/signaler/anomaly/New(spawnloc, strenght = rand(51, 60))
 	. = ..()
 	src.strenght = strenght
+	born_moment = world.time
 
-/obj/item/assembly/signaler/anomaly/tier2/receive_signal(datum/signal/signal)
-	if(..())
-		for(var/obj/effect/old_anomaly/A in get_turf(src))
-			A.anomalyNeutralize()
+// Used in old anomalies.
+/obj/item/assembly/signaler/anomaly/receive_signal(datum/signal/signal)
+	if(!..())
+		return
+
+	for(var/obj/effect/old_anomaly/A in get_turf(src))
+		A.anomalyNeutralize()
 
 /obj/item/assembly/signaler/anomaly/attack_self()
 	return
@@ -41,7 +52,8 @@
 					ACCUSATIVE = "пустое ядро малой аномалии", \
 					INSTRUMENTAL = "пустым ядром малой аномалии", \
 					PREPOSITIONAL = "пустом ядре малой аномалии")
-	desc = "Вероятно, его можно как-то зарядить."
+	desc = "Не похоже что силы аномалии на момент стабилизации хватило, чтобы придать ядру какие-то свойства. \
+			Вероятно, его можно как-то зарядить."
 	icon_state = "pyro_core"
 	anomaly_type = null
 	origin_tech = "materials=3" // clonable by experimentor
@@ -122,7 +134,8 @@
 					ACCUSATIVE = "пустое ядро аномалии", \
 					INSTRUMENTAL = "пустым ядром аномалии", \
 					PREPOSITIONAL = "пустом ядре аномалии")
-	desc = "Вероятно, его можно как-то зарядить."
+	desc = "Не похоже что силы аномалии на момент стабилизации хватило, чтобы придать ядру какие-то свойства. \
+			Вероятно, его можно как-то зарядить."
 	icon_state = "pyro_core"
 	anomaly_type = null
 	origin_tech = "materials=5" // not clonable by experimentor
@@ -173,7 +186,8 @@
 					ACCUSATIVE = "пустое ядро большой аномалии", \
 					INSTRUMENTAL = "пустым ядром большой аномалии", \
 					PREPOSITIONAL = "пустом ядре большой аномалии")
-	desc = "Вероятно, его можно как-то зарядить."
+	desc = "Не похоже что силы аномалии на момент стабилизации хватило, чтобы придать ядру какие-то свойства. \
+			Вероятно, его можно как-то зарядить."
 	icon_state = "pyro_core"
 	anomaly_type = null
 	origin_tech = "materials=7" // Sorry, not clonable by experimentor
@@ -191,6 +205,8 @@
 	icon_state = "pyro_core"
 	anomaly_type = /obj/effect/anomaly/pyro/tier3
 	origin_tech = "plasmatech=8"
+
+/obj/item/assembly/signaler/anomaly/tier3/pyro/
 
 /obj/item/assembly/signaler/anomaly/tier3/grav
 	name = "ядро большой гравитационной аномалии"

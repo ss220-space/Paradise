@@ -14,6 +14,7 @@
 		for(var/atom/movable/A in view(tier * 2, src))
 			if(!iseffect(A))
 				A.random_throw(tier, tier * 3, 5)
+				A.update_icon()
 
 	. = ..()
 
@@ -30,7 +31,10 @@
 
 /obj/effect/anomaly/grav/item_touch_effect(obj/item/I)
 	. = ..()
-	random_gravity_change(I)
+	var/grav_delta = -I.get_gravity()
+	var/id = GRAVITY_SOURCE_ANOMALY + "[rand(1, 1000000)]"
+	I.add_gravity(id, grav_delta)
+	addtimer(CALLBACK(I, TYPE_PROC_REF(/atom, remove_gravity_source), id), rand(grav_change_time_low, grav_change_time_high))
 
 /obj/effect/anomaly/grav/tier1
 	name = "малая гравитационная аномалия"

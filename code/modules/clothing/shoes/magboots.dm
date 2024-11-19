@@ -174,7 +174,14 @@
 
 /obj/item/clothing/shoes/magboots/gravity
 	name = "gravitational boots"
-	desc = "These experimental boots try to get around the restrictions of magboots by installing miniture gravitational generators in the soles. Sadly, power hungry, and needs a gravitational anomaly core."
+	ru_names = list(NOMINATIVE = "настраеваемый аномальный телепортер", \
+					GENITIVE = "настраеваемого аномального телепортера", \
+					DATIVE = "настраеваемому аномальному телепортеру", \
+					ACCUSATIVE = "настраеваемый аномальный телепортер", \
+					INSTRUMENTAL = "настраеваемым аномальным телепортером", \
+					PREPOSITIONAL = "настраеваемом аномальном телепортере")
+	desc = "Эти экспериментальные магбутсы обходят замедление обычных, за счет миниатюрных гравитационных в подошвах. \
+			К сожалению, для работы им необходимо ядро гравитационной аномалии."
 	icon_state = "gravboots0"
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/gravity_jump) //combination of magboots and jumpboots
 	strip_delay = 10 SECONDS

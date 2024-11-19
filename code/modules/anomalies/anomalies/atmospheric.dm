@@ -41,7 +41,7 @@
 		T.atmos_spawn_air(LINDA_SPAWN_OXYGEN, collapse_gas_amount * 2/7)
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, collapse_gas_amount * 5/7)
 
-	for(var/i = 0 to rand(collapse_slimes_low, collapse_slimes_high))
+	for(var/i = 1 to rand(collapse_slimes_low, collapse_slimes_high))
 		INVOKE_ASYNC(src, PROC_REF(make_slime))
 
 	. = ..()
