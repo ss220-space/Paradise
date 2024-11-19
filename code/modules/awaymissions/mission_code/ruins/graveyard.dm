@@ -23,7 +23,7 @@
 
 /obj/machinery/computer/shuttle/funeral
 	name = "Funeral \"The Undertaker\" Shuttle Console"
-	desc = "Used to call and send the funeral \"The Undertaker\" shuttle."
+	desc = "Используется для вызова и отправки похоронного шаттла \"The Undertaker\"."
 	shuttleId = "funeral"
 	possible_destinations = "graveyard_church;graveyard_dock"
 

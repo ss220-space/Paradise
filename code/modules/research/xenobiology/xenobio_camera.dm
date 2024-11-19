@@ -36,7 +36,7 @@
 
 /obj/machinery/computer/camera_advanced/xenobio
 	name = "slime management console"
-	desc = "A computer used for remotely handling slimes."
+	desc = "Компьютер, используемый для удаленного взаимодействия со слаймами."
 	networks = list("SS13")
 	circuit = /obj/item/circuitboard/xenobiology
 	icon_screen = "slime_comp"

@@ -222,6 +222,11 @@
 	desc = "A dead and stuffed Diona nymph, mounted on a board."
 	icon_state = "kidanplaque"
 
+/obj/structure/sign/tajarplaque
+	name = "Tajaran wall plaque"
+	desc = "A nice tajaran photo, mounted on a board."
+	icon_state = "tajarplaque"
+
 /obj/structure/sign/mech
 	name = "\improper mech painting"
 	desc = "A painting of a mech"
