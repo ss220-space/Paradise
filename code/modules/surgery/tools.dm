@@ -1,6 +1,6 @@
 /obj/item/retractor
 	name = "retractor"
-	desc = "Retracts stuff."
+	desc = "Инструмент для расширения полостей при операциях."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "retractor"
 	item_state = "retractor"
@@ -16,19 +16,19 @@
 
 /obj/item/retractor/laser
 	name = "Advanced Laser Retractors"
-	desc = "A retractor with a laser tip. This one looks to be the pinnacle of precision energy a surgery tools!"
+	desc = "Ретрактор с лазерным наконечником. В два раза практичнее родителя!"
 	icon_state = "retractor_laser"
 	item_state = "retractor_laser"
 	toolspeed = 0.4
 
 /obj/item/retractor/augment
-	desc = "Micro-mechanical manipulator for retracting stuff."
+	desc = "Микромеханический манипулятор для расширения полостей при операциях."
 	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.5
 
 /obj/item/hemostat
 	name = "hemostat"
-	desc = "You think you have seen this before."
+	desc = "Инструмент для остановки кровотечения."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "hemostat"
 	item_state = "hemostat"
@@ -45,18 +45,18 @@
 
 /obj/item/hemostat/laser
 	name = "Advanced Laser Hemostat"
-	desc = "A hemostat with a laser clamp. This one looks to be the pinnacle of precision energy a surgery tools!"
+	desc = "Гемостат с лазерным зажимом. В два раза практичнее родителя!"
 	icon_state = "hemostat_laser"
 	item_state = "hemostat_laser"
 	toolspeed = 0.4
 
 /obj/item/hemostat/augment
-	desc = "Tiny servos power a pair of pincers to stop bleeding."
+	desc = "Крошечные сервомоторы приводят в действие пару клещей, чтобы остановить кровотечение."
 	toolspeed = 0.5
 
 /obj/item/cautery
 	name = "cautery"
-	desc = "This stops bleeding."
+	desc = "Останавливает кровотечение."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "cautery"
 	item_state = "cautery"
@@ -72,12 +72,12 @@
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/cautery/augment
-	desc = "A heated element that cauterizes wounds."
+	desc = "Нагретый наконечник, прижигающий раны."
 	toolspeed = 0.5
 
 /obj/item/surgicaldrill
 	name = "surgical drill"
-	desc = "You can drill using this item. You dig?"
+	desc = "Инструмент, предназначенный для сверления отверстий. Постарайтесь не попасть в глаз"
 	icon = 'icons/obj/surgery.dmi'
 	ru_names = list(
 		NOMINATIVE = "хирургическая дрель",
@@ -104,7 +104,7 @@
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/surgicaldrill/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] наматыва[pluralize_ru(user.gender, "ет", "ют")] себя на [declent_ru(ACCUSATIVE)]! Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] соверша[pluralize_ru(user.gender, "ет","ют")] суицид!"))
+	user.visible_message(span_suicide("[user] наматыва[pluralize_ru(user.gender, "ет", "ют")] себя на [declent_ru(ACCUSATIVE)]! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] соверша[pluralize_ru(user.gender, "ет", "ют")] суицид!"))
 	addtimer(CALLBACK(src, PROC_REF(second_act), user), 2.5 SECONDS)
 	user.SpinAnimation(3, 10)
 	user.Immobilize(5 SECONDS)
@@ -122,13 +122,13 @@
 
 /obj/item/surgicaldrill/laser
 	name = "Advanced Laser Surgical Drill"
-	desc = "A surgery drill with a directed laser bit. This one looks to be the pinnacle of precision energy a surgery tools!"
+	desc = "Хирургическая дрель с направленной лазерной насадко. В два раза практичнее родителя!"
 	icon_state = "drill_laser"
 	item_state = "drill_laser"
 	toolspeed = 0.4
 
 /obj/item/surgicaldrill/augment
-	desc = "Effectively a small power drill contained within your arm, edges dulled to prevent tissue damage. May or may not pierce the heavens."
+	desc = "Небольшая электрическая дрель, находящаяся внутри вашей руки. Края затуплены, чтобы не повредить ткани. Не может пронзить небеса."
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	force = 10
 	w_class = WEIGHT_CLASS_SMALL
@@ -136,7 +136,15 @@
 
 /obj/item/scalpel
 	name = "scalpel"
-	desc = "Cut, cut, and once more cut."
+	desc = "Резать, резать и еще раз резать."
+	ru_names = list(
+		NOMINATIVE = "скальпель",
+		GENITIVE = "скальпеля",
+		DATIVE = "скальпелю",
+		ACCUSATIVE = "скальпель",
+		INSTRUMENTAL = "скальпелем",
+		PREPOSITIONAL = "скальпеле",
+	)
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "scalpel"
 	item_state = "scalpel"
@@ -162,14 +170,14 @@
 
 
 /obj/item/scalpel/suicide_act(mob/user)
-	to_chat(viewers(user), pick(span_suicide("[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide."),
-						span_suicide("[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide."),
-						span_suicide("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.")))
+	to_chat(viewers(user), pick(span_suicide("[user] [declent_ru(INSTRUMENTAL)] среза[pluralize_ru(user.gender, "ет", "ют")] свою кожу! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] соверша[pluralize_ru(user.gender, "ет", "ют")] суицид!"),
+						span_suicide("[user] реж[pluralize_ru(user.gender, "ет", "ют")] своё горло с помощью [declent_ru(GENITIVE)]! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] соверша[pluralize_ru(user.gender, "ет", "ют")] суицид!"),
+						span_suicide("[user] вонза[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(NOMINATIVE)] в свой желудок! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить сэппуку.")))
 	return BRUTELOSS
 
 
 /obj/item/scalpel/augment
-	desc = "Ultra-sharp blade attached directly to your bone for extra-accuracy."
+	desc = "Ультраострое лезвие крепится непосредственно к кости, обеспечивая дополнительную точность."
 	toolspeed = 0.5
 
 /*
@@ -177,10 +185,18 @@
  */
 /obj/item/scalpel/laser //parent type
 	name = "laser scalpel"
-	desc = "A scalpel augmented with a directed laser."
+	desc = "Скальпель, дополненный направленным лазером."
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
+	ru_names = list(
+		NOMINATIVE = "лазерный скальпель",
+		GENITIVE = "лазерного скальпеля",
+		DATIVE = "лазерному скальпелю",
+		ACCUSATIVE = "лазерный скальпель",
+		INSTRUMENTAL = "лазерным скальпелем",
+		PREPOSITIONAL = "лазерном скальпеле",
+	)
 
 /obj/item/scalpel/laser/laser1 //lasers also count as catuarys
 	name = "Basic Laser Scalpel"
@@ -202,7 +218,7 @@
 
 /obj/item/scalpel/laser/manager //super tool! Retractor/hemostat
 	name = "incision management system"
-	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
+	desc = "Настоящее продолжение дела хирурга, это чудо мгновенно и полностью подготавливает разрез, позволяя немедленно приступить к работе."
 	icon_state = "scalpel_manager_on"
 	toolspeed = 0.2
 
@@ -213,18 +229,18 @@
 
 /obj/item/scalpel/laser/manager/debug
 	name = "debug IMS"
-	desc = "A wonder of modern medicine. This tool functions as any other sort of surgery tool, and finishes in only a fraction of the time. Hey, how'd you get your hands on this, anyway?"
+	desc = "Чудо современной медицины. Этот инструмент действует как любой другой хирургический инструмент и заканчивается в кратчайшие сроки. А как ты вообще это заполучил?"
 	toolspeed = 0.01
 
 /obj/item/scalpel/laser/manager/debug/attack_self(mob/user)
 	. = ..()
 	toolspeed = toolspeed == 0.5 ? 0.01 : 0.5
-	to_chat(user, "[src] is now set to toolspeed [toolspeed]")
+	to_chat(user, "У [declent_ru(GENITIVE)] установлена ​​скорость инструмента[toolspeed]")
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
 
 /obj/item/circular_saw
 	name = "circular saw"
-	desc = "For heavy duty cutting."
+	desc = "Инструмент, чтобы резать кости."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "saw3"
 	hitsound = 'sound/weapons/circsawhit.ogg'
@@ -249,21 +265,21 @@
 
 /obj/item/circular_saw/laser
 	name = "Advanced Laser Circular Saw"
-	desc = "A saw with a circular laser disk. This one looks to be the pinnacle of precision energy a surgery tools!"
+	desc = "Пила с круглым лазерным диском. В два раза практичнее родителя!"
 	icon_state = "saw_laser"
 	item_state = "saw_laser"
 	origin_tech = "biotech=1;material=1"
 	toolspeed = 0.6
 
 /obj/item/circular_saw/augment
-	desc = "A small but very fast spinning saw. Edges dulled to prevent accidental cutting inside of the surgeon."
+	desc = "Маленькая, но очень быстро вращающаяся пила. Края притуплены, чтобы предотвратить случайный порез внутри носителя."
 	force = 10
 	w_class = WEIGHT_CLASS_SMALL
 	toolspeed = 0.5
 
 //misc, formerly from code/defines/weapons.dm
 /obj/item/bonegel
-	name = "bone gel"
+	name = "Гель для костей."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone-gel"
 	item_state = "bone-gel"
@@ -281,7 +297,7 @@
 	toolspeed = 0.5
 
 /obj/item/FixOVein
-	name = "FixOVein"
+	name = "Инструмент, для прижигания внутренних кровотечений."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "fixovein"
 	item_state = "fixovein"
@@ -299,7 +315,7 @@
 	toolspeed = 0.5
 
 /obj/item/bonesetter
-	name = "bone setter"
+	name = "Инструмент для правления костей"
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone setter"
 	item_state = "bone setter"
@@ -318,7 +334,7 @@
 
 /obj/item/bonesetter/laser
 	name = "Advanced Laser Bone Setter"
-	desc = "A bone settler with a laser teeth. This one looks to be the pinnacle of precision energy a surgery tools!"
+	desc = "Инструмент для правки костей, но с лазерными зубами. В два раза практичнее родителя!"
 	icon_state = "bonesetter_laser"
 	item_state = "bonesetter_laser"
 	toolspeed = 0.4
@@ -328,7 +344,7 @@
 
 /obj/item/surgical_drapes
 	name = "surgical drapes"
-	desc = "Nanotrasen brand surgical drapes provide optimal safety and infection control."
+	desc = "Хирургическая простыня марки Nanotrasen. Обеспечивает оптимальную безопасность и инфекционный контроль."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "surgical_drapes"
 	w_class = WEIGHT_CLASS_SMALL
