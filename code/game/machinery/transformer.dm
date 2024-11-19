@@ -377,10 +377,10 @@
 
 /obj/machinery/transformer/shadowling
 	name = "Bio tranformer"
-	desc "странное устройство похожее на стандартный трансформер"
+	desc = "странное устройство похожее на стандартный трансформер"
 	var/datum/species/target_species = /datum/species/shadow
 
-/obj/machinery/transformer/shadowling/do_transformer(mob/living/carbon/human/victim)
+/obj/machinery/transformer/shadowling/do_transforme(mob/living/carbon/human/victim)
 	if(!ispath(target_species))
 		to_chat(victim, span_warning("'[target_species]' is not a valid species!"))
 		return
