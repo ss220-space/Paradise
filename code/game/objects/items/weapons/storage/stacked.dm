@@ -23,8 +23,9 @@
 	var/holding_type
 	var/list/internal_storage = list()
 
-/obj/stacked_item/Initialize(mapload)
+/obj/stacked_item/Initialize(mapload, list/contents_to_add)
 	. = ..()
+	enrich_contents(contents_to_add)
 
 /obj/stacked_item/Destroy()
 	. = ..()
@@ -46,7 +47,7 @@
 	name = "Stockpile of [item.name]"
 	desc = "This is a stockpile of [item.name]"
 
-	update_icon(ALL)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/stacked_item/update_icon_state()
 	if(length(internal_storage) < 1)
@@ -58,15 +59,14 @@
 	appearance = item.appearance
 	maptext = "<font color='white' face='Small Fonts'>[(length(internal_storage) > 1) ? "[length(internal_storage)]" : ""]</font>"
 
-/obj/stacked_item/update_overlays()
-	. = ..()
-
-
 /// Retrieves and removes item from internal storage. Returns reference to removed item.
 /obj/stacked_item/proc/remove_item(obj/item/item_to_remove)
 	internal_storage -= item_to_remove
 	contents -= item_to_remove
-	update_icon(ALL)
+	if(!length(internal_storage))
+		qdel(src)
+
+	update_icon(UPDATE_ICON_STATE)
 	return item_to_remove
 
 /// Returns item from a stack
@@ -74,7 +74,7 @@
 	if(length(internal_storage) < 1)
 		return
 
-	return internal_storage[length(internal_storage) - 1]
+	return internal_storage[length(internal_storage)]
 
 /obj/stacked_item/attack_hand(mob/living/user, list/modifiers)
 	var/obj/item/item = get_item()
@@ -100,12 +100,10 @@
 
 /obj/stacked_item_test/Initialize(mapload)
 	. = ..()
-	var/obj/stacked_item/stockpile = new /obj/stacked_item(get_turf(src))
 	var/list/objects_to_add = list()
 	for(var/i in 1 to 100)
 		var/item = new /obj/item/reagent_containers/food/snacks/grown/ambrosia/gaia(src)
 		objects_to_add += item
 
-	stockpile.enrich_contents(objects_to_add)
-
+	new /obj/stacked_item(get_turf(src), objects_to_add)
 	return INITIALIZE_HINT_QDEL
