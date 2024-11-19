@@ -17,6 +17,7 @@
 /obj/item/assembly/anomaly_beacon/attack_self(mob/user)
 	activate()
 
+/*
 /datum/crafting_recipe/anomaly_beacon
 	name = "Anomaly beacon"
 	result = /obj/item/assembly/anomaly_beacon
@@ -28,3 +29,4 @@
 	time = 300
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+*/

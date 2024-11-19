@@ -56,7 +56,7 @@
 			Вероятно, его можно как-то зарядить."
 	icon_state = "pyro_core"
 	anomaly_type = null
-	origin_tech = "materials=3" // clonable by experimentor
+	origin_tech = "materials=3"
 	tier = 1
 
 /obj/item/assembly/signaler/anomaly/tier1/pyro
@@ -205,8 +205,6 @@
 	icon_state = "pyro_core"
 	anomaly_type = /obj/effect/anomaly/pyro/tier3
 	origin_tech = "plasmatech=8"
-
-/obj/item/assembly/signaler/anomaly/tier3/pyro/
 
 /obj/item/assembly/signaler/anomaly/tier3/grav
 	name = "ядро большой гравитационной аномалии"
