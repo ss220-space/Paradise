@@ -555,7 +555,7 @@
 				return ATTACK_CHAIN_PROCEED
 			if(!user.drop_transfer_item_to_loc(I, src))
 				return ..()
-			to_chat(user, span_notice("Вы прикрепили анализатор здовроья к аптечке."))
+			to_chat(user, span_notice("Вы прикрепили анализатор здоровья к аптечке."))
 			balloon_alert(user, "деталь установлена")
 			build_step++
 			update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
@@ -792,11 +792,11 @@
 		return .
 	if(build_step == 1)
 		build_step = 0
-		to_chat(user, span_notice("Вы заварили лишние отверствия в заготовке охранного робота."))
+		to_chat(user, span_notice("Вы заварили лишние отверстия в заготовке охранного робота."))
 		balloon_alert(user, "корпус модифицирован")
 	else
 		build_step = 1
-		to_chat(user, span_notice("Вы вырезали дополнительные отверствия в заготовке охранного робота."))
+		to_chat(user, span_notice("Вы вырезали дополнительные отверстия в заготовке охранного робота."))
 		balloon_alert(user, "корпус модифицирован")
 	update_appearance(UPDATE_OVERLAYS)
 
@@ -853,7 +853,7 @@
 			if(!user.drop_transfer_item_to_loc(I, src))
 				return ..()
 			balloon_alert(user, "сборка завершена")
-			to_chat(user, span_notice("Вы завершили сборку Генерала Грифски."))
+			to_chat(user, span_notice("Вы завершили сборку Генерала Грифски. Время совершить парочку военных преступлений!"))
 			var/mob/living/simple_animal/bot/secbot/griefsky/destroyer_of_the_worlds = new(loc)
 			transfer_fingerprints_to(destroyer_of_the_worlds)
 			I.transfer_fingerprints_to(destroyer_of_the_worlds)

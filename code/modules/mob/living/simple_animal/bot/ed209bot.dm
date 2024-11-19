@@ -167,7 +167,7 @@
 	if (..())
 		return
 	if(topic_denied(usr))
-		to_chat(usr, "<span class='warning'>Интерфейс [declent_ru(GENITIVE)] не отвечает!</span>")
+		to_chat(usr, span_warning("Интерфейс [declent_ru(GENITIVE)] не отвечает!"))
 		return
 	add_fingerprint(usr)
 	. = TRUE
@@ -428,7 +428,7 @@
 
 /mob/living/simple_animal/bot/ed209/explode()
 	SSmove_manager.stop_looping(src)
-	visible_message("<span class='userdanger'>[capitalize(declent_ru(NOMINATIVE))] разлетается на части!</span>")
+	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 
 	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(Tsec)

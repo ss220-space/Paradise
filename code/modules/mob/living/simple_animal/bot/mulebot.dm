@@ -124,10 +124,10 @@
 	if(istype(I,/obj/item/stock_parts/cell))
 		add_fingerprint(user)
 		if(!open)
-			balloon_alert(user, "сначала откройте панель техобслуживания")
+			balloon_alert(user, "техпанель закрыта!")
 			return ATTACK_CHAIN_PROCEED
 		if(cell)
-			balloon_alert(user, "внутри уже установлена батарея")
+			balloon_alert(user, "слот батареи занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -184,16 +184,16 @@
 	. = TRUE
 	if(!open)
 		add_fingerprint(user)
-		balloon_alert(user, "сначала откройте панель техобслуживания")
+		balloon_alert(user, "техпанель закрыта!")
 		return .
 	if(!cell)
 		add_fingerprint(user)
-		balloon_alert(user, "слот для батареи пуст")
+		balloon_alert(user, "слот для батареи пуст!")
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	visible_message(span_notice("[user] вынул батарею из [declent_ru(GENITIVE)]."))
-	balloon_alert(user, "вы вынули батарею из слота")
+	balloon_alert(user, "батарея извлечена")
 	cell.add_fingerprint(user)
 	cell.forceMove(drop_location())
 	cell = null
@@ -203,7 +203,7 @@
 	. = TRUE
 	if(!open)
 		add_fingerprint(user)
-		balloon_alert(user, "сначала откройте панель техобслуживания")
+		balloon_alert(user, "техпанель закрыта!")
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
@@ -214,7 +214,7 @@
 	. = TRUE
 	if(!open)
 		add_fingerprint(user)
-		balloon_alert(user, "сначала откройте панель техобслуживания")
+		balloon_alert(user, "техпанель закрыта!")
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
@@ -226,7 +226,7 @@
 		emagged = 1
 	if(!open)
 		locked = !locked
-		balloon_alert(user, "вы [locked ? "заблокировали" : "разблокировали"] панель управления")
+		balloon_alert(user, "вы [locked ? "заблокировали" : "разблокировали"] техпанель")
 	flick("mulebot-emagged", src)
 	playsound(loc, 'sound/effects/sparks1.ogg', 100, FALSE)
 

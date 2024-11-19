@@ -264,10 +264,11 @@
 		use_beaker = !use_beaker
 
 	else if(href_list["eject"] && (!isnull(reagent_glass)))
-		reagent_glass.forceMove(get_turf(src))
 		if(ishuman(usr))
 			usr.put_in_active_hand(reagent_glass, ignore_anim = FALSE)
 			balloon_alert(usr, "ёмкость извлечена")
+		else
+			reagent_glass.forceMove(get_turf(src))
 		reagent_glass = null
 
 	else if(href_list["togglevoice"])
@@ -300,7 +301,7 @@
 	if(istype(I, /obj/item/reagent_containers/glass))
 		add_fingerprint(user)
 		if(locked)
-			balloon_alert(user, "сначала разблокируйте панель техобслуживания")
+			balloon_alert(user, "техпанель заблокирована!")
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		if(reagent_glass)
 			balloon_alert(user, "внутри уже находится ёмкость!")

@@ -412,7 +412,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/verb/toggle_flashing_lights()
-	set name = "Переключить проблесковые маячки"
+	set name = "Toggle Flashing Lights"
 	set category = "Object"
 	set src = usr
 

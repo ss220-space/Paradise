@@ -325,7 +325,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/attackby(obj/item/I, mob/user, params) //cant touch or attack him while spinning
 	if(icon_state == spin_icon && prob(block_chance_melee))	// FFS! have no time to rework this now
 		user.do_attack_animation(src)
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] не даёт дотронуться до себя [user]!")
+		visible_message("[capitalize(declent_ru(NOMINATIVE))] блокирует атаку [user] своими мечами!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
