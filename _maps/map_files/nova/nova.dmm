@@ -8626,11 +8626,11 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "bmP" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
+/obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1
+	icon_state = "redcorner"
 	},
 /area/security/prison/cell_block/A)
 "bmR" = (
@@ -13250,15 +13250,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "bSJ" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -18131,17 +18129,6 @@
 	icon_state = "caution"
 	},
 /area/atmos/control)
-"cDr" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/security/prison/cell_block/A)
 "cDE" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -19582,6 +19569,9 @@
 	c_tag = "Brig Cell 2";
 	dir = 10
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
 /turf/simulated/floor/carpet/cyan,
 /area/security/prison/cell_block/A)
 "cOz" = (
@@ -20877,12 +20867,6 @@
 	tag = "icon-wood-broken"
 	},
 /area/maintenance/casino)
-"cXR" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/security/prison/cell_block/A)
 "cXW" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1;
@@ -42094,7 +42078,6 @@
 	},
 /area/hallway/secondary/exit/maint)
 "gcH" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -42103,6 +42086,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -60326,7 +60312,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/carpet/red,
 /area/security/prison/cell_block/A)
 "iQp" = (
@@ -69138,6 +69124,9 @@
 	},
 /obj/structure/bed,
 /obj/machinery/light,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -72195,6 +72184,7 @@
 	c_tag = "Brig Cell 5";
 	dir = 6
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -73536,7 +73526,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -74519,8 +74509,8 @@
 	},
 /area/maintenance/backstage)
 "kYp" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -79391,6 +79381,9 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -85347,10 +85340,10 @@
 /obj/machinery/camera{
 	c_tag = "Brig Cell 2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
 /obj/structure/chair/comfy/teal{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/cyan,
@@ -91493,6 +91486,7 @@
 	c_tag = "Brig Cell 3";
 	dir = 6
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -93710,14 +93704,6 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 1
-	},
-/area/security/prison/cell_block/A)
-"nOM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -96017,6 +96003,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/carpet/red,
 /area/security/prison/cell_block/A)
 "ohx" = (
@@ -105555,10 +105542,10 @@
 /turf/simulated/wall,
 /area/maintenance/apmaint)
 "pBK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
 /obj/structure/chair/comfy/red{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/red,
@@ -107000,7 +106987,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -113086,9 +113073,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
 /turf/simulated/floor/carpet/cyan,
 /area/security/prison/cell_block/A)
 "qFV" = (
@@ -116873,7 +116857,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/carpet/red,
 /area/security/prison/cell_block/A)
 "rkW" = (
@@ -117315,12 +117298,10 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -120722,9 +120703,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/carpet/cyan,
 /area/security/prison/cell_block/A)
 "rMp" = (
@@ -140269,15 +140248,13 @@
 /turf/simulated/floor/glass,
 /area/crew_quarters/bar/atrium)
 "uAc" = (
-/obj/effect/decal/warning_stripes/blue/hollow,
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -28
+	},
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -143141,7 +143118,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -152154,13 +152130,6 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/delivery)
-"wot" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
-	},
-/area/security/prison/cell_block/A)
 "wox" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
@@ -162504,6 +162473,9 @@
 "xQI" = (
 /obj/structure/bed,
 /obj/machinery/light,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -251846,15 +251818,15 @@ xWH
 cCL
 dlD
 trZ
-cXR
+xzQ
 kYp
 lRi
-wot
+vTl
 gcH
-hqo
-lRi
-nOM
 bmP
+lRi
+kYp
+xzQ
 rAz
 dlD
 gIB
@@ -252624,8 +252596,8 @@ vTl
 vZU
 hqo
 lRi
-nOM
-cDr
+kYp
+uWF
 tNj
 dlD
 pvc
