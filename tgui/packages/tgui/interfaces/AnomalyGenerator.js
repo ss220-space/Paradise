@@ -154,6 +154,11 @@ export const AnomalyGenerator = (props, context) => {
             mt="0.5rem"
             onClick={() => act('eject_all')}
           />
+          <Button
+            content="Выбрать маячок"
+            mt="0.5rem"
+            onClick={() => act('beakon')}
+          />
         </Window.Content>
       </Window>
     );

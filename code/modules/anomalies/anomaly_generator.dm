@@ -38,7 +38,7 @@
 	/// The maximum number of items that can be in the anomaly generator.
 	var/containment_limit = 2
 	/// The radius at which anomalies will be generated.
-	var/creating_range = 50
+	var/creating_range = 15
 	/// The speed with which energy will be collected.
 	var/speed = 1e4
 
@@ -93,7 +93,7 @@
 	while(containment.len > containment_limit)
 		eject(pick(containment))
 
-	creating_range = 100
+	creating_range = 25
 	var/obj/item/stock_parts/manipulator/manipulator = locate() in src
 	creating_range /= manipulator.rating
 
@@ -161,6 +161,24 @@
 		if("toggle_powernet")
 			use_powernet = !use_powernet
 
+		if("beakon")
+			var/list/options = list()
+			for(var/obj/item/radio/beacon/R in GLOB.beacons)
+				var/turf/T = get_turf(R)
+				if(!T)
+					continue
+
+				if(!is_teleport_allowed(T.z) && !R.cc_beacon)
+					continue
+
+				if(R.syndicate)
+					continue
+
+				options["[T.loc.name]"] = R
+
+			var/choice = tgui_input_list(ui.user, "Выберите маячок, на котором будет создована аномалия.", "Выбор маячка", options)
+			selected_beacon = choice
+
 		else
 			. = FALSE
 
@@ -219,7 +237,7 @@
 	if(selected_type == ANOMALY_TYPE_RANDOM)
 		mult = selected_tier == 1 ? 0.3 : 3
 	else
-		mult = 1 + GLOB.created_anomalies[selected_type] / 4
+		mult = 1 + GLOB.created_anomalies[selected_type] / 2
 
 	switch(selected_tier)
 		if("1")
