@@ -1,8 +1,8 @@
 /// Used in ritual variables
-#define DEFAULT_RITUAL_RANGE_FIND 1
-#define DEFAULT_RITUAL_COOLDOWN (100 SECONDS)
-#define DEFAULT_RITUAL_DISASTER_PROB 10
-#define DEFAULT_RITUAL_FAIL_PROB 10
+#define DEFAULT_RITUAL_RANGE_FIND       1
+#define DEFAULT_RITUAL_COOLDOWN         (100 SECONDS)
+#define DEFAULT_RITUAL_DISASTER_PROB    10
+#define DEFAULT_RITUAL_FAIL_PROB        10
 /// Ritual object bitflags
 #define RITUAL_STARTED							(1<<0)
 #define RITUAL_ENDED							(1<<1)
