@@ -113673,6 +113673,10 @@
 	},
 /obj/machinery/hologram/holopad,
 /obj/effect/landmark/event/lightsout,
+/obj/structure/disposalpipe/junction{
+	dir = 4;
+	tag = "icon-pipe-j1 (EAST)"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
