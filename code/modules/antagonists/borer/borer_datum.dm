@@ -192,7 +192,7 @@
 			return
 
 /datum/antagonist/borer/proc/update_rank()	
-	if(!borer_rank?.required_reproduction || !borer_rank.next_rank_type)
+	if(!borer_rank?.required_reproductions || !borer_rank.next_rank_type)
 		return FALSE
 		
 	if(reproductions < borer_rank.required_reproductions)
