@@ -174,14 +174,15 @@
 
 /obj/item/clothing/shoes/magboots/gravity
 	name = "gravitational boots"
-	ru_names = list(NOMINATIVE = "настраеваемый аномальный телепортер", \
-					GENITIVE = "настраеваемого аномального телепортера", \
-					DATIVE = "настраеваемому аномальному телепортеру", \
-					ACCUSATIVE = "настраеваемый аномальный телепортер", \
-					INSTRUMENTAL = "настраеваемым аномальным телепортером", \
-					PREPOSITIONAL = "настраеваемом аномальном телепортере")
+	ru_names = list(NOMINATIVE = "гравитационные ботинки", \
+					GENITIVE = "гравитационных ботинок", \
+					DATIVE = "гравитационным ботинкам", \
+					ACCUSATIVE = "гравитационные ботинки", \
+					INSTRUMENTAL = "гравитационными ботинками", \
+					PREPOSITIONAL = "гравитационных ботинках")
 	desc = "Эти экспериментальные магбутсы обходят замедление обычных, за счет миниатюрных гравитационных в подошвах. \
 			К сожалению, для работы им необходимо ядро гравитационной аномалии."
+	gender = PLURAL
 	icon_state = "gravboots0"
 	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/gravity_jump) //combination of magboots and jumpboots
 	strip_delay = 10 SECONDS
@@ -196,7 +197,7 @@
 	var/recharging_time = 0 // Time until next dash
 	var/dash_cost = 1000 // Cost to dash.
 	var/power_consumption_rate = 30 // How much power is used by the boots each cycle when magboots are active
-	var/obj/item/assembly/signaler/anomaly/tier2/gravitational/core = null
+	var/obj/item/assembly/signaler/anomaly/core = null
 	var/obj/item/stock_parts/cell/cell = null
 
 
@@ -214,57 +215,62 @@
 /obj/item/clothing/shoes/magboots/gravity/examine(mob/user)
 	. = ..()
 	if(core && cell)
-		. += "<span class='notice'>[src] are fully operational!</span>"
-		. += "<span class='notice'>The boots are [round(cell.percent())]% charged.</span>"
+		. += span_notice("[declent_ru(NOMINATIVE)] полностью функциональны!")
+		. += span_notice("Ботинки заряжены на [round(cell.percent())]%.")
 	else if(core)
-		. += "<span class='warning'>It has a gravitational anomaly core installed, but no power cell installed.</span>"
+		. += span_warning("В них установлено ядро ​​гравитационной аномалии, но не установлена батарейка.")
 	else if(cell)
-		. += "<span class='warning'>It has a power installed, but no gravitational anomaly core installed.</span>"
+		. += span_warning("В них установлена батарейка, но не установлено ядро гравитационной аномалии.")
 	else
-		. += "<span class='warning'>It is missing a gravitational anomaly core and a power cell.</span>"
+		. += span_warning("В них не хватает ядра гравитационной аномалии и батарейки.")
 
 
 /obj/item/clothing/shoes/magboots/gravity/toggle_magpulse(mob/user, silent = FALSE)
+	if(silent && (!cell || !core || cell.charge <= power_consumption_rate && !magpulse))
+		return
+
 	if(!cell)
-		if(!silent)
-			to_chat(user, "<span class='warning'>Your boots do not have a power cell!</span>")
+		user.balloon_alert("нет батарейки")
 		return
-	else if(cell.charge <= power_consumption_rate && !magpulse)
-		if(!silent)
-			to_chat(user, "<span class='warning'>Your boots do not have enough charge!</span>")
+
+	if(cell.charge <= power_consumption_rate && !magpulse)
+		user.balloon_alert("недостаточно заряда")
 		return
+
 	if(!core)
-		if(!silent)
-			to_chat(user, "<span class='warning'>There's no core installed!</span>")
+		user.balloon_alert("нет ядра")
 		return
+
 	return ..()
 
 
 /obj/item/clothing/shoes/magboots/gravity/process()
 	if(!cell) //There should be a cell here, but safety first
 		return
+
 	if(cell.charge <= power_consumption_rate * 2)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc
-			to_chat(user, "<span class='warning'>[src] has ran out of charge, and turned off!</span>")
+			to_chat(user, span_warning("[declent_ru(NOMINATIVE)] израсходовали весь заряд и отключились!"))
 			toggle_magpulse(user, silent = TRUE)
 	else
 		cell.use(power_consumption_rate)
 
 /obj/item/clothing/shoes/magboots/gravity/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
-		to_chat(user, "<span class='warning'>There's no cell installed!</span>")
+		to_chat(user, span_warning("Внутри нет батарейки!"))
 		return
 
 	if(magpulse)
-		to_chat(user, "<span class='warning'>Turn off the boots first!</span>")
+		to_chat(user, span_warning("Сначала выключите [declent_ru(ACCUSATIVE)]!"))
 		return
 
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
+
 	cell.forceMove_turf()
 	user.put_in_hands(cell, ignore_anim = FALSE)
-	to_chat(user, "<span class='notice'>You remove [cell] from [src].</span>")
+	to_chat(user, span_notice("Вы достали [cell.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 	cell.update_icon()
 	cell = null
 	update_icon()
@@ -274,35 +280,53 @@
 	if(istype(I, /obj/item/stock_parts/cell))
 		add_fingerprint(user)
 		if(cell)
-			to_chat(user, span_warning("The [name] already has a cell."))
+			to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] уже есть батарейка."))
 			return ATTACK_CHAIN_PROCEED
+
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("You install [I] into [src]."))
+
+		to_chat(user, span_notice("Вы установили [I.declent_ru(ACCUSATIVE)] в [declent_ru(NOMINATIVE)]."))
 		cell = I
 		update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/assembly/signaler/anomaly/tier2/gravitational))
+	if(iscoregrav(I))
 		add_fingerprint(user)
 		if(core)
-			to_chat(user, span_warning("The [name] already has [core]."))
+			to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] уже есть [core.declent_ru(NOMINATIVE)]."))
 			return ATTACK_CHAIN_PROCEED
+
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("You insert [I] into [src], and it starts to warm up."))
+
+		to_chat(user, span_notice("Вы установили [I.declent_ru(ACCUSATIVE)] в [declent_ru(NOMINATIVE)]. Они немного потеплели."))
 		core = I
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 
 
+/obj/item/clothing/shoes/magboots/gravity/AltClick(mob/user)
+	if(!user.contains(src))
+		return ..()
+
+	if(!core)
+		user.balloon_alert(user, "нет ядра")
+		return
+
+	user.put_in_active_hand(core)
+	core = null
+	user.balloon_alert(user, "ядро извлечено")
+
 /obj/item/clothing/shoes/magboots/gravity/equipped(mob/user, slot, initial)
 	. = ..()
 
 	if(!ishuman(user))
 		return
+
 	if(slot == ITEM_SLOT_FEET && cell && core)
+		style.bonus_damage = 10 * core.get_strenght() / 150
 		style.teach(user, TRUE)
 
 
@@ -312,10 +336,13 @@
 		return .
 
 	style.remove(user)
-	if(magpulse)
-		if(!silent)
-			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
-		toggle_magpulse(user, silent = TRUE)
+	if(!magpulse)
+		return
+
+	if(!silent)
+		to_chat(user, span_notice("Как только вы сняли [declent_ru(NOMINATIVE)] они автоматически деактивировались."))
+
+	toggle_magpulse(user, silent = TRUE)
 
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot, mob/user, datum/action/action)
@@ -326,37 +353,50 @@
 	if(!isliving(user))
 		return
 
-	if(cell)
-		if(cell.charge <= dash_cost)
-			to_chat(user, span_warning("Your boots do not have enough charge to dash!"))
-			return
-	else
-		to_chat(user, span_warning("Your boots do not have a power cell!"))
+	if(!cell)
+		user.balloon_alert("нет батарейки")
+		return
+
+	if(cell.charge <= dash_cost)
+		user.balloon_alert("недостаточно заряда")
 		return
 
 	if(!core)
-		to_chat(user, span_warning("There's no core installed!"))
+		user.balloon_alert("нет ядра")
 		return
 
 	if(recharging_time > world.time)
-		to_chat(user, span_warning("The boot's gravitational pulse needs to recharge still!"))
+		user.balloon_alert("идет перезарядка")
 		return
 
 	if(user.throwing)
-		to_chat(user, span_warning("You can't jump in the middle of another jump!"))
+		user.balloon_alert("нет опоры")
 		return
+
+	var/jump_mult = core.get_strenght() / 150
+	var/cur_jumpdistance = jumpdistance * jump_mult
+	var/cur_jumpjumpspeed = jumpspeed * jump_mult
+	var/turf/T = get_step(get_turf(user), user.dir)
+	for(var/i = 1 to cur_jumpdistance)
+		if(!T.can_enter(user))
+			cur_jumpjumpspeed = max(3, jumpspeed * jump_mult * (cur_jumpdistance / i))
+			cur_jumpdistance = i
+			break
+
+		T = get_step(T, user.dir)
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 	ADD_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_GRAV_BOOTS_TRAIT)
 	var/after_jump_callback = CALLBACK(src, PROC_REF(after_jump), user)
-	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
+	if(user.throw_at(target, cur_jumpdistance, cur_jumpjumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
-		user.visible_message(span_warning("[user] dashes forward into the air!"))
+		user.visible_message(span_warning("[user] прыгает вперед!"))
 		recharging_time = world.time + recharging_rate
 		cell.use(dash_cost)
-	else
-		after_jump(user)
-		to_chat(user, span_warning("Something prevents you from dashing forward!"))
+		return
+
+	after_jump(user)
+	to_chat(user, span_warning("Что-то помешало вам прыгнуть!"))
 
 
 /obj/item/clothing/shoes/magboots/gravity/proc/after_jump(mob/user)
