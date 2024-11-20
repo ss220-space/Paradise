@@ -1191,8 +1191,8 @@
 	result = "/obj/mecha/combat/phazon"
 	steps = list(
  					//1
-					list("key" = /obj/item/assembly/signaler/anomaly/tier2/bluespace,
-						 "backkey"=null, //Cannot remove the anomaly core once it's in
+					list("key" = /obj/item/assembly/signaler/anomaly,
+						 "backkey"=TOOL_CROWBAR,
 						 "desc"="Anomaly core socket is open and awaiting connection."),
 					//2
 					list("key" = TOOL_WELDER,
@@ -1287,9 +1287,15 @@
 					 		"desc"="The hydraulic systems are disconnected.")
 					)
 
+	/// Inserted bluespace anomaly core.
+	var/obj/item/assembly/signaler/anomaly/core = null
 
 /datum/construction/reversible/mecha/phazon/action(atom/used_atom,mob/user as mob)
 	return check_step(used_atom,user)
+
+/datum/construction/reversible/mecha/phazon/after_spawn_result(atom/A)
+	var/obj/mecha/phazon = A
+	phazon.phase_modifier = core.get_strenght() / 150
 
 /datum/construction/reversible/mecha/phazon/custom_action(index, diff, atom/used_atom, mob/user)
 	if(!..())
@@ -1470,8 +1476,17 @@
 				holder.icon_state = "phazon21"
 		if(1)
 			if(diff==FORWARD)
+				if(!iscorebluespace(used_atom))
+					to_chat(user, span_warning("Не подходящий тип ядра!"))
+					return FALSE
+
+				var/obj/item/assembly/signaler/anomaly/core = used_atom
+				if(core.get_strenght() < 100)
+					to_chat(user, span_warning("Ядро слишком слабо!"))
+					return FALSE
+
 				user.visible_message("[user] carefully inserts the anomaly core into \the [holder] and secures it.", "You slowly place the anomaly core into its socket and close its chamber.")
-				qdel(used_atom)
+				src.core = used_atom
 	return 1
 
 //ODYSSEUS

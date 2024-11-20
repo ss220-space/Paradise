@@ -87,9 +87,12 @@
 			if(istype(task))
 				task.unit_completed()
 
-		new result(get_turf(holder))
+		after_spawn_result(new result(get_turf(holder)))
 		spawn()
 			qdel(holder)
+	return
+
+/datum/construction/proc/after_spawn_result(atom/A)
 	return
 
 /datum/construction/proc/set_desc(index as num)

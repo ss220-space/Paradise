@@ -1,6 +1,15 @@
 /obj/item/gun/syringe/rapidsyringe/experimental
 	name = "experimental syringe gun"
-	desc = "Эксперементальный шприцемет с 6 слотами для шприцев, встроенным, самовосполняющимся хранилищем химикатов и новейшей системой автозаправки шприцев."
+	ru_names = list(NOMINATIVE = "экспериментальный шприцемет", \
+					GENITIVE = "экспериментального шприцемета", \
+					DATIVE = "экспериментальному шприцемету", \
+					ACCUSATIVE = "экспериментальный шприцемет", \
+					INSTRUMENTAL = "экспериментальным шприцеметом", \
+					PREPOSITIONAL = "экспериментальном шприцемете")
+	desc = "Эксперементальный шприцемет с 6 слотами для шприцев, встроенным, самовосполняющимся хранилищем \
+			химикатов и новейшей системой автозаправки шприцев. Для смены синтезируемых химикатов залейте новую \
+			смесь внутрь. Не может синтезировать некоторые, особенно сложные вещества."
+	gender = MALE
 	origin_tech = "combat=3;biotech=4;bluespace=5"
 	icon = 'icons/obj/weapons/techrelic.dmi'
 	item_state = "strynggun"
@@ -8,11 +17,17 @@
 	righthand_file = 'icons/mob/inhands/relics_production/inhandr.dmi'
 	icon_state = "strynggun"
 	materials = list(MAT_METAL=2000, MAT_GLASS=2000, MAT_BLUESPACE=400)
-	var/obj/item/reagent_containers/glass/beaker/large/ready_reagents = new
-	var/obj/item/reagent_containers/glass/beaker/large/processed_reagents = new
-	var/synth_speed = 5
-	var/bank_size = 100
 	origin_tech = "bluespace=4;biotech=5"
+	/// Tank with ready reagents.
+	var/obj/item/reagent_containers/glass/beaker/large/ready_reagents = new
+	/// A list synthesized reagents.
+	var/list/synth_reagents = list()
+	/// The amount of substance synthesized in a cycle.
+	var/synth_speed = 5
+	/// The size of the internal tank with ready-made reagents.
+	var/bank_size = 100
+	/// Inserted vortex anomaly core.
+	var/obj/item/assembly/signaler/anomaly/core = null
 
 /obj/item/gun/syringe/rapidsyringe/experimental/Initialize()
 	. = ..()
@@ -22,45 +37,120 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/gun/syringe/rapidsyringe/experimental/proc/update_core()
+	if(!core)
+		synth_speed = 0
+
+	synth_speed = core.get_strenght() / 30
+
 /obj/item/gun/syringe/rapidsyringe/experimental/attackby(obj/item/A, mob/user)
+	if(iscorevortex(A))
+		add_fingerprint(user)
+		var/msg = "ядро вставлено"
+		if(core)
+			user.put_in_hands(core)
+			msg = "ядро заменено"
+
+		if(!user.drop_transfer_item_to_loc(A, src))
+			user.balloon_alert(user, "не отпустить")
+			return
+
+		core = A
+		user.balloon_alert(user, msg)
+		update_core()
+		return ATTACK_CHAIN_PROCEED
+
 	if(istype(A, /obj/item/reagent_containers/syringe))
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
-		if(in_clip < max_syringes)
-			if(!user.drop_transfer_item_to_loc(A, src))
-				return ..()
-			balloon_alert(user, "заряжено!")
-			syringes.Add(A)
-			process_chamber() // Chamber the syringe if none is already
-			return ATTACK_CHAIN_BLOCKED_ALL
-		else
-			balloon_alert(user, "недостаточно места!")
+		if(in_clip >= max_syringes)
+			user.balloon_alert(user, "недостаточно места")
 			return ATTACK_CHAIN_PROCEED
-	else if(istype(A, /obj/item/reagent_containers/glass))
+
+		if(!user.drop_transfer_item_to_loc(A, src))
+			return ..()
+
+		user.balloon_alert(user, "заряжено")
+		syringes.Add(A)
+		process_chamber() // Chamber the syringe if none is already
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(A, /obj/item/reagent_containers/glass))
+		if(!core)
+			user.balloon_alert(user, "нет ядра")
+			return ..()
+
 		var/obj/item/reagent_containers/glass/RC = A
 		if (!RC.reagents.reagent_list)
 			return  ..()
+
 		ready_reagents.reagents.clear_reagents()
-		processed_reagents.reagents.clear_reagents()
+		synth_reagents = list()
 		RC.reagents.trans_to(ready_reagents, bank_size)
-		ready_reagents.reagents.trans_to(processed_reagents, synth_speed)
-		balloon_alert(user, "синтезируемый набор веществ изменен!")
+		var/synch_reagent_volume = 0
+		for(var/datum/reagent/reagent in ready_reagents.reagents.reagent_list)
+			if(reagent.can_synth)
+				synch_reagent_volume += reagent.volume
+
+		for(var/datum/reagent/reagent in ready_reagents.reagents.reagent_list)
+			if(reagent.can_synth)
+				synth_reagents[reagent.id] = reagent.volume / synch_reagent_volume
+
+		user.balloon_alert(user, "смесь изменена")
 		return ATTACK_CHAIN_BLOCKED_ALL
-	else
-		return ..()
+
+	return ..()
+
+/obj/item/gun/syringe/rapidsyringe/experimental/AltClick(mob/user)
+	if(!user.contains(src))
+		return
+
+	user.put_in_active_hand(core)
+	core = null
+	user.balloon_alert(user, "ядро извлечено")
+	update_core()
 
 /obj/item/gun/syringe/rapidsyringe/experimental/process()
+	if(!core)
+		return
+
+	var/synth_volume = max(synth_speed, ready_reagents.reagents.maximum_volume - ready_reagents.reagents.total_volume)
+	for(var/id in synth_reagents)
+		ready_reagents.reagents.add_reagent(id, synth_reagents[id] * synth_volume)
+
+	if(chambered?.BB)
+		ready_reagents.reagents.trans_to(chambered.BB, ready_reagents.reagents.total_volume)
+
 	for (var/obj/item/reagent_containers/syringe/S in syringes)
 		ready_reagents.reagents.trans_to(S, ready_reagents.reagents.total_volume)
-	for (var/datum/reagent/R in processed_reagents.reagents.reagent_list)
-		if (R.can_synth)
-			ready_reagents.reagents.add_reagent(R.id, R.volume)
+
+/obj/item/gun/syringe/rapidsyringe/experimental/afterattack(atom/target, mob/living/user, flag, params)
+	if(!istype(target, /obj/item/reagent_containers/glass))
+		return ..()
+
+	var/obj/item/reagent_containers/glass/G = target
+	ready_reagents.reagents.trans_to(G, ready_reagents.reagents.total_volume)
+
+/obj/item/gun/syringe/rapidsyringe/experimental/examine(mob/user)
+	. = ..()
+	if(!core)
+		. += span_warning("В [declent_ru(PREPOSITIONAL)] нет ядра!")
+	else
+		. += span_info("В [declent_ru(PREPOSITIONAL)] есть ядро.")
+
+	. += span_info("Синтезируемые реагенты:")
+	for(var/id in synth_reagents)
+		var/datum/reagent/reagent = GLOB.chemical_reagents_list[id]
+		. += span_info(" [reagent.name]: [synth_reagents[id] * synth_speed]")
+
+	. += span_info("Готовые реагенты:")
+	for(var/datum/reagent/reagent in ready_reagents.reagents.reagent_list)
+		. += span_info(" [reagent.name]: [reagent.volume]")
 
 /datum/crafting_recipe/rapidsyringe_experimental
 	name = "Experemintal syringe gun"
 	result = /obj/item/gun/syringe/rapidsyringe/experimental
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	reqs = list(/obj/item/relict_production/perfect_mix = 1,
-				/obj/item/assembly/signaler/anomaly/tier2/vortex = 1,
 				/obj/item/gun/syringe/rapidsyringe = 1,
 				/obj/item/stock_parts/matter_bin = 1)
 	time = 300

@@ -102,6 +102,11 @@
 
 /obj/item/assembly/tuned_anomalous_teleporter/examine(mob/user)
 	. = ..()
+	if(!core)
+		. += span_warning("В [declent_ru(PREPOSITIONAL)] нет ядра!")
+	else
+		. += span_info("В [declent_ru(PREPOSITIONAL)] есть ядро.")
+
 	if(emp_timer > world.time)
 		. += span_warning("[declent_ru(NOMINATIVE)] выглядит неработающим.")
 
