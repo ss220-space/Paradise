@@ -390,7 +390,7 @@
 
 /obj/machinery/computer/syndicate_depot/teleporter
 	name = "Syndicate Redspace Teleporter Console"
-	desc = "This suspicious high-tech machine creates a Bi-Directional teleporter that is capable to ignore any bluespace interference!"
+	desc = "Эта подозрительная высокотехнологичная машина создает двунаправленный телепорт, способный игнорировать любые BlueSpace-помехи!"
 	icon_screen = "telesci"
 	icon_keyboard = "teleport_key"
 	window_height = 320

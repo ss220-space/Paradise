@@ -1,6 +1,6 @@
 /obj/machinery/computer/aiupload
 	name = "\improper AI upload console"
-	desc = "Used to upload laws to the AI."
+	desc = "Используется для манипуляций с законами ИИ."
 	icon_screen = "command"
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/aiupload
@@ -59,7 +59,7 @@
 // Why is this not a subtype
 /obj/machinery/computer/borgupload
 	name = "cyborg upload console"
-	desc = "Used to upload laws to Cyborgs."
+	desc = "Используется для манипуляций с законами киборгов."
 	icon_screen = "command"
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/borgupload
