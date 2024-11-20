@@ -1494,7 +1494,7 @@ This applies to all STANDARD station areas
 /area/chapel/morgue
 	name = "Chapel Morgue"
 
-/area/chapel/masssriver
+/area/chapel/massdriver
 	name = "Chapel Mass Driver"
 
 /area/escapepodbay
