@@ -63746,6 +63746,12 @@
 	},
 /obj/structure/table,
 /obj/item/flashlight,
+/obj/item/vending_refill/custom{
+	pixel_y = 5
+	},
+/obj/item/vending_refill/custom{
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "kOL" = (
