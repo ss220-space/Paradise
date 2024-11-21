@@ -65,7 +65,7 @@
 
     var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
 
-    if(locate(human.mind) in devil.soulsOwned)
+    if(LAZYIN(devil.soulsOwned, human.mind))
         return FALSE // Error occured / Admin changed hasSoul.
 
     return TRUE
