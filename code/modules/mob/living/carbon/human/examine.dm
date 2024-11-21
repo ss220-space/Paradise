@@ -426,7 +426,7 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
-	if(client && mind && !mind.offstation_role && user.mind?.special_role) // No ashwalkers, monkeys etc
+	if(client && mind && (istraitor(user) || isvampire(user) || ischangeling(user) || isninja(user) || is_admin(user))) // No ashwalkers, monkeys etc
 		var/permission_granted = client.prefs.toggles2 & PREFTOGGLE_2_GIB_WITHOUT_OBJECTIVE
 		msg += "\n<div class='examine'>[span_info("Вы[permission_granted ? "" : " [span_warning("НЕ")]"] можете вывести этого игрока из игры не имея соответствующей цели.")]</div>"
 
