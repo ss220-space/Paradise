@@ -978,7 +978,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"
-	desc = "A console used to interface with R&D tools."
+	desc = "Консоль, используемая для взаимодействия с инструментами НИО."
 	id = 1
 
 /obj/machinery/computer/rdconsole/core/old_frame
@@ -989,21 +989,21 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/robotics
 	name = "robotics R&D console"
-	desc = "A console used to interface with R&D tools."
+	desc = "Консоль, используемая для взаимодействия с инструментами НИО."
 	id = 2
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/rdconsole/robotics
 
 /obj/machinery/computer/rdconsole/experiment
 	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
-	desc = "A console used to interface with R&D tools."
+	desc = "Консоль, используемая для взаимодействия с инструментами НИО."
 	id = 3
 	range = 5
 	circuit = /obj/item/circuitboard/rdconsole/experiment
 
 /obj/machinery/computer/rdconsole/mechanics
 	name = "mechanics R&D console"
-	desc = "A console used to interface with R&D tools."
+	desc = "Консоль, используемая для взаимодействия с инструментами НИО."
 	id = 4
 	req_access = list(ACCESS_MECHANIC)
 	circuit = /obj/item/circuitboard/rdconsole/mechanics
@@ -1015,7 +1015,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"
-	desc = "A console used to interface with R&D tools."
+	desc = "Консоль, используемая для взаимодействия с инструментами НИО."
 	id = 5
 	req_access = list()
 	circuit = /obj/item/circuitboard/rdconsole/public

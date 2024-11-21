@@ -9,7 +9,7 @@
 
 /obj/machinery/computer/med_data //TODO:SANITY
 	name = "medical records console"
-	desc = "This can be used to check medical records."
+	desc = "Используется для проверки медицинских записей."
 	icon_keyboard = "med_key"
 	icon_screen = "medcomp"
 	req_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
@@ -461,7 +461,7 @@
 
 /obj/machinery/computer/med_data/laptop
 	name = "medical laptop"
-	desc = "Cheap Nanotrasen laptop."
+	desc = "Дешёвый ноутбук корпорации Nanotrasen."
 	icon_state = "laptop"
 	icon_keyboard = "laptop_key"
 	icon_screen = "medlaptop"

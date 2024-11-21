@@ -27,7 +27,7 @@
 	description_info = "Click your target with Grab intent, then click on the table with an empty hand, to place them on it."
 
 /obj/machinery/computer/operating
-	description_info = "This console gives information on the status of the patient on the adjacent operating table, notably their consciousness."
+	description_info = "Эта консоль выдает информацию о состоянии пациента, лежащего на соседнем операционном столе, в частности о его сознании."
 
 /obj/machinery/sleeper
 	description_info = "The sleeper allows you to clean the blood by means of dialysis, and to administer medication in a controlled environment.<br>\

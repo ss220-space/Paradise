@@ -6,7 +6,7 @@
 
 /obj/machinery/computer/secure_data
 	name = "security records"
-	desc = "Used to view and edit personnel's security records."
+	desc = "Используется для просмотра и редактирования записей службы безопасности о персонале."
 	icon_keyboard = "security_key"
 	icon_screen = "security"
 	circuit = /obj/item/circuitboard/secure_data
@@ -518,7 +518,7 @@
 
 /obj/machinery/computer/secure_data/laptop
 	name = "security laptop"
-	desc = "Nanotrasen Security laptop. Bringing modern compact computing to this century!"
+	desc = "Ноутбук службы безопасности Nanotrasen. Привносим современные компактные компьютеры в наше столетие!"
 	icon_state = "laptop"
 	icon_keyboard = "seclaptop_key"
 	icon_screen = "seclaptop"
