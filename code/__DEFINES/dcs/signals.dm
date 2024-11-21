@@ -956,7 +956,7 @@
 
 /// Reagents
 /// Source: /datum/reagents/proc/add_reagent (datum/reagents, reagent_id, amount, data, reagtemp, no_react, chem_temp)
-#define COMSIG_EARLY_REAGENT_ADDED "reagent_added"
+#define COMSIG_EARLY_REAGENT_ADDED "reagent_early_added"
 	#define COMPONENT_PREVENT_ADD_REAGENT (1<<0)
 
 //Gibs
