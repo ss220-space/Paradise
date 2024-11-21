@@ -35,16 +35,22 @@
 	var/weaken = 0
 	/// The moment at which the reduction in the effects of the anomaly will be reset.
 	var/weaken_moment = 0
+	/// Matrix used for anomaly animations.
+	var/matrix/matr = matrix()
+
+/obj/effect/anomaly/proc/size_by_strenght(cur_strenght)
+	if(!cur_strenght)
+		cur_strenght = strenght
+
+	return (tier * 50 + cur_strenght / 2) / 100
 
 /obj/effect/anomaly/proc/init_animation()
-	var/matrix/M = matrix()
-	M.Scale(0.1, 0.1)
-	animate(src, transform = M, time = 0)
-	var/mult = (strenght + 50) / 100 * 20
-	mult *= tier * tier
-	M.Scale(mult, mult)
-	animate(src, transform = M, time = 1 SECONDS, alpha = 255)
-	sleep(1 SECONDS)
+	matr.Scale(0.1, 0.1)
+	animate(src, transform = matr, time = 0, flags = ANIMATION_PARALLEL)
+	var/mult = size_by_strenght() * 10
+	matr.Scale(mult, mult)
+	animate(src, transform = matr, time = 1 SECONDS, alpha = 255, flags = ANIMATION_PARALLEL)
+
 
 /obj/effect/anomaly/Initialize(spawnloc, spawn_strenght = rand(30, 70), spawn_stability = rand(10, 29))
 	GLOB.created_anomalies[anomaly_type]++
@@ -52,8 +58,8 @@
 	if(!get_area(src))
 		return INITIALIZE_HINT_QDEL
 
+	set_strenght(spawn_strenght, FALSE)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/effect/anomaly, init_animation))
-	set_strenght(spawn_strenght)
 	stability = spawn_stability
 
 	GLOB.poi_list |= src
@@ -73,19 +79,20 @@
 	return pick(GLOB.alldirs)
 
 // It is in function because the size will change depending on the strength of the anomaly.
-/obj/effect/anomaly/proc/set_strenght(new_strenght)
+/obj/effect/anomaly/proc/set_strenght(new_strenght, do_anim = TRUE)
+	if(do_anim)
+		var/mult = size_by_strenght(new_strenght) / size_by_strenght(strenght)
+		matr.Scale(mult, mult)
+		animate(src, transform = matr, time = 0.1 SECONDS, flags = ANIMATION_PARALLEL)
+
 	strenght = clamp(new_strenght, 0, 100)
-	var/matrix/M = matrix()
-	var/mult = (strenght + 100) / 200
-	M.Scale(mult, mult)
-	animate(src, transform = M, time = 0.1 SECONDS)
+	check_size_change()
 
 /obj/effect/anomaly/proc/collapse()
 	visible_message(span_warning("Вы видите как [src] достигает критической массы, в следствии чего, разрушается!"))
-	var/matrix/M = matrix()
 	var/mult = 3
-	M.Scale(mult, mult)
-	animate(src, transform = M, time = 1 SECONDS, alpha = 0)
+	matr.Scale(mult, mult)
+	animate(src, transform = matr, time = 1 SECONDS, alpha = 0, flags = ANIMATION_PARALLEL)
 	sleep(1 SECONDS)
 	qdel(src)
 
@@ -95,7 +102,7 @@
 	smoke.start()
 
 	if(strenght < 50)
-		core_type = text2path("/obj/item/assembly/signaler/anomaly/tier[tier]")
+		core_type = text2path("/obj/item/assembly/signaler/core/tier[tier]")
 
 	new core_type(loc, strenght)
 	GLOB.poi_list.Remove(src)
@@ -103,9 +110,8 @@
 
 /obj/effect/anomaly/proc/level_down()
 	if(!weaker_anomaly_type)
-		var/matrix/M = matrix()
-		M.Scale(0, 0)
-		animate(src, transform = M, time = 1 SECONDS)
+		matr.Scale(0, 0)
+		animate(src, transform = matr, time = 1 SECONDS, flags = ANIMATION_PARALLEL)
 		visible_message(span_warning("Вы видите как [src] полностью угасает!"))
 		sleep(1 SECONDS)
 		qdel(src)
@@ -122,15 +128,28 @@
 		new stronger_anomaly_type(loc, rand(20, 50), clamp(stability - rand(10, 20), 0, 100))
 		qdel(src)
 
-/obj/effect/anomaly/proc/mob_touch_effect(mob/living/M)
+/obj/effect/anomaly/proc/mob_touch_effect(mob/living/matr)
 	return TRUE
 
-/obj/effect/anomaly/proc/core_touch_effect(obj/item/assembly/signaler/anomaly/core)
-	var/mult = 1
+/obj/effect/anomaly/proc/check_size_change()
+	if(strenght == 100)
+		if(stability >= 50)
+			level_up()
+		else
+			collapse()
+
+		return
+
+	if(!strenght)
+		level_down()
+		return
+
+/obj/effect/anomaly/proc/core_touch_effect(obj/item/assembly/signaler/core/core)
+	var/mult
 	if(core.tier <= tier)
-		mult *= 1 << (core.tier - tier)
+		mult = 1 << (tier - core.tier)
 	else
-		mult /= 1 << (core.tier - tier)
+		mult = 1 / (1 << (core.tier - tier))
 
 	if(!iscoreempty(core))
 		core.visible_message(span_warning("[core.declent_ru(NOMINATIVE)] распадается передавая свой заряд [declent_ru(DATIVE)]."))
@@ -152,8 +171,8 @@
 											но остается пустым из-за низкого заряда."))
 		return
 
-	var/path = text2path("/obj/item/assembly/signaler/anomaly/tier[core.tier]/[anomaly_type]")
-	var/obj/item/assembly/signaler/anomaly/new_core = new path(core.loc, new_charge)
+	var/path = text2path("/obj/item/assembly/signaler/core/tier[core.tier]/[anomaly_type]")
+	var/obj/item/assembly/signaler/core/new_core = new path(core.loc, new_charge)
 	new_core.visible_message(span_warning("[core.declent_ru(NOMINATIVE)] заряжается от [declent_ru(GENITIVE)], \
 											и становится [new_core.declent_ru(INSTRUMENTAL)]."))
 	qdel(core)
@@ -166,7 +185,7 @@
 		return
 
 	if(iscore(I))
-		var/obj/item/assembly/signaler/anomaly/core = I
+		var/obj/item/assembly/signaler/core/core = I
 		if(core.born_moment + 1 SECONDS >= world.time)
 			return TRUE
 
@@ -214,8 +233,8 @@
 	for(var/obj/item/I in get_turf(src))
 		item_touch_effect(I)
 
-	for(var/mob/living/M in get_turf(src))
-		mob_touch_effect(M)
+	for(var/mob/living/matr in get_turf(src))
+		mob_touch_effect(matr)
 
 /obj/effect/anomaly/proc/normal_move()
 	if(world.time > move_moment)
@@ -238,23 +257,11 @@
 	if(stability > ANOMALY_DECREASE_STABILITY)
 		set_strenght(strenght - 1)
 
-	if(strenght == 100)
-		if(stability >= 50)
-			level_up()
-		else
-			collapse()
-
-		return
-
 	if(stability == 100)
 		stabilyse()
 		return
 
-	if(!strenght)
-		level_down()
-		return
-
-	if(!prob(get_strenght()) || stability > 60)
+	if(!prob(get_strenght()) || stability >= 60)
 		return
 
 	if(normal_move())

@@ -24,24 +24,24 @@
 /obj/item/anomaly_analyzer/proc/scan(obj/effect/anomaly/target)
 	scan_title = "Сканирование [target.declent_ru(GENITIVE)]"
 	scan_data = list()
-	. += "Сила аномалии: [target.strenght]"
-	. += "Стабильность аномалии: [target.strenght]"
+	scan_data += "Сила аномалии: [target.strenght]"
+	scan_data += "Стабильность аномалии: [target.stability]"
 	if(target.stability < ANOMALY_GROW_STABILITY)
-		. += "Состояние аномалии: " + span_warning("Рост")
+		scan_data += "Состояние аномалии: " + span_warning("Рост")
 	else if(target.stability > ANOMALY_DECREASE_STABILITY)
-		. += "Состояние аномалии: Уменьшение"
+		scan_data += "Состояние аномалии: Уменьшение"
 	else
-		. += "Состояние аномалии: Стабильное"
-
-	. += "Импульсы:\n"
+		scan_data += "Состояние аномалии: Стабильное"
+	scan_data += "<hr>Импульсы:\n"
 	for(var/datum/anomaly_impulse/impulse in target.impulses)
-		. += "  [impulse.name]"
-		. += "  &emsp;Описание: [impulse.desc]"
-		. += "  &emsp;Время между импульсами: [impulse.scale_by_strenght(impulse.period_low, impulse.period_high) / 10]"
-		. += "  &emsp;Блокируящая стабильность: [impulse.stability_high]"
+		scan_data += "  [impulse.name]"
+		scan_data += "  &emsp;Описание: [impulse.desc]"
+		scan_data += "  &emsp;Время между импульсами: [impulse.scale_by_strenght(impulse.period_low, impulse.period_high) / 10]"
+		scan_data += "  &emsp;Блокируящая стабильность: [impulse.stability_high]"
 
 /obj/item/anomaly_analyzer/proc/show(mob/user)
 	var/datum/browser/popup = new(user, "anomalyscanner", scan_title, 400, 600)
+	popup.set_content(span_highlight("[jointext(scan_data, "<br>")]"))
 	popup.open(no_focus = 1)
 
 /obj/item/anomaly_analyzer/attack_self(mob/user)

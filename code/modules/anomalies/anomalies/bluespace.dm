@@ -59,7 +59,7 @@
 					INSTRUMENTAL = "малой ​​блюспейс аномалией", \
 					PREPOSITIONAL = "малой ​​блюспейс аномалии")
 	icon_state = "bluespace1"
-	core_type = /obj/item/assembly/signaler/anomaly/tier1/bluespace
+	core_type = /obj/item/assembly/signaler/core/tier1/bluespace
 	stronger_anomaly_type = /obj/effect/anomaly/bluespace/tier2
 	tier = 1
 	impulses_types = list(
@@ -84,7 +84,7 @@
 					INSTRUMENTAL = "​​блюспейс аномалией", \
 					PREPOSITIONAL = "​​блюспейс аномалии")
 	icon_state = "bluespace2"
-	core_type = /obj/item/assembly/signaler/anomaly/tier2/bluespace
+	core_type = /obj/item/assembly/signaler/core/tier2/bluespace
 	weaker_anomaly_type = /obj/effect/anomaly/bluespace/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/bluespace/tier3
 	tier = 2
@@ -108,7 +108,7 @@
 					INSTRUMENTAL = "большой ​​блюспейс аномалией", \
 					PREPOSITIONAL = "большой ​​блюспейс аномалии")
 	icon_state = "bluespace3"
-	core_type = /obj/item/assembly/signaler/anomaly/tier3/bluespace
+	core_type = /obj/item/assembly/signaler/core/tier3/bluespace
 	weaker_anomaly_type = /obj/effect/anomaly/bluespace/tier2
 	tier = 3
 	impulses_types = list(
@@ -127,6 +127,9 @@
 	for(var/mob/living/M in GLOB.player_list)
 		if(M.stat)
 			continue
+
+		if(get_dist(src, M) > 20 || z != M.z)
+			return
 
 		M.playsound_local(null,'sound/effects/explosionfar.ogg', 15, TRUE)
 		to_chat(M, "<span class='bluespace_anomaly'>Вы слышите страшный треск! Это что... трещит пространство?</span>") // It used in one place.

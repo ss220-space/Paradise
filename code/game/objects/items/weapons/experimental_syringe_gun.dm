@@ -27,7 +27,7 @@
 	/// The size of the internal tank with ready-made reagents.
 	var/bank_size = 100
 	/// Inserted vortex anomaly core.
-	var/obj/item/assembly/signaler/anomaly/core = null
+	var/obj/item/assembly/signaler/core/core = null
 
 /obj/item/gun/syringe/rapidsyringe/experimental/Initialize()
 	. = ..()
@@ -113,7 +113,7 @@
 	if(!core)
 		return
 
-	var/synth_volume = max(synth_speed, ready_reagents.reagents.maximum_volume - ready_reagents.reagents.total_volume)
+	var/synth_volume = min(synth_speed, ready_reagents.reagents.maximum_volume - ready_reagents.reagents.total_volume)
 	for(var/id in synth_reagents)
 		ready_reagents.reagents.add_reagent(id, synth_reagents[id] * synth_volume)
 

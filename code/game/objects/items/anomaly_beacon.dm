@@ -22,7 +22,7 @@
 	name = "Anomaly beacon"
 	result = /obj/item/assembly/anomaly_beacon
 	tools = list(TOOL_SCREWDRIVER)
-	reqs = list(/obj/item/assembly/signaler/anomaly = 1,
+	reqs = list(/obj/item/assembly/signaler/core = 1,
 				/obj/item/relict_production/rapid_dupe = 1,
 				/obj/item/radio/beacon = 1,
 				/obj/item/stack/cable_coil = 5)

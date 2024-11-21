@@ -103,7 +103,7 @@
 					INSTRUMENTAL = "малой энергетической аномалией", \
 					PREPOSITIONAL = "малой энергетической аномалии")
 	icon_state = "energetic1"
-	core_type = /obj/item/assembly/signaler/anomaly/tier1/energetic
+	core_type = /obj/item/assembly/signaler/core/tier1/energetic
 	stronger_anomaly_type = /obj/effect/anomaly/energetic/tier2
 	tier = 1
 	light_range = 5
@@ -128,7 +128,7 @@
 					INSTRUMENTAL = "энергетической аномалией", \
 					PREPOSITIONAL = "энергетической аномалии")
 	icon_state = "energetic2"
-	core_type = /obj/item/assembly/signaler/anomaly/tier2/energetic
+	core_type = /obj/item/assembly/signaler/core/tier2/energetic
 	weaker_anomaly_type = /obj/effect/anomaly/energetic/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/energetic/tier3
 	tier = 2
@@ -156,7 +156,7 @@
 					INSTRUMENTAL = "большой энергетической аномалией", \
 					PREPOSITIONAL = "большой энергетической аномалии")
 	icon_state = "energetic3"
-	core_type = /obj/item/assembly/signaler/anomaly/tier3/energetic
+	core_type = /obj/item/assembly/signaler/core/tier3/energetic
 	weaker_anomaly_type = /obj/effect/anomaly/energetic/tier2
 	tier = 3
 	light_range = 7
@@ -179,6 +179,9 @@
 	for(var/mob/living/M in GLOB.player_list)
 		if(M.stat)
 			continue
+
+		if(get_dist(src, M) > 20 || z != M.z)
+			return
 
 		M.playsound_local(null, 'sound/magic/lightningbolt.ogg', 15, TRUE)
 		to_chat(M, "<span class='energetic_anomaly'>Статическое электричество чувствуется в воздухе. Окружающие механизмы подозрительно гудят!</span>") // It used in one place.
@@ -207,9 +210,9 @@
 
 	var/matrix/M = matrix()
 	M.Scale(0.1, 0.1)
-	animate(src, transform = M, time = 0)
+	animate(src, transform = M, time = 0, flags = ANIMATION_PARALLEL)
 	M.Scale(5, 5)
-	animate(src, transform = M, time = 1 SECONDS, alpha = 255)
+	animate(src, transform = M, time = 1 SECONDS, alpha = 255, flags = ANIMATION_PARALLEL)
 
 	START_PROCESSING(SSobj, src)
 

@@ -432,7 +432,7 @@
 	shaded_charge = TRUE
 	gender = FEMALE
 	/// Inserted flux anomaly core.
-	var/obj/item/assembly/signaler/anomaly/core = null
+	var/obj/item/assembly/signaler/core/core = null
 	var/has_bluespace_crystal = FALSE
 	var/admin_model = FALSE //For the admin gun, prevents crystal shattering, so anyone can use it, and you dont need to carry backup crystals.
 
@@ -471,7 +471,7 @@
 			balloon_alert(user, "уже установлено!")
 			return ATTACK_CHAIN_PROCEED
 
-		var/obj/item/assembly/signaler/anomaly/Icore = I
+		var/obj/item/assembly/signaler/core/Icore = I
 		if(Icore.get_strenght() < 140)
 			balloon_alert(user, "ядро слишком слабо")
 			return

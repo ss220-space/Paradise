@@ -287,6 +287,7 @@
 	if(!isanomaly(target))
 		return ..()
 
+	do_sparks(clamp(abs(stability_delta) * 2, 3, 10))
 	var/obj/effect/anomaly/anomaly = target
 	anomaly.stability = clamp(anomaly.stability + stability_delta, 0, 100)
 	anomaly.move_moment = max(world.time + move_block, anomaly.move_moment)

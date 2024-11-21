@@ -76,7 +76,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 		return ATTACK_CHAIN_PROCEED
 	// anomaly cores are only disassembed in the upgraded machine.
 	// 3x4(femto-manipulator,quad-ultra micro-laser,triphasic scanning module)
-	if(istype(I, /obj/item/assembly/signaler/anomaly) && (decon_mod < 12))
+	if(istype(I, /obj/item/assembly/signaler/core) && (decon_mod < 12))
 		to_chat(user, span_warning("Машина не в состоянии обработать такой сложный образец."))
 		return ATTACK_CHAIN_PROCEED
 	if(!I.origin_tech)

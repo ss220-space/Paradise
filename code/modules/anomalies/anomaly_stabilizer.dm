@@ -19,7 +19,7 @@
 	origin_tech = "programming=3;magnets=3"
 	cell_type = /obj/item/stock_parts/cell/high
 	/// Cores inserted into this anomaly stabilizer.
-	var/list/obj/item/assembly/signaler/anomaly/cores = list()
+	var/list/obj/item/assembly/signaler/core/cores = list()
 	/// Range of allowed stability deltas. If val - X, range is [-x; x].
 	var/stability_range = 1
 	/// The current value of the anomaly's stability change upon impact.
@@ -41,7 +41,7 @@
 
 /obj/item/gun/energy/anomaly_stabilizer/Initialize(mapload, ...)
 	. = ..()
-	update_stability_delta()
+	update_stability_delta(1)
 
 /obj/item/gun/energy/anomaly_stabilizer/attack_self(mob/living/user)
 	add_fingerprint(user)
@@ -74,7 +74,7 @@
 	new_val = clamp(new_val, -stability_range, stability_range)
 	stability_delta = new_val
 
-	if(new_val < 0)
+	if(new_val > 0)
 		ammo_type = list(/obj/item/ammo_casing/energy/anomaly/stabilizer)
 	else if(new_val > 0)
 		ammo_type = list(/obj/item/ammo_casing/energy/anomaly/destabilizer)
@@ -93,7 +93,7 @@
 	update_cores()
 
 
-/obj/item/gun/energy/anomaly_stabilizer/proc/insert_core(obj/item/assembly/signaler/anomaly/core, mob/user)
+/obj/item/gun/energy/anomaly_stabilizer/proc/insert_core(obj/item/assembly/signaler/core/core, mob/user)
 	add_fingerprint(user)
 	if(iscoreempty(core))
 		user.balloon_alert(user, "ядро пусто")
@@ -122,7 +122,7 @@
 	var/strenght_bluespace = 0
 	var/strenght_vortex = 0
 	var/strenght_gravitation = 0
-	for(var/obj/item/assembly/signaler/anomaly/core in cores)
+	for(var/obj/item/assembly/signaler/core/core in cores)
 		var/strenght = core.get_strenght()
 		if(iscoreflux(core))
 			strenght_energetic += strenght
@@ -139,10 +139,10 @@
 		if(iscoregrav(core))
 			strenght_gravitation += strenght
 
-	stability_range = 1 + round(strenght_energetic / 50)
+	stability_range = 1 + round(strenght_energetic / 50 + 0.5)
 	update_stability_delta(stability_delta)
 
-	pull_range = strenght_gravitation / 50
+	pull_range = round(strenght_gravitation / 50 + 0.5)
 	choosen_pull_dist = clamp(choosen_pull_dist, -pull_range, pull_range)
 
 	block_move_time = (strenght_vortex / 100) SECONDS
@@ -223,7 +223,7 @@
 
 		if("change_pull_dist")
 			var/new_val = text2num(params["new_val"])
-			pull_range = new_val
+			choosen_pull_dist = new_val
 			newshot()
 
 		if("toggle_full_info")

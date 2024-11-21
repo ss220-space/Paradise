@@ -51,10 +51,12 @@
 /datum/anomaly_impulse/freese/impulse()
 	. = ..()
 	for(var/turf/simulated/T in view(scale_by_strenght(range_low, range_high) * 2, owner))
-		T.temperature = rand(0, 50)
+		if(T.air)
+			T.air.temperature = rand(0, 50)
 
 	for(var/turf/simulated/floor/T in spiral_range_turfs(scale_by_strenght(range_low, range_high), owner))
-		T.MakeSlippery(TURF_WET_ICE, 120 SECONDS)
+		if(prob(100 - get_dist(T, owner) * 5))
+			T.MakeSlippery(TURF_WET_ICE, 120 SECONDS)
 
 /datum/anomaly_impulse/freese/tier1
 	period_low = 15 SECONDS
@@ -100,7 +102,7 @@
 	range_low = 1
 	range_high = 2
 	gases_low = 0
-	gases_high = 7
+	gases_high = 5
 
 /datum/anomaly_impulse/fire/tier2
 	period_low = 10 SECONDS
@@ -108,12 +110,12 @@
 	range_low = 1
 	range_high = 2
 	gases_low = 0
-	gases_high = 14
+	gases_high = 7
 
 /datum/anomaly_impulse/fire/tier3
 	period_low = 5 SECONDS
 	period_high = 20 SECONDS
-	range_low = 2
+	range_low = 1
 	range_high = 3
 	gases_low = 0
-	gases_high = 14
+	gases_high = 7

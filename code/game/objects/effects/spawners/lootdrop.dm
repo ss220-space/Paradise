@@ -284,7 +284,7 @@
 	lootcount = 8
 	loot = list(
 		/obj/item/mmi/robotic_brain = 50,
-		/obj/item/assembly/signaler/anomaly = 50,
+		/obj/item/assembly/signaler/core/tier2 = 50,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 50,
 		/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 50,
 		/obj/item/autoimplanter/old = 50,
@@ -301,11 +301,11 @@
 		/obj/item/slime_extract/adamantine = 50,
 		/obj/item/slime_extract/rainbow = 50,
 		/obj/item/slime_extract/sepia = 50,
-		/obj/item/assembly/signaler/anomaly/tier2/vortex = 50,
-		/obj/item/assembly/signaler/anomaly/tier2/bluespace = 50,
-		/obj/item/assembly/signaler/anomaly/tier2/energetic = 50,
-		/obj/item/assembly/signaler/anomaly/tier2/gravitational = 50,
-		/obj/item/assembly/signaler/anomaly/tier2/atmospheric = 50,
+		/obj/item/assembly/signaler/core/tier2/vortex = 50,
+		/obj/item/assembly/signaler/core/tier2/bluespace = 50,
+		/obj/item/assembly/signaler/core/tier2/energetic = 50,
+		/obj/item/assembly/signaler/core/tier2/gravitational = 50,
+		/obj/item/assembly/signaler/core/tier2/atmospheric = 50,
 		/obj/item/t_scanner/science = 50,
 		/obj/item/t_scanner/experimental = 5)
 

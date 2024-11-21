@@ -33,7 +33,7 @@
 	/// Last charge per second.
 	var/last_charge = 0
 	/// List of items placed inside.
-	var/list/obj/item/assembly/signaler/anomaly/containment = list()
+	var/list/obj/item/assembly/signaler/core/containment = list()
 
 	/// The maximum number of items that can be in the anomaly generator.
 	var/containment_limit = 2
@@ -61,23 +61,24 @@
 	beacon = new(src)
 	selected_beacon = beacon
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/anomaly_generator(src)
-	component_parts += new /obj/item/stock_parts/matter_bin(src)
-	component_parts += new /obj/item/stock_parts/matter_bin(src)
-	component_parts += new /obj/item/stock_parts/manipulator(src)
-	component_parts += new /obj/item/stock_parts/capacitor(src)
-	component_parts += new /obj/item/stock_parts/capacitor(src)
+	component_parts += new /obj/item/circuitboard/anomaly_generator
+	component_parts += new /obj/item/stock_parts/matter_bin
+	component_parts += new /obj/item/stock_parts/matter_bin
+	component_parts += new /obj/item/stock_parts/manipulator
+	component_parts += new /obj/item/stock_parts/capacitor
+	component_parts += new /obj/item/stock_parts/capacitor
 	RefreshParts()
 
 /obj/machinery/power/anomaly_generator/upgraded/New()
 	..()
+	LAZYCLEARLIST(component_parts)
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/anomaly_generator(src)
-	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(src)
-	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(src)
-	component_parts += new /obj/item/stock_parts/manipulator/femto(src)
-	component_parts += new /obj/item/stock_parts/capacitor/quadratic(src)
-	component_parts += new /obj/item/stock_parts/capacitor/quadratic(src)
+	component_parts += new /obj/item/circuitboard/anomaly_generator
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace
+	component_parts += new /obj/item/stock_parts/manipulator/femto
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic
 	RefreshParts()
 
 /obj/machinery/power/anomaly_generator/Destroy()
@@ -94,8 +95,8 @@
 		eject(pick(containment))
 
 	creating_range = 25
-	var/obj/item/stock_parts/manipulator/manipulator = locate() in src
-	creating_range /= manipulator.rating
+	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
+		creating_range /= manipulator.rating
 
 	// 2 tier 1 = 10000 (100 sec, ~17 min, ~83 min); 2 tier 4 = 1280000 (1 sec, 8 sec, 39 sec).
 	speed = 1e4
@@ -270,7 +271,7 @@
 		var/anomaly_datum_type = GLOB.anomaly_types["[selected_tier]"][selected_type]
 		anomaly = new anomaly_datum_type
 		var/list/possible_used = anomaly.get_used(containment)
-		if(!possible_used.len)
+		if(!possible_used.len && anomaly.req_item != "-")
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 40)
 			atom_say("Недостаточно ресурсов!")
 			return
@@ -306,7 +307,7 @@
 	//			SMES
 	if(use_smeses)
 		for(var/obj/machinery/power/smes/smes in range(2, src))
-			var/used_charge = min(going_to_use, min(smes.charge, smes.output_level - smes.output_used))
+			var/used_charge = max(0, min(going_to_use, min(smes.charge * 0.05, smes.output_level)))
 			smes.output_used += used_charge
 			smes.charge -= used_charge
 			charge += used_charge
@@ -343,6 +344,10 @@
 /obj/machinery/power/anomaly_generator/upgraded/admin
 	desc = "Необычного вида машина, разработанная на основе эксперементальной технологии, предназначенная для \
 			генерации аномалий. В данной модели были использованы секретные разработки NanoTrasen."
+
+/obj/machinery/power/anomaly_generator/wrench_act(mob/living/user, obj/item/I)
+	default_unfasten_wrench(user, I)
+	return TRUE
 
 /obj/machinery/power/anomaly_generator/upgraded/admin/get_req_energy()
 	return 0

@@ -11,16 +11,15 @@
 	var/tp_range_high = -1
 
 /datum/anomaly_impulse/move/bs_selftp/impulse()
-	var/matrix/M = matrix()
-	M.Scale(0.1, 0.1)
-	animate(owner, transform = M, time = 0.5 SECONDS, alpha = 0)
+	owner.matr.Scale(0.1, 0.1)
+	animate(owner, transform = owner.matr, time = 0.5 SECONDS, alpha = 0, flags = ANIMATION_PARALLEL)
 
 	sleep(0.5 SECONDS)
 	var/obj/effect/anomaly/bluespace/anomaly = owner
 	anomaly.teleport(owner, scale_by_strenght(tp_range_low, tp_range_high))
 
-	M.Scale(10, 10)
-	animate(owner, transform = M, time = 0.5 SECONDS, alpha = 255)
+	owner.matr.Scale(10, 10)
+	animate(owner, transform = owner.matr, time = 0.5 SECONDS, alpha = 255)
 
 /datum/anomaly_impulse/move/bs_selftp/tier1
 	period_low = 3 SECONDS

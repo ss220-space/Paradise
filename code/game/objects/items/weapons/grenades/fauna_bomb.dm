@@ -56,7 +56,7 @@
 	result = /obj/item/grenade/fauna_bomb
 	tools = list(TOOL_SCREWDRIVER)
 	reqs = list(/obj/item/relict_production/pet_spray = 1,
-				/obj/item/assembly/signaler/anomaly/tier2/atmospheric = 1,
+				/obj/item/assembly/signaler/core/tier2/atmospheric = 1,
 				/obj/item/grenade/chem_grenade/adv_release = 1,
 				/obj/item/stack/cable_coil = 5)
 	time = 300

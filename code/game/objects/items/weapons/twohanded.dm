@@ -1002,7 +1002,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	var/on_cooldown = FALSE
 	var/used = FALSE
-	var/obj/item/assembly/signaler/anomaly/core
+	var/obj/item/assembly/signaler/core/core
 
 /obj/item/clothing/gloves/color/black/pyro_claws/Destroy()
 	QDEL_NULL(core)
@@ -1020,11 +1020,11 @@
 
 /obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(!core)
-		to_chat(user, span_notice("В [declent_ru(PREPOSITIONAL)] не хватает ядра!"))
+		user.balloon_alert(user, "нет ядра")
 		return
 
 	if(on_cooldown)
-		to_chat(user, span_notice("[declent_ru(NOMINATIVE)] перезаряжаются."))
+		user.balloon_alert(user, "идет перезарядка")
 		do_sparks(rand(1,6), 1, loc)
 		return
 
@@ -1059,7 +1059,7 @@
 
 /obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/I, mob/user, params)
 	if(iscoreatmos(I))
-		var/obj/item/assembly/signaler/anomaly/I_core = I
+		var/obj/item/assembly/signaler/core/I_core = I
 		if(I_core.get_strenght() < 100)
 			user.balloon_alert(user, "ядро слишком слабо")
 			return

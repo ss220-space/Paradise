@@ -21,10 +21,10 @@
 		list.Add(T)
 
 	for(var/key in affected)
-		var/matrix/M = matrix()
+		matr = matrix()
 		var/mult = text2num(key)
-		M.Scale(mult, mult)
-		animate(src, transform = M, time = 0.2 SECONDS)
+		matr.Scale(mult, mult)
+		animate(src, transform = matr, time = 0.2 SECONDS, flags = ANIMATION_PARALLEL)
 		var/list/list = affected[key]
 		for(var/turf/T in list)
 			if(prob(100 - mult * 10))
@@ -65,16 +65,31 @@
 			pull(A)
 
 /obj/effect/anomaly/vortex/process()
+	var/list/obj/was_near = list()
+	for(var/obj/O in range(1, src))
+		was_near.Add(O)
+
 	do_pulls()
+
+	// If something movable was near and can not be pulled inside, it will be throwen.
+	for(var/obj/O in range(1, src))
+		if(!(O in was_near))
+			continue
+
+		if(O.anchored && !ismachinery(O))
+			continue
+
+		O.random_throw(tier * 2, tier * 3, 4)
+
 	. = ..()
 
 /obj/effect/anomaly/vortex/mob_touch_effect(mob/living/M)
 	. = ..()
-	M.random_throw(tier * 2, tier * 3, 5)
+	M.random_throw(tier * 2, tier * 3, 4)
 
 /obj/effect/anomaly/vortex/item_touch_effect(obj/item/I)
 	. = ..()
-	I.random_throw(tier * 2, tier * 3, 5)
+	I.random_throw(tier * 2, tier * 3, 4)
 
 /obj/effect/anomaly/vortex/process()
 	. = ..()
@@ -91,11 +106,11 @@
 					ACCUSATIVE = "малую вихревую аномалию", \
 					INSTRUMENTAL = "малой вихревой аномалией", \
 					PREPOSITIONAL = "малой вихревой аномалии")
-	core_type = /obj/item/assembly/signaler/anomaly/tier1/vortex
+	core_type = /obj/item/assembly/signaler/core/tier1/vortex
 	stronger_anomaly_type = /obj/effect/anomaly/vortex/tier2
 	tier = 1
 	impulses_types = list(
-		/datum/anomaly_impulse/move/energ_fastmove/tier1,
+		/datum/anomaly_impulse/emp/tier1,
 		/datum/anomaly_impulse/superpull/tier1,
 	)
 
@@ -112,12 +127,12 @@
 					ACCUSATIVE = "вихревую аномалию", \
 					INSTRUMENTAL = "вихревой аномалией", \
 					PREPOSITIONAL = "вихревой аномалии")
-	core_type = /obj/item/assembly/signaler/anomaly/tier2/vortex
+	core_type = /obj/item/assembly/signaler/core/tier2/vortex
 	weaker_anomaly_type = /obj/effect/anomaly/vortex/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/vortex/tier3
 	tier = 2
 	impulses_types = list(
-		/datum/anomaly_impulse/move/energ_fastmove/tier2,
+		/datum/anomaly_impulse/emp/tier2,
 		/datum/anomaly_impulse/superpull/tier2,
 	)
 
@@ -134,11 +149,11 @@
 					ACCUSATIVE = "большую вихревую аномалию", \
 					INSTRUMENTAL = "большой вихревой аномалией", \
 					PREPOSITIONAL = "большой вихревой аномалии")
-	core_type = /obj/item/assembly/signaler/anomaly/tier3/vortex
+	core_type = /obj/item/assembly/signaler/core/tier3/vortex
 	weaker_anomaly_type = /obj/effect/anomaly/vortex/tier2
 	tier = 3
 	impulses_types = list(
-		/datum/anomaly_impulse/move/energ_fastmove/tier3,
+		/datum/anomaly_impulse/emp/tier3,
 		/datum/anomaly_impulse/superpull/tier3,
 	)
 
@@ -153,5 +168,8 @@
 	for(var/mob/living/M in GLOB.player_list)
 		if(M.stat)
 			continue
+
+		if(get_dist(src, M) > 20 || z != M.z)
+			return
 
 		to_chat(M, "<span class='vortex_anomaly'>Вы чувствуете силу едва заметно тянущую вас куда-то.</span>") // It used in one place.

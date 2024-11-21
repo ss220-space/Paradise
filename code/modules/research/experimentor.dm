@@ -375,13 +375,6 @@
 		clone_next = TRUE
 		ejectItem()
 		qdel(exp_on)
-
-		var/T = rand(1, linked_console.files.known_tech.len)
-		var/datum/tech/KT = linked_console.files.known_tech[linked_console.files.known_tech[T]]
-		var/new_level = linked_console.files.UpdateTech(linked_console.files.known_tech[T], KT.level + 1)
-		var/tech_log = "[T] [new_level], "
-		if(tech_log)
-			investigate_log("[usr] increased tech experimentoring [loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
 	else
 		exp = FAIL
 

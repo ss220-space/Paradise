@@ -1191,7 +1191,7 @@
 	result = "/obj/mecha/combat/phazon"
 	steps = list(
  					//1
-					list("key" = /obj/item/assembly/signaler/anomaly,
+					list("key" = /obj/item/assembly/signaler/core,
 						 "backkey"=TOOL_CROWBAR,
 						 "desc"="Anomaly core socket is open and awaiting connection."),
 					//2
@@ -1288,7 +1288,7 @@
 					)
 
 	/// Inserted bluespace anomaly core.
-	var/obj/item/assembly/signaler/anomaly/core = null
+	var/obj/item/assembly/signaler/core/core = null
 
 /datum/construction/reversible/mecha/phazon/action(atom/used_atom,mob/user as mob)
 	return check_step(used_atom,user)
@@ -1480,7 +1480,7 @@
 					to_chat(user, span_warning("Не подходящий тип ядра!"))
 					return FALSE
 
-				var/obj/item/assembly/signaler/anomaly/core = used_atom
+				var/obj/item/assembly/signaler/core/core = used_atom
 				if(core.get_strenght() < 100)
 					to_chat(user, span_warning("Ядро слишком слабо!"))
 					return FALSE

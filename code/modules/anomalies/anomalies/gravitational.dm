@@ -36,6 +36,12 @@
 	I.add_gravity(id, grav_delta)
 	addtimer(CALLBACK(I, TYPE_PROC_REF(/atom, remove_gravity_source), id), rand(grav_change_time_low, grav_change_time_high))
 
+/obj/effect/anomaly/gravitational/process()
+	. = ..()
+	for(var/obj/O in oview(max(2, tier * 2 - 1), src))
+		if(!O.anchored)
+			step_towards(O,src)
+
 /obj/effect/anomaly/gravitational/tier1
 	name = "малая гравитационная аномалия"
 	ru_names = list(NOMINATIVE = "малая гравитационная аномалия", \
@@ -44,7 +50,7 @@
 					ACCUSATIVE = "малую гравитационную аномалию", \
 					INSTRUMENTAL = "малой гравитационной аномалией", \
 					PREPOSITIONAL = "малой гравитационной аномалии")
-	core_type = /obj/item/assembly/signaler/anomaly/tier1/gravitational
+	core_type = /obj/item/assembly/signaler/core/tier1/gravitational
 	stronger_anomaly_type = /obj/effect/anomaly/gravitational/tier2
 	tier = 1
 	impulses_types = list(
@@ -64,7 +70,7 @@
 					ACCUSATIVE = "гравитационную аномалию", \
 					INSTRUMENTAL = "гравитационной аномалией", \
 					PREPOSITIONAL = "гравитационной аномалии")
-	core_type = /obj/item/assembly/signaler/anomaly/tier2/gravitational
+	core_type = /obj/item/assembly/signaler/core/tier2/gravitational
 	weaker_anomaly_type = /obj/effect/anomaly/gravitational/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/gravitational/tier3
 	tier = 2
@@ -85,7 +91,7 @@
 					ACCUSATIVE = "большую гравитационную аномалию", \
 					INSTRUMENTAL = "большой гравитационной аномалией", \
 					PREPOSITIONAL = "большой гравитационной аномалии")
-	core_type = /obj/item/assembly/signaler/anomaly/tier3/gravitational
+	core_type = /obj/item/assembly/signaler/core/tier3/gravitational
 	weaker_anomaly_type = /obj/effect/anomaly/gravitational/tier2
 	tier = 3
 	impulses_types = list(
@@ -103,6 +109,9 @@
 	for(var/mob/living/M in GLOB.player_list)
 		if(M.stat)
 			continue
+
+		if(get_dist(src, M) > 20 || z != M.z)
+			return
 
 		M.playsound_local(null, 'sound/effects/empulse.ogg', 15, TRUE)
 		to_chat(M, "<span class='gravitational_anomaly'>Ваше тело становится необычайно легким... Или тяжелым... Все вокруг неестественно подрагивает.</span>") // It used in one place.

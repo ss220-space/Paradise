@@ -12,7 +12,8 @@
 
 /obj/effect/anomaly/atmospheric/collapse()
 	for(var/turf/simulated/T in view(collapse_range * 2, src))
-		T.temperature = rand(0, 50)
+		if(T.air)
+			T.air.temperature = rand(0, 50)
 
 	for(var/turf/simulated/floor/T in view(collapse_range, src))
 		var/near_ice = 0 // Generation will be more beautiful.
@@ -20,7 +21,7 @@
 			if(checked.GetComponent(/datum/component/wet_floor))
 				near_ice++
 
-		if(prob(80 - near_ice*20))
+		if(prob(80 - near_ice * 20))
 			new /obj/effect/snow(T)
 		else
 			T.MakeSlippery(TURF_WET_ICE, 120 SECONDS)
@@ -77,7 +78,7 @@
 					ACCUSATIVE = "малую ​​атмосферную аномалию", \
 					INSTRUMENTAL = "малой ​атмосферной аномалией", \
 					PREPOSITIONAL = "малой ​​атмосферной аномалии")
-	core_type = /obj/item/assembly/signaler/anomaly/tier1/atmospheric
+	core_type = /obj/item/assembly/signaler/core/tier1/atmospheric
 	stronger_anomaly_type = /obj/effect/anomaly/atmospheric/tier2
 	tier = 1
 	impulses_types = list(
@@ -97,7 +98,7 @@
 					ACCUSATIVE = "​​атмосферную аномалию", \
 					INSTRUMENTAL = "​атмосферной аномалией", \
 					PREPOSITIONAL = "​​атмосферной аномалии")
-	core_type = /obj/item/assembly/signaler/anomaly/tier2/atmospheric
+	core_type = /obj/item/assembly/signaler/core/tier2/atmospheric
 	weaker_anomaly_type = /obj/effect/anomaly/atmospheric/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/atmospheric/tier3
 	tier = 2
@@ -120,7 +121,7 @@
 					ACCUSATIVE = "большую ​​атмосферную аномалию", \
 					INSTRUMENTAL = "большой ​атмосферной аномалией", \
 					PREPOSITIONAL = "большой ​​атмосферной аномалии")
-	core_type = /obj/item/assembly/signaler/anomaly/tier3/atmospheric
+	core_type = /obj/item/assembly/signaler/core/tier3/atmospheric
 	weaker_anomaly_type = /obj/effect/anomaly/atmospheric/tier2
 	tier = 3
 	impulses_types = list(
@@ -140,6 +141,9 @@
 	for(var/mob/living/M in GLOB.player_list)
 		if(M.stat)
 			continue
+
+		if(get_dist(src, M) > 20 || z != M.z)
+			return
 
 		M.playsound_local(null, 'sound/effects/comfyfire.ogg', 15, TRUE)
 		to_chat(M, "<span class='atmospferic_anomaly'>Вас накрывает волнами эфемерного жара! Воздух вокруг дрожит.</span>") // It used in one place.

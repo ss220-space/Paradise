@@ -197,7 +197,7 @@
 	var/recharging_time = 0 // Time until next dash
 	var/dash_cost = 1000 // Cost to dash.
 	var/power_consumption_rate = 30 // How much power is used by the boots each cycle when magboots are active
-	var/obj/item/assembly/signaler/anomaly/core = null
+	var/obj/item/assembly/signaler/core/core = null
 	var/obj/item/stock_parts/cell/cell = null
 
 
@@ -230,15 +230,15 @@
 		return
 
 	if(!cell)
-		user.balloon_alert("нет батарейки")
+		user.balloon_alert(user, "нет батарейки")
 		return
 
 	if(cell.charge <= power_consumption_rate && !magpulse)
-		user.balloon_alert("недостаточно заряда")
+		user.balloon_alert(user, "недостаточно заряда")
 		return
 
 	if(!core)
-		user.balloon_alert("нет ядра")
+		user.balloon_alert(user, "нет ядра")
 		return
 
 	return ..()
@@ -354,23 +354,23 @@
 		return
 
 	if(!cell)
-		user.balloon_alert("нет батарейки")
+		user.balloon_alert(user, "нет батарейки")
 		return
 
 	if(cell.charge <= dash_cost)
-		user.balloon_alert("недостаточно заряда")
+		user.balloon_alert(user, "недостаточно заряда")
 		return
 
 	if(!core)
-		user.balloon_alert("нет ядра")
+		user.balloon_alert(user, "нет ядра")
 		return
 
 	if(recharging_time > world.time)
-		user.balloon_alert("идет перезарядка")
+		user.balloon_alert(user, "идет перезарядка")
 		return
 
 	if(user.throwing)
-		user.balloon_alert("нет опоры")
+		user.balloon_alert(user, "нет опоры")
 		return
 
 	var/jump_mult = core.get_strenght() / 150
@@ -379,8 +379,8 @@
 	var/turf/T = get_step(get_turf(user), user.dir)
 	for(var/i = 1 to cur_jumpdistance)
 		if(!T.can_enter(user))
-			cur_jumpjumpspeed = max(3, jumpspeed * jump_mult * (cur_jumpdistance / i))
-			cur_jumpdistance = i
+			cur_jumpjumpspeed = max(3, cur_jumpjumpspeed * ((i - 1) / cur_jumpdistance))
+			cur_jumpdistance = i - 1
 			break
 
 		T = get_step(T, user.dir)

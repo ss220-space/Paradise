@@ -151,15 +151,15 @@ Difficulty: Very Hard
 	var/core_type = null
 	switch(mode)
 		if(BLUESPACE)
-			core_type = /obj/item/assembly/signaler/anomaly/tier2/bluespace
+			core_type = /obj/item/assembly/signaler/core/tier2/bluespace
 		if(GRAV)
-			core_type = /obj/item/assembly/signaler/anomaly/tier2/gravitational
+			core_type = /obj/item/assembly/signaler/core/tier2/gravitational
 		if(PYRO)
-			core_type = /obj/item/assembly/signaler/anomaly/tier2/atmospheric
+			core_type = /obj/item/assembly/signaler/core/tier2/atmospheric
 		if(FLUX)
-			core_type = /obj/item/assembly/signaler/anomaly/tier2/energetic
+			core_type = /obj/item/assembly/signaler/core/tier2/energetic
 		if(VORTEX)
-			core_type = /obj/item/assembly/signaler/anomaly/tier2/vortex
+			core_type = /obj/item/assembly/signaler/core/tier2/vortex
 
 	var/crate_type = pick(loot)
 	var/obj/structure/closet/crate/C = new crate_type(loc)

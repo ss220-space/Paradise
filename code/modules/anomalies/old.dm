@@ -11,7 +11,7 @@
 	anchored = TRUE
 	light_range = 3
 	var/movechance = ANOMALY_MOVECHANCE
-	var/obj/item/assembly/signaler/anomaly/aSignal = /obj/item/assembly/signaler/anomaly
+	var/obj/item/assembly/signaler/core/aSignal = /obj/item/assembly/signaler/core
 	var/area/impact_area
 	/// Time in deciseconds before the anomaly triggers
 	var/lifespan = 990
@@ -117,7 +117,7 @@
 	density = FALSE
 	var/boing = FALSE
 	var/knockdown = FALSE
-	aSignal = /obj/item/assembly/signaler/anomaly/tier2/gravitational
+	aSignal = /obj/item/assembly/signaler/core/tier2/gravitational
 
 
 /obj/effect/old_anomaly/gravitational/Initialize(mapload, new_lifespan, _drops_core)
@@ -178,7 +178,7 @@
 	name = "flux wave anomaly"
 	icon_state = "electricity2"
 	density = TRUE
-	aSignal = /obj/item/assembly/signaler/anomaly/tier2/energetic
+	aSignal = /obj/item/assembly/signaler/core/tier2/energetic
 	var/canshock = FALSE
 	var/shockdamage = 20
 	var/explosive = TRUE
@@ -235,7 +235,7 @@
 	icon_state = "bluespace"
 	density = TRUE
 	var/mass_teleporting = TRUE
-	aSignal = /obj/item/assembly/signaler/anomaly/tier2/bluespace
+	aSignal = /obj/item/assembly/signaler/core/tier2/bluespace
 
 /obj/effect/old_anomaly/bluespace/Initialize(mapload, new_lifespan, drops_core = TRUE, _mass_teleporting = TRUE)
 	. = ..()
@@ -320,7 +320,7 @@
 	icon_state = "mustard"
 	var/ticks = 0
 	var/produces_slime = TRUE
-	aSignal = /obj/item/assembly/signaler/anomaly/tier2/atmospheric
+	aSignal = /obj/item/assembly/signaler/core/tier2/atmospheric
 
 /obj/effect/old_anomaly/atmospheric/Initialize(mapload, new_lifespan, drops_core = TRUE, _produces_slime = TRUE)
 	. = ..()
@@ -363,7 +363,7 @@
 	name = "vortex anomaly"
 	icon_state = "bhole3"
 	desc = "That's a nice station you have there. It'd be a shame if something happened to it."
-	aSignal = /obj/item/assembly/signaler/anomaly/tier2/vortex
+	aSignal = /obj/item/assembly/signaler/core/tier2/vortex
 
 /obj/effect/old_anomaly/bhole/anomalyEffect()
 	..()

@@ -25,7 +25,7 @@
 	gender = MALE
 
 	/// Inserted bluespace anomaly core.
-	var/obj/item/assembly/signaler/anomaly/core = null
+	var/obj/item/assembly/signaler/core/core = null
 	/// Variable contains next time hand tele can be used to make it not EMP proof
 	var/emp_timer = 0
 	/// Cooldown for teleportations.
@@ -106,6 +106,7 @@
 		. += span_warning("В [declent_ru(PREPOSITIONAL)] нет ядра!")
 	else
 		. += span_info("В [declent_ru(PREPOSITIONAL)] есть ядро.")
+		. += span_info("Для настройки кликните пустой рукой.")
 
 	if(emp_timer > world.time)
 		. += span_warning("[declent_ru(NOMINATIVE)] выглядит неработающим.")
