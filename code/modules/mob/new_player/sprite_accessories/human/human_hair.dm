@@ -963,3 +963,43 @@
 /datum/sprite_accessory/hair/undercutfem
 	name = "Female undercut"
 	icon_state = "undercut_fem"
+
+/datum/sprite_accessory/hair/ponytail8
+	name = "Ponytail 8"
+	icon_state = "ponytail8"
+
+/datum/sprite_accessory/hair/tribalbraid
+	name = "Tribal Braid"
+	icon_state = "tribalbraid"
+
+/datum/sprite_accessory/hair/jill
+	name = "Jill"
+	icon_state = "jill"
+
+/datum/sprite_accessory/hair/sabitsuki
+	name = "Sabitsuki"
+	icon_state = "sabitsuki"
+
+/datum/sprite_accessory/hair/kobeni
+	name = "Kobeni"
+	icon_state = "kobeni_l"
+
+/datum/sprite_accessory/hair/gloomy
+	name = "Gloomy"
+	icon_state = "gloomylong"
+
+/datum/sprite_accessory/hair/elize
+	name = "Elize"
+	icon_state = "elize"
+
+/datum/sprite_accessory/hair/bunstick
+	name = "Asian Bun"
+	icon_state = "bunstick"
+
+/datum/sprite_accessory/hair/kitty
+	name = "Kitty"
+	icon_state = "kitty"
+
+/datum/sprite_accessory/hair/dolly
+	name = "Dolly"
+	icon_state = "dolly"

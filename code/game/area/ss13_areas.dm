@@ -1491,6 +1491,12 @@ This applies to all STANDARD station areas
 	name = "Chapel Office"
 	icon_state = "chapeloffice"
 
+/area/chapel/morgue
+	name = "Chapel Morgue"
+
+/area/chapel/massdriver
+	name = "Chapel Mass Driver"
+
 /area/escapepodbay
 	name = "Escape Shuttle Hallway Podbay"
 	icon_state = "escape"

@@ -1,6 +1,6 @@
 /obj/machinery/computer/pandemic
 	name = "PanD.E.M.I.C 2200"
-	desc = "Used to work with viruses."
+	desc = "Используется для работы с вирусами."
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
