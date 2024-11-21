@@ -289,7 +289,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "bd" = (
 /obj/item/fish_eggs/babycarp{
 	pixel_y = 16;
@@ -335,7 +335,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "bn" = (
 /turf/simulated/floor/grass,
 /area/ruin/space/ancientstation/charlie_hydroroom)
@@ -570,7 +570,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/item/twohanded/required/kirbyplants/dead,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "bV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -880,7 +880,7 @@
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "dd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1090,7 +1090,7 @@
 	},
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "dL" = (
 /obj/machinery/door/poddoor{
 	id_tag = "ancient";
@@ -1226,7 +1226,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "eh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -1276,7 +1276,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "eq" = (
 /obj/structure/flora/ausbushes/leafybush,
 /obj/effect/decal/straw/edge{
@@ -1339,7 +1339,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "eC" = (
 /obj/structure/transit_tube/horizontal{
 	dir = 1
@@ -1370,7 +1370,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "eL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
@@ -1420,7 +1420,7 @@
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "eR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1512,7 +1512,7 @@
 /area/ruin/space/ancientstation/theta_corridor)
 "fr" = (
 /turf/simulated/wall/rust,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "fv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -1548,7 +1548,7 @@
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "fz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1666,7 +1666,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "fU" = (
 /obj/structure/table/wood,
 /obj/item/chair/wood/wings{
@@ -1690,7 +1690,7 @@
 	},
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "fX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -1737,7 +1737,7 @@
 	},
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "ge" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -1747,7 +1747,7 @@
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "gj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm/all_access{
@@ -1763,7 +1763,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "gm" = (
 /obj/machinery/door/poddoor{
 	id_tag = "ancient";
@@ -2011,7 +2011,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "he" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
@@ -2312,7 +2312,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "ig" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2358,7 +2358,7 @@
 /obj/structure/transit_tube/horizontal,
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "iq" = (
 /obj/machinery/recharge_station,
 /obj/item/robot_parts/r_leg,
@@ -2722,7 +2722,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "jH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2749,7 +2749,7 @@
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "jM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/bodyscanner{
@@ -2809,7 +2809,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "jX" = (
 /mob/living/simple_animal/hostile/hivebot/tele,
 /turf/simulated/floor/plating,
@@ -2880,7 +2880,7 @@
 	dir = 8;
 	icon_state = "redcorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "km" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2927,7 +2927,7 @@
 /obj/structure/transit_tube/horizontal,
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "kt" = (
 /obj/machinery/alarm/all_access{
 	pixel_y = 26
@@ -2960,7 +2960,7 @@
 "kx" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "ky" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -3184,7 +3184,7 @@
 	use_power = 0
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "le" = (
 /obj/structure/chair/sofa/left,
 /turf/simulated/floor/wood{
@@ -3336,7 +3336,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "lE" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -3391,7 +3391,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "lN" = (
 /obj/item/fish_eggs/babycarp{
 	pixel_y = 16;
@@ -3511,7 +3511,7 @@
 	dir = 8;
 	icon_state = "redcorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "ml" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -3775,7 +3775,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "nn" = (
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/visible/supply,
@@ -3825,7 +3825,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "nu" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
@@ -3891,7 +3891,7 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "nM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3951,7 +3951,7 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "nY" = (
 /obj/item/shard{
 	icon_state = "medium";
@@ -4194,7 +4194,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "oO" = (
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation/theta_proto)
@@ -4533,7 +4533,7 @@
 	},
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "pM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -4739,7 +4739,7 @@
 /obj/item/extinguisher,
 /obj/structure/closet,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "qv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
@@ -4892,7 +4892,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "qS" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -5092,7 +5092,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "rA" = (
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
@@ -5118,7 +5118,7 @@
 	pixel_y = -26
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "rE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -5193,7 +5193,7 @@
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "rW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -5280,7 +5280,7 @@
 	},
 /obj/machinery/door/airlock/command,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "sl" = (
 /turf/simulated/wall/r_wall/rust,
 /area/ruin/space/ancientstation/theta_experi)
@@ -5382,7 +5382,7 @@
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "sL" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/orange{
@@ -5541,7 +5541,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "tp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5557,7 +5557,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "tr" = (
 /obj/machinery/atmospherics/binary/volume_pump,
 /obj/machinery/light/small{
@@ -5659,7 +5659,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "tE" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/grass,
@@ -5858,7 +5858,7 @@
 	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "ut" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -6077,7 +6077,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "vi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -6184,7 +6184,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "vw" = (
 /obj/structure/closet/crate,
 /obj/item/clothing/under/soviet,
@@ -6218,7 +6218,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/transit_tube/cap,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "vB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/window/westleft{
@@ -6426,7 +6426,7 @@
 	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "wn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -6561,7 +6561,7 @@
 	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "wF" = (
 /obj/item/shard{
 	icon_state = "medium";
@@ -6782,7 +6782,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "xp" = (
 /obj/machinery/recharge_station,
 /obj/item/robot_parts/r_arm,
@@ -6812,7 +6812,7 @@
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "xw" = (
 /obj/structure/curtain/open/shower,
 /turf/template_noop,
@@ -7098,7 +7098,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "yp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -7149,7 +7149,7 @@
 	use_power = 0
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "yA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/security/glass{
@@ -7247,7 +7247,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "yT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_switch{
@@ -7276,7 +7276,7 @@
 	},
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "yY" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7323,7 +7323,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "zg" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/effect/decal/straw/medium,
@@ -7508,7 +7508,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "zP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/vault{
@@ -7551,7 +7551,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "zY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -7568,7 +7568,7 @@
 /obj/item/solar_assembly,
 /obj/item/solar_assembly,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Ad" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
@@ -7591,7 +7591,7 @@
 "Ag" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Ah" = (
 /obj/structure/particle_accelerator/end_cap,
 /turf/simulated/floor/plating,
@@ -7735,7 +7735,7 @@
 	},
 /obj/machinery/door/airlock/command,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "AF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -7997,7 +7997,7 @@
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Bv" = (
 /obj/structure/particle_accelerator/fuel_chamber,
 /turf/simulated/floor/plating,
@@ -8030,7 +8030,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "BA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -8101,7 +8101,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "BM" = (
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
@@ -8128,7 +8128,7 @@
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "BR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -8442,7 +8442,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "CY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -8539,7 +8539,7 @@
 /obj/item/trash/tastybread,
 /obj/item/trash/sosjerky,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Dl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/external,
@@ -8648,7 +8648,7 @@
 	},
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "DH" = (
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
@@ -8744,7 +8744,7 @@
 	pixel_x = 26
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Eb" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -8803,7 +8803,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Eg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -8863,7 +8863,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Ex" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -8951,7 +8951,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "EN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/door_assembly/door_assembly_ext,
@@ -9223,7 +9223,7 @@
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "FO" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -9427,7 +9427,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "GD" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/orange{
@@ -9524,7 +9524,7 @@
 	},
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "GU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -9683,7 +9683,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Hw" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/machinery/alarm/all_access{
@@ -9850,7 +9850,7 @@
 /obj/item/solar_assembly,
 /obj/item/storage/box/lights,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "HW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -9889,7 +9889,7 @@
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Id" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -10064,7 +10064,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "IJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/walllocker{
@@ -10089,7 +10089,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "IL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/bombclosetsecurity,
@@ -10133,7 +10133,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Jb" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_sec)
@@ -10159,7 +10159,7 @@
 /obj/item/trash/gum,
 /obj/item/trash/tastybread,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Jf" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
@@ -10225,7 +10225,7 @@
 	dir = 8;
 	icon_state = "redcorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Jm" = (
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/charlie_recycler)
@@ -10417,7 +10417,7 @@
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "JW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/office/light{
@@ -10696,7 +10696,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Lg" = (
 /obj/item/stack/tile/plasteel,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -10711,7 +10711,7 @@
 /obj/item/extinguisher,
 /obj/structure/closet,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Li" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10771,7 +10771,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/transit_tube/station,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Lv" = (
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
@@ -10881,7 +10881,7 @@
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "LK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -10898,7 +10898,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/transit_tube/station,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "LO" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
@@ -10907,7 +10907,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "LP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -11242,7 +11242,7 @@
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Ni" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/poddoor{
@@ -11416,7 +11416,7 @@
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "NN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/visible/green{
@@ -11485,7 +11485,7 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "NW" = (
 /obj/item/fish_eggs/babycarp{
 	pixel_y = 16;
@@ -11600,7 +11600,7 @@
 	},
 /obj/structure/transit_tube_pod,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Os" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -11643,7 +11643,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Oz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -11774,7 +11774,7 @@
 "OQ" = (
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "OR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
@@ -12035,7 +12035,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "PJ" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -12100,7 +12100,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "PW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/office/light{
@@ -12165,7 +12165,7 @@
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Qi" = (
 /obj/structure/grille/broken,
 /obj/item/shard,
@@ -12559,7 +12559,7 @@
 	},
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "RE" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/machinery/alarm/all_access{
@@ -12581,7 +12581,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "RH" = (
 /obj/structure/table/wood,
 /obj/item/chair/wood/wings,
@@ -12629,14 +12629,14 @@
 	dir = 8;
 	icon_state = "redcorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "RN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "RO" = (
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation/theta_corridor)
@@ -12649,7 +12649,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "RU" = (
 /obj/structure/lattice,
 /obj/item/stack/tile/plasteel,
@@ -12664,7 +12664,7 @@
 	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "RW" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -12755,7 +12755,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Sn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -12808,7 +12808,7 @@
 	dir = 4;
 	icon_state = "greencorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "SD" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -12879,7 +12879,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "SU" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
@@ -13276,7 +13276,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "UR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -13621,7 +13621,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "We" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
@@ -13629,7 +13629,7 @@
 	pixel_y = -26
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Wf" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
@@ -13757,7 +13757,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "WD" = (
 /turf/template_noop,
 /area/template_noop)
@@ -13908,7 +13908,7 @@
 /obj/item/trash/candle,
 /obj/item/trash/broken_ashtray,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Xe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/autolathe,
@@ -14116,7 +14116,7 @@
 	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Yg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -14126,7 +14126,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Yh" = (
 /obj/structure/lattice,
 /obj/structure/girder,
@@ -14271,7 +14271,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "YY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -14280,7 +14280,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
 	},
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Za" = (
 /obj/item/camera_assembly,
 /obj/machinery/light/small{
@@ -14328,7 +14328,7 @@
 /obj/item/trash/can,
 /obj/item/crowbar/red,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation)
+/area/ruin/space/ancientstation/charlie_corridor)
 "Zn" = (
 /obj/structure/disposalpipe/segment,
 /turf/template_noop,

@@ -349,32 +349,22 @@
 	list_reagents = list("bromine" = 30)
 
 // areas
-// Ruin of ancient Space Station
-
-/area/ruin/space/ancientstation
-	name = "Charlie Station Main Corridor"
-	icon_state = "green"
-	has_gravity = STANDARD_GRAVITY
-
-/area/ruin/space/ancientstation/powered
-	name = "Powered Tile"
-	icon_state = "teleporter"
-	requires_power = FALSE
+//area/ruin/space/ancientstation
 
 /area/ruin/space/ancientstation/hivebot
 	name = "Hivebot Mothership"
 	icon_state = "xenocell1"
-
-/area/ruin/space/ancientstation/space
-	name = "Exposed To Space"
-	icon_state = "teleporter"
-	has_gravity = FALSE
+	ambientsounds = MINING_SOUNDS
 
 /area/ruin/space/ancientstation/cowasteroid
-	name = "Asteroid"
 	icon_state = "away2"
+	ambientsounds = MINING_SOUNDS
 
 //charly
+
+/area/ruin/space/ancientstation/charlie_corridor
+	name = "Charlie Station Main Corridor"
+	icon_state = "green"
 
 /area/ruin/space/ancientstation/charlie_kitchen
 	name = "Charlie Station Kitchen"
@@ -420,30 +410,37 @@
 /area/ruin/space/ancientstation/charlie_sec
 	name = "Charlie Station Security"
 	icon_state = "security"
+	ambientsounds = HIGHSEC_SOUNDS
 
 /area/ruin/space/ancientstation/charlie_armory
 	name = "Charlie Station Armory"
 	icon_state = "secarmory"
+	ambientsounds = HIGHSEC_SOUNDS
 
 /area/ruin/space/ancientstation/charlie_warden
 	name = "Charlie Station Warden's Room"
 	icon_state = "brig"
+	ambientsounds = HIGHSEC_SOUNDS
 
 /area/ruin/space/ancientstation/charlie_prison
 	name = "Charlie Station Prison"
 	icon_state = "sec_prison"
+	ambientsounds = HIGHSEC_SOUNDS
 
 /area/ruin/space/ancientstation/charlie_punishmentcell
 	name = "Charlie Station Punishment Cell"
 	icon_state = "brigcella"
+	ambientsounds = HIGHSEC_SOUNDS
 
 /area/ruin/space/ancientstation/charlie_secrest
 	name = "Charlie Station Rest Room"
 	icon_state = "red"
+	ambientsounds = HIGHSEC_SOUNDS
 
 /area/ruin/space/ancientstation/charlie_secintel
 	name = "Charlie Station Interrogation"
 	icon_state = "holdingcell"
+	ambientsounds = HIGHSEC_SOUNDS
 
 //theta
 
@@ -492,18 +489,22 @@
 /area/ruin/space/ancientstation/beta_medbay
 	name = "Beta Station Medbay"
 	icon_state = "away1"
+	ambientsounds = MEDICAL_SOUNDS
 
 /area/ruin/space/ancientstation/beta_medstorage
 	name = "Beta Station Medical Storage"
 	icon_state = "quartstorage"
+	ambientsounds = MEDICAL_SOUNDS
 
 /area/ruin/space/ancientstation/beta_surgery
 	name = "Beta Station Surgery"
 	icon_state = "surgery"
+	ambientsounds = MEDICAL_SOUNDS
 
 /area/ruin/space/ancientstation/beta_surgery1
 	name = "Beta Station Surgery"
 	icon_state = "surgery1"
+	ambientsounds = MEDICAL_SOUNDS
 
 /area/ruin/space/ancientstation/beta_atmos
 	name = "Beta Station Atmospherics"
