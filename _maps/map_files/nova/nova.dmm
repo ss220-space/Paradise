@@ -8553,6 +8553,12 @@
 	icon_state = "neutral"
 	},
 /area/hallway/primary/central/sw)
+"bmb" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access = list(12)
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint3)
 "bmd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_20,
@@ -275164,13 +275170,13 @@ oRJ
 xxH
 eVD
 eVD
+bmb
 eVD
 eVD
 eVD
 eVD
 eVD
-eVD
-eVD
+bmb
 eVD
 eVD
 eVD
