@@ -363,6 +363,9 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
+"abw" = (
+/turf/simulated/wall,
+/area/chapel/morgue)
 "abZ" = (
 /obj/machinery/smartfridge/secure/medbay/organ,
 /turf/simulated/floor/plasteel{
@@ -29800,8 +29803,9 @@
 	dir = 5
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/light_switch{
-	pixel_x = -24
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -22
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -38699,6 +38703,10 @@
 	name = "Chapel Mass Driver";
 	pixel_x = 27;
 	pixel_y = -5
+	},
+/obj/machinery/light_switch{
+	pixel_x = 27;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -51835,6 +51843,10 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 26
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -53047,11 +53059,6 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar/atrium)
-"gSx" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/chapel/massdriver)
 "gSF" = (
 /obj/machinery/alarm{
 	pixel_y = 22
@@ -63399,9 +63406,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
-"jwG" = (
-/turf/simulated/wall,
-/area/chapel/morgue)
 "jwN" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -63999,9 +64003,6 @@
 	icon_state = "redfull"
 	},
 /area/crew_quarters/kitchen)
-"jCK" = (
-/turf/simulated/wall,
-/area/chapel/massdriver)
 "jCN" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	locked = 1;
@@ -70182,6 +70183,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -81123,6 +81127,22 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/fitness)
+"nNZ" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/power/apc{
+	dir = 4;
+	pixel_x = 26
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/chapel/morgue)
 "nOg" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -88167,6 +88187,10 @@
 	icon_state = "dark"
 	},
 /area/chapel/office)
+"pwR" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/chapel/massdriver)
 "pwU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -105221,10 +105245,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
-"tum" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/chapel/massdriver)
 "tut" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -111252,6 +111272,11 @@
 	icon_state = "green"
 	},
 /area/hallway/secondary/exit)
+"uNg" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/chapel/massdriver)
 "uNi" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -123461,6 +123486,9 @@
 	icon_state = "whiteblue"
 	},
 /area/assembly/robotics)
+"xFi" = (
+/turf/simulated/wall,
+/area/chapel/massdriver)
 "xFk" = (
 /obj/machinery/ai_status_display{
 	pixel_y = -32
@@ -124679,6 +124707,13 @@
 /area/assembly/robotics)
 "xQE" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/machinery/power/apc{
+	dir = 1;
+	pixel_y = 26
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -156255,15 +156290,15 @@ tiU
 wjj
 rNX
 fGj
-jCK
-jCK
+xFi
+xFi
 dRs
-jCK
-jCK
-jCK
-tum
-tum
-jCK
+xFi
+xFi
+xFi
+pwR
+pwR
+xFi
 lho
 aaq
 bCI
@@ -156512,7 +156547,7 @@ dMd
 dFg
 rAh
 wKr
-jCK
+xFi
 xQE
 llF
 kul
@@ -156521,7 +156556,7 @@ prI
 juR
 fvy
 lJv
-jCK
+xFi
 coE
 bCI
 coE
@@ -156769,7 +156804,7 @@ dFg
 dFg
 rNX
 fGj
-jCK
+xFi
 qeg
 ivT
 kee
@@ -156778,7 +156813,7 @@ hAQ
 dio
 dio
 wsC
-tum
+pwR
 acF
 acF
 acF
@@ -157026,11 +157061,11 @@ yjo
 tHn
 wrP
 fGj
-jCK
+xFi
 rtb
 idu
 tYx
-gSx
+uNg
 mrf
 uhI
 sag
@@ -157283,7 +157318,7 @@ gvH
 tzX
 wKr
 fGj
-jCK
+xFi
 fyt
 xLL
 dHi
@@ -157292,7 +157327,7 @@ cjs
 iJw
 iJw
 rFw
-tum
+pwR
 acF
 acF
 acF
@@ -157528,15 +157563,15 @@ puB
 dWy
 woL
 kVJ
-jwG
+abw
 xjw
-jwG
-jwG
-jwG
-jwG
-jwG
-jwG
-jwG
+abw
+abw
+abw
+abw
+abw
+abw
+abw
 dNB
 bIK
 mkS
@@ -157549,7 +157584,7 @@ sUw
 fqq
 fqq
 xuj
-jCK
+xFi
 dZq
 coE
 bqc
@@ -157785,7 +157820,7 @@ puB
 iul
 pie
 kVJ
-jwG
+abw
 riE
 thR
 riE
@@ -157793,20 +157828,20 @@ lHd
 mmQ
 cmA
 riE
-jwG
+abw
 szR
 szR
 szR
 szR
 szR
-jwG
+abw
 hYL
 dIx
 dIx
 pSp
 dIx
 dIx
-jCK
+xFi
 bCI
 aaq
 coE
@@ -158050,13 +158085,13 @@ xvO
 rxL
 lhr
 ljs
-jwG
+abw
 spR
 sKw
 cYd
 mlW
 xjl
-jwG
+abw
 dHJ
 dIx
 cth
@@ -158299,7 +158334,7 @@ puB
 qwG
 jOc
 gZg
-jwG
+abw
 jxW
 qxd
 kWt
@@ -158312,7 +158347,7 @@ gGA
 qYh
 umr
 tFj
-gGA
+nNZ
 srZ
 jNE
 iFv
@@ -158556,15 +158591,15 @@ puB
 iFc
 xzo
 dFS
-jwG
-jwG
-jwG
+abw
+abw
+abw
 dJr
 rRO
-jwG
-jwG
-jwG
-jwG
+abw
+abw
+abw
+abw
 dJx
 dJx
 dJx
