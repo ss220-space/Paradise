@@ -49,17 +49,17 @@
 /datum/reagent/proc/reaction_temperature(exposed_temperature, exposed_volume) //By default we do nothing.
 	return
 
-/datum/reagent/proc/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
-	if(holder)  //for catching rare runtimes
+/datum/reagent/proc/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE) // Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
+	if(holder)  // for catching rare runtimes
 		if(method == REAGENT_TOUCH && penetrates_skin && M.reagents && volume >= 1)
 			M.reagents.add_reagent(id, volume)
-			SEND_SIGNAL(M, COMSIG_REAGENT_ADDED, src, method, volume)
 
 		if(method == REAGENT_INGEST) //Yes, even Xenos can get addicted to drugs.
 			var/can_become_addicted = M.reagents.reaction_check(M, src)
 			if(can_become_addicted)
 				if(count_by_type(M.reagents.addiction_list, addict_supertype) > 0)
-					to_chat(M, "<span class='notice'>You feel slightly better, but for how long?</span>") //sate_addiction handles this now, but kept this for the feed back.
+					to_chat(M, span_notice("You feel slightly better, but for how long?")) // sate_addiction handles this now, but kept this for the feed back.
+
 		return TRUE
 
 /datum/reagent/proc/reaction_obj(obj/O, volume)

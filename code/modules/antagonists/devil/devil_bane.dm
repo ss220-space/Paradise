@@ -139,18 +139,26 @@
     law = "Silver, in all of its forms shall be your downfall."
 
 /datum/devil_bane/silver/init_bane()
-	RegisterSignal(owner, COMSIG_REAGENT_ADDED, PROC_REF(check_reagents))
+	RegisterSignal(owner, COMSIG_EARLY_REAGENT_ADDED, PROC_REF(check_reagents))
 
 /datum/devil_bane/silver/remove_bane()
-	UnregisterSignal(owner, COMSIG_REAGENT_ADDED)
+	UnregisterSignal(owner, COMSIG_EARLY_REAGENT_ADDED)
 
-/datum/devil_bane/silver/proc/check_reagents(datum/source, datum/reagent/reagent, method, volume)
+/datum/devil_bane/silver/proc/check_reagents(
+	datum/source, 
+	reagent_id, 
+	amount, 
+	data, 
+	reagtemp, 
+	no_react,
+	chem_temp
+	)
     SIGNAL_HANDLER
 
-    if(reagent.id != "silver")
+    if(reagent_id != "silver")
         return
 
-    owner.reagents?.add_reagent("toxin", volume * bonus_damage)
+    owner.reagents?.add_reagent("toxin", amount * bonus_damage)
 
 /datum/devil_bane/iron
     name = BANE_IRON
@@ -161,15 +169,23 @@
     bonus_damage = 1
 
 /datum/devil_bane/iron/init_bane()
-	RegisterSignal(owner, COMSIG_REAGENT_ADDED, PROC_REF(check_reagents))
+	RegisterSignal(owner.reagents, COMSIG_EARLY_REAGENT_ADDED, PROC_REF(check_reagents))
 
 /datum/devil_bane/iron/remove_bane()
-	UnregisterSignal(owner, COMSIG_REAGENT_ADDED)
+	UnregisterSignal(owner.reagents, COMSIG_EARLY_REAGENT_ADDED)
 
-/datum/devil_bane/iron/proc/check_reagents(datum/source, datum/reagent/reagent, method, volume)
+/datum/devil_bane/iron/proc/check_reagents(
+	datum/source, 
+	reagent_id, 
+	amount, 
+	data, 
+	reagtemp, 
+	no_react,
+	chem_temp
+	)
     SIGNAL_HANDLER
 
-    if(reagent.id != "iron")
+    if(reagent_id != "iron")
         return
             
-    owner.reagents?.add_reagent("toxin", volume * bonus_damage)
+    owner.reagents?.add_reagent("toxin", amount * bonus_damage)

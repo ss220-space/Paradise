@@ -955,9 +955,9 @@
 #define COMSIG_FOOD_EATEN "food_eaten"
 
 /// Reagents
-/// Source: /datum/reagent/proc/reaction_mob(mob/living/M, method, volume, show_message)
-#define COMSIG_REAGENT_ADDED "reagent_added"
-	// Sends to living, args: src, method, volume
+/// Source: /datum/reagents/proc/add_reagent (datum/reagents, reagent_id, amount, data, reagtemp, no_react, chem_temp)
+#define COMSIG_EARLY_REAGENT_ADDED "reagent_added"
+	#define COMPONENT_PREVENT_ADD_REAGENT (1<<0)
 
 //Gibs
 
