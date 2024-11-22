@@ -549,11 +549,12 @@
 	. = ..()
 
 	if(.)
-		return TRUE
+		return .
 
 	if(!LAZYLEN(contents))
 		to_chat(user, span_notice("[src] seems to be empty."))
-		return TRUE
+		. = TRUE
+		return .
 
 	var/atom/taken_item = contents[1]
 	user.put_in_hands(taken_item, ignore_anim = FALSE)
