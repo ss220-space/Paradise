@@ -532,9 +532,30 @@
 
 
 /obj/structure/holohoop/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ATTACK_CHAIN_PROCEED
+
+	if(LAZYLEN(contents))
+		to_chat(user, span_notice("There's already something stuck in the [src]!"))
+		return ATTACK_CHAIN_BLOCKED
+
 	if(user.drop_transfer_item_to_loc(I, src))
 		visible_message(span_notice("[user] dunks [I] into [src]!"))
+
 	return ATTACK_CHAIN_BLOCKED
+
+
+/obj/structure/holohoop/attack_hand(mob/living/user)
+	if(!..())
+		return
+
+	if(!LAZYLEN(contents))
+		to_chat(user, span_notice("[src] seems to be empty."))
+		return
+
+	var/taken_item = contents[1]
+	user.put_in_hands(taken_item, ignore_anim = FALSE)
+	visible_message(span_notice("[user] removes [taken_item] from [src]!"))
 
 
 /obj/structure/holohoop/has_prints()
