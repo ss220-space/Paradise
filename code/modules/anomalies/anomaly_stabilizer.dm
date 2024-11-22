@@ -18,7 +18,7 @@
 	can_add_sibyl_system = FALSE
 	origin_tech = "programming=3;magnets=3"
 	cell_type = /obj/item/stock_parts/cell/high
-	var/cur_ammo_type
+	var/cur_ammo_type = /obj/item/ammo_casing/energy/anomaly/stabilizer
 	/// Cores inserted into this anomaly stabilizer.
 	var/list/obj/item/assembly/signaler/core/cores = list()
 	/// Range of allowed stability deltas. If val - X, range is [-x; x].
