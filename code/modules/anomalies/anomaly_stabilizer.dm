@@ -18,6 +18,7 @@
 	can_add_sibyl_system = FALSE
 	origin_tech = "programming=3;magnets=3"
 	cell_type = /obj/item/stock_parts/cell/high
+	ammo_type = list(/obj/item/ammo_casing/energy/anomaly/stabilizer)
 	/// Cores inserted into this anomaly stabilizer.
 	var/list/obj/item/assembly/signaler/core/cores = list()
 	/// Range of allowed stability deltas. If val - X, range is [-x; x].
@@ -51,10 +52,7 @@
 	if(!ammo_type || !cell)
 		return
 
-	var/obj/item/ammo_casing/energy/anomaly/shot = ammo_type[select]
-	if(cell.charge < shot.e_cost)
-		return
-
+	var/shot = ammo_type[select]
 	chambered = new shot
 	if(!chambered.BB)
 		chambered.newshot()
