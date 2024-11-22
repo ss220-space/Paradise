@@ -695,7 +695,7 @@
 			if(!istype(I, /obj/item/circuitboard))
 				return ..()
 			add_fingerprint(user)
-			if(istype(I, /obj/item/circuitboard/HONKputer) && !istype(src, /obj/structure/computerframe/HONKputer))
+			if((istype(I, /obj/item/circuitboard/HONKputer) && !istype(src, /obj/structure/computerframe/HONKputer)) || (istype(src, /obj/structure/computerframe/HONKputer) && !istype(I, /obj/item/circuitboard/HONKputer)))
 				to_chat(user, span_warning("[src] does not accept circuit boards of this type!"))
 				return ATTACK_CHAIN_PROCEED
 			var/obj/item/circuitboard/new_circuit = I
