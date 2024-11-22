@@ -282,3 +282,14 @@
 		do_move(move_dir)
 		sleep(2)
 
+/obj/effect/anomaly/singularity_act()
+	collapse()
+
+/obj/effect/anomaly/tesla_act()
+	collapse()
+
+/obj/effect/anomaly/ratvar_act()
+	collapse()
+
+/obj/effect/anomaly/narsie_act()
+	collapse()

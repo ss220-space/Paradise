@@ -469,6 +469,7 @@
 
 	I.do_pickup_animation(newloc)
 	I.forceMove(newloc)
+	I.dir = dir
 
 
 /**
@@ -506,6 +507,7 @@
 	I.pixel_x = shift_x
 	I.pixel_y = shift_y
 	I.do_drop_animation(src)
+	I.dir = dir
 
 
 /**
@@ -520,6 +522,7 @@
 /mob/proc/transfer_item_to_loc(obj/item/I, atom/newloc, force = FALSE, invdrop = TRUE, silent = FALSE)
 	. = do_unEquip(I, force, newloc, FALSE, invdrop, silent)
 	I.do_drop_animation(src)
+	I.dir = dir
 
 
 /**

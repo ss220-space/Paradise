@@ -244,9 +244,14 @@
 
 	Beam(target_turf, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 	forceMove(target_turf)
+	if(!prob(20))
+		return
+
+	var/list/obj/connected = list(owner) + owner.eballs
+	Beam(pick(connected), icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
 
 /obj/effect/energy_ball/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(isliving(mover))
 		var/mob/living/M = mover
-		M.electrocute_act(rand(20, 30), "энергетического шара")
+		M.electrocute_act(rand(20, 30), "энергетического шара",  flags = SHOCK_NOGLOVES)

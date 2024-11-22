@@ -62,6 +62,10 @@
 	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/storage/garmentbag/RD(src)
 	new /obj/item/t_scanner/experimental(src)
+	new /obj/item/anomaly_analyzer(src)
+	new /obj/item/anomaly_analyzer(src)
+	new /obj/item/gun/energy/anomaly_stabilizer(src)
+	new /obj/item/gun/energy/anomaly_stabilizer(src)
 
 /obj/structure/closet/secure_closet/research_reagents
 	name = "research chemical storage closet"

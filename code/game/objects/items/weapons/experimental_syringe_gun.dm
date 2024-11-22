@@ -146,6 +146,18 @@
 	for(var/datum/reagent/reagent in ready_reagents.reagents.reagent_list)
 		. += span_info(" [reagent.name]: [reagent.volume]")
 
+/obj/item/gun/syringe/rapidsyringe/experimental/suicide_act(mob/living/carbon/human/user)
+	if(!core || HAS_TRAIT(user, TRAIT_NO_BLOOD) || !istype(user))
+		return ..()
+
+	var/gend_letter = genderize_ru(gender, "е", "е", "е", "ю")
+	user.visible_message(span_suicide("[user] разреза[gend_letter]т свою руку и подключают систему автозаправки к \
+									кровеносной системе! Выглядит будто он[genderize_ru(gender, "", "а", "о", "и")] \
+									птыа[genderize_ru(gender, "е", "е", "е", "ю")]тся убить себя!"))
+	ready_reagents.reagents.trans_to(user, ready_reagents.reagents.total_volume)
+	user.bleed(user.blood_volume)
+	return OXYLOSS | BRUTELOSS
+
 /datum/crafting_recipe/rapidsyringe_experimental
 	name = "Experemintal syringe gun"
 	result = /obj/item/gun/syringe/rapidsyringe/experimental

@@ -258,6 +258,7 @@
 /obj/item/assembly/signaler/core/tier3/gravitational/Initialize()
 	. = ..()
 	old_owner = get_external_loc()
+	update_gravity()
 
 /atom/proc/get_external_loc()
 	var/atom/ext_loc = src
@@ -267,7 +268,7 @@
 	return ext_loc
 
 // Mobs will be in reversed gravity. Items will be without gravity.
-/obj/item/assembly/signaler/core/tier3/gravitational/proc/update_gravity(atom/target)
+/obj/item/assembly/signaler/core/tier3/gravitational/proc/update_gravity()
 	var/atom/new_owner = get_external_loc()
 	old_owner.remove_gravity_source("[UID()]")
 
@@ -278,14 +279,15 @@
 		new_owner.add_gravity("[UID()]", -1)
 
 	old_owner = new_owner
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/assembly/signaler/core/tier3/gravitational, update_gravity)), 5 SECONDS)
 
 /obj/item/assembly/signaler/core/tier3/gravitational/forceMove(atom/target)
 	. = ..()
-	update_gravity(target)
+	update_gravity()
 
 /obj/item/assembly/signaler/core/tier3/gravitational/Move(atom/newloc, direct, glide_size_override, update_dir)
 	. = ..()
-	update_gravity(newloc)
+	update_gravity()
 
 /obj/item/assembly/signaler/core/tier3/energetic
 	name = "ядро большой ​​энергетической аномалии"
@@ -340,7 +342,7 @@
 	try_teleport()
 
 /obj/item/assembly/signaler/core/tier3/bluespace/proc/try_teleport()
-	if(prob(80))
+	if(prob(80) || !ismob(loc))
 		return FALSE
 
 	visible_message(span_warning("[declent_ru(NOMINATIVE)] внезапно телепортируется!"))

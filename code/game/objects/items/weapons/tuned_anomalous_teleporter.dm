@@ -46,12 +46,12 @@
 	. = ..()
 	update_core()
 
-/obj/item/assembly/tuned_anomalous_teleporter/activate(mob/user)
+/obj/item/assembly/tuned_anomalous_teleporter/proc/can_teleport(mob/user)
 	if(max_tp_range < 5)
 		if(user)
 			to_chat(user, span_warning("[declent_ru(NOMINATIVE)] не может вас телепортировать, \
 											из-за отсутствия достаточно сильного ядра."))
-		return
+		return FALSE
 
 	if(!COOLDOWN_FINISHED(src, emp_cooldown))
 		do_sparks(5, FALSE, loc)
@@ -59,12 +59,18 @@
 			to_chat(user, span_warning("[declent_ru(NOMINATIVE)] не может вас телепортировать, \
 										из-за того, что он временно выведен из строя."))
 
-		return
+		return FALSE
 
 	if(!COOLDOWN_FINISHED(src, tuned_anomalous_teleporter_cooldown))
 		if(user)
 			to_chat(user, span_warning("[declent_ru(NOMINATIVE)] все еще перезаряжается."))
 
+		return FALSE
+
+	return TRUE
+
+/obj/item/assembly/tuned_anomalous_teleporter/activate(mob/user)
+	if(!can_teleport(user))
 		return
 
 	var/atom/tp_target = src
@@ -179,6 +185,22 @@ Ranges with core charge 50-100:
 	max_tp_range = max(1, round((core.get_strenght() + 10) / 30))
 	if(tp_range != old_max_tp_range) // If was max, set max, else leave old.
 		tp_range = max_tp_range
+
+/obj/item/assembly/tuned_anomalous_teleporter/suicide_act(mob/user)
+	if(!can_teleport()) // Without massages.
+		return ..()
+
+	var/gend_letter = genderize_ru(gender, "е", "е", "е", "ю")
+	user.visible_message(span_suicide("[user] перенастраива[gend_letter]т [declent_ru(NOMINATIVE)] случайным образом и пыта[gend_letter]тся телепортироваться! Выглядит, будто он[genderize_ru(gender, "", "а", "о", "и")] хо[genderize_ru(gender, "чет", "чет", "чет", "тят")] убить себя!"))
+	if(!user.do_after(user, 1 SECONDS, src))
+		return ..()
+
+	tp_range = rand(1, max_tp_range)
+	var/datum/effect_system/smoke_spread/smoke = new
+	smoke.set_up(10, FALSE, user)
+	smoke.start()
+	user.gib()
+	return OBLITERATION
 
 /datum/crafting_recipe/tuned_anomalous_teleporter
 	name = "Tuned anomalous teleporter"
