@@ -1,31 +1,67 @@
 /datum/component/animal_temperature
 	dupe_mode =  COMPONENT_DUPE_UNIQUE_PASSARGS
 	/// Min body temp
-	var/minbodytemp
+	var/minbodytemp = 250
 	/// Max body temp
-	var/maxbodytemp
+	var/maxbodytemp = 350
 	/// Damage when below min temp
-	var/cold_damage
+	var/cold_damage = 2
 	/// Damage when above max temp
-	var/heat_damage
+	var/heat_damage = 2
     /// If true - alert will be shown
-	var/show_alert
+	var/show_alert = FALSE
 
 /datum/component/animal_temperature/Initialize(
-    minbodytemp = 250,
-    maxbodytemp = 350,
-    cold_damage = 2,
-    heat_damage = 2,
-    show_alert = FALSE
+    minbodytemp,
+    maxbodytemp,
+    cold_damage,
+    heat_damage,
+    show_alert
 )
 	if(!isanimal(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	src.minbodytemp = minbodytemp
-	src.maxbodytemp = maxbodytemp
-	src.cold_damage = cold_damage
-	src.heat_damage = heat_damage
-	src.show_alert = show_alert
+	if(!isnull(minbodytemp))
+		src.minbodytemp = minbodytemp
+
+	if(!isnull(maxbodytemp))
+		src.maxbodytemp = maxbodytemp
+
+	if(!isnull(cold_damage))
+		src.cold_damage = cold_damage
+
+	if(!isnull(heat_damage))
+		src.heat_damage = heat_damage
+
+	if(!isnull(show_alert))
+		src.show_alert = show_alert
+
+/datum/component/animal_temperature/InheritComponent(
+	datum/component/animal_temperature/new_comp, 
+	i_am_original,
+	minbodytemp,
+    maxbodytemp,
+    cold_damage,
+    heat_damage,
+    show_alert
+)
+	if(!i_am_original)
+		return
+
+	if(!isnull(minbodytemp))
+		src.minbodytemp = minbodytemp
+
+	if(!isnull(maxbodytemp))
+		src.maxbodytemp = maxbodytemp
+
+	if(!isnull(cold_damage))
+		src.cold_damage = cold_damage
+
+	if(!isnull(heat_damage))
+		src.heat_damage = heat_damage
+
+	if(!isnull(show_alert))
+		src.show_alert = show_alert
 
 /datum/component/animal_temperature/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ANIMAL_HANDLE_ENVIRONMENT, PROC_REF(handle_environment))
