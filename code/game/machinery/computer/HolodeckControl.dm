@@ -533,7 +533,7 @@
 
 /obj/structure/holohoop/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
-		return ATTACK_CHAIN_PROCEED
+		return ..()
 
 	if(LAZYLEN(contents))
 		to_chat(user, span_notice("There's already something stuck in the [src]!"))
