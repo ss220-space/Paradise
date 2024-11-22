@@ -546,7 +546,9 @@
 
 
 /obj/structure/holohoop/attack_hand(mob/living/user)
-	if(..())
+	. = ..()
+
+	if(.)
 		return TRUE
 
 	if(!LAZYLEN(contents))
