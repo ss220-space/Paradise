@@ -7,6 +7,10 @@
 	announceWhen = 120
 	var/obj/structure/spacevine_controller/SC
 
+/datum/event/spacevine/Destroy(force)
+	SC = null
+	return ..()
+
 /datum/event/spacevine/start()
 	var/list/turfs = list() //list of all the empty floor turfs in the hallway areas
 
@@ -36,7 +40,7 @@
 			mutations = null
 
 /datum/event/spacevine/announce(false_alarm)
-	if(GLOB.player_list.len < 20 && SC?.vines.len)
+	if((false_alarm || LAZYLEN(SC?.vines)) && (LAZYLEN(GLOB.player_list) < 20))
 		GLOB.event_announcement.Announce("Биосканеры фиксируют рост космической лозы в [get_area(SC.loc)]. Избавьтесь от неё, прежде чем она нанесёт ущерб станции.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.")
 
 /datum/spacevine_mutation
@@ -584,17 +588,17 @@
 	var/spread_multiplier = 5
 	var/spread_cap = 30
 	var/list/mutations_list = list()
-	var/mutativeness = 1
+	var/mutativeness = 0
 
 /obj/structure/spacevine_controller/New(loc, list/muts, potency, production)
 	color = "#ffffff"
 	spawn_spacevine_piece(loc, null, muts)
 	START_PROCESSING(SSobj, src)
 	init_subtypes(/datum/spacevine_mutation/, mutations_list)
-	// 0 mutativeness at 0 or 1 potency
 	// 1 mutativeness at 10 potency
 	// 4 mutativeness at 100 potency
-	mutativeness = potency ? log(10, potency) ** 2 : 0
+	if(potency)
+		mutativeness = log(10, potency) ** 2
 
 	if(production != null)
 		// 1 production is crazy powerful
@@ -605,6 +609,7 @@
 		// 6 vines/spread at 6 production
 		// ~2.5 vines/spread at 1 production
 		spread_multiplier /= spread_value / 5
+		
 	..()
 
 
