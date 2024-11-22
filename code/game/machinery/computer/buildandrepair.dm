@@ -588,9 +588,9 @@
 /obj/structure/computerframe/obj_break(damage_flag)
 	deconstruct()
 
-/obj/structure/computerframe/proc/drop_computer_parts()
+/obj/structure/computerframe/proc/drop_computer_parts(obj/item/stack/sheet/sheets_type = /obj/item/stack/sheet/metal, sheets_quantity = 5)
 	var/location = drop_location()
-	new /obj/item/stack/sheet/metal(location, 5)
+	new sheets_type(location, sheets_quantity)
 	if(circuit)
 		circuit.forceMove(location)
 		circuit = null
@@ -759,6 +759,8 @@
 	name = "Bananium Computer-frame"
 	icon = 'icons/obj/machines/HONKputer.dmi'
 
+/obj/structure/computerframe/HONKputer/drop_computer_parts(sheets_type = /obj/item/stack/sheet/mineral/bananium, sheets_quantity = 20)
+	. = ..()
 
 /obj/structure/computerframe/abductor
 	icon_state = "comp_frame_alien1"
@@ -799,16 +801,8 @@
 				supply_comp.can_order_contraband = supply_circuit.contraband_enabled
 			qdel(src)
 
-/obj/structure/computerframe/abductor/drop_computer_parts()
-	var/location = drop_location()
-	new /obj/item/stack/sheet/mineral/abductor(location, 4)
-	if(circuit)
-		circuit.forceMove(location)
-		circuit = null
-	if(state >= STATE_WIRES)
-		new /obj/item/stack/cable_coil(location, 5)
-	if(state == STATE_GLASS)
-		new /obj/item/stack/sheet/glass(location, 2)
+/obj/structure/computerframe/abductor/drop_computer_parts(sheets_type = /obj/item/stack/sheet/mineral/abductor, sheets_quantity = 4)
+	. = ..()
 
 #undef STATE_EMPTY
 #undef STATE_CIRCUIT
