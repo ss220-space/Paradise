@@ -7486,28 +7486,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/trading)
-"bcp" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -22
-	},
-/obj/structure/chair/comfy/brown{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/camera{
-	c_tag = "Detective's Office";
-	dir = 1;
-	network = list("SS13","Security")
-	},
-/turf/simulated/floor/wood,
-/area/space)
 "bct" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -15830,17 +15808,6 @@
 	icon_state = "purple"
 	},
 /area/janitor)
-"bSC" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/space)
 "bSE" = (
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/heads/hop)
@@ -41786,24 +41753,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/south)
-"ejH" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/space)
 "ejM" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -42050,20 +41999,6 @@
 	},
 /turf/space,
 /area/solar/auxstarboard)
-"emU" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "brig_detprivacy";
-	name = "Detective Privacy Shutters"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "emY" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/bananalamp{
@@ -42405,18 +42340,6 @@
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/plating,
 /area/maintenance/library)
-"erx" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "brig_detprivacy";
-	name = "Detective Privacy Shutters"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "erI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
@@ -46053,10 +45976,6 @@
 	icon_state = "darkred"
 	},
 /area/security/permabrig)
-"fjj" = (
-/obj/structure/cable,
-/turf/simulated/wall/r_wall,
-/area/space)
 "fjs" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -46185,11 +46104,6 @@
 /obj/machinery/status_display/supply_display,
 /turf/simulated/wall,
 /area/quartermaster/office)
-"fkl" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/space)
 "fkq" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -54226,10 +54140,6 @@
 /obj/machinery/vending/artvend,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"hie" = (
-/obj/structure/closet/secure_closet/cabinet/detective,
-/turf/simulated/floor/wood,
-/area/space)
 "hiB" = (
 /obj/machinery/camera{
 	c_tag = "Central Ring Hallway North 2";
@@ -54334,26 +54244,6 @@
 	icon_state = "darkred"
 	},
 /area/security/prison/cell_block/A)
-"hka" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/machinery/door/airlock/security{
-	name = "Detective";
-	req_access = list(4)
-	},
-/turf/simulated/floor/wood,
-/area/space)
 "hke" = (
 /obj/structure/table/glass,
 /obj/item/storage/fancy/vials{
@@ -66871,12 +66761,6 @@
 	icon_state = "dark"
 	},
 /area/toxins/xenobiology)
-"kog" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/wood,
-/area/space)
 "kow" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -69836,15 +69720,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"lfj" = (
-/obj/structure/cable,
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "brig_detprivacy";
-	name = "Detective Privacy Shutters"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "lfv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -75638,17 +75513,6 @@
 "mzQ" = (
 /turf/simulated/wall,
 /area/maintenance/casino)
-"mzU" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/table/wood,
-/obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
-	},
-/turf/simulated/floor/wood,
-/area/space)
 "mzW" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Briefing Room";
@@ -76320,18 +76184,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/engine,
 /area/toxins/explab)
-"mFI" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/wood,
-/area/space)
 "mFO" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -77672,17 +77524,6 @@
 	icon_state = "darkblue"
 	},
 /area/crew_quarters/theatre)
-"mWx" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/space)
 "mWC" = (
 /obj/machinery/camera{
 	c_tag = "Research Outpost Temporary Storage";
@@ -84519,9 +84360,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/checkpoint/south)
-"oCE" = (
-/turf/simulated/floor/wood,
-/area/space)
 "oCG" = (
 /obj/machinery/light,
 /obj/structure/sign/poster/official/random{
@@ -88821,15 +88659,6 @@
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/glass/reinforced,
 /area/maintenance/asmaint4)
-"pCh" = (
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
-/obj/structure/table/wood,
-/obj/item/clipboard,
-/obj/item/toy/figure/detective,
-/turf/simulated/floor/wood,
-/area/space)
 "pCm" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -94059,18 +93888,6 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
-"qIl" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "brig_detprivacy";
-	name = "Detective Privacy Shutters"
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "qIo" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -95444,14 +95261,6 @@
 	icon_state = "redyellowfull"
 	},
 /area/engineering/break_room)
-"qZC" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/space)
 "qZO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -108352,10 +108161,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
-"ubt" = (
-/obj/machinery/vending/cigarette/free,
-/turf/simulated/floor/wood,
-/area/space)
 "ubu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/comfy/beige{
@@ -125303,17 +125108,6 @@
 	icon_state = "whitegreencorner"
 	},
 /area/medical/medbay)
-"xWc" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -26
-	},
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/flask/detflask,
-/turf/simulated/floor/wood,
-/area/space)
 "xWh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -174041,10 +173835,10 @@ aaq
 aaq
 aaq
 aaq
-cIV
-cIV
-cIV
-cIV
+aaq
+aaq
+aaq
+aaq
 aaq
 aaq
 aaq
@@ -174298,10 +174092,10 @@ aaq
 aaq
 aaq
 aaq
-pCh
-xWc
-bcp
-fjj
+aaq
+aaq
+aaq
+aaq
 aaq
 aaq
 aaq
@@ -174555,10 +174349,10 @@ aaq
 aaq
 aaq
 aaq
-qZC
-fkl
-kog
-qIl
+aaq
+aaq
+aaq
+aaq
 aaq
 aaq
 aaq
@@ -174812,10 +174606,10 @@ aaq
 aaq
 aaq
 aaq
-ejH
-mWx
-mFI
-hka
+aaq
+aaq
+aaq
+aaq
 aaq
 aaq
 aaq
@@ -175069,10 +174863,10 @@ aaq
 aaq
 aaq
 aaq
-bSC
-fkl
-oCE
-erx
+aaq
+aaq
+aaq
+aaq
 aaq
 aaq
 aaq
@@ -175326,10 +175120,10 @@ aaq
 aaq
 aaq
 aaq
-mzU
-hie
-ubt
-cIV
+aaq
+aaq
+aaq
+aaq
 aaq
 aaq
 aaq
@@ -175583,10 +175377,10 @@ aaq
 aaq
 aaq
 aaq
-emU
-lfj
-cIV
-cIV
+aaq
+aaq
+aaq
+aaq
 aaq
 aaq
 aaq
