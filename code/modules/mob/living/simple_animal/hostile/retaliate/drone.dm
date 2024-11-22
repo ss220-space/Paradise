@@ -263,7 +263,7 @@
 	item_flags = NOPICKUP
 	icon_state = "unactive_drone"
 
-/obj/item/unactive_drone/attackby(obj/item/I, mob/user, params)
+/obj/item/inactive_drone/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/drone_modules/drone_BCM))
 		to_chat(user, span_notice("Вы установили модуль в слот."))
 		new /mob/living/simple_animal/bot/ed209/combat_drone(get_turf(src))
