@@ -546,16 +546,16 @@
 
 
 /obj/structure/holohoop/attack_hand(mob/living/user)
-	if(!..())
+	if(..())
 		return
 
 	if(!LAZYLEN(contents))
 		to_chat(user, span_notice("[src] seems to be empty."))
-		return
+		return TRUE
 
-	var/taken_item = contents[1]
+	var/atom/taken_item = contents[1]
 	user.put_in_hands(taken_item, ignore_anim = FALSE)
-	visible_message(span_notice("[user] removes [taken_item] from [src]!"))
+	visible_message(span_notice("[user] removes [taken_item.name] from [src]!"))
 
 
 /obj/structure/holohoop/has_prints()
@@ -564,26 +564,40 @@
 
 /obj/structure/holohoop/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
+
 	if((isitem(mover) && !isprojectile(mover)) && mover.throwing && mover.pass_flags != PASSEVERYTHING)
+		if(LAZYLEN(contents))
+			visible_message(span_warning("[mover] hits something and falls out!"))
+			return FALSE
+
 		if(prob(50))
 			mover.forceMove(loc)
 			visible_message(span_notice("Swish! [mover] lands in [src]."))
+
 		else
 			visible_message(span_alert("[mover] bounces off of [src]'s rim!"))
+
 		return FALSE
 
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isitem(AM) && !isprojectile(AM))
+		if(LAZYLEN(contents))
+			visible_message(span_warning("[AM] hits something and falls out!"))
+			return ..()
+
 		if(prob(50) || (throwingdatum && throwingdatum.thrower && HAS_TRAIT(throwingdatum.thrower, TRAIT_BADASS)))
 			AM.forceMove(get_turf(src))
 			visible_message(span_warning("Swish! [AM] lands in [src]."))
 			return
+
 		else
 			visible_message(span_danger("[AM] bounces off of [src]'s rim!"))
 			return ..()
+
 	else
 		return ..()
+
 
 /obj/machinery/readybutton
 	name = "Ready Declaration Device"
