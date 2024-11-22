@@ -137,7 +137,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/proc/sword_attack(mob/living/carbon/C)     // esword attack
 	if((HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) && dmg)
 		if(usr)
-			balloon_alert(usr, "вы слишком пацифистичны для этого!")
+			balloon_alert(usr, "никакого насилия!")
 		return
 	do_attack_animation(C)
 	playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
