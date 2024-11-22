@@ -547,7 +547,7 @@
 
 /obj/structure/holohoop/attack_hand(mob/living/user)
 	if(..())
-		return
+		return TRUE
 
 	if(!LAZYLEN(contents))
 		to_chat(user, span_notice("[src] seems to be empty."))
