@@ -265,7 +265,7 @@
 
 /obj/item/projectile/beam/anomaly
 	name = "луч стабилизатора аномалий"
-	icon_state = "emitter"
+	icon_state = "xray" // Looks mostly like "blue/red_laser" in green colour.
 	damage = 0
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
