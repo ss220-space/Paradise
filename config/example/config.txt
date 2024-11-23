@@ -388,9 +388,6 @@ SOCKET_TALK 0
 ## How long the delay is before the Away Mission gate opens. Default is half an hour.
 GATEWAY_DELAY 6000
 
-## Remove the # to give assistants maint access.
-ASSISTANT_MAINT
-
 ## Remove the # to enable assistant limiting.
 ASSISTANT_LIMIT
 
@@ -472,18 +469,6 @@ PLAYER_REROUTE_CAP 0
 
 ## Server to reroute to
 #TUTORIAL_SERVER_URL byond://example.org:1111
-
-## Disable the loading of away missions
-#DISABLE_AWAY_MISSIONS
-
-## Disable the loading of space ruins
-#DISABLE_SPACE_RUINS
-
-## Minimum number of space ruins levels to generate
-EXTRA_SPACE_RUIN_LEVELS_MIN 4
-
-## Maximum number of space ruins levels to generate
-EXTRA_SPACE_RUIN_LEVELS_MAX 8
 
 ## Uncomment to disable the OOC/LOOC channel by default.
 #DISABLE_OOC
@@ -648,7 +633,6 @@ TOPIC_FILTERING_WHITELIST 127.0.0.1
 # Number of players required for automatic gamemode change to extended. Doesn't work if set to zero or commented
 #AUTO_EXTENDED_PLAYERS_NUM 10
 
-
 ## CPU Affinity for FFmpeg. Check out taskset man page.
 ## Example valid values: "0-3" or "1,4-7"
 #FFMPEG_CPUAFFINITY 0-3
@@ -666,20 +650,8 @@ MAP_ROTATE none
 ## notriples - current map can't be selected as next if played twice in a row
 MAP_VOTE_MODE all
 
-## Default server map
-DEFAULT_MAP /datum/map/cyberiad
-
-## Override server map by specified, uncomment to apply
-# OVERRIDE_MAP /datum/map/delta
-
 ## Enable animations on item pickup and drop down
 # ITEM_ANIMATIONS_ENABLED
-
-## Disable the loading of "Taipan"
-# DISABLE_TAIPAN
-
-## Disable the loading of Lavaland
-# DISABLE_LAVALAND
 
 ## If the number of players is more or same than this, then we apply the highpop jobs config.
 JOBS_HIGH_POP_MODE_AMOUNT 80
@@ -733,3 +705,38 @@ CACHE_ASSETS 0
 
 ## Enable the replay demo recording subsystem
 #DEMOS_ENABLED
+
+### INITIALIZATION SETTINGS ###
+## This section contains settings directly affecting initializing progress. Uncomment these to make your world load faster.
+
+## Loads only space without anything in station sector. Still makes landmarks for spawnpoints, though.
+#LOAD_NO_STATION
+
+## Enables loading titlescreen only after master has been loaded. Recommended to be used on local server for faster loading.
+#ENABLE_TITLESCREEN_LATELOAD
+
+## Disable the loading of "Taipan"
+#DISABLE_TAIPAN
+
+## Disable the loading of Lavaland
+#DISABLE_LAVALAND
+
+## Disable the loading of away missions
+#DISABLE_AWAY_MISSIONS
+
+## Disable the loading of space ruins
+#DISABLE_SPACE_RUINS
+
+## Default server map
+DEFAULT_MAP /datum/map/cyberiad
+
+## Override server map by specified, uncomment to apply
+# OVERRIDE_MAP /datum/map/delta
+
+## Minimum number of space ruins levels to generate
+EXTRA_SPACE_RUIN_LEVELS_MIN 4
+
+## Maximum number of space ruins levels to generate
+EXTRA_SPACE_RUIN_LEVELS_MAX 8
+
+### INITIALIZATION SETTINGS END ###

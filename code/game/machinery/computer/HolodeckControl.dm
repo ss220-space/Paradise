@@ -1,6 +1,6 @@
 /obj/machinery/computer/HolodeckControl
 	name = "holodeck control computer"
-	desc = "A computer used to control a nearby holodeck."
+	desc = "Компьютер, используемый для управления ближайшим голодеком."
 	icon_keyboard = "tech_key"
 	icon_screen = "holocontrol"
 	var/area/linkedholodeck = null

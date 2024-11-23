@@ -6,7 +6,7 @@
 
 /obj/machinery/computer/supplyquest
 	name = "Supply Request Console"
-	desc = "Essential for supply requests. Your bread and butter."
+	desc = "Незаменим при оформлении заказов на поставку. Ваш хлеб с маслом."
 	icon_keyboard = "cargo_quest_key"
 	icon_screen = "cargo_quest"
 	req_access = list(ACCESS_CARGO)
@@ -221,7 +221,7 @@
 
 /obj/machinery/computer/supplyquest/workers
 	name = "Supply Request Monitor"
-	desc = "From this monitor, you can view active requests, and you can take a printed version of the request to make it easier to collect supplies. Oh, and so you don't forget."
+	desc = "На этом мониторе вы можете просматривать активные запросы и распечатывать их, чтобы упростить сбор материалов. Да, и чтобы вы не забыли."
 	icon_state = "quest_console"
 	icon_screen = "quest"
 	icon_keyboard = null
@@ -313,7 +313,7 @@
 
 /obj/machinery/computer/supplyquest/iternal
 	name = "invasive quest utility"
-	desc = "How did this get here?! Please report this as a bug to github"
+	desc = "Как это сюда попало?! Пожалуйста, сообщите об этом как об ошибке на github"
 	use_power = NO_POWER_USE
 
 /obj/item/qm_quest_tablet/Initialize(mapload)
