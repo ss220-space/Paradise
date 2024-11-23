@@ -2419,7 +2419,8 @@
 					/obj/item/clothing/head/fedora = 10,
 					/obj/item/clothing/head/fez = 10,
 					/obj/item/clothing/head/beret = 10)
-	contraband = list(/obj/item/clothing/head/bearpelt = 5)
+	contraband = list(/obj/item/clothing/head/bearpelt = 5,
+					/obj/item/clothing/head/helmet/biker = 3)
 	premium = list(/obj/item/clothing/head/soft/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/hatdispenser
 
