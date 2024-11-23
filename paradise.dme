@@ -447,7 +447,6 @@
 #include "code\datums\components\cross_shock.dm"
 #include "code\datums\components\decal.dm"
 #include "code\datums\components\death_linked.dm"
-#include "code\datums\components\ritual_object.dm"
 #include "code\datums\components\defibrillator.dm"
 #include "code\datums\components\drift.dm"
 #include "code\datums\components\ducttape.dm"
