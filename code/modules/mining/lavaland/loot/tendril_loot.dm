@@ -187,7 +187,7 @@
 	color = "#FFEBEB"
 
 /datum/reagent/flightpotion/reaction_mob(mob/living/M, method = REAGENT_TOUCH, reac_volume, show_message = 1)
-	to_chat(M, span_warning("Этот предмет на данный момент не функционален.")
+	to_chat(M, span_warning("Этот предмет на данный момент не функционален."))
 	/*if(ishuman(M) && M.stat != DEAD)
 		var/mob/living/carbon/human/H = M
 		if(!ishumanbasic(H) || reac_volume < 5) // implying xenohumans are holy
@@ -270,7 +270,7 @@
 
 /obj/item/wisp_lantern/attack_self(mob/user)
 	if(!wisp)
-		to_chat(user, span_warning("Дух пропадает.")
+		to_chat(user, span_warning("Дух пропадает."))
 		update_icon(UPDATE_ICON_STATE)
 		return
 
@@ -284,7 +284,7 @@
 		set_light_on(FALSE)
 
 		user.update_sight()
-		to_chat(user, span_notice("Выпущенный дух улучшает ваше зрение")
+		to_chat(user, span_notice("Выпущенный дух улучшает ваше зрение"))
 
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
 	else
@@ -296,7 +296,7 @@
 		set_light_on(TRUE)
 
 		user.update_sight()
-		to_chat(user, span_notice("Ваше зрение возвращается в норму.")
+		to_chat(user, span_notice("Ваше зрение возвращается в норму."))
 
 		update_icon(UPDATE_ICON_STATE)
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
