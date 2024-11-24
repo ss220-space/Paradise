@@ -261,7 +261,7 @@
 	desc = "Большой дрон. Кажется, неактивен."
 	w_class = WEIGHT_CLASS_GIGANTIC
 	item_flags = NOPICKUP
-	icon_state = "unactive_drone"
+	icon_state = "inactive_drone"
 
 /obj/item/inactive_drone/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/drone_modules/drone_BCM))
