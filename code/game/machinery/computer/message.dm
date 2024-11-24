@@ -1,7 +1,7 @@
 // Allows you to monitor messages that passes the server.
 /obj/machinery/computer/message_monitor
 	name = "message monitoring console"
-	desc = "Used to monitor the crew's messages that are sent via PDA. It can also be used to view Request Console messages."
+	desc = "Используется для отслеживания сообщений экипажа, отправляемых через КПК. Его также можно использовать для просмотра сообщений Консоли Запросов."
 	icon_screen = "comm_logs"
 	light_color = LIGHT_COLOR_GREEN
 	var/hack_icon = "tcboss"
