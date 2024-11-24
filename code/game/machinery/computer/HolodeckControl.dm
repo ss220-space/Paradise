@@ -523,11 +523,11 @@
 	. = TRUE
 
 	if(!isliving(grabbed_thing))
-		return FALSE
+		return
 
 	if(grabber.grab_state < GRAB_NECK)
 		to_chat(grabber, span_warning("You need a better grip to do that!"))
-		return FALSE
+		return
 
 	var/mob/living/target = grabbed_thing
 
