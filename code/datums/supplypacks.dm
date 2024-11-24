@@ -582,7 +582,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/storage/pouch/fast,
 					/obj/item/storage/pouch/fast)
 	cost = 100
-	containername = "Fast Pouch crate"
+	containername = "fast pouch crate"
 
 /////// Weapons: Specialist
 
