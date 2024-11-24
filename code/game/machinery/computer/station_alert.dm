@@ -1,7 +1,7 @@
 
 /obj/machinery/computer/station_alert
 	name = "station alert console"
-	desc = "Used to access the station's automated alert system."
+	desc = "Используется для доступа к автоматизированной системе тревог станции."
 	icon_keyboard = "tech_key"
 	icon_screen = "alert:0"
 	light_color = LIGHT_COLOR_CYAN
