@@ -527,7 +527,7 @@
 
 	if(grabber.grab_state < GRAB_NECK)
 		to_chat(grabber, span_warning("You need a better grip to do that!"))
-		return
+		return FALSE
 
 	var/mob/living/target = grabbed_thing
 
