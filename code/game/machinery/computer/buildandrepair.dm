@@ -599,7 +599,8 @@
 
 /obj/structure/computerframe/Destroy()
 	circuit = null
-	. = ..()
+
+	return ..()
 
 
 /obj/structure/computerframe/AltClick(mob/user)

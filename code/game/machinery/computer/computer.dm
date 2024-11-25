@@ -38,6 +38,12 @@
 	update_icon()
 
 
+/obj/machinery/computer/Destroy()
+	frame = null
+
+	return ..()
+
+
 /obj/machinery/computer/process()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
