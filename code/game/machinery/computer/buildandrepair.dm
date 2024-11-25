@@ -592,10 +592,14 @@
 		if(state == STATE_GLASS)
 			new /obj/item/stack/sheet/glass(location, 2)
 
-	circuit = null
 	state = STATE_EMPTY
 
 	return ..() // will qdel the frame
+
+
+/obj/structure/computerframe/Destroy()
+	circuit = null
+	. = ..()
 
 
 /obj/structure/computerframe/AltClick(mob/user)
