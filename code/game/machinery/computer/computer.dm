@@ -39,6 +39,9 @@
 
 
 /obj/machinery/computer/Destroy()
+	if(istype(frame))
+		qdel(frame)
+		
 	frame = null
 
 	return ..()

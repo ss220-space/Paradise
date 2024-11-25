@@ -593,11 +593,15 @@
 			new /obj/item/stack/sheet/glass(location, 2)
 
 	state = STATE_EMPTY
+	circuit = null
 
 	return ..() // will qdel the frame
 
 
 /obj/structure/computerframe/Destroy()
+	if(istype(circuit))
+		qdel(circuit)
+
 	circuit = null
 
 	return ..()
