@@ -395,6 +395,17 @@
 	req_access = list()
 	is_public = TRUE
 
+
+/obj/machinery/computer/supplycomp/Initialize(mapload, obj/structure/computerframe/frame)
+	. = ..()
+
+	var/obj/item/circuitboard/supplycomp/my_circuit = src.frame.circuit
+	if(!istype(my_circuit))
+		return
+
+	can_order_contraband = my_circuit.contraband_enabled
+
+
 /obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
 
