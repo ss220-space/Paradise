@@ -476,11 +476,6 @@
 	set category = "Эмоции"
 	emote("whip_l", intentional = TRUE)
 
-/mob/living/carbon/human/proc/emote_rumble()
-	set name = "< Урчать >"
-	set category = "Эмоции"
-	emote("rumble", intentional = TRUE)
-
 /mob/living/carbon/human/proc/emote_hiss_unathi()
 	set name = "< Шипеть >"
 	set category = "Эмоции"

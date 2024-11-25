@@ -2,7 +2,7 @@
 	name = "Malfunctioning AI"
 	roundend_category = "traitors"
 	job_rank = ROLE_MALF_AI
-	special_role = SPECIAL_ROLE_TRAITOR
+	special_role = SPECIAL_ROLE_MALFAI
 	antag_hud_name = "hudsyndicate"
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	/// Should the AI get codewords?

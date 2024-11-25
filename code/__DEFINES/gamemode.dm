@@ -70,3 +70,4 @@
 #define SPECIAL_ROLE_THIEF "Thief"
 #define SPECIAL_ROLE_SPACE_DRAGON "Space Dragon"
 #define SPECIAL_ROLE_EVENTMISC "Event Role"
+#define SPECIAL_ROLE_MALFAI "Malfunctioning AI"

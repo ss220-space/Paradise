@@ -795,6 +795,30 @@
 	item_color = "pennywise"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/sweettooth
+	name = "Sweet Tooth Costume"
+	desc = "Брутально выглядящий костюм, отдалённо смахивающий на клоунский. Такой отлично подошёл бы какому-нибудь серийному убийце."
+	icon_state = "sweettooth_uniform"
+	item_color = "sweettooth_uniform"
+	ru_names = list(
+		NOMINATIVE = "Костюм Сладкоежки",
+		GENITIVE = "Костюма Сладкоежки",
+		DATIVE = "Костюму Сладкоежки",
+		ACCUSATIVE = "Костюм Сладкоежки",
+		INSTRUMENTAL = "Костюмом Сладкоежки",
+		PREPOSITIONAL = "Костюме Сладкоежки"
+	)
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/uniform.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
+	)
+
 /obj/item/clothing/under/rockso
 	name = "Rockso Costume"
 	desc = "I DO COCAINE!"

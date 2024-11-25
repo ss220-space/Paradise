@@ -265,6 +265,17 @@
 	build_path = /obj/item/bonesetter/laser
 	category = list("Medical")
 
+/datum/design/item/laserfullkit
+	name = "Advanced Surgery Kit"
+	desc = "Полный набор современных хирургических инструментов."
+	id = "laser_fullsurgerykit"
+	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
+	build_path = /obj/item/storage/toolbox/surgery/advanced
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 13000, MAT_GLASS = 10000, MAT_SILVER = 6000, MAT_GOLD = 6000)
+	category = list("Medical")
+
+
 /datum/design/alienscalpel
 	name = "Alien Scalpel"
 	desc = "An advanced scalpel obtained through Abductor technology."
@@ -353,6 +364,16 @@
 	build_path = /obj/item/FixOVein/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
+	category = list("Medical")
+
+/datum/design/alienfullkit
+	name = "Alien Surgery Kit"
+	desc = "Полный набор инопланетных хирургических инструментов."
+	id = "alien_fullsurgerykit"
+	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
+	build_path = /obj/item/storage/toolbox/surgery/alien
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 34500, MAT_SILVER = 16000, MAT_PLASMA = 5500, MAT_TITANIUM = 13500)
 	category = list("Medical")
 
 /////////////////////////////////////////

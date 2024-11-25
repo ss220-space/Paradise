@@ -264,6 +264,48 @@
 	icon_state = "blueshieldpack"
 	item_state = "blueshieldpack"
 
+/obj/item/storage/backpack/justice
+	name = "backpack of justice"
+	desc = "Крепкий рюкзак выданный специально для самых крепких офицеров."
+	icon_state = "backpack_justice0"
+	item_state = "backpack_justice0"
+	actions_types = list(/datum/action/item_action/toggle_backpack_light)
+	var/on = FALSE
+	var/datum/looping_sound/ambulance_alarm/justice/soundloop
+
+/obj/item/storage/backpack/justice/attack_self()
+	toggle_backpack_light()
+
+/obj/item/storage/backpack/justice/Initialize(mapload)
+	. = ..()
+	soundloop = new(list(src))
+
+/obj/item/storage/backpack/justice/Destroy(force)
+	QDEL_NULL(soundloop)
+	return ..()
+
+/obj/item/storage/backpack/justice/proc/toggle_backpack_light()
+	on = !on
+
+	if(on)
+		turn_on()
+	else
+		turn_off()
+
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/storage/backpack/justice/update_icon_state()
+	icon_state = "backpack_justice[on]"
+	item_state = "backpack_justice[on]"
+	update_equipped_item(update_speedmods = FALSE)
+
+/obj/item/storage/backpack/justice/proc/turn_on()
+	soundloop.start()
+
+/obj/item/storage/backpack/justice/proc/turn_off()
+	soundloop.stop()
+
+
 /*
 *	Syndicate backpacks. Sprites by ElGood
 */

@@ -1,7 +1,7 @@
 // This item just has an integrated camera console, which the data is "proxied" to
 /obj/item/camera_bug
 	name = "camera bug"
-	desc = "For illicit snooping through the camera network."
+	desc = "Для незаконного слежения через сеть камер наблюдения."
 	icon = 'icons/obj/device.dmi'
 	icon_state	= "camera_bug"
 	w_class		= WEIGHT_CLASS_TINY
@@ -14,7 +14,7 @@
 
 /obj/machinery/computer/security/camera_bug
 	name = "invasive camera utility"
-	desc = "How did this get here?! Please report this as a bug to github"
+	desc = "Как это сюда попало?! Пожалуйста, сообщите об этом как об ошибке на github."
 	use_power = NO_POWER_USE
 
 /obj/item/camera_bug/Initialize(mapload)
@@ -38,7 +38,7 @@
 
 /obj/item/camera_bug/ert
 	name = "ERT Camera Monitor"
-	desc = "A small handheld device used by ERT commanders to view camera feeds remotely."
+	desc = "Небольшое портативное устройство, используемое командирами ОБР для удаленного наблюдения."
 
 /obj/item/camera_bug/ert/Initialize(mapload)
 	. = ..()
