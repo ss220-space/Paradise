@@ -3,7 +3,7 @@
 	name = "anomaly core"
 	desc = "The neutralized core of an anomaly. It'd probably be valuable for research."
 	gender = NEUTER
-	icon_state = "anomaly_core"
+	icon_state = "core_bluespace_t2"
 	item_state = "electronic"
 	resistance_flags = FIRE_PROOF
 	receiving = TRUE
@@ -58,7 +58,7 @@
 					PREPOSITIONAL = "пустом ядре малой аномалии")
 	desc = "Не похоже что силы аномалии на момент стабилизации хватило, чтобы придать ядру какие-то свойства. \
 			Вероятно, его можно как-то зарядить."
-	icon_state = "pyro_core"
+	icon_state = "core_empty_t1"
 	anomaly_type = null
 	origin_tech = "materials=3"
 	tier = 1
@@ -72,7 +72,7 @@
 					INSTRUMENTAL = "ядром малой атмосферной аномалии", \
 					PREPOSITIONAL = "ядре малой атмосферной аномалии")
 	desc = "Стабилизированное ядро ​малой атмосферной аномалии. На ощупь прохладное. Вероятно, оно пригодится для исследований."
-	icon_state = "pyro_core"
+	icon_state = "core_atmos_t1"
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier1
 	origin_tech = "plasmatech=5"
 
@@ -85,7 +85,7 @@
 					INSTRUMENTAL = "ядром малой гравитационной аномалии", \
 					PREPOSITIONAL = "ядре малой гравитационной аномалии")
 	desc = "Нейтрализованное ядро малой ​​гравитационной аномалии. Слегка легче, чем выглядит. Вероятно, оно пригодится для исследований."
-	icon_state = "grav_core"
+	icon_state = "core_grav_t1"
 	anomaly_type = /obj/effect/anomaly/gravitational/tier1
 	origin_tech = "magnets=5"
 
@@ -98,7 +98,7 @@
 					INSTRUMENTAL = "ядром малой ​​энергетической аномалии", \
 					PREPOSITIONAL = "ядре малой ​​энергетической аномалии")
 	desc = "Стабилизированное ядро малой ​​энергетической аномалии. Прикосновение к нему вызывает легкое покалывание. Вероятно, оно пригодится для исследований."
-	icon_state = "flux_core"
+	icon_state = "core_energ_t1"
 	anomaly_type = /obj/effect/anomaly/energetic/tier1
 	origin_tech = "powerstorage=5"
 
@@ -111,7 +111,7 @@
 					INSTRUMENTAL = "ядром малой ​​блюспейс аномалии", \
 					PREPOSITIONAL = "ядре малой ​​блюспейс аномалии")
 	desc = "Стабилизированное ядро ​малой ​блюспейс аномалии. Оно изредка, на долю секунды, исчезает из виду. Вероятно, оно пригодится для исследований."
-	icon_state = "anomaly_core"
+	icon_state = "core_bluespace_t1"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier1
 	origin_tech = "bluespace=5"
 
@@ -124,7 +124,7 @@
 					INSTRUMENTAL = "ядром малой вихревой аномалии", \
 					PREPOSITIONAL = "ядре малой вихревой аномалии")
 	desc = "Стабилизированное ядро малой ​​вихревой аномалии. Оно изредка подергивается. Вероятно, оно пригодится для исследований."
-	icon_state = "vortex_core"
+	icon_state = "core_vortex_t1"
 	anomaly_type = /obj/effect/anomaly/vortex/tier1
 	origin_tech = "engineering=5"
 
@@ -140,7 +140,7 @@
 					PREPOSITIONAL = "пустом ядре аномалии")
 	desc = "Не похоже что силы аномалии на момент стабилизации хватило, чтобы придать ядру какие-то свойства. \
 			Вероятно, его можно как-то зарядить."
-	icon_state = "pyro_core"
+	icon_state = "core_empty_t2"
 	anomaly_type = null
 	origin_tech = "materials=5" // not clonable by experimentor
 	tier = 2
@@ -148,35 +148,35 @@
 /obj/item/assembly/signaler/core/tier2/atmospheric
 	name = "\improper pyroclastic anomaly core"
 	desc = "Стабилизированное ядро ​атмосферной аномалии. На ощупь теплое. Вероятно, оно пригодится для исследований."
-	icon_state = "pyro_core"
+	icon_state = "core_atmos_t2"
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier2
 	origin_tech = "plasmatech=7"
 
 /obj/item/assembly/signaler/core/tier2/gravitational
 	name = "\improper gravitational anomaly core"
 	desc = "Стабилизированное ядро ​​гравитационной аномалии. Гораздо тяжелее, чем выглядит. Вероятно, оно пригодится для исследований."
-	icon_state = "grav_core"
+	icon_state = "core_grav_t2"
 	anomaly_type = /obj/effect/anomaly/gravitational/tier2
 	origin_tech = "magnets=7"
 
 /obj/item/assembly/signaler/core/tier2/energetic
 	name = "\improper flux anomaly core"
 	desc = "Стабилизированное ядро ​​энергетической аномалии. Прикосновение к нему вызывает легкое покалывание. Вероятно, оно пригодится для исследований."
-	icon_state = "flux_core"
+	icon_state = "core_energ_t2"
 	anomaly_type = /obj/effect/anomaly/energetic/tier2
 	origin_tech = "powerstorage=7"
 
 /obj/item/assembly/signaler/core/tier2/bluespace
 	name = "\improper bluespace anomaly core"
 	desc = "Стабилизированное ядро ​​блюспейс аномалии. Оно то появляется, то исчезает из виду. Вероятно, оно пригодится для исследований."
-	icon_state = "anomaly_core"
+	icon_state = "core_bluespace_t2"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier2
 	origin_tech = "bluespace=7"
 
 /obj/item/assembly/signaler/core/tier2/vortex
 	name = "\improper vortex anomaly core"
 	desc = "Стабилизированное ядро ​​вихревой аномалии. Оно слегка трясется, как будто на него действует какая-то невидимая сила. Вероятно, оно пригодится для исследований."
-	icon_state = "vortex_core"
+	icon_state = "core_vortex_t2"
 	anomaly_type = /obj/effect/anomaly/vortex/tier2
 	origin_tech = "engineering=7"
 
@@ -192,7 +192,7 @@
 					PREPOSITIONAL = "пустом ядре большой аномалии")
 	desc = "Не похоже что силы аномалии на момент стабилизации хватило, чтобы придать ядру какие-то свойства. \
 			Вероятно, его можно как-то зарядить."
-	icon_state = "pyro_core"
+	icon_state = "core_empty_t3"
 	anomaly_type = null
 	origin_tech = "materials=7" // Sorry, not clonable by experimentor
 	tier = 3
@@ -206,7 +206,7 @@
 					INSTRUMENTAL = "ядром большой атмосферной аномалии", \
 					PREPOSITIONAL = "ядре большой атмосферной аномалии")
 	desc = "Стабилизированное ядро большой атмосферной аномалии. От одного его вида вас бросает то в жар, то в холод, причем буквально."
-	icon_state = "pyro_core"
+	icon_state = "core_atmos_t3"
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier3
 	origin_tech = "plasmatech=8"
 
@@ -232,13 +232,13 @@
 
 	if(H.bodytemperature < T0C - 50)
 		visible_message("[declent_ru(NOMINATIVE)] реагирует на контакт с холодным объектом и испуская языки пламени!")
-		H.adjust_fire_stacks(round(charge / 10 + 0.5))
+		H.adjust_fire_stacks(round(get_strenght() / 30 + 0.5))
 		H.IgniteMob()
 	else if(H.bodytemperature > T0C + 100)
 		visible_message("[declent_ru(NOMINATIVE)] реагирует на контакт с горячим объектом значительно охлаждая окружающую среду!")
 		H.apply_status_effect(/datum/status_effect/freon)
-		if(ishuman(H))
-			H.reagents.add_reagent("frostoil", 5)
+		H.ExtinguishMob()
+		H.adjust_bodytemperature(-get_strenght())
 
 
 /obj/item/assembly/signaler/core/tier3/gravitational
@@ -250,7 +250,7 @@
 					INSTRUMENTAL = "ядром большой гравитационной аномалии", \
 					PREPOSITIONAL = "ядре большой гравитационной аномалии")
 	desc = "Нейтрализованное ядро большой ​​гравитационной аномалии. Вы чувствуете сильное несоответствие веса многих окружающих предметов с их внешним видом."
-	icon_state = "grav_core"
+	icon_state = "core_grav_t3"
 	anomaly_type = /obj/effect/anomaly/gravitational/tier3
 	origin_tech = "magnets=8"
 	var/atom/old_owner = null
@@ -258,7 +258,7 @@
 /obj/item/assembly/signaler/core/tier3/gravitational/Initialize()
 	. = ..()
 	old_owner = get_external_loc()
-	update_gravity()
+	update_gravity(TRUE)
 
 /atom/proc/get_external_loc()
 	var/atom/ext_loc = src
@@ -268,24 +268,24 @@
 	return ext_loc
 
 // Mobs will be in reversed gravity. Items will be without gravity.
-/obj/item/assembly/signaler/core/tier3/gravitational/proc/update_gravity()
-	var/atom/new_owner = get_external_loc()
-	old_owner.remove_gravity_source("[UID()]")
+/obj/item/assembly/signaler/core/tier3/gravitational/proc/update_gravity(restart = FALSE)
+	if(restart)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/assembly/signaler/core/tier3/gravitational, update_gravity)), 5 SECONDS)
 
+	var/atom/new_owner = get_external_loc()
+	if(old_owner == new_owner && old_owner.get_gravity() == -1)
+		return
+
+	old_owner.remove_gravity_source("core_grav")
 	if(ismob(new_owner))
-		new_owner.add_gravity("[UID()]", -2)
+		new_owner.add_gravity("core_grav", -(new_owner.get_gravity() + 2))
 
 	if(isitem(new_owner))
-		new_owner.add_gravity("[UID()]", -1)
+		new_owner.add_gravity("core_grav", -(new_owner.get_gravity() + 1))
 
 	old_owner = new_owner
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/assembly/signaler/core/tier3/gravitational, update_gravity)), 5 SECONDS)
 
-/obj/item/assembly/signaler/core/tier3/gravitational/forceMove(atom/target)
-	. = ..()
-	update_gravity()
-
-/obj/item/assembly/signaler/core/tier3/gravitational/Move(atom/newloc, direct, glide_size_override, update_dir)
+/obj/item/assembly/signaler/core/tier3/gravitational/forceMove(atom/destination)
 	. = ..()
 	update_gravity()
 
@@ -298,7 +298,7 @@
 					INSTRUMENTAL = "ядром большой ​​энергетической аномалии", \
 					PREPOSITIONAL = "ядре большой ​​энергетической аномалии")
 	desc = "Стабилизированное ядро большой ​​энергетической аномалии. Вокруг ядра периодически возникают электрические разряды. Окружающая электроника напряженно гудит."
-	icon_state = "flux_core"
+	icon_state = "core_energ_t3"
 	anomaly_type = /obj/effect/anomaly/energetic/tier3
 	origin_tech = "powerstorage=8"
 
@@ -333,7 +333,7 @@
 					INSTRUMENTAL = "ядром большой ​​блюспейс аномалии", \
 					PREPOSITIONAL = "ядре большой ​​блюспейс аномалии")
 	desc = "Стабилизированное ядро ​большой ​блюспейс аномалии. Пространство вокруг него постоянно искревляется."
-	icon_state = "anomaly_core"
+	icon_state = "core_bluespace_t3"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier3
 	origin_tech = "bluespace=8"
 
@@ -364,6 +364,6 @@
 					INSTRUMENTAL = "ядром большой вихревой аномалии", \
 					PREPOSITIONAL = "ядре большой вихревой аномалии")
 	desc = "Стабилизированное ядро большой ​​вихревой аномалии. Предметы вокруг ядра опасно подрагивают."
-	icon_state = "vortex_core"
+	icon_state = "core_vortex_t3"
 	anomaly_type = /obj/effect/anomaly/vortex/tier3
 	origin_tech = "engineering=8"

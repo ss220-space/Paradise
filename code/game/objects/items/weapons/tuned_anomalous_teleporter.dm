@@ -202,6 +202,10 @@ Ranges with core charge 50-100:
 	user.gib()
 	return OBLITERATION
 
+/obj/item/assembly/tuned_anomalous_teleporter/bullet_act(obj/item/projectile/P)
+	. = ..()
+	activate()
+
 /datum/crafting_recipe/tuned_anomalous_teleporter
 	name = "Tuned anomalous teleporter"
 	result = /obj/item/assembly/tuned_anomalous_teleporter

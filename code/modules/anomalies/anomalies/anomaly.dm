@@ -52,7 +52,7 @@
 	animate(src, transform = matr, time = 1 SECONDS, alpha = 255, flags = ANIMATION_PARALLEL)
 
 
-/obj/effect/anomaly/Initialize(spawnloc, spawn_strenght = rand(30, 70), spawn_stability = rand(10, 29))
+/obj/effect/anomaly/Initialize(spawnloc, spawn_strenght = rand(20, 40), spawn_stability = rand(10, 29))
 	GLOB.created_anomalies[anomaly_type]++
 	. = ..()
 	if(!get_area(src))
@@ -90,6 +90,7 @@
 
 /obj/effect/anomaly/proc/collapse()
 	visible_message(span_warning("Вы видите как [src] достигает критической массы, в следствии чего, разрушается!"))
+	add_filter("collapse", 1, gauss_blur_filter(1))
 	var/mult = 3
 	matr.Scale(mult, mult)
 	animate(src, transform = matr, time = 1 SECONDS, alpha = 0, flags = ANIMATION_PARALLEL)
@@ -261,7 +262,7 @@
 		stabilyse()
 		return
 
-	if(!prob(get_strenght()) || stability >= 60)
+	if(stability > ANOMALY_MOVE_MAX_STABILITY || !prob(get_strenght()))
 		return
 
 	if(normal_move())

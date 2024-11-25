@@ -24,23 +24,32 @@
 /obj/item/anomaly_analyzer/proc/scan(obj/effect/anomaly/target)
 	scan_title = "Сканирование [target.declent_ru(GENITIVE)]"
 	scan_data = list()
-	scan_data += "Сила аномалии: [target.strenght]"
-	scan_data += "Стабильность аномалии: [target.stability]"
+	var/stre = target.strenght
+	var/stab = target.stability
+	scan_data += "Сила аномалии: [stre > 70 ? span_warning("[stre]") : stre]"
+	scan_data += "Стабильность аномалии: [stab < 30 ? span_warning("[stab]") : stab]"
+	var/state
 	if(target.stability < ANOMALY_GROW_STABILITY)
-		scan_data += "Состояние аномалии: " + span_warning("Рост")
+		state = span_warning("Рост")
 	else if(target.stability > ANOMALY_DECREASE_STABILITY)
-		scan_data += "Состояние аномалии: Уменьшение"
+		state = "Уменьшение"
 	else
-		scan_data += "Состояние аномалии: Стабильное"
+		state = "Стабильное"
+
+	scan_data += "Состояние аномалии: [state]"
+	if(target.stability > ANOMALY_MOVE_MAX_STABILITY || world.time > target.move_moment)
+		scan_data += span_info("Движение прекращено.")
+
 	scan_data += "<hr>Импульсы:\n"
 	for(var/datum/anomaly_impulse/impulse in target.impulses)
-		scan_data += "  [impulse.name]"
+		var/blocked = world.time < target.move_impulse_moment && istype(impulse, /datum/anomaly_impulse/move) || target.stability > impulse.stability_high
+		scan_data += "  [impulse.name]" + (blocked ? " ([span_green("заблокирован")]" : "")
 		scan_data += "  &emsp;Описание: [impulse.desc]"
 		scan_data += "  &emsp;Время между импульсами: [impulse.scale_by_strenght(impulse.period_low, impulse.period_high) / 10]"
 		scan_data += "  &emsp;Блокируящая стабильность: [impulse.stability_high]"
 
 /obj/item/anomaly_analyzer/proc/show(mob/user)
-	var/datum/browser/popup = new(user, "anomalyscanner", scan_title, 400, 600)
+	var/datum/browser/popup = new(user, "anomalyscanner", scan_title, 500, 600)
 	popup.set_content(span_highlight("[jointext(scan_data, "<br>")]"))
 	popup.open(no_focus = 1)
 

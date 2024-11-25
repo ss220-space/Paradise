@@ -188,7 +188,8 @@ SUBSYSTEM_DEF(throwing)
 		  H(T) = A * T * T / 2
 		  If A will become X times bigger, T will become sqrt(X) times lower.
 		*/
-		dist_travelled += 1 * sqrt(abs(AM.get_gravity()))
+		if(!AM.no_gravity()) // If no gravity, it causes some problems. I think, it will work normally this way.
+			dist_travelled += 1 * sqrt(abs(AM.get_gravity()))
 
 		if(dist_travelled > MAX_THROWING_DIST)
 			finalize()
