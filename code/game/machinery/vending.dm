@@ -2133,6 +2133,8 @@
 					/obj/item/clothing/head/rockso = 1,
 					/obj/item/clothing/mask/gas/clown_hat/rockso = 1,
 					/obj/item/clothing/under/rockso = 1,
+					/obj/item/clothing/mask/gas/clown_hat/sweettooth = 1,
+					/obj/item/clothing/under/sweettooth = 1,
 					/obj/item/clothing/under/pants/camo = 1,
 					/obj/item/clothing/mask/bandana = 1,
 					/obj/item/clothing/mask/bandana/black = 1,
