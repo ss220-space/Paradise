@@ -462,12 +462,15 @@
 	build_path = /obj/machinery/computer/turbine_computer
 	origin_tech = "programming=4;engineering=4;powerstorage=4"
 
+
 /obj/item/circuitboard/HONKputer
 	board_name = "HONKputer"
 	build_path = /obj/machinery/computer/HONKputer
 	origin_tech = "programming=2"
 	icon = 'icons/obj/machines/HONKputer.dmi'
 	icon_state = "bananium_board"
+	board_type = "HONKputer"
+
 
 /obj/item/circuitboard/broken
 	board_name = "Broken curcuit"
@@ -712,16 +715,17 @@
 		if(STATE_EMPTY)
 			if(!istype(I, /obj/item/circuitboard))
 				return ..()
+
 			add_fingerprint(user)
-			if((istype(I, /obj/item/circuitboard/HONKputer) && !istype(src, /obj/structure/computerframe/HONKputer)) || (istype(src, /obj/structure/computerframe/HONKputer) && !istype(I, /obj/item/circuitboard/HONKputer)))
+
+			if(!circuit_compatibility_check(I))
 				to_chat(user, span_warning("[src] does not accept circuit boards of this type!"))
 				return ATTACK_CHAIN_PROCEED
-			var/obj/item/circuitboard/new_circuit = I
-			if(new_circuit.board_type != "computer")
-				to_chat(user, span_warning("[src] does not accept circuit boards of this type!"))
-				return ATTACK_CHAIN_PROCEED
-			if(!user.drop_transfer_item_to_loc(new_circuit, src))
+
+			if(!user.drop_transfer_item_to_loc(I, src))
 				return ..()
+
+			var/obj/item/circuitboard/new_circuit = I
 			new_circuit.play_tool_sound(src)
 			to_chat(user, span_notice("You place [new_circuit] inside [src]."))
 			name += " ([new_circuit.board_name])"
@@ -777,6 +781,10 @@
 	forceMove(computer)
 
 
+/obj/structure/computerframe/proc/circuit_compatibility_check(obj/item/circuitboard/circuit)
+	return circuit.board_type == "computer"
+
+
 /obj/structure/computerframe/HONKputer
 	name = "Bananium Computer-frame"
 	icon = 'icons/obj/machines/HONKputer.dmi'
@@ -784,6 +792,10 @@
 
 /obj/structure/computerframe/HONKputer/drop_computer_materials(location)
 	new /obj/item/stack/sheet/mineral/bananium(location, 20)
+
+
+/obj/structure/computerframe/HONKputer/circuit_compatibility_check(obj/item/circuitboard/circuit)
+	return circuit.board_type == "HONKputer"
 
 
 /obj/structure/computerframe/abductor
