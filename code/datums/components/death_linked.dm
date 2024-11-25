@@ -17,6 +17,11 @@
 	for(var/mob/mob as anything in mobs)
 		LAZYADD(linked_mobs, WEAKREF(mob))
 
+/datum/component/death_linked/Destroy(force)
+	LAZYNULL(linked_mobs)
+
+	return ..()
+
 /datum/component/death_linked/InheritComponent(datum/component/death_linked/new_comp, i_am_original, list/mobs)
 	if(!i_am_original)
 		return

@@ -17,6 +17,11 @@
 
 	src.holder = holder
 
+/datum/component/holderloving/Destroy(force)
+	holder = null
+
+	return ..()
+
 /datum/component/holderloving/RegisterWithParent()
 	RegisterSignal(holder, COMSIG_QDELETING, PROC_REF(holder_deleting))
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(check_my_loc))
