@@ -5,7 +5,7 @@
  */
 /datum/component/death_linked
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
-	/// The mob that also dies when the user dies. Contains weakrefs
+	/// Mobs in that list will die when the user dies. Contains weakrefs
 	var/list/linked_mobs = list()
 
 /datum/component/death_linked/Initialize(list/mobs)
@@ -40,7 +40,6 @@
 	. = ..()
 	UnregisterSignal(parent, COMSIG_LIVING_DEATH)
 
-/// signal called by the stat of the target changing
 /datum/component/death_linked/proc/on_death(mob/living/target, gibbed)
 	SIGNAL_HANDLER
 
