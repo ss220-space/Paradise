@@ -185,7 +185,7 @@
 		for(var/obj/C in src)
 			C.forceMove(get_turf(src))
 
-	frame = initial(frame)
+	frame = null
 	qdel(src)
 
 
