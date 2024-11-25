@@ -446,8 +446,13 @@
 	var/list/ready_for_summoning = list()
 
 	for(var/mob/living/carbon/human/human in GLOB.mob_list)
-		if(isashwalker(human))
-			LAZYADD(ready_for_summoning, human)
+		if(!human.ckey)
+			continue
+
+		if(!isashwalker(human))
+			continue
+
+		LAZYADD(ready_for_summoning, human)
 
 	if(!LAZYLEN(ready_for_summoning))
 		return RITUAL_FAILED_ON_PROCEED
@@ -457,17 +462,24 @@
 	if(!human)
 		return RITUAL_FAILED_ON_PROCEED
 
-	LAZYADD(invokers, invoker)
+	deal_damage()
+	summon(human)
 
-	for(var/mob/living/carbon/human/summoner as anything in invokers)
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/summon/proc/deal_damage()
+	for(var/mob/living/carbon/human/summoner in range(finding_range, ritual_object))
 		summoner.blood_volume -= (summoner.blood_volume * 0.20)
 		summoner.apply_damage(25, def_zone = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
-	human.forceMove(ritual_object)
+	return TRUE
+
+/datum/ritual/ashwalker/summon/proc/summon(mob/living/carbon/human/human)
+	human.forceMove(get_turf(ritual_object))
 	human.vomit()
 	human.Weaken(10 SECONDS)
 
-	return RITUAL_SUCCESSFUL
+	return TRUE
 
 /datum/ritual/ashwalker/summon/disaster(mob/living/carbon/human/invoker)
 	if(!prob(70))
