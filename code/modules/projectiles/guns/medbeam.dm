@@ -134,7 +134,7 @@
 		return FALSE
 
 	var/obj/dummy = new(user_turf)
-	dummy.pass_flags |= (PASSTABLE|PASSGLASS|PASSGRILLE|PASSFENCE) // Grille/Glass so it can be used through common windows
+	dummy.pass_flags |= (PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE) // Grille/Glass so it can be used through common windows
 
 	var/turf/previous_step = user_turf
 	var/first_step = TRUE
