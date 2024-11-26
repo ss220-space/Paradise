@@ -55,7 +55,7 @@
 
 /datum/map/delta_AI
 	name = "Ai Delta"
-	map_path = "_maps/map_files/event/Station/delta_old.dmm"
+	map_path = "_maps/map_files/event/Station/delta_Ai.dmm"
 	lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
 
 	station_name  = "NSS Kerberos"
