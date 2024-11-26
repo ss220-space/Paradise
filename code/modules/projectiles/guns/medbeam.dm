@@ -76,7 +76,7 @@
 	SIGNAL_HANDLER
 
 	if(active && isliving(loc))
-		balloon_alert(loc, "контроль над лучем потерян")
+		balloon_alert(loc, "контроль над лучом потерян")
 
 	current_beam = null
 	active = FALSE // skip qdelling the beam again if we're doing this proc
