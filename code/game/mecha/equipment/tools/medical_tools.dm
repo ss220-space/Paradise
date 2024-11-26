@@ -676,7 +676,6 @@
 		set_ready_state(TRUE)
 		log_message("Deactivated.")
 		occupant_message("[src] deactivated - no power.")
-		STOP_PROCESSING(SSobj, src)
 		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun/action(mob/target)
