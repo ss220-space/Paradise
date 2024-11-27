@@ -235,3 +235,7 @@
 		return
 	if(user.plant_analyzer)
 		send_plant_details(user)
+
+/obj/item/reagent_containers/food/snacks/grown/compare_with(obj/item/reagent_containers/food/snacks/grown/snack)
+	. = ..()
+	return . && seed.potency == snack.seed.potency

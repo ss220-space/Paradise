@@ -575,19 +575,25 @@
 /obj/item/storage/proc/drop_inventory(user)
 	var/turf/T = get_turf(src)
 	hide_from(user)
-	var/list/types = list()
+	var/list/all_contents = contents.Copy()
+	var/list/stockpiles = list()
 	for(var/obj/item/I in contents)
-		if(!types[I.type])
-			types[I.type] = list()
+		if(!stockpiles[I.UID()] && (I in all_contents))
+			stockpiles[I.UID()] = list()
 
-		types[I.type] += I
+		for(var/obj/item/item_to_filter in all_contents)
+			if(I.compare_with(item_to_filter))
+				stockpiles[I.UID()] += item_to_filter
+
+		all_contents -= stockpiles[I.UID()]
+
 		remove_from_storage(I, T)
 		CHECK_TICK
 
 	var/list/created_stockpiles = list()
-	for(var/typepath in types)
-		if(length(types[typepath]) >= 3)
-			var/obj/stacked_item/stockpile = new /obj/stacked_item(get_turf(src), types[typepath])
+	for(var/typepath in stockpiles)
+		if(length(stockpiles[typepath]) >= 5)
+			var/obj/stacked_item/stockpile = new /obj/stacked_item(get_turf(src), stockpiles[typepath])
 			created_stockpiles += stockpile
 
 	var/iteration = 0
