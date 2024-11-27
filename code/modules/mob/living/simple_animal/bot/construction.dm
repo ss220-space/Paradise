@@ -654,7 +654,7 @@
 	if(loc == user)
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		user.put_in_hands(assembly)
-	balloon_alert(user, "вы прикрепили сигнальное устройство к шлему")
+	balloon_alert(user, "сигнальное устройство прикреплено")
 	qdel(I)
 	qdel(src)
 
