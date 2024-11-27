@@ -57,6 +57,8 @@
 	icon = item.icon
 	icon_state = item.icon_state
 	appearance = item.appearance
+	pixel_x = base_pixel_x
+	pixel_y = base_pixel_y
 	maptext = "<font color='white' face='Small Fonts'>[(length(internal_storage) > 1) ? "[length(internal_storage)]" : ""]</font>"
 
 /// Retrieves and removes item from internal storage. Returns reference to removed item.
@@ -92,8 +94,9 @@
 	if(items_to_destroy < 1)
 		return
 
-	for(var/items in items_to_destroy)
-		remove_item()
+	for(var/item in items_to_destroy)
+		remove_item(item)
+		qdel(item)
 
 
 /obj/stacked_item_test

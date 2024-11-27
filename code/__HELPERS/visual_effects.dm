@@ -6,6 +6,12 @@
 	pixel_y = y; \
 	base_pixel_y = y;
 
+/// Same as SET_BASE_PIXEL, but for specific target
+#define SET_OBJECT_BASE_PIXEL(target, x, y) \
+	target.pixel_x = x; \
+	target.base_pixel_x = x; \
+	target.pixel_y = y; \
+	target.base_pixel_y = y;
 
 /**
  * Causes the passed atom / image to appear floating,

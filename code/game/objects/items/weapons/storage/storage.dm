@@ -575,9 +575,30 @@
 /obj/item/storage/proc/drop_inventory(user)
 	var/turf/T = get_turf(src)
 	hide_from(user)
+	var/list/types = list()
 	for(var/obj/item/I in contents)
+		if(!types[I.type])
+			types[I.type] = list()
+
+		types[I.type] += I
 		remove_from_storage(I, T)
 		CHECK_TICK
+
+	var/list/created_stockpiles = list()
+	for(var/typepath in types)
+		if(length(types[typepath]) >= 3)
+			var/obj/stacked_item/stockpile = new /obj/stacked_item(get_turf(src), types[typepath])
+			created_stockpiles += stockpile
+
+	var/iteration = 0
+	var/stock_count = length(created_stockpiles)
+	var/delta_phi = 2 * PI / stock_count
+
+	for(var/obj/stacked_item/stack in created_stockpiles)
+		var/new_pixel_x = 8 * sin(180 * delta_phi * iteration / PI)
+		var/new_pixel_y = 8 * cos(180 * delta_phi * iteration / PI)
+		SET_OBJECT_BASE_PIXEL(stack, new_pixel_x, new_pixel_y)
+		iteration += 1
 
 /**
   * Populates the container with items
