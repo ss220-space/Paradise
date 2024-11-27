@@ -471,6 +471,12 @@
 						playsound(get_turf(my_atom), C.mix_sound, 80, TRUE)
 
 					C.on_reaction(src, created_volume)
+
+					if(istype(my_atom?.loc, /obj/item/storage))
+						var/obj/item/storage/storage = my_atom.loc
+						for(var/mob/mob as anything in storage.mobs_viewing)
+							storage.orient2hud(mob)
+
 					reaction_occured = TRUE
 					break
 

@@ -293,7 +293,7 @@
 		for(var/obj/item/I in contents)
 			var/found = FALSE
 			for(var/datum/numbered_display/ND in display_contents)
-				if(ND.sample_object.type == I.type && ND.sample_object.name == I.name)
+				if(ND.sample_object.compare_with(I) && ND.sample_object.name == I.name)
 					ND.number++
 					found = TRUE
 					break

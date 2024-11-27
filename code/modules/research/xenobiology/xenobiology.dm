@@ -16,6 +16,10 @@
 	var/Uses = 1 // uses before it goes inert
 
 
+/obj/item/slime_extract/compare_with(obj/item/slime_extract/extract)
+	. = ..()
+	return . && extract.Uses == Uses
+
 /obj/item/slime_extract/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/slimepotion/enhancer))
 		add_fingerprint(user)

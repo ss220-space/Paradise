@@ -132,3 +132,11 @@
 		return FALSE
 	return (mover.pass_flags & passflag)
 
+/**
+ * Overridable atoms comparer for sorting and stuff.
+ *
+ * Arguments:
+ * * with - target to compare with
+ */
+/atom/proc/compare_with(atom/with)
+	return src.type == with.type
