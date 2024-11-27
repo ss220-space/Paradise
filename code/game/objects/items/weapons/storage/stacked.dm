@@ -37,6 +37,7 @@
 		stack_trace("Attempted to make a stockpile from no contents")
 
 	for(var/obj/item/item in contents_to_add)
+		RegisterSignal(item, COMSIG_QDELETING, PROC_REF(handle_item_deletion))
 		item.forceMove(src)
 
 	internal_storage = contents_to_add
@@ -60,6 +61,10 @@
 	pixel_x = base_pixel_x
 	pixel_y = base_pixel_y
 	maptext = "<font color='white' face='Small Fonts'>[(length(internal_storage) > 1) ? "[length(internal_storage)]" : ""]</font>"
+
+/obj/stacked_item/proc/handle_item_deletion(obj/item/item_to_remove)
+	SIGNAL_HANDLER
+	remove_item(item_to_remove)
 
 /// Retrieves and removes item from internal storage. Returns reference to removed item.
 /obj/stacked_item/proc/remove_item(obj/item/item_to_remove)
