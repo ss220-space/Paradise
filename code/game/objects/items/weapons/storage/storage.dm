@@ -598,6 +598,9 @@
 
 	var/iteration = 0
 	var/stock_count = length(created_stockpiles)
+	if(stock_count <= 1)
+		return
+
 	var/delta_phi = 2 * PI / stock_count
 
 	for(var/obj/stacked_item/stack in created_stockpiles)

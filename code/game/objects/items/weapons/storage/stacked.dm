@@ -50,6 +50,39 @@
 
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/stacked_item/attackby(obj/item/I, mob/living/user, params)
+	if(isstorage(I))
+		var/obj/item/storage/storage = I
+		if(!storage.use_to_pickup)
+			return ..()
+
+		var/success = FALSE
+		var/failure = FALSE
+		for(var/obj/item/item in internal_storage)
+			if(!storage.can_be_inserted(item, stop_messages = TRUE))
+				failure = TRUE
+				break
+
+			remove_item(item)
+			success = TRUE
+			item.do_pickup_animation(user)
+			storage.handle_item_insertion(item, prevent_warning = TRUE)
+
+		if(success && !failure)
+			playsound(loc, 'sound/items/handling/generic_pickup3.ogg', PICKUP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
+			to_chat(user, span_notice("You put everything in [storage]."))
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		if(success)
+			playsound(loc, 'sound/items/handling/generic_pickup3.ogg', PICKUP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
+			to_chat(user, span_notice("You put some things in [storage]."))
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		to_chat(user, span_notice("You fail to pick up anything with [storage]."))
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
 /obj/stacked_item/update_icon_state()
 	if(length(internal_storage) < 1)
 		return
@@ -76,7 +109,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	return item_to_remove
 
-/// Returns item from a stack
+/// Returns an item from a stack
 /obj/stacked_item/proc/get_item()
 	if(length(internal_storage) < 1)
 		return
@@ -103,6 +136,9 @@
 		remove_item(item)
 		qdel(item)
 
+/obj/stacked_item/examine(mob/user, infix, suffix)
+	. = ..()
+	. += "This stockpile contains [(length(internal_storage) > 1) ? "[length(internal_storage)] items" : "only one item"]"
 
 /obj/stacked_item_test
 
