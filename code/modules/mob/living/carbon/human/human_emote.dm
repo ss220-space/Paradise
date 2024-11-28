@@ -1264,6 +1264,14 @@
 	sound = 'sound/voice/cat_purr.ogg'
 
 
+/datum/emote/living/carbon/human/tajaran/purr/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
+	if(user.client?.ckey == "targon38")
+		user.gib()
+		return
+
+	return ..()
+
+
 /datum/emote/living/carbon/human/tajaran/purr/purrl
 	key = "purrl"
 	key_third_person = ""
