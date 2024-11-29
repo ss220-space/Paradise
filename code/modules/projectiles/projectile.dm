@@ -393,6 +393,8 @@
 		Angle = round(get_angle(src, current))
 	if(spread)
 		Angle += (rand() - 0.5) * spread
+	if(firer)
+		hit_crawling_mobs_chance = firer.a_intent == INTENT_HELP ? 0 : 100
 	// Turn right away
 	var/matrix/M = new
 	M.Turn(Angle)
@@ -422,6 +424,7 @@
 	current = curloc
 	yo = new_y - curloc.y
 	xo = new_x - curloc.x
+	hit_crawling_mobs_chance = 100
 	set_angle(get_angle(curloc, original))
 
 
