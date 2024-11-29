@@ -20,13 +20,6 @@
 
 	return A.attack_hand(src)
 
-/mob/living/carbon/human/pre_grab_attack(atom/atom, proximity_flag)
-	if(proximity_flag && pulling && (!isnull(pull_hand) && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)))
-		if(atom.grab_attack(src, pulling))
-			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
-			return TRUE
-
-	return FALSE
 
 /mob/living/carbon/human/beforeAdjacentClick(atom/A, params)
 	if(prob(get_bones_symptom_prob() * 3))
@@ -107,17 +100,17 @@
 		return
 
 	if(pre_grab_attack(atom, proximity_flag))
+		if(!atom.grab_attack(src, pulling))
+			return
+
+		changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
+
 		return
 
 	OnUnarmedAttack(atom, proximity_flag)
 
-/mob/living/proc/pre_grab_attack(atom/atom, proximity_flag)
-	if(proximity_flag && pulling && !isnull(pull_hand) && pull_hand != PULL_WITHOUT_HANDS && pull_hand == hand)
-		if(atom.grab_attack(src, pulling))
-			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
-			return TRUE
-
-	return FALSE
+/mob/living/proc/pre_grab_attack(atom/atom, proximity_flag) // with that proc we can prevent grab attacks
+	return pulling && proximity_flag && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)
 
 /mob/living/OnUnarmedAttack(atom/atom, proximity_flag)
 	return atom.attack_animal(src)
@@ -140,14 +133,6 @@
 */
 /mob/living/carbon/alien/OnUnarmedAttack(atom/atom, proximity_flag)
 	return atom.attack_alien(src)
-
-/mob/living/carbon/alien/pre_grab_attack(atom/atom, proximity_flag)	
-	if(proximity_flag && pulling && (!isnull(pull_hand) && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)))
-		if(atom.grab_attack(src, pulling))
-			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
-			return TRUE
-
-	return FALSE
 
 /atom/proc/attack_alien(mob/living/carbon/alien/user)
 	attack_hand(user)
