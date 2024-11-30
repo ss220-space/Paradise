@@ -1,5 +1,4 @@
 /obj/item/gun/energy/anomaly_stabilizer
-	icon_state = "energy"
 	name = "стабилизатор аномалий"
 	ru_names = list(
 		NOMINATIVE = "стабилизатор аномалий", \
@@ -12,7 +11,11 @@
 	desc = "Продвинутое устройство предназначенное для стабилизации аномалий. \
 			Можно вставить до двух любых не пустых ядер аномалий, для улучшения, \
 			в зависимости от типа и уровня ядер."
-	icon = 'icons/obj/weapons/energy.dmi'
+	icon = 'icons/obj/anomaly/anomaly_stuff.dmi'
+	icon_state = "pistol_base_item"
+	lefthand_file = 'icons/obj/anomaly/anomaly_inhand_l.dmi'
+	righthand_file = 'icons/obj/anomaly/anomaly_inhand_r.dmi'
+	item_state = "pistol_base"
 	gender = MALE
 	gun_light_overlay = "flight"
 	can_add_sibyl_system = FALSE
@@ -73,7 +76,7 @@
 
 	if(new_val > 0)
 		cur_ammo_type = /obj/item/ammo_casing/energy/anomaly/stabilizer
-	else if(new_val > 0)
+	else if(new_val < 0)
 		cur_ammo_type = /obj/item/ammo_casing/energy/anomaly/destabilizer
 	else
 		cur_ammo_type = /obj/item/ammo_casing/energy/anomaly
@@ -216,6 +219,7 @@
 		if("change_stability")
 			var/new_val = text2num(params["new_val"])
 			update_stability_delta(new_val)
+			update_icon(UPDATE_OVERLAYS)
 			newshot()
 
 		if("change_pull_dist")
@@ -234,3 +238,15 @@
 	var/shots = round(cell.charge / (/obj/item/ammo_casing/energy/anomaly::e_cost) / stability_delta / stability_delta)
 	. += span_notice("Текущий заряд: [cell.charge]\\[cell.maxcharge].")
 	. += span_notice("Этого хватит на [shots] выстрелов и изменение стабильности на [shots * stability_delta] при текущих настройках.")
+
+/obj/item/gun/energy/anomaly_stabilizer/update_overlays()
+	. = list()
+	if(cell.charge < /obj/item/ammo_casing/energy/anomaly::e_cost)
+		return
+	else if(stability_delta < 0)
+		. += image(icon = icon, icon_state = "pistol_destab_overlay")
+	else if(stability_delta > 0)
+		. += image(icon = icon, icon_state = "pistol_stabil_overlay")
+	else
+		. += image(icon = icon, icon_state = "pistol_zero_overlay")
+

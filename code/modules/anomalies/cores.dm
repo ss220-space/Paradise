@@ -16,6 +16,10 @@
 	/// Moment whet this core was created. Used to prevent the core from instantly disintegrating when charging.
 	var/born_moment = 0
 
+/obj/item/assembly/signaler/core/suicide_act(mob/user)
+	user.visible_message(span_suicide("[user] засовывает [declent_ru(ACCUSATIVE)] себе в рот. Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[genderize_ru(user.gender, "е", "е", "е", "ю")]тся убить себя!"))
+	return OXYLOSS | BRUTELOSS
+
 /obj/item/assembly/signaler/core/examine(mob/user)
 	. = ..()
 	. += span_info("Текущий заряд: [charge].")
@@ -210,6 +214,12 @@
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier3
 	origin_tech = "plasmatech=8"
 
+/obj/item/assembly/signaler/core/tier3/atmospheric/suicide_act(mob/living/user)
+	..()
+	user.adjust_fire_stacks(30)
+	user.IgniteMob()
+	return FIRELOSS
+
 /obj/item/assembly/signaler/core/tier3/atmospheric/forceMove(atom/destination)
 	if(ishuman(destination))
 		START_PROCESSING(SSobj, src)
@@ -255,17 +265,18 @@
 	origin_tech = "magnets=8"
 	var/atom/old_owner = null
 
+/obj/item/assembly/signaler/core/tier3/gravitational/suicide_act(mob/user)
+	..()
+	user.visible_message(span_suicide("[user] взрывается из-за возникшего гравитационного колодца!"), \
+						span_suicide("Вы взрываетесь из-за возникшего гравитационного колодца!"),
+						span_suicide("Вы слышите громкий, гулкий хлопок!"))
+	user.gib()
+	return OBLITERATION
+
 /obj/item/assembly/signaler/core/tier3/gravitational/Initialize()
 	. = ..()
 	old_owner = get_external_loc()
 	update_gravity(TRUE)
-
-/atom/proc/get_external_loc()
-	var/atom/ext_loc = src
-	while(!isturf(ext_loc.loc))
-		ext_loc = ext_loc.loc
-
-	return ext_loc
 
 // Mobs will be in reversed gravity. Items will be without gravity.
 /obj/item/assembly/signaler/core/tier3/gravitational/proc/update_gravity(restart = FALSE)
@@ -306,6 +317,11 @@
 	. = ..()
 	try_shock(bumped_atom)
 
+/obj/item/assembly/signaler/core/tier3/energetic/suicide_act(mob/living/user)
+	..()
+	user.electrocute_act(600, "[declent_ru(GENITIVE)]")
+	return FIRELOSS
+
 /obj/item/assembly/signaler/core/tier3/energetic/proc/try_shock(atom/target)
 	if(!iscarbon(target))
 		return FALSE
@@ -336,6 +352,15 @@
 	icon_state = "core_bluespace_t3"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier3
 	origin_tech = "bluespace=8"
+
+/obj/item/assembly/signaler/core/tier3/bluespace/suicide_act(mob/user)
+	..()
+	user.gib()
+	for(var/obj/item/organ/internal/O in range(2))
+		if(isturf(O.loc))
+			do_teleport(O, O, 2, asoundin = 'sound/effects/phasein.ogg')
+
+	return OBLITERATION
 
 /obj/item/assembly/signaler/core/tier3/bluespace/Bump(atom/bumped_atom)
 	. = ..()

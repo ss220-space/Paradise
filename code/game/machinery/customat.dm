@@ -224,10 +224,6 @@
 		found_trunk.set_linked(src)
 		trunk = found_trunk
 
-/obj/machinery/customat/update_icon(updates = ALL)
-	return ..()
-
-
 /obj/machinery/customat/update_overlays()
 	. = ..()
 

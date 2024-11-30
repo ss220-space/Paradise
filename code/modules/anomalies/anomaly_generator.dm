@@ -11,8 +11,8 @@
 	gender = MALE
 	density = TRUE
 	anchored = TRUE
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "mixer0"
+	icon = 'icons/obj/anomaly/anomaly_stuff.dmi'
+	icon_state = "generator_on"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 300
 	active_power_usage = 300
@@ -102,6 +102,14 @@
 	speed = 1e4
 	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
 		speed *= capacitor.rating * capacitor.rating
+
+/obj/machinery/power/anomaly_generator/update_icon(updates = ALL)
+	if(stat & NOPOWER)
+		icon_state = "generator_off"
+	else
+		icon_state = "generator_on"
+
+	return ..()
 
 /obj/machinery/power/anomaly_generator/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

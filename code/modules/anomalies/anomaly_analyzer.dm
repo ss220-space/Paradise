@@ -11,9 +11,11 @@
 	desc = "Продвинутое устройство предназначенное для сканирования аномалий. \
 			Выводит достаточно полную информацию о сканируемой аномалии. \
 			Может сканировать аномалии на расстоянии."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "atmos"
-	item_state = "analyzer"
+	icon = 'icons/obj/anomaly/anomaly_stuff.dmi'
+	lefthand_file = 'icons/obj/anomaly/anomaly_inhand_l.dmi'
+	righthand_file = 'icons/obj/anomaly/anomaly_inhand_r.dmi'
+	icon_state = "scanner_item"
+	item_state = "scanner"
 	gender = MALE
 	origin_tech = "programming=3;magnets=1"
 	/// Title of scan window.

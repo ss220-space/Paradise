@@ -301,12 +301,12 @@
 
 /obj/item/projectile/beam/anomaly/stabilizer
 	name = "стабилизирующий луч"
-	icon_state = "blue_laser"
+	icon_state = "bluelaser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/item/projectile/beam/anomaly/destabilizer
 	name = "дестабилизирующий луч"
-	icon_state = "red_laser"
+	icon_state = "laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = LIGHT_COLOR_RED

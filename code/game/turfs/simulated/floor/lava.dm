@@ -46,6 +46,7 @@
 		START_PROCESSING(SSprocessing, src)
 
 /turf/simulated/floor/lava/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	if(burn_stuff(AM))
 		START_PROCESSING(SSprocessing, src)
 

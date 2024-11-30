@@ -734,6 +734,7 @@
 	if(density && AM.no_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 
 /**
  * Called when living mob clicks on this atom with pulled movable.
@@ -1728,3 +1729,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  */
 /atom/proc/relaydrive(mob/living/user, direction)
 	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)
+
+/atom/proc/get_external_loc()
+	var/atom/ext_loc = src
+	while(!isturf(ext_loc.loc))
+		ext_loc = ext_loc.loc
+
+	return ext_loc

@@ -113,6 +113,10 @@
 	if(!core)
 		return
 
+	if(prob(core.get_strenght() / 4))
+		syringes.Add(new /obj/item/reagent_containers/syringe)
+		process_chamber()
+
 	var/synth_volume = min(synth_speed, ready_reagents.reagents.maximum_volume - ready_reagents.reagents.total_volume)
 	for(var/id in synth_reagents)
 		ready_reagents.reagents.add_reagent(id, synth_reagents[id] * synth_volume)
@@ -157,6 +161,9 @@
 	ready_reagents.reagents.trans_to(user, ready_reagents.reagents.total_volume)
 	user.bleed(user.blood_volume)
 	return OXYLOSS | BRUTELOSS
+
+/obj/item/gun/syringe/rapidsyringe/experimental/attack_self(mob/living/user)
+	return
 
 /datum/crafting_recipe/rapidsyringe_experimental
 	name = "Experemintal syringe gun"
