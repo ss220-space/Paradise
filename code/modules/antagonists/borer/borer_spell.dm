@@ -112,17 +112,11 @@
 	action_icon_state = "god_transmit"
 	need_active_overlay = TRUE
 
-	var/evo_cost = 0.3
-
 /obj/effect/proc_holder/spell/borer_force_say/create_new_targeting()
 	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/borer_force_say/can_cast(mob/living/simple_animal/borer/user, charge_check = TRUE, show_message = FALSE)
 	if (user.stat || user.host?.stat)
-		return FALSE
-
-	if(user.antag_datum.evo_points < evo_cost)
-		to_chat(user, "Вам требуется еще [evo_cost - user.antag_datum.evo_points] очков эволюции для подчинения голосовых связок хозяина.")
 		return FALSE
 
 	. = ..()
@@ -133,10 +127,8 @@
 	if(!force_say_content)
 		return
 
-	if(user.controlling || user.stat || user.host?.stat || user.antag_datum.evo_points < evo_cost) // we really need that double check
+	if(user.controlling || user.stat || user.host?.stat) // we really need that double check
 		return
 
 	user.host.say(force_say_content)
-	user.antag_datum.evo_points -= evo_cost
-	
 	add_attack_logs(user, user.host, "Forcesaid: [force_say_content]")
