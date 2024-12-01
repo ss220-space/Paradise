@@ -52,6 +52,10 @@
 
 #define isitem(A) (istype(A, /obj/item))
 
+#define isIdCard(A) (istype(A, /obj/item/card/id))
+
+#define isWallet(A) (istype(A, /obj/item/storage/wallet))
+
 #define isstack(A) (istype(A, /obj/item/stack))
 
 #define isstorage(A) (istype(A, /obj/item/storage))

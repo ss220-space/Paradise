@@ -138,7 +138,7 @@
 
 	if(italics)
 		message = "<i>[message]</i>"
-
+	speaker_name = adv_voice.TryRecollectVoice(speaker)
 	var/track = null
 	if(isobserver(src))
 		if(speaker_name != speaker.real_name && speaker.real_name)
@@ -245,17 +245,15 @@
 			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, effect, null, null, 'sound/effects/radio_chatter.ogg')
 
 /mob/proc/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
-	var/speaker_name = "unknown"
-	if(speaker)
-		speaker_name = speaker.name
-
-	if(vname)
-		speaker_name = vname
-
+	var/speaker_name = "Неизвестный"
 	if(hard_to_hear)
-		speaker_name = "unknown"
+		return speaker_name
+	if(!(speaker))
+		return vname
+	if(!ishuman(speaker))
+		return speaker.adv_voice.voice_name
 
-	return speaker_name
+	return adv_voice.TryRecollectVoice(speaker)
 
 /mob/proc/handle_track(message, verb = "says", mob/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
 	return

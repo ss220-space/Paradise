@@ -11,8 +11,9 @@
 
 	life_tick++
 
-	voice = GetVoice()
-	tts_seed = GetTTSVoice()
+	//Теперь это этажом ниже
+	//voice = GetVoice()
+	//tts_seed = GetTTSVoice()
 
 	if(.) //not dead
 

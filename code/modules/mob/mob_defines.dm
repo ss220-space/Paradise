@@ -154,7 +154,9 @@
 
 	//see: setup.dm for list of mutations
 
+	var/liberated_name = "Неизвестный" //Долой гнет бульена!!
 	var/voice_name = "неизвестный голос"
+	var/datum/voice_model/adv_voice = null
 
 	var/list/faction = list("neutral") //Used for checking whether hostile simple animals will attack you, possibly more stuff later
 

@@ -59,6 +59,9 @@
 /mob/living/silicon/med_hud_set_status()
 	return diag_hud_set_status() //we use a different hud
 
+/mob/living/silicon/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
+	return speaker.adv_voice.GetManifestKnowVoice()
+
 /mob/living/silicon/Destroy()
 	UnregisterSignal(SSalarm, list(
 		COMSIG_TRIGGERED_ALARM,

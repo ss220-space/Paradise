@@ -146,11 +146,13 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		var/id = num2hex(GLOB.record_id_num++, 6)
 
 
+		//При создании рекордсов еще берется и голос, боже помилуй чтобы это ничего не сломало
 		//General Record
 		var/datum/data/record/G = new()
 		G.fields["id"]			= id
 		G.fields["name"]		= H.real_name
 		G.fields["real_rank"]	= H.mind.assigned_role
+		G.fields["voice"] 		= H.GetVoice()
 		G.fields["rank"]		= assignment
 		G.fields["age"]			= H.age
 		G.fields["fingerprint"]	= md5(H.dna.uni_identity)
