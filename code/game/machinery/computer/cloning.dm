@@ -186,7 +186,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "CloningConsole", "Cloning Console")
+		ui = new(user, src, "CloningConsole", "Консоль клонирования")
 		ui.open()
 
 /obj/machinery/computer/cloning/ui_assets(mob/user)
@@ -325,7 +325,7 @@
 					ui_modal_message(src, action, "", null, payload)
 			else
 				active_record = null
-				set_temp(emagged ? "Ошибка: добыча не обнаружена." : "Ошибка: запись не обнаружена.", "danger")
+				set_temp(emagged ? "Ошибка: жертва не обнаружена." : "Ошибка: запись не обнаружена.", "danger")
 		if("del_rec")
 			if(!active_record)
 				return
@@ -339,7 +339,7 @@
 						set_temp("Ошибка: не удалось считать данные с дискеты.", "danger")
 						return
 					else if(isnull(active_record))
-						set_temp(emagged ? "Ошибка: активная добыча не обнаружена." : "Ошибка: активная запись не обнаружена", "danger")
+						set_temp(emagged ? "Ошибка: жертва не обнаружена." : "Ошибка: запись не обнаружена", "danger")
 						menu = MENU_MAIN
 						return
 
@@ -406,7 +406,7 @@
 					else
 						cloneresult = pod.growclone(C)
 						if(cloneresult)
-							set_temp(emagged ? "Запуск процеса клонирования... Субъект успешно уничтожен!" : "Запуск процеса клонирования...", "success")
+							set_temp(emagged ? "Запуск процеса уничтожения... Субъект успешно уничтожен!" : "Запуск процеса клонирования...", "success")
 							records.Remove(C)
 							qdel(C)
 							menu = MENU_MAIN
@@ -464,15 +464,15 @@
 		SStgui.update_uis(src)
 		return
 	if(subject.suiciding)
-		set_scan_temp(emagged ? "Добыча ушла в лучший мир. Да будет так." : "Субъект совершил самоубийство и не подлежит сканированию.", emagged ? "good" : "bad")
+		set_scan_temp(emagged ? "Жертва ушла в лучший мир. Да будет так." : "Субъект совершил самоубийство и не подлежит сканированию.", emagged ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
 	if((!subject.ckey) || (!subject.client))
-		set_scan_temp(emagged ? "Мозг добычи в идеальном состоянии. Дальнейшие попытки сканирования не требуются." : "Мозг субъекта не подаёт сигналов. Дальнейшии попытки сканирования могут быть успешны.", emagged ? "good" : "bad")
+		set_scan_temp(emagged ? "Мозг жертвы в идеальном состоянии. Дальнейшие попытки сканирования не требуются." : "Мозг субъекта не подаёт сигналов. Дальнейшии попытки сканирования могут быть успешны.", emagged ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
 	if(HAS_TRAIT(subject, TRAIT_NO_CLONE) && scanner.scan_level < 2)
-		set_scan_temp(emagged ? "Тело добычи слишком идеально. Поплачь об этом." : "Субъект подвергся генетическим мутациям, не совместимым со сканированием.", emagged ? "good" : "bad")
+		set_scan_temp(emagged ? "Тело жертвы слишком идеально. Поплачь об этом." : "Субъект подвергся генетическим мутациям, не совместимым со сканированием.", emagged ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
 	if(!isnull(find_record(subject.ckey)))
@@ -514,7 +514,7 @@
 		R.mind = "\ref[subject.mind]"
 
 	src.records += R
-	set_scan_temp(emagged ? "Добыча успешно отсканирована. [extra_info]" : "Субъект успешно отсканирован. [extra_info]", "good")
+	set_scan_temp(emagged ? "Жертва успешно отсканирована. [extra_info]" : "Субъект успешно отсканирован. [extra_info]", "good")
 	SStgui.update_uis(src)
 
 //Find a specific record by key.

@@ -152,7 +152,7 @@ const OperatingComputerPatient = (props, context) => {
                   </ProgressBar>
                 </LabeledList.Item>
                 <LabeledList.Item label="Пульс">
-                  ЧСС - {occupant.pulse}
+                  {occupant.pulse} уд/мин
                 </LabeledList.Item>
               </>
             )}

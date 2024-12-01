@@ -52,10 +52,10 @@ const viewRecordModalBodyOverride = (modal, context) => {
             <Box color="bad">Неизвестно</Box>
           )}
         </LabeledList.Item>
-        <LabeledList.Item label="UI" className="LabeledList__breakContents">
+        <LabeledList.Item label="УИ" className="LabeledList__breakContents">
           {unidentity}
         </LabeledList.Item>
-        <LabeledList.Item label="SE" className="LabeledList__breakContents">
+        <LabeledList.Item label="СФ" className="LabeledList__breakContents">
           {strucenzymes}
         </LabeledList.Item>
         <LabeledList.Item label="Disk">
@@ -72,7 +72,7 @@ const viewRecordModalBodyOverride = (modal, context) => {
           <Button
             disabled={!data.disk}
             icon="arrow-circle-up"
-            content="Экспортировать UI"
+            content="Экспортировать УИ"
             onClick={() =>
               act('disk', {
                 option: 'save',
@@ -83,7 +83,7 @@ const viewRecordModalBodyOverride = (modal, context) => {
           <Button
             disabled={!data.disk}
             icon="arrow-circle-up"
-            content="Экспортировать UI и UE"
+            content="Экспортировать УИ и УФ"
             onClick={() =>
               act('disk', {
                 option: 'save',
@@ -94,7 +94,7 @@ const viewRecordModalBodyOverride = (modal, context) => {
           <Button
             disabled={!data.disk}
             icon="arrow-circle-up"
-            content="Экспортировать SE"
+            content="Экспортировать СФ"
             onClick={() =>
               act('disk', {
                 option: 'save',
@@ -204,7 +204,7 @@ const CloningConsoleMain = (props, context) => {
   return (
     <>
       <Section
-        title="Scanner"
+        title="Сканер"
         level="2"
         buttons={
           <>
@@ -437,7 +437,9 @@ const CloningConsoleStatus = (props, context) => {
         </LabeledList.Item>
         <LabeledList.Item label="Капсулы">
           {numberofpods ? (
-            <Box color="good">Количество подключённых капсул - {numberofpods}</Box>
+            <Box color="good">
+              Количество подключённых капсул - {numberofpods}
+            </Box>
           ) : (
             <Box color="bad">Не подключены</Box>
           )}

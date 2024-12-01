@@ -44,7 +44,7 @@
 		else
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
-		. += span_info("Наведите курсор на пациента, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить пациента внутрь.")
+		. += span_info("Наведите курсор на субъект, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить субъект внутрь.")
 
 
 /obj/machinery/bodyscanner/update_icon_state()
@@ -77,17 +77,17 @@
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !ishuman(grabbed_thing))
 		return .
 	if(panel_open)
-		balloon_alert(grabber, "сначала закройте техпанель")
+		balloon_alert(grabber, "техпанель открыта!")
 		return .
 	var/mob/living/carbon/human/target = grabbed_thing
 	if(occupant)
 		balloon_alert(grabber, "внутри кто-то есть!")
 		return .
 	if(target.abiotic())
-		balloon_alert(grabber, "руки пациента заняты")
+		balloon_alert(grabber, "руки субъекта заняты!")
 		return .
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(grabbed_thing, "нём", "ней", "нём", "них")]  сидит слайм."))
+		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return .
 
 	target.forceMove(src)
@@ -115,7 +115,7 @@
 		balloon_alert(user, "внутри кто-то есть!")
 		return
 	if(panel_open)
-		balloon_alert(user, "сначала закройте техпанель")
+		balloon_alert(user, "техпанель открыта!")
 		return
 
 	setDir(turn(dir, -90))
@@ -133,7 +133,7 @@
 	if(!ishuman(user) && !isrobot(user))
 		return FALSE //not a borg or human
 	if(panel_open)
-		balloon_alert(user, "сначала закройте техпанель")
+		balloon_alert(user, "техпанель открыта!")
 		return TRUE //panel open
 	if(occupant)
 		balloon_alert(user, "внутри кто-то есть!")
@@ -141,16 +141,16 @@
 	if(H.buckled)
 		return FALSE
 	if(H.abiotic())
-		balloon_alert(user, "руки пациента заняты")
+		balloon_alert(user, "руки субъекта заняты!")
 		return TRUE
 	if(H.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм."))
+		to_chat(user, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм!"))
 		return TRUE
 
 	if(H == user)
-		visible_message("[user] залезает в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] залеза[pluralize_ru(user.gender,"ет","ют")] в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[user] укладывает [H] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] укладыва[pluralize_ru(user.gender,"ет","ют")] [H] в [declent_ru(ACCUSATIVE)].")
 
 	add_fingerprint(user)
 	H.forceMove(src)
@@ -178,7 +178,7 @@
 		return // you cant reach that
 
 	if(panel_open)
-		balloon_alert(user, "сначала закройте техпанель")
+		balloon_alert(user, "техпанель открыта!")
 		return
 
 	add_fingerprint(user)
@@ -202,7 +202,7 @@
 /obj/machinery/bodyscanner/verb/eject()
 	set src in oview(1)
 	set category = "Object"
-	set name = "Освободить медицинский сканер"
+	set name = "Извлечь пациента"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -255,7 +255,7 @@
 /obj/machinery/bodyscanner/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "BodyScanner", "Body Scanner")
+		ui = new(user, src, "BodyScanner", "Медицинский сканер")
 		ui.open()
 
 /obj/machinery/bodyscanner/ui_data(mob/user)
@@ -438,7 +438,7 @@
 			if(1)
 				t1 = "без сознания"
 			else
-				t1 = "*[genderize_ru(occupant.gender, "мёртв", "мертва", "мертво", "мертвы")]*"
+				t1 = "[genderize_ru(occupant.gender, "мёртв", "мертва", "мертво", "мертвы")]"
 		dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tПроцентная оценка состояния: [occupant.health]%, [t1]</font><br>"
 
 		var/found_disease = FALSE
@@ -453,7 +453,7 @@
 
 		var/extra_font = null
 		extra_font = (occupant.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Физ. повреждения: [occupant.getBruteLoss()]</font><br>"
+		dat += "[extra_font]\t-Физические повреждения: [occupant.getBruteLoss()]</font><br>"
 
 		extra_font = (occupant.getOxyLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\t-Удушение: [occupant.getOxyLoss()]</font><br>"

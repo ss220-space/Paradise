@@ -80,7 +80,7 @@ const CryoContent = (props, context) => {
               <LabeledList.Item label="Пациент">
                 {occupant.name || 'Имя неизвестно'}
               </LabeledList.Item>
-              <LabeledList.Item label="Здоровье">
+              <LabeledList.Item label="Оценка здоровья">
                 <ProgressBar
                   min={occupant.health}
                   max={occupant.maxHealth}
@@ -135,7 +135,7 @@ const CryoContent = (props, context) => {
               onClick={() => act('ejectBeaker')}
               disabled={!isBeakerLoaded}
             >
-              Извлечь ёмкость
+              Извлечь ёмкость.
             </Button>
           }
         >

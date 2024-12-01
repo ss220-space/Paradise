@@ -168,7 +168,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	return ..()
 
 /obj/item/disk/data/demo
-	name = "data disk - 'God Emperor of Mankind'"
+	name = "data disk - 'Император Человечества'"
 	read_only = TRUE
 
 /obj/item/disk/data/demo/New()
@@ -177,7 +177,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	buf.types=DNA2_BUF_UE|DNA2_BUF_UI
 	//data = "066000033000000000AF00330660FF4DB002690"
 	//data = "0C80C80C80C80C80C8000000000000161FBDDEF" - Farmer Jeff
-	buf.dna.real_name="God Emperor of Mankind"
+	buf.dna.real_name="Император Человечества"
 	buf.dna.unique_enzymes = md5(buf.dna.real_name)
 	buf.dna.UI=list(0x066,0x000,0x033,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0xAF0,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x033,0x066,0x0FF,0x4DB,0x002,0x690,0x000,0x000,0x000,0x328,0x045,0x5FC,0x053,0x035,0x035,0x035)
 	//buf.dna.UI=list(0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x000,0x000,0x000,0x000,0x161,0xFBD,0xDEF) // Farmer Jeff
@@ -188,7 +188,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	buf.dna.UpdateUI()
 
 /obj/item/disk/data/monkey
-	name = "data disk - 'Mr. Muggles'"
+	name = "data disk - 'Мистер Магглс'"
 	read_only = 1
 
 /obj/item/disk/data/monkey/New()
@@ -250,7 +250,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, 1)
 	mess = TRUE
 	update_icon()
-	connected_message("<font face=\"REBUFFED\" color=#600A0A>Если ты снова попытаешься украсть у меня, то я приду за тобой лично.</font>")
+	connected_message("<font face=\"REBUFFED\" color=#600A0A>Если ты снова попытаешься украсть у Меня, то Я приду за тобой лично.</font>")
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(datum/dna2/record/R)
