@@ -80,7 +80,7 @@
 
 /obj/effect/anomaly/energetic/do_move(dir)
 	var/turf/target = get_step(src, dir)
-	if(target.Enter(src))
+	if(target && target.Enter(src))
 		jump(target)
 
 	return TRUE

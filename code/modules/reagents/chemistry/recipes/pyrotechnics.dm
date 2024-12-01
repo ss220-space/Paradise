@@ -406,7 +406,7 @@
 
 /atom/proc/do_shock_ex(radius, damage = 3.5, animate = FALSE)
 	var/turf/epicenter = get_turf(src)
-	for(var/mob/living/L in view(radius))
+	for(var/mob/living/L in view(radius, src))
 		L.Beam(epicenter, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
 		L.electrocute_act(damage, "взрыва электричества")
 

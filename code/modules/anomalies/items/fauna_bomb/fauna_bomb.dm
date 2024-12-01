@@ -183,7 +183,7 @@
 	datas["[scan_num]"] = data
 	data.scan_num = scan_num
 	scan_num++
-	user.balloon_alert("особь просканированна")
+	user.balloon_alert(user, "особь просканированна")
 
 /obj/item/fauna_bomb/attack_self(mob/user)
 	ui_interact(user)
@@ -215,7 +215,7 @@
 			"dmg_high" = scan.melee_damage_upper,
 			"dmg_obj" = scan.obj_damage,
 			"icon" = icon2base64(scan.icon),
-			"index" = scan_num,
+			"index" = scan.scan_num,
 		))
 
 	data["scans"] = scans

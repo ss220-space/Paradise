@@ -34,7 +34,7 @@ export const AnomalyGenerator = (props, context) => {
 
   if (generating) {
     return (
-      <Window width={710} height={500} title="Генератор аномалий">
+      <Window width={710} height={250} title="Генератор аномалий">
         <Window.Content>
           <LabeledList>
             <LabeledList.Item label="Источники энергии">
