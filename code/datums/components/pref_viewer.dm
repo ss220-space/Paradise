@@ -26,10 +26,11 @@
     if(!istype(target) || !target.client)
         return
 
-    for(var/datum/preference_toggle/pref as anything in target.client.prefs.toggled_preferences)
+    INVOKE_ASYNC(src, PROC_REF(modify_examine), target, result)
+
+/datum/component/pref_viewer/proc/modify_examine(mob/target, list/result)
+     for(var/datum/preference_toggle/pref as anything in target.client.prefs.toggled_preferences)
         if(!LAZYIN(preferences_to_show, pref))
             continue
 
         LAZYADD(result, pref::examine_text)
-
-    return
