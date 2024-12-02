@@ -25,21 +25,31 @@
 	var/blackbox_message
 	/// Rights required to be able to use this pref option
 	var/rights_required
+	/// That text will be shown to pref-viewer component owner.
+	var/examine_text
 
 /datum/preference_toggle/proc/set_toggles(client/user)
 	var/datum/preferences/our_prefs = user.prefs
+	var/result
+
 	switch(preftoggle_toggle)
 		if(PREFTOGGLE_SPECIAL)
 			CRASH("[src] did not have it's set_toggles overriden even though it was a special toggle, please use the special_toggle path!")
 		if(PREFTOGGLE_TOGGLE1)
-			our_prefs.toggles ^= preftoggle_bitflag
+			result = our_prefs.toggles ^= preftoggle_bitflag
 			to_chat(user, "<span class='notice'>[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]</span>")
 		if(PREFTOGGLE_TOGGLE2)
-			our_prefs.toggles2 ^= preftoggle_bitflag
+			result = our_prefs.toggles2 ^= preftoggle_bitflag
 			to_chat(user, "<span class='notice'>[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]</span>")
 		if(PREFTOGGLE_SOUND)
-			our_prefs.sound ^= preftoggle_bitflag
+			result = our_prefs.sound ^= preftoggle_bitflag
 			to_chat(user, "<span class='notice'>[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+
+	if(result)
+		LAZYADD(our_prefs.toggled_preferences, src)
+
+	else
+		LAZYREMOVE(our_prefs.toggled_preferences, src)
 
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, blackbox_message)
 	our_prefs.save_preferences(user)
@@ -600,4 +610,5 @@
     enable_message = "Другие игроки теперь имеют право выводить вас из раунда без цели."
     disable_message = "Другие игроки больше не имеют права выводить вас из раунда без цели."
     blackbox_message = "Переключение разрешения выводить игрока из раунда"
+	examine_text = "\n<div class='examine'>[span_info("Вы можете вывести этого игрока из игры не имея соответствующей цели.")]</div>"
 

@@ -106,6 +106,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/clientfps = 0
 	var/atklog = ATKLOG_ALL
 	var/fuid							// forum userid
+	/// Contains typepathes of activated prefs.
+	var/list/toggled_preferences = list()
 
 	//character preferences
 	var/real_name						//our character's name
