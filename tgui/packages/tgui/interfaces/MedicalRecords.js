@@ -545,10 +545,10 @@ const MedicalRecordsMedbots = (_properties, context) => {
       <Section fill scrollable>
         <Table className="MedicalRecords__list">
           <Table.Row bold>
-            <Table.Cell>Name</Table.Cell>
-            <Table.Cell>Area</Table.Cell>
-            <Table.Cell>Status</Table.Cell>
-            <Table.Cell>Chemicals</Table.Cell>
+            <Table.Cell>Название</Table.Cell>
+            <Table.Cell>Локация</Table.Cell>
+            <Table.Cell>Состояние</Table.Cell>
+            <Table.Cell>Химикаты</Table.Cell>
           </Table.Row>
           {medbots.map((medbot) => (
             <Table.Row
