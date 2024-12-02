@@ -184,6 +184,14 @@
 	if(!istype(I))
 		return
 
+	if(tier == 3 && istype(I, /obj/item/anomaly_upgrader))
+		visible_message(span_danger("[I.declent_ru(NOMINATIVE)] попадает в [declent_ru(ACCUSATIVE)], прикрепляется к ней и активируется!"))
+		var/type = text2path("/obj/effect/anomaly/[anomaly_type]/tier4")
+		new type(loc, rand(20, 50), clamp(stability - rand(10, 20), 0, 100))
+		qdel(I)
+		qdel(src)
+		return FALSE
+
 	if(iscore(I))
 		var/obj/item/assembly/signaler/core/core = I
 		if(core.born_moment + 1 SECONDS >= world.time)
@@ -293,3 +301,6 @@
 
 /obj/effect/anomaly/narsie_act()
 	collapse()
+
+/obj/effect/anomaly/ex_act(severity)
+	return

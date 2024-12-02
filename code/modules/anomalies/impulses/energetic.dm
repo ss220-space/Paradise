@@ -47,6 +47,11 @@
 	jumps_low = 3
 	jumps_high = 11
 
+/datum/anomaly_impulse/move/energ_fastmove/tier4
+	period_low = 10 SECONDS
+	period_high = 15 SECONDS
+	jumps_low = 10
+	jumps_high = 20
 
 /datum/anomaly_impulse/energ_shock_ex
 	name = "Удар током"
@@ -89,6 +94,14 @@
 	shock_damage_low = 30
 	shock_damage_high = 70
 
+/datum/anomaly_impulse/energ_shock_ex/tier4
+	period_low = 2 SECONDS
+	period_high = 5 SECONDS
+	effect_range_low = 5
+	effect_range_high = 13
+	shock_damage_low = 120
+	shock_damage_high = 150
+
 
 /datum/anomaly_impulse/move/machinery_jump
 	name = "Перемещение по машинерии"
@@ -122,3 +135,27 @@
 	period_high = 15 SECONDS
 	damage_low = 60
 	damage_high = 80
+
+/datum/anomaly_impulse/move/machinery_jump/tier4
+	period_low = 3 SECONDS
+	period_high = 5 SECONDS
+	damage_low = 300
+	damage_high = 500
+
+/// Tier 4 only
+
+/datum/anomaly_impulse/move/machinery_destroy
+	name = "Репродукция"
+	desc = "Аномалия собирает большой объем энергии в случайной машинерии неподалеку. \
+			Машинерия разрушается и из нее появляется новая малая энергетическая аномалия."
+	period_low = 5 SECONDS
+	period_high = 15 SECONDS
+
+/datum/anomaly_impulse/move/machinery_destroy/impulse()
+	. = ..()
+	for(var/obj/machinery/M in range(10, owner))
+		explosion(get_turf(M), -1, 1, 2, cause = "machinery_destroy impulse")
+		new /obj/effect/anomaly/energetic/tier1(get_turf(M))
+		qdel(M)
+		if(prob(30))
+			break

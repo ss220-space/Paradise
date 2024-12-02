@@ -44,12 +44,21 @@
 /obj/item/assembly/signaler/core/attack_self()
 	return
 
+/proc/iscoret1(obj/item/assembly/signaler/core/A)
+	return istype(A) && A.tier == 1
+
+/proc/iscoret2(obj/item/assembly/signaler/core/A)
+	return istype(A) && A.tier == 2
+
+/proc/iscoret3(obj/item/assembly/signaler/core/A)
+	return istype(A) && A.tier == 3
+
 /*
 100 of tier 1 == 50 of tier 2 == 25 of tier 3
 100 of tier 3 == 200 of tier 2 == 400 of tier 1
 */
 /obj/item/assembly/signaler/core/proc/get_strenght()
-	return charge * (1 << (tier - 1))
+	return round(charge * (1 << (tier - 1)) * (tier != 4 ? 1 : 1.5))
 
 // ============================ Tier 1 ===================================
 /obj/item/assembly/signaler/core/tier1
@@ -67,7 +76,7 @@
 	origin_tech = "materials=3"
 	tier = 1
 
-/obj/item/assembly/signaler/core/tier1/atmospheric
+/obj/item/assembly/signaler/core/atmospheric/tier1
 	name = "ядро малой атмосферной аномалии"
 	ru_names = list(NOMINATIVE = "ядро малой атмосферной аномалии", \
 					GENITIVE = "ядра малой атмосферной аномалии", \
@@ -79,8 +88,9 @@
 	icon_state = "core_atmos_t1"
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier1
 	origin_tech = "plasmatech=5"
+	tier = 1
 
-/obj/item/assembly/signaler/core/tier1/gravitational
+/obj/item/assembly/signaler/core/gravitational/tier1
 	name = "ядро малой гравитационной аномалии"
 	ru_names = list(NOMINATIVE = "ядро малой гравитационной аномалии", \
 					GENITIVE = "ядра малой гравитационной аномалии", \
@@ -92,8 +102,9 @@
 	icon_state = "core_grav_t1"
 	anomaly_type = /obj/effect/anomaly/gravitational/tier1
 	origin_tech = "magnets=5"
+	tier = 1
 
-/obj/item/assembly/signaler/core/tier1/energetic
+/obj/item/assembly/signaler/core/energetic/tier1
 	name = "ядро малой ​​энергетической аномалии"
 	ru_names = list(NOMINATIVE = "ядро малой ​​энергетической аномалии", \
 					GENITIVE = "ядра малой ​​энергетической аномалии", \
@@ -105,8 +116,9 @@
 	icon_state = "core_energ_t1"
 	anomaly_type = /obj/effect/anomaly/energetic/tier1
 	origin_tech = "powerstorage=5"
+	tier = 1
 
-/obj/item/assembly/signaler/core/tier1/bluespace
+/obj/item/assembly/signaler/core/bluespace/tier1
 	name = "ядро малой ​​блюспейс аномалии"
 	ru_names = list(NOMINATIVE = "ядро малой ​​блюспейс аномалии", \
 					GENITIVE = "ядра малой ​​блюспейс аномалии", \
@@ -118,8 +130,9 @@
 	icon_state = "core_bluespace_t1"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier1
 	origin_tech = "bluespace=5"
+	tier = 1
 
-/obj/item/assembly/signaler/core/tier1/vortex
+/obj/item/assembly/signaler/core/vortex/tier1
 	name = "ядро малой вихревой аномалии"
 	ru_names = list(NOMINATIVE = "ядро малой вихревой аномалии", \
 					GENITIVE = "ядра малой вихревой аномалии", \
@@ -131,6 +144,7 @@
 	icon_state = "core_vortex_t1"
 	anomaly_type = /obj/effect/anomaly/vortex/tier1
 	origin_tech = "engineering=5"
+	tier = 1
 
 
 // ============================ Tier 2 ===================================
@@ -149,40 +163,45 @@
 	origin_tech = "materials=5" // not clonable by experimentor
 	tier = 2
 
-/obj/item/assembly/signaler/core/tier2/atmospheric
+/obj/item/assembly/signaler/core/atmospheric/tier2
 	name = "\improper pyroclastic anomaly core"
 	desc = "Стабилизированное ядро ​атмосферной аномалии. На ощупь теплое. Вероятно, оно пригодится для исследований."
 	icon_state = "core_atmos_t2"
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier2
 	origin_tech = "plasmatech=7"
+	tier = 2
 
-/obj/item/assembly/signaler/core/tier2/gravitational
+/obj/item/assembly/signaler/core/gravitational/tier2
 	name = "\improper gravitational anomaly core"
 	desc = "Стабилизированное ядро ​​гравитационной аномалии. Гораздо тяжелее, чем выглядит. Вероятно, оно пригодится для исследований."
 	icon_state = "core_grav_t2"
 	anomaly_type = /obj/effect/anomaly/gravitational/tier2
 	origin_tech = "magnets=7"
+	tier = 2
 
-/obj/item/assembly/signaler/core/tier2/energetic
+/obj/item/assembly/signaler/core/energetic/tier2
 	name = "\improper flux anomaly core"
 	desc = "Стабилизированное ядро ​​энергетической аномалии. Прикосновение к нему вызывает легкое покалывание. Вероятно, оно пригодится для исследований."
 	icon_state = "core_energ_t2"
 	anomaly_type = /obj/effect/anomaly/energetic/tier2
 	origin_tech = "powerstorage=7"
+	tier = 2
 
-/obj/item/assembly/signaler/core/tier2/bluespace
+/obj/item/assembly/signaler/core/bluespace/tier2
 	name = "\improper bluespace anomaly core"
 	desc = "Стабилизированное ядро ​​блюспейс аномалии. Оно то появляется, то исчезает из виду. Вероятно, оно пригодится для исследований."
 	icon_state = "core_bluespace_t2"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier2
 	origin_tech = "bluespace=7"
+	tier = 2
 
-/obj/item/assembly/signaler/core/tier2/vortex
+/obj/item/assembly/signaler/core/vortex/tier2
 	name = "\improper vortex anomaly core"
 	desc = "Стабилизированное ядро ​​вихревой аномалии. Оно слегка трясется, как будто на него действует какая-то невидимая сила. Вероятно, оно пригодится для исследований."
 	icon_state = "core_vortex_t2"
 	anomaly_type = /obj/effect/anomaly/vortex/tier2
 	origin_tech = "engineering=7"
+	tier = 2
 
 
 // ============================ Tier 3 ===================================
@@ -201,7 +220,7 @@
 	origin_tech = "materials=7" // Sorry, not clonable by experimentor
 	tier = 3
 
-/obj/item/assembly/signaler/core/tier3/atmospheric
+/obj/item/assembly/signaler/core/atmospheric/tier3
 	name = "ядро большой атмосферной аномалии"
 	ru_names = list(NOMINATIVE = "ядро большой атмосферной аномалии", \
 					GENITIVE = "ядра большой атмосферной аномалии", \
@@ -213,14 +232,15 @@
 	icon_state = "core_atmos_t3"
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier3
 	origin_tech = "plasmatech=8"
+	tier = 3
 
-/obj/item/assembly/signaler/core/tier3/atmospheric/suicide_act(mob/living/user)
+/obj/item/assembly/signaler/core/atmospheric/tier3/suicide_act(mob/living/user)
 	..()
 	user.adjust_fire_stacks(30)
 	user.IgniteMob()
 	return FIRELOSS
 
-/obj/item/assembly/signaler/core/tier3/atmospheric/forceMove(atom/destination)
+/obj/item/assembly/signaler/core/atmospheric/tier3/forceMove(atom/destination)
 	if(ishuman(destination))
 		START_PROCESSING(SSobj, src)
 		if(prob(1))
@@ -232,7 +252,7 @@
 
 	return ..()
 
-/obj/item/assembly/signaler/core/tier3/atmospheric/process()
+/obj/item/assembly/signaler/core/atmospheric/tier3/process()
 	var/mob/living/carbon/human/H = loc
 	if(!istype(H))
 		return
@@ -251,7 +271,7 @@
 		H.adjust_bodytemperature(-get_strenght())
 
 
-/obj/item/assembly/signaler/core/tier3/gravitational
+/obj/item/assembly/signaler/core/gravitational/tier3
 	name = "ядро большой гравитационной аномалии"
 	ru_names = list(NOMINATIVE = "ядро большой гравитационной аномалии", \
 					GENITIVE = "ядра большой гравитационной аномалии", \
@@ -264,8 +284,9 @@
 	anomaly_type = /obj/effect/anomaly/gravitational/tier3
 	origin_tech = "magnets=8"
 	var/atom/old_owner = null
+	tier = 3
 
-/obj/item/assembly/signaler/core/tier3/gravitational/suicide_act(mob/user)
+/obj/item/assembly/signaler/core/gravitational/tier3/suicide_act(mob/user)
 	..()
 	user.visible_message(span_suicide("[user] взрывается из-за возникшего гравитационного колодца!"), \
 						span_suicide("Вы взрываетесь из-за возникшего гравитационного колодца!"),
@@ -273,15 +294,15 @@
 	user.gib()
 	return OBLITERATION
 
-/obj/item/assembly/signaler/core/tier3/gravitational/Initialize()
+/obj/item/assembly/signaler/core/gravitational/tier3/Initialize()
 	. = ..()
 	old_owner = get_external_loc()
 	update_gravity(TRUE)
 
 // Mobs will be in reversed gravity. Items will be without gravity.
-/obj/item/assembly/signaler/core/tier3/gravitational/proc/update_gravity(restart = FALSE)
+/obj/item/assembly/signaler/core/gravitational/tier3/proc/update_gravity(restart = FALSE)
 	if(restart)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/assembly/signaler/core/tier3/gravitational, update_gravity)), 5 SECONDS)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/assembly/signaler/core/gravitational/tier3, update_gravity)), 5 SECONDS)
 
 	var/atom/new_owner = get_external_loc()
 	if(old_owner == new_owner && old_owner.get_gravity() == -1)
@@ -296,11 +317,11 @@
 
 	old_owner = new_owner
 
-/obj/item/assembly/signaler/core/tier3/gravitational/forceMove(atom/destination)
+/obj/item/assembly/signaler/core/gravitational/tier3/forceMove(atom/destination)
 	. = ..()
 	update_gravity()
 
-/obj/item/assembly/signaler/core/tier3/energetic
+/obj/item/assembly/signaler/core/energetic/tier3
 	name = "ядро большой ​​энергетической аномалии"
 	ru_names = list(NOMINATIVE = "ядро большой ​​энергетической аномалии", \
 					GENITIVE = "ядра большой ​​энергетической аномалии", \
@@ -312,17 +333,18 @@
 	icon_state = "core_energ_t3"
 	anomaly_type = /obj/effect/anomaly/energetic/tier3
 	origin_tech = "powerstorage=8"
+	tier = 3
 
-/obj/item/assembly/signaler/core/tier3/energetic/Bump(atom/bumped_atom)
+/obj/item/assembly/signaler/core/energetic/tier3/Bump(atom/bumped_atom)
 	. = ..()
 	try_shock(bumped_atom)
 
-/obj/item/assembly/signaler/core/tier3/energetic/suicide_act(mob/living/user)
+/obj/item/assembly/signaler/core/energetic/tier3/suicide_act(mob/living/user)
 	..()
 	user.electrocute_act(600, "[declent_ru(GENITIVE)]")
 	return FIRELOSS
 
-/obj/item/assembly/signaler/core/tier3/energetic/proc/try_shock(atom/target)
+/obj/item/assembly/signaler/core/energetic/tier3/proc/try_shock(atom/target)
 	if(!iscarbon(target))
 		return FALSE
 
@@ -334,13 +356,13 @@
 
 	return FALSE
 
-/obj/item/assembly/signaler/core/tier3/energetic/forceMove(atom/destination)
+/obj/item/assembly/signaler/core/energetic/tier3/forceMove(atom/destination)
 	if(!try_shock(destination))
 		return ..()
 	else
 		return FALSE
 
-/obj/item/assembly/signaler/core/tier3/bluespace
+/obj/item/assembly/signaler/core/bluespace/tier3
 	name = "ядро большой ​​блюспейс аномалии"
 	ru_names = list(NOMINATIVE = "ядро большой ​​блюспейс аномалии", \
 					GENITIVE = "ядра большой ​​блюспейс аномалии", \
@@ -352,8 +374,9 @@
 	icon_state = "core_bluespace_t3"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier3
 	origin_tech = "bluespace=8"
+	tier = 3
 
-/obj/item/assembly/signaler/core/tier3/bluespace/suicide_act(mob/user)
+/obj/item/assembly/signaler/core/bluespace/tier3/suicide_act(mob/user)
 	..()
 	user.gib()
 	for(var/obj/item/organ/internal/O in range(2))
@@ -362,25 +385,25 @@
 
 	return OBLITERATION
 
-/obj/item/assembly/signaler/core/tier3/bluespace/Bump(atom/bumped_atom)
+/obj/item/assembly/signaler/core/bluespace/tier3/Bump(atom/bumped_atom)
 	. = ..()
 	try_teleport()
 
-/obj/item/assembly/signaler/core/tier3/bluespace/proc/try_teleport()
+/obj/item/assembly/signaler/core/bluespace/tier3/proc/try_teleport()
 	if(prob(80) || !ismob(loc))
 		return FALSE
 
 	visible_message(span_warning("[declent_ru(NOMINATIVE)] внезапно телепортируется!"))
 	return do_teleport(src, src, 2, asoundin = 'sound/effects/phasein.ogg')
 
-/obj/item/assembly/signaler/core/tier3/bluespace/forceMove(atom/destination)
+/obj/item/assembly/signaler/core/bluespace/tier3/forceMove(atom/destination)
 	if(!try_teleport())
 		return ..()
 	else
 		return FALSE
 
 
-/obj/item/assembly/signaler/core/tier3/vortex
+/obj/item/assembly/signaler/core/vortex/tier3
 	name = "ядро большой вихревой аномалии"
 	ru_names = list(NOMINATIVE = "ядро большой вихревой аномалии", \
 					GENITIVE = "ядра большой вихревой аномалии", \
@@ -392,3 +415,91 @@
 	icon_state = "core_vortex_t3"
 	anomaly_type = /obj/effect/anomaly/vortex/tier3
 	origin_tech = "engineering=8"
+	tier = 3
+
+
+// ============================ Tier4 (admin spawn only) ===================================
+/obj/item/assembly/signaler/core/tier3/tier4
+	name = "пустое ядро колоссальной аномалии"
+	ru_names = list(NOMINATIVE = "пустое ядро колоссальной аномалии", \
+					GENITIVE = "пустого ядра колоссальной аномалии", \
+					DATIVE = "пустому ядру колоссальной аномалии", \
+					ACCUSATIVE = "пустое ядро колоссальной аномалии", \
+					INSTRUMENTAL = "пустым ядром колоссальной аномалии", \
+					PREPOSITIONAL = "пустом ядре колоссальной аномалии")
+	desc = "Не похоже что силы аномалии на момент стабилизации хватило, чтобы придать ядру какие-то свойства. \
+			Вероятно, его можно как-то зарядить. У вас стойкое чувство, что его не должно здесь находиться."
+	icon_state = "core_empty_t3"
+	anomaly_type = null
+	origin_tech = "materials=10" // Sorry, not clonable by experimentor
+	tier = 4
+
+/obj/item/assembly/signaler/core/atmospheric/tier3/tier4
+	name = "ядро колоссальной атмосферной аномалии"
+	ru_names = list(NOMINATIVE = "ядро колоссальной атмосферной аномалии", \
+					GENITIVE = "ядра колоссальной атмосферной аномалии", \
+					DATIVE = "ядру колоссальной атмосферной аномалии", \
+					ACCUSATIVE = "ядро колоссальной атмосферной аномалии", \
+					INSTRUMENTAL = "ядром колоссальной атмосферной аномалии", \
+					PREPOSITIONAL = "ядре колоссальной атмосферной аномалии")
+	desc = "Стабилизированное ядро колоссальной атмосферной аномалии. У вас стойкое чувство, что его не должно здесь находиться."
+	icon_state = "core_atmos_t3"
+	anomaly_type = /obj/effect/anomaly/atmospheric/tier4
+	origin_tech = "plasmatech=11"
+	tier = 4
+
+/obj/item/assembly/signaler/core/gravitational/tier3/tier4
+	name = "ядро колоссальной гравитационной аномалии"
+	ru_names = list(NOMINATIVE = "ядро колоссальной гравитационной аномалии", \
+					GENITIVE = "ядра колоссальной гравитационной аномалии", \
+					DATIVE = "ядру колоссальной гравитационной аномалии", \
+					ACCUSATIVE = "ядро колоссальной гравитационной аномалии", \
+					INSTRUMENTAL = "ядром колоссальной гравитационной аномалии", \
+					PREPOSITIONAL = "ядре колоссальной гравитационной аномалии")
+	desc = "Нейтрализованное ядро колоссальной ​​гравитационной аномалии. У вас стойкое чувство, что его не должно здесь находиться."
+	icon_state = "core_grav_t3"
+	anomaly_type = /obj/effect/anomaly/gravitational/tier4
+	origin_tech = "magnets=11"
+	tier = 4
+
+/obj/item/assembly/signaler/core/energetic/tier3/tier4
+	name = "ядро колоссальной ​​энергетической аномалии"
+	ru_names = list(NOMINATIVE = "ядро колоссальной ​​энергетической аномалии", \
+					GENITIVE = "ядра колоссальной ​​энергетической аномалии", \
+					DATIVE = "ядру колоссальной ​​энергетической аномалии", \
+					ACCUSATIVE = "ядро колоссальной ​​энергетической аномалии", \
+					INSTRUMENTAL = "ядром колоссальной ​​энергетической аномалии", \
+					PREPOSITIONAL = "ядре колоссальной ​​энергетической аномалии")
+	desc = "Стабилизированное ядро колоссальной ​​энергетической аномалии. У вас стойкое чувство, что его не должно здесь находиться."
+	icon_state = "core_energ_t3"
+	anomaly_type = /obj/effect/anomaly/energetic/tier4
+	origin_tech = "powerstorage=11"
+	tier = 4
+
+/obj/item/assembly/signaler/core/bluespace/tier3/tier4
+	name = "ядро колоссальной ​​блюспейс аномалии"
+	ru_names = list(NOMINATIVE = "ядро колоссальной ​​блюспейс аномалии", \
+					GENITIVE = "ядра колоссальной ​​блюспейс аномалии", \
+					DATIVE = "ядру колоссальной ​​блюспейс аномалии", \
+					ACCUSATIVE = "ядро колоссальной ​​блюспейс аномалии", \
+					INSTRUMENTAL = "ядром колоссальной ​​блюспейс аномалии", \
+					PREPOSITIONAL = "ядре колоссальной ​​блюспейс аномалии")
+	desc = "Стабилизированное ядро ​большой ​блюспейс аномалии. У вас стойкое чувство, что его не должно здесь находиться."
+	icon_state = "core_bluespace_t3"
+	anomaly_type = /obj/effect/anomaly/bluespace/tier4
+	origin_tech = "bluespace=11"
+	tier = 4
+
+/obj/item/assembly/signaler/core/vortex/tier3/tier4
+	name = "ядро колоссальной вихревой аномалии"
+	ru_names = list(NOMINATIVE = "ядро колоссальной вихревой аномалии", \
+					GENITIVE = "ядра колоссальной вихревой аномалии", \
+					DATIVE = "ядру колоссальной вихревой аномалии", \
+					ACCUSATIVE = "ядро колоссальной вихревой аномалии", \
+					INSTRUMENTAL = "ядром колоссальной вихревой аномалии", \
+					PREPOSITIONAL = "ядре колоссальной вихревой аномалии")
+	desc = "Стабилизированное ядро колоссальной ​​вихревой аномалии. У вас стойкое чувство, что его не должно здесь находиться."
+	icon_state = "core_vortex_t3"
+	anomaly_type = /obj/effect/anomaly/vortex/tier4
+	origin_tech = "engineering=11"
+	tier = 4

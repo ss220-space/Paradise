@@ -320,13 +320,13 @@
 	update_core()
 
 /obj/item/fauna_bomb/preloaded/t1
-	core = new /obj/item/assembly/signaler/core/tier1/atmospheric
+	core = new /obj/item/assembly/signaler/core/atmospheric/tier1
 
 /obj/item/fauna_bomb/preloaded/t2
-	core = new /obj/item/assembly/signaler/core/tier2/atmospheric
+	core = new /obj/item/assembly/signaler/core/atmospheric/tier2
 
 /obj/item/fauna_bomb/preloaded/t3
-	core = new /obj/item/assembly/signaler/core/tier3/atmospheric
+	core = new /obj/item/assembly/signaler/core/atmospheric/tier3
 
 /datum/crafting_recipe/fauna_bomb
 	name = "Fauna bomb"

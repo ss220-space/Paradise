@@ -1578,6 +1578,7 @@
 #include "code\modules\anomalies\anomaly_analyzer.dm"
 #include "code\modules\anomalies\anomaly_generator.dm"
 #include "code\modules\anomalies\anomaly_stabilizer.dm"
+#include "code\modules\anomalies\anomaly_upgrader.dm"
 #include "code\modules\anomalies\cores.dm"
 #include "code\modules\anomalies\gen_datums.dm"
 #include "code\modules\anomalies\old.dm"

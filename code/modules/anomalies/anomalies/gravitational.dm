@@ -12,6 +12,9 @@
 	for(var/i = 1 to max(2, rand(tier, tier * 2)))
 		sleep(2)
 		for(var/atom/movable/A in view(tier * 2, src))
+			if(isobserver(A))
+				continue
+
 			if(!iseffect(A))
 				A.random_throw(tier, tier * 3, 5)
 				A.update_icon()
@@ -50,7 +53,7 @@
 					ACCUSATIVE = "малую гравитационную аномалию", \
 					INSTRUMENTAL = "малой гравитационной аномалией", \
 					PREPOSITIONAL = "малой гравитационной аномалии")
-	core_type = /obj/item/assembly/signaler/core/tier1/gravitational
+	core_type = /obj/item/assembly/signaler/core/gravitational/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/gravitational/tier2
 	tier = 1
 	impulses_types = list(
@@ -70,7 +73,7 @@
 					ACCUSATIVE = "гравитационную аномалию", \
 					INSTRUMENTAL = "гравитационной аномалией", \
 					PREPOSITIONAL = "гравитационной аномалии")
-	core_type = /obj/item/assembly/signaler/core/tier2/gravitational
+	core_type = /obj/item/assembly/signaler/core/gravitational/tier2
 	weaker_anomaly_type = /obj/effect/anomaly/gravitational/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/gravitational/tier3
 	tier = 2
@@ -91,7 +94,7 @@
 					ACCUSATIVE = "большую гравитационную аномалию", \
 					INSTRUMENTAL = "большой гравитационной аномалией", \
 					PREPOSITIONAL = "большой гравитационной аномалии")
-	core_type = /obj/item/assembly/signaler/core/tier3/gravitational
+	core_type = /obj/item/assembly/signaler/core/gravitational/tier3
 	weaker_anomaly_type = /obj/effect/anomaly/gravitational/tier2
 	tier = 3
 	impulses_types = list(
@@ -122,3 +125,64 @@
 		random_gravity_change(M)
 
 	. = ..()
+
+
+//			 TIER 4 ADMIN SPAWN ONLY
+
+/obj/effect/anomaly/gravitational/tier4
+	name = "колоссальная гравитационная аномалия"
+	ru_names = list(NOMINATIVE = "колоссальная гравитационная аномалия", \
+					GENITIVE = "колоссальной гравитационной аномалии", \
+					DATIVE = "колоссальной гравитационной аномалии", \
+					ACCUSATIVE = "колоссальную гравитационную аномалию", \
+					INSTRUMENTAL = "колоссальной гравитационной аномалией", \
+					PREPOSITIONAL = "колоссальной гравитационной аномалии")
+	core_type = /obj/item/assembly/signaler/core/gravitational/tier3/tier4
+	weaker_anomaly_type = /obj/effect/anomaly/gravitational/tier3
+	tier = 4
+	impulses_types = list(
+		/datum/anomaly_impulse/change_grav/tier4,
+		/datum/anomaly_impulse/random_throws/tier4,
+		/datum/anomaly_impulse/grav_fastmove,
+	)
+
+	grav_change_level = 10
+	grav_change_time_low = 60 SECONDS
+	grav_change_time_high = 360 SECONDS
+
+/obj/effect/anomaly/gravitational/tier4/New()
+	. = ..()
+
+	for(var/mob/living/M in GLOB.player_list)
+		if(M.stat)
+			continue
+
+		M.playsound_local(null, 'sound/effects/empulse.ogg', 15, TRUE)
+		to_chat(M, "<span class='gravitational_anomaly'>Вы чувствуете, что кто-то решил поиграть в бога...</span>") // It used in one place.
+
+/obj/effect/anomaly/gravitational/tier4/collapse()
+	for(var/i = 1 to rand(100, 200))
+		var/mob/living/M = pick(GLOB.mob_living_list)
+		random_gravity_change(M)
+
+	. = ..()
+
+/obj/effect/anomaly/gravitational/tier4/do_move(dir)
+	. = ..()
+	for(var/turf/simulated/wall/wall in range(3, src))
+		wall.take_damage(700)
+
+	for(var/obj/structure/struct in range(3, src))
+		struct.take_damage(700)
+
+	for(var/obj/item/I in range(3, src))
+		I.random_throw(tier, tier * 3, 5)
+
+	for(var/mob/living/M in range(3, src))
+		M.random_throw(tier, tier * 3, 5)
+
+/obj/effect/anomaly/gravitational/process()
+	. = ..()
+	for(var/obj/O in oview(max(2, tier * 2 - 1), src))
+		step_towards(O, src)
+		step_towards(O, src)

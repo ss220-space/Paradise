@@ -38,6 +38,12 @@
 	tp_range_low = 2
 	tp_range_high = 6
 
+/datum/anomaly_impulse/move/bs_selftp/tier4
+	period_low = 2 SECONDS
+	period_high = 4 SECONDS
+	tp_range_low = 5
+	tp_range_high = 11
+
 
 /datum/anomaly_impulse/bs_tp_other
 	name = "Всплеск телепортаций"
@@ -125,3 +131,69 @@
 	wormholes_num_high = 10
 	wormholes_time_low = 3 SECONDS
 	wormholes_time_high = 5 SECONDS
+
+/datum/anomaly_impulse/wormholes/tier4
+	period_low = 5 SECONDS
+	period_high = 10 SECONDS
+	effect_range_low = 7
+	effect_range_high = 15
+	wormholes_num_low = 10
+	wormholes_num_high = 20
+	wormholes_time_low = 10 SECONDS
+	wormholes_time_high = 15 SECONDS
+
+
+// Tier 4 only
+
+/datum/anomaly_impulse/bs_tp_other_t4
+	name = "Всплеск телепортаций"
+	desc = "Аномалия мгновенно меняет местоположение окружающих объектов не прикладывая к ним силу в процессе."
+	period_low = 3 SECONDS
+	period_high = 5 SECONDS
+
+/datum/anomaly_impulse/bs_tp_other_t4/impulse()
+	var/list/turf/turfs = list()
+	var/tp_range = scale_by_strenght(5, 10)
+	for(var/turf/simulated/T in range(tp_range, owner))
+		turfs.Add(T)
+
+	// swaps
+	for(var/i = 1; i <= rand(20, 30); ++i)
+		var/turf/T1 = pick(turfs)
+		var/turf/T2 = pick(turfs)
+
+		var/dir1 = T1.dir
+		var/icon_state1 = T1.icon_state
+		var/icon1 = T1.icon
+		T2.dir = dir1
+		T2.icon = icon1
+		T2.icon_state = icon_state1
+
+		var/list/C1 = list()
+		for(var/atom/movable/A in T1)
+			C1.Add(A)
+
+		var/list/C2 = list()
+		for(var/atom/movable/A in T2)
+			C2.Add(A)
+
+		for(var/atom/movable/A in C1)
+			A.forceMove(T2)
+
+		for(var/atom/movable/A in C2)
+			A.forceMove(T2)
+
+		C1 = list()
+		C2 = list()
+		for(var/V in T1.vars)
+			if(!(V in list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "x", "y", "z", "destination_z", "destination_x", "destination_y", "contents", "luminosity", "group")))
+				C1[V] = T1.vars[V]
+
+		for(var/V in T2.vars)
+			if(!(V in list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "x", "y", "z", "destination_z", "destination_x", "destination_y", "contents", "luminosity", "group")))
+				C2[V] = T2.vars[V]
+
+		var/type1 = T1.type
+		var/type2 = T2.type
+		T2.ChangeTurf(type1)
+		T1.ChangeTurf(type2)

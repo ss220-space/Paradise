@@ -61,6 +61,9 @@
 /obj/effect/anomaly/vortex/proc/do_pulls()
 	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * get_strenght() / 100)
 	for(var/atom/movable/A in view(radius, src))
+		if(isobserver(A))
+			continue
+
 		if(!A.anchored || ismachinery(A))
 			pull(A)
 
@@ -106,7 +109,7 @@
 					ACCUSATIVE = "малую вихревую аномалию", \
 					INSTRUMENTAL = "малой вихревой аномалией", \
 					PREPOSITIONAL = "малой вихревой аномалии")
-	core_type = /obj/item/assembly/signaler/core/tier1/vortex
+	core_type = /obj/item/assembly/signaler/core/vortex/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/vortex/tier2
 	tier = 1
 	impulses_types = list(
@@ -127,7 +130,7 @@
 					ACCUSATIVE = "вихревую аномалию", \
 					INSTRUMENTAL = "вихревой аномалией", \
 					PREPOSITIONAL = "вихревой аномалии")
-	core_type = /obj/item/assembly/signaler/core/tier2/vortex
+	core_type = /obj/item/assembly/signaler/core/vortex/tier2
 	weaker_anomaly_type = /obj/effect/anomaly/vortex/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/vortex/tier3
 	tier = 2
@@ -149,7 +152,7 @@
 					ACCUSATIVE = "большую вихревую аномалию", \
 					INSTRUMENTAL = "большой вихревой аномалией", \
 					PREPOSITIONAL = "большой вихревой аномалии")
-	core_type = /obj/item/assembly/signaler/core/tier3/vortex
+	core_type = /obj/item/assembly/signaler/core/vortex/tier3
 	weaker_anomaly_type = /obj/effect/anomaly/vortex/tier2
 	tier = 3
 	impulses_types = list(
@@ -173,3 +176,53 @@
 			return
 
 		to_chat(M, "<span class='vortex_anomaly'>Вы чувствуете силу едва заметно тянущую вас куда-то.</span>") // It used in one place.
+
+//			 TIER 4 ADMIN SPAWN ONLY
+
+/obj/effect/anomaly/vortex/tier4
+	name = "колоссальная вихревая аномалия"
+	ru_names = list(NOMINATIVE = "колоссальная вихревая аномалия", \
+					GENITIVE = "колоссальной вихревой аномалии", \
+					DATIVE = "колоссальной вихревой аномалии", \
+					ACCUSATIVE = "колоссальную вихревую аномалию", \
+					INSTRUMENTAL = "колоссальной вихревой аномалией", \
+					PREPOSITIONAL = "колоссальной вихревой аномалии")
+	core_type = /obj/item/assembly/signaler/core/vortex/tier3/tier4
+	weaker_anomaly_type = /obj/effect/anomaly/vortex/tier3
+	tier = 4
+	impulses_types = list(
+		/datum/anomaly_impulse/emp/tier4,
+		/datum/anomaly_impulse/superpull/tier4,
+		/datum/anomaly_impulse/vortex_fastmove,
+	)
+
+	grav_pull_range_low = 8
+	grav_pull_range_high = 16
+	grav_pull_strenght = STAGE_SIX
+	collapse_range = 15
+
+/obj/effect/anomaly/vortex/tier4/New()
+	. = ..()
+
+	for(var/mob/living/M in GLOB.player_list)
+		if(M.stat)
+			continue
+
+		to_chat(M, "<span class='vortex_anomaly'>Что опасней, сингулярность или то что вы вызвали?</span>")
+
+/obj/effect/anomaly/vortex/tier4/item_touch_effect(obj/item/I)
+	. = ..()
+	if(!iscore(I))
+		I.singularity_act()
+
+/obj/effect/anomaly/vortex/tier4/mob_touch_effect(mob/living/M)
+	M.singularity_act()
+
+/obj/effect/anomaly/vortex/tier4/do_move(dir)
+	. = ..()
+	pull()
+	for(var/atom/A in range(2, src))
+		A.singularity_act()
+
+/obj/effect/anomaly/vortex/singularity_act()
+	return

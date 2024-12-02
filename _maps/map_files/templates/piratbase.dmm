@@ -6397,7 +6397,7 @@
 /area/ruin/space/pirate_base/mining)
 "sq" = (
 /obj/structure/table/glass,
-/obj/item/assembly/signaler/core/tier2/bluespace,
+/obj/item/assembly/signaler/core/bluespace/tier2,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"

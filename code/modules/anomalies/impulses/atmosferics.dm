@@ -39,6 +39,18 @@
 	range_low = 2
 	range_high = 4
 
+/datum/anomaly_impulse/random_temp/tier4
+	period_low = 5 SECONDS
+	period_high = 10 SECONDS
+	temp_delta_low = -200
+	temp_delta_high = 1000
+	range_low = 4
+	range_high = 7
+
+/datum/anomaly_impulse/random_temp/tier4/impulse()
+	. = ..()
+	for(var/mob/living/M in view(scale_by_strenght(range_low, range_high), owner))
+		M.IgniteMob()
 
 /datum/anomaly_impulse/freese
 	name = "Заморозка"
@@ -76,6 +88,19 @@
 	range_low = 2
 	range_high = 4
 
+/datum/anomaly_impulse/freese/tier4
+	period_low = 5 SECONDS
+	period_low = 15 SECONDS
+	range_low = 4
+	range_high = 7
+
+/datum/anomaly_impulse/freese/tier4/impulse()
+	. = ..()
+	for(var/mob/living/M in view(7, owner))
+		M.adjust_bodytemperature(-100)
+		M.apply_status_effect(/datum/status_effect/freon)
+		if(ishuman(M))
+			M.reagents.add_reagent("frostoil", 15)
 
 /datum/anomaly_impulse/fire
 	name = "Пожар"
@@ -119,3 +144,70 @@
 	range_high = 3
 	gases_low = 0
 	gases_high = 7
+
+/datum/anomaly_impulse/fire/tier4
+	period_low = 3 SECONDS
+	period_high = 5 SECONDS
+	range_low = 3
+	range_high = 7
+	gases_low = 7
+	gases_high = 14
+
+// TIER 4 ONLY
+
+/datum/anomaly_impulse/dist_fire
+	name = "Пожар на расстоянии"
+	desc = "Аномалия создает в нескольких точках вокруг себя нагретую горючую смесь плазмы и кислорода."
+	/// Minimum range of effect.
+	var/range_low = 7
+	/// Maximum range of effect.
+	var/range_high = 15
+	/// Minimum generated amount of gases.
+	var/gases_low = 300
+	/// Maximum generated amount of gases.
+	var/gases_high = 600
+	/// Minimum number of fire spawns.
+	var/count_low = 3
+	/// Maximum number of fire spawns.
+	var/count_high = 10
+
+/datum/anomaly_impulse/dist_fire/impulse()
+	. = ..()
+	var/radius = scale_by_strenght(range_low, range_high)
+	var/turf/start = get_turf(owner)
+	var/gases_amount = scale_by_strenght(gases_low, gases_high)
+	for(var/i = 0 to scale_by_strenght(count_low, count_high))
+		var/try_x = start.x + rand(-radius, radius)
+		var/try_y = start.y + rand(-radius, radius)
+		try_x = clamp(try_x, 1, world.maxx)
+		try_y = clamp(try_y, 1, world.maxy)
+		var/turf/simulated/spawn_pos = get_turf(locate(try_x, try_y, start.z))
+		spawn_pos.atmos_spawn_air(LINDA_SPAWN_OXYGEN, gases_amount * 2/7)
+		spawn_pos.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, gases_amount * 5/7)
+
+
+/datum/anomaly_impulse/atmosfastmove
+	name = "Рывок"
+	desc = "Аномалия быстро двигается в определенном направлении сжигая все на своем пути."
+	stability_high = 60
+	period_low = 10 SECONDS
+	period_high = 20 SECONDS
+	/// Minimum range of effect.
+	var/range_low = 7
+	/// Maximum range of effect.
+	var/range_high = 21
+	/// Minimum generated amount of gases.
+	var/gases_low = 50
+	/// Maximum generated amount of gases.
+	var/gases_high = 150
+
+/datum/anomaly_impulse/atmosfastmove/impulse()
+	. = ..()
+	var/dir = pick(GLOB.alldirs)
+	var/gases_amount = scale_by_strenght(gases_low, gases_high)
+	for(var/i = 0 to scale_by_strenght(range_low, range_high))
+		owner.do_move(dir)
+		var/turf/simulated/spawn_pos = get_turf(owner)
+		spawn_pos.atmos_spawn_air(LINDA_SPAWN_OXYGEN, gases_amount * 2/7)
+		spawn_pos.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, gases_amount * 5/7)
+		sleep(2)

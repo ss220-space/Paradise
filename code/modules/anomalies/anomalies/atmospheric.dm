@@ -78,7 +78,7 @@
 					ACCUSATIVE = "малую ​​атмосферную аномалию", \
 					INSTRUMENTAL = "малой ​атмосферной аномалией", \
 					PREPOSITIONAL = "малой ​​атмосферной аномалии")
-	core_type = /obj/item/assembly/signaler/core/tier1/atmospheric
+	core_type = /obj/item/assembly/signaler/core/atmospheric/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/atmospheric/tier2
 	tier = 1
 	impulses_types = list(
@@ -98,7 +98,7 @@
 					ACCUSATIVE = "​​атмосферную аномалию", \
 					INSTRUMENTAL = "​атмосферной аномалией", \
 					PREPOSITIONAL = "​​атмосферной аномалии")
-	core_type = /obj/item/assembly/signaler/core/tier2/atmospheric
+	core_type = /obj/item/assembly/signaler/core/atmospheric/tier2
 	weaker_anomaly_type = /obj/effect/anomaly/atmospheric/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/atmospheric/tier3
 	tier = 2
@@ -121,7 +121,7 @@
 					ACCUSATIVE = "большую ​​атмосферную аномалию", \
 					INSTRUMENTAL = "большой ​атмосферной аномалией", \
 					PREPOSITIONAL = "большой ​​атмосферной аномалии")
-	core_type = /obj/item/assembly/signaler/core/tier3/atmospheric
+	core_type = /obj/item/assembly/signaler/core/atmospheric/tier3
 	weaker_anomaly_type = /obj/effect/anomaly/atmospheric/tier2
 	tier = 3
 	impulses_types = list(
@@ -153,3 +153,53 @@
 		paper.fire_act(null, 1000, 1000)
 
 	. = ..()
+
+
+//		TIER 4 ANOMALY | ADMIN SPAWN ONLY!
+
+/obj/effect/anomaly/atmospheric/tier4
+	name = "колосальная атмосферная аномалия"
+	ru_names = list(NOMINATIVE = "колосальная атмосферная аномалия", \
+					GENITIVE = "колоссальной атмосферной аномалии", \
+					DATIVE = "колоссальной атмосферной аномалии", \
+					ACCUSATIVE = "колосальную ​​атмосферную аномалию", \
+					INSTRUMENTAL = "колоссальной ​атмосферной аномалией", \
+					PREPOSITIONAL = "колоссальной ​атмосферной аномалии")
+	core_type = /obj/item/assembly/signaler/core/atmospheric/tier3/tier4
+	weaker_anomaly_type = /obj/effect/anomaly/atmospheric/tier4
+	tier = 4
+	impulses_types = list(
+		/datum/anomaly_impulse/random_temp/tier4,
+		/datum/anomaly_impulse/freese/tier4,
+		/datum/anomaly_impulse/fire/tier4,
+		/datum/anomaly_impulse/dist_fire,
+		/datum/anomaly_impulse/atmosfastmove,
+	)
+
+	collapse_range = 15
+	collapse_gas_amount = 5000
+	collapse_slimes_low = 3
+	collapse_slimes_high = 6
+
+/obj/effect/anomaly/atmospheric/tier4/do_move(dir)
+	. = ..()
+	for(var/turf/simulated/wall/wall in range(3, src))
+		wall.take_damage(700)
+
+	for(var/mob/living/M in range(3, src))
+		to_chat(M, span_danger("Вы были испепелены [declent_ru(INSTRUMENTAL)]!"))
+		M.dust()
+
+	for(var/obj/O in range(3, src))
+		if(!isanomaly(O))
+			qdel(O)
+
+/obj/effect/anomaly/atmospheric/tier4/New()
+	. = ..()
+
+	for(var/mob/living/M in GLOB.player_list)
+		if(M.stat)
+			continue
+
+		M.playsound_local(null, 'sound/effects/comfyfire.ogg', 15, TRUE)
+		to_chat(M, "<span class='atmospferic_anomaly'>Ад явился в наш мир... Да поможет вам господь...</span>")

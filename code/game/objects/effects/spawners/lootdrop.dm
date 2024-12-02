@@ -302,11 +302,11 @@
 		/obj/item/slime_extract/adamantine = 50,
 		/obj/item/slime_extract/rainbow = 50,
 		/obj/item/slime_extract/sepia = 50,
-		/obj/item/assembly/signaler/core/tier2/vortex = 50,
-		/obj/item/assembly/signaler/core/tier2/bluespace = 50,
-		/obj/item/assembly/signaler/core/tier2/energetic = 50,
-		/obj/item/assembly/signaler/core/tier2/gravitational = 50,
-		/obj/item/assembly/signaler/core/tier2/atmospheric = 50,
+		/obj/item/assembly/signaler/core/vortex/tier2 = 50,
+		/obj/item/assembly/signaler/core/bluespace/tier2 = 50,
+		/obj/item/assembly/signaler/core/energetic/tier2 = 50,
+		/obj/item/assembly/signaler/core/gravitational/tier2 = 50,
+		/obj/item/assembly/signaler/core/atmospheric/tier2 = 50,
 		/obj/item/t_scanner/science = 50,
 		/obj/item/t_scanner/experimental = 5)
 

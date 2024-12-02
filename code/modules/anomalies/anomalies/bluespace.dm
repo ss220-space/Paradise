@@ -14,7 +14,7 @@
 	var/collapse_tp_radius = 0
 
 /obj/effect/anomaly/bluespace/proc/teleport(atom/movable/target, radius)
-	if(target.anchored && target != src)
+	if(target.anchored && target != src || isobserver(target))
 		return
 
 	var/turf/start = get_turf(src)
@@ -59,7 +59,7 @@
 					INSTRUMENTAL = "малой ​​блюспейс аномалией", \
 					PREPOSITIONAL = "малой ​​блюспейс аномалии")
 	icon_state = "bluespace1"
-	core_type = /obj/item/assembly/signaler/core/tier1/bluespace
+	core_type = /obj/item/assembly/signaler/core/bluespace/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/bluespace/tier2
 	tier = 1
 	impulses_types = list(
@@ -84,7 +84,7 @@
 					INSTRUMENTAL = "​​блюспейс аномалией", \
 					PREPOSITIONAL = "​​блюспейс аномалии")
 	icon_state = "bluespace2"
-	core_type = /obj/item/assembly/signaler/core/tier2/bluespace
+	core_type = /obj/item/assembly/signaler/core/bluespace/tier2
 	weaker_anomaly_type = /obj/effect/anomaly/bluespace/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/bluespace/tier3
 	tier = 2
@@ -108,7 +108,7 @@
 					INSTRUMENTAL = "большой ​​блюспейс аномалией", \
 					PREPOSITIONAL = "большой ​​блюспейс аномалии")
 	icon_state = "bluespace3"
-	core_type = /obj/item/assembly/signaler/core/tier3/bluespace
+	core_type = /obj/item/assembly/signaler/core/bluespace/tier3
 	weaker_anomaly_type = /obj/effect/anomaly/bluespace/tier2
 	tier = 3
 	impulses_types = list(
@@ -140,3 +140,115 @@
 		new /obj/effect/anomaly/bluespace/tier1(get_turf(locate(rand(1, world.maxx), rand(1, world.maxy), z)))
 
 	. = ..()
+
+
+//		TIER 4 ANOMALY | ADMIN SPAWN ONLY!
+
+/obj/effect/anomaly/bluespace/tier4
+	name = "колоссальная блюспейс аномалия"
+	ru_names = list(NOMINATIVE = "колоссальная ​​блюспейс аномалия", \
+					GENITIVE = "колоссальной ​​блюспейс аномалии", \
+					DATIVE = "колоссальной ​​блюспейс аномалии", \
+					ACCUSATIVE = "колоссальную ​​блюспейс аномалию", \
+					INSTRUMENTAL = "колоссальной ​​блюспейс аномалией", \
+					PREPOSITIONAL = "колоссальной ​​блюспейс аномалии")
+	icon_state = "bluespace3"
+	core_type = /obj/item/assembly/signaler/core/bluespace/tier3
+	weaker_anomaly_type = /obj/effect/anomaly/bluespace/tier3
+	tier = 4
+	impulses_types = list(
+		/datum/anomaly_impulse/move/bs_selftp/tier4,
+		/datum/anomaly_impulse/bs_tp_other_t4,
+		/datum/anomaly_impulse/wormholes/tier4,
+	)
+
+	bump_tp_min = 30
+	bump_tp_max = 70
+	collapse_radius = 7
+	collapse_tp_radius = 50
+
+/obj/effect/anomaly/bluespace/tier4/New()
+	. = ..()
+	for(var/mob/living/M in GLOB.player_list)
+		if(M.stat)
+			continue
+
+		M.playsound_local(null,'sound/effects/explosionfar.ogg', 15, TRUE)
+		to_chat(M, "<span class='bluespace_anomaly'>Пространство пало...</span>")
+
+/obj/effect/anomaly/bluespace/tier4/collapse()
+	new /datum/event/wormholes/anomaly()
+	for(var/i = 1 to rand(3, 7))
+		new /obj/effect/anomaly/bluespace/tier2(get_turf(locate(rand(1, world.maxx), rand(1, world.maxy), z)))
+
+	var/list/turf/turfs = list()
+	for(var/turf/simulated/T in range(10, src))
+		turfs.Add(T)
+
+	// swaps
+	for(var/i = 1; i <= rand(40, 50); ++i)
+		var/turf/T1 = pick(turfs)
+		var/turf/T2 = pick(turfs)
+
+		var/dir1 = T1.dir
+		var/icon_state1 = T1.icon_state
+		var/icon1 = T1.icon
+		T2.dir = dir1
+		T2.icon = icon1
+		T2.icon_state = icon_state1
+
+		var/list/C1 = list()
+		for(var/atom/movable/A in T1)
+			C1.Add(A)
+
+		var/list/C2 = list()
+		for(var/atom/movable/A in T2)
+			C2.Add(A)
+
+		for(var/atom/movable/A in C1)
+			A.forceMove(T2)
+
+		for(var/atom/movable/A in C2)
+			A.forceMove(T2)
+
+		C1 = list()
+		C2 = list()
+		for(var/V in T1.vars)
+			if(!(V in list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "x", "y", "z", "destination_z", "destination_x", "destination_y", "contents", "luminosity", "group")))
+				C1[V] = T1.vars[V]
+
+		for(var/V in T2.vars)
+			if(!(V in list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "x", "y", "z", "destination_z", "destination_x", "destination_y", "contents", "luminosity", "group")))
+				C2[V] = T2.vars[V]
+
+		var/type1 = T1.type
+		var/type2 = T2.type
+		T2.ChangeTurf(type1)
+		T1.ChangeTurf(type2)
+
+	. = ..()
+
+/obj/effect/anomaly/bluespace/tier4/teleport(atom/movable/target, radius)
+	if(target.anchored && target != src || isobserver(target))
+		return
+
+	var/turf/start = get_turf(src)
+	var/try_x = start.x + rand(-radius, radius)
+	var/try_y = start.y + rand(-radius, radius)
+	try_x = clamp(try_x, 1, world.maxx)
+	try_y = clamp(try_y, 1, world.maxy)
+	var/z = start.z
+	if(prob(10) && !isanomaly(target))
+		var/list/possible_z = list()
+		for(var/i in 1 to world.maxz)
+			if(is_admin_level(i) || is_away_level(i) || is_taipan(i) || !is_teleport_allowed(i))
+				continue
+
+			possible_z.Add(i)
+
+		z = pick(possible_z)
+
+	var/turf/tp_pos = get_turf(locate(try_x, try_y, z))
+	do_teleport(target, tp_pos, asoundin = 'sound/effects/phasein.ogg')
+	if(isliving(target))
+		investigate_log("teleported [key_name_log(target)] to [COORD(target)]", INVESTIGATE_TELEPORTATION)
