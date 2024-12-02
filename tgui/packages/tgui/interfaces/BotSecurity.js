@@ -24,101 +24,104 @@ export const BotSecurity = (props, context) => {
     <Window width={500} height={500}>
       <Window.Content scrollable>
         <NoticeBox>
-          Swipe an ID card to {locked ? 'unlock' : 'lock'} this interface.
+          Проведите своей ID-картой, чтобы
+          {locked ? 'разблокировать' : 'заблокировать'} этот интерфейс.
         </NoticeBox>
-        <Section title="General Settings">
+        <Section title="Основные настройки">
           <LabeledList>
-            <LabeledList.Item label="Status">
+            <LabeledList.Item label="Состояние">
               <Button
                 icon={on ? 'power-off' : 'times'}
-                content={on ? 'On' : 'Off'}
+                content={on ? 'Включён' : 'Выключен'}
                 selected={on}
                 disabled={noaccess}
                 onClick={() => act('power')}
               />
             </LabeledList.Item>
-            <LabeledList.Item label="Patrol">
+            <LabeledList.Item label="Режим патрулирования">
               <Button.Checkbox
                 fluid
                 checked={autopatrol}
-                content="Auto Patrol"
+                content="Автоматическое патрулирование"
                 disabled={noaccess}
                 onClick={() => act('autopatrol')}
               />
             </LabeledList.Item>
             {!!maintpanel && (
-              <LabeledList.Item label="Maintenance Panel">
-                <Box color="bad">Panel Open!</Box>
+              <LabeledList.Item label="Панель техобслуживания">
+                <Box color="bad">Панель открыта</Box>
               </LabeledList.Item>
             )}
-            <LabeledList.Item label="Safety System">
+            <LabeledList.Item label="Протоколы безопасности">
               <Box color={emagged ? 'bad' : 'good'}>
-                {emagged ? 'DISABLED!' : 'Enabled'}
+                {emagged ? 'Отключены' : 'Включены'}
               </Box>
             </LabeledList.Item>
             {!!canhack && (
-              <LabeledList.Item label="Hacking">
+              <LabeledList.Item label="Взлом">
                 <Button
                   icon="terminal"
-                  content={emagged ? 'Restore Safties' : 'Hack'}
+                  content={
+                    emagged ? 'Восстановить протоколы безопасности' : 'Взломать'
+                  }
                   disabled={noaccess}
                   color="bad"
                   onClick={() => act('hack')}
                 />
               </LabeledList.Item>
             )}
-            <LabeledList.Item label="Remote Access">
+            <LabeledList.Item label="Удалённый доступ">
               <Button.Checkbox
                 fluid
                 checked={!remote_disabled}
-                content="AI Remote Control"
+                content="Удалённый доступ со стороны ИИ"
                 disabled={noaccess}
                 onClick={() => act('disableremote')}
               />
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section title="Who To Arrest">
+        <Section title="Задерживаемые цели">
           <Button.Checkbox
             fluid
             checked={check_id}
-            content="Unidentifiable Persons"
+            content="Неопознанные личности"
             disabled={noaccess}
             onClick={() => act('authid')}
           />
           <Button.Checkbox
             fluid
             checked={check_weapons}
-            content="Unauthorized Weapons"
+            content="Имеющие неавторизированное оружие"
             disabled={noaccess}
             onClick={() => act('authweapon')}
           />
           <Button.Checkbox
             fluid
             checked={check_warrant}
-            content="Wanted Criminals"
+            content="Разыскиваемые преступники"
             disabled={noaccess}
             onClick={() => act('authwarrant')}
           />
         </Section>
-        <Section title="Arrest Procedure">
+        <Section title="Процедура задержания">
           <Button.Checkbox
             fluid
             checked={arrest_mode}
-            content="Detain Targets Indefinitely"
+            content="Бессрочное оглушение целей вместо задержания"
             disabled={noaccess}
             onClick={() => act('arrtype')}
           />
           <Button.Checkbox
             fluid
             checked={arrest_declare}
-            content="Announce Arrests On Radio"
+            content="Сообщать о задержании по радиосвязи"
             disabled={noaccess}
             onClick={() => act('arrdeclare')}
           />
         </Section>
         {painame && (
-          <Section title="pAI">
+          <Section title="ПИИ">
             <Button
               fluid
               icon="eject"
