@@ -109,7 +109,7 @@ export const BodyScanner = (props, context) => {
     <BodyScannerEmpty />
   );
   return (
-    <Window width={700} height={600} title="Body Scanner">
+    <Window width={700} height={600} title="Медицинский сканер">
       <Window.Content scrollable>{body}</Window.Content>
     </Window>
   );

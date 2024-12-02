@@ -146,11 +146,11 @@ const MedicalRecordsList = (_properties, context) => {
         <Section fill scrollable>
           <Table className="MedicalRecords__list">
             <Table.Row bold>
-              <SortButton id="name">Name</SortButton>
+              <SortButton id="name">Имя</SortButton>
               <SortButton id="id">ID</SortButton>
-              <SortButton id="rank">Assignment</SortButton>
-              <SortButton id="p_stat">Patient Status</SortButton>
-              <SortButton id="m_stat">Mental Status</SortButton>
+              <SortButton id="rank">Должность</SortButton>
+              <SortButton id="p_stat">Физическое состояние</SortButton>
+              <SortButton id="m_stat">Психологическое состояние</SortButton>
             </Table.Row>
             {records
               .filter(
