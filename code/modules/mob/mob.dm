@@ -346,7 +346,7 @@
 
 /mob/proc/run_examinate(atom/target)
 	var/list/result = target.examine(src)
-	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, target, result)
+	SEND_SIGNAL(src, COMSIG_MOB_RUN_EXAMINATE, target, result)
 
 	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
