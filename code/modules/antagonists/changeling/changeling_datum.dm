@@ -160,6 +160,11 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/obj/item/organ/internal/brain/ling_brain = carbon_user.get_organ_slot(INTERNAL_ORGAN_BRAIN)
 	ling_brain?.decoy_brain = TRUE
 
+	AddComponent( \
+		/datum/component/pref_viewer, \
+		/datum/preference_toggle/toggle_take_out_of_the_round_without_obj, \
+	)
+
 
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()

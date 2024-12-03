@@ -114,6 +114,11 @@
 	var/mob/living/user = ..()
 	user.faction = list(ROLE_NINJA)
 
+	AddComponent( \
+		/datum/component/pref_viewer, \
+		/datum/preference_toggle/toggle_take_out_of_the_round_without_obj, \
+	)
+
 
 /datum/antagonist/ninja/proc/change_species(mob/living/mob_to_change = null) // This should be used to fully to remove robo-limbs & change species for lack of sprites
 	human_ninja = ishuman(mob_to_change) ? mob_to_change : null

@@ -38,6 +38,11 @@
 	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_phrase_regex, "codephrases", src)
 	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_response_regex, "coderesponses", src)
 
+	AddComponent( \
+		/datum/component/pref_viewer, \
+		/datum/preference_toggle/toggle_take_out_of_the_round_without_obj, \
+	)
+
 /datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/datum_owner = mob_override || owner.current

@@ -113,6 +113,11 @@
 			//slaved.leave_serv_hud(mob_override.mind)
 			//.mind.som = null
 
+	AddComponent( \
+		/datum/component/pref_viewer, \
+		/datum/preference_toggle/toggle_take_out_of_the_round_without_obj, \
+	)
+
 
 /datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override, transformation = FALSE)
 	var/mob/living/user = ..()

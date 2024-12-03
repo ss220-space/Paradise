@@ -1,5 +1,4 @@
 /datum/component/pref_viewer
-    /// Should contain typepathes /datum/preference_toggle
     var/list/preferences_to_show = list()
 
 /datum/component/pref_viewer/Destroy(force)
