@@ -453,7 +453,7 @@
 ///called when a user is getting new weapon and we want to remove previous weapon to clear hands
 #define COMSIG_MOB_WEAPON_APPEARS "mob_weapon_appears"
 /// from base of /mob/verb/examinate(): (atom/target)
-#define COMSIG_MOB_EXAMINATE "mob_examinate"
+#define COMSIG_MOB_VERB_EXAMINATE "mob_examinate"
 /// from base of /mob/proc/run_examinate(): (atom/target, list/result)
 #define COMSIG_MOB_RUN_EXAMINATE "mob_run_examinate"
 ///from base of /mob/update_sight(): ()
