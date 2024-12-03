@@ -30,27 +30,20 @@
 
 /datum/preference_toggle/proc/set_toggles(client/user)
 	var/datum/preferences/our_prefs = user.prefs
-	var/result
-
 	switch(preftoggle_toggle)
 		if(PREFTOGGLE_SPECIAL)
 			CRASH("[src] did not have it's set_toggles overriden even though it was a special toggle, please use the special_toggle path!")
 		if(PREFTOGGLE_TOGGLE1)
-			result = our_prefs.toggles ^= preftoggle_bitflag
+			our_prefs.toggles ^= preftoggle_bitflag
+			to_chat(user, "<span class='notice'>[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]</span>")
 		if(PREFTOGGLE_TOGGLE2)
-			result = our_prefs.toggles2 ^= preftoggle_bitflag
+			our_prefs.toggles2 ^= preftoggle_bitflag
+			to_chat(user, "<span class='notice'>[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]</span>")
 		if(PREFTOGGLE_SOUND)
-			result = our_prefs.sound ^= preftoggle_bitflag
+			our_prefs.sound ^= preftoggle_bitflag
+			to_chat(user, "<span class='notice'>[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]</span>")
 
-	if(result)
-		LAZYADD(our_prefs.toggled_preferences, src)
-
-	else
-		LAZYREMOVE(our_prefs.toggled_preferences, src)
-
-	to_chat(user, span_notice(result ? enable_message : disable_message))
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, blackbox_message)
-	
 	our_prefs.save_preferences(user)
 
 /datum/preference_toggle/toggle_ghost_ears

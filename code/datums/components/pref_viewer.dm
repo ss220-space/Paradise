@@ -1,4 +1,5 @@
 /datum/component/pref_viewer
+    /// Should contain typepathes /datum/preference_toggle
     var/list/preferences_to_show = list()
 
 /datum/component/pref_viewer/Destroy(force)
@@ -29,8 +30,8 @@
     INVOKE_ASYNC(src, PROC_REF(modify_examine), target, result)
 
 /datum/component/pref_viewer/proc/modify_examine(mob/target, list/result)
-     for(var/datum/preference_toggle/pref as anything in target.client.prefs.toggled_preferences)
-        if(!LAZYIN(preferences_to_show, pref))
+    for(var/datum/preference_toggle/pref as anything in preferences_to_show)
+        if(!HASBIT(target.client.prefs.toggles, pref::preftoggle_bitflag) || !HASBIT(target.client.prefs.toggles2, pref::preftoggle_bitflag))
             continue
 
         LAZYADD(result, pref::examine_text)
