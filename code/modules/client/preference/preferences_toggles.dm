@@ -25,8 +25,6 @@
 	var/blackbox_message
 	/// Rights required to be able to use this pref option
 	var/rights_required
-	/// That text will be shown to pref-viewer component owner.
-	var/examine_text
 
 /datum/preference_toggle/proc/set_toggles(client/user)
 	var/datum/preferences/our_prefs = user.prefs
@@ -46,6 +44,9 @@
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, blackbox_message)
 	our_prefs.save_preferences(user)
 
+/datum/preference_toggle/proc/get_preference_datum()
+	return
+
 /datum/preference_toggle/toggle_ghost_ears
 	name = "Toggle Hearing All Speech as a Ghost"
 	description = "Toggle Between seeing all mob speech, and only speech of nearby mobs"
@@ -55,6 +56,9 @@
 	enable_message = "As a ghost, you will now only see speech from nearby mobs."
 	disable_message = "As a ghost, you will now see all speech in the world."
 	blackbox_message = "Toggle GhostEars"
+
+/datum/preference_toggle/toggle_ghost_ears/get_preference_datum()
+	return /datum/preference_info/ghost_ears
 
 /datum/preference_toggle/toggle_ghost_sight
 	name = "Toggle Ghost Emote Viewing"
@@ -66,6 +70,9 @@
 	disable_message = "As a ghost, you will now see all emotes in the world."
 	blackbox_message = "Toggle GhostSight"
 
+/datum/preference_toggle/toggle_ghost_sight/get_preference_datum()
+	return /datum/preference_info/ghost_sight
+
 /datum/preference_toggle/toggle_ghost_radio
 	name = "Toggle Ghost Radio"
 	description = "Toggle between hearing all radio chatter, or only from nearby speakers"
@@ -75,6 +82,9 @@
 	enable_message = "As a ghost, you will now only hear from nearby speakers."
 	disable_message = "As a ghost, you will now hear all radio chat in the world."
 	blackbox_message = "Toggle GhostRadio"
+
+/datum/preference_toggle/toggle_ghost_radio/get_preference_datum()
+	return /datum/preference_info/ghost_radio
 
 /datum/preference_toggle/toggle_admin_radio
 	name = "Admin Radio"
@@ -87,6 +97,9 @@
 	disable_message = "You will now see radio chatter from radios or speakers."
 	blackbox_message = "Toggle RadioChatter"
 
+/datum/preference_toggle/toggle_admin_radio/get_preference_datum()
+	return /datum/preference_info/admin_radio
+
 /datum/preference_toggle/toggle_ai_voice_annoucements
 	name = "AI Voice Announcements"
 	description = "Toggle hearing AI annoucements in voice form or in text form"
@@ -96,6 +109,9 @@
 	enable_message = "You will now hear AI announcements."
 	disable_message = "You will now hear AI announcements."
 	blackbox_message = "Toggle AI Voice"
+
+/datum/preference_toggle/toggle_ai_voice_annoucements/get_preference_datum()
+	return /datum/preference_info/ai_voice_announcements
 
 /datum/preference_toggle/toggle_admin_pm_sound
 	name = "Admin PM sound"
@@ -108,6 +124,9 @@
 	disable_message = "You will no longer hear a sound when adminhelp is sent."
 	blackbox_message = "Toggle Admin Bwoinks"
 
+/datum/preference_toggle/toggle_admin_pm_sound/get_preference_datum()
+	return /datum/preference_info/admin_pm_sound
+
 /datum/preference_toggle/toggle_mentor_pm_sound
 	name = "Mentor PM sound"
 	description = "Toggle hearing a notification when mentor PMs are received"
@@ -119,6 +138,9 @@
 	disable_message = "You will no longer hear a sound when mentorhelp is sent."
 	blackbox_message = "Toggle Mentor Bwoinks"
 
+/datum/preference_toggle/toggle_mentor_pm_sound/get_preference_datum()
+	return /datum/preference_info/mentor_pm_sound
+
 /datum/preference_toggle/toggle_deadchat_visibility
 	name = "Toggle Deadchat visibility"
 	description = "Toggles Dchat's visibility"
@@ -128,6 +150,9 @@
 	enable_message = "You will now see deadchat."
 	disable_message = "You will no longer see deadchat."
 	blackbox_message = "Toggle Deadchat"
+
+/datum/preference_toggle/toggle_deadchat_visibility/get_preference_datum()
+	return /datum/preference_info/deadchat_visibility
 
 /datum/preference_toggle/end_of_round_scoreboard
 	name = "Toggle the End of Round Scoreboard"
@@ -139,6 +164,9 @@
 	disable_message = "You will no longer see see the end of round scoreboard."
 	blackbox_message = "Toggle Scoreboard"
 
+/datum/preference_toggle/end_of_round_scoreboard/get_preference_datum()
+	return /datum/preference_info/end_of_round_scoreboard
+
 /datum/preference_toggle/title_music
 	name = "Toggle Lobby Music"
 	description = "Toggles hearing the GameLobby music"
@@ -148,6 +176,9 @@
 	enable_message = "You will now hear music in the game lobby."
 	disable_message = "You will no longer hear music in the game lobby."
 	blackbox_message = "Toggle Lobby Music"
+
+/datum/preference_toggle/title_music/get_preference_datum()
+	return /datum/preference_info/title_music
 
 /datum/preference_toggle/title_music/set_toggles(client/user)
 	. = ..()
@@ -168,6 +199,9 @@
 	disable_message = "You will no longer hear sounds uploaded by admins; any currently playing midis have been disabled."
 	blackbox_message = "Toggle MIDIs"
 
+/datum/preference_toggle/toggle_admin_midis/get_preference_datum()
+	return /datum/preference_info/admin_midis
+
 /datum/preference_toggle/toggle_admin_midis/set_toggles(client/user)
 	. = ..()
 	if(user.prefs.sound & ~SOUND_LOBBY)
@@ -183,6 +217,9 @@
 	disable_message = "You will no longer see the OOC channel."
 	blackbox_message = "Toggle OOC"
 
+/datum/preference_toggle/toggle_ooc/get_preference_datum()
+	return /datum/preference_info/ooc
+
 /datum/preference_toggle/toggle_looc
 	name = "Toggle LOOC chat"
 	description = "Toggles seeing Local OutOfCharacter chat"
@@ -193,6 +230,9 @@
 	disable_message = "You will no longer see the LOOC channel."
 	blackbox_message = "Toggle LOOC"
 
+/datum/preference_toggle/toggle_looc/get_preference_datum()
+	return /datum/preference_info/looc
+
 /datum/preference_toggle/toggle_ambience
 	name = "Toggle Ambient sounds"
 	description = "Toggles hearing ambient sound effects"
@@ -202,6 +242,9 @@
 	enable_message = "You now hear ambient sounds."
 	disable_message = "Ambience is now silenced."
 	blackbox_message = "Toggle Ambience"
+
+/datum/preference_toggle/proc/get_preference_datum()
+	return
 
 /datum/preference_toggle/toggle_ambience/set_toggles(client/user)
 	. = ..()
@@ -219,6 +262,9 @@
 	disable_message = "You will no longer hear ambient white noise."
 	blackbox_message = "Toggle Whitenoise"
 
+/datum/preference_toggle/proc/get_preference_datum()
+	return
+
 /datum/preference_toggle/toggle_white_noise/set_toggles(client/user)
 	. = ..()
 	if(user.prefs.sound & ~SOUND_BUZZ)
@@ -233,6 +279,9 @@
 	enable_message = "You will now hear heartbeat sounds."
 	disable_message = "You will no longer hear heartbeat sounds."
 	blackbox_message = "Toggle Hearbeat"
+
+/datum/preference_toggle/proc/get_preference_datum()
+	return
 
 /datum/preference_toggle/toggle_heartbeat_noise/set_toggles(client/user)
 	. = ..()
@@ -249,6 +298,9 @@
 	disable_message = "You will no longer hear musical instruments."
 	blackbox_message = "Toggle Instruments"
 
+/datum/preference_toggle/proc/get_preference_datum()
+	return
+
 /datum/preference_toggle/toggle_disco
 	name = "Toggle Disco Machine Music"
 	description = "Toggles hearing musical instruments like the violin and piano"
@@ -258,6 +310,9 @@
 	enable_message = "You will now hear and dance to the radiant dance machine."
 	disable_message = "You will no longer hear or dance to the radiant dance machine."
 	blackbox_message = "Toggle Dance Machine"
+
+/datum/preference_toggle/proc/get_preference_datum()
+	return
 
 /datum/preference_toggle/toggle_disco/set_toggles(client/user)
 	. = ..()
@@ -273,6 +328,9 @@
 	enable_message = "As a ghost, you will now see all PDA messages."
 	disable_message = "As a ghost, you will no longer see PDA messages."
 	blackbox_message = "Toggle Ghost PDA"
+
+/datum/preference_toggle/proc/get_preference_datum()
+	return
 
 /client/verb/silence_current_midi()
 	set name = "Silence Current Midi"
@@ -291,6 +349,9 @@
 	disable_message = "You will no longer see runechat."
 	blackbox_message = "Toggle Runechat"
 
+/datum/preference_toggle/proc/get_preference_datum()
+	return
+
 /datum/preference_toggle/toggle_ghost_death_notifs
 	name = "Toggle Ghost Death Notifications"
 	description = "Toggle a notification when a player dies"
@@ -300,6 +361,9 @@
 	enable_message = "You will now see a notification in deadchat when a player dies."
 	disable_message = "You will no longer see a notification in deadchat when a player dies."
 	blackbox_message = "Toggle Death Notifications"
+
+/datum/preference_toggle/proc/get_preference_datum()
+	return
 
 /datum/preference_toggle/toggle_reverb
 	name = "Toggle Reverb"
@@ -311,6 +375,9 @@
 	disable_message = "You will no longer get reverb on some in game sounds."
 	blackbox_message = "Toggle reverb"
 
+/datum/preference_toggle/proc/get_preference_datum()
+	return
+
 /datum/preference_toggle/toggle_simple_stat_panel
 	name = "Toggle item outlines"
 	description = "Toggles seeing item outlines on hover"
@@ -320,6 +387,9 @@
 	enable_message = "You no longer see item outlines when hovering over an item with your mouse."
 	disable_message = "You now see item outlines when hovering over an item with your mouse."
 	blackbox_message = "Toggle item outlines"
+
+/datum/preference_toggle/proc/get_preference_datum()
+	return
 
 /datum/preference_toggle/toggle_anonmode
 	name = "Toggle Anonymous Mode"
@@ -331,6 +401,9 @@
 	disable_message = "Your key will now will be shown in certain events (end round reports, deadchat, etc)."
 	blackbox_message = "Toggle Anon mode"
 
+/datum/preference_toggle/proc/get_preference_datum()
+	return
+
 /datum/preference_toggle/toggle_typing_indicator
 	name = "Toggle Typing Indicator"
 	description = "Hides the typing indicator"
@@ -340,6 +413,9 @@
 	enable_message = "You will no longer display a typing indicator."
 	disable_message = "You will now display a typing indicator."
 	blackbox_message = "Toggle Typing Indicator (Speech)"
+
+/datum/preference_toggle/proc/get_preference_datum()
+	return
 
 /datum/preference_toggle/toggle_typing_indicator/set_toggles(client/user)
 	. = ..()
@@ -358,6 +434,9 @@
 	disable_message = "Admin logs re-enabled."
 	blackbox_message = "Admin logs toggled"
 
+/datum/preference_toggle/proc/get_preference_datum()
+	return
+
 /datum/preference_toggle/toggle_mhelp_notification
 	name = "Toggle Mentor Ticket Messages"
 	description = "Disables mentor ticket notifications"
@@ -368,6 +447,9 @@
 	enable_message = "You now won't get mentor ticket messages."
 	disable_message = "You now will get mentor ticket messages."
 	blackbox_message = "Mentor ticket notification toggled"
+
+/datum/preference_toggle/proc/get_preference_datum()
+	return
 
 /datum/preference_toggle/toggle_ahelp_notification
 	name = "Toggle Admin Ticket Messages"
@@ -380,6 +462,9 @@
 	disable_message = "You now will get admin ticket messages."
 	blackbox_message = "Admin ticket notification toggled"
 
+/datum/preference_toggle/proc/get_preference_datum()
+	return
+
 /datum/preference_toggle/toggle_debug_logs
 	name = "Toggle Debug Log Messages"
 	description = "Disables debug notifications (Runtimes, ghost role notifications, weird checks that weren't removed)"
@@ -391,6 +476,9 @@
 	disable_message = "You now will get debug logs."
 	blackbox_message = "Debug logs toggled"
 
+/datum/preference_toggle/proc/get_preference_datum()
+	return
+
 /datum/preference_toggle/toggle_mctabs
 	name = "Toggle MC tab"
 	description = "Toggles MC tab visibility"
@@ -401,6 +489,9 @@
 	enable_message = "You'll now see subsystem information in the verb panel."
 	disable_message = "You'll no longer see subsystem information in the verb panel."
 	blackbox_message = "MC tabs toggled"
+
+/datum/preference_toggle/proc/get_preference_datum()
+	return
 
 /datum/preference_toggle/special_toggle
 	preftoggle_toggle = PREFTOGGLE_SPECIAL
