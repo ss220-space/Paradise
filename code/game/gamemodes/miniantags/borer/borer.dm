@@ -658,33 +658,6 @@
 			src.key = "@[borer_key]"
 		return
 
-/mob/living/carbon/proc/punish_host()
-	var/mob/living/simple_animal/borer/borer = has_brain_worms()
-	var/mob/living/caster
-	if(borer.host_brain)
-		caster = src
-	else
-		caster = borer
-
-	var/cost = 70 - borer.antag_datum.borer_rank.rank * 10
-	if(borer.chemicals < cost)
-		to_chat(caster, "Вам требуется [cost] химикатов для вызова психической агонии!")
-		return
-
-	borer.chemicals -= cost
-	to_chat(caster, span_danger("Вы посылаете карающий всплеск психической агонии в мозг своего носителя."))
-	if(borer.host_brain)
-		to_chat(borer.host_brain, span_danger("<FONT size=3>Ужасная, жгучая агония пронзает вас насквозь, \
-			вырывая беззвучный крик из глубин вашего запертого разума!</FONT>"))
-		if(borer.host_brain.host_resisting)
-			borer.host_brain.should_stop_resist = TRUE
-
-		return
-
-	to_chat(src, span_danger("<FONT size=3>Ужасная, жгучая агония пронзает вас насквозь, \
-			вырывая беззвучный крик из глубин вашего разума!</FONT>"))
-	adjustStaminaLoss(100)
-
 //Brain slug proc for voluntary removal of control.
 /mob/living/carbon/proc/release_control()
 

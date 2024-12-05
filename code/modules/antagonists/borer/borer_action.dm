@@ -94,13 +94,26 @@
 	button_icon_state = "blind"
 
 /datum/action/innate/borer/torment/Activate()
-	var/mob/living/simple_animal/borer/borer
-	if(isborer(owner))
-		borer = owner
-	else
-		borer = owner.has_brain_worms()
+	var/mob/living/simple_animal/borer/borer = isborer(owner) ? owner : owner.has_brain_worms()
+	var/mob/living/carbon/host = borer.host
+	var/cost = 70 - borer.antag_datum.borer_rank.rank * 10
+	if(borer.chemicals < cost)
+		to_chat(owner, "Вам требуется [cost] химикатов для вызова психической агонии!")
+		return
 
-	borer.host.punish_host()
+	borer.chemicals -= cost
+	to_chat(owner, span_danger("Вы посылаете карающий всплеск психической агонии в мозг своего носителя."))
+	if(borer.host_brain)
+		to_chat(borer.host_brain, span_danger("<FONT size=3>Ужасная, жгучая агония пронзает вас насквозь, \
+			вырывая беззвучный крик из глубин вашего запертого разума!</FONT>"))
+		if(borer.host_brain.host_resisting)
+			borer.host_brain.should_stop_resist = TRUE
+
+		return
+
+	to_chat(host, span_danger("<FONT size=3>Ужасная, жгучая агония пронзает вас насквозь, \
+			вырывая беззвучный крик из глубин вашего разума!</FONT>"))
+	host.adjustStaminaLoss(100)
 
 /datum/action/innate/borer/sneak_mode
 	name = "Sneak mode"
