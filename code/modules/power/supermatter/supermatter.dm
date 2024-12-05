@@ -312,7 +312,7 @@
 	air_update_turf()
 	transfer_energy()
 
-	//Звуки окружения
+	// ambient sounds
 	processing_sound()
 
 	for(var/mob/living/carbon/human/l in view(src, min(7, round(sqrt(power/6)))))
