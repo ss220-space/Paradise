@@ -38,12 +38,12 @@
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF | NO_MALF_EFFECT
 
-	//Украшение СМа гирляндой. С новым годом!
+	/// If the SM is decorated with holiday lights
 	var/holiday_lights = FALSE
-	//Зацикленные звуки
+	/// Our soundloop
 	var/datum/looping_sound/supermatter/soundloop
-	///cooldown tracker for accent sounds
-	var/last_accent_sound = 0
+	/// cooldown tracker for accent sounds
+	COOLDOWN_DECLARE(last_accent_sound)
 
 	var/gasefficency = 0.125
 
@@ -469,9 +469,7 @@
 
 		add_overlay(mutable_appearance(icon, get_santa_hat_overlay()))
 
-		return COMPONENT_CANCEL_ATTACK_CHAIN
-
-	return NONE
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/machinery/power/supermatter_shard/proc/get_santa_hat_overlay()
 	return "santa_hat_shard"
