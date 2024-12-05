@@ -106,6 +106,12 @@
 	gasefficency = 0.25
 	explosion_power = 24
 
+/obj/machinery/power/supermatter_shard/crystal/get_holiday_lights_appearance()
+	return "holiday_lights"
+
+/obj/machinery/power/supermatter_shard/crystal/get_santa_hat_overlay()
+	return "santa_hat"
+
 /obj/machinery/power/supermatter_shard/Initialize(mapload)
 	. = ..()
 	if(GLOB.new_year_celebration && is_station_level(z))
@@ -120,14 +126,15 @@
 
 /obj/machinery/power/supermatter_shard/update_overlays()
 	. = ..()
+
 	if(holiday_lights)
-		if(istype(src, /obj/machinery/power/supermatter_shard/crystal))
-			. += mutable_appearance(icon, "holiday_lights")
-			. += emissive_appearance(icon, "holiday_lights_e", src, alpha = src.alpha)
-		else
-			. += mutable_appearance(icon, "holiday_lights_shard")
-			. += emissive_appearance(icon, "holiday_lights_shard_e", src, alpha = src.alpha)
+		. += mutable_appearance(icon, get_holiday_lights_appearance())
+		. += emissive_appearance(icon, "[get_holiday_lights_appearance()]_e", src, alpha = src.alpha)
+
 	return .
+
+/obj/machinery/power/supermatter_shard/proc/get_holiday_lights_appearance()
+	return "holiday_lights_shard"
 
 /obj/machinery/power/supermatter_shard/New()
 	. = ..()
@@ -457,15 +464,17 @@
 	user.apply_effect(150, IRRADIATE)
 
 	if(istype(I, /obj/item/clothing/head/helmet/space/santahat))
-		QDEL_NULL(I)
+		qdel(I)
 		RegisterSignal(src, COMSIG_PARENT_EXAMINE, PROC_REF(holiday_hat_examine))
-		if(istype(src, /obj/machinery/power/supermatter_shard/crystal))
-			add_overlay(mutable_appearance(icon, "santa_hat"))
-		else
-			add_overlay(mutable_appearance(icon, "santa_hat_shard"))
+
+		add_overlay(mutable_appearance(icon, get_santa_hat_overlay()))
+
 		return COMPONENT_CANCEL_ATTACK_CHAIN
+
 	return NONE
 
+/obj/machinery/power/supermatter_shard/proc/get_santa_hat_overlay()
+	return "santa_hat_shard"
 
 /obj/machinery/power/supermatter_shard/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
