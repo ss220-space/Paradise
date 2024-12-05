@@ -169,7 +169,7 @@
 	return TRUE
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user)
-	to_chat(user, span_danger("*click*"))
+	//to_chat(user, span_danger("*click*")) [TESTMERGE: LOGS REMOVED]
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
@@ -188,14 +188,14 @@
 		playsound(user, fire_sound, 50, TRUE)
 		if(message)
 			if(pointblank)
-				user.visible_message("<span class='danger'>[user] fires [src] point blank at [target]!</span>", "<span class='danger'>You fire [src] point blank at [target]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
+				//user.visible_message("<span class='danger'>[user] fires [src] point blank at [target]!</span>", "<span class='danger'>You fire [src] point blank at [target]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>") [TESTMERGE: LOGS REMOVED]
 				if(pb_knockback > 0 && isliving(target))
 					var/mob/living/living_target = target
 					if(!(living_target.move_resist > MOVE_FORCE_NORMAL)) //no knockbacking prince of terror or somethin
 						var/atom/throw_target = get_edge_target_turf(living_target, user.dir)
 						living_target.throw_at(throw_target, pb_knockback, 2)
 			else
-				user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!")
+				//user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!") [TESTMERGE: LOGS REMOVED]
 	if(chambered.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
 		effect.alpha = min(255, muzzle_strength * 255)
@@ -226,14 +226,14 @@
 	if(flag)
 		if(user.zone_selected == "mouth")
 			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
-				user.visible_message("<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>")
+				//user.visible_message("<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>") [TESTMERGE: LOGS REMOVED]
 			else
 				handle_suicide(user, target, params)
 			return
 
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
-		to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
+		//to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>") [TESTMERGE: LOGS REMOVED]
 		var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 		process_fire(user, user, 0, params, zone_override = shot_leg)
 		user.drop_from_active_hand()
