@@ -94,8 +94,12 @@
 	button_icon_state = "blind"
 
 /datum/action/innate/borer/torment/Activate()
-	var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
-	borer.host = owner
+	var/mob/living/simple_animal/borer/borer
+	if(isborer(owner))
+		borer = owner
+	else
+		borer = owner.has_brain_worms()
+
 	borer.host.punish_host()
 
 /datum/action/innate/borer/sneak_mode
