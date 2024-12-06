@@ -202,28 +202,32 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	///Datum used in item pixel shift TGUI
 	var/datum/ui_module/item_pixel_shift/item_pixel_shift
 
-/obj/item/New()
-	..()
+
+/obj/item/Initialize(mapload)
+	. = ..()
+
+	if(isstorage(loc)) //marks all items in storage as being such
+		item_flags |= IN_STORAGE
+
+	if(!hitsound)
+		if(damtype == "fire")
+			hitsound = 'sound/items/welder.ogg'
+
+		if(damtype == "brute")
+			hitsound = "swing_hit"
+
 	for(var/path in actions_types)
 		if(action_icon && action_icon_state)
 			new path(src, action_icon[path], action_icon_state[path])
+
 		else
 			new path(src)
 
 	if(!move_resist)
 		determine_move_resist()
 
-
-/obj/item/Initialize(mapload)
-	. = ..()
-	if(isstorage(loc)) //marks all items in storage as being such
-		item_flags |= IN_STORAGE
-	if(!hitsound)
-		if(damtype == "fire")
-			hitsound = 'sound/items/welder.ogg'
-		if(damtype == "brute")
-			hitsound = "swing_hit"
 	add_eatable_component()
+
 
 /obj/item/proc/add_eatable_component()
 	AddComponent(/datum/component/eatable)

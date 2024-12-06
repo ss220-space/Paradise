@@ -68,6 +68,9 @@
 		// Open UI
 		ui = new(user, src, "CameraConsole", name)
 		ui.open()
+		sleep(1)	//Fast and furious: assets were too slow and camera got screwed!
+		if(!ui.closing)
+			ui.window?.reinitialize()
 
 /obj/machinery/computer/security/ui_assets(mob/user)
 	return list(
