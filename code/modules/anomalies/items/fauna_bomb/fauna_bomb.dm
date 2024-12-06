@@ -20,7 +20,7 @@
 	righthand_file = 'icons/mob/inhands/relics_production/inhandr.dmi'
 	origin_tech = "bluespace=4;engineering=5"
 	/// Inserted atmospheric cnomaly core.
-	var/obj/item/assembly/signaler/core/core
+	var/obj/item/assembly/signaler/core/atmospheric/core
 	/// List of saved mob datas.
 	var/list/datum/airmob_data/datas = list()
 	/// List of already created and still alive mobs.

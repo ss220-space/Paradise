@@ -88,7 +88,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	var/on_cooldown = FALSE
 	var/used = FALSE
-	var/obj/item/assembly/signaler/core/core
+	var/obj/item/assembly/signaler/core/atmospheric/core
 
 /obj/item/clothing/gloves/color/black/pyro_claws/Destroy()
 	QDEL_NULL(core)

@@ -25,7 +25,7 @@
 	gender = MALE
 
 	/// Inserted bluespace anomaly core.
-	var/obj/item/assembly/signaler/core/core = null
+	var/obj/item/assembly/signaler/core/bluespace/core = null
 	/// Variable contains next time hand tele can be used to make it not EMP proof
 	var/emp_timer = 0
 	/// Cooldown for teleportations.

@@ -63,8 +63,9 @@
 		if(!(C.powernet in powernets))
 			powernets.Add(C.powernet)
 
+	var/cur_voltage = voltage * strenght / 100
 	for(var/datum/powernet/P in powernets)
-		P.newavail += voltage / powernets.len
+		P.newavail += cur_voltage / powernets.len
 
 /obj/effect/anomaly/energetic/mob_touch_effect(mob/living/M)
 	. = ..()
@@ -120,7 +121,7 @@
 		/datum/anomaly_impulse/move/machinery_jump/tier1,
 	)
 
-	voltage = 50000
+	voltage = 75000
 	collapse_jumps_low = 3
 	collapse_jumps_high = 7
 	collapse_shock_range = 3

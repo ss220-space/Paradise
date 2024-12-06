@@ -13,7 +13,7 @@
 	shaded_charge = TRUE
 	gender = FEMALE
 	/// Inserted flux anomaly core.
-	var/obj/item/assembly/signaler/core/core = null
+	var/obj/item/assembly/signaler/core/energetic/core = null
 	var/has_bluespace_crystal = FALSE
 	var/admin_model = FALSE //For the admin gun, prevents crystal shattering, so anyone can use it, and you dont need to carry backup crystals.
 

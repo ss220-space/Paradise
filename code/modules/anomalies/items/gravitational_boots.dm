@@ -23,7 +23,7 @@
 	var/recharging_time = 0 // Time until next dash
 	var/dash_cost = 1000 // Cost to dash.
 	var/power_consumption_rate = 30 // How much power is used by the boots each cycle when magboots are active
-	var/obj/item/assembly/signaler/core/core = null
+	var/obj/item/assembly/signaler/core/gravitational/core = null
 	var/obj/item/stock_parts/cell/cell = null
 
 

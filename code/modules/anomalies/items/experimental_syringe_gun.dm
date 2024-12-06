@@ -27,7 +27,7 @@
 	/// The size of the internal tank with ready-made reagents.
 	var/bank_size = 100
 	/// Inserted vortex anomaly core.
-	var/obj/item/assembly/signaler/core/core = null
+	var/obj/item/assembly/signaler/core/vortex/core = null
 
 /obj/item/gun/syringe/rapidsyringe/experimental/Initialize()
 	. = ..()
