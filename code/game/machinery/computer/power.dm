@@ -62,7 +62,7 @@
 	else
 		GLOB.powermonitor_repository.remove_from_cache(src)
 
-/obj/machinery/computer/monitor/proc/find_powernet()
+/obj/machinery/proc/find_powernet()
 	var/obj/structure/cable/attached = null
 	var/turf/T = loc
 	if(isturf(T))

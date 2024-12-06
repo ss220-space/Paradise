@@ -4,6 +4,9 @@
 #define ANOMALY_TYPE_GRAV			"gravitational"
 #define ANOMALY_TYPE_VORTEX			"vortex"
 #define ANOMALY_TYPE_FLUX			"energetic"
+#define TIER1						"1"
+#define TIER2						"2"
+#define TIER3						"3"
 
 #define isanomaly(A)	(istype((A), /obj/effect/anomaly))
 
@@ -20,26 +23,26 @@
 #define iscoreflux(A)		(istype((A), /obj/item/assembly/signaler/core/energetic))
 
 GLOBAL_LIST_INIT(anomaly_types, list(
-	"1" = list(
+	TIER1 = list(
 		ANOMALY_TYPE_ATMOS = /datum/anomaly_gen_datum/tier1/pyroclastic,
 		ANOMALY_TYPE_BLUESPACE = /datum/anomaly_gen_datum/tier1/bluespace,
 		ANOMALY_TYPE_GRAV = /datum/anomaly_gen_datum/tier1/gravitational,
 		ANOMALY_TYPE_VORTEX = /datum/anomaly_gen_datum/tier1/vortex,
-		ANOMALY_TYPE_FLUX = /obj/item/assembly/signaler/core/energetic/tier1,
+		ANOMALY_TYPE_FLUX = /datum/anomaly_gen_datum/tier1/energetic,
 	),
-	"2" = list(
+	TIER2 = list(
 		ANOMALY_TYPE_ATMOS = /datum/anomaly_gen_datum/tier2/pyroclastic,
 		ANOMALY_TYPE_BLUESPACE = /datum/anomaly_gen_datum/tier2/bluespace,
 		ANOMALY_TYPE_GRAV = /datum/anomaly_gen_datum/tier2/gravitational,
 		ANOMALY_TYPE_VORTEX = /datum/anomaly_gen_datum/tier2/vortex,
-		ANOMALY_TYPE_FLUX = /obj/item/assembly/signaler/core/energetic/tier2,
+		ANOMALY_TYPE_FLUX = /datum/anomaly_gen_datum/tier2/energetic,
 	),
-	"3" = list(
+	TIER3 = list(
 		ANOMALY_TYPE_ATMOS = /datum/anomaly_gen_datum/tier3/pyroclastic,
 		ANOMALY_TYPE_BLUESPACE = /datum/anomaly_gen_datum/tier3/bluespace,
 		ANOMALY_TYPE_GRAV = /datum/anomaly_gen_datum/tier3/gravitational,
 		ANOMALY_TYPE_VORTEX = /datum/anomaly_gen_datum/tier3/vortex,
-		ANOMALY_TYPE_FLUX = /obj/item/assembly/signaler/core/energetic/tier3,
+		ANOMALY_TYPE_FLUX = /datum/anomaly_gen_datum/tier3/energetic,
 	),
 ))
 

@@ -81,6 +81,10 @@
 	component_parts += new /obj/item/stock_parts/capacitor/quadratic
 	RefreshParts()
 
+/obj/machinery/power/anomaly_generator/Initialize(mapload)
+	. = ..()
+	powernet = find_powernet()
+
 /obj/machinery/power/anomaly_generator/Destroy()
 	. = ..()
 	qdel(beacon)
@@ -355,6 +359,7 @@
 
 /obj/machinery/power/anomaly_generator/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I)
+	powernet = find_powernet()
 	return TRUE
 
 /obj/machinery/power/anomaly_generator/upgraded/admin/get_req_energy()
