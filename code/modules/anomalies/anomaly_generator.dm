@@ -24,7 +24,7 @@
 	/// Usage of energy from powernet.
 	var/powernet_usage = 0
 	/// Selected anomaly tier.
-	var/selected_tier = "1"
+	var/selected_tier = TIER1
 	/// Selected anomaly type.
 	var/selected_type = ANOMALY_TYPE_RANDOM
 
