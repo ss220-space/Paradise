@@ -18,7 +18,7 @@
 	var/datum/anomaly_gen_datum/gen_datum = GLOB.anomaly_types["[core.tier - 1]"][pick(GLOB.anomaly_types["[core.tier - 1]"])]
 	var/obj/effect/anomaly/anomaly_path = gen_datum.anomaly
 	var/newAnomaly = new anomaly_path(get_turf(src))
-	notify_ghosts("[name] has an object of interest: [newAnomaly]!", title = "Something's Interesting!", source = newAnomaly, action = NOTIFY_FOLLOW)
+	notify_ghosts("[name] has an object of interest: [newAnomaly]!", title = "Аномалия!", source = newAnomaly, action = NOTIFY_FOLLOW)
 	qdel(src)
 
 /obj/item/assembly/anomaly_beacon/attack_self(mob/user)

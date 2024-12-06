@@ -52,12 +52,16 @@
 /obj/effect/anomaly/energetic/process()
 	. = ..()
 	var/list/powernets = list()
-	for(var/obj/machinery/power/P in view(3, src))
-		if(!P.powernet)
+	for(var/turf/T in view(3, src))
+		var/obj/structure/cable/C = null
+		if(isturf(T))
+			C = locate() in T
+
+		if(!C?.powernet)
 			continue
 
-		if(!(P.powernet in powernets))
-			powernets.Add(P)
+		if(!(C.powernet in powernets))
+			powernets.Add(C.powernet)
 
 	for(var/datum/powernet/P in powernets)
 		P.newavail += voltage / powernets.len
