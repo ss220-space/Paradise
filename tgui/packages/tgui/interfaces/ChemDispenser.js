@@ -34,7 +34,7 @@ const ChemDispenserSettings = (properties, context) => {
   const { amount, energy, maxEnergy } = data;
   return (
     <Stack.Item>
-      <Section title="Настройки">
+      <Section title="Параметры">
         <LabeledList>
           <LabeledList.Item label="Энергия">
             <ProgressBar
@@ -87,7 +87,7 @@ const ChemDispenserChemicals = (properties, context) => {
       <Section
         fill
         scrollable
-        title={data.glass ? 'Раздатчик напитков' : 'Химический раздатчик'}
+        title={data.glass ? 'Синтез напитков' : 'Синтез реагентов'}
       >
         {chemicals.map((c, i) => (
           <Button

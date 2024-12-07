@@ -12,7 +12,15 @@
 
 /obj/machinery/chem_master
 	name = "\improper ChemMaster 3000"
-	desc = "Used to turn reagents into pills, patches, and store them in bottles."
+	desc = "Химическое оборудование, предназначенное для преобразования реагентов в таблетки, пластыри и бутыли."
+	ru_names = list(
+		NOMINATIVE = "ХимМастер 3000",
+		GENITIVE = "ХимМастера 3000",
+		DATIVE = "ХимМастеру 3000",
+		ACCUSATIVE = "ХимМастер 3000",
+		INSTRUMENTAL = "ХимМастером 3000",
+		PREPOSITIONAL = "ХимМастере 3000"
+	)
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
@@ -128,17 +136,17 @@
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		add_fingerprint(user)
 		if(panel_open)
-			to_chat(user, span_warning("Close the maintenance panel first."))
+			balloon_alert(user, "техпанель открыта!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		if(beaker)
-			to_chat(user, span_notice("You have swapped [beaker] with [I]."))
+			balloon_alert(user, "ёмкость заменена")
 			beaker.forceMove(drop_location())
 			if(Adjacent(user) && !issilicon(user)) //Prevents telekinesis from putting in hand
 				user.put_in_hands(beaker, ignore_anim = FALSE)
 		else
-			to_chat(user, span_notice("You have inserted [I] into [src]."))
+			balloon_alert(user, "ёмкость установлена")
 		beaker = I
 		SStgui.update_uis(src)
 		update_icon()
@@ -147,15 +155,15 @@
 	if(istype(I, /obj/item/storage/pill_bottle))
 		add_fingerprint(user)
 		if(panel_open)
-			to_chat(user, span_warning("Close the maintenance panel first."))
+			balloon_alert(user, "техпанель открыта!")
 			return ATTACK_CHAIN_PROCEED
 		if(loaded_pill_bottle)
-			to_chat(user, span_warning("The [loaded_pill_bottle.name] is already inserted into [src]."))
+			balloon_alert(user, "слот занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		loaded_pill_bottle = I
-		to_chat(user, span_notice("You have inserted [I] into the dispenser slot."))
+		balloon_alert(user, "пузырёк для таблеток установлен")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -164,6 +172,7 @@
 
 /obj/machinery/chem_master/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)
+		balloon_alert(user, "техпанель закрыта!")
 		return
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
@@ -182,6 +191,7 @@
 
 /obj/machinery/chem_master/wrench_act(mob/user, obj/item/I)
 	if(panel_open)
+		balloon_alert(user, "техпанель открыта!")
 		return
 	return default_unfasten_wrench(user, I, 4 SECONDS)
 
@@ -217,20 +227,20 @@
 			var/datum/reagent/R = reagent_list[idx]
 
 			printing = TRUE
-			visible_message(span_notice("[src] rattles and prints out a sheet of paper."))
+			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
 			var/obj/item/paper/P = new /obj/item/paper(loc)
-			P.info = "<center><b>Chemical Analysis</b></center><br>"
-			P.info += "<b>Time of analysis:</b> [station_time_timestamp()]<br><br>"
-			P.info += "<b>Chemical name:</b> [R.name]<br>"
+			P.info = "<center><b>Химический анализ</b></center><br>"
+			P.info += "<b>Время анализа:</b> [station_time_timestamp()]<br><br>"
+			P.info += "<b>Название реагента:</b> [R.name]<br>"
 			if(istype(R, /datum/reagent/blood))
 				var/datum/reagent/blood/B = R
-				P.info += "<b>Description:</b> N/A<br><b>Blood Type:</b> [B.data["blood_type"]]<br><b>DNA:</b> [B.data["blood_species"]]"
+				P.info += "<b>Описание:</b> N/A<br><b>Группа крови:</b> [B.data["blood_type"]]<br><b>ДНК:</b> [B.data["blood_species"]]"
 			else
-				P.info += "<b>Description:</b> [R.description]"
-			P.info += "<br><br><b>Notes:</b><br>"
-			P.name = "Chemical Analysis - [R.name]"
+				P.info += "<b>Описание:</b> [R.description]"
+			P.info += "<br><br><b>Заметки:</b><br>"
+			P.name = "Химический анализ - [R.name]"
 			spawn(50)
 				printing = FALSE
 
@@ -349,7 +359,7 @@
 /obj/machinery/chem_master/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ChemMaster", name)
+		ui = new(user, src, "ChemMaster", "ХимМастер 3000")
 		ui.open()
 
 /obj/machinery/chem_master/ui_assets(mob/user)
@@ -475,12 +485,12 @@
 				if("addcustom")
 					if(!beaker || !beaker.reagents.total_volume)
 						return
-					ui_modal_input(src, id, "Please enter the amount to transfer to buffer:", null, arguments, useramount)
+					ui_modal_input(src, id, "Укажите объём вещества для переноса в буфер:", null, arguments, useramount)
 
 				if("removecustom")
 					if(!reagents.total_volume)
 						return
-					ui_modal_input(src, id, "Please enter the amount to transfer to [mode ? "beaker" : "disposal"]:", null, arguments, useramount)
+					ui_modal_input(src, id, "Укажите объём вещества для [mode ? "переноса в ёмкость" : "удаления"]:", null, arguments, useramount)
 				else
 					return FALSE
 
@@ -516,7 +526,15 @@
 
 /obj/machinery/chem_master/condimaster
 	name = "\improper CondiMaster 3000"
-	desc = "Used to remove reagents from that single beaker you're using, or create condiment packs and bottles; your choice."
+	desc = "Химическое оборудование, специализированное под кулинарные нужды. Позволяет создавать пакеты со специями или бутыли, как вы того пожелаете."
+	ru_names = list(
+		NOMINATIVE = "КондиМастер 3000",
+		GENITIVE = "КондиМастера 3000",
+		DATIVE = "КондиМастеру 3000",
+		ACCUSATIVE = "КондиМастер 3000",
+		INSTRUMENTAL = "КондиМастером 3000",
+		PREPOSITIONAL = "КондиМастере 3000"
+	)
 	condi = TRUE
 
 /obj/machinery/chem_master/condimaster/Initialize(mapload)
@@ -561,7 +579,7 @@
 	return get_base_placeholder_name(reagents, clamp(reagents.total_volume / set_items_amount, 0, max_units_per_item))
 
 /datum/chemical_production_mode/proc/get_base_placeholder_name(datum/reagents/reagents, amount_per_item)
-	return "[reagents.get_master_reagent_name()] ([amount_per_item]u)"
+	return "[reagents.get_master_reagent_name()] ([amount_per_item] ед.)"
 
 /**
 	public
@@ -589,7 +607,7 @@
 	var/data = list("count" = count)
 	for(var/i in 1 to count)
 		if(reagents.total_volume <= 0)
-			to_chat(user, span_warning("Not enough reagents to create these items!"))
+			to_chat(user, span_warning("Недостаточно реагентов для создания этого предмета!"))
 			return
 
 		var/obj/item/reagent_containers/P = new item_type(location)

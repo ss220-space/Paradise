@@ -300,6 +300,7 @@
 
 /obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)
+		balloon_alert(user, "техпанель закрыта!")
 		return
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
@@ -585,7 +586,7 @@
 			update_icon(UPDATE_OVERLAYS)
 		if("remove")
 			if(!target.reagents.remove_reagent(current_reagent, amount))
-				to_chat(user, span_notice("Вы забираете [amount] единиц[declension_ru(amount, "у", "ы", "")] [current_reagent] из [target.declent_ru(GENITIVE)]."))
+				to_chat(user, span_notice("Вы удаляете [amount] единиц[declension_ru(amount, "у", "ы", "")] [current_reagent] из [target.declent_ru(GENITIVE)]."))
 		if("isolate")
 			if(!target.reagents.isolate_reagent(current_reagent))
 				to_chat(user, span_notice("Вы удаляете всё, кроме [current_reagent] в [target.declent_ru(PREPOSITIONAL)]."))
