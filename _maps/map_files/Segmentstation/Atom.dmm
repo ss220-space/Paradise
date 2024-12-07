@@ -125169,7 +125169,6 @@
 /area/security/permabrig)
 "weG" = (
 /obj/structure/lattice,
-/obj/structure/lattice,
 /turf/space,
 /area/space)
 "weH" = (
