@@ -102,15 +102,15 @@
 		return
 
 	borer.chemicals -= cost
+	
 	to_chat(owner, span_danger("Вы посылаете карающий всплеск психической агонии в мозг своего носителя."))
+	to_chat(host, span_danger("<FONT size=3>Ужасная, жгучая агония пронзает вас насквозь, \
+			вырывая беззвучный крик из глубин вашего разума!</FONT>"))
+			
 	if(borer.host_brain)
-		to_chat(borer.host_brain, span_danger("<FONT size=3>Ужасная, жгучая агония пронзает вас насквозь, \
-			вырывая беззвучный крик из глубин вашего запертого разума!</FONT>"))
 		borer.host_brain.host_resisting = FALSE
 		return
 
-	to_chat(host, span_danger("<FONT size=3>Ужасная, жгучая агония пронзает вас насквозь, \
-			вырывая беззвучный крик из глубин вашего разума!</FONT>"))
 	host.adjustStaminaLoss(100)
 
 /datum/action/innate/borer/sneak_mode
