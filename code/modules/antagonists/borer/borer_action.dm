@@ -96,7 +96,9 @@
 /datum/action/innate/borer/torment/Activate()
 	var/mob/living/simple_animal/borer/borer = isborer(owner) ? owner : owner.has_brain_worms()
 	var/mob/living/carbon/host = borer.host
-	var/cost = 70 - borer.antag_datum.borer_rank.rank_ability_amplifier * 10
+	
+	var/cost = 70 - (borer.antag_datum.borer_rank.rank_ability_amplifier * 10)
+	
 	if(borer.chemicals < cost)
 		to_chat(owner, "Вам требуется [cost] химикатов для вызова психической агонии!")
 		return
