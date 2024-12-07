@@ -838,7 +838,7 @@
 	give_back_control_action.Grant(host)
 	make_larvae_action.Grant(host)
 	sneak_mode_action.Grant(host)
-	torment_action.Remove(src)
+	torment_action.Grant(host)
 	torment_action.Grant(host)
 
 /mob/living/simple_animal/borer/proc/RemoveControlActions()
@@ -847,4 +847,4 @@
 	give_back_control_action.Remove(host)
 	sneak_mode_action.Remove(host)
 	torment_action.Remove(host)
-	torment_action.Grant(src)
+	torment_action.Remove(host)
