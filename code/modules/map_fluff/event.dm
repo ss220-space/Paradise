@@ -56,8 +56,7 @@
 /datum/map/Atom
 	name = "Atom"
 	map_path = "_maps/map_files/Segmentstation/Atom.dmm"
-	lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
-
+	lavaland_path = "_maps/map_files/Segmentstation/lavaland.dmm"
 	station_name  = "NSS Atom"
 	station_short = "Atom"
 	dock_name     = "NAV Trurl"
