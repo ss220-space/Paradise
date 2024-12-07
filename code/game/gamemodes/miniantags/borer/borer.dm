@@ -141,7 +141,6 @@
 	var/datum/action/innate/borer/make_chems/make_chems_action = new
 	var/datum/action/innate/borer/make_larvae/make_larvae_action = new
 	var/datum/action/innate/borer/torment/torment_action = new
-	var/datum/action/innate/borer/torment/torment_when_controlling_action = new
 	var/datum/action/innate/borer/sneak_mode/sneak_mode_action = new
 	var/datum/action/innate/borer/focus_menu/focus_menu_action = new
 
@@ -839,11 +838,13 @@
 	give_back_control_action.Grant(host)
 	make_larvae_action.Grant(host)
 	sneak_mode_action.Grant(host)
-	torment_when_controlling_action.Grant(host)
+	torment_action.Remove(src)
+	torment_action.Grant(host)
 
 /mob/living/simple_animal/borer/proc/RemoveControlActions()
 	talk_to_brain_action.Remove(host)
 	make_larvae_action.Remove(host)
 	give_back_control_action.Remove(host)
 	sneak_mode_action.Remove(host)
-	torment_when_controlling_action.Remove(host)
+	torment_action.Remove(host)
+	torment_action.Grant(src)
