@@ -4662,7 +4662,6 @@
 "Bw" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/lattice/catwalk/mapping,
-/obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Bx" = (
