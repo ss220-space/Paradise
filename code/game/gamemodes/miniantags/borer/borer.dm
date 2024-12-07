@@ -642,12 +642,15 @@
 
 		controlling = TRUE
 
+		RemoveInfestActions()
 		GrantControlActions()
+
 		talk_to_borer_action.Remove(host)
 		host.med_hud_set_status()
 
 		if(src && !src.key)
 			src.key = "@[borer_key]"
+
 		return
 
 //Brain slug proc for voluntary removal of control.
@@ -742,6 +745,8 @@
 	sneaking = FALSE
 
 	RemoveControlActions()
+	GrantInfestActions()
+	
 	talk_to_borer_action.Grant(host)
 	host.med_hud_set_status()
 
@@ -839,12 +844,10 @@
 	make_larvae_action.Grant(host)
 	sneak_mode_action.Grant(host)
 	torment_action.Grant(host)
-	torment_action.Grant(host)
 
 /mob/living/simple_animal/borer/proc/RemoveControlActions()
 	talk_to_brain_action.Remove(host)
 	make_larvae_action.Remove(host)
 	give_back_control_action.Remove(host)
 	sneak_mode_action.Remove(host)
-	torment_action.Remove(host)
 	torment_action.Remove(host)
