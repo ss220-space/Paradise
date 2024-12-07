@@ -729,6 +729,10 @@ This applies to all STANDARD station areas
 	name = "Labor Camp"
 	icon_state = "brig"
 
+/area/mine/laborcamp/old
+
+	name = "Old Labor Camp"
+
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
 	icon_state = "security"
@@ -782,6 +786,10 @@ This applies to all STANDARD station areas
 /area/maintenance/fpmaint
 	name = "North-West Maintenance"
 	icon_state = "fpmaint"
+
+/area/maintenance/fpmaint2
+	icon_state = "smaint"
+	name = "Second North-West Maintenance"
 
 /area/maintenance/fsmaint
 	name = "Dormitory Maintenance"
@@ -851,6 +859,10 @@ This applies to all STANDARD station areas
 	name = "East Secondary Maintenance"
 	icon_state = "smaint"
 
+/area/maintenance/east
+	icon_state = "smaint"
+	name = "East Mainteance"
+
 /area/maintenance/port
 	name = "West Maintenance"
 	icon_state = "pmaint"
@@ -918,6 +930,70 @@ This applies to all STANDARD station areas
 
 /area/maintenance/disposal/external/north
 	name = "Northern External Waste Belt"
+
+// Segmenstaation Tunnels
+/area/maintenance/tunnel
+	name = "Maintenance Tunnel"
+	icon_state = "green"
+
+/area/maintenance/tunnel/west
+	name = "West Maintenance Tunnel"
+
+/area/maintenance/tunnel/west2
+	name = "Second West Maintenance Tunnel"
+
+/area/maintenance/tunnel/south
+	name = "South Maintenance Tunnel"
+
+/area/maintenance/tunnel/south2
+	name = "Second South Maintenance Tunnel"
+
+/area/maintenance/tunnel/north
+	name = "North Maintenance Tunnel"
+
+/area/maintenance/tunnel/north2
+	name = "Second North Maintenance Tunnel"
+
+/area/maintenance/tunnel/northwest
+	name = "North-West Maintenance Tunnel"
+
+/area/maintenance/tunnel/northwest2
+	name = "Second North-West Maintenance Tunnel"
+
+/area/maintenance/tunnel/northeast
+	name = "North-East Maintenance Tunnel"
+
+/area/maintenance/tunnel/northeast2
+	name = "Second North-East Maintenance Tunnel"
+
+/area/maintenance/tunnel/east
+	name = "East Maintenance Tunnel"
+
+/area/maintenance/tunnel/east2
+	name = "Second East Maintenance Tunnel"
+
+/area/maintenance/tunnel/southeast
+	name = "South-East Maintenance Tunnel"
+
+/area/maintenance/tunnel/southeast2
+	name = "Second South-East Maintenance Tunnel"
+
+/area/maintenance/clownscience
+	icon_state = "clown_office"
+	name = "Abandoned Clown Science Office"
+
+/area/maintenance/Voxzone
+	icon_state = "orange"
+	name = "Vox zone"
+
+/area/maintenance/abandonedplaying
+	icon_state = "fitness"
+	name = "Abandoned Playing Area"
+
+/area/maintenance/RDabandoned
+	icon_state = "head_quarters"
+	name = "Abandoned Research Director's Office"
+
 
 /area/maintenance/genetics
 	name = "Genetics Maintenance"
@@ -1025,6 +1101,43 @@ This applies to all STANDARD station areas
 /area/maintenance/trading
 	name = "Trading area"
 	icon_state = "yellow"
+
+/area/maintenance/pharmacy
+	name = "Abandoned Pharmacy"
+	icon_state = "brown"
+
+/area/maintenance/delivery
+	name = "Abandoned Delivery"
+	icon_state = "brown"
+
+/area/maintenance/spacerest
+	icon_state = "kitchen"
+	name = "Space Restaurant"
+
+/area/maintenance/Oldrndhallway
+	icon_state = "research"
+	name = "Old RnD Hallway"
+
+/area/maintenance/cargo
+	icon_state = "quartstorage"
+	name = "Abandoned Cargo"
+
+/area/maintenance/brig
+	name = "Abandoned Brig"
+
+/area/maintenance/service
+	icon_state = "kitchen"
+	name = "Service Storage"
+
+/area/maintenance/debris
+	icon_state = "purple"
+	name = "Debris"
+
+/area/maintenance/debris/North
+	name = "North Debris"
+
+/area/maintenance/debris/South
+	name = "South Debris"
 
 /area/maintenance/server
 	name = "Abandoned Server Room"
@@ -1135,6 +1248,14 @@ This applies to all STANDARD station areas
 /area/hallway/primary/central/sw
 /area/hallway/primary/central/se
 
+
+/area/hallway/primary/central/satell
+/area/hallway/primary/central/satell
+/area/hallway/primary/central/satell/west
+/area/hallway/primary/central/satell/east
+/area/hallway/primary/central/satell/south
+/area/hallway/primary/central/satell/north
+
 /area/hallway/primary/command
 	name = "Command Primary Hallway"
 	icon_state = "hallC"
@@ -1234,9 +1355,14 @@ This applies to all STANDARD station areas
 /area/hallway/secondary/entry/commercial
 	name = "Arrival Commercial West Hallway"
 
+/area/hallway/secondary/entry/commercialnorth
+	name = "Arrival Commercial North Hallway"
+
 /area/hallway/secondary/entry/north
+	name = "Arrival North Hallway"
 
 /area/hallway/secondary/entry/south
+	name = "Arrival South Hallway"
 
 /area/hallway/secondary/entry/lounge
 	name = "Arrivals Lounge"
@@ -1249,6 +1375,9 @@ This applies to all STANDARD station areas
 	icon_state = "bridge"
 	ambientsounds = list('sound/ambience/signal.ogg')
 	sound_environment = SOUND_AREA_STANDARD_STATION
+
+/area/bridge/park
+	name = "Bridge Park"
 
 /area/bridge/meeting_room
 	name = "Heads of Staff Meeting Room"
@@ -1491,12 +1620,6 @@ This applies to all STANDARD station areas
 	name = "Chapel Office"
 	icon_state = "chapeloffice"
 
-/area/chapel/morgue
-	name = "Chapel Morgue"
-
-/area/chapel/massdriver
-	name = "Chapel Mass Driver"
-
 /area/escapepodbay
 	name = "Escape Shuttle Hallway Podbay"
 	icon_state = "escape"
@@ -1701,6 +1824,16 @@ This applies to all STANDARD station areas
 	name = "Supermatter Engine"
 	icon_state = "engine"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/engineering/mechanic_workshop/hangar2
+	name = "Satellite General Hangar"
+
+/area/engineering/Generator
+	icon_state = "yellow"
+	name = "Generator room"
+
+/area/atmos/mini
+	name = "Mini Atmospherics"
 
 //Solars
 
@@ -2129,7 +2262,7 @@ This applies to all STANDARD station areas
 
 /area/security/visiting_room
 	name = "Visiting Room"
-	icon_state = "visiting-room"
+	icon_state = "red"
 
 /area/security/prisonlockers
 	name = "Prisoner Lockers"

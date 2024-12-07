@@ -712,6 +712,16 @@
 	desc = "A gorgeous looking lady wearing a labcoat. Whoah, hot!"
 	icon_state = "poster1_secret"
 
+/obj/structure/sign/poster/secret/fakerwall
+	name = "reinforced wall"
+	desc = "A huge chunk of reinforced metal used to separate rooms."
+	icon_state = "Fake_rwall"
+
+/obj/structure/sign/poster/secret/fakerdoor
+	name = "security airlock assembly"
+	desc = "It opens and closes, probably."
+	icon_state = "Fake_door"
+
 /obj/structure/sign/poster/secret/Viper
 	name = "Wanted Syndicate Officer"
 	desc = "On the poster you can see: A red-haired man in aviator glasses, slightly over 30, with a cigar in his mouth, dressed in a fur coat over a tactical turtleneck."
