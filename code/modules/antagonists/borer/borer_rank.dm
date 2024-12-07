@@ -3,7 +3,7 @@
 	var/required_reproductions = null // how many reproductions we need to gain new rank
 	var/datum/antagonist/borer/parent
 	var/mob/living/simple_animal/borer/owner
-	var/rank
+	var/rank_ability_amplifier
 
 /datum/borer_rank/Destroy(force)
 	parent = null
@@ -24,21 +24,21 @@
 /datum/borer_rank/young
 	rankname = "Young"
 	required_reproductions = REPRODUCTIONS_TO_MATURE
-	rank = 0
+	rank_ability_amplifier = 0
 
 /datum/borer_rank/mature
 	rankname = "Mature"
 	required_reproductions = REPRODUCTIONS_TO_ADULT
-	rank = 1
+	rank_ability_amplifier = 1
 
 /datum/borer_rank/adult
 	rankname = "Adult"
 	required_reproductions = REPRODUCTIONS_TO_ELDER
-	rank = 2
+	rank_ability_amplifier = 2
 
 /datum/borer_rank/elder
 	rankname = "Elder"
-	rank = 3
+	rank_ability_amplifier = 3
 
 /datum/borer_rank/young/on_apply()
 	owner.update_transform(0.5) // other ranks should be gained and processed only with antag datum

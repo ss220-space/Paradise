@@ -3,7 +3,6 @@
 	real_name = "host brain"
 	tts_seed = "Gman"
 	var/host_resisting = FALSE
-	var/should_stop_resist = FALSE
 
 /mob/living/captive_brain/say(message)
 	if(client)
@@ -41,11 +40,7 @@
 	return B.host.say_understands(other, speaking)
 
 /mob/living/captive_brain/proc/try_stop_resist()
-	if(should_stop_resist)
-		should_stop_resist = FALSE
-		return FALSE
-
-	return TRUE
+	return host_resisting
 
 /mob/living/captive_brain/resist()
 	var/mob/living/simple_animal/borer/B = loc
@@ -60,12 +55,10 @@
 	var/delay = (rand(350,450) + B.host.getBrainLoss())
 
 	if(!do_after(src, delay, B.host, ALL, extra_checks = CALLBACK(src, PROC_REF(try_stop_resist))))
-		should_stop_resist = FALSE
 		host_resisting = FALSE
 		return
 
 	return_control(B)
-	should_stop_resist = FALSE
 	host_resisting = FALSE
 
 /mob/living/captive_brain/proc/return_control(mob/living/simple_animal/borer/B)
