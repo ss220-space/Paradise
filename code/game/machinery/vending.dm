@@ -30,7 +30,15 @@
 
 /obj/machinery/vending
 	name = "\improper Vendomat"
-	desc = "A generic vending machine."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат",
+		GENITIVE = "торгового автомата",
+		DATIVE = "торговому автомату",
+		ACCUSATIVE = "торговый автомат",
+		INSTRUMENTAL = "торговым автоматом",
+		PREPOSITIONAL = "торговом автомате"
+	)
+	desc = "Обычный торговый автомат."
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "generic_off"
 	layer = BELOW_OBJ_LAYER
@@ -212,11 +220,11 @@
 /obj/machinery/vending/examine(mob/user)
 	. = ..()
 	if(tilted)
-		. += span_warning("It's been tipped over and won't be usable unless it's righted.")
+		. += span_warning("Он лежит на боку и не будет функционировать до тех пор, пока его не поправят.")
 		if(Adjacent(user))
-			. += span_notice("You can <b>Alt-Click</b> it to right it.")
+			. += span_notice("Нажмите <b>Alt-Click</b> чтобы поднять автомат.")
 	if(aggressive)
-		. += span_warning("Its product lights seem to be blinking ominously...")
+		. += span_warning("Его индикаторы, кажется, зловеще мигают...")
 
 /obj/machinery/vending/AltClick(mob/user)
 	if(!tilted || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -460,7 +468,8 @@
 /obj/machinery/vending/attackby(obj/item/I, mob/user, params)
 	if(tilted)
 		if(user.a_intent == INTENT_HELP)
-			to_chat(user, span_warning("[src] is tipped over and non-functional! You'll need to right it first."))
+			balloon_alert(user, "автомат не работает!")
+			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] не может работать, пока он опрокинут!"))
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ..()
 
@@ -470,39 +479,39 @@
 	if(istype(I, /obj/item/coin))
 		add_fingerprint(user)
 		if(!length(premium))
-			to_chat(user, span_warning("[src] does not accept coins."))
+			balloon_alert(user, "слот отсутствует!")
 			return ATTACK_CHAIN_PROCEED
 		if(coin)
-			to_chat(user, span_warning("There is already a coin in this machine!"))
+			balloon_alert(user, "слот занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		coin = I
-		to_chat(user, span_notice("You insert [I] into [src]."))
+		balloon_alert(user, "монета вставлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, refill_canister))
 		add_fingerprint(user)
 		if(stat & (BROKEN|NOPOWER))
-			to_chat(user, span_notice("[src] does not respond."))
+			balloon_alert(user, "автомат не работает!")
 			return ATTACK_CHAIN_PROCEED
 		if(!panel_open)
-			to_chat(user, span_warning("You should probably unscrew the service panel first!"))
+			balloon_alert(user, "техпанель открыта!")
 			return ATTACK_CHAIN_PROCEED
 
 		var/obj/item/vending_refill/canister = I
 		if(canister.get_part_rating() == 0)
-			to_chat(user, span_warning("The [canister.name] is empty!"))
+			balloon_alert(user, "канистра пуста!")
 			return ATTACK_CHAIN_PROCEED
 
 		// instantiate canister if needed
 		var/transferred = restock(canister)
 		if(transferred)
-			to_chat(user, span_notice("You loaded [transferred] items in [src]."))
+			balloon_alert(user, "канистра вставлена")
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 
-		to_chat(user, span_warning("There's nothing to restock!"))
+		balloon_alert(user,"нечего пополнять!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(item_slot_check(user, I))
@@ -519,8 +528,8 @@
 			// no goodies, but also no tilts
 			return
 		if(COOLDOWN_FINISHED(src, last_hit_time))
-			visible_message(span_warning("[src] seems to sway a bit!"))
-			to_chat(user, span_userdanger("You might want to think twice about doing that again, [src] looks like it could come crashing down!"))
+			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] странно покачивается..."))
+			to_chat(user, span_userdanger("Кажется, что [declent_ru(NOMINATIVE)] так и норовит упасть!"))
 			COOLDOWN_START(src, last_hit_time, hit_warning_cooldown_length)
 			return
 
@@ -539,7 +548,7 @@
 				tilt(user, crit = TRUE)
 
 /obj/machinery/vending/proc/freebie(mob/user, num_freebies)
-	visible_message(span_notice("[num_freebies] free goodie\s tumble[num_freebies > 1 ? "" : "s"] out of [src]!"))
+	visible_message(span_notice("Из [declent_ru(GENITIVE)] начинают выпадать бесплатные товары!"))
 	for(var/i in 1 to num_freebies)
 		for(var/datum/data/vending_product/R in shuffle(product_records))
 			if(R.amount <= 0)
@@ -557,8 +566,8 @@
 
 	if(isliving(AM) && prob(25))
 		AM.visible_message(
-			span_warning("[src] suddenly topples over onto [AM]!"),
-			span_userdanger("[src] topples over onto you without warning!")
+			span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно опрокидывается на [AM]!"),
+			span_userdanger("[capitalize(declent_ru(NOMINATIVE))] обрушивается на вас без предупреждения!")
 		)
 	tilt(AM, prob(5), FALSE)
 	aggressive = FALSE
@@ -570,14 +579,14 @@
 		return
 	. = TRUE
 	if(tilted)
-		to_chat(user, span_warning("You'll need to right it first!"))
+		balloon_alert(user, "автомат перевёрнут!")
 		return
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/vending/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat(user, span_warning("You'll need to right it first!"))
+		balloon_alert(user, "автомат перевёрнут!")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -586,7 +595,7 @@
 /obj/machinery/vending/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat(user, span_warning("You'll need to right it first!"))
+		balloon_alert(user, "автомат перевёрнут!")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -599,7 +608,7 @@
 /obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat(user, span_warning("You'll need to right it first!"))
+		balloon_alert(user, "автомат перевёрнут!")
 		return
 	if(I.use_tool(src, user, 0, volume = 0))
 		wires.Interact(user)
@@ -607,7 +616,7 @@
 /obj/machinery/vending/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat(user, span_warning("The fastening bolts aren't on the ground, you'll need to right it first!"))
+		balloon_alert(user, "автомат перевёрнут!")
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
@@ -633,7 +642,7 @@
 	if(!item_slot)
 		return FALSE
 	if(inserted_item)
-		to_chat(user, "<span class='warning'>There is something already inserted!</span>")
+		balloon_alert(user, "внутри уже что-то есть!")
 		return FALSE
 	return TRUE
 
@@ -665,7 +674,7 @@
 	else
 		to_chat(user, display_parts(user))
 	if(moved)
-		to_chat(user, "[moved] items restocked.")
+		to_chat(user, "Вы пополнили [moved] товар[declension_ru(moved, "", "а", "ов")].")
 		W.play_rped_sound()
 	return TRUE
 
@@ -677,10 +686,11 @@
 	if(!item_slot || inserted_item)
 		return
 	if(!user.drop_transfer_item_to_loc(I, src))
-		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't seem to put it down!</span>")
+		to_chat(user, span_warning("[I] будто бы приклеен к твоей руке! Вы не можете его скинуть!"))
 		return
 	inserted_item = I
-	to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+	balloon_alert(user, "предмет вставлен")
+	to_chat(user, span_notice("Вы вставили [I] в [declent_ru(GENITIVE)]."))
 	SStgui.update_uis(src)
 
 /obj/machinery/vending/proc/eject_item(mob/user)
@@ -700,7 +710,7 @@
 /obj/machinery/vending/emag_act(mob/user)
 	emagged = TRUE
 	if(user)
-		to_chat(user, "You short out the product lock on [src]")
+		to_chat(user, "Вы закоротили микросхемы [declent_ru(GENITIVE)]")
 
 /obj/machinery/vending/attack_ai(mob/user)
 	return attack_hand(user)
@@ -713,7 +723,7 @@
 		return
 
 	if(tilted)
-		to_chat(user, span_warning("[src] is tipped over and non-functional! You'll need to right it first."))
+		balloon_alert(user, "автомат не работает!")
 		return
 
 	if(..())
@@ -740,7 +750,7 @@
 /obj/machinery/vending/ui_data(mob/user)
 	var/list/data = list()
 	var/datum/money_account/A = null
-	data["guestNotice"] = "No valid ID card detected. Wear your ID, or present cash.";
+	data["guestNotice"] = "Предъявите ID-карту или используйте наличные.";
 	data["userMoney"] = 0
 	data["user"] = null
 	if(issilicon(user) && !istype(user, /mob/living/silicon/robot/drone) && !istype(user, /mob/living/silicon/pai))
@@ -755,7 +765,7 @@
 		var/obj/item/stack/spacecash/S = H.get_active_hand()
 		if(istype(S))
 			data["userMoney"] = S.amount
-			data["guestNotice"] = "Accepting Cash. You have: [S.amount] credits."
+			data["guestNotice"] = "Принимаем наличные. У вас есть: [S.amount] кредитов."
 		else if(istype(H))
 			var/obj/item/card/id/C = H.get_id_card()
 			if(istype(A))
@@ -764,7 +774,7 @@
 				data["userMoney"] = A.money
 				data["user"]["job"] = (istype(C) && C.rank) ? C.rank : "No Job"
 			else
-				data["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
+				data["guestNotice"] = "Обнаруженная ID-карта не привязана к счёту.";
 	data["stock"] = list()
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
 		data["stock"][R.name] = R.amount
@@ -831,7 +841,7 @@
 	if(.)
 		return
 	if(issilicon(usr) && !isrobot(usr))
-		to_chat(usr, span_warning("The vending machine refuses to interface with you, as you are not in its target demographic!"))
+		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается взаимодействовать с вами, поскольку вы не входите в его целевую аудиторию!"))
 		return
 	switch(action)
 		if("toggle_voice")
@@ -843,22 +853,22 @@
 			. = TRUE
 		if("remove_coin")
 			if(!coin)
-				to_chat(usr, span_warning("There is no coin in this machine."))
+				balloon_alert(usr, "в автомате нет монет!")
 				return
-			if(istype(usr, /mob/living/silicon))
-				to_chat(usr, span_warning("You lack hands."))
+			if(issilicon(usr))
+				balloon_alert(usr, "у вас нет рук!")
 				return
-			to_chat(usr, span_notice("You remove [coin] from [src]."))
+			to_chat(usr, span_notice("Вы достали [coin] из [declent_ru(GENITIVE)]."))
 			coin.forceMove_turf()
 			usr.put_in_hands(coin, ignore_anim = FALSE)
 			coin = null
 			. = TRUE
 		if("vend")
 			if(!vend_ready)
-				to_chat(usr, span_warning("The vending machine is busy!"))
+				balloon_alert(usr, "торговый автомат занят!")
 				return
 			if(panel_open)
-				to_chat(usr, span_warning("The vending machine cannot dispense products while its service panel is open!"))
+				balloon_alert(usr, "техпанель открыта!")
 				return
 			var/key = text2num(params["inum"])
 			var/list/display_records = product_records + coin_records
@@ -904,7 +914,7 @@
 
 			// --- THE REST OF THIS PROC IS JUST PAYMENT LOGIC ---
 			if(!GLOB.vendor_account || GLOB.vendor_account.suspended)
-				to_chat(usr, "Vendor account offline. Unable to process transaction.")
+				to_chat(usr, "Удалённый сервер торговых автоматов отключён. Не удается обработать операцию.")
 				flick_vendor_overlay(FLICK_DENY)
 				vend_ready = TRUE
 				return
@@ -924,7 +934,7 @@
 				to_chat(usr, span_notice("Vending object due to admin interaction."))
 				paid = TRUE
 			else
-				to_chat(usr, span_warning("Payment failure: you have no ID or other method of payment."))
+				to_chat(usr, span_warning("Сбой платежа: у вас нет ID-карты или другого способа оплаты."))
 				vend_ready = TRUE
 				flick_vendor_overlay(FLICK_DENY)
 				. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
@@ -933,7 +943,7 @@
 				vend(currently_vending, usr)
 				. = TRUE
 			else
-				to_chat(usr, span_warning("Payment failure: unable to process payment."))
+				to_chat(usr, span_warning("Сбой платежа: не удается обработать платеж."))
 				vend_ready = TRUE
 	if(.)
 		add_fingerprint(usr)
@@ -943,13 +953,13 @@
 
 /obj/machinery/vending/proc/vend(datum/data/vending_product/R, mob/user)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
-		to_chat(user, span_warning("Access denied."))//Unless emagged of course
+		to_chat(user, span_warning("В доступе отказано."))//Unless emagged of course
 		flick_vendor_overlay(FLICK_DENY)
 		vend_ready = TRUE
 		return
 
 	if(!R.amount)
-		to_chat(user, span_warning("The vending machine has ran out of that product."))
+		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] закончился этот товар."))
 		vend_ready = TRUE
 		return
 
@@ -957,14 +967,14 @@
 
 	if(coin_records.Find(R))
 		if(!coin)
-			to_chat(user, span_notice("You need to insert a coin to get this item."))
+			to_chat(user, span_notice("Вам нужно вставить монету, чтобы получить этот товар."))
 			vend_ready = TRUE
 			return
 		if(coin.string_attached)
 			if(prob(50))
-				to_chat(user, span_notice("You successfully pull the coin out before [src] could swallow it."))
+				to_chat(user, span_notice("Вы успешно вытаскиваете монету до того, как [declent_ru(NOMINATIVE)] успевает ее проглотить."))
 			else
-				to_chat(user, span_notice("You weren't able to pull the coin out fast enough, the machine ate it, string and all."))
+				to_chat(user, span_notice("Вы не смогли вытащить монету достаточно быстро, [declent_ru(NOMINATIVE)] съел ее вместе с ниткой и всем остальным."))
 				QDEL_NULL(coin)
 		else
 			QDEL_NULL(coin)
@@ -1095,7 +1105,7 @@
 	if(!throw_item)
 		return
 	throw_item.throw_at(target, 16, 3)
-	visible_message("<span class='danger'>[src] launches [throw_item.name] at [target.name]!</span>")
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] метнул [throw_item.name] в [target.name]!"))
 
 
 /obj/machinery/vending/shove_impact(mob/living/target, mob/living/attacker)
@@ -1105,14 +1115,14 @@
 		add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
 		tilt(target, from_combat = TRUE)
 		target.visible_message(
-			span_danger("[attacker] slams [target] into [src]!"),
-			span_userdanger("You get slammed into [src] by [attacker]!"),
-			span_danger(">You hear a loud crunch.")
+			span_danger("[attacker] толкает [target] в [declent_ru(ACCUSATIVE)]!"),
+			span_userdanger("[attacker] впечатывает вас в [declent_ru(GENITIVE)]!"),
+			span_danger("Вы слышите громкий хруст.")
 		)
 	else
 		attacker.visible_message(
-			span_notice("[attacker] lightly presses [target] against [src]."),
-			span_userdanger("You lightly press [target] against [src], you don't want to hurt [target.p_them()]!")
+			span_notice("[attacker] слегка прижимает [target] к [declent_ru(DATIVE)]."),
+			span_userdanger("Вы слегка прижимаете [target] к [declent_ru(DATIVE)], вы же не хотите причинить [genderize_ru(target.gender, "ему", "ей", "ему", "им")] боль!")
 			)
 	return TRUE
 
@@ -1146,9 +1156,9 @@
 
 	else
 		victim.visible_message(
-			span_danger("[victim] is crushed by [src]!"),
-			span_userdanger("[src] crushes you!"),
-			span_warning("You hear a loud crunch!")
+			span_danger("[victim] раздавлен[genderize_ru(victim.gender, "", "а", "о", "ы")] [declent_ru(INSTRUMENTAL)]!"),
+			span_userdanger("[capitalize(declent_ru(NOMINATIVE))] сокрушает тебя!"),
+			span_warning("Вы слышите громкий хруст!")
 		)
 		add_attack_logs(null, victim, "crushed by [src]")
 
@@ -1214,9 +1224,9 @@
 					should_throw_at_target = FALSE
 		else
 			victim.visible_message(
-				span_danger("[victim] is crushed by [src]!"),
-				span_userdanger("[src] falls on top of you, crushing you!"),
-				span_warning("You hear a loud crunch!")
+				span_danger("[victim] раздавлен[genderize_ru(victim.gender, "", "а", "о", "ы")] [declent_ru(INSTRUMENTAL)]!"),
+				span_userdanger("[capitalize(declent_ru(NOMINATIVE))] сокрушает тебя!"),
+				span_warning("Вы слышите громкий хруст!")
 			)
 			victim.apply_damage(damage_to_deal, BRUTE)
 			add_attack_logs(null, victim, "crushed by [src]")
@@ -1231,7 +1241,7 @@
 		tilt_over(should_throw_at_target ? target_atom : null)
 
 /obj/machinery/vending/proc/tilt_over(mob/victim)
-	visible_message( span_danger("[src] tips over!"))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] опрокидывается!"))
 	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
 	var/picked_rotation = pick(90, 270)
 	tilted_rotation = picked_rotation
@@ -1247,15 +1257,15 @@
 
 	if(user)
 		user.visible_message(
-			"[user] begins to right [src].",
-			"You begin to right [src]."
+			"[user] начинает поднимать [declent_ru(ACCUSATIVE)].",
+			"Вы начинаете поднимать [declent_ru(ACCUSATIVE)]."
 		)
 		if(!do_after(user, 7 SECONDS, src, max_interact_count = 1, cancel_on_max = TRUE))
 			return
 		user.visible_message(
-			span_notice("[user] rights [src]."),
-			span_notice("You right [src]."),
-			span_notice(">You hear a loud clang.")
+			span_notice("[user] поднял [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы подняли [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы слышите громкий лязг.")
 		)
 	if(!tilted) //Sanity check
 		return
@@ -1280,12 +1290,25 @@
 	products = list(	/obj/item/assembly/prox_sensor = 5,/obj/item/assembly/igniter = 3,/obj/item/assembly/signaler = 4,
 						/obj/item/wirecutters = 1, /obj/item/cartridge/signal = 4)
 	contraband = list(/obj/item/flashlight = 5,/obj/item/assembly/timer = 2, /obj/item/assembly/voice = 2, /obj/item/assembly/health = 2)
-	ads_list = list("Only the finest!","Have some tools.","The most robust equipment.","The finest gear in space!")
+	ads_list = list(
+		"Только самое лучшее!",
+		"Имеются всякие инструменты.",
+		"Самое надежное оборудование!",
+		"Лучшее снаряжение в космосе!"
+	)
 	refill_canister = /obj/item/vending_refill/assist
 
 /obj/machinery/vending/boozeomat
 	name = "\improper Booze-O-Mat"
-	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Booze-O-Mat",
+		GENITIVE = "торгового автомата Booze-O-Mat",
+		DATIVE = "торговому автомату Booze-O-Mat",
+		ACCUSATIVE = "торговый автомат Booze-O-Mat",
+		INSTRUMENTAL = "торговым автоматом Booze-O-Mat",
+		PREPOSITIONAL = "торговом автомате Booze-O-Mat"
+	)
+	desc = "Чудо техники, предположительно способное выдать идеальный напиток для вас в тот момент, когда вы об этом попросите."
 
 	icon_state = "boozeomat_off"        //////////////18 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
 	panel_overlay = "boozeomat_panel"
@@ -1330,8 +1353,30 @@
 	contraband = list(/obj/item/reagent_containers/food/drinks/tea = 10,
 					  /obj/item/reagent_containers/food/drinks/bottle/fernet = 5)
 	vend_delay = 15
-	slogan_list = list("Надеюсь, никто не попросит меня о чёртовой кружке чая…","Алкоголь — друг человека. Вы же не бросите друга?","Очень рад вас обслужить!","Никто на этой станции не хочет выпить?")
-	ads_list = list("Выпьем!","Бухло пойдёт вам на пользу!","Алкоголь — друг человека.","Очень рад вас обслужить!","Хотите отличного холодного пива?","Ничто так не лечит, как бухло!","Пригубите!","Выпейте!","Возьмите пивка!","Пиво пойдёт вам на пользу!","Только лучший алкоголь!","Бухло лучшего качества с 2053 года!","Вино со множеством наград!","Максимум алкоголя!","Мужчины любят пиво","Тост: «За прогресс!»")
+	slogan_list = list(
+		"Надеюсь, никто не попросит меня о чёртовой кружке чая…",
+		"Алкоголь — друг человека. Вы же не бросите друга?",
+		"Очень рад вас обслужить!",
+		"Никто на этой станции не хочет выпить?"
+	)
+	ads_list = list(
+		"Выпьем!",
+		"Бухло пойдёт вам на пользу!",
+		"Алкоголь — друг человека.",
+		"Очень рад вас обслужить!",
+		"Хотите отличного холодного пива?",
+		"Ничто так не лечит, как бухло!",
+		"Пригубите!",
+		"Выпейте!",
+		"Возьмите пивка!",
+		"Пиво пойдёт вам на пользу!",
+		"Только лучший алкоголь!",
+		"Бухло лучшего качества с 2053 года!",
+		"Вино со множеством наград!",
+		"Максимум алкоголя!",
+		"Мужчины любят пиво",
+		"Тост: «За прогресс!»"
+	)
 	refill_canister = /obj/item/vending_refill/boozeomat
 
 /obj/machinery/vending/boozeomat/syndicate_access
@@ -1339,8 +1384,30 @@
 
 /obj/machinery/vending/coffee
 	name = "\improper Solar's Best Hot Drinks"
-	desc = "A vending machine which dispenses hot drinks."
-	ads_list = list("Выпейте!","Выпьем!","На здоровье!","Не хотите горячего супчику?","Я бы убил за чашечку кофе!","Лучшие зёрна в галактике","Для Вас — только лучшие напитки","М-м-м-м… Ничто не сравнится с кофе","Я люблю кофе, а Вы?","Кофе помогает работать!","Возьмите немного чайку","Надеемся, Вы предпочитаете лучшее!","Отведайте наш новый шоколад!","Admin conspiracies")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Solar's Best Hot Drinks",
+		GENITIVE = "торгового автомата Solar's Best Hot Drinks",
+		DATIVE = "торговому автомату Solar's Best Hot Drinks",
+		ACCUSATIVE = "торговый автомат Solar's Best Hot Drinks",
+		INSTRUMENTAL = "торговым автоматом Solar's Best Hot Drinks",
+		PREPOSITIONAL = "торговом автомате Solar's Best Hot Drinks"
+	)
+	desc = "Это машина, которая готовит горячие напитки. Ну, знаете, такие, которые кипятком заливают."
+	ads_list = list(
+		"Выпейте!",
+		"Выпьем!",
+		"На здоровье!",
+		"Не хотите горячего супчику?",
+		"Я бы убил за чашечку кофе!",
+		"Лучшие зёрна в галактике",
+		"Для Вас — только лучшие напитки",
+		"М-м-м-м… Ничто не сравнится с кофе",
+		"Я люблю кофе, а Вы?",
+		"Кофе помогает работать!",
+		"Возьмите немного чайку",
+		"Надеемся, Вы предпочитаете лучшее!",
+		"Отведайте наш новый шоколад!"
+	)
 
 	icon_state = "coffee_off"
 	panel_overlay = "coffee_panel"
@@ -1382,7 +1449,7 @@
 	if(!..())
 		return FALSE
 	if(!I.is_open_container())
-		to_chat(user, "<span class='warning'>You need to open [I] before inserting it.</span>")
+		to_chat(user, span_warning("Вам нужно открыть [I], прежде чем вставить его."))
 		return FALSE
 	return TRUE
 
@@ -1418,9 +1485,31 @@
 
 /obj/machinery/vending/snack
 	name = "\improper Getmore Chocolate Corp"
-	desc = "A snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars."
-	slogan_list = list("Попробуйте наш новый батончик с нугой!","Вдвое больше калорий за полцены!")
-	ads_list = list("The healthiest!","Award-winning chocolate bars!","Mmm! So good!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Have some more Getmore!","Best quality snacks straight from mars.","We love chocolate!","Try our new jerky!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Getmore Chocolate Corp",
+		GENITIVE = "торгового автомата Getmore Chocolate Corp",
+		DATIVE = "торговому автомату Getmore Chocolate Corp",
+		ACCUSATIVE = "торговый автомат Getmore Chocolate Corp",
+		INSTRUMENTAL = "торговым автоматом Getmore Chocolate Corp",
+		PREPOSITIONAL = "торговом автомате Getmore Chocolate Corp"
+	)
+	desc = "Автомат самообслуживания, любезно предоставленный шоколадной корпорацией Getmore, базирующейся на Марсе."
+	slogan_list = list(
+		"Попробуйте наш новый батончик с нугой!",
+		"Вдвое больше калорий за полцены!"
+	)
+	ads_list = list(
+		"Самый здоровый!",
+		"Отмеченные наградами шоколадные батончики!",
+		"Ммм! Так вкусно!",
+		"О боже, это так вкусно!",
+		"Перекусите.",
+		"Закуски - это здорово!",
+		"Возьми немного, и еще немного!",
+		"Закуски высшего качества прямо с Марса.",
+		"Мы любим шоколад!",
+		"Попробуйте наше новое вяленое мясо!"
+	)
 
 	icon_state = "snack_off"
 	panel_overlay = "snack_panel"
@@ -1461,8 +1550,21 @@
 
 /obj/machinery/vending/chinese
 	name = "\improper Mr. Chang"
-	desc = "A self-serving Chinese food machine, for all your Chinese food needs."
-	slogan_list = list("Попробуйте 5000 лет культуры!","Мистер Чанг, одобрен для безопасного потребления в более чем 10 секторах!","Китайская кухня отлично подходит для вечернего свидания или одинокого вечера!","Вы не ошибетесь, если попробуете настоящую китайскую кухню от мистера Чанга.!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Mr. Chang",
+		GENITIVE = "торгового автомата Mr. Chang",
+		DATIVE = "торговому автомату Mr. Chang",
+		ACCUSATIVE = "торговый автомат Mr. Chang",
+		INSTRUMENTAL = "торговым автоматом Mr. Chang",
+		PREPOSITIONAL = "торговом автомате Mr. Chang"
+	)
+	desc = "Китайская машина самообслуживания, создана специально для удовлетворения потребности в китайской кухне."
+	slogan_list = list(
+		"Попробуйте 5000 лет культуры!",
+		"Мистер Чанг, одобрен для безопасного потребления в более чем 10 секторах!",
+		"Китайская кухня отлично подходит для вечернего свидания или одинокого вечера!",
+		"Вы не ошибетесь, если попробуете настоящую китайскую кухню от мистера Чанга!"
+	)
 
 	icon_state = "chang_off"
 	panel_overlay = "chang_panel"
@@ -1505,7 +1607,15 @@
 
 /obj/machinery/vending/cola
 	name = "\improper Robust Softdrinks"
-	desc = "A soft drink vendor provided by Robust Industries, LLC."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Robust Softdrinks",
+		GENITIVE = "торгового автомата Robust Softdrinks",
+		DATIVE = "торговому автомату Robust Softdrinks",
+		ACCUSATIVE = "торговый автомат Robust Softdrinks",
+		INSTRUMENTAL = "торговым автоматом Robust Softdrinks",
+		PREPOSITIONAL = "торговом автомате Robust Softdrinks"
+	)
+	desc = "Автомат с безалкогольными напитками, предоставляемый компанией Robust Industries, LLC."
 
 	icon_state = "cola-machine_off"
 	panel_overlay = "cola-machine_panel"
@@ -1515,7 +1625,15 @@
 	broken_lightmask_overlay = "cola-machine_broken_lightmask"
 
 	slogan_list = list("Роб+аст с+офтдринкс: крепче, чем тулбоксом по голове!")
-	ads_list = list("Освежает!","Надеюсь, вас одолела жажда!","Продано больше миллиона бутылок!","Хотите пить? Почему бы не взять колы?","Пожалуйста, купите напиток","Выпьем!","Лучшие напитки во всём космосе")
+	ads_list = list(
+		"Освежает!",
+		"Надеюсь, вас одолела жажда!",
+		"Продано больше миллиона бутылок!",
+		"Хотите пить? Почему бы не взять колы?",
+		"Пожалуйста, купите напиток",
+		"Выпьем!",
+		"Лучшие напитки во всём космосе"
+	)
 	products = list(
 		/obj/item/reagent_containers/food/drinks/cans/cola = 10,
 		/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10,
@@ -1548,7 +1666,15 @@
 
 /obj/machinery/vending/cart
 	name = "\improper PTech"
-	desc = "Cartridges for PDA's."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат PTech",
+		GENITIVE = "торгового автомата PTech",
+		DATIVE = "торговому автомату PTech",
+		ACCUSATIVE = "торговый автомат PTech",
+		INSTRUMENTAL = "торговым автоматом PTech",
+		PREPOSITIONAL = "торговом автомате PTech"
+	)
+	desc = "Картриджи для КПК."
 	slogan_list = list("Карточки в дорогу!")
 
 	icon_state = "cart_off"
@@ -1573,7 +1699,15 @@
 
 /obj/machinery/vending/liberationstation
 	name = "\improper Liberation Station"
-	desc = "An overwhelming amount of <b>ancient patriotism</b> washes over you just by looking at the machine."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Liberation Station",
+		GENITIVE = "торгового автомата Liberation Station",
+		DATIVE = "торговому автомату Liberation Station",
+		ACCUSATIVE = "торговый автомат Liberation Station",
+		INSTRUMENTAL = "торговым автоматом Liberation Station",
+		PREPOSITIONAL = "торговом автомате Liberation Station"
+	)
+	desc = "При одном взгляде на эту машину вас охватывает непреодолимое чувство <b>древнего патриотизма</b>."
 
 	icon_state = "liberationstation_off"
 	panel_overlay = "liberationstation_panel"
@@ -1583,9 +1717,19 @@
 	broken_lightmask_overlay = "liberationstation_broken_lightmask"
 
 	req_access = list(ACCESS_SECURITY)
-	slogan_list = list("Liberation Station: Your one-stop shop for all things second amendment!","Be a patriot today, pick up a gun!","Quality weapons for cheap prices!","Better dead than red!")
-	ads_list = list("Float like an astronaut, sting like a bullet!","Express your second amendment today!","Guns don't kill people, but you can!","Who needs responsibilities when you have guns?")
-	vend_reply = "Remember the name: Liberation Station!"
+	slogan_list = list(
+		"Liberation Station: Ваш универсальный магазин всего, что связано со второй поправкой!",
+		"Будь патриотом, возьми в руки оружие уже сегодня!",
+		"Качественное оружие по низким ценам!",
+		"Лучше умереть, чем покраснеть!"
+	)
+	ads_list = list(
+		"Порхай, как космонавт, жаль, как пуля!",
+		"Ты что, опять сохраняешься?",
+		"Оружие не убивает людей, а вот ты можешь!",
+		"Какая ещё может быть ответственность, если у тебя есть ствол?"
+	)
+	vend_reply = "Запомни моё имя: Liberation Station!"
 	products = list(/obj/item/gun/projectile/automatic/pistol/deagle/gold = 2,/obj/item/gun/projectile/automatic/pistol/deagle/camo = 2,
 					/obj/item/gun/projectile/automatic/pistol/m1911 = 2,/obj/item/gun/projectile/automatic/proto = 2,
 					/obj/item/gun/projectile/shotgun/automatic/combat = 2,/obj/item/gun/projectile/automatic/gyropistol = 1,
@@ -1598,7 +1742,15 @@
 
 /obj/machinery/vending/toyliberationstation
 	name = "\improper Syndicate Donksoft Toy Vendor"
-	desc = "An ages 8 and up approved vendor that dispenses toys. If you were to find the right wires, you can unlock the adult mode setting!"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Syndicate Donksoft Toy Vendor",
+		GENITIVE = "торгового автомата Syndicate Donksoft Toy Vendor",
+		DATIVE = "торговому автомату Syndicate Donksoft Toy Vendor",
+		ACCUSATIVE = "торговый автомат Syndicate Donksoft Toy Vendor",
+		INSTRUMENTAL = "торговым автоматом Syndicate Donksoft Toy Vendor",
+		PREPOSITIONAL = "торговом автомате Syndicate Donksoft Toy Vendor"
+	)
+	desc = "Одобренный автомат игрушек для детей от 8 лет и старше. Если вы найдете нужные провода, вы сможете разблокировать <i>режим для взрослых!</i>"
 
 	icon_state = "syndi_off"
 	panel_overlay = "syndi_panel"
@@ -1607,9 +1759,21 @@
 	broken_overlay = "syndi_broken"
 	broken_lightmask_overlay = "syndi_broken_lightmask"
 
-	slogan_list = list("Get your cool toys today!","Trigger a valid hunter today!","Quality toy weapons for cheap prices!","Give them to HoPs for all access!","Give them to HoS to get permabrigged!")
-	ads_list = list("Feel robust with your toys!","Express your inner child today!","Toy weapons don't kill people, but valid hunters do!","Who needs responsibilities when you have toy weapons?","Make your next murder FUN!")
-	vend_reply = "Come back for more!"
+	slogan_list = list(
+		"Получите крутые игрушки прямо сейчас!",
+		"Начните свою охоту уже сегодня!",
+		"Качественное игрушечное оружие по низким ценам!",
+		"Подарите их ГП для получения общего доступа!",
+		"Подарите их ГСБ чтобы попасть в пермабриг!"
+	)
+	ads_list = list(
+		"Почувствуй робастность, с игрушкой в руках!",
+		"Проявите своего внутреннего ребенка уже сегодня!",
+		"Давай, сражайся как мужчина!",
+		"Какая к чёрту ответственность, за игрушечный ствол?",
+		"Сделайте свое следующее убийство ВЕСЕЛЫМ!"
+	)
+	vend_reply = "Возвращайтесь за добавкой!"
 	products = list(/obj/item/gun/projectile/automatic/toy = 10,
 					/obj/item/gun/projectile/automatic/toy/pistol= 10,
 					/obj/item/gun/projectile/shotgun/toy = 10,
@@ -1633,9 +1797,30 @@
 
 /obj/machinery/vending/cigarette
 	name = "ShadyCigs Deluxe"
-	desc = "If you want to get cancer, might as well do it in style."
-	slogan_list = list("Космосигареты весьма хороши на вкус, какими они и должны быть","I'd rather toolbox than switch.","Затянитесь!","Не верьте исследованиям — курите!")
-	ads_list = list("Наверняка не очень-то и вредно для Вас!","Не верьте учёным!","На здоровье!","Не бросайте курить, купите ещё!","Затянитесь!","Никотиновый рай","Лучшие сигареты с 2150 года","Сигареты с множеством наград")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат ShadyCigs Deluxe",
+		GENITIVE = "торгового автомата ShadyCigs Deluxe",
+		DATIVE = "торговому автомату ShadyCigs Deluxe",
+		ACCUSATIVE = "торговый автомат ShadyCigs Deluxe",
+		INSTRUMENTAL = "торговым автоматом ShadyCigs Deluxe",
+		PREPOSITIONAL = "торговом автомате ShadyCigs Deluxe"
+	)
+	desc = "Если ты собираешься заболеть раком, по крайней мере, сделай это стильно!"
+	slogan_list = list(
+		"Космосигареты весьма хороши на вкус, какими они и должны быть",
+		"Затянитесь!",
+		"Не верьте исследованиям — курите!"
+	)
+	ads_list = list(
+		"Наверняка не очень-то и вредно для Вас!",
+		"Не верьте учёным!",
+		"На здоровье!",
+		"Не бросайте курить, купите ещё!",
+		"Затянитесь!",
+		"Никотиновый рай",
+		"Лучшие сигареты с 2150 года",
+		"Сигареты с множеством наград"
+	)
 	vend_delay = 34
 
 	icon_state = "cigs_off"
@@ -1693,9 +1878,26 @@
 
 /obj/machinery/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
 	name = "\improper ShadyCigs Ultra"
-	desc = "Now with extra premium products!"
-	ads_list = list("Наверняка не очень-то и вредно для Вас!","Допинг проведёт через безденежье лучше, чем деньги через бездопингье!","На здоровье!")
-	slogan_list = list("Включи, настрой, получи!","С химией жить веселей!","Затянитесь!","Сохраняй улыбку на устах и песню в своём сердце!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат ShadyCigs Ultra",
+		GENITIVE = "торгового автомата ShadyCigs Ultra",
+		DATIVE = "торговому автомату ShadyCigs Ultra",
+		ACCUSATIVE = "торговый автомат ShadyCigs Ultra",
+		INSTRUMENTAL = "торговым автоматом ShadyCigs Ultra",
+		PREPOSITIONAL = "торговом автомате ShadyCigs Ultra"
+	)
+	desc = "Теперь с дополнительными продуктами премиум-класса!"
+	ads_list = list(
+		"Наверняка не очень-то и вредно для Вас!",
+		"Допинг проведёт через безденежье лучше, чем деньги через бездопингье!",
+		"На здоровье!"
+	)
+	slogan_list = list(
+		"Включи, настрой, получи!",
+		"С химией жить веселей!",
+		"Затянитесь!",
+		"Сохраняй улыбку на устах и песню в своём сердце!"
+	)
 	products = list(/obj/item/storage/fancy/cigarettes = 5,
 					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,
 					/obj/item/storage/fancy/cigarettes/cigpack_robust = 3,
@@ -1711,7 +1913,15 @@
 
 /obj/machinery/vending/medical
 	name = "\improper NanoMed Plus"
-	desc = "Medical drug dispenser."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NanoMed Plus",
+		GENITIVE = "торгового автомата NanoMed Plus",
+		DATIVE = "торговому автомату NanoMed Plus",
+		ACCUSATIVE = "торговый автомат NanoMed Plus",
+		INSTRUMENTAL = "торговым автоматом NanoMed Plus",
+		PREPOSITIONAL = "торговом автомате NanoMed Plus"
+	)
+	desc = "Медицинский раздатчик веществ."
 
 	icon_state = "med_off"
 	panel_overlay = "med_panel"
@@ -1721,7 +1931,15 @@
 	broken_lightmask_overlay = "med_broken_lightmask"
 	deny_overlay = "med_deny"
 
-	ads_list = list("Иди и спаси несколько жизней!","Лучшее снаряжение для вашего медотдела","Только лучшие инструменты","Натуральные химикаты!","Эта штука спасает жизни","Может сами примете?","Пинг!")
+	ads_list = list(
+		"Иди и спаси несколько жизней!",
+		"Лучшее снаряжение для вашего медотдела",
+		"Только лучшие инструменты",
+		"Натуральные химикаты!",
+		"Эта штука спасает жизни",
+		"Может сами примете?",
+		"Пинг!"
+	)
 	req_access = list(ACCESS_MEDICAL)
 	products = list(/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/food/pill/patch/styptic = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 4, /obj/item/reagent_containers/applicator/brute = 3, /obj/item/reagent_containers/applicator/burn = 3,
 					/obj/item/reagent_containers/glass/bottle/charcoal = 4, /obj/item/reagent_containers/glass/bottle/epinephrine = 4, /obj/item/reagent_containers/glass/bottle/diphenhydramine = 4,
@@ -1739,7 +1957,14 @@
 
 /obj/machinery/vending/medical/syndicate_access
 	name = "\improper SyndiMed Plus"
-
+	ru_names = list(
+		NOMINATIVE = "торговый автомат SyndiMed Plus",
+		GENITIVE = "торгового автомата SyndiMed Plus",
+		DATIVE = "торговому автомату SyndiMed Plus",
+		ACCUSATIVE = "торговый автомат SyndiMed Plus",
+		INSTRUMENTAL = "торговым автоматом SyndiMed Plus",
+		PREPOSITIONAL = "торговом автомате SyndiMed Plus"
+	)
 	icon_state = "syndi-big-med_off"
 	panel_overlay = "syndi-big-med_panel"
 	screen_overlay = "syndi-big-med"
@@ -1755,7 +1980,15 @@
 
 /obj/machinery/vending/plasmaresearch
 	name = "\improper Toximate 3000"
-	desc = "All the fine parts you need in one vending machine!"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Toximate 3000",
+		GENITIVE = "торгового автомата Toximate 3000",
+		DATIVE = "торговому автомату Toximate 3000",
+		ACCUSATIVE = "торговый автомат Toximate 3000",
+		INSTRUMENTAL = "торговым автоматом Toximate 3000",
+		PREPOSITIONAL = "торговом автомате Toximate 3000"
+	)
+	desc = "Все, что вам нужно, в одном удобном месте!"
 
 	icon_state = "generic_off"
 	panel_overlay = "generic_panel"
@@ -1771,8 +2004,24 @@
 
 /obj/machinery/vending/wallmed
 	name = "\improper NanoMed"
-	desc = "Wall-mounted Medical Equipment dispenser."
-	ads_list = list("Иди и спаси несколько жизней!","Лучшее снаряжение для вашего медотдела","Только лучшие инструменты","Натуральные химикаты!","Эта штука спасает жизни","Может сами примете?","Пинг!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NanoMed",
+		GENITIVE = "торгового автомата NanoMed",
+		DATIVE = "торговому автомату NanoMed",
+		ACCUSATIVE = "торговый автомат NanoMed",
+		INSTRUMENTAL = "торговым автоматом NanoMed",
+		PREPOSITIONAL = "торговом автомате NanoMed"
+	)
+	desc = "Настенный раздатчик медицинских изделий."
+	ads_list = list(
+		"Иди и спаси несколько жизней!",
+		"Лучшее снаряжение для вашего медотдела",
+		"Только лучшие инструменты",
+		"Натуральные химикаты!",
+		"Эта штука спасает жизни",
+		"Может сами примете?",
+		"Пинг!"
+	)
 
 	icon_state = "wallmed_off"
 	panel_overlay = "wallmed_panel"
@@ -1792,7 +2041,15 @@
 
 /obj/machinery/vending/wallmed/syndicate
 	name = "\improper SyndiWallMed"
-	desc = "<b>EVIL</b> wall-mounted Medical Equipment dispenser."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат SyndiWallMed",
+		GENITIVE = "торгового автомата SyndiWallMed",
+		DATIVE = "торговому автомату SyndiWallMed",
+		ACCUSATIVE = "торговый автомат SyndiWallMed",
+		INSTRUMENTAL = "торговым автоматом SyndiWallMed",
+		PREPOSITIONAL = "торговом автомате SyndiWallMed"
+	)
+	desc = "<b>Злое</b> воплощение настенного раздатчика медицинских изделий."
 
 	icon_state = "wallmed_off"
 	panel_overlay = "wallmed_panel"
@@ -1811,8 +2068,26 @@
 
 /obj/machinery/vending/security
 	name = "\improper SecTech"
-	desc = "A security equipment vendor."
-	ads_list = list("Круши черепа капиталистов!","Отбей несколько голов!","Не забывай, вредительство - полезно!","Твое оружие здесь.","Наручники!","Стоять, подонок!","Не бей меня, брат!","Убей их, брат.","Почему бы не съесть пончик?")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат SecTech",
+		GENITIVE = "торгового автомата SecTech",
+		DATIVE = "торговому автомату SecTech",
+		ACCUSATIVE = "торговый автомат SecTech",
+		INSTRUMENTAL = "торговым автоматом SecTech",
+		PREPOSITIONAL = "торговом автомате SecTech"
+	)
+	desc = "Раздатчик снаряжения службы безопасности."
+	ads_list = list(
+		"Круши черепа капиталистов!",
+		"Отбей несколько голов!",
+		"Не забывай, вредительство - полезно!",
+		"Твое оружие здесь.",
+		"Наручники!",
+		"Стоять, подонок!",
+		"Не бей меня, брат!",
+		"Убей их, брат.",
+		"Почему бы не съесть пончик?"
+	)
 
 	icon_state = "sec_off"
 	panel_overlay = "sec_panel"
@@ -1833,8 +2108,24 @@
 
 /obj/machinery/vending/security/training
 	name = "\improper SecTech Training"
-	desc = "A security training equipment vendor."
-	ads_list = list("Соблюдай чистоту на стрельбище!","Даже я стреляю лучше тебя!","Почему так косо, бухой что ли?!","Техника безопасности нам не писана, да?","1 из 10 попаданий... А ты хорош!","Инструктор это твой папочка!","Эй, ты куда целишься?!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат SecTech Training",
+		GENITIVE = "торгового автомата SecTech Training",
+		DATIVE = "торговому автомату SecTech Training",
+		ACCUSATIVE = "торговый автомат SecTech Training",
+		INSTRUMENTAL = "торговым автоматом SecTech Training",
+		PREPOSITIONAL = "торговом автомате SecTech Training"
+	)
+	desc = "Раздатчик тренировочного снаряжения службы безопасности."
+	ads_list = list(
+		"Соблюдай чистоту на стрельбище!",
+		"Даже я стреляю лучше тебя!",
+		"Почему так косо, бухой что ли?!",
+		"Техника безопасности нам не писана, да?",
+		"1 из 10 попаданий... А ты хорош!",
+		"Инструктор – это твой папочка!",
+		"Эй, ты куда целишься?!"
+	)
 
 	icon_state = "sectraining_off"
 	panel_overlay = "sec_panel"
@@ -1880,15 +2171,33 @@
 
 /obj/item/security_voucher
 	name = "security voucher"
-	desc = "A token to redeem a weapon kit. Use it on a SecTech."
+	desc = "Жетон, позволяющий получить набор оружия. Используйте его на SecTech."
 	icon_state = "security_voucher"
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/machinery/vending/hydronutrients
 	name = "\improper NutriMax"
-	desc = "A plant nutrients vendor"
-	slogan_list = list("Вам не надо удобрять почву естественным путём — разве это не чудесно?","Теперь на 50% меньше вони!","Растения тоже люди!")
-	ads_list = list("Мы любим растения!","Может сами примете?","Самые зелёные кнопки на свете.","Мы любим большие растения.","Мягкая почва…")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NutriMax",
+		GENITIVE = "торгового автомата NutriMax",
+		DATIVE = "торговому автомату NutriMax",
+		ACCUSATIVE = "торговый автомат NutriMax",
+		INSTRUMENTAL = "торговым автоматом NutriMax",
+		PREPOSITIONAL = "торговом автомате NutriMax"
+	)
+	desc = "Поставщик питательных веществ для растений."
+	slogan_list = list(
+		"Вам не надо удобрять почву естественным путём — разве это не чудесно?",
+		"Теперь на 50% меньше вони!",
+		"Растения тоже люди!"
+	)
+	ads_list = list(
+		"Мы любим растения!",
+		"Может сами примете?",
+		"Самые зелёные кнопки на свете.",
+		"Мы любим большие растения.",
+		"Мягкая почва…"
+	)
 
 	icon_state = "nutri_off"
 	panel_overlay = "nutri_panel"
@@ -1905,9 +2214,26 @@
 
 /obj/machinery/vending/hydroseeds
 	name = "\improper MegaSeed Servitor"
-	desc = "When you need seeds fast!"
-	slogan_list = list("THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!","Hands down the best seed selection on the station!","Also certain mushroom varieties available, more for experts! Get certified today!")
-	ads_list = list("Мы любим растения!","Вырасти урожай!","Расти, малыш, расти-и-и-и!","Ды-а, сына!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат MegaSeed Servitor",
+		GENITIVE = "торгового автомата MegaSeed Servitor",
+		DATIVE = "торговому автомату MegaSeed Servitor",
+		ACCUSATIVE = "торговый автомат MegaSeed Servitor",
+		INSTRUMENTAL = "торговым автоматом MegaSeed Servitor",
+		PREPOSITIONAL = "торговом автомате MegaSeed Servitor"
+	)
+	desc = "Когда вам срочно нужны семена!"
+	slogan_list = list(
+		"ВОТ ГДЕ ЖИВУТ СЕМЕНА! ВОЗЬМИ СЕБЕ НЕМНОГО!",
+		"Без сомнений, лучший выбор семян на станции!",
+		"Кроме того, некоторые виды грибов доступны исключительно для экспертов! Получите сертификат уже сегодня!"
+	)
+	ads_list = list(
+		"Мы любим растения!",
+		"Вырасти урожай!",
+		"Расти, малыш, расти-и-и-и!",
+		"Ды-а, сына!"
+	)
 
 	icon_state = "seeds_off"
 	panel_overlay = "seeds_panel"
@@ -1987,7 +2313,15 @@
 
 /obj/machinery/vending/magivend
 	name = "\improper MagiVend"
-	desc = "A magic vending machine."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат MagiVend",
+		GENITIVE = "торгового автомата MagiVend",
+		DATIVE = "торговому автомату MagiVend",
+		ACCUSATIVE = "торговый автомат MagiVend",
+		INSTRUMENTAL = "торговым автоматом MagiVend",
+		PREPOSITIONAL = "торговом автомате MagiVend"
+	)
+	desc = "Волшебный торговый автомат."
 
 	icon_state = "magivend_off"
 	panel_overlay = "magivend_panel"
@@ -1996,10 +2330,24 @@
 	broken_overlay = "magivend_broken"
 	broken_lightmask_overlay = "magivend_broken_lightmask"
 
-	slogan_list = list("Sling spells the proper way with MagiVend!","Be your own Houdini! Use MagiVend!")
+	slogan_list = list(
+		"MagiVend превращает произношение заклинаний в сущий пустяк!",
+		"Стань сам себе Гудини! Используй MagiVend!"
+	)
 	vend_delay = 15
-	vend_reply = "Have an enchanted evening!"
-	ads_list = list("FJKLFJSD","AJKFLBJAKL","1234 LOONIES LOL!",">MFW","Kill them fuckers!","GET DAT FUKKEN DISK","HONK!","EI NATH","Destroy the station!","Admin conspiracies since forever!","Space-time bending hardware!")
+	vend_reply = "Желаю вам чудесного вечера!"
+	ads_list = list(
+		"FJKLFJSD","AJKFLBJAKL",
+		"1234 LOONIES LOL!",
+		">MFW",
+		"Kill them fuckers!",
+		"GET DAT FUKKEN DISK",
+		"HONK!",
+		"EI NATH",
+		"Разнесите станцию!",
+		"Админские заговоры стары как само время!",
+		"Оборудование для изгиба пространства-времени!"
+	)
 	products = list(/obj/item/clothing/head/wizard = 5,
 					/obj/item/clothing/suit/wizrobe = 5,
 					/obj/item/clothing/head/wizard/red = 5,
@@ -2033,7 +2381,15 @@
 
 /obj/machinery/vending/autodrobe
 	name = "\improper AutoDrobe"
-	desc = "A vending machine for costumes."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат AutoDrobe",
+		GENITIVE = "торгового автомата AutoDrobe",
+		DATIVE = "торговому автомату AutoDrobe",
+		ACCUSATIVE = "торговый автомат AutoDrobe",
+		INSTRUMENTAL = "торговым автоматом AutoDrobe",
+		PREPOSITIONAL = "торговом автомате AutoDrobe"
+	)
+	desc = "Автомат с бесплатными костюмами!"
 
 	icon_state = "theater_off"
 	panel_overlay = "theater_panel"
@@ -2043,9 +2399,14 @@
 	broken_lightmask_overlay = "theater_broken_lightmask"
 	deny_overlay = "theater_deny"
 
-	slogan_list = list("Dress for success!","Suited and booted!","It's show time!","Why leave style up to fate? Use AutoDrobe!")
+	slogan_list = list(
+		"Приоденься для Успеха!",
+		"Одетый и обутый!",
+		"Пришло время шоу!",
+		"Зачем оставлять стиль на произвол судьбы? Используй AutoDrobe!"
+	)
 	vend_delay = 15
-	vend_reply = "Thank you for using AutoDrobe!"
+	vend_reply = "Спасибо за использование AutoDrobe!"
 	products = list(/obj/item/clothing/suit/chickensuit = 1,
 					/obj/item/clothing/head/chicken = 1,
 					/obj/item/clothing/under/gladiator = 1,
@@ -2194,8 +2555,24 @@
 
 /obj/machinery/vending/dinnerware
 	name = "\improper Plasteel Chef's Dinnerware Vendor"
-	desc = "A kitchen and restaurant equipment vendor."
-	ads_list = list("Mm, food stuffs!","Food and food accessories.","Get your plates!","You like forks?","I like forks.","Woo, utensils.","You don't really need these...")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Plasteel Chef's Dinnerware Vendor",
+		GENITIVE = "торгового автомата Plasteel Chef's Dinnerware Vendor",
+		DATIVE = "торговому автомату Plasteel Chef's Dinnerware Vendor",
+		ACCUSATIVE = "торговый автомат Plasteel Chef's Dinnerware Vendor",
+		INSTRUMENTAL = "торговым автоматом Plasteel Chef's Dinnerware Vendor",
+		PREPOSITIONAL = "торговом автомате Plasteel Chef's Dinnerware Vendor"
+	)
+	desc = "Поставщик кухонного и ресторанного оборудования."
+	ads_list = list(
+		"Мм, продукты питания!",
+		"Пища и пищевые принадлежности.",
+		"Принесите свои тарелки!",
+		"Тебе нравятся вилки?",
+		"Я люблю вилки.",
+		"Ух ты, посуда.",
+		"На самом деле они тебе не нужны..."
+	)
 
 	icon_state = "dinnerware_off"
 	panel_overlay = "dinnerware_panel"
@@ -2239,7 +2616,15 @@
 
 /obj/machinery/vending/sovietsoda
 	name = "\improper BODA"
-	desc = "Old sweet water vending machine."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат BODA",
+		GENITIVE = "торгового автомата BODA",
+		DATIVE = "торговому автомату BODA",
+		ACCUSATIVE = "торговый автомат BODA",
+		INSTRUMENTAL = "торговым автоматом BODA",
+		PREPOSITIONAL = "торговом автомате BODA"
+	)
+	desc = "Старый автомат по продаже сладкой газировки."
 
 	icon_state = "sovietsoda_off"
 	panel_overlay = "sovietsoda_panel"
@@ -2248,7 +2633,13 @@
 	broken_overlay = "sovietsoda_broken"
 	broken_lightmask_overlay = "sovietsoda_broken_lightmask"
 
-	ads_list = list("For Tsar and Country.","Have you fulfilled your nutrition quota today?","Very nice!","We are simple people, for this is all we eat.","If there is a person, there is a problem. If there is no person, then there is no problem.")
+	ads_list = list(
+		"За царя и Отечество.",
+		"Ты уже осуществил свою норму питания на сегодня?",
+		"Очень хорошо!",
+		"Мы обычные люди, и едим мы то, что есть.",
+		"Если есть человек, то есть и проблема. Если нет человека, то нет и проблемы."
+	)
 	products = list(/obj/item/reagent_containers/food/drinks/drinkingglass/soda = 30)
 	contraband = list(/obj/item/reagent_containers/food/drinks/drinkingglass/cola = 20)
 	resistance_flags = FIRE_PROOF
@@ -2256,7 +2647,15 @@
 
 /obj/machinery/vending/tool
 	name = "\improper YouTool"
-	desc = "Tools for tools."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат YouTool",
+		GENITIVE = "торгового автомата YouTool",
+		DATIVE = "торговому автомату YouTool",
+		ACCUSATIVE = "торговый автомат YouTool",
+		INSTRUMENTAL = "торговым автоматом YouTool",
+		PREPOSITIONAL = "торговом автомате YouTool"
+	)
+	desc = "Инструменты для инструментов."
 
 	icon_state = "tool_off"
 	panel_overlay = "tool_panel"
@@ -2297,7 +2696,15 @@
 
 /obj/machinery/vending/engivend
 	name = "\improper Engi-Vend"
-	desc = "Spare tool vending. What? Did you expect some witty description?"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Engi-Vend",
+		GENITIVE = "торгового автомата Engi-Vend",
+		DATIVE = "торговому автомату Engi-Vend",
+		ACCUSATIVE = "торговый автомат Engi-Vend",
+		INSTRUMENTAL = "торговым автоматом Engi-Vend",
+		PREPOSITIONAL = "торговом автомате Engi-Vend"
+	)
+	desc = "Автомат с запасными инструментами. Что? Вы ожидали какого-нибудь остроумного описания?"
 
 	icon_state = "engivend_off"
 	panel_overlay = "engivend_panel"
@@ -2315,7 +2722,15 @@
 
 /obj/machinery/vending/engineering
 	name = "\improper Robco Tool Maker"
-	desc = "Everything you need for do-it-yourself station repair."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Robco Tool Maker",
+		GENITIVE = "торгового автомата Robco Tool Maker",
+		DATIVE = "торговому автомату Robco Tool Maker",
+		ACCUSATIVE = "торговый автомат Robco Tool Maker",
+		INSTRUMENTAL = "торговым автоматом Robco Tool Maker",
+		PREPOSITIONAL = "торговом автомате Robco Tool Maker"
+	)
+	desc = "Все, что вам требуется для самостоятельного обслуживания станции."
 
 	icon_state = "engi_off"
 	panel_overlay = "engi_panel"
@@ -2337,7 +2752,15 @@
 
 /obj/machinery/vending/robotics
 	name = "\improper Robotech Deluxe"
-	desc = "All the tools you need to create your own robot army."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Robotech Deluxe",
+		GENITIVE = "торгового автомата Robotech Deluxe",
+		DATIVE = "торговому автомату Robotech Deluxe",
+		ACCUSATIVE = "торговый автомат Robotech Deluxe",
+		INSTRUMENTAL = "торговым автоматом Robotech Deluxe",
+		PREPOSITIONAL = "торговом автомате Robotech Deluxe"
+	)
+	desc = "Все, что вам нужно для создания вашей собственной армии роботов."
 
 	icon_state = "robotics_off"
 	panel_overlay = "robotics_panel"
@@ -2375,9 +2798,31 @@
 
 /obj/machinery/vending/sustenance
 	name = "\improper Sustenance Vendor"
-	desc = "A vending machine which vends food, as required by section 47-C of the NT's Prisoner Ethical Treatment Agreement."
-	slogan_list = list("Enjoy your meal.","Enough calories to support strenuous labor.")
-	ads_list = list("The healthiest!","Award-winning chocolate bars!","Mmm! So good!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Have some more Getmore!","Best quality snacks straight from mars.","We love chocolate!","Try our new jerky!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Sustenance Vendor",
+		GENITIVE = "торгового автомата Sustenance Vendor",
+		DATIVE = "торговому автомату Sustenance Vendor",
+		ACCUSATIVE = "торговый автомат Sustenance Vendor",
+		INSTRUMENTAL = "торговым автоматом Sustenance Vendor",
+		PREPOSITIONAL = "торговом автомате Sustenance Vendor"
+	)
+	desc = "Торговый автомат, в котором продаются продукты питания, в соответствии с разделом 47-С Соглашения об этическом обращении с заключёнными в NT."
+	slogan_list = list(
+		"Приятного аппетита!",
+		"Достаточное количество калорий для интенсивной работы."
+	)
+	ads_list = list(
+		"Самый здоровый!",
+		"Отмеченные наградами шоколадные батончики!",
+		"Ммм! Так вкусно!",
+		"О боже, это так вкусно!",
+		"Перекусите.",
+		"Закуски - это здорово!",
+		"Возьми немного, и еще немного!",
+		"Закуски высшего качества прямо с Марса.",
+		"Мы любим шоколад!",
+		"Попробуйте наше новое вяленое мясо!"
+	)
 
 	icon_state = "sustenance_off"
 	panel_overlay = "snack_panel"
@@ -2397,7 +2842,7 @@
 	refill_canister = /obj/item/vending_refill/sustenance
 
 /obj/machinery/vending/sustenance/additional
-	desc = "Какого этот автомат тут оказался?!"
+	desc = "Какого чёрта этот автомат тут оказался?!"
 	products = list(/obj/item/reagent_containers/food/snacks/tofu = 12,
 					/obj/item/reagent_containers/food/drinks/ice = 6,
 					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
@@ -2405,7 +2850,15 @@
 
 /obj/machinery/vending/hatdispenser
 	name = "\improper Hatlord 9000"
-	desc = "It doesn't seem the slightest bit unusual. This frustrates you immensely."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Hatlord 9000",
+		GENITIVE = "торгового автомата Hatlord 9000",
+		DATIVE = "торговому автомату Hatlord 9000",
+		ACCUSATIVE = "торговый автомат Hatlord 9000",
+		INSTRUMENTAL = "торговым автоматом Hatlord 9000",
+		PREPOSITIONAL = "торговом автомате Hatlord 9000"
+	)
+	desc = "В этом нет ничего необычного. Это вас очень расстраивает."
 
 	icon_state = "hats_off"
 	panel_overlay = "hats_panel"
@@ -2414,7 +2867,12 @@
 	broken_overlay = "hats_broken"
 	broken_lightmask_overlay = "hats_broken_lightmask"
 
-	ads_list = list("Warning, not all hats are dog/monkey compatible. Apply forcefully with care.","Apply directly to the forehead.","Who doesn't love spending cash on hats?!","From the people that brought you collectable hat crates, Hatlord!")
+	ads_list = list(
+		"Внимание: не все шляпы совместимы с собаками и обезьянами. Надевайте с усилием, но осторожно.",
+		"Надевайте прямо на голову.",
+		"Кто не любит тратить деньги на шляпы?!",
+		"От создателей коробок с коллекционными шляпами — Hatlord!"
+	)
 	products = list(/obj/item/clothing/head/bowlerhat = 10,
 					/obj/item/clothing/head/beaverhat = 10,
 					/obj/item/clothing/head/boaterhat = 10,
@@ -2428,7 +2886,15 @@
 
 /obj/machinery/vending/suitdispenser
 	name = "\improper Suitlord 9000"
-	desc = "You wonder for a moment why all of your shirts and pants come conjoined. This hurts your head and you stop thinking about it."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Suitlord 9000",
+		GENITIVE = "торгового автомата Suitlord 9000",
+		DATIVE = "торговому автомату Suitlord 9000",
+		ACCUSATIVE = "торговый автомат Suitlord 9000",
+		INSTRUMENTAL = "торговым автоматом Suitlord 9000",
+		PREPOSITIONAL = "торговом автомате Suitlord 9000"
+	)
+	desc = "На мгновение ты задумываешься, почему все твои рубашки и брюки сшиты вместе. От этого у тебя начинает болеть голова, и ты перестаешь об этом думать."
 
 	icon_state = "suits_off"
 	panel_overlay = "suits_panel"
@@ -2437,7 +2903,13 @@
 	broken_overlay = "suits_broken"
 	broken_lightmask_overlay = "suits_broken_lightmask"
 
-	ads_list = list("Pre-Ironed, Pre-Washed, Pre-Wor-*BZZT*","Blood of your enemies washes right out!","Who are YOU wearing?","Look dapper! Look like an idiot!","Dont carry your size? How about you shave off some pounds you fat lazy- *BZZT*")
+	ads_list = list(
+		"Предварительно проглаженный, предварительно стиранный, предво-*БЗЗЗ*",
+		"Кровь твоих врагов сразу же смоется!",
+		"Что ВЫ носите?",
+		"Выгляди элегантно! Выгляди как идиот!",
+		"Не подходит по размеру? А как насчёт того, чтобы сбросить пару килограммов, ты, жирный лентяй-*БЗЗЗЗ*"
+	)
 	products = list(
 		/obj/item/clothing/under/color/black = 10,
 		/obj/item/clothing/under/color/blue = 10,
@@ -2466,7 +2938,15 @@
 
 /obj/machinery/vending/shoedispenser
 	name = "\improper Shoelord 9000"
-	desc = "Wow, hatlord looked fancy, suitlord looked streamlined, and this is just normal. The guy who designed these must be an idiot."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Shoelord 9000",
+		GENITIVE = "торгового автомата Shoelord 9000",
+		DATIVE = "торговому автомату Shoelord 9000",
+		ACCUSATIVE = "торговый автомат Shoelord 9000",
+		INSTRUMENTAL = "торговым автоматом Shoelord 9000",
+		PREPOSITIONAL = "торговом автомате Shoelord 9000"
+	)
+	desc = "Оу, шляпы у Hatlord такие классные, костюмы у Suitlord такие элегантные, а у этого всё такое обычное... Дизайнер, должно быть, идиот."
 
 	icon_state = "shoes_off"
 	icon_state = "shoes_off"
@@ -2476,7 +2956,13 @@
 	broken_overlay = "shoes_broken"
 	broken_lightmask_overlay = "shoes_broken_lightmask"
 
-	ads_list = list("Put your foot down!","One size fits all!","IM WALKING ON SUNSHINE!","No hobbits allowed.","NO PLEASE WILLY, DONT HURT ME- *BZZT*")
+	ads_list = list(
+		"Опусти ногу!",
+		"Один размер подходит всем!",
+		"Я ШАГАЮ В ЛУЧАХ СОЛНЦА!",
+		"Хоббитам вход воспрещен.",
+		"НЕТ, ПОЖАЛУЙСТА, ВИЛЛИ, НЕ ДЕЛАЙ МНЕ БОЛЬНО-*БЗЗЗЗ*"
+	)
 	products = list(/obj/item/clothing/shoes/black = 10,/obj/item/clothing/shoes/brown = 10,/obj/item/clothing/shoes/blue = 10,/obj/item/clothing/shoes/green = 10,/obj/item/clothing/shoes/yellow = 10,/obj/item/clothing/shoes/purple = 10,/obj/item/clothing/shoes/red = 10,/obj/item/clothing/shoes/white = 10,/obj/item/clothing/shoes/sandal=10)
 	contraband = list(/obj/item/clothing/shoes/orange = 5)
 	premium = list(/obj/item/clothing/shoes/rainbow = 1)
@@ -2484,9 +2970,30 @@
 
 /obj/machinery/vending/syndicigs
 	name = "\improper Suspicious Cigarette Machine"
-	desc = "Smoke 'em if you've got 'em."
-	slogan_list = list("Космосигареты на вкус хороши, какими они и должны быть.","I'd rather toolbox than switch.","Затянитесь!","Не верьте исследованиям — курите сегодня!")
-	ads_list = list("Наверняка не очень-то и вредно для Вас!","Не верьте учёным!","На здоровье!","Не бросайте курить, купите ещё!","Затянитесь!","Никотиновый рай.","Лучшие сигареты с 2150 года.","Сигареты с множеством наград.")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Suspicious Cigarette Machine",
+		GENITIVE = "торгового автомата Suspicious Cigarette Machine",
+		DATIVE = "торговому автомату Suspicious Cigarette Machine",
+		ACCUSATIVE = "торговый автомат Suspicious Cigarette Machine",
+		INSTRUMENTAL = "торговым автоматом Suspicious Cigarette Machine",
+		PREPOSITIONAL = "торговом автомате Suspicious Cigarette Machine"
+	)
+	desc = "Кури, раз уж взял."
+	slogan_list = list(
+		"Космосигареты на вкус хороши, какими они и должны быть.",
+		"Затянитесь!",
+		"Не верьте исследованиям — курите сегодня!"
+	)
+	ads_list = list(
+		"Наверняка не очень-то и вредно для Вас!",
+		"Не верьте учёным!",
+		"На здоровье!",
+		"Не бросайте курить, купите ещё!",
+		"Затянитесь!",
+		"Никотиновый рай.",
+		"Лучшие сигареты с 2150 года.",
+		"Сигареты с множеством наград."
+	)
 	vend_delay = 34
 
 	icon_state = "cigs_off"
@@ -2501,9 +3008,31 @@
 
 /obj/machinery/vending/syndisnack
 	name = "\improper Getmore Chocolate Corp"
-	desc = "A modified snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars"
-	slogan_list = list("Try our new nougat bar!","Twice the calories for half the price!")
-	ads_list = list("The healthiest!","Award-winning chocolate bars!","Mmm! So good!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Have some more Getmore!","Best quality snacks straight from mars.","We love chocolate!","Try our new jerky!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Getmore Chocolate Corp",
+		GENITIVE = "торгового автомата Getmore Chocolate Corp",
+		DATIVE = "торговому автомату Getmore Chocolate Corp",
+		ACCUSATIVE = "торговый автомат Getmore Chocolate Corp",
+		INSTRUMENTAL = "торговым автоматом Getmore Chocolate Corp",
+		PREPOSITIONAL = "торговом автомате Getmore Chocolate Corp"
+	)
+	desc = "Модифицированный автомат самообслуживания, любезно предоставленный шоколадной корпорацией Getmore, базирующейся на Марсе."
+	slogan_list = list(
+		"Попробуйте наш новый батончик с нугой!",
+		"Вдвое больше калорий за полцены!"
+	)
+	ads_list = list(
+		"Самый здоровый!",
+		"Отмеченные наградами шоколадные батончики!",
+		"Ммм! Так вкусно!",
+		"О боже, это так вкусно!",
+		"Перекусите.",
+		"Закуски - это здорово!",
+		"Возьми немного, и еще немного!",
+		"Закуски высшего качества прямо с Марса.",
+		"Мы любим шоколад!",
+		"Попробуйте наше новое вяленое мясо!"
+	)
 
 	icon_state = "snack_off"
 	panel_overlay = "snack_panel"
@@ -2517,8 +3046,20 @@
 
 /obj/machinery/vending/syndierobotics
 	name = "Синди Робо-ДеЛюкс!"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Синди Робо-ДеЛюкс",
+		GENITIVE = "торгового автомата Синди Робо-ДеЛюкс",
+		DATIVE = "торговому автомату Синди Робо-ДеЛюкс",
+		ACCUSATIVE = "торговый автомат Синди Робо-ДеЛюкс",
+		INSTRUMENTAL = "торговым автоматом Синди Робо-ДеЛюкс",
+		PREPOSITIONAL = "торговом автомате Синди Робо-ДеЛюкс"
+	)
 	desc = "Всё что нужно, чтобы сделать личного железного друга из ваших врагов!"
-	ads_list = list("Make them beep-boop like a robot should!","Robotisation is NOT a crime!","Nyoom!")
+	ads_list = list(
+		"Заставьте их пищать и гудеть, как и подобает роботу!",
+		"Роботизация — это НЕ преступление!",
+		"Ньям!"
+	)
 
 	icon_state = "robotics_off"
 	panel_overlay = "robotics_panel"
@@ -2547,7 +3088,15 @@
 //don't forget to change the refill size if you change the machine's contents!
 /obj/machinery/vending/clothing
 	name = "\improper ClothesMate" //renamed to make the slogan rhyme
-	desc = "A vending machine for clothing."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат ClothesMate",
+		GENITIVE = "торгового автомата ClothesMate",
+		DATIVE = "торговому автомату ClothesMate",
+		ACCUSATIVE = "торговый автомат ClothesMate",
+		INSTRUMENTAL = "торговым автоматом ClothesMate",
+		PREPOSITIONAL = "торговом автомате ClothesMate"
+	)
+	desc = "Автомат с бесплатной одеждой."
 
 	icon_state = "clothes_off"
 	panel_overlay = "clothes_panel"
@@ -2556,9 +3105,14 @@
 	broken_overlay = "clothes_broken"
 	broken_lightmask_overlay = "clothes_broken_lightmask"
 
-	slogan_list = list("Dress for success!","Prepare to look swagalicious!","Look at all this free swag!","Why leave style up to fate? Use the ClothesMate!")
+	slogan_list = list(
+		"Приоденься для Успеха!",
+		"Приготовьтесь выглядеть потрясающе!",
+		"Посмотрите на все эти классные вещи бесплатно!",
+		"Зачем оставлять стиль на произвол судьбы? Используй ClothesMate!"
+	)
 	vend_delay = 15
-	vend_reply = "Thank you for using the ClothesMate!"
+	vend_reply = "Спасибо за использование ClothesMate!"
 	products = list(/obj/item/clothing/head/that = 2,
 					/obj/item/clothing/head/fedora = 1,
 					/obj/item/clothing/glasses/monocle = 1,
@@ -2655,9 +3209,27 @@
 
 /obj/machinery/vending/artvend
 	name = "\improper ArtVend"
-	desc = "A vending machine for art supplies."
-	slogan_list = list("Stop by for all your artistic needs!","Color the floors with crayons, not blood!","Don't be a starving artist, use ArtVend. ","Don't fart, do art!")
-	ads_list = list("Just like Kindergarten!","Now with 1000% more vibrant colors!","Screwing with the janitor was never so easy!","Creativity is at the heart of every spessman.")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат ArtVend",
+		GENITIVE = "торгового автомата ArtVend",
+		DATIVE = "торговому автомату ArtVend",
+		ACCUSATIVE = "торговый автомат ArtVend",
+		INSTRUMENTAL = "торговым автоматом ArtVend",
+		PREPOSITIONAL = "торговом автомате ArtVend"
+	)
+	desc = "Торговый автомат для всех ваших художественных нужд."
+	slogan_list = list(
+		"Забирайте свои прикольные вещички!"
+		,"Раскрасьте пол цветными карандашами, а не кровью!",
+		"Не будь голодающим творцом, используй ArtVend.",
+		"Не сри, твори!"
+	)
+	ads_list = list(
+		"Прямо как в детском саду!",
+		"Теперь на 1000% больше ярких цветов!",
+		"Поиметь уборщика еще никогда не было так просто!",
+		"Креативность лежит в основе каждого специалиста!"
+	)
 	vend_delay = 15
 
 	icon_state = "artvend_off"
@@ -2715,9 +3287,30 @@
 
 /obj/machinery/vending/crittercare
 	name = "\improper CritterCare"
-	desc = "A vending machine for pet supplies."
-	slogan_list = list("Stop by for all your animal's needs!","Cuddly pets deserve a stylish collar!","Pets in space, what could be more adorable?","Freshest fish eggs in the system!","Rocks are the perfect pet, buy one today!")
-	ads_list = list("House-training costs extra!","Now with 1000% more cat hair!","Allergies are a sign of weakness!","Dogs are man's best friend. Remember that Vulpkanin!"," Heat lamps for Unathi!"," Vox-y want a cracker?")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат CritterCare",
+		GENITIVE = "торгового автомата CritterCare",
+		DATIVE = "торговому автомату CritterCare",
+		ACCUSATIVE = "торговый автомат CritterCare",
+		INSTRUMENTAL = "торговым автоматом CritterCare",
+		PREPOSITIONAL = "торговом автомате CritterCare"
+	)
+	desc = "Торговый автомат по продаже зоотоваров."
+	slogan_list = list(
+		"Здесь всё, чтобы ваш питомец был всем доволен!",
+		"Крутые питомцы заслуживают крутой ошейник!",
+		"Домашние животные в космосе - что может быть очаровательнее?",
+		"Самая свежая икра в системе!",
+		"Камни - лучшие питомцы, купите себе их уже сегодня!"
+	)
+	ads_list = list(
+		"Дрессировка на дому оплачивается дополнительно!",
+		"Теперь на 1000% больше кошачьей шерсти!",
+		"Аллергия - признак слабости!",
+		"Собаки - лучшие друзья человека. Помни об этом, вульпа!",
+		"Нагревательные лампы для Унатхов!",
+		"Вокс хочет крекер?"
+	)
 	vend_delay = 15
 
 	icon_state = "crittercare_off"
@@ -2776,6 +3369,14 @@
 
 /obj/machinery/vending/clothing/departament
 	name = "\improper Broken Departament ClothesMate"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Broken Departament ClothesMate",
+		GENITIVE = "торгового автомата Broken Departament ClothesMate",
+		DATIVE = "торговому автомату Broken Departament ClothesMate",
+		ACCUSATIVE = "торговый автомат Broken Departament ClothesMate",
+		INSTRUMENTAL = "торговым автоматом Broken Departament ClothesMate",
+		PREPOSITIONAL = "торговом автомате Broken Departament ClothesMate"
+	)
 	desc = "Автомат-помощник по выдаче одежды отдела."
 	slogan_list = list(
 		"Одежда успешного работника!", "Похвала на глаза!", "Ну наконец-то нормально оделся!",
@@ -2798,6 +3399,14 @@
 
 /obj/machinery/vending/clothing/departament/security
 	name = "\improper Departament Security ClothesMate"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Departament Security ClothesMate",
+		GENITIVE = "торгового автомата Departament Security ClothesMate",
+		DATIVE = "торговому автомату Departament Security ClothesMate",
+		ACCUSATIVE = "торговый автомат Departament Security ClothesMate",
+		INSTRUMENTAL = "торговым автоматом Departament Security ClothesMate",
+		PREPOSITIONAL = "торговом автомате Departament Security ClothesMate"
+	)
 	desc = "Автомат-помощник по выдаче одежды Отдела Службы Безопасности."
 
 	icon_state = "clothes-dep-sec_off"
@@ -2877,6 +3486,14 @@
 
 /obj/machinery/vending/clothing/departament/medical
 	name = "\improper Departament Medical ClothesMate"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Departament Medical ClothesMate",
+		GENITIVE = "торгового автомата Departament Medical ClothesMate",
+		DATIVE = "торговому автомату Departament Medical ClothesMate",
+		ACCUSATIVE = "торговый автомат Departament Medical ClothesMate",
+		INSTRUMENTAL = "торговым автоматом Departament Medical ClothesMate",
+		PREPOSITIONAL = "торговом автомате Departament Medical ClothesMate"
+	)
 	desc = "Автомат-помощник по выдаче одежды Медицинского Отдела."
 
 	icon_state = "clothes-dep-med_off"
@@ -2977,6 +3594,14 @@
 
 /obj/machinery/vending/clothing/departament/engineering
 	name = "\improper Departament Engineering ClothesMate"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Departament Engineering ClothesMat",
+		GENITIVE = "торгового автомата Departament Engineering ClothesMat",
+		DATIVE = "торговому автомату Departament Engineering ClothesMat",
+		ACCUSATIVE = "торговый автомат Departament Engineering ClothesMat",
+		INSTRUMENTAL = "торговым автоматом Departament Engineering ClothesMat",
+		PREPOSITIONAL = "торговом автомате Departament Engineering ClothesMat"
+	)
 	desc = "Автомат-помощник по выдаче одежды Инженерного Отдела."
 
 	icon_state = "clothes-dep-eng_off"
@@ -3036,6 +3661,14 @@
 
 /obj/machinery/vending/clothing/departament/science
 	name = "\improper Departament Science ClothesMate"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Departament Science ClothesMate",
+		GENITIVE = "торгового автомата Departament Science ClothesMate",
+		DATIVE = "торговому автомату Departament Science ClothesMate",
+		ACCUSATIVE = "торговый автомат Departament Science ClothesMate",
+		INSTRUMENTAL = "торговым автоматом Departament Science ClothesMate",
+		PREPOSITIONAL = "торговом автомате Departament Science ClothesMate"
+	)
 	desc = "Автомат-помощник по выдаче одежды Научного Отдела."
 
 	icon_state = "clothes-dep-sci_off"
@@ -3091,6 +3724,14 @@
 
 /obj/machinery/vending/clothing/departament/cargo
 	name = "\improper Departament Cargo ClothesMate"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Departament Cargo ClothesMate",
+		GENITIVE = "торгового автомата Departament Cargo ClothesMate",
+		DATIVE = "торговому автомату Departament Cargo ClothesMate",
+		ACCUSATIVE = "торговый автомат Departament Cargo ClothesMate",
+		INSTRUMENTAL = "торговым автоматом Departament Cargo ClothesMate",
+		PREPOSITIONAL = "торговом автомате Departament Cargo ClothesMate"
+	)
 	desc = "Автомат-помощник по выдаче одежды Отдела Поставок."
 
 	icon_state = "clothes-dep-car_off"
@@ -3149,6 +3790,14 @@
 
 /obj/machinery/vending/clothing/departament/law
 	name = "\improper Departament Law ClothesMate"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Departament Law ClothesMate",
+		GENITIVE = "торгового автомата Departament Law ClothesMate",
+		DATIVE = "торговому автомату Departament Law ClothesMate",
+		ACCUSATIVE = "торговый автомат Departament Law ClothesMate",
+		INSTRUMENTAL = "торговым автоматом Departament Law ClothesMate",
+		PREPOSITIONAL = "торговом автомате Departament Law ClothesMate"
+	)
 	desc = "Автомат-помощник по выдаче одежды Юридического Отдела."
 
 	icon_state = "clothes-dep-sec_off"
@@ -3208,6 +3857,14 @@
 
 /obj/machinery/vending/clothing/departament/service
 	name = "\improper Departament Service ClothesMate"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Departament Service ClothesMate",
+		GENITIVE = "торгового автомата Departament Service ClothesMate",
+		DATIVE = "торговому автомату Departament Service ClothesMate",
+		ACCUSATIVE = "торговый автомат Departament Service ClothesMate",
+		INSTRUMENTAL = "торговым автоматом Departament Service ClothesMate",
+		PREPOSITIONAL = "торговом автомате Departament Service ClothesMate"
+	)
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела."
 	req_access = list()
 	products = list()
@@ -3215,6 +3872,14 @@
 
 /obj/machinery/vending/clothing/departament/service/chaplain
 	name = "\improper Departament Service ClothesMate Chaplain"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Departament Service ClothesMate Chaplain",
+		GENITIVE = "торгового автомата Departament Service ClothesMate Chaplain",
+		DATIVE = "торговому автомату Departament Service ClothesMate Chaplain",
+		ACCUSATIVE = "торговый автомат Departament Service ClothesMate Chaplain",
+		INSTRUMENTAL = "торговым автоматом Departament Service ClothesMate Chaplain",
+		PREPOSITIONAL = "торговом автомате Departament Service ClothesMate Chaplain"
+	)
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела церкви."
 
 	icon_state = "clothes-dep-car_off"
@@ -3252,6 +3917,14 @@
 
 /obj/machinery/vending/clothing/departament/service/botanical
 	name = "\improper Departament Service ClothesMate Botanical"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат Departament Service ClothesMate Botanical",
+		GENITIVE = "торгового автомата Departament Service ClothesMate Botanical",
+		DATIVE = "торговому автомату Departament Service ClothesMate Botanical",
+		ACCUSATIVE = "торговый автомат Departament Service ClothesMate Botanical",
+		INSTRUMENTAL = "торговым автоматом Departament Service ClothesMate Botanical",
+		PREPOSITIONAL = "торговом автомате Departament Service ClothesMate Botanical"
+	)
 	desc = "Автомат-помощник по выдаче одежды Сервисного отдела ботаники."
 	req_access = list(ACCESS_HYDROPONICS)
 	products = list(
@@ -3279,8 +3952,22 @@
 
 /obj/machinery/vending/nta
 	name = "NT Ammunition"
-	desc = "A special equipment vendor."
-	ads_list = list("Возьми патрон!","Не забывай, снаряжаться - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT Ammunition",
+		GENITIVE = "торгового автомата NT Ammunition",
+		DATIVE = "торговому автомату NT Ammunition",
+		ACCUSATIVE = "торговый автомат NT Ammunition",
+		INSTRUMENTAL = "торговым автоматом NT Ammunition",
+		PREPOSITIONAL = "торговом автомате NT Ammunition"
+	)
+	desc = "Автомат-помощник по выдаче специального снаряжения."
+	ads_list = list(
+		"Возьми патрон!",
+		"Не забывай, снаряжаться - полезно!",
+		"Бжж-Бзз-з!",
+		"Обезопасить, Удержать, Сохранить!",
+		"Стоять, снярядись на задание!"
+	)
 
 	icon_state = "nta_base"
 	panel_overlay = "nta_panel"
@@ -3358,8 +4045,22 @@
 
 /obj/machinery/vending/nta/ertarmory/blue
 	name = "NT ERT Medium Gear & Ammunition"
-	desc = "A ERT Medium equipment vendor."
-	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT ERT Medium Gear & Ammunition",
+		GENITIVE = "торгового автомата NT ERT Medium Gear & Ammunition",
+		DATIVE = "торговому автомату NT ERT Medium Gear & Ammunition",
+		ACCUSATIVE = "торговый автомат NT ERT Medium Gear & Ammunition",
+		INSTRUMENTAL = "торговым автоматом NT ERT Medium Gear & Ammunition",
+		PREPOSITIONAL = "торговом автомате NT ERT Medium Gear & Ammunition"
+	)
+	desc = "Автомат-помощник по выдаче снаряжения среднего класса."
+	ads_list = list(
+		"Круши черепа синдиката!",
+		"Не забывай, спасать - полезно!",
+		"Бжж-Бзз-з!",
+		"Обезопасить, Удержать, Сохранить!",
+		"Стоять, снярядись на задание!"
+	)
 
 	icon_state = "nta_base"
 	base_icon_state = "nta-blue"
@@ -3386,8 +4087,22 @@
 
 /obj/machinery/vending/nta/ertarmory/red
 	name = "NT ERT Heavy Gear & Ammunition"
-	desc = "A ERT Heavy equipment vendor."
-	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT ERT Heavy Gear & Ammunition",
+		GENITIVE = "торгового автомата NT ERT Heavy Gear & Ammunition",
+		DATIVE = "торговому автомату NT ERT Heavy Gear & Ammunition",
+		ACCUSATIVE = "торговый автомат NT ERT Heavy Gear & Ammunition",
+		INSTRUMENTAL = "торговым автоматом NT ERT Heavy Gear & Ammunition",
+		PREPOSITIONAL = "торговом автомате NT ERT Heavy Gear & Ammunition"
+	)
+	desc = "Автомат-помощник по выдаче снаряжения тяжелого класса."
+	ads_list = list(
+		"Круши черепа синдиката!",
+		"Не забывай, спасать - полезно!",
+		"Бжж-Бзз-з!",
+		"Обезопасить, Удержать, Сохранить!",
+		"Стоять, снярядись на задание!"
+	)
 
 	icon_state = "nta_base"
 	base_icon_state = "nta-red"
@@ -3414,8 +4129,22 @@
 
 /obj/machinery/vending/nta/ertarmory/green
 	name = "NT ERT Light Gear & Ammunition"
-	desc = "A ERT Light equipment vendor."
-	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT ERT Light Gear & Ammunition",
+		GENITIVE = "торгового автомата NT ERT Light Gear & Ammunition",
+		DATIVE = "торговому автомату NT ERT Light Gear & Ammunition",
+		ACCUSATIVE = "торговый автомат NT ERT Light Gear & Ammunition",
+		INSTRUMENTAL = "торговым автоматом NT ERT Light Gear & Ammunition",
+		PREPOSITIONAL = "торговом автомате NT ERT Light Gear & Ammunition"
+	)
+	desc = "Автомат-помощник по выдаче снаряжения легкого класса"
+	ads_list = list(
+		"Круши черепа синдиката!",
+		"Не забывай, спасать - полезно!",
+		"Бжж-Бзз-з!",
+		"Обезопасить, Удержать, Сохранить!",
+		"Стоять, снярядись на задание!"
+	)
 
 	icon_state = "nta_base"
 	base_icon_state = "nta-green"
@@ -3446,7 +4175,15 @@
 
 /obj/machinery/vending/nta/ertarmory/green/cc_jail
 	name = "NT CentComm prison guards' Gear & Ammunition"
-	desc = "An equipment vendor for CentComm corrections officers."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT CentComm prison guards' Gear & Ammunition",
+		GENITIVE = "торгового автомата NT CentComm prison guards' Gear & Ammunition",
+		DATIVE = "торговому автомату NT CentComm prison guards' Gear & Ammunition",
+		ACCUSATIVE = "торговый автомат NT CentComm prison guards' Gear & Ammunition",
+		INSTRUMENTAL = "торговым автоматом NT CentComm prison guards' Gear & Ammunition",
+		PREPOSITIONAL = "торговом автомате NT CentComm prison guards' Gear & Ammunition"
+	)
+	desc = "Автомат с оборудованием для сотрудников CentComm."
 	products = list(/obj/item/restraints/handcuffs=5,
 		/obj/item/restraints/handcuffs/cable/zipties=5,
 		/obj/item/grenade/flashbang=3,
@@ -3466,8 +4203,22 @@
 
 /obj/machinery/vending/nta/ertarmory/yellow
 	name = "NT ERT Death Wish Gear & Ammunition"
-	desc = "A ERT Death Wish equipment vendor."
-	ads_list = list("Круши черепа ВСЕХ!","Не забывай, УБИВАТЬ - полезно!","УБИВАТЬ УБИВАТЬ УБИВАТЬ УБИВАТЬ!.","УБИВАТЬ, Удержать, УБИВАТЬ!","Стоять, снярядись на УБИВАТЬ!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT ERT Death Wish Gear & Ammunition",
+		GENITIVE = "торгового автомата NT ERT Death Wish Gear & Ammunition",
+		DATIVE = "торговому автомату NT ERT Death Wish Gear & Ammunition",
+		ACCUSATIVE = "торговый автомат NT ERT Death Wish Gear & Ammunition",
+		INSTRUMENTAL = "торговым автоматом NT ERT Death Wish Gear & Ammunition",
+		PREPOSITIONAL = "торговом автомате NT ERT Death Wish Gear & Ammunition"
+	)
+	desc = "Автомат с оборудованием для ОБР — помогает людям осуществить их желание умереть."
+	ads_list = list(
+		"Круши черепа ВСЕХ!",
+		"Не забывай, УБИВАТЬ - полезно!",
+		"УБИВАТЬ УБИВАТЬ УБИВАТЬ УБИВАТЬ!.",
+		"УБИВАТЬ, Удержать, УБИВАТЬ!",
+		"Стоять, снярядись на УБИВАТЬ!"
+	)
 
 	icon_state = "nta_base"
 	base_icon_state = "nta-yellow"
@@ -3493,8 +4244,22 @@
 
 /obj/machinery/vending/nta/ertarmory/medical
 	name = "NT ERT Medical Gear"
-	desc = "A ERT medical equipment vendor."
-	ads_list = list("Лечи раненых от рук синдиката!","Не забывай, лечить - полезно!","Бжж-Бзз-з!.","Перевязать, Оперировать, Выписать!","Стоять, снярядись медикаментами на задание!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT ERT Medical Gear",
+		GENITIVE = "торгового автомата NT ERT Medical Gear",
+		DATIVE = "торговому автомату NT ERT Medical Gear",
+		ACCUSATIVE = "торговый автомат NT ERT Medical Gear",
+		INSTRUMENTAL = "торговым автоматом NT ERT Medical Gear",
+		PREPOSITIONAL = "торговом автомате NT ERT Medical Gear"
+	)
+	desc = "Автомат с медицинским оборудованием ОБР."
+	ads_list = list(
+		"Лечи раненых от рук синдиката!",
+		"Не забывай, лечить - полезно!",
+		"Бжж-Бзз-з!",
+		"Перевязать, Оперировать, Выписать!",
+		"Стоять, снярядись медикаментами на задание!"
+	)
 
 	icon_state = "nta_base"
 	base_icon_state = "nta-medical"
@@ -3530,8 +4295,22 @@
 
 /obj/machinery/vending/nta/ertarmory/engineer
 	name = "NT ERT Engineer Gear"
-	desc = "A ERT engineering equipment vendor."
-	ads_list = list("Чини станцию от рук синдиката!","Не забывай, чинить - полезно!","Бжж-Бзз-з!.","Починить, Заварить, Трубить!","Стоять, снярядись на починку труб!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT ERT Engineer Gear",
+		GENITIVE = "торгового автомата NT ERT Engineer Gear",
+		DATIVE = "торговому автомату NT ERT Engineer Gear",
+		ACCUSATIVE = "торговый автомат NT ERT Engineer Gear",
+		INSTRUMENTAL = "торговым автоматом NT ERT Engineer Gear",
+		PREPOSITIONAL = "торговом автомате NT ERT Engineer Gear"
+	)
+	desc = "Автомат с инженерным оборудованием ОБР."
+	ads_list = list(
+		"Чини станцию от рук синдиката!",
+		"Не забывай, чинить - полезно!",
+		"Бжж-Бзз-з!",
+		"Починить, Заварить, Трубить!",
+		"Стоять, снярядись на починку труб!"
+	)
 
 	icon_state = "nta_base"
 	base_icon_state = "nta-engi"
@@ -3560,8 +4339,22 @@
 
 /obj/machinery/vending/nta/ertarmory/janitor
 	name = "NT ERT Janitor Gear"
-	desc = "A ERT ccleaning equipment vendor."
-	ads_list = list("Чисть станцию от рук синдиката!","Не забывай, чистить - полезно!","Вилкой чисти!.","Помыть, Постирать, Оттереть!","Стоять, снярядись клинерами!")
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT ERT Janitor Gear",
+		GENITIVE = "торгового автомата NT ERT Janitor Gear",
+		DATIVE = "торговому автомату NT ERT Janitor Gear",
+		ACCUSATIVE = "торговый автомат NT ERT Janitor Gear",
+		INSTRUMENTAL = "торговым автоматом NT ERT Janitor Gear",
+		PREPOSITIONAL = "торговом автомате NT ERT Janitor Gear"
+	)
+	desc = "Автомат с уборочным оборудованием ОБР."
+	ads_list = list(
+		"Чисть станцию от рук синдиката!",
+		"Не забывай, чистить - полезно!",
+		"Вилкой чисти!",
+		"Помыть, Постирать, Оттереть!",
+		"Стоять, снярядись клинерами!"
+	)
 
 	icon_state = "nta_base"
 	base_icon_state = "nta-janitor"
@@ -3588,7 +4381,15 @@
 
 /obj/machinery/vending/pai
 	name = "\improper RoboFriends"
-	desc = "Wonderful vendor of PAI friends"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат RoboFriends",
+		GENITIVE = "торгового автомата RoboFriends",
+		DATIVE = "торговому автомату RoboFriends",
+		ACCUSATIVE = "торговый автомат RoboFriends",
+		INSTRUMENTAL = "торговым автоматом RoboFriends",
+		PREPOSITIONAL = "торговом автомате RoboFriends"
+	)
+	desc = "Потрясающий продавец ПИИ-друзей!"
 
 	icon_state = "paivend_off"
 	panel_overlay = "paivend_panel"
@@ -3597,7 +4398,13 @@
 	broken_overlay = "paivend_broken"
 	broken_lightmask_overlay = "paivend_broken_lightmask"
 
-	ads_list = list("А вы любите нас?","Мы твои друзья!","Эта покупка войдет в историю","Я ПАИ простой, купишь меня, а я тебе друга!","Спасибо за покупку.")
+	ads_list = list(
+		"А вы любите нас?",
+		"Мы твои друзья!",
+		"Эта покупка войдет в историю",
+		"Я ПИИ простой, купишь меня, а я тебе друга!",
+		"Спасибо за покупку."
+	)
 	resistance_flags = FIRE_PROOF
 	products = list(
 		/obj/item/paicard = 10,
@@ -3627,7 +4434,15 @@
 
 /obj/machinery/vending/security/ert
 	name = "NT ERT Consumables Gear"
-	desc = "A consumable equipment for different situations."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT ERT Consumables Gear",
+		GENITIVE = "торгового автомата NT ERT Consumables Gear",
+		DATIVE = "торговому автомату NT ERT Consumables Gear",
+		ACCUSATIVE = "торговый автомат NT ERT Consumables Gear",
+		INSTRUMENTAL = "торговым автоматом NT ERT Consumables Gear",
+		PREPOSITIONAL = "торговом автомате NT ERT Consumables Gear"
+	)
+	desc = "Расходное оборудование для различных ситуаций."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
 
@@ -3700,7 +4515,15 @@
 
 /obj/machinery/vending/ntc/medal
 	name = "NT Cargo Encouragement"
-	desc = "A encourage vendor with many of medal types."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT Cargo Encouragement",
+		GENITIVE = "торгового автомата NT Cargo Encouragement",
+		DATIVE = "торговому автомату NT Cargo Encouragement",
+		ACCUSATIVE = "торговый автомат NT Cargo Encouragement",
+		INSTRUMENTAL = "торговым автоматом NT Cargo Encouragement",
+		PREPOSITIONAL = "торговом автомате NT Cargo Encouragement"
+	)
+	desc = "Тяжелый кейс с медалями на любой вкус и цвет."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "medalbox"
 	products = list(
@@ -3720,7 +4543,15 @@
 
 /obj/machinery/vending/ntc/medical
 	name = "NT Cargo Medical Gear"
-	desc = "A some medical equipment vendor for cargo."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT Cargo Medical Gear",
+		GENITIVE = "торгового автомата NT Cargo Medical Gear",
+		DATIVE = "торговому автомату NT Cargo Medical Gear",
+		ACCUSATIVE = "торговый автомат NT Cargo Medical Gear",
+		INSTRUMENTAL = "торговым автоматом NT Cargo Medical Gear",
+		PREPOSITIONAL = "торговом автомате NT Cargo Medical Gear"
+	)
+	desc = "Различное медицинское оборудование для доставки."
 
 	icon_state = "nta_base"
 	base_icon_state = "nta-medical"
@@ -3741,7 +4572,15 @@
 
 /obj/machinery/vending/ntc/engineering
 	name = "NT Cargo Engineering Gear"
-	desc = "A some engineering equipment vendor for cargo."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT Cargo Engineering Gear",
+		GENITIVE = "торгового автомата NT Cargo Engineering Gear",
+		DATIVE = "торговому автомату NT Cargo Engineering Gear",
+		ACCUSATIVE = "торговый автомат NT Cargo Engineering Gear",
+		INSTRUMENTAL = "торговым автоматом NT Cargo Engineering Gear",
+		PREPOSITIONAL = "торговом автомате NT Cargo Engineering Gear"
+	)
+	desc = "Различное инженерное оборудование для доставки."
 
 	icon_state = "nta_base"
 	base_icon_state = "nta-engi"
@@ -3761,7 +4600,15 @@
 
 /obj/machinery/vending/ntc/janitor
 	name = "NT Cargo Janitor Gear"
-	desc = "A some janitor equipment vendor for cargo."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT Cargo Janitor Gear",
+		GENITIVE = "торгового автомата NT Cargo Janitor Gear",
+		DATIVE = "торговому автомату NT Cargo Janitor Gear",
+		ACCUSATIVE = "торговый автомат NT Cargo Janitor Gear",
+		INSTRUMENTAL = "торговым автоматом NT Cargo Janitor Gear",
+		PREPOSITIONAL = "торговом автомате NT Cargo Janitor Gear"
+	)
+	desc = "Различное уборочное оборудование для доставки."
 
 	icon_state = "nta_base"
 	base_icon_state = "nta-janitor"
@@ -3786,7 +4633,15 @@
 
 /obj/machinery/vending/ntcrates
 	name = "NT Cargo Preset Gear"
-	desc = "A already preset of equipments vendor for cargo."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT Cargo Preset Gear",
+		GENITIVE = "торгового автомата NT Cargo Preset Gear",
+		DATIVE = "торговому автомату NT Cargo Preset Gear",
+		ACCUSATIVE = "торговый автомат NT Cargo Preset Gear",
+		INSTRUMENTAL = "торговым автоматом NT Cargo Preset Gear",
+		PREPOSITIONAL = "торговом автомате NT Cargo Preset Gear"
+	)
+	desc = "Предварительный комплект оборудования для доставки, на все случаи жизни."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
 
@@ -3812,7 +4667,15 @@
 
 /obj/machinery/vending/ntc/ert
 	name = "NT Response Team Base Gear"
-	desc = "A ERT Base equipment vendor"
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT Response Team Base Gear",
+		GENITIVE = "торгового автомата NT Response Team Base Gear",
+		DATIVE = "торговому автомату NT Response Team Base Gear",
+		ACCUSATIVE = "торговый автомат NT Response Team Base Gear",
+		INSTRUMENTAL = "торговым автоматом NT Response Team Base Gear",
+		PREPOSITIONAL = "торговом автомате NT Response Team Base Gear"
+	)
+	desc = "Автомат с базовым оборудованием ОБР"
 
 	icon_state = "nta_base"
 	base_icon_state = "nta-blue"
@@ -3833,7 +4696,15 @@
 
 /obj/machinery/vending/ntc_resources
 	name = "NT Matter Сompression Vendor"
-	desc = "Its vendor use advanced technology of matter compression and can have a many volume of resources."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT Matter Сompression Vendor",
+		GENITIVE = "торгового автомата NT Matter Сompression Vendor",
+		DATIVE = "торговому автомату NT Matter Сompression Vendor",
+		ACCUSATIVE = "торговый автомат NT Matter Сompression Vendor",
+		INSTRUMENTAL = "торговым автоматом NT Matter Сompression Vendor",
+		PREPOSITIONAL = "торговом автомате NT Matter Сompression Vendor"
+	)
+	desc = "Этот автомат использует передовую технологию сжатия и может хранить в себе большой объем ресурсов."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
 
@@ -3866,7 +4737,15 @@
 
 /obj/machinery/vending/mech/ntc/exousuit
 	name = "NT Exosuit Bluespace Transporter"
-	desc = "Fabricator with advanced technology of bluespace transporting of resources."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
+		GENITIVE = "торгового автомата NT Exosuit Bluespace Transporter",
+		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",
+		ACCUSATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
+		INSTRUMENTAL = "торговым автоматом NT Exosuit Bluespace Transporter",
+		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter"
+	)
+	desc = "Фабрикатор с передовой технологией BlueSpace-транспортировки ресурсов."
 	icon = 'icons/obj/machines/robotics.dmi'
 	icon_state = "fab-idle"
 	products = list(
@@ -3880,7 +4759,15 @@
 
 /obj/machinery/vending/mech/ntc/equipment
 	name = "NT Exosuit Bluespace Transporter"
-	desc = "Fabricator with advanced technology of bluespace transporting of resources."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
+		GENITIVE = "торгового автомата NT Exosuit Bluespace Transporter",
+		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",
+		ACCUSATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
+		INSTRUMENTAL = "торговым автоматом NT Exosuit Bluespace Transporter",
+		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter"
+	)
+	desc = "Фабрикатор с передовой технологией BlueSpace-транспортировки ресурсов."
 
 	icon_state = "engivend_off"
 	panel_overlay = "engivend_panel"
@@ -3900,7 +4787,15 @@
 
 /obj/machinery/vending/mech/ntc/weapon
 	name = "NT Exosuit Bluespace Transporter"
-	desc = "Fabricator with advanced technology of bluespace transporting of resources."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
+		GENITIVE = "торгового автомата NT Exosuit Bluespace Transporter",
+		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",
+		ACCUSATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
+		INSTRUMENTAL = "торговым автоматом NT Exosuit Bluespace Transporter",
+		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter"
+	)
+	desc = "Фабрикатор с передовой технологией BlueSpace-транспортировки ресурсов."
 
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "liberationstation_off"
@@ -3926,7 +4821,15 @@
 
 /obj/machinery/vending/mech/ntc/tools
 	name = "NT Exosuit Bluespace Transporter"
-	desc = "Fabricator with advanced technology of bluespace transporting of resources."
+	ru_names = list(
+		NOMINATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
+		GENITIVE = "торгового автомата NT Exosuit Bluespace Transporter",
+		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",
+		ACCUSATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
+		INSTRUMENTAL = "торговым автоматом NT Exosuit Bluespace Transporter",
+		PREPOSITIONAL = "торговом автомате NT Exosuit Bluespace Transporter"
+	)
+	desc = "Фабрикатор с передовой технологией BlueSpace-транспортировки ресурсов."
 
 	icon_state = "tool_off"
 	panel_overlay = "tool_panel"

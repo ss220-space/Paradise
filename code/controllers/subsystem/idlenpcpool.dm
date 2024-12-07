@@ -33,9 +33,8 @@ SUBSYSTEM_DEF(idlenpcpool)
 
 
 /datum/controller/subsystem/idlenpcpool/fire(resumed = FALSE)
-	if(!resumed)
-		var/list/idlelist = GLOB.simple_animals[AI_IDLE]
-		src.currentrun = idlelist.Copy()
+	var/list/idlelist = GLOB.simple_animals[AI_IDLE]
+	src.currentrun = idlelist.Copy()
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
