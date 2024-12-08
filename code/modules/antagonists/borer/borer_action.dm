@@ -109,8 +109,8 @@
 	to_chat(host, span_danger("<FONT size=3>Ужасная, жгучая агония пронзает вас насквозь, \
 			вырывая беззвучный крик из глубин вашего разума!</FONT>"))
 			
-	if(borer.host_brain)
-		borer.host_brain.host_resisting = FALSE
+	if(borer.host_brain?.host_resisting)
+		borer.host_brain.resist()
 		return
 
 	host.adjustStaminaLoss(100)

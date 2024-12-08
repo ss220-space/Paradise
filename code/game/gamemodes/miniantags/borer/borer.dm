@@ -39,22 +39,15 @@
 
 	return B.host.say_understands(other, speaking)
 
-/mob/living/captive_brain/proc/try_stop_resist()
-	return host_resisting
-
 /mob/living/captive_brain/resist()
 	var/mob/living/simple_animal/borer/B = loc
-
-	if(host_resisting)
-		to_chat(src, span_notice("Вы уже пытаетесь вернуть своё тело!"))
-		return
 
 	host_resisting = TRUE
 	to_chat(src, span_userdanger("Вы начинаете упорно сопротивляться контролю паразита (это займёт примерно минуту)."))
 	to_chat(B.host, span_userdanger("Вы чувствуете, как пленённый разум [src] начинает сопротивляться."))
-	var/delay = (rand(350,450) + B.host.getBrainLoss())
+	var/delay = (rand(350, 450) + B.host.getBrainLoss())
 
-	if(!do_after(src, delay, B.host, ALL, extra_checks = CALLBACK(src, PROC_REF(try_stop_resist))))
+	if(!do_after(src, delay, B.host, ALL, max_interact_count = 1))
 		host_resisting = FALSE
 		return
 
