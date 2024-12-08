@@ -26,7 +26,8 @@
 	if(selected_console)
 		selected_console = null
 	qdel(possible_consoles)
-	. = ..()
+	return ..()
+	
 /datum/data/pda/app/request_console/proc/on_rc_destroyed(datum/source)
 	possible_consoles -= source
 	SStgui.update_uis(pda)
