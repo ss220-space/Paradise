@@ -23,9 +23,8 @@
 
 
 /datum/data/pda/app/request_console/Destroy()
-	if(selected_console)
-		selected_console = null
-	qdel(possible_consoles)
+	selected_console = null
+	LAZYNULL(possible_consoles)
 	. = ..()
 /datum/data/pda/app/request_console/proc/on_rc_destroyed(datum/source)
 	possible_consoles -= source
