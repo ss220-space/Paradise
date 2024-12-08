@@ -26,6 +26,7 @@
 	selected_console = null
 	LAZYNULL(possible_consoles)
 	. = ..()
+
 /datum/data/pda/app/request_console/proc/on_rc_destroyed(datum/source)
 	possible_consoles -= source
 	SStgui.update_uis(pda)
