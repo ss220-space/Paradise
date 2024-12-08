@@ -92,8 +92,16 @@
 	var/list/communist_manifest = list()
 	var/list/capitalist_pig = list()
 	var/list/head_pigs = list() //capitan
+	/*
+	var/list/god_ai_list = list() //for AI
+	for(var/mob/living/silicon/ai)
+		if(ai.job = JOB_TITLE_AI && ai.loc.z == STATION_LEVEL)
+			god_ai_list[ai.voice_name] = ai.name
+	*/
 	for(var/mob/living/carbon/human/target)
-		var/dep_flag = "[SSjobs.GetJob(target.job)?.department_flag]"
+		var/datum/job/prom_job = SSjobs.GetJob(target.job)
+		var/dep_flag = "[prom_job?.department_flag]"
+
 		if(!dep_flag)
 			continue
 		if(target.job in GLOB.command_positions)
@@ -105,14 +113,15 @@
 		else
 			communist_manifest[dep_flag] = list(target.GetVoice() = target.name)
 	for(var/mob/living/carbon/human/target)
-		var/dep_flag = "[SSjobs.GetJob(target.job)?.department_flag]"
+		var/datum/job/prom_job = SSjobs.GetJob(target.job)
+		var/dep_flag = "[prom_job?.department_flag]"
 		if(!dep_flag)
 			continue
-		if(communist_manifest?["[SSjobs.GetJob(target.job)?.department_flag]"])
+		if(communist_manifest?[dep_flag])
 			if(target.job in GLOB.command_positions)
-				target.adv_voice.famous_voices = (communist_manifest["[SSjobs.GetJob(target.job)?.department_flag]"] + capitalist_pig) - target.GetVoice()
+				target.adv_voice.famous_voices = (communist_manifest[dep_flag] + capitalist_pig) - target.GetVoice()
 			else
-				target.adv_voice.famous_voices = (communist_manifest["[SSjobs.GetJob(target.job)?.department_flag]"] + head_pigs) - target.GetVoice()
+				target.adv_voice.famous_voices = (communist_manifest[dep_flag] + head_pigs) - target.GetVoice()
 	//Cringe zone stop
 	spawn(ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_logout_report()
