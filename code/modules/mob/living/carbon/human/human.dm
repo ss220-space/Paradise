@@ -1,5 +1,3 @@
-#define ASK_VERB "!"
-#define 
 
 /mob/living/carbon/human/Initialize(mapload, datum/species/new_species = /datum/species/human)
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
