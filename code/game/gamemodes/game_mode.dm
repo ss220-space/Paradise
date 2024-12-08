@@ -85,9 +85,35 @@
 
 /**
  * Everyone should now be on the station and have their normal gear. This is the place to give the special roles extra things.
- */
+ */ 
 /datum/game_mode/proc/post_setup()
-
+	//Cringe zone start
+	//Data format JOB = list(Voice_name = name)
+	var/list/communist_manifest = list()
+	var/list/capitalist_pig = list()
+	var/list/head_pigs = list() //capitan
+	for(var/mob/living/carbon/human/target)
+		var/dep_flag = "[SSjobs.GetJob(target.job)?.department_flag]"
+		if(!dep_flag)
+			continue
+		if(target.job in GLOB.command_positions)
+			capitalist_pig[target.GetVoice()] = target.name
+		if(target.job == JOB_TITLE_CAPTAIN)
+			head_pigs[target.GetVoice()] = target.name
+		if(communist_manifest?[dep_flag])
+			communist_manifest[dep_flag][target.GetVoice()] = target.name
+		else
+			communist_manifest[dep_flag] = list(target.GetVoice() = target.name)
+	for(var/mob/living/carbon/human/target)
+		var/dep_flag = "[SSjobs.GetJob(target.job)?.department_flag]"
+		if(!dep_flag)
+			continue
+		if(communist_manifest?["[SSjobs.GetJob(target.job)?.department_flag]"])
+			if(target.job in GLOB.command_positions)
+				target.adv_voice.famous_voices = (communist_manifest["[SSjobs.GetJob(target.job)?.department_flag]"] + capitalist_pig) - target.GetVoice()
+			else
+				target.adv_voice.famous_voices = (communist_manifest["[SSjobs.GetJob(target.job)?.department_flag]"] + head_pigs) - target.GetVoice()
+	//Cringe zone stop
 	spawn(ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_logout_report()
 
@@ -98,7 +124,6 @@
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
 	return TRUE
-
 
 /datum/game_mode/proc/set_mode_in_db()	// I wonder what this could do guessing by the name
 	if(SSticker?.mode && SSdbcore.IsConnected())
