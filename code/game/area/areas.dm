@@ -10,7 +10,6 @@
 	icon_state = "unknown"
 	layer = AREA_LAYER
 	plane = AREA_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
-	luminosity = 0
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
 	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
@@ -111,16 +110,10 @@
 		base_lighting_color = null
 		static_lighting = TRUE
 
-
-	if(requires_power)
-		luminosity = 0
-	else
+	if(!requires_power)
 		power_light = TRUE
 		power_equip = TRUE
 		power_environ = TRUE
-
-		if(static_lighting)
-			luminosity = 0
 
 	. = ..()
 
