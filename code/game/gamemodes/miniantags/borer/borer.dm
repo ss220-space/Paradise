@@ -42,9 +42,10 @@
 /mob/living/captive_brain/resist()
 	var/mob/living/simple_animal/borer/B = loc
 
+	to_chat(src, span_userdanger("Вы [host_resisting ? "перестаёте" : "начинаете"] сопротивляться контролю паразита."))
+	to_chat(B.host, span_userdanger("Вы чувствуете, как пленённый разум [src] [host_resisting ? "перестаёт" : "начинает"] сопротивляться."))
+
 	host_resisting = TRUE
-	to_chat(src, span_userdanger("Вы начинаете упорно сопротивляться контролю паразита (это займёт примерно минуту)."))
-	to_chat(B.host, span_userdanger("Вы чувствуете, как пленённый разум [src] начинает сопротивляться."))
 	var/delay = (rand(350, 450) + B.host.getBrainLoss())
 
 	if(!do_after(src, delay, B.host, ALL, max_interact_count = 1))
