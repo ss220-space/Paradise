@@ -931,7 +931,7 @@ This applies to all STANDARD station areas
 /area/maintenance/disposal/external/north
 	name = "Northern External Waste Belt"
 
-<<<<<<< HEAD
+
 // Segmenstaation tonels
 /area/maintenance/tonel
 	name = "Maintenance Tonel"
@@ -1025,7 +1025,6 @@ This applies to all STANDARD station areas
 
 /area/maintenance/tunnel/southeast2
 	name = "Second South-East Maintenance Tunnel"
->>>>>>> 7b37176792d4632c52e42a22cba6dc41210b6ce3
 
 /area/maintenance/clownscience
 	icon_state = "clown_office"
