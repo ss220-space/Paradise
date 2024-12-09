@@ -685,5 +685,6 @@
 /// Adds the hat flavor text when examined
 /obj/machinery/power/supermatter_shard/proc/holiday_hat_examine(atom/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
+	
 	examine_list += span_info("На ней находится шапочка деда мороза. Как она попала, не став пылью, остаётся загадкой.")
 

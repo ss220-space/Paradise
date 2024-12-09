@@ -6,7 +6,7 @@
 #define SIMPLE_ANIMAL_MINDGIVING_CHANCE 2
 #define DNA_MUTATION_CHANCE 10
 
-///to prevent accent sounds from layering
+/// to prevent accent sounds from layering
 #define SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN (2 SECONDS)
 
 /datum/supermatter_explosive_effects
@@ -209,19 +209,25 @@
 /obj/machinery/power/supermatter_shard/proc/processing_sound()
 	if(power)
 		soundloop.volume = clamp((50 + (power / 50)), 50, 100)
+
 	if(damage >= 300)
 		soundloop.mid_sounds = list('sound/machines/sm/loops/delamming.ogg' = 1)
+
 	else
 		soundloop.mid_sounds = list('sound/machines/sm/loops/calm.ogg' = 1)
 
-	//We play delam/neutral sounds at a rate determined by power and damage
+	// We play delam/neutral sounds at a rate determined by power and damage
 	if(!prob(20) || !COOLDOWN_FINISHED(src, last_accent_sound))
 		return
+
 	var/aggression = min(((damage / 800) * (power / 2500)), 1.0) * 100
+
 	if(damage >= 300)
 		playsound(src, SFX_SM_DELAM, max(50, aggression), FALSE, 40, 30, falloff_distance = 10)
+
 	else
 		playsound(src, SFX_SM_CALM, max(50, aggression), FALSE, 25, 25, falloff_distance = 10)
+		
 	var/next_sound = round((100 - aggression) * 5)
 	COOLDOWN_START(src, last_accent_sound, next_sound)
 
