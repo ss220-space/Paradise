@@ -489,10 +489,8 @@
 	var/static/list/random_air = list()
 
 /turf/simulated/floor/engine/randomised/Initialize(mapload)
-<<<<<<< HEAD
 	. = ..()
-=======
->>>>>>> 7b37176792d4632c52e42a22cba6dc41210b6ce3
+d4632c52e42a22cba6dc41210b6ce3
 	if(!length(random_air))
 		random_air = list("OXYGEN" = rand(500,2000), "plasma" = rand(500,2000), "N2O" = rand(500,2000),"NITROGEN" = rand(500,2000), "CO2" = rand(500,2000))
 
@@ -501,7 +499,5 @@
 	toxins = random_air["Plasma"]
 	nitrogen = random_air["NITROGEN"]
 	carbon_dioxide = random_air["CO2"]
-<<<<<<< HEAD
-=======
 	. = ..()
->>>>>>> 7b37176792d4632c52e42a22cba6dc41210b6ce3
+
