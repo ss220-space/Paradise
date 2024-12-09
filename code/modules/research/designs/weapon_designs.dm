@@ -120,7 +120,7 @@
 	category = list("Weapons")
 
 /datum/design/plasmapistol
-	name = "Plasma Pistol"
+	name = "Toxin Pistol"
 	desc = "A specialized firearm designed to fire lethal bolts of toxins."
 	id = "ppistol"
 	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5)
@@ -359,7 +359,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/stechkin
-	name = "Stechkin pistol"
+	name = "Stechkin Pistol"
 	desc = "A reverse-engineered small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
 	id = "stechkin"
 	req_tech = list("combat" = 6, "engineering" = 6, "syndicate" = 5)
@@ -370,7 +370,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/chameleon_kit
-	name = "Chameleon kit"
+	name = "Chameleon Kit"
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station." // "Набор хамелеона изученный с помощью реверс инженеринга."
 	id = "chameleon_kit"
 	req_tech = list("combat" = 4, "engineering" = 6, "syndicate" = 3, "magnets" = 5)
@@ -381,7 +381,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/chameleon_hud
-	name = "Chameleon hud"
+	name = "Chameleon Security HUD"
 	desc = "A stolen Nanotrasen Security HUD with Syndicate chameleon technology implemented into it. Similarly to a chameleon jumpsuit, the HUD can be morphed into various other eyewear, while retaining the HUD qualities when worn."
 	id = "chameleon_hud"
 	req_tech = list("combat" = 4, "engineering" = 6, "syndicate" = 3, "magnets" = 5)
@@ -392,7 +392,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/e_dagger
-	name = "Energy dagger"
+	name = "Energy Dagger"
 	desc = "A dagger made of energy that looks and functions as a pen when off."
 	id = "e_dagger"
 	req_tech = list("combat" = 7, "programming" = 7, "syndicate" = 2, "materials" = 7)
@@ -403,7 +403,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/a_tuner
-	name = "Acces tuner"
+	name = "Access Tuner"
 	desc = "The access tuner is a small device that can interface with airlocks from range. It takes a few seconds to connect and can change the bolt state, open the door, or toggle emergency access."
 	id = "a_tuner"
 	req_tech = list("programming" = 7, "syndicate" = 4, "materials" = 7)
@@ -414,7 +414,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/c_flash
-	name = "Camera flash"
+	name = "Camera Flash"
 	desc = "A flash disguised as a camera with a self-charging safety system preventing the flash from burning out."
 	id = "c_flash"
 	req_tech = list("combat" = 7, "programming" = 6, "syndicate" = 3)
@@ -425,7 +425,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/dna_scrambler
-	name = "DNA scrambler"
+	name = "DNA Scrambler"
 	desc = "A syringe with one injection that randomizes appearance and name upon use. A cheaper but less versatile alternative to an agent card and voice changer."
 	id = "dna_scrambler"
 	req_tech = list("biotech" = 7, "programming" = 7, "syndicate" = 3)
@@ -437,7 +437,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/c_bug
-	name = "Camera bug"
+	name = "Camera Bug"
 	desc = "Enables you to view all cameras on the network to track a target."
 	id = "c_bug"
 	req_tech = list("materials" = 5, "programming" = 7, "syndicate" = 2)
@@ -459,7 +459,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/adv_pointer
-	name = "Advanced pinpointer"
+	name = "Advanced Pinpointer"
 	desc = "A pinpointer that tracks any specified coordinates, DNA string, high value item or the nuclear authentication disk."
 	id = "adv_pointer"
 	req_tech = list("materials" = 7, "programming" = 7, "syndicate" = 4)
@@ -470,7 +470,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/encryptionkey_binary
-	name = "Binary encryptionkey"
+	name = "Binary Encryptionkey"
 	desc = "An encryption key for a radio headset. To access the binary channel, use :+." // "Ключ шифрования, на которой переговариваеются борги и ИИ."
 	id = "binarykey"
 	req_tech = list("engineering" = 4, "syndicate" = 3, "programming" = 4,"materials" = 3)
@@ -481,7 +481,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/encryptionkey_syndicate
-	name = "Syndicate encryptionkey"
+	name = "Syndicate Encryptionkey"
 	desc = "An encyption key for a radio headset. Contains syndicate cypherkeys." // "Ключ шифрования синдиката, позволяющий перехватывать другие зашифрованные радиоволны."
 	id = "syndicatekey"
 	req_tech = list("engineering" = 4, "syndicate" = 3, "programming" = 4,"materials" = 3)
@@ -492,7 +492,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/aiModule_syndicate
-	name = "Hacked AI module"
+	name = "Hacked AI Module"
 	desc = "A hacked AI law module"
 	id = "syndiaimodule"
 	req_tech = list("syndicate" = 6, "programming" = 5, "materials" = 5)
@@ -503,7 +503,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/incendiary_10mm
-	name = "pistol magazine 10mm incendiary"
+	name = "Pistol Magazine 10mm Incendiary"
 	desc = "A gun magazine. Loaded with rounds which ignite the target."
 	id = "10mminc"
 	req_tech = list("combat" = 4, "syndicate" = 2, "materials" = 4)
@@ -514,7 +514,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/radio_jammer
-	name = "radio jammer"
+	name = "Radio Jammer"
 	desc = "Device used to disrupt nearby radio communication."
 	id = "jammer"
 	req_tech = list("engineering" = 4, "syndicate" = 3, "programming" = 3, "materials" = 4)
@@ -536,7 +536,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/syndie_rcd_ammo
-	name = "suspicious matter cartridge"
+	name = "Suspicious Matter Cartridge"
 	desc = "Highly compressed matter for the RCD."
 	id = "syndie_rcd_ammo"
 	req_tech = list("materials" = 3, "syndicate" = 3)
@@ -546,7 +546,7 @@
 	category = list("ILLEGAL")
 
 /datum/design/syndie_rcd_ammo_large
-	name = "large suspicious matter cartridge"
+	name = "Large Suspicious Matter Cartridge"
 	desc = "Highly compressed matter for the RCD."
 	id = "syndie_rcd_ammo_large"
 	req_tech = list("materials" = 3, "syndicate" = 3)
@@ -567,11 +567,22 @@
 	category = list("ILLEGAL")
 
 /datum/design/pyroclaw
-	name = "Fusion gauntlets"
+	name = "Fusion Gauntlets"
 	desc = "A pair of gloves designed to make superheated claws capable of cutting through almost anything. Needs a pyro anomaly core"
 	id = "pyro_gloves"
 	req_tech = list("combat" = 7, "materials" = 7, "engineering" = 7, "plasmatech" = 7)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 8000)
 	build_path = /obj/item/clothing/gloves/color/black/pyro_claws
+	category = list("Weapons")
+
+/datum/design/real_plasma_pistol
+	name = "Plasma Pistol"
+	desc = "HA specialized firearm designed to fire heated bolts of plasma. Can be overloaded for a high damage shield breaking shot."
+	id = "real_plasma_pistol"
+	req_tech = null
+	build_type = PROTOLATHE
+	materials = list(MAT_SILVER = 6000, MAT_TITANIUM = 4000, MAT_PLASMA = 4000)
+	build_path = /obj/item/gun/energy/plasma_pistol
+	locked = TRUE
 	category = list("Weapons")

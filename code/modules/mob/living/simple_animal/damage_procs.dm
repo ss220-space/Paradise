@@ -52,6 +52,33 @@
  *
  * Returns STATUS_UPDATE_HEALTH if any changes were made, STATUS_UPDATE_NONE otherwise
  */
+/mob/living/simple_animal/proc/setDamage(amount, updating_health = TRUE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
+		var/oldbruteloss = bruteloss
+		bruteloss = 0
+		if(oldbruteloss != 0)
+			updatehealth("setDamage")
+		return STATUS_UPDATE_NONE
+	var/oldbruteloss = bruteloss
+	bruteloss = clamp(round(amount, DAMAGE_PRECISION), 0, maxHealth)
+	if(oldbruteloss == bruteloss)
+		updating_health = FALSE
+		. = STATUS_UPDATE_NONE
+	else
+		. = STATUS_UPDATE_HEALTH
+	if(updating_health)
+		updatehealth("setDamage")
+
+/**
+ * Proc-setter for health of simple mobs.
+ * Any passed amount will be converted to bruteloss calculated from (maxHealth - amount). No resists will be applied.
+ *
+ * Arguments:
+ * * amount - Amount of health to set.
+ * * updating_health - If TRUE calls update health on success.
+ *
+ * Returns STATUS_UPDATE_HEALTH if any changes were made, STATUS_UPDATE_NONE otherwise
+ */
 /mob/living/simple_animal/proc/setHealth(amount, updating_health = TRUE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		var/oldbruteloss = bruteloss
@@ -60,7 +87,7 @@
 			updatehealth("setHealth")
 		return STATUS_UPDATE_NONE
 	var/oldbruteloss = bruteloss
-	bruteloss = clamp(round(amount, DAMAGE_PRECISION), 0, maxHealth)
+	bruteloss = clamp(round(maxHealth - amount, DAMAGE_PRECISION), 0, maxHealth)
 	if(oldbruteloss == bruteloss)
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
@@ -120,7 +147,7 @@
 
 
 /mob/living/simple_animal/setOxyLoss(amount, updating_health = TRUE)
-	return setHealth(amount, updating_health)
+	return setDamage(amount, updating_health)
 
 
 /mob/living/simple_animal/adjustToxLoss(
@@ -134,7 +161,7 @@
 
 
 /mob/living/simple_animal/setToxLoss(amount, updating_health = TRUE)
-	return setHealth(amount, updating_health)
+	return setDamage(amount, updating_health)
 
 
 /mob/living/simple_animal/adjustCloneLoss(
@@ -148,7 +175,7 @@
 
 
 /mob/living/simple_animal/setCloneLoss(amount, updating_health = TRUE)
-	return setHealth(amount, updating_health)
+	return setDamage(amount, updating_health)
 
 
 /mob/living/simple_animal/adjustStaminaLoss(
@@ -162,6 +189,6 @@
 
 
 /mob/living/simple_animal/setStaminaLoss(amount, updating_health = TRUE)
-	return setHealth(amount, updating_health)
+	return setDamage(amount, updating_health)
 
 

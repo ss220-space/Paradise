@@ -80,6 +80,13 @@
 	disliked_food = MEAT | RAW | EGG
 	liked_food = VEGETABLES | FRUIT
 
+	age_sheet = list(
+		SPECIES_AGE_MIN = 1,
+		SPECIES_AGE_MAX = 90,
+		JOB_MIN_AGE_HIGH_ED = 26,
+		JOB_MIN_AGE_COMMAND = 26,
+	)
+
 /datum/species/diona/can_understand(mob/other)
 	if(istype(other, /mob/living/simple_animal/diona))
 		return 1
@@ -109,8 +116,8 @@
 			return FALSE
 		if("salglu_solution")
 			if(prob(33))
-				H.adjustBruteLoss(-1)
-				H.adjustFireLoss(-1)
+				H.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
+				H.adjustFireLoss(-1, affect_robotic = FALSE)
 			H.reagents.remove_reagent(R.id, R.metabolization_rate * H.metabolism_efficiency * H.digestion_ratio)
 			return FALSE
 

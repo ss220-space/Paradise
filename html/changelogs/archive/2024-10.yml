@@ -91,3 +91,146 @@
 '2024-10-09':
   kartowkar:
   - bugfix: eatable component multitool fix (#6001)
+'2024-10-10':
+  Antoonij:
+  - qol: recharge spell million istypes removal (#5915)
+  LiquidPotroh:
+  - bugfix: permeability of adjusted mask (#6003)
+  Valtor:
+  - imageadd: tajaran pathes head sprite fix (#6008)
+  kartowkar:
+  - bugfix: Borer spell datum fix (#6002)
+'2024-10-11':
+  Arceniu:
+  - qol: sst hardsuit speed (#6009)
+'2024-10-13':
+  Antoonij:
+  - bugfix: Sintouched fixes (#6016)
+  - refactor: Animal temperature  (#5930)
+  Daeberdir:
+  - add: NektoeN Abandoned Storage Map. (#5996)
+  - tweak: Engi areas type shuffling. Supermatter and sub-engine areas overload-protected
+      APCs. (#5995)
+  - tweak: ashstorm immunity for minebots. (#6006)
+  NightDawnFox:
+  - add: basic ridable element and components & fireman carry (#5705)
+  PiroMage:
+  - bugfix: 'Nova Station #7 Patch (#6014)'
+  TimChi:
+  - add: Disease - Babylonian Fever (#5997)
+  Valtor:
+  - bugfix: diona blood regen (#6011)
+  - bugfix: thick tape roll fix (#6013)
+  Vladisvell:
+  - bugfix: Fixed tos consent acception (#6012)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5946)
+  kartowkar:
+  - bugfix: fix some inhand sprites (#6004)
+  - bugfix: reinforced.wall deconstruction Fix (#6017)
+'2024-10-14':
+  TimChi:
+  - bugfix: Babylon Fever runtime fix (#6020)
+  Vladisvell:
+  - tweak: sets up audio emotes cooldown (#6019)
+'2024-10-15':
+  Anorak2020:
+  - add: more objectives for vampires and clings (#6024)
+  Den109G:
+  - refactor: Now wiki comes from config and not hardcoded. (#5983)
+  Etrnlmelancholy:
+  - add: Повязки на глаза с ХУДом. (#6010)
+  NightDawnFox:
+  - bugfix: holoparasites are no longer can be refreshed in colossus crystal (#6028)
+  - bugfix: no more multiple tipping (#6027)
+  - tweak: decreased speed of vehicles (#6022)
+  PlayerUnknown14:
+  - imageadd: SP-91-RC - new sprites (#6026)
+  TimChi:
+  - bugfix: Brains in mmi can cast spells (#6021)
+  Vladisvell:
+  - bugfix: fixes elite fauna (#6032)
+'2024-10-16':
+  Anorak2020:
+  - bugfix: '[customat] some items has wrong keys (#6040)'
+  NightDawnFox:
+  - spellcheck: ревьеюру (#6037)
+  - bugfix: you can no longer be immortal with sindie uno card (#6038)
+  TimChi:
+  - bugfix: Keybind "Y" resulted in the use of an item in hand. (#6039)
+  Vladisvell:
+  - add: byond 1644 compat (#6041)
+'2024-10-18':
+  Arc:
+  - add: suppressor for sp91 and wt550 (#5960)
+  PiroMage:
+  - bugfix: 'Nova Station #8 Patch (#6033)'
+  Vladisvell:
+  - add: New map voting mode "Notriples" - next map can't be selected if played twice
+      in a row (#5452)
+'2024-10-19':
+  Valtor:
+  - bugfix: no prothesis heal from food and etc (#6055)
+'2024-10-20':
+  PiroMage:
+  - bugfix: 'Nova Station #9 Patch (#6053)'
+  Sheya:
+  - add: fake blindfold recipe (#6047)
+  Valtor:
+  - qol: Skrell New Name Generator (#6052)
+  Vladisvell:
+  - add: Instrument censorship (#6054)
+  kartowkar:
+  - bugfix: nitrilegloves onmob sprite fix (#6056)
+'2024-10-23':
+  NightDawnFox:
+  - bugfix: firemanned people are can no longer be teleported when buckled (#6058)
+  PlayerUnknown14:
+  - bugfix: bandanas cover hair (#6061)
+'2024-10-26':
+  Anorak2020:
+  - bugfix: selling one item multiple times (#6073)
+  - add: Experimentor relics rework (#5683)
+  - add: health insurance (#5921)
+  BeebBeebBoob:
+  - bugfix: ATM on Multi-z maps (#6077)
+  LiquidPotroh:
+  - soundadd: New cult sonds (#6034)
+  - soundadd: New revolution sound (#6035)
+  Mahimka42:
+  - imageadd: Brass buckler and rustless sword have inhand sprites. (#6031)
+  - imageadd: New sterile mask sprite (#6051)
+  - tweak: 10mm HP slows down the target (#6063)
+  - tweak: M90 instead riot shotguns in ERT armory (#6062)
+  NightDawnFox:
+  - tweak: sniper rounds now cost 5 tk instead of 10 (#6068)
+  NoName:
+  - add: Spech bubble (#6043)
+  PiroMage:
+  - bugfix: 'Nova Station #10 Patch (#6079)'
+  Valtor:
+  - bugfix: pAI bugfixes + localization (#5874)
+  Vladisvell:
+  - bugfix: Hardmode grenades do not work on enemies with less than 80% HP (#6080)
+'2024-10-27':
+  NoName:
+  - unknown: earrings (#6066)
+  PiroMage:
+  - bugfix: 'Nova Station #11 Patch (#6091)'
+  Vladisvell:
+  - bugfix: Fixed survival pod's computer being pushable by humanoids (#6088)
+  - bugfix: Fixed paper bin filling (#6086)
+  - bugfix: Fixed toner insertion into photocopier (#6084)
+  - bugfix: Fixed bluespace scanner spelling mistake (#6083)
+  - bugfix: Fixed drill's infinite range (#6092)
+'2024-10-29':
+  Dimach:
+  - tweak: moders can speak in achat (#6099)
+  Etrnlmelancholy:
+  - tweak: no more age restrict to warden (#6096)
+  Valtor:
+  - tweak: QM has always been the head (#6097)
+  Vladisvell:
+  - bugfix: Now it's possible to roll a malfunctioning AI in Antag Paradise mode (#6093)
+  - bugfix: Fixes ash storm damaging in some lavaland ruins (#6082)
+  - bugfix: Fireproof stuff can now burn in lava (#6081)

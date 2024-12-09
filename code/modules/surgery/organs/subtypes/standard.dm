@@ -486,9 +486,10 @@
 	var/list/m_colours = list("tail" = "#000000")
 	s_col = "#000000"
 
-/obj/item/organ/external/tail/New(mob/living/carbon/holder)
-	..()
-	if(!holder)
+/obj/item/organ/external/tail/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
+	if(!ishuman(loc))
 		var/icon/tempicon = new/icon("icon" = force_icon, "icon_state" = icon_name)
 		var/icon/tempicon2 = new/icon(tempicon,dir=NORTH)
 		tempicon2.Flip(SOUTH)
@@ -548,9 +549,10 @@
 	var/list/m_colours = list("wing" = "#000000")
 	s_col = "#000000"
 
-/obj/item/organ/external/wing/New(mob/living/carbon/holder)
-	..()
-	if(!holder)
+/obj/item/organ/external/wing/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
+	if(!ishuman(loc))
 		var/icon/tempicon = new/icon("icon" = force_icon, "icon_state" = icon_name)
 		var/icon/tempicon2 = new/icon(tempicon,dir=NORTH)
 		tempicon2.Flip(SOUTH)

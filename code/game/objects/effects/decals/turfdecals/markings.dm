@@ -260,7 +260,10 @@
 /obj/effect/turf_decal/siding/wood/pallet
 	icon_state = "siding_wood_poddon"
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7b37176792d4632c52e42a22cba6dc41210b6ce3
 /obj/effect/turf_decal/siding/wood/corner
 	icon_state = "siding_wood_corner"
 

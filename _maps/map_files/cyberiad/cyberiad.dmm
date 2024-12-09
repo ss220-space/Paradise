@@ -51522,14 +51522,6 @@
 	icon_state = "neutral"
 	},
 /area/hallway/secondary/entry)
-"dcY" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "garbage"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/storage)
 "dda" = (
 /obj/machinery/atmospherics/meter,
 /obj/machinery/light{
@@ -87435,7 +87427,7 @@
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor{
 	dir = 4;
-	id = "garbage"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -87452,7 +87444,7 @@
 	},
 /obj/machinery/conveyor{
 	dir = 4;
-	id = "garbage"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -87474,7 +87466,7 @@
 	},
 /obj/machinery/conveyor{
 	dir = 4;
-	id = "garbage"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -87606,7 +87598,7 @@
 /obj/machinery/light,
 /obj/machinery/conveyor{
 	dir = 4;
-	id = "garbage"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -105833,7 +105825,7 @@ nMQ
 bKz
 bYy
 bKz
-dcY
+sfT
 rmn
 uTI
 uTI
@@ -106090,7 +106082,7 @@ nMQ
 vkZ
 bYy
 vkZ
-dcY
+sfT
 rmn
 uTI
 ylx
@@ -106347,7 +106339,7 @@ nMQ
 vkZ
 bYy
 vkZ
-dcY
+sfT
 rmn
 uTI
 ylx
@@ -106604,7 +106596,7 @@ nMQ
 vkZ
 whC
 vkZ
-dcY
+sfT
 rmn
 uTI
 ylx

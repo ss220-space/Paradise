@@ -41,6 +41,8 @@ SUBSYSTEM_DEF(mapping)
 	var/list/critical_planes
 	/// The largest plane offset we've generated so far
 	var/max_plane_offset = 0
+	/// Maps played in previous rounds, stores typepaths
+	var/list/previous_maps
 
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
@@ -57,7 +59,9 @@ SUBSYSTEM_DEF(mapping)
 		catch
 			map_datum = fallback_map // Assume delta if non-existent
 		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
+
 		return
+
 	map_datum = fallback_map // Assume delta if non-existent
 
 /datum/controller/subsystem/mapping/Shutdown()
@@ -65,9 +69,41 @@ SUBSYSTEM_DEF(mapping)
 		var/F = file("data/next_map.txt")
 		F << next_map.type
 
+
+/datum/controller/subsystem/mapping/proc/convert_map_datums()
+	var/list/map_subtypes = subtypesof(/datum/map)
+	var/list/result = list()
+	for(var/datum/map/subtype as anything in map_subtypes)
+		result[initial(subtype.name)] = subtype
+
+	return result
+
+/datum/controller/subsystem/mapping/proc/find_last_played_maps()
+	if(CONFIG_GET(flag/sql_enabled))
+		var/datum/db_query/query = \
+		SSdbcore.NewQuery("SELECT id, map_name \
+		FROM [format_table_name("round")] \
+		WHERE server_port=[world.port] \
+		AND end_state IS NOT NULL \
+		ORDER BY id DESC LIMIT 1") //Generally gets the last played map, but can be configured to get any count.
+
+		if(!query.warn_execute())
+			qdel(query)
+			return
+
+		var/list/map_names = convert_map_datums()
+		var/list/maps = list()
+		//Query row structure: id, map_name
+		for(var/map in query.rows)
+			var/map_path = map_names[map[2]]
+			if(map_path)
+				maps += map_path
+
+		previous_maps = maps
+
 /datum/controller/subsystem/mapping/Initialize()
 	setupPlanes()
-
+	find_last_played_maps()
 	var/datum/lavaland_theme/lavaland_theme_type = pick(subtypesof(/datum/lavaland_theme))
 	ASSERT(lavaland_theme_type)
 	lavaland_theme = new lavaland_theme_type
@@ -204,8 +240,27 @@ SUBSYSTEM_DEF(mapping)
 	seedRuins(levels_by_trait(SPAWN_RUINS), rand(20, 30), /area/space, GLOB.space_ruins_templates)
 	log_startup_progress("Successfully seeded ruins in [stop_watch(seed_ruins_timer)]s.")
 
+/datum/controller/subsystem/mapping/proc/create_landmarks(turf/place)
+	var/landmarks = list(
+		/obj/effect/landmark/join_late,
+		/obj/effect/landmark/join_late_cryo,
+		/obj/effect/landmark/join_late_cyborg,
+		/obj/effect/landmark/join_late_gateway,
+		/obj/effect/landmark/observer_start
+		)
+
+	landmarks += subtypesof(/obj/effect/landmark/start)
+	for(var/mark in landmarks)
+		new mark(place)
 
 /datum/controller/subsystem/mapping/proc/loadStation()
+	if(CONFIG_GET(flag/load_no_station))
+		log_startup_progress("Loading empty space...")
+		var/empty_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = CROSSLINKED, traits = DEFAULT_STATION_TRATS)
+		var/turf/centre = locate(world.maxx / 2, world.maxy / 2, empty_z_level)
+		create_landmarks(centre)
+		return
+
 	if(CONFIG_GET(string/default_map) && !CONFIG_GET(string/override_map) && map_datum == fallback_map)
 		var/map_datum_path = text2path(CONFIG_GET(string/default_map))
 		if(map_datum_path)
@@ -227,7 +282,6 @@ SUBSYSTEM_DEF(mapping)
 
 	var/watch = start_watch()
 	log_startup_progress("Loading [map_datum.station_name]...")
-
 	var/map_z_level
 	if(map_datum.traits && map_datum.traits?.len && islist(map_datum.traits[1])) // we work with list of lists
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = map_datum.traits[1])

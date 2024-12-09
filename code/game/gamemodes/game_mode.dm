@@ -718,31 +718,54 @@
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
 
+/datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)
+	if(god.soul_devoured <= 17 && !inevitable)
+		return FALSE
+
+	if(istype(god, /obj/singularity/god/narsie))
+		return SSticker.cultdat.apocalypse_cinema
+
+	if(istype(god, /obj/singularity/god/ratvar))
+		return /datum/cinematic/cult_arm_ratvar
+
+	return FALSE
+
 /datum/game_mode/proc/apocalypse()
 	set_security_level(SEC_LEVEL_DELTA)
-	GLOB.priority_announcement.Announce("Обнаружена угроза класса 'Разрушитель миров'. Самостоятельное решение задачи маловероятно. Моделирование пути решения начато, ожидайте.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
+	GLOB.priority_announcement.Announce("Обнаружена угроза класса 'Разрушитель миров'. Моделирование пути противостояния угрозе начато, ожидайте.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
 	sleep(50 SECONDS)
-	GLOB.priority_announcement.Announce("Моделирование завершено. Меры будут приняты в ближайшем времени. Всему живому персоналу: не допустите усиления угрозы любой ценой.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
+	GLOB.priority_announcement.Announce("Моделирование завершено. Всему живому персоналу: не допустите усиления угрозы любой ценой. Меры будут приняты в ближайшее время.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
 	sleep(30 SECONDS)
-	var/obj/singularity/narsie/N = locate(/obj/singularity/narsie) in GLOB.poi_list
-	var/obj/singularity/ratvar/R = locate(/obj/singularity/ratvar) in GLOB.poi_list
-	if(!N && !R)
-		GLOB.priority_announcement.Announce("Угроза пропала с наших сенсоров. Нам требуется срочный отчет о вашей ситуации. Но, мгм, пока что мы санкционировали вам экстренную эвакуацию.", 'sound/AI/commandreport.ogg')
+
+	var/obj/singularity/god/god = locate(/obj/singularity/god) in GLOB.poi_list
+
+	if(!god)
+		GLOB.priority_announcement.Announce("Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
 		SSshuttle.emergency.request(null, 0.3)
 		SSshuttle.emergency.canRecall = FALSE
 		return
-	if(SSticker.cultdat.name == "Cult of Nar'Sie")
-		if(N.soul_devoured > 20)
-			play_cinematic(/datum/cinematic/cult_arm, world)
-			sleep(15 SECONDS)
-			SSticker.force_ending = TRUE
-			return
-	play_cinematic(/datum/cinematic/nuke/self_destruct, world)
-	sleep(8 SECONDS)
-	SSticker.force_ending = TRUE
-	qdel(R)
-	qdel(N)
 
+	var/datum/cinematic/cinema = apocalypse_cinema(god, FALSE)
+
+	if(!cinema)
+		var/obj/machinery/nuclearbomb/bomb
+		for(var/obj/machinery/nuclearbomb/bomb_to_find in GLOB.poi_list)
+			if(is_station_level(bomb_to_find.z) && bomb_to_find.core)
+				bomb = bomb_to_find
+				break
+
+		if(bomb)
+			bomb.safety = FALSE
+			bomb.explode()
+			qdel(god)
+			return
+
+		cinema = apocalypse_cinema(god, TRUE)
+
+	play_cinematic(cinema, world)
+	sleep(15 SECONDS)
+	SSticker.force_ending = TRUE
+	return
 
 #undef NUKE_INTACT
 #undef NUKE_CORE_MISSING

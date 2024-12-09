@@ -205,8 +205,8 @@
 
 	// It's a large machine, add a delay
 	user.visible_message(
-		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] [panel_open ? "От" : "За"]кручивать панель [src].",
-		"Вы начинаете [panel_open ? "От" : "За"]кручивать панель [src]."
+		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] [panel_open ? "за" : "от"]кручивать панель [src].",
+		"Вы начинаете [panel_open ? "за" : "от"]кручивать панель [src]."
 	)
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
 		return

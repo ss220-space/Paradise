@@ -66,7 +66,7 @@
 /datum/keybinding/client/communication/asay
 	name = ADMIN_CHANNEL
 	keys = list("F5")
-	required_rights = R_ADMIN
+	required_rights = R_ADMIN | R_MOD
 
 /datum/keybinding/client/communication/dsay
 	name = DSAY_CHANNEL

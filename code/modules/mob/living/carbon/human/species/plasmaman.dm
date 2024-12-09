@@ -60,6 +60,13 @@
 	disliked_food = NONE
 	liked_food = NONE
 
+	age_sheet = list(
+		SPECIES_AGE_MIN = 4,
+		SPECIES_AGE_MAX = 150,
+		JOB_MIN_AGE_HIGH_ED = 25,
+		JOB_MIN_AGE_COMMAND = 25,
+	)
+
 
 /datum/species/plasmaman/on_species_gain(mob/living/carbon/human/H)
 	. = ..()

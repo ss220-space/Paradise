@@ -204,6 +204,7 @@ GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
 	/client/proc/cmd_mentor_say,
+	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
 	/datum/admins/proc/show_player_notes,
 	/client/proc/player_panel_new,
 	/client/proc/dsay,

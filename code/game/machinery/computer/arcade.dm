@@ -49,7 +49,7 @@
 
 /obj/machinery/computer/arcade/battle
 	name = "arcade machine"
-	desc = "Does not support Pinball."
+	desc = "Не поддерживает пинбол."
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/arcade/battle
@@ -277,7 +277,7 @@
 
 /obj/machinery/computer/arcade/orion_trail
 	name = "The Orion Trail"
-	desc = "Learn how our ancestors got to Orion, and have fun in the process!"
+	desc = "Узнайте, как наши предки добрались до Ориона, и повеселитесь в процессе!"
 	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/arcade/orion_trail
 	var/busy = 0 //prevent clickspam that allowed people to ~speedrun~ the game.
@@ -382,7 +382,7 @@
 			emagged = 0 //removes the emagged status after you lose
 			playing = 0 //also a new game
 			name = "The Orion Trail"
-			desc = "Learn how our ancestors got to Orion, and have fun in the process!"
+			desc = "Узнайте, как наши предки добрались до Ориона, и повеселитесь в процессе!"
 
 	else if(event)
 		dat = eventdat
@@ -955,7 +955,7 @@
 		prizevend(score)
 	emagged = 0
 	name = "The Orion Trail"
-	desc = "Learn how our ancestors got to Orion, and have fun in the process!"
+	desc = "Узнайте, как наши предки добрались до Ориона, и повеселитесь в процессе!"
 
 /obj/machinery/computer/arcade/orion_trail/emag_act(mob/user)
 	if(!emagged)
@@ -963,7 +963,7 @@
 		if(user)
 			to_chat(user, span_notice("You override the cheat code menu and skip to Cheat #[rand(1, 50)]: Realism Mode."))
 		name = "The Orion Trail: Realism Edition"
-		desc = "Learn how our ancestors got to Orion, and try not to die in the process!"
+		desc = "Узнайте, как наши предки добрались до Ориона, и постарайтесь не сдохнуть в процессе!"
 		newgame()
 		emagged = 1
 
@@ -1015,7 +1015,7 @@
 
 /obj/machinery/computer/arcade/orion_trail/pc_frame
 	name = "special purpose computer"
-	desc = "It will be difficult to perform calculations on this computer..."
+	desc = "Выполнять вычисления на этом компьютере будет сложно..."
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "aimainframe"
 
@@ -1026,7 +1026,7 @@
 
 /obj/machinery/computer/arcade/battle/pc_frame
 	name = "special purpose computer"
-	desc = "It will be difficult to perform calculations on this computer..."
+	desc = "Выполнять вычисления на этом компьютере будет сложно..."
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "aimainframe"
 

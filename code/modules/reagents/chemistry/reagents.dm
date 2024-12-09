@@ -13,6 +13,8 @@
 	var/heart_rate_decrease = 0
 	var/heart_rate_stop = 0
 	var/penetrates_skin = FALSE //Whether or not a reagent penetrates the skin
+	/// Shows how the reagent penetrates the protection from clothing in TOUCH reactions. Should be [0-1]. 0 by default, 1 - full penetration.
+	var/clothing_penetration = 0
 	//Processing flags, defines the type of mobs the reagent will affect
 	//By default, all reagents will ONLY affect organics, not synthetics. Re-define in the reagent's definition if the reagent is meant to affect synths
 	var/process_flags = ORGANIC

@@ -113,6 +113,12 @@
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
+/obj/item/clothing/glasses/meson/heart
+	name = "\improper Heart Meson Glasses"
+	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
+	icon_state = "heart_meson"
+	item_state = "heart_meson"
+
 /obj/item/clothing/glasses/meson/night
 	name = "Night Vision Optical Meson Scanner"
 	desc = "An Optical Meson Scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
@@ -185,6 +191,12 @@
 	item_state = "purple"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+
+/obj/item/clothing/glasses/science/heart
+	name = "\improper Heart Science Glasses"
+	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
+	icon_state = "heart_science"
+	item_state = "heart_science"
 
 /obj/item/clothing/glasses/janitor
 	name = "Janitorial Goggles"

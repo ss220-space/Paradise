@@ -7411,11 +7411,12 @@
 	},
 /area/engineering/gravitygenerator)
 "bfw" = (
-/obj/machinery/conveyor{
-	id = "garbage"
-	},
 /obj/structure/window/reinforced{
 	dir = 8
+	},
+/obj/machinery/conveyor/inverted{
+	dir = 5;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -29523,9 +29524,6 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/machinery/disposal/deliveryChute{
-	dir = 8
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -29533,6 +29531,10 @@
 /obj/structure/sign/directions/floor/alt{
 	dir = 6;
 	pixel_y = 32
+	},
+/obj/structure/disposaloutlet{
+	dir = 8;
+	eject_range = 2
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -50469,13 +50471,13 @@
 	},
 /area/medical/research)
 "ini" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "garbage"
-	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/obj/machinery/conveyor/inverted{
+	dir = 10;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -55182,9 +55184,6 @@
 	},
 /area/turret_protected/aisat_interior/secondary)
 "jfp" = (
-/obj/machinery/disposal/deliveryChute{
-	dir = 1
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -55192,6 +55191,10 @@
 /obj/machinery/conveyor{
 	dir = 1;
 	id = "CargoTransfer"
+	},
+/obj/structure/disposaloutlet{
+	dir = 1;
+	eject_range = 2
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)

@@ -152,6 +152,14 @@
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
 
+/mob/living/simple_animal/borer/death(gibbed)
+	. = ..()
+
+	if(!.)
+		return .
+		
+	detach()
+
 /mob/living/simple_animal/borer/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \

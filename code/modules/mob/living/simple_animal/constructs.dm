@@ -47,7 +47,7 @@
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
 
-	set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
+	set_light_range_power_color(2, 3, SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()

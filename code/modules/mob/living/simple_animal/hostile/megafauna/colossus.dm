@@ -108,6 +108,9 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/enrage()
 	. = ..()
+	if(!.)
+		return
+
 	move_to_delay = 5
 
 /mob/living/simple_animal/hostile/megafauna/colossus/unrage()

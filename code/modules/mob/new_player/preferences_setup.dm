@@ -43,7 +43,7 @@
 	if(S.bodyflags & HAS_SKIN_COLOR && !(S.bodyflags & HAS_ICON_SKIN_TONE))
 		randomize_skin_color()
 	backbag = 2
-	age = rand(AGE_MIN, AGE_MAX)
+	age = get_rand_age(S)
 
 
 /datum/preferences/proc/randomize_hair_color(var/target = "hair")
@@ -227,9 +227,11 @@
 	if(current_species)
 		if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
 			var/mob/living/carbon/human/H = new
+
 			H.dna.species = current_species
 			H.s_tone = s_tone
 			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
+
 			var/obj/item/organ/external/chest/C = H.get_organ(BODY_ZONE_CHEST)
 			icobase = C.icobase ? C.icobase : C.dna.species.icobase
 			if(H.dna.species.bodyflags & HAS_TAIL)

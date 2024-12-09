@@ -287,6 +287,9 @@ REAGENT SCANNER
 
 	var/isPrinting = FALSE
 
+	var/datum/money_account/connected_acc = null
+
+	var/mob/scanned = null
 
 /obj/item/healthanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	add_fingerprint(user)
@@ -317,6 +320,9 @@ REAGENT SCANNER
 		if(!isPrinting)
 			print_report(user)
 		return 1
+	if(href_list["insurance"])
+		do_insurance_collection(user, scanned, connected_acc)
+		return 1
 	if(href_list["mode"])
 		toggle_mode()
 		return 1
@@ -335,7 +341,7 @@ REAGENT SCANNER
 	var/mob/user = usr
 	if(!istype(user))
 		return
-	if (user.incapacitated())
+	if(user.incapacitated())
 		return
 	print_report(user)
 
@@ -375,7 +381,7 @@ REAGENT SCANNER
 	popup.open(no_focus = 1)
 
 /obj/item/healthanalyzer/proc/get_header(mob/user)
-	return "<a href='byond://?src=[src.UID()];user=[user.UID()];clear=1'>Очистить</a><a href='byond://?src=[src.UID()];user=[user.UID()];mode=1'>Локализация</a>[advanced ? "<a href='byond://?src=[src.UID()];user=[user.UID()];print=1'>Печать отчета</a>" : ""]"
+	return "<a href='byond://?src=[src.UID()];user=[user.UID()];clear=1'>Очистить</a><a href='byond://?src=[src.UID()];user=[user.UID()];mode=1'>Локализация</a>[advanced ? "<a href='byond://?src=[src.UID()];user=[user.UID()];print=1'>Печать отчета</a><a href='byond://?src=[src.UID()];user=[user.UID()];insurance=1'>Списать страховку</a>" : ""]"
 
 /obj/item/healthanalyzer/examine(mob/user)
 	. = ..()
@@ -386,7 +392,7 @@ REAGENT SCANNER
 			. += "<span class='notice'>Нужно подойти ближе, чтобы прочесть содержимое.</span>"
 
 /proc/medical_scan_action(mob/living/user, atom/target, var/obj/item/healthanalyzer/scanner, var/mode, var/advanced)
-	if (!user.IsAdvancedToolUser())
+	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>Вы не достаточно ловки, чтобы использовать это устройство.</span>")
 		return
 
@@ -408,19 +414,19 @@ REAGENT SCANNER
 		return "<span class='highlight'>[jointext(., "<br>")]</span>"
 
 	var/mob/living/carbon/human/scan_subject = null
-	if (ishuman(target))
+	if(ishuman(target))
 		scan_subject = target
-	else if (istype(target, /obj/structure/closet/body_bag))
+	else if(istype(target, /obj/structure/closet/body_bag))
 		var/obj/structure/closet/body_bag/B = target
 		if(!B.opened)
 			var/list/scan_content = list()
 			for(var/mob/living/L in B.contents)
 				scan_content.Add(L)
 
-			if (scan_content.len == 1)
+			if(scan_content.len == 1)
 				for(var/mob/living/carbon/human/L in scan_content)
 					scan_subject = L
-			else if (scan_content.len > 1)
+			else if(scan_content.len > 1)
 				to_chat(user, "<span class='warning'>[scanner] обнаружил несколько субъектов внутри [target], слишком близко для нормального сканирования.</span>")
 				return
 			else
@@ -438,6 +444,8 @@ REAGENT SCANNER
 	. = medical_scan_results(scan_subject, mode, advanced)
 	scanner.window_height += length(.) * 20
 	. = "<span class='highlight'>[jointext(., "<br>")]</span>"
+	scanner.scanned = scan_subject
+
 
 /proc/medical_scan_results(var/mob/living/M, var/mode = 1, var/advanced = FALSE)
 	. = list()
@@ -618,7 +626,16 @@ REAGENT SCANNER
 	else
 		. += "Гены стабильны."
 
-// Это вывод в чат
+	var/datum/money_account/acc = get_insurance_account(H)
+	if(acc)
+		. += "Тип страховки - [acc.insurance_type]"
+	else
+		. += "Аккаунт не обнаружен"
+	. += "Требуемое количество очков страховки: [get_req_insurance(H)]"
+	if(acc)
+		. += "Текущее количество очков страховки: [acc.insurance]"
+
+// This is the output to the chat
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
 	var/scan_data = medical_scan_results(M, mode, advanced)
 	to_chat(user, "[jointext(scan_data, "<br>")]")
@@ -658,6 +675,23 @@ REAGENT SCANNER
 		update_icon(UPDATE_OVERLAYS)
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/card/id))
+		add_fingerprint(user)
+		if(!advanced)
+			to_chat(user, span_warning("Для привязки счета требуется наличие продвинутого модуля сканирования."))
+			return ATTACK_CHAIN_PROCEED
+
+		var/obj/item/card/id/id = I
+
+		if(!id.associated_account_number)
+			to_chat(user, span_warning("Не обнаружено привязанного аккаунта."))
+			return ATTACK_CHAIN_PROCEED
+
+		connected_acc = id.associated_account_number
+		to_chat(user, span_notice("Аккаунт привязан."))
+		playsound(loc, I.usesound, 50, TRUE)
+		return ATTACK_CHAIN_PROCEED
 
 	return ..()
 

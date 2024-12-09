@@ -322,6 +322,7 @@
 	)
 	return ..()
 
+
 /datum/surgery_step/limb/mechanize/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/robot_parts/L = tool
 	user.visible_message(
@@ -334,14 +335,18 @@
 		for(var/part_name in L.part)
 			if(!isnull(target.get_organ(part_name)))
 				continue
+
 			var/list/organ_data = target.dna.species.has_limbs[part_name]
 			if(!organ_data)
 				continue
+
 			var/new_limb_type = organ_data["path"]
-			var/obj/item/organ/external/new_limb = new new_limb_type(target)
+			var/obj/item/organ/external/new_limb = new new_limb_type(target, ORGAN_MANIPULATION_DEFAULT)
 			new_limb.robotize(company = L.model_info)
+
 			if(L.sabotaged)
-				new_limb.sabotaged = 1
+				new_limb.sabotaged = TRUE
+
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
@@ -349,6 +354,7 @@
 	qdel(tool)
 
 	return SURGERY_STEP_CONTINUE
+
 
 /datum/surgery_step/limb/mechanize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message(

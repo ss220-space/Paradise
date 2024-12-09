@@ -9,7 +9,7 @@
 #define MAX_PLAYERS_COUNT 	16
 #define MIN_PLAYERS_COUNT 	2
 #define SPAWN_COEFFICENT	0.85 //how many (polled * spawn_coefficent) players will go brawling
-#define PICK_PENALTY		30 SECONDS //Prevents fast handed guys from picking polls twice in a row.
+#define PICK_PENALTY		10 SECONDS //Prevents fast handed guys from picking polls twice in a row.
 // Uncomment this if you want to mess up with thunderdome alone
 /*
 #define THUND_TESTING

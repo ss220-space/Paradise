@@ -261,12 +261,36 @@
 	var/list/autohiss_extra_map = null
 	var/list/autohiss_exempt = null
 
+	/// Contains info for all age related preferences.
+	var/list/age_sheet
+
+
 /datum/species/New()
 	unarmed = new unarmed_type()
 
 /datum/species/proc/get_random_name(gender)
 	var/datum/language/species_language = GLOB.all_languages[language]
 	return species_language.get_random_name(gender)
+
+
+/proc/get_age_limits(datum/species/species, list/tags)
+	if(!islist(tags))
+		tags = list(tags)
+
+	var/list/result = list()
+	for(var/tag in tags)
+		if(species)
+			result[tag] = LAZYACCESS(species.age_sheet, tag)
+
+		if(!isnum(result[tag]))
+			result[tag] = AGE_SHEET[tag]
+
+	return length(result) > 1 ? result : result[tags[1]]
+
+
+/proc/get_rand_age(datum/species/species)
+	var/age_limits = get_age_limits(species, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
+	return rand(age_limits[SPECIES_AGE_MIN], age_limits[SPECIES_AGE_MAX])
 
 
 /**
@@ -1188,3 +1212,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		var/obj/item/organ/external/head/HD = H.get_organ(BODY_ZONE_HEAD)
 		return HD.hair_colour
 
+/datum/species/proc/get_emote_pitch(mob/living/carbon/human/H, tolerance)
+	var/age_limits = get_age_limits(src, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
+	return 1 + 0.5 * (age_limits[SPECIES_AGE_MIN] + 10 - H.age) / age_limits[SPECIES_AGE_MAX] + (0.01 * rand(-tolerance, tolerance))

@@ -4,16 +4,18 @@
 	. = ..()
 	if(QDELETED(src) || stat == DEAD)
 		return
+
 	if(silence_time)
 		if(world.timeofday >= silence_time)
 			silence_time = null
-			to_chat(src, "<font color=green>Communication circuit reinitialized. Speech and messaging functionality restored.</font>")
+			if(stat != DEAD)
+				to_chat(src, span_notice("<font color=green>Модуль связи восстановлен. Функции передачи речи и сообщений восстановлены.</font>") )
 
 	if(installed_software["doorjack"])
 		var/datum/pai_software/door_jack/DJ = installed_software["doorjack"]
 		if(DJ.cable)
 			if(get_dist(src, DJ.cable) > 1)
-				visible_message("<span class='warning'>The data cable connected to [src] rapidly retracts back into its spool!</span>")
+				visible_message(span_warning("Кабель данных, подключенный к пИИ, быстро втягивается обратно!"))
 				QDEL_NULL(DJ.cable)
 
 	if(installed_software["sec_chem"])

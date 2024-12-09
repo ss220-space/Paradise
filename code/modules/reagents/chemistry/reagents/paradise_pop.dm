@@ -48,9 +48,9 @@
 		var/heal_type = rand(0, 5)		//still prefer the string version
 		switch(heal_type)
 			if(0)
-				update_flags |= M.adjustBruteLoss(-0.25, FALSE)
+				update_flags |= M.adjustBruteLoss(-0.25, FALSE, affect_robotic = FALSE)
 			if(1)
-				update_flags |= M.adjustFireLoss(-0.25, FALSE)
+				update_flags |= M.adjustFireLoss(-0.25, FALSE, affect_robotic = FALSE)
 			if(2)
 				update_flags |= M.adjustToxLoss(-0.25, FALSE)
 			if(3)

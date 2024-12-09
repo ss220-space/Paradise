@@ -32,7 +32,7 @@
 	hide_action = new
 	hide_action.Grant(src)
 	..()
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_larva)
+	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve/larva)
 
 
 /mob/living/carbon/alien/larva/Destroy()

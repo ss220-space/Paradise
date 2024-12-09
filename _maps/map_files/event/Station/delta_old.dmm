@@ -19417,10 +19417,16 @@
 /area/hallway/secondary/entry/commercial)
 "cod" = (
 /obj/effect/decal/warning_stripes/southeast,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "cof" = (
 /obj/effect/decal/warning_stripes/southeast,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
 "coh" = (
@@ -19646,12 +19652,18 @@
 /area/engineering/engine)
 "cpi" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "cpk" = (
 /obj/machinery/power/tesla_coil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
 "cpl" = (
@@ -19934,6 +19946,9 @@
 "cqU" = (
 /obj/machinery/pipedispenser/disposal,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
 "cqW" = (
@@ -19973,6 +19988,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
 "crg" = (
@@ -35900,6 +35918,14 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/medical/research/restroom)
+"dFo" = (
+/obj/machinery/power/emitter,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/storage/secure)
 "dFp" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -39164,6 +39190,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
@@ -42800,6 +42829,19 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/locker)
+"ewf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel,
+/area/storage/secure)
 "ewt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -45929,6 +45971,18 @@
 	icon_state = "purplefull"
 	},
 /area/medical/research/nhallway)
+"fnW" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	id_tag = "engstorage";
+	name = "Secure Storage Blast Doors"
+	},
+/obj/effect/decal/warning_stripes/west,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/storage/secure)
 "foa" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet/arcade,
@@ -91636,6 +91690,13 @@
 	icon_state = "vault"
 	},
 /area/security/securearmory)
+"rHh" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/storage/secure)
 "rHl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
@@ -91685,6 +91746,9 @@
 /obj/item/tracker_electronics,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
@@ -141668,7 +141732,7 @@ utt
 cpm
 nqL
 fId
-nqL
+fnW
 cpm
 mDe
 bQr
@@ -142696,7 +142760,7 @@ utt
 wUC
 dOZ
 dRd
-cso
+dFo
 cso
 mDe
 vDd
@@ -142953,7 +143017,7 @@ dJU
 lTF
 xKq
 cmO
-cso
+dFo
 cpr
 mDe
 iVc
@@ -143467,7 +143531,7 @@ utt
 dNd
 qFn
 dRw
-dWc
+rHh
 kpR
 mDe
 yfQ
@@ -143724,7 +143788,7 @@ utt
 qFn
 teJ
 dRw
-dWc
+rHh
 xvB
 mDe
 vly
@@ -144238,7 +144302,7 @@ utt
 jtS
 coh
 cmV
-dOZ
+ewf
 ufR
 mDe
 smf

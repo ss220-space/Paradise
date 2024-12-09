@@ -198,12 +198,13 @@
 
 /datum/antagonist/vampire/proc/handle_bloodsucking(mob/living/carbon/human/target, suck_rate_override)
 	draining = target
+	var/mob/living/carbon/human/cur = owner.current
 	var/unique_suck_id = target.UID()
 	var/blood = 0
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
 	var/cycle_counter = 0
 	var/time_per_action
-	var/vampire_dir = get_dir(owner.current, target)
+	var/vampire_dir = get_dir(cur, target)
 
 	var/old_bloodusable = 0 //used to see if we increased our blood usable
 
@@ -213,20 +214,20 @@
 	else
 		suck_rate_final = suck_rate
 
-	if(owner.current.is_muzzled())
-		to_chat(owner.current, span_warning("[owner.current.wear_mask] мешает вам укусить [target]!"))
+	if(cur.is_muzzled())
+		to_chat(cur, span_warning("[cur.wear_mask] мешает вам укусить [target]!"))
 		draining = null
 		return
 
-	add_attack_logs(owner.current, target, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
+	add_attack_logs(cur, target, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
 
-	if(!iscarbon(owner.current))
+	if(!iscarbon(cur))
 		target.LAssailant = null
 	else
-		target.LAssailant = owner.current
+		target.LAssailant = cur
 
 	var/is_target_grabbed = FALSE
-	if(target.pulledby == owner.current && owner.current.grab_state > GRAB_PASSIVE)
+	if(target.pulledby == cur && cur.grab_state > GRAB_PASSIVE)
 		is_target_grabbed = TRUE
 
 	if(!is_target_grabbed || vampire_dir == NORTHEAST || vampire_dir == NORTHWEST || \
@@ -238,25 +239,27 @@
 		cycle_counter = STATE_GRABBING
 		time_per_action = suck_rate_final*BITE_TIME_MOD
 
-	while(do_after(owner.current, time_per_action, target, NONE, interaction_key = DOAFTER_SOURCE_VAMPIRE_SUCKING, max_interact_count = 1))
+	while(do_after(cur, time_per_action, target, NONE, interaction_key = DOAFTER_SOURCE_VAMPIRE_SUCKING, max_interact_count = 1))
 		cycle_counter++
-		owner.current.face_atom(target)
+		cur.face_atom(target)
 		old_bloodusable = bloodusable
 		switch(cycle_counter)
 			if(STATE_CLOSING_IN)
-				owner.current.visible_message(span_danger("[owner.current] приближается к [target]"), \
+				cur.visible_message(span_danger("[cur] приближается к [target]"), \
 					span_danger("Вы приближаетесь к [target]"))
 				getting_closer_animation(target, STATE_CLOSING_IN, vampire_dir)
 				time_per_action = suck_rate_final*GRABBING_TIME_MOD
 				continue
+
 			if(STATE_GRABBING)
-				owner.current.visible_message(span_danger("[owner.current] грубо хватает шею [target]"), \
+				cur.visible_message(span_danger("[cur] грубо хватает шею [target]"), \
 					span_danger("Вы грубо хватает шею [target]"))
 				getting_closer_animation(target, STATE_GRABBING, vampire_dir)
 				time_per_action = suck_rate_final*BITE_TIME_MOD
 				continue
+
 			if(STATE_BITE)
-				owner.current.visible_message(span_danger("[owner.current] вонзает [genderize_ru(owner.current.gender, "его", "её", "его", "их")] клыки!"), \
+				cur.visible_message(span_danger("[cur] вонзает [genderize_ru(cur.gender, "его", "её", "его", "их")] клыки!"), \
 					span_danger("Вы вонзаете клыки в шею [target] и начинаете высасывать [genderize_ru(target.gender, "его", "её", "его", "их")] кровь."), \
 					span_italics("Вы слышите тихий звук прокола и влажные хлюпающие звуки."))
 				bite_animation(target, vampire_dir)
@@ -265,9 +268,9 @@
 
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
-				to_chat(owner.current, span_warning("Вы поглотили всю жизненную эссенцию [target], дальнейшее питьё крови будет только утолять голод!"))
+				to_chat(cur, span_warning("Вы поглотили всю жизненную эссенцию [target], дальнейшее питьё крови будет только утолять голод!"))
 				target.blood_volume = max(target.blood_volume - 25, 0)
-				owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
+				cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + 5))
 				continue
 
 
@@ -275,29 +278,47 @@
 			if(target.ckey || target.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, target.blood_volume)
 				adjust_blood(target, blood * BLOOD_GAINED_MODIFIER)
-				to_chat(owner.current, span_boldnotice("Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
+				cur.adjustBruteLoss(-3)
+				cur.adjustFireLoss(-3)
+				cur.adjustOxyLoss(-10)
+				cur.adjustToxLoss(-2)
+				cur.adjustBrainLoss(-1)
+				for(var/obj/item/organ/external/bodypart as anything in cur.bodyparts)
+					if(bodypart.has_fracture() && prob(5))
+						to_chat(cur, span_notice("You feel a burning sensation in your [bodypart.name] as it straightens involuntarily!"))
+						bodypart.mend_fracture()
+
+					if(bodypart.has_internal_bleeding() && prob(5))
+						to_chat(cur, span_notice("You feel a burning sensation in your [bodypart.name] as your veins begin to recover!"))
+						bodypart.stop_internal_bleeding()
+
+				if(bloodtotal >= REQ_BLOOD_FOR_SUBCLASS_ACT)
+					subclass?.on_blood_sucking(owner)
+
+				to_chat(cur, span_boldnotice("Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
 
 		target.blood_volume = max(target.blood_volume - 25, 0)
 
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(target.blood_volume)
 			if(target.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
-				to_chat(owner.current, span_danger("У вашей жертвы остаётся опасно мало крови!"))
+				to_chat(cur, span_danger("У вашей жертвы остаётся опасно мало крови!"))
 
 			else if(target.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
-				to_chat(owner.current, span_warning("У вашей жертвы остаётся тревожно мало крови!"))
+				to_chat(cur, span_warning("У вашей жертвы остаётся тревожно мало крови!"))
+
 			blood_volume_warning = target.blood_volume //Set to blood volume, so that you only get the message once
 
 		else
-			to_chat(owner.current, span_warning("Вы выпили свою жертву досуха!"))
+			to_chat(cur, span_warning("Вы выпили свою жертву досуха!"))
 			break
 
 		if(!target.ckey && !target.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
-			to_chat(owner.current, span_boldnotice("Питьё крови у [target] насыщает вас, но доступной крови от этого вы не получаете."))
-			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
+			to_chat(cur, span_boldnotice("Питьё крови у [target] насыщает вас, но доступной крови от этого вы не получаете."))
+			cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + 5))
 
 		else
-			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + (blood / 2)))
+			cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + (blood / 2)))
 
 	stop_sucking()
 

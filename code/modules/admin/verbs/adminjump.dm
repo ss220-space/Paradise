@@ -73,9 +73,12 @@
 	if(isobj(usr.loc))
 		var/obj/O = usr.loc
 		O.force_eject_occupant(usr)
+
 	log_admin("[key_name(usr)] jumped to [COORD(T)] in [T.loc]")
+
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to [COORD(T)] in [T.loc]")
+		
 	admin_forcemove(usr, T)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Turf") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
@@ -105,15 +108,20 @@
 		return
 
 	var/turf/T = locate(tx, ty, tz)
+
 	if(T)
 		if(isobj(usr.loc))
 			var/obj/O = usr.loc
 			O.force_eject_occupant(usr)
+
 		admin_forcemove(usr, T)
+
 		if(isobserver(usr))
 			var/mob/dead/observer/O = usr
 			O.ManualFollow(T)
+
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Coordinate") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to coordinates [COORD(T)]")
 

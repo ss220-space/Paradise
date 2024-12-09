@@ -313,6 +313,7 @@
 	prize_list["Miscellaneous"] = list(
 		EQUIPMENT("Absinthe", 						/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium, 	500),
 		EQUIPMENT("Alien Toy", 						/obj/item/clothing/mask/facehugger/toy, 							300),
+		EQUIPMENT("Richard & Co cigarettes",		/obj/item/storage/fancy/cigarettes/cigpack_richard,					400),
 		EQUIPMENT("Cigar", 							/obj/item/clothing/mask/cigarette/cigar/havana, 					300),
 		EQUIPMENT("GAR Meson Scanners", 			/obj/item/clothing/glasses/meson/gar, 								800),
 		EQUIPMENT("GPS upgrade", 					/obj/item/gpsupgrade, 												1500),
@@ -342,6 +343,7 @@
 		EQUIPMENT("Absinthe", 						/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium, 	250),
 		EQUIPMENT("Cigarettes", 					/obj/item/storage/fancy/cigarettes, 		 						100),
 		EQUIPMENT("Medical Marijuana", 				/obj/item/storage/fancy/cigarettes/cigpack_med,						250),
+		EQUIPMENT("Richard & Co cigarettes",		/obj/item/storage/fancy/cigarettes/cigpack_richard,					400),
 		EQUIPMENT("Cigar", 							/obj/item/clothing/mask/cigarette/cigar/havana, 					150),
 		EQUIPMENT("Box of matches", 				/obj/item/storage/box/matches, 										50),
 		EQUIPMENT("Cheeseburger", 					/obj/item/reagent_containers/food/snacks/cheeseburger, 				150),

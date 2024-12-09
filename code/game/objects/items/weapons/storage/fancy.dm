@@ -335,6 +335,11 @@
 	item_state = "upliftpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/menthol
 
+/obj/item/storage/fancy/cigarettes/cigpack_richard
+	name = "\improper Richard & Co cigarettes"
+	desc = "Курят только отчаянные."
+	cigarette_type = /obj/item/clothing/mask/cigarette/richard
+
 /obj/item/storage/fancy/cigarettes/cigpack_robust
 	name = "\improper Robust packet"
 	desc = "Smoked by the robust."

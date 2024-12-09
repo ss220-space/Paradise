@@ -307,6 +307,7 @@
 	icon_state = "altdoorctrl"
 	base_icon_state = "altdoorctrl"
 	ai_control = FALSE
+	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/door_control/secure/emag_act(user)
 	if(user)

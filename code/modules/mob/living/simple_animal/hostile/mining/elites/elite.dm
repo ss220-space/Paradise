@@ -387,9 +387,13 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/proc/arena_checks()
 	if(activity != TUMOR_ACTIVE || QDELETED(src))
 		return
+
 	INVOKE_ASYNC(src, PROC_REF(arena_trap))  //Gets another arena trap queued up for when this one runs out.
 	INVOKE_ASYNC(src, PROC_REF(border_check))  //Checks to see if our fighters got out of the arena somehow.
 	INVOKE_ASYNC(src, PROC_REF(fighters_check))  //Checks to see if our fighters died.
+	if(QDELETED(src))
+		return
+
 	addtimer(CALLBACK(src, PROC_REF(arena_checks)), 5 SECONDS)
 
 /obj/structure/elite_tumor/proc/fighters_check()

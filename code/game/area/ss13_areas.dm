@@ -931,6 +931,7 @@ This applies to all STANDARD station areas
 /area/maintenance/disposal/external/north
 	name = "Northern External Waste Belt"
 
+<<<<<<< HEAD
 // Segmenstaation tonels
 /area/maintenance/tonel
 	name = "Maintenance Tonel"
@@ -977,6 +978,54 @@ This applies to all STANDARD station areas
 
 /area/maintenance/tonel/southeast2
 	name = "Second South-East Maintenance Tonel"
+=======
+// Segmenstaation Tunnels
+/area/maintenance/tunnel
+	name = "Maintenance Tunnel"
+	icon_state = "green"
+
+/area/maintenance/tunnel/west
+	name = "West Maintenance Tunnel"
+
+/area/maintenance/tunnel/west2
+	name = "Second West Maintenance Tunnel"
+
+/area/maintenance/tunnel/south
+	name = "South Maintenance Tunnel"
+
+/area/maintenance/tunnel/south2
+	name = "Second South Maintenance Tunnel"
+
+/area/maintenance/tunnel/north
+	name = "North Maintenance Tunnel"
+
+/area/maintenance/tunnel/north2
+	name = "Second North Maintenance Tunnel"
+
+/area/maintenance/tunnel/northwest
+	name = "North-West Maintenance Tunnel"
+
+/area/maintenance/tunnel/northwest2
+	name = "Second North-West Maintenance Tunnel"
+
+/area/maintenance/tunnel/northeast
+	name = "North-East Maintenance Tunnel"
+
+/area/maintenance/tunnel/northeast2
+	name = "Second North-East Maintenance Tunnel"
+
+/area/maintenance/tunnel/east
+	name = "East Maintenance Tunnel"
+
+/area/maintenance/tunnel/east2
+	name = "Second East Maintenance Tunnel"
+
+/area/maintenance/tunnel/southeast
+	name = "South-East Maintenance Tunnel"
+
+/area/maintenance/tunnel/southeast2
+	name = "Second South-East Maintenance Tunnel"
+>>>>>>> 7b37176792d4632c52e42a22cba6dc41210b6ce3
 
 /area/maintenance/clownscience
 	icon_state = "clown_office"
@@ -1624,6 +1673,12 @@ This applies to all STANDARD station areas
 	name = "Chapel Office"
 	icon_state = "chapeloffice"
 
+/area/chapel/morgue
+	name = "Chapel Morgue"
+
+/area/chapel/massdriver
+	name = "Chapel Mass Driver"
+
 /area/escapepodbay
 	name = "Escape Shuttle Hallway Podbay"
 	icon_state = "escape"
@@ -1837,6 +1892,16 @@ This applies to all STANDARD station areas
 	name = "Satellite General Hangar"
 
 /area/engine/Generator
+	icon_state = "yellow"
+	name = "Generator room"
+
+/area/atmos/mini
+	name = "Mini Atmospherics"
+
+/area/engineering/mechanic_workshop/hangar2
+	name = "Satellite General Hangar"
+
+/area/engineering/Generator
 	icon_state = "yellow"
 	name = "Generator room"
 
@@ -2270,7 +2335,7 @@ This applies to all STANDARD station areas
 
 /area/security/visiting_room
 	name = "Visiting Room"
-	icon_state = "visiting-room"
+	icon_state = "red"
 
 /area/security/prisonlockers
 	name = "Prisoner Lockers"

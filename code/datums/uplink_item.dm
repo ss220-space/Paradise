@@ -1132,7 +1132,7 @@
 	name = "50. compact ammo box"
 	desc = "A box of 50. cal sniper ammo."
 	item = /obj/item/ammo_box/magazine/sniper_rounds/compact
-	cost = 10
+	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/revolver
@@ -1618,7 +1618,7 @@
 	name = "Access Tuner"
 	desc = "The access tuner is a small device that can interface with airlocks from range. It takes a few seconds to connect and can change the bolt state, open the door, or toggle emergency access."
 	item = /obj/item/door_remote/omni/access_tuner
-	cost = 30
+	cost = 15
 
 /datum/uplink_item/device_tools/toolbox
 	name = "Fully Loaded Toolbox"

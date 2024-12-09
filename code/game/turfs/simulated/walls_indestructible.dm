@@ -248,8 +248,8 @@
 	icon = 'icons/turf/walls/cult_wall.dmi'
 	icon_state = "cult"
 	smooth = SMOOTH_BITMASK
-	canSmoothWith = SMOOTH_GROUP_CULT_WALLS
-	smoothing_groups = SMOOTH_GROUP_CULT_WALLS
+	canSmoothWith = null
+	smoothing_groups = NONE
 
 
 /turf/simulated/wall/indestructible/mineral_rock

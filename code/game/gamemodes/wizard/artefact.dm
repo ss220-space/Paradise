@@ -11,7 +11,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/charged = 1
-	var/spawn_type = /obj/singularity/narsie/wizard
+	var/spawn_type = /obj/singularity/god/narsie/wizard
 	var/spawn_amt = 1
 	var/activate_descriptor = "reality"
 	var/rend_desc = "You should run now."

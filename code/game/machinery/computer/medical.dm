@@ -9,7 +9,7 @@
 
 /obj/machinery/computer/med_data //TODO:SANITY
 	name = "medical records console"
-	desc = "This can be used to check medical records."
+	desc = "Используется для проверки медицинских записей."
 	icon_keyboard = "med_key"
 	icon_screen = "medcomp"
 	req_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
@@ -346,10 +346,16 @@
 						return
 
 					if(field == "age")
-						var/new_age = text2num(answer)
-						if(new_age < AGE_MIN || new_age > AGE_MAX)
-							set_temp("Invalid age. It must be between [AGE_MIN] and [AGE_MAX].", "danger")
+						if(!active1)
 							return
+
+						var/datum/species/species = active1.fields["species"]
+						var/new_age = text2num(answer)
+						var/age_limits = get_age_limits(species, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
+						if(new_age < age_limits[SPECIES_AGE_MIN] || new_age > age_limits[SPECIES_AGE_MAX])
+							set_temp("Invalid age. It must be between [age_limits[SPECIES_AGE_MIN]] and [age_limits[SPECIES_AGE_MAX]].", "danger")
+							return
+
 						answer = new_age
 
 					if(istype(active2) && (field in active2.fields))
@@ -455,7 +461,7 @@
 
 /obj/machinery/computer/med_data/laptop
 	name = "medical laptop"
-	desc = "Cheap Nanotrasen laptop."
+	desc = "Дешёвый ноутбук корпорации Nanotrasen."
 	icon_state = "laptop"
 	icon_keyboard = "laptop_key"
 	icon_screen = "medlaptop"

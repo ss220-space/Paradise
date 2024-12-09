@@ -80,6 +80,13 @@
 	male_snore_sound = list('sound/voice/skrell/snore1.ogg', 'sound/voice/skrell/snore2.ogg', 'sound/voice/skrell/snore3.ogg')
 	whistle_sound = list('sound/voice/skrell/whistling1.ogg', 'sound/voice/skrell/whistling2.ogg')
 
+	age_sheet = list(
+		SPECIES_AGE_MIN = 18,
+		SPECIES_AGE_MAX = 400,
+		JOB_MIN_AGE_HIGH_ED = 25,
+		JOB_MIN_AGE_COMMAND = 25,
+	)
+
 /datum/species/skrell/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	add_verb(H, list(
