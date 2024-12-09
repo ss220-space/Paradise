@@ -1,4 +1,7 @@
 #Entries here contain flags that are used only on testing.
 
 ## Enables bombarda craft.
-ENABLE_BOMBARDA_CRAFT 
+ENABLE_BOMBARDA_CRAFT
+
+## Enables logging for /proc/shelleo. Note: Makes file writing on each call.
+ENABLE_SHELLEO_LOGGING

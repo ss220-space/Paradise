@@ -10,3 +10,6 @@
 
 ///Do not load station
 /datum/config_entry/flag/load_no_station
+
+///Enable /proc/shelleo logging.
+/datum/config_entry/flag/enable_shelleo_logging
