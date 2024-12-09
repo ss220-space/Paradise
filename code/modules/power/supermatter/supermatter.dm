@@ -411,33 +411,45 @@
 	if(istype(I, /obj/item/scalpel/supermatter))
 		add_fingerprint(user)
 		var/obj/item/scalpel/supermatter/scalpel = I
+
 		if(!scalpel.uses_left)
 			to_chat(user, span_warning("The [scalpel.name] isn't sharp enough anymore."))
 			return ATTACK_CHAIN_PROCEED
+
 		user.visible_message(
 			span_notice("[user] starts to carefully scrape [src] with [I]."),
 			span_notice("You start to carefully scrape [src]..."),
 		)
+
 		if(!I.use_tool(src, user, 10 SECONDS, volume = 100) || !scalpel.uses_left)
 			return ATTACK_CHAIN_PROCEED
+
 		user.visible_message(
 			span_notice("[user] has extracted a sliver from [src], and it begins to react violently."),
 			span_notice("You have extracted a sliver from [src], and it begins to react violently."),
 		)
-		power += 200 //well...
+
+		power += 200
 		var/turf/shard_loc = get_turf(src)
+
 		var/datum/gas_mixture/shard_env = shard_loc.return_air()
 		var/datum/gas_mixture/new_mixture = new
+
 		new_mixture.toxins = 10000
 		new_mixture.temperature += power * SHARD_CUT_COEF
+
 		shard_env.merge(new_mixture)
 		scalpel.uses_left--
+
 		if(!scalpel.uses_left)
 			to_chat(user, span_boldwarning("A tiny piece of [I] falls off, rendering it useless!"))
+
 		var/obj/item/nuke_core/supermatter_sliver/sliver = new(drop_location())
 		var/obj/item/retractor/supermatter/tongs = user.get_inactive_hand()
+
 		if(!istype(tongs) || tongs.sliver)
 			return ATTACK_CHAIN_PROCEED_SUCCESS
+
 		tongs.sliver = sliver
 		sliver.forceMove(tongs)
 		tongs.update_icon(UPDATE_ICON_STATE)
@@ -451,6 +463,18 @@
 	if((I.item_flags & ABSTRACT) || !isliving(user))
 		return ATTACK_CHAIN_PROCEED
 
+	if(istype(I, /obj/item/clothing/head/helmet/space/santahat) && \
+		!locate(I) in src 
+		) 
+		if(!user.transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		RegisterSignal(src, COMSIG_PARENT_EXAMINE, PROC_REF(holiday_hat_examine))
+
+		add_overlay(mutable_appearance(icon, get_santa_hat_overlay()))
+
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	user.drop_item_ground(I, force = TRUE)
 	I.do_pickup_animation(src)
@@ -462,14 +486,6 @@
 	)
 	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE)
 	user.apply_effect(150, IRRADIATE)
-
-	if(istype(I, /obj/item/clothing/head/helmet/space/santahat))
-		qdel(I)
-		RegisterSignal(src, COMSIG_PARENT_EXAMINE, PROC_REF(holiday_hat_examine))
-
-		add_overlay(mutable_appearance(icon, get_santa_hat_overlay()))
-
-		return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/machinery/power/supermatter_shard/proc/get_santa_hat_overlay()
 	return "santa_hat_shard"
