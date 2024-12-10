@@ -187,9 +187,14 @@
 	if(m_intent != MOVE_INTENT_RUN)
 		return
 
-	to_chat(src, span_userdanger("Gravity exhausts you!"))
-	apply_damage(35, STAMINA)
+	if(!HAS_TRAIT(src, TRAIT_NO_GRAVITY_DAMAGE))
+		to_chat(src, span_userdanger("Gravity exhausts you!"))
+		apply_damage(35, STAMINA)
+		ADD_TRAIT(src, TRAIT_NO_GRAVITY_DAMAGE, "gravity_exhaustion")
+		addtimer(CALLBACK(src, PROC_REF(remove_gravity_immune)), 5 SECONDS)
 
+/mob/living/carbon/human/proc/remove_gravity_immune()
+	REMOVE_TRAIT(src, TRAIT_NO_GRAVITY_DAMAGE, "gravity_exhaustion")
 
 /mob/living/carbon/human/slip(weaken, obj/slipped_on, lube_flags, tilesSlipped)
 	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ALL))

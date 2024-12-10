@@ -133,7 +133,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_GUSTPROTECTION "gustprotection"
 /// This mob can strip other mobs.
 #define TRAIT_CAN_STRIP "can_strip"
-
+/// This mob has immune to gravity damage.
+#define TRAIT_NO_GRAVITY_DAMAGE "no_gravity_damage"
 
 /// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
 #define TRAIT_NO_GLIDE "no_glide"
