@@ -245,7 +245,8 @@
 
 	/// The direction the shuttle prefers to travel in, ie what direction the animation will cause it to appear to be traveling in
 	var/preferred_direction = NORTH
-	/// relative direction of the docking port from the front of the shuttle. NORTH is towards front, EAST would be starboard side, WEST port, etc.
+	/// relative direction of the docking port from the front of the shuttle.
+	/// Meaning, if port located at: front = NORTH, left side = WEST, right side = EAST, backside = SOUTH.
 	var/port_direction = NORTH
 
 	var/mob/last_caller				// Who called the shuttle the last time
@@ -265,6 +266,8 @@
 		areaInstance = new()
 		areaInstance.name = name
 		areaInstance.contents += return_ordered_turfs()
+
+	areaInstance.parallax_movedir = preferred_direction
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#0f0")
@@ -308,7 +311,7 @@
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
 /obj/docking_port/mobile/proc/canMove()
-	return TRUE
+	return 0	//0 means we can move // FALSE should've mean YOU CAN'T MOVE WTF
 
 //this is to check if this shuttle can physically dock at dock S
 /obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
@@ -476,7 +479,7 @@
 		if(!check_dock(new_dock))
 			return DOCKING_BLOCKED
 
-		if(!canMove())
+		if(canMove())
 			remove_ripples()
 			return DOCKING_IMMOBILIZED
 

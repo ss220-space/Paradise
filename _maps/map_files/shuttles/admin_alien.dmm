@@ -551,7 +551,9 @@
 	id = "admin";
 	name = "administration shuttle";
 	roundstart_move = "admin_away";
-	width = 18
+	width = 18;
+	port_direction = 2;
+	preferred_direction = 8
 	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;

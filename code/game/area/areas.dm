@@ -79,7 +79,9 @@
 	var/can_get_auto_cryod = TRUE
 	var/hide_attacklogs = FALSE // For areas such as thunderdome, lavaland syndiebase, etc which generate a lot of spammy attacklogs. Reduces log priority.
 
+	///Used by shuttle to move space visually. It is set by docking_port/mobile.preferred_direction
 	var/parallax_movedir = 0
+	///Sets if area/shuttle is in move or not
 	var/moving = FALSE
 	/// "Haunted" areas such as the morgue and chapel are easier to boo. Because flavor.
 	var/is_haunted = FALSE

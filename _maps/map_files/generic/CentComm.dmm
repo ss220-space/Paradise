@@ -3329,7 +3329,8 @@
 	name = "SIT shuttle";
 	roundstart_move = "sit_away";
 	width = 11;
-	port_direction = 8
+	port_direction = 4;
+	preferred_direction = 2
 	},
 /obj/docking_port/stationary{
 	dir = 4;
@@ -4510,7 +4511,8 @@
 	id = "pod2";
 	name = "escape pod 2";
 	roundstart_move = "pod2_home";
-	dir = 8
+	dir = 8;
+	port_direction = 2
 	},
 /obj/docking_port/stationary{
 	dir = 8;
@@ -5100,7 +5102,8 @@
 	id = "pod4";
 	name = "escape pod 4";
 	roundstart_move = "pod4_home";
-	dir = 4
+	dir = 4;
+	port_direction = 2
 	},
 /obj/docking_port/stationary{
 	dir = 4;
@@ -7082,7 +7085,8 @@
 	id = "pod1";
 	name = "escape pod 1";
 	roundstart_move = "pod1_home";
-	dir = 8
+	dir = 8;
+	port_direction = 2
 	},
 /obj/docking_port/stationary{
 	dir = 8;
@@ -7466,7 +7470,8 @@
 	id = "pod3";
 	name = "escape pod 3";
 	roundstart_move = "pod3_home";
-	dir = 4
+	dir = 4;
+	port_direction = 2
 	},
 /obj/docking_port/stationary{
 	dir = 4;
@@ -8562,7 +8567,8 @@
 	name = "administration shuttle";
 	roundstart_move = "admin_away";
 	width = 18;
-	port_direction = 4
+	port_direction = 2;
+	preferred_direction = 8
 	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;
@@ -17416,7 +17422,8 @@
 	name = "SST shuttle";
 	roundstart_move = "sst_away";
 	width = 11;
-	port_direction = 4
+	port_direction = 8;
+	preferred_direction = 2
 	},
 /obj/docking_port/stationary{
 	dir = 8;
@@ -22352,7 +22359,8 @@
 	name = "sol trade shuttle";
 	roundstart_move = "trade_sol_base";
 	width = 15;
-	port_direction = 4
+	port_direction = 2;
+	preferred_direction = 8
 	},
 /obj/machinery/door/airlock/shuttle/glass{
 	id_tag = "s_docking_airlock"
@@ -32284,7 +32292,9 @@
 	width = 12
 	},
 /obj/docking_port/mobile/supply{
-	dir = 2
+	dir = 2;
+	preferred_direction = 8;
+	port_direction = 4
 	},
 /turf/simulated/wall/shuttle,
 /area/shuttle/supply)
@@ -32883,11 +32893,6 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
-"pwa" = (
-/turf/space/transit/north{
-	icon_state = "speedspace_ns_1"
-	},
-/area/space)
 "pwb" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 2;
@@ -33203,7 +33208,7 @@
 	name = "ferry shuttle";
 	roundstart_move = "ferry_away";
 	width = 5;
-	port_direction = 4
+	preferred_direction = 4
 	},
 /obj/docking_port/stationary{
 	dir = 8;
@@ -34928,7 +34933,9 @@
 "qtk" = (
 /obj/machinery/door/airlock/shuttle,
 /obj/structure/fans/tiny,
-/obj/docking_port/mobile/gamma,
+/obj/docking_port/mobile/gamma{
+	port_direction = 8
+	},
 /obj/docking_port/stationary{
 	dir = 4;
 	dwidth = 4;
@@ -37985,7 +37992,7 @@
 	roundstart_move = "graveyard_dock";
 	alone_shuttle = 1;
 	width = 10;
-	port_direction = 4;
+	port_direction = 8;
 	preferred_direction = 2
 	},
 /turf/simulated/floor/shuttle/plating,
@@ -45899,7 +45906,9 @@
 	name = "Emergency Droppod";
 	req_access = list(109)
 	},
-/obj/docking_port/mobile/assault_pod/nt,
+/obj/docking_port/mobile/assault_pod/nt{
+	port_direction = 2
+	},
 /obj/docking_port/stationary{
 	dwidth = 3;
 	height = 7;
@@ -49673,7 +49682,9 @@
 	id = "ombra";
 	name = "Spider Clan Ombra";
 	roundstart_move = "ombra_home";
-	width = 21
+	width = 21;
+	port_direction = 2;
+	preferred_direction = 2
 	},
 /obj/structure/fans/tiny/invisible,
 /obj/docking_port/stationary{
@@ -94769,10 +94780,10 @@ xXv
 xXv
 xXv
 xXv
-pwa
-pwa
-pwa
-pwa
+mVX
+mVX
+mVX
+mVX
 tYd
 pNM
 pNM
@@ -95026,10 +95037,10 @@ uqw
 sVi
 kWH
 eTw
-pwa
-pwa
-pwa
-pwa
+mVX
+mVX
+mVX
+mVX
 tYd
 mVX
 mVX
@@ -95283,10 +95294,10 @@ gdD
 prZ
 kWH
 xZc
-pwa
-pwa
-pwa
-pwa
+mVX
+mVX
+mVX
+mVX
 tYd
 mVX
 mVX
@@ -95540,10 +95551,10 @@ tzz
 xXv
 xXv
 xXv
-pwa
-pwa
-pwa
-pwa
+mVX
+mVX
+mVX
+mVX
 tYd
 mVX
 mVX
@@ -95783,11 +95794,11 @@ azG
 aAL
 dzW
 qZO
-pwa
-pwa
-pwa
-pwa
-pwa
+mVX
+mVX
+mVX
+mVX
+mVX
 xXv
 xVm
 yai
@@ -95795,12 +95806,12 @@ xVm
 xVm
 nns
 xXv
-pwa
-pwa
-pwa
-pwa
-pwa
-pwa
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 tYd
 mVX
 mVX
@@ -96040,8 +96051,8 @@ cMm
 cMm
 dBJ
 qZO
-pwa
-pwa
+mVX
+mVX
 xXv
 mEm
 mEm
@@ -96052,12 +96063,12 @@ tLj
 vIN
 iGc
 xXv
-pwa
-pwa
-pwa
-pwa
-pwa
-pwa
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 tYd
 mVX
 mVX
@@ -96297,7 +96308,7 @@ aJQ
 aJQ
 qZO
 qZO
-pwa
+mVX
 xXv
 xXv
 ugs
@@ -96314,7 +96325,7 @@ ouJ
 xXv
 xXv
 xXv
-pwa
+mVX
 tYd
 mVX
 mVX
@@ -97839,7 +97850,7 @@ aJQ
 aJQ
 tYd
 qZO
-pwa
+mVX
 xXv
 xXv
 wNi
@@ -97856,7 +97867,7 @@ ouJ
 xXv
 xXv
 xXv
-pwa
+mVX
 tYd
 mVX
 mVX
@@ -98096,8 +98107,8 @@ cNW
 cNW
 dCI
 tYd
-pwa
-pwa
+mVX
+mVX
 xXv
 xhz
 xhz
@@ -98108,12 +98119,12 @@ xVm
 xVm
 feW
 xXv
-pwa
-pwa
-pwa
-pwa
-pwa
-pwa
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 tYd
 mVX
 mVX
@@ -98353,11 +98364,11 @@ azG
 aAL
 dzW
 qZO
-pwa
-pwa
-pwa
-pwa
-pwa
+mVX
+mVX
+mVX
+mVX
+mVX
 xXv
 xVm
 iHB
@@ -98365,12 +98376,12 @@ xVm
 xVm
 xVm
 xXv
-pwa
-pwa
-pwa
-pwa
-pwa
-pwa
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
 tYd
 mVX
 mVX
@@ -98624,10 +98635,10 @@ wod
 xXv
 xXv
 xXv
-pwa
-pwa
-pwa
-pwa
+mVX
+mVX
+mVX
+mVX
 tYd
 mVX
 mVX
@@ -98881,10 +98892,10 @@ mdw
 sVi
 kWH
 eTw
-pwa
-pwa
-pwa
-pwa
+mVX
+mVX
+mVX
+mVX
 tYd
 mVX
 mVX
@@ -99138,10 +99149,10 @@ uqw
 prZ
 kWH
 xZc
-pwa
-pwa
-pwa
-pwa
+mVX
+mVX
+mVX
+mVX
 tYd
 mVX
 mVX
@@ -99395,10 +99406,10 @@ xXv
 xXv
 xXv
 xXv
-pwa
-pwa
-pwa
-pwa
+mVX
+mVX
+mVX
+mVX
 tYd
 mVX
 mVX

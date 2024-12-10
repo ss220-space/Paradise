@@ -89,7 +89,6 @@ This applies to all STANDARD station areas
 	valid_territory = FALSE
 	has_gravity = STANDARD_GRAVITY
 	static_lighting = TRUE
-	parallax_movedir = NORTH
 	sound_environment = SOUND_ENVIRONMENT_ROOM
 
 /area/shuttle/arrival
@@ -187,8 +186,6 @@ This applies to all STANDARD station areas
 
 /area/shuttle/transport
 	icon_state = "shuttle"
-	name = "Transport Shuttle"
-	parallax_movedir = EAST
 
 /area/shuttle/transport1
 	icon_state = "shuttle"
@@ -224,7 +221,6 @@ This applies to all STANDARD station areas
 /area/shuttle/specops
 	name = "Special Ops Shuttle"
 	icon_state = "shuttlered"
-	parallax_movedir = EAST
 
 /area/shuttle/specops/centcom
 	name = "Special Ops Shuttle"
@@ -238,7 +234,6 @@ This applies to all STANDARD station areas
 	name = "Syndicate Elite Shuttle"
 	icon_state = "shuttlered"
 	nad_allowed = TRUE
-	parallax_movedir = SOUTH
 
 /area/shuttle/syndicate_elite/mothership
 	name = "Syndicate Elite Shuttle"
@@ -252,7 +247,6 @@ This applies to all STANDARD station areas
 	name = "Syndicate SIT Shuttle"
 	icon_state = "shuttlered"
 	nad_allowed = TRUE
-	parallax_movedir = SOUTH
 
 /area/shuttle/assault_pod
 	name = "Steel Rain"
@@ -265,7 +259,6 @@ This applies to all STANDARD station areas
 /area/shuttle/administration
 	name = "Nanotrasen Vessel"
 	icon_state = "shuttlered"
-	parallax_movedir = WEST
 
 /area/shuttle/administration/centcom
 	name = "Nanotrasen Vessel Centcom"
@@ -364,7 +357,6 @@ This applies to all STANDARD station areas
 /area/shuttle/salvage/abandoned_ship
 	name = "Abandoned Ship"
 	icon_state = "yellow"
-	parallax_movedir = WEST
 
 /area/shuttle/salvage/clown_asteroid
 	name = "Clown Asteroid"
@@ -381,7 +373,6 @@ This applies to all STANDARD station areas
 /area/shuttle/supply
 	name = "Supply Shuttle"
 	icon_state = "shuttle3"
-	parallax_movedir = WEST // I dunno why lol
 
 /area/shuttle/ussp
 	name = "USSP Shuttle"
@@ -406,7 +397,6 @@ This applies to all STANDARD station areas
 
 /area/shuttle/trade/sol
 	name = "Sol Freighter"
-	parallax_movedir = WEST
 
 /area/shuttle/freegolem
 	name = "Free Golem Ship"
