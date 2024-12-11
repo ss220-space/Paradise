@@ -96,19 +96,20 @@
 /datum/action/innate/borer/torment/Activate()
 	var/mob/living/simple_animal/borer/borer = isborer(owner) ? owner : owner.has_brain_worms()
 	var/mob/living/carbon/host = borer.host
-	
+
 	var/cost = 70 - (borer.antag_datum.borer_rank.rank_ability_amplifier * 10)
-	
+
 	if(borer.chemicals < cost)
 		to_chat(owner, "Вам требуется [cost] химикатов для вызова психической агонии!")
 		return
 
 	borer.chemicals -= cost
-	
+
 	to_chat(owner, span_danger("Вы посылаете карающий всплеск психической агонии в мозг своего носителя."))
-	to_chat(host, span_danger("<FONT size=3>Ужасная, жгучая агония пронзает вас насквозь, \
+	var/target = borer.host_brain ? borer.host_brain : host
+	to_chat(target, span_danger("<FONT size=3>Ужасная, жгучая агония пронзает вас насквозь, \
 			вырывая беззвучный крик из глубин вашего разума!</FONT>"))
-			
+
 	if(borer.host_brain?.host_resisting)
 		borer.host_brain.resist()
 		return
