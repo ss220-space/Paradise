@@ -62399,7 +62399,7 @@
 	pixel_y = 3
 	},
 /obj/machinery/requests_console{
-	department = "Research";
+	department = "Science";
 	departmentType = 2;
 	name = "Research Request Console";
 	pixel_x = 30
