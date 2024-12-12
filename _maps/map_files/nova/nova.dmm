@@ -549,6 +549,10 @@
 	name = "Secure Armory";
 	req_access = list(1)
 	},
+/obj/item/shield/riot,
+/obj/item/shield/riot,
+/obj/item/shield/riot,
+/obj/item/shield/riot,
 /obj/item/clothing/shoes/combat,
 /obj/item/clothing/shoes/combat,
 /obj/item/clothing/shoes/combat,
@@ -5827,35 +5831,9 @@
 /turf/simulated/floor/grass,
 /area/crew_quarters/fitness)
 "aNx" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/machinery/door/window{
-	color = "red";
-	dir = 2;
-	name = "Secure Armory";
-	req_access = list(1)
-	},
-/obj/machinery/door/window{
-	color = "red";
-	dir = 1;
-	name = "Secure Armory";
-	req_access = list(1)
-	},
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 8
-	},
-/obj/item/shield/riot,
-/obj/item/shield/riot,
-/obj/item/shield/riot,
-/obj/item/shield/riot,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -119347,7 +119325,7 @@
 /obj/machinery/computer/rdconsole/core,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/requests_console{
-	department = "Science";
+	department = "Research";
 	departmentType = 2;
 	name = "Research Request Console";
 	pixel_x = -30
