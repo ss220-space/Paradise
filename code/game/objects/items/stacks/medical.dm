@@ -227,6 +227,16 @@
 	heal_brute = 25
 	stop_bleeding = 0
 
+/obj/item/stack/medical/bruise_pack/extended
+	name = "extended trauma kit"
+	singular_name = "extended trauma kit"
+	desc = "An extended trauma kit for severe injuries."
+	icon_state = "traumakit"
+	item_state = "traumakit"
+	belt_icon = "advanced_trauma_kit"
+	heal_brute = 30
+	stop_bleeding = 0
+
 
 /obj/item/stack/medical/bruise_pack/advanced/cyborg
 	is_cyborg = TRUE
@@ -292,6 +302,14 @@
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
+/obj/item/stack/medical/ointment/extended
+	name = "extended burn kit"
+	singular_name = "extended burn kit"
+	desc = "An extended treatment kit for severe burns."
+	icon_state = "burnkit"
+	item_state = "burnkit"
+	belt_icon = "advanced_burn_kit"
+	heal_burn = 30
 
 //Medical Herbs//
 /obj/item/stack/medical/bruise_pack/comfrey
