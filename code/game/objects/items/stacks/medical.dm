@@ -236,6 +236,8 @@
 	belt_icon = "advanced_trauma_kit"
 	heal_brute = 30
 	stop_bleeding = 0
+	amount = 12
+	max_amount = 12
 
 
 /obj/item/stack/medical/bruise_pack/advanced/cyborg
@@ -310,6 +312,8 @@
 	item_state = "burnkit"
 	belt_icon = "advanced_burn_kit"
 	heal_burn = 30
+	amount = 12
+	max_amount = 12
 
 //Medical Herbs//
 /obj/item/stack/medical/bruise_pack/comfrey
