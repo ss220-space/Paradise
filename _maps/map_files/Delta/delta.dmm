@@ -122038,18 +122038,6 @@
 "xqE" = (
 /obj/vehicle/ridden/secway,
 /obj/item/radio/intercom{
-	pixel_y = -28
-	},
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
-/obj/item/radio/intercom{
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
