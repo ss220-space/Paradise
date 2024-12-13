@@ -1,6 +1,6 @@
 import { useBackend } from '../../backend';
 import { Box, Button, Section, NoticeBox, Stack } from '../../components';
-import { pickPage } from '../../interfaces/RequestConsole';
+import { pages } from '../../interfaces/RequestConsole';
 
 export const pda_request_console = (props, context) => {
   const { act, data } = useBackend(context);
@@ -14,17 +14,25 @@ export const pda_request_console = (props, context) => {
           {consoles_data.map((console) => {
             return (
               <Stack.Item key={console['name']}>
-                <Button
-                  content={console['name']}
-                  color={
-                    console['priority'] === 1
-                      ? 'green'
-                      : console['priority'] === 2
-                        ? 'red'
-                        : 'default'
-                  }
-                  onClick={() => act('select', { name: console['name'] })}
-                />
+                <Stack>
+                  <Stack.Item>
+                    <Button
+                      color={
+                        console['priority'] === 1
+                          ? 'green'
+                          : console['priority'] === 2
+                            ? 'red'
+                            : 'default'
+                      }
+                      content={console['name']}
+                      onClick={() => act('select', { name: console['name'] })}
+                    />
+                    <Button
+                      icon={console['muted'] ? 'volume-mute' : 'volume-up'}
+                      onClick={() => act('mute', { name: console['name'] })}
+                    />
+                  </Stack.Item>
+                </Stack>
               </Stack.Item>
             );
           })}
@@ -34,7 +42,7 @@ export const pda_request_console = (props, context) => {
   }
   return (
     <Box>
-      {pickPage(screen)}
+      {(pages[screen] || pages.default)()}
       {screen === 0 ? (
         <Button
           content="Back to console selection"

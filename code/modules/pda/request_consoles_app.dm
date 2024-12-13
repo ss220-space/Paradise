@@ -7,6 +7,7 @@
 	update = PDA_APP_UPDATE
 	var/list/department_list
 	var/list/possible_consoles = list()
+	var/list/consoles_mute = list()
 	var/ore_message_reciver_dep
 	var/obj/machinery/requests_console/selected_console
 
@@ -36,7 +37,7 @@
 	if(isoremessage && source.department != ore_message_reciver_dep)
 		return
 	var/rendered_message = "Recieved on [source.name] : [message]"
-	if(!QDELETED(pda))
+	if(!QDELETED(pda) && !consoles_mute[source])
 		notify(rendered_message)
 
 
@@ -48,19 +49,27 @@
 		data["selected_console"] = null
 		var/list/possible_consoles_data= list()
 		for(var/obj/machinery/requests_console/console as anything in possible_consoles)
-			possible_consoles_data += list(list("name" = console.name, "priority" = console.newmessagepriority))
+			possible_consoles_data += list(list("name" = console.name, "priority" = console.newmessagepriority, "muted" = consoles_mute[console]))
 		data["consoles_data"] = possible_consoles_data
 
 /datum/data/pda/app/request_console/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	var/name = params["name"]
+	var/obj/machinery/requests_console/clicked_console
+	for(var/atom/console as anything in possible_consoles)
+		if(console.name == name)
+			clicked_console = console
+			break
 	switch(action)
 		if("select")
-			var/name = params["name"]
-			for(var/atom/console as anything in possible_consoles)
-				if(console.name == name)
-					selected_console = console
-					title = console.name
-					break
+			if(!clicked_console)
+				return
+			selected_console = clicked_console
+			title = clicked_console.name
 			unnotify()
+		if("mute")
+			if(!clicked_console)
+				return
+			consoles_mute[clicked_console] = !consoles_mute[clicked_console]
 		if("back")
 			selected_console = null
 			title = initial(title)
