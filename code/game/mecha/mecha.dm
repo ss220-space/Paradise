@@ -121,6 +121,9 @@
 	///Is mecha strafing currently
 	var/strafe = FALSE
 
+	///Mech subtype. Currently used in paintkits.
+	var/mech_type = MECH_TYPE_NONE
+
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
 /obj/mecha/Initialize()
@@ -913,15 +916,12 @@
 		if(occupant)
 			to_chat(user, span_warning("You can't customize a mech while someone is piloting it - that would be unsafe!"))
 			return ATTACK_CHAIN_PROCEED
+
 		var/obj/item/paintkit/paintkit = I
-		var/found = FALSE
-		for(var/type in paintkit.allowed_types)
-			if(type == initial_icon)
-				found = TRUE
-				break
-		if(!found)
+		if(!(paintkit.allowed_types & mech_type))
 			to_chat(user, span_warning("This paintkit isn't meant for use on this class of exosuit."))
 			return ATTACK_CHAIN_PROCEED
+
 		if(!user.drop_transfer_item_to_loc(paintkit, src))
 			return ..()
 		user.visible_message(span_notice("[user] opens [paintkit] and spends some quality time customising [name]."))

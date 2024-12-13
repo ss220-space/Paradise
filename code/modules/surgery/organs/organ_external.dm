@@ -105,15 +105,16 @@
 	light_on = FALSE
 
 
-/obj/item/organ/external/New(mob/living/carbon/holder, special = ORGAN_MANIPULATION_NOEFFECT)
-	..()
+/obj/item/organ/external/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
 
 	if(dna?.species)
 		icobase = dna.species.icobase
 		deform = dna.species.deform
-	if(ishuman(holder))
-		replaced(holder, special)
-		sync_colour_to_human(holder)
+
+	if(ishuman(loc))
+		replaced(loc, special)
+		sync_colour_to_human(loc)
 		properly_attached = TRUE
 
 	if(is_robotic())

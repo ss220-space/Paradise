@@ -68,9 +68,18 @@
 	ammo_x_offset = 1
 	can_charge = FALSE
 	selfcharge = TRUE
+	var/emagged = FALSE
 
 /obj/item/gun/energy/floragun/emag_act(mob/user)
 	. = ..()
+
+	if(emagged)
+		return
+
+	if(user)
+		balloon_alert(user, "протоколы защиты сняты!")
+
+	emagged = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/flora/alpha/emag, /obj/item/ammo_casing/energy/flora/beta, /obj/item/ammo_casing/energy/flora/gamma)
 	update_ammo_types()
 
@@ -821,7 +830,7 @@
 	icon_state = "plasmagun"
 	item_state = "plasmagun"
 	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "combat=4;magnets=4;powerstorage=3"
+	origin_tech = "combat=6;magnets=5;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/weak_plasma, /obj/item/ammo_casing/energy/charged_plasma)
 	shaded_charge = 1
 	can_holster = TRUE

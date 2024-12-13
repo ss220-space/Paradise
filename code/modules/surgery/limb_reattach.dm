@@ -341,7 +341,7 @@
 				continue
 
 			var/new_limb_type = organ_data["path"]
-			var/obj/item/organ/external/new_limb = new new_limb_type(holder = target, special = ORGAN_MANIPULATION_DEFAULT)
+			var/obj/item/organ/external/new_limb = new new_limb_type(target, ORGAN_MANIPULATION_DEFAULT)
 			new_limb.robotize(company = L.model_info)
 
 			if(L.sabotaged)

@@ -397,8 +397,6 @@
 
 /datum/config_entry/number/simultaneous_pm_warning_timeout
 	default = 100
-///Do assistants get maint access?
-/datum/config_entry/flag/assistant_maint
 
 ///How long the gateway takes before it activates. Default is 10 minutes. Only matters if roundstart_away is enabled.
 /datum/config_entry/number/gateway_delay

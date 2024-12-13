@@ -15,6 +15,8 @@
 
 	cargo_capacity = 5 // you can fit a few things in this locker but not much.
 
+	mech_type = MECH_TYPE_LOCKER
+
 
 /obj/mecha/makeshift/Destroy()
 	new /obj/structure/closet(loc)

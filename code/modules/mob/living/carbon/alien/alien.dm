@@ -88,7 +88,7 @@
 	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
 	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
 	if(can_evolve)
-		status_tab_data[++status_tab_data.len] = list("Evolution progress: [evolution_points]/[max_evolution_points]")
+		status_tab_data[++status_tab_data.len] = list("Evolution progress:", "[evolution_points]/[max_evolution_points]")
 
 
 /mob/living/carbon/alien/get_default_language()

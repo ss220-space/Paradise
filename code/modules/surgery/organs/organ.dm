@@ -50,13 +50,14 @@
 	var/hidden_pain = FALSE
 
 
-/obj/item/organ/New(mob/living/carbon/human/holder)
-	..(holder)
+/obj/item/organ/Initialize(mapload)
+	. = ..()
 
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
 
-	if(ishuman(holder))
+	if(ishuman(loc))
+		var/mob/living/carbon/human/holder = loc
 		update_DNA(holder.dna)
 		return
 
