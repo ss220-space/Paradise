@@ -8,7 +8,7 @@
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/vox
 	name = "skipjack navigation computer"
-	desc = "Used to designate a precise transit location for the skipjack."
+	desc = "Используется, чтобы указать точное местоположение для отправки Скипджека."
 	icon_screen = "navigation"
 	icon_keyboard = "med_key"
 	shuttleId = "skipjack"

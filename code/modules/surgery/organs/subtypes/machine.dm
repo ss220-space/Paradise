@@ -10,8 +10,9 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
-/obj/item/organ/external/head/ipc/New()
-	..()
+/obj/item/organ/external/head/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/chest/ipc
@@ -22,8 +23,9 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
-/obj/item/organ/external/chest/ipc/New()
-	..()
+/obj/item/organ/external/chest/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/groin/ipc
@@ -34,8 +36,9 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
-/obj/item/organ/external/groin/ipc/New()
-	..()
+/obj/item/organ/external/groin/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/arm/ipc
@@ -46,8 +49,9 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
-/obj/item/organ/external/arm/ipc/New()
-	..()
+/obj/item/organ/external/arm/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/arm/right/ipc
@@ -56,8 +60,9 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/arm/right/ipc/New()
-	..()
+/obj/item/organ/external/arm/right/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/leg/ipc
@@ -68,8 +73,9 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
-/obj/item/organ/external/leg/ipc/New()
-	..()
+/obj/item/organ/external/leg/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/leg/right/ipc
@@ -78,8 +84,9 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/leg/right/ipc/New()
-	..()
+/obj/item/organ/external/leg/right/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/foot/ipc
@@ -90,8 +97,9 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
-/obj/item/organ/external/foot/ipc/New()
-	..()
+/obj/item/organ/external/foot/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/foot/right/ipc
@@ -100,8 +108,9 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/foot/right/ipc/New()
-	..()
+/obj/item/organ/external/foot/right/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/hand/ipc
@@ -112,8 +121,9 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
-/obj/item/organ/external/hand/ipc/New()
-	..()
+/obj/item/organ/external/hand/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/hand/right/ipc
@@ -122,8 +132,9 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/hand/right/ipc/New()
-	..()
+/obj/item/organ/external/hand/right/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/internal/cell

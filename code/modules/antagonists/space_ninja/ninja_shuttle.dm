@@ -1,6 +1,6 @@
 /obj/machinery/computer/shuttle/ninja
 	name = "Spider Clan \"Ombra\" shuttle console"
-	desc = "Used to call and send the \"Ombra\" shuttle."
+	desc = "Используется для вызова и отправки шаттла \"Ombra\"."
 	icon_keyboard = "generic_key"
 	icon_screen = "ninja_shuttle"
 	req_access = list()
@@ -13,7 +13,7 @@
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/ninja
 	name = "Spider Clan \"Ombra\" shuttle navigation computer"
-	desc = "Used to designate a precise transit location for the \"Ombra\" shuttle."
+	desc = "Используется, чтобы указать точное местоположение для отправки шаттла \"Ombra\"."
 	icon_screen = "ninja_navigation"
 	icon_keyboard = "generic_key"
 	shuttleId = "ombra"

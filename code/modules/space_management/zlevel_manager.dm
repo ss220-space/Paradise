@@ -43,15 +43,10 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 
 
 /datum/zlev_manager/proc/get_zlev(z)
-	if(!("[z]" in z_list))
-		log_runtime(EXCEPTION("Unmanaged z level: '[z]'"))
-	else
-		return z_list["[z]"]
+	return z_list["[z]"] == null ? log_runtime(EXCEPTION("Unmanaged z level: '[z]'")) : z_list["[z]"]
 
 /datum/zlev_manager/proc/get_zlev_by_name(A)
-	if(!(A in levels_by_name))
-		log_runtime(EXCEPTION("Non-existent z level: '[A]'"))
-	return levels_by_name[A]
+	return levels_by_name[A] == null ? log_runtime(EXCEPTION("Non-existent z level: '[A]'")) : levels_by_name[A]
 
 /*
 * "Dirt" management
