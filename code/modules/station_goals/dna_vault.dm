@@ -20,7 +20,7 @@
 
 /datum/station_goal/dna_vault/proc/non_standard_plants_count()
 	. = 0
-	for(var/obj/item/seeds/seeds in subtypesof(/obj/item/seeds)) // put a cache if it's used anywhere else
+	for(var/obj/item/seeds/seeds as anything in subtypesof(/obj/item/seeds)) // put a cache if it's used anywhere else
 		if(initial(seeds.rarity))
 			.++
 
