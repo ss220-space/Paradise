@@ -8,14 +8,14 @@
     return
 
 /datum/vault_gene/toxin
-    name = "Toxin Adaptation"
-
+	name = "Toxin Adaptation"
+    
 	var/cached_tox_breath_dam_min
 	var/cached_tox_breath_dam_max
 
 /datum/vault_gene/toxin/apply(mob/living/carbon/human/human, source)
-    to_chat(human, span_notice("Ваше тело стало невоспримчиво к токсинам в воздухе."))
-
+	to_chat(human, span_notice("Ваше тело стало невоспримчиво к токсинам в воздухе."))
+    
 	var/obj/item/organ/internal/lungs/lungs = human.get_int_organ(/obj/item/organ/internal/lungs)
 
 	if(lungs)
@@ -28,7 +28,7 @@
 	ADD_TRAIT(human, TRAIT_VIRUSIMMUNE, source)
 
 /datum/vault_gene/toxin/remove(mob/living/carbon/human/human, source)
-    var/obj/item/organ/internal/lungs/lungs = human.get_int_organ(/obj/item/organ/internal/lungs)
+	var/obj/item/organ/internal/lungs/lungs = human.get_int_organ(/obj/item/organ/internal/lungs)
 
 	if(lungs)
 		lungs.tox_breath_dam_min = cached_tox_breath_dam_min || initial(lungs.tox_breath_dam_min)
@@ -40,8 +40,8 @@
     name = "Lung Enhancement"
 
 /datum/vault_gene/nobreath/apply(mob/living/carbon/human/human, source)
-    to_chat(human, span_notice("Вы чувствуете, как нужда в дыхании пропадает."))
-
+	to_chat(human, span_notice("Вы чувствуете, как нужда в дыхании пропадает."))
+    
 	ADD_TRAIT(human, TRAIT_NO_BREATH, source)
 
 /datum/vault_gene/nobreath/remove(mob/living/carbon/human/human, source)
@@ -51,13 +51,13 @@
     name = "Thermal Regulation"
 
 /datum/vault_gene/fireproof/apply(mob/living/carbon/human/human, source)
-    to_chat(human, span_notice("Вы чувствуете, как ваше тело стало более огнеупорным."))
+	to_chat(human, span_notice("Вы чувствуете, как ваше тело стало более огнеупорным."))
 	human.physiology.burn_mod *= 0.5
 
 	ADD_TRAIT(human, TRAIT_RESIST_HEAT, source)
 
 /datum/vault_gene/fireproof/remove(mob/living/carbon/human/human, source)
-    human.physiology.burn_mod /= 0.5
+	human.physiology.burn_mod /= 0.5
 
 	REMOVE_TRAIT(human, TRAIT_RESIST_HEAT, source)
 
@@ -65,22 +65,22 @@
     name = "Neural Repathing"
 
 /datum/vault_gene/stuntime/apply(mob/living/carbon/human/human, source)
-    to_chat(human, span_notice("Ничто не может долго сдерживать вас."))
+	to_chat(human, span_notice("Ничто не может долго сдерживать вас."))
 
 	human.physiology.stun_mod *= 0.5
-    human.physiology.stamina_mod *= 0.5
+	human.physiology.stamina_mod *= 0.5
 	human.stam_regen_start_modifier *= 0.5
 
 /datum/vault_gene/stuntime/remove(mob/living/carbon/human/human, source)
-    human.physiology.stun_mod /= 0.5
-    human.physiology.stamina_mod /= 0.5
+	human.physiology.stun_mod /= 0.5
+	human.physiology.stamina_mod /= 0.5
 	human.stam_regen_start_modifier /= 0.5
 
 /datum/vault_gene/armour
     name = "Hardened Skin"
 
 /datum/vault_gene/armour/apply(mob/living/carbon/human/human, source)
-    to_chat(human, span_notice("Вы чувствуете себя крепче."))
+	to_chat(human, span_notice("Вы чувствуете себя крепче."))
 
 	human.physiology.brute_mod *= 0.7
 	human.physiology.burn_mod *= 0.7
@@ -93,7 +93,7 @@
 	ADD_TRAIT(human, TRAIT_PIERCEIMMUNE, source)
 
 /datum/vault_gene/armour/remove(mob/living/carbon/human/human, source)
-    human.physiology.brute_mod /= 0.7
+	human.physiology.brute_mod /= 0.7
 	human.physiology.burn_mod /= 0.7
 	human.physiology.tox_mod /= 0.7
 	human.physiology.oxy_mod /= 0.7
@@ -107,7 +107,7 @@
     name = "Leg Muscle Stimulus"
 
 /datum/vault_gene/speedlegs/apply(mob/living/carbon/human/human, source)
-    to_chat(human, span_notice("Вы чувствуете себя быстрее и ловче."))
+	to_chat(human, span_notice("Вы чувствуете себя быстрее и ловче."))
 	human.add_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
 
 /datum/vault_gene/speedlegs/remove(mob/living/carbon/human/human, source)
