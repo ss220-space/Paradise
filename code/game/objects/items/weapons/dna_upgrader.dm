@@ -17,7 +17,7 @@
 	)
 
 /obj/item/dna_upgrader/update_icon_state()
-	icon_state = "dnaupgrader[used ? false : ""]"
+	icon_state = "dnaupgrader[used ? FALSE : ""]"
 
 /obj/item/dna_upgrader/update_name(updates = ALL)
 	. = ..()
