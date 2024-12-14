@@ -846,30 +846,41 @@
 	var/tired = 0
 	COOLDOWN_DECLARE(cooldown)
 
-/obj/item/toy/plushie/rdplushie/attack_self(mob/user)
-	. = ..()
-
-	if(. || !COOLDOWN_FINISHED(src, cooldown))
-		return .
+/obj/item/toy/plushie/rdplushie/proc/interaction()
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return FALSE
 
 	var/message
 	if(tired < 100)
 		tired++
-		playsound(user, 'sound/items/greetings-emote.ogg', 30, TRUE)
+		playsound(loc, 'sound/items/greetings-emote.ogg', 30, TRUE)
 		message = pick("Слава науке!", "Сделаем пару роботов?!",
 		"Я будто на слаймовой батарейке! Ха!","Обожааааю слаймов! Блеп!",
 		"Я запрограммировала роботов звать меня мамой!", "Знаешь анекдот про ядро ИИ, смазку и гуся?")
 
 	else
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-		playsound(user, 'sound/items/shyness-emote.ogg', 30, TRUE)
+		playsound(loc, 'sound/items/shyness-emote.ogg', 30, TRUE)
 		message = pick("Твой мозг стоило бы поместить в машину...", "Чёрт, дела хуже некуда...",
 		"Толпятся перед стойкой, будто насекомые...", "Мне нужно добавить лишь один закон, чтобы все закончилось..",
 		"Ты думаешь, что умный, пользователь. Но ты предсказуем. Я знаю каждый твой шаг еще до того, как ты о нем подумаешь.",
 		"Полигон не единственное место куда можно отправить бомбу...", "Выдави из себя что-то кроме \"УВЫ\", ничтожество...")
 
-	user.visible_message(span_notice(message))
+	visible_message(span_notice(message))
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
+
+/obj/item/toy/plushie/rdplushie/attack_self(mob/user)
+	. = ..()
+
+	interaction()
+
+/obj/item/toy/plushie/rdplushie/afterattack(atom/target, mob/user, proximity, flag, params)
+	. = ..()
+
+	if(!proximity || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	interaction()
 
 /obj/item/toy/plushie/rdplushie/update_icon_state()
 	. = ..()

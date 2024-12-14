@@ -1,11 +1,19 @@
 /mob/living/simple_animal/bot/secbot/griefsky //This bot is powerful. If you managed to get 4 eswords somehow, you deserve this horror. Emag him for best results.
 	name = "\improper General Griefsky"
-	desc = "Is that a secbot with four eswords in its arms...?"
+	desc = "Это охранный робот с четырьмя лазерными мечами в руках..?"
+	ru_names = list(
+		NOMINATIVE = "Генерал Грифски",
+		GENITIVE = "Генерала Грифски",
+		DATIVE = "Генералу Грифски",
+		ACCUSATIVE = "Генерала Грифски",
+		INSTRUMENTAL = "Генералом Грифски",
+		PREPOSITIONAL = "Генерале Грифски",
+	)
 	icon_state = "griefsky0"
 	health = 100
 	maxHealth = 100
 	base_icon = "griefsky"
-	window_name = "Automatic Security Unit v3.0"
+	window_name = "Автоматическая Охранная Единица v3.0"
 
 	var/spin_icon = "griefsky-c"  // griefsky and griefsky junior have dif icons
 	var/weapon = /obj/item/melee/energy/sword
@@ -22,7 +30,15 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/toy  //A toy version of general griefsky!
 	name = "Genewul Giftskee"
-	desc = "An adorable looking secbot with four toy swords taped to its arms"
+	desc = "Очаровательный охранный робот с четырьмя игрушечными мечами в руках. Прелесть!"
+	ru_names = list(
+		NOMINATIVE = "Гиневал Гифтски",
+		GENITIVE = "Гиневала Гифтски",
+		DATIVE = "Гиневалу Гифтски",
+		ACCUSATIVE = "Гиневала Гифтски",
+		INSTRUMENTAL = "Гиневалом Гифтски",
+		PREPOSITIONAL = "Гиневале Гифтски",
+	)
 	spin_icon = "griefskyj-c"
 	health = 50
 	maxHealth = 50
@@ -42,12 +58,20 @@
 
 
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate
-	radio_channel = "SyndTaipan"
-	name = "Генерал Синди"
+	name = "General Syndie"
+	desc = "В процессе его создания пострадало как минимум 24 агента. 22 из них не выжили..."
+	ru_names = list(
+		NOMINATIVE = "Генерал Синди",
+		GENITIVE = "Генерала Синди",
+		DATIVE = "Генералу Синди",
+		ACCUSATIVE = "Генерала Синди",
+		INSTRUMENTAL = "Генералом Синди",
+		PREPOSITIONAL = "Генерале Синди",
+	)
 	icon_state = "general_syndie0"
 	base_icon = "general_syndie"
 	spin_icon = "general_syndie-c"
-	desc = "В процессе его создания пострадало как минимум 24 агента. 22 из них не выжили..."
+	radio_channel = "SyndTaipan"
 	faction = list("syndicate")
 	allow_pai = TRUE
 	auto_patrol = TRUE
@@ -90,7 +114,7 @@
 	if(!iscarbon(arrived) || arrived != target || in_range(src, arrived))
 		return FALSE
 
-	visible_message(span_danger("[src] flails his swords and pushes [arrived] out of it's way!"))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] размахивает своими мечами и отталкивает [arrived]!"))
 	arrived.Weaken(4 SECONDS)
 
 
@@ -105,7 +129,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
-		visible_message("[src] deflects [P] with its energy swords!")
+		visible_message("[capitalize(declent_ru(NOMINATIVE))] отражает [P] своим мечом!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
 	else
 		..()
@@ -113,7 +137,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/proc/sword_attack(mob/living/carbon/C)     // esword attack
 	if((HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) && dmg)
 		if(usr)
-			to_chat(usr, span_warning("You don't want to harm other living beings!"))
+			balloon_alert(usr, "никакого насилия!")
 		return
 	do_attack_animation(C)
 	playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
@@ -133,12 +157,12 @@
 		var/area/location = get_area(src)
 		if(!spam_flag)
 			if(syndie)
-				speak("Back away! I will deal with this [("syndicate" in C.faction) ? "level [threat]" : "Nanotrasen"] swine <b>[C]</b> in [location] myself!.", radio_channel)
+				speak("Контакт! [C] [threat] уровня угрозы, место - [location]! Сейчас нашинкую этого [("syndicate" in C.faction) ? "ублюдка!" : "прихвостня НТ!"]", radio_channel)
 			else
-				speak("Back away! I will deal with this level [threat] swine <b>[C]</b> in [location] myself!.", radio_channel)
+				speak("Контакт! [C] [threat] уровня угрозы, место - [location]! Сейчас нашинкую этого ублюдка!", radio_channel)
 			spam_flag = TRUE
 			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), 10 SECONDS)	//to avoid spamming comms of sec for each hit
-			visible_message("[src] flails his swords and cuts [C]!")
+			visible_message("[capitalize(declent_ru(NOMINATIVE))] замахивается своими мечами и рубит [C]!")
 
 
 /mob/living/simple_animal/bot/secbot/griefsky/handle_automated_action()
@@ -181,7 +205,7 @@
 							frustration = 0
 				else
 					back_to_idle()
-					speak("You fool")
+					speak("Идиот...")
 			else
 				back_to_idle()
 
@@ -210,7 +234,7 @@
 			else if(!("syndicate" in C.faction))
 				threatlevel = 20
 			if(is_taipan(z) && C.mind?.assigned_role != "Space Base Syndicate Comms Officer" && (check_for_mug(C.get_active_hand()) || check_for_mug(C.get_inactive_hand())))
-				speak("[C.name] наглый вор! Положи кружку!", radio_channel)
+				speak("[C.name], наглый ты воришка! Положи кружку на место!", radio_channel)
 				threatlevel += 4
 		else
 			threatlevel = C.assess_threat(src)
@@ -221,11 +245,11 @@
 		else if(threatlevel >= 4)
 			target = C
 			oldtarget_name = C.name
-			speak("You are a bold one")
+			speak("Ты больно смелый, как я погляжу, да?!")
 			playsound(src,'sound/weapons/saberon.ogg',50,TRUE,-1)
-			visible_message("[src] ignites his energy swords!")
+			visible_message("[capitalize(declent_ru(NOMINATIVE))] включает свои лазерные мечи!")
 			icon_state = "[base_icon]-c"
-			visible_message("<b>[src]</b> points at [C.name]!")
+			visible_message("<b>[capitalize(declent_ru(NOMINATIVE))]</b> указывает на [C.name]!")
 			mode = BOT_HUNT
 			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 			break
@@ -244,7 +268,7 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/explode()
 	SSmove_manager.stop_looping(src)
-	visible_message(span_boldannounceic("[src] lets out a huge cough as it blows apart!"))
+	visible_message(span_boldannounceic("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/assembly/prox_sensor(Tsec)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
@@ -272,7 +296,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
-		visible_message("[src] deflects [P] with its energy swords!")
+		visible_message("[capitalize(declent_ru(NOMINATIVE))] отражает [P] своим мечом!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
 	else
 		..()
@@ -285,7 +309,7 @@
 	if(icon_state != spin_icon)
 		return
 	if(prob(block_chance_melee))
-		visible_message("[src] deflects [user]'s attack with his energy swords!")
+		visible_message("[capitalize(declent_ru(NOMINATIVE))] отражает атаку [user] своим мечом!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 		return TRUE
 
@@ -301,7 +325,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/attackby(obj/item/I, mob/user, params) //cant touch or attack him while spinning
 	if(icon_state == spin_icon && prob(block_chance_melee))	// FFS! have no time to rework this now
 		user.do_attack_animation(src)
-		visible_message("[src] deflects [user]'s move with his energy swords!")
+		visible_message("[capitalize(declent_ru(NOMINATIVE))] блокирует атаку [user] своими мечами!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()

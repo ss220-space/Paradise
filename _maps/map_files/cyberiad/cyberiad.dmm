@@ -14424,26 +14424,6 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
-"aVg" = (
-/obj/structure/table,
-/obj/machinery/camera{
-	c_tag = "Primary Tool Storage"
-	},
-/obj/machinery/requests_console{
-	department = "Tool Storage";
-	name = "Tool Storage Requests Console";
-	pixel_y = 30
-	},
-/obj/item/assembly/igniter{
-	pixel_x = -8;
-	pixel_y = -4
-	},
-/obj/item/assembly/igniter,
-/obj/item/screwdriver{
-	pixel_y = 16
-	},
-/turf/simulated/floor/plasteel,
-/area/storage/primary)
 "aVh" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -24290,28 +24270,6 @@
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
-"byT" = (
-/obj/structure/table/wood,
-/obj/item/storage/photo_album{
-	pixel_y = -10
-	},
-/obj/item/camera_film,
-/obj/item/camera_film,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detectives camera";
-	pictures_left = 30
-	},
-/obj/machinery/requests_console{
-	name = "Detective Requests Console";
-	pixel_y = -30
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/item/storage/box/tapes,
-/turf/simulated/floor/wood,
-/area/security/detectives_office)
 "byU" = (
 /turf/simulated/floor/carpet,
 /area/library)
@@ -32648,16 +32606,6 @@
 /obj/effect/landmark/start/geneticist,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whitepurple"
-	},
-/area/medical/genetics)
-"bZz" = (
-/obj/structure/chair/office/light{
-	dir = 4
-	},
-/obj/effect/landmark/start/geneticist,
-/turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "whitepurple"
 	},
 /area/medical/genetics)
@@ -44024,15 +43972,6 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"cIa" = (
-/obj/structure/table/wood,
-/obj/item/pen,
-/obj/item/reagent_containers/food/drinks/bottle/holywater,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/carpet/black,
-/area/chapel/office)
 "cIb" = (
 /obj/item/radio/intercom{
 	name = "north station intercom (General)";
@@ -45585,24 +45524,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/engine,
-/area/toxins/xenobiology)
-"cMl" = (
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science Requests Console";
-	pixel_y = 30
-	},
-/obj/machinery/camera{
-	c_tag = "Xenobiology Module North";
-	network = list("Research","SS13")
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
 /area/toxins/xenobiology)
 "cMm" = (
 /obj/structure/cable{
@@ -53170,6 +53091,17 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"dic" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/status_display/supply_display{
+	pixel_y = -32
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/storage)
 "did" = (
 /obj/machinery/camera{
 	c_tag = "Bridge East"
@@ -65778,14 +65710,6 @@
 /obj/machinery/vending/assist,
 /turf/simulated/floor/plating,
 /area/storage/tech)
-"jRJ" = (
-/obj/structure/disposalpipe/trunk,
-/obj/machinery/disposal,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteyellow"
-	},
-/area/medical/chemistry)
 "jRL" = (
 /obj/effect/spawner/random_spawners/grille_13,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -69830,6 +69754,40 @@
 	icon_state = "vault"
 	},
 /area/toxins/misc_lab)
+"myk" = (
+/obj/structure/table,
+/obj/machinery/camera{
+	c_tag = "Primary Tool Storage"
+	},
+/obj/machinery/requests_console{
+	department = "Primary Tool Storage";
+	name = "Primary Tool Storage Requests Console";
+	pixel_y = 30
+	},
+/obj/item/assembly/igniter{
+	pixel_x = -8;
+	pixel_y = -4
+	},
+/obj/item/assembly/igniter,
+/obj/item/screwdriver{
+	pixel_y = 16
+	},
+/turf/simulated/floor/plasteel,
+/area/storage/primary)
+"myy" = (
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/disposal,
+/obj/machinery/requests_console{
+	department = "Chemistry";
+	departmentType = 2;
+	name = "Chemistry Requests Console";
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteyellow"
+	},
+/area/medical/chemistry)
 "mzq" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -70315,6 +70273,17 @@
 /obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
+"mOu" = (
+/obj/machinery/door/poddoor{
+	id_tag = "QMLoaddoor";
+	name = "supply dock loading door"
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/storage)
 "mOw" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -70690,17 +70659,6 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
-"nfM" = (
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science Requests Console";
-	pixel_x = -30
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/lab)
 "nfX" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -72242,6 +72200,21 @@
 	icon_state = "blue"
 	},
 /area/medical/cmostore)
+"omn" = (
+/obj/structure/table/wood,
+/obj/item/pen,
+/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/requests_console{
+	department = "Chapel";
+	departmentType = 2;
+	name = "Chapel Requests Console";
+	pixel_y = 30
+	},
+/turf/simulated/floor/carpet/black,
+/area/chapel/office)
 "omV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/secure_closet/scientist,
@@ -74457,6 +74430,29 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/reception)
+"pHL" = (
+/obj/structure/table/wood,
+/obj/item/storage/photo_album{
+	pixel_y = -10
+	},
+/obj/item/camera_film,
+/obj/item/camera_film,
+/obj/item/camera{
+	desc = "A one use - polaroid camera. 30 photos left.";
+	name = "detectives camera";
+	pictures_left = 30
+	},
+/obj/machinery/requests_console{
+	department = "Detective";
+	name = "Detective Requests Console";
+	pixel_y = -30
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/item/storage/box/tapes,
+/turf/simulated/floor/wood,
+/area/security/detectives_office)
 "pIm" = (
 /obj/structure/closet/firecloset,
 /obj/effect/decal/warning_stripes/southwest,
@@ -79226,6 +79222,14 @@
 	icon_state = "dark"
 	},
 /area/toxins/mixing)
+"sJo" = (
+/obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/storage)
 "sJv" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -79331,6 +79335,24 @@
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/r_wall,
 /area/maintenance/xenozoo)
+"sMs" = (
+/obj/machinery/camera{
+	c_tag = "Xenobiology Module North";
+	network = list("Research","SS13")
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/requests_console{
+	department = "Xenobiology";
+	departmentType = 2;
+	name = "Xenobiology Requests Console";
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/xenobiology)
 "sMY" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east extinguisher cabinet";
@@ -81331,6 +81353,15 @@
 	icon_state = "white"
 	},
 /area/medical/chemistry)
+"uck" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/light,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/storage)
 "ucp" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8
@@ -84084,6 +84115,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
+"vWf" = (
+/obj/machinery/requests_console{
+	department = "Research";
+	departmentType = 2;
+	name = "Research Requests Console";
+	pixel_x = -30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/lab)
 "vWk" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/cable{
@@ -85367,6 +85409,22 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
+"wGQ" = (
+/obj/structure/chair/office/light{
+	dir = 4
+	},
+/obj/effect/landmark/start/geneticist,
+/obj/machinery/requests_console{
+	department = "Genetics";
+	departmentType = 1;
+	name = "Genetics Requests Console";
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whitepurple"
+	},
+/area/medical/genetics)
 "wHa" = (
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod Airlock"
@@ -87423,31 +87481,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
-"xTp" = (
-/obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad2"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/storage)
 "xTI" = (
 /obj/structure/rack,
 /obj/item/wrench,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"xTK" = (
-/obj/machinery/door/poddoor{
-	id_tag = "QMLoaddoor";
-	name = "supply dock loading door"
-	},
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad2"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/storage)
 "xTV" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north extinguisher cabinet";
@@ -87459,17 +87498,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
-"xTY" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/status_display/supply_display{
-	pixel_y = -32
-	},
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad2"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/storage)
 "xVm" = (
 /obj/machinery/newscaster{
 	name = "north newscaster";
@@ -87593,15 +87621,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"xYm" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/light,
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad2"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/storage)
 "xZm" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel{
@@ -104540,7 +104559,7 @@ tst
 uXX
 syu
 uXX
-xTp
+sJo
 syu
 uTI
 uTI
@@ -104797,7 +104816,7 @@ tsS
 uZo
 rmn
 uZo
-xTK
+mOu
 rmn
 uTI
 uTI
@@ -105020,7 +105039,7 @@ aMA
 aMA
 aSa
 bdd
-aVg
+myk
 aWl
 aXQ
 aXQ
@@ -105054,7 +105073,7 @@ tst
 uXX
 rmn
 uXX
-xTp
+sJo
 rmn
 uTI
 uTI
@@ -105311,7 +105330,7 @@ nMQ
 vaY
 whv
 vaY
-xTY
+dic
 bxb
 uTI
 uTI
@@ -105568,7 +105587,7 @@ nMQ
 bKz
 dSG
 bWL
-xYm
+uck
 bxb
 uTI
 uTI
@@ -117343,7 +117362,7 @@ boN
 aEi
 aFw
 bxc
-byT
+pHL
 axe
 aKy
 aMj
@@ -124574,7 +124593,7 @@ uwX
 rgv
 uwX
 bOD
-jRJ
+myy
 bJP
 bJP
 bGt
@@ -128701,7 +128720,7 @@ bZY
 ccc
 bWE
 bWE
-bZz
+wGQ
 cjF
 gab
 vvD
@@ -132579,7 +132598,7 @@ qus
 qus
 bIi
 bIi
-cMl
+sMs
 cWi
 cEH
 cPm
@@ -133292,7 +133311,7 @@ baz
 xDP
 ndQ
 baz
-cIa
+omn
 cKT
 bel
 bfW
@@ -133828,7 +133847,7 @@ bwv
 tGd
 kBi
 bGF
-nfM
+vWf
 bNk
 bPd
 bRP
