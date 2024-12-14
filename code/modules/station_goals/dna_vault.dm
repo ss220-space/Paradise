@@ -1,15 +1,8 @@
-//Crew has to create dna vault
+// Crew has to create dna vault
 // Cargo can order DNA samplers + DNA vault boards
 // DNA vault requires x animals ,y plants, z human dna
 // DNA vaults require high tier stock parts and cold
 // After completion each crewmember can receive single upgrade chosen out of 2 for the mob.
-#define VAULT_TOXIN "Toxin Adaptation"
-#define VAULT_NOBREATH "Lung Enhancement"
-#define VAULT_FIREPROOF "Thermal Regulation"
-#define VAULT_STUNTIME "Neural Repathing"
-#define VAULT_ARMOUR "Hardened Skin"
-#define VAULT_SPEED "Leg Muscle Stimulus"
-#define VAULT_QUICK "Arm Muscle Stimulus"
 
 /datum/station_goal/dna_vault
 	name = "DNA Vault"
@@ -18,17 +11,17 @@
 	var/plant_count
 
 /datum/station_goal/dna_vault/New()
-	..()
-	animal_count = rand(15, 20) //might be too few given ~15 roundstart stationside ones
+	. = ..()
+
+	animal_count = rand(15, 20) // might be too few given ~15 roundstart stationside ones
 	human_count = rand(round(0.75 * SSticker.mode.num_players_started()), SSticker.mode.num_players_started()) // 75%+ roundstart population.
 	var/non_standard_plants = non_standard_plants_count()
 	plant_count = rand(round(0.5 * non_standard_plants),round(0.7 * non_standard_plants))
 
 /datum/station_goal/dna_vault/proc/non_standard_plants_count()
 	. = 0
-	for(var/T in subtypesof(/obj/item/seeds)) //put a cache if it's used anywhere else
-		var/obj/item/seeds/S = T
-		if(initial(S.rarity) > 0)
+	for(var/obj/item/seeds/seeds in subtypesof(/obj/item/seeds)) // put a cache if it's used anywhere else
+		if(initial(seeds.rarity))
 			.++
 
 /datum/station_goal/dna_vault/get_report()
@@ -125,7 +118,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 /obj/item/circuitboard/machine/dna_vault
 	board_name = "DNA Vault"
 	build_path = /obj/machinery/dna_vault
-	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
+	origin_tech = "engineering=2; combat=2; bluespace=2" // No freebies!
 	req_components = list(
 							/obj/item/stock_parts/capacitor/super = 5,
 							/obj/item/stock_parts/manipulator/pico = 5,
@@ -172,17 +165,19 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	var/list/obj/structure/fillers = list()
 
 /obj/machinery/dna_vault/New()
-	//TODO: Replace this,bsa and gravgen with some big machinery datum
+	// TODO: Replace this, bsa and gravgen with some big machinery datum
 	var/list/occupied = list()
-	for(var/direct in list(EAST,WEST,SOUTHEAST,SOUTHWEST))
-		occupied += get_step(src,direct)
-	occupied += locate(x+1,y-2,z)
-	occupied += locate(x-1,y-2,z)
 
-	for(var/T in occupied)
-		var/obj/structure/filler/F = new(T)
-		F.parent = src
-		fillers += F
+	for(var/direct in list(EAST, WEST, SOUTHEAST, SOUTHWEST))
+		LAZYADD(occupied, get_step(src,direct))
+
+	LAZYADD(occupied, locate(x + 1, y - 2, z))
+	LAZYADD(occupied, locate(x - 1, y - 2, z))
+
+	for(var/type in occupied)
+		var/obj/structure/filler/filler = new(type)
+		filler.parent = src
+		LAZYADD(fillers, filler)
 
 	if(SSticker.mode)
 		for(var/datum/station_goal/dna_vault/G in SSticker.mode.station_goals)
@@ -191,17 +186,15 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 			dna_max = G.human_count
 			break
 
-	..()
+	return ..()
 
 /obj/machinery/dna_vault/update_icon_state()
-	if(stat & NOPOWER)
-		icon_state = "vaultoff"
-		return
-	icon_state = "vault"
+	icon_state = "vault[stat & NOPOWER ? "off" : ""]"
 
 /obj/machinery/dna_vault/power_change(forced = FALSE)
 	if(!..())
 		return
+
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -210,13 +203,15 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	return ..()
 
 /obj/machinery/dna_vault/attack_ghost(mob/user)
-	if(stat & (BROKEN|MAINT))
+	if(stat & (BROKEN | MAINT))
 		return
+
 	return ui_interact(user)
 
 /obj/machinery/dna_vault/attack_hand(mob/user)
 	if(..())
 		return TRUE
+
 	ui_interact(user)
 
 /obj/machinery/dna_vault/ui_interact(mob/user, datum/tgui/ui = null)
@@ -227,13 +222,23 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		ui.open()
 
 /obj/machinery/dna_vault/proc/roll_powers(mob/user)
-	if(user in power_lottery)
+	if(LAZYIN(power_lottery, user))
 		return
-	var/list/L = list()
-	var/list/possible_powers = list(VAULT_TOXIN, VAULT_NOBREATH, VAULT_FIREPROOF, VAULT_STUNTIME, VAULT_ARMOUR, VAULT_SPEED, VAULT_QUICK)
-	L += pick_n_take(possible_powers)
-	L += pick_n_take(possible_powers)
-	power_lottery[user] = L
+
+	var/list/genes = list()
+
+	for(var/datum/vault_gene/gene in subtypesof(/datum/vault_gene))
+		if(!initial(gene.name))
+			continue
+
+		LAZYADD(genes, initial(gene.name))
+
+	var/list/picked_genes = list()
+
+	LAZYADD(picked_genes, pick_n_take(possible_powers))
+	LAZYADD(picked_genes, pick_n_take(possible_powers))
+
+	power_lottery[user] = picked_genes
 
 /obj/machinery/dna_vault/ui_data(mob/user)
 	var/list/data = list(
@@ -249,13 +254,16 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		"choiceB" = ""
 	)
 	if(user && completed)
-		var/list/L = power_lottery[user]
-		if(length(L))
+		var/list/genes = power_lottery[user]
+
+		if(LAZYLEN(genes))
 			data["used"] = FALSE
-			data["choiceA"] = L[1]
-			data["choiceB"] = L[2]
-		else if(L)
+			data["choiceA"] = genes[1]
+			data["choiceB"] = genes[2]
+
+		else if(genes)
 			data["used"] = TRUE
+
 	return data
 
 /obj/machinery/dna_vault/ui_act(action, params)
@@ -264,11 +272,15 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 	switch(action)
 		if("gene")
+			if(!try_upgrade(usr, params["choice"]))
+				return TRUE
+
 			upgrade(usr, params["choice"])
+
 			return TRUE
 
 /obj/machinery/dna_vault/proc/check_goal()
-	if(plants.len >= plants_max && animals.len >= animals_max && dna.len >= dna_max)
+	if(LAZYLEN(plants) >= plants_max && LAZYLEN(animals) >= animals_max && LAZYLEN(dna) >= dna_max)
 		completed = TRUE
 
 
@@ -278,23 +290,29 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 	if(istype(I, /obj/item/dna_probe))
 		add_fingerprint(user)
+
 		var/obj/item/dna_probe/probe = I
 		var/uploaded = 0
+
 		for(var/plant in probe.plants)
 			if(!plants[plant])
 				uploaded++
 				plants[plant] = 1
+
 		for(var/animal in probe.animals)
 			if(!animals[animal])
 				uploaded++
 				animals[animal] = 1
+
 		for(var/ui in probe.dna)
 			if(!dna[ui])
 				uploaded++
 				dna[ui] = 1
+
 		if(!uploaded)
 			to_chat(user, span_warning("The [probe.name] has no relevant datapoints."))
 			return ATTACK_CHAIN_PROCEED
+
 		check_goal()
 		to_chat(user, span_notice("You have uploaded <b>[uploaded]</b> new datapoints."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -302,62 +320,28 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	return ..()
 
 
-/obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H, upgrade_type)
-	if(!istype(H))
-		return
+/obj/machinery/dna_vault/proc/try_upgrade(mob/living/carbon/human/human, upgrade_name)
+	if(!istype(human))
+		return FALSE
 
-	if(!(upgrade_type in power_lottery[H]))
-		return
+	if(!LAZYIN(power_lottery[human], upgrade_name))
+		return FALSE
 
 	if(!completed)
-		return
+		return FALSE
 
-	if(HAS_TRAIT(H, TRAIT_NO_DNA))
-		to_chat(H, "<span class='warning'>Error, no DNA detected.</span>")
-		return
+	if(HAS_TRAIT(human, TRAIT_NO_DNA))
+		ballon_alert(human, "ДНК не обнаружено!")
+		return FALSE
 
-	switch(upgrade_type)
-		if(VAULT_TOXIN)
-			to_chat(H, "<span class='notice'>You feel resistant to airborne toxins.</span>")
-			var/obj/item/organ/internal/lungs/L = H.get_int_organ(/obj/item/organ/internal/lungs)
-			if(L)
-				L.tox_breath_dam_min = 0
-				L.tox_breath_dam_max = 0
-			ADD_TRAIT(H, TRAIT_VIRUSIMMUNE, name)
-		if(VAULT_NOBREATH)
-			to_chat(H, "<span class='notice'>Your lungs feel great.</span>")
-			ADD_TRAIT(H, TRAIT_NO_BREATH, name)
-		if(VAULT_FIREPROOF)
-			to_chat(H, "<span class='notice'>You feel fireproof.</span>")
-			H.physiology.burn_mod *= 0.5
-			ADD_TRAIT(H, TRAIT_RESIST_HEAT, name)
-		if(VAULT_STUNTIME)
-			to_chat(H, "<span class='notice'>Nothing can keep you down for long.</span>")
-			H.physiology.stun_mod *= 0.5
-			H.physiology.stamina_mod *= 0.5
-			H.stam_regen_start_modifier *= 0.5
-		if(VAULT_ARMOUR)
-			to_chat(H, "<span class='notice'>You feel tough.</span>")
-			H.physiology.brute_mod *= 0.7
-			H.physiology.burn_mod *= 0.7
-			H.physiology.tox_mod *= 0.7
-			H.physiology.oxy_mod *= 0.7
-			H.physiology.clone_mod *= 0.7
-			H.physiology.brain_mod *= 0.7
-			H.physiology.stamina_mod *= 0.7
-			ADD_TRAIT(H, TRAIT_PIERCEIMMUNE, name)
-		if(VAULT_SPEED)
-			to_chat(H, "<span class='notice'>You feel very fast and agile.</span>")
-			H.add_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
-		if(VAULT_QUICK)
-			to_chat(H, "<span class='notice'>Your arms move as fast as lightning.</span>")
-			H.next_move_modifier *= 0.5
-	power_lottery[H] = list()
+	return TRUE
 
-#undef VAULT_TOXIN
-#undef VAULT_NOBREATH
-#undef VAULT_FIREPROOF
-#undef VAULT_STUNTIME
-#undef VAULT_ARMOUR
-#undef VAULT_SPEED
-#undef VAULT_QUICK
+/obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/human, upgrade_name)
+	for(var/datum/vault_gene/gene in subtypesof(/datum/vault_gene))
+		if(!initial(gene.name) != upgrade_name)
+			continue
+
+		gene.apply(human, name)
+		break
+
+	power_lottery[human] = list()

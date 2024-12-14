@@ -35,7 +35,7 @@
 		return FALSE
 
 	if(HAS_TRAIT(human, TRAIT_NO_DNA))
-		ballon_alert(human, "Отсутствует ДНК.")
+		ballon_alert(human, "ДНК не обнаружено!")
 		return FALSE
 	
 	choose_genes(human)
@@ -46,7 +46,7 @@
 	var/list/vault_genes_names = list()
 
 	for(var/datum/vault_gene/gene in subtypesof(/datum/vault_gene))
-		if(!gene.name)
+		if(!initial(gene.name))
 			continue
 
 		LAZYADD(vault_genes, initial(gene.name))
@@ -62,11 +62,11 @@
 		ui_state = GLOB.not_incapacitated_state
 		)
 
-	if(!choosen_gene)
+	if(used || !choosen_gene)
 		return FALSE
 
 	for(var/datum/vault_gene/gene in subtypesof(/datum/vault_gene))
-		if(gene.name != choosen_gene)
+		if(initial(gene.name) != choosen_gene)
 			continue
 
 		gene.apply(user, name)
