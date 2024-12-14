@@ -24,7 +24,8 @@
 	name = used ? "used [initial(name)]" : initial(name)
 
 /obj/item/dna_upgrader/attack_self(mob/user)
-	try_choose_genes(user)
+	if(try_choose_genes(user))
+		choose_genes(user)
 
 /obj/item/dna_upgrader/proc/try_choose_genes(mob/living/carbon/human/human)
 	if(!istype(human))
@@ -37,8 +38,6 @@
 	if(HAS_TRAIT(human, TRAIT_NO_DNA))
 		balloon_alert(human, "ДНК не обнаружено!")
 		return FALSE
-	
-	choose_genes(human)
 
 	return TRUE
 
