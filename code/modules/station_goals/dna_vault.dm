@@ -169,7 +169,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	var/list/occupied = list()
 
 	for(var/direct in list(EAST, WEST, SOUTHEAST, SOUTHWEST))
-		LAZYADD(occupied, get_step(src,direct))
+		LAZYADD(occupied, get_step(src, direct))
 
 	LAZYADD(occupied, locate(x + 1, y - 2, z))
 	LAZYADD(occupied, locate(x - 1, y - 2, z))
