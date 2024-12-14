@@ -35,7 +35,7 @@
 		return FALSE
 
 	if(HAS_TRAIT(human, TRAIT_NO_DNA))
-		ballon_alert(human, "ДНК не обнаружено!")
+		balloon_alert(human, "ДНК не обнаружено!")
 		return FALSE
 	
 	choose_genes(human)
@@ -49,7 +49,7 @@
 		if(!initial(gene.name))
 			continue
 
-		LAZYADD(vault_genes, initial(gene.name))
+		LAZYADD(vault_genes_names, initial(gene.name))
 
 	return vault_genes_names
 

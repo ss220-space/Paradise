@@ -235,8 +235,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 	var/list/picked_genes = list()
 
-	LAZYADD(picked_genes, pick_n_take(possible_powers))
-	LAZYADD(picked_genes, pick_n_take(possible_powers))
+	LAZYADD(picked_genes, pick_n_take(genes))
+	LAZYADD(picked_genes, pick_n_take(genes))
 
 	power_lottery[user] = picked_genes
 
@@ -331,7 +331,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		return FALSE
 
 	if(HAS_TRAIT(human, TRAIT_NO_DNA))
-		ballon_alert(human, "ДНК не обнаружено!")
+		balloon_alert(human, "ДНК не обнаружено!")
 		return FALSE
 
 	return TRUE

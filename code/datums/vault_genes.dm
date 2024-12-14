@@ -120,5 +120,5 @@
     to_chat(human, span_notice("Ваши руки двигаются также быстро, как и молния."))
     human.next_move_modifier *= 0.5
 
-/datum/vault_gene/proc/remove(mob/living/carbon/human/human, source)
+/datum/vault_gene/quickarms/remove(mob/living/carbon/human/human, source)
     human.next_move_modifier /= 0.5
