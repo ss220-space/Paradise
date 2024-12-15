@@ -577,6 +577,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 25														//По 6 за один блокиратор
 	containername = "sibyl attachments crate"
 
+/datum/supply_packs/security/armory/fastpouch
+	name = "Fast Pouch Crate"
+	contains = list(/obj/item/storage/pouch/fast,
+					/obj/item/storage/pouch/fast)
+	cost = 100
+	containername = "fast pouch crate"
+
 /////// Weapons: Specialist
 
 /datum/supply_packs/security/armory/ballistic

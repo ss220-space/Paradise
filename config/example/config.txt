@@ -388,9 +388,6 @@ SOCKET_TALK 0
 ## How long the delay is before the Away Mission gate opens. Default is half an hour.
 GATEWAY_DELAY 6000
 
-## Remove the # to give assistants maint access.
-ASSISTANT_MAINT
-
 ## Remove the # to enable assistant limiting.
 ASSISTANT_LIMIT
 
@@ -712,9 +709,12 @@ CACHE_ASSETS 0
 ### INITIALIZATION SETTINGS ###
 ## This section contains settings directly affecting initializing progress. Uncomment these to make your world load faster.
 
+## Loads only space without anything in station sector. Still makes landmarks for spawnpoints, though.
+#LOAD_NO_STATION
+
 ## Enables loading titlescreen only after master has been loaded. Recommended to be used on local server for faster loading.
 #ENABLE_TITLESCREEN_LATELOAD
- 
+
 ## Disable the loading of "Taipan"
 #DISABLE_TAIPAN
 
