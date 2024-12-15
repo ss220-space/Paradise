@@ -338,7 +338,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 /obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/human, upgrade_name)
 	for(var/datum/vault_gene/gene as anything in subtypesof(/datum/vault_gene))
-		if(!initial(gene.name) != upgrade_name)
+		if(initial(gene.name) != upgrade_name)
 			continue
 
 		gene.apply(human, name)
