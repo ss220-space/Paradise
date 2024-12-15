@@ -343,7 +343,7 @@
 	if(!beaker)
 		return
 
-	beaker.loc = src.loc
+	beaker.forceMove(get_turf(src))
 	beaker = null
 
 	update_icon(UPDATE_ICON_STATE)
