@@ -148,10 +148,7 @@
 	return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 
 /obj/machinery/kitchen_machine/AltClick(mob/living/carbon/human/human)
-	if(!istype(human))
-		return
-
-	if(!Adjacent(human))
+	if(!istype(human) || !human.Adjacent(src))
 		return
 
 	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
@@ -164,10 +161,7 @@
 	cook()
 
 /obj/machinery/kitchen_machine/CtrlShiftClick(mob/living/carbon/human/human)
-	if(!istype(human))
-		return
-
-	if(!Adjacent(human))
+	if(!istype(human) || !human.Adjacent(src))
 		return
 
 	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
