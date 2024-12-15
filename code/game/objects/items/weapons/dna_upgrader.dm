@@ -44,7 +44,7 @@
 /obj/item/dna_upgrader/proc/get_vault_genes_names()
 	var/list/vault_genes_names = list()
 
-	for(var/datum/vault_gene/gene in subtypesof(/datum/vault_gene))
+	for(var/datum/vault_gene/gene as anything in subtypesof(/datum/vault_gene))
 		if(!initial(gene.name))
 			continue
 
@@ -64,7 +64,7 @@
 	if(used || !choosen_gene)
 		return FALSE
 
-	for(var/datum/vault_gene/gene in subtypesof(/datum/vault_gene))
+	for(var/datum/vault_gene/gene as anything in subtypesof(/datum/vault_gene))
 		if(initial(gene.name) != choosen_gene)
 			continue
 

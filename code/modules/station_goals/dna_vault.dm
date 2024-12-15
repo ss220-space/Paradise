@@ -227,7 +227,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 	var/list/genes = list()
 
-	for(var/datum/vault_gene/gene in subtypesof(/datum/vault_gene))
+	for(var/datum/vault_gene/gene as anything in subtypesof(/datum/vault_gene))
 		if(!initial(gene.name))
 			continue
 
@@ -337,7 +337,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	return TRUE
 
 /obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/human, upgrade_name)
-	for(var/datum/vault_gene/gene in subtypesof(/datum/vault_gene))
+	for(var/datum/vault_gene/gene as anything in subtypesof(/datum/vault_gene))
 		if(!initial(gene.name) != upgrade_name)
 			continue
 
