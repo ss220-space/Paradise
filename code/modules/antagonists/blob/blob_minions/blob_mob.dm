@@ -6,7 +6,7 @@
 	icon_state = "blob_head"
 	unique_name = TRUE
 	pass_flags = PASSBLOB
-	status_flags = NONE //No throwing blobspores into deep space to despawn, or throwing blobbernaughts, which are bigger than you.
+	status_flags = NONE // No throwing blobspores into deep space to despawn, or throwing blobbernaughts, which are bigger than you.
 	faction = list(ROLE_BLOB)
 	bubble_icon = "blob"
 	speak_emote = null
