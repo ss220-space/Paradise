@@ -347,18 +347,21 @@
 			cloneCount = badThingCoeff
 			investigate_log("Experimentor has made a clone of [exp_on]", INVESTIGATE_EXPERIMENTOR)
 			ejectItem()
+
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message("<span class='danger'>[src] malfunctions, melting [exp_on] and leaking radiation!</span>")
 			for(var/mob/living/m in oview(1, src))
 				m.apply_effect(25,IRRADIATE)
 				investigate_log("Experimentor has irradiated [key_name_log(m)]", INVESTIGATE_EXPERIMENTOR) //One entry per person so we know what was irradiated.
 			ejectItem(TRUE)
+
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, spewing toxic waste!</span>")
 			for(var/turf/T in oview(1, src))
 				if(!T.density)
 					if(prob(EFFECT_PROB_VERYHIGH))
 						new /obj/effect/decal/cleanable/greenglow(T)
+
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			var/savedName = "[exp_on]"
 			ejectItem(TRUE)
@@ -369,19 +372,14 @@
 			if(istype(loaded_item,/obj/item/grenade/chem_grenade))
 				var/obj/item/grenade/chem_grenade/CG = loaded_item
 				CG.prime()
+
 			ejectItem()
+
 	else if(prob(EFFECT_PROB_VERYLOW))
 		visible_message("<span class='warning'>The [exp_on] has activated an unknown subroutine!</span>")
 		clone_next = TRUE
 		ejectItem()
 		qdel(exp_on)
-
-		var/T = rand(1, linked_console.files.known_tech.len)
-		var/datum/tech/KT = linked_console.files.known_tech[linked_console.files.known_tech[T]]
-		var/new_level = linked_console.files.UpdateTech(linked_console.files.known_tech[T], KT.level + 1)
-		var/tech_log = "[T] [new_level], "
-		if(tech_log)
-			investigate_log("[usr] increased tech experimentoring [loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
 	else
 		exp = FAIL
 
