@@ -99,7 +99,7 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 	for(var/mob/living/blob_mob as anything in overmind.blob_mobs)
 		blob_mob.maxHealth *= max_mob_health_multiplier
 		blob_mob.health *= max_mob_health_multiplier
-		blob_mob.update_icons() //If it's getting a new strain, tell it what it does!
+		blob_mob.update_icons() // If it's getting a new strain, tell it what it does!
 		var/list/messages = list()
 		messages += "Штамм вашего надразума: <b><font color=\"[color]\">[name]</b></font>!"
 		messages += "Штамм <b><font color=\"[color]\">[name]</b></font> [shortdesc ? "[shortdesc]" : "[description]"]"
