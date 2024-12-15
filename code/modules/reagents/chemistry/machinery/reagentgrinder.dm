@@ -232,10 +232,7 @@
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/machinery/reagentgrinder/AltClick(mob/living/carbon/human/human)
-	if(!istype(human))
-		return
-
-	if(!Adjacent(human))
+	if(!istype(human) || !human.Adjacent(src))
 		return
 
 	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
@@ -248,10 +245,7 @@
 	grind()
 
 /obj/machinery/reagentgrinder/CtrlShiftClick(mob/living/carbon/human/human)
-	if(!istype(human))
-		return
-
-	if(!Adjacent(human))
+	if(!istype(human) || !human.Adjacent(src))
 		return
 
 	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
