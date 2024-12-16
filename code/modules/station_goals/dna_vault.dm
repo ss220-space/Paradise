@@ -275,7 +275,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 	switch(action)
 		if("gene")
-			if(!try_upgrade(usr, params["choice"]))
+			if(!can_upgrade(usr, params["choice"]))
 				return TRUE
 
 			upgrade(usr, params["choice"])
@@ -323,8 +323,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	return ..()
 
 
-/obj/machinery/dna_vault/proc/try_upgrade(mob/living/carbon/human/human, upgrade_name)
-	if(!istype(human))
+/obj/machinery/dna_vault/proc/can_upgrade(mob/living/carbon/human/human, upgrade_name)
+	if(!istype(human) || !upgrade_name)
 		return FALSE
 
 	if(!LAZYIN(power_lottery[human], upgrade_name))

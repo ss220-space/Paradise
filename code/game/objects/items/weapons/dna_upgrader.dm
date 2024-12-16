@@ -24,10 +24,10 @@
 	name = used ? "used [initial(name)]" : initial(name)
 
 /obj/item/dna_upgrader/attack_self(mob/user)
-	if(try_choose_genes(user))
+	if(can_choose_genes(user))
 		choose_genes(user)
 
-/obj/item/dna_upgrader/proc/try_choose_genes(mob/living/carbon/human/human)
+/obj/item/dna_upgrader/proc/can_choose_genes(mob/living/carbon/human/human)
 	if(!istype(human))
 		return FALSE
 
@@ -61,7 +61,7 @@
 		ui_state = GLOB.not_incapacitated_state
 		)
 
-	if(used || !choosen_gene)
+	if(!choosen_gene || !can_choose_genes(user))
 		return FALSE
 
 	for(var/datum/vault_gene/gene as anything in subtypesof(/datum/vault_gene))
