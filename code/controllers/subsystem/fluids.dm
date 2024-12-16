@@ -242,3 +242,11 @@ FLUID_SUBSYSTEM_DEF(smoke)
 	name = "Smoke"
 	spread_wait = 0.1 SECONDS
 	effect_wait = 2.0 SECONDS
+/*
+/// The subsystem responsible for processing foam propagation and effects.
+FLUID_SUBSYSTEM_DEF(foam)
+	name = "Foam"
+	wait = 0.1 SECONDS // Makes effect bubbling work with foam.
+	spread_wait = 0.2 SECONDS
+	effect_wait = 0.2 SECONDS
+*/ // Not used
