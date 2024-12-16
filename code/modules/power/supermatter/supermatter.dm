@@ -38,8 +38,6 @@
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF | NO_MALF_EFFECT
 
-	/// If the SM is decorated with holiday lights
-	var/holiday_lights = FALSE
 	/// Our soundloop
 	var/datum/looping_sound/supermatter/soundloop
 	/// cooldown tracker for accent sounds
@@ -114,20 +112,20 @@
 
 /obj/machinery/power/supermatter_shard/Initialize(mapload)
 	. = ..()
-	if(GLOB.new_year_celebration && is_station_level(z))
-		holiday_lights()
 
+	update_appearance(UPDATE_OVERLAYS)
 	soundloop = new(src, TRUE)
 
 /obj/machinery/power/supermatter_shard/examine(mob/user)
 	. = ..()
-	if(holiday_lights)
+	
+	if(GLOB.new_year_celebration)
 		. += span_notice("Ослепительные огни, любовно обёрнутые вокруг основания, излучают одновременно праздничное настроение и настоящую радиацию, превращающие кристалл из потенциальной бомбы в новогоднюю ёлочку.")
 
 /obj/machinery/power/supermatter_shard/update_overlays()
 	. = ..()
 
-	if(holiday_lights)
+	if(GLOB.new_year_celebration)
 		. += mutable_appearance(icon, get_holiday_lights_appearance())
 		. += emissive_appearance(icon, "[get_holiday_lights_appearance()]_e", src, alpha = src.alpha)
 
@@ -677,10 +675,6 @@
 		user.revive()
 		nuclear.touched_supermatter = TRUE
 		to_chat(user, span_userdanger("The wave of warm energy is overwhelming you. You feel calm."))
-
-/obj/machinery/power/supermatter_shard/proc/holiday_lights()
-	holiday_lights = TRUE
-	update_appearance()
 
 /// Adds the hat flavor text when examined
 /obj/machinery/power/supermatter_shard/proc/holiday_hat_examine(atom/source, mob/user, list/examine_list)
