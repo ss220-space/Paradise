@@ -16,9 +16,10 @@
 /proc/setupgenetics()
 
 	if(prob(50))
-		GLOB.blockadd = rand(-300,300)
+		GLOB.blockadd = rand(-300, 300)
+
 	if(prob(75))
-		GLOB.diffmut = rand(0,20)
+		GLOB.diffmut = rand(0, 20)
 
 	// SE blocks to assign.
 	var/list/numsToAssign= list()
@@ -60,15 +61,6 @@
 	GLOB.noprintsblock			= getAssignedBlock("NOPRINTS", numsToAssign,		DNA_HARD_BOUNDS,		good = TRUE)
 	GLOB.shockimmunityblock		= getAssignedBlock("SHOCKIMMUNITY", numsToAssign,							good = TRUE)
 	GLOB.smallsizeblock			= getAssignedBlock("SMALLSIZE", numsToAssign,		DNA_HARD_BOUNDS,		good = TRUE)
-
-	// Vault genes
-	GLOB.vaulttoxinblock		= getAssignedBlock("VAULT TOXIN", 		numsToAssign)
-	GLOB.vaultnobreathblock		= getAssignedBlock("VAULT NOBREATH", 	numsToAssign)
-	GLOB.vaultfireproofblock	= getAssignedBlock("VAULT FIREPROOF", 	numsToAssign)	
-	GLOB.vaultstuntimeblock		= getAssignedBlock("VAULT STUNTIME", 	numsToAssign)	
-	GLOB.vaultarmourblock		= getAssignedBlock("VAULT ARMOUR", 		numsToAssign)
-	GLOB.vaultspeedlegsblock	= getAssignedBlock("VAULT SPEEDLEGS", 	numsToAssign)
-	GLOB.vaultquickarmsblock	= getAssignedBlock("VAULT QUICKARMS", 	numsToAssign)
 
 	//
 	// Goon muts

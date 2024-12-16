@@ -68,7 +68,7 @@
 		if(initial(gene.name) != choosen_gene)
 			continue
 
-		user.force_gene_block(gene.block, TRUE)
+		user.force_gene_block(gene.block, TRUE, TRUE)
 		break
 
 	finalize_dna_upgrade(user)
@@ -81,4 +81,4 @@
 	to_chat(user, span_notice("Вы чувствуете, как ваше тело меняется."))
 
 	used = TRUE
-	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
+	update_appearance(UPDATE_ICON_STATE | UPDATE_NAME)
