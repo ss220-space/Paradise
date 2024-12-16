@@ -40980,13 +40980,14 @@
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
-/obj/item/t_scanner,
 /obj/item/vending_refill/custom{
-	pixel_y = 5
+	pixel_y = 5;
+	pixel_x = 5
 	},
 /obj/item/vending_refill/custom{
 	pixel_y = 3
 	},
+/obj/item/t_scanner,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "czD" = (
