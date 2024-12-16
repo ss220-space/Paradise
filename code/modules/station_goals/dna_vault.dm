@@ -227,7 +227,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 	var/list/genes
 
-	for(var/datum/vault_gene/gene as anything in subtypesof(/datum/vault_gene))
+	for(var/datum/dna/gene/basic/vault/gene in GLOB.dna_genes)
 		if(!initial(gene.name))
 			continue
 
@@ -241,7 +241,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	LAZYADD(picked_genes, pick_n_take(genes))
 	LAZYADD(picked_genes, pick_n_take(genes))
 
-	power_lottery[user] = picked_genes
+	LAZYSET(power_lottery, user, picked_genes)
 
 /obj/machinery/dna_vault/ui_data(mob/user)
 	var/list/data = list(
@@ -340,11 +340,11 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	return TRUE
 
 /obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/human, upgrade_name)
-	for(var/datum/vault_gene/gene as anything in subtypesof(/datum/vault_gene))
+	for(var/datum/dna/gene/basic/vault/gene in GLOB.dna_genes)
 		if(initial(gene.name) != upgrade_name)
 			continue
 
-		gene.apply(human, name)
+		human.force_gene_block(gene, TRUE)
 		break
 
 	LAZYNULL(power_lottery[human])

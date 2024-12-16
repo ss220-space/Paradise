@@ -44,7 +44,7 @@
 /obj/item/dna_upgrader/proc/get_vault_genes_names()
 	var/list/vault_genes_names
 
-	for(var/datum/vault_gene/gene as anything in subtypesof(/datum/vault_gene))
+	for(var/datum/dna/gene/basic/vault/gene in GLOB.dna_genes)
 		if(!initial(gene.name))
 			continue
 
@@ -64,11 +64,11 @@
 	if(!choosen_gene || !can_choose_genes(user))
 		return FALSE
 
-	for(var/datum/vault_gene/gene as anything in subtypesof(/datum/vault_gene))
+	for(var/datum/dna/gene/basic/vault/gene in GLOB.dna_genes)
 		if(initial(gene.name) != choosen_gene)
 			continue
 
-		gene.apply(user, name)
+		user.force_gene_block(gene, TRUE)
 		break
 
 	finalize_dna_upgrade(user)
