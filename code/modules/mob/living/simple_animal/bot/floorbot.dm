@@ -1,7 +1,15 @@
 //Floorbot
 /mob/living/simple_animal/bot/floorbot
 	name = "\improper Floorbot"
-	desc = "A little floor repairing robot, he looks so excited!"
+	desc = "Маленький робот для починки полов и обшивки. Он выглядит таким увлечённым!"
+	ru_names = list(
+		NOMINATIVE = "ремонтный робот",
+		GENITIVE = "ремонтного робота",
+		DATIVE = "ремонтному роботу",
+		ACCUSATIVE = "ремонтного робота",
+		INSTRUMENTAL = "ремонтным роботом",
+		PREPOSITIONAL = "ремонтном роботе",
+	)
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "floorbot0"
 	density = FALSE
@@ -13,10 +21,10 @@
 	bot_type = FLOOR_BOT
 	bot_filter = RADIO_FLOORBOT
 	model = "Floorbot"
-	bot_purpose = "seek out damaged or missing floor tiles, and repair or replace them as necessary"
+	bot_purpose = "найти повреждения в полу или обшивке и восстановить их целостность"
 	bot_core_type = /obj/machinery/bot_core/floorbot
 	window_id = "autofloor"
-	window_name = "Automatic Station Floor Repairer v1.1"
+	window_name = "Автоматическая Ремонтная Единица v1.1"
 	path_image_color = "#FFA500"
 
 	/// Determines what to do when process_scan() recieves a target. See process_scan() for details.
@@ -67,35 +75,35 @@
 
 
 /mob/living/simple_animal/bot/floorbot/set_custom_texts()
-	text_hack = "You corrupt [name]'s construction protocols."
-	text_dehack = "You detect errors in [name] and reset [p_their()] programming."
-	text_dehack_fail = "[name] is not responding to reset commands!"
+	text_hack = "Вы взломали рабочие протоколы [declent_ru(GENITIVE)]."
+	text_dehack = "Вы восстановили рабочие протоколы [declent_ru(GENITIVE)]."
+	text_dehack_fail = "[capitalize(declent_ru(NOMINATIVE))] не отвечает на команды сброса настроек!"
 
 
 /mob/living/simple_animal/bot/floorbot/get_controls(mob/user)
 	var/dat
 	dat += hack(user)
 	dat += showpai(user)
-	dat += "<TT><B>Floor Repairer Controls v1.1</B></TT><BR><BR>"
-	dat += "Status: <a href='byond://?src=[UID()];power=1'>[on ? "On" : "Off"]</A><BR>"
-	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
-	dat += "Tiles left: [amount]<BR>"
-	dat += "Behvaiour controls are [locked ? "locked" : "unlocked"]<BR>"
+	dat += "<TT><B>Панель управления ремонтным роботом v1.1</B></TT><BR><BR>"
+	dat += "Состояние: <a href='byond://?src=[UID()];power=1'>[on ? "Включён" : "Выключен"]</A><BR>"
+	dat += "Панель технического обслуживания [open ? "открыта" : "закрыта"]<BR>"
+	dat += "Плиток пола в запасе: [amount]<BR>"
+	dat += "Управление поведением [locked ? "заблокировано" : "разблокировано"]<BR>"
 	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += "Add tiles to new hull plating: <a href='byond://?src=[UID()];operation=autotile'>[autotile ? "Yes" : "No"]</A><BR>"
-		dat += "Replace floor tiles: <a href='byond://?src=[UID()];operation=replace'>[replacetiles ? "Yes" : "No"]</A><BR>"
-		dat += "Finds tiles: <a href='byond://?src=[UID()];operation=tiles'>[eattiles ? "Yes" : "No"]</A><BR>"
-		dat += "Make pieces of metal into tiles when empty: <a href='byond://?src=[UID()];operation=make'>[maketiles ? "Yes" : "No"]</A><BR>"
-		dat += "Transmit notice when empty: <a href='byond://?src=[UID()];operation=emptynag'>[nag_on_empty ? "Yes" : "No"]</A><BR>"
-		dat += "Repair damaged tiles and platings: <a href='byond://?src=[UID()];operation=fix'>[fixfloors ? "Yes" : "No"]</A><BR>"
-		dat += "Traction Magnets: <a href='byond://?src=[UID()];operation=anchor'>[anchored ? "Engaged" : "Disengaged"]</A><BR>"
-		dat += "Patrol Station: <a href='byond://?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
+		dat += "Устанавливать плитки пола на сегменты обшивки:<a href='byond://?src=[UID()];operation=autotile'>[autotile ? "Да" : "Нет"]</A><BR>"
+		dat += "Заменять плитки пола: <a href='byond://?src=[UID()];operation=replace'>[replacetiles ? "Да" : "Нет"]</A><BR>"
+		dat += "Загружать свободные плитки во внутреннее хранилище: <a href='byond://?src=[UID()];operation=tiles'>[eattiles ? "Да" : "Нет"]</A><BR>"
+		dat += "Перерабатывать металл в плитки пола, когда хранилище опустошено: <a href='byond://?src=[UID()];operation=make'>[maketiles ? "Да" : "Нет"]</A><BR>"
+		dat += "Уведомлять, когда хранилище опустошено: <a href='byond://?src=[UID()];operation=emptynag'>[nag_on_empty ? "Да" : "Нет"]</A><BR>"
+		dat += "Ремонтировать повреждения пола и обшивки: <a href='byond://?src=[UID()];operation=fix'>[fixfloors ? "Да" : "Нет"]</A><BR>"
+		dat += "Закрепиться на месте: <a href='byond://?src=[UID()];operation=anchor'>[anchored ? "Да" : "Нет"]</A><BR>"
+		dat += "Режим патрулирования: <a href='byond://?src=[UID()];operation=patrol'>[auto_patrol ? "Да" : "Нет"]</A><BR>"
 		var/bmode
 		if(targetdirection)
 			bmode = dir2text(targetdirection)
 		else
-			bmode = "disabled"
-		dat += "Bridge Mode : <a href='byond://?src=[UID()];operation=bridgemode'>[bmode]</A><BR>"
+			bmode = "Выключен"
+		dat += "Режим постройки моста: <a href='byond://?src=[UID()];operation=bridgemode'>[bmode]</A><BR>"
 
 	return dat
 
@@ -109,10 +117,11 @@
 		var/obj/item/stack/tile/plasteel/plasteel = I
 		var/loaded = min(50 - amount, plasteel.get_amount())
 		if(!plasteel.use(loaded))
-			to_chat(user, span_warning("You need at least one floor tile to put into [src]!"))
+			to_chat(user, span_warning("Вам нужна хотя бы одна плитка пола для загрузки в [declent_ru(ACCUSATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		amount += loaded
-		to_chat(user, span_notice("You have loaded [loaded] tile\s into the floorbot. [p_they(TRUE)] now contains [amount] tiles."))
+		balloon_alert(user, "плитки загружены")
+		to_chat(user, span_notice("Вы загрузили [loaded] плитки в [declent_ru(ACCUSATIVE)]. Текущее количество плиток - [amount]."))
 		nagged = FALSE
 		update_icon()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -124,7 +133,7 @@
 	..()
 	if(emagged == 2)
 		if(user)
-			to_chat(user, span_danger("[src] buzzes and beeps."))
+			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] жужжит и пищит."))
 
 
 /mob/living/simple_animal/bot/floorbot/Topic(href, href_list)
@@ -148,17 +157,17 @@
 			set_anchored(!anchored)
 
 		if("bridgemode")
-			var/setdir = input("Select construction direction:") as null|anything in list("north","east","south","west","disable")
+			var/setdir = input("Выберите направление строительства:") as null|anything in list("север","юг","запад","восток","отключить")
 			switch(setdir)
-				if("north")
+				if("север")
 					targetdirection = 1
-				if("south")
+				if("юг")
 					targetdirection = 2
-				if("east")
+				if("восток")
 					targetdirection = 4
-				if("west")
+				if("запад")
 					targetdirection = 8
-				if("disable")
+				if("отключить")
 					targetdirection = null
 	update_controls()
 
@@ -184,7 +193,7 @@
 				nag()
 
 	if(prob(5))
-		audible_message("[src] makes an excited booping beeping sound!")
+		custom_emote(EMOTE_VISIBLE, "бупает и бипает!")
 
 	//Normal scanning procedure. We have tiles loaded, are not emagged.
 	if(!target && emagged < 2 && amount > 0)
@@ -238,7 +247,7 @@
 					F.break_tile_to_plating()
 				else
 					F.ReplaceWithLattice()
-				audible_message(span_danger("[src] makes an excited booping sound."))
+				custom_emote(EMOTE_VISIBLE, "бупает.")
 				addtimer(CALLBACK(src, PROC_REF(inc_amount_callback)), 5 SECONDS)
 
 			path = list()
@@ -276,7 +285,7 @@
 
 /mob/living/simple_animal/bot/floorbot/proc/nag() //Annoy everyone on the channel to refill us!
 	if(!nagged)
-		speak("Requesting refill at <b>[get_area(src)]</b>!", radio_channel)
+		speak("Запрашивается пополнение стройматериалов в локации <b>[get_area(src)]</b>!", radio_channel)
 		nagged = TRUE
 
 
@@ -337,7 +346,7 @@
 	set_anchored(TRUE)
 
 	if(isspaceturf(target_turf)) //If we are fixing an area not part of pure space, it is
-		visible_message(span_notice("[targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."]"))
+		custom_emote(EMOTE_VISIBLE, "[targetdirection ? "начинает строить сегмент моста." : "начинает заделывать пробоину."]")
 		mode = BOT_REPAIRING
 		update_icon()
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), target_turf), 5 SECONDS)
@@ -346,7 +355,7 @@
 		var/turf/simulated/floor/F = target_turf
 		mode = BOT_REPAIRING
 		update_icon()
-		visible_message(span_notice("[src] begins repairing the floor."))
+		custom_emote(EMOTE_VISIBLE, "начинает ремонтировать пол.")
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), F), 5 SECONDS)
 
 
@@ -380,7 +389,7 @@
 /mob/living/simple_animal/bot/floorbot/proc/start_eattile(obj/item/stack/tile/plasteel/T)
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		return
-	visible_message(span_notice("[src] begins to collect tiles."))
+	custom_emote(EMOTE_VISIBLE, "начинает собирать плитки.")
 	mode = BOT_REPAIRING
 	addtimer(CALLBACK(src, PROC_REF(do_eattile), T), 2 SECONDS)
 
@@ -407,7 +416,7 @@
 /mob/living/simple_animal/bot/floorbot/proc/start_maketile(obj/item/stack/sheet/metal/M)
 	if(!istype(M, /obj/item/stack/sheet/metal))
 		return
-	visible_message(span_notice("[src] begins to create tiles."))
+	custom_emote(EMOTE_VISIBLE, "начинает создавать плитки.")
 	mode = BOT_REPAIRING
 	addtimer(CALLBACK(src, PROC_REF(do_maketile), M), 2 SECONDS)
 
@@ -442,7 +451,7 @@
 
 /mob/living/simple_animal/bot/floorbot/explode()
 	on = FALSE
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/storage/toolbox/mechanical/N = new /obj/item/storage/toolbox/mechanical(Tsec)
 	N.contents = list()

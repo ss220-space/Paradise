@@ -240,8 +240,27 @@ SUBSYSTEM_DEF(mapping)
 	seedRuins(levels_by_trait(SPAWN_RUINS), rand(20, 30), /area/space, GLOB.space_ruins_templates)
 	log_startup_progress("Successfully seeded ruins in [stop_watch(seed_ruins_timer)]s.")
 
+/datum/controller/subsystem/mapping/proc/create_landmarks(turf/place)
+	var/landmarks = list(
+		/obj/effect/landmark/join_late,
+		/obj/effect/landmark/join_late_cryo,
+		/obj/effect/landmark/join_late_cyborg,
+		/obj/effect/landmark/join_late_gateway,
+		/obj/effect/landmark/observer_start
+		)
+
+	landmarks += subtypesof(/obj/effect/landmark/start)
+	for(var/mark in landmarks)
+		new mark(place)
 
 /datum/controller/subsystem/mapping/proc/loadStation()
+	if(CONFIG_GET(flag/load_no_station))
+		log_startup_progress("Loading empty space...")
+		var/empty_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = CROSSLINKED, traits = DEFAULT_STATION_TRATS)
+		var/turf/centre = locate(world.maxx / 2, world.maxy / 2, empty_z_level)
+		create_landmarks(centre)
+		return
+
 	if(CONFIG_GET(string/default_map) && !CONFIG_GET(string/override_map) && map_datum == fallback_map)
 		var/map_datum_path = text2path(CONFIG_GET(string/default_map))
 		if(map_datum_path)
@@ -263,7 +282,6 @@ SUBSYSTEM_DEF(mapping)
 
 	var/watch = start_watch()
 	log_startup_progress("Loading [map_datum.station_name]...")
-
 	var/map_z_level
 	if(map_datum.traits && map_datum.traits?.len && islist(map_datum.traits[1])) // we work with list of lists
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = map_datum.traits[1])

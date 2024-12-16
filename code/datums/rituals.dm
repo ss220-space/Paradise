@@ -129,7 +129,7 @@
 	if(charges == 0)
 		return NONE
 
-	if(allowed_special_role && !is_type_in_list(invoker.mind?.special_role, allowed_special_role))
+	if(allowed_special_role && !LAZYIN(allowed_special_role, invoker.mind?.special_role))
 		return RITUAL_FAILED_INVALID_SPECIAL_ROLE
 
 	if(allowed_species && !is_type_in_list(invoker.dna.species, allowed_species)) // double check to avoid funny situations
@@ -151,13 +151,13 @@
 
 /datum/ritual/proc/cast(mob/living/carbon/human/invoker)
 	. = TRUE
-	LAZYADD(invokers, invoker)
 
-	for(var/mob/living/carbon/human/human as anything in invokers)
-		if(!do_after(human, cast_time, ritual_object, extra_checks = CALLBACK(src, PROC_REF(action_check_contents))))
+	var/list/invokers_list = invokers.Copy() // create temp list to avoid funny situations
+	LAZYADD(invokers_list, invoker)
+
+	for(var/mob/living/carbon/human/human as anything in invokers_list)
+		if(!do_after(human, cast_time, ritual_object, DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(action_check_contents))))
 			. = FALSE
-
-	LAZYREMOVE(invokers, invoker)
 
 	return .
 
@@ -172,7 +172,7 @@
 		if(require_allowed_species && !is_type_in_list(human.dna.species, allowed_species))
 			continue
 
-		if(require_allowed_special_role && !is_type_in_list(human.mind?.special_role, allowed_special_role))
+		if(require_allowed_special_role && !LAZYIN(allowed_special_role, human.mind?.special_role))
 			continue
 
 		LAZYADD(invokers, human)
@@ -204,7 +204,7 @@
 		if(obj == ritual_object)
 			continue
 
-		if(locate(obj) in invokers)
+		if(LAZYIN(invokers, obj))
 			continue
 
 		LAZYADD(atoms, obj)
@@ -222,7 +222,7 @@
 
 			if(isstack(atom))
 				var/obj/item/stack/picked_stack = atom
-				LAZYREMOVE(requirements[req_type], picked_stack.amount)
+				requirements[req_type] -= picked_stack.amount
 			else
 				requirements[req_type]--
 
@@ -385,7 +385,7 @@
 	fail_chance = 50
 	extra_invokers = 1
 	cooldown_after_cast = 480 SECONDS
-	cast_time = 70 SECONDS
+	cast_time = 30 SECONDS
 	ritual_should_del_things_on_fail = TRUE
 	required_things = list(
 		/obj/item/twohanded/spear = 3,
@@ -439,15 +439,20 @@
 	fail_chance = 30
 	shaman_only = TRUE
 	cooldown_after_cast = 900 SECONDS
-	cast_time = 50 SECONDS
+	cast_time = 30 SECONDS
 	extra_invokers = 1
 
 /datum/ritual/ashwalker/summon/do_ritual(mob/living/carbon/human/invoker)
 	var/list/ready_for_summoning = list()
 
 	for(var/mob/living/carbon/human/human in GLOB.mob_list)
-		if(isashwalker(human))
-			LAZYADD(ready_for_summoning, human)
+		if(!human.ckey)
+			continue
+
+		if(!isashwalker(human))
+			continue
+
+		LAZYADD(ready_for_summoning, human)
 
 	if(!LAZYLEN(ready_for_summoning))
 		return RITUAL_FAILED_ON_PROCEED
@@ -457,17 +462,24 @@
 	if(!human)
 		return RITUAL_FAILED_ON_PROCEED
 
-	LAZYADD(invokers, invoker)
+	deal_damage()
+	summon(human)
 
-	for(var/mob/living/carbon/human/summoner as anything in invokers)
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/summon/proc/deal_damage()
+	for(var/mob/living/carbon/human/summoner in range(finding_range, ritual_object))
 		summoner.blood_volume -= (summoner.blood_volume * 0.20)
 		summoner.apply_damage(25, def_zone = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
-	human.forceMove(ritual_object)
+	return TRUE
+
+/datum/ritual/ashwalker/summon/proc/summon(mob/living/carbon/human/human)
+	human.forceMove(get_turf(ritual_object))
 	human.vomit()
 	human.Weaken(10 SECONDS)
 
-	return RITUAL_SUCCESSFUL
+	return TRUE
 
 /datum/ritual/ashwalker/summon/disaster(mob/living/carbon/human/invoker)
 	if(!prob(70))
@@ -499,7 +511,7 @@
 	disaster_prob = 30
 	fail_chance = 30
 	cooldown_after_cast = 600 SECONDS
-	cast_time = 60 SECONDS
+	cast_time = 30 SECONDS
 	charges = 3
 	shaman_only = TRUE
 	extra_invokers = 2
@@ -508,7 +520,7 @@
 	)
 
 /datum/ritual/ashwalker/curse/del_things()
-	for(var/mob/living/carbon/human/human as anything in used_things)
+	for(var/mob/living/carbon/human/human in used_things)
 		human.gib()
 
 	return
@@ -519,7 +531,7 @@
 	if(!.)
 		return FALSE
 
-	for(var/mob/living/carbon/human/human as anything in used_things)
+	for(var/mob/living/carbon/human/human in used_things)
 		if(human.stat != DEAD)
 			to_chat(invoker, "Гуманоиды должны быть мертвы.")
 			return FALSE
@@ -565,7 +577,7 @@
 	fail_chance = 40
 	charges = 1
 	cooldown_after_cast = 800 SECONDS
-	cast_time = 80 SECONDS
+	cast_time = 30 SECONDS
 	shaman_only = TRUE
 	extra_invokers = 4
 	required_things = list(
@@ -640,7 +652,7 @@
 	charges = 3
 	extra_invokers = 2
 	cooldown_after_cast = 180 SECONDS
-	cast_time = 100 SECONDS
+	cast_time = 30 SECONDS
 	shaman_only = TRUE
 	disaster_prob = 25
 	fail_chance = 35
@@ -707,7 +719,7 @@
 	disaster_prob = 30
 	fail_chance = 50
 	cooldown_after_cast = 360 SECONDS
-	cast_time = 90 SECONDS
+	cast_time = 30 SECONDS
 	shaman_only = TRUE
 	required_things = list(
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher = 1,
@@ -788,7 +800,7 @@
 	extra_invokers = 2
 	charges = 1
 	cooldown_after_cast = 120 SECONDS
-	cast_time = 40 SECONDS
+	cast_time = 30 SECONDS
 	ritual_should_del_things_on_fail = TRUE
 	required_things = list(
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit = 1,
@@ -812,7 +824,7 @@
 	return TRUE
 
 /datum/ritual/ashwalker/population/del_things()
-	for(var/mob/living/living as anything in used_things)
+	for(var/mob/living/living in used_things)
 		living.gib()
 
 	return
@@ -823,7 +835,7 @@
 	if(!.)
 		return FALSE
 
-	for(var/mob/living/living as anything in used_things)
+	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
 			to_chat(invoker, "Существа должны быть мертвы.")
 			return FALSE
@@ -872,7 +884,7 @@
 	name = "Soul ritual"
 	extra_invokers = 3
 	cooldown_after_cast = 1200 SECONDS
-	cast_time = 60 SECONDS
+	cast_time = 30 SECONDS
 	required_things = list(
 		/mob/living/carbon/human = 3,
 		/obj/item/stack/sheet/animalhide/ashdrake = 1
@@ -969,13 +981,9 @@
 	return TRUE
 
 /datum/ritual/ashwalker/transmutation/do_ritual(mob/living/carbon/human/invoker)
-	var/list/ore_types = list()
+	var/ore_type = pick(subtypesof(/obj/item/stack/ore))
 
-	for(var/obj/item/stack/ore/ore as anything in subtypesof(/obj/item/stack/ore))
-		LAZYADD(ore_types, ore)
-
-	var/obj/item/stack/ore/ore = pick(ore_types)
-	ore = new(get_turf(ritual_object))
+	var/obj/item/stack/ore/ore = new ore_type(get_turf(ritual_object))
 	ore.add(10)
 
 	return RITUAL_SUCCESSFUL
@@ -1089,7 +1097,7 @@
 	cooldown_after_cast = 150 SECONDS
 	shaman_only = TRUE
 	extra_invokers = 2
-	cast_time = 60 SECONDS
+	cast_time = 30 SECONDS
 	required_things = list(
 		/mob/living/carbon/human = 2
 	)
@@ -1113,7 +1121,7 @@
 	if(!.)
 		return FALSE
 
-	for(var/mob/living/carbon/human/human as anything in used_things)
+	for(var/mob/living/carbon/human/human in used_things)
 		if(human.stat != DEAD)
 			to_chat(invoker, "Гуманоиды должны быть мертвы.")
 			return FALSE
@@ -1165,7 +1173,7 @@
 	shaman_only = TRUE
 	disaster_prob = 35
 	extra_invokers = 1
-	cast_time = 60 SECONDS
+	cast_time = 30 SECONDS
 	required_things = list(
 		/mob/living/simple_animal = 1,
 		/obj/item/organ/internal/regenerative_core = 1,
@@ -1178,7 +1186,7 @@
 	if(!.)
 		return FALSE
 
-	for(var/mob/living/simple_animal/living as anything in used_things)
+	for(var/mob/living/simple_animal/living in used_things)
 		if(living.client)
 			to_chat(invoker, "Существо должно быть бездушным.")
 			return FALSE

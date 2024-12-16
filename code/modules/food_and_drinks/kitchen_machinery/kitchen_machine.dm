@@ -147,6 +147,31 @@
 	to_chat(user, span_warning("You have no idea how to cook with [I]."))
 	return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 
+/obj/machinery/kitchen_machine/AltClick(mob/living/carbon/human/human)
+	if(!istype(human) || !human.Adjacent(src))
+		return
+
+	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(operating)
+		return
+
+	add_fingerprint(human)
+	cook()
+
+/obj/machinery/kitchen_machine/CtrlShiftClick(mob/living/carbon/human/human)
+	if(!istype(human) || !human.Adjacent(src))
+		return
+
+	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(operating)
+		return
+
+	add_fingerprint(human)
+	dispose(human)
 
 /obj/machinery/kitchen_machine/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -458,13 +483,16 @@
 	update_icon(UPDATE_ICON_STATE)
 	updateUsrDialog()
 
-/obj/machinery/kitchen_machine/proc/dispose()
+/obj/machinery/kitchen_machine/proc/dispose(mob/user)
 	for(var/obj/O in contents)
 		O.forceMove(loc)
+
 	if(reagents.total_volume)
 		dirty++
+
 	reagents.clear_reagents()
-	to_chat(usr, "<span class='notice'>You dispose of \the [src]'s contents.</span>")
+	to_chat(user, span_notice("You dispose of \the [src]'s contents."))
+
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/muck_start()
@@ -525,7 +553,8 @@
 			cook()
 
 		if("dispose")
-			dispose()
+			dispose(usr)
+
 	return
 
 
