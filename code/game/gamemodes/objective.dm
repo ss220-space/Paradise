@@ -1751,3 +1751,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/blob_find_place_to_burst
 	needs_target = FALSE
 	explanation_text = "Найдите укромное место на станции, в котором вас не смогут найти после вылупления до тех пор, пока вы не наберетесь сил."
+
+/datum/objective/blob_minion
+	name = "protect the blob core"
+	explanation_text = "Защищайте ядро блоба и исполняйте приказы надразумов. Любой ценой."
+	var/datum/weakref/overmind
+
+
+/datum/objective/blob_minion/check_completion()
+	var/mob/camera/blob/resolved_overmind = overmind.resolve()
+	if(!resolved_overmind)
+		return FALSE
+	return resolved_overmind.stat != DEAD

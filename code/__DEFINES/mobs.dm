@@ -321,6 +321,7 @@
 #define isovermind(A)	(istype((A), /mob/camera/blob))
 
 #define isminion(A)		(istype((A), /mob/living/simple_animal/hostile/blob_minion))
+#define isblobbernaut(M) istype((M), /mob/living/simple_animal/hostile/blob_minion/blobbernaut)
 
 #define isSpirit(A)		(istype((A), /mob/spirit))
 #define ismask(A)		(istype((A), /mob/spirit/mask))

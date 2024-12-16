@@ -1,5 +1,9 @@
 #define BLOB_REROLL_RADIUS 60
 
+/mob/camera/blob/proc/blob_help()
+	var/list/messages = get_blob_help_messages(blobstrain)
+	to_chat(src, chat_box_regular(messages.Join("<br>")))
+
 /** Simple price check */
 /mob/camera/blob/proc/can_buy(cost = 15)
 	if(is_infinity || SSticker?.mode?.is_blob_infinity_points)

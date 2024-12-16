@@ -18,7 +18,11 @@
 	var/multiply_chance = 0 //if we multiply on hit
 	deathmessage = "vanishes into thin air! It was a fake!"
 	del_on_death = 1
-	wet_immunity = TRUE
+
+
+/mob/living/simple_animal/hostile/illusion/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
 
 
 /mob/living/simple_animal/hostile/illusion/Life()

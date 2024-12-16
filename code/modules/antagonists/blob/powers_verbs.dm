@@ -10,12 +10,6 @@
 	else
 		to_chat(src, span_warning("Теперь вам не нужно иметь узел или ядро рядом ​​для размещения фабрики и ресурсной плитки."))
 
-/mob/camera/blob/verb/blob_help()
-	set category = "Blob"
-	set name = "*Помощь*"
-	set desc = "Подсказывает, как быть блобом."
-	var/list/messages = get_blob_help_messages(blobstrain)
-	to_chat(src, chat_box_regular(messages.Join("<br>")))
 
 /mob/camera/blob/verb/blob_broadcast()
 	set category = "Blob"

@@ -7,13 +7,19 @@
 	var/mob/camera/blob/overmind
 	/// Callback to run if overmind strain changes
 	var/datum/callback/on_strain_changed
+	var/datum/action/innate/blob/minion_talk/mob_talk
 
 /datum/component/blob_minion/Initialize(mob/camera/blob/overmind, datum/callback/on_strain_changed)
 	. = ..()
 	if(!isminion(parent))
 		return COMPONENT_INCOMPATIBLE
 	src.on_strain_changed = on_strain_changed
+	mob_talk = new()
 	register_overlord(overmind)
+
+/datum/component/blob_minion/Destroy(force)
+	qdel(mob_talk)
+	. = ..()
 
 /datum/component/blob_minion/InheritComponent(datum/component/new_comp, i_am_original, mob/camera/blob/overmind, datum/callback/on_strain_changed)
 	if(!isnull(on_strain_changed))
@@ -58,6 +64,7 @@
 	RegisterSignal(parent, COMSIG_MOB_TRY_SPEECH, PROC_REF(on_try_speech))
 	RegisterSignal(parent, COMSIG_MOB_CHANGED_TYPE, PROC_REF(on_transformed))
 	living_parent.update_appearance(UPDATE_ICON)
+	mob_talk.Grant(living_parent)
 	GLOB.blob_telepathy_mobs |= parent
 
 /datum/component/blob_minion/UnregisterFromParent()
@@ -78,6 +85,7 @@
 		COMSIG_MOB_MIND_INITIALIZED,
 		COMSIG_MOVABLE_SPACEMOVE,
 	))
+	mob_talk.Remove(living_parent)
 	GLOB.blob_telepathy_mobs -= parent
 
 /// Become blobpilled when we gain a mind

@@ -93,14 +93,3 @@
 /mob/living/simple_animal/hostile/blob_minion/can_be_blob()
 	return FALSE
 
-/mob/living/simple_animal/hostile/blob_minion/verb/say_to_nearby_mobs()
-	set name = "Сказать окружающим"
-	set desc = "Вы скажете введенный текст окружающим вас мобам"
-
-	var/speak_text = tgui_input_text(usr, "Что вы хотите сказать?", "Сказать окружающим", null)
-
-	if(!speak_text)
-		return
-	if(stat == CONSCIOUS)
-		add_say_logs(usr, speak_text, language = "BLOB mob_say")
-		atom_say(speak_text)

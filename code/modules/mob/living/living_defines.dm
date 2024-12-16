@@ -39,10 +39,9 @@
 	var/fire_stacks = 0 //Tracks how many stacks of fire we have on, max is usually 20
 
 	/// The "Are we wet?" var
-	var/is_wet = 0 
+	var/is_wet = 0
 	/// Tracks how many stacks of wet we have on, max is usually 20
-	var/wet_stacks = 0 
-	var/wet_immunity = FALSE
+	var/wet_stacks = 0
 
 
 	var/mob_size = MOB_SIZE_HUMAN

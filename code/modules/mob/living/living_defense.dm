@@ -259,7 +259,7 @@
 
 
 /mob/living/proc/adjust_wet_stacks(add_wet_stacks) //Adjusting the amount of fire_stacks we have on person
-	if(wet_immunity)
+	if(HAS_TRAIT(src, TRAIT_WET_IMMUNITY))
 		return
 	SEND_SIGNAL(src, COMSIG_MOB_ADJUST_WET)
 	wet_stacks = clamp(wet_stacks + add_wet_stacks, -20, 20)
@@ -274,7 +274,7 @@
 	fire_stacks = clamp(fire_stacks - buf_stacks, 0, 20)
 
 /mob/living/proc/WetMob()
-	if(!wet_immunity && wet_stacks > 0 && !is_wet )
+	if(!HAS_TRAIT(src, TRAIT_WET_IMMUNITY) && wet_stacks > 0 && !is_wet )
 		is_wet = TRUE
 		visible_message(span_warning("[src.declent_ru(NOMINATIVE)] намока[pluralize_ru(src.gender,"ет","ют")]!"), \
 						span_userdanger("[pluralize_ru(src.gender,"Ты намокаешь","Вы намокаете")]!"))

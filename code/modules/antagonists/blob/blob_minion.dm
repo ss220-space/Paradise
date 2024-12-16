@@ -35,7 +35,7 @@
 /datum/antagonist/blob_minion/on_gain()
 	. = ..()
 	give_objectives()
-	
+
 /datum/antagonist/blob_minion/give_objectives()
 	var/datum/objective/blob_minion/objective = new
 	objective.owner = owner
@@ -55,17 +55,6 @@
 	. += span_info("Вы можете общаться с другими бернаутами, миньенами, зараженными и надразумами <b>телепатически</b> заместо обычного общения.")
 	. += span_info("Штамм вашего надразума: <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font>!")
 	. += span_info("Штамм <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font> [blobstrain.shortdesc ? "[blobstrain.shortdesc]" : "[blobstrain.description]"]")
-
-/datum/objective/blob_minion
-	name = "protect the blob core"
-	explanation_text = "Защищайте ядро блоба и исполняйте приказы надразумов. Любой ценой."
-	var/datum/weakref/overmind
-
-/datum/objective/blob_minion/check_completion()
-	var/mob/camera/blob/resolved_overmind = overmind.resolve()
-	if(!resolved_overmind)
-		return FALSE
-	return resolved_overmind.stat != DEAD
 
 /**
  * Takes any datum `source` and checks it for blob_minion datum.

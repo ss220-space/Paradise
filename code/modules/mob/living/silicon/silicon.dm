@@ -4,7 +4,6 @@
 	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = 1
 	weather_immunities = list(TRAIT_WEATHER_IMMUNE)
-	wet_immunity = TRUE
 	var/syndicate = 0
 	var/obj/item/gps/cyborg/gps
 	var/const/MAIN_CHANNEL = "Main Frequency"
@@ -50,6 +49,8 @@
 
 	diag_hud_set_status()
 	diag_hud_set_health()
+
+	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
 
 	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
 	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))

@@ -49,7 +49,6 @@
 #define FIRST_STAGE_WARN span_userdanger("Вы чувствуете усталость и раздутость.")
 #define SECOND_STAGE_WARN span_userdanger("Вы чувствуете, что вот-вот лопнете.")
 
-#define isblobbernaut(M) istype((M), /mob/living/simple_animal/hostile/blob_minion/blobbernaut)
 
 #define TOTAL_BLOB_MASS  SSticker?.mode?.legit_blobs?.len
 #define NEEDED_BLOB_MASS  SSticker?.mode?.blob_win_count

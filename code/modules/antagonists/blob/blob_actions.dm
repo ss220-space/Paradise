@@ -3,8 +3,8 @@
 	background_icon_state = "bg_default_on"
 
 /datum/action/innate/blob/comm
-	name = "Blob Telepathy"
-	desc = "Телепатически отправляет сообщение всем блобам, иблобернаутам и зараженным блобом"
+	name = "Телепатия блоба"
+	desc = "Телепатически отправляет сообщение всем блобам, миньенам блоба и зараженным блобом организмам"
 	button_icon_state = "alien_whisper"
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
@@ -31,7 +31,7 @@
 	button_icon = 'icons/hud/blob.dmi'
 	background_icon_state = "block"
 	button_icon_state = "ui_tocore"
-	name = "Self burst"
+	name = "Лопнуть носителя"
 	desc = "Позволяет лопнуть носителя и превратиться в блоба досрочно."
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
@@ -44,3 +44,20 @@
 		return
 	blob.burst_blob()
 	return
+
+/datum/action/innate/blob/minion_talk
+	background_icon_state = "bg_default"
+	button_icon_state = "talk_around"
+	name = "Сказать окружающим"
+	desc = "Вы скажете введенный текст окружающим вас мобам"
+	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
+
+/datum/action/innate/blob/minion_talk/Activate()
+
+	var/speak_text = tgui_input_text(usr, "Что вы хотите сказать?", "Сказать окружающим", null)
+
+	if(!speak_text)
+		return
+
+	add_say_logs(usr, speak_text, language = "BLOB mob_say")
+	usr.atom_say(speak_text)
