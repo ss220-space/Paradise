@@ -83360,15 +83360,17 @@
 /area/crew_quarters/courtroom)
 "oqv" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
-/obj/item/hand_labeler,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/vending_refill/custom{
-	pixel_y = 5
+	pixel_y = 5;
+	pixel_x = 3
 	},
 /obj/item/vending_refill/custom{
-	pixel_y = 3
+	pixel_y = 3;
+	pixel_x = -3
 	},
+/obj/item/hand_labeler,
+/obj/item/stack/packageWrap,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "oqw" = (
