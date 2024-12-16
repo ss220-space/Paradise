@@ -17,7 +17,7 @@
 	)
 
 /obj/item/dna_upgrader/update_icon_state()
-	icon_state = "dnaupgrader[used ? FALSE : ""]"
+	icon_state = "initial(icon_state)[used ? "0" : ""]"
 
 /obj/item/dna_upgrader/update_name(updates = ALL)
 	. = ..()
@@ -32,7 +32,7 @@
 		return FALSE
 
 	if(used)
-		balloon_alert(human, "было использовано!")
+		balloon_alert(human, "Инъектор пуст!")
 		return FALSE
 
 	if(HAS_TRAIT(human, TRAIT_NO_DNA))

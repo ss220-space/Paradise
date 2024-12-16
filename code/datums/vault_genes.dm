@@ -14,7 +14,7 @@
 	var/cached_tox_breath_dam_max
 
 /datum/vault_gene/toxin/apply(mob/living/carbon/human/human, source)
-	to_chat(human, span_notice("Ваше тело стало невоспримчиво к токсинам в воздухе."))
+	to_chat(human, span_notice("Ваше тело стало невоспримчивым к токсинам в воздухе."))
     
 	var/obj/item/organ/internal/lungs/lungs = human.get_int_organ(/obj/item/organ/internal/lungs)
 

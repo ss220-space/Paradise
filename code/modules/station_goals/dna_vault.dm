@@ -11,7 +11,7 @@
 	var/plant_count
 
 /datum/station_goal/dna_vault/New()
-	. = ..()
+	..()
 
 	animal_count = rand(15, 20) // might be too few given ~15 roundstart stationside ones
 	human_count = rand(round(0.75 * SSticker.mode.num_players_started()), SSticker.mode.num_players_started()) // 75%+ roundstart population.
@@ -118,7 +118,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 /obj/item/circuitboard/machine/dna_vault
 	board_name = "DNA Vault"
 	build_path = /obj/machinery/dna_vault
-	origin_tech = "engineering=2; combat=2; bluespace=2" // No freebies!
+	origin_tech = "engineering=2;combat=2;bluespace=2" // No freebies!
 	req_components = list(
 							/obj/item/stock_parts/capacitor/super = 5,
 							/obj/item/stock_parts/manipulator/pico = 5,
@@ -166,7 +166,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 /obj/machinery/dna_vault/New()
 	// TODO: Replace this, bsa and gravgen with some big machinery datum
-	var/list/occupied = list()
+	LAZYINITLIST(occupied)
 
 	for(var/direct in list(EAST, WEST, SOUTHEAST, SOUTHWEST))
 		LAZYADD(occupied, get_step(src, direct))
@@ -186,10 +186,10 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 			dna_max = G.human_count
 			break
 
-	return ..()
+	..()
 
 /obj/machinery/dna_vault/update_icon_state()
-	icon_state = "vault[stat & NOPOWER ? "off" : ""]"
+	icon_state = "initial(icon_state)[stat & NOPOWER ? "off" : ""]"
 
 /obj/machinery/dna_vault/power_change(forced = FALSE)
 	if(!..())
@@ -225,7 +225,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	if(LAZYIN(power_lottery, user))
 		return
 
-	var/list/genes = list()
+	LAZYINITLIST(genes)
 
 	for(var/datum/vault_gene/gene as anything in subtypesof(/datum/vault_gene))
 		if(!initial(gene.name))
@@ -233,7 +233,10 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 		LAZYADD(genes, initial(gene.name))
 
-	var/list/picked_genes = list()
+	if(!LAZYLEN(genes))
+		CRASH("[src] rolled 0 genes.")
+
+	LAZYINITLIST(picked_genes)
 
 	LAZYADD(picked_genes, pick_n_take(genes))
 	LAZYADD(picked_genes, pick_n_take(genes))
