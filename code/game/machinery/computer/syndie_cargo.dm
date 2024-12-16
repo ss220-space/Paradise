@@ -254,7 +254,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
  **************************/
 /obj/machinery/computer/syndie_supplycomp
 	name = "Supply Pad Console"
-	desc = "Used to order supplies by using syndiepads!"
+	desc = "Необходим для оформления заказов используя SyndiePads!"
 	icon_screen = "syndinavigation"
 	icon_keyboard = "syndie_key"
 	req_access = list(ACCESS_SYNDICATE_CARGO)
@@ -494,7 +494,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 
 /obj/machinery/computer/syndie_supplycomp/public
 	name = "Supply Ordering Console"
-	desc = "Used to order supplies from cargo staff."
+	desc = "Используется для оформления заказов у отдела снабжения"
 	circuit = /obj/item/circuitboard/syndicatesupplycomp/public
 	req_access = list()
 	is_public = TRUE
