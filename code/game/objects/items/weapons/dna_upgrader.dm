@@ -68,7 +68,7 @@
 		if(initial(gene.name) != choosen_gene)
 			continue
 
-		user.force_gene_block(gene, TRUE)
+		user.force_gene_block(gene.block, TRUE)
 		break
 
 	finalize_dna_upgrade(user)

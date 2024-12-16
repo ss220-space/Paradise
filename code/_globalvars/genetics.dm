@@ -71,14 +71,12 @@ GLOBAL_LIST_EMPTY(reg_dna)
 GLOBAL_LIST_EMPTY(global_mutations)
 
 // Currently empty blocks, you can use these for your own powers
-
 GLOBAL_VAR_INIT(fakeblock1, 0)
 GLOBAL_VAR_INIT(fakeblock2, 0)
 GLOBAL_VAR_INIT(fakeblock3, 0)
 GLOBAL_VAR_INIT(fakeblock4, 0)
 
 // Vault genes
-
 GLOBAL_VAR_INIT(vaulttoxinblock, 0)
 GLOBAL_VAR_INIT(vaultnobreathblock, 0)
 GLOBAL_VAR_INIT(vaultfireproofblock, 0)
