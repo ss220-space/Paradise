@@ -42,7 +42,7 @@
 	return TRUE
 
 /obj/item/dna_upgrader/proc/get_vault_genes_names()
-	var/list/vault_genes_names = list()
+	var/list/vault_genes_names
 
 	for(var/datum/vault_gene/gene as anything in subtypesof(/datum/vault_gene))
 		if(!initial(gene.name))

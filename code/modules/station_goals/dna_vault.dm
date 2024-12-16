@@ -155,14 +155,14 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	var/animals_max = 100
 	var/plants_max = 100
 	var/dna_max = 100
-	var/list/animals = list()
-	var/list/plants = list()
-	var/list/dna = list()
+	var/list/animals
+	var/list/plants
+	var/list/dna
 
 	var/completed = FALSE
-	var/static/list/power_lottery = list()
+	var/static/list/power_lottery
 
-	var/list/obj/structure/fillers = list()
+	var/list/obj/structure/fillers
 
 /obj/machinery/dna_vault/New()
 	// TODO: Replace this, bsa and gravgen with some big machinery datum
@@ -245,11 +245,11 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 /obj/machinery/dna_vault/ui_data(mob/user)
 	var/list/data = list(
-		"plants" = length(plants),
+		"plants" = LAZYLEN(plants),
 		"plants_max" = plants_max,
-		"animals" = length(animals),
+		"animals" = LAZYLEN(animals),
 		"animals_max" = animals_max,
-		"dna" = length(dna),
+		"dna" = LAZYLEN(dna),
 		"dna_max" = dna_max,
 		"completed" = completed,
 		"used" = TRUE,
@@ -298,19 +298,19 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		var/uploaded = 0
 
 		for(var/plant in probe.plants)
-			if(!plants[plant])
+			if(!LAZYACCESS(plants, plant))
 				uploaded++
-				plants[plant] = 1
+				LAZYSET(plants, plant, 1)
 
 		for(var/animal in probe.animals)
-			if(!animals[animal])
+			if(!LAZYACCESS(animals, animal))
 				uploaded++
-				animals[animal] = 1
+				LAZYSET(animals, animal, 1)
 
 		for(var/ui in probe.dna)
-			if(!dna[ui])
+			if(!LAZYACCESS(dna, ui))
 				uploaded++
-				dna[ui] = 1
+				LAZYSET(dna, ui, 1)
 
 		if(!uploaded)
 			to_chat(user, span_warning("The [probe.name] has no relevant datapoints."))
@@ -347,4 +347,4 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		gene.apply(human, name)
 		break
 
-	power_lottery[human] = list()
+	LAZYNULL(power_lottery[human])
