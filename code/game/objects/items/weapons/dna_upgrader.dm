@@ -32,7 +32,7 @@
 		return FALSE
 
 	if(used)
-		balloon_alert(human, "Инъектор пуст!")
+		balloon_alert(human, "инъектор пуст!")
 		return FALSE
 
 	if(HAS_TRAIT(human, TRAIT_NO_DNA))

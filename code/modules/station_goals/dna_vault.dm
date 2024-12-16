@@ -166,7 +166,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 /obj/machinery/dna_vault/New()
 	// TODO: Replace this, bsa and gravgen with some big machinery datum
-	LAZYINITLIST(occupied)
+	var/list/occupied
 
 	for(var/direct in list(EAST, WEST, SOUTHEAST, SOUTHWEST))
 		LAZYADD(occupied, get_step(src, direct))
@@ -225,7 +225,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	if(LAZYIN(power_lottery, user))
 		return
 
-	LAZYINITLIST(genes)
+	var/list/genes
 
 	for(var/datum/vault_gene/gene as anything in subtypesof(/datum/vault_gene))
 		if(!initial(gene.name))
@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	if(!LAZYLEN(genes))
 		CRASH("[src] rolled 0 genes.")
 
-	LAZYINITLIST(picked_genes)
+	var/list/picked_genes
 
 	LAZYADD(picked_genes, pick_n_take(genes))
 	LAZYADD(picked_genes, pick_n_take(genes))
