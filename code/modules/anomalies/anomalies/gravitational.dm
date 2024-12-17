@@ -166,7 +166,7 @@
 			continue
 
 		M.playsound_local(null, 'sound/effects/empulse.ogg', 15, TRUE)
-		to_chat(M, "<span class='gravitational_anomaly'>Вы чувствуете, что кто-то решил поиграть в бога...</span>") // It used in one place.
+		to_chat(M, "<span class='gravitational_anomaly'>Вы чувствуете, что кто-то решил поиграть в Бога...</span>") // It used in one place.
 
 /obj/effect/anomaly/gravitational/tier4/collapse()
 	for(var/i = 1 to rand(100, 200))
