@@ -213,7 +213,7 @@
 /obj/machinery/power/anomaly_generator/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AnomalyGenerator", name)
+		ui = new(user, src, "AnomalyGenerator", "Генератор аномалий")
 		ui.open()
 
 /obj/machinery/power/anomaly_generator/ui_data(mob/user)
