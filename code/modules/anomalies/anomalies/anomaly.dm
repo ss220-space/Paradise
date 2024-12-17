@@ -185,7 +185,7 @@
 		return
 
 	if(tier == 3 && istype(I, /obj/item/anomaly_upgrader))
-		visible_message(span_danger("[I.declent_ru(NOMINATIVE)] попадает в [declent_ru(ACCUSATIVE)], прикрепляется к ней и активируется!"))
+		visible_message(span_danger("[capitalise(I.declent_ru(NOMINATIVE))] попадает в [declent_ru(ACCUSATIVE)], прикрепляется к ней и активируется!"))
 		var/type = text2path("/obj/effect/anomaly/[anomaly_type]/tier4")
 		new type(loc, rand(20, 50), clamp(stability - rand(10, 20), 0, 100))
 		qdel(I)
