@@ -127,8 +127,8 @@
 
 	if(user.drop_transfer_item_to_loc(I, src))
 		add_fingerprint(user)
-		user.visible_message(span_warning("[user] поместил[genderize_ru(user.gender, "", "а", "о", "и")] [I] в [src]."), \
-					span_warning("Вы поместили [I] в [src]."))
+		user.visible_message(span_warning("[user] поместил[genderize_ru(user.gender, "", "а", "о", "и")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."), \
+					span_warning("Вы поместили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		containment.Add(I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
