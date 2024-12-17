@@ -288,7 +288,7 @@
 			atom_say("Недостаточно ресурсов!")
 			return
 
-	atom_say("Сбор энергии начался. Текущая цель: [anomaly.anomaly_type] аномалия.")
+	atom_say("Сбор энергии начался. Текущая цель: [anomaly.declent_ru(NOMINATIVE)].")
 	cur_anomaly = anomaly
 	START_PROCESSING(SSprocessing, src)
 
