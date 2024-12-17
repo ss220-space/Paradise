@@ -167,8 +167,8 @@
 	if(new_charge <= 50)
 		core.charge = new_charge
 		core.random_throw(3, 6, 5)
-		core.visible_message(span_warning("[core.declent_ru(NOMINATIVE)] заряжается от [declent_ru(GENITIVE)], \
-											но остается пустым из-за низкого заряда."))
+		core.visible_message(span_warning("[capitalize(core.declent_ru(NOMINATIVE))] заряжается от [declent_ru(GENITIVE)], \
+											но остаётся пустым из-за слишком низкого заряда."))
 		return
 
 	var/path = text2path("/obj/item/assembly/signaler/core/tier[core.tier]/[anomaly_type]")
