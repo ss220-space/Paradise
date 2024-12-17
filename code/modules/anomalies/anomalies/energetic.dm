@@ -200,7 +200,7 @@
 			return
 
 		M.playsound_local(null, 'sound/magic/lightningbolt.ogg', 15, TRUE)
-		to_chat(M, "<span class='energetic_anomaly'>Статическое электричество чувствуется в воздухе. Окружающие механизмы подозрительно гудят!</span>") // It used in one place.
+		to_chat(M, "<span class='energetic_anomaly'>Вы слышите тихое потрескивание в воздухе. Подозрительно похоже на статическое электричество.</span>") // It used in one place.
 
 
 /obj/effect/energy_ball
