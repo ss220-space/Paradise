@@ -181,7 +181,7 @@
 		if(get_dist(src, M) > 20 || z != M.z)
 			return
 
-		to_chat(M, "<span class='vortex_anomaly'>Вы чувствуете силу едва заметно тянущую вас куда-то.</span>") // It used in one place.
+		to_chat(M, "<span class='vortex_anomaly'>Сильный ветер дует вам прямо в лицо. Стоп, откуда на космической станции ветер?</span>") // It used in one place.
 
 //			 TIER 4 ADMIN SPAWN ONLY
 
