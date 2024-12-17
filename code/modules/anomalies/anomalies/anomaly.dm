@@ -152,7 +152,7 @@
 		mult = 1 / (1 << (core.tier - tier))
 
 	if(!iscoreempty(core))
-		core.visible_message(span_warning("[core.declent_ru(NOMINATIVE)] распадается передавая свой заряд [declent_ru(DATIVE)]."))
+		core.visible_message(span_warning("[capitalize(core.declent_ru(NOMINATIVE))] распадается, передавая свой заряд [declent_ru(DATIVE)]."))
 		set_strenght(strenght + core.charge / mult)
 		qdel(core)
 		do_sparks(5, FALSE, src)
