@@ -57,10 +57,14 @@
 /// Called when the gene activates.  Do your magic here.
 /datum/dna/gene/proc/activate(mob/living/mutant, flags)
 	SHOULD_CALL_PARENT(TRUE)
+
 	LAZYOR(mutant.active_genes, type)
+
 	mutant.gene_stability -= instability
-	if(length(traits_to_add))
+
+	if(LAZYLEN(traits_to_add))
 		mutant.add_traits(traits_to_add, DNA_TRAIT)
+
 	mutant.update_mutations()
 
 
@@ -70,10 +74,14 @@
 */
 /datum/dna/gene/proc/deactivate(mob/living/mutant, flags)
 	SHOULD_CALL_PARENT(TRUE)
+
 	LAZYREMOVE(mutant.active_genes, type)
+
 	mutant.gene_stability += instability
-	if(length(traits_to_add))
+
+	if(LAZYLEN(traits_to_add))
 		mutant.remove_traits(traits_to_add, DNA_TRAIT)
+
 	mutant.update_mutations()
 
 

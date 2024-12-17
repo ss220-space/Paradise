@@ -2,14 +2,19 @@
 	if(!length(blocksLeft))
 		warning("[name]: No more blocks left to assign!")
 		return 0
+
 	var/assigned = pick(blocksLeft)
 	blocksLeft.Remove(assigned)
+
 	if(good)
 		GLOB.good_blocks += assigned
+
 	else
 		GLOB.bad_blocks += assigned
+
 	GLOB.assigned_blocks[assigned] = name
 	GLOB.dna_activity_bounds[assigned] = activity_bounds
+
 	return assigned
 
 

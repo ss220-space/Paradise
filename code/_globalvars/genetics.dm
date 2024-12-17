@@ -75,12 +75,3 @@ GLOBAL_VAR_INIT(fakeblock1, 0)
 GLOBAL_VAR_INIT(fakeblock2, 0)
 GLOBAL_VAR_INIT(fakeblock3, 0)
 GLOBAL_VAR_INIT(fakeblock4, 0)
-
-// Vault genes
-GLOBAL_VAR_INIT(vaulttoxinblock, 0)
-GLOBAL_VAR_INIT(vaultnobreathblock, 0)
-GLOBAL_VAR_INIT(vaultfireproofblock, 0)
-GLOBAL_VAR_INIT(vaultstuntimeblock, 0)
-GLOBAL_VAR_INIT(vaultarmourblock, 0)
-GLOBAL_VAR_INIT(vaultspeedlegsblock, 0)
-GLOBAL_VAR_INIT(vaultquickarmsblock, 0)

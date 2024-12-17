@@ -1,8 +1,5 @@
 /datum/dna/gene/basic/vault
 
-/datum/dna/gene/basic/vault/can_activate(mob/living/carbon/human/human, flags)
-    return istype(human)
-
 /datum/dna/gene/basic/vault/toxin
     name = "Toxin Adaptation"
     
@@ -14,11 +11,6 @@
     activation_messages = list(
         span_notice("Ваше тело стало невоспримчивым к токсинам в воздухе.")
         )
-
-/datum/dna/gene/basic/vault/toxin/New()
-    ..()
-
-    block = GLOB.vaulttoxinblock
 
 /datum/dna/gene/basic/vault/toxin/activate(mob/living/carbon/human/human, flags)
     . = ..()
@@ -50,11 +42,6 @@
         span_notice("Вы чувствуете, как нужда в дыхании пропадает.")
         )
 
-/datum/dna/gene/basic/vault/nobreath/New()
-    ..()
-
-    block = GLOB.vaultnobreathblock
-
 /datum/dna/gene/basic/vault/fireproof
     name = "Thermal Regulation"
 
@@ -63,10 +50,6 @@
     activation_messages = list(
         span_notice("Вы чувствуете, как ваше тело стало более огнеупорным.")
         )
-
-/datum/dna/gene/basic/vault/fireproof/New()
-    ..()
-    block = GLOB.vaultfireproofblock
 
 /datum/dna/gene/basic/vault/fireproof/activate(mob/living/carbon/human/human, flags)
     . = ..()
@@ -84,11 +67,6 @@
     activation_messages = list(
         span_notice("Ничто не может долго сдерживать вас.")
         )
-
-/datum/dna/gene/basic/vault/stuntime/New()
-    ..()
-
-    block = GLOB.vaultstuntimeblock
 
 /datum/dna/gene/basic/vault/stuntime/activate(mob/living/carbon/human/human, flags)
     . = ..()
@@ -112,11 +90,6 @@
     activation_messages = list(
         span_notice("Вы чувствуете себя крепче.")
         )
-
-/datum/dna/gene/basic/vault/armour/New()
-    ..()
-
-    block = GLOB.vaultarmourblock
 
 /datum/dna/gene/basic/vault/armour/activate(mob/living/carbon/human/human, flags)
     . = ..()
@@ -147,11 +120,6 @@
         span_notice("Вы чувствуете себя быстрее и ловче.")
         )
 
-/datum/dna/gene/basic/vault/speedlegs/New()
-    ..()
-
-    block = GLOB.vaultspeedlegsblock
-
 /datum/dna/gene/basic/vault/speedlegs/activate(mob/living/carbon/human/human, flags)
     . = ..()
 
@@ -168,11 +136,6 @@
     activation_messages = list(
         span_notice("Ваши руки двигаются также быстро, как и молния.")
         )
-
-/datum/dna/gene/basic/vault/quickarms/New()
-    ..()
-
-    block = GLOB.vaultquickarmsblock
 
 /datum/dna/gene/basic/vault/quickarms/activate(mob/living/carbon/human/human, flags)
     . = ..()

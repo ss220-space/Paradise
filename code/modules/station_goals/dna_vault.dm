@@ -340,11 +340,11 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	return TRUE
 
 /obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/human, upgrade_name)
-	for(var/datum/dna/gene/basic/vault/gene in GLOB.dna_genes)
+	for(var/datum/dna/gene/basic/vault/gene as anything in subtypesof(/datum/dna/gene/basic/vault))
 		if(initial(gene.name) != upgrade_name)
 			continue
 
-		human.force_gene_block(gene.block, TRUE, TRUE)
+		gene.activate(user)
 		break
 
 	LAZYNULL(power_lottery[human])
