@@ -356,7 +356,7 @@ or something covering your eyes."
 
 /atom/movable/screen/alert/highgravity
 	name = "Повышенная гравитация"
-	desc = "На вас давит высокая гравитация."
+	desc = "На вас давит высокая гравитация. Двигаться в таком состоянии непросто."
 	icon_state = "paralysis"
 
 
