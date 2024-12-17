@@ -189,7 +189,7 @@
 
 				options["[T.loc.name]"] = R
 
-			var/choice = tgui_input_list(ui.user, "Выберите маячок, на котором будет создована аномалия.", "Выбор маячка", options)
+			var/choice = tgui_input_list(ui.user, "Выберите маячок для создания аномалии.", "Выбор маячка", options)
 			selected_beacon = choice
 
 		else
