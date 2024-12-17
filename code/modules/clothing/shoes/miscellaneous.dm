@@ -417,7 +417,7 @@
 	desc = "These wraps, made from goliath hide, make your feet feel snug and secure, while still being breathable and light."
 	icon_state = "footwraps_goliath"
 	item_state = "footwraps_goliath"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 10, "acid" = 0)
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 10, "acid" = 0)
 	resistance_flags = FIRE_PROOF
 	paintable = FALSE
 
