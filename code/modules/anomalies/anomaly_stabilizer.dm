@@ -231,8 +231,8 @@
 /obj/item/gun/energy/anomaly_stabilizer/examine(mob/user)
 	. = ..()
 	var/shots = round(cell.charge / (/obj/item/ammo_casing/energy/anomaly::e_cost) / stability_delta / stability_delta)
-	. += span_notice("Текущий заряд: [cell.charge]\\[cell.maxcharge].")
-	. += span_notice("Этого хватит на [shots] выстрелов и изменение стабильности на [shots * stability_delta] при текущих настройках.")
+	. += span_notice("Индикатор заряда сообщает: [cell.charge]\\[cell.maxcharge].")
+	. += span_notice("Этого хватит на [shots] [declension_ru(shots, "выстрел", "выстрела", "выстрелов")] и изменение стабильности аномалии на [shots * stability_delta] [declension_ru(shots * stability_delta, "единицу", "единицы", "единиц")] при текущих настройках.")
 
 /obj/item/gun/energy/anomaly_stabilizer/update_overlays()
 	. = list()
