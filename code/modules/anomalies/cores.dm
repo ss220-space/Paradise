@@ -179,7 +179,7 @@
 
 /obj/item/assembly/signaler/core/atmospheric/tier2
 	name = "\improper pyroclastic anomaly core"
-	desc = "Стабилизированное ядро ​атмосферной аномалии. На ощупь теплое. Вероятно, оно пригодится для исследований."
+	desc = "Стабилизированное ядро ​атмосферной аномалии. Тёплое на ощупь. Вероятно, оно пригодится для исследований."
 	icon_state = "core_atmos_t2"
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier2
 	origin_tech = "plasmatech=7"
