@@ -123,7 +123,7 @@
 			return
 
 		M.playsound_local(null, 'sound/effects/empulse.ogg', 15, TRUE)
-		to_chat(M, "<span class='gravitational_anomaly'>Ваше тело становится необычайно легким... Или тяжелым... Все вокруг неестественно подрагивает.</span>") // It used in one place.
+		to_chat(M, "<span class='gravitational_anomaly'>Ваше тело становится необычайно лёгким... Или тяжёлым... Всё вокруг неестественно подрагивает.</span>") // It used in one place.
 
 /obj/effect/anomaly/gravitational/tier3/collapse()
 	for(var/i = 1 to rand(30, 60))
