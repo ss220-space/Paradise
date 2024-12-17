@@ -98,7 +98,7 @@
 		return ATTACK_CHAIN_PROCEED
 
 	if(!user.drop_transfer_item_to_loc(core, src))
-		user.balloon_alert(user, "не отпустить")
+		balloon_alert(user, "отпустить невозможно!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(cores.len >= 2)
