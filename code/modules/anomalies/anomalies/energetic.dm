@@ -104,12 +104,14 @@
 
 /obj/effect/anomaly/energetic/tier1
 	name = "малая энергетическая аномалия"
-	ru_names = list(NOMINATIVE = "малая энергетическая аномалия", \
-					GENITIVE = "малой энергетической аномалии", \
-					DATIVE = "малой энергетической аномалии", \
-					ACCUSATIVE = "малую энергетическую аномалию", \
-					INSTRUMENTAL = "малой энергетической аномалией", \
-					PREPOSITIONAL = "малой энергетической аномалии")
+	ru_names = list(
+		NOMINATIVE = "малая энергетическая аномалия", \
+		GENITIVE = "малой энергетической аномалии", \
+		DATIVE = "малой энергетической аномалии", \
+		ACCUSATIVE = "малую энергетическую аномалию", \
+		INSTRUMENTAL = "малой энергетической аномалией", \
+		PREPOSITIONAL = "малой энергетической аномалии"
+	)
 	icon_state = "energetic1"
 	core_type = /obj/item/assembly/signaler/core/energetic/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/energetic/tier2
@@ -129,12 +131,14 @@
 
 /obj/effect/anomaly/energetic/tier2
 	name = "энергетическая аномалия"
-	ru_names = list(NOMINATIVE = "энергетическая аномалия", \
-					GENITIVE = "энергетической аномалии", \
-					DATIVE = "энергетической аномалии", \
-					ACCUSATIVE = "энергетическую аномалию", \
-					INSTRUMENTAL = "энергетической аномалией", \
-					PREPOSITIONAL = "энергетической аномалии")
+	ru_names = list(
+		NOMINATIVE = "энергетическая аномалия", \
+		GENITIVE = "энергетической аномалии", \
+		DATIVE = "энергетической аномалии", \
+		ACCUSATIVE = "энергетическую аномалию", \
+		INSTRUMENTAL = "энергетической аномалией", \
+		PREPOSITIONAL = "энергетической аномалии"
+	)
 	icon_state = "energetic2"
 	core_type = /obj/item/assembly/signaler/core/energetic/tier2
 	weaker_anomaly_type = /obj/effect/anomaly/energetic/tier1
@@ -158,12 +162,14 @@
 
 /obj/effect/anomaly/energetic/tier3
 	name = "большая энергетическая аномалия"
-	ru_names = list(NOMINATIVE = "большая энергетическая аномалия", \
-					GENITIVE = "большой энергетической аномалии", \
-					DATIVE = "большой энергетической аномалии", \
-					ACCUSATIVE = "большую энергетическую аномалию", \
-					INSTRUMENTAL = "большой энергетической аномалией", \
-					PREPOSITIONAL = "большой энергетической аномалии")
+	ru_names = list(
+		NOMINATIVE = "большая энергетическая аномалия", \
+		GENITIVE = "большой энергетической аномалии", \
+		DATIVE = "большой энергетической аномалии", \
+		ACCUSATIVE = "большую энергетическую аномалию", \
+		INSTRUMENTAL = "большой энергетической аномалией", \
+		PREPOSITIONAL = "большой энергетической аномалии"
+	)
 	icon_state = "energetic3"
 	core_type = /obj/item/assembly/signaler/core/energetic/tier3
 	weaker_anomaly_type = /obj/effect/anomaly/energetic/tier2
@@ -199,12 +205,14 @@
 
 /obj/effect/energy_ball
 	name = "энергетический шар"
-	ru_names = list(NOMINATIVE = "энергетический шар", \
-					GENITIVE = "энергетического шара", \
-					DATIVE = "энергетическому шару", \
-					ACCUSATIVE = "энергетический шар", \
-					INSTRUMENTAL = "энергетическим шаром", \
-					PREPOSITIONAL = "энергетическом шаре")
+	ru_names = list(
+		NOMINATIVE = "энергетический шар", \
+		GENITIVE = "энергетического шара", \
+		DATIVE = "энергетическому шару", \
+		ACCUSATIVE = "энергетический шар", \
+		INSTRUMENTAL = "энергетическим шаром", \
+		PREPOSITIONAL = "энергетическом шаре"
+	)
 	desc = "Миниатюрная, отностилельно стабильная шаровая молния. Обычно появляется вместе с энергетическими аномалиями."
 	icon = 'icons/effects/anomalies.dmi'
 	icon_state = "energetic1"
@@ -285,12 +293,14 @@
 
 /obj/effect/anomaly/energetic/tier4
 	name = "колоссальная энергетическая аномалия"
-	ru_names = list(NOMINATIVE = "колоссальная энергетическая аномалия", \
-					GENITIVE = "колоссальной энергетической аномалии", \
-					DATIVE = "колоссальной энергетической аномалии", \
-					ACCUSATIVE = "колоссальную энергетическую аномалию", \
-					INSTRUMENTAL = "колоссальной энергетической аномалией", \
-					PREPOSITIONAL = "колоссальной энергетической аномалии")
+	ru_names = list(
+		NOMINATIVE = "колоссальная энергетическая аномалия", \
+		GENITIVE = "колоссальной энергетической аномалии", \
+		DATIVE = "колоссальной энергетической аномалии", \
+		ACCUSATIVE = "колоссальную энергетическую аномалию", \
+		INSTRUMENTAL = "колоссальной энергетической аномалией", \
+		PREPOSITIONAL = "колоссальной энергетической аномалии"
+	)
 	icon_state = "energetic3"
 	core_type = /obj/item/assembly/signaler/core/energetic/tier3/tier4
 	weaker_anomaly_type = /obj/effect/anomaly/energetic/tier3

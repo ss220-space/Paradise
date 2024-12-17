@@ -47,12 +47,14 @@
 
 /obj/effect/anomaly/gravitational/tier1
 	name = "малая гравитационная аномалия"
-	ru_names = list(NOMINATIVE = "малая гравитационная аномалия", \
-					GENITIVE = "малой гравитационной аномалии", \
-					DATIVE = "малой гравитационной аномалии", \
-					ACCUSATIVE = "малую гравитационную аномалию", \
-					INSTRUMENTAL = "малой гравитационной аномалией", \
-					PREPOSITIONAL = "малой гравитационной аномалии")
+	ru_names = list(
+		NOMINATIVE = "малая гравитационная аномалия", \
+		GENITIVE = "малой гравитационной аномалии", \
+		DATIVE = "малой гравитационной аномалии", \
+		ACCUSATIVE = "малую гравитационную аномалию", \
+		INSTRUMENTAL = "малой гравитационной аномалией", \
+		PREPOSITIONAL = "малой гравитационной аномалии"
+	)
 	core_type = /obj/item/assembly/signaler/core/gravitational/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/gravitational/tier2
 	tier = 1
@@ -67,12 +69,14 @@
 
 /obj/effect/anomaly/gravitational/tier2
 	name = "гравитационная аномалия"
-	ru_names = list(NOMINATIVE = "гравитационная аномалия", \
-					GENITIVE = "гравитационной аномалии", \
-					DATIVE = "гравитационной аномалии", \
-					ACCUSATIVE = "гравитационную аномалию", \
-					INSTRUMENTAL = "гравитационной аномалией", \
-					PREPOSITIONAL = "гравитационной аномалии")
+	ru_names = list(
+		NOMINATIVE = "гравитационная аномалия", \
+		GENITIVE = "гравитационной аномалии", \
+		DATIVE = "гравитационной аномалии", \
+		ACCUSATIVE = "гравитационную аномалию", \
+		INSTRUMENTAL = "гравитационной аномалией", \
+		PREPOSITIONAL = "гравитационной аномалии"
+	)
 	core_type = /obj/item/assembly/signaler/core/gravitational/tier2
 	weaker_anomaly_type = /obj/effect/anomaly/gravitational/tier1
 	stronger_anomaly_type = /obj/effect/anomaly/gravitational/tier3
@@ -88,12 +92,14 @@
 
 /obj/effect/anomaly/gravitational/tier3
 	name = "большая гравитационная аномалия"
-	ru_names = list(NOMINATIVE = "большая гравитационная аномалия", \
-					GENITIVE = "большой гравитационной аномалии", \
-					DATIVE = "большой гравитационной аномалии", \
-					ACCUSATIVE = "большую гравитационную аномалию", \
-					INSTRUMENTAL = "большой гравитационной аномалией", \
-					PREPOSITIONAL = "большой гравитационной аномалии")
+	ru_names = list(
+		NOMINATIVE = "большая гравитационная аномалия", \
+		GENITIVE = "большой гравитационной аномалии", \
+		DATIVE = "большой гравитационной аномалии", \
+		ACCUSATIVE = "большую гравитационную аномалию", \
+		INSTRUMENTAL = "большой гравитационной аномалией", \
+		PREPOSITIONAL = "большой гравитационной аномалии"
+	)
 	core_type = /obj/item/assembly/signaler/core/gravitational/tier3
 	weaker_anomaly_type = /obj/effect/anomaly/gravitational/tier2
 	tier = 3
@@ -131,12 +137,14 @@
 
 /obj/effect/anomaly/gravitational/tier4
 	name = "колоссальная гравитационная аномалия"
-	ru_names = list(NOMINATIVE = "колоссальная гравитационная аномалия", \
-					GENITIVE = "колоссальной гравитационной аномалии", \
-					DATIVE = "колоссальной гравитационной аномалии", \
-					ACCUSATIVE = "колоссальную гравитационную аномалию", \
-					INSTRUMENTAL = "колоссальной гравитационной аномалией", \
-					PREPOSITIONAL = "колоссальной гравитационной аномалии")
+	ru_names = list(
+		NOMINATIVE = "колоссальная гравитационная аномалия", \
+		GENITIVE = "колоссальной гравитационной аномалии", \
+		DATIVE = "колоссальной гравитационной аномалии", \
+		ACCUSATIVE = "колоссальную гравитационную аномалию", \
+		INSTRUMENTAL = "колоссальной гравитационной аномалией", \
+		PREPOSITIONAL = "колоссальной гравитационной аномалии"
+	)
 	core_type = /obj/item/assembly/signaler/core/gravitational/tier3/tier4
 	weaker_anomaly_type = /obj/effect/anomaly/gravitational/tier3
 	tier = 4

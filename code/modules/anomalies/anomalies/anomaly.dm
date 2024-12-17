@@ -1,6 +1,14 @@
 /obj/effect/anomaly
 	name = "аномалия"
 	desc = "Загадочная аномалия, обычно наблюдаемая только в секторе станции..."
+	ru_names = list(
+		NOMINATIVE = "аномалия", \
+		GENITIVE = "аномалии", \
+		DATIVE = "аномалии", \
+		ACCUSATIVE = "аномалию", \
+		INSTRUMENTAL = "аномалией", \
+		PREPOSITIONAL = "аномалии"
+	)
 	icon_state = "bhole3"
 	gender = FEMALE
 	anchored = TRUE
