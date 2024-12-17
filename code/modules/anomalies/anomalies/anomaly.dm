@@ -112,7 +112,7 @@
 	if(!weaker_anomaly_type)
 		matr.Scale(0, 0)
 		animate(src, transform = matr, time = 1 SECONDS, flags = ANIMATION_PARALLEL)
-		visible_message(span_warning("Вы видите как [src] полностью угасает!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] теряет свою энергию и растворяется в пространстве!"))
 		sleep(1 SECONDS)
 		qdel(src)
 	else
