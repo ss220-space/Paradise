@@ -216,7 +216,7 @@
 		if(M.stat)
 			continue
 
-		to_chat(M, "<span class='vortex_anomaly'>Что опасней, сингулярность или то что вы вызвали?</span>")
+		to_chat(M, "<span class='vortex_anomaly'>Ураганный поток ветра чуть не сбивает вас с ног. Это точно не сулит для вас ничего хорошего.</span>")
 
 /obj/effect/anomaly/vortex/tier4/item_touch_effect(obj/item/I)
 	. = ..()
