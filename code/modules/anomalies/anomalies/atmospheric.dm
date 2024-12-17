@@ -210,4 +210,4 @@
 			continue
 
 		M.playsound_local(null, 'sound/effects/comfyfire.ogg', 15, TRUE)
-		to_chat(M, "<span class='atmospferic_anomaly'>Ад явился в наш мир... Да поможет вам господь...</span>")
+		to_chat(M, "<span class='atmospferic_anomaly'>Нечто колоссальной мощи явилось в наш мир.</span>")
