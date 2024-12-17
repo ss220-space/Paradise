@@ -56,8 +56,8 @@
 /obj/effect/proc_holder/spell/lasereyes/cast(list/targets, mob/user = usr)
 	if(HAS_TRAIT_FROM(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src)))
 		REMOVE_TRAIT(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src))
-		to_chat(user, span_warning("Легкое жжение в области ваших глаз прошло."))
+		to_chat(user, span_warning("Лёгкое жжение в области ваших глаз прошло."))
 	else
 		ADD_TRAIT(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src))
-		to_chat(user, span_warning("Вы чувствуете легкое жжение в области ваших глаз."))
+		to_chat(user, span_warning("Вы чувствуете лёгкое жжение в области ваших глаз."))
 
