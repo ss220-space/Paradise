@@ -84,7 +84,6 @@
 /obj/item/gun/energy/anomaly_stabilizer/proc/eject_core(index, mob/user)
 	if(user)
 		user.put_in_hands(cores[index])
-		user.balloon_alert(user, "ядро извлечено")
 	else
 		cores[index].forceMove(get_turf(src))
 
