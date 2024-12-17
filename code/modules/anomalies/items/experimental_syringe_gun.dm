@@ -51,9 +51,9 @@
 			user.put_in_hands(core)
 			msg = "ядро заменено"
 
-		if(!user.drop_transfer_item_to_loc(A, src))
-			user.balloon_alert(user, "не отпустить")
-			return
+		if(!user.drop_transfer_item_to_loc(I, src))
+			balloon_alert(user, "отпустить невозможно!")
+			return ATTACK_CHAIN_PROCEED
 
 		core = A
 		user.balloon_alert(user, msg)

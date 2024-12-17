@@ -155,14 +155,14 @@
 
 	add_fingerprint(user)
 	if(istype(I, /obj/item/stock_parts/cell))
-		if(!user.drop_transfer_item_to_loc(I, src))
-			user.balloon_alert(user, "не отпустить")
+		if(!user.drop_transfer_item_to_loc(core, src))
+			balloon_alert(user, "отпустить невозможно!")
 			return ATTACK_CHAIN_PROCEED
 
 		user.put_in_hands(cell)
 		cell = I
 		cell_type = I.type
-		user.balloon_alert(user, "батарейка заменена")
+		balloon_alert(user, "батарейка заменена")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!iscore(I))

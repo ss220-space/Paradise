@@ -29,8 +29,8 @@
 		return ..()
 
 	if(!user.drop_transfer_item_to_loc(I, src))
-		user.balloon_alert(user, "не отпустить")
-		return
+		balloon_alert(user, "отпустить невозможно!")
+		return ATTACK_CHAIN_PROCEED
 
 	var/msg = "ядро вставлено"
 	if(core)
