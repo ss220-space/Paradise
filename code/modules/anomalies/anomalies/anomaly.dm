@@ -124,7 +124,7 @@
 	if(!stronger_anomaly_type)
 		collapse()
 	else
-		visible_message(span_warning("Вы видите как [src] становится значительно опасней!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] становится мощнее!"))
 		new stronger_anomaly_type(loc, rand(20, 50), clamp(stability - rand(10, 20), 0, 100))
 		qdel(src)
 
