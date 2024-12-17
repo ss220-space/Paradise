@@ -129,8 +129,8 @@
 
 	if(user.drop_transfer_item_to_loc(I, src))
 		add_fingerprint(user)
-		user.visible_message(span_warning("[user] поместил[genderize_ru(user.gender, "", "а", "о", "и")] [I] в [src]."), \
-					span_warning("Вы поместили [I] в [src]."))
+		user.visible_message(span_warning("[user] поместил[genderize_ru(user.gender, "", "а", "о", "и")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."), \
+					span_warning("Вы поместили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		containment.Add(I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -191,7 +191,7 @@
 
 				options["[T.loc.name]"] = R
 
-			var/choice = tgui_input_list(ui.user, "Выберите маячок, на котором будет создована аномалия.", "Выбор маячка", options)
+			var/choice = tgui_input_list(ui.user, "Выберите маячок для создания аномалии.", "Выбор маячка", options)
 			selected_beacon = choice
 
 		else
@@ -215,7 +215,7 @@
 /obj/machinery/power/anomaly_generator/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AnomalyGenerator", name)
+		ui = new(user, src, "AnomalyGenerator", "Генератор аномалий")
 		ui.open()
 
 /obj/machinery/power/anomaly_generator/ui_data(mob/user)
@@ -290,7 +290,7 @@
 			atom_say("Недостаточно ресурсов!")
 			return
 
-	atom_say("Сбор энергии начался. Текущая цель: [anomaly.anomaly_type] аномалия.")
+	atom_say("Сбор энергии начался. Текущая цель: [anomaly.declent_ru(NOMINATIVE)].")
 	cur_anomaly = anomaly
 	START_PROCESSING(SSprocessing, src)
 
