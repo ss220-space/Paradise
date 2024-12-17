@@ -89,7 +89,7 @@
 	check_size_change()
 
 /obj/effect/anomaly/proc/collapse()
-	visible_message(span_warning("Вы видите как [src] достигает критической массы, в следствии чего, разрушается!"))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] достигает критической массы и разрушается!"))
 	add_filter("collapse", 1, gauss_blur_filter(1))
 	matr.Scale(3, 3)
 	animate(src, transform = matr, time = 1 SECONDS, alpha = 0, flags = ANIMATION_PARALLEL)
