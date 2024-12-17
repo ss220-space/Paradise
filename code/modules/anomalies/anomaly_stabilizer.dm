@@ -94,7 +94,7 @@
 /obj/item/gun/energy/anomaly_stabilizer/proc/insert_core(obj/item/assembly/signaler/core/core, mob/user)
 	add_fingerprint(user)
 	if(iscoreempty(core))
-		user.balloon_alert(user, "ядро пусто")
+		balloon_alert(user, "ядро пустое!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!user.drop_transfer_item_to_loc(core, src))
