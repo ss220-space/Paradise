@@ -197,7 +197,7 @@
 
 /obj/item/assembly/signaler/core/vortex/tier2
 	name = "\improper vortex anomaly core"
-	desc = "Стабилизированное ядро ​​вихревой аномалии. Оно слегка трясется, как будто на него действует какая-то невидимая сила. Вероятно, оно пригодится для исследований."
+	desc = "Стабилизированное ядро ​​вихревой аномалии. Оно слегка трясётся, как будто на него воздействует некая невидимая сила. Вероятно, оно пригодится для исследований."
 	icon_state = "core_vortex_t2"
 	anomaly_type = /obj/effect/anomaly/vortex/tier2
 	origin_tech = "engineering=7"
@@ -213,7 +213,7 @@
 					ACCUSATIVE = "пустое ядро большой аномалии", \
 					INSTRUMENTAL = "пустым ядром большой аномалии", \
 					PREPOSITIONAL = "пустом ядре большой аномалии")
-	desc = "Не похоже что силы аномалии на момент стабилизации хватило, чтобы придать ядру какие-то свойства. \
+	desc = "Не похоже, что силы аномалии на момент стабилизации хватило, чтобы придать ядру какие-то свойства. \
 			Вероятно, его можно как-то зарядить."
 	icon_state = "core_empty_t3"
 	anomaly_type = null
@@ -228,7 +228,7 @@
 					ACCUSATIVE = "ядро большой атмосферной аномалии", \
 					INSTRUMENTAL = "ядром большой атмосферной аномалии", \
 					PREPOSITIONAL = "ядре большой атмосферной аномалии")
-	desc = "Стабилизированное ядро большой атмосферной аномалии. От одного его вида вас бросает то в жар, то в холод, причем буквально."
+	desc = "Стабилизированное ядро большой атмосферной аномалии. От одного его вида вас бросает то в жар, то в холод, причём буквально."
 	icon_state = "core_atmos_t3"
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier3
 	origin_tech = "plasmatech=8"
@@ -261,11 +261,11 @@
 		return
 
 	if(H.bodytemperature < T0C - 50)
-		visible_message("[declent_ru(NOMINATIVE)] реагирует на контакт с холодным объектом и испуская языки пламени!")
+		visible_message("[capitalize(declent_ru(NOMINATIVE))] реагирует на контакт с холодным объектом, испуская языки пламени!")
 		H.adjust_fire_stacks(round(get_strenght() / 30 + 0.5))
 		H.IgniteMob()
 	else if(H.bodytemperature > T0C + 100)
-		visible_message("[declent_ru(NOMINATIVE)] реагирует на контакт с горячим объектом значительно охлаждая окружающую среду!")
+		visible_message("[capitalize(declent_ru(NOMINATIVE))] реагирует на контакт с горячим объектом, значительно охлаждая окружающую среду!")
 		H.apply_status_effect(/datum/status_effect/freon)
 		H.ExtinguishMob()
 		H.adjust_bodytemperature(-get_strenght())

@@ -558,7 +558,7 @@
 
 /datum/action/item_action/gravity_jump
 	name = "Gravity jump"
-	desc = "Направляет импульс гравитации перед пользователем, быстро тянущий его вперед."
+	desc = "Направляет импульс гравитации перед пользователем, придавая ему ускорение."
 	attack_self = FALSE
 
 /datum/action/item_action/gravity_jump/Trigger(left_click = TRUE)

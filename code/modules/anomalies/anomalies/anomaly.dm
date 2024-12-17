@@ -97,7 +97,7 @@
 	check_size_change()
 
 /obj/effect/anomaly/proc/collapse()
-	visible_message(span_warning("Вы видите как [src] достигает критической массы, в следствии чего, разрушается!"))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] достигает критической массы и разрушается!"))
 	add_filter("collapse", 1, gauss_blur_filter(1))
 	matr.Scale(3, 3)
 	animate(src, transform = matr, time = 1 SECONDS, alpha = 0, flags = ANIMATION_PARALLEL)
@@ -120,11 +120,11 @@
 	if(!weaker_anomaly_type)
 		matr.Scale(0, 0)
 		animate(src, transform = matr, time = 1 SECONDS, flags = ANIMATION_PARALLEL)
-		visible_message(span_warning("Вы видите как [src] полностью угасает!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] теряет свою энергию и растворяется в пространстве!"))
 		sleep(1 SECONDS)
 		qdel(src)
 	else
-		visible_message(span_warning("Вы видите как [src] значительно слабеет!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] ослабевает!"))
 		new weaker_anomaly_type(loc, rand(50, 80), clamp(stability + rand(10, 20), 0, 100))
 		qdel(src)
 
@@ -132,7 +132,7 @@
 	if(!stronger_anomaly_type)
 		collapse()
 	else
-		visible_message(span_warning("Вы видите как [src] становится значительно опасней!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] становится мощнее!"))
 		new stronger_anomaly_type(loc, rand(20, 50), clamp(stability - rand(10, 20), 0, 100))
 		qdel(src)
 
@@ -160,7 +160,7 @@
 		mult = 1 / (1 << (core.tier - tier))
 
 	if(!iscoreempty(core))
-		core.visible_message(span_warning("[core.declent_ru(NOMINATIVE)] распадается передавая свой заряд [declent_ru(DATIVE)]."))
+		core.visible_message(span_warning("[capitalize(core.declent_ru(NOMINATIVE))] распадается, передавая свой заряд [declent_ru(DATIVE)]."))
 		set_strenght(strenght + core.charge / mult)
 		qdel(core)
 		do_sparks(5, FALSE, src)
@@ -175,14 +175,14 @@
 	if(new_charge <= 50)
 		core.charge = new_charge
 		core.random_throw(3, 6, 5)
-		core.visible_message(span_warning("[core.declent_ru(NOMINATIVE)] заряжается от [declent_ru(GENITIVE)], \
-											но остается пустым из-за низкого заряда."))
+		core.visible_message(span_warning("[capitalize(core.declent_ru(NOMINATIVE))] заряжается от [declent_ru(GENITIVE)], \
+											но остаётся пустым из-за слишком низкого заряда."))
 		return
 
 	var/path = text2path("/obj/item/assembly/signaler/core/tier[core.tier]/[anomaly_type]")
 	var/obj/item/assembly/signaler/core/new_core = new path(core.loc, new_charge)
-	new_core.visible_message(span_warning("[core.declent_ru(NOMINATIVE)] заряжается от [declent_ru(GENITIVE)], \
-											и становится [new_core.declent_ru(INSTRUMENTAL)]."))
+	new_core.visible_message(span_warning("[capitalize(core.declent_ru(NOMINATIVE))] заряжается от [declent_ru(GENITIVE)], \
+											превращаясь в [new_core.declent_ru(ACCUSATIVE)]."))
 	qdel(core)
 	new_core.random_throw(3, 6, 5)
 	return
@@ -193,7 +193,7 @@
 		return
 
 	if(tier == 3 && istype(I, /obj/item/anomaly_upgrader))
-		visible_message(span_danger("[I.declent_ru(NOMINATIVE)] попадает в [declent_ru(ACCUSATIVE)], прикрепляется к ней и активируется!"))
+		visible_message(span_danger("[capitalise(I.declent_ru(NOMINATIVE))] попадает в [declent_ru(ACCUSATIVE)], прикрепляется к ней и активируется!"))
 		var/type = text2path("/obj/effect/anomaly/[anomaly_type]/tier4")
 		new type(loc, rand(20, 50), clamp(stability - rand(10, 20), 0, 100))
 		qdel(I)
