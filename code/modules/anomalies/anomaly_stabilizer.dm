@@ -174,7 +174,7 @@
 /obj/item/gun/energy/anomaly_stabilizer/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AnomalyStabilizer", name)
+		ui = new(user, src, "AnomalyStabilizer", "Стабилизатор аномалий")
 		ui.set_autoupdate(TRUE)
 		ui.open()
 
