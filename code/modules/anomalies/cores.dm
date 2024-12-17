@@ -261,7 +261,7 @@
 		return
 
 	if(H.bodytemperature < T0C - 50)
-		visible_message("[declent_ru(NOMINATIVE)] реагирует на контакт с холодным объектом и испуская языки пламени!")
+		visible_message("[capitalize(declent_ru(NOMINATIVE))] реагирует на контакт с холодным объектом, испуская языки пламени!")
 		H.adjust_fire_stacks(round(get_strenght() / 30 + 0.5))
 		H.IgniteMob()
 	else if(H.bodytemperature > T0C + 100)
