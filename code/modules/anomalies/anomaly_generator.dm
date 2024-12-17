@@ -1,11 +1,13 @@
 /obj/machinery/power/anomaly_generator
 	name = "Генератор аномалий"
-	ru_names = list(NOMINATIVE = "Генератор аномалий", \
-					GENITIVE = "Генератора аномалий", \
-					DATIVE = "Генератору аномалий", \
-					ACCUSATIVE = "Генератор аномалий", \
-					INSTRUMENTAL = "Генератором аномалий", \
-					PREPOSITIONAL = "Генераторе аномалий")
+	ru_names = list(
+		NOMINATIVE = "Генератор аномалий", \
+		GENITIVE = "Генератора аномалий", \
+		DATIVE = "Генератору аномалий", \
+		ACCUSATIVE = "Генератор аномалий", \
+		INSTRUMENTAL = "Генератором аномалий", \
+		PREPOSITIONAL = "Генераторе аномалий"
+	)
 	desc = "Необычного вида машина, разработанная на основе эксперементальной технологии, предназначенная для \
 			генерации аномалий."
 	gender = MALE
