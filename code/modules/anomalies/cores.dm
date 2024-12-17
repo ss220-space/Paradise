@@ -1,6 +1,14 @@
 // Embedded signaller used in anomalies.
 /obj/item/assembly/signaler/core
 	name = "anomaly core"
+	ru_names = list(
+		NOMINATIVE = "ядро аномалии", \
+		GENITIVE = "ядра аномалии", \
+		DATIVE = "ядру аномалии", \
+		ACCUSATIVE = "ядро аномалии", \
+		INSTRUMENTAL = "ядром аномалии", \
+		PREPOSITIONAL = "ядре аномалии"
+	)
 	desc = "The neutralized core of an anomaly. It'd probably be valuable for research."
 	gender = NEUTER
 	icon_state = "core_bluespace_t2"
@@ -179,6 +187,14 @@
 
 /obj/item/assembly/signaler/core/atmospheric/tier2
 	name = "\improper pyroclastic anomaly core"
+	ru_names = list(
+		NOMINATIVE = "ядро атмосферной аномалии", \
+		GENITIVE = "ядра атмосферной аномалии", \
+		DATIVE = "ядру атмосферной аномалии", \
+		ACCUSATIVE = "ядро атмосферной аномалии", \
+		INSTRUMENTAL = "ядром атмосферной аномалии", \
+		PREPOSITIONAL = "ядре атмосферной аномалии"
+	)
 	desc = "Стабилизированное ядро ​атмосферной аномалии. На ощупь теплое. Вероятно, оно пригодится для исследований."
 	icon_state = "core_atmos_t2"
 	anomaly_type = /obj/effect/anomaly/atmospheric/tier2
@@ -187,6 +203,14 @@
 
 /obj/item/assembly/signaler/core/gravitational/tier2
 	name = "\improper gravitational anomaly core"
+	ru_names = list(
+		NOMINATIVE = "ядро гравитационной аномалии", \
+		GENITIVE = "ядра гравитационной аномалии", \
+		DATIVE = "ядру гравитационной аномалии", \
+		ACCUSATIVE = "ядро гравитационной аномалии", \
+		INSTRUMENTAL = "ядром гравитационной аномалии", \
+		PREPOSITIONAL = "ядре гравитационной аномалии"
+	)
 	desc = "Стабилизированное ядро ​​гравитационной аномалии. Гораздо тяжелее, чем выглядит. Вероятно, оно пригодится для исследований."
 	icon_state = "core_grav_t2"
 	anomaly_type = /obj/effect/anomaly/gravitational/tier2
@@ -195,6 +219,14 @@
 
 /obj/item/assembly/signaler/core/energetic/tier2
 	name = "\improper flux anomaly core"
+	ru_names = list(
+		NOMINATIVE = "ядро ​​энергетической аномалии", \
+		GENITIVE = "ядра ​​энергетической аномалии", \
+		DATIVE = "ядру ​​энергетической аномалии", \
+		ACCUSATIVE = "ядро ​​энергетической аномалии", \
+		INSTRUMENTAL = "ядром ​​энергетической аномалии", \
+		PREPOSITIONAL = "ядре ​​энергетической аномалии"
+	)
 	desc = "Стабилизированное ядро ​​энергетической аномалии. Прикосновение к нему вызывает легкое покалывание. Вероятно, оно пригодится для исследований."
 	icon_state = "core_energ_t2"
 	anomaly_type = /obj/effect/anomaly/energetic/tier2
@@ -203,6 +235,14 @@
 
 /obj/item/assembly/signaler/core/bluespace/tier2
 	name = "\improper bluespace anomaly core"
+	ru_names = list(
+		NOMINATIVE = "ядро ​​блюспейс аномалии", \
+		GENITIVE = "ядра ​​блюспейс аномалии", \
+		DATIVE = "ядру ​​блюспейс аномалии", \
+		ACCUSATIVE = "ядро ​​блюспейс аномалии", \
+		INSTRUMENTAL = "ядром ​​блюспейс аномалии", \
+		PREPOSITIONAL = "ядре ​​блюспейс аномалии"
+	)
 	desc = "Стабилизированное ядро ​​блюспейс аномалии. Оно то появляется, то исчезает из виду. Вероятно, оно пригодится для исследований."
 	icon_state = "core_bluespace_t2"
 	anomaly_type = /obj/effect/anomaly/bluespace/tier2
@@ -211,6 +251,14 @@
 
 /obj/item/assembly/signaler/core/vortex/tier2
 	name = "\improper vortex anomaly core"
+	ru_names = list(
+		NOMINATIVE = "ядро ​​вихревой аномалии", \
+		GENITIVE = "ядра ​​вихревой аномалии", \
+		DATIVE = "ядру ​​вихревой аномалии", \
+		ACCUSATIVE = "ядро ​​вихревой аномалии", \
+		INSTRUMENTAL = "ядром ​​вихревой аномалии", \
+		PREPOSITIONAL = "ядре ​​вихревой аномалии"
+	)
 	desc = "Стабилизированное ядро ​​вихревой аномалии. Оно слегка трясётся, как будто на него воздействует некая невидимая сила. Вероятно, оно пригодится для исследований."
 	icon_state = "core_vortex_t2"
 	anomaly_type = /obj/effect/anomaly/vortex/tier2
