@@ -1,11 +1,13 @@
 /obj/item/assembly/tuned_anomalous_teleporter
 	name = "tuned anomalous teleporter"
-	ru_names = list(NOMINATIVE = "настраеваемый аномальный телепортер", \
-					GENITIVE = "настраеваемого аномального телепортера", \
-					DATIVE = "настраеваемому аномальному телепортеру", \
-					ACCUSATIVE = "настраеваемый аномальный телепортер", \
-					INSTRUMENTAL = "настраеваемым аномальным телепортером", \
-					PREPOSITIONAL = "настраеваемом аномальном телепортере")
+	ru_names = list(
+		NOMINATIVE = "настраеваемый аномальный телепортер", \
+		GENITIVE = "настраеваемого аномального телепортера", \
+		DATIVE = "настраеваемому аномальному телепортеру", \
+		ACCUSATIVE = "настраеваемый аномальный телепортер", \
+		INSTRUMENTAL = "настраеваемым аномальным телепортером", \
+		PREPOSITIONAL = "настраеваемом аномальном телепортере"
+	)
 	desc = "Протативный настраиваемый телепортер использующий ядро блюспейс аномалии для телепортации пользователя в \
 			выбранном направлении."
 	icon = 'icons/obj/weapons/techrelic.dmi'
@@ -141,11 +143,11 @@
 		msg = "ядро заменено"
 
 	if(!user.drop_transfer_item_to_loc(I, src))
-			balloon_alert(user, "отпустить невозможно!")
-			return ATTACK_CHAIN_PROCEED
+		balloon_alert(user, "отпустить невозможно!")
+		return ATTACK_CHAIN_PROCEED
 
 	core = I
-	user.balloon_alert(user, msg)
+	balloon_alert(user, msg)
 	update_core()
 	return ATTACK_CHAIN_PROCEED
 

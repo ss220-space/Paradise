@@ -1,11 +1,13 @@
 /obj/item/gun/syringe/rapidsyringe/experimental
 	name = "experimental syringe gun"
-	ru_names = list(NOMINATIVE = "экспериментальный шприцемет", \
-					GENITIVE = "экспериментального шприцемета", \
-					DATIVE = "экспериментальному шприцемету", \
-					ACCUSATIVE = "экспериментальный шприцемет", \
-					INSTRUMENTAL = "экспериментальным шприцеметом", \
-					PREPOSITIONAL = "экспериментальном шприцемете")
+	ru_names = list(
+		NOMINATIVE = "экспериментальный шприцемет", \
+		GENITIVE = "экспериментального шприцемета", \
+		DATIVE = "экспериментальному шприцемету", \
+		ACCUSATIVE = "экспериментальный шприцемет", \
+		INSTRUMENTAL = "экспериментальным шприцеметом", \
+		PREPOSITIONAL = "экспериментальном шприцемете"
+	)
 	desc = "Эксперементальный шприцемет с 6 слотами для шприцев, встроенным, самовосполняющимся хранилищем \
 			химикатов и новейшей системой автозаправки шприцев. Для смены синтезируемых химикатов залейте новую \
 			смесь внутрь. Не может синтезировать некоторые, особенно сложные вещества."
@@ -43,8 +45,8 @@
 
 	synth_speed = core.get_strenght() / 30
 
-/obj/item/gun/syringe/rapidsyringe/experimental/attackby(obj/item/A, mob/user)
-	if(iscorevortex(A))
+/obj/item/gun/syringe/rapidsyringe/experimental/attackby(obj/item/I, mob/user)
+	if(iscorevortex(I))
 		add_fingerprint(user)
 		var/msg = "ядро вставлено"
 		if(core)
@@ -55,31 +57,31 @@
 			balloon_alert(user, "отпустить невозможно!")
 			return ATTACK_CHAIN_PROCEED
 
-		core = A
+		core = I
 		user.balloon_alert(user, msg)
 		update_core()
 		return ATTACK_CHAIN_PROCEED
 
-	if(istype(A, /obj/item/reagent_containers/syringe))
+	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
 		if(in_clip >= max_syringes)
 			user.balloon_alert(user, "недостаточно места")
 			return ATTACK_CHAIN_PROCEED
 
-		if(!user.drop_transfer_item_to_loc(A, src))
+		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 
 		user.balloon_alert(user, "заряжено")
-		syringes.Add(A)
+		syringes.Add(I)
 		process_chamber() // Chamber the syringe if none is already
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(A, /obj/item/reagent_containers/glass))
+	if(istype(I, /obj/item/reagent_containers/glass))
 		if(!core)
 			user.balloon_alert(user, "нет ядра")
 			return ..()
 
-		var/obj/item/reagent_containers/glass/RC = A
+		var/obj/item/reagent_containers/glass/RC = I
 		if (!RC.reagents.reagent_list)
 			return  ..()
 

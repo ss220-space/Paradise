@@ -280,12 +280,14 @@
 
 /obj/item/projectile/energy/bsg
 	name = "сфера чистой БС энергии"
-	ru_names = list(NOMINATIVE = "сфера чистой БС энергии", \
-					GENITIVE = "сферы чистой БС энергии", \
-					DATIVE = "сферу чистой БС энергии", \
-					ACCUSATIVE = "сферу чистой БС энергии", \
-					INSTRUMENTAL = "сферой чистой БС энергии", \
-					PREPOSITIONAL = "сфере чистой БС энергии")
+	ru_names = list(
+		NOMINATIVE = "сфера чистой БС энергии", \
+		GENITIVE = "сферы чистой БС энергии", \
+		DATIVE = "сферу чистой БС энергии", \
+		ACCUSATIVE = "сферу чистой БС энергии", \
+		INSTRUMENTAL = "сферой чистой БС энергии", \
+		PREPOSITIONAL = "сфере чистой БС энергии"
+	)
 	gender = FEMALE
 	icon_state = "bluespace"
 	impact_effect_type = /obj/effect/temp_visual/bsg_kaboom

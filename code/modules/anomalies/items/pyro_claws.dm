@@ -1,12 +1,14 @@
 //pyro claws
 /obj/item/twohanded/required/pyro_claws
 	name = "hardplasma energy claws"
-	ru_names = list(NOMINATIVE = "энергокогти", \
-					GENITIVE = "энергокогтей", \
-					DATIVE = "энергокогтям", \
-					ACCUSATIVE = "энергокогти", \
-					INSTRUMENTAL = "энергокогтями", \
-					PREPOSITIONAL = "энергокогтях")
+	ru_names = list(
+		NOMINATIVE = "энергокогти", \
+		GENITIVE = "энергокогтей", \
+		DATIVE = "энергокогтям", \
+		ACCUSATIVE = "энергокогти", \
+		INSTRUMENTAL = "энергокогтями", \
+		PREPOSITIONAL = "энергокогтях"
+	)
 	desc = "Сила солнца в ваших когтях."
 	gender = PLURAL
 	icon_state = "pyro_claws"
@@ -72,12 +74,14 @@
 
 /obj/item/clothing/gloves/color/black/pyro_claws
 	name = "Fusion gauntlets"
-	ru_names = list(NOMINATIVE = "плавящие перчатки", \
-					GENITIVE = "плавящих перчаток", \
-					DATIVE = "плавящим перчаткам", \
-					ACCUSATIVE = "плавящие перчатки", \
-					INSTRUMENTAL = "плавящими перчатками", \
-					PREPOSITIONAL = "плавящих перчатках")
+	ru_names = list(
+		NOMINATIVE = "плавящие перчатки", \
+		GENITIVE = "плавящих перчаток", \
+		DATIVE = "плавящим перчаткам", \
+		ACCUSATIVE = "плавящие перчатки", \
+		INSTRUMENTAL = "плавящими перчатками", \
+		PREPOSITIONAL = "плавящих перчатках"
+	)
 	desc = "Перчатки разработаенные Cybersun Industries после того, как один из солдат прикрепил атмосферное ядро ​​к \
 			энергетическому мечу, и нашел результат весьма эффективными."
 	gender = PLURAL

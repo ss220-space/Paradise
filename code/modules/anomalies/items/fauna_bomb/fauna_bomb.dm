@@ -3,12 +3,14 @@
 
 /obj/item/fauna_bomb
 	name = "fauna bomb"
-	ru_names = list(NOMINATIVE = "фаунная бомба", \
-					GENITIVE = "фаунной бомбы", \
-					DATIVE = "фаунной бомбе", \
-					ACCUSATIVE = "фаунную бомбу", \
-					INSTRUMENTAL = "фаунной бомбой", \
-					PREPOSITIONAL = "фаунной бомбе")
+	ru_names = list(
+		NOMINATIVE = "фаунная бомба", \
+		GENITIVE = "фаунной бомбы", \
+		DATIVE = "фаунной бомбе", \
+		ACCUSATIVE = "фаунную бомбу", \
+		INSTRUMENTAL = "фаунной бомбой", \
+		PREPOSITIONAL = "фаунной бомбе"
+	)
 	desc = "Эксперементальный прибор, способный создавать и поддерживать плотные копии отсканированных существ, \
 			сделанные из окружающих газов. Для работы требует ядро атмосферной аномалии."
 	gender = FEMALE

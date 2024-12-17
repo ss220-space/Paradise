@@ -155,7 +155,7 @@
 
 	add_fingerprint(user)
 	if(istype(I, /obj/item/stock_parts/cell))
-		if(!user.drop_transfer_item_to_loc(core, src))
+		if(!user.drop_transfer_item_to_loc(I, src))
 			balloon_alert(user, "отпустить невозможно!")
 			return ATTACK_CHAIN_PROCEED
 
