@@ -102,7 +102,7 @@
 		return ATTACK_CHAIN_PROCEED
 
 	if(cores.len >= 2)
-		user.balloon_alert(user, "нет места")
+		balloon_alert(user, "слоты для ядер заняты!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!user.drop_transfer_item_to_loc(core, src))
