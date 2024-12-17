@@ -108,7 +108,7 @@
 
 	cores.Add(core)
 	update_cores()
-	user.balloon_alert(user, "ядро вставлено")
+	balloon_alert(user, "ядро вставлено")
 	return ATTACK_CHAIN_PROCEED
 
 /obj/item/gun/energy/anomaly_stabilizer/proc/update_cores()
