@@ -344,7 +344,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		if(initial(gene.name) != upgrade_name)
 			continue
 
-		gene.activate(user)
+		gene.activate(human)
 		break
 
 	LAZYNULL(power_lottery[human])
