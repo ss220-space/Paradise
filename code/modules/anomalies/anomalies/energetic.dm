@@ -330,8 +330,11 @@
 		if(M.stat)
 			continue
 
-		M.playsound_local(null, 'sound/magic/lightningbolt.ogg', 15, TRUE)
-		to_chat(M, "<span class='energetic_anomaly'>!</span>")
+		if(is_admin_level(M))
+			continue
+
+		M.playsound_local(null, 'sound/magic/lightningbolt.ogg', 25, TRUE)
+		to_chat(M, "<span class='energetic_anomaly'>Вы слышите черезвычайно громкий электрический треск!</span>")
 
 /obj/effect/anomaly/energetic/tier4/do_move(dir)
 	. = ..()
