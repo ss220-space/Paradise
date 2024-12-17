@@ -116,7 +116,7 @@
 		sleep(1 SECONDS)
 		qdel(src)
 	else
-		visible_message(span_warning("Вы видите как [src] значительно слабеет!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] ослабевает!"))
 		new weaker_anomaly_type(loc, rand(50, 80), clamp(stability + rand(10, 20), 0, 100))
 		qdel(src)
 
