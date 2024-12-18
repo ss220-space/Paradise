@@ -59,7 +59,7 @@
 			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [genderize_ru(occupant.gender, "Он мёртв", "Она мертва", "Оно мертво", "Они мертвы")]!")
 		else
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
-	. += span_info("Наведите курсор на пациента, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить пациента внутрь.")
+	. += span_info("Наведите курсор на пациента, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить пациента внутрь.<br>Используйте <b>Alt + ЛКМ</b>, чтобы извлечь ёмкость.")
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/New()
@@ -164,11 +164,10 @@
 		return TRUE
 	. = TRUE
 	if(put_mob(L))
-		add_fingerprint(user)
 		if(L == user)
-			visible_message("[user] залеза[pluralize_ru(user.gender,"ет","ют")] в [declent_ru(ACCUSATIVE)].")
+			visible_message("[user] начинает[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
 		else
-			visible_message("[user] укладыва[pluralize_ru(user.gender,"ет","ют")] [L] в [declent_ru(ACCUSATIVE)].")
+			visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [L] в [declent_ru(ACCUSATIVE)].")
 			add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
 			if(user.pulling == L)
 				user.stop_pulling()
@@ -355,7 +354,7 @@
 		to_chat(grabber, span_warning("[grabbed_thing] не помест[pluralize_ru(grabbed_thing.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(grabbed_thing.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return .
 	if(put_mob(grabbed_thing))
-		add_fingerprint(grabber)
+		return
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
@@ -487,20 +486,33 @@
 	if(!node)
 		balloon_alert(usr, "не подключено!")
 		return
+
+	add_fingerprint(usr)
+	if(M == usr)
+		visible_message("[usr] начина[pluralize_ru(usr.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+	else
+		visible_message("[usr] начина[pluralize_ru(usr.gender,"ет","ют")] укладывать [M] в [declent_ru(ACCUSATIVE)].")
+
+	if(!do_after(usr, 2 SECONDS, M))
+		return
+
 	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.IsSleeping()))
 		to_chat(M, span_boldnotice("Вас окружает холодная жидкость. Кожа начинает замерзать."))
 	occupant = M
-	add_fingerprint(usr)
 	update_icon(UPDATE_OVERLAYS)
 	M.ExtinguishMob()
 	return TRUE
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/AltClick(mob/living/carbon/user)
-	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(!beaker)
 		return
-	go_out()
+	beaker.forceMove(loc)
+	if(Adjacent(user) && !issilicon(user))
+		user.put_in_hands(beaker, ignore_anim = FALSE)
+		balloon_alert(user, "ёмкость извлечена")
+	beaker = null
 	add_fingerprint(user)
 
 
@@ -544,7 +556,7 @@
 	set src in oview(1)
 
 	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, span_warning("[usr] не помест[pluralize_ru(usr.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(usr.gender, "нём", "ней", "нём", "них")] сидит слайм."))
+		to_chat(usr, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм."))
 		return
 
 	if(stat & (NOPOWER|BROKEN))

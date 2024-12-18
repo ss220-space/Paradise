@@ -12,7 +12,7 @@
 
 /obj/machinery/chem_master
 	name = "\improper ChemMaster 3000"
-	desc = "Химическое оборудование, предназначенное для преобразования реагентов в таблетки, пластыри и бутыли."
+	desc = "Химическое оборудование, предназначенное для преобразования реагентов в таблетки, пластыри и бутылки."
 	ru_names = list(
 		NOMINATIVE = "ХимМастер 3000",
 		GENITIVE = "ХимМастера 3000",
@@ -95,6 +95,13 @@
 	for(var/obj/item/reagent_containers/glass/beaker/B in component_parts)
 		reagents.maximum_volume += B.reagents.maximum_volume
 
+/obj/machinery/chem_master/examine(mob/user)
+	. = ..()
+	if(panel_open)
+		. += span_notice("Панель техобслуживания открыта.")
+	if(Adjacent(user))
+		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы извлечь ёмкость.")
+
 /obj/machinery/chem_master/ex_act(severity)
 	if(severity < 3)
 		if(beaker)
@@ -163,11 +170,23 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		loaded_pill_bottle = I
-		balloon_alert(user, "пузырёк для таблеток установлен")
+		balloon_alert(user, "контейнер установлен")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/machinery/chem_master/AltClick(mob/living/user)
+	if(!beaker)
+		return
+	beaker.forceMove(get_turf(src))
+	if(Adjacent(user) && !issilicon(user))
+		user.put_in_hands(beaker, ignore_anim = FALSE)
+		balloon_alert(user, "ёмкость извлечена")
+	beaker = null
+	add_fingerprint(user)
+	reagents.clear_reagents()
+	update_icon()
 
 
 /obj/machinery/chem_master/crowbar_act(mob/user, obj/item/I)
@@ -236,7 +255,7 @@
 			P.info += "<b>Название реагента:</b> [R.name]<br>"
 			if(istype(R, /datum/reagent/blood))
 				var/datum/reagent/blood/B = R
-				P.info += "<b>Описание:</b> N/A<br><b>Группа крови:</b> [B.data["blood_type"]]<br><b>ДНК:</b> [B.data["blood_species"]]"
+				P.info += "<b>Описание:</b> Н/Д<br><b>Группа крови:</b> [B.data["blood_type"]]<br><b>ДНК:</b> [B.data["blood_species"]]"
 			else
 				P.info += "<b>Описание:</b> [R.description]"
 			P.info += "<br><br><b>Заметки:</b><br>"
@@ -300,6 +319,7 @@
 			if(pill_bottle_wrappers[new_color])
 				loaded_pill_bottle.wrapper_color = new_color
 				loaded_pill_bottle.apply_wrap()
+				playsound(loc, 'sound/effects/spray.ogg', 10, TRUE)
 		else
 			. = FALSE
 
@@ -612,7 +632,7 @@
 
 		var/obj/item/reagent_containers/P = new item_type(location)
 		if(!isnull(medicine_name))
-			P.name = "[medicine_name][name_suffix]"
+			P.name = "[name_suffix][medicine_name]"
 		P.pixel_x = rand(-7, 7) // Random position
 		P.pixel_y = rand(-7, 7)
 		configure_item(data, reagents, P)
@@ -624,23 +644,23 @@
 
 /datum/chemical_production_mode/pills
 	mode_id = "pills"
-	production_name = "Pills"
+	production_name = "Таблетки"
 	production_icon = "pills"
 	item_type = /obj/item/reagent_containers/food/pill
 	max_items_amount = MAX_MULTI_AMOUNT
 	max_units_per_item = MAX_UNITS_PER_PILL
-	name_suffix = " pill"
+	name_suffix = "Таблетка - "
 	sprite_mask = "pill"
 	sprites_amount = MAX_PILL_SPRITE
 
 /datum/chemical_production_mode/patches
 	mode_id = "patches"
-	production_name = "Patches"
+	production_name = "Пластыри"
 	production_icon = "plus-square"
 	item_type = /obj/item/reagent_containers/food/pill/patch
 	max_items_amount = MAX_MULTI_AMOUNT
 	max_units_per_item = MAX_UNITS_PER_PATCH
-	name_suffix = " patch"
+	name_suffix = "Пластырь - "
 	sprite_mask = "bandaid"
 	sprites_amount = MAX_PATCH_SPRITE
 
@@ -663,21 +683,21 @@
 
 /datum/chemical_production_mode/bottles
 	mode_id = "chem_bottles"
-	production_name = "Bottles"
+	production_name = "Бутылки"
 	production_icon = "wine-bottle"
 	item_type = /obj/item/reagent_containers/glass/bottle/reagent
 	sprites = list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle")
 
 	max_items_amount = 5
 	max_units_per_item = 50
-	name_suffix = " bottle"
+	name_suffix = "Бутылка - "
 
 /datum/chemical_production_mode/bottles/get_base_placeholder_name(datum/reagents/reagents, amount_per_item)
 	return reagents.get_master_reagent_name()
 
 /datum/chemical_production_mode/condiment_bottles
 	mode_id = "condi_bottles"
-	production_name = "Bottles"
+	production_name = "Бутылки"
 	production_icon = "wine-bottle"
 	item_type = /obj/item/reagent_containers/food/condiment
 	max_items_amount = 5
@@ -687,12 +707,12 @@
 
 /datum/chemical_production_mode/condiment_packs
 	mode_id = "condi_packets"
-	production_name = "Packet"
+	production_name = "Упаковки для специй"
 	production_icon = "bacon"
 	item_type = /obj/item/reagent_containers/food/condiment/pack
 	max_items_amount = 10
 	max_units_per_item = 10
-	name_suffix = " pack"
+	name_suffix = "Пакет для специй - "
 
 /datum/chemical_production_mode/condiment_packs/get_base_placeholder_name(datum/reagents/reagents, amount_per_item)
 	return reagents.get_master_reagent_name()

@@ -292,10 +292,11 @@
 	if(!beaker)
 		return
 	beaker.forceMove(loc)
-	if(Adjacent(usr) && !issilicon(usr))
-		usr.put_in_hands(beaker, ignore_anim = FALSE)
-	balloon_alert(user, "ёмкость извлечена")
+	if(Adjacent(user) && !issilicon(user))
+		user.put_in_hands(beaker, ignore_anim = FALSE)
+		balloon_alert(user, "ёмкость извлечена")
 	beaker = null
+	add_fingerprint(user)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)

@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod
 	anchored = TRUE
 	name = "experimental biomass pod"
-	desc = "Капсула, предназначенная для искусственного выращивания органической ткани. Оборудована электронным замком."
+	desc = "Капсула, предназначенная для искусственного выращивания органической ткани. Оборудована электронным замком. Выглядит жутковато."
 	ru_names = list(
 		NOMINATIVE = "капсула клонирования",
 		GENITIVE = "капсулы клонирования",
@@ -435,7 +435,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			return ATTACK_CHAIN_PROCEED
 		connected_message("Инициировано извлечение клона.")
 		announce_radio_message("Инициировано извлечение клона [(occupant) ? occupant.real_name : ""].")
-		balloon_alert(user, "инициировано извлечение клона")
+		balloon_alert(user, "клон извлечён")
 		go_out()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 

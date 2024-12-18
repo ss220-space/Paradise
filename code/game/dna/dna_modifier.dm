@@ -117,6 +117,13 @@
 	for(var/obj/item/stock_parts/micro_laser/P in component_parts)
 		damage_coeff = P.rating
 
+/obj/machinery/dna_scannernew/examine(mob/user)
+	. = ..()
+	if(occupant)
+		. += span_notice("Внутри кто-то есть.")
+	if(Adjacent(user))
+		. += span_info("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.<br>Используйте <b>Alt + ЛКМ</b>, чтобы извлечь ёмкость.")
+
 /obj/machinery/dna_scannernew/AllowDrop()
 	return FALSE
 
@@ -163,11 +170,7 @@
 	if(usr.has_buckled_mobs()) //mob attached to us
 		to_chat(usr, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм!"))
 		return
-	usr.forceMove(src)
-	occupant = usr
-	icon_state = "scanner_occupied"
-	add_fingerprint(usr)
-	SStgui.update_uis(src)
+	put_in(usr)
 
 /obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user, params)
 	if(!istype(O))
@@ -200,10 +203,6 @@
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("[L] не помест[pluralize_ru(L.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return TRUE
-	if(L == user)
-		visible_message("[user] забира[pluralize_ru(user.gender, "ет", "ют")]ся в [declent_ru(ACCUSATIVE)].")
-	else
-		visible_message("[user] помеща[pluralize_ru(user.gender, "ет", "ют")] [L.name] в [declent_ru(ACCUSATIVE)].")
 	put_in(L)
 	return TRUE
 
@@ -249,7 +248,17 @@
 		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return .
 	put_in(target)
-	add_fingerprint(grabber)
+
+
+/obj/machinery/dna_scannernew/AltClick(mob/living/user)
+	if(!beaker)
+		return
+	beaker.forceMove(loc)
+	if(Adjacent(user) && !issilicon(user))
+		user.put_in_hands(beaker, ignore_anim = FALSE)
+		balloon_alert(user, "ёмкость извлечена")
+	beaker = null
+	add_fingerprint(user)
 
 
 /obj/machinery/dna_scannernew/crowbar_act(mob/user, obj/item/I)
@@ -271,6 +280,15 @@
 	go_out()
 
 /obj/machinery/dna_scannernew/proc/put_in(mob/M)
+	add_fingerprint(usr)
+	if(M == usr)
+		visible_message("[usr] начина[pluralize_ru(usr.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+	else
+		visible_message("[usr] начина[pluralize_ru(usr.gender,"ет","ют")] укладывать [M] в [declent_ru(ACCUSATIVE)].")
+
+	if(!do_after(usr, 2 SECONDS, M))
+		return
+
 	M.forceMove(src)
 	occupant = M
 	icon_state = "scanner_occupied"
@@ -701,6 +719,8 @@
 				var/obj/item/reagent_containers/glass/B = connected.beaker
 				B.forceMove(connected.loc)
 				connected.beaker = null
+				if(Adjacent(usr) && !issilicon(usr))
+					usr.put_in_hands(B, ignore_anim = FALSE)
 		if("ejectOccupant")
 			connected.eject_occupant()
 		// Transfer Buffer Management

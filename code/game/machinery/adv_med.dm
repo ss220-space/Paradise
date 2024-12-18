@@ -45,6 +45,7 @@
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
 		. += span_info("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
+		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы извлечь ID-карту.")
 
 
 /obj/machinery/bodyscanner/update_icon_state()
@@ -90,12 +91,20 @@
 		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return .
 
+	visible_message("[grabber] начина[pluralize_ru(grabber.gender,"ет","ют")] укладывать [target] в [declent_ru(ACCUSATIVE)].")
+	if(!do_after(grabber, 2 SECONDS, target) || panel_open || !target || !grabber || grabber.pulling != target || !grabber.Adjacent(src))
+		return .
+
 	target.forceMove(src)
 	occupant = target
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(target, span_boldnotice("Крышка [declent_ru(GENITIVE)] закрывается и окружающие звуки сразу становятся тише. Вы видите вокруг множество датчиков и слышите тихое гудение внутренних систем аппарата."))
 	add_fingerprint(grabber)
 	SStgui.update_uis(src)
+
+/obj/machinery/bodyscanner/AltClick(mob/living/carbon/user)
+	eject_id(user)
+	add_fingerprint(user)
 
 
 /obj/machinery/bodyscanner/crowbar_act(mob/user, obj/item/I)
@@ -148,11 +157,13 @@
 		return TRUE
 
 	if(H == user)
-		visible_message("[user] залеза[pluralize_ru(user.gender,"ет","ют")] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[user] укладыва[pluralize_ru(user.gender,"ет","ют")] [H] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [H] в [declent_ru(ACCUSATIVE)].")
 
-	add_fingerprint(user)
+	if(!do_after(user, 2 SECONDS, H))
+		return
+
 	H.forceMove(src)
 	occupant = H
 	update_icon(UPDATE_ICON_STATE)
@@ -220,10 +231,13 @@
 		A.forceMove(loc)
 	SStgui.update_uis(src)
 
-/obj/machinery/bodyscanner/proc/eject_id()
+/obj/machinery/bodyscanner/proc/eject_id(mob/user)
 	if(!inserted_id)
 		return
 	inserted_id.forceMove(loc)
+	if(user && Adjacent(user) && !issilicon(user))
+		user.put_in_hands(inserted_id, ignore_anim = FALSE)
+		balloon_alert(user, "ID-карта извлечена")
 	inserted_id = null
 	SStgui.update_uis(src)
 

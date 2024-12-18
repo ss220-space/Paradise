@@ -6,7 +6,7 @@
 
 /obj/machinery/sleeper
 	name = "Sleeper"
-	desc = "Медицинское устройство, предназначено для стабилизации пациентов. Позволяет вводить ограниченный набор веществ в организм субъекта."
+	desc = "Медицинское устройство, предназначеное для стабилизации пациентов. Позволяет вводить ограниченный набор веществ в организм субъекта."
 	ru_names = list(
 		NOMINATIVE = "слипер",
 		GENITIVE = "слипера",
@@ -94,6 +94,16 @@
 	if(user.incapacitated())
 		return 0 //maybe they should be able to get out with cuffs, but whatever
 	go_out()
+
+/obj/machinery/sleeper/examine(mob/user)
+	. = ..()
+	if(occupant)
+		if(occupant.is_dead())
+			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [genderize_ru(occupant.gender, "Он мёртв", "Она мертва", "Оно мертво", "Они мертвы")]!")
+		else
+			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
+	if(Adjacent(user))
+		. += span_info("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.<br>Используйте <b>Alt + ЛКМ</b>, чтобы извлечь ёмкость.")
 
 /obj/machinery/sleeper/process()
 	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
@@ -346,7 +356,7 @@
 		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return .
 
-	visible_message("[grabber] укладыва[pluralize_ru(grabber.gender,"ет","ют")] [target] в [declent_ru(ACCUSATIVE)].")
+	visible_message("[grabber] начина[pluralize_ru(grabber.gender,"ет","ют")] укладывать [target] в [declent_ru(ACCUSATIVE)].")
 	if(!do_after(grabber, 2 SECONDS, target) || panel_open || !target || !grabber || grabber.pulling != target || !grabber.Adjacent(src))
 		return .
 
@@ -356,6 +366,17 @@
 	to_chat(target, span_boldnotice("Вы чувствуете, как вас окутывает холод. Вы цепенеете и расслабляетесь, внутренние процессы организма замедляются."))
 	add_fingerprint(grabber)
 	SStgui.update_uis(src)
+
+/obj/machinery/sleeper/AltClick(mob/living/user)
+	if(!beaker)
+		return
+	beaker.forceMove(loc)
+	if(Adjacent(user) && !issilicon(user))
+		user.put_in_hands(beaker, ignore_anim = FALSE)
+		balloon_alert(user, "ёмкость извлечена")
+	beaker = null
+	add_fingerprint(user)
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/sleeper/crowbar_act(mob/user, obj/item/I)
@@ -529,7 +550,7 @@
 	if(L == user)
 		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] помещать [L.name] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [L.name] в [declent_ru(ACCUSATIVE)].")
 	. = TRUE
 	INVOKE_ASYNC(src, PROC_REF(put_in), L, user)
 
@@ -565,10 +586,10 @@
 		balloon_alert(usr, "внутри кто-то есть!")
 		return
 	if(panel_open)
-		balloon_alert(usr, "техпанель открыта")
+		balloon_alert(usr, "техпанель открыта!")
 		return
 	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, span_warning("[usr] не помест[pluralize_ru(usr.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(usr.gender, "нём", "ней", "нём", "них")] сидит слайм."))
+		to_chat(usr, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм."))
 		return
 	visible_message("[usr] начина[pluralize_ru(usr.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
 	put_in(usr, usr)
