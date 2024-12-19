@@ -6322,6 +6322,7 @@
 /obj/structure/disposalpipe/broken{
 	dir = 4
 	},
+/obj/structure/disposalpipe/broken,
 /turf/simulated/floor/plating,
 /area/space)
 "bxu" = (
@@ -16771,6 +16772,14 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"dFv" = (
+/obj/item/trash/can{
+	pixel_x = 10;
+	pixel_y = -5
+	},
+/obj/structure/curtain/open,
+/turf/simulated/floor/plating/airless,
+/area/space)
 "dFx" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -16878,6 +16887,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
+/area/space)
+"dGT" = (
+/obj/structure/curtain{
+	color = "758689"
+	},
+/turf/simulated/floor/plating/airless,
 /area/space)
 "dGZ" = (
 /obj/machinery/status_display,
@@ -31856,6 +31871,59 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"gKt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable{
+	icon = 'icons/effects/little_letters.dmi';
+	icon_state = "e";
+	pixel_y = 19;
+	pixel_x = 16;
+	color = "471616"
+	},
+/obj/effect/decal/cleanable{
+	icon = 'icons/effects/little_letters.dmi';
+	icon_state = "s";
+	pixel_x = 5;
+	pixel_y = 21;
+	color = "471616"
+	},
+/obj/effect/decal/cleanable{
+	icon = 'icons/effects/little_letters.dmi';
+	icon_state = "d";
+	pixel_y = 19;
+	pixel_x = 9;
+	color = "471616"
+	},
+/obj/effect/decal/cleanable{
+	icon = 'icons/effects/little_letters.dmi';
+	icon_state = "c";
+	pixel_y = 21;
+	pixel_x = 20;
+	color = "471616"
+	},
+/obj/effect/decal/cleanable{
+	icon = 'icons/effects/little_letters.dmi';
+	icon_state = "mm";
+	pixel_y = 21;
+	pixel_x = 24;
+	color = "471616"
+	},
+/obj/effect/decal/cleanable{
+	icon = 'icons/effects/little_letters.dmi';
+	icon_state = "n";
+	pixel_y = 11;
+	pixel_x = 21;
+	color = "471616"
+	},
+/obj/effect/decal/cleanable{
+	icon = 'icons/effects/little_letters.dmi';
+	icon_state = "e";
+	pixel_y = 13;
+	pixel_x = 26;
+	color = "471616"
+	},
+/turf/simulated/floor/plating,
+/area/space)
 "gKx" = (
 /obj/item/trash/pistachios,
 /obj/item/reagent_containers/syringe{
@@ -42679,6 +42747,11 @@
 /obj/machinery/constructable_frame/machine_frame,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
+/area/space)
+"jeK" = (
+/obj/item/shard,
+/obj/structure/curtain/black,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "jfo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -69789,6 +69862,10 @@
 	icon_state = "whitered"
 	},
 /area/space)
+"oXZ" = (
+/obj/structure/curtain/medical,
+/turf/simulated/floor/plating/airless,
+/area/space)
 "oYa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
@@ -70084,6 +70161,11 @@
 "pcg" = (
 /turf/simulated/floor/engine,
 /area/maintenance/gambling_den)
+"pct" = (
+/obj/item/reagent_containers/food/pill/salbutamol,
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/space)
 "pcH" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -70978,6 +71060,10 @@
 	icon_state = "brown"
 	},
 /area/maintenance/fsmaint)
+"pmj" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating/airless,
+/area/space)
 "pml" = (
 /obj/structure/dispenser,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -85167,6 +85253,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop)
+"slj" = (
+/obj/structure/bookcase,
+/turf/simulated/floor/plating/airless,
+/area/space)
 "sln" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/warning_stripes/yellow,
@@ -92029,7 +92119,6 @@
 /area/atmos)
 "tJq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/event/blobstart,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -101471,6 +101560,7 @@
 /area/toxins/mixing)
 "vNz" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/event/blobstart,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple";
 	dir = 10;
@@ -103404,6 +103494,44 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"wjy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable{
+	icon = 'icons/effects/little_letters.dmi';
+	icon_state = "o";
+	pixel_x = 5;
+	pixel_y = 20;
+	color = "471616"
+	},
+/obj/effect/decal/cleanable{
+	icon = 'icons/effects/little_letters.dmi';
+	icon_state = "b";
+	pixel_y = 21;
+	color = "471616"
+	},
+/obj/effect/decal/cleanable{
+	icon = 'icons/effects/little_letters.dmi';
+	icon_state = "g";
+	pixel_x = 9;
+	pixel_y = 21;
+	color = "471616"
+	},
+/obj/effect/decal/cleanable{
+	icon = 'icons/effects/little_letters.dmi';
+	icon_state = "a";
+	pixel_x = 13;
+	pixel_y = 22;
+	color = "471616"
+	},
+/obj/effect/decal/cleanable{
+	icon = 'icons/effects/little_letters.dmi';
+	icon_state = "t";
+	pixel_y = 12;
+	pixel_x = 2;
+	color = "471616"
+	},
+/turf/simulated/floor/plating,
+/area/space)
 "wjO" = (
 /obj/machinery/door/airlock/glass{
 	name = "Chapel"
@@ -104924,6 +105052,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
+/area/space)
+"wzx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel,
 /area/space)
 "wzE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -131381,10 +131517,10 @@ nEk
 dZo
 mUy
 bxt
-uNo
-cee
-cee
-cee
+mtL
+eOC
+eOC
+wzx
 geX
 iOO
 hlp
@@ -131641,7 +131777,7 @@ tye
 uNo
 bvz
 geX
-bvz
+sUT
 uNo
 dZo
 bsL
@@ -131898,7 +132034,7 @@ gcV
 tnk
 dZo
 bsL
-iOO
+iSQ
 bsL
 bsL
 nEk
@@ -132155,7 +132291,7 @@ yeL
 uNo
 iOO
 qin
-qin
+qdd
 qin
 wEH
 qin
@@ -140048,10 +140184,10 @@ qin
 wye
 fAD
 fAG
-nEk
+yfY
 slA
 vhb
-gUU
+dFv
 nEk
 qin
 qin
@@ -140303,11 +140439,11 @@ wEH
 wEH
 qin
 ifP
-nEk
+pmj
 olE
 eaf
 iFv
-eba
+pct
 uec
 ifP
 ifP
@@ -140565,7 +140701,7 @@ icg
 ofv
 dhP
 hPV
-nEk
+yfY
 nAv
 lLk
 wye
@@ -140817,10 +140953,10 @@ wEH
 wEH
 qin
 ifP
-nEk
+dVZ
 pde
 lLk
-nEk
+dGT
 hoe
 ohE
 xOq
@@ -141076,12 +141212,12 @@ qin
 wye
 nHZ
 lLk
-nEk
+slj
 jqG
 olE
 gUU
 uec
-nEk
+oXZ
 wye
 qin
 wEH
@@ -141334,9 +141470,9 @@ ifP
 wye
 yfY
 ifP
-iFv
+jeK
 gKx
-nEk
+mHw
 ifP
 ifP
 ifP
@@ -141592,7 +141728,7 @@ qin
 qin
 wye
 eba
-nEk
+slj
 vHT
 yfY
 qin
@@ -152729,7 +152865,7 @@ qin
 bjG
 qin
 ifP
-geX
+gKt
 vco
 geX
 ifP
@@ -152986,7 +153122,7 @@ wEH
 utq
 wEH
 iOO
-geX
+wjy
 iVT
 geX
 ifP
