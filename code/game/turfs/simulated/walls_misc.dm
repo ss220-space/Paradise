@@ -4,6 +4,7 @@
 	icon = 'icons/turf/walls/cult_wall.dmi'
 	icon_state = "cult"
 	canSmoothWith = null
+	smoothing_groups = null
 	smooth = NONE
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
@@ -16,6 +17,7 @@
 	icon = 'icons/turf/walls/cult_wall.dmi'
 	icon_state = "cult"
 	canSmoothWith = null
+	smoothing_groups = null
 	smooth = NONE
 	sheet_type = /obj/item/stack/sheet/runed_metal_fake
 	sheet_amount = 1

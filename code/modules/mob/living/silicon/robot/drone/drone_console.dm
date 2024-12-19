@@ -1,6 +1,6 @@
 /obj/machinery/computer/drone_control
 	name = "maintenance drone control console"
-	desc = "Used to monitor the station's drone population and the assembler that services them."
+	desc = "Используется для наблюдения за популяцией дронов на станции и сборщиком, который их обслуживает."
 	icon_screen = "power"
 	icon_keyboard = "power_key"
 	req_access = list(ACCESS_ENGINE_EQUIP)
