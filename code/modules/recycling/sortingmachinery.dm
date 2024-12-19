@@ -21,6 +21,8 @@
 	var/turf/our_turf = get_turf(src)
 	for(var/atom/movable/thing as anything in contents)
 		thing.forceMove(our_turf)
+		qdel(thing)
+
 	wrapped = null
 	return ..()
 
