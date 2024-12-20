@@ -231,6 +231,9 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		if(!initial(gene.name))
 			continue
 
+		if(!gene.can_activate(user))
+			continue
+
 		LAZYADD(genes, initial(gene.name))
 
 	if(!LAZYLEN(genes))
@@ -277,7 +280,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		if("gene")
 			if(!can_upgrade(usr, params["choice"]))
 				return TRUE
-
+			
 			upgrade(usr, params["choice"])
 
 			return TRUE
@@ -343,6 +346,9 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	for(var/datum/dna/gene/basic/vault/gene as anything in subtypesof(/datum/dna/gene/basic/vault))
 		if(initial(gene.name) != upgrade_name)
 			continue
+
+		if(!gene.can_activate(human))
+			return FALSE
 
 		gene.activate(human)
 		break

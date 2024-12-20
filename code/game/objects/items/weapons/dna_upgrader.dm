@@ -1,6 +1,6 @@
 /obj/item/dna_upgrader
 	name = "dna upgrader"
-	desc = "Говорят, что такое великое изменение генома может быть только при выполнении цели станции... Дураки."
+	desc = "Говорят, что такое великое изменение генома может быть достигнуто только при выполнении цели станции... Глупцы."
 
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "dnaupgrader"
@@ -41,11 +41,14 @@
 
 	return TRUE
 
-/obj/item/dna_upgrader/proc/get_vault_genes_names()
+/obj/item/dna_upgrader/proc/get_vault_genes_names(mob/user)
 	var/list/vault_genes_names
 
 	for(var/datum/dna/gene/basic/vault/gene as anything in subtypesof(/datum/dna/gene/basic/vault))
 		if(!initial(gene.name))
+			continue
+
+		if(!gene.can_activate(user))
 			continue
 
 		LAZYADD(vault_genes_names, initial(gene.name))
@@ -57,7 +60,7 @@
 		user, 
 		"Choose a modification", 
 		name, 
-		get_vault_genes_names(), 
+		get_vault_genes_names(user), 
 		ui_state = GLOB.not_incapacitated_state
 		)
 
@@ -67,6 +70,9 @@
 	for(var/datum/dna/gene/basic/vault/gene as anything in subtypesof(/datum/dna/gene/basic/vault))
 		if(initial(gene.name) != choosen_gene)
 			continue
+
+		if(!gene.can_activate(user))
+			return FALSE
 
 		gene.activate(user)
 		break
