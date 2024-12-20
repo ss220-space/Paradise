@@ -12,10 +12,11 @@
 	light_on = FALSE
 
 
-/obj/item/organ/internal/New(mob/living/carbon/holder)
-	..()
-	if(istype(holder))
-		insert(holder)
+/obj/item/organ/internal/Initialize(mapload)
+	. = ..()
+
+	if(iscarbon(loc))
+		insert(loc)
 
 	if(species_type == /datum/species/diona)
 		AddComponent(/datum/component/diona_internals)
