@@ -59,7 +59,8 @@
 			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [genderize_ru(occupant.gender, "Он мёртв", "Она мертва", "Оно мертво", "Они мертвы")]!")
 		else
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
-	. += span_info("Наведите курсор на пациента, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить пациента внутрь.<br>Используйте <b>Alt + ЛКМ</b>, чтобы извлечь ёмкость.")
+	if(Adjacent(user))
+		. += span_info("Наведите курсор на пациента, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить пациента внутрь.<br>Используйте <b>Alt + ЛКМ</b>, чтобы извлечь ёмкость.")
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/New()
