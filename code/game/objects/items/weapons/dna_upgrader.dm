@@ -48,6 +48,9 @@
 		if(!initial(gene.name))
 			continue
 
+		if(LAZYIN(user.active_genes, gene))
+			continue
+
 		if(!gene.can_activate(user))
 			continue
 
@@ -70,6 +73,9 @@
 	for(var/datum/dna/gene/basic/vault/gene as anything in subtypesof(/datum/dna/gene/basic/vault))
 		if(initial(gene.name) != choosen_gene)
 			continue
+
+		if(LAZYIN(human.active_genes, gene))
+			return FALSE
 
 		if(!gene.can_activate(user))
 			return FALSE

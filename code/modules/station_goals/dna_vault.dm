@@ -231,6 +231,9 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		if(!initial(gene.name))
 			continue
 
+		if(LAZYIN(user.active_genes, gene))
+			continue
+
 		if(!gene.can_activate(user))
 			continue
 
@@ -346,6 +349,9 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	for(var/datum/dna/gene/basic/vault/gene as anything in subtypesof(/datum/dna/gene/basic/vault))
 		if(initial(gene.name) != upgrade_name)
 			continue
+
+		if(LAZYIN(human.active_genes, gene))
+			return FALSE
 
 		if(!gene.can_activate(human))
 			return FALSE
