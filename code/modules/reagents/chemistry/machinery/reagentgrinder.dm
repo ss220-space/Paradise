@@ -306,7 +306,7 @@
 				if (beaker)
 						dat += "<a href='byond://?src=[src.UID()];action=detach'>Извлечь ёмкость</a><BR>"
 		else
-				dat += "Please wait..."
+				dat += "Пожалуйста, подождите..."
 
 		var/datum/browser/popup = new(user, "reagentgrinder", "Универсальный блендер")
 		popup.set_content(dat)
