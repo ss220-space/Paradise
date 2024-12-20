@@ -1,5 +1,8 @@
 /datum/dna/gene/basic/vault
 
+/datum/dna/gene/basic/vault/can_activate(mob/living/carbon/human/human, flags)
+    return istype(human)
+
 /datum/dna/gene/basic/vault/toxin
     name = "Toxin Adaptation"
     

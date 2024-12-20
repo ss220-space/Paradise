@@ -48,7 +48,7 @@
 		if(!initial(gene.name))
 			continue
 
-		if(LAZYIN(user.active_genes, gene))
+		if(gene.is_active(user))
 			continue
 
 		if(!gene.can_activate(user))
@@ -74,7 +74,7 @@
 		if(initial(gene.name) != choosen_gene)
 			continue
 
-		if(LAZYIN(user.active_genes, gene))
+		if(gene.is_active(user))
 			return FALSE
 
 		if(!gene.can_activate(user))

@@ -231,7 +231,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		if(!initial(gene.name))
 			continue
 
-		if(LAZYIN(user.active_genes, gene))
+		if(gene.is_active(user))
 			continue
 
 		if(!gene.can_activate(user))
@@ -350,7 +350,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		if(initial(gene.name) != upgrade_name)
 			continue
 
-		if(LAZYIN(human.active_genes, gene))
+		if(gene.is_active(human))
 			return FALSE
 
 		if(!gene.can_activate(human))
