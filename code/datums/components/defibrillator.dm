@@ -234,7 +234,6 @@
 		defib_ref.atom_say("Реанимация не удалась - обнаружены необратимые повреждения сердца!")
 		defib_success = FALSE
 	else if(target.getBruteLoss() >= 180 || target.getFireLoss() >= 180 || target.getCloneLoss() >= 180)
-		user.visible_message(span_boldnotice("[defib_ref] buzzes: Resuscitation failed - Severe tissue damage detected."))
 		defib_ref.atom_say("Реанимация не удалась - обнаружены обширные повреждения тканей!")
 		defib_success = FALSE
 	else if(target.blood_volume < BLOOD_VOLUME_SURVIVE)
