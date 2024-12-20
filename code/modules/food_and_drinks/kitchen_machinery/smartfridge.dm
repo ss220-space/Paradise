@@ -263,6 +263,7 @@
 
 /obj/machinery/smartfridge/attack_hand(mob/user)
 	if(stat & (BROKEN|NOPOWER))
+		balloon_alert(user, "не работает!")
 		return
 	wires.Interact(user)
 	ui_interact(user)

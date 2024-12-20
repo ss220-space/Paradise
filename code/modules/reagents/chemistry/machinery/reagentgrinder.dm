@@ -1,6 +1,6 @@
 /obj/machinery/reagentgrinder
 	name = "\improper All-In-One Grinder"
-	desc = "Измельчает, дробит, разжижает и извлекает реагенты из предметов, помещённых внутрь. Ради всего святого, не суйте туда свои пальцы."
+	desc = "Измельчает, дробит, разжижает и извлекает вещества из предметов, помещённых внутрь. Ради всего святого, не суйте туда свои пальцы."
 	ru_names = list(
 		NOMINATIVE = "универсальный блендер",
 		GENITIVE = "универсального блендера",
@@ -159,6 +159,7 @@
 	if(!anchored || beaker)
 		return
 	if(!panel_open)
+		balloon_alert(user, "панель закрыта!")
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -235,6 +236,7 @@
 		user.visible_message(
 			span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] содержимое [bag.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы загрузили содержимое [bag.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
+		balloon_alert(user, "содержимое загружено")
 		updateUsrDialog()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -246,6 +248,10 @@
 		return ..()
 
 	holdingitems += I
+	user.visible_message(
+		span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы загрузили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+	balloon_alert(user, "загружено в камеру")
 	updateUsrDialog()
 	return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -342,8 +348,8 @@
 		if (!beaker)
 				return
 		beaker.loc = src.loc
-		if(Adjacent(user) && !issilicon(user))
-			user.put_in_hands(beaker, ignore_anim = FALSE)
+		if(Adjacent(usr) && !issilicon(usr))
+				usr.put_in_hands(beaker, ignore_anim = FALSE)
 		beaker = null
 		update_icon(UPDATE_ICON_STATE)
 		updateUsrDialog()
