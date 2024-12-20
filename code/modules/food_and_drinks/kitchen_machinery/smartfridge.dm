@@ -244,7 +244,7 @@
 		if(items_loaded)
 			user.visible_message(
 				span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] содержимое [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
-				span_notice("[user] загрузили содержимое [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+				span_notice("Вы загрузили содержимое [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 			)
 			balloon_alert(user, "содержимое загружено")
 			SStgui.update_uis(src)
@@ -292,7 +292,7 @@
 	if(items_loaded)
 		user.visible_message(
 			span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] содержимое [P.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
-			span_notice("[user] загрузили содержимое [P.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
+			span_notice("Вы загрузили содержимое [P.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "содержимое загружено")
 		update_icon(UPDATE_OVERLAYS)
 	var/failed = length(P.contents)
@@ -305,7 +305,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Smartfridge", [capitalize(declent_ru(NOMINATIVE))])
+		ui = new(user, src, "Smartfridge", name)
 		ui.open()
 
 /obj/machinery/smartfridge/ui_data(mob/user)
@@ -436,7 +436,7 @@
 		return FALSE
 
 	INVOKE_ASYNC(throw_item, TYPE_PROC_REF(/atom/movable, throw_at), target, 16, 3, src)
-	visible_message(span_warning("[capitalize[declent_ru(NOMINATIVE)]] кидает [throw_item.declent_ru(ACCUSATIVE)] в [target]!"))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] кидает [throw_item.declent_ru(ACCUSATIVE)] в [target]!"))
 	return TRUE
 
 /**
