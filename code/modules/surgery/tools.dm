@@ -52,7 +52,7 @@
 
 /obj/item/hemostat
 	name = "hemostat"
-	desc = "Инструмент для остановки кровотечения."
+	desc = "Инструмент для зажима кровоточащих сосудов во время операций."
 	ru_names = list(
 		NOMINATIVE = "гемостат",
 		GENITIVE = "гемостата",
@@ -120,12 +120,12 @@
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/cautery/augment
-	desc = "Нагревательный элемент, используемый для прижигания раны."
+	desc = "Нагревательный элемент, используемый для прижигания ран."
 	toolspeed = 0.5
 
 /obj/item/surgicaldrill
 	name = "surgical drill"
-	desc = "Инструмент, предназначенный для сверления отверстий. Постарайтесь не попасть в глаз!"
+	desc = "Инструмент, предназначенный для сверления отверстий. Постарайтесь не попасть себе в глаз!"
 	icon = 'icons/obj/surgery.dmi'
 	ru_names = list(
 		NOMINATIVE = "хирургическая дрель",
@@ -277,12 +277,12 @@
 	desc = "Этот небольшой хирургический аппарат по праву можно называть продолжением руки хирурга. Всего за несколько мгновений подготавливает и обрабатывает разрез, позволяя почти сразу перейти к основной стадии операции."
 	icon_state = "scalpel_manager_on"
 	ru_names = list(
-		NOMINATIVE = "система",
-		GENITIVE = "системы",
-		DATIVE = "системе",
-		ACCUSATIVE = "систему",
-		INSTRUMENTAL = "системой",
-		PREPOSITIONAL = "системе",
+		NOMINATIVE = "система обработки надрезов",
+		GENITIVE = "системы обработки надрезов",
+		DATIVE = "системе обработки надрезов",
+		ACCUSATIVE = "систему обработки надрезов",
+		INSTRUMENTAL = "системой обработки надрезов",
+		PREPOSITIONAL = "системе обработки надрезов",
 	)
 	icon
 	toolspeed = 0.2
@@ -301,6 +301,7 @@
 	. = ..()
 	toolspeed = toolspeed == 0.5 ? 0.01 : 0.5
 	to_chat(user, "Установленная скорость инструмента у [declent_ru(GENITIVE)] - [toolspeed].")
+	balloon_alert(user, "скорость изменена")
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
 
 /obj/item/circular_saw
@@ -344,7 +345,7 @@
 		GENITIVE = "лазерной хирургической пилы",
 		DATIVE = "лазерной хирургической пиле",
 		ACCUSATIVE = "лазерную хирургическую пилу",
-		INSTRUMENTAL = "лезрной хирургической пилой",
+		INSTRUMENTAL = "лазерной хирургической пилой",
 		PREPOSITIONAL = "лазерной хирургической пиле",
 	)
 	icon_state = "saw_laser"
@@ -361,14 +362,14 @@
 //misc, formerly from code/defines/weapons.dm
 /obj/item/bonegel
 	name = "bone gel"
-	desc = "Небольшой баллончик, содержищий в себе гель, сращивающий и заживляющий костей."
+	desc = "Небольшой баллончик, содержищий в себе гель, сращивающий и заживляющий кости."
 	ru_names = list(
-		NOMINATIVE = "гель для костей",
-		GENITIVE = "гели для костей",
-		DATIVE = "гелю для костей",
-		ACCUSATIVE = "гель для костей",
-		INSTRUMENTAL = "гелью для костей",
-		PREPOSITIONAL = "геле для костей",
+		NOMINATIVE = "костяной гель",
+		GENITIVE = "костяного геля",
+		DATIVE = "костяному гелю",
+		ACCUSATIVE = "костяной гель",
+		INSTRUMENTAL = "костяным гелем",
+		PREPOSITIONAL = "костяном геле",
 	)
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone-gel"
@@ -418,12 +419,12 @@
 	name = "bone setter"
 	desc = "Хирургический инструмент, предназначенный для вправления и закрепления костей."
 	ru_names = list(
-		NOMINATIVE = "вправитель костей",
-		GENITIVE = "вправителя костей",
-		DATIVE = "вправителю костей",
-		ACCUSATIVE = "вправитель костей",
-		INSTRUMENTAL = "вправителем костей",
-		PREPOSITIONAL = "вправителе костей",
+		NOMINATIVE = "костоправ",
+		GENITIVE = "костоправа",
+		DATIVE = "костоправу",
+		ACCUSATIVE = "костоправ",
+		INSTRUMENTAL = "костоправом",
+		PREPOSITIONAL = "костоправе",
 	)
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone setter"
@@ -443,14 +444,14 @@
 
 /obj/item/bonesetter/laser
 	name = "Advanced Laser Bone Setter"
-	desc = "Инструмент для правки костей, но с лазерными зубами. Последнее слово техники в сфере хирургических операций!"
+	desc = "Инструмент для правки костей, оборудованный лазерными элементами. Последнее слово техники в сфере хирургических операций!"
 	ru_names = list(
-		NOMINATIVE = "лазерный вправитель костей",
-		GENITIVE = "лазерного вправителя костей",
-		DATIVE = "лазерному вправителю костей",
-		ACCUSATIVE = "лазерный вправитель костей",
-		INSTRUMENTAL = "лазерным вправителем костей",
-		PREPOSITIONAL = "лазерном вправителе костей",
+		NOMINATIVE = "лазерный костоправ",
+		GENITIVE = "лазерного костоправа",
+		DATIVE = "лазерному костоправу",
+		ACCUSATIVE = "лазерный костоправ",
+		INSTRUMENTAL = "лазерным костоправом",
+		PREPOSITIONAL = "лазерном костоправе",
 	)
 	icon_state = "bonesetter_laser"
 	item_state = "bonesetter_laser"
@@ -461,7 +462,7 @@
 
 /obj/item/surgical_drapes
 	name = "surgical drapes"
-	desc = "Хирургическая простыня марки Nanotrasen. Обеспечивает оптимальную безопасность и инфекционный контроль."
+	desc = "Хирургическая простыня, обеспечивающая оптимальную безопасность и инфекционный контроль."
 	ru_names = list(
 		NOMINATIVE = "хирургическая простыня",
 		GENITIVE = "хирургической простыни",
