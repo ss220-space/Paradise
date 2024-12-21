@@ -152,11 +152,17 @@
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/surgicaldrill/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] наматыва[pluralize_ru(user.gender, "ет", "ют")] себя на [declent_ru(ACCUSATIVE)]! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] соверша[pluralize_ru(user.gender, "ет", "ют")] суицид!"))
+	user.visible_message(
+		span_suicide("[user] наматыва[pluralize_ru(user.gender, "ет", "ют")] себя на [declent_ru(ACCUSATIVE)]!\n\
+		Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] соверша[pluralize_ru(user.gender, "ет", "ют")] суицид!")
+		)
+
 	addtimer(CALLBACK(src, PROC_REF(second_act), user), 2.5 SECONDS)
 	user.SpinAnimation(3, 10)
+
 	ADD_TRAIT(user, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 	playsound(user, 'sound/machines/juicer.ogg', 20, TRUE)
+	
 	return OBLITERATION
 
 /obj/item/surgicaldrill/proc/second_act(mob/user)
