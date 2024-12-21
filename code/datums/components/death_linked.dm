@@ -6,7 +6,7 @@
 /datum/component/death_linked
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 	/// Mobs in that list will die when the user dies. Contains weakrefs
-	var/list/linked_mobs = list()
+	var/list/linked_mobs
 
 /datum/component/death_linked/Initialize(list/mobs)
 	. = ..()
