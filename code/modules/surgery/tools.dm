@@ -163,8 +163,8 @@
 	if(!user)
 		return
 
-	for(var/obj/item/W in user.get_equipped_items())
-		user.drop_item_ground(W)
+	for(var/obj/item/item in user.get_equipped_items())
+		user.drop_item_ground(item)
 
 	user.gib()
 
