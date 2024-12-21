@@ -219,7 +219,7 @@
 /mob/living/proc/adjust_fire_stacks(add_fire_stacks) //Adjusting the amount of fire_stacks we have on person
 	SEND_SIGNAL(src, COMSIG_MOB_ADJUST_FIRE)
 	fire_stacks = clamp(fire_stacks + add_fire_stacks, -20, 20)
-	var/datum/status_effect/wet_stacks/wet_effect = has_status_effect(/datum/status_effect/wet_stacks)
+	var/datum/status_effect/stacking/wet_stacks/wet_effect = has_status_effect(/datum/status_effect/stacking/wet_stacks)
 	wet_effect?.combine_wet_and_fire()
 	if(on_fire && fire_stacks <= 0)
 		ExtinguishMob()
@@ -248,21 +248,21 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_FIRE_TICK)
 	return TRUE
 
-/mob/living/proc/WetMob(wet_type = /datum/status_effect/wet_stacks)
-	var/datum/status_effect/wet_stacks/effect = has_status_effect(wet_type)
+/mob/living/proc/WetMob(wet_type = /datum/status_effect/stacking/wet_stacks)
+	var/datum/status_effect/stacking/wet_stacks/effect = has_status_effect(wet_type)
 	return 	effect?.WetMob()
 
 
-/mob/living/proc/adjust_wet_stacks(add_wet_stacks, wet_type = /datum/status_effect/wet_stacks) //Adjusting the amount of fire_stacks we have on person
-	var/datum/status_effect/wet_stacks/effect = has_status_effect(wet_type)
+/mob/living/proc/adjust_wet_stacks(add_wet_stacks, wet_type = /datum/status_effect/stacking/wet_stacks) //Adjusting the amount of fire_stacks we have on person
+	var/datum/status_effect/stacking/wet_stacks/effect = has_status_effect(wet_type)
 	if(effect)
-		effect.adjust_wet_stacks(add_wet_stacks)
+		effect.add_stacks(add_wet_stacks)
 	else
 		apply_status_effect(wet_type, add_wet_stacks)
 
 
-/mob/living/proc/DryMob(wet_type = /datum/status_effect/wet_stacks)
-	var/datum/status_effect/wet_stacks/effect = has_status_effect(wet_type)
+/mob/living/proc/DryMob(wet_type = /datum/status_effect/stacking/wet_stacks)
+	var/datum/status_effect/stacking/wet_stacks/effect = has_status_effect(wet_type)
 	return effect?.DryMob()
 
 
