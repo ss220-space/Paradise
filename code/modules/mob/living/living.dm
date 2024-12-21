@@ -760,7 +760,6 @@
 	fire_stacks = 0
 	fire_stacks = 0
 	on_fire = 0
-	is_wet = FALSE
 	suiciding = 0
 	if(buckled) //Unbuckle the mob and clear the alerts.
 		buckled.unbuckle_mob(src, force = TRUE)
@@ -792,7 +791,6 @@
 	get_up(instant = TRUE)
 
 	update_fire()
-	update_wet()
 	regenerate_icons()
 	restore_blood()
 	if(human_mob)

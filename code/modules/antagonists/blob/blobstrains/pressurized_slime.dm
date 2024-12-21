@@ -34,7 +34,6 @@
 				O.extinguish()
 			for(var/mob/living/L in T)
 				L.adjust_wet_stacks(2.5)
-				L.WetMob()
 				L.ExtinguishMob()
 
 /datum/reagent/blob/pressurized_slime
@@ -50,7 +49,6 @@
 	if(istype(location_turf) && !(iswallturf(location_turf) || ismineralturf(location_turf)) && prob(reac_volume))
 		location_turf.MakeSlippery(TURF_WET_LUBE, min_wet_time = 10 SECONDS, wet_time_to_add = 5 SECONDS)
 		exposed_mob.adjust_wet_stacks(reac_volume / 10)
-		exposed_mob.WetMob()
 	exposed_mob.apply_damage(0.4*reac_volume, BRUTE, forced=TRUE)
 	if(exposed_mob)
 		exposed_mob.adjustStaminaLoss(reac_volume, FALSE)

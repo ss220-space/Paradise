@@ -45,7 +45,6 @@
 		handle_environment(environment)
 
 	handle_fire()
-	handle_wet()
 
 	var/datum/antagonist/vampire/vamp = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp)

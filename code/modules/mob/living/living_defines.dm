@@ -38,11 +38,6 @@
 	var/on_fire = 0 //The "Are we on fire?" var
 	var/fire_stacks = 0 //Tracks how many stacks of fire we have on, max is usually 20
 
-	/// The "Are we wet?" var
-	var/is_wet = 0
-	/// Tracks how many stacks of wet we have on, max is usually 20
-	var/wet_stacks = 0
-
 
 	var/mob_size = MOB_SIZE_HUMAN
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
@@ -150,5 +145,3 @@
 
 	/// Famous last words -- if succumbing, what the user's last words were
 	var/last_words
-
-	var/obj/effect/abstract/particle_holder/wet_effect

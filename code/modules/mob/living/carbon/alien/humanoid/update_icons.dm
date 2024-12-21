@@ -38,7 +38,6 @@
 	update_inv_hands()
 	update_inv_pockets()
 	update_fire()
-	update_wet()
 
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
