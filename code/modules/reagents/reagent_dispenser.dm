@@ -152,12 +152,11 @@
 
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/user, params)
-
 	if(istype(I, /obj/item/weldingtool/sword))
 		if(I.tool_enabled)
 			boom(FALSE, TRUE)
 			return ATTACK_CHAIN_BLOCKED_ALL
-			
+
 	if(istype(I, /obj/item/assembly_holder))
 		add_fingerprint(user)
 		var/obj/item/assembly_holder/assembly = I

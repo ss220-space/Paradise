@@ -88,7 +88,7 @@
 
 /obj/item/weldingtool/attack_self(mob/user)
 	if(try_toggle_welder(user))
-		. = ..()
+		return ..()
 
 /obj/item/weldingtool/proc/try_toggle_welder(mob/user, manual_toggle = TRUE)
 	if(tool_enabled) //Turn off the welder if it's on
