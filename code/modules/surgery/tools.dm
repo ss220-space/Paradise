@@ -155,7 +155,7 @@
 	user.visible_message(span_suicide("[user] наматыва[pluralize_ru(user.gender, "ет", "ют")] себя на [declent_ru(ACCUSATIVE)]! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] соверша[pluralize_ru(user.gender, "ет", "ют")] суицид!"))
 	addtimer(CALLBACK(src, PROC_REF(second_act), user), 2.5 SECONDS)
 	user.SpinAnimation(3, 10)
-	user.Immobilize(5 SECONDS)
+	ADD_TRAIT(user, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 	playsound(user, 'sound/machines/juicer.ogg', 20, TRUE)
 	return OBLITERATION
 
@@ -163,7 +163,7 @@
 	if(!user)
 		return
 
-	for(var/obj/item/W in user)
+	for(var/obj/item/W in user.get_equipped_items())
 		user.drop_item_ground(W)
 
 	user.gib()
