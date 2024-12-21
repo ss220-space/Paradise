@@ -261,7 +261,7 @@
 		apply_status_effect(wet_type, add_wet_stacks)
 
 
-/mob/living/proc/DryMob(wet_type = /datum/status_effect/stacking/wet_stacks)
+/mob/living/proc/DryMob(wet_type = /datum/status_effect/stacking/wet)
 	var/datum/status_effect/stacking/wet/effect = has_status_effect(wet_type)
 	return effect?.DryMob()
 
