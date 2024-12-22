@@ -171,6 +171,7 @@ jobs:
           git push -f origin ${{ env.TESTMERGE_BRANCH }}
           
           if [ ${{ inputs.apply_to_stable }} ] ; then
+            git fetch origin ${{ env.STABLE_BRANCH }}
             git push -f origin ${{ env.STABLE_BRANCH }}
           fi
           
