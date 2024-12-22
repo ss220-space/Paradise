@@ -11,7 +11,7 @@ on:
         type: boolean
         required: true
         default: false
-        
+
 env:
   BASE_BRANCH: master220
   TESTMERGE_BRANCH: testmerge
@@ -109,6 +109,7 @@ jobs:
           git config --local user.name "Testmerge Worker"
           git switch ${{ env.TESTMERGE_BRANCH }} || git switch -c ${{ env.TESTMERGE_BRANCH }}
           git reset --hard ${{ env.BASE_BRANCH }}
+          PRE_TESTMERGE_SHA=$(git rev-parse HEAD)
 
           ./tools/hooks/install.sh
           ./tgui/bin/tgui --install-git-hooks
@@ -158,28 +159,30 @@ jobs:
             git config --local user.name "Changelog Generation"
             git commit -m "Automatic changelog generation"
           fi
-          
+
           # Generate TGUI bundle
-          ./tgui/bin/tgui
-          CHANGES=$(git diff | wc -l)
+          POST_TESTMERGE_SHA=$(git rev-parse HEAD)
+          CHANGES=$(git diff $POST_TESTMERGE_SHA $PRE_TESTMERGE_SHA ./tgui | wc -l)
+
           if [ "$CHANGES" -gt 0 ] ; then
+            ./tgui/bin/tgui
             git config --local user.email "action@github.com"
             git config --local user.name "TGUI bundle Generation"
             git commit -am "Testmerge TGUI bundle build generation"
           fi
-          
+
           git push -f origin ${{ env.TESTMERGE_BRANCH }}
-          
+
           if [ ${{ inputs.apply_to_stable }} ] ; then
             git fetch origin ${{ env.STABLE_BRANCH }}
             git push -f --set-upstream origin ${{ env.TESTMERGE_BRANCH }}:${{ env.STABLE_BRANCH}}
           fi
-          
+
           # Output the list of merged PRs
           echo "${MERGED_PRS[@]}"
           echo "merged_prs=${MERGED_PRS[@]}" >> $GITHUB_OUTPUT
           echo "END"
-                                       
+
       #- name: Comment on merged PRs
       #  uses: actions/github-script@v7
       #  with:
