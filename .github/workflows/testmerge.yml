@@ -172,7 +172,7 @@ jobs:
           
           if [ ${{ inputs.apply_to_stable }} ] ; then
             git fetch origin ${{ env.STABLE_BRANCH }}
-            git push -f origin ${{ env.STABLE_BRANCH }}
+            git push -f --set-upstream origin ${{ env.STABLE_BRANCH }}
           fi
           
           # Output the list of merged PRs
