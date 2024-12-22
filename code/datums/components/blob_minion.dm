@@ -45,7 +45,7 @@
 /datum/component/blob_minion/proc/overmind_properties_changed(mob/camera/blob/overmind, datum/blobstrain/new_strain)
 	SIGNAL_HANDLER
 	var/mob/living/living_parent = parent
-	living_parent.update_appearance(UPDATE_ICON)
+	living_parent.update_appearance(UPDATE_ICON | UPDATE_OVERLAYS)
 	on_strain_changed?.Invoke(overmind, new_strain)
 
 /datum/component/blob_minion/RegisterWithParent()

@@ -170,12 +170,12 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 #define BLOBMOB_SPORE_DMG_LOWER 3
 #define BLOBMOB_SPORE_DMG_UPPER 7
 #define BLOBMOB_SPORE_OBJ_DMG 20
-#define BLOBMOB_SPORE_SPEED_MOD -1.5
+#define BLOBMOB_SPORE_SPEED_MOD -1
 #define BLOBMOB_ZOMBIE_HEALTH 70 // Base spore health
 #define BLOBMOB_ZOMBIE_DMG_LOWER 10
 #define BLOBMOB_ZOMBIE_DMG_UPPER 15
 #define BLOBMOB_ZOMBIE_OBJ_DMG 20
-#define BLOBMOB_ZOMBIE_SPEED_MOD -1
+#define BLOBMOB_ZOMBIE_SPEED_MOD -0.3
 #define BLOBMOB_BLOBBERNAUT_RESOURCE_COST 40 // Purchase price for making a blobbernaut
 #define BLOBMOB_BLOBBERNAUT_HEALTH 200 // Base blobbernaut health
 #define BLOBMOB_BLOBBERNAUT_DMG_SOLO_LOWER 20 // Damage without active overmind (core dead or xenobio mob)

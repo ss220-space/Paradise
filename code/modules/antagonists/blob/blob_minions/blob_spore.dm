@@ -70,7 +70,7 @@
 
 /// Become a zombie
 /mob/living/simple_animal/hostile/blob_minion/spore/proc/zombify(mob/living/carbon/human/target)
-	if(HAS_TRAIT(target, TRAIT_NO_TRANSFORM))
+	if(HAS_TRAIT(target, TRAIT_NO_TRANSFORM) || target.has_status_effect(/datum/status_effect/hippocraticOath))
 		return
 
 	visible_message(span_warning("Тело [target.name] внезапно поднимается!"))

@@ -15,7 +15,7 @@
 
 /datum/blobstrain/reagent/b_sorium/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
 	if(prob(damage))
-		reagent_vortex(B, TRUE, damage)
+		reagent_vortex(B, TRUE, damage * 0.7)
 	return ..()
 
 /datum/reagent/blob/b_sorium
