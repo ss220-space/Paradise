@@ -44,8 +44,25 @@
 	path = /obj/item/toy/plushie/greyplushie
 
 /datum/gear/plushie/plasmamanplushie
-	display_name = "Plasmaman Plushie"
+	display_name = "Plasmaman Plushie, select"
 	path = /obj/item/toy/plushie/plasmamanplushie
+
+/datum/gear/plushie/plasmamanplushie/New()
+	..()
+	var/list/plasmamans = list(/obj/item/toy/plushie/plasmamanplushie,
+					  		/obj/item/toy/plushie/plasmamanplushie/standart/sindie,
+							/obj/item/toy/plushie/plasmamanplushie/standart/doctor,
+							/obj/item/toy/plushie/plasmamanplushie/standart/brigmed,
+							/obj/item/toy/plushie/plasmamanplushie/standart/chemist,
+							/obj/item/toy/plushie/plasmamanplushie/standart/scientist,
+							/obj/item/toy/plushie/plasmamanplushie/standart/engineer,
+							/obj/item/toy/plushie/plasmamanplushie/standart/atmostech,
+							/obj/item/toy/plushie/plasmamanplushie/standart/officer,
+							/obj/item/toy/plushie/plasmamanplushie/standart/captain,
+							/obj/item/toy/plushie/plasmamanplushie/standart/ntr,
+							/obj/item/toy/plushie/plasmamanplushie/standart/miner,
+							)
+	gear_tweaks += new /datum/gear_tweak/path(plasmamans, src, TRUE)
 
 /datum/gear/plushie/shardplushie
 	display_name = "Shard Plushie"

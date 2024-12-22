@@ -2632,7 +2632,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 					for(var/group_key as anything in my_hud.master_groups)
 						var/datum/plane_master_group/group = my_hud.master_groups[group_key]
-						group.transform_lower_turfs(my_hud, my_hud.current_plane_offset)
+						group.build_planes_offset(my_hud, my_hud.current_plane_offset)
 
 				if("parallax_multiz")
 					toggles2 ^= PREFTOGGLE_2_PARALLAX_MULTIZ
@@ -2642,7 +2642,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 					for(var/group_key as anything in my_hud.master_groups)
 						var/datum/plane_master_group/group = my_hud.master_groups[group_key]
-						group.transform_lower_turfs(my_hud, my_hud.current_plane_offset)
+						group.build_planes_offset(my_hud, my_hud.current_plane_offset)
 
 				if("keybindings")
 					if(!keybindings_overrides)

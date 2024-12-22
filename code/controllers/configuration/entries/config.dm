@@ -832,3 +832,6 @@
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
 /datum/config_entry/str_list/lobby_music
+
+/datum/config_entry/string/override_away_mission
+	default = null

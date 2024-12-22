@@ -115,6 +115,7 @@
 				for(var/datum/data/pda/P in notifying_programs)
 					if(P in C.programs)
 						P.unnotify()
+				request_cartridge.update_programs(null)
 				request_cartridge = null
 				update_shortcuts()
 		if("Authenticate")//Checks for ID

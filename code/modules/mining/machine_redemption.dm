@@ -195,6 +195,7 @@
 
 	if(COOLDOWN_FINISHED(src, messages_cooldown) && !message_sent)
 		SStgui.update_uis(src)
+		COOLDOWN_RESET(src, messages_cooldown)
 		send_console_message()
 		message_sent = TRUE
 
