@@ -189,7 +189,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	..()
 
 /obj/machinery/dna_vault/update_icon_state()
-	icon_state = "initial(icon_state)[stat & NOPOWER ? "off" : ""]"
+	icon_state = "[initial(icon_state)][stat & NOPOWER ? "off" : ""]"
 
 /obj/machinery/dna_vault/power_change(forced = FALSE)
 	if(!..())
