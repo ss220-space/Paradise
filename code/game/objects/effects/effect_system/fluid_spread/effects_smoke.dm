@@ -90,7 +90,8 @@
 		spread_smoke.add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 		spread_smoke.lifetime = lifetime
 
-		SSsmoke.queue_spread(spread_smoke)
+		// the smoke spreads rapidly, but not instantly
+		SSfoam.queue_spread(spread_smoke)
 
 
 /obj/effect/particle_effect/fluid/smoke/process(seconds_per_tick)

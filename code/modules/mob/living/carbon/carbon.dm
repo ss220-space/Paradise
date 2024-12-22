@@ -29,7 +29,7 @@
 		return
 	else
 		show_message(span_userdanger("Блоб атакует!"))
-		adjustBruteLoss(10)		
+		adjustBruteLoss(10)
 
 
 /mob/living/carbon/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
