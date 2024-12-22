@@ -149,6 +149,8 @@
 #define MOB_SPAWN_ALLOWED (1<<3)
 /// If megafauna can be spawned by natural random generation
 #define MEGAFAUNA_SPAWN_ALLOWED (1<<4)
+/// If blobs can spawn there and if it counts towards their score.
+#define BLOBS_ALLOWED (1<<5)
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1
@@ -208,17 +210,6 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define MOBILITY_FLAGS_CARBON_DEFAULT (MOBILITY_MOVE|MOBILITY_STAND|MOBILITY_PICKUP|MOBILITY_USE|MOBILITY_UI|MOBILITY_STORAGE|MOBILITY_PULL|MOBILITY_REST|MOBILITY_LIEDOWN)
 #define MOBILITY_FLAGS_REST_CAPABLE_DEFAULT (MOBILITY_MOVE|MOBILITY_STAND|MOBILITY_PICKUP|MOBILITY_USE|MOBILITY_UI|MOBILITY_STORAGE|MOBILITY_PULL|MOBILITY_REST|MOBILITY_LIEDOWN)
 
-//AREA FLAGS
-/// If mining tunnel generation is allowed in this area
-#define CAVES_ALLOWED (1<<1)
-/// If flora are allowed to spawn in this area randomly through tunnel generation
-#define FLORA_ALLOWED (1<<2)
-/// If mobs can be spawned by natural random generation
-#define MOB_SPAWN_ALLOWED (1<<3)
-/// If megafauna can be spawned by natural random generation
-#define MEGAFAUNA_SPAWN_ALLOWED (1<<4)
-/// If blobs can spawn there and if it counts towards their score.
-#define BLOBS_ALLOWED (1<<5)
 
 // timed_action_flags parameter for [/proc/do_after()]
 /// Can do the action even if mob moves location.
