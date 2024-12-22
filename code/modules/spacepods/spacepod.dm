@@ -601,7 +601,7 @@
 	equipment_system.vars[slot] = null
 
 
-/obj/spacepod/hear_talk/hear_talk(mob/M, list/message_pieces)
+/obj/spacepod/hear_talk(mob/M, list/message_pieces)
 	cargo_hold.hear_talk(M, message_pieces)
 	..()
 
@@ -1202,7 +1202,8 @@
 
 	if(direction & (UP|DOWN))
 		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
-		var/turf/above = GET_TURF_ABOVE(loc)
+		var/turf/T = get_turf(loc)
+		var/turf/above = GET_TURF_ABOVE(T)
 		if((direction & UP) && can_z_move(DOWN, above, z_move_flags = ZMOVE_FALL_FLAGS)) // going up and can fall down is bad.
 			return FALSE
 		. = zMove(direction)
