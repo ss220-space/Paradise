@@ -5,10 +5,17 @@ concurrency:
 
 on:
   workflow_dispatch:
-
+    inputs:
+      apply_to_stable:
+        description: 'Apply testmerge to stable branch'
+        type: boolean
+        required: true
+        default: false
+        
 env:
   BASE_BRANCH: master220
   TESTMERGE_BRANCH: testmerge
+  STABLE_BRANCH: stable
   REQUIRED_LABEL: testmerge
 
 jobs:
@@ -162,12 +169,16 @@ jobs:
           fi
           
           git push -f origin ${{ env.TESTMERGE_BRANCH }}
-
+          
+          if [ ${{ inputs.apply_to_stable }} ] ; then
+            git push -f origin ${{ env.STABLE_BRANCH }}
+          fi
+          
           # Output the list of merged PRs
           echo "${MERGED_PRS[@]}"
           echo "merged_prs=${MERGED_PRS[@]}" >> $GITHUB_OUTPUT
           echo "END"
-                    
+                                       
       #- name: Comment on merged PRs
       #  uses: actions/github-script@v7
       #  with:
