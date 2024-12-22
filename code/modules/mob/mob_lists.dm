@@ -39,10 +39,7 @@
 /mob/proc/add_to_player_list()
 	SHOULD_CALL_PARENT(TRUE)
 	GLOB.player_list |= src
-	if(client.holder)
-		GLOB.keyloop_list |= src
-	else if(stat != DEAD)
-		GLOB.keyloop_list |= src
+	GLOB.keyloop_list |= src
 	if(stat == DEAD)
 		add_to_current_dead_players()
 	else
