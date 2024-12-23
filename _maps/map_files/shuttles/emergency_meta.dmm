@@ -836,7 +836,9 @@
 	height = 14;
 	name = "Meta emergency shuttle";
 	timid = 1;
-	width = 25
+	width = 25;
+	port_direction = 8;
+	preferred_direction = 4
 	},
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";

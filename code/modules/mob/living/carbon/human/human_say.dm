@@ -95,12 +95,12 @@
 	var/obj/item/organ/internal/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
 	if((breathes && !lungs) || (breathes && lungs && lungs.is_dead()))
 		return FALSE
-	if(getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS)
-		emote("gasp")
-		return FALSE
 	if(mind)
 		return !mind.miming
 	return TRUE
+
+/mob/living/carbon/human/cannot_speak_loudly()
+	return getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS
 
 
 /mob/living/carbon/human/proc/SetSpecialVoice(new_voice)

@@ -12,8 +12,6 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	var/datum/spacewalk_grid/linkage_map
 	var/initialized = 0
 
-	var/list/areas_in_z = list()
-
 // Populate our space level list
 // and prepare space transitions
 /datum/zlev_manager/proc/initialize()
@@ -106,6 +104,10 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
  * For convenience's sake returns the z-level added.
  *
  * This is a default way to create new z-level on your desire.
+ *
+ * * name - a name of new z-level. It should be unique. If you'll make multiple with same name, at least add "# [i]" in the end ("Ruin #1", "Ruin #2"...)
+ * * linkage - a state of how /turf/space on the edge of the z-level will interact with movable atoms. SELFLOOPING, CROSSLINKED will teleport, while UNAFFECTED won't do anything.
+ * * traits - traits/flags/attributes for z-level. All setting are in '_maps/_MAP_DEFINES.dm'
  */
 /datum/zlev_manager/proc/add_new_zlevel(name, linkage = SELFLOOPING, traits = list(BLOCK_TELEPORT))
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, args)

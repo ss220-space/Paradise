@@ -192,8 +192,7 @@
 	if(!possible_zones)
 		// Compute the list of all zones by their name first
 		var/list/all_areas_by_name = list()
-		for(var/a in GLOB.all_areas)
-			var/area/A = a
+		for(var/area/A in GLOB.areas)
 			if(A.outdoors || !is_station_level(A.z))
 				continue
 			var/i = findtext(A.map_name, name_fixer)

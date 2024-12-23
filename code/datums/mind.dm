@@ -1097,14 +1097,14 @@
 					var/area/detonation_area = null
 					if(alert(usr, "Do you want to pick detonation area yourself? No will randomise it", "Pick objective", "Yes", "No") == "No")
 						for(var/sanity in 1 to 100) // 100 checks at most.
-							var/area/selected_area = pick(return_sorted_areas())
+							var/area/selected_area = pick(get_sorted_areas())
 							if(selected_area && is_station_level(selected_area.z) && selected_area.valid_territory) //Целью должна быть зона на станции!
 								if(selected_area in bomb_objective.area_blacklist)
 									continue
 								random_detonation_area = selected_area
 								break
 					else
-						detonation_area = input("Select area:", "Objective area") as null|anything in return_sorted_areas()
+						detonation_area = input("Select area:", "Objective area") as null|anything in get_sorted_areas()
 
 					bomb_objective.detonation_location = detonation_area ? detonation_area : random_detonation_area
 					bomb_objective.explanation_text = "Взорвите выданную вам бомбу в [bomb_objective.detonation_location]. Учтите, что бомбу нельзя активировать на не предназначенной для подрыва территории!"
@@ -2127,8 +2127,7 @@
 					return
 
 				var/list/area_choices = list()
-				for(var/a in return_sorted_areas())
-					var/area/A = a
+				for(var/area/A in get_sorted_areas())
 					if(A.outdoors || !is_station_level(A.z))
 						continue
 					area_choices += A

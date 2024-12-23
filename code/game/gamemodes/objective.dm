@@ -546,7 +546,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/hijack/check_completion()
-	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
+	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return FALSE
 
 	for(var/datum/mind/player in get_owners())
@@ -568,7 +568,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
  * We're fine to use `owner` instead of `get_owners()`.
  */
 /datum/objective/hijackclone/check_completion()
-	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME || !owner.current)
+	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME || !owner.current)
 		return FALSE
 
 	var/area/shuttle_area = SSshuttle.emergency.areaInstance
@@ -609,7 +609,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(SSticker.mode.station_was_nuked)
 		return TRUE
 
-	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
+	if(!EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return FALSE
 
 	var/area/shuttle_area = SSshuttle.emergency.areaInstance
@@ -645,7 +645,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(SSticker.mode.station_was_nuked) // If they escaped the blast somehow, let them win.
 		return TRUE
 
-	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
+	if(!EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return FALSE
 
 	for(var/datum/mind/player in owners)
@@ -1422,7 +1422,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/plant_explosive/proc/choose_target_area()
 	for(var/sanity in 1 to 100) // 100 checks at most.
-		var/area/selected_area = pick(return_sorted_areas())
+		var/area/selected_area = pick(get_sorted_areas())
 		if(selected_area && is_station_level(selected_area.z) && selected_area.valid_territory) //Целью должна быть зона на станции!
 			if(selected_area in area_blacklist)
 				continue

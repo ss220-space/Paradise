@@ -1,6 +1,6 @@
 /obj/item/clothing/under/plasmaman/cargo
 	name = "cargo plasma envirosuit"
-	desc = "An envirosuit used by plasmaman quartermasters and cargo techs alike, due to the logistical problems of differentiating the two by the length of their pant legs."
+	desc = "An envirosuit used by plasmaman cargo techs, due to the logistical problems of differentiating the two by the length of their pant legs."
 	icon_state = "cargo_envirosuit"
 	item_state = "cargo_envirosuit"
 	item_color = "cargo_envirosuit"
@@ -12,6 +12,12 @@
 	item_state = "explorer_envirosuit"
 	item_color = "explorer_envirosuit"
 
+/obj/item/clothing/under/plasmaman/qm
+	name = "quartermaster plasma envirosuit"
+	desc = "An envirosuit used by plasmaman quartermasters, due to the logistical problems of differentiating the two by the length of their pant legs."
+	icon_state = "qm_envirosuit"
+	item_state = "qm_envirosuit"
+	item_color = "qm_envirosuit"
 
 /obj/item/clothing/under/plasmaman/chef
 	name = "chef's plasma envirosuit"
