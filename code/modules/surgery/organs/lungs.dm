@@ -343,16 +343,19 @@
 	if(!.)
 		return FALSE
 
-	RegisterSignal(owner, COMSIG_HUMAN_HANDLE_ENVIRONMENT, PROC_REF(regulate_temperature))
+	RegisterSignal(owner, COMSIG_HUMAN_EARLY_HANDLE_ENVIRONMENT, PROC_REF(regulate_temperature))
 
-/obj/item/organ/internal/lungs/drask/proc/regulate_temperature(datum/source, datum/gas_mixture/environment)
+/obj/item/organ/internal/lungs/drask/proc/regulate_temperature(mob/living/source, datum/gas_mixture/environment)
 	SIGNAL_HANDLER
+	
+	if(source.stat == DEAD)
+		return
 
 	if(owner.bodytemperature > cooling_start_temp && environment.temperature <= cooling_stop_temp)
 		owner.adjust_bodytemperature(-5)
 
 /obj/item/organ/internal/lungs/drask/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
-	UnregisterSignal(owner, COMSIG_HUMAN_HANDLE_ENVIRONMENT)
+	UnregisterSignal(owner, COMSIG_HUMAN_EARLY_HANDLE_ENVIRONMENT)
 	return ..()
 
 /obj/item/organ/internal/lungs/cybernetic

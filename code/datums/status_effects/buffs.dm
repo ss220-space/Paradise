@@ -793,7 +793,7 @@
 	return ..()
 
 /datum/status_effect/drask_coma/on_apply()
-	to_chat(owner, span_notice("Your metabolical processes are stopped."))
+	to_chat(owner, span_notice("Ваш метаболизм полностью остановлен."))
 
 	cached_sleep_time = world.time
 	owner.AdjustSleeping(duration)
@@ -811,7 +811,7 @@
 	owner.adjust_bodytemperature(-temp_step)
 
 /datum/status_effect/drask_coma/on_remove()
-	to_chat(owner, span_notice("You feel that your metabolism restored to normal state."))
+	to_chat(owner, span_notice("Вы чувствуете прилив сил и наконец просыпаетесь."))
 
 	var/elapsed_time = world.time - cached_sleep_time
 

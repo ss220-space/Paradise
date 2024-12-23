@@ -148,7 +148,7 @@
 /datum/action/innate/drask/Grant(mob/user)
 	. = ..()
 
-	if(!. && !isliving(user))
+	if(!. || !isliving(user))
 		return FALSE
 
 	return .
@@ -165,25 +165,34 @@
 	var/mob/living/living = owner
 
 	if(!living.has_status_effect(STATUS_EFFECT_DRASK_COMA))
-		if(living.stat)
-			return
-
-		if(!do_after(living, 5 SECONDS, living, ALL, cancel_on_max = TRUE, max_interact_count = 1))
-			return
-
-		living.apply_status_effect(STATUS_EFFECT_DRASK_COMA)
-		COOLDOWN_START(src, wake_up_cooldown, 10 SECONDS)
-
+		handle_activation(living)
 		return
 
+	handle_deactivation(living)
+
+/datum/action/innate/drask/coma/proc/handle_activation(mob/living/living)
+	if(living.stat)
+		return FALSE
+
+	if(!do_after(living, 5 SECONDS, living, ALL, cancel_on_max = TRUE, max_interact_count = 1))
+		return FALSE
+
+	living.apply_status_effect(STATUS_EFFECT_DRASK_COMA)
+	COOLDOWN_START(src, wake_up_cooldown, 10 SECONDS)
+
+	return TRUE
+
+/datum/action/innate/drask/coma/proc/handle_deactivation(mob/living/living)
 	if(!COOLDOWN_FINISHED(src, wake_up_cooldown))
 		to_chat(living, span_warning("Вы не можете пробудиться сейчас."))
-		return
+		return FALSE
 
 	if(!do_after(living, 10 SECONDS, living, ALL, cancel_on_max = TRUE, max_interact_count = 1))
-		return
+		return FALSE
 
 	living.remove_status_effect(STATUS_EFFECT_DRASK_COMA)
+
+	return TRUE
 
 /datum/species/drask/get_emote_pitch(mob/living/carbon/human/H, tolerance)
 	. = ..()
