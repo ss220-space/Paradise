@@ -23,8 +23,10 @@
 
 	UNTIL(length(hand_around))
 	var/list/return_val = hand_around[1]
+
 	if(!islist(return_val) || (QDELETED(requester) || QDELETED(end))) // It's trash, just hand back empty to make it easy
 		return list()
+
 	return return_val
 
 
@@ -57,8 +59,10 @@
 
 	UNTIL(length(hand_around))
 	var/list/return_val = hand_around[1]
+
 	if(!islist(return_val) || (QDELETED(requester) || QDELETED(end))) // It's trash, just hand back empty to make it easy
 		return list()
+
 	return return_val
 
 
@@ -278,8 +282,8 @@
  * Passed into CanAStarPass to provide context for a pathing attempt
  *
  * Also used to check if using a cached path_map is safe
- * There are some vars here that are unused. They exist to cover cases where caller_ref is used
- * They're the properties of caller_ref used in those cases.
+ * There are some vars here that are unused. They exist to cover cases where requester_ref is used
+ * They're the properties of requester_ref used in those cases.
  * It's kinda annoying, but there's some proc chains we can't convert to this datum
  */
 /datum/can_pass_info
@@ -326,7 +330,7 @@
 	/// Weakref to the requester used to generate this info
 	/// Should not use this almost ever, it's for context and to allow for proc chains that
 	/// Require a movable
-	var/datum/weakref/caller_ref = null
+	var/datum/weakref/requester_ref = null
 
 
 /datum/can_pass_info/New(atom/movable/construct_from, list/access, no_id = FALSE, call_depth = 0)
@@ -340,26 +344,31 @@
 	if(isnull(construct_from))
 		return
 
-	src.caller_ref = WEAKREF(construct_from)
+	src.requester_ref = WEAKREF(construct_from)
 	src.pass_flags = construct_from.pass_flags
 	src.movement_type = construct_from.movement_type
 	src.thrown = !!construct_from.throwing
 	src.anchored = construct_from.anchored
 	src.has_gravity = construct_from.has_gravity()
+
 	if(ismob(construct_from))
 		var/mob/mob_construct = construct_from
 		src.faction = mob_construct.faction?.Copy()
 		src.incapacitated = mob_construct.incapacitated()
+
 		if(mob_construct.buckled)
 			src.buckled_info = new(mob_construct.buckled, access, no_id, call_depth + 1)
+
 	if(isobserver(construct_from))
 		src.is_observer = TRUE
+
 	if(isliving(construct_from))
 		var/mob/living/living_construct = construct_from
 		src.is_living = TRUE
 		src.can_ventcrawl = is_ventcrawler(construct_from)
 		src.mob_size = living_construct.mob_size
 		src.incorporeal_move = living_construct.incorporeal_move
+
 	src.is_bot = isbot(construct_from)
 
 	if(construct_from.pulling)
@@ -375,8 +384,8 @@ GLOBAL_LIST_INIT(can_pass_info_vars, GLOBAL_PROC_REF(can_pass_check_vars))
 	var/datum/isaac = new()
 	var/list/altar = assoc_to_keys(lamb.vars - isaac.vars)
 	// Don't compare against calling atom, it's not relevant here
-	altar -= "caller_ref"
-	ASSERT("caller_ref" in lamb.vars)
+	altar -= "requester_ref"
+	ASSERT("requester_ref" in lamb.vars)
 	// We will bespoke handle pulling_info
 	altar -= "pulling_info"
 	ASSERT("pulling_info" in lamb.vars)
@@ -387,10 +396,13 @@ GLOBAL_LIST_INIT(can_pass_info_vars, GLOBAL_PROC_REF(can_pass_check_vars))
 	for(var/comparable_var in GLOB.can_pass_info_vars)
 		if(!(vars[comparable_var] ~= check_against.vars[comparable_var]))
 			return FALSE
+
 	if(!pulling_info != !check_against.pulling_info)
 		return FALSE
+
 	if(pulling_info && !pulling_info.compare_against(check_against.pulling_info))
 		return FALSE
+
 	return TRUE
 
 
