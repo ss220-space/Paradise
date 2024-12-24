@@ -227,7 +227,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 	var/list/genes
 
-	for(var/datum/dna/gene/basic/vault/gene in GLOB.dna_genes)
+	for(var/datum/dna/gene/basic/vault/gene as anything in subtypesof(/datum/dna/gene/basic/vault))
 		if(!initial(gene.name))
 			continue
 
