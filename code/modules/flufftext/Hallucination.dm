@@ -781,7 +781,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 	if(person) //Basic talk
 		var/image/speech_overlay = image('icons/mob/talk.dmi', person, "h0", layer = ABOVE_MOB_LAYER)
 		SET_PLANE_EXPLICIT(speech_overlay, ABOVE_GAME_PLANE, src)
-		target.hear_say(message_to_multilingual(pick(speak_messages), safepick(person.languages)), speaker = person)
+		target.hear_say(message_to_multilingual(pick(speak_messages), safepick(person.languages)), speaker = person, is_whisper = TRUE)
 		if(target.client)
 			target.client.images |= speech_overlay
 			sleep(30)
