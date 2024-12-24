@@ -417,7 +417,7 @@
 
 /obj/item/CQC_manual
 	name = "old manual"
-	desc = "A small, black manual. There are drawn instructions of tactical hand-to-hand combat."
+	desc = "Небольшое черное руководство. Нарисованы инструкции по тактическому рукопашному бою."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "cqcmanual"
 
@@ -427,27 +427,27 @@
 
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
 		if(ischangeling(user))
-			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
+			to_chat(user, span_warning("Мы пытаемся несколько раз, но просто не можем понять основы CQC!"))
 			return
 		else if(isvampire(user)) //Vampires
-			to_chat(user, "<span class='warning'>Your blood lust distracts you from the basics of CQC!</span>")
+			to_chat(user, span_warning("Твоя жажда крови отвлекает тебя от основ CQC!"))
 			return
 		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
+			to_chat(user, span_warning("От одной мысли о бое, не говоря уже о CQC, голова идет кругом!"))
 			return
 
-	to_chat(user, span_boldannounceic("You remember the basics of CQC."))
+	to_chat(user, span_boldannounceic("Вы запоминаете основы CQC."))
 
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
 	user.temporarily_remove_item_from_inventory(src)
-	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
+	visible_message(span_warning("[src] зловеще пищит, а через мгновение вспыхивает пламенем."))
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
 /obj/item/CQC_manual/chef
 	name = "CQC Upgrade implant"
-	desc = "Gives you to remember what you always forget"
+	desc = "Дает вам вспомнить то, что вы всегда забываете"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "implanter1"
 	item_state = "syringe_0"
@@ -456,23 +456,35 @@
 	if(!istype(user))
 		return
 	if(user.mind && user.mind.assigned_role == JOB_TITLE_CHEF)
-		to_chat(user, span_boldannounceic(">You completely memorise the basics of CQC."))
+		if(ischangeling(user))
+			to_chat(user, span_warning("Мы имплантируем себя, но наноботы не успевают достичь своей и разрушаются."))
+			use_implant(user)
+			return
+		else if(isvampire(user)) //Vampires
+			to_chat(user, span_warning("Мы имплантируете себя, но ваша кровь разрушает их до того, как они достигнут цели"))
+			use_implant(user)
+			return
+		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, span_warning("От одной мысли о бое, не говоря уже о CQC, голова идет кругом! Вы не решаетесь вколоть в себя имплант."))
+			return
+		to_chat(user, span_boldannounceic(">Вы полностью запоминаете основы CQC."))
 		var/datum/martial_art/cqc/CQC = new(null)
 		CQC.teach(user)
-		user.temporarily_remove_item_from_inventory(src)
-		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it blow up.</span>")
-		new /obj/effect/decal/cleanable/ash(get_turf(src))
-		qdel(src)
+		use_implant(user)
 	else
-		to_chat(user, "<span class='notice'>You implant yourself, but nanobots can't find their target. You feel sharp pain in head!</span>")
+		to_chat(user, span_notice("Вы имплантируете себя, но наноботы не могут найти свою цель. Вы чувствуете острую боль в голове!"))
 		if(isliving(user))
 			var/mob/living/L = user
 			L.apply_damages(burn = 20, brain = 20, spread_damage = TRUE)
-		user.temporarily_remove_item_from_inventory(src)
-		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it blow up!</span>")
-		playsound(get_turf(src),'sound/effects/explosion2.ogg', 100, 1)
-		new /obj/effect/decal/cleanable/ash(get_turf(src))
-		qdel(src)
+		use_implant(user)
+
+/obj/item/CQC_manual/chef/proc/use_implant(mob/living/carbon/human/user)
+	user.temporarily_remove_item_from_inventory(src)
+	visible_message(span_warning("[src] зловеще пищит, и через мгновение взрывается!"))
+	playsound(get_turf(src),'sound/effects/explosion2.ogg', 100, 1)
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	qdel(src)
+
 
 /obj/item/mr_chang_technique
 	name = "«Aggressive Marketing Technique»"
