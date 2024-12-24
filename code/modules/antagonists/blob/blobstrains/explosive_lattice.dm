@@ -32,6 +32,11 @@
 	taste_description = "бомба"
 	color = "#8B2500"
 
+/datum/reagent/blob/explosive_lattice/return_mob_expose_reac_volume(mob/living/exposed_mob, methods=REAGENT_TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
+	if(exposed_mob.stat == DEAD || HAS_TRAIT(exposed_mob, TRAIT_BLOB_ALLY))
+		return 0 //the dead, and blob mobs, don't cause reactions
+	return reac_volume
+
 /datum/reagent/blob/explosive_lattice/reaction_mob(mob/living/exposed_mob, methods=REAGENT_TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
 	. = ..()
 	var/brute_loss = 0

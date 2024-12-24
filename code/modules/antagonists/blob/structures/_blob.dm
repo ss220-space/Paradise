@@ -218,10 +218,13 @@
 				offstation = TRUE
 			B.update_blob()
 			var/reaction_result = TRUE
+			var/turf/total_turf = get_turf(src)
 			if(B.overmind && expand_reaction)
 				reaction_result = B.overmind.blobstrain.expand_reaction(src, B, T, controller, offstation)
-			if(reaction_result && is_there_multiz() && check_level_trait(T.z, ZTRAIT_DOWN) && !isopenspaceturf(T))
+			if(reaction_result && is_there_multiz() && check_level_trait(T.z, ZTRAIT_DOWN) && T.z != total_turf.z && !isopenspaceturf(T))
 				T.ChangeTurf(/turf/simulated/openspace)
+			if(reaction_result && is_there_multiz() && check_level_trait(total_turf.z, ZTRAIT_DOWN) && T.z != total_turf.z && !isopenspaceturf(total_turf))
+				total_turf.ChangeTurf(/turf/simulated/openspace)
 			return B
 		else
 			blob_attack_animation(T, controller)

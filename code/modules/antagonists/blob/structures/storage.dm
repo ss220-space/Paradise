@@ -7,10 +7,6 @@
 	fire_resist = BLOB_STORAGE_FIRE_RESIST
 	point_return = BLOB_REFUND_STORAGE_COST
 
-/obj/structure/blob/storage/Initialize(mapload, owner_overmind)
-	. = ..()
-	update_max_blob_points(BLOB_STORAGE_MAX_POINTS_BONUS)
-
 /obj/structure/blob/storage/link_to_overmind(mob/camera/blob/owner_overmind)
 	. = ..()
 	update_max_blob_points(BLOB_STORAGE_MAX_POINTS_BONUS)

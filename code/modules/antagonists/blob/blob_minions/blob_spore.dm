@@ -60,6 +60,12 @@
 	. = ..()
 	stat_attack = initial(stat_attack)
 
+/mob/living/simple_animal/hostile/blob_minion/spore/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE) //Prevents spore from pulling things
+	if(istype(pulled_atom, /mob/living))
+		return TRUE // Get dem
+	if(!supress_message)
+		to_chat(src, span_warning("Вы не можете таскать ничего кроме других существ и их тел."))
+	return FALSE
 
 /mob/living/simple_animal/hostile/blob_minion/spore/AttackingTarget()
 	. = ..()
@@ -111,7 +117,7 @@
 		AddComponent(\
 			/datum/component/ghost_direct_control,\
 			ban_type = ROLE_BLOB,\
-			poll_candidates = TRUE,\
+			poll_candidates = FALSE,\
 		)
 	else
 		qdel(GetComponent(/datum/component/ghost_direct_control))

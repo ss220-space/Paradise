@@ -38,6 +38,13 @@
 	corpse = null
 	death()
 
+/mob/living/simple_animal/hostile/blob_minion/zombie/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE) //Prevents spore from pulling things
+	if(istype(pulled_atom, /mob/living))
+		return TRUE // Get dem
+	if(!supress_message)
+		to_chat(src, span_warning("Вы не можете таскать ничего кроме других существ и их тел."))
+	return FALSE
+
 /mob/living/simple_animal/hostile/blob_minion/zombie/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /obj/structure/blob))
