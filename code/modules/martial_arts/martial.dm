@@ -467,7 +467,7 @@
 		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, span_warning("От одной мысли о бое, не говоря уже о CQC, голова идет кругом! Вы не решаетесь вколоть в себя имплант."))
 			return
-		to_chat(user, span_boldannounceic(">Вы полностью запоминаете основы CQC."))
+		to_chat(user, span_boldannounceic("Вы полностью запоминаете основы CQC."))
 		var/datum/martial_art/cqc/CQC = new(null)
 		CQC.teach(user)
 		use_implant(user)
