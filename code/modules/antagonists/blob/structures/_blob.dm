@@ -174,7 +174,7 @@
 				T = null
 	if(!T)
 		return
-		
+
 	if(!is_location_within_transition_boundaries(T))
 		return
 	var/make_blob = TRUE //can we make a blob?
@@ -246,7 +246,7 @@
 /obj/structure/blob/emp_act(severity)
 	. = ..()
 	// tgstation emp protection
-	//if(. & EMP_PROTECT_SELF) 
+	//if(. & EMP_PROTECT_SELF)
 		//return
 	if(severity > 0)
 		if(overmind)

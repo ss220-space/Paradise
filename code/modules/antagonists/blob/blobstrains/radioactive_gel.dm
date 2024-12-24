@@ -14,7 +14,7 @@
 
 
 /datum/blobstrain/reagent/radioactive_gel/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
-	if((damage_flag == ENERGY || damage_flag == LASER) && prob(damage))
+	if((damage_flag == ENERGY || damage_flag == LASER) && prob(40))
 		for(var/mob/living/l in range(5, B))
 			l.apply_effect(damage, IRRADIATE)
 	return ..()
@@ -31,4 +31,4 @@
 	exposed_mob.apply_damage(0.3 * reac_volume, TOX)
 	exposed_mob.apply_damage(0.2 * reac_volume, BRUTE) // lets not have IPC / plasmaman only take 7.5 damage from this
 	if(exposed_mob.reagents)
-		exposed_mob.reagents.add_reagent("uranium", 0.3 * reac_volume)
+		exposed_mob.reagents.add_reagent("uranium", 0.35 * reac_volume)

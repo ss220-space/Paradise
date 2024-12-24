@@ -72,7 +72,7 @@
 
 /// Create an explosion of spores on death
 /mob/living/simple_animal/hostile/blob_minion/zombie/proc/death_burst()
-	do_blob_chem_smoke(range = 1, holder = src, reagent_volume = BLOB_REAGENSPORE_VOL, location = get_turf(src), reagent_type = /datum/reagent/toxin/spore)
+	do_blob_chem_smoke(range = 1, holder = src, reagent_volume = BLOB_REAGENT_SPORE_VOL, location = get_turf(src), reagent_type = /datum/reagent/toxin/spore)
 
 /// Store a body so that we can drop it on death
 /mob/living/simple_animal/hostile/blob_minion/zombie/proc/consume_corpse(mob/living/carbon/human/new_corpse)
@@ -84,9 +84,7 @@
 	new_corpse.change_hair("Bald")
 	new_corpse.forceMove(src)
 	corpse = new_corpse
-	update_appearance(UPDATE_ICON)
-	overlays += new_corpse.overlays
-	set_up_zombie_appearance()
+	update_icon(UPDATE_OVERLAYS)
 	RegisterSignal(corpse, COMSIG_LIVING_REVIVE, PROC_REF(on_corpse_revived))
 
 /// Dynamic changeling reentry

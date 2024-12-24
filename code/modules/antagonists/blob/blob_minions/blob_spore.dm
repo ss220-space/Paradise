@@ -47,7 +47,7 @@
 
 /// Create an explosion of spores on death
 /mob/living/simple_animal/hostile/blob_minion/spore/proc/death_burst()
-	do_blob_chem_smoke(range = death_cloud_size, reagent_volume = BLOB_REAGENSPORE_VOL, holder = src, location = get_turf(src), reagent_type = /datum/reagent/toxin/spore)
+	do_blob_chem_smoke(range = death_cloud_size, reagent_volume = BLOB_REAGENT_SPORE_VOL, holder = src, location = get_turf(src), reagent_type = /datum/reagent/toxin/spore)
 
 /mob/living/simple_animal/hostile/blob_minion/spore/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()

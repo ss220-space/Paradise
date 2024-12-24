@@ -76,8 +76,8 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 #define BLOB_FIRE_RESIST 1 // Burn damage taken gets multiplied by this value
 #define BLOB_EXPAND_CHANCE_MULTIPLIER 1 // Increase this value to make blobs naturally expand faster
 #define BLOB_REINFORCE_CHANCE 2.5 // The seconds_per_tick chance for cores/nodes to reinforce their surroundings
-#define BLOB_REAGENTATK_VOL 25 // Amount of strain-reagents that get injected when the blob attacks: main source of blob damage
-#define BLOB_REAGENSPORE_VOL 10
+#define BLOB_REAGENT_ATK_VOL 25 // Amount of strain-reagents that get injected when the blob attacks: main source of blob damage
+#define BLOB_REAGENT_SPORE_VOL 10
 #define BLOB_BONUS_POINTS 60
 #define BLOB_REAGENTS_METABOLISM 1
 
@@ -182,7 +182,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 #define BLOBMOB_BLOBBERNAUT_DMG_SOLO_UPPER 20
 #define BLOBMOB_BLOBBERNAUT_DMG_LOWER 4 // Damage dealt with active overmind (most damage comes from strain chems)
 #define BLOBMOB_BLOBBERNAUT_DMG_UPPER 4
-#define BLOBMOB_BLOBBERNAUT_REAGENTATK_VOL 20 // Amounts of strain reagents applied on attack -- basically the main damage stat
+#define BLOBMOB_BLOBBERNAUT_REAGENT_ATK_VOL 20 // Amounts of strain reagents applied on attack -- basically the main damage stat
 #define BLOBMOB_BLOBBERNAUT_DMG_OBJ 60 // Damage dealth to objects/machines
 #define BLOBMOB_BLOBBERNAUT_HEALING_CORE 0.05 // Percentage multiplier HP restored on Life() when within 2 tiles of the blob core
 #define BLOBMOB_BLOBBERNAUT_HEALING_NODE 0.025 // Same, but for a nearby node

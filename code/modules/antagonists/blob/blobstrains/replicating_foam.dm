@@ -13,11 +13,11 @@
 /datum/blobstrain/reagent/replicating_foam/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag)
 	if(damage_type == BRUTE)
 		damage = damage * 2
-	else if(damage_type == BURN && damage > 0 && B.get_integrity() - damage > 0 && prob(45))
+	else if(damage_type == BURN && damage > 0 && B.get_integrity() - damage > 0 && prob(50))
 		var/obj/structure/blob/newB = B.expand(null, null, 0)
 		if(newB)
 			newB.update_integrity(B.get_integrity() - damage)
-			newB.update_appearance()
+			newB.update_blob()
 	return ..()
 
 

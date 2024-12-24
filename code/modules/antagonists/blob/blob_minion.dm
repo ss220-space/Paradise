@@ -9,6 +9,8 @@
 	show_in_orbit = FALSE
 	/// The blob core that this minion is attached to
 	var/datum/weakref/overmind
+	/// Action to talk with nearby mobs
+	var/datum/action/innate/blob/minion_talk/mob_talk
 
 /datum/antagonist/blob_minion/can_be_owned(datum/mind/new_owner)
 	. = ..() && isminion(new_owner?.current)
@@ -27,6 +29,23 @@
 	if(mode)
 		mode.blobs["minions"] -= owner
 
+
+/datum/antagonist/blob_minion/apply_innate_effects(mob/living/mob_override)
+	var/mob/living/user = ..(mob_override)
+	if(!user)
+		return
+	if(!mob_talk)
+		mob_talk = new
+	mob_talk.Grant(user)
+	return user
+
+
+/datum/antagonist/blob_minion/remove_innate_effects(mob/living/mob_override)
+	var/mob/living/user = ..(mob_override)
+	if(!user)
+		return
+	mob_talk?.Remove(user)
+	return user
 
 /datum/antagonist/blob_minion/roundend_report_header()
 	return

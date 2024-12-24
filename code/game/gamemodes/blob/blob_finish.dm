@@ -76,7 +76,7 @@
 				text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
 
 		if(minions?.len)
-			text += "<br/><br/><FONT size = 2><B>Миньен[(minions.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
+			text += "<br/><br/><FONT size = 2><B>Миньoн[(minions.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
 			for(var/datum/mind/blob in minions)
 				text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
 

@@ -24,7 +24,7 @@
 	for(var/mob/living/actor in orange(get_turf(spore), 1))
 		if(ROLE_BLOB in actor.faction) // No friendly fire
 			continue
-		actor.take_overall_damage(10, 10)
+		actor.take_overall_damage(BLOB_REAGENT_SPORE_VOL, BLOB_REAGENT_SPORE_VOL)
 
 /datum/reagent/blob/explosive_lattice
 	name = "Взрывная решетка"
@@ -45,14 +45,14 @@
 		ex_effect.alpha = 150
 
 		// Total damage to epicenter mob of 0.7*reac_volume, like a mid-tier strain
-		brute_loss = reac_volume*0.35
+		brute_loss = reac_volume*0.4
 
 		bomb_armor = exposed_mob.getarmor(null, BOMB)
 		if(bomb_armor) // Same calculation and proc that ex_act uses on mobs
 			brute_loss = brute_loss*(2 - round(bomb_armor*0.01, 0.05))
 
 		burn_loss = brute_loss
-			
+
 		exposed_mob.take_overall_damage(brute_loss, burn_loss)
 
 		for(var/mob/living/nearby_mob in orange(epicenter_turf, 1))
@@ -61,7 +61,7 @@
 			if(nearby_mob == exposed_mob) // We've already hit the epicenter mob
 				continue
 			// AoE damage of 0.5*reac_volume to everyone in a 1 tile range
-			brute_loss = reac_volume*0.25
+			brute_loss = reac_volume * 0.25
 			burn_loss = brute_loss
 
 			bomb_armor = nearby_mob.getarmor(null, BOMB)
@@ -70,6 +70,6 @@
 				burn_loss = brute_loss
 
 			nearby_mob.take_overall_damage(brute_loss, burn_loss)
-		
+
 	else
 		exposed_mob.apply_damage(0.6*reac_volume, BRUTE, forced = TRUE)
