@@ -533,7 +533,7 @@
 
 	for(var/group_key as anything in my_hud.master_groups)
 		var/datum/plane_master_group/group = my_hud.master_groups[group_key]
-		group.transform_lower_turfs(my_hud, my_hud.current_plane_offset)
+		group.build_planes_offset(my_hud, my_hud.current_plane_offset)
 
 /datum/preference_toggle/toggle_vote_popup
 	name = "Toggle Vote Popup"
