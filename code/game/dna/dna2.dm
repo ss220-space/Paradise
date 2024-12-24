@@ -314,12 +314,14 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/value = GetSEValue(block)
 	return round(1 + (value / 4096) * maxvalue)
 
-// Is the block "on" (1) or "off" (0)? (Un-assigned genes are always off.)
+/// Is the block "on" (1) or "off" (0)? (Un-assigned genes are always off.)
 /datum/dna/proc/GetSEState(block)
-	if(block <= 0)
+	if(!block)
 		return FALSE
+
 	var/list/BOUNDS = GetDNABounds(block)
 	var/value = GetSEValue(block)
+
 	return (value >= BOUNDS[DNA_ON_LOWERBOUND])
 
 // Set a block "on" or "off".

@@ -74,13 +74,7 @@
 		if(initial(gene.name) != choosen_gene)
 			continue
 
-		if(gene.is_active(user))
-			return FALSE
-
-		if(!gene.can_activate(user))
-			return FALSE
-
-		gene.activate(user)
+		user.update_gene_status(gene)
 		break
 
 	finalize_dna_upgrade(user)

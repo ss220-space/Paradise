@@ -41,7 +41,7 @@
 * Is the gene active in this mob's DNA?
 */
 /datum/dna/gene/proc/is_active(mob/living/mutant)
-	return LAZYIN(mutant.active_genes, type)
+	return LAZYIN(mutant.active_genes, src)
 
 
 /// Return `TRUE` if we can activate.
@@ -58,7 +58,7 @@
 /datum/dna/gene/proc/activate(mob/living/mutant, flags)
 	SHOULD_CALL_PARENT(TRUE)
 
-	LAZYOR(mutant.active_genes, type)
+	LAZYOR(mutant.active_genes, src)
 
 	mutant.gene_stability -= instability
 
@@ -75,7 +75,7 @@
 /datum/dna/gene/proc/deactivate(mob/living/mutant, flags)
 	SHOULD_CALL_PARENT(TRUE)
 
-	LAZYREMOVE(mutant.active_genes, type)
+	LAZYREMOVE(mutant.active_genes, src)
 
 	mutant.gene_stability += instability
 

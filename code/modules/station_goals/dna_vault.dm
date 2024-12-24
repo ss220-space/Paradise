@@ -350,13 +350,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		if(initial(gene.name) != upgrade_name)
 			continue
 
-		if(gene.is_active(human))
-			return FALSE
-
-		if(!gene.can_activate(human))
-			return FALSE
-
-		gene.activate(human)
+		human.update_gene_status(gene)
 		break
 
 	LAZYNULL(power_lottery[human])

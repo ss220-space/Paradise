@@ -145,8 +145,9 @@
 		if(MOB_SIZE_SMALL) slopchance = 20
 		if(MOB_SIZE_TINY) slopchance = 10
 
-	if(LAZYIN(user.active_genes, /datum/dna/gene/disability/clumsy))
+	if(locate(/datum/dna/gene/disability/clumsy) in user.active_genes)
 		slopchance += 20
+
 	if(user.mind?.miming)
 		slopchance -= 30
 

@@ -66,7 +66,7 @@
 		return FALSE
 
 	// Gene is in bounds but not active currently
-	if(gene_in_bounds && !gene_is_active)
+	if((gene_in_bounds && gene.block) && !gene_is_active)
 		// If our gene should be activated, we need to check for conditions
 		if(!gene.can_activate(src, flags))
 			return FALSE
@@ -75,9 +75,10 @@
 		return TRUE
 
 	// Same with deactivation stuff
-	if(!gene_in_bounds && gene_is_active)
+	if((!gene_in_bounds && gene.block) && gene_is_active)
 		if(!gene.can_deactivate(src, flags))
 			return FALSE
+
 		INVOKE_ASYNC(gene, TYPE_PROC_REF(/datum/dna/gene, deactivate), src, flags)
 		return TRUE
 
@@ -102,15 +103,24 @@
 	return
 
 
-/mob/living/carbon/human/force_gene_block(block, activate = FALSE, update_default_status = FALSE, ignore_species_default = FALSE)
+/mob/living/carbon/human/force_gene_block(
+	block, 
+	activate = FALSE, 
+	update_default_status = FALSE, 
+	ignore_species_default = FALSE
+	)
 	var/force_flags = MUTCHK_FORCED
+
 	if(ignore_species_default)
 		force_flags |= MUTCHK_IGNORE_DEFAULT
+
 	dna.SetSEState(block, activate)
+
 	. = check_gene_block(block, force_flags)
+
 	if(. && update_default_status)
 		if(activate)
 			LAZYOR(dna.default_blocks, block)
+
 		else
 			LAZYREMOVE(dna.default_blocks, block)
-

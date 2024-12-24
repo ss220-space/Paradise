@@ -6,7 +6,7 @@
 /mob/living/carbon/human/lesser/setup_dna(datum/species/new_species, monkeybasic = TRUE)
 	. = ..()
 	// since we are created as monkas we need to manually set our GLOB.monkeyblock as activated
-	LAZYOR(active_genes, /datum/dna/gene/monkey)
+	LAZYOR(active_genes, new /datum/dna/gene/monkey)
 
 /mob/living/carbon/human/lesser/monkey
 	icon_state = "monkey1"
