@@ -7,7 +7,7 @@
 	processing = 0 //so it won't fire again in next tick
 	if(!makeAbductorTeam())
 		message_admins("Abductor event failed to find players. Retrying in 30s.")
-		addtimer(CALLBACK(src, PROC_REF(makeAbductorTeam)), 5 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(makeAbductorTeam)), 30 SECONDS)
 
 /datum/event/abductor/proc/get_teams_num()
 	return min(round(num_station_players() / for_players) + 1, game_mode_ref.max_teams)
