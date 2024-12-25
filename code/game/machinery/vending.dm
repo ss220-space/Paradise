@@ -215,7 +215,13 @@
 		for(var/typepath in subtypesof(/datum/vendor_crit))
 			all_possible_crits[typepath] = new typepath()
 
-	AddElement(/datum/element/falling_hazard, damage = 80, hardhat_safety = FALSE, crushes = TRUE, impact_sound = 'sound/effects/vending_hit.ogg')
+	AddElement( \
+		/datum/element/falling_hazard, \
+		damage = 80, \
+		hardhat_safety = FALSE, \
+		crushes = TRUE, \
+		impact_sound = 'sound/effects/vending_hit.ogg', \
+		)
 
 	update_icon(UPDATE_OVERLAYS)
 
