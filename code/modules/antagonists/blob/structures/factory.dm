@@ -46,6 +46,8 @@
 	. = ..()
 	if(blobbernaut)
 		return
+	if(!overmind)
+		return
 	if(length(spores_and_zombies) >= max_spores)
 		return
 	if(!COOLDOWN_FINISHED(src, spore_delay))
