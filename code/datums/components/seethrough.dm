@@ -6,13 +6,6 @@
 	var/list/watched_turfs
 	/// Associate list, with client = trickery_image. Track which client is being tricked with which image
 	var/list/tricked_mobs = list()
-	
-/datum/component/seethrough/Destroy(force)
-	LAZYNULL(relative_turf_coords)
-	LAZYNULL(watched_turfs)
-	LAZYNULL(tricked_mobs)
-
-	return ..()
 	/// Which alpha do we animate towards?
 	var/target_alpha
 	/// How long our fase in/out takes
@@ -46,6 +39,13 @@
 
 	setup_perimeter(parent)
 
+/datum/component/seethrough/Destroy(force)
+	LAZYNULL(relative_turf_coords)
+	LAZYNULL(watched_turfs)
+	LAZYNULL(tricked_mobs)
+
+	return ..()
+	
 /datum/component/seethrough/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(dismantle_perimeter))
 
