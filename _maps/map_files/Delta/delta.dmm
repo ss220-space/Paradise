@@ -17268,21 +17268,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/bar)
-"bZY" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -22
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
 "cac" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -19838,22 +19823,17 @@
 	},
 /area/chapel/office)
 "cmL" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
 	},
-/area/civilian/barber)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "cmP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -21503,8 +21483,9 @@
 	},
 /area/crew_quarters/cabin1)
 "cwa" = (
-/turf/simulated/wall,
-/area/civilian/barber)
+/obj/machinery/portable_atmospherics/canister/nitrogen,
+/turf/simulated/floor/wood/fancy/oak,
+/area/maintenance/trading)
 "cwd" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -22601,10 +22582,6 @@
 "cAr" = (
 /turf/simulated/wall/rust,
 /area/maintenance/asmaint2)
-"cAt" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
-/turf/simulated/floor/plating,
-/area/maintenance/trading)
 "cAv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -22621,19 +22598,24 @@
 	},
 /area/hallway/secondary/entry)
 "cAy" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
-/area/civilian/barber)
+/obj/item/razor,
+/obj/structure/rack,
+/obj/item/razor{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "cAz" = (
 /turf/simulated/wall,
 /area/maintenance/trading)
@@ -24368,10 +24350,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/reception)
-"cHP" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/civilian/barber)
 "cHT" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -33276,8 +33254,8 @@
 	},
 /obj/structure/filingcabinet/chestdrawer,
 /obj/item/radio/intercom{
-	pixel_y = -26;
-	pixel_x = 0
+	pixel_x = 0;
+	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -34857,18 +34835,10 @@
 	},
 /area/library)
 "dBN" = (
-/obj/structure/table/reinforced,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/item/razor,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/obj/effect/decal/cleanable/dirt,
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "dBO" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "vir2"
@@ -35554,10 +35524,6 @@
 	icon_state = "grimy"
 	},
 /area/bridge/meeting_room)
-"dFe" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/civilian/barber)
 "dFg" = (
 /turf/simulated/wall,
 /area/maintenance/library)
@@ -56724,15 +56690,6 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/toxins/test_area)
-"hSo" = (
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
-/obj/structure/dresser,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
 "hSs" = (
 /obj/structure/chair/comfy/brown,
 /obj/effect/landmark/start/detective,
@@ -66713,15 +66670,13 @@
 /turf/simulated/wall,
 /area/quartermaster/storage)
 "krc" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 26
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/obj/machinery/dye_generator,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "krh" = (
 /obj/effect/turf_decal/siding/brown{
 	dir = 4
@@ -69873,12 +69828,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
-"lko" = (
-/obj/machinery/dye_generator,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
 "lkA" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -84128,15 +84077,15 @@
 	},
 /area/crew_quarters/theatre)
 "oBA" = (
-/obj/structure/table/reinforced,
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = 32
+/obj/structure/mirror{
+	pixel_x = 28
 	},
-/obj/item/paper/deltainfo,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/barber{
+	dir = 4
 	},
-/area/civilian/barber)
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "oBH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -87572,20 +87521,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/hor)
-"prr" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
 "prs" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -87860,13 +87795,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door/airlock/maintenance{
-	req_access = list(12)
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "pus" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -88761,6 +88692,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
+"pDl" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plating,
+/area/maintenance/trading)
 "pDt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -91934,21 +91869,6 @@
 "qni" = (
 /turf/simulated/wall/r_wall,
 /area/turret_protected/aisat_interior)
-"qnk" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	pixel_y = 26
-	},
-/obj/structure/chair/barber{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
 "qnB" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -93226,14 +93146,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
-"qAX" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/structure/sign/barber{
-	pixel_x = 22;
-	pixel_y = 32
-	},
-/turf/simulated/floor/wood,
-/area/crew_quarters/serviceyard)
 "qAY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -103828,20 +103740,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/assembly/robotics)
-"tdC" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/glass{
-	name = "Barber Shop"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
 "tdH" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -105652,15 +105550,6 @@
 	icon_state = "neutralfull"
 	},
 /area/engineering/engine)
-"tzR" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/landmark/start/barber,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
 "tzV" = (
 /obj/machinery/door/airlock/medical{
 	glass = 1;
@@ -125151,21 +125040,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/bridge/checkpoint/south)
-"xWn" = (
-/obj/structure/table/reinforced,
-/obj/structure/mirror{
-	pixel_x = 28
-	},
-/obj/machinery/camera{
-	c_tag = "Barber Shop"
-	},
-/obj/item/radio/intercom{
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
 "xWx" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/morgue{
@@ -156391,7 +156265,7 @@ wAK
 cmh
 bTv
 cNg
-cAt
+bTv
 cAK
 xQW
 cjn
@@ -157418,12 +157292,12 @@ aTA
 aoe
 cnf
 btQ
+pDl
 cwa
-cwa
-cwa
-cHP
+cAz
+cbs
 puk
-cwa
+iTZ
 eYX
 bev
 iTZ
@@ -157675,12 +157549,12 @@ cAz
 cAz
 cAz
 dDf
-cwa
-lko
-hSo
-bZY
+cAz
+cAz
+cAz
+cbs
 cAy
-dFe
+iTZ
 dFW
 dFW
 iTZ
@@ -157932,12 +157806,12 @@ cno
 jHA
 cno
 lEk
-cwa
-qnk
-tzR
-prr
+gbI
+cbs
+aVS
+aVS
 cmL
-tdC
+scT
 eSU
 eSU
 bGy
@@ -158189,13 +158063,13 @@ aVS
 bWL
 cbs
 crN
-cwa
-xWn
+cku
+cbs
 oBA
 dBN
 krc
-dFe
-qAX
+iTZ
+oNr
 dFW
 dFW
 dFW

@@ -182,7 +182,6 @@
 /obj/structure/chair/barber{
 	dir = 8
 	},
-/obj/effect/landmark/start/barber,
 /obj/structure/cable/orange{
 	icon_state = "1-4"
 	},
@@ -191,10 +190,9 @@
 	dir = 5
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "acj" = (
 /obj/structure/holohoop{
 	dir = 8
@@ -7207,7 +7205,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "beN" = (
-/obj/machinery/light,
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -26
@@ -7218,10 +7215,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "beQ" = (
 /obj/structure/table/wood,
 /obj/item/eftpos,
@@ -9019,9 +9015,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/reception)
-"bpQ" = (
-/turf/simulated/wall,
-/area/civilian/barber)
 "bpV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -11632,14 +11625,11 @@
 	dir = 4;
 	pixel_x = 26
 	},
-/obj/structure/dresser,
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/civilian/barber)
+/area/maintenance/port)
 "bFp" = (
 /obj/machinery/computer/security/engineering{
 	dir = 8
@@ -13219,9 +13209,9 @@
 /obj/machinery/turretid/stun{
 	control_area = "AI Satellite Secondary Antechamber";
 	name = "AI Satellite Secondary Antechamber Turret Control";
-	req_access = list(75);
 	pixel_x = -30;
-	pixel_y = -24
+	pixel_y = -24;
+	req_access = list(75)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -15907,8 +15897,8 @@
 /obj/machinery/cryopod/robot,
 /obj/effect/landmark/join_late_cyborg,
 /obj/item/radio/intercom{
-	pixel_y = 22;
-	pixel_x = 0
+	pixel_x = 0;
+	pixel_y = 22
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -18902,9 +18892,9 @@
 /obj/machinery/turretid/lethal{
 	check_synth = 1;
 	name = "AI Chamber Turret Control";
-	req_access = list(75);
 	pixel_x = 32;
-	pixel_y = 0
+	pixel_y = 0;
+	req_access = list(75)
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/turret_protected/ai)
@@ -22395,14 +22385,11 @@
 /area/bridge)
 "cVr" = (
 /obj/structure/table/reinforced,
-/obj/item/eftpos,
 /obj/structure/mirror{
 	pixel_x = -26
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "cVs" = (
 /obj/structure/bed,
 /obj/item/bedsheet/clown,
@@ -27550,9 +27537,9 @@
 "dOS" = (
 /obj/machinery/turretid/stun{
 	name = "AI Satellite Turret Control";
-	req_access = list(75);
 	pixel_x = 0;
-	pixel_y = -26
+	pixel_y = -26;
+	req_access = list(75)
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat)
@@ -38977,16 +38964,12 @@
 /turf/simulated/floor/glass/reinforced,
 /area/security/checkpoint/south)
 "gbk" = (
-/obj/structure/cable/orange{
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "gbp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -48353,10 +48336,11 @@
 /area/security/permabrig)
 "hPZ" = (
 /obj/machinery/dye_generator,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/civilian/barber)
+/area/maintenance/port)
 "hQg" = (
 /turf/simulated/floor/carpet/black,
 /area/chapel/office)
@@ -51577,14 +51561,6 @@
 	icon_state = "bcircuit"
 	},
 /area/turret_protected/ai_upload)
-"iwo" = (
-/obj/machinery/status_display{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
 "iws" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/disposalpipe/junction/reversed,
@@ -60521,9 +60497,9 @@
 "kiQ" = (
 /obj/machinery/turretid/stun{
 	name = "AI Satellite Turret Control";
-	req_access = list(75);
 	pixel_x = 0;
-	pixel_y = 28
+	pixel_y = 28;
+	req_access = list(75)
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat)
@@ -83732,10 +83708,6 @@
 	icon_state = "darkyellow"
 	},
 /area/engineering/engine/smes)
-"oNQ" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/civilian/barber)
 "oOd" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -92227,10 +92199,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "qqZ" = (
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/mech_bay_recharge_floor,
@@ -98970,13 +98940,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/carpet/royalblack,
 /area/crew_quarters/captain/bedroom)
-"rIl" = (
-/obj/item/razor,
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
 "rIo" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -104054,10 +104017,8 @@
 "sIL" = (
 /obj/structure/table/reinforced,
 /obj/item/razor,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "sIT" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -105745,20 +105706,15 @@
 	},
 /area/chapel/office)
 "sZm" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Barber Shop"
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/cable/orange{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
+/obj/machinery/door/airlock/maintenance{
+	locked = 1;
+	req_access = list(12)
 	},
-/area/civilian/barber)
+/turf/simulated/floor/plating,
+/area/maintenance/port)
 "sZp" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -118352,9 +118308,9 @@
 /obj/machinery/turretid/stun{
 	control_area = "AI Satellite Antechamber";
 	name = "AI Satellite Antechamber Turret Control";
-	req_access = list(75);
 	pixel_x = -28;
-	pixel_y = 0
+	pixel_y = 0;
+	req_access = list(75)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -122807,17 +122763,17 @@
 /turf/simulated/floor/plating/airless,
 /area/solar/west)
 "wlC" = (
-/obj/structure/cable/orange,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/power/apc{
 	pixel_y = -28
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/civilian/barber)
+/area/maintenance/port)
 "wlI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -122908,10 +122864,11 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/civilian/barber)
+/area/maintenance/port)
 "wmC" = (
 /obj/machinery/door/airlock/research{
 	name = "Research Division Access";
@@ -131687,9 +131644,9 @@
 /obj/machinery/turretid/stun{
 	control_area = "AI Satellite Antechamber";
 	name = "AI Satellite Antechamber Turret Control";
-	req_access = list(75);
 	pixel_x = 0;
-	pixel_y = -26
+	pixel_y = -26;
+	req_access = list(75)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "navyblue"
@@ -213511,11 +213468,11 @@ nJS
 bWb
 ren
 qwS
-bpQ
-oNQ
-bpQ
-oNQ
-bpQ
+kwS
+kwS
+kwS
+kwS
+kwS
 oYJ
 oYJ
 sXn
@@ -213768,11 +213725,11 @@ jgv
 tnS
 rsa
 tnS
-bpQ
-rIl
+kwS
+wXU
 cVr
 sIL
-bpQ
+kwS
 isY
 pXT
 oqO
@@ -214029,7 +213986,7 @@ sZm
 qqW
 acd
 beN
-bpQ
+kwS
 mfh
 vxY
 eBu
@@ -214282,11 +214239,11 @@ uuf
 mJW
 oEM
 vfV
-bpQ
-iwo
+kwS
+uUy
 gbk
 wlC
-bpQ
+kwS
 bkY
 woK
 cix
@@ -214539,11 +214496,11 @@ fDL
 tnS
 urC
 nAn
-bpQ
+kwS
 hPZ
 bFm
 wmA
-bpQ
+kwS
 rSN
 mzx
 caO
@@ -214796,11 +214753,11 @@ kMG
 tnS
 oYt
 xRO
-bpQ
-bpQ
-bpQ
-bpQ
-bpQ
+kwS
+kwS
+kwS
+kwS
+kwS
 oYJ
 oYJ
 hGj

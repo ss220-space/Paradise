@@ -9264,10 +9264,11 @@
 	dir = 8;
 	pixel_x = 24
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/civilian/barber)
+/area/maintenance/fsmaint)
 "aDQ" = (
 /obj/structure/table,
 /obj/item/folder/blue{
@@ -10075,13 +10076,10 @@
 /area/maintenance/fsmaint)
 "aGG" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/civilian/barber)
+/area/maintenance/fsmaint)
 "aGI" = (
 /obj/structure/weightmachine/stacklifter,
 /obj/effect/decal/cleanable/dirt,
@@ -10099,10 +10097,11 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/civilian/barber)
+/area/maintenance/fsmaint)
 "aGL" = (
 /obj/structure/chair/comfy/black,
 /obj/effect/landmark/start/civilian,
@@ -10507,18 +10506,16 @@
 /turf/simulated/wall,
 /area/clownoffice)
 "aId" = (
-/obj/structure/table/reinforced,
-/obj/item/razor,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/obj/machinery/light{
-	dir = 8
+/obj/effect/decal/cleanable/dirt,
+/obj/item/paper_bin{
+	pixel_y = 5
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/obj/item/pen,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "aIe" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -10563,14 +10560,8 @@
 /area/security/main)
 "aIi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/landmark/start/barber,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "aIj" = (
 /obj/structure/chair{
 	dir = 8
@@ -10985,19 +10976,6 @@
 	icon_state = "darkblue"
 	},
 /area/security/detectives_office)
-"aJp" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_y = 5
-	},
-/obj/item/pen,
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
 "aJr" = (
 /obj/structure/closet/secure_closet/brig,
 /obj/machinery/light_switch{
@@ -11386,26 +11364,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aKE" = (
-/obj/machinery/newscaster{
-	name = "east newscaster";
-	pixel_x = 32;
-	pixel_y = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/hologram/holopad,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "aKF" = (
 /obj/structure/table,
 /turf/simulated/floor/carpet/arcade,
@@ -12887,9 +12854,6 @@
 	},
 /area/crew_quarters/sleep)
 "aPP" = (
-/obj/structure/sign/barber{
-	pixel_y = 30
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -22877,7 +22841,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/civilian/barber)
+/area/maintenance/fsmaint)
 "buG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -22933,13 +22897,11 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/machinery/camera{
-	c_tag = "Barber Shop"
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/civilian/barber)
+/area/maintenance/fsmaint)
 "buM" = (
 /obj/machinery/vending/cart,
 /turf/simulated/floor/carpet/arcade,
@@ -23725,12 +23687,12 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/civilian/barber)
+/area/maintenance/fsmaint)
 "bxu" = (
-/obj/structure/dresser,
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east fire alarm";
@@ -23739,10 +23701,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/civilian/barber)
+/area/maintenance/fsmaint)
 "bxv" = (
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/captain)
@@ -24355,11 +24318,9 @@
 	},
 /area/hallway/secondary/exit)
 "bzm" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/obj/machinery/arcade/minesweeper,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "bzo" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/carpet/arcade,
@@ -24813,10 +24774,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "bAK" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -26192,19 +26152,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "bFL" = (
-/obj/item/radio/intercom{
-	name = "east station intercom (General)";
-	pixel_x = 28
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "bFM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/oil/streak,
@@ -27020,17 +26972,12 @@
 /area/medical/reception)
 "bIs" = (
 /obj/machinery/disposal,
-/obj/machinery/light_switch{
-	name = "west light switch";
-	pixel_x = -24
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "bIt" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -27062,10 +27009,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "bIB" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -27104,10 +27050,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "bIM" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
@@ -58874,10 +58819,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "fcS" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -60293,9 +60236,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/west)
-"gel" = (
-/turf/simulated/wall,
-/area/civilian/barber)
 "gff" = (
 /obj/structure/closet/crate/trashcart{
 	desc = "A heavy, metal laundrycart with wheels.";
@@ -64153,14 +64093,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"iHY" = (
-/obj/structure/chair/barber{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
 "iIh" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/hatch{
@@ -70255,19 +70187,17 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Barber Shop"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
+/obj/machinery/door/airlock/maintenance{
+	locked = 1;
+	req_access = list(12)
 	},
-/area/civilian/barber)
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "mOp" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/transit_tube/horizontal,
@@ -79005,16 +78935,6 @@
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/r_wall,
 /area/medical/research)
-"sDN" = (
-/obj/structure/table/reinforced,
-/obj/item/razor,
-/obj/structure/mirror{
-	pixel_x = -28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "barber"
-	},
-/area/civilian/barber)
 "sDO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -120186,14 +120106,14 @@ azW
 tjI
 aCw
 aIq
-gel
-gel
-gel
-gel
-gel
-gel
-gel
-gel
+awl
+awl
+awl
+awl
+aRF
+awl
+awl
+awl
 bUC
 aQn
 aSx
@@ -120443,14 +120363,14 @@ aCw
 aCw
 aCw
 aIq
-gel
+awl
 buF
 aGG
 aId
-aJp
-sDN
+axW
+axW
 bIs
-gel
+awl
 aPP
 bbo
 aZt
@@ -120700,14 +120620,14 @@ azY
 avq
 wCH
 aIq
-gel
+awl
 buL
 bxt
-iHY
+avq
 bAH
-iHY
+axW
 bIz
-gel
+awl
 bUD
 aQp
 aZv
@@ -120957,7 +120877,7 @@ azX
 aKK
 aKK
 bpg
-gel
+awl
 aGK
 fbY
 aIi
@@ -121214,7 +121134,7 @@ avq
 avq
 aBq
 avq
-gel
+awl
 aDP
 bxu
 bzm
