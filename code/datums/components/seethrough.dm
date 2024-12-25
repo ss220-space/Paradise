@@ -1,4 +1,12 @@
 /// A component that lets you turn an object invisible when you're standing on certain relative turfs to it, like behind a tree
+/datum/component/seethrough
+	/// List of lists that represent relative coordinates to the source atom
+	var/list/relative_turf_coords
+	/// A list of turfs on which we make ourself transparent
+	var/list/watched_turfs
+	/// Associate list, with client = trickery_image. Track which client is being tricked with which image
+	var/list/tricked_mobs = list()
+	
 /datum/component/seethrough/Destroy(force)
 	LAZYNULL(relative_turf_coords)
 	LAZYNULL(watched_turfs)
