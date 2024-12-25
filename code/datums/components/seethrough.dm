@@ -1,11 +1,10 @@
 /// A component that lets you turn an object invisible when you're standing on certain relative turfs to it, like behind a tree
-/datum/component/seethrough
-	/// List of lists that represent relative coordinates to the source atom
-	var/list/relative_turf_coords
-	/// A list of turfs on which we make ourself transparent
-	var/list/watched_turfs
-	/// Associate list, with client = trickery_image. Track which client is being tricked with which image
-	var/list/tricked_mobs = list()
+/datum/component/seethrough/Destroy(force)
+	LAZYNULL(relative_turf_coords)
+	LAZYNULL(watched_turfs)
+	LAZYNULL(tricked_mobs)
+
+	return ..()
 	/// Which alpha do we animate towards?
 	var/target_alpha
 	/// How long our fase in/out takes
@@ -37,9 +36,13 @@
 	src.perimeter_reset_timer = perimeter_reset_timer
 	src.clickthrough = clickthrough
 
+	setup_perimeter(parent)
+
+/datum/component/seethrough/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(dismantle_perimeter))
 
-	setup_perimeter(parent)
+/datum/component/seethrough/UnregisterFromParent()
+	UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
 
 /// Loop through a list with relative coordinate lists to mark those tiles and hide our parent when someone enters those tiles
 /datum/component/seethrough/proc/setup_perimeter(atom/parent)
@@ -99,7 +102,7 @@
 		UnregisterSignal(mob, COMSIG_MOB_LOGOUT)
 
 		// after playing the fade-in animation, remove the screen obj
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/component/seethrough,clear_image), trickery_image, mob.client), animation_time)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/component/seethrough, clear_image), trickery_image, mob.client), animation_time)
 
 /// Apply the trickery image and animation
 /datum/component/seethrough/proc/trick_mob(mob/fool)
@@ -139,7 +142,7 @@
 	clear_all_images()
 
 	// Timer override, so if our atom keeps moving the timer is reset until they stop for X time
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/component/seethrough,setup_perimeter), parent), perimeter_reset_timer, TIMER_OVERRIDE | TIMER_UNIQUE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/component/seethrough, setup_perimeter), parent), perimeter_reset_timer, TIMER_OVERRIDE | TIMER_UNIQUE)
 
 /// Remove a screen image from a client
 /datum/component/seethrough/proc/clear_image(image/removee, client/remove_from)
