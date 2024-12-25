@@ -18,7 +18,6 @@
 /area/shuttle/funeral
 	icon_state = "shuttle3"
 	name = "Suneral Shuttle"
-	parallax_movedir = SOUTH
 	nad_allowed = TRUE
 
 /obj/machinery/computer/shuttle/funeral

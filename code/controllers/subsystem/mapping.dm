@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
 	init_order = INIT_ORDER_MAPPING // 7
-	flags = SS_NO_FIRE
+	runlevels = ALL
 	ss_id = "mapping"
 	/// What map datum are we using
 	var/datum/map/map_datum
@@ -17,6 +17,22 @@ SUBSYSTEM_DEF(mapping)
 	var/list/multiz_levels = list()
 
 	var/list/areas_in_z = list()
+
+	/// Not actually unused turfs they're unused but reserved for use for whatever requests them. "[zlevel_of_turf]" = list(turfs)
+	var/list/turf/unused_turfs = list()
+	/// list of turf reservations
+	var/list/datum/turf_reservations
+	/// list of turf = datum/turf_reservation
+	var/list/used_turfs = list()
+	/// List of lists of turfs to reserve
+	var/list/lists_to_reserve = list()
+
+	var/list/reservation_ready = list()
+	var/clearing_reserved_turfs = FALSE
+
+	/// Amount of reserved levels we created so far. Mostly we will have only one
+	var/num_of_res_levels = 0
+
 	/// List of z level (as number) -> plane offset of that z level
 	/// Used to maintain the plane cube
 	var/list/z_level_to_plane_offset = list()
@@ -102,12 +118,17 @@ SUBSYSTEM_DEF(mapping)
 		previous_maps = maps
 
 /datum/controller/subsystem/mapping/Initialize()
+	if(initialized)
+		return
 	setupPlanes()
 	find_last_played_maps()
 	var/datum/lavaland_theme/lavaland_theme_type = pick(subtypesof(/datum/lavaland_theme))
 	ASSERT(lavaland_theme_type)
 	lavaland_theme = new lavaland_theme_type
 	log_startup_progress("We're in the mood for [initial(lavaland_theme.name)] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
+
+	require_area_resort()
+	// Start creating z-levels and content in it
 	// Load all Z level templates
 	preloadTemplates()
 	// Load the station
@@ -130,7 +151,6 @@ SUBSYSTEM_DEF(mapping)
 
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
-	generate_z_level_linkages(GLOB.space_manager.z_list)
 
 	if(!CONFIG_GET(flag/disable_lavaland))
 		// Spawn Lavaland ruins and rivers.
@@ -154,43 +174,38 @@ SUBSYSTEM_DEF(mapping)
 	else
 		log_startup_progress("Skipping lavaland ruins...")
 
+	// Create transit/reserve area for shuttle to fly in and out
+	initialize_reserved_level()
+	// End creating z-levels
+	// Re-sort again all areas
+	require_area_resort()
+	// reassure that multiz_levels list is filled. (We do it in manage_z_level inside add_new_zlevel)
+	generate_z_level_linkages(GLOB.space_manager.z_list)
+
 	// Now we make a list of areas for teleport locs
 	// TOOD: Make these locs into lists on the SS itself, not globs
-
-	var/list/all_areas = list()
-	for(var/area/areas in world)
-		all_areas += areas
-
-	for(var/area/AR as anything in all_areas)
+	for(var/area/AR as anything in get_sorted_areas())
 		if(AR.no_teleportlocs)
 			continue
 		if(GLOB.teleportlocs[AR.name])
 			continue
-		var/list/pickable_turfs = list()
-		for(var/turf/turfs in AR)
-			pickable_turfs += turfs
-			break
-		var/turf/picked = safepick(pickable_turfs)
-		if(picked && is_station_level(picked.z))
+		if(!AR.has_contained_turfs())
+			continue
+		if(is_station_level(AR.z))
 			GLOB.teleportlocs[AR.name] = AR
 
 	GLOB.teleportlocs = sortAssoc(GLOB.teleportlocs)
 
-	for(var/area/AR as anything in all_areas)
+	for(var/area/AR as anything in get_sorted_areas())
 		if(GLOB.ghostteleportlocs[AR.name])
 			continue
-		var/list/pickable_turfs = list()
-		for(var/turf/turfs in AR)
-			pickable_turfs += turfs
-			break
-		if(length(pickable_turfs))
-			GLOB.ghostteleportlocs[AR.name] = AR
+		GLOB.ghostteleportlocs[AR.name] = AR
 
 	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
 
 	// Now we make a list of areas that exist on the station. Good for if you don't want to select areas that exist for one station but not others. Directly references
 	existing_station_areas = list()
-	for(var/area/AR as anything in all_areas)
+	for(var/area/AR as anything in get_sorted_areas())
 		var/list/pickable_turfs = list()
 		for(var/turf/turfs in AR)
 			pickable_turfs += turfs
@@ -207,6 +222,66 @@ SUBSYSTEM_DEF(mapping)
 
 	return SS_INIT_SUCCESS
 
+/datum/controller/subsystem/mapping/fire(resumed)
+	// Cache for sonic speed
+	var/list/unused_turfs = src.unused_turfs
+	var/list/world_turf_contents = GLOB.areas_by_type[world.area].contained_turfs
+	var/list/lists_to_reserve = src.lists_to_reserve
+	var/index = 0
+	while(length(lists_to_reserve))
+		var/list/packet = lists_to_reserve[index + 1]
+		var/packetlen = length(packet)
+		while(packetlen)
+			if(MC_TICK_CHECK)
+				lists_to_reserve.Cut(1, index)
+				return
+			var/turf/T = packet[packetlen]
+			T.empty(RESERVED_TURF_TYPE, RESERVED_TURF_TYPE, null, TRUE)
+			LAZYINITLIST(unused_turfs["[T.z]"])
+			unused_turfs["[T.z]"] |= T
+			var/area/old_area = T.loc
+			old_area.turfs_to_uncontain += T
+			T.turf_flags |= UNUSED_RESERVATION_TURF
+			world_turf_contents += T
+			packet.len--
+			packetlen = length(packet)
+
+		index++
+		// If we're here, we're done with that lad
+		lists_to_reserve.len--
+	lists_to_reserve.Cut(1, index)
+
+/datum/controller/subsystem/mapping/proc/wipe_reservations(wipe_safety_delay = 100)
+	if(clearing_reserved_turfs || !initialized)			//in either case this is just not needed.
+		return
+	clearing_reserved_turfs = TRUE
+	SSshuttle.transit_requesters.Cut()
+	message_admins("Clearing dynamic reservation space.")
+	var/list/obj/docking_port/mobile/in_transit = list()
+	for(var/obj/docking_port/stationary/transit/T in SSshuttle.transit)
+		if(!istype(T))
+			continue
+		in_transit[T] = T.get_docked()
+	var/go_ahead = world.time + wipe_safety_delay
+	if(in_transit.len)
+		message_admins("Shuttles in transit detected. Attempting to fast travel. Timeout is [go_ahead/10] seconds.")
+	var/list/cleared = list()
+	for(var/i in in_transit)
+		INVOKE_ASYNC(src, PROC_REF(safety_clear_transit_dock), i, in_transit[i], cleared)
+	UNTIL((go_ahead < world.time) || (cleared.len == in_transit.len))
+	do_wipe_turf_reservations()
+	clearing_reserved_turfs = FALSE
+
+/datum/controller/subsystem/mapping/proc/safety_clear_transit_dock(obj/docking_port/stationary/transit/T, obj/docking_port/mobile/M, list/returning)
+	M.setTimer(0)
+	var/error = M.dock(M.destination)
+	if(!error)
+		returning += M
+		qdel(T, TRUE)
+
+/datum/controller/subsystem/mapping/proc/get_reservation_from_turf(turf/T)
+	RETURN_TYPE(/datum/turf_reservation)
+	return used_turfs[T]
 
 /datum/controller/subsystem/mapping/proc/setupPlanes()
 	plane_offset_to_true = list()
@@ -322,6 +397,7 @@ SUBSYSTEM_DEF(mapping)
 	GLOB.maploader.load_map(file("_maps/map_files/generic/syndicatebase.dmm"), z_offset = taipan_z_level)
 	log_startup_progress("Loaded Taipan in [stop_watch(watch)]s")
 
+// move it to code/datums/ruins.dm and make global proc plz thx k
 /datum/controller/subsystem/mapping/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = /area/space, list/potentialRuins)
 	if(!z_levels || !z_levels.len)
 		WARNING("No Z levels provided - Not generating ruins")
@@ -411,14 +487,97 @@ SUBSYSTEM_DEF(mapping)
 
 	log_world("Ruin loader finished with [budget] left to spend.")
 
+/// Adds a new reservation z level. A bit of space that can be handed out on request
+/// Of note, reservations default to transit turfs, to make their most common use, shuttles, faster
+/datum/controller/subsystem/mapping/proc/add_reservation_zlevel(for_shuttles)
+	num_of_res_levels++
+	var/new_res_z = GLOB.space_manager.add_new_zlevel(RESERVED_ZONE+" #[num_of_res_levels]", linkage = UNAFFECTED, traits = list(ADMIN_LEVEL, BLOCK_TELEPORT, RESERVED_LEVEL))
+	return new_res_z
+
+
+/// Requests a /datum/turf_reservation based on the given width, height, and z_size. You can specify a z_reservation to use a specific z level, or leave it null to use any z level.
+/datum/controller/subsystem/mapping/proc/request_turf_block_reservation(
+	width,
+	height,
+	z_size = 1,
+	z_reservation = null,
+	reservation_type = /datum/turf_reservation,
+	turf_type_override = null,
+)
+	UNTIL((!z_reservation || reservation_ready["[z_reservation]"]) && !clearing_reserved_turfs)
+	var/datum/turf_reservation/reserve = new reservation_type
+	if(!isnull(turf_type_override))
+		reserve.turf_type = turf_type_override
+	if(!z_reservation)
+		for(var/i in levels_by_trait(RESERVED_LEVEL))
+			if(reserve.reserve(width, height, z_size, i))
+				return reserve
+		//If we didn't return at this point, theres a good chance we ran out of room on the exisiting reserved z levels, so lets try a new one
+		var/datum/space_level/newReserved = add_reservation_zlevel()
+		initialize_reserved_level(newReserved.zpos)
+		if(reserve.reserve(width, height, z_size, newReserved.zpos))
+			return reserve
+	else
+		if(!check_level_trait(z_reservation, RESERVED_LEVEL))
+			return
+		else
+			if(reserve.reserve(width, height, z_size, z_reservation))
+				return reserve
+	QDEL_NULL(reserve)
+
+//This is not for wiping reserved levels, use wipe_reservations() for that.
+/datum/controller/subsystem/mapping/proc/initialize_reserved_level()
+	num_of_res_levels++
+	var/my_z = GLOB.space_manager.add_new_zlevel(RESERVED_ZONE+" #[num_of_res_levels]", linkage = UNAFFECTED, traits = list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC, RESERVED_LEVEL))
+	UNTIL(!clearing_reserved_turfs) //regardless, lets add a check just in case.
+	clearing_reserved_turfs = TRUE //This operation will likely clear any existing reservations, so lets make sure nothing tries to make one while we're doing it.
+	var/turf/A = get_turf(locate(SHUTTLE_TRANSIT_BORDER, SHUTTLE_TRANSIT_BORDER, my_z))
+	var/turf/B = get_turf(locate(world.maxx - SHUTTLE_TRANSIT_BORDER, world.maxy - SHUTTLE_TRANSIT_BORDER, my_z))
+	var/block = block(A, B)
+	for(var/turf/T in block)
+		// No need to empty() these, because it's world init and they're already /turf/space.
+		T.turf_flags |= UNUSED_RESERVATION_TURF
+		CHECK_TICK
+
+	unused_turfs["[my_z]"] = block
+	reservation_ready["[my_z]"] = TRUE
+	clearing_reserved_turfs = FALSE
+
+/// Schedules a group of turfs to be handed back to the reservation system's control
+/// If await is true, will sleep until the turfs are finished work
+/datum/controller/subsystem/mapping/proc/reserve_turfs(list/turfs, await = FALSE)
+	lists_to_reserve += list(turfs)
+	if(await)
+		UNTIL(!length(turfs))
+
+//DO NOT CALL THIS PROC DIRECTLY, CALL wipe_reservations().
+/datum/controller/subsystem/mapping/proc/do_wipe_turf_reservations()
+	UNTIL(initialized) //This proc is for AFTER init, before init turf reservations won't even exist and using this will likely break things.
+	if(SSshuttle && SSshuttle.transit_requesters)
+		SSshuttle.transit_requesters.Cut()
+	for(var/i in turf_reservations)
+		var/datum/turf_reservation/TR = i
+		if(!QDELETED(TR))
+			qdel(TR, TRUE)
+	UNSETEMPTY(turf_reservations)
+	var/list/clearing = list()
+	for(var/l in unused_turfs) //unused_turfs is a assoc list by z = list(turfs)
+		if(islist(unused_turfs[l]))
+			clearing |= unused_turfs[l]
+	//used turfs is an associative list, BUT, reserve_turfs() can still handle it. If the code above works properly, this won't even be needed as the turfs would be freed already.
+	clearing |= used_turfs
+	unused_turfs.Cut()
+	used_turfs.Cut()
+	reserve_turfs(clearing, await = TRUE)
+
 /// Generate the turfs of the area
 /datum/controller/subsystem/mapping/proc/run_map_terrain_generation()
-	for(var/area/A in world)
+	for(var/area/A in GLOB.areas)
 		A.RunTerrainGeneration()
 
 /// Populate the turfs of the area
 /datum/controller/subsystem/mapping/proc/run_map_terrain_population()
-	for(var/area/A in world)
+	for(var/area/A in GLOB.areas)
 		A.RunTerrainPopulation()
 
 /datum/controller/subsystem/mapping/proc/generate_z_level_linkages(z_list)
@@ -443,10 +602,12 @@ SUBSYSTEM_DEF(mapping)
 
 /// Takes a z level datum, and tells the mapping subsystem to manage it
 /// Also handles things like plane offset generation, and other things that happen on a z level to z level basis
-/datum/controller/subsystem/mapping/proc/manage_z_level(datum/space_level/new_z)
+/datum/controller/subsystem/mapping/proc/manage_z_level(datum/space_level/new_z, filled_with_space, contain_turfs = TRUE)
 	// Build our lookup lists
 	var/z_value = new_z.zpos
 	log_debug(z_value)
+	/// multiz_levels list update
+	generate_linkages_for_z_level(z_value)
 	// We are guarenteed that we'll always grow bottom up
 	// Suck it jannies
 	z_level_to_plane_offset.len += 1
@@ -463,10 +624,25 @@ SUBSYSTEM_DEF(mapping)
 	if(below_offset)
 		update_plane_tracking(new_z)
 
+	if(contain_turfs)
+		build_area_turfs(z_value, filled_with_space)
+
 	// And finally, misc global generation
 
 	// We'll have to update this if offsets change, because we load lowest z to highest z
 	generate_lighting_appearance_by_z(z_value)
+
+/datum/controller/subsystem/mapping/proc/build_area_turfs(z_level, space_guaranteed)
+	// If we know this is filled with default tiles, we can use the default area
+	// Faster
+	if(space_guaranteed)
+		var/area/global_area = GLOB.areas_by_type[world.area]
+		global_area.contained_turfs += Z_TURFS(z_level)
+		return
+
+	for(var/turf/to_contain as anything in Z_TURFS(z_level))
+		var/area/our_area = to_contain.loc
+		our_area.contained_turfs += to_contain
 
 /datum/controller/subsystem/mapping/proc/update_plane_tracking(datum/space_level/update_with)
 	// We're essentially going to walk down the stack of connected z levels, and set their plane offset as we go
@@ -523,7 +699,7 @@ SUBSYSTEM_DEF(mapping)
 			var/offset_plane = GET_NEW_PLANE(plane_to_use, plane_offset)
 			var/string_plane = "[offset_plane]"
 
-			if(!initial(master_type.allows_offsetting))
+			if(initial(master_type.offsetting_flags) & BLOCKS_PLANE_OFFSETTING)
 				plane_offset_blacklist[string_plane] = TRUE
 				var/render_target = initial(master_type.render_target)
 				if(!render_target)
@@ -546,7 +722,7 @@ SUBSYSTEM_DEF(mapping)
 /proc/generate_lighting_appearance_by_z(z_level)
 	if(length(GLOB.default_lighting_underlays_by_z) < z_level)
 		GLOB.default_lighting_underlays_by_z.len = z_level
-	GLOB.default_lighting_underlays_by_z[z_level] = mutable_appearance(LIGHTING_ICON, "transparent_lighting_object", z_level, null, LIGHTING_PLANE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM, offset_const = GET_Z_PLANE_OFFSET(z_level))
+	GLOB.default_lighting_underlays_by_z[z_level] = mutable_appearance(LIGHTING_ICON, "transparent_lighting_object", z_level * 0.01, null, LIGHTING_PLANE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM, offset_const = GET_Z_PLANE_OFFSET(z_level))
 
 /datum/controller/subsystem/mapping/Recover()
 	flags |= SS_NO_INIT

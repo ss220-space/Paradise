@@ -548,8 +548,8 @@
  */
 
 /turf/defile()
-	if(flags & NOJAUNT)
-		flags &= ~NOJAUNT
+	if(turf_flags & NOJAUNT)
+		turf_flags &= ~NOJAUNT
 		new /obj/effect/temp_visual/revenant(loc)
 
 /turf/simulated/floor/defile()
@@ -560,13 +560,13 @@
 		make_plating(intact)
 
 /turf/simulated/floor/plating/defile()
-	if(flags & NOJAUNT)
-		flags &= ~NOJAUNT
+	if(turf_flags & NOJAUNT)
+		turf_flags &= ~NOJAUNT
 		new /obj/effect/temp_visual/revenant(loc)
 
 /turf/simulated/floor/engine/cult/defile()
-	if(flags & NOJAUNT)
-		flags &= ~NOJAUNT
+	if(turf_flags & NOJAUNT)
+		turf_flags &= ~NOJAUNT
 		new /obj/effect/temp_visual/revenant(loc)
 
 /turf/simulated/wall/defile()
