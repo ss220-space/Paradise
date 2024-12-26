@@ -60,7 +60,8 @@
 	req_access = list(31)
 	},
 /obj/docking_port/mobile/supply{
-	timid = 1
+	timid = 1;
+	port_direction = 4
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/supply)

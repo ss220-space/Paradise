@@ -8,6 +8,7 @@
 	light_color = LIGHT_COLOR_PINK
 	req_access = list(ACCESS_CLOWN)
 	circuit = /obj/item/circuitboard/HONKputer
+	frame = /obj/structure/computerframe/HONKputer
 	var/authenticated = 0
 	var/message_cooldown = 0
 	var/state = STATE_DEFAULT

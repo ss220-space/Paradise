@@ -176,7 +176,7 @@
  * Check to be called by ticker
  */
 /datum/game_mode/proc/check_finished()
-	if((SSshuttle.emergency && SSshuttle.emergency.mode >= SHUTTLE_ENDGAME) || station_was_nuked)
+	if((SSshuttle.emergency && SSshuttle.emergency.mode == SHUTTLE_ENDGAME) || station_was_nuked)
 		return TRUE
 
 	return FALSE
@@ -204,7 +204,7 @@
 
 	var/list/area/escape_locations = list(/area/shuttle/escape, /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom)
 
-	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME) //shuttle didn't get to centcom
+	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME) //shuttle didn't get to centcom
 		escape_locations -= /area/shuttle/escape
 
 	for(var/mob/player in GLOB.player_list)
@@ -225,7 +225,7 @@
 				if(player_area?.type in escape_locations)
 					escaped_total++
 
-				if(player_area?.type == SSshuttle.emergency.areaInstance.type && SSshuttle.emergency.mode >= SHUTTLE_ENDGAME)
+				if(player_area?.type == SSshuttle.emergency.areaInstance.type && SSshuttle.emergency.mode == SHUTTLE_ENDGAME)
 					escaped_on_shuttle++
 
 				if(player_area?.type == /area/shuttle/escape_pod1/centcom)
