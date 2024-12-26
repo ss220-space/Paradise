@@ -14,7 +14,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/aiModule))
+	if(istype(I, /obj/item/ai_module))
 		add_fingerprint(user)
 		if(!current)	//no AI selected
 			to_chat(user, span_danger("No AI selected. Please chose a target before proceeding with upload."))
@@ -25,8 +25,8 @@
 		if(current.on_the_card)
 			to_chat(user, span_danger("Unable to establish a connection") + ": Target silicon is on an inteliCard or undergoing a repair procedure!")
 			return ATTACK_CHAIN_PROCEED
-		var/obj/item/aiModule/aiModule = I
-		aiModule.install(src)
+		var/obj/item/ai_module/ai_module = I
+		ai_module.install(src)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()

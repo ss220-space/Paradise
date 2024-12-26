@@ -4673,7 +4673,7 @@
 /area/crew_quarters/cabin1)
 "aNl" = (
 /obj/structure/table,
-/obj/item/aiModule/reset,
+/obj/item/ai_module/reset,
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
@@ -5954,7 +5954,7 @@
 /area/crew_quarters/bar/atrium)
 "aWL" = (
 /obj/structure/table,
-/obj/item/aiModule/crewsimov,
+/obj/item/ai_module/crewsimov,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = 21
@@ -6943,7 +6943,7 @@
 "bcK" = (
 /obj/structure/table,
 /obj/item/aicard,
-/obj/item/aiModule/reset,
+/obj/item/ai_module/reset,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "bcL" = (
@@ -8156,10 +8156,10 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/aiModule/oxygen,
-/obj/item/aiModule/oneCrewMember,
-/obj/item/aiModule/purge,
-/obj/item/aiModule/antimov,
+/obj/item/ai_module/oxygen,
+/obj/item/ai_module/one_crew_member,
+/obj/item/ai_module/purge,
+/obj/item/ai_module/antimov,
 /obj/structure/table/glass,
 /obj/machinery/door/window{
 	dir = 1;
@@ -21640,7 +21640,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "cQU" = (
-/obj/machinery/computer/borgupload{
+/obj/machinery/computer/aiupload/cyborg{
 	dir = 1
 	},
 /obj/machinery/door/window/eastright{
@@ -37965,7 +37965,7 @@
 /area/maintenance/cele/medbay)
 "fRS" = (
 /obj/structure/table,
-/obj/item/aiModule/nanotrasen,
+/obj/item/ai_module/nanotrasen,
 /obj/structure/cable/orange,
 /obj/machinery/power/apc{
 	pixel_y = -28
@@ -51553,11 +51553,11 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/aiModule/crewsimov,
-/obj/item/aiModule/freeformcore,
-/obj/item/aiModule/corp,
-/obj/item/aiModule/paladin,
-/obj/item/aiModule/robocop,
+/obj/item/ai_module/crewsimov,
+/obj/item/ai_module/freeformcore,
+/obj/item/ai_module/corp,
+/obj/item/ai_module/paladin,
+/obj/item/ai_module/robocop,
 /obj/structure/table/glass,
 /obj/machinery/door/window{
 	dir = 2;
@@ -104512,7 +104512,7 @@
 /area/security/lobby)
 "sMY" = (
 /obj/structure/table,
-/obj/item/aiModule/corp,
+/obj/item/ai_module/corp,
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},

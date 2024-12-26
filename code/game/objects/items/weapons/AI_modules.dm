@@ -4,32 +4,33 @@ AI MODULES
 
 */
 
-// AI module
+// AI Board Module
 
-/obj/item/aiModule
+/obj/item/ai_module
 	name = "AI Module"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "std_mod"
 	item_state = "electronic"
 	desc = "An AI Module for transmitting encrypted instructions to the AI."
 	flags = CONDUCT
-	force = 5.0
+	force = 5
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 5.0
+	throwforce = 5
 	throw_speed = 3
 	throw_range = 15
 	origin_tech = "programming=3"
 	materials = list(MAT_GOLD=50)
 	var/datum/ai_laws/laws = null
 
-/obj/item/aiModule/proc/install(var/obj/machinery/computer/C)
+
+/obj/item/ai_module/proc/install(mob/user, obj/machinery/computer/C)
 	if(istype(C, /obj/machinery/computer/aiupload))
 		var/obj/machinery/computer/aiupload/comp = C
 		if(comp.stat & NOPOWER)
-			to_chat(usr, "<span class='warning'>The upload computer has no power!</span>")
+			to_chat(user, span_warning("The upload computer has no power!"))
 			return
 		if(comp.stat & BROKEN)
-			to_chat(usr, "<span class='warning'>The upload computer is broken!</span>")
+			to_chat(user, span_warning("The upload computer is broken!"))
 			return
 		if(!comp.current)
 			to_chat(usr, "<span class='warning'>You haven't selected an AI to transmit laws to!</span>")

@@ -724,7 +724,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 	/obj/item/clothing/shoes/chameleon/noslip, /obj/item/card/id/syndicate,\
 	/obj/item/clothing/mask/chameleon, /obj/item/clothing/glasses/thermal,\
 	/obj/item/chameleon, /obj/item/card/emag,\
-	/obj/item/storage/toolbox/syndicate, /obj/item/aiModule,\
+	/obj/item/storage/toolbox/syndicate, /obj/item/ai_module,\
 	/obj/item/radio/headset/syndicate,	/obj/item/grenade/plastic/c4,\
 	/obj/item/powersink, /obj/item/storage/box/syndie_kit,\
 	/obj/item/toy/syndicateballoon, /obj/item/gun/energy/laser/captain,\
