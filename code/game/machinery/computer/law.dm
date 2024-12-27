@@ -12,6 +12,7 @@
 
 	var/delay = 20 SECONDS
 	var/timer_id = null
+	var/reg_name = null
 
 	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
@@ -124,7 +125,7 @@
 
 /obj/machinery/computer/aiupload/proc/finish_upload(mob/user)
 	timer_id = null
-	installed_module.transmit_instructions(current, user, id?.registered_name)
+	installed_module.transmit_instructions(current, user, reg_name)
 	to_chat(current, "These are your laws now:")
 	current.show_laws()
 	for(var/mob/living/silicon/robot/R in GLOB.mob_list)
@@ -233,11 +234,12 @@
 		return
 
 	to_chat(user, span_notice("Upload process has started. ETA: [delay/10] seconds."))
+	reg_name = hacked ? "UNKNOWN" : id.registered_name
 	timer_id = addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/aiupload, finish_upload), user), delay, TIMER_STOPPABLE)
 
 /obj/machinery/computer/aiupload/cyborg/finish_upload(mob/user)
 	timer_id = null
-	installed_module.transmit_instructions(current, user, id?.registered_name)
+	installed_module.transmit_instructions(current, user, reg_name)
 	to_chat(current, "These are your laws now:")
 	current.show_laws()
 	atom_say("Upload complete. The laws have been modified.")
