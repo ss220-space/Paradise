@@ -33276,7 +33276,8 @@
 	},
 /obj/structure/filingcabinet/chestdrawer,
 /obj/item/radio/intercom{
-	pixel_y = -26
+	pixel_y = -26;
+	pixel_x = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -65232,7 +65233,8 @@
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -30
+	pixel_x = -30;
+	pixel_y = 0
 	},
 /obj/machinery/light{
 	dir = 8
@@ -91614,7 +91616,8 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -30
+	pixel_x = -30;
+	pixel_y = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/gravitygenerator)
@@ -123827,7 +123830,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -30
+	pixel_x = -30;
+	pixel_y = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
