@@ -33276,7 +33276,6 @@
 	},
 /obj/structure/filingcabinet/chestdrawer,
 /obj/item/radio/intercom{
-	pixel_x = 0;
 	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel{
