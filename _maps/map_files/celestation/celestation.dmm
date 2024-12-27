@@ -15907,7 +15907,6 @@
 /obj/machinery/cryopod/robot,
 /obj/effect/landmark/join_late_cyborg,
 /obj/item/radio/intercom{
-	pixel_x = 0;
 	pixel_y = 22
 	},
 /turf/simulated/floor/plasteel{
@@ -18903,7 +18902,6 @@
 	check_synth = 1;
 	name = "AI Chamber Turret Control";
 	pixel_x = 32;
-	pixel_y = 0;
 	req_access = list(75)
 	},
 /turf/simulated/floor/glass/reinforced,
@@ -27549,7 +27547,6 @@
 "dOS" = (
 /obj/machinery/turretid/stun{
 	name = "AI Satellite Turret Control";
-	pixel_x = 0;
 	pixel_y = -26;
 	req_access = list(75)
 	},
@@ -60520,7 +60517,6 @@
 "kiQ" = (
 /obj/machinery/turretid/stun{
 	name = "AI Satellite Turret Control";
-	pixel_x = 0;
 	pixel_y = 28;
 	req_access = list(75)
 	},
@@ -118353,7 +118349,6 @@
 	control_area = "AI Satellite Antechamber";
 	name = "AI Satellite Antechamber Turret Control";
 	pixel_x = -28;
-	pixel_y = 0;
 	req_access = list(75)
 	},
 /turf/simulated/floor/plasteel{
@@ -131687,7 +131682,6 @@
 /obj/machinery/turretid/stun{
 	control_area = "AI Satellite Antechamber";
 	name = "AI Satellite Antechamber Turret Control";
-	pixel_x = 0;
 	pixel_y = -26;
 	req_access = list(75)
 	},

@@ -65232,8 +65232,7 @@
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -30;
-	
+	pixel_x = -30
 	},
 /obj/machinery/light{
 	dir = 8
@@ -91615,8 +91614,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -30;
-	
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/gravitygenerator)
@@ -123829,8 +123827,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -30;
-	
+	pixel_x = -30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
