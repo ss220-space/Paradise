@@ -5319,6 +5319,7 @@
 /obj/item/stamp/qm{
 	pixel_y = 7
 	},
+/obj/item/mining_voucher,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"

@@ -13219,9 +13219,9 @@
 /obj/machinery/turretid/stun{
 	control_area = "AI Satellite Secondary Antechamber";
 	name = "AI Satellite Secondary Antechamber Turret Control";
-	req_access = list(75);
 	pixel_x = -30;
-	pixel_y = -24
+	pixel_y = -24;
+	req_access = list(75)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -15907,8 +15907,8 @@
 /obj/machinery/cryopod/robot,
 /obj/effect/landmark/join_late_cyborg,
 /obj/item/radio/intercom{
-	pixel_y = 22;
-	pixel_x = 0
+	pixel_x = 0;
+	pixel_y = 22
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -18902,9 +18902,9 @@
 /obj/machinery/turretid/lethal{
 	check_synth = 1;
 	name = "AI Chamber Turret Control";
-	req_access = list(75);
 	pixel_x = 32;
-	pixel_y = 0
+	pixel_y = 0;
+	req_access = list(75)
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/turret_protected/ai)
@@ -22081,7 +22081,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/item/clipboard,
-/obj/item/mining_voucher,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -27550,9 +27549,9 @@
 "dOS" = (
 /obj/machinery/turretid/stun{
 	name = "AI Satellite Turret Control";
-	req_access = list(75);
 	pixel_x = 0;
-	pixel_y = -26
+	pixel_y = -26;
+	req_access = list(75)
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat)
@@ -60521,9 +60520,9 @@
 "kiQ" = (
 /obj/machinery/turretid/stun{
 	name = "AI Satellite Turret Control";
-	req_access = list(75);
 	pixel_x = 0;
-	pixel_y = 28
+	pixel_y = 28;
+	req_access = list(75)
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat)
@@ -87991,6 +87990,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-8"
 	},
+/obj/item/mining_voucher,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -118352,9 +118352,9 @@
 /obj/machinery/turretid/stun{
 	control_area = "AI Satellite Antechamber";
 	name = "AI Satellite Antechamber Turret Control";
-	req_access = list(75);
 	pixel_x = -28;
-	pixel_y = 0
+	pixel_y = 0;
+	req_access = list(75)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -131687,9 +131687,9 @@
 /obj/machinery/turretid/stun{
 	control_area = "AI Satellite Antechamber";
 	name = "AI Satellite Antechamber Turret Control";
-	req_access = list(75);
 	pixel_x = 0;
-	pixel_y = -26
+	pixel_y = -26;
+	req_access = list(75)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "navyblue"

@@ -33276,8 +33276,8 @@
 	},
 /obj/structure/filingcabinet/chestdrawer,
 /obj/item/radio/intercom{
-	pixel_y = -26;
-	pixel_x = 0
+	pixel_x = 0;
+	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -64449,7 +64449,6 @@
 "jKY" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/mining_voucher,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -65921,6 +65920,7 @@
 	pixel_y = 3
 	},
 /obj/item/clipboard,
+/obj/item/mining_voucher,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
