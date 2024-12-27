@@ -65233,7 +65233,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/walllocker/emerglocker/north{
 	pixel_x = -30;
-	pixel_y = 0
+	
 	},
 /obj/machinery/light{
 	dir = 8
@@ -91616,7 +91616,7 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/closet/walllocker/emerglocker/north{
 	pixel_x = -30;
-	pixel_y = 0
+	
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/gravitygenerator)
@@ -123830,7 +123830,7 @@
 /obj/item/pen,
 /obj/structure/closet/walllocker/emerglocker/north{
 	pixel_x = -30;
-	pixel_y = 0
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
