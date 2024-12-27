@@ -63756,14 +63756,6 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/item/vending_refill/custom{
-	pixel_y = 5;
-	pixel_x = -6
-	},
-/obj/item/vending_refill/custom{
-	pixel_y = 3;
-	pixel_x = 3
-	},
 /obj/item/flashlight,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)

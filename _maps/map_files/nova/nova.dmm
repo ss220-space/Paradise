@@ -30673,15 +30673,10 @@
 "eva" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/disposalpipe/segment,
-/obj/item/vending_refill/custom,
-/obj/item/vending_refill/custom{
-	pixel_x = 5;
-	pixel_y = 3
-	},
-/obj/item/wrench,
 /obj/item/crowbar,
+/obj/item/wrench,
 /obj/item/gps,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "evi" = (

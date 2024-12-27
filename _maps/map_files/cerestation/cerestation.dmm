@@ -86094,14 +86094,6 @@
 /area/crew_quarters/locker)
 "uMQ" = (
 /obj/structure/table,
-/obj/item/vending_refill/custom{
-	pixel_y = 5;
-	pixel_x = 4
-	},
-/obj/item/vending_refill/custom{
-	pixel_y = 3;
-	pixel_x = -2
-	},
 /obj/structure/cable/orange{
 	icon_state = "0-4"
 	},
