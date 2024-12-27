@@ -12764,6 +12764,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/item/qm_quest_tablet{
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
