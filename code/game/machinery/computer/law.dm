@@ -1,3 +1,6 @@
+#define NORMAL_UPLOAD_DELAY 20 SECONDS
+#define SHORTEN_UPLOAD_DELAY 5 SECONDS
+
 /obj/machinery/computer/aiupload
 	name = "\improper AI upload console"
 	desc = "Используется для манипуляций с законами ИИ."
@@ -10,7 +13,10 @@
 	var/obj/item/card/id/id = null
 	var/hacked = FALSE
 
-	var/delay = 20 SECONDS
+	var/static/list/shorten_delay = list(
+		/obj/item/ai_module/purge,
+		/obj/item/ai_module/reset
+		)
 	var/timer_id = null
 	var/reg_name = null
 
@@ -120,6 +126,7 @@
 	if(!installed_module.check_install(user))
 		return
 
+	var/delay = (installed_module in shorten_delay) ? SHORTEN_UPLOAD_DELAY : NORMAL_UPLOAD_DELAY
 	to_chat(user, span_notice("Upload process has started. ETA: [delay/10] seconds."))
 	timer_id = addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/aiupload, finish_upload), user), delay, TIMER_STOPPABLE)
 
@@ -233,6 +240,7 @@
 	if(!installed_module.check_install(user))
 		return
 
+	var/delay = (installed_module in shorten_delay) ? SHORTEN_UPLOAD_DELAY : NORMAL_UPLOAD_DELAY
 	to_chat(user, span_notice("Upload process has started. ETA: [delay/10] seconds."))
 	reg_name = hacked ? "UNKNOWN" : id.registered_name
 	timer_id = addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/aiupload, finish_upload), user), delay, TIMER_STOPPABLE)
@@ -243,3 +251,6 @@
 	to_chat(current, "These are your laws now:")
 	current.show_laws()
 	atom_say("Upload complete. The laws have been modified.")
+
+#undef NORMAL_UPLOAD_DELAY
+#undef SHORTEN_UPLOAD_DELAY
