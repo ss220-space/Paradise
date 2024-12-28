@@ -211,12 +211,12 @@
 	if(Y)\
 		I.Shift(NORTH, Y);\
 
-/datum/preferences/proc/update_preview_icon(var/for_observer=0)		//seriously. This is horrendous.
+/datum/preferences/proc/update_preview_icon(for_observer = FALSE)	// seriously. This is horrendous.
 	qdel(preview_icon_front)
 	qdel(preview_icon_side)
 	qdel(preview_icon)
 
-	var/g = gender == FEMALE ? "f" : "g"
+	var/gender_suffix = gender == FEMALE ? "f" : "m"
 	var/icon/icobase
 	var/datum/species/current_species = GLOB.all_species[species]
 
@@ -244,14 +244,14 @@
 	else
 		icobase = 'icons/mob/human_races/r_human.dmi'
 
-	preview_icon = new /icon(icobase, "torso_[g]")
-	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
+	preview_icon = new /icon(icobase, "torso_[gender_suffix]")
+	preview_icon.Blend(new /icon(icobase, "groin_[gender_suffix]"), ICON_OVERLAY)
 	var/head = "head"
 	if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
 		var/datum/sprite_accessory/alt_heads/H = GLOB.alt_heads_list[alt_head]
 		if(H.icon_state)
 			head = H.icon_state
-	preview_icon.Blend(new /icon(icobase, "[head]_[g]"), ICON_OVERLAY)
+	preview_icon.Blend(new /icon(icobase, "[head]_[gender_suffix]"), ICON_OVERLAY)
 	var/list/check_list = list(
 		BODY_ZONE_CHEST,
 		BODY_ZONE_PRECISE_GROIN,
