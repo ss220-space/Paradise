@@ -78,8 +78,7 @@
 		GLOB.pai_software_by_key[P.id] = P
 
 	// Setup loadout gear
-	for(var/gear_type in subtypesof(/datum/gear))
-		var/datum/gear/gear = gear_type
+	for(var/datum/gear/gear as anything in subtypesof(/datum/gear))
 
 		if(gear == gear.path)
 			continue
