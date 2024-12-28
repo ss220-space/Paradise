@@ -40,7 +40,7 @@
 
 	datum_owner.AddComponent( \
 		/datum/component/pref_viewer, \
-		/datum/preference_info/take_out_of_the_round_without_obj, \
+		list(/datum/preference_info/take_out_of_the_round_without_obj), \
 	)
 
 /datum/antagonist/traitor/on_body_transfer(mob/living/old_body, mob/living/new_body)

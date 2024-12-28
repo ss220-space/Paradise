@@ -12,7 +12,8 @@
     if(!ismob(parent))
         return COMPONENT_INCOMPATIBLE
 
-    src.preferences_to_show = preferences_to_show
+    for(var/datum/preference_info/pref as anything in preferences_to_show)
+		LAZYADD(src.preferences_to_show, new pref)
 
 /datum/component/pref_viewer/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOB_RUN_EXAMINATE, PROC_REF(on_examine))
@@ -29,12 +30,12 @@
     INVOKE_ASYNC(src, PROC_REF(modify_examine), target, result)
 
 /datum/component/pref_viewer/proc/modify_examine(mob/target, list/result)
-    for(var/datum/preference_info/pref as anything in preferences_to_show)
-        var/datum/preference_toggle/pref_toggle = pref.get_preference_toggle()
-
-        if(!HASBIT(target.client.prefs.toggles, pref_toggle::preftoggle_bitflag) \
-        && !HASBIT(target.client.prefs.toggles2, pref_toggle::preftoggle_bitflag)
+	for(var/datum/preference_info/pref as anything in preferences_to_show)
+		var/datum/preference_toggle/toggle = pref.get_preference_toggle()
+		
+		if(!HASBIT(target.client.prefs.toggles, toggle::preftoggle_bitflag) \
+        && !HASBIT(target.client.prefs.toggles2, toggle::preftoggle_bitflag)
         )
-            continue
+			continue
 
-        LAZYADD(result, pref.get_examine_text())
+		LAZYADD(result, pref.get_examine_text())

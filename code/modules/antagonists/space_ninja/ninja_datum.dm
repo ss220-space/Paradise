@@ -116,7 +116,7 @@
 
 	user.AddComponent( \
 		/datum/component/pref_viewer, \
-		/datum/preference_info/take_out_of_the_round_without_obj, \
+		list(/datum/preference_info/take_out_of_the_round_without_obj), \
 	)
 
 /datum/antagonist/ninja/handle_last_instance_removal()
