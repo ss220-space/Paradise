@@ -83,7 +83,7 @@
 		if(gear == gear.path)
 			continue
 
-		if(gear_type == gear.subtype_path)
+		if(gear == gear.subtype_path)
 			continue
 
 		if(!gear.index_name)
@@ -106,7 +106,7 @@
 			))
 
 		GLOB.gear_tgui_info[gear.sort_category] += list(
-			"[gear_type]" = list(
+			"[gear]" = list(
 				"name" = ((gear.display_name == /datum/gear::display_name)? gear_item.name : gear.display_name) ,
 				"index_name" = gear.index_name,
 				"desc" = gear.description,
