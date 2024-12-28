@@ -38,18 +38,18 @@
 	var/list/valid_colors
 	var/datum/gear/parent
 
-/datum/gear_tweak/color/New(var/list/colors, datum/gear/parent)
+/datum/gear_tweak/color/New(list/colors, datum/gear/parent)
 	valid_colors = colors
 	src.parent = parent
 	..()
 
-/datum/gear_tweak/color/get_contents(var/metadata)
+/datum/gear_tweak/color/get_contents(metadata)
 	return "Color: <font color='[metadata]'>&#9899;</font>"
 
 /datum/gear_tweak/color/get_default()
 	return valid_colors ? valid_colors[1] : COLOR_WHITE
 
-/datum/gear_tweak/color/get_metadata(var/user, var/metadata)
+/datum/gear_tweak/color/get_metadata(user, metadata)
 	if(valid_colors)
 		metadata = tgui_input_list(user, "Choose an item color.", "Character Preference", valid_colors, metadata)
 	else
@@ -59,11 +59,13 @@
 
 /datum/gear_tweak/color/get_tgui_data(param)
 	var/tgui_data = list()
+	if(!param)
+		return tgui_data
 	tgui_data["display_param"] = param
 	tgui_data["icon"] = parent.get_gear_icon(param)
 	return tgui_data
 
-/datum/gear_tweak/color/update_gear_intro(var/color)
+/datum/gear_tweak/color/update_gear_intro(color)
 	parent.update_gear_icon(color)
 
 /datum/gear_tweak/color/tweak_item(obj/item/gear, metadata)
@@ -82,7 +84,7 @@
 	var/list/valid_paths = list()
 	var/datum/gear/parent
 
-/datum/gear_tweak/path/New(var/list/paths, datum/gear/parent, name = FALSE)
+/datum/gear_tweak/path/New(list/paths, datum/gear/parent, name = FALSE)
 	if(name)
 		for(var/atom/path as anything in paths)
 			valid_paths[initial(path.name)] = path
@@ -91,23 +93,25 @@
 	src.parent = parent
 	..()
 
-/datum/gear_tweak/path/get_contents(var/metadata)
+/datum/gear_tweak/path/get_contents(metadata)
 	return "Type: [metadata]"
 
 /datum/gear_tweak/path/get_default()
 	return valid_paths[1]
 
-/datum/gear_tweak/path/get_metadata(var/user, var/metadata)
-	metadata = input(user, "Choose a type.", "Character Preference", metadata) as null|anything in valid_paths
+/datum/gear_tweak/path/get_metadata(user, metadata)
+	metadata = tgui_input_list(user, "Choose a type.", "Character Preference", valid_paths, metadata)
 	update_gear_intro(metadata)
 	return metadata
 
-/datum/gear_tweak/path/update_gear_intro(var/path)
+/datum/gear_tweak/path/update_gear_intro(path)
 	parent.path = valid_paths[path]
 	parent.update_gear_icon()
 
 /datum/gear_tweak/path/get_tgui_data(param)
 	var/tgui_data = list()
+	if(!param)
+		return tgui_data
 	tgui_data["display_param"] = param
 	var/obj/item/path = valid_paths[param]
 	tgui_data["icon_file"] = path.icon
@@ -115,7 +119,7 @@
 	tgui_data["name"] = path.name
 	return tgui_data
 
-/datum/gear_tweak/path/tweak_gear_data(var/metadata, var/datum/gear_data/gear_data)
+/datum/gear_tweak/path/tweak_gear_data(metadata, datum/gear_data/gear_data)
 	if(!(metadata in valid_paths))
 		return
 	gear_data.path = valid_paths[metadata]
@@ -138,6 +142,8 @@
 
 /datum/gear_tweak/rename/get_tgui_data(param)
 	var/tgui_data = list()
+	if(!param)
+		return tgui_data
 	tgui_data["display_param"] = param
 	tgui_data["name"] = param
 	return tgui_data
