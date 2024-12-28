@@ -50,7 +50,7 @@
 					var/datum/sprite_accessory/undershirt/ushirt = GLOB.undershirt_list[new_undershirt]
 					if(ushirt.allow_change_color)
 						var/new_undershirt_color = tgui_input_color(user, "Choose your undershirt color, else color will be white:", "Changing", "#ffffff")
-						H.color_undershirt = isnull(new_undershirt_color )? "#ffffff" : new_undershirt_color
+						H.color_undershirt = isnull(new_undershirt_color) ? "#ffffff" : new_undershirt_color
 					H.undershirt = new_undershirt
 
 			if("Socks")
