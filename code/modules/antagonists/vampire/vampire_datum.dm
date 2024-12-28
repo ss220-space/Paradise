@@ -113,7 +113,7 @@
 			//slaved.leave_serv_hud(mob_override.mind)
 			//.mind.som = null
 
-	AddComponent( \
+	user.AddComponent( \
 		/datum/component/pref_viewer, \
 		/datum/preference_info/take_out_of_the_round_without_obj, \
 	)
@@ -121,6 +121,9 @@
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
 	qdel(old_body.GetComponent(/datum/component/pref_viewer))
+
+/datum/antagonist/vampire/handle_last_instance_removal()
+	qdel(owner.current.GetComponent(/datum/component/pref_viewer))
 
 /datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override, transformation = FALSE)
 	var/mob/living/user = ..()

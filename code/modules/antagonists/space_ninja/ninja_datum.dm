@@ -114,10 +114,13 @@
 	var/mob/living/user = ..()
 	user.faction = list(ROLE_NINJA)
 
-	AddComponent( \
+	user.AddComponent( \
 		/datum/component/pref_viewer, \
 		/datum/preference_info/take_out_of_the_round_without_obj, \
 	)
+
+/datum/antagonist/ninja/handle_last_instance_removal()
+	qdel(owner.current.GetComponent(/datum/component/pref_viewer))
 
 /datum/antagonist/ninja/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()

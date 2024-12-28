@@ -160,7 +160,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/obj/item/organ/internal/brain/ling_brain = carbon_user.get_organ_slot(INTERNAL_ORGAN_BRAIN)
 	ling_brain?.decoy_brain = TRUE
 
-	AddComponent( \
+	user.AddComponent( \
 		/datum/component/pref_viewer, \
 		/datum/preference_info/take_out_of_the_round_without_obj, \
 	)
@@ -168,6 +168,9 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 /datum/antagonist/changeling/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
 	qdel(old_body.GetComponent(/datum/component/pref_viewer))
+
+/datum/antagonist/changeling/handle_last_instance_removal()
+	qdel(owner.current.GetComponent(/datum/component/pref_viewer))
 
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
