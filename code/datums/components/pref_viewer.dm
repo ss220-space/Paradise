@@ -1,5 +1,5 @@
 /datum/component/pref_viewer
-    var/list/preferences_to_show = list()
+    var/list/preferences_to_show
 
 /datum/component/pref_viewer/Destroy(force)
     LAZYNULL(preferences_to_show)
