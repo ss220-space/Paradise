@@ -30,7 +30,10 @@
 
 /datum/component/pref_viewer/proc/modify_examine(mob/target, list/result)
     for(var/datum/preference_toggle/pref as anything in preferences_to_show)
-        if(!HASBIT(target.client.prefs.toggles, pref::preftoggle_bitflag) || !HASBIT(target.client.prefs.toggles2, pref::preftoggle_bitflag))
+        var/datum/preference_toggle/pref_toggle = pref.get_preference_toggle()
+        if(!HASBIT(target.client.prefs.toggles, pref_toggle::preftoggle_bitflag) || \
+        !HASBIT(target.client.prefs.toggles2, pref_toggle::preftoggle_bitflag)
+        )
             continue
 
-        LAZYADD(result, pref::examine_text)
+        LAZYADD(result, pref::get_examine_text())
