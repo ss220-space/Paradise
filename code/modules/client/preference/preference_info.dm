@@ -125,7 +125,7 @@
     name = "Item Description Tips"
 
 /datum/preference_info/take_out_of_the_round_without_obj
-    name = "Вывод из игры без цели"
+    name = "Take out from round without objective"
 
 /datum/preference_info/deadchat_visibility/get_preference_toggle()
     return /datum/preference_toggle/toggle_deadchat_visibility
