@@ -211,7 +211,7 @@
 	if(Y)\
 		I.Shift(NORTH, Y);\
 
-/datum/preferences/proc/update_preview_icon(var/for_observer=0)		// seriously. This is horrendous.
+/datum/preferences/proc/update_preview_icon(for_observer = FALSE)	// seriously. This is horrendous.
 	qdel(preview_icon_front)
 	qdel(preview_icon_side)
 	qdel(preview_icon)
