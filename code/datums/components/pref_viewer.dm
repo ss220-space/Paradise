@@ -9,10 +9,10 @@
 /datum/component/pref_viewer/Initialize(    
 	list/preferences_to_show
 )
-    if(!ismob(parent))
-        return COMPONENT_INCOMPATIBLE
+	if(!ismob(parent))
+		return COMPONENT_INCOMPATIBLE
 
-    for(var/datum/preference_info/pref as anything in preferences_to_show)
+	for(var/datum/preference_info/pref as anything in preferences_to_show)
 		LAZYADD(src.preferences_to_show, new pref)
 
 /datum/component/pref_viewer/RegisterWithParent()
