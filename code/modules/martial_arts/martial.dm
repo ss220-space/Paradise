@@ -417,7 +417,7 @@
 
 /obj/item/CQC_manual
 	name = "old manual"
-	desc = "Небольшое черное руководство. Нарисованы инструкции по тактическому рукопашному бою."
+	desc = "Небольшое чёрное руководство. Нарисованы инструкции по тактическому рукопашному бою."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "cqcmanual"
 
@@ -433,7 +433,7 @@
 			to_chat(user, span_warning("Твоя жажда крови отвлекает тебя от основ CQC!"))
 			return
 		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, span_warning("От одной мысли о бое, не говоря уже о CQC, голова идет кругом!"))
+			to_chat(user, span_warning("От одной мысли о драке, не говоря уже о CQC, голова идёт кругом!"))
 			return
 
 	to_chat(user, span_boldannounceic("Вы запоминаете основы CQC."))
@@ -447,7 +447,7 @@
 
 /obj/item/CQC_manual/chef
 	name = "CQC Upgrade implant"
-	desc = "Дает вам вспомнить то, что вы всегда забываете"
+	desc = "Даёт вам вспомнить то, что вы всегда забываете"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "implanter1"
 	item_state = "syringe_0"
@@ -455,33 +455,38 @@
 /obj/item/CQC_manual/chef/attack_self(mob/living/carbon/human/user)
 	if(!istype(user))
 		return
-	if(user.mind && user.mind.assigned_role == JOB_TITLE_CHEF)
-		if(ischangeling(user))
-			to_chat(user, span_warning("Мы имплантируем себя, но наноботы не успевают достичь своей и разрушаются."))
-			use_implant(user)
-			return
-		else if(isvampire(user)) //Vampires
-			to_chat(user, span_warning("Мы имплантируете себя, но ваша кровь разрушает их до того, как они достигнут цели"))
-			use_implant(user)
-			return
-		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, span_warning("От одной мысли о бое, не говоря уже о CQC, голова идет кругом! Вы не решаетесь вколоть в себя имплант."))
-			return
-		to_chat(user, span_boldannounceic("Вы полностью запоминаете основы CQC."))
-		var/datum/martial_art/cqc/CQC = new(null)
-		CQC.teach(user)
-		use_implant(user)
-	else
+
+	if(!(user.mind && user.mind.assigned_role == JOB_TITLE_CHEF))
 		to_chat(user, span_notice("Вы имплантируете себя, но наноботы не могут найти свою цель. Вы чувствуете острую боль в голове!"))
 		if(isliving(user))
 			var/mob/living/L = user
 			L.apply_damages(burn = 20, brain = 20, spread_damage = TRUE)
 		use_implant(user)
+		return
+
+	if(ischangeling(user))
+		to_chat(user, span_warning("Мы имплантируем себя, но наноботы не успевают достичь своей цели и разрушаются."))
+		use_implant(user)
+		return
+
+	if(isvampire(user))
+		to_chat(user, span_warning("Мы имплантируете себя, но ваша кровь разрушает наноботов до того, как они достигнут цели"))
+		use_implant(user)
+		return
+
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_warning("От одной мысли о драке, не говоря уже о CQC, голова идёт кругом! Вы не решаетесь вколоть в себя имплант."))
+		return
+
+	to_chat(user, span_boldannounceic("Вы полностью запоминаете основы CQC."))
+	var/datum/martial_art/cqc/CQC = new(null)
+	CQC.teach(user)
+	use_implant(user)
 
 /obj/item/CQC_manual/chef/proc/use_implant(mob/living/carbon/human/user)
 	user.temporarily_remove_item_from_inventory(src)
 	visible_message(span_warning("[src] зловеще пищит, и через мгновение взрывается!"))
-	playsound(get_turf(src),'sound/effects/explosion2.ogg', 100, 1)
+	playsound(get_turf(src),'sound/effects/explosion2.ogg', 100, TRUE)
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
