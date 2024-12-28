@@ -20,7 +20,7 @@
 /datum/component/pref_viewer/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_MOB_RUN_EXAMINATE)
 
-/datum/component/pref_viewer/proc/on_examine(mob/target, list/result)
+/datum/component/pref_viewer/proc/on_examine(mob/source, mob/target, list/result)
     SIGNAL_HANDLER
 
     if(!istype(target) || !target.client)
