@@ -167,7 +167,7 @@
 #include "code\__HELPERS\atmospherics.dm"
 #include "code\__HELPERS\atoms.dm"
 #include "code\__HELPERS\bitflag_lists.dm"
-#include "code\__HELPERS\bitflag.dm"
+#include "code\__HELPERS\bitflags.dm"
 #include "code\__HELPERS\cmp.dm"
 #include "code\__HELPERS\constants.dm"
 #include "code\__HELPERS\experimental.dm"
