@@ -74,7 +74,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 		LAZYREMOVE(owner.antag_datums, src)
 
 		if(!LAZYLEN(owner.antag_datums)) // that one was the last antag datum.
-			last_datum_removal()
+			handle_last_instance_removal()
 
 	restore_last_hud_and_role()
 	owner = null
