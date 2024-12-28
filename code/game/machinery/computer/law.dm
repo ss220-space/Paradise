@@ -157,6 +157,9 @@
 	. = ..()
 	if(timer_id)
 		stop_upload(TRUE)
+	current = null
+	installed_module = null
+	id = null
 
 /obj/machinery/computer/aiupload/obj_break(damage_flag)
 	if(timer_id)
