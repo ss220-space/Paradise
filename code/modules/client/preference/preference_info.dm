@@ -128,124 +128,124 @@
     name = "Вывод из игры без цели"
 
 /datum/preference_info/deadchat_visibility/get_preference_toggle()
-    return /datum/preference_toggle/deadchat_visibility
+    return /datum/preference_toggle/toggle_deadchat_visibility
 
 /datum/preference_info/ghost_ears/get_preference_toggle()
-    return /datum/preference_toggle/ghost_ears
+    return /datum/preference_toggle/toggle_ghost_ears
 
 /datum/preference_info/ghost_sight/get_preference_toggle()
-    return /datum/preference_toggle/ghost_sight
+    return /datum/preference_toggle/toggle_ghost_sight
 
 /datum/preference_info/ghost_radio/get_preference_toggle()
-    return /datum/preference_toggle/ghost_radio
+    return /datum/preference_toggle/toggle_ghost_radio
 
 /datum/preference_info/admin_radio/get_preference_toggle()
-    return /datum/preference_toggle/admin_radio
+    return /datum/preference_toggle/toggle_admin_radio
 
 /datum/preference_info/ai_voice_announcements/get_preference_toggle()
-    return /datum/preference_toggle/ai_voice_annoucements
+    return /datum/preference_toggle/toggle_ai_voice_annoucements
 
 /datum/preference_info/admin_pm_sound/get_preference_toggle()
-    return /datum/preference_toggle/admin_pm_sound
+    return /datum/preference_toggle/toggle_admin_pm_sound
 
 /datum/preference_info/mentor_pm_sound/get_preference_toggle()
-    return /datum/preference_toggle/mentor_pm_sound
+    return /datum/preference_toggle/toggle_mentor_pm_sound
 
 /datum/preference_info/end_of_round_scoreboard/get_preference_toggle()
-    return /datum/preference_toggle/end_of_round_scoreboard
+    return /datum/preference_toggle/toggle_end_of_round_scoreboard
 
 /datum/preference_info/title_music/get_preference_toggle()
-    return /datum/preference_toggle/title_music
+    return /datum/preference_toggle/toggle_title_music
 
 /datum/preference_info/admin_midis/get_preference_toggle()
-    return /datum/preference_toggle/admin_midis
+    return /datum/preference_toggle/toggle_admin_midis
 
 /datum/preference_info/ooc/get_preference_toggle()
-    return /datum/preference_toggle/ooc
+    return /datum/preference_toggle/toggle_ooc
 
 /datum/preference_info/looc/get_preference_toggle()
-    return /datum/preference_toggle/looc
+    return /datum/preference_toggle/toggle_looc
 
 /datum/preference_info/ambience/get_preference_toggle()
-    return /datum/preference_toggle/ambience
+    return /datum/preference_toggle/toggle_ambience
 
 /datum/preference_info/white_noise/get_preference_toggle()
-    return /datum/preference_toggle/white_noise
+    return /datum/preference_toggle/toggle_white_noise
 
 /datum/preference_info/heartbeat_noise/get_preference_toggle()
-    return /datum/preference_toggle/heartbeat_noise
+    return /datum/preference_toggle/toggle_heartbeat_noise
 
 /datum/preference_info/instruments/get_preference_toggle()
-    return /datum/preference_toggle/instruments
+    return /datum/preference_toggle/toggle_instruments
 
 /datum/preference_info/disco/get_preference_toggle()
-    return /datum/preference_toggle/disco
+    return /datum/preference_toggle/toggle_disco
 
 /datum/preference_info/ghost_pda/get_preference_toggle()
-    return /datum/preference_toggle/ghost_pda
+    return /datum/preference_toggle/toggle_ghost_pda
 
 /datum/preference_info/runechat/get_preference_toggle()
-    return /datum/preference_toggle/runechat
+    return /datum/preference_toggle/toggle_runechat
 
 /datum/preference_info/ghost_death_notifs/get_preference_toggle()
-    return /datum/preference_toggle/ghost_death_notifs
+    return /datum/preference_toggle/toggle_ghost_death_notifs
 
 /datum/preference_info/reverb/get_preference_toggle()
-    return /datum/preference_toggle/reverb
+    return /datum/preference_toggle/toggle_reverb
 
 /datum/preference_info/simple_stat_panel/get_preference_toggle()
-    return /datum/preference_toggle/simple_stat_panel
+    return /datum/preference_toggle/toggle_simple_stat_panel
 
 /datum/preference_info/anonmode/get_preference_toggle()
-    return /datum/preference_toggle/anonmode
+    return /datum/preference_toggle/toggle_anonmode
 
 /datum/preference_info/typing_indicator/get_preference_toggle()
-    return /datum/preference_toggle/typing_indicator
+    return /datum/preference_toggle/toggle_typing_indicator
 
 /datum/preference_info/admin_logs/get_preference_toggle()
-    return /datum/preference_toggle/admin_logs
+    return /datum/preference_toggle/toggle_admin_logs
 
 /datum/preference_info/mhelp_notification/get_preference_toggle()
-    return /datum/preference_toggle/mhelp_notification
+    return /datum/preference_toggle/toggle_mhelp_notification
 
 /datum/preference_info/ahelp_notification/get_preference_toggle()
-    return /datum/preference_toggle/ahelp_notification
+    return /datum/preference_toggle/toggle_ahelp_notification
 
 /datum/preference_info/debug_logs/get_preference_toggle()
-    return /datum/preference_toggle/debug_logs
+    return /datum/preference_toggle/toggle_debug_logs
 
 /datum/preference_info/mctabs/get_preference_toggle()
-    return /datum/preference_toggle/mctabs
+    return /datum/preference_toggle/toggle_mctabs
 
 /datum/preference_info/attack_animations/get_preference_toggle()
-    return /datum/preference_toggle/attack_animations
+    return /datum/preference_toggle/toggle_attack_animations
 
 /datum/preference_info/prayers/get_preference_toggle()
     return /datum/preference_toggle/toggleprayers
 
 /datum/preference_info/prayers_notify/get_preference_toggle()
-    return /datum/preference_toggle/prayers_notify
+    return /datum/preference_toggle/toggle_prayers_notify
 
 /datum/preference_info/karma_reminder/get_preference_toggle()
-    return /datum/preference_toggle/karma_reminder
+    return /datum/preference_toggle/toggle_karma_reminder
 
 /datum/preference_info/parallax_multiz/get_preference_toggle()
-    return /datum/preference_toggle/parallax_multiz
+    return /datum/preference_toggle/toggle_parallax_multiz
 
 /datum/preference_info/vote_popup/get_preference_toggle()
-    return /datum/preference_toggle/vote_popup
+    return /datum/preference_toggle/toggle_vote_popup
 
 /datum/preference_info/tgui_input/get_preference_toggle()
-    return /datum/preference_toggle/tgui_input
+    return /datum/preference_toggle/toggle_tgui_input
 
 /datum/preference_info/strip_tgui_size/get_preference_toggle()
-    return /datum/preference_toggle/strip_tgui_size
+    return /datum/preference_toggle/toggle_strip_tgui_size
 
 /datum/preference_info/item_descritpion_tips/get_preference_toggle()
-    return /datum/preference_toggle/item_descritpion_tips
+    return /datum/preference_toggle/toggle_item_descritpion_tips
 
 /datum/preference_info/take_out_of_the_round_without_obj/get_preference_toggle()
-    return /datum/preference_toggle/take_out_of_the_round_without_obj
+    return /datum/preference_toggle/toggle_take_out_of_the_round_without_obj
 
 /datum/preference_info/take_out_of_the_round_without_obj/get_examine_text()
     return "\n<div class='examine'>[span_info("Вы можете вывести этого игрока из игры не имея соответствующей цели.")]</div>"

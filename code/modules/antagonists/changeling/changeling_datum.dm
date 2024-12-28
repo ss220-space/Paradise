@@ -162,9 +162,12 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	AddComponent( \
 		/datum/component/pref_viewer, \
-		/datum/preference_toggle/toggle_take_out_of_the_round_without_obj, \
+		/datum/preference_info/take_out_of_the_round_without_obj, \
 	)
 
+/datum/antagonist/changeling/on_body_transfer(mob/living/old_body, mob/living/new_body)
+	. = ..()
+	qdel(old_body.GetComponent(/datum/component/pref_viewer))
 
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
