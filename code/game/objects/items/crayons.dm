@@ -305,7 +305,7 @@
 		if("Change Drawing")
 			..()
 		if("Change Color")
-			var/new_color = tgui_input_color(user,"Choose Color")
+			var/new_color = tgui_input_color(user, "Choose Color")
 			if(isnull(new_color))
 				return
 			colour = new_color
