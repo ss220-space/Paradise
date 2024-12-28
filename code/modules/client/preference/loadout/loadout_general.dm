@@ -1,39 +1,40 @@
 /datum/gear/dice
-	display_name = "a d20"
+	index_name = "a d20"
 	path = /obj/item/dice/d20
 
 /datum/gear/uplift
-	display_name = "a pack of Uplifts"
+	index_name = "a pack of Uplifts"
 	path = /obj/item/storage/fancy/cigarettes/cigpack_uplift
 
 /datum/gear/robust
-	display_name = "a pack of Robusts"
+	index_name = "a pack of Robusts"
 	path = /obj/item/storage/fancy/cigarettes/cigpack_robust
 
 /datum/gear/carp
-	display_name = "a pack of Carps"
+	index_name = "a pack of Carps"
 	path = /obj/item/storage/fancy/cigarettes/cigpack_carp
 
 /datum/gear/midori
-	display_name = "a pack of Midoris"
+	index_name = "a pack of Midoris"
 	path = /obj/item/storage/fancy/cigarettes/cigpack_midori
 
 /datum/gear/smokingpipe
-	display_name = "smoking pipe"
+	index_name = "smoking pipe"
 	path = /obj/item/clothing/mask/cigarette/pipe
 	cost = 2
 
 /datum/gear/robustpipe
-	display_name = "robust smoking pipe"
+	index_name = "robust smoking pipe"
 	path = /obj/item/clothing/mask/cigarette/pipe/oldpipe
 	cost = 2
 
 /datum/gear/lighter
-	display_name = "a cheap lighter"
+	index_name = "a cheap lighter"
 	path = /obj/item/lighter
 
 /datum/gear/earrings
-	display_name = "earrings, select"
+	index_name = "earrings, select"
+	display_name = "earrings"
 	path = /obj/item/clothing/ears/earrings
 
 /datum/gear/earrings/New()
@@ -44,62 +45,63 @@
 	gear_tweaks += new /datum/gear_tweak/path(earrings, src)
 
 /datum/gear/matches
-	display_name = "a box of matches"
+	index_name = "a box of matches"
 	path = /obj/item/storage/box/matches
 
 /datum/gear/candlebox
-	display_name = "a box candles"
+	index_name = "a box candles"
 	description = "For setting the mood or for occult rituals."
 	path = /obj/item/storage/fancy/candle_box/full
 
 /datum/gear/camera
-	display_name = "a camera"
+	index_name = "a camera"
 	path = /obj/item/camera
 
 /datum/gear/sechud
-	display_name = "a classic security HUD"
+	index_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_JUDGE)
 
 /datum/gear/read_only_sechud
-	display_name = "a classic security HUD (read-only)"
+	index_name = "a classic security HUD (read-only)"
 	path = /obj/item/clothing/glasses/hud/security/read_only
 	allowed_roles = list(JOB_TITLE_LAWYER)
 
 /datum/gear/cryaonbox
-	display_name = "a box of crayons"
+	index_name = "a box of crayons"
 	path = /obj/item/storage/fancy/crayons
 
 /datum/gear/cane
-	display_name = "a walking cane"
+	index_name = "a walking cane"
 	path = /obj/item/cane
 
 /datum/gear/cards
-	display_name = "a deck of standard cards"
+	index_name = "a deck of standard cards"
 	path = /obj/item/deck/cards
 
 /datum/gear/doublecards
-	display_name = "a double deck of standard cards"
+	index_name = "a double deck of standard cards"
 	path = /obj/item/deck/cards/doublecards
 
 /datum/gear/tarot
-	display_name = "a deck of tarot cards"
+	index_name = "a deck of tarot cards"
 	path = /obj/item/deck/tarot
 
 /datum/gear/headphones
-	display_name = "a pair of headphones"
+	index_name = "a pair of headphones"
 	path = /obj/item/clothing/ears/headphones
 
 /datum/gear/fannypack
-	display_name = "a fannypack"
+	index_name = "a fannypack"
 	path = /obj/item/storage/belt/fannypack
 
 /datum/gear/wallet
-	display_name = "a wallet(leather)"
+	index_name = "a wallet(leather)"
 	path = /obj/item/storage/wallet
 
 /datum/gear/wallet/color
-	display_name = "a wallet, select"
+	index_name = "a wallet, select"
+	display_name = "a wallet"
 	path = /obj/item/storage/wallet/color/blue
 
 /datum/gear/wallet/color/New()
@@ -114,7 +116,8 @@
 	gear_tweaks += new /datum/gear_tweak/path(wallets, src)
 
 /datum/gear/bandana
-	display_name = "bandana, select"
+	index_name = "bandana, select"
+	display_name = "bandana"
 	path = /obj/item/clothing/mask/bandana/black
 
 /datum/gear/bandana/New()
@@ -131,16 +134,17 @@
 	gear_tweaks += new /datum/gear_tweak/path(bands, src)
 
 /datum/gear/piano_synth
-	display_name ="synthesizer"
+	index_name ="synthesizer"
 	path = /obj/item/instrument/piano_synth
 	cost = 2
 
 /datum/gear/tts
-	display_name ="TTS device"
+	index_name ="TTS device"
 	path = /obj/item/ttsdevice
 
 /datum/gear/lipstick
-	display_name = "lipstick, select"
+	index_name = "lipstick, select"
+	display_name = "lipstick"
 	path = /obj/item/lipstick
 
 /datum/gear/lipstick/New()
@@ -159,18 +163,18 @@
 //////////////////////
 
 /datum/gear/mug
-	display_name = "random coffee mug"
+	index_name = "random coffee mug"
 	description = "A randomly colored coffee mug. You'll need to supply your own beverage though."
 	path = /obj/item/reagent_containers/food/drinks/mug
 
 /datum/gear/novelty_mug
-	display_name = "novelty coffee mug"
+	index_name = "novelty coffee mug"
 	description = "A random novelty coffee mug. You'll need to supply your own beverage though."
 	path = /obj/item/reagent_containers/food/drinks/mug/novelty
 	cost = 2
 
 /datum/gear/mug/flask
-	display_name = "flask"
+	index_name = "flask"
 	description = "A flask for drink transportation. You'll need to supply your own beverage though."
 	path = /obj/item/reagent_containers/food/drinks/flask/barflask
 
@@ -179,30 +183,30 @@
 	subtype_cost_overlap = FALSE
 
 /datum/gear/mug/department/eng
-	display_name = "engineer coffee mug"
+	index_name = "engineer coffee mug"
 	description = "An engineer's coffee mug, emblazoned in the colors of the Engineering department."
 	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH)
 	path = /obj/item/reagent_containers/food/drinks/mug/eng
 
 /datum/gear/mug/department/med
-	display_name = "doctor coffee mug"
+	index_name = "doctor coffee mug"
 	description = "A doctor's coffee mug, emblazoned in the colors of the Medical department."
 	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_CORONER)
 	path = /obj/item/reagent_containers/food/drinks/mug/med
 
 /datum/gear/mug/department/sci
-	display_name = "scientist coffee mug"
+	index_name = "scientist coffee mug"
 	description = "A scientist's coffee mug, emblazoned in the colors of the Science department."
 	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST)
 	path = /obj/item/reagent_containers/food/drinks/mug/sci
 
 /datum/gear/mug/department/sec
-	display_name = "officer coffee mug"
+	index_name = "officer coffee mug"
 	description = "An officer's coffee mug, emblazoned in the colors of the Security department."
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_BRIGDOC, JOB_TITLE_PILOT, JOB_TITLE_LAWYER)
 	path = /obj/item/reagent_containers/food/drinks/mug/sec
 
 /datum/gear/mug/department/serv
-	display_name = "crewmember coffee mug"
+	index_name = "crewmember coffee mug"
 	description = "A crewmember's coffee mug, emblazoned in the colors of the Service department."
 	path = /obj/item/reagent_containers/food/drinks/mug/serv
