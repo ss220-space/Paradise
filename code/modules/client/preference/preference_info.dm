@@ -152,10 +152,10 @@
     return /datum/preference_toggle/toggle_mentor_pm_sound
 
 /datum/preference_info/end_of_round_scoreboard/get_preference_toggle()
-    return /datum/preference_toggle/toggle_end_of_round_scoreboard
+    return /datum/preference_toggle/end_of_round_scoreboard
 
 /datum/preference_info/title_music/get_preference_toggle()
-    return /datum/preference_toggle/toggle_title_music
+    return /datum/preference_toggle/title_music
 
 /datum/preference_info/admin_midis/get_preference_toggle()
     return /datum/preference_toggle/toggle_admin_midis
