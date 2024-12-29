@@ -78678,6 +78678,7 @@
 	},
 /obj/item/storage/fancy/cigarettes/dromedaryco,
 /obj/item/clothing/glasses/sunglasses,
+/obj/item/lighter/zippo/detective,
 /turf/simulated/floor/carpet,
 /area/security/detectives_office)
 "sDE" = (
@@ -86095,12 +86096,12 @@
 "uMQ" = (
 /obj/structure/table,
 /obj/item/vending_refill/custom{
-	pixel_y = 5;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 5
 	},
 /obj/item/vending_refill/custom{
-	pixel_y = 3;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = 3
 	},
 /obj/structure/cable/orange{
 	icon_state = "0-4"

@@ -33276,8 +33276,8 @@
 	},
 /obj/structure/filingcabinet/chestdrawer,
 /obj/item/radio/intercom{
-	pixel_y = -26;
-	pixel_x = 0
+	pixel_x = 0;
+	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -83179,12 +83179,12 @@
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/vending_refill/custom{
-	pixel_y = 5;
-	pixel_x = 3
+	pixel_x = 3;
+	pixel_y = 5
 	},
 /obj/item/vending_refill/custom{
-	pixel_y = 3;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /obj/item/hand_labeler,
 /obj/item/stack/packageWrap,
@@ -120645,6 +120645,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 /obj/item/reagent_containers/food/drinks/flask/detflask,
+/obj/item/lighter/zippo/detective,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "xat" = (

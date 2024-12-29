@@ -267,6 +267,14 @@
 	icon_on = "zippo_qm_on"
 	icon_off = "zippo_qm"
 
+/obj/item/lighter/zippo/detective
+	name = "Detective zippo"
+	desc = "Лимитированная версия Зиппо для детектива. Кажется её доставили прямиком из нуарных фильмов"
+	icon_state = "zippo_dec"
+	item_state = "deczippo"
+	icon_on = "zippo_dec_on"
+	icon_off = "zippo_dec"
+
 //Ninja-Zippo//
 /obj/item/lighter/zippo/ninja
 	name = "\"Shinobi on a rice field\" zippo"
