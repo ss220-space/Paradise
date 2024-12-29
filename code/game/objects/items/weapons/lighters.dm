@@ -269,7 +269,7 @@
 
 /obj/item/lighter/zippo/detective
 	name = "Detective zippo"
-	desc = "Лимитированная версия Зиппо для детектива. Кажется её доставили прямиком из нуарных фильмов"
+	desc = "Лимитированная версия Зиппо для детектива. Кажется её доставили прямиком из нуарных фильмов."
 	icon_state = "zippo_dec"
 	item_state = "deczippo"
 	icon_on = "zippo_dec_on"
