@@ -270,7 +270,7 @@
 /obj/item/lighter/zippo/detective
 	name = "Detective zippo"
 	desc = "Лимитированная версия зажигалки Зиппо для детектива. Кажется, что её доставили прямиком из нуарных фильмов."
-		ru_names = list(
+	ru_names = list(
 		NOMINATIVE = "зажигалка Зиппо детектива",
 		GENITIVE = "зажигалки Зиппо детектива",
 		DATIVE = "зажигалке Зиппо детектива",
