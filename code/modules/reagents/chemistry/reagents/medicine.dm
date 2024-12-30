@@ -1056,7 +1056,7 @@
 			M.AdjustBlood(-rand(5, 10))
 		else if(effect <= 4)
 			M.vomit(0, VOMIT_BLOOD, 0 SECONDS)
-			M.setBlood(max(M.blood_volume - rand(1, 2), 0))
+			M.AdjustBlood(-rand(1, 2))
 	else if(severity == 2)
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M] is bleeding from [M.p_their()] very pores!</span>")
