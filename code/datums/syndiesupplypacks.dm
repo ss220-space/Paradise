@@ -2238,11 +2238,11 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/camera_bug,
 		/obj/item/door_remote/omni/access_tuner,
 		/obj/item/implanter/freedom/prototype,
-		/obj/item/aiModule/syndicate,
+		/obj/item/ai_module/syndicate,
 		/obj/item/card/emag,
 		/obj/item/encryptionkey/syndicate,
 		/obj/item/encryptionkey/binary,
-		/obj/item/aiModule/toyAI,
+		/obj/item/ai_module/toy_ai,
 		/obj/item/storage/belt/military/traitor/hacker,
 		/obj/item/clothing/gloves/combat,
 		/obj/item/flashlight/emp

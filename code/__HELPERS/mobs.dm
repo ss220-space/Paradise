@@ -46,41 +46,33 @@
 
 	return pick(valid_picks)
 
-/proc/random_hair_style(gender, species = SPECIES_HUMAN, datum/robolimb/robohead, mob/living/carbon/human/H)
+/proc/random_hair_style(
+	gender, 
+	datum/species/species, 
+	datum/robolimb/robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"], 
+	mob/living/carbon/human/human
+	)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
 
-	if(species == SPECIES_WRYN) // wryns antennaes now bound to hivenode, no need to change them
-		if(H)
-			var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
-			if(head_organ?.h_style)
-				return head_organ.h_style
-		else
-			return "Antennae"
-
 	for(var/hairstyle in GLOB.hair_styles_public_list)
-		var/datum/sprite_accessory/S = GLOB.hair_styles_public_list[hairstyle]
+		var/datum/sprite_accessory/style = GLOB.hair_styles_public_list[hairstyle]
 
-		if(hairstyle == "Bald") //Just in case.
-			valid_hairstyles += hairstyle
+		if(!LAZYIN(style.species_allowed, species.name))
 			continue
-		if(gender == S.unsuitable_gender)
-			continue
-		if(species == SPECIES_MACNINEPERSON) //If the user is a species who can have a robotic head...
-			if(!robohead)
-				robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
-			if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
-				valid_hairstyles += hairstyle //Give them their hairstyles if they do.
-			else
-				if(!robohead.is_monitor && (SPECIES_HUMAN in S.species_allowed)) /*If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
-																			But if the user has a robotic humanoid head and the hairstyle can fit humans, let them use it as a wig. */
-					valid_hairstyles += hairstyle
-		else //If the user is not a species who can have robotic heads, use the default handling.
-			if(species in S.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
-				valid_hairstyles += hairstyle
 
-	if(valid_hairstyles.len)
-		h_style = pick(valid_hairstyles)
+		if(gender == style.unsuitable_gender)
+			continue
+
+		if(!species.is_allowed_hair_style(human, robohead, style))
+			continue
+
+		LAZYADD(valid_hairstyles, hairstyle)
+
+	if(human)
+		SEND_SIGNAL(human, COMSIG_RANDOM_HAIR_STYLE, valid_hairstyles, robohead)
+
+	h_style = safepick(valid_hairstyles)
 
 	return h_style
 
@@ -668,4 +660,3 @@
 		out_ckey = "(Disconnected)"
 
 	return out_ckey
-

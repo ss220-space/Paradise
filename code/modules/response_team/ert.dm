@@ -170,7 +170,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	head_organ.sec_hair_colour = hair_c
 	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
+	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species)
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
 	M.rename_character(null, "Безымянный") // Rewritten in /datum/outfit/job/centcom/response_team/pre_equip
 	M.age = rand(23,35)

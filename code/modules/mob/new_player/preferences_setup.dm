@@ -21,7 +21,7 @@
 		body_accessory = random_body_accessory(species, S.optional_body_accessory)
 	if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 		s_tone = random_skin_tone(species)
-	h_style = random_hair_style(gender, species, robohead)
+	h_style = random_hair_style(gender, S, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)
 	if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 		randomize_hair_color("hair")
