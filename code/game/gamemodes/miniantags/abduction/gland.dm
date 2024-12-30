@@ -316,7 +316,7 @@
 	uses = -1
 
 /obj/item/organ/internal/heart/gland/bloody/activate()
-	owner.setBlood(max(owner.blood_volume - 20, 0))
+	owner.AdjustBlood(-20)
 
 	owner.visible_message(span_danger("Из кожи [owner] льётся кровь!"), \
 	span_userdanger("Из вашей кожи хлещет кровь!"))
