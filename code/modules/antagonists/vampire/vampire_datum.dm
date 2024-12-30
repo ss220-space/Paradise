@@ -297,7 +297,7 @@
 
 				to_chat(cur, span_boldnotice("Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
 
-		target.setBlood(max(target.blood_volume - 25, 0))
+		target.AdjustBlood(-25)
 
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(target.blood_volume)
