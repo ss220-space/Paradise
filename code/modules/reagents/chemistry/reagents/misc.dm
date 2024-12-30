@@ -165,7 +165,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL)
-			H.AdjustBlood(-0.8)
+			H.AdjustBlood(0.8)
 			
 	return ..()
 

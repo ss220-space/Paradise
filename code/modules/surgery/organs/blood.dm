@@ -24,7 +24,7 @@
 
 	if(bodytemperature >= TCRYO && !HAS_TRAIT(src, TRAIT_NO_CLONE)) //cryosleep or husked people do not pump the blood.
 		if(!HAS_TRAIT(src, TRAIT_NO_BLOOD_RESTORE) && blood_volume < BLOOD_VOLUME_NORMAL)
-			AdjustBlood(-0.1) // regenerate blood VERY slowly
+			AdjustBlood(0.1) // regenerate blood VERY slowly
 
 
 		//Effects of bloodloss
@@ -150,7 +150,7 @@
 	if(SEND_SIGNAL(src, COMSIG_LIVING_BLOOD_ADJUST, amount) & COMPONENT_PREVENT_BLOODLOSS)
 		return FALSE
 
-	blood_volume = max(round(blood_volume - amount, DAMAGE_PRECISION), 0)
+	blood_volume = max(round(blood_volume + amount, DAMAGE_PRECISION), 0)
 	SEND_SIGNAL(src, COMSIG_LIVING_BLOOD_ADJUSTED, amount)
 
 	return TRUE

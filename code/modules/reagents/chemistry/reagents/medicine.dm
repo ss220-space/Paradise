@@ -295,7 +295,7 @@
 		var/mob/living/carbon/human/H = M
 		//do not restore blood on things with no blood by nature.
 		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL)
-			H.AdjustBlood(-1)
+			H.AdjustBlood(1)
 
 	return ..() | update_flags
 
