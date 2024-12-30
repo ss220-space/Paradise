@@ -34146,7 +34146,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/window/westleft{
-	dir = 1;
+	dir = 2;
 	name = "Cargo Bay Desk";
 	req_access = list(31)
 	},
@@ -53790,10 +53790,8 @@
 /turf/simulated/floor/plating/airless,
 /area/turret_protected/ai)
 "hSF" = (
-/obj/structure/disposalpipe/junction{
-	dir = 1;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j1 (WEST)"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
