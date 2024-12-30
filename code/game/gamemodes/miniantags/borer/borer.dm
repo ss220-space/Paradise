@@ -46,9 +46,8 @@
 	to_chat(B.host, span_userdanger("Вы чувствуете, как пленённый разум [src] [host_resisting ? "перестаёт" : "начинает"] сопротивляться."))
 
 	host_resisting = TRUE
-	var/delay = (rand(350, 450) + B.host.getBrainLoss())
 
-	if(!do_after(src, delay, B.host, ALL, max_interact_count = 1))
+	if(!do_after(src, rand(350, 450) + B.host.getBrainLoss(), B.host, ALL, max_interact_count = 1))
 		host_resisting = FALSE
 		return
 
