@@ -785,9 +785,6 @@
 			adjust_charge(min(C.charge, power_drain_rate))
 			visible_message(span_notice("[src] touches [O] and drains its power!"), span_notice("You touch [O] and drain it's power!"))
 
-/mob/living/simple_animal/demon/pulse_demon/pre_grab_attack(atom/atom, proximity_flag)
-	return FALSE
-
 /mob/living/simple_animal/demon/pulse_demon/attack_hand(mob/living/carbon/human/M)
 	if(is_under_tile())
 		to_chat(M, span_danger(">You can't interact with something that's under the floor!"))

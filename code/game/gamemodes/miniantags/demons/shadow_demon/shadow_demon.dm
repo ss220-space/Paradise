@@ -59,8 +59,6 @@
 		set_varspeed(-0.3)
 	return lum_count
 
-/mob/living/simple_animal/demon/shadow/pre_grab_attack(atom/atom, proximity_flag)
-	return FALSE
 	
 /mob/living/simple_animal/demon/shadow/OnUnarmedAttack(atom/target)
 	if(!ishuman(target))

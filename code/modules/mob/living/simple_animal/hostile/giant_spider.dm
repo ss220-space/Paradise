@@ -72,7 +72,15 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/reagent_attack, "spidertoxin", 30, FALSE, null, list(BODY_ZONE_CHEST, BODY_ZONE_HEAD))
+
+	AddElement( \
+		/datum/element/reagent_attack, \
+		"spidertoxin", \
+		30, \
+		FALSE, \
+		null, \
+		list(BODY_ZONE_CHEST, BODY_ZONE_HEAD), \
+		)
 
 //hunters have the most poison and move the fastest, so they can find prey
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter
@@ -88,7 +96,15 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/reagent_attack, "spidertoxin", 10, FALSE, null, list(BODY_ZONE_CHEST, BODY_ZONE_HEAD))
+
+	AddElement(
+		/datum/element/reagent_attack, \
+		"spidertoxin", \
+		10, \
+		FALSE, \
+		null, \
+		list(BODY_ZONE_CHEST, BODY_ZONE_HEAD), \
+		)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_movement() //Hacky and ugly.
 	. = ..()

@@ -195,9 +195,6 @@
 /mob/living/silicon/robot/OnUnarmedAttack(atom/A)
 	A.attack_robot(src)
 
-/mob/living/silicon/robot/pre_grab_attack(atom/atom, proximity_flag)
-	return FALSE
-
 /mob/living/silicon/robot/RangedAttack(atom/A, params)
 	A.attack_robot(src)
 

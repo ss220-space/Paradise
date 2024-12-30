@@ -99,7 +99,7 @@
 	if(signal & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return
 
-	if(pre_grab_attack(atom, proximity_flag))
+	if(can_grab_attack(atom, proximity_flag))
 		if(!atom.grab_attack(src, pulling))
 			return
 
@@ -109,7 +109,10 @@
 
 	OnUnarmedAttack(atom, proximity_flag)
 
-/mob/living/proc/pre_grab_attack(atom/atom, proximity_flag) // with that proc we can prevent grab attacks
+/mob/living/proc/can_grab_attack(atom/atom, proximity_flag)
+	return FALSE
+
+/mob/living/carbon/can_grab_attack(atom/atom, proximity_flag)
 	return pulling && proximity_flag && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)
 
 /mob/living/OnUnarmedAttack(atom/atom, proximity_flag)

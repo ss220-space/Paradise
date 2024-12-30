@@ -352,9 +352,6 @@
 	to_chat(src, span_notice("Вы анализируете жизненные показатели [human]."))
 	healthscan(src, human, 1, TRUE)
 
-/mob/living/simple_animal/borer/pre_grab_attack(atom/atom, proximity_flag)
-	return FALSE
-
 /mob/living/simple_animal/borer/proc/secrete_chemicals()
 	if(!host)
 		to_chat(src, "Вы не находитесь в теле носителя.")

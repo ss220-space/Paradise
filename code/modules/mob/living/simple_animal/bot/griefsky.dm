@@ -104,8 +104,6 @@
 	var/mob/living/carbon/carbon = atom
 	sword_attack(carbon)
 
-/mob/living/simple_animal/bot/secbot/griefsky/pre_grab_attack(atom/atom, proximity_flag)
-	return FALSE
 
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
 	retaliate(P.firer)

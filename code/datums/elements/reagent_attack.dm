@@ -88,7 +88,7 @@
 	reagent_id,
 	reagent_amount
 	)
-	if(target.reagents.add_reagent(reagent_id ? reagent_id : src.reagent_id, reagent_amount ? reagent_amount : src.reagent_amount))
+	if(target.reagents.add_reagent(reagent_id || src.reagent_id, reagent_amount || src.reagent_amount))
 		return TRUE
 
 	return FALSE

@@ -118,8 +118,6 @@
 		return atom.attack_hand(src)
 		// If the devil wants to actually attack, they have the pitchfork.
 
-/mob/living/carbon/true_devil/pre_grab_attack(atom/atom, proximity_flag)
-	return FALSE
 
 /mob/living/carbon/true_devil/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
