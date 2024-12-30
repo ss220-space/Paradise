@@ -75,7 +75,8 @@
 	name = "ferry shuttle";
 	roundstart_move = "ferry_away";
 	timid = 1;
-	width = 5
+	width = 5;
+	preferred_direction = 4
 	},
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/shuttle{

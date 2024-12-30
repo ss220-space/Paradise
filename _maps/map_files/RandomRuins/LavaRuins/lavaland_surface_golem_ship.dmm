@@ -80,7 +80,8 @@
 	height = 30;
 	id = "freegolem";
 	name = "Free Golem Ship";
-	width = 20
+	width = 20;
+	preferred_direction = 4
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)

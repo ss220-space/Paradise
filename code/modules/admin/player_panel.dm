@@ -355,11 +355,11 @@
 		dat += "Current Game Mode: <B>[SSticker.mode.name]</B><BR>"
 		dat += "Round Duration: <B>[ROUND_TIME_TEXT()]</B><BR>"
 		dat += "<B>Emergency shuttle</B><BR>"
-		if(SSshuttle.emergency.mode < SHUTTLE_CALL)
+		if(SSshuttle.emergency.mode == SHUTTLE_IDLE)
 			dat += "<a href='byond://?src=[UID()];call_shuttle=1'>Call Shuttle</a><br>"
 		else
 			var/timeleft = SSshuttle.emergency.timeLeft()
-			if(SSshuttle.emergency.mode < SHUTTLE_DOCKED)
+			if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 				dat += "ETA: <a href='byond://?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
 				dat += "<a href='byond://?_src_=holder;call_shuttle=2'>Send Back</a><br>"
 			else
@@ -648,5 +648,56 @@
 			</td>
 		"}
 
+	txt += "</tr>"
+	return txt
+
+/datum/admins/proc/check_security_line(mob/living/human, close = 1)
+	var/logout_status = human.client ? "" : " <i>(logged out)</i>"
+	var/list/coords = ATOM_COORDS(human)
+	var/job = issilicon(human) ? "Cyborg" : human.job // || need because maybe ert robots with null in job
+	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[human.UID()]'>[human.real_name]</a>[logout_status]</td><td>[job][human.stat == DEAD ? " <b><font color=red>(Dead)</font></b>" : "<font color=green> [human.health]%</font>"] <b>[get_area_name(human)]</b> [coords[1]],[coords[2]],[coords[3]]</td><td><a href='byond://?src=[usr.UID()];priv_msg=[human.client?.ckey]'>PM</A> [ADMIN_FLW(human, "FLW")]</td>[close ? "</tr>" : ""]"}
+
+/datum/admins/proc/check_security()
+	if(!check_rights(R_ADMIN))
+		return
+	if(!SSticker || SSticker.current_state < GAME_STATE_PLAYING)
+		return
+
+	var/dat = {"<html><meta charset="UTF-8"><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"}
+	var/list/sec_list = check_active_security_force()
+	dat += "<br><table cellspacing=5><tr><td><b>Security</b></td><td></td></tr>"
+	dat += "<tr><td>Total: </td><td>[sec_list[1]]</td>"
+	dat += "<tr><td>Active: </td><td>[sec_list[2]]</td>"
+	dat += "<tr><td>Dead: </td><td>[sec_list[3]]</td>"
+	dat += "<tr><td>Antag: </td><td>[sec_list[4]]</td>"
+	dat += "</table>"
+	dat += "</body></html>"
+
+	dat += "<br><table cellspacing=5><tr><td><B>Security</B></td><td></td></tr>"
+	for(var/datum/mind/mind in SSticker.mode.get_all_sec())
+		if(mind.current)
+			dat += check_security_line(mind.current)
+	dat += "</table>"
+
+	if(SSticker.mode.ert.len)
+		dat += check_role_table_sec("ERT", SSticker.mode.ert)
+
+	usr << browse(dat, "window=roundstatus;size=600x800")
+
+/datum/admins/proc/check_role_table_sec(name, list/members, show_objectives=0)
+	var/txt = "<br><table cellspacing=5><tr><td><b>[name]</b></td><td></td></tr>"
+	for(var/datum/mind/mind in members)
+		txt += check_role_table_row_sec(mind.current, show_objectives)
+	txt += "</table>"
+	return txt
+
+/datum/admins/proc/check_role_table_row_sec(mob/mob, show_objectives)
+	var/txt = check_security_line(mob, close = 0)
+	if(show_objectives)
+		txt += {"
+			<td>
+				<a href='byond://?src=[UID()];traitor=[mob.UID()]'>Show Objective</a>
+			</td>
+		"}
 	txt += "</tr>"
 	return txt

@@ -1,8 +1,10 @@
 /datum/borer_rank
 	var/rankname = "Error"
-	var/required_reproductions = null // how many reproductions we need to gain new rank
+	/// how many reproductions we need to gain new rank
+	var/required_reproductions
 	var/datum/antagonist/borer/parent
 	var/mob/living/simple_animal/borer/owner
+	var/next_rank_type
 	var/rank_ability_amplifier
 
 /datum/borer_rank/Destroy(force)
@@ -24,16 +26,19 @@
 /datum/borer_rank/young
 	rankname = "Young"
 	required_reproductions = REPRODUCTIONS_TO_MATURE
+	next_rank_type = BORER_RANK_MATURE
 	rank_ability_amplifier = 0
 
 /datum/borer_rank/mature
 	rankname = "Mature"
 	required_reproductions = REPRODUCTIONS_TO_ADULT
+	next_rank_type = BORER_RANK_ADULT
 	rank_ability_amplifier = 1
 
 /datum/borer_rank/adult
 	rankname = "Adult"
 	required_reproductions = REPRODUCTIONS_TO_ELDER
+	next_rank_type = BORER_RANK_ELDER
 	rank_ability_amplifier = 2
 
 /datum/borer_rank/elder
