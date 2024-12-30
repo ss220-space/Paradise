@@ -418,7 +418,7 @@
 /obj/item/CQC_manual
 	name = "old manual"
 	desc = "Небольшая книжка чёрного цвета. Это подробное руководство по тактике рукопашного боя."
-		ru_names = list(
+	ru_names = list(
 		NOMINATIVE = "старое руководство",
 		GENITIVE = "старого руководства",
 		DATIVE = "старому руководству",
@@ -456,7 +456,7 @@
 /obj/item/CQC_manual/chef
 	name = "CQC Upgrade implant"
 	desc = "Небольшой шприц, содержащий в себе имплант. Даёт вам запомнить то, что вы всегда забываете."
-		ru_names = list(
+	ru_names = list(
 		NOMINATIVE = "имплант улучшения CQC",
 		GENITIVE = "импланта улучшения CQC",
 		DATIVE = "импланту улучшения CQC",
