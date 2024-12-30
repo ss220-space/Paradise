@@ -469,14 +469,6 @@
 	cost = 15
 	job = list(JOB_TITLE_BARTENDER)
 
-//Barber
-/datum/uplink_item/jobspecific/safety_scissors //Hue
-	name = "Safety Scissors"
-	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
-	item = /obj/item/scissors/safety
-	cost = 6
-	job = list(JOB_TITLE_BARBER)
-
 //Botanist
 /datum/uplink_item/jobspecific/bee_briefcase
 	name = "Briefcase Full of Bees"
@@ -1822,7 +1814,7 @@
 /datum/uplink_item/device_tools/hacked_module
 	name = "Hacked AI Upload Module"
 	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. Be careful with their wording, as artificial intelligences may look for loopholes to exploit."
-	item = /obj/item/aiModule/syndicate
+	item = /obj/item/ai_module/syndicate
 	cost = 38
 
 /datum/uplink_item/device_tools/magboots

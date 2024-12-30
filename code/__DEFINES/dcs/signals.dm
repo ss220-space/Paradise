@@ -1228,7 +1228,11 @@
 /// Source: /mob/living/simple_animal/borer, listening in datum/antagonist/borer
 #define	COMSIG_BORER_ENTERED_HOST "borer_on_enter" // when borer entered host
 #define COMSIG_BORER_LEFT_HOST "borer_on_leave" // when borer left host
+
 ///from /datum/spawners_menu/ui_act(): (mob/user)
 #define COMSIG_IS_GHOST_CONTROLABLE "is_ghost_controllable"
 	/// Return this to signal that the mob can be controlled by ghosts
 	#define COMPONENT_GHOST_CONTROLABLE (1<<0)
+
+/// Source: /proc/random_hair_style (mob/living/carbon/human/human, valid_hairstyles, robohead)
+#define COMSIG_RANDOM_HAIR_STYLE	"random_hair_style"

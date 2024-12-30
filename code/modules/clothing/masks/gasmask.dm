@@ -374,6 +374,23 @@
 	. = ..()
 	force_adjust_mask()
 
+/obj/item/clothing/mask/gas/sechailer/tactical
+	name = "\improper Security gas mask FCO-26"
+	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией N&R специально для сотрудников станционной службы безопасности Nanotrasen. Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешей среды."
+	ru_names = list(
+		NOMINATIVE = "тактический противогаз СБ",
+		GENITIVE = "тактического противогаза СБ",
+		DATIVE = "тактическому противогазу СБ",
+		ACCUSATIVE = "тактический противогаз СБ",
+		INSTRUMENTAL = "тактическим противогазом СБ",
+		PREPOSITIONAL = "тактическом противогазе СБ"
+	)
+	icon_state = "tactical_mask"
+	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 10, "acid" = 30)
+	aggressiveness = 3
+	phrase = 12
+	can_toggle = FALSE
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"

@@ -70,26 +70,26 @@
 				update_icon(UPDATE_ICON_STATE)
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 
-			if(istype(I, /obj/item/aiModule/purge))
+			if(istype(I, /obj/item/ai_module/purge))
 				add_fingerprint(user)
 				laws.clear_inherent_laws()
 				to_chat(user, span_notice("Law module applied."))
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 
-			if(istype(I, /obj/item/aiModule/freeform))
+			if(istype(I, /obj/item/ai_module/freeform))
 				add_fingerprint(user)
-				var/obj/item/aiModule/freeform/freeform = I
-				laws.add_inherent_law(freeform.newFreeFormLaw)
+				var/obj/item/ai_module/freeform/freeform = I
+				laws.add_inherent_law(freeform.new_freeform_law)
 				to_chat(user, span_notice("Added a freeform law."))
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 
-			if(istype(I, /obj/item/aiModule))
+			if(istype(I, /obj/item/ai_module))
 				add_fingerprint(user)
-				var/obj/item/aiModule/aiModule = I
-				if(!aiModule.laws)
+				var/obj/item/ai_module/ai_module = I
+				if(!ai_module.laws)
 					to_chat(user, span_warning("This AI module can not be applied directly to AI cores."))
 					return ATTACK_CHAIN_PROCEED
-				laws = aiModule.laws
+				laws = ai_module.laws
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 
 			if(istype(I, /obj/item/mmi))
