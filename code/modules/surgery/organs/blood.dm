@@ -87,7 +87,7 @@
 
 	. = TRUE
 
-	setBlood(max(blood_volume - amt, 0))
+	AdjustBlood(-amt)
 
 	if(!isturf(loc)) //Blood loss still happens in locker, floor stays clean
 		return .
