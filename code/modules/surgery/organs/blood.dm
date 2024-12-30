@@ -150,7 +150,7 @@
 	if(SEND_SIGNAL(src, COMSIG_LIVING_BLOOD_ADJUST, amount) & COMPONENT_PREVENT_BLOODLOSS)
 		return FALSE
 
-	blood_volume = max(round(blood_volume + amount, DAMAGE_PRECISION), 0)
+	blood_volume = max(round(blood_volume - amount, DAMAGE_PRECISION), 0)
 	SEND_SIGNAL(src, COMSIG_LIVING_BLOOD_ADJUSTED, amount)
 
 	return TRUE
