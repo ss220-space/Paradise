@@ -1053,7 +1053,7 @@
 	if(severity == 1)
 		if(effect <= 2)
 			M.vomit(0, VOMIT_BLOOD, 0 SECONDS)
-			M.setBlood(max(M.blood_volume - rand(5, 10), 0))
+			M.AdjustBlood(-rand(5, 10))
 		else if(effect <= 4)
 			M.vomit(0, VOMIT_BLOOD, 0 SECONDS)
 			M.setBlood(max(M.blood_volume - rand(1, 2), 0))
