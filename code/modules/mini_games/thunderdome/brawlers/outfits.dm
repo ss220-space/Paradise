@@ -9,7 +9,7 @@
 	uniform = /obj/item/clothing/under/misc/durathread
 	shoes = /obj/item/clothing/shoes/combat
 	back = /obj/item/storage/backpack/thunderdome_infinite
-	head = /obj/item/clothing/head/HoS
+	head = /obj/item/clothing/head/helmet/space/santahat
 
 /datum/outfit/thunderdome/cqc
 	name = "Fighter"

@@ -294,4 +294,4 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 50)
+	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 30, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 75, "acid" = 75)

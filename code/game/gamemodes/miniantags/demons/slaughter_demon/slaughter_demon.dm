@@ -59,7 +59,7 @@
 	mind.objectives += objective
 	mind.objectives += fluffObjective
 	messages.Add(mind.prepare_announce_objectives(FALSE))
-	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Slaughter_Demon\">Демон резни</a></span>")
+	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Slaughter_Demon\">Демон резни</a></span>")
 	to_chat(src, chat_box_red(messages.Join("<br>")))
 
 

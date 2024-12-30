@@ -4,6 +4,7 @@
 #define COCOON_NUTRITION_REQUIREMENT 201
 #define COCOON_NUTRITION_AMOUNT -200
 #define FLYSWATTER_DAMAGE_MULTIPLIER 10
+#define MOTH_PITCH_SHIFT 0.15 // a bit higher emotes
 
 /datum/species/moth
 	name = SPECIES_MOTH
@@ -80,6 +81,13 @@
 	disliked_food = FRIED | RAW | EGG
 	liked_food = SUGAR | GROSS | FRUIT | VEGETABLES
 	special_diet = MATERIAL_CLASS_CLOTH
+
+	age_sheet = list(
+		SPECIES_AGE_MIN = 3,
+		SPECIES_AGE_MAX = 60,
+		JOB_MIN_AGE_HIGH_ED = 15,
+		JOB_MIN_AGE_COMMAND = 15,
+	)
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
@@ -251,9 +259,14 @@
 	owner.UpdateAppearance()
 	return ..()
 
+/datum/species/moth/get_emote_pitch(mob/living/carbon/human/H, tolerance)
+	. = ..()
+	. += MOTH_PITCH_SHIFT
+
 
 #undef COCOON_WEAVE_DELAY
 #undef COCOON_EMERGE_DELAY
 #undef COCOON_HARM_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
 #undef FLYSWATTER_DAMAGE_MULTIPLIER
+#undef MOTH_PITCH_SHIFT

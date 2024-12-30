@@ -13,12 +13,13 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
 	minimal_player_age = 30
-	min_age_allowed = 30
+	min_age_type = JOB_MIN_AGE_COMMAND
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_COMMAND
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/captain
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 500
 	min_start_money = 600
@@ -29,7 +30,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 /datum/job/captain/announce(mob/living/carbon/human/H)
 	. = ..()
-	GLOB.captain_announcement.Announce("Экипажу станции, капитан [H.real_name] взошел на борт!")
+	GLOB.captain_announcement.Announce("Экипажу станции, капитан [H.real_name] взош[genderize_ru(H.gender, "ёл", "ла", "ло", "ли")] на борт!")
 
 /datum/outfit/job/captain
 	name = "Captain"
@@ -72,7 +73,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	req_admin_notify = 1
 	is_command = 1
 	minimal_player_age = 21
-	min_age_allowed = 30
+	min_age_type = JOB_MIN_AGE_COMMAND
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
@@ -89,6 +90,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/hop
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 300
 	min_start_money = 400
@@ -128,7 +130,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	is_command = 1
 	transfer_allowed = FALSE
 	minimal_player_age = 21
-	min_age_allowed = 30
+	min_age_type = JOB_MIN_AGE_COMMAND
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
@@ -146,6 +148,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_NTREP)
 	alt_titles = list("NT Consultant","Central Command Consultant")
 	outfit = /datum/outfit/job/nanotrasenrep
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 300
 	min_start_money = 400
@@ -180,7 +183,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	is_command = 1
 	transfer_allowed = FALSE
 	minimal_player_age = 21
-	min_age_allowed = 30
+	min_age_type = JOB_MIN_AGE_HIGH_ED
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_SECURITY
@@ -193,6 +196,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	minimal_access = list(ACCESS_FORENSICS_LOCKERS, ACCESS_SEC_DOORS, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_ENGINE, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH,
 			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS, ACCESS_BLUESHIELD, ACCESS_WEAPONS)
 	outfit = /datum/outfit/job/blueshield
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 300
 	min_start_money = 400
@@ -203,7 +207,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	jobtype = /datum/job/blueshield
 	uniform = /obj/item/clothing/under/rank/blueshield
 	suit = /obj/item/clothing/suit/armor/vest/blueshield
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_ear = /obj/item/radio/headset/heads/blueshield/alt
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
@@ -238,7 +242,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	is_legal = 1
 	transfer_allowed = FALSE
 	minimal_player_age = 30
-	min_age_allowed = 30
+	min_age_type = JOB_MIN_AGE_COMMAND
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
@@ -251,6 +255,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_LAWYER, ACCESS_MAGISTRATE, ACCESS_HEADS)
 	alt_titles = list("Judge")
 	outfit = /datum/outfit/job/judge
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 170
 	min_start_money = 200
@@ -295,11 +300,12 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 	alt_titles = list("Human Resources Agent","Lawyer","Attorney")
 	minimal_player_age = 30
-	min_age_allowed = 30
+	min_age_type = JOB_MIN_AGE_HIGH_ED
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/lawyer
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 170
 	min_start_money = 200

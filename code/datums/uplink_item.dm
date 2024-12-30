@@ -469,14 +469,6 @@
 	cost = 15
 	job = list(JOB_TITLE_BARTENDER)
 
-//Barber
-/datum/uplink_item/jobspecific/safety_scissors //Hue
-	name = "Safety Scissors"
-	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
-	item = /obj/item/scissors/safety
-	cost = 6
-	job = list(JOB_TITLE_BARBER)
-
 //Botanist
 /datum/uplink_item/jobspecific/bee_briefcase
 	name = "Briefcase Full of Bees"
@@ -1132,7 +1124,7 @@
 	name = "50. compact ammo box"
 	desc = "A box of 50. cal sniper ammo."
 	item = /obj/item/ammo_box/magazine/sniper_rounds/compact
-	cost = 10
+	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/revolver
@@ -1618,7 +1610,7 @@
 	name = "Access Tuner"
 	desc = "The access tuner is a small device that can interface with airlocks from range. It takes a few seconds to connect and can change the bolt state, open the door, or toggle emergency access."
 	item = /obj/item/door_remote/omni/access_tuner
-	cost = 30
+	cost = 15
 
 /datum/uplink_item/device_tools/toolbox
 	name = "Fully Loaded Toolbox"
@@ -1822,7 +1814,7 @@
 /datum/uplink_item/device_tools/hacked_module
 	name = "Hacked AI Upload Module"
 	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. Be careful with their wording, as artificial intelligences may look for loopholes to exploit."
-	item = /obj/item/aiModule/syndicate
+	item = /obj/item/ai_module/syndicate
 	cost = 38
 
 /datum/uplink_item/device_tools/magboots

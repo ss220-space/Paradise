@@ -7,8 +7,7 @@
 	processing = 0 //so it won't fire again in next tick
 	if(!makeAbductorTeam())
 		message_admins("Abductor event failed to find players. Retrying in 30s.")
-		spawn(300)
-			makeAbductorTeam()
+		addtimer(CALLBACK(src, PROC_REF(makeAbductorTeam)), 30 SECONDS)
 
 /datum/event/abductor/proc/get_teams_num()
 	return min(round(num_station_players() / for_players) + 1, game_mode_ref.max_teams)
@@ -16,7 +15,7 @@
 /datum/event/abductor/proc/makeAbductorTeam()
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Абдуктора?", ROLE_ABDUCTOR, TRUE)
 
-	if(length(candidates) < 2)
+	if(LAZYLEN(candidates) < 2)
 		return FALSE
 
 	if(SSticker.mode.config_tag == "abduction")
@@ -26,7 +25,7 @@
 
 	var/num_teams = get_teams_num()
 	for(var/i in 1 to num_teams)
-		if(length(candidates) < 2)
+		if(LAZYLEN(candidates) < 2)
 			break
 
 		var/number =  SSticker.mode.abductor_teams + 1
@@ -54,6 +53,7 @@
 
 	if(SSticker.mode.config_tag != "abduction")
 		SSticker.mode.abductors |= game_mode_ref.abductors
+
 	processing = 1
 	return TRUE
 

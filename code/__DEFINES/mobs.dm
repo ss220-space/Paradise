@@ -17,9 +17,6 @@
 
 #define TOXIN_TO_INTERNAL_DAMAGE_MULTIPLIER 2 // coefficient wich defines ratio of toxin into internal organs damage transfer
 
-#define AGE_MIN 17			//youngest a character can be
-#define AGE_MAX 85			//oldest a character can be
-
 
 #define LEFT 1
 #define RIGHT 2
@@ -210,6 +207,8 @@
 #define isskeleton(A) (is_species(A, /datum/species/skeleton))
 #define ishumanbasic(A) (is_species(A, /datum/species/human))
 #define isunathi(A) (is_species(A, /datum/species/unathi))
+#define isashwalker(A) (is_species(A, /datum/species/unathi/ashwalker))
+#define isashwalkershaman(A) (is_species(A, /datum/species/unathi/ashwalker/shaman))
 #define istajaran(A) (is_species(A, /datum/species/tajaran))
 #define isvulpkanin(A) (is_species(A, /datum/species/vulpkanin))
 #define isskrell(A) (is_species(A, /datum/species/skrell))

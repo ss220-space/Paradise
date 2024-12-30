@@ -1,7 +1,15 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate
 	name = "Syndicate Sentry Bot"
-	desc = "A syndicate security bot."
+	desc = "Охранный робот Синдиката."
+	ru_names = list(
+		NOMINATIVE = "робот-часовой Синдиката",
+		GENITIVE = "робота-часового Синдиката",
+		DATIVE = "роботу-часовому Синдиката",
+		ACCUSATIVE = "робота-часового Синдиката",
+		INSTRUMENTAL = "роботом-часовым Синдиката",
+		PREPOSITIONAL = "роботе-часовом Синдиката",
+	)
 	model = "Guardian"
 	icon = 'icons/obj/mecha/mecha.dmi'
 	icon_state = "darkgygax"
@@ -17,7 +25,7 @@
 	shoot_sound = 'sound/weapons/wave.ogg'
 	anchored = TRUE
 	window_id = "syndiebot"
-	window_name = "Syndicate Bot Interface"
+	window_name = "Интерфейс Часового Робота Синдиката"
 	var/turf/saved_turf
 	var/stepsound = 'sound/mecha/mechstep.ogg'
 	var/area/syndicate_depot/core/depotarea
@@ -54,7 +62,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/ui_interact(mob/user, datum/tgui/ui = null)
-	to_chat(user, span_warning("[src] has no accessible control panel!"))
+	balloon_alert(user, "панель управления отсутствует!")
 	return
 
 
@@ -79,7 +87,7 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/emag_act(mob/user)
 	if(user)
-		to_chat(user, span_warning("[src] has no card reader slot!"))
+		balloon_alert(user, "сканер ID-карт отсутствует!")
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/ed209_ai()
@@ -87,9 +95,9 @@
 	if(saved_turf && current_turf != saved_turf)
 		playsound(loc, stepsound, 40, TRUE)
 	if(spawn_turf && !atoms_share_level(src, spawn_turf))
-		raise_alert("[src] lost in space.")
+		raise_alert("[capitalize(declent_ru(NOMINATIVE))] потерялся в пространстве.")
 		raised_alert = FALSE
-		raise_alert("[src] activated self-destruct.")
+		raise_alert("[capitalize(declent_ru(NOMINATIVE))] активировал протокол само-уничтожения.")
 		qdel(src)
 	saved_turf = current_turf
 	switch(mode)
@@ -183,13 +191,13 @@
 		if(depotarea)
 			depotarea.list_remove(src, depotarea.guard_list)
 		SSmove_manager.stop_looping(src)
-		visible_message(span_userdanger("[src] blows apart!"))
+		visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
 		do_sparks(3, 1, src)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 		var/obj/structure/mecha_wreckage/gygax/dark/wreck = new /obj/structure/mecha_wreckage/gygax/dark(loc)
 		wreck.name = "sentry bot wreckage"
 
-		raise_alert("[src] destroyed.")
+		raise_alert("[capitalize(declent_ru(NOMINATIVE))] уничтожен.")
 		qdel(src)
 
 

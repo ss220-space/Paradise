@@ -210,7 +210,7 @@
 	button_icon_state = "mech_phasing_off"
 
 /datum/action/innate/mecha/mech_toggle_phasing/Activate()
-	if(!owner || !chassis || chassis.occupant != owner)
+	if(!owner || !chassis || chassis.occupant != owner || !is_teleport_allowed(chassis.z))
 		return
 	chassis.phasing = !chassis.phasing
 	button_icon_state = "mech_phasing_[chassis.phasing ? "on" : "off"]"

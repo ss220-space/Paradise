@@ -3,100 +3,76 @@
 //Oh god what the fuck I am not good at computer
 /obj/item/book/manual
 	icon = 'icons/obj/library.dmi'
-	due_date = 0 // Game time in 1/10th seconds
-	unique = 1   // 0 - Normal book, 1 - Should not be treated as normal book, unable to be copied, unable to be modified
+	due_date = 0
+	unique = TRUE
 	has_drm = TRUE // No reuploading. Piracy is a crime
+	dat = {"
+
+		<html><meta charset="UTF-8"><head>
+		</head>
+
+		<body>
+		If you see this - hello! Please write a report to NXB Janitor about \"issue #164-e\", they know what to do next.
+		</body>
+
+		</html>
+
+		"}
+	/// Put name of wiki page to open frame to. If none set - it will not link any wiki.
+	var/wiki_title = ""
+
+/obj/item/book/manual/Initialize(mapload)
+	. = ..()
+	if(!wiki_title || !CONFIG_GET(string/wikiurl)) //it means, manual doesnt rely on wiki, or we dont have wiki
+		return
+	dat = {"
+
+		<html><meta charset="UTF-8"><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="[CONFIG_GET(string/wikiurl)]/index.php?action=render&title=[wiki_title]" frameborder="0" id="main_frame"></iframe>
+		</body>
+
+		</html>
+
+		"}
 
 
 /obj/item/book/manual/engineering_construction
 	name = "Руководство по Ремонту и Строительству"
 	icon_state ="bookEngineering"
-	author = "Инженерная Энциклопедия"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	author = "Инженерная Энциклопедия"
 	title = "Руководство по Ремонту и Строительству"
-	dat = {"
-
-		<html><meta charset="UTF-8"><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_строительству" frameborder="0" id="main_frame"></iframe>
-		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_строительству"
 
 /obj/item/book/manual/engineering_particle_accelerator
 	name = "Тесла Двигатель: Руководство Пользователя"
 	icon_state ="bookParticleAccelerator"
-	author = "Инженерная Энциклопедия"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	author = "Инженерная Энциклопедия"
 	title = "Тесла Двигатель: Руководство Пользователя"
-	dat = {"
-
-		<html><meta charset="UTF-8"><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Тесла-двигатель" frameborder="0" id="main_frame"></iframe>
-		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Тесла-двигатель"
 
 /obj/item/book/manual/supermatter_engine
 	name = "Двигатель на Суперматерии: Руководство Пользователя"
-	icon_state = "bookParticleAccelerator"   //TEMP FIXME
+	icon_state = "bookSupermatter"
 	author = "Инженерная Энциклопедия"
 	title = "Двигатель на Суперматерии: Руководство Пользователя"
-	dat = {"
-
-		<html><meta charset="UTF-8"><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Двигатель_Суперматерии" frameborder="0" id="main_frame"></iframe>
-		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Двигатель_Суперматерии"
 
 /obj/item/book/manual/engineering_hacking
 	name = "Взлом"
 	icon_state ="bookHacking"
-	author = "Инженерная Энциклопедия"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	author = "Инженерная Энциклопедия"
 	title = "Взлом"
-	dat = {"
-
-		<html><meta charset="UTF-8"><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_взлому" frameborder="0" id="main_frame"></iframe>
-		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_взлому"
 
 /obj/item/book/manual/engineering_singularity_safety
 	name = "Сингулярный Двигатель: Руководство Пользователя"
 	icon_state ="bookEngineeringSingularitySafety"
-	author = "Инженерная Энциклопедия"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	author = "Инженерная Энциклопедия"
 	title = "Сингулярный Двигатель: Руководство Пользователя"
-	dat = {"
-
-		<html><meta charset="UTF-8"><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Сингулярный_двигатель" frameborder="0" id="main_frame"></iframe>
-		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Сингулярный_двигатель"
 
 /obj/item/book/manual/hydroponics_pod_people
 	name = "The Human Harvest - From seed to market"
@@ -137,7 +113,7 @@
 /obj/item/book/manual/medical_cloning
 	name = "Cloning techniques of the 26th century"
 	icon_state ="bookCloning"
-	author = "Medical Journal, volume 3"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	author = "Medical Journal, volume 3"
 	title = "Cloning techniques of the 26th century"
 //big pile of shit below.
 
@@ -216,7 +192,7 @@
 /obj/item/book/manual/ripley_build_and_repair
 	name = "APLU \"Ripley\" Construction and Operation Manual"
 	icon_state ="book"
-	author = "Weyland-Yutani Corp"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	author = "Weyland-Yutani Corp"
 	title = "APLU \"Ripley\" Construction and Operation Manual"
 //big pile of shit below.
 
@@ -288,6 +264,7 @@
 				<h2>Operation</h2>
 				Coming soon...
 			"}
+
 
 /obj/item/book/manual/experimentor
 	name = "Mentoring your Experiments"
@@ -684,17 +661,7 @@
 	force = 4 //advanced magistrate tactics
 	author = "Nanotrasen"
 	title = "Космический Закон"
-	dat = {"
-
-		<html><meta charset="UTF-8"><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Космический_Закон" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Космический_Закон"
 
 /obj/item/book/manual/security_space_law/black
 	name = "Космический Закон - Ограниченное Издание"
@@ -707,17 +674,7 @@
 	icon_state ="bookEngineering2"
 	author = "Инженерная Энциклопедия"
 	title = "Руководство по Инженерии"
-	dat = {"
-
-		<html><meta charset="UTF-8"><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_инженерии" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_инженерии"
 
 /obj/item/book/manual/chef_recipes
 	name = "Рецепты от шеф-повара: Введение"
@@ -725,167 +682,57 @@
 	icon_state = "cooked_book"
 	author = "NanoTrasen"
 	title = "Рецепты от шеф-повара: Введение"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде"
 
 /obj/item/book/manual/chef_recipes/part_one
 	name = "Рецепты от шеф-повара: Основные ингредиенты и приправы"
 	title = "Рецепты от шеф-повара: Основные ингредиенты и приправы"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Основные_ингредиенты_и_приправы" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Основные_ингредиенты_и_приправы"
 
 /obj/item/book/manual/chef_recipes/part_two
 	name = "Рецепты от шеф-повара: Тесто и хлеб"
 	title = "Рецепты от шеф-повара: Тесто и хлеб"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Тесто_и_базовый_хлеб" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Тесто_и_базовый_хлеб"
 
 /obj/item/book/manual/chef_recipes/part_three
 	name = "Рецепты от шеф-повара: Мясные блюда"
 	title = "Рецепты от шеф-повара: Мясные блюда"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Мясные_блюда" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Мясные_блюда"
 
 /obj/item/book/manual/chef_recipes/part_four
 	name = "Рецепты от шеф-повара: Рыба, морепродукты, суши"
 	title = "Рецепты от шеф-повара: Рыба, морепродукты, суши"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Рыба,_морепродукты,_суши" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Рыба,_морепродукты,_суши"
 
 /obj/item/book/manual/chef_recipes/part_five
 	name = "Рецепты от шеф-повара: Бутерброды"
 	title = "Рецепты от шеф-повара: Бутерброды"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Бутерброды" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Бутерброды"
 
 /obj/item/book/manual/chef_recipes/part_six
 	name = "Рецепты от шеф-повара: Паста и пицца"
 	title = "Рецепты от шеф-повара: Паста и пицца"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Паста_и_пицца" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Паста_и_пицца"
 
 /obj/item/book/manual/chef_recipes/part_seven
 	name = "Рецепты от шеф-повара: Супы, салаты и гарниры"
 	title = "Рецепты от шеф-повара: Супы, салаты и гарниры"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Супы,_салаты_и_гарниры" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Супы,_салаты_и_гарниры"
 
 /obj/item/book/manual/chef_recipes/part_eight
 	name = "Рецепты от шеф-повара: Хлебобулочные изделия и десерты"
 	title = "Рецепты от шеф-повара: Хлебобулочные изделия и десерты"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Хлебобулочные_изделия_и_десерты" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Хлебобулочные_изделия_и_десерты"
 
 /obj/item/book/manual/chef_recipes/part_nine
 	name = "Рецепты от шеф-повара: Шоколадки и конфеты"
 	title = "Рецепты от шеф-повара: Шоколадки и конфеты"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Шоколадки_и_конфеты" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Шоколадки_и_конфеты"
 
 /obj/item/book/manual/chef_recipes/part_ten
 	name = "Рецепты от шеф-повара: Остальные рецепты"
 	title = "Рецепты от шеф-повара: Остальные рецепты"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Остальные_рецепты" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Остальные_рецепты"
 
 /obj/item/book/manual/barman_recipes
 	name = "Рецепты Бармена: Введение"
@@ -893,137 +740,47 @@
 	icon_state = "barbook"
 	author = "Сэр Джон Роуз"
 	title = "Рецепты Бармена: Введение"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_напиткам" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_напиткам"
 
 /obj/item/book/manual/barman_recipes/part_one
 	name = "Рецепты Бармена: Ассортимент бухломата"
 	title = "Рецепты Бармена: Ассортимент бухломата"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Ассортимент_бухломата" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Ассортимент_бухломата"
 
 /obj/item/book/manual/barman_recipes/part_two
 	name = "Рецепты Бармена: Раздатчик выпивки"
 	title = "Рецепты Бармена: Раздатчик выпивки"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Раздатчик_выпивки" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Раздатчик_выпивки"
 
 /obj/item/book/manual/barman_recipes/part_three
 	name = "Рецепты Бармена: Фонтан газировки"
 	title = "Рецепты Бармена: Фонтан газировки"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Фонтан_газировки" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Фонтан_газировки"
 
 /obj/item/book/manual/barman_recipes/part_four
 	name = "Рецепты Бармена: Рецепты бутылочницы"
 	title = "Рецепты Бармена: Рецепты бутылочницы"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Рецепты_Бутылочницы" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Рецепты_Бутылочницы"
 
 /obj/item/book/manual/barman_recipes/part_five
 	name = "Рецепты Бармена: Алкогольные напитки и коктейли"
 	title = "Рецепты Бармена: Алкогольные напитки и коктейли"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Алкогольные_напитки_и_коктейли" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Алкогольные_напитки_и_коктейли"
 
 /obj/item/book/manual/barman_recipes/part_six
 	name = "Рецепты Бармена: Напитки на основе синтанола"
 	title = "Рецепты Бармена: Напитки на основе синтанола"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Напитки_на_основе_синтанола" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Напитки_на_основе_синтанола"
 
 /obj/item/book/manual/barman_recipes/part_seven
 	name = "Рецепты Бармена: Безалкогольные напитки"
 	title = "Рецепты Бармена: Безалкогольные напитки"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Безалкогольные_напитки" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Безалкогольные_напитки"
 
 /obj/item/book/manual/barman_recipes/part_eight
 	name = "Рецепты Бармена: Напитки из ингредиентов с кухни"
 	title = "Рецепты Бармена: Напитки из ингредиентов с кухни"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Руководство_по_еде_и_напиткам/Напитки_из_ингредиентов_с_кухни" frameborder="0" id="main_frame"></iframe>        </body>
-
-		</html>
-
-		"}
+	wiki_title = "Руководство_по_еде_и_напиткам/Напитки_из_ингредиентов_с_кухни"
 
 /obj/item/book/manual/detective
 	name = "The Film Noir: Proper Procedures for Investigations"
@@ -1337,17 +1094,7 @@
 	icon_state = "sop_science"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Научного Отдела"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Standard_Operating_Procedure_(Science)" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Стандартные_рабочие_процедуры_(Исследование)"
 
 /obj/item/book/manual/sop_medical
 	name = "Стандартные Рабочие Процедуры Медицинского Отдела"
@@ -1355,17 +1102,7 @@
 	icon_state = "sop_medical"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Медицинского Отдела"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Standard_Operating_Procedure_(Medical)" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Стандартные_рабочие_процедуры_(Медицина)"
 
 /obj/item/book/manual/sop_engineering
 	name = "Стандартные Рабочие Процедуры Инженерного Отдела"
@@ -1373,17 +1110,7 @@
 	icon_state = "sop_engineering"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Инженерного Отдела"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Standard_Operating_Procedure_(Engineering)" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Стандартные_рабочие_процедуры_(Инженерия)"
 
 /obj/item/book/manual/sop_service
 	name = "Стандартные Рабочие Процедуры Отдела Обслуживания"
@@ -1391,17 +1118,7 @@
 	icon_state = "sop_service"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Отдела Обслуживания"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Стандартные_рабочие_процедуры_(Сервис)" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Стандартные_рабочие_процедуры_(Сервис)"
 
 /obj/item/book/manual/sop_supply
 	name = "Стандартные Рабочие Процедуры Отдела Снабжения"
@@ -1409,17 +1126,7 @@
 	icon_state = "sop_cargo"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Отдела Снабжения"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Стандартные_рабочие_процедуры_(Снабжение)" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Стандартные_рабочие_процедуры_(Снабжение)"
 
 /obj/item/book/manual/sop_security
 	name = "Стандартные Рабочие Процедуры Службы Безопасности"
@@ -1427,17 +1134,7 @@
 	icon_state = "sop_security"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Службы Безопасности"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Standard_Operating_Procedure_(Security)" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Стандартные_рабочие_процедуры_(Охрана)"
 
 /obj/item/book/manual/sop_legal
 	name = "Правовые Стандартные Рабочие Процедуры"
@@ -1445,17 +1142,7 @@
 	icon_state = "sop_legal"
 	author = "Nanotrasen"
 	title = "Правовые Стандартные Рабочие Процедуры"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Legal_Standard_Operating_Procedure" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Стандартные_рабочие_процедуры_(Закон)"
 
 /obj/item/book/manual/sop_general
 	name = "Стандартные Рабочие Процедуры"
@@ -1463,17 +1150,7 @@
 	icon_state = "sop"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Standard_Operating_Procedure" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Стандартные_Рабочие_Процедуры"
 
 /obj/item/book/manual/sop_command
 	name = "Стандартные Рабочие Процедуры Коммандования"
@@ -1481,14 +1158,4 @@
 	icon_state = "sop_command"
 	author = "Nanotrasen"
 	title = "Стандартные Рабочие Процедуры Коммандования"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://wiki.ss220.space/index.php?action=render&title=Standard_Operating_Procedure_(Command)" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
+	wiki_title = "Стандартные_рабочие_процедуры_(Командование)"

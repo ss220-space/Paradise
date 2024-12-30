@@ -125,6 +125,9 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/enrage()
 	. = ..()
+	if(!.)
+		return
+
 	maxHealth = 2000 //Less health, as a phase 2
 	health = 2000
 	rapid_melee = 12 //Don't stand still

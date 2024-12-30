@@ -356,19 +356,20 @@
 		edit_admin_permissions()
 
 	else if(href_list["call_shuttle"])
-		if(!check_rights(R_ADMIN))	return
 
+		if(!check_rights(R_ADMIN))
+			return
 
 		switch(href_list["call_shuttle"])
 			if("1")
-				if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
+				if(EMERGENCY_AT_LEAST_DOCKED)
 					return
 				SSshuttle.emergency.request()
 				log_admin("[key_name(usr)] called the Emergency Shuttle")
 				message_admins("<span class='adminnotice'>[key_name_admin(usr)] called the Emergency Shuttle to the station</span>")
 
 			if("2")
-				if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
+				if(EMERGENCY_AT_LEAST_DOCKED)
 					return
 				switch(SSshuttle.emergency.mode)
 					if(SHUTTLE_CALL)
@@ -1935,20 +1936,21 @@
 		show_player_panel(M)
 
 	else if(href_list["adminplayerobservefollow"])
-		var/client/C = usr.client
-		if(!isobserver(usr))
-			if(!check_rights(R_ADMIN|R_MOD)) // Need to be mod or admin to aghost
-				return
-			C.admin_ghost()
-		var/mob/M = locateUID(href_list["adminplayerobservefollow"])
+		var/client/client = usr.client
 
-		if(!istype(M, /mob))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>", confidential=TRUE)
+		if(!isobserver(usr))
+			if(!check_rights(R_ADMIN | R_MOD)) // Need to be mod or admin to aghost
+				return
+
+			client.admin_ghost()
+
+		var/mob/mob = locateUID(href_list["adminplayerobservefollow"])
+
+		if(!istype(mob))
+			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
 			return
 
-		var/mob/dead/observer/A = C.mob
-		sleep(5)
-		A.ManualFollow(M)
+		addtimer(CALLBACK(client.mob, TYPE_PROC_REF(/mob, ManualFollow), mob), 5 DECISECONDS)
 
 	else if(href_list["check_antagonist"])
 		check_antagonists()
@@ -1956,11 +1958,13 @@
 	else if(href_list["check_teams"])
 		if(!check_rights(R_ADMIN))
 			return
+
 		check_teams()
 
 	else if(href_list["edit_blob_win_count"])
 		if(!check_rights(R_ADMIN))
 			return
+
 		var/blob_win_count = input(usr, "Ввидите новое число критической массы","Критическая масса:", SSticker.mode.blob_win_count) as num
 		if(!blob_win_count)
 			return
@@ -1976,6 +1980,7 @@
 	else if(href_list["send_warning"])
 		if(!check_rights(R_ADMIN))
 			return
+
 		var/message = stripped_input(usr, "Введите предупреждение", "Предупреждение")
 		if(alert(usr,"Вы действительно хотите отправить предупреждение всем блобам?", "", "Да", "Нет") == "Нет")
 			return
@@ -1990,6 +1995,7 @@
 	else if(href_list["burst_all_blobs"])
 		if(!check_rights(R_ADMIN))
 			return
+
 		if(alert(usr,"Вы действительно хотите лопнуть всех блобов?", "", "Да", "Нет") == "Нет")
 			return
 
@@ -2006,6 +2012,7 @@
 
 		if(!SSticker || !SSticker.mode)
 			return
+
 		var/datum/game_mode/mode = SSticker.mode
 		if(tgui_alert(usr,"Вы действительно хотите [mode.delay_blob_end? "вернуть" : "преостановить"] конец раунда в случае победы блоба?", "", list("Да", "Нет")) == "Нет")
 			return
@@ -3097,7 +3104,7 @@
 						GLOB.gravity_is_on = FALSE
 						log_and_message_admins("toggled global gravity OFF.")
 
-				for(var/area/area as anything in GLOB.all_areas)
+				for(var/area/area as anything in GLOB.areas)
 					area.gravitychange()
 
 			if("power")

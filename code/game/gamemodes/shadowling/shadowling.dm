@@ -125,7 +125,7 @@ Made by Xhuis
 	messages.Add("<b>Currently, you are disguised as an employee aboard [station_name()].</b>")
 	messages.Add("<b>In your limited state, you have two abilities: Hatch and Shadowling Hivemind '[get_language_prefix(LANGUAGE_HIVE_SHADOWLING)]'.</b>")
 	messages.Add("<b>Any other shadowlings are your allies. You must assist them as they shall assist you.</b>")
-	messages.Add("<b>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Shadowling\">Тенеморф</a></b><br>")
+	messages.Add("<b>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Shadowling\">Тенеморф</a></b><br>")
 	return messages
 
 
@@ -267,7 +267,7 @@ Made by Xhuis
 
 
 /datum/game_mode/shadowling/declare_completion()
-	if(check_shadow_victory() && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
+	if(check_shadow_victory() && EMERGENCY_ESCAPED_OR_ENDGAMED) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
 		SSticker.mode_result = "shadowling win - shadowling ascension"
 		to_chat(world, "<FONT size = 3><B>Shadowling Victory</B></FONT>")
 		to_chat(world, "<span class='greentext'><b>The shadowlings have ascended and taken over the station!</b></span>")
@@ -275,7 +275,7 @@ Made by Xhuis
 		SSticker.mode_result = "shadowling loss - shadowling killed"
 		to_chat(world, "<FONT size = 3><B>Crew Major Victory</B></FONT>")
 		to_chat(world, "<span class='redtext'><b>The shadowlings have been killed by the crew!</b></span>")
-	else if(!check_shadow_victory() && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+	else if(!check_shadow_victory() && EMERGENCY_ESCAPED_OR_ENDGAMED)
 		SSticker.mode_result = "shadowling loss - crew escaped"
 		to_chat(world, "<FONT size = 3><B>Crew Minor Victory</B></FONT>")
 		to_chat(world, "<span class='redtext'><b>The crew escaped the station before the shadowlings could ascend!</b></span>")

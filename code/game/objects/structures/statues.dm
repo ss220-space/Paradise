@@ -322,7 +322,7 @@
 	desc = "An antique statue of a human angel made of stone."
 	icon_state = "angel"
 	anchored = TRUE
-	oreAmount = 0
+	obj_flags = NODECONSTRUCT
 
 /obj/structure/statue/russian_mulebot
 	desc = "Like a MULEbot, but more Russian and less functional.";
@@ -442,7 +442,8 @@
 	bound_width = 64
 	var/lit = 0
 	layer = EDGED_TURF_LAYER
-
+	anchored = TRUE
+	obj_flags = NODECONSTRUCT
 
 /obj/structure/statue/unknown/update_icon_state()
 	icon_state = "unknown[lit ? "_lit" : ""]"

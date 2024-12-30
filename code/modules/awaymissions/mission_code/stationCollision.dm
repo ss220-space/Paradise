@@ -163,22 +163,22 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 /*
  * Modified Nar-Sie
  */
-/obj/singularity/narsie/sc_Narsie
+/obj/singularity/god/narsie/sc_Narsie
 	desc = "Your body becomes weak and your feel your mind slipping away as you try to comprehend what you know can't be possible."
 	move_self = 0 //Contianed narsie does not move!
 	grav_pull = 0 //Contained narsie does not pull stuff in!
 	var/uneatable = list(/turf/space, /obj/effect/overlay, /mob/living/simple_animal/hostile/construct)
 
 //Override this to prevent no adminlog runtimes and admin warnings about a singularity without containment
-/obj/singularity/narsie/sc_Narsie/admin_investigate_setup()
+/obj/singularity/god/narsie/sc_Narsie/admin_investigate_setup()
 	return
 
-/obj/singularity/narsie/sc_Narsie/process()
+/obj/singularity/god/narsie/sc_Narsie/process()
 	eat()
 	if(prob(25))
 		mezzer()
 
-/obj/singularity/narsie/sc_Narsie/consume(atom/A)
+/obj/singularity/god/narsie/sc_Narsie/consume(atom/A)
 	if(!A.simulated)
 		return FALSE
 	if(is_type_in_list(A, uneatable))
@@ -201,5 +201,5 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 		T.ChangeTurf(T.baseturf)
 	return
 
-/obj/singularity/narsie/sc_Narsie/ex_act()
+/obj/singularity/god/narsie/sc_Narsie/ex_act()
 	return

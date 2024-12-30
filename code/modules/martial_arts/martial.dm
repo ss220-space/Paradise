@@ -417,7 +417,15 @@
 
 /obj/item/CQC_manual
 	name = "old manual"
-	desc = "A small, black manual. There are drawn instructions of tactical hand-to-hand combat."
+	desc = "Небольшая книжка чёрного цвета. Это подробное руководство по тактике рукопашного боя."
+	ru_names = list(
+		NOMINATIVE = "старое руководство",
+		GENITIVE = "старого руководства",
+		DATIVE = "старому руководству",
+		ACCUSATIVE = "старое руководство",
+		INSTRUMENTAL = "старым руководством",
+		PREPOSITIONAL = "старом руководстве"
+	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "cqcmanual"
 
@@ -427,27 +435,35 @@
 
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
 		if(ischangeling(user))
-			to_chat(user, "<span class='warning'>We try multiple times, but we simply cannot grasp the basics of CQC!</span>")
+			to_chat(user, span_warning("Как бы мы не пытались, у нас не получается понять даже основы CQC!"))
 			return
 		else if(isvampire(user)) //Vampires
-			to_chat(user, "<span class='warning'>Your blood lust distracts you from the basics of CQC!</span>")
+			to_chat(user, span_warning("Ваша жажда крови отвлекает вас от изучения CQC!"))
 			return
 		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
+			to_chat(user, span_warning("От одной мысли о драке, не говоря уже о CQC, ваша голова идёт кругом!"))
 			return
 
-	to_chat(user, span_boldannounceic("You remember the basics of CQC."))
+	to_chat(user, span_boldannounceic("Вы быстро пробегаетесь глазами по страницам книги, запоминая основы CQC."))
 
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
 	user.temporarily_remove_item_from_inventory(src)
-	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
+	visible_message(span_warning("[declent_ru(NOMINATIVE)] зловеще пищит, после чего вспыхивает ярким пламенем!"))
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
 /obj/item/CQC_manual/chef
 	name = "CQC Upgrade implant"
-	desc = "Gives you to remember what you always forget"
+	desc = "Небольшой шприц, содержащий в себе имплант. Даёт вам запомнить то, что вы всегда забываете."
+	ru_names = list(
+		NOMINATIVE = "имплант улучшения CQC",
+		GENITIVE = "импланта улучшения CQC",
+		DATIVE = "импланту улучшения CQC",
+		ACCUSATIVE = "имплант улучшения CQC",
+		INSTRUMENTAL = "имплантом улучшения CQC",
+		PREPOSITIONAL = "импланте улучшения CQC"
+	)
 	icon = 'icons/obj/items.dmi'
 	icon_state = "implanter1"
 	item_state = "syringe_0"
@@ -455,24 +471,41 @@
 /obj/item/CQC_manual/chef/attack_self(mob/living/carbon/human/user)
 	if(!istype(user))
 		return
-	if(user.mind && user.mind.assigned_role == JOB_TITLE_CHEF)
-		to_chat(user, span_boldannounceic(">You completely memorise the basics of CQC."))
-		var/datum/martial_art/cqc/CQC = new(null)
-		CQC.teach(user)
-		user.temporarily_remove_item_from_inventory(src)
-		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it blow up.</span>")
-		new /obj/effect/decal/cleanable/ash(get_turf(src))
-		qdel(src)
-	else
-		to_chat(user, "<span class='notice'>You implant yourself, but nanobots can't find their target. You feel sharp pain in head!</span>")
+
+	if(!(user.mind && user.mind.assigned_role == JOB_TITLE_CHEF))
+		to_chat(user, span_notice("Вы имплантируете себя, но наноботы не могут найти свою цель. Вы чувствуете острую головную боль!"))
 		if(isliving(user))
 			var/mob/living/L = user
 			L.apply_damages(burn = 20, brain = 20, spread_damage = TRUE)
-		user.temporarily_remove_item_from_inventory(src)
-		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it blow up!</span>")
-		playsound(get_turf(src),'sound/effects/explosion2.ogg', 100, 1)
-		new /obj/effect/decal/cleanable/ash(get_turf(src))
-		qdel(src)
+		use_implant(user)
+		return
+
+	if(ischangeling(user))
+		to_chat(user, span_warning("Мы имплантируем себя, но наноботы не успевают достичь своей цели и разрушаются."))
+		use_implant(user)
+		return
+
+	if(isvampire(user))
+		to_chat(user, span_warning("Вы имплантируете себя, но ваша кровь разрушает наноботов быстрее, чем они достигают своей цели."))
+		use_implant(user)
+		return
+
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_warning("От одной мысли о драке, не говоря уже о CQC, голова идёт кругом! Вы не решаетесь вколоть в себя имплант."))
+		return
+
+	to_chat(user, span_boldannounceic("Вы полностью запоминаете основы CQC."))
+	var/datum/martial_art/cqc/CQC = new(null)
+	CQC.teach(user)
+	use_implant(user)
+
+/obj/item/CQC_manual/chef/proc/use_implant(mob/living/carbon/human/user)
+	user.temporarily_remove_item_from_inventory(src)
+	visible_message(span_warning("[declent_ru(NOMINATIVE)] зловеще пищит, после чего взрывается!"))
+	playsound(get_turf(src),'sound/effects/explosion2.ogg', 100, TRUE)
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	qdel(src)
+
 
 /obj/item/mr_chang_technique
 	name = "«Aggressive Marketing Technique»"

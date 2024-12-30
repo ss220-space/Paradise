@@ -251,7 +251,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/invocation(mob/user = usr) //spelling the spell out and setting it on recharge/reducing charges amount
 	switch(invocation_type)
 		if("shout")
-			if(!user.IsVocal())
+			if(!user.IsVocal()  || user.cannot_speak_loudly())
 				user.custom_emote(EMOTE_VISIBLE, "дела%(ет,ют)% безумные жесты!")
 			else
 				if(prob(50))//Auto-mute? Fuck that noise
@@ -591,6 +591,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if((!user.mind || !LAZYIN(user.mind.spell_list, src)) && !LAZYIN(user.mob_spell_list, src))
 		if(show_message)
 			to_chat(user, span_warning("You shouldn't have this spell! Something's wrong."))
+		return FALSE
+
+	if(HAS_TRAIT(user, TRAIT_NO_SPELLS))
 		return FALSE
 
 	if(!centcom_cancast) //Certain spells are not allowed on the centcom zlevel

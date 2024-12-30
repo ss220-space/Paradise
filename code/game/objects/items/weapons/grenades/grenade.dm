@@ -56,7 +56,7 @@
 
 /obj/item/grenade/attack_self(mob/user)
 	if(!active && clown_check(user))
-		to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
+		to_chat(user, span_warning("You prime the [name]! [det_time/10] seconds!"))
 		active = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)

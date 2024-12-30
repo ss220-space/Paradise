@@ -12,7 +12,7 @@
 	required_players = 10
 	required_enemies = 1
 	forbidden_antag_jobs = list(ROLE_VAMPIRE = list(JOB_TITLE_CHAPLAIN))
-	var/list/protected_jobs_AI = list(JOB_TITLE_CIVILIAN, JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_MECHANIC, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_HOP, JOB_TITLE_CHAPLAIN, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF, JOB_TITLE_BOTANIST, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH, JOB_TITLE_MINER, JOB_TITLE_CLOWN, JOB_TITLE_MIME, JOB_TITLE_JANITOR, JOB_TITLE_LIBRARIAN, JOB_TITLE_BARBER, JOB_TITLE_EXPLORER)	// Basically all jobs, except AI.
+	var/list/protected_jobs_AI = list(JOB_TITLE_CIVILIAN, JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_MECHANIC, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_HOP, JOB_TITLE_CHAPLAIN, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF, JOB_TITLE_BOTANIST, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH, JOB_TITLE_MINER, JOB_TITLE_CLOWN, JOB_TITLE_MIME, JOB_TITLE_JANITOR, JOB_TITLE_LIBRARIAN, JOB_TITLE_EXPLORER)	// Basically all jobs, except AI.
 	var/secondary_protected_species = list(SPECIES_MACNINEPERSON)
 	var/vampire_restricted_jobs = list(JOB_TITLE_CHAPLAIN)
 	/// Chosen antags if any. Key - mind, value - antag type
@@ -42,7 +42,7 @@
 
 
 /datum/game_mode/antag_paradise/process()
-	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 		return PROCESS_KILL
 
 	if(!COOLDOWN_STARTED(src, antag_making_cooldown) || !COOLDOWN_FINISHED(src, antag_making_cooldown))
@@ -103,11 +103,11 @@
 
 		if(ROLE_MALF_AI)
 			if(special_antag_amount)
-				var/datum/mind/special_antag = roundstart ? safepick(get_players_for_role(ROLE_MALF_AI, req_job_rank = JOB_TITLE_AI)) : safepick(antag_possibilities[ROLE_MALF_AI])
+				var/datum/mind/special_antag = safepick(antag_possibilities[ROLE_MALF_AI])
 				if(special_antag)
 					special_antag.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)
 					special_antag.restricted_roles -= JOB_TITLE_AI
-					special_antag.special_role = SPECIAL_ROLE_TRAITOR
+					special_antag.special_role = SPECIAL_ROLE_MALFAI
 					SSjobs.new_malf = special_antag.current
 					pre_antags[special_antag] = ROLE_MALF_AI
 					antags_amount--
@@ -215,6 +215,7 @@
 	antag_possibilities[ROLE_CHANGELING] = get_players_for_role(ROLE_CHANGELING)
 	antag_possibilities[ROLE_TRAITOR] =	get_players_for_role(ROLE_TRAITOR)
 	antag_possibilities[ROLE_THIEF] = get_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
+	antag_possibilities[ROLE_MALF_AI] = get_players_for_role(ROLE_MALF_AI)
 
 	calculate_antags()
 

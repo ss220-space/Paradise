@@ -69,9 +69,9 @@
 			for(var/datum/language/lan as anything in stored_languages)
 				affected_mob.add_language(lan.name)
 
-	LAZYNULL(stored_languages)
+		REMOVE_TRAIT(affected_mob, TRAIT_NO_BABEL, UNIQUE_TRAIT_SOURCE(src))
 
-	REMOVE_TRAIT(affected_mob, TRAIT_NO_BABEL, UNIQUE_TRAIT_SOURCE(src))
+	LAZYNULL(stored_languages)
 
 	return ..()
 

@@ -303,13 +303,19 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 
 /obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H, upgrade_type)
+	if(!istype(H))
+		return
+
 	if(!(upgrade_type in power_lottery[H]))
 		return
+
 	if(!completed)
 		return
+
 	if(HAS_TRAIT(H, TRAIT_NO_DNA))
 		to_chat(H, "<span class='warning'>Error, no DNA detected.</span>")
 		return
+
 	switch(upgrade_type)
 		if(VAULT_TOXIN)
 			to_chat(H, "<span class='notice'>You feel resistant to airborne toxins.</span>")

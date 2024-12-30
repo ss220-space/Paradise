@@ -129,14 +129,7 @@
 	last_text = world.time
 	// check if telecomms I/O route 1459 is stable
 	//var/telecomms_intact = telecomms_process(P.owner, owner, t)
-	var/obj/machinery/message_server/useMS = null
-	if(GLOB.message_servers)
-		for(var/A in GLOB.message_servers)
-			var/obj/machinery/message_server/MS = A
-		//PDAs are now dependent on the Message Server.
-			if(MS.active)
-				useMS = MS
-				break
+	var/obj/machinery/message_server/useMS = find_pda_server()
 
 	var/turf/sender_pos = get_turf(U)
 	var/turf/recipient_pos = get_turf(P)

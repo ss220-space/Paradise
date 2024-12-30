@@ -586,13 +586,13 @@
 	if(istype(I, /obj/item/toner))
 		add_fingerprint(user)
 		var/obj/item/toner/toner = I
-		if(toner > 10) //allow replacing when low toner is affecting the print darkness
+		if(src.toner > 10) //allow replacing when low toner is affecting the print darkness
 			to_chat(user, span_warning("This cartridge is not yet ready for replacement! Use up the rest of the toner."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		to_chat(user, span_notice("You have inserted the toner cartridge into [src]."))
-		toner += toner.toner_amount
+		src.toner += toner.toner_amount
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -623,7 +623,7 @@
 			toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/living/user)
-	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user) || target == copymob)
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
 		return
 	if(check_mob()) //is target mob or another mob on this photocopier already?
 		return

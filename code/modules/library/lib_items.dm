@@ -182,14 +182,22 @@
 	drop_sound = 'sound/items/handling/book_drop.ogg'
 	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 
-	var/dat			 // Actual page content
-	var/due_date = 0 // Game time in 1/10th seconds
-	var/author		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
-	var/unique = 0   // 0 - Normal book, 1 - Should not be treated as normal book, unable to be copied, unable to be modified
-	var/title		 // The real name of the book.
-	var/carved = 0	 // Has the book been hollowed out for use as a secret storage item?
-	var/forbidden = 0     // Prevent ordering of this book. (0=no, 1=yes, 2=emag only)
-	var/obj/item/store	// What's in the book?
+	/// Actual page content
+	var/dat
+	/// Game time in 1/10th seconds
+	var/due_date = 0
+	/// Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	var/author
+	/// FALSE - Normal book, TRUE - Should not be treated as normal book, unable to be copied, unable to be modified
+	var/unique = FALSE
+	/// The real name of the book.
+	var/title
+	/// Has the book been hollowed out for use as a secret storage item?
+	var/carved = 0
+	/// Prevent ordering of this book. (0=no, 1=yes, 2=emag only)
+	var/forbidden = 0
+	/// What's in the book?
+	var/obj/item/store
 	/// Book DRM. If this var is TRUE, it cannot be scanned and re-uploaded
 	var/has_drm = FALSE
 

@@ -1,7 +1,15 @@
 //Cleanbot
 /mob/living/simple_animal/bot/cleanbot
 	name = "\improper Cleanbot"
-	desc = "A little cleaning robot, he looks so excited!"
+	desc = "Маленький робот-уборщик. Он выглядит таким увлечённым!"
+	ru_names = list(
+		NOMINATIVE = "чистобот",
+		GENITIVE = "чистобота",
+		DATIVE = "чистоботу",
+		ACCUSATIVE = "чистобота",
+		INSTRUMENTAL = "чистоботом",
+		PREPOSITIONAL = "чистоботе",
+	)
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "cleanbot"
 	density = FALSE
@@ -12,10 +20,10 @@
 	bot_filter = RADIO_CLEANBOT
 	bot_type = CLEAN_BOT
 	model = "Cleanbot"
-	bot_purpose = "seek out messes and clean them"
+	bot_purpose = "найти грязь и мусор и избавиться от них"
 	bot_core_type = /obj/machinery/bot_core/cleanbot
 	window_id = "autoclean"
-	window_name = "Automatic Station Cleaner v1.1"
+	window_name = "Автоматическая Уборочная Единица v1.1"
 	pass_flags = PASSMOB|PASSFLAPS
 	path_image_color = "#993299"
 
@@ -73,9 +81,9 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/set_custom_texts()
-	text_hack = "You corrupt [name]'s cleaning software."
-	text_dehack = "[name]'s software has been reset!"
-	text_dehack_fail = "[name] does not seem to respond to your repair code!"
+	text_hack = "Вы взломали протоколы уборки [declent_ru(GENITIVE)]."
+	text_dehack = "Вы восстановили протоколы уборки [declent_ru(GENITIVE)]."
+	text_dehack_fail = "[capitalize(declent_ru(NOMINATIVE))] не отвечает на ваши команды!"
 
 
 /mob/living/simple_animal/bot/cleanbot/attackby(obj/item/I, mob/user, params)
@@ -86,9 +94,10 @@
 		add_fingerprint(user)
 		var/obj/item/toy/crayon/spraycan/can = I
 		if(can.capped)
-			to_chat(user, span_warning("The cap on [can] is sealed."))
+			balloon_alert(user, "баллончик закрыт!")
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		playsound(loc, 'sound/effects/spray.ogg', 20, TRUE)
+		balloon_alert(user, "краска нанесена")
 		mask_color = can.colour
 		update_icon()
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
@@ -99,7 +108,7 @@
 /mob/living/simple_animal/bot/cleanbot/emag_act(mob/user)
 	..()
 	if(emagged == 2 && user)
-		to_chat(user, span_danger("[src] buzzes and beeps."))
+		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] странно жужжит!"))
 
 
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
@@ -124,11 +133,11 @@
 				T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 
 			if(prob(5)) //Spawns foam!
-				visible_message(span_danger("[src] whirs and bubbles violently, before releasing a plume of froth!"))
+				visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] издаёт громкие булькающие звуки, прежде чем выпустить шлейф пены!"))
 				new /obj/effect/particle_effect/foam(loc)
 
 	else if(prob(5))
-		audible_message("[src] makes an excited beeping booping sound!")
+		custom_emote(EMOTE_VISIBLE, "бипает и бупает!")
 
 	if(!target) //Search for cleanables it can see.
 		target = scan(/obj/effect/decal/cleanable)
@@ -201,7 +210,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	set_anchored(TRUE)
-	visible_message(span_notice("[src] begins to clean up [target]"))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает очищать [target]."))
 	mode = BOT_CLEANING
 	update_icon()
 	addtimer(CALLBACK(src, PROC_REF(do_clean), target), 5 SECONDS)
@@ -219,7 +228,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = FALSE
-	visible_message(span_userdanger("[src] blows apart!"))
+	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/reagent_containers/glass/bucket(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
@@ -260,7 +269,7 @@
 	if (..())
 		return
 	if(topic_denied(usr))
-		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		to_chat(usr, span_danger("Интерфейс [declent_ru(GENITIVE)] не отвечает!"))
 		return
 	add_fingerprint(usr)
 	. = TRUE

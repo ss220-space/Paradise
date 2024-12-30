@@ -123,6 +123,9 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/enrage()
 	. = ..()
+	if(!.)
+		return
+
 	move_to_delay = 5
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/unrage()

@@ -35,12 +35,17 @@
 /obj/machinery/tcomms/core/Initialize(mapload)
 	. = ..()
 	link_password = GenerateKey()
-	reachable_zlevels |= loc.z
-	var/turf/above = GET_TURF_ABOVE(loc)
+	var/turf/our_turf = get_turf(loc)
+	if(!isturf(our_turf))
+		log_runtime(EXCEPTION("Tcomms core is in non-turf loc!"))
+		message_admins("Tcomms core is in non-turf loc. Inform maintainrs about it.")
+		return
+	reachable_zlevels |= our_turf.z
+	var/turf/above = GET_TURF_ABOVE(our_turf)
 	while(above)
 		reachable_zlevels |= above.z
 		above = GET_TURF_ABOVE(above)
-	var/turf/below = GET_TURF_BELOW(loc)
+	var/turf/below = GET_TURF_BELOW(our_turf)
 	while(below)
 		reachable_zlevels |= below.z
 		below = GET_TURF_BELOW(below)
@@ -129,14 +134,19 @@
 		return
 	// Refresh the list
 	reachable_zlevels = list()
+	var/turf/our_turf = get_turf(loc)
+	if(!isturf(our_turf))
+		log_runtime(EXCEPTION("Tcomms core is in non-turf loc!"))
+		message_admins("Tcomms core is in non-turf loc. Inform maintainrs about it.")
+		return
 	// Add itself as a reachable Z-level
 	reachable_zlevels |= loc.z
 	// add adjacent zlevels above and below
-	var/turf/above = GET_TURF_ABOVE(loc)
+	var/turf/above = GET_TURF_ABOVE(our_turf)
 	while(above)
 		reachable_zlevels |= above.z
 		above = GET_TURF_ABOVE(above)
-	var/turf/below = GET_TURF_BELOW(loc)
+	var/turf/below = GET_TURF_BELOW(our_turf)
 	while(below)
 		reachable_zlevels |= below.z
 		below = GET_TURF_BELOW(below)

@@ -268,7 +268,7 @@
 	drainpower.owner = mind
 	tampermach.owner = mind
 	greeting.Add(mind.prepare_announce_objectives(FALSE))
-	greeting.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"https://wiki.ss220.space/index.php/Pulse_Demon\">Электродемон</a></span>")
+	greeting.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Pulse_Demon\">Электродемон</a></span>")
 	to_chat(src, chat_box_yellow(greeting.Join("<br>")))
 	SSticker.mode.traitors |= mind
 	return

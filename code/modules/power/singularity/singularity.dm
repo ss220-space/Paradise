@@ -300,7 +300,7 @@
 		name = "supermatter-charged [initial(name)]"
 		consumedSupermatter = 1
 		set_light(10)
-	if(istype(A, /obj/singularity/narsie))
+	if(istype(A, /obj/singularity/god/narsie))
 		if(current_size == STAGE_SIX)
 			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] is consumed by [src]!</span>")
 			investigate_log("consumed Nar'Sie!", INVESTIGATE_ENGINE)
@@ -309,7 +309,8 @@
 			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] strikes down [src]!</span>")
 			investigate_log("has been destroyed by Nar'Sie", INVESTIGATE_ENGINE)
 			qdel(src)
-	if(istype(A, /obj/singularity/ratvar))
+
+	if(istype(A, /obj/singularity/god/ratvar))
 		if(current_size == STAGE_SIX)
 			visible_message("<span class='userdanger'>Rat'var is consumed by [src]!</span>")
 			qdel(A)

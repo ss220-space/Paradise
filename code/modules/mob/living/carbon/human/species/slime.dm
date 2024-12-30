@@ -81,6 +81,13 @@
 	/// Special flag used for slimeperson evolved from the slime.
 	var/evolved_slime = FALSE
 
+	age_sheet = list(
+		SPECIES_AGE_MIN = 17,
+		SPECIES_AGE_MAX = 140,
+		JOB_MIN_AGE_HIGH_ED = 30,
+		JOB_MIN_AGE_COMMAND = 30,
+	)
+
 /datum/species/slime/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	var/datum/action/innate/regrow/grow = locate() in H.actions

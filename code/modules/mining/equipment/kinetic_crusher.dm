@@ -361,6 +361,70 @@
 	if(.)
 		H.charge_time += bonus_value
 
+/// Massive eyed tentacle
+/obj/item/crusher_trophy/eyed_tentacle
+	name = "Massive eyed tentacle"
+	desc = "Большое и глазастое щупальце древнего голиафа. Может быть установлено как трофей крашера."
+	icon_state = "ancient_goliath_tentacle"
+	denied_type = /obj/item/crusher_trophy/eyed_tentacle
+	bonus_value = 1
+
+/obj/item/crusher_trophy/eyed_tentacle/effect_desc()
+	return "causes kinetic crusher to deal 50% more damage if target has more than 90% HP"
+
+/obj/item/crusher_trophy/eyed_tentacle/on_melee_hit(mob/living/target, mob/living/user)
+	var/procent = (target.health / target.maxHealth) * 100
+	if(procent < 90)
+		return
+
+	var/obj/item/twohanded/kinetic_crusher/crusher = user.get_active_hand()
+	if(!crusher)
+		return
+
+	target.apply_damage(crusher.force * bonus_value, crusher.damtype, user.zone_selected)
+
+/// Poison fang
+/obj/item/crusher_trophy/fang
+	name = "Poison fang"
+	desc = "Уродливый и отравленный коготь. Может быть установлен как трофей крашера."
+	icon_state = "ob_gniga"
+	denied_type = /obj/item/crusher_trophy/fang
+	bonus_value = 1.1
+
+/obj/item/crusher_trophy/fang/effect_desc()
+	return "causes fauna to get 10% more damage after mark destroyed for 2 seconds"
+
+/obj/item/crusher_trophy/fang/on_mark_detonation(mob/living/target, mob/living/user)
+	target.apply_status_effect(STATUS_EFFECT_FANG_EXHAUSTION, bonus_value)
+
+/// Frost gland
+/obj/item/crusher_trophy/gland
+	name = "Frost gland"
+	desc = "Замороженная железа. Может быть установлена как трофей крашера."
+	icon_state = "ice_gniga"
+	denied_type = /obj/item/crusher_trophy/gland
+	bonus_value = 0.9
+
+/obj/item/crusher_trophy/gland/effect_desc()
+	return "causes fauna to deal 10% less damage when marked"
+
+/obj/item/crusher_trophy/gland/on_mark_application(mob/living/simple_animal/target, datum/status_effect/crusher_mark/mark, had_mark)
+	if(had_mark)
+		return
+
+	if(!istype(target))
+		return
+
+	target.melee_damage_lower *= bonus_value
+	target.melee_damage_upper *= bonus_value
+
+/obj/item/crusher_trophy/gland/on_mark_detonation(mob/living/simple_animal/target, mob/living/user)
+	if(!istype(target)) // double check
+		return
+		
+	target.melee_damage_lower /= bonus_value
+	target.melee_damage_upper /= bonus_value
+
 //blood-drunk hunter
 /obj/item/crusher_trophy/miner_eye
 	name = "eye of a blood-drunk hunter"

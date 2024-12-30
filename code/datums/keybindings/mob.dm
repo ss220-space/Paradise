@@ -5,7 +5,7 @@
 // Hands
 /datum/keybinding/mob/use_held_object
 	name = "Использовать вещь в руке"
-	keys = list("Y", "Z")
+	keys = list("Z")
 
 
 /datum/keybinding/mob/use_held_object/down(client/user)

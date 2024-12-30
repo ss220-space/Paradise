@@ -10,10 +10,10 @@
 	name = "DISABILITY"
 
 	/// Activation message
-	var/activation_message = ""
+	var/list/activation_message
 
 	/// Yay, you're no longer growing 3 arms
-	var/deactivation_message = ""
+	var/list/deactivation_message
 
 
 /datum/dna/gene/disability/can_activate(mob/living/mutant, flags)
@@ -22,24 +22,26 @@
 
 /datum/dna/gene/disability/activate(mob/living/mutant, flags)
 	. = ..()
-	if(activation_message)
-		to_chat(mutant, span_warning("[activation_message]"))
+	if(length(activation_message))
+		var/msg = pick(activation_message)
+		to_chat(mutant, span_warning("[msg]"))
 	else
 		testing("[name] has no activation message.")
 
 
 /datum/dna/gene/disability/deactivate(mob/living/mutant, flags)
 	. = ..()
-	if(deactivation_message)
-		to_chat(mutant, span_warning("[deactivation_message]"))
+	if(length(deactivation_message))
+		var/msg = pick(deactivation_message)
+		to_chat(mutant, span_warning("[msg]"))
 	else
 		testing("[name] has no deactivation message.")
 
 
 /datum/dna/gene/disability/hallucinate
 	name = "Hallucinate"
-	activation_message = "Your mind says 'Hello'."
-	deactivation_message = "Sanity returns. Or does it?"
+	activation_message = list("Ваш разум говорит: «Привет!».")
+	deactivation_message = list("Здравомыслие возвращается. Или нет?")
 	instability = -GENE_INSTABILITY_MODERATE
 
 
@@ -56,8 +58,8 @@
 
 /datum/dna/gene/disability/epilepsy
 	name = "Epilepsy"
-	activation_message = "You get a headache."
-	deactivation_message = "Your headache is gone, at last."
+	activation_message = list("У вас разболелась голова.")
+	deactivation_message = list("Ваша голова перестала болеть. Наконец-то!")
 	instability = -GENE_INSTABILITY_MODERATE
 
 
@@ -68,15 +70,15 @@
 
 /datum/dna/gene/disability/epilepsy/OnMobLife(mob/living/carbon/human/H)
 	if((prob(1) && H.AmountParalyzed() < 2 SECONDS))
-		H.visible_message("<span class='danger'>[H] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
+		H.visible_message(span_danger("[H] начина[pluralize_ru(H.gender, "ет", "ют")] биться в припадке!"), span_alert("У вас припадок!"))
 		H.Paralyse(20 SECONDS)
 		H.Jitter(2000 SECONDS)
 
 
 /datum/dna/gene/disability/cough
 	name = "Coughing"
-	activation_message = "You start coughing."
-	deactivation_message = "Your throat stops aching."
+	activation_message = list("Вы начинаете кашлять.")
+	deactivation_message = list("Ваше горло перестало болеть.")
 	instability = -GENE_INSTABILITY_MINOR
 
 
@@ -93,8 +95,8 @@
 
 /datum/dna/gene/disability/clumsy
 	name = "Clumsiness"
-	activation_message = "You feel lightheaded."
-	deactivation_message = "You regain some control of your movements"
+	activation_message = list("Вы чувствуете лёгкое головокружение.")
+	deactivation_message = list("Вы вновь обретаете контроль над своими движениями.")
 	instability = -GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_CLUMSY)
 
@@ -106,8 +108,8 @@
 
 /datum/dna/gene/disability/tourettes
 	name = "Tourettes"
-	activation_message = "You twitch."
-	deactivation_message = "Your mouth tastes like soap."
+	activation_message = list("Нахлынула какая-то непонятная дрожь...")
+	deactivation_message = list("Вы чувствуете вкус мыла во рту.")
 	instability = -GENE_INSTABILITY_MODERATE
 
 
@@ -134,8 +136,8 @@
 
 /datum/dna/gene/disability/nervousness
 	name = "Nervousness"
-	activation_message="You feel nervous."
-	deactivation_message ="You feel much calmer."
+	activation_message = list("Вы начинаете нервничать.")
+	deactivation_message = list("Вы чувствуете себя гораздо спокойнее.")
 
 
 /datum/dna/gene/disability/nervousness/New()
@@ -150,8 +152,8 @@
 
 /datum/dna/gene/disability/blindness
 	name = "Blindness"
-	activation_message = "You can't seem to see anything."
-	deactivation_message = "You can see now, in case you didn't notice..."
+	activation_message = list("Видимо, вы больше ничего не видите.")
+	deactivation_message = list("Теперь вы можете видеть, если вдруг не заметили...")
 	instability = -GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_BLIND)
 
@@ -173,8 +175,8 @@
 
 /datum/dna/gene/disability/colourblindness
 	name = "Colourblindness"
-	activation_message = "You feel a peculiar prickling in your eyes while your perception of colour changes."
-	deactivation_message ="Your eyes tingle unsettlingly, though everything seems to become alot more colourful."
+	activation_message = list("Вы чувствуете странное покалывание в глазах. Ваше восприятие цвета меняется.")
+	deactivation_message = list("Вы чувствуете неприятное покалывание в глазах, но все вокруг вновь обрело краски.")
 	instability = -GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_COLORBLIND)
 
@@ -198,8 +200,8 @@
 
 /datum/dna/gene/disability/deaf
 	name = "Deafness"
-	activation_message="It's kinda quiet."
-	deactivation_message ="You can hear again!"
+	activation_message = list("Здесь как-то тихо...")
+	deactivation_message = list("Вы снова можете слышать!")
 	instability = -GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_DEAF)
 
@@ -211,8 +213,8 @@
 
 /datum/dna/gene/disability/nearsighted
 	name = "Nearsightedness"
-	activation_message="Your eyes feel weird..."
-	deactivation_message ="You can see clearly now"
+	activation_message = list("Всё вокруг начинает размываться...")
+	deactivation_message = list("Теперь вы можете ясно видеть.")
 	instability = -GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_NEARSIGHTED)
 
@@ -234,9 +236,9 @@
 
 /datum/dna/gene/disability/lisp
 	name = "Lisp"
-	desc = "I wonder wath thith doeth."
-	activation_message = "Thomething doethn't feel right."
-	deactivation_message = "You now feel able to pronounce consonants."
+	desc = "Интерефно, фто это делает."
+	activation_message = list("Фто-то тошно не тах.")
+	deactivation_message = list("Теперь вы можете произносить согласные.")
 
 
 /datum/dna/gene/disability/lisp/New()
@@ -250,9 +252,9 @@
 
 /datum/dna/gene/disability/comic
 	name = "Comic"
-	desc = "This will only bring death and destruction."
-	activation_message = "<span class='sans'>Uh oh!</span>"
-	deactivation_message = "Well thank god that's over with."
+	desc = "Это принесет только смерть и разрушение."
+	activation_message = list(span_sans("Ой-йо!"))
+	deactivation_message = list("Слава Святой Хонкоматери, с этим покончено.")
 	traits_to_add = list(TRAIT_COMIC)
 
 
@@ -263,9 +265,9 @@
 
 /datum/dna/gene/disability/wingdings
 	name = "Alien Voice"
-	desc = "Garbles the subject's voice into an incomprehensible speech."
-	activation_message = "<span class='wingdings'>Your vocal cords feel alien.</span>"
-	deactivation_message = "Your vocal cords no longer feel alien."
+	desc = "Искажает голос субъекта, превращая его в непонятную речь."
+	activation_message = list(span_wingdings("Vashi golosovyye svyazki kazhutsya chuzhimi."))
+	deactivation_message = list("Ваши голосовые связки больше не кажутся инородными.")
 	instability = -GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_WINGDINGS)
 
@@ -300,9 +302,9 @@
 
 /datum/dna/gene/disability/weak
 	name = "Weak"
-	desc = "Делает мышцы цели более слабыми."
-	activation_message = "Вы чуствуете слабость в своих мышцах."
-	deactivation_message = "Похоже, ваши мышцы снова в норме."
+	desc = "Делает мышцы субъекта более слабыми."
+	activation_message = list("Вы чувствуете внезапную слабость в мышцах.")
+	deactivation_message = list("Вы снова ощущаете силу в мышцах.")
 	instability = -GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_GENE_WEAK)
 
@@ -376,8 +378,8 @@
 /datum/dna/gene/disability/paraplegia
 	name = "Paraplegia"
 	desc = "Парализует мышцы ног."
-	activation_message = "Вы не чуствуете своих ног."
-	deactivation_message = "Вы возвращаете контроль над ногами."
+	activation_message = list("Вы не чувствуете своих ног.")
+	deactivation_message = list("Вы возвращаете контроль над ногами.")
 	instability = -GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_FLOORED)
 

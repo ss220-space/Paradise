@@ -18,12 +18,13 @@
 			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
 			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_PILOT, ACCESS_WEAPONS)
 	minimal_player_age = 21
-	min_age_allowed = 30
+	min_age_type = JOB_MIN_AGE_COMMAND
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/hos
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 300
 	min_start_money = 400
@@ -35,7 +36,7 @@
 
 	uniform = /obj/item/clothing/under/rank/head_of_security
 	suit = /obj/item/clothing/suit/armor/hos
-	gloves = /obj/item/clothing/gloves/color/black/hos
+	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/HoS
 	l_ear = /obj/item/radio/headset/heads/hos/alt
@@ -70,15 +71,15 @@
 	supervisors = "the head of security"
 	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
-	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_PILOT, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_GATEWAY, ACCESS_WEAPONS)
+	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_PILOT, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_WEAPONS)
 	alt_titles = list("Brig Sergeant")
 	minimal_player_age = 21
-	min_age_allowed = 30
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 2100
 	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/warden
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 170
 	min_start_money = 200
@@ -130,6 +131,7 @@
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/detective
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 170
 	min_start_money = 200
@@ -194,6 +196,7 @@
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/officer
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 170
 	min_start_money = 200
@@ -262,6 +265,7 @@
 	exp_requirements = 1800
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brigdoc
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 170
 	min_start_money = 200
@@ -303,6 +307,7 @@
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/pilot
+	insurance_type = INSURANCE_TYPE_DELUXE
 
 	salary = 170
 	min_start_money = 200

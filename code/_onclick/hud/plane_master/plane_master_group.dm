@@ -9,6 +9,8 @@
 	var/datum/hud/our_hud
 	/// List in the form "[plane]" = object, the plane masters we own
 	var/list/atom/movable/screen/plane_master/plane_masters = list()
+	/// Does it needs to offset to work properly
+	var/do_offset = TRUE
 	/// The visual offset we are currently using
 	var/active_offset = 0
 	/// What, if any, submap we render onto
@@ -45,7 +47,7 @@
 	our_hud = viewing_hud
 	our_hud.master_groups[key] = src
 	show_hud()
-	transform_lower_turfs(our_hud, active_offset)
+	build_planes_offset(our_hud, active_offset)
 
 /// Hide the plane master from its current hud, fully clear it out
 /datum/plane_master_group/proc/orphan_hud()
@@ -64,7 +66,7 @@
 	hide_hud()
 	rebuild_plane_masters()
 	show_hud()
-	transform_lower_turfs(our_hud, active_offset)
+	build_planes_offset(our_hud, active_offset)
 
 /// Regenerate our plane masters, this is useful if we don't have a mob but still want to rebuild. Such in the case of changing the screen_loc of relays
 /datum/plane_master_group/proc/rebuild_plane_masters()
@@ -93,7 +95,7 @@
 /datum/plane_master_group/proc/build_plane_masters(starting_offset, ending_offset)
 	for(var/atom/movable/screen/plane_master/mytype as anything in get_plane_types())
 		for(var/plane_offset in starting_offset to ending_offset)
-			if(plane_offset != 0 && !initial(mytype.allows_offsetting))
+			if(plane_offset != 0 && (initial(mytype.offsetting_flags) & BLOCKS_PLANE_OFFSETTING))
 				continue
 			var/atom/movable/screen/plane_master/instance = new mytype(null, null, src, plane_offset)
 			plane_masters["[instance.plane]"] = instance
@@ -106,7 +108,7 @@
 // It would be nice to setup parallaxing for stairs and things when doing this
 // So they look nicer. if you can't it's all good, if you think you can sanely look at monster's work
 // It's hard, and potentially expensive. be careful
-/datum/plane_master_group/proc/transform_lower_turfs(datum/hud/source, new_offset, use_scale = TRUE)
+/datum/plane_master_group/proc/build_planes_offset(datum/hud/source, new_offset, use_scale = TRUE)
 	// Check if this feature is disabled for the client, in which case don't use scale.
 	var/mob/our_mob = our_hud?.mymob
 	if(!(our_mob?.canon_client?.prefs.toggles2 & PREFTOGGLE_2_PARALLAX_MULTIZ))
@@ -128,7 +130,7 @@
 		scale_by = 1
 
 	var/list/offsets = list()
-	var/multiz_boundary = our_mob?.canon_client?.prefs?.multiz_detail
+	var/multiz_boundary = do_offset ? our_mob?.canon_client?.prefs?.multiz_detail : MULTIZ_DETAIL_LOW //low means no offset
 	// We accept negatives so going down "zooms" away the drop above as it goes
 	for(var/offset in -SSmapping.max_plane_offset to SSmapping.max_plane_offset)
 		// Multiz boundaries disable transforms
@@ -150,7 +152,11 @@
 
 	for(var/plane_key in plane_masters)
 		var/atom/movable/screen/plane_master/plane = plane_masters[plane_key]
-		if(!plane.allows_offsetting)
+		if(plane.offsetting_flags & BLOCKS_PLANE_OFFSETTING)
+			if(plane.offsetting_flags & OFFSET_RELAYS_MATCH_HIGHEST)
+				// Don't offset the plane, do offset where the relays point
+				// Required for making things like the blind fullscreen not render over runechat
+				plane.offset_relays_in_place(new_offset)
 			continue
 		var/visual_offset = plane.offset - new_offset
 
@@ -175,14 +181,15 @@
 /// If you wanna try someday feel free, but I can't manage it
 /datum/plane_master_group/popup
 	relay_loc = "LEFT,TOP"
+	do_offset = FALSE
 
-/datum/plane_master_group/popup/transform_lower_turfs(datum/hud/source, new_offset, use_scale = TRUE)
+/datum/plane_master_group/popup/build_planes_offset(datum/hud/source, new_offset, use_scale = TRUE)
 	return ..(source, new_offset, FALSE)
 
 /// Holds the main plane master
 /datum/plane_master_group/main
 
-/datum/plane_master_group/main/transform_lower_turfs(datum/hud/source, new_offset, use_scale = TRUE)
+/datum/plane_master_group/main/build_planes_offset(datum/hud/source, new_offset, use_scale = TRUE)
 	if(use_scale)
 		return ..(source, new_offset, source.should_use_scale())
 	return ..()

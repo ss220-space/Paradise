@@ -1131,6 +1131,27 @@
 	item_state = "ntrstrip"
 	strip_bubble_icon = "NTR"
 
+/obj/item/clothing/accessory/head_strip/syndicate
+	name = "Syndicate strip"
+	desc = "Круглый металлический значок тёмно-красного цвета с расположенной в центре ярко-зелёной буквой \"S\" с бордовым штырём."
+	icon_state = "syndistrip"
+	item_state = "syndistrip"
+	strip_bubble_icon = "Syndie"
+
+/obj/item/clothing/accessory/head_strip/comrad
+	name = "Comrade patch"
+	desc = "Грубый прямоугольный шеврон цвета хаки с бело-золотыми вставками по бокам и вышитой красными нитями аббревиатурой \"СССП\" в центре: стандартная нашивка, выдаваемая добровольцам."
+	icon_state = "patch_sssp"
+	item_state = "patch_sssp"
+	strip_bubble_icon = "comrad"
+
+/obj/item/clothing/accessory/head_strip/federal
+	name = "Federal strip"
+	desc = "Плотно сшитая круглая нашивка из синего бархата с белой окантовкой и золотыми вставками. По центру красуется логотип ТСФ, прошитый бело-золотыми металлическими нитями: стандартный знак отличия для граждан ТСФ."
+	icon_state = "stripe_federal"
+	item_state = "stripe_federal"
+	strip_bubble_icon = "federal"
+
 /obj/item/clothing/accessory/head_strip/lawyers_badge
 	name = "attorney's badge"
 	desc = "Fills you with the conviction of JUSTICE. Lawyers tend to want to show it to everyone they meet."

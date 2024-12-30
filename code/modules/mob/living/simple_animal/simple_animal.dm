@@ -133,6 +133,10 @@
 	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
 	var/SStun = 0 // stun variable
 
+	var/list/low_priority_targets = list()
+
+	var/atom/leash // autodust on a big distance
+	var/leash_radius = 10
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
@@ -301,6 +305,12 @@
 
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
+	if (leash)
+		var/dist = get_dist(src, leash)
+		if (dist > leash_radius)
+			src.dust()
+			return
+
 	var/atmos_suitable = TRUE
 
 	if(!HAS_TRAIT(src, TRAIT_NO_BREATH))
@@ -789,3 +799,7 @@
 	if(!can_collar)
 		return
 	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/pet_collar)))
+
+/mob/living/simple_animal/proc/set_leash(atom/A, radius)
+	leash = A
+	leash_radius = radius

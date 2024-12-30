@@ -103,6 +103,13 @@
 	liked_food = NONE
 	special_diet = MATERIAL_CLASS_TECH
 
+	age_sheet = list(
+		SPECIES_AGE_MIN = 1,
+		SPECIES_AGE_MAX = 70,
+		JOB_MIN_AGE_HIGH_ED = 10,
+		JOB_MIN_AGE_COMMAND = 10,
+	)
+
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
@@ -181,6 +188,11 @@
 		return FALSE //Handling reagent removal on our own.
 
 	return ..()
+
+
+/datum/species/vox/get_emote_pitch(mob/living/carbon/human/H, tolerance)
+	return 1 + (0.01*rand(-tolerance,tolerance))
+
 
 /datum/species/vox/armalis
 	name = SPECIES_VOX_ARMALIS
