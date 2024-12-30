@@ -2076,7 +2076,7 @@
 	if(t_livers && human_vampire && l_target.mind && l_target.ckey)
 		var/blood_amt = round(t_livers / 2)
 		vampire.adjust_blood(l_target, blood_amt)	// +5 vampire blood max
-		l_target.setBlood(max(l_target.blood_volume - blood_amt, 0))	// -5 blood MAX
+		l_target.AdjustBlood(-blood_amt)	// -5 blood MAX
 		human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 5))
 
 
