@@ -417,7 +417,15 @@
 
 /obj/item/CQC_manual
 	name = "old manual"
-	desc = "Небольшое чёрное руководство. Нарисованы инструкции по тактическому рукопашному бою."
+	desc = "Небольшая книжка чёрного цвета. Это подробное руководство по тактике рукопашного боя."
+		ru_names = list(
+		NOMINATIVE = "старое руководство",
+		GENITIVE = "старого руководства",
+		DATIVE = "старому руководству",
+		ACCUSATIVE = "старое руководство",
+		INSTRUMENTAL = "старым руководством",
+		PREPOSITIONAL = "старом руководстве"
+	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "cqcmanual"
 
@@ -427,27 +435,35 @@
 
 	if(user.mind) //Prevents changelings and vampires from being able to learn it
 		if(ischangeling(user))
-			to_chat(user, span_warning("Мы пытаемся несколько раз, но просто не можем понять основы CQC!"))
+			to_chat(user, span_warning("Как бы мы не пытались, у нас не получается понять даже основы CQC!"))
 			return
 		else if(isvampire(user)) //Vampires
-			to_chat(user, span_warning("Твоя жажда крови отвлекает тебя от основ CQC!"))
+			to_chat(user, span_warning("Ваша жажда крови отвлекает вас от изучения CQC!"))
 			return
 		else if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(user, span_warning("От одной мысли о драке, не говоря уже о CQC, голова идёт кругом!"))
+			to_chat(user, span_warning("От одной мысли о драке, не говоря уже о CQC, ваша голова идёт кругом!"))
 			return
 
-	to_chat(user, span_boldannounceic("Вы запоминаете основы CQC."))
+	to_chat(user, span_boldannounceic("Вы быстро пробегаетесь глазами по страницам книги, запоминая основы CQC."))
 
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
 	user.temporarily_remove_item_from_inventory(src)
-	visible_message(span_warning("[src] зловеще пищит, а через мгновение вспыхивает пламенем."))
+	visible_message(span_warning("[declent_ru(NOMINATIVE)] зловеще пищит, после чего вспыхивает ярким пламенем!"))
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
 /obj/item/CQC_manual/chef
 	name = "CQC Upgrade implant"
-	desc = "Даёт вам вспомнить то, что вы всегда забываете"
+	desc = "Небольшой шприц, содержащий в себе имплант. Даёт вам запомнить то, что вы всегда забываете."
+		ru_names = list(
+		NOMINATIVE = "имплант улучшения CQC",
+		GENITIVE = "импланта улучшения CQC",
+		DATIVE = "импланту улучшения CQC",
+		ACCUSATIVE = "имплант улучшения CQC",
+		INSTRUMENTAL = "имплантом улучшения CQC",
+		PREPOSITIONAL = "импланте улучшения CQC"
+	)
 	icon = 'icons/obj/items.dmi'
 	icon_state = "implanter1"
 	item_state = "syringe_0"
@@ -457,7 +473,7 @@
 		return
 
 	if(!(user.mind && user.mind.assigned_role == JOB_TITLE_CHEF))
-		to_chat(user, span_notice("Вы имплантируете себя, но наноботы не могут найти свою цель. Вы чувствуете острую боль в голове!"))
+		to_chat(user, span_notice("Вы имплантируете себя, но наноботы не могут найти свою цель. Вы чувствуете острую головную боль!"))
 		if(isliving(user))
 			var/mob/living/L = user
 			L.apply_damages(burn = 20, brain = 20, spread_damage = TRUE)
@@ -470,7 +486,7 @@
 		return
 
 	if(isvampire(user))
-		to_chat(user, span_warning("Мы имплантируете себя, но ваша кровь разрушает наноботов до того, как они достигнут цели"))
+		to_chat(user, span_warning("Вы имплантируете себя, но ваша кровь разрушает наноботов быстрее, чем они достигают своей цели."))
 		use_implant(user)
 		return
 
@@ -485,7 +501,7 @@
 
 /obj/item/CQC_manual/chef/proc/use_implant(mob/living/carbon/human/user)
 	user.temporarily_remove_item_from_inventory(src)
-	visible_message(span_warning("[src] зловеще пищит, и через мгновение взрывается!"))
+	visible_message(span_warning("[declent_ru(NOMINATIVE)] зловеще пищит, после чего взрывается!"))
 	playsound(get_turf(src),'sound/effects/explosion2.ogg', 100, TRUE)
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
