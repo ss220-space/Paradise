@@ -118,7 +118,7 @@
 
 	. = TRUE
 
-	setBlood(max(blood_volume - amt, 0))
+	AdjustBlood(-amt)
 
 	if(prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
 		custom_emote(EMOTE_AUDIBLE, "кашля%(ет, ют)% кровью!")
