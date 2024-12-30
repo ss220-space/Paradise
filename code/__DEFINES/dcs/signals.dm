@@ -618,10 +618,10 @@
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
 
-/// Source: /mob/living/adjustBloodLoss(amount)
+/// Source: /mob/living/AdjustBlood(amount)
 #define COMSIG_LIVING_BLOOD_ADJUST 		"living_blood_adjust"
 	#define COMPONENT_PREVENT_BLOODLOSS	(1<<0)
-/// Source: /mob/living/adjustBloodLoss(amount)
+/// Source: /mob/living/AdjustBlood(amount)
 #define COMSIG_LIVING_BLOOD_ADJUSTED 	"living_blood_adjusted"
 /// Source: /mob/living/setBlood(amount)
 #define COMSIG_LIVING_EARLY_SET_BLOOD	"living_early_set_blood"
