@@ -1429,7 +1429,7 @@
 					for(var/obj/item/organ/internal/I as anything in M.internal_organs) // 56 healing to all internal organs.
 						I.heal_internal_damage(8)
 					if(!HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9)// If below 90% blood, regenerate 210 units total
-						H.AdjustBlood(-30)
+						H.AdjustBlood(30)
 					for(var/datum/disease/critical/heart_failure/HF in H.diseases)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
 				if(M.health < 40)
