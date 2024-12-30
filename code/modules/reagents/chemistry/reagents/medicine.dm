@@ -1066,7 +1066,7 @@
 			M.AdjustBlood(-rand(5, 10))
 		else if(effect <= 8)
 			M.vomit(0, VOMIT_BLOOD, 0 SECONDS)
-			M.setBlood(max(M.blood_volume - rand(1, 2), 0))
+			M.AdjustBlood(-rand(1, 2))
 	return list(effect, update_flags)
 
 
