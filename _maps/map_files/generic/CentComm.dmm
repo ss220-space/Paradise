@@ -38052,7 +38052,7 @@
 /turf/simulated/floor/carpet/red,
 /area/centcom/bridge)
 "rLk" = (
-/obj/machinery/computer/borgupload,
+/obj/machinery/computer/aiupload/cyborg,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42539,7 +42539,7 @@
 /area/syndicate_mothership/control)
 "tKn" = (
 /obj/structure/rack,
-/obj/item/aiModule/syndicate,
+/obj/item/ai_module/syndicate,
 /obj/item/multitool/ai_detect,
 /obj/item/jammer,
 /turf/simulated/floor/shuttle/objective_check/vox,

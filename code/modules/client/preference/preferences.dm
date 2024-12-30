@@ -1511,7 +1511,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						h_sec_colour = rand_hex_color()
 				if("h_style")
-					h_style = random_hair_style(gender, species, robohead)
+					h_style = random_hair_style(gender, S, robohead)
 				if("facial")
 					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						f_colour = rand_hex_color()
@@ -1607,7 +1607,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
 							robohead = GLOB.all_robolimbs[head_model]
 						//grab one of the valid hair styles for the newly chosen species
-						h_style = random_hair_style(gender, species, robohead)
+						h_style = random_hair_style(gender, S, robohead)
 
 						//grab one of the valid facial hair styles for the newly chosen species
 						f_style = random_facial_hair_style(gender, species, robohead)
@@ -2362,7 +2362,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
 						robohead = GLOB.all_robolimbs[head_model]
 
-					h_style = random_hair_style(gender, species, robohead)
+					h_style = random_hair_style(gender, S, robohead)
 					f_style = random_facial_hair_style(gender, species, robohead)
 
 					m_styles["body"] = random_marking_style("body", species, gender = src.gender)
