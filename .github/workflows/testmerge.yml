@@ -69,7 +69,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
-          clean: false
           ref: ${{ env.BASE_BRANCH }}
 
       - uses: actions/setup-python@v5
