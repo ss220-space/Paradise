@@ -250,6 +250,13 @@
 	cost = 5
 	job = list(JOB_TITLE_CLOWN)
 
+/datum/uplink_item/jobspecific/bipki
+	name = "Bipki case"
+	desc = "Suck me and I'll tell you what's inside."
+	item = /obj/item/case_with_bipki
+	cost = 30
+	job = list(JOB_TITLE_CLOWN)
+
 //Mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun and Assassination Shells"

@@ -27248,6 +27248,7 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/item/reagent_containers/food/drinks/flask/detflask,
+/obj/item/lighter/zippo/detective,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "dWp" = (
