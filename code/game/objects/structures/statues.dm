@@ -184,6 +184,14 @@
 	name = "statue of the research director"
 	icon_state = "rd"
 
+/obj/structure/statue/gold/unati
+	name = "statue of the unati"
+	icon_state = "unati"
+
+/obj/structure/statue/gold/tajaran
+	name = "statue of the tajaran"
+	icon_state = "tajaran"
+
 /obj/structure/statue/silver
 	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/silver
