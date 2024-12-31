@@ -515,54 +515,54 @@
 	icon_state = "hoop"
 	anchored = TRUE
 	density = TRUE
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW
+	damage_deflection = 7	// You can't just break it with da foking glass ashtray.
 
 
 /obj/structure/holohoop/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
+
 	if(!isliving(grabbed_thing))
-		return .
-	var/mob/living/target = grabbed_thing
+		return
+
 	if(grabber.grab_state < GRAB_NECK)
 		to_chat(grabber, span_warning("You need a better grip to do that!"))
-		return .
+		return
+
+	var/mob/living/target = grabbed_thing
+
 	visible_message(span_warning("[grabber] dunks [target] into [src]!"))
-	target.forceMove(loc)
+	target.forceMove(get_turf(src))
 	target.Weaken(10 SECONDS)
 
 
 /obj/structure/holohoop/attackby(obj/item/I, mob/user, params)
-	if(user.drop_transfer_item_to_loc(I, src))
+	if(user.a_intent == INTENT_HARM)	// Players may use (DISARM|GRAB) intent for pushing each other.
+		return ..()
+
+	if(user.drop_transfer_item_to_loc(I, get_turf(src)))
 		visible_message(span_notice("[user] dunks [I] into [src]!"))
+
 	return ATTACK_CHAIN_BLOCKED
+
+
+/obj/structure/holohoop/CanAllowThrough(atom/movable/mover, border_dir)
+	if(!isitem(mover) || isprojectile(mover))
+		return ..()
+
+	if((mover.throwing && mover.throwing.thrower && HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS)) || prob(50))
+		mover.forceMove(get_turf(src))
+		visible_message(span_notice("Swish! [mover] lands in [src]."))
+
+	else
+		visible_message(span_alert("[mover] bounces off of [src]'s rim!"))
+
+	return FALSE
 
 
 /obj/structure/holohoop/has_prints()
 	return FALSE
 
-
-/obj/structure/holohoop/CanAllowThrough(atom/movable/mover, border_dir)
-	. = ..()
-	if((isitem(mover) && !isprojectile(mover)) && mover.throwing && mover.pass_flags != PASSEVERYTHING)
-		if(prob(50))
-			mover.forceMove(loc)
-			visible_message(span_notice("Swish! [mover] lands in [src]."))
-		else
-			visible_message(span_alert("[mover] bounces off of [src]'s rim!"))
-		return FALSE
-
-
-/obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(isitem(AM) && !isprojectile(AM))
-		if(prob(50) || (throwingdatum && throwingdatum.thrower && HAS_TRAIT(throwingdatum.thrower, TRAIT_BADASS)))
-			AM.forceMove(get_turf(src))
-			visible_message(span_warning("Swish! [AM] lands in [src]."))
-			return
-		else
-			visible_message(span_danger("[AM] bounces off of [src]'s rim!"))
-			return ..()
-	else
-		return ..()
 
 /obj/machinery/readybutton
 	name = "Ready Declaration Device"

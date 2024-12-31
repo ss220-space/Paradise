@@ -196,10 +196,22 @@
 	if(!isrobot(mymob))
 		return
 
-	var/mob/living/silicon/robot/R = mymob
+	var/mob/living/silicon/robot/robot = mymob
 
-	R.shown_robot_modules = !R.shown_robot_modules
+	robot.shown_robot_modules = !robot.shown_robot_modules
+
+	if(robot.s_active && robot.shown_robot_modules)
+		robot.s_active.close(robot)
+
 	update_robot_modules_display()
+
+/datum/hud/proc/is_shown_robot_modules()
+	if(!isrobot(mymob))
+		return
+
+	var/mob/living/silicon/robot/robot = mymob
+
+	return robot.shown_robot_modules
 
 /datum/hud/proc/update_robot_modules_display()
 	if(!isrobot(mymob))

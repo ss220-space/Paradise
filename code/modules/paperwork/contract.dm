@@ -209,7 +209,7 @@
 			span_danger("You slice your wrist open and scrawl your name in blood."),
 		)
 		if(ishuman(user))
-			user.blood_volume = max(0, user.blood_volume - 100)
+			user.AdjustBlood(-100)
 
 
 /obj/item/paper/contract/infernal/proc/attempt_signature(mob/living/carbon/human/user, blood = 0)

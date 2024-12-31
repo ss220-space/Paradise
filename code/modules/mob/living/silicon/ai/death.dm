@@ -26,10 +26,10 @@
 
 	if(doomsday_device)
 		doomsday_device.timing = 0
-		SSshuttle.emergencyNoEscape = 0
+		SSshuttle.emergencyNoEscape = FALSE
 		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 			SSshuttle.emergency.mode = SHUTTLE_DOCKED
-			SSshuttle.emergency.timer = world.time
+			SSshuttle.emergency.timer = world.time + 3 MINUTES
 			GLOB.priority_announcement.Announce("Вредоносное окружение устранено. У вас есть 3 минуты, чтобы подняться на борт эвакуационного шаттла.", "Приоритетное оповещение.", 'sound/AI/shuttledock.ogg')
 		qdel(doomsday_device)
 
