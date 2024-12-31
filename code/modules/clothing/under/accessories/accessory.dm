@@ -1152,6 +1152,13 @@
 	item_state = "stripe_federal"
 	strip_bubble_icon = "federal"
 
+/obj/item/clothing/accessory/head_strip/greytide
+	name = "GreyTide strip"
+	desc = "Плотно сшитая круглая нашивка из синего бархата с белой окантовкой и золотыми вставками. По центру красуется логотип ТСФ, прошитый бело-золотыми металлическими нитями: стандартный знак отличия для граждан ТСФ."
+	icon_state = "greytstrip"
+	item_state = "greytstrip"
+	strip_bubble_icon = "greyt"
+
 /obj/item/clothing/accessory/head_strip/lawyers_badge
 	name = "attorney's badge"
 	desc = "Fills you with the conviction of JUSTICE. Lawyers tend to want to show it to everyone they meet."
