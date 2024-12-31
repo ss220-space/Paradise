@@ -42368,14 +42368,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "geA" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/storage/belt/utility,
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/northeast,
+/obj/machinery/computer/roboquest,
+/obj/effect/turf_decal/bot_red{
+	layer = 1.99
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -58650,10 +58647,14 @@
 	},
 /area/crew_quarters/kitchen)
 "iAJ" = (
-/obj/effect/decal/warning_stripes/southeast,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26
 	},
+/obj/machinery/roboquest_pad,
+/obj/effect/turf_decal/bot_red{
+	layer = 1.99
+	},
+/obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -91213,6 +91214,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"
@@ -155869,7 +155871,12 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "purple"
