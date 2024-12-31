@@ -725,7 +725,7 @@
 					if(H.blood_volume < BLOOD_VOLUME_SAFE)
 						var/restore_blood = BLOOD_VOLUME_SAFE - H.blood_volume
 						if(uses * 2 < restore_blood)
-							H.blood_volume += uses * 2
+							H.AdjustBlood(uses * 2)
 							to_chat(user, "<span class='danger'>You use the last of your charges to restore what blood you could, and the spell dissipates!</span>")
 							uses = 0
 							return ..()
