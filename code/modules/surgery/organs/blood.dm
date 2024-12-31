@@ -198,7 +198,7 @@
 	if(!blood_id)
 		return 0
 
-	AdjustBlood(amount)
+	AdjustBlood(-amount)
 
 	var/list/blood_data = get_blood_data(blood_id)
 
