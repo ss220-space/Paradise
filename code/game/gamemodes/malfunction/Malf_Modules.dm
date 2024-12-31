@@ -276,10 +276,10 @@
 
 /obj/machinery/doomsday_device/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
-	SSshuttle.emergencyNoEscape = 0
+	SSshuttle.emergencyNoEscape = FALSE
 	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 		SSshuttle.emergency.mode = SHUTTLE_DOCKED
-		SSshuttle.emergency.timer = world.time
+		SSshuttle.emergency.timer = world.time + 3 MINUTES
 		GLOB.priority_announcement.Announce("Вредоносное окружение устранено. У вас есть 3 минуты, чтобы подняться на борт эвакуационного шаттла.", "Приоритетное оповещение.", 'sound/AI/shuttledock.ogg')
 	return ..()
 
@@ -287,7 +287,7 @@
 	detonation_timer = world.time + default_timer
 	timing = 1
 	START_PROCESSING(SSfastprocess, src)
-	SSshuttle.emergencyNoEscape = 1
+	SSshuttle.emergencyNoEscape = TRUE
 
 /obj/machinery/doomsday_device/proc/seconds_remaining()
 	. = max(0, (round(detonation_timer - world.time) / 10))
@@ -296,10 +296,10 @@
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
 		GLOB.minor_announcement.Announce("УСТРОЙСТВО СУДНОГО ДНЯ ВНЕ ЗОНЫ ДЕЙСТВИЯ СТАНЦИИ, ОСТАНОВКА.", "ОШИБКА ОШИБКА $0ШБК$!А41.%%!!(%$^^__+ @#Ш0E4", 'sound/misc/notice1.ogg')
-		SSshuttle.emergencyNoEscape = 0
+		SSshuttle.emergencyNoEscape = FALSE
 		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 			SSshuttle.emergency.mode = SHUTTLE_DOCKED
-			SSshuttle.emergency.timer = world.time
+			SSshuttle.emergency.timer = world.time + 3 MINUTES
 			GLOB.priority_announcement.Announce("Вредоносное окружение устранено. У вас есть 3 минуты, чтобы подняться на борт эвакуационного шаттла.", "Приоритетное оповещение.", 'sound/AI/shuttledock.ogg')
 		qdel(src)
 	if(!timing)
@@ -487,7 +487,7 @@
 	enable_text = "<span class='notice'>You tap into the station's powernet. Click on a machine to detonate it, or use the ability again to cancel.</span>"
 	disable_text = "<span class='notice'>You release your hold on the powernet.</span>"
 
-/obj/effect/proc_holder/ranged_ai/overload_machine/InterceptClickOn(mob/living/caller, params, obj/machinery/target)
+/obj/effect/proc_holder/ranged_ai/overload_machine/InterceptClickOn(mob/living/requester, params, obj/machinery/target)
 	if(..())
 		return
 	if(ranged_ability_user.incapacitated())
@@ -542,7 +542,7 @@
 	enable_text = "<span class='notice'>You tap into the station's powernet. Click on a machine to animate it, or use the ability again to cancel.</span>"
 	disable_text = "<span class='notice'>You release your hold on the powernet.</span>"
 
-/obj/effect/proc_holder/ranged_ai/override_machine/InterceptClickOn(mob/living/caller, params, obj/machinery/target)
+/obj/effect/proc_holder/ranged_ai/override_machine/InterceptClickOn(mob/living/requester, params, obj/machinery/target)
 	if(..())
 		return
 	if(ranged_ability_user.incapacitated())

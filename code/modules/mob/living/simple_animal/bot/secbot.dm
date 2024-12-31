@@ -3,7 +3,15 @@
 
 /mob/living/simple_animal/bot/secbot
 	name = "\improper Securitron"
-	desc = "A little security robot.  He looks less than thrilled."
+	desc = "Маленький охранный робот. Он выглядит абсолютно спокойным."
+	ru_names = list(
+		NOMINATIVE = "охранный робот",
+		GENITIVE = "охранного робота",
+		DATIVE = "охранному роботу",
+		ACCUSATIVE = "охранного робота",
+		INSTRUMENTAL = "охранным роботом",
+		PREPOSITIONAL = "охранном роботе",
+	)
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "secbot0"
 	density = FALSE
@@ -19,10 +27,10 @@
 	bot_type = SEC_BOT
 	bot_filter = RADIO_SECBOT
 	model = "Securitron"
-	bot_purpose = "seek out criminals, handcuff them, and report their location to security"
+	bot_purpose = "найти преступников, задержать их и доложить службе безопасности"
 	bot_core_type = /obj/machinery/bot_core/secbot
 	window_id = "autosec"
-	window_name = "Automatic Security Unit v1.6"
+	window_name = "Автоматическая Охранная Единица v1.6"
 	path_image_color = "#FF0000"
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 
@@ -55,7 +63,15 @@
 
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beepsky"
-	desc = "It's Officer Beepsky! Powered by a potato and a shot of whiskey."
+	desc = "Это Офицер Бипски! Работает с помощью картофеля и рюмки виски."
+	ru_names = list(
+		NOMINATIVE = "Офицер Бипски",
+		GENITIVE = "Офицера Бипски",
+		DATIVE = "Офицеру Бипски",
+		ACCUSATIVE = "Офицера Бипски",
+		INSTRUMENTAL = "Офицером Бипски",
+		PREPOSITIONAL = "Офицере Бипски",
+	)
 	idcheck = FALSE
 	weaponscheck = FALSE
 	auto_patrol = TRUE
@@ -72,13 +88,29 @@
 
 /mob/living/simple_animal/bot/secbot/pingsky
 	name = "Officer Pingsky"
-	desc = "It's Officer Pingsky! Delegated to satellite guard duty for harbouring anti-human sentiment."
+	desc = "Это Офицер Пингски! Переведён на охрану спутника за разжигание античеловеческих настроений."
+	ru_names = list(
+		NOMINATIVE = "Офицер Пингски",
+		GENITIVE = "Офицера Пингски",
+		DATIVE = "Офицеру Пингски",
+		ACCUSATIVE = "Офицера Пингски",
+		INSTRUMENTAL = "Офицером Пингски",
+		PREPOSITIONAL = "Офицере Пингски",
+	)
 	radio_channel = "AI Private"
 
 
 /mob/living/simple_animal/bot/secbot/ofitser
 	name = "Prison Ofitser"
-	desc = "It's Prison Ofitser! Powered by the tears and sweat of prisoners."
+	desc = "Это Офицер Тюремски! Работает с помощью крови, пота и слёз заключённых."
+	ru_names = list(
+		NOMINATIVE = "Офицер Тюремски",
+		GENITIVE = "Офицера Тюремски",
+		DATIVE = "Офицеру Тюремски",
+		ACCUSATIVE = "Офицера Тюремски",
+		INSTRUMENTAL = "Офицером Тюремски",
+		PREPOSITIONAL = "Офицере Тюремски",
+	)
 	idcheck = FALSE
 	weaponscheck = TRUE
 	auto_patrol = TRUE
@@ -86,7 +118,15 @@
 
 /mob/living/simple_animal/bot/secbot/buzzsky
 	name = "Officer Buzzsky"
-	desc = "It's Officer Buzzsky! Rusted and falling apart, he seems less than thrilled with the crew for leaving him in his current state."
+	desc = "Это Офицер Баззски! Проржавевший и разваливающийся на части, он явно не в восторге от того, что экипаж оставил его в таком состоянии."
+	ru_names = list(
+		NOMINATIVE = "Офицер Баззски",
+		GENITIVE = "Офицера Баззски",
+		DATIVE = "Офицеру Баззски",
+		ACCUSATIVE = "Офицера Баззски",
+		INSTRUMENTAL = "Офицером Баззски",
+		PREPOSITIONAL = "Офицере Баззски",
+	)
 	base_icon = "rustbot"
 	icon_state = "rustbot0"
 	declare_arrests = FALSE
@@ -97,6 +137,14 @@
 
 /mob/living/simple_animal/bot/secbot/armsky
 	name = "Sergeant-at-Armsky"
+	ru_names = list(
+		NOMINATIVE = "Офицер Арсеналски",
+		GENITIVE = "Офицера Арсеналски",
+		DATIVE = "Офицеру Арсеналски",
+		ACCUSATIVE = "Офицера Арсеналски",
+		INSTRUMENTAL = "Офицером Арсеналски",
+		PREPOSITIONAL = "Офицере Арсеналски",
+	)
 	health = 45
 	idcheck = TRUE
 	arrest_type = TRUE
@@ -106,6 +154,14 @@
 
 /mob/living/simple_animal/bot/secbot/podsky
 	name = "Officer Podsky"
+	ru_names = list(
+		NOMINATIVE = "Офицер Подски",
+		GENITIVE = "Офицера Подски",
+		DATIVE = "Офицеру Подски",
+		ACCUSATIVE = "Офицера Подски",
+		INSTRUMENTAL = "Офицером Подски",
+		PREPOSITIONAL = "Офицере Подски",
+	)
 	health = 45
 	idcheck = TRUE
 	arrest_type = TRUE
@@ -152,9 +208,9 @@
 
 
 /mob/living/simple_animal/bot/secbot/set_custom_texts()
-	text_hack = "You overload [name]'s target identification system."
-	text_dehack = "You reboot [name] and restore the target identification."
-	text_dehack_fail = "[name] refuses to accept your authority!"
+	text_hack = "Вы взломали систему идентификации целей [declent_ru(GENITIVE)]."
+	text_dehack = "Вы восстановили систему идентификации целей [declent_ru(GENITIVE)]."
+	text_dehack_fail = "[capitalize(declent_ru(NOMINATIVE))] отказывается признавать вашу власть!"
 
 
 /mob/living/simple_animal/bot/secbot/show_controls(mob/M)
@@ -192,7 +248,7 @@
 	if (..())
 		return
 	if(topic_denied(usr))
-		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		to_chat(usr, span_warning("Интерфейс [declent_ru(GENITIVE)] не отвечает!"))
 		return
 	add_fingerprint(usr)
 	. = TRUE
@@ -251,9 +307,9 @@
 	..()
 	if(emagged == 2)
 		if(user)
-			to_chat(user, span_danger("You short out [src]'s target assessment circuits."))
+			to_chat(user, span_danger("Вы замыкаете микросхемы системы целеуказания [declent_ru(GENITIVE)]."))
 			oldtarget_name = user.name
-		audible_message(span_danger("[src] buzzes oddly!"))
+		audible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] странно жужжит!"))
 		declare_arrests = FALSE
 		icon_state = "[base_icon][on]"
 
@@ -291,8 +347,8 @@
 /mob/living/simple_animal/bot/secbot/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-	C.visible_message(span_danger("[src] is trying to put zipties on [C]!"),
-					span_userdanger("[src] is trying to put zipties on you!"))
+	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] начинает надевать стяжки на [C]!"),
+					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пытается надеть на вас стяжки!"))
 	addtimer(CALLBACK(src, PROC_REF(cuff_callback), C), 6 SECONDS)
 
 
@@ -304,6 +360,8 @@
 		return
 
 	C.apply_restraints(new /obj/item/restraints/handcuffs/cable/zipties/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
+	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] надел стяжки на [C]!"),
+					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] надел на вас стяжки!"))
 
 	playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/binsult.ogg', 'sound/voice/bcreep.ogg'), 50, 0)
 	back_to_idle()
@@ -328,11 +386,11 @@
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		if(!speak_cooldown)
-			speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+			speak("[arrest_type ? "Удерживаю" : "Задерживаю"] подонка по имени <b>[C]</b> в локации <b>[location]</b>. Уровень опасности - [threat].", radio_channel)
 			speak_cooldown = TRUE
 			addtimer(VARSET_CALLBACK(src, speak_cooldown, FALSE), SPEAK_COOLDOWN)
-	C.visible_message(span_danger("[src] has [harmbaton ? "beaten" : "stunned"] [C]!"),
-					span_userdanger("[src] has [harmbaton ? "beaten" : "stunned"] you!"))
+	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] [harmbaton ? "ударил" : "оглушил"] [C]!"),
+					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] [harmbaton ? "ударил" : "оглушил"] вас!"))
 
 
 /mob/living/simple_animal/bot/secbot/Life(seconds, times_fired)
@@ -483,9 +541,9 @@
 		else if(threatlevel >= 4)
 			target = C
 			oldtarget_name = C.name
-			speak("Level [threatlevel] infraction alert!")
+			speak("Вижу преступника! Уровень опасности - <b>[threatlevel]</b>!")
 			playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, 0)
-			visible_message("<b>[src]</b> points at [C.name]!")
+			visible_message("<b>[capitalize(declent_ru(NOMINATIVE))]</b> указывает на [C.name]!")
 			mode = BOT_HUNT
 			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 			break
@@ -501,7 +559,7 @@
 
 /mob/living/simple_animal/bot/secbot/explode()
 	SSmove_manager.stop_looping(src)
-	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
 	Sa.build_step = 1
@@ -534,12 +592,12 @@
 		return
 
 	arrived.visible_message(span_warning("[pick( \
-						  "[arrived] dives out of [src]'s way!", \
-						  "[arrived] stumbles over [src]!", \
-						  "[arrived] jumps out of [src]'s path!", \
-						  "[arrived] trips over [src] and falls!", \
-						  "[arrived] topples over [src]!", \
-						  "[arrived] leaps out of [src]'s way!")]"))
+						  "[arrived] спотыка[pluralize_ru(arrived.gender, "ет", "ют")]ся об [declent_ru(GENITIVE)]!", \
+						  "[arrived] опрокидыва[pluralize_ru(arrived.gender, "ет", "ют")]ся на [declent_ru(GENITIVE)]!", \
+						  "[arrived] отлета[pluralize_ru(arrived.gender, "ет", "ют")] с пути [declent_ru(GENITIVE)]!", \
+						  "[capitalize(declent_ru(NOMINATIVE))] сбивает [arrived]!", \
+						  "[capitalize(declent_ru(NOMINATIVE))] влетает в [arrived], заставляя [genderize_ru(arrived.gender, "его", "её", "его", "их")] упасть!", \
+						  "[capitalize(declent_ru(NOMINATIVE))] опрокидывает [arrived]!")]"))
 	arrived.Weaken(4 SECONDS)
 
 

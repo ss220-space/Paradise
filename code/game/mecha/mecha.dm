@@ -121,6 +121,9 @@
 	///Is mecha strafing currently
 	var/strafe = FALSE
 
+	///Mech subtype. Currently used in paintkits.
+	var/mech_type = MECH_TYPE_NONE
+
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
 /obj/mecha/Initialize()
@@ -427,7 +430,10 @@
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
 	else if(direction & (UP|DOWN))
-		var/turf/above = GET_TURF_ABOVE(loc)
+		var/turf/T = get_turf(loc)
+		if(!isturf(T))
+			return
+		var/turf/above = GET_TURF_ABOVE(T)
 		if(!(direction & UP) || !can_z_move(DOWN, above, null, ZMOVE_FALL_FLAGS|ZMOVE_CAN_FLY_CHECKS|ZMOVE_FEEDBACK, occupant))
 			if(zMove(direction, z_move_flags = ZMOVE_FLIGHT_FLAGS))
 				playsound(src, stepsound, 40, 1)
@@ -913,15 +919,12 @@
 		if(occupant)
 			to_chat(user, span_warning("You can't customize a mech while someone is piloting it - that would be unsafe!"))
 			return ATTACK_CHAIN_PROCEED
+
 		var/obj/item/paintkit/paintkit = I
-		var/found = FALSE
-		for(var/type in paintkit.allowed_types)
-			if(type == initial_icon)
-				found = TRUE
-				break
-		if(!found)
+		if(!(paintkit.allowed_types & mech_type))
 			to_chat(user, span_warning("This paintkit isn't meant for use on this class of exosuit."))
 			return ATTACK_CHAIN_PROCEED
+
 		if(!user.drop_transfer_item_to_loc(paintkit, src))
 			return ..()
 		user.visible_message(span_notice("[user] opens [paintkit] and spends some quality time customising [name]."))
@@ -1743,6 +1746,22 @@
 /obj/mecha/update_icon_state()
 	var/init_icon_state = initial_icon ? initial_icon : initial(icon_state)
 	icon_state = occupant ? init_icon_state : "[init_icon_state]-open"
+
+
+/obj/mecha/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
+	. = ..()
+
+	if(!phasing || is_teleport_allowed(new_turf.z))
+		return
+
+	phasing = FALSE
+	occupant_message("<font color='#f00'>Phasing is malfunctioning.</font>")
+
+	if(!phasing_action.owner)
+		return
+
+	phasing_action.button_icon_state = "mech_phasing_off"
+	phasing_action.UpdateButtonIcon()
 
 
 #undef OCCUPANT_LOGGING

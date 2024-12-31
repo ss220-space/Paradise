@@ -1,9 +1,9 @@
 
 /datum/dna/gene/disability/speech/loud
 	name = "Loud"
-	desc = "Forces the speaking centre of the subjects brain to yell every sentence."
-	activation_message = "YOU FEEL LIKE YELLING!"
-	deactivation_message = "You feel like being quiet.."
+	desc = "Заставляет речевой центр мозга субъекта выкрикивать каждое предложение."
+	activation_message = list("ВАМ ХОЧЕТСЯ КРИЧАТЬ!")
+	deactivation_message = list("Вам хочется побыть в тишине...")
 
 
 /datum/dna/gene/disability/speech/loud/New()
@@ -20,9 +20,9 @@
 
 /datum/dna/gene/disability/dizzy
 	name = "Dizzy"
-	desc = "Causes the cerebellum to shut down in some places."
-	activation_message = "You feel very dizzy..."
-	deactivation_message = "You regain your balance."
+	desc = "Вызывает отключение мозжечка время от времени."
+	activation_message = list("У вас очень сильно кружится голова...")
+	deactivation_message = list("Вы вновь обретаете равновесие.")
 	instability = -GENE_INSTABILITY_MINOR
 
 

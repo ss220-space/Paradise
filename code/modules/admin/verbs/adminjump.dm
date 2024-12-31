@@ -14,7 +14,7 @@
 	var/jumping // Thing to jump to
 	switch(chosen)
 		if("Area")
-			jumping = tgui_input_list(src, "Area to jump to", "Jump to Area", return_sorted_areas())
+			jumping = tgui_input_list(src, "Area to jump to", "Jump to Area", get_sorted_areas())
 			if(jumping)
 				return jumptoarea(jumping)
 		if("Mob")
@@ -73,9 +73,12 @@
 	if(isobj(usr.loc))
 		var/obj/O = usr.loc
 		O.force_eject_occupant(usr)
+
 	log_admin("[key_name(usr)] jumped to [COORD(T)] in [T.loc]")
+
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to [COORD(T)] in [T.loc]")
+		
 	admin_forcemove(usr, T)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Turf") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
@@ -105,15 +108,20 @@
 		return
 
 	var/turf/T = locate(tx, ty, tz)
+
 	if(T)
 		if(isobj(usr.loc))
 			var/obj/O = usr.loc
 			O.force_eject_occupant(usr)
+
 		admin_forcemove(usr, T)
+
 		if(isobserver(usr))
 			var/mob/dead/observer/O = usr
 			O.ManualFollow(T)
+
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Coordinate") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to coordinates [COORD(T)]")
 
@@ -179,7 +187,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/area/A = tgui_input_list(usr, "Pick an area.", "Pick an area", return_sorted_areas())
+	var/area/A = tgui_input_list(usr, "Pick an area.", "Pick an area", get_sorted_areas())
 	if(!A)
 		return
 

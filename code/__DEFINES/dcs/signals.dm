@@ -446,6 +446,8 @@
 #define COMSIG_MOB_ITEM_ATTACK_QDELETED "mob_item_attack_qdeleted"
 ///from base of mob/RangedAttack(): (atom/A, params)
 #define COMSIG_MOB_ATTACK_RANGED "mob_attack_ranged"
+///from base of mob/RangedAttack(): (atom/A, params) after being range attacked
+#define COMSIG_MOB_ATTACKED_RANGED "mob_attack_ranged"
 ///from base of /mob/throw_item(): (atom/target)
 #define COMSIG_MOB_THROW "mob_throw"
 ///called when a user is getting new weapon and we want to remove previous weapon to clear hands
@@ -615,6 +617,16 @@
 ///from base of /mob/living/can_track(): (mob/user)
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
+
+/// Source: /mob/living/AdjustBlood(amount)
+#define COMSIG_LIVING_BLOOD_ADJUST 		"living_blood_adjust"
+	#define COMPONENT_PREVENT_BLOODLOSS	(1<<0)
+/// Source: /mob/living/AdjustBlood(amount)
+#define COMSIG_LIVING_BLOOD_ADJUSTED 	"living_blood_adjusted"
+/// Source: /mob/living/setBlood(amount)
+#define COMSIG_LIVING_EARLY_SET_BLOOD	"living_early_set_blood"
+/// Source: /mob/living/setBlood(amount)
+#define COMSIG_LIVING_SET_BLOOD			"living_set_blood"
 
 /// From /mob/add_language() (language_name)
 #define COMSIG_MOB_LANGUAGE_ADD		"mob_language_add"
@@ -1199,3 +1211,5 @@
 #define	COMSIG_BORER_ENTERED_HOST "borer_on_enter" // when borer entered host
 #define COMSIG_BORER_LEFT_HOST "borer_on_leave" // when borer left host
 
+/// Source: /proc/random_hair_style (mob/living/carbon/human/human, valid_hairstyles, robohead)
+#define COMSIG_RANDOM_HAIR_STYLE	"random_hair_style"

@@ -174,19 +174,37 @@ Works together with spawning an observer, noted above.
 	if(key)
 		if(GLOB.non_respawnable_keys[ckey])
 			flags &= ~GHOST_CAN_REENTER
+
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
 		if(client)
 			client.mouse_pointer_icon = initial(client.mouse_pointer_icon) //Возвращает курсор в изначальное положение (после меха, нинзи, спелла и т.п)
+
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
 		GLOB.respawnable_list -= src
+
 		if(ghost.can_reenter_corpse)
 			GLOB.respawnable_list += ghost
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
+
 		ghost.key = key
 		ghost.client?.init_verbs()
 		SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZE, ghost)
 		return ghost
+
+/mob/proc/ManualFollow(atom/movable/target)
+	if(!target)
+		return FALSE
+
+	if(!isobserver(src)) // parent calls
+		var/mob/dead/observer/observer = ghostize()
+
+		if(!observer)
+			return FALSE 
+
+		observer.ManualFollow(target)
+
+	return TRUE
 
 /*
 This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.
@@ -422,8 +440,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	orbit_menu.ui_interact(src)
 
 // This is the ghost's follow verb with an argument
-/mob/dead/observer/proc/ManualFollow(atom/movable/target)
-	if(!target || !isobserver(usr))
+/mob/dead/observer/ManualFollow(atom/movable/target)
+	. = ..()
+	
+	if(!.)
 		return
 
 	if(!get_turf(target))
@@ -456,7 +476,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			else //Circular
 				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
 
-		to_chat(src, "<span class='notice'>Now following [target]</span>")
+		to_chat(src, span_notice("Now following [target]"))
 		orbit(target, orbitsize, FALSE, 20, rot_seg, forceMove = TRUE)
 
 /mob/dead/observer/orbit(atom/A, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit, forceMove)

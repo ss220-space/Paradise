@@ -3,7 +3,7 @@
 	name = "telepad"
 	desc = "A bluespace telepad used for teleporting objects to and from a location."
 	icon = 'icons/obj/telescience.dmi'
-	icon_state = "pad-idle"
+	icon_state = "pad"
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
@@ -49,7 +49,7 @@
 
 /obj/machinery/telepad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	default_deconstruction_screwdriver(user, "pad-idle-o", "pad-idle", I)
+	default_deconstruction_screwdriver(user, "pad-o", initial(icon_state), I)
 
 /obj/machinery/telepad/multitool_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -71,7 +71,7 @@
 	name = "cargo telepad"
 	desc = "A telepad used by the Rapid Crate Sender."
 	icon = 'icons/obj/telescience.dmi'
-	icon_state = "pad-idle"
+	icon_state = "pad"
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20

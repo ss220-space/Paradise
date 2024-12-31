@@ -182,7 +182,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(!L)
 			return
 		if(invocation)
-			if(!L.IsVocal())
+			if(!L.IsVocal()  || L.cannot_speak_loudly())
 				L.custom_emote(EMOTE_VISIBLE, message = pick("рису%(ет,ют)% в воздухе тайные символы.","зловеще жестикулиру%(ет,ют)%.","молча произнос%(ит,ят)% слова призыва.","клад%(ёт,ут)% руки на руну, активируя ее."))
 			else
 				L.say(invocation)
@@ -1004,7 +1004,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	update_icon(UPDATE_ICON_STATE)
 	var/turf/T = get_turf(src)
 	sleep(40)
-	new /obj/singularity/narsie/large(T) //Causes Nar'Sie to spawn even if the rune has been removed
+	new /obj/singularity/god/narsie/large(T) //Causes Nar'Sie to spawn even if the rune has been removed
 
 
 /obj/effect/rune/narsie/attackby(obj/item/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.

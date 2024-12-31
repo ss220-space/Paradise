@@ -1,9 +1,12 @@
-/obj/singularity/narsie //Moving narsie to a child object of the singularity so it can be made to function differently. --NEO
+/obj/singularity/god
+	/// How many humans got killed by it. For now used only for /proc/apocalypse cinematics
+	var/soul_devoured = 0
+
+/obj/singularity/god/narsie //Moving narsie to a child object of the singularity so it can be made to function differently. --NEO
 	name = "Nar'sie's Avatar"
 	desc = "Your mind begins to bubble and ooze as it tries to comprehend what it sees."
 	icon = 'icons/obj/magic_terror.dmi'
-	/// How many humans got killed by it. For now used only for /proc/apocalypse and only for Nar'Sie.
-	var/soul_devoured = 0
+
 	pixel_x = -89
 	pixel_y = -85
 	current_size = 9 //It moves/eats like a max-size singulo, aside from range. --NEO
@@ -14,15 +17,13 @@
 	consume_range = 6
 	gender = FEMALE
 
-/obj/singularity/narsie/admin_investigate_setup()
+/obj/singularity/god/narsie/admin_investigate_setup()
 	return
 
-
-/obj/singularity/narsie/update_icon_state()
+/obj/singularity/god/narsie/update_icon_state()
 	return
 
-
-/obj/singularity/narsie/large
+/obj/singularity/god/narsie/large
 	name = "Nar'Sie"
 	icon = 'icons/obj/narsie.dmi'
 	// Pixel stuff centers Narsie.
@@ -33,7 +34,7 @@
 	grav_pull = 10
 	consume_range = 12 //How many tiles out do we eat
 
-/obj/singularity/narsie/large/New()
+/obj/singularity/god/narsie/large/New()
 	..()
 	icon_state = SSticker.cultdat?.entity_icon_state
 	name = SSticker.cultdat?.entity_name
@@ -53,7 +54,7 @@
 	addtimer(CALLBACK(SSticker.mode, TYPE_PROC_REF(/datum/game_mode, apocalypse)), 10 SECONDS)
 
 
-/obj/singularity/narsie/large/Destroy()
+/obj/singularity/god/narsie/large/Destroy()
 	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS FALLEN</b></font>")
 	SEND_SOUND(world, 'sound/hallucinations/wail.ogg')
 	var/datum/game_mode/gamemode = SSticker.mode
@@ -65,10 +66,10 @@
 				to_chat(cult_mind.current, "<span class='cult'>Current goal: Slaughter the heretics!</span>")
 	..()
 
-/obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user)
+/obj/singularity/god/narsie/large/attack_ghost(mob/dead/observer/user)
 	make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, user, cult_override = TRUE)
 
-/obj/singularity/narsie/process()
+/obj/singularity/god/narsie/process()
 	eat()
 	if(!target || prob(5))
 		pickcultist()
@@ -77,19 +78,19 @@
 		mezzer()
 
 
-/obj/singularity/narsie/Bump(atom/bumped_atom, effect_applied = TRUE)//you dare stand before a god?!
+/obj/singularity/god/narsie/Bump(atom/bumped_atom, effect_applied = TRUE)//you dare stand before a god?!
 	. = ..()
 	if(.)
 		return .
 	godsmack(bumped_atom)
 
 
-/obj/singularity/narsie/Bumped(atom/movable/moving_atom, effect_applied = TRUE)
+/obj/singularity/god/narsie/Bumped(atom/movable/moving_atom, effect_applied = TRUE)
 	. = ..()
 	godsmack(moving_atom)
 
 
-/obj/singularity/narsie/proc/godsmack(atom/A)
+/obj/singularity/god/narsie/proc/godsmack(atom/A)
 	if(istype(A,/obj/))
 		var/obj/O = A
 		O.ex_act(1)
@@ -99,7 +100,7 @@
 		var/turf/T = A
 		T.ChangeTurf(/turf/simulated/floor/engine/cult)
 
-/obj/singularity/narsie/mezzer()
+/obj/singularity/god/narsie/mezzer()
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(M.stat == CONSCIOUS)
 			if(!iscultist(M))
@@ -107,16 +108,16 @@
 				M.Stun(6 SECONDS)
 
 
-/obj/singularity/narsie/consume(atom/A)
+/obj/singularity/god/narsie/consume(atom/A)
 	A.narsie_act(src)
 
-/obj/singularity/narsie/ex_act() //No throwing bombs at it either. --NEO
+/obj/singularity/god/narsie/ex_act() //No throwing bombs at it either. --NEO
 	return
 
-/obj/singularity/narsie/singularity_act() //handled in /obj/singularity/proc/consume
+/obj/singularity/god/narsie/singularity_act() //handled in /obj/singularity/proc/consume
 	return
 
-/obj/singularity/narsie/proc/pickcultist() //Narsie rewards his cultists with being devoured first, then picks a ghost to follow. --NEO
+/obj/singularity/god/narsie/proc/pickcultist() //Narsie rewards his cultists with being devoured first, then picks a ghost to follow. --NEO
 	var/list/cultists = list()
 	var/list/noncultists = list()
 	for(var/mob/living/carbon/food in GLOB.alive_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
@@ -150,7 +151,7 @@
 		return
 
 
-/obj/singularity/narsie/proc/acquire(mob/food)
+/obj/singularity/god/narsie/proc/acquire(mob/food)
 	if(food == target)
 		return
 	if(!target)
@@ -163,17 +164,17 @@
 		to_chat(target, "<span class ='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL</span>")
 
 //Wizard narsie
-/obj/singularity/narsie/wizard
+/obj/singularity/god/narsie/wizard
 	grav_pull = 0
 
-/obj/singularity/narsie/wizard/eat()
+/obj/singularity/god/narsie/wizard/eat()
 	for(var/atom/X in orange(consume_range,src))
 		if(isturf(X) || istype(X, /atom/movable))
 			consume(X)
 	return
 
 
-/obj/singularity/narsie/proc/narsie_spawn_animation()
+/obj/singularity/god/narsie/proc/narsie_spawn_animation()
 	icon = 'icons/obj/narsie_spawn_anim.dmi'
 	dir = SOUTH
 	move_self = FALSE

@@ -38,10 +38,10 @@
 	song.ui_interact(user, ui)
 
 
-/obj/item/clothing/ears/headphones/ui_act(action, params)
+/obj/item/clothing/ears/headphones/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	return song.ui_act(action, params)
+	return song.ui_act(action, params, ui, state)
 
 
 /obj/item/clothing/ears/headphones/update_icon_state()

@@ -76,7 +76,6 @@
 			/datum/job/pilot,
 			/datum/job/brigdoc,
 			/datum/job/mechanic,
-			/datum/job/barber,
 			/datum/job/chaplain,
 			/datum/job/ntnavyofficer,
 			/datum/job/ntnavyofficer/field,

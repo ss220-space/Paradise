@@ -82,6 +82,12 @@ MEDICAL
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = FALSE
 
+/obj/item/clothing/glasses/hud/health/heart
+	name = "\improper Heart Medical Glasses"
+	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
+	icon_state = "heart_med"
+	item_state = "heart_med"
+
 /obj/item/clothing/glasses/hud/health/patch
 	name = "\improper Medical HUD Eyepatch"
 	desc = "A heads-up eyepatch that scans the humans in view and provides accurate data about their health status."
@@ -160,6 +166,12 @@ DIAGNOSTIC
 	icon_state = "diaghudpatch"
 	item_state = "diaghudpatch"
 	prescription_upgradable = FALSE
+
+/obj/item/clothing/glasses/hud/diagnostic/heart
+	name = "\improper Heart Diagnostic Glasses"
+	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
+	icon_state = "heart_diagnostic"
+	item_state = "heart_diagnostic"
 
 /obj/item/clothing/glasses/hud/diagnostic/night
 	name = "\improper Night Vision Diagnostic HUD"
@@ -262,6 +274,15 @@ SECURITY
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
 	)
 
+/obj/item/clothing/glasses/hud/security/sunglasses/heart
+	name = "\improper Heart Security Glasses"
+	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
+	icon_state = "heart_sec"
+	item_state = "heart_sec"
+
+/obj/item/clothing/glasses/hud/security/sunglasses/heart/read_only
+	examine_extensions = EXAMINE_HUD_SECURITY_READ
+
 /obj/item/clothing/glasses/hud/security/sunglasses/tacticool
 	name = "security tactical glasses"
 	desc = "Ballistic glasses with a security HUD. Gives you tacticool protection and selfish increase. The elastic band allows it to be worn over a helmet."
@@ -358,6 +379,12 @@ HYDROPONIC
 	item_state = "hydrohudpatch"
 	prescription_upgradable = FALSE
 
+/obj/item/clothing/glasses/hud/heart
+	name = "\improper Heart Hydroponic Glasses"
+	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
+	icon_state = "heart_hydro"
+	item_state = "heart_hydro"
+
 /obj/item/clothing/glasses/hud/hydroponic/night
 	name = "\improper Night Vision Hydroponic HUD"
 	desc = "A hydroponic HUD fitted with a light amplifier."
@@ -420,6 +447,12 @@ SKILLS
 	icon_state = "skillhudpatch"
 	item_state = "skillhudpatch"
 	prescription_upgradable = FALSE
+
+/obj/item/clothing/glasses/hud/skills/heart
+	name = "\improper Heart Skills Glasses"
+	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
+	icon_state = "heart_skill"
+	item_state = "heart_skill"
 
 /obj/item/clothing/glasses/hud/skills/sunglasses
 	name = "skills sunglasses"

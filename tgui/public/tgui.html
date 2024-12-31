@@ -339,6 +339,7 @@
       var node = document.createElement('link');
       node.type = 'text/css';
       node.rel = 'stylesheet';
+      node.crossOrigin = 'anonymous';
       node.href = url;
       // Temporarily set media to something inapplicable
       // to ensure it'll fetch without blocking render
@@ -638,15 +639,15 @@ blink {
         ╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚══════╝
 </div>
 <marquee class="FatalError__header">
-  A fatal exception has occurred at 002B:C562F1B7 in TGUI. The current
-  application will be terminated. Please remain calm. Get to the nearest
-  NTNet workstation and send the copy of the following stack trace to:
-  <a
+  Произошла фатальная ошибка в секторе 002B:C562F1B7 TGUI. Текущее
+  приложение будет завершено. Сохраняйте спокойствие. Доберитесь до
+  ближайшей рабочей станции NTNet и сделайте отчёт по ошибке:
+  <a 
     target="_blank"
     style="color: white"
-    href="https://github.com/ParadiseSS13/Paradise"
-    >https://github.com/ParadiseSS13/Paradise</a
-  >. Thank you for your cooperation.
+    href="https://discord.gg/ss1984"
+    >https://discord.gg/ss1984</a
+  >. Благодарим вас за сотрудничество.
 </marquee>
 <div id="FatalError__stack" class="FatalError__stack"></div>
 <div class="FatalError__footer">

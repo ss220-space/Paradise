@@ -45,6 +45,13 @@
 	disliked_food = SUGAR | FRIED
 	liked_food = VEGETABLES | GRAIN | MEAT
 
+	age_sheet = list(
+		SPECIES_AGE_MIN = 3,
+		SPECIES_AGE_MAX = 150,
+		JOB_MIN_AGE_HIGH_ED = 13,
+		JOB_MIN_AGE_COMMAND = 13,
+	)
+
 
 /datum/species/grey/on_species_gain(mob/living/carbon/human/H)
 	. = ..()

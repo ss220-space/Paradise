@@ -1,8 +1,5 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 2
-	},
 /obj/machinery/camera{
 	c_tag = "Mining Post South-East Hallway";
 	dir = 2;
@@ -35,11 +32,23 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"an" = (
+/obj/machinery/status_display,
+/turf/simulated/wall,
+/area/mine/storage)
 "ao" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/ore_box,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
+"ap" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/storage)
 "as" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -130,6 +139,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "aM" = (
@@ -142,13 +152,12 @@
 /obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"aS" = (
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "bf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "bg" = (
@@ -205,9 +214,7 @@
 /area/lavaland/surface/outdoors)
 "bG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
 "bH" = (
@@ -312,7 +319,7 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/mine/living_quarters)
+/area/mine/storage)
 "dm" = (
 /obj/structure/stone_tile/block/cracked,
 /turf/simulated/floor/lava/lava_land_surface,
@@ -422,14 +429,28 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"eg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
 /area/mine/living_quarters)
 "ej" = (
 /obj/structure/table,
@@ -829,6 +850,15 @@
 	icon_state = "brownfull"
 	},
 /area/mine/laborcamp)
+"gE" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/sign/poster/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/mine/maintenance)
 "gF" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -917,6 +947,29 @@
 /obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"he" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -25;
+	pixel_y = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"hh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/maintenance{
+	name = "Mining Station Communications";
+	req_access = list(48)
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/mine/maintenance)
 "ho" = (
 /obj/machinery/atmospherics/binary/pump/on{
 	desc = "Отправляет дыхательную смесь из трубы распространяться по аванпосту через вентиляцию.";
@@ -936,6 +989,10 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
+"ht" = (
+/obj/structure/sign/mining,
+/turf/simulated/wall,
+/area/mine/living_quarters)
 "hu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1036,6 +1093,13 @@
 "hQ" = (
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/explored)
+"hT" = (
+/obj/machinery/conveyor{
+	id = "mining_internal";
+	use_power = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "hX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/old,
@@ -1255,6 +1319,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/mine/cafeteria)
 "jE" = (
@@ -1324,13 +1391,9 @@
 /turf/simulated/floor/wood,
 /area/mine/cafeteria)
 "jM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/mine/living_quarters)
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/mine/storage)
 "jU" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -1402,18 +1465,14 @@
 	},
 /area/mine/laborcamp)
 "kf" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 2
-	},
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
-	c_tag = "Mining Communications Relay";
-	network = list("Mining Outpost")
+	c_tag = "Mining Smeltery";
+	network = list("Mining Outpost");
+	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/mine/maintenance)
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "kg" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -1508,12 +1567,18 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "kR" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "browncorner"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "lb" = (
 /obj/structure/sink{
@@ -1657,7 +1722,6 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "lJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -1729,9 +1793,6 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "me" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "browncorner"
@@ -1835,6 +1896,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "nb" = (
@@ -1885,6 +1949,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 26
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
 "nA" = (
@@ -1896,12 +1963,14 @@
 /turf/simulated/wall,
 /area/mine/living_quarters)
 "nM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
+/obj/machinery/alarm{
+	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel,
-/area/mine/lobby)
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/mine/living_quarters)
 "nN" = (
 /obj/machinery/suit_storage_unit/lavaland,
 /turf/simulated/floor/plasteel{
@@ -1985,10 +2054,10 @@
 /area/mine/lobby)
 "on" = (
 /obj/machinery/light/small{
-	dir = 1
+	dir = 4
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 2
+/obj/structure/sign/poster/random{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
@@ -2020,6 +2089,18 @@
 	dir = 8;
 	icon_state = "browncorner"
 	},
+/area/mine/living_quarters)
+"oy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor_switch/oneway{
+	id = "mining_internal";
+	name = "mining conveyor";
+	use_power = 0
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "oz" = (
 /obj/structure/stone_tile/block{
@@ -2278,6 +2359,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"pP" = (
+/obj/machinery/mineral/processing_unit_console{
+	use_power = 0
+	},
+/turf/simulated/wall,
+/area/mine/living_quarters)
 "pS" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -2457,11 +2544,15 @@
 "rv" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/item/pickaxe/safety,
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
 	},
-/area/mine/living_quarters)
+/area/mine/storage)
 "rC" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
@@ -2530,7 +2621,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/mine/living_quarters)
+/area/mine/storage)
 "se" = (
 /obj/structure/table,
 /obj/machinery/light{
@@ -2699,6 +2790,21 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
+"ts" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel/dark,
+/area/mine/cafeteria)
 "tv" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
@@ -2824,9 +2930,10 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
@@ -2994,14 +3101,16 @@
 	},
 /area/mine/laborcamp)
 "uV" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
@@ -3015,14 +3124,18 @@
 "vb" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
-/obj/item/toy/plushie/ashwalkerplushie{
-	name = "Зюзя"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"vc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredfull"
+	},
+/area/mine/laborcamp/security)
 "ve" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -3131,6 +3244,18 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"vA" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "vB" = (
 /turf/template_noop,
 /area/lavaland/surface/outdoors/necropolis)
@@ -3179,6 +3304,14 @@
 	icon_state = "brown"
 	},
 /area/mine/lobby)
+"vW" = (
+/obj/structure/plasticflaps,
+/obj/machinery/conveyor{
+	id = "mining_internal";
+	use_power = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "vX" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -3201,6 +3334,21 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"wc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/tcomms/relay/mining,
+/turf/simulated/floor/bluegrid,
+/area/mine/maintenance)
 "we" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -3232,7 +3380,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/mine/living_quarters)
+/area/mine/storage)
 "wo" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -3419,6 +3567,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
+"xV" = (
+/turf/simulated/floor/plasteel,
+/area/mine/storage)
 "xW" = (
 /obj/structure/window/reinforced/clockwork{
 	dir = 4;
@@ -3669,6 +3820,21 @@
 /obj/machinery/mineral/equipment_vendor/labor,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
+"zO" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "mining_internal";
+	use_power = 0
+	},
+/obj/machinery/mineral/unloading_machine{
+	dir = 1;
+	icon_state = "unloader-corner";
+	input_dir = 2;
+	output_dir = 1;
+	use_power = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "zP" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -3687,12 +3853,11 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "zT" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark,
-/area/mine/cafeteria)
+/turf/simulated/floor/plasteel,
+/area/mine/lobby)
 "zY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -3807,11 +3972,15 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
 "Ay" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -22
 	},
-/turf/simulated/floor/plasteel,
-/area/mine/lobby)
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/area/mine/living_quarters)
 "AA" = (
 /obj/structure/fluff/drake_statue,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -3906,6 +4075,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/item/toy/plushie/ashwalkerplushie{
+	name = "Зюзя";
+	desc = "Мило выглядящая плюшевая игрушка пеплоходца с странным именем."
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -3956,6 +4129,16 @@
 	},
 /turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
+"Bm" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "Bn" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile{
@@ -3998,8 +4181,12 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
-/area/mine/living_quarters)
+/area/mine/storage)
 "Bz" = (
 /obj/structure/safe/floor,
 /obj/item/whetstone/cult{
@@ -4152,10 +4339,16 @@
 /area/lavaland/surface/outdoors/necropolis)
 "Cn" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/mine/living_quarters)
+"Cr" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -4327,18 +4520,26 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Dh" = (
-/obj/machinery/hologram/holopad,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/mine/maintenance)
+/obj/machinery/alarm{
+	pixel_y = 24
+	},
+/obj/machinery/camera{
+	c_tag = "Mining Communications Relay";
+	network = list("Mining Outpost")
+	},
+/turf/simulated/floor/bluegrid,
+/area/lavaland/surface/outdoors)
 "Dl" = (
 /obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/indestructible/boss,
@@ -4430,11 +4631,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/mine/living_quarters)
+/area/mine/storage)
 "DW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -4446,6 +4644,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/mine/cafeteria)
@@ -4498,11 +4699,20 @@
 	dir = 8;
 	network = list("Mining Outpost")
 	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 26
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/mine/living_quarters)
+/area/mine/storage)
 "Es" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4532,6 +4742,12 @@
 	icon_state = "freezerfloor"
 	},
 /area/mine/living_quarters)
+"ET" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/area/mine/storage)
 "EU" = (
 /obj/structure/stone_tile{
 	dir = 1
@@ -4574,7 +4790,7 @@
 	dir = 6;
 	icon_state = "brown"
 	},
-/area/mine/living_quarters)
+/area/mine/storage)
 "Fv" = (
 /obj/structure/stone_tile/center,
 /obj/structure/stone_tile/surrounding,
@@ -4634,6 +4850,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
 "FJ" = (
@@ -4666,7 +4883,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/mine/living_quarters)
+/area/mine/storage)
 "FX" = (
 /obj/structure/stone_tile/block/burnt{
 	dir = 1
@@ -4700,6 +4917,14 @@
 	icon_state = "clockwork_floor"
 	},
 /area/mine/necropolis)
+"Gi" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "mining_internal";
+	use_power = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "Gm" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -4824,6 +5049,12 @@
 	icon_state = "brown"
 	},
 /area/mine/eva)
+"GX" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/lobby)
 "GY" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -5022,7 +5253,6 @@
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
 "IF" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
@@ -5063,17 +5293,16 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "Jl" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "Mining Communications APC";
-	pixel_x = 1;
-	pixel_y = 25
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
 	},
 /obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+	icon_state = "1-2"
 	},
-/turf/simulated/floor/bluegrid,
+/turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "Jm" = (
 /obj/structure/fluff/drake_statue{
@@ -5164,8 +5393,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel,
-/area/mine/living_quarters)
+/area/mine/storage)
 "Kb" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/beer,
@@ -5271,6 +5507,15 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"KJ" = (
+/obj/machinery/firealarm{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/mine/living_quarters)
 "KO" = (
 /obj/structure/window/reinforced/clockwork{
 	dir = 8;
@@ -5376,23 +5621,29 @@
 	},
 /area/mine/laborcamp)
 "Lo" = (
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
 	},
-/obj/machinery/light_switch{
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/machinery/firealarm{
+	dir = 1;
 	pixel_y = -25
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "Lp" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 30
 	},
 /obj/machinery/light{
 	dir = 4
@@ -5428,8 +5679,25 @@
 	},
 /area/mine/necropolis)
 "LI" = (
-/obj/machinery/tcomms/relay/mining,
-/turf/simulated/floor/plasteel/dark,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4;
+	pixel_y = 0
+	},
+/obj/machinery/light_switch{
+	pixel_y = -25
+	},
+/turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
 "LK" = (
 /obj/structure/stone_tile/surrounding/cracked{
@@ -5624,9 +5892,6 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "MI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -5707,14 +5972,27 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
+"Nw" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/conveyor{
+	id = "mining_internal";
+	use_power = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "NA" = (
 /obj/item/trash/syndi_cakes{
 	layer = 1.9;
 	pixel_x = -6;
 	pixel_y = -6
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
-/area/mine/living_quarters)
+/area/mine/storage)
 "NC" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -5768,6 +6046,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
+"NW" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/plasteel/dark,
+/area/mine/maintenance)
 "NY" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
@@ -5786,11 +6071,13 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "Ob" = (
-/obj/machinery/alarm{
-	pixel_y = 24
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
 	},
-/turf/simulated/floor/bluegrid,
-/area/mine/maintenance)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "Og" = (
 /obj/machinery/door/airlock,
 /obj/effect/decal/cleanable/dirt,
@@ -5849,6 +6136,19 @@
 "Oy" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"OB" = (
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "Mining Communications APC";
+	pixel_x = 1;
+	pixel_y = 25
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/mine/maintenance)
 "OF" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/fingerless,
@@ -5857,7 +6157,7 @@
 	dir = 5;
 	icon_state = "brown"
 	},
-/area/mine/living_quarters)
+/area/mine/storage)
 "OL" = (
 /obj/machinery/suit_storage_unit/lavaland,
 /obj/machinery/light{
@@ -5949,6 +6249,13 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"Pk" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "Pl" = (
 /obj/machinery/disposal,
 /obj/effect/decal/warning_stripes/yellow,
@@ -5978,6 +6285,27 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"Pt" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/mine/living_quarters)
+"Pu" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
@@ -6111,6 +6439,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"Qm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/nuke{
+	pixel_y = -32;
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/mine/cafeteria)
 "Qo" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
@@ -6125,18 +6462,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "Qr" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/maintenance{
-	name = "Mining Station Communications";
-	req_access = list(48)
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/mine/maintenance)
+/turf/simulated/wall,
+/area/mine/storage)
 "Qs" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -6162,6 +6489,15 @@
 	icon_state = "clockwork_floor"
 	},
 /area/mine/necropolis)
+"Qw" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 1
+	},
+/obj/structure/sign/poster/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "Qz" = (
 /obj/structure/stone_tile/block/burnt{
 	dir = 4
@@ -6253,8 +6589,15 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "Rc" = (
-/obj/machinery/light/small{
-	dir = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 2
+	},
+/obj/structure/sign/poster/random{
+	pixel_y = 32
+	},
+/obj/machinery/light{
+	dir = 1;
+	on = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6408,14 +6751,14 @@
 /area/lavaland/surface/outdoors/necropolis)
 "St" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -28;
+	pixel_x = -25;
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/mine/living_quarters)
+/area/mine/storage)
 "Sy" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -6427,8 +6770,13 @@
 	},
 /area/mine/necropolis)
 "Sz" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel,
-/area/mine/living_quarters)
+/area/mine/storage)
 "SA" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile{
@@ -6449,6 +6797,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/mine/cafeteria)
@@ -6487,10 +6838,18 @@
 	pixel_x = -32
 	},
 /obj/structure/table,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
 	},
+/area/mine/living_quarters)
+"SH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "SI" = (
 /obj/structure/stone_tile/block/cracked{
@@ -6527,6 +6886,23 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"Te" = (
+/obj/machinery/conveyor{
+	dir = 6;
+	id = "mining_internal";
+	use_power = 0
+	},
+/obj/machinery/mineral/processing_unit{
+	dir = 1;
+	input_dir = 2;
+	output_dir = 1;
+	use_power = 0
+	},
+/obj/effect/decal/cleanable/cobweb2{
+	layer = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "Tf" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -6596,13 +6972,13 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "TA" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 2
-	},
 /obj/machinery/camera{
 	c_tag = "Mining Post South-West Hallway";
 	dir = 2;
 	network = list("Mining Outpost")
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6701,6 +7077,7 @@
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
 "Uw" = (
@@ -6709,7 +7086,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/mine/living_quarters)
+/area/mine/storage)
 "Uy" = (
 /turf/simulated/mineral/random/high_chance/volcanic,
 /area/lavaland/surface/outdoors)
@@ -6724,6 +7101,31 @@
 	tag = "icon-whiteblue (WEST)"
 	},
 /area/mine/lobby)
+"UC" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"UG" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 26
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/mine/living_quarters)
 "UI" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
@@ -6782,11 +7184,15 @@
 	name = "Emergency NanoMed";
 	pixel_x = -28
 	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = 27
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
 	},
-/area/mine/living_quarters)
+/area/mine/storage)
 "Va" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6797,6 +7203,20 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"Vb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "Vd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -6837,11 +7257,9 @@
 	},
 /area/mine/necropolis)
 "Vy" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/mine/maintenance)
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "Vz" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
@@ -6889,7 +7307,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/mine/living_quarters)
+/area/mine/storage)
 "VG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/sustenance,
@@ -6920,6 +7338,14 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
+"VW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/mine/living_quarters)
 "VY" = (
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
@@ -7051,6 +7477,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
 "WI" = (
@@ -7066,8 +7493,13 @@
 "WJ" = (
 /obj/item/radio/beacon,
 /obj/machinery/hologram/holopad,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/baseturf_helper/lava_land/surface,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
 "WR" = (
@@ -7078,6 +7510,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "WT" = (
@@ -7110,6 +7543,9 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
 "Xf" = (
@@ -7185,10 +7621,13 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"Ya" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "Ye" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -7211,7 +7650,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/mine/living_quarters)
+/area/mine/storage)
 "Yl" = (
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/surrounding_tile{
@@ -7330,6 +7769,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"Zb" = (
+/obj/effect/turf_decal/loading_area,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "Zc" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -7437,11 +7880,15 @@
 	},
 /area/mine/necropolis)
 "ZC" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
-	icon_state = "1-4"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "ZD" = (
@@ -13949,7 +14396,7 @@ tf
 dI
 aE
 Es
-Es
+vc
 HV
 dI
 Ne
@@ -18319,8 +18766,8 @@ DH
 DH
 Ne
 Ne
-Ne
-Ne
+bB
+tG
 Ne
 Ne
 Ne
@@ -18577,8 +19024,8 @@ DH
 Ne
 bB
 bB
-Ne
-Ne
+tG
+tG
 Ne
 Ne
 Ne
@@ -18835,8 +19282,8 @@ Ne
 bB
 bB
 bB
-Ne
-Ne
+tG
+tG
 Ne
 Ne
 Ne
@@ -19093,8 +19540,8 @@ bB
 bB
 bB
 bB
-Ne
-Ne
+tG
+bB
 Ne
 Ne
 "}
@@ -19351,7 +19798,7 @@ bB
 bB
 bB
 bB
-Ne
+bB
 Ne
 Ne
 "}
@@ -19608,8 +20055,8 @@ Ne
 bB
 bB
 bB
-Ne
-Ne
+bB
+bB
 Ne
 "}
 (48,1,1) = {"
@@ -20627,12 +21074,12 @@ Ne
 Ne
 uq
 uq
-Fc
+ts
 As
 sU
 CJ
 Fc
-XJ
+Qm
 fi
 hw
 bB
@@ -20888,7 +21335,7 @@ QF
 sU
 ib
 sU
-CJ
+gn
 Fc
 CS
 hw
@@ -21131,18 +21578,18 @@ Ne
 Ne
 Ne
 Ne
-Ne
-Ne
-Ne
-Ne
-dg
+CO
+CO
+CO
+CO
+CO
 oL
 dg
 oL
 eT
 bg
 sU
-gn
+CJ
 FI
 Sf
 WY
@@ -21388,10 +21835,10 @@ Ne
 Ne
 Ne
 Ne
-Ne
-Ne
 CO
-CO
+wc
+gE
+LI
 CO
 dA
 SG
@@ -21645,18 +22092,18 @@ Ne
 Ne
 Ne
 Ne
-Ne
 CO
-CO
+OB
+NW
 Jl
-CO
-Pm
-Sz
+hh
+eg
+Pu
 ou
 kA
 CJ
 pg
-zT
+CJ
 Kb
 ka
 jq
@@ -21902,14 +22349,14 @@ Ne
 Ne
 Ne
 Ne
-Ne
 CO
+Dh
 on
 Lo
 CO
-TA
-bf
+KJ
 kR
+JN
 cT
 fX
 eR
@@ -22157,16 +22604,16 @@ Ne
 Ne
 Ne
 Ne
-Ne
-Ne
-Ne
+dg
+dg
 CO
-LI
-Dh
-Qr
-jM
+CO
+CO
+CO
+CO
+TA
 ZC
-iB
+Pt
 Ul
 nz
 Bz
@@ -22414,13 +22861,13 @@ Ne
 Ne
 Ne
 Ne
-Ne
-Ne
-Ne
-CO
+dg
+aS
+Qw
+he
 kf
 Vy
-CO
+dg
 Cn
 vk
 lY
@@ -22671,24 +23118,24 @@ Ne
 Ne
 Ne
 Ne
-Ne
-Ne
-bB
-CO
-CO
+oL
+zO
+oL
+oy
+Pk
 Ob
-CO
-Ls
-AQ
+Ya
+VW
+Bm
 ou
 cH
 Ha
 Ha
-Ha
-Ha
+Ay
+WX
 Oq
 Em
-WX
+Ha
 Ha
 qv
 Hs
@@ -22928,28 +23375,28 @@ Ne
 Ne
 Ne
 Ne
-Ne
-Ne
-bB
-bB
-CO
-CO
-CO
-gk
+oL
+Gi
+ht
+oL
+pP
+SH
+bf
+Ls
 us
-Dd
+AN
 mY
-Dd
-Dd
-Dd
-Dd
-Dd
+AN
+AN
+AN
+AN
+AN
 ed
 Dd
 Dd
 jc
 iB
-dg
+oL
 bB
 Ne
 "}
@@ -23185,21 +23632,21 @@ Ne
 Ne
 Ne
 Ne
-Ne
-Ne
-Ne
-bB
-bB
-bB
 dg
-Ls
+Te
+Nw
+hT
+vW
+Zb
+dg
+Cr
 AQ
 JN
 Hy
 vq
 vq
 vq
-vq
+UG
 vl
 Em
 vq
@@ -23441,23 +23888,23 @@ bB
 bB
 bB
 Ne
-bB
 Ne
-Ne
-Ne
-Ne
-bB
-bB
+dg
+dg
 oL
-Ls
-AQ
+oL
+oL
+dg
+dg
+gk
+Vb
 iB
-uL
-uL
-oL
-oL
-uL
-uL
+Qr
+Qr
+jM
+jM
+Qr
+Qr
 pv
 uL
 IP
@@ -23698,23 +24145,23 @@ bB
 bB
 bB
 bB
-bB
-bB
 Ne
 Ne
 Ne
 Ne
 bB
-oL
-Ls
-AQ
-iB
-uL
+bB
+bB
+dg
+Rc
+vA
+VC
+Qr
 UV
-Ha
+ET
 St
 rv
-uL
+Qr
 Ah
 uL
 mI
@@ -23960,18 +24407,18 @@ bB
 bB
 Ne
 Ne
-Ne
 bB
-dg
-Rc
+bB
+oL
+Ls
 AQ
 iB
-oL
+jM
 wn
 DV
-Sz
+xV
 Yg
-uL
+Qr
 Ah
 uL
 AP
@@ -24221,14 +24668,14 @@ Ne
 bB
 oL
 Ls
-vH
-Vd
+UC
+AN
 Bw
-Vd
+ap
 Ka
 Sz
 VE
-uL
+Qr
 Ah
 dg
 dg
@@ -24476,16 +24923,16 @@ bB
 Ne
 Ne
 bB
-oL
-Ls
+dg
+nM
 AQ
 iB
-oL
+jM
 sb
 FU
 NA
 Uw
-uL
+Qr
 Ah
 dg
 bB
@@ -24736,13 +25183,13 @@ bB
 dg
 aa
 uV
-VC
-uL
+iB
+Qr
 OF
 dh
 Er
 Fq
-uL
+Qr
 jE
 dg
 bB
@@ -24992,14 +25439,14 @@ Ne
 bB
 oL
 Ls
-AQ
+Vb
 iB
-nH
-uL
-uL
-uL
-uL
-uL
+an
+Qr
+Qr
+Qr
+Qr
+Qr
 Ah
 dg
 bB
@@ -25506,8 +25953,8 @@ bB
 bB
 dg
 Rc
-AQ
-iB
+vA
+VC
 uL
 UI
 MA
@@ -26266,7 +26713,7 @@ oY
 zt
 xZ
 TQ
-IE
+GX
 me
 Xu
 Jb
@@ -26524,7 +26971,7 @@ uH
 yX
 bG
 WJ
-nM
+yX
 Gq
 yX
 yX
@@ -26779,8 +27226,8 @@ hu
 pA
 zt
 EZ
-Ay
 IE
+zT
 gX
 xY
 AO

@@ -161,5 +161,76 @@
   Vladisvell:
   - add: byond 1644 compat (#6041)
 '2024-10-18':
+  Arc:
+  - add: suppressor for sp91 and wt550 (#5960)
   PiroMage:
   - bugfix: 'Nova Station #8 Patch (#6033)'
+  Vladisvell:
+  - add: New map voting mode "Notriples" - next map can't be selected if played twice
+      in a row (#5452)
+'2024-10-19':
+  Valtor:
+  - bugfix: no prothesis heal from food and etc (#6055)
+'2024-10-20':
+  PiroMage:
+  - bugfix: 'Nova Station #9 Patch (#6053)'
+  Sheya:
+  - add: fake blindfold recipe (#6047)
+  Valtor:
+  - qol: Skrell New Name Generator (#6052)
+  Vladisvell:
+  - add: Instrument censorship (#6054)
+  kartowkar:
+  - bugfix: nitrilegloves onmob sprite fix (#6056)
+'2024-10-23':
+  NightDawnFox:
+  - bugfix: firemanned people are can no longer be teleported when buckled (#6058)
+  PlayerUnknown14:
+  - bugfix: bandanas cover hair (#6061)
+'2024-10-26':
+  Anorak2020:
+  - bugfix: selling one item multiple times (#6073)
+  - add: Experimentor relics rework (#5683)
+  - add: health insurance (#5921)
+  BeebBeebBoob:
+  - bugfix: ATM on Multi-z maps (#6077)
+  LiquidPotroh:
+  - soundadd: New cult sonds (#6034)
+  - soundadd: New revolution sound (#6035)
+  Mahimka42:
+  - imageadd: Brass buckler and rustless sword have inhand sprites. (#6031)
+  - imageadd: New sterile mask sprite (#6051)
+  - tweak: 10mm HP slows down the target (#6063)
+  - tweak: M90 instead riot shotguns in ERT armory (#6062)
+  NightDawnFox:
+  - tweak: sniper rounds now cost 5 tk instead of 10 (#6068)
+  NoName:
+  - add: Spech bubble (#6043)
+  PiroMage:
+  - bugfix: 'Nova Station #10 Patch (#6079)'
+  Valtor:
+  - bugfix: pAI bugfixes + localization (#5874)
+  Vladisvell:
+  - bugfix: Hardmode grenades do not work on enemies with less than 80% HP (#6080)
+'2024-10-27':
+  NoName:
+  - unknown: earrings (#6066)
+  PiroMage:
+  - bugfix: 'Nova Station #11 Patch (#6091)'
+  Vladisvell:
+  - bugfix: Fixed survival pod's computer being pushable by humanoids (#6088)
+  - bugfix: Fixed paper bin filling (#6086)
+  - bugfix: Fixed toner insertion into photocopier (#6084)
+  - bugfix: Fixed bluespace scanner spelling mistake (#6083)
+  - bugfix: Fixed drill's infinite range (#6092)
+'2024-10-29':
+  Dimach:
+  - tweak: moders can speak in achat (#6099)
+  Etrnlmelancholy:
+  - tweak: no more age restrict to warden (#6096)
+  Valtor:
+  - tweak: QM has always been the head (#6097)
+  Vladisvell:
+  - bugfix: Now it's possible to roll a malfunctioning AI in Antag Paradise mode (#6093)
+  - bugfix: Fixes ash storm damaging in some lavaland ruins (#6082)
+  - bugfix: Fireproof stuff can now burn in lava (#6081)

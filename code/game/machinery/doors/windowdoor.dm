@@ -173,7 +173,8 @@
 		if(DOOR_CLOSING)
 			icon_state = base_state
 		else
-			icon_state = base_state
+			icon_state = "[base_state][density ? "" : "open"]"
+
 	SSdemo.mark_dirty(src)
 
 /obj/machinery/door/window/open(forced=0)
