@@ -21,7 +21,7 @@
 		add_say_logs(src, message)
 		if(stat == DEAD)
 			return say_dead(message)
-			
+
 		var/mob/living/simple_animal/borer/B = loc
 		to_chat(src, "Вы тихо шепчете, \"[message]\"")
 		to_chat(B.host, span_alien("<i>Пленённый разум [src] шепчет, \"[message]\"</i>"))
@@ -39,20 +39,16 @@
 
 	return B.host.say_understands(other, speaking)
 
-
 /mob/living/captive_brain/resist()
 	var/mob/living/simple_animal/borer/B = loc
 
-	if(host_resisting)
-		to_chat(src, span_notice("Вы уже пытаетесь вернуть своё тело!"))
-		return
+	to_chat(src, span_userdanger("Вы [host_resisting ? "перестаёте" : "начинаете"] сопротивляться контролю паразита."))
+	to_chat(B.host, span_userdanger("Вы чувствуете, как пленённый разум [src] [host_resisting ? "перестаёт" : "начинает"] сопротивляться."))
 
 	host_resisting = TRUE
-	to_chat(src, span_userdanger("Вы начинаете упорно сопротивляться контролю паразита (это займёт примерно минуту)."))
-	to_chat(B.host, span_userdanger("Вы чувствуете, как пленённый разум [src] начинает сопротивляться."))
-	var/delay = (rand(350,450) + B.host.getBrainLoss())
 
-	if(!do_after(src, delay, B.host, ALL))
+	if(!do_after(src, rand(350, 450) + B.host.getBrainLoss(), B.host, ALL, max_interact_count = 1))
+		host_resisting = FALSE
 		return
 
 	return_control(B)
@@ -116,7 +112,7 @@
 
 	var/truename							// Name used for brainworm-speak.
 	var/controlling							// Used in human death check.
-	
+
 	var/mob/living/carbon/human/host		// Human host for the brain worm.
 	var/mob/living/captive_brain/host_brain	// Used for swapping control of the body back and forth.
 
@@ -157,7 +153,7 @@
 
 	if(!.)
 		return .
-		
+
 	detach()
 
 /mob/living/simple_animal/borer/ComponentInitialize()
@@ -255,7 +251,7 @@
 		to_chat(src, span_notice("Теперь вы будете говорить в сознание носителя."))
 		talk_inside_host = FALSE
 		return
-		
+
 	to_chat(src, span_notice("Теперь вы сможете говорить, находясь внутри носителя."))
 	talk_inside_host = TRUE
 	return
@@ -380,7 +376,7 @@
 	for(var/datum/reagent/reagent as anything in subtypesof(/datum/reagent))
 		if(!LAZYIN(GLOB.borer_reagents, reagent.id) || !reagent.name)
 			continue
-			
+
 		content += "<tr><td><a class='chem-select' href='byond://?_src_=[UID()];src=[UID()];borer_use_chem=[reagent]'>[reagent.name] ([initial(reagent.chemuse)])</a><p>[reagent.chemdesc ? initial(reagent.chemdesc) : initial(reagent.description)]</p></td></tr>"
 
 	content += "</table>"
@@ -435,19 +431,19 @@
 	if(docile)
 		to_chat(src, "<font color='blue'>Вы слишком обессилели для этого.</font>")
 		return
-		
+
 	var/list/content = list()
-	
+
 	for(var/datum/borer_focus/focus as anything in subtypesof(/datum/borer_focus))
 		if(locate(focus) in antag_datum.learned_focuses)
 			continue
 
 		LAZYADD(content, focus.bodypartname)
-			
+
 	if(!LAZYLEN(content))
 		to_chat(src, span_notice("Вы приобрели все доступные фокусы."))
 		return
-		
+
 	var/tgui_menu = tgui_input_list(src, "Choose focus", "Focus Menu", content)
 	if(!tgui_menu)
 		return
@@ -471,7 +467,7 @@
 		to_chat(src, span_notice("Вы прячетесь."))
 		hiding = TRUE
 		return
-		
+
 	layer = MOB_LAYER
 	to_chat(src, span_notice("Вы перестали прятаться."))
 	hiding = FALSE
@@ -639,23 +635,17 @@
 
 		controlling = TRUE
 
+		RemoveInfestActions()
 		GrantControlActions()
+
 		talk_to_borer_action.Remove(host)
 		host.med_hud_set_status()
 
 		if(src && !src.key)
 			src.key = "@[borer_key]"
+
 		return
 
-/mob/living/carbon/proc/punish_host()
-	var/mob/living/simple_animal/borer/borer = has_brain_worms()
-
-	if(borer?.host_brain)
-		to_chat(src, span_danger("Вы посылаете карающий всплеск психической агонии в мозг своего носителя."))
-		to_chat(borer.host_brain, span_danger("<FONT size=3>Ужасная, жгучая агония пронзает вас насквозь, вырывая беззвучный крик из глубин вашего запертого разума!</FONT>"))
-
-	return
-	
 //Brain slug proc for voluntary removal of control.
 /mob/living/carbon/proc/release_control()
 
@@ -664,8 +654,8 @@
 	if(borer?.host_brain)
 		to_chat(src, span_danger("Вы убираете свои хоботки, освобождая [borer.host_brain]."))
 		borer.detach()
-		return 
-		
+		return
+
 	log_runtime(EXCEPTION("Missing borer or missing host brain upon borer release."), src)
 	return
 
@@ -748,6 +738,8 @@
 	sneaking = FALSE
 
 	RemoveControlActions()
+	GrantInfestActions()
+	
 	talk_to_borer_action.Grant(host)
 	host.med_hud_set_status()
 
@@ -822,20 +814,22 @@
 	mind?.RemoveSpell(/obj/effect/proc_holder/spell/borer_dominate)
 
 /mob/living/simple_animal/borer/proc/GrantInfestActions()
+	mind?.AddSpell(new /obj/effect/proc_holder/spell/borer_force_say)
 	talk_to_host_action.Grant(src)
 	leave_body_action.Grant(src)
 	take_control_action.Grant(src)
 	make_chems_action.Grant(src)
-	mind?.AddSpell(new /obj/effect/proc_holder/spell/borer_force_say)
 	focus_menu_action.Grant(src)
+	torment_action.Grant(src)
 
 /mob/living/simple_animal/borer/proc/RemoveInfestActions()
+	mind?.RemoveSpell(/obj/effect/proc_holder/spell/borer_force_say)
 	talk_to_host_action.Remove(src)
 	take_control_action.Remove(src)
 	leave_body_action.Remove(src)
 	make_chems_action.Remove(src)
-	mind?.RemoveSpell(/obj/effect/proc_holder/spell/borer_force_say)
 	focus_menu_action.Remove(src)
+	torment_action.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantControlActions()
 	talk_to_brain_action.Grant(host)

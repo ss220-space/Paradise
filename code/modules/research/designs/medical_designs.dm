@@ -827,3 +827,13 @@
 	materials = list(MAT_SILVER = 1200, MAT_GLASS = 800, MAT_DIAMOND = 1200, MAT_GOLD = 400, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/bodybag/bluespace
 	category = list("Medical")
+
+/datum/design/adv_drug_storage
+	name = "Advanced drug storage"
+	desc = "Технологичное устройство для хранения препаратов небольшого размера, имеет два контейнера разной формы, что объединяет центральное хранилище устройства."
+	id = "adv_drug_storage"
+	req_tech = list("materials" = 4, "bluespace" = 3, "biotech" = 3, "plasmatech" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 340, MAT_GLASS = 340, MAT_PLASMA = 200, MAT_BLUESPACE = 30)
+	build_path = /obj/item/storage/pill_bottle/bluespace
+	category = list("Medical")

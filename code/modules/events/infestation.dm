@@ -32,7 +32,7 @@
 	spawn_area_type = pick(spawn_areas)
 
 	for(var/areapath in typesof(spawn_area_type))
-		var/area/A = locate(areapath) in GLOB.all_areas
+		var/area/A = locate(areapath) in GLOB.areas
 		if(isnull(A))
 			continue
 		for(var/turf/simulated/floor/F in A.contents)

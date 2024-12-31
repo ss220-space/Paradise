@@ -681,8 +681,8 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		access_card.access = prev_access
 
 
-/mob/living/simple_animal/bot/proc/call_bot(caller, turf/waypoint, message = TRUE)
-	if(isAI(caller) && calling_ai && calling_ai != src) //Prevents an override if another AI is controlling this bot.
+/mob/living/simple_animal/bot/proc/call_bot(requester, turf/waypoint, message = TRUE)
+	if(isAI(requester) && calling_ai && calling_ai != src) //Prevents an override if another AI is controlling this bot.
 		return FALSE
 
 	bot_reset() //Reset a bot before setting it to call mode.
@@ -694,7 +694,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		all_access.access = get_all_accesses()
 
 	set_path(get_path_to(src, waypoint, max_distance = 200, access = all_access.GetAccess()))
-	calling_ai = caller //Link the AI to the bot!
+	calling_ai = requester //Link the AI to the bot!
 	ai_waypoint = waypoint
 
 	if(path && length(path)) //Ensures that a valid path is calculated!
@@ -704,7 +704,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		access_card.access = all_access.GetAccess() //Give the bot all-access while under the AI's command.
 		if(client)
 			reset_access_timer_id = addtimer(CALLBACK(src, PROC_REF(bot_reset)), 60 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
-			to_chat(src, span_notice("[span_big("Приоритетный маршрут установлен [calling_ai] <b>[caller]</b>. Проследуйте в локацию <b>[end_area.name]</b>.")]<br>[path.len-1]</br> метров до точки назначения. Вам выдан неограниченный доступ к шлюзам на следующие 60 секунд."))
+			to_chat(src, span_notice("[span_big("Приоритетный маршрут установлен [calling_ai] <b>[requester]</b>. Проследуйте в локацию <b>[end_area.name]</b>.")]<br>[path.len-1]</br> метров до точки назначения. Вам выдан неограниченный доступ к шлюзам на следующие 60 секунд."))
 		if(message)
 			to_chat(calling_ai, span_notice("[bicon(src)] [capitalize(declent_ru(NOMINATIVE))] вызван в локацию [end_area.name]. [length(path)-1] метров до точки назначения."))
 		pathset = TRUE

@@ -4,17 +4,13 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "ac" = (
-/turf/simulated/floor/indestructible{
-	icon_state = "floor"
-	},
+/turf/simulated/floor/indestructible/snow,
 /area/tdome/newtdome)
 "ad" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	id_tag = "TD_CloseCombat"
 	},
-/turf/simulated/floor/indestructible{
-	icon_state = "floor"
-	},
+/turf/simulated/floor/indestructible/snow,
 /area/tdome/newtdome)
 "ah" = (
 /obj/structure/table/wood/poker,
@@ -248,6 +244,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/admin)
+"cD" = (
+/obj/structure/snowman/medium,
+/turf/simulated/floor/indestructible/snow,
+/area/tdome/newtdome/CQC)
 "cE" = (
 /turf/simulated/floor/holofloor{
 	dir = 10;
@@ -490,6 +490,9 @@
 /obj/item/gun/energy/immolator/multi/cyborg,
 /turf/simulated/floor/wood,
 /area/admin)
+"eT" = (
+/turf/simulated/wall/indestructible/snow,
+/area/tdome/newtdome/CQC)
 "eW" = (
 /obj/structure/flora/grass/green,
 /turf/simulated/floor/holofloor{
@@ -630,7 +633,10 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "ga" = (
-/turf/simulated/wall/indestructible,
+/obj/structure/table/reinforced{
+	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
+	},
+/turf/simulated/floor/indestructible/snow,
 /area/tdome/newtdome/CQC)
 "ge" = (
 /obj/structure/table/wood,
@@ -2175,9 +2181,7 @@
 	},
 /area/admin)
 "yQ" = (
-/turf/simulated/floor/indestructible{
-	icon_state = "floor"
-	},
+/turf/simulated/floor/indestructible/snow,
 /area/tdome/newtdome/CQC)
 "yT" = (
 /obj/structure/table/wood,
@@ -2474,6 +2478,10 @@
 /obj/item/suppressor/specialoffer,
 /turf/simulated/floor/wood,
 /area/admin)
+"BI" = (
+/obj/structure/snowman/short,
+/turf/simulated/floor/indestructible/snow,
+/area/tdome/newtdome)
 "BN" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator,
@@ -2600,6 +2608,10 @@
 	icon_state = "navybluecorners"
 	},
 /area/adminconstruction)
+"Du" = (
+/obj/structure/snowman/high,
+/turf/simulated/floor/indestructible/snow,
+/area/tdome/newtdome)
 "DF" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/fireball,
@@ -2940,6 +2952,10 @@
 	icon_state = "hierophant1"
 	},
 /area/admin)
+"Ie" = (
+/obj/item/decorations/sticky_decorations/flammable/snowflake,
+/turf/simulated/wall/indestructible/snow,
+/area/tdome/newtdome/CQC)
 "If" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/alien,
@@ -3300,6 +3316,12 @@
 /obj/item/gun/projectile/automatic/pistol/deagle/camo,
 /turf/simulated/floor/wood,
 /area/admin)
+"Nv" = (
+/obj/structure/flora/tree/pine/xmas{
+	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "rad" = 1000, "fire" = 500, "acid" = 500)
+	},
+/turf/simulated/floor/indestructible/snow,
+/area/tdome/newtdome/CQC)
 "NA" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/captain,
@@ -3688,6 +3710,9 @@
 	icon_state = "hierophant1"
 	},
 /area/admin)
+"To" = (
+/turf/simulated/wall/indestructible/snow,
+/area/space)
 "Tr" = (
 /obj/machinery/teleport/hub/upgraded{
 	admin_usage = 1
@@ -3816,9 +3841,7 @@
 /obj/minigame_anchor/thunderdome_poller/melee,
 /obj/minigame_anchor/thunderdome_poller/mixed,
 /obj/minigame_anchor/thunderdome_poller/ranged,
-/turf/simulated/floor/indestructible{
-	icon_state = "floor"
-	},
+/turf/simulated/floor/indestructible/snow,
 /area/tdome/newtdome/CQC)
 "UB" = (
 /obj/structure/table/wood,
@@ -4182,7 +4205,7 @@
 /turf/space,
 /area/space)
 "Yz" = (
-/turf/simulated/wall/indestructible,
+/turf/simulated/wall/indestructible/snow,
 /area/tdome/newtdome)
 "YC" = (
 /turf/simulated/floor/beach/sand,
@@ -59375,29 +59398,29 @@ Yq
 Yq
 Yq
 Yq
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
 Yq
 Yq
 Yq
@@ -59632,7 +59655,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 Yz
 ac
@@ -59654,7 +59677,7 @@ ac
 ac
 Yz
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -59889,7 +59912,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 Yz
@@ -59911,7 +59934,7 @@ ac
 Yz
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -60146,7 +60169,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 ac
@@ -60168,7 +60191,7 @@ ac
 ac
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -60403,29 +60426,29 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
+ac
+Du
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
 ac
 ac
 ac
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ad
-ac
-ac
-ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -60660,7 +60683,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 ac
@@ -60682,7 +60705,7 @@ ad
 ac
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -60917,29 +60940,29 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 ac
 ad
 yQ
 yQ
-ga
+eT
 yQ
 yQ
 yQ
-ga
+eT
 yQ
 yQ
 yQ
-ga
+eT
 yQ
 yQ
 ad
 ac
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -61174,7 +61197,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 Yz
@@ -61196,7 +61219,7 @@ ad
 Yz
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -61431,7 +61454,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 ac
@@ -61440,7 +61463,7 @@ yQ
 yQ
 yQ
 yQ
-ga
+eT
 yQ
 yQ
 yQ
@@ -61453,7 +61476,7 @@ ad
 ac
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -61688,7 +61711,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 ac
@@ -61698,19 +61721,19 @@ yQ
 yQ
 yQ
 yQ
-ga
+Ie
 yQ
 ga
 yQ
 yQ
-yQ
+cD
 yQ
 yQ
 ad
 ac
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -61945,7 +61968,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 ac
@@ -61967,7 +61990,7 @@ ad
 ac
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -62202,29 +62225,29 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 Yz
 ac
 ad
 yQ
-ga
+eT
 yQ
 yQ
-ga
-yQ
+eT
+Nv
 Uw
 yQ
 ga
 yQ
 yQ
-ga
+eT
 yQ
 ad
 ac
 Yz
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -62459,7 +62482,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 ac
@@ -62481,7 +62504,7 @@ ad
 ac
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -62716,7 +62739,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 ac
@@ -62726,7 +62749,7 @@ yQ
 yQ
 yQ
 yQ
-ga
+Ie
 yQ
 ga
 yQ
@@ -62738,7 +62761,7 @@ ad
 ac
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -62973,7 +62996,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 ac
@@ -62982,7 +63005,7 @@ yQ
 yQ
 yQ
 yQ
-ga
+eT
 yQ
 yQ
 yQ
@@ -62995,7 +63018,7 @@ ad
 ac
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -63230,7 +63253,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 Yz
@@ -63252,7 +63275,7 @@ ad
 Yz
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -63487,29 +63510,29 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 ac
 ad
 yQ
 yQ
-ga
+eT
 yQ
 yQ
 yQ
-ga
+eT
 yQ
 yQ
 yQ
-ga
+eT
 yQ
 yQ
 ad
 ac
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -63744,7 +63767,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 ac
@@ -63766,7 +63789,7 @@ ad
 ac
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -64001,7 +64024,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 ac
@@ -64021,9 +64044,9 @@ ad
 ad
 ad
 ac
+BI
 ac
-ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -64258,7 +64281,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 ac
@@ -64280,7 +64303,7 @@ ac
 ac
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -64515,7 +64538,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 ac
 Yz
@@ -64537,7 +64560,7 @@ ac
 Yz
 ac
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -64772,7 +64795,7 @@ Yq
 Yq
 Yq
 Yq
-QQ
+To
 ac
 Yz
 ac
@@ -64794,7 +64817,7 @@ ac
 ac
 Yz
 ac
-QQ
+To
 Yq
 Yq
 Yq
@@ -65029,29 +65052,29 @@ Yq
 Yq
 Yq
 Yq
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
-QQ
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
 Yq
 Yq
 Yq

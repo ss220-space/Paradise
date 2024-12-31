@@ -117,14 +117,17 @@
 	if(!istype(get_area(src), /area/shuttle)) //I'll be funny and make non teleported enrage mobs not lose enrage. Harder to pull off, and also funny when it happens accidently. Or if one gets on the escape shuttle.
 		unrage()
 
-/mob/living/simple_animal/hostile/megafauna/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/mob/living/simple_animal/hostile/megafauna/onShuttleMove(turf/oldT, turf/T1, rotation, mob/requester)
 	var/turf/oldloc = loc
 	. = ..()
+
 	if(!.)
 		return
+
 	var/turf/newloc = loc
-	mob_attack_logs += "[time_stamp()] Moved via shuttle from [COORD(oldloc)] to [COORD(newloc)] caller: [caller ? "[caller]" : "unknown" ]"
-	message_admins("Megafauna[stat == DEAD ? "(DEAD)" : null] [src] ([ADMIN_FLW(src,"FLW")]) moved via shuttle from [ADMIN_COORDJMP(oldloc)] to [ADMIN_COORDJMP(newloc)][caller ? " called by [ADMIN_LOOKUPFLW(caller)]" : ""]")
+
+	mob_attack_logs += "[time_stamp()] Moved via shuttle from [COORD(oldloc)] to [COORD(newloc)] requester: [requester ? "[requester]" : "unknown" ]"
+	message_admins("Megafauna[stat == DEAD ? "(DEAD)" : null] [src] ([ADMIN_FLW(src,"FLW")]) moved via shuttle from [ADMIN_COORDJMP(oldloc)] to [ADMIN_COORDJMP(newloc)][requester ? " called by [ADMIN_LOOKUPFLW(requester)]" : ""]")
 
 /mob/living/simple_animal/hostile/megafauna/proc/devour(mob/living/L)
 	if(!L)
