@@ -240,7 +240,7 @@
 /mob/living/simple_animal/bot/can_strip()
 	return FALSE
 
-mob/living/simple_animal/bot/can_unarmed_attack()
+/mob/living/simple_animal/bot/can_unarmed_attack()
 	return on
 
 /mob/living/simple_animal/bot/med_hud_set_health()
