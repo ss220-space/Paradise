@@ -6,10 +6,8 @@
 	antag_hud_type = ANTAG_HUD_DEVIL
 
 	var/datum/devilinfo/info = new
-	var/list/soulsOwned = list()
+	var/list/soulsOwned
 	var/datum/devil_rank/rank
-
-	var/datum/component/ritual_object/ritual_component = new
 
 /datum/antagonist/devil/can_be_owned(datum/mind/new_owner)
 	. = ..()
@@ -24,8 +22,8 @@
 
 /datum/antagonist/devil/Destroy(force)
 	QDEL_NULL(rank)
-	QDEL_NULL(ritual_component)
 	QDEL_NULL(info)
+
 	return ..()
 
 /datum/antagonist/devil/proc/add_soul(datum/mind/soul)
@@ -122,9 +120,6 @@
 /datum/antagonist/devil/proc/init_devil()
 	GLOB.allDevils[lowertext(info.truename)] = src
 	rank = new BASIC_DEVIL_RANK()
-
-	ritual_component.allowed_categories = /datum/ritual/devil
-	ritual_component.allowed_special_role = list(ROLE_DEVIL)
 	
 	return
 

@@ -435,13 +435,17 @@
 	var/mob/living/carbon/carbon = user
 	var/datum/antagonist/devil/devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
 
-	if(!devil || !devil.ritual_component)
+	if(!devil)
 		return
 
 	var/obj/effect/decal/cleanable/devil/devil_rune = new(get_turf(carbon))
 	playsound(get_turf(carbon), 'sound/magic/invoke_general.ogg', 100, TRUE)
 
-	devil_rune.AddComponent(devil.ritual_component)
+	devil_rune.AddComponent( \
+		/datum/component/ritual_object, \
+		allowed_categories = /datum/ritual/devil, \
+		allowed_special_role = list(ROLE_DEVIL), \
+	)
 
 	devil_rune.devil = devil
 	devil_rune.update_appearance(UPDATE_DESC)

@@ -26,18 +26,24 @@
 	devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
 
 /datum/devil_rank/proc/remove_spells()
-	for(var/obj/effect/proc_holder/spell/spell as anything in owner.mind?.spell_list)
+	if(!owner.mind)
+		return
+
+	for(var/obj/effect/proc_holder/spell/spell as anything in owner.mind.spell_list)
 		if(!is_type_in_list(spell, rank_spells))
 			continue
 
-		owner.mind?.RemoveSpell(spell)
+		owner.mind.RemoveSpell(spell)
 
 /datum/devil_rank/proc/apply_rank(mob/living/carbon/carbon)
 	return
 
 /datum/devil_rank/proc/give_spells()
+	if(!owner.mind)
+		return
+
 	for(var/obj/effect/proc_holder/spell/spell as anything in rank_spells)
-		owner.mind?.AddSpell(new spell)
+		owner.mind.AddSpell(new spell)
 
 /datum/devil_rank/basic_devil
 	regen_threshold = BASIC_DEVIL_REGEN_THRESHOLD

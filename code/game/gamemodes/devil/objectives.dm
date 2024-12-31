@@ -5,14 +5,14 @@
 	needs_target = FALSE
 	check_cryo = FALSE
 	target_amount = 12
-	explanation_text = list()
+	explanation_text = "" 
 
 /datum/objective/devil/sacrifice/proc/forge()
 	if(!get_targets())
 		return FALSE
 
 	for(var/datum/mind/mind in target_minds)
-		LAZYADD(explanation_text, "Принесите в жертву [mind.name], [mind.assigned_role]")
+		explanation_text += "Принесите в жертву [mind.name], [mind.assigned_role].\n"
 
 	return TRUE
 
@@ -25,7 +25,9 @@
 		if(mind == owner)
 			continue
 
-		if(!ishuman(mind.current) || mind.current.stat == DEAD || mind.offstation_role)
+		if(!ishuman(mind.current) \
+		|| mind.current.stat == DEAD \
+		|| mind.offstation_role)
 			continue
 
 		if(LAZYIN(GLOB.command_positions, mind.assigned_role))
