@@ -210,10 +210,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/OnUnarmedAttack(atom/A)
-	if(!on)
-		return
-		
-	shootAt(A)
+	return shootAt(A)
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/start_cuffing(mob/living/carbon/C)

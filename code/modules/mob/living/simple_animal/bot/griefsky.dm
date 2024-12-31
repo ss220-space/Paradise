@@ -119,9 +119,6 @@
 
 
 /mob/living/simple_animal/bot/secbot/griefsky/OnUnarmedAttack(atom/atom) //like secbots its only possible with admin intervention
-	if(!on)
-		return
-
 	if(!iscarbon(atom))
 		return
 

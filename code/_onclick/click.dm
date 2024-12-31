@@ -227,7 +227,7 @@
 	if(ismob(atom))
 		changeNext_move(CLICK_CD_MELEE)
 
-	OnUnarmedAttack(atom, proximity_flag)
+	return OnUnarmedAttack(atom, proximity_flag)
 
 /mob/proc/OnUnarmedAttack(atom/atom, proximity_flag)
 	return

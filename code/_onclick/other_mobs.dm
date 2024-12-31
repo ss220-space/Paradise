@@ -106,7 +106,7 @@
 
 		return
 
-	OnUnarmedAttack(atom, proximity_flag)
+	return OnUnarmedAttack(atom, proximity_flag)
 
 /mob/living/proc/can_grab_attack(atom/atom, proximity_flag)
 	return FALSE
