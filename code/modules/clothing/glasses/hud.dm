@@ -469,9 +469,6 @@ SKILLS
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 
 /obj/item/clothing/glasses/hud/blueshield/attack_self(mob/user)
-	change_mode(user)
-
-/obj/item/clothing/glasses/hud/blueshield/proc/change_mode(mob/user)
 	if(HUDType)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.remove_hud_from(user)
