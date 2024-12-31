@@ -5,6 +5,9 @@
 
 	vis_flags = VIS_INHERIT_ID	// Important for interaction with and visualization of openspace.
 
+	/// Turf bitflags, see code/__DEFINES/flags.dm
+	var/turf_flags = NONE
+
 	var/intact = TRUE
 	var/turf/baseturf = /turf/baseturf_bottom
 	/// negative for faster, positive for slower
@@ -89,12 +92,12 @@
 	if(SSmapping.max_plane_offset)
 		if(!SSmapping.plane_offset_blacklist["[plane]"])
 			plane = plane - (PLANE_RANGE * SSmapping.z_level_to_plane_offset[z])
-			var/turf/T = GET_TURF_ABOVE(src)
-			if(T)
-				T.multiz_turf_new(src, DOWN)
-			T = GET_TURF_BELOW(src)
-			if(T)
-				T.multiz_turf_new(src, UP)
+		var/turf/T = GET_TURF_ABOVE(src)
+		if(T)
+			T.multiz_turf_new(src, DOWN)
+		T = GET_TURF_BELOW(src)
+		if(T)
+			T.multiz_turf_new(src, UP)
 
 	// by default, vis_contents is inherited from the turf that was here before
 	// Checking length(vis_contents) in a proc this hot has huge wins for performance.
@@ -131,10 +134,13 @@
 		stack_trace("Incorrect turf deletion")
 	changing_turf = FALSE
 
-	var/turf/V = GET_TURF_ABOVE(src)
-	V?.multiz_turf_del(src, DOWN)
-	V = GET_TURF_BELOW(src)
-	V?.multiz_turf_del(src, UP)
+	if(GET_LOWEST_STACK_OFFSET(z))
+		var/turf/T = GET_TURF_ABOVE(src)
+		if(T)
+			T.multiz_turf_del(src, DOWN)
+		T = GET_TURF_BELOW(src)
+		if(T)
+			T.multiz_turf_del(src, UP)
 
 	if(force)
 		..()
@@ -275,11 +281,8 @@
 /turf/proc/dismantle_wall(devastated = FALSE, explode = FALSE)
 	return
 
-/turf/proc/TerraformTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
-	return ChangeTurf(path, defer_change, keep_icon, ignore_air)
-
 //Creates a new turf
-/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
+/turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, after_flags = NONE, copy_existing_baseturf = TRUE)
 	switch(path)
 		if(null)
 			return
@@ -318,7 +321,9 @@
 	//We do this here so anything that doesn't want to persist can clear itself
 	var/list/old_comp_lookup = comp_lookup?.Copy()
 	var/list/old_signal_procs = signal_procs?.Copy()
+	var/carryover_turf_flags = (RESERVATION_TURF | UNUSED_RESERVATION_TURF) & turf_flags
 	var/turf/W = new path(src)
+	W.turf_flags |= carryover_turf_flags
 
 	// WARNING WARNING
 	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
@@ -335,7 +340,7 @@
 		W.baseturf = old_baseturf
 
 	if(!defer_change)
-		W.AfterChange(ignore_air, oldType = old_type)
+		W.AfterChange(after_flags, oldType = old_type)
 
 	W.blueprint_data = old_blueprint_data
 
@@ -400,11 +405,11 @@
 	return FALSE
 
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
-/turf/proc/AfterChange(ignore_air = FALSE, keep_cabling = FALSE, oldType = null) //called after a turf has been replaced in ChangeTurf()
+/turf/proc/AfterChange(flags, oldType = null) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
 	CalculateAdjacentTurfs()
 
-	if(SSair && !ignore_air)
+	if(SSair && !(flags & CHANGETURF_IGNORE_AIR))
 		SSair.add_to_active(src)
 
 	//update firedoor adjacency
@@ -414,7 +419,7 @@
 		for(var/obj/machinery/door/firedoor/FD in T)
 			FD.CalculateAffectingAreas()
 
-	if(!keep_cabling && !can_have_cabling())
+	if(!(flags & CHANGETURF_KEEP_CABLING) && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)
 
@@ -435,7 +440,7 @@
 		INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/mecha, take_damage), 100, "brute")
 
 /turf/proc/Bless()
-	flags |= NOJAUNT
+	turf_flags |= NOJAUNT
 
 /turf/proc/burn_down()
 	return
@@ -712,16 +717,16 @@
  * Returns adjacent turfs to this turf that are reachable, in all cardinal directions
  *
  * Arguments:
- * * caller: The movable, if one exists, being used for mobility checks to see what tiles it can reach
+ * * requester: The movable, if one exists, being used for mobility checks to see what tiles it can reach
  * * access: A list that decides if we can gain access to doors that would otherwise block a turf
  * * simulated_only: Do we only worry about turfs with simulated atmos, most notably things that aren't space?
  * * no_id: When true, doors with public access will count as impassible
 */
-/turf/proc/reachableAdjacentTurfs(atom/movable/caller, list/access, simulated_only, no_id = FALSE)
+/turf/proc/reachableAdjacentTurfs(atom/movable/requester, list/access, simulated_only, no_id = FALSE)
 	var/static/space_type_cache = typecacheof(/turf/space)
 	. = list()
 
-	var/datum/can_pass_info/pass_info = new(caller, access, no_id)
+	var/datum/can_pass_info/pass_info = new(requester, access, no_id)
 	for(var/iter_dir in GLOB.cardinal)
 		var/turf/turf_to_check = get_step(src, iter_dir)
 		if(!turf_to_check || (simulated_only && space_type_cache[turf_to_check.type]))

@@ -187,17 +187,6 @@
 "aG" = (
 /turf/simulated/mineral,
 /area/space/nearstation)
-"aH" = (
-/obj/machinery/door/airlock/vault{
-	locked = 1;
-	use_power = 0
-	},
-/obj/machinery/door/airlock/vault{
-	locked = 1;
-	use_power = 0
-	},
-/turf/simulated/floor/engine/cult,
-/area/awaymission/wwvault)
 "aK" = (
 /obj/effect/mob_spawn/human/miner,
 /turf/simulated/floor/engine/cult,
@@ -24237,7 +24226,7 @@ ac
 ac
 ab
 aF
-aH
+aF
 ab
 ab
 ab

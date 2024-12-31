@@ -75,7 +75,7 @@
 								/obj/effect/proc_holder/spell/vampire/self/blood_spill)
 
 /datum/vampire_subclass/hemomancer/on_blood_sucking(mob/living/carbon/human/H)
-	H.blood_volume = min(H.blood_volume + 5, BLOOD_VOLUME_NORMAL)
+	H.setBlood(min(H.blood_volume + 5, BLOOD_VOLUME_NORMAL))
 
 /datum/vampire_subclass/gargantua
 	name = "gargantua"
