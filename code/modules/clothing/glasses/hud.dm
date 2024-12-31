@@ -486,7 +486,4 @@ SKILLS
 			HUDType = DATA_HUD_SECURITY_ADVANCED
 			examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
-	if(HUDType)
-		var/datum/atom_hud/H = GLOB.huds[HUDType]
-		H.add_hud_to(user)
 	return
