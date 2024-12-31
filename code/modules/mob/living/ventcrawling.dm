@@ -72,7 +72,7 @@
 			return FALSE
 		if(!can_ventcrawl(ventcrawl_target))
 			return FALSE
-		return stop_ventcrawling(ventcrawl_target)
+		return stop_ventcrawling()
 
 	//Entrance here
 	if(!can_ventcrawl(ventcrawl_target, entering = TRUE))
@@ -124,12 +124,11 @@
  * Moves living mob to the turf contents and cleanse ventcrawling stuff
  *
  * Arguments:
- * * ventcrawl_target - The vent from which we are moved from
  * * message - if TRUE shows visible message to everyone
  *
  * Returns `TRUE` on success.
  */
-/mob/living/proc/stop_ventcrawling(obj/machinery/atmospherics/ventcrawl_target, message = TRUE)
+/mob/living/proc/stop_ventcrawling(message = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(!is_ventcrawling(src))

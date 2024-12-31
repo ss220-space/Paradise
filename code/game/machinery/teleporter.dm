@@ -4,7 +4,7 @@
 
 /obj/machinery/computer/teleporter
 	name = "teleporter control console"
-	desc = "Used to control a linked teleportation Hub and Station."
+	desc = "Используется для управления привязанными телепортационными узлами и станциями."
 	icon_screen = "teleport"
 	icon_keyboard = "teleport_key"
 	circuit = /obj/item/circuitboard/teleporter
@@ -27,7 +27,7 @@
 	var/cc_beacon = FALSE
 
 /obj/machinery/computer/teleporter/robotics //to do: limit targets to station only
-	desc = "Used to control a linked teleportation Hub and Station. Only Research Director can change destination target."
+	desc = "Используется для управления привязанными телепортационными узлами и станциями. Только Директор Исследований может изменить точку назначения."
 	circuit = /obj/item/circuitboard/teleporter/robotics
 	req_access = list(ACCESS_RD)
 

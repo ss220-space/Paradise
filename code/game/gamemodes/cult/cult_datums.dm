@@ -5,6 +5,7 @@
 	var/dagger_icon = "blood_dagger"
 	var/sword_icon = "blood_blade"
 	var/construct_glow = LIGHT_COLOR_BLOOD_MAGIC
+	var/apocalypse_cinema = /datum/cinematic/cult_arm
 
 	//God Entity
 	var/entity_name = "Nar'Sie"
@@ -81,6 +82,7 @@
 	dagger_icon = "hell_dagger"
 	sword_icon = "hell_blade"
 	construct_glow = LIGHT_COLOR_FIRE
+	apocalypse_cinema = /datum/cinematic/cult_arm_kharin
 
 	entity_name = "Kha'Rin"
 	entity_title1 = "The Burning One"
@@ -140,6 +142,7 @@
 	dagger_icon = "death_dagger"
 	sword_icon = "death_blade"
 	construct_glow = LIGHT_COLOR_DARKRED
+	apocalypse_cinema = /datum/cinematic/cult_arm_reaper
 
 	entity_name = "The Reaper"
 	entity_title1 = "The Silent One"

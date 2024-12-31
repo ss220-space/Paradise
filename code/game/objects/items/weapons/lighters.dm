@@ -267,6 +267,22 @@
 	icon_on = "zippo_qm_on"
 	icon_off = "zippo_qm"
 
+/obj/item/lighter/zippo/detective
+	name = "Detective zippo"
+	desc = "Лимитированная версия зажигалки Зиппо для детектива. Кажется, что её доставили прямиком из нуарных фильмов."
+	ru_names = list(
+		NOMINATIVE = "зажигалка Зиппо детектива",
+		GENITIVE = "зажигалки Зиппо детектива",
+		DATIVE = "зажигалке Зиппо детектива",
+		ACCUSATIVE = "зажигалку Зиппо детектива",
+		INSTRUMENTAL = "зажигалкой Зиппо детектива",
+		PREPOSITIONAL = "зажигалке Зиппо детектива"
+	)
+	icon_state = "zippo_dec"
+	item_state = "deczippo"
+	icon_on = "zippo_dec_on"
+	icon_off = "zippo_dec"
+
 //Ninja-Zippo//
 /obj/item/lighter/zippo/ninja
 	name = "\"Shinobi on a rice field\" zippo"

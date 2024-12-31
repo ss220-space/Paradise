@@ -30,6 +30,7 @@
 		/obj/effect/spawner,
 		/obj/structure/railing,
 		/mob/living/simple_animal/hostile/megafauna, //failsafe
+		/mob/living/simple_animal/hostile/asteroid/elite //failsafe also
 	))
 
 

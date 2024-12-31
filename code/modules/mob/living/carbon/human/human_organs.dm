@@ -129,7 +129,7 @@
 		if(bodypart.is_robotic())
 			total_dmg += bodypart.brute_dam
 			total_dmg += bodypart.burn_dam
-	return (health < (100 - total_dmg))
+	return (health < (maxHealth - total_dmg))
 
 
 /mob/living/carbon/human/proc/count_infected_organs()

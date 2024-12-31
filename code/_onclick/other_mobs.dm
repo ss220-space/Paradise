@@ -68,7 +68,6 @@
 	if(isturf(A) && get_dist(src, A) <= 1)
 		Move_Pulled(A)
 
-
 /**
  * Checks if this mob is in a valid state to punch someone.
  *

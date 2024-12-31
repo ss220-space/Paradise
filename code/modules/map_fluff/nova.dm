@@ -15,5 +15,4 @@
 	company_name  = "Nanotrasen"
 	company_short = "NT"
 	starsys_name  = "Epsilon Eridani"
-	admin_only = TRUE
-	webmap_url = null //Nanomap and webmap will be added later.
+	webmap_url = "https://webmap.affectedarc07.co.uk/maps/ss1984/nova/"

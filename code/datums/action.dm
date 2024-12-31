@@ -317,6 +317,9 @@
 	desc = "Toggles if the club's blasts cause friendly fire."
 	button_icon_state = "vortex_ff_on"
 
+/datum/action/item_action/toggle_backpack_light
+	name = "Toggle Backpack Light"
+
 /datum/action/item_action/toggle_unfriendly_fire/Trigger(left_click = TRUE)
 	if(..())
 		UpdateButtonIcon()

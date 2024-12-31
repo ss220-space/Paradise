@@ -230,11 +230,6 @@
 	path = /obj/item/clothing/under/rank/chaplain/skirt
 	allowed_roles = list(JOB_TITLE_CHAPLAIN)
 
-/datum/gear/uniform/skirt/job/barber
-	display_name = "skirt, barber"
-	path = /obj/item/clothing/under/barber/skirt
-	allowed_roles = list(JOB_TITLE_BARBER)
-
 /datum/gear/uniform/skirt/job/nanotrasenofficer
 	display_name = "skirt, NNO"
 	path = /obj/item/clothing/under/rank/centcom/officer/skirt

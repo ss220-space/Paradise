@@ -527,6 +527,7 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
+	only_unintentional = TRUE
 	audio_cooldown = 1 MINUTES
 	cooldown = 10 SECONDS
 	species_type_blacklist_typecache = list(/datum/species/machine)
@@ -1036,24 +1037,6 @@
 	audio_cooldown = 15 SECONDS
 	// Credit to Jamius (freesound.org) for the sound.
 	sound = 'sound/effects/unathihiss.ogg'
-
-
-/datum/emote/living/carbon/human/unathi/rumble
-	key = "rumble"
-	key_third_person = "rumble"
-	message = "урч%(ит,ат)%."
-	message_mime = "тихо урч%(ит,ат)%."
-	message_postfix = " на %t."
-	message_param = EMOTE_PARAM_USE_POSTFIX
-	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
-	muzzled_noises = list("урчащие", "гортанные")
-	audio_cooldown = 30 SECONDS
-	age_based = TRUE
-	volume = 65
-	sound = list(
-		'sound/voice/unathi/rumble.ogg',
-		'sound/voice/unathi/rumble2.ogg',
-	)
 
 
 /datum/emote/living/carbon/human/unathi/roar

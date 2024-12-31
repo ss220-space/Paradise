@@ -48,6 +48,13 @@
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/nucleation
 
+	age_sheet = list(
+		SPECIES_AGE_MIN = 18,
+		SPECIES_AGE_MAX = 230,
+		JOB_MIN_AGE_HIGH_ED = 30,
+		JOB_MIN_AGE_COMMAND = 30,
+	)
+
 
 /datum/species/nucleation/on_species_gain(mob/living/carbon/human/H)
 	. = ..()

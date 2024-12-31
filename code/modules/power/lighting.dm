@@ -442,8 +442,6 @@
 
 /obj/machinery/light/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
-		if(light_hit_check(I, user))
-			return ATTACK_CHAIN_BLOCKED_ALL
 		return ..()
 
 	//Light replacer code
@@ -482,46 +480,7 @@
 			explode()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(light_hit_check(I, user))
-		return ATTACK_CHAIN_BLOCKED_ALL
-
 	return ..()
-
-
-/// Special lights attack handling
-/obj/machinery/light/proc/light_hit_check(obj/item/I, mob/living/user)
-	if(status == LIGHT_EMPTY)
-		if(has_power() && (I.flags & CONDUCT))
-			add_fingerprint(user)
-			do_sparks(3, 1, src)
-			if(prob(75)) // If electrocuted
-				electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)
-				to_chat(user, span_userdanger("You have been electrocuted by [src]!"))
-			else // If not electrocuted
-				to_chat(user, span_danger("You stick [I] into the light socket."))
-			return TRUE
-		return FALSE
-	if(status == LIGHT_BROKEN)
-		return FALSE
-	add_fingerprint(user)
-	user.do_attack_animation(src)
-	if(prob(1 + I.force * 5))
-		user.visible_message(
-			span_danger("[user] smashed the light!"),
-			span_danger("You hit the light, and it smashes!"),
-			span_italics("You hear the tinkle of breaking glass."),
-		)
-		if(on && (I.flags & CONDUCT) && prob(12))
-			electrocute_mob(user, get_area(src), src, 0.3, TRUE)
-		break_light_tube()
-		return TRUE
-	playsound(loc, 'sound/effects/glasshit.ogg', 75, TRUE)
-	user.visible_message(
-		span_danger("[user] hits the light."),
-		span_danger("You hit the light."),
-		span_italics("You hear someone hitting a glass."),
-	)
-	return TRUE
 
 
 /obj/machinery/light/screwdriver_act(mob/living/user, obj/item/I)
@@ -563,16 +522,35 @@
 
 
 /obj/machinery/light/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+	var/initial_status = status
+
 	. = ..()
-	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && (status == LIGHT_BROKEN || status == LIGHT_EMPTY) && on && (I.flags & CONDUCT) && prob(12))
+
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !(I.flags & CONDUCT) || !has_power())
+		return
+
+	if(status != initial_status && prob(12))	// Proceed only if changed `state` during `take_damage`.
 		electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 
+	else if(status == LIGHT_EMPTY && prob(75))
+		to_chat(user, span_userdanger("You aimed right into the light socket."))
+		electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)
+		do_sparks(3, TRUE, src)
 
-/obj/machinery/light/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+	add_fingerprint(user)
+
+
+/obj/machinery/light/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	. = ..()
-	if(. && !QDELETED(src))
-		if(prob(damage_amount * 5))
-			break_light_tube()
+
+	if(!. || QDELETED(src))
+		return
+
+	if(!prob(1 + . * 5))
+		return
+
+	break_light_tube()
+
 
 /obj/machinery/light/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -744,17 +722,21 @@
 	var/obj/item/light/L = drop_light_tube()
 	L.attack_tk(user)
 
+
 /obj/machinery/light/proc/break_light_tube(skip_sound_and_sparks = FALSE, overloaded = FALSE)
 	if(status == LIGHT_EMPTY || status == LIGHT_BROKEN)
 		return
 
 	if(!skip_sound_and_sparks)
-		if(status == LIGHT_OK || status == LIGHT_BURNED)
-			playsound(loc, 'sound/effects/glasshit.ogg', 75, 1)
 		if(on || overloaded)
-			do_sparks(3, 1, src)
+			do_sparks(3, TRUE, src)
+
+		playsound(loc, 'sound/effects/glasshit.ogg', 75, TRUE)
+
+	visible_message(span_danger("[src] was just smashed!"), null, span_italics("You hear the tinkle of breaking glass."))
 	status = LIGHT_BROKEN
 	update()
+
 
 /obj/machinery/light/proc/fix()
 	if(status == LIGHT_OK)

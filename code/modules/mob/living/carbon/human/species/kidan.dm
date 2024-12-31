@@ -95,6 +95,13 @@
 	disliked_food = FRIED | DAIRY
 	liked_food = SUGAR | ALCOHOL | GROSS | FRUIT
 
+	age_sheet = list(
+		SPECIES_AGE_MIN = 12,
+		SPECIES_AGE_MAX = 45,
+		JOB_MIN_AGE_HIGH_ED = 20,
+		JOB_MIN_AGE_COMMAND = 20,
+	)
+
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_colour

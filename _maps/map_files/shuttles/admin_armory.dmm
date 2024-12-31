@@ -386,7 +386,9 @@
 	name = "NRV Sparta";
 	roundstart_move = "admin_away";
 	timid = 1;
-	width = 18
+	width = 18;
+	port_direction = 2;
+	preferred_direction = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';

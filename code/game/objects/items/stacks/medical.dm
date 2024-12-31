@@ -238,6 +238,17 @@
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
+/obj/item/stack/medical/bruise_pack/extended
+	name = "extended trauma kit"
+	singular_name = "extended trauma kit"
+	desc = "An extended trauma kit for severe injuries."
+	icon_state = "extended_trauma_kit"
+	item_state = "extended_trauma_kit"
+	belt_icon = "advanced_trauma_kit"
+	heal_brute = 30
+	stop_bleeding = 0
+	amount = 12
+	max_amount = 12
 
 //Ointment//
 
@@ -292,6 +303,16 @@
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
+/obj/item/stack/medical/ointment/extended
+	name = "extended burn kit"
+	singular_name = "extended burn kit"
+	desc = "An extended treatment kit for severe burns."
+	icon_state = "extended_burn_kit"
+	item_state = "extended_burn_kit"
+	belt_icon = "advanced_burn_kit"
+	heal_burn = 30
+	amount = 12
+	max_amount = 12
 
 //Medical Herbs//
 /obj/item/stack/medical/bruise_pack/comfrey

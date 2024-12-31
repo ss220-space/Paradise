@@ -56,7 +56,7 @@
 /////////////////////////// DNA MACHINES
 /obj/machinery/dna_scannernew
 	name = "\improper DNA modifier"
-	desc = "It scans DNA structures."
+	desc = "Устройство для сканирования структуры ДНК."
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "scanner_open"
 	density = TRUE
@@ -72,6 +72,14 @@
 	var/damage_coeff
 	var/scan_level
 	var/precision_coeff
+	ru_names = list(
+		NOMINATIVE = "ДНК-модификатор",
+		GENITIVE = "ДНК-модификатора",
+		DATIVE = "ДНК-модификатору",
+		ACCUSATIVE = "ДНК-модификатор",
+		INSTRUMENTAL = "ДНК-модификатором",
+		PREPOSITIONAL = "ДНК-модификаторе"
+	)
 
 /obj/machinery/dna_scannernew/New()
 	..()
@@ -143,16 +151,16 @@
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 	if(!ishuman(usr)) //Make sure they're a mob that has dna
-		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into the [src].</span>")
+		to_chat(usr, span_notice("Как бы вы не старались, у вас не получится забраться в [declent_ru(ACCUSATIVE)]."))
 		return
 	if(occupant)
-		to_chat(usr, "<span class='boldnotice'>The [src] is already occupied!</span>")
+		balloon_alert(usr, "занято!")
 		return
 	if(usr.abiotic())
-		to_chat(usr, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
+		balloon_alert(usr, "руки заняты")
 		return
 	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, "<span class='warning'>[usr] will not fit into the [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
+		to_chat(usr, span_warning("[usr] не поместится в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(usr, "нём", "ней", "нём", "них")]  сидит слайм."))
 		return
 	usr.forceMove(src)
 	occupant = usr
@@ -180,21 +188,21 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The [src] is already occupied!</span>")
+		balloon_alert(user, "занято")
 		return TRUE
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
+		balloon_alert(user, "руки заняты")
 		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
+		to_chat(user, span_warning("[L] не помест[pluralize_ru(L, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L, "нём", "ней", "нём", "них")] сидит слайм."))
 		return TRUE
 	if(L == user)
-		visible_message("[user] climbs into the [src].")
+		visible_message("[user] забира[pluralize_ru(user, "ет", "ют")]ся в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[user] puts [L.name] into the [src].")
+		visible_message("[user] помеща[pluralize_ru(user, "ет", "ют")] [L.name] в [declent_ru(ACCUSATIVE)].")
 	put_in(L)
 	return TRUE
 
@@ -209,15 +217,15 @@
 	if(istype(I, /obj/item/reagent_containers/glass))
 		add_fingerprint(user)
 		if(beaker)
-			to_chat(user, span_warning("A beaker is already loaded into the machine."))
+			balloon_alert(user, "внутри есть ёмкость")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		beaker = I
 		SStgui.update_uis(src)
 		user.visible_message(
-			span_notice("[user] inserts [I] into [src]!"),
-			span_notice("You insert [I] to [src]!"),
+			span_notice("[user] помеща[pluralize_ru(user, "ет", "ют")] [I] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы помещаете [I] в [declent_ru(ACCUSATIVE)]."),
 		)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -229,17 +237,17 @@
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !ismob(grabbed_thing))
 		return .
 	if(panel_open)
-		to_chat(grabber, span_warning("Close the maintenance panel first."))
+		balloon_alert(grabber, "закройте панель")
 		return .
 	var/mob/target = grabbed_thing
 	if(occupant)
-		to_chat(grabber, span_warning("[src] is already occupied!"))
+		balloon_alert(grabber, "занято!")
 		return .
 	if(target.abiotic())
-		to_chat(grabber, span_warning("Subject cannot have abiotic items on."))
+		to_chat(grabber, span_warning("Субъект не должен ничего держать в руках."))
 		return .
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[target] will not fit into the [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head."))
+		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target, "нём", "ней", "нём", "них")]  сидит слайм."))
 		return .
 	put_in(target)
 	add_fingerprint(grabber)
@@ -253,7 +261,7 @@
 
 /obj/machinery/dna_scannernew/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
-		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		balloon_alert(user, "панель заблокирована")
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
 		return TRUE
@@ -280,11 +288,11 @@
 /obj/machinery/dna_scannernew/proc/go_out(mob/user, force)
 	if(!occupant)
 		if(user)
-			to_chat(user, "<span class='warning'>The scanner is empty!</span>")
+			balloon_alert(user, "сканер пуст!")
 		return
 	if(locked && !force)
 		if(user)
-			to_chat(user, "<span class='warning'>The scanner is locked!</span>")
+			balloon_alert(user, "сканер заблокирован!")
 		return
 	occupant.forceMove(loc)
 	occupant = null
@@ -315,14 +323,14 @@
 	if(HAS_TRAIT(occupant, TRAIT_NO_DNA))
 		return TRUE
 
-	var/radiation_protection = occupant.run_armor_check(null, "rad", "Your clothes feel warm.", "Your clothes feel warm.")
+	var/radiation_protection = occupant.run_armor_check(null, "rad", "Ваша одежда кажется теплой.", "Ваша одежда кажется теплой.")
 	if(radiation_protection > NEGATE_MUTATION_THRESHOLD)
 		return TRUE
 	return FALSE
 
 /obj/machinery/computer/scan_consolenew
 	name = "\improper DNA Modifier access console"
-	desc = "Allows you to scan and modify DNA."
+	desc = "Устройство позволяет сканировать и изменять ДНК."
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
@@ -346,20 +354,28 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 400
+	ru_names = list(
+		NOMINATIVE = "Консоль доступа ДНК-модификатора",
+		GENITIVE = "Консоли доступа ДНК-модификатора",
+		DATIVE = "Консоли доступа ДНК-модификатора",
+		ACCUSATIVE = "Консоль доступа ДНК-модификатора",
+		INSTRUMENTAL = "Консолью доступа ДНК-модификатора",
+		PREPOSITIONAL = "Консоли доступа ДНК-модификатора"
+	)
 
 
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS
 		add_fingerprint(user)
 		if(disk)
-			to_chat(user, "There is already [disk] inserted.")
+			balloon_alert(user, "диск уже вставлен")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		disk = I
 		user.visible_message(
-			span_notice("[user] inserts [I.name] into [src]."),
-			span_notice("You insert [I.name] into [src]."),
+			span_notice("[user] вставля[pluralize_ru(user, "ет", "ют")] [I.name] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы вставляете [I.name] в [declent_ru(ACCUSATIVE)]."),
 		)
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL

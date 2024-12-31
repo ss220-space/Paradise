@@ -78,6 +78,13 @@
 	disliked_food = VEGETABLES | FRUIT | GRAIN | GROSS
 	liked_food = MEAT | RAW | DAIRY | EGG
 
+	age_sheet = list(
+		SPECIES_AGE_MIN = 11,
+		SPECIES_AGE_MAX = 44,
+		JOB_MIN_AGE_HIGH_ED = 19,
+		JOB_MIN_AGE_COMMAND = 19,
+	)
+
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 

@@ -56,7 +56,7 @@
 	var/exp_max = 0	//Max EXP, then hide
 	var/exp_type_max = ""
 
-	var/min_age_allowed = 0
+	var/min_age_type = SPECIES_AGE_MIN
 	var/disabilities_allowed = 1
 	var/transfer_allowed = TRUE // If false, ID computer will always discourage transfers to this job, even if player is eligible
 	var/hidden_from_job_prefs = FALSE // if true, job preferences screen never shows this job.
@@ -69,7 +69,7 @@
 	var/salary = 0
 	var/min_start_money = 0
 	var/max_start_money = 0
-	
+
 	var/outfit = null
 
 	/////////////////////////////////
@@ -141,11 +141,15 @@
 	return 0
 
 /datum/job/proc/character_old_enough(client/C)
+	. = FALSE
+
 	if(!C)
-		return FALSE
-	if(C.prefs.age >= min_age_allowed)
-		return TRUE
-	return FALSE
+		return
+
+	var/datum/species/species = GLOB.all_species[C.prefs.species]
+	if(C.prefs.age >= get_age_limits(species, min_age_type))
+		. = TRUE
+
 
 /datum/job/proc/species_in_blacklist(client/C)
 	if(!C)

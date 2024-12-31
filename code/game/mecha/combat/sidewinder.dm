@@ -16,6 +16,8 @@
 	max_equip = 40 //а хули вы хотели, 60 тонн!
 	starting_voice = /obj/item/mecha_modkit/voice/nanotrasen
 
+	mech_type = MECH_TYPE_SIDEWINTER
+
 /obj/mecha/combat/sidewinder/add_cell()
 	cell = new /obj/item/stock_parts/cell/infinite/abductor(src)
 

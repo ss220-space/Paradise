@@ -92,6 +92,13 @@
 	disliked_food = FRIED
 	liked_food = MEAT | RAW | EGG | GROSS | FRUIT | VEGETABLES
 
+	age_sheet = list(
+		SPECIES_AGE_MIN = 12,
+		SPECIES_AGE_MAX = 70,
+		JOB_MIN_AGE_HIGH_ED = 22,
+		JOB_MIN_AGE_COMMAND = 22,
+	)
+
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
@@ -106,8 +113,7 @@
 		/mob/living/carbon/human/proc/emote_roar,
 		/mob/living/carbon/human/proc/emote_threat,
 		/mob/living/carbon/human/proc/emote_whip,
-		/mob/living/carbon/human/proc/emote_whip_l,
-		/mob/living/carbon/human/proc/emote_rumble))
+		/mob/living/carbon/human/proc/emote_whip_l))
 	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	if(!lash)
 		lash = new
@@ -123,8 +129,7 @@
 		/mob/living/carbon/human/proc/emote_roar,
 		/mob/living/carbon/human/proc/emote_threat,
 		/mob/living/carbon/human/proc/emote_whip,
-		/mob/living/carbon/human/proc/emote_whip_l,
-		/mob/living/carbon/human/proc/emote_rumble))
+		/mob/living/carbon/human/proc/emote_whip_l))
 	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	lash?.Remove(H)
 

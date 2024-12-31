@@ -80,6 +80,13 @@
 	disliked_food = MEAT | RAW | EGG
 	liked_food = VEGETABLES | FRUIT
 
+	age_sheet = list(
+		SPECIES_AGE_MIN = 1,
+		SPECIES_AGE_MAX = 90,
+		JOB_MIN_AGE_HIGH_ED = 26,
+		JOB_MIN_AGE_COMMAND = 26,
+	)
+
 /datum/species/diona/can_understand(mob/other)
 	if(istype(other, /mob/living/simple_animal/diona))
 		return 1
@@ -141,7 +148,7 @@
 			if(update)
 				H.updatehealth()
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.blood_volume += 0.5
+				H.AdjustBlood(0.5)
 
 	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.adjustBruteLoss(2)

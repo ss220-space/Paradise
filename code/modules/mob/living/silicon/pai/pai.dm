@@ -114,10 +114,13 @@
 
 	if(card)
 		faction = card.faction.Copy()
+
 	sradio = new(src)
+
 	if(card)
 		if(!card.radio)
 			card.radio = new /obj/item/radio/headset(card)
+
 		radio = card.radio
 
 	radio_name = name
@@ -134,23 +137,26 @@
 	add_verb(src, /mob/living/silicon/pai/proc/choose_verbs)
 	add_verb(src, /mob/living/silicon/pai/proc/pai_change_voice)
 
-	var/datum/action/innate/pai_soft/P = new
-	P.Grant(src)
+	var/datum/action/innate/pai_soft/pai_soft = new
 	var/datum/action/innate/pai_soft/pai_choose_chassis/pai_choose_chassis_action = new
-	pai_choose_chassis_action.Grant(src)
 	var/datum/action/innate/pai_soft/pai_fold_out/pai_fold_out_action = new
-	pai_fold_out_action.Grant(src)
 	var/datum/action/innate/pai_soft/pai_fold_up/pai_fold_up_action = new
-	pai_fold_up_action.Grant(src)
 	var/datum/action/innate/pai_soft/pai_change_voice/pai_change_voice_action = new
-	pai_change_voice_action.Grant(src)
 	var/datum/action/innate/pai_soft/pai_suicide/pai_suicide_action = new
+
+	pai_soft.Grant(src)
+	pai_choose_chassis_action.Grant(src)
+	pai_fold_out_action.Grant(src)
+	pai_fold_up_action.Grant(src)
+	pai_change_voice_action.Grant(src)
 	pai_suicide_action.Grant(src)
-	//PDA
+
+	/// PDA
 	pda = new(src)
 	pda.ownjob = "Personal Assistant"
 	pda.owner = "[src]"
 	pda.name = "[pda.owner] ([pda.ownjob])"
+
 	var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)
 	M.toff = TRUE
 
@@ -170,8 +176,10 @@
 	// Software modules. No these var names have nothing to do with photoshop
 	for(var/PS in subtypesof(/datum/pai_software))
 		var/datum/pai_software/PSD = new PS(src)
+
 		if(PSD.is_active(src))
 			PSD.toggle(src)
+
 		if(PSD.default)
 			installed_software[PSD.id] = PSD
 
@@ -313,9 +321,10 @@
 
 
 /mob/living/silicon/pai/proc/force_fold_out()
-	if(istype(card.loc, /mob))
+	if(ismob(card.loc))
 		var/mob/holder = card.loc
 		holder.drop_item_ground(card)
+
 	else if(is_pda(card.loc))
 		var/obj/item/pda/holder = card.loc
 		holder.pai = null
@@ -415,6 +424,7 @@
 /mob/living/silicon/pai/post_lying_on_rest()
 	if(stat == DEAD)
 		return
+
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	update_icons()
 

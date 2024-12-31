@@ -1358,7 +1358,8 @@
 	id = "whiteship";
 	name = "NT Medical Ship";
 	rebuildable = 1;
-	width = 17
+	width = 17;
+	preferred_direction = 4
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)

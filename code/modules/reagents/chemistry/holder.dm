@@ -611,8 +611,8 @@
 						protection = L.get_permeability_protection()
 					if(protection && show_message)
 						to_chat(L, span_alert("Your clothes protects you from the reaction."))
-
-				R.reaction_mob(A, method, R.volume * volume_modifier * (1 - protection), show_message)
+				var/reacting_volume = R.volume * volume_modifier * clamp(1 - protection + R.clothing_penetration, 0, 1)
+				R.reaction_mob(A, method, reacting_volume, show_message)
 
 			if("TURF")
 				R.reaction_turf(A, R.volume * volume_modifier, R.color)

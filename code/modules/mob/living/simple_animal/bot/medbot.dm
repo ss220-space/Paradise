@@ -1,7 +1,15 @@
 //Medbot
 /mob/living/simple_animal/bot/medbot
 	name = "\improper Medibot"
-	desc = "A little medical robot. He looks somewhat underwhelmed."
+	desc = "Маленький медицинский робот. Выглядит несколько подавленным."
+	ru_names = list(
+		NOMINATIVE = "медбот",
+		GENITIVE = "медбота",
+		DATIVE = "медботу",
+		ACCUSATIVE = "медбота",
+		INSTRUMENTAL = "медботом",
+		PREPOSITIONAL = "медботе",
+	)
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "medibot0"
 	density = FALSE
@@ -15,10 +23,10 @@
 	bot_type = MED_BOT
 	bot_filter = RADIO_MEDBOT
 	model = "Medibot"
-	bot_purpose = "seek out hurt crewmembers and ensure that they are healed"
+	bot_purpose = "найти раненых членов экипажа и проследить, чтобы они были исцелены"
 	bot_core_type = /obj/machinery/bot_core/medbot
 	window_id = "automed"
-	window_name = "Automatic Medical Unit v1.1"
+	window_name = "Автоматическая Медицинская Единица v1.1"
 	path_image_color = "#DDDDFF"
 	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
 
@@ -85,7 +93,15 @@
 
 /mob/living/simple_animal/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
-	desc = "International Medibot of mystery."
+	desc = "Загадочный медбот. От него веет тайнами..."
+	ru_names = list(
+		NOMINATIVE = "загадочный медбот",
+		GENITIVE = "загадочного медбота",
+		DATIVE = "загадочному медботу",
+		ACCUSATIVE = "загадочного медбота",
+		INSTRUMENTAL = "загадочным медботом",
+		PREPOSITIONAL = "загадочном медботе",
+	)
 	skin = "bezerk"
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
@@ -94,7 +110,15 @@
 
 /mob/living/simple_animal/bot/medbot/syndicate
 	name = "Suspicious Medibot"
-	desc = "You'd better have insurance!"
+	desc = "Вам лучше быть застрахованным!"
+	ru_names = list(
+		NOMINATIVE = "подозрительный медбот",
+		GENITIVE = "подозрительного медбота",
+		DATIVE = "подозрительному медботу",
+		ACCUSATIVE = "подозрительного медбота",
+		INSTRUMENTAL = "подозрительным медботом",
+		PREPOSITIONAL = "подозрительном медботе",
+	)
 	skin = "bezerk"
 	faction = list("syndicate")
 	treatment_oxy = "perfluorodecalin"
@@ -106,7 +130,6 @@
 	control_freq = BOT_FREQ + 1000 // make it not show up on lists
 	radio_channel = "Syndicate"
 	radio_config = list("Common" = 1, "Medical" = 1, "Syndicate" = 1)
-
 
 /mob/living/simple_animal/bot/medbot/syndicate/Initialize(mapload, new_skin)
 	. = ..()
@@ -172,26 +195,26 @@
 
 
 /mob/living/simple_animal/bot/medbot/set_custom_texts()
-	text_hack = "You corrupt [name]'s reagent processor circuits."
-	text_dehack = "You reset [name]'s reagent processor circuits."
-	text_dehack_fail = "[name] seems damaged and does not respond to reprogramming!"
+	text_hack = "Вы взломали микросхемы синтезатора реагентов [declent_ru(GENITIVE)]."
+	text_dehack = "Вы восстановили микросхемы синтезатора реагентов [declent_ru(GENITIVE)]."
+	text_dehack_fail = "[capitalize(declent_ru(NOMINATIVE))] выглядит повреждённым и не может быть перепрограммирован!"
 
 
 /mob/living/simple_animal/bot/medbot/get_controls(mob/user)
 	var/dat
 	dat += hack(user)
 	dat += showpai(user)
-	dat += "<TT><B>Medical Unit Controls v1.1</B></TT><BR><BR>"
-	dat += "Status: <a href='byond://?src=[UID()];power=1'>[on ? "On" : "Off"]</A><BR>"
-	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
-	dat += "Beaker: "
+	dat += "<TT><B>Панель управления медицинским роботом v1.1</B></TT><BR><BR>"
+	dat += "Состояние: <a href='byond://?src=[UID()];power=1'>[on ? "Включён" : "Выключен"]</A><BR>"
+	dat += "Панель технического обслуживания [open ? "открыта" : "закрыта"]<BR>"
+	dat += "Ёмкость: "
 	if(reagent_glass)
-		dat += "<a href='byond://?src=[UID()];eject=1'>Loaded \[[reagent_glass.reagents.total_volume]/[reagent_glass.reagents.maximum_volume]\]</a>"
+		dat += "<a href='byond://?src=[UID()];eject=1'>Установлена \[[reagent_glass.reagents.total_volume]/[reagent_glass.reagents.maximum_volume]\]</a>"
 	else
-		dat += "None Loaded"
-	dat += "<br>Behaviour controls are [locked ? "locked" : "unlocked"]<hr>"
+		dat += "Не установлена"
+	dat += "<br>Управление поведением [locked ? "заблокировано" : "разблокировано"]<hr>"
 	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += "<TT>Healing Threshold: "
+		dat += "<TT>Порог лечения: "
 		dat += "<a href='byond://?src=[UID()];adj_threshold=-10'>--</a> "
 		dat += "<a href='byond://?src=[UID()];adj_threshold=-5'>-</a> "
 		dat += "[heal_threshold] "
@@ -199,20 +222,20 @@
 		dat += "<a href='byond://?src=[UID()];adj_threshold=10'>++</a>"
 		dat += "</TT><br>"
 
-		dat += "<TT>Injection Level: "
+		dat += "<TT>Объём инъекции: "
 		dat += "<a href='byond://?src=[UID()];adj_inject=-5'>-</a> "
 		dat += "[injection_amount] "
 		dat += "<a href='byond://?src=[UID()];adj_inject=5'>+</a> "
 		dat += "</TT><br>"
 
-		dat += "Reagent Source: "
-		dat += "<a href='byond://?src=[UID()];use_beaker=1'>[use_beaker ? "Loaded Beaker (When available)" : "Internal Synthesizer"]</a><br>"
+		dat += "Источник реагентов: "
+		dat += "<a href='byond://?src=[UID()];use_beaker=1'>[use_beaker ? "Установленная ёмкость (Если доступна)" : "Внутренний синтезатор"]</a><br>"
 
-		dat += "Treat Viral Infections: <a href='byond://?src=[UID()];virus=1'>[treat_virus ? "Yes" : "No"]</a><br>"
-		dat += "The speaker switch is [shut_up ? "off" : "on"]. <a href='byond://?src=[UID()];togglevoice=[1]'>Toggle</a><br>"
-		dat += "Critical Patient Alerts: <a href='byond://?src=[UID()];critalerts=1'>[declare_crit ? "Yes" : "No"]</a><br>"
-		dat += "Patrol Station: <a href='byond://?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</a><br>"
-		dat += "Stationary Mode: <a href='byond://?src=[UID()];stationary=1'>[stationary_mode ? "Yes" : "No"]</a><br>"
+		dat += "Лечить вирусные инфекции: <a href='byond://?src=[UID()];virus=1'>[treat_virus ? "Да" : "Нет"]</a><br>"
+		dat += "Динамик [shut_up ? "выключен" : "включён"]. <a href='byond://?src=[UID()];togglevoice=[1]'>Переключить</a><br>"
+		dat += "Оповещать о тяжелораненых: <a href='byond://?src=[UID()];critalerts=1'>[declare_crit ? "Да" : "Нет"]</a><br>"
+		dat += "Режим патрулирования: <a href='byond://?src=[UID()];operation=patrol'>[auto_patrol ? "Да" : "Нет"]</a><br>"
+		dat += "Стационарный режим: <a href='byond://?src=[UID()];stationary=1'>[stationary_mode ? "Да" : "Нет"]</a><br>"
 
 	return dat
 
@@ -241,8 +264,12 @@
 		use_beaker = !use_beaker
 
 	else if(href_list["eject"] && (!isnull(reagent_glass)))
-		reagent_glass.forceMove(get_turf(src))
+		if(ishuman(usr))
+			usr.put_in_active_hand(reagent_glass, ignore_anim = FALSE)
+		else
+			reagent_glass.forceMove(get_turf(src))
 		reagent_glass = null
+		balloon_alert(usr, "ёмкость извлечена")
 
 	else if(href_list["togglevoice"])
 		shut_up = !shut_up
@@ -274,15 +301,15 @@
 	if(istype(I, /obj/item/reagent_containers/glass))
 		add_fingerprint(user)
 		if(locked)
-			to_chat(user, span_warning("You cannot insert a beaker because the panel is locked!"))
+			balloon_alert(user, "техпанель заблокирована!")
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		if(reagent_glass)
-			to_chat(user, span_warning("There is already a beaker loaded!"))
+			balloon_alert(user, "слот для ёмкости занят!")
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
 		reagent_glass = I
-		to_chat(user, span_notice("You insert [I]."))
+		balloon_alert(user, "ёмкость установлена")
 		show_controls(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
@@ -298,8 +325,8 @@
 	if(emagged == 2)
 		declare_crit = FALSE
 		if(user)
-			to_chat(user, span_notice("You short out [src]'s reagent synthesis circuits."))
-		audible_message(span_danger("[src] buzzes oddly!"))
+			to_chat(user, span_notice("Вы замыкаете микросхемы синтеза реагентов [declent_ru(GENITIVE)]."))
+		audible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] странно жужжит."))
 		flick("medibot_spark", src)
 		if(user)
 			oldpatient = user
@@ -308,7 +335,7 @@
 /mob/living/simple_animal/bot/medbot/process_scan(mob/living/carbon/human/H)
 	if(buckled)
 		if((last_warning + 30 SECONDS) < world.time)
-			speak(span_danger("Movement restrained! Unit on standby!"))
+			speak(span_danger("Движение невозможно! Режим ожидания."))
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, FALSE)
 			last_warning = world.time
 		return
@@ -316,14 +343,15 @@
 		return
 
 	if((H == oldpatient) && (world.time < last_found + 20 SECONDS))
+
 		return
 
 	if(assess_patient(H))
 		last_found = world.time
 		if((last_newpatient_speak + 30 SECONDS) < world.time) //Don't spam these messages!
-			var/list/messagevoice = list("Hey, [H.name]! Hold on, I'm coming." = 'sound/voice/mcoming.ogg',
-										"Wait [H.name]! I want to help!" = 'sound/voice/mhelp.ogg',
-										"[H.name], you appear to be injured!" = 'sound/voice/minjured.ogg')
+			var/list/messagevoice = list("Эй, [H.name]! Держись, я уже иду!" = 'sound/voice/mcoming.ogg',
+										"Подожди, [H.name]! Я спешу на помощь!" = 'sound/voice/mhelp.ogg',
+										"[H.name], кажется, вы ранены!" = 'sound/voice/minjured.ogg')
 			var/message = pick(messagevoice)
 			speak(message)
 			playsound(loc, messagevoice[message], 50, FALSE)
@@ -344,11 +372,11 @@
 
 	if(!patient)
 		if(!shut_up && prob(1))
-			var/list/messagevoice = list("Radar, put a mask on!" = 'sound/voice/mradar.ogg',
-										"There's always a catch, and I'm the best there is." = 'sound/voice/mcatch.ogg',
-										"I knew it, I should've been a plastic surgeon." = 'sound/voice/msurgeon.ogg',
-										"What kind of medbay is this? Everyone's dropping like flies." = 'sound/voice/mflies.ogg',
-										"Delicious!" = 'sound/voice/mdelicious.ogg')
+			var/list/messagevoice = list("Ты, надень свою маску!" = 'sound/voice/mradar.ogg',
+										"Что-то всегда идёт не так, но я справлюсь." = 'sound/voice/mcatch.ogg',
+										"А ведь я мог бы стать пластическим хирургом..." = 'sound/voice/msurgeon.ogg',
+										"Что это за медотсек? Все мрут, словно мухи." = 'sound/voice/mflies.ogg',
+										"Замечательно!")
 			var/message = pick(messagevoice)
 			speak(message)
 			playsound(loc, messagevoice[message], 50, FALSE)
@@ -501,9 +529,9 @@
 		return
 
 	if(C.stat == DEAD || HAS_TRAIT(C, TRAIT_FAKEDEATH))
-		var/list/messagevoice = list("No! Stay with me!" = 'sound/voice/mno.ogg',
-									"Live, damnit! LIVE!" = 'sound/voice/mlive.ogg',
-									"I...I've never lost a patient before. Not today, I mean." = 'sound/voice/mlost.ogg')
+		var/list/messagevoice = list("Нет, не оставляй меня!" = 'sound/voice/mno.ogg',
+									"Живи, чёрт возьми! ЖИВИ!" = 'sound/voice/mlive.ogg',
+									"Я... Я ещё не терял пациента. Не сегодня, имею ввиду." = 'sound/voice/mlost.ogg')
 		var/message = pick(messagevoice)
 		speak(message)
 		playsound(loc, messagevoice[message], 50, FALSE)
@@ -521,9 +549,9 @@
 		reagent_id = select_medication(C, beaker_injection)
 
 	if(!reagent_id) //If they don't need any of that they're probably cured!
-		var/list/messagevoice = list("All patched up!" = 'sound/voice/mpatchedup.ogg',
-									"An apple a day keeps me away." = 'sound/voice/mapple.ogg',
-									"Feel better soon!" = 'sound/voice/mfeelbetter.ogg')
+		var/list/messagevoice = list("Как новенький!" = 'sound/voice/mpatchedup.ogg',
+									"Кто яблоко в день съедает, у того [declent_ru(NOMINATIVE)] не бывает!" = 'sound/voice/mapple.ogg',
+									"Скоро полегчает!" = 'sound/voice/mfeelbetter.ogg')
 		var/message = pick(messagevoice)
 		speak(message)
 		playsound(loc, messagevoice[message], 50, FALSE)
@@ -533,8 +561,8 @@
 		if(!emagged && !hijacked && check_overdose(patient, reagent_id, injection_amount))
 			soft_reset()
 			return
-		C.visible_message(span_danger("[src] is trying to inject [patient]!"),
-									span_userdanger("[src] is trying to inject you!"))
+		C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] пытается сделать укол [patient]!"),
+									span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пытается сделать вам укол!"))
 
 		addtimer(CALLBACK(src, PROC_REF(do_inject), C, !isnull(beaker_injection), reagent_id), 3 SECONDS)
 
@@ -551,10 +579,10 @@
 		else
 			patient.reagents.add_reagent(reagent_id, injection_amount)
 
-		C.visible_message(span_danger("[src] injects [patient] with its syringe!"),
-						span_userdanger("[src] injects you with its syringe!"))
+		C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сделал укол [patient] своим шприцем!"),
+						span_userdanger("[capitalize(declent_ru(NOMINATIVE))] сделал вам укол своим шприцем!"))
 	else
-		visible_message("[src] retracts its syringe.")
+		visible_message("[capitalize(declent_ru(NOMINATIVE))] убирает свой шприц.")
 
 	update_icon()
 	soft_reset()
@@ -572,7 +600,7 @@
 
 /mob/living/simple_animal/bot/medbot/explode()
 	on = FALSE
-	visible_message(span_userdanger("[src] blows apart!"))
+	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 
 	if(drops_parts)
@@ -623,7 +651,7 @@
 	if(syndicate_aligned)
 		return
 	var/area/location = get_area(src)
-	speak("Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!", radio_channel)
+	speak("Нужна срочная медицинская помощь! [crit_patient ? "<b>[crit_patient]</b>" : "Пациент"] в тяжёлом состоянии в локации [location]!", radio_channel)
 	declare_cooldown = TRUE
 	spawn(200) //Twenty seconds
 		declare_cooldown = FALSE
