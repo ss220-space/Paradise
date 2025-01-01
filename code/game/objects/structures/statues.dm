@@ -184,9 +184,9 @@
 	name = "statue of the research director"
 	icon_state = "rd"
 
-/obj/structure/statue/gold/unati
+/obj/structure/statue/gold/unathi
 	name = "statue of the unati"
-	icon_state = "unati"
+	icon_state = "unathi"
 
 /obj/structure/statue/gold/tajaran
 	name = "statue of the tajaran"
