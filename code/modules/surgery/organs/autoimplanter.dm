@@ -61,7 +61,7 @@
 		return ..()
 
 	storedorgan = I
-	to_chat(user, span_notice("Вы установили [I.name] в автоимплантер."))
+	balloon_alert(user, "киберимплант установлен")
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 
