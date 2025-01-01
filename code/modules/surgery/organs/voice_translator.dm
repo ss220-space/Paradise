@@ -44,12 +44,6 @@
 /obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator
 	name = "Psionic Voice Retranslator"
 	desc = "Необычный инопланетный имплант с маленьким экранчиком. Судя по всему, создан специально для греев."
-	icon = 'icons/obj/voice_translator.dmi'
-	icon_state = "pvr_implant"
-	given_languages = list()
-	upgrade_with = list(/obj/item/translator_upgrade/grey_retraslator)
-	origin_tech = "materials=2;biotech=3;engineering=3;programming=3;abductor=2"
-	species_restrictions = list(SPECIES_GREY, SPECIES_ABDUCTOR)
 	ru_names = list(
 		NOMINATIVE = "ретранслятор псионического голоса",
 		GENITIVE = "ретранслятора псионического голоса",
@@ -58,6 +52,12 @@
 		INSTRUMENTAL = "ретранслятором псионического голоса",
 		PREPOSITIONAL = "ретрансляторе псионического голоса",
 	)
+	icon = 'icons/obj/voice_translator.dmi'
+	icon_state = "pvr_implant"
+	given_languages = list()
+	upgrade_with = list(/obj/item/translator_upgrade/grey_retraslator)
+	origin_tech = "materials=2;biotech=3;engineering=3;programming=3;abductor=2"
+	species_restrictions = list(SPECIES_GREY, SPECIES_ABDUCTOR)
 
 
 /obj/item/organ/internal/cyberimp/mouth/translator/New()
@@ -420,10 +420,6 @@
 /obj/item/translator_upgrade/grey_retraslator
 	name = "PVR storage upgrade"
 	desc = "Маленькое инопланетное устройство с мелким экраном, показывающим только помехи. Видимо, что-то из технологий греев."
-	icon = 'icons/obj/voice_translator.dmi'
-	icon_state = "pvr_upgrade"
-	origin_tech = "materials=2;programming=3;abductor=1"
-	extra_slots = UPGRADE_SLOTS_GREY
 	ru_names = list(
 		NOMINATIVE = "модуль улучшения РПГ",
 		GENITIVE = "модуля улучшения РПГ",
@@ -432,6 +428,10 @@
 		INSTRUMENTAL = "модулем улучшения РПГ",
 		PREPOSITIONAL = "модуле улучшения РПГ",
 	)
+	icon = 'icons/obj/voice_translator.dmi'
+	icon_state = "pvr_upgrade"
+	origin_tech = "materials=2;programming=3;abductor=1"
+	extra_slots = UPGRADE_SLOTS_GREY
 
 
 	// LANGUAGE TRANSLATOR CHIPS //
@@ -439,12 +439,6 @@
 /obj/item/translator_chip
 	name = "language chip"
 	desc = "Крошечный чип с мигающим индикатором."
-	icon = 'icons/obj/voice_translator.dmi'
-	icon_state = "chip_empty"
-	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "materials=1;programming=2"
-	var/datum/language/stored_language
-	var/stored_language_rus
 	ru_names = list(
 		NOMINATIVE = "языковой чип",
 		GENITIVE = "языкового чипа",
@@ -453,6 +447,12 @@
 		INSTRUMENTAL = "языковым чипом",
 		PREPOSITIONAL = "языковом чипе",
 		)
+	icon = 'icons/obj/voice_translator.dmi'
+	icon_state = "chip_empty"
+	w_class = WEIGHT_CLASS_TINY
+	origin_tech = "materials=1;programming=2"
+	var/datum/language/stored_language
+	var/stored_language_rus
 
 
 /obj/item/translator_chip/New()
