@@ -100,7 +100,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/weldingtool/sword))
 		if(I.tool_enabled)
-			light(span_notice("[user] casually lights the [name] with [I], what a badass."))
+			light(span_notice("[user] непринуждённо зажига[pluralize_ru(user, "ет", "ют")] [declent_ru(ACCUSATIVE)] с помощью [I.declent_ru(GENITIVE)]. Чёрт, как же он[genderize_ru(user.gender, "", "а", "о", "и")] крут[genderize_ru(user.gender, "", "а", "о", "ы")]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 		
 	if(istype(I, /obj/item/lighter/zippo))

@@ -1,6 +1,14 @@
 /obj/item/weldingtool/sword
 	name = "welding sword"
-	desc = "Аналог энергетического меча, изготовленный из сварки неизвестным мастером из Грейтайда. Он имеет аналогичные характеристики, но наносит ожоги вместо травм в активном состоянии. Во время атаки расходует сварочное топливо."
+	desc = "Сварочный аппарат, кустарно модифицированный каким-то умельцем. Судя по всему, автор этого творения черпал вдохновение от энергетических мечей."
+	ru_names = list(
+		NOMINATIVE = "сварочный меч",
+		GENITIVE = "сварочного меча",
+		DATIVE = "сварочному мечу",
+		ACCUSATIVE = "сварочный меч",
+		INSTRUMENTAL = "сварочным мечом",
+		PREPOSITIONAL = "сварочном мече"
+	)
 	icon = 'icons/obj/items.dmi'
 	icon_state = "fuelsword"
 	item_state = "fuelsword"
@@ -49,7 +57,7 @@
 			return ATTACK_CHAIN_PROCEED
 
 		if(I == src)
-			to_chat(user, span_warning("You try to attach the end of sword to... itself. You're not very smart, are you?"))
+			to_chat(user, span_warning("Вы пытаетесь приделать конец меча к... мечу. Это было очень глупо."))
 			user.apply_damage(10, BRAIN)
 			return ATTACK_CHAIN_PROCEED
 
@@ -59,7 +67,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
 
-		to_chat(user,  span_notice("You attach the ends of the two welder swords, making a single double-bladed weapon! You're cool."))
+		balloon_alert(user, "скреплено вместе")
 		var/obj/item/weldingtool/sword/double/dual_sword = new(drop_location())
 		user.temporarily_remove_item_from_inventory(src)
 		user.put_in_hands(dual_sword, ignore_anim = FALSE)
@@ -72,6 +80,15 @@
 /obj/item/weldingtool/sword/double
 	name = "double-bladed welding sword"
 	desc = "Оружие, полученное путем объединения двух мечей из сварки в один. В отличие от двухклинкового энергетического меча, не способен отражать лазеры. Во время атаки расходует сварочное топливо."
+	desc = "Два кустарно модифицированных сварочных аппарата, скреплённых вместе, образуя некое подобие двойного энергетического меча. Настоящее чудо ассистентской мысли."
+	ru_names = list(
+		NOMINATIVE = "двойной сварочный меч",
+		GENITIVE = "двойного сварочного меча",
+		DATIVE = "двойному сварочному мечу",
+		ACCUSATIVE = "двойной сварочный меч",
+		INSTRUMENTAL = "двойным сварочным мечом",
+		PREPOSITIONAL = "двойном сварочном мече"
+	)
 	icon_state = "fuelsworddouble"
 	item_state = "fuelsworddouble"
 	force_enabled = 40
