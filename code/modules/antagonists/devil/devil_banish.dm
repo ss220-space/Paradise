@@ -42,7 +42,7 @@
     return owner.loc && istype(owner.loc, /obj/structure/closet/coffin)
 
 /datum/devil_banish/formaldehyde
-    name = BANISH_FORMALDEHYDE
+    name = BANISH_FORMALDYHIDE
 
     desc = "Чтобы изгнать дьявола, вы должны ввести в его безжизненное тело бальзамирующую жидкость."
     law = "Если ваше тело забальзамировано, вы не сможете воскреснуть."
@@ -57,7 +57,7 @@
     law = "Если ваше тело находится возле руны, вы не сможете воскреснуть."
 
 /datum/devil_banish/rune/check_banishment()
-	return locate(/obj/effect/decal/cleanable/crayon/rune) in range(1, owner)
+	return locate(/obj/effect/decal/cleanable/crayon) in range(1, owner)
 
 /datum/devil_banish/candle
     name = BANISH_CANDLES
@@ -87,4 +87,4 @@
 	if(human.w_uniform && istype(human.w_uniform, /obj/item/clothing/under/burial))
 		return TRUE
 			
-	return locate(/obj/item/clothing/under/burial/burial) in range(1, human)
+	return locate(/obj/item/clothing/under/burial) in range(1, human)
