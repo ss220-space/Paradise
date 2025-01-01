@@ -26,8 +26,8 @@
 /datum/devil_banish/water
     name = BANISH_WATER
 
-    desc = "To banish the devil, you must infuse its body with holy water."
-    law = "If your corpse is filled with holy water, you will be unable to resurrect."
+    desc = "Чтобы изгнать дьявола, вы должны наполнить его тело святой водой."
+    law = "Если ваше тело наполнено святой водой, вы не сможете воскреснуть."
 
 /datum/devil_banish/water/check_banishment()
     return owner.reagents?.has_reagent("holy water")
@@ -35,17 +35,17 @@
 /datum/devil_banish/coffin
     name = BANISH_COFFIN
 
-    desc = "This devil will return to life if its remains are not placed within a coffin."
-    law = "If your corpse is in a coffin, you will be unable to resurrect."
+    desc = "Этот дьявол вернётся к жизни, если его останки не будут помещены в гроб."
+    law = "Если ваше тело находится в гробу, вы не сможете воскреснуть."
 
 /datum/devil_banish/coffin/check_banishment()
-    return (istype(owner.loc, /obj/structure/closet/coffin))
+    return owner.loc && istype(owner.loc, /obj/structure/closet/coffin)
 
 /datum/devil_banish/formaldehyde
-    name = BANISH_FORMALDYHIDE
+    name = BANISH_FORMALDEHYDE
 
-    desc = "To banish the devil, you must inject its lifeless body with embalming fluid."
-    law = "If your corpse is embalmed, you will be unable to resurrect."
+    desc = "Чтобы изгнать дьявола, вы должны ввести в его безжизненное тело бальзамирующую жидкость."
+    law = "Если ваше тело забальзамировано, вы не сможете воскреснуть."
 
 /datum/devil_banish/formaldehyde/check_banishment()
     return owner.reagents?.has_reagent("formaldehyde")
@@ -53,18 +53,17 @@
 /datum/devil_banish/rune
     name = BANISH_RUNES
 
-    desc = "This devil will resurrect after death, unless its remains are within a rune."
-    law = "If your corpse is placed within a rune, you will be unable to resurrect."
+    desc = "Этот дьявол воскреснет после смерти, если его рядом не будет руны."
+    law = "Если ваше тело находится возле руны, вы не сможете воскреснуть."
 
 /datum/devil_banish/rune/check_banishment()
-	for(var/obj/effect/decal/cleanable/crayon/rune in range(0, owner))
-		return rune.name == "rune"
+	return locate(/obj/effect/decal/cleanable/crayon/rune) in range(1, owner)
 
 /datum/devil_banish/candle
     name = BANISH_CANDLES
 
-    desc = "A large number of nearby lit candles will prevent it from resurrecting."
-    law = "If your corpse is near lit candles, you will be unable to resurrect."
+    desc = "Большое количество зажжённых поблизости свечей помешает дьяволу воскреснуть."
+    law = "Если ваше тело находится рядом с зажжёнными свечами, вы не сможете воскреснуть."
 
 /datum/devil_banish/candle/check_banishment()
 	var/count = 0
@@ -77,8 +76,8 @@
 /datum/devil_banish/funeral
     name = BANISH_FUNERAL_GARB
 
-    desc = "If clad in funeral garments, this devil will be unable to resurrect. Should the clothes not fit, lay them gently on top of the devil's corpse."
-    law = "If your corpse is clad in funeral garments, you will be unable to resurrect."
+    desc = "Если этот дьявол одет в траурные одежды, либо она лежит рядом с ним, то он не сможет воскреснуть."
+    law = "Если ваше тело облачено в траурные одежды, вы не сможете воскреснуть."
 
 /datum/devil_banish/funeral/check_banishment()
 	if(!ishuman(owner)) // can be true devil
@@ -88,5 +87,4 @@
 	if(human.w_uniform && istype(human.w_uniform, /obj/item/clothing/under/burial))
 		return TRUE
 			
-	for(var/obj/item/clothing/under/burial/burial in range(0, human))
-		return burial.loc == get_turf(burial)
+	return locate(/obj/item/clothing/under/burial/burial) in range(1, human)

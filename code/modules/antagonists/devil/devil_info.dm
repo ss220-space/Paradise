@@ -50,49 +50,17 @@
 	return name
 
 /datum/devilinfo/proc/randomdevilobligation()
-	var/list/obligations = list()
-
-	for(var/datum/devil_obligation/obligation as anything in subtypesof(/datum/devil_obligation))
-		if(!obligation.name)
-			continue
-
-		LAZYADD(obligations, obligation)
-
-	var/new_obligation = pick(obligations)
+	var/new_obligation =  pick(subtypesof(/datum/devil_obligation))
 	obligation = new new_obligation()
 
 /datum/devilinfo/proc/randomdevilban()
-	var/list/bans = list()
-
-	for(var/datum/devil_ban/ban as anything in subtypesof(/datum/devil_ban))
-		if(!ban.name)
-			continue
-
-		LAZYADD(bans, ban)
-
-	var/new_ban = pick(bans)
+	var/new_ban = pick(subtypesof(/datum/devil_ban))
 	ban = new new_ban()
 
 /datum/devilinfo/proc/randomdevilbane()
-	var/list/banes = list()
-
-	for(var/datum/devil_bane/bane as anything in subtypesof(/datum/devil_bane))
-		if(!bane.name)
-			continue
-
-		LAZYADD(banes, bane)
-
-	var/new_bane = pick(banes)
+	var/new_bane = pick(subtypesof(/datum/devil_bane))
 	bane = new new_bane()
 
 /datum/devilinfo/proc/randomdevilbanish()
-	var/list/banishes = list()
-
-	for(var/datum/devil_banish/banish as anything in subtypesof(/datum/devil_banish))
-		if(!banish.name)
-			continue
-
-		LAZYADD(banishes, banish)
-
-	var/new_banish = pick(banishes)
+	var/new_banish = pick(subtypesof(/datum/devil_banish))
 	banish = new new_banish()

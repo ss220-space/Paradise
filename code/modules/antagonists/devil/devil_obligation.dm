@@ -44,51 +44,51 @@
 /datum/devil_obligation/food
 	name = OBLIGATION_FOOD
 
-	desc = "This devil seems to always offer its victims food before slaughtering them."
-	law = "When not acting in self defense, you must always offer your victim food before harming them."
+	desc = "Этот дьявол всегда предлагает его жертвам еду, прежде чем убивает их."
+	law = "Пока вы не самообороняетесь, вы должны предлагать вашим жертвам еду, прежде чем вредить им."
 
 	obligation_spells = list(/obj/effect/proc_holder/spell/conjure_item/violin)
 
 /datum/devil_obligation/fiddle
 	name = OBLIGATION_FIDDLE
 
-	desc = "This devil will never turn down a musical challenge."
-	law = "When not in immediate danger, if you are challenged to a musical duel, you must accept it.  You are not obligated to duel the same person twice."
+	desc = "Этот дьявол никогда не откажется от музыкального поединка"
+	law = "Пока вы не находитесь в опасности, при предложении музыкального поединка, то вы обязаны его принять."
 
 /datum/devil_obligation/danceoff
 	name = OBLIGATION_DANCEOFF
 
-	desc = "This devil will never turn down a dance off."
-	law = "When not in immediate danger, if you are challenged to a dance off, you must accept it. You are not obligated to face off with the same person twice."
+	desc = "Этот дьявол никогда не откажется от танцевального поединка."
+	law = "Когда вам ничего не угрожает и вас вызвали на танцевальный поединок, то вы обязаны его принять."
 
 	obligation_spells = list(/obj/effect/proc_holder/spell/summon_dancefloor)
 
 /datum/devil_obligation/greet
 	name = OBLIGATION_GREET
 
-	desc = "This devil seems to only be able to converse with people it knows the name of."
-	law = "You must always greet other people by their last name before talking with them."
+	desc = "Этот дьявол, похоже, может общаться только с теми, чьи имена он знает."
+	law = "Вы должны всегда здороваться с людьми, называя их по фамилии, прежде чем заговорить с ними."
 
 /datum/devil_obligation/presenceknown
 	name = OBLIGATION_PRESENCEKNOWN
 
-	desc = "This devil seems to be unable to attack from stealth."
-	law = "You must always make your presence known before attacking."
+	desc = "Этот дьявол, похоже, не может нападать из-за укрытия."
+	law = "Вы должны всегда заявлять о своем присутствии перед атакой."
 
 /datum/devil_obligation/sayname
 	name = OBLIGATION_SAYNAME
 
-	desc = "He will always chant his name upon killing someone."
-	law = "You must always say your true name after you kill someone."
+	desc = "Он всегда произносит свое имя, убивая кого-либо."
+	law = "Вы должны всегда произносить свое истинное имя после того, как убьете кого-либо."
 
 /datum/devil_obligation/announcekill
 	name = OBLIGATION_ANNOUNCEKILL
 
-	desc = "This devil always loudly announces his kills for the world to hear."
-	law = "Upon killing someone, you must make your deed known to all within earshot, over comms if reasonably possible."
+	desc = "Этот дьявол всегда громко объявляет о своих убийствах, чтобы это услышал весь мир."
+	law = "Убив кого-либо, вы должны известить всех в пределах слышимости о своем поступке, через связь, если это возможно."
 
 /datum/devil_obligation/answertotruename
 	name = OBLIGATION_ANSWERTONAME
 
-	desc = "This devil always responds to his truename."
-	law = "If you are not under attack, you must always respond to your true name."
+	desc = "Этот дьявол всегда отвечает на свое истинное имя."
+	law = "Если на вас не нападают, вы должны всегда откликаться на свое истинное имя."

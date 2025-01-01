@@ -31,7 +31,7 @@
 		return
 
 	LAZYADD(soulsOwned, soul)
-	to_chat(owner.current, span_warning("You feel satiated as you received a new soul."))
+	to_chat(owner.current, span_warning("Вы поглощаете душу и насыщаетесь ею."))
 
 	owner.current.set_nutrition(NUTRITION_LEVEL_FULL)
 	soul.hasSoul = FALSE
@@ -41,7 +41,7 @@
 
 /datum/antagonist/devil/proc/remove_soul(datum/mind/soul)
 	LAZYREMOVE(soulsOwned, soul)
-	to_chat(owner.current, span_warning("You feel as though a soul has slipped from your grasp."))
+	to_chat(owner.current, span_warning("Вы чувствуете, как часть ваших сил угасает"))
 	update_hud()
 
 /datum/antagonist/devil/proc/try_update_rank()
@@ -96,15 +96,15 @@
 
 /datum/antagonist/devil/greet()
 	var/list/messages = list()
-	LAZYADD(messages, span_warning("<b>You remember your link to the infernal.  You are [info.truename], an agent of hell, a devil.  And you were sent to the plane of creation for a reason.  A greater purpose.  Convince the crew to sin, and embroiden Hell's grasp.</b>"))
-	LAZYADD(messages, span_warning("<b>However, your infernal form is not without weaknesses.</b>"))
-	LAZYADD(messages, "You may not use violence to coerce someone into selling their soul.")
-	LAZYADD(messages, "You may not directly and knowingly physically harm a devil, other than yourself.")
+	LAZYADD(messages, span_warning("<b>Вы - [info.truename], агент ада, дьявол.\n\  
+    Вы прибыли сюда, преследуя важную цель.\n\  
+    Склоните экипаж к грехопадению и укрепите влияние ада.</b>"))
+	LAZYADD(messages, "Вы никак не можете навредить другим дьяволам.")
 	LAZYADD(messages, info.bane.law)
 	LAZYADD(messages, info.ban.law)
 	LAZYADD(messages, info.obligation.law)
 	LAZYADD(messages, info.banish.law)
-	LAZYADD(messages, "[span_warning("Remember, the crew can research your weaknesses if they find out your devil name.")]<br>")
+	LAZYADD(messages, "[span_warning("Помните, экипаж может найти ваши слабости, если раскроет ваше истинное имя!")]<br>")
 	return messages
 
 /datum/antagonist/devil/on_gain()
@@ -167,7 +167,7 @@
 	LAZYREMOVE(SSticker.mode.devils, owner)
 
 /datum/antagonist/devil/farewell()
-	to_chat(owner.current, span_userdanger("Your infernal link has been severed! You are no longer a devil!"))
+	to_chat(owner.current, span_userdanger("Ваша связь с адом пропадает. Вы более не дьявол!"))
 
 /datum/antagonist/devil/apply_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -204,18 +204,21 @@
 	REMOVE_TRAIT(owner.current, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/antagonist/devil/proc/printdevilinfo()
-	var/list/parts = list()
-	LAZYADD(parts, "The devil's true name is: [info.truename]")
-	LAZYADD(parts, "The devil's bans were:")
+	var/list/parts
+
+	LAZYADD(parts, "Истинное имя дьявола: [info.truename]")
 	LAZYADD(parts, info.bane.law)
 	LAZYADD(parts, info.ban.law)
 	LAZYADD(parts, info.obligation.law)
 	LAZYADD(parts, info.banish.law)
+
 	return parts.Join("<br>")
 
 /datum/antagonist/devil/roundend_report()
-	var/list/parts = list()
+	var/list/parts
+	
 	LAZYADD(parts, printplayer(owner))
 	LAZYADD(parts, printdevilinfo())
 	LAZYADD(parts, printobjectives(objectives))
+
 	return parts.Join("<br>")

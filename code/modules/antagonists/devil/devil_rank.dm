@@ -112,7 +112,7 @@
 	)
 
 /datum/devil_rank/true_devil/apply_rank()
-	to_chat(devil.owner.current, span_warning("You feel as though your current form is about to shed.  You will soon turn into a true devil."))
+	to_chat(devil.owner.current, span_revenbignotice("Вы чувствуете, как ваше тело меняется."))
 	var/mob/living/carbon/true_devil/true_devil = new /mob/living/carbon/true_devil(get_turf(devil.owner.current))
 
 	devil.owner.current.forceMove(true_devil)

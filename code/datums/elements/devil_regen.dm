@@ -70,7 +70,7 @@
     if(!devil)
         return
 
-    to_chat(human, span_revenbignotice("Hellish powers are resurrecting you."))
+    to_chat(human, span_revenbignotice("Сверхъестественные силы предотвращают вашу смерть."))
     playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
     
     linked_timer = addtimer(CALLBACK(src, PROC_REF(apply_regeneration), human, devil), devil.rank.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE | TIMER_DELETE_ME)
