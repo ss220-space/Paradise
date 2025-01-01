@@ -54,7 +54,7 @@
 	add_fingerprint(user)
 
 	if(storedorgan)
-		to_chat(user, span_warning("В устройстве уже установлен другой киберимплант."))
+		balloon_alert(user, "слот для киберимпланта занят!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!user.drop_transfer_item_to_loc(I, src))
