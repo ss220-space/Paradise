@@ -99,7 +99,7 @@
 		return TRUE
 
 	if(user)
-		user.balloon_alert(user, "закройте крышку переводчика!")
+		balloon_alert(user, "крышка открыта!")
 
 	return FALSE
 
@@ -149,7 +149,7 @@
 
 	else if(istype(I, /obj/item/translator_upgrade))
 		if(stored_upgrade)
-			user.balloon_alert(user, "модуль уже установлен!")
+			balloon_alert(user, "уже установлено!")
 			return FALSE
 
 		return install_upgrade(user, I)
@@ -157,18 +157,18 @@
 
 /obj/item/organ/internal/cyberimp/mouth/translator/proc/install_upgrade(mob/living/carbon/human/user, obj/item/translator_upgrade/upgrade)
 	if(!open)
-		user.balloon_alert(user, "сначала открутите крышку!")
+		balloon_alert(user, "крышка закручена!")
 		return
 
 	if(!LAZYLEN(upgrade_with))
-		user.balloon_alert(user, "устройство нельзя улучшить!")
+		balloon_alert(user, "не подлежит улучшению!")
 		return
 
 	if(!(upgrade.type in upgrade_with))
-		user.balloon_alert(user, "улучшение не подходит!")
+		balloon_alert(user, "несовместимо!")
 		return
 
-	user.balloon_alert(user, "модуль расширения установлен!")
+	balloon_alert(user, "установлено")
 	maximum_slots += upgrade.extra_slots
 	user.drop_transfer_item_to_loc(upgrade, src)
 	stored_upgrade = upgrade
@@ -180,7 +180,7 @@
 		return FALSE
 
 	if(!LAZYLEN(stored_chips))
-		user.balloon_alert(user, "пусто!")
+		balloon_alert(user, "пусто!")
 		return FALSE
 
 	var/obj/item/translator_chip/chip
@@ -225,30 +225,30 @@
 
 	if(!open && !ignore_lid) // Forced installation ignoring the closed lid. Used on after_equip chip installation
 		if(!silent)
-			user.balloon_alert(user, "крышка закрыта!")
+			balloon_alert(user, "крышка закрыта!")
 
 		return FALSE
 
 	if(LAZYLEN(stored_chips) >= maximum_slots)
 		if(!silent)
-			user.balloon_alert(user, "нет места под чип!")
+			balloon_alert(user, "нет места под чип!")
 
 		return FALSE
 
 	if(!chip.stored_language_rus)
 		if(!silent)
-			user.balloon_alert(user, "чип пустой!")
+			balloon_alert(user, "чип пустой!")
 
 		return FALSE
 
 	if(chip.stored_language_rus in given_languages_rus)
 		if(!silent)
-			user.balloon_alert(user, "чип уже установлен!")
+			balloon_alert(user, "уже установлено!")
 
 		return FALSE
 
 	if(!silent)
-		user.balloon_alert(user, "чип установлен")
+		balloon_alert(user, "чип установлен")
 
 	user.drop_transfer_item_to_loc(chip, src)
 	LAZYADD(stored_chips, chip)
@@ -274,7 +274,7 @@
 		return
 
 	open = !open
-	user.balloon_alert(user, "крышка [open ? "откручена" : "закручена"]")
+	balloon_alert(user, "крышка [open ? "откручена" : "закручена"]")
 
 
 /obj/item/organ/internal/cyberimp/mouth/translator/multitool_act(mob/living/user, obj/item/I)
@@ -290,16 +290,16 @@
 
 /obj/item/organ/internal/cyberimp/mouth/translator/proc/uninstall_upgrade(mob/living/carbon/human/user)
 	if(!stored_upgrade)
-		user.balloon_alert(user, "нечего доставать!")
+		balloon_alert(user, "нечего доставать!")
 		return FALSE
 
 	if(LAZYLEN(stored_chips) > DEFAULT_CHIP_SLOTS)
-		user.balloon_alert(user, "сперва достаньте чипы!")
+		balloon_alert(user, "мешают чипы!")
 		return FALSE
 
 	maximum_slots -= stored_upgrade.extra_slots
 	user.put_in_hands(stored_upgrade)
-	user.balloon_alert(user, "улучшение извлечено")
+	balloon_alert(user, "улучшение извлечено")
 	stored_upgrade = null
 
 
@@ -383,11 +383,11 @@
 		Remove(owner)
 
 	if(!translator.active)
-		owner.balloon_alert(owner, "дешифратор не работает!")
+		balloon_alert(owner, "дешифратор не работает!")
 		return FALSE
 
 	translator.can_wingdings = !translator.can_wingdings
-	owner.balloon_alert(owner, "дешифратор [translator.can_wingdings ? "включен" : "выключен"]")
+	balloon_alert(owner, "дешифратор [translator.can_wingdings ? "включён" : "выключен"]")
 	update_button_state()
 
 	return TRUE
