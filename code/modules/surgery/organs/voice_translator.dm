@@ -383,11 +383,11 @@
 		Remove(owner)
 
 	if(!translator.active)
-		balloon_alert(owner, "дешифратор не работает!")
+		owner.balloon_alert(owner, "дешифратор не работает!")
 		return FALSE
 
 	translator.can_wingdings = !translator.can_wingdings
-	balloon_alert(owner, "дешифратор [translator.can_wingdings ? "включён" : "выключен"]")
+	owner.balloon_alert(owner, "дешифратор [translator.can_wingdings ? "включён" : "выключен"]")
 	update_button_state()
 
 	return TRUE
