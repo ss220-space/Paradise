@@ -1,8 +1,6 @@
 /datum/devil_rank
 	/// Antagonist datum of our owner
 	var/datum/antagonist/devil/devil
-	/// Rank owner
-	var/mob/living/carbon/owner
 	/// Which spells we'll give to rank owner when rank is applied
 	var/list/rank_spells
 	/// Regeneration things for devil. Used in devil elements
@@ -17,33 +15,31 @@
 	remove_spells()
 
 	devil = null
-	owner = null
 
 	return ..()
 
 /datum/devil_rank/proc/link_rank(mob/living/carbon/carbon)
-	owner = carbon
 	devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
 
 /datum/devil_rank/proc/remove_spells()
-	if(!owner.mind)
+	if(!devil.owner)
 		return
 
-	for(var/obj/effect/proc_holder/spell/spell as anything in owner.mind.spell_list)
+	for(var/obj/effect/proc_holder/spell/spell as anything in devil.owner.spell_list)
 		if(!is_type_in_list(spell, rank_spells))
 			continue
 
-		owner.mind.RemoveSpell(spell)
+		devil.owner.RemoveSpell(spell)
 
 /datum/devil_rank/proc/apply_rank(mob/living/carbon/carbon)
 	return
 
 /datum/devil_rank/proc/give_spells()
-	if(!owner.mind)
+	if(!devil.owner)
 		return
 
 	for(var/obj/effect/proc_holder/spell/spell as anything in rank_spells)
-		owner.mind.AddSpell(new spell)
+		devil.owner.AddSpell(new spell)
 
 /datum/devil_rank/basic_devil
 	regen_threshold = BASIC_DEVIL_REGEN_THRESHOLD
@@ -86,11 +82,7 @@
 	)
 
 /datum/devil_rank/blood_lizard/apply_rank()
-	if(!ishuman(owner))
-		owner.color = "#501010"
-		return
-
-	var/mob/living/carbon/human/human = owner
+	var/mob/living/carbon/human/human = devil.owner.current
 	var/list/language_temp = LAZYLEN(human.languages) ? human.languages.Copy() : null
 
 	human.set_species(/datum/species/unathi)
@@ -110,7 +102,6 @@
 	regen_amount = TRUE_DEVIL_REGEN_AMOUNT
 
 	rank_spells = list(
-		/obj/effect/proc_holder/spell/sacrifice_circle,
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork/greater,
 		/obj/effect/proc_holder/spell/fireball/hellish,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
@@ -121,12 +112,12 @@
 	)
 
 /datum/devil_rank/true_devil/apply_rank()
-	to_chat(owner, span_warning("You feel as though your current form is about to shed.  You will soon turn into a true devil."))
-	var/mob/living/carbon/true_devil/A = new /mob/living/carbon/true_devil(owner.loc)
+	to_chat(devil.owner.current, span_warning("You feel as though your current form is about to shed.  You will soon turn into a true devil."))
+	var/mob/living/carbon/true_devil/true_devil = new /mob/living/carbon/true_devil(get_turf(devil.owner.current))
 
-	owner.forceMove(A)
-	A.oldform = owner
-	owner.mind?.transfer_to(A)
-	A.set_name()
+	devil.owner.current.forceMove(true_devil)
+	true_devil.oldform = devil.owner.current
+	devil.owner.transfer_to(true_devil)
+	true_devil.set_name()
 
 	return
