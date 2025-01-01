@@ -59180,9 +59180,6 @@
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "iGe" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
