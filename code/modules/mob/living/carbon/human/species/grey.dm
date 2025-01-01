@@ -129,7 +129,7 @@
 
 	var/obj/item/translator_chip/wingdings/chip = new
 	if(retranslator.install_chip(H, chip, ignore_lid = TRUE))
-		to_chat(H, span_notice("В связи с Ваш[translator_pref ? "им недугом" : "ей ответственной работой"], у Вас уже есть установленный чип Вингдингс."))
+		to_chat(H, span_notice("В связи с ваш[translator_pref ? "им недугом" : "ей ответственной работой"], у вас уже есть установленный чип Вингдингс."))
 
 	handle_loadout_chip(H, retranslator)
 
