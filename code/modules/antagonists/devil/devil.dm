@@ -81,7 +81,7 @@
 
 	if(!living.hud_used?.devilsouldisplay)
 		living.hud_used.devilsouldisplay = new /atom/movable/screen/devil/soul_counter(null, living.hud_used)
-		living.hud_used.infodisplay += devilsouldisplay
+		living.hud_used.infodisplay += living.hud_used.devilsouldisplay
 
 	living.hud_used?.devilsouldisplay.update_counter(LAZYLEN(soulsOwned))
 
@@ -91,7 +91,7 @@
 	if(!living.hud_used?.devilsouldisplay)
 		return
 
-	living.hud_used.infodisplay -= devilsouldisplay
+	living.hud_used.infodisplay -= living.hud_used.devilsouldisplay
 	qdel(living.hud_used.devilsouldisplay)
 
 /datum/antagonist/devil/greet()
