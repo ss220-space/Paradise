@@ -605,7 +605,7 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/proc/manage_z_level(datum/space_level/new_z, filled_with_space, contain_turfs = TRUE)
 	// Build our lookup lists
 	var/z_value = new_z.zpos
-	log_debug(z_value)
+	log_debug("Managed z-level named ([new_z.name]) #[z_value] with flags [list2params(new_z.flags)]")
 	/// multiz_levels list update
 	generate_linkages_for_z_level(z_value)
 	// We are guarenteed that we'll always grow bottom up

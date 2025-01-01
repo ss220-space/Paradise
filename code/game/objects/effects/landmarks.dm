@@ -471,10 +471,6 @@
 	name = JOB_TITLE_LIBRARIAN
 	icon_state = "Librarian"
 
-/obj/effect/landmark/start/barber
-	name = JOB_TITLE_BARBER
-	icon_state = "Barber"
-
 /obj/effect/landmark/start/chaplain
 	name = JOB_TITLE_CHAPLAIN
 	icon_state = "Chap"

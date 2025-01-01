@@ -150,7 +150,7 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/toy/crayon/white
-	r_pocket = /obj/item/lighter/zippo
+	r_pocket = /obj/item/lighter/zippo/detective
 	pda = /obj/item/pda/detective
 	l_hand = /obj/item/storage/briefcase/crimekit
 	backpack_contents = list(

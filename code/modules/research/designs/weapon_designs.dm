@@ -321,7 +321,7 @@
 	req_tech = list("programming" = 5, "syndicate" = 2, "materials" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
-	build_path = /obj/item/aiModule/antimov
+	build_path = /obj/item/ai_module/antimov
 	locked = TRUE
 	category = list("ILLEGAL")
 
@@ -332,7 +332,7 @@
 	req_tech = list("programming" = 5, "syndicate" = 2, "materials" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
-	build_path = /obj/item/aiModule/tyrant
+	build_path = /obj/item/ai_module/tyrant
 	locked = TRUE
 	category = list("ILLEGAL")
 
@@ -491,14 +491,14 @@
 	locked = TRUE
 	category = list("ILLEGAL")
 
-/datum/design/aiModule_syndicate
+/datum/design/ai_module_syndicate
 	name = "Hacked AI Module"
 	desc = "A hacked AI law module"
 	id = "syndiaimodule"
 	req_tech = list("syndicate" = 6, "programming" = 5, "materials" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
-	build_path = /obj/item/aiModule/syndicate
+	build_path = /obj/item/ai_module/syndicate
 	locked = TRUE
 	category = list("ILLEGAL")
 

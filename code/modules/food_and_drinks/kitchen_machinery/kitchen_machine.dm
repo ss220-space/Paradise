@@ -147,6 +147,11 @@
 	to_chat(user, span_warning("You have no idea how to cook with [I]."))
 	return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 
+/obj/machinery/kitchen_machine/examine(mob/user)
+	. = ..()
+	if(in_range(src, user))
+		. += "<span class='info'>Alt-click to activate it.<br/>Ctrl-Shift-click to dispose content.</span>"
+
 /obj/machinery/kitchen_machine/AltClick(mob/living/carbon/human/human)
 	if(!istype(human) || !human.Adjacent(src))
 		return

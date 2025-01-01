@@ -272,6 +272,8 @@
 	var/datum/language/species_language = GLOB.all_languages[language]
 	return species_language.get_random_name(gender)
 
+/datum/species/proc/is_allowed_hair_style(mob/living/carbon/human/human, datum/robolimb/robohead, datum/sprite_accessory/style)
+	return TRUE
 
 /proc/get_age_limits(datum/species/species, list/tags)
 	if(!islist(tags))

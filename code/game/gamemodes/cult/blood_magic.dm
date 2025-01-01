@@ -99,10 +99,12 @@
 /datum/action/innate/cult/blood_spell/Grant(mob/living/owner, datum/action/innate/cult/blood_magic/BM)
 	if(health_cost)
 		desc += "<br>Deals <u>[health_cost] damage</u> to your arm per use."
+
 	base_desc = desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
 	all_magic = BM
 	button.ordered = FALSE
+	
 	..()
 
 /datum/action/innate/cult/blood_spell/override_location()
@@ -723,7 +725,7 @@
 					if(H.blood_volume < BLOOD_VOLUME_SAFE)
 						var/restore_blood = BLOOD_VOLUME_SAFE - H.blood_volume
 						if(uses * 2 < restore_blood)
-							H.blood_volume += uses * 2
+							H.AdjustBlood(uses * 2)
 							to_chat(user, "<span class='danger'>You use the last of your charges to restore what blood you could, and the spell dissipates!</span>")
 							uses = 0
 							return ..()
