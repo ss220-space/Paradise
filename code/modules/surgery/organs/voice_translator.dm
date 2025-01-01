@@ -329,7 +329,7 @@
 /obj/item/organ/internal/cyberimp/mouth/translator/proc/turn_languages_off()
 	active = FALSE
 	can_wingdings = FALSE
-	to_chat(owner, span_warning("[capitalize(declent_ru(NOMINATIVE))] временно вышел из строя от воздействия ЭМИ!"))
+	to_chat(owner, span_warning("[capitalize(declent_ru(NOMINATIVE))] временно вышел из строя из-за воздействия ЭМИ!"))
 	do_sparks(3, FALSE, owner)
 	for(var/datum/language/lang as anything in given_languages)
 		owner.remove_language(lang.name)
