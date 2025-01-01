@@ -52,7 +52,7 @@
     obj/item/organ/external/external,
     datum/antagonist/devil/devil
     )
-    external = new external.parent_organ_zone(human)
+    external = new external(human)
     human.heal_overall_damage(devil.rank.regen_amount, devil.rank.regen_amount)
 
     playsound(get_turf(human), pick(sounds), 50, 0, TRUE)
