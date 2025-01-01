@@ -618,6 +618,16 @@
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
 
+/// Source: /mob/living/AdjustBlood(amount)
+#define COMSIG_LIVING_BLOOD_ADJUST 		"living_blood_adjust"
+	#define COMPONENT_PREVENT_BLOODLOSS	(1<<0)
+/// Source: /mob/living/AdjustBlood(amount)
+#define COMSIG_LIVING_BLOOD_ADJUSTED 	"living_blood_adjusted"
+/// Source: /mob/living/setBlood(amount)
+#define COMSIG_LIVING_EARLY_SET_BLOOD	"living_early_set_blood"
+/// Source: /mob/living/setBlood(amount)
+#define COMSIG_LIVING_SET_BLOOD			"living_set_blood"
+
 /// From /mob/add_language() (language_name)
 #define COMSIG_MOB_LANGUAGE_ADD		"mob_language_add"
 /// From /mob/remove_language() (language_name)

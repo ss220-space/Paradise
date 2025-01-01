@@ -316,13 +316,15 @@
 	uses = -1
 
 /obj/item/organ/internal/heart/gland/bloody/activate()
-	owner.blood_volume = max(owner.blood_volume - 20, 0)
-	owner.visible_message("<span class='danger'>[owner]'s skin erupts with blood!</span>",\
-	"<span class='userdanger'>Blood pours from your skin!</span>")
+	owner.AdjustBlood(-20)
 
-	for(var/turf/T in oview(3,owner)) //Make this respect walls and such
+	owner.visible_message(span_danger("Из кожи [owner] льётся кровь!"), \
+	span_userdanger("Из вашей кожи хлещет кровь!"))
+
+	for(var/turf/T in oview(3, owner)) // Make this respect walls and such
 		owner.add_splatter_floor(T)
-	for(var/mob/living/carbon/human/H in oview(3,owner)) //Blood decals for simple animals would be neat. aka Carp with blood on it.
+
+	for(var/mob/living/carbon/human/H in oview(3, owner)) // Blood decals for simple animals would be neat. aka Carp with blood on it.
 		H.add_mob_blood(owner)
 
 

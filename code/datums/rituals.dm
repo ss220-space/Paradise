@@ -469,7 +469,7 @@
 
 /datum/ritual/ashwalker/summon/proc/deal_damage()
 	for(var/mob/living/carbon/human/summoner in range(finding_range, ritual_object))
-		summoner.blood_volume -= (summoner.blood_volume * 0.20)
+		summoner.AdjustBlood(-(summoner.blood_volume * 0.20))
 		summoner.apply_damage(25, def_zone = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 	return TRUE
