@@ -53,13 +53,13 @@
 
     var/mob/living/carbon/human/human = locate() in used_things
 
-    if(!human.mind?.hasSoul)
+    if(!human.mind || !human.mind.hasSoul)
         ritual_object.balloon_alert("цель без души!")
         return FALSE
 
-    var/datum/objective/devil/sacrifice/sacrifice = locate() in invoker.mind?.objectives
+    var/datum/objective/devil/sacrifice/sacrifice = locate() in invoker.mind?.get_all_objectives()
 
-    if(!LAZYIN(sacrifice?.target_minds, human.mind))
+    if(sacrifice && !LAZYIN(sacrifice.target_minds, human.mind))
         ritual_object.balloon_alert("не имеет ценности!")
         return FALSE
 
@@ -74,6 +74,9 @@
 	var/mob/living/carbon/human/human = locate() in used_things
 	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
     
-	devil?.add_soul(human.mind)
+	if(!devil || !human || !human.mind)
+		return RITUAL_FAILED_ON_PROCEED
+
+	devil.add_soul(human.mind)
 
 	return RITUAL_SUCCESSFUL
