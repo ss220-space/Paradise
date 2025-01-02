@@ -624,7 +624,7 @@
 		if(!istype(D, /obj/item/pickaxe/drill/cyborg/diamond))
 			qdel(D)
 			modules -= D // Remove it from this list so it doesn't get added in the rebuild.
-			
+
 	modules += new /obj/item/pickaxe/drill/cyborg/diamond(src)
 	rebuild()
 
@@ -1076,7 +1076,7 @@
 	modules += new /obj/item/handheld_defibrillator(src)
 	modules += new /obj/item/twohanded/shockpaddles/borg(src)
 	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
-	modules += new /obj/item/gripper(src)
+	modules += new /obj/item/gripper/universal(src)
 	modules += new /obj/item/flash/cyborg(src)
 	modules += new /obj/item/scalpel/laser/laser1(src)
 	modules += new /obj/item/hemostat(src)
@@ -1144,7 +1144,7 @@
 			return TRUE
 
 		return TRUE
-		
+
 	else
 		return FALSE
 
