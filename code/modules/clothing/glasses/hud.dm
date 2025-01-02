@@ -523,5 +523,5 @@ SKILLS
 		else
 			HUDType = DATA_HUD_SECURITY_ADVANCED
 			examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
-    balloon_alert(user, "режим переключён")
+	balloon_alert(user, "режим переключён")
 	return
