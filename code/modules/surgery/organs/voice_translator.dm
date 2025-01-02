@@ -446,7 +446,7 @@
 		ACCUSATIVE = "языковой чип",
 		INSTRUMENTAL = "языковым чипом",
 		PREPOSITIONAL = "языковом чипе",
-		)
+	)
 	icon = 'icons/obj/voice_translator.dmi'
 	icon_state = "chip_empty"
 	w_class = WEIGHT_CLASS_TINY
