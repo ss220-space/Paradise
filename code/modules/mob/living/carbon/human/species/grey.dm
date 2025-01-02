@@ -88,7 +88,7 @@
 
 		if(H.has_pain())
 			H.emote("scream")
-			to_chat(H, span_danger("[water_damage > 30 ? "Вы чувствуете ужасающую боль по всему телу!" : "Вода жжёт вас!"]"))
+			to_chat(H, span_danger("[water_damage > 30 ? "Вы чувствуете ужасающую боль после контакта с водой!" : "Вода жжёт вас!"]"))
 
 		if(volume > 24)
 			var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
