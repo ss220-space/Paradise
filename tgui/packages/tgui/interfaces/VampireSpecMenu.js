@@ -1,51 +1,21 @@
 import { useBackend } from '../backend';
-import { Button, Section, Stack, Divider, Tabs } from '../components';
+import { Button, Section, Stack, Divider } from '../components';
 import { Window } from '../layouts';
 
 export const VampireSpecMenu = (props, context) => {
-  const { act, data } = useBackend(context);
-  const { activeTab } = data;
-
   return (
     <Window width={1500} height={820} theme="nologo">
       <Window.Content>
-        <Stack vertical fill>
-          <Stack.Item>
-            <Tabs>
-              <Tabs.Tab
-                selected={activeTab === 'hemomancer'}
-                onClick={() => act('set_tab', { tab: 'hemomancer' })}>
-                Hemomancer
-              </Tabs.Tab>
-              <Tabs.Tab
-                selected={activeTab === 'umbrae'}
-                onClick={() => act('set_tab', { tab: 'umbrae' })}>
-                Umbrae
-              </Tabs.Tab>
-              <Tabs.Tab
-                selected={activeTab === 'gargantua'}
-                onClick={() => act('set_tab', { tab: 'gargantua' })}>
-                Gargantua
-              </Tabs.Tab>
-              <Tabs.Tab
-                selected={activeTab === 'dantalion'}
-                onClick={() => act('set_tab', { tab: 'dantalion' })}>
-                Dantalion
-              </Tabs.Tab>
-              <Tabs.Tab
-                selected={activeTab === 'bestia'}
-                onClick={() => act('set_tab', { tab: 'bestia' })}>
-                Bestia
-              </Tabs.Tab>
-            </Tabs>
-          </Stack.Item>
-          <Stack.Item grow>
-            {activeTab === 'hemomancer' && <HemoMenu />}
-            {activeTab === 'umbrae' && <UmbrMenu />}
-            {activeTab === 'gargantua' && <GarMenu />}
-            {activeTab === 'dantalion' && <DantMenu />}
-            {activeTab === 'bestia' && <BestMenu />}
-          </Stack.Item>
+        <Stack fill>
+          <HemoMenu />
+          <Divider vertical={1} />
+          <UmbrMenu />
+          <Divider vertical={1} />
+          <GarMenu />
+          <Divider vertical={1} />
+          <DantMenu />
+          <Divider vertical={1} />
+          <BestMenu />
         </Stack>
       </Window.Content>
     </Window>
@@ -56,6 +26,7 @@ const HemoMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
+    <Stack.Item grow basis="20%">
       <Section title="Hemomancer">
         <h3>
           Focuses on blood magic and the manipulation of blood around you.
@@ -97,6 +68,7 @@ const HemoMenu = (props, context) => {
         </p>
         <Button content="Hemomancer" onClick={() => act('hemomancer')} />
       </Section>
+    </Stack.Item>
   );
 };
 
@@ -104,6 +76,7 @@ const UmbrMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
+    <Stack.Item grow basis="20%">
       <Section title="Umbrae">
         <h3>Focuses on darkness, stealth ambushing and mobility.</h3>
         <p>
@@ -143,6 +116,7 @@ const UmbrMenu = (props, context) => {
         <p>In addition, you also gain permament X-ray vision.</p>
         <Button content="Umbrae" onClick={() => act('umbrae')} />
       </Section>
+    </Stack.Item>
   );
 };
 
@@ -150,6 +124,7 @@ const GarMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
+    <Stack.Item grow basis="20%">
       <Section title="Gargantua">
         <h3>Focuses on tenacity and melee damage.</h3>
         <p>
@@ -191,6 +166,7 @@ const GarMenu = (props, context) => {
         </p>
         <Button content="Gargantua" onClick={() => act('gargantua')} />
       </Section>
+    </Stack.Item>
   );
 };
 
@@ -198,6 +174,7 @@ const DantMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
+    <Stack.Item grow basis="20%">
       <Section title="Dantalion">
         <h3>Focuses on thralling and illusions.</h3>
         <p>
@@ -244,6 +221,7 @@ const DantMenu = (props, context) => {
         </p>
         <Button content="Dantalion" onClick={() => act('dantalion')} />
       </Section>
+    </Stack.Item>
   );
 };
 
@@ -251,6 +229,7 @@ const BestMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
+    <Stack.Item grow basis="20%">
       <Section title="Bestia">
         <h3>Focuses on transformations and trophies harvesting.</h3>
         <p>
@@ -301,5 +280,6 @@ const BestMenu = (props, context) => {
         </p>
         <Button content="Bestia" onClick={() => act('bestia')} />
       </Section>
+    </Stack.Item>
   );
 };
