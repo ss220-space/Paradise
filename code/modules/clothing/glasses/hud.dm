@@ -493,6 +493,14 @@ SKILLS
 /obj/item/clothing/glasses/hud/blueshield
 	name = "multi-mode HUD glasses"
 	desc = "Солнечные очки с многорежимным проекционным дисплеем."
+	ru_names = list(
+		NOMINATIVE = "много-режимные HUD-очки",
+		GENITIVE = "много-режимных HUD-очков",
+		DATIVE = "много-режимным HUD-очкам",
+		ACCUSATIVE = "много-режимные HUD-очки",
+		INSTRUMENTAL = "много-режимными HUD-очками",
+		PREPOSITIONAL = "много-режимных HUD-очках"
+	)
 	actions_types = list(/datum/action/item_action/switch_hud)
 	icon_state = "sunhudmed"
 	origin_tech = "magnets=4;combat=4;engineering=4;biotech=4"
