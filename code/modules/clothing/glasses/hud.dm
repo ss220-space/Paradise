@@ -491,7 +491,7 @@ SKILLS
 	toggle_veil(user)
 
 /obj/item/clothing/glasses/hud/blueshield
-	name = "blueshield HUD glasses"
+	name = "multi-mode HUD glasses"
 	desc = "Солнечные очки с многорежимным проекционным дисплеем."
 	actions_types = list(/datum/action/item_action/switch_hud)
 	icon_state = "sunhudmed"
