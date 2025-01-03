@@ -2,12 +2,15 @@ GLOBAL_LIST_INIT(VVlocked, list("vars", "var_edited", "client", "firemut", "ishu
 GLOBAL_LIST_INIT(VVicon_edit_lock, list("icon", "icon_state", "overlays", "underlays", "resize")) // R_EVENT | R_DEBUG
 GLOBAL_LIST_INIT(VVckey_edit, list("key", "ckey")) // R_EVENT | R_DEBUG
 GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_height", "bound_width", "bound_x", "bound_y")) // R_DEBUG + warning
-/client/proc/vv_get_class(var/var_value)
+/client/proc/vv_get_class(var_name, var_value)
 	if(isnull(var_value))
 		. = VV_NULL
 
 	else if(isnum(var_value))
-		. = VV_NUM
+		if(var_name in GLOB.bitfields)
+			. = VV_BITFIELD
+		else
+			. = VV_NUM
 
 	else if(istext(var_value))
 		if(findtext(var_value, "\n"))
@@ -51,7 +54,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	else
 		. = VV_NULL
 
-/client/proc/vv_get_value(class, default_class, current_value, list/restricted_classes, list/extra_classes, list/classes)
+/client/proc/vv_get_value(class, default_class, current_value, list/restricted_classes, list/extra_classes, list/classes, var_name)
 	. = list("class" = class, "value" = null)
 	if(!class)
 		if(!classes)
@@ -86,30 +89,35 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 		if(extra_classes)
 			classes += extra_classes
 
-		.["class"] = input(src, "What kind of data?", "Variable Type", default_class) as null|anything in classes
+		.["class"] = tgui_input_list(src, "Какой тип данных?", "Тип переменной", classes, default_class)
 		if(holder && holder.marked_datum && .["class"] == "[VV_MARKED_DATUM] ([holder.marked_datum.type])")
 			.["class"] = VV_MARKED_DATUM
 
 
 	switch(.["class"])
 		if(VV_TEXT)
-			.["value"] = input("Enter new text:", "Text", current_value) as null|text
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 		if(VV_MESSAGE)
-			.["value"] = input("Enter new text:", "Text", current_value) as null|message
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, multiline = TRUE)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 
 		if(VV_NUM)
-			.["value"] = input("Enter new number:", "Num", current_value) as null|num
+			.["value"] = tgui_input_number(src, "Введите число:", "Число", current_value)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
+		if(VV_BITFIELD)
+			.["value"] = input_bitfield(usr, var_name, current_value)
+			if(.["value"] == null)
+				.["class"] = null
+				return
 
 		if(VV_ATOM_TYPE)
 			.["value"] = pick_closest_path(FALSE)
@@ -127,11 +135,11 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			var/type = current_value
 			var/error = ""
 			do
-				type = input("Enter type:[error]", "Type", type) as null|text
+				type = tgui_input_text(src, "Введите тип:[error]", "Тип", type)
 				if(!type)
 					break
 				type = text2path(type)
-				error = "\nType not found, Please try again"
+				error = "\nТип не найден, Попробуйте снова"
 			while(!type)
 			if(!type)
 				.["class"] = null
@@ -139,13 +147,13 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			.["value"] = type
 
 		if(VV_MATRIX)
-			.["value"] = text2matrix(input("Enter a, b, c, d, e, and f, seperated by a space.", "Matrix", "1 0 0 0 1 0") as null|text)
+			.["value"] = text2matrix(tgui_input_text(src, "Введите a, b, c, d, e, и f, разделённые пробелами.", "Матрица", "1 0 0 0 1 0"))
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 		if(VV_REGEX)
-			var/reg = input("Enter regex", "Regex", "") as null|text
+			var/reg = tgui_input_text(src, "Введите regex", "Regex", "")
 			if(!reg)
 				return
 			.["value"] = regex(reg)
@@ -160,7 +168,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				.["class"] = null
 				return
 			var/list/things = vv_reference_list(type, subtypes)
-			var/value = input("Select reference:", "Reference", current_value) as null|anything in things
+			var/value = tgui_input_list(src, "Выберите ссылку:", "Ссылка", things, current_value)
 			if(!value)
 				.["class"] = null
 				return
@@ -173,7 +181,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				.["class"] = null
 				return
 			var/list/things = vv_reference_list(type, subtypes)
-			var/value = input("Select reference:", "Reference", current_value) as null|anything in things
+			var/value = tgui_input_list(src, "Выберите ссылку:", "Ссылка", things, current_value)
 			if(!value)
 				.["class"] = null
 				return
@@ -186,7 +194,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				.["class"] = null
 				return
 			var/list/things = vv_reference_list(type, subtypes)
-			var/value = input("Select reference:", "Reference", current_value) as null|anything in things
+			var/value = tgui_input_list(src, "Выберите ссылку:", "Ссылка", things, current_value)
 			if(!value)
 				.["class"] = null
 				return
@@ -195,21 +203,21 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 
 		if(VV_CLIENT)
-			.["value"] = input("Select reference:", "Reference", current_value) as null|anything in GLOB.clients
+			.["value"] =  tgui_input_list(src, "Выберите клитент:", "Клиент", GLOB.clients, current_value)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 
 		if(VV_FILE)
-			.["value"] = input("Pick file:", "File") as null|file
+			.["value"] = input(src, "Выберите файл:", "Файл") as null|file
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 
 		if(VV_ICON)
-			.["value"] = input("Pick icon:", "Icon") as null|icon
+			.["value"] = input(src, "Выберите иконку:", "Иконка") as null|icon
 			if(.["value"] == null)
 				.["class"] = null
 				return
@@ -241,11 +249,11 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			var/type = current_value
 			var/error = ""
 			do
-				type = input("Enter type:[error]", "Type", type) as null|text
+				type = tgui_input_text(src, "Введите тип:[error]", "Тип", type)
 				if(!type)
 					break
 				type = text2path(type)
-				error = "\nType not found, Please try again"
+				error = "\nТип не найден, Попробуйте снова"
 			while(!type)
 			if(!type)
 				.["class"] = null
@@ -441,7 +449,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	else
 		variable = L[index]
 
-	default = vv_get_class(variable)
+	default = vv_get_class(objectvar, variable)
 
 	to_chat(src, "Variable appears to be <b>[uppertext(default)]</b>.")
 
@@ -567,14 +575,14 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 	var_value = O.vars[variable]
 
-	var/default = vv_get_class(var_value)
+	var/default = vv_get_class(variable, var_value)
 
 	if(isnull(default))
 		to_chat(src, "Unable to determine variable type.")
 	else
 		to_chat(src, "Variable appears to be <b>[uppertext(default)]</b>.")
 
-	to_chat(src, "Variable contains: [var_value]")
+	to_chat(src, "Variable contains: [translate_bitfield(default, variable, var_value)]")
 
 	if(default == VV_NUM)
 		var/dir_text = ""
@@ -596,7 +604,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			default = VV_MESSAGE
 		class = default
 
-	var/list/value = vv_get_value(class, default, var_value, extra_classes = list(VV_LIST))
+	var/list/value = vv_get_value(class, default, var_value, extra_classes = list(VV_LIST), var_name = variable)
 	class = value["class"]
 
 	if(!class)
@@ -630,5 +638,5 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_VAR_EDIT, args)
 	log_world("### VarEdit by [src]: [O.type] [variable]=[html_encode("[var_new]")]")
 	log_admin("[key_name(src)] modified [original_name]'s [variable] to [var_new]")
-	var/msg = "[key_name_admin(src)] modified [original_name]'s [variable] to [var_new]"
+	var/msg = "[key_name_admin(src)] modified [original_name]'s [variable] to [html_encode(translate_bitfield(default, variable, var_new))] (Type: [class])"
 	message_admins(msg)
