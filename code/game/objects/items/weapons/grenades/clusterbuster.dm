@@ -9,6 +9,7 @@
 	var/payload = /obj/item/grenade/flashbang/cluster
 
 /obj/item/grenade/clusterbuster/prime()
+	. = ..()
 	update_mob()
 	var/numspawned = rand(4,8)
 	var/again = 0

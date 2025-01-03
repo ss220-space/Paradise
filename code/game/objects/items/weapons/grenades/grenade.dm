@@ -71,6 +71,7 @@
 
 
 /obj/item/grenade/proc/prime(mob/user)
+	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, user)
 	return
 
 

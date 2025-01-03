@@ -178,6 +178,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// This trait makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
 #define TRAIT_NODROP "nodrop"
 
+#define TRAIT_SHRAPNEL "shrapnel"
+
 
 ///Movement type traits for movables. See elements/movetype_handler.dm
 #define TRAIT_MOVE_GROUND "move_ground"

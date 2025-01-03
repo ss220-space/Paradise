@@ -1,11 +1,3 @@
-// Падежи русского языка
-#define NOMINATIVE 1 // Именительный: кто это? Клоун и ассистуха
-#define GENITIVE 2 // Родительный: откусить кусок от кого? От клоуна и ассистухи
-#define DATIVE 3 // Дательный: дать полный доступ кому? Клоуну и ассистухе
-#define ACCUSATIVE 4 // Винительный: обвинить кого? Клоуна и ассистуху
-#define INSTRUMENTAL 5 // Творительный: возить по полу кем? Клоуном и ассистухой
-#define PREPOSITIONAL 6 // Предложный: прохладная история о ком? О клоуне и об ассистухе
-
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
@@ -337,6 +329,12 @@
 /// Convenience proc to see if a container is open for chemistry handling
 /atom/proc/is_open_container()
 	return is_refillable() && is_drainable()
+
+/atom/proc/setOpened()
+	return
+
+/atom/proc/setClosed()
+	return
 
 /// Is this atom injectable into other atoms
 /atom/proc/is_injectable(mob/user, allowmobs = TRUE)

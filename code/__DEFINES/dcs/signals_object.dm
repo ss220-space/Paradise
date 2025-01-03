@@ -20,3 +20,13 @@
 #define COMSIG_SPEED_POTION_APPLIED "speed_potion"
 	#define SPEED_POTION_STOP (1<<0)
 
+
+///sent to targets during the process_hit proc of projectiles
+#define COMSIG_FIRE_CASING "fire_casing"
+
+///called in /obj/item/grenade/proc/prime(): (user)
+#define COMSIG_GRENADE_DETONATE "grenade_prime"
+
+///from [/obj/structure/closet/supplypod/proc/preOpen]:
+#define COMSIG_SUPPLYPOD_LANDED "supplypodgoboom"
+

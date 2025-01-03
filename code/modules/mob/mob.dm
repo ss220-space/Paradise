@@ -1000,6 +1000,17 @@
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
+///Update the mouse pointer of the attached client in this mob
+/mob/proc/update_mouse_pointer()
+	if(!client)
+		return
+
+	if(client.mouse_pointer_icon != initial(client.mouse_pointer_icon))//only send changes to the client if theyre needed
+		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
+
+	if(client.mouse_override_icon)
+		client.mouse_pointer_icon = client.mouse_override_icon
+
 /mob/proc/set_vision_override(datum/vision_override/O)
 	QDEL_NULL(vision_type)
 	if(O) //in case of null

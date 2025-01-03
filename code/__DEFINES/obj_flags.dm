@@ -73,3 +73,6 @@
 /// Checks for finger coverage, prevents damage from nettles
 #define FINGERS_COVERED (1<<6)
 
+/// Flags for the pod_flags var on /obj/structure/closet/supplypod
+#define FIRST_SOUNDS (1<<0) // If it shouldn't play sounds the first time it lands, used for reverse mode
+
