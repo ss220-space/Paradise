@@ -31,6 +31,7 @@ type Option = {
 export const REVERSE_OPTIONS: Option[] = [
   {
     title: 'Мобы',
+    key: 'Mobs',
     icon: 'user',
   },
   {

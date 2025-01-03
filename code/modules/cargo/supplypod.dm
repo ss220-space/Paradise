@@ -58,7 +58,7 @@
 	var/effectShrapnel = FALSE
 	var/shrapnel_type = /obj/item/projectile/shrapnel
 	var/shrapnel_magnitude = 3
-	var/list/reverse_option_list = list("Mobs"=FALSE,"Objects"=FALSE, "Anchored"=FALSE, "Mecha"=FALSE)
+	var/list/reverse_option_list = list(MOB_OPTION=FALSE, UNANCHORED_OPTION=FALSE, ANCHORED_OPTION=FALSE, MECHA_OPTION=FALSE)
 
 /obj/structure/closet/supplypod/bluespacepod
 	style = /datum/pod_style/advanced
@@ -90,7 +90,7 @@
 	reversing = TRUE
 	stay_after_drop = TRUE
 	leavingSound = 'sound/effects/podwoosh.ogg'
-	reverse_option_list = list("Mobs"=TRUE,"Objects"=FALSE,"Anchored"=FALSE, "Mecha"=FALSE)
+	reverse_option_list = list(MOB_OPTION=TRUE, UNANCHORED_OPTION=FALSE, ANCHORED_OPTION=FALSE, MECHA_OPTION=FALSE)
 	ru_names = list(
 		NOMINATIVE = "капсула эвакуации Синдиката",
 		GENITIVE = "капсулы эвакуации Синдиката",
@@ -114,10 +114,10 @@
 	effectStealth = TRUE
 	reversing = TRUE
 	reverse_option_list = list(
-		"Mobs" = TRUE,
-		"Objects" = FALSE,
-		"Anchored" = FALSE,
-		"Mecha" = TRUE,
+		MOB_OPTION = TRUE,
+		UNANCHORED_OPTION = FALSE,
+		ANCHORED_OPTION = FALSE,
+		MECHA_OPTION = TRUE,
 	)
 
 /obj/structure/closet/supplypod/back_to_station
@@ -262,9 +262,6 @@
 	return
 
 /obj/structure/closet/supplypod/toggle(mob/living/user)
-	return
-
-/obj/structure/closet/supplypod/open(mob/living/user, force = FALSE, special_effects = TRUE)
 	return
 
 ///Called by the drop pods that return captured crewmembers from the ninja den.
@@ -436,7 +433,7 @@
 	if(to_insert.invisibility == INVISIBILITY_ABSTRACT)
 		return FALSE
 	if(ismob(to_insert))
-		if(!reverse_option_list["Mobs"])
+		if(!reverse_option_list[MOB_OPTION])
 			return FALSE
 		if(!isliving(to_insert)) //let's not put ghosts or camera mobs inside
 			return FALSE
@@ -458,11 +455,11 @@
 		if(istype(obj_to_insert, /obj/machinery/light))
 			return FALSE
 
-		if(!obj_to_insert.anchored && reverse_option_list["Unanchored"])
+		if(!obj_to_insert.anchored && reverse_option_list[UNANCHORED_OPTION])
 			return TRUE
-		if(obj_to_insert.anchored && !ismecha(obj_to_insert) && reverse_option_list["Anchored"]) //Mecha are anchored but there is a separate option for them
+		if(obj_to_insert.anchored && !ismecha(obj_to_insert) && reverse_option_list[ANCHORED_OPTION]) //Mecha are anchored but there is a separate option for them
 			return TRUE
-		if(ismecha(obj_to_insert) && reverse_option_list["Mecha"])
+		if(ismecha(obj_to_insert) && reverse_option_list[MECHA_OPTION])
 			return TRUE
 		return FALSE
 
@@ -482,19 +479,22 @@
 	reverse_dropoff_coords = list(picked_turf.x, picked_turf.y, picked_turf.z)
 	return ..()
 
-/obj/structure/closet/supplypod/open() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
+/obj/structure/closet/supplypod/setOpened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
 	opened = TRUE
 	set_density(FALSE)
 	update_appearance()
 	after_open(null, FALSE)
 
-/obj/structure/closet/supplypod/extractionpod/open()
+/obj/structure/closet/supplypod/open()
+	return
+
+/obj/structure/closet/supplypod/extractionpod/setOpened()
 	opened = TRUE
 	set_density(TRUE)
 	update_appearance()
 	after_open(null, FALSE)
 
-/obj/structure/closet/supplypod/close() //Ditto
+/obj/structure/closet/supplypod/setClosed() //Ditto
 	opened = FALSE
 	set_density(TRUE)
 	update_appearance()
@@ -690,7 +690,8 @@
 		mob_in_pod.reset_perspective(src)
 	if(pod.effectStun) //If effectStun is true, stun any mobs caught on this pod_landingzone until the pod gets a chance to hit them
 		for (var/mob/living/target_living in get_turf(src))
-			target_living.AdjustWeakened(pod.delays[POD_TRANSIT] + 20, ignore_canweaken = TRUE)//you ain't goin nowhere, kid.
+			target_living.AdjustWeakened(pod.delays[POD_TRANSIT] + 20, TRUE)//you ain't goin nowhere, kid.
+			target_living.AdjustStunned(pod.delays[POD_TRANSIT] + 20, TRUE)
 	if (pod.delays[POD_TRANSIT] + pod.delays[POD_FALLING] < pod.fallingSoundLength)
 		pod.fallingSoundLength = 3 //The default falling sound is a little long, so if the landing time is shorter than the default falling sound, use a special, shorter default falling sound
 		pod.fallingSound = 'sound/weapons/mortar_whistle.ogg'
