@@ -490,7 +490,7 @@
 /obj/effect/proc_holder/spell/vampire/self/dissect_info/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "VampireTrophiesStatus", "Trophies Status")
+		ui = new(user, src, "VampireTrophiesStatus", "Посмотреть трофеи")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
