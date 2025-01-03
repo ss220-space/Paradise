@@ -26,7 +26,7 @@ export const VampireSpecMenu = (props, context) => {
   };
 
   return (
-    <Window width={1500} height={820} theme="nologo">
+    <Window width={650} height={850} resizable theme="ntos_spooky">
       <Window.Content scrollable>
         <Box>
           <Button
@@ -64,6 +64,19 @@ export const VampireSpecMenu = (props, context) => {
 
 const HemoMenu = ({ act }) => (
   <Section title="Hemomancer">
+    <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+      <img
+        src={`data:image/jpeg;base64,${hemomancer}`}
+        alt="Hemomancer"
+        style={{
+          width: '256px',
+          height: '256px',
+          maxWidth: '100%',
+          maxHeight: '100%',
+          objectFit: 'contain'
+        }}
+      />
+    </div>
     <h3>Focuses on blood magic and the manipulation of blood around you.</h3>
     <p><b>Vampiric claws</b>: Unlocked at 150 blood, allows you to summon a robust pair of claws that attack rapidly, drain a targets blood, and heal you.</p>
     <p><b>Blood Barrier</b>: Unlocked at 250 blood, allows you to select two turfs and create a wall between them.</p>
@@ -78,6 +91,19 @@ const HemoMenu = ({ act }) => (
 
 const UmbrMenu = ({ act }) => (
   <Section title="Umbrae">
+    <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+      <img
+        src={`data:image/jpeg;base64,${umbrae}`} // Убедитесь, что вы используете правильный импорт изображения
+        alt="umbrae"
+        style={{
+          width: '256px',
+          height: '256px',
+          maxWidth: '100%',
+          maxHeight: '100%',
+          objectFit: 'contain' // Сохраняет пропорции изображения
+        }}
+      />
+    </div>
     <h3>Focuses on darkness, stealth ambushing and mobility.</h3>
     <p><b>Cloak of darkness</b>: Unlocked at 150 blood, when toggled, allows you to become nearly invisible and move rapidly when in dark regions. While active, burn damage is more effective against you.</p>
     <p><b>Shadow anchor</b>: Unlocked at 250 blood, casting it will create an anchor at the cast location after a short delay. If you then cast the ability again, you are teleported back to the anchor. If you do not cast again within 2 minutes, you are forced back to the anchor. It will not teleport you between Z levels.</p>
@@ -93,6 +119,19 @@ const UmbrMenu = ({ act }) => (
 
 const GarMenu = ({ act }) => (
   <Section title="Gargantua">
+    <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+      <img
+        src={`data:image/jpeg;base64,${gargantua}`} // Убедитесь, что вы используете правильный импорт изображения
+        alt="Gargantua"
+        style={{
+          width: '256px',
+          height: '256px',
+          maxWidth: '100%',
+          maxHeight: '100%',
+          objectFit: 'contain' // Сохраняет пропорции изображения
+        }}
+      />
+    </div>
     <h3>Focuses on tenacity and melee damage.</h3>
     <p><b>Rejuvenate</b>: Will heal you at an increased rate based on how much damage you have taken.</p>
     <p><b>Blood swell</b>: Unlocked at 150 blood, increases your resistance to physical damage, stuns and stamina for 30 seconds. While it is active you cannot fire guns.</p>
@@ -108,6 +147,19 @@ const GarMenu = ({ act }) => (
 
 const DantMenu = ({ act }) => (
   <Section title="Dantalion">
+    <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+      <img
+        src={`data:image/jpeg;base64,${dantalion}`} // Убедитесь, что вы используете правильный импорт изображения
+        alt="Dantalion"
+        style={{
+          width: '256px',
+          height: '256px',
+          maxWidth: '100%',
+          maxHeight: '100%',
+          objectFit: 'contain' // Сохраняет пропорции изображения
+        }}
+      />
+    </div>
     <h3>Focuses on thralling and illusions.</h3>
     <p><b>Enthrall</b>: Unlocked at 150 blood, thralls your target to your will, requires you to stand still. Does not work on mindshielded or already enthralled/mindslaved people.</p>
     <p><b>Thrall cap</b>: You can only thrall a max of 1 person at a time. This can be increased at 400 blood, 600 blood and at full power to a max of 4 thralls.</p>
@@ -124,6 +176,19 @@ const DantMenu = ({ act }) => (
 
 const BestMenu = ({ act }) => (
   <Section title="Bestia">
+    <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+      <img
+        src={`data:image/jpeg;base64,${bestia}`} // Убедитесь, что вы используете правильный импорт изображения
+        alt="Bestia"
+        style={{
+          width: '256px',
+          height: '256px',
+          maxWidth: '100%',
+          maxHeight: '100%',
+          objectFit: 'contain' // Сохраняет пропорции изображения
+        }}
+      />
+    </div>
     <h3>Focuses on transformations and trophies harvesting.</h3>
     <p><b>Check Trophies</b>: Unlocked at 150 blood, allows you to check current trophies amount and all the passive effects they provide.</p>
     <p><b>Dissect</b>: Unlocked at 150 blood, main source of gaining power, besides blood, allows you to harvest human organs, as trophies, to passively increase your might.</p>

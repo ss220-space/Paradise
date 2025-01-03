@@ -155,10 +155,18 @@
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "VampireSpecMenu", "Specialisation Menu")
+		ui = new(user, src, "VampireSpecMenu", "Меню выбора специализации")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
+/obj/effect/proc_holder/spell/vampire/self/specialize/ui_static_data(mob/user)
+	var/list/data = list()
+	data["hemomancer"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "hemomancer"))
+	data["umbrae"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "umbrae"))
+	data["gargantua"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "gargantua"))
+	data["dantalion"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "dantalion"))
+	data["bestia"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "bestia"))
+	return data
 
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_data(mob/user)
 	var/datum/antagonist/vampire/vamp = user.mind.has_antag_datum(/datum/antagonist/vampire)

@@ -8,7 +8,7 @@ const roundTenths = function (input) {
 
 export const VampireTrophiesStatus = (props, context) => {
   return (
-    <Window theme="nologo" width={700} height={800}>
+    <Window theme="ntos_spooky" width={700} height={800}>
       <Window.Content scrollable>
         <Stack fill vertical>
           <Trophies />
