@@ -161,11 +161,11 @@
 
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_static_data(mob/user)
 	var/list/data = list()
-	data["hemomancer_icon"] = [icon2base64(icon('icons/misc/vampire_tgui.dmi', "hemomancer"))]"
-	data["umbrae_icon"] = [icon2base64(icon('icons/misc/vampire_tgui.dmi', "umbrae"))]"
-	data["gargantua_icon"] = [icon2base64(icon('icons/misc/vampire_tgui.dmi', "gargantua"))]"
-	data["dantalion_icon"] = [icon2base64(icon('icons/misc/vampire_tgui.dmi', "dantalion"))]"
-	data["bestia_icon"] = [icon2base64(icon('icons/misc/vampire_tgui.dmi', "bestia"))]"
+	data["hemomancer_icon"] = [icon2base64(icon('icons/misc/vampire_tgui.dmi', "hemomancer"))]
+	data["umbrae_icon"] = [icon2base64(icon('icons/misc/vampire_tgui.dmi', "umbrae"))]
+	data["gargantua_icon"] = [icon2base64(icon('icons/misc/vampire_tgui.dmi', "gargantua"))]
+	data["dantalion_icon"] = [icon2base64(icon('icons/misc/vampire_tgui.dmi', "dantalion"))]
+	data["bestia_icon"] = [icon2base64(icon('icons/misc/vampire_tgui.dmi', "bestia"))]
 	return data
 
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_data(mob/user)
