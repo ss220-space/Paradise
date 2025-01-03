@@ -311,12 +311,16 @@
 		if (iscarbon(target_living)) //If effectLimb is true (which means we pop limbs off when we hit people):
 			if (effectLimb && !effectOrgans && ishuman(target_living))
 				var/mob/living/carbon/human/human_target_mob = target_living
+				var/obj/item/organ/external/bodypart
+				var/list/possible_organs = list()
 				for (var/bp in human_target_mob.bodyparts)
-					var/obj/item/organ/external/bodypart = bp
-					if(bodypart.limb_zone != BODY_ZONE_HEAD && bodypart.limb_zone != BODY_ZONE_CHEST && bodypart.limb_zone != BODY_ZONE_PRECISE_GROIN)//we dont want to kill him, just teach em a lesson!
-						if (!(bodypart.cannot_amputate))
-							bodypart.droplimb() //Using the power of flextape i've sawed this man's limb in half!
-							break
+					bodypart = bp
+					if(bodypart.limb_zone != BODY_ZONE_HEAD && bodypart.limb_zone != BODY_ZONE_CHEST \
+						&& bodypart.limb_zone != BODY_ZONE_PRECISE_GROIN && !(bodypart.cannot_amputate))//we dont want to kill him, just teach em a lesson!
+						possible_organs |= bp
+				if(possible_organs.len)
+					bodypart = pick(possible_organs)
+					bodypart.droplimb()
 
 			if (effectOrgans) //effectOrgans means remove every organ in our mob
 				var/mob/living/carbon/carbon_target_mob = target_living
@@ -325,7 +329,6 @@
 					organ_to_yeet.remove(carbon_target_mob) //Note that this isn't the same proc as for lists
 					organ_to_yeet.forceMove(turf_underneath) //Move the organ outta the body
 					organ_to_yeet.throw_at(destination, 2, 3) //Thow the organ at a random tile 3 spots away
-					sleep(0.1 SECONDS)
 				if(!ishuman(carbon_target_mob))
 					continue
 				var/mob/living/carbon/human/human_target_mob = carbon_target_mob
