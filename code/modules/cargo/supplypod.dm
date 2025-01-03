@@ -455,6 +455,8 @@
 			return FALSE
 		if(istype(obj_to_insert, /obj/effect/supplypod_rubble))
 			return FALSE
+		if(istype(obj_to_insert, /obj/machinery/light))
+			return FALSE
 
 		if(!obj_to_insert.anchored && reverse_option_list["Unanchored"])
 			return TRUE

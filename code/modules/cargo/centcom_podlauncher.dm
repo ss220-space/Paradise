@@ -27,6 +27,7 @@
 		/turf,
 		/obj/effect/landmark,
 		/obj/docking_port,
+		/obj/machinery/light,
 		/obj/effect/particle_effect/sparks,
 		/obj/effect/pod_landingzone,
 		/obj/effect/client_image_holder,

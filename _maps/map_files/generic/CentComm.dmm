@@ -5605,6 +5605,15 @@
 	icon_state = "navybluealt"
 	},
 /area/centcom/specops)
+"cAU" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/three)
 "cBk" = (
 /obj/structure/sign/poster/official/ue_no,
 /turf/simulated/wall/indestructible/sandstone,
@@ -8255,6 +8264,15 @@
 "dTg" = (
 /turf/simulated/floor/plating/airless,
 /area/centcom/specops)
+"dTt" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/one)
 "dTy" = (
 /obj/structure/railing{
 	dir = 8
@@ -9805,6 +9823,15 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/wood/fancy/light,
 /area/ussp_centcom/secretariat)
+"eGx" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/four)
 "eHj" = (
 /obj/item/storage/firstaid/ancient{
 	pixel_x = 3;
@@ -19632,6 +19659,15 @@
 /obj/structure/filingcabinet/employment,
 /turf/simulated/floor/bluegrid,
 /area/centcom/bridge)
+"jCl" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "navyblue"
+	},
+/area/centcom/supplypod/loading/ert)
 "jCo" = (
 /obj/structure/chair,
 /obj/effect/decal/cleanable/blood,
@@ -20741,6 +20777,15 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate_mothership/infteam)
+"kek" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/three)
 "keo" = (
 /turf/simulated/wall/indestructible/iron,
 /area/syndicate_mothership)
@@ -31639,6 +31684,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
+"oKI" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/two)
 "oKN" = (
 /obj/item/flag/syndi,
 /obj/structure/curtain/black{
@@ -33834,6 +33888,15 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/jail)
+"pPo" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "navyblue"
+	},
+/area/centcom/supplypod/loading/ert)
 "pPN" = (
 /obj/effect/landmark/syndicate_commando{
 	tag = "Commando"
@@ -35219,6 +35282,15 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/gamma)
+"qtl" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/four)
 "qto" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -45983,6 +46055,15 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"vdy" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/two)
 "vdH" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/dirt,
@@ -49213,6 +49294,15 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
+"wEu" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/one)
 "wEF" = (
 /obj/structure/grille,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -86364,7 +86454,7 @@ mVX
 nAN
 wJm
 yhG
-yhG
+pPo
 yhG
 aHe
 nAN
@@ -87135,7 +87225,7 @@ jMD
 nAN
 gxu
 uAg
-uAg
+jCl
 uAg
 aYk
 nAN
@@ -109759,7 +109849,7 @@ xhN
 afP
 qAI
 aiB
-aiB
+dTt
 aiB
 dtp
 afP
@@ -110530,7 +110620,7 @@ xhN
 afP
 bEA
 mRm
-mRm
+wEu
 mRm
 wPe
 afP
@@ -111044,7 +111134,7 @@ xhN
 afP
 vZp
 lwT
-lwT
+oKI
 lwT
 gYf
 afP
@@ -111815,7 +111905,7 @@ xhN
 afP
 jfm
 hQZ
-hQZ
+vdy
 hQZ
 bRZ
 afP
@@ -112329,7 +112419,7 @@ xhN
 afP
 gDh
 jXp
-jXp
+kek
 jXp
 hsP
 afP
@@ -113100,7 +113190,7 @@ xhN
 afP
 vUp
 gIp
-gIp
+cAU
 gIp
 eZq
 afP
@@ -113614,7 +113704,7 @@ xhN
 afP
 thd
 voW
-voW
+eGx
 voW
 cJx
 afP
@@ -114385,7 +114475,7 @@ aOM
 afP
 czW
 oPk
-oPk
+qtl
 oPk
 pYT
 afP
