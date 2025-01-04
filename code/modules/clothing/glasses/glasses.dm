@@ -157,6 +157,11 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
+/obj/item/clothing/glasses/meson/visor
+	name = "Meson Optical Visor"
+	desc = "meson visor"
+	icon_state = "mesonvisor"
+	item_state = "mesonvisor"
 
 /obj/item/clothing/glasses/science
 	name = "science goggles"
@@ -197,6 +202,12 @@
 	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
 	icon_state = "heart_science"
 	item_state = "heart_science"
+
+/obj/item/clothing/glasses/science/visor
+	name = "Science Optical Visor"
+	desc = "очке"
+	icon_state = "sciencevisor"
+	item_state = "sciencevisor"
 
 /obj/item/clothing/glasses/janitor
 	name = "Janitorial Goggles"

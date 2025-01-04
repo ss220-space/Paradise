@@ -131,6 +131,12 @@ MEDICAL
 /obj/item/clothing/glasses/hud/health/tajblind/attack_self(mob/user)
 	toggle_veil(user)
 
+/obj/item/clothing/glasses/hud/health/visor
+	name = "Medical optical visor"
+	desc = "очке"
+	icon_state = "medicalvisor"
+	item_state = "medicalvisor"
+
 /obj/item/clothing/glasses/hud/health/meson
 	name = "\improper Medical-Meson HUD"
 	desc = "A medical heads-up display that comes with an optical meson scanner."
@@ -208,6 +214,8 @@ DIAGNOSTIC
 /obj/item/clothing/glasses/hud/diagnostic/tajblind/attack_self(mob/user)
 	toggle_veil(user)
 
+/obj/item/clothing/glasses/hud/diagnostic/visor
+	name = ""
 /*
 SECURITY
 */
@@ -351,6 +359,12 @@ SECURITY
 /obj/item/clothing/glasses/hud/security/sunglasses/tajblind/read_only
 	examine_extensions = EXAMINE_HUD_SECURITY_READ
 
+/obj/item/clothing/glasses/hud/security/sunglasses/visor
+	name = "Security visor"
+	desc = "Крутые очечки от кисика"
+	icon_state = "securityvisor"
+	item_state = "securityvisor"
+
 /*
 HYDROPONIC
 */
@@ -419,6 +433,11 @@ HYDROPONIC
 /obj/item/clothing/glasses/hud/hydroponic/tajblind/attack_self(mob/user)
 	toggle_veil(user)
 
+/obj/item/clothing/glasses/hud/hydroponic/visor
+	name = "Hydroponic Optical Visor"
+	desc = "Ochke"
+	icon_state = "hydroponicvisor"
+	item_state = "hydroponicvisor"
 /*
 SKILLS
 */
@@ -525,3 +544,9 @@ SKILLS
 			examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 	balloon_alert(user, "режим переключён")
 	return
+
+/obj/item/clothing/glasses/hud/skills/visor
+	name = "Skill Optical Visor"
+	desc = "ochke"
+	icon_state = "skillvisor"
+	item_state = "skillvisor"
