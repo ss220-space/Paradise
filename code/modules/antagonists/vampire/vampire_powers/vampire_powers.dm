@@ -219,7 +219,7 @@
 
 
 /obj/effect/proc_holder/spell/vampire/glare
-	name = "Взгляд"
+	name = "Вспышка"
 	desc = "Ваши глаза вспыхивают, ошеломляя и заставляя замолчать всех, кто находится перед вами. На окружающих это действует в меньшей степени."
 	action_icon_state = "vampire_glare"
 	base_cooldown = 30 SECONDS
