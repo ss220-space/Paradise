@@ -4,15 +4,7 @@
 
 	Otherwise pretty standard.
 */
-/mob/living/carbon/human/UnarmedAttack(atom/A, proximity_flag)
-	if(!can_unarmed_attack())
-		return
-
-	if(proximity_flag && pulling && (!isnull(pull_hand) && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)))
-		if(A.grab_attack(src, pulling))
-			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
-			return
-
+/mob/living/carbon/human/OnUnarmedAttack(atom/A, proximity_flag)
 	// Special glove functions:
 	// If the gloves do anything, have them return 1 to stop
 	// normal attack_hand() here.
@@ -26,7 +18,7 @@
 		if(S.prevents_buckled_mobs_attacking())
 			return
 
-	A.attack_hand(src)
+	return A.attack_hand(src)
 
 
 /mob/living/carbon/human/beforeAdjacentClick(atom/A, params)
@@ -97,25 +89,39 @@
 /*
 	Animals & All Unspecified
 */
-/mob/living/UnarmedAttack(atom/A, proximity_flag)
+/mob/living/UnarmedAttack(atom/atom, proximity_flag)
 	if(!can_unarmed_attack())
 		return
-	if(proximity_flag && pulling && !isnull(pull_hand) && pull_hand != PULL_WITHOUT_HANDS && pull_hand == hand)
-		if(A.grab_attack(src, pulling))
-			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
-			return
-	A.attack_animal(src)
 
-/mob/living/simple_animal/hostile/UnarmedAttack(atom/A, proximity_flag)
-	if(!can_unarmed_attack())
+	var/signal = SEND_SIGNAL(src, COMSIG_LIVING_UNARMED_ATTACK, atom, proximity_flag)
+
+	if(signal & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return
-	if(proximity_flag && pulling && !isnull(pull_hand) && pull_hand != PULL_WITHOUT_HANDS && pull_hand == hand)
-		if(A.grab_attack(src, pulling))
-			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
+
+	if(can_grab_attack(atom, proximity_flag))
+		if(!atom.grab_attack(src, pulling))
 			return
-	GiveTarget(A)
+
+		changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
+
+		return
+
+	return OnUnarmedAttack(atom, proximity_flag)
+
+/mob/living/proc/can_grab_attack(atom/atom, proximity_flag)
+	return FALSE
+
+/mob/living/carbon/can_grab_attack(atom/atom, proximity_flag)
+	return pulling && proximity_flag && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)
+
+/mob/living/OnUnarmedAttack(atom/atom, proximity_flag)
+	return atom.attack_animal(src)
+
+/mob/living/simple_animal/hostile/OnUnarmedAttack(atom/atom, proximity_flag)
+	GiveTarget(atom)
+	
 	if(target)
-		AttackingTarget()
+		return AttackingTarget()
 
 /atom/proc/attack_animal(mob/user)
 	return
@@ -127,14 +133,8 @@
 	Aliens
 	Defaults to same as monkey in most places
 */
-/mob/living/carbon/alien/UnarmedAttack(atom/A, proximity_flag)
-	if(!can_unarmed_attack())
-		return
-	if(proximity_flag && pulling && (!isnull(pull_hand) && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)))
-		if(A.grab_attack(src, pulling))
-			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
-			return
-	A.attack_alien(src)
+/mob/living/carbon/alien/OnUnarmedAttack(atom/atom, proximity_flag)
+	return atom.attack_alien(src)
 
 /atom/proc/attack_alien(mob/living/carbon/alien/user)
 	attack_hand(user)
@@ -143,10 +143,8 @@
 	return
 
 // Babby aliens
-/mob/living/carbon/alien/larva/UnarmedAttack(atom/A, proximity_flag)
-	if(!can_unarmed_attack())
-		return
-	A.attack_larva(src)
+/mob/living/carbon/alien/larva/OnUnarmedAttack(atom/atom, proximity_flag)
+	return atom.attack_larva(src)
 
 /atom/proc/attack_larva(mob/user)
 	return
@@ -155,10 +153,8 @@
 	Slimes
 	Nothing happening here
 */
-/mob/living/simple_animal/slime/UnarmedAttack(atom/A, proximity_flag)
-	if(!can_unarmed_attack())
-		return
-	A.attack_slime(src)
+/mob/living/simple_animal/slime/OnUnarmedAttack(atom/atom, proximity_flag)
+	return atom.attack_slime(src)
 
 /atom/proc/attack_slime(mob/user)
 	return

@@ -32,7 +32,7 @@
 		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
-/obj/structure/Destroy()
+/obj/structure/Destroy(force)
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 	if(smooth)

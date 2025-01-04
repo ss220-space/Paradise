@@ -358,9 +358,9 @@
 	// Проверка во избежание потенциальных абузов инвиза
 	// Как например если после сканирования t-ray сканером сразу выключить инвиз...
 	// Что приводило к бесплатному инвизу.
-	if(ninja.alpha == NINJA_ALPHA_INVISIBILITY || ninja.alpha == NINJA_ALPHA_SPIRIT_FORM)
+	if(ninja.alpha_get(ALPHA_SOURCE_NINJA) == standartize_alpha(NINJA_ALPHA_INVISIBILITY) || ninja.alpha_get(ALPHA_SOURCE_NINJA) == standartize_alpha(NINJA_ALPHA_SPIRIT_FORM))
 		if(!stealth && !spirited)
-			ninja.alpha = NINJA_ALPHA_NORMAL
+			ninja.alpha_set(standartize_alpha(NINJA_ALPHA_NORMAL), ALPHA_SOURCE_NINJA)
 	//Safe checks to prevent potential abuse of power.
 	if(!is_teleport_allowed(ninja.z) && spirited)
 		to_chat(ninja, span_warning("This place forcibly stabilizes your body somehow! You can't use \"Spirit Form\" there!"))
