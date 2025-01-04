@@ -312,7 +312,7 @@
 	if(max_length)
 		text = copytext_char(text, 1, max_length)
 		
-	return trimtext(text)
+	return trimtext(text) || "" 
 
 /// Returns a string that does not exceed max_length characters in size
 /proc/trim_length(text, max_length)
