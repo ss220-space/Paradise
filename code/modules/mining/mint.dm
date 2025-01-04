@@ -130,7 +130,6 @@
 			var/datum/material/material = materials.materials[chosen_material]
 			if(material.amount < MINERAL_MATERIAL_AMOUNT)
 				to_chat(usr, span_warning("Недостаточно [material.name] для извлечения!"))
-				balloon_alert(usr, "Недостаточно [material.name]!")
 				return
 			var/num_sheets = tgui_input_number(usr, "Сколько кусков вы хотите извлечь?", "Извлечь [material.name]", max_value = round(material.amount / MINERAL_MATERIAL_AMOUNT), min_value = 1)
 			if(isnull(num_sheets))
@@ -143,12 +142,12 @@
 	if(istype(I, /obj/item/storage/bag/money))
 		if(money_bag)
 			to_chat(user, span_notice("Внутри уже есть [money_bag.declent_ru(NOMINATIVE)]!"))
-			balloon_alert(usr, "Место уже занято!")
+			balloon_alert(usr, "место уже занято!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_from_active_hand())
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
-		balloon_alert(usr, "Мешок помещен в устройство!")
+		balloon_alert(usr, "мешок помещен")
 		I.forceMove(src)
 		money_bag = I
 		SStgui.update_uis(src)
@@ -162,7 +161,7 @@
 	if(length(money_bag.contents) >= money_bag.storage_slots)
 		active = FALSE
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] прекращает производство, чтобы избежать переполнения."))
-		balloon_alert_to_viewers("Мешок переполнен!")
+		balloon_alert_to_viewers("мешок переполнен")
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 		return
@@ -172,7 +171,7 @@
 	if(!materials.can_use_amount(COIN_COST, chosen_material))
 		active = FALSE
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] прекращает производство из-за нехватки материала."))
-		balloon_alert_to_viewers("Материал кончился!")
+		balloon_alert_to_viewers("материал кончился")
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 		return
@@ -186,15 +185,12 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	if(!money_bag)
 		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] не может работать без денежного мешка!"))
-		balloon_alert_to_viewers("Нет мешка!")
 		return
 	if(length(money_bag.contents) == money_bag.storage_slots)
 		visible_message(span_warning("[capitalize(money_bag.declent_ru(NOMINATIVE))] полон!"))
-		balloon_alert_to_viewers("[capitalize(money_bag.declent_ru(NOMINATIVE))] полон!")
 		return
 	if(!materials.can_use_amount(COIN_COST, chosen_material))
 		visible_message(span_warning("Недостаточно выбранного материала для производства!"))
-		balloon_alert_to_viewers("Недостаточно материала!")
 		return
 	active = TRUE
 
@@ -205,7 +201,6 @@
 		active = FALSE
 	if(user.put_in_hands(money_bag))
 		to_chat(user, span_notice("Вы забираете [money_bag.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
-		balloon_alert(user, "Мешок извлечён!")
 	else
 		var/turf/T = get_step(src, output_dir)
 		money_bag.forceMove(T)
