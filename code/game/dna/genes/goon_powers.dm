@@ -31,59 +31,59 @@
 // Stealth Enhancers
 /////////////////////////
 
-/datum/dna/gene/basic/stealth
-	instability = GENE_INSTABILITY_MODERATE
-
-
-/datum/dna/gene/basic/stealth/deactivate(mob/living/mutant, flags)
-	. = ..()
-	mutant.alpha = initial(mutant.alpha)
-
-
 // WAS: /datum/bioEffect/darkcloak
-/datum/dna/gene/basic/stealth/darkcloak
+/datum/dna/gene/basic/darkcloak
 	name = "Cloak of Darkness"
 	desc = "Позволяет субъекту излучать вокруг себя слабое свечение, создавая эффект маскировки."
 	activation_messages = list("Вы начинаете исчезать в тени.")
 	deactivation_messages = list("Вы становитесь полностью видимым.")
 	activation_prob = 25
+	instability = GENE_INSTABILITY_MODERATE
 
 
-/datum/dna/gene/basic/stealth/darkcloak/New()
+/datum/dna/gene/basic/darkcloak/New()
 	..()
 	block = GLOB.shadowblock
 
 
-/datum/dna/gene/basic/stealth/darkcloak/OnMobLife(mob/living/mutant)
+/datum/dna/gene/basic/darkcloak/OnMobLife(mob/living/mutant)
 	var/turf/simulated/T = get_turf(mutant)
 	if(!istype(T))
 		return
 	var/light_available = T.get_lumcount() * 10
 	if(light_available <= 2)
-		mutant.alpha = round(mutant.alpha * 0.8)
+		mutant.alpha_multiply(0.8, ALPHA_SOURCE_SHADOW_CLOAK)
 	else
-		mutant.alpha = initial(mutant.alpha)
+		mutant.alpha_set(1, ALPHA_SOURCE_SHADOW_CLOAK)
 
+/datum/dna/gene/basic/darkcloak/deactivate(mob/living/mutant, flags)
+	. = ..()
+	mutant.alpha_set(1, ALPHA_SOURCE_SHADOW_CLOAK)
 
 //WAS: /datum/bioEffect/chameleon
-/datum/dna/gene/basic/stealth/chameleon
+/datum/dna/gene/basic/chameleon
 	name = "Chameleon"
 	desc = "Субъект обретает способность тонко изменять структуру света, чтобы оставаться невидимым до тех пор, пока он остается неподвижным."
 	activation_messages = list("Вы чувствуете себя единым целым с окружающим миром.")
 	deactivation_messages = list("Вы чувствуете себя необычайно заметным.")
 	activation_prob = 25
+	instability = GENE_INSTABILITY_MODERATE
 
 
-/datum/dna/gene/basic/stealth/chameleon/New()
+/datum/dna/gene/basic/chameleon/New()
 	..()
 	block = GLOB.chameleonblock
 
 
-/datum/dna/gene/basic/stealth/chameleon/OnMobLife(mob/living/mutant)
+/datum/dna/gene/basic/chameleon/OnMobLife(mob/living/mutant)
 	if((world.time - mutant.last_movement) >= 30 && (mutant.mobility_flags & MOBILITY_MOVE) && !HAS_TRAIT(mutant, TRAIT_RESTRAINED))
-		mutant.alpha -= 25
+		mutant.alpha_add(standartize_alpha(-25), ALPHA_SOURCE_CHAMELEON)
 	else
-		mutant.alpha = round(255 * 0.80)
+		mutant.alpha_set(0.80, ALPHA_SOURCE_CHAMELEON)
+
+/datum/dna/gene/basic/darkcloak/deactivate(mob/living/mutant, flags)
+	. = ..()
+	mutant.alpha_set(1, ALPHA_SOURCE_CHAMELEON)
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
