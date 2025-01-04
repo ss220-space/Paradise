@@ -239,8 +239,8 @@
  * If an invalid color is given, will re-prompt the dragon until a proper color is chosen.
  */
 /mob/living/simple_animal/hostile/space_dragon/proc/color_selection()
-	chosen_color = input(src,"Какого цвета вы хотите быть?","Выбор цвета", COLOR_WHITE) as color|null
-	if(!chosen_color) //redo proc until we get a color
+	chosen_color = tgui_input_color(src,"Какого цвета вы хотите быть?","Выбор цвета", COLOR_WHITE)
+	if(isnull(chosen_color)) //redo proc until we get a color
 		to_chat(src, span_warning("Этот цвет некорректен, попробуйте еще раз."))
 		color_selection()
 		return

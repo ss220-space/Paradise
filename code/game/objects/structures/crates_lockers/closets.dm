@@ -78,8 +78,14 @@ GLOBAL_LIST_EMPTY(closets)
 			break
 
 // Fix for #383 - C4 deleting fridges with corpses
-/obj/structure/closet/Destroy()
+/obj/structure/closet/Destroy(force)
 	GLOB.closets -= src
+	if(force)
+		for(var/atom/movable/thing in contents)
+			qdel(thing, force)
+
+		return ..()
+
 	dump_contents()
 	return ..()
 

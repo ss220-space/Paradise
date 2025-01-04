@@ -542,8 +542,13 @@
 		. += "|<a href='byond://?src=[UID()];blob=burst'>burst blob</a>"
 	else if(isblobovermind(src))
 		var/mob/camera/blob/blob_overmind = current
-		. += "|<b><font color='red'>BLOB Overmind</font></b>|"
-		. += "<br/><b>Total points: <a href='byond://?src=[UID()];blob=set_points'>[blob_overmind.blob_points]</a>/[blob_overmind.max_blob_points]</b>"
+		if(istype(blob_overmind))
+			. += "|<b><font color='red'>BLOB Overmind</font></b>|"
+			. += "<br/><b>Total points: <a href='byond://?src=[UID()];blob=set_points'>[blob_overmind.blob_points]</a>/[blob_overmind.max_blob_points]</b>"
+			. += "<br/><b>Infinity points: <a href='byond://?src=[UID()];blob=inf_points'>[(blob_overmind.is_infinity)? "ON" : "OFF"]</a></b>"
+			. += "<br/><b>Blob strain: <a href='byond://?src=[UID()];blob=select_strain'>[blob_overmind.blobstrain? "<font color=\"[blob_overmind.blobstrain.color]\">[blob_overmind?.blobstrain?.name]</font>" : "None"]</a></b>"
+	else if(isblobminion(src))
+		. += "|<b><font color='red'>BLOB Minion</font></b>|"
 	else if(current.can_be_blob())
 		. += "<a href='byond://?src=[UID()];blob=blob'>blobize</a>|<b>NO</b>"
 	. += _memory_edit_role_enabled(ROLE_BLOB)
@@ -1097,14 +1102,14 @@
 					var/area/detonation_area = null
 					if(alert(usr, "Do you want to pick detonation area yourself? No will randomise it", "Pick objective", "Yes", "No") == "No")
 						for(var/sanity in 1 to 100) // 100 checks at most.
-							var/area/selected_area = pick(return_sorted_areas())
+							var/area/selected_area = pick(get_sorted_areas())
 							if(selected_area && is_station_level(selected_area.z) && selected_area.valid_territory) //Целью должна быть зона на станции!
 								if(selected_area in bomb_objective.area_blacklist)
 									continue
 								random_detonation_area = selected_area
 								break
 					else
-						detonation_area = input("Select area:", "Objective area") as null|anything in return_sorted_areas()
+						detonation_area = input("Select area:", "Objective area") as null|anything in get_sorted_areas()
 
 					bomb_objective.detonation_location = detonation_area ? detonation_area : random_detonation_area
 					bomb_objective.explanation_text = "Взорвите выданную вам бомбу в [bomb_objective.detonation_location]. Учтите, что бомбу нельзя активировать на не предназначенной для подрыва территории!"
@@ -2127,8 +2132,7 @@
 					return
 
 				var/list/area_choices = list()
-				for(var/a in return_sorted_areas())
-					var/area/A = a
+				for(var/area/A in get_sorted_areas())
 					if(A.outdoors || !is_station_level(A.z))
 						continue
 					area_choices += A
@@ -2436,9 +2440,9 @@
 				add_conversion_logs(current, "De-blobed")
 
 			if("blob")
-				var/burst_time = input(usr, "Введите время до вылупления","Time:", TIME_TO_BURST_ADDED_HIGHT) as num|null
-				var/need_new_blob = alert(usr,"Нужно ли выбирать блоба из экипажа в случае попытки вылупления за пределами станции?", "", "Да", "Нет") == "Нет"
-				var/start_process = alert(usr,"Начинать отсчет до момента вылупления?", "", "Да", "Нет") == "Да"
+				var/burst_time = tgui_input_number(usr, "Введите время до вылупления","Time:", TIME_TO_BURST_ADDED_HIGHT)
+				var/need_new_blob = tgui_alert(usr, "Нужно ли выбирать блоба из экипажа в случае попытки вылупления за пределами станции?", "", list("Да", "Нет")) == "Нет"
+				var/start_process = tgui_alert(usr,"Начинать отсчет до момента вылупления?", "", list("Да", "Нет")) == "Да"
 				if(isnull(burst_time) || QDELETED(current) || current.stat == DEAD)
 					return
 				var/datum_type = get_blob_infected_type()
@@ -2452,9 +2456,9 @@
 				message_admins("[key_name_admin(usr)] has made [key_name_admin(current)] into a \"Blob\"")
 
 			if("burst")
-				var/warn_blob = alert(usr,"Предупреждать блоба при попытке вылупления за пределами станции?", "", "Да", "Нет") != "Да"
-				var/need_new_blob = alert(usr,"Нужно ли выбирать блоба из экипажа в случае попытки вылупления за пределами станции?", "", "Да", "Нет") == "Да"
-				if(alert(usr,"Вы действительно хотите лопнуть блоба? Это уничтожит персонажа игрока и превратит его в блоба.", "", "Да", "Нет") == "Да")
+				var/warn_blob = tgui_alert(usr,"Предупреждать блоба при попытке вылупления за пределами станции?", "", list("Да", "Нет")) != "Да"
+				var/need_new_blob = tgui_alert(usr,"Нужно ли выбирать блоба из экипажа в случае попытки вылупления за пределами станции?", "", list("Да", "Нет")) == "Да"
+				if(tgui_alert(usr,"Вы действительно хотите лопнуть блоба? Это уничтожит персонажа игрока и превратит его в блоба.", "", list("Да", "Нет")) == "Да")
 					var/datum/antagonist/blob_infected/blob = has_antag_datum(/datum/antagonist/blob_infected)
 					if(!blob)
 						return
@@ -2468,13 +2472,34 @@
 				if(!isblobovermind(src))
 					return
 				var/mob/camera/blob/blob_overmind = current
-				var/blob_points = input(usr, "Введите новое число очков в диапазоне от 0 до [blob_overmind.max_blob_points]","Count:", blob_overmind.blob_points) as num|null
+				var/blob_points = tgui_input_number(usr, "Введите новое число очков в диапазоне от 0 до [blob_overmind.max_blob_points]", "Count:", blob_overmind.blob_points, blob_overmind.max_blob_points, 0)
 				if(isnull(blob_points) || QDELETED(current) || current.stat == DEAD)
 					return
 				blob_overmind.blob_points = clamp(blob_points, 0, blob_overmind.max_blob_points)
 				log_admin("[key_name(usr)] set blob points to [key_name(current)] as [blob_overmind.blob_points]")
 				message_admins("[key_name_admin(usr)] set blob points to [key_name_admin(current)] as [blob_overmind.blob_points]")
 
+			if("inf_points")
+				if(!isblobovermind(src))
+					return
+				var/mob/camera/blob/blob_overmind = current
+				if(QDELETED(current) || current.stat == DEAD)
+					return
+				blob_overmind.is_infinity = !blob_overmind.is_infinity
+				log_admin("[key_name(usr)] make blob points [blob_overmind.is_infinity? "infinity" : "not infinity"] to [key_name(current)]")
+				message_admins("[key_name_admin(usr)] make blob points [blob_overmind.is_infinity? "infinity" : "not infinity"] to [key_name_admin(current)]")
+			
+			if("select_strain")
+				if(!isblobovermind(src))
+					return
+				var/mob/camera/blob/blob_overmind = current
+				if(QDELETED(current) || current.stat == DEAD)
+					return
+				var/strain = tgui_input_list(usr, "Выберите штамм", "Выбор штамма", GLOB.valid_blobstrains, null)
+				if(ispath(strain))
+					blob_overmind.set_strain(strain)
+					log_admin("[key_name(usr)] changed the strain to [strain] for [key_name(current)]")
+					message_admins("[key_name_admin(usr)] changed the strain to [strain] for [key_name_admin(current)]")
 
 	else if(href_list["common"])
 		switch(href_list["common"])
@@ -3095,6 +3120,7 @@
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src
+	SEND_SIGNAL(src, COMSIG_MOB_MIND_INITIALIZED, mind)
 
 //HUMAN
 /mob/living/carbon/human/mind_initialize()

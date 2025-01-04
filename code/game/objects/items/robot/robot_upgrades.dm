@@ -127,8 +127,8 @@
 				robot.key = ghost.key
 
 	robot.set_stat(CONSCIOUS)
-	GLOB.dead_mob_list -= robot //please never forget this ever kthx
-	GLOB.alive_mob_list += robot
+	robot.remove_from_dead_mob_list() //please never forget this ever kthx
+	robot.add_to_alive_mob_list()
 	robot.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 	return TRUE
 

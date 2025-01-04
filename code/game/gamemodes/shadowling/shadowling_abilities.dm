@@ -139,7 +139,7 @@
 	user.SetWeakened(0)
 	user.SetKnockdown(0)
 	user.incorporeal_move = INCORPOREAL_NORMAL
-	user.alpha = 0
+	user.alpha_set(0, ALPHA_SOURCE_SHADOWLING)
 	user.ExtinguishMob()
 	user.forceMove(get_turf(user)) //to properly move the mob out of a potential container
 	user.pulledby?.stop_pulling()
@@ -151,7 +151,7 @@
 
 	user.visible_message("<span class='warning'>[user] suddenly manifests!</span>", "<span class='shadowling'>The pressure becomes too much and you vacate the interdimensional darkness.</span>")
 	user.incorporeal_move = INCORPOREAL_NONE
-	user.alpha = 255
+	user.alpha_set(1, ALPHA_SOURCE_SHADOWLING)
 	user.forceMove(get_turf(user))
 
 
@@ -174,17 +174,17 @@
 	return new /datum/spell_targeting/self
 
 
-/obj/effect/proc_holder/spell/shadowling_guise/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/shadowling_guise/cast(list/targets, mob/living/user = usr)
 	user.visible_message("<span class='warning'>[user] suddenly fades away!</span>", "<span class='shadowling'>You veil yourself in darkness, making you harder to see.</span>")
-	user.alpha = 10
+	user.alpha_set(standartize_alpha(10), ALPHA_SOURCE_SHADOW_THRALL)
 	addtimer(CALLBACK(src, PROC_REF(reveal), user), conseal_time)
 
 
-/obj/effect/proc_holder/spell/shadowling_guise/proc/reveal(mob/user)
+/obj/effect/proc_holder/spell/shadowling_guise/proc/reveal(mob/living/user)
 	if(QDELETED(user))
 		return
 
-	user.alpha = initial(user.alpha)
+	user.alpha_set(1, ALPHA_SOURCE_SHADOW_THRALL)
 	user.visible_message("<span class='warning'>[user] appears from nowhere!</span>", "<span class='shadowling'>Your shadowy guise slips away.</span>")
 
 
@@ -956,12 +956,12 @@
 		user.visible_message("<span class='danger'>[user] suddenly vanishes!</span>", \
 							"<span class='shadowling'>You begin phasing through planes of existence. Use the ability again to return.</span>")
 		user.incorporeal_move = INCORPOREAL_NORMAL
-		user.alpha = 0
+		user.alpha_set(0, ALPHA_SOURCE_SHADOWLING)
 	else
 		user.visible_message("<span class='danger'>[user] suddenly appears from nowhere!</span>", \
 							"<span class='shadowling'>You return from the space between worlds.</span>")
 		user.incorporeal_move = INCORPOREAL_NONE
-		user.alpha = 255
+		user.alpha_set(1, ALPHA_SOURCE_SHADOWLING)
 
 
 /obj/effect/proc_holder/spell/aoe/ascendant_storm

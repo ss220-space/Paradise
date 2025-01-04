@@ -31,6 +31,7 @@
 #define SPECIAL_ROLE_ABDUCTOR_SCIENTIST "Abductor Scientist"
 #define SPECIAL_ROLE_BLOB "Blob"
 #define SPECIAL_ROLE_BLOB_OVERMIND "Blob Overmind"
+#define SPECIAL_ROLE_BLOB_MINION "Blob Minion"
 #define SPECIAL_ROLE_BORER "Borer"
 #define SPECIAL_ROLE_CARP "Space Carp"
 #define SPECIAL_ROLE_CHANGELING "Changeling"

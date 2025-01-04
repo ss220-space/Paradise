@@ -527,6 +527,7 @@
 	message_param = EMOTE_PARAM_USE_POSTFIX
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
+	only_unintentional = TRUE
 	audio_cooldown = 1 MINUTES
 	cooldown = 10 SECONDS
 	species_type_blacklist_typecache = list(/datum/species/machine)

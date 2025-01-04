@@ -165,7 +165,8 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL)
-			H.blood_volume += 0.8
+			H.AdjustBlood(0.8)
+			
 	return ..()
 
 /datum/reagent/iron/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -355,7 +356,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
-		head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name, H = H)
+		head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name, human = H)
 		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
 		H.update_hair()
 		H.update_fhair()
@@ -380,7 +381,7 @@
 		if(head_organ.dna.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
 			head_organ.h_style = "Very Long Hair"
 		else //Otherwise, give them a random hair style.
-			head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name, H = H)
+			head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species, human = H)
 		if(head_organ.dna.species.name in tmp_facial_hair_style.species_allowed) //If 'Very Long Beard' is a style the person's species can have, give it to them.
 			head_organ.f_style = "Very Long Beard"
 		else //Otherwise, give them a random facial hair style.

@@ -513,9 +513,9 @@ GLOBAL_VAR(bomb_set)
 		return
 	if(locate(/obj/structure/blob) in T)
 		return
-	var/obj/structure/blob/captured_nuke/N = new(T, src)
+	var/obj/structure/blob/special/captured_nuke/N = new(T, src)
 	N.overmind = B.overmind
-	N.adjustcolors(B.color)
+	N.update_blob()
 
 /obj/machinery/nuclearbomb/tesla_act(power, explosive)
 	..()

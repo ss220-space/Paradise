@@ -120,12 +120,12 @@ const StatusPane = (_properties, context) => {
             <Button
               tooltip="Withdraw money from the console"
               content="Withdraw"
-              onClick={() => act('withdraw', cash)}
+              onClick={() => act('withdraw', { cash })}
             />
             <Button
               content={adminAddCash}
               tooltip="Bless the players with da money!"
-              onClick={() => act('add_money', cash)}
+              onClick={() => act('add_money', { cash })}
             />
           </LabeledList.Item>
         )}

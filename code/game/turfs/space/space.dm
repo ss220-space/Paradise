@@ -59,8 +59,12 @@
 
 	if(opacity)
 		directional_opacity = ALL_CARDINALS
-
+	ComponentInitialize()
 	return INITIALIZE_HINT_NORMAL
+
+/turf/space/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/blob_turf_consuming, 4)
 
 /turf/space/BeforeChange()
 	..()
@@ -69,7 +73,7 @@
 	if(light_sources) // Turn off starlight, if present
 		set_light_on(FALSE)
 
-/turf/space/AfterChange(ignore_air, keep_cabling = FALSE, oldType)
+/turf/space/AfterChange(flags = NONE, oldType)
 	..()
 	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
 	S.add_to_transit(src)

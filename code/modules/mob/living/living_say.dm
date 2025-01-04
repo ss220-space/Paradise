@@ -205,6 +205,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 			return FALSE
+			
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_TRY_SPEECH, message)
+	if(sigreturn & COMPONENT_CANNOT_SPEAK)
+		return FALSE
 
 	if(sanitize)
 		message = trim_strip_html_properly(message, 512)
@@ -233,6 +237,17 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		CRASH("Message failed to generate pieces. [message] - [json_encode(message_pieces)]")
 
 	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
+
+	if(SEND_SIGNAL( \
+        src, \
+        COMSIG_LIVING_EARLY_SAY, \
+        message, \
+        verb, \
+        ignore_speech_problems, \
+        ignore_atmospherics, \
+        ignore_languages, \
+        first_piece) & COMPONENT_PREVENT_SPEAKING)
+		return FALSE
 
 	if(first_piece.speaking?.flags & HIVEMIND)
 		first_piece.speaking.broadcast(src, first_piece.message)
@@ -289,6 +304,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(!ignore_speech_problems)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)
 		verb = hsp["verb"]
+
+	if(cannot_speak_loudly())
+		return whisper(message)
 
 	var/list/used_radios = list()
 	if(handle_message_mode(message_mode, message_pieces, verb, used_radios))
@@ -383,7 +401,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency)
+		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency, FALSE)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
@@ -543,14 +561,14 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE)
+		M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
 	if(eavesdropping.len)
 		stars_all(message_pieces)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
-			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE)
+			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)	
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
 

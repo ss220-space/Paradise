@@ -137,9 +137,12 @@
 /datum/reagents/proc/copy_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, safety = FALSE)
 	if(!target)
 		return
-	if(!target.reagents || total_volume <= 0)
+	if(total_volume <= 0)
 		return
-	var/datum/reagents/R = target.reagents
+
+	var/datum/reagents/R =(istype(target, /datum/reagents))? target : target?.reagents
+	if(!R || !istype(R))
+		return
 	amount = min(min(amount, total_volume), R.maximum_volume - R.total_volume)
 	var/part = amount / total_volume
 	var/trans_data = null
@@ -648,7 +651,7 @@
 				handle_reactions()
 			return FALSE
 
-	var/datum/reagent/D = GLOB.chemical_reagents_list[reagent]
+	var/datum/reagent/D = (ispath(reagent))? new reagent() : GLOB.chemical_reagents_list[reagent]
 	if(D)
 
 		var/datum/reagent/R = new D.type()

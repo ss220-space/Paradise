@@ -20,6 +20,11 @@
 	del_on_death = 1
 
 
+/mob/living/simple_animal/hostile/illusion/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
+
+
 /mob/living/simple_animal/hostile/illusion/Life()
 	..()
 	if(world.time > life_span)

@@ -595,9 +595,7 @@
 	lasercolor = "r"
 
 
-/mob/living/simple_animal/bot/ed209/UnarmedAttack(atom/A)
-	if(!on || !can_unarmed_attack())
-		return
+/mob/living/simple_animal/bot/ed209/OnUnarmedAttack(atom/A)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.staminaloss < 110 || arrest_type && !baton_delayed)

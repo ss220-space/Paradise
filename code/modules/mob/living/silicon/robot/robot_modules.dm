@@ -28,13 +28,15 @@
 	if(modules)
 		for(var/obj/O in modules)
 			O.emp_act(severity)
+
 	if(emag)
 		emag.emp_act(severity)
+
 	..()
 
 
-/obj/item/robot_module/New()
-	..()
+/obj/item/robot_module/Initialize(mapload)
+	. = ..()
 	add_default_robot_items()
 	emag = new /obj/item/toy/sword(src)
 	emag.name = "Placeholder Emag Item"
@@ -48,10 +50,17 @@
 /obj/item/robot_module/proc/add_default_robot_items()
 	modules += new /obj/item/flash/cyborg(src)
 
+/obj/item/robot_module/proc/on_apply(mob/living/silicon/robot/robot)
+	return TRUE
+
+/obj/item/robot_module/proc/set_appearance(mob/living/silicon/robot/robot)
+	return TRUE
+
 /obj/item/robot_module/proc/fix_modules()
 	for(var/obj/item/I in modules)
 		ADD_TRAIT(I, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 		I.mouse_opacity = MOUSE_OPACITY_OPAQUE
+
 	if(emag)
 		ADD_TRAIT(emag, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 		emag.mouse_opacity = MOUSE_OPACITY_OPAQUE
@@ -114,6 +123,7 @@
 /obj/item/robot_module/proc/rebuild()//Rebuilds the list so it's possible to add/remove items from the module
 	var/list/temp_list = modules
 	modules = list()
+
 	for(var/obj/O in temp_list)
 		if(!QDELETED(O)) //so items getting deleted don't stay in module list and haunt you
 			modules += O
@@ -140,6 +150,7 @@
 
 /obj/item/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
 	add_verb(R, subsystems)
+
 	for(var/A in module_actions)
 		var/datum/action/act = new A()
 		act.Grant(R)
@@ -147,9 +158,11 @@
 
 /obj/item/robot_module/proc/remove_subsystems_and_actions(mob/living/silicon/robot/R)
 	remove_verb(R, subsystems)
+
 	for(var/datum/action/A in R.module_actions)
 		A.Remove(R)
 		qdel(A)
+
 	R.module_actions.Cut()
 
 // Return true in an overridden subtype to prevent normal removal handling
@@ -179,41 +192,39 @@
 
 /obj/item/robot_module/standard/New()
 	..()
-	modules += new /obj/item/extinguisher/mini(src) // for firefighting, and propulsion in space
+	modules += new /obj/item/screwdriver/cyborg(src) //added for minor works
+	modules += new /obj/item/wirecutters/cyborg(src) //addded to be able cut at least its own placed wires and rods
 	modules += new /obj/item/crowbar/cyborg(src)
-	// sec
-	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
+	modules += new /obj/item/wrench/cyborg(src)
+	modules += new /obj/item/weldingtool(src) //added instead of upgraded version
 	modules += new /obj/item/melee/baton/telescopic(src) // for minimal possablity to execute sec part of the module and also for tests
-	// janitorial
-	modules += new /obj/item/soap/nanotrasen(src)
-	modules += new /obj/item/lightreplacer/cyborg(src)
+	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
+	modules += new /obj/item/flash/cyborg(src)
 	modules += new /obj/item/reagent_containers/spray/cleaner/drone(src) // test if will be in active usage and become op to be cutted out later
-	// service
-	modules += new /obj/item/instrument/piano_synth(src) // added for minimal service part
-	// eng
+	modules += new /obj/item/soap/nanotrasen(src)
 	modules += new /obj/item/stack/sheet/metal/cyborg(src)
 	modules += new /obj/item/stack/sheet/glass/cyborg(src) // regular glass for simplest works on broken window replacement
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
-	modules += new /obj/item/stack/rods/cyborg(src)
-	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
-	modules += new /obj/item/wrench/cyborg(src)
-	modules += new /obj/item/screwdriver/cyborg(src) //added for minor works
-	modules += new /obj/item/weldingtool(src) //added instead of upgraded version
-	modules += new /obj/item/wirecutters/cyborg(src) //addded to be able cut at least its own placed wires and rods
-	// mining
+	modules += new /obj/item/healthanalyzer(src)
+	modules += new /obj/item/reagent_containers/borghypo/basic(src)
+	modules += new /obj/item/handheld_defibrillator(src) // test if will be in active usage and become op to be cutted out later, instead of salbutomol
+	modules += new /obj/item/extinguisher/mini(src) // for firefighting, and propulsion in space
+	modules += new /obj/item/lightreplacer/cyborg(src)
+	modules += new /obj/item/roller_holder(src) // for taking the injured to medbay without worsening their injuries or leaving a blood trail the whole way
 	modules += new /obj/item/pickaxe/drill/cyborg(src) // instead of the pickaxe the worst tool for mining anywhere but killing someone with it
 	modules += new /obj/item/mining_scanner/cyborg(src) // instead of advanced scanner, we have mining module already
 	modules += new /obj/item/storage/bag/ore/cyborg(src)
-	// med
-	modules += new /obj/item/healthanalyzer(src)
-	modules += new /obj/item/reagent_containers/borghypo/basic(src)
-	modules += new /obj/item/roller_holder(src) // for taking the injured to medbay without worsening their injuries or leaving a blood trail the whole way
-	modules += new /obj/item/handheld_defibrillator(src) // test if will be in active usage and become op to be cutted out later, instead of salbutomol
+	modules += new /obj/item/stack/rods/cyborg(src)
+	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
+	modules += new /obj/item/instrument/piano_synth(src) // added for minimal service part
 
 	emag = new /obj/item/melee/energy/sword/cyborg(src)
 
 	fix_modules()
 	handle_storages()
+
+/obj/item/robot_module/standard/add_default_robot_items()
+	return
 
 /obj/item/robot_module/standard/respawn_consumable(mob/living/silicon/robot/R)
 	var/obj/item/reagent_containers/spray/cleaner/C = locate() in modules
@@ -238,33 +249,43 @@
 	)
 	has_transform_animation = TRUE
 
+/obj/item/robot_module/medical/on_apply(mob/living/silicon/robot/robot)
+	if(robot.camera && ("Robots" in robot.camera.network))
+		LAZYADD(robot.camera.network, "Medical")
+
+	robot.status_flags &= ~CANPUSH
+	robot.see_reagents = TRUE
+
+	return TRUE
+
 /obj/item/robot_module/medical/New()
 	..()
+	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/healthanalyzer/advanced(src)
 	modules += new /obj/item/robotanalyzer(src)
-	modules += new /obj/item/reagent_scanner/adv(src)
-	modules += new /obj/item/twohanded/shockpaddles/borg(src)
-	modules += new /obj/item/handheld_defibrillator(src)
-	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/reagent_containers/borghypo(src)
-	modules += new /obj/item/reagent_containers/glass/beaker/large(src)
-	modules += new /obj/item/reagent_containers/dropper(src)
-	modules += new /obj/item/reagent_containers/syringe(src)
-	modules += new /obj/item/extinguisher/mini(src)
-	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
-	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
-	modules += new /obj/item/stack/medical/splint/cyborg(src)
-	modules += new /obj/item/stack/nanopaste/cyborg(src)
+	modules += new /obj/item/handheld_defibrillator(src)
+	modules += new /obj/item/twohanded/shockpaddles/borg(src)
+	modules += new /obj/item/gripper/medical(src)
+	modules += new /obj/item/flash/cyborg(src)
 	modules += new /obj/item/scalpel/laser/laser1(src)
 	modules += new /obj/item/hemostat(src)
 	modules += new /obj/item/retractor(src)
-	modules += new /obj/item/bonegel(src)
-	modules += new /obj/item/FixOVein(src)
-	modules += new /obj/item/bonesetter(src)
 	modules += new /obj/item/circular_saw(src)
-	modules += new /obj/item/surgicaldrill(src)
-	modules += new /obj/item/gripper/medical(src)
+	modules += new /obj/item/bonegel(src)
+	modules += new /obj/item/bonesetter(src)
+	modules += new /obj/item/stack/medical/splint/cyborg(src)
+	modules += new /obj/item/stack/nanopaste/cyborg(src)
+	modules += new /obj/item/reagent_containers/glass/beaker/large(src)
+	modules += new /obj/item/reagent_containers/dropper(src)
+	modules += new /obj/item/reagent_containers/syringe(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/FixOVein(src)
+	modules += new /obj/item/surgicaldrill(src)
+	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
+	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
+	modules += new /obj/item/reagent_scanner/adv(src)
+	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/rlf(src)
 
 	emag = new /obj/item/reagent_containers/borghypo/emagged(src) // emagged med. cyborg gets a special hypospray.
@@ -284,12 +305,17 @@
 /obj/item/robot_module/medical/unemag()
 	for(var/obj/item/twohanded/shockpaddles/borg/defib in modules)
 		defib.emag_act()
+
 	return ..()
+
+/obj/item/robot_module/medical/add_default_robot_items()
+	return
 
 /obj/item/robot_module/medical/respawn_consumable(mob/living/silicon/robot/R)
 	if(emag)
 		var/obj/item/reagent_containers/spray/PS = emag
 		PS.reagents.add_reagent("sacid", 2)
+
 	..()
 
 /obj/item/robot_module/engineering
@@ -312,8 +338,17 @@
 	)
 	has_transform_animation = TRUE
 
+/obj/item/robot_module/engineering/on_apply(mob/living/silicon/robot/robot)
+	if(robot.camera && ("Robots" in robot.camera.network))
+		LAZYADD(robot.camera.network, "Engineering")
+
+	ADD_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
+
+	return TRUE
+
 /obj/item/robot_module/engineering/New()
 	..()
+	modules += new /obj/item/flash/cyborg(src)
 	modules += new /obj/item/rcd/borg(src)
 	modules += new /obj/item/rpd(src)
 	modules += new /obj/item/extinguisher(src)
@@ -341,6 +376,9 @@
 	fix_modules()
 	handle_storages()
 
+/obj/item/robot_module/engineering/add_default_robot_items()
+	return
+
 /obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
@@ -362,6 +400,26 @@
 		"Cricket" = "Cricket-SEC"
 	)
 	has_transform_animation = TRUE
+
+/obj/item/robot_module/security/on_apply(mob/living/silicon/robot/robot)
+	if(!robot.weapons_unlock)
+		var/count_secborgs = 0
+
+		for(var/mob/living/silicon/robot/R in GLOB.alive_mob_list)
+			if(R && R.stat != DEAD && R.module && istype(R.module, /obj/item/robot_module/security))
+				count_secborgs++
+
+		var/max_secborgs = 2
+		if(GLOB.security_level == SEC_LEVEL_GREEN)
+			max_secborgs = 1
+
+		if(count_secborgs >= max_secborgs)
+			to_chat(robot, span_warning("There are too many Security cyborgs active. Please choose another module."))
+			return FALSE
+
+	robot.status_flags &= ~CANPUSH
+
+	return TRUE
 
 /obj/item/robot_module/security/New()
 	..()
@@ -426,6 +484,11 @@
 	)
 	has_transform_animation = TRUE
 
+/obj/item/robot_module/butler/on_apply(mob/living/silicon/robot/robot)
+	robot.see_reagents = TRUE
+
+	return TRUE
+
 /obj/item/robot_module/butler/New()
 	..()
 
@@ -474,8 +537,10 @@
 	if(emag)
 		var/obj/item/reagent_containers/food/drinks/cans/beer/B = emag
 		B.reagents.add_reagent("beer2", 2)
+
 	var/obj/item/reagent_containers/spray/pestspray/spray = locate() in modules
 	spray?.reagents.add_reagent("pestkiller", 3)
+
 	..()
 
 /obj/item/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)
@@ -499,9 +564,11 @@
 	R.add_language(LANGUAGE_MOTH, 1)
 
 /obj/item/robot_module/butler/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
+	var/obj/item/storage/bag/tray/cyborg/T = locate() in modules
+
 	if(istype(T))
 		T.drop_inventory(R)
+
 	var/obj/item/gripper/service/G = locate() in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
@@ -527,6 +594,12 @@
 	)
 	has_transform_animation = TRUE
 
+/obj/item/robot_module/miner/on_apply(mob/living/silicon/robot/robot)
+	if(robot.camera && ("Robots" in robot.camera.network))
+		LAZYADD(robot.camera.network, "Mining Outpost")
+
+	return TRUE
+
 /obj/item/robot_module/miner/New()
 	..()
 	modules += new /obj/item/storage/bag/ore/cyborg(src)
@@ -551,6 +624,7 @@
 		if(!istype(D, /obj/item/pickaxe/drill/cyborg/diamond))
 			qdel(D)
 			modules -= D // Remove it from this list so it doesn't get added in the rebuild.
+
 	modules += new /obj/item/pickaxe/drill/cyborg/diamond(src)
 	rebuild()
 
@@ -559,15 +633,19 @@
 	for(var/obj/item/pickaxe/drill/cyborg/diamond/drill in modules)
 		qdel(drill)
 		modules -= drill
+
 	modules += new /obj/item/pickaxe/drill/cyborg(src)
 	rebuild()
+
 	return ..()
 
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
 	if(component_id == "KA modkits")
 		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src)
 			W.melee_attack_chain(user, D)
+
 		return TRUE
+
 	return ..()
 
 /obj/item/robot_module/deathsquad
@@ -580,6 +658,13 @@
 	default_skin = "nano_bloodhound"
 	borg_skins = list("Deathsquad" = "nano_bloodhound")
 	has_transform_animation = TRUE
+
+/obj/item/robot_module/deathsquad/on_apply(mob/living/silicon/robot/robot)
+	var/mob/living/silicon/robot/deathsquad/death = new(get_turf(robot))
+	robot.mind?.transfer_to(death)
+	qdel(robot)
+
+	return TRUE
 
 /obj/item/robot_module/deathsquad/New()
 	..()
@@ -598,6 +683,12 @@
 	default_skin = "syndie_bloodhound"
 	borg_skins = list("Syndicate Bloodhound" = "syndie_bloodhound")
 	has_transform_animation = TRUE
+
+/obj/item/robot_module/syndicate/on_apply(mob/living/silicon/robot/robot)
+	robot.spawn_syndicate_borgs(robot, "Bloodhound", get_turf(robot))
+	qdel(robot)
+
+	return TRUE
 
 /obj/item/robot_module/syndicate/New()
 	..()
@@ -621,39 +712,49 @@
 	borg_skins = list("Syndicate Medical" = "syndi-medi")
 	has_transform_animation = TRUE
 
+/obj/item/robot_module/syndicate_medical/on_apply(mob/living/silicon/robot/robot)
+	robot.spawn_syndicate_borgs(robot, "Medical", get_turf(robot))
+	qdel(robot)
+
+	return TRUE
+
 /obj/item/robot_module/syndicate_medical/New()
 	..()
-	modules += new /obj/item/healthanalyzer/advanced(src)
-	modules += new /obj/item/reagent_scanner/adv(src)
-	modules += new /obj/item/bodyanalyzer/borg/syndicate(src)
-	modules += new /obj/item/twohanded/shockpaddles/borg(src)
-	modules += new /obj/item/handheld_defibrillator(src)
-	modules += new /obj/item/roller_holder(src)
-	modules += new /obj/item/reagent_containers/borghypo/syndicate(src)
 	modules += new /obj/item/extinguisher/mini(src)
-	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
-	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
-	modules += new /obj/item/stack/medical/splint/cyborg(src)
-	modules += new /obj/item/stack/nanopaste/cyborg(src)
+	modules += new /obj/item/healthanalyzer/advanced(src)
+	modules += new /obj/item/reagent_containers/borghypo/syndicate(src)
+	modules += new /obj/item/gun/medbeam(src)
+	modules += new /obj/item/handheld_defibrillator(src)
+	modules += new /obj/item/twohanded/shockpaddles/borg(src)
+	modules += new /obj/item/gripper/medical(src)
+	modules += new /obj/item/flash/cyborg(src)
 	modules += new /obj/item/scalpel/laser/laser1(src)
 	modules += new /obj/item/hemostat(src)
 	modules += new /obj/item/retractor(src)
-	modules += new /obj/item/bonegel(src)
-	modules += new /obj/item/FixOVein(src)
-	modules += new /obj/item/bonesetter(src)
-	modules += new /obj/item/surgicaldrill(src)
-	modules += new /obj/item/gripper/medical(src)
-	modules += new /obj/item/gun/medbeam(src)
 	modules += new /obj/item/melee/energy/sword/cyborg/saw(src) //Energy saw -- primary weapon
+	modules += new /obj/item/bonegel(src)
+	modules += new /obj/item/bonesetter(src)
+	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/FixOVein(src)
+	modules += new /obj/item/surgicaldrill(src)
+	modules += new /obj/item/bodyanalyzer/borg/syndicate(src)
+	modules += new /obj/item/stack/medical/splint/cyborg(src)
+	modules += new /obj/item/stack/nanopaste/cyborg(src)
+	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
+	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
+	modules += new /obj/item/reagent_scanner/adv(src)
 	modules += new /obj/item/pinpointer/operative(src)
 	modules += new /obj/item/pinpointer/nukeop(src)
-	modules += new /obj/item/gripper/nuclear(src)
+	modules += new /obj/item/roller_holder(src)
 	emag = null
 
 	fix_modules()
 	handle_storages()
+
+/obj/item/robot_module/syndicate_medical/add_default_robot_items()
+	return
 
 /obj/item/robot_module/syndicate_saboteur
 	name = "Syndicate Saboteur"
@@ -663,26 +764,33 @@
 	borg_skins = list("Syndicate Saboteur" = "syndi-engi")
 	has_transform_animation = TRUE
 
+/obj/item/robot_module/syndicate_saboteur/on_apply(mob/living/silicon/robot/robot)
+	robot.spawn_syndicate_borgs(robot, "Saboteur", get_turf(robot))
+	qdel(src)
+
+	return TRUE
+
 /obj/item/robot_module/syndicate_saboteur/New()
 	..()
+	modules += new /obj/item/screwdriver/cyborg(src)
+	modules += new /obj/item/wirecutters/cyborg(src)
+	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/wrench/cyborg(src)
+	modules += new /obj/item/weldingtool/largetank/cyborg(src)
+	modules += new /obj/item/multitool/cyborg(src)
+	modules += new /obj/item/gripper(src)
+	modules += new /obj/item/flash/cyborg(src)
 	modules += new /obj/item/rcd/borg/syndicate(src)
 	modules += new /obj/item/rpd(src)
-	modules += new /obj/item/extinguisher(src)
-	modules += new /obj/item/weldingtool/largetank/cyborg(src)
-	modules += new /obj/item/screwdriver/cyborg(src)
-	modules += new /obj/item/wrench/cyborg(src)
-	modules += new /obj/item/crowbar/cyborg(src)
-	modules += new /obj/item/wirecutters/cyborg(src)
-	modules += new /obj/item/multitool/cyborg(src)
 	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/analyzer(src)
-	modules += new /obj/item/gripper(src)
-	modules += new /obj/item/melee/energy/sword/cyborg(src)
 	modules += new /obj/item/card/emag(src)
-	modules += new /obj/item/borg_chameleon(src)
+	modules += new /obj/item/melee/energy/sword/cyborg(src)
+	modules += new /obj/item/gripper/nuclear(src)
+	modules += new /obj/item/extinguisher(src)
 	modules += new /obj/item/pinpointer/operative(src)
 	modules += new /obj/item/pinpointer/nukeop(src)
-	modules += new /obj/item/gripper/nuclear(src)
+	modules += new /obj/item/borg_chameleon(src)
 	modules += new /obj/item/stack/sheet/metal/cyborg(src)
 	modules += new /obj/item/stack/sheet/glass/cyborg(src)
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
@@ -694,6 +802,9 @@
 	fix_modules()
 	handle_storages()
 
+/obj/item/robot_module/syndicate_sabateur/add_default_robot_items()
+	return
+
 /obj/item/robot_module/destroyer
 	name = "Destroyer"
 	module_type = "Malf"
@@ -704,6 +815,13 @@
 	default_skin = "droidcombat"
 	borg_skins = list("Destroyer" = "droidcombat")
 	has_transform_animation = TRUE
+
+/obj/item/robot_module/destroyer/on_apply(mob/living/silicon/robot/robot)
+	var/mob/living/silicon/robot/destroyer/destroy = new(get_turf(robot))
+	robot.mind?.transfer_to(destroy)
+	qdel(robot)
+
+	return TRUE
 
 /obj/item/robot_module/destroyer/New()
 	..()
@@ -717,6 +835,7 @@
 	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/pinpointer(src)
 	emag = new /obj/item/gun/energy/pulse/destroyer/annihilator(src)
+
 	fix_modules()
 
 
@@ -727,6 +846,11 @@
 	default_skin = "ertgamma"
 	borg_skins = list("ERT-GAMMA" = "ertgamma")
 	has_transform_animation = TRUE
+
+/obj/item/robot_module/combat/on_apply(mob/living/silicon/robot/robot)
+	robot.status_flags &= ~CANPUSH
+
+	return TRUE
 
 /obj/item/robot_module/combat/New()
 	..()
@@ -743,6 +867,7 @@
 	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/pinpointer(src)
 	emag = null
+
 	fix_modules()
 
 
@@ -754,6 +879,11 @@
 	)
 	default_skin = "xenoborg"
 	borg_skins = list("Xenoborg" = "xenoborg")
+
+/obj/item/robot_module/hunter/on_apply(mob/living/silicon/robot/robot)
+	robot.modtype = "Xeno-Hu"
+
+	return TRUE
 
 /obj/item/robot_module/hunter/add_default_robot_items()
 	return
@@ -782,32 +912,39 @@
 	name = "Drone"
 	module_type = "Engineer"
 
+/obj/item/robot_module/drone/on_apply(mob/living/silicon/robot/robot)
+	var/mob/living/silicon/robot/drone/drone = new(get_turf(robot))
+	robot.mind?.transfer_to(drone)
+	qdel(robot)
+
+	return TRUE
+
 /obj/item/robot_module/drone/New()
 	..()
-	modules += new /obj/item/weldingtool/largetank/cyborg(src)
 	modules += new /obj/item/screwdriver/cyborg(src)
-	modules += new /obj/item/wrench/cyborg(src)
-	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/wirecutters/cyborg(src)
+	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/wrench/cyborg(src)
+	modules += new /obj/item/weldingtool/largetank/cyborg(src)
 	modules += new /obj/item/multitool/cyborg(src)
-	modules += new /obj/item/lightreplacer/cyborg(src)
 	modules += new /obj/item/gripper(src)
-	modules += new /obj/item/matter_decompiler(src)
+	modules += new /obj/item/extinguisher(src)
 	modules += new /obj/item/reagent_containers/spray/cleaner/drone(src)
 	modules += new /obj/item/soap(src)
-	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/rpd(src)
+	modules += new /obj/item/t_scanner(src)
+	modules += new /obj/item/analyzer(src)
 	modules += new /obj/item/stack/sheet/wood/cyborg(src)
-	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
 	modules += new /obj/item/stack/tile/wood/cyborg(src)
-	modules += new /obj/item/stack/rods/cyborg(src)
-	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
+	modules += new /obj/item/matter_decompiler(src)
+	modules += new /obj/item/lightreplacer/cyborg(src)
+	modules += new /obj/item/floor_painter(src)
 	modules += new /obj/item/stack/sheet/metal/cyborg(src)
 	modules += new /obj/item/stack/sheet/glass/cyborg(src)
-	modules += new /obj/item/floor_painter(src)
+	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
-	modules += new /obj/item/analyzer(src)
-	modules += new /obj/item/extinguisher(src)
+	modules += new /obj/item/stack/rods/cyborg(src)
+	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
 
 	fix_modules()
 	handle_storages()
@@ -829,13 +966,20 @@
 	name = "Cogscarab"
 	module_type = "Cogscarab"
 
+/obj/item/robot_module/cogscarab/on_apply(mob/living/silicon/robot/robot)
+	var/mob/living/silicon/robot/cogscarab/cogscarab = new(get_turf(robot))
+	robot.mind?.transfer_to(cogscarab)
+	qdel(robot)
+
+	return TRUE
+
 /obj/item/robot_module/cogscarab/Initialize()
 	. = ..()
-	modules += new /obj/item/weldingtool/experimental/brass(src)
 	modules += new /obj/item/screwdriver/brass(src)
-	modules += new /obj/item/wrench/brass(src)
-	modules += new /obj/item/crowbar/brass(src)
 	modules += new /obj/item/wirecutters/brass(src)
+	modules += new /obj/item/crowbar/brass(src)
+	modules += new /obj/item/wrench/brass(src)
+	modules += new /obj/item/weldingtool/experimental/brass(src)
 	modules += new /obj/item/multitool/brass(src)
 	modules += new /obj/item/gripper/cogscarab(src)
 	modules += new /obj/item/stack/sheet/brass/cyborg(src)
@@ -861,6 +1005,18 @@
 	module_type = "Cogscarab" //icon_state
 	default_skin = "cyborg"
 	borg_skins = list("cyborg" = "cyborg")
+
+/obj/item/robot_module/clockwork/on_apply(mob/living/silicon/robot/robot)
+	robot.status_flags &= ~CANPUSH
+	QDEL_NULL(robot.mmi)
+
+	robot.mmi = new /obj/item/mmi/robotic_brain/clockwork(src)
+
+	return TRUE
+
+/obj/item/robot_module/clockwork/set_appearance(mob/living/silicon/robot/robot)
+	robot.icon = 'icons/mob/clockwork_mobs.dmi'
+	robot.icon_state = "cyborg"
 
 /obj/item/robot_module/clockwork/Initialize()
 	. = ..()
@@ -889,7 +1045,7 @@
 	return
 
 /obj/item/robot_module/clockwork/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper/cogscarab/G = locate(/obj/item/gripper/cogscarab) in modules
+	var/obj/item/gripper/cogscarab/G = locate() in modules
 	G?.drop_gripped_item(silent = TRUE)
 
 /obj/item/robot_module/ninja
@@ -897,56 +1053,62 @@
 	name_disguise = "Service"
 	module_type = "ninja"
 
+/obj/item/robot_module/ninja/on_apply(mob/living/silicon/robot/robot)
+	var/mob/living/silicon/robot/syndicate/saboteur/ninja/ninja = new(get_turf(robot))
+	robot.mind?.transfer_to(ninja)
+	qdel(robot)
+
+	return TRUE
+
 /obj/item/robot_module/ninja/New()
 	..()
-	// Ниндзя штучки
-	modules += new /obj/item/gun/energy/shuriken_emitter/borg(src)
 	modules += new /obj/item/melee/energy_katana/borg(src)
-	modules += new /obj/item/pinpointer/ninja(src)			// Почему бы и да
-	// Инструменты
+	modules += new /obj/item/gun/energy/shuriken_emitter/borg(src)
+	modules += new /obj/item/screwdriver/cyborg(src)
+	modules += new /obj/item/wirecutters/cyborg(src)
+	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/wrench/cyborg(src)
+	modules += new /obj/item/weldingtool/largetank/cyborg(src)
+	modules += new /obj/item/multitool/cyborg(src)
+	modules += new /obj/item/extinguisher(src)
+	modules += new /obj/item/healthanalyzer/advanced(src)
+	modules += new /obj/item/reagent_containers/borghypo/upgraded/super(src)
+	modules += new /obj/item/handheld_defibrillator(src)
+	modules += new /obj/item/twohanded/shockpaddles/borg(src)
+	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
+	modules += new /obj/item/gripper/universal(src)
+	modules += new /obj/item/flash/cyborg(src)
+	modules += new /obj/item/scalpel/laser/laser1(src)
+	modules += new /obj/item/hemostat(src)
+	modules += new /obj/item/retractor(src)
+	modules += new /obj/item/circular_saw(src)
+	modules += new /obj/item/bonegel(src)
+	modules += new /obj/item/bonesetter(src)
+	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
+	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
 	modules += new /obj/item/rcd/borg/syndicate(src)
 	modules += new /obj/item/rpd(src)
-	modules += new /obj/item/extinguisher(src)
-	modules += new /obj/item/weldingtool/largetank/cyborg(src)
-	modules += new /obj/item/screwdriver/cyborg(src)
-	modules += new /obj/item/wrench/cyborg(src)
-	modules += new /obj/item/crowbar/cyborg(src)
-	modules += new /obj/item/wirecutters/cyborg(src)
-	modules += new /obj/item/multitool/cyborg(src)
 	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/analyzer(src)
-	modules += new /obj/item/gripper(src)
+	modules += new /obj/item/FixOVein(src)
+	modules += new /obj/item/surgicaldrill(src)
+	modules += new /obj/item/bodyanalyzer/borg/syndicate(src)
+	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/stack/sheet/metal/cyborg(src)
 	modules += new /obj/item/stack/sheet/glass/cyborg(src)
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
-	// Наручники
-	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
-	// Мед. инструменты
-	modules += new /obj/item/scalpel/laser/laser1(src)
-	modules += new /obj/item/hemostat(src)
-	modules += new /obj/item/retractor(src)
-	modules += new /obj/item/bonegel(src)
-	modules += new /obj/item/FixOVein(src)
-	modules += new /obj/item/bonesetter(src)
-	modules += new /obj/item/circular_saw(src)
-	modules += new /obj/item/surgicaldrill(src)
-	modules += new /obj/item/healthanalyzer/advanced(src)
-	modules += new /obj/item/bodyanalyzer/borg/syndicate(src)
-	modules += new /obj/item/twohanded/shockpaddles/borg(src)
-	modules += new /obj/item/handheld_defibrillator(src)
-	modules += new /obj/item/roller_holder(src)
-	modules += new /obj/item/reagent_containers/borghypo/upgraded/super(src)
-	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
-	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
-
+	modules += new /obj/item/pinpointer/ninja(src)			// Почему бы и да
 	var/obj/item/borg_chameleon/cham_proj = new /obj/item/borg_chameleon(src)
 	cham_proj.disguise = "maximillion"
 	modules += cham_proj
 	emag = null
+
 	fix_modules()
 	handle_storages()
 
+/obj/item/robot_module/ninja/add_default_robot_items()
+	return
 
 //checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()
@@ -969,8 +1131,10 @@
 /datum/robot_energy_storage/New(var/obj/item/robot_module/R = null)
 	if(!energy)
 		energy = max_energy
+
 	if(R)
 		R.storages |= src
+
 	return
 
 /datum/robot_energy_storage/proc/use_charge(amount)
@@ -978,7 +1142,9 @@
 		energy -= amount
 		if (energy == 0)
 			return TRUE
+
 		return TRUE
+
 	else
 		return FALSE
 
