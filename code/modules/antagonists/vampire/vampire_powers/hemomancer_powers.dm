@@ -153,7 +153,7 @@
 		if(L.affects_vampire(user))
 			L.Slowed(slowed_amount)
 			L.apply_damage(33, TOX)
-			L.visible_message(span_warning("[L] опутывается кровавыми щупальцами, которые ограничивают [genderize_ru(M.gender, "его", "её", "этого", "их")] движение!"))
+			L.visible_message(span_warning("[L] опутывается кровавыми щупальцами, которые ограничивают [genderize_ru(L.gender, "его", "её", "этого", "их")] движение!"))
 			var/turf/target_turf = get_turf(L)
 			playsound(target_turf, 'sound/magic/tail_swing.ogg', 50, TRUE)
 			new /obj/effect/decal/cleanable/blood(target_turf)
