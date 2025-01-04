@@ -1004,6 +1004,17 @@
 	construction_time = 20 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/medbeamgun
+	name = "Exosuit Medical Equipment (Mecha Medbeam)"
+	id = "mech_medical_beamgun"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/medical/beamgun
+	req_tech = list("biotech" = 7, "bluespace" = 7, "powerstorage" = 7)
+	materials = list(MAT_METAL=5000,MAT_DIAMOND=600,MAT_GLASS=600,MAT_GOLD=600,MAT_URANIUM=300,MAT_BLUESPACE=650)
+	construction_time = 20 SECONDS
+	category = list("Exosuit Equipment")
+
+
 /datum/design/improved_exosuit_control_system
     name = "Exosuit Common Equipment (Control System Upgrade)"
     id = "mech_improved_exosuit_control_system"

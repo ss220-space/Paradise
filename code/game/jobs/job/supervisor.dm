@@ -210,7 +210,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_ear = /obj/item/radio/headset/heads/blueshield/alt
-	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
+	glasses = /obj/item/clothing/glasses/hud/blueshield
 	id = /obj/item/card/id/nanotrasen
 	pda = /obj/item/pda/heads/blueshield
 	backpack_contents = list(

@@ -103,7 +103,9 @@
 		if("Windows")
 			part_type = WINDOW
 		else
-	var/coloradd = input(user, "Choose a color", "Color") as color
+	var/coloradd = tgui_input_color(user, "Choose a color", "Color")
+	if(isnull(coloradd))
+		return
 	colors[part_type] = coloradd
 	if(!has_paint)
 		has_paint = 1

@@ -130,7 +130,6 @@
 		user.dna?.species?.hunger_type = initial(user.dna.species.hunger_type)
 		user.dna?.species?.hunger_icon = initial(user.dna.species.hunger_icon)
 
-	animate(user, alpha = 255)
 	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
 
 
@@ -577,7 +576,9 @@
 /datum/antagonist/vampire/proc/handle_vampire_cloak()
 	if(!ishuman(owner.current))
 		animate(owner.current, time = 5, alpha = 255)
+		owner.current.alpha_set(1, ALPHA_SOURCE_VAMPIRE)
 		return
+
 	var/turf/simulated/owner_turf = get_turf(owner.current)
 	var/light_available = ((iscloaking)?owner_turf.get_lumcount():owner_turf.get_lumcount(0.5)) * 10
 
@@ -586,16 +587,21 @@
 
 	if(!iscloaking && !is_goon_cloak || owner.current.on_fire)
 		animate(owner.current, time = 5, alpha = 255)
+		owner.current.alpha_set(1, ALPHA_SOURCE_VAMPIRE)
 		owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
 		return
 
 	if(light_available <= 2)
 		animate(owner.current, time = 5, alpha = 38)
+		owner.current.alpha_set(standartize_alpha(38), ALPHA_SOURCE_VAMPIRE)
 		if(iscloaking)
 			owner.current.add_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
+
 		return
+
 	owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
 	animate(owner.current, time = 5, alpha = 204) // 255 * 0.80
+	owner.current.alpha_set(0.8, ALPHA_SOURCE_VAMPIRE)
 
 
 /datum/antagonist/vampire/vv_edit_var(var_name, var_value)
