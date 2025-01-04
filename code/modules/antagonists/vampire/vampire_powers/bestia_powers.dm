@@ -1874,8 +1874,8 @@
  * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/////////////////////////////////////////////////////////////////////// *
 \*======================================================================================================================================*/
 /mob/living/simple_animal/hostile/vampire
-	name = "Вампир животное"
-	real_name = "vampire animal"
+	name = "Вампир-животное"
+	real_name = "Вампир-животное"
 	desc = "Сообщите обо мне!"
 	faction = list(ROLE_VAMPIRE)
 	response_help = "обнимает"
@@ -2016,7 +2016,7 @@
  */
 /mob/living/simple_animal/hostile/vampire/bats
 	name = "Рой разъяренных летучих мышей"
-	real_name = "enraged bats swarm"
+	real_name = "Рой разъяренных летучих мышей"
 	desc = "Рой злобных, сердитых на вид космических летучих мышей."
 	icon = 'icons/mob/bats.dmi'
 	icon_state = "bat"
@@ -2093,7 +2093,7 @@
  */
 /mob/living/simple_animal/hostile/vampire/hound
 	name = "Кровавая гончая"
-	real_name = "Blood Hound"
+	real_name = "Кровавая гончая"
 	desc = "Черное клыкастое чудовище демонического вида со светящимися красными глазами и острыми зубами. Кровавые гончие обычно являются воплощением могущественных сущностей Блюспейса."
 	icon_state = "hellhoundgreater"
 	icon_living = "hellhoundgreater"
@@ -2187,7 +2187,7 @@
  */
 /mob/living/simple_animal/hostile/vampire/bats_summoned
 	name = "Рой разъяренных летучих мышей"
-	real_name = "enraged bats swarm"
+	real_name = "Рой разъяренных летучих мышей"
 	desc = "Рой злобных, сердитых на вид космических летучих мышей."
 	icon = 'icons/mob/bats.dmi'
 	icon_state = "bat"

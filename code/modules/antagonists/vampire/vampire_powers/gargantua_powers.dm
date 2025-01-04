@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/vampire/self/blood_swell
-	name = "Blood Swell"
-	desc = "You infuse your body with blood, making you highly resistant to stuns and physical damage. However, this makes you unable to fire ranged weapons while it is active."
-	gain_desc = "You have gained the ability to temporarly resist large amounts of stuns and physical damage."
+	name = "Кровавый вал"
+	desc = "Вы наполняете свое тело кровью, что делает вас очень устойчивым к оглушению и физическому урону. Однако при этом вы не можете стрелять из оружия дальнего боя, пока действует заклинание."
+	gain_desc = "Вы получили способность временно сопротивляться большому количеству оглушений и физического урона."
 	base_cooldown = 40 SECONDS
 	required_blood = 30
 	action_icon_state = "blood_swell"
@@ -15,13 +15,13 @@
 
 
 /datum/vampire_passive/blood_swell_upgrade
-	gain_desc = "While blood swell is active all of your melee attacks deal increased damage."
+	gain_desc = "Пока действует заклинание «Кровавый вал», все ваши атаки ближнего боя наносят повышенный урон."
 
 
 /obj/effect/proc_holder/spell/vampire/self/stomp
-	name = "Seismic Stomp"
-	desc = "You slam your foot into the ground sending a powerful shockwave through the station's hull, sending people flying away. Cannot be cast if you legs are impared by a bola or similar."
-	gain_desc = "You have gained the ability to knock people back using a powerful stomp."
+	name = "Сейсмический топот"
+	desc = "Вы ударяете ногой в землю, посылая мощную ударную волну по корпусу станции, отчего люди разлетаются в разные стороны. Не может быть применен, если ваши ноги обезврежены болой или чем-то подобным."
+	gain_desc = "Вы получили способность отбрасывать людей назад, используя мощный топот."
 	action_icon_state = "seismic_stomp"
 	base_cooldown = 30 SECONDS
 	required_blood = 25
@@ -87,31 +87,31 @@
 
 
 /obj/effect/proc_holder/spell/vampire/self/overwhelming_force
-	name = "Overwhelming Force"
-	desc = "When toggled you will automatically pry open doors that you bump into if you do not have access. Also deflects any thrown bola."
-	gain_desc = "You have gained the ability to force open doors and deflect bola at a small blood cost."
+	name = "Подавляющая сила"
+	desc = "При переключении вы будете автоматически открывать двери, на которые наткнетесь, если у вас нет доступа. Также отражает все брошенные болы."
+	gain_desc = "Вы получили способность силой открывать двери и отклонять болы за небольшую кровавую плату."
 	base_cooldown = 2 SECONDS
 	action_icon_state = "OH_YEAAAAH"
 
 
 /obj/effect/proc_holder/spell/vampire/self/overwhelming_force/cast(list/targets, mob/user)
 	if(!HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
-		to_chat(user, span_userdanger("You feel MIGHTY!"))
+		to_chat(user, span_userdanger("Вы чувствуете себя МОГУЧИМИ!"))
 		ADD_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
 		user.status_flags &= ~CANPUSH
 		user.move_resist = MOVE_FORCE_STRONG
 
 	else
-		to_chat(user, span_warning("You feel weaker..."))
+		to_chat(user, span_warning("Вы чувствуете себя слабее..."))
 		REMOVE_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
 		user.move_resist = MOVE_FORCE_DEFAULT
 		user.status_flags |= CANPUSH
 
 
 /obj/effect/proc_holder/spell/vampire/self/blood_rush
-	name = "Blood Rush"
-	desc = "Infuse yourself with blood magic to boost your movement speed."
-	gain_desc = "You have gained the ability to temporarily move at high speeds."
+	name = "Прилив крови"
+	desc = "Напитайте себя магией крови, чтобы увеличить скорость передвижения."
+	gain_desc = "Вы получили способность временно перемещаться с большой скоростью."
 	base_cooldown = 30 SECONDS
 	required_blood = 15
 	action_icon_state = "blood_rush"
@@ -121,19 +121,19 @@
 	var/mob/living/target = targets[1]
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		to_chat(H, span_notice("You feel a rush of energy!"))
+		to_chat(H, span_notice("Вы ощущаете прилив энергии!"))
 		H.apply_status_effect(STATUS_EFFECT_BLOOD_RUSH)
 
 
 /obj/effect/proc_holder/spell/fireball/demonic_grasp
-	name = "Demonic Grasp"
-	desc = "Fire a hand of demonic energy, snaring and throwing its target around, based on your intent. Disarm pushes, grab pulls."
-	gain_desc = "You have gained the ability to snare and disrupt people with demonic apendages."
+	name = "Демоническая хватка"
+	desc = "Выстрелите рукой демонической энергии, захватывая и отбрасывая свою цель в зависимости от вашего намерения. «ОБЕЗОРУЖИТЬ» — толкнуть, «СХВАТИТЬ» — притянуть."
+	gain_desc = "Вы получили способность притягивать и отталкивать людей с помощью демонических отростков."
 	base_cooldown = 15 SECONDS
 	fireball_type = /obj/item/projectile/magic/demonic_grasp
 
-	selection_activated_message		= span_notice("You raise your hand, full of demonic energy! <B>Left-click to cast at a target!</B>")
-	selection_deactivated_message	= span_notice("You re-absorb the energy...for now.")
+	selection_activated_message		= span_notice("Вы поднимаете руку, полную демонической энергии! <B>Щелкните левой кнопкой мыши, чтобы выстрелить в цель!</B>")
+	selection_deactivated_message	= span_notice("Вы возвращаете себе энергию... пока что.")
 
 	action_icon_state = "demonic_grasp"
 
@@ -210,9 +210,9 @@
 
 
 /obj/effect/proc_holder/spell/vampire/charge
-	name = "Charge"
-	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
-	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
+	name = "Рывок"
+	desc = "Вы бросаетесь в любую точку экрана, нанося большой урон, оглушая и разрушая стены и другие объекты."
+	gain_desc = "Теперь вы можете бросаться к цели на экране, нанося огромный урон и разрушая строения."
 	required_blood = 30
 	base_cooldown = 30 SECONDS
 	action_icon_state = "vampire_charge"

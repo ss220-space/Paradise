@@ -360,7 +360,7 @@
 	if(!istype(M) || !istype(H))
 		return
 	if(!H.mind)
-		visible_message("Похоже, [Н] слишком глуп, чтобы понять, что происходит.")
+		visible_message("Похоже, [H] слишком глуп, чтобы понять, что происходит.")
 		return
 	if(HAS_TRAIT(H, TRAIT_NO_BLOOD) || HAS_TRAIT(H, TRAIT_EXOTIC_BLOOD) || !H.blood_volume)
 		visible_message("[H] выглядит невозмутимым!")
@@ -392,7 +392,7 @@
 	var/datum/objective/protect/protect_objective = new
 	protect_objective.owner = H.mind
 	protect_objective.target = M.mind
-	protect_objective.explanation_text = "Защитите [М.real_name]."
+	protect_objective.explanation_text = "Защитите [M.real_name]."
 	H.mind.objectives += protect_objective
 	add_attack_logs(M, H, "Vampire-sired")
 	H.mind.make_vampire()
