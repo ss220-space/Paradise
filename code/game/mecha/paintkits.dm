@@ -364,12 +364,10 @@
 
 /obj/item/paintkit/ashed/Initialize(mapload)
 	. = ..()
-	icon_states = list(
-		"[MECH_TYPE_RIPLEY]" = "ashedripley",
-		"[MECH_TYPE_GYGAX]" = "ashedgygax",
-		"[MECH_TYPE_DURAND]" = "asheddurand",
-		"[MECH_TYPE_PHAZON]" = "ashedphazon",
-	)
+	icon_states["[MECH_TYPE_RIPLEY]"] = "ashedripley"
+	icon_states["[MECH_TYPE_GYGAX]"] = "ashedgygax"
+	icon_states["[MECH_TYPE_DURAND]"] = "asheddurand"
+	icon_states["[MECH_TYPE_PHAZON]"]= "ashedphazon"
 
 
 /obj/item/paintkit/lockermech_ashed
