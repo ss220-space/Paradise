@@ -47,6 +47,9 @@
 				if(istype(T, /turf/simulated/mineral/random))
 					Spread(T)
 
+/turf/simulated/mineral/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/blob_turf_consuming, 2)
 
 /// Generates typecache of tools allowed to dig this mineral
 /turf/simulated/mineral/proc/generate_picks()
@@ -197,6 +200,9 @@
 				attempt_drill(null,TRUE,1)
 		if(1)
 			attempt_drill(null,TRUE,3)
+
+/turf/simulated/mineral/blob_consume()
+	gets_drilled()
 
 /turf/simulated/mineral/ancient
 	name = "ancient rock"

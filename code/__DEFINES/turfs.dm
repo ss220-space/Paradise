@@ -32,6 +32,15 @@
 	min(CENTER.x + (H_RADIUS), world.maxx), min(CENTER.y + (V_RADIUS), world.maxy), CENTER.z \
 	)
 
+#define RANGE_TURFS_MULTIZ(RADIUS, CENTER, Z_MIN, Z_MAX) \
+	RECT_TURFS_MULTIZ(RADIUS, RADIUS, Z_MIN, Z_MAX, CENTER)
+
+#define RECT_TURFS_MULTIZ(H_RADIUS, V_RADIUS, Z_MIN, Z_MAX, CENTER) \
+	block( \
+	max(CENTER.x - (H_RADIUS), 1),          max(CENTER.y - (V_RADIUS), 1),          Z_MIN, \
+	min(CENTER.x + (H_RADIUS), world.maxx), min(CENTER.y + (V_RADIUS), world.maxy), Z_MAX \
+	)
+
 /// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
 // order of the additions: top edge + bottom edge + left edge + right edge
 #define RANGE_EDGE_TURFS(RADIUS, CENTER)\

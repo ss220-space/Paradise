@@ -24,6 +24,9 @@
 
 	light_system = MOVABLE_LIGHT
 
+	hud_type = /datum/hud/bot
+
+
 	var/obj/machinery/bot_core/bot_core = null
 	var/bot_core_type = /obj/machinery/bot_core
 	var/list/users = list() //for dialog updates
@@ -217,6 +220,8 @@
 
 	bot_core = new bot_core_type(src)
 	addtimer(CALLBACK(src, PROC_REF(add_bot_filter)), 3 SECONDS)
+
+	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
 
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)

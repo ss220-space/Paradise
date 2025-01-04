@@ -176,6 +176,10 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	
+/turf/simulated/floor/engine/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/blob_turf_consuming, 3)
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
@@ -239,9 +243,9 @@
 			if(prob(50))
 				ChangeTurf(baseturf)
 
-/turf/simulated/floor/engine/blob_act(obj/structure/blob/B)
-	if(prob(25))
-		ChangeTurf(baseturf)
+		
+/turf/simulated/floor/engine/blob_consume()
+	ChangeTurf(baseturf)
 
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"

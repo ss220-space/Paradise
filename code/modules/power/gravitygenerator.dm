@@ -14,6 +14,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 #define GRAV_NEEDS_PLASTEEL 2
 #define GRAV_NEEDS_WRENCH 3
 
+#define BLOB_HITS_NEED 4
+
 //
 // Abstract Generator
 //
@@ -27,6 +29,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	use_power = NO_POWER_USE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | NO_MALF_EFFECT
 	var/sprite_number = 0
+	/// Number of successful blob hits
+	var/blob_hits = 0
 
 
 /obj/machinery/gravity_generator/ex_act(severity)
@@ -35,7 +39,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 
 /obj/machinery/gravity_generator/blob_act(obj/structure/blob/B)
-	if(prob(20))
+	blob_hits++
+	if(blob_hits >= BLOB_HITS_NEED)
 		set_broken()
 
 

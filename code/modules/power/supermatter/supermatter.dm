@@ -355,7 +355,7 @@
 
 	consume(user)
 
-/obj/machinery/power/supermatter_shard/proc/get_integrity()
+/obj/machinery/power/supermatter_shard/proc/get_internal_integrity()
 	var/integrity = damage / explosion_point
 	integrity = round(100 - integrity * 100)
 	integrity = integrity < 0 ? 0 : integrity
@@ -541,16 +541,16 @@
 	if(!air)
 		return SUPERMATTER_ERROR
 
-	if(get_integrity() < 25)
+	if(get_internal_integrity() < 25)
 		return SUPERMATTER_DELAMINATING
 
-	if(get_integrity() < 50)
+	if(get_internal_integrity() < 50)
 		return SUPERMATTER_EMERGENCY
 
-	if(get_integrity() < 75)
+	if(get_internal_integrity() < 75)
 		return SUPERMATTER_DANGER
 
-	if((get_integrity() < 100) || (air.temperature > CRITICAL_TEMPERATURE))
+	if((get_internal_integrity() < 100) || (air.temperature > CRITICAL_TEMPERATURE))
 		return SUPERMATTER_WARNING
 
 	if(air.temperature > (CRITICAL_TEMPERATURE * 0.8))

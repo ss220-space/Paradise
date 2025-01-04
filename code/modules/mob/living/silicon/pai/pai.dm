@@ -230,8 +230,8 @@
 /mob/living/silicon/pai/blob_act()
 	if(stat != DEAD)
 		adjustBruteLoss(60)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /mob/living/silicon/pai/emp_act(severity)

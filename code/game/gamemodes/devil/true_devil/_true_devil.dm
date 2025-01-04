@@ -12,6 +12,7 @@
 	status_flags = CANPUSH
 	universal_understand = TRUE
 	universal_speak = TRUE //The devil speaks all languages meme
+	hud_type = /datum/hud/devil
 	var/ascended = FALSE
 	var/mob/living/oldform
 
@@ -36,7 +37,7 @@
 	health = maxHealth
 	icon_state = "arch_devil"
 
-/mob/living/carbon/true_devil/proc/set_name()
+/mob/living/carbon/true_devil/set_name()
 	name = mind.devilinfo.truename
 	real_name = name
 

@@ -8,7 +8,7 @@
 		return
 	update_blob_objective()
 	GLOB.event_announcement.Announce("Объект потерян. Причина: распостранение 5-ой биоугрозы. Взведение устройства самоуничтожения персоналом или внешними силами  в данный момент не представляется возможным из-за высокого уровня заражения. Решение: оставить станцию в изоляции до принятия окончательных мер противодействия.",
-										 "Отчет об объекте [station_name()]")
+										"Отчет об объекте [station_name()]")
 	blob_stage = (delay_blob_end)? BLOB_STAGE_POST_END : BLOB_STAGE_END
 	if(blob_stage == BLOB_STAGE_END)
 		end_game()
@@ -62,7 +62,7 @@
 /datum/game_mode/proc/auto_declare_completion_blob()
 	var/list/blob_infected = blobs["infected"]
 	var/list/blob_offsprings = blobs["offsprings"]
-	var/list/blobernauts = blobs["blobernauts"]
+	var/list/minions = blobs["minions"]
 	if(blob_infected?.len)
 		declare_blob_completion()
 		var/text = "<br/><FONT size = 2><B>Блоб[(blob_infected.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
@@ -75,9 +75,9 @@
 			for(var/datum/mind/blob in blob_offsprings)
 				text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
 
-		if(blobernauts?.len)
-			text += "<br/><br/><FONT size = 2><B>Блобернаут[(blobernauts.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
-			for(var/datum/mind/blob in blobernauts)
+		if(minions?.len)
+			text += "<br/><br/><FONT size = 2><B>Миньoн[(minions.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
+			for(var/datum/mind/blob in minions)
 				text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
 
 		to_chat(world, text)

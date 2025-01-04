@@ -788,7 +788,8 @@
 	if(dna.species.update_health_hud())
 		return
 	else
-
+		if(SEND_SIGNAL(src, COMSIG_HUMAN_UPDATING_HEALTH_HUD, health) & COMPONENT_OVERRIDE_HEALTH_HUD)
+			return
 		var/shock_reduction = 0
 		if(HAS_TRAIT(src, TRAIT_NO_PAIN_HUD))
 			shock_reduction = INFINITY
