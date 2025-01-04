@@ -36,6 +36,7 @@ import './styles/themes/ntOS95.scss';
 import { perf } from 'common/perf';
 import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
 import { setupHotKeys } from './hotkeys';
+import { loadIconRefMap } from './icons';
 import { captureExternalLinks } from './links';
 import { createRenderer } from './renderer';
 import { configureStore, StoreProvider } from './store';
@@ -47,6 +48,8 @@ perf.mark('init');
 const store = configureStore();
 
 const renderApp = createRenderer(() => {
+  loadIconRefMap();
+
   const { getRoutedComponent } = require('./routes');
   const Component = getRoutedComponent(store);
   return (

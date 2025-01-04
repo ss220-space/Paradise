@@ -979,9 +979,7 @@
 		unload()
 
 
-/mob/living/simple_animal/bot/mulebot/UnarmedAttack(atom/A)
-	if(!can_unarmed_attack())
-		return
+/mob/living/simple_animal/bot/mulebot/OnUnarmedAttack(atom/A)
 	if(isturf(A) && isturf(loc) && loc.Adjacent(A) && load)
 		unload(get_dir(loc, A))
 	else

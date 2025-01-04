@@ -75,6 +75,7 @@
 	random_items_count = 3
 	item_pool = list(
 		/obj/item/gun/energy/immolator/multi = 2,
+		/obj/item/gun/energy/gun/minigun = 1,
 		/obj/item/gun/projectile/automatic/mini_uzi = 2,
 		/obj/item/gun/projectile/automatic/pistol/deagle = 2,
 		/obj/item/gun/projectile/automatic/wt550 = 2,
@@ -139,6 +140,7 @@
 	random_items_count = 3
 	item_pool = list(
 		/obj/item/gun/energy/immolator/multi = 1,
+		/obj/item/gun/energy/gun/minigun = 1,
 		/obj/item/gun/projectile/automatic/mini_uzi = 1,
 		/obj/item/gun/projectile/automatic/pistol/deagle = 1,
 		/obj/item/gun/projectile/automatic/wt550 = 1,

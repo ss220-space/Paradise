@@ -46,6 +46,7 @@ GLOBAL_VAR_INIT(weakblock, 0)
 GLOBAL_VAR_INIT(hornsblock, 0)
 GLOBAL_VAR_INIT(comicblock, 0)
 GLOBAL_VAR_INIT(paraplegiablock, 0)
+GLOBAL_VAR_INIT(aphasiablock, 0)
 
 // Powers
 GLOBAL_VAR_INIT(soberblock, 0)
@@ -74,5 +75,4 @@ GLOBAL_LIST_EMPTY(global_mutations)
 GLOBAL_VAR_INIT(fakeblock1, 0)
 GLOBAL_VAR_INIT(fakeblock2, 0)
 GLOBAL_VAR_INIT(fakeblock3, 0)
-GLOBAL_VAR_INIT(fakeblock4, 0)
 

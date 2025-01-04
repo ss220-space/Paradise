@@ -2330,9 +2330,9 @@
 
 /datum/uplink_item/contractor/zippo
 	name = "Contractor Zippo Lighter"
-	desc = "A kit with your personal assistant. It comes with an increased amount of memory and special programs."
-	item = /obj/item/storage/box/contractor/spai_kit
-	cost = 120
+	desc = "An unique black and gold zippo lighter with no purpose other than showing off."
+	item = /obj/item/lighter/zippo/contractor
+	cost = 1
 
 /datum/uplink_item/contractor/loadout_box
 	name = "Contractor standard loadout box"

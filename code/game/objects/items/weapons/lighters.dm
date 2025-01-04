@@ -283,6 +283,14 @@
 	icon_on = "zippo_dec_on"
 	icon_off = "zippo_dec"
 
+/obj/item/lighter/zippo/contractor
+	name = "contractor zippo lighter"
+	desc = "An unique black and gold zippo commonly carried by elite Syndicate agents."
+	icon_state = "contractorzippo"
+	item_state = "contractorzippo"
+	icon_on = "contractorzippoon"
+	icon_off = "contractorzippo"
+
 //Ninja-Zippo//
 /obj/item/lighter/zippo/ninja
 	name = "\"Shinobi on a rice field\" zippo"
