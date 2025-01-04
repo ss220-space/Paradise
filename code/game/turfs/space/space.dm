@@ -59,8 +59,12 @@
 
 	if(opacity)
 		directional_opacity = ALL_CARDINALS
-
+	ComponentInitialize()
 	return INITIALIZE_HINT_NORMAL
+
+/turf/space/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/blob_turf_consuming, 4)
 
 /turf/space/BeforeChange()
 	..()

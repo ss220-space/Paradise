@@ -88,6 +88,9 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 
+	// HUD
+	hud_type = /datum/hud/simple_animal/spider
+
 	// AI aggression settings
 	var/ai_target_method = TS_DAMAGE_SIMPLE
 

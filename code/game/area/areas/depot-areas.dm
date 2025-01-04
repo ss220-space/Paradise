@@ -3,6 +3,7 @@
 	name = "Suspicious Supply Depot"
 	icon_state = "dark"
 	tele_proof = 1
+	area_flags = NONE
 
 /area/syndicate_depot/core
 	icon_state = "red"

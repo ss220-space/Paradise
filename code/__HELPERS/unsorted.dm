@@ -511,8 +511,8 @@ Returns 1 if the chain up to the area contains the given typepath
 
 ///Step-towards method of determining whether one atom can see another. Similar to viewers()
 ///note: this is a line of sight algorithm, view() does not do any sort of raycasting and cannot be emulated by it accurately
-/proc/can_see(atom/source, atom/target, length = 5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
-	var/turf/current_turf = get_turf(source)
+/atom/proc/can_see(atom/target, length = 5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
+	var/turf/current_turf = get_turf(src)
 	var/turf/target_turf = get_turf(target)
 	if(!current_turf || !target_turf)	// nullspace
 		return FALSE
@@ -1593,6 +1593,29 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		. += T.contents
 		if(areas)
 			. |= T.loc
+
+/proc/urange_multiz(dist=0, atom/center=usr, orange=0, areas=0)
+	if(!dist)
+		if(!orange)
+			return list(center)
+		else
+			return list()
+	var/list/stations_z = levels_by_trait(STATION_LEVEL)
+	var/min_z = max(center.z - dist, stations_z[1])
+	var/max_z = min(center.z + dist, stations_z[length(stations_z)])
+	var/list/turfs = RANGE_TURFS_MULTIZ(dist, center, min_z, max_z)
+	if(orange)
+		turfs -= get_turf(center)
+	. = list()
+	for(var/V in turfs)
+		var/turf/T = V
+		. += T
+		. += T.contents
+		if(areas)
+			. |= T.loc
+
+/proc/is_there_multiz()
+	return SSmapping?.map_datum?.traits?.len > 1
 
 
 /proc/screen_loc2turf(scr_loc, turf/origin)

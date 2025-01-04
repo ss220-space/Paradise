@@ -103,10 +103,6 @@
 		icon_state = initial(icon_state)
 
 
-/mob/living/silicon/robot/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/robot(src)
-
 /datum/hud/robot/New(mob/user)
 	..()
 	user.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)

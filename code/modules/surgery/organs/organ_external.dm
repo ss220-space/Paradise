@@ -439,6 +439,9 @@
 	return update_state()
 
 
+/obj/item/organ/external/blob_act()
+	external_receive_damage(max_damage, forced = TRUE)
+
 /obj/item/organ/external/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return

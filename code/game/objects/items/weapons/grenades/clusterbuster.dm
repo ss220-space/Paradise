@@ -1,3 +1,5 @@
+#define CLUSTERBUSTER_PAYLOAD_POWER 0.8
+#define SEGMENTATION_PAYLOAD_DECREASE 1.8
 ////////////////////
 //Clusterbang
 ////////////////////
@@ -7,6 +9,7 @@
 	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "clusterbang"
 	var/payload = /obj/item/grenade/flashbang/cluster
+	var/payload_power = CLUSTERBUSTER_PAYLOAD_POWER
 
 /obj/item/grenade/clusterbuster/prime()
 	update_mob()
@@ -21,7 +24,7 @@
 	for(var/loop = again ,loop > 0, loop--)
 		new /obj/item/grenade/clusterbuster/segment(loc, payload)//Creates 'segments' that launches a few more payloads
 
-	new /obj/effect/payload_spawner(loc, payload, numspawned)//Launches payload
+	new /obj/effect/payload_spawner(loc, payload, numspawned, payload_power)//Launches payload
 
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 
@@ -37,19 +40,20 @@
 	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "clusterbang_segment"
 
-/obj/item/grenade/clusterbuster/segment/New(var/loc, var/payload_type = /obj/item/grenade/flashbang/cluster)
+/obj/item/grenade/clusterbuster/segment/New(loc, payload_type = /obj/item/grenade/flashbang/cluster)
 	..()
 	icon_state = "clusterbang_segment_active"
 	payload = payload_type
 	active = 1
 	SSmove_manager.move_away(src, loc, rand(1,4), 1)
+	payload_power /= SEGMENTATION_PAYLOAD_DECREASE
 	spawn(rand(15,60))
 		prime()
 
 
 /obj/item/grenade/clusterbuster/segment/prime()
 
-	new /obj/effect/payload_spawner(loc, payload, rand(4,8))
+	new /obj/effect/payload_spawner(loc, payload, rand(4,8), payload_power)
 
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 
@@ -58,7 +62,7 @@
 //////////////////////////////////
 //The payload spawner effect
 /////////////////////////////////
-/obj/effect/payload_spawner/New(var/turf/newloc,var/type, var/numspawned as num)
+/obj/effect/payload_spawner/New(turf/newloc,type, numspawned as num, power)
 	. = ..()
 	for(var/loop = numspawned ,loop > 0, loop--)
 		var/obj/item/grenade/P = new type(loc)
@@ -69,7 +73,7 @@
 		spawn(rand(15,60))
 			if(!QDELETED(P))
 				if(istype(P, /obj/item/grenade))
-					P.prime()
+					P.prime(power)
 			qdel(src)
 
 

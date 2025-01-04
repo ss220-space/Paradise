@@ -171,16 +171,39 @@
 	if(!search_objects)
 		. = hearers(vision_range, targets_from) - src //Remove self, so we don't suicide
 
-		var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/spacepod))
-
-		for(var/HM in typecache_filter_list(range(vision_range, targets_from), hostile_machines))
-			if(can_see(targets_from, HM, vision_range))
+		var/static/possible_targets = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/spacepod, /mob/living))
+		for(var/HM in typecache_filter_list(range(vision_range, targets_from), possible_targets))
+			if(targets_from.can_see(HM, vision_range))
 				. += HM
 	else
 		. = oview(vision_range, targets_from)
 	if(retaliate_only)
 		return . &= enemies // Remove all entries that aren't in enemies
 
+/mob/living/simple_animal/hostile/can_see(atom/target, length)
+	if(!target || target.invisibility > see_invisible)
+		return FALSE
+	var/turf/current_turf = get_turf(src)
+	var/turf/target_turf = get_turf(target)
+	if(!current_turf || !target_turf)	// nullspace
+		return FALSE
+	if(get_dist(current_turf, target_turf) > length)
+		return FALSE
+	if(current_turf == target_turf)//they are on the same turf, source can see the target
+		return TRUE
+	if(isliving(target) && (sight & SEE_MOBS))//if a mob sees mobs through walls, it always sees the target mob within line of sight
+		return TRUE
+	var/steps = 1
+	current_turf = get_step_towards(current_turf, target_turf)
+	while(current_turf != target_turf)
+		if(steps > length)
+			return FALSE
+		if(IS_OPAQUE_TURF(current_turf))
+			return FALSE
+		current_turf = get_step_towards(current_turf, target_turf)
+		steps++
+	return TRUE
+	
 
 /mob/living/simple_animal/hostile/proc/FindTarget(list/possible_targets)//Step 2, filter down possible targets to things we actually care about
 	if(QDELETED(src))
@@ -316,7 +339,7 @@
 				if(L in friends)
 					return FALSE
 			else
-				if((faction_check && !attack_same) || L.stat)
+				if((faction_check && !attack_same) || L.stat > stat_attack)
 					return FALSE
 			return TRUE
 
@@ -463,7 +486,9 @@
 	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
 	if(!client)
 		mob_attack_logs += "[time_stamp()] Attacked [target] at [COORD(src)]"
-	return target.attack_animal(src)
+	var/result = target.attack_animal(src)
+	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result)
+	return result
 
 
 /mob/living/simple_animal/hostile/proc/Aggro()

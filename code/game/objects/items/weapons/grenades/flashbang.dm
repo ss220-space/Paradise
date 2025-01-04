@@ -10,7 +10,7 @@
 	var/light_time = 0.2 SECONDS // The duration the area is illuminated
 	var/range = 7 // The range in tiles of the flashbang
 
-/obj/item/grenade/flashbang/prime()
+/obj/item/grenade/flashbang/prime(power = 1)
 	update_mob()
 	var/turf/T = get_turf(src)
 	if(T)
@@ -21,7 +21,7 @@
 		// Blob damage
 		for(var/obj/structure/blob/B in hear(range + 1, T))
 			var/damage = round(30 / (get_dist(B, T) + 1))
-			B.take_damage(damage, BURN, "melee", FALSE)
+			B.take_damage(damage * power, BURN, MELEE, FALSE)
 
 		// Stunning & damaging mechanic
 		bang(T, src, range)
