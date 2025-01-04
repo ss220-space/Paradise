@@ -291,6 +291,8 @@
 	if(!environment)
 		return
 
+	SEND_SIGNAL(src, COMSIG_HUMAN_EARLY_HANDLE_ENVIRONMENT, environment)
+	
 	var/loc_temp = get_temperature(environment)
 //	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_main_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]")
 

@@ -782,3 +782,48 @@
 /datum/status_effect/drill_payback/on_remove()
 	..()
 	owner.clear_fullscreen("payback")
+
+/datum/status_effect/drask_coma
+	id = "drask_coma"
+	tick_interval = 2 SECONDS
+	
+	var/temp_step
+	var/cached_sleep_time
+	
+/datum/status_effect/drask_coma/on_creation(
+	mob/living/new_owner, 
+	duration = 300 SECONDS, 
+	temp_step = 10,
+	)
+	src.duration = duration
+	src.temp_step = temp_step
+
+	return ..()
+
+/datum/status_effect/drask_coma/on_apply()
+	to_chat(owner, span_notice("Ваш метаболизм полностью остановлен."))
+
+	cached_sleep_time = world.time
+	owner.AdjustSleeping(duration)
+	RegisterSignal(owner, COMSIG_MOB_STATCHANGE, PROC_REF(stat_change))
+
+	return TRUE
+
+/datum/status_effect/drask_coma/proc/stat_change(datum/source, new_stat, old_stat)
+	SIGNAL_HANDLER
+
+	if(new_stat == CONSCIOUS || new_stat == DEAD)
+		qdel(src)
+
+/datum/status_effect/drask_coma/tick(seconds_between_ticks)
+	owner.adjust_bodytemperature(-temp_step)
+
+/datum/status_effect/drask_coma/on_remove()
+	to_chat(owner, span_notice("Вы чувствуете прилив сил и наконец просыпаетесь."))
+
+	var/elapsed_time = world.time - cached_sleep_time
+
+	if(elapsed_time < duration)
+		owner.AdjustSleeping(-(duration - elapsed_time))
+
+	UnregisterSignal(owner, COMSIG_MOB_STATCHANGE)

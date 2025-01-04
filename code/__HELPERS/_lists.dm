@@ -1182,3 +1182,12 @@ proc/dd_sortedObjectList(list/incoming)
 		used_key_list[input_key] = 1
 	return input_key
 
+
+
+/**
+ * Checks to make sure that the lists have the exact same contents, ignores the order of the contents.
+ */
+/proc/lists_equal_unordered(list/list_one, list/list_two)
+	// This ensures that both lists contain the same elements by checking if the difference between them is empty in both directions.
+	return !length(list_one ^ list_two)
+

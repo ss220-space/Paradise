@@ -11,7 +11,6 @@
 	var/mob/living/silicon/current = null
 	var/obj/item/ai_module/installed_module = null
 	var/obj/item/card/id/id = null
-	var/hacked = FALSE
 
 	var/static/list/shorten_delay = list(
 		/obj/item/ai_module/purge,
@@ -44,10 +43,10 @@
 /obj/machinery/computer/aiupload/attack_hand(mob/user)
 	if(stat & NOPOWER)
 		to_chat(user, span_notice("The upload computer has no power!"))
-		return
+		return ATTACK_CHAIN_PROCEED
 	if(stat & BROKEN)
 		to_chat(user, span_notice("The upload computer is broken!"))
-		return
+		return ATTACK_CHAIN_PROCEED
 	ui_interact(user)
 
 /obj/machinery/computer/aiupload/attack_ghost(mob/user)
@@ -65,15 +64,12 @@
 		if(!user.put_in_active_hand(installed_module))
 			installed_module.forceMove(get_turf(src))
 		installed_module = null
-		hacked = FALSE
 	if(!istype(new_module))
 		return
 	if(!user.drop_transfer_item_to_loc(new_module, src))
 		to_chat(usr, span_warning("[new_module] is stuck to your hand!"))
 		return
 	installed_module = new_module
-	if(istype(installed_module, /obj/item/ai_module/syndicate))
-		hacked = TRUE
 
 /obj/machinery/computer/aiupload/proc/check_id(mob/user, obj/item/card/id/new_id)
 	if(id)
@@ -82,7 +78,7 @@
 		id = null
 	if(!istype(new_id))
 		return
-	if(!hacked)
+	if(!istype(installed_module, /obj/item/ai_module/syndicate))
 		if(!check_access(new_id))
 			to_chat(user, span_warning("Unauthorized access."))
 			return
@@ -102,9 +98,16 @@
 	if(!current)
 		to_chat(user, span_warning("You haven't selected an AI to transmit laws to!"))
 		return
-
-	if(!installed_module || !isAI(current) || (hacked ? FALSE : !id))
+	if(!installed_module)
+		to_chat(user, span_warning("No module inserted!"))
 		return
+	if(!isAI(current))
+		to_chat(user, span_warning("[current] is not an AI."))
+
+	if(!istype(installed_module, /obj/item/ai_module/syndicate)) //not hack module
+		if(!check_access(id)) // don't have access
+			to_chat(user, span_notice("Unauthorized access."))
+			return // GO AWAY
 
 	if(timer_id)
 		stop_upload()
@@ -178,7 +181,7 @@
 	data["new_law"] = installed_module
 	data["id"] = id?.registered_name
 	data["transmitting"] = timer_id ? TRUE : FALSE
-	data["hacked"] = hacked
+	data["hacked"] = istype(installed_module, /obj/item/ai_module/syndicate)
 	return data
 
 /obj/machinery/computer/aiupload/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -223,8 +226,18 @@
 	if(!current)
 		to_chat(user, span_warning("No borg selected. Please chose a target before proceeding with upload."))
 		return
-	if(!installed_module || !isrobot(current) || (hacked ? FALSE : !id))
+	if(!(current))
 		return
+	if(!installed_module)
+		to_chat(user, span_warning("No module inserted!"))
+		return
+	if(!isrobot(current))
+		to_chat(user, span_warning("[current] is not an cyborg."))
+
+	if(!istype(installed_module, /obj/item/ai_module/syndicate)) //not hack module
+		if(!check_access(id)) // don't have access
+			to_chat(user, span_notice("Unauthorized access."))
+			return // GO AWAY
 
 	if(timer_id)
 		stop_upload()
@@ -245,7 +258,7 @@
 
 	var/delay = (installed_module in shorten_delay) ? SHORTEN_UPLOAD_DELAY : NORMAL_UPLOAD_DELAY
 	to_chat(user, span_notice("Upload process has started. ETA: [delay/10] seconds."))
-	reg_name = hacked ? "UNKNOWN" : id.registered_name
+	reg_name = istype(installed_module, /obj/item/ai_module/syndicate) ? "UNKNOWN" : id.registered_name
 	timer_id = addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/machinery/computer/aiupload, finish_upload), user), delay, TIMER_STOPPABLE)
 
 /obj/machinery/computer/aiupload/cyborg/finish_upload(mob/user)
