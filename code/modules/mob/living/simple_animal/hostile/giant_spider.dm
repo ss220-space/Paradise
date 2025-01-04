@@ -40,6 +40,7 @@
 	var/busy = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
 	AI_delay_max = 0.5 SECONDS
+	hud_type = /datum/hud/simple_animal/spider
 
 /mob/living/simple_animal/hostile/poison/giant_spider/ComponentInitialize()
 	AddComponent( \

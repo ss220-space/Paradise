@@ -103,3 +103,6 @@
 	SSmove_manager.stop_looping(src)
 	. = ..()
 
+
+/obj/item/grenade/blob_vore_act(obj/structure/blob/special/core/voring_core)
+	obj_destruction(MELEE)

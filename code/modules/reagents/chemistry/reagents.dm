@@ -68,6 +68,8 @@
 	return
 
 /datum/reagent/proc/on_mob_life(mob/living/M)
+	if(current_cycle == 1)
+		on_mob_start_metabolize(M)
 	current_cycle++
 	var/total_depletion_rate = metabolization_rate * M.metabolism_efficiency * M.digestion_ratio // Cache it
 
@@ -75,7 +77,15 @@
 	sate_addiction(M)
 
 	holder.remove_reagent(id, total_depletion_rate) //By default it slowly disappears.
+	if(volume <= 0)
+		on_mob_end_metabolize(M)
 	return STATUS_UPDATE_NONE
+
+/datum/reagent/proc/on_mob_start_metabolize(mob/living/metabolizer)
+	return
+
+/datum/reagent/proc/on_mob_end_metabolize(mob/living/metabolizer)
+	return 
 
 /datum/reagent/proc/handle_addiction(mob/living/M, consumption_rate)
 	if(addiction_chance && count_by_type(M.reagents.addiction_list, addict_supertype) < 1)

@@ -85,6 +85,13 @@
 		)
 	return shock_damage
 
+/mob/living/blob_vore_act(obj/structure/blob/special/core/voring_core)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_BLOB_ZOMBIFIED) || QDELETED(src))
+		return FALSE
+	if(stat == DEAD)
+		forceMove(voring_core)
+
 
 /mob/living/emp_act(severity)
 	..()
@@ -185,8 +192,8 @@
 /mob/living/proc/IgniteMob()
 	if(fire_stacks > 0 && !on_fire)
 		on_fire = TRUE
-		visible_message("<span class='warning'>[src.declent_ru(NOMINATIVE)] загора[pluralize_ru(src.gender,"ется","ются")]!</span>", \
-						"<span class='userdanger'>[pluralize_ru(src.gender,"Ты загораешься","Вы загораетесь")]!</span>")
+		visible_message(span_warning("[src.declent_ru(NOMINATIVE)] загора[pluralize_ru(src.gender,"ется","ются")]!"), \
+						span_userdanger("[pluralize_ru(src.gender,"Ты загораешься","Вы загораетесь")]!"))
 		set_light_range(light_range + 3)
 		set_light_color("#ED9200")
 		throw_alert("fire", /atom/movable/screen/alert/fire)
@@ -212,6 +219,8 @@
 /mob/living/proc/adjust_fire_stacks(add_fire_stacks) //Adjusting the amount of fire_stacks we have on person
 	SEND_SIGNAL(src, COMSIG_MOB_ADJUST_FIRE)
 	fire_stacks = clamp(fire_stacks + add_fire_stacks, -20, 20)
+	var/datum/status_effect/stacking/wet/wet_effect = has_status_effect(/datum/status_effect/stacking/wet)
+	wet_effect?.combine_wet_and_fire()
 	if(on_fire && fire_stacks <= 0)
 		ExtinguishMob()
 
@@ -238,6 +247,24 @@
 	location.hotspot_expose(700, 50, 1)
 	SEND_SIGNAL(src, COMSIG_LIVING_FIRE_TICK)
 	return TRUE
+
+/mob/living/proc/WetMob(wet_type = /datum/status_effect/stacking/wet)
+	var/datum/status_effect/stacking/wet/effect = has_status_effect(wet_type)
+	return 	effect?.WetMob()
+
+
+/mob/living/proc/adjust_wet_stacks(add_wet_stacks, wet_type = /datum/status_effect/stacking/wet) //Adjusting the amount of fire_stacks we have on person
+	var/datum/status_effect/stacking/wet/effect = has_status_effect(wet_type)
+	if(effect)
+		effect.add_stacks(add_wet_stacks)
+	else
+		apply_status_effect(wet_type, add_wet_stacks)
+
+
+/mob/living/proc/DryMob(wet_type = /datum/status_effect/stacking/wet)
+	var/datum/status_effect/stacking/wet/effect = has_status_effect(wet_type)
+	return effect?.DryMob()
+
 
 /mob/living/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()

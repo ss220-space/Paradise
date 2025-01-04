@@ -7,6 +7,8 @@
 	faction += "\ref[src]"
 	determine_move_and_pull_forces()
 	gravity_setup()
+	if(unique_name)
+		set_name()
 	if(ventcrawler_trait)
 		var/static/list/ventcrawler_sanity = list(
 			TRAIT_VENTCRAWLER_ALWAYS,
@@ -755,6 +757,7 @@
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
 	CureAllDiseases(FALSE)
+	fire_stacks = 0
 	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0
@@ -1640,35 +1643,6 @@
 				target.devoured(grabber)
 
 
-/mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
-	if(registered_z == new_z)
-		return
-	if(registered_z)
-		SSmobs.clients_by_zlevel[registered_z] -= src
-	if(isnull(client))
-		registered_z = null
-		return
-	if(!new_z)
-		registered_z = new_z
-		return
-	//Figure out how many clients were here before
-	var/oldlen = SSmobs.clients_by_zlevel[new_z].len
-	SSmobs.clients_by_zlevel[new_z] += src
-	for(var/index in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
-		var/mob/living/simple_animal/animal = SSidlenpcpool.idle_mobs_by_zlevel[new_z][index]
-		if(animal)
-			if(!oldlen)
-				//Start AI idle if nobody else was on this z level before (mobs will switch off when this is the case)
-				animal.toggle_ai(AI_IDLE)
-			//If they are also within a close distance ask the AI if it wants to wake up
-			if(get_dist(get_turf(src), get_turf(animal)) < MAX_SIMPLEMOB_WAKEUP_RANGE)
-				animal.consider_wakeup() // Ask the mob if it wants to turn on it's AI
-		//They should clean up in destroy, but often don't so we get them here
-		else
-			SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= animal
-	registered_z = new_z
-
-
 /mob/living/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	..()
 	update_z(new_turf?.z)
@@ -1851,6 +1825,9 @@
 		return TRUE
 	return FALSE
 
+/mob/living/examine(mob/user, infix, suffix)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_LIVING_EXAMINE, user, .)
 
 /**
   * Sets the mob's direction lock towards a given atom.
@@ -2178,8 +2155,8 @@
 			update_blind_effects()
 			update_blurry_effects()
 			update_unconscious_overlay()
-			GLOB.alive_mob_list += src
-			GLOB.dead_mob_list -= src
+			add_to_alive_mob_list()
+			remove_from_dead_mob_list()
 
 	switch(stat) //Current stat.
 		if(CONSCIOUS)
@@ -2192,8 +2169,8 @@
 			SetLoseBreath(0)
 			SetDisgust(0)
 			SetEyeBlurry(0)
-			GLOB.alive_mob_list -= src
-			GLOB.dead_mob_list += src
+			remove_from_alive_mob_list()
+			add_to_dead_mob_list()
 
 
 /// Updates hands HUD element.
@@ -2335,3 +2312,9 @@
 			. |= RECHARGE_SUCCESSFUL
 
 	to_chat(src, span_notice("You feel [(. & RECHARGE_SUCCESSFUL) ? "raw magical energy flowing through you, it feels good!" : "very strange for a moment, but then it passes."]"))
+
+/mob/living/proc/set_name()
+	if(numba == 0)
+		numba = rand(1, 1000)
+	name = "[name] ([numba])"
+	real_name = name

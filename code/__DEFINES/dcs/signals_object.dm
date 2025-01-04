@@ -16,9 +16,11 @@
 	/// Return to prevent the default behavior (attack_selfing) from ocurring.
 	#define COMPONENT_ITEM_ACTION_SLOT_INVALID (1<<0)
 
-/// from base of /obj/item/slimepotion/speed/interact_with_atom(): (obj/target, /obj/src, mob/user)
 #define COMSIG_SPEED_POTION_APPLIED "speed_potion"
 	#define SPEED_POTION_STOP (1<<0)
+	
+///from base of [/obj/proc/update_integrity]: (old_value, new_value)
+#define COMSIG_OBJ_INTEGRITY_CHANGED "obj_integrity_changed"
 
 
 ///sent to targets during the process_hit proc of projectiles
