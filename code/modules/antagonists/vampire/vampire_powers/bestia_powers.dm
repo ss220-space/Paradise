@@ -423,15 +423,15 @@
 		if(INTERNAL_ORGAN_HEART)
 			vampire.adjust_trophies(INTERNAL_ORGAN_HEART, 1)
 			if(vampire.get_trophies(INTERNAL_ORGAN_HEART) >= MAX_TROPHIES_PER_TYPE_CRITICAL)
-				msg = "сердце"
+				msg = "сердец"
 			else if(vampire.get_trophies(INTERNAL_ORGAN_HEART) >= vampire.subclass.crit_organ_cap)
-				to_chat(user, span_warning("Мы достигли предела в иссечении критических органов типа <b>hearts</b>!"))
+				to_chat(user, span_warning("Мы достигли предела в иссечении критических органов типа <b>сердце</b>!"))
 		if(INTERNAL_ORGAN_LUNGS)
 			vampire.adjust_trophies(INTERNAL_ORGAN_LUNGS, 1)
 			if(vampire.get_trophies(INTERNAL_ORGAN_LUNGS) >= MAX_TROPHIES_PER_TYPE_CRITICAL)
-				msg = "легкие"
+				msg = "легких"
 			else if(vampire.get_trophies(INTERNAL_ORGAN_LUNGS) >= vampire.subclass.crit_organ_cap)
-				to_chat(user, span_warning("Мы достигли предела в иссечении критических органов типа <b>lungs</b>!"))
+				to_chat(user, span_warning("Мы достигли предела в иссечении критических органов типа <b>легкие</b>!"))
 		if(INTERNAL_ORGAN_LIVER)
 			vampire.adjust_trophies(INTERNAL_ORGAN_LIVER, 1)
 			if(vampire.get_trophies(INTERNAL_ORGAN_LIVER) >= MAX_TROPHIES_PER_TYPE_GENERAL)
@@ -579,7 +579,7 @@
  */
 /obj/item/gun/magic/skull_gun
 	name = "infected skull"
-	desc = "Malformed skull which transfers grave fever."
+	desc = "Деформированный череп, передающий могильную лихорадку."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ashen_skull"
 	item_state = "ashen_skull"
@@ -949,22 +949,22 @@
 	for(var/obj/effect/proc_holder/spell/vampire/metamorphosis/spell in (user.mind.spell_list - src))
 		if(spell?.is_transformed)
 			if(show_message)
-				to_chat(user, span_warning("You are already using another metamorphosis!"))
+				to_chat(user, span_warning("Вы уже используете другую метаморфозу!"))
 			return FALSE
 
 	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 		if(show_message)
-			to_chat(user, span_warning("You can't use this ability right now!"))
+			to_chat(user, span_warning("Вы не можете использовать эту способность прямо сейчас!"))
 		return FALSE
 
 	if(ishuman(user) && user.health <= 0)
 		if(show_message)
-			to_chat(user, span_warning("You are too weak to use this ability!"))
+			to_chat(user, span_warning("Вы слишком слабы, чтобы использовать эту способность!"))
 		return FALSE
 
 	if(!isturf(user.loc))
 		if(show_message)
-			to_chat(user, span_warning("You can't use this ability inside [user.loc]!"))
+			to_chat(user, span_warning("Вы не можете использовать эту способность внутри [user.loc]!"))
 		return FALSE
 
 	return ..()
@@ -1004,9 +1004,9 @@
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/living/simple_animal/hostile/vampire/vampire_animal = new meta_path(user.loc, vampire, user, src)
 
-	user.visible_message(span_warning("[user] shape becomes fuzzy before it takes the [vampire_animal] form!"), \
-						span_notice("You start to transform into the [vampire_animal]."), \
-						span_italics("You hear an eerie rustle of many wings..."))
+	user.visible_message(span_warning("Форма [user] становится размытым, прежде чем он принимает форму [vampire_animal]!"), \
+						span_notice("Вы начинаете превращаться в [vampire_animal]."), \
+						span_italics("Вы слышите жуткий шум множества крыльев..."))
 
 	vampire.stop_sucking()
 	original_body = user
@@ -1039,8 +1039,8 @@
 		custom_handler = create_new_handler()
 		update_vampire_spell_name()
 
-	var/self_message = death_provoked ? span_userdanger("You can't take the strain of sustaining [user]'s shape in this condition, it begins to fall apart!") : span_notice("You start to transform back into human.")
-	user.visible_message(span_warning("[user] shape becomes fuzzy before it takes human form!"), self_message, span_italics("You hear an eerie rustle of many wings..."))
+	var/self_message = death_provoked ? span_userdanger("В таком состоянии вы не сможете поддерживать форму, она начнет рассыпаться!") : span_notice("Вы начинаете превращаться обратно в человека.")
+	user.visible_message(span_warning("Форма [user] становится нечеткой, прежде чем [genderize_ru(user.gender, "он", "она", "оно", "они")] примет человеческий облик!"), self_message, span_italics("Вы слышите жуткий шум множества крыльев..."))
 
 	user.set_density(FALSE)
 	original_body.dir = SOUTH
@@ -1086,9 +1086,9 @@
  * Transform - Bats
  */
 /obj/effect/proc_holder/spell/vampire/metamorphosis/bats
-	name = "Metamorphosis - Bats"
-	desc = "Transform into the swarm of vicious bats. They can fly, do moderate melee damage and can suck blood on attacks."
-	gain_desc = "You have gained the ability to transform into the bats swarm. They got different abilities, depending on the trophies."
+	name = "Метаморфоза - Летучие мыши"
+	desc = "Превратитесь в рой злобных летучих мышей. Они умеют летать, наносят умеренный урон в ближнем бою и могут высасывать кровь при атаках."
+	gain_desc = "Вы получили возможность превращаться в рой летучих мышей. У них разные способности, в зависимости от трофеев."
 	action_icon_state = "bats_meta"
 	free_transform_back = TRUE
 	meta_path = /mob/living/simple_animal/hostile/vampire/bats
@@ -1099,9 +1099,9 @@
  * Transform - Hound
  */
 /obj/effect/proc_holder/spell/vampire/metamorphosis/hound
-	name = "Metamorphosis - Hound"
-	desc = "Transform into the dire bloodhound. They are agile, furious beast in everything superior to human."
-	gain_desc = "You have gained the ability to transform into the blood hound. It is an ultimate form of bluespace entity which possessed us."
+	name = "Метаморфозы - Гончая"
+	desc = "Превратитесь в страшную ищейку. Это проворные, яростные звери, во всем превосходящие человека."
+	gain_desc = "Вы обрели способность превращаться в кровавую гончую. Это высшая форма сущности блюспейса, которая овладела нами."
 	action_icon_state = "blood_hound"
 	sound_on_transform = 'sound/creatures/hound_howl.ogg'
 	free_transform_back = TRUE
@@ -1113,7 +1113,7 @@
 	var/obj/effect/proc_holder/spell/vampire/self/lunge_finale/finale = locate() in user.mob_spell_list
 	if(finale?.lunge_timer)
 		if(show_message)
-			to_chat(user, span_warning("You can't transform while [finale] is in process!"))
+			to_chat(user, span_warning("Вы не можете трансформироваться, пока длится [finale]!"))
 		return FALSE
 	return ..()
 
@@ -1124,8 +1124,8 @@
  * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/////////////////////////////////////////////////////////////////////// *
 \*======================================================================================================================================*/
 /obj/effect/proc_holder/spell/vampire/self/bat_screech
-	name = "Resonant Shriek"
-	desc = "Bats emit a high frequency sound that weakens and deafens humans, overloads cyborg sensors, blows out nearby lights and breaks windows."
+	name = "Оглушительный вопль"
+	desc = "Летучие мыши издают высокочастотный звук, который ослабляет и оглушает людей, перегружает датчики киборгов, гасит свет и разбивает окна."
 	action_icon_state = "bats_shriek"
 	sound = 'sound/effects/creepyshriek.ogg'
 	human_req = FALSE
@@ -1135,9 +1135,9 @@
 
 /obj/effect/proc_holder/spell/vampire/self/bat_screech/cast(list/targets, mob/living/user = usr)
 
-	user.visible_message(span_warning("[user] emits a heartbreaking screech!"), \
-						span_notice("You scream loudly."), \
-						span_italics("You hear a painfully loud screech!"))
+	user.visible_message(span_warning("[user] издает душераздирающий вопль!"), \
+						span_notice("Вы громко кричите."), \
+						span_italics("Вы слышите мучительно громкий визг!"))
 
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/t_hearts = vampire.get_trophies(INTERNAL_ORGAN_HEART)
@@ -1193,8 +1193,8 @@
  * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/////////////////////////////////////////////////////////////////////// *
 \*======================================================================================================================================*/
 /obj/effect/proc_holder/spell/vampire/self/lunge_finale
-	name = "Lunge Finale"
-	desc = "Series of rapid lunges to the nearby victims. Effects are highly dependent on the trophies and are the same to those of a regular <b>Lunge</b> spell."
+	name = "Финальный рывок"
+	desc = "Серия стремительных выпадов в сторону ближайших жертв. Эффекты сильно зависят от трофеев и не отличаются от эффектов обычного заклинания <b>Рывок</b>."
 	action_icon_state = "lunge_finale"
 	human_req = FALSE
 	base_cooldown = 1 MINUTES
@@ -1219,7 +1219,7 @@
 /obj/effect/proc_holder/spell/vampire/self/lunge_finale/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(lunge_timer)
 		if(show_message)
-			to_chat(user, span_warning("Ability is already in use!"))
+			to_chat(user, span_warning("Способность уже используется!"))
 		return FALSE
 	return ..()
 
@@ -1238,7 +1238,7 @@
 
 	lunge_counter += round(all_trophies / 10)	// 6 lunges MAX
 
-	to_chat(user, span_notice("You prepare to lunge on any victim in vicinity!"))
+	to_chat(user, span_notice("Приготовьтесь наброситься на любую жертву поблизости!"))
 
 	lunge_timer = addtimer(CALLBACK(src, PROC_REF(lunge_callback), user), 1 SECONDS, TIMER_UNIQUE | TIMER_LOOP | TIMER_STOPPABLE | TIMER_DELETE_ME)
 
@@ -1298,9 +1298,9 @@
  * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/////////////////////////////////////////////////////////////////////// *
 \*======================================================================================================================================*/
 /obj/effect/proc_holder/spell/vampire/self/anabiosis
-	name = "Anabiosis"
-	desc = "Bluespace entity summons a mysterious coffin, which can rapidly rejuvenate us even from the death door. The cost is our vulnerability during the stasis like sleep. Collected trophies helps to restore different types of injuries."
-	gain_desc = "You have gained the ability to heal your wounds through the prolonged anabiosis. All the trophies increase regeneration capabilities tremendously."
+	name = "Анабиоз"
+	desc = "Bluespace сущность вызывает таинственный гроб, который может быстро восстановить нас даже у порога смерти. Платой за это является наша уязвимость во время стазиса, подобного сну. Собранные трофеи помогают восстановить различные виды повреждений."
+	gain_desc = "Вы получили способность залечивать раны благодаря длительному анабиозу. Все трофеи значительно повышают способность к регенерации."
 	action_icon_state = "vampire_coffin"
 	sound = 'sound/magic/vampire_anabiosis.ogg'
 	base_cooldown = 3 MINUTES
@@ -1311,18 +1311,18 @@
 /obj/effect/proc_holder/spell/vampire/self/anabiosis/can_cast(mob/living/carbon/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incapacitated())
 		if(show_message)
-			to_chat(user, span_warning("You can't use this ability right now!"))
+			to_chat(user, span_warning("Вы не можете использовать эту способность прямо сейчас!"))
 		return FALSE
 	if(!isturf(user.loc))
 		if(show_message)
-			to_chat(user, span_warning("You can't use this ability inside [user.loc]!"))
+			to_chat(user, span_warning("Вы не можете использовать эту способность внутри [user.loc]!"))
 		return FALSE
 	return ..()
 
 
 /obj/effect/proc_holder/spell/vampire/self/anabiosis/cast(list/targets, mob/living/user = usr)
-	user.visible_message(span_warning("You see how [user] starts to levitate!"), \
-						span_notice("Bluespace entity inside you starts preparing the ritual, making you levitate..."))
+	user.visible_message(span_warning("Вы видите, как [user] начинает левитировать!"), \
+						span_notice("Bluespace сущность внутри вас начинает подготовку к ритуалу, заставляя вас левитировать..."))
 
 	var/turf/user_turf = get_turf(user)
 	user.dir = SOUTH
@@ -1344,8 +1344,8 @@
 	coffin.no_manipulation = TRUE
 	coffin.alpha = 0
 	animate(coffin, alpha = 255, time = 0.5 SECONDS)
-	coffin.visible_message(span_warning("An eerie coffin appears out of nowhere under [user]!"))
-	to_chat(user, span_notice("An ancient vampire coffin appears below you. You somehow know that this is how your kin has cured from injuries for centuries."))
+	coffin.visible_message(span_warning("Под [user] из ниоткуда появляется жуткий гроб!"))
+	to_chat(user, span_notice("Под вами появляется древний вампирский гроб. Вы откуда-то знаете, что именно так ваши сородичи веками излечивались от ран."))
 
 	sleep(1 SECONDS)
 	if(QDELETED(user) || QDELETED(coffin))
@@ -1365,8 +1365,8 @@
 
 	user.set_stat(UNCONSCIOUS)
 	user.visible_message(
-		span_warning("Suddenly [user] falls straight inside the coffin and it closes!"),
-		span_notice("Bluespace entity tosses you inside the coffin and seals it. The regeneration process has started..."),
+		span_warning("Внезапно [user] падает прямо в гроб, и он закрывается!"),
+		span_notice("Bluespace сущность бросает вас в гроб и запечатывает его. Процесс регенерации начался..."),
 	)
 
 	sleep(0.6 SECONDS)
@@ -1382,13 +1382,13 @@
 
 		var/self_msg
 		if(isvampire(victim) || isvampirethrall(victim))
-			self_msg = span_notice("Bluespace entity pushes you out of the coffin with a gentle touch.")
+			self_msg = span_notice("Bluespace сущность легким прикосновением выталкивает вас из гроба.")
 		else
-			self_msg = span_userdanger("An invisible force throws you out of the coffin with a violent rage!")
+			self_msg = span_userdanger("Невидимая сила с яростью выбрасывает вас из гроба!")
 			victim.throw_at(get_edge_target_turf(victim, pick(GLOB.alldirs)), rand(10, 30), 8, user)
 
-		victim.visible_message(span_warning("Mysterious force pushes [victim] out of the coffin!"), self_msg, \
-								span_italics("You hear the sound of a heavy blow!"))
+		victim.visible_message(span_warning("Таинственная сила выталкивает [victim] из гроба!"), self_msg, \
+								span_italics("Вы слышите звук сильного удара!"))
 
 	addtimer(CALLBACK(src, PROC_REF(release_vampire), coffin), rejuvenation_time)
 
@@ -1427,7 +1427,7 @@
  */
 /obj/structure/closet/coffin/vampire
 	name = "mysterious coffin"
-	desc = "Even looking at this coffin makes your hair stand on end."
+	desc = "Даже при взгляде на этот гроб волосы встают дыбом."
 	max_integrity = 500
 	color = "#7F0000"
 	anchored = TRUE
@@ -1474,7 +1474,7 @@
 
 
 /obj/structure/closet/coffin/vampire/Destroy()
-	visible_message(span_warning("[src] vanishes, leaving behind only a pile of ashes..."))
+	visible_message(span_warning("[src] исчезает, оставляя после себя лишь кучку пепла..."))
 	new /obj/effect/decal/cleanable/ash(loc)
 	if(isprocessing)
 		STOP_PROCESSING(SSobj, src)
@@ -1522,16 +1522,16 @@
 	human_vampire.UpdateAppearance()
 
 	if(human_vampire.stat == DEAD)
-		human_vampire.visible_message(span_warning("[human_vampire]'s dead body appears under the coffin remains!"))
+		human_vampire.visible_message(span_warning("Мертвое тело [human_vampire] появляется под останками гроба!"))
 		return
 
 	human_vampire.set_stat(CONSCIOUS)
 
 	new /obj/effect/temp_visual/cult/sparks(source_turf)
 	playsound(loc, 'sound/effects/creepyshriek.ogg', 100, TRUE)
-	human_vampire.visible_message(span_danger("[human_vampire] emerges from the destroyed coffin and emits a deafening screech!"), \
-								span_userdanger("Your coffin is destroyed and you scream in a feeble rage!"), \
-								span_italics("You hear a painfully loud screech!"))
+	human_vampire.visible_message(span_danger("[human_vampire] выходит из разрушенного гроба и издает оглушительный вопль!"), \
+								span_userdanger("Ваш гроб разрушен, и вы кричите в неистовой ярости!"), \
+								span_italics("Вы слышите чрезвычайно громкий визг!"))
 
 	for(var/mob/living/victim in view(7, src))
 		if(!victim.affects_vampire(human_vampire))
@@ -1540,7 +1540,7 @@
 			continue
 
 		victim.Weaken(4 SECONDS)
-		to_chat(victim, span_userdanger("Loud screech weakens you and makes you fall to the ground!"))
+		to_chat(victim, span_userdanger("Громкий визг ослабляет вас и заставляет упасть на землю!"))
 
 
 /obj/structure/closet/coffin/vampire/process()
@@ -1682,9 +1682,9 @@
 		if(borer)
 			borer.leave_host()
 			borer.throw_at(get_edge_target_turf(borer, pick(GLOB.alldirs)), rand(10, 30), 8, human_vampire)
-			borer.visible_message(span_warning("Mysterious force pushes [borer] out of the coffin!"), \
-								span_userdanger("An invisible force throws you out of the coffin with a violent rage!"), \
-								span_italics("You hear the sound of a heavy blow!"))
+			borer.visible_message(span_warning("Таинственная сила выталкивает [borer] из гроба!"), \
+								span_userdanger("Незримая сила с яростью выбрасывает вас из гроба!"), \
+								span_italics("Вы слышите звук сильного удара!"))
 
 		human_vampire.remove_all_parasites(vomit_organs = TRUE)
 
@@ -1754,28 +1754,28 @@
 		return FALSE
 
 	if(isvampire(user) || isvampirethrall(user))
-		to_chat(user, span_notice("This coffin contains one of our kin, it would be wise to protect it."))
+		to_chat(user, span_notice("В этом гробу лежит один из наших сородичей, было бы разумно защитить его."))
 		return FALSE
 
 	if(user.mind?.isholy)
-		to_chat(user, span_warning("You know that this coffin contains one of the unholy vampires, it would be wise to destroy it!"))
+		to_chat(user, span_warning("Вы знаете, что в этом гробу находится один из нечестивых вампиров, было бы разумно уничтожить его!"))
 		return FALSE
 
 	var/user_UID = user.UID()
 	if(!(user_UID in lightheaded))
 		lightheaded += user_UID
-		to_chat(user, span_warning("You feel like this is not a good idea..."))
+		to_chat(user, span_warning("Вы чувствуете, что это не очень хорошая идея..."))
 	else
 		lightheaded -= user_UID
 		new /obj/effect/temp_visual/cult/sparks(get_turf(user))
 		user.Weaken(10 SECONDS)	// well, you were warned!
 		user.Jitter(20 SECONDS)
-		user.visible_message(span_warning("As soon as [user] touches [src], [user.p_their()] body undergoes violent convulsions"), \
-							span_userdanger("Something is shrinking inside you, and you start convulsing!"))
+		user.visible_message(span_warning("Как только [user] прикоснется к [src], [genderize_ru(user.gender, "его", "её", "этого", "их")] тело начнет биться в конвульсиях."), \
+							span_userdanger("Внутри вас что-то сжимается, и вы начинаете биться в конвульсиях!"))
 
 		if(!HAS_TRAIT(user, TRAIT_NO_BLOOD))
 			user.bleed(100)
-			to_chat(human_vampire, span_notice("<i>... [span_userdanger("You feel strange feel of joy and power")] ...</i>"))
+			to_chat(human_vampire, span_notice("<i>... [span_userdanger("Вы испытываете странное чувство радости и силы")] ...</i>"))
 			if(!HAS_TRAIT(user, TRAIT_EXOTIC_BLOOD))
 				vampire.bloodusable += 50	// only usable blood, will not affect abilities
 				human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 50))
@@ -1806,9 +1806,9 @@
  * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/////////////////////////////////////////////////////////////////////// *
 \*======================================================================================================================================*/
 /obj/effect/proc_holder/spell/vampire/self/bats_spawn
-	name = "Summon Bats"
-	desc = "Calls the swarms of space bats from nearby bluespace planes. They might assist you in the battle and will be more powerful the more trophies you have. You can swap places with the bats by clicking on them in HELP intent."
-	gain_desc = "You have gained the ability to summon space bats. Number of packs and combat stats will heavily depend on the collected trophies."
+	name = "Призыв летучих мышей"
+	desc = "Призовите стаи космических летучих мышей с ближайших Блюспейс кораблей. Они могут помочь вам в битве и будут тем мощнее, чем больше у вас трофеев. Вы можете поменяться местами с летучими мышами, нажав на них в намерении «ПОМОЩЬ»."
+	gain_desc = "Вы получили способность вызывать космических летучих мышей. Численность стаи и боевые показатели будут сильно зависеть от собранных трофеев."
 	action_icon_state = "bats_new"
 	sound = 'sound/creatures/bats_spawn.ogg'
 	human_req = FALSE
@@ -1830,9 +1830,9 @@
 	else if(all_trophies > 40)
 		num_bats += all_trophies < 52 ? 2 : 3
 
-	user.visible_message(span_warning("Suddenly <b>[num_bats] pack[num_bats > 1 ? "s" : ""]</b> of space bats appeared near [user]!"), \
-						span_notice("You summon <b>[num_bats] pack[num_bats > 1 ? "s" : ""]</b> of space bats to assist you in combat."), \
-						span_italics("You hear an eerie rustle of many wings and loud screeching sounds..."))
+	user.visible_message(span_warning("Внезапно <b>[num_bats] пачк[num_bats > 1 ? "и" : "а"]</b> космических летучих мышей появились рядом с [user]!"), \
+						span_notice("Вы вызываете <b>[num_bats] пачк[num_bats > 1 ? "и" : "а"]</b> космических летучих мышей, чтобы они помогли вам в бою."), \
+						span_italics("Вы слышите жуткий шум множества крыльев и громкие визги..."))
 
 	var/turf/user_turf = get_turf(user)
 	for(var/turf/check in orange(1, user_turf))
@@ -1866,13 +1866,13 @@
  * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/////////////////////////////////////////////////////////////////////// *
 \*======================================================================================================================================*/
 /mob/living/simple_animal/hostile/vampire
-	name = "vampire animal"
+	name = "Вампир животное"
 	real_name = "vampire animal"
-	desc = "Report me!"
+	desc = "Сообщите обо мне!"
 	faction = list(ROLE_VAMPIRE)
-	response_help = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm = "hits the"
+	response_help = "обнимает"
+	response_disarm = "аккуратно отодвигает в сторону"
+	response_harm = "бьёт"
 	attack_sound = 'sound/effects/bite.ogg'
 	attacktext = "кусает"
 	friendly = "осматривает"
@@ -1948,15 +1948,15 @@
 	if(stat != DEAD)
 		var/list/msgs = list()
 		if(key)
-			msgs += span_warning("Its eyes glows with malicious intelligence.")
+			msgs += span_warning("Его глаза отдают злобным блеском в глазах.")
 		if(health > (maxHealth*0.95))
-			msgs += span_notice("It appears to be in excellent health.")
+			msgs += span_notice("Судя по всему, он находится в отличном состоянии.")
 		else if(health > (maxHealth*0.75))
-			msgs += span_notice("It has a few injuries.")
+			msgs += span_notice("У него есть несколько повреждений.")
 		else if(health > (maxHealth*0.55))
-			msgs += span_warning("It has many injuries.")
+			msgs += span_warning("У него много травм.")
 		else if(health > (maxHealth*0.25))
-			msgs += span_warning("It is covered in wounds!")
+			msgs += span_warning("Он весь в ранах!")
 		. += msgs.Join("<BR>")
 
 
@@ -2007,9 +2007,9 @@
  * Mr. Vampire in the bat form.
  */
 /mob/living/simple_animal/hostile/vampire/bats
-	name = "enraged bats swarm"
+	name = "Рой разъяренных летучих мышей"
 	real_name = "enraged bats swarm"
-	desc = "A swarm of vicious, angry-looking space bats."
+	desc = "Рой злобных, сердитых на вид космических летучих мышей."
 	icon = 'icons/mob/bats.dmi'
 	icon_state = "bat"
 	icon_living = "bat"
@@ -2084,8 +2084,8 @@
  * Mr. Vampire in the hound form.
  */
 /mob/living/simple_animal/hostile/vampire/hound
-	name = "Blood Hound"
-	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. Blood hounds are typically embody powerful bluespace entities."
+	name = "Кровавая гончая"
+	desc = "Черное клыкастое чудовище демонического вида со светящимися красными глазами и острыми зубами. Кровавые гончие обычно являются воплощением могущественных сущностей Блюспейса."
 	icon_state = "hellhoundgreater"
 	icon_living = "hellhoundgreater"
 	icon_dead = "hellhound_dead"
@@ -2148,7 +2148,7 @@
 
 	if(vampire.bloodusable <= 100 && !warning_done)
 		warning_done = TRUE
-		to_chat(src, span_userdanger("Our blood reserves are running pretty low!"))
+		to_chat(src, span_userdanger("Наши запасы крови на исходе!"))
 
 	if(vampire.bloodusable <= 0)
 		death()
@@ -2164,7 +2164,7 @@
 
 	if(l_target.affects_vampire(src) && prob(vampire.get_trophies(INTERNAL_ORGAN_EYES) * 3))	// 30% chance MAX
 		l_target.Stun(1 SECONDS)
-		l_target.visible_message(span_danger("[src] scares [l_target]!"))
+		l_target.visible_message(span_danger("[src] пугает [l_target]!"))
 
 
 /mob/living/simple_animal/hostile/vampire/hound/add_spells()
@@ -2177,15 +2177,15 @@
  * Summoned bats.
  */
 /mob/living/simple_animal/hostile/vampire/bats_summoned
-	name = "enraged bats swarm"
+	name = "Рой разъяренных летучих мышей"
 	real_name = "enraged bats swarm"
-	desc = "A swarm of vicious, angry-looking space bats."
+	desc = "Рой злобных, сердитых на вид космических летучих мышей."
 	icon = 'icons/mob/bats.dmi'
 	icon_state = "bat"
 	icon_living = "bat"
 	icon_dead = "bat_dead"
 	icon_gib = "bat_dead"
-	deathmessage = "falls to the ground and looks lifeless!"
+	deathmessage = "падают на землю и выглядят безжизненными!"
 	speak_emote = list("rattles")
 	emote_taunt = list("flutters")
 	taunt_chance = 30
@@ -2236,7 +2236,7 @@
 
 	if(l_target.affects_vampire(src) && prob(round(vampire.get_trophies(INTERNAL_ORGAN_EYES) * 1.5)))	// 15% chance MAX
 		l_target.Stun(1 SECONDS)
-		l_target.visible_message(span_danger("[src] scares [l_target]!"))
+		l_target.visible_message(span_danger("[src] пугает [l_target]!"))
 
 	if(!is_vampire_compatible(l_target, only_human = TRUE, blood_required = TRUE) || isvampire(l_target) || isvampirethrall(l_target))
 		return
@@ -2284,8 +2284,8 @@
 	step(src, direction)
 	step(user, GetOppositeDir(direction))
 
-	visible_message(span_notice("[user] swaps places with [src]."), \
-					span_notice("[user] has swapped places with you."))
+	visible_message(span_notice("[user] поменялся местами с [src]."), \
+					span_notice("[user] поменялся с вами местами."))
 	playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 
