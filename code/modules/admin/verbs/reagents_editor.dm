@@ -68,7 +68,7 @@
 			var/datum/reagent/reagent_prototype = GLOB.chemical_reagents_list[reagent_id]
 			if(isnull(reagent_prototype))
 				return FALSE
-			var/new_volume = tgui_input_number(ui.user, "How much units of the reagent do you want to add?", "Add Reagent", 0, 1E100, -1E100)
+			var/new_volume = tgui_input_number(ui.user, "Сколько юнитов этого реагента вы хотите добавить?", "Добавить реагент", 0, 1E100, -1E100)
 			var/datum/reagent/reagent = target.reagents.get_reagent_by_id(reagent_id)
 			if(isnull(reagent))
 				reagent = new reagent_prototype.type()
@@ -86,7 +86,7 @@
 			var/datum/reagent/reagent = locateUID(reagent_uid)
 			if(isnull(reagent))
 				return FALSE
-			var/new_volume = tgui_input_number(ui.user, "How much units of the reagent do you want to be in the container?", "Edit Reagent Volume", 0, 1E100, -1E100)
+			var/new_volume = tgui_input_number(ui.user, "Сколько юнитов этого реагента должно быть в хранилище?", "Редактировать число реагента", 0, 1E100, -1E100)
 			if(isnull(new_volume))
 				return
 			reagent.volume = new_volume

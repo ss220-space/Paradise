@@ -212,7 +212,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Atom Proc-Call") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/get_callproc_args()
-	var/argnum = tgui_input_number(src, "Number of arguments","Number:", 0)
+	var/argnum = tgui_input_number(src, "Введите число аргументов","Число аргументов:", 0)
 	if(argnum <= 0)
 		return list() // to allow for calling with 0 args
 
