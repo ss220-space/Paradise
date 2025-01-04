@@ -1,6 +1,4 @@
 #define COIN_COST MINERAL_MATERIAL_AMOUNT * 0.2
-/**********************Mint**************************/
-
 
 /obj/machinery/mineral/mint
 	name = "coin press"
