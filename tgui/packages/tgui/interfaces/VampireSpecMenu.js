@@ -24,7 +24,7 @@ export const VampireSpecMenu = (props, context) => {
   };
 
   return (
-    <Window width={650} height={880} resizable theme="ntos_spooky">
+    <Window width={650} height={890} resizable theme="ntos_spooky">
       <Window.Content scrollable>
         <Box>
           <Button

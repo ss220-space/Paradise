@@ -80,7 +80,7 @@ const Trophies = (props, context) => {
             <Button
               tooltipPosition="right"
               tooltip="Cердце - трофей, который веками повышал жизненную силу и крепость тела наших сородичей. Критичный орган. Максимальное количество трофеев этого типа - 6."
-              content="Сердце"
+              content="СЕРДЦЕ"
               color="transparent"
             />
           </Box>
@@ -306,7 +306,7 @@ const Passives = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
-              tooltip="Улучшается при извлечении легких:"
+              tooltip="Улучшается при извлечении легких"
               content="Защита от гипоксии:"
               color="transparent"
             />
@@ -342,7 +342,7 @@ const Passives = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="OУлучшается при извлечении почек"
+              tooltip="Улучшается при извлечении почек"
               content="Защита мозга:"
               color="transparent"
             />
