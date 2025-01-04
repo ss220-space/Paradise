@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(bitfields, generate_bitfields())
 	for(var/name in GLOB.bitfields[bitfield])
 		currently_checked[name] = (current_value & GLOB.bitfields[bitfield][name])
 
-	var/list/result = tgui_input_checkbox_list(user, "Редактирование битового поля для [bitfield].", "Битовое поле", currently_checked)
+	var/list/result = tgui_input_checkbox_list(user, "Редактирование битовой маски для [bitfield].", "Битовая маска", currently_checked)
 	if(isnull(result) || !islist(result))
 		return
 
