@@ -21,6 +21,7 @@
 	var/can_move = 0 // time of next allowed movement
 	var/mech_enter_time = 4 SECONDS // Entering mecha time
 	var/mob/living/carbon/occupant = null
+
 	var/step_in = 10 //make a step in step_in/10 sec.
 	var/dir_in = 2//What direction will the mech face when entered/powered on? Defaults to South.
 	var/normal_step_energy_drain = 10
@@ -409,6 +410,11 @@
 			occupant_message(span_danger("Unable to move while in zoom mode."))
 			last_message = world.time
 		return FALSE
+	if(locate(/obj/item/mecha_parts/mecha_equipment/cage) in equipment)
+		var/obj/item/mecha_parts/mecha_equipment/cage/H = locate(/obj/item/mecha_parts/mecha_equipment/cage) in equipment
+		if(H.holding)
+			occupant_message(span_notice("Ты перестаёшь удерживать [H.holding]."))
+			H.stop_supressing(H.holding)
 
 	//Turns strafe OFF if not enough energy to step (with actuator module only)
 	if(strafe && actuator && !has_charge(actuator.energy_per_step))
@@ -1165,6 +1171,10 @@
 		GrantActions(AI, FALSE)
 	else
 		GrantActions(AI, !AI.can_dominate_mechs)
+	if(selected)
+		var/atom/movable/screen/alert/empty_alert/default_alert = AI.throw_alert(selected.alert_category, /atom/movable/screen/alert/empty_alert, new_master = selected)
+		default_alert.name = selected.name
+		default_alert.desc = "Выбран модуль [selected.name]"
 
 /////////////////////////////////////
 ////////  Atmospheric stuff  ////////
@@ -1321,6 +1331,10 @@
 			occupant << sound(nominalsound, volume = 50)
 		if(state)
 			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
+		if(selected)
+			var/atom/movable/screen/alert/empty_alert/default_alert = H.throw_alert(selected.alert_category, /atom/movable/screen/alert/empty_alert, new_master = selected)
+			default_alert.name = selected.name
+			default_alert.desc = "Выбран модуль [selected.name]"
 		return TRUE
 	else
 		return FALSE
@@ -1406,11 +1420,20 @@
 	if(!occupant)
 		return
 	var/atom/movable/mob_container
+	if(selected)
+		occupant.clear_alert(selected.alert_category)
 	occupant.clear_alert("charge")
 	occupant.clear_alert("locked")
 	occupant.clear_alert("mech damage")
 	occupant.clear_alert("mechaport")
 	occupant.clear_alert("mechaport_d")
+
+	if(locate(/obj/item/mecha_parts/mecha_equipment/cage) in equipment)
+		var/obj/item/mecha_parts/mecha_equipment/cage/H = locate(/obj/item/mecha_parts/mecha_equipment/cage) in equipment
+		if(H.holding)
+			occupant_message(span_notice("Ты перестаёшь удерживать [H.holding]."))
+			H.stop_supressing(H.holding)
+
 	if(occupant && occupant.client)
 		occupant.client.mouse_pointer_icon = initial(occupant.client.mouse_pointer_icon)
 	if(ishuman(occupant))
@@ -1654,7 +1677,6 @@
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
 	diag_hud_set_mechtracking()
-
 
 /obj/mecha/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
