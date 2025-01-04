@@ -25496,6 +25496,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
+"dIS" = (
+/obj/machinery/computer/secure_data,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
+/area/security/reception)
 "dIY" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -45047,8 +45057,8 @@
 "gxY" = (
 /obj/structure/window/reinforced,
 /obj/structure/statue/gold/tajaran{
-	desc = "Перед собою вы наблюдаете статую таяры, которая держит в руках чертежи станции очень похожей на станцию Нова. \n Надпись на табличке - Один из двух главных инженеров союза Таяр и Унати, по прозвищу Daeberdir, принимавших участие в разработке передовой научно-исследовательской станции НаноТрейзен - Nova.";
-	name = "Л.А.Р."
+	desc = "Перед собою вы наблюдаете статую таяры, которая держит в руках чертежи станции очень похожие на станцию Нова. Надпись на табличке - Один из двух главных инженеров союза Таяр и Унати, по прозвищу Daeberdir, принимавших участие в разработке передовой научно-исследовательской станции НаноТрейзен - Nova.";
+	name = "Л.А.Р"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -52460,6 +52470,18 @@
 	icon_state = "whitehall"
 	},
 /area/maintenance/fsmaint3)
+"hFZ" = (
+/obj/machinery/door/firedoor,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/sign/directions/science{
+	pixel_y = 32;
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/hallway/primary/central/sw)
 "hGi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -102656,7 +102678,9 @@
 	},
 /area/quartermaster/office)
 "pfw" = (
-/obj/machinery/computer/secure_data,
+/obj/machinery/computer/security{
+	network = list("SS13","Research Outpost","Mining Outpost")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -106546,6 +106570,7 @@
 	pixel_y = -24
 	},
 /obj/machinery/light,
+/obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -111774,6 +111799,9 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown";
 	opacity = 0
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -122253,6 +122281,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -127306,6 +127337,9 @@
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown";
 	opacity = 0
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -149218,11 +149252,11 @@
 	},
 /area/crew_quarters/fitness)
 "vRd" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -24
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
@@ -151853,6 +151887,9 @@
 	name = "west fire alarm";
 	pixel_x = -24
 	},
+/obj/item/storage/toolbox/emergency,
+/obj/item/crowbar,
+/obj/item/wrench,
 /turf/simulated/floor/plasteel/white,
 /area/teleporter)
 "wkD" = (
@@ -160916,8 +160953,8 @@
 "xBF" = (
 /obj/structure/window/reinforced,
 /obj/structure/statue/gold/unathi{
-	desc = "Перед собою вы наблюдаете статую унати, которая держит в руках чертежи станции очень похожей на станцию Нова. \n Надпись на табличке - Один из двух главных инженеров союза Таяр и Унати, по прозвищу PiroMage, принимавших участие в разработке передовой научно-исследовательской станции НаноТрейзен - Nova.";
-	name = "К.А.З."
+	desc = "Перед собою вы наблюдаете статую унати, которая держит в руках чертежи станции очень похожие на станцию Нова. Надпись на табличке - Один из двух главных инженеров союза Таяр и Унати, по прозвищу PiroMage, принимавших участие в разработке передовой научно-исследовательской станции НаноТрейзен - Nova.";
+	name = "К.А.З"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -194131,7 +194168,7 @@ jCS
 jCS
 jCS
 wdB
-tel
+hFZ
 rKy
 pDd
 nMQ
@@ -254014,7 +254051,7 @@ kfv
 tIf
 oer
 wuy
-tIf
+dIS
 ctV
 uRS
 reI
