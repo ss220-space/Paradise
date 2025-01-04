@@ -250,6 +250,13 @@
 	cost = 5
 	job = list(JOB_TITLE_CLOWN)
 
+/datum/uplink_item/jobspecific/bipki
+	name = "Bipki case"
+	desc = "Suck me and I'll tell you what's inside."
+	item = /obj/item/case_with_bipki
+	cost = 30
+	job = list(JOB_TITLE_CLOWN)
+
 //Mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun and Assassination Shells"
@@ -2323,9 +2330,9 @@
 
 /datum/uplink_item/contractor/zippo
 	name = "Contractor Zippo Lighter"
-	desc = "A kit with your personal assistant. It comes with an increased amount of memory and special programs."
-	item = /obj/item/storage/box/contractor/spai_kit
-	cost = 120
+	desc = "An unique black and gold zippo lighter with no purpose other than showing off."
+	item = /obj/item/lighter/zippo/contractor
+	cost = 1
 
 /datum/uplink_item/contractor/loadout_box
 	name = "Contractor standard loadout box"

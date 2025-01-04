@@ -175,7 +175,7 @@
 			animal_candidate.adjustHealth(-simple_heal * seconds_per_tick, updating_health = FALSE)
 
 		if(!HAS_TRAIT(candidate, TRAIT_NO_BLOOD_RESTORE) && candidate.blood_volume < BLOOD_VOLUME_NORMAL)
-			candidate.blood_volume += blood_heal * seconds_per_tick
+			candidate.AdjustBlood(blood_heal * seconds_per_tick)
 
 		var/external_organ_heal_done = FALSE
 		if(ishuman(candidate))

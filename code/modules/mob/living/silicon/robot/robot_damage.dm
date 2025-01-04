@@ -41,7 +41,7 @@
 	silent = FALSE,
 	affect_robotic = TRUE,
 )
-	if(amount)
+	if(amount > 0)
 		take_overall_damage(amount, 0, blocked, forced, updating_health, used_weapon, sharp, silent, affect_robotic)
 
 	else
@@ -61,7 +61,7 @@
 	silent = FALSE,
 	affect_robotic = TRUE,
 )
-	if(amount)
+	if(amount > 0)
 		take_overall_damage(0, amount, blocked, forced, updating_health, used_weapon, sharp, silent, affect_robotic)
 
 	else
