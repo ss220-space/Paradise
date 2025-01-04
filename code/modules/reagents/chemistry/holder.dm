@@ -225,6 +225,18 @@
 
 	return transfered
 
+/datum/reagents/proc/can_metabolize(mob/living/carbon/human/H, datum/reagent/R)
+	if(!H.dna.species || !H.dna.species.reagent_tag)
+		return FALSE
+	if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
+		return TRUE
+	if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
+		return TRUE
+	//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
+	if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
+		return TRUE
+
+
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
 		temperature_reagents(M.bodytemperature - 30)
@@ -247,17 +259,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			//Check if this mob's species is set and can process this type of reagent
-			var/can_process = FALSE
-			//If we somehow avoided getting a species or reagent_tag set, we'll assume we aren't meant to process ANY reagents (CODERS: SET YOUR SPECIES AND TAG!)
-			if(H.dna.species && H.dna.species.reagent_tag)
-				if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
-					can_process = TRUE
-				if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
-					can_process = TRUE
-				//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
-				if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
-					can_process = TRUE
-
+			var/can_process = can_metabolize(H, R)
 			//If handle_reagents returns 0, it's doing the reagent removal on its own
 			var/species_handled = !(H.dna.species.handle_reagents(H, R))
 			can_process = can_process && !species_handled
@@ -748,6 +750,15 @@
 
 /datum/reagents/proc/get_reagent(type)
 	. = locate(type) in reagent_list
+
+/datum/reagents/proc/get_reagent_by_id(id)
+	var/list/cached_reagents = reagent_list
+	for(var/A in cached_reagents)
+		var/datum/reagent/R = A
+		if(R.id == id)
+			return R
+
+	return
 
 /datum/reagents/proc/remove_all_type(reagent_type, amount, strict = FALSE, safety = TRUE) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
 	if(!isnum(amount))
