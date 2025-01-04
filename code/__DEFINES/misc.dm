@@ -505,5 +505,3 @@
 #define MECH_TYPE_SIDEWINTER	(1<<11)
 #define MECH_TYPE_OLD_DURAND	(1<<12)
 #define MECH_TYPE_DARK_GYGAX	(1<<13)
-
-
