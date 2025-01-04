@@ -1099,7 +1099,7 @@
  * Transform - Hound
  */
 /obj/effect/proc_holder/spell/vampire/metamorphosis/hound
-	name = "Метаморфозы - Гончая"
+	name = "Метаморфоза - Гончая"
 	desc = "Превратитесь в страшную ищейку. Это проворные, яростные звери, во всем превосходящие человека."
 	gain_desc = "Вы обрели способность превращаться в кровавую гончую. Это высшая форма сущности блюспейса, которая овладела нами."
 	action_icon_state = "blood_hound"
@@ -1436,6 +1436,14 @@
 	material_drop = null
 	open_sound = 'sound/objects/coffin_toggle.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
+	ru_names = list(
+        NOMINATIVE = "Таинственный гроб",
+        GENITIVE = "Таинственного гроба",
+        DATIVE = "Таинственному гробу",
+        ACCUSATIVE = "Таинственный гроб",
+        INSTRUMENTAL = "Таинственным гробом",
+        PREPOSITIONAL = "Таинственном гробе"
+    )
 	var/datum/gas_mixture/interior_air
 	var/obj/machinery/portable_atmospherics/canister/air/interior_tank
 	var/no_manipulation = FALSE
@@ -2085,6 +2093,7 @@
  */
 /mob/living/simple_animal/hostile/vampire/hound
 	name = "Кровавая гончая"
+	real_name = "Blood Hound"
 	desc = "Черное клыкастое чудовище демонического вида со светящимися красными глазами и острыми зубами. Кровавые гончие обычно являются воплощением могущественных сущностей Блюспейса."
 	icon_state = "hellhoundgreater"
 	icon_living = "hellhoundgreater"
