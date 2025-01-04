@@ -60,7 +60,7 @@
 		/obj/item/twohanded/spear/bonespear/chitinspear = 1,
 		/obj/item/twohanded/garrote = 1,
 		/obj/item/melee/rapier/syndie = 1,
-		/obj/item/claymore/bone = 1,
+		/obj/item/melee/claymore/bone = 1,
 		/obj/item/gun/magic/staff/spellblade = 1,
 		/obj/item/spellbook/oneuse/goliath_dash = 1,
 		)
@@ -227,7 +227,7 @@
 		/obj/item/twohanded/spear/bonespear/chitinspear = 1,
 		/obj/item/twohanded/garrote = 1,
 		/obj/item/melee/rapier/syndie = 1,
-		/obj/item/claymore/bone = 1,
+		/obj/item/melee/claymore/bone = 1,
 		/obj/item/gun/magic/staff/spellblade = 1,
 		/obj/item/spellbook/oneuse/goliath_dash = 1,
 		/obj/item/spellbook/oneuse/forcewall = 1,

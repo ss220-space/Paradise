@@ -3,6 +3,8 @@
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks. This one is made by syndicate"
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "syndi_rcd"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "syndi_rcd"
 	materials = list(MAT_PLASMA = 10000, MAT_TITANIUM = 10000, MAT_METAL = 20000)
 	origin_tech = "engineering=4;materials=2;syndicate=4"
