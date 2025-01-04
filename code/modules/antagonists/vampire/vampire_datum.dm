@@ -59,7 +59,7 @@
 /datum/antagonist/vampire/greet()
 	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
-	messages.Add("<span class='danger'>Вы — вампир!</span><br>")
+	messages.Add(span_danger("Вы — вампир!<br>"))
 	messages.Add("Чтобы укусить кого-то, нацельтесь в голову, выберите намерение вреда (4) и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы. \
 		Вы уязвимы перед святостью, огнем и звёздным светом. Не выходите в космос, избегайте священника, церкви и, особенно, святой воды.")
 	return messages
