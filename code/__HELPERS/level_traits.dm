@@ -1,5 +1,5 @@
 /proc/is_level_reachable(z)
- 	return check_level_trait(z, REACHABLE)
+	return check_level_trait(z, REACHABLE)
 
 /proc/is_station_level(z)
 	return check_level_trait(z, STATION_LEVEL)
@@ -12,6 +12,9 @@
 
 /proc/is_admin_level(z)
 	return check_level_trait(z, ADMIN_LEVEL)
+
+/proc/is_reserved_level(z)
+	return check_level_trait(z, RESERVED_LEVEL)
 
 /proc/is_away_level(z)
 	return check_level_trait(z, AWAY_LEVEL)

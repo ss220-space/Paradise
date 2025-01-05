@@ -18,6 +18,8 @@
 	death_message = "с тошнотворным шипением выдыха%(ет,ют)% воздух и пада%(ет,ют)% на пол..."
 	death_sound = null
 
+	hud_type = /datum/hud/larva
+
 	var/datum/action/innate/hide/alien_larva/hide_action
 
 

@@ -81,7 +81,7 @@
 		if(istype(AL))
 			sorted_laws += AL
 
-/datum/ai_laws/proc/sync(var/mob/living/silicon/S, var/full_sync = 1, var/keep_zero = FALSE)
+/datum/ai_laws/proc/sync(mob/living/silicon/S, full_sync = TRUE, keep_zero = FALSE)
 	// Add directly to laws to avoid log-spam
 	if(!keep_zero)
 		S.sync_zeroth(zeroth_law, zeroth_law_borg)

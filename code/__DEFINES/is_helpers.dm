@@ -56,6 +56,12 @@
 
 #define isstorage(A) (istype(A, /obj/item/storage))
 
+#define isgrenade(A) (istype(A, /obj/item/grenade))
+
+#define issupplypod(A) (istype(A, /obj/structure/closet/supplypod))
+
+#define isammocasing(A) (istype(A, /obj/item/ammo_casing))
+
 #define ismachinery(A) (istype(A, /obj/machinery))
 
 #define isapc(A) (istype(A, /obj/machinery/power/apc))

@@ -11,7 +11,7 @@
 	var/affected_area = 2
 
 /obj/item/grenade/clown_grenade/prime()
-	..()
+	. = ..()
 	playsound(src.loc, 'sound/items/bikehorn.ogg', 25, -3)
 	var/i = 0
 	var/number = 0

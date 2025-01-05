@@ -156,7 +156,7 @@
 	LAZYADD(invokers_list, invoker)
 
 	for(var/mob/living/carbon/human/human as anything in invokers_list)
-		if(!do_after(human, cast_time, ritual_object, extra_checks = CALLBACK(src, PROC_REF(action_check_contents))))
+		if(!do_after(human, cast_time, ritual_object, DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(action_check_contents))))
 			. = FALSE
 
 	return .
@@ -385,7 +385,7 @@
 	fail_chance = 50
 	extra_invokers = 1
 	cooldown_after_cast = 480 SECONDS
-	cast_time = 70 SECONDS
+	cast_time = 30 SECONDS
 	ritual_should_del_things_on_fail = TRUE
 	required_things = list(
 		/obj/item/twohanded/spear = 3,
@@ -439,15 +439,20 @@
 	fail_chance = 30
 	shaman_only = TRUE
 	cooldown_after_cast = 900 SECONDS
-	cast_time = 50 SECONDS
+	cast_time = 30 SECONDS
 	extra_invokers = 1
 
 /datum/ritual/ashwalker/summon/do_ritual(mob/living/carbon/human/invoker)
 	var/list/ready_for_summoning = list()
 
 	for(var/mob/living/carbon/human/human in GLOB.mob_list)
-		if(isashwalker(human))
-			LAZYADD(ready_for_summoning, human)
+		if(!human.ckey)
+			continue
+
+		if(!isashwalker(human))
+			continue
+
+		LAZYADD(ready_for_summoning, human)
 
 	if(!LAZYLEN(ready_for_summoning))
 		return RITUAL_FAILED_ON_PROCEED
@@ -457,17 +462,24 @@
 	if(!human)
 		return RITUAL_FAILED_ON_PROCEED
 
-	LAZYADD(invokers, invoker)
+	deal_damage()
+	summon(human)
 
-	for(var/mob/living/carbon/human/summoner as anything in invokers)
-		summoner.blood_volume -= (summoner.blood_volume * 0.20)
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/ashwalker/summon/proc/deal_damage()
+	for(var/mob/living/carbon/human/summoner in range(finding_range, ritual_object))
+		summoner.AdjustBlood(-(summoner.blood_volume * 0.20))
 		summoner.apply_damage(25, def_zone = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
-	human.forceMove(ritual_object)
+	return TRUE
+
+/datum/ritual/ashwalker/summon/proc/summon(mob/living/carbon/human/human)
+	human.forceMove(get_turf(ritual_object))
 	human.vomit()
 	human.Weaken(10 SECONDS)
 
-	return RITUAL_SUCCESSFUL
+	return TRUE
 
 /datum/ritual/ashwalker/summon/disaster(mob/living/carbon/human/invoker)
 	if(!prob(70))
@@ -499,7 +511,7 @@
 	disaster_prob = 30
 	fail_chance = 30
 	cooldown_after_cast = 600 SECONDS
-	cast_time = 60 SECONDS
+	cast_time = 30 SECONDS
 	charges = 3
 	shaman_only = TRUE
 	extra_invokers = 2
@@ -565,7 +577,7 @@
 	fail_chance = 40
 	charges = 1
 	cooldown_after_cast = 800 SECONDS
-	cast_time = 80 SECONDS
+	cast_time = 30 SECONDS
 	shaman_only = TRUE
 	extra_invokers = 4
 	required_things = list(
@@ -640,7 +652,7 @@
 	charges = 3
 	extra_invokers = 2
 	cooldown_after_cast = 180 SECONDS
-	cast_time = 100 SECONDS
+	cast_time = 30 SECONDS
 	shaman_only = TRUE
 	disaster_prob = 25
 	fail_chance = 35
@@ -707,7 +719,7 @@
 	disaster_prob = 30
 	fail_chance = 50
 	cooldown_after_cast = 360 SECONDS
-	cast_time = 90 SECONDS
+	cast_time = 30 SECONDS
 	shaman_only = TRUE
 	required_things = list(
 		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher = 1,
@@ -788,7 +800,7 @@
 	extra_invokers = 2
 	charges = 1
 	cooldown_after_cast = 120 SECONDS
-	cast_time = 40 SECONDS
+	cast_time = 30 SECONDS
 	ritual_should_del_things_on_fail = TRUE
 	required_things = list(
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit = 1,
@@ -872,7 +884,7 @@
 	name = "Soul ritual"
 	extra_invokers = 3
 	cooldown_after_cast = 1200 SECONDS
-	cast_time = 60 SECONDS
+	cast_time = 30 SECONDS
 	required_things = list(
 		/mob/living/carbon/human = 3,
 		/obj/item/stack/sheet/animalhide/ashdrake = 1
@@ -1085,7 +1097,7 @@
 	cooldown_after_cast = 150 SECONDS
 	shaman_only = TRUE
 	extra_invokers = 2
-	cast_time = 60 SECONDS
+	cast_time = 30 SECONDS
 	required_things = list(
 		/mob/living/carbon/human = 2
 	)
@@ -1161,7 +1173,7 @@
 	shaman_only = TRUE
 	disaster_prob = 35
 	extra_invokers = 1
-	cast_time = 60 SECONDS
+	cast_time = 30 SECONDS
 	required_things = list(
 		/mob/living/simple_animal = 1,
 		/obj/item/organ/internal/regenerative_core = 1,

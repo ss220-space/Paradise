@@ -9,6 +9,7 @@
 	var/spawn_amount = 100
 
 /obj/item/grenade/gas/prime()
+	. = ..()
 	var/turf/simulated/target_turf = get_turf(src)
 	if(istype(target_turf))
 		target_turf.atmos_spawn_air(spawn_contents, spawn_amount)

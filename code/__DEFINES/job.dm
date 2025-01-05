@@ -60,7 +60,6 @@
 
 #define JOB_FLAG_REPRESENTATIVE				(1<<0)
 #define JOB_FLAG_BLUESHIELD		(1<<1)
-#define JOB_FLAG_BARBER			(1<<3)
 #define JOB_FLAG_MECHANIC			(1<<4)
 #define JOB_FLAG_BRIGDOC			(1<<5)
 #define JOB_FLAG_JUDGE				(1<<6)
@@ -120,7 +119,6 @@
 #define JOB_TITLE_MIME "Mime"
 #define JOB_TITLE_JANITOR "Janitor"
 #define JOB_TITLE_LIBRARIAN "Librarian"
-#define JOB_TITLE_BARBER "Barber"
 #define JOB_TITLE_EXPLORER "Explorer"
 
 #define JOB_TITLE_SYNDICATE "Syndicate Officer"

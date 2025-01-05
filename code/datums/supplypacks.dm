@@ -497,26 +497,20 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/armory/riothelmets
 	name = "Riot Bundle Crate"
-	contains = list(/obj/item/clothing/head/helmet/riot,
-					/obj/item/clothing/head/helmet/riot,
-					/obj/item/clothing/head/helmet/riot,
+	contains = list(/obj/item/storage/backpack/duffel/security/riot_armory,
+					/obj/item/storage/backpack/duffel/security/riot_armory,
+					/obj/item/storage/backpack/duffel/security/riot_armory,
 					/obj/item/shield/riot,
 					/obj/item/shield/riot,
-					/obj/item/shield/riot,
-					/obj/item/clothing/suit/armor/riot,
-					/obj/item/clothing/suit/armor/riot,
-					/obj/item/clothing/suit/armor/riot)
+					/obj/item/shield/riot)
 	cost = 80
 	containername = "riot bundle crate"
 
 /datum/supply_packs/security/armory/bulletarmor
 	name = "Bulletproof Armor Crate"
-	contains = list(/obj/item/clothing/suit/armor/bulletproof,
-					/obj/item/clothing/suit/armor/bulletproof,
-					/obj/item/clothing/suit/armor/bulletproof,
-					/obj/item/clothing/head/helmet/alt,
-					/obj/item/clothing/head/helmet/alt,
-					/obj/item/clothing/head/helmet/alt)
+	contains = list(/obj/item/storage/backpack/duffel/security/bulletproof_armory,
+					/obj/item/storage/backpack/duffel/security/bulletproof_armory,
+					/obj/item/storage/backpack/duffel/security/bulletproof_armory)
 	cost = 40
 	containername = "tactical armor crate"
 

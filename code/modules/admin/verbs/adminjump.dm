@@ -14,7 +14,7 @@
 	var/jumping // Thing to jump to
 	switch(chosen)
 		if("Area")
-			jumping = tgui_input_list(src, "Area to jump to", "Jump to Area", return_sorted_areas())
+			jumping = tgui_input_list(src, "Area to jump to", "Jump to Area", get_sorted_areas())
 			if(jumping)
 				return jumptoarea(jumping)
 		if("Mob")
@@ -187,7 +187,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/area/A = tgui_input_list(usr, "Pick an area.", "Pick an area", return_sorted_areas())
+	var/area/A = tgui_input_list(usr, "Pick an area.", "Pick an area", get_sorted_areas())
 	if(!A)
 		return
 

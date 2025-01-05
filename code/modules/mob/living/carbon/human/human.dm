@@ -335,7 +335,7 @@
 	if(stat == DEAD)
 		return
 	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
-	show_message("<span class='userdanger'>The blob attacks you!</span>")
+	show_message(span_userdanger("The blob attacks you!"))
 	var/dam_zone = list(
 		BODY_ZONE_CHEST,
 		BODY_ZONE_PRECISE_GROIN,
@@ -350,8 +350,7 @@
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
-	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, "melee"))
-
+	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, MELEE))
 
 // Get rank from ID from hands, wear_id, pda, and then from uniform
 /mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "No id", var/if_no_job = "No job")

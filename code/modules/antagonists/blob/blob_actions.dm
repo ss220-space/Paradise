@@ -3,29 +3,40 @@
 	background_icon_state = "bg_default_on"
 
 /datum/action/innate/blob/comm
-	name = "Blob Telepathy"
-	desc = "Телепатически отправляет сообщение всем блобам, иблобернаутам и зараженным блобом"
+	name = "Телепатия блоба"
+	desc = "Телепатически отправляет сообщение всем блобам, миньенам блоба и зараженным блобом организмам"
 	button_icon_state = "alien_whisper"
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
 /datum/action/innate/blob/comm/Activate()
-	var/input = stripped_input(usr, "Выберите сообщение для отправки другому блобу.", "Blob Telepathy", "")
+	var/input = tgui_input_text(usr, "Выберите сообщение для отправки другим блобам.", "Телепатия Блоба", "")
 	if(!input || !IsAvailable())
 		return
-	blob_talk(usr, input)
+	blob_talk(input)
 	return
 
+/datum/action/innate/blob/comm/proc/blob_talk(message)
+
+	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+
+	if(!message)
+		return
+
+	add_say_logs(usr, message, language = "BLOB")
+	var/rendered = span_blob("<b>\[Blob Telepathy\] <span class='name'>[usr.name]</span> states, [message]")
+	relay_to_list_and_observers(rendered, GLOB.blob_telepathy_mobs, usr)
+
 /datum/action/innate/blob/self_burst
-	icon_icon = 'icons/mob/blob.dmi'
-	button_icon = 'icons/mob/blob.dmi'
+	icon_icon = 'icons/hud/blob.dmi'
+	button_icon = 'icons/hud/blob.dmi'
 	background_icon_state = "block"
 	button_icon_state = "ui_tocore"
-	name = "Self burst"
+	name = "Лопнуть носителя"
 	desc = "Позволяет лопнуть носителя и превратиться в блоба досрочно."
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
 /datum/action/innate/blob/self_burst/Activate()
-	var/input = alert(usr,"Вы действительно хотите лопнуть себя и превратиться в блоба досрочно? Это действие необратимо.", "", "Да", "Нет") == "Да"
+	var/input = tgui_alert(usr,"Вы действительно хотите лопнуть себя и превратиться в блоба досрочно? Это действие необратимо.", "", list("Да", "Нет")) == "Да"
 	if(!input || !IsAvailable())
 		return
 	var/datum/antagonist/blob_infected/blob = usr?.mind?.has_antag_datum(/datum/antagonist/blob_infected)
@@ -34,20 +45,19 @@
 	blob.burst_blob()
 	return
 
-/proc/blob_talk(mob/living/user, message)
-	add_say_logs(user, message, language = "BLOB")
+/datum/action/innate/blob/minion_talk
+	background_icon_state = "bg_default"
+	button_icon_state = "talk_around"
+	name = "Сказать окружающим"
+	desc = "Вы скажете введенный текст окружающим вас мобам"
+	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
-	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+/datum/action/innate/blob/minion_talk/Activate()
 
-	if(!message)
+	var/speak_text = tgui_input_text(usr, "Что вы хотите сказать?", "Сказать окружающим", null)
+
+	if(!speak_text)
 		return
 
-	var/rendered = "<i><span class='blob'>Blob Telepathy,</span> <span class='name'>[user.name]</span> states, <span class='blob'>\"[message]\"</span></i>"
-	for(var/mob/M in GLOB.mob_list)
-		if(isovermind(M) || isblobbernaut(M) || isblobinfected(M.mind))
-			M.show_message(rendered, 2)
-		else if(isobserver(M) && !isnewplayer(M))
-			var/rendered_ghost = "<i><span class='blob'>Blob Telepathy,</span> <span class='name'>[user.name]</span> \
-			<a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> states, <span class='blob'>\"[message]\"</span></i>"
-			M.show_message(rendered_ghost, 2)
-
+	add_say_logs(usr, speak_text, language = "BLOB mob_say")
+	usr.atom_say(speak_text)

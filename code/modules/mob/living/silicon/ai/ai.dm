@@ -47,6 +47,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	nightvision = 8
 	can_buckle_to = FALSE
+	hud_type = /datum/hud/ai
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
 	var/list/connected_robots = list()
@@ -659,9 +660,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)
 		adjustBruteLoss(60)
-		return 1
-	return 0
-
+		return TRUE
+	return TRUE
 
 /mob/living/silicon/ai/emp_act(severity)
 	..()
@@ -1351,7 +1351,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	return TRUE
 
 
-/mob/living/silicon/ai/proc/can_see(atom/A)
+/mob/living/silicon/ai/can_see(atom/A)
 	if(isturf(loc)) //AI in core, check if on cameras
 		//get_turf_pixel() is because APCs in maint aren't actually in view of the inner camera
 		//apc_override is needed here because AIs use their own APC when depowered

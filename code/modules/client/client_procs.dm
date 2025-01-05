@@ -1491,6 +1491,46 @@
 			debug_variables(stat_item)
 			message_admins("Admin [key_name_admin(usr)] is debugging the [stat_item] [class].")
 
+/client/proc/try_open_reagent_editor(atom/target)
+	var/target_UID = target.UID()
+	var/datum/reagents_editor/editor
+	// editors is static, it can be accessed using a null reference
+	editor = editor.editors[target_UID]
+	if(!editor)
+		editor = new /datum/reagents_editor(target)
+		editor.editors[target_UID] = editor
+
+	editor.ui_interact(mob)
+
+
+/client/proc/try_add_reagent(atom/target)
+	if(!target.reagents)
+		var/amount = tgui_input_number(usr, "Укажите размер хранилища реагентов для [target]", "Размер хранилища", 50)
+		if(amount)
+			target.create_reagents(amount)
+	var/chosen_id
+	var/list/reagent_options = sortAssoc(GLOB.chemical_reagents_list)
+	switch(tgui_alert(usr, "Выберите метод.", "Добавить реагент", list("Ввести ID", "Выбрать ID")))
+		if("Ввести ID")
+			var/valid_id
+			while(!valid_id)
+				chosen_id = tgui_input_text(usr, "Введите ID реагента, который хотите добавить.")
+				if(!chosen_id) //Get me out of here!
+					break
+				for(var/ID in reagent_options)
+					if(ID == chosen_id)
+						valid_id = 1
+				if(!valid_id)
+					to_chat(usr, span_warning("Реагента с данным ID не существует!"), confidential=TRUE)
+		if("Выбрать ID")
+			chosen_id = tgui_input_list(usr, "Выберите реагент для добавления.", "Выберите реагент.", reagent_options)
+	if(chosen_id)
+		var/amount = tgui_input_number(usr, "Введите количество добавляемого реагента.", "Введите количество.", target.reagents.maximum_volume)
+		if(amount)
+			target.reagents.add_reagent(chosen_id, amount)
+			log_and_message_admins("has added [amount] units of [chosen_id] to \the [target]")
+
+
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
 #undef SECOND_COUNT

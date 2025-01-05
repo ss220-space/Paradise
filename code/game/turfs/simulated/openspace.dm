@@ -44,7 +44,7 @@
 	. = ..()
 	AddElement(/datum/element/turf_z_transparency)
 
-/turf/simulated/openspace/ChangeTurf(path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
+/turf/simulated/openspace/ChangeTurf(path, defer_change, keep_icon, after_flags, copy_existing_baseturf)
 	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
 	return ..()
 
@@ -206,14 +206,17 @@
 
 /turf/simulated/openspace/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
 	. = ..()
+	
 	if(rcd_mode != RCD_MODE_TURF)
 		return RCD_NO_ACT
+
 	if(our_rcd.useResource(1, user))
 		to_chat(user, "Building Floor...")
 		playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
 		add_attack_logs(user, src, "Constructed floor with RCD")
 		ChangeTurf(our_rcd.floor_type)
 		return RCD_ACT_SUCCESSFULL
+
 	to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this floor!"))
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
 	return RCD_ACT_FAILED
@@ -224,8 +227,10 @@
 // Every new proc that should be edited or added here. Also needs to be copied into /turf/space/openspace. I'm not sorry.
 
 /turf/simulated/openspace/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
-	var/atom/movable/our_movable = pass_info.caller_ref.resolve()
-	if(our_movable && !our_movable.can_z_move(DOWN, src, null, ZMOVE_FALL_FLAGS)) //If we can't fall here (flying/lattice), it's fine to path through
+	var/atom/movable/our_movable = pass_info.requester_ref.resolve()
+
+	if(our_movable && !our_movable.can_z_move(DOWN, src, null, ZMOVE_FALL_FLAGS)) // If we can't fall here (flying/lattice), it's fine to path through
 		return TRUE
+
 	return FALSE
 

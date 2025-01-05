@@ -31,8 +31,8 @@
 				if(new_underwear)
 					var/datum/sprite_accessory/underwear/uwear = GLOB.underwear_list[new_underwear]
 					if(uwear.allow_change_color)
-						var/new_underwear_color = input(user, "Choose your underwear color, else color will be white:", "Changing", "#ffffff") as color|null
-						H.color_underwear = new_underwear_color || "#ffffff"
+						var/new_underwear_color = tgui_input_color(user, "Choose your underwear color, else color will be white:", "Changing", "#ffffff")
+						H.color_underwear = isnull(new_underwear_color) ? "#ffffff" : new_underwear_color
 					H.underwear = new_underwear
 
 			if("Undershirt")
@@ -49,8 +49,8 @@
 				if(new_undershirt)
 					var/datum/sprite_accessory/undershirt/ushirt = GLOB.undershirt_list[new_undershirt]
 					if(ushirt.allow_change_color)
-						var/new_undershirt_color = input(user, "Choose your undershirt color, else color will be white:", "Changing", "#ffffff") as color|null
-						H.color_undershirt = new_undershirt_color || "#ffffff"
+						var/new_undershirt_color = tgui_input_color(user, "Choose your undershirt color, else color will be white:", "Changing", "#ffffff")
+						H.color_undershirt = isnull(new_undershirt_color) ? "#ffffff" : new_undershirt_color
 					H.undershirt = new_undershirt
 
 			if("Socks")

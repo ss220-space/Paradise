@@ -174,6 +174,9 @@
 		return // We're already handling this
 
 	if(below_turf)
+		if(HAS_TRAIT(dropped_thing, TRAIT_CHASM_DESTROYED))
+			qdel(dropped_thing)
+			return
 		// send to the turf below
 		dropped_thing.visible_message(span_boldwarning("[dropped_thing] falls into [atom_parent]!"), span_userdanger("[fall_message]"))
 		below_turf.visible_message(span_boldwarning("[dropped_thing] falls from above!"))
@@ -213,6 +216,10 @@
 
 	//Make sure the item is still there after our sleep
 	if(QDELETED(dropped_thing))
+		return
+
+	if(HAS_TRAIT(dropped_thing, TRAIT_CHASM_DESTROYED))
+		qdel(dropped_thing)
 		return
 
 	if(isrobot(dropped_thing))
