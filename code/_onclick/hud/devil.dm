@@ -80,7 +80,3 @@
 			D.r_hand.screen_loc = null
 		if(D.l_hand)
 			D.l_hand.screen_loc = null
-
-/mob/living/carbon/true_devil/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/devil(src, ui_style2icon(client.prefs.UI_style))

@@ -14,6 +14,7 @@
 	universal_speak = TRUE //The devil speaks all languages meme
 	var/mob/living/oldform
 	var/datum/antagonist/devil/devilinfo
+	hud_type = /datum/hud/devil
 
 /mob/living/carbon/true_devil/Initialize(mapload, mob/living/carbon/dna_source)
 	if(dna_source)
