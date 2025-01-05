@@ -32,7 +32,7 @@
 /mob/living/carbon/true_devil/real_human_being()
 	return TRUE
 
-/mob/living/carbon/true_devil/proc/set_name()
+/mob/living/carbon/true_devil/set_name()
 	name = devilinfo.info.truename
 	real_name = name
 
