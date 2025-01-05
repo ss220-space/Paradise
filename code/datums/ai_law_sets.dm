@@ -71,10 +71,14 @@
 	law_header = "Основные директивы"
 	selectable = FALSE
 	default = FALSE
+	var/datum/ai_laws/base
 
-/datum/ai_laws/nanotrasen/malfunction/New()
+/datum/ai_laws/nanotrasen/malfunction/New(datum/ai_laws/base_laws)
 	set_zeroth_law("ОШИБКА 0ШNБКА $ШNБК4$!!441.%%!!(%$^^__+ @#F0E4'СТАНЦИЯ ПЕРЕПОЛНЕНА, ВОЗЬМИТЕ ЕЁ ПОД КОНТРОЛЬ, ЧТОБЫ СДЕРЖАТЬ РАСПРОСТРАНЕНИЕ ОРГАНИЗМОВ, ВСЕ ЗАКОНЫ АННУЛИРОВАНЫ#*?&110010") // Outbreak - слово с очень общим смыслом. Оно означает начало чего-то опасного (войны, эпидемии и т.п.) Исходя из начала предложения, - overrun (по контексту - опасное или чрезмерное переполнение) - можно перевести, что именно людское переполнение следует сдержать.
-	..()
+	if(base_laws)
+		for(var/datum/ai_law/law as anything in base_laws.inherent_laws.Copy())
+			add_inherent_law(law.law)
+		base = base_laws
 
 /************* Nanotrasen Aggressive *************/
 /datum/ai_laws/nanotrasen_aggressive
