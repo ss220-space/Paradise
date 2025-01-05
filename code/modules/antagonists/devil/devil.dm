@@ -23,6 +23,7 @@
 /datum/antagonist/devil/Destroy(force)
 	QDEL_NULL(rank)
 	QDEL_NULL(info)
+	LAZYNULL(soulsOwned)
 
 	return ..()
 
@@ -51,13 +52,13 @@
 	if(LAZYLEN(soulsOwned) < rank.required_souls)
 		return FALSE
 
-	if(!init_new_rank(rank.next_rank_type))
+	if(!init_new_rank(rank.next_rank_type, TRUE))
 		return FALSE
 
 	return TRUE // rank updated.
 
-/datum/antagonist/devil/proc/init_new_rank(typepath)
-	if(rank)
+/datum/antagonist/devil/proc/init_new_rank(typepath, remove_spells = FALSE)
+	if(rank && remove_spells)
 		rank.remove_spells()
 
 	if(typepath)
