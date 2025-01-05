@@ -1658,7 +1658,6 @@
 #include "code\modules\antagonists\borer\borer_rank.dm"
 #include "code\modules\antagonists\borer\borer_focus.dm"
 #include "code\modules\antagonists\borer\borer_reagent.dm"
-#include "code\modules\antagonists\borer\borer_action.dm"
 #include "code\modules\antagonists\borer\borer_spell.dm"
 #include "code\modules\antagonists\changeling\changeling_datum.dm"
 #include "code\modules\antagonists\changeling\changeling_power.dm"
