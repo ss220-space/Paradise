@@ -205,6 +205,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 			return FALSE
+			
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_TRY_SPEECH, message)
+	if(sigreturn & COMPONENT_CANNOT_SPEAK)
+		return FALSE
 
 	if(sanitize)
 		message = trim_strip_html_properly(message, 512)

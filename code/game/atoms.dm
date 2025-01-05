@@ -1,11 +1,3 @@
-// Падежи русского языка
-#define NOMINATIVE 1 // Именительный: кто это? Клоун и ассистуха
-#define GENITIVE 2 // Родительный: откусить кусок от кого? От клоуна и ассистухи
-#define DATIVE 3 // Дательный: дать полный доступ кому? Клоуну и ассистухе
-#define ACCUSATIVE 4 // Винительный: обвинить кого? Клоуна и ассистуху
-#define INSTRUMENTAL 5 // Творительный: возить по полу кем? Клоуном и ассистухой
-#define PREPOSITIONAL 6 // Предложный: прохладная история о ком? О клоуне и об ассистухе
-
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
@@ -13,6 +5,7 @@
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
+	var/flags_ricochet = NONE
 	var/list/fingerprints
 	var/list/fingerprints_time
 	var/list/fingerprintshidden
@@ -108,6 +101,7 @@
 	var/base_pixel_y = 0
 
 	var/tts_seed = "Arthas"
+	var/tts_atom_say_effect = SOUND_EFFECT_RADIO
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -337,6 +331,12 @@
 /// Convenience proc to see if a container is open for chemistry handling
 /atom/proc/is_open_container()
 	return is_refillable() && is_drainable()
+
+/atom/proc/setOpened()
+	return
+
+/atom/proc/setClosed()
+	return
 
 /// Is this atom injectable into other atoms
 /atom/proc/is_injectable(mob/user, allowmobs = TRUE)
@@ -637,8 +637,19 @@
 /atom/proc/ex_act()
 	return
 
-/atom/proc/blob_act(obj/structure/blob/B)
-	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
+/**
+ * React to a hit by a blob objecd
+ *
+ * default behaviour is to send the [COMSIG_ATOM_BLOB_ACT] signal
+ */
+/atom/proc/blob_act(obj/structure/blob/attacking_blob)
+	var/blob_act_result = SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, attacking_blob)
+	if(blob_act_result & COMPONENT_CANCEL_BLOB_ACT)
+		return FALSE
+	return TRUE
+
+/atom/proc/blob_vore_act(obj/structure/blob/special/core/voring_core)
+	return TRUE
 
 /atom/proc/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
@@ -1199,8 +1210,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/ratvar_act()
 	return
 
-/atom/proc/handle_ricochet(obj/item/projectile/P)
-	return
 
 //This proc is called on the location of an atom when the atom is Destroy()'d
 /atom/proc/handle_atom_del(atom/A)
@@ -1224,9 +1233,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			if(M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 				M.create_chat_message(src, message, list("italics"))
 
-			var/effect = SOUND_EFFECT_RADIO
 			var/traits = TTS_TRAIT_RATE_MEDIUM
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, M, message_tts, tts_seed, TRUE, effect, traits)
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, M, message_tts, tts_seed, TRUE, tts_atom_say_effect, traits)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
@@ -1343,6 +1351,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(curturf)
 		.["Jump to turf"] = "?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
 	.["Add reagent"] = "?_src_=vars;addreagent=[UID()]"
+	.["Edit reagents"] = "?_src_=vars;editreagents=[UID()]"
 	.["Trigger explosion"] = "?_src_=vars;explode=[UID()]"
 	.["Trigger EM pulse"] = "?_src_=vars;emp=[UID()]"
 
@@ -1550,6 +1559,18 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/get_visible_gender()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return gender
 
+/atom/proc/handle_ricochet(obj/item/projectile/ricocheting_projectile)
+	var/turf/p_turf = get_turf(ricocheting_projectile)
+	var/face_direction = get_dir(src, p_turf) || get_dir(src, ricocheting_projectile)
+	var/face_angle = dir2angle(face_direction)
+	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (ricocheting_projectile.Angle + 180))
+	var/a_incidence_s = abs(incidence_s)
+	if(a_incidence_s > 90 && a_incidence_s < 270)
+		return FALSE
+	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
+	ricocheting_projectile.set_angle(new_angle_s)
+	visible_message(span_warning("[ricocheting_projectile] reflects off [src]!"))
+	return TRUE
 
 /// Whether the mover object can avoid being blocked by this atom, while arriving from (or leaving through) the border_dir.
 /atom/proc/CanPass(atom/movable/mover, border_dir)

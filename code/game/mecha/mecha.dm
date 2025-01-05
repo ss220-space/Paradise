@@ -734,7 +734,8 @@
 
 /obj/mecha/blob_act(obj/structure/blob/B)
 	log_message("Attack by blob. Attacker - [B].")
-	take_damage(30, BRUTE, "melee", 0, get_dir(src, B))
+	B?.overmind?.blobstrain?.attack_mech(src)
+	take_damage(30, BRUTE, MELEE, 0, get_dir(src, B))
 
 /obj/mecha/attack_tk()
 	return
@@ -928,11 +929,17 @@
 		if(!user.drop_transfer_item_to_loc(paintkit, src))
 			return ..()
 		user.visible_message(span_notice("[user] opens [paintkit] and spends some quality time customising [name]."))
-		if(paintkit.new_prefix)
-			initial_icon = "[paintkit.new_prefix][initial_icon]"
+
+		var/list/icon_states = paintkit.icon_states
+		var/transformed_mech_type = "[mech_type]"
+		if(transformed_mech_type in icon_states)
+			initial_icon = icon_states[transformed_mech_type]
 		else
 			initial_icon = paintkit.new_icon
-		name = paintkit.new_name
+		if(paintkit.name_prefix)
+			name = "[paintkit.name_prefix] [name]"
+		else
+			name = paintkit.new_name
 		desc = paintkit.new_desc
 		update_icon(UPDATE_ICON_STATE)
 		qdel(paintkit)

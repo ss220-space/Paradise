@@ -405,8 +405,11 @@
 	if(!robot.weapons_unlock)
 		var/count_secborgs = 0
 
-		for(var/mob/living/silicon/robot/R in GLOB.alive_mob_list)
-			if(R && R.stat != DEAD && R.module && istype(R.module, /obj/item/robot_module/security))
+		for(var/mob/living/silicon/robot/silicon in GLOB.alive_mob_list)
+			if(silicon == robot)
+				continue
+
+			if(silicon.stat != DEAD && silicon.module && istype(silicon.module, /obj/item/robot_module/security))
 				count_secborgs++
 
 		var/max_secborgs = 2

@@ -1964,8 +1964,7 @@
 	else if(href_list["edit_blob_win_count"])
 		if(!check_rights(R_ADMIN))
 			return
-
-		var/blob_win_count = input(usr, "Ввидите новое число критической массы","Критическая масса:", SSticker.mode.blob_win_count) as num
+		var/blob_win_count = tgui_input_number(usr, "Ввидите новое число критической массы", "Критическая масса:" , SSticker.mode.blob_win_count)
 		if(!blob_win_count)
 			return
 
@@ -1980,9 +1979,9 @@
 	else if(href_list["send_warning"])
 		if(!check_rights(R_ADMIN))
 			return
-
-		var/message = stripped_input(usr, "Введите предупреждение", "Предупреждение")
-		if(alert(usr,"Вы действительно хотите отправить предупреждение всем блобам?", "", "Да", "Нет") == "Нет")
+			
+		var/message = tgui_input_text(usr, "Введите предупреждение", "Предупреждение")
+		if(tgui_alert(usr,"Вы действительно хотите отправить предупреждение всем блобам?", "", list("Да", "Нет")) == "Нет")
 			return
 
 		if(!SSticker || !SSticker.mode)
@@ -1996,7 +1995,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(alert(usr,"Вы действительно хотите лопнуть всех блобов?", "", "Да", "Нет") == "Нет")
+		if(tgui_alert(usr,"Вы действительно хотите лопнуть всех блобов?", "", list("Да", "Нет")) == "Нет")
 			return
 
 		if(!SSticker || !SSticker.mode)
@@ -2024,6 +2023,22 @@
 
 		log_admin("[key_name(usr)] has [mode.delay_blob_end? "stopped" : "returned"] stopped delayed blob win")
 		message_admins("[key_name_admin(usr)] has [mode.delay_blob_end? "stopped" : "returned"] delayed blob win")
+
+	else if(href_list["toggle_blob_infinity_points"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		if(!SSticker || !SSticker.mode)
+			return
+
+		var/datum/game_mode/mode = SSticker.mode
+		if(tgui_alert(usr,"Вы действительно хотите [mode.is_blob_infinity_points? "убрать" : "вернуть"] бесконечные очки у блобов?", "", list("Да", "Нет")) == "Нет")
+			return
+
+		mode.is_blob_infinity_points = !mode.is_blob_infinity_points
+
+		log_admin("[key_name(usr)] has [mode.is_blob_infinity_points? "remove" : "returned"] blob infinity points")
+		message_admins("[key_name_admin(usr)] has [mode.is_blob_infinity_points? "remove" : "returned"] blob infinity points")
 
 	else if(href_list["toggle_auto_nuke_codes"])
 		if(!check_rights(R_ADMIN))

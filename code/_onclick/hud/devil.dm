@@ -2,11 +2,13 @@
 //Soul counter is stored with the humans, it does weird when you place it here apparently...
 
 
-/datum/hud/devil/New(mob/owner, ui_style = 'icons/mob/screen_midnight.dmi')
+/datum/hud/devil/New(mob/owner)
 	..()
 
 	var/atom/movable/screen/using
 	var/atom/movable/screen/inventory/inv_box
+	var/client/client = owner.client
+	var/ui_style = ui_style2icon(client.prefs.UI_style)
 
 	using = new /atom/movable/screen/drop(null, src)
 	using.icon = ui_style

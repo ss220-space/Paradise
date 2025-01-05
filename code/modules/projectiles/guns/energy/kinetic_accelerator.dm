@@ -798,7 +798,10 @@
 
 
 /obj/item/borg/upgrade/modkit/tracer/adjustable/attack_self(mob/user)
-	bolt_color = input(user,"","Choose Color",bolt_color) as color|null
+	var/color = tgui_input_color(user,"","Choose Color",bolt_color)
+	if(isnull(color))
+		return
+	bolt_color = color
 
 
 #undef COMPATIBILITY_STANDART

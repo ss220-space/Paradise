@@ -20,7 +20,10 @@
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
 	emote_see = list("jiggles", "bounces in place")
-	speak_emote = list("blorbles")
+	verb_say = "blorbles"
+	verb_ask = "inquisitively blorbles"
+	verb_exclaim = "loudly blorbles"
+	verb_yell = "loudly blorbles"
 	bubble_icon = "slime"
 	tts_seed = "Chen"
 
@@ -39,6 +42,8 @@
 	status_flags = CANPARALYSE | CANPUSH
 
 	footstep_type = FOOTSTEP_MOB_SLIME
+
+	hud_type = /datum/hud/slime
 
 	var/cores = 1 // the number of /obj/item/slime_extract's the slime has left inside
 	var/mutation_chance = 30 // Chance of mutating, should be between 25 and 35
