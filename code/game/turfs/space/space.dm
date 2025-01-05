@@ -169,6 +169,8 @@
 		while(current_pull)
 			var/turf/target_turf = get_step(current_pull.pulledby.loc, REVERSE_DIR(current_pull.pulledby.dir)) || current_pull.pulledby.loc
 			current_pull.zMove(null, target_turf, ZMOVE_ALLOW_BUCKLED)
+			if(current_pull.pulling == arrived) // pulling each other doesn't help but makes a loop
+				break
 			current_pull = current_pull.pulling
 
 
