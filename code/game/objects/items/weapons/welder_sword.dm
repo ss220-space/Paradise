@@ -12,6 +12,8 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "fuelsword"
 	item_state = "fuelsword"
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 	needs_permit = 1
 	belt_icon = null
 	force_enabled = 30
@@ -90,6 +92,8 @@
 	)
 	icon_state = "fuelsworddouble"
 	item_state = "fuelsworddouble"
+	lefthand_file = 'icons/mob/inhands/twohanded_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/twohanded_righthand.dmi'
 	force_enabled = 40
 	force = 5
 	block_chance = 75

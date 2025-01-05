@@ -238,7 +238,7 @@ export const EFFECTS_HARM: PodEffect[] = [
     choiceNumber: 2,
     icon: 'bomb',
     selected: 'explosionChoice',
-    title: 'Азминабуз-взрыв\nИ что они сделают, забанят тебя?',
+    title: 'Админабуз-взрыв\nИ что они сделают, забанят тебя?',
   },
   {
     divider: true,

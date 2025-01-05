@@ -100,7 +100,7 @@
 
 /datum/pod_style/cultist
 	name = "bloody supply pod"
-	ui_name = "Кльтистская"
+	ui_name = "Культистская"
 	desc = "Капсула снабжения Nanotrasen, вся в царапинах, крови и странных рунах."
 	decal_icon = "cultist"
 	glow_color = "red"
