@@ -12,7 +12,7 @@
 		return FALSE
 
 	for(var/datum/mind/mind in target_minds)
-		explanation_text += "Принесите в жертву [mind.name], [mind.assigned_role].\n"
+		explanation_text += "Принесите в жертву [mind.name], [mind.assigned_role].\n<br>"
 
 	return TRUE
 
