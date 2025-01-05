@@ -13,8 +13,6 @@
 	<a href="https://xkcd.ru/1296/"><img src=".github/assets/fuck-it-ship-it.svg" alt="Fuck it, Ship it"></a>
 </p>
 
-[![.](.github/assets/fuck-it-ship-it.svg)](http://forthebadge.com)
-
 # Ссылки SS1984
 
 - [Вебсайт](https://ss220.space/)
