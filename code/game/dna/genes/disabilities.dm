@@ -266,7 +266,7 @@
 /datum/dna/gene/disability/wingdings
 	name = "Alien Voice"
 	desc = "Искажает голос субъекта, превращая его в непонятную речь."
-	activation_message = list(span_wingdings("Ваши голосовые связки кажутся инородными."))
+	activation_message = list(span_wingdings("Vashi golosovyye svyazki kazhutsya chuzhimi."))
 	deactivation_message = list("Ваши голосовые связки больше не кажутся инородными.")
 	instability = -GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_WINGDINGS)
@@ -303,7 +303,7 @@
 /datum/dna/gene/disability/weak
 	name = "Weak"
 	desc = "Делает мышцы субъекта более слабыми."
-	activation_message = list("Вы чуствуете внезапную слабость в мышцах.")
+	activation_message = list("Вы чувствуете внезапную слабость в мышцах.")
 	deactivation_message = list("Вы снова ощущаете силу в мышцах.")
 	instability = -GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_GENE_WEAK)
@@ -378,7 +378,7 @@
 /datum/dna/gene/disability/paraplegia
 	name = "Paraplegia"
 	desc = "Парализует мышцы ног."
-	activation_message = list("Вы не чуствуете своих ног.")
+	activation_message = list("Вы не чувствуете своих ног.")
 	deactivation_message = list("Вы возвращаете контроль над ногами.")
 	instability = -GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_FLOORED)
@@ -386,3 +386,54 @@
 /datum/dna/gene/disability/paraplegia/New()
 	..()
 	block = GLOB.paraplegiablock
+
+/datum/dna/gene/disability/aphasia
+	name = "Aphasia"
+	desc = "Субъект теряет возможность говорить на своём основном языке."
+	activation_message = list("Вам становится труднее выражать свои мысли. Meh nahbleh blahmeh?")
+	deactivation_message = list("Ваша речь возвращается в норму.")
+	instability = -GENE_INSTABILITY_MINOR
+	/// You will be able to hear these languages, but not to speak.
+	var/list/blacklisted_languages_types = list(
+		/datum/language/common
+	)
+
+/datum/dna/gene/disability/aphasia/New()
+	. = ..()
+	block = GLOB.aphasiablock
+
+/datum/dna/gene/disability/aphasia/can_activate(mob/living/carbon/human/H, flags)
+	if(isplasmaman(H) || iswryn(H))
+		to_chat(H, span_warning("Вы чувствуете, что что-то не так, но не можете понять, что именно."))
+		return FALSE
+
+	return ..()
+
+/datum/dna/gene/disability/aphasia/activate(mob/living/carbon/human/human, flags)
+	. = ..()
+	RegisterSignal(human, COMSIG_LIVING_EARLY_SAY, PROC_REF(check_speaking))
+
+/datum/dna/gene/disability/aphasia/deactivate(mob/living/carbon/human/human, flags)
+	. = ..()
+	UnregisterSignal(human, COMSIG_LIVING_EARLY_SAY)
+
+/datum/dna/gene/disability/aphasia/proc/check_speaking(
+	mob/living/carbon/human/source,
+	message,
+	verb,
+	ignore_speech_problems,
+    ignore_atmospherics,
+    ignore_languages,
+    datum/multilingual_say_piece/lang_piece,
+)
+	SIGNAL_HANDLER
+
+	if(!lang_piece?.speaking)
+		return
+
+	if(!is_type_in_list(lang_piece.speaking, blacklisted_languages_types))
+		return
+
+	to_chat(source, span_notice("Вы пытаетесь что-то сказать, но не можете произнести ни слова на этом языке."))
+
+	return COMPONENT_PREVENT_SPEAKING

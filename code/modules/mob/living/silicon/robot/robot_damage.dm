@@ -5,21 +5,28 @@
 /mob/living/silicon/robot/getBruteLoss(repairable_only = FALSE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return 0
+
 	var/amount = 0
+
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
+
 		if(C.installed != 0 && (!repairable_only || C.installed != -1)) // Installed ones only and if repair only remove the borked ones
 			amount += C.brute_damage
+
 	return amount
 
 /mob/living/silicon/robot/getFireLoss(repairable_only = FALSE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
-		return 0
+		return FALSE
+
 	var/amount = 0
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
+
 		if(C.installed != 0 && (!repairable_only || C.installed != -1)) // Installed ones only and if repair only remove the borked ones
 			amount += C.electronics_damage
+
 	return amount
 
 
@@ -36,8 +43,10 @@
 )
 	if(amount > 0)
 		take_overall_damage(amount, 0, blocked, forced, updating_health, used_weapon, sharp, silent, affect_robotic)
+
 	else
 		heal_overall_damage(amount, 0, updating_health, FALSE, affect_robotic)
+
 	return STATUS_UPDATE_HEALTH
 
 
@@ -54,42 +63,52 @@
 )
 	if(amount > 0)
 		take_overall_damage(0, amount, blocked, forced, updating_health, used_weapon, sharp, silent, affect_robotic)
+
 	else
 		heal_overall_damage(0, amount, updating_health, FALSE, affect_robotic)
+
 	return STATUS_UPDATE_HEALTH
 
 
 /mob/living/silicon/robot/proc/get_damaged_components(get_brute, get_burn, get_borked = FALSE, get_missing = FALSE)
 	var/list/datum/robot_component/parts = list()
+
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
 		if((C.installed == 1 || (get_borked && C.installed == -1) || (get_missing && C.installed == 0)) && ((get_brute && C.brute_damage) || (get_burn && C.electronics_damage)))
 			parts += C
+
 	return parts
 
 /mob/living/silicon/robot/proc/get_missing_components()
 	var/list/datum/robot_component/parts = list()
+
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
 		if(C.installed == 0)
 			parts += C
+
 	return parts
 
 /mob/living/silicon/robot/proc/get_damageable_components()
 	var/list/rval = new
+
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
 		if(C.installed == 1)
 			rval += C
+			
 	return rval
 
 /mob/living/silicon/robot/proc/get_armour()
 	if(!LAZYLEN(components))
-		return 0
+		return FALSE
+
 	var/datum/robot_component/C = components["armour"]
 	if(C && C.installed == 1)
 		return C
-	return 0
+
+	return FALSE
 
 
 /mob/living/silicon/robot/heal_organ_damage(
@@ -101,8 +120,10 @@
 )
 	. = STATUS_UPDATE_NONE
 	var/list/datum/robot_component/parts = get_damaged_components(brute, burn)
+
 	if(!LAZYLEN(parts))
 		return .
+
 	var/datum/robot_component/picked = pick(parts)
 	. |= picked.heal_damage(brute, burn, updating_health)
 
@@ -148,7 +169,7 @@
 	. = STATUS_UPDATE_NONE
 
 	var/list/datum/robot_component/parts = get_damaged_components(brute, burn)
-	if(!length(parts))
+	if(!LAZYLEN(parts))
 		return .
 
 	while(parts.len && (brute > 0 || burn > 0) )
@@ -185,16 +206,18 @@
 
 	brute = abs(brute)
 	burn = abs(burn)
+
 	if(!forced)
 		brute *= ((100 - clamp(blocked + get_blocking_resistance(brute, BRUTE, null, sharp, used_weapon), 0, 100)) / 100)
 		brute *= get_incoming_damage_modifier(brute, BRUTE, null, sharp, used_weapon)
 		burn *= ((100 - clamp(blocked + get_blocking_resistance(burn, BURN, null, sharp, used_weapon), 0, 100)) / 100)
 		burn *= get_incoming_damage_modifier(burn, BURN, null, sharp, used_weapon)
-	if(brute <= 0 && burn <= 0)
+
+	if(!brute && !burn)
 		return .
 
 	var/list/datum/robot_component/parts = get_damageable_components()
-	if(!length(parts))
+	if(!LAZYLEN(parts))
 		return .
 
 	var/datum/robot_component/armour/armour = get_armour()

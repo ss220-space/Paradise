@@ -186,7 +186,7 @@
 	brainmob.container = null//Reset brainmob mmi var.
 	brainmob.forceMove(held_brain) //Throw mob into brain.
 	GLOB.respawnable_list += brainmob
-	GLOB.alive_mob_list -= brainmob//Get outta here
+	brainmob.remove_from_alive_mob_list()//Get outta here
 	held_brain.brainmob = brainmob//Set the brain to use the brainmob
 	held_brain.brainmob.cancel_camera()
 	REMOVE_TRAIT(brainmob, TRAIT_NO_SPELLS, UNIQUE_TRAIT_SOURCE(src))

@@ -321,7 +321,7 @@
 	req_tech = list("programming" = 5, "syndicate" = 2, "materials" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
-	build_path = /obj/item/aiModule/antimov
+	build_path = /obj/item/ai_module/antimov
 	locked = TRUE
 	category = list("ILLEGAL")
 
@@ -332,7 +332,7 @@
 	req_tech = list("programming" = 5, "syndicate" = 2, "materials" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
-	build_path = /obj/item/aiModule/tyrant
+	build_path = /obj/item/ai_module/tyrant
 	locked = TRUE
 	category = list("ILLEGAL")
 
@@ -491,14 +491,14 @@
 	locked = TRUE
 	category = list("ILLEGAL")
 
-/datum/design/aiModule_syndicate
+/datum/design/ai_module_syndicate
 	name = "Hacked AI Module"
 	desc = "A hacked AI law module"
 	id = "syndiaimodule"
 	req_tech = list("syndicate" = 6, "programming" = 5, "materials" = 5)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
-	build_path = /obj/item/aiModule/syndicate
+	build_path = /obj/item/ai_module/syndicate
 	locked = TRUE
 	category = list("ILLEGAL")
 
@@ -575,6 +575,18 @@
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_TITANIUM = 4000, MAT_PLASMA = 8000)
 	build_path = /obj/item/clothing/gloves/color/black/pyro_claws
 	category = list("Weapons")
+
+/datum/design/laserminigun
+	name = "Laser gatling gun"
+	desc = "Огромное лазерное орудие, обладающее выдающейся скорострельностью и поражающей силой. Говорят, что 12 секунд стрельбы из этой малышки обойдутся вам в 400 тысяч кредитов."
+	id = "laser_gatling"
+	build_type = PROTOLATHE
+	req_tech = list("combat" = 8, "materials" = 7, "magnets" = 7, "powerstorage" = 7)
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2400, MAT_URANIUM = 1200, MAT_TITANIUM = 1200, MAT_DIAMOND = 1200)
+	locked = TRUE
+	build_path = /obj/item/gun/energy/gun/minigun
+	category = list("Weapons")
+	lathe_time_factor = 0.5
 
 /datum/design/real_plasma_pistol
 	name = "Plasma Pistol"

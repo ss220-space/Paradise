@@ -53,3 +53,24 @@
 	icon_state = "chemist_envirosuit"
 	item_state = "chemist_envirosuit"
 	item_color = "chemist_envirosuit"
+
+/obj/item/clothing/under/plasmaman/brigphysician
+	name = "brigphysician plasma envirosuit"
+	desc = "A plasmaman envirosuit designed for brigphysicians."
+	icon_state = "brigphysician_envirosuit"
+	item_state = "brigphysician_envirosuit"
+	item_color = "brigphysician_envirosuit"
+
+/obj/item/clothing/under/plasmaman/coroner
+	name = "coroner plasma envirosuit"
+	desc = "A plasmaman envirosuit designed for coroners."
+	icon_state = "coroner_envirosuit"
+	item_state = "coroner_envirosuit"
+	item_color = "coroner_envirosuit"
+
+/obj/item/clothing/under/plasmaman/paramedic
+	name = "paramedic plasma envirosuit"
+	desc = "A plasmaman envirosuit designed for paramedics."
+	icon_state = "paramedic_envirosuit"
+	item_state = "paramedic_envirosuit"
+	item_color = "paramedic_envirosuit"

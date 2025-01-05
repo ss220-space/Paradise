@@ -21,6 +21,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 20,"energy" = 30, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	strip_delay = 12
+	permeability_coefficient = 1
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	flags_inv_transparent = HIDEGLOVES|HIDEJUMPSUIT
@@ -357,9 +358,9 @@
 	// Проверка во избежание потенциальных абузов инвиза
 	// Как например если после сканирования t-ray сканером сразу выключить инвиз...
 	// Что приводило к бесплатному инвизу.
-	if(ninja.alpha == NINJA_ALPHA_INVISIBILITY || ninja.alpha == NINJA_ALPHA_SPIRIT_FORM)
+	if(ninja.alpha_get(ALPHA_SOURCE_NINJA) == standartize_alpha(NINJA_ALPHA_INVISIBILITY) || ninja.alpha_get(ALPHA_SOURCE_NINJA) == standartize_alpha(NINJA_ALPHA_SPIRIT_FORM))
 		if(!stealth && !spirited)
-			ninja.alpha = NINJA_ALPHA_NORMAL
+			ninja.alpha_set(standartize_alpha(NINJA_ALPHA_NORMAL), ALPHA_SOURCE_NINJA)
 	//Safe checks to prevent potential abuse of power.
 	if(!is_teleport_allowed(ninja.z) && spirited)
 		to_chat(ninja, span_warning("This place forcibly stabilizes your body somehow! You can't use \"Spirit Form\" there!"))

@@ -156,7 +156,10 @@
 			adjustBruteLoss(bloss)
 
 /mob/living/simple_animal/blob_act(obj/structure/blob/B)
-	adjustBruteLoss(20)
+	var/result = ..()
+	if(result)
+		adjustBruteLoss(20)
+	return result
 
 /mob/living/simple_animal/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
 	if(!no_effect && !visual_effect_icon && melee_damage_upper)

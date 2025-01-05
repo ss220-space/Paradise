@@ -58,7 +58,8 @@
 		SPECIAL_ROLE_TRAITOR,
 		SPECIAL_ROLE_VAMPIRE,
 		SPECIAL_ROLE_VAMPIRE_THRALL,
-		SPECIAL_ROLE_THIEF
+		SPECIAL_ROLE_THIEF,
+		SPECIAL_ROLE_MALFAI
 	)
 	if(special_role in crew_roles)
 		return 0
@@ -848,4 +849,15 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		if(!check_atom.CanPass(src, border_dir))
 			return FALSE
 	return TRUE
+
+
+/// Takes in an associated list (key `/datum/action` typepaths, value is the AI blackboard key) and handles granting the action and adding it to the mob's AI controller blackboard.
+/// This is only useful in instances where you don't want to store the reference to the action on a variable on the mob.
+/mob/proc/grant_actions_by_list(list/input)
+	if(length(input) <= 0)
+		return
+
+	for(var/action in input)
+		var/datum/action/ability = new action(src)
+		ability.Grant(src)
 

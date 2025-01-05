@@ -142,6 +142,7 @@
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
 	mmi_icon_state = "slime_mmi"
+	parent_organ_zone = BODY_ZONE_CHEST
 
 /obj/item/organ/internal/brain/golem
 	name = "Runic mind"

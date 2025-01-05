@@ -6,10 +6,11 @@
 	color = "#CF3600" // rgb: 207, 54, 0
 	taste_mult = 1.2
 	taste_description = "bitterness"
+	var/toxpwr = 2
 
 /datum/reagent/toxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(2, FALSE)
+	update_flags |= M.adjustToxLoss(toxpwr, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/spider_venom
@@ -132,7 +133,7 @@
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.get_blood_id() == id && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
-			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
+			C.setBlood(min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL))
 			C.reagents.del_reagent(id)
 
 /datum/reagent/slimejelly/reaction_turf(turf/T, volume, color)
@@ -511,19 +512,35 @@
 	return ..() | update_flags
 
 
-/datum/reagent/spore
+/datum/reagent/toxin/spore
 	name = "Spore Toxin"
-	id = "spore"
 	description = "A natural toxin produced by blob spores that inhibits vision when ingested."
 	color = "#9ACD32"
+	id = "spore"
+	toxpwr = 1
+	can_synth = FALSE
 	taste_description = "bitterness"
 
-/datum/reagent/spore/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1, FALSE)
-	M.damageoverlaytemp = 60
-	M.EyeBlurry(6 SECONDS)
-	return ..() | update_flags
+/datum/reagent/toxin/spore/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
+	. = ..()
+	affected_mob.damageoverlaytemp = 60
+	affected_mob.update_damage_hud()
+	affected_mob.EyeBlurry(6 SECONDS * REM * seconds_per_tick)
+
+/datum/reagent/toxin/spore_burning
+	name = "Burning Spore Toxin"
+	description = "A natural toxin produced by blob spores that induces combustion in its victim."
+	color = "#9ACD32"
+	id = "spore_burn"
+	toxpwr = 0.5
+	taste_description = "burning"
+	can_synth = FALSE
+
+/datum/reagent/toxin/spore_burning/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
+	. = ..()
+	affected_mob.adjust_fire_stacks(2 * REM * seconds_per_tick)
+	affected_mob.IgniteMob()
+
 
 /datum/reagent/beer2	//disguised as normal beer for use by emagged service borgs
 	name = "Beer"

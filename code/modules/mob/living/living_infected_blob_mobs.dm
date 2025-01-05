@@ -101,6 +101,10 @@
 	return FALSE
 
 
+/mob/living/simple_animal/hostile/illusion/can_be_blob()
+	return FALSE
+
+
 /mob/living/simple_animal/hostile/asteroid/can_be_blob()
 	return FALSE
 

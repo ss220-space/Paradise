@@ -8,6 +8,7 @@
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/grenade/smokebomb/prime()
+	. = ..()
 	playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 	spawn(0)
 		do_smoke(10, SMOKE_TYPE_BAD)

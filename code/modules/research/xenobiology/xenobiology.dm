@@ -100,6 +100,10 @@
 	name = "oil slime extract"
 	icon_state = "oil slime extract"
 
+/obj/item/slime_extract/oil/blob_vore_act(obj/structure/blob/special/core/voring_core)
+	obj_destruction(MELEE)
+
+
 /obj/item/slime_extract/adamantine
 	name = "adamantine slime extract"
 	icon_state = "adamantine slime extract"

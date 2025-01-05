@@ -4,17 +4,17 @@
 	sort_category = "Gloves"
 
 /datum/gear/gloves/fingerless
-	display_name = "Fingerless Gloves"
+	index_name = "Fingerless Gloves"
 	path = /obj/item/clothing/gloves/fingerless
 
 /datum/gear/gloves/silverring
-	display_name = "Silver ring"
+	index_name = "Silver ring"
 	path = /obj/item/clothing/gloves/ring/silver
 
 /datum/gear/gloves/goldring
-	display_name = "Gold ring"
+	index_name = "Gold ring"
 	path = /obj/item/clothing/gloves/ring/gold
 
 /datum/gear/gloves/brown_short_gloves
-	display_name = "short leather gloves"
+	index_name = "short leather gloves"
 	path = /obj/item/clothing/gloves/brown_short_gloves

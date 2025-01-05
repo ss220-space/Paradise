@@ -18,8 +18,13 @@ SUBSYSTEM_DEF(title)
 	import_html()
 	fill_title_images_pool()
 	current_title_screen = new(title_html = base_html, screen_image_file = pick_title_image())
-	show_title_screen_to_all_new_players()
+	if(!CONFIG_GET(flag/enable_titlescreen_lateload))
+		show_title_screen_to_all_new_players()
 	return SS_INIT_SUCCESS
+
+/datum/controller/subsystem/title/OnMasterLoad()
+	if(CONFIG_GET(flag/enable_titlescreen_lateload))
+		show_title_screen_to_all_new_players()
 
 /datum/controller/subsystem/title/Recover()
 	current_title_screen = SStitle.current_title_screen
@@ -224,7 +229,7 @@ SUBSYSTEM_DEF(title)
 	var/screen_image_url = SSassets.transport.get_asset_url(asset_cache_item = screen_image)
 
 	//hope that client won`t use custom theme
-	html += {"<body class="[color2tguitheme[winget(viewer, "mainwindow", "background-color")]][viewer.prefs.toggles2 & PREFTOGGLE_2_PIXELATED_MENU ? " pixelated" : ""]" style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
+	html += {"<body class="[color2tguitheme[winget(viewer, "mainwindow", "background-color")]][viewer?.prefs?.toggles2 & PREFTOGGLE_2_PIXELATED_MENU ? " pixelated" : ""]" style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
 
 	html += {"<input type="checkbox" id="hide_menu">"}
 

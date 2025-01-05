@@ -11,6 +11,7 @@
 	integrity_failure = 100
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20)
 	var/obj/item/circuitboard/circuit = null //if circuit==null, computer can't disassembly
+	var/obj/structure/computerframe/frame = /obj/structure/computerframe
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
 	var/light_range_on = 1
@@ -22,10 +23,29 @@
 	var/force_no_power_icon_state = FALSE
 
 
-/obj/machinery/computer/Initialize(mapload)
+/obj/machinery/computer/Initialize(mapload, obj/structure/computerframe/frame)
 	. = ..()
+
+	if(frame)
+		src.frame = frame
+
+	else
+		var/frame_type = abductor ? /obj/structure/computerframe/abductor : src.frame
+		src.frame = new frame_type(src, circuit)
+
+	src.frame.on_construction(src)
 	power_change()
 	update_icon()
+
+
+/obj/machinery/computer/Destroy()
+	if(istype(frame))
+		qdel(frame)
+		
+	frame = null
+
+	return ..()
+
 
 /obj/machinery/computer/process()
 	if(stat & (NOPOWER|BROKEN))
@@ -140,36 +160,34 @@
 			if(prob(10))
 				obj_break("energy")
 
+
 /obj/machinery/computer/deconstruct(disassembled = TRUE, mob/user)
 	on_deconstruction()
 	if(!(obj_flags & NODECONSTRUCT))
 		if(circuit) //no circuit, no computer frame
-			var/obj/structure/computerframe/A
-			if(abductor)
-				A = new /obj/structure/computerframe/abductor(loc)
-			else
-				A = new /obj/structure/computerframe(loc)
-			var/obj/item/circuitboard/M = new circuit(A)
-			A.name += " ([M.board_name])"
-			A.setDir(dir)
-			A.circuit = M
-			A.set_anchored(TRUE)
 			if(stat & BROKEN)
 				if(user)
 					to_chat(user, span_notice("The broken glass falls out."))
+
 				else
 					playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
+
 				new /obj/item/shard(drop_location())
 				new /obj/item/shard(drop_location())
-				A.state = 4
+				frame.state = 4
+
 			else
 				if(user)
 					to_chat(user, span_notice("You disconnect the monitor."))
-				A.state = 5
-			A.update_icon()
+
+			frame.update_icon()
+
 		for(var/obj/C in src)
-			C.forceMove(loc)
+			C.forceMove(get_turf(src))
+
+	frame = null
 	qdel(src)
+
 
 /obj/machinery/computer/proc/set_broken()
 	if(!(resistance_flags & INDESTRUCTIBLE))

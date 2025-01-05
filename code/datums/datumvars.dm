@@ -431,7 +431,7 @@
 	if(DA)
 		if(islist(DA))
 			var/index = name
-			if(value)
+			if(!isnull(value))
 				name = DA[name] // name is really the index until this line
 			else
 				value = DA[name]
@@ -484,16 +484,22 @@
 				var/val
 				if(IS_NORMAL_LIST(L) && !isnum(key))
 					val = L[key]
-				if(!val)
+				if(isnull(val))
 					val = key
 					key = i
 
 				items += debug_variable(key, val, level + 1, sanitize = sanitize)
 
-			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a><ul>[items.Join()]</ul>"
+			if(isdatum(name))
+				item = "<a href='byond://?_src_=vars;VarsList=\ref[name]'>[VV_HTML_ENCODE(name)]</a> = <a href='byond://?_src_=vars;VarsList=\ref[L]'>/list ([length(L)])</a><ul>[items.Join()]</ul>"
+			else
+				item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a><ul>[items.Join()]</ul>"
 
 		else
 			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a>"
+
+	else if(name in GLOB.bitfields)
+		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]</span>"
 
 	else
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(value)]</span>"
@@ -880,33 +886,15 @@
 
 		var/atom/A = locateUID(href_list["addreagent"])
 
-		if(!A.reagents)
-			var/amount = input(usr, "Specify the reagent size of [A]", "Set Reagent Size", 50) as num
-			if(amount)
-				A.create_reagents(amount)
+		try_add_reagent(A)
 
-		if(A.reagents)
-			var/chosen_id
-			var/list/reagent_options = sortAssoc(GLOB.chemical_reagents_list)
-			switch(alert(usr, "Choose a method.", "Add Reagents", "Enter ID", "Choose ID"))
-				if("Enter ID")
-					var/valid_id
-					while(!valid_id)
-						chosen_id = stripped_input(usr, "Enter the ID of the reagent you want to add.")
-						if(!chosen_id) //Get me out of here!
-							break
-						for(var/ID in reagent_options)
-							if(ID == chosen_id)
-								valid_id = 1
-						if(!valid_id)
-							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>", confidential=TRUE)
-				if("Choose ID")
-					chosen_id = tgui_input_list(usr, "Choose a reagent to add.", "Choose a reagent.", reagent_options)
-			if(chosen_id)
-				var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", A.reagents.maximum_volume) as num
-				if(amount)
-					A.reagents.add_reagent(chosen_id, amount)
-					log_and_message_admins("has added [amount] units of [chosen_id] to \the [A]")
+	else if(href_list["editreagents"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/atom/A = locateUID(href_list["editreagents"])
+
+		try_open_reagent_editor(A)
 
 	else if(href_list["explode"])
 		if(!check_rights(R_DEBUG|R_EVENT))	return

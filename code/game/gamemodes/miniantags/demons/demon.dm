@@ -41,6 +41,7 @@
 	whisper_action = new()
 	whisper_action.Grant(src)
 	addtimer(CALLBACK(src, PROC_REF(attempt_objectives)), 5 SECONDS)
+	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
 
 /mob/living/simple_animal/demon/ComponentInitialize()
 	AddComponent( \

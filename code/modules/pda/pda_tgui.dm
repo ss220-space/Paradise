@@ -23,6 +23,8 @@
 		var/list/prog_list = programs.Copy()
 		if(cartridge)
 			prog_list |= cartridge.programs
+		if(request_cartridge)
+			prog_list |= request_cartridge.programs
 
 		for(var/A in prog_list)
 			var/datum/data/pda/P = A
@@ -47,6 +49,7 @@
 	data["idLink"] = (id ? "[id.registered_name], [id.assignment]" : "--------")
 
 	data["cartridge_name"] = cartridge ? cartridge.name : ""
+	data["request_cartridge_name"] = request_cartridge ? request_cartridge.name : ""
 	data["stationTime"] = station_time_timestamp()
 
 	data["app"] = list()
@@ -95,6 +98,25 @@
 					if(P in C.programs)
 						P.unnotify()
 				cartridge = null
+				update_shortcuts()
+		if("Eject_Request")//Ejects the cart, only done from hub.
+			if(!isnull(request_cartridge))
+				var/turf/T = loc
+				if(ismob(T))
+					T = T.loc
+				var/obj/item/cartridge/C = request_cartridge
+				C.forceMove(T)
+				if(scanmode in C.programs)
+					scanmode = null
+				if(current_app in C.programs)
+					start_program(find_program(/datum/data/pda/app/main_menu))
+				if(C.radio)
+					C.radio.hostpda = null
+				for(var/datum/data/pda/P in notifying_programs)
+					if(P in C.programs)
+						P.unnotify()
+				request_cartridge.update_programs(null)
+				request_cartridge = null
 				update_shortcuts()
 		if("Authenticate")//Checks for ID
 			id_check(usr, in_pda_usage = TRUE)
