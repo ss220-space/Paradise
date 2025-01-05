@@ -152,12 +152,15 @@
 	data["oldArea"] = (oldTurf ? get_area(oldTurf) : null) //Holds the name of the area that the user was in before using the teleportCentcom action
 	data["picking_dropoff_turf"] = picking_dropoff_turf //If we're picking or have picked a dropoff turf. Only works when pod is in reverse mode
 	data["customDropoff"] = customDropoff
+	data["reverse_dropoff_coords"] = temp_pod.reverse_dropoff_coords
 	data["renderLighting"] = renderLighting
 	data["launchClone"] = launchClone //Do we launch the actual items in the bay or just launch clones of them?
 	data["launchRandomItem"] = launchRandomItem //Do we launch a single random item instead of everything on the turf?
 	data["launchChoice"] = launchChoice //Launch turfs all at once (0), ordered (1), or randomly(1)
 	data["explosionChoice"] = explosionChoice //An explosion that occurs when landing. Can be no explosion (0), custom explosion (1), or maxcap (2)
+	data["explosionSize"] = temp_pod.explosionSize
 	data["damageChoice"] = damageChoice //Damage that occurs to any mob under the pod when it lands. Can be no damage (0), custom damage (1), or gib+5000dmg (2)
+	data["damage"] = temp_pod.damage
 	data["delays"] = temp_pod.delays
 	data["rev_delays"] = temp_pod.reverse_delays
 	data["custom_rev_delay"] = temp_pod.custom_rev_delay
@@ -183,7 +186,7 @@
 	data["effectAnnounce"] = effectAnnounce
 	data["giveLauncher"] = launcherActivated //If true, the user is in launch mode, and whenever they click a pod will be launched (either at their mouse position or at a specific target)
 	data["numObjects"] = numTurfs //Counts the number of turfs that contain a launchable object in the centcom supplypod bay
-	data["fallingSound"] = temp_pod.fallingSound != initial(temp_pod.fallingSound)//Admin sound to play as the pod falls
+	data["fallingSound"] = temp_pod.fallingSound != initial(temp_pod.fallingSound) //Admin sound to play as the pod falls
 	data["landingSound"] = temp_pod.landingSound //Admin sound to play when the pod lands
 	data["openingSound"] = temp_pod.openingSound //Admin sound to play when the pod opens
 	data["leavingSound"] = temp_pod.leavingSound //Admin sound to play when the pod leaves
@@ -401,10 +404,7 @@
 			. = TRUE
 		if("effectReverse") //Toggle: Don't send any items. Instead, after landing, close (taking any objects inside) and go back to the centcom bay it came from
 			temp_pod.reversing = !temp_pod.reversing
-			if (temp_pod.reversing)
-				indicator.alpha = 150
-			else
-				indicator.alpha = 0
+			update_dropoff_indicator()
 			. = TRUE
 		if("reverseOption")
 			var/reverseOption = params["reverseOption"]
@@ -793,12 +793,20 @@
 /datum/centcom_podlauncher/proc/loadData(list/dataToLoad)
 	bayNumber = dataToLoad["bayNumber"]
 	customDropoff = dataToLoad["customDropoff"]
+	var/list/cords = dataToLoad["reverse_dropoff_coords"]
+	if(cords?.len)
+		var/turf/dropoff =locate(cords[1], cords[2], cords[3])
+		setDropoff(dropoff)
 	renderLighting = dataToLoad["renderLighting"]
 	launchClone = dataToLoad["launchClone"] //Do we launch the actual items in the bay or just launch clones of them?
 	launchRandomItem = dataToLoad["launchRandomItem"] //Do we launch a single random item instead of everything on the turf?
 	launchChoice = dataToLoad["launchChoice"] //Launch turfs all at once (0), ordered (1), or randomly(1)
 	explosionChoice = dataToLoad["explosionChoice"] //An explosion that occurs when landing. Can be no explosion (0), custom explosion (1), or maxcap (2)
+	if(explosionChoice)
+		temp_pod.explosionSize = dataToLoad["explosionSize"]
 	damageChoice = dataToLoad["damageChoice"] //Damage that occurs to any mob under the pod when it lands. Can be no damage (0), custom damage (1), or gib+5000dmg (2)
+	if(damageChoice)
+		temp_pod.damage = dataToLoad["damage"]
 	temp_pod.delays = dataToLoad["delays"]
 	temp_pod.reverse_delays = dataToLoad["rev_delays"]
 	temp_pod.custom_rev_delay = dataToLoad["custom_rev_delay"]
@@ -816,6 +824,7 @@
 	temp_pod.effectCircle = dataToLoad["effectCircle"] //If true, allows the pod to come in at any angle. Bit of a weird feature but whatever its here
 	effectBurst = dataToLoad["effectBurst"] //IOf true, launches five pods at once (with a very small delay between for added coolness), in a 3x3 area centered around the area
 	temp_pod.reversing = dataToLoad["effectReverse"] //If true, the pod will not send any items. Instead, after opening, it will close again (picking up items/mobs) and fly back to centcom
+	update_dropoff_indicator()
 	temp_pod.reverse_option_list = dataToLoad["reverse_option_list"]
 	specificTarget = dataToLoad["effectTarget"] //Launches the pod at the turf of a specific mob target, rather than wherever the user clicked. Useful for smites
 	temp_pod.adminNamed = dataToLoad["effectName"] //Determines whether or not the pod has been named by an admin. If true, the pod's name will not get overridden when the style of the pod changes (changing the style of the pod normally also changes the name+desc)
@@ -823,10 +832,13 @@
 	temp_pod.desc = dataToLoad["podDesc"]
 	effectAnnounce = dataToLoad["effectAnnounce"]
 	numTurfs = dataToLoad["numObjects"] //Counts the number of turfs that contain a launchable object in the centcom supplypod bay
-	temp_pod.fallingSound = dataToLoad["fallingSound"]//Admin sound to play as the pod falls
-	temp_pod.landingSound = dataToLoad["landingSound"]//Admin sound to play when the pod lands
-	temp_pod.openingSound = dataToLoad["openingSound"]//Admin sound to play when the pod opens
-	temp_pod.leavingSound = dataToLoad["leavingSound"]//Admin sound to play when the pod leaves
+
+	// Custom sounds now can't be saved.
+	//temp_pod.fallingSound = dataToLoad["fallingSound"]//Admin sound to play as the pod falls
+	//temp_pod.landingSound = dataToLoad["landingSound"]//Admin sound to play when the pod lands
+	//temp_pod.openingSound = dataToLoad["openingSound"]//Admin sound to play when the pod opens
+	//temp_pod.leavingSound = dataToLoad["leavingSound"]//Admin sound to play when the pod leaves
+
 	temp_pod.soundVolume = dataToLoad["soundVolume"] //Admin sound to play when the pod leaves
 	picking_dropoff_turf = FALSE
 	launcherActivated = FALSE
@@ -846,6 +858,12 @@ GLOBAL_DATUM_INIT(podlauncher, /datum/centcom_podlauncher, new)
 		CRASH("Improper type passed to setDropoff! Should be /turf or /area")
 	temp_pod.reverse_dropoff_coords = list(target_turf.x, target_turf.y, target_turf.z)
 	indicator.forceMove(target_turf)
+
+/datum/centcom_podlauncher/proc/update_dropoff_indicator()
+	if (temp_pod?.reversing)
+		indicator.alpha = 150
+	else
+		indicator.alpha = 0
 
 /obj/effect/client_image_holder/supplypod_selector // Shows which item will be taken next
 	name = "Supply Selector (Only you can see this)"
