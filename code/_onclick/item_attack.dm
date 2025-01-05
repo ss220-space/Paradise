@@ -315,4 +315,4 @@
 		span_userdanger("[user] has [message_verb] you with [I]!"),
 		ignored_mobs = user,
 	)
-	to_chat(user, span_danger("You have [message_verb] [src] with [I]!"))
+	to_chat(user, span_danger("Вы [message_verb] [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]!"))
