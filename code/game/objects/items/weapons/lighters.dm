@@ -134,6 +134,8 @@
 	item_state = "zippo"
 	icon_on = "zippoon"
 	icon_off = "zippo"
+	lefthand_file = 'icons/mob/inhands/zippo_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/zippo_righthand.dmi'
 
 
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)

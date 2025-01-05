@@ -17,7 +17,7 @@
 		/obj/item/shard = 60,
 		/obj/item/scissors = 12,
 		/obj/item/twohanded/chainsaw = 1,
-		/obj/item/claymore = 6,
+		/obj/item/melee/claymore = 6,
 		/obj/item/melee/energy = 6,
 		/obj/item/pen/edagger = 6,
 	)

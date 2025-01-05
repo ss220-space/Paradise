@@ -1,6 +1,6 @@
 //This file contains xenoborg specic weapons.
 
-/obj/item/melee/energy/alien/claws
+/obj/item/melee/energy/alien_claws
 	name = "energy claws"
 	desc = "A set of alien energy claws."
 	icon = 'icons/mob/alien.dmi'

@@ -2,6 +2,8 @@
 	name = "null rod"
 	desc = "A rod of pure obsidian, its very presence disrupts and dampens the powers of dark magic."
 	icon_state = "nullrod"
+	lefthand_file = 'icons/mob/inhands/chaplain_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/chaplain_righthand.dmi'
 	item_state = "nullrod"
 	force = 15
 	throw_speed = 3
@@ -280,7 +282,7 @@
 /obj/item/nullrod/scythe/vibro
 	name = "high frequency blade"
 	icon_state = "hfrequency0"
-	item_state = "hfrequency1"
+	item_state = "hfrequency"
 	desc = "Bad references are the DNA of the soul."
 	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")
 
@@ -401,7 +403,6 @@
 	name = "binary fedora"
 	desc = "The brim of the hat is as sharp as the division between 0 and 1. It makes a mighty throwing weapon."
 	icon_state = "fedora"
-	item_state = "fedora"
 	slot_flags = ITEM_SLOT_HEAD
 	icon = 'icons/obj/clothing/hats.dmi'
 	force = 0
@@ -429,7 +430,6 @@
 	desc = "An adorable stuffed toy that resembles the god of all carp. The teeth look pretty sharp. Activate it to recieve the blessing of Carp-Sie."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
-	item_state = "carp_plushie"
 	force = 13
 	attack_verb = list("bitten", "eaten", "fin slapped")
 	hitsound = 'sound/weapons/bite.ogg'
@@ -505,6 +505,8 @@
 /obj/item/nullrod/pitchfork
 	name = "unholy pitchfork"
 	icon_state = "pitchfork0"
+	lefthand_file = 'icons/mob/inhands/twohanded_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/twohanded_righthand.dmi'
 	item_state = "pitchfork0"
 	w_class = WEIGHT_CLASS_NORMAL
 	desc = "Holding this makes you look absolutely devilish."
@@ -549,7 +551,7 @@
 	)
 
 	praying = TRUE
-	
+
 	if(!do_after(user, 15 SECONDS, target))
 		to_chat(user, span_notice("Your prayer to [SSticker.Bible_deity_name] was interrupted."))
 		praying = FALSE
@@ -564,7 +566,7 @@
 		SSticker.mode.remove_clocker(target.mind)
 		praying = FALSE
 		return .|ATTACK_CHAIN_SUCCESS
-		
+
 	var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vamp && !vamp.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
 		switch(vamp.nullification)

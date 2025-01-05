@@ -5,6 +5,8 @@
 	singular_name = "cable"
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "coil"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "coil_red"
 	belt_icon = "cable_coil"
 	amount = MAXCOIL
@@ -20,10 +22,20 @@
 	materials = list(MAT_METAL=10, MAT_GLASS=5)
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	item_state = "coil"
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
+
+	var/static/list/wire_colors = list(
+		WIRE_COLOR_BLUE = "blue",
+		WIRE_COLOR_CYAN = "cyan",
+		WIRE_COLOR_GREEN = "green",
+		WIRE_COLOR_ORANGE = "orange",
+		WIRE_COLOR_PINK = "pink",
+		WIRE_COLOR_RED = "red",
+		WIRE_COLOR_WHITE = "white",
+		WIRE_COLOR_YELLOW = "yellow"
+	)
 
 
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount, merge = TRUE, cable_color = null)
@@ -59,7 +71,7 @@
 		icon_state = "coil2"
 	else
 		icon_state = "coil"
-
+	item_state = wire_colors[color]
 
 /obj/item/stack/cable_coil/update_weight()
 	if(amount == 1)
