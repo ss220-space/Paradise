@@ -203,23 +203,3 @@
 
 	LAZYREMOVE(owner.current.faction, "hell")
 	REMOVE_TRAIT(owner.current, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
-
-/datum/antagonist/devil/proc/printdevilinfo()
-	var/list/parts
-
-	LAZYADD(parts, "Истинное имя дьявола: [info.truename]")
-	LAZYADD(parts, info.bane.law)
-	LAZYADD(parts, info.ban.law)
-	LAZYADD(parts, info.obligation.law)
-	LAZYADD(parts, info.banish.law)
-
-	return parts.Join("<br>")
-
-/datum/antagonist/devil/roundend_report()
-	var/list/parts
-	
-	LAZYADD(parts, printplayer(owner))
-	LAZYADD(parts, printdevilinfo())
-	LAZYADD(parts, printobjectives(objectives))
-
-	return parts.Join("<br>")

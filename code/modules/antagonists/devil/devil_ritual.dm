@@ -30,13 +30,16 @@
 	var/mob/living/simple_animal/imp/imp = new(get_turf(ritual_object))
 
 	imp.key = mob.key
-	imp.universal_speak = TRUE
-	imp.sentience_act()
 	imp.master_commander = invoker
 
-	imp.mind.store_memory("Я подчиняюсь призывателю [imp.master_commander.name], также известному как [devil.info.truename].")
-
 	return RITUAL_SUCCESSFUL
+
+/datum/ritual/devil/imp/proc/improve_imp(mob/living/simple_animal/imp/imp)
+	imp.universal_speak = TRUE
+	imp.sentience_act()
+
+	imp.mind.store_memory("Я подчиняюсь призывателю [imp.master_commander.name], также известному как [devil.info.truename].")
+	imp.mind.add_antag_datum(/datum/antagonist/devil_pawn)
 
 /datum/ritual/devil/sacrifice
 	name = "Sacrifice ritual"

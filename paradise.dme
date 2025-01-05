@@ -1693,6 +1693,7 @@
 #include "code\modules\antagonists\devil\devil_bane.dm"
 #include "code\modules\antagonists\devil\devil_ban.dm"
 #include "code\modules\antagonists\devil\devil_info.dm"
+#include "code\modules\antagonists\devil\devil_pawn.dm"
 #include "code\modules\antagonists\devil\imp\imp.dm"
 #include "code\modules\antagonists\devil\devil_obligation.dm"
 #include "code\modules\antagonists\devil\devil_rank.dm"

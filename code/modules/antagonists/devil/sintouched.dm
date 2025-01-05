@@ -1,5 +1,6 @@
 /datum/antagonist/sintouched
 	name = "Sintouched"
+	special_role = SPECIAL_ROLE_SINTOUCHED
 
 /datum/antagonist/sintouched/can_be_owned(datum/mind/new_owner)
 	. = ..()
