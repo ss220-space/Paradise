@@ -100,7 +100,7 @@
 // GREY //
 
 /datum/gear/racial/language_chip
-	display_name = "selected language chip"
+	index_name = "selected language chip"
 	description = "Крошечный чип-переводчик с индикатором, содержащий в себе один из языков. Разработан греями, устанавливается в импланты-переводчики."
 	path = /obj/item/translator_chip/sol
 	whitelisted_species = list(SPECIES_GREY)
