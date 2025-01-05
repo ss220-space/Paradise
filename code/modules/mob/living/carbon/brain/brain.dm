@@ -39,6 +39,13 @@
 		CRASH("Brainmob without container.")
 	forceMove(container)
 
+/mob/living/carbon/brain/update_mouse_pointer()
+	if (!client)
+		return
+	client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
+	if(!container)
+		return
+
 /*
 This will return true if the brain has a container that leaves it less helpless than a naked brain
 

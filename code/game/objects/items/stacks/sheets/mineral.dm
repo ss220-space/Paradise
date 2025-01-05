@@ -475,7 +475,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	name = "mythril"
 	desc = "A rare mineral used in construction of chitin armor."
 	icon_state = "sheet-mythril"
-	item_state = "sheet-mythril"
+	//item_state = "sheet-mythril"
 	singular_name = "mythril sheet"
 	origin_tech = "materials=7"
 	merge_type = /obj/item/stack/sheet/mineral/mythril
@@ -487,7 +487,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 /obj/item/stack/sheet/mineral/snow
 	name = "snow"
 	icon_state = "sheet-snow"
-	item_state = "sheet-snow"
+	//item_state = "sheet-snow"
 	singular_name = "snow block"
 	force = 1
 	throwforce = 2

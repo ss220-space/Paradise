@@ -60,7 +60,7 @@
 		/obj/item/twohanded/spear/bonespear/chitinspear = 1,
 		/obj/item/twohanded/garrote = 1,
 		/obj/item/melee/rapier/syndie = 1,
-		/obj/item/claymore/bone = 1,
+		/obj/item/melee/claymore/bone = 1,
 		/obj/item/gun/magic/staff/spellblade = 1,
 		/obj/item/spellbook/oneuse/goliath_dash = 1,
 		)
@@ -75,6 +75,7 @@
 	random_items_count = 3
 	item_pool = list(
 		/obj/item/gun/energy/immolator/multi = 2,
+		/obj/item/gun/energy/gun/minigun = 1,
 		/obj/item/gun/projectile/automatic/mini_uzi = 2,
 		/obj/item/gun/projectile/automatic/pistol/deagle = 2,
 		/obj/item/gun/projectile/automatic/wt550 = 2,
@@ -139,6 +140,7 @@
 	random_items_count = 3
 	item_pool = list(
 		/obj/item/gun/energy/immolator/multi = 1,
+		/obj/item/gun/energy/gun/minigun = 1,
 		/obj/item/gun/projectile/automatic/mini_uzi = 1,
 		/obj/item/gun/projectile/automatic/pistol/deagle = 1,
 		/obj/item/gun/projectile/automatic/wt550 = 1,
@@ -225,7 +227,7 @@
 		/obj/item/twohanded/spear/bonespear/chitinspear = 1,
 		/obj/item/twohanded/garrote = 1,
 		/obj/item/melee/rapier/syndie = 1,
-		/obj/item/claymore/bone = 1,
+		/obj/item/melee/claymore/bone = 1,
 		/obj/item/gun/magic/staff/spellblade = 1,
 		/obj/item/spellbook/oneuse/goliath_dash = 1,
 		/obj/item/spellbook/oneuse/forcewall = 1,

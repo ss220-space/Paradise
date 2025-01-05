@@ -109,3 +109,62 @@
 	ammo_x_offset = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	selfcharge = TRUE
+
+/obj/item/gun/energy/gun/minigun
+	name = "Laser gatling gun"
+	desc = "Огромное лазерное орудие, обладающее выдающейся скорострельностью и поражающей силой. Говорят, что 12 секунд стрельбы из этой малышки обойдутся вам в 400 тысяч кредитов."
+	ru_names = list(
+		NOMINATIVE = "Гатлинг-лазер",
+		GENITIVE = "Гатлинг-лазера",
+		DATIVE = "Гатлинг-лазеру",
+		ACCUSATIVE = "Гатлинг-лазер",
+		INSTRUMENTAL = "Гатлинг-лазером",
+		PREPOSITIONAL = "Гатлинг-лазере"
+	)
+	icon_state = "gatling"
+	item_state = "gatling"
+	fire_sound = "lasergatling"
+	origin_tech = "combat=7;magnets=6;powerstorage=6"
+	slot_flags = FALSE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	weapon_weight = WEAPON_MEDIUM
+	w_class = WEIGHT_CLASS_GIGANTIC
+	throw_range = 0
+	burst_size = 6
+	spread = 45
+	can_charge = FALSE
+	cell_type = /obj/item/stock_parts/cell/laser/gatling
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/light)
+	selfcharge = TRUE
+	charge_delay = 5
+	recharge_rate = 600
+	slowdown = 0.2
+	var/force_unwielded = 10
+	var/force_wielded = 20
+
+/obj/item/gun/energy/gun/minigun/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, \
+		force_unwielded = src.force_unwielded, \
+		force_wielded = src.force_wielded, \
+		require_twohands = TRUE \
+	)
+
+/obj/item/gun/energy/gun/minigun/can_be_pulled(atom/movable/user, force, show_message = FALSE)
+	..()
+	balloon_alert(user, "слишком тяжело!")
+
+/obj/item/gun/energy/gun/minigun/update_icon_state()
+	item_state = !cell ? initial(item_state) : "gatling[!can_shoot(silent = TRUE) ? "1" : ""]"
+	icon_state = !cell ? initial(icon_state) : "gatling[!can_shoot(silent = TRUE) ? "1" : ""]"
+
+/obj/item/gun/energy/gun/minigun/examine(mob/user)
+	. = ..()
+
+	if(!cell)
+		return .
+		
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/charge_amount = round(cell.charge / (shot.e_cost * burst_size))
+
+	. += span_notice("Индикатор батареи сообщает: заряда хватит на <b>[charge_amount]</b> [declension_ru(charge_amount, "выстрел", "выстрела", "выстрелов")].")

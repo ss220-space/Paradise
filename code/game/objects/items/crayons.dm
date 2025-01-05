@@ -267,7 +267,9 @@
 	if(!Adjacent(usr) || usr.incapacitated())
 		return
 	if(href_list["color"])
-		var/temp = input(usr, "Please select colour.", "Crayon colour") as color
+		var/temp = tgui_input_color(usr, "Please select colour.", "Crayon colour")
+		if(isnull(temp))
+			return
 		colour = temp
 		update_window(usr)
 	else
@@ -303,7 +305,10 @@
 		if("Change Drawing")
 			..()
 		if("Change Color")
-			colour = input(user,"Choose Color") as color
+			var/new_color = tgui_input_color(user, "Choose Color")
+			if(isnull(new_color))
+				return
+			colour = new_color
 			update_icon()
 
 /obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)

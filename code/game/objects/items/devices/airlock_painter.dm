@@ -5,6 +5,8 @@
 	desc = "An advanced autopainter preprogrammed with several paintjobs for airlocks. Use it on a completed airlock to change its paintjob."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "airlock_painter"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "airlock_painter"
 	flags = CONDUCT
 	item_flags = NOBLUDGEON

@@ -29,6 +29,7 @@
 	move_resist = MOVE_FORCE_STRONG
 	AIStatus = AI_OFF
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/ectoplasm = 1)
+	hud_type = /datum/hud/guardian
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner

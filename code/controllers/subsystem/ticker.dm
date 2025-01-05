@@ -447,6 +447,11 @@ SUBSYSTEM_DEF(ticker)
 					M.ghostize()
 					M.dust() //no mercy
 					CHECK_TICK
+		for(var/core in GLOB.blob_cores)
+			var/turf/T = get_turf(core)
+			if(T && is_station_level(T.z))
+				qdel(core)
+				CHECK_TICK
 
 	//Now animate the cinematic
 	switch(station_missed)

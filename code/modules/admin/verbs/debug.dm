@@ -212,7 +212,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Atom Proc-Call") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/get_callproc_args()
-	var/argnum = input("Number of arguments","Number:",0) as num|null
+	var/argnum = tgui_input_number(src, "Введите число аргументов","Число аргументов:", 0)
 	if(argnum <= 0)
 		return list() // to allow for calling with 0 args
 
@@ -222,53 +222,30 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	//TODO: make a list to store whether each argument was initialised as null.
 	//Reason: So we can abort the proccall if say, one of our arguments was a mob which no longer exists
 	//this will protect us from a fair few errors ~Carn
-
+	var/extra_classes = list("type", "reference", "mob's area", "CANCEL")
 	while(argnum--)
-		var/class = null
+		var/value = vv_get_value(extra_classes = extra_classes)
+
+		if(!(value["class"] in extra_classes))
+			lst += value["value"]
+			continue
+
+		var/class = value["class"]
 		// Make a list with each index containing one variable, to be given to the proc
-		if(src.holder && src.holder.marked_datum)
-			class = input("What kind of variable?","Variable Type") in list("text","num","type","reference","mob reference","icon","file","client","mob's area","Marked datum ([holder.marked_datum.type])","CANCEL")
-			if(holder.marked_datum && class == "Marked datum ([holder.marked_datum.type])")
-				class = "Marked datum"
-		else
-			class = input("What kind of variable?","Variable Type") in list("text","num","type","reference","mob reference","icon","file","client","mob's area","CANCEL")
 		switch(class)
 			if("CANCEL")
 				return null
 
-			if("text")
-				lst += clean_input("Enter new text:","Text",null)
-
-			if("num")
-				lst += input("Enter new number:","Num",0) as num
-
 			if("type")
-				lst += input("Enter type:","Type") in typesof(/obj,/mob,/area,/turf)
+				lst += tgui_input_list(src, "Выберите тип:", "Тип", typesof(/obj,/mob,/area,/turf))
 
 			if("reference")
-				lst += input("Select reference:","Reference",src) as mob|obj|turf|area in world
-
-			if("mob reference")
-				lst += input("Select reference:","Reference",usr) as mob in world
-
-			if("file")
-				lst += input("Pick file:","File") as file
-
-			if("icon")
-				lst += input("Pick icon:","Icon") as icon
-
-			if("client")
-				var/list/keys = list()
-				for(var/mob/M in world)
-					keys += M.client
-				lst += input("Please, select a player!", "Selection", null, null) as null|anything in keys
+				lst += input(src, "Выберите ссылку:", "Ссылка",src) as mob|obj|turf|area in world
 
 			if("mob's area")
-				var/mob/temp = input("Select mob", "Selection", usr) as mob in world
+				var/mob/temp = input(src, "Выберите моба", "Выбор", usr) as mob in world
 				lst += temp.loc
 
-			if("Marked datum")
-				lst += holder.marked_datum
 	return lst
 
 /client/proc/Cell()

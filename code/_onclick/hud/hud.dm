@@ -208,7 +208,7 @@
 /mob/proc/create_mob_hud()
 	if(!client || hud_used)
 		return
-	hud_used = new /datum/hud(src)
+	hud_used = new hud_type(src)
 	update_sight()
 	SEND_SIGNAL(src, COMSIG_MOB_HUD_CREATED)
 

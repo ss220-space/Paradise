@@ -576,6 +576,18 @@
 	build_path = /obj/item/clothing/gloves/color/black/pyro_claws
 	category = list("Weapons")
 
+/datum/design/laserminigun
+	name = "Laser gatling gun"
+	desc = "Огромное лазерное орудие, обладающее выдающейся скорострельностью и поражающей силой. Говорят, что 12 секунд стрельбы из этой малышки обойдутся вам в 400 тысяч кредитов."
+	id = "laser_gatling"
+	build_type = PROTOLATHE
+	req_tech = list("combat" = 8, "materials" = 7, "magnets" = 7, "powerstorage" = 7)
+	materials = list(MAT_METAL = 12000, MAT_GLASS = 2400, MAT_URANIUM = 1200, MAT_TITANIUM = 1200, MAT_DIAMOND = 1200)
+	locked = TRUE
+	build_path = /obj/item/gun/energy/gun/minigun
+	category = list("Weapons")
+	lathe_time_factor = 0.5
+
 /datum/design/real_plasma_pistol
 	name = "Plasma Pistol"
 	desc = "HA specialized firearm designed to fire heated bolts of plasma. Can be overloaded for a high damage shield breaking shot."

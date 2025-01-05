@@ -58,6 +58,7 @@
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/revenant/ComponentInitialize()

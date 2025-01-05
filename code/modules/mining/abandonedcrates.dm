@@ -115,7 +115,7 @@
 		if(91)
 			new /obj/item/soulstone/anybody(src)
 		if(92)
-			new /obj/item/katana(src)
+			new /obj/item/melee/katana(src)
 		if(93)
 			new /obj/item/dnainjector/xraymut(src)
 		if(94)

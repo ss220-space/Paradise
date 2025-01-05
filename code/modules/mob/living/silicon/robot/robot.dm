@@ -110,6 +110,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/updating = 0 //portable camera camerachunk update
 
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
+	hud_type = /datum/hud/robot
 
 	var/default_cell_type = /obj/item/stock_parts/cell/high
 	///Jetpack-like effect.

@@ -734,7 +734,8 @@
 
 /obj/mecha/blob_act(obj/structure/blob/B)
 	log_message("Attack by blob. Attacker - [B].")
-	take_damage(30, BRUTE, "melee", 0, get_dir(src, B))
+	B?.overmind?.blobstrain?.attack_mech(src)
+	take_damage(30, BRUTE, MELEE, 0, get_dir(src, B))
 
 /obj/mecha/attack_tk()
 	return
@@ -928,11 +929,17 @@
 		if(!user.drop_transfer_item_to_loc(paintkit, src))
 			return ..()
 		user.visible_message(span_notice("[user] opens [paintkit] and spends some quality time customising [name]."))
-		if(paintkit.new_prefix)
-			initial_icon = "[paintkit.new_prefix][initial_icon]"
+
+		var/list/icon_states = paintkit.icon_states
+		var/transformed_mech_type = "[mech_type]"
+		if(transformed_mech_type in icon_states)
+			initial_icon = icon_states[transformed_mech_type]
 		else
 			initial_icon = paintkit.new_icon
-		name = paintkit.new_name
+		if(paintkit.name_prefix)
+			name = "[paintkit.name_prefix] [name]"
+		else
+			name = paintkit.new_name
 		desc = paintkit.new_desc
 		update_icon(UPDATE_ICON_STATE)
 		qdel(paintkit)
@@ -1405,37 +1412,50 @@
 /obj/mecha/proc/go_out(forced, atom/newloc = loc)
 	if(!occupant)
 		return
+
+	for(var/obj/item/mecha_parts/mecha_equipment/equipment_mod in equipment)
+		equipment_mod.handle_occupant_exit()
+
 	var/atom/movable/mob_container
+
 	occupant.clear_alert("charge")
 	occupant.clear_alert("locked")
 	occupant.clear_alert("mech damage")
 	occupant.clear_alert("mechaport")
 	occupant.clear_alert("mechaport_d")
+
 	if(occupant && occupant.client)
 		occupant.client.mouse_pointer_icon = initial(occupant.client.mouse_pointer_icon)
+
 	if(ishuman(occupant))
 		mob_container = occupant
 		RemoveActions(occupant, human_occupant = 1)
+
 	else if(isbrain(occupant))
 		var/mob/living/carbon/brain/brain = occupant
 		RemoveActions(brain)
 		mob_container = brain.container
+
 	else if(isAI(occupant))
 		var/mob/living/silicon/ai/AI = occupant
 		//stop listening to this signal, as the static update is now handled by the eyeobj's setLoc
 		AI.eyeobj?.UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 		AI.eyeobj?.forceMove(newloc) //kick the eye out as well
+
 		if(forced)//This should only happen if there are multiple AIs in a round, and at least one is Malf.
 			RemoveActions(occupant)
 			if(!istype(newloc, /obj/item/aicard))
 				occupant.gib()  //If one Malf decides to steal a mech from another AI (even other Malfs!), they are destroyed, as they have nowhere to go when replaced.
 				occupant = null
+
 			return
+
 		else
 			if(!AI.linked_core || QDELETED(AI.linked_core))
 				to_chat(AI, span_userdanger("Inactive core destroyed. Unable to return."))
 				AI.linked_core = null
 				return
+
 			to_chat(AI, span_notice("Returning to core..."))
 			AI.controlled_mech = null
 			AI.remote_control = null
@@ -1443,10 +1463,13 @@
 			mob_container = AI
 			newloc = get_turf(AI.linked_core)
 			qdel(AI.linked_core)
+
 	else
 		return
+
 	var/mob/living/L = occupant
 	occupant = null //we need it null when forceMove calls Exited().
+
 	if(mob_container.forceMove(newloc))//ejecting mob container
 		log_message("[mob_container] moved out.")
 		L << browse(null, "window=exosuit")
@@ -1456,12 +1479,15 @@
 			if(mmi.brainmob)
 				L.forceMove(mmi)
 				L.reset_perspective()
+
 			mmi.mecha = null
 			mmi.update_icon()
+
 			if(istype(mmi, /obj/item/mmi/robotic_brain))
 				var/obj/item/mmi/robotic_brain/R = mmi
 				if(R.imprinted_master)
 					to_chat(L, span_notice("Imprint re-enabled, you are once again bound to [R.imprinted_master]'s commands."))
+
 		update_icon(UPDATE_ICON_STATE)
 		dir = dir_in
 

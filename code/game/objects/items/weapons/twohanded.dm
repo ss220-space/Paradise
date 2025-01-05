@@ -38,6 +38,9 @@
 	var/unwieldsound = FALSE
 	var/sharp_when_wielded = FALSE
 
+	lefthand_file = 'icons/mob/inhands/twohanded_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/twohanded_righthand.dmi'
+
 
 /obj/item/twohanded/Initialize(mapload)
 	. = ..()
@@ -504,11 +507,6 @@
 		mounted_head.forceMove(T)
 		mounted_head = null
 	qdel(src)
-
-/obj/item/twohanded/spear/kidan
-	icon_state = "kidanspear0"
-	name = "Kidan spear"
-	desc = "A spear brought over from the Kidan homeworld."
 
 
 // DIY CHAINSAW

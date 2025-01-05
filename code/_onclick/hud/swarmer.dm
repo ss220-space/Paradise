@@ -63,9 +63,6 @@
 		var/mob/living/simple_animal/hostile/swarmer/S = usr
 		S.ContactSwarmers()
 
-/mob/living/simple_animal/hostile/swarmer/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/swarmer(src)
 
 /datum/hud/swarmer/New(mob/owner)
 	..()

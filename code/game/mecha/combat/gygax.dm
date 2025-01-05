@@ -87,6 +87,8 @@
 	destruction_sleep_duration = 2 SECONDS
 	strafe_allowed = TRUE
 
+	mech_type = MECH_TYPE_DARK_GYGAX
+
 /obj/mecha/combat/gygax/dark/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()
 	thrusters_action.Grant(user, src)

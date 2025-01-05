@@ -16,7 +16,7 @@
 	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags |= INITIALIZED
-	GLOB.mob_list += src
+	add_to_mob_list()
 	return INITIALIZE_HINT_NORMAL
 
 /mob/new_player/proc/privacy_consent()
