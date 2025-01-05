@@ -594,7 +594,6 @@
 #include "code\datums\elements\light_blocking.dm"
 #include "code\datums\elements\movetype_handler.dm"
 #include "code\datums\elements\openspace_item_click_handler.dm"
-#include "code\datums\elements\reagent_attack.dm"
 #include "code\datums\elements\ridable.dm"
 #include "code\datums\elements\reagent_attack.dm"
 #include "code\datums\elements\simple_flying.dm"
