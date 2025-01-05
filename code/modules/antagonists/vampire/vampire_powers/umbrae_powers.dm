@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/vampire/self/cloak
 	name = "Покров тьмы"
-	desc = "Переключает, маскируетесь ли вы в данный момент в темноте. Если вы находитесь в темноте и включили эту функцию, вы двигаетесь с увеличенной скоростью."
-	gain_desc = "Вы получили способность «Покров тьмы», которая при переключении делает вас почти невидимым и очень ловким в пелене тьмы."
+	desc = "Включает или выключает маскировку в темноте. Если вы замаскированы и находитесь в темноте, то ваша скорость увеличивается."
+	gain_desc = "Теперь вы можете маскировать себя во тьме, становясь почти невидимым и чрезвычайно проворным."
 	action_icon_state = "vampire_cloak"
 	base_cooldown = 2 SECONDS
 
@@ -11,7 +11,7 @@
 	if(!V)
 		return
 
-	var/new_name = "[initial(name)] ([V.iscloaking ? "Deactivate" : "Activate"])"
+	var/new_name = "[initial(name)] ([V.iscloaking ? "Деактивировать" : "Активировать"])"
 	name = new_name
 	action?.name = new_name
 	action?.UpdateButtonIcon()
@@ -30,7 +30,7 @@
 			H.physiology.burn_mod /= 1.3
 
 	update_vampire_spell_name(user)
-	to_chat(user, span_notice("Теперь вы будете <b>[V.iscloaking ? "скрыты" : "видны"]</b> в темноте."))
+	to_chat(user, span_notice("Теперь вы будете <b>[V.iscloaking ? "скрыты" : "видимы"]</b> в темноте."))
 
 
 /mob/living/proc/update_vampire_cloak()
@@ -65,12 +65,12 @@
 	name = "shadow snare"
 	desc = "Почти прозрачная ловушка, которая тает в тени."
 	ru_names = list(
-        NOMINATIVE = "Теневая ловушка",
-        GENITIVE = "Теневой ловушки",
-        DATIVE = "Теневой ловушке",
-        ACCUSATIVE = "Теневую ловушку",
-        INSTRUMENTAL = "Теневой ловушкой",
-        PREPOSITIONAL = "Теневой ловушке"
+        NOMINATIVE = "теневая ловушка",
+        GENITIVE = "теневой ловушки",
+        DATIVE = "теневой ловушке",
+        ACCUSATIVE = "теневую ловушку",
+        INSTRUMENTAL = "теневой ловушкой",
+        PREPOSITIONAL = "теневой ловушке"
     )
 	alpha = 60
 	armed = TRUE
@@ -96,7 +96,7 @@
 		obj_integrity -= 50
 
 	if(obj_integrity <= 0)
-		visible_message(span_notice("[src] исчезает."))
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] исчезает."))
 		qdel(src)
 
 
@@ -138,8 +138,8 @@
 	. |= ATTACK_CHAIN_BLOCKED_ALL
 	user.do_attack_animation(src)
 	user.visible_message(
-		span_danger("[user] наводит [I] на [src], и она исчезает!"),
-		span_danger("Наведи [I] на [src], и она исчезнет!"),
+		span_danger("[user] навод[pluralize_ru(user.gender, "ит", "ят")] [I] на [declent_ru(ACCUSATIVE)], и она исчезает!"),
+		span_danger("Наведите [I] на [declent_ru(ACCUSATIVE)], и она исчезнет!"),
 	)
 	qdel(src)
 
@@ -167,7 +167,7 @@
 
 /obj/effect/proc_holder/spell/vampire/soul_anchor/cast(list/targets, mob/user)
 	if(making_anchor) // second cast, but we are impatient
-		to_chat(user, span_notice("Ваш якорь еще не готов!"))
+		balloon_alert(user, "якорь не готов!")
 		return
 
 	if(!making_anchor && !anchor) // first cast, setup the anchor
@@ -230,19 +230,19 @@
 // an indicator that shows where the vampire will land
 /obj/structure/shadow_anchor
 	name = "shadow anchor"
-	desc = "Looking at this thing makes you feel uneasy..."
+	desc = "При взгляде на эту штуку вам становится не по себе..."
+	ru_names = list(
+        NOMINATIVE = "теневой якорь",
+        GENITIVE = "теневого якоря",
+        DATIVE = "теневому якорю",
+        ACCUSATIVE = "теневой якорь",
+        INSTRUMENTAL = "теневым якорем",
+        PREPOSITIONAL = "теневом якоре"
+    )
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "pylon"
 	alpha = 120
 	color = "#545454"
-	ru_names = list(
-        NOMINATIVE = "Теневой якорь",
-        GENITIVE = "Теневого якоря",
-        DATIVE = "Теневому якорю",
-        ACCUSATIVE = "Теневой якорь",
-        INSTRUMENTAL = "Теневым якорем",
-        PREPOSITIONAL = "Теневом якоре"
-    )
 	density = TRUE
 	opacity = FALSE
 	anchored = TRUE
@@ -250,7 +250,7 @@
 
 
 /obj/effect/proc_holder/spell/vampire/dark_passage
-	name = "Тёмный проход"
+	name = "Шаг в тень"
 	desc = "Вы телепортируетесь на указанную площадку."
 	gain_desc = "Вы получили способность совершать молниеносный бросок на небольшое расстояние в сторону указанной площадки."
 	base_cooldown = 15 SECONDS
@@ -310,9 +310,9 @@
 
 
 /obj/effect/proc_holder/spell/vampire/shadow_boxing
-	name = "Теневой бокс"
+	name = "Бой с тенью"
 	desc = "Нацельтесь на кого-нибудь, чтобы ваша тень избила его. Чтобы это сработало, вы должны находиться в пределах 2 плиток."
-	gain_desc = "Вы обрели способность заставлять свою тень сражаться за вас."
+	gain_desc = "Теперь вы можете заставить свою тень сражаться бок о бок с вами."
 	base_cooldown = 30 SECONDS
 	action_icon_state = "shadow_boxing"
 	required_blood = 50
@@ -336,7 +336,7 @@
 /obj/effect/proc_holder/spell/vampire/self/eternal_darkness
 	name = "Вечная тьма"
 	desc = "При включении вы окутываете пространство вокруг себя темнотой и медленно понижаете температуру тела находящихся рядом людей."
-	gain_desc = "Вы обрели способность окутывать все вокруг себя тьмой, и только сильнейший свет может пронзить вашу нечестивую силу."
+	gain_desc = "Вы обрели способность окутывать все вокруг себя тьмой. Только сильнейший свет сможет пронзить вашу нечестивую силу."
 	base_cooldown = 10 SECONDS
 	action_icon_state = "eternal_darkness"
 	required_blood = 5

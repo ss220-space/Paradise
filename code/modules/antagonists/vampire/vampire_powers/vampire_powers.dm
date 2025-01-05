@@ -90,7 +90,7 @@
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate
 	name = "Восстановление"
-	desc = "Используйте резервную кровь, чтобы оживить свое тело, снимая любые обездвиживающие эффекты."
+	desc = "Наполните своё тело резервной кровью, чтобы снять с себя любые обездвиживающие эффекты."
 	action_icon_state = "vampire_rejuvinate"
 	base_cooldown = 20 SECONDS
 	stat_allowed = UNCONSCIOUS
@@ -220,7 +220,7 @@
 
 /obj/effect/proc_holder/spell/vampire/glare
 	name = "Вспышка"
-	desc = "Ваши глаза вспыхивают, ошеломляя и заставляя замолчать всех, кто находится перед вами. На окружающих это действует в меньшей степени."
+	desc = "Ваши глаза вспыхивают, ошеломляя и заставляя замолчать всех, кто находится прямо перед вами. В меньшей степени действует на окружающих вне вашего поля зрения."
 	action_icon_state = "vampire_glare"
 	base_cooldown = 30 SECONDS
 	stat_allowed = UNCONSCIOUS
@@ -256,7 +256,7 @@
 	if(ishuman(user) && istype(user.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
 		var/obj/item/clothing/glasses/sunglasses/blindfold/blindfold = user.glasses
 		if(blindfold.tint)
-			to_chat(user, span_warning("У вас завязаны глаза!"))
+			balloon_alert(user, "вы не видите!")
 			return
 
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, _range = 3, _duration = 0.2 SECONDS)
@@ -327,7 +327,7 @@
 
 /obj/effect/proc_holder/spell/vampire/raise_vampires
 	name = "Возвышение вампиров"
-	desc = "Призывает смертоносных вампиров из Блюспейса."
+	desc = "Призывает смертоносных вампиров из блюспейса."
 	school = "transmutation"
 	clothes_req = FALSE
 	human_req = TRUE
@@ -349,7 +349,7 @@
 /obj/effect/proc_holder/spell/vampire/raise_vampires/cast(list/targets, mob/user = usr)
 	new /obj/effect/temp_visual/cult/sparks(user.loc)
 	var/turf/T = get_turf(user)
-	to_chat(user, span_warning("Вы взываете к Блюспейсу, призывая на помощь еще больше вампирических духов!"))
+	to_chat(user, span_warning("Вы взываете к блюспейсу, призывая на помощь еще больше вампирических духов!"))
 	for(var/mob/living/carbon/human/H in targets)
 		T.Beam(H, "sendbeam", 'icons/effects/effects.dmi', time = 30, maxdistance = 7, beam_type = /obj/effect/ebeam)
 		new /obj/effect/temp_visual/cult/sparks(H.loc)
@@ -360,13 +360,13 @@
 	if(!istype(M) || !istype(H))
 		return
 	if(!H.mind)
-		visible_message("Похоже, [H] слишком глуп, чтобы понять, что происходит.")
+		visible_message("Похоже, [H] слишком глуп[genderize_ru(H.gender, "", "а", "о", "ы")], чтобы понять, что происходит.")
 		return
 	if(HAS_TRAIT(H, TRAIT_NO_BLOOD) || HAS_TRAIT(H, TRAIT_EXOTIC_BLOOD) || !H.blood_volume)
-		visible_message("[H] выглядит невозмутимым!")
+		visible_message("[H] выгляд[pluralize_ru(H.gender, "ит", "ят")] невозмутимым!")
 		return
 	if(H.mind.has_antag_datum(/datum/antagonist/vampire) || H.mind.special_role == SPECIAL_ROLE_VAMPIRE || H.mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
-		visible_message(span_notice("[H] выглядит посвежевшим!"))
+		visible_message(span_notice("[H] выгляд[pluralize_ru(H.gender, "ит", "ят")] посвежевшим!"))
 		H.heal_overall_damage(60, 60, affect_robotic = TRUE)
 		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 			if(prob(25))
@@ -376,10 +376,10 @@
 		return
 	if(H.stat != DEAD)
 		if(H.IsWeakened())
-			visible_message(span_warning("[H], похоже, испытывает боль!"))
+			visible_message(span_warning("[H], похоже, испытыва[pluralize_ru(H.gender, "ет", "ют")] боль!"))
 			H.apply_damage(60, BRAIN)
 		else
-			visible_message(span_warning("Похоже, что [H] ошеломлен энергией!"))
+			visible_message(span_warning("Похоже, что [H] ошеломлен[pluralize_ru(H.gender, "", "ы")] энергией!"))
 			H.Weaken(40 SECONDS)
 		return
 	for(var/obj/item/implant/mindshield/L in H)
@@ -388,7 +388,7 @@
 	for(var/obj/item/implant/traitor/T in H)
 		if(T && T.implanted)
 			qdel(T)
-	visible_message(span_warning("У [H] появляется жуткое красное свечение в глазах!"))
+	visible_message(span_warning("У [H] появля[pluralize_ru(H.gender, "ет", "ют")]ся жуткое красное свечение в глазах!"))
 	var/datum/objective/protect/protect_objective = new
 	protect_objective.owner = H.mind
 	protect_objective.target = M.mind

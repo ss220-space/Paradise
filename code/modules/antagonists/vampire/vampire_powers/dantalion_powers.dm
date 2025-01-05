@@ -1,6 +1,6 @@
 /datum/vampire_passive/increment_thrall_cap/on_apply(datum/antagonist/vampire/V)
 	V.subclass.thrall_cap++
-	gain_desc = "Теперь вы можете подчинить себе еще одного человека, максимум [V.subclass.thrall_cap]."
+	gain_desc = "Теперь вы можете подчинить себе еще одного гуманоида, вплоть до <b>[V.subclass.thrall_cap]</b> ."
 
 
 /datum/vampire_passive/increment_thrall_cap/two
@@ -11,7 +11,7 @@
 
 /obj/effect/proc_holder/spell/vampire/enthrall
 	name = "Порабощение"
-	desc = "Вы используете значительную часть своей силы, чтобы заставить тех, кто не был предан никому, быть преданными только вам."
+	desc = "Вы используете значительную часть своей силы, чтобы поработить разум другого гуманоида."
 	gain_desc = "Вы обрели способность подчинять людей своей воле."
 	action_icon_state = "vampire_enthrall"
 	need_active_overlay = TRUE
@@ -29,7 +29,7 @@
 /obj/effect/proc_holder/spell/vampire/enthrall/cast(list/targets, mob/user = usr)
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/mob/living/target = targets[1]
-	user.visible_message(span_warning("[user] кусает [target] за шею!"), \
+	user.visible_message(span_warning("[user] куса[pluralize_ru(user.gender, "ет", "ют")] [target] за шею!"), \
 						span_warning("Вы кусаете [target] за шею и впускаете поток силы."))
 	to_chat(target, span_warning("Вы чувствуете, как в ваш разум проникают потоки нечистой силы."))
 	if(do_after(user, 15 SECONDS, target, NONE))
@@ -65,12 +65,12 @@
 		return
 
 	if(ismindshielded(C) || isvampire(C) || isvampirethrall(C) || C.mind.has_antag_datum(/datum/antagonist/mindslave))
-		C.visible_message(span_warning("Похоже, [C] сопротивляется захвату!"), \
+		C.visible_message(span_warning("Похоже, [C] сопротивля[pluralize_ru(user.gender, "ет", "ют")]ся захвату!"), \
 						span_notice("Вы чувствуете знакомое ощущение в черепе, которое быстро проходит."))
 		return
 
 	if(C.mind.isholy)
-		C.visible_message(span_warning("Похоже, [C] сопротивляется захвату!"), \
+		C.visible_message(span_warning("Похоже, [C] сопротивля[pluralize_ru(user.gender, "ет", "ют")]ся захвату!"), \
 						span_notice("Ваша вера в [SSticker.Bible_deity_name] сохранила ваш разум чистым от всякого зла."))
 		return
 
@@ -90,9 +90,9 @@
 
 
 /obj/effect/proc_holder/spell/vampire/thrall_commune
-	name = "Коммуна"
-	desc = "Общайтесь со своими рабами телепатически."
-	gain_desc = "Вы обрели способность общаться со своими рабами."
+	name = "Телепатическая связь"
+	desc = "Общайтесь со своими рабами с помощью блюспейс-телепатии."
+	gain_desc = "Вы обрели способность общаться со своими рабами на расстоянии."
 	action_icon_state = "vamp_communication"
 	create_attack_logs = FALSE
 	base_cooldown = 2 SECONDS
@@ -132,7 +132,7 @@
 
 
 /obj/effect/proc_holder/spell/vampire/thrall_commune/cast(list/targets, mob/user)
-	var/input = tgui_input_text(user, "Введите сообщение для передачи другим рабам", "Рабская Коммуна")
+	var/input = tgui_input_text(user, "Введите сообщение для передачи другим рабам", "Сообщение рабам")
 	if(! input)
 		revert_cast(user)
 		return
@@ -143,10 +143,10 @@
 	var/message = is_thrall ? "<span class='dantalion'>[input]</span>" : "<span class='dantalion'><font size='3'><b>[input]</b></font></span>"
 
 	for(var/mob/player in targets)
-		to_chat(player, "<i><span class='game say'>Рабская Коммуна, <span class='name'>[title]</span> телепатезирует, [message]</span><i>")
+		to_chat(player, "<i><span class='game say'>Рабская телепатия, <span class='name'>[title]</span> телепатезирует, [message]</span><i>")
 
 	for(var/mob/ghost in GLOB.dead_mob_list)
-		to_chat(ghost, "<i><span class='game say'>Рабская Коммуна, <span class='name'>[title]</span> ([ghost_follow_link(user, ghost)]) телепатезирует, [message]</span><i>")
+		to_chat(ghost, "<i><span class='game say'>Рабская телепатия, <span class='name'>[title]</span> ([ghost_follow_link(user, ghost)]) телепатезирует, [message]</span><i>")
 
 	log_say("(DANTALION) [input]", user)
 	user.create_log(SAY_LOG, "(DANTALION) [input]")

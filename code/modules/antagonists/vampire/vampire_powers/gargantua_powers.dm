@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/vampire/self/blood_swell
 	name = "Кровавый вал"
-	desc = "Вы наполняете свое тело кровью, что делает вас очень устойчивым к оглушению и физическому урону. Однако при этом вы не можете стрелять из оружия дальнего боя, пока действует заклинание."
-	gain_desc = "Вы получили способность временно сопротивляться большому количеству оглушений и физического урона."
+	desc = "Вы наполняете свое тело кровью, что делает вас очень устойчивым к оглушению и физическому урону, но не даёт использовать оружие дальнего боя."
+	gain_desc = "Вы получили способность временно повышать свою сопротивляемость урону и оглушению."
 	base_cooldown = 40 SECONDS
 	required_blood = 30
 	action_icon_state = "blood_swell"
@@ -15,12 +15,12 @@
 
 
 /datum/vampire_passive/blood_swell_upgrade
-	gain_desc = "Пока действует заклинание «Кровавый вал», все ваши атаки ближнего боя наносят повышенный урон."
+	gain_desc = "Пока действует «Кровавый вал», все ваши атаки в ближнем бою наносят повышенный урон."
 
 
 /obj/effect/proc_holder/spell/vampire/self/stomp
-	name = "Сейсмический топот"
-	desc = "Вы ударяете ногой в землю, посылая мощную ударную волну по корпусу станции, отчего люди разлетаются в разные стороны. Не может быть применен, если ваши ноги обезврежены болой или чем-то подобным."
+	name = "Ударная волна"
+	desc = "Вы бьёте ногой по земле, посылая мощную ударную волну, отчего гуманоиды разлетаются в разные стороны. Не может быть применен, если ваши ноги скованы или обездвижены."
 	gain_desc = "Вы получили способность отбрасывать людей назад, используя мощный топот."
 	action_icon_state = "seismic_stomp"
 	base_cooldown = 30 SECONDS
@@ -87,16 +87,16 @@
 
 
 /obj/effect/proc_holder/spell/vampire/self/overwhelming_force
-	name = "Подавляющая сила"
-	desc = "При переключении вы будете автоматически открывать двери, на которые наткнетесь, если у вас нет доступа. Также отражает все брошенные болы."
-	gain_desc = "Вы получили способность силой открывать двери и отклонять болы за небольшую кровавую плату."
+	name = "Неудержимая сила"
+	desc = "При активации вы будете выбивать все шлюзы, на которые наткнётесь, если у вас нет доступа, а также отражать все обездвиживающие предметы."
+	gain_desc = "Вы получили способность выбивать двери и отражать обездвиживающие предметы за небольшую кровавую плату."
 	base_cooldown = 2 SECONDS
 	action_icon_state = "OH_YEAAAAH"
 
 
 /obj/effect/proc_holder/spell/vampire/self/overwhelming_force/cast(list/targets, mob/user)
 	if(!HAS_TRAIT_FROM(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT))
-		to_chat(user, span_userdanger("Вы чувствуете себя МОГУЧИМИ!"))
+		to_chat(user, span_userdanger("ВЫ ЧУВСТВУЕТЕ СЕБЯ СИЛЬНЕЕ!"))
 		ADD_TRAIT(user, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
 		user.status_flags &= ~CANPUSH
 		user.move_resist = MOVE_FORCE_STRONG
@@ -109,7 +109,7 @@
 
 
 /obj/effect/proc_holder/spell/vampire/self/blood_rush
-	name = "Прилив крови"
+	name = "Кровавый драйв"
 	desc = "Напитайте себя магией крови, чтобы увеличить скорость передвижения."
 	gain_desc = "Вы получили способность временно перемещаться с большой скоростью."
 	base_cooldown = 30 SECONDS
@@ -127,12 +127,12 @@
 
 /obj/effect/proc_holder/spell/fireball/demonic_grasp
 	name = "Демоническая хватка"
-	desc = "Выстрелите рукой демонической энергии, захватывая и отбрасывая свою цель в зависимости от вашего намерения. «ОБЕЗОРУЖИТЬ» — толкнуть, «СХВАТИТЬ» — притянуть."
+	desc = "Выстрелите сгустком демонической энергии, захватывая или отбрасывая цель в зависимости от вашего намерения: «ОБЕЗОРУЖИТЬ» — оттолкнуть, «СХВАТИТЬ» — притянуть."
 	gain_desc = "Вы получили способность притягивать и отталкивать людей с помощью демонических отростков."
 	base_cooldown = 15 SECONDS
 	fireball_type = /obj/item/projectile/magic/demonic_grasp
 
-	selection_activated_message		= span_notice("Вы поднимаете руку, полную демонической энергии! <B>Щелкните левой кнопкой мыши, чтобы выстрелить в цель!</B>")
+	selection_activated_message		= span_notice("Вы поднимаете руку, полную демонической энергии!")
 	selection_deactivated_message	= span_notice("Вы возвращаете себе энергию... пока что.")
 
 	action_icon_state = "demonic_grasp"
@@ -161,6 +161,14 @@
 
 /obj/item/projectile/magic/demonic_grasp
 	name = "demonic grasp"
+	ru_names = list(
+            NOMINATIVE = "демоническая хватка",
+            GENITIVE = "демонической хватки",
+            DATIVE = "демонической хватке",
+            ACCUSATIVE = "демоническую хватку",
+            INSTRUMENTAL = "демонической хваткой",
+            PREPOSITIONAL = "демонической хватке"
+        )
 	// parry this you filthy casual
 	reflectability = REFLECTABILITY_NEVER
 	icon_state = null
@@ -211,8 +219,8 @@
 
 /obj/effect/proc_holder/spell/vampire/charge
 	name = "Рывок"
-	desc = "Вы бросаетесь в любую точку экрана, нанося большой урон, оглушая и разрушая стены и другие объекты."
-	gain_desc = "Теперь вы можете бросаться к цели на экране, нанося огромный урон и разрушая строения."
+	desc = "Вы резко бросаетесь в выбранное направление, нанося огромный урон, оглушая и разрушая стены и другие объекты."
+	gain_desc = "Теперь вы можете произвести рывок, нанося огромный урон и разрушая объекты."
 	required_blood = 30
 	base_cooldown = 30 SECONDS
 	action_icon_state = "vampire_charge"

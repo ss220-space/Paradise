@@ -48,6 +48,14 @@
 /obj/item/twohanded/required/vamp_claws
 	name = "vampiric claws"
 	desc = "Пара древних когтей из живой крови, они кажутся текучими и в то же время твердыми."
+	ru_names = list(
+    NOMINATIVE = "вампирические когти",
+    GENITIVE = "вампирических когтей",
+    DATIVE = "вампирическим когтям",
+    ACCUSATIVE = "вампирические когти",
+    INSTRUMENTAL = "вампирическими когтями",
+    PREPOSITIONAL = "вампирических когтях"
+	)
 	icon = 'icons/effects/vampire_effects.dmi'
 	icon_state = "vamp_claws"
 	w_class = WEIGHT_CLASS_BULKY
@@ -59,7 +67,7 @@
 	attack_speed = 0.4 SECONDS
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("резать", "колоть", "нарезать", "рвать", "вырывать", "нарезать кубиками", "срезать", "сдирать", "драть")
+	attack_verb = list("нарезал", "уколол", "нарезал", "порвал", "вырвал", "нарезал кубиками", "срезал", "содрал", "задрал")
 	sprite_sheets_inhand = list(SPECIES_VOX = 'icons/mob/clothing/species/vox/held.dmi', SPECIES_DRASK = 'icons/mob/clothing/species/drask/held.dmi')
 	var/durability = 15
 	var/blood_drain_amount = 15
@@ -116,7 +124,7 @@
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils
 	name = "Кровавые щупальца"
-	desc = "После задержки вы вызываете из Блюспейса кровавые щупальца, которые опутывают людей в зоне действия, замедляя их и нанося умеренный токсичный урон."
+	desc = "Используя силу блюспейса, после небольшой задержки вы призываете кровавые щупальца, которые опутывают цели в зоне действия, замедляя их и нанося умеренный токсичный урон."
 	gain_desc = "Вы получили способность вызывать кровавые щупальца, чтобы замедлять людей в выбранной вами области."
 	required_blood = 10
 
@@ -126,8 +134,8 @@
 	var/area_of_affect = 1
 	need_active_overlay = TRUE
 
-	selection_activated_message		= span_notice("Вы используете магию крови, чтобы ослабить завесу Блюспейса. <B>Щелкните левой кнопкой мыши, чтобы направить заклинание в цель!</B>")
-	selection_deactivated_message	= span_notice("Your magics subside.")
+	selection_activated_message		= span_notice("Вы используете магию крови, чтобы ослабить завесу блюспейса.")
+	selection_deactivated_message	= span_notice("Ваша магия ослабевает.")
 
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils/create_new_targeting()
@@ -153,7 +161,7 @@
 		if(L.affects_vampire(user))
 			L.Slowed(slowed_amount)
 			L.apply_damage(33, TOX)
-			L.visible_message(span_warning("[L] опутывается кровавыми щупальцами, которые ограничивают [genderize_ru(L.gender, "его", "её", "этого", "их")] движение!"))
+			L.visible_message(span_warning("[L] опутыва[pluralize_ru(L.gender, "ет", "ют")]ся кровавыми щупальцами, которые ограничивают [genderize_ru(L.gender, "его", "её", "этого", "их")] движение!"))
 			var/turf/target_turf = get_turf(L)
 			playsound(target_turf, 'sound/magic/tail_swing.ogg', 50, TRUE)
 			new /obj/effect/decal/cleanable/blood(target_turf)
@@ -172,7 +180,7 @@
 
 /obj/effect/proc_holder/spell/vampire/blood_barrier
 	name = "Кровавый барьер"
-	desc = "Выберите две точки в пределах 3 тайлов друг от друга и создайте между ними барьер. Вы можете наложить заклинание на себя, чтобы мгновенно создать барьер на вашей текущей позиции."
+	desc = "Выберите две точки в пределах трёх тайлов друг от друга и создайте между ними барьер. Вы можете наложить заклинание на себя, чтобы мгновенно создать барьер на вашей текущей позиции."
 	gain_desc = "Вы получили способность вызывать кристаллическую стену крови между двумя точками, барьер легко разрушается, однако вы можете свободно проходить сквозь него. Вы можете наложить на себя заклинание, чтобы мгновенно создать барьер на вашем текущем местоположении."
 	required_blood = 20
 	base_cooldown = 30 SECONDS
@@ -237,7 +245,7 @@
 
 	// Otherwise we will try to build a wall by two clicks
 	if(target_turf == start_turf)
-		to_chat(user, span_notice("Вы отменяете выбор намеченной территории."))
+		to_chat(user, span_notice("Вы убираете пометку с тайла."))
 		start_turf = null
 		should_recharge_after_cast = FALSE
 		return
@@ -265,6 +273,14 @@
 /obj/structure/blood_barrier
 	name = "blood barrier"
 	desc = "Гротескная структура из кристаллизованной крови. Она медленно тает..."
+	ru_names = list(
+    NOMINATIVE = "кровавый барьер",
+    GENITIVE = "кровавого барьера",
+    DATIVE = "кровавому барьеру",
+    ACCUSATIVE = "кровавый барьер",
+    INSTRUMENTAL = "кровавым барьером",
+    PREPOSITIONAL = "о кровавом барьере"
+	)
 	max_integrity = 100
 	icon_state = "blood_barrier"
 	icon = 'icons/effects/vampire_effects.dmi'
@@ -371,7 +387,7 @@
 		return
 
 	var/mob/living/carbon/human/target = targets_by_name[target_name]
-	var/message = "[target_name] находится в [get_area(target)], [dir2text(get_dir(user, target))] от вас."
+	var/message = "[target_name] наход[pluralize_ru(target_name.gender, "ит", "ят")]ся в локации [get_area(target)], [dir2rustext(get_dir(user, target))] от вас."
 	if(target.get_damage_amount() >= 40 || target.bleed_rate)
 		message += "<i> Цель ранена...</i>"
 	to_chat(user, span_cultlarge("[message]"))
@@ -385,7 +401,7 @@
 
 /obj/effect/proc_holder/spell/vampire/blood_eruption
 	name = "Извержение крови"
-	desc = "Каждая лужа крови в 4 плитках извергается шипом живой крови, нанося урон всем, кто стоит на ней."
+	desc = "Каждая лужа крови в 4 тайлах от вас извергается шипом живой крови, нанося урон всем, кто стоит на ней."
 	gain_desc = "Вы получили способность использовать лужи крови для нанесения урона тем, кто на них стоит."
 	required_blood = 50
 	base_cooldown = 1 MINUTES
@@ -416,7 +432,7 @@
 		playsound(L, 'sound/misc/demon_attack1.ogg', 50, TRUE)
 		L.apply_damage(50, BRUTE, BODY_ZONE_CHEST)
 		L.Stun(3 SECONDS)
-		L.visible_message(span_warning("<b>[L] пронзен шипом живой крови!</b>"))
+		L.visible_message(span_warning("<b>[L] пронзен[genderize_ru(L.gender, "", "а", "о", "ы")] шипом живой крови!</b>"))
 
 
 /obj/effect/temp_visual/blood_spike

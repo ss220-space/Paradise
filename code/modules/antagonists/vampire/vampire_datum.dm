@@ -60,8 +60,8 @@
 	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
 	messages.Add(span_danger("Вы — вампир!<br>"))
-	messages.Add("Чтобы укусить кого-то, нацельтесь в голову, выберите намерение вреда (4) и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы. \
-		Вы уязвимы перед святостью, огнем и звёздным светом. Не выходите в космос, избегайте священника, церкви и, особенно, святой воды.")
+	messages.Add("Чтобы укусить кого-то, нацельтесь на голову, выберите намерение <b>вреда (4)</b> и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы. \
+		Вы уязвимы перед святостью, огнём и звёздным светом. Не выходите в космос, избегайте священника, церкви и, особенно, святой воды.")
 	return messages
 
 
@@ -295,7 +295,7 @@
 				cur.adjustBrainLoss(-1)
 				for(var/obj/item/organ/external/bodypart as anything in cur.bodyparts)
 					if(bodypart.has_fracture() && prob(5))
-						to_chat(cur, span_notice("Вы чувствуете жжение в [bodypart.name], когда она непроизвольно выпрямляется!"))
+						to_chat(cur, span_notice("Вы чувствуете жжение, когда [bodypart.name] непроизвольно выпрямляется!"))
 						bodypart.mend_fracture()
 
 					if(bodypart.has_internal_bleeding() && prob(5))
