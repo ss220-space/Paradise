@@ -20,8 +20,7 @@
     return
 
 /datum/ritual/devil/imp/do_ritual(mob/living/carbon/human/invoker)
-	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за беса?", ROLE_DEMON, TRUE)
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за беса?", SPECIAL_ROLE_DEVIL_PAWN, TRUE)
 
 	if(!LAZYLEN(candidates))
 		return RITUAL_FAILED_ON_PROCEED 
@@ -32,9 +31,13 @@
 	imp.key = mob.key
 	imp.master_commander = invoker
 
+	improve_imp(imp, invoker)
+
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/devil/imp/proc/improve_imp(mob/living/simple_animal/imp/imp)
+/datum/ritual/devil/imp/proc/improve_imp(mob/living/simple_animal/imp/imp, mob/living/carbon/human/invoker)
+	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
+
 	imp.universal_speak = TRUE
 	imp.sentience_act()
 
