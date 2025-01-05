@@ -344,8 +344,10 @@
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
-/mob/proc/run_examinate(atom/A)
-	var/list/result = A.examine(src)
+/mob/proc/run_examinate(atom/target)
+	var/list/result = target.examine(src)
+	SEND_SIGNAL(src, COMSIG_MOB_RUN_EXAMINATE, target, result)
+
 	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 

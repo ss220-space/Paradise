@@ -2583,8 +2583,11 @@
  */
 /datum/mind/proc/remove_antag_datum(datum_type)
 	var/datum/antagonist/antag = has_antag_datum(datum_type)
-	if(antag)
-		qdel(antag)
+
+	if(!antag)
+		return
+
+	qdel(antag)
 
 
 /**

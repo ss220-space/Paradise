@@ -114,6 +114,17 @@
 	var/mob/living/user = ..()
 	user.faction = list(ROLE_NINJA)
 
+	user.AddComponent( \
+		/datum/component/pref_viewer, \
+		list(/datum/preference_info/take_out_of_the_round_without_obj), \
+	)
+
+/datum/antagonist/ninja/handle_last_instance_removal()
+	qdel(owner.current.GetComponent(/datum/component/pref_viewer))
+
+/datum/antagonist/ninja/on_body_transfer(mob/living/old_body, mob/living/new_body)
+	. = ..()
+	qdel(old_body.GetComponent(/datum/component/pref_viewer))
 
 /datum/antagonist/ninja/proc/change_species(mob/living/mob_to_change = null) // This should be used to fully to remove robo-limbs & change species for lack of sprites
 	human_ninja = ishuman(mob_to_change) ? mob_to_change : null
