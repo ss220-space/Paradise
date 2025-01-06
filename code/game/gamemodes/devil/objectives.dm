@@ -6,7 +6,7 @@
 	antag_menu_name = "Завладеть душами"
 	check_cryo = FALSE
 	target_amount = 12
-	explanation_text = "" 
+	explanation_text = ""
 
 /datum/objective/devil/sacrifice/proc/forge()
 	if(!get_targets())
@@ -84,6 +84,7 @@
 /datum/objective/devil/ascend
 	explanation_text = "Ascend to your true form."
 	needs_target = FALSE
+	antag_menu_name = "Возвысится"
 
 /datum/objective/devil/ascend/check_completion()
 	return isdevil(owner)

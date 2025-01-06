@@ -1,5 +1,6 @@
 /datum/antagonist/sintouched
 	name = "Sintouched"
+	antag_menu_name = "Грешник"
 	special_role = SPECIAL_ROLE_SINTOUCHED
 
 /datum/antagonist/sintouched/can_be_owned(datum/mind/new_owner)
@@ -8,7 +9,7 @@
 		return FALSE
 
 	var/datum/mind/tested = new_owner || owner
-    
+
 	if(!tested || !ishuman(tested.current))
 		return FALSE
 
@@ -20,7 +21,7 @@
 	for(var/datum/objective/sintouched/sin as anything in subtypesof(/datum/objective/sintouched))
 		if(!sin.explanation_text)
 			continue
-			
+
 		LAZYADD(sins, sin)
 
 	add_objective(pick(sins))
@@ -38,6 +39,6 @@
 
 	for(var/datum/objective/sintouched/sin_objective in owner.objectives)
 		sin_objective.init_sin(human)
-    
+
 /datum/antagonist/sintouched/on_body_transfer(mob/living/old_body, mob/living/new_body)
     return // No.
