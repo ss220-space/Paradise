@@ -60,6 +60,10 @@
 	return diag_hud_set_status() //we use a different hud
 
 /mob/living/silicon/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
+	if(speaker.adv_voice == adv_voice) //HeLLO Is I 
+		return speaker.name
+	if(adv_voice.I_do_remember(speaker))
+		return adv_voice.TryRecollectVoice(speaker)
 	return speaker.adv_voice.GetManifestKnowVoice()
 
 /mob/living/silicon/Destroy()

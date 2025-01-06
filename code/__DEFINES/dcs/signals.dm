@@ -74,6 +74,12 @@
 #define COMSIG_ATOM_NO_LONGER_PULLED "movable_no_longer_pulled"
 ///signal sent out by an atom when it is no longer pulling something : (atom/pulling)
 #define COMSIG_ATOM_NO_LONGER_PULLING "movable_no_longer_pulling"
+//signal for mass roundstart store voice (very english)
+#define COMSIG_SPECIAL_MASS_STORE_VOICE "store_voice"
+
+#define COMSIG_JUST_LIST_ADD_VOICE "list_add_voice"
+//signal for human store ebalo
+//#define COMSIG_STORE_FACE "store_face"
 
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"

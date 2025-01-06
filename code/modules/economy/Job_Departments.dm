@@ -1,6 +1,7 @@
 GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", "Science", "Security", "Cargo", "Support", "Civilian"))
 
 // The department the job belongs to.
+// fuck you cib
 /datum/job/var/department = null
 
 // Whether this is a head position

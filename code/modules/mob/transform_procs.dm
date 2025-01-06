@@ -32,6 +32,7 @@
 		client?.tgui_panel?.stop_music()
 
 	var/mob/living/silicon/ai/O = new (loc,,,1)//No MMI but safety is in effect.
+	O.adv_voice.RegSignals()
 	O.invisibility = 0
 	O.aiRestorePowerRoutine = 0
 
@@ -44,7 +45,7 @@
 	O.on_mob_init()
 
 	O.add_ai_verbs()
-
+	
 	O.rename_self(JOB_TITLE_AI,1)
 
 	O.tts_seed = tts_seed

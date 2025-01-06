@@ -87,6 +87,7 @@
  * Everyone should now be on the station and have their normal gear. This is the place to give the special roles extra things.
  */ 
 /datum/game_mode/proc/post_setup()
+	/*
 	//Cringe zone start
 	//Data format JOB = list(Voice_name = name)
 	var/list/communist_manifest = list()
@@ -123,15 +124,19 @@
 			else
 				target.adv_voice.famous_voices = (communist_manifest[dep_flag] + head_pigs) - target.GetVoice()
 	//Cringe zone stop
+	*/
+	
 	spawn(ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_logout_report()
 
+	
 	INVOKE_ASYNC(src, PROC_REF(set_mode_in_db)) // Async query, dont bother slowing roundstart
 
 	SScargo_quests.roll_start_quests()
 	generate_station_goals()
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
+	//SEND_GLOBAL_SIGNAL(COMSIG_SPECIAL_MASS_STORE_VOICE, GLOB.capitalist_manifest)
 	return TRUE
 
 /datum/game_mode/proc/set_mode_in_db()	// I wonder what this could do guessing by the name

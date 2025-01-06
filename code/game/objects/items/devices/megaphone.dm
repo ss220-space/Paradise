@@ -66,6 +66,7 @@
 			spamcheck = 0
 
 /obj/item/megaphone/proc/saymsg(mob/living/user, message)
+	user.UpdateVoice()
 	add_say_logs(user, message, language = "Megaphone")
 	var/message_tts = message
 	message = replace_characters(message, list("+"))

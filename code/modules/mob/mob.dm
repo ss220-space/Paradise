@@ -27,12 +27,8 @@
 /mob/Initialize(mapload)
 	GLOB.mob_list += src
 	voice_name = GetVoice()
-	
-	adv_voice = new /datum/voice_model()
-	adv_voice.real_voice_name = name
-	adv_voice.tts_seed_string = GetTTSVoice()
-	adv_voice.voice_gender = gender
-	adv_voice.voice_name = voice_name
+
+	adv_voice = new(src)
 
 	if(stat == DEAD)
 		GLOB.dead_mob_list += src

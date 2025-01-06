@@ -525,7 +525,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	check_eye(src)
 	return TRUE
 
-/mob/proc/rename_character(oldname, newname)
+/mob/proc/rename_character(oldname, newname, mass_update = FALSE)
 	if(!newname)
 		return 0
 	real_name = newname
@@ -577,9 +577,12 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			length = length_char(oldname)
 			pos = findtextEx_char(objective.explanation_text, oldname)
 			objective.explanation_text = copytext_char(objective.explanation_text, 1, pos)+newname+copytext_char(objective.explanation_text, pos+length)
+	UpdateVoice()
+	if(mass_update)
+		SEND_GLOBAL_SIGNAL(COMSIG_SPECIAL_MASS_STORE_VOICE, list("AbsolutePomny" = (list((adv_voice.voice_name) = name))))
 	return 1
 
-/mob/proc/rename_self(var/role, var/allow_numbers = FALSE, var/force = FALSE)
+/mob/proc/rename_self(var/role, var/allow_numbers = FALSE, var/force = FALSE, var/mass_update = FALSE)
 	spawn(0)
 		var/oldname = real_name
 
@@ -608,8 +611,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 		if(!newname)	//we'll stick with the oldname then
 			return
-
-		rename_character(oldname, newname)
+		rename_character(oldname, newname, mass_update)
 
 /proc/cultslur(n) // Inflicted on victims of a stun talisman
 	var/phrase = html_decode(n)
