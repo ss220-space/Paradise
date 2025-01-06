@@ -38,8 +38,7 @@
 			LAZYADD(security_minds, mind)
 
 		else
-			LAZYADD(other_minds, mind)0
-
+			LAZYADD(other_minds, mind)
 	var/command_target_count = ceil(target_amount / 12)
 	var/security_target_count = floor(target_amount / 4)
 	var/other_target_count = target_amount - command_target_count - security_target_count
