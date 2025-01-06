@@ -2,9 +2,9 @@
 
 /turf/simulated/mineral/sand
 	name = "rock"
-	icon = 'icons/turf/mining.dmi'
-	icon_state = "sand"
-	smooth_icon = 'icons/turf/smoothrocks_sand.dmi'
+	icon = 'icons/turf/smoothrocks_sand.dmi'
+	icon_state = "rock"
+	smooth = SMOOTH_CORNERS
 	baseturf = /turf/simulated/floor/plating/asteroid/sand
 	turf_type = /turf/simulated/floor/plating/asteroid/sand
 	mineralType = /obj/item/stack/ore/glass/sand

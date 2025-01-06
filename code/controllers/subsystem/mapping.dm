@@ -355,30 +355,6 @@ SUBSYSTEM_DEF(mapping)
 		to_chat(world, "<span class='userdanger'>ERROR: The path specified for the map to load is invalid. No station has been loaded!</span>")
 		return
 
-// Do not confuse with seedRuins()
-/datum/controller/subsystem/mapping/proc/handleRuins()
-	// load in extra levels of space ruins
-	log_startup_progress("Creating random space levels...")
-	var/num_extra_space = isnull(map_datum?.space_ruins_levels) ? SPACE_RUINS_NUMBER : map_datum.space_ruins_levels
-	if(num_extra_space)
-		var/load_zlevels_timer = start_watch()
-		for(var/i in 1 to num_extra_space)
-			GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
-		log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
-	else
-		log_startup_progress("No random space levels created, due to map configuration.")
-
-	// Now spawn ruins, random budget between 20 and 30 for all zlevels combined.
-	// While this may seem like a high number, the amount of ruin Z levels can be anywhere between 3 and 7.
-	// Note that this budget is not split evenly accross all zlevels
-	log_startup_progress("Seeding ruins...")
-	var/seed_ruins_timer = start_watch()
-	seedRuins(levels_by_trait(SPAWN_RUINS), rand(20, 30), /area/space, GLOB.space_ruins_templates)
-	log_startup_progress("Successfully seeded ruins in [stop_watch(seed_ruins_timer)]s.")
-
-
-/datum/controller/subsystem/mapping/proc/loadStation()
-
 	var/watch = start_watch()
 	log_startup_progress("Loading [map_datum.station_name]...")
 	var/map_z_level
