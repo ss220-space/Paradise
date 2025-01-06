@@ -134,6 +134,8 @@
 	item_state = "zippo"
 	icon_on = "zippoon"
 	icon_off = "zippo"
+	lefthand_file = 'icons/mob/inhands/zippo_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/zippo_righthand.dmi'
 
 
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
@@ -282,6 +284,14 @@
 	item_state = "deczippo"
 	icon_on = "zippo_dec_on"
 	icon_off = "zippo_dec"
+
+/obj/item/lighter/zippo/contractor
+	name = "contractor zippo lighter"
+	desc = "An unique black and gold zippo commonly carried by elite Syndicate agents."
+	icon_state = "contractorzippo"
+	item_state = "contractorzippo"
+	icon_on = "contractorzippoon"
+	icon_off = "contractorzippo"
 
 //Ninja-Zippo//
 /obj/item/lighter/zippo/ninja

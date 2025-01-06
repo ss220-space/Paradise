@@ -167,11 +167,11 @@
 	if(!head_organ)
 		return
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
-		var/optic_colour = input(H, "Select optic colour", H.m_colours["head"]) as color|null
+		var/optic_colour = tgui_input_color(H, "Select optic colour", H.m_colours["head"])
 		if(H.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 			to_chat(H, "<span class='warning'>Ваша попытка сменить отображаемый цвет была прервана.</span>")
 			return
-		if(optic_colour)
+		if(!isnull(optic_colour))
 			H.change_markings(optic_colour, "head")
 
 	else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.

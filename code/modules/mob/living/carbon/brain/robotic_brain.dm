@@ -265,7 +265,7 @@
 	brainmob.dna.species = new /datum/species/machine() // Else it will default to human. And we don't want to clone IRC humans now do we?
 	brainmob.dna.ResetSE()
 	brainmob.dna.ResetUI()
-	GLOB.dead_mob_list -= brainmob
+	brainmob.remove_from_dead_mob_list()
 	..()
 
 /obj/item/mmi/robotic_brain/attack_ghost(mob/dead/observer/O)

@@ -399,3 +399,16 @@ GLOBAL_PROTECT(log_end)
 	else
 		user.mob.create_log(OOC_LOG, text)
 		log_ooc(text, user)
+
+/proc/loc_name(atom/A)
+	if(!istype(A))
+		return "(INVALID LOCATION)"
+
+	var/turf/T = A
+	if(!istype(T))
+		T = get_turf(A)
+
+	if(istype(T))
+		return "([AREACOORD(T)])"
+	else if(A.loc)
+		return "(UNKNOWN (?, ?, ?))"

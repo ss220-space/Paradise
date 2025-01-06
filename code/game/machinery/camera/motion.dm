@@ -58,7 +58,7 @@
 
 
 /// Returns TRUE if the camera can see the target.
-/obj/machinery/camera/proc/can_see(atom/target, length = 7) // I stole this from global and modified it to work with Xray cameras.
+/obj/machinery/camera/can_see(atom/target, length = 7) // I stole this from global and modified it to work with Xray cameras.
 	if(!target || target.invisibility > SEE_INVISIBLE_LIVING || target.alpha == NINJA_ALPHA_INVISIBILITY)
 		return FALSE
 	var/turf/current_turf = get_turf(src)

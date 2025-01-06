@@ -106,6 +106,7 @@
 		investigate_log("[key_name_log(P.firer)] triggered a fueltank explosion with [P.name]", INVESTIGATE_BOMB)
 	..()
 
+
 /obj/structure/reagent_dispensers/fueltank/boom(rigtrigger = FALSE, log_attack = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
 	if(rigtrigger) // If the explosion is triggered by an assembly holder
 		add_attack_logs(lastrigger, src, "rigged fuel tank exploded", ATKLOG_FEW)
@@ -151,6 +152,11 @@
 
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weldingtool/sword))
+		if(I.tool_enabled)
+			boom(FALSE, TRUE)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(istype(I, /obj/item/assembly_holder))
 		add_fingerprint(user)
 		var/obj/item/assembly_holder/assembly = I

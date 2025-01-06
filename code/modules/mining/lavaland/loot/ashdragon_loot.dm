@@ -185,6 +185,8 @@
 	name = "staff of lava"
 	desc = "The power of fire and rocks in your hands!"
 	icon_state = "lavastaff"
+	lefthand_file = 'icons/mob/inhands/staff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/staff_righthand.dmi'
 	item_state = "lavastaff"
 	icon = 'icons/obj/weapons/magic.dmi'
 	slot_flags = ITEM_SLOT_BACK

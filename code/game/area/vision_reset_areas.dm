@@ -5,6 +5,7 @@
  */
 
 /area/vision_change_area
+	area_flags = NONE
 
 /area/vision_change_area/Entered(atom/movable/arrived, area/old_area)
 	. = ..()

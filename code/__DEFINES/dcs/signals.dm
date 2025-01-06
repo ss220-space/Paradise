@@ -139,6 +139,8 @@
 #define COMSIG_ATOM_BULLET_ACT "atom_bullet_act"
 ///from base of atom/blob_act(): (/obj/structure/blob)
 #define COMSIG_ATOM_BLOB_ACT "atom_blob_act"
+	/// if returned, forces nothing to happen when the atom is attacked by a blob
+	#define COMPONENT_CANCEL_BLOB_ACT (1<<0)
 ///from base of atom/acid_act(): (acidpwr, acid_volume)
 #define COMSIG_ATOM_ACID_ACT "atom_acid_act"
 ///from base of atom/emag_act(): (/mob/user)
@@ -387,6 +389,8 @@
 #define COMSIG_MOB_LOGIN "mob_login"
 ///from base of /mob/Logout(): ()
 #define COMSIG_MOB_LOGOUT "mob_logout"
+///from base of /mob/mind_initialize
+#define COMSIG_MOB_MIND_INITIALIZED "mob_mind_inited"
 ///from base of mob/death(): (gibbed)
 #define COMSIG_MOB_DEATH "mob_death"
 ///from base of mob/ghostize(): (mob/dead/observer/ghost)
@@ -452,8 +456,10 @@
 #define COMSIG_MOB_THROW "mob_throw"
 ///called when a user is getting new weapon and we want to remove previous weapon to clear hands
 #define COMSIG_MOB_WEAPON_APPEARS "mob_weapon_appears"
-///from base of /mob/verb/examinate(): (atom/target)
-#define COMSIG_MOB_EXAMINATE "mob_examinate"
+/// from base of /mob/verb/examinate(): (atom/target)
+#define COMSIG_MOB_VERB_EXAMINATE "mob_examinate"
+/// from base of /mob/proc/run_examinate(): (atom/target, list/result)
+#define COMSIG_MOB_RUN_EXAMINATE "mob_run_examinate"
 ///from base of /mob/update_sight(): ()
 #define COMSIG_MOB_UPDATE_SIGHT "mob_update_sight"
 ////from /mob/living/say(): ()
@@ -469,6 +475,9 @@
 	#define SPEECH_FORCED 7 */
 ////from mob/living/adjust_fire_stacks()
 #define COMSIG_MOB_ADJUST_FIRE "mob_adjust_fire"
+
+////from mob/living/adjust_wet_stacks()
+#define COMSIG_MOB_ADJUST_WET "mob_adjust_wet"
 
 ///from base of /mob/living/toggle_move_intent(): (old_move_intent)
 #define COMSIG_MOB_MOVE_INTENT_TOGGLE "mob_move_intent_toggle"
@@ -508,6 +517,9 @@
 /// Performed after the hands are swapped.
 #define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"
 
+/// from mob/get_status_tab_items(): (list/items)
+#define COMSIG_MOB_GET_STATUS_TAB_ITEMS "mob_get_status_tab_items"
+
 ///From base of mob/update_movespeed():area
 #define COMSIG_MOB_MOVESPEED_UPDATED "mob_update_movespeed"
 
@@ -520,6 +532,8 @@
 #define COMSIG_CLIENT_SET_EYE "client_set_eye"
 // from /client/proc/change_view() : (new_size)
 #define COMSIG_VIEW_SET "view_set"
+/// from /mob/proc/change_mob_type() : ()
+#define COMSIG_MOB_CHANGED_TYPE "mob_changed_type"
 
 // /mob/living signals
 
@@ -527,6 +541,8 @@
 #define COMSIG_LIVING_RESIST "living_resist"
 ///from base of mob/living/IgniteMob() (/mob/living)
 #define COMSIG_LIVING_IGNITED "living_ignite"
+///from base of mob/living/WetMob() (/mob/living)
+#define COMSIG_LIVING_WET "living_weted"
 ///from base of mob/living/ExtinguishMob() (/mob/living)
 #define COMSIG_LIVING_EXTINGUISHED "living_extinguished"
 ///from base of mob/living/electrocute_act(): (shock_damage, source, siemens_coeff, flags)
@@ -559,6 +575,8 @@
 #define COMSIG_BORG_SAFE_DECONSTRUCT "borg_safe_decon"
 ///sent from living mobs every tick of fire
 #define COMSIG_LIVING_FIRE_TICK "living_fire_tick"
+///sent from living mobs every tick of wet
+#define COMSIG_LIVING_WET_TICK "living_wet_tick"
 //sent from living mobs when they are ahealed
 #define COMSIG_LIVING_AHEAL "living_aheal"
 ///From living/Life(). (deltatime, times_fired)
@@ -579,6 +597,14 @@
 #define COMSIG_LIVING_RESTING "living_resting"
 ///from base of mob/update_transform()
 #define COMSIG_LIVING_POST_UPDATE_TRANSFORM "living_post_update_transform"
+/// Source: /mob/living/proc/apply_status_effect(datum/status_effect/new_instance)
+#define COMSIG_LIVING_GAINED_STATUS_EFFECT "living_gained_status_effect"
+/// Source: /mob/living/proc/remove_status_effect(datum/status_effect/existing_effect)
+#define COMSIG_LIVING_EARLY_LOST_STATUS_EFFECT "living_early_lost_status_effect" // Called before qdel
+/// From mob/living/try_speak(): (message)
+#define COMSIG_MOB_TRY_SPEECH "living_vocal_speech"
+	/// Return if the mob cannot speak.
+	#define COMPONENT_CANNOT_SPEAK (1<<0)
 
 ///called on /living when someone starts pulling (atom/movable/pulled, state, force)
 #define COMSIG_LIVING_START_PULL "living_start_pull"
@@ -593,6 +619,8 @@
 /// Called from /mob/living/PushAM -- Called when this mob is about to push a movable, but before it moves
 /// (aotm/movable/being_pushed)
 #define COMSIG_LIVING_PUSHING_MOVABLE "living_pushing_movable"
+///from base of /mob/living/examine(): (mob/user, list/.)
+#define COMSIG_LIVING_EXAMINE "living_examine"
 
 ///from base of mob/living/Stun() (amount, ignore_canstun)
 #define COMSIG_LIVING_STATUS_STUN "living_stun"
@@ -633,6 +661,10 @@
 /// From /mob/remove_language() (language_name)
 #define COMSIG_MOB_LANGUAGE_REMOVE	"mob_language_remove"
 
+/// Source: /mob/living/say (message, verb, ignore_speech_problems, ignore_atmospherics, ignore_languages, datum/multilingual_say_piece)
+#define COMSIG_LIVING_EARLY_SAY "living_early_say"
+	#define COMPONENT_PREVENT_SPEAKING	(1<<0)
+
 /// From base of /client/Move(): (new_loc, direction)
 #define COMSIG_MOB_CLIENT_PRE_MOVE "mob_client_pre_move"
 	/// Should always match COMPONENT_MOVABLE_BLOCK_PRE_MOVE as these are interchangeable and used to block movement.
@@ -651,6 +683,9 @@
 
 /// from base of /client/proc/handle_popup_close() : (window_id)
 #define COMSIG_POPUP_CLEARED "popup_cleared"
+
+/// Source: /mob/living/UnarmedAttack (atom/atom, proximity_flag)
+#define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
 
 // /mob/living/carbon signals
 
@@ -688,7 +723,10 @@
 #define COMSIG_CARBON_APPLY_OVERLAY "carbon_apply_overlay"
 ///Called from remove_overlay(cache_index, overlay)
 #define COMSIG_CARBON_REMOVE_OVERLAY "carbon_remove_overlay"
-
+#define COMSIG_CARBON_UPDATING_HEALTH_HUD "carbon_health_hud_update"
+#define COMSIG_HUMAN_UPDATING_HEALTH_HUD "human_health_hud_update"
+	/// Return if you override the carbon's or human's health hud with something else
+	#define COMPONENT_OVERRIDE_HEALTH_HUD (1<<0)
 // /mob/living/simple_animal signals
 ///from /mob/living/attack_animal():	(mob/living/simple_animal/M)
 #define COMSIG_SIMPLE_ANIMAL_ATTACKEDBY "simple_animal_attackedby"
@@ -697,6 +735,9 @@
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
 	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0)
+
+///after attackingtarget has happened, source is the attacker and target is the attacked, extra argument for if the attackingtarget was successful
+#define COMSIG_HOSTILE_POST_ATTACKINGTARGET "hostile_post_attackingtarget"
 
 /// Called when a /mob/living/simple_animal/hostile fines a new target: (atom/source, give_target)
 #define COMSIG_HOSTILE_FOUND_TARGET "comsig_hostile_found_target"
@@ -920,7 +961,8 @@
 #define COMSIG_HUMAN_REGENERATE_ICONS "human_regenerate_icons"
 ///From /mob/living/carbon/human/proc/set_species(): (datum/species/old_species)
 #define COMSIG_HUMAN_SPECIES_CHANGED "human_species_changed"
-
+/// Source: /mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
+#define COMSIG_HUMAN_EARLY_HANDLE_ENVIRONMENT "human_early_handle_environment"
 
 ///from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
 #define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"
@@ -1143,6 +1185,9 @@
 ///from base of [/datum/element/light_eater/proc/devour]: (atom/eaten_light)
 #define COMSIG_LIGHT_EATER_DEVOUR "light_eater_devour"
 
+/// datum/element/reagent_attack
+/// Source: /datum/element/reagent_attack/proc/inject (datum/element/reagent_attack, mob/living/carbon/target, reagent_id, reagent_amount, target_zone)
+#define COMSIG_REAGENT_INJECTED "reagent_inject"
 
 // /datum/element/movetype_handler signals
 /// Called when the floating anim has to be temporarily stopped and restarted later: (timer)
@@ -1210,6 +1255,11 @@
 /// Source: /mob/living/simple_animal/borer, listening in datum/antagonist/borer
 #define	COMSIG_BORER_ENTERED_HOST "borer_on_enter" // when borer entered host
 #define COMSIG_BORER_LEFT_HOST "borer_on_leave" // when borer left host
+
+///from /datum/spawners_menu/ui_act(): (mob/user)
+#define COMSIG_IS_GHOST_CONTROLABLE "is_ghost_controllable"
+	/// Return this to signal that the mob can be controlled by ghosts
+	#define COMPONENT_GHOST_CONTROLABLE (1<<0)
 
 /// Source: /proc/random_hair_style (mob/living/carbon/human/human, valid_hairstyles, robohead)
 #define COMSIG_RANDOM_HAIR_STYLE	"random_hair_style"

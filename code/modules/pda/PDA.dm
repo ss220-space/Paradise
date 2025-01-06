@@ -12,6 +12,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
+	lefthand_file = 'icons/mob/inhands/pda_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/pda_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = DENY_UI_BLOCKED
 	slot_flags = ITEM_SLOT_ID|ITEM_SLOT_PDA|ITEM_SLOT_BELT

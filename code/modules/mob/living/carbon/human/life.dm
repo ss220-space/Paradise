@@ -291,6 +291,8 @@
 	if(!environment)
 		return
 
+	SEND_SIGNAL(src, COMSIG_HUMAN_EARLY_HANDLE_ENVIRONMENT, environment)
+	
 	var/loc_temp = get_temperature(environment)
 //	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_main_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]")
 
@@ -788,7 +790,8 @@
 	if(dna.species.update_health_hud())
 		return
 	else
-
+		if(SEND_SIGNAL(src, COMSIG_HUMAN_UPDATING_HEALTH_HUD, health) & COMPONENT_OVERRIDE_HEALTH_HUD)
+			return
 		var/shock_reduction = 0
 		if(HAS_TRAIT(src, TRAIT_NO_PAIN_HUD))
 			shock_reduction = INFINITY

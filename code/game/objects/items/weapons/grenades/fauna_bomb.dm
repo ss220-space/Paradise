@@ -23,6 +23,7 @@
 	return ..(user, FALSE)
 
 /obj/item/grenade/fauna_bomb/prime()
+	. = ..()
 	active = FALSE
 	playsound(get_turf(src), 'sound/items/rawr.ogg', 100, TRUE)
 	var/faction = activator.name + "_fauna_bomb"

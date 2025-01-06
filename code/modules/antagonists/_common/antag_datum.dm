@@ -53,20 +53,32 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/Destroy(force)
 	for(var/datum/objective/objective as anything in objectives)
 		objectives -= objective
+
 		if(!objective.team)
 			qdel(objective)
+
 	remove_owner_from_gamemode()
 	GLOB.antagonists -= src
+
 	if(!silent)
 		farewell()
+
 	remove_innate_effects()
+
 	antag_memory = null
+
 	var/datum/team/team = get_team()
 	team?.remove_member(owner)
+
 	if(owner)
 		LAZYREMOVE(owner.antag_datums, src)
+
+		if(!LAZYLEN(owner.antag_datums)) // that one was the last antag datum.
+			handle_last_instance_removal()
+
 	restore_last_hud_and_role()
 	owner = null
+
 	return ..()
 
 
@@ -92,7 +104,14 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/is_banned(mob/user)
 	if(!user)
 		return FALSE
+
 	return (jobban_isbanned(user, ROLE_SYNDICATE) || (job_rank && jobban_isbanned(user, job_rank)))
+
+/**
+ * When our datum was last and became removed. 
+ */
+/datum/antagonist/proc/handle_last_instance_removal()
+	return
 
 
 /**

@@ -18,6 +18,7 @@
 #define span_alien(str) ("<span class='alien'>" + str + "</span>")
 #define span_announce(str) ("<span class='announce'>" + str + "</span>")
 #define span_big(str) ("<span class='big'>" + str + "</span>")
+#define span_blob(str) ("<span class='blob'>" + str + "</span>")
 //#define span_bigicon(str) ("<span class='bigicon'>" + str + "</span>")
 //#define span_binarysay(str) ("<span class='binarysay'>" + str + "</span>")
 //#define span_blue(str) ("<span class='blue'>" + str + "</span>")

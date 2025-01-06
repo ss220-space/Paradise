@@ -205,6 +205,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 			return FALSE
+			
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_TRY_SPEECH, message)
+	if(sigreturn & COMPONENT_CANNOT_SPEAK)
+		return FALSE
 
 	if(sanitize)
 		message = trim_strip_html_properly(message, 512)
@@ -233,6 +237,17 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		CRASH("Message failed to generate pieces. [message] - [json_encode(message_pieces)]")
 
 	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
+
+	if(SEND_SIGNAL( \
+        src, \
+        COMSIG_LIVING_EARLY_SAY, \
+        message, \
+        verb, \
+        ignore_speech_problems, \
+        ignore_atmospherics, \
+        ignore_languages, \
+        first_piece) & COMPONENT_PREVENT_SPEAKING)
+		return FALSE
 
 	if(first_piece.speaking?.flags & HIVEMIND)
 		first_piece.speaking.broadcast(src, first_piece.message)

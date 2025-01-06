@@ -60,7 +60,8 @@
 		/obj/item/radio,
 		/obj/item/robotanalyzer,
 		/obj/item/clothing/gloves,
-		/obj/item/rcd)
+		/obj/item/rcd,
+		/obj/item/rpd)
 
 /obj/item/storage/belt/utility/full/populate_contents()
 	new /obj/item/screwdriver(src)

@@ -349,12 +349,12 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/borer/UnarmedAttack(mob/living/carbon/human/M)
-	if(!can_unarmed_attack())
+/mob/living/simple_animal/borer/OnUnarmedAttack(mob/living/carbon/human/human)
+	if(!istype(human))
 		return
-	if(istype(M))
-		to_chat(src, span_notice("Вы анализируете жизненные показатели [M]."))
-		healthscan(src, M, 1, TRUE)
+
+	to_chat(src, span_notice("Вы анализируете жизненные показатели [human]."))
+	healthscan(src, human, 1, TRUE)
 
 /mob/living/simple_animal/borer/proc/secrete_chemicals()
 	if(!host)

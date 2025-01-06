@@ -11,6 +11,7 @@
 	var/embedded_type = /obj/item/embedded/shrapnel
 
 /obj/item/grenade/frag/prime()
+	. = ..()
 	update_mob()
 	var/turf/epicenter = get_turf(src)
 	for(var/mob/living/carbon/human/H in epicenter)
