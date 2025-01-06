@@ -1,6 +1,6 @@
 /datum/game_mode
 	/// List of of blobs, their offsprings and blobburnouts spawned by them
-	var/list/blobs = list("infected"=list(), "offsprings"=list(), "blobernauts"=list())
+	var/list/blobs = list("infected"=list(), "offsprings"=list(), "minions"=list())
 	/// Count of blob tiles to blob win
 	var/blob_win_count = BLOB_BASE_TARGET_POINT
 	/// Number of resource produced by the core
@@ -15,6 +15,10 @@
 	var/off_auto_gamma = FALSE
 	/// Disables automatic nuke codes
 	var/off_auto_nuke_codes = FALSE
+	/// Is all blobs have infinity points
+	var/is_blob_infinity_points = FALSE
+	/// Is all blobs have infinity points
+	var/list/legit_blobs = list()
 	/// Total blobs objective
 	var/datum/objective/blob_critical_mass/blob_objective
 
@@ -110,7 +114,7 @@
 
 /datum/game_mode/proc/update_blob_objective()
 	if(blob_objective && !blob_objective.completed)
-		blob_objective.critical_mass = GLOB.blobs.len
+		blob_objective.critical_mass = legit_blobs.len
 		blob_objective.needed_critical_mass = blob_win_count
 		blob_objective.set_target()
 
@@ -126,7 +130,7 @@
 		blob_list.Add(value)
 	for(var/value in blobs["offsprings"])
 		blob_list.Add(value)
-	for(var/value in blobs["blobernauts"])
+	for(var/value in blobs["minions"])
 		blob_list.Add(value)
 	return blob_list
 
@@ -196,35 +200,37 @@
 		return
 	if(blob_stage == BLOB_STAGE_NONE)
 		blob_stage = BLOB_STAGE_ZERO
-	if(blob_stage == BLOB_STAGE_ZERO && GLOB.blobs.len >= min(FIRST_STAGE_COEF * blob_win_count, FIRST_STAGE_THRESHOLD))
+	if(blob_stage == BLOB_STAGE_ZERO && legit_blobs.len >= min(FIRST_STAGE_COEF * blob_win_count, FIRST_STAGE_THRESHOLD))
 		blob_stage = BLOB_STAGE_FIRST
 		send_intercept(BLOB_FIRST_REPORT)
 		SSshuttle?.emergency?.cancel()
 		SSshuttle?.lockdown_escape()
 
-	if(blob_stage == BLOB_STAGE_FIRST && GLOB.blobs.len >= min(SECOND_STAGE_COEF * blob_win_count, SECOND_STAGE_THRESHOLD))
+	if(blob_stage == BLOB_STAGE_FIRST && legit_blobs.len >= min(SECOND_STAGE_COEF * blob_win_count, SECOND_STAGE_THRESHOLD))
 		blob_stage = BLOB_STAGE_SECOND
 		GLOB.event_announcement.Announce("Подтверждена вспышка биологической угрозы пятого уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.",
-										 "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/AI/outbreak5.ogg')
+										"ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/AI/outbreak5.ogg')
 		if(!off_auto_gamma)
 			addtimer(CALLBACK(GLOBAL_PROC, /proc/set_security_level, SEC_LEVEL_GAMMA), TIME_TO_SWITCH_CODE)
 
-	if(blob_stage == BLOB_STAGE_SECOND && GLOB.blobs.len >= THIRD_STAGE_COEF * blob_win_count)
+	if(blob_stage == BLOB_STAGE_SECOND && legit_blobs.len >= THIRD_STAGE_COEF * blob_win_count && (blob_win_count - legit_blobs.len) <= THIRD_STAGE_DELTA_THRESHOLD)
 		blob_stage = BLOB_STAGE_THIRD
 		send_intercept(BLOB_SECOND_REPORT)
 
-	if(GLOB.blobs.len >= blob_win_count && blob_stage < BLOB_STAGE_STORM)
+	if(legit_blobs.len >= blob_win_count && blob_stage < BLOB_STAGE_STORM)
 		if(SSweather)
 			blob_stage = BLOB_STAGE_STORM
 			SSweather.run_weather(/datum/weather/blob_storm)
+		show_warning("Вы набрали критическую массу и ощущаете практически бесконечный приток ресурсов.")
+		is_blob_infinity_points = TRUE
 
 	addtimer(CALLBACK(src, PROC_REF(process_blob_stages)), STAGES_CALLBACK_TIME)
 
 
 /datum/game_mode/proc/show_warning(message)
-	for(var/datum/mind/blob in blobs["infected"])
+	for(var/datum/mind/blob in (blobs["infected"] + blobs["offsprings"]))
 		if(blob.current.stat != DEAD)
-			to_chat(blob.current, "<span class='warning'>[message]</span>")
+			to_chat(blob.current, span_warning("[message]"))
 
 
 /datum/game_mode/proc/burst_blobs()

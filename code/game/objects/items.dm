@@ -108,7 +108,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/list/allowed = null //suit storage stuff.
 	var/obj/item/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
 
-	var/needs_permit = 0			//Used by security bots to determine if this item is safe for public use.
+	var/needs_permit = FALSE //Used by security bots to determine if this item is safe for public use.
 
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
@@ -202,28 +202,32 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	///Datum used in item pixel shift TGUI
 	var/datum/ui_module/item_pixel_shift/item_pixel_shift
 
-/obj/item/New()
-	..()
+
+/obj/item/Initialize(mapload)
+	. = ..()
+
+	if(isstorage(loc)) //marks all items in storage as being such
+		item_flags |= IN_STORAGE
+
+	if(!hitsound)
+		if(damtype == "fire")
+			hitsound = 'sound/items/welder.ogg'
+
+		if(damtype == "brute")
+			hitsound = "swing_hit"
+
 	for(var/path in actions_types)
 		if(action_icon && action_icon_state)
 			new path(src, action_icon[path], action_icon_state[path])
+
 		else
 			new path(src)
 
 	if(!move_resist)
 		determine_move_resist()
 
-
-/obj/item/Initialize(mapload)
-	. = ..()
-	if(isstorage(loc)) //marks all items in storage as being such
-		item_flags |= IN_STORAGE
-	if(!hitsound)
-		if(damtype == "fire")
-			hitsound = 'sound/items/welder.ogg'
-		if(damtype == "brute")
-			hitsound = "swing_hit"
 	add_eatable_component()
+
 
 /obj/item/proc/add_eatable_component()
 	AddComponent(/datum/component/eatable)
@@ -269,10 +273,16 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	else
 		return TRUE
 
+		
 /obj/item/blob_act(obj/structure/blob/B)
-	if(B && B.loc == loc && !QDELETED(src))
-		qdel(src)
+	if(B && B.loc == loc && !QDELETED(src) && !(obj_flags & IGNORE_BLOB_ACT))
+		obj_destruction(MELEE)
 
+/obj/item/blob_vore_act(obj/structure/blob/special/core/voring_core)
+	. = ..()
+	if(QDELETED(src))
+		return FALSE
+	forceMove(voring_core)
 
 /obj/item/examine(mob/user)
 	var/size

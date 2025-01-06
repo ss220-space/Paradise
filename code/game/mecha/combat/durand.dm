@@ -47,6 +47,8 @@
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand/old
 
+	mech_type = MECH_TYPE_OLD_DURAND
+
 /obj/mecha/combat/durand/rover
 	desc = "Combat exosuit, developed by syndicate from the Durand Mk. II by scraping unnecessary things, and adding some of their tech. Much more protected from any Nanotrasen hazards."
 	name = "Rover"

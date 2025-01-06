@@ -3,6 +3,8 @@
 	desc = "Danger. Very robust."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "red"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "toolbox_red"
 	flags = CONDUCT
 	force = 10.0

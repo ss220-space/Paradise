@@ -105,15 +105,16 @@
 	light_on = FALSE
 
 
-/obj/item/organ/external/New(mob/living/carbon/holder, special = ORGAN_MANIPULATION_NOEFFECT)
-	..()
+/obj/item/organ/external/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
 
 	if(dna?.species)
 		icobase = dna.species.icobase
 		deform = dna.species.deform
-	if(ishuman(holder))
-		replaced(holder, special)
-		sync_colour_to_human(holder)
+
+	if(ishuman(loc))
+		replaced(loc, special)
+		sync_colour_to_human(loc)
 		properly_attached = TRUE
 
 	if(is_robotic())
@@ -181,8 +182,10 @@
 		return
 
 	var/obj/item/organ/external/replaced = owner.bodyparts_by_name[limb_zone]
+
 	if(!isnull(replaced))
 		replaced.remove(target, ORGAN_MANIPULATION_NOEFFECT)
+
 	owner.bodyparts_by_name[limb_zone] = src
 	owner.bodyparts |= src
 
@@ -437,6 +440,9 @@
 
 	return update_state()
 
+
+/obj/item/organ/external/blob_act()
+	external_receive_damage(max_damage, forced = TRUE)
 
 /obj/item/organ/external/emp_act(severity)
 	if(!is_robotic() || emp_proof)

@@ -226,3 +226,7 @@
 		sleep(1 SECONDS)
 	update_icon()
 
+
+/obj/item/transfer_valve/blob_vore_act(obj/structure/blob/special/core/voring_core)
+	obj_destruction(MELEE)
+

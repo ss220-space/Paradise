@@ -2,6 +2,8 @@
 	name = "pipe painter"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pipe_painter"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "pipe_painter"
 	usesound = 'sound/effects/spray2.ogg'
 	var/list/modes

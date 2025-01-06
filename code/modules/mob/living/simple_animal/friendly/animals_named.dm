@@ -55,13 +55,17 @@
 /mob/living/simple_animal/pet/cat/white/Penny
 	name = "Копейка"
 	desc = "Любит таскать монетки и мелкие предметы. Успевайте прятать их!"
+	icon_state = "penny"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	resting = TRUE
+	gender = FEMALE
+	tts_seed = "Widowmaker"
 
 /mob/living/simple_animal/pet/cat/birman/Crusher
 	name = "Бедокур"	//Не цель для воров
 	desc = "Любит крушить всё что не прикручено. Нужно вовремя прибираться."
+	icon_state = "crusher"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	resting = TRUE

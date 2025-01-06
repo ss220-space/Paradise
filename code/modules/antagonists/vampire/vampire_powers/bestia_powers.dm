@@ -1582,7 +1582,7 @@
 
 	// blood
 	if(!HAS_TRAIT(human_vampire, TRAIT_NO_BLOOD_RESTORE))
-		human_vampire.blood_volume = clamp(human_vampire.blood_volume + heal_blood, 0, BLOOD_VOLUME_NORMAL)
+		human_vampire.setBlood(clamp(human_vampire.blood_volume + heal_blood, 0, BLOOD_VOLUME_NORMAL))
 
 	// internal organs
 	for(var/obj/item/organ/internal/organ as anything in human_vampire.internal_organs)
@@ -2076,7 +2076,7 @@
 	if(t_livers && human_vampire && l_target.mind && l_target.ckey)
 		var/blood_amt = round(t_livers / 2)
 		vampire.adjust_blood(l_target, blood_amt)	// +5 vampire blood max
-		l_target.blood_volume = max(l_target.blood_volume - blood_amt, 0)	// -5 blood MAX
+		l_target.AdjustBlood(-blood_amt)	// -5 blood MAX
 		human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 5))
 
 
@@ -2249,7 +2249,7 @@
 	if(t_livers && human_vampire && l_target.mind && l_target.ckey)
 		var/blood_amt = round(t_livers / 2)
 		vampire.adjust_blood(l_target, blood_amt)	// +5 vampire blood max
-		l_target.blood_volume = max(l_target.blood_volume - blood_amt, 0)	// -5 blood MAX
+		l_target.AdjustBlood(-blood_amt)	// -5 blood MAX
 		human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 5))
 
 

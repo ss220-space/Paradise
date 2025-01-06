@@ -434,8 +434,8 @@
 	blackbox_message = "Set Own OOC"
 
 /datum/preference_toggle/special_toggle/set_ooc_color/set_toggles(client/user)
-	var/new_ooccolor = input(usr, "Please select your OOC color.", "OOC color", user.prefs.ooccolor) as color|null
-	if(new_ooccolor)
+	var/new_ooccolor = tgui_input_color(usr, "Please select your OOC color.", "OOC color", user.prefs.ooccolor)
+	if(!isnull(new_ooccolor))
 		user.prefs.ooccolor = new_ooccolor
 		to_chat(usr, "Your OOC color has been set to [new_ooccolor].")
 	else
@@ -533,7 +533,7 @@
 
 	for(var/group_key as anything in my_hud.master_groups)
 		var/datum/plane_master_group/group = my_hud.master_groups[group_key]
-		group.transform_lower_turfs(my_hud, my_hud.current_plane_offset)
+		group.build_planes_offset(my_hud, my_hud.current_plane_offset)
 
 /datum/preference_toggle/toggle_vote_popup
 	name = "Toggle Vote Popup"

@@ -21,7 +21,7 @@
 		body_accessory = random_body_accessory(species, S.optional_body_accessory)
 	if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 		s_tone = random_skin_tone(species)
-	h_style = random_hair_style(gender, species, robohead)
+	h_style = random_hair_style(gender, S, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)
 	if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 		randomize_hair_color("hair")
@@ -211,14 +211,12 @@
 	if(Y)\
 		I.Shift(NORTH, Y);\
 
-/datum/preferences/proc/update_preview_icon(var/for_observer=0)		//seriously. This is horrendous.
+/datum/preferences/proc/update_preview_icon(for_observer = FALSE)	// seriously. This is horrendous.
 	qdel(preview_icon_front)
 	qdel(preview_icon_side)
 	qdel(preview_icon)
 
-	var/g = "m"
-	if(gender == FEMALE)	g = "f"
-
+	var/gender_suffix = gender == FEMALE ? "f" : "m"
 	var/icon/icobase
 	var/datum/species/current_species = GLOB.all_species[species]
 
@@ -228,6 +226,9 @@
 		if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
 			var/mob/living/carbon/human/H = new
 
+			if(!H.dna)
+				H.dna = new
+				
 			H.dna.species = current_species
 			H.s_tone = s_tone
 			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
@@ -243,14 +244,14 @@
 	else
 		icobase = 'icons/mob/human_races/r_human.dmi'
 
-	preview_icon = new /icon(icobase, "torso_[g]")
-	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
+	preview_icon = new /icon(icobase, "torso_[gender_suffix]")
+	preview_icon.Blend(new /icon(icobase, "groin_[gender_suffix]"), ICON_OVERLAY)
 	var/head = "head"
 	if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
 		var/datum/sprite_accessory/alt_heads/H = GLOB.alt_heads_list[alt_head]
 		if(H.icon_state)
 			head = H.icon_state
-	preview_icon.Blend(new /icon(icobase, "[head]_[g]"), ICON_OVERLAY)
+	preview_icon.Blend(new /icon(icobase, "[head]_[gender_suffix]"), ICON_OVERLAY)
 	var/list/check_list = list(
 		BODY_ZONE_CHEST,
 		BODY_ZONE_PRECISE_GROIN,

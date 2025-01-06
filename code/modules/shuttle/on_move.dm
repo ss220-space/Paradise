@@ -1,25 +1,30 @@
 // Shuttle on-movement //
-/atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation, mob/requester)
 	if(light && light_system == STATIC_LIGHT)
 		update_light()
+
 	if(rotation)
 		shuttleRotate(rotation)
+
 	forceMove(T1)
 	SSdemo.mark_dirty(src)
-	return 1
+
+	return TRUE
 
 /obj/effect/landmark/shuttle_import/onShuttleMove()
     // Used for marking where to preview/load shuttles
-    return 0
+    return FALSE
 
 /obj/docking_port/onShuttleMove()
     // Stationary ports shouldn't move, mobile ones move themselves
-    return 0
+    return FALSE
 
 /obj/machinery/door/airlock/onShuttleMove()
 	. = ..()
+
 	if(!.)
 		return
+
 	INVOKE_ASYNC(src, PROC_REF(close), 0, 1)
 	// Close any nearby airlocks as well
 	for(var/obj/machinery/door/airlock/D in orange(1, src))

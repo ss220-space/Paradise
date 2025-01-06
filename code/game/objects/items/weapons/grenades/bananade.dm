@@ -13,6 +13,7 @@
 
 
 /obj/item/grenade/bananade/prime()
+	. = ..()
 	if(spawner_type && deliveryamt)
 		// Make a quick flash
 		var/turf/T = get_turf(src)

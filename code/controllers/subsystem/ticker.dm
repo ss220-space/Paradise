@@ -130,7 +130,7 @@ SUBSYSTEM_DEF(ticker)
 				SSvote.start_vote(new /datum/vote/crew_transfer)
 				next_autotransfer = world.time + CONFIG_GET(number/vote_autotransfer_interval)
 
-			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
+			var/game_finished = SSshuttle.emergency.mode == SHUTTLE_ENDGAME || mode.station_was_nuked
 			if(CONFIG_GET(flag/continuous_rounds))
 				mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
 			else
@@ -447,6 +447,11 @@ SUBSYSTEM_DEF(ticker)
 					M.ghostize()
 					M.dust() //no mercy
 					CHECK_TICK
+		for(var/core in GLOB.blob_cores)
+			var/turf/T = get_turf(core)
+			if(T && is_station_level(T.z))
+				qdel(core)
+				CHECK_TICK
 
 	//Now animate the cinematic
 	switch(station_missed)

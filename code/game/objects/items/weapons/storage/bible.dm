@@ -2,6 +2,8 @@
 	name = "bible"
 	desc = "Apply to head repeatedly."
 	icon_state ="bible"
+	lefthand_file = 'icons/mob/inhands/chaplain_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/chaplain_righthand.dmi'
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
@@ -20,11 +22,11 @@
 		"Bible" =			   list("state" = "bible",		  "inhand" = "bible"),
 		"Koran" =			   list("state" = "koran",		  "inhand" = "koran"),
 		"Scrapbook" =		   list("state" = "scrapbook",	  "inhand" = "scrapbook"),
-		"Creeper" =			   list("state" = "creeper",	  "inhand" = "syringe_kit"),
-		"White Bible" =		   list("state" = "white",		  "inhand" = "syringe_kit"),
-		"Holy Light" =		   list("state" = "holylight",	  "inhand" = "syringe_kit"),
-		"PlainRed" =		   list("state" = "athiest",	  "inhand" = "syringe_kit"),
-		"Tome" =			   list("state" = "tome",		  "inhand" = "syringe_kit"),
+		"Creeper" =			   list("state" = "creeper",	  "inhand" = "somebiblebook"),
+		"White Bible" =		   list("state" = "white",		  "inhand" = "somebiblebook"),
+		"Holy Light" =		   list("state" = "holylight",	  "inhand" = "somebiblebook"),
+		"PlainRed" =		   list("state" = "athiest",	  "inhand" = "somebiblebook"),
+		"Tome" =			   list("state" = "tome",		  "inhand" = "somebiblebook"),
 		"The King in Yellow" = list("state" = "kingyellow",	  "inhand" = "kingyellow"),
 		"Ithaqua" =			   list("state" = "ithaqua",	  "inhand" = "ithaqua"),
 		"Scientology" =		   list("state" = "scientology",  "inhand" = "scientology"),

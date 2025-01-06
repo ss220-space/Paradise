@@ -30,7 +30,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 
 /datum/job/captain/announce(mob/living/carbon/human/H)
 	. = ..()
-	GLOB.captain_announcement.Announce("Экипажу станции, капитан [H.real_name] взошел на борт!")
+	GLOB.captain_announcement.Announce("Экипажу станции, капитан [H.real_name] взош[genderize_ru(H.gender, "ёл", "ла", "ло", "ли")] на борт!")
 
 /datum/outfit/job/captain
 	name = "Captain"
@@ -184,7 +184,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	transfer_allowed = FALSE
 	minimal_player_age = 21
 	min_age_type = JOB_MIN_AGE_HIGH_ED
-	blocked_race_for_job = list(SPECIES_VOX)
+	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_SECURITY
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
@@ -207,10 +207,10 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	jobtype = /datum/job/blueshield
 	uniform = /obj/item/clothing/under/rank/blueshield
 	suit = /obj/item/clothing/suit/armor/vest/blueshield
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_ear = /obj/item/radio/headset/heads/blueshield/alt
-	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
+	glasses = /obj/item/clothing/glasses/hud/blueshield
 	id = /obj/item/card/id/nanotrasen
 	pda = /obj/item/pda/heads/blueshield
 	backpack_contents = list(

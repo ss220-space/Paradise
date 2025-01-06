@@ -720,6 +720,18 @@
 	icon = 'icons/mob/screen_alien.dmi'
 	screen_loc = ui_alien_health
 
+/atom/movable/screen/healths/blob
+	name = "blob health"
+	icon_state = "block"
+	screen_loc = ui_internal
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/atom/movable/screen/healths/blob/overmind
+	name = "overmind health"
+	icon = 'icons/hud/blob.dmi'
+	icon_state = "corehealth"
+	screen_loc = ui_blobbernaut_overmind_health
+
 /atom/movable/screen/healths/bot
 	icon = 'icons/mob/screen_bot.dmi'
 	screen_loc = ui_borg_health

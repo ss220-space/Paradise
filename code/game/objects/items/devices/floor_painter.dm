@@ -4,6 +4,8 @@
 	name = "floor painter"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "floor_painter"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "floor_painter"
 	usesound = 'sound/effects/spray2.ogg'
 

@@ -4,15 +4,7 @@
 
 	SEND_SIGNAL(src, COMSIG_LIVING_LIFE, seconds, times_fired)
 
-	if(client || registered_z) // This is a temporary error tracker to make sure we've caught everything
-		var/turf/T = get_turf(src)
-		if(client && registered_z != T.z)
-			message_admins("[src] [ADMIN_FLW(src, "FLW")] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z]. If you could ask them how that happened and notify the coders, it would be appreciated.")
-			add_misc_logs(src, "Z-TRACKING: [src] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z].")
-			update_z(T.z)
-		else if (!client && registered_z)
-			add_misc_logs(src, "Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
-			update_z(null)
+	track_z()
 
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return FALSE
@@ -229,13 +221,13 @@
 				severity = 6
 		livingdoll.icon_state = "living[severity]"
 		if(!livingdoll.filtered)
-			livingdoll.filtered = TRUE
 			var/icon/mob_mask = icon(icon, icon_state)
 			if(mob_mask.Height() > world.icon_size || mob_mask.Width() > world.icon_size)
 				var/health_doll_icon_state = health_doll_icon ? health_doll_icon : "megasprite"
 				mob_mask = icon('icons/mob/screen_gen.dmi', health_doll_icon_state) //swap to something generic if they have no special doll
 			livingdoll.add_filter("mob_shape_mask", 1, alpha_mask_filter(icon = mob_mask))
 			livingdoll.add_filter("inset_drop_shadow", 2, drop_shadow_filter(size = -1))
+			livingdoll.filtered = TRUE
 	if(severity > 0)
 		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 	else

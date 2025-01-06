@@ -1,7 +1,7 @@
 // Blob Overmind Controls
 
 
-/mob/camera/blob/ClickOn(var/atom/A, var/params) //Expand blob
+/mob/camera/blob/ClickOn(var/atom/A, var/params, atom/location) //Expand blob
 	var/list/modifiers = params2list(params)
 	if(modifiers["middle"])
 		MiddleClickOn(A)
@@ -17,7 +17,7 @@
 		return
 	var/turf/T = get_turf(A)
 	if(T)
-		expand_blob(T)
+		expand_blob(T, location)
 
 /mob/camera/blob/MiddleClickOn(atom/A) //Rally spores
 	var/turf/T = get_turf(A)
