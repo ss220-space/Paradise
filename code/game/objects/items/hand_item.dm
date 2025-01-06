@@ -6,7 +6,7 @@
 	force = 0
 	throwforce = 0
 	item_flags = DROPDEL|ABSTRACT
-	attack_verb = list("slapped")
+	attack_verb = list("шлёпнул")
 	hitsound = 'sound/weapons/slap.ogg'
 	/// How many smaller table smacks we can do before we're out
 	var/table_smacks_left = 3
@@ -80,7 +80,6 @@
 /obj/item/slapper/parry
 	desc = "This is how real men win fights."
 	force = 5
-	attack_verb = list("slapped", "backhanded", "smacked", "discombobulated")
 	table_smacks_left = 10 //Much more smackitude
 
 /obj/item/slapper/parry/Initialize(mapload)

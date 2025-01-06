@@ -140,7 +140,7 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb = list("полоснул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = TRUE
 

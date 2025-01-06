@@ -161,7 +161,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
+	attack_verb = list("атаковал", "полоснул", "уколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/fluff/rsik_katana/suicide_act(mob/user)
@@ -288,7 +288,7 @@
 	desc = "A blue comb, it looks like it was made to groom a Tajaran's fur."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "wingler_comb"
-	attack_verb = list("combed")
+	attack_verb = list("причесал")
 	hitsound = 'sound/weapons/tap.ogg'
 	force = 0
 	throwforce = 0
@@ -1026,7 +1026,7 @@
 	desc = "A bottle containing extra..material..for custom 'hair' styling."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ps_hairgel"
-	attack_verb = list("smacked")
+	attack_verb = list("шлёпнул")
 	hitsound = 'sound/weapons/tap.ogg'
 	force = 0
 	throwforce = 0
@@ -1260,7 +1260,7 @@
 	name = "orange fox plushie"
 	desc = "A cute, soft, fuzzy, fluffy, and cuddly plushie. This has a small tag on it that is signed 'Fox McCloud'."
 	icon_state = "orangefox"
-	attack_verb = list("poofed", "cuddled","fluffed")
+	attack_verb = list("тыкнул")
 	actions_types = list(/datum/action/item_action/adjust)
 	var/prompting_change = FALSE
 	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
@@ -1467,7 +1467,7 @@
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 	icon_state = "hand_mirror"
-	attack_verb = list("smacked")
+	attack_verb = list("стукнул")
 	hitsound = 'sound/weapons/tap.ogg'
 	force = 0
 	throwforce = 0

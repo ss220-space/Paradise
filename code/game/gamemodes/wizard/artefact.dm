@@ -132,7 +132,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	throwforce = 10
 	sharp = 1
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	var/faction = list("unassigned")
 	var/cooldown = 0
 	var/cooldown_between_uses = 400 //time in deciseconds between uses--default of 40 seconds.

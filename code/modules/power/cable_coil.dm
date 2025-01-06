@@ -22,7 +22,7 @@
 	materials = list(MAT_METAL=10, MAT_GLASS=5)
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
+	attack_verb = list("хлестнул", "стегнул", "проучил", "выпорол")
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
 

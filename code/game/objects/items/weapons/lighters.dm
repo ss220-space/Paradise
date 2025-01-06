@@ -44,7 +44,7 @@
 	force = 5
 	damtype = BURN
 	hitsound = 'sound/items/welder.ogg'
-	attack_verb = list("burnt", "singed")
+	attack_verb = list("подпалил", "опалил")
 
 	attempt_light(user)
 	set_light_on(TRUE)
@@ -366,7 +366,7 @@
 		damtype = FIRE
 		force = 3
 		hitsound = 'sound/weapons/tap.ogg'
-		attack_verb = list("burnt","singed")
+		attack_verb = list("подпалил","опалил")
 		START_PROCESSING(SSobj, src)
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		return TRUE
@@ -378,7 +378,7 @@
 		burnt = TRUE
 		damtype = BRUTE
 		force = initial(force)
-		attack_verb = list("flicked")
+		attack_verb = list("чиркнул")
 		STOP_PROCESSING(SSobj, src)
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		return TRUE

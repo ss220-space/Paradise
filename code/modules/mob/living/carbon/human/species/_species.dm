@@ -781,14 +781,14 @@
 	animation_type = ATTACK_EFFECT_CLAW
 
 /datum/unarmed_attack/bite
-	attack_verb = list("грызет", "кусает", "вгрызается", "трепает")
+	attack_verb = list("укусил")
 	attack_sound = 'sound/weapons/bite.ogg'
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_BITE
 	is_bite = TRUE
 
 /datum/unarmed_attack/claws/armalis
-	attack_verb = list("хлестает", "хлестанул", "искромсал", "разорвал") //армалисами почти никто не пользуется. Зачем вносить пол вырезаной расе которой никогда не будет в игре?
+	attack_verb = list("хлестнул", "искромсал", "разорвал") //армалисами почти никто не пользуется. Зачем вносить пол вырезаной расе которой никогда не будет в игре?
 	damage = 6
 
 

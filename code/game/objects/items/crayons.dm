@@ -9,7 +9,7 @@
 	icon_state = "crayonred"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
-	attack_verb = list("attacked", "coloured")
+	attack_verb = list("атаковал", "тыкнул")
 	toolspeed = 1
 	var/colour = COLOR_RED
 	var/drawtype = "rune"
