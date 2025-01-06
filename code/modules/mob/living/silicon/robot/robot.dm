@@ -172,8 +172,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		cell = new default_cell_type(src)
 
 	initialize_components()
-	
-	for(var/V in components) 
+
+	for(var/V in components)
 		if(V != "power cell")
 			var/datum/robot_component/C = components[V]
 			C.installed = 1
@@ -325,7 +325,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
 
-		if(T)	
+		if(T)
 			mmi.loc = T
 
 		if(mmi.brainmob)
@@ -365,7 +365,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		forced_module = "Hunter"
 
 	if(mmi?.syndicate)
-		modules = list("Syndicate Saboteur", "Syndicate Medical", "Syndicate Bloodhound")	
+		modules = list("Syndicate Saboteur", "Syndicate Medical", "Syndicate Bloodhound")
 
 	if(mmi?.ninja)
 		forced_module = "Ninja"
@@ -412,7 +412,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	hands.icon_state = lowertext(module.module_type)
 	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(modtype)]")
-	
+
 	rename_character(real_name, get_default_name())
 	choose_icon()
 
@@ -721,7 +721,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/bullet_act(var/obj/item/projectile/Proj)
 	..(Proj)
 
-	if(prob(75) && Proj.damage > 0) 
+	if(prob(75) && Proj.damage > 0)
 		spark_system.start()
 
 	return 2
@@ -796,11 +796,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(wiresexposed)
 			to_chat(user, span_warning("You should hide the wires first!"))
 			return ATTACK_CHAIN_PROCEED
-			
+
 		if(cell)
 			to_chat(user, span_warning("There is a power cell already installed!"))
 			return ATTACK_CHAIN_PROCEED
-			
+
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 
@@ -857,7 +857,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(!allowed(I))
 			to_chat(user, span_warning("Access denied!"))
 			return ATTACK_CHAIN_PROCEED
-			
+
 		locked = !locked
 		visible_message(
 			span_warning("[user] has [locked ? "locked" : "unlocked"] [src]'s interface."),
@@ -926,7 +926,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		to_chat(user, span_notice("You have installed the radio upgrade to [src]'s MMI."))
 		mmi.install_radio()
 		qdel(I)
-		
+
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(src) && isclocker(user) && src != user)
@@ -1050,7 +1050,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		var/datum/robot_component/C = components[V]
 		if(C.installed == 1 || C.installed == -1)
 			removable_components += V
-			
+
 	if(module)
 		removable_components += module.custom_removals
 
@@ -1118,11 +1118,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/emag_act(mob/user)
 	if(!ishuman(user) && !issilicon(user))
 		return
-		
+
 	if(isclocker(src))
 		to_chat(user, span_danger("As you try to emag, a magic force keeps the cover locked!"))
 		return
-		
+
 	var/mob/living/M = user
 	if(!opened)//Cover is closed
 		if(!is_emaggable)
@@ -1187,7 +1187,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				update_module_icon()
 
 			update_icons()
-			
+
 		return
 
 // Here so admins can unemag borgs.
@@ -1492,7 +1492,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			set_light_on(FALSE)
 
 		else
-			set_light_range((lamp_intensity + (on_fire ? fire_light_modificator : 0)) * 0.5)
+			set_light_range((lamp_intensity + (on_fire ? fire_light_modificator : 0)) - 2)
 			set_light_on(TRUE)
 
 	else
@@ -1583,7 +1583,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 							if(istype(B) && B.off_floor)
 								floor_only = FALSE
-								
+
 							else
 								qdel(B)
 
@@ -1613,7 +1613,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 							cleaned_human.clean_blood()
 							to_chat(cleaned_human, span_danger("[src] cleans your face!"))
-							
+
 				if(floor_only)
 					tile.clean_blood()
 		return
@@ -1671,7 +1671,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/SetLockdown(state = TRUE)
 	if(isclocker(src))
 		return
-		
+
 	// They stay locked down if their wire is cut.
 	if(wires?.is_cut(WIRE_BORG_LOCKED))
 		state = TRUE
@@ -1737,7 +1737,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	Immobilize(5 SECONDS)
 	say("Загрузка модуля...")
 	setDir(SOUTH)
-	
+
 	for(var/i in 1 to 4)
 		playsound(loc, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 50, TRUE, -1)
 
@@ -1783,7 +1783,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 )
 	if(suiciding)
 		return ..()
-		
+
 	return STATUS_UPDATE_NONE
 
 
@@ -1967,7 +1967,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(radio)
 		qdel(radio)
-		
+
 	radio = new /obj/item/radio/borg/ert/specops(src)
 	radio.recalculateChannels()
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
@@ -1999,7 +1999,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		else
 			eyes_olay = "eyes-[base_icon]"
-			
+
 		if(eyes_olay)
 			add_overlay(eyes_olay)
 

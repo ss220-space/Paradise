@@ -1786,6 +1786,11 @@
 		return
 
 	var/examine_time = target.get_examine_time()
+
+	var/obj/item/organ/internal/eyes/eyes = get_organ_slot(INTERNAL_ORGAN_EYES)
+	if(eyes)
+		examine_time *= eyes.examine_mod
+
 	if(examine_time && target != src)
 		var/visible_gender = target.get_visible_gender()
 		var/visible_species = "Unknown"

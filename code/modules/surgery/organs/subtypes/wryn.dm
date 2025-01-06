@@ -6,6 +6,7 @@
 	icon_state = "antennae"
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_HIVENODE
+	species_restrictions = list(SPECIES_WRYN)
 	/// Stored hair style, defines only on creation and changes original h_style when inserted
 	var/hair_style = "Normal antennae"
 

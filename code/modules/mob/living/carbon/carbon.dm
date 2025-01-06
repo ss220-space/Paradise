@@ -962,3 +962,10 @@ so that different stomachs can handle things in different ways VB*/
 
 	co2overloadtime = 0
 
+
+/mob/living/carbon/check_smart_brain()
+	var/obj/item/organ/internal/brain/mobs_brain = get_organ_slot(INTERNAL_ORGAN_BRAIN)
+	if(mobs_brain?.smart_mind)
+		return TRUE
+
+	return ..()

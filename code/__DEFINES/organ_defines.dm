@@ -33,6 +33,7 @@
 #define INTERNAL_ORGAN_EYE_SHIELD_DEVICE "eye_shield"
 #define INTERNAL_ORGAN_EYE_LING "eye_ling"
 #define INTERNAL_ORGAN_BREATHING_TUBE "breathing_tube"
+#define INTERNAL_ORGAN_SPEECH_TRANSLATOR "voice_translator"
 #define INTERNAL_ORGAN_STOMACH "stomach"
 #define INTERNAL_ORGAN_HEART_DRIVE "heartdrive"
 #define INTERNAL_ORGAN_BRAIN_ANTIDROP "brain_antidrop"

@@ -54,8 +54,13 @@
 /obj/item/organ/internal/lungs/emp_act()
 	if(!is_robotic() || emp_proof)
 		return
+
 	if(owner)
-		owner.LoseBreath(40 SECONDS)
+		var/losstime = 40 SECONDS
+		if(HAS_TRAIT(owner, TRAIT_ADVANCED_CYBERIMPLANTS))
+			losstime /= 2
+
+		owner.LoseBreath(losstime)
 
 /obj/item/organ/internal/lungs/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
@@ -411,3 +416,17 @@
 	cold_level_1_threshold = 200
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
+
+/obj/item/organ/internal/lungs/cybernetic/upgraded/insert(mob/living/carbon/human/target, special)
+	. = ..()
+
+	if(HAS_TRAIT(target, TRAIT_ADVANCED_CYBERIMPLANTS))
+		target.physiology.oxy_mod -= 0.5
+		ADD_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/item/organ/internal/lungs/cybernetic/upgraded/remove(mob/living/carbon/human/target, special)
+	if(HAS_TRAIT_FROM(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src)))
+		target.physiology.oxy_mod += 0.5
+		REMOVE_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
+
+	. = ..()

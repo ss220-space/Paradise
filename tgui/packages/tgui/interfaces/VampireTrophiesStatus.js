@@ -8,7 +8,7 @@ const roundTenths = function (input) {
 
 export const VampireTrophiesStatus = (props, context) => {
   return (
-    <Window theme="nologo" width={700} height={800}>
+    <Window theme="ntos_spooky" width={700} height={800}>
       <Window.Content scrollable>
         <Stack fill vertical>
           <Trophies />
@@ -49,7 +49,7 @@ const Trophies = (props, context) => {
   return (
     <Stack.Item>
       <Section
-        title="Trophies"
+        title="Трофеи"
         color="red"
         textAlign="center"
         verticalAlign="middle"
@@ -79,8 +79,8 @@ const Trophies = (props, context) => {
             </Box>
             <Button
               tooltipPosition="right"
-              tooltip="Heart trophies are critical organs, that have increased the vitality and toughness of our kin for centuries. Maximum trophy amount of this type is 6."
-              content="HEARTS"
+              tooltip="Cердце - трофей, который веками повышал жизненную силу и крепость тела наших сородичей. Критичный орган. Максимальное количество трофеев этого типа - 6."
+              content="СЕРДЦЕ"
               color="transparent"
             />
           </Box>
@@ -108,8 +108,8 @@ const Trophies = (props, context) => {
             </Box>
             <Button
               tooltipPosition="right"
-              tooltip="Lungs trophies are critical organs, they have always been used in rituals to increase agility and endurance of our kin. Maximum trophy amount of this type is 6."
-              content="LUNGS"
+              tooltip="Легкие - трофей, который всегда использовался в ритуалах для повышения ловкости и выносливости наших сородичей. Критичный орган. Максимальное количество трофеев этого типа - 6."
+              content="ЛЕГКИЕ"
               color="transparent"
             />
           </Box>
@@ -137,8 +137,8 @@ const Trophies = (props, context) => {
             </Box>
             <Button
               tooltipPosition="right"
-              tooltip="Liver trophies have always been used in traditional vampire's rites to increase blood control, which reduces spells cost. Maximum trophy amount of this type is 10."
-              content="LIVERS"
+              tooltip="Печень - всегда использовалась в традиционных вампирских обрядах для усиления контроля крови, что снижает затраты крови для использования способностей. Максимальное количество трофеев этого типа - 10."
+              content="ПЕЧЕНЬ"
               color="transparent"
             />
           </Box>
@@ -166,8 +166,8 @@ const Trophies = (props, context) => {
             </Box>
             <Button
               tooltipPosition="left"
-              tooltip="Kidneys trophies are used by vampires as a catalysts to enhance various spell effects. Maximum trophy amount of this type is 10."
-              content="KIDNEYS"
+              tooltip="Почки - используются вампирами в качестве катализатора для усиления эффектов от способностей. Максимальное количество трофеев этого типа - 10."
+              content="ПОЧКИ"
               color="transparent"
             />
           </Box>
@@ -195,8 +195,8 @@ const Trophies = (props, context) => {
             </Box>
             <Button
               tooltipPosition="left"
-              tooltip="Eyes trophies are one of the most important ingredients to bypass any vision imperfections mortal bodies have. Maximum trophy amount of this type is 10."
-              content="EYES"
+              tooltip="Глаза - один из самых важных ингредиентов, позволяющий обойти любые недостатки зрения, присущие смертному телу. Максимальное количество трофеев этого типа - 10."
+              content="ГЛАЗА"
               color="transparent"
             />
           </Box>
@@ -224,8 +224,8 @@ const Trophies = (props, context) => {
             </Box>
             <Button
               tooltipPosition="left"
-              tooltip="Ears trophies have always helped our kin to improve control over emotions and therefore increased scope of the spells. Maximum trophy amount of this type is 10."
-              content="EARS"
+              tooltip="Уши - всегда помогали нашим сородичам улучшить контроль над эмоциями, что предавло нашим способностям больший радиус действия. Максимальное количество трофеев этого типа - 10."
+              content="УШИ"
               color="transparent"
             />
           </Box>
@@ -262,7 +262,7 @@ const Passives = (props, context) => {
   } = data;
   return (
     <Section
-      title="Vampire Passives"
+      title="Пассивные способности"
       color="red"
       textAlign="center"
       verticalAlign="middle"
@@ -272,8 +272,8 @@ const Passives = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
-              tooltip="Obtained by dissecting hearts"
-              content="Brute Protection:"
+              tooltip="Улучшается при извлечении сердец"
+              content="Защита от травм:"
               color="transparent"
             />
             <Box
@@ -289,8 +289,8 @@ const Passives = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
-              tooltip="Obtained by dissecting hearts"
-              content="Burn Protection:"
+              tooltip="Улучшается при извлечении легких"
+              content="Защита от ожогов:"
               color="transparent"
             />
             <Box
@@ -306,8 +306,8 @@ const Passives = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
-              tooltip="Obtained by dissecting lungs"
-              content="Oxy Protection:"
+              tooltip="Улучшается при извлечении легких"
+              content="Защита от гипоксии:"
               color="transparent"
             />
             <Box
@@ -325,8 +325,8 @@ const Passives = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Obtained by dissecting livers"
-              content="Toxin Protection:"
+              tooltip="Улучшается при извлечении печени"
+              content="Защита от токсинов:"
               color="transparent"
             />
             <Box
@@ -342,8 +342,8 @@ const Passives = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="Obtained by dissecting kidneys"
-              content="Brain Protection:"
+              tooltip="Улучшается при извлечении почек"
+              content="Защита мозга:"
               color="transparent"
             />
             <Box
@@ -359,8 +359,8 @@ const Passives = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="left"
-              tooltip="Obtained by dissecting kidneys"
-              content="Clone Protection:"
+              tooltip="Улучшается при извлечении почек"
+              content="Клеточная защита:"
               color="transparent"
             />
             <Box
@@ -378,8 +378,8 @@ const Passives = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Obtained by dissecting lungs"
-              content="Stamina Protection:"
+              tooltip="Улучшается при извлечении легких"
+              content="Защита выносливости:"
               color="transparent"
             />
             <Box
@@ -395,8 +395,8 @@ const Passives = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="Increased by dissecting livers"
-              content="Blood Cost Reduce:"
+              tooltip="Улучшается при извлечении печени"
+              content="Снижения затрат крови:"
               color="transparent"
             />
             <Box
@@ -412,15 +412,15 @@ const Passives = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="left"
-              tooltip="Time spent on each sucking cycle, lower is better. Decreased by dissecting kidneys"
-              content="Suck Rate:"
+              tooltip="Время, затрачиваемое на каждый цикл поглощения крови, чем меньше, тем лучше. Снижается при извлечении почек."
+              content="Скорость поглощения:"
               color="transparent"
             />
             <Box
               inline
               textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
             >
-              {suck_rate}s.
+              {suck_rate}с.
               {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
@@ -429,34 +429,34 @@ const Passives = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Obtained by dissecting eyes"
-              content="Flash Protection:"
+              tooltip="Становится доступно при извлечении ушей"
+              content="Защита от вспышек:"
               color="transparent"
             />
             <Box inline textColor={eyes < trophies_flash ? 'bad' : 'good'}>
-              {eyes < trophies_flash ? 'LOCKED' : 'UNLOCKED'}
+              {eyes < trophies_flash ? 'НЕТ' : 'ЕСТЬ'}
             </Box>
           </Table.Cell>
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="Obtained by dissecting eyes"
-              content="Welding Protection:"
+              tooltip="Становится доступно при извлечении ушей"
+              content="Защита от сварки:"
               color="transparent"
             />
             <Box inline textColor={eyes < trophies_welding ? 'bad' : 'good'}>
-              {eyes < trophies_welding ? 'LOCKED' : 'UNLOCKED'}
+              {eyes < trophies_welding ? 'НЕТ' : 'ЕСТЬ'}
             </Box>
           </Table.Cell>
           <Table.Cell>
             <Button
               tooltipPosition="left"
-              tooltip="Obtained by dissecting eyes"
-              content="X-Ray Vision:"
+              tooltip="Становится доступно при извлечении глаз"
+              content="X-Ray зрение:"
               color="transparent"
             />
             <Box inline textColor={eyes < trophies_xray ? 'bad' : 'good'}>
-              {eyes < trophies_xray ? 'LOCKED' : 'UNLOCKED'}
+              {eyes < trophies_xray ? 'НЕТ' : 'ЕСТЬ'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -464,12 +464,12 @@ const Passives = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Obtained by dissecting ears"
-              content="Ears Bang Protection:"
+              tooltip="Становится доступно при извлечении ушей"
+              content="Защита ушей:"
               color="transparent"
             />
             <Box inline textColor={ears < trophies_bang ? 'bad' : 'good'}>
-              {ears < trophies_bang ? 'LOCKED' : 'UNLOCKED'}
+              {ears < trophies_bang ? 'НЕТ' : 'ЕСТЬ'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -492,7 +492,7 @@ const InfectedTrophy = (props, context) => {
   } = data;
   return (
     <Section
-      title="Infected Trophy"
+      title="Зараженный трофей"
       color="red"
       textAlign="center"
       verticalAlign="middle"
@@ -502,8 +502,8 @@ const InfectedTrophy = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
-              tooltip="Maximum range before fired skull will disappear. Increased by dissecting eyes"
-              content="Flight Range:"
+              tooltip="Расстояние, которое пролетит череп, перед исчезновением. Увеличивается при извлечении глаз."
+              content="Дальность полета:"
               color="transparent"
             />
             <Box
@@ -517,8 +517,8 @@ const InfectedTrophy = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
-              tooltip="Range of the area of effect, centered at the end position of the lunge. All living mobs will be affected inside. Increased by dissecting ears"
-              content="AOE Range:"
+              tooltip="Радиус зоны поражения, с центром в точке попадания. Все живые мобы в области будут задеты. Увеличивается при извлечении ушей."
+              content="Радиус поражения:"
               color="transparent"
             />
             <Box
@@ -532,8 +532,8 @@ const InfectedTrophy = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
-              tooltip="Amount of brute damage that every living victim in the AOE will receive. Increased by dissecting hearts"
-              content="Damage:"
+              tooltip="Количество физического урона, которое получит каждый живой моб в области поражения. Увеличивается при извлечении сердец."
+              content="Урон:"
               color="transparent"
             />
             <Box
@@ -549,23 +549,23 @@ const InfectedTrophy = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Amount of time that every living victim in the AOE will be stunned. Increased by dissecting hearts"
-              content="Stun Time:"
+              tooltip="Время, которое каждый живой моб в области поражения будет оглушен. Увеличивается при извлечении сердец."
+              content="Время оглушения:"
               color="transparent"
             />
             <Box
               inline
               textColor={hearts < trophies_max_crit ? 'average' : 'good'}
             >
-              {roundTenths(hearts / 2)}s.
+              {roundTenths(hearts / 2)}с.
               {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="Chance for every living humanoid victim in the AOE to contact Grave Fever disease. Increased by dissecting livers"
-              content="Grave Fever Chance:"
+              tooltip="Вероятность того, что каждый живой гуманоид в в области поражения будет заражен могильной лихорадкой. Увеличивается при извлечении печени."
+              content="Шанс заражения:"
               color="transparent"
             />
             <Box
@@ -595,7 +595,7 @@ const Lunge = (props, context) => {
   } = data;
   return (
     <Section
-      title="Lunge"
+      title="Рывок"
       color="red"
       textAlign="center"
       verticalAlign="middle"
@@ -605,8 +605,8 @@ const Lunge = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
-              tooltip="Maximum distance at which lunge will stop automatically. Increased by dissecting lungs"
-              content="Range:"
+              tooltip="Максимальное расстояние, на котором рывок прервывется автоматически. Увеличивается при извлечении легких."
+              content="Дистанция:"
               color="transparent"
             />
             <Box
@@ -620,8 +620,8 @@ const Lunge = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
-              tooltip="Radius of the area of effect, centered at the end position of the lunge. All living mobs will be affected inside. Increased by dissecting ears"
-              content="AOE Range:"
+              tooltip="Радиус зоны поражения, с центром в конечной точке рывка. Все живые мобы в области будут задеты. Увеличивается при извлечении ушей."
+              content="Радиус поражения:"
               color="transparent"
             />
             <Box
@@ -635,15 +635,15 @@ const Lunge = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
-              tooltip="Amount of time that every living victim in the AOE will be weakened. Increased by dissecting hearts"
-              content="Weaken Time:"
+              tooltip="Время, которое каждый живой моб в области поражения будет оглушен. Увеличивается при извлечении сердец."
+              content="Время оглушения:"
               color="transparent"
             />
             <Box
               inline
               textColor={hearts < trophies_max_crit ? 'average' : 'good'}
             >
-              {roundTenths(1 + hearts / 2)}s.
+              {roundTenths(1 + hearts / 2)}с.
               {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
@@ -652,23 +652,23 @@ const Lunge = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Amount of time that every living victim in the AOE will be confused. Increased by dissecting kidneys"
-              content="Confusion Time:"
+              tooltip="Время, которое каждый живой моб в области поражения будет в замешательстве. Увеличивается при извлечении почек."
+              content="Время замешательства:"
               color="transparent"
             />
             <Box
               inline
               textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
             >
-              {roundTenths(kidneys * 2)}s.
+              {roundTenths(kidneys * 2)}с.
               {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="Amount of blood that every living humanoid victim in the AOE will loose. Increased by dissecting kidneys"
-              content="Bleeding Amount:"
+              tooltip="Количество крови, которое потеряет каждый живой гуманоид в области поражения. Увеличивается при извлечении почек."
+              content="Кровопотеря:"
               color="transparent"
             />
             <Box
@@ -682,8 +682,8 @@ const Lunge = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="left"
-              tooltip="Amount of usable blood vampire will gain from every living sentient humanoid victim. Increased by dissecting kidneys."
-              content="Blood Gain:"
+              tooltip="Количество крови, которое получит вампир от каждого живого разумного гуманоида в области поражения. Увеличивается при извлечении почек."
+              content="Поглощение крови:"
               color="transparent"
             />
             <Box
@@ -714,7 +714,7 @@ const MarkPrey = (props, context) => {
   } = data;
   return (
     <Section
-      title="Mark the Prey"
+      title="Пометить добычу"
       color="red"
       textAlign="center"
       verticalAlign="middle"
@@ -724,8 +724,8 @@ const MarkPrey = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
-              tooltip="Maximum distance the spell can be cast. Increased by dissecting eyes"
-              content="Cast Range:"
+              tooltip="Максимальная дистанция, на которой можно применить способность. Увеличивается при извлечении глаз."
+              content="Дальность применения:"
               color="transparent"
             />
             <Box
@@ -739,8 +739,8 @@ const MarkPrey = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
-              tooltip="Amount of time that the mark will last. Increased by dissecting kidneys"
-              content="Duration:"
+              tooltip="Время, в течение которого метка будет действовать. Увеличивается при извлечении почек."
+              content="Продолжительность:"
               color="transparent"
             />
             <Box
@@ -754,8 +754,8 @@ const MarkPrey = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
-              tooltip="Amount of burn damage that the victim will receive every second if the chance worked. Increased by dissecting hearts"
-              content="Burns / 1s.:"
+              tooltip="Количество ожогов, которое получит жертва, если сработает поджог. Увеличивается при извлечении сердец."
+              content="Ожоги:"
               color="transparent"
             />
             <Box
@@ -771,8 +771,8 @@ const MarkPrey = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Chance for the burn damage to trigger. Increased by dissecting hearts"
-              content="Burns Chance:"
+              tooltip="Шанс на то, что поджог сработает. Увеличивается при извлечении сердец."
+              content="Шанс на поджог:"
               color="transparent"
             />
             <Box
@@ -785,8 +785,8 @@ const MarkPrey = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="Сhance that the victim will spontaneously attack nearby targets or even theirselves. Increased by dissecting eyes"
-              content="Madness Chance:"
+              tooltip="Шанс на то, что цель спонтанно атакует ближайшую цель или же саму себя. Увеличивается при извлечении глаз."
+              content="Шанс на безумие:"
               color="transparent"
             />
             <Box
@@ -816,7 +816,7 @@ const MetamorphosisBats = (props, context) => {
   } = data;
   return (
     <Section
-      title="Metamorphosis - Bats"
+      title="Метаморфоза - Летучие мыши"
       color="red"
       textAlign="center"
       verticalAlign="middle"
@@ -826,8 +826,8 @@ const MetamorphosisBats = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
-              tooltip="Maximum amount of that the bats can have. Increased by dissecting hearts"
-              content="Health:"
+              tooltip="Максимальное здоровье летучих мышей. Увеличивается при извлечении сердец."
+              content="Здоровье:"
               color="transparent"
             />
             <Box
@@ -841,8 +841,8 @@ const MetamorphosisBats = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
-              tooltip="Threshold below which no damage to the bats can be dealt. Works only for melee attacks. Increased by dissecting hearts"
-              content="Damage Threshold:"
+              tooltip="Порог, ниже которого летучим мышам не может быть нанесен урон. Работает только на атаки ближнего боя. Увеличивается при извлечении сердец."
+              content="Порог урона:"
               color="transparent"
             />
             <Box
@@ -856,8 +856,8 @@ const MetamorphosisBats = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
-              tooltip="Movement speed of the bats, lower is better. Decreased by dissecting lungs"
-              content="Speed:"
+              tooltip="Скорость передвижения летучих мышей. Чем ниже, тем лучше. Снижается при извлечении легких."
+              content="Скорость:"
               color="transparent"
             />
             <Box
@@ -873,8 +873,8 @@ const MetamorphosisBats = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Lowest amount of damage that the bats can inflict. Increased by dissecting hearts"
-              content="Damage Low:"
+              tooltip="Наименьший урон, который могут нанести летучие мыши. Увеличивается при извлечении сердец."
+              content="Минимум урона:"
               color="transparent"
             />
             <Box
@@ -888,8 +888,8 @@ const MetamorphosisBats = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="Highest amount of damage that the bats can inflict. Increased by dissecting hearts"
-              content="Damage High:"
+              tooltip="Наибольший урон, который могут нанести летучие мыши. Увеличивается при извлечении сердец."
+              content="Максимум урона:"
               color="transparent"
             />
             <Box
@@ -903,8 +903,8 @@ const MetamorphosisBats = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="left"
-              tooltip="Amount of health that bats will transform into their own after every succesfull attack. Increased by dissecting kidneys"
-              content="Life Leech:"
+              tooltip="Количество здоровья, которое летучие мыши преобразуют в свое собственное после каждой успешной атаки. Увеличивается при извлечении почек."
+              content="Восстановление:"
               color="transparent"
             />
             <Box
@@ -920,8 +920,8 @@ const MetamorphosisBats = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Amount of usable blood that bats will gain from the living sentient humanoid victim after every succesfull attack. Increased by dissecting livers"
-              content="Blood Gain:"
+              tooltip="Количество крови, которое получат летучие мыши от каждого живого гуманоида после каждой успешной атаки. Увеличивается при извлечении печени."
+              content="Поглощение крови:"
               color="transparent"
             />
             <Box
@@ -935,8 +935,8 @@ const MetamorphosisBats = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="Chance for the bats to stun their victim for 1 second after every succesfull attack. Increased by dissecting eyes"
-              content="Fear Chance:"
+              tooltip="Шанс для летучих мышей на оглушение жертвы на 1 секунду после каждой успешной атаки. Увеличивается при извлечении глаз."
+              content="Шанс на испуг:"
               color="transparent"
             />
             <Box
@@ -966,7 +966,7 @@ const ResonantShriek = (props, context) => {
   } = data;
   return (
     <Section
-      title="Resonant Shriek"
+      title="Оглушительный вопль"
       color="red"
       textAlign="center"
       verticalAlign="middle"
@@ -976,8 +976,8 @@ const ResonantShriek = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
-              tooltip="Radius of the area of effect, centered at the position of the vampire. All living mobs will be affected inside. Increased by dissecting ears"
-              content="AOE Range:"
+              tooltip="Радиус зоны поражения, с центром в точке нахождения вампира. Все живые мобы в области будут задеты. Увеличивается при извлечении ушей."
+              content="Радиус поражения:"
               color="transparent"
             />
             <Box
@@ -991,8 +991,8 @@ const ResonantShriek = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
-              tooltip="Amount of time that every living victim in the AOE will be weakened. Increased by dissecting hearts"
-              content="Weaken Time:"
+              tooltip="Время, которое каждый живой моб в области поражения будет оглушен. Увеличивается при извлечении сердец."
+              content="Время оглушения:"
               color="transparent"
             />
             <Box
@@ -1006,8 +1006,8 @@ const ResonantShriek = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
-              tooltip="Amount of time that every living victim in the AOE will be confused. Increased by dissecting kidneys"
-              content="Confusion Time:"
+              tooltip="Время, которое каждый живой моб в области поражения будет в замешательстве. Увеличивается при извлечении почек."
+              content="Время замешательства:"
               color="transparent"
             />
             <Box
@@ -1023,8 +1023,8 @@ const ResonantShriek = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Amount of brain damage that every living victim in the AOE will receive. Increased by dissecting eyes"
-              content="Brain Damage:"
+              tooltip="Количество урона мозгу, которое получит каждый живой моб в области поражения. Увеличивается при извлечении глаз."
+              content="Урон мозгу:"
               color="transparent"
             />
             <Box
@@ -1056,7 +1056,7 @@ const Anabiosis = (props, context) => {
   } = data;
   return (
     <Section
-      title="Anabiosis"
+      title="Анабиоз"
       color="red"
       textAlign="center"
       verticalAlign="middle"
@@ -1066,8 +1066,8 @@ const Anabiosis = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
-              tooltip="Maximum amount of brute damage that vampire will heal during the anabiosis. Increased by dissecting hearts"
-              content="Brute Heal:"
+              tooltip="Максимально количество травм, которое может вылечить вампир во время анабиоза. Увеличивается при извлечении сердец."
+              content="Лечение травм:"
               color="transparent"
             />
             <Box
@@ -1081,8 +1081,8 @@ const Anabiosis = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
-              tooltip="Maximum amount of burn damage that vampire will heal during the anabiosis. Increased by dissecting hearts"
-              content="Burn Heal:"
+              tooltip="Максимально количество ожогов, которое может вылечить вампир во время анабиоза. Увеличивается при извлечении сердец."
+              content="Лечение ожогов:"
               color="transparent"
             />
             <Box
@@ -1096,8 +1096,8 @@ const Anabiosis = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
-              tooltip="Maximum amount of toxin damage that vampire will heal during the anabiosis. Increased by dissecting livers"
-              content="Tox Heal:"
+              tooltip="Максимально количество токсинов, которое может вылечить вампир во время анабиоза. Увеличивается при извлечении печени."
+              content="Лечение токсинов:"
               color="transparent"
             />
             <Box
@@ -1113,8 +1113,8 @@ const Anabiosis = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Maximum amount of suffocation damage that vampire will heal during the anabiosis. Increased by dissecting lungs"
-              content="Oxy Heal:"
+              tooltip="Максимально количество удушья, которое может вылечить вампир во время анабиоза. Увеличивается при извлечении легких."
+              content="Лечение гипоксии:"
               color="transparent"
             />
             <Box
@@ -1128,8 +1128,8 @@ const Anabiosis = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="Maximum amount of genetic (clone) damage that vampire will heal during the anabiosis. Increased by dissecting kidneys"
-              content="Clone Heal:"
+              tooltip="Максимально количество клеточных повреждений, которое может вылечить вампир во время анабиоза. Увеличивается при извлечении почек."
+              content="Клеточное восстановление:"
               color="transparent"
             />
             <Box
@@ -1143,8 +1143,8 @@ const Anabiosis = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="left"
-              tooltip="Maximum amount of blood that will be restored in the vampire's body during the anabiosis. Increased by dissecting kidneys"
-              content="Blood Restored:"
+              tooltip="Максимально количество крови, которое может восстановить тело вампира во время анабиоза. Увеличивается при извлечении почек."
+              content="Восстановление крови:"
               color="transparent"
             />
             <Box
@@ -1160,8 +1160,8 @@ const Anabiosis = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Maximum amount of damage that vampire's internal organs will heal during the anabiosis. Increased by dissecting kidneys"
-              content="Organ Heal:"
+              tooltip="Максимально количество повреждений внутренним органам, которое может вылечить вампир во время анабиоза. Увеличивается при извлечении почек."
+              content="Лечение органов:"
               color="transparent"
             />
             <Box
@@ -1175,8 +1175,8 @@ const Anabiosis = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="Maximum amount of reagents that will be removed from the vampire's body during the anabiosis. Increased by dissecting livers"
-              content="Remove Reagents:"
+              tooltip="Максимально количество реагентов, которое может вывести тело вампира во время анабиоза. Увеличивается при извлечении печени."
+              content="Выведение реагентов:"
               color="transparent"
             />
             <Box
@@ -1190,8 +1190,8 @@ const Anabiosis = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="left"
-              tooltip="Chance to mend fracture per one anabiosis cycle (15 cycles total). Increased by dissecting hearts"
-              content="Mend Fracture:"
+              tooltip="Шанс срастить сломанные кости за цикл анабиоза (15 всего циклов). Увеличивается при извлечении сердец."
+              content="Сращивание перелома:"
               color="transparent"
             />
             <Box
@@ -1206,8 +1206,8 @@ const Anabiosis = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Chance to eliminate internal bleeding per one anabiosis cycle (15 cycles total). Increased by dissecting hearts"
-              content="Heal Internal Bleeding:"
+              tooltip="Шанс избавиться от внутреннего кровотечения за цикл анабиоза (15 всего циклов). Увеличивается при извлечении сердец."
+              content="Снятие кровотечения:"
               color="transparent"
             />
             <Box
@@ -1220,8 +1220,8 @@ const Anabiosis = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="Chance to regrow limb per one anabiosis cycle (15 cycles total). Increased by dissecting lungs"
-              content="Regrow Limb:"
+              tooltip="Шанс отрастить конечность за цикл анабиоза (15 всего циклов). Увеличивается при извлечении легких."
+              content="Отращивание конечности:"
               color="transparent"
             />
             <Box
@@ -1234,12 +1234,12 @@ const Anabiosis = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="left"
-              tooltip="One-time action which removes all status effects, restores all dead organs and limbs, cures all harmfull viruses and expells all parasites."
-              content="Fullpower Heal:"
+              tooltip="Одноразовая способность: убирает все наложенные эффекты, восстанавливает все мертвые органы и конечности, излечивает все вредные вирусы и выводит всех паразитов."
+              content="Полное исцеление:"
               color="transparent"
             />
             <Box inline textColor={full_power ? 'good' : 'bad'}>
-              {full_power ? 'UNLOCKED' : 'LOCKED'}
+              {full_power ? 'ЕСТЬ' : 'НЕТ'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -1266,7 +1266,7 @@ const SummonBats = (props, context) => {
     (allTrophies < 40 ? Math.round(allTrophies / 2) : allTrophies < 52 ? 2 : 3);
   return (
     <Section
-      title="Summon Bats"
+      title="Призыв летучих мышей"
       color="red"
       textAlign="center"
       verticalAlign="middle"
@@ -1276,8 +1276,8 @@ const SummonBats = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
-              tooltip="Maximum amount of that the bats can have. Increased by dissecting hearts"
-              content="Health:"
+              tooltip="Максимальное здоровье, которое могут иметь летучие мыши. Увеличивается при извлечении сердец."
+              content="Здоровье:"
               color="transparent"
             />
             <Box
@@ -1291,8 +1291,8 @@ const SummonBats = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
-              tooltip="Threshold below which no damage to the bats can be dealt. Works only for melee attacks. Increased by dissecting hearts"
-              content="Damage Threshold:"
+              tooltip="Порог, ниже которого летучим мышам не может быть нанесен урон. Работает только на атаки ближнего боя. Увеличивается при извлечении сердец."
+              content="Порог урона:"
               color="transparent"
             />
             <Box
@@ -1306,8 +1306,8 @@ const SummonBats = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
-              tooltip="Movement speed of the bats, lower is better. Decreased by dissecting lungs"
-              content="Speed:"
+              tooltip="Скорость передвижения летучих мышей. Чем ниже, тем лучше. Снижается при извлечении легких."
+              content="Скорость:"
               color="transparent"
             />
             <Box
@@ -1323,8 +1323,8 @@ const SummonBats = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Lowest amount of damage that the bats can inflict. Increased by dissecting hearts"
-              content="Damage Low:"
+              tooltip="Наименьший урон, который могут нанести летучие мыши. Увеличивается при извлечении сердец."
+              content="Минимум урона:"
               color="transparent"
             />
             <Box
@@ -1338,8 +1338,8 @@ const SummonBats = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="Highest amount of damage that the bats can inflict. Increased by dissecting hearts"
-              content="Damage High:"
+              tooltip="Наибольший урон, который могут нанести летучие мыши. Увеличивается при извлечении сердец."
+              content="Максимум урона:"
               color="transparent"
             />
             <Box
@@ -1353,8 +1353,8 @@ const SummonBats = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="left"
-              tooltip="Amount of health that bats will transform into their own after every succesfull attack. Increased by dissecting kidneys"
-              content="Life Leech:"
+              tooltip="Количество здоровья, которое летучие мыши преобразуют в свое собственное после каждой успешной атаки. Увеличивается при извлечении почек."
+              content="Восстановление:"
               color="transparent"
             />
             <Box
@@ -1370,8 +1370,8 @@ const SummonBats = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Amount of usable blood that bats will gain from the living sentient humanoid victim after every succesfull attack. All this blood will be transfered to the vampire. Increased by dissecting livers"
-              content="Blood Gain:"
+              tooltip="Количество крови, которое получат летучие мыши от каждого живого разумного гуманоида после каждой успешной атаки. Увеличивается при извлечении печени."
+              content="Поглощение крови:"
               color="transparent"
             />
             <Box
@@ -1385,8 +1385,8 @@ const SummonBats = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="Chance for the bats to stun their victim for 0.5 seconds after every succesfull attack. Increased by dissecting eyes"
-              content="Fear Chance:"
+              tooltip="Шанс для летучих мышей на оглушение жертвы на 0.5 секунды после каждой успешной атаки. Увеличивается при извлечении глаз."
+              content="Шанс на испуг:"
               color="transparent"
             />
             <Box
@@ -1399,8 +1399,8 @@ const SummonBats = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="left"
-              tooltip="Amount of bat packs spawned at once. Increased by collecting any type of the trophies"
-              content="Bats Amount:"
+              tooltip="Количество летучих мышей, призываемых за раз. Увеличивается при извлечении любого трофейного органа."
+              content="Количество:"
               color="transparent"
             />
             <Box inline textColor={allTrophies < 52 ? 'average' : 'good'}>
@@ -1428,7 +1428,7 @@ const MetamorphosisHound = (props, context) => {
   } = data;
   return (
     <Section
-      title="Metamorphosis - Hound"
+      title="Метаморфоза - Гончая"
       color="red"
       textAlign="center"
       verticalAlign="middle"
@@ -1438,8 +1438,8 @@ const MetamorphosisHound = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
-              tooltip="Maximum amount of health that the hound can have. Increased by dissecting hearts"
-              content="Health:"
+              tooltip="Максимальное здоровье гончей. Увеличивается при извлечении сердец."
+              content="Здоровье:"
               color="transparent"
             />
             <Box
@@ -1453,8 +1453,8 @@ const MetamorphosisHound = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
-              tooltip="Threshold below which no damage to the hound can be dealt. Works only for melee attacks. Increased by dissecting hearts"
-              content="Damage Threshold:"
+              tooltip="Порог, ниже которого гончей не может быть нанесен урон. Работает только на атаки ближнего боя. Увеличивается при извлечении сердец."
+              content="Порог урона:"
               color="transparent"
             />
             <Box
@@ -1468,8 +1468,8 @@ const MetamorphosisHound = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
-              tooltip="Movement speed of the hound, lower is better. Decreased by dissecting lungs"
-              content="Speed:"
+              tooltip="Скорость передвижения гончей. Чем ниже, тем лучше. Снижается при извлечении легких."
+              content="Скорость:"
               color="transparent"
             />
             <Box
@@ -1485,8 +1485,8 @@ const MetamorphosisHound = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Lowest amount of damage that the hound can inflict. Increased by dissecting hearts"
-              content="Damage Low:"
+              tooltip="Наименьший урон, который может нанести гончая. Увеличивается при извлечении сердец."
+              content="Минимум урона:"
               color="transparent"
             />
             <Box
@@ -1500,8 +1500,8 @@ const MetamorphosisHound = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="Highest amount of damage that the hound can inflict. Increased by dissecting hearts"
-              content="Damage High:"
+              tooltip="Наименьший урон, который может нанести гончая. Увеличивается при извлечении сердец."
+              content="Максимум урона:"
               color="transparent"
             />
             <Box
@@ -1515,8 +1515,8 @@ const MetamorphosisHound = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="left"
-              tooltip="Chance for the hound to stun their victim for 1 second after every succesfull attack. Increased by dissecting eyes"
-              content="Fear Chance:"
+              tooltip="Шанс для гончей на оглушение жертвы на 1 секунду после каждой успешной атаки. Увеличивается при извлечении глаз."
+              content="Шанс на испуг:"
               color="transparent"
             />
             <Box
@@ -1531,15 +1531,15 @@ const MetamorphosisHound = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Amount of usable blood vampire will spend to stay transformed. Decreased by dissecting livers"
-              content="Blood Cost:"
+              tooltip="Количество крови, которое будет тратить вампир, чтобы оставаться в форме гончей. Снижается при извлечении печени."
+              content="Потребление крови:"
               color="transparent"
             />
             <Box
               inline
               textColor={livers < trophies_max_gen ? 'average' : 'good'}
             >
-              {15 - livers} blood / 6s.
+              {15 - livers} крови / 6с.
               {livers < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
@@ -1567,7 +1567,7 @@ const LungeFinale = (props, context) => {
     (allTrophies < 40 ? Math.round(allTrophies / 2) : allTrophies < 52 ? 2 : 3);
   return (
     <Section
-      title="Lunge Finale"
+      title="Финальный рывок"
       color="red"
       textAlign="center"
       verticalAlign="middle"
@@ -1577,8 +1577,8 @@ const LungeFinale = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="right"
-              tooltip="Radius around the vampire in which targets will be searched. Increased by dissecting lungs"
-              content="Search Range:"
+              tooltip="Радиус вокруг вампира, внутри которой ищется цель для рывка. Увеличивается при извлечении легких."
+              content="Радиус поиска:"
               color="transparent"
             />
             <Box
@@ -1592,8 +1592,8 @@ const LungeFinale = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="top"
-              tooltip="Radius of the area of effect, centered at the end position of the lunge. All living mobs will be affected inside. Increased by dissecting ears"
-              content="AOE Range:"
+              tooltip="Радиус зоны поражения, с центром в конечной точке рывка. Все живые мобы в области будут задеты. Увеличивается при извлечении ушей."
+              content="Радиус поражения:"
               color="transparent"
             />
             <Box
@@ -1607,8 +1607,8 @@ const LungeFinale = (props, context) => {
           <Table.Cell width="33.3%">
             <Button
               tooltipPosition="left"
-              tooltip="Amount of time that every living victim in the AOE will be weakened. Increased by dissecting hearts"
-              content="Weaken Time:"
+              tooltip="Время, которое каждый живой моб в области поражения будет оглушен. Увеличивается при извлечении сердец."
+              content="Время оглушения:"
               color="transparent"
             />
             <Box
@@ -1624,23 +1624,23 @@ const LungeFinale = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Amount of time that every living victim in the AOE will be confused. Increased by dissecting kidneys"
-              content="Confusion Time:"
+              tooltip="Время, которое каждый живой моб в области поражения будет в замешательстве. Увеличивается при извлечении почек."
+              content="Время замешательства:"
               color="transparent"
             />
             <Box
               inline
               textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
             >
-              {roundTenths(kidneys * 2)}s.
+              {roundTenths(kidneys * 2)}с.
               {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="Amount of blood that every living humanoid victim in the AOE will loose. Increased by dissecting kidneys"
-              content="Bleeding Amount:"
+              tooltip="Количество крови, которое потеряет каждый живой гуманоид в области поражения. Увеличивается при извлечении почек."
+              content="Кровопотеря:"
               color="transparent"
             />
             <Box
@@ -1654,8 +1654,8 @@ const LungeFinale = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="left"
-              tooltip="Amount of usable blood vampire will gain from every living sentient humanoid victim. Increased by dissecting kidneys."
-              content="Blood Gained:"
+              tooltip="Количество крови, которое получит вампир от каждого живого разумного гуманоида в области поражения. Увеличивается при извлечении почек."
+              content="Поглощение крови:"
               color="transparent"
             />
             <Box
@@ -1671,8 +1671,8 @@ const LungeFinale = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="right"
-              tooltip="Amount of lunges that the hound will perform. Increased by collecting any type of the trophies"
-              content="Lunges Amount:"
+              tooltip="Количество рывков, которое совершит гончая. Увеличивается при извлечении любого трофейного органа."
+              content="Количество рывков:"
               color="transparent"
             />
             <Box inline textColor={allTrophies < 50 ? 'average' : 'good'}>
@@ -1683,8 +1683,8 @@ const LungeFinale = (props, context) => {
           <Table.Cell>
             <Button
               tooltipPosition="top"
-              tooltip="After the ability is activated, the hound will perform defined amount of lunges at any living sentinent targets within the search range, prioritizing new targets"
-              content="Additional Info"
+              tooltip="После активации способности гончая выполнит определенное количество рывков по любым живым разумным целям в области поиска, ставя приоритет на новые цели."
+              content="Дополнительная информация"
               color="transparent"
             />
           </Table.Cell>

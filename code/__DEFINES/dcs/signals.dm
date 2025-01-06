@@ -764,6 +764,10 @@
 #define COMSIG_OBJ_POSSESSED "obj_possessed"
 ///from base of /proc/release(): (mob/user)
 #define COMSIG_OBJ_RELEASED "obj_released"
+///from [/obj/structure/sink/attack_hand]
+#define COMSIG_SINK_ACT "sink_act"
+	/// returns on succes of species special sink_act()
+	#define COMSIG_SINK_ACT_SUCCESS (1<<0)
 
 // /obj/machinery signals
 
@@ -829,6 +833,9 @@
 #define COMSIG_MINE_TRIGGERED "minegoboom"
 ///from [/obj/item/organ/internal/remove]:
 #define COMSIG_ORGAN_REMOVED "organ_removed"
+///from [/obj/item/organ/internal/cyberimp/mouth/translator/check_lang]
+#define COMSIG_LANG_PRE_ACT "check_language"
+	#define COMSIG_LANG_SECURED (1<<0)
 
 /// Defib-specific signals
 

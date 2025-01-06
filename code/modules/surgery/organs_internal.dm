@@ -179,6 +179,182 @@
 	if(affected && affected.encased) //no bones no problem.
 		return FALSE
 
+/datum/surgery/translator_manipulations
+	name = "Translator Manipulations"
+	possible_locs = list(BODY_ZONE_PRECISE_MOUTH)
+	restricted_speciestypes = null
+
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/screwdriver_use,
+		/datum/surgery_step/proxy/manipulate_translator,
+		/datum/surgery_step/screwdriver_use,
+		/datum/surgery_step/generic/cauterize
+	)
+
+/datum/surgery/translator_manipulations/can_start(mob/user, mob/living/carbon/target)
+	if(!..())
+		return FALSE
+
+	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+	if(!translator) // nothing to maniplate with..
+		return FALSE
+
+	return TRUE
+
+
+/datum/surgery_step/screwdriver_use
+	name = "screw/unscrew translator"
+	allowed_tools = list(TOOL_SCREWDRIVER = 100)
+	time = 1 SECONDS
+
+/datum/surgery_step/screwdriver_use/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+	user.visible_message(span_notice("[user] starts [translator.open ? "screwing" : "unscrewing"] the locking mechanism on the speech translator casing."),\
+						span_notice("You start [translator.open ? "screwing" : "unscrewing"] the locking mechanism on the speech translator casing."))
+	tool.play_tool_sound(target, 30)
+
+	return ..()
+
+/datum/surgery_step/screwdriver_use/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+	user.visible_message(span_notice("[user] [translator.open ? "screwed" : "unscrewed"] the locking mechanism on the speech translator casing."),\
+						span_notice("You [translator.open ? "screwed" : "unscrewed"] the locking mechanism on the speech translator casing."))
+	translator.open = !translator.open
+
+	return SURGERY_STEP_CONTINUE
+
+
+/datum/surgery_step/proxy/manipulate_translator
+	name = "Manipulate translator (proxy)"
+	branches = list(
+		/datum/surgery/intermediate/manipulate_translator/install,
+		/datum/surgery/intermediate/manipulate_translator/uninstall,
+	)
+
+
+/datum/surgery/intermediate/manipulate_translator
+	requires_bodypart = TRUE
+	possible_locs = list(BODY_ZONE_PRECISE_MOUTH)
+
+
+/datum/surgery/intermediate/manipulate_translator/install
+	steps = list(/datum/surgery_step/internal/manipulate_translator/install)
+
+
+/datum/surgery_step/internal/manipulate_translator/install
+	name = "install chip/upgrade"
+	allowed_tools = list(
+		/obj/item/translator_chip = 100,
+		/obj/item/translator_upgrade = 100,
+		)
+	time = 5 SECONDS
+
+
+/datum/surgery_step/internal/manipulate_translator/install/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message(span_notice("[user] starts connecting [tool] into the speech translator's slot."),\
+						span_notice("You start connecting [tool] into the speech translator's slot. "))
+
+	return ..()
+
+
+/datum/surgery_step/internal/manipulate_translator/install/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+
+	if(istype(tool, /obj/item/translator_chip))
+		var/obj/item/translator_chip/chip = tool
+
+		if(!chip.stored_language_rus)
+			to_chat(user, span_warning("Chip must be activated to connect with translator!"))
+			return SURGERY_STEP_INCOMPLETE
+
+		if(LAZYLEN(translator.stored_chips) >= translator.maximum_slots)
+			to_chat(user, span_warning("There is no place in translator to another language chip!"))
+			return SURGERY_STEP_INCOMPLETE
+
+		if(chip.stored_language_rus in translator.given_languages_rus)
+			to_chat(user, span_warning("This language chip already installed!"))
+			return SURGERY_STEP_INCOMPLETE
+
+		translator.install_chip(user, chip)
+
+	else if(istype(tool, /obj/item/translator_upgrade))
+		if(translator.stored_upgrade)
+			to_chat(user, span_warning("Translator already has an upgrade!"))
+			return SURGERY_STEP_INCOMPLETE
+
+		translator.install_upgrade(user, tool)
+
+	user.visible_message(span_notice("[user] succesfully connected [tool] into the speech translator's slot."),\
+						span_notice("You succesfully connected [tool] into the speech translator's slot. "))
+
+	return SURGERY_STEP_CONTINUE
+
+
+/datum/surgery/intermediate/manipulate_translator/uninstall
+	steps = list(/datum/surgery_step/internal/manipulate_translator/uninstall)
+
+
+/datum/surgery_step/internal/manipulate_translator/uninstall
+	name = "uninstall chip/upgrade"
+	allowed_tools = list(TOOL_MULTITOOL = 100)
+	time = 0
+
+
+/datum/surgery_step/internal/manipulate_translator/uninstall/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+	var/list/choises = list()
+
+	if(translator.stored_upgrade)
+		choises["Улучшение"] = image(icon = translator.stored_upgrade.icon, icon_state = translator.stored_upgrade.icon_state)
+
+	for(var/obj/item/translator_chip/chip in translator.stored_chips)
+		choises[chip.stored_language_rus] = image(icon = chip.icon, icon_state = chip.icon_state)
+
+	if(!choises)
+		to_chat(user, span_notice("You can't find anything to uninstall from the speech translator."))
+		return SURGERY_STEP_INCOMPLETE
+
+	var/choise
+	if(LAZYLEN(choises) == 1)
+		choise = choises[1]
+	else
+		choise = show_radial_menu(user, target, choises, require_near = TRUE)
+
+	if(!choise) //closed
+		return SURGERY_STEP_INCOMPLETE
+
+	user.visible_message(span_notice("[user] starts disconnecting wires from the speech translator."),\
+						span_notice("You start disconnecting wires from the speech translator. "))
+
+	if(!do_after(user, 4 SECONDS, target))
+		return SURGERY_STEP_INCOMPLETE
+
+	var/add_msg = ""
+	if(choise == "Улучшение")
+		if(LAZYLEN(translator.stored_chips) > initial(translator.maximum_slots))
+			to_chat(user, span_warning("You need to remove the extra chips first!"))
+			return SURGERY_STEP_INCOMPLETE
+
+		translator.uninstall_upgrade(user)
+		add_msg = "upgrade"
+
+	else
+		var/obj/item/translator_chip/chip
+		for(chip in translator.stored_chips)
+			if(chip.stored_language_rus == choise)
+				break
+
+		add_msg = "chip"
+		translator.remove_chip(user, chip)
+
+	user.visible_message(span_notice("[user] successfully removed the [add_msg] from the speech translator."),\
+						span_notice("You successfully removed the [add_msg] from the speech translator. "))
+
+	return ..()
+
 
 // Intermediate steps for branching organ manipulation.
 /datum/surgery/intermediate/manipulate
@@ -516,8 +692,7 @@
 		// dunno how you got here but okay
 		return SURGERY_BEGINSTEP_SKIP
 
-	if(istype(organ, /obj/item/organ/internal/wryn/hivenode) && !iswryn(target)) // If they make more "unique" organs, I'll make some vars and a separate proc, but now..
-		to_chat(user, span_warning("Данное существо не способно принять этот орган!"))
+	if(!organ.can_insert(user, target)) // checks species whitelist and special organ restrictions
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(target_zone != organ.parent_organ_zone || target.get_organ_slot(organ.slot))
