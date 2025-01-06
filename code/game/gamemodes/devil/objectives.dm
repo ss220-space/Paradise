@@ -3,6 +3,7 @@
 /datum/objective/devil/soulquantity
 	needs_target = FALSE
 	explanation_text = "You shouldn't see this text.  Error:DEVIL1"
+	antag_menu_name = "Завладеть душами"
 	target_amount = 4
 
 /datum/objective/devil/soulquantity/New()
@@ -28,6 +29,7 @@
 /datum/objective/devil/soulquality
 	needs_target = FALSE
 	explanation_text = "You shouldn't see this text.  Error:DEVIL2"
+	antag_menu_name = "Заключить контракты"
 	var/contractType
 	var/contractName
 
@@ -36,21 +38,21 @@
 	target_amount = pick(1, 2)
 	switch(contractType)
 		if(CONTRACT_POWER)
-			contractName = "for power"
+			contractName = "на силу"
 		if(CONTRACT_WEALTH)
-			contractName = "for wealth"
+			contractName = "на богатство"
 		if(CONTRACT_PRESTIGE)
-			contractName = "for prestige"
+			contractName = "на престиж"
 		if(CONTRACT_MAGIC)
-			contractName = "for magic"
+			contractName = "на магию"
 		if(CONTRACT_REVIVE)
-			contractName = "of revival"
+			contractName = "на возраждение"
 		if(CONTRACT_KNOWLEDGE)
-			contractName = "for knowledge"
+			contractName = "на знание"
 	update_explanation_text()
 
 /datum/objective/devil/soulquality/update_explanation_text()
-	explanation_text = "Have mortals sign at least [target_amount] contracts [contractName]."
+	explanation_text = "Убедить смертных подписать как минимум [target_amount] контрактов [contractName]."
 
 /datum/objective/devil/soulquality/check_completion()
 	var/count = 0
@@ -65,10 +67,11 @@
 /datum/objective/devil/sintouch
 	needs_target = FALSE
 	explanation_text = "You shouldn't see this text.  Error:DEVIL3"
+	antag_menu_name = "Осквернить души"
 
 /datum/objective/devil/sintouch/New()
 	target_amount = pick(4, 5)
-	explanation_text = "Ensure at least [target_amount] mortals are sintouched."
+	explanation_text = "Убедитесь, что хотя бы [target_amount] было осквернено грехом."
 
 /datum/objective/devil/sintouch/check_completion()
 	return target_amount <= SSticker.mode.sintouched.len
@@ -77,6 +80,8 @@
 
 /datum/objective/devil/buy_target
 	explanation_text = "You shouldn't see this text.  Error:DEVIL4"
+	antag_menu_name = "Завладеть душой"
+
 
 /datum/objective/devil/buy_target/New()
 	find_target()
@@ -84,9 +89,9 @@
 
 /datum/objective/devil/buy_target/update_explanation_text()
 	if(target)
-		explanation_text = "Purchase and retain the soul of [target.name], the [target.assigned_role]."
+		explanation_text = "Купите и сохраните душу [target.name], [target.assigned_role]."
 	else
-		explanation_text = "Free objective."
+		explanation_text = "Свободная цель."
 
 /datum/objective/devil/buy_target/check_completion()
 	return target.soulOwner == owner
@@ -94,9 +99,10 @@
 
 /datum/objective/devil/outsell
 	explanation_text = "You shouldn't see this text.  Error:DEVIL5"
+	antag_menu_name = "Конкуренция за души"
 
 /datum/objective/devil/outsell/update_explanation_text()
-	explanation_text = "Purchase and retain control over more souls than [target.devilinfo.truename], known to mortals as [target.name], the [target.assigned_role]."
+	explanation_text = "Приобретите и сохраните контроль над большим количеством душ, чем [target.devilinfo.truename], известным смертным как [target.name], [target.assigned_role]."
 
 /datum/objective/devil/outsell/check_completion()
 	var/selfcount = 0

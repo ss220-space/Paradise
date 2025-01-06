@@ -14,6 +14,10 @@
 	var/sell_multiplier = 0
 	var/sell_interest = NONE
 
+/obj/item/documents/Initialize()
+	. = ..()
+	AddElement(/datum/element/high_value_item)
+
 /obj/item/documents/nanotrasen
 	desc = "\"Top Secret\" Nanotrasen documents printed on special copy-protected paper. It is filled with complex diagrams and lists of names, dates and coordinates."
 	icon_state = "docs_verified"

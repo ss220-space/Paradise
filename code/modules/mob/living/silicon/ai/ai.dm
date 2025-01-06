@@ -217,6 +217,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/Initialize(mapload)
 	. = ..()
 	add_traits(list(TRAIT_PULL_BLOCKED, TRAIT_HANDS_BLOCKED), ROUNDSTART_TRAIT)
+	AddElement(/datum/element/high_value_item)
 
 
 /mob/living/silicon/ai/proc/on_mob_init()

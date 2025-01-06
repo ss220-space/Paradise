@@ -267,7 +267,9 @@
 
 //Blueprint Subtypes
 
-/obj/item/areaeditor/blueprints/ce
+/obj/item/areaeditor/blueprints/ce/Initialize()
+	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 
 /obj/item/areaeditor/blueprints/cyborg

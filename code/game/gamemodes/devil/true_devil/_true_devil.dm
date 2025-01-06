@@ -136,10 +136,11 @@
 		S.mind.assigned_role = "MODE"
 		S.mind.special_role = "Imp"
 		var/datum/objective/newobjective = new
-		newobjective.explanation_text = "Try to get a promotion to a higher infernal rank."
+		newobjective.antag_menu_name = "Добиться повышения"
+		newobjective.explanation_text = "Постарайтесь получить повышение до более высокого адского ранга."
 		S.mind.objectives += newobjective
 		to_chat(S,S.playstyle_string)
-		to_chat(S,"<B>Objective #1</B>: [newobjective.explanation_text]")
+		to_chat(S,"<B>Цель #1</B>: [newobjective.explanation_text]")
 		return
 	else
 		return ..()

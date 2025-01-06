@@ -7,6 +7,7 @@
 	russian_wiki_name = "Блоб"
 	show_in_roundend = FALSE
 	show_in_orbit = FALSE
+	antag_menu_name = "Надразум блоба"
 	/// Variable responsible for the need to add a mind to blob_infected list in game mode
 	var/add_to_mode = TRUE
 	/// Is a blob a offspring of another blob.
@@ -23,7 +24,7 @@
 	var/mob/camera/blob/camera = owner.current
 	strain = camera.blobstrain
 	. = ..()
-	
+
 
 /datum/antagonist/blob_overmind/add_owner_to_gamemode()
 	var/datum/game_mode/mode = SSticker.mode

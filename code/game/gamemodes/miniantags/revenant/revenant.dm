@@ -370,24 +370,25 @@
 
 /datum/objective/revenantFluff
 	needs_target = FALSE
+	antag_menu_name = "Задача ревенанта"
 
 
 
 /datum/objective/revenantFluff/New()
-	var/list/explanationTexts = list("Assist and exacerbate existing threats at critical moments.", \
-									 "Cause as much chaos and anger as you can without being killed.", \
-									 "Damage and render as much of the station rusted and unusable as possible.", \
-									 "Disable and cause malfunctions in as many machines as possible.", \
-									 "Ensure that any holy weapons are rendered unusable.", \
-									 "Hinder the crew while attempting to avoid being noticed.", \
-									 "Make the crew as miserable as possible.", \
-									 "Make the clown as miserable as possible.", \
-									 "Make the captain as miserable as possible.", \
-									 "Make the AI as miserable as possible.", \
-									 "Annoy the ones that insult you the most.", \
-									 "Whisper ghost jokes into peoples heads.", \
-									 "Help the crew in critical situations, but take your payments in souls.", \
-									 "Prevent the use of energy weapons where possible.")
+	var/list/explanationTexts = list("Помогайте существующим угрозам и усугубляйте их в критические моменты.", \
+									 "Вызовите как можно больше хаоса и гнева, не будучи убитыми.", \
+									 "Повредите и сделайте как можно большую часть станции разрушеной и непригодной для использования.", \
+									 "Отключите как можно больше машин и вызовите сбои в их работе.", \
+									 "Убедитесь, что любое святое оружие приведено в негодность.", \
+									 "Мешайте экипажу, пытаясь остаться незамеченным..", \
+									 "Сделайте экипаж как можно более несчастным.", \
+									 "Сделайте клоуна как можно более несчастным.", \
+									 "Сделайте капитана как можно более несчастным.", \
+									 "Сделайте ИИ как можно более несчастным.", \
+									 "Раздражайте тех, кто вас больше всего оскорбляет.", \
+									 "Шепчите шутки о призраках в головы людей.", \
+									 "Помогайте экипажу в критических ситуациях, но принимайте оплату в душах.", \
+									 "По возможности предотвращайте применение энергетического оружия.")
 	explanation_text = pick(explanationTexts)
 	..()
 
