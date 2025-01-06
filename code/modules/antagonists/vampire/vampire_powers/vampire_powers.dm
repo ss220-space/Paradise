@@ -256,7 +256,7 @@
 	if(ishuman(user) && istype(user.glasses, /obj/item/clothing/glasses/sunglasses/blindfold))
 		var/obj/item/clothing/glasses/sunglasses/blindfold/blindfold = user.glasses
 		if(blindfold.tint)
-			balloon_alert(user, "вы не видите!")
+			balloon_alert(user, "ваши глаза закрыты!")
 			return
 
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, _range = 3, _duration = 0.2 SECONDS)
@@ -349,7 +349,7 @@
 /obj/effect/proc_holder/spell/vampire/raise_vampires/cast(list/targets, mob/user = usr)
 	new /obj/effect/temp_visual/cult/sparks(user.loc)
 	var/turf/T = get_turf(user)
-	to_chat(user, span_warning("Вы взываете к блюспейсу, призывая на помощь еще больше вампирических духов!"))
+	to_chat(user, span_warning("Вы взываете к блюспейсу, призывая на помощь ещё больше вампирических духов!"))
 	for(var/mob/living/carbon/human/H in targets)
 		T.Beam(H, "sendbeam", 'icons/effects/effects.dmi', time = 30, maxdistance = 7, beam_type = /obj/effect/ebeam)
 		new /obj/effect/temp_visual/cult/sparks(H.loc)
@@ -379,7 +379,7 @@
 			visible_message(span_warning("[H], похоже, испытыва[pluralize_ru(H.gender, "ет", "ют")] боль!"))
 			H.apply_damage(60, BRAIN)
 		else
-			visible_message(span_warning("Похоже, что [H] ошеломлен[pluralize_ru(H.gender, "", "ы")] энергией!"))
+			visible_message(span_warning("Похоже, что [H] ошеломлен[genderize_ru(H.gender, "", "а", "о", "ы")] энергией!"))
 			H.Weaken(40 SECONDS)
 		return
 	for(var/obj/item/implant/mindshield/L in H)

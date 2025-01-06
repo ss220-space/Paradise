@@ -382,7 +382,7 @@
 									span_notice("Вы вытягиваете из пальцев когти."))
 
 			if(3)
-				user.visible_message(span_danger("[user] пронзает когтями [target]!"), \
+				user.visible_message(span_danger("[user] пронза[pluralize_ru(user.gender, "ет", "ют")] когтями [target]!"), \
 									span_notice("Вы пронзаете [target] когтями и начинаете процесс вскрытия..."))
 				to_chat(target, span_danger("Вы чувствуете острую колющую боль!"))
 				target.take_overall_damage(30)
@@ -587,7 +587,7 @@
         ACCUSATIVE = "заражённый череп",
         INSTRUMENTAL = "заражённым черепом",
         PREPOSITIONAL = "заражённом черепе"
-    	)
+    )
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ashen_skull"
 	item_state = "ashen_skull"
@@ -763,7 +763,7 @@
 	user.pulledby?.stop_pulling()
 
 	user.visible_message(span_danger("[user] начина[pluralize_ru(user.gender, "ет", "ют")] двигаться с неестественной скоростью!"), \
-						span_notice("Вы делаете выпад в сторону..."))
+						span_notice("Вы бросаетесь в сторону..."))
 
 	var/leap_range = targeting.range
 
@@ -858,14 +858,14 @@
 			h_victim.bleed(actual_blood_loss)
 			h_victim.Confused(confusion_amt)
 			h_victim.emote("moan")
-			to_chat(h_victim, span_userdanger("Вы чувствуете острую боль внутри тела и внезапно ощущаете сильную слабость!"))
+			to_chat(h_victim, span_userdanger("Вы чувствуете острую боль и внезапно ощущаете сильную слабость!"))
 
 			if(h_victim.mind && h_victim.ckey && !HAS_TRAIT(h_victim, TRAIT_EXOTIC_BLOOD))
 				blood_gained += blood_vamp_get
 				vampire.adjust_blood(h_victim, blood_vamp_get)
 
 	if(blood_gained)
-		to_chat(user, span_notice("Вы пережимаете артерии на лету и поглощаете <b>[blood_gained]</b> единиц[declension_ru(blood_gained, "у", "ы", "")] крови!"))
+		to_chat(user, span_notice("Вы пережимаете артерии жертвы на лету и поглощаете <b>[blood_gained]</b> единиц[declension_ru(blood_gained, "у", "ы", "")] крови!"))
 
 
 /obj/effect/proc_holder/spell/vampire/lunge/on_trophie_update(datum/antagonist/vampire/vampire, trophie_type, force = FALSE)
@@ -886,7 +886,7 @@
 \*======================================================================================================================================*/
 /obj/effect/proc_holder/spell/vampire/mark
 	name = "Пометить добычу"
-	desc = "Пометьте свою жертву, чтобы замедлить ее движение, уменьшить сопротивление и заставить ее совершать спонтанные действия."
+	desc = "Пометьте свою жертву, чтобы замедлить её передвижение, уменьшить сопротивление и заставить её совершать спонтанные действия."
 	gain_desc = "Вы получили возможность помечать своих жертв. Различные дополнительные эффекты применяются в зависимости от собранных трофеев."
 	action_icon_state = "predator_sense"
 	need_active_overlay = TRUE
@@ -973,22 +973,22 @@
 	for(var/obj/effect/proc_holder/spell/vampire/metamorphosis/spell in (user.mind.spell_list - src))
 		if(spell?.is_transformed)
 			if(show_message)
-				to_chat(user, span_warning("Вы уже используете другую метаморфозу!"))
+				balloon_alert(user, "метаморфоза уже используется!")
 			return FALSE
 
 	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 		if(show_message)
-			to_chat(user, span_warning("Вы не можете использовать эту способность прямо сейчас!"))
+			balloon_alert(user, "нельзя использовать сейчас!")
 		return FALSE
 
 	if(ishuman(user) && user.health <= 0)
 		if(show_message)
-			to_chat(user, span_warning("Вы слишком слабы, чтобы использовать эту способность!"))
+			balloon_alert(user, "вы слишком слабы!")
 		return FALSE
 
 	if(!isturf(user.loc))
 		if(show_message)
-			to_chat(user, span_warning("Вы не можете использовать эту способность внутри [user.loc]!"))
+			balloon_alert(user, "нельзя использовать внутри!")
 		return FALSE
 
 	return ..()
@@ -1063,7 +1063,7 @@
 		custom_handler = create_new_handler()
 		update_vampire_spell_name()
 
-	var/self_message = death_provoked ? span_userdanger("В таком состоянии вы не сможете поддерживать форму, она начнет рассыпаться!") : span_notice("Вы начинаете превращаться обратно в первоначальную форму.")
+	var/self_message = death_provoked ? span_userdanger("В таком состоянии вы не сможете поддерживать форму, она начнёт рассыпаться!") : span_notice("Вы начинаете превращаться обратно в первоначальную форму.")
 	user.visible_message(span_warning("Форма [user] становится нечёткой, прежде чем [genderize_ru(user.gender, "он", "она", "оно", "они")] прим[pluralize_ru(user.gender, "ет", "ут")] первоначальный облик!"), self_message, span_italics("Вы слышите жуткий шум множества крыльев..."))
 
 	user.set_density(FALSE)
@@ -1125,7 +1125,7 @@
 /obj/effect/proc_holder/spell/vampire/metamorphosis/hound
 	name = "Метаморфоза - Гончая"
 	desc = "Превратитесь в страшную ищейку. Это проворные, яростные звери, во всем превосходящие человека."
-	gain_desc = "Вы обрели способность превращаться в кровавую гончую. Это высшая форма сущности блюспейса, которая овладела нами."
+	gain_desc = "Вы обрели способность превращаться в кровавую гончую. Это высшая форма блюспейс-сущности, овладевшей вами."
 	action_icon_state = "blood_hound"
 	sound_on_transform = 'sound/creatures/hound_howl.ogg'
 	free_transform_back = TRUE
@@ -1149,7 +1149,7 @@
 \*======================================================================================================================================*/
 /obj/effect/proc_holder/spell/vampire/self/bat_screech
 	name = "Оглушительный вопль"
-	desc = "Летучие мыши издают высокочастотный звук, который ослабляет и оглушает гуманоидов, перегружает датчики киборгов, гасит свет и разбивает окна."
+	desc = "Летучие мыши издают высокочастотный звук, который ослабляет и оглушает гуманоидов, перегружает датчики синтетиков, гасит свет и разбивает окна."
 	action_icon_state = "bats_shriek"
 	sound = 'sound/effects/creepyshriek.ogg'
 	human_req = FALSE
@@ -1159,7 +1159,7 @@
 
 /obj/effect/proc_holder/spell/vampire/self/bat_screech/cast(list/targets, mob/living/user = usr)
 
-	user.visible_message(span_warning("[user] изда[pluralize_ru(user.gender, "ет", "ют")] душераздирающий вопль!"), \
+	user.visible_message(span_warning("[user] изда[pluralize_ru(user.gender, "ёт", "ют")] душераздирающий вопль!"), \
 						span_notice("Вы громко кричите."), \
 						span_italics("Вы слышите мучительно громкий визг!"))
 
@@ -1339,7 +1339,7 @@
 		return FALSE
 	if(!isturf(user.loc))
 		if(show_message)
-			to_chat(user, span_warning("Вы не можете использовать эту способность внутри [user.loc]!"))
+			balloon_alert(user, "нельзя использовать внутри!")
 		return FALSE
 	return ..()
 
@@ -1406,7 +1406,7 @@
 
 		var/self_msg
 		if(isvampire(victim) || isvampirethrall(victim))
-			self_msg = span_notice("Блюспейс сущность легким прикосновением выталкивает вас из гроба.")
+			self_msg = span_notice("Блюспейс сущность лёгким прикосновением выталкивает вас из гроба.")
 		else
 			self_msg = span_userdanger("Невидимая сила с яростью выбрасывает вас из гроба!")
 			victim.throw_at(get_edge_target_turf(victim, pick(GLOB.alldirs)), rand(10, 30), 8, user)
@@ -1554,14 +1554,14 @@
 	human_vampire.UpdateAppearance()
 
 	if(human_vampire.stat == DEAD)
-		human_vampire.visible_message(span_warning("Мертвое тело [human_vampire] появляется под останками гроба!"))
+		human_vampire.visible_message(span_warning("Мёртвое тело [human_vampire] появляется под останками гроба!"))
 		return
 
 	human_vampire.set_stat(CONSCIOUS)
 
 	new /obj/effect/temp_visual/cult/sparks(source_turf)
 	playsound(loc, 'sound/effects/creepyshriek.ogg', 100, TRUE)
-	human_vampire.visible_message(span_danger("[human_vampire] выход[pluralize_ru(human_vampire.gender, "ит", "ят")] из разрушенного гроба и изда[pluralize_ru(human_vampire.gender, "ит", "ят")] оглушительный вопль!"), \
+	human_vampire.visible_message(span_danger("[human_vampire] выход[pluralize_ru(human_vampire.gender, "ит", "ят")] из разрушенного гроба и изда[pluralize_ru(human_vampire.gender, "ёт", "ют")] оглушительный вопль!"), \
 								span_userdanger("Ваш гроб разрушен, и вы кричите в неистовой ярости!"), \
 								span_italics("Вы слышите чрезвычайно громкий визг!"))
 
@@ -1802,7 +1802,7 @@
 		new /obj/effect/temp_visual/cult/sparks(get_turf(user))
 		user.Weaken(10 SECONDS)	// well, you were warned!
 		user.Jitter(20 SECONDS)
-		user.visible_message(span_warning("Как только [user] прикосн[pluralize_ru(user.gender, "ет", "ут")]ся к [declent_ru(DATIVE)], [genderize_ru(user.gender, "его", "её", "этого", "их")] тело начнет биться в конвульсиях."), \
+		user.visible_message(span_warning("Как только [user] прикаса[pluralize_ru(user.gender, "ет", "ют")]ся к [declent_ru(DATIVE)], [genderize_ru(user.gender, "его", "её", "его", "их")] тело начнет биться в конвульсиях."), \
 							span_userdanger("Внутри вас что-то сжимается, и вы начинаете биться в конвульсиях!"))
 
 		if(!HAS_TRAIT(user, TRAIT_NO_BLOOD))
@@ -1862,7 +1862,7 @@
 	else if(all_trophies > 40)
 		num_bats += all_trophies < 52 ? 2 : 3
 
-	user.visible_message(span_warning("Внезапно <b>[num_bats] ста[declension_ru(num_bats, "ю", "и", "й")]</b> космических летучих мышей появились рядом с [user]!"), \
+	user.visible_message(span_warning("Внезапно <b>[num_bats] ста[declension_ru(num_bats, "я", "и", "й")]</b> космических летучих мышей появились рядом с [user]!"), \
 						span_notice("Вы вызываете <b>[num_bats] ста[declension_ru(num_bats, "ю", "и", "й")]</b> космических летучих мышей, чтобы они помогли вам в бою."), \
 						span_italics("Вы слышите жуткий шум множества крыльев и громкие визги..."))
 
@@ -2039,8 +2039,8 @@
  * Mr. Vampire in the bat form.
  */
 /mob/living/simple_animal/hostile/vampire/bats
-	name = "Рой разъяренных летучих мышей"
-	real_name = "Рой разъяренных летучих мышей"
+	name = "Рой разъярённых летучих мышей"
+	real_name = "Рой разъярённых летучих мышей"
 	desc = "Рой злобных, сердитых на вид космических летучих мышей."
 	icon = 'icons/mob/bats.dmi'
 	icon_state = "bat"
@@ -2118,7 +2118,7 @@
 /mob/living/simple_animal/hostile/vampire/hound
 	name = "Кровавая гончая"
 	real_name = "Кровавая гончая"
-	desc = "Черное клыкастое чудовище демонического вида со светящимися красными глазами и острыми зубами. Кровавые гончие обычно являются воплощением могущественных сущностей блюспейса."
+	desc = "Чёрное клыкастое чудовище демонического вида со светящимися красными глазами и острыми зубами. Кровавые гончие обычно являются воплощением могущественных сущностей блюспейса."
 	icon_state = "hellhoundgreater"
 	icon_living = "hellhoundgreater"
 	icon_dead = "hellhound_dead"
@@ -2210,8 +2210,8 @@
  * Summoned bats.
  */
 /mob/living/simple_animal/hostile/vampire/bats_summoned
-	name = "Рой разъяренных летучих мышей"
-	real_name = "Рой разъяренных летучих мышей"
+	name = "Рой разъярённых летучих мышей"
+	real_name = "Рой разъярённых летучих мышей"
 	desc = "Рой злобных, сердитых на вид космических летучих мышей."
 	icon = 'icons/mob/bats.dmi'
 	icon_state = "bat"

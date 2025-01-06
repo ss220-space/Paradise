@@ -61,7 +61,7 @@
 
 	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(V.subclass.thrall_cap <= length(user.mind.som.serv))
-		to_chat(user, span_warning("У вас не хватит сил, чтобы поработить еще больше гуманоидов!"))
+		to_chat(user, span_warning("У вас не хватит сил, чтобы поработить ещё больше гуманоидов!"))
 		return
 
 	if(ismindshielded(C) || isvampire(C) || isvampirethrall(C) || C.mind.has_antag_datum(/datum/antagonist/mindslave))
@@ -154,8 +154,8 @@
 
 /obj/effect/proc_holder/spell/vampire/pacify
 	name = "Умиротворение"
-	desc = "Временно умиротворяет цель, делая ее неспособной причинить вред."
-	gain_desc = "Вы обрели способность умиротворять агрессивные порывы человека, не позволяя ему причинить кому-либо физический вред."
+	desc = "Временно умиротворяет цель, делая её неспособной причинить вред."
+	gain_desc = "Вы обрели способность умиротворять агрессивные порывы гуманоида, не позволяя ему причинить кому-либо физический вред."
 	action_icon_state = "pacify"
 	base_cooldown = 10 SECONDS
 	required_blood = 10
@@ -180,7 +180,7 @@
 /obj/effect/proc_holder/spell/vampire/switch_places
 	name = "Подпространственный обмен"
 	desc = "Поменяйтесь местами с целью. Также замедляет жертву и вызывает у нее галлюцинации."
-	gain_desc = "Вы получили возможность меняться местами с выбранным персонажем."
+	gain_desc = "Вы получили возможность меняться местами с выбранным существом."
 	centcom_cancast = FALSE
 	action_icon_state = "subspace_swap"
 	base_cooldown = 5 SECONDS

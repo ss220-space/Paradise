@@ -67,7 +67,7 @@
 	attack_speed = 0.4 SECONDS
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("нарезал", "уколол", "нарезал", "порвал", "вырвал", "нарезал кубиками", "срезал", "содрал", "задрал")
+	attack_verb = list("атаковал", "порезал", "уколол", "полоснул", "рубанул", "пронзил", "нарезал кубиками")
 	sprite_sheets_inhand = list(SPECIES_VOX = 'icons/mob/clothing/species/vox/held.dmi', SPECIES_DRASK = 'icons/mob/clothing/species/drask/held.dmi')
 	var/durability = 15
 	var/blood_drain_amount = 15
@@ -161,7 +161,7 @@
 		if(L.affects_vampire(user))
 			L.Slowed(slowed_amount)
 			L.apply_damage(33, TOX)
-			L.visible_message(span_warning("[L] опутыва[pluralize_ru(L.gender, "ет", "ют")]ся кровавыми щупальцами, которые ограничивают [genderize_ru(L.gender, "его", "её", "этого", "их")] движение!"))
+			L.visible_message(span_warning("[L] опутыва[pluralize_ru(L.gender, "ет", "ют")]ся кровавыми щупальцами, которые ограничивают [genderize_ru(L.gender, "его", "её", "его", "их")] движение!"))
 			var/turf/target_turf = get_turf(L)
 			playsound(target_turf, 'sound/magic/tail_swing.ogg', 50, TRUE)
 			new /obj/effect/decal/cleanable/blood(target_turf)
@@ -330,7 +330,7 @@
 
 /obj/effect/proc_holder/spell/ethereal_jaunt/blood_pool
 	name = "Погружение в кровь"
-	desc = "Вы превращаете свою форму в лужу крови, делая ее неуязвимой и способной перемещаться сквозь все, что не является стеной или космосом. После этого за вами остается кровавый след."
+	desc = "Вы превращаете свою форму в лужу крови, делая ее неуязвимой и способной перемещаться сквозь всё, что не является стеной или космосом. После этого за вами остаётся кровавый след."
 	gain_desc = "Вы получили способность превращаться в лужу крови, что позволяет вам уходить от преследователей с большой мобильностью."
 	jaunt_duration = 8 SECONDS
 	clothes_req = FALSE
@@ -359,7 +359,7 @@
 
 /obj/effect/proc_holder/spell/vampire/predator_senses
 	name = "Чутьё хищника"
-	desc = "Выслеживайте свою добычу, здесь ей негде спрятаться... На короткое время оглушает ее, если она окажется в вашем поле зрения."
+	desc = "Выслеживайте свою добычу, здесь ей негде спрятаться... На короткое время оглушает её, если она окажется в вашем поле зрения."
 	gain_desc = "Ваши чувства обострились, теперь никто не сможет от вас спрятаться."
 	action_icon_state = "predator_sense"
 	base_cooldown = 10 SECONDS
@@ -387,7 +387,7 @@
 		return
 
 	var/mob/living/carbon/human/target = targets_by_name[target_name]
-	var/message = "[target_name] наход[pluralize_ru(target_name, "ит", "ят")]ся в локации [get_area(target)], [dir2rustext(get_dir(user, target))] от вас."
+	var/message = "[target_name] наход[pluralize_ru(target_name, "ит", "ят")]ся в локации [get_area(target)], на [dir2rustext(get_dir(user, target))]е от вас."
 	if(target.get_damage_amount() >= 40 || target.bleed_rate)
 		message += "<i> Цель ранена...</i>"
 	to_chat(user, span_cultlarge("[message]"))
@@ -443,8 +443,8 @@
 
 /obj/effect/proc_holder/spell/vampire/self/blood_spill
 	name = "Кровавый обряд"
-	desc = "При переключении все вокруг начинают обильно кровоточить. Вы выпьете их кровь и восстановите себя с ее помощью."
-	gain_desc = "Вы обрели способность извлекать жизненную силу из людей и поглощать ее, исцеляя себя."
+	desc = "При переключении все вокруг начнут обильно кровоточить. Вы будете поглощать их кровь и напитываться силой."
+	gain_desc = "Вы обрели способность извлекать жизненную силу из гуманоидов и поглощать её, исцеляя себя."
 	base_cooldown = 10 SECONDS
 	action_icon_state = "blood_bringers_rite"
 	required_blood = 10
