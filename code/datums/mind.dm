@@ -62,7 +62,6 @@
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
-	var/datum/devilinfo/devilinfo //Information about the devil, if any.
 	var/damnation_type = 0
 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 	var/hasSoul = TRUE
@@ -504,16 +503,15 @@
 /datum/mind/proc/memory_edit_devil(mob/living/H)
 	. = _memory_edit_header("devil", list("devilagents"))
 	if(src in SSticker.mode.devils)
+		var/datum/antagonist/devil/devilinfo = has_antag_datum(/datum/antagonist/devil)
 		if(!devilinfo)
 			. += "<b>No devilinfo found! Yell at a coder!</b>"
-		else if(!devilinfo.ascendable)
-			. += "<b>DEVIL</b>|<a href='byond://?src=[UID()];devil=ascendable_devil'>Ascendable Devil</a>|sintouched|<a href='byond://?src=[UID()];devil=clear'>no</a>"
 		else
-			. += "<a href='byond://?src=[UID()];devil=devil'>DEVIL</a>|<b>ASCENDABLE DEVIL</b>|sintouched|<a href='byond://?src=[UID()];devil=clear'>no</a>"
+			. += "<a href='byond://?src=[UID()];devil=devil'>DEVIL</a>|sintouched|<a href='byond://?src=[UID()];devil=clear'>no</a>"
 	else if(src in SSticker.mode.sintouched)
-		. += "devil|Ascendable Devil|<b>SINTOUCHED</b>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
+		. += "devil|<b>SINTOUCHED</b>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
 	else
-		. += "<a href='byond://?src=[UID()];devil=devil'>devil</a>|<a href='byond://?src=[UID()];devil=ascendable_devil'>Ascendable Devil</a>|<a href='byond://?src=[UID()];devil=sintouched'>sintouched</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];devil=devil'>devil</a>|<a href='byond://?src=[UID()];devil=sintouched'>sintouched</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_DEVIL)
 
@@ -1906,47 +1904,24 @@
 			if("clear")
 				if(src in SSticker.mode.devils)
 					log_admin("[key_name(usr)] has de-devil'ed [current].")
+
 				else if(src in SSticker.mode.sintouched)
 					message_admins("[key_name_admin(usr)] has de-sintouch'ed [current].")
 					log_admin("[key_name(usr)] has de-sintouch'ed [current].")
+
 				remove_devil_role()
 			if("devil")
-				if(devilinfo)
-					devilinfo.ascendable = FALSE
-					message_admins("[key_name_admin(usr)] has made [current] unable to ascend as a devil.")
-					log_admin("[key_name_admin(usr)] has made [current] unable to ascend as a devil.")
+				if(has_antag_datum(/datum/antagonist/devil))
 					return
-				if(!ishuman(current) && !isrobot(current))
-					to_chat(usr, "<span class='warning'>This only works on humans and cyborgs!</span>")
-					return
-				SSticker.mode.devils += src
-				special_role = "devil"
-				SSticker.mode.update_devil_icons_added(src)
-				SSticker.mode.finalize_devil(src, FALSE)
-				SSticker.mode.forge_devil_objectives(src, 2)
-				SSticker.mode.greet_devil(src)
+
+				add_antag_datum(/datum/antagonist/devil)
 				message_admins("[key_name_admin(usr)] has devil'ed [current].")
 				log_admin("[key_name(usr)] has devil'ed [current].")
-			if("ascendable_devil")
-				if(devilinfo)
-					devilinfo.ascendable = TRUE
-					message_admins("[key_name_admin(usr)] has made [current] able to ascend as a devil.")
-					log_admin("[key_name_admin(usr)] has made [current] able to ascend as a devil.")
-					return
-				if(!ishuman(current) && !isrobot(current))
-					to_chat(usr, "<span class='warning'>This only works on humans and cyborgs!</span>")
-					return
-				SSticker.mode.devils += src
-				special_role = "devil"
-				SSticker.mode.update_devil_icons_added(src)
-				SSticker.mode.finalize_devil(src, TRUE)
-				SSticker.mode.forge_devil_objectives(src, 2)
-				SSticker.mode.greet_devil(src)
-				message_admins("[key_name_admin(usr)] has devil'ed [current].  The devil has been marked as ascendable.")
-				log_admin("[key_name(usr)] has devil'ed [current]. The devil has been marked as ascendable.")
 			if("sintouched")
-				var/mob/living/carbon/human/H = current
-				H.influenceSin()
+				if(has_antag_datum(/datum/antagonist/sintouched))
+					return
+
+				add_antag_datum(/datum/antagonist/sintouched)
 				message_admins("[key_name_admin(usr)] has sintouch'ed [current].")
 				log_admin("[key_name(usr)] has sintouch'ed [current].")
 
@@ -2703,27 +2678,10 @@
 
 /datum/mind/proc/remove_devil_role()
 	if(src in SSticker.mode.devils)
-		if(istype(current,/mob/living/carbon/true_devil/))
-		else
-			SSticker.mode.devils -= src
-			SSticker.mode.update_devil_icons_removed(src)
-			special_role = null
-			RemoveSpell(/obj/effect/proc_holder/spell/infernal_jaunt)
-			RemoveSpell(/obj/effect/proc_holder/spell/fireball/hellish)
-			RemoveSpell(/obj/effect/proc_holder/spell/summon_contract)
-			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/pitchfork)
-			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/pitchfork/greater)
-			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/pitchfork/ascended)
-			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/violin)
-			RemoveSpell(/obj/effect/proc_holder/spell/summon_dancefloor)
-			RemoveSpell(/obj/effect/proc_holder/spell/sintouch)
-			RemoveSpell(/obj/effect/proc_holder/spell/sintouch/ascended)
-			if(issilicon(current))
-				var/mob/living/silicon/S = current
-				S.laws.clear_sixsixsix_laws()
-			devilinfo = null
+		remove_antag_datum(/datum/antagonist/devil)
+
 	else if(src in SSticker.mode.sintouched)
-		SSticker.mode.sintouched -= src
+		remove_antag_datum(/datum/antagonist/sintouched)
 
 
 /datum/mind/proc/remove_contractor_role()

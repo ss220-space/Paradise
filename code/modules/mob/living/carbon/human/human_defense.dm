@@ -510,24 +510,23 @@ emp_act
 	if(weapon_sharp && prob(getarmor(user.zone_selected, MELEE)))
 		weapon_sharp = FALSE
 
-	var/cached_force = I.force * check_weakness(I, user)
 	// this can destroy some species (damn nucleo-bombers), so from now on we cannot count on its existance
-	var/apply_damage_result = apply_damage(cached_force, I.damtype, affecting, armor, weapon_sharp, I)
+	var/apply_damage_result = apply_damage(I.force, I.damtype, affecting, armor, weapon_sharp, I)
 	var/IM_ALIVE = !QDELETED(src)
 
 	var/list/all_objectives = user.mind?.get_all_objectives()
 	if(all_objectives)
 		for(var/datum/objective/pain_hunter/objective in all_objectives)
 			if(mind == objective.target)
-				objective.take_damage(cached_force, I.damtype)
+				objective.take_damage(I.force, I.damtype)
 
 	if(!IM_ALIVE)
 		return .
 
 	var/bloody = FALSE
-	if(apply_damage_result && I.damtype == BRUTE && prob(25 + cached_force * 2))
+	if(apply_damage_result && I.damtype == BRUTE && prob(25 + I.force * 2))
 		I.add_mob_blood(src)	//Make the weapon bloody, not the person.
-		if(prob(cached_force * 2)) //blood spatter!
+		if(prob(I.force * 2)) //blood spatter!
 			bloody = TRUE
 			add_splatter_floor()
 			if(get_dist(user, src) <= 1) //people with TK won't get smeared with blood
@@ -536,14 +535,14 @@ emp_act
 	switch(hit_area)
 		if(BODY_ZONE_HEAD)//Harder to score a stun but if you do it lasts a bit longer
 			if(apply_damage_result && stat == CONSCIOUS && armor < 50)
-				if(prob(cached_force))
+				if(prob(I.force))
 					visible_message(
 						span_combatdanger("[src] has been knocked down!"),
 						span_combatuserdanger("[src] has been knocked down!"),
 					)
 					apply_effect(4 SECONDS, KNOCKDOWN, armor)
 					AdjustConfused(30 SECONDS)
-				if(mind?.special_role == SPECIAL_ROLE_REV && prob(cached_force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
+				if(mind?.special_role == SPECIAL_ROLE_REV && prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
 					SSticker.mode.remove_revolutionary(mind)
 
 			if(bloody)//Apply blood
@@ -558,7 +557,7 @@ emp_act
 					update_inv_glasses()
 
 		if(BODY_ZONE_CHEST)//Easier to score a stun but lasts less time
-			if(apply_damage_result && stat == CONSCIOUS && prob(cached_force + 10))
+			if(apply_damage_result && stat == CONSCIOUS && prob(I.force + 10))
 				visible_message(
 					span_combatdanger("[src] has been knocked down!"),
 					span_combatuserdanger("[src] has been knocked down!"),
@@ -573,7 +572,7 @@ emp_act
 					w_uniform.add_mob_blood(src)
 					update_inv_w_uniform()
 
-	if(apply_damage_result && (cached_force > 10 || (cached_force >= 5 && prob(33))))
+	if(apply_damage_result && (I.force > 10 || (I.force >= 5 && prob(33))))
 		forcesay(GLOB.hit_appends)	//forcesay checks stat already
 
 	. |= dna.species.spec_proceed_attack_results(I, src, user, affecting)
