@@ -38,6 +38,9 @@
 	var/unwieldsound = FALSE
 	var/sharp_when_wielded = FALSE
 
+	lefthand_file = 'icons/mob/inhands/twohanded_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/twohanded_righthand.dmi'
+
 
 /obj/item/twohanded/Initialize(mapload)
 	. = ..()
@@ -271,10 +274,10 @@
 		return .
 
 	if(prob(50))
-		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
+		INVOKE_ASYNC(src, GLOBAL_PROC_REF(jedi_spin), user)
 
 
-/obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user)
+/proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
 		user.setDir(i)
 		if(i == WEST)
@@ -505,11 +508,6 @@
 		mounted_head = null
 	qdel(src)
 
-/obj/item/twohanded/spear/kidan
-	icon_state = "kidanspear0"
-	name = "Kidan spear"
-	desc = "A spear brought over from the Kidan homeworld."
-
 
 // DIY CHAINSAW
 /obj/item/twohanded/required/chainsaw
@@ -664,37 +662,49 @@
 	icon_state = "mjollnir[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 
-/obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
-	for(var/atom/movable/X in orange(5, pull))
-		if(X == wielder)
-			continue
-		if((X) && (!X.anchored) && (!ishuman(X)))
-			step_towards(X, pull)
-			step_towards(X, pull)
-			step_towards(X, pull)
-		else if(ishuman(X))
-			var/mob/living/carbon/human/H = X
-			if(istype(H.shoes, /obj/item/clothing/shoes/magboots))
-				var/obj/item/clothing/shoes/magboots/M = H.shoes
-				if(M.magpulse)
-					continue
-			H.Weaken(2 SECONDS)
-			step_towards(H, pull)
-			step_towards(H, pull)
-			step_towards(H, pull)
-
 /obj/item/twohanded/singularityhammer/afterattack(atom/A, mob/user, proximity, params)
-	if(!proximity)
+	if(!proximity || charged < 5 || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
-	if(HAS_TRAIT(src, TRAIT_WIELDED))
-		if(charged == 5)
-			charged = 0
-			if(isliving(A))
-				var/mob/living/Z = A
-				Z.take_organ_damage(20, 0)
-			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			var/turf/target = get_turf(A)
-			vortex(target, user)
+
+	charged = 0
+	var/turf/target = get_turf(A)
+	playsound(target, 'sound/weapons/marauder.ogg', 50, TRUE)
+
+	if(isliving(A))
+		var/mob/living/victim = A
+		victim.take_organ_damage(20)
+
+	for(var/atom/pulled_thing as anything in (orange(5, target) - user))
+		pulled_thing.singularity_hammer_act(target)
+
+
+/atom/proc/singularity_hammer_act(turf/pull)
+	return
+
+
+/atom/movable/singularity_hammer_act(turf/pull)
+	if(anchored)
+		return
+
+	unbuckle_all_mobs()
+
+	for(var/a in 1 to 3)
+		if(!step_towards(src, pull))
+			return
+
+
+/mob/dead/observer/singularity_hammer_act(turf/pull)
+	return
+
+
+/mob/living/singularity_hammer_act(turf/pull)
+	if(HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
+		return
+
+	buckled?.unbuckle_mob(src)
+	Weaken(2 SECONDS)
+	..()
+
 
 /obj/item/twohanded/mjollnir
 	name = "Mjolnir"
@@ -851,9 +861,9 @@
 	. = ..()
 	if(isliving(user))
 		var/mob/living/U = user
-		if(U.mind && !U.mind.devilinfo && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
-			U.visible_message("<span class='warning'>As [U] picks [src] up, [U]'s arms briefly catch fire.</span>", \
-				"<span class='warning'>\"As you pick up the [src] your arms ignite, reminding you of all your past sins.\"</span>")
+		if(!U.mind?.has_antag_datum(/datum/antagonist/devil) && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
+			U.visible_message(span_warning("As [U] picks [src] up, [U]'s arms briefly catch fire."), \
+				span_warning("\"As you pick up the [src] your arms ignite, reminding you of all your past sins.\""))
 			if(ishuman(U))
 				var/mob/living/carbon/human/H = U
 				H.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
@@ -866,7 +876,7 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
 
-	if(!user.mind || user.mind.devilinfo || (user.mind.soulOwner == user.mind))
+	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner == user.mind))
 		return .
 
 	to_chat(user, span_warning("The [name] burns in your hands!"))

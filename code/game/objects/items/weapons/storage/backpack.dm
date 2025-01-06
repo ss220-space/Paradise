@@ -264,6 +264,48 @@
 	icon_state = "blueshieldpack"
 	item_state = "blueshieldpack"
 
+/obj/item/storage/backpack/justice
+	name = "backpack of justice"
+	desc = "Крепкий рюкзак выданный специально для самых крепких офицеров."
+	icon_state = "backpack_justice0"
+	item_state = "backpack_justice0"
+	actions_types = list(/datum/action/item_action/toggle_backpack_light)
+	var/on = FALSE
+	var/datum/looping_sound/ambulance_alarm/justice/soundloop
+
+/obj/item/storage/backpack/justice/attack_self()
+	toggle_backpack_light()
+
+/obj/item/storage/backpack/justice/Initialize(mapload)
+	. = ..()
+	soundloop = new(list(src))
+
+/obj/item/storage/backpack/justice/Destroy(force)
+	QDEL_NULL(soundloop)
+	return ..()
+
+/obj/item/storage/backpack/justice/proc/toggle_backpack_light()
+	on = !on
+
+	if(on)
+		turn_on()
+	else
+		turn_off()
+
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/storage/backpack/justice/update_icon_state()
+	icon_state = "backpack_justice[on]"
+	item_state = "backpack_justice[on]"
+	update_equipped_item(update_speedmods = FALSE)
+
+/obj/item/storage/backpack/justice/proc/turn_on()
+	soundloop.start()
+
+/obj/item/storage/backpack/justice/proc/turn_off()
+	soundloop.stop()
+
+
 /*
 *	Syndicate backpacks. Sprites by ElGood
 */
@@ -708,8 +750,8 @@
 /obj/item/storage/backpack/duffel/security/riot/populate_contents()
 	new /obj/item/clothing/head/helmet/riot (src)
 	new /obj/item/clothing/suit/armor/riot (src)
-	new /obj/item/clothing/gloves/combat (src)
-	new /obj/item/clothing/shoes/combat/swat (src)
+	new /obj/item/clothing/gloves/combat/riot (src)
+	new /obj/item/clothing/shoes/combat/riot (src)
 	new /obj/item/melee/baton (src)
 	new /obj/item/shield/riot/tele (src)
 	new /obj/item/gun/energy/gun/pdw9 (src)
@@ -717,6 +759,24 @@
 	new /obj/item/grenade/flashbang (src)
 	new /obj/item/storage/box/zipties (src)
 	new /obj/item/storage/box/bola (src)
+
+/obj/item/storage/backpack/duffel/security/riot_armory
+	name = "Riot Armor Kit"
+
+/obj/item/storage/backpack/duffel/security/riot_armory/populate_contents()
+	new /obj/item/clothing/head/helmet/riot (src)
+	new /obj/item/clothing/suit/armor/riot (src)
+	new /obj/item/clothing/gloves/combat/riot (src)
+	new /obj/item/clothing/shoes/combat/riot (src)
+
+/obj/item/storage/backpack/duffel/security/bulletproof_armory
+	name = "Bulletproof Armor Kit"
+
+/obj/item/storage/backpack/duffel/security/bulletproof_armory/populate_contents()
+	new /obj/item/clothing/head/helmet/alt (src)
+	new /obj/item/clothing/suit/armor/bulletproof (src)
+	new /obj/item/clothing/gloves/color/black/ballistic (src)
+	new /obj/item/clothing/shoes/jackboots/armored (src)
 
 /obj/item/storage/backpack/duffel/security/war
 	name = "Wartime Emergency Kit"

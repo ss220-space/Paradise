@@ -44,7 +44,7 @@
 	Note that this proc can be overridden, and is in the case of screen objects.
 */
 /atom/Click(location,control,params)
-	usr.ClickOn(src, params)
+	usr.ClickOn(src, params, location)
 /atom/DblClick(location,control,params)
 	usr.DblClickOn(src,params)
 
@@ -223,10 +223,14 @@
 	proximity_flag is not currently passed to attack_hand, and is instead used
 	in human click code to allow glove touches only at melee range.
 */
-/mob/proc/UnarmedAttack(atom/A, proximity_flag)
-	if(ismob(A))
+/mob/proc/UnarmedAttack(atom/atom, proximity_flag)
+	if(ismob(atom))
 		changeNext_move(CLICK_CD_MELEE)
 
+	return OnUnarmedAttack(atom, proximity_flag)
+
+/mob/proc/OnUnarmedAttack(atom/atom, proximity_flag)
+	return
 
 /*
 	Ranged unarmed attack:
@@ -238,6 +242,9 @@
 */
 /mob/proc/RangedAttack(atom/A, params)
 	if(SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+
+	if(SEND_SIGNAL(A, COMSIG_MOB_ATTACKED_RANGED, src, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 /*
 	Restrained ClickOn

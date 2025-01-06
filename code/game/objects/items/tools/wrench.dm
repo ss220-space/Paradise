@@ -4,6 +4,8 @@
 	desc = "A wrench with common uses. Can be found in your hand."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "wrench"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	belt_icon = "wrench"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
@@ -46,7 +48,7 @@
 	desc = "A polarized wrench. It causes anything placed between the jaws to turn."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "wrench"
-	item_state = "alien_wrench"
+	item_state = "wrench_alien"
 	belt_icon = "alien_wrench"
 	usesound = 'sound/effects/empulse.ogg'
 	toolspeed = 0.1

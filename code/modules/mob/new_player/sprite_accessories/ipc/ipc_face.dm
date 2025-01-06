@@ -104,32 +104,32 @@
 /datum/sprite_accessory/hair/ipc/hesphiastos_alt_pink
 	name = "Pink Hesphiastos Screen"
 	icon_state = "pink_hesp_alt"
-	models_allowed = list("Industrial Revolution")
+	models_allowed = list("Titan Enforcer")
 
 /datum/sprite_accessory/hair/ipc/hesphiastos_alt_orange
 	name = "Orange Hesphiastos Screen"
 	icon_state = "orange_hesp_alt"
-	models_allowed = list("Industrial Revolution")
+	models_allowed = list("Titan Enforcer")
 
 /datum/sprite_accessory/hair/ipc/hesphiastos_alt_goggle
 	name = "Goggles Hesphiastos Screen"
 	icon_state = "goggles_hesp_alt"
-	models_allowed = list("Industrial Revolution")
+	models_allowed = list("Titan Enforcer")
 
 /datum/sprite_accessory/hair/ipc/hesphiastos_alt_scroll
 	name = "Scrolling Hesphiastos Screen"
 	icon_state = "scroll_hesp_alt"
-	models_allowed = list("Industrial Revolution")
+	models_allowed = list("Titan Enforcer")
 
 /datum/sprite_accessory/hair/ipc/hesphiastos_alt_rgb
 	name = "RGB Hesphiastos Screen"
 	icon_state = "rgb_hesp_alt"
-	models_allowed = list("Industrial Revolution")
+	models_allowed = list("Titan Enforcer")
 
 /datum/sprite_accessory/hair/ipc/hesphiastos_alt_rainbow
 	name = "Rainbow Hesphiastos Screen"
 	icon_state = "rainbow_hesp_alt"
-	models_allowed = list("Industrial Revolution")
+	models_allowed = list("Titan Enforcer")
 
 //Fluff
 /datum/sprite_accessory/hair/ipc/fluff

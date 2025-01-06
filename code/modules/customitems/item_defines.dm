@@ -111,8 +111,8 @@
 
 /obj/item/fluff/tattoo_gun/elliot_cybernetic_tat/attack_self(mob/user as mob)
 	if(!used)
-		var/ink_color = input("Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b)) as color|null
-		if(ink_color && !(user.incapacitated() || used) )
+		var/ink_color = tgui_input_color("Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b))
+		if(!isnull(ink_color) && !(user.incapacitated() || used) )
 			tattoo_r = color2R(ink_color)
 			tattoo_g = color2G(ink_color)
 			tattoo_b = color2B(ink_color)
@@ -138,13 +138,13 @@
 		to_chat(user, "You use [src] on yourself.")
 		qdel(src)
 
-/obj/item/claymore/fluff // MrBarrelrolll: Maximus Greenwood
+/obj/item/melee/claymore/fluff // MrBarrelrolll: Maximus Greenwood
 	name = "Greenwood's Blade"
 	desc = "A replica claymore with strange markings scratched into the blade."
 	force = 5
 	sharp = 0
 
-/obj/item/claymore/fluff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+/obj/item/melee/claymore/fluff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	return 0
 
 /obj/item/fluff/rsik_katana //Xydonus: Rsik Ugsharki Atan

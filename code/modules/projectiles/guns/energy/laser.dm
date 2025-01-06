@@ -18,7 +18,7 @@
 	origin_tech = "combat=2;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
 	clumsy_check = 0
-	needs_permit = 0
+	needs_permit = FALSE
 
 /obj/item/gun/energy/laser/retro
 	name ="retro laser gun"

@@ -19,3 +19,9 @@
 	item_state = "atmos_envirosuit"
 	item_color = "atmos_envirosuit"
 
+/obj/item/clothing/under/plasmaman/mechanic
+	name = "mechanic plasma envirosuit"
+	desc = "An airtight suit designed to be used by plasmamen employed as mechanics, the usual purple stripes being replaced by engineering's orange. It protects the user from fire and acid damage."
+	icon_state = "mechanic_envirosuit"
+	item_state = "mechanic_envirosuit"
+	item_color = "mechanic_envirosuit"

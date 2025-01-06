@@ -99,11 +99,6 @@
 	set category = "Эмоции"
 	emote("clap", intentional = TRUE)
 
-/mob/living/carbon/human/verb/emote_fart()
-	set name = "▷ Пернуть "
-	set category = "Эмоции"
-	emote("fart", intentional = TRUE)
-
 /mob/living/carbon/human/verb/emote_crack()
 	set name = "▷ Хрустеть пальцами "
 	set category = "Эмоции"
@@ -475,11 +470,6 @@
 	set name = "< Хлестать хвостом >"
 	set category = "Эмоции"
 	emote("whip_l", intentional = TRUE)
-
-/mob/living/carbon/human/proc/emote_rumble()
-	set name = "< Урчать >"
-	set category = "Эмоции"
-	emote("rumble", intentional = TRUE)
 
 /mob/living/carbon/human/proc/emote_hiss_unathi()
 	set name = "< Шипеть >"

@@ -220,7 +220,7 @@
 				continue
 
 			if(G.slot)
-				if(H.equip_to_slot_or_del(G.spawn_item(H, H.client.prefs.loadout_gear[G.display_name]), G.slot))
+				if(H.equip_to_slot_or_del(G.spawn_item(H, H.client.prefs.get_gear_metadata(G)), G.slot, TRUE))
 					to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
 				else
 					gear_leftovers += G
@@ -239,19 +239,19 @@
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
-			var/obj/item/placed_in = G.spawn_item(get_turf(H), H.client.prefs.loadout_gear[G.display_name])
+			var/obj/item/placed_in = G.spawn_item(null, H.client.prefs.get_gear_metadata(G))
 			if(placed_in.equip_to_best_slot(H))
-				to_chat(H, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
+				to_chat(H, span_notice("Placing [G.display_name] in your inventory!"))
 				continue
 			if(H.put_in_hands(placed_in))
-				to_chat(H, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
+				to_chat(H, span_notice("Placing [G.display_name] in your hands!"))
 				continue
-			to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
+			to_chat(H, span_danger("Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug."))
 			qdel(placed_in)
 
 		qdel(gear_leftovers)
 
-	return 1
+	return TRUE
 
 /datum/outfit/job/proc/imprint_idcard(mob/living/carbon/human/H)
 	var/datum/job/J = SSjobs.GetJobType(jobtype)

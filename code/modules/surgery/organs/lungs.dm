@@ -54,8 +54,13 @@
 /obj/item/organ/internal/lungs/emp_act()
 	if(!is_robotic() || emp_proof)
 		return
+
 	if(owner)
-		owner.LoseBreath(40 SECONDS)
+		var/losstime = 40 SECONDS
+		if(HAS_TRAIT(owner, TRAIT_ADVANCED_CYBERIMPLANTS))
+			losstime /= 2
+
+		owner.LoseBreath(losstime)
 
 /obj/item/organ/internal/lungs/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
@@ -334,6 +339,30 @@
 	cold_level_3_damage = -COLD_GAS_DAMAGE_LEVEL_3
 	cold_damage_types = list(BRUTE = 0.5, BURN = 0.25)
 
+	var/cooling_start_temp = DRASK_LUNGS_COOLING_START_TEMP
+	var/cooling_stop_temp = DRASK_LUNGS_COOLING_STOP_TEMP
+
+/obj/item/organ/internal/lungs/drask/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+
+	if(!.)
+		return FALSE
+
+	RegisterSignal(owner, COMSIG_HUMAN_EARLY_HANDLE_ENVIRONMENT, PROC_REF(regulate_temperature))
+
+/obj/item/organ/internal/lungs/drask/proc/regulate_temperature(mob/living/source, datum/gas_mixture/environment)
+	SIGNAL_HANDLER
+	
+	if(source.stat == DEAD)
+		return
+
+	if(owner.bodytemperature > cooling_start_temp && environment.temperature <= cooling_stop_temp)
+		owner.adjust_bodytemperature(-5)
+
+/obj/item/organ/internal/lungs/drask/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
+	UnregisterSignal(owner, COMSIG_HUMAN_EARLY_HANDLE_ENVIRONMENT)
+	return ..()
+
 /obj/item/organ/internal/lungs/cybernetic
 	name = "cybernetic lungs"
 	desc = "A cybernetic version of the lungs found in traditional humanoid entities. It functions the same as an organic lung and is merely meant as a replacement."
@@ -387,3 +416,17 @@
 	cold_level_1_threshold = 200
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
+
+/obj/item/organ/internal/lungs/cybernetic/upgraded/insert(mob/living/carbon/human/target, special)
+	. = ..()
+
+	if(HAS_TRAIT(target, TRAIT_ADVANCED_CYBERIMPLANTS))
+		target.physiology.oxy_mod -= 0.5
+		ADD_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/item/organ/internal/lungs/cybernetic/upgraded/remove(mob/living/carbon/human/target, special)
+	if(HAS_TRAIT_FROM(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src)))
+		target.physiology.oxy_mod += 0.5
+		REMOVE_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
+
+	. = ..()

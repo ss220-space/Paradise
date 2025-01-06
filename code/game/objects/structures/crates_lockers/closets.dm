@@ -32,6 +32,7 @@ GLOBAL_LIST_EMPTY(closets)
 	var/locked = FALSE
 	var/large = TRUE
 	var/can_be_emaged = FALSE
+	var/can_weld_shut = TRUE
 	var/wall_mounted = FALSE //never solid (You can always pass over it)
 	var/lastbang
 	var/open_sound = 'sound/machines/closet_open.ogg'
@@ -78,10 +79,36 @@ GLOBAL_LIST_EMPTY(closets)
 			break
 
 // Fix for #383 - C4 deleting fridges with corpses
-/obj/structure/closet/Destroy()
+/obj/structure/closet/Destroy(force)
 	GLOB.closets -= src
+	if(force)
+		for(var/atom/movable/thing in contents)
+			qdel(thing, force)
+
+		return ..()
+
 	dump_contents()
 	return ..()
+
+/obj/structure/closet/vv_edit_var(vname, vval)
+	if(vname == NAMEOF(src, opened))
+		if(vval == opened)
+			return FALSE
+		if(vval && !opened && open())
+			datum_flags |= DF_VAR_EDITED
+			return TRUE
+		else if(!vval && opened && close())
+			datum_flags |= DF_VAR_EDITED
+			return TRUE
+		return FALSE
+	. = ..()
+	if(vname == NAMEOF(src, welded) && welded && !can_weld_shut)
+		can_weld_shut = TRUE
+	else if(vname == NAMEOF(src, can_weld_shut) && !can_weld_shut && welded)
+		welded = FALSE
+		update_appearance()
+	if(vname in list(NAMEOF(src, locked), NAMEOF(src, welded)))
+		update_appearance()
 
 
 /obj/structure/closet/CanAllowThrough(atom/movable/mover, border_dir)
@@ -132,6 +159,9 @@ GLOBAL_LIST_EMPTY(closets)
 	after_open()
 	return TRUE
 
+/obj/structure/closet/setOpened()
+	open()
+
 ///Proc to override for effects after opening a door
 /obj/structure/closet/proc/after_open(mob/living/user, force = FALSE)
 	return
@@ -181,6 +211,9 @@ GLOBAL_LIST_EMPTY(closets)
 		playsound(loc, 'sound/machines/click.ogg', close_sound_volume, TRUE, -3)
 	set_density(ignore_density_closed ? FALSE : TRUE)
 	return TRUE
+
+/obj/structure/closet/setClosed()
+	close()
 
 /obj/structure/closet/proc/toggle(mob/user)
 	. = TRUE
@@ -253,6 +286,8 @@ GLOBAL_LIST_EMPTY(closets)
 	. = TRUE
 	if(!opened && user.loc == src)
 		to_chat(user, "<span class='warning'>You can't weld [src] from inside!</span>")
+		return
+	if(!can_weld_shut)
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -447,10 +482,13 @@ GLOBAL_LIST_EMPTY(closets)
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
 /obj/structure/closet/ex_act(severity)
+	contents_explosion()
+	..()
+
+/obj/structure/closet/proc/contents_explosion(severity)
 	for(var/atom/A in contents)
 		A.ex_act(severity)
 		CHECK_TICK
-	..()
 
 /obj/structure/closet/singularity_act()
 	dump_contents()

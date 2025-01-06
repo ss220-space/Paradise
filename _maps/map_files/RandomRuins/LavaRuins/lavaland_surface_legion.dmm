@@ -92,7 +92,7 @@
 /obj/item/shield/riot/roman{
 	name = "battered shield"
 	},
-/obj/item/claymore{
+/obj/item/melee/claymore{
 	block_chance = 40;
 	desc = "A cracked and blunted sword, clearly weathered over the ages.";
 	force = 30;

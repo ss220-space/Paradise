@@ -1,6 +1,6 @@
 /obj/machinery/computer/telescience
 	name = "telepad control console"
-	desc = "Used to teleport objects to and from the telescience telepad."
+	desc = "Используется для телепортации объектов на телепад и обратно."
 	icon_keyboard = "telesci_key"
 	icon_screen = "telesci"
 	circuit = /obj/item/circuitboard/telesci_console
@@ -211,7 +211,7 @@
 		var/turf/target = locate(trueX, trueY, z_co)
 		last_target = target
 		var/area/A = get_area(target)
-		flick("pad-beam", telepad)
+		flick("[initial(telepad.icon_state)]-beam", telepad)
 
 		if(spawn_time > 15) // 1.5 seconds
 			playsound(telepad.loc, 'sound/weapons/flash.ogg', 25, 1)
@@ -252,7 +252,7 @@
 				source = dest
 				dest = target
 
-			flick("pad-beam", telepad)
+			flick("[initial(telepad.icon_state)]-beam", telepad)
 			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', 50, TRUE)
 			for(var/atom/movable/ROI in source)
 				// if is anchored, don't let through

@@ -221,7 +221,7 @@
 	l_ear = /obj/item/radio/headset/ert/alt
 	l_pocket = /obj/item/reagent_containers/hypospray/combat
 	r_pocket = /obj/item/reagent_containers/food/snacks/candy/mre
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
+	glasses = /obj/item/clothing/glasses/hud/blueshield
 	id = /obj/item/card/id/centcom
 
 	backpack_contents = list(
@@ -1212,7 +1212,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/singuloth
 	back = /obj/item/storage/backpack/satchel
 	l_hand = /obj/item/twohanded/knighthammer
-	belt = /obj/item/claymore/ceremonial
+	belt = /obj/item/melee/claymore/ceremonial
 	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/magboots
 	mask = /obj/item/clothing/mask/breath

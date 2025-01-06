@@ -16,7 +16,7 @@
 
 	drop_hat()
 
-	GLOB.dead_mob_list -= src
+	remove_from_dead_mob_list()
 	spawn(15)
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
@@ -28,7 +28,7 @@
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	dust_animation()
-	GLOB.dead_mob_list -= src
+	remove_from_dead_mob_list()
 	QDEL_IN(src, 15)
 	return TRUE
 

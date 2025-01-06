@@ -3,8 +3,8 @@
 // WAS: /datum/bioEffect/alcres
 /datum/dna/gene/basic/sober
 	name = "Sober"
-	activation_messages = list("You feel unusually sober.")
-	deactivation_messages = list("You feel like you could use a stiff drink.")
+	activation_messages = list("Вы чувствуете себя необычайно трезвым.")
+	deactivation_messages = list("Вы чувствуете, что вам не помешает крепкий напиток.")
 	traits_to_add = list(TRAIT_SOBER)
 
 
@@ -16,9 +16,9 @@
 //WAS: /datum/bioEffect/psychic_resist
 /datum/dna/gene/basic/psychic_resist
 	name = "Psy-Resist"
-	desc = "Boosts efficiency in sectors of the brain commonly associated with meta-mental energies."
-	activation_messages = list("Your mind feels closed.")
-	deactivation_messages = list("You feel oddly exposed.")
+	desc = "Повышает эффективность работы секторов мозга, обычно связанных с мета-психическими энергиями."
+	activation_messages = list("Ваш разум кажется закрытым.")
+	deactivation_messages = list("Вы чувствуете себя незащищенным.")
 	traits_to_add = list(TRAIT_PSY_RESIST)
 
 
@@ -31,59 +31,59 @@
 // Stealth Enhancers
 /////////////////////////
 
-/datum/dna/gene/basic/stealth
+// WAS: /datum/bioEffect/darkcloak
+/datum/dna/gene/basic/darkcloak
+	name = "Cloak of Darkness"
+	desc = "Позволяет субъекту излучать вокруг себя слабое свечение, создавая эффект маскировки."
+	activation_messages = list("Вы начинаете исчезать в тени.")
+	deactivation_messages = list("Вы становитесь полностью видимым.")
+	activation_prob = 25
 	instability = GENE_INSTABILITY_MODERATE
 
 
-/datum/dna/gene/basic/stealth/deactivate(mob/living/mutant, flags)
-	. = ..()
-	mutant.alpha = initial(mutant.alpha)
-
-
-// WAS: /datum/bioEffect/darkcloak
-/datum/dna/gene/basic/stealth/darkcloak
-	name = "Cloak of Darkness"
-	desc = "Enables the subject to bend low levels of light around themselves, creating a cloaking effect."
-	activation_messages = list("You begin to fade into the shadows.")
-	deactivation_messages = list("You become fully visible.")
-	activation_prob = 25
-
-
-/datum/dna/gene/basic/stealth/darkcloak/New()
+/datum/dna/gene/basic/darkcloak/New()
 	..()
 	block = GLOB.shadowblock
 
 
-/datum/dna/gene/basic/stealth/darkcloak/OnMobLife(mob/living/mutant)
+/datum/dna/gene/basic/darkcloak/OnMobLife(mob/living/mutant)
 	var/turf/simulated/T = get_turf(mutant)
 	if(!istype(T))
 		return
 	var/light_available = T.get_lumcount() * 10
 	if(light_available <= 2)
-		mutant.alpha = round(mutant.alpha * 0.8)
+		mutant.alpha_multiply(0.8, ALPHA_SOURCE_SHADOW_CLOAK)
 	else
-		mutant.alpha = initial(mutant.alpha)
+		mutant.alpha_set(1, ALPHA_SOURCE_SHADOW_CLOAK)
 
+/datum/dna/gene/basic/darkcloak/deactivate(mob/living/mutant, flags)
+	. = ..()
+	mutant.alpha_set(1, ALPHA_SOURCE_SHADOW_CLOAK)
 
 //WAS: /datum/bioEffect/chameleon
-/datum/dna/gene/basic/stealth/chameleon
+/datum/dna/gene/basic/chameleon
 	name = "Chameleon"
-	desc = "The subject becomes able to subtly alter light patterns to become invisible, as long as they remain still."
-	activation_messages = list("You feel one with your surroundings.")
-	deactivation_messages = list("You feel oddly visible.")
+	desc = "Субъект обретает способность тонко изменять структуру света, чтобы оставаться невидимым до тех пор, пока он остается неподвижным."
+	activation_messages = list("Вы чувствуете себя единым целым с окружающим миром.")
+	deactivation_messages = list("Вы чувствуете себя необычайно заметным.")
 	activation_prob = 25
+	instability = GENE_INSTABILITY_MODERATE
 
 
-/datum/dna/gene/basic/stealth/chameleon/New()
+/datum/dna/gene/basic/chameleon/New()
 	..()
 	block = GLOB.chameleonblock
 
 
-/datum/dna/gene/basic/stealth/chameleon/OnMobLife(mob/living/mutant)
+/datum/dna/gene/basic/chameleon/OnMobLife(mob/living/mutant)
 	if((world.time - mutant.last_movement) >= 30 && (mutant.mobility_flags & MOBILITY_MOVE) && !HAS_TRAIT(mutant, TRAIT_RESTRAINED))
-		mutant.alpha -= 25
+		mutant.alpha_add(standartize_alpha(-25), ALPHA_SOURCE_CHAMELEON)
 	else
-		mutant.alpha = round(255 * 0.80)
+		mutant.alpha_set(0.80, ALPHA_SOURCE_CHAMELEON)
+
+/datum/dna/gene/basic/darkcloak/deactivate(mob/living/mutant, flags)
+	. = ..()
+	mutant.alpha_set(1, ALPHA_SOURCE_CHAMELEON)
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -121,9 +121,9 @@
 // WAS: /datum/bioEffect/cryokinesis
 /datum/dna/gene/basic/grant_spell/cryo
 	name = "Cryokinesis"
-	desc = "Allows the subject to lower the body temperature of others."
-	activation_messages = list("You notice a strange cold tingle in your fingertips.")
-	deactivation_messages = list("Your fingers feel warmer.")
+	desc = "Позволяет субъекту понижать температуру тела окружающих."
+	activation_messages = list("Ваши кончики пальцев слегка покалывает от холода.")
+	deactivation_messages = list("Ваши пальцы становятся теплее.")
 	instability = GENE_INSTABILITY_MODERATE
 	spelltype = /obj/effect/proc_holder/spell/cryokinesis
 
@@ -135,13 +135,13 @@
 
 /obj/effect/proc_holder/spell/cryokinesis
 	name = "Cryokinesis"
-	desc = "Drops the bodytemperature of another person."
+	desc = "Понижает температуру тела выбранного гуманоида."
 	base_cooldown = 120 SECONDS
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 
-	selection_activated_message		= "<span class='notice'>Your mind grow cold. Click on a target to cast the spell.</span>"
-	selection_deactivated_message	= "<span class='notice'>Your mind returns to normal.</span>"
+	selection_activated_message	= span_notice("Ваш разум становится холодным. Нажмите на цель, чтобы произнести заклинание.")
+	selection_deactivated_message = span_notice("Ваш разум возвращается в нормальное состояние.")
 
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
@@ -164,7 +164,7 @@
 	var/mob/living/carbon/C = targets[1]
 
 	if(HAS_TRAIT(C, TRAIT_RESIST_COLD))
-		C.visible_message("<span class='warning'>A cloud of fine ice crystals engulfs [C.name], but disappears almost instantly!</span>")
+		C.visible_message(span_warning("Облако мелких ледяных кристаллов окутывает [C.name], но почти мгновенно исчезает!"))
 		return
 	var/handle_suit = FALSE
 	if(ishuman(C))
@@ -173,11 +173,11 @@
 			if(istype(H.wear_suit, /obj/item/clothing/suit/space))
 				handle_suit = TRUE
 				if(H.internal)
-					H.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals, engulfing [H]!</span>",
-										"<span class='notice'>[user] sprays a cloud of fine ice crystals over your [H.head]'s visor.</span>")
+					H.visible_message(span_warning("[user] распыля[pluralize_ru(user, "ет", "ют")] облако мелких ледяных кристаллов, сковывая [H]!"),
+									span_notice("[user] распыля[pluralize_ru(user, "ет", "ют")] облако мелких кристалликов льда на визор вашего [H.head]."))
 				else
-					H.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals engulfing, [H]!</span>",
-										"<span class='warning'>[user] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
+					H.visible_message(span_warning("[user] распыля[pluralize_ru(user, "ет", "ют")] облако мелких кристаллов льда, поглощая [H]!"),
+									span_warning("[user] распыля[pluralize_ru(user, "ет", "ют")] облако мелких ледяных кристаллов, которые покрывают визор вашего [H.head] и попадают в вентиляционные отверстия!"))
 
 					H.adjust_bodytemperature(-100)
 				add_attack_logs(user, C, "Cryokinesis")
@@ -185,7 +185,7 @@
 		C.adjust_bodytemperature(-200)
 		C.ExtinguishMob()
 
-		C.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals, engulfing [C]!</span>")
+		C.visible_message(span_warning("[user] распыля[pluralize_ru(user, "ет", "ют")] облако мелких ледяных кристаллов, поглощая [C]!"))
 		add_attack_logs(user, C, "Cryokinesis- NO SUIT/INTERNALS")
 
 
@@ -211,9 +211,9 @@
 // WAS: /datum/bioEffect/mattereater
 /datum/dna/gene/basic/grant_spell/mattereater
 	name = "Matter Eater"
-	desc = "Allows the subject to eat just about anything without harm."
-	activation_messages = list("You feel hungry.")
-	deactivation_messages = list("You don't feel quite so hungry anymore.")
+	desc = "Позволяет без вреда для здоровья есть практически что-угодно."
+	activation_messages = list("Вы чувствуете голод.")
+	deactivation_messages = list("Вы больше не чувствуете себя таким голодным.")
 	instability = GENE_INSTABILITY_MINOR
 	spelltype = /obj/effect/proc_holder/spell/eat
 
@@ -225,7 +225,7 @@
 
 /obj/effect/proc_holder/spell/eat
 	name = "Eat"
-	desc = "Eat just about anything!"
+	desc = "Ешьте всё подряд!"
 
 	base_cooldown = 30 SECONDS
 
@@ -248,7 +248,7 @@
 		var/mob/living/carbon/C = user
 		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.up))
 			if(show_message)
-				to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
+				balloon_alert(C, "рот чем-то закрыт!")
 			can_eat = FALSE
 	return can_eat
 
@@ -277,7 +277,7 @@
 
 /obj/effect/proc_holder/spell/eat/cast(list/targets, mob/user = usr)
 	if(!targets.len)
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		balloon_alert(user, "слишком далеко")
 		return
 
 	var/atom/movable/the_item = targets[1]
@@ -285,38 +285,38 @@
 		var/mob/living/carbon/human/H = the_item
 		var/obj/item/organ/external/limb = H.get_organ(user.zone_selected)
 		if(!istype(limb))
-			to_chat(user, "<span class='warning'>You can't eat this part of them!</span>")
+			to_chat(user, span_warning("Вы не можете съесть эту часть тела!"))
 			revert_cast()
 			return FALSE
 
 		if(istype(limb,/obj/item/organ/external/head))
 			// Bullshit, but prevents being unable to clone someone.
-			to_chat(user, "<span class='warning'>You try to put \the [limb] in your mouth, but [the_item.p_their()] ears tickle your throat!</span>")
+			to_chat(user, span_warning("Вы пытаетесь засунуть голову в свой рот, но у вас ничего не получается!"))
 			revert_cast()
 			return FALSE
 
 		if(istype(limb,/obj/item/organ/external/chest))
 			// Bullshit, but prevents being able to instagib someone.
-			to_chat(user, "<span class='warning'>You try to put [the_item.p_their()] [limb] in your mouth, but it's too big to fit!</span>")
+			to_chat(user, span_warning("Вы пытаетесь уместить туловище у себя во рту, но у вас ничего не получается!"))
 			revert_cast()
 			return FALSE
 
-		user.visible_message("<span class='danger'>[user] begins stuffing [the_item]'s [limb.name] into [user.p_their()] gaping maw!</span>")
+		user.visible_message(span_danger("[user] приближа[pluralize_ru(user, "ет", "ют")]ся к [the_item] и начина[pluralize_ru(user, "ет", "ют")] поглощать [limb.name]!"))
 		var/oldloc = H.loc
 		if(!do_after(user, EAT_MOB_DELAY, H, NONE))
-			to_chat(user, "<span class='danger'>You were interrupted before you could eat [the_item]!</span>")
+			balloon_alert(user, "вас прервали")
 		else
 			if(!limb || !H)
 				return
 			if(H.loc != oldloc)
-				to_chat(user, "<span class='danger'>\The [limb] moved away from your mouth!</span>")
+				to_chat(user, span_danger("Вы упустили [limb]!"))
 				return
-			user.visible_message("<span class='danger'>[user] [pick("chomps","bites")] off [the_item]'s [limb]!</span>")
+			user.visible_message(span_danger("[user] [pick("отрыва[pluralize_ru(user, "ет", "ют")]","откусыва[pluralize_ru(user, "ет", "ют")]")] [limb] от [the_item]!"))
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			limb.droplimb(0, DROPLIMB_SHARP)
 			doHeal(user)
 	else
-		user.visible_message("<span class='danger'>[user] eats \the [the_item].</span>")
+		user.visible_message(span_danger("[user] [pick("съеда[pluralize_ru(user, "ет", "ют")]","поглоща[pluralize_ru(user, "ет", "ют")]")] [the_item]."))
 		playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 		qdel(the_item)
 		doHeal(user)
@@ -327,10 +327,10 @@
 //WAS: /datum/bioEffect/jumpy
 /datum/dna/gene/basic/grant_spell/jumpy
 	name = "Jumpy"
-	desc = "Allows the subject to leap great distances."
+	desc = "Позволяет субъекту совершать прыжки на большие расстояния."
 	//cooldown = 30
-	activation_messages = list("Your leg muscles feel taut and strong.")
-	deactivation_messages = list("Your leg muscles shrink back to normal.")
+	activation_messages = list("Вы чувствуете силу в своих ногах.")
+	deactivation_messages = list("Вы чувствуете, как сила уходит из ваших ног.")
 	instability = GENE_INSTABILITY_MINOR
 	spelltype = /obj/effect/proc_holder/spell/leap
 
@@ -342,7 +342,7 @@
 
 /obj/effect/proc_holder/spell/leap
 	name = "Jump"
-	desc = "Leap great distances!"
+	desc = "Прыгайте на огромные расстояния!"
 
 	base_cooldown = 6 SECONDS
 
@@ -359,11 +359,11 @@
 /obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = FALSE
 	if(ismob(user.loc) || user.incapacitated(INC_IGNORE_RESTRAINED) || user.buckled)
-		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
+		to_chat(user, span_warning("Вы не можете прыгнуть прямо сейчас!"))
 		return
 	var/turf/turf_to_check = get_turf(user)
 	if(user.can_z_move(DOWN, turf_to_check))
-		to_chat(user, span_warning("You need a ground to jump from!"))
+		to_chat(user, span_warning("Вам не от чего оттолкнуться!"))
 		return
 
 	if(isturf(user.loc))
@@ -374,13 +374,13 @@
 			else if(puller)
 				puller.stop_pulling()
 
-		user.visible_message("<span class='danger'>[user.name]</b> takes a huge leap!</span>")
+		user.visible_message(span_danger("[user.name] дела[pluralize_ru(user, "ет", "ют")] огромный скачок!"))
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
 		if(failure)
 			user.Weaken(10 SECONDS)
-			user.visible_message("<span class='warning'>[user] attempts to leap away but is slammed back down to the ground!</span>",
-								"<span class='warning'>You attempt to leap away but are suddenly slammed back down to the ground!</span>",
-								"<span class='notice'>You hear the flexing of powerful muscles and suddenly a crash as a body hits the floor.</span>")
+			user.visible_message(span_warning("[user] пыта[pluralize_ru(user, "ет", "ют")]ся отпрыгнуть, но снова оказыва[pluralize_ru(user, "ет", "ют")]ся прижатым[pluralize_ru(user, "", "и")] к земле!"),
+							span_warning("Вы пытаетесь отпрыгнуть в сторону, но внезапно оказываетесь прижаты к земле!"),
+							span_notice("Вы слышите, как напрягаются мощные мышцы, и внезапно раздается грохот, когда тело падает на пол."))
 			return FALSE
 		var/prevLayer = user.layer
 		user.layer = LOW_LANDMARK_LAYER
@@ -399,7 +399,7 @@
 			pitfall?.zFall(user)
 
 		else if(HAS_TRAIT(user, TRAIT_FAT) && prob(66))
-			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
+			user.visible_message(span_danger("[user.name] пада[pluralize_ru(user, "ет", "ют")] на землю под весом своего тела!"))
 			//playsound(user.loc, 'zhit.wav', 50, 1)
 			user.AdjustWeakened(20 SECONDS)
 
@@ -407,10 +407,10 @@
 
 	if(isobj(user.loc))
 		var/obj/container = user.loc
-		to_chat(user, "<span class='warning'>You leap and slam your head against the inside of [container]! Ouch!</span>")
+		to_chat(user, span_warning("Вы прыгаете и ударяетесь головой о внутреннюю часть [container]! АЙ!"))
 		user.AdjustParalysis(6 SECONDS)
 		user.AdjustWeakened(10 SECONDS)
-		container.visible_message("<span class='danger'>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
+		container.visible_message(span_danger("[user.loc] изда[pluralize_ru(user, "ет", "ют")] громкий стук и немного дребезжит."))
 		playsound(user.loc, 'sound/effects/bang.ogg', 50, 1)
 		var/wiggle = 6
 		while(wiggle > 0)
@@ -428,12 +428,12 @@
 
 /datum/dna/gene/basic/grant_spell/polymorph
 	name = "Polymorphism"
-	desc = "Enables the subject to reconfigure their appearance to mimic that of others."
+	desc = "Позволяет субъекту изменять свою внешность, чтобы подражать другим."
 
 	spelltype = /obj/effect/proc_holder/spell/polymorph
 	//cooldown = 1800
-	activation_messages = list("You don't feel entirely like yourself somehow.")
-	deactivation_messages = list("You feel secure in your identity.")
+	activation_messages = list("Вы как-то не очень похожи на себя.")
+	deactivation_messages = list("Вы уверены в своей идентичности.")
 	instability = GENE_INSTABILITY_MODERATE
 
 
@@ -444,14 +444,14 @@
 
 /obj/effect/proc_holder/spell/polymorph
 	name = "Polymorph"
-	desc = "Mimic the appearance of others!"
+	desc = "Подражайте внешности других!"
 	base_cooldown = 3 MINUTES
 
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 
-	selection_activated_message		= "<span class='notice'>You body becomes unstable. Click on a target to cast transform into them.</span>"
-	selection_deactivated_message	= "<span class='notice'>Your body calms down again.</span>"
+	selection_activated_message	= span_notice("Ваше тело становится нестабильным.")
+	selection_deactivated_message = span_notice("Ваше тело возвращается в норму.")
 
 	action_icon_state = "genetic_poly"
 	need_active_overlay = TRUE
@@ -469,7 +469,7 @@
 /obj/effect/proc_holder/spell/polymorph/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
 
-	user.visible_message("<span class='warning'>[user]'s body shifts and contorts.</span>")
+	user.visible_message(span_warning("Тело [user] смещается и деформируется."))
 
 	spawn(1 SECONDS)
 		if(target && user)
@@ -484,11 +484,11 @@
 // WAS: /datum/bioEffect/empath
 /datum/dna/gene/basic/grant_spell/empath
 	name = "Empathic Thought"
-	desc = "The subject becomes able to read the minds of others for certain information."
+	desc = "Субъект получает возможность читать мысли других людей, чтобы получить определённую информацию."
 
 	spelltype = /obj/effect/proc_holder/spell/empath
-	activation_messages = list("You suddenly notice more about others than you did before.")
-	deactivation_messages = list("You no longer feel able to sense intentions.")
+	activation_messages = list("Вы вдруг стали замечать в окружающих больше, чем раньше.")
+	deactivation_messages = list("Вы больше не способны чувствовать намерения других.")
 	instability = GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_EMPATHY)
 
@@ -500,7 +500,7 @@
 
 /obj/effect/proc_holder/spell/empath
 	name = "Read Mind"
-	desc = "Read the minds of others for information."
+	desc = "Читайте мысли других людей, чтобы получить информацию."
 	base_cooldown = 18 SECONDS
 	clothes_req = FALSE
 	human_req = TRUE
@@ -519,65 +519,65 @@
 /obj/effect/proc_holder/spell/empath/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/M in targets)
 		if(!iscarbon(M))
-			to_chat(user, "<span class='warning'>You may only use this on other organic beings.</span>")
+			to_chat(user, span_warning("Вы можете использовать это только на других органических существах."))
 			return
 
 		if(M.dna?.GetSEState(GLOB.psyresistblock))
-			to_chat(user, "<span class='warning'>You can't see into [M.name]'s mind at all!</span>")
+			to_chat(user, span_warning("Вы не можете заглянуть в разум [M.name]!"))
 			return
 
 		if(M.stat == 2)
-			to_chat(user, "<span class='warning'>[M.name] is dead and cannot have [M.p_their()] mind read.</span>")
+			to_chat(user, span_warning("Вы не можете прочитать мысли мёртвого существа."))
 			return
 		if(M.health < 0)
-			to_chat(user, "<span class='warning'>[M.name] is dying, and [M.p_their()] thoughts are too scrambled to read.</span>")
+			to_chat(user, span_warning("[M.name] в предсмертном состоянии, а [genderize_ru(M.gender, "его", "её", "его", "их")] мысли слишком спутаны, чтобы их прочитать."))
 			return
 
-		to_chat(user, "<span class='notice'>Mind Reading of <b>[M.name]:</b></span>")
+		to_chat(user, span_notice("Чтение мыслей <b>[M.name]:</b>"))
 
 		var/pain_condition = M.health / M.maxHealth
 		// lower health means more pain
-		var/list/randomthoughts = list("what to have for lunch","the future","the past","money",
-		"[M.p_their()] hair","what to do next","[M.p_their()] job","space","amusing things","sad things",
-		"annoying things","happy things","something incoherent","something [M.p_they()] did wrong")
-		var/thoughts = "thinking about [pick(randomthoughts)]"
+		var/list/randomthoughts = list("о перекусе","о будущем","о прошлом","о деньгах",
+		"о своей причёске","о дальнейших планах","о работе","о космосе","о чём-то забавном","о чём-то грустном",
+		"о чём-то раздражающем","о каком-то радостном событии","о всякой ерунде","об ошибках прошлого")
+		var/thoughts = "думает [pick(randomthoughts)]"
 
 		if(M.fire_stacks)
 			pain_condition -= 0.5
-			thoughts = "preoccupied with the fire"
+			thoughts = "поглощ[pluralize_ru(M.gender, "ён", "ены")] огнем"
 
 		if(M.radiation)
 			pain_condition -= 0.25
 
 		switch(pain_condition)
 			if(0.81 to INFINITY)
-				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] feels good.</span>")
+				to_chat(user, span_notice("<b>Состояние</b>: [M.name] чувству[pluralize_ru(M.gender, "ет", "ют")] себя хорошо."))
 			if(0.61 to 0.8)
-				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering mild pain.</span>")
+				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[pluralize_ru(M.gender, "ет", "ют")] слабую боль."))
 			if(0.41 to 0.6)
-				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering significant pain.</span>")
+				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[pluralize_ru(M.gender, "ет", "ют")] умеренную боль."))
 			if(0.21 to 0.4)
-				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering severe pain.</span>")
+				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[pluralize_ru(M.gender, "ет", "ют")] сильную боль."))
 			else
-				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering excruciating pain.</span>")
-				thoughts = "haunted by [M.p_their()] own mortality"
+				to_chat(user, span_notice("<b>Состояние</b>: [M.name] испытыва[pluralize_ru(M.gender, "ет", "ют")] мучительную боль."))
+				thoughts = "дума[pluralize_ru(M.gender, "ет", "ют")] о том, что [genderize_ru(M.gender, "его", "её", "его", "их")] скоро настигнет смерть"
 
 		switch(M.a_intent)
 			if(INTENT_HELP)
-				to_chat(user, "<span class='notice'><b>Mood</b>: You sense benevolent thoughts from [M.name].</span>")
+				to_chat(user, span_notice("<b>Настроение</b>: Вы улавливаете благожелательные мысли, исходящие от [M.name]."))
 			if(INTENT_DISARM)
-				to_chat(user, "<span class='notice'><b>Mood</b>: You sense cautious thoughts from [M.name].</span>")
+				to_chat(user, span_notice("<b>Настроение</b>: Вы улавливаете опасливые мысли, исходящие от [M.name]."))
 			if(INTENT_GRAB)
-				to_chat(user, "<span class='notice'><b>Mood</b>: You sense hostile thoughts from [M.name].</span>")
+				to_chat(user, span_notice("<b>Настроение</b>: Вы улавливаете враждебные мысли, исходящие от [M.name]."))
 			if(INTENT_HARM)
-				to_chat(user, "<span class='notice'><b>Mood</b>: You sense cruel thoughts from [M.name].</span>")
+				to_chat(user, span_notice("<b>Настроение</b>: Вы улавливаете жестокие мысли, исходящие от [M.name]."))
 				for(var/mob/living/L in view(7,M))
 					if(L == M)
 						continue
-					thoughts = "thinking about punching [L.name]"
+					thoughts = "дума[pluralize_ru(M.gender, "ет", "ют")] о том, чтобы ударить [L.name]"
 					break
 			else
-				to_chat(user, "<span class='notice'><b>Mood</b>: You sense strange thoughts from [M.name].</span>")
+				to_chat(user, span_notice("<b>Настроение</b>: Вы улавливаете странные мысли, исходящие от [M.name]."))
 
 		if(ishuman(M))
 			var/numbers[0]
@@ -586,13 +586,13 @@
 				numbers += H.mind.initial_account.account_number
 				numbers += H.mind.initial_account.remote_access_pin
 			if(numbers.len>0)
-				to_chat(user, "<span class='notice'><b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
-		to_chat(user, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
+				to_chat(user, span_notice("<b>Числа</b>: Вы чувствуете, что [numbers.len > 1 ? "числа" : "число"] [english_list(numbers)] [numbers.len > 1 ? "являются важными" : "является важным"] для [M.name]."))
+		to_chat(user, span_notice("<b>Мысли</b>: [M.name] сейчас [thoughts]."))
 
 		if(HAS_TRAIT(M, TRAIT_EMPATHY))
-			to_chat(M, "<span class='warning'>You sense [user.name] reading your mind.</span>")
+			to_chat(M, span_warning("Вы чувствуете, что [user.name] читает ваши мысли."))
 		else if(prob(5) || M.mind?.assigned_role == JOB_TITLE_CHAPLAIN)
-			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
+			to_chat(M, span_warning("Вы чувствуете, что кто-то вторгается в ваши мысли..."))
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -600,9 +600,9 @@
 // WAS: /datum/bioEffect/strong
 /datum/dna/gene/basic/strong
 	name = "Strong"
-	desc = "Enhances the subject's ability to build and retain heavy muscles."
-	activation_messages = list("You feel buff!")
-	deactivation_messages = list("You feel wimpy and weak.")
+	desc = "Повышает способность субъекта наращивать и удерживать тяжелую мускулатуру."
+	activation_messages = list("Вы чувствуете, что ваши мышцы в тонусе!")
+	deactivation_messages = list("Вы чувствуете себя хилым и слабым.")
 	instability = GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_GENE_STRONG)
 

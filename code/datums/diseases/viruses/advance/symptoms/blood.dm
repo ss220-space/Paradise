@@ -35,6 +35,6 @@ Bonus
 			if(prob(10))
 				to_chat(affected, span_notice("You can hear own heartbeat"))
 			if(!HAS_TRAIT(affected, TRAIT_NO_BLOOD) && !HAS_TRAIT(affected, TRAIT_NO_BLOOD_RESTORE) && affected.blood_volume < BLOOD_VOLUME_NORMAL)
-				affected.blood_volume += 0.4
+				affected.AdjustBlood(0.4)
 				affected.adjust_nutrition(-2)
 

@@ -98,6 +98,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weldingtool/sword))
+		if(I.tool_enabled)
+			light(span_notice("[user] непринуждённо зажига[pluralize_ru(user, "ет", "ют")] [declent_ru(ACCUSATIVE)] с помощью [I.declent_ru(GENITIVE)]. Чёрт, как же он[genderize_ru(user.gender, "", "а", "о", "и")] крут[genderize_ru(user.gender, "", "а", "о", "ы")]."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+		
 	if(istype(I, /obj/item/lighter/zippo))
 		add_fingerprint(user)
 		var/obj/item/lighter/zippo/zippo = I
@@ -330,6 +335,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/shadyjims
 	list_reagents = list("nicotine" = 40, "lipolicide" = 7.5, "ammonia" = 2, "atrazine" = 1, "toxin" = 1.5)
+
+/obj/item/clothing/mask/cigarette/richard
+	list_reagents = list("nicotine" = 40, "epinephrine" = 5, "absinthe" = 5)
 
 /obj/item/clothing/mask/cigarette/rollie
 	name = "rollie"

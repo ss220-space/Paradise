@@ -3,6 +3,8 @@
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	flags = CONDUCT
 	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
 	force = 0
@@ -461,6 +463,8 @@
 	desc = "Highly compressed matter for the RCD."
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "rcd"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "rcdammo"
 	origin_tech = "materials=3"
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)

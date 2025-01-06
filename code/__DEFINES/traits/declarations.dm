@@ -26,6 +26,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CHASM_STOPPER "chasm_stopper"
 /// `do_teleport` will not allow this atom to teleport
 #define TRAIT_NO_TELEPORT "no-teleport"
+
+/// This atom is a secluded location, which is counted as out of bounds.
+/// Anything that enters this atom's contents should react if it wants to stay in bounds.
+#define TRAIT_SECLUDED_LOCATION "secluded_loc"
+
 #define TRAIT_SILENT_FOOTSTEPS "silent_footsteps"
 
 //turf traits
@@ -43,6 +48,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //mob traits
 #define TRAIT_GODMODE "godmode"
 #define TRAIT_PACIFISM "pacifism"
+#define TRAIT_NO_DEATH "nodeath"
 #define TRAIT_WATERBREATH "waterbreathing"
 #define TRAIT_BLOODCRAWL "bloodcrawl"
 #define TRAIT_BLOODCRAWL_EAT "bloodcrawl_eat"
@@ -60,6 +66,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SHOCKIMMUNE "shock_immunity"
 /// Are we immune to specifically tesla / SM shocks?
 #define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
+/// Are we immune to wet effect
+#define TRAIT_WET_IMMUNITY "wet_immunity"
 
 /// We place people into a fireman carry quicker than standard
 #define TRAIT_QUICK_CARRY "quick-carry"
@@ -85,6 +93,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HUSK "husk"
 #define TRAIT_SKELETON "skeleton"
 #define TRAIT_NO_CLONE "no_clone"
+/// Isn't attacked harmfully by blob structures
+#define TRAIT_BLOB_ALLY "blob_ally"
+/// Objects with this trait are deleted if they fall into chasms, rather than entering abstract storage
+#define TRAIT_CHASM_DESTROYED "chasm_destroyed"
 
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
@@ -177,6 +189,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ADVANCED_SURGICAL "advanced_surgical"
 /// This trait makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
 #define TRAIT_NODROP "nodrop"
+/// Applied with attachment to the cyberimplant when it is inserted in mob with TRAIT_ADVANCED_CYBERIMPLANTS
+#define TRAIT_CYBERIMP_IMPROVED "cyberimp_improved"
+
+#define TRAIT_SHRAPNEL "shrapnel"
 
 
 ///Movement type traits for movables. See elements/movetype_handler.dm
@@ -268,3 +284,14 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SPECIES_LIMBS "only_species_limbs"
 /// Phohibits using the "Book Of Babel"
 #define TRAIT_NO_BABEL "cannot_use_babel"
+/// Improves the function of some cyberimps for the Grey species
+/// Rename and split into several if you want to make a different functionality to another species/etc
+#define TRAIT_ADVANCED_CYBERIMPLANTS "advanced_cyberimplants"
+/// Any movement of non-item objects or mobs expends stamina (10 run, 5 walk)
+#define TRAIT_WEAK_PULLING "weak_pulling"
+/// Makes species acid proof(not it's items), affects: acetic, sulfiric, fluorosulfuric acids
+#define TRAIT_ACID_PROTECTED "acid_protected"
+/// Species with no vocal cords can't speak without translator
+#define TRAIT_NO_VOCAL_CORDS "no_vocal_cords"
+
+#define TRAIT_BLOB_ZOMBIFIED "blob_zombified"

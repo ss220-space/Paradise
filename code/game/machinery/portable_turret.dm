@@ -520,7 +520,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	//Verify that targeted atoms are in our sight. Otherwise, just remove them from processing.
 	for(var/atom/movable/atom as anything in processing_targets)
-		if(!can_see(src, atom, scan_range))
+		if(!can_see(atom, scan_range))
 			processing_targets -= atom
 
 	var/list/primary_candidates
@@ -1037,6 +1037,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	use_power = NO_POWER_USE
 	has_cover = FALSE
 	raised = TRUE
+	density = TRUE
 	scan_range = 9
 
 	faction = "syndicate"
@@ -1059,6 +1060,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	. = ..()
 	if(istype(depotarea))
 		depotarea.turret_died()
+
+	density = FALSE	
 
 /obj/machinery/porta_turret/syndicate/shootAt(mob/living/target)
 	if(istype(depotarea))

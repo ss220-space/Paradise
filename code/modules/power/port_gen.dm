@@ -9,6 +9,7 @@
 	density = TRUE
 	anchored = FALSE
 	use_power = NO_POWER_USE
+	var/datum/looping_sound/port_gen/soundloop
 
 	var/active = 0
 	var/power_gen = 5000
@@ -16,6 +17,14 @@
 	var/recent_fault = 0
 	var/power_output = 1
 	var/base_icon = "portgen0"
+
+/obj/machinery/power/port_gen/Initialize(mapload)
+	. = ..()
+	soundloop = new(list(src), active)
+
+/obj/machinery/power/port_gen/Destroy()
+	QDEL_NULL(soundloop)
+	return ..()
 
 /obj/machinery/power/port_gen/proc/IsBroken()
 	return (stat & (BROKEN|EMPED))
@@ -39,10 +48,12 @@
 	if(active && HasFuel() && !IsBroken() && anchored && powernet)
 		add_avail(power_gen * power_output)
 		UseFuel()
+		soundloop.start()
 	else
 		active = 0
 		handleInactive()
 		update_icon(UPDATE_ICON_STATE)
+		soundloop.stop()
 
 /obj/machinery/power/powered()
 	return TRUE //doesn't require an external power source

@@ -1,5 +1,7 @@
 /obj/item/melee
-	needs_permit = 1
+	needs_permit = TRUE
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /obj/item/melee/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user)
 	var/message = "<span class='danger'>[target.name] blocks [src] and twists [user]'s arm behind [user.p_their()] back!</span>"
@@ -183,7 +185,7 @@
 	name = "ice pick"
 	desc = "Used for chopping ice. Also excellent for mafia esque murders."
 	icon_state = "icepick"
-	item_state = "icepick"
+	//item_state = "icepick"
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL

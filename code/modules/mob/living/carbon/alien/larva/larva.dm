@@ -18,6 +18,8 @@
 	death_message = "с тошнотворным шипением выдыха%(ет,ют)% воздух и пада%(ет,ют)% на пол..."
 	death_sound = null
 
+	hud_type = /datum/hud/larva
+
 	var/datum/action/innate/hide/alien_larva/hide_action
 
 
@@ -32,7 +34,7 @@
 	hide_action = new
 	hide_action.Grant(src)
 	..()
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_larva)
+	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve/larva)
 
 
 /mob/living/carbon/alien/larva/Destroy()
