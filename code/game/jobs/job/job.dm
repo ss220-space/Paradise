@@ -81,7 +81,15 @@
 	var/insurance = INSURANCE_STANDART
 	var/insurance_type = INSURANCE_TYPE_STANDART
 
+	var/defoult_dep = TRUE
+	var/list/college_department = list() //Указаные отделы будут знать тебя. По умолчанию тебя знает твой отдел
+
 //Only override this proc
+/datum/job/New()
+	if(department && defoult_dep)
+		college_department.Add(department)
+
+
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
 
 /datum/job/proc/announce(mob/living/carbon/human/H)

@@ -190,6 +190,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		clockwork_cult += clock_mind
 		clock_mind.current.faction |= "clockwork_cult"
 		clock_mind.special_role = SPECIAL_ROLE_CLOCKER
+		clock_mind.special_role_meta_know = TRUE
 
 		if(clock_mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(clock_mind.current, "<span class='clockitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")

@@ -149,21 +149,17 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		
 		var/id = num2hex(GLOB.record_id_num++, 6)
 		H.adv_voice.RegSignals()
-		H.UpdateVoice() //при иницилизации все куклы ноунеймы, имена и прочее подгружается потом. Где это потом я искать не хочу, терпите карлики
+		H.UpdateVoice() //На всякий
 		var/prom_voice = H.adv_voice.voice_name 
 		
 		var/datum/job/prom_job = SSjobs.GetJob(H.job)
-		var/dep_flag = prom_job.department
 
-		if(GLOB.capitalist_manifest?["AbsolutePomny"] && (prom_job.title in GLOB.command_positions))
-			GLOB.capitalist_manifest["AbsolutePomny"][prom_voice] = H.real_name
-		else if(prom_job.title in GLOB.command_positions)
-			GLOB.capitalist_manifest["AbsolutePomny"] = list((prom_voice) = H.real_name)
-
-		if(GLOB.capitalist_manifest?[dep_flag] && dep_flag)
-			GLOB.capitalist_manifest?[dep_flag][prom_voice] = H.real_name
-		else if(dep_flag)
-			GLOB.capitalist_manifest?[dep_flag] = list((prom_voice) = H.real_name)
+		for(var/dep_flag in prom_job.college_department) //:catsmile:
+			if(!isnull(GLOB.capitalist_manifest?[dep_flag]))
+				to_chat(world, "[dep_flag]  [prom_job]  [H.real_name]")
+				GLOB.capitalist_manifest[dep_flag][prom_voice] = H.real_name
+			else
+				GLOB.capitalist_manifest[dep_flag] = list((prom_voice) = (H.real_name))
 
 		//SEND_GLOBAL_SIGNAL(COMSIG_SPECIAL_MASS_STORE_VOICE, GLOB.capitalist_manifest)
 		//При создании рекордсов еще берется и голос, боже помилуй чтобы это ничего не сломало

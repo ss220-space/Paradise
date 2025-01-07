@@ -1,4 +1,5 @@
 GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", "Science", "Security", "Cargo", "Support", "Civilian"))
+//Это нужно поскольку GLOB.station_departments определяется во время выполнения
 
 // The department the job belongs to.
 // fuck you cib

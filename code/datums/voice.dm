@@ -7,15 +7,8 @@
 	var/voice_name = "Неизвестный"
 	var/real_voice_name = "Неизвестный"
 
-	var/list/lust_debug = list()
-
 	var/list/famous_voices = list()
 	//var/list/famous_faces = list()
-
-/proc/isZlevel(var/mob/analiz)
-	var/result = analiz?.loc?.z
-	return (result == 3)
-
 
 /datum/voice_model/New(var/mob/owner_voice)
 	if(owner_voice != null) 
@@ -27,21 +20,18 @@
 		tts_seed_string = owner_voice.tts_seed
 
 /datum/voice_model/proc/RegSignals()
-		to_chat(world, "Успешно регистрирую сигнал [host.name]")
-		RegisterSignal(SSdcs, COMSIG_SPECIAL_MASS_STORE_VOICE, PROC_REF(SpecialMassAddVoice))
+	RegisterSignal(SSdcs, COMSIG_SPECIAL_MASS_STORE_VOICE, PROC_REF(SpecialMassAddVoice))
 
 //Специфическая функция которая добавляет что нужно короче
 /datum/voice_model/proc/SpecialMassAddVoice(suka, list/list_voice)
 	SIGNAL_HANDLER
-	lust_debug = list_voice
-	to_chat(world, "Глобальный сигнал!!")
-
-	var/list/prom_fuck = list_voice?[SSjobs.GetJob(host.job).department]
+	var/datum/job/prom_job = SSjobs.GetJob(host.job) //Нужно чтобы небыло предупеждений
+	var/list/prom_data = list_voice?[prom_job.department]
 	if(list_voice?["AbsolutePomny"])
 		famous_voices |= list_voice["AbsolutePomny"]
 
-	if(prom_fuck)
-		famous_voices |= prom_fuck
+	if(prom_data)
+		famous_voices |= prom_data
 
 /datum/voice_model/proc/JustListAddVoice(list_voice)
 	SIGNAL_HANDLER
@@ -89,7 +79,7 @@
 	if(src == target.adv_voice)
 		return TRUE
 	. = FALSE
-	if(!ishuman(target)) //Нахуя мне знать как зовут мышей :badguy:
+	if(!ishuman(target)) //Зачем мне знать как зовут мышей :badguy:
 		return target.name
 	var/mob/living/carbon/human/target_H = target
 	var/obj/item/card/id/prov_wear_id = null
@@ -133,10 +123,14 @@
 */
 //For hear
 /datum/voice_model/proc/TryRecollectVoice(mob/target)
+	if(!ishuman(host)) //Мышки мышки знают все....
+		return target.name
+	if(host.mind.special_role_meta_know && (target.mind.special_role == host.mind.special_role))
+		return target.name
 	if(src == target.adv_voice)
-		return target.adv_voice.voice_name
+		return target.name
 	if(!ishuman(target))
-		return target.adv_voice.voice_name
+		return target.name
 
 	. = famous_voices?[target.adv_voice.voice_name]
 	if(.)

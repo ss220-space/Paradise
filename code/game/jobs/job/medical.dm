@@ -26,6 +26,9 @@
 	min_start_money = 400
 	max_start_money = 700
 
+	defoult_dep = FALSE
+	college_department = PRIMITIVE_STATION_DEPARTMENTS
+
 /datum/outfit/job/cmo
 	name = JOB_TITLE_CMO
 	jobtype = /datum/job/cmo

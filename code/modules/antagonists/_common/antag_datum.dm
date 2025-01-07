@@ -43,6 +43,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/russian_wiki_name
 	/// Show antag in ghost orbit
 	var/show_in_orbit = TRUE
+	//for voice.dm :catsmile:
+	var/meta_acquaintances = FALSE
 
 /datum/antagonist/New()
 	GLOB.antagonists += src

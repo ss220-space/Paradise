@@ -187,6 +187,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
 		cult_mind.special_role = SPECIAL_ROLE_CULTIST
+		cult_mind.special_role_meta_know = TRUE
 		ADD_TRAIT(cult_mind.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 
 		if(cult_mind.assigned_role == JOB_TITLE_CLOWN)

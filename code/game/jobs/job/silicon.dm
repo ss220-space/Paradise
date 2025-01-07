@@ -13,6 +13,8 @@
 	exp_type = EXP_TYPE_SILICON
 	insurance_type = INSURANCE_TYPE_NONE
 
+	college_department = list() //Синтам не нужны коллеги, ибо у них имена потом идут
+
 /datum/job/ai/equip(mob/living/carbon/human/H)
 	if(!H)
 		return 0
@@ -35,6 +37,9 @@
 	exp_type = EXP_TYPE_CREW
 	alt_titles = list("Robot")
 	insurance_type = INSURANCE_TYPE_NONE
+
+	defoult_dep = FALSE
+	college_department = list()
 
 /datum/job/cyborg/equip(mob/living/carbon/human/H)
 	if(!H)

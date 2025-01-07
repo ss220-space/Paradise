@@ -153,8 +153,6 @@
 	var/radiation = 0 //Carbon
 
 	//see: setup.dm for list of mutations
-
-	var/examie_name  = "Неизвестный" //Долой гнет бульена!!
 	var/voice_name = "неизвестный голос"
 	var/datum/voice_model/adv_voice = null
 

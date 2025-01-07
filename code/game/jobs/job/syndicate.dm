@@ -12,6 +12,7 @@
 	syndicate_command = 1
 	outfit = /datum/outfit/job/syndicateofficer
 	insurance_type = INSURANCE_TYPE_NONE
+	department = "SyndiCat"
 
 /datum/job/syndicateofficer/get_access()
 	return get_syndicate_access(title)
