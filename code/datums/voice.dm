@@ -1,4 +1,5 @@
 #define GENDER_NAME_UNKNOW list(MALE = "Незнакомец", FEMALE = "Незнакомка", NEUTER = "Неизвестный", PLURAL  = "Неизвестный")
+#define FACE_MOD_SWITCH TRUE
 //Новая система голоса
 /datum/voice_model
 	var/mob/host = null //Носитель этой хуеты
@@ -8,7 +9,7 @@
 	var/real_voice_name = "Неизвестный"
 
 	var/list/famous_voices = list()
-	//var/list/famous_faces = list()
+	var/list/famous_faces = list()
 
 /datum/voice_model/New(var/mob/owner_voice)
 	if(owner_voice != null) 
@@ -66,14 +67,14 @@
 				return t.fields["name"]
 	return "IDENTIFICATION ERROR"
 //Технически name это представление твоего ебала
-/* BYOND...
+
 /datum/voice_model/proc/GetManifestKnowFace(mob/face_target)
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		if(t)
 			if(t.fields["name"] == face_target.name)
 				return t.fields["name"]
 	return "IDENTIFICATION FACE ERROR"
-*/
+
 
 /datum/voice_model/proc/TryStore(mob/target)
 	if(src == target.adv_voice)
@@ -92,7 +93,8 @@
 
 	if(!((target_H.wear_mask?.flags_inv & HIDENAME) || (target_H.head?.flags_inv & HIDENAME)) && prov_wear_id)
 
-		//famous_faces[target_H.name] = prov_wear_id.registered_name //FUCK BYOND
+		if(FACE_MOD_SWITCH)
+			famous_faces[target_H.name] = prov_wear_id.registered_name //FUCK BYOND
 		famous_voices[target_H.adv_voice.voice_name] = prov_wear_id.registered_name
 		. = TRUE
 	else if(prov_wear_id)
@@ -101,7 +103,7 @@
 	return
 
 //For examie
-/* FUCKING BYOND
+// FUCKING BYOND
 /datum/voice_model/proc/TryRecollectFace(mob/target)
 	if(src == target.adv_voice)
 		return target.name
@@ -120,7 +122,7 @@
 	else
 		. = get_gender_unknown_name(target_H.gender)
 	return
-*/
+
 //For hear
 /datum/voice_model/proc/TryRecollectVoice(mob/target)
 	if(!ishuman(host)) //Мышки мышки знают все....
@@ -143,5 +145,15 @@
 	if(.)
 		return TRUE
 	return FALSE
+
+//HELPERS
+
+/proc/GenDepartamentVoiceTree(mob/target, list/departments)
+	var/list/result = list()
+	
+	for(var/dep_flag in departments) //:catsmile:
+		result[dep_flag] = list(target.adv_voice.voice_name = target.name)
+		
+	return result
 
 #undef GENDER_NAME_UNKNOW

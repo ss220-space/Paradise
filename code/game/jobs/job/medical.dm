@@ -264,6 +264,8 @@
 	min_start_money = 200
 	max_start_money = 400
 
+	college_department = list("Medical", "Science")
+
 /datum/outfit/job/geneticist
 	name = "Geneticist"
 	jobtype = /datum/job/geneticist

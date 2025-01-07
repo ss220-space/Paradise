@@ -208,6 +208,8 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	min_start_money = 400
 	max_start_money = 700
 
+	college_department = list("Command", "Security")
+
 /datum/outfit/job/blueshield
 	name = "Blueshield"
 	jobtype = /datum/job/blueshield

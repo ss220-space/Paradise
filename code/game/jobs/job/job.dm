@@ -1,5 +1,5 @@
 /datum/job
-
+	//ПРЕДУПРЕЖДЕНИЕ ВСЕМ И ВСЯ, НЕ ЗАБЫВАЙТЕ ПРОПИСЫВАТЬ ДЕПОРТАМЕНТ В Job_Departamenst.dm ИНАЧЕ НАХУЙ ВСЕ СЛОМАЕТСЯ
 	//The name of the job
 	var/title = "NOPE"
 

@@ -8,6 +8,15 @@
 		return " (as [get_id_name("Unknown")])"
 	return ..()
 
+/mob/living/carbon/human/proc/GetDescription()
+	var/datum/species/prom_spec = dna.species
+	if(age < 24)
+		return "Young [prom_spec.name] [gender]"
+	if(age < 45)
+		return "Mature [prom_spec.name] [gender]"
+	if(age < 60)
+		return "Old [prom_spec.name] [gender]"
+	return "Ancient [prom_spec.name] [gender]"
 
 /mob/living/carbon/human/say_understands(mob/other, datum/language/speaking = null)
 	if(dna?.species?.can_understand(other))

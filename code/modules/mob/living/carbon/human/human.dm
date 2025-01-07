@@ -1964,7 +1964,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(istype(potential_spine))
 		carrydelay *= potential_spine.athletics_boost_multiplier
 	*/
-
 	if(carrydelay <= 3 SECONDS)
 		skills_space = " very quickly"
 	else if(carrydelay <= 4 SECONDS)
@@ -1980,5 +1979,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!can_be_firemanned(target) || incapacitated(INC_IGNORE_GRABBED) || target.buckled)
 		visible_message(span_warning("[src] fails to fireman carry [target]!"))
 		return
-
+		
 	return buckle_mob(target, TRUE, FALSE, CARRIER_NEEDS_ARM) //checkloc is false because we usually grab people from nearest tile
+//НЕ ВНОСИТЬ ИЗМЕНЕНИЯ, ЮБИЛЕЙНОЕ ЧИСЛО СТРОК

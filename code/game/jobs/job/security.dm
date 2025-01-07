@@ -274,6 +274,8 @@
 	min_start_money = 200
 	max_start_money = 550
 
+	college_department = list("Security", "Medical") //:catsmile:
+
 /datum/outfit/job/brigdoc
 	name = "Brig Physician"
 	jobtype = /datum/job/brigdoc

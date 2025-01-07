@@ -11,6 +11,10 @@ GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", 
 /datum/job/captain/department = "Command"
 /datum/job/captain/head_position = 1
 
+/datum/job/nanotrasenrep/department = "Command"
+
+/datum/job/blueshield/department = "Command"
+
 /datum/job/hop/department = "Support"
 /datum/job/hop/head_position = 1
 
@@ -22,9 +26,11 @@ GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", 
 
 /datum/job/hydro/department = "Support"
 
-/datum/job/mining/department = "Support"
-
 /datum/job/janitor/department = "Support"
+
+/datum/job/clown/department = "Support"
+
+/datum/job/mime/department = "Support"
 
 /datum/job/librarian/department = "Support"
 
@@ -32,15 +38,21 @@ GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", 
 
 /datum/job/chaplain/department = "Support"
 
+/datum/job/explorer/department = "Support"
+
 /datum/job/qm/department = "Cargo"
 /datum/job/qm/head_position = 1
 
 /datum/job/cargo_tech/department = "Cargo"
 
+/datum/job/mining/department = "Cargo"
+
 /datum/job/chief_engineer/department = "Engineering"
 /datum/job/chief_engineer/head_position = 1
 
 /datum/job/engineer/department = "Engineering"
+
+/datum/job/mechanic/department = "Engineering"
 
 /datum/job/atmos/department = "Engineering"
 
@@ -51,9 +63,15 @@ GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", 
 
 /datum/job/doctor/department = "Medical"
 
+/datum/job/coroner/department = "Medical"
+
 /datum/job/chemist/department = "Medical"
 
+/datum/job/virologist/department = "Medical"
+
 /datum/job/geneticist/department = "Medical"
+
+/datum/job/paramedic/department = "Medical"
 
 /datum/job/psychiatrist/department = "Medical"
 
@@ -76,4 +94,13 @@ GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", 
 /datum/job/detective/department = "Security"
 
 /datum/job/officer/department = "Security"
+
+/datum/job/brigdoc/department = "Security"
+
+/datum/job/pilot/department = "Security"
+
+/datum/job/judge/department = "Security"
+
+/datum/job/lawyer/department = "Security"
+
 
