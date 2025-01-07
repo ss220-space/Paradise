@@ -5,6 +5,8 @@
 	desc = "A standard edition welder provided by Nanotrasen."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "welder"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "welder"
 	belt_icon = "welding_tool"
 	flags = CONDUCT
