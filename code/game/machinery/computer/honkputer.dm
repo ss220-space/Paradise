@@ -1,6 +1,6 @@
 /obj/machinery/computer/HONKputer
 	name = "\improper HONKputer Mark I"
-	desc = "A yellow computer used in case of critically low levels of HONK."
+	desc = "Яркий жёлтый компьютер. Воспользуйтесь им, если уровень ХОНКА упал до критически низкого уровня!"
 	icon = 'icons/obj/machines/HONKputer.dmi'
 	icon_state = "honkputer"
 	icon_keyboard = "key_honk"
@@ -8,6 +8,7 @@
 	light_color = LIGHT_COLOR_PINK
 	req_access = list(ACCESS_CLOWN)
 	circuit = /obj/item/circuitboard/HONKputer
+	frame = /obj/structure/computerframe/HONKputer
 	var/authenticated = 0
 	var/message_cooldown = 0
 	var/state = STATE_DEFAULT

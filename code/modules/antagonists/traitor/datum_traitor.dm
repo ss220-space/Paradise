@@ -38,6 +38,18 @@
 	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_phrase_regex, "codephrases", src)
 	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_response_regex, "coderesponses", src)
 
+	datum_owner.AddComponent( \
+		/datum/component/pref_viewer, \
+		list(/datum/preference_info/take_out_of_the_round_without_obj), \
+	)
+
+/datum/antagonist/traitor/on_body_transfer(mob/living/old_body, mob/living/new_body)
+	. = ..()
+	qdel(old_body.GetComponent(/datum/component/pref_viewer))
+
+/datum/antagonist/traitor/handle_last_instance_removal()
+	qdel(owner.current.GetComponent(/datum/component/pref_viewer))
+
 /datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/datum_owner = mob_override || owner.current

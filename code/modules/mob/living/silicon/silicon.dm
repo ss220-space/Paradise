@@ -50,6 +50,8 @@
 	diag_hud_set_status()
 	diag_hud_set_health()
 
+	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
+
 	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
 	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 

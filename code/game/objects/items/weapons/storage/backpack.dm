@@ -750,8 +750,8 @@
 /obj/item/storage/backpack/duffel/security/riot/populate_contents()
 	new /obj/item/clothing/head/helmet/riot (src)
 	new /obj/item/clothing/suit/armor/riot (src)
-	new /obj/item/clothing/gloves/combat (src)
-	new /obj/item/clothing/shoes/combat/swat (src)
+	new /obj/item/clothing/gloves/combat/riot (src)
+	new /obj/item/clothing/shoes/combat/riot (src)
 	new /obj/item/melee/baton (src)
 	new /obj/item/shield/riot/tele (src)
 	new /obj/item/gun/energy/gun/pdw9 (src)
@@ -759,6 +759,24 @@
 	new /obj/item/grenade/flashbang (src)
 	new /obj/item/storage/box/zipties (src)
 	new /obj/item/storage/box/bola (src)
+
+/obj/item/storage/backpack/duffel/security/riot_armory
+	name = "Riot Armor Kit"
+
+/obj/item/storage/backpack/duffel/security/riot_armory/populate_contents()
+	new /obj/item/clothing/head/helmet/riot (src)
+	new /obj/item/clothing/suit/armor/riot (src)
+	new /obj/item/clothing/gloves/combat/riot (src)
+	new /obj/item/clothing/shoes/combat/riot (src)
+
+/obj/item/storage/backpack/duffel/security/bulletproof_armory
+	name = "Bulletproof Armor Kit"
+
+/obj/item/storage/backpack/duffel/security/bulletproof_armory/populate_contents()
+	new /obj/item/clothing/head/helmet/alt (src)
+	new /obj/item/clothing/suit/armor/bulletproof (src)
+	new /obj/item/clothing/gloves/color/black/ballistic (src)
+	new /obj/item/clothing/shoes/jackboots/armored (src)
 
 /obj/item/storage/backpack/duffel/security/war
 	name = "Wartime Emergency Kit"

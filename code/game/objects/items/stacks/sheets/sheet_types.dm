@@ -282,6 +282,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 		new /datum/stack_recipe("Fish bag", /obj/item/storage/bag/fish, 4),
 		new /datum/stack_recipe("Mining satchel", /obj/item/storage/bag/ore, 4),
 		new /datum/stack_recipe("Plant bag", /obj/item/storage/bag/plants, 4),
+		new /datum/stack_recipe("Money bag", /obj/item/storage/bag/money, 3),
 	)),
 	null,
 	new /datum/stack_recipe("Bedsheet", /obj/item/bedsheet, 3),
@@ -335,7 +336,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list(
 	desc = "A fabric sown from incredibly durable threads, known for its usefulness in armor production."
 	singular_name = "durathread roll"
 	icon_state = "sheet-durathread"
-	item_state = "sheet-cloth"
+	//item_state = "sheet-cloth"
 	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
@@ -773,7 +774,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 	desc = "Finely cut bamboo sticks."
 	singular_name = "cut bamboo"
 	icon_state = "sheet-bamboo"
-	item_state = "sheet-bamboo"
+	//item_state = "sheet-bamboo"
 	icon = 'icons/obj/items.dmi'
 	sheettype = "bamboo"
 	force = 10
@@ -799,7 +800,7 @@ GLOBAL_LIST_INIT(cheese_recipes, list(
 	name = "reinforced cheese"
 	desc = "A stack of cheese that seems sturdier than regular cheese."
 	icon_state = "sheet-cheese"
-	item_state = "sheet-cheese"
+	//item_state = "sheet-cheese"
 	icon = 'icons/obj/items.dmi'
 	singular_name = "reinforced cheese block"
 	sheettype = "cheese"
@@ -831,7 +832,7 @@ GLOBAL_LIST_INIT(gingerbread_recipes, list(
 	name = "gingerbread"
 	desc = "A brick of gingerbread that seems sturdier than regular one."
 	icon_state = "sheet-gingerbread"
-	item_state = "sheet-gingerbread"
+	//item_state = "sheet-gingerbread"
 	singular_name = "gingerbread block"
 	icon = 'icons/obj/items.dmi'
 	sheettype = "gingerbread"

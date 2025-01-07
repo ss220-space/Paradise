@@ -196,11 +196,11 @@
 								/obj/item/camera_bug = 1,													// 5 TK
 								/obj/item/door_remote/omni/access_tuner = 1,								// 30 TK
 								/obj/item/implanter/freedom/prototype = 1,									// 6.6 TK
-								/obj/item/aiModule/syndicate = 1,											// 40 TK
+								/obj/item/ai_module/syndicate = 1,											// 40 TK
 								/obj/item/card/emag = 1,													// 50 TK
 								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK
 								/obj/item/encryptionkey/binary = 1,											// 21 TK
-								/obj/item/aiModule/toyAI = 1,												// 0 TK
+								/obj/item/ai_module/toy_ai = 1,												// 0 TK
 								/obj/item/storage/belt/military/traitor/hacker = 1,							// 10 TK
 								/obj/item/clothing/gloves/combat = 1,										// 0-5 TK
 								/obj/item/flashlight/emp = 1),												// 20 TK

@@ -1,6 +1,6 @@
 /obj/machinery/computer/telescience
 	name = "telepad control console"
-	desc = "Used to teleport objects to and from the telescience telepad."
+	desc = "Используется для телепортации объектов на телепад и обратно."
 	icon_keyboard = "telesci_key"
 	icon_screen = "telesci"
 	circuit = /obj/item/circuitboard/telesci_console

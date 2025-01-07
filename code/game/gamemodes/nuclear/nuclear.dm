@@ -159,7 +159,7 @@
 	head_organ.sec_hair_colour = hair_c
 	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
+	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species)
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
 	M.body_accessory = null
 	M.regenerate_icons()
@@ -303,7 +303,7 @@
 		if(!D.onCentcom())
 			disk_rescued = 0
 			break
-	var/crew_evacuated = (SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+	var/crew_evacuated = EMERGENCY_ESCAPED_OR_ENDGAMED
 	//var/operatives_are_dead = is_operatives_are_dead()
 
 

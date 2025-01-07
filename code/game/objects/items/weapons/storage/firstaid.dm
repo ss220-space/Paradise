@@ -429,6 +429,19 @@
 	for(var/I in 1 to 10)
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 
+/obj/item/storage/pill_bottle/bluespace
+	name = "advanced drug storage"
+	desc = "Технологичное устройство для хранения препаратов небольшого размера, имеет два контейнера разной формы, что объединяет центральное хранилище устройства."
+	storage_slots = 100
+	max_combined_w_class = 100
+	can_hold = list(/obj/item/reagent_containers/food/pill)
+	cant_hold = list()
+	icon_state = "adv_drug_storage"
+	item_state = "adv_drug_storage"
+	belt_icon = null
+	allow_wrap = FALSE
+	origin_tech = "materials=2;bluespace=1;biotech=1;plasmatech=1"
+
 /obj/item/storage/pill_bottle/charcoal
 	name = "Pill bottle (Charcoal)"
 	desc = "Contains pills used to counter toxins."

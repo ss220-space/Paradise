@@ -16,7 +16,7 @@
 	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags |= INITIALIZED
-	GLOB.mob_list += src
+	add_to_mob_list()
 	return INITIALIZE_HINT_NORMAL
 
 /mob/new_player/proc/privacy_consent()
@@ -511,9 +511,9 @@
 	dat += "Продолжительность раунда: [round(hours)]h [round(mins)]m<br>"
 	dat += "<b>Уровень угрозы на станции: [get_security_level_ru_colors()]</b><br>"
 
-	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 		dat += "<font color='red'><b>Станция была эвакуирована.</b></font><br>"
-	else if(SSshuttle.emergency.mode >= SHUTTLE_CALL)
+	else if((SSshuttle.emergency.mode == SHUTTLE_CALL) || EMERGENCY_AT_LEAST_DOCKED)
 		dat += "<font color='red'>В настоящее время станция проходит процедуру эвакуации.</font><br>"
 
 	if(length(SSjobs.prioritized_jobs))

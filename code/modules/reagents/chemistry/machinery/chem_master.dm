@@ -112,10 +112,6 @@
 	if(powered())
 		. += "waitlight"
 
-/obj/machinery/chem_master/blob_act(obj/structure/blob/B)
-	if(prob(50) && !QDELETED(src))
-		qdel(src)
-
 /obj/machinery/chem_master/power_change()
 	if(!..())
 		return

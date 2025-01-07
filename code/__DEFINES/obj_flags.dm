@@ -16,6 +16,8 @@
 #define NODECONSTRUCT (1<<5)
 /// Objects will ignore item attacks
 #define IGNORE_HITS (1<<6)
+/// Objects will ignore blob_act
+#define IGNORE_BLOB_ACT (1<<7)
 
 
 // Flags for the item_flags var on /obj/item
@@ -72,4 +74,7 @@
 #define FIXED_SLOWDOWN (1<<5)
 /// Checks for finger coverage, prevents damage from nettles
 #define FINGERS_COVERED (1<<6)
+
+/// Flags for the pod_flags var on /obj/structure/closet/supplypod
+#define FIRST_SOUNDS (1<<0) // If it shouldn't play sounds the first time it lands, used for reverse mode
 

@@ -55,8 +55,7 @@
 		affectareas += V
 	for(var/V in protected_areas)
 		affectareas -= get_areas(V)
-	for(var/V in affectareas)
-		var/area/A = V
+	for(var/area/A in affectareas)
 		if(A.z in impacted_z_levels)
 			impacted_areas |= A
 		CHECK_TICK

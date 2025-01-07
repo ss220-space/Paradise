@@ -480,6 +480,30 @@
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
 	)
 
+/obj/item/clothing/mask/gas/clown_hat/sweettooth
+	name = "Sweet Tooth Mask"
+	desc = "Брутальная маска клоуна. Она до сих пор пахнет цирком. И керосином."
+	icon_state = "sweettooth_mask"
+	item_state = "sweettooth_mask"
+	ru_names = list(
+		NOMINATIVE = "Маска Сладкоежки",
+		GENITIVE = "Маски Сладкоежки",
+		DATIVE = "Маске Сладкоежки",
+		ACCUSATIVE = "Маску Сладкоежки",
+		INSTRUMENTAL = "Маской Сладкоежки",
+		PREPOSITIONAL = "Маске Сладкоежки"
+	)
+	sprite_sheets = list(
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/mask.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/mask.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/mask.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/mask.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
+	)
 
 /obj/item/clothing/mask/gas/clown_hat/rockso
 	name = "Rockso Mask"

@@ -45,7 +45,7 @@
 	"<span class='suicide'>You try to impale yourself with [src], but it's USELESS...</span>")
 	return SHAME
 
-/obj/item/claymore
+/obj/item/melee/claymore
 	name = "claymore"
 	desc = "What are you standing around staring at this for? Get to killing!"
 	icon_state = "claymore"
@@ -67,16 +67,16 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
 
-/obj/item/claymore/suicide_act(mob/user)
+/obj/item/melee/claymore/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS
 
-/obj/item/claymore/ceremonial
+/obj/item/melee/claymore/ceremonial
 	name = "ceremonial claymore"
 	desc = "An engraved and fancy version of the claymore. It appears to be less sharp than it's more functional cousin."
 	force = 20
 
-/obj/item/katana
+/obj/item/melee/katana
 	name = "katana"
 	desc = "Woefully underpowered in D20"
 	icon_state = "katana"
@@ -97,14 +97,13 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
-	needs_permit = TRUE
 
 
-/obj/item/katana/suicide_act(mob/user)
+/obj/item/melee/katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>")
 	return BRUTELOSS
 
-/obj/item/katana/basalt
+/obj/item/melee/katana/basalt
 	name = "basalt katana"
 	desc = "a katana made out of hardened basalt. Particularly damaging to lavaland fauna."
 	icon_state = "basalt_katana"
@@ -115,7 +114,7 @@
 	var/nemesis_factions = list("mining", "boss")
 
 
-/obj/item/katana/basalt/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/melee/katana/basalt/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))
 		for(var/faction in target.faction)
@@ -205,15 +204,6 @@
 	sharp = 1
 	materials = list(MAT_METAL=500, MAT_GLASS=500)
 	resistance_flags = FIRE_PROOF
-
-/obj/item/spear/kidan
-	icon_state = "kidanspear"
-	name = "Kidan spear"
-	desc = "A one-handed spear brought over from the Kidan homeworld."
-	icon_state = "kidanspear"
-	item_state = "kidanspear"
-	force = 10
-	throwforce = 15
 
 /obj/item/melee/baseball_bat
 	name = "baseball bat"
@@ -438,7 +428,7 @@
 	toggle(user)
 
 
-/obj/item/claymore/bone
+/obj/item/melee/claymore/bone
 	name = "bone sword"
 	desc = "Jagged pieces of bone are tied to what looks like a goliath's femur."
 	icon_state = "bone_sword"
