@@ -198,6 +198,8 @@
 	if(cell)
 		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
 
+/obj/item/gun/energy/plasmacutter/get_heat()
+	return 3800
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma))

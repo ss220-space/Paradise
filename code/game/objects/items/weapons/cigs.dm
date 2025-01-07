@@ -61,10 +61,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
+	RegisterSignal(src, COMSIG_ITEM_PRE_ATTACKBY, PROC_REF(can_light))
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	QDEL_NULL(reagents)
 	STOP_PROCESSING(SSobj, src)
+	UnregisterSignal(src, COMSIG_ITEM_PRE_ATTACKBY)
 	return ..()
 
 
@@ -102,7 +104,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(I.tool_enabled)
 			light(span_notice("[user] непринуждённо зажига[pluralize_ru(user, "ет", "ют")] [declent_ru(ACCUSATIVE)] с помощью [I.declent_ru(GENITIVE)]. Чёрт, как же он[genderize_ru(user.gender, "", "а", "о", "и")] крут[genderize_ru(user.gender, "", "а", "о", "ы")]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
-		
+
 	if(istype(I, /obj/item/lighter/zippo))
 		add_fingerprint(user)
 		var/obj/item/lighter/zippo/zippo = I
@@ -216,6 +218,14 @@ LIGHTERS ARE IN LIGHTERS.DM
 	. = ..()
 	name = lit ? "lit [initial(name)]" : initial(name)
 
+/obj/item/clothing/mask/cigarette/get_heat()
+	return lit * 1000
+
+/obj/item/clothing/mask/cigarette/proc/can_light(obj/item/cigarette, obj/item/lighting_item)
+	SIGNAL_HANDLER
+	if(lighting_item.get_heat())
+		light()
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
 	if(lit)
@@ -314,6 +324,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 
+/obj/item/clothing/mask/cigarette/get_heat()
+	return lit * 1000
 
 /obj/item/clothing/mask/cigarette/menthol
 	list_reagents = list("nicotine" = 40, "menthol" = 20)

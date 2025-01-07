@@ -214,7 +214,7 @@
 
 /obj/item/ticket_machine_ticket/attackby(obj/item/I, mob/living/user, params) //Stolen from papercode
 	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_hot(I) || !Adjacent(user))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_heat() || !Adjacent(user))
 		return .
 
 	. |= ATTACK_CHAIN_BLOCKED_ALL

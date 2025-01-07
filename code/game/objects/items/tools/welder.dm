@@ -210,6 +210,8 @@
 	if(tool_enabled)
 		. += "[initial(icon_state)]-on"
 
+/obj/item/weldingtool/get_heat()
+	return tool_enabled * 2500
 
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"
