@@ -156,7 +156,6 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 
 		for(var/dep_flag in prom_job.college_department) //:catsmile:
 			if(!isnull(GLOB.capitalist_manifest?[dep_flag]))
-				to_chat(world, "[dep_flag]  [prom_job]  [H.real_name]")
 				GLOB.capitalist_manifest[dep_flag][prom_voice] = H.real_name
 			else
 				GLOB.capitalist_manifest[dep_flag] = list((prom_voice) = (H.real_name))

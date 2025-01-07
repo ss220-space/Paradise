@@ -93,8 +93,8 @@
 
 	if(!((target_H.wear_mask?.flags_inv & HIDENAME) || (target_H.head?.flags_inv & HIDENAME)) && prov_wear_id)
 
-		if(FACE_MOD_SWITCH)
-			famous_faces[target_H.name] = prov_wear_id.registered_name //FUCK BYOND
+		//if(FACE_MOD_SWITCH)
+		//	famous_faces[target_H.name] = prov_wear_id.registered_name //FUCK BYOND
 		famous_voices[target_H.adv_voice.voice_name] = prov_wear_id.registered_name
 		. = TRUE
 	else if(prov_wear_id)
