@@ -23,7 +23,7 @@
 	to_chat(world, "<b>Abductors</b> - kidnap the crew and replace their organs with experimental ones.")
 	to_chat(world, "<b>Crew</b> - don't get abducted and stop the abductors.")
 
-/datum/game_mode/abduction/pre_setup()
+/datum/game_mode/abduction/mid_setup()
 	possible_abductors = get_players_for_role(ROLE_ABDUCTOR)
 
 	if(!possible_abductors.len)

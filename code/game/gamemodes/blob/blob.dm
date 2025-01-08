@@ -39,7 +39,7 @@
 	var/players_per_core = BLOB_PLAYERS_PER_CORE
 
 
-/datum/game_mode/blob/pre_setup()
+/datum/game_mode/blob/mid_setup()
 
 	var/list/possible_blobs = get_players_for_role(ROLE_BLOB)
 

@@ -55,6 +55,8 @@
 		apprentice.set_original_mob(apprentice.current)
 		apprentice.current.loc = pick(GLOB.wizardstart)
 	..()
+
+/datum/game_mode/wizard/mid_setup()
 	return TRUE
 
 /datum/game_mode/wizard/post_setup()

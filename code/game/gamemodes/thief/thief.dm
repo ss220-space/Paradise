@@ -19,7 +19,7 @@
 	to_chat(world, "<B>На станции зафиксирована деятельность гильдии воров. Не допустите кражу дорогостоящего оборудования!</B>")
 
 
-/datum/game_mode/thief/pre_setup()
+/datum/game_mode/thief/mid_setup()
 
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
