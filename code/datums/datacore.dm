@@ -149,7 +149,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		
 		var/id = num2hex(GLOB.record_id_num++, 6)
 		H.adv_voice.RegSignals()
-		H.UpdateVoice() //На всякий
+		H.UpdateVoice() 
 		var/prom_voice = H.adv_voice.voice_name 
 		
 		var/datum/job/prom_job = SSjobs.GetJob(H.job)
@@ -160,8 +160,6 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			else
 				GLOB.capitalist_manifest[dep_flag] = list((prom_voice) = (H.real_name))
 
-		//SEND_GLOBAL_SIGNAL(COMSIG_SPECIAL_MASS_STORE_VOICE, GLOB.capitalist_manifest)
-		//При создании рекордсов еще берется и голос, боже помилуй чтобы это ничего не сломало
 		//General Record
 		var/datum/data/record/G = new()
 		G.fields["id"]			= id

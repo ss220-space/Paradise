@@ -77,7 +77,6 @@
 //signal for mass roundstart store voice (very english)
 #define COMSIG_SPECIAL_MASS_STORE_VOICE "store_voice"
 
-#define COMSIG_JUST_LIST_ADD_VOICE "list_add_voice"
 //signal for human store ebalo
 //#define COMSIG_STORE_FACE "store_face"
 

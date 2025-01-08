@@ -2,7 +2,7 @@
 #define FACE_MOD_SWITCH TRUE
 //Новая система голоса
 /datum/voice_model
-	var/mob/host = null //Носитель этой хуеты
+	var/mob/host = null
 	var/tts_seed_string = "Arthas"
 	var/voice_gender = MALE
 	var/voice_name = "Неизвестный"
@@ -23,13 +23,10 @@
 /datum/voice_model/proc/RegSignals()
 	RegisterSignal(SSdcs, COMSIG_SPECIAL_MASS_STORE_VOICE, PROC_REF(SpecialMassAddVoice))
 
-//Специфическая функция которая добавляет что нужно короче
 /datum/voice_model/proc/SpecialMassAddVoice(suka, list/list_voice)
 	SIGNAL_HANDLER
-	var/datum/job/prom_job = SSjobs.GetJob(host.job) //Нужно чтобы небыло предупеждений
+	var/datum/job/prom_job = SSjobs.GetJob(host.job) //WARNING. Fuking byond
 	var/list/prom_data = list_voice?[prom_job.department]
-	if(list_voice?["AbsolutePomny"])
-		famous_voices |= list_voice["AbsolutePomny"]
 
 	if(prom_data)
 		famous_voices |= prom_data
@@ -59,14 +56,13 @@
 	real_voice_name = voice_to_copy.real_voice_name
 	famous_voices = voice_to_copy.famous_voices
 */
-//было две бутылки, словарь или два прока. Я сел на вторую
+
 /datum/voice_model/proc/GetManifestKnowVoice()
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		if(t)
 			if(t.fields["voice"] == voice_name)
 				return t.fields["name"]
 	return "IDENTIFICATION ERROR"
-//Технически name это представление твоего ебала
 
 /datum/voice_model/proc/GetManifestKnowFace(mob/face_target)
 	for(var/datum/data/record/t in GLOB.data_core.general)
@@ -75,12 +71,11 @@
 				return t.fields["name"]
 	return "IDENTIFICATION FACE ERROR"
 
-
 /datum/voice_model/proc/TryStore(mob/target)
 	if(src == target.adv_voice)
 		return TRUE
 	. = FALSE
-	if(!ishuman(target)) //Зачем мне знать как зовут мышей :badguy:
+	if(!ishuman(target))
 		return target.name
 	var/mob/living/carbon/human/target_H = target
 	var/obj/item/card/id/prov_wear_id = null
@@ -104,10 +99,11 @@
 
 //For examie
 // FUCKING BYOND
+/* NOT USED
 /datum/voice_model/proc/TryRecollectFace(mob/target)
 	if(src == target.adv_voice)
 		return target.name
-	if(!ishuman(target)) //:Roflcat: Чтобы имена мышей знать сразу
+	if(!ishuman(target)) //:Roflcat:
 		return target.name
 	var/mob/living/carbon/human/target_H = target
 
@@ -122,7 +118,7 @@
 	else
 		. = get_gender_unknown_name(target_H.gender)
 	return
-
+*/
 //For hear
 /datum/voice_model/proc/TryRecollectVoice(mob/target)
 	if(!ishuman(host)) //Мышки мышки знают все....
