@@ -30,7 +30,15 @@
 #define WARNING_DELAY 20			//seconds between warnings.
 /obj/machinery/power/supermatter_shard
 	name = "supermatter shard"
-	desc = "Странный полупрозрачный и переливающийся кристалл, который выглядит так, будто когда-то был частью более крупной структуры. <span class='danger'>У вас начинает болеть голова, просто глядя на это.</span>"
+	desc = "Странный полупрозрачный, переливающийся на свету кристалл. Выглядит так, будто когда-то он был частью более крупной структуры." + span_danger("У вас начинает болеть голова от одного только взгляда на это.")
+	ru_names = list(
+		NOMINATIVE = "осколок суперматерии",
+		GENITIVE = "осколка суперматерии",
+		DATIVE = "осколку суперматерии",
+		ACCUSATIVE = "осколок суперматерии",
+		INSTRUMENTAL = "осколком суперматерии",
+		PREPOSITIONAL = "осколке суперматерии"
+	)
 	icon = 'icons/obj/engines_and_power/supermatter.dmi'
 	icon_state = "sm_shard"
 	density = TRUE
@@ -94,7 +102,15 @@
 
 /obj/machinery/power/supermatter_shard/crystal
 	name = "supermatter crystal"
-	desc = "Странный полупрозрачный и переливающийся кристалл."
+	desc = "Странный полупрозрачный, переливающийся на свету кристалл."
+	ru_names = list(
+		NOMINATIVE = "кристалл суперматерии",
+		GENITIVE = "кристалла суперматерии",
+		DATIVE = "кристаллу суперматерии",
+		ACCUSATIVE = "кристалл суперматерии",
+		INSTRUMENTAL = "кристаллом суперматерии",
+		PREPOSITIONAL = "кристалле суперматерии"
+	)
 	base_icon_state = "sm"
 	icon_state = "sm"
 	anchored = TRUE
@@ -120,7 +136,7 @@
 	. = ..()
 	
 	if(GLOB.new_year_celebration)
-		. += span_notice("Ослепительные огни, любовно обёрнутые вокруг основания, излучают одновременно праздничное настроение и настоящую радиацию, превращающие кристалл из потенциальной бомбы в новогоднюю ёлочку.")
+		. += span_notice("Ослепительные огни, любовно обёрнутые вокруг основания, излучают одновременно праздничное настроение и настоящую радиацию, превращая кристалл из потенциальной бомбы в новогоднюю ёлочку.")
 
 /obj/machinery/power/supermatter_shard/update_overlays()
 	. = ..()
@@ -680,5 +696,5 @@
 /obj/machinery/power/supermatter_shard/proc/holiday_hat_examine(atom/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 	
-	examine_list += span_info("На ней находится шапочка деда мороза. Как она попала, не став пылью, остаётся загадкой.")
+	examine_list += span_info("На ней находится шапочка Деда Мороза. Как она туда попала, не став пылью, остаётся загадкой.")
 
