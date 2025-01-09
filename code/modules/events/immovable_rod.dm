@@ -11,7 +11,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	GLOB.event_announcement.Announce("Станция, сбежавщий из нашей тюрьмы безумный повар бежит по космосу к вашей станции, возможны множественные повреждения станции", "ВНИМАНИЕ: ОБЩАЯ ТРЕВОГА.")
+	GLOB.event_announcement.Announce("ТАМ БЛЯ, О БЛЯь. ТО БЛЯТЬ, О БЛЯ. ТО БЛЯ, ЭТО БЛЯ. УОООООООЭЭЭЭЭ", "ВНИМАНИЕ: ОБЩАЯ ТРЕВОГА.", new_sound = 'sound/misc/TAM_BLYA.ogg')
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(GLOB.cardinal)
@@ -204,13 +204,15 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 			step(src.trail, GetOppositeDir(movement_dir), 64)
 			src.trail.dir = movement_dir
 			src.trail = null
+			trail_color = !trail_color
 	else
 		if(pick(70))
 			src.trail = new(loc, COLOR_GREEN) // Рисуем след
 			step(src.trail, GetOppositeDir(movement_dir), 64)
 			src.trail.dir = movement_dir
 			src.trail = null
-	trail_color = !trail_color
+			trail_color = !trail_color
+
 	src.dir = movement_dir  // Я не знаю почему, но пеппино не поворачивается в нужную сторону...
 
 	return ..()
