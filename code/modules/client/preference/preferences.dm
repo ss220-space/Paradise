@@ -2440,6 +2440,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						"15x15 (Classic)" = "15x15",
 						"17x15 (Wide)" = "17x15",
 						"19x15 (Ultrawide)" = "19x15"
+						"21x15 (WidePoopt)" = "21x15"
 					)
 
 					var/new_range = tgui_input_list(user, "Select a view range", "Range", viewrange_options)
