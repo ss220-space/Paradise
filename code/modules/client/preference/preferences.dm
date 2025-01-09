@@ -2439,7 +2439,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/list/viewrange_options = list(
 						"15x15 (Classic)" = "15x15",
 						"17x15 (Wide)" = "17x15",
-						"19x15 (Ultrawide)" = "19x15"
+						"19x15 (Ultrawide)" = "19x15",
 						"21x15 (WidePoopt)" = "21x15"
 					)
 
