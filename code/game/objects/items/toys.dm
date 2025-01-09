@@ -1553,6 +1553,26 @@
 	playsound(user, 'sound/items/beaver_plushie.ogg', 50, FALSE)
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
+
+/obj/item/toy/plushie/mech
+	name = "small mech toy"
+	desc = "Маленький мех. Держа его в руках у вас появляется желание оплатить премиум."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "mech"
+	w_class = WEIGHT_CLASS_SMALL
+	gender = MALE
+
+/obj/item/toy/plushie/mech/sounded //only adminspawn
+	desc = "Маленький мех. Кажется тут имеется агресивная реклама прямо с поля боя."
+	COOLDOWN_DECLARE(cooldown)
+
+/obj/item/toy/plushie/mech/sounded/attack_self(mob/user)
+	. = ..()
+	if(. || !COOLDOWN_FINISHED(src, cooldown))
+		return .
+	playsound(user, 'sound/aprilShit/WT.ogg', 50, FALSE)
+	COOLDOWN_START(src, cooldown, 15 SECONDS)
+
 /*
  * Foam Armblade
  */
