@@ -24,8 +24,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod
 	name = "\proper незыблемый стержень"
 	desc = "Что это за херня?"
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "immrod"
+	icon = 'icons/obj/peppino_rod.dmi'
+	icon_state = "peppino"
 	throwforce = 100
 	move_force = INFINITY
 	move_resist = INFINITY
@@ -53,7 +53,10 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/move_delay = 1
 	/// Whether this rod was spawned by admins.
 	var/admin_spawned = FALSE
-
+	/// Какой был заспавнен в прошлый раз? зеленый:красный
+	var/trail_color = FALSE
+	var/datum/looping_sound/peppino_mach/peppino_loop
+	var/obj/effect/temp_visual/peppino_trail/trail
 
 /obj/effect/immovablerod/Initialize(mapload, atom/target_atom, atom/special_target, move_delay = 1, force_looping = FALSE)
 	. = ..()
@@ -63,6 +66,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	src.special_target = special_target
 	src.move_delay = move_delay
 	src.loopy_rod ||= force_looping
+
+	src.peppino_loop = new(list(src), TRUE)
 
 	if(!destination_turf && !special_target)
 		admin_spawned = TRUE
@@ -86,6 +91,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	destination_turf = null
 	special_target = null
 	GLOB.poi_list -= src
+	QDEL_NULL(peppino_loop)
 	return ..()
 
 
@@ -188,6 +194,19 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 			qdel(src)
 			return
 
+	if(trail_color)
+		src.trail = new(loc, COLOR_RED)
+		step(src.trail, GetOppositeDir(movement_dir), 64)
+		src.trail.dir = movement_dir
+		src.trail = null
+	else
+		src.trail = new(loc, COLOR_GREEN) // Рисуем след
+		step(src.trail, GetOppositeDir(movement_dir), 64)
+		src.trail.dir = movement_dir
+		src.trail = null
+	trail_color = !trail_color
+	src.dir = movement_dir  // Я не знаю почему, но пеппино не поворачивается в нужную сторону...
+
 	return ..()
 
 
@@ -230,8 +249,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 
 /obj/effect/immovablerod/Bump(atom/clong)
-	if(prob(10))
-		playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
+	if(prob(50))
+		playsound(src, 'sound/effects/sfx_breakmetal.ogg', 200, TRUE)
 		audible_message(span_danger("Вы слышите ЛЯЗГ!"))
 
 	if(special_target && clong == special_target)

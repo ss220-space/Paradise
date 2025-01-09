@@ -1,0 +1,18 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "byond",
+			"request": "attach",
+			"name": "Attach to Debugger",
+			"port": 1212
+		},
+		{
+			"type": "byond",
+			"request": "launch",
+			"name": "Launch DreamSeeker",
+			"preLaunchTask": "dm: build - ${command:CurrentDME}",
+			"dmb": "${workspaceFolder}/${command:CurrentDMB}"
+		}
+	]
+}
