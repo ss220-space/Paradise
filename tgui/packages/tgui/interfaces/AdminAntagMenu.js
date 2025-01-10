@@ -18,35 +18,25 @@ import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 
-const PickTitle = (index) => {
-  switch (index) {
-    case 0:
-      return 'Антагонисты';
-    case 1:
-      return 'Цели';
-    case 2:
-      return 'СБ';
-    case 3:
-      return 'Хайриски';
-    default:
-      return 'Что-то не так, пора писать баг репорт!';
-  }
+const Titles = {
+  0: 'Антагонисты',
+  1: 'Цели',
+  2: 'СБ',
+  3: 'Хайриски',
+  default: 'Что-то не так, пора писать баг репорт!',
 };
 
-const PickTab = (index) => {
-  switch (index) {
-    case 0:
-      return <AntagList />;
-    case 1:
-      return <Objectives />;
-    case 2:
-      return <Security />;
-    case 3:
-      return <HighValueItems />;
-    default:
-      return 'Что-то не так, пора писать баг репорт!';
-  }
+const MenuTabs = {
+  0: <AntagList />,
+  1: <Objectives />,
+  2: <Security />,
+  3: <HighValueItems />,
+  default: 'Что-то не так, пора писать баг репорт!',
 };
+
+const PickTitle = (index) => Titles[index] || Titles.default;
+
+const PickTab = (index) => MenuTabs[index] || MenuTabs.default;
 
 export const AdminAntagMenu = (properties, context) => {
   const { act, data } = useBackend(context);
