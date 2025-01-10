@@ -127,14 +127,14 @@ export const EFFECTS_LOAD: PodEffect[] = [
     choiceNumber: 0,
     icon: 'globe',
     selected: 'launchChoice',
-    title: 'Запсутить со всех турфов',
+    title: 'Запустить со всех турфов',
   },
   {
     act: 'launchOrdered',
     choiceNumber: 1,
     icon: 'sort-amount-down-alt',
     selected: 'launchChoice',
-    title: 'Запсутить с турфов по порядку',
+    title: 'Запустить с турфов по порядку',
   },
   {
     act: 'launchRandomTurf',

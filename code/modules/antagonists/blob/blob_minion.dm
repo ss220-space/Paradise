@@ -59,7 +59,7 @@
 	var/datum/objective/blob_minion/objective = new
 	objective.owner = owner
 	objective.overmind = overmind
-	objectives += objective
+	objectives |= objective
 
 /datum/antagonist/blob_minion/blobernaut
 	name = "\improper Blobernaut"

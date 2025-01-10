@@ -11,6 +11,7 @@
 
 /datum/gear/uniform/suit/jumpsuit
 	index_name = "jumpsuit, select"
+	display_name = "jumpsuit"
 	path = /obj/item/clothing/under/color/grey
 
 /datum/gear/uniform/suit/jumpsuit/New()
@@ -60,6 +61,7 @@
 
 /datum/gear/uniform/chaps
 	index_name = "chaps, select"
+	display_name = "chaps"
 	path = /obj/item/clothing/under/red_chaps
 
 /datum/gear/uniform/chaps/New()
@@ -89,6 +91,7 @@
 
 /datum/gear/uniform/skirt/plaid
 	index_name = "plaid skirt, select"
+	display_name = "plaid skirt"
 	path = /obj/item/clothing/under/dress/plaid_blue
 
 /datum/gear/uniform/skirt/plaid/New()

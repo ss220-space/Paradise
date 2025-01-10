@@ -14,7 +14,7 @@
 	ignore_syncmesh_share = TRUE
 
 /obj/structure/blob/special/node/Initialize(mapload)
-	GLOB.blob_nodes += src
+	GLOB.blob_nodes |= src
 	START_PROCESSING(SSobj, src)
 	. = ..()
 
@@ -42,7 +42,7 @@
 
 /obj/structure/blob/special/node/link_to_overmind(mob/camera/blob/owner_overmind)
 	. = ..()
-	overmind.node_blobs += src
+	overmind.node_blobs |= src
 
 /obj/structure/blob/special/node/Destroy()
 	GLOB.blob_nodes -= src
