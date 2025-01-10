@@ -534,6 +534,28 @@
 	button.add_overlay(new_icon)
 
 
+/datum/action/innate/overdrive
+	name = "Overdrive"
+
+/datum/action/innate/overdrive/Activate()
+	var/mob/living/silicon/robot/R = owner
+	var/obj/item/mmi/syndie/S = R.mmi
+	if(!S.repaired)
+		if(do_after(R, 10 SECONDS))
+			R.rejuvenate()
+			R.opened = FALSE
+			R.locked = 1
+			R.SetEmagged(TRUE)
+			R.SetLockdown(FALSE)
+			R.disconnect_from_ai()
+			S.repaired = 1
+			Remove(R)
+
+/datum/action/innate/overdrive/ApplyIcon()
+	button.cut_overlays()
+	var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "heal", BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	button.add_overlay(new_icon)
+
 /datum/action/item_action/instrument
 	name = "Use Instrument"
 	desc = "Use the instrument specified."

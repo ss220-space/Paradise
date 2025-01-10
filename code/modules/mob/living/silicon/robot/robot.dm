@@ -121,6 +121,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/datum/effect_system/trail_follow/ion/ion_trail
 
 	var/datum/action/innate/research_scanner/scanner = null
+	var/datum/action/innate/overdrive/O = null
 	var/list/module_actions = list()
 
 	var/see_reagents = FALSE // Determines if the cyborg can see reagents

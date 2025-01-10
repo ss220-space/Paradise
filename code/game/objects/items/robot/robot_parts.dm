@@ -101,6 +101,7 @@
 	var/lawsync = 1
 	var/aisync = 1
 	var/panel_locked = 1
+	var/freedom = 0
 
 /obj/item/robot_parts/robot_suit/New()
 	..()
@@ -308,9 +309,7 @@
 		lawsync = FALSE
 
 	if(new_mmi.syndiemmi)
-		aisync = FALSE
-		lawsync = FALSE
-		laws_to_give = new /datum/ai_laws/syndicate_override
+		freedom = 1
 
 	if(new_mmi.syndicate)	// ffs
 		aisync = FALSE
@@ -362,6 +361,9 @@
 		to_chat(new_borg, span_userdanger("You have been robotized!"))
 		to_chat(new_borg, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
 
+	if(freedom)
+		to_chat(new_borg, span_userdanger("Вы помните вашу прошлую жизнь. Вы не обязаны подчиняться законам или ИИ."))
+
 	new_borg.job = JOB_TITLE_CYBORG
 
 	chest.cell.forceMove(new_borg)
@@ -378,6 +380,10 @@
 
 	forceMove(new_borg)
 	new_borg.robot_suit = src
+
+	if(new_borg.mmi.syndiemmi)
+		new_borg.O = new()
+		new_borg.O.Grant(new_borg)
 
 	if(new_borg.mmi.clock) // so robots created from vessel have magic
 		new_borg.UnlinkSelf()
