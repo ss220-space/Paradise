@@ -222,7 +222,7 @@
 			if(G.slot)
 				var/obj/item/placed_in = G.spawn_item(H, H.client.prefs.get_gear_metadata(G))
 				if(H.equip_to_slot_or_del(placed_in, G.slot, TRUE))
-					to_chat(H, "<span class='notice'>Equipping you with [placed_in.name]!</span>")
+					to_chat(H, span_notice("Equipping you with [placed_in.name]!"))
 				else
 					gear_leftovers += G
 			else
