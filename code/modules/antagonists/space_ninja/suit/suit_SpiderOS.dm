@@ -76,16 +76,10 @@
 	var/list/data = list()
 
 	//Превью абилок
-	data["allActionsPreview"] = list()
-	for (var/style in allowed_states)
-		var/icon/action_icon = icon('icons/mob/actions/actions_ninja.dmi', style, SOUTH, frame = 1)
-		data["allActionsPreview"][style] = icon2base64(action_icon)
+	data["actionsIcon"] = 'icons/mob/actions/actions_ninja.dmi'
 
 	//Превью костюмов
-	data["allStylesPreview"] = list()
-	for (var/style in allowed_preview_states)
-		var/icon/costume_icon = icon('icons/mob/ninja_previews.dmi', style, SOUTH, frame = 1)
-		data["allStylesPreview"][style] = icon2base64(costume_icon)
+	data["stylesIcon"] = 'icons/mob/ninja_previews.dmi'
 
 	return data
 

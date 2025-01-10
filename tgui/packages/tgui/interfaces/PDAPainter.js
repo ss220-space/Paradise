@@ -1,12 +1,27 @@
 import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
-import { Button, LabeledList, Flex, Box, Section, Table } from '../components';
+import {
+  Button,
+  LabeledList,
+  Flex,
+  Box,
+  Section,
+  Table,
+  DmIcon,
+} from '../components';
 
 export const PDAPainter = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const { statusLabel, pdaTypes, hasPDA, pdaIcon, pdaOwnerName, pdaJobName } =
-    data;
+  const {
+    statusLabel,
+    pdaTypes,
+    hasPDA,
+    pdaIcon,
+    pdaIconState,
+    pdaOwnerName,
+    pdaJobName,
+  } = data;
 
   return (
     <Window width={545} height={350}>
@@ -40,10 +55,10 @@ export const PDAPainter = (props, context) => {
               <Flex height="100%" direction="column" flex="1">
                 <Flex.Item>
                   <Box textAlign="center">
-                    <Box
-                      as="img"
+                    <DmIcon
                       height="160px" // Set image size here.
-                      src={hasPDA ? `data:image/png;base64,${pdaIcon}` : ''}
+                      icon={pdaIcon}
+                      icon_state={pdaIconState}
                       style={{
                         '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
                         'image-rendering': 'pixelated',
@@ -81,7 +96,7 @@ export const PDAPainter = (props, context) => {
                     <PDAColorRow
                       key={key}
                       selectedPda={key}
-                      selectedPdaImage={pdaTypes[key][0]}
+                      selectedPdaIcon={pdaTypes[key][0]}
                     />
                   ))}
 
@@ -123,15 +138,16 @@ export const PDAPainter = (props, context) => {
 export const PDAColorRow = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const { hasPDA } = data;
+  const { hasPDA, pdaIcon } = data;
 
-  const { selectedPda, selectedPdaImage } = props;
+  const { selectedPda } = props;
 
   return (
     <Table.Row>
       <Table.Cell collapsing>
-        <img
-          src={`data:image/png;base64,${selectedPdaImage}`}
+        <DmIcon
+          icon={pdaIcon}
+          icon_state={selectedPda}
           style={{
             'vertical-align': 'middle',
             width: '32px',
@@ -144,14 +160,13 @@ export const PDAColorRow = (props, context) => {
         <Button.Confirm
           fluid
           disabled={!hasPDA}
-          icon={selectedPdaImage}
+          icon={selectedPda}
           content={selectedPda}
           confirmContent="Покрасить?"
           textAlign="left"
           onClick={() =>
             act('choose_pda', {
               selectedPda: selectedPda,
-              selectedPdaImage: selectedPdaImage,
             })
           }
         />

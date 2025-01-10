@@ -132,7 +132,8 @@
 				"brass" = design.brass_cost,
 				"power" = design.power_cost,
 				"requirements" =  matreq,
-				"image" = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
+				"icon" = initial(I.icon),
+				"icon_state" = initial(I.icon_state),
 			)
 		static_data["items"][cat] = cat_items
 
