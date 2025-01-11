@@ -101,7 +101,6 @@
 	var/lawsync = 1
 	var/aisync = 1
 	var/panel_locked = 1
-	var/freedom = 0
 
 /obj/item/robot_parts/robot_suit/New()
 	..()
@@ -301,6 +300,7 @@
 		return .
 
 	var/datum/ai_laws/laws_to_give
+	var/message_override
 	if(!aisync)
 		lawsync = FALSE
 
@@ -309,7 +309,7 @@
 		lawsync = FALSE
 
 	if(new_mmi.syndiemmi)
-		freedom = 1
+		message_override = span_userdanger("Вы помните вашу прошлую жизнь. Вы не обязаны подчиняться законам или ИИ.")
 
 	if(new_mmi.syndicate)	// ffs
 		aisync = FALSE
@@ -356,13 +356,14 @@
 
 	SSticker?.score?.save_silicon_laws(new_borg, user, "robot construction", log_all_laws = TRUE)
 
-	if(new_borg.mind?.special_role)
+	if(message_override)
+		to_chat(new_borg, message_override)
+		new_borg.playsound_local(null, 'sound/ambience/antag/emaggedborg.ogg', 100, 0)
+
+	else if (new_borg.mind?.special_role)
 		new_borg.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
 		to_chat(new_borg, span_userdanger("You have been robotized!"))
 		to_chat(new_borg, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
-
-	if(freedom)
-		to_chat(new_borg, span_userdanger("Вы помните вашу прошлую жизнь. Вы не обязаны подчиняться законам или ИИ."))
 
 	new_borg.job = JOB_TITLE_CYBORG
 
@@ -382,8 +383,9 @@
 	new_borg.robot_suit = src
 
 	if(new_borg.mmi.syndiemmi)
-		new_borg.O = new()
-		new_borg.O.Grant(new_borg)
+		var/obj/item/mmi/syndie/syndiemmi = new_borg.mmi
+		if(!syndiemmi.overdrive.used)
+			syndiemmi.overdrive.Grant(new_borg)
 
 	if(new_borg.mmi.clock) // so robots created from vessel have magic
 		new_borg.UnlinkSelf()

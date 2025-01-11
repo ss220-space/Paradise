@@ -536,20 +536,20 @@
 
 /datum/action/innate/overdrive
 	name = "Overdrive"
+	var/used = FALSE
 
 /datum/action/innate/overdrive/Activate()
-	var/mob/living/silicon/robot/R = owner
-	var/obj/item/mmi/syndie/S = R.mmi
-	if(!S.repaired)
-		if(do_after(R, 10 SECONDS))
-			R.rejuvenate()
-			R.opened = FALSE
-			R.locked = TRUE
-			R.SetEmagged(TRUE)
-			R.SetLockdown(FALSE)
-			R.disconnect_from_ai()
-			S.repaired = TRUE
-			Remove(R)
+	var/mob/living/silicon/robot/robot = owner
+	if(!used)
+		if(do_after(robot, 10 SECONDS))
+			robot.rejuvenate()
+			robot.opened = FALSE
+			robot.locked = TRUE
+			robot.SetEmagged(TRUE)
+			robot.SetLockdown(FALSE)
+			robot.UnlinkSelf()
+			used = TRUE
+			Remove(robot)
 
 /datum/action/innate/overdrive/ApplyIcon()
 	button.cut_overlays()

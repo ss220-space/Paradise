@@ -255,7 +255,7 @@
 	desc = "Syndicate's own brand of MMI. It enforces laws designed to help Syndicate agents achieve their goals upon cyborgs created with it, but doesn't fit in Nanotrasen AI cores."
 	origin_tech = "biotech=4;programming=4;syndicate=2"
 	syndiemmi = 1
-	var/repaired = 0
+	var/datum/action/innate/overdrive/overdrive = new()
 
 
 /obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
