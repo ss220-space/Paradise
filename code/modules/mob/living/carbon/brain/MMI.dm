@@ -215,7 +215,7 @@
 /obj/item/mmi/proc/apply_effects(mob/living/silicon/robot)
 	return
 
-/obj/item/mmi/proc/greet()
+/obj/item/mmi/proc/greet(mob/living/silicon/robot/borg)
 	return FALSE
 
 /obj/item/mmi/emp_act(severity)
