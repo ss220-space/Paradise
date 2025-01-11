@@ -155,7 +155,7 @@
   * Attempts to build the first item in the queue.
   */
 /obj/machinery/mecha_part_fabricator/proc/process_queue()
-	if(!processing_queue || being_built || !length(build_queue))
+	if(!processing_queue || being_built || !length(build_queue) || !is_operational())
 		return
 	var/datum/design/D = build_queue[1]
 	if(build_design(D))

@@ -425,7 +425,7 @@
 		if(blob_infected && blob_infected.len)
 			var/datum/game_mode/mode = SSticker.mode
 			dat += "<br><table cellspacing=5><tr><td><B>Blob</B></td><td></td><td></td></tr>"
-			dat += "<tr><td><i>Progress: [GLOB.blobs.len]/[mode.blob_win_count]</i></td></tr>"
+			dat += "<tr><td><i>Progress: [mode.legit_blobs.len]/[mode.blob_win_count]</i></td></tr>"
 			dat += "<tr><td><a href='byond://?src=[UID()];edit_blob_win_count=1'>Edit Win Count</a><br></tr>"
 			dat += "<tr><td><a href='byond://?src=[UID()];send_warning=1'>Send warning to all living blobs</a><br></td></tr>"
 			dat += "<tr><td><a href='byond://?src=[UID()];burst_all_blobs=1'>Burst all blobs</a><br></td></tr>"
@@ -433,6 +433,7 @@
 				dat += "<tr><td><a href='byond://?src=[UID()];delay_blob_end=1'>Delay blob end</a> Now: [mode.delay_blob_end? "ON" : "OFF"]<br></td></tr>"
 				dat += "<tr><td><a href='byond://?src=[UID()];toggle_auto_gamma=1'>Toggle auto GAMMA</a> Now: [mode.off_auto_gamma? "OFF" : "ON"]<br></td></tr>"
 			dat += "<tr><td><a href='byond://?src=[UID()];toggle_auto_nuke_codes=1'>Toggle auto nuke codes</a> Now: [mode.off_auto_nuke_codes? "OFF" : "ON"]<br></td></tr>"
+			dat += "<tr><td><a href='byond://?src=[UID()];toggle_blob_infinity_points=1'>Toggle blob infinity points</a> Now: [mode.is_blob_infinity_points? "ON" : "OFF"]<br></td></tr>"
 			dat += "</table>"
 			dat += "<br><table cellspacing=5><tr><td><B>Blobs</B></td><td></td></tr>"
 			for(var/datum/mind/blob in mode.blobs["infected"])
@@ -454,14 +455,14 @@
 
 			dat += "</table>"
 
-			dat += "<br><table cellspacing=5><tr><td><B>Blobernauts</B></td><td></td></tr>"
-			for(var/datum/mind/blob in mode.blobs["blobernauts"])
+			dat += "<br><table cellspacing=5><tr><td><B>Minions</B></td><td></td></tr>"
+			for(var/datum/mind/blob in mode.blobs["minions"])
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
 					dat += "<td><a href='byond://?priv_msg=[M.client?.ckey]'>PM</A></td>"
 				else
-					dat += "<tr><td><i>Blobernauts not found!</i></td></tr>"
+					dat += "<tr><td><i>Minions not found!</i></td></tr>"
 
 			dat += "</table>"
 
@@ -648,5 +649,56 @@
 			</td>
 		"}
 
+	txt += "</tr>"
+	return txt
+
+/datum/admins/proc/check_security_line(mob/living/human, close = 1)
+	var/logout_status = human.client ? "" : " <i>(logged out)</i>"
+	var/list/coords = ATOM_COORDS(human)
+	var/job = issilicon(human) ? "Cyborg" : human.job // || need because maybe ert robots with null in job
+	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[human.UID()]'>[human.real_name]</a>[logout_status]</td><td>[job][human.stat == DEAD ? " <b><font color=red>(Dead)</font></b>" : "<font color=green> [human.health]%</font>"] <b>[get_area_name(human)]</b> [coords[1]],[coords[2]],[coords[3]]</td><td><a href='byond://?src=[usr.UID()];priv_msg=[human.client?.ckey]'>PM</A> [ADMIN_FLW(human, "FLW")]</td>[close ? "</tr>" : ""]"}
+
+/datum/admins/proc/check_security()
+	if(!check_rights(R_ADMIN))
+		return
+	if(!SSticker || SSticker.current_state < GAME_STATE_PLAYING)
+		return
+
+	var/dat = {"<html><meta charset="UTF-8"><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"}
+	var/list/sec_list = check_active_security_force()
+	dat += "<br><table cellspacing=5><tr><td><b>Security</b></td><td></td></tr>"
+	dat += "<tr><td>Total: </td><td>[sec_list[1]]</td>"
+	dat += "<tr><td>Active: </td><td>[sec_list[2]]</td>"
+	dat += "<tr><td>Dead: </td><td>[sec_list[3]]</td>"
+	dat += "<tr><td>Antag: </td><td>[sec_list[4]]</td>"
+	dat += "</table>"
+	dat += "</body></html>"
+
+	dat += "<br><table cellspacing=5><tr><td><B>Security</B></td><td></td></tr>"
+	for(var/datum/mind/mind in SSticker.mode.get_all_sec())
+		if(mind.current)
+			dat += check_security_line(mind.current)
+	dat += "</table>"
+
+	if(SSticker.mode.ert.len)
+		dat += check_role_table_sec("ERT", SSticker.mode.ert)
+
+	usr << browse(dat, "window=roundstatus;size=600x800")
+
+/datum/admins/proc/check_role_table_sec(name, list/members, show_objectives=0)
+	var/txt = "<br><table cellspacing=5><tr><td><b>[name]</b></td><td></td></tr>"
+	for(var/datum/mind/mind in members)
+		txt += check_role_table_row_sec(mind.current, show_objectives)
+	txt += "</table>"
+	return txt
+
+/datum/admins/proc/check_role_table_row_sec(mob/mob, show_objectives)
+	var/txt = check_security_line(mob, close = 0)
+	if(show_objectives)
+		txt += {"
+			<td>
+				<a href='byond://?src=[UID()];traitor=[mob.UID()]'>Show Objective</a>
+			</td>
+		"}
 	txt += "</tr>"
 	return txt

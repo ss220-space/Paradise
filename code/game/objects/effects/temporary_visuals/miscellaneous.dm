@@ -235,6 +235,13 @@
 	icon_state = "explosionfast"
 	duration = 4
 
+/obj/effect/temp_visual/blob
+	name = "blob"
+	icon_state = "blob_attack"
+	alpha = 140
+	randomdir = 0
+	duration = 6
+
 /obj/effect/temp_visual/explosion/florawave
 	icon_state = "florawave"
 	duration = 4

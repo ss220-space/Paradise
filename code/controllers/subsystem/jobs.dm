@@ -135,7 +135,7 @@ SUBSYSTEM_DEF(jobs)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
 	for(var/mob/new_player/player in unassigned)
-		Debug(" - Player: [player] Banned: [jobban_isbanned(player, job.title)] Old Enough: [!job.player_old_enough(player.client)] AvInPlaytime: [job.available_in_playtime(player.client)] Flag && Be Special: [flag] && [player.client.prefs.be_special] Job Department: [player.client.prefs.GetJobDepartment(job, level)] Job Flag: [job.flag] Job Department Flag = [job.department_flag]")
+		Debug(" - Player: [player] Banned: [jobban_isbanned(player, job.title)] Old Enough: [!job.player_old_enough(player.client)] AvInPlaytime: [job.available_in_playtime(player.client)] Job Department: [player.client.prefs.GetJobDepartment(job, level)] Job Flag: [job.flag] Job Department Flag = [job.department_flag]")
 		if(jobban_isbanned(player, job.title))
 			Debug("FOC isbanned failed, Player: [player]")
 			continue
@@ -153,9 +153,6 @@ SUBSYSTEM_DEF(jobs)
 			continue
 		if(!job.character_old_enough(player.client))
 			Debug("FOC player character not old enough rendering them ineligible for job, Player: [player]")
-			continue
-		if(flag && !(flag in player.client.prefs.be_special))
-			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
@@ -413,24 +410,14 @@ SUBSYSTEM_DEF(jobs)
 
 	Debug("DO, Running AC2")
 
-	// Antags, who have to get in, come first
-	for(var/mob/new_player/player in unassigned)
-		if(player.mind.special_role)
-			if(player.client.prefs.alternate_option != BE_ASSISTANT)
-				GiveRandomJob(player)
-				if(player in unassigned)
-					AssignRole(player, JOB_TITLE_CIVILIAN)
-			else
-				AssignRole(player, JOB_TITLE_CIVILIAN)
-
-	// Then we assign what we can to everyone else.
+	// And now we assign assistants and return to lobbies.
 	for(var/mob/new_player/player in unassigned)
 		if(player.client.prefs.alternate_option == BE_ASSISTANT)
 			Debug("AC2 Assistant located, Player: [player]")
 			AssignRole(player, JOB_TITLE_CIVILIAN)
 		else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
-			to_chat(player, "<span class='danger'>Unfortunately, none of the round start roles you selected had a free slot. Please join the game by using \"Join Game!\" button and selecting a role with a free slot.</span>")
-			player.ready = 0
+			to_chat(player, span_danger("Unfortunately, none of the round start roles you selected had a free slot. Please join the game by using \"Join Game!\" button and selecting a role with a free slot."))
+			player.ready = FALSE
 			unassigned -= player
 
 	log_debug("Dividing Occupations took [stop_watch(watch)]s")

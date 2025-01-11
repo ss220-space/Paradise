@@ -22,7 +22,7 @@
  * updates the Z level for dead players
  * If they don't have a new z, we'll keep the old one, preventing bugs from ghosting and re-entering, among others
  */
-/mob/dead/proc/update_z(new_z)
+/mob/dead/update_z(new_z)
 	if(registered_z == new_z)
 		return
 	if(registered_z)

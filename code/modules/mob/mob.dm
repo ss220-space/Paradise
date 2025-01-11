@@ -1,7 +1,7 @@
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
-	GLOB.mob_list -= src
-	GLOB.dead_mob_list -= src
-	GLOB.alive_mob_list -= src
+	remove_from_mob_list()
+	remove_from_alive_mob_list()
+	remove_from_dead_mob_list()
 	focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
@@ -25,11 +25,11 @@
 	return ..()
 
 /mob/Initialize(mapload)
-	GLOB.mob_list += src
+	add_to_mob_list()
 	if(stat == DEAD)
-		GLOB.dead_mob_list += src
+		add_to_dead_mob_list()
 	else
-		GLOB.alive_mob_list += src
+		add_to_alive_mob_list()
 	set_focus(src)
 	prepare_huds()
 	. = ..()
@@ -344,8 +344,10 @@
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
-/mob/proc/run_examinate(atom/A)
-	var/list/result = A.examine(src)
+/mob/proc/run_examinate(atom/target)
+	var/list/result = target.examine(src)
+	SEND_SIGNAL(src, COMSIG_MOB_RUN_EXAMINATE, target, result)
+
 	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 
@@ -591,8 +593,9 @@
 
 /mob/proc/get_status_tab_items()
 	SHOULD_CALL_PARENT(TRUE)
-	var/list/status_tab_data = list()
-	return status_tab_data
+	. = list()
+	SEND_SIGNAL(src, COMSIG_MOB_GET_STATUS_TAB_ITEMS, .)
+	return .
 
 // facing verbs
 /mob/proc/canface()
@@ -1000,6 +1003,17 @@
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
+///Update the mouse pointer of the attached client in this mob
+/mob/proc/update_mouse_pointer()
+	if(!client)
+		return
+
+	if(client.mouse_pointer_icon != initial(client.mouse_pointer_icon))//only send changes to the client if theyre needed
+		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
+
+	if(client.mouse_override_icon)
+		client.mouse_pointer_icon = client.mouse_override_icon
+
 /mob/proc/set_vision_override(datum/vision_override/O)
 	QDEL_NULL(vision_type)
 	if(O) //in case of null
@@ -1163,4 +1177,44 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		LAZYREMOVEASSOC(actionspeed_mod_immunities, slowdown_type, source)
 	if(update)
 		update_actionspeed()
+
+/mob/proc/update_z(new_z) // 1+ to register, null to unregister
+	if(registered_z == new_z)
+		return
+	if(registered_z)
+		SSmobs.clients_by_zlevel[registered_z] -= src
+	if(isnull(client))
+		registered_z = null
+		return
+	if(!new_z)
+		registered_z = new_z
+		return
+	//Figure out how many clients were here before
+	var/oldlen = SSmobs.clients_by_zlevel[new_z].len
+	SSmobs.clients_by_zlevel[new_z] += src
+	for(var/index in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
+		var/mob/living/simple_animal/animal = SSidlenpcpool.idle_mobs_by_zlevel[new_z][index]
+		if(animal)
+			if(!oldlen)
+				//Start AI idle if nobody else was on this z level before (mobs will switch off when this is the case)
+				animal.toggle_ai(AI_IDLE)
+			//If they are also within a close distance ask the AI if it wants to wake up
+			if(get_dist(get_turf(src), get_turf(animal)) < MAX_SIMPLEMOB_WAKEUP_RANGE)
+				animal.consider_wakeup() // Ask the mob if it wants to turn on it's AI
+		//They should clean up in destroy, but often don't so we get them here
+		else
+			SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= animal
+	registered_z = new_z
+
+/mob/proc/track_z()
+	if(client || registered_z) // This is a temporary error tracker to make sure we've caught everything
+		var/turf/T = get_turf(src)
+		if(client && registered_z != T.z)
+			message_admins("[src] [ADMIN_FLW(src, "FLW")] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z]. If you could ask them how that happened and notify the coders, it would be appreciated.")
+			add_misc_logs(src, "Z-TRACKING: [src] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z].")
+			update_z(T.z)
+		else if(!client && registered_z)
+			add_misc_logs(src, "Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
+			update_z(null)
+
 

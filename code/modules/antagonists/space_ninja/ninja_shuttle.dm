@@ -30,3 +30,4 @@
 	icon_state = "shuttlegrn"
 	name = "\improper Spider Clan \"Ombra\" Shuttle"
 	nad_allowed = TRUE
+	area_flags = NONE

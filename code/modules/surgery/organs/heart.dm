@@ -8,25 +8,30 @@
 	dead_icon = "heart-off"
 	var/icon_base = "heart"
 
+
 /obj/item/organ/internal/heart/update_icon_state()
 	if(beating)
 		icon_state = "[icon_base]-on"
 	else
 		icon_state = "[icon_base]-off"
 
+
 /obj/item/organ/internal/heart/remove(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!special)
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 12 SECONDS)
 	. = ..()
+
 
 /obj/item/organ/internal/heart/emp_act(intensity)
 	if(!is_robotic() || emp_proof)
 		return
 	Stop()
 
+
 /obj/item/organ/internal/heart/necrotize(silent = FALSE)
 	if(..())
 		Stop()
+
 
 /obj/item/organ/internal/heart/attack_self(mob/user)
 	..()
@@ -37,28 +42,34 @@
 		Restart()
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 80)
 
+
 /obj/item/organ/internal/heart/safe_replace(mob/living/carbon/human/target)
 	Restart()
 	..()
 
+
 /obj/item/organ/internal/heart/proc/stop_if_unowned()
 	if(!owner)
 		Stop()
+
 
 /obj/item/organ/internal/heart/proc/Stop()
 	beating = FALSE
 	update_icon()
 	return TRUE
 
+
 /obj/item/organ/internal/heart/proc/Restart()
 	beating = TRUE
 	update_icon()
 	return TRUE
 
+
 /obj/item/organ/internal/heart/prepare_eat()
 	var/obj/S = ..()
 	S.icon_state = dead_icon
 	return S
+
 
 /obj/item/organ/internal/heart/cursed
 	name = "cursed heart"
@@ -105,13 +116,16 @@
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
+
 /obj/item/organ/internal/heart/cursed/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(owner)
 		to_chat(owner, span_userdanger("Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!"))
 
+
 /datum/action/item_action/organ_action/cursed_heart
 	name = "pump your blood"
+
 
 //You are now brea- pumping blood manually
 /datum/action/item_action/organ_action/cursed_heart/Trigger(left_click = TRUE)
@@ -152,6 +166,7 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
+
 /obj/item/organ/internal/heart/cybernetic/upgraded
 	name = "upgraded cybernetic heart"
 	desc = "A more advanced version of a cybernetic heart. Grants the user additional stamina and heart stability, but the electronics are vulnerable to shock."
@@ -160,6 +175,23 @@
 	dead_icon = "heart-c-u-off"
 	var/emagged = FALSE
 	var/attempted_restart = FALSE
+
+
+/obj/item/organ/internal/heart/cybernetic/upgraded/insert(mob/living/carbon/target, special)
+	. = ..()
+
+	if(HAS_TRAIT(target, TRAIT_ADVANCED_CYBERIMPLANTS))
+		target.stam_regen_start_modifier *= 0.5
+		ADD_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
+
+
+/obj/item/organ/internal/heart/cybernetic/upgraded/remove(mob/living/carbon/human/target, special)
+	if(HAS_TRAIT_FROM(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src)))
+		target.stam_regen_start_modifier /= 0.5
+		REMOVE_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
+
+	. = ..()
+
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/on_life()
 	if(!ishuman(owner))
@@ -240,9 +272,14 @@
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/emp_act(severity)
 	..()
+
 	if(emp_proof)
 		return
-	necrotize()
+
+	if(HAS_TRAIT(owner, TRAIT_ADVANCED_CYBERIMPLANTS))
+		Stop()
+	else
+		necrotize()
 
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/shock_organ(intensity)

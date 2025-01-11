@@ -75,7 +75,7 @@
 		if(NONE)
 			failed = TRUE
 	
-	if(start_cooldown)
+	if(start_cooldown && cooldown_after_cast)
 		COOLDOWN_START(src, ritual_cooldown, cooldown_after_cast)
 
 	if(cause_disaster && prob(disaster_prob))
@@ -469,7 +469,7 @@
 
 /datum/ritual/ashwalker/summon/proc/deal_damage()
 	for(var/mob/living/carbon/human/summoner in range(finding_range, ritual_object))
-		summoner.blood_volume -= (summoner.blood_volume * 0.20)
+		summoner.AdjustBlood(-(summoner.blood_volume * 0.20))
 		summoner.apply_damage(25, def_zone = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 	return TRUE

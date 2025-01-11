@@ -201,10 +201,6 @@
 		build_inventory(products, product_records)
 		build_inventory(contraband, hidden_records)
 		build_inventory(premium, coin_records)
-	for(var/datum/data/vending_product/R in (product_records + coin_records + hidden_records))
-		var/obj/item/I = R.product_path
-		var/pp = path2assetID(R.product_path)
-		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1, FALSE))]"
 	if(LAZYLEN(slogan_list))
 		// So not all machines speak at the exact same time.
 		// The first time this machine says something will be at slogantime + this random value,
@@ -214,6 +210,14 @@
 	if(!length(all_possible_crits))
 		for(var/typepath in subtypesof(/datum/vendor_crit))
 			all_possible_crits[typepath] = new typepath()
+
+	AddElement( \
+		/datum/element/falling_hazard, \
+		damage = 80, \
+		hardhat_safety = FALSE, \
+		crushes = TRUE, \
+		impact_sound = 'sound/effects/vending_hit.ogg', \
+		)
 
 	update_icon(UPDATE_OVERLAYS)
 
@@ -794,10 +798,13 @@
 	data["product_records"] = list()
 	var/i = 1
 	for (var/datum/data/vending_product/R in product_records)
+		var/obj/item = R.product_path
 		var/list/data_pr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
+			price = (item in prices) ? prices[item] : 0,
+			icon = item.icon,
+			icon_state = item.icon_state,
 			max_amount = R.max_amount,
 			req_coin = FALSE,
 			is_hidden = FALSE,
@@ -807,10 +814,13 @@
 		i++
 	data["coin_records"] = list()
 	for (var/datum/data/vending_product/R in coin_records)
+		var/obj/item = R.product_path
 		var/list/data_cr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
+			price = (item in prices) ? prices[item] : 0,
+			icon = item.icon,
+			icon_state = item.icon_state,
 			max_amount = R.max_amount,
 			req_coin = TRUE,
 			is_hidden = FALSE,
@@ -821,10 +831,13 @@
 		i++
 	data["hidden_records"] = list()
 	for (var/datum/data/vending_product/R in hidden_records)
+		var/obj/item = R.product_path
 		var/list/data_hr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
+			price = (item in prices) ? prices[item] : 0,
+			icon = item.icon,
+			icon_state = item.icon_state,
 			max_amount = R.max_amount,
 			req_coin = FALSE,
 			is_hidden = TRUE,
@@ -2114,7 +2127,7 @@
 					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4, /obj/item/storage/belt/security/webbing = 2, /obj/item/clothing/mask/gas/sechailer/tactical = 5, /obj/item/flashlight/sectaclight = 2, /obj/item/grenade/smokebomb = 8,
 					)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
-	prices = list(/obj/item/storage/belt/security/webbing = 1999, /obj/item/clothing/mask/gas/sechailer/tactical = 299, /obj/item/flashlight/sectaclight = 299, /obj/item/grenade/smokebomb = 249)
+	prices = list(/obj/item/storage/belt/security/webbing = 999, /obj/item/clothing/mask/gas/sechailer/tactical = 299, /obj/item/flashlight/sectaclight = 299, /obj/item/grenade/smokebomb = 249)
 	refill_canister = /obj/item/vending_refill/security
 
 /obj/machinery/vending/security/training
@@ -4131,6 +4144,7 @@
 		/obj/item/gun/energy/xray = 2,
 		/obj/item/gun/energy/immolator/multi = 2,
 		/obj/item/gun/energy/gun/nuclear = 3,
+		/obj/item/gun/energy/gun/minigun = 1,
 		/obj/item/storage/lockbox/t4 = 3,
 		/obj/item/grenade/smokebomb = 3,
 		/obj/item/grenade/frag = 4

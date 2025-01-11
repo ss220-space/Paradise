@@ -59,9 +59,9 @@
 /datum/antagonist/vampire/greet()
 	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
-	messages.Add("<span class='danger'>Вы — вампир!</span><br>")
-	messages.Add("Чтобы укусить кого-то, нацельтесь в голову, выберите намерение вреда (4) и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы. \
-		Вы уязвимы перед святостью, огнем и звёздным светом. Не выходите в космос, избегайте священника, церкви и, особенно, святой воды.")
+	messages.Add(span_danger("Вы — вампир!<br>"))
+	messages.Add("Чтобы укусить кого-то, нацельтесь на голову, выберите намерение <b>вреда (4)</b> и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы. \
+		Вы уязвимы перед святостью, огнём и звёздным светом. Не выходите в космос, избегайте священника, церкви и, особенно, святой воды.")
 	return messages
 
 
@@ -113,6 +113,17 @@
 			//slaved.leave_serv_hud(mob_override.mind)
 			//.mind.som = null
 
+	user.AddComponent( \
+		/datum/component/pref_viewer, \
+		list(/datum/preference_info/take_out_of_the_round_without_obj), \
+	)
+
+/datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
+	. = ..()
+	qdel(old_body.GetComponent(/datum/component/pref_viewer))
+
+/datum/antagonist/vampire/handle_last_instance_removal()
+	qdel(owner.current.GetComponent(/datum/component/pref_viewer))
 
 /datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override, transformation = FALSE)
 	var/mob/living/user = ..()
@@ -130,7 +141,6 @@
 		user.dna?.species?.hunger_type = initial(user.dna.species.hunger_type)
 		user.dna?.species?.hunger_icon = initial(user.dna.species.hunger_icon)
 
-	animate(user, alpha = 255)
 	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
 
 
@@ -269,7 +279,7 @@
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
 				to_chat(cur, span_warning("Вы поглотили всю жизненную эссенцию [target], дальнейшее питьё крови будет только утолять голод!"))
-				target.blood_volume = max(target.blood_volume - 25, 0)
+				target.AdjustBlood(-25)
 				cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + 5))
 				continue
 
@@ -285,11 +295,11 @@
 				cur.adjustBrainLoss(-1)
 				for(var/obj/item/organ/external/bodypart as anything in cur.bodyparts)
 					if(bodypart.has_fracture() && prob(5))
-						to_chat(cur, span_notice("You feel a burning sensation in your [bodypart.name] as it straightens involuntarily!"))
+						to_chat(cur, span_notice("Вы чувствуете жжение, когда [bodypart.name] непроизвольно выпрямляется!"))
 						bodypart.mend_fracture()
 
 					if(bodypart.has_internal_bleeding() && prob(5))
-						to_chat(cur, span_notice("You feel a burning sensation in your [bodypart.name] as your veins begin to recover!"))
+						to_chat(cur, span_notice("Вы чувствуете жжение в [bodypart.name], когда ваши вены начинают восстанавливаться!"))
 						bodypart.stop_internal_bleeding()
 
 				if(bloodtotal >= REQ_BLOOD_FOR_SUBCLASS_ACT)
@@ -297,7 +307,7 @@
 
 				to_chat(cur, span_boldnotice("Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
 
-		target.blood_volume = max(target.blood_volume - 25, 0)
+		target.AdjustBlood(-25)
 
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(target.blood_volume)
@@ -577,7 +587,9 @@
 /datum/antagonist/vampire/proc/handle_vampire_cloak()
 	if(!ishuman(owner.current))
 		animate(owner.current, time = 5, alpha = 255)
+		owner.current.alpha_set(1, ALPHA_SOURCE_VAMPIRE)
 		return
+
 	var/turf/simulated/owner_turf = get_turf(owner.current)
 	var/light_available = ((iscloaking)?owner_turf.get_lumcount():owner_turf.get_lumcount(0.5)) * 10
 
@@ -586,16 +598,21 @@
 
 	if(!iscloaking && !is_goon_cloak || owner.current.on_fire)
 		animate(owner.current, time = 5, alpha = 255)
+		owner.current.alpha_set(1, ALPHA_SOURCE_VAMPIRE)
 		owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
 		return
 
 	if(light_available <= 2)
 		animate(owner.current, time = 5, alpha = 38)
+		owner.current.alpha_set(standartize_alpha(38), ALPHA_SOURCE_VAMPIRE)
 		if(iscloaking)
 			owner.current.add_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
+
 		return
+
 	owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
 	animate(owner.current, time = 5, alpha = 204) // 255 * 0.80
+	owner.current.alpha_set(0.8, ALPHA_SOURCE_VAMPIRE)
 
 
 /datum/antagonist/vampire/vv_edit_var(var_name, var_value)

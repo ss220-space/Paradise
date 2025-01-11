@@ -22,6 +22,7 @@ GLOBAL_LIST_INIT(machines, list())
 GLOBAL_LIST_INIT(syndiepads, list()) //list of all syndiepads
 GLOBAL_LIST_INIT(syndie_cargo_consoles, list()) //list of all syndie cargo consoles
 GLOBAL_LIST_INIT(rcd_list, list()) //list of Rapid Construction Devices.
+GLOBAL_LIST_EMPTY(supplypod_loading_bays)
 
 GLOBAL_LIST_INIT(apcs, list())
 GLOBAL_LIST_INIT(air_alarms, list())
@@ -64,3 +65,4 @@ GLOBAL_LIST_EMPTY(wire_color_directory) // This is an associative list with the 
 GLOBAL_LIST_EMPTY(wire_name_directory)
 
 GLOBAL_LIST_EMPTY(visual_portals)
+GLOBAL_LIST_EMPTY(pod_styles_by_type)

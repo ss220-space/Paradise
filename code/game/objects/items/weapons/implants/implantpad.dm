@@ -76,7 +76,8 @@
 			"life" = implant_data.life,
 			"notes" = implant_data.notes,
 			"function" = implant_data.function,
-			"image" = "[icon2base64(icon(initial(case.imp.icon), initial(case.imp.icon_state), SOUTH, 1))]",
+			"icon" = initial(case.imp.icon),
+			"icon_state" = initial(case.imp.icon_state),
 		)
 		var/obj/item/implant/tracking/tracking_imp = case.imp
 		data["tag"] = istype(tracking_imp) ? tracking_imp.gps_tag : null

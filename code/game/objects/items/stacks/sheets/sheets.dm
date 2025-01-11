@@ -17,3 +17,6 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
 	var/wall_allowed = TRUE	//determines if sheet can be used in wall construction or not.
+
+	lefthand_file = 'icons/mob/inhands/sheet_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/sheet_righthand.dmi'

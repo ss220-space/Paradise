@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(admin_verbs_default, list(
 ))
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
+	/client/proc/check_security,		/*shows all security*/
 	/datum/admins/proc/show_player_panel,
 	/client/proc/fax_panel,
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
@@ -111,6 +112,7 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/force_hijack,
 	/client/proc/requests,
+	/client/proc/centcom_podlauncher, /*Open a window to launch a Supplypod and configure it or it's contents*/
 ))
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
@@ -404,6 +406,17 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antags") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
+/client/proc/check_security()
+	set name = "Check Security"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	holder.check_security()
+	log_admin("[key_name(usr)] checked security")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Secs") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
 /client/proc/ban_panel()
 	set name = "Ban Panel"
 	set category = "Admin"
@@ -501,34 +514,34 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
 	set category = "Event"
 	set name = "Drop Bomb"
-	set desc = "Cause an explosion of varying strength at your location."
+	set desc = "Вызвать взрыв различной силы под вами."
 
 	if(!check_rights(R_EVENT))
 		return
 
 	var/turf/epicenter = mob.loc
-	var/list/choices = list("Small Bomb", "Medium Bomb", "Big Bomb", "Custom Bomb")
-	var/choice = input("What size explosion would you like to produce?") as null|anything in choices
+	var/list/choices = list("Маленькая бомба", "Средняя бомба", "Большая бомба", "Настраиваемая бомба")
+	var/choice = tgui_input_list(src, "Взрыв какого размера вы хотели бы произвести? ПРИМЕЧАНИЕ. Вы можете сделать все это в IC поле (используя крылатые ракеты!) с помощью кнопки Event/Launch Supplypod.", items = choices)
 	switch(choice)
 		if(null)
 			return 0
-		if("Small Bomb")
+		if("Маленькая бомба")
 			explosion(epicenter, 1, 2, 3, 3, cause = "Admin Drop Bomb")
-		if("Medium Bomb")
+		if("Средняя бомба")
 			explosion(epicenter, 2, 3, 4, 4, cause = "Admin Drop Bomb")
-		if("Big Bomb")
+		if("Большая бомба")
 			explosion(epicenter, 3, 5, 7, 5, cause = "Admin Drop Bomb")
-		if("Custom Bomb")
-			var/devastation_range = tgui_input_number(src, "Devastation range (in tiles):", "Custom Bomb", max_value = 255)
+		if("Настраиваемая бомба")
+			var/devastation_range = tgui_input_number(src, "Дальность тотального разрушения. (в тайлах):", "Настраиваемая бомба", max_value = 255)
 			if(isnull(devastation_range))
 				return
-			var/heavy_impact_range = tgui_input_number(src, "Heavy impact range (in tiles):", "Custom Bomb", max_value = 255)
+			var/heavy_impact_range = tgui_input_number(src, "Дальность сильного удара. (в тайлах):", "Настраиваемая бомба", max_value = 255)
 			if(isnull(heavy_impact_range))
 				return
-			var/light_impact_range = tgui_input_number(src, "Light impact range (in tiles):", "Custom Bomb", max_value = 255)
+			var/light_impact_range = tgui_input_number(src, "Дальность легкого удара. (в тайлах):", "Настраиваемая бомба", max_value = 255)
 			if(isnull(light_impact_range))
 				return
-			var/flash_range = tgui_input_number(src, "Flash range (in tiles):", "Custom Bomb", max_value = 255)
+			var/flash_range = tgui_input_number(src, "Дальность вспышки. (в тайлах):", "Настраиваемая бомба", max_value = 255)
 			if(isnull(flash_range))
 				return
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1, cause = "Admin Drop Bomb")
@@ -1252,8 +1265,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				return
 			message = strip_html(message, 500)
 
-			var/message_color = input(src, "Input your message color:", "Color Selector") as color|null
-			if(!message_color)
+			var/message_color = tgui_input_color(src, "Input your message color:", "Color Selector")
+			if(isnull(message_color))
 				return
 
 			var/alert_type2 = alert(src, "Do you wish to change speed of an admin alert to? (No - default speed)",,"Yes", "No")

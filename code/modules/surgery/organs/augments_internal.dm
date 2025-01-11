@@ -8,6 +8,7 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
+
 /obj/item/organ/internal/cyberimp/New(var/mob/M = null)
 	. = ..()
 	if(implant_overlay)
@@ -15,8 +16,14 @@
 		overlay.color = implant_color
 		overlays |= overlay
 
+
 /obj/item/organ/internal/cyberimp/emp_act()
 	return // These shouldn't be hurt by EMPs in the standard way
+
+
+/obj/item/organ/internal/cyberimp/can_insert(mob/living/user, mob/living/carbon/target, fail_message = "Данное устройство не предусмотрено для существ с подобной анатомией.")
+	. = ..()
+
 
 //[[[[BRAIN]]]]
 
@@ -26,6 +33,7 @@
 	icon_state = "brain_implant"
 	implant_overlay = "brain_implant_overlay"
 	parent_organ_zone = BODY_ZONE_HEAD
+
 
 /obj/item/organ/internal/cyberimp/brain/emp_act(severity)
 	if(!owner || emp_proof)
@@ -48,6 +56,7 @@
 	slot = INTERNAL_ORGAN_BRAIN_ANTIDROP
 	origin_tech = "materials=4;programming=5;biotech=4"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
+
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click(mob/user, datum/action/action, leftclick)
 	active = !active
@@ -144,6 +153,7 @@
 		ui_action_click()
 	return ..()
 
+
 /obj/item/organ/internal/cyberimp/brain/anti_stun
 	name = "CNS Rebooter implant"
 	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned. Incompatible with the Neural Jumpstarter."
@@ -151,13 +161,16 @@
 	slot = INTERNAL_ORGAN_BRAIN_ANTISTUN
 	origin_tech = "materials=5;programming=4;biotech=5"
 
+
 /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	name = "Hardened CNS Rebooter implant"
 	emp_proof = TRUE
 
+
 /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened/Initialize(mapload)
 	. = ..()
 	desc += " The implant has been hardened. It is invulnerable to EMPs."
+
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/on_life()
 	..()
@@ -166,6 +179,7 @@
 	if(owner.getStaminaLoss() > 60)
 		owner.adjustStaminaLoss(-9)
 
+
 /obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)
 	..()
 	if(crit_fail || emp_proof)
@@ -173,14 +187,17 @@
 	crit_fail = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 / severity)
 
+
 /obj/item/organ/internal/cyberimp/brain/anti_stun/proc/reboot()
 	crit_fail = FALSE
+
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	name = "Hardened CNS Rebooter implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces."
 	origin_tech = "materials=6;programming=5;biotech=5"
 	emp_proof = TRUE
+
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep
 	name = "Neural Jumpstarter implant"
@@ -189,6 +206,7 @@
 	slot = INTERNAL_ORGAN_BRAIN_ANTISTUN //one or the other not both.
 	origin_tech = "materials=5;programming=4;biotech=5"
 	var/cooldown = FALSE
+
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/on_life()
 	..()
@@ -201,9 +219,11 @@
 		cooldown = TRUE
 		addtimer(CALLBACK(src, PROC_REF(sleepy_timer_end)), 50)
 
+
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/sleepy_timer_end()
 		cooldown = FALSE
 		to_chat(owner, span_notice("You hear a small beep in your head as your Neural Jumpstarter finishes recharging."))
+
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/emp_act(severity)
 	. = ..()
@@ -214,9 +234,11 @@
 	cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 / severity)
 
+
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/reboot()
 	crit_fail = FALSE
 	cooldown = FALSE
+
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened
 	name = "Hardened Neural Jumpstarter implant"
@@ -224,11 +246,13 @@
 	origin_tech = "materials=6;programming=5;biotech=5"
 	emp_proof = TRUE
 
+
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible
 	name = "Hardened Neural Jumpstarter implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces. This one is compatible with the CNS Rebooter implant."
 	slot = INTERNAL_ORGAN_BRAIN_ANTISLEEP
 	emp_proof = TRUE
+
 
 /obj/item/organ/internal/cyberimp/brain/clown_voice
 	name = "Comical implant"
@@ -237,41 +261,11 @@
 	slot = INTERNAL_ORGAN_BRAIN_CLOWNVOICE
 	origin_tech = "materials=2;biotech=2"
 
-/obj/item/organ/internal/cyberimp/brain/speech_translator //actual translating done in human/handle_speech_problems
-	name = "Speech translator implant"
-	desc = "While known as a translator, this implant actually generates speech based on the user's thoughts when activated, completely bypassing the need to speak."
-	implant_color = "#C0C0C0"
-	slot = INTERNAL_ORGAN_BRAIN_SPEECHTRANSLATOR
-	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "materials=4;biotech=6"
-	actions_types = list(/datum/action/item_action/organ_action/toggle)
-	var/active = TRUE
-	var/speech_span = ""
-	var/speech_verb = "states"
-
-/obj/item/organ/internal/cyberimp/brain/speech_translator/clown
-	name = "Comical speech translator implant"
-	implant_color = "#DEDE00"
-	speech_span = "sans"
-
-/obj/item/organ/internal/cyberimp/brain/speech_translator/emp_act(severity)
-	if(emp_proof)
-		return
-	if(owner && active)
-		to_chat(owner, span_notice("Your translator's safeties trigger, it is now turned off."))
-		active = FALSE
-
-/obj/item/organ/internal/cyberimp/brain/speech_translator/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(owner && !active)
-		to_chat(owner, span_notice("You turn on your translator implant."))
-		active = TRUE
-	else if(owner && active)
-		to_chat(owner, span_notice("You turn off your translator implant."))
-		active = FALSE
 
 //[[[[MOUTH]]]]
 /obj/item/organ/internal/cyberimp/mouth
 	parent_organ_zone = BODY_ZONE_PRECISE_MOUTH
+
 
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube
 	name = "breathing tube implant"
@@ -281,12 +275,14 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=2;biotech=3"
 
+
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube/emp_act(severity)
 	if(emp_proof)
 		return
 	if(prob(60/severity) && owner)
 		to_chat(owner, span_warning("Your breathing tube suddenly closes!"))
 		owner.AdjustLoseBreath(4 SECONDS)
+
 
 //[[[[CHEST]]]]
 /obj/item/organ/internal/cyberimp/chest
@@ -295,6 +291,7 @@
 	icon_state = "chest_implant"
 	implant_overlay = "chest_implant_overlay"
 	parent_organ_zone = BODY_ZONE_CHEST
+
 
 /obj/item/organ/internal/cyberimp/chest/nutriment
 	name = "Nutriment pump implant"
@@ -325,6 +322,7 @@
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
 	to_chat(owner, span_warning("You feel like your insides are burning."))
 
+
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
 	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are hungry."
@@ -333,6 +331,23 @@
 	hunger_modificator = 0.5
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
+
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/plus/insert(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+	if(HAS_TRAIT(target, TRAIT_ADVANCED_CYBERIMPLANTS))
+		hunger_modificator = 0.2
+		ADD_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
+
+	. = ..()
+
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/plus/remove(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+	if(HAS_TRAIT_FROM(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src)))
+		hunger_modificator = initial(hunger_modificator)
+		REMOVE_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
+
+	. = ..()
+
 
 /obj/item/organ/internal/cyberimp/chest/nutriment_old
 	name = "Nutriment pump implant"
@@ -344,6 +359,7 @@
 	var/poison_amount = 5
 	slot = INTERNAL_ORGAN_STOMACH
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
+
 
 /obj/item/organ/internal/cyberimp/chest/nutriment_old/on_life()
 	if(!owner)
@@ -362,14 +378,17 @@
 		owner.adjust_nutrition(50)
 		addtimer(CALLBACK(src, PROC_REF(synth_cool)), 50)
 
+
 /obj/item/organ/internal/cyberimp/chest/nutriment_old/proc/synth_cool()
 	synthesizing = FALSE
+
 
 /obj/item/organ/internal/cyberimp/chest/nutriment_old/emp_act(severity)
 	if(!owner || emp_proof)
 		return
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
 	to_chat(owner, span_warning("You feel like your insides are burning."))
+
 
 /obj/item/organ/internal/cyberimp/chest/nutriment_old/plus
 	name = "Nutriment pump implant PLUS"
@@ -379,6 +398,7 @@
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
+
 
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
@@ -391,13 +411,16 @@
 	var/reviving = FALSE
 	var/cooldown = 0
 
+
 /obj/item/organ/internal/cyberimp/chest/reviver/hardened
 	name = "Hardened reviver implant"
 	emp_proof = TRUE
 
+
 /obj/item/organ/internal/cyberimp/chest/reviver/hardened/Initialize(mapload)
 	. = ..()
 	desc += " The implant has been hardened. It is invulnerable to EMPs."
+
 
 /obj/item/organ/internal/cyberimp/chest/reviver/on_life()
 	if(cooldown > world.time || owner.suiciding) // don't heal while you're in cooldown!
@@ -448,6 +471,7 @@
 			H.set_heartattack(TRUE)
 			addtimer(CALLBACK(src, PROC_REF(undo_heart_attack)), 600 / severity)
 
+
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/undo_heart_attack()
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H))
@@ -455,6 +479,7 @@
 	H.set_heartattack(FALSE)
 	if(H.stat == CONSCIOUS)
 		to_chat(H, span_notice("You feel your heart beating again!"))
+
 
 //BOX O' IMPLANTS
 

@@ -219,8 +219,8 @@
 	pixel_y = 6
 	},
 /obj/item/paper/monitorkey{
-	pixel_y = 4;
-	pixel_x = 3
+	pixel_x = 3;
+	pixel_y = 4
 	},
 /obj/item/paper/safe_code{
 	owner = "captain";
@@ -228,8 +228,8 @@
 	},
 /obj/item/paper/safe_code{
 	owner = "hos";
-	pixel_y = -2;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = -2
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/centcom/zone2)
@@ -311,6 +311,11 @@
 	icon_state = "darkredcorners"
 	},
 /area/syndicate_mothership/elite_squad)
+"aeQ" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/supplypod/loading/one)
 "aeY" = (
 /obj/item/deck/cards,
 /obj/structure/table/wood,
@@ -514,6 +519,12 @@
 	},
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/zone3)
+"aiB" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/one)
 "aiQ" = (
 /obj/structure/table,
 /obj/item/storage/box/cups,
@@ -807,8 +818,8 @@
 /area/centcom/specops)
 "apl" = (
 /obj/structure/falsewall/reinforced{
-	req_access = list(114);
-	layer = 5
+	layer = 5;
+	req_access = list(114)
 	},
 /turf/simulated/floor/fakespace,
 /area/centcom/specops)
@@ -1217,8 +1228,8 @@
 "ayt" = (
 /obj/machinery/syndiepad/receivepad,
 /obj/machinery/conveyor{
-	id = "SFBQMLoad";
-	dir = 8
+	dir = 8;
+	id = "SFBQMLoad"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1451,6 +1462,11 @@
 	name = "floor"
 	},
 /area/syndicate_mothership/outside)
+"aDR" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/supply)
 "aDX" = (
 /obj/machinery/computer/syndie_supplycomp,
 /turf/simulated/floor/plasteel{
@@ -1572,6 +1588,12 @@
 	name = "floor"
 	},
 /area/vox_station)
+"aHe" = (
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "navyblue"
+	},
+/area/centcom/supplypod/loading/ert)
 "aHf" = (
 /obj/item/target,
 /obj/effect/decal/cleanable/confetti,
@@ -1813,8 +1835,8 @@
 "aLo" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/conveyor{
-	id = "CO2";
-	dir = 1
+	dir = 1;
+	id = "CO2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1925,10 +1947,10 @@
 "aOA" = (
 /obj/machinery/door_control/secure{
 	id = "CC_Armory_SRT1";
-	pixel_y = -25;
-	req_access = list(114);
+	name = "SRT Team 2";
 	pixel_x = -25;
-	name = "SRT Team 2"
+	pixel_y = -25;
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "navybluealtstrip"
@@ -1975,6 +1997,12 @@
 	name = "floor"
 	},
 /area/syndicate_mothership)
+"aOM" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkyellowalt"
+	},
+/area/centcom/supply)
 "aOO" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 1
@@ -2173,8 +2201,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/rd,
 /obj/effect/mine/sound/bwoink{
-	layer = 2.9;
-	alpha = 0
+	alpha = 0;
+	layer = 2.9
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/zone1)
@@ -2309,6 +2337,12 @@
 /obj/item/toy/desk/fan,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
+"aYk" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "navyblue"
+	},
+/area/centcom/supplypod/loading/ert)
 "aYm" = (
 /obj/structure/window/plasmareinforced{
 	color = "#00f700";
@@ -2976,11 +3010,11 @@
 	layer = 9
 	},
 /obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
 	teleport_x = 175;
 	teleport_y = 62;
-	teleport_z = 1;
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x2"
+	teleport_z = 1
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -3327,10 +3361,10 @@
 	height = 5;
 	id = "sit";
 	name = "SIT shuttle";
-	roundstart_move = "sit_away";
-	width = 11;
 	port_direction = 4;
-	preferred_direction = 2
+	preferred_direction = 2;
+	roundstart_move = "sit_away";
+	width = 11
 	},
 /obj/docking_port/stationary{
 	dir = 4;
@@ -3404,8 +3438,9 @@
 	},
 /area/centcom/specops)
 "bBe" = (
-/obj/machinery/vending/ntcrates,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
 /area/centcom/specops)
 "bBg" = (
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
@@ -3524,12 +3559,12 @@
 /obj/item/clothing/accessory/holster,
 /obj/item/storage/backpack/satcheldeluxe,
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
-	pixel_y = 8;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = 8
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_y = 12;
-	pixel_x = 10
+	pixel_x = 10;
+	pixel_y = 12
 	},
 /obj/item/megaphone,
 /turf/simulated/floor/carpet/black,
@@ -3600,6 +3635,12 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/syndicate_mothership)
+"bEA" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/one)
 "bEB" = (
 /obj/structure/showcase{
 	desc = "This one has an old damaged suit in it. Not working...";
@@ -3622,8 +3663,8 @@
 /area/shuttle/syndicate)
 "bEW" = (
 /obj/structure/railing{
-	pixel_y = 32;
-	density = 0
+	density = 0;
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -3747,6 +3788,11 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"bIN" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/one)
 "bIU" = (
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate,
 /turf/simulated/floor/plasteel{
@@ -3996,6 +4042,12 @@
 	icon_state = "floorgrime"
 	},
 /area/ninja/holding)
+"bRZ" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/two)
 "bSd" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -4508,11 +4560,11 @@
 	name = "Escape Pod Hatch"
 	},
 /obj/docking_port/mobile/pod{
+	dir = 8;
 	id = "pod2";
 	name = "escape pod 2";
-	roundstart_move = "pod2_home";
-	dir = 8;
-	port_direction = 2
+	port_direction = 2;
+	roundstart_move = "pod2_home"
 	},
 /obj/docking_port/stationary{
 	dir = 8;
@@ -4780,36 +4832,36 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door_control/secure{
 	id = "CC_space_jail_sec";
-	pixel_y = -6;
-	pixel_x = -7
+	pixel_x = -7;
+	pixel_y = -6
 	},
 /obj/machinery/embedded_controller/radio/airlock/access_controller{
 	frequency = 2000;
 	id_tag = "CC-OP4";
 	name = "Access Controller OP4";
+	pixel_x = -7;
 	pixel_y = 6;
 	req_access = list(109);
 	tag_exterior_door = "CC-OP4-Ext";
-	tag_interior_door = "CC-OP4-Int";
-	pixel_x = -7
+	tag_interior_door = "CC-OP4-Int"
 	},
 /obj/machinery/door_control/secure{
-	id = "CC_space_jail_cell";
-	pixel_y = -6;
-	pixel_x = 7;
 	color = "#FFA500";
+	id = "CC_space_jail_cell";
 	name = "remote cell shutters control";
+	pixel_x = 7;
+	pixel_y = -6;
 	req_access = list(104,114)
 	},
 /obj/machinery/door_control/secure{
-	id = "CC_space_jail_door";
-	pixel_y = 6;
-	pixel_x = 7;
 	color = "#ffaaaa";
+	id = "CC_space_jail_door";
 	name = "remote cell door bolts control";
+	normaldoorcontrol = 1;
+	pixel_x = 7;
+	pixel_y = 6;
 	req_access = list(104,114);
-	specialfunctions = 4;
-	normaldoorcontrol = 1
+	specialfunctions = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -5099,11 +5151,11 @@
 	name = "Escape Pod Hatch"
 	},
 /obj/docking_port/mobile/pod{
+	dir = 4;
 	id = "pod4";
 	name = "escape pod 4";
-	roundstart_move = "pod4_home";
-	dir = 4;
-	port_direction = 2
+	port_direction = 2;
+	roundstart_move = "pod4_home"
 	},
 /obj/docking_port/stationary{
 	dir = 4;
@@ -5214,8 +5266,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/red,
 /obj/effect/mine/sound/bwoink{
-	layer = 2.9;
-	alpha = 0
+	alpha = 0;
+	layer = 2.9
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/zone1)
@@ -5540,6 +5592,12 @@
 	name = "floor"
 	},
 /area/syndicate_mothership)
+"czW" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/four)
 "cAA" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/plasteel{
@@ -5547,6 +5605,15 @@
 	icon_state = "navybluealt"
 	},
 /area/centcom/specops)
+"cAU" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/three)
 "cBk" = (
 /obj/structure/sign/poster/official/ue_no,
 /turf/simulated/wall/indestructible/sandstone,
@@ -5845,6 +5912,12 @@
 	name = "floor"
 	},
 /area/vox_station)
+"cJx" = (
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/four)
 "cJJ" = (
 /obj/effect/turf_decal{
 	dir = 8;
@@ -5945,8 +6018,8 @@
 /area/centcom/zone2)
 "cKU" = (
 /obj/machinery/conveyor_switch/oneway{
-	id = "SFBQMLoad2";
-	dir = 8
+	dir = 8;
+	id = "SFBQMLoad2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6001,8 +6074,8 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced{
-	layer = 3.1;
-	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
+	layer = 3.1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -6250,11 +6323,11 @@
 	layer = 9
 	},
 /obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
 	teleport_x = 175;
 	teleport_y = 63;
-	teleport_z = 1;
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x2"
+	teleport_z = 1
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -6466,8 +6539,8 @@
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_lvl2";
-	name = "Armory level 2";
-	layer = 5
+	layer = 5;
+	name = "Armory level 2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -6766,10 +6839,10 @@
 	height = 5;
 	id = "laborcamp";
 	name = "labor camp shuttle";
+	port_direction = 4;
 	rebuildable = 1;
 	roundstart_move = "laborcamp_home";
-	width = 9;
-	port_direction = 4
+	width = 9
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle,
@@ -6872,7 +6945,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
+	dir = 1;
 	icon_state = "darkyellowalt"
 	},
 /area/centcom/supply)
@@ -6980,8 +7053,8 @@
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 2;
 	id_tag = "ERT_armory_lvl3";
-	name = "Armory level 3";
-	layer = 5
+	layer = 5;
+	name = "Armory level 3"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -7082,11 +7155,11 @@
 	name = "Escape Pod Hatch"
 	},
 /obj/docking_port/mobile/pod{
+	dir = 8;
 	id = "pod1";
 	name = "escape pod 1";
-	roundstart_move = "pod1_home";
-	dir = 8;
-	port_direction = 2
+	port_direction = 2;
+	roundstart_move = "pod1_home"
 	},
 /obj/docking_port/stationary{
 	dir = 8;
@@ -7109,6 +7182,12 @@
 	tag = "icon-stage_stairs"
 	},
 /area/ninja/holding)
+"dtp" = (
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/one)
 "dtu" = (
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/indestructible/beach/coastline{
@@ -7467,11 +7546,11 @@
 	name = "Escape Pod Hatch"
 	},
 /obj/docking_port/mobile/pod{
+	dir = 4;
 	id = "pod3";
 	name = "escape pod 3";
-	roundstart_move = "pod3_home";
-	dir = 4;
-	port_direction = 2
+	port_direction = 2;
+	roundstart_move = "pod3_home"
 	},
 /obj/docking_port/stationary{
 	dir = 4;
@@ -7700,10 +7779,10 @@
 /area/vox_station)
 "dEV" = (
 /obj/machinery/door/airlock/external{
+	hackProof = 1;
 	id_tag = "supply_away";
 	name = "Central Command Supply";
-	req_access = list(31);
-	hackProof = 1
+	req_access = list(31)
 	},
 /obj/machinery/door/poddoor{
 	id_tag = "CC_supply_space";
@@ -7785,9 +7864,9 @@
 "dGB" = (
 /obj/effect/decal/warning_stripes/northwestsouth,
 /obj/machinery/door/poddoor/shutters/preopen/invincible{
+	dir = 2;
 	id_tag = "ERT_armory_lvl1";
-	name = "Armory level 1";
-	dir = 2
+	name = "Armory level 1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -7845,8 +7924,8 @@
 	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgreencorners";
-	dir = 1
+	dir = 1;
+	icon_state = "darkgreencorners"
 	},
 /area/centcom/specops)
 "dIi" = (
@@ -8109,11 +8188,11 @@
 	layer = 9
 	},
 /obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
 	teleport_x = 183;
 	teleport_y = 60;
-	teleport_z = 1;
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x2"
+	teleport_z = 1
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -8185,6 +8264,15 @@
 "dTg" = (
 /turf/simulated/floor/plating/airless,
 /area/centcom/specops)
+"dTt" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/one)
 "dTy" = (
 /obj/structure/railing{
 	dir = 8
@@ -8565,10 +8653,10 @@
 	height = 18;
 	id = "admin";
 	name = "administration shuttle";
-	roundstart_move = "admin_away";
-	width = 18;
 	port_direction = 2;
-	preferred_direction = 8
+	preferred_direction = 8;
+	roundstart_move = "admin_away";
+	width = 18
 	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;
@@ -8991,8 +9079,8 @@
 	name = "Любимая игрушка бюрократов"
 	},
 /obj/item/reagent_containers/food/drinks/coffee{
-	pixel_y = 9;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 9
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -9210,11 +9298,11 @@
 /area/shuttle/administration)
 "erZ" = (
 /obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
 	teleport_x = 137;
 	teleport_y = 65;
-	teleport_z = 1;
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x2"
+	teleport_z = 1
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -9387,8 +9475,8 @@
 /area/centcom/zone3)
 "evD" = (
 /obj/structure/falsewall/reinforced{
-	req_access = list(114);
-	layer = 5
+	layer = 5;
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9630,6 +9718,11 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/syndicate_mothership/control)
+"eDu" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "navyblue"
+	},
+/area/centcom/supplypod/loading/ert)
 "eDO" = (
 /obj/effect/spawner/lootdrop/trade_sol/largeitem,
 /turf/simulated/floor/wood{
@@ -9730,6 +9823,15 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/wood/fancy/light,
 /area/ussp_centcom/secretariat)
+"eGx" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/four)
 "eHj" = (
 /obj/item/storage/firstaid/ancient{
 	pixel_x = 3;
@@ -10133,8 +10235,8 @@
 	name = "Supply Blastdoor"
 	},
 /obj/machinery/conveyor{
-	id = "CC_crate";
-	dir = 1
+	dir = 1;
+	id = "CC_crate"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -10471,6 +10573,12 @@
 	icon_state = "darkyellowcornersalt"
 	},
 /area/centcom/zone3)
+"eZq" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/three)
 "eZx" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/glass/beaker/waterbottle/large{
@@ -10537,9 +10645,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 85;
+	icon = 'icons/misc/beach.dmi';
 	icon_state = "seadeep";
-	layer = 9;
-	icon = 'icons/misc/beach.dmi'
+	layer = 9
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/centcom/specops)
@@ -10788,8 +10896,8 @@
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_lvl4";
-	name = "Armory level 4";
-	layer = 5
+	layer = 5;
+	name = "Armory level 4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -11272,8 +11380,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/wiz,
 /obj/effect/mine/sound/bwoink{
-	layer = 2.9;
-	alpha = 0
+	alpha = 0;
+	layer = 2.9
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
@@ -11283,10 +11391,10 @@
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
+	name = "Quarantine Pulse Turret";
 	region_max = 12;
 	scan_range = 12;
-	shot_delay = 8;
-	name = "Quarantine Pulse Turret"
+	shot_delay = 8
 	},
 /obj/machinery/door/poddoor/shutters/invincible/fake_r_wall{
 	dir = 1;
@@ -11678,8 +11786,8 @@
 	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkyellowcorners";
-	dir = 1
+	dir = 1;
+	icon_state = "darkyellowcorners"
 	},
 /area/centcom/specops)
 "fCZ" = (
@@ -11712,8 +11820,8 @@
 "fDh" = (
 /obj/machinery/camera{
 	c_tag = "CentComm Special Ops. Shuttle";
-	network = list("ERT","CentComm");
-	dir = 4
+	dir = 4;
+	network = list("ERT","CentComm")
 	},
 /obj/machinery/recharge_station/ert,
 /turf/simulated/floor/shuttle{
@@ -11917,9 +12025,9 @@
 /area/ninja/outpost)
 "fHe" = (
 /obj/structure/window/reinforced{
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	dir = 1;
-	layer = 2;
-	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
+	layer = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11970,6 +12078,16 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
+	},
+/area/centcom/specops)
+"fJp" = (
+/obj/machinery/door_control/secure{
+	id = "ShitRainSupply";
+	pixel_x = 24;
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
 	},
 /area/centcom/specops)
 "fJz" = (
@@ -12292,6 +12410,12 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
+"fRi" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkyellowalt"
+	},
+/area/centcom/supply)
 "fRH" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -12375,14 +12499,14 @@
 /area/syndicate_mothership/control)
 "fUK" = (
 /obj/structure/window/reinforced/survival_pod{
+	density = 0;
 	dir = 9;
-	pixel_y = 1;
 	pixel_x = -1;
-	density = 0
+	pixel_y = 1
 	},
 /obj/structure/fishingrodcabinet{
-	pixel_y = 32;
-	pixel_x = 3
+	pixel_x = 3;
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -13262,15 +13386,15 @@
 	},
 /obj/structure/fans/tiny,
 /obj/docking_port/mobile{
+	alone_shuttle = 1;
 	dir = 8;
 	dwidth = 2;
 	height = 5;
 	id = "ruins_transport_shuttle";
 	name = "USSP Cargo Shuttle";
+	port_direction = 4;
 	roundstart_move = "ussp_dock";
-	alone_shuttle = 1;
-	width = 8;
-	port_direction = 4
+	width = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -13309,13 +13433,13 @@
 	id = "SFBQMLoad"
 	},
 /obj/machinery/conveyor{
-	id = "SFBQMLoad";
 	dir = 8;
+	id = "SFBQMLoad";
 	layer = 2.494
 	},
 /obj/machinery/conveyor{
-	id = "SFBQMLoad";
 	dir = 4;
+	id = "SFBQMLoad";
 	layer = 2.494
 	},
 /turf/simulated/floor/plasteel{
@@ -13575,6 +13699,12 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/ninja/outpost)
+"gxu" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "navyblue"
+	},
+/area/centcom/supplypod/loading/ert)
 "gyg" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -13688,9 +13818,9 @@
 /area/syndicate_mothership/control)
 "gAp" = (
 /obj/structure/closet/cardboard{
-	icon_state = "cardboard_librarian";
 	icon_closed = "cardboard_librarian";
-	icon_opened = "cardboard_librarian_open"
+	icon_opened = "cardboard_librarian_open";
+	icon_state = "cardboard_librarian"
 	},
 /obj/item/paper/central_command/archive/memes{
 	info = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1046826506741104830/unknown.png?width=604&height=604\"></center>";
@@ -13763,6 +13893,12 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/jail)
+"gDh" = (
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/three)
 "gDk" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 8
@@ -13932,6 +14068,12 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
+"gIp" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/three)
 "gIz" = (
 /obj/effect/decal/cleanable/confetti,
 /turf/simulated/floor/plasteel{
@@ -14478,6 +14620,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"gYf" = (
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/two)
 "gYq" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 4
@@ -14694,14 +14842,14 @@
 	name = "Food CC Spawner #1"
 	},
 /obj/structure/window/reinforced/survival_pod{
+	density = 0;
 	dir = 6;
-	pixel_y = -1;
 	pixel_x = 1;
-	density = 0
+	pixel_y = -1
 	},
 /obj/structure/window/reinforced{
-	layer = 3.1;
-	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
+	layer = 3.1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -15094,6 +15242,12 @@
 	icon_state = "freezerfloor"
 	},
 /area/syndicate_mothership)
+"hsP" = (
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/three)
 "hsS" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -15118,6 +15272,12 @@
 	icon_state = "darkyellowaltstrip"
 	},
 /area/centcom/zone3)
+"htF" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/one)
 "htL" = (
 /obj/structure/flora/grass/brown,
 /obj/structure/flora/grass/both,
@@ -15716,6 +15876,11 @@
 /obj/effect/turf_decal/siding/wood/corner,
 /turf/simulated/floor/carpet/cyan,
 /area/ninja/outpost)
+"hLb" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/supplypod/loading/three)
 "hLh" = (
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
@@ -15876,15 +16041,15 @@
 "hNK" = (
 /obj/structure/chair/sofa/right,
 /obj/effect/mine/sound/bwoink{
-	layer = 2.9;
-	alpha = 0
+	alpha = 0;
+	layer = 2.9
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/zone1)
 "hNX" = (
 /obj/structure/railing{
-	layer = 4.3;
-	density = 0
+	density = 0;
+	layer = 4.3
 	},
 /obj/effect/turf_decal/tile/neutral{
 	color = "black";
@@ -15962,6 +16127,12 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/specops)
+"hQZ" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/two)
 "hRt" = (
 /obj/structure/curtain/open/shower/security,
 /turf/simulated/wall/indestructible/fakeglass,
@@ -16049,8 +16220,8 @@
 /area/centcom/specops)
 "hTK" = (
 /obj/machinery/conveyor{
-	id = "SFBQMLoad2";
-	dir = 5
+	dir = 5;
+	id = "SFBQMLoad2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -16170,9 +16341,9 @@
 "hYY" = (
 /obj/effect/decal/warning_stripes/northeastsouth,
 /obj/machinery/door/poddoor/shutters/preopen/invincible{
+	dir = 2;
 	id_tag = "ERT_armory_lvl1";
-	name = "Armory level 1";
-	dir = 2
+	name = "Armory level 1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -16315,8 +16486,8 @@
 /area/ninja/outpost)
 "idQ" = (
 /obj/machinery/conveyor/inverted{
-	id = "CC_crate";
-	dir = 10
+	dir = 10;
+	id = "CC_crate"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -16454,8 +16625,8 @@
 /obj/docking_port/mobile/emergency{
 	dwidth = 11;
 	height = 18;
-	width = 29;
-	port_direction = 8
+	port_direction = 8;
+	width = 29
 	},
 /obj/docking_port/stationary{
 	dir = 4;
@@ -16641,6 +16812,11 @@
 	icon_state = "alien18"
 	},
 /area/abductor_ship)
+"ilJ" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/supplypod/loading/two)
 "imw" = (
 /obj/machinery/light{
 	dir = 1
@@ -16996,6 +17172,12 @@
 	icon_state = "floor12"
 	},
 /area/shuttle/syndicate)
+"iuR" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/three)
 "ivb" = (
 /obj/machinery/door_control/secure{
 	id = "Admin_shuttle_access";
@@ -17420,10 +17602,10 @@
 	height = 5;
 	id = "sst";
 	name = "SST shuttle";
-	roundstart_move = "sst_away";
-	width = 11;
 	port_direction = 8;
-	preferred_direction = 2
+	preferred_direction = 2;
+	roundstart_move = "sst_away";
+	width = 11
 	},
 /obj/docking_port/stationary{
 	dir = 8;
@@ -17442,10 +17624,10 @@
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
+	name = "Quarantine Pulse Turret";
 	region_max = 12;
 	scan_range = 12;
-	shot_delay = 8;
-	name = "Quarantine Pulse Turret"
+	shot_delay = 8
 	},
 /obj/machinery/door/poddoor/shutters/invincible/fake_r_wall{
 	dir = 2;
@@ -17624,11 +17806,11 @@
 	layer = 9
 	},
 /obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
 	teleport_x = 183;
 	teleport_y = 63;
-	teleport_z = 1;
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x2"
+	teleport_z = 1
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -17989,6 +18171,12 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
+"iRY" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellowalt"
+	},
+/area/centcom/supply)
 "iSs" = (
 /obj/effect/turf_decal{
 	dir = 5;
@@ -18507,6 +18695,12 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
+"jfm" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/two)
 "jfv" = (
 /obj/machinery/computer/shuttle/ruins_transport_shuttle,
 /turf/simulated/floor/shuttle{
@@ -18695,10 +18889,10 @@
 "jkL" = (
 /obj/machinery/door_control/secure{
 	id = "CC_Armory_SRT";
-	pixel_y = -25;
-	req_access = list(114);
+	name = "SRT Team 1";
 	pixel_x = 25;
-	name = "SRT Team 1"
+	pixel_y = -25;
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "navybluealtstrip"
@@ -19038,8 +19232,8 @@
 /area/syndicate_mothership/outside)
 "jsa" = (
 /obj/machinery/conveyor/inverted{
-	id = "SFBQMLoad2";
-	dir = 6
+	dir = 6;
+	id = "SFBQMLoad2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -19465,6 +19659,15 @@
 /obj/structure/filingcabinet/employment,
 /turf/simulated/floor/bluegrid,
 /area/centcom/bridge)
+"jCl" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "navyblue"
+	},
+/area/centcom/supplypod/loading/ert)
 "jCo" = (
 /obj/structure/chair,
 /obj/effect/decal/cleanable/blood,
@@ -19673,8 +19876,8 @@
 /obj/machinery/door_control/secure{
 	id = "CC_supply_external2";
 	name = "Supply Internal Shutters";
-	req_access = list(114);
-	pixel_x = -24
+	pixel_x = -24;
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -19697,16 +19900,16 @@
 	},
 /obj/structure/fans/tiny,
 /obj/docking_port/mobile{
+	alone_shuttle = 1;
 	dir = 8;
 	dwidth = 3;
 	height = 4;
 	id = "ruins_civil_shuttle";
 	name = "Regular Civilian Shuttle";
+	port_direction = 4;
 	rebuildable = 1;
 	roundstart_move = "spacebar";
-	alone_shuttle = 1;
-	width = 6;
-	port_direction = 4
+	width = 6
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
@@ -19742,8 +19945,8 @@
 	dir = 4
 	},
 /obj/machinery/conveyor{
-	id = "N2";
-	dir = 1
+	dir = 1;
+	id = "N2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -19827,6 +20030,18 @@
 "jJA" = (
 /turf/simulated/floor/carpet/red,
 /area/shuttle/administration)
+"jJD" = (
+/obj/machinery/door_control/secure{
+	id = "ERT_Supply_Pod";
+	name = "ERT Supply Pod Loading Zone";
+	pixel_x = 24;
+	pixel_y = 24;
+	req_access = list(114)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/specops)
 "jJS" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -20041,10 +20256,10 @@
 	height = 5;
 	id = "mining";
 	name = "mining shuttle";
+	port_direction = 4;
 	rebuildable = 1;
 	roundstart_move = "mining_home";
-	width = 7;
-	port_direction = 4
+	width = 7
 	},
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/shuttle{
@@ -20345,6 +20560,12 @@
 	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
+"jXp" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/three)
 "jXt" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -20556,6 +20777,15 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate_mothership/infteam)
+"kek" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/three)
 "keo" = (
 /turf/simulated/wall/indestructible/iron,
 /area/syndicate_mothership)
@@ -20848,11 +21078,11 @@
 	layer = 9
 	},
 /obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
 	teleport_x = 183;
 	teleport_y = 62;
-	teleport_z = 1;
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x2"
+	teleport_z = 1
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -20873,8 +21103,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "arrival";
-	dir = 10
+	dir = 10;
+	icon_state = "arrival"
 	},
 /area/centcom/evac)
 "kio" = (
@@ -20994,10 +21224,10 @@
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
+	name = "Quarantine Pulse Turret";
 	region_max = 12;
 	scan_range = 12;
-	shot_delay = 8;
-	name = "Quarantine Pulse Turret"
+	shot_delay = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -21262,8 +21492,8 @@
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_lvl4";
-	name = "Armory level 4";
-	layer = 5
+	layer = 5;
+	name = "Armory level 4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -21288,8 +21518,8 @@
 /area/syndicate_mothership/control)
 "kse" = (
 /obj/structure/window/reinforced{
-	layer = 3.1;
-	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
+	layer = 3.1
 	},
 /turf/simulated/floor/wood{
 	icon_state = "light-fancy-wood"
@@ -21513,11 +21743,11 @@
 	layer = 9
 	},
 /obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
 	teleport_x = 183;
 	teleport_y = 61;
-	teleport_z = 1;
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x2"
+	teleport_z = 1
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -21787,9 +22017,9 @@
 /area/syndicate_mothership/elite_squad)
 "kGN" = (
 /obj/structure/window/reinforced{
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	dir = 1;
-	layer = 2;
-	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
+	layer = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -22357,10 +22587,10 @@
 	height = 18;
 	id = "trade_sol";
 	name = "sol trade shuttle";
-	roundstart_move = "trade_sol_base";
-	width = 15;
 	port_direction = 2;
-	preferred_direction = 8
+	preferred_direction = 8;
+	roundstart_move = "trade_sol_base";
+	width = 15
 	},
 /obj/machinery/door/airlock/shuttle/glass{
 	id_tag = "s_docking_airlock"
@@ -22865,6 +23095,11 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
+"lbx" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/supplypod/loading/four)
 "lbH" = (
 /obj/effect/turf_decal/stripes/black{
 	do_not_delete_me = 1
@@ -22894,6 +23129,11 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/jail)
+"lbZ" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/supplypod/pod_storage)
 "lcq" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/simulated/floor/plasteel{
@@ -22959,8 +23199,8 @@
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 2;
 	id_tag = "ERT_armory_lvl3";
-	name = "Armory level 3";
-	layer = 5
+	layer = 5;
+	name = "Armory level 3"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -23115,8 +23355,8 @@
 /area/centcom/bridge)
 "lhS" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgreencorners";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreencorners"
 	},
 /area/centcom/specops)
 "lhU" = (
@@ -23325,8 +23565,8 @@
 "lmr" = (
 /obj/machinery/syndiepad/receivepad,
 /obj/machinery/conveyor/inverted{
-	id = "SFBQMLoad";
-	dir = 5
+	dir = 5;
+	id = "SFBQMLoad"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -23762,6 +24002,12 @@
 	tag = "icon-stage_stairs"
 	},
 /area/syndicate_mothership)
+"lwT" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/two)
 "lwX" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/south,
@@ -24034,6 +24280,19 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
+"lDl" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Supply Pods Load 2";
+	req_access = list(114)
+	},
+/obj/machinery/door/poddoor/shutters/invincible{
+	dir = 2;
+	id_tag = "CC_Supply_Pods"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/supply)
 "lDp" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Syndicate Base"
@@ -24157,6 +24416,11 @@
 	name = "floor"
 	},
 /area/syndicate_mothership/elite_squad)
+"lFA" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/two)
 "lFP" = (
 /obj/structure/sink{
 	dir = 4;
@@ -24654,8 +24918,8 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000;
-	anchored = 1
+	anchored = 1;
+	maximum_pressure = 50000
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -24769,8 +25033,8 @@
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_lvl2";
-	name = "Armory level 2";
-	layer = 5
+	layer = 5;
+	name = "Armory level 2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -25613,12 +25877,12 @@
 	name = "Ladder"
 	},
 /obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
+	mobs_only = 1;
 	teleport_x = 135;
 	teleport_y = 16;
-	teleport_z = 1;
-	mobs_only = 1;
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x2"
+	teleport_z = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -25646,8 +25910,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/rd,
 /obj/effect/mine/sound/bwoink{
-	layer = 2.9;
-	alpha = 0
+	alpha = 0;
+	layer = 2.9
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
@@ -25975,8 +26239,8 @@
 	id = "CC_toilet_unit2";
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
-	specialfunctions = 4;
-	pixel_x = 25
+	pixel_x = 25;
+	specialfunctions = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -26352,8 +26616,8 @@
 /obj/machinery/door_control/secure{
 	id = "CC_supply_internal2";
 	name = "Supply External Shutters";
-	req_access = list(114);
-	pixel_x = -24
+	pixel_x = -24;
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -26951,6 +27215,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/zone3)
+"mRm" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/one)
 "mRs" = (
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -27085,8 +27355,8 @@
 /area/centcom/bridge)
 "mUi" = (
 /obj/machinery/vending/wallmed{
-	pixel_y = -32;
-	pixel_x = -32
+	pixel_x = -32;
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowalt"
@@ -27485,19 +27755,19 @@
 /obj/effect/decal/remains,
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 100;
+	icon = 'icons/misc/beach.dmi';
 	icon_state = "seadeep";
-	layer = 9;
-	icon = 'icons/misc/beach.dmi'
+	layer = 9
 	},
 /obj/item/fish/goldfish{
-	pixel_y = 10;
-	pixel_x = 16
+	pixel_x = 16;
+	pixel_y = 10
 	},
 /obj/structure/window/reinforced/survival_pod{
+	density = 0;
 	dir = 5;
 	pixel_x = -32;
-	pixel_y = -32;
-	density = 0
+	pixel_y = -32
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/centcom/zone2)
@@ -27907,15 +28177,15 @@
 /area/syndicate_mothership/control)
 "njh" = (
 /obj/structure/window/reinforced{
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
 	dir = 1;
-	layer = 2;
-	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
+	layer = 2
 	},
 /obj/structure/window/reinforced/survival_pod{
+	density = 0;
 	dir = 9;
-	pixel_y = 1;
 	pixel_x = -1;
-	density = 0
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28123,6 +28393,11 @@
 "nnz" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/supply)
+"nnC" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/four)
 "nnM" = (
 /obj/machinery/recharge_station/ert,
 /obj/machinery/light{
@@ -28370,8 +28645,8 @@
 /area/centcom/specops)
 "nsV" = (
 /obj/machinery/conveyor_switch/oneway{
-	id = "SFBQMLoad2";
-	dir = 8
+	dir = 8;
+	id = "SFBQMLoad2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowcornersalt"
@@ -29110,11 +29385,11 @@
 /area/centcom/specops)
 "nIr" = (
 /obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
 	teleport_x = 216;
 	teleport_y = 26;
-	teleport_z = 1;
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x2"
+	teleport_z = 1
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -29375,6 +29650,11 @@
 	icon_state = "wood-broken6"
 	},
 /area/centcom/zone2)
+"nNQ" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/three)
 "nOe" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -29572,11 +29852,11 @@
 	layer = 9
 	},
 /obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
 	teleport_x = 175;
 	teleport_y = 60;
-	teleport_z = 1;
-	icon_state = "x2";
-	icon = 'icons/mob/screen_gen.dmi'
+	teleport_z = 1
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -29919,8 +30199,8 @@
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_lvl2";
-	name = "Armory level 2";
-	layer = 5
+	layer = 5;
+	name = "Armory level 2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -30290,8 +30570,8 @@
 	color = "red"
 	},
 /obj/machinery/conveyor{
-	id = "SFBQMLoad2";
-	dir = 1
+	dir = 1;
+	id = "SFBQMLoad2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -30360,8 +30640,8 @@
 "olk" = (
 /obj/machinery/syndiepad/loadpad,
 /obj/machinery/conveyor/inverted{
-	id = "SFBQMLoad2";
-	dir = 6
+	dir = 6;
+	id = "SFBQMLoad2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -30540,9 +30820,9 @@
 /area/syndicate_mothership)
 "opi" = (
 /obj/structure/closet/cardboard{
-	icon_state = "cardboard_cargo";
 	icon_closed = "cardboard_cargo";
-	icon_opened = "cardboard_cargo_open"
+	icon_opened = "cardboard_cargo_open";
+	icon_state = "cardboard_cargo"
 	},
 /mob/living/simple_animal/hostile/mimic{
 	faction = list("neutral");
@@ -30833,8 +31113,8 @@
 /area/shuttle/siberia)
 "ovI" = (
 /obj/structure/closet/acloset{
-	name = "Undercover officer's closet";
-	desc = "It's a basic storage unit."
+	desc = "It's a basic storage unit.";
+	name = "Undercover officer's closet"
 	},
 /obj/item/flashlight,
 /obj/item/encryptionkey/centcom,
@@ -31113,8 +31393,8 @@
 /area/syndicate_mothership/jail)
 "oDS" = (
 /obj/machinery/conveyor/inverted{
-	id = "CC_crate";
-	dir = 9
+	dir = 9;
+	id = "CC_crate"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -31194,8 +31474,8 @@
 "oFM" = (
 /obj/structure/chair/sofa/right,
 /obj/effect/mine/sound/bwoink{
-	layer = 2.9;
-	alpha = 0
+	alpha = 0;
+	layer = 2.9
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
@@ -31405,6 +31685,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
+"oKI" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/two)
 "oKN" = (
 /obj/item/flag/syndi,
 /obj/structure/curtain/black{
@@ -31457,9 +31746,9 @@
 /obj/machinery/door_control/secure{
 	id = "gamma shuttle";
 	name = "Gamma Armory Shutters";
-	req_access = list(114);
 	pixel_x = 24;
-	pixel_y = 26
+	pixel_y = 26;
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -31500,8 +31789,8 @@
 	},
 /obj/structure/table,
 /obj/machinery/computer/library/public{
-	pixel_y = 4;
-	pixel_x = 1
+	pixel_x = 1;
+	pixel_y = 4
 	},
 /obj/machinery/ai_status_display{
 	pixel_y = 32
@@ -31635,10 +31924,10 @@
 /area/syndicate_mothership/control)
 "oOK" = (
 /obj/structure/window/reinforced/survival_pod{
+	density = 0;
 	dir = 6;
-	pixel_y = -1;
 	pixel_x = 1;
-	density = 0
+	pixel_y = -1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -31690,6 +31979,12 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/jail)
+"oPk" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/four)
 "oPx" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -31860,8 +32155,8 @@
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 2;
 	id_tag = "ERT_armory_lvl3";
-	name = "Armory level 3";
-	layer = 5
+	layer = 5;
+	name = "Armory level 3"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -32133,6 +32428,12 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/evac)
+"paz" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/two)
 "pbe" = (
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/wood,
@@ -32293,8 +32594,8 @@
 	},
 /obj/docking_port/mobile/supply{
 	dir = 2;
-	preferred_direction = 8;
-	port_direction = 4
+	port_direction = 4;
+	preferred_direction = 8
 	},
 /turf/simulated/wall/shuttle,
 /area/shuttle/supply)
@@ -32331,6 +32632,15 @@
 	icon_state = "navyblue"
 	},
 /area/centcom/specops)
+"pgz" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkyellowalt"
+	},
+/area/centcom/supply)
 "phK" = (
 /obj/effect/decal/syndie_logo,
 /obj/effect/turf_decal/stripes/black{
@@ -32666,8 +32976,8 @@
 	dir = 4
 	},
 /obj/machinery/conveyor{
-	id = "O2";
-	dir = 1
+	dir = 1;
+	id = "O2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -32694,13 +33004,17 @@
 	dir = 4
 	},
 /obj/machinery/conveyor{
-	id = "O2";
-	dir = 1
+	dir = 1;
+	id = "O2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/centcom/supply)
+"psX" = (
+/obj/machinery/vending/ntcrates,
+/turf/simulated/floor/plating,
+/area/centcom/specops)
 "pte" = (
 /obj/structure/table/wood{
 	color = "#996633"
@@ -33206,9 +33520,9 @@
 	height = 12;
 	id = "ferry";
 	name = "ferry shuttle";
+	preferred_direction = 4;
 	roundstart_move = "ferry_away";
-	width = 5;
-	preferred_direction = 4
+	width = 5
 	},
 /obj/docking_port/stationary{
 	dir = 8;
@@ -33416,11 +33730,11 @@
 	layer = 9
 	},
 /obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
 	teleport_x = 175;
 	teleport_y = 61;
-	teleport_z = 1;
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x2"
+	teleport_z = 1
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -33575,6 +33889,15 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/jail)
+"pPo" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "navyblue"
+	},
+/area/centcom/supplypod/loading/ert)
 "pPN" = (
 /obj/effect/landmark/syndicate_commando{
 	tag = "Commando"
@@ -33723,8 +34046,8 @@
 "pST" = (
 /obj/machinery/syndiepad/loadpad,
 /obj/machinery/conveyor{
-	id = "SFBQMLoad2";
-	dir = 8
+	dir = 8;
+	id = "SFBQMLoad2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -34041,6 +34364,12 @@
 /obj/structure/window/full/shuttle/ninja,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
+"pYT" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/four)
 "pYZ" = (
 /obj/structure/curtain/open/shower/security{
 	pixel_x = 32
@@ -34086,8 +34415,8 @@
 	name = "centcom bay 3";
 	top_left_corner = 8;
 	top_right_corner = 1;
-	width = 5;
-	turf_type = /turf/simulated/floor/plating/airless
+	turf_type = /turf/simulated/floor/plating/airless;
+	width = 5
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/specops)
@@ -34399,8 +34728,8 @@
 	dir = 4
 	},
 /obj/machinery/conveyor{
-	id = "N2O";
-	dir = 1
+	dir = 1;
+	id = "N2O"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -34459,8 +34788,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/qm,
 /obj/effect/mine/sound/bwoink{
-	layer = 2.9;
-	alpha = 0
+	alpha = 0;
+	layer = 2.9
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/zone1)
@@ -34475,9 +34804,9 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/poddoor/shutters/preopen/invincible{
+	dir = 2;
 	id_tag = "ERT_armory_lvl1";
-	name = "Armory level 1";
-	dir = 2
+	name = "Armory level 1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -34655,6 +34984,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
+"qoL" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/four)
 "qoS" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/effect/turf_decal/stripes/black{
@@ -34948,6 +35283,15 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/gamma)
+"qtl" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/four)
 "qto" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -34983,8 +35327,8 @@
 "quA" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/conveyor{
-	id = "CO2";
-	dir = 1
+	dir = 1;
+	id = "CO2"
 	},
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide{
 	maximum_pressure = 50000
@@ -35167,6 +35511,12 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/nt_droppod)
+"qAI" = (
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/one)
 "qAL" = (
 /obj/structure/rack/holorack,
 /obj/item/clothing/under/assistantformal,
@@ -36587,6 +36937,12 @@
 /obj/structure/AIcore,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
+"rdz" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "navyblue"
+	},
+/area/centcom/supplypod/loading/ert)
 "rdZ" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -36796,9 +37152,9 @@
 "riy" = (
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 85;
+	icon = 'icons/misc/beach.dmi';
 	icon_state = "seadeep";
-	layer = 9;
-	icon = 'icons/misc/beach.dmi'
+	layer = 9
 	},
 /obj/structure/window/reinforced{
 	dir = 4;
@@ -36806,10 +37162,10 @@
 	},
 /obj/structure/flora/rock/pile,
 /obj/structure/window/reinforced/survival_pod{
+	density = 0;
 	dir = 6;
-	pixel_y = -7;
 	pixel_x = 1;
-	density = 0
+	pixel_y = -7
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/centcom/specops)
@@ -37746,11 +38102,11 @@
 /area/syndicate_mothership/elite_squad)
 "rFY" = (
 /obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
 	teleport_x = 205;
 	teleport_y = 89;
-	teleport_z = 1;
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x2"
+	teleport_z = 1
 	},
 /turf/space,
 /area/space)
@@ -37984,16 +38340,16 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external,
 /obj/docking_port/mobile{
+	alone_shuttle = 1;
 	dir = 8;
 	dwidth = 2;
 	height = 7;
 	id = "funeral";
 	name = "Funeral shuttle";
-	roundstart_move = "graveyard_dock";
-	alone_shuttle = 1;
-	width = 10;
 	port_direction = 8;
-	preferred_direction = 2
+	preferred_direction = 2;
+	roundstart_move = "graveyard_dock";
+	width = 10
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/funeral)
@@ -38052,7 +38408,7 @@
 /turf/simulated/floor/carpet/red,
 /area/centcom/bridge)
 "rLk" = (
-/obj/machinery/computer/borgupload,
+/obj/machinery/computer/aiupload/cyborg,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -38081,8 +38437,8 @@
 	icon_state = "tile_full"
 	},
 /obj/structure/railing{
-	layer = 4.3;
-	density = 0
+	density = 0;
+	layer = 4.3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -38141,8 +38497,8 @@
 	dir = 4
 	},
 /obj/machinery/conveyor{
-	id = "N2";
-	dir = 1
+	dir = 1;
+	id = "N2"
 	},
 /obj/machinery/portable_atmospherics/canister/nitrogen{
 	maximum_pressure = 50000
@@ -38726,6 +39082,19 @@
 /obj/structure/window/full/shuttle/gray,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate)
+"saq" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Supply Pods Load 1";
+	req_access = list(114)
+	},
+/obj/machinery/door/poddoor/shutters/invincible{
+	dir = 2;
+	id_tag = "CC_Supply_Pods"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/supply)
 "sas" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -38939,9 +39308,9 @@
 /obj/structure/flora/ausbushes/stalkybush,
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 85;
+	icon = 'icons/misc/beach.dmi';
 	icon_state = "seadeep";
-	layer = 9;
-	icon = 'icons/misc/beach.dmi'
+	layer = 9
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/centcom/specops)
@@ -38988,8 +39357,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/conveyor{
-	id = "Toxin";
-	dir = 1
+	dir = 1;
+	id = "Toxin"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -39026,9 +39395,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 85;
+	icon = 'icons/misc/beach.dmi';
 	icon_state = "seadeep";
-	layer = 9;
-	icon = 'icons/misc/beach.dmi'
+	layer = 9
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/centcom/specops)
@@ -39395,6 +39764,15 @@
 	icon_state = "grimy"
 	},
 /area/centcom/zone1)
+"srJ" = (
+/obj/machinery/light{
+	dir = 4;
+	switchcount = 50
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/specops)
 "sse" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo11"
@@ -39918,10 +40296,10 @@
 /obj/structure/fans/tiny,
 /obj/effect/decal/warning_stripes/white,
 /obj/machinery/door/airlock/external{
+	hackProof = 1;
 	id_tag = "supply_away";
 	name = "Central Command Supply";
-	req_access = list(31);
-	hackProof = 1
+	req_access = list(31)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -40014,8 +40392,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/clown,
 /obj/effect/mine/sound/bwoink{
-	layer = 2.9;
-	alpha = 0
+	alpha = 0;
+	layer = 2.9
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
@@ -40061,10 +40439,30 @@
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/ninja)
+"sIz" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/specops)
 "sIC" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet,
 /area/centcom/evac)
+"sIQ" = (
+/obj/machinery/door_control/secure{
+	id = "CC_Supply_Pods";
+	name = "Supply Pods Load";
+	pixel_y = -24;
+	req_access = list(114)
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellowalt"
+	},
+/area/centcom/supply)
 "sIY" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo13"
@@ -40576,6 +40974,19 @@
 /obj/item/reagent_containers/food/snacks/sliceable/birthdaycake,
 /turf/simulated/floor/wood,
 /area/centcom/specops)
+"sVB" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Supply Pods Load 4";
+	req_access = list(114)
+	},
+/obj/machinery/door/poddoor/shutters/invincible{
+	dir = 2;
+	id_tag = "CC_Supply_Pods"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/supply)
 "sVH" = (
 /obj/machinery/vending/robotics/nt/gygax,
 /turf/simulated/floor/plasteel{
@@ -40726,76 +41137,76 @@
 "sYS" = (
 /obj/structure/table/reinforced,
 /obj/item/radio{
+	icon_state = "walkietalkie_sec";
 	pixel_x = -4;
-	pixel_y = 5;
-	icon_state = "walkietalkie_sec"
+	pixel_y = 5
 	},
 /obj/item/radio{
+	icon_state = "walkietalkie_sec";
 	pixel_x = -4;
-	pixel_y = 5;
-	icon_state = "walkietalkie_sec"
+	pixel_y = 5
 	},
 /obj/item/radio{
+	icon_state = "walkietalkie_sec";
 	pixel_x = -4;
-	pixel_y = 5;
-	icon_state = "walkietalkie_sec"
+	pixel_y = 5
 	},
 /obj/item/radio{
+	icon_state = "walkietalkie_sec";
 	pixel_x = -4;
-	pixel_y = 5;
-	icon_state = "walkietalkie_sec"
+	pixel_y = 5
 	},
 /obj/item/radio{
+	icon_state = "walkietalkie_sec";
 	pixel_x = 4;
-	pixel_y = 5;
-	icon_state = "walkietalkie_sec"
+	pixel_y = 5
 	},
 /obj/item/radio{
+	icon_state = "walkietalkie_sec";
 	pixel_x = 4;
-	pixel_y = 5;
-	icon_state = "walkietalkie_sec"
+	pixel_y = 5
 	},
 /obj/item/radio{
+	icon_state = "walkietalkie_sec";
 	pixel_x = 4;
-	pixel_y = 5;
-	icon_state = "walkietalkie_sec"
+	pixel_y = 5
 	},
 /obj/item/radio{
+	icon_state = "walkietalkie_sec";
 	pixel_x = 4;
-	pixel_y = 5;
-	icon_state = "walkietalkie_sec"
+	pixel_y = 5
 	},
 /obj/item/radio{
-	pixel_x = -4;
-	icon_state = "walkietalkie_sec"
+	icon_state = "walkietalkie_sec";
+	pixel_x = -4
 	},
 /obj/item/radio{
-	pixel_x = -4;
-	icon_state = "walkietalkie_sec"
+	icon_state = "walkietalkie_sec";
+	pixel_x = -4
 	},
 /obj/item/radio{
-	pixel_x = -4;
-	icon_state = "walkietalkie_sec"
+	icon_state = "walkietalkie_sec";
+	pixel_x = -4
 	},
 /obj/item/radio{
-	pixel_x = -4;
-	icon_state = "walkietalkie_sec"
+	icon_state = "walkietalkie_sec";
+	pixel_x = -4
 	},
 /obj/item/radio{
-	pixel_x = 4;
-	icon_state = "walkietalkie_sec"
+	icon_state = "walkietalkie_sec";
+	pixel_x = 4
 	},
 /obj/item/radio{
-	pixel_x = 4;
-	icon_state = "walkietalkie_sec"
+	icon_state = "walkietalkie_sec";
+	pixel_x = 4
 	},
 /obj/item/radio{
-	pixel_x = 4;
-	icon_state = "walkietalkie_sec"
+	icon_state = "walkietalkie_sec";
+	pixel_x = 4
 	},
 /obj/item/radio{
-	pixel_x = 4;
-	icon_state = "walkietalkie_sec"
+	icon_state = "walkietalkie_sec";
+	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "navyblue"
@@ -40858,6 +41269,11 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"sZK" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/supplypod/loading/ert)
 "sZP" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -41188,6 +41604,12 @@
 	icon_state = "white"
 	},
 /area/centcom/zone1)
+"thd" = (
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/four)
 "thl" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop{
@@ -41251,8 +41673,8 @@
 /area/shuttle/syndicate_sit)
 "tjx" = (
 /obj/machinery/conveyor/inverted{
-	id = "SFBQMLoad";
-	dir = 5
+	dir = 5;
+	id = "SFBQMLoad"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -41344,8 +41766,8 @@
 	dir = 4
 	},
 /obj/machinery/conveyor{
-	id = "N2O";
-	dir = 1
+	dir = 1;
+	id = "N2O"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -41932,18 +42354,18 @@
 	pixel_y = -4
 	},
 /obj/item/paper{
-	pixel_x = 9;
-	info = "Обед через час, работа через вчера"
+	info = "Обед через час, работа через вчера";
+	pixel_x = 9
 	},
 /obj/item/paper{
-	pixel_y = -9;
+	info = "Пофиксить в моем кабинете рантайм трубы в трубе... опять";
 	pixel_x = 7;
-	info = "Пофиксить в моем кабинете рантайм трубы в трубе... опять"
+	pixel_y = -9
 	},
 /obj/item/paper{
-	pixel_y = -6;
+	info = "Начать делать очередную новую станцию и сгореть на втором часу работы в самокопании";
 	pixel_x = -5;
-	info = "Начать делать очередную новую станцию и сгореть на втором часу работы в самокопании"
+	pixel_y = -6
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -42106,8 +42528,8 @@
 /area/syndicate_mothership/infteam)
 "tBG" = (
 /obj/machinery/conveyor{
-	id = "CC_crate";
-	dir = 4
+	dir = 4;
+	id = "CC_crate"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -42243,11 +42665,11 @@
 	name = "Ladder"
 	},
 /obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
 	teleport_x = 203;
 	teleport_y = 41;
-	teleport_z = 1;
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x2"
+	teleport_z = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -42409,6 +42831,13 @@
 	icon_state = "darkfull"
 	},
 /area/centcom/specops)
+"tHL" = (
+/obj/machinery/door/poddoor/shutters/invincible{
+	dir = 2;
+	id_tag = "ShitRainSupply"
+	},
+/turf/simulated/floor/plating,
+/area/centcom/specops)
 "tHM" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
@@ -42437,6 +42866,17 @@
 	},
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/ninja)
+"tIk" = (
+/obj/machinery/door/poddoor/shutters/invincible{
+	dir = 2;
+	id_tag = "ERT_Supply_Pod"
+	},
+/obj/machinery/door/airlock/centcom{
+	name = "ERT Supply Pod Loading Zone";
+	req_access = list(114)
+	},
+/turf/simulated/floor/plating,
+/area/centcom/specops)
 "tIn" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood{
@@ -42539,7 +42979,7 @@
 /area/syndicate_mothership/control)
 "tKn" = (
 /obj/structure/rack,
-/obj/item/aiModule/syndicate,
+/obj/item/ai_module/syndicate,
 /obj/item/multitool/ai_detect,
 /obj/item/jammer,
 /turf/simulated/floor/shuttle/objective_check/vox,
@@ -43595,8 +44035,8 @@
 /area/centcom/zone3)
 "ulG" = (
 /obj/structure/railing{
-	layer = 4.3;
-	density = 0
+	density = 0;
+	layer = 4.3
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -44300,6 +44740,12 @@
 "uAd" = (
 /turf/simulated/wall/indestructible/iron,
 /area/syndicate_mothership/outside)
+"uAg" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "navyblue"
+	},
+/area/centcom/supplypod/loading/ert)
 "uAh" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -44511,8 +44957,8 @@
 	icon_state = "tile_full"
 	},
 /obj/structure/railing{
-	pixel_y = 32;
-	density = 0
+	density = 0;
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -44919,8 +45365,8 @@
 /area/centcom/zone1)
 "uMD" = (
 /obj/machinery/conveyor{
-	id = "SFBQMLoad";
-	dir = 6
+	dir = 6;
+	id = "SFBQMLoad"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -45016,8 +45462,8 @@
 /area/centcom/zone1)
 "uNG" = (
 /obj/machinery/conveyor{
-	id = "SFBQMLoad2";
-	dir = 1
+	dir = 1;
+	id = "SFBQMLoad2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -45033,9 +45479,9 @@
 /obj/item/ship_in_a_bottle,
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 100;
+	icon = 'icons/misc/beach.dmi';
 	icon_state = "seadeep";
-	layer = 9;
-	icon = 'icons/misc/beach.dmi'
+	layer = 9
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/sand_floor,
 /area/centcom/zone2)
@@ -45155,8 +45601,8 @@
 /area/shuttle/vox)
 "uRC" = (
 /obj/structure/falsewall/reinforced{
-	req_access = list(114);
-	layer = 5
+	layer = 5;
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -45612,6 +46058,15 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"vdy" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/two)
 "vdH" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/dirt,
@@ -45887,6 +46342,11 @@
 	icon_state = "fancy-wood-cherry"
 	},
 /area/shuttle/trade/sol)
+"vjb" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/supplypod/supplypod_temp_holding)
 "vjo" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 1
@@ -45912,10 +46372,10 @@
 /obj/docking_port/stationary{
 	dwidth = 3;
 	height = 7;
-	name = "Emerjency droppod dock";
 	id = "shit_rain_base";
-	width = 7;
-	pixel_y = -32
+	name = "Emerjency droppod dock";
+	pixel_y = -32;
+	width = 7
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/nt_droppod)
@@ -45988,8 +46448,8 @@
 /area/syndicate_mothership/jail)
 "vng" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkyellowcorners";
-	dir = 1
+	dir = 1;
+	icon_state = "darkyellowcorners"
 	},
 /area/centcom/specops)
 "vnv" = (
@@ -46074,11 +46534,17 @@
 /obj/structure/bed,
 /obj/item/bedsheet/mime,
 /obj/effect/mine/sound/bwoink{
-	layer = 2.9;
-	alpha = 0
+	alpha = 0;
+	layer = 2.9
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
+"voW" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/four)
 "vpg" = (
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -46352,8 +46818,8 @@
 	pixel_y = -1
 	},
 /obj/structure/window/reinforced{
-	layer = 3.1;
-	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
+	armor = list("melee"=100,"bullet"=100,"laser"=0,"energy"=0,"bomb"=25,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
+	layer = 3.1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -46768,10 +47234,10 @@
 /area/syndicate_mothership)
 "vGX" = (
 /obj/item/flashlight/lamp/green{
-	pixel_x = -6;
-	pixel_y = 16;
+	icon = 'icons/obj/library.dmi';
 	icon_state = "bigscenner";
-	icon = 'icons/obj/library.dmi'
+	pixel_x = -6;
+	pixel_y = 16
 	},
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = -2;
@@ -46811,10 +47277,12 @@
 	},
 /area/syndicate_mothership)
 "vHF" = (
-/obj/machinery/door/poddoor/shutters/invincible{
-	id_tag = "ShitRainSupply"
+/obj/machinery/door/airlock/centcom{
+	name = "ERT Supply Pods"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
 /area/centcom/specops)
 "vHT" = (
 /obj/effect/turf_decal/delivery,
@@ -46843,8 +47311,8 @@
 /area/shuttle/vox)
 "vIU" = (
 /obj/structure/falsewall/reinforced{
-	req_access = list(114);
-	layer = 2.9
+	layer = 2.9;
+	req_access = list(114)
 	},
 /obj/effect/mine/sound/bwoink{
 	invisibility = 1;
@@ -47417,6 +47885,12 @@
 	icon_state = "grimy"
 	},
 /area/centcom/jail)
+"vUp" = (
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/three)
 "vUy" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/airlock/gold/glass{
@@ -47625,6 +48099,12 @@
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
+"vZp" = (
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/two)
 "vZr" = (
 /obj/machinery/light,
 /obj/structure/chair/comfy/shuttle{
@@ -47764,12 +48244,12 @@
 	name = "Ladder"
 	},
 /obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
+	mobs_only = 1;
 	teleport_x = 135;
 	teleport_y = 16;
-	teleport_z = 1;
-	mobs_only = 1;
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x2"
+	teleport_z = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -48633,39 +49113,39 @@
 	color = "#ff9999";
 	id = "ERT_armory_lvl3";
 	name = "ERT Armory Level 3";
-	req_access = list(114);
 	pixel_x = -6;
-	pixel_y = 8
+	pixel_y = 8;
+	req_access = list(114)
 	},
 /obj/machinery/door_control/secure{
 	color = "#99ff99";
 	id = "ERT_armory_lvl1";
 	name = "ERT Armory Level 1";
-	req_access = list(114);
 	pixel_x = -6;
-	pixel_y = -8
+	pixel_y = -8;
+	req_access = list(114)
 	},
 /obj/machinery/door_control/secure{
 	color = "#9999ff";
 	id = "ERT_armory_lvl2";
 	name = "ERT Armory Level 2";
-	req_access = list(114);
-	pixel_x = -6
+	pixel_x = -6;
+	req_access = list(114)
 	},
 /obj/machinery/door_control{
 	id = "ERT_Quarantine";
 	name = "ERT Quarantine";
-	req_access = list(114);
+	pixel_x = 6;
 	pixel_y = 6;
-	pixel_x = 6
+	req_access = list(114)
 	},
 /obj/machinery/door_control/secure{
 	color = "#ffdd99";
 	id = "ERT_armory_lvl4";
 	name = "ERT Armory Level 4";
-	req_access = list(114);
 	pixel_x = 6;
-	pixel_y = -14
+	pixel_y = -14;
+	req_access = list(114)
 	},
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -48817,6 +49297,15 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
+"wEu" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/one)
 "wEF" = (
 /obj/structure/grille,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -48921,6 +49410,12 @@
 	icon_state = "darkred"
 	},
 /area/shuttle/escape)
+"wJm" = (
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "navyblue"
+	},
+/area/centcom/supplypod/loading/ert)
 "wJo" = (
 /obj/machinery/door_control/secure{
 	id = "ERT_Drop";
@@ -49135,6 +49630,12 @@
 	icon_state = "darkfull"
 	},
 /area/centcom/specops)
+"wPe" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkyellow"
+	},
+/area/centcom/supplypod/loading/one)
 "wPq" = (
 /obj/structure/noticeboard{
 	pixel_x = -32
@@ -49316,6 +49817,19 @@
 /obj/item/storage/belt/fannypack/black,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
+"wTC" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Supply Pods Load 3";
+	req_access = list(114)
+	},
+/obj/machinery/door/poddoor/shutters/invincible{
+	dir = 2;
+	id_tag = "CC_Supply_Pods"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/centcom/supply)
 "wTK" = (
 /turf/simulated/floor/shuttle/objective_check{
 	dir = 5;
@@ -49681,10 +50195,10 @@
 	height = 10;
 	id = "ombra";
 	name = "Spider Clan Ombra";
-	roundstart_move = "ombra_home";
-	width = 21;
 	port_direction = 2;
-	preferred_direction = 2
+	preferred_direction = 2;
+	roundstart_move = "ombra_home";
+	width = 21
 	},
 /obj/structure/fans/tiny/invisible,
 /obj/docking_port/stationary{
@@ -49775,9 +50289,9 @@
 	height = 22;
 	id = "syndicate";
 	name = "syndicate shuttle";
+	port_direction = 2;
 	roundstart_move = "syndicate_away";
-	width = 18;
-	port_direction = 2
+	width = 18
 	},
 /obj/structure/lattice/catwalk,
 /obj/docking_port/stationary{
@@ -50186,8 +50700,8 @@
 	dir = 4
 	},
 /obj/machinery/conveyor{
-	id = "Air";
-	dir = 1
+	dir = 1;
+	id = "Air"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -50232,10 +50746,10 @@
 	color = "#666666";
 	damtype = "burn";
 	health = 1250;
+	name = "Quarantine Pulse Turret";
 	region_max = 12;
 	scan_range = 12;
-	shot_delay = 8;
-	name = "Quarantine Pulse Turret"
+	shot_delay = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -50507,17 +51021,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/cargo)
-"xqF" = (
-/obj/machinery/door_control/secure{
-	id = "ShitRainSupply";
-	pixel_x = -24;
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "navybluealt"
-	},
-/area/centcom/specops)
 "xqM" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon{
@@ -50937,8 +51440,8 @@
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_lvl4";
-	name = "Armory level 4";
-	layer = 5
+	layer = 5;
+	name = "Armory level 4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -51028,8 +51531,8 @@
 "xCr" = (
 /obj/structure/bookcase,
 /obj/item/paper{
-	name = "Главный строить мужик репорт";
-	info = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1168235730171080704/image.png?width=1919&height=824\"></center>"
+	info = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1168235730171080704/image.png?width=1919&height=824\"></center>";
+	name = "Главный строить мужик репорт"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
@@ -51525,8 +52028,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/qm,
 /obj/effect/mine/sound/bwoink{
-	layer = 2.9;
-	alpha = 0
+	alpha = 0;
+	layer = 2.9
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
@@ -51680,8 +52183,8 @@
 /area/centcom/evac)
 "xSg" = (
 /obj/structure/falsewall/reinforced{
-	req_access = list(114);
-	layer = 5
+	layer = 5;
+	req_access = list(114)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -51699,8 +52202,8 @@
 	id = "CC_toilet_unit1";
 	name = "Door Bolt Control";
 	normaldoorcontrol = 1;
-	specialfunctions = 4;
-	pixel_x = 25
+	pixel_x = 25;
+	specialfunctions = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -52142,6 +52645,12 @@
 	icon_state = "dark"
 	},
 /area/centcom/evac)
+"yhG" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "navyblue"
+	},
+/area/centcom/supplypod/loading/ert)
 "yhH" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet,
@@ -85678,15 +86187,15 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+nAN
+nAN
+nAN
+nAN
+nAN
+nAN
+nAN
+nAN
+nAN
 mVX
 mVX
 mVX
@@ -85935,15 +86444,15 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+nAN
+wJm
+yhG
+pPo
+yhG
+aHe
+nAN
+sIz
+nAN
 mVX
 mVX
 mVX
@@ -86192,15 +86701,15 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+nAN
+rdz
+sZK
+sZK
+sZK
+eDu
+nAN
+bBe
+nAN
 jMD
 mVX
 mVX
@@ -86449,15 +86958,15 @@ mVX
 mVX
 mVX
 jMD
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+nAN
+rdz
+sZK
+sZK
+sZK
+eDu
+tIk
+jJD
+nAN
 jMD
 mVX
 mVX
@@ -86706,15 +87215,15 @@ mVX
 mVX
 mVX
 jMD
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+nAN
+gxu
+uAg
+jCl
+uAg
+aYk
+nAN
+bBe
+nAN
 jMD
 mVX
 mVX
@@ -86963,15 +87472,15 @@ mVX
 mVX
 mVX
 jMD
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+nAN
+nAN
+nAN
+nAN
+nAN
+nAN
+nAN
+bBe
+nAN
 jMD
 mVX
 mVX
@@ -87225,9 +87734,9 @@ nAN
 nAN
 nAN
 nAN
-nAN
-nAN
-nAN
+psX
+tHL
+fJp
 nAN
 nAN
 nAN
@@ -87484,7 +87993,7 @@ nAN
 nAN
 nAN
 nAN
-nAN
+srJ
 bBe
 aoW
 nIr
@@ -87999,7 +88508,7 @@ iXI
 wiU
 wiU
 kmM
-xqF
+aPL
 qap
 kpi
 kpi
@@ -108814,8 +109323,8 @@ bbq
 mVX
 afP
 dlT
-yeh
-tgA
+aDR
+jHX
 hAX
 gFx
 aLo
@@ -109070,9 +109579,9 @@ mVX
 mVX
 mVX
 afP
-ecV
-ecV
-ecV
+pgz
+aDR
+sIQ
 afP
 afP
 afP
@@ -109326,17 +109835,17 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ecV
+dZk
+aDR
+xhN
+afP
+qAI
+aiB
+dTt
+aiB
+dtp
+afP
 mVX
 nAN
 lRD
@@ -109583,17 +110092,17 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ecV
+dZk
+aDR
+xhN
+afP
+htF
+aeQ
+aeQ
+aeQ
+bIN
+afP
 mVX
 mVX
 rFY
@@ -109840,6 +110349,17 @@ mVX
 mVX
 mVX
 mVX
+ecV
+dZk
+aDR
+jHX
+saq
+htF
+aeQ
+aeQ
+aeQ
+bIN
+afP
 mVX
 mVX
 mVX
@@ -109847,21 +110367,10 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+nAN
+lbZ
+lbZ
+lbZ
 nAN
 nAN
 nAN
@@ -110097,6 +110606,17 @@ mVX
 mVX
 mVX
 mVX
+ecV
+dZk
+aDR
+xhN
+afP
+bEA
+mRm
+wEu
+mRm
+wPe
+afP
 mVX
 mVX
 mVX
@@ -110104,22 +110624,11 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+nAN
+lbZ
+lbZ
+lbZ
+nAN
 mVX
 mVX
 mVX
@@ -110354,6 +110863,17 @@ mVX
 mVX
 mVX
 mVX
+afP
+pgz
+aDR
+iRY
+afP
+afP
+afP
+afP
+afP
+afP
+afP
 mVX
 mVX
 mVX
@@ -110361,22 +110881,11 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+nAN
+lbZ
+lbZ
+lbZ
+nAN
 mVX
 mVX
 mVX
@@ -110611,6 +111120,17 @@ mVX
 mVX
 mVX
 mVX
+ecV
+dZk
+aDR
+xhN
+afP
+vZp
+lwT
+oKI
+lwT
+gYf
+afP
 mVX
 mVX
 mVX
@@ -110618,22 +111138,11 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+nAN
+nAN
+nAN
+nAN
+nAN
 mVX
 mVX
 mVX
@@ -110868,6 +111377,17 @@ mVX
 mVX
 mVX
 mVX
+ecV
+dZk
+aDR
+xhN
+afP
+paz
+ilJ
+ilJ
+ilJ
+lFA
+afP
 mVX
 mVX
 mVX
@@ -110875,22 +111395,11 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+nAN
+vjb
+vjb
+vjb
+nAN
 mVX
 mVX
 mVX
@@ -111125,6 +111634,17 @@ mVX
 mVX
 mVX
 mVX
+ecV
+dZk
+aDR
+jHX
+lDl
+paz
+ilJ
+ilJ
+ilJ
+lFA
+afP
 mVX
 mVX
 mVX
@@ -111132,22 +111652,11 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+nAN
+vjb
+vjb
+vjb
+nAN
 mVX
 mVX
 mVX
@@ -111382,6 +111891,17 @@ mVX
 mVX
 mVX
 mVX
+ecV
+dZk
+aDR
+xhN
+afP
+jfm
+hQZ
+vdy
+hQZ
+bRZ
+afP
 mVX
 mVX
 mVX
@@ -111389,22 +111909,11 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+nAN
+vjb
+vjb
+vjb
+nAN
 mVX
 mVX
 mVX
@@ -111639,6 +112148,17 @@ mVX
 mVX
 mVX
 mVX
+afP
+pgz
+aDR
+iRY
+afP
+afP
+afP
+afP
+afP
+afP
+afP
 mVX
 mVX
 mVX
@@ -111646,22 +112166,11 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+nAN
+nAN
+nAN
+nAN
+nAN
 mVX
 mVX
 mVX
@@ -111896,17 +112405,17 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ecV
+dZk
+aDR
+xhN
+afP
+gDh
+jXp
+kek
+jXp
+hsP
+afP
 mVX
 mVX
 mVX
@@ -112153,17 +112662,17 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ecV
+dZk
+aDR
+xhN
+afP
+iuR
+hLb
+hLb
+hLb
+nNQ
+afP
 mVX
 mVX
 mVX
@@ -112410,17 +112919,17 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ecV
+dZk
+aDR
+jHX
+wTC
+iuR
+hLb
+hLb
+hLb
+nNQ
+afP
 mVX
 mVX
 mVX
@@ -112667,17 +113176,17 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ecV
+dZk
+aDR
+xhN
+afP
+vUp
+gIp
+cAU
+gIp
+eZq
+afP
 mVX
 mVX
 mVX
@@ -112924,17 +113433,17 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+afP
+pgz
+aDR
+iRY
+afP
+afP
+afP
+afP
+afP
+afP
+afP
 mVX
 mVX
 mVX
@@ -113181,17 +113690,17 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ecV
+dZk
+aDR
+xhN
+afP
+thd
+voW
+eGx
+voW
+cJx
+afP
 mVX
 mVX
 mVX
@@ -113438,17 +113947,17 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ecV
+dZk
+aDR
+xhN
+afP
+qoL
+lbx
+lbx
+lbx
+nnC
+afP
 mVX
 mVX
 mVX
@@ -113695,17 +114204,17 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ecV
+dZk
+aDR
+jHX
+sVB
+qoL
+lbx
+lbx
+lbx
+nnC
+afP
 mVX
 mVX
 mVX
@@ -113952,17 +114461,17 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+ecV
+fRi
+yeh
+aOM
+afP
+czW
+oPk
+qtl
+oPk
+pYT
+afP
 mVX
 mVX
 mVX
@@ -114209,17 +114718,17 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+afP
+ecV
+ecV
+ecV
+afP
+afP
+afP
+afP
+afP
+afP
+afP
 mVX
 mVX
 mVX

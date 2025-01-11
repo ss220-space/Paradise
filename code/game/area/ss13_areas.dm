@@ -31,6 +31,7 @@ This applies to all STANDARD station areas
 	base_lighting_alpha = 255
 	hide_attacklogs = TRUE
 	has_gravity = STANDARD_GRAVITY
+	area_flags = NONE
 
 
 /area/adminconstruction
@@ -42,6 +43,7 @@ This applies to all STANDARD station areas
 	base_lighting_alpha = 255
 	hide_attacklogs = TRUE
 	has_gravity = STANDARD_GRAVITY
+	area_flags = NONE
 
 /area/space
 	icon_state = "space"
@@ -102,6 +104,7 @@ This applies to all STANDARD station areas
 
 /area/shuttle/auxillary_base
 	icon_state = "shuttle"
+	area_flags = NONE
 
 /area/shuttle/escape
 	name = "Emergency Shuttle"
@@ -195,11 +198,13 @@ This applies to all STANDARD station areas
 	icon_state = "shuttle"
 	name = "Alien Shuttle Base"
 	requires_power = 1
+	area_flags = NONE
 
 /area/shuttle/alien/mine
 	icon_state = "shuttle"
 	name = "Alien Shuttle Mine"
 	requires_power = 1
+	area_flags = NONE
 
 /area/shuttle/gamma
 	icon_state = "shuttle"
@@ -221,6 +226,8 @@ This applies to all STANDARD station areas
 /area/shuttle/specops
 	name = "Special Ops Shuttle"
 	icon_state = "shuttlered"
+	parallax_movedir = EAST
+	area_flags = NONE
 
 /area/shuttle/specops/centcom
 	name = "Special Ops Shuttle"
@@ -234,6 +241,8 @@ This applies to all STANDARD station areas
 	name = "Syndicate Elite Shuttle"
 	icon_state = "shuttlered"
 	nad_allowed = TRUE
+	parallax_movedir = SOUTH
+	area_flags = NONE
 
 /area/shuttle/syndicate_elite/mothership
 	name = "Syndicate Elite Shuttle"
@@ -247,6 +256,8 @@ This applies to all STANDARD station areas
 	name = "Syndicate SIT Shuttle"
 	icon_state = "shuttlered"
 	nad_allowed = TRUE
+	parallax_movedir = SOUTH
+	area_flags = NONE
 
 /area/shuttle/assault_pod
 	name = "Steel Rain"
@@ -259,6 +270,8 @@ This applies to all STANDARD station areas
 /area/shuttle/administration
 	name = "Nanotrasen Vessel"
 	icon_state = "shuttlered"
+	parallax_movedir = WEST
+	area_flags = NONE
 
 /area/shuttle/administration/centcom
 	name = "Nanotrasen Vessel Centcom"
@@ -270,6 +283,7 @@ This applies to all STANDARD station areas
 
 /area/shuttle/thunderdome
 	name = "honk"
+	area_flags = NONE
 
 /area/shuttle/thunderdome/grnshuttle
 	name = "Thunderdome GRN Shuttle"
@@ -309,6 +323,7 @@ This applies to all STANDARD station areas
 /area/shuttle/vox
 	name = "Vox Skipjack"
 	icon_state = "shuttle"
+	area_flags = NONE
 
 /area/shuttle/vox/station
 	name = "Vox Skipjack"
@@ -317,6 +332,7 @@ This applies to all STANDARD station areas
 /area/shuttle/salvage
 	name = "Salvage Ship"
 	icon_state = "yellow"
+	area_flags = NONE
 
 /area/shuttle/salvage/start
 	name = "Middle of Nowhere"
@@ -373,27 +389,33 @@ This applies to all STANDARD station areas
 /area/shuttle/supply
 	name = "Supply Shuttle"
 	icon_state = "shuttle3"
+	area_flags = NONE
 
 /area/shuttle/ussp
 	name = "USSP Shuttle"
 	icon_state = "shuttle3"
+	area_flags = NONE
 
 /area/shuttle/spacebar
 	name = "Space Bar Shuttle"
 	icon_state = "shuttle3"
+	area_flags = NONE
 
 /area/shuttle/abandoned
 	name = "Abandoned Ship"
 	icon_state = "shuttle"
+	area_flags = NONE
 
 /area/shuttle/syndicate
 	name = "Syndicate Nuclear Team Shuttle"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
+	area_flags = NONE
 
 /area/shuttle/trade
 	name = "Trade Shuttle"
 	icon_state = "shuttle"
+	area_flags = NONE
 
 /area/shuttle/trade/sol
 	name = "Sol Freighter"
@@ -406,6 +428,7 @@ This applies to all STANDARD station areas
 /area/shuttle/pirate_corvette
 	name = "Pirate Corvette"
 	icon_state = "shuttle"
+	area_flags = NONE
 
 /area/shuttle/transit
 	name = "Hyperspace"
@@ -440,6 +463,7 @@ This applies to all STANDARD station areas
 	base_lighting_alpha = 255
 	nad_allowed = TRUE
 	has_gravity = STANDARD_GRAVITY
+	area_flags = NONE
 
 // New CC
 /area/centcom/bridge
@@ -500,6 +524,52 @@ This applies to all STANDARD station areas
 /area/centcom/shuttle
 	name = "Centcom Administration Shuttle"
 
+/area/centcom/supplypod/supplypod_temp_holding
+	name = "Supplypod Shipping Lane"
+	icon_state = "supplypod_flight"
+	area_flags = UNIQUE_AREA
+
+/area/centcom/supplypod
+	name = "Supplypod Facility"
+	icon_state = "supplypod"
+
+/area/centcom/supplypod/pod_storage
+	name = "Supplypod Storage"
+	icon_state = "supplypod_holding"
+
+/area/centcom/supplypod/loading
+	name = "Supplypod Loading Facility"
+	icon_state = "supplypod_loading"
+	var/loading_id = ""
+
+/area/centcom/supplypod/loading/Initialize(mapload)
+	. = ..()
+	if(!loading_id)
+		CRASH("[type] created without a loading_id")
+	if(GLOB.supplypod_loading_bays[loading_id])
+		CRASH("Duplicate loading bay area: [type] ([loading_id])")
+	GLOB.supplypod_loading_bays[loading_id] = src
+
+/area/centcom/supplypod/loading/one
+	name = "Bay #1"
+	loading_id = "1"
+
+/area/centcom/supplypod/loading/two
+	name = "Bay #2"
+	loading_id = "2"
+
+/area/centcom/supplypod/loading/three
+	name = "Bay #3"
+	loading_id = "3"
+
+/area/centcom/supplypod/loading/four
+	name = "Bay #4"
+	loading_id = "4"
+
+/area/centcom/supplypod/loading/ert
+	name = "ERT Bay"
+	loading_id = "5"
+
 //SYNDICATES
 
 /area/syndicate_mothership
@@ -512,6 +582,7 @@ This applies to all STANDARD station areas
 	base_lighting_color = COLOR_WHITE
 	nad_allowed = TRUE
 	ambientsounds = HIGHSEC_SOUNDS
+	area_flags = NONE
 
 /area/syndicate_mothership/outside
 	name = "Syndicate Controlled Territory"
@@ -551,6 +622,7 @@ This applies to all STANDARD station areas
 	base_lighting_alpha = 255
 	base_lighting_color = COLOR_WHITE
 	ambientsounds = HIGHSEC_SOUNDS
+	area_flags = NONE
 
 // Chrono
 
@@ -563,6 +635,7 @@ This applies to all STANDARD station areas
 	base_lighting_color = COLOR_WHITE
 	base_lighting_alpha = 255
 	nad_allowed = TRUE
+	area_flags = NONE
 
 //EXTRA
 
@@ -575,6 +648,7 @@ This applies to all STANDARD station areas
 	base_lighting_color = COLOR_WHITE
 	base_lighting_alpha = 255
 	nad_allowed = TRUE
+	area_flags = NONE
 
 /area/asteroid					// -- TLE
 	name = "Asteroid"
@@ -604,6 +678,7 @@ This applies to all STANDARD station areas
 	base_lighting_color = COLOR_WHITE
 	base_lighting_alpha = 255
 	hide_attacklogs = TRUE
+	area_flags = NONE
 
 
 /area/tdome/arena_source
@@ -643,6 +718,7 @@ This applies to all STANDARD station areas
 	icon_state = "green"
 	area_flags = UNIQUE_AREA
 	has_gravity = STANDARD_GRAVITY
+	area_flags = NONE
 
 //Abductors
 /area/abductor_ship
@@ -650,6 +726,7 @@ This applies to all STANDARD station areas
 	icon_state = "yellow"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
+	area_flags = NONE
 
 /area/wizard_station
 	name = "Wizard's Den"
@@ -671,6 +748,7 @@ This applies to all STANDARD station areas
 	base_lighting_color = COLOR_WHITE
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
 	nad_allowed = TRUE
+	area_flags = NONE
 
 /area/ninja/outpost
 	name = "SpiderClan Dojo"
@@ -698,6 +776,7 @@ This applies to all STANDARD station areas
 	base_lighting_color = COLOR_WHITE
 	base_lighting_alpha = 255
 	no_teleportlocs = TRUE
+	area_flags = NONE
 
 /area/trader_station
 	name = "Trade Base"
@@ -707,6 +786,7 @@ This applies to all STANDARD station areas
 	static_lighting = FALSE
 	base_lighting_alpha = 255
 	base_lighting_color = COLOR_WHITE
+	area_flags = NONE
 
 /area/trader_station/sol
 	name = "Jupiter Station 6"
@@ -719,6 +799,7 @@ This applies to all STANDARD station areas
 	static_lighting = FALSE
 	base_lighting_alpha = 255
 	base_lighting_color = COLOR_WHITE
+	area_flags = NONE
 
 /area/ussp_centcom/secretariat
 	name = "Soviet secretariat"
@@ -2659,6 +2740,7 @@ This applies to all STANDARD station areas
 	icon_state = "syndie_hall"
 	report_alerts = FALSE
 	has_gravity = STANDARD_GRAVITY
+	area_flags = NONE
 
 /area/traitor/rnd
 	name = "Syndicate Research and Development"
@@ -2832,7 +2914,7 @@ This applies to all STANDARD station areas
 	has_gravity = STANDARD_GRAVITY
 	ambientsounds = AWAY_MISSION_SOUNDS
 	sound_environment = SOUND_ENVIRONMENT_ROOM
-
+	area_flags = NONE
 /area/awaymission/example
 	name = "Strange Station"
 	icon_state = "away"
@@ -2860,6 +2942,7 @@ This applies to all STANDARD station areas
 	name = "moonoutpost"
 	has_gravity = STANDARD_GRAVITY
 	report_alerts = FALSE
+	area_flags = NONE
 
 /area/moonoutpost19/mo19arrivals
 	name = "MO19 Arrivals"
@@ -2879,6 +2962,7 @@ This applies to all STANDARD station areas
 	power_light = FALSE
 	poweralm = FALSE
 	outdoors = TRUE
+	area_flags = NONE
 
 /area/moonoutpost19/syndicateoutpost
 	name = "Syndicate Outpost"
@@ -2944,6 +3028,7 @@ This applies to all STANDARD station areas
 	name = "space"
 	report_alerts = FALSE
 	has_gravity = STANDARD_GRAVITY
+	area_flags = NONE
 
 /area/awaycontent/a1
 	icon_state = "awaycontent1"
@@ -3063,6 +3148,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	static_lighting = TRUE
 	report_alerts = FALSE
 	has_gravity = STANDARD_GRAVITY
+	area_flags = NONE
 
 /area/special_event/alpha
 	name = "Special event area Alpha"

@@ -9,6 +9,9 @@
 	ambientsounds = RUINS_SOUNDS
 	sound_environment = SOUND_ENVIRONMENT_STONEROOM
 
+/area/ruin/space
+	area_flags = NONE
+
 /area/ruin/unpowered
 	always_unpowered = FALSE
 
@@ -31,6 +34,7 @@
 
 /area/ruin/powered/space_bar
 	name = "Space Bar"
+	area_flags = NONE
 
 /area/ruin/powered/shuttle
 	name = "Shuttle"
@@ -56,3 +60,4 @@
 /area/ruin/spaceprison
 	name = "Space Prison"
 	icon_state = "spaceprison"
+	area_flags = NONE

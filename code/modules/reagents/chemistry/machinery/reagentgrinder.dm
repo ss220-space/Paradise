@@ -231,6 +231,11 @@
 	updateUsrDialog()
 	return ATTACK_CHAIN_BLOCKED_ALL
 
+/obj/machinery/reagentgrinder/examine(mob/user)
+	. = ..()
+	if(in_range(src, user))
+		. += "<span class='info'>Alt-click to activate it.<br/>Ctrl-Shift-click to dispose content.</span>"
+
 /obj/machinery/reagentgrinder/AltClick(mob/living/carbon/human/human)
 	if(!istype(human) || !human.Adjacent(src))
 		return

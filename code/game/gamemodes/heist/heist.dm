@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 	return TRUE
 
-/datum/game_mode/heist/pre_setup()
+/datum/game_mode/heist/mid_setup()
 	for(var/datum/mind/raider in raiders)
 		raider.assigned_role = SPECIAL_ROLE_RAIDER
 		raider.special_role = SPECIAL_ROLE_RAIDER

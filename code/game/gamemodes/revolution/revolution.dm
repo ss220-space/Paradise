@@ -83,7 +83,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //Gets the round setup, cancelling if there's not enough players at the start//
 ///////////////////////////////////////////////////////////////////////////////
-/datum/game_mode/revolution/pre_setup()
+/datum/game_mode/revolution/mid_setup()
 	var/list/possible_revolutionaries = get_players_for_role(ROLE_REV)
 
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))

@@ -61,6 +61,8 @@
 ////////REAGENT STUFF////////
 // How many units of reagent are consumed per tick, by default.
 #define  REAGENTS_METABOLISM 0.4
+#define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4) // By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
+#define REM REAGENTS_EFFECT_MULTIPLIER //! Shorthand for the above define for ease of use in equations and the like
 
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
@@ -318,6 +320,9 @@
 #define isAIEye(A)		(istype((A), /mob/camera/aiEye))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
 
+#define isminion(A)		(istype((A), /mob/living/simple_animal/hostile/blob_minion))
+#define isblobbernaut(M) istype((M), /mob/living/simple_animal/hostile/blob_minion/blobbernaut)
+
 #define isSpirit(A)		(istype((A), /mob/spirit))
 #define ismask(A)		(istype((A), /mob/spirit/mask))
 
@@ -441,6 +446,7 @@
 /// Makes the weaken into a knockdown
 #define SHOCK_KNOCKDOWN (1<<7)
 
+
 /// Vomit defines
 #define VOMIT_NUTRITION_LOSS	10
 #define VOMIT_STUN_TIME			(8 SECONDS)
@@ -455,3 +461,6 @@
 
 /// For babylon fever disease.
 #define DISEASE_MOB_LANGUAGE_PROCESSED (1<<0)
+
+/// Eyes examine time mod
+#define EXAMINE_INSTANT	0 // 0 seconds

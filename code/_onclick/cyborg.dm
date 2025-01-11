@@ -192,10 +192,8 @@
 	clicks, you can do so here, but you will have to
 	change attack_robot() above to the proper function
 */
-/mob/living/silicon/robot/UnarmedAttack(atom/A)
-	if(!can_unarmed_attack())
-		return
-	A.attack_robot(src)
+/mob/living/silicon/robot/OnUnarmedAttack(atom/atom)
+	return atom.attack_robot(src)
 
 /mob/living/silicon/robot/RangedAttack(atom/A, params)
 	A.attack_robot(src)

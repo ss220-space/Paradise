@@ -82,6 +82,7 @@
 	is_supply = 1
 	supervisors = "the quartermaster"
 	department_head = list(JOB_TITLE_QUARTERMASTER)
+	blocked_race_for_job = list(SPECIES_NUCLEATION)
 	selection_color = "#e2dbc8"
 	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
@@ -612,37 +613,6 @@
 	pda = /obj/item/pda/librarian
 	backpack_contents = list(
 		/obj/item/videocam = 1)
-
-/datum/job/barber
-	title = JOB_TITLE_BARBER
-	flag = JOB_FLAG_BARBER
-	department_flag = JOBCAT_KARMA
-	total_positions = 1
-	spawn_positions = 1
-	is_service = 1
-	supervisors = "the head of personnel"
-	department_head = list(JOB_TITLE_HOP)
-	selection_color = "#d1e8d3"
-	alt_titles = list("Hair Stylist","Beautician")
-	access = list(ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS)
-	outfit = /datum/outfit/job/barber
-
-	salary = 100
-	min_start_money = 100
-	max_start_money = 300
-
-/datum/outfit/job/barber
-	name = "Barber"
-	jobtype = /datum/job/barber
-
-	uniform = /obj/item/clothing/under/barber
-	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/radio/headset/headset_service
-	backpack_contents = list(
-		/obj/item/storage/box/lip_stick = 1,
-		/obj/item/storage/box/barber = 1
-	)
 
 /datum/job/explorer
 	title = JOB_TITLE_EXPLORER

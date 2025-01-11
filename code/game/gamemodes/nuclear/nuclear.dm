@@ -49,6 +49,8 @@
 	for(var/datum/mind/synd_mind in syndicates)
 		synd_mind.assigned_role = SPECIAL_ROLE_NUKEOPS //So they aren't chosen for other jobs.
 		synd_mind.special_role = SPECIAL_ROLE_NUKEOPS
+
+/datum/game_mode/nuclear/mid_setup()
 	return TRUE
 
 /datum/game_mode/proc/remove_operative(datum/mind/operative_mind)
@@ -159,7 +161,7 @@
 	head_organ.sec_hair_colour = hair_c
 	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
+	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species)
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
 	M.body_accessory = null
 	M.regenerate_icons()
