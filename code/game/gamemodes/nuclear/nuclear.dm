@@ -49,8 +49,6 @@
 	for(var/datum/mind/synd_mind in syndicates)
 		synd_mind.assigned_role = SPECIAL_ROLE_NUKEOPS //So they aren't chosen for other jobs.
 		synd_mind.special_role = SPECIAL_ROLE_NUKEOPS
-
-/datum/game_mode/nuclear/mid_setup()
 	return TRUE
 
 /datum/game_mode/proc/remove_operative(datum/mind/operative_mind)

@@ -206,7 +206,7 @@
 				break
 
 
-/datum/game_mode/antag_paradise/mid_setup()
+/datum/game_mode/antag_paradise/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
