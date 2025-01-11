@@ -382,10 +382,7 @@
 	forceMove(new_borg)
 	new_borg.robot_suit = src
 
-	if(new_borg.mmi.syndiemmi)
-		var/obj/item/mmi/syndie/syndiemmi = new_borg.mmi
-		if(!syndiemmi.overdrive.used)
-			syndiemmi.overdrive.Grant(new_borg)
+	new_borg.mmi.apply_effects(new_borg)
 
 	if(new_borg.mmi.clock) // so robots created from vessel have magic
 		new_borg.UnlinkSelf()

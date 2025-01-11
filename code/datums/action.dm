@@ -540,16 +540,18 @@
 
 /datum/action/innate/overdrive/Activate()
 	var/mob/living/silicon/robot/robot = owner
-	if(!used)
-		if(do_after(robot, 10 SECONDS))
-			robot.rejuvenate()
-			robot.opened = FALSE
-			robot.locked = TRUE
-			robot.SetEmagged(TRUE)
-			robot.SetLockdown(FALSE)
-			robot.UnlinkSelf()
-			used = TRUE
-			Remove(robot)
+	if(used)
+		return
+
+	if(do_after(robot, 10 SECONDS))
+		robot.rejuvenate()
+		robot.opened = FALSE
+		robot.locked = TRUE
+		robot.SetEmagged(TRUE)
+		robot.SetLockdown(FALSE)
+		robot.UnlinkSelf()
+		used = TRUE
+		Remove(robot)
 
 /datum/action/innate/overdrive/ApplyIcon()
 	button.cut_overlays()
