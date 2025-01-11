@@ -544,11 +544,11 @@
 		if(do_after(R, 10 SECONDS))
 			R.rejuvenate()
 			R.opened = FALSE
-			R.locked = 1
+			R.locked = TRUE
 			R.SetEmagged(TRUE)
 			R.SetLockdown(FALSE)
 			R.disconnect_from_ai()
-			S.repaired = 1
+			S.repaired = TRUE
 			Remove(R)
 
 /datum/action/innate/overdrive/ApplyIcon()
