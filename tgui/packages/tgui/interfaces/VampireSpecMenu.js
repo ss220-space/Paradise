@@ -1,5 +1,13 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, Flex, Section, Divider, Tabs, Box } from '../components';
+import {
+  Button,
+  Flex,
+  Section,
+  Divider,
+  Tabs,
+  Box,
+  DmIcon,
+} from '../components';
 import { Window } from '../layouts';
 
 export const VampireSpecMenu = (props, context) => {
@@ -70,10 +78,11 @@ export const HemoMenu = (props, context) => {
   return (
     <Section title="Гемомансер">
       <Box textAlign="center">
-        <img
+        <DmIcon
           height="256px"
           width="256px"
-          src={`data:image/jpeg;base64,${hemomancer}`}
+          icon={hemomancer[0]}
+          icon_state={hemomancer[1]}
           style={{
             '-ms-interpolation-mode': 'nearest-neighbor',
           }}
@@ -146,10 +155,11 @@ export const UmbrMenu = (props, context) => {
   return (
     <Section title="Умбра">
       <Box textAlign="center">
-        <img
+        <DmIcon
           height="256px"
           width="256px"
-          src={`data:image/jpeg;base64,${umbrae}`}
+          icon={umbrae[0]}
+          icon_state={umbrae[1]}
           style={{
             '-ms-interpolation-mode': 'nearest-neighbor',
           }}
@@ -225,10 +235,11 @@ export const GarMenu = (props, context) => {
   return (
     <Section title="Гаргантюа">
       <Box textAlign="center">
-        <img
+        <DmIcon
           height="256px"
           width="256px"
-          src={`data:image/jpeg;base64,${gargantua}`}
+          icon={gargantua[0]}
+          icon_state={gargantua[1]}
           style={{
             '-ms-interpolation-mode': 'nearest-neighbor',
           }}
@@ -303,10 +314,11 @@ export const DantMenu = (props, context) => {
   return (
     <Section title="Данталион">
       <Box textAlign="center">
-        <img
+        <DmIcon
           height="256px"
           width="256px"
-          src={`data:image/jpeg;base64,${dantalion}`}
+          icon={dantalion[0]}
+          icon_state={dantalion[1]}
           style={{
             '-ms-interpolation-mode': 'nearest-neighbor',
           }}
@@ -398,10 +410,11 @@ export const BestMenu = (props, context) => {
   return (
     <Section title="Бестия">
       <Box textAlign="center">
-        <img
+        <DmIcon
           height="256px"
           width="256px"
-          src={`data:image/jpeg;base64,${bestia}`}
+          icon={bestia[0]}
+          icon_state={bestia[1]}
           style={{
             '-ms-interpolation-mode': 'nearest-neighbor',
           }}

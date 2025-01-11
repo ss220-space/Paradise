@@ -1152,6 +1152,21 @@
 	item_state = "stripe_federal"
 	strip_bubble_icon = "federal"
 
+/obj/item/clothing/accessory/head_strip/greytide
+	name = "GreyTide strip"
+	desc = "Плотно сшитая круглая нашивка серого цвета с расположенным в центре противогазом."
+	ru_names = list(
+		NOMINATIVE = "нашивка \"GreyTide\"",
+		GENITIVE = "нашивки \"GreyTide\"",
+		DATIVE = "нашивке \"GreyTide\"",
+		ACCUSATIVE = "нашивку \"GreyTide\"",
+		INSTRUMENTAL = "нашивкой \"GreyTide\"",
+		PREPOSITIONAL = "нашивке \"GreyTide\""
+	)
+	icon_state = "greytstrip"
+	item_state = "greytstrip"
+	strip_bubble_icon = "greyt"
+
 /obj/item/clothing/accessory/head_strip/lawyers_badge
 	name = "attorney's badge"
 	desc = "Fills you with the conviction of JUSTICE. Lawyers tend to want to show it to everyone they meet."

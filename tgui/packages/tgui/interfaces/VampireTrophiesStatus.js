@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Box, Table, Section, Stack } from '../components';
+import { Button, Box, Table, Section, Stack, DmIcon } from '../components';
 import { Window } from '../layouts';
 
 const roundTenths = function (input) {
@@ -39,6 +39,7 @@ const Trophies = (props, context) => {
     ears,
     trophies_max_gen,
     trophies_max_crit,
+    organs_icon,
     icon_hearts,
     icon_lungs,
     icon_livers,
@@ -56,8 +57,9 @@ const Trophies = (props, context) => {
       >
         <Stack fill>
           <Box inline width="16.6%">
-            <img
-              src={`data:image/jpeg;base64,${icon_hearts}`}
+            <DmIcon
+              icon={organs_icon}
+              icon_state={icon_hearts}
               verticalAlign="middle"
               style={{
                 'margin-left': '-32px',
@@ -85,8 +87,9 @@ const Trophies = (props, context) => {
             />
           </Box>
           <Box inline width="16.6%">
-            <img
-              src={`data:image/jpeg;base64,${icon_lungs}`}
+            <DmIcon
+              icon={organs_icon}
+              icon_state={icon_lungs}
               verticalAlign="middle"
               style={{
                 'margin-left': '-8px',
@@ -114,8 +117,9 @@ const Trophies = (props, context) => {
             />
           </Box>
           <Box inline width="16.6%">
-            <img
-              src={`data:image/jpeg;base64,${icon_livers}`}
+            <DmIcon
+              icon={organs_icon}
+              icon_state={icon_livers}
               verticalAlign="middle"
               style={{
                 'margin-left': '-24px',
@@ -143,8 +147,9 @@ const Trophies = (props, context) => {
             />
           </Box>
           <Box inline width="16.6%">
-            <img
-              src={`data:image/jpeg;base64,${icon_kidneys}`}
+            <DmIcon
+              icon={organs_icon}
+              icon_state={icon_kidneys}
               verticalAlign="middle"
               style={{
                 'margin-left': '-22px',
@@ -172,8 +177,9 @@ const Trophies = (props, context) => {
             />
           </Box>
           <Box inline width="16.6%">
-            <img
-              src={`data:image/jpeg;base64,${icon_eyes}`}
+            <DmIcon
+              icon={organs_icon}
+              icon_state={icon_eyes}
               verticalAlign="middle"
               style={{
                 'margin-left': '-26px',
@@ -201,8 +207,9 @@ const Trophies = (props, context) => {
             />
           </Box>
           <Box inline width="16.6%">
-            <img
-              src={`data:image/jpeg;base64,${icon_ears}`}
+            <DmIcon
+              icon={organs_icon}
+              icon_state={icon_ears}
               verticalAlign="middle"
               style={{
                 'margin-left': '-8px',

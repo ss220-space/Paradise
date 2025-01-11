@@ -45,6 +45,9 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		new_icon.Blend(color, ICON_MULTIPLY)
 	return icon2base64(new_icon)
 
+/datum/gear/proc/get_display_name()
+	return ((display_name == /datum/gear::display_name)? path.name : display_name)
+
 /datum/gear_data
 	var/path
 	var/location
@@ -70,7 +73,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		return TRUE
 
 	if(cl && !silent)
-		to_chat(cl, span_warning("\"[capitalize(display_name)]\" недоступно для вашей профессии!"))
+		to_chat(cl, span_warning("\"[capitalize(get_display_name())]\" недоступно для вашей профессии!"))
 
 	return FALSE
 

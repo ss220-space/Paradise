@@ -31,6 +31,7 @@
 	QDEL_LIST(bodyparts)
 	SSmobs.cubemonkeys -= src
 	GLOB.human_list -= src
+	SEND_SIGNAL(src, COMSIG_HUMAN_DESTROYED)
 	return ..()
 
 

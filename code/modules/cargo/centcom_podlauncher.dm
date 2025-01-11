@@ -802,11 +802,9 @@
 	launchRandomItem = dataToLoad["launchRandomItem"] //Do we launch a single random item instead of everything on the turf?
 	launchChoice = dataToLoad["launchChoice"] //Launch turfs all at once (0), ordered (1), or randomly(1)
 	explosionChoice = dataToLoad["explosionChoice"] //An explosion that occurs when landing. Can be no explosion (0), custom explosion (1), or maxcap (2)
-	if(explosionChoice)
-		temp_pod.explosionSize = dataToLoad["explosionSize"]
+	temp_pod.explosionSize = (explosionChoice)? dataToLoad["explosionSize"] : list(0,0,0,0)
 	damageChoice = dataToLoad["damageChoice"] //Damage that occurs to any mob under the pod when it lands. Can be no damage (0), custom damage (1), or gib+5000dmg (2)
-	if(damageChoice)
-		temp_pod.damage = dataToLoad["damage"]
+	temp_pod.damage = (damageChoice)? dataToLoad["damage"] : 0
 	temp_pod.delays = dataToLoad["delays"]
 	temp_pod.reverse_delays = dataToLoad["rev_delays"]
 	temp_pod.custom_rev_delay = dataToLoad["custom_rev_delay"]
