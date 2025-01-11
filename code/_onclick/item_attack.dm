@@ -117,11 +117,8 @@
 
 	var/temperature = get_heat()
 	if(temperature && target.reagents && !ismob(target) && !istype(target, /obj/item/clothing/mask/cigarette))
-		var/reagent_temp = target.reagents.chem_temp
-		var/time = (reagent_temp / 10) / (temperature / 1000)
-		if(do_after(user, time, target, interaction_key = src, max_interact_count = 1, cancel_message = "You stop heating up [target]."))
-			to_chat(user, span_notice("You heat [target] with [src]."))
-			target.reagents.temperature_reagents(temperature)
+		to_chat(user, span_notice("You heat [target] with [src]."))
+		target.reagents.temperature_reagents(temperature)
 
 /**
  * Called on an object being hit by an item
