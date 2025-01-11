@@ -215,7 +215,10 @@ DIAGNOSTIC
 	toggle_veil(user)
 
 /obj/item/clothing/glasses/hud/diagnostic/visor
-	name = ""
+	name = "Optical Diagnostic Visor"
+	desc = ""
+	icon_state = "diagvisor"
+	item_state = "diagvisor"
 /*
 SECURITY
 */
