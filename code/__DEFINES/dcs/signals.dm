@@ -980,6 +980,8 @@
 #define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"
 	#define SHIELD_BLOCK (1<<0)
 
+#define COMSIG_HUMAN_DESTROYED "human_destroyed"
+
 // /datum/species signals
 ///from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
 #define COMSIG_SPECIES_GAIN "species_gain"

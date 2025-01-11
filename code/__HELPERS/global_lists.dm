@@ -107,7 +107,7 @@
 
 		GLOB.gear_tgui_info[gear.sort_category] += list(
 			"[gear]" = list(
-				"name" = ((gear.display_name == /datum/gear::display_name)? gear_item.name : gear.display_name) ,
+				"name" = gear.get_display_name() ,
 				"index_name" = gear.index_name,
 				"desc" = gear.description,
 				"icon" = gear_item.icon,

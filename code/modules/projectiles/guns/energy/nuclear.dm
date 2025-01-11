@@ -155,16 +155,33 @@
 	balloon_alert(user, "слишком тяжело!")
 
 /obj/item/gun/energy/gun/minigun/update_icon_state()
-	item_state = !cell ? initial(item_state) : "gatling[!can_shoot(silent = TRUE) ? "1" : ""]"
-	icon_state = !cell ? initial(icon_state) : "gatling[!can_shoot(silent = TRUE) ? "1" : ""]"
+	item_state = !cell ? initial(item_state) : "[initial(item_state)][!can_shoot(silent = TRUE) ? "1" : ""]"
+	icon_state = !cell ? initial(icon_state) : "[initial(icon_state)][!can_shoot(silent = TRUE) ? "1" : ""]"
 
 /obj/item/gun/energy/gun/minigun/examine(mob/user)
 	. = ..()
 
 	if(!cell)
 		return .
-		
+
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/charge_amount = round(cell.charge / (shot.e_cost * burst_size))
 
 	. += span_notice("Индикатор батареи сообщает: заряда хватит на <b>[charge_amount]</b> [declension_ru(charge_amount, "выстрел", "выстрела", "выстрелов")].")
+
+/obj/item/gun/energy/gun/minigun/pulse
+	name = "Pulse gatling gun"
+	icon_state = "gatling_pulse"
+	item_state = "gatling_pulse"
+	desc = "Огромное пульсовое орудие, обладающее выдающейся скорострельностью и разрушительной силой. \
+	Является модификацией Гатлинг-лазера. Имеет самую совершенную батарею в мире, самозаряд которой полностью компенсирует энергозатраты при стрельбе."
+	ru_names = list(
+		NOMINATIVE = "Гатлинг-пульсер",
+		GENITIVE = "Гатлинг-пульсера",
+		DATIVE = "Гатлинг-пульсеру",
+		ACCUSATIVE = "Гатлинг-пульсер",
+		INSTRUMENTAL = "Гатлинг-пульсером",
+		PREPOSITIONAL = "Гатлинг-пульсере"
+	)
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
+	cell_type = /obj/item/stock_parts/cell/infinite

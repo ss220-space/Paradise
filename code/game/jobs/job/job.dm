@@ -216,12 +216,13 @@
 			if(G.implantable) //only works for organ-implants
 				var/obj/item/organ/internal/I = new G.path
 				I.insert(H)
-				to_chat(H, span_notice("Implanting you with [G.display_name]!"))
+				to_chat(H, span_notice("Implanting you with [I.name]!"))
 				continue
 
 			if(G.slot)
-				if(H.equip_to_slot_or_del(G.spawn_item(H, H.client.prefs.get_gear_metadata(G)), G.slot, TRUE))
-					to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
+				var/obj/item/placed_in = G.spawn_item(H, H.client.prefs.get_gear_metadata(G))
+				if(H.equip_to_slot_or_del(placed_in, G.slot, TRUE))
+					to_chat(H, span_notice("Equipping you with [placed_in.name]!"))
 				else
 					gear_leftovers += G
 			else
@@ -241,10 +242,10 @@
 		for(var/datum/gear/G in gear_leftovers)
 			var/obj/item/placed_in = G.spawn_item(null, H.client.prefs.get_gear_metadata(G))
 			if(placed_in.equip_to_best_slot(H))
-				to_chat(H, span_notice("Placing [G.display_name] in your inventory!"))
+				to_chat(H, span_notice("Placing [placed_in.name] in your inventory!"))
 				continue
 			if(H.put_in_hands(placed_in))
-				to_chat(H, span_notice("Placing [G.display_name] in your hands!"))
+				to_chat(H, span_notice("Placing [placed_in.name] in your hands!"))
 				continue
 			to_chat(H, span_danger("Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug."))
 			qdel(placed_in)

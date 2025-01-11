@@ -254,6 +254,12 @@
 	donator_tier = 3
 	cost = 1
 
+/datum/gear/donor/strip/greytide
+	index_name = "strip, GreyTide"
+	path = /obj/item/clothing/accessory/head_strip/greytide
+	donator_tier = 3
+	cost = 1
+
 /datum/gear/donor/heartglasses
 	index_name = "heart-shaped glasses, color"
 	path = /obj/item/clothing/glasses/heart
