@@ -77,11 +77,17 @@
 
 
 /**
- * Attempts to select players for special roles the mode might have.
+ * Selects players for special roles not affected by job assignment. Ex: Nuke, Wizard, Mouse blob
  */
 /datum/game_mode/proc/pre_setup()
 	return TRUE
 
+/**
+ * After station jobs distributed, attempts to select players for special roles the mode might have.
+ * It also needs to return TRUE if game_mode is ready(antag roles assigned properly)
+ */
+/datum/game_mode/proc/mid_setup()
+	return TRUE
 
 /**
  * Everyone should now be on the station and have their normal gear. This is the place to give the special roles extra things.

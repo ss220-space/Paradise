@@ -14,7 +14,7 @@
 	to_chat(world, "<B>There is an alien creature on the station along with some syndicate operatives out for their own gain! Do not let the changeling and the traitors succeed!</B>")
 
 
-/datum/game_mode/traitor/changeling/pre_setup()
+/datum/game_mode/traitor/changeling/mid_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
