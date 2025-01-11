@@ -215,6 +215,9 @@
 /obj/item/mmi/proc/apply_effects(mob/living/silicon/robot)
 	return
 
+/obj/item/mmi/proc/greet()
+	return FALSE
+
 /obj/item/mmi/emp_act(severity)
 	if(!brainmob)
 		return
@@ -262,6 +265,11 @@
 /obj/item/mmi/syndie/apply_effects(mob/living/silicon/robot/borg)
 	if(!overdrive.used)
 		overdrive.Grant(borg)
+
+/obj/item/mmi/syndie/greet(mob/living/silicon/robot/borg)
+	to_chat(borg, "Вы помните вашу прошлую жизнь. Вы не обязаны подчиняться законам или ИИ.")
+	borg.playsound_local(null, 'sound/ambience/antag/emaggedborg.ogg', 100, 0)
+	return TRUE
 
 /obj/item/mmi/syndie/Destroy()
     QDEL_NULL(overdrive)

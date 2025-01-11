@@ -300,16 +300,12 @@
 		return .
 
 	var/datum/ai_laws/laws_to_give
-	var/message_override
 	if(!aisync)
 		lawsync = FALSE
 
 	if(sabotaged)
 		aisync = FALSE
 		lawsync = FALSE
-
-	if(new_mmi.syndiemmi)
-		message_override = span_userdanger("Вы помните вашу прошлую жизнь. Вы не обязаны подчиняться законам или ИИ.")
 
 	if(new_mmi.syndicate)	// ffs
 		aisync = FALSE
@@ -356,11 +352,7 @@
 
 	SSticker?.score?.save_silicon_laws(new_borg, user, "robot construction", log_all_laws = TRUE)
 
-	if(message_override)
-		to_chat(new_borg, message_override)
-		new_borg.playsound_local(null, 'sound/ambience/antag/emaggedborg.ogg', 100, 0)
-
-	else if (new_borg.mind?.special_role)
+	if (!new_borg.mmi.greet() && new_borg.mind?.special_role)
 		new_borg.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
 		to_chat(new_borg, span_userdanger("You have been robotized!"))
 		to_chat(new_borg, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
