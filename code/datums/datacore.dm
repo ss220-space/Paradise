@@ -114,7 +114,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 /datum/datacore/proc/manifest()
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		manifest_inject(H)
-	SEND_GLOBAL_SIGNAL(COMSIG_SPECIAL_MASS_STORE_VOICE, GLOB.capitalist_manifest)
+	SEND_GLOBAL_SIGNAL(COMSIG_DATACORE_VOICE_COLLEAGUE_INJECT, GLOB.capitalist_manifest)
 
 /datum/datacore/proc/manifest_modify(name, rank, assignment)
 	if(GLOB.PDA_Manifest.len)

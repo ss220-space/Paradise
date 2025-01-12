@@ -1,6 +1,5 @@
 #define GENDER_NAME_UNKNOW list(MALE = "Незнакомец", FEMALE = "Незнакомка", NEUTER = "Неизвестный", PLURAL  = "Неизвестный")
-#define FACE_MOD_SWITCH TRUE
-//Новая система голоса
+//Voice cumponent
 /datum/component/voice_model
 	var/mob/host = null
 	var/tts_seed_string = "Arthas"
@@ -22,16 +21,27 @@
 		famous_voices[voice_name] = owner_voice.name
 		tts_seed_string = owner_voice.tts_seed
 
+
+
 /datum/component/voice_model/RegisterWithParent()
+	if(SSjobs.GetJob(host.job))
+		RegisterSignal(SSdcs, COMSIG_SPECIAL_MASS_STORE_VOICE, PROC_REF(special_mass_add_voice))
+		RegisterSignal(SSdcs, COMSIG_DATACORE_VOICE_COLLEAGUE_INJECT, PROC_REF(special_mass_add_voice))
 
-	RegisterSignal(SSdcs, COMSIG_SPECIAL_MASS_STORE_VOICE, PROC_REF(SpecialMassAddVoice))
+	RegisterSignal(parent, COMSIG_MOB_RUN_EXAMINATE, PROC_REF(try_store))
+	RegisterSignal(parent, COMSIG_VOICE_UPDATE, PROC_REF(voice_update))
 
-	RegisterSignal(parent, COMSIG_MOB_RUN_EXAMINATE, PROC_REF(TryStore))
+/datum/component/voice_model/UnregisterFromParent()
 
-	RegisterSignal(parent, COMSIG_VOICE_UPDATE, PROC_REF(VoiceUpdate))
+	UnregisterSignal(SSdcs, COMSIG_SPECIAL_MASS_STORE_VOICE)
+	UnregisterSignal(SSdcs, COMSIG_DATACORE_VOICE_COLLEAGUE_INJECT)
+	UnregisterSignal(parent, COMSIG_MOB_RUN_EXAMINATE)
+	UnregisterSignal(parent, COMSIG_VOICE_UPDATE)
 
-/datum/component/voice_model/proc/SpecialMassAddVoice(suka, list/list_voice)
+
+/datum/component/voice_model/proc/special_mass_add_voice(suka, list/list_voice)
 	SIGNAL_HANDLER
+	UnregisterSignal(SSdcs, COMSIG_DATACORE_VOICE_COLLEAGUE_INJECT)
 
 	var/datum/job/prom_job = SSjobs.GetJob(host.job) //WARNING. Fuking byond
 	var/list/prom_data = list_voice?[prom_job.department]
@@ -39,12 +49,7 @@
 	if(prom_data)
 		famous_voices |= prom_data
 
-//not used 
-/datum/component/voice_model/proc/JustListAddVoice(list_voice)
-	SIGNAL_HANDLER
-	famous_voices |= list_voice
-
-/datum/component/voice_model/proc/VoiceUpdate(UwU)
+/datum/component/voice_model/proc/voice_update(UwU)
 	SIGNAL_HANDLER
 	voice_name = host.GetVoice() //:badguy:
 	voice_gender = host.gender
@@ -62,21 +67,23 @@
 	famous_voices = voice_to_copy.famous_voices
 */
 
-/datum/component/voice_model/proc/GetManifestKnowVoice()
+/datum/component/voice_model/proc/get_manifest_know_voice()
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		if(t)
 			if(t.fields["voice"] == voice_name)
 				return t.fields["name"]
 	return "IDENTIFICATION ERROR"
 
+/* not used
 /datum/component/voice_model/proc/GetManifestKnowFace(mob/face_target)
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		if(t)
 			if(t.fields["name"] == face_target.name)
 				return t.fields["name"]
 	return "IDENTIFICATION FACE ERROR"
-
-/datum/component/voice_model/proc/TryStore(uwu, mob/target)
+*/
+/datum/component/voice_model/proc/try_store(uwu, mob/target)
+	SIGNAL_HANDLER
 	var/datum/component/voice_model/adv_voice = target.GetComponent(/datum/component/voice_model)
 	if(isnull(adv_voice))
 		return FALSE
@@ -97,8 +104,6 @@
 
 	if(!((target_H.wear_mask?.flags_inv & HIDENAME) || (target_H.head?.flags_inv & HIDENAME)) && prov_wear_id)
 
-		//if(FACE_MOD_SWITCH)
-		//	famous_faces[target_H.name] = prov_wear_id.registered_name //FUCK BYOND
 		famous_voices[adv_voice.voice_name] = prov_wear_id.registered_name
 		. = TRUE
 	else if(prov_wear_id)
@@ -129,8 +134,8 @@
 	return
 */
 //For hear
-/datum/component/voice_model/proc/TryRecollectVoice(mob/target)
-	if(!ishuman(host)) //Мышки мышки знают все....
+/datum/component/voice_model/proc/try_recollect_voice(mob/target)
+	if(!ishuman(host))
 		return target.name
 	if(host.mind.special_role_meta_know && (target.mind.special_role == host.mind.special_role))
 		return target.name
@@ -155,8 +160,7 @@
 		return TRUE
 	return FALSE
 
-//HELPERS
-
+//HELPERS owo
 /proc/GenDepartamentVoiceTree(mob/target, list/departments)
 	var/list/result = list()
 	

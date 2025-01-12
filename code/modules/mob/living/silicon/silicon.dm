@@ -67,9 +67,9 @@
 
 	var/datum/component/voice_model/src_adv_voice = src.GetComponent(/datum/component/voice_model)
 	if(src_adv_voice.I_do_remember(speaker))
-		return src_adv_voice.TryRecollectVoice(speaker)
+		return src_adv_voice.try_recollect_voice(speaker)
 	var/datum/component/voice_model/speaker_adv_voice = speaker.GetComponent(/datum/component/voice_model)
-	return speaker_adv_voice.GetManifestKnowVoice()
+	return speaker_adv_voice.get_manifest_know_voice()
 
 /mob/living/silicon/Destroy()
 	UnregisterSignal(SSalarm, list(

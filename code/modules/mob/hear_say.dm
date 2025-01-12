@@ -139,7 +139,7 @@
 	if(italics)
 		message = "<i>[message]</i>"
 	var/datum/component/voice_model/adv_voice = src.GetComponent(/datum/component/voice_model)
-	speaker_name = adv_voice.TryRecollectVoice(speaker)
+	speaker_name = adv_voice.try_recollect_voice(speaker)
 	var/track = null
 	if(isobserver(src))
 		if(speaker_name != speaker.real_name && speaker.real_name)
@@ -255,7 +255,7 @@
 		return speaker.name
 	
 	var/datum/component/voice_model/adv_voice = src.GetComponent(/datum/component/voice_model)
-	return adv_voice.TryRecollectVoice(speaker)
+	return adv_voice.try_recollect_voice(speaker)
 
 /mob/proc/handle_track(message, verb = "says", mob/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
 	return
