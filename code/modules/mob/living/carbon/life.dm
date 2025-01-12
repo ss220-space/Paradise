@@ -1,12 +1,10 @@
 /mob/living/carbon/Life(seconds, times_fired)
 	set invisibility = 0
 	//:roflcat:
-	voice_name = GetVoice()
 	tts_seed = GetTTSVoice()
 
-	adv_voice.voice_gender = gender
-	adv_voice.voice_name = voice_name
-	adv_voice.tts_seed_string = tts_seed
+	UpdateVoice()
+
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 

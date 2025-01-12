@@ -27,10 +27,7 @@
 		skipface |= wear_mask.flags_inv & HIDENAME
 		skipeyes |= wear_mask.flags_inv & HIDEGLASSES
 		skipears |= wear_mask.flags_inv & HIDEHEADSETS
-
 	var/msg = "This is "
-	if(!user.adv_voice.TryStore(src))
-		to_chat(user, "Кажется вам не за что зацепится взглядом...")
 	if(!(skipjumpsuit && skipface) && icon) //big suits/masks/helmets make it hard to tell their gender
 		msg += "[bicon(icon(icon, dir=SOUTH))] " //fucking BYOND: this should stop dreamseeker crashing if we -somehow- examine somebody before their icon is generated
 	msg += "<EM>[name]</EM>"

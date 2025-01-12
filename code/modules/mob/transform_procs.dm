@@ -32,7 +32,6 @@
 		client?.tgui_panel?.stop_music()
 
 	var/mob/living/silicon/ai/O = new (loc,,,1)//No MMI but safety is in effect.
-	O.adv_voice.RegSignals()
 	O.invisibility = 0
 	O.aiRestorePowerRoutine = 0
 

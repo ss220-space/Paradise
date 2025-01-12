@@ -27,7 +27,7 @@
 /mob/Initialize(mapload)
 	GLOB.mob_list += src
 	voice_name = GetVoice()
-	adv_voice = new(src)
+	src.AddComponent(/datum/component/voice_model)
 
 	add_to_mob_list()
 

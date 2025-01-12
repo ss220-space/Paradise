@@ -1709,7 +1709,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /mob/proc/UpdateVoice()
 	voice_name = GetVoice()
 	tts_seed = GetTTSVoice()
-	adv_voice.VoiceUpdate()
+	SEND_SIGNAL(src, COMSIG_VOICE_UPDATE)
 
 /// Passes Stat Browser Panel clicks to the game and calls client click on an atom
 /atom/Topic(href, list/href_list)

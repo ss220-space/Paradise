@@ -148,9 +148,9 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			assignment = "Unassigned"
 		
 		var/id = num2hex(GLOB.record_id_num++, 6)
-		H.adv_voice.RegSignals()
-		H.UpdateVoice() 
-		var/prom_voice = H.adv_voice.voice_name 
+		H.UpdateVoice()
+		var/datum/component/voice_model/prom_adv_voice = H.GetComponent(/datum/component/voice_model)
+		var/prom_voice = prom_adv_voice.voice_name 
 		
 		var/datum/job/prom_job = SSjobs.GetJob(H.job)
 

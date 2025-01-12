@@ -391,9 +391,9 @@
 	if(name_override)
 		return name_override
 	if(wear_mask && (wear_mask.flags_inv & HIDENAME))	//Wearing a mask which hides our face, use id-name if possible
-		return get_id_name(adv_voice.get_gender_unknown_name(gender))
+		return get_id_name(get_gender_unknown_name(gender))
 	if(head && (head.flags_inv & HIDENAME))
-		return get_id_name(adv_voice.get_gender_unknown_name(gender))		//Likewise for hats
+		return get_id_name(get_gender_unknown_name(gender))		//Likewise for hats
 	var/face_name = get_face_name()
 	var/id_name = get_id_name("")
 	if(add_id_name && id_name && (id_name != face_name))
@@ -404,7 +404,7 @@
 /mob/living/carbon/human/proc/get_face_name()
 	var/obj/item/organ/external/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(!head_organ || head_organ.is_disfigured() || cloneloss > 50 || !real_name || HAS_TRAIT(src, TRAIT_HUSK))	//disfigured. use id-name if possible
-		return adv_voice.get_gender_unknown_name(gender)
+		return get_gender_unknown_name(gender)
 	return real_name
 
 
@@ -413,7 +413,7 @@
  * Useful when player is being seen by other mobs.
  */
 /mob/living/carbon/human/proc/get_id_name(if_no_id = "Unknown")
-	if_no_id = adv_voice.get_gender_unknown_name(gender)
+	if_no_id = get_gender_unknown_name(gender)
 	var/obj/item/card/id/id = wear_id?.GetID()
 	if(istype(id))
 		return id.registered_name
