@@ -1,4 +1,4 @@
-#define GENDER_NAME_UNKNOW list(MALE = "Незнакомец", FEMALE = "Незнакомка", NEUTER = "Неизвестный", PLURAL  = "Неизвестный")
+#define GENDER_NAME_UNKNOWN  list(MALE = "Незнакомец", FEMALE = "Незнакомка", NEUTER = "Неизвестный", PLURAL  = "Неизвестный")
 //Voice cumponent
 /datum/component/voice_model
 	var/mob/host = null
@@ -96,9 +96,9 @@
 	var/mob/living/carbon/human/target_H = target
 	var/obj/item/card/id/prov_wear_id = null
 
-	if(isIdCard(target_H.wear_id)) //Fuck
+	if(isidcard(target_H.wear_id)) //Fuck
 		prov_wear_id = target_H.wear_id
-	if(isWallet(target_H.wear_id)) //Мфпмфпф
+	if(iswallet(target_H.wear_id)) //Мфпмфпф
 		var/obj/item/storage/wallet/prom = target_H.wear_id
 		prov_wear_id = prom.front_id
 
@@ -146,17 +146,15 @@
 		return target.name
 	var/datum/component/voice_model/adv_voice = target.GetComponent(/datum/component/voice_model)
 
-	. = famous_voices?[adv_voice.voice_name]
-	if(.)
+	if(famous_voices?[adv_voice.voice_name])
 		return
 
 	return get_gender_unknown_name(adv_voice.voice_gender)
-
-/datum/component/voice_model/proc/I_do_remember(mob/target)
+can_remember_voice
+/datum/component/voice_model/proc/can_remember_voice(mob/target)
 	var/datum/component/voice_model/adv_voice = target.GetComponent(/datum/component/voice_model)
 
-	. = famous_voices?[adv_voice.voice_name]
-	if(.)
+	if(famous_voices?[adv_voice.voice_name])
 		return TRUE
 	return FALSE
 
@@ -171,9 +169,9 @@
 	return result
 
 /proc/get_gender_unknown_name(gender_string) //Что ты мне сделаешь. я в другом городе
-	var/result = (GENDER_NAME_UNKNOW)?[gender_string]
+	var/result = (GENDER_NAME_UNKNOWN)?[gender_string]
 	if(result)
 		return result
 	return "Неизвестный"
 
-#undef GENDER_NAME_UNKNOW
+#undef GENDER_NAME_UNKNOWN

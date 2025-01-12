@@ -1706,7 +1706,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/GetTTSVoice()
 	return tts_seed
 
-/mob/proc/UpdateVoice()
+/mob/proc/update_voice()
 	voice_name = GetVoice()
 	tts_seed = GetTTSVoice()
 	SEND_SIGNAL(src, COMSIG_VOICE_UPDATE)

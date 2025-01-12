@@ -577,8 +577,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			length = length_char(oldname)
 			pos = findtextEx_char(objective.explanation_text, oldname)
 			objective.explanation_text = copytext_char(objective.explanation_text, 1, pos)+newname+copytext_char(objective.explanation_text, pos+length)
-	UpdateVoice()
-	if(LAZYLEN(mass_update) != 0)
+	update_voice()
+	if(!LAZYLEN(mass_update))
 		SEND_GLOBAL_SIGNAL(COMSIG_SPECIAL_MASS_STORE_VOICE, GenDepartamentVoiceTree(src, mass_update))
 	return 1
 

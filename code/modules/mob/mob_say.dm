@@ -3,7 +3,7 @@
 	"\[" = "", "]" = "", "{" = "", "}" = "")
 
 /mob/proc/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
-	UpdateVoice()
+	update_voice()
 	return
 
 /mob/verb/whisper(message as text)

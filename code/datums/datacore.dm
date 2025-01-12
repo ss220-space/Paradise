@@ -148,7 +148,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			assignment = "Unassigned"
 		
 		var/id = num2hex(GLOB.record_id_num++, 6)
-		H.UpdateVoice()
+		H.update_voice()
 		var/datum/component/voice_model/prom_adv_voice = H.GetComponent(/datum/component/voice_model)
 		var/prom_voice = prom_adv_voice.voice_name 
 		

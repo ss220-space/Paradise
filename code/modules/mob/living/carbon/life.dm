@@ -3,7 +3,7 @@
 	//:roflcat:
 	tts_seed = GetTTSVoice()
 
-	UpdateVoice()
+	//update_voice()
 
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return

@@ -66,7 +66,7 @@
 		return speaker.name
 
 	var/datum/component/voice_model/src_adv_voice = src.GetComponent(/datum/component/voice_model)
-	if(src_adv_voice.I_do_remember(speaker))
+	if(src_adv_voice.can_remember_voice(speaker))
 		return src_adv_voice.try_recollect_voice(speaker)
 	var/datum/component/voice_model/speaker_adv_voice = speaker.GetComponent(/datum/component/voice_model)
 	return speaker_adv_voice.get_manifest_know_voice()
