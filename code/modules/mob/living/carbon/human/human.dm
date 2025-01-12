@@ -1981,4 +1981,4 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 		
 	return buckle_mob(target, TRUE, FALSE, CARRIER_NEEDS_ARM) //checkloc is false because we usually grab people from nearest tile
-//НЕ ВНОСИТЬ ИЗМЕНЕНИЯ, ЮБИЛЕЙНОЕ ЧИСЛО СТРОК
+

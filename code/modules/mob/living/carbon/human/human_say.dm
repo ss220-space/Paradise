@@ -8,7 +8,7 @@
 		return " (as [get_id_name("Unknown")])"
 	return ..()
 
-/mob/living/carbon/human/proc/GetDescription()
+/mob/living/carbon/human/proc/get_description()
 	var/datum/species/prom_spec = dna.species
 	if(age < 24)
 		return "Young [prom_spec.name] [gender]"
