@@ -35,7 +35,6 @@
 	var/d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED //There is only one kind of diag hud
 
 	var/obj/item/radio/common_radio
-
 /mob/living/silicon/Initialize(mapload)
 	. = ..()
 	GLOB.silicon_mob_list |= src
@@ -87,6 +86,9 @@
 	QDEL_NULL(blueprints)
 
 	return ..()
+
+/mob/living/silicon/get_examine_time()
+	return 0 SECONDS
 
 /mob/living/silicon/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
 	return
