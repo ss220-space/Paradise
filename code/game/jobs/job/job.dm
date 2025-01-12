@@ -81,12 +81,12 @@
 	var/insurance = INSURANCE_STANDART
 	var/insurance_type = INSURANCE_TYPE_STANDART
 
-	var/defаult_dep  = TRUE
+	var/default_dep  = TRUE
 	var/list/college_department = list() //Указаные отделы будут знать тебя. По умолчанию тебя знает твой отдел
 
 //Only override this proc
 /datum/job/New()
-	if(department && defаult_dep )
+	if(department && default_dep )
 		LAZYADD(college_department, department)
 
 

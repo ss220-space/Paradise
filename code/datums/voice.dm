@@ -10,7 +10,6 @@
 	var/list/famous_voices = list() //todo collected_voices
 	var/list/famous_faces = list() //todo collected_faces
 
-
 /datum/component/voice_model/Initialize()
 	var/mob/owner_voice = parent
 	if(owner_voice != null) 
@@ -20,8 +19,6 @@
 		voice_gender = owner_voice.gender
 		famous_voices[voice_name] = owner_voice.name
 		tts_seed_string = owner_voice.tts_seed
-
-
 
 /datum/component/voice_model/RegisterWithParent()
 	if(SSjobs.GetJob(host.job))

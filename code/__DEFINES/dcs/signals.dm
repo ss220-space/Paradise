@@ -1100,7 +1100,7 @@
 ///(obj/item/insertion_candidate, mob/user, silent) - returns bool
 #define COMSIG_TRY_STORAGE_CAN_INSERT "storage_can_equip"
 
-// /two_handed signals
+// datum/component/two_handed signals
 
 ///from base of datum/component/two_handed/proc/wield(mob/living/carbon/user): (/mob/user)
 #define COMSIG_TWOHANDED_WIELD "twohanded_wield"
@@ -1141,7 +1141,7 @@
 	#define OBJECTIVE_VALID_TARGET		(1<<0)
 	#define OBJECTIVE_INVALID_TARGET	(1<<1)
 
-// /bluespace_rift_scanner signals
+// datum/component/bluespace_rift_scanner signals
 /// from scanner's `process()` : (seconds, emagged)
 #define COMSIG_SCANNING_RIFTS "scanning_rifts"
 	/// No rifts within the scanner's range
@@ -1153,7 +1153,7 @@
 	/// There are no servers available
 	#define COMPONENT_SCANNED_NO_SERVERS (1<<3)
 
-// /overlay_lighting signals, (for-future-backporting)
+// datum/component/overlay_lighting signals, (for-future-backporting)
 ///from base of atom/CheckParts(): (atom/movable/new_craft) - The atom has just been used in a crafting recipe and has been moved inside new_craft.
 #define COMSIG_ATOM_USED_IN_CRAFT "atom_used_in_craft"
 
@@ -1236,7 +1236,7 @@
 ///from of mob/MouseDrop(): (/atom/over, /mob/user)
 #define COMSIG_DO_MOB_STRIP "do_mob_strip"
 
-// /transforming signals
+// /datum/component/transforming signals
 /// From /datum/component/transforming/proc/on_attack_self(obj/item/source, mob/user): (obj/item/source, mob/user, active)
 #define COMSIG_TRANSFORMING_PRE_TRANSFORM "transforming_pre_transform"
 	/// Return COMPONENT_BLOCK_TRANSFORM to prevent the item from transforming.
