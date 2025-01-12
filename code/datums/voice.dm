@@ -47,7 +47,7 @@
 	var/list/prom_data = list_voice?[prom_job.department]
 
 	if(prom_data)
-		famous_voices |= prom_data
+		LAZYOR(famous_voices, prom_data)  
 
 /datum/component/voice_model/proc/voice_update(UwU)
 	SIGNAL_HANDLER
@@ -96,14 +96,14 @@
 	var/mob/living/carbon/human/target_H = target
 	var/obj/item/card/id/prov_wear_id = null
 
-	if(isidcard(target_H.wear_id)) //Fuck
+	if(isidcard(target_H.wear_id))
 		prov_wear_id = target_H.wear_id
-	if(iswallet(target_H.wear_id)) //Мфпмфпф
+	if(iswallet(target_H.wear_id))
 		var/obj/item/storage/wallet/prom = target_H.wear_id
 		prov_wear_id = prom.front_id
 
 	if(!((target_H.wear_mask?.flags_inv & HIDENAME) || (target_H.head?.flags_inv & HIDENAME)) && prov_wear_id)
-
+		//famous_faces[target_H.name] = prov_wear_id.registered_name
 		famous_voices[adv_voice.voice_name] = prov_wear_id.registered_name
 		. = TRUE
 	else if(prov_wear_id)
@@ -158,7 +158,7 @@ can_remember_voice
 		return TRUE
 	return FALSE
 
-//HELPERS owo
+//HELPERS 
 /proc/GenDepartamentVoiceTree(mob/target, list/departments)
 	var/list/result = list()
 	

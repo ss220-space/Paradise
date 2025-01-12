@@ -36,7 +36,7 @@
 	alt_titles = list("Robot")
 	insurance_type = INSURANCE_TYPE_NONE
 
-	defoult_dep = FALSE
+	defаult_dep  = FALSE
 
 /datum/job/cyborg/equip(mob/living/carbon/human/H)
 	if(!H)

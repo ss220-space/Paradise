@@ -13,8 +13,6 @@
 	admin_only = 1
 	outfit = /datum/outfit/job/ntnavyofficer
 
-	department = "Sedali"
-
 /datum/job/ntnavyofficer/get_access()
 	return get_centcom_access(title)
 

@@ -25,7 +25,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	min_start_money = 600
 	max_start_money = 1200
 
-	defoult_dep = FALSE
+	defаult_dep  = FALSE
 	college_department = PRIMITIVE_STATION_DEPARTMENTS
 
 /datum/job/captain/get_access()
@@ -99,7 +99,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	min_start_money = 400
 	max_start_money = 700
 
-	defoult_dep = FALSE
+	defаult_dep  = FALSE
 	college_department = PRIMITIVE_STATION_DEPARTMENTS
 
 /datum/outfit/job/hop
