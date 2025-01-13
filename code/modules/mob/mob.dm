@@ -24,8 +24,7 @@
 	LAssailant = null
 	return ..()
 
-/mob/Initialize(mapload)
-	GLOB.mob_list += src
+/mob/Initialize(mapload)	
 	voice_name = GetVoice()
 	src.AddComponent(/datum/component/voice_model)
 
