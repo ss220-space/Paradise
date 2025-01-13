@@ -204,7 +204,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 
 /mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
-	AddComponent()
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	make_laws()
 	additional_law_channels["Binary"] = get_language_prefix(LANGUAGE_BINARY)
