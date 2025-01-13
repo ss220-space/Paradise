@@ -10,11 +10,6 @@
 		return FALSE
 
 	life_tick++
-
-	//Теперь это этажом ниже
-	//voice = GetVoice()
-	//tts_seed = GetTTSVoice()
-
 	if(.) //not dead
 
 		handle_pain()

@@ -579,7 +579,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			objective.explanation_text = copytext_char(objective.explanation_text, 1, pos)+newname+copytext_char(objective.explanation_text, pos+length)
 	update_voice()
 	if(!LAZYLEN(mass_update))
-		SEND_GLOBAL_SIGNAL(COMSIG_SPECIAL_MASS_STORE_VOICE, GenDepartamentVoiceTree(src, mass_update))
+		SEND_GLOBAL_SIGNAL(COMSIG_RENAME_VOICE_INJECT, GenDepartamentVoiceTree(src, mass_update))
 	return 1
 
 /mob/proc/rename_self(var/role, var/allow_numbers = FALSE, var/force = FALSE, list/mass_update = list())

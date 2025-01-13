@@ -97,7 +97,6 @@
 	generate_station_goals()
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
-	//SEND_GLOBAL_SIGNAL(COMSIG_SPECIAL_MASS_STORE_VOICE, GLOB.capitalist_manifest)
 	return TRUE
 
 /datum/game_mode/proc/set_mode_in_db()	// I wonder what this could do guessing by the name

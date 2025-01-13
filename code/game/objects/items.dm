@@ -509,7 +509,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			to_chat(user, span_notice("You don't have enough tape to do that!"))
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You apply some tape to [src]."))
-		/datum/component/ducttape
 		AddComponent(/datum/component/ducttape, x_offset, y_offset)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 

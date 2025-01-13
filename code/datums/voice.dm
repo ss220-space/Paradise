@@ -7,24 +7,27 @@
 	var/voice_name = "Неизвестный"
 	var/real_voice_name = "Неизвестный"
 
-	var/list/famous_voices = list() //todo collected_voices
-	var/list/famous_faces = list() //todo collected_faces
+	var/list/famous_voices = list()
+	var/list/famous_faces = list()
 
 /datum/component/voice_model/Initialize()
+	if(!istype(parent, /mob))
+		return COMPONENT_INCOMPATIBLE //GET OUT
+
 	var/mob/owner_voice = parent
-	if(owner_voice != null) 
-		host = owner_voice
-		real_voice_name = owner_voice.GetVoice()
-		voice_name = owner_voice.GetVoice()
-		voice_gender = owner_voice.gender
-		famous_voices[voice_name] = owner_voice.name
-		tts_seed_string = owner_voice.tts_seed
+	host = owner_voice
+	real_voice_name = owner_voice.GetVoice()
+	voice_name = owner_voice.GetVoice()
+	voice_gender = owner_voice.gender
+	famous_voices[voice_name] = owner_voice.name
+	tts_seed_string = owner_voice.tts_seed
 
 /datum/component/voice_model/RegisterWithParent()
 	if(SSjobs.GetJob(host.job))
 		RegisterSignal(SSdcs, COMSIG_SPECIAL_MASS_STORE_VOICE, PROC_REF(special_mass_add_voice))
 		RegisterSignal(SSdcs, COMSIG_DATACORE_VOICE_COLLEAGUE_INJECT, PROC_REF(special_mass_add_voice))
-
+		RegisterSignal(SSdcs, COMSIG_RENAME_VOICE_INJECT, PROC_REF(special_mass_add_voice))
+		
 	RegisterSignal(parent, COMSIG_MOB_RUN_EXAMINATE, PROC_REF(try_store))
 	RegisterSignal(parent, COMSIG_VOICE_UPDATE, PROC_REF(voice_update))
 
@@ -32,9 +35,9 @@
 
 	UnregisterSignal(SSdcs, COMSIG_SPECIAL_MASS_STORE_VOICE)
 	UnregisterSignal(SSdcs, COMSIG_DATACORE_VOICE_COLLEAGUE_INJECT)
+	UnregisterSignal(SSdcs, COMSIG_RENAME_VOICE_INJECT)
 	UnregisterSignal(parent, COMSIG_MOB_RUN_EXAMINATE)
 	UnregisterSignal(parent, COMSIG_VOICE_UPDATE)
-
 
 /datum/component/voice_model/proc/special_mass_add_voice(suka, list/list_voice)
 	SIGNAL_HANDLER
@@ -46,9 +49,9 @@
 	if(prom_data)
 		LAZYOR(famous_voices, prom_data)  
 
-/datum/component/voice_model/proc/voice_update(UwU)
+/datum/component/voice_model/proc/voice_update(mob/source)
 	SIGNAL_HANDLER
-	voice_name = host.GetVoice() //:badguy:
+	voice_name = host.GetVoice()
 	voice_gender = host.gender
 	tts_seed_string = host.tts_seed
 
@@ -79,14 +82,14 @@
 				return t.fields["name"]
 	return "IDENTIFICATION FACE ERROR"
 */
-/datum/component/voice_model/proc/try_store(uwu, mob/target)
+/datum/component/voice_model/proc/try_store(mob/source, mob/target)
 	SIGNAL_HANDLER
+	if(target == host)
+		return FALSE
 	var/datum/component/voice_model/adv_voice = target.GetComponent(/datum/component/voice_model)
 	if(isnull(adv_voice))
 		return FALSE
 		
-	if(src == adv_voice)
-		return TRUE
 	. = FALSE
 	if(!ishuman(target))
 		return target.name
@@ -159,13 +162,13 @@ can_remember_voice
 /proc/GenDepartamentVoiceTree(mob/target, list/departments)
 	var/list/result = list()
 	
-	for(var/dep_flag in departments) //:catsmile:
+	for(var/dep_flag in departments)
 		var/datum/component/voice_model/adv_voice = target.GetComponent(/datum/component/voice_model)
 		result[dep_flag] = list(adv_voice.voice_name = target.name)
 		
 	return result
 
-/proc/get_gender_unknown_name(gender_string) //Что ты мне сделаешь. я в другом городе
+/proc/get_gender_unknown_name(gender_string)
 	var/result = (GENDER_NAME_UNKNOWN)?[gender_string]
 	if(result)
 		return result

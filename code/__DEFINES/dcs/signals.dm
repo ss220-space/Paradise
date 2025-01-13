@@ -76,7 +76,8 @@
 #define COMSIG_ATOM_NO_LONGER_PULLING "movable_no_longer_pulling"
 //signal for mass roundstart store voice (very english)
 #define COMSIG_SPECIAL_MASS_STORE_VOICE "store_voice"
-#define COMSIG_DATACORE_VOICE_COLLEAGUE_INJECT "fuck_me_daddy"
+#define COMSIG_DATACORE_VOICE_COLLEAGUE_INJECT "manifest_injection"
+#define COMSIG_RENAME_VOICE_INJECT "rename_inject"
 
 #define COMSIG_VOICE_UPDATE "voice_update"
 
