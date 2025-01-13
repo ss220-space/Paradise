@@ -540,7 +540,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/talk_into(mob/M, var/text, var/channel=null)
 	return
 
-//Generic get_heat proc. Returns 0 or number amount of heat an item gives.
+/// Generic get_heat proc. Returns 0 or number amount of heat an item gives.
 /obj/item/proc/get_heat()
 	return
 

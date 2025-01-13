@@ -69,6 +69,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 	UnregisterSignal(src, COMSIG_ITEM_PRE_ATTACKBY)
 	return ..()
 
+/obj/item/clothing/mask/cigarette/pre_attackby(atom/target, mob/living/user, params)
+	. = ..()
+	var/obj/item/lighting_item = target
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !isitem(lighting_item))
+		return .
+
+	if(lighting_item.get_heat())
+		light()
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/item/clothing/mask/cigarette/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target.on_fire)
@@ -221,11 +230,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/get_heat()
 	return lit * 1000
 
-/obj/item/clothing/mask/cigarette/proc/can_light(obj/item/cigarette, obj/item/lighting_item)
-	SIGNAL_HANDLER
-	if(lighting_item.get_heat())
-		light()
-		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
 	if(lit)
