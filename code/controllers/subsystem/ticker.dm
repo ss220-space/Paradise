@@ -244,8 +244,16 @@ SUBSYSTEM_DEF(ticker)
 
 			P.ready = FALSE
 
-	// Pre setup for non-station special modes eg: wizards
-	mode.pre_setup()
+	var/can_continue = FALSE
+	can_continue = mode.pre_setup() //Setup special modes
+	if(!can_continue)
+		QDEL_NULL(mode)
+		to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
+		current_state = GAME_STATE_PREGAME
+		force_start = FALSE
+		SSjobs.ResetOccupations()
+		Master.SetRunLevel(RUNLEVEL_LOBBY)
+		return FALSE
 
 	// Enable highpop slots just before we distribute jobs.
 	var/playercount = length(GLOB.clients)
@@ -257,19 +265,6 @@ SUBSYSTEM_DEF(ticker)
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
 
 	SSjobs.DivideOccupations() //Distribute jobs
-
-	// Now set station-wide special roles after job assignment.
-	// We unready players who haven't got a job, so they're unqualified to get special here.
-	var/can_continue = FALSE
-	can_continue = mode.mid_setup() //Setup special modes
-	if(!can_continue)
-		QDEL_NULL(mode)
-		to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
-		current_state = GAME_STATE_PREGAME
-		force_start = FALSE
-		SSjobs.ResetOccupations()
-		Master.SetRunLevel(RUNLEVEL_LOBBY)
-		return FALSE
 
 	if(hide_mode)
 		var/list/modes = new

@@ -13,7 +13,7 @@
 	to_chat(world, "<B>На станции зафиксирована деятельность гильдии воров и генокрадов. Не дайте генокрадам достичь успеха и скрыться, и не допустите кражу дорогостоящего оборудования!</B>")
 
 
-/datum/game_mode/thief/changeling/mid_setup()
+/datum/game_mode/thief/changeling/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 

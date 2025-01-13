@@ -26,7 +26,7 @@
 	to_chat(world, "<B>There are alien changelings on the station. Do not let the changelings succeed!</B>")
 
 
-/datum/game_mode/changeling/mid_setup()
+/datum/game_mode/changeling/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 

@@ -35,7 +35,7 @@
 	to_chat(world, "<B>There is a syndicate traitor on the station. Do not let the traitor succeed!</B>")
 
 
-/datum/game_mode/traitor/mid_setup()
+/datum/game_mode/traitor/pre_setup()
 	. = FALSE
 
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
