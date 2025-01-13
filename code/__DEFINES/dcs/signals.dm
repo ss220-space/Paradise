@@ -78,11 +78,7 @@
 #define COMSIG_SPECIAL_MASS_STORE_VOICE "store_voice"
 #define COMSIG_DATACORE_VOICE_COLLEAGUE_INJECT "manifest_injection"
 #define COMSIG_RENAME_VOICE_INJECT "rename_inject"
-
 #define COMSIG_VOICE_UPDATE "voice_update"
-
-//signal for human store ebalo
-//#define COMSIG_STORE_FACE "store_face"
 
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"

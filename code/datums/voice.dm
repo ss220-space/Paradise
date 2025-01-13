@@ -11,7 +11,7 @@
 	var/list/famous_faces = list()
 
 /datum/component/voice_model/Initialize()
-	if(!istype(parent, /mob))
+	if(!ismob(parent))
 		return COMPONENT_INCOMPATIBLE //GET OUT
 
 	var/mob/owner_voice = parent
@@ -32,7 +32,6 @@
 	RegisterSignal(parent, COMSIG_VOICE_UPDATE, PROC_REF(voice_update))
 
 /datum/component/voice_model/UnregisterFromParent()
-
 	UnregisterSignal(SSdcs, COMSIG_SPECIAL_MASS_STORE_VOICE)
 	UnregisterSignal(SSdcs, COMSIG_DATACORE_VOICE_COLLEAGUE_INJECT)
 	UnregisterSignal(SSdcs, COMSIG_RENAME_VOICE_INJECT)
@@ -84,7 +83,7 @@
 */
 /datum/component/voice_model/proc/try_store(mob/source, mob/target)
 	SIGNAL_HANDLER
-	if(target == host)
+	if(target == source)
 		return FALSE
 	var/datum/component/voice_model/adv_voice = target.GetComponent(/datum/component/voice_model)
 	if(isnull(adv_voice))
