@@ -74,7 +74,6 @@
 		"вырывает собственное ядро!",
 		"становится коричневым, тусклым и растекается в лужу!")
 
-	var/reagent_skin_coloring = FALSE
 
 	disliked_food = SUGAR | FRIED
 	liked_food = MEAT | TOXIC | RAW
@@ -137,7 +136,7 @@
 
 /datum/species/slime/handle_life(mob/living/carbon/human/H)
 	// Slowly shifting to the color of the reagents
-	if(reagent_skin_coloring && H.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
+	if(H.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
 		var/blood_amount = H.blood_volume
 		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
 		var/new_body_color = BlendRGB(r_color, H.skin_colour, (blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)/((blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)+(H.reagents.total_volume)))
@@ -162,20 +161,18 @@
 
 
 /datum/action/innate/slimecolor
-	name = "Toggle Recolor"
+	name = "Изменить цвет слизи"
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "slime_change"
 
 /datum/action/innate/slimecolor/Activate()
-	var/mob/living/carbon/human/H = owner
-	var/datum/species/slime/S = H.dna.species
-	if(S.reagent_skin_coloring)
-		S.reagent_skin_coloring = FALSE
-		to_chat(H, "Вы настраиваете свою внутреннюю химию, чтобы отфильтровывать пигменты из употребляемых продуктов.")
-	else
-		S.reagent_skin_coloring = TRUE
-		to_chat(H, "Вы настраиваете свою внутреннюю химию, позволяя окрашивать себя пигментами употребляемых веществ.")
+	var/mob/living/carbon/human/human = owner
+	if(human.dna.species.bodyflags & HAS_SKIN_COLOR)
+		var/new_color = input("Please select skin color.", "Slime Color", human.skin_colour) as null|color
+		human.skin_colour  = new_color
+		human.update_body()
+
 
 /datum/action/innate/regrow
 	name = "Regrow limbs"
