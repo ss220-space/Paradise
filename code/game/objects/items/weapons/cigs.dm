@@ -61,23 +61,21 @@ LIGHTERS ARE IN LIGHTERS.DM
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
-	RegisterSignal(src, COMSIG_ITEM_PRE_ATTACKBY, PROC_REF(can_light))
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	QDEL_NULL(reagents)
 	STOP_PROCESSING(SSobj, src)
-	UnregisterSignal(src, COMSIG_ITEM_PRE_ATTACKBY)
 	return ..()
 
 /obj/item/clothing/mask/cigarette/pre_attackby(atom/target, mob/living/user, params)
 	. = ..()
 	var/obj/item/lighting_item = target
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !isitem(lighting_item))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(lighting_item))
 		return .
 
 	if(lighting_item.get_heat())
 		light()
-		return COMPONENT_CANCEL_ATTACK_CHAIN
+		return .|ATTACK_CHAIN_BLOCKED
 
 /obj/item/clothing/mask/cigarette/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target.on_fire)
