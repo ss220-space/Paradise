@@ -376,7 +376,7 @@
 	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_MECHANIC, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER)
 
 /datum/gear/donor/visor_skill
-	display_name = "Security Visor"
+	display_name = "Skill Optical Visor"
 	path = /obj/item/clothing/glasses/hud/skills/visor
 	donator_tier = 3
 	cost = 1
@@ -384,7 +384,7 @@
 	allowed_roles = list(JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_HOP, JOB_TITLE_CAPTAIN)
 
 /datum/gear/donor/visor_hydroponic
-	display_name = "Security Visor"
+	display_name = "Hydroponic Optical Visor"
 	path = /obj/item/clothing/glasses/hud/hydroponic/visor
 	donator_tier = 3
 	cost = 1
