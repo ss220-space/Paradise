@@ -154,7 +154,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		
 		var/datum/job/prom_job = SSjobs.GetJob(H.job)
 
-		for(var/dep_flag in prom_job.college_department) //:catsmile:
+		for(var/dep_flag in prom_job.colleagues_department) //:catsmile:
 			if(!isnull(GLOB.capitalist_manifest?[dep_flag]))
 				GLOB.capitalist_manifest[dep_flag][prom_voice] = H.real_name
 			else

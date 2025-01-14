@@ -81,11 +81,11 @@
 	var/insurance_type = INSURANCE_TYPE_STANDART
 
 	var/default_dep  = TRUE
-	var/list/college_department = list()
+	var/list/colleagues_department = list()
 
 /datum/job/New()
-	if(department && default_dep )
-		LAZYADD(college_department, department)
+	if(department && default_dep)
+		LAZYADD(colleagues_department, department)
 
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)

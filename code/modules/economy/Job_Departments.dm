@@ -1,8 +1,4 @@
-GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", "Science", "Security", "Cargo", "Support", "Civilian"))
-//Это нужно поскольку GLOB.station_departments определяется во время выполнения
-
 // The department the job belongs to.
-// fuck you cib
 /datum/job/var/department = null
 
 // Whether this is a head position
@@ -102,5 +98,3 @@ GLOBAL_LIST_INIT(station_departments, list("Command", "Medical", "Engineering", 
 /datum/job/judge/department = "Security"
 
 /datum/job/lawyer/department = "Security"
-
-

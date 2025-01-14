@@ -31,7 +31,7 @@
 	max_start_money = 700
 
 	default_dep  = FALSE
-	college_department = PRIMITIVE_STATION_DEPARTMENTS
+	colleagues_department= PRIMITIVE_STATION_DEPARTMENTS
 
 /datum/outfit/job/hos
 	name = "Head of Security"
@@ -274,7 +274,7 @@
 	min_start_money = 200
 	max_start_money = 550
 
-	college_department = list("Security", "Medical") //:catsmile:
+	colleagues_department= list("Security", "Medical") //:catsmile:
 
 /datum/outfit/job/brigdoc
 	name = "Brig Physician"

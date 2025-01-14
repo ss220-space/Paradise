@@ -24,7 +24,7 @@
 	max_start_money = 700
 
 	default_dep  = FALSE
-	college_department = PRIMITIVE_STATION_DEPARTMENTS
+	colleagues_department= PRIMITIVE_STATION_DEPARTMENTS
 
 /datum/outfit/job/qm
 	name = "Quartermaster"

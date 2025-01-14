@@ -1,4 +1,3 @@
-#define PRIMITIVE_STATION_DEPARTMENTS list("Command", "Medical", "Engineering", "Science", "Security", "Cargo", "Support", "Civilian")
 /datum/job/chief_engineer
 	title = JOB_TITLE_CHIEF
 	flag = JOB_FLAG_CHIEF
@@ -30,7 +29,7 @@
 	max_start_money = 700
 
 	default_dep  = FALSE
-	college_department = PRIMITIVE_STATION_DEPARTMENTS
+	colleagues_department= PRIMITIVE_STATION_DEPARTMENTS
 
 /datum/outfit/job/chief_engineer
 	name = "Chief Engineer"

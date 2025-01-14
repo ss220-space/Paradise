@@ -1,4 +1,4 @@
-#define GENDER_NAME_UNKNOWN  list(MALE = "Неизвестный", FEMALE = "Неизвестная", NEUTER = "Неизвестный", PLURAL  = "Неизвестный")
+#define GENDER_NAME_UNKNOWN  list(MALE = "Неизвестный", FEMALE = "Неизвестная", NEUTER = "Неизвестный", PLURAL  = "Неизвестные")
 //Voice cumponent
 /datum/component/voice_model
 	var/mob/host = null
@@ -73,7 +73,7 @@
 				return t.fields["name"]
 	return "IDENTIFICATION ERROR"
 
-/* not used
+/* Not used
 /datum/component/voice_model/proc/GetManifestKnowFace(mob/face_target)
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		if(t)
@@ -81,6 +81,7 @@
 				return t.fields["name"]
 	return "IDENTIFICATION FACE ERROR"
 */
+
 /datum/component/voice_model/proc/try_store(mob/source, mob/target)
 	SIGNAL_HANDLER
 	if(target == source)
@@ -110,9 +111,7 @@
 		. = TRUE
 	return
 
-//For examie
-// FUCKING BYOND
-/* NOT USED
+/* Not used
 /datum/component/voice_model/proc/TryRecollectFace(mob/target)
 	if(src == target.adv_voice)
 		return target.name
@@ -132,6 +131,7 @@
 		. = get_gender_unknown_name(target_H.gender)
 	return
 */
+
 //For hear
 /datum/component/voice_model/proc/try_recollect_voice(mob/target)
 	if(!ishuman(host))
@@ -158,7 +158,7 @@
 	return FALSE
 
 //HELPERS 
-/proc/GenDepartamentVoiceTree(mob/target, list/departments)
+/proc/gen_departament_voice_tree(mob/target, list/departments)
 	var/list/result = list()
 	
 	for(var/dep_flag in departments)

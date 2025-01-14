@@ -26,7 +26,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	max_start_money = 1200
 
 	default_dep  = FALSE
-	college_department = PRIMITIVE_STATION_DEPARTMENTS
+	colleagues_department= PRIMITIVE_STATION_DEPARTMENTS
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -100,7 +100,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	max_start_money = 700
 
 	default_dep  = FALSE
-	college_department = PRIMITIVE_STATION_DEPARTMENTS
+	colleagues_department= PRIMITIVE_STATION_DEPARTMENTS
 
 /datum/outfit/job/hop
 	name = "Head of Personnel"
@@ -208,7 +208,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	min_start_money = 400
 	max_start_money = 700
 
-	college_department = list("Command", "Security")
+	colleagues_department= list("Command", "Security")
 
 /datum/outfit/job/blueshield
 	name = "Blueshield"

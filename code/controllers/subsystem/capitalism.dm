@@ -86,7 +86,7 @@ SUBSYSTEM_DEF(capitalism)
 		create_station_account()
 
 	if(GLOB.department_accounts.len == 0)
-		for(var/department in GLOB.station_departments)
+		for(var/department in PRIMITIVE_STATION_DEPARTMENTS)
 			create_department_account(department)
 
 /datum/controller/subsystem/capitalism/proc/salary_account_init()

@@ -9,16 +9,13 @@
 	. = ..()
 	name = "Pun Pun"
 	real_name = name
-	job = "Bartender"
-	tts_seed = "Chen"
-	
 	var/obj/item/clothing/under/punpun/prom = new(src)
-	//var/obj/item/clothing/accessory/petcollar/prom_collar = new(src)
-	var/obj/item/card/id/punpun/punpun_id = new(src)
-	//prom_collar.access_id = punpun_id
-	//prom_collar.on_attached(prom, src)
+	var/obj/item/clothing/accessory/petcollar/prom_collar = new(src)
+	var/obj/item/card/id/punpun/punpun_id = new(prom_collar)
+	prom_collar.access_id = punpun_id
+	prom_collar.on_attached(prom, src)
 	equip_to_slot_if_possible(prom, ITEM_SLOT_CLOTH_INNER)
-	equip_to_slot_if_possible(punpun_id, ITEM_SLOT_ID)
+	tts_seed = "Chen"
 
 /mob/living/carbon/human/lesser/monkey/punpun/can_use_machinery(obj/machinery/mas)
 	. = ..()

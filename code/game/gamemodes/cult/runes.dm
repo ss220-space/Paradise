@@ -329,8 +329,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		convertee.visible_message("<span class='warning'>[convertee] writhes in pain as the markings below them glow a bloody red!</span>", \
 								"<span class='cultlarge'><i>AAAAAAAAAAAAAA-</i></span>")
 		SSticker.mode.add_cultist(convertee.mind)
-		convertee.mind.special_role = "Cultist" //wtf
-		//convertee.mind.special_role_meta_know = TRUE
+		convertee.mind.special_role = "Cultist"
 		to_chat(convertee, "<span class='cultitalic'><b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
 		and something evil takes root.</b></span>")
 		to_chat(convertee, "<span class='cultitalic'><b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve [SSticker.cultdat.entity_title3] above all else. Bring it back.\

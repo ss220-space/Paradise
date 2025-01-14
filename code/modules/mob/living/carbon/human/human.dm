@@ -1,4 +1,3 @@
-
 /mob/living/carbon/human/Initialize(mapload, datum/species/new_species = /datum/species/human)
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
 	create_dna()
@@ -1964,6 +1963,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(istype(potential_spine))
 		carrydelay *= potential_spine.athletics_boost_multiplier
 	*/
+
 	if(carrydelay <= 3 SECONDS)
 		skills_space = " very quickly"
 	else if(carrydelay <= 4 SECONDS)
@@ -1981,4 +1981,3 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 		
 	return buckle_mob(target, TRUE, FALSE, CARRIER_NEEDS_ARM) //checkloc is false because we usually grab people from nearest tile
-

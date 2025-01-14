@@ -27,7 +27,7 @@
 	max_start_money = 700
 
 	default_dep  = FALSE
-	college_department = PRIMITIVE_STATION_DEPARTMENTS
+	colleagues_department= PRIMITIVE_STATION_DEPARTMENTS
 
 /datum/outfit/job/cmo
 	name = JOB_TITLE_CMO
@@ -264,7 +264,7 @@
 	min_start_money = 200
 	max_start_money = 400
 
-	college_department = list("Medical", "Science")
+	colleagues_department= list("Medical", "Science")
 
 /datum/outfit/job/geneticist
 	name = "Geneticist"
