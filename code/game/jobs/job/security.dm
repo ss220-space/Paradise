@@ -274,7 +274,7 @@
 	min_start_money = 200
 	max_start_money = 550
 
-	colleagues_department= list("Security", "Medical") //:catsmile:
+	colleagues_department= list("Security", "Medical")
 
 /datum/outfit/job/brigdoc
 	name = "Brig Physician"
