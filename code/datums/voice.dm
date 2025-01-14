@@ -1,4 +1,4 @@
-#define GENDER_NAME_UNKNOWN  list(MALE = "Незнакомец", FEMALE = "Незнакомка", NEUTER = "Неизвестный", PLURAL  = "Неизвестный")
+#define GENDER_NAME_UNKNOWN  list(MALE = "Неизвестный", FEMALE = "Неизвестная", NEUTER = "Неизвестный", PLURAL  = "Неизвестный")
 //Voice cumponent
 /datum/component/voice_model
 	var/mob/host = null
@@ -7,8 +7,8 @@
 	var/voice_name = "Неизвестный"
 	var/real_voice_name = "Неизвестный"
 
-	var/list/famous_voices = list()
-	var/list/famous_faces = list()
+	var/list/known_voices = list()
+	var/list/known_faces = list()
 
 /datum/component/voice_model/Initialize()
 	if(!ismob(parent))
@@ -19,14 +19,13 @@
 	real_voice_name = owner_voice.GetVoice()
 	voice_name = owner_voice.GetVoice()
 	voice_gender = owner_voice.gender
-	famous_voices[voice_name] = owner_voice.name
+	known_voices[voice_name] = owner_voice.name
 	tts_seed_string = owner_voice.tts_seed
 
 /datum/component/voice_model/RegisterWithParent()
-	if(SSjobs.GetJob(host.job))
-		RegisterSignal(SSdcs, COMSIG_SPECIAL_MASS_STORE_VOICE, PROC_REF(special_mass_add_voice))
-		RegisterSignal(SSdcs, COMSIG_DATACORE_VOICE_COLLEAGUE_INJECT, PROC_REF(special_mass_add_voice))
-		RegisterSignal(SSdcs, COMSIG_RENAME_VOICE_INJECT, PROC_REF(special_mass_add_voice))
+	RegisterSignal(SSdcs, COMSIG_SPECIAL_MASS_STORE_VOICE, PROC_REF(special_mass_add_voice))
+	RegisterSignal(SSdcs, COMSIG_DATACORE_VOICE_COLLEAGUE_INJECT, PROC_REF(special_mass_add_voice))
+	RegisterSignal(SSdcs, COMSIG_RENAME_VOICE_INJECT, PROC_REF(special_mass_add_voice))
 		
 	RegisterSignal(parent, COMSIG_MOB_RUN_EXAMINATE, PROC_REF(try_store))
 	RegisterSignal(parent, COMSIG_VOICE_UPDATE, PROC_REF(voice_update))
@@ -43,10 +42,11 @@
 	UnregisterSignal(SSdcs, COMSIG_DATACORE_VOICE_COLLEAGUE_INJECT)
 
 	var/datum/job/prom_job = SSjobs.GetJob(host.job) //WARNING. Fuking byond
-	var/list/prom_data = list_voice?[prom_job.department]
+	if(prom_job)
+		var/list/prom_data = list_voice?[prom_job.department]
 
-	if(prom_data)
-		LAZYOR(famous_voices, prom_data)  
+		if(prom_data)
+			LAZYOR(known_voices, prom_data)  
 
 /datum/component/voice_model/proc/voice_update(mob/source)
 	SIGNAL_HANDLER
@@ -102,11 +102,11 @@
 		prov_wear_id = prom.front_id
 
 	if(!((target_H.wear_mask?.flags_inv & HIDENAME) || (target_H.head?.flags_inv & HIDENAME)) && prov_wear_id)
-		//famous_faces[target_H.name] = prov_wear_id.registered_name
-		famous_voices[adv_voice.voice_name] = prov_wear_id.registered_name
+		//known_faces[target_H.name] = prov_wear_id.registered_name
+		known_voices[adv_voice.voice_name] = prov_wear_id.registered_name
 		. = TRUE
 	else if(prov_wear_id)
-		famous_voices[adv_voice.voice_name] = prov_wear_id.registered_name
+		known_voices[adv_voice.voice_name] = prov_wear_id.registered_name
 		. = TRUE
 	return
 
@@ -121,7 +121,7 @@
 	var/mob/living/carbon/human/target_H = target
 
 	if(!((target_H.wear_mask?.flags_inv & HIDENAME) || (target_H.head?.flags_inv & HIDENAME)))
-		. = famous_faces?[target_H.name]
+		. = known_faces?[target_H.name]
 
 	if(.)
 		return
@@ -144,16 +144,16 @@
 	if(!ishuman(target))
 		return target.name
 	var/datum/component/voice_model/adv_voice = target.GetComponent(/datum/component/voice_model)
-
-	if(famous_voices?[adv_voice.voice_name])
+	. = known_voices?[adv_voice.voice_name]
+	if(.)
 		return
 
 	return get_gender_unknown_name(adv_voice.voice_gender)
-can_remember_voice
+
 /datum/component/voice_model/proc/can_remember_voice(mob/target)
 	var/datum/component/voice_model/adv_voice = target.GetComponent(/datum/component/voice_model)
 
-	if(famous_voices?[adv_voice.voice_name])
+	if(known_voices?[adv_voice.voice_name])
 		return TRUE
 	return FALSE
 

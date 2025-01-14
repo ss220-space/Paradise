@@ -1,5 +1,4 @@
-/datum/job
-	//ПРЕДУПРЕЖДЕНИЕ ВСЕМ И ВСЯ, НЕ ЗАБЫВАЙТЕ ПРОПИСЫВАТЬ ДЕПОРТАМЕНТ В Job_Departamenst.dm ИНАЧЕ НАХУЙ ВСЕ СЛОМАЕТСЯ
+/datum/job	
 	//The name of the job
 	var/title = "NOPE"
 
@@ -82,14 +81,13 @@
 	var/insurance_type = INSURANCE_TYPE_STANDART
 
 	var/default_dep  = TRUE
-	var/list/college_department = list() //Указаные отделы будут знать тебя. По умолчанию тебя знает твой отдел
+	var/list/college_department = list()
 
-//Only override this proc
 /datum/job/New()
 	if(department && default_dep )
 		LAZYADD(college_department, department)
 
-
+//Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
