@@ -159,7 +159,7 @@
 
 /obj/item/clothing/glasses/meson/visor
 	name = "Meson Optical Visor"
-	desc = "meson visor"
+	desc = "Технологичный визор для глаз сделанный из титана, оснащен датчиками и камерами на лицевой части устройства для обработки и передачи данных из окружающего пространства на сетчатку носителя"
 	icon_state = "mesonvisor"
 	item_state = "mesonvisor"
 
@@ -205,7 +205,7 @@
 
 /obj/item/clothing/glasses/science/visor
 	name = "Science Optical Visor"
-	desc = "очке"
+	desc = "Технологичный визор для глаз сделанный из титана, оснащен датчиками и камерами на лицевой части устройства для обработки и передачи данных из окружающего пространства на сетчатку носителя"
 	icon_state = "sciencevisor"
 	item_state = "sciencevisor"
 

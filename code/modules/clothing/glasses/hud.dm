@@ -133,7 +133,7 @@ MEDICAL
 
 /obj/item/clothing/glasses/hud/health/visor
 	name = "Medical optical visor"
-	desc = "очке"
+	desc = "Технологичный визор для глаз сделанный из титана, оснащен датчиками и камерами на лицевой части устройства для обработки и передачи данных из окружающего пространства на сетчатку носителя"
 	icon_state = "medicalvisor"
 	item_state = "medicalvisor"
 
@@ -216,7 +216,7 @@ DIAGNOSTIC
 
 /obj/item/clothing/glasses/hud/diagnostic/visor
 	name = "Optical Diagnostic Visor"
-	desc = ""
+	desc = "Технологичный визор для глаз сделанный из титана, оснащен датчиками и камерами на лицевой части устройства для обработки и передачи данных из окружающего пространства на сетчатку носителя"
 	icon_state = "diagvisor"
 	item_state = "diagvisor"
 /*
@@ -364,7 +364,7 @@ SECURITY
 
 /obj/item/clothing/glasses/hud/security/sunglasses/visor
 	name = "Security visor"
-	desc = "Крутые очечки от кисика"
+	desc = "Технологичный визор для глаз сделанный из титана, оснащен датчиками и камерами на лицевой части устройства для обработки и передачи данных из окружающего пространства на сетчатку носителя. Также он защищает глаза от вспышек."
 	icon_state = "securityvisor"
 	item_state = "securityvisor"
 
@@ -438,7 +438,7 @@ HYDROPONIC
 
 /obj/item/clothing/glasses/hud/hydroponic/visor
 	name = "Hydroponic Optical Visor"
-	desc = "Ochke"
+	desc = "Технологичный визор для глаз сделанный из титана, оснащен датчиками и камерами на лицевой части устройства для обработки и передачи данных из окружающего пространства на сетчатку носителя"
 	icon_state = "hydroponicvisor"
 	item_state = "hydroponicvisor"
 /*
@@ -550,6 +550,6 @@ SKILLS
 
 /obj/item/clothing/glasses/hud/skills/visor
 	name = "Skill Optical Visor"
-	desc = "ochke"
+	desc = "Технологичный визор для глаз сделанный из титана, оснащен датчиками и камерами на лицевой части устройства для обработки и передачи данных из окружающего пространства на сетчатку носителя"
 	icon_state = "skillvisor"
 	item_state = "skillvisor"
