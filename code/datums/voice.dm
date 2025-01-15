@@ -1,4 +1,5 @@
 #define GENDER_NAME_UNKNOWN  list(MALE = "Неизвестный", FEMALE = "Неизвестная", NEUTER = "Неизвестное", PLURAL  = "Неизвестные")
+#define MANIFEST_UNKNOWNS list("Неизвестный", "Неизвестная", "Неизвестное", "Неизвестные")
 //Voice cumponent
 /datum/component/voice_model
 	var/mob/host = null
@@ -29,6 +30,12 @@
 		
 	RegisterSignal(parent, COMSIG_MOB_RUN_EXAMINATE, PROC_REF(try_store))
 	RegisterSignal(parent, COMSIG_VOICE_UPDATE, PROC_REF(voice_update))
+	RegisterSignal(parent, COMSIG_GET_VOICE_NAME, PROC_REF(get_voice_name))
+	RegisterSignal(parent, COMSIG_GET_VOICE_GENDER, PROC_REF(get_voice_gender))
+	RegisterSignal(parent, COMSIG_TRY_RECOLLECT_VOICE, PROC_REF(try_recollect_voice))
+	RegisterSignal(parent, COMSIG_CAN_REMEMBER_VOICE, PROC_REF(can_remember_voice))
+	RegisterSignal(parent, COMSIG_GET_MANIFEST_KWON_VOICE, PROC_REF(get_manifest_know_voice))
+	
 
 /datum/component/voice_model/UnregisterFromParent()
 	UnregisterSignal(SSdcs, COMSIG_SPECIAL_MASS_STORE_VOICE)
@@ -36,12 +43,16 @@
 	UnregisterSignal(SSdcs, COMSIG_RENAME_VOICE_INJECT)
 	UnregisterSignal(parent, COMSIG_MOB_RUN_EXAMINATE)
 	UnregisterSignal(parent, COMSIG_VOICE_UPDATE)
+	UnregisterSignal(parent, COMSIG_GET_VOICE_NAME)
+	UnregisterSignal(parent, COMSIG_TRY_RECOLLECT_VOICE)
+	UnregisterSignal(parent, COMSIG_GET_VOICE_GENDER)
+	UnregisterSignal(parent, COMSIG_CAN_REMEMBER_VOICE)
+	UnregisterSignal(parent, COMSIG_GET_MANIFEST_KWON_VOICE)
 
-/datum/component/voice_model/proc/special_mass_add_voice(suka, list/list_voice)
+/datum/component/voice_model/proc/special_mass_add_voice(source, list/list_voice)
 	SIGNAL_HANDLER
 	UnregisterSignal(SSdcs, COMSIG_DATACORE_VOICE_COLLEAGUE_INJECT)
-
-	var/datum/job/prom_job = SSjobs.GetJob(host.job) //WARNING. Fuking byond
+	var/datum/job/prom_job = SSjobs.GetJob(host.job)
 	if(prom_job)
 		var/list/prom_data = list_voice?[prom_job.department]
 
@@ -66,12 +77,14 @@
 	famous_voices = voice_to_copy.famous_voices
 */
 
-/datum/component/voice_model/proc/get_manifest_know_voice()
+/datum/component/voice_model/proc/get_manifest_know_voice(mob/source, returned)
+	SIGNAL_HANDLER
+	*returned = "IDENTIFICATION ERROR"
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		if(t)
 			if(t.fields["voice"] == voice_name)
-				return t.fields["name"]
-	return "IDENTIFICATION ERROR"
+				*returned = t.fields["name"]
+				break
 
 /* Not used
 /datum/component/voice_model/proc/GetManifestKnowFace(mob/face_target)
@@ -82,12 +95,22 @@
 	return "IDENTIFICATION FACE ERROR"
 */
 
+/datum/component/voice_model/proc/get_voice_name(mob/source, name)
+	SIGNAL_HANDLER
+	*name = voice_name
+
+/datum/component/voice_model/proc/get_voice_gender(mob/source, target_gender)
+	SIGNAL_HANDLER
+	*target_gender = voice_gender
+
 /datum/component/voice_model/proc/try_store(mob/source, mob/target)
 	SIGNAL_HANDLER
 	if(target == source)
 		return FALSE
-	var/datum/component/voice_model/adv_voice = target.GetComponent(/datum/component/voice_model)
-	if(isnull(adv_voice))
+	var/speaker_name = get_gender_unknown_name(target.gender)
+	SEND_SIGNAL(target, COMSIG_GET_VOICE_NAME, &speaker_name)
+
+	if(speaker_name in MANIFEST_UNKNOWNS)
 		return FALSE
 		
 	. = FALSE
@@ -104,10 +127,10 @@
 
 	if(!((target_H.wear_mask?.flags_inv & HIDENAME) || (target_H.head?.flags_inv & HIDENAME)) && prov_wear_id)
 		//known_faces[target_H.name] = prov_wear_id.registered_name
-		known_voices[adv_voice.voice_name] = prov_wear_id.registered_name
+		known_voices[speaker_name] = prov_wear_id.registered_name
 		. = TRUE
 	else if(prov_wear_id)
-		known_voices[adv_voice.voice_name] = prov_wear_id.registered_name
+		known_voices[speaker_name] = prov_wear_id.registered_name
 		. = TRUE
 	return
 
@@ -133,37 +156,48 @@
 */
 
 //For hear
-/datum/component/voice_model/proc/try_recollect_voice(mob/target)
+/datum/component/voice_model/proc/try_recollect_voice(mob/source, mob/target, returned_name)
+	SIGNAL_HANDLER
+	var/target_gender = NEUTER
+	SEND_SIGNAL(target, COMSIG_GET_VOICE_GENDER, &target_gender)
+	*returned_name = get_gender_unknown_name(target_gender)
+
 	if(!ishuman(host))
-		return target.name
-	if(host.mind.special_role_meta_know && (target.mind.special_role == host.mind.special_role))
-		return target.name
+		*returned_name = target.name
+		return
+	if(host.mind.special_role_meta_know && ((target.mind.special_role) == (host.mind.special_role)))
+		*returned_name =  target.name
+		return
 	
 	if(host == target)
-		return target.name
-	if(!ishuman(target))
-		return target.name
-	var/datum/component/voice_model/adv_voice = target.GetComponent(/datum/component/voice_model)
-	. = known_voices?[adv_voice.voice_name]
-	if(.)
+		*returned_name = target.name
 		return
+	if(!ishuman(target))
+		*returned_name = target.name
+		return
+	var/speaker_name = get_gender_unknown_name(target.gender)
+	SEND_SIGNAL(target, COMSIG_GET_VOICE_NAME, &speaker_name)
+	. = known_voices?[speaker_name]
+	if(.)
+		*returned_name = .
 
-	return get_gender_unknown_name(adv_voice.voice_gender)
-
-/datum/component/voice_model/proc/can_remember_voice(mob/target)
-	var/datum/component/voice_model/adv_voice = target.GetComponent(/datum/component/voice_model)
-
-	if(known_voices?[adv_voice.voice_name])
-		return TRUE
-	return FALSE
+/datum/component/voice_model/proc/can_remember_voice(mob/source, mob/target, returned_param)
+	SIGNAL_HANDLER
+	var/speaker_name = get_gender_unknown_name(target.gender)
+	SEND_SIGNAL(target, COMSIG_GET_VOICE_NAME, &speaker_name)
+	if(known_voices?[speaker_name])
+		*returned_param = TRUE
+	else
+		*returned_param = FALSE
 
 //HELPERS 
 /proc/gen_departament_voice_tree(mob/target, list/departments)
 	var/list/result = list()
-	
+	var/speaker_name
+	speaker_name = get_gender_unknown_name(target.gender)
+	SEND_SIGNAL(target, COMSIG_GET_VOICE_NAME, &(speaker_name))
 	for(var/dep_flag in departments)
-		var/datum/component/voice_model/adv_voice = target.GetComponent(/datum/component/voice_model)
-		result[dep_flag] = list(adv_voice.voice_name = target.name)
+		result[dep_flag] = list((speaker_name) = (target.name))
 		
 	return result
 

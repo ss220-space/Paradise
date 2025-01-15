@@ -578,7 +578,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			pos = findtextEx_char(objective.explanation_text, oldname)
 			objective.explanation_text = copytext_char(objective.explanation_text, 1, pos)+newname+copytext_char(objective.explanation_text, pos+length)
 	update_voice()
-	if(!LAZYLEN(mass_update))
+	if(LAZYLEN(mass_update))
 		SEND_GLOBAL_SIGNAL(COMSIG_RENAME_VOICE_INJECT, gen_departament_voice_tree(src, mass_update))
 	return 1
 

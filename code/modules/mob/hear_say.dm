@@ -138,8 +138,7 @@
 
 	if(italics)
 		message = "<i>[message]</i>"
-	var/datum/component/voice_model/adv_voice = GetComponent(/datum/component/voice_model)
-	speaker_name = adv_voice.try_recollect_voice(speaker)
+	SEND_SIGNAL(src, COMSIG_TRY_RECOLLECT_VOICE, speaker, &speaker_name)
 	var/track = null
 	if(isobserver(src))
 		if(speaker_name != speaker.real_name && speaker.real_name)
@@ -253,9 +252,8 @@
 		return vname
 	if(!ishuman(speaker))
 		return speaker.name
-	
-	var/datum/component/voice_model/adv_voice = GetComponent(/datum/component/voice_model)
-	return adv_voice.try_recollect_voice(speaker)
+	SEND_SIGNAL(src, COMSIG_TRY_RECOLLECT_VOICE, speaker, &speaker_name)
+	return speaker_name
 
 /mob/proc/handle_track(message, verb = "says", mob/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
 	return

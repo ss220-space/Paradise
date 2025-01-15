@@ -61,14 +61,18 @@
 	return diag_hud_set_status() //we use a different hud
 
 /mob/living/silicon/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
+	var/speaker_name = ""
+	
 	if(speaker == src) //HeLLO Is I 
 		return speaker.name
 
-	var/datum/component/voice_model/src_adv_voice = src.GetComponent(/datum/component/voice_model)
-	if(src_adv_voice.can_remember_voice(speaker))
-		return src_adv_voice.try_recollect_voice(speaker)
-	var/datum/component/voice_model/speaker_adv_voice = speaker.GetComponent(/datum/component/voice_model)
-	return speaker_adv_voice.get_manifest_know_voice()
+	var/i_can_rememver = FALSE
+	SEND_SIGNAL(src, COMSIG_CAN_REMEMBER_VOICE, speaker, &i_can_rememver)
+	if(i_can_rememver)
+		SEND_SIGNAL(src, COMSIG_TRY_RECOLLECT_VOICE, speaker, &speaker_name)
+	else
+		SEND_SIGNAL(speaker, COMSIG_GET_MANIFEST_KWON_VOICE, &speaker_name)
+	return speaker_name 
 
 /mob/living/silicon/Destroy()
 	UnregisterSignal(SSalarm, list(

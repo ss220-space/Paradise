@@ -26,7 +26,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	max_start_money = 1200
 
 	default_dep  = FALSE
-	colleagues_department= PRIMITIVE_STATION_DEPARTMENTS
+	colleagues_department= STATION_DEPARTMENTS
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -100,7 +100,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	max_start_money = 700
 
 	default_dep  = FALSE
-	colleagues_department= PRIMITIVE_STATION_DEPARTMENTS
+	colleagues_department= STATION_DEPARTMENTS
 
 /datum/outfit/job/hop
 	name = "Head of Personnel"

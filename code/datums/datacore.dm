@@ -149,12 +149,11 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		
 		var/id = num2hex(GLOB.record_id_num++, 6)
 		H.update_voice()
-		var/datum/component/voice_model/prom_adv_voice = H.GetComponent(/datum/component/voice_model)
-		var/prom_voice = prom_adv_voice.voice_name 
-		
+		var/prom_voice = "Незнакомец"
+		SEND_SIGNAL(H, COMSIG_GET_VOICE_NAME, &(prom_voice))
 		var/datum/job/prom_job = SSjobs.GetJob(H.job)
 
-		for(var/dep_flag in prom_job.colleagues_department) //:catsmile:
+		for(var/dep_flag in prom_job.colleagues_department)
 			if(!isnull(GLOB.capitalist_manifest?[dep_flag]))
 				GLOB.capitalist_manifest[dep_flag][prom_voice] = H.real_name
 			else

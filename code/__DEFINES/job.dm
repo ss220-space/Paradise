@@ -150,4 +150,4 @@
 #define TAIPAN_HUD_RD			8
 #define TAIPAN_HUD_CYBORG		9
 
-#define PRIMITIVE_STATION_DEPARTMENTS list("Command", "Medical", "Engineering", "Science", "Security", "Cargo", "Support", "Civilian")
+#define STATION_DEPARTMENTS list("Command", "Medical", "Engineering", "Science", "Security", "Cargo", "Support", "Civilian")

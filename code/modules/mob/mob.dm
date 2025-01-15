@@ -26,7 +26,7 @@
 
 /mob/Initialize(mapload)	
 	voice_name = GetVoice()
-	src.AddComponent(/datum/component/voice_model)
+	AddComponent(/datum/component/voice_model)
 
 	add_to_mob_list()
 
