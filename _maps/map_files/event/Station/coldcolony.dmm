@@ -1599,11 +1599,7 @@
 "aKR" = (
 /obj/structure/closet/walllocker/emerglocker/north,
 /turf/simulated/floor/wood,
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "aLo" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -1757,11 +1753,7 @@
 	},
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/wood,
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "aPj" = (
 /obj/structure/flora/grass/both,
 /obj/structure/flora/tree/dead,
@@ -5626,11 +5618,7 @@
 "cBa" = (
 /obj/structure/morgue,
 /turf/simulated/floor/wood,
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "cBm" = (
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
@@ -8129,11 +8117,7 @@
 "dFC" = (
 /obj/effect/landmark/start/coroner,
 /turf/simulated/floor/wood,
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "dFE" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -15229,11 +15213,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
 /obj/item/reagent_containers/dropper,
 /turf/simulated/floor/wood,
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "hbl" = (
 /obj/structure/sink{
 	dir = 4;
@@ -16048,11 +16028,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "htl" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -16650,11 +16626,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "hLn" = (
 /obj/item/grenade/chem_grenade/firefighting,
 /obj/structure/table,
@@ -20383,11 +20355,7 @@
 "jwu" = (
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/wood,
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "jwz" = (
 /obj/machinery/light{
 	dir = 1
@@ -23118,11 +23086,7 @@
 /area/library)
 "kEQ" = (
 /turf/simulated/floor/wood,
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "kEX" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -30370,11 +30334,7 @@
 /obj/item/autopsy_scanner,
 /obj/item/clothing/gloves/color/latex,
 /turf/simulated/floor/wood,
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "ohs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -31422,11 +31382,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "oFn" = (
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass,
@@ -32910,11 +32866,7 @@
 	},
 /obj/structure/sign/directions/evac,
 /turf/simulated/wall/mineral/wood/nonmetal,
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "pof" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -33755,11 +33707,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
 	},
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "pIZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -34284,11 +34232,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "pXq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/bodyscanner{
@@ -37935,11 +37879,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "rxz" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -39228,11 +39168,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7"
 	},
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "siB" = (
 /obj/structure/closet/secure_closet/medical2,
 /obj/machinery/firealarm{
@@ -41307,11 +41243,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "teP" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -42990,11 +42922,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
 	},
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "tUk" = (
 /obj/machinery/computer/monitor{
 	name = "Command Power Monitoring Console"
@@ -43409,11 +43337,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "ubp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -44133,11 +44057,7 @@
 /obj/structure/fans/tiny,
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/wood,
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "uuI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -46206,11 +46126,7 @@
 "vrL" = (
 /obj/structure/filingcabinet/chestdrawer/autopsy,
 /turf/simulated/floor/wood,
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "vrN" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/landmark/tiles/burnturf,
@@ -47644,11 +47560,7 @@
 /area/magistrateoffice)
 "vWC" = (
 /turf/simulated/wall/mineral/wood/nonmetal,
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "vWI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -48647,11 +48559,7 @@
 "wtv" = (
 /obj/machinery/optable,
 /turf/simulated/floor/wood,
-/area/medical/morgue{
-	power_environ = 0;
-	power_equip = 0;
-	power_light = 0
-	})
+/area/medical/morgue)
 "wtG" = (
 /obj/structure/sign/poster/random{
 	pixel_y = 32
