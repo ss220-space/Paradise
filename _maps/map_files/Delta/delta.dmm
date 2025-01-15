@@ -59353,6 +59353,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/sign/bathhouse{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
