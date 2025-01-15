@@ -337,6 +337,7 @@
 
 /datum/gear/donor/visor_security
 	display_name = "Security Visor"
+	index_name = "Optical Security Visor"
 	path = /obj/item/clothing/glasses/hud/security/sunglasses/visor
 	donator_tier = 3
 	cost = 1
@@ -345,6 +346,7 @@
 
 /datum/gear/donor/visor_medical
 	display_name = "Medical Optical Visor"
+	index_name = "Optical Medical Visor"
 	path = /obj/item/clothing/glasses/hud/health/visor
 	donator_tier = 3
 	cost = 1
@@ -353,6 +355,7 @@
 
 /datum/gear/donor/visor_science
 	display_name = "Scince Optical Visor"
+	index_name = "Optical Science Visor"
 	path = /obj/item/clothing/glasses/science/visor
 	donator_tier = 3
 	cost = 1
@@ -361,6 +364,7 @@
 
 /datum/gear/donor/visor_diagnostic
 	display_name = "Diagnostic Optical Visor"
+	index_name = "Optical Diagnostic Visor"
 	path = /obj/item/clothing/glasses/hud/diagnostic/visor
 	donator_tier = 3
 	cost = 1
@@ -369,6 +373,7 @@
 
 /datum/gear/donor/visor_meson
 	display_name = "Meson Optical Visor"
+	index_name = "Optical Meson Visor"
 	path = /obj/item/clothing/glasses/meson/visor
 	donator_tier = 3
 	cost = 1
@@ -377,6 +382,7 @@
 
 /datum/gear/donor/visor_skill
 	display_name = "Skill Optical Visor"
+	index_name = "Optical Skill Visor"
 	path = /obj/item/clothing/glasses/hud/skills/visor
 	donator_tier = 3
 	cost = 1
@@ -385,6 +391,7 @@
 
 /datum/gear/donor/visor_hydroponic
 	display_name = "Hydroponic Optical Visor"
+	index_name = "Optical Hydroponic Visor"
 	path = /obj/item/clothing/glasses/hud/hydroponic/visor
 	donator_tier = 3
 	cost = 1
