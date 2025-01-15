@@ -5,8 +5,6 @@
 	var/mob/host = null
 	var/tts_seed_string = "Arthas"
 	var/voice_gender = MALE
-	var/voice_name = "Неизвестный"
-	var/real_voice_name = "Неизвестный"
 
 	var/list/known_voices = list()
 	var/list/known_faces = list()
@@ -17,10 +15,8 @@
 
 	var/mob/owner_voice = parent
 	host = owner_voice
-	real_voice_name = owner_voice.GetVoice()
-	voice_name = owner_voice.GetVoice()
 	voice_gender = owner_voice.gender
-	known_voices[voice_name] = owner_voice.name
+	known_voices[owner_voice.GetVoice()] = owner_voice.name
 	tts_seed_string = owner_voice.tts_seed
 
 /datum/component/voice_model/RegisterWithParent()
@@ -30,7 +26,6 @@
 		
 	RegisterSignal(parent, COMSIG_MOB_RUN_EXAMINATE, PROC_REF(try_store))
 	RegisterSignal(parent, COMSIG_VOICE_UPDATE, PROC_REF(voice_update))
-	RegisterSignal(parent, COMSIG_GET_VOICE_NAME, PROC_REF(get_voice_name))
 	RegisterSignal(parent, COMSIG_GET_VOICE_GENDER, PROC_REF(get_voice_gender))
 	RegisterSignal(parent, COMSIG_TRY_RECOLLECT_VOICE, PROC_REF(try_recollect_voice))
 	RegisterSignal(parent, COMSIG_CAN_REMEMBER_VOICE, PROC_REF(can_remember_voice))
@@ -43,7 +38,6 @@
 	UnregisterSignal(SSdcs, COMSIG_RENAME_VOICE_INJECT)
 	UnregisterSignal(parent, COMSIG_MOB_RUN_EXAMINATE)
 	UnregisterSignal(parent, COMSIG_VOICE_UPDATE)
-	UnregisterSignal(parent, COMSIG_GET_VOICE_NAME)
 	UnregisterSignal(parent, COMSIG_TRY_RECOLLECT_VOICE)
 	UnregisterSignal(parent, COMSIG_GET_VOICE_GENDER)
 	UnregisterSignal(parent, COMSIG_CAN_REMEMBER_VOICE)
@@ -61,7 +55,6 @@
 
 /datum/component/voice_model/proc/voice_update(mob/source)
 	SIGNAL_HANDLER
-	voice_name = host.GetVoice()
 	voice_gender = host.gender
 	tts_seed_string = host.tts_seed
 
@@ -82,7 +75,7 @@
 	*returned = "IDENTIFICATION ERROR"
 	for(var/datum/data/record/t in GLOB.data_core.general)
 		if(t)
-			if(t.fields["voice"] == voice_name)
+			if(t.fields["voice"] == host.voice_name)
 				*returned = t.fields["name"]
 				break
 
@@ -97,7 +90,7 @@
 
 /datum/component/voice_model/proc/get_voice_name(mob/source, name)
 	SIGNAL_HANDLER
-	*name = voice_name
+	*name = host.voice_name
 
 /datum/component/voice_model/proc/get_voice_gender(mob/source, target_gender)
 	SIGNAL_HANDLER
@@ -107,12 +100,9 @@
 	SIGNAL_HANDLER
 	if(target == source)
 		return FALSE
-	var/speaker_name = get_gender_unknown_name(target.gender)
-	SEND_SIGNAL(target, COMSIG_GET_VOICE_NAME, &speaker_name)
+	//if(target.voice_name in MANIFEST_UNKNOWNS)
+	//	return FALSE
 
-	if(speaker_name in MANIFEST_UNKNOWNS)
-		return FALSE
-		
 	. = FALSE
 	if(!ishuman(target))
 		return target.name
@@ -127,10 +117,10 @@
 
 	if(!((target_H.wear_mask?.flags_inv & HIDENAME) || (target_H.head?.flags_inv & HIDENAME)) && prov_wear_id)
 		//known_faces[target_H.name] = prov_wear_id.registered_name
-		known_voices[speaker_name] = prov_wear_id.registered_name
+		known_voices[target.voice_name] = prov_wear_id.registered_name
 		. = TRUE
 	else if(prov_wear_id)
-		known_voices[speaker_name] = prov_wear_id.registered_name
+		known_voices[target.voice_name] = prov_wear_id.registered_name
 		. = TRUE
 	return
 
@@ -175,17 +165,13 @@
 	if(!ishuman(target))
 		*returned_name = target.name
 		return
-	var/speaker_name = get_gender_unknown_name(target.gender)
-	SEND_SIGNAL(target, COMSIG_GET_VOICE_NAME, &speaker_name)
-	. = known_voices?[speaker_name]
+	. = known_voices?[target.voice_name]
 	if(.)
 		*returned_name = .
 
 /datum/component/voice_model/proc/can_remember_voice(mob/source, mob/target, returned_param)
 	SIGNAL_HANDLER
-	var/speaker_name = get_gender_unknown_name(target.gender)
-	SEND_SIGNAL(target, COMSIG_GET_VOICE_NAME, &speaker_name)
-	if(known_voices?[speaker_name])
+	if(known_voices?[target.voice_name])
 		*returned_param = TRUE
 	else
 		*returned_param = FALSE
@@ -193,11 +179,8 @@
 //HELPERS 
 /proc/gen_departament_voice_tree(mob/target, list/departments)
 	var/list/result = list()
-	var/speaker_name
-	speaker_name = get_gender_unknown_name(target.gender)
-	SEND_SIGNAL(target, COMSIG_GET_VOICE_NAME, &(speaker_name))
 	for(var/dep_flag in departments)
-		result[dep_flag] = list((speaker_name) = (target.name))
+		result[dep_flag] = list((target.voice_name) = (target.name))
 		
 	return result
 

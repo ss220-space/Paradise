@@ -79,7 +79,6 @@
 #define COMSIG_DATACORE_VOICE_COLLEAGUE_INJECT "manifest_injection"
 #define COMSIG_RENAME_VOICE_INJECT "rename_inject"
 #define COMSIG_VOICE_UPDATE "voice_update"
-#define COMSIG_GET_VOICE_NAME "get_voice_name"
 #define COMSIG_GET_VOICE_GENDER "get_voice_gender"
 #define COMSIG_TRY_RECOLLECT_VOICE "try_recollect_voice"
 #define COMSIG_CAN_REMEMBER_VOICE "can_rem_voice"

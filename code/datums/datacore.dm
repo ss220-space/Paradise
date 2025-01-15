@@ -149,8 +149,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		
 		var/id = num2hex(GLOB.record_id_num++, 6)
 		H.update_voice()
-		var/prom_voice = "Незнакомец"
-		SEND_SIGNAL(H, COMSIG_GET_VOICE_NAME, &(prom_voice))
+		var/prom_voice = H.voice_name
 		var/datum/job/prom_job = SSjobs.GetJob(H.job)
 
 		for(var/dep_flag in prom_job.colleagues_department)

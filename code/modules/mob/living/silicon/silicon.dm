@@ -61,17 +61,8 @@
 	return diag_hud_set_status() //we use a different hud
 
 /mob/living/silicon/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
-	var/speaker_name = ""
-	
-	if(speaker == src) //HeLLO Is I 
-		return speaker.name
-
-	var/i_can_rememver = FALSE
-	SEND_SIGNAL(src, COMSIG_CAN_REMEMBER_VOICE, speaker, &i_can_rememver)
-	if(i_can_rememver)
-		SEND_SIGNAL(src, COMSIG_TRY_RECOLLECT_VOICE, speaker, &speaker_name)
-	else
-		SEND_SIGNAL(speaker, COMSIG_GET_MANIFEST_KWON_VOICE, &speaker_name)
+	var/speaker_name = speaker.name
+	SEND_SIGNAL(speaker, COMSIG_GET_MANIFEST_KWON_VOICE, &speaker_name)
 	return speaker_name 
 
 /mob/living/silicon/Destroy()

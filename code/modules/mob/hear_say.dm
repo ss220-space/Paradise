@@ -138,7 +138,10 @@
 
 	if(italics)
 		message = "<i>[message]</i>"
-	SEND_SIGNAL(src, COMSIG_TRY_RECOLLECT_VOICE, speaker, &speaker_name)
+	if(issilicon(src))
+		SEND_SIGNAL(speaker, COMSIG_GET_MANIFEST_KWON_VOICE, speaker, &speaker_name)
+	else
+		SEND_SIGNAL(src, COMSIG_TRY_RECOLLECT_VOICE, speaker, &speaker_name)
 	var/track = null
 	if(isobserver(src))
 		if(speaker_name != speaker.real_name && speaker.real_name)
