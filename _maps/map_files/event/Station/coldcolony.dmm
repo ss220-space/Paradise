@@ -38503,14 +38503,6 @@
 /obj/structure/computerframe,
 /turf/simulated/floor/plating,
 /area/medical/virology/lab)
-"rPe" = (
-/obj/structure/closet/secure_closet/brig/evidence,
-/obj/structure/closet/secure_closet/brig/evidence,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/security/evidence)
 "rPM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -43638,7 +43630,6 @@
 /turf/simulated/floor/plating,
 /area/toxins/explab)
 "uiR" = (
-/obj/structure/table,
 /obj/structure/table,
 /obj/item/stack/packageWrap,
 /turf/simulated/floor/plasteel{
@@ -108520,7 +108511,7 @@ cnG
 cnG
 cnG
 fsn
-rPe
+ipu
 rho
 dXR
 ipu
