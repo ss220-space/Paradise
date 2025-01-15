@@ -83,9 +83,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/bluegrid,
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "ace" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/window/reinforced{
@@ -1997,9 +1995,7 @@
 /area/hallway/secondary/exit)
 "aTA" = (
 /turf/simulated/floor/bluegrid,
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "aTH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -6470,9 +6466,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/bluegrid,
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "cSH" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -7039,9 +7033,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/bluegrid,
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "ddT" = (
 /obj/machinery/door/airlock/research/glass{
 	heat_proof = 1;
@@ -7648,9 +7640,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "dtJ" = (
 /obj/structure/bed/old,
 /turf/simulated/floor/wood,
@@ -13382,9 +13372,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "gkX" = (
 /obj/structure/chair/sofa/left{
 	dir = 4
@@ -16619,9 +16607,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "hKs" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/dirt,
@@ -21039,9 +21025,7 @@
 "jLZ" = (
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/bluegrid,
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "jMq" = (
 /obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel{
@@ -21500,9 +21484,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "jXq" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -22383,7 +22365,7 @@
 	name = "Engineering Secure Storage Control";
 	pixel_x = 8;
 	pixel_y = -24;
-	req_access = list(11)
+	req_access = list(32)
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
@@ -24236,9 +24218,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "lij" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -24314,9 +24294,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "llN" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -24855,9 +24833,7 @@
 /area/maintenance/brig)
 "lBg" = (
 /turf/simulated/wall/r_wall,
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "lBz" = (
 /obj/structure/table/glass,
 /obj/machinery/door_control{
@@ -24902,9 +24878,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "lCC" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/snow/sand/edge{
@@ -29731,9 +29705,7 @@
 /area/crew_quarters/locker/locker_toilet)
 "nTf" = (
 /turf/simulated/wall/r_wall/rust,
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "nTj" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/secure_closet/freezer/meat/empty,
@@ -41382,9 +41354,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "tgZ" = (
 /turf/simulated/wall,
 /area/toxins/test_chamber)
@@ -48021,9 +47991,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "weT" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -48823,9 +48791,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "wxa" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/cable{
@@ -52545,9 +52511,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/bluegrid,
-/area/turret_protected/ai_upload{
-	name = "Borg Upload Chamber"
-	})
+/area/turret_protected/ai_upload)
 "yfF" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
