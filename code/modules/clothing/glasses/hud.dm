@@ -133,6 +133,14 @@ MEDICAL
 
 /obj/item/clothing/glasses/hud/health/visor
 	name = "Medical optical visor"
+	ru_names = list(
+		NOMINATIVE = "медицинский оптический визор",
+		GENITIVE = "медицинского оптического визора",
+		DATIVE = "медицинскому оптическому визору",
+		ACCUSATIVE = "медицинский оптический визор",
+		INSTRUMENTAL = "медицинским оптическим визором",
+		PREPOSITIONAL = "медицинском оптическом визоре"
+		)
 	desc = "Технологичный визор для глаз сделанный из титана, оснащен датчиками и камерами на лицевой части устройства для обработки и передачи данных из окружающего пространства на сетчатку носителя"
 	icon_state = "medicalvisor"
 	item_state = "medicalvisor"
@@ -216,6 +224,14 @@ DIAGNOSTIC
 
 /obj/item/clothing/glasses/hud/diagnostic/visor
 	name = "Optical Diagnostic Visor"
+	ru_names = list(
+		NOMINATIVE = "диагностический оптический визор",
+		GENITIVE = "диагностического оптического визора",
+		DATIVE = "диагностическому оптическому визору",
+		ACCUSATIVE = "диагностический оптический визор",
+		INSTRUMENTAL = "диагностическим оптическим визором",
+		PREPOSITIONAL = "диагностическом оптическом визоре"
+		)
 	desc = "Технологичный визор для глаз сделанный из титана, оснащен датчиками и камерами на лицевой части устройства для обработки и передачи данных из окружающего пространства на сетчатку носителя"
 	icon_state = "diagvisor"
 	item_state = "diagvisor"
@@ -365,6 +381,14 @@ SECURITY
 /obj/item/clothing/glasses/hud/security/sunglasses/visor
 	name = "Security visor"
 	desc = "Технологичный визор для глаз сделанный из титана, оснащен датчиками и камерами на лицевой части устройства для обработки и передачи данных из окружающего пространства на сетчатку носителя. Также он защищает глаза от вспышек."
+	ru_names = list(
+		NOMINATIVE = "охранный оптический визор",
+		GENITIVE = "охранного оптического визора",
+		DATIVE = "охранному оптическому визору",
+		ACCUSATIVE = "охранный оптический визор",
+		INSTRUMENTAL = "охранным оптическим визором",
+		PREPOSITIONAL = "охранном оптическом визоре"
+		)
 	icon_state = "securityvisor"
 	item_state = "securityvisor"
 
@@ -438,6 +462,14 @@ HYDROPONIC
 
 /obj/item/clothing/glasses/hud/hydroponic/visor
 	name = "Hydroponic Optical Visor"
+	ru_names = list(
+		NOMINATIVE = "ботанический оптический визор",
+		GENITIVE = "ботанического оптического визора",
+		DATIVE = "ботаническому оптическому визору",
+		ACCUSATIVE = "ботанический оптический визор",
+		INSTRUMENTAL = "ботаническим оптическим визором",
+		PREPOSITIONAL = "ботаническом оптическом визоре"
+		)
 	desc = "Технологичный визор для глаз сделанный из титана, оснащен датчиками и камерами на лицевой части устройства для обработки и передачи данных из окружающего пространства на сетчатку носителя"
 	icon_state = "hydroponicvisor"
 	item_state = "hydroponicvisor"
@@ -550,6 +582,14 @@ SKILLS
 
 /obj/item/clothing/glasses/hud/skills/visor
 	name = "Skill Optical Visor"
+	ru_names = list(
+		NOMINATIVE = "оптический визор навыков",
+		GENITIVE = "оптического визора навыков",
+		DATIVE = "оптическому визору навыков",
+		ACCUSATIVE = "оптический визор навыков",
+		INSTRUMENTAL = "оптическим визором навыков",
+		PREPOSITIONAL = "оптическом визоре навыков"
+		)
 	desc = "Технологичный визор для глаз сделанный из титана, оснащен датчиками и камерами на лицевой части устройства для обработки и передачи данных из окружающего пространства на сетчатку носителя"
 	icon_state = "skillvisor"
 	item_state = "skillvisor"

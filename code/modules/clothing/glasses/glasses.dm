@@ -159,6 +159,14 @@
 
 /obj/item/clothing/glasses/meson/visor
 	name = "Meson Optical Visor"
+	ru_names = list(
+		NOMINATIVE = "мезонный оптический визор",
+		GENITIVE = "мезонного оптического визора",
+		DATIVE = "мезонному оптическому визору",
+		ACCUSATIVE = "мезонный оптический визор",
+		INSTRUMENTAL = "мезонным оптическим визором",
+		PREPOSITIONAL = "мезонном оптическом визоре"
+		)
 	desc = "Технологичный визор для глаз сделанный из титана, оснащен датчиками и камерами на лицевой части устройства для обработки и передачи данных из окружающего пространства на сетчатку носителя"
 	icon_state = "mesonvisor"
 	item_state = "mesonvisor"
@@ -205,6 +213,14 @@
 
 /obj/item/clothing/glasses/science/visor
 	name = "Science Optical Visor"
+	ru_names = list(
+		NOMINATIVE = "научный оптический визор",
+		GENITIVE = "научного оптического визора",
+		DATIVE = "научному оптическому визору",
+		ACCUSATIVE = "научный оптический визор",
+		INSTRUMENTAL = "научным оптическим визором",
+		PREPOSITIONAL = "научном оптическом визоре"
+		)
 	desc = "Технологичный визор для глаз сделанный из титана, оснащен датчиками и камерами на лицевой части устройства для обработки и передачи данных из окружающего пространства на сетчатку носителя"
 	icon_state = "sciencevisor"
 	item_state = "sciencevisor"
