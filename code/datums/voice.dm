@@ -1,4 +1,4 @@
-#define GENDER_NAME_UNKNOWN  list(MALE = "Неизвестный", FEMALE = "Неизвестная", NEUTER = "Неизвестный", PLURAL  = "Неизвестные")
+#define GENDER_NAME_UNKNOWN  list(MALE = "Неизвестный", FEMALE = "Неизвестная", NEUTER = "Неизвестное", PLURAL  = "Неизвестные")
 //Voice cumponent
 /datum/component/voice_model
 	var/mob/host = null
