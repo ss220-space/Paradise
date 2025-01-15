@@ -79907,6 +79907,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
+/obj/structure/disposalpipe/broken{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
