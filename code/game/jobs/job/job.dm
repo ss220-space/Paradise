@@ -135,7 +135,7 @@
 	if(disabilities_allowed)
 		return 0
 
-	var/list/prohibited_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE)
+	var/list/prohibited_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	var/list/slightly_prohibited_disabilities = list(DISABILITY_FLAG_PARAPLEGIA)
 
 	for(var/i = 1, i <= prohibited_disabilities.len, i++)
