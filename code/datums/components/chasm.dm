@@ -11,6 +11,7 @@
 		/obj/machinery/bfl_receiver,
 		/obj/singularity,
 		/obj/docking_port,
+		/obj/spacepod,
 		/obj/structure/lattice,
 		/obj/structure/stone_tile,
 		/obj/item/projectile,
@@ -30,7 +31,7 @@
 		/obj/effect/spawner,
 		/obj/structure/railing,
 		/mob/living/simple_animal/hostile/megafauna, //failsafe
-		/mob/living/simple_animal/hostile/asteroid/elite //failsafe also
+		/mob/living/simple_animal/hostile/asteroid/elite, //failsafe also
 	))
 
 
@@ -196,6 +197,11 @@
 		ADD_TRAIT(falling_mob, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 		falling_mob.Stun(20 SECONDS)
 
+	if(ismecha(dropped_thing))
+		var/obj/mecha/fallen_mecha = dropped_thing
+		if(fallen_mecha.occupant)
+			fallen_mecha.occupant.Stun(20 SECONDS) // no escape eject
+
 	var/oldtransform = dropped_thing.transform
 	var/oldcolor = dropped_thing.color
 	var/oldalpha = dropped_thing.alpha
@@ -243,8 +249,18 @@
 	if(!dropped_thing.forceMove(storage))
 		atom_parent.visible_message(span_boldwarning("[atom_parent] spits out [dropped_thing]!"))
 		dropped_thing.throw_at(get_edge_target_turf(atom_parent, pick(GLOB.alldirs)), rand(1, 10), rand(1, 10))
+		falling_atoms -= falling_ref
+		return
 
-	else if(isliving(dropped_thing))
+	if(ismecha(dropped_thing))
+		var/obj/mecha/fallen_mecha = dropped_thing
+		if(fallen_mecha.occupant)
+			dropped_thing = fallen_mecha.occupant
+			fallen_mecha.wreckage = null
+			fallen_mecha.take_damage(10000)
+			dropped_thing.forceMove(storage)
+
+	if(isliving(dropped_thing))
 		var/mob/living/fallen_mob = dropped_thing
 		REMOVE_TRAIT(fallen_mob, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 		if(fallen_mob.stat != DEAD)

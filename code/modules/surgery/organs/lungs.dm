@@ -144,7 +144,7 @@
 			H.clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
 	//Exhale
-	breath.oxygen -= gas_breathed
+	breath.oxygen = max(breath.oxygen - gas_breathed, 0)
 	breath.carbon_dioxide += gas_breathed
 	gas_breathed = 0
 
@@ -352,7 +352,7 @@
 
 /obj/item/organ/internal/lungs/drask/proc/regulate_temperature(mob/living/source, datum/gas_mixture/environment)
 	SIGNAL_HANDLER
-	
+
 	if(source.stat == DEAD)
 		return
 

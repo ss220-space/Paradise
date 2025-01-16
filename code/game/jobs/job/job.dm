@@ -58,6 +58,7 @@
 
 	var/min_age_type = SPECIES_AGE_MIN
 	var/disabilities_allowed = 1
+	var/disabilities_allowed_slightly = 1
 	var/transfer_allowed = TRUE // If false, ID computer will always discourage transfers to this job, even if player is eligible
 	var/hidden_from_job_prefs = FALSE // if true, job preferences screen never shows this job.
 	var/list/blocked_race_for_job = list()
@@ -133,12 +134,25 @@
 		return 0
 	if(disabilities_allowed)
 		return 0
+	if(disabilities_allowed_slightly)
+		return 0
+
 	var/list/prohibited_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
-	for(var/i = 1, i < prohibited_disabilities.len, i++)
+	var/list/slightly_prohibited_disabilities = list(DISABILITY_FLAG_PARAPLEGIA)
+
+	for(var/i = 1, i <= prohibited_disabilities.len, i++)
 		var/this_disability = prohibited_disabilities[i]
 		if(C.prefs.disabilities & this_disability)
 			return 1
+
+	if(!disabilities_allowed_slightly)
+		for(var/i = 1, i <= slightly_prohibited_disabilities.len, i++)
+			var/this_disability = slightly_prohibited_disabilities[i]
+			if(C.prefs.disabilities & this_disability)
+				return 1
+
 	return 0
+
 
 /datum/job/proc/character_old_enough(client/C)
 	. = FALSE

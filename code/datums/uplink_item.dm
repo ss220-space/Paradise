@@ -519,9 +519,9 @@
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi
 	name = "Syndicate MMI"
-	desc = "A syndicate developed man-machine-interface which will make any cyborg it is inserted into follow the standard syndicate lawset."
+	desc = "Разработанный синдикатом Нейро-Компьютерный Интерфейс, который сохраняет оригинальное сознание пользователя внутри бездушной машины."
 	item = /obj/item/mmi/syndie
-	cost = 6
+	cost = 15
 	job = list(JOB_TITLE_ROBOTICIST)
 	surplus = 0
 

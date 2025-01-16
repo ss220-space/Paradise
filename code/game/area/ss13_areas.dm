@@ -3275,3 +3275,9 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 /area/ruin/space/pirate_base/black_market
 	name = "Black Market"
 	icon_state = "awaycontent23"
+
+// Malta event map
+/area/ruin/unpowered/coldcolony_outside
+	name = "\improper Surface"
+	always_unpowered = TRUE
+	ignore_gravgen = TRUE

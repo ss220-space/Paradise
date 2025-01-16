@@ -165,7 +165,7 @@
 		to_chat(user, span_notice("You stamp the paper with your rubber stamp, however the ink ignites as you release the stamp."))
 		return ATTACK_CHAIN_PROCEED
 
-	if(is_hot(I))
+	if(I.get_heat())
 		user.visible_message(
 			span_danger("[user] brings [I] next to [src], but it does not catch a fire!"),
 			span_danger("The [name] refuses to ignite!"),

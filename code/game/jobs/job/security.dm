@@ -23,6 +23,7 @@
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed = 0
+	disabilities_allowed_slightly = 0
 	outfit = /datum/outfit/job/hos
 	insurance_type = INSURANCE_TYPE_DELUXE
 
@@ -78,6 +79,8 @@
 	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	exp_requirements = 2100
 	exp_type = EXP_TYPE_SECURITY
+	disabilities_allowed = 0
+	disabilities_allowed_slightly = 0
 	outfit = /datum/outfit/job/warden
 	insurance_type = INSURANCE_TYPE_DELUXE
 
@@ -130,6 +133,8 @@
 	exp_requirements = 1200
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_type = EXP_TYPE_SECURITY
+	disabilities_allowed = 0 // also sec dept
+	disabilities_allowed_slightly = 0
 	outfit = /datum/outfit/job/detective
 	insurance_type = INSURANCE_TYPE_DELUXE
 
@@ -195,6 +200,8 @@
 	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
+	disabilities_allowed = 0
+	disabilities_allowed_slightly = 0
 	outfit = /datum/outfit/job/officer
 	insurance_type = INSURANCE_TYPE_DELUXE
 
@@ -306,6 +313,8 @@
 	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_SECURITY
+	disabilities_allowed = 0
+	disabilities_allowed_slightly = 0
 	outfit = /datum/outfit/job/pilot
 	insurance_type = INSURANCE_TYPE_DELUXE
 
