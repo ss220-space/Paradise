@@ -4163,7 +4163,7 @@
 "aHF" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light/small,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/banya)
 "aHG" = (
 /obj/structure/cable{
@@ -10789,7 +10789,7 @@
 "bvV" = (
 /obj/machinery/space_heater,
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/banya)
 "bwc" = (
 /obj/structure/chair/office/dark{
@@ -18891,6 +18891,7 @@
 "cie" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/spawner/random_spawners/rodent,
+/obj/effect/turf_decal/siding/wood/pallet,
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
 "cij" = (
@@ -19631,7 +19632,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/banya)
 "cmn" = (
 /obj/machinery/light{
@@ -31698,6 +31699,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/turf_decal/siding/wood/pallet,
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
 "dnD" = (
@@ -31730,6 +31732,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/structure/safe/floor,
 /obj/effect/landmark/event/xeno_spawn,
+/obj/effect/turf_decal/siding/wood/pallet,
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
 "dnI" = (
@@ -33112,6 +33115,9 @@
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -24
+	},
+/obj/effect/turf_decal/siding/wood/pallet{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
@@ -51210,6 +51216,9 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_x = 9;
 	pixel_y = 3
+	},
+/obj/effect/turf_decal/siding/wood/pallet{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
@@ -73746,6 +73755,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/sheet/cardboard,
 /turf/simulated/floor/plating,
 /area/crew_quarters/trading)
 "mdr" = (
@@ -76001,6 +76011,9 @@
 /area/security/securehallway)
 "mCN" = (
 /obj/effect/decal/cleanable/dust,
+/obj/effect/turf_decal/siding/wood/pallet{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
 "mCS" = (
@@ -122246,6 +122259,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/structure/sign/bathhouse{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
