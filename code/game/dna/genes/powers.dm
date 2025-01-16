@@ -44,24 +44,24 @@
 	block = GLOB.increaserunblock
 
 
-/datum/dna/gene/basic/increaserun/can_activate(mob/living/carbon/human/H, flags)
+/datum/dna/gene/basic/increaserun/can_activate(mob/living/carbon/human/human, flags)
 	. = ..()
-	if(H.dna.species.speed_mod && !(flags & MUTCHK_FORCED))
+	if(human.dna.species.speed_mod && !HASBIT(flags, MUTCHK_FORCED))
 		return FALSE
 
 
-/datum/dna/gene/basic/increaserun/activate(mob/living/carbon/human/H, flags)
+/datum/dna/gene/basic/increaserun/activate(mob/living/carbon/human/human, flags)
 	. = ..()
-	H.add_movespeed_modifier(/datum/movespeed_modifier/increaserun)
-	H.physiology.brute_mod *= 1.2
-	H.physiology.burn_mod *= 1.2
+	human.add_movespeed_modifier(/datum/movespeed_modifier/increaserun)
+	human.physiology.brute_mod *= 1.2
+	human.physiology.burn_mod *= 1.2
 
 
-/datum/dna/gene/basic/increaserun/deactivate(mob/living/carbon/human/H, flags)
+/datum/dna/gene/basic/increaserun/deactivate(mob/living/carbon/human/human, flags)
 	. = ..()
-	H.remove_movespeed_modifier(/datum/movespeed_modifier/increaserun)
-	H.physiology.brute_mod /= 1.2
-	H.physiology.burn_mod /= 1.2
+	human.remove_movespeed_modifier(/datum/movespeed_modifier/increaserun)
+	human.physiology.brute_mod /= 1.2
+	human.physiology.burn_mod /= 1.2
 
 
 /datum/dna/gene/basic/heat_resist
