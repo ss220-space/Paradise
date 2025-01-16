@@ -1681,7 +1681,7 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/item/book/manual/random,
+/obj/item/book/random,
 /turf/simulated/floor/plasteel/grimy,
 /area/civilian/vacantoffice)
 "apM" = (
@@ -5815,10 +5815,6 @@
 "aSh" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
-/obj/item/reagent_containers/food/drinks/cans/beer{
-	pixel_x = -8;
-	pixel_y = 12
-	},
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/commercial)
@@ -7788,6 +7784,7 @@
 /area/shuttle/arrival/station)
 "bfQ" = (
 /obj/structure/table/wood/fancy/royalblack,
+/obj/item/clothing/glasses/sunglasses,
 /obj/item/stack/spacechips/c5000,
 /turf/simulated/floor/carpet/red,
 /area/maintenance/casino)
@@ -9252,6 +9249,13 @@
 /area/hallway/secondary/entry)
 "bnk" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/item/coin/iron,
+/obj/item/paper{
+	desc = "Paper attached to freezer";
+	info = "Валере<hr>Мы заметили что наш асистуха Олег, горит одной мыслёй. Выпивая рюмку бахуса, он бормочит что то про перестройку техов карго, говорит мол там скучно. По этому он понабрал материалов и инструментов, дабы перестраивать техтонели. Сообщаем это по той причине.. Однако причины нет, просто на всякий случай, вдруг понадобится Олег.<br><br><br><br>-Скопления Жаждущих Найти Идею.";
+	name = "Записка";
+	pixel_y = -8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -10787,7 +10791,6 @@
 	},
 /area/atmos)
 "bvV" = (
-/obj/machinery/space_heater,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/banya)
@@ -14416,9 +14419,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/nw)
-"bMJ" = (
-/turf/simulated/floor/plating,
-/area/space)
 "bMM" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -14490,11 +14490,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/ne)
-"bNd" = (
-/obj/structure/flora/grass/jungle,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/grass,
-/area/maintenance/fpmaint)
 "bNk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -14834,6 +14829,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/carpet/red,
 /area/maintenance/casino)
 "bOQ" = (
@@ -17862,7 +17858,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "ccx" = (
@@ -17927,7 +17922,6 @@
 /area/bridge/vip)
 "ccJ" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/carpet/red,
 /area/maintenance/casino)
 "ccK" = (
@@ -17944,6 +17938,7 @@
 	pixel_x = -16;
 	pixel_y = -8
 	},
+/obj/item/trash/raisins,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
@@ -19632,6 +19627,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/event/xeno_spawn,
 /turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/banya)
 "cmn" = (
@@ -20071,6 +20067,7 @@
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/storage/fancy/cigcase,
 /obj/effect/decal/cleanable/dust,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/carpet/red,
 /area/maintenance/casino)
 "coN" = (
@@ -31727,12 +31724,11 @@
 	force = 20;
 	name = "Легендарная монтировка"
 	},
-/obj/item/clothing/glasses/sunglasses,
-/obj/item/clothing/gloves/color/yellow,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/safe/floor,
-/obj/effect/landmark/event/xeno_spawn,
 /obj/effect/turf_decal/siding/wood/pallet,
+/obj/item/clothing/gloves/color/yellow,
+/obj/machinery/space_heater,
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
 "dnI" = (
@@ -33747,7 +33743,7 @@
 	},
 /area/quartermaster/storage)
 "dxa" = (
-/obj/item/trash/raisins,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/maintenance/casino)
 "dxb" = (
@@ -43652,7 +43648,6 @@
 	pixel_y = -10
 	},
 /obj/effect/spawner/random_spawners/blood_5,
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
@@ -44242,7 +44237,6 @@
 /area/hallway/primary/central/sw)
 "eSm" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/sustenance,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -44251,6 +44245,7 @@
 	},
 /obj/item/weaponcrafting/receiver,
 /obj/item/paper/deltainfo,
+/obj/machinery/computer/arcade,
 /turf/simulated/floor/carpet,
 /area/maintenance/trading)
 "eSo" = (
@@ -55469,7 +55464,6 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "hAY" = (
-/obj/machinery/computer/arcade,
 /turf/simulated/floor/carpet,
 /area/maintenance/trading)
 "hBg" = (
@@ -56777,7 +56771,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint)
 "hQW" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -61313,9 +61307,11 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment,
 /obj/machinery/light/small{
 	dir = 4
+	},
+/obj/structure/disposalpipe/broken{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -67346,6 +67342,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/crew_quarters/trading)
 "kwr" = (
@@ -80564,10 +80561,11 @@
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "nEC" = (
-/obj/item/target/syndicate,
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
 	pixel_y = 32
 	},
+/obj/item/reagent_containers/food/drinks/cans/badminbrew,
+/obj/item/target/syndicate,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -97053,6 +97051,7 @@
 /area/maintenance/starboard)
 "rpg" = (
 /obj/structure/table/wood,
+/obj/item/book/random,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred";
 	dir = 10
@@ -99876,9 +99875,12 @@
 /area/medical/medbay)
 "rZN" = (
 /obj/structure/closet/crate/can,
-/obj/item/coin/iron,
 /obj/structure/window/reinforced/tinted{
 	dir = 1
+	},
+/obj/item/trash/can{
+	pixel_y = -6;
+	pixel_x = 6
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
@@ -108153,9 +108155,9 @@
 	},
 /obj/structure/table/wood,
 /obj/structure/safe/floor,
-/obj/item/clothing/gloves/color/fyellow,
 /obj/item/clothing/glasses/welding,
 /obj/item/weaponcrafting/revolverbarrel/steel,
+/obj/item/clothing/gloves/color/yellow,
 /turf/simulated/floor/plating,
 /area/crew_quarters/trading)
 "tTu" = (
@@ -118899,10 +118901,6 @@
 /area/hallway/secondary/exit)
 "wud" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/trash/can{
-	pixel_y = -6;
-	pixel_x = 6
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral";
 	dir = 10
@@ -126273,10 +126271,6 @@
 	dir = 4;
 	color = ""
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -126284,6 +126278,9 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 6
 	},
 /turf/simulated/floor/glass/reinforced,
@@ -154468,8 +154465,8 @@ coE
 aaq
 coE
 aaq
-cDs
-cDs
+moG
+moG
 cDr
 moG
 mzQ
@@ -154725,7 +154722,7 @@ coE
 aaq
 coE
 aaq
-bMJ
+cbs
 hQN
 cbs
 ccv
@@ -158580,7 +158577,7 @@ bAo
 bDh
 cYI
 iXx
-bNd
+qEL
 eLR
 nxF
 rLY
