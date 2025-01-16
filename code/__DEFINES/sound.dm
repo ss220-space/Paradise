@@ -79,7 +79,7 @@
 #define SPACE_SOUNDS list('sound/ambience/ambispace.ogg', 'sound/ambience/ambispace2.ogg', 'sound/music/title2.ogg', 'sound/ambience/ambiatmos.ogg')
 
 #define MAINTENANCE_SOUNDS list('sound/ambience/ambimaint1.ogg', 'sound/ambience/ambimaint2.ogg', 'sound/ambience/ambimaint3.ogg', 'sound/ambience/ambimaint4.ogg',\
-											'sound/ambience/ambimaint5.ogg', 'sound/voice/lowHiss2.ogg', 'sound/voice/lowHiss3.ogg', 'sound/voice/lowHiss4.ogg', 'sound/ambience/ambitech2.ogg' )
+											'sound/ambience/ambimaint5.ogg', 'sound/voice/lowHiss2.ogg', 'sound/voice/lowHiss3.ogg', 'sound/voice/lowHiss4.ogg', 'sound/ambience/ambitech2.ogg' ,'sound/music/freddys_har_har_har.ogg')
 
 #define AWAY_MISSION_SOUNDS list('sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiruin.ogg',\
 									'sound/ambience/ambiruin2.ogg',  'sound/ambience/ambiruin3.ogg',  'sound/ambience/ambiruin4.ogg',\
