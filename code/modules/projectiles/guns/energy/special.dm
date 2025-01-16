@@ -586,7 +586,7 @@
 		if(amount > 0)
 			target_temperature = min((500 + 500*emagged), target_temperature+amount)
 		else
-			target_temperature = max(0, target_temperature+amount)
+			target_temperature = max(TCMB, target_temperature+amount)
 	if(ismob(loc))
 		attack_self(loc)
 	add_fingerprint(usr)
