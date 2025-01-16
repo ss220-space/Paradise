@@ -138,6 +138,9 @@
 	if(href_list["sound_options"])
 		client.volume_mixer()
 
+	if(href_list["poll_panel"])
+		handle_player_polling()
+
 	if(href_list["refresh"])
 		src << browse(null, "window=playersetup") //closes the player setup window
 
