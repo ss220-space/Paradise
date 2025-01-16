@@ -118,9 +118,11 @@
 	if(chassis.defence_mode)
 		chassis.deflect_chance = chassis.defence_mode_deflect_chance
 		chassis.occupant_message(span_notice("You enable [chassis] defence mode."))
+		chassis.anchored = TRUE
 	else
 		chassis.deflect_chance = initial(chassis.deflect_chance)
 		chassis.occupant_message(span_danger("You disable [chassis] defence mode."))
+		chassis.anchored = FALSE
 	chassis.log_message("Toggled defence mode.")
 	UpdateButtonIcon()
 
