@@ -11,7 +11,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	GLOB.event_announcement.Announce("Что это за хуйня?!", "ВНИМАНИЕ: ОБЩАЯ ТРЕВОГА.")
+	GLOB.event_announcement.Announce("ТАМ БЛЯ, О БЛЯь. ТО БЛЯТЬ, О БЛЯ. ТО БЛЯ, ЭТО БЛЯ. УОООООООЭЭЭЭЭ", "ВНИМАНИЕ: ОБЩАЯ ТРЕВОГА.", new_sound = 'sound/misc/TAM_BLYA.ogg')
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(GLOB.cardinal)
@@ -24,8 +24,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod
 	name = "\proper незыблемый стержень"
 	desc = "Что это за херня?"
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "immrod"
+	icon = 'icons/obj/peppino_rod.dmi'
+	icon_state = "peppino"
 	throwforce = 100
 	move_force = INFINITY
 	move_resist = INFINITY
@@ -33,6 +33,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	density = TRUE
 	anchored = TRUE
 	movement_type = PHASING|FLYING
+	transform = matrix(1,0,-16,0,1,-16)
 	/// The turf we're looking to coast to.
 	var/turf/destination_turf
 	/// Whether we notify ghosts.
@@ -53,7 +54,11 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/move_delay = 1
 	/// Whether this rod was spawned by admins.
 	var/admin_spawned = FALSE
-
+	/// Какой был заспавнен в прошлый раз? зеленый:красный
+	var/trail_color = FALSE
+	var/datum/looping_sound/peppino_mach/peppino_march_loop
+	var/datum/looping_sound/peppino_mus/peppino_mus_loop
+	var/obj/effect/temp_visual/peppino_trail/trail
 
 /obj/effect/immovablerod/Initialize(mapload, atom/target_atom, atom/special_target, move_delay = 1, force_looping = FALSE)
 	. = ..()
@@ -63,6 +68,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	src.special_target = special_target
 	src.move_delay = move_delay
 	src.loopy_rod ||= force_looping
+
+	src.peppino_mus_loop = new(list(src), TRUE)
+	src.peppino_march_loop = new(list(src), TRUE)
 
 	if(!destination_turf && !special_target)
 		admin_spawned = TRUE
@@ -94,7 +102,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	destination_turf = null
 	special_target = null
 	GLOB.poi_list -= src
-
+	QDEL_NULL(peppino_march_loop)
+	QDEL_NULL(peppino_mus_loop)
 	return ..()
 
 
@@ -197,6 +206,23 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 			qdel(src)
 			return
 
+	if(trail_color)
+		if(pick(70))
+			src.trail = new(loc, COLOR_RED)
+			step(src.trail, GetOppositeDir(movement_dir), 64)
+			src.trail.dir = movement_dir
+			src.trail = null
+			trail_color = !trail_color
+	else
+		if(pick(70))
+			src.trail = new(loc, COLOR_GREEN) // Рисуем след
+			step(src.trail, GetOppositeDir(movement_dir), 64)
+			src.trail.dir = movement_dir
+			src.trail = null
+			trail_color = !trail_color
+
+	src.dir = movement_dir  // Я не знаю почему, но пеппино не поворачивается в нужную сторону...
+
 	return ..()
 
 
@@ -242,8 +268,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 
 /obj/effect/immovablerod/Bump(atom/clong)
-	if(prob(10))
-		playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
+	if(prob(50))
+		playsound(src, 'sound/effects/sfx_breakmetal.ogg', 100, TRUE)
 		audible_message(span_danger("Вы слышите ЛЯЗГ!"))
 
 	if(special_target && clong == special_target)
