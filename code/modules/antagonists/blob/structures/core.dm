@@ -46,7 +46,7 @@
 	GLOB.blob_cores -= src
 	if(overmind)
 		overmind.blob_core = null
-		overmind = null
+		QDEL_NULL(overmind.blob_core)
 	SSticker?.mode?.blob_died()
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
