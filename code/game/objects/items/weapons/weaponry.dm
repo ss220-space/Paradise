@@ -440,3 +440,24 @@
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 30
 
+/obj/item/melee/ghostface_knife
+	name = "Knife"
+	desc = "Очень острый нож. Судя по потертостям и засохшей крови, он совсем не валялся без дела."
+	icon_state = "ghostface_knife"
+	force = 34
+	armour_penetration = 70
+	block_chance = 30
+	w_class = WEIGHT_CLASS_SMALL
+	throwforce = 34
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
+	throw_speed = 3
+	throw_range = 6
+	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	sharp = TRUE
+
+/obj/item/melee/ghostface_knife/devil
+	name = "Old knife"
+	desc = "Странный нож с, тем не менее, крайне острым лезвием. Судя по характерным потертостям и засохшей крови, явно не валялся без делаю"
+	icon_state = "devil_ghostface_knife"

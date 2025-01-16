@@ -429,3 +429,19 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
 	new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
 	new /obj/item/book/granter/crafting_recipe/combat_baking(src)
+
+/obj/item/storage/box/syndie_kit/ghostface_kit
+	name = "Ghostface Kit"
+
+/obj/item/storage/box/syndie_kit/ghostface_kit/populate_contents()
+	new /obj/item/clothing/head/hooded/ghostface/true(src)
+	new /obj/item/clothing/mask/gas/ghostface/true(src)
+	new /obj/item/melee/ghostface_knife(src)
+
+/obj/item/storage/box/syndie_kit/devil_ghostface_kit
+	name = "Devil Ghostface Kit"
+
+/obj/item/storage/box/syndie_kit/devil_ghostface_kit/populate_contents()
+	new /obj/item/clothing/suit/hooded/ghostfacesuit/devil/true(src)
+	new /obj/item/clothing/mask/gas/ghostface/true/devil(src)
+	new /obj/item/melee/ghostface_knife/devil(src)
