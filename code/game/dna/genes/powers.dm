@@ -36,7 +36,7 @@
 	name = "Super Speed"
 	activation_messages = list("Вы чувствуете себя быстрым и свободным.")
 	deactivation_messages = list("Вы чувствуете себя медленным.")
-	instability = GENE_INSTABILITY_MINOR
+	instability = GENE_INSTABILITY_MAJOR
 
 
 /datum/dna/gene/basic/increaserun/New()
@@ -44,20 +44,24 @@
 	block = GLOB.increaserunblock
 
 
-/datum/dna/gene/basic/increaserun/can_activate(mob/living/mutant, flags)
+/datum/dna/gene/basic/increaserun/can_activate(mob/living/carbon/human/H, flags)
 	. = ..()
-	if(mutant.dna.species.speed_mod && !(flags & MUTCHK_FORCED))
+	if(H.dna.species.speed_mod && !(flags & MUTCHK_FORCED))
 		return FALSE
 
 
-/datum/dna/gene/basic/increaserun/activate(mob/living/mutant, flags)
+/datum/dna/gene/basic/increaserun/activate(mob/living/carbon/human/H, flags)
 	. = ..()
-	mutant.ignore_slowdown(DNA_TRAIT)
+	H.add_movespeed_modifier(/datum/movespeed_modifier/increaserun)
+	H.physiology.brute_mod *= 1.2
+	H.physiology.burn_mod *= 1.2
 
 
-/datum/dna/gene/basic/increaserun/deactivate(mob/living/mutant, flags)
+/datum/dna/gene/basic/increaserun/deactivate(mob/living/carbon/human/H, flags)
 	. = ..()
-	mutant.unignore_slowdown(DNA_TRAIT)
+	H.remove_movespeed_modifier(/datum/movespeed_modifier/increaserun)
+	H.physiology.brute_mod /= 1.2
+	H.physiology.burn_mod /= 1.2
 
 
 /datum/dna/gene/basic/heat_resist
