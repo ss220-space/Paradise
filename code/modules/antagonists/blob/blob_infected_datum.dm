@@ -164,7 +164,7 @@
 	if(!blob_talk_action)
 		blob_talk_action = new
 	blob_talk_action.Grant(antag_mob)
-	GLOB.blob_telepathy_mobs += antag_mob
+	GLOB.blob_telepathy_mobs |= antag_mob
 	if(!blob_burst_action)
 		blob_burst_action = new
 	blob_burst_action.Grant(antag_mob)

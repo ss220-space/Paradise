@@ -1639,29 +1639,34 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "demonomicon"
 	w_class = WEIGHT_CLASS_SMALL
-	var/cooldown = FALSE
+	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/codex_gigas/attack_self(mob/user)
-	if(!cooldown)
-		user.visible_message(
-			"<span class='notice'>[user] presses the button on \the [src].</span>",
-			"<span class='notice'>You press the button on \the [src].</span>",
-			"<span class='notice'>You hear a soft click.</span>")
-		var/list/messages = list()
-		var/datum/devilinfo/devil = randomDevilInfo()
-		messages += "Some fun facts about: [devil.truename]"
-		messages += "[GLOB.lawlorify[LORE][devil.bane]]"
-		messages += "[GLOB.lawlorify[LORE][devil.obligation]]"
-		messages += "[GLOB.lawlorify[LORE][devil.ban]]"
-		messages += "[GLOB.lawlorify[LORE][devil.banish]]"
-		playsound(loc, 'sound/machines/click.ogg', 20, 1)
-		cooldown = TRUE
-		for(var/message in messages)
-			user.loc.visible_message("<span class='danger'>[bicon(src)] [message]</span>")
-			sleep(10)
-		spawn(20)
-			cooldown = FALSE
+	if(!COOLDOWN_FINISHED(src, cooldown))
 		return
+
+	user.visible_message(
+		span_notice("[user] presses the button on \the [src]."), \
+		span_notice("You press the button on \the [src]."), \
+		span_sinister("You hear a soft click."))
+
+	var/list/messages = list()
+	var/datum/devilinfo/devil = new
+
+	LAZYADD(messages, "Some fun facts about: [devil.truename]")
+	LAZYADD(messages, devil.bane.law)
+	LAZYADD(messages, devil.ban.law)
+	LAZYADD(messages, devil.obligation.law)
+	LAZYADD(messages, devil.banish.law)
+
+	playsound(loc, 'sound/machines/click.ogg', 20, 1)
+	COOLDOWN_START(src, cooldown, 2 SECONDS)
+
+	for(var/message in messages)
+		user.loc.visible_message(span_danger("[bicon(src)] [message]"))
+		sleep(1 SECONDS)
+
+	return
 
 /obj/item/toy/owl
 	name = "owl action figure"

@@ -75,7 +75,7 @@
 		if(NONE)
 			failed = TRUE
 	
-	if(start_cooldown)
+	if(start_cooldown && cooldown_after_cast)
 		COOLDOWN_START(src, ritual_cooldown, cooldown_after_cast)
 
 	if(cause_disaster && prob(disaster_prob))

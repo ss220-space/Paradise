@@ -8,6 +8,8 @@
 	/// Whether it shows up as an option to remove during surgery.
 	var/unremovable = FALSE
 	var/can_see_food = FALSE
+	/// Empty list == all species allowed
+	var/list/species_restrictions
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 
@@ -21,6 +23,25 @@
 
 	if(species_type == /datum/species/diona)
 		AddComponent(/datum/component/diona_internals)
+
+
+// user = who operates on target. Optional for fail_message, can be null(silent check)
+// target = the carbon we're testing for suitability
+// fail_message = message that user will recieve if the checks failed. FALSE make it quiet even with "user"
+/obj/item/organ/internal/proc/can_insert(mob/living/user, mob/living/carbon/target, fail_message = "Данное существо не способно принять этот орган!")
+	if(!LAZYLEN(species_restrictions))
+		return TRUE
+
+	if(!istype(target) && !target.dna?.species) // only carbons have species
+		return FALSE
+
+	if(target.dna.species.name in species_restrictions)
+		return TRUE
+
+	if(user && fail_message)
+		to_chat(user, span_warning(fail_message))
+
+	return FALSE
 
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)

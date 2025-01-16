@@ -84,5 +84,6 @@
 	name = "Quit Buildmode"
 
 /atom/movable/screen/buildmode/quit/Click()
+	bd.mode.exit_mode(bd) // so area_edit won't leave highlighted icons
 	bd.quit()
 	return TRUE

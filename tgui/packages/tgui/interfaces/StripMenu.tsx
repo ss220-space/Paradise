@@ -2,7 +2,7 @@ import { range } from 'common/collections';
 import { BooleanLike } from 'common/react';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { Box, Button, Icon, Stack } from '../components';
+import { Box, Button, DmIcon, Icon, Stack } from '../components';
 import { Window } from '../layouts';
 import { InfernoNode } from 'inferno';
 
@@ -409,6 +409,7 @@ type StripMenuItem =
   | ((
       | {
           icon: string;
+          icon_state: string;
           name: string;
           alternates?: Array<string>;
         }
@@ -501,9 +502,9 @@ export const StripMenu = (props, context) => {
                     tooltip = slot.displayName;
                   } else if ('name' in item) {
                     content = (
-                      <Box
-                        as="img"
-                        src={`data:image/jpeg;base64,${item.icon}`}
+                      <DmIcon
+                        icon={item.icon}
+                        icon_state={item.icon_state}
                         height="100%"
                         width="100%"
                         style={{

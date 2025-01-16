@@ -562,6 +562,9 @@
 #define COMSIG_LIVING_SHOCK_PREVENTED "living_shock_prevented"
 ///sent by stuff like stunbatons and tasers: ()
 #define COMSIG_LIVING_MINOR_SHOCK "living_minor_shock"
+/// Source: /mob/living/proc/flash_eyes(intensity, override_blindness_check, affect_silicon, visual, type)
+#define COMSIG_LIVING_EARLY_FLASH_EYES "living_flash_eyes"
+	#define STOP_FLASHING_EYES	(1<<0)
 ///from base of mob/living/revive() (full_heal, admin_revive)
 #define COMSIG_LIVING_REVIVE "living_revive"
 ///from base of /mob/living/regenerate_limbs(): (noheal, excluded_limbs)
@@ -590,6 +593,8 @@
 #define COMSIG_LIVING_AHEAL "living_aheal"
 ///From living/Life(). (deltatime, times_fired)
 #define COMSIG_LIVING_LIFE "living_life"
+///from base of mob/living/death(): (gibbed)
+#define COMSIG_LIVING_EARLY_DEATH "living_early_death"
 ///from base of mob/living/death(): (gibbed)
 #define COMSIG_LIVING_DEATH "living_death"
 //sent from mobs when they exit their body as a ghost
@@ -773,6 +778,10 @@
 #define COMSIG_OBJ_POSSESSED "obj_possessed"
 ///from base of /proc/release(): (mob/user)
 #define COMSIG_OBJ_RELEASED "obj_released"
+///from [/obj/structure/sink/attack_hand]
+#define COMSIG_SINK_ACT "sink_act"
+	/// returns on succes of species special sink_act()
+	#define COMSIG_SINK_ACT_SUCCESS (1<<0)
 
 // /obj/machinery signals
 
@@ -838,6 +847,9 @@
 #define COMSIG_MINE_TRIGGERED "minegoboom"
 ///from [/obj/item/organ/internal/remove]:
 #define COMSIG_ORGAN_REMOVED "organ_removed"
+///from [/obj/item/organ/internal/cyberimp/mouth/translator/check_lang]
+#define COMSIG_LANG_PRE_ACT "check_language"
+	#define COMSIG_LANG_SECURED (1<<0)
 
 /// Defib-specific signals
 
@@ -977,6 +989,8 @@
 #define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"
 	#define SHIELD_BLOCK (1<<0)
 
+#define COMSIG_HUMAN_DESTROYED "human_destroyed"
+
 // /datum/species signals
 ///from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
 #define COMSIG_SPECIES_GAIN "species_gain"
@@ -1009,6 +1023,11 @@
 
 ///from base of obj/item/reagent_containers/food/snacks/attack(): (mob/living/eater, mob/feeder)
 #define COMSIG_FOOD_EATEN "food_eaten"
+
+/// Reagents
+/// Source: /datum/reagents/proc/add_reagent (datum/reagents, reagent_id, amount, data, reagtemp, no_react, chem_temp)
+#define COMSIG_EARLY_REAGENT_ADDED "reagent_early_added"
+	#define COMPONENT_PREVENT_ADD_REAGENT (1<<0)
 
 //Gibs
 

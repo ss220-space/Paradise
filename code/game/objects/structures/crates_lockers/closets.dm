@@ -287,8 +287,6 @@ GLOBAL_LIST_EMPTY(closets)
 	if(!opened && user.loc == src)
 		to_chat(user, "<span class='warning'>You can't weld [src] from inside!</span>")
 		return
-	if(!can_weld_shut)
-		return
 	if(!I.tool_use_check(user, 0))
 		return
 	if(opened)
@@ -298,6 +296,8 @@ GLOBAL_LIST_EMPTY(closets)
 			deconstruct(TRUE)
 			return
 	else
+		if(!can_weld_shut)
+			return
 		var/adjective = welded ? "open" : "shut"
 		user.visible_message("<span class='notice'>[user] begins welding [src] [adjective]...</span>", "<span class='notice'>You begin welding [src] [adjective]...</span>", "<span class='warning'>You hear welding.</span>")
 		if(I.use_tool(src, user, 15, volume = I.tool_volume))

@@ -107,7 +107,7 @@
 
 	overmind_get_delay = world.time + 5 MINUTES
 
-	if(overmind)
+	if(overmind && new_overmind)
 		qdel(overmind)
 	if(new_overmind)
 		get_new_overmind(new_overmind)

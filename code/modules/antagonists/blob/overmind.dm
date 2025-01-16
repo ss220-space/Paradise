@@ -54,7 +54,7 @@ GLOBAL_LIST_EMPTY(overminds)
 	ADD_TRAIT(src, TRAIT_BLOB_ALLY, INNATE_TRAIT)
 	blob_points = starting_points
 	blob_core = core
-	GLOB.overminds += src
+	GLOB.overminds |= src
 	var/new_name = "[initial(name)] ([rand(1, 999)])"
 	name = new_name
 	real_name = new_name

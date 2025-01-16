@@ -62,7 +62,7 @@
 	if(!param)
 		return tgui_data
 	tgui_data["display_param"] = param
-	tgui_data["icon"] = parent.get_gear_icon(param)
+	tgui_data["icon"] = parent.base64icon
 	return tgui_data
 
 /datum/gear_tweak/color/update_gear_intro(color)

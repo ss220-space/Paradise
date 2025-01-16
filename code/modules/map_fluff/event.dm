@@ -52,3 +52,16 @@
 	company_short = "NT"
 	starsys_name  = "Epsilon Eridani"
 	admin_only = TRUE
+
+/datum/map/coldcolony
+	name = "Malta"
+	map_path = "_maps/map_files/event/Station/coldcolony.dmm"
+	lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
+
+	station_name = "NMC Malta"
+	station_short = "Malta"
+	dock_name = "NAV Trurl"
+	company_name = "Nanotrasen"
+	company_short = "NT"
+	starsys_name = "Epsilon Eridani"
+	admin_only = TRUE

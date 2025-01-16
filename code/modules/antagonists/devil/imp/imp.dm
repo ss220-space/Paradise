@@ -28,10 +28,6 @@
 	melee_damage_upper = 15
 	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	var/playstyle_string = "<B><font size=3 color='red'>You are an imp,</font> a mischevious creature from hell. You are the lowest rank on the hellish totem pole  \
-							Though you are not obligated to help, perhaps by aiding a higher ranking devil, you might just get a promotion.  However, you are incapable	\
-							of intentionally harming a fellow devil.</B>"
-
 
 /mob/living/simple_animal/imp/ComponentInitialize()
 	AddComponent( \
@@ -47,8 +43,9 @@
 
 
 /mob/living/simple_animal/imp/death(gibbed)
-	..(1)
+	. = ..(TRUE)
+
 	playsound(get_turf(src),'sound/misc/demon_dies.ogg', 200, 1)
-	visible_message("<span class='danger'>[src] screams in agony as it sublimates into a sulfurous smoke.</span>")
-	ghostize()
+	visible_message(span_danger("[src] screams in agony as it sublimates into a sulfurous smoke."))
+
 	qdel(src)
