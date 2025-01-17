@@ -78,7 +78,7 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_hot(I) || !Adjacent(user))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_heat() || !Adjacent(user))
 		return .
 
 	. |= ATTACK_CHAIN_BLOCKED_ALL

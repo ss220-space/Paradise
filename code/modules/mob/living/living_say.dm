@@ -285,6 +285,11 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			ignore_atmospherics = TRUE
 
 	if(is_muzzled())
+		var/obj/item/organ/internal/cyberimp/mouth/translator/translator = get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+		if(translator) // we can whisper with translator and muzzle
+			whisper_say(message_pieces)
+			return TRUE
+
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
 		if(G.mute == MUZZLE_MUTE_ALL) //if the mask is supposed to mute you completely or just muffle you
 			to_chat(src, span_danger("You're muzzled and cannot speak!"))
@@ -464,7 +469,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(stat)
 		return
 
-	if(is_muzzled())
+	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+	if(is_muzzled() && !translator?.active)
 		if(istype(wear_mask, /obj/item/clothing/mask/muzzle/tapegag)) //just for tape
 			to_chat(src, span_danger("Your mouth is taped and you cannot speak!"))
 		else

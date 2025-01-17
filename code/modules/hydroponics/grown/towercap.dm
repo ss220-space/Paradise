@@ -222,7 +222,7 @@
 		update_icon(UPDATE_OVERLAYS)	// update underlays some day
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(is_hot(I) && StartBurning())
+	if(I.get_heat() && StartBurning())
 		add_fingerprint(user)
 		lighter = user.ckey
 		add_misc_logs(user, "lit a bonfire", src)

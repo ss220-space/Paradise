@@ -473,6 +473,9 @@
 		if(CIH?.examine_extensions)
 			have_hud_exam |= CIH.examine_extensions
 
+		if(H.check_smart_brain())
+			have_hud_exam |= EXAMINE_HUD_SCIENCE
+
 		return (have_hud_exam & hud_exam)
 
 	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system

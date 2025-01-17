@@ -75,7 +75,7 @@
 
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
-		if((C.installed == 1 || (get_borked && C.installed == -1) || (get_missing && C.installed == 0)) && ((get_brute && C.brute_damage) || (get_burn && C.electronics_damage)))
+		if((C.installed == 1 || (get_borked && C.installed == -1) || (get_missing && C.installed == 0)) || ((get_brute && C.brute_damage) || (get_burn && C.electronics_damage)))
 			parts += C
 
 	return parts
@@ -97,7 +97,7 @@
 		var/datum/robot_component/C = components[V]
 		if(C.installed == 1)
 			rval += C
-			
+
 	return rval
 
 /mob/living/silicon/robot/proc/get_armour()

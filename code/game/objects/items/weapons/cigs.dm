@@ -67,6 +67,15 @@ LIGHTERS ARE IN LIGHTERS.DM
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/clothing/mask/cigarette/pre_attackby(atom/target, mob/living/user, params)
+	. = ..()
+	var/obj/item/lighting_item = target
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(lighting_item))
+		return .
+
+	if(lighting_item.get_heat())
+		light()
+		return .|ATTACK_CHAIN_BLOCKED
 
 /obj/item/clothing/mask/cigarette/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target.on_fire)
@@ -216,6 +225,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	. = ..()
 	name = lit ? "lit [initial(name)]" : initial(name)
 
+/obj/item/clothing/mask/cigarette/get_heat()
+	return lit * 1000
+
 
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
 	if(lit)
@@ -314,6 +326,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 
+/obj/item/clothing/mask/cigarette/get_heat()
+	return lit * 1000
 
 /obj/item/clothing/mask/cigarette/menthol
 	list_reagents = list("nicotine" = 40, "menthol" = 20)

@@ -40,7 +40,7 @@
 	if(resistance_flags & ON_FIRE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(is_hot(I))
+	if(I.get_heat())
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper bundles
 			return ATTACK_CHAIN_BLOCKED_ALL
 

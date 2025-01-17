@@ -3,7 +3,7 @@
 	name = "grey liver"
 	desc = "A small, odd looking liver."
 	icon = 'icons/obj/species_organs/grey.dmi'
-	alcohol_intensity = 1.6
+	alcohol_intensity = 1.4
 
 /obj/item/organ/internal/brain/grey
 	species_type = /datum/species/grey
@@ -12,6 +12,7 @@
 	icon_state = "brain2"
 	mmi_icon = 'icons/obj/species_organs/grey.dmi'
 	mmi_icon_state = "mmi_full"
+	smart_mind = TRUE // nerd brains show us sci-hud and research scanner
 
 /obj/item/organ/internal/brain/grey/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
@@ -26,7 +27,8 @@
 	name = "grey eyeballs"
 	desc = "They still look creepy and emotionless."
 	icon = 'icons/obj/species_organs/grey.dmi'
-	see_in_dark = 5
+	see_in_dark = 3
+	examine_mod = EXAMINE_INSTANT // Insta carbon examine
 
 /obj/item/organ/internal/heart/grey
 	species_type = /datum/species/grey

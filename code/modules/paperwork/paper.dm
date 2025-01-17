@@ -438,7 +438,7 @@
 
 	if(href_list["write"] )
 		var/id = href_list["write"]
-		var/input_element = input("Enter what you want to write:", "Write") as message
+		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE) //as message
 
 		topic_href_write(usr, id, input_element)
 
@@ -447,7 +447,7 @@
 	if(resistance_flags & ON_FIRE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(is_hot(I))
+	if(I.get_heat())
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
 			return ATTACK_CHAIN_BLOCKED_ALL
 

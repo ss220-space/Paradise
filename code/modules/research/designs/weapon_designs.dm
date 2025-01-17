@@ -576,6 +576,7 @@
 	build_path = /obj/item/clothing/gloves/color/black/pyro_claws
 	category = list("Weapons")
 
+/* uncomment when every tech is 90 lvl, too op for now
 /datum/design/laserminigun
 	name = "Laser gatling gun"
 	desc = "Огромное лазерное орудие, обладающее выдающейся скорострельностью и поражающей силой. Говорят, что 12 секунд стрельбы из этой малышки обойдутся вам в 400 тысяч кредитов."
@@ -587,6 +588,7 @@
 	build_path = /obj/item/gun/energy/gun/minigun
 	category = list("Weapons")
 	lathe_time_factor = 0.5
+*/
 
 /datum/design/real_plasma_pistol
 	name = "Plasma Pistol"

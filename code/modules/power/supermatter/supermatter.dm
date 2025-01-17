@@ -269,7 +269,7 @@
 	//We are assuming here, that volume does not change here
 	removed.temperature += (thermal_power / heat_capacity)
 
-	removed.temperature = max(0, removed.temperature)
+	removed.temperature = max(TCMB, removed.temperature)
 
 	env.merge(removed)
 

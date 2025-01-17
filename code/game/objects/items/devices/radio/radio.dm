@@ -382,6 +382,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		return FALSE
 
 	if(M.is_muzzled())
+		var/obj/item/organ/internal/cyberimp/mouth/translator/translator = M.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+		if(translator) // you can't speak in radio with translator and gag
+			return FALSE
+
 		var/obj/item/clothing/mask/muzzle/muzzle = M.wear_mask
 		if(muzzle.radio_mute)
 			return FALSE

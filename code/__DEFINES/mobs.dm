@@ -461,3 +461,6 @@
 
 /// For babylon fever disease.
 #define DISEASE_MOB_LANGUAGE_PROCESSED (1<<0)
+
+/// Eyes examine time mod
+#define EXAMINE_INSTANT	0 // 0 seconds

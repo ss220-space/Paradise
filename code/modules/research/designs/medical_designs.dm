@@ -644,6 +644,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/chest/reviver
 	category = list("Medical")
 
+/datum/design/voice_retranslator
+	name = "Psionic Voice Retranslator"
+	desc = "Имплант для перевода псионической речи греев в более понятные для других гуманоидов звуковые волны. Разработан специально для греев."
+	id = "ci_retranslator"
+	req_tech = list("materials" = 5, "programming" = 6, "biotech" = 6, "engineering" = 6, "abductor" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_TITANIUM = 1000, MAT_DIAMOND = 600, MAT_PLASMA = 500)
+	build_path = /obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator
+	category = list("Medical")
+
 /////////////////////////////////////////
 ////////////Regular Implants/////////////
 /////////////////////////////////////////
@@ -809,7 +820,7 @@
 	category = list("Medical")
 
 /datum/design/modified_medical_gloves
-	name = "modified medical gloves"
+	name = "Modified Medical Gloves"
 	desc = "They are very soft and light to the touch and do not hinder movement at all."
 	id = "modified_medical_gloves"
 	req_tech = list("magnets" = 7, "materials" = 7, "programming" = 5, "biotech" = 5)

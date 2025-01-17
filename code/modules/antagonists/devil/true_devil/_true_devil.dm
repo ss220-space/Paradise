@@ -12,41 +12,37 @@
 	status_flags = CANPUSH
 	universal_understand = TRUE
 	universal_speak = TRUE //The devil speaks all languages meme
-	hud_type = /datum/hud/devil
-	var/ascended = FALSE
 	var/mob/living/oldform
+	var/datum/antagonist/devil/devilinfo
+	hud_type = /datum/hud/devil
 
-/mob/living/carbon/true_devil/New(loc, mob/living/carbon/dna_source)
+/mob/living/carbon/true_devil/Initialize(mapload, mob/living/carbon/dna_source)
 	if(dna_source)
 		dna = dna_source.dna.Clone()
 	else
 		dna = new
 
+	devilinfo = mind?.has_antag_datum(/datum/antagonist/devil)
 	new /obj/item/organ/internal/brain(src)
 	new /obj/item/organ/internal/ears(src)
-	..()
+
+	. = ..()
 
 // Determines if mob has and can use his hands like a human
 /mob/living/carbon/true_devil/real_human_being()
 	return TRUE
 
-
-/mob/living/carbon/true_devil/proc/convert_to_archdevil()
-	maxHealth = 5000 // not an IMPOSSIBLE amount, but still near impossible.
-	ascended = TRUE
-	health = maxHealth
-	icon_state = "arch_devil"
-
 /mob/living/carbon/true_devil/set_name()
-	name = mind.devilinfo.truename
+	name = devilinfo.info.truename
 	real_name = name
 
 /mob/living/carbon/true_devil/Login()
 	..()
 	var/list/messages = list()
-	if(mind.devilinfo)
-		messages.Add(mind.devilinfo.announce_laws(src))
-	messages.Add(mind.prepare_announce_objectives())
+	
+	LAZYADD(messages, devilinfo?.greet())
+	LAZYADD(messages, mind.prepare_announce_objectives())
+
 	to_chat(mind.current, chat_box_red(messages.Join("<br>")))
 
 
@@ -94,12 +90,6 @@
 /mob/living/carbon/true_devil/assess_threat()
 	return 666
 
-/mob/living/carbon/true_devil/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
-	if(mind && has_bane(BANE_LIGHT))
-		mind.disrupt_spells(-500)
-		return ..() //flashes don't stop devils UNLESS it's their bane.
-
-
 /mob/living/carbon/true_devil/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -107,7 +97,6 @@
 	if(!I.force)
 		return .
 
-	apply_damage(I.force * check_weakness(I, user), I.damtype, def_zone, sharp = is_sharp(I), used_weapon = I)
 	if(QDELETED(src))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -123,29 +112,8 @@
 /mob/living/carbon/true_devil/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
-
-/mob/living/carbon/true_devil/singularity_act()
-	if(ascended)
-		return 0
-	return ..()
-
-/mob/living/carbon/true_devil/attack_ghost(mob/dead/observer/user as mob)
-	if(ascended || user.mind.soulOwner == src.mind)
-		var/mob/living/simple_animal/imp/S = new(get_turf(loc))
-		S.key = user.key
-		S.mind.assigned_role = "MODE"
-		S.mind.special_role = "Imp"
-		var/datum/objective/newobjective = new
-		newobjective.explanation_text = "Try to get a promotion to a higher infernal rank."
-		S.mind.objectives += newobjective
-		to_chat(S,S.playstyle_string)
-		to_chat(S,"<B>Objective #1</B>: [newobjective.explanation_text]")
-		return
-	else
-		return ..()
-
 /mob/living/carbon/true_devil/resist_fire()
-	//They're immune to fire.
+	return
 
 /mob/living/carbon/true_devil/attack_hand(mob/living/carbon/human/M)
 	if(..())
@@ -158,7 +126,7 @@
 				adjustBruteLoss(damage)
 				add_attack_logs(M, src, "attacked")
 			if(INTENT_DISARM)
-				if(body_position == STANDING_UP && !ascended) //No stealing the arch devil's pitchfork.
+				if(body_position == STANDING_UP) //No stealing the arch devil's pitchfork.
 					if(prob(5))
 						// Weaken knocks people over
 						// Paralyse knocks people out
@@ -186,17 +154,14 @@
 	return TRUE
 
 /mob/living/carbon/true_devil/ex_act(severity, ex_target)
-	if(!ascended)
-		var/b_loss
-		switch (severity)
-			if (1)
-				b_loss = 500
-			if (2)
-				b_loss = 150
-			if(3)
-				b_loss = 30
-		if(has_bane(BANE_LIGHT))
-			b_loss *=2
-		adjustBruteLoss(b_loss)
-	return ..()
+	var/b_loss
+	switch(severity)
+		if(1)
+			b_loss = 500
+		if(2)
+			b_loss = 150
+		if(3)
+			b_loss = 30
 
+	adjustBruteLoss(b_loss)
+	return ..()

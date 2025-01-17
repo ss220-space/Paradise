@@ -85,6 +85,8 @@
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/item/melee/energy/get_heat()
+	return active * 3500
 
 /obj/item/melee/energy/axe
 	name = "energy axe"

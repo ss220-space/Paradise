@@ -633,11 +633,16 @@
 /datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = T20C, no_react = FALSE)
 	if(!isnum(amount))
 		return TRUE
+
 	update_total()
-	if(total_volume + amount > maximum_volume) amount = (maximum_volume - total_volume) //Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
+	if(total_volume + amount > maximum_volume) amount = (maximum_volume - total_volume) // Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
+
 	if(amount <= 0)
 		return FALSE
-	chem_temp = clamp((chem_temp * total_volume + reagtemp * amount) / (total_volume + amount), temperature_min, temperature_max) //equalize with new chems
+
+	chem_temp = clamp((chem_temp * total_volume + reagtemp * amount) / (total_volume + amount), temperature_min, temperature_max) // equalize with new chems
+	if(SEND_SIGNAL(src, COMSIG_EARLY_REAGENT_ADDED, reagent, amount, data, reagtemp, no_react, chem_temp) & COMPONENT_PREVENT_ADD_REAGENT)
+		return FALSE
 
 	var/list/cached_reagents = reagent_list
 	for(var/A in cached_reagents)
@@ -645,34 +650,43 @@
 		if(R.id == reagent)
 			R.volume += amount
 			update_total()
+
 			if(my_atom)
 				my_atom.on_reagent_change()
+
 			R.on_merge(data)
+
 			if(!no_react)
 				temperature_react()
 				handle_reactions()
+
 			return FALSE
 
 	var/datum/reagent/D = (ispath(reagent))? new reagent() : GLOB.chemical_reagents_list[reagent]
 	if(D)
-
 		var/datum/reagent/R = new D.type()
 		cached_reagents += R
 		R.holder = src
 		R.volume = amount
 		R.on_new(data)
+
 		if(data)
 			R.data = data
 
 		if(isliving(my_atom))
-			R.on_mob_add(my_atom) //Must occur befor it could posibly run on_mob_delete
+			R.on_mob_add(my_atom) // Must occur befor it could posibly run on_mob_delete
+
 		update_total()
+
 		if(my_atom)
 			my_atom.on_reagent_change()
+
 		if(!no_react)
 			temperature_react()
 			handle_reactions()
+
 		return FALSE
+
 	else
 		warning("[my_atom] attempted to add a reagent called '[reagent]' which doesn't exist. ([usr])")
 

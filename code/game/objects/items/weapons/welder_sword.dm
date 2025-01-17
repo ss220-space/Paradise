@@ -90,6 +90,8 @@
 	)
 	icon_state = "fuelsworddouble"
 	item_state = "fuelsworddouble"
+	lefthand_file = 'icons/mob/inhands/twohanded_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/twohanded_righthand.dmi'
 	force_enabled = 40
 	force = 5
 	block_chance = 75

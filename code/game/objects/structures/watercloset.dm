@@ -587,6 +587,10 @@
 
 	user.visible_message("<span class='notice'>[user] washes [user.p_their()] [washing_face ? "face" : "hands"] using [src].</span>", \
 						"<span class='notice'>You wash your [washing_face ? "face" : "hands"] using [src].</span>")
+
+	if(SEND_SIGNAL(user, COMSIG_SINK_ACT) & COMSIG_SINK_ACT_SUCCESS) // special sink acts
+		return
+
 	if(washing_face)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user

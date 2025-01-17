@@ -32,7 +32,7 @@ export const TabBay = (props, context) => {
       <Button
         icon="street-view"
         onClick={() => {
-          act('teleportDropoff');
+          act('teleportCentcom');
           setTeleported(true);
         }}
       >
