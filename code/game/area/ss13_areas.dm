@@ -3281,3 +3281,35 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	name = "\improper Surface"
 	always_unpowered = TRUE
 	ignore_gravgen = TRUE
+
+/area/coldcolony
+	name = "coldcolony"
+	icon_state = "unknown"
+
+/area/coldcolony/morgue
+	name = "Morgue"
+	icon_state = "morgue"
+	power_environ = FALSE
+	power_equip = FALSE
+	power_light = FALSE
+	poweralm = FALSE
+
+/area/coldcolony/ruin
+	name = "ruin"
+	icon_state = "unknown"
+
+/area/coldcolony/ruin/miningbar
+	name = "\improper Miner's bar"
+	icon_state = "mining_living"
+
+/area/coldcolony/ruin/ore_production
+	name = "\improper Mining Production"
+	icon_state = "mining_production"
+
+/area/coldcolony/ruin/miningeva
+	name = "\improper Mining EVA"
+	icon_state = "mining_eva"
+
+/area/coldcolony/ruin/mining_post1
+	name = "\improper Mining"
+	icon_state = "mining"
