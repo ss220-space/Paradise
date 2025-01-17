@@ -12,8 +12,24 @@
 	// Temp-configuration for option. Firstly designed for TGUI use and on completion, sets to editing/adding option.
 	var/list/option_list = list()
 
+/proc/open_poll_option(datum/poll_question/poll, datum/poll_option/option)
+	if(!check_rights(R_SERVER))
+		return
+
+	var/datum/ui_module/poll_option_panel/panel_pollo = new(usr)
+	panel_pollo.poll = poll
+	panel_pollo.option = option
+
+	panel_pollo.ui_interact(usr)
+
 /datum/ui_module/poll_option_panel/ui_state(mob/user)
 	return GLOB.admin_state
+
+/datum/ui_module/poll_option_panel/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "PollOptionPanel", name)
+		ui.open()
 
 /datum/ui_module/poll_option_panel/ui_static_data(mob/user)
 	. = list()
@@ -44,67 +60,15 @@
 	var/client/ui_client = ui.user.client
 	switch (action)
 		if("submit_option")
+			option_list["text"] = params["text"]
+			option_list["default_percentage_calc"] = params["default_percentage_calc"]
+			option_list["min_val"] = params["min_val"]
+			option_list["max_val"] = params["max_val"]
+			option_list["desc_min_check"] = params["desc_min_check"]
+			option_list["desc_mid_check"] = params["desc_mid_check"]
+			option_list["desc_max_check"] = params["desc_max_check"]
+			option_list["desc_min_text"] = params["desc_min_text"]
+			option_list["desc_mid_text"] = params["desc_mid_text"]
+			option_list["desc_max_text"] = params["desc_max_text"]
 			ui_client.poll_option_parse(option_list, poll, option)
-
-/proc/open_poll_option(datum/poll_question/poll, datum/poll_option/option)
-	if(!check_rights(R_SERVER))
-		return
-
-	var/datum/ui_module/poll_option_panel/panel_pollo = new(usr)
-	panel_pollo.poll = poll
-	panel_pollo.option = option
-
-	panel_pollo.ui_interact(usr)
-
-/**
- * Show the options for creating a poll option or editing its parameters.
- *
- */
-/datum/admins/proc/poll_option_panel(datum/poll_question/poll, datum/poll_option/option)
-	var/list/output = list("<form method='get' action='?src=[REF(src)]'>")
-	output += {"<input type='hidden' name='src' value='[REF(src)]'> Option for poll [poll.question]
-	<br>
-	<textarea class='textbox' name='optiontext'>[option?.text]</textarea>
-	<br>
-	"}
-	if(poll.poll_type == POLLTYPE_RATING)
-		output += {"Minimum value
-		<input type='text' name='minval' size='3' value='[option?.min_val]'>
-		Maximum Value
-		<input type='text' name='maxval' size='3' value='[option?.max_val]'>
-		<div class='row'>
-			<div class='column left'>
-				<label class='inputlabel checkbox'>Minimum description
-				<input type='checkbox' id='descmincheck' name='descmincheck' value='1'[option?.desc_min ? " checked": ""]>
-				<div class='inputbox'></div></label>
-				<br>
-				<label class='inputlabel checkbox'>Middle description
-				<input type='checkbox' id='descmidcheck' name='descmidcheck' value='1'[option?.desc_mid ? " checked": ""]>
-				<div class='inputbox'></div></label>
-				<br>
-				<label class='inputlabel checkbox'>Maximum description
-				<input type='checkbox' id='descmaxcheck' name='descmaxcheck' value='1'[option?.desc_max ? " checked": ""]>
-				<div class='inputbox'></div></label>
-			</div>
-			<div class='column'>
-				<input type='text' name='descmintext' size='26' value='[option?.desc_min]'>
-				<br>
-				<input type='text' name='descmidtext' size='26' value='[option?.desc_mid]'>
-				<br>
-				<input type='text' name='descmaxtext' size='26' value='[option?.desc_max]'>
-			</div>
-		</div>
-		"}
-	output += {"<label class='inputlabel checkbox'>Include option in poll's results percentage calculation
-	<input type='checkbox' id='defpercalc' name='defpercalc' value='1'[option?.default_percentage_calc ? " checked": ""]>
-	<div class='inputbox'></div></label><br>
-	<input type='hidden' name='submitoption' value='[REF(option)]'>
-	<input type='hidden' name='submitoptionpoll' value='[REF(poll)]'>
-	<input type='submit' value='Add option'>
-	"}
-	var/panel_height = 180
-	if(poll.poll_type == POLLTYPE_RATING)
-		panel_height = 320
-	var/datum/browser/panel = new(usr, "popanel", "Poll Option Panel", 370, panel_height)
-	panel.set_content(jointext(output, ""))
-	panel.open()
+			ui.close() // done

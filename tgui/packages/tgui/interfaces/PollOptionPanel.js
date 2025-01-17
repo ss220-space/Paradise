@@ -1,4 +1,4 @@
-import { useBackend } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
@@ -6,137 +6,161 @@ import {
   ProgressBar,
   Section,
   Divider,
+  Input,
 } from '../components';
 import { ButtonCheckbox } from '../components/Button';
 import { Window } from '../layouts';
 
 export const PollOptionPanel = (props, context) => {
   const { act, data } = useBackend(context);
-  const { poll_question, is_rating, option_list } = data;
+  const { poll_question, is_rating, option } = data;
 
-  const [text, set_text] = useLocalState(option_list, 'text', null);
+  const [text, set_text] = useLocalState(context, 'text', option.text);
   const [default_percentage_calc, set_default_percentage_calc] = useLocalState(
-    option_list,
+    context,
     'default_percentage_calc',
-    false
+    option.default_percentage_calc
+  );
+
+  const [min_val, set_min_val] = useLocalState(
+    context,
+    'min_val',
+    option.min_val
+  );
+  const [max_val, set_max_val] = useLocalState(
+    context,
+    'max_val',
+    option.max_val
+  );
+
+  const [desc_min_check, set_desc_min_check] = useLocalState(
+    context,
+    'desc_min_check',
+    option.desc_min_check
+  );
+  const [desc_mid_check, set_desc_mid_check] = useLocalState(
+    context,
+    'desc_mid_check',
+    option.desc_mid_check
+  );
+  const [desc_max_check, set_desc_max_check] = useLocalState(
+    context,
+    'desc_max_check',
+    option.desc_max_check
+  );
+  const [desc_min_text, set_desc_min_text] = useLocalState(
+    context,
+    'desc_min_text',
+    option.desc_min_text
+  );
+  const [desc_mid_text, set_desc_mid_text] = useLocalState(
+    context,
+    'desc_mid_text',
+    option.desc_min_text
+  );
+  const [desc_max_text, set_desc_max_text] = useLocalState(
+    context,
+    'desc_max_text',
+    option.desc_min_text
   );
 
   return (
     <Window
       title="Poll Option Panel"
-      width={700}
+      width={400}
       height={is_rating ? 320 : 180}
     >
       <Window.Content>
         <Section title={poll_question}>
-          <Input content={text} onChange={(_, value) => set_text(value)} />
+          <Box>
+            <Input
+              width="100%"
+              content={text}
+              onChange={(_, value) => set_text(value)}
+            />
+          </Box>
           <br />
-          {is_rating ? <PollRating /> : null}
+          {is_rating ? (
+            <Box>
+              Minimum value
+              <Input value={min_val} />
+              Maximum Value
+              <Input value={max_val} />
+              <Table>
+                <Table.Row header>
+                  <Table.Cell>
+                    <ButtonCheckbox
+                      content="Minimum description"
+                      checked={desc_min_check}
+                      onClick={() => set_desc_min_check(!desc_min_check)}
+                    />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <ButtonCheckbox
+                      content="Middle description"
+                      checked={desc_mid_check}
+                      onClick={() => set_desc_mid_check(!desc_mid_check)}
+                    />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <ButtonCheckbox
+                      content="Maximum description"
+                      checked={desc_max_check}
+                      onClick={() => set_desc_max_check(!desc_max_check)}
+                    />
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>
+                    <Input
+                      value={desc_min_text}
+                      onEnter={(_, value) => set_desc_min_text(value)}
+                    />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Input
+                      value={desc_mid_text}
+                      onEnter={(_, value) => set_desc_mid_text(value)}
+                    />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Input
+                      value={desc_max_text}
+                      onEnter={(_, value) => set_desc_max_text(value)}
+                    />
+                  </Table.Cell>
+                </Table.Row>
+              </Table>
+              <br />
+            </Box>
+          ) : null}
           <ButtonCheckbox
             checked={default_percentage_calc}
-            content="Include option in poll's results percentage calculation"
+            content="Включить опцию в расчет процента результатов опроса"
             onClick={() =>
               set_default_percentage_calc(!default_percentage_calc)
             }
           />
-          <Button content="Sumbit" onClick={() => act('submit_option')} />
+          <br />
+          <Button
+            content="Sumbit"
+            onClick={() =>
+              act('submit_option', {
+                text: text,
+                default_percentage_calc: default_percentage_calc,
+                min_val: min_val,
+                max_val: max_val,
+                desc_min_check: desc_min_check,
+                desc_mid_check: desc_mid_check,
+                desc_max_check: desc_max_check,
+                desc_min_text: desc_min_text,
+                desc_mid_text: desc_mid_text,
+                desc_max_text: desc_max_text,
+              })
+            }
+          />
         </Section>
       </Window.Content>
     </Window>
-  );
-};
-
-const PollRating = (props, context) => {
-  const { act, data } = useBackend(context);
-  const { option_list } = data;
-
-  const [min_val, set_min_val] = useLocalState(option_list, 'min_val', '0');
-  const [max_val, set_max_val] = useLocalState(option_list, 'max_val', '10');
-
-  const [desc_min_check, set_desc_min_check] = useLocalState(
-    option_list,
-    'desc_min_check',
-    false
-  );
-  const [desc_mid_check, set_desc_mid_check] = useLocalState(
-    option_list,
-    'desc_mid_check',
-    false
-  );
-  const [desc_max_check, set_desc_max_check] = useLocalState(
-    option_list,
-    'desc_max_check',
-    false
-  );
-
-  const [desc_min_text, set_desc_min_text] = useLocalState(
-    option_list,
-    'desc_min_text',
-    ''
-  );
-  const [desc_mid_text, set_desc_mid_text] = useLocalState(
-    option_list,
-    'desc_mid_text',
-    ''
-  );
-  const [desc_max_text, set_desc_max_text] = useLocalState(
-    option_list,
-    'desc_max_text',
-    ''
-  );
-
-  return (
-    <Box>
-      Minimum value
-      <Input value={min_val} />
-      Maximum Value
-      <Input value={max_val} />
-      <Table>
-        <Table.Row header>
-          <Table.Cell>
-            <ButtonCheckbox
-              content="Minimum description"
-              checked={desc_min_check}
-              onClick={() => set_desc_min_check(!desc_min_check)}
-            />
-          </Table.Cell>
-          <Table.Cell>
-            <ButtonCheckbox
-              content="Middle description"
-              checked={desc_mid_check}
-              onClick={() => set_desc_mid_check(!desc_mid_check)}
-            />
-          </Table.Cell>
-          <Table.Cell>
-            <ButtonCheckbox
-              content="Maximum description"
-              checked={desc_max_check}
-              onClick={() => set_desc_max_check(!desc_max_check)}
-            />
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell>
-            <Input
-              value={desc_min_text}
-              onEnter={(_, value) => set_desc_min_text(value)}
-            />
-          </Table.Cell>
-          <Table.Cell>
-            <Input
-              value={desc_mid_text}
-              onEnter={(_, value) => set_desc_mid_text(value)}
-            />
-          </Table.Cell>
-          <Table.Cell>
-            <Input
-              value={desc_max_text}
-              onEnter={(_, value) => set_desc_max_text(value)}
-            />
-          </Table.Cell>
-        </Table.Row>
-      </Table>
-      <br />
-    </Box>
   );
 };

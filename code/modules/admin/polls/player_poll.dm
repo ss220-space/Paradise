@@ -3,7 +3,8 @@
   *
   */
 /mob/new_player/proc/handle_player_polling()
-	var/list/output = list("<div align='center'><B>Player polls</B><hr><table>")
+	var/list/output = {"<meta charset="UTF-8">"}
+	output += "<div align='center'><B>Player polls</B><hr><table>"
 	var/rs = REF(src)
 	for(var/p in GLOB.active_polls)
 		var/datum/poll_question/poll = p
@@ -11,7 +12,7 @@
 			continue
 		output += "<tr bgcolor='#e2e2e2'><td><a href='?src=[rs];viewpoll=[REF(poll)]'><b>[poll.question]</b></a></td></tr>"
 	output += "</table>"
-	src << browse(jointext(output, ""),"window=playerpolllist;size=500x300") // I'll do TGUI later -Beeb
+	src << browse(output,"window=playerpolllist;size=500x300") // I'll do TGUI later -Beeb
 
 /**
   * Redirects a player to the correct poll window based on poll type.
@@ -51,7 +52,7 @@
 	if(query_option_get_voted.NextRow())
 		voted_option_id = text2num(query_option_get_voted.item[1])
 	qdel(query_option_get_voted)
-	var/list/output = list("<div align='center'><B>Player poll</B><hr><b>Question: [poll.question]</b><br>")
+	var/list/output = {"<meta charset="UTF-8"><div align='center'><B>Player poll</B><hr><b>Question: [poll.question]</b><br>"}
 	if(poll.subtitle)
 		output += "[poll.subtitle]<br>"
 	output += "<font size='2'>Poll runs from <b>[poll.start_datetime]</b> until <b>[poll.end_datetime]</b></font><br>"
@@ -75,7 +76,7 @@
 	if(!voted_option_id || poll.allow_revoting)
 		output += "<p><input type='submit' value='Vote'></form>"
 	output += "</div>"
-	src << browse(jointext(output, ""),"window=playerpoll;size=500x250")
+	src << browse(output,"window=playerpoll;size=500x250")
 
 /**
   * Shows voting window for a text response type poll, listing its relevant details.
@@ -95,7 +96,7 @@
 	if(query_text_get_replytext.NextRow())
 		reply_text = query_text_get_replytext.item[1]
 	qdel(query_text_get_replytext)
-	var/list/output = list("<div align='center'><B>Player poll</B><hr><b>Question: [poll.question]</b><br>")
+	var/list/output = {"<meta charset="UTF-8"><div align='center'><B>Player poll</B><hr><b>Question: [poll.question]</b><br>"}
 	if(poll.subtitle)
 		output += "[poll.subtitle]<br>"
 	output += "<font size='2'>Feedback gathering runs from <b>[poll.start_datetime]</b> until <b>[poll.end_datetime]</b></font><br>"
@@ -112,7 +113,7 @@
 	else
 		output += "[reply_text]"
 	output += "</div>"
-	src << browse(jointext(output, ""),"window=playerpoll;size=500x500")
+	src << browse(output,"window=playerpoll;size=500x500")
 
 /**
   * Shows voting window for a rating type poll, listing its options and relevant details.
@@ -132,7 +133,7 @@
 	while(query_rating_get_votes.NextRow())
 		voted_ratings += list("[query_rating_get_votes.item[1]]" = query_rating_get_votes.item[2])
 	qdel(query_rating_get_votes)
-	var/list/output = list("<div align='center'><B>Player poll</B><hr><b>Question: [poll.question]</b><br>")
+	var/list/output = {"<meta charset="UTF-8"><div align='center'><B>Player poll</B><hr><b>Question: [poll.question]</b><br>"}
 	if(poll.subtitle)
 		output += "[poll.subtitle]<br>"
 	output += "<font size='2'>Poll runs from <b>[poll.start_datetime]</b> until <b>[poll.end_datetime]</b></font><br>"
@@ -167,7 +168,7 @@
 	if(!length(voted_ratings) || poll.allow_revoting)
 		output += "<p><input type='submit' value='Submit'></form>"
 	output += "</div>"
-	src << browse(jointext(output, ""),"window=playerpoll;size=500x500")
+	src << browse(output,"window=playerpoll;size=500x500")
 
 /**
   * Shows voting window for a multiple choice type poll, listing its options and relevant details.
@@ -187,7 +188,7 @@
 	while(query_multi_get_votes.NextRow())
 		voted_for += text2num(query_multi_get_votes.item[1])
 	qdel(query_multi_get_votes)
-	var/list/output = list("<div align='center'><B>Player poll</B><hr><b>Question: [poll.question]</b><br>")
+	var/list/output = {"<meta charset="UTF-8"><div align='center'><B>Player poll</B><hr><b>Question: [poll.question]</b><br>"}
 	if(poll.subtitle)
 		output += "[poll.subtitle]<br>"
 	output += "You can select up to [poll.options_allowed] options. If you select more, the first [poll.options_allowed] will be saved.<br><font size='2'>Poll runs from <b>[poll.start_datetime]</b> until <b>[poll.end_datetime]</b></font><br>"
@@ -211,7 +212,7 @@
 	if(!length(voted_for) || poll.allow_revoting)
 		output += "<p><input type='submit' value='Vote'></form>"
 	output += "</div>"
-	src << browse(jointext(output, ""),"window=playerpoll;size=500x300")
+	src << browse(output,"window=playerpoll;size=500x300")
 
 /**
   * Runs some poll validation before a vote is processed.

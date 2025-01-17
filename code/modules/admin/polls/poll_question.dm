@@ -104,7 +104,7 @@
  *
  */
 /datum/poll_question/proc/save_poll_data(clear_votes)
-	if(!check_rights(R_SERVER))
+	if(!check_rights(R_POLL))
 		return
 	if(!SSdbcore.Connect())
 		to_chat(usr, span_danger("Failed to establish database connection."), confidential = TRUE)

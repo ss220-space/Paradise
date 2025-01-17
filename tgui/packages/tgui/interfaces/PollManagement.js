@@ -4,11 +4,12 @@ import {
   Button,
   Divider,
   Dropdown,
+  NumberInput,
   Input,
   LabeledList,
-  ProgressBar,
   Section,
   Stack,
+  TextArea,
 } from '../components';
 import { ButtonCheckbox } from '../components/Button';
 import { Window } from '../layouts';
@@ -22,147 +23,280 @@ export const PollManagement = (props, context) => {
     interval_types,
   } = data;
 
-  const [question, set_question] = useLocalState(poll, 'question', null);
+  const [question, set_question] = useLocalState(
+    context,
+    'question',
+    poll.question
+  );
   const [poll_type, setPollType] = useLocalState(
-    poll,
+    context,
     'poll_type',
-    'Single Option'
+    poll.poll_type
   );
   const [options_allowed, set_options_allowed] = useLocalState(
-    poll,
+    context,
     'options_allowed',
-    null
+    poll.options_allowed
   );
-  const [admin_only, set_admin_only] = useLocalState(poll, 'admin_only', null);
-  const [dont_show, set_dont_show] = useLocalState(poll, 'dont_show', null);
+  const [admin_only, set_admin_only] = useLocalState(
+    context,
+    'admin_only',
+    poll.admin_only
+  );
+  const [dont_show, set_dont_show] = useLocalState(
+    context,
+    'dont_show',
+    poll.dont_show
+  );
   const [allow_revoting, set_allow_revoting] = useLocalState(
-    poll,
+    context,
     'allow_revoting',
-    null
+    poll.allow_revoting
   );
-  const [interval, set_interval] = useLocalState(poll, 'interval', null);
-  const [duration, set_duration] = useLocalState(poll, 'duration', null);
+  const [interval, set_interval] = useLocalState(
+    context,
+    'interval',
+    poll.interval
+  );
+  const [duration, set_duration] = useLocalState(
+    context,
+    'duration',
+    poll.duration
+  );
   const [start_datetime, set_start_datetime] = useLocalState(
-    poll,
+    context,
     'start_datetime',
-    null
+    poll.start_datetime
   );
   const [end_datetime, set_end_datetime] = useLocalState(
-    poll,
+    context,
     'end_datetime',
-    null
+    poll.end_datetime
   );
-  const [subtitle, set_subtitle] = useLocalState(poll, 'subtitle', null);
+  const [subtitle, set_subtitle] = useLocalState(
+    context,
+    'subtitle',
+    poll.subtitle
+  );
   const [minimum_playtime, set_minimum_playtime] = useLocalState(
-    poll,
+    context,
     'minimum_playtime',
-    null
+    poll.minimum_playtime
   );
 
   const [run_duration, set_run_duration] = useLocalState(
-    poll,
+    context,
     'run_duration',
-    true
+    poll.run_duration
   );
-  const [run_start, set_run_start] = useLocalState(poll, 'run_start', true);
+  const [run_start, set_run_start] = useLocalState(
+    context,
+    'run_start',
+    poll.run_start
+  );
+  const [clear_votes, set_clear_votes] = useLocalState(
+    context,
+    'clear_votes',
+    poll.clear_votes
+  );
 
   return (
-    <Window title="Poll Management" width={780} height={640}>
+    <Window title="Poll Management" width={600} height={640}>
       <Window.Content scrollable>
         <Section title="Poll Creation">
           <Box>
+            Question:
+            <Input
+              width={40}
+              placeholder="Question goes here"
+              value={question}
+              onChange={(_, value) => set_question(value)}
+            />
+            <br />
+            <Box inline pl={1}>
+              Choice:
+            </Box>
             <Dropdown
+              width={10}
               disabled={has_poll}
               options={poll_types}
               selected={poll_type}
               onSelected={(value) => setPollType(value)}
             />
-            Question
-            <Input
-              placeholder="Question goes here"
-              value={question}
-              onChange={(_, value) => set_question(value)}
-            />
-            Multiple-choice options allowed
+            Mult-choice options allowed:
             <NumberInput
+              width={3}
+              minValue={0}
+              maxValue={100}
               value={options_allowed}
               onChange={(_, value) => set_options_allowed(!options_allowed)}
             />
+            <br />
             <ButtonCheckbox
+              content="Admin only"
               checked={admin_only}
               onClick={() => set_admin_only(!admin_only)}
             />
             <ButtonCheckbox
+              content="Don't show"
               checked={dont_show}
               onClick={() => set_dont_show(!dont_show)}
             />
             <ButtonCheckbox
+              content="Allow revoting"
               checked={allow_revoting}
               onClick={() => set_allow_revoting(!allow_revoting)}
             />
+            Min. playtime to vote (in hours):
+            <Box inline ml={1}>
+              <NumberInput
+                width={3}
+                placeholder="Number of hours"
+                value={minimum_playtime}
+                onChange={(_, value) => set_minimum_playtime(value)}
+              />
+            </Box>
           </Box>
-          <Divider />
-          <Stack fill horizontal>
+          <Stack fill>
             <Stack.Item width="50%">
-              Duration
-              <Box>
-                <Button
-                  content={run_duration ? 'Run for' : 'Run until'}
-                  onClick={() => set_run_duration(!run_duration)}
-                />
-                <NumberInput
-                  placeholder="Amount number"
-                  value={duration}
-                  onChange={(_, value) => set_duration(value)}
-                />
-                <Dropdown
-                  options={interval_types}
-                  selected={interval}
-                  onSelected={(value) => set_interval(value)}
-                />
-              </Box>
-              <br />
-              Until:{' '}
-              <Input
-                placeholder="YYYY-MM-DD HH:MM:SS"
-                value={end_datetime}
-                onChange={(_, value) => set_end_datetime(value)}
+              <Box>Duration</Box>
+              <Button
+                icon="chevron-right"
+                py={1}
+                content={run_duration ? 'Run for' : 'Run until'}
+                onClick={() => set_run_duration(!run_duration)}
               />
+              {run_duration ? (
+                <Box inline>
+                  <NumberInput
+                    placeholder="Amount number"
+                    width={3}
+                    minValue={0}
+                    maxValue={100}
+                    value={duration}
+                    onChange={(_, value) => set_duration(value)}
+                  />
+                  <Dropdown
+                    options={interval_types}
+                    selected={interval}
+                    onSelected={(value) => set_interval(value)}
+                  />
+                </Box>
+              ) : (
+                <Box inline>
+                  Until:
+                  <br />
+                  <Input
+                    width={15}
+                    placeholder="YYYY-MM-DD HH:MM:SS"
+                    value={end_datetime}
+                    onChange={(_, value) => set_end_datetime(value)}
+                  />
+                </Box>
+              )}
             </Stack.Item>
-            <Stack.Item width="50%">
-              Start
-              <Box>
-                <Button
-                  content={run_start ? 'Now' : 'At datetime'}
-                  onClick={() => set_run_start(!run_start)}
-                />
-              </Box>
-              <Input
-                placeholder="YYYY-MM-DD HH:MM:SS"
-                value={start_datetime}
-                onChange={(_, value) => set_start_datetime(value)}
+            <Stack.Item>
+              <Box>Start</Box>
+              <Button
+                content={run_start ? 'Now' : 'At datetime'}
+                onClick={() => set_run_start(!run_start)}
               />
-              Minimum playtime to vote (in hours)
-              <Box>
-                <NumberInput
-                  placeholder="Number of hours"
-                  value={minimum_playtime}
-                  onChange={(_, value) => set_minimum_playtime(value)}
+              {run_start ? null : (
+                <Input
+                  width={15}
+                  placeholder="YYYY-MM-DD HH:MM:SS"
+                  value={start_datetime}
+                  onChange={(_, value) => set_start_datetime(value)}
                 />
-              </Box>
+              )}
             </Stack.Item>
           </Stack>
           <Stack fill>
             <Stack.Item>
               Subtitle (Optional)
-              <Input
+              <br />
+              <TextArea
+                height={10}
+                width={20}
                 rows="12"
                 value={subtitle}
                 onChange={(_, value) => set_subtitle(value)}
               />
             </Stack.Item>
             <Stack.Item>
-              {has_poll ? <PollUpdateTab /> : <PollCreationTab />}
+              {has_poll ? (
+                <Stack vertical>
+                  <Stack.Item>
+                    <Button
+                      content="Clear poll votes"
+                      onClick={() => act('clear_poll_votes')}
+                    />
+                    {poll.poll_votes} players have voted
+                  </Stack.Item>
+                  <Stack.Item>
+                    <ButtonCheckbox
+                      content="Clear votes on edit"
+                      checked={clear_votes}
+                      onClick={() => set_clear_votes(!clear_votes)}
+                    />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <Button
+                      p={2}
+                      content="Submit Poll"
+                      onClick={() =>
+                        act('submit_poll', {
+                          question: question,
+                          poll_type: poll_type,
+                          options_allowed: options_allowed,
+                          admin_only: admin_only,
+                          dont_show: dont_show,
+                          allow_revoting: allow_revoting,
+                          interval: interval,
+                          duration: duration,
+                          start_datetime: start_datetime,
+                          end_datetime: end_datetime,
+                          subtitle: subtitle,
+                          poll_votes: minimum_playtime,
+                          run_duration: run_duration,
+                          run_start: run_start,
+                          clear_votes: clear_votes,
+                        })
+                      }
+                      // onClick={() => act('setstat', { statdisp: 'alert', alert: ib.alert })}
+                    />
+                  </Stack.Item>
+                </Stack>
+              ) : (
+                <Stack>
+                  <Stack.Item>
+                    <Button
+                      p={1}
+                      m={2}
+                      content="Initliaze Question"
+                      onClick={() =>
+                        act('initialize_poll', {
+                          question: question,
+                          poll_type: poll_type,
+                          options_allowed: options_allowed,
+                          admin_only: admin_only,
+                          dont_show: dont_show,
+                          allow_revoting: allow_revoting,
+                          interval: interval,
+                          duration: duration,
+                          start_datetime: start_datetime,
+                          end_datetime: end_datetime,
+                          subtitle: subtitle,
+                          poll_votes: minimum_playtime,
+                          run_duration: run_duration,
+                          run_start: run_start,
+                          clear_votes: clear_votes,
+                        })
+                      }
+                    />
+                  </Stack.Item>
+                </Stack>
+              )}
             </Stack.Item>
           </Stack>
         </Section>
@@ -183,63 +317,11 @@ export const PollManagement = (props, context) => {
   );
 };
 
-const PollUpdateTab = (props, context) => {
-  const { act, data } = useBackend(context);
-  const { poll } = data;
-  const [clear_votes, set_clear_votes] = useLocalState(
-    poll,
-    'clear_votes',
-    null
-  );
-
-  return (
-    <Stack>
-      <Stack.Item>
-        <Button
-          content="Submit Poll"
-          onClick={() => act('submit_poll')}
-          // onClick={() => act('setstat', { statdisp: 'alert', alert: ib.alert })}
-        />
-        <ButtonCheckbox
-          content="Clear votes on edit"
-          checked={clear_votes}
-          onClick={() => set_clear_votes(!clear_votes)}
-        />
-      </Stack.Item>
-      <Stack.Item>
-        <Button
-          content="Clear poll votes"
-          onClick={() => act('clear_poll_votes')}
-        />
-        {poll.poll_votes} players have voted
-      </Stack.Item>
-    </Stack>
-  );
-};
-
-const PollCreationTab = (props, context) => {
-  const { act, data } = useBackend(context);
-
-  retun(
-    <Stack>
-      <Stack.Item>
-        <Button
-          content="Initliaze Question"
-          onClick={() => act('initialize_poll')}
-        />
-      </Stack.Item>
-    </Stack>
-  );
-};
-
 const PollMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { poll } = data;
-  const [poll_type, setPollType] = useLocalState(
-    poll,
-    'poll_type',
-    'Single Option'
-  );
+  const { options } = poll;
+  const [poll_type, setPollType] = useLocalState(context, 'poll_type', null);
 
   return (
     <Stack>
@@ -248,8 +330,19 @@ const PollMenu = (props, context) => {
       </Stack.Item>
       <Stack.Item>
         <LabeledList>
-          {poll.options.map((option) => (
+          {options.map((option) => (
             <LabeledList.Item key="option" label={'Option ' + option.num}>
+              {option.text}
+              {poll_type === 'Rating' ? (
+                <Box>
+                  Minimum value: {option.min_val} | Maximum value:{' '}
+                  {option.max_val}
+                  Minimum description: {option.desc_min}
+                  Middle description: {option.desc_mid}
+                  Maximum description: {option.desc_max}
+                </Box>
+              ) : null}
+              <br />
               <Button
                 content="Edit"
                 onClick={() =>
@@ -262,17 +355,6 @@ const PollMenu = (props, context) => {
                   act('delete_poll_option', { option_to_delete: option.id })
                 }
               />
-              <br />
-              {option.text}
-              {poll_type === 'Rating' ? null : (
-                <Box>
-                  Minimum value: {option.min_val} | Maximum value:{' '}
-                  {option.max_val}
-                  Minimum description: {option.desc_min}
-                  Middle description: {option.desc_mid}
-                  Maximum description: {option.desc_max}
-                </Box>
-              )}
               <Divider />
             </LabeledList.Item>
           ))}

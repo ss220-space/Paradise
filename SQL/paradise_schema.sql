@@ -733,3 +733,17 @@ CREATE TABLE IF NOT EXISTS `poll_vote` (
   KEY `idx_pvote_pollid_ckey` (`pollid`,`ckey`),
   KEY `idx_pvote_optionid_ckey` (`optionid`,`ckey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DELIMITER $$
+CREATE PROCEDURE `set_poll_deleted`(
+	IN `poll_id` INT
+)
+SQL SECURITY INVOKER
+BEGIN
+UPDATE `poll_question` SET deleted = 1 WHERE id = poll_id;
+UPDATE `poll_option` SET deleted = 1 WHERE pollid = poll_id;
+UPDATE `poll_vote` SET deleted = 1 WHERE pollid = poll_id;
+UPDATE `poll_textreply` SET deleted = 1 WHERE pollid = poll_id;
+END
+$$
+DELIMITER ;

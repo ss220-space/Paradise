@@ -5,7 +5,8 @@
  * Also does some simple error checking to ensure the poll will be valid before creation.
  *
  */
-/client/proc/poll_parse(list/list_poll, datum/poll_question/poll)
+/client/proc/poll_parse(datum/ui_module/poll_management_panel/our_panel, datum/poll_question/poll)
+	var/list_poll = our_panel.list_poll
 	if(!check_rights(R_SERVER))
 		return
 	if(!SSdbcore.Connect())
@@ -14,6 +15,7 @@
 	var/list/error_state = list()
 	var/new_poll = FALSE // submit_ready
 	var/clear_votes = FALSE
+	var/submit_ready = FALSE
 	if(!poll)
 		poll = new(creator = usr.client.ckey)
 		new_poll = TRUE
@@ -55,6 +57,8 @@
 		poll.allow_revoting = FALSE
 	if(list_poll["clear_votes"])
 		clear_votes = TRUE
+	if(list_poll["submitpoll"])
+		submit_ready = TRUE
 	if(poll.poll_type == POLLTYPE_MULTI)
 		if(text2num(list_poll["options_allowed"]))
 			poll.options_allowed = text2num(list_poll["options_allowed"])
@@ -66,7 +70,7 @@
 				error_state += "Multiple choice options allowed cannot be negative."
 		else
 			error_state += "Multiple choice poll was selected but no number of allowed options was provided."
-	if(new_poll && poll.poll_type != POLLTYPE_TEXT && !length(poll.options))
+	if(submit_ready && poll.poll_type != POLLTYPE_TEXT && !length(poll.options))
 		error_state += "This poll type requires at least one option."
 	if(error_state.len)
 		if(poll.edit_ready)
@@ -76,12 +80,14 @@
 			if(new_poll)
 				qdel(poll)
 		return
-	if(new_poll)
+	to_chat(usr, span_notice("all clear"))
+	if(submit_ready)
 		var/db = poll.edit_ready //if the poll is new it will need its options inserted for the first time
 		poll.save_poll_data(clear_votes)
 		if(!db)
 			poll.save_all_options()
-	open_poll_management(poll)
+	our_panel.poll = poll //set or qdel'd, no matter
+	SStgui.try_update_ui(usr, our_panel)
 
 /**
  * Processes topic data from poll option panel.
@@ -157,12 +163,12 @@
 		else
 			to_chat(usr, span_danger("Not all edits were applied because the following errors were present:\n[error_state.Join("\n")]"), confidential = TRUE)
 		return
+	to_chat(usr, span_notice("all clear"))
 	if(new_option)
 		poll.options += option
 		option.parent_poll = poll
 	if(poll.edit_ready)
 		option.save_option()
-	open_poll_management(poll)
 
 /**
  * Loads all current and future server polls and their options to store both as datums.

@@ -6,6 +6,17 @@
 /datum/ui_module/poll_list_panel
 	name = "Poll List Panel"
 
+/datum/admins/proc/open_poll_list()
+	set name = "Server Poll Management"
+	set category = "Server"
+
+	if(!check_rights(R_SERVER))
+		return
+
+	var/datum/ui_module/poll_list_panel/panel_pollo = new(usr)
+	panel_pollo.ui_interact(usr)
+
+
 /datum/ui_module/poll_list_panel/ui_state(mob/user)
 	return GLOB.admin_state
 
@@ -87,17 +98,6 @@
 			poll_list_panel()
 		*/
 
-/datum/admins/proc/open_poll_list()
-	set name = "Server Poll Management"
-	set category = "Server"
-
-	if(!check_rights(R_SERVER))
-		return
-
-	var/datum/ui_module/poll_list_panel/panel_pollo = new(usr)
-
-	panel_pollo.ui_interact(usr)
-
 
 /**
   * Shows the results for a poll
@@ -108,7 +108,7 @@
 	if(!SSdbcore.IsConnected())
 		to_chat(usr, span_danger("Not connected to database. Cannot retrieve data."))
 		return
-	var/output = "<div align='center'><B>Player Poll Results</B><hr>[poll.question]<hr>"
+	var/output = {"<meta charset="UTF-8"><div align='center'><B>Player Poll Results</B><hr>[poll.question]<hr>"}
 	//Each poll type is different
 	switch (poll.poll_type)
 		//Show the options that were clicked
