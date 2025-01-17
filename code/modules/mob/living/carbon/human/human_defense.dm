@@ -504,7 +504,7 @@ emp_act
 	var/hit_area = affecting.limb_zone
 	var/hit_area_name = parse_zone(hit_area)
 
-	var/armor = run_armor_check(affecting, MELEE, span_warning("Ваша броня защитила ваш[genderize_ru(affecting.gender, "", "у", "е", "и")] [hit_area_name], полностью поглотив удар."), span_warning("Ваша броня защитила ваш[genderize_ru(affecting.gender, "", "у", "е", "и")] [hit_area_name], смягчив удар."), armour_penetration = I.armour_penetration)
+	var/armor = run_armor_check(affecting, MELEE, span_warning("Ваша броня защитила [hit_area_name], полностью поглотив удар."), span_warning("Ваша броня защитила [hit_area_name], смягчив удар."), armour_penetration = I.armour_penetration)
 	if(armor >= 100)
 		return .
 
