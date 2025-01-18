@@ -1420,7 +1420,7 @@
 	oink(user, "squeezed")
 
 /obj/item/toy/plushie/pig/attack_hand(mob/user)
-	oink(user, pick("pressed", "squeezed", "squashed", "champed", "ущипнул"))
+	oink(user, pick("pressed", "squeezed", "squashed", "champed", "pinched"))
 
 /obj/item/toy/plushie/pig/Initialize()
 	. = ..()
