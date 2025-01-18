@@ -171,7 +171,18 @@
 	if(!(lube_flags & SLIDE_ICE))
 		// Ice slides are intended to be combo'd so don't give the feedback
 		to_chat(slipper, span_notice("You slipped[slippable ? " on the [slippable.name]" : ""]!"))
-		playsound(slipper.loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
+		playsound(slipper.loc, pick( list('sound/misc/slip.ogg', 'sound/misc/slip_2.ogg') ), 50, TRUE, -3)
+		if(prob(50))
+			slipper.SpinAnimation(10, 1)
+			if(prob(10))
+				if(prob(50))
+					var/obj/item/organ/external/hand = slipper.get_organ(BODY_ZONE_PRECISE_L_HAND || BODY_ZONE_PRECISE_R_HAND)
+					if(!hand.has_fracture())
+						hand.fracture()
+				else
+					var/obj/item/organ/external/leg = slipper.get_organ(BODY_ZONE_L_LEG || BODY_ZONE_R_LEG)
+					if(!leg.has_fracture())
+						leg.fracture()
 
 	SEND_SIGNAL(slipper, COMSIG_ON_CARBON_SLIP)
 
