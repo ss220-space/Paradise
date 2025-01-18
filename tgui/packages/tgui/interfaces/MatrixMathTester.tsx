@@ -50,50 +50,40 @@ export const MatrixMathTester = (props, context) => {
   const [shearY, setShearY] = useLocalState(context, 'shear_y', 0);
   const [angle, setAngle] = useLocalState(context, 'angle', 0);
   return (
-    <Window title="Transform Editor" width={320} height={270}>
+    <Window title="Transform Editor" width={290} height={270}>
       <Window.Content>
         <Section fill>
           <Table>
             <Table.Row header>
-              <Table.Cell width={'25%'} />
+              <Table.Cell width={'30%'} />
               <Table.Cell width={'25%'}>X</Table.Cell>
               <Table.Cell width={'25%'}>Y</Table.Cell>
-              <Table.Cell width={'30%'}>Z</Table.Cell>
             </Table.Row>
             <Table.Row>
-              <Table.Cell header>Position</Table.Cell>
+              <Table.Cell header>Position(c, f)</Table.Cell>
               <Table.Cell>
                 <MatrixMathTesterInput value={matrix_c} varName="c" />
               </Table.Cell>
               <Table.Cell>
                 <MatrixMathTesterInput value={matrix_f} varName="f" />
               </Table.Cell>
-              <Table.Cell>
-                <Input disabled placeholder="0 (fixed)" width={'100%'} />
-              </Table.Cell>
             </Table.Row>
             <Table.Row>
-              <Table.Cell header>Rotation</Table.Cell>
+              <Table.Cell header>Incline(b, d)</Table.Cell>
               <Table.Cell>
                 <MatrixMathTesterInput value={matrix_b} varName="b" />
               </Table.Cell>
               <Table.Cell>
                 <MatrixMathTesterInput value={matrix_d} varName="d" />
               </Table.Cell>
-              <Table.Cell>
-                <Input disabled placeholder="0 (fixed)" width={'100%'} />
-              </Table.Cell>
             </Table.Row>
             <Table.Row>
-              <Table.Cell header>Scale</Table.Cell>
+              <Table.Cell header>Scale(a,e)</Table.Cell>
               <Table.Cell>
                 <MatrixMathTesterInput value={matrix_a} varName="a" />
               </Table.Cell>
               <Table.Cell>
                 <MatrixMathTesterInput value={matrix_e} varName="e" />
-              </Table.Cell>
-              <Table.Cell>
-                <Input disabled placeholder="1 (fixed)" width={'100%'} />
               </Table.Cell>
             </Table.Row>
           </Table>
