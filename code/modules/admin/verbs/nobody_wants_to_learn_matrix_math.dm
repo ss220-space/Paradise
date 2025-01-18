@@ -48,7 +48,7 @@
 
 	if(!check_rights(R_VAREDIT))
 		return
-		
+
 	switch(action)
 		if("change_var")
 			var/matrix_var_name = params["var_name"]
