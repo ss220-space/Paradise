@@ -37,9 +37,3 @@
 
     if(mind) // be careful, don't use '?', you'll get runtimes.
 	    mind.transfer_to(nymph)
-
-    
-
-    
-
-    
