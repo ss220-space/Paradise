@@ -562,7 +562,6 @@
 		modify_variables(D, href_list["varnameedit"], 1)
 
 	else if(href_list["matrix_tester"])
-	
 		var/atom/atom = locateUID(href_list["matrix_tester"])
 		if(!istype(atom))
 			to_chat(usr, "Это можно использовать только для экземпляров типов /atom", confidential=TRUE)
