@@ -590,6 +590,7 @@
 #include "code\datums\elements\connect_loc.dm"
 #include "code\datums\elements\devil_regen.dm"
 #include "code\datums\elements\devil_banishment.dm"
+#include "code\datums\elements\diona_internals.dm"
 #include "code\datums\elements\falling_hazard.dm"
 #include "code\datums\elements\footstep.dm"
 #include "code\datums\elements\give_turf_traits.dm"
