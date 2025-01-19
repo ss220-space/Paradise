@@ -33937,6 +33937,9 @@
 /obj/item/assembly/signaler,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
+"gBy" = (
+/turf/simulated/floor/plating/airless,
+/area/maintenance/fsmaint)
 "gBz" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -53947,12 +53950,12 @@
 /area/space)
 "kxt" = (
 /obj/docking_port/stationary{
-	dir = 8;
 	dwidth = 2;
 	height = 6;
-	id = "pod4_home";
-	name = "pod4 home dock";
-	width = 5
+	id = "pod1_home";
+	name = "pod1 home dock";
+	width = 5;
+	dir = 8
 	},
 /turf/space{
 	icon_state = "black"
@@ -71073,6 +71076,19 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
+"nLu" = (
+/obj/docking_port/stationary{
+	dwidth = 2;
+	height = 6;
+	id = "pod2_home";
+	name = "pod2 home dock";
+	width = 5;
+	dir = 8
+	},
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "nLx" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -75816,6 +75832,12 @@
 	icon_state = "white"
 	},
 /area/medical/reception)
+"oIP" = (
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod Airlock"
+	},
+/turf/simulated/floor/plating/airless,
+/area/maintenance/fsmaint)
 "oIU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/curtain/black,
@@ -96162,6 +96184,19 @@
 	tag = "icon-whitegreen (EAST)"
 	},
 /area/medical/virology/lab)
+"sOR" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 2;
+	height = 6;
+	id = "pod4_home";
+	name = "pod4 home dock";
+	width = 5
+	},
+/turf/space{
+	icon_state = "black"
+	},
+/area/space)
 "sOS" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -130588,7 +130623,7 @@ qin
 xKg
 xKg
 xUi
-kxt
+nLu
 xUi
 xKg
 xKg
@@ -160747,11 +160782,11 @@ twg
 xqD
 tkx
 kXd
-wEH
-wEH
-wEH
-wEH
-wEH
+qin
+xUi
+xUi
+xUi
+xUi
 wEH
 wEH
 wEH
@@ -161004,12 +161039,12 @@ kXd
 kXd
 kXd
 kXd
-wEH
-wEH
-wEH
-wEH
-wEH
-wEH
+xUi
+xUi
+xUi
+xUi
+xUi
+xUi
 wEH
 wEH
 wEH
@@ -161259,14 +161294,14 @@ dUl
 vOq
 fLx
 dbN
-iNf
-wEH
-wEH
-wEH
-wEH
-wEH
-wEH
-wEH
+gBy
+oIP
+sOR
+xUi
+xUi
+xUi
+xUi
+xUi
 wEH
 wEH
 wEH
@@ -161517,13 +161552,13 @@ vrJ
 saS
 vrJ
 vrJ
-wEH
-wEH
-wEH
-wEH
-wEH
-wEH
-wEH
+tDE
+xUi
+xUi
+xUi
+xUi
+xUi
+xUi
 wEH
 wEH
 wEH
@@ -161774,12 +161809,12 @@ vrJ
 bAz
 tdn
 vrJ
-wEH
-wEH
-wEH
-wEH
-wEH
-wEH
+qin
+qin
+xUi
+xUi
+xUi
+xUi
 wEH
 wEH
 wEH
