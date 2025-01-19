@@ -15,7 +15,7 @@
 		if(antag_mind.current.stat == DEAD)
 			temp_list["status"] = "(МЁРТВ)"
 		else if(!antag_mind.current.client)
-			temp_list["status"] = "(SSD)"
+			temp_list["status"] = "(КРС)"
 		if(istype(get_area(antag_mind.current), /area/security/permabrig))
 			temp_list["status"] += "(ПЕРМА)"
 		// temp_list["ckey"] = antag_mind.current.client?.ckey

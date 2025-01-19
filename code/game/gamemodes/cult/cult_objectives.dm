@@ -153,7 +153,7 @@
 				target_candidates += H.mind
 	if(length(target_candidates))
 		target = pick(target_candidates)
-		explanation_text = "Принесите в жертву [target], [target.assigned_role] посредством вызова руны Предложения с помощью [target.p_their()] тела или мозга на ней и трёх культистов вокруг нее."
+		explanation_text = "Принесите в жертву [target], [target.assigned_role] посредством вызова руны Предложения с помощью [target.p_their()] тела или мозга на ней и трёх культистов вокруг неё."
 		return TRUE
 	message_admins("Cult Sacrifice: Could not find unconvertible or convertible target. Nar'Sie summoning unlocked!")
 	return FALSE
@@ -194,8 +194,8 @@
 		if(valid_spot)
 			summon_spots += summon
 		sanity++
-	explanation_text = "Призовите [SSticker.cultdat ? SSticker.cultdat.entity_name : "вашего бога"] вызвав руну «Разорвать завесу» с 9 культистами, конструкциями или вызванными призраками внутри нее.\
-	\nПризыв может быть осуществлен только в [english_list(summon_spots)] - где завеса достаточно слаба, чтобы начать ритуал."
+	explanation_text = "Призовите [SSticker.cultdat ? SSticker.cultdat.entity_name : "вашего бога"] вызвав руну «Разорвать завесу» вместе с 9 культистами, конструкциями или вызванными призраками внутри нее.\
+	\nПризыв может быть осуществлён только в [english_list(summon_spots)] - где завеса достаточно слаба, чтобы начать ритуал."
 
 
 /datum/objective/eldergod/check_completion()

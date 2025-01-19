@@ -93,7 +93,7 @@
 		to_chat(user, span_notice("Вы успешно приобрели [focus.bodypartname]"))
 		return
 
-	to_chat(user, span_notice("Вам требуется еще [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
+	to_chat(user, span_notice("Вам требуется ещё [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
 	return
 
 /datum/antagonist/borer/proc/entered_host()

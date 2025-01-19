@@ -425,6 +425,14 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!check_rights(R_ADMIN))
 		return
 
+	if(!SSticker)
+		to_chat(usr, span_warning("Игра еще не началась!"))
+		return
+
+	if(SSticker.current_state <= GAME_STATE_PREGAME)
+		to_chat(usr, span_warning("Раунд еще не начался!"))
+		return
+
 	var/datum/ui_module/admin = get_admin_ui_module(/datum/ui_module/admin/antagonist_menu)
 	admin.ui_interact(usr)
 	log_admin("[key_name(usr)] checked antagonists")
@@ -1167,7 +1175,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 /// targeted form of admin_observe: this should only appear in the right-click menu.
 /client/proc/admin_observe_target(mob/target)
 	if(isnewplayer(mob))
-		to_chat(src, span_warning("Вы не можете агостнуться, пока находитесь в лобби. Зайдите в раунд для начала(как игрок или как призрак)."))
+		to_chat(src, span_warning("Вы не можете а-гостнуться, пока находитесь в лобби. Зайдите в раунд для начала(как игрок или как призрак)."))
 		return
 
 	if(isnewplayer(target))

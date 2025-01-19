@@ -398,7 +398,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 				found_valid_target = TRUE
 
 	if(!found_valid_target)
-		new_objective.explanation_text = "Ага. Делай что угодно..."
+		new_objective.explanation_text = "Ага. Делай, что душе угодно."
 		new_objective.antag_menu_name = "Свободная цель"
 		new_objective.target = null
 

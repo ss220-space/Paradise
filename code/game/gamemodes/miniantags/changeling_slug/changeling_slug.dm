@@ -13,14 +13,14 @@
 	SSticker.mode.headslugs |= mind
 	var/list/messages = list()
 	messages.Add("<b><font size=3 color='red'>Мы личинка генокрада.</font><br></b>")
-	messages.Add(span_changeling("Наши яйца можно отложить в любого крупного мертвого гуманоида. Используйте <B>Alt-Click</B> на подходящем мобе и стойте неподвижно в течение 5 секунд."))
-	messages.Add(span_notice("Хотя эта форма погибнет после откладки яиц, наше истинное «я» со временем возродится."))
+	messages.Add(span_changeling("Наши яйца можно отложить в любого крупного мёртвого гуманоида. Используйте <B>Alt + ЛКМ</B> на подходящем существе и стойте неподвижно в течение 5 секунд."))
+	messages.Add(span_notice("Хоть эта форма и погибнет после откладки яиц, наше истинное «я» со временем возродится."))
 
 	SEND_SOUND(src, sound('sound/vox_fem/changeling.ogg'))
 	if(give_default_objectives)
 		var/datum/objective/findhost = new /datum/objective // objective just for rofl
 		findhost.owner = mind
-		findhost.explanation_text = "Найдите труп, чтобы отложить яйца и развиваться"
+		findhost.explanation_text = "Найдите труп, чтобы отложить в него яйца и начать процесс роста"
 		findhost.completed = TRUE
 		findhost.needs_target = FALSE
 		findhost.antag_menu_name = "Найти носителя"

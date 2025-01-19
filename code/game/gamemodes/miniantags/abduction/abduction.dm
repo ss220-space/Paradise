@@ -256,7 +256,7 @@
 //No check completion, it defaults to being completed unless an admin sets it to failed.
 
 /datum/objective/experiment/New()
-	explanation_text = "Проведите эксперимент на [target_amount] людях."
+	explanation_text = "Проведите эксперимент на [target_amount] гуманоидах."
 
 
 /datum/objective/experiment/check_completion()

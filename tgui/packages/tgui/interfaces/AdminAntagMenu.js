@@ -22,16 +22,16 @@ const Titles = {
   0: 'Антагонисты',
   1: 'Цели',
   2: 'СБ',
-  3: 'Хайриски',
+  3: 'Особо ценные предметы',
   default: 'Что-то не так, пора писать баг репорт!',
 };
 
 const MenuTabs = {
-  0: <AntagList />,
-  1: <Objectives />,
-  2: <Security />,
-  3: <HighValueItems />,
-  default: 'Что-то не так, пора писать баг репорт!',
+  0: () => <AntagList />,
+  1: () => <Objectives />,
+  2: () => <Security />,
+  3: () => <HighValueItems />,
+  default: () => 'Что-то не так, пора писать баг репорт!',
 };
 
 const PickTitle = (index) => Titles[index] || Titles.default;
@@ -87,7 +87,7 @@ export const AdminAntagMenu = (properties, context) => {
                 }}
                 icon="lock"
               >
-                Хайриски
+                Особо ценные предметы
               </Tabs.Tab>
             </Tabs>
           </Stack.Item>
@@ -109,7 +109,7 @@ export const AdminAntagMenu = (properties, context) => {
                 </Stack>
               }
             >
-              {PickTab(tabIndex)}
+              {PickTab(tabIndex)()}
             </Section>
           </Stack.Item>
         </Stack>
@@ -135,7 +135,7 @@ const AntagList = (properties, context) => {
   return (
     <Table className="AdminAntagMenu__list">
       <Table.Row bold>
-        <SortButton id="name">Имя моба</SortButton>
+        <SortButton id="name">Имя существа</SortButton>
         <SortButton id="">Кнопки</SortButton>
         <SortButton id="antag_names">Тип(-ы) антагонистов</SortButton>
         <SortButton id="status">Статус</SortButton>
@@ -184,7 +184,7 @@ const AntagList = (properties, context) => {
                 {!body_destroyed ? (
                   <Button
                     color={is_hijacker || !name ? 'red' : ''}
-                    tooltip={is_hijacker ? 'Хиджакер' : ''}
+                    tooltip={is_hijacker ? 'Угонщик шаттла' : ''}
                     onClick={() =>
                       act('show_player_panel', {
                         mind_uid: antag_mind_uid,
@@ -386,7 +386,7 @@ const Security = (properties, context) => {
   };
   const getStatus = (officer) => {
     if (officer.status === 2) {
-      return 'Мертв';
+      return 'Мёртв';
     }
     if (officer.status === 1) {
       return 'Без сознания';
@@ -419,7 +419,7 @@ const Security = (properties, context) => {
           Статус
         </SortButton>
         <SortButton sort_group="sortId3" id="antag">
-          Антаг
+          Антагонист
         </SortButton>
         <SortButton sort_group="sortId3" id="health">
           Здоровье
@@ -542,7 +542,7 @@ const HighValueItems = (properties, context) => {
   const [sortId, _setSortId] = useLocalState(context, 'sortId4', 'person');
   const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   if (!high_value_items.length) {
-    return 'No High Value Items!';
+    return 'Нет особо ценных предметов!';
   }
   return (
     <Table className="AdminAntagMenu__list">
@@ -557,7 +557,7 @@ const HighValueItems = (properties, context) => {
           Местоположение
         </SortButton>
         <SortButton sort_group="sortId4" id="admin_z">
-          На админском Z
+          Админский Z-уровень
         </SortButton>
       </Table.Row>
       {high_value_items
@@ -601,7 +601,7 @@ const HighValueItems = (properties, context) => {
               <Box color={item.admin_z ? 'grey' : ''}>{item.loc}</Box>
             </Table.Cell>
             <Table.Cell>
-              <Box color="grey">{item.admin_z ? 'На админском Z' : ''}</Box>
+              <Box color="grey">{item.admin_z ? 'Да' : 'Нет'}</Box>
             </Table.Cell>
             <Table.Cell collapsing>
               <Button

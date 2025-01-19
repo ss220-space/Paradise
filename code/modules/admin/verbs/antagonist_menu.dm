@@ -106,7 +106,7 @@
 		var/list/temp_list = list()
 		temp_list["name"] = (!player)? sec_mind.name : player.real_name
 		temp_list["role"] = (!isrobot(player))? role : \
-							(sec_mind.special_role == SPECIAL_ROLE_ERT )? "ERT [role]" : "Security [role]"
+							(sec_mind.special_role == SPECIAL_ROLE_ERT )? "ОБР [role]" : "СБ [role]"
 		temp_list["mind_uid"] = sec_mind.UID()
 		temp_list["ckey"] = ckey(sec_mind.key)
 		temp_list["status"] = player.stat
@@ -179,7 +179,7 @@
 			var/client/C = ui.user.client
 			var/datum/target = locateUID(params["owner_uid"])
 			if(QDELETED(target))
-				to_chat(ui.user, span_warning("Кажется, цель, которую вы ищете, не существует или удалена."))
+				to_chat(ui.user, span_warning("Цель, которую вы ищете, не существует или была удалена."))
 				return
 			if(istype(target, /datum/antagonist))
 				var/datum/antagonist/antag = target

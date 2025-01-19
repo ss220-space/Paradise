@@ -695,7 +695,7 @@
 	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "vampthrall"
 	master_hud_icon = "vampire"
-	antag_menu_name = "Тралл вампира"
+	antag_menu_name = "Раб вампира"
 
 /datum/antagonist/mindslave/thrall/greet()
 	var/greet_text = "<b>Вы были очарованы [master.current.real_name]. Следуйте каждому [genderize_ru(master.current.gender, "его", "её", "его", "их")] приказу.</b>"

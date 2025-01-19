@@ -75,7 +75,7 @@
 
 /datum/objective/devil/sintouch/New()
 	target_amount = pick(4, 5)
-	explanation_text = "Убедитесь, что хотя бы [target_amount] было осквернено грехом."
+	explanation_text = "Убедитесь, что хотя бы [target_amount] смертных было осквернено грехом."
 
 /datum/objective/devil/sintouch/check_completion()
 	return target_amount <= SSticker.mode.sintouched.len
@@ -83,7 +83,7 @@
 /datum/objective/devil/ascend
 	explanation_text = "Ascend to your true form."
 	needs_target = FALSE
-	antag_menu_name = "Возвысится"
+	antag_menu_name = "Возвыситься"
 
 /datum/objective/devil/ascend/check_completion()
 	return isdevil(owner)
