@@ -19,6 +19,7 @@ export const PollListPanel = (props, context) => {
         <Section title="Poll List Panel">
           Currently running polls Note when editing polls or their options
           changes are not saved until you press Sumbit Poll.
+          <br />
           <Button content="New Poll" onClick={() => act('newpoll')} />
           <LabeledList>
             {polls.map((poll) => (

@@ -123,14 +123,18 @@ export const PollManagement = (props, context) => {
               selected={poll_type}
               onSelected={(value) => setPollType(value)}
             />
-            Mult-choice options allowed:
-            <NumberInput
-              width={3}
-              minValue={0}
-              maxValue={100}
-              value={options_allowed}
-              onChange={(_, value) => set_options_allowed(!options_allowed)}
-            />
+            {has_poll & (poll_type !== 'Multiple Choice') ? null : (
+              <Box inline>
+                Mult-choice options allowed:
+                <NumberInput
+                  width={3}
+                  minValue={0}
+                  maxValue={100}
+                  value={options_allowed}
+                  onChange={(_, value) => set_options_allowed(!options_allowed)}
+                />
+              </Box>
+            )}
             <br />
             <ButtonCheckbox
               content="Admin only"
@@ -189,7 +193,7 @@ export const PollManagement = (props, context) => {
                   <Input
                     width={15}
                     placeholder="YYYY-MM-DD HH:MM:SS"
-                    value={end_datetime}
+                    value={end_datetime ? end_datetime : '1970-01-01 00:00:01'}
                     onChange={(_, value) => set_end_datetime(value)}
                   />
                 </Box>
@@ -205,7 +209,9 @@ export const PollManagement = (props, context) => {
                 <Input
                   width={15}
                   placeholder="YYYY-MM-DD HH:MM:SS"
-                  value={start_datetime}
+                  value={
+                    start_datetime ? start_datetime : '1970-01-01 00:00:01'
+                  }
                   onChange={(_, value) => set_start_datetime(value)}
                 />
               )}

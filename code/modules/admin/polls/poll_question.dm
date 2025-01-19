@@ -47,19 +47,20 @@
 	poll_type = polltype
 	start_datetime = starttime
 	end_datetime = endtime
-	src.question = question
+	src.question = question //item[5]
 	src.subtitle = subtitle
 	admin_only = text2num(adminonly)
 	options_allowed = text2num(multiplechoiceoptions)
 	dont_show = text2num(dontshow)
-	src.allow_revoting = text2num(allow_revoting)
+	src.allow_revoting = text2num(allow_revoting)  //item[10]
 	poll_votes = text2num(vote_count) || 0
 	created_by = creator
 	future_poll = text2num(future)
-	minimum_playtime = text2num(minimum_playtime) || 0
-	edit_ready = dbload
 	if (active_poll)
 		GLOB.active_polls += src
+	src.minimum_playtime = text2num(minimum_playtime) || 0  //item[15]
+	edit_ready = dbload
+
 	GLOB.polls += src
 
 /datum/poll_question/Destroy()
@@ -104,7 +105,7 @@
  *
  */
 /datum/poll_question/proc/save_poll_data(clear_votes)
-	if(!check_rights(R_POLL))
+	if(!check_rights(R_SERVER))
 		return
 	if(!SSdbcore.Connect())
 		to_chat(usr, span_danger("Failed to establish database connection."), confidential = TRUE)
@@ -113,7 +114,6 @@
 	if(poll_type != POLLTYPE_MULTI)
 		options_allowed = null
 	var/admin_ckey = created_by
-	var/admin_ip = usr.client.address
 
 	var/end_datetime_sql
 	if (interval in list("SECOND", "MINUTE", "HOUR", "DAY", "WEEK", "MONTH", "YEAR"))
@@ -121,16 +121,14 @@
 	else
 		end_datetime_sql = ":duration"
 
-	var/kn = key_name(usr)
-	var/kna = key_name_admin(usr)
 	var/datum/db_query/query_save_poll = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("poll_question")] (id, polltype, created_datetime, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, createdby_ckey, createdby_ip, dontshow, allow_revoting, minimum_playtime)
-		VALUES (:poll_id, :poll_type, NOW(), COALESCE(:start_datetime, NOW()), [end_datetime_sql], :question, :subtitle, :admin_only, :options_allowed, :admin_ckey, INET_ATON(:admin_ip), :dont_show, :allow_revoting, :minimum_playtime)
+		INSERT INTO [format_table_name("poll_question")] (id, polltype, created_datetime, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, createdby_ckey, dontshow, allow_revoting, minimum_playtime)
+		VALUES (:poll_id, :poll_type, NOW(), COALESCE(:start_datetime, NOW()), [end_datetime_sql], :question, :subtitle, :admin_only, :options_allowed, :admin_ckey, :dont_show, :allow_revoting, :minimum_playtime)
 		ON DUPLICATE KEY UPDATE starttime = :start_datetime, endtime = [end_datetime_sql], question = :question, subtitle = :subtitle, adminonly = :admin_only, multiplechoiceoptions = :options_allowed, dontshow = :dont_show, allow_revoting = :allow_revoting, minimum_playtime = :minimum_playtime
 	"}, list(
 		"poll_id" = poll_id, "poll_type" = poll_type, "start_datetime" = start_datetime, "duration" = duration,
 		"question" = question, "subtitle" = subtitle, "admin_only" = admin_only, "options_allowed" = options_allowed,
-		"admin_ckey" = admin_ckey, "admin_ip" = admin_ip, "dont_show" = dont_show, "allow_revoting" = allow_revoting,
+		"admin_ckey" = admin_ckey, "dont_show" = dont_show, "allow_revoting" = allow_revoting,
 		"minimum_playtime" = minimum_playtime
 	))
 	if(!query_save_poll.warn_execute())
@@ -154,12 +152,7 @@
 	if(clear_votes)
 		clear_poll_votes()
 	edit_ready = TRUE
-	var/msg = "has [new_poll ? "created a new" : "edited a"][admin_only ? " admin only" : ""] server poll. Question: [question]"
-	if(admin_only)
-		log_admin_private("[kn] [msg]")
-	else
-		log_admin("[kn] [msg]")
-	message_admins("[kna] [msg]")
+	log_and_message_admins("has [new_poll ? "created a new" : "edited a"][admin_only ? " admin only" : ""] server poll. Question: [question]")
 
 /**
  * Saves all options of a poll to the database.

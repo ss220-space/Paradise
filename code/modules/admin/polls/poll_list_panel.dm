@@ -90,13 +90,6 @@
 
 			var/start_index = text2num(params["startat"]) || 0
 			ui_client.holder.poll_results_panel(our_poll, start_index)
-		/*
-		if("reloadpolls")
-			GLOB.polls.Cut()
-			GLOB.poll_options.Cut()
-			load_poll_data()
-			poll_list_panel()
-		*/
 
 
 /**
@@ -134,7 +127,7 @@
 		//Provide lists of ckeys and their answers
 		if (POLLTYPE_TEXT)
 			//Change the table name
-			output += "<a href='?_src_=holder;resultspoll=[REF(poll)];startat=[start_index-10]'>Previous Page</a><a href='?_src_=holder;resultspoll=[REF(poll)];startat=[start_index+10]'>Next Page</a><br/>"
+			output += "<a href='?_src_=holder;resultspoll=[poll.UID()];startat=[start_index-10]'>Previous Page</a><a href='?_src_=holder;resultspoll=[poll.UID()];startat=[start_index+10]'>Next Page</a><br/>"
 			output += "<table><tr><th>Ckey</th><th>Response</th></tr>"
 			//Get the results
 			var/datum/db_query/query_get_poll_results = SSdbcore.NewQuery({"

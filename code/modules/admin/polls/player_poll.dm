@@ -5,12 +5,12 @@
 /mob/new_player/proc/handle_player_polling()
 	var/list/output = {"<meta charset="UTF-8">"}
 	output += "<div align='center'><B>Player polls</B><hr><table>"
-	var/rs = REF(src)
+	var/rs = UID()
 	for(var/p in GLOB.active_polls)
 		var/datum/poll_question/poll = p
 		if((poll.admin_only && !client.holder) || poll.future_poll)
 			continue
-		output += "<tr bgcolor='#e2e2e2'><td><a href='?src=[rs];viewpoll=[REF(poll)]'><b>[poll.question]</b></a></td></tr>"
+		output += "<tr bgcolor='#e2e2e2'><td><a href='?src=[rs];viewpoll=[poll.UID()]'><b>[poll.question]</b></a></td></tr>"
 	output += "</table>"
 	src << browse(output,"window=playerpolllist;size=500x300") // I'll do TGUI later -Beeb
 
@@ -59,14 +59,14 @@
 	if(poll.allow_revoting)
 		output += "<font size='2'>Revoting is enabled.</font>"
 	if(!voted_option_id || poll.allow_revoting)
-		output += {"<form action='?src=[REF(src)]' method='get'>
-		<input type='hidden' name='src' value='[REF(src)]'>
-		<input type='hidden' name='votepollref' value='[REF(poll)]'>
+		output += {"<form action='?src=[UID()]' method='get'>
+		<input type='hidden' name='src' value='[UID()]'>
+		<input type='hidden' name='votepollref' value='[poll.UID()]'>
 		"}
 	output += "<table><tr><td>"
 	for(var/o in poll.options)
 		var/datum/poll_option/option = o
-		output += "<label><input type='radio' name='voteoptionref' value='[REF(option)]'"
+		output += "<label><input type='radio' name='voteoptionref' value='[option.UID()]'"
 		if(voted_option_id && !poll.allow_revoting)
 			output += " disabled"
 		if(voted_option_id == option.option_id)
@@ -103,10 +103,10 @@
 	if(poll.allow_revoting)
 		output += "<font size='2'>Revoting is enabled.</font>"
 	if(!reply_text || poll.allow_revoting)
-		output += {"<form action='?src=[REF(src)]' method='get'>
-		<input type='hidden' name='src' value='[REF(src)]'>
-		<input type='hidden' name='votepollref' value='[REF(poll)]'>
-		<font size='2'>Please provide feedback below. You can use any letters of the English alphabet, numbers and the symbols: . , ! ? : ; -</font><br>
+		output += {"<form action='?src=[UID()]' method='get'>
+		<input type='hidden' name='src' value='[UID()]'>
+		<input type='hidden' name='votepollref' value='[poll.UID()]'>
+		<font size='2'>Please provide feedback below.</font><br>
 		<textarea name='replytext' cols='50' rows='14'>[reply_text]</textarea>
 		<p><input type='submit' value='Submit'></form>
 		"}
@@ -140,15 +140,15 @@
 	if(poll.allow_revoting)
 		output += "<font size='2'>Revoting is enabled.</font>"
 	if(!length(voted_ratings) || poll.allow_revoting)
-		output += {"<form action='?src=[REF(src)]' method='get'>
-		<input type='hidden' name='src' value='[REF(src)]'>
-		<input type='hidden' name='votepollref' value='[REF(poll)]'>
+		output += {"<form action='?src=[UID()]' method='get'>
+		<input type='hidden' name='src' value='[UID()]'>
+		<input type='hidden' name='votepollref' value='[poll.UID()]'>
 		"}
 	for(var/o in poll.options)
 		var/datum/poll_option/option = o
 		var/mid_val = round((option.max_val + option.min_val) / 2)
 		var/selected_rating = text2num(voted_ratings["[option.option_id]"])
-		output += "<label><br>[option.text]: <select name='[REF(option)]'"
+		output += "<label><br>[option.text]: <select name='[option.UID()]'"
 		if(length(voted_ratings) && !poll.allow_revoting)
 			output += " disabled"
 		output += ">"
@@ -195,14 +195,14 @@
 	if(poll.allow_revoting)
 		output += "<font size='2'>Revoting is enabled.</font>"
 	if(!length(voted_for) || poll.allow_revoting)
-		output += {"<form action='?src=[REF(src)]' method='get'>
-		<input type='hidden' name='src' value='[REF(src)]'>
-		<input type='hidden' name='votepollref' value='[REF(poll)]'>
+		output += {"<form action='?src=[UID()]' method='get'>
+		<input type='hidden' name='src' value='[UID()]'>
+		<input type='hidden' name='votepollref' value='[poll.UID()]'>
 		"}
 	output += "<table><tr><td>"
 	for(var/o in poll.options)
 		var/datum/poll_option/option = o
-		output += "<label><input type='checkbox' name='[REF(option)]' value='[option.option_id]'"
+		output += "<label><input type='checkbox' name='[option.UID()]' value='[option.option_id]'"
 		if(length(voted_for) && !poll.allow_revoting)
 			output += " disabled"
 		if(option.option_id in voted_for)
@@ -302,15 +302,14 @@
 		to_chat(src, span_danger("No option was selected."))
 		return
 	var/datum/db_query/query_vote_option = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("poll_vote")] (id, datetime, pollid, optionid, ckey, ip, adminrank)
-		VALUES (:vote_id, NOW(), :poll_id, :option_id, :ckey, INET_ATON(:ip), :admin_rank)
-		ON DUPLICATE KEY UPDATE datetime = NOW(), optionid = :option_id, ip = INET_ATON(:ip), adminrank = :admin_rank
+		INSERT INTO [format_table_name("poll_vote")] (id, datetime, pollid, optionid, ckey, adminrank)
+		VALUES (:vote_id, NOW(), :poll_id, :option_id, :ckey, :admin_rank)
+		ON DUPLICATE KEY UPDATE datetime = NOW(), optionid = :option_id, adminrank = :admin_rank
 	"}, list(
 		"vote_id" = vote_id,
 		"poll_id" = sql_poll_id,
 		"option_id" = option.option_id,
 		"ckey" = ckey,
-		"ip" = client.address,
 		"admin_rank" = admin_rank,
 	))
 	if(!query_vote_option.warn_execute())
@@ -334,14 +333,13 @@
 		to_chat(src, span_danger("The text you entered was blank or too long. Please correct the text and submit again."))
 		return
 	var/datum/db_query/query_vote_text = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("poll_textreply")] (id, datetime, pollid, ckey, ip, replytext, adminrank)
-		VALUES (:vote_id, NOW(), :poll_id, :ckey, INET_ATON(:ip), :reply_text, :admin_rank)
-		ON DUPLICATE KEY UPDATE datetime = NOW(), ip = INET_ATON(:ip), replytext = :reply_text, adminrank = :admin_rank
+		INSERT INTO [format_table_name("poll_textreply")] (id, datetime, pollid, ckey, replytext, adminrank)
+		VALUES (:vote_id, NOW(), :poll_id, :ckey, :reply_text, :admin_rank)
+		ON DUPLICATE KEY UPDATE datetime = NOW(), replytext = :reply_text, adminrank = :admin_rank
 	"}, list(
 		"vote_id" = vote_id,
 		"poll_id" = sql_poll_id,
 		"ckey" = ckey,
-		"ip" = client.address,
 		"reply_text" = reply_text,
 		"admin_rank" = admin_rank,
 	))
@@ -376,7 +374,6 @@
 
 	var/special_columns = list(
 		"datetime" = "NOW()",
-		"ip" = "INET_ATON(?)",
 	)
 
 	var/sql_votes = list()
@@ -387,7 +384,6 @@
 			"pollid" = sql_poll_id,
 			"optionid" = option.option_id,
 			"ckey" = ckey,
-			"ip" = client.address,
 			"adminrank" = admin_rank,
 			"rating" = href_list[h]
 		))
@@ -411,7 +407,6 @@
 
 	var/special_columns = list(
 		"datetime" = "NOW()",
-		"ip" = "INET_ATON(?)",
 	)
 
 	var/sql_votes = list()
@@ -426,7 +421,6 @@
 			"pollid" = sql_poll_id,
 			"optionid" = option.option_id,
 			"ckey" = ckey,
-			"ip" = client.address,
 			"adminrank" = admin_rank
 		))
 	/*with revoting and poll editing possible there can be an edge case where a poll is changed to allow less multiple choice options than a user has already voted on

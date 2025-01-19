@@ -1013,3 +1013,22 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_and_message_admins("cleared dynamic transit space.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "CDT") // If...
 	SSmapping.wipe_reservations() //this goes after it's logged, incase something horrible happens.
+
+/client/proc/cmd_reload_polls()
+	set category = "Debug"
+	set name = "Reload Polls"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	//This gets a confirmation check because it's way easier to accidentally hit this and delete things than it is with qdel-all
+	var/confirm = alert("This will reload all polls? Consider using it ONLY if polls do stopped working.", "Confirm", "Yes", "No")
+	if(confirm != "Yes")
+		return
+
+	GLOB.polls.Cut()
+	GLOB.poll_options.Cut()
+	load_poll_data()
+
+	log_and_message_admins("reloaded polls.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reload Polls") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
