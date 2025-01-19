@@ -22,14 +22,14 @@
 	INVOKE_ASYNC(src, PROC_REF(handle_brain_removal), internal, nymph)
 	qdel(internal)
 
-/datum/element/diona_internals/proc/handle_brain_removal(obj/item/organ/internal/brain/brain, mob/owner)
+/datum/element/diona_internals/proc/handle_brain_removal(obj/item/organ/internal/brain/brain, mob/living/simple_animal/diona/nymph)
 	if(!istype(brain) \
     || !brain.brainmob)
 		return
 
-	owner.random_name = FALSE
-	owner.real_name = brain.brainmob.real_name
-	owner.name = brain.brainmob.real_name
+	nymph.random_name = FALSE
+	nymph.real_name = brain.brainmob.real_name
+	nymph.name = brain.brainmob.real_name
 
 	var/datum/mind/mind = brain.brainmob.mind
 
