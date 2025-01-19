@@ -136,7 +136,9 @@
 	add_game_logs("took control of [new_body].", harbinger)
 	// doesn't transfer mind because that transfers antag datum as well
 	new_body.key = harbinger.key
-
+	if(isanimal(new_body))
+		var/mob/living/simple_animal/animal_body = new_body
+		animal_body.toggle_ai(AI_OFF)
 	// Already qdels due to below proc but just in case
 	qdel(src)
 

@@ -11,6 +11,7 @@ import {
   ProgressBar,
   Dropdown,
   NoticeBox,
+  DmIcon,
 } from '../components';
 import { LabeledListItem } from '../components/LabeledList';
 import { Window } from '../layouts';
@@ -77,11 +78,13 @@ export const SpiderOS = (properties, context) => {
 
 const StylesPreview = (properties, context) => {
   const { data } = useBackend((properties, context));
-  const { allStylesPreview, style_preview_icon_state } = data;
+  const { stylesIcon, style_preview_icon_state } = data;
   return (
     <Section
       title="Персонализация костюма"
       style={{ 'text-align': 'center' }}
+      m="0px"
+      width="100%"
       buttons={
         <Button
           content="?"
@@ -107,10 +110,11 @@ const StylesPreview = (properties, context) => {
             mr={10}
             ml={10}
           >
-            <img
+            <DmIcon
               height="128px"
               width="128px"
-              src={`data:image/jpeg;base64,${allStylesPreview[style_preview_icon_state]}`}
+              icon={stylesIcon}
+              icon_state={style_preview_icon_state}
               style={{
                 'margin-left': '0px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -205,7 +209,7 @@ const SuitTuning = (properties, context) => {
   }
 
   return (
-    <Flex direction="row" grow={1} alignContent="center" ml={0.5}>
+    <Flex direction="row" grow={1} alignContent="center">
       <Flex.Item grow={1} width="100%">
         <NoticeBox success={0} danger={0} align="center">
           <LabeledList>
@@ -276,19 +280,13 @@ const SuitTuning = (properties, context) => {
             {if_concentration}
           </LabeledList>
         </NoticeBox>
-        <NoticeBox
-          className={'NoticeBox_' + color_choice}
-          success={0}
-          danger={0}
-          mt={-1.2}
-          align="center"
-        >
+        <NoticeBox success={0} danger={0} mt={-1.3} mb={0} align="center">
           <Button
             width="80%"
             icon="power-off"
-            mt={0.5}
             textAlign="center"
             content={dynamicButtonText}
+            backgroundColor={color_choice}
             tooltip={
               'Позволяет вам включить костюм и получить доступ к применению всех функций в нём заложенных. \
               \nУчтите, что вы не сможете приобрести любые модули, когда костюм будет активирован. \
@@ -307,9 +305,10 @@ const SuitTuning = (properties, context) => {
 
 const Helpers = (properties, context) => {
   const { data } = useBackend((properties, context));
-  const { allActionsPreview } = data;
+  const { actionsIcon } = data;
   return (
     <Section
+      m="0"
       title="Советы и подсказки"
       style={{ 'text-align': 'center' }}
       buttons={
@@ -327,10 +326,11 @@ const Helpers = (properties, context) => {
       <Flex direction="column" grow={1} alignContent="center">
         <Flex.Item direction="row">
           <Button className="Button_green" height="32px" width="32px">
-            <img
+            <DmIcon
               height="32px"
               width="32px"
-              src={`data:image/jpeg;base64,${allActionsPreview['ninja_teleport']}`}
+              icon={actionsIcon}
+              icon_state="ninja_teleport"
               style={{
                 'margin-left': '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -351,10 +351,11 @@ const Helpers = (properties, context) => {
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
-            <img
+            <DmIcon
               height="32px"
               width="32px"
-              src={`data:image/jpeg;base64,${allActionsPreview['headset_green']}`}
+              icon={actionsIcon}
+              icon_state="headset_green"
               style={{
                 'margin-left': '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -375,10 +376,11 @@ const Helpers = (properties, context) => {
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
-            <img
+            <DmIcon
               height="32px"
               width="32px"
-              src={`data:image/jpeg;base64,${allActionsPreview['ninja_sleeper']}`}
+              icon={actionsIcon}
+              icon_state="ninja_sleeper"
               style={{
                 'margin-left': '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -398,10 +400,11 @@ const Helpers = (properties, context) => {
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
-            <img
+            <DmIcon
               height="32px"
               width="32px"
-              src={`data:image/jpeg;base64,${allActionsPreview['ai_face']}`}
+              icon={actionsIcon}
+              icon_state="ai_face"
               style={{
                 'margin-left': '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -420,10 +423,11 @@ const Helpers = (properties, context) => {
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
-            <img
+            <DmIcon
               height="32px"
               width="32px"
-              src={`data:image/jpeg;base64,${allActionsPreview['ninja_borg']}`}
+              icon={actionsIcon}
+              icon_state="ninja_borg"
               style={{
                 'margin-left': '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -444,10 +448,11 @@ const Helpers = (properties, context) => {
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
-            <img
+            <DmIcon
               height="32px"
               width="32px"
-              src={`data:image/jpeg;base64,${allActionsPreview['server']}`}
+              icon={actionsIcon}
+              icon_state="server"
               style={{
                 'margin-left': '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -468,10 +473,11 @@ const Helpers = (properties, context) => {
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
-            <img
+            <DmIcon
               height="32px"
               width="32px"
-              src={`data:image/jpeg;base64,${allActionsPreview['buckler']}`}
+              icon={actionsIcon}
+              icon_state="buckler"
               style={{
                 'margin-left': '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -493,10 +499,11 @@ const Helpers = (properties, context) => {
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
-            <img
+            <DmIcon
               height="32px"
               width="32px"
-              src={`data:image/jpeg;base64,${allActionsPreview['cash']}`}
+              icon={actionsIcon}
+              icon_state="cash"
               style={{
                 'margin-left': '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -516,10 +523,11 @@ const Helpers = (properties, context) => {
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
-            <img
+            <DmIcon
               height="32px"
               width="32px"
-              src={`data:image/jpeg;base64,${allActionsPreview['handcuff']}`}
+              icon={actionsIcon}
+              icon_state="handcuff"
               style={{
                 'margin-left': '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -540,10 +548,11 @@ const Helpers = (properties, context) => {
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
-            <img
+            <DmIcon
               height="32px"
               width="32px"
-              src={`data:image/jpeg;base64,${allActionsPreview['spider_charge']}`}
+              icon={actionsIcon}
+              icon_state="spider_charge"
               style={{
                 'margin-left': '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -564,10 +573,11 @@ const Helpers = (properties, context) => {
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
-            <img
+            <DmIcon
               height="32px"
               width="32px"
-              src={`data:image/jpeg;base64,${allActionsPreview['BSM']}`}
+              icon={actionsIcon}
+              icon_state="BSM"
               style={{
                 'margin-left': '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -588,10 +598,11 @@ const Helpers = (properties, context) => {
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
-            <img
+            <DmIcon
               height="32px"
               width="32px"
-              src={`data:image/jpeg;base64,${allActionsPreview['changeling']}`}
+              icon={actionsIcon}
+              icon_state="changeling"
               style={{
                 'margin-left': '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -613,10 +624,11 @@ const Helpers = (properties, context) => {
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
-            <img
+            <DmIcon
               height="32px"
               width="32px"
-              src={`data:image/jpeg;base64,${allActionsPreview['vampire']}`}
+              icon={actionsIcon}
+              icon_state="vampire"
               style={{
                 'margin-left': '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -637,10 +649,11 @@ const Helpers = (properties, context) => {
             />
           </Button>
           <Button className="Button_green" height="32px" width="32px">
-            <img
+            <DmIcon
               height="32px"
               width="32px"
-              src={`data:image/jpeg;base64,${allActionsPreview['syndicate']}`}
+              icon={actionsIcon}
+              icon_state="syndicate"
               style={{
                 'margin-left': '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -666,7 +679,7 @@ const Helpers = (properties, context) => {
 
 const ActionBuyPanel = (properties, context) => {
   const { act, data } = useBackend((properties, context));
-  const { allActionsPreview, blocked_TGUI_rows } = data;
+  const { actionsIcon, blocked_TGUI_rows } = data;
 
   let rowStyles = [
     {
@@ -697,7 +710,9 @@ const ActionBuyPanel = (properties, context) => {
       <Flex direction="row" alignContent="center" ml={1.5}>
         <Flex.Item width="33%" shrink={1}>
           <Section
+            width="100%"
             title="Призрак"
+            ml="0px"
             buttons={
               <Button
                 content="?"
@@ -729,10 +744,11 @@ const ActionBuyPanel = (properties, context) => {
               disabled={blocked_TGUI_rows[0]}
               onClick={() => act('give_ability', { style: 'smoke', row: '1' })}
             >
-              <img
+              <DmIcon
                 height="64px"
                 width="64px"
-                src={`data:image/jpeg;base64,${allActionsPreview['smoke']}`}
+                icon={actionsIcon}
+                icon_state="smoke"
                 style={{
                   'margin-left': '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -766,10 +782,11 @@ const ActionBuyPanel = (properties, context) => {
                 act('give_ability', { style: 'ninja_cloak', row: '2' })
               }
             >
-              <img
+              <DmIcon
                 height="64px"
                 width="64px"
-                src={`data:image/jpeg;base64,${allActionsPreview['ninja_cloak']}`}
+                icon={actionsIcon}
+                icon_state="ninja_cloak"
                 style={{
                   'margin-left': '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -802,10 +819,11 @@ const ActionBuyPanel = (properties, context) => {
                 act('give_ability', { style: 'ninja_clones', row: '3' })
               }
             >
-              <img
+              <DmIcon
                 height="64px"
                 width="64px"
-                src={`data:image/jpeg;base64,${allActionsPreview['ninja_clones']}`}
+                icon={actionsIcon}
+                icon_state="ninja_clones"
                 style={{
                   'margin-left': '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -838,10 +856,11 @@ const ActionBuyPanel = (properties, context) => {
                 act('give_ability', { style: 'chameleon', row: '4' })
               }
             >
-              <img
+              <DmIcon
                 height="64px"
                 width="64px"
-                src={`data:image/jpeg;base64,${allActionsPreview['chameleon']}`}
+                icon={actionsIcon}
+                icon_state="chameleon"
                 style={{
                   'margin-left': '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -875,10 +894,11 @@ const ActionBuyPanel = (properties, context) => {
                 act('give_ability', { style: 'ninja_spirit_form', row: '5' })
               }
             >
-              <img
+              <DmIcon
                 height="64px"
                 width="64px"
-                src={`data:image/jpeg;base64,${allActionsPreview['ninja_spirit_form']}`}
+                icon={actionsIcon}
+                icon_state="ninja_spirit_form"
                 style={{
                   'margin-left': '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -903,6 +923,8 @@ const ActionBuyPanel = (properties, context) => {
         </Flex.Item>
         <Flex.Item width="33%" shrink={1}>
           <Section
+            ml="0px"
+            width="100%"
             title="Змей"
             buttons={
               <Button
@@ -930,10 +952,11 @@ const ActionBuyPanel = (properties, context) => {
               disabled={blocked_TGUI_rows[0]}
               onClick={() => act('give_ability', { style: 'kunai', row: '1' })}
             >
-              <img
+              <DmIcon
                 height="64px"
                 width="64px"
-                src={`data:image/jpeg;base64,${allActionsPreview['kunai']}`}
+                icon={actionsIcon}
+                icon_state="kunai"
                 style={{
                   'margin-left': '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -966,10 +989,11 @@ const ActionBuyPanel = (properties, context) => {
                 act('give_ability', { style: 'chem_injector', row: '2' })
               }
             >
-              <img
+              <DmIcon
                 height="64px"
                 width="64px"
-                src={`data:image/jpeg;base64,${allActionsPreview['chem_injector']}`}
+                icon={actionsIcon}
+                icon_state="chem_injector"
                 style={{
                   'margin-left': '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -1001,10 +1025,11 @@ const ActionBuyPanel = (properties, context) => {
                 act('give_ability', { style: 'emergency_blink', row: '3' })
               }
             >
-              <img
+              <DmIcon
                 height="64px"
                 width="64px"
-                src={`data:image/jpeg;base64,${allActionsPreview['emergency_blink']}`}
+                icon={actionsIcon}
+                icon_state="emergency_blink"
                 style={{
                   'margin-left': '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -1035,10 +1060,11 @@ const ActionBuyPanel = (properties, context) => {
                 act('give_ability', { style: 'caltrop', row: '4' })
               }
             >
-              <img
+              <DmIcon
                 height="64px"
                 width="64px"
-                src={`data:image/jpeg;base64,${allActionsPreview['caltrop']}`}
+                icon={actionsIcon}
+                icon_state="caltrop"
                 style={{
                   'margin-left': '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -1072,10 +1098,11 @@ const ActionBuyPanel = (properties, context) => {
                 act('give_ability', { style: 'cloning', row: '5' })
               }
             >
-              <img
+              <DmIcon
                 height="64px"
                 width="64px"
-                src={`data:image/jpeg;base64,${allActionsPreview['cloning']}`}
+                icon={actionsIcon}
+                icon_state="cloning"
                 style={{
                   'margin-left': '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -1099,6 +1126,8 @@ const ActionBuyPanel = (properties, context) => {
         </Flex.Item>
         <Flex.Item width="33%" shrink={1}>
           <Section
+            ml="0px"
+            width="100%"
             title="Сталь"
             buttons={
               <Button
@@ -1131,10 +1160,11 @@ const ActionBuyPanel = (properties, context) => {
                 act('give_ability', { style: 'shuriken', row: '1' })
               }
             >
-              <img
+              <DmIcon
                 height="64px"
                 width="64px"
-                src={`data:image/jpeg;base64,${allActionsPreview['shuriken']}`}
+                icon={actionsIcon}
+                icon_state="shuriken"
                 style={{
                   'margin-left': '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -1164,10 +1194,11 @@ const ActionBuyPanel = (properties, context) => {
                 act('give_ability', { style: 'adrenal', row: '2' })
               }
             >
-              <img
+              <DmIcon
                 height="64px"
                 width="64px"
-                src={`data:image/jpeg;base64,${allActionsPreview['adrenal']}`}
+                icon={actionsIcon}
+                icon_state="adrenal"
                 style={{
                   'margin-left': '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -1193,10 +1224,11 @@ const ActionBuyPanel = (properties, context) => {
               disabled={blocked_TGUI_rows[2]}
               onClick={() => act('give_ability', { style: 'emp', row: '3' })}
             >
-              <img
+              <DmIcon
                 height="64px"
                 width="64px"
-                src={`data:image/jpeg;base64,${allActionsPreview['emp']}`}
+                icon={actionsIcon}
+                icon_state="emp"
                 style={{
                   'margin-left': '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -1227,10 +1259,11 @@ const ActionBuyPanel = (properties, context) => {
                 act('give_ability', { style: 'energynet', row: '4' })
               }
             >
-              <img
+              <DmIcon
                 height="64px"
                 width="64px"
-                src={`data:image/jpeg;base64,${allActionsPreview['energynet']}`}
+                icon={actionsIcon}
+                icon_state="energynet"
                 style={{
                   'margin-left': '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -1263,10 +1296,11 @@ const ActionBuyPanel = (properties, context) => {
                 act('give_ability', { style: 'spider_red', row: '5' })
               }
             >
-              <img
+              <DmIcon
                 height="64px"
                 width="64px"
-                src={`data:image/jpeg;base64,${allActionsPreview['spider_red']}`}
+                icon={actionsIcon}
+                icon_state="spider_red"
                 style={{
                   'margin-left': '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
@@ -1299,6 +1333,7 @@ export const ShuttleConsole = (properties, context) => {
   return (
     <Section
       title="Управление шаттлом"
+      mr="5px"
       style={{ 'text-align': 'center' }}
       buttons={
         <Button
@@ -1364,7 +1399,7 @@ export const ShuttleConsole = (properties, context) => {
 
 const FakeLoadBar = (properties, context) => {
   const { data } = useBackend((properties, context));
-  const { randomPercent, allActionsPreview, color_choice } = data;
+  const { randomPercent, actionsIcon, color_choice } = data;
   return (
     <Section stretchContents>
       <ProgressBar
@@ -1375,10 +1410,11 @@ const FakeLoadBar = (properties, context) => {
       >
         <center>
           <NoticeBox className={'NoticeBox_' + color_choice} mt={1}>
-            <img
+            <DmIcon
               height="64px"
               width="64px"
-              src={`data:image/jpeg;base64,${allActionsPreview['spider_' + color_choice]}`}
+              icon={actionsIcon}
+              icon_state={'spider_' + color_choice}
               style={{
                 'margin-left': '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516

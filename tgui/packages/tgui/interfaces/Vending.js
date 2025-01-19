@@ -1,11 +1,19 @@
 import { classes } from 'common/react';
 import { useBackend } from '../backend';
-import { Box, Button, Section, Stack, Table } from '../components';
+import {
+  Box,
+  DmIcon,
+  Button,
+  Section,
+  Stack,
+  Table,
+  Icon,
+} from '../components';
 import { Window } from '../layouts';
 
 const VendingRow = (props, context) => {
   const { act, data } = useBackend(context);
-  const { product, productStock, productImage } = props;
+  const { product, productStock, productIcon, productIconState } = props;
   const {
     chargesMoney,
     user,
@@ -35,14 +43,11 @@ const VendingRow = (props, context) => {
   return (
     <Table.Row>
       <Table.Cell collapsing>
-        <img
-          src={`data:image/jpeg;base64,${productImage}`}
-          style={{
-            'vertical-align': 'middle',
-            width: '32px',
-            margin: '0px',
-            'margin-left': '0px',
-          }}
+        <DmIcon
+          verticalAlign="middle"
+          icon={productIcon}
+          icon_state={productIconState}
+          fallback={<Icon p={0.66} name={'spinner'} size={2} spin />}
         />
       </Table.Cell>
       <Table.Cell bold>{product.name}</Table.Cell>
@@ -173,7 +178,8 @@ export const Vending = (props, context) => {
                     key={product.name}
                     product={product}
                     productStock={stock[product.name]}
-                    productImage={imagelist[product.path]}
+                    productIcon={product.icon}
+                    productIconState={product.icon_state}
                   />
                 ))}
               </Table>

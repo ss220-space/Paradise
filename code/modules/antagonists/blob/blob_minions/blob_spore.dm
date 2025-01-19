@@ -70,8 +70,11 @@
 /mob/living/simple_animal/hostile/blob_minion/spore/AttackingTarget()
 	. = ..()
 	var/mob/living/carbon/human/human_target = target
-	if(!istype(human_target) || human_target.stat != DEAD)
-		return
+	if(!target || !istype(human_target) || human_target.stat != DEAD)
+		return .
+
+	if(HAS_TRAIT(human_target, TRAIT_BLOB_ZOMBIFIED))
+		return .
 	zombify(human_target)
 
 /// Become a zombie
