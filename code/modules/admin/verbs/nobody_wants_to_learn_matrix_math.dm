@@ -6,31 +6,32 @@
  * Much like filteriffic, 'nobody wants to learn matrix math' is meant for developers like you and I
  * to implement interesting matrix transformations without the hassle if needing to know... algebra? Damn, i'm stupid.
  */
-/datum/nobody_wants_to_learn_matrix_math
+/datum/transform_matrix_editor
 	var/atom/target
 	var/matrix/testing_matrix
 
-/datum/nobody_wants_to_learn_matrix_math/New(atom/target)
+/datum/transform_matrix_editor/New(atom/target)
 	src.target = target
 	testing_matrix = matrix(target.transform)
 
-/datum/nobody_wants_to_learn_matrix_math/Destroy(force, ...)
+/datum/transform_matrix_editor/Destroy(force, ...)
 	QDEL_NULL(testing_matrix)
+	target = null
 	return ..()
 
-/datum/nobody_wants_to_learn_matrix_math/ui_state(mob/user)
+/datum/transform_matrix_editor/ui_state(mob/user)
 	return GLOB.admin_state
 
-/datum/nobody_wants_to_learn_matrix_math/ui_close(mob/user)
+/datum/transform_matrix_editor/ui_close(mob/user)
 	qdel(src)
 
-/datum/nobody_wants_to_learn_matrix_math/ui_interact(mob/user, datum/tgui/ui)
+/datum/transform_matrix_editor/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "MatrixMathTester")
 		ui.open()
 
-/datum/nobody_wants_to_learn_matrix_math/ui_data()
+/datum/transform_matrix_editor/ui_data()
 	var/list/data = list()
 	data["matrix_a"] = testing_matrix.a
 	data["matrix_b"] = testing_matrix.b
@@ -41,7 +42,7 @@
 	data["pixelated"] = target.appearance_flags & PIXEL_SCALE
 	return data
 
-/datum/nobody_wants_to_learn_matrix_math/ui_act(action, list/params)
+/datum/transform_matrix_editor/ui_act(action, list/params)
 	. = ..()
 	if(.)
 		return
@@ -72,11 +73,11 @@
 		if("toggle_pixel")
 			target.appearance_flags ^= PIXEL_SCALE
 
-/datum/nobody_wants_to_learn_matrix_math/proc/set_transform()
+/datum/transform_matrix_editor/proc/set_transform()
 	animate(target, transform = testing_matrix, time = 0.5 SECONDS)
 	testing_matrix = matrix(target.transform)
 
 /client/proc/open_matrix_tester(atom/in_atom)
 	if(holder)
-		var/datum/nobody_wants_to_learn_matrix_math/matrix_tester = new(in_atom)
+		var/datum/transform_matrix_editor/matrix_tester = new(in_atom)
 		matrix_tester.ui_interact(mob)
