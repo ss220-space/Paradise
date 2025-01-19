@@ -53,7 +53,7 @@
 	starsys_name  = "Epsilon Eridani"
 	admin_only = TRUE
 
-/datum/map/Atom
+/datum/map/Segmentstation
 	name = "Atom"
 	map_path = "_maps/map_files/Segmentstation/Atom.dmm"
 	lavaland_path = "_maps/map_files/Segmentstation/lavaland.dmm"
