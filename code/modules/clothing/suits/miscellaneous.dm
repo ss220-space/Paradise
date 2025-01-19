@@ -1635,6 +1635,14 @@
 
 /obj/item/clothing/suit/hooded/ghostfacesuit
 	name = "Ghostface suit"
+	ru_names = list(
+		NOMINATIVE = "черный балахон",
+		GENITIVE = "черного балахона",
+		DATIVE = "черному балахону",
+		ACCUSATIVE = "черного балахона",
+		INSTRUMENTAL = "черным балахоном",
+		PREPOSITIONAL = "черном балахоне"
+	)
 	desc = "Черный, просторный балахон, что может навеивать смутные напоминания о чем-то."
 	icon_state = "ghostface_suit"
 	item_state = "ghostface_suit"
@@ -1652,6 +1660,14 @@
 
 /obj/item/clothing/head/hooded/ghostface
 	name = "Ghostface hood"
+	ru_names = list(
+		NOMINATIVE = "черный капюшон",
+		GENITIVE = "черного капюшона",
+		DATIVE = "черному капюшону",
+		ACCUSATIVE = "черного капюшона",
+		INSTRUMENTAL = "черным капюшоном",
+		PREPOSITIONAL = "черном капюшоне"
+	)
 	desc = "Верхняя часть балахона."
 	icon_state = "ghostface_hood"
 	item_state = "ghostface"
@@ -1667,6 +1683,14 @@
 
 /obj/item/clothing/suit/hooded/ghostfacesuit/devil
 	desc = "Черный с прожилками красного просторный балахон, что может навеивать смутные напоминания о чем-то."
+	ru_names = list(
+		NOMINATIVE = "кроваво-черный балахон",
+		GENITIVE = "кроваво-черного балахона",
+		DATIVE = "кроваво-черному балахону",
+		ACCUSATIVE = "кроваво-черного балахона",
+		INSTRUMENTAL = "кроваво-черным балахоном",
+		PREPOSITIONAL = "кроваво-черном балахоне"
+	)
 	icon_state = "devil_ghostface_suit"
 	item_state = "devil_ghostface_suit"
 

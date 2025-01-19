@@ -442,6 +442,14 @@
 
 /obj/item/melee/ghostface_knife
 	name = "Knife"
+	ru_names = list(
+		NOMINATIVE = "нож",
+		GENITIVE = "ножа",
+		DATIVE = "ножу",
+		ACCUSATIVE = "нож",
+		INSTRUMENTAL = "ножом",
+		PREPOSITIONAL = "ноже"
+	)
 	desc = "Очень острый нож. Судя по потертостям и засохшей крови, он совсем не валялся без дела."
 	icon_state = "ghostface_knife"
 	force = 34

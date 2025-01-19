@@ -556,6 +556,14 @@
 
 /obj/item/clothing/mask/gas/ghostface
 	name = "Ghostface mask"
+	ru_names = list(
+		NOMINATIVE = "кричащая маска",
+		GENITIVE = "кричащей маски",
+		DATIVE = "кричащей маске",
+		ACCUSATIVE = "кричащую маску",
+		INSTRUMENTAL = "кричащей маской",
+		PREPOSITIONAL = "кричащей маске"
+	)
 	desc = "Белая маска вытянутой формы открыта в немом крике. Но вот в чем вопрос - ужаса, или ярости?"
 	icon_state = "ghostface_mask"
 	item_state = "mime"
