@@ -1,6 +1,7 @@
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,
+  DmIcon,
   LabeledList,
   Section,
   Table,
@@ -13,30 +14,33 @@ import { Window } from '../layouts';
 
 const SelectableTile = (props, context) => {
   const { act, data } = useBackend(context);
-  const { image, isSelected, onSelect } = props;
+  const { icon_state, direction, isSelected, onSelect } = props;
   return (
-    <img
-      src={`data:image/jpeg;base64,${image}`}
+    <DmIcon
+      icon={data.icon}
+      icon_state={icon_state}
+      direction={direction}
+      onClick={onSelect}
       style={{
         'border-style': (isSelected && 'solid') || 'none',
         'border-width': '2px',
         'border-color': 'orange',
-        padding: (isSelected && '2px') || '4px',
+        padding: (isSelected && '0px') || '2px',
       }}
-      onClick={onSelect}
     />
   );
 };
 
+const Dir = {
+  NORTH: 1,
+  SOUTH: 2,
+  EAST: 4,
+  WEST: 8,
+};
+
 export const FloorPainter = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    availableStyles,
-    selectedStyle,
-    selectedDir,
-    directionsPreview,
-    allStylesPreview,
-  } = data;
+  const { availableStyles, selectedStyle, selectedDir } = data;
   return (
     <Window width={405} height={475}>
       <Window.Content scrollable>
@@ -71,13 +75,13 @@ export const FloorPainter = (props, context) => {
           <Box mt="5px" mb="5px">
             <Flex
               overflowY="auto" // scroll
-              maxHeight="220px" // a bit more than half of all tiles fit in this box at once.
+              maxHeight="239px" // a bit more than half of all tiles fit in this box at once.
               wrap="wrap"
             >
               {availableStyles.map((style) => (
-                <Flex.Item key="{style}">
+                <Flex.Item key={style}>
                   <SelectableTile
-                    image={allStylesPreview[style]}
+                    icon_state={style}
                     isSelected={selectedStyle === style}
                     onSelect={() => act('select_style', { style: style })}
                   />
@@ -89,9 +93,9 @@ export const FloorPainter = (props, context) => {
           <LabeledList>
             <LabeledList.Item label="Direction">
               <Table style={{ display: 'inline' }}>
-                {['north', '', 'south'].map((latitude) => (
+                {[Dir.NORTH, null, Dir.SOUTH].map((latitude) => (
                   <Table.Row key={latitude}>
-                    {[latitude + 'west', latitude, latitude + 'east'].map(
+                    {[latitude + Dir.WEST, latitude, latitude + Dir.EAST].map(
                       (dir) => (
                         <Table.Cell
                           key={dir}
@@ -100,11 +104,12 @@ export const FloorPainter = (props, context) => {
                             'text-align': 'center',
                           }}
                         >
-                          {dir === '' ? (
+                          {dir === null ? (
                             <Icon name="arrows-alt" size={3} />
                           ) : (
                             <SelectableTile
-                              image={directionsPreview[dir]}
+                              icon_state={selectedStyle}
+                              direction={dir}
                               isSelected={dir === selectedDir}
                               onSelect={() =>
                                 act('select_direction', { direction: dir })

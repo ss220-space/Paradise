@@ -46,7 +46,7 @@
 	GLOB.blob_cores -= src
 	if(overmind)
 		overmind.blob_core = null
-		overmind = null
+		QDEL_NULL(overmind.blob_core)
 	SSticker?.mode?.blob_died()
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
@@ -107,7 +107,7 @@
 
 	overmind_get_delay = world.time + 5 MINUTES
 
-	if(overmind)
+	if(overmind && new_overmind)
 		qdel(overmind)
 	if(new_overmind)
 		get_new_overmind(new_overmind)

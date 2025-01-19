@@ -37,6 +37,9 @@
 	else
 		turn_off_lighter(user)
 
+/obj/item/lighter/get_heat()
+	return lit * 1500
+
 /obj/item/lighter/proc/turn_on_lighter(mob/living/user)
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY
@@ -359,6 +362,8 @@
 	var/init_name = initial(name)
 	desc = lit ? "A [init_name]. This one is lit." : burnt ? "A [init_name]. This one has seen better days." : initial(desc)
 
+/obj/item/match/get_heat()
+	return lit * 1000
 
 /obj/item/match/proc/matchignite()
 	if(!lit && !burnt)

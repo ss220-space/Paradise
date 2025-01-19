@@ -460,6 +460,7 @@
 	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
 		/obj/item/stack/medical/bruise_pack/advanced = 100,
+		/obj/item/stack/medical/bruise_pack/extended = 100,
 		/obj/item/stack/medical/bruise_pack = 20,
 		/obj/item/stack/nanopaste = 100
 	)
@@ -468,7 +469,7 @@
 	var/tool_name = "[tool]"
 	if(istype(tool, /obj/item/stack/medical/bruise_pack))
 		tool_name = "the bandaid"
-	if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
+	if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced) || istype(tool, /obj/item/stack/medical/bruise_pack/extended))
 		tool_name = "regenerative membrane"
 	else if(istype(tool, /obj/item/stack/nanopaste))
 		tool_name = "[tool.name]" //what else do you call nanopaste medically?
@@ -548,7 +549,7 @@
 
 	var/dam_amt = 2
 
-	if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
+	if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced) || istype(tool, /obj/item/stack/medical/bruise_pack/extended))
 		target.adjustToxLoss(5)
 
 	else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))

@@ -38,9 +38,6 @@
 	pre_ninja.set_original_mob(pre_ninja.current)
 	pre_ninja?.current.loc = pick(GLOB.ninjastart)
 	..()
-
-
-/datum/game_mode/space_ninja/mid_setup()
 	return TRUE
 
 

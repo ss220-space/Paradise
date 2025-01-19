@@ -273,7 +273,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	else
 		return TRUE
 
-		
+
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc && !QDELETED(src) && !(obj_flags & IGNORE_BLOB_ACT))
 		obj_destruction(MELEE)
@@ -540,6 +540,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/talk_into(mob/M, var/text, var/channel=null)
 	return
 
+/// Generic get_heat proc. Returns 0 or number amount of heat an item gives.
+/obj/item/proc/get_heat()
+	return
 
 /**
  * When item is officially left user
@@ -915,7 +918,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(w_class < WEIGHT_CLASS_BULKY)
 		itempush = FALSE // too light to push anything
 
-	var/is_hot = is_hot(src)
 	var/volume = get_volume_by_throwforce_and_or_w_class()
 	var/impact_throwforce = throwforce
 
@@ -927,7 +929,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(. && living.is_in_hands(src))
 			item_catched = TRUE
 
-		if(is_hot && !item_catched)
+		if(get_heat() && !item_catched)
 			living.IgniteMob()
 
 		if(impact_throwforce > 0 && !item_catched)

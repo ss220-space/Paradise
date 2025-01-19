@@ -9,6 +9,7 @@ import {
   Section,
   Stack,
   Dropdown,
+  DmIcon,
 } from '../components';
 import { Window } from '../layouts';
 import { createSearch, toTitleCase } from 'common/string';
@@ -129,8 +130,9 @@ export const Autolathe = (props, context) => {
               />
               {recipesToShow.map((recipe) => (
                 <Stack.Item grow key={recipe.ref}>
-                  <img
-                    src={`data:image/jpeg;base64,${recipe.image}`}
+                  <DmIcon
+                    icon={recipe.icon}
+                    icon_state={recipe.icon_state}
                     style={{
                       'vertical-align': 'middle',
                       width: '32px',

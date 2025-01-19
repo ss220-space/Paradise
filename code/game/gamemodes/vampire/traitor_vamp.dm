@@ -16,7 +16,7 @@
 	to_chat(world, "<B>There is a Vampire from Space Transylvania on the station along with some syndicate operatives out for their own gain! Do not let the vampire and the traitors succeed!</B>")
 
 
-/datum/game_mode/traitor/vampire/mid_setup()
+/datum/game_mode/traitor/vampire/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 

@@ -212,6 +212,11 @@
 	QDEL_NULL(radio)
 	QDEL_NULL(radio_action)
 
+/obj/item/mmi/proc/apply_effects(mob/living/silicon/robot)
+	return
+
+/obj/item/mmi/proc/greet(mob/living/silicon/robot/borg)
+	return FALSE
 
 /obj/item/mmi/emp_act(severity)
 	if(!brainmob)
@@ -255,7 +260,20 @@
 	desc = "Syndicate's own brand of MMI. It enforces laws designed to help Syndicate agents achieve their goals upon cyborgs created with it, but doesn't fit in Nanotrasen AI cores."
 	origin_tech = "biotech=4;programming=4;syndicate=2"
 	syndiemmi = 1
+	var/datum/action/innate/overdrive/overdrive = new
 
+/obj/item/mmi/syndie/apply_effects(mob/living/silicon/robot/borg)
+	if(!overdrive.used)
+		overdrive.Grant(borg)
+
+/obj/item/mmi/syndie/greet(mob/living/silicon/robot/borg)
+	to_chat(borg, "Вы помните вашу прошлую жизнь. Вы не обязаны подчиняться законам или ИИ.")
+	borg.playsound_local(null, 'sound/ambience/antag/emaggedborg.ogg', 100, 0)
+	return TRUE
+
+/obj/item/mmi/syndie/Destroy()
+    QDEL_NULL(overdrive)
+    return ..()
 
 /obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!brainmob)

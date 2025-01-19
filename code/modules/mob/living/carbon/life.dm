@@ -147,7 +147,7 @@
 		oxygen_used = breath.oxygen
 		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
-	breath.oxygen -= oxygen_used
+	breath.oxygen = max(breath.oxygen - oxygen_used, 0)
 	breath.carbon_dioxide += oxygen_used
 
 	//CARBON DIOXIDE

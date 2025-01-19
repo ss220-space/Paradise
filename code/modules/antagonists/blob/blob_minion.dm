@@ -58,8 +58,8 @@
 /datum/antagonist/blob_minion/give_objectives()
 	var/datum/objective/blob_minion/objective = new
 	objective.owner = owner
-	objective.overmind = overmind
-	objectives += objective
+	objective.overmind = overmind?.resolve()
+	objectives |= objective
 
 /datum/antagonist/blob_minion/blobernaut
 	name = "\improper Blobernaut"
@@ -67,7 +67,7 @@
 
 /datum/antagonist/blob_minion/blobernaut/greet()
 	. = ..()
-	var/mob/camera/blob/blob = overmind
+	var/mob/camera/blob/blob = overmind?.resolve()
 	var/datum/blobstrain/blobstrain = blob.blobstrain
 	. += span_dangerbigger("Вы блобернаут! Вы должны помогать всем формам блоба в их миссии по уничтожению всего!")
 	. += span_info("Вы сильны, крепки, и медленно регенерируете в пределах плиток блоба, [span_cultlarge("но вы будете медленно умирать, если их рядом нету")] или если фабрика, создавшая вас, будет разрушена.")

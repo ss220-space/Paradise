@@ -71,7 +71,8 @@
 	. = ..()
 
 
-/mob/living/simple_animal/hostile/blob_minion/
+/mob/living/simple_animal/hostile/blob_minion/regenerate_icons()
+	update_icon()
 
 /// Associates this mob with a specific blob factory node
 /mob/living/simple_animal/hostile/blob_minion/proc/link_to_factory(obj/structure/blob/special/factory/factory)

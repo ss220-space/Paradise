@@ -54,7 +54,7 @@ GLOBAL_LIST_EMPTY(overminds)
 	ADD_TRAIT(src, TRAIT_BLOB_ALLY, INNATE_TRAIT)
 	blob_points = starting_points
 	blob_core = core
-	GLOB.overminds += src
+	GLOB.overminds |= src
 	var/new_name = "[initial(name)] ([rand(1, 999)])"
 	name = new_name
 	real_name = new_name
@@ -91,9 +91,6 @@ GLOBAL_LIST_EMPTY(overminds)
 
 
 /mob/camera/blob/process()
-	if(!blob_core)
-		qdel(src)
-		return
 	if(!free_strain_rerolls && (last_reroll_time + BLOB_POWER_REROLL_FREE_TIME < world.time))
 		to_chat(src, span_boldnotice("Вы получили еще одну бесплатную смену штамма."))
 		free_strain_rerolls = TRUE
