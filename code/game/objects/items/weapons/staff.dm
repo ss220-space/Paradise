@@ -27,6 +27,7 @@
 
 /obj/item/twohanded/staff/broom/wield(obj/item/source, mob/living/carbon/user)
 	force =  5
+	attack_verb = list("огрел", "ударил", "пихнул")
 	if(!user)
 		return
 
