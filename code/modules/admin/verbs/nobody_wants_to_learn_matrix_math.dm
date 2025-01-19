@@ -53,7 +53,7 @@
 		if("change_var")
 			var/matrix_var_name = params["var_name"]
 			var/matrix_var_value = params["var_value"]
-			if(testing_matrix.vv_edit_var(matrix_var_name, matrix_var_value) == FALSE)
+			if(!testing_matrix.vv_edit_var(matrix_var_name, matrix_var_value))
 				to_chat(src, "Ваше изменение было отклонено объектом. Это ошибка матричного тестера, а не ваша вина. Напишите об этом в баг репорты.", confidential = TRUE)
 				return
 			set_transform()
