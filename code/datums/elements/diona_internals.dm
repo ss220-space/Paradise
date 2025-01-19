@@ -17,7 +17,7 @@
 	SIGNAL_HANDLER
 
 	var/mob/living/simple_animal/diona/nymph = new /mob/living/simple_animal/diona(get_turf(owner))
-	nymph.health = round(clamp(1 - internal.damage / internal.min_broken_damage, 0, 1) * nymph.maxHealth)
+	nymph.setHealth(round(clamp(1 - (internal.damage / internal.min_broken_damage), 0, 1) * nymph.maxHealth))
 
 	INVOKE_ASYNC(src, PROC_REF(handle_brain_removal), internal, nymph)
 	qdel(internal)
