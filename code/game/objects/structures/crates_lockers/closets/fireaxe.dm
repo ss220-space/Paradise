@@ -146,6 +146,11 @@
 	operate_panel()
 
 
+/obj/structure/closet/fireaxecabinet/blob_act(obj/structure/blob/B)
+	if(fireaxe)
+		fireaxe.forceMove(loc)
+	qdel(src)
+
 /obj/structure/closet/fireaxecabinet/attack_tk(mob/user)
 	if(localopened && fireaxe)
 		fireaxe.forceMove(loc)
@@ -250,6 +255,11 @@
 
 	return ..()
 
+
+/obj/structure/fishingrodcabinet/blob_act(obj/structure/blob/B)
+	if(olreliable)
+		olreliable.forceMove(loc)
+	qdel(src)
 
 /obj/structure/fishingrodcabinet/attack_hand(mob/user)
 	if(!olreliable)

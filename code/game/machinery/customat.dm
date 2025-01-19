@@ -23,13 +23,16 @@
 	var/price = 0
 	///Icon in tgui
 	var/icon = ""
+	///Icon_state in tgui
+	var/icon_state = ""
 
 /datum/data/customat_product/New(obj/item/I)
 	name = I.name
 	amount = 0
 	containtment = list()
 	price = 0
-	icon = icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1, FALSE))
+	icon = icon(initial(I.icon))
+	icon_state = initial(I.icon_state)
 
 
 /obj/machinery/customat
@@ -565,7 +568,8 @@
 			price = product.price,
 			stock = product.amount,
 			icon = product.icon,
-			Key = product.key
+			icon_state = product.icon_state,
+			Key = product.key,
 		)
 		data["products"] += list(data_pr)
 

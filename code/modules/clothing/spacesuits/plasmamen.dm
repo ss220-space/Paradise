@@ -149,6 +149,24 @@
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 	examine_extensions = EXAMINE_HUD_MEDICAL
 
+/obj/item/clothing/head/helmet/space/plasmaman/medical/brigphysician
+	name = "brig physician's plasma envirosuit helmet"
+	desc = "An envirohelmet designed for plasmaman brig doctors, having two red stripes down its length to denote as much."
+	icon_state = "brigphysician_envirohelm"
+	item_state = "brigphysician_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/medical/coroner
+	name = "coroner's plasma envirosuit helmet"
+	desc = "An envirohelmet designed for plasmaman coroners, having two white stripes down its length to denote as much."
+	icon_state = "coroner_envirohelm"
+	item_state = "coroner_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/medical/paramedic
+	name = "paramedic's plasma envirosuit helmet"
+	desc = "An envirohelmet designed for plasmaman paramedics, having two white stripes down its length to denote as much."
+	icon_state = "paramedic_envirohelm"
+	item_state = "paramedic_envirohelm"
+
 /obj/item/clothing/head/helmet/space/plasmaman/cmo
 	name = "chief medical officer's plasma envirosuit helmet"
 	desc = "An envirohelmet designed for plasmamen employed as the chief medical officer."
@@ -229,9 +247,9 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/mecha
 	name = "mechanic plasma envirosuit helmet"
-	desc = "A space-worthy helmet specially designed for engineer plasmamen, the usual purple stripes being replaced by engineering's orange."
-	icon_state = "engineer_envirohelm"
-	item_state = "engineer_envirohelm"
+	desc = "A space-worthy helmet specially designed for mechanic plasmamen, the usual purple stripes being replaced by engineering's orange."
+	icon_state = "mechanic_envirohelm"
+	item_state = "mechanic_envirohelm"
 	HUDType = DATA_HUD_DIAGNOSTIC
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce
@@ -258,9 +276,15 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/cargo
 	name = "cargo plasma envirosuit helmet"
-	desc = "A plasmaman envirohelmet designed for cargo techs and quartermasters."
+	desc = "A plasmaman envirohelmet designed for cargo techs."
 	icon_state = "cargo_envirohelm"
 	item_state = "cargo_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/qm
+	name = "quartermaster's plasma envirosuit helmet"
+	desc = "A plasmaman envirohelmet designed for quartermasters."
+	icon_state = "qm_envirohelm"
+	item_state = "qm_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/mining
 	name = "mining plasma envirosuit helmet"

@@ -137,9 +137,12 @@
 /datum/reagents/proc/copy_to(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, safety = FALSE)
 	if(!target)
 		return
-	if(!target.reagents || total_volume <= 0)
+	if(total_volume <= 0)
 		return
-	var/datum/reagents/R = target.reagents
+
+	var/datum/reagents/R =(istype(target, /datum/reagents))? target : target?.reagents
+	if(!R || !istype(R))
+		return
 	amount = min(min(amount, total_volume), R.maximum_volume - R.total_volume)
 	var/part = amount / total_volume
 	var/trans_data = null
@@ -222,6 +225,18 @@
 
 	return transfered
 
+/datum/reagents/proc/can_metabolize(mob/living/carbon/human/H, datum/reagent/R)
+	if(!H.dna.species || !H.dna.species.reagent_tag)
+		return FALSE
+	if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
+		return TRUE
+	if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
+		return TRUE
+	//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
+	if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
+		return TRUE
+
+
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
 		temperature_reagents(M.bodytemperature - 30)
@@ -244,17 +259,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			//Check if this mob's species is set and can process this type of reagent
-			var/can_process = FALSE
-			//If we somehow avoided getting a species or reagent_tag set, we'll assume we aren't meant to process ANY reagents (CODERS: SET YOUR SPECIES AND TAG!)
-			if(H.dna.species && H.dna.species.reagent_tag)
-				if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
-					can_process = TRUE
-				if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
-					can_process = TRUE
-				//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
-				if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
-					can_process = TRUE
-
+			var/can_process = can_metabolize(H, R)
 			//If handle_reagents returns 0, it's doing the reagent removal on its own
 			var/species_handled = !(H.dna.species.handle_reagents(H, R))
 			can_process = can_process && !species_handled
@@ -628,11 +633,16 @@
 /datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = T20C, no_react = FALSE)
 	if(!isnum(amount))
 		return TRUE
+
 	update_total()
-	if(total_volume + amount > maximum_volume) amount = (maximum_volume - total_volume) //Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
+	if(total_volume + amount > maximum_volume) amount = (maximum_volume - total_volume) // Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
+
 	if(amount <= 0)
 		return FALSE
-	chem_temp = clamp((chem_temp * total_volume + reagtemp * amount) / (total_volume + amount), temperature_min, temperature_max) //equalize with new chems
+
+	chem_temp = clamp((chem_temp * total_volume + reagtemp * amount) / (total_volume + amount), temperature_min, temperature_max) // equalize with new chems
+	if(SEND_SIGNAL(src, COMSIG_EARLY_REAGENT_ADDED, reagent, amount, data, reagtemp, no_react, chem_temp) & COMPONENT_PREVENT_ADD_REAGENT)
+		return FALSE
 
 	var/list/cached_reagents = reagent_list
 	for(var/A in cached_reagents)
@@ -640,34 +650,43 @@
 		if(R.id == reagent)
 			R.volume += amount
 			update_total()
+
 			if(my_atom)
 				my_atom.on_reagent_change()
+
 			R.on_merge(data)
+
 			if(!no_react)
 				temperature_react()
 				handle_reactions()
+
 			return FALSE
 
-	var/datum/reagent/D = GLOB.chemical_reagents_list[reagent]
+	var/datum/reagent/D = (ispath(reagent))? new reagent() : GLOB.chemical_reagents_list[reagent]
 	if(D)
-
 		var/datum/reagent/R = new D.type()
 		cached_reagents += R
 		R.holder = src
 		R.volume = amount
 		R.on_new(data)
+
 		if(data)
 			R.data = data
 
 		if(isliving(my_atom))
-			R.on_mob_add(my_atom) //Must occur befor it could posibly run on_mob_delete
+			R.on_mob_add(my_atom) // Must occur befor it could posibly run on_mob_delete
+
 		update_total()
+
 		if(my_atom)
 			my_atom.on_reagent_change()
+
 		if(!no_react)
 			temperature_react()
 			handle_reactions()
+
 		return FALSE
+
 	else
 		warning("[my_atom] attempted to add a reagent called '[reagent]' which doesn't exist. ([usr])")
 
@@ -745,6 +764,15 @@
 
 /datum/reagents/proc/get_reagent(type)
 	. = locate(type) in reagent_list
+
+/datum/reagents/proc/get_reagent_by_id(id)
+	var/list/cached_reagents = reagent_list
+	for(var/A in cached_reagents)
+		var/datum/reagent/R = A
+		if(R.id == id)
+			return R
+
+	return
 
 /datum/reagents/proc/remove_all_type(reagent_type, amount, strict = FALSE, safety = TRUE) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
 	if(!isnum(amount))

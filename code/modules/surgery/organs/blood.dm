@@ -24,7 +24,7 @@
 
 	if(bodytemperature >= TCRYO && !HAS_TRAIT(src, TRAIT_NO_CLONE)) //cryosleep or husked people do not pump the blood.
 		if(!HAS_TRAIT(src, TRAIT_NO_BLOOD_RESTORE) && blood_volume < BLOOD_VOLUME_NORMAL)
-			blood_volume += 0.1 // regenerate blood VERY slowly
+			AdjustBlood(0.1) // regenerate blood VERY slowly
 
 
 		//Effects of bloodloss
@@ -84,12 +84,17 @@
 /mob/living/carbon/proc/bleed(amt)
 	if(!blood_volume)
 		return FALSE
+
 	. = TRUE
-	blood_volume = max(blood_volume - amt, 0)
+
+	AdjustBlood(-amt)
+
 	if(!isturf(loc)) //Blood loss still happens in locker, floor stays clean
 		return .
+
 	if(amt >= 10)
 		add_splatter_floor(loc)
+
 	else
 		add_splatter_floor(loc, small_drip = TRUE)
 
@@ -110,12 +115,16 @@
 /mob/living/carbon/proc/bleed_internal(amt)
 	if(!blood_volume)
 		return FALSE
+
 	. = TRUE
-	blood_volume = max(blood_volume - amt, 0)
+
+	AdjustBlood(-amt)
+
 	if(prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
-		custom_emote(EMOTE_AUDIBLE, "кашля%(ет,ют)% кровью!")
+		custom_emote(EMOTE_AUDIBLE, "кашля%(ет, ют)% кровью!")
 		add_splatter_floor(loc, small_drip = TRUE)
 		return .
+
 	// +2.5% chance per internal bleeding site that we'll cough up blood on a given tick.
 	// Must be bleeding internally in more than one place to have a chance at this.
 	if(amt >= 1 && prob(5 * amt))
@@ -134,12 +143,41 @@
 		return .
 	blood_reagent.reaction_turf(loc, amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
 
+/mob/living/proc/AdjustBlood(amount = 0)
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
+		return FALSE
+
+	if(SEND_SIGNAL(src, COMSIG_LIVING_BLOOD_ADJUST, amount) & COMPONENT_PREVENT_BLOODLOSS)
+		return FALSE
+
+	blood_volume = max(round(blood_volume + amount, DAMAGE_PRECISION), 0)
+	SEND_SIGNAL(src, COMSIG_LIVING_BLOOD_ADJUSTED, amount)
+
+	return TRUE
+
+/mob/living/carbon/human/AdjustBlood(amount = 0, bleed_mode_affect = FALSE)
+	if(bleed_mode_affect)
+		amount *= physiology.bleed_mod
+
+	return ..(amount)
+
+/mob/living/proc/setBlood(amount)
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
+		return FALSE
+
+	if(SEND_SIGNAL(src, COMSIG_LIVING_EARLY_SET_BLOOD, amount) & COMPONENT_PREVENT_BLOODLOSS)
+		return FALSE
+
+	blood_volume = max(round(amount, DAMAGE_PRECISION), 0)
+	SEND_SIGNAL(src, COMSIG_LIVING_SET_BLOOD, amount)
+
+	return TRUE
 
 /mob/living/proc/restore_blood()
-	blood_volume = initial(blood_volume)
+	setBlood(initial(blood_volume))
 
 /mob/living/carbon/human/restore_blood()
-	blood_volume = BLOOD_VOLUME_NORMAL
+	setBlood(BLOOD_VOLUME_NORMAL)
 	bleed_rate = 0
 
 /****************************************************
@@ -160,7 +198,7 @@
 	if(!blood_id)
 		return 0
 
-	blood_volume -= amount
+	AdjustBlood(-amount)
 
 	var/list/blood_data = get_blood_data(blood_id)
 
@@ -177,7 +215,7 @@
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
 
-			C.blood_volume = min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_NORMAL)
+			C.setBlood(min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_NORMAL))
 			return 1
 
 	AM.reagents.add_reagent(blood_id, amount, blood_data, bodytemperature)

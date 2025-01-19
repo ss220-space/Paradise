@@ -59,6 +59,8 @@
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	resting = TRUE
+	gender = FEMALE
+	tts_seed = "Widowmaker"
 
 /mob/living/simple_animal/pet/cat/birman/Crusher
 	name = "Бедокур"	//Не цель для воров

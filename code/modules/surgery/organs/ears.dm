@@ -54,9 +54,17 @@
 /obj/item/organ/internal/ears/cybernetic/emp_act(severity)
 	if(emp_proof)
 		return
+
 	..()
 	internal_receive_damage(30)
+
 	if(!iscarbon(owner))
 		return
+
 	var/mob/living/carbon/C = owner
-	C.AdjustDeaf(120 SECONDS)
+	var/losstime = 120 SECONDS
+
+	if(HAS_TRAIT(C, TRAIT_ADVANCED_CYBERIMPLANTS))
+		losstime /= 3
+
+	C.AdjustDeaf(losstime)

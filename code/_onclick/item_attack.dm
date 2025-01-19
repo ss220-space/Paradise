@@ -114,11 +114,11 @@
 		. |= ATTACK_CHAIN_NO_AFTERATTACK
 	if(signal_out & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return .|ATTACK_CHAIN_BLOCKED
-	var/is_hot = is_hot(src)
-	if(is_hot && target.reagents && !ismob(target))
-		to_chat(user, span_notice("You heat [target] with [src]."))
-		target.reagents.temperature_reagents(is_hot)
 
+	var/temperature = get_heat()
+	if(temperature && target.reagents && !ismob(target) && !istype(target, /obj/item/clothing/mask/cigarette))
+		to_chat(user, span_notice("You heat [target] with [src]."))
+		target.reagents.temperature_reagents(temperature)
 
 /**
  * Called on an object being hit by an item

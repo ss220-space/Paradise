@@ -126,8 +126,9 @@
 	dog_fashion = null
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
-		)
+	)
 
 /obj/item/clothing/head/helmet/riot/knight
 	name = "medieval helmet"
@@ -317,7 +318,7 @@
 	desc = "An intimidating tribal helmet, it doesn't look very comfortable."
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDENAME
 	flags_cover = HEADCOVERSEYES
-	armor = list("melee" = 35, "bullet" = 25, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list("melee" = 45, "bullet" = 30, "laser" = 30, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	icon_state = "skull"
 	item_state = "skull"
 	strip_delay = 100

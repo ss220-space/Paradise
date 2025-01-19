@@ -53,6 +53,7 @@
 	starsys_name  = "Epsilon Eridani"
 	admin_only = TRUE
 
+<<<<<<< HEAD
 /datum/map/Atom
 	name = "Atom"
 	map_path = "_maps/map_files/Segmentstation/Atom.dmm"
@@ -65,4 +66,17 @@
 	company_short = "NT"
 	starsys_name  = "Epsilon Eridani "
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/ss1984/deltastation/"
+=======
+/datum/map/coldcolony
+	name = "Malta"
+	map_path = "_maps/map_files/event/Station/coldcolony.dmm"
+	lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
+
+	station_name = "NMC Malta"
+	station_short = "Malta"
+	dock_name = "NAV Trurl"
+	company_name = "Nanotrasen"
+	company_short = "NT"
+	starsys_name = "Epsilon Eridani"
+>>>>>>> upstream/master220
 	admin_only = TRUE

@@ -4,13 +4,18 @@
 	icon = 'icons/obj/paintkit.dmi'
 	icon_state = "paintkit" //What sprite will your paintkit use?
 
-	/// if there it is, instead of replacing initial_icon, will just add this before icon_state
-	var/new_prefix = FALSE
 	var/new_name = "mech"    //What is the variant called?
 	var/new_desc = "A mech." //How is the new mech described?
 	var/new_icon = "ripley"  //What base icon will the new mech use?
 	var/removable = null     //Can the kit be removed?
 	var/allowed_types = NONE //Types of mech that the kit will work on.
+
+	/// if there it is, instead of replacing initial_icon, will just add this before icon_state
+	var/new_prefix
+	/// if there it is, instead of replacing name, will just add this before name
+	var/name_prefix
+	/// if it contains an icon_state for a specific mech type, then instead of adding a prefix or replacing it with a general paintkit icon, take the initial_icon from here
+	var/list/icon_states = list()
 
 //If you want to add new paintkit, grab a paintkit sprite from: "icons/obj/paintkit.dmi" or make a new one
 //Then throw the sprites of the new mecha skin to the "icons/obj/mecha/mecha.dmi and add a new object below"
@@ -354,8 +359,26 @@
 	desc = "Набор, позволяющий вам переделать многие экзокостюмы в их более шахтерский аналог! По крайней мере, расцветкой."
 
 	new_name = "Ashed Mech"
-	new_prefix = "ashed"
-	allowed_types = MECH_TYPE_RIPLEY|MECH_TYPE_GYGAX|MECH_TYPE_DURAND|MECH_TYPE_PHAZON|MECH_TYPE_LOCKER
+	name_prefix = "Ashed"
+	allowed_types = MECH_TYPE_RIPLEY|MECH_TYPE_GYGAX|MECH_TYPE_DURAND|MECH_TYPE_PHAZON
+
+/obj/item/paintkit/ashed/Initialize(mapload)
+	. = ..()
+	icon_states["[MECH_TYPE_RIPLEY]"] = "ashedripley"
+	icon_states["[MECH_TYPE_GYGAX]"] = "ashedgygax"
+	icon_states["[MECH_TYPE_DURAND]"] = "asheddurand"
+	icon_states["[MECH_TYPE_PHAZON]"]= "ashedphazon"
+
+
+/obj/item/paintkit/lockermech_ashed
+	name = "Ashed customisation kit"
+	icon_state = "paintkit_ash"
+	desc = "Набор, позволяющий вам переделать шкафомех в его более шахтерский аналог! По крайней мере, расцветкой."
+
+	name_prefix = "Ashed"
+	new_icon = "ashedlockermech"
+	allowed_types = MECH_TYPE_LOCKER
+
 
 
 // Universal paintkit
@@ -397,11 +420,17 @@
 	user.visible_message(span_notice("[user] opens [src] and customises [mech.name]."))
 
 	var/obj/item/paintkit/chosen_kit = choice
-	if(chosen_kit.new_prefix)
-		mech.initial_icon = "[chosen_kit.new_prefix][initial(mech.initial_icon)]" //weird but ok
+	var/mech_type = "[mech.mech_type]"
+	var/list/icon_states = chosen_kit.icon_states
+
+	if(mech_type in icon_states)
+		mech.initial_icon = icon_states[mech_type]
 	else
 		mech.initial_icon = chosen_kit.new_icon
 
-	mech.name = chosen_kit.new_name
+	if(chosen_kit.name_prefix)
+		mech.name = "[chosen_kit.name_prefix] [name]"
+	else
+		mech.name = chosen_kit.new_name
 	mech.desc = chosen_kit.new_desc
 	mech.update_icon(UPDATE_ICON_STATE)

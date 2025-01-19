@@ -3,6 +3,8 @@
 	desc = "This cuts wires."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	belt_icon = "wirecutters"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
@@ -25,17 +27,14 @@
 	tool_behaviour = TOOL_WIRECUTTER
 	var/random_color = TRUE
 
-/obj/item/wirecutters/Initialize(mapload)
+/obj/item/wirecutters/Initialize(mapload, param_color = null)
 	. = ..()
-	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
-
-/obj/item/wirecutters/New(loc, param_color = null)
-	..()
 	if(random_color)
 		if(!param_color)
 			param_color = pick("yellow", "red")
 		icon_state = "cutters_[param_color]"
 
+	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /obj/item/wirecutters/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(istype(target) && istype(target.handcuffed, /obj/item/restraints/handcuffs/cable))
@@ -69,7 +68,7 @@
 	desc = "Extremely sharp wirecutters, made out of a silvery-green metal."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cutters"
-	item_state = "alien_cutters"
+	item_state = "cutters_alien"
 	belt_icon = "alien_wirecutters"
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"

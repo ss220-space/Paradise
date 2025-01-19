@@ -75,18 +75,18 @@
 	invisibility = INVISIBILITY_ABSTRACT
 
 
-/mob/living/carbon/human/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/human(src, ui_style2icon(client.prefs.UI_style), client.prefs.UI_style_color, client.prefs.UI_style_alpha)
-
 /datum/hud/human
 	var/hud_alpha = 255
 
-/datum/hud/human/New(mob/living/carbon/human/owner, var/ui_style = 'icons/mob/screen_white.dmi', var/ui_color = "#ffffff", var/ui_alpha = 255)
+/datum/hud/human/New(mob/living/carbon/human/owner)
 	..()
 	owner.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
 	var/atom/movable/screen/using
 	var/atom/movable/screen/inventory/inv_box
+	var/client/client = owner.client
+	var/ui_style = ui_style2icon(client.prefs.UI_style)
+	var/ui_color = client.prefs.UI_style_color
+	var/ui_alpha = client.prefs.UI_style_alpha
 
 	hud_alpha = ui_alpha
 

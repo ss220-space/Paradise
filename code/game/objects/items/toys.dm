@@ -697,7 +697,7 @@
 	icon_state = "redfox"
 
 /obj/random/plushie/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff)) //exclude the base type.
+	return pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - subtypesof(/obj/item/toy/plushie/plasmamanplushie/standart)) //exclude the base type and 11 random plasma plushies
 
 /obj/item/toy/plushie/corgi
 	name = "corgi plushie"
@@ -1282,11 +1282,61 @@
 /obj/item/toy/plushie/plasmamanplushie
 	name = "plasmaman plushie"
 	desc = "A stuffed toy that resembles your purple coworkers. Mmm, yeah, in true plasmaman fashion, it's not cute at all despite the designer's best efforts."
-	icon_state = "plushie_pman"
+	icon_state = "plasmaman_plushie_civillian"
 	attack_verb = list("burns", "space beasts", "fwooshes")
 	var/pmanlbite = 'sound/effects/extinguish.ogg'
 	var/cooldown = FALSE
 
+/obj/item/toy/plushie/plasmamanplushie/random/Initialize(mapload)
+	. = ..()
+	var/choice = pick(subtypesof(/obj/item/toy/plushie/plasmamanplushie/standart))
+	new choice(loc)
+	return INITIALIZE_HINT_QDEL
+
+
+/obj/item/toy/plushie/plasmamanplushie/standart/sindie
+	name = "syndicate plasmaman plushie"
+	icon_state = "plasmaman_plushie_syndicomm"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/doctor
+	name = "medical doctor plasmaman plushie"
+	icon_state = "plasmaman_plushie_doctor"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/brigmed
+	name = "brig physician plasmaman plushie"
+	icon_state = "plasmaman_plushie_brigphysician"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/chemist
+	name = "chemist plasmaman plushie"
+	icon_state = "plasmaman_plushie_chemist"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/scientist
+	name = "scientist plasmaman plushie"
+	icon_state = "plasmaman_plushie_scientist"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/engineer
+	name = "station engineer plasmaman plushie"
+	icon_state = "plasmaman_plushie_engineer"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/atmostech
+	name = "atmospheric technician plasmaman plushie"
+	icon_state = "plasmaman_plushie_atmostech"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/officer
+	name = "security officer plasmaman plushie"
+	icon_state = "plasmaman_plushie_officer"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/captain
+	name = "captain plasmaman plushie"
+	icon_state = "plasmaman_plushie_captain"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/ntr
+	name = "nanotrasen representative plasmaman plushie"
+	icon_state = "plasmaman_plushie_ntr"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/miner
+	name = "shaft miner plasmaman plushie"
+	icon_state = "plasmaman_plushie_shaftminer"
 
 /obj/item/toy/plushie/plasmamanplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -1299,7 +1349,7 @@
 		return ..()
 
 	playsound(src, 'sound/effects/extinguish.ogg', 20, 0)
-	visible_message("<span class='danger'>Plasmaflood!</span>")
+	visible_message("<span class='danger'>Plasssma iss Eternal!</span>")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1589,29 +1639,34 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "demonomicon"
 	w_class = WEIGHT_CLASS_SMALL
-	var/cooldown = FALSE
+	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/codex_gigas/attack_self(mob/user)
-	if(!cooldown)
-		user.visible_message(
-			"<span class='notice'>[user] presses the button on \the [src].</span>",
-			"<span class='notice'>You press the button on \the [src].</span>",
-			"<span class='notice'>You hear a soft click.</span>")
-		var/list/messages = list()
-		var/datum/devilinfo/devil = randomDevilInfo()
-		messages += "Some fun facts about: [devil.truename]"
-		messages += "[GLOB.lawlorify[LORE][devil.bane]]"
-		messages += "[GLOB.lawlorify[LORE][devil.obligation]]"
-		messages += "[GLOB.lawlorify[LORE][devil.ban]]"
-		messages += "[GLOB.lawlorify[LORE][devil.banish]]"
-		playsound(loc, 'sound/machines/click.ogg', 20, 1)
-		cooldown = TRUE
-		for(var/message in messages)
-			user.loc.visible_message("<span class='danger'>[bicon(src)] [message]</span>")
-			sleep(10)
-		spawn(20)
-			cooldown = FALSE
+	if(!COOLDOWN_FINISHED(src, cooldown))
 		return
+
+	user.visible_message(
+		span_notice("[user] presses the button on \the [src]."), \
+		span_notice("You press the button on \the [src]."), \
+		span_sinister("You hear a soft click."))
+
+	var/list/messages = list()
+	var/datum/devilinfo/devil = new
+
+	LAZYADD(messages, "Some fun facts about: [devil.truename]")
+	LAZYADD(messages, devil.bane.law)
+	LAZYADD(messages, devil.ban.law)
+	LAZYADD(messages, devil.obligation.law)
+	LAZYADD(messages, devil.banish.law)
+
+	playsound(loc, 'sound/machines/click.ogg', 20, 1)
+	COOLDOWN_START(src, cooldown, 2 SECONDS)
+
+	for(var/message in messages)
+		user.loc.visible_message(span_danger("[bicon(src)] [message]"))
+		sleep(1 SECONDS)
+
+	return
 
 /obj/item/toy/owl
 	name = "owl action figure"

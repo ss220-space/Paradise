@@ -557,7 +557,7 @@
 		if(bodypart.internal_bleeding())
 			to_chat(user, span_warning("You tear through [human]'s skin releasing the blood from [human.p_their()] [bodypart.name]!"))
 			playsound(get_turf(human), 'sound/effects/pierce.ogg', 30, TRUE)
-			human.blood_volume = max(human.blood_volume - 100, 0)
+			human.setBlood(max(human.blood_volume - 100, 0))
 			var/splatter_dir = get_dir(user, human)
 			blood_color = human.dna.species.blood_color
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(human.drop_location(), splatter_dir, blood_color)
@@ -716,7 +716,7 @@
 			animate(carbon, alpha = 20, time = 1 SECONDS)
 			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(INVIS_SPELL))
 			sleep(10)
-			carbon.alpha = 20
+			carbon.alpha_set(standartize_alpha(20), ALPHA_SOURCE_CLOCKROBE)
 			add_attack_logs(user, user, "cloaked [src]", ATKLOG_ALL)
 			addtimer(CALLBACK(src, PROC_REF(uncloak), carbon), 10 SECONDS)
 		if(enchant_type == SPEED_SPELL)
@@ -729,11 +729,11 @@
 	else
 		ToggleHood()
 
-/obj/item/clothing/suit/hooded/clockrobe/proc/uncloak(mob/user)
+/obj/item/clothing/suit/hooded/clockrobe/proc/uncloak(mob/living/user)
 	animate(user, alpha = 255, time = 1 SECONDS)
 	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(INVIS_SPELL))
 	sleep(10)
-	user.alpha = 255
+	user.alpha_set(1, ALPHA_SOURCE_CLOCKROBE)
 	deplete_spell()
 
 /obj/item/clothing/suit/hooded/clockrobe/proc/unspeed(mob/living/carbon/carbon)

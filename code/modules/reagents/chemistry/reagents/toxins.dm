@@ -6,10 +6,11 @@
 	color = "#CF3600" // rgb: 207, 54, 0
 	taste_mult = 1.2
 	taste_description = "bitterness"
+	var/toxpwr = 2
 
 /datum/reagent/toxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(2, FALSE)
+	update_flags |= M.adjustToxLoss(toxpwr, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/spider_venom
@@ -132,7 +133,7 @@
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.get_blood_id() == id && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
-			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
+			C.setBlood(min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL))
 			C.reagents.del_reagent(id)
 
 /datum/reagent/slimejelly/reaction_turf(turf/T, volume, color)
@@ -357,58 +358,78 @@
 	clothing_penetration = 1
 	var/acidpwr = 10 //the amount of protection removed from the armour
 
+
 /datum/reagent/acid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustFireLoss(1, FALSE)
+
+	if(!acid_proof_species(M))
+		update_flags |= M.adjustFireLoss(1, FALSE)
+
 	return ..() | update_flags
 
+
 /datum/reagent/acid/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(ishuman(M) && !isgrey(M))
-		var/mob/living/carbon/human/H = M
-		if(method == REAGENT_TOUCH)
-			to_chat(H, span_warning("The greenish acidic substance stings[volume < 1 ? " you, but isn't concentrated enough to harm you" : null]!"))
-			if(volume < 1)
-				return
+	if(!ishuman(M))
+		return
 
-			var/damage_coef = 0
-			var/should_scream = TRUE
-			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
-				if(istype(bodypart, /obj/item/organ/external/head) && !H.wear_mask && !H.head && volume > 25)
-					bodypart.disfigure()
-					if(H.has_pain() && should_scream)
-						H.emote("scream")
-						should_scream = FALSE
+	var/mob/living/carbon/human/H = M
 
-				damage_coef = (100 - clamp(H.getarmor_organ(bodypart, "acid"), 0, 100))/100
-				if(damage_coef > 0 && should_scream)
-					should_scream = FALSE
-					if(H.has_pain())
-						H.emote("scream")
-				H.apply_damage(clamp(volume - 1, 2, 20) * damage_coef / length(H.bodyparts), BURN, def_zone = bodypart)
-				H.apply_damage(clamp((volume - 1)/2, 1, 10) * damage_coef / length(H.bodyparts), BRUTE, def_zone = bodypart)
+	if(acid_proof_species(H))
+		return
+
+	if(method == REAGENT_TOUCH)
+		to_chat(H, span_warning("The greenish acidic substance stings[volume < 1 ? " you, but isn't concentrated enough to harm you" : null]!"))
+		if(volume < 1)
 			return
 
-		if(method == REAGENT_INGEST)
-			to_chat(H, span_warning("The greenish acidic substance stings[volume < 1 ? " you, but isn't concentrated enough to harm you" : null]!"))
-			if(volume >= 1)
-				H.adjustFireLoss(clamp((volume - 1) * 2, 0, 30))
+		var/damage_coef = 0
+		var/should_scream = TRUE
+
+		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+			if(istype(bodypart, /obj/item/organ/external/head) && !H.wear_mask && !H.head && volume > 25)
+				bodypart.disfigure()
+				if(H.has_pain() && should_scream)
+					H.emote("scream")
+					should_scream = FALSE
+
+			damage_coef = (100 - clamp(H.getarmor_organ(bodypart, "acid"), 0, 100))/100
+
+			if(damage_coef > 0 && should_scream)
+				should_scream = FALSE
 				if(H.has_pain())
 					H.emote("scream")
+
+			H.apply_damage(clamp(volume - 1, 2, 20) * damage_coef / length(H.bodyparts), BURN, def_zone = bodypart)
+			H.apply_damage(clamp((volume - 1)/2, 1, 10) * damage_coef / length(H.bodyparts), BRUTE, def_zone = bodypart)
+
+		return
+
+	if(method == REAGENT_INGEST)
+		to_chat(H, span_warning("The greenish acidic substance stings[volume < 1 ? " you, but isn't concentrated enough to harm you" : null]!"))
+		if(volume >= 1)
+			H.adjustFireLoss(clamp((volume - 1) * 2, 0, 30))
+			if(H.has_pain())
+				H.emote("scream")
+
 
 /datum/reagent/acid/reaction_obj(obj/O, volume)
 	if(ismob(O.loc)) //handled in human acid_act()
 		return
+
 	volume = round(volume, 0.1)
 	O.acid_act(acidpwr, volume)
+
 
 /datum/reagent/acid/reaction_turf(turf/T, volume)
 	if(!istype(T))
 		return
+
 	volume = round(volume, 0.1)
 	T.acid_act(acidpwr, volume)
 
+
 /datum/reagent/acid/facid
-	name = "Fluorosulfuric Acid"
+	name = "Fluorosulfuric acid"
 	id = "facid"
 	description = "Fluorosulfuric acid is a an extremely corrosive super-acid."
 	color = "#5050FF"
@@ -416,70 +437,107 @@
 	//acid is not using permeability_coefficient to calculate protection, but armour["acid"]
 	clothing_penetration = 1
 
+
 /datum/reagent/acid/facid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(0.5, FALSE)
+
+	if(!acid_proof_species(M))
+		update_flags |= M.adjustToxLoss(0.5, FALSE)
+
 	return ..() | update_flags
 
-/datum/reagent/acid/facid/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(method == REAGENT_TOUCH)
-			if(volume >= 5)
-				var/damage_coef = 0
-				var/should_scream = TRUE
-				for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
-					damage_coef = (100 - clamp(H.getarmor_organ(bodypart, "acid"), 0, 100))/100
-					if(damage_coef > 0 && should_scream)
-						should_scream = FALSE
-						if(H.has_pain())
-							H.emote("scream")
-					H.apply_damage(clamp((volume - 5) * 3, 8, 75) * damage_coef / length(H.bodyparts), BURN, def_zone = bodypart)
 
-			if(volume > 9 && (H.wear_mask || H.head))
-				if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
-					to_chat(H, "<span class='danger'>Your [H.wear_mask.name] melts away!</span>")
-					qdel(H.wear_mask)
-					H.update_inv_wear_mask()
-				if(H.head && !(H.head.resistance_flags & ACID_PROOF))
-					to_chat(H, "<span class='danger'>Your [H.head.name] melts away!</span>")
-					qdel(H.head)
-					H.update_inv_head()
-				return
-		else
-			if(volume >= 5)
-				if(H.has_pain())
+/datum/reagent/acid/facid/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	if(!ishuman(M))
+		return
+
+	var/mob/living/carbon/human/H = M
+	var/damage_ignored = acid_proof_species(H)
+
+	if(method == REAGENT_TOUCH)
+		if(volume >= 5 && !damage_ignored) // Prevent damage to mob, but not to clothes
+			var/damage_coef = 0
+			var/should_scream = TRUE
+
+			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+				damage_coef = (100 - clamp(H.getarmor_organ(bodypart, "acid"), 0, 100))/100
+				if(damage_coef && should_scream && H.has_pain()) // prevent emote spam
 					H.emote("scream")
-				H.adjustFireLoss(clamp((volume - 5) * 3, 8, 75));
-		to_chat(H, "<span class='warning'>The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+					should_scream = FALSE
+
+				H.apply_damage(clamp((volume - 5) * 3, 8, 75) * damage_coef / length(H.bodyparts), BURN, def_zone = bodypart)
+
+		if(volume > 9 && (H.wear_mask || H.head))
+			if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
+				to_chat(H, span_danger("Your [H.wear_mask.name] melts away!"))
+				qdel(H.wear_mask)
+				H.update_inv_wear_mask()
+
+			if(H.head && !(H.head.resistance_flags & ACID_PROOF))
+				to_chat(H, span_danger("Your [H.head.name] melts away!"))
+				qdel(H.head)
+				H.update_inv_head()
+
+			return
+
+	else
+		if(damage_ignored)
+			return
+
+		if(volume >= 5)
+			H.emote("scream")
+			H.adjustFireLoss(clamp((volume - 5) * 3, 8, 75));
+
+	to_chat(H, span_warning("The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!"))
+
 
 /datum/reagent/acetic_acid
-	name = "acetic acid"
+	name = "Acetic acid"
 	id = "acetic_acid"
 	description = "A weak acid that is the main component of vinegar and bad hangovers."
 	color = "#0080ff"
 	reagent_state = LIQUID
 	taste_description = "vinegar"
 
+
 /datum/reagent/acetic_acid/reaction_mob(mob/M, method = REAGENT_TOUCH, volume)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(method == REAGENT_TOUCH)
-			if(H.wear_mask || H.head)
-				return
-			if(volume >= 50 && prob(75))
-				var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
-				if(affecting)
-					affecting.disfigure()
-				H.take_overall_damage(5, 15)
-				H.emote("scream")
-			else
-				H.adjustBruteLoss(min(5, volume * 0.25))
+	if(!ishuman(M))
+		return
+
+	var/mob/living/carbon/human/H = M
+	if(acid_proof_species(H))
+		return
+
+	if(method == REAGENT_TOUCH)
+		if(H.wear_mask || H.head)
+			return
+
+		if(volume >= 50 && prob(75))
+			var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
+			if(affecting)
+				affecting.disfigure()
+
+			H.take_overall_damage(5, 15)
+			H.emote("scream")
+
 		else
-			to_chat(H, "<span class='warning'>The transparent acidic substance stings[volume < 25 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
-			if(volume >= 25)
-				H.take_overall_damage(2)
-				H.emote("scream")
+			H.adjustBruteLoss(min(5, volume * 0.25))
+
+	else
+		to_chat(H, span_warning("The transparent acidic substance stings[volume < 25 ? " you, but isn't concentrated enough to harm you" : null]!"))
+		if(volume >= 25)
+			H.take_overall_damage(2)
+			H.emote("scream")
+
+
+/datum/reagent/proc/acid_proof_species(mob/living/carbon/human/H)
+	if(!istype(H))
+		return FALSE // skip check
+
+	if(HAS_TRAIT(H, TRAIT_ACID_PROTECTED))
+		return TRUE // acid proof species
+
+	return FALSE
 
 
 /datum/reagent/carpotoxin
@@ -511,19 +569,35 @@
 	return ..() | update_flags
 
 
-/datum/reagent/spore
+/datum/reagent/toxin/spore
 	name = "Spore Toxin"
-	id = "spore"
 	description = "A natural toxin produced by blob spores that inhibits vision when ingested."
 	color = "#9ACD32"
+	id = "spore"
+	toxpwr = 1
+	can_synth = FALSE
 	taste_description = "bitterness"
 
-/datum/reagent/spore/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1, FALSE)
-	M.damageoverlaytemp = 60
-	M.EyeBlurry(6 SECONDS)
-	return ..() | update_flags
+/datum/reagent/toxin/spore/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
+	. = ..()
+	affected_mob.damageoverlaytemp = 60
+	affected_mob.update_damage_hud()
+	affected_mob.EyeBlurry(6 SECONDS * REM * seconds_per_tick)
+
+/datum/reagent/toxin/spore_burning
+	name = "Burning Spore Toxin"
+	description = "A natural toxin produced by blob spores that induces combustion in its victim."
+	color = "#9ACD32"
+	id = "spore_burn"
+	toxpwr = 0.5
+	taste_description = "burning"
+	can_synth = FALSE
+
+/datum/reagent/toxin/spore_burning/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
+	. = ..()
+	affected_mob.adjust_fire_stacks(2 * REM * seconds_per_tick)
+	affected_mob.IgniteMob()
+
 
 /datum/reagent/beer2	//disguised as normal beer for use by emagged service borgs
 	name = "Beer"

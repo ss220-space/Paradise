@@ -97,3 +97,6 @@
 #define PLANE_GROUP_MAIN "main"
 /// A secondary group, used when a client views a generic window
 #define PLANE_GROUP_POPUP_WINDOW(screen) "popup-[screen.UID()]"
+
+//Blobbernauts
+#define ui_blobbernaut_overmind_health "EAST-1:28,CENTER+0:19"

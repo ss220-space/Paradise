@@ -201,10 +201,6 @@
 		build_inventory(products, product_records)
 		build_inventory(contraband, hidden_records)
 		build_inventory(premium, coin_records)
-	for(var/datum/data/vending_product/R in (product_records + coin_records + hidden_records))
-		var/obj/item/I = R.product_path
-		var/pp = path2assetID(R.product_path)
-		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1, FALSE))]"
 	if(LAZYLEN(slogan_list))
 		// So not all machines speak at the exact same time.
 		// The first time this machine says something will be at slogantime + this random value,
@@ -214,6 +210,14 @@
 	if(!length(all_possible_crits))
 		for(var/typepath in subtypesof(/datum/vendor_crit))
 			all_possible_crits[typepath] = new typepath()
+
+	AddElement( \
+		/datum/element/falling_hazard, \
+		damage = 80, \
+		hardhat_safety = FALSE, \
+		crushes = TRUE, \
+		impact_sound = 'sound/effects/vending_hit.ogg', \
+		)
 
 	update_icon(UPDATE_OVERLAYS)
 
@@ -794,10 +798,13 @@
 	data["product_records"] = list()
 	var/i = 1
 	for (var/datum/data/vending_product/R in product_records)
+		var/obj/item = R.product_path
 		var/list/data_pr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
+			price = (item in prices) ? prices[item] : 0,
+			icon = item.icon,
+			icon_state = item.icon_state,
 			max_amount = R.max_amount,
 			req_coin = FALSE,
 			is_hidden = FALSE,
@@ -807,10 +814,13 @@
 		i++
 	data["coin_records"] = list()
 	for (var/datum/data/vending_product/R in coin_records)
+		var/obj/item = R.product_path
 		var/list/data_cr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
+			price = (item in prices) ? prices[item] : 0,
+			icon = item.icon,
+			icon_state = item.icon_state,
 			max_amount = R.max_amount,
 			req_coin = TRUE,
 			is_hidden = FALSE,
@@ -821,10 +831,13 @@
 		i++
 	data["hidden_records"] = list()
 	for (var/datum/data/vending_product/R in hidden_records)
+		var/obj/item = R.product_path
 		var/list/data_hr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
+			price = (item in prices) ? prices[item] : 0,
+			icon = item.icon,
+			icon_state = item.icon_state,
 			max_amount = R.max_amount,
 			req_coin = FALSE,
 			is_hidden = TRUE,
@@ -1941,16 +1954,27 @@
 		"Пинг!"
 	)
 	req_access = list(ACCESS_MEDICAL)
-	products = list(/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/food/pill/patch/styptic = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 4, /obj/item/reagent_containers/applicator/brute = 3, /obj/item/reagent_containers/applicator/burn = 3,
-					/obj/item/reagent_containers/glass/bottle/charcoal = 4, /obj/item/reagent_containers/glass/bottle/epinephrine = 4, /obj/item/reagent_containers/glass/bottle/diphenhydramine = 4,
-					/obj/item/reagent_containers/glass/bottle/salicylic = 4, /obj/item/reagent_containers/glass/bottle/potassium_iodide = 3, /obj/item/reagent_containers/glass/bottle/saline = 5,
-					/obj/item/reagent_containers/glass/bottle/morphine = 4, /obj/item/reagent_containers/glass/bottle/ether = 4, /obj/item/reagent_containers/glass/bottle/atropine = 3,
-					/obj/item/reagent_containers/glass/bottle/oculine = 2, /obj/item/reagent_containers/glass/bottle/toxin = 4, /obj/item/reagent_containers/syringe/antiviral = 6,
-					/obj/item/reagent_containers/syringe/insulin = 6, /obj/item/reagent_containers/syringe/calomel = 10, /obj/item/reagent_containers/syringe/heparin = 4, /obj/item/reagent_containers/hypospray/autoinjector = 5, /obj/item/reagent_containers/food/pill/salbutamol = 10,
-					/obj/item/reagent_containers/food/pill/mannitol = 10, /obj/item/reagent_containers/food/pill/mutadone = 5, /obj/item/stack/medical/bruise_pack/advanced = 4, /obj/item/stack/medical/ointment/advanced = 4, /obj/item/stack/medical/bruise_pack = 4,
-					/obj/item/stack/medical/ointment = 4, /obj/item/stack/medical/splint = 4, /obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/dropper = 4, /obj/item/healthanalyzer = 4,
-					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2, /obj/item/reagent_containers/iv_bag/slime = 1)
+	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 5,
+					/obj/item/stack/medical/bruise_pack = 4, /obj/item/stack/medical/ointment = 4,
+					/obj/item/stack/medical/bruise_pack/advanced = 4, /obj/item/stack/medical/ointment/advanced = 4,
+					/obj/item/stack/medical/bruise_pack/extended = 2, /obj/item/stack/medical/ointment/extended = 2,
+					/obj/item/stack/medical/splint = 4,
+					/obj/item/reagent_containers/food/pill/patch/styptic = 4, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 4,
+					/obj/item/reagent_containers/applicator/brute = 3, /obj/item/reagent_containers/applicator/burn = 3,
+					/obj/item/healthanalyzer = 4,/obj/item/healthupgrade = 4,
+					/obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2,
+					/obj/item/reagent_containers/food/pill/mannitol = 10, /obj/item/reagent_containers/food/pill/salbutamol = 10, /obj/item/reagent_containers/food/pill/mutadone = 5,
+					/obj/item/reagent_containers/syringe/antiviral = 6, /obj/item/reagent_containers/syringe/calomel = 10,
+					/obj/item/reagent_containers/syringe/insulin = 6, /obj/item/reagent_containers/syringe/heparin = 4,
+					/obj/item/reagent_containers/glass/bottle/oculine = 2, /obj/item/reagent_containers/glass/bottle/epinephrine = 4,
+					/obj/item/reagent_containers/glass/bottle/saline = 5, /obj/item/reagent_containers/glass/bottle/charcoal = 4,
+					/obj/item/reagent_containers/glass/bottle/salicylic = 4, /obj/item/reagent_containers/glass/bottle/morphine = 4, /obj/item/reagent_containers/glass/bottle/ether = 4,
+					/obj/item/reagent_containers/glass/bottle/potassium_iodide = 3, /obj/item/reagent_containers/glass/bottle/atropine = 3,
+					/obj/item/reagent_containers/glass/bottle/diphenhydramine = 4, /obj/item/reagent_containers/glass/bottle/toxin = 4,
+					/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/dropper = 4, /obj/item/reagent_containers/glass/beaker = 4,
+					/obj/item/reagent_containers/iv_bag/slime = 1)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
+	prices = list(/obj/item/stack/medical/bruise_pack/extended = 200, /obj/item/stack/medical/ointment/extended = 200)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
@@ -2100,10 +2124,10 @@
 	req_access = list(ACCESS_SECURITY)
 	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
 					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4, /obj/item/storage/belt/security/webbing = 2, /obj/item/flashlight/sectaclight = 2, /obj/item/grenade/smokebomb = 8,
+					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4, /obj/item/storage/belt/security/webbing = 2, /obj/item/clothing/mask/gas/sechailer/tactical = 5, /obj/item/flashlight/sectaclight = 2, /obj/item/grenade/smokebomb = 8,
 					)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
-	prices = list(/obj/item/storage/belt/security/webbing = 2000, /obj/item/flashlight/sectaclight = 300, /obj/item/grenade/smokebomb = 250)
+	prices = list(/obj/item/storage/belt/security/webbing = 999, /obj/item/clothing/mask/gas/sechailer/tactical = 299, /obj/item/flashlight/sectaclight = 299, /obj/item/grenade/smokebomb = 249)
 	refill_canister = /obj/item/vending_refill/security
 
 /obj/machinery/vending/security/training
@@ -4120,6 +4144,7 @@
 		/obj/item/gun/energy/xray = 2,
 		/obj/item/gun/energy/immolator/multi = 2,
 		/obj/item/gun/energy/gun/nuclear = 3,
+		/obj/item/gun/energy/gun/minigun = 1,
 		/obj/item/storage/lockbox/t4 = 3,
 		/obj/item/grenade/smokebomb = 3,
 		/obj/item/grenade/frag = 4

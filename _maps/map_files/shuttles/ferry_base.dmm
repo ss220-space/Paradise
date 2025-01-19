@@ -80,7 +80,8 @@
 	id = "ferry";
 	name = "ferry shuttle";
 	roundstart_move = "ferry_away";
-	width = 5
+	width = 5;
+	preferred_direction = 4
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)

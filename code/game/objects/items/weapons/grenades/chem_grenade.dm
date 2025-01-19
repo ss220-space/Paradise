@@ -347,6 +347,7 @@
 
 
 /obj/item/grenade/chem_grenade/prime(mob/user)
+	. = ..()
 	if(stage != READY)
 		return
 

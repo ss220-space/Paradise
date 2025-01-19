@@ -37,6 +37,9 @@
 	else
 		turn_off_lighter(user)
 
+/obj/item/lighter/get_heat()
+	return lit * 1500
+
 /obj/item/lighter/proc/turn_on_lighter(mob/living/user)
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY
@@ -134,6 +137,8 @@
 	item_state = "zippo"
 	icon_on = "zippoon"
 	icon_off = "zippo"
+	lefthand_file = 'icons/mob/inhands/zippo_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/zippo_righthand.dmi'
 
 
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
@@ -267,6 +272,30 @@
 	icon_on = "zippo_qm_on"
 	icon_off = "zippo_qm"
 
+/obj/item/lighter/zippo/detective
+	name = "Detective zippo"
+	desc = "Лимитированная версия зажигалки Зиппо для детектива. Кажется, что её доставили прямиком из нуарных фильмов."
+	ru_names = list(
+		NOMINATIVE = "зажигалка Зиппо детектива",
+		GENITIVE = "зажигалки Зиппо детектива",
+		DATIVE = "зажигалке Зиппо детектива",
+		ACCUSATIVE = "зажигалку Зиппо детектива",
+		INSTRUMENTAL = "зажигалкой Зиппо детектива",
+		PREPOSITIONAL = "зажигалке Зиппо детектива"
+	)
+	icon_state = "zippo_dec"
+	item_state = "deczippo"
+	icon_on = "zippo_dec_on"
+	icon_off = "zippo_dec"
+
+/obj/item/lighter/zippo/contractor
+	name = "contractor zippo lighter"
+	desc = "An unique black and gold zippo commonly carried by elite Syndicate agents."
+	icon_state = "contractorzippo"
+	item_state = "contractorzippo"
+	icon_on = "contractorzippoon"
+	icon_off = "contractorzippo"
+
 //Ninja-Zippo//
 /obj/item/lighter/zippo/ninja
 	name = "\"Shinobi on a rice field\" zippo"
@@ -333,6 +362,8 @@
 	var/init_name = initial(name)
 	desc = lit ? "A [init_name]. This one is lit." : burnt ? "A [init_name]. This one has seen better days." : initial(desc)
 
+/obj/item/match/get_heat()
+	return lit * 1000
 
 /obj/item/match/proc/matchignite()
 	if(!lit && !burnt)

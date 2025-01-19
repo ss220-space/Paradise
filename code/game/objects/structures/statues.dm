@@ -131,11 +131,10 @@
 
 
 /obj/structure/statue/plasma/attackby(obj/item/I, mob/user, params)
-	var/is_hot = is_hot(I)
-	if(is_hot > 300)//If the temperature of the object is over 300, then ignite
+	if(I.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
-		ignite(is_hot)
+		ignite(I.get_heat())
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
@@ -183,6 +182,14 @@
 /obj/structure/statue/gold/rd
 	name = "statue of the research director"
 	icon_state = "rd"
+
+/obj/structure/statue/gold/unathi
+	name = "statue of the unati"
+	icon_state = "unathi"
+
+/obj/structure/statue/gold/tajaran
+	name = "statue of the tajaran"
+	icon_state = "tajaran"
 
 /obj/structure/statue/silver
 	max_integrity = 300
@@ -450,7 +457,7 @@
 
 
 /obj/structure/statue/unknown/attackby(obj/item/I, mob/user, params)
-	if(is_hot(I) && light(span_notice("[user] lights [src] with [I].")))
+	if(I.get_heat() && light(span_notice("[user] lights [src] with [I].")))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()

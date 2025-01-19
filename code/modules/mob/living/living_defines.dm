@@ -38,6 +38,7 @@
 	var/on_fire = 0 //The "Are we on fire?" var
 	var/fire_stacks = 0 //Tracks how many stacks of fire we have on, max is usually 20
 
+
 	var/mob_size = MOB_SIZE_HUMAN
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
 	var/digestion_ratio = 1 //controls how quickly reagents metabolize; largely governered by species attributes.
@@ -66,6 +67,9 @@
 	var/gene_stability = DEFAULT_GENE_STABILITY
 	var/ignore_gene_stability = 0
 
+	/// the id a mob gets when it's created
+	var/numba = 0
+	var/unique_name = FALSE
 	/// A log of what we've said, plain text, no spans or junk, essentially just each individual "message"
 	var/list/say_log
 
@@ -141,3 +145,6 @@
 
 	/// Famous last words -- if succumbing, what the user's last words were
 	var/last_words
+
+	/// List of alpha changelog from various sources
+	var/list/alphas = list(ALPHA_SOURCE_DEFAULT = 1)

@@ -1,7 +1,7 @@
 /datum/space_level
 	var/name = "Your config settings failed, you need to fix this for the datum space levels to work"
 	var/zpos = 1
-	var/flags = list() // We'll use this to keep track of whether you can teleport/etc
+	var/list/flags = list() // We'll use this to keep track of whether you can teleport/etc
 
 	// Map transition stuff
 	var/list/neighbors = list()

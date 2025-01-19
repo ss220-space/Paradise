@@ -9,6 +9,13 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
+	can_flashlight = TRUE
+	gun_light_overlay = "lasergun_light"
+
+/obj/item/gun/energy/laser/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/toggle_gunlight))
+		toggle_gunlight()
+		return TRUE
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -18,7 +25,7 @@
 	origin_tech = "combat=2;magnets=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
 	clumsy_check = 0
-	needs_permit = 0
+	needs_permit = FALSE
 
 /obj/item/gun/energy/laser/retro
 	name ="retro laser gun"

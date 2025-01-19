@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/vampire/self/cloak
-	name = "Cloak of Darkness"
-	desc = "Toggles whether you are currently cloaking yourself in darkness. When in darkness and toggled on, you move at increased speeds."
-	gain_desc = "You have gained the Cloak of Darkness ability, which when toggled makes you nearly invisible and highly agile in the shroud of darkness."
+	name = "Покров тьмы"
+	desc = "Включает или выключает маскировку в темноте. Если вы замаскированы и находитесь в темноте, то ваша скорость увеличивается."
+	gain_desc = "Теперь вы можете маскировать себя во тьме, становясь почти невидимым и чрезвычайно проворным."
 	action_icon_state = "vampire_cloak"
 	base_cooldown = 2 SECONDS
 
@@ -11,7 +11,7 @@
 	if(!V)
 		return
 
-	var/new_name = "[initial(name)] ([V.iscloaking ? "Deactivate" : "Activate"])"
+	var/new_name = "[initial(name)] ([V.iscloaking ? "Деактивировать" : "Активировать"])"
 	name = new_name
 	action?.name = new_name
 	action?.UpdateButtonIcon()
@@ -30,7 +30,7 @@
 			H.physiology.burn_mod /= 1.3
 
 	update_vampire_spell_name(user)
-	to_chat(user, span_notice("You will now be <b>[V.iscloaking ? "hidden" : "seen"]</b> in darkness."))
+	to_chat(user, span_notice("Теперь вы будете <b>[V.iscloaking ? "скрыты" : "видимы"]</b> в темноте."))
 
 
 /mob/living/proc/update_vampire_cloak()
@@ -40,9 +40,9 @@
 
 
 /obj/effect/proc_holder/spell/vampire/shadow_snare
-	name = "Shadow Snare"
-	desc = "You summon a trap on the ground. When crossed it will blind the target, extinguish any lights they may have, and ensnare them."
-	gain_desc = "You have gained the ability to summon a trap that will blind, ensnare, and turn off the lights of anyone who crosses it."
+	name = "Теневая ловушка"
+	desc = "Вы вызываете ловушку на земле. Когда её пересекут, она ослепит цель, погасит все имеющиеся у неё источники света и захватит её в капкан."
+	gain_desc = "Вы получили способность вызывать ловушку, которая ослепит, захватит в капкан и выключит свет любому, кто пересечет ее."
 	base_cooldown = 10 SECONDS
 	required_blood = 20
 	action_icon_state = "shadow_snare"
@@ -63,7 +63,15 @@
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare
 	name = "shadow snare"
-	desc = "An almost transparent trap that melts into the shadows."
+	desc = "Почти прозрачная ловушка, которая тает в тени."
+	ru_names = list(
+        NOMINATIVE = "теневая ловушка",
+        GENITIVE = "теневой ловушки",
+        DATIVE = "теневой ловушке",
+        ACCUSATIVE = "теневую ловушку",
+        INSTRUMENTAL = "теневой ловушкой",
+        PREPOSITIONAL = "теневой ловушке"
+    )
 	alpha = 60
 	armed = TRUE
 	anchored = TRUE
@@ -88,7 +96,7 @@
 		obj_integrity -= 50
 
 	if(obj_integrity <= 0)
-		visible_message(span_notice("[src] withers away."))
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] исчезает."))
 		qdel(src)
 
 
@@ -119,7 +127,7 @@
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/attack_tk(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		to_chat(user, span_userdanger("The snare sends a psychic backlash!"))
+		to_chat(user, span_userdanger("Ловушка посылает обратную связь с помощью психического сигнала!"))
 		C.EyeBlind(20 SECONDS)
 
 
@@ -130,16 +138,16 @@
 	. |= ATTACK_CHAIN_BLOCKED_ALL
 	user.do_attack_animation(src)
 	user.visible_message(
-		span_danger("[user] points [I] at [src] and it withers away!"),
-		span_danger("You point [I] at [src] and it withers away!"),
+		span_danger("[user] навод[pluralize_ru(user.gender, "ит", "ят")] [I] на [declent_ru(ACCUSATIVE)], и она исчезает!"),
+		span_danger("Наведите [I] на [declent_ru(ACCUSATIVE)], и она исчезнет!"),
 	)
 	qdel(src)
 
 
 /obj/effect/proc_holder/spell/vampire/soul_anchor
-	name = "Soul Anchor"
-	desc = "You summon a dimenional anchor after a delay, casting again will teleport you back to the anchor. You are forced back after 2 minutes if you have not cast again."
-	gain_desc = "You have gained the ability to save a point in space and teleport back to it at will. Unless you willingly teleport back to that point within 2 minutes, you are forced back."
+	name = "Теневой якорь"
+	desc = "Вы вызываете затемнённый якорь после задержки, повторное заклинание телепортирует вас обратно к якорю. Вы будете вынуждены вернуться назад через 2 минуты, если не произнесли повторное заклинание."
+	gain_desc = "Вы получили способность сохранять точку в пространстве и телепортироваться к ней по своему желанию. Если в течение 2 минут вы самостоятельно не телепортируетесь обратно в эту точку, вас телепортирует автоматически."
 	required_blood = 30
 	centcom_cancast = FALSE
 	base_cooldown = 130 SECONDS
@@ -159,7 +167,7 @@
 
 /obj/effect/proc_holder/spell/vampire/soul_anchor/cast(list/targets, mob/user)
 	if(making_anchor) // second cast, but we are impatient
-		to_chat(user, span_notice("Your anchor isn't ready yet!"))
+		balloon_alert(user, "якорь не готов!")
 		return
 
 	if(!making_anchor && !anchor) // first cast, setup the anchor
@@ -222,7 +230,15 @@
 // an indicator that shows where the vampire will land
 /obj/structure/shadow_anchor
 	name = "shadow anchor"
-	desc = "Looking at this thing makes you feel uneasy..."
+	desc = "При взгляде на эту штуку вам становится не по себе..."
+	ru_names = list(
+        NOMINATIVE = "теневой якорь",
+        GENITIVE = "теневого якоря",
+        DATIVE = "теневому якорю",
+        ACCUSATIVE = "теневой якорь",
+        INSTRUMENTAL = "теневым якорем",
+        PREPOSITIONAL = "теневом якоре"
+    )
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "pylon"
 	alpha = 120
@@ -234,9 +250,9 @@
 
 
 /obj/effect/proc_holder/spell/vampire/dark_passage
-	name = "Dark Passage"
-	desc = "You teleport to a targeted turf."
-	gain_desc = "You have gained the ability to blink a short distance towards a targeted turf."
+	name = "Шаг в тень"
+	desc = "Вы телепортируетесь на указанную площадку."
+	gain_desc = "Вы получили способность совершать молниеносный бросок на небольшое расстояние в сторону указанной площадки."
 	base_cooldown = 15 SECONDS
 	required_blood = 30
 	centcom_cancast = FALSE
@@ -272,9 +288,9 @@
 
 
 /obj/effect/proc_holder/spell/vampire/vamp_extinguish
-	name = "Extinguish"
-	desc = "You extinguish any light source in an area around you."
-	gain_desc = "You have gained the ability to extinguish nearby light sources."
+	name = "Погасить"
+	desc = "Вы гасите любой источник света в области вокруг себя."
+	gain_desc = "Вы получили способность гасить ближайшие источники света."
 	base_cooldown = 30 SECONDS
 	action_icon_state = "vampire_extinguish"
 	create_attack_logs = FALSE
@@ -294,9 +310,9 @@
 
 
 /obj/effect/proc_holder/spell/vampire/shadow_boxing
-	name = "Shadow Boxing"
-	desc = "Target someone to have your shadow beat them up. You must stay within 2 tiles for this to work."
-	gain_desc = "You have gained the ability to make your shadow fight for you."
+	name = "Бой с тенью"
+	desc = "Нацельтесь на кого-нибудь, чтобы ваша тень избила его. Чтобы это сработало, вы должны находиться в пределах двух тайлов."
+	gain_desc = "Теперь вы можете заставить свою тень сражаться бок о бок с вами."
 	base_cooldown = 30 SECONDS
 	action_icon_state = "shadow_boxing"
 	required_blood = 50
@@ -318,9 +334,9 @@
 
 
 /obj/effect/proc_holder/spell/vampire/self/eternal_darkness
-	name = "Eternal Darkness"
-	desc = "When toggled, you shroud the area around you in darkness and slowly lower the body temperature of people nearby."
-	gain_desc = "You have gained the ability to shroud the area around you in darkness, only the strongest of lights can pierce your unholy powers."
+	name = "Вечная тьма"
+	desc = "При включении вы окутываете пространство вокруг себя темнотой и медленно понижаете температуру тела находящихся рядом гуманоидов."
+	gain_desc = "Вы обрели способность окутывать всё вокруг себя тьмой. Только сильнейший свет сможет пронзить вашу нечестивую силу."
 	base_cooldown = 10 SECONDS
 	action_icon_state = "eternal_darkness"
 	required_blood = 5
@@ -339,7 +355,7 @@
 
 
 /datum/vampire_passive/eternal_darkness
-	gain_desc = "You surround yourself in a unnatural darkness, freezing those around you."
+	gain_desc = "Вы окружаете себя неестественной тьмой, замораживая окружающих."
 
 
 /datum/vampire_passive/eternal_darkness/New()
@@ -367,5 +383,5 @@
 
 
 /datum/vampire_passive/xray
-	gain_desc = "You can now see through walls, incase you hadn't noticed."
+	gain_desc = "Теперь вы можете видеть сквозь стены, если вы не заметили."
 

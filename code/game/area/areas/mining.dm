@@ -4,6 +4,7 @@
 	icon_state = "mining"
 	has_gravity = STANDARD_GRAVITY
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	area_flags = NONE
 
 /area/mine/explored
 	name = "Mine"
@@ -162,7 +163,7 @@
 /area/lavaland/surface/outdoors
 	name = "Lavaland Wastes"
 	outdoors = TRUE
-	area_flags = FLORA_ALLOWED
+	area_flags = FLORA_ALLOWED | BLOBS_ALLOWED
 
 /area/lavaland/surface/outdoors/unexplored // ruins spawn here
 	icon_state = "unexplored"

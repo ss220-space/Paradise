@@ -18,6 +18,8 @@
 	var/mmi_icon_state = "mmi_full"
 	/// If it's a fake brain without a mob assigned that should still be treated like a real brain.
 	var/decoy_brain = FALSE
+	/// TRUE giving to a user sci hud and active research scanner
+	var/smart_mind = FALSE
 
 /obj/item/organ/internal/brain/xeno
 	name = "xenomorph brain"
@@ -142,6 +144,7 @@
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
 	mmi_icon_state = "slime_mmi"
+	parent_organ_zone = BODY_ZONE_CHEST
 
 /obj/item/organ/internal/brain/golem
 	name = "Runic mind"

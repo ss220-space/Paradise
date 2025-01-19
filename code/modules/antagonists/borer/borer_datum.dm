@@ -3,16 +3,20 @@
 	show_in_roundend = FALSE
 	job_rank = ROLE_BORER
 	special_role = SPECIAL_ROLE_BORER
-	var/mob/living/simple_animal/borer/user // our borer
-	var/mob/living/carbon/human/host // our host
-	var/mob/living/carbon/human/previous_host // previous host, used to del transferable effects from previous host.
-
+	var/mob/living/simple_animal/borer/user
+	var/mob/living/carbon/human/host
+	/// previous host, used to del transferable effects from previous host.
+	var/mob/living/carbon/human/previous_host
+	/// Rank of our borer
 	var/datum/borer_rank/borer_rank
-	var/list/learned_focuses = list() // what focuses learned borer
-	var/datum/borer_misc/change_host_and_scale/scaling = new // chemical scaling, gained when acquired unique host
-
-	var/reproductions = 0 // used to upgrade rank
-	var/evo_points = 0 // used for borer shopping, gained by reproductions
+	/// Which focuses we have
+	var/list/learned_focuses = list()
+	/// chemical scaling, gained when acquired unique host
+	var/datum/borer_misc/change_host_and_scale/scaling = new
+	/// used to upgrade rank
+	var/reproductions = 0
+	/// used for borer shopping, gained by reproductions
+	var/evo_points = 0
 
 	var/tick_interval = 1 SECONDS
 
@@ -68,13 +72,6 @@
 	reproductions++
 	evo_points++
 
-	if(!borer_rank?.required_reproductions)
-		return
-		
-	if(reproductions < borer_rank.required_reproductions)
-		return
-
-	reproductions -= borer_rank.required_reproductions
 	update_rank()
 
 	return
@@ -194,16 +191,17 @@
 		if(QDELING(src))
 			return
 
-/datum/antagonist/borer/proc/update_rank()
-	switch(borer_rank.type)
-		if(BORER_RANK_YOUNG)
-			borer_rank = new BORER_RANK_MATURE(user)
-		if(BORER_RANK_MATURE)
-			borer_rank = new BORER_RANK_ADULT(user)
-		if(BORER_RANK_ADULT)
-			borer_rank = new BORER_RANK_ELDER(user)
+/datum/antagonist/borer/proc/update_rank()	
+	if(!borer_rank?.required_reproductions || !borer_rank.next_rank_type)
+		return FALSE
+		
+	if(reproductions < borer_rank.required_reproductions)
+		return FALSE
 
+	reproductions -= borer_rank.required_reproductions
+	borer_rank = new borer_rank.next_rank_type(user)
 	to_chat(user.controlling ? host : user, span_notice("Вы эволюционировали. Ваш текущий ранг - [borer_rank.rankname]."))
+
 	return TRUE
 
 /datum/borer_misc // category for small datums.

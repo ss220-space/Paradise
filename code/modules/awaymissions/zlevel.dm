@@ -14,12 +14,15 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 		T.ChangeTurf(T.baseturf)
 
 /proc/loadAwayLevel()
-	if(!GLOB.potentialRandomZlevels || !GLOB.potentialRandomZlevels.len)
+	if((!GLOB.potentialRandomZlevels || !GLOB.potentialRandomZlevels.len) && !CONFIG_GET(string/override_away_mission))
 		log_startup_progress_global("Mapping", "No away missions found.")
 		return
 	var/watch = start_watch()
 	log_startup_progress_global("Mapping", "Loading away mission...")
-	var/map = pick(GLOB.potentialRandomZlevels)
+	var/map = !CONFIG_GET(string/override_away_mission) ? pick(GLOB.potentialRandomZlevels) : CONFIG_GET(string/override_away_mission)
+	if(CONFIG_GET(string/override_away_mission))
+		log_startup_progress_global("Mapping", "Away mission overridden by configuration to [CONFIG_GET(string/override_away_mission)].")
+
 	var/file = wrap_file(map)
 	var/bounds = GLOB.maploader.load_map(file, 1, 1, 1, shouldCropMap = FALSE, measureOnly = TRUE)
 	var/total_z = bounds[MAP_MAXZ] - bounds[MAP_MINZ] + 1
@@ -73,42 +76,3 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 
 	return potentialMaps
 
-
-/datum/map_template/ruin/proc/try_to_place(z, allowed_areas)
-	var/sanity = PLACEMENT_TRIES
-	while(sanity > 0)
-		sanity--
-		var/width_border = TRANSITIONEDGE + SPACERUIN_MAP_EDGE_PAD + round(width / 2)
-		var/height_border = TRANSITIONEDGE + SPACERUIN_MAP_EDGE_PAD + round(height / 2)
-		var/turf/central_turf = locate(rand(width_border, world.maxx - width_border), rand(height_border, world.maxy - height_border), z)
-		var/valid = TRUE
-
-		for(var/turf/check in get_affected_turfs(central_turf,1))
-			var/area/new_area = get_area(check)
-			if(!(istype(new_area, allowed_areas)) || check.flags & NO_RUINS)
-				valid = FALSE
-				break
-
-		if(!valid)
-			continue
-
-		log_world("Ruin \"[name]\" placed at ([central_turf.x], [central_turf.y], [central_turf.z])")
-
-		for(var/i in get_affected_turfs(central_turf, 1))
-			var/turf/T = i
-			for(var/obj/structure/spawner/nest in T)
-				qdel(nest)
-			for(var/mob/living/simple_animal/monster in T)
-				qdel(monster)
-			for(var/obj/structure/flora/ash/plant in T)
-				qdel(plant)
-
-		load(central_turf,centered = TRUE)
-		loaded++
-
-		for(var/turf/T in get_affected_turfs(central_turf, 1))
-			T.flags |= NO_RUINS
-
-		new /obj/effect/landmark/ruin(central_turf, src)
-		return TRUE
-	return FALSE

@@ -109,6 +109,8 @@
 	var/area/affected_areas = list()
 	for(var/turf/the_turf as anything in turfs)
 		var/area/old_area = the_turf.loc
+		old_area.turfs_to_uncontain += the_turf
+		newA.contained_turfs += the_turf
 
 		//keep rack of all areas affected by turf changes
 		affected_areas[old_area.name] = old_area
@@ -140,6 +142,14 @@
 
 	return TRUE
 
+/proc/require_area_resort()
+	GLOB.sortedAreas = null
+
+/// Returns a sorted version of GLOB.areas, by name
+/proc/get_sorted_areas()
+	if(!GLOB.sortedAreas)
+		GLOB.sortedAreas = sortTim(GLOB.areas.Copy(), /proc/cmp_name_asc)
+	return GLOB.sortedAreas
 
 #undef BLUEPRINTS_MAX_ROOM_SIZE
 

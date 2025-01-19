@@ -103,10 +103,6 @@
 		icon_state = initial(icon_state)
 
 
-/mob/living/silicon/robot/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/robot(src)
-
 /datum/hud/robot/New(mob/user)
 	..()
 	user.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
@@ -196,10 +192,22 @@
 	if(!isrobot(mymob))
 		return
 
-	var/mob/living/silicon/robot/R = mymob
+	var/mob/living/silicon/robot/robot = mymob
 
-	R.shown_robot_modules = !R.shown_robot_modules
+	robot.shown_robot_modules = !robot.shown_robot_modules
+
+	if(robot.s_active && robot.shown_robot_modules)
+		robot.s_active.close(robot)
+
 	update_robot_modules_display()
+
+/datum/hud/proc/is_shown_robot_modules()
+	if(!isrobot(mymob))
+		return
+
+	var/mob/living/silicon/robot/robot = mymob
+
+	return robot.shown_robot_modules
 
 /datum/hud/proc/update_robot_modules_display()
 	if(!isrobot(mymob))
