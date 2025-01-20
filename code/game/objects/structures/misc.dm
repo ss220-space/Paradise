@@ -36,7 +36,7 @@
 
 /obj/structure/respawner/attack_ghost(mob/dead/observer/user)
 	if(check_rights(R_EVENT))
-		var/outfit_pick = alert(user, "Хочешь выбрать снаряжение или возродиться?", "Выбрать снаряжение?", list("Выбрать снаряжение", "Возродиться", "Отмена"))
+		var/outfit_pick = tgui_alert(user, "Хочешь выбрать снаряжение или возродиться?", "Выбрать снаряжение?", list("Выбрать снаряжение", "Возродиться", "Отмена"))
 		if(outfit_pick == "Отмена")
 			return
 		if(outfit_pick == "Выбрать снаряжение")
