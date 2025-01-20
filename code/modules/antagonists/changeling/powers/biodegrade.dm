@@ -95,9 +95,6 @@
 		user.client?.move_delay = world.time	// to skip move delay we probably got from resisting the grab
 		used = TRUE
 
-	if(used)
-		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
-
 	return TRUE
 
 

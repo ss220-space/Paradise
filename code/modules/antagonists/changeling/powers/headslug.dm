@@ -37,7 +37,6 @@
 	addtimer(CALLBACK(src, PROC_REF(headslug_appear), user_mind, our_turf), 0.5 SECONDS)	// So it's not killed in explosion
 
 	user.gib()
-	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 

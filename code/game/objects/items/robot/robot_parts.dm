@@ -138,7 +138,6 @@
 	if(l_arm && r_arm)
 		if(l_leg && r_leg)
 			if(chest && head)
-				SSblackbox.record_feedback("amount", "cyborg_frames_built", 1)
 				return 1
 	return 0
 
@@ -368,8 +367,6 @@
 	cell_component.installed = TRUE
 	new_borg.mmi = new_mmi
 	new_borg.Namepick()
-
-	SSblackbox.record_feedback("amount", "cyborg_birth", 1)
 
 	forceMove(new_borg)
 	new_borg.robot_suit = src

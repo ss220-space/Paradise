@@ -45,16 +45,11 @@
 	preserved = TRUE
 	update_icon()
 	desc = "All that remains of a hivelord. It is preserved, allowing you to use it to heal completely without danger of decay."
-	if(implanted)
-		SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "implanted"))
-	else
-		SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "stabilizer"))
 
 /obj/item/organ/internal/regenerative_core/proc/go_inert()
 	inert = TRUE
 	name = "decayed regenerative core"
 	desc = "All that remains of a hivelord. It has decayed, and is completely useless."
-	SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "inert"))
 	update_icon()
 
 /obj/item/organ/internal/regenerative_core/ui_action_click(mob/user, datum/action/action, leftclick)
@@ -82,10 +77,8 @@
 				return
 			if(H != user)
 				H.visible_message("[user] forces [H] to apply [src]... Black tendrils entangle and reinforce [H.p_them()]!")
-				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
 			else
 				to_chat(user, span_notice("You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?"))
-				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
 			H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
 			user.temporarily_remove_item_from_inventory(src)
 			qdel(src)
@@ -206,10 +199,8 @@
 			span_warning("[user] forces [target] to apply [src]... Black tendrils entangle and reinforce [target.p_them()]!"),
 			span_notice("You have forced [target] to apply [src]... Black tendrils entangle and reinforce [target.p_them()]!"),
 		)
-		SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
 	else
 		to_chat(user, span_notice("You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?"))
-		SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
 	target.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
 	qdel(src)
 

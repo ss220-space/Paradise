@@ -36,6 +36,5 @@
 	Remove(user)
 	user.med_hud_set_status()
 	user.med_hud_set_health()
-	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 

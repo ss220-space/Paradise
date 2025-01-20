@@ -109,7 +109,6 @@
 
 	target_uplink.uses -= max(cost, 0)
 	target_uplink.used_TC += cost
-	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
 	return new item(get_turf(buyer))
 
 

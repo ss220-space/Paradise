@@ -217,8 +217,6 @@
 	if(subclass_to_add == SUBCLASS_BESTIA)
 		suck_rate = BESTIA_SUCK_RATE
 	check_vampire_upgrade(announce)
-	if(log_choice)
-		SSblackbox.record_feedback("nested tally", "vampire_subclasses", 1, list("[new_subclass.name]"))
 
 
 /obj/effect/proc_holder/spell/vampire/glare

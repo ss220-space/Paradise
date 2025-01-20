@@ -36,6 +36,5 @@
 
 	cling.acquired_powers -= src
 	Remove(user)
-	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 

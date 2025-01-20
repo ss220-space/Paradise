@@ -360,7 +360,6 @@
 			user.update_inv_l_hand()
 		else
 			user.update_inv_r_hand()
-	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
 	if(rusted_weapon)
 		malf_counter -= burst_size

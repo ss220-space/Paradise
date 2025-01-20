@@ -411,7 +411,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 
 	hands.icon_state = lowertext(module.module_type)
-	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(modtype)]")
 
 	rename_character(real_name, get_default_name())
 	choose_icon()
