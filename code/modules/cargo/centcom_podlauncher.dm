@@ -103,7 +103,7 @@
 	if(map_name)
 		holder.clear_map(map_name)
 
-	map_name = "admin_supplypod_bay_[REF(src)]_map"
+	map_name = "admin_supplypod_bay_[UID()]_map"
 	// Initialize map objects
 	cam_screen = new
 	cam_screen.generate_view(map_name)
