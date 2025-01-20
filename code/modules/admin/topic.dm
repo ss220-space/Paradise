@@ -1979,7 +1979,7 @@
 	else if(href_list["send_warning"])
 		if(!check_rights(R_ADMIN))
 			return
-			
+
 		var/message = tgui_input_text(usr, "Введите предупреждение", "Предупреждение")
 		if(tgui_alert(usr,"Вы действительно хотите отправить предупреждение всем блобам?", "", list("Да", "Нет")) == "Нет")
 			return
@@ -3816,6 +3816,10 @@
 		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
 		usr.client.cmd_admin_alert_message(about_to_be_banned)
 
+	else if(href_list["resultspoll"])
+		var/datum/poll_question/poll = locate(href_list["resultspoll"]) in GLOB.polls
+		var/start_index = text2num(href_list["startat"]) || 0
+		poll_results_panel(poll, start_index)
 
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)

@@ -28,7 +28,6 @@
 				set_stat(CONSCIOUS)
 
 		update_icons()
-		update_headlamp(TRUE, 0)
 
 	else
 		if(health)

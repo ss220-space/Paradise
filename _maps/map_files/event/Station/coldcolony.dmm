@@ -61,7 +61,7 @@
 /area/crew_quarters/chief)
 "abI" = (
 /turf/simulated/wall/rust,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "abO" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced/ice,
@@ -331,7 +331,7 @@
 "agz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "agA" = (
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
@@ -444,6 +444,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
 	},
+/obj/vehicle/ridden/snowmobile/key,
 /turf/simulated/floor/plating/asteroid{
 	temperature = 180
 	},
@@ -462,7 +463,7 @@
 "ajw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "ajP" = (
 /obj/machinery/vending/sustenance/additional,
 /turf/simulated/floor/wood,
@@ -657,6 +658,13 @@
 	},
 /area/quartermaster/qm)
 "aoe" = (
+/obj/machinery/door_control{
+	id = "paramedic";
+	name = "Garage Door Control";
+	req_access = list(66);
+	pixel_x = 24;
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/paramedic)
 "aoi" = (
@@ -991,6 +999,7 @@
 	dir = 1;
 	id = "garbage"
 	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "auF" = (
@@ -1000,7 +1009,7 @@
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "avb" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -1222,7 +1231,7 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "aAX" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -1452,7 +1461,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "aHB" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/blue,
@@ -1513,7 +1522,7 @@
 	},
 /obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "aJj" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
@@ -1571,7 +1580,7 @@
 /area/security/hos)
 "aKh" = (
 /turf/simulated/mineral{
-	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere
+	turf_type = /turf/simulated/floor/plating/asteroid/snow/planet
 	},
 /area/ruin/unpowered)
 "aKu" = (
@@ -1599,7 +1608,7 @@
 "aKR" = (
 /obj/structure/closet/walllocker/emerglocker/north,
 /turf/simulated/floor/wood,
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "aLo" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -1753,7 +1762,7 @@
 	},
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/wood,
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "aPj" = (
 /obj/structure/flora/grass/both,
 /obj/structure/flora/tree/dead,
@@ -2032,6 +2041,9 @@
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/ntrep)
+"aUA" = (
+/turf/simulated/wall/rust,
+/area/crew_quarters/cabin3)
 "aVk" = (
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/wood/fancy/light,
@@ -2340,6 +2352,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2396,7 +2409,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "bcW" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -2435,7 +2448,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "bev" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2477,7 +2490,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "bfw" = (
 /turf/simulated/wall/rust,
 /area/quartermaster/sorting)
@@ -2719,7 +2732,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "bkG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_switch{
@@ -3203,6 +3216,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/mrchangs)
+"bvS" = (
+/obj/item/paper{
+	pixel_x = 5;
+	pixel_y = 7
+	},
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/simulated/floor/wood/cherry{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "bvX" = (
 /obj/structure/table/wood,
 /obj/item/folder,
@@ -3263,6 +3288,10 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/fans/tiny,
+/obj/machinery/door_control{
+	id = "evacgarage";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/lounge)
 "bxV" = (
@@ -3387,6 +3416,11 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/snow/sand/edge{
 	dir = 4
+	},
+/obj/machinery/door_control{
+	id = "engigarage";
+	req_access = list(32);
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/break_room)
@@ -4032,6 +4066,7 @@
 "bPY" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "bQt" = (
@@ -4078,6 +4113,14 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/atmos)
+"bQS" = (
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/plating{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "bRw" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 1
@@ -4087,7 +4130,7 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "bRA" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -4403,7 +4446,7 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/wood,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "bWZ" = (
 /obj/structure/reagent_dispensers/watertank/high,
 /turf/simulated/floor/plasteel{
@@ -4814,7 +4857,7 @@
 	id = "mining_internal"
 	},
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "chF" = (
 /obj/machinery/door/airlock/mining{
 	name = "Miners bar";
@@ -4833,7 +4876,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "chR" = (
 /turf/simulated/wall/r_wall,
 /area/atmos/control)
@@ -4982,6 +5025,12 @@
 	icon_state = "fancy-wood-birch-broken"
 	},
 /area/bridge/checkpoint/south)
+"clf" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "cli" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -5065,6 +5114,19 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos)
+"cnB" = (
+/obj/structure/closet/crate/miningcar{
+	name = "mining car"
+	},
+/obj/item/stack/ore/bluespace_crystal,
+/obj/item/stack/ore/titanium{
+	amount = 8
+	},
+/obj/item/stack/ore/gold{
+	amount = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "cnG" = (
 /turf/simulated/floor/wood/fancy/cherry,
 /area/security/hos)
@@ -5238,7 +5300,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "ctP" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Permabrig";
@@ -5272,6 +5334,13 @@
 	icon_state = "dark"
 	},
 /area/security/processing)
+"cuu" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/plating{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "cuD" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security";
@@ -5391,7 +5460,7 @@
 "cwV" = (
 /obj/structure/closet/secure_closet/cabinet/bar,
 /turf/simulated/floor/wood,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "cwW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -5471,7 +5540,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "cym" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -5512,7 +5581,7 @@
 	},
 /obj/item/wrench,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "cyU" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/grassybush,
@@ -5618,10 +5687,10 @@
 "cBa" = (
 /obj/structure/morgue,
 /turf/simulated/floor/wood,
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "cBm" = (
 /turf/simulated/floor/plasteel,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "cBB" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -5745,7 +5814,7 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "cDb" = (
 /obj/structure/table/reinforced,
 /obj/machinery/newscaster/security_unit{
@@ -5890,7 +5959,7 @@
 /obj/structure/alien/weeds,
 /obj/effect/landmark/event/xeno_spawn,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "cFP" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
@@ -5901,6 +5970,11 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door_control{
+	pixel_x = -24;
+	id = "secgarage";
+	req_access = list(63)
+	},
 /turf/simulated/floor/plasteel,
 /area/security/lobby)
 "cGk" = (
@@ -6104,12 +6178,12 @@
 	},
 /area/quartermaster/sorting)
 "cJB" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/storage/firstaid/regular,
-/obj/item/hand_labeler,
-/turf/simulated/floor/plasteel/white,
-/area/medical/sleeper)
+/obj/structure/sign/directions/security{
+	pixel_y = 11;
+	dir = 1
+	},
+/turf/simulated/wall,
+/area/hallway/primary/central/east)
 "cJL" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/vehicle/ridden/snowmobile/key,
@@ -6200,7 +6274,7 @@
 "cMk" = (
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "cMv" = (
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/item/ammo_box/shotgun/buck{
@@ -6335,6 +6409,13 @@
 	icon_state = "escape"
 	},
 /area/hallway/secondary/entry/lounge)
+"cPX" = (
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/decal/snow/sand/edge,
+/turf/simulated/floor/plating{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "cQf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/extinguisher_cabinet{
@@ -6789,7 +6870,7 @@
 	id = "mining_internal"
 	},
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "dae" = (
 /obj/structure/chair/office/dark,
 /obj/effect/turf_decal/siding/wood{
@@ -6914,13 +6995,11 @@
 	},
 /area/bridge/vip)
 "dch" = (
-/obj/machinery/door_control{
-	pixel_x = 9;
-	id = "secgarage";
-	req_access = list(63)
+/obj/structure/fence/door{
+	dir = 4
 	},
-/turf/simulated/wall/r_wall,
-/area/security/lobby)
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "dcD" = (
 /obj/machinery/door/airlock{
 	id_tag = "toilet4";
@@ -7281,6 +7360,10 @@
 	icon_state = "purple"
 	},
 /area/assembly/chargebay)
+"dkB" = (
+/obj/effect/landmark/start/intern,
+/turf/simulated/floor/plasteel/white,
+/area/medical/sleeper)
 "dkR" = (
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/asteroid/snow/planet,
@@ -7341,7 +7424,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "dmp" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -7432,7 +7515,7 @@
 /area/security/medbay)
 "dnF" = (
 /turf/simulated/wall/rust,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "dnL" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/cleanable/dust,
@@ -7510,6 +7593,12 @@
 	dir = 4
 	},
 /area/bridge/vip)
+"dpQ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/ntrep)
 "dpT" = (
 /turf/simulated/floor/plating,
 /area/medical/medbay2)
@@ -7634,7 +7723,7 @@
 /turf/simulated/floor/wood,
 /area/toxins/test_chamber)
 "duc" = (
-/obj/effect/mob_spawn/human,
+/obj/effect/mob_spawn/human/corpse/damaged,
 /turf/simulated/floor/wood/cherry{
 	temperature = 180
 	},
@@ -7853,7 +7942,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "dAQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -7871,7 +7960,7 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "dBE" = (
 /obj/structure/table,
 /obj/machinery/button/windowtint{
@@ -7979,7 +8068,7 @@
 	dir = 9;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "dDX" = (
 /obj/structure/closet/walllocker/emerglocker/west,
 /obj/effect/decal/warning_stripes/blue/hollow,
@@ -8117,7 +8206,7 @@
 "dFC" = (
 /obj/effect/landmark/start/coroner,
 /turf/simulated/floor/wood,
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "dFE" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -8167,7 +8256,7 @@
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "dHs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -8200,7 +8289,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "dJn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -8231,7 +8320,7 @@
 "dJL" = (
 /obj/effect/mob_spawn/human/corpse/damaged,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "dJU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -8591,6 +8680,23 @@
 	icon_state = "darkred"
 	},
 /area/security/processing)
+"dSx" = (
+/obj/structure/chair/comfy/green,
+/turf/simulated/floor/plasteel/white,
+/area/medical/sleeper)
+"dSK" = (
+/obj/item/stack/sheet/wood,
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/decal/snow/sand/edge{
+	dir = 10
+	},
+/obj/effect/decal/snow/sand/edge{
+	dir = 1
+	},
+/turf/simulated/floor/plating{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "dST" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -8624,7 +8730,7 @@
 	layer = 3.3
 	},
 /turf/simulated/floor/plasteel,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "dTT" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced/ice,
@@ -8632,7 +8738,7 @@
 	layer = 3.3
 	},
 /turf/simulated/floor/plating,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "dUe" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -8730,6 +8836,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8873,7 +8980,7 @@
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/wood,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "dZz" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -8978,14 +9085,21 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/trading)
 "ecA" = (
-/obj/machinery/bodyscanner{
-	dir = 4
-	},
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
+/obj/structure/table,
+/obj/item/hand_labeler,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel/white,
 /area/medical/sleeper)
+"ecC" = (
+/obj/structure/closet/walllocker/emerglocker/south,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "red"
+	},
+/area/security/lobby)
 "ecK" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/surgery,
@@ -9211,6 +9325,25 @@
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
+"egC" = (
+/obj/structure/sign/directions/engineering{
+	pixel_y = -10;
+	dir = 4
+	},
+/obj/structure/sign/directions/cargo{
+	dir = 4;
+	pixel_y = -3
+	},
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = 4
+	},
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_y = 11
+	},
+/turf/simulated/wall,
+/area/hallway/primary/central/se)
 "egU" = (
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer";
@@ -9715,7 +9848,7 @@
 "etP" = (
 /obj/item/pickaxe/safety,
 /turf/simulated/floor/plasteel,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "etV" = (
 /obj/machinery/door/airlock/medical{
 	name = "Morgue";
@@ -9737,7 +9870,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "eun" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
@@ -9749,7 +9882,7 @@
 "euC" = (
 /obj/effect/turf_decal/loading_area,
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "euD" = (
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/item/gun/projectile/shotgun/riot{
@@ -10046,7 +10179,7 @@
 /obj/structure/flora/grass/green,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "eBi" = (
 /obj/item/gun/energy/gun/advtaser{
 	pixel_x = -3;
@@ -10228,11 +10361,20 @@
 /mob/living/simple_animal/pet/dog/fox/forest/winter,
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
+"eFo" = (
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/decal/snow/sand/edge,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "eFK" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "eFN" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -10292,7 +10434,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "eHz" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -10415,7 +10557,7 @@
 "eLh" = (
 /obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "eLz" = (
 /obj/item/circuitboard/rdconsole/experiment,
 /obj/structure/closet/crate/engineering/electrical,
@@ -10809,7 +10951,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "eTa" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
@@ -10951,7 +11093,7 @@
 /obj/structure/alien/weeds,
 /obj/item/organ/internal/kidneys,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "eXF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -10969,7 +11111,6 @@
 "eXJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/start/intern,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -11200,10 +11341,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/cabin2)
-"fcC" = (
-/obj/structure/flora/grass/both,
-/turf/simulated/floor/plating/asteroid/snow/planet,
-/area/medical/sleeper)
 "fcG" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -11510,7 +11647,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "fmY" = (
 /obj/item/reagent_containers/spray/plantbgone{
 	pixel_x = -5;
@@ -11543,7 +11680,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "fom" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -11820,7 +11957,7 @@
 /area/crew_quarters/cabin3)
 "fwn" = (
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "fwo" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -12163,15 +12300,24 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/trading)
 "fEi" = (
-/obj/machinery/door_control{
-	id = "comgarage";
-	pixel_x = 9
+/obj/structure/displaycase,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbrown";
+	dir = 8
 	},
-/turf/simulated/wall/indestructible/reinforced,
-/area/hallway/primary/fore)
+/area/bridge/vip)
+"fEl" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/wood/cherry{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "fEs" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/sleeper,
+/obj/machinery/sleeper{
+	pixel_x = 3
+	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/sleeper)
 "fEv" = (
@@ -12290,6 +12436,13 @@
 "fGJ" = (
 /turf/simulated/wall/rust,
 /area/hallway/secondary/entry/lounge)
+"fGW" = (
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plating{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "fHf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -12421,7 +12574,10 @@
 	},
 /area/atmos)
 "fKQ" = (
-/mob/living/simple_animal/hostile/bear/polar,
+/mob/living/simple_animal/hostile/bear/polar{
+	health = 90;
+	maxHealth = 90
+	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
 "fKR" = (
@@ -12549,7 +12705,7 @@
 	dwidth = 7;
 	height = 5;
 	id = "sit_arrivals";
-	name = "South-East Solars";
+	name = "Colony East";
 	width = 11;
 	area_type = /area/ruin/unpowered/coldcolony_outside;
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere
@@ -12852,13 +13008,13 @@
 	},
 /area/storage/secure)
 "fVB" = (
-/obj/machinery/alarm{
-	pixel_y = 22
+/obj/machinery/light{
+	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
+/obj/machinery/sleeper{
+	dir = 2
 	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/sleeper)
 "fVF" = (
 /obj/machinery/door/poddoor/preopen{
@@ -12903,7 +13059,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "fWX" = (
 /obj/machinery/portable_atmospherics/canister/air{
 	anchored = 1
@@ -13308,7 +13464,7 @@
 	pixel_x = 4
 	},
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "gkv" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/table/reinforced,
@@ -13648,7 +13804,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "gqJ" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced/ice,
@@ -14186,11 +14342,11 @@
 "gCs" = (
 /obj/effect/decal/snow/sand/edge,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/multi_tile{
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/multi_tile/glass{
 	dir = 1;
 	name = "Residential block"
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -14323,6 +14479,13 @@
 	icon_state = "dark"
 	},
 /area/bridge/vip)
+"gET" = (
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/wood/cherry{
+	temperature = 180;
+	icon_state = "wood-cherry-broken4"
+	},
+/area/ruin/unpowered)
 "gFd" = (
 /turf/simulated/wall,
 /area/hallway/secondary/entry/lounge)
@@ -14402,8 +14565,7 @@
 /obj/item/stack/spacecash/c100,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light_switch{
-	pixel_y = 24;
-	pixel_x = 8
+	pixel_x = -24
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/trading)
@@ -14452,7 +14614,7 @@
 	dir = 4;
 	icon_state = "browncorner"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "gIN" = (
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/cleanable/dirt,
@@ -14558,6 +14720,8 @@
 	dir = 8
 	},
 /obj/structure/closet/walllocker/emerglocker/west,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/lounge)
 "gLC" = (
@@ -14606,7 +14770,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "gMb" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -14627,7 +14791,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "gMw" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/vodka{
@@ -14929,7 +15093,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "gRS" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown";
@@ -15123,7 +15287,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "gYc" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -15159,10 +15323,16 @@
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "gZj" = (
 /turf/simulated/wall,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
+"gZm" = (
+/obj/structure/filingcabinet/chestdrawer,
+/turf/simulated/floor/wood/cherry{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "gZt" = (
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
@@ -15213,7 +15383,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde,
 /obj/item/reagent_containers/dropper,
 /turf/simulated/floor/wood,
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "hbl" = (
 /obj/structure/sink{
 	dir = 4;
@@ -15582,7 +15752,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "hjr" = (
 /obj/item/mounted/frame/alarm_frame,
 /obj/structure/table,
@@ -15919,6 +16089,10 @@
 	icon_state = "darkred"
 	},
 /area/security/processing)
+"hqi" = (
+/obj/structure/chair/comfy/teal,
+/turf/simulated/floor/plasteel/white,
+/area/medical/sleeper)
 "hqp" = (
 /obj/structure/dresser,
 /turf/simulated/floor/plasteel{
@@ -16028,7 +16202,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "htl" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -16193,6 +16367,7 @@
 /obj/item/airlock_electronics,
 /obj/item/airlock_electronics,
 /obj/item/airalarm_electronics,
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "hyR" = (
@@ -16231,7 +16406,7 @@
 	layer = 3.3
 	},
 /turf/simulated/floor/plasteel,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "hzM" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
@@ -16424,6 +16599,9 @@
 	},
 /obj/structure/closet/emcloset,
 /obj/effect/decal/warning_stripes/blue,
+/obj/structure/sign/nosmoking_2{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/sleeper)
 "hFa" = (
@@ -16626,7 +16804,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "hLn" = (
 /obj/item/grenade/chem_grenade/firefighting,
 /obj/structure/table,
@@ -16758,7 +16936,7 @@
 /area/library)
 "hNZ" = (
 /turf/simulated/wall/rust,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "hOp" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/effect/decal/snow/sand/edge{
@@ -17176,12 +17354,12 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "hZj" = (
-/obj/machinery/door_control{
-	id = "lbgarage";
-	pixel_y = 9
+/obj/structure/flora/rock/pile,
+/obj/structure/fence{
+	dir = 4
 	},
-/turf/simulated/wall,
-/area/hallway/primary/central/se)
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "hZv" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 4
@@ -17226,7 +17404,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "iam" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
@@ -17491,7 +17669,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "igl" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -17552,6 +17730,7 @@
 /obj/machinery/power/apc{
 	pixel_y = -26
 	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -17779,6 +17958,12 @@
 	icon_state = "white"
 	},
 /area/toxins/lab)
+"inF" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -28
+	},
+/turf/simulated/floor/plating,
+/area/medical/sleeper)
 "inV" = (
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/effect/decal/cleanable/generic,
@@ -17882,6 +18067,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light,
+/obj/vehicle/ridden/snowmobile/key,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
 "iqh" = (
@@ -17947,6 +18133,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17985,6 +18172,9 @@
 	layer = 2.9
 	},
 /obj/item/storage/firstaid/o2,
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/sleeper)
 "itv" = (
@@ -18000,6 +18190,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"itH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/gibs/limb,
+/turf/simulated/floor/wood/cherry{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "iug" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/head/redcoat,
@@ -18195,7 +18392,7 @@
 "iyg" = (
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "iyF" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
@@ -18812,6 +19009,8 @@
 "iLS" = (
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/closet/walllocker/emerglocker/north,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -19095,12 +19294,11 @@
 	},
 /area/library/game_zone)
 "iUf" = (
-/obj/machinery/door_control{
-	id = "evacgarage";
-	pixel_y = -9
-	},
-/turf/simulated/wall,
-/area/hallway/secondary/entry/lounge)
+/obj/structure/grille,
+/obj/machinery/door/firedoor,
+/obj/structure/window/full/reinforced/ice,
+/turf/simulated/floor/plating,
+/area/hallway/primary/fore)
 "iUj" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -19378,7 +19576,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "iZw" = (
 /obj/structure/chair/sofa/pew{
 	dir = 4
@@ -19424,7 +19622,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/event/xeno_spawn,
 /turf/simulated/floor/plasteel,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "jaE" = (
 /obj/structure/table/wood,
 /obj/machinery/status_display{
@@ -19583,7 +19781,7 @@
 "jei" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "jep" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'RADIOACTIVE AREA'";
@@ -19722,9 +19920,6 @@
 "jgG" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
-	},
-/obj/structure/sign/nosmoking_2{
-	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20041,6 +20236,13 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/medbay2)
+"jnw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/wood/cherry{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "jnC" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/head/beanie/black,
@@ -20090,7 +20292,7 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "joF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -20218,6 +20420,12 @@
 /obj/structure/sign/med,
 /turf/simulated/wall,
 /area/medical/medbay2)
+"jtl" = (
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plating{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "jty" = (
 /obj/structure/railing,
 /obj/structure/disposalpipe/junction/reversed{
@@ -20355,7 +20563,7 @@
 "jwu" = (
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/wood,
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "jwz" = (
 /obj/machinery/light{
 	dir = 1
@@ -20533,12 +20741,15 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/biostorage)
+"jAA" = (
+/turf/simulated/wall/rust,
+/area/maintenance/fore)
 "jAF" = (
 /obj/structure/table,
 /obj/item/flashlight/lantern,
 /obj/item/flashlight/lantern,
 /turf/simulated/floor/plating,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "jAS" = (
 /obj/structure/closet/firecloset,
 /obj/machinery/light{
@@ -20550,7 +20761,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "jAY" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -20571,7 +20782,7 @@
 	dir = 10;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "jBj" = (
 /obj/structure/table/glass,
 /obj/item/healthanalyzer,
@@ -20638,6 +20849,13 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/security/permabrig)
+"jCG" = (
+/obj/structure/table/wood,
+/obj/item/paper,
+/turf/simulated/floor/wood/cherry{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "jDc" = (
 /obj/machinery/vending/tool,
 /obj/machinery/firealarm{
@@ -20663,7 +20881,7 @@
 	layer = 3.3
 	},
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "jDU" = (
 /obj/machinery/vending/engivend,
 /obj/effect/decal/warning_stripes/yellow/partial{
@@ -20999,7 +21217,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "jMw" = (
 /obj/machinery/message_server,
 /obj/machinery/light,
@@ -21120,7 +21338,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "jPj" = (
 /obj/machinery/autolathe,
 /obj/machinery/newscaster{
@@ -21247,12 +21465,12 @@
 	name = "Mining"
 	},
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "jTT" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/landmark/event/blobstart,
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "jTU" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced/ice,
@@ -21390,12 +21608,12 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 4
 	},
-/obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering";
 	req_access = list(32)
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -21428,7 +21646,7 @@
 /area/maintenance/fsmaint)
 "jXd" = (
 /turf/simulated/wall,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "jXj" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
@@ -21599,6 +21817,12 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay2)
+"kan" = (
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/wood/cherry{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "kap" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -21635,6 +21859,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -21657,7 +21882,7 @@
 	},
 /obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "kbj" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -21770,7 +21995,7 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "kcF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
@@ -21901,20 +22126,9 @@
 	},
 /area/blueshield)
 "kgc" = (
-/obj/machinery/door_control{
-	id = "ArmorySecAccess";
-	name = "Armory Security Access Control";
-	pixel_y = 7;
-	req_access = list(3)
-	},
-/obj/machinery/door_control{
-	id = "ArmorySec";
-	name = "Armory Security Window Control";
-	pixel_y = -7;
-	req_access = list(3)
-	},
-/turf/simulated/wall/r_wall,
-/area/security/securearmory)
+/obj/structure/fence/door,
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "kgd" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -21995,7 +22209,7 @@
 /area/ruin/unpowered)
 "khJ" = (
 /turf/simulated/wall,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "kiI" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	external_pressure_bound = 0;
@@ -22155,6 +22369,18 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
+"klG" = (
+/obj/structure/closet/crate/miningcar{
+	name = "mining car"
+	},
+/obj/item/stack/ore/diamond{
+	amount = 6
+	},
+/obj/item/stack/ore/glass{
+	amount = 21
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "klL" = (
 /obj/machinery/optable,
 /obj/machinery/light,
@@ -22239,6 +22465,13 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/toilet4)
+"kns" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/decal/cleanable/blood/gibs/limb,
+/turf/simulated/floor/wood/cherry{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "knO" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced/ice,
@@ -22421,9 +22654,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "ksm" = (
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_y = 32
-	},
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -22574,7 +22804,7 @@
 "kuQ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "kuV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -22593,6 +22823,16 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central/north)
+"kvq" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/snow/sand/edge{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "kvD" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -22653,7 +22893,7 @@
 "kwC" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "kwE" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/firealarm{
@@ -22876,18 +23116,23 @@
 	},
 /area/atmos)
 "kAE" = (
-/obj/machinery/door_control{
-	pixel_x = 9;
-	id = "rndgarage"
+/obj/structure/closet/crate/miningcar{
+	name = "mining car"
 	},
-/turf/simulated/wall,
-/area/medical/research)
+/obj/item/stack/ore/iron{
+	amount = 14
+	},
+/obj/item/stack/ore/plasma{
+	amount = 7
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "kAP" = (
 /obj/structure/flora/grass/both,
 /turf/simulated/floor/plating/asteroid{
 	temperature = 180
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "kBe" = (
 /obj/structure/chair/comfy/brown,
 /obj/effect/landmark/start/captain,
@@ -23028,7 +23273,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "kDV" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -23086,7 +23331,7 @@
 /area/library)
 "kEQ" = (
 /turf/simulated/floor/wood,
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "kEX" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -23104,6 +23349,8 @@
 /area/maintenance/fsmaint)
 "kFy" = (
 /obj/structure/closet/walllocker/emerglocker/south,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "kFX" = (
@@ -23134,7 +23381,7 @@
 /area/toxins/explab)
 "kGe" = (
 /turf/simulated/floor/plating,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "kGj" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -23454,13 +23701,20 @@
 "kNG" = (
 /turf/simulated/wall/rust,
 /area/quartermaster/qm)
+"kNO" = (
+/obj/effect/turf_decal/stripes{
+	dir = 1
+	},
+/obj/structure/fence/post,
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "kNU" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "kNZ" = (
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
@@ -23552,6 +23806,14 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos)
+"kPU" = (
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/decal/snow/sand/edge,
+/turf/simulated/floor/plating{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "kQJ" = (
 /obj/machinery/light{
 	dir = 1
@@ -23737,6 +23999,7 @@
 /obj/item/stack/sheet/glass{
 	amount = 4
 	},
+/obj/item/flashlight,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "kVr" = (
@@ -23841,7 +24104,7 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "kXQ" = (
 /obj/structure/bed,
 /obj/item/bedsheet/qm,
@@ -24214,14 +24477,18 @@
 /area/ruin/unpowered/coldcolony_outside)
 "ljK" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/poddoor/shutters{
-	id_tag = "comgarage";
-	dir = 2
-	},
 /obj/effect/decal/snow/sand/edge{
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "comgarage";
+	dir = 2
+	},
+/obj/machinery/door_control{
+	id = "comgarage";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
 "ljL" = (
@@ -24378,6 +24645,10 @@
 	icon_state = "darkredfull"
 	},
 /area/security/warden)
+"loL" = (
+/obj/machinery/computer/account_database,
+/turf/simulated/floor/wood/fancy/light,
+/area/crew_quarters/heads/hop)
 "loR" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
@@ -24519,6 +24790,18 @@
 	layer = 5;
 	name = "Armory Security Shutters"
 	},
+/obj/machinery/door_control{
+	id = "ArmorySecAccess";
+	name = "Armory Security Access Control";
+	pixel_y = -24;
+	req_access = list(3)
+	},
+/obj/machinery/door_control{
+	id = "ArmorySec";
+	name = "Armory Security Window Control";
+	pixel_y = -40;
+	req_access = list(3)
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -24589,7 +24872,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "lvz" = (
 /obj/structure/sign/greencross,
 /turf/simulated/wall,
@@ -25254,7 +25537,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "lLn" = (
 /obj/machinery/atmospherics/binary/pump{
 	desc = "Подаёт азот в смеситель для создания дыхательной смеси, которая потом распространяется по станции";
@@ -25441,7 +25724,7 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "lQI" = (
 /obj/structure/chair/stool/bar{
 	icon = 'icons/obj/lighting.dmi';
@@ -25660,12 +25943,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/medical/sleeper)
 "lVP" = (
-/obj/machinery/door_control{
-	id = "paramedic";
-	name = "Garage Door Control";
-	req_access = list(66);
-	pixel_x = 24
-	},
 /obj/effect/decal/warning_stripes/eastsouthwest,
 /obj/machinery/light{
 	dir = 4
@@ -25878,6 +26155,11 @@
 /obj/machinery/recharger,
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
+"mak" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/belt/medical,
+/turf/simulated/floor/plasteel/white,
+/area/medical/sleeper)
 "mal" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/surgery{
@@ -26121,7 +26403,7 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "meY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -26153,7 +26435,7 @@
 	dir = 8;
 	icon_state = "browncorner"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "mgv" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -26214,9 +26496,14 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "mhp" = (
-/mob/living/simple_animal/hostile/winter/reindeer,
+/mob/living/simple_animal/hostile/winter/reindeer{
+	melee_damage_lower = 20;
+	melee_damage_upper = 30;
+	maxHealth = 200;
+	health = 200
+	},
 /turf/simulated/floor/wood/cherry{
 	temperature = 180
 	},
@@ -26260,6 +26547,10 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "lbgarage"
+	},
+/obj/machinery/door_control{
+	id = "lbgarage";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -26395,6 +26686,25 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/fitness)
+"mnE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/medical/medbay2)
 "mnJ" = (
 /obj/machinery/light_switch{
 	pixel_x = -24;
@@ -26666,7 +26976,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "mxn" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -26893,7 +27203,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "mAI" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -26951,6 +27261,14 @@
 	icon_state = "white"
 	},
 /area/assembly/chargebay)
+"mBQ" = (
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "garbage"
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "mCf" = (
 /obj/machinery/light{
 	dir = 1
@@ -26971,7 +27289,7 @@
 	dir = 10;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "mDt" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/rack,
@@ -27056,7 +27374,7 @@
 /obj/structure/alien/weeds,
 /obj/item/organ/internal/liver,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "mHh" = (
 /obj/structure/dresser,
 /turf/simulated/floor/carpet/red,
@@ -27067,7 +27385,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "mHr" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
@@ -27173,7 +27491,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "mJi" = (
 /turf/simulated/floor/plasteel/white,
 /area/medical/biostorage)
@@ -27222,7 +27540,7 @@
 "mJY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "mKl" = (
 /turf/simulated/floor/wood/fancy/birch,
 /area/bridge/checkpoint/south)
@@ -27424,7 +27742,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "mPo" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -28688,7 +29006,7 @@
 /area/bridge)
 "nsy" = (
 /turf/simulated/wall,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "ntn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -28698,7 +29016,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "ntr" = (
 /obj/machinery/door/airlock{
 	id_tag = "PermaBath";
@@ -28716,15 +29034,6 @@
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
-"nuy" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
-	},
-/area/medical/sleeper)
 "nvD" = (
 /turf/simulated/wall,
 /area/maintenance/fore)
@@ -28818,6 +29127,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -28901,7 +29213,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "nAk" = (
 /obj/structure/rack{
 	dir = 8;
@@ -29025,7 +29337,7 @@
 "nCO" = (
 /obj/effect/spawner/random_spawners/fungus_70,
 /turf/simulated/wall,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "nCP" = (
 /obj/structure/chair/sofa,
 /obj/effect/landmark/start/civilian,
@@ -29099,7 +29411,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "nEv" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -29293,7 +29605,7 @@
 "nIw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "nIN" = (
 /obj/item/light/tube{
 	icon_state = "ltube-broken";
@@ -29523,7 +29835,7 @@
 	dir = 10;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "nQu" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -29545,7 +29857,7 @@
 	dir = 4;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "nRn" = (
 /obj/structure/table,
 /obj/item/storage/briefcase{
@@ -29716,7 +30028,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "nTS" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -29792,6 +30104,21 @@
 "nVv" = (
 /turf/simulated/wall,
 /area/quartermaster/sorting)
+"nVD" = (
+/obj/structure/sign/directions/engineering{
+	pixel_y = -10
+	},
+/obj/structure/sign/directions/evac{
+	pixel_y = 4
+	},
+/obj/structure/sign/directions/cargo{
+	pixel_y = -3
+	},
+/obj/structure/sign/directions/science{
+	pixel_y = 11
+	},
+/turf/simulated/wall/r_wall,
+/area/security/lobby)
 "nVR" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/bible,
@@ -29826,7 +30153,7 @@
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "nWp" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -29900,7 +30227,7 @@
 	name = "Storeroom"
 	},
 /turf/simulated/floor/wood,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "nXO" = (
 /obj/structure/closet/cabinet,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
@@ -29985,6 +30312,14 @@
 	icon_state = "darkred"
 	},
 /area/security/securearmory)
+"oab" = (
+/obj/item/flashlight,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/maintcentral)
 "oad" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/rack,
@@ -30102,7 +30437,7 @@
 "ocC" = (
 /obj/machinery/power/smes{
 	charge = 4e+006;
-	output_level = 25000
+	output_level = 20000
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -30197,7 +30532,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "oeb" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced/ice,
@@ -30207,6 +30542,7 @@
 "oev" = (
 /obj/item/light/tube,
 /obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -30334,7 +30670,7 @@
 /obj/item/autopsy_scanner,
 /obj/item/clothing/gloves/color/latex,
 /turf/simulated/floor/wood,
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "ohs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -30362,7 +30698,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "ohL" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -30387,6 +30723,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar/atrium)
+"ohT" = (
+/obj/effect/decal/cleanable/blood/gibs/limb,
+/turf/simulated/floor/wood/cherry{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "oib" = (
 /mob/living/simple_animal/cock/Commandor,
 /turf/simulated/floor/grass,
@@ -30490,7 +30832,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "olo" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -30567,8 +30909,9 @@
 	},
 /obj/structure/rack,
 /obj/random/tool,
+/obj/item/weldingtool,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "onc" = (
 /obj/structure/sign/electricshock,
 /turf/simulated/wall,
@@ -30724,7 +31067,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "oqD" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -30905,7 +31248,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "oub" = (
 /obj/structure/chair{
 	dir = 4
@@ -30960,7 +31303,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "ouH" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -31104,7 +31447,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "oxY" = (
 /turf/simulated/wall/rust,
 /area/maintenance/asmaint3)
@@ -31130,6 +31473,10 @@
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"oyl" = (
+/obj/item/grenade/clusterbuster/honk,
+/turf/simulated/floor/plating,
+/area/toxins/xenobiology)
 "ozb" = (
 /obj/machinery/atmospherics/binary/volume_pump{
 	dir = 1
@@ -31293,7 +31640,7 @@
 "oCJ" = (
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "oDp" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/hooded/wintercoat/miner,
@@ -31342,6 +31689,8 @@
 /area/maintenance/fpmaint)
 "oEz" = (
 /obj/structure/closet/walllocker/emerglocker/north,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -31382,7 +31731,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "oFn" = (
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass,
@@ -31416,7 +31765,7 @@
 	output_dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "oHa" = (
 /obj/structure/table,
 /obj/item/hand_labeler,
@@ -31976,7 +32325,7 @@
 /obj/effect/decal/cleanable/shreds,
 /obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "oSQ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -32183,7 +32532,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "oYz" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
@@ -32647,6 +32996,13 @@
 	icon_state = "neutral"
 	},
 /area/crew_quarters/locker)
+"pjE" = (
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "pjN" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -32758,7 +33114,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "pmA" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -32784,7 +33140,7 @@
 	layer = 3.3
 	},
 /turf/simulated/floor/plating,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "pmP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/walllocker/emerglocker/east,
@@ -32820,6 +33176,15 @@
 	icon_state = "neutral"
 	},
 /area/crew_quarters/kitchen)
+"pnh" = (
+/obj/item/paper{
+	pixel_x = 3;
+	pixel_y = -8
+	},
+/turf/simulated/floor/wood/cherry{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "pni" = (
 /obj/structure/closet/secure_closet/atmos_personal,
 /obj/item/extinguisher/mini,
@@ -32866,7 +33231,7 @@
 	},
 /obj/structure/sign/directions/evac,
 /turf/simulated/wall/mineral/wood/nonmetal,
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "pof" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -32889,7 +33254,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "ppQ" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal{
@@ -32977,6 +33342,9 @@
 /area/engineering/break_room)
 "prs" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/nosmoking_2{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -33304,8 +33672,9 @@
 /turf/simulated/floor/plating,
 /area/medical/research/nhallway)
 "pzL" = (
-/turf/simulated/wall,
-/area/ruin/unpowered/coldcolony_outside)
+/obj/structure/chair/comfy/beige,
+/turf/simulated/floor/plasteel/white,
+/area/medical/sleeper)
 "pzR" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
@@ -33387,7 +33756,7 @@
 /area/crew_quarters/locker)
 "pBE" = (
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "pBM" = (
 /obj/structure/chair{
 	dir = 8
@@ -33400,9 +33769,6 @@
 /turf/simulated/wall/rust,
 /area/crew_quarters/mrchangs)
 "pCj" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
@@ -33414,6 +33780,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -33497,7 +33866,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "pDq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -33707,7 +34076,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
 	},
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "pIZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -34082,7 +34451,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "pRp" = (
 /obj/item/trash/tapetrash,
 /obj/effect/decal/cleanable/dust,
@@ -34232,7 +34601,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "pXq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/bodyscanner{
@@ -34365,7 +34734,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "pZP" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -34465,7 +34834,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "qcr" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -34628,6 +34997,9 @@
 /area/crew_quarters/cabin1)
 "qii" = (
 /obj/effect/baseturf_helper/asteroid,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -35043,7 +35415,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "qql" = (
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 1
@@ -35145,6 +35517,12 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/starboard/east)
+"qrH" = (
+/obj/structure/fence/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "qrN" = (
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
@@ -35400,7 +35778,7 @@
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "qxs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/north,
@@ -35583,12 +35961,23 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/commercial)
 "qAz" = (
-/obj/structure/closet/walllocker/emerglocker/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
+/obj/structure/sign/directions/engineering{
+	pixel_y = -10
 	},
-/area/medical/sleeper)
+/obj/structure/sign/directions/cargo{
+	dir = 1;
+	pixel_y = -3
+	},
+/obj/structure/sign/directions/medical{
+	pixel_y = 4;
+	dir = 1
+	},
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_y = 11
+	},
+/turf/simulated/wall,
+/area/hallway/secondary/entry/lounge)
 "qAD" = (
 /obj/machinery/papershredder,
 /turf/simulated/floor/plasteel{
@@ -35929,7 +36318,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "qIN" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -36282,7 +36671,7 @@
 "qQW" = (
 /obj/machinery/mineral/processing_unit_console,
 /turf/simulated/wall,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "qQX" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -36431,7 +36820,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "qVA" = (
 /obj/structure/sign/electricshock,
 /turf/simulated/wall,
@@ -36829,7 +37218,7 @@
 	dir = 6;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "rdO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -36908,7 +37297,7 @@
 /area/chapel/office)
 "reR" = (
 /turf/simulated/floor/plating,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "reS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -36970,7 +37359,7 @@
 	dir = 1
 	},
 /obj/effect/baseturf_helper/asteroid/snow{
-	baseturf = /turf/simulated/floor/plating/asteroid/snow/atmosphere
+	baseturf = /turf/simulated/floor/plating/asteroid/snow/planet
 	},
 /turf/simulated/floor/plating/asteroid{
 	temperature = 180
@@ -37049,7 +37438,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "rgH" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
@@ -37158,7 +37547,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "rio" = (
 /obj/structure/bed,
 /obj/effect/spawner/random_spawners/syndicate/loot{
@@ -37364,7 +37753,11 @@
 "rmo" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
+"rmp" = (
+/obj/effect/landmark/start/doctor,
+/turf/simulated/floor/plasteel/white,
+/area/medical/sleeper)
 "rmU" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -37551,7 +37944,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "rqG" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -37708,7 +38101,7 @@
 "rtN" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "rtV" = (
 /obj/structure/table,
 /obj/item/storage/box/syringes{
@@ -37811,12 +38204,12 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 8
 	},
-/obj/structure/fans/tiny,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering";
 	req_access = list(32)
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -37879,7 +38272,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "rxz" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -37999,6 +38392,12 @@
 	color = "orange"
 	},
 /area/magistrateoffice)
+"rBz" = (
+/obj/structure/chair/wood,
+/turf/simulated/floor/wood/cherry{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "rBA" = (
 /obj/item/clothing/head/beanie,
 /obj/structure/closet/secure_closet/personal/cabinet,
@@ -38256,8 +38655,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "rIA" = (
-/turf/simulated/floor/plating/asteroid/snow/planet,
-/area/medical/sleeper)
+/obj/machinery/papershredder,
+/turf/simulated/floor/wood/cherry{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "rIP" = (
 /obj/structure/closet/crate/sci,
 /obj/item/stock_parts/matter_bin,
@@ -38406,7 +38808,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "rMD" = (
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor{
@@ -38547,14 +38949,16 @@
 	},
 /area/crew_quarters/kitchen)
 "rQz" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/machinery/status_display{
-	pixel_x = 32
+	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whiteblue"
+/obj/machinery/light{
+	dir = 1
 	},
+/obj/machinery/bodyscanner{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel/white,
 /area/medical/sleeper)
 "rQG" = (
 /turf/simulated/wall/r_wall,
@@ -38736,7 +39140,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "rUz" = (
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Captain's Office"
@@ -39104,7 +39508,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "sga" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -39141,13 +39545,17 @@
 	},
 /area/civilian/barber)
 "shX" = (
-/obj/machinery/door_control{
-	id = "engigarage";
-	req_access = list(32);
-	pixel_x = -9
+/obj/effect/turf_decal/stripes{
+	dir = 8
 	},
-/turf/simulated/wall,
-/area/engineering/break_room)
+/obj/structure/fence/corner{
+	dir = 5
+	},
+/obj/structure/fence/post{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "shZ" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -39160,7 +39568,12 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7"
 	},
-/area/medical/morgue)
+/area/coldcolony/morgue)
+"sig" = (
+/obj/structure/table/reinforced,
+/obj/machinery/defibrillator_mount/loaded,
+/turf/simulated/floor/plasteel/white,
+/area/medical/sleeper)
 "siB" = (
 /obj/structure/closet/secure_closet/medical2,
 /obj/machinery/firealarm{
@@ -39605,7 +40018,7 @@
 /obj/structure/alien/weeds,
 /obj/item/stack/medical/bruise_pack,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "stQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/sleeper{
@@ -39636,7 +40049,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "svk" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -39781,10 +40194,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
-"sxZ" = (
-/obj/structure/flora/grass/green,
-/turf/simulated/floor/plating/asteroid/snow/planet,
-/area/medical/sleeper)
 "syf" = (
 /obj/structure/grille/broken,
 /obj/item/shard{
@@ -39910,11 +40319,11 @@
 "szW" = (
 /obj/effect/decal/snow/sand/edge,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/multi_tile{
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/multi_tile/glass{
 	dir = 1;
 	name = "Residential block"
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -40018,6 +40427,9 @@
 /area/maintenance/fore)
 "sDO" = (
 /obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
 /turf/simulated/floor/carpet/royalblue,
 /area/ntrep)
 "sDU" = (
@@ -40221,7 +40633,7 @@
 /area/maintenance/fsmaint)
 "sHA" = (
 /turf/simulated/wall/rust,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "sHL" = (
 /obj/machinery/door/airlock/public{
 	name = "Docks"
@@ -40236,7 +40648,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "sIh" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -40251,6 +40663,14 @@
 	icon_state = "darkbluecorners"
 	},
 /area/bridge/vip)
+"sIo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel/white,
+/area/medical/sleeper)
 "sIq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -40480,7 +40900,7 @@
 /obj/structure/rack,
 /obj/item/shovel,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "sMT" = (
 /obj/item/reagent_containers/food/snacks/meat/humanoid/human,
 /obj/item/reagent_containers/food/snacks/meat/humanoid/human,
@@ -40897,7 +41317,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "sWC" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -41189,7 +41609,7 @@
 	id = "mining_internal"
 	},
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "ter" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -41235,7 +41655,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "teP" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -41299,7 +41719,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "thA" = (
 /obj/machinery/chem_dispenser/soda,
 /obj/structure/table/wood,
@@ -41593,7 +42013,7 @@
 /obj/structure/alien/weeds/node,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "toS" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -41768,7 +42188,7 @@
 	dir = 1;
 	icon_state = "browncorner"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "ttz" = (
 /turf/simulated/floor/plating,
 /area/crew_quarters/fitness)
@@ -41789,7 +42209,7 @@
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "tuh" = (
 /obj/structure/table,
 /obj/machinery/cell_charger{
@@ -41868,7 +42288,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "tvR" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering";
@@ -42022,7 +42442,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "tyV" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet/orange,
@@ -42466,6 +42886,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
+"tJy" = (
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/wood/cherry{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "tJF" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -42525,6 +42951,7 @@
 	dir = 1;
 	pixel_y = -26
 	},
+/obj/item/flashlight,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -42598,7 +43025,7 @@
 "tNF" = (
 /obj/effect/spawner/random_spawners/fungus_70,
 /turf/simulated/wall,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "tNQ" = (
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
@@ -42645,8 +43072,15 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "tPc" = (
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
 /obj/machinery/light_switch{
-	pixel_x = -24
+	pixel_x = -24;
+	pixel_y = -8
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -42754,7 +43188,7 @@
 	dir = 6;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "tRp" = (
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
@@ -42914,7 +43348,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
 	},
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "tUk" = (
 /obj/machinery/computer/monitor{
 	name = "Command Power Monitoring Console"
@@ -43137,7 +43571,7 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "tYV" = (
 /obj/structure/railing{
 	dir = 1
@@ -43172,8 +43606,7 @@
 	},
 /area/hallway/primary/starboard/east)
 "tZn" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced/ice,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/medical/sleeper)
 "tZp" = (
@@ -43261,13 +43694,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "uaE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table,
-/obj/item/defibrillator/loaded,
-/obj/machinery/light{
-	dir = 8
+/obj/machinery/bodyscanner{
+	dir = 4;
+	pixel_x = -3
 	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/sleeper)
@@ -43329,7 +43761,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "ubp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -43669,6 +44101,10 @@
 	icon_state = "neutral"
 	},
 /area/crew_quarters/locker)
+"ujB" = (
+/mob/living/simple_animal/slime,
+/turf/simulated/floor/plating,
+/area/toxins/xenobiology)
 "ujQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -43771,7 +44207,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "umq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -43805,6 +44241,10 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door_control{
+	pixel_x = -24;
+	id = "rndgarage"
+	},
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "umR" = (
@@ -44048,7 +44488,7 @@
 /obj/structure/fans/tiny,
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/wood,
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "uuI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -44221,7 +44661,9 @@
 /obj/structure/closet/crate/secure/engineering{
 	req_access = list(10)
 	},
-/obj/item/stack/sheet/mineral/uranium/fifty,
+/obj/item/stack/sheet/mineral/uranium{
+	amount = 20
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -44241,7 +44683,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "uyc" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced/ice,
@@ -44740,7 +45182,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "uNN" = (
 /obj/machinery/camera{
 	c_tag = "Arrivals East"
@@ -44770,7 +45212,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "uPc" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -44851,6 +45293,15 @@
 	icon_state = "escape"
 	},
 /area/hallway/secondary/entry/lounge)
+"uQF" = (
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/decal/snow/sand/edge{
+	dir = 10
+	},
+/turf/simulated/floor/plating{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "uQX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -44878,14 +45329,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "uRB" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "browncorner"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "uRC" = (
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
@@ -44961,7 +45412,7 @@
 	dir = 10;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "uTX" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -45338,7 +45789,7 @@
 "vcz" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "vcF" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -45469,7 +45920,7 @@
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate,
 /turf/simulated/floor/wood,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "vfk" = (
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/palebush,
@@ -45859,7 +46310,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "vnn" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/grown/geranium,
@@ -45942,7 +46393,7 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "voF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -45965,7 +46416,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "vpe" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -46058,7 +46509,7 @@
 	dir = 8;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "vqw" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	desc = "Труба ведёт газ на фильтрацию";
@@ -46117,7 +46568,7 @@
 "vrL" = (
 /obj/structure/filingcabinet/chestdrawer/autopsy,
 /turf/simulated/floor/wood,
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "vrN" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/landmark/tiles/burnturf,
@@ -46631,7 +47082,7 @@
 	dir = 5;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "vBc" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -46788,7 +47239,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "vEt" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/camera{
@@ -47059,7 +47510,7 @@
 	welded = 1
 	},
 /turf/simulated/floor/plating,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "vKf" = (
 /obj/effect/landmark/start/cyborg,
 /turf/simulated/floor/plasteel{
@@ -47239,7 +47690,7 @@
 /area/crew_quarters/theatre)
 "vPw" = (
 /turf/simulated/mineral{
-	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere
+	turf_type = /turf/simulated/floor/plating/asteroid/snow/planet
 	},
 /area/ruin/unpowered/coldcolony_outside)
 "vPC" = (
@@ -47262,7 +47713,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "vQg" = (
 /turf/simulated/wall,
 /area/medical/research)
@@ -47542,7 +47993,7 @@
 "vWo" = (
 /obj/structure/reagent_dispensers/beerkeg,
 /turf/simulated/floor/wood,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "vWu" = (
 /obj/structure/closet/secure_closet/magistrate,
 /obj/item/radio/headset/heads/magistrate/alt,
@@ -47551,7 +48002,7 @@
 /area/magistrateoffice)
 "vWC" = (
 /turf/simulated/wall/mineral/wood/nonmetal,
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "vWI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -47574,7 +48025,7 @@
 "vXa" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/simulated/mineral{
-	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere
+	turf_type = /turf/simulated/floor/plating/asteroid/snow/planet
 	},
 /area/ruin/unpowered/coldcolony_outside)
 "vXd" = (
@@ -47620,7 +48071,7 @@
 "vXx" = (
 /obj/effect/spawner/random_spawners/fungus_70,
 /turf/simulated/wall,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "vXD" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -48260,7 +48711,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "wkY" = (
 /obj/machinery/smartfridge,
 /obj/machinery/door/window/eastleft{
@@ -48308,7 +48759,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "wlM" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -48550,7 +49001,7 @@
 "wtv" = (
 /obj/machinery/optable,
 /turf/simulated/floor/wood,
-/area/medical/morgue)
+/area/coldcolony/morgue)
 "wtG" = (
 /obj/structure/sign/poster/random{
 	pixel_y = 32
@@ -48563,7 +49014,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "wtK" = (
 /obj/effect/spawner/lootdrop/officetoys,
 /obj/structure/table,
@@ -48613,7 +49064,7 @@
 /obj/machinery/chem_dispenser/beer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "wvb" = (
 /obj/machinery/computer/monitor,
 /obj/structure/cable{
@@ -48654,6 +49105,13 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
+"wwA" = (
+/obj/structure/window/full/reinforced/ice,
+/obj/structure/grille,
+/turf/simulated/floor/plating{
+	temperature = 180
+	},
+/area/ruin/unpowered)
 "wwE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -48802,7 +49260,7 @@
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
+/area/coldcolony/ruin/mining_post1)
 "wAf" = (
 /turf/simulated/wall,
 /area/crew_quarters/trading)
@@ -48998,7 +49456,7 @@
 	dir = 5;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "wFw" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/cable{
@@ -49953,7 +50411,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "xcj" = (
 /obj/machinery/atm{
 	pixel_x = 32
@@ -50036,7 +50494,7 @@
 	id = "mining_internal"
 	},
 /turf/simulated/floor/plasteel,
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "xeA" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/portable_atmospherics/scrubber/huge,
@@ -50163,9 +50621,7 @@
 /area/medical/surgery/south)
 "xiq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
+/obj/structure/closet/walllocker/emerglocker/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -50532,9 +50988,6 @@
 	output_level = 30000
 	},
 /obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/cable{
 	icon_state = "0-4"
 	},
 /obj/machinery/light/small{
@@ -50834,7 +51287,7 @@
 	dir = 9;
 	icon_state = "brown"
 	},
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "xvE" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -50905,7 +51358,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "xwT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -51001,6 +51454,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/mrchangs)
+"xzt" = (
+/obj/machinery/space_heater,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/unpowered)
 "xzu" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -51403,7 +51860,7 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/mine/production)
+/area/coldcolony/ruin/ore_production)
 "xHg" = (
 /obj/structure/closet/crate,
 /obj/item/stack/packageWrap,
@@ -51902,6 +52359,13 @@
 	icon_state = "whitehall"
 	},
 /area/crew_quarters/sleep)
+"xTg" = (
+/obj/structure/wooden_sign{
+	name = "DANGER!";
+	desc = "BEARS!"
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "xTh" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -52008,7 +52472,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/mine/living_quarters)
+/area/coldcolony/ruin/miningbar)
 "xVq" = (
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
@@ -52202,7 +52666,7 @@
 "xZQ" = (
 /obj/item/mining_scanner,
 /turf/simulated/floor/plasteel,
-/area/mine/eva)
+/area/coldcolony/ruin/miningeva)
 "xZS" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -61982,7 +62446,7 @@ vPw
 aKh
 vlt
 tNe
-tNe
+xzt
 sMT
 tNe
 tNe
@@ -87686,7 +88150,7 @@ vpe
 soN
 xTh
 cvS
-raI
+mBQ
 sjv
 eEN
 cof
@@ -88368,7 +88832,7 @@ kyF
 rSb
 abI
 chE
-qQW
+vcz
 uxX
 ajw
 pBE
@@ -88614,7 +89078,7 @@ srs
 nHW
 hjM
 oHE
-nxo
+oSI
 rAA
 rAA
 sYU
@@ -88670,7 +89134,7 @@ kyF
 abG
 nsy
 oGV
-vcz
+qQW
 vAg
 aAC
 gII
@@ -89194,7 +89658,7 @@ nvD
 nvD
 kKm
 nvD
-nvD
+jAA
 lkO
 sHt
 occ
@@ -89205,7 +89669,7 @@ vwx
 vwx
 vwx
 vwx
-vwx
+cof
 uDV
 fSL
 nNd
@@ -89496,7 +89960,7 @@ nvD
 duM
 xWP
 voH
-nvD
+jAA
 jWK
 czc
 czc
@@ -89507,7 +89971,7 @@ wjk
 nQu
 nxL
 vsj
-vwx
+cof
 vwx
 vwx
 vwx
@@ -90396,7 +90860,7 @@ kLN
 xZg
 sWC
 dag
-nvD
+jAA
 vlm
 evC
 iUR
@@ -90698,7 +91162,7 @@ pCu
 hbE
 sWC
 scG
-nvD
+jAA
 uJj
 tXD
 ryA
@@ -91610,7 +92074,7 @@ lMC
 pTC
 rnA
 dKh
-gex
+aUA
 vvD
 kat
 rDW
@@ -91912,7 +92376,7 @@ xNX
 eSn
 kKH
 dwv
-gex
+aUA
 crG
 nVn
 vWI
@@ -94107,7 +94571,7 @@ rSb
 hlV
 aQM
 puj
-aQM
+ujB
 tIr
 aQM
 aQM
@@ -95012,7 +95476,7 @@ kyF
 rtA
 bjs
 puj
-aQM
+ujB
 bLk
 pCV
 fPg
@@ -96131,8 +96595,8 @@ rSb
 rSb
 rSb
 rSb
-rSb
-rSb
+qrH
+vHn
 iqz
 iqz
 kuC
@@ -96220,7 +96684,7 @@ pQk
 xFJ
 whV
 aQM
-aQM
+oyl
 otK
 kwO
 olf
@@ -96433,7 +96897,7 @@ rSb
 xcr
 rSb
 rSb
-rSb
+tTj
 rSb
 rSb
 iqz
@@ -96474,7 +96938,7 @@ rSb
 rzd
 mzh
 mzh
-mzh
+cJB
 mzh
 mzh
 rSb
@@ -96735,7 +97199,7 @@ xcr
 rSb
 rSb
 xcr
-rSb
+tTj
 rSb
 rSb
 rSb
@@ -96788,7 +97252,7 @@ rSb
 twC
 ehs
 miG
-hZj
+twC
 twC
 twC
 twC
@@ -97037,7 +97501,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+tTj
 rSb
 rSb
 rSb
@@ -97171,7 +97635,7 @@ mzv
 puF
 lXf
 nvQ
-rSb
+klG
 rSb
 rSb
 rSb
@@ -97339,7 +97803,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+kgc
 rSb
 rSb
 rSb
@@ -97641,8 +98105,8 @@ xcr
 rSb
 rSb
 xcr
-rSb
-rSb
+tTj
+xTg
 rSb
 rSb
 rSb
@@ -97697,7 +98161,7 @@ kyF
 rSb
 rSb
 rSb
-twC
+egC
 tEb
 iUK
 wrr
@@ -97943,7 +98407,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+tTj
 rSb
 rSb
 rSb
@@ -98245,7 +98709,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+tTj
 rSb
 rSb
 rSb
@@ -98547,7 +99011,7 @@ rSb
 rSb
 xcr
 rSb
-rSb
+tTj
 rSb
 rSb
 xcr
@@ -98849,7 +99313,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+tTj
 rSb
 rSb
 rSb
@@ -99258,10 +99722,10 @@ uhH
 uhH
 iBA
 pwt
-rSb
-rSb
-rSb
-dkR
+vHn
+vHn
+dch
+hZj
 jJU
 jJU
 jJU
@@ -100119,7 +100583,7 @@ rSb
 jpa
 kyF
 rSb
-kAE
+vQg
 eqe
 jmv
 gAz
@@ -100408,7 +100872,7 @@ tQF
 eNv
 eNv
 eNv
-pzL
+eNv
 xcr
 eNv
 eNv
@@ -101012,10 +101476,10 @@ goF
 goF
 wXp
 aSS
-vfn
+inF
 tPc
 xiq
-wXp
+goF
 aSS
 aSS
 aSS
@@ -101314,8 +101778,8 @@ hFn
 agn
 eXu
 rsz
-nuy
-rQz
+rsz
+bix
 rsz
 eXu
 nYv
@@ -101616,9 +102080,9 @@ hFn
 kCs
 jVi
 pRS
-eNv
-oYW
-oYW
+knQ
+hFn
+knQ
 fEs
 hFn
 xSc
@@ -101918,10 +102382,10 @@ hUt
 ybQ
 eNv
 eNv
-eNv
-rIA
-eNv
-eNv
+rQz
+hFn
+rmp
+sig
 ksm
 gOL
 eNv
@@ -102220,11 +102684,11 @@ sbp
 vfn
 tuh
 tZn
-fcC
-rIA
-sxZ
-eNv
-qAz
+dSx
+hFn
+knQ
+knQ
+hFn
 xSc
 dPq
 abG
@@ -102522,11 +102986,11 @@ hFn
 tuu
 oFP
 tZn
-rIA
-rIA
-fcC
-eNv
-fVB
+pzL
+hFn
+knQ
+knQ
+hFn
 kCs
 dPq
 mUA
@@ -102824,10 +103288,10 @@ hFn
 wJX
 wSQ
 tZn
-sxZ
-eNv
-eNv
-eNv
+hqi
+hFn
+dkB
+mak
 jgG
 bTX
 eNv
@@ -103125,10 +103589,10 @@ hPe
 duV
 dMx
 eNv
-eNv
-eNv
 rLW
-cJB
+fVB
+hFn
+ouk
 uaE
 gwb
 lXt
@@ -103397,11 +103861,11 @@ lrK
 blj
 kZa
 jfq
-vaD
+ecC
 bWt
 dFE
 bWt
-bWt
+nVD
 lQI
 rSb
 jpa
@@ -103420,7 +103884,7 @@ vny
 dWP
 ijR
 vJl
-enp
+mnE
 igP
 eNv
 cVt
@@ -103428,7 +103892,7 @@ heI
 icZ
 wQW
 ndr
-wQW
+sIo
 jyu
 eTg
 eXJ
@@ -103702,7 +104166,7 @@ fLZ
 vaD
 rfE
 kzF
-dch
+bWt
 tly
 rSb
 rSb
@@ -104697,7 +105161,7 @@ rSb
 rSb
 rSb
 rSb
-shX
+kJj
 hxB
 bbm
 bhE
@@ -106217,7 +106681,7 @@ rSb
 xcr
 rSb
 rSb
-rSb
+kgc
 rSb
 rSb
 dkR
@@ -106385,7 +106849,7 @@ kzc
 lgT
 fVF
 lta
-kgc
+lgT
 lgI
 uIZ
 cnG
@@ -106519,7 +106983,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+tTj
 wVa
 rSb
 rSb
@@ -106806,7 +107270,7 @@ rSb
 rSb
 nUD
 rSb
-rSb
+kAE
 gsz
 olz
 olz
@@ -106821,7 +107285,7 @@ aRq
 aRq
 aRq
 aRq
-aRq
+shX
 aRq
 aRq
 aRq
@@ -108298,7 +108762,7 @@ xcr
 jpa
 kyF
 rPN
-iUf
+gFd
 bxb
 mYd
 gFd
@@ -108599,7 +109063,7 @@ qQX
 qQX
 sGS
 kyF
-gFd
+qAz
 dnL
 oIe
 bGK
@@ -109438,7 +109902,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+tTj
 rSb
 rSb
 rSb
@@ -109740,7 +110204,7 @@ rSb
 rSb
 xcr
 rSb
-rSb
+tTj
 rSb
 rSb
 rSb
@@ -110042,7 +110506,7 @@ rSb
 rSb
 xcr
 rSb
-rSb
+tTj
 rSb
 rSb
 xcr
@@ -110344,7 +110808,7 @@ rSb
 rSb
 rSb
 hBQ
-rSb
+tTj
 rSb
 rSb
 rSb
@@ -110646,7 +111110,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+kgc
 rSb
 rSb
 rSb
@@ -110948,7 +111412,7 @@ rSb
 xcr
 rSb
 rSb
-rSb
+tTj
 rSb
 xcr
 rSb
@@ -111250,7 +111714,7 @@ rSb
 rSb
 rSb
 xcr
-rSb
+tTj
 rSb
 rSb
 rSb
@@ -111552,7 +112016,7 @@ rSb
 abG
 rSb
 rSb
-rSb
+tTj
 rSb
 rSb
 rSb
@@ -111854,7 +112318,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+tTj
 rSb
 rSb
 rSb
@@ -114289,7 +114753,7 @@ kbj
 arK
 ggd
 drJ
-afx
+iUf
 rSb
 wMY
 wVa
@@ -114591,7 +115055,7 @@ kbj
 arK
 ggd
 drJ
-fEi
+voL
 rSb
 tNS
 rSb
@@ -114884,7 +115348,7 @@ pdy
 bKy
 uRC
 qzu
-udZ
+loL
 jgl
 joS
 jjC
@@ -118219,10 +118683,10 @@ pjc
 dOU
 qAX
 icb
-rSb
-rSb
-rSb
-wQq
+vHn
+dch
+vHn
+kNO
 rSb
 rSb
 rSb
@@ -118519,7 +118983,7 @@ nLc
 aUo
 pjc
 gZt
-gZt
+oab
 icb
 rSb
 rSb
@@ -119117,7 +119581,7 @@ oaw
 pjc
 fwP
 fwP
-fwP
+dpQ
 fwP
 fwP
 tDC
@@ -120056,7 +120520,7 @@ dmJ
 nPT
 dmJ
 dpe
-rSb
+cnB
 rSb
 rSb
 rSb
@@ -122127,7 +122591,7 @@ uYL
 uUq
 gRS
 gRS
-gRS
+fEi
 kBk
 emZ
 dzI
@@ -123570,7 +124034,7 @@ nPX
 kwb
 wSm
 lHv
-kwb
+bPa
 kwb
 spX
 kwb
@@ -123873,7 +124337,7 @@ piX
 piX
 lHv
 vCF
-kwb
+rBz
 spX
 kwb
 kwb
@@ -124174,7 +124638,7 @@ bhK
 kwb
 xKl
 lHv
-kwb
+ohT
 piX
 spX
 kwb
@@ -124470,7 +124934,7 @@ rSb
 rSb
 lHv
 kwb
-kwb
+bhK
 uYk
 kwb
 kwb
@@ -124478,7 +124942,7 @@ ild
 lHv
 piX
 kwb
-duc
+kns
 bhK
 piX
 lCC
@@ -125076,7 +125540,7 @@ lHv
 mcw
 mul
 kwb
-piX
+itH
 kwb
 sZY
 lHv
@@ -128095,7 +128559,7 @@ rSb
 rSb
 lHv
 kwb
-piX
+itH
 rKQ
 apx
 kwb
@@ -128408,7 +128872,7 @@ ktp
 rSb
 lHv
 unZ
-piX
+jnw
 piX
 kwb
 rvt
@@ -128711,7 +129175,7 @@ gNA
 unl
 kwb
 vCF
-duc
+fEl
 kwb
 lHv
 rSb
@@ -130217,7 +130681,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+jOo
 rSb
 rSb
 rSb
@@ -130513,17 +130977,17 @@ rSb
 rSb
 rSb
 rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
+lHv
+lHv
+lHv
+lHv
+kan
+lHv
+dSK
+lHv
+lHv
+lHv
+lHv
 rSb
 rSb
 abG
@@ -130815,17 +131279,17 @@ rSb
 rSb
 rSb
 rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
+lHv
+bhK
+kwb
+bvS
+kwb
+kwb
+jtl
+jtl
+jtl
+jtl
+lHv
 rSb
 rSb
 rSb
@@ -131117,17 +131581,17 @@ rSb
 rSb
 rSb
 rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
+wwA
+kwb
+kns
+kwb
+bhK
+pnh
+xIP
+jtl
+clf
+fGW
+lHv
 rSb
 xcr
 rSb
@@ -131419,17 +131883,17 @@ rSb
 rSb
 rSb
 rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
+wwA
+kwb
+bhK
+ppl
+eMo
+jCG
+eMo
+ePA
+pjE
+fGW
+lHv
 rSb
 rSb
 xcr
@@ -131721,18 +132185,18 @@ rSb
 rSb
 rSb
 rSb
-rSb
-xcr
-rSb
-rSb
-hBQ
-hBQ
-rSb
-rSb
-rSb
-rSb
-xcr
-rSb
+lHv
+kwb
+kwb
+kwb
+kwb
+pdA
+kwb
+uYk
+gET
+jtl
+uQF
+lWG
 rSb
 rSb
 rSb
@@ -132023,18 +132487,18 @@ abG
 rSb
 qBi
 rSb
-rSb
-rSb
-xcr
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
+lHv
+lHv
+kan
+lHv
+lHv
+lHv
+lHv
+lHv
+clf
+jtl
+eFo
+lWG
 hBQ
 rSb
 rSb
@@ -132324,19 +132788,19 @@ rSb
 rSb
 rSb
 rSb
-xcr
 rSb
-rSb
-rSb
-rSb
-xcr
-rSb
-xOz
-rSb
-rSb
-abG
-rSb
-rSb
+lHv
+tJy
+kwb
+xIP
+kwb
+kwb
+kwb
+ppl
+jtl
+jtl
+kPU
+lWG
 rSb
 rSb
 rSb
@@ -132627,18 +133091,18 @@ xcr
 rSb
 rSb
 rSb
-rSb
-hBQ
-rSb
-rSb
-rSb
-rSb
-rSb
-xcr
-abG
-rSb
-rSb
-xcr
+wwA
+kwb
+bhK
+kwb
+kwb
+kwb
+ePA
+jtl
+bQS
+jtl
+kvq
+lWG
 rSb
 hBQ
 rSb
@@ -132929,18 +133393,18 @@ rSb
 xcr
 abG
 rSb
+wwA
+kwb
+uYk
+kwb
+kwb
+bhK
+vCF
+jtl
+cuu
+cPX
+lHv
 rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-pOc
 rSb
 rSb
 rSb
@@ -133231,17 +133695,17 @@ abG
 rSb
 rSb
 rSb
-xcr
-rSb
-hBQ
-rSb
-abG
-rSb
-rSb
-xcr
-rSb
-rSb
-rSb
+lHv
+gZm
+rIA
+kwb
+eMo
+kwb
+kwb
+jtl
+pjE
+jtl
+lHv
 rSb
 rSb
 rSb
@@ -133533,17 +133997,17 @@ rSb
 rSb
 rSb
 rSb
-pOc
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
+lHv
+lHv
+lHv
+lHv
+lHv
+lHv
+lHv
+lHv
+lHv
+lHv
+lHv
 rSb
 rSb
 rSb
