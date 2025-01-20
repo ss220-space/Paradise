@@ -458,6 +458,12 @@ to destroy them and players will be able to make replacements.
 		board_name = "Freezer"
 		to_chat(user, span_notice("You set the board to cooling."))
 
+/obj/item/circuitboard/cell_charger
+	board_name = "Cell Recharger"
+	build_path = /obj/machinery/cell_charger
+	board_type = "machine"
+	origin_tech = "powerstorage=3;materials=2"
+	req_components = list(/obj/item/stock_parts/capacitor = 1)
 
 /obj/item/circuitboard/recharger
 	board_name = "Recharger"
