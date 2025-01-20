@@ -15,23 +15,30 @@
 
 	var/output = {"
 <body onload='selectTextField(); updateSearch();'>
-<div id='main'>
 <style>
 table {
     table-layout: fixed; /* Фиксирует ширину колонок */
     width: 100%; /* Заставляет таблицу занимать всю доступную ширину */
     border-collapse: collapse;
+	max-width: 100%;
 }
+
 #main {
 	overflow:hidden;
+	max-width: 600px;
 }
 
 td, th {
     overflow: hidden; /* Скрывает содержимое, выходящее за пределы */
 	white-space: nowrap; /* Запрещает перенос текста */
+	margin: 5px;
+	text-align:center;
 }
 
+
+
 </style>
+<div id='main'>
 <table id='searchable'>
 <colgroup>
     <col style='width: 20%;'>
@@ -40,8 +47,8 @@ td, th {
 </colgroup>
 <thead>
 <tr class='title'>
-<th slyle='text-align:right;'>CKEY <a class='small' href='byond://?src=[UID()];editrights=add'>\[+\]</a></th>
-<th text-align:center;>RANK</th>
+<th>CKEY <a class='small' href='byond://?src=[UID()];editrights=add'>\[+\]</a></th>
+<th>RANK</th>
 <th>PERMISSIONS</th>
 </tr>
 </thead>
@@ -55,9 +62,9 @@ td, th {
 		var/rights = rights2text(D.rights," ")
 		if(!rights)	rights = "*none*"
 		output += {"<tr>
-<td >[adm_ckey] <a class='small' href='byond://?src=[UID()];editrights=remove;ckey=[adm_ckey]'>\[-\]</a></td>
-<td ><a href='byond://?src=[UID()];editrights=rank;ckey=[adm_ckey]'>[rank]</a></td>
-<td ><a class='small' href='byond://?src=[UID()];editrights=permissions;ckey=[adm_ckey]'>[rights]</a></td>
+<td style='min-width: 20%;'>[adm_ckey] <a class='small' href='byond://?src=[UID()];editrights=remove;ckey=[adm_ckey]'>\[-\]</a></td>
+<td slyle='min-width: 20%;'><a href='byond://?src=[UID()];editrights=rank;ckey=[adm_ckey]'>[rank]</a></td>
+<td style='min-width: 60%;'><a class='small' href='byond://?src=[UID()];editrights=permissions;ckey=[adm_ckey]'>[rights]</a></td>
 </tr>"}
 
 	output += {"
