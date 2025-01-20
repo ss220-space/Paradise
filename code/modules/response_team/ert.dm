@@ -106,8 +106,6 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		if(!ert_prefs.len)
 			break
 		var/mob/user = pick(ert_prefs)
-		if(spawn_index > GLOB.emergencyresponseteamspawn.len)
-			break
 		if(!GLOB.active_team.get_slot_list().len)
 			break
 		var/gender_pref = ert_prefs[user]["gender"]
