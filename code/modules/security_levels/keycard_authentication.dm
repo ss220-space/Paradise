@@ -200,8 +200,8 @@
 				if(check_rights(R_EVENT, 0, C.mob))
 					fullmin_count++
 			if(fullmin_count)
-				addtimer(CALLBACK(src, PROC_REF(remind_admins), ert_reason, event_triggered_by), 5 MINUTES)
-				GLOB.ert_request_answered = TRUE
+				addtimer(CALLBACK(src, PROC_REF(remind_admins), ert_reason, event_triggered_by), 15 MINUTES)
+				GLOB.ert_request_answered = FALSE
 				ERT_Announce(ert_reason , event_triggered_by, 0)
 				ert_reason = null
 				SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
@@ -214,11 +214,11 @@
 					if(E.type in excludeevents)
 						return
 				trigger_armed_response_team(new /datum/response_team/amber) // No admins? No problem. Automatically send a code amber ERT.
+				GLOB.ert_request_answered = TRUE
 
 
 /obj/machinery/keycard_auth/proc/remind_admins(old_reason, event_triggered_by)
 	if(GLOB.ert_request_answered)
-		GLOB.ert_request_answered = FALSE // For ERT requests that may come later
 		return
 	ERT_Announce(old_reason, event_triggered_by, repeat_warning = TRUE)
 
