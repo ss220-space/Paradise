@@ -902,35 +902,35 @@ Returns 1 if the chain up to the area contains the given typepath
 /proc/parse_zone(zone)
 	switch(zone)
 		if(BODY_ZONE_HEAD)
-			return "head"
+			return "голова"
 		if(BODY_ZONE_CHEST)
-			return "chest"
+			return "грудь"
 		if(BODY_ZONE_L_ARM)
-			return "left arm"
+			return "левая рука"
 		if(BODY_ZONE_R_ARM)
-			return "right arm"
+			return "правая рука"
 		if(BODY_ZONE_L_LEG)
-			return "left leg"
+			return "левая нога"
 		if(BODY_ZONE_R_LEG)
-			return "right leg"
+			return "правая нога"
 		if(BODY_ZONE_TAIL)
-			return "tail"
+			return "хвост"
 		if(BODY_ZONE_WING)
-			return "wings"
+			return "крылья"
 		if(BODY_ZONE_PRECISE_EYES)
-			return "eyes"
+			return "глаза"
 		if(BODY_ZONE_PRECISE_MOUTH)
-			return "mouth"
+			return "рот"
 		if(BODY_ZONE_PRECISE_GROIN)
-			return "groin"
+			return "живот"
 		if(BODY_ZONE_PRECISE_L_HAND)
-			return "left hand"
+			return "левая ладонь"
 		if(BODY_ZONE_PRECISE_R_HAND)
-			return "right hand"
+			return "правая ладонь"
 		if(BODY_ZONE_PRECISE_L_FOOT)
-			return "left foot"
+			return "левая ступня"
 		if(BODY_ZONE_PRECISE_R_FOOT)
-			return "right foot"
+			return "правая ступня"
 		else
 			stack_trace("Wrong zone input.")
 

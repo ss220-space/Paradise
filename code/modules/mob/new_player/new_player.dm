@@ -138,6 +138,17 @@
 	if(href_list["sound_options"])
 		client.volume_mixer()
 
+	if(href_list["poll_panel"])
+		handle_player_polling()
+
+	if(href_list["viewpoll"])
+		var/datum/poll_question/poll = locate(href_list["viewpoll"]) in GLOB.active_polls
+		poll_player(poll)
+
+	if(href_list["votepollref"])
+		var/datum/poll_question/poll = locate(href_list["votepollref"]) in GLOB.active_polls
+		vote_on_poll_handler(poll, href_list)
+
 	if(href_list["refresh"])
 		src << browse(null, "window=playersetup") //closes the player setup window
 

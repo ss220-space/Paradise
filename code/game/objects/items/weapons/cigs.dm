@@ -234,7 +234,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 
 	lit = TRUE
-	attack_verb = list("burnt", "singed")
+	attack_verb = list("подпалил", "опалил")
 	hitsound = 'sound/items/welder.ogg'
 	damtype = FIRE
 	force = 4

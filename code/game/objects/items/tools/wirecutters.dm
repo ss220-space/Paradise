@@ -14,7 +14,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=80)
 	origin_tech = "materials=1;engineering=1"
-	attack_verb = list("pinched", "nipped")
+	attack_verb = list("ущипнул", "тяпнул")
 	hitsound = 'sound/items/wirecutter.ogg'
 	usesound = 'sound/items/wirecutter.ogg'
 	drop_sound = 'sound/items/handling/wirecutter_drop.ogg'
