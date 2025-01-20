@@ -113,9 +113,11 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		var/gender_pref = ert_prefs[user]["gender"]
 		var/role_pref = ert_prefs[user]["roles"]
 		if(!user || !user.client)
+			ert_prefs -= user
 			continue
 		if(!gender_pref || !role_pref)
 			// Player was afk and did not select
+			ert_prefs -= user
 			continue
 		for(var/role in role_pref)
 			if(GLOB.active_team.check_slot_available(role))
