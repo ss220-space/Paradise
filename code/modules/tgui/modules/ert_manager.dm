@@ -69,6 +69,9 @@
 		if("set_cyb")
 			cyborg_slots = text2num(params["set_cyb"])
 		if("dispatch_ert")
+			if(GLOB.send_emergency_team)
+				to_chat(usr, span_warning("Центральное командование уже направило группу быстрого реагирования!"))
+				return
 			var/datum/response_team/D
 			switch(ert_type)
 				if("Amber")
@@ -80,6 +83,7 @@
 				else
 					to_chat(usr, span_userdanger("Неверный тип ОБР."))
 					return
+			GLOB.send_emergency_team = TRUE
 			GLOB.ert_request_answered = TRUE
 			var/slots_list = list()
 			if(commander_slots > 0)

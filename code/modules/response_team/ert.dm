@@ -35,6 +35,10 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		to_chat(usr, span_warning("Раунд еще не начался!"))
 		return
 
+	if(GLOB.send_emergency_team)
+		to_chat(usr, span_warning("Центральное командование уже направило группу быстрого реагирования!"))
+		return
+
 	var/datum/ui_module/ert_manager/E = new()
 	E.ui_interact(usr)
 
