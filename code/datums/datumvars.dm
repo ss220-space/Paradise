@@ -564,7 +564,7 @@
 	else if(href_list["matrix_tester"])
 		var/atom/atom = locateUID(href_list["matrix_tester"])
 		if(!istype(atom))
-			to_chat(usr, "Это можно использовать только для экземпляров типов /atom", confidential=TRUE)
+			to_chat(usr, "Это можно использовать только для экземпляров типов /atom", confidential = TRUE)
 			return
 		usr?.client.open_matrix_tester(atom)
 
