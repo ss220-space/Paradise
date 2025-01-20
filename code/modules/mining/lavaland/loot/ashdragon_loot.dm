@@ -41,7 +41,7 @@
 	embed_chance = 25
 	embedded_ignore_throwspeed_threshold = TRUE
 	hitsound = 'sound/effects/ghost2.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил")
 	var/summon_cooldown = 0
 	var/list/mob/dead/observer/spirits
 

@@ -63,3 +63,14 @@ GLOBAL_VAR_INIT(pacifism_after_gt, FALSE)
 
 GLOBAL_VAR_INIT(communications_blackout, FALSE)
 
+///All currently running polls held as datums
+GLOBAL_LIST_EMPTY(polls)
+GLOBAL_PROTECT(polls)
+///Active polls
+GLOBAL_LIST_EMPTY(active_polls)
+GLOBAL_PROTECT(active_polls)
+
+
+///All poll option datums of running polls
+GLOBAL_LIST_EMPTY(poll_options)
+GLOBAL_PROTECT(poll_options)

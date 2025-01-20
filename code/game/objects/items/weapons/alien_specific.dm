@@ -14,7 +14,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	w_class_on = WEIGHT_CLASS_SMALL
-	attack_verb = list("attacked", "slashed", "gored", "sliced", "torn", "ripped", "butchered", "cut")
+	attack_verb = list("атаковал", "полоснул", "пронзил", "поранил", "порезал")
 	attack_verb_on = list()
 
 //Bottles for borg liquid squirters. PSSH PSSH

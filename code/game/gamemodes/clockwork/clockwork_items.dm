@@ -75,7 +75,7 @@
 		to_chat(user, "<span class='notice'>You disguise your tool as some little toy.</span>")
 		playsound(user, 'sound/magic/cult_spell.ogg', 15, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		plushy = pick(plush_colors)
-		attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
+		attack_verb = list("тыкнул", "ударил", "шлёпнул")
 		enchant_type = CASTING_SPELL
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 
@@ -233,7 +233,7 @@
 	sharp = TRUE
 	embed_chance = 70
 	embedded_ignore_throwspeed_threshold = TRUE
-	attack_verb = list("stabbed", "poked", "slashed")
+	attack_verb = list("уколол", "ткнул", "полоснул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_HUGE
 	needs_permit = TRUE
@@ -480,7 +480,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 10
 	sharp = TRUE
-	attack_verb = list("lunged at", "stabbed")
+	attack_verb = list("полоснул", "уколол")
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/swordsman = FALSE
 
@@ -585,7 +585,7 @@
 	throwforce = 10
 	throw_speed = 1
 	throw_range = 3
-	attack_verb = list("bumped", "prodded", "shoved", "bashed")
+	attack_verb = list("стукнул", "толкнул", "долбанул", "ударил")
 	hitsound = 'sound/weapons/smash.ogg'
 	block_chance = 30
 

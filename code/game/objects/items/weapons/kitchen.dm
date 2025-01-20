@@ -29,7 +29,7 @@
 	throw_speed = 3
 	throw_range = 5
 	flags = CONDUCT
-	attack_verb = list("attacked", "stabbed", "poked")
+	attack_verb = list("атаковал", "уколол", "ткнул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	sharp = 0
@@ -101,25 +101,25 @@
 	name = "spoon"
 	desc = "It's a spoon. You can see your own upside-down face in it."
 	icon_state = "spoon"
-	attack_verb = list("attacked", "poked")
+	attack_verb = list("атаковал", "ткнул")
 
 /obj/item/kitchen/utensil/pspoon
 	name = "plastic spoon"
 	desc = "It's a plastic spoon. How dull."
 	icon_state = "pspoon"
-	attack_verb = list("attacked", "poked")
+	attack_verb = list("атаковал", "ткнул")
 
 /obj/item/kitchen/utensil/spork
 	name = "spork"
 	desc = "It's a spork. Marvel at its innovative design."
 	icon_state = "spork"
-	attack_verb = list("attacked", "sporked")
+	attack_verb = list("атаковал", "ткнул")
 
 /obj/item/kitchen/utensil/pspork
 	name = "plastic spork"
 	desc = "It's a plastic spork. It's the fork side of the spoon!"
 	icon_state = "pspork"
-	attack_verb = list("attacked", "sporked")
+	attack_verb = list("атаковал", "ткнул")
 
 /*
  * Knives
@@ -138,7 +138,7 @@
 	throw_speed = 3
 	throw_range = 6
 	materials = list(MAT_METAL=12000)
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
 	sharp = TRUE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	embed_chance = 45
@@ -232,7 +232,7 @@
 	flags = CONDUCT
 	force = 15
 	throwforce = 8
-	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/kitchen/knife/butcher/meatcleaver
@@ -251,7 +251,7 @@
 	force = 20
 	throwforce = 20
 	origin_tech = "materials=3;combat=4"
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
+	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
 	bayonet_suitable = TRUE
 	embed_chance = 90
 
@@ -306,7 +306,7 @@
 	throwforce = 12 //fuck git
 	materials = list()
 	origin_tech = "biotech=3;combat=2"
-	attack_verb = list("shanked", "shivved")
+	attack_verb = list("порезал", "уколол")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	pickup_sound = 'sound/items/handling/bone_pickup.ogg'
 	drop_sound = 'sound/items/handling/bone_drop.ogg'
@@ -319,7 +319,7 @@
 	force = 7
 	throwforce = 8
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
-	attack_verb = list("shanked", "shivved")
+	attack_verb = list("порезал", "уколол")
 	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
 	pickup_sound = 'sound/items/handling/bone_pickup.ogg'
 	drop_sound = 'sound/items/handling/bone_drop.ogg'
@@ -359,7 +359,7 @@
 	throw_speed = 3
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+	attack_verb = list("ударил", "огрел")
 
 /* Trays moved to /obj/item/storage/bag */
 
@@ -376,7 +376,7 @@
 	throw_speed = 3
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
+	attack_verb = list("ударил")
 
 /obj/item/kitchen/mould/bear
 	name = "bear-shaped candy mould"
@@ -430,7 +430,7 @@
 	throw_speed = 3
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("rolled", "cracked", "battered", "thrashed")
+	attack_verb = list("закатил", "треснул")
 
 
 
@@ -446,4 +446,4 @@
 	throw_speed = 3
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("bashed", "slashed", "pricked", "thrashed")
+	attack_verb = list("ударил", "полоснул", "уколол")

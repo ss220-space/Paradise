@@ -266,6 +266,11 @@
 	does_emissive = TRUE
 	blocks_emissive = FALSE
 
+/obj/structure/sign/bathhouse
+	name = "\improper bathhouse sign"
+	desc = "Старая но рабочая табличка. Здесь изображён банный инвентарь."
+	icon_state = "banya"
+
 /obj/structure/sign/science
 	name = "\improper SCIENCE!"
 	desc = "A warning sign which reads 'SCIENCE!'"

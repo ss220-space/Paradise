@@ -293,7 +293,7 @@ BLIND     // can't see anything
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
 	slot_flags = ITEM_SLOT_GLOVES
-	attack_verb = list("challenged")
+	attack_verb = list("на дуэль вызвал")
 	clothing_flags = FINGERS_COVERED
 	var/transfer_prints = FALSE
 	var/pickpocket = FALSE //Master pickpocket?
