@@ -102,8 +102,7 @@
 				slots_list += "борг: [cyborg_slots]"
 			D.silent = params["silent"]
 			var/slot_text = english_list(slots_list)
-			message_admins("[key_name_admin(usr)] dispatched a [params["silent"] ? "silent " : ""][ert_type] ERT. Slots: [slot_text]", 1)
-			log_admin("[key_name(usr)] dispatched a [params["silent"] ? "silent " : ""][ert_type] ERT. Slots: [slot_text]")
+			log_and_message_admins("dispatched a [params["silent"] ? "silent " : ""][ert_type] ERT. Slots: [slot_text]")
 			if(!params["silent"])
 				GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы предпринимаем шаги для отправки отряда быстрого реагирования. Ожидайте.", "ВНИМАНИЕ: Активирован протокол ОБР.")
 			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
