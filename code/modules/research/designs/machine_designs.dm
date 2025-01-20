@@ -12,11 +12,11 @@
 	build_path = /obj/item/circuitboard/thermomachine
 	category = list ("Engineering Machinery")
 
-/datum/design/cell_recharger
-	name = "Machine Board(Cell Recharger)"
-	desc = "The circuit board for a cell recharger"
-	id = "cell_recharger"
-	build_path = /obj/item/circuitboard/cell_recharger
+/datum/design/cell_charger
+	name = "Machine Board(Cell charger)"
+	desc = "The circuit board for a cell charger"
+	id = "cell_charger"
+	build_path = /obj/item/circuitboard/cell_charger
 	materials = list(MAT_GLASS = 1000)
 	build_type = IMPRINTER
 	req_tech = list("powerstorage" = 3, "materials" = 3)
