@@ -30,10 +30,10 @@
 	Reset()
 
 /obj/machinery/computer/arcade/proc/prizevend(score)
-	var/atom/movable/vended = pick_n_take(prize_storage)
+	var/atom/movable/picked_prize = pick_n_take(prize_storage)
 
-	if(vended)
-		vended.forceMove(get_turf(src))
+	if(picked_prize)
+		picked_Prize.forceMove(get_turf(src))
 		return
 
 	new prize(get_turf(src), score || rand(1, 10))
