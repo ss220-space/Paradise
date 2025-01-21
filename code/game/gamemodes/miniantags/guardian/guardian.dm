@@ -196,13 +196,12 @@
 		cooldown = world.time + 10
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
-	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
-		return
-	if(!summoner) return
-	new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
-	forceMove(summoner)
-	buckled = null
-	cooldown = world.time + 10
+    if(!summoner || loc == summoner || (cooldown > world.time && !forced))
+        return
+    buckled?.unbuckle_mob(src, force = TRUE)
+    new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
+    forceMove(summoner)
+    cooldown = world.time + 10
 
 /mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
 	var/input

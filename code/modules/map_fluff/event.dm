@@ -9,7 +9,7 @@
 	dock_name = "NAV Trurl"
 	company_name = "Nanotrasen"
 	company_short = "NT"
-	starsys_name = "Epsilon Eridani"
+	starsys_name = "Epsilon Lucusta"
 	webmap_url = "Optional"
 	admin_only = TRUE
 */
@@ -37,7 +37,7 @@
 	dock_name     = "NAV Trurl"
 	company_name  = "Nanotrasen"
 	company_short = "NT"
-	starsys_name  = "Epsilon Eridani"
+	starsys_name  = "Epsilon Lucusta"
 	admin_only = TRUE
 
 /datum/map/delta_old
@@ -50,7 +50,7 @@
 	dock_name     = "NAV Trurl"
 	company_name  = "Nanotrasen"
 	company_short = "NT"
-	starsys_name  = "Epsilon Eridani"
+	starsys_name  = "Epsilon Lucusta"
 	admin_only = TRUE
 
 /datum/map/coldcolony
@@ -64,5 +64,5 @@
 	dock_name = "NAV Trurl"
 	company_name = "Nanotrasen"
 	company_short = "NT"
-	starsys_name = "Epsilon Eridani"
+	starsys_name = "Epsilon Lucusta"
 	admin_only = TRUE

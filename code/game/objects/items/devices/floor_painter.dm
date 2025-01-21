@@ -110,7 +110,7 @@
 		floor_state = allowed_states[index]
 
 	if(action == "select_direction")
-		var/dir = text2dir(params["direction"])
+		var/dir = params["direction"]
 		if (dir != 0)
 			floor_dir = dir
 

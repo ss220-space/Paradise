@@ -7,7 +7,7 @@
 		S = GLOB.all_species[species]
 	var/datum/robolimb/robohead
 
-	if(S.bodyflags & ALL_RPARTS)
+	if(S?.bodyflags & ALL_RPARTS)
 		var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
 		robohead = GLOB.all_robolimbs[head_model]
 	if(gender_override)
@@ -19,28 +19,28 @@
 	socks = random_socks(gender, species)
 	if(length(GLOB.body_accessory_by_species[species]))
 		body_accessory = random_body_accessory(species, S.optional_body_accessory)
-	if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
+	if(S?.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 		s_tone = random_skin_tone(species)
 	h_style = random_hair_style(gender, S, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)
 	if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 		randomize_hair_color("hair")
 		randomize_hair_color("facial")
-	if(S.bodyflags & HAS_HEAD_ACCESSORY)
+	if(S?.bodyflags & HAS_HEAD_ACCESSORY)
 		ha_style = random_head_accessory(species)
 		hacc_colour = randomize_skin_color(1)
-	if(S.bodyflags & HAS_HEAD_MARKINGS)
+	if(S?.bodyflags & HAS_HEAD_MARKINGS)
 		m_styles["head"] = random_marking_style("head", species, robohead, null, alt_head)
 		m_colours["head"] = randomize_skin_color(1)
-	if(S.bodyflags & HAS_BODY_MARKINGS)
+	if(S?.bodyflags & HAS_BODY_MARKINGS)
 		m_styles["body"] = random_marking_style("body", species, gender = src.gender)
 		m_colours["body"] = randomize_skin_color(1)
-	if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
+	if(S?.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 		m_styles["tail"] = random_marking_style("tail", species, null, body_accessory)
 		m_colours["tail"] = randomize_skin_color(1)
-	if(!(S.bodyflags & ALL_RPARTS))
+	if(!(S?.bodyflags & ALL_RPARTS))
 		randomize_eyes_color()
-	if(S.bodyflags & HAS_SKIN_COLOR && !(S.bodyflags & HAS_ICON_SKIN_TONE))
+	if(S?.bodyflags & HAS_SKIN_COLOR && !(S?.bodyflags & HAS_ICON_SKIN_TONE))
 		randomize_skin_color()
 	backbag = 2
 	age = get_rand_age(S)
@@ -228,7 +228,7 @@
 
 			if(!H.dna)
 				H.dna = new
-				
+
 			H.dna.species = current_species
 			H.s_tone = s_tone
 			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
