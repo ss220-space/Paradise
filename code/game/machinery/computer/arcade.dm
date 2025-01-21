@@ -15,6 +15,7 @@
 	icon_screen = "invaders"
 	light_color = "#00FF00"
 	var/prize = /obj/item/stack/tickets
+	var/list/prize_storage
 
 /obj/machinery/computer/arcade/proc/Reset()
 	return
@@ -28,17 +29,14 @@
 
 	Reset()
 
-/obj/machinery/computer/arcade/proc/prizevend(var/score)
-	if(!contents.len)
-		var/prize_amount
-		if(score)
-			prize_amount = score
-		else
-			prize_amount = rand(1, 10)
-		new prize(get_turf(src), prize_amount)
-	else
-		var/atom/movable/prize = pick(contents)
-		prize.forceMove(get_turf(src))
+/obj/machinery/computer/arcade/proc/prizevend(score)
+	var/atom/movable/vended = pick_n_take(prize_storage)
+
+	if(vended)
+		vended.forceMove(get_turf(src))
+		return
+
+	new prize(get_turf(src), score || rand(1, 10))
 
 /obj/machinery/computer/arcade/emp_act(severity)
 	..(severity)
