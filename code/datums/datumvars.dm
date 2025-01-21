@@ -509,9 +509,6 @@
 #undef VV_HTML_ENCODE
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
-	//This should all be moved over to datum/admins/Topic() or something ~Carn
-	if(!check_rights(R_VAREDIT, FALSE) && !((href_list["datumrefresh"] || href_list["Vars"] || href_list["VarsList"])))
-		return
 
 	if(view_var_Topic_list(href, href_list, hsrc))  // done because you can't use UIDs with lists and I don't want to snowflake into the below check to supress warnings
 		return
@@ -563,6 +560,13 @@
 			return
 
 		modify_variables(D, href_list["varnameedit"], 1)
+
+	else if(href_list["matrix_tester"])
+		var/atom/atom = locateUID(href_list["matrix_tester"])
+		if(!istype(atom))
+			to_chat(usr, "Это можно использовать только для экземпляров типов /atom", confidential = TRUE)
+			return
+		usr?.client.open_matrix_tester(atom)
 
 	else if(href_list["togbit"])
 		if(!check_rights(R_VAREDIT))	return
@@ -1385,7 +1389,7 @@
 			href_list["datumrefresh"] = href_list["mobToDamage"]
 
 	else if(href_list["traitmod"])
-		if(!check_rights(NONE))
+		if(!check_rights(R_DEBUG|R_ADMIN))
 			return
 		var/datum/A = locateUID(href_list["traitmod"])
 		if(!istype(A))
@@ -1411,6 +1415,8 @@
 		return TRUE
 
 	if(href_list["listedit"] && href_list["index"])
+		if(!check_rights(R_VAREDIT))
+			return
 		var/index = text2num(href_list["index"])
 		if(!index)
 			return TRUE
@@ -1424,6 +1430,8 @@
 		return TRUE
 
 	if(href_list["listchange"] && href_list["index"])
+		if(!check_rights(R_VAREDIT))
+			return
 		var/index = text2num(href_list["index"])
 		if(!index)
 			return TRUE
@@ -1437,6 +1445,8 @@
 		return TRUE
 
 	if(href_list["listremove"] && href_list["index"])
+		if(!check_rights(R_VAREDIT))
+			return
 		var/index = text2num(href_list["index"])
 		if(!index)
 			return TRUE
@@ -1457,6 +1467,8 @@
 		return TRUE
 
 	if(href_list["listadd"])
+		if(!check_rights(R_VAREDIT))
+			return
 		var/list/L = locate(href_list["listadd"])
 		if(!istype(L))
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
@@ -1466,6 +1478,8 @@
 		return TRUE
 
 	if(href_list["listdupes"])
+		if(!check_rights(R_VAREDIT))
+			return
 		var/list/L = locate(href_list["listdupes"])
 		if(!istype(L))
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
@@ -1478,6 +1492,8 @@
 		return TRUE
 
 	if(href_list["listnulls"])
+		if(!check_rights(R_VAREDIT))
+			return
 		var/list/L = locate(href_list["listnulls"])
 		if(!istype(L))
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
@@ -1490,6 +1506,8 @@
 		return TRUE
 
 	if(href_list["listlen"])
+		if(!check_rights(R_VAREDIT))
+			return
 		var/list/L = locate(href_list["listlen"])
 		if(!istype(L))
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
@@ -1505,6 +1523,9 @@
 		return TRUE
 
 	if(href_list["listshuffle"])
+		if(!check_rights(R_VAREDIT))
+			return
+
 		var/list/L = locate(href_list["listshuffle"])
 		if(!istype(L))
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)

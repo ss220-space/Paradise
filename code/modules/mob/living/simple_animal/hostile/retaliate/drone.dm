@@ -234,7 +234,7 @@
 /mob/living/simple_animal/bot/ed209/combat_drone/setup_access()
 	return
 
-/mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
+/mob/living/simple_animal/bot/ed209/combat_drone/set_weapon()
 	projectile = /obj/item/projectile/beam/immolator/weak
 
 /mob/living/simple_animal/bot/ed209/combat_drone/turn_on()

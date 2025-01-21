@@ -11,7 +11,7 @@
 	throw_speed = 1
 	layer = 4
 	pressure_resistance = 2
-	attack_verb = list("bapped")
+	attack_verb = list("стукнул")
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 	var/list/papers

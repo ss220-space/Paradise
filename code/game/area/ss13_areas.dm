@@ -3281,3 +3281,65 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	name = "\improper Surface"
 	always_unpowered = TRUE
 	ignore_gravgen = TRUE
+	outdoors = TRUE
+
+/area/coldcolony
+	name = "coldcolony"
+	icon_state = "unknown"
+
+/area/coldcolony/morgue
+	name = "Morgue"
+	icon_state = "morgue"
+	power_environ = FALSE
+	power_equip = FALSE
+	power_light = FALSE
+	poweralm = FALSE
+
+/area/coldcolony/ruin
+	name = "ruin"
+	icon_state = "unknown"
+
+/area/coldcolony/ruin/miningbar
+	name = "\improper Miner's bar"
+	icon_state = "mining_living"
+
+/area/coldcolony/ruin/ore_production
+	name = "\improper Mining Production"
+	icon_state = "mining_production"
+
+/area/coldcolony/ruin/miningeva
+	name = "\improper Mining EVA"
+	icon_state = "mining_eva"
+
+/area/coldcolony/ruin/mining_post1
+	name = "\improper Mining"
+	icon_state = "mining"
+
+/area/coldcolony/ruin/sm_division
+	name = "\improper Abandoned SM Research Division"
+	icon_state = "research"
+
+/area/coldcolony/ruin/sm_maintenance
+	name = "\improper Abandoned SM Maintenance"
+	icon_state = "asmaint"
+
+/area/coldcolony/ruin/sm_lab
+	name = "\improper Abandoned SM Laboratory"
+	icon_state = "toxlab"
+
+/area/coldcolony/ruin/sm_chamber
+	name = "\improper Abandoned SM Chamber"
+	icon_state = "toxtest"
+
+/area/coldcolony/ruin/abandoned_banya
+	name = "\improper Abandoned Banya"
+	icon_state = "barstation"
+
+/area/coldcolony/ruin/syndie_outpost
+	name = "\improper Syndicate Recruiter Outpost"
+	icon_state = "red"
+
+/area/coldcolony/ruin/abandoned_house
+	name = "\improper House"
+	icon_state = "red"
+

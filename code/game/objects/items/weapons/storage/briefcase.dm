@@ -11,7 +11,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
-	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+	attack_verb = list("ударил", "огрел")
 	resistance_flags = FLAMMABLE
 	max_integrity = 150
 
@@ -100,7 +100,7 @@
 	icon_state = "briefcase_bipki"
 	item_state = "briefcase"
 	force = 8
-	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+	attack_verb = list("ударил", "огрел")
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
 	var/opened = FALSE

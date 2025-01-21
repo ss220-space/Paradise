@@ -67,7 +67,7 @@
 	attack_speed = 0.4 SECONDS
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("атаковал", "порезал", "уколол", "полоснул", "рубанул", "пронзил", "нарезал кубиками")
+	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "поцарапал")
 	sprite_sheets_inhand = list(SPECIES_VOX = 'icons/mob/clothing/species/vox/held.dmi', SPECIES_DRASK = 'icons/mob/clothing/species/drask/held.dmi')
 	var/durability = 15
 	var/blood_drain_amount = 15

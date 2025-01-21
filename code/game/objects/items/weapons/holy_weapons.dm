@@ -154,7 +154,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
-	attack_verb = list("punched", "cross countered", "pummeled")
+	attack_verb = list("ударил", "освятил")
 
 
 /obj/item/nullrod/godhand/Initialize(mapload)
@@ -190,7 +190,7 @@
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 
 /obj/item/nullrod/claymore/darkblade
 	name = "dark blade"
@@ -210,7 +210,7 @@
 	item_state = "chainswordon"
 	desc = "Suffer not a heretic to live."
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
+	attack_verb = list("пропилил", "поранил", "порезал", "рубанул")
 	hitsound = 'sound/weapons/chainsaw.ogg'
 
 /obj/item/nullrod/claymore/glowing
@@ -263,7 +263,7 @@
 	force = 4.13
 	throwforce = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 
 /obj/item/nullrod/scythe
 	name = "reaper scythe"
@@ -276,7 +276,7 @@
 	sharp = TRUE
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
-	attack_verb = list("chopped", "sliced", "cut", "reaped")
+	attack_verb = list("рубанул", "порезал", "скосил")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 
 /obj/item/nullrod/scythe/vibro
@@ -284,7 +284,7 @@
 	icon_state = "hfrequency0"
 	item_state = "hfrequency"
 	desc = "Bad references are the DNA of the soul."
-	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")
+	attack_verb = list("рубанул", "порезал")
 
 /obj/item/nullrod/scythe/spellblade
 	icon_state = "spellblade"
@@ -299,7 +299,7 @@
 	icon_state = "talking_sword"
 	item_state = "talking_sword"
 	desc = "When the station falls into chaos, it's nice to have a friend by your side."
-	attack_verb = list("chopped", "sliced", "cut")
+	attack_verb = list("рубанул", "порезал")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	var/possessed = FALSE
 
@@ -346,7 +346,7 @@
 	desc = "This war hammer cost the chaplain fourty thousand space dollars."
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_HUGE
-	attack_verb = list("smashed", "bashed", "hammered", "crunched")
+	attack_verb = list("сокрушил", "ударил", "забил", "раздавил")
 
 /obj/item/nullrod/chainsaw
 	name = "chainsaw hand"
@@ -356,7 +356,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	item_flags = ABSTRACT
 	sharp = TRUE
-	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
+	attack_verb = list("пропилил", "поранил", "порезал", "рубанул")
 	hitsound = 'sound/weapons/chainsaw.ogg'
 
 
@@ -374,7 +374,7 @@
 	sharp = TRUE
 	embed_chance = 45
 	embedded_ignore_throwspeed_threshold = TRUE
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "honked")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал", "хонкнул")
 
 /obj/item/nullrod/whip
 	name = "holy whip"
@@ -382,7 +382,7 @@
 	icon_state = "chain"
 	item_state = "chain"
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("whipped", "lashed")
+	attack_verb = list("хлестнул", "стегнул")
 	hitsound = 'sound/weapons/slash.ogg'
 
 /obj/item/nullrod/whip/New()
@@ -431,7 +431,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
 	force = 13
-	attack_verb = list("bitten", "eaten", "fin slapped")
+	attack_verb = list("укусил", "пожрал", "шлёпнул")
 	hitsound = 'sound/weapons/bite.ogg'
 
 /obj/item/nullrod/carp/attack_self(mob/living/user)
@@ -452,7 +452,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	sharp = FALSE
 	hitsound = "swing_hit"
-	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
+	attack_verb = list("сокрушил", "ударил", "огрел")
 	icon_state = "bostaff0"
 	item_state = "bostaff0"
 
@@ -470,7 +470,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/knife_drop.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	var/mob/living/carbon/wielder
 
 
@@ -510,7 +510,7 @@
 	item_state = "pitchfork0"
 	w_class = WEIGHT_CLASS_NORMAL
 	desc = "Holding this makes you look absolutely devilish."
-	attack_verb = list("poked", "impaled", "pierced", "jabbed")
+	attack_verb = list("ткнул", "пронзил", "проколол", "уколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = TRUE
 

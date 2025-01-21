@@ -30,3 +30,9 @@
 /** Silicon related */
 #define ALERT_LOCKED "locked"
 
+/** Mech related */
+// SCS-3 Cage
+#define CAGE_STAGE_ZERO "stage_zero"
+#define CAGE_STAGE_ONE "stage_one"
+#define CAGE_STAGE_TWO "stage_two"
+#define CAGE_STAGE_THREE "stage_three"

@@ -14,7 +14,7 @@
 	icon_state = "newspaper"
 	item_state = "newspaper"
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("bapped")
+	attack_verb = list("стукнул")
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 	/// The current screen to display.
