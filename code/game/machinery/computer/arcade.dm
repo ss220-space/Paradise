@@ -33,7 +33,7 @@
 	var/atom/movable/picked_prize = pick_n_take(prize_storage)
 
 	if(picked_prize)
-		picked_Prize.forceMove(get_turf(src))
+		picked_prize.forceMove(get_turf(src))
 		return
 
 	new prize(get_turf(src), score || rand(1, 10))
