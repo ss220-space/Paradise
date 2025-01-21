@@ -1636,14 +1636,14 @@
 /obj/item/clothing/suit/hooded/ghostfacesuit
 	name = "Ghostface suit"
 	ru_names = list(
-		NOMINATIVE = "черный балахон",
-		GENITIVE = "черного балахона",
-		DATIVE = "черному балахону",
-		ACCUSATIVE = "черного балахона",
-		INSTRUMENTAL = "черным балахоном",
-		PREPOSITIONAL = "черном балахоне"
+		NOMINATIVE = "чёрный балахон",
+		GENITIVE = "чёрного балахона",
+		DATIVE = "чёрному балахону",
+		ACCUSATIVE = "чёрного балахона",
+		INSTRUMENTAL = "чёрным балахоном",
+		PREPOSITIONAL = "чёрном балахоне"
 	)
-	desc = "Черный, просторный балахон, что может навеивать смутные напоминания о чем-то."
+	desc = "чёрный, просторный балахон, что может навеивать смутные напоминания о чём-то."
 	icon_state = "ghostface_suit"
 	item_state = "ghostface_suit"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
@@ -1661,14 +1661,14 @@
 /obj/item/clothing/head/hooded/ghostface
 	name = "Ghostface hood"
 	ru_names = list(
-		NOMINATIVE = "черный капюшон",
-		GENITIVE = "черного капюшона",
-		DATIVE = "черному капюшону",
-		ACCUSATIVE = "черного капюшона",
-		INSTRUMENTAL = "черным капюшоном",
-		PREPOSITIONAL = "черном капюшоне"
+		NOMINATIVE = "чёрный капюшон",
+		GENITIVE = "чёрного капюшона",
+		DATIVE = "чёрному капюшону",
+		ACCUSATIVE = "чёрного капюшона",
+		INSTRUMENTAL = "чёрным капюшоном",
+		PREPOSITIONAL = "чёрном капюшоне"
 	)
-	desc = "Верхняя часть балахона."
+	desc = "Черный капюшон. Он вам что-то точно напоминает..."
 	icon_state = "ghostface_hood"
 	item_state = "ghostface"
 	flags_inv = HIDEHEADSETS|HIDEHAIR
@@ -1682,14 +1682,14 @@
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 
 /obj/item/clothing/suit/hooded/ghostfacesuit/devil
-	desc = "Черный с прожилками красного просторный балахон, что может навеивать смутные напоминания о чем-то."
+	desc = "чёрный с прожилками красного просторный балахон, что может навеивать смутные напоминания о чём-то."
 	ru_names = list(
-		NOMINATIVE = "кроваво-черный балахон",
-		GENITIVE = "кроваво-черного балахона",
-		DATIVE = "кроваво-черному балахону",
-		ACCUSATIVE = "кроваво-черного балахона",
-		INSTRUMENTAL = "кроваво-черным балахоном",
-		PREPOSITIONAL = "кроваво-черном балахоне"
+		NOMINATIVE = "кроваво-чёрный балахон",
+		GENITIVE = "кроваво-чёрного балахона",
+		DATIVE = "кроваво-чёрному балахону",
+		ACCUSATIVE = "кроваво-чёрного балахона",
+		INSTRUMENTAL = "кроваво-чёрным балахоном",
+		PREPOSITIONAL = "кроваво-чёрном балахоне"
 	)
 	icon_state = "devil_ghostface_suit"
 	item_state = "devil_ghostface_suit"

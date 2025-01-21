@@ -99,7 +99,7 @@
 
 /obj/item/voice_changer/ghostface
 	name = "Ghostface emmission"
-	desc = "Вы не должны были этого видеть. Пожалуйста, сообщите об нахождении этого предмета в #баг-репорты-v2"
+	desc = "Вы не должны были этого видеть. Пожалуйста, сообщите о нахождении этого предмета в #баг-репорты-v2"
 	voice = "Ghostface"
 	tts_voice = "Bloodseeker"
 	active = TRUE

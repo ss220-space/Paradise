@@ -443,12 +443,12 @@
 /obj/item/melee/ghostface_knife
 	name = "Knife"
 	ru_names = list(
-		NOMINATIVE = "нож",
-		GENITIVE = "ножа",
-		DATIVE = "ножу",
-		ACCUSATIVE = "нож",
-		INSTRUMENTAL = "ножом",
-		PREPOSITIONAL = "ноже"
+		NOMINATIVE = "старый нож",
+		GENITIVE = "старого ножа",
+		DATIVE = "старому ножу",
+		ACCUSATIVE = "старый нож",
+		INSTRUMENTAL = "старым ножом",
+		PREPOSITIONAL = "старом ноже"
 	)
 	desc = "Очень острый нож. Судя по потертостям и засохшей крови, он совсем не валялся без дела."
 	icon_state = "ghostface_knife"
@@ -467,5 +467,13 @@
 
 /obj/item/melee/ghostface_knife/devil
 	name = "Old knife"
-	desc = "Странный нож с, тем не менее, крайне острым лезвием. Судя по характерным потертостям и засохшей крови, явно не валялся без делаю"
+	desc = "Странный нож с, тем не менее, крайне острым лезвием. Судя по характерным потертостям и засохшей крови, явно не валялся без дела."
+	ru_names = list(
+		NOMINATIVE = "старый ржавый нож",
+		GENITIVE = "старого ржавого ножа",
+		DATIVE = "старому ржавому ножу",
+		ACCUSATIVE = "старый ржавый нож",
+		INSTRUMENTAL = "старым ржавым ножом",
+		PREPOSITIONAL = "старом ржавом ноже"
+	)
 	icon_state = "devil_ghostface_knife"
