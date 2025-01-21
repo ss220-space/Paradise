@@ -44,7 +44,7 @@ export const AdminAntagMenu = (properties, context) => {
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   return (
-    <Window width={800} height={600} title={'Антаг меню'}>
+    <Window width={800} height={600} title={'Меню спец-ролей'}>
       <Window.Content scrollable>
         <Stack fill vertical>
           <Stack.Item>

@@ -1177,7 +1177,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 /// targeted form of admin_observe: this should only appear in the right-click menu.
 /client/proc/admin_observe_target(mob/target)
 	if(isnewplayer(mob))
-		to_chat(src, span_warning("Вы не можете а-гостнуться, пока находитесь в лобби. Зайдите в раунд для начала(как игрок или как призрак)."))
+		to_chat(src, span_warning("Вы не можете а-гостнуться, пока находитесь в лобби. Сначала зайдите в раунд (как игрок или как призрак)."))
 		return
 
 	if(isnewplayer(target))

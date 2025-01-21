@@ -341,7 +341,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
     ..()
     if(target?.current)
         var/obj/item/organ/internal/brains = target.current.get_organ_slot(INTERNAL_ORGAN_BRAIN)
-        explanation_text = "Украсть [brains.name] у [target.current.real_name], [target.assigned_role]."
+        explanation_text = "Украсть [brains.declent_ru(ACCUSATIVE)] у [target.current.real_name], [target.assigned_role]."
         if(!(target in SSticker.mode.victims))
             SSticker.mode.victims.Add(target)
     else
@@ -966,7 +966,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		targetinfo = new /datum/theft_objective/unique/docs_blue
 	else if(faction == "blue")
 		targetinfo = new /datum/theft_objective/unique/docs_red
-	explanation_text = "Заполучите [targetinfo.name], переносимые [target.current.real_name], [target.assigned_role] и агент Синдиката."
+	explanation_text = "Заполучите [targetinfo..name], переносимые [target.current.real_name], [target.assigned_role] и агент Синдиката."
 	steal_target = targetinfo
 
 
@@ -1002,7 +1002,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/capture/proc/gen_amount_goal()
 	target_amount = rand(5,10)
-	explanation_text = "Накопите [target_amount] очков захвата."
+	explanation_text = "Накопите [target_amount] очк[declension_ru(target_amount, "о", "а", "ов")] захвата."
 	return target_amount
 
 
@@ -1038,7 +1038,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 		target_amount = min(target_amount, n_p)
 
-	explanation_text = "Заполучите [target_amount] совместимых генома. 'Extract DNA Sting' можно использовать, чтобы незаметно получить геномы, не убивая кого-либо."
+	explanation_text = "Заполучите [target_amount] совместим[declension_ru(target_amount, "ый геном", "ых генома", "ых геномов")]. 'Extract DNA Sting' можно использовать, чтобы незаметно получить геномы, не убивая кого-либо."
 	return target_amount
 
 
@@ -1341,7 +1341,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			target = "diamond"
 			target_amount = 20
 
-	explanation_text = "Разграбьте или поторгуйтесь со станцией и сбегите с [target_amount] [target]."
+	explanation_text = "Разграбьте или поторгуйтесь со станцией, заполучите [target] в количестве [target_amount] [declension_ru(target_amount, "штуки", "штук", "штук")] и сбегите отсюда."
 
 /datum/objective/heist/salvage/check_completion()
 	var/total_amount = 0

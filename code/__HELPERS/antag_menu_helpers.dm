@@ -30,7 +30,7 @@
 
 /proc/prepare_nodatum_antags(list/cached_data, list/antagonist_cache)
 	var/datum/game_mode/mode = SSticker.mode
-	prepare_antag_list(mode.clockwork_cult, cached_data, "Культист Ратара", antagonist_cache)
+	prepare_antag_list(mode.clockwork_cult, cached_data, "Культист Ратвара", antagonist_cache)
 	prepare_antag_list(mode.cult, cached_data, "Культист [SSticker.cultdat.entity_name]", antagonist_cache)
 	prepare_antag_list(mode.abductors, cached_data, "Абдуктор", antagonist_cache)
 	prepare_antag_list(mode.abductees, cached_data, "Жертва абдукторов", antagonist_cache)
