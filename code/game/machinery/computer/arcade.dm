@@ -29,6 +29,10 @@
 
 	Reset()
 
+/obj/machinery/computer/arcade/Destroy(force)
+	QDEL_LAZYLIST(prize_storage)
+	return ..()
+
 /obj/machinery/computer/arcade/proc/prizevend(score)
 	var/atom/movable/picked_prize = pick_n_take(prize_storage)
 
