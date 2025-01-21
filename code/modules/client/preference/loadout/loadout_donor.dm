@@ -335,6 +335,69 @@
 	slot = ITEM_SLOT_EYES
 	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_HOP)
 
+/datum/gear/donor/visor_security
+	display_name = "Security Visor"
+	index_name = "Optical Security Visor"
+	path = /obj/item/clothing/glasses/hud/security/sunglasses/visor
+	donator_tier = 3
+	cost = 1
+	slot = ITEM_SLOT_EYES
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_DETECTIVE, JOB_TITLE_PILOT, JOB_TITLE_JUDGE)
+
+/datum/gear/donor/visor_medical
+	display_name = "Medical Optical Visor"
+	index_name = "Optical Medical Visor"
+	path = /obj/item/clothing/glasses/hud/health/visor
+	donator_tier = 3
+	cost = 1
+	slot = ITEM_SLOT_EYES
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
+
+/datum/gear/donor/visor_science
+	display_name = "Scince Optical Visor"
+	index_name = "Optical Science Visor"
+	path = /obj/item/clothing/glasses/science/visor
+	donator_tier = 3
+	cost = 1
+	slot = ITEM_SLOT_EYES
+	allowed_roles = list(JOB_TITLE_SCIENTIST, JOB_TITLE_RD, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_GENETICIST, JOB_TITLE_CHEMIST)
+
+/datum/gear/donor/visor_diagnostic
+	display_name = "Diagnostic Optical Visor"
+	index_name = "Optical Diagnostic Visor"
+	path = /obj/item/clothing/glasses/hud/diagnostic/visor
+	donator_tier = 3
+	cost = 1
+	slot = ITEM_SLOT_EYES
+	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_ROBOTICIST)
+
+/datum/gear/donor/visor_meson
+	display_name = "Meson Optical Visor"
+	index_name = "Optical Meson Visor"
+	path = /obj/item/clothing/glasses/meson/visor
+	donator_tier = 3
+	cost = 1
+	slot = ITEM_SLOT_EYES
+	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_MECHANIC, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER)
+
+/datum/gear/donor/visor_skill
+	display_name = "Skill Optical Visor"
+	index_name = "Optical Skill Visor"
+	path = /obj/item/clothing/glasses/hud/skills/visor
+	donator_tier = 3
+	cost = 1
+	slot = ITEM_SLOT_EYES
+	allowed_roles = list(JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_HOP, JOB_TITLE_CAPTAIN)
+
+/datum/gear/donor/visor_hydroponic
+	display_name = "Hydroponic Optical Visor"
+	index_name = "Optical Hydroponic Visor"
+	path = /obj/item/clothing/glasses/hud/hydroponic/visor
+	donator_tier = 3
+	cost = 1
+	slot = ITEM_SLOT_EYES
+	allowed_roles = list(JOB_TITLE_BOTANIST)
+
 /datum/gear/donor/night_dress
 	index_name = "night dress, select"
 	display_name = "night dress"

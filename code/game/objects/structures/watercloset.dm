@@ -528,7 +528,7 @@
 	icon_state = "rubberducky"
 	item_state = "rubberducky"
 	honk_sounds = list('sound/items/squeaktoy.ogg' = 1)
-	attack_verb = list("quacked", "squeaked")
+	attack_verb = list("квакнул", "пискнул")
 
 /obj/item/bikehorn/rubberducky/captain
 	name = "уточка-капитан"

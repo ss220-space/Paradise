@@ -1047,6 +1047,17 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_cage
+	name = "Клетка SCS-3"
+	desc = "Модуль для экзокостюмов, используемый для задержания и заключения преступников."
+	id = "mech_cage"
+	build_type = MECHFAB
+	req_tech = (list("materials" = 7, "combat" = 7))
+	build_path = /obj/item/mecha_parts/mecha_equipment/cage
+	materials = list(MAT_METAL=10000, MAT_TITANIUM=4000, MAT_SILVER=2000, MAT_DIAMOND=1000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_proj_armor
 	name = "Exosuit Defence Module (Armor Booster (Range Combat))"
 	desc = "Exosuit-mounted armor booster."

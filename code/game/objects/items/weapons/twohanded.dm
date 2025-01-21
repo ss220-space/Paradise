@@ -110,7 +110,7 @@
 	force_unwielded = 5
 	force_wielded = 24
 	toolspeed = 0.25
-	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
+	attack_verb = list("атаковал", "рубанул", "поранил", "порезал")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/crowbar.ogg'
 	max_integrity = 200
@@ -210,7 +210,7 @@
 	unwieldsound = 'sound/weapons/saberoff.ogg'
 	armour_penetration = 35
 	origin_tech = "magnets=4;syndicate=5"
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 75
 	sharp_when_wielded = TRUE // only sharp when wielded
 	max_integrity = 200
@@ -344,7 +344,7 @@
 	armour_penetration = 10
 	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	attack_verb = list("атаковал", "ткнул", "уколол", "поранил", "пронзил")
 	sharp = TRUE
 	embed_chance = 50
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -431,7 +431,6 @@
 	force_wielded = 25
 	throwforce = 20
 	throw_speed = 4
-	attack_verb = list("gored")
 
 /obj/item/twohanded/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity, params)
 	..()
@@ -523,7 +522,7 @@
 	throw_range = 4
 	materials = list(MAT_METAL = 13000)
 	origin_tech = "materials=3;engineering=4;combat=2"
-	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
+	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
 	hitsound = "swing_hit"
 	sharp = TRUE
 	embed_chance = 10
@@ -594,7 +593,7 @@
 	hitsound = null
 	armour_penetration = 35
 	origin_tech = "materials=6;syndicate=4"
-	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
+	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
 	sharp = TRUE
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -824,7 +823,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force_unwielded = 7
 	force_wielded = 15
-	attack_verb = list("attacked", "impaled", "pierced")
+	attack_verb = list("атаковал", "пронзил", "проколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
@@ -909,7 +908,7 @@
 	throw_speed = 4
 	armour_penetration = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
+	attack_verb = list("атаковал", "ткнул", "уколол", "пронзил")
 	sharp = TRUE
 	embed_chance = 50
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -929,7 +928,7 @@
 	armour_penetration = 40
 	block_chance = 50
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
+	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "поцарапал")
 	toolspeed = 0.5
 
 /obj/item/twohanded/required/pyro_claws/Initialize(mapload)

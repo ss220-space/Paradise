@@ -21,10 +21,6 @@
 		insert(loc)
 
 
-	if(species_type == /datum/species/diona)
-		AddComponent(/datum/component/diona_internals)
-
-
 // user = who operates on target. Optional for fail_message, can be null(silent check)
 // target = the carbon we're testing for suitability
 // fail_message = message that user will recieve if the checks failed. FALSE make it quiet even with "user"

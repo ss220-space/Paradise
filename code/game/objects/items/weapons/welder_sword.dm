@@ -96,7 +96,7 @@
 	force = 5
 	block_chance = 75
 	maximum_fuel = 70
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	origin_tech = "combat=5;magnets=5;plasmatech=6;"
 	combinable = FALSE
 

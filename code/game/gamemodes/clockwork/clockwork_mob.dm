@@ -13,7 +13,7 @@
 	obj_damage = 40
 	speed = 0
 	friendly = "pokes"
-	attacktext = "slashes"
+	attacktext = "порезал"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	tts_seed = "Earth"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)

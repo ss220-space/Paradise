@@ -187,7 +187,7 @@
 	toolspeed = 1
 	container_type = OPENCONTAINER
 	flags = CONDUCT
-	attack_verb = list("attacked", "slashed", "cut", "sliced")
+	attack_verb = list("атаковал", "полоснул", "порезал")
 	force = 12
 	sharp = 1
 	can_charge = FALSE

@@ -14,7 +14,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1;engineering=1"
-	attack_verb = list("robusted")
+	attack_verb = list("заробастил")
 	use_sound = 'sound/effects/toolbox.ogg'
 	hitsound = 'sound/weapons/smash.ogg'
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
@@ -172,7 +172,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 28
 	storage_slots = 28
-	attack_verb = list("robusted", "crushed", "smashed")
+	attack_verb = list("заробастил", "сокрушил")
 
 /obj/item/storage/toolbox/brass/prefilled/populate_contents()
 	new /obj/item/screwdriver/brass(src)

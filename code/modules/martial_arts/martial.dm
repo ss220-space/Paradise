@@ -553,7 +553,7 @@
 	force_wielded = 24
 	throwforce = 20
 	throw_speed = 2
-	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
+	attack_verb = list("сокрушил", "ударил", "огрел")
 	icon_state = "bostaff0"
 	block_chance = 50
 

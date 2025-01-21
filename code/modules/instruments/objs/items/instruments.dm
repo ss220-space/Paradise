@@ -29,7 +29,6 @@
 	desc = "A 'Mura' brand banjo. It's pretty much just a drum with a neck and strings."
 	icon_state = "banjo"
 	item_state = "banjo"
-	attack_verb = list("scruggs-styled", "hum-diggitied", "shin-digged", "clawhammered")
 	hitsound = 'sound/weapons/banjoslap.ogg'
 	allowed_instrument_ids = "banjo"
 
@@ -38,7 +37,7 @@
 	desc = "It's made of wood and has bronze strings."
 	icon_state = "guitar"
 	item_state = "guitar"
-	attack_verb = list("played metal on", "serenaded", "crashed", "smashed")
+	attack_verb = list("заметалил", "засеренадил", "грохнул")
 	hitsound = 'sound/weapons/guitarslam.ogg'
 	allowed_instrument_ids = "guitar"
 
@@ -48,7 +47,7 @@
 	icon_state = "eguitar"
 	item_state = "eguitar"
 	force = 12
-	attack_verb = list("played metal on", "shredded", "crashed", "smashed")
+	attack_verb = list("заметалил", "изничтожил", "грохнул")
 	hitsound = 'sound/weapons/stringsmash.ogg'
 	allowed_instrument_ids = "eguitar"
 
@@ -79,7 +78,7 @@
 	icon_state = "spectral_trumpet"
 	item_state = "spectral_trumpet"
 	force = 0
-	attack_verb = list("played", "jazzed", "trumpeted", "mourned", "dooted", "spooked")
+	attack_verb = list("заджазил", "затрубил")
 
 /obj/item/instrument/trumpet/spectral/Initialize()
 	. = ..()
@@ -105,7 +104,7 @@
 	icon_state = "saxophone"
 	item_state = "saxophone"
 	force = 0
-	attack_verb = list("played", "jazzed", "saxxed", "mourned", "dooted", "spooked")
+	attack_verb = list("заджазил", "засаксил")
 
 /obj/item/instrument/saxophone/spectral/Initialize()
 	. = ..()
@@ -131,7 +130,7 @@
 	icon_state = "trombone"
 	item_state = "trombone"
 	force = 0
-	attack_verb = list("played", "jazzed", "tromboned", "mourned", "dooted", "spooked")
+
 
 /obj/item/instrument/trombone/spectral/Initialize()
 	. = ..()
@@ -175,7 +174,7 @@
 	item_state = "bike_horn"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	attack_verb = list("beautifully honks")
+	attack_verb = list("мелодично хонкнул")
 	w_class = WEIGHT_CLASS_TINY
 	force = 0
 	throw_speed = 3

@@ -8,7 +8,7 @@
 	name = "area modification item"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprints"
-	attack_verb = list("attacked", "bapped", "hit")
+	attack_verb = list("атаковал", "стукнул", "ударил")
 	/// Whether someone is currently using us
 	var/currently_used = FALSE
 	/// Fluff name for station in interaction window

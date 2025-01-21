@@ -88,6 +88,8 @@
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
+#define is_internal_organ(A) istype(A, /obj/item/organ/internal)
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
