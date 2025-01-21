@@ -110,6 +110,9 @@
 
 #define STAMINA_TRAIT "stamina"
 
+/// source trait for /obj/item/mecha_parts/mecha_equipment/cage
+#define MECH_SUPRESSED_TRAIT "mech_supress"
+
 /// trait associated to resting
 #define RESTING_TRAIT "resting"
 /// trait associated to a stat value or range of

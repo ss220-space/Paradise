@@ -49,6 +49,21 @@
 		addtimer(CALLBACK(src, PROC_REF(dissolve_restraint), user, res_suit), 3 SECONDS)
 		used = TRUE
 
+	// mech supress escape
+	if(HAS_TRAIT_FROM(user, TRAIT_IMMOBILIZED, MECH_SUPRESSED_TRAIT))
+		user.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
+		used = TRUE
+
+	// mech cage container escape
+	if(istype(user.loc, /obj/item/mecha_parts/mecha_equipment/cage))
+		var/obj/item/mecha_parts/mecha_equipment/cage/container = user.loc
+		var/obj/mecha/mech = container.chassis
+		mech.visible_message(span_warning("Камера содержания [mech.declent_ru(GENITIVE)] начинает плавиться!"), \
+									span_warning("Мы изрыгаем кислотную жидкость на стенки клетки!"))
+		user.forceMove(get_turf(container))
+		container.prisoner = null
+		container.update_equip_info()
+
 	if(istype(user.loc, /obj/structure/closet) && !used)
 		var/obj/structure/closet/closet = user.loc
 		if(!istype(closet))

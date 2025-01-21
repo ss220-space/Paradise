@@ -23,7 +23,7 @@
 
 /obj/item/cane
 	name = "cane"
-	desc = "A cane used by a true gentlemen. Or a clown."
+	desc = "A cane used by a true gentleman. Or a clown."
 	icon_state = "cane"
 	item_state = "stick"
 	flags = CONDUCT
