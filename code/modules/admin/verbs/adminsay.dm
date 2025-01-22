@@ -124,9 +124,8 @@
 	GLOB.devsays += devsay
 	mob.create_log(OOC_LOG, "DEVSAY: [msg]")
 
-
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_ADMIN | R_VIEWRUNTIMES, 0, C.mob))
+		if(check_rights(R_ADMIN | R_VIEWRUNTIMES, FALSE, C.mob))
 			var/display_name = key
 			if(holder.fakekey)
 				if(C.holder && C.holder.rights & R_ADMIN)
@@ -134,6 +133,6 @@
 				else
 					display_name = holder.fakekey
 			msg = "<span class='emoji_enabled'>[msg]</span>"
-			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "dev_channel_admin" : "dev_channel"]'>DEV: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
+			to_chat(C, "<span class='[check_rights(R_ADMIN, FALSE) ? "dev_channel_admin" : "dev_channel"]'>DEV: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Devsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

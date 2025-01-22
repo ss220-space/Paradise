@@ -31,10 +31,9 @@ GLOBAL_LIST_EMPTY(devsays)
 	if(!check_rights(R_ADMIN))
 		return
 
-	display_says(GLOB.devsays, "devsay")
+	display_says(GLOB.asays, "asay")
 	
 /client/proc/display_says(list/say_list, title)
-
 	var/list/output = list({"
 	<style>
 		td, th
