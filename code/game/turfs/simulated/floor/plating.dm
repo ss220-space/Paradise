@@ -176,7 +176,7 @@
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	
+
 /turf/simulated/floor/engine/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/blob_turf_consuming, 3)
@@ -243,7 +243,7 @@
 			if(prob(50))
 				ChangeTurf(baseturf)
 
-		
+
 /turf/simulated/floor/engine/blob_consume()
 	ChangeTurf(baseturf)
 
@@ -495,12 +495,11 @@
 /turf/simulated/floor/engine/randomised/Initialize(mapload)
 	. = ..()
 	if(!length(random_air))
-		random_air = list("OXYGEN" = rand(500,2000), "plasma" = rand(500,2000), "N2O" = rand(500,2000),"NITROGEN" = rand(500,2000), "CO2" = rand(500,2000))
+		random_air = list("OXYGEN" = rand(20000,70000), "Plasma" = rand(20000,70000), "N2O" = rand(20000,70000),"NITROGEN" = rand(20000,70000), "CO2" = rand(20000,70000))
 
 	oxygen = random_air["OXYGEN"]
 	sleeping_agent = random_air["N2O"]
 	toxins = random_air["Plasma"]
 	nitrogen = random_air["NITROGEN"]
 	carbon_dioxide = random_air["CO2"]
-	. = ..()
 
