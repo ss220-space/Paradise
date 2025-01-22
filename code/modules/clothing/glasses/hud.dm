@@ -13,6 +13,12 @@
 	if(!istype(user) || !HUDType || !(slot & (ITEM_SLOT_EYES|ITEM_SLOT_HEAD)))
 		return .
 
+	if(islist(HUDType))
+		for(var/new_hud in HUDType)
+			var/datum/atom_hud/hud = GLOB.huds[new_hud]
+			hud.add_hud_to(user)
+		return .
+
 	var/datum/atom_hud/hud = GLOB.huds[HUDType]
 	hud.add_hud_to(user)
 
@@ -20,6 +26,12 @@
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 	if(!istype(user) || !HUDType || !(slot & (ITEM_SLOT_EYES|ITEM_SLOT_HEAD)))
+		return .
+
+	if(islist(HUDType))
+		for(var/new_hud in HUDType)
+			var/datum/atom_hud/hud = GLOB.huds[new_hud]
+			hud.remove_hud_from(user)
 		return .
 
 	var/datum/atom_hud/hud = GLOB.huds[HUDType]

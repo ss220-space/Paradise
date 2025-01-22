@@ -10,7 +10,7 @@
 
 	msg = handleDiscordEmojis(msg)
 
-	var/datum/asays/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
+	var/datum/say/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
 	GLOB.asays += asay
 	log_adminsay(msg, src)
 
@@ -44,7 +44,8 @@
 
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	log_mentorsay(msg, src)
-
+	var/datum/say/msay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
+	GLOB.msays += msay
 	if(!msg)
 		return
 

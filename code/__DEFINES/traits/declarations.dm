@@ -295,3 +295,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_VOCAL_CORDS "no_vocal_cords"
 
 #define TRAIT_BLOB_ZOMBIFIED "blob_zombified"
+
+#define TRAIT_BEING_OFFERED "offered"

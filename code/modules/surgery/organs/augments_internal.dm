@@ -399,6 +399,9 @@
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
 
+/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus/hardened
+	emp_proof = TRUE
+
 
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"

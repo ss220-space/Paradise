@@ -1121,12 +1121,6 @@
 	siemens_coefficient = 0
 	var/on = 0
 
-
-/obj/item/clothing/suit/advanced_protective_suit/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
-
 /obj/item/clothing/suit/advanced_protective_suit/Destroy()
 	if(on)
 		on = 0
@@ -1136,9 +1130,11 @@
 /obj/item/clothing/suit/advanced_protective_suit/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(on)
 		on = 0
+		REMOVE_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 		to_chat(usr, "You turn the suit's special processes off.")
 	else
 		on = 1
+		ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 		to_chat(usr, "You turn the suit's special processes on.")
 		START_PROCESSING(SSobj, src)
 

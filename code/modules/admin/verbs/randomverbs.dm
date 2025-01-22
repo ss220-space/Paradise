@@ -627,39 +627,39 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 //the stuff on the list is |"report type" = "report title"|, if that makes any sense
-	var/list/MsgType = list("Central Command Report" = "Nanotrasen Update",
-		"Syndicate Communique" = "Syndicate Message",
-		"Space Wizard Federation Message" = "Sorcerous Message",
-		"Spider Clan Сommunique" = "Spider Clan Message",
-		"Enemy Communications" = "Unknown Message",
-		"Custom" = "Cryptic Message")
+	var/list/MsgType = list("Сообщение Центрального Командования" = "Обновление Нанотрейзен",
+		"Официальное сообщение Синдиката" = "Сообщение Синдиката",
+		"Сообщение Федерации Космических Волшебников" = "Заколдованное сообщение",
+		"Официальное сообщение Клана Паука" = "Сообщение Клана Паука",
+		"Вражеское Сообщение" = "Неизвестное сообщение",
+		"Свой тип" = "Загадочное сообщение")
 
 	var/list/MsgSound = list("Beep" = 'sound/misc/announce_dig.ogg',
 		"Enemy Communications Intercepted" = 'sound/AI/intercept2.ogg',
 		"New Command Report Created" = 'sound/AI/commandreport.ogg')
 
-	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as anything in MsgType
+	var/type = tgui_input_list(usr, "Выберите тип сообщения для отправки.", "Тип сообщения", MsgType, "")
 
-	if(type == "Custom")
-		type = clean_input("What would you like the report type to be?", "Report Type", "Encrypted Transmission")
+	if(type == "Свой тип")
+		type = tgui_input_text(usr, "Введите тип сообщения.", "Тип сообщения", "Зашифрованная передача")
 
-	var/customname = input(usr, "Pick a title for the report.", "Title", MsgType[type]) as text|null
+	var/customname = tgui_input_text(usr, "Введите заголовок сообщения.", "Заголовок", MsgType[type])
 	if(!customname)
 		return
-	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What's the message?") as message|null
+	var/input = tgui_input_text(usr, "Введите все, что хотите. Что угодно. Серьезно.", "Какое сообщение?", multiline = TRUE)
 	if(!input)
 		return
 
-	switch(alert("Should this be announced to the general population?",,"Yes","No", "Cancel"))
-		if("Yes")
-			var/beepsound = input(usr, "What sound should the announcement make?", "Announcement Sound", "") as anything in MsgSound
+	switch(tgui_alert(usr, "Должно ли это быть объявлено всем?",, list("Да","Нет", "Отмена")))
+		if("Да")
+			var/beepsound = tgui_input_list(usr, "Какой звук должен издавать анонс?", "Звук анонса", MsgSound)
 
 			GLOB.command_announcement.Announce(input, customname, MsgSound[beepsound], , , type)
 			print_command_report(input, customname)
-		if("No")
+		if("Нет")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
-			GLOB.command_announcer.autosay("A classified message has been printed out at all communication consoles.")
-			print_command_report(input, "Classified: [customname]")
+			GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")
+			print_command_report(input, "Секретно: [customname]")
 		else
 			return
 

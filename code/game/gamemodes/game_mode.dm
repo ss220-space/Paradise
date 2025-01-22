@@ -1,7 +1,3 @@
-#define NUKE_INTACT 0
-#define NUKE_CORE_MISSING 1
-#define NUKE_MISSING 2
-
 /*
  * GAMEMODES (by Rastaf0)
  *
@@ -585,7 +581,7 @@
 		if(is_station_level(bomb.z))
 			nuke_status = NUKE_CORE_MISSING
 			if(bomb.core)
-				nuke_status = NUKE_INTACT
+				nuke_status = NUKE_STATUS_INTACT
 	return nuke_status
 
 
@@ -766,7 +762,3 @@
 	sleep(15 SECONDS)
 	SSticker.force_ending = TRUE
 	return
-
-#undef NUKE_INTACT
-#undef NUKE_CORE_MISSING
-#undef NUKE_MISSING

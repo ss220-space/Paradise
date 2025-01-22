@@ -251,6 +251,14 @@
 
 /obj/item/clothing/under/acj
 	name = "administrative cybernetic jumpsuit"
+	ru_names = list(
+		NOMINATIVE = "административный кибернетический комбинезон",
+		GENITIVE = "административного кибернетического комбинезона",
+		DATIVE = "административному кибернетическому комбинезону",
+		ACCUSATIVE = "административный кибернетический комбинезон",
+		INSTRUMENTAL = "административным кибернетическим комбинезоном",
+		PREPOSITIONAL = "административном кибернетическом комбинезоне",
+	)
 	icon_state = "syndicate"
 	item_state = "bl_suit"
 	item_color = "syndicate"
@@ -1216,4 +1224,3 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
-

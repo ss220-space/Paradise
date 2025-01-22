@@ -53,6 +53,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/delbook,
 	/client/proc/view_flagged_books,
 	/client/proc/view_asays,
+	/client/proc/view_msays,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
@@ -215,6 +216,7 @@ GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/client/proc/dsay,
 	/datum/admins/proc/show_player_panel,
 	/client/proc/ban_panel,
+	/client/proc/view_asays,
 	/client/proc/debug_variables,		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
 	/client/proc/openAdminTicketUI,
 ))
@@ -224,6 +226,7 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/client/proc/openMentorTicketUI,
 	/client/proc/cmd_mentor_say,	/* mentor say*/
+	/client/proc/view_msays,
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 ))
 GLOBAL_LIST_INIT(admin_verbs_proccall, list(
@@ -344,6 +347,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(istype(mob,/mob/dead/observer))
 		//re-enter
 		var/mob/dead/observer/ghost = mob
+		var/old_turf = get_turf(ghost)
 		ghost.can_reenter_corpse = 1			//just in-case.
 		ghost.reenter_corpse()
 		log_admin("[key_name(usr)] re-entered their body")
@@ -351,6 +355,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		if(ishuman(mob))
 			var/mob/living/carbon/human/H = mob
 			H.regenerate_icons() // workaround for #13269
+		if(isAI(mob)) // client.mob, built in byond client var
+			var/mob/living/silicon/ai/ai = mob
+			ai.eyeobj.setLoc(old_turf)
 	else if(isnewplayer(mob))
 		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>", confidential=TRUE)
 	else
@@ -705,6 +712,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		ptypes += "Crew Traitor"
 		ptypes += "Floor Cluwne"
 		ptypes += "Shamebrero"
+		ptypes += "Nugget"
+		ptypes += "Rod"
 		ptypes += "Dust"
 		ptypes += "Shitcurity Goblin"
 		ptypes += "High RP"
@@ -822,6 +831,24 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
 			H.equip_to_slot_or_del(S, ITEM_SLOT_HEAD)
 			logmsg = "shamebrero"
+
+		if("Nugget")
+			H.Weaken(12 SECONDS, TRUE)
+			H.AdjustJitter(40 SECONDS)
+			to_chat(H, span_danger("Вы чувствуете, как будто ваши конечности отрывают от вашего тела!"))
+			addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
+			logmsg = "nugget"
+
+		if("Rod")
+
+			var/starting_turf_x = M.x + rand(10, 15) * pick(1, -1)
+			var/starting_turf_y = M.y + rand(10, 15) * pick(1, -1)
+			var/turf/start = locate(starting_turf_x, starting_turf_y, M.z)
+
+			var/obj/effect/immovablerod/smite/rod = new (start, M)
+			rod.go_for_a_walk(M)
+			logmsg = "a rod"
+
 		if("Dust")
 			H.dust()
 			logmsg = "dust"

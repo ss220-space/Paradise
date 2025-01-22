@@ -918,31 +918,31 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 //returns 1 to let the dragdrop code know we are trapping this event
 //returns 0 if we don't plan to trap the event
-/datum/admins/proc/cmd_ghost_drag(var/mob/dead/observer/frommob, var/tothing)
+/datum/admins/proc/cmd_ghost_drag(mob/dead/observer/frommob, atom/tothing)
 	if(!istype(frommob))
 		return //extra sanity check to make sure only observers are shoved into things
 
 	//same as assume-direct-control perm requirements.
 	if(!check_rights(R_VAREDIT,0)) //no varedit, check if they have r_admin and r_debug
 		if(!check_rights(R_ADMIN|R_DEBUG,0)) //if they don't have r_admin and r_debug, return
-			return 0 //otherwise, if they have no varedit, but do have r_admin and r_debug, execute the rest of the code
+			return FALSE //otherwise, if they have no varedit, but do have r_admin and r_debug, execute the rest of the code
 
 	if(!frommob.ckey)
-		return 0
+		return FALSE
 
 	if(isitem(tothing))
 		var/mob/living/toitem = tothing
 
-		var/ask = alert("Are you sure you want to allow [frommob.name]([frommob.key]) to possess [toitem.name]?", "Place ghost in control of item?", "Yes", "No")
-		if(ask != "Yes")
-			return 1
+		var/ask = tgui_alert(usr, "Вы уверены, что хотите разрешить [frommob.declent_ru(DATIVE)]([frommob.key]) управлять [toitem.declent_ru(INSTRUMENTAL)]?", "Поместить призрака управлять предметом?", list("Да", "Нет"))
+		if(ask != "Да")
+			return TRUE
 
 		if(!frommob || !toitem) //make sure the mobs don't go away while we waited for a response
-			return 1
+			return TRUE
 
 		var/mob/living/simple_animal/possessed_object/tomob = new(toitem)
 
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
+		message_admins(span_adminnotice("[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name]."))
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 
@@ -956,26 +956,53 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		var/question = ""
 		if(tomob.ckey)
 			question = "This mob already has a user ([tomob.key]) in control of it! "
-		question += "Are you sure you want to place [frommob.name]([frommob.key]) in control of [tomob.name]?"
+		question += "Вы уверены, что хотите разрешить [frommob.declent_ru(DATIVE)]([frommob.key]) управлять [tomob.declent_ru(INSTRUMENTAL)]?"
 
-		var/ask = alert(question, "Place ghost in control of mob?", "Yes", "No")
-		if(ask != "Yes")
-			return 1
+		var/ask = tgui_alert(usr, question, "Поместить призрака управлять существом?", list("Да", "Нет"))
+		if(ask != "Да")
+			return TRUE
 
 		if(!frommob || !tomob) //make sure the mobs don't go away while we waited for a response
-			return 1
+			return TRUE
 
 		if(tomob.client) //no need to ghostize if there is no client
 			tomob.ghostize(0)
 
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
+		message_admins(span_adminnotice("[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name]."))
 		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 
 		tomob.ckey = frommob.ckey
 		qdel(frommob)
 
-		return 1
+		return TRUE
+
+	if(istype(tothing, /obj/structure/AIcore/deactivated))
+
+		var/question = "Вы уверены, что хотите разрешить [frommob.declent_ru(DATIVE)]([frommob.key]) управлять пустым ядром ИИ?"
+
+		var/ask = tgui_alert(usr, question, "Поместить призрака управлять пустым ядром ИИ?", list("Да", "Нет"))
+		if(ask != "Да")
+			return TRUE
+
+		if(QDELETED(frommob) || QDELETED(tothing)) //make sure the mobs don't go away while we waited for a response
+			return TRUE
+
+		message_admins(span_adminnotice("[key_name_admin(usr)] has put [frommob.ckey] in control of an empty AI core."))
+		log_admin("[key_name(usr)] stuffed [frommob.ckey] into an empty AI core.")
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
+
+		var/transfer_key = frommob.key // frommob is qdel'd in frommob.AIize()
+		var/mob/living/silicon/ai/ai_character = frommob.AIize()
+		ai_character.key = transfer_key // this wont occur in mind transferring if the mind is not active, which causes some weird stuff. This fixes it.
+		GLOB.empty_playable_ai_cores -= tothing
+
+		ai_character.forceMove(get_turf(tothing))
+		ai_character.view_core()
+
+		qdel(tothing)
+
+		return TRUE
 
 // Returns a list of the number of admins in various categories
 // result[1] is the number of staff that match the rank mask and are active
