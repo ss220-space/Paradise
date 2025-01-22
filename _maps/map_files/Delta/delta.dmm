@@ -443,6 +443,8 @@
 /area/crew_quarters/heads/hop)
 "adj" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
@@ -1080,7 +1082,8 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
 "ali" = (
-/obj/item/toy/crayon/spraycan,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "alv" = (
@@ -1262,12 +1265,12 @@
 	pixel_x = 13;
 	name = "Jo"
 	},
+/obj/item/clothing/mask/cigarette/syndicate{
+	pixel_y = 5
+	},
 /obj/item/twohanded/required/kirbyplants{
 	pixel_y = 12;
 	tag = "plant-dead"
-	},
-/obj/item/clothing/mask/cigarette/random{
-	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9668,7 +9671,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/supermatter)
 "bqN" = (
-/obj/item/deck/cards/syndicate/black,
+/obj/item/deck/cards/syndicate,
 /turf/simulated/floor/carpet/black,
 /area/maintenance/casino)
 "bqO" = (
@@ -11078,6 +11081,7 @@
 	dir = 8
 	},
 /obj/structure/closet/toolcloset,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "bxn" = (
@@ -11118,9 +11122,7 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/effect/mapping_helpers/table_flip{
-	dir = 8
-	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
@@ -19331,8 +19333,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
@@ -20512,7 +20512,6 @@
 /area/crew_quarters/bar)
 "crE" = (
 /obj/machinery/door/airlock/wood,
-/obj/structure/barricade/wooden,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -28905,6 +28904,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/item/toy/crayon/spraycan,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "dcD" = (
@@ -31268,8 +31268,6 @@
 /area/medical/surgery/north)
 "dmt" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
@@ -31627,6 +31625,11 @@
 "dnG" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/turf_decal/siding/wood/pallet,
+/obj/effect/decal/cleanable{
+	icon = 'icons/effects/crayondecal.dmi';
+	icon_state = "face";
+	color = "771919"
+	},
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
@@ -42207,6 +42210,22 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
+"evD" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "evI" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -44126,6 +44145,11 @@
 	pixel_y = 32
 	},
 /obj/item/paper/deltainfo,
+/obj/effect/decal/cleanable{
+	icon = 'icons/effects/crayondecal.dmi';
+	icon_state = "face";
+	color = "771919"
+	},
 /turf/simulated/floor/carpet,
 /area/maintenance/trading)
 "eSo" = (
@@ -51391,7 +51415,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "gGA" = (
@@ -67203,7 +67226,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/crew_quarters/trading)
 "kwr" = (
@@ -68205,7 +68227,8 @@
 	},
 /area/hallway/secondary/exit)
 "kJt" = (
-/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/grass,
 /area/maintenance/fpmaint)
 "kJu" = (
@@ -86550,6 +86573,14 @@
 "pbs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/oil_20,
+/obj/item/clothing/mask/cigarette/richard{
+	pixel_y = -12;
+	pixel_x = 13
+	},
+/obj/item/reagent_containers/glass/bottle/nutrient/rh{
+	pixel_x = 11;
+	pixel_y = -12
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "pbv" = (
@@ -87146,6 +87177,15 @@
 	icon_state = "red"
 	},
 /area/security/securehallway)
+"phP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "phQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -91521,6 +91561,7 @@
 	},
 /obj/structure/rack,
 /obj/item/trash/semki,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "qeJ" = (
@@ -96427,7 +96468,11 @@
 /area/assembly/chargebay)
 "rjA" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/clothing/mask/cigarette/menthol,
+/obj/item/reagent_containers/food/drinks/coffee{
+	pixel_x = 7;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "rjK" = (
@@ -97312,10 +97357,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/item/reagent_containers/glass/bottle/nutrient/rh{
-	pixel_x = 11;
-	pixel_y = -12
-	},
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "rum" = (
@@ -98892,7 +98935,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random_spawners/grille_50,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/glass/reinforced,
 /area/maintenance/fpmaint)
 "rNO" = (
@@ -99741,6 +99785,7 @@
 	pixel_y = -6;
 	pixel_x = 6
 	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "rZU" = (
@@ -106982,6 +107027,11 @@
 	icon_state = "white"
 	},
 /area/medical/reception)
+"tIS" = (
+/obj/structure/flora/grass/jungle,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/grass,
+/area/maintenance/fpmaint)
 "tIT" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -157153,7 +157203,7 @@ bTv
 cAK
 fXu
 cjn
-cCt
+phP
 aVS
 rjA
 iTZ
@@ -157657,7 +157707,7 @@ cng
 bhJ
 sDI
 eRx
-fOa
+evD
 adj
 wAK
 deq
@@ -158940,7 +158990,7 @@ rZN
 bBx
 wud
 cAz
-qEL
+tIS
 sBE
 tQA
 sAw
