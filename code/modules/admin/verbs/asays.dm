@@ -1,6 +1,10 @@
 GLOBAL_LIST_EMPTY(asays)
 GLOBAL_LIST_EMPTY(devsays)
 
+/**
+	* #Special says datum
+	* Used to store the history of special chat messages (achat, mchat, devchat) within a round
+**/
 /datum/say
 	var/ckey
 	var/rank
