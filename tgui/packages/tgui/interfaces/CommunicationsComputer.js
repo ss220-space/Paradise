@@ -23,7 +23,7 @@ const windows = {
   ),
   4: () => <AdminAnnouncePage />,
   default: () =>
-    'Ошибка. Неизвестное menu_state. Пожалуйста свяжитесь с Технической Поддержкой NT.',
+    'Ошибка. Неизвестное menu_state. Пожалуйста, свяжитесь с Технической Поддержкой NT.',
 };
 
 const PickWindow = (index) => windows[index];
@@ -63,7 +63,7 @@ const AuthBlock = (props, context) => {
   let hideLogButton = false;
   let authReadable;
   if (!authenticated) {
-    authReadable = 'Не авторизован';
+    authReadable = 'Вход не выполнен';
   } else if (authenticated === 1) {
     authReadable = 'Командование';
   } else if (authenticated === 2) {
@@ -71,7 +71,7 @@ const AuthBlock = (props, context) => {
   } else if (authenticated === 3) {
     authReadable = 'Офицер Центрального Командования';
   } else if (authenticated === 4) {
-    authReadable = 'Безопасное подключение ЦК';
+    authReadable = 'Защищённый канал ЦентКома';
     hideLogButton = true;
   } else {
     authReadable = 'ОШИБКА: Сообщите об этом баге!';
@@ -111,7 +111,7 @@ const AuthBlock = (props, context) => {
                 <LabeledList.Item label="Опции">
                   <Button
                     icon="rocket"
-                    content="Вызать шаттл"
+                    content="Вызвать шаттл"
                     disabled={!authhead}
                     onClick={() => act('callshuttle')}
                   />
@@ -163,9 +163,9 @@ const AdminPage = (props, context) => {
 
   return (
     <Stack.Item>
-      <Section title="Действия уровня доступа Офицер Центрального Командования">
+      <Section title='Действия уровня доступа "Офицер Центрального Командования"'>
         <LabeledList>
-          <LabeledList.Item label="Сменить Код">
+          <LabeledList.Item label="Сменить уровень угрозы">
             <MappedAlertLevelButtons
               levels={admin_levels}
               required_access={is_admin}
@@ -175,7 +175,7 @@ const AdminPage = (props, context) => {
           <LabeledList.Item label="Оповещение">
             <Button
               icon="bullhorn"
-              content="Сделать Опрвещение ЦК"
+              content="Сделать Оповещение ЦК"
               disabled={!is_admin}
               onClick={() => act('send_to_cc_announcement_page')}
             />
@@ -188,10 +188,10 @@ const AdminPage = (props, context) => {
               />
             )}
           </LabeledList.Item>
-          <LabeledList.Item label="Группа Реагирования">
+          <LabeledList.Item label="ОБР">
             <Button
               icon="ambulance"
-              content="Отпрвить ОБР"
+              content="Отправить ОБР"
               disabled={!is_admin}
               onClick={() => act('dispatch_ert')}
             />
@@ -203,7 +203,7 @@ const AdminPage = (props, context) => {
               tooltip={
                 ert_allowed
                   ? 'Командование может запросить ОБР'
-                  : 'ОБР не может быть запрошено'
+                  : 'ОБР не может быть запрошен'
               }
               disabled={!is_admin}
               onClick={() => act('toggle_ert_allowed')}
@@ -277,12 +277,12 @@ const PlayerPage = (props, context) => {
   return (
     <>
       <Stack.Item grow>
-        <Section fill title="Действия уровня доступа Капитан">
+        <Section fill title='Действия уровня доступа "Капитан"'>
           <LabeledList>
             <LabeledList.Item label="Текущий код" color={security_level_color}>
               {str_security_level}
             </LabeledList.Item>
-            <LabeledList.Item label="Сменить Код">
+            <LabeledList.Item label="Сменить уровень угрозы">
               <MappedAlertLevelButtons
                 levels={levels}
                 required_access={authcapt}
@@ -334,7 +334,7 @@ const PlayerPage = (props, context) => {
         </Section>
       </Stack.Item>
       <Stack.Item>
-        <Section fill title="Действия уровня доступа Командование">
+        <Section fill title='Действия уровня доступа "Командование"'>
           <LabeledList>
             <LabeledList.Item label="Дисплеи">
               <Button
@@ -548,7 +548,7 @@ const AdminAnnouncePage = (props, context) => {
         buttons={
           <Button
             icon="arrow-circle-left"
-            content="Вернутся в Основное Меню"
+            content="Вернуться в Основное Меню"
             onClick={() => act('main')}
           />
         }
@@ -581,7 +581,7 @@ const AdminAnnouncePage = (props, context) => {
           onClick={() => setClassified(!classified)}
         />
         <Button.Confirm
-          content="Отправть Оповещение"
+          content="Сделать Оповещение"
           fluid
           icon="paper-plane"
           center

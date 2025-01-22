@@ -9,7 +9,7 @@
 	to_chat(user, span_notice("***********************************************************"))
 	to_chat(user, span_notice("ЛКМ на obj/mob = Выбрать точку назначения"))
 	to_chat(user, span_notice("ПКМ на obj/mob = Выбрать атом для перемещения"))
-	to_chat(user, span_notice("<b>Замечание:</b> Сначала вам нужно выбрать атом, который может быть перемещен, а затем щелкнуть левой кнопкой мыши по месту назначения."))
+	to_chat(user, span_notice("<b>Замечание:</b> Сначала вам нужно выбрать атом, который может быть перемещён, а затем щёлкнуть левой кнопкой мыши по месту назначения."))
 	to_chat(user, span_notice("***********************************************************"))
 
 /datum/buildmode_mode/forcemove/handle_click(mob/user, params, atom/A)
@@ -20,7 +20,7 @@
 	// Selecting the atom to move
 	if(right_click)
 		if(!ismovable(A) || iseffect(A))
-			to_chat(user, span_danger("Вы мен можете перемещеть эффекты, турфы и зоны."))
+			to_chat(user, span_danger("Вы не можете перемещать эффекты, турфы и зоны."))
 			return
 
 		// If we had something previously selected, handle its signal and overlay

@@ -19,7 +19,7 @@
 	var/right_click = pa.Find("right")
 
 	if(left_click)
-		var/say = tgui_input_text(user, "Что должен [object.declent_ru(NOMINATIVE)] сказать?", "Что сказать?")
+		var/say = tgui_input_text(user, "Что должен сказать объект \"[object.declent_ru(NOMINATIVE)]\"?", "Что сказать?")
 		if(isnull(say))
 			return
 		log_admin("Build Mode: [key_name(user)] made [object] at ([object.x],[object.y],[object.z] say [say].")
@@ -27,7 +27,7 @@
 		user.create_log(MISC_LOG, "Made [object] at ([object.x],[object.y],[object.z] say [say].")
 		object.atom_say(say)
 	else if(right_click)
-		var/emote = tgui_input_text(user, "Что должен [object.declent_ru(NOMINATIVE)] сделать?", "Какую эмоцию?")
+		var/emote = tgui_input_text(user, "Что должен сделать объект \"[object.declent_ru(NOMINATIVE)]\"?", "Какую эмоцию?")
 		if(isnull(emote))
 			return
 		log_admin("Build Mode: [key_name(user)] made [object] at ([object.x],[object.y],[object.z] emote *[emote].")

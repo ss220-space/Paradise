@@ -162,5 +162,5 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 	if((user.client.holder.rights & rights_required) == rights_required)
 		return TRUE
 	if(show_msg)
-		to_chat(user, "<font color='red'>Ошибка: У вас недостаточно прав для этого. Вам необходимы следущие флаги:[rights2text(rights_required, " ")].</font>")
+		to_chat(user, "<font color='red'>Ошибка: У вас недостаточно прав для этого. Вам необходимы следующие флаги:[rights2text(rights_required, " ")].</font>")
 	return FALSE

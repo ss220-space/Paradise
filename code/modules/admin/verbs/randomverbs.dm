@@ -646,7 +646,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/customname = tgui_input_text(usr, "Введите заголовок сообщения.", "Заголовок", MsgType[type])
 	if(!customname)
 		return
-	var/input = tgui_input_text(usr, "Введите все, что хотите. Что угодно. Серьезно.", "Какое сообщение?", multiline = TRUE)
+	var/input = tgui_input_text(usr, "Введите всё, что хотите. Что угодно. Серьёзно.", "Какое сообщение?", multiline = TRUE)
 	if(!input)
 		return
 

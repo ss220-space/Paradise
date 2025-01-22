@@ -45,12 +45,12 @@
 /obj/item/radio/headset/centcom/debug
 	name = "AVD-CNED bowman headset"
 	ru_names = list(
-		NOMINATIVE = "наушники стрелка AVD-CNED",
-		GENITIVE = "наушников стрелка AVD-CNED",
-		DATIVE = "наушникам стрелка AVD-CNED",
-		ACCUSATIVE = "наушники стрелка AVD-CNED",
-		INSTRUMENTAL = "наушниками стрелка AVD-CNED",
-		PREPOSITIONAL = "наушниках стрелка AVD-CNED",
+		NOMINATIVE = "тактическая гарнитура AVD-CNED",
+		GENITIVE = "тактической гарнитуры AVD-CNED",
+		DATIVE = "тактической гарнитуре AVD-CNED",
+		ACCUSATIVE = "тактическую гарнитуру AVD-CNED",
+		INSTRUMENTAL = "тактической гарнитурой AVD-CNED",
+		PREPOSITIONAL = "тактической гарнитуре AVD-CNED",
 	)
 	ks2type = /obj/item/encryptionkey/all
 
@@ -77,6 +77,7 @@
 
 /obj/item/clothing/mask/gas/welding/advanced
 	name = "AVD-CNED welding mask"
+	desc = "Повреждение сетчатки – это не шутка."
 	ru_names = list(
 		NOMINATIVE = "сварочная маска AVD-CNED",
 		GENITIVE = "сварочной маски AVD-CNED",
@@ -85,7 +86,6 @@
 		INSTRUMENTAL = "сварочной маской AVD-CNED",
 		PREPOSITIONAL = "сварочной маске AVD-CNED",
 	)
-	desc = "Повреждение сетчатки – это не шутка."
 	tint = FLASH_PROTECTION_NONE
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH // vomit prevention when being surrounded by tons of dead bodies
 
@@ -97,7 +97,7 @@
 	recharge_rate = 1
 
 /obj/item/gun/magic/wand/death/debug
-	desc = "В некоторых темных кругах это известно как «друг тестировщика-клонера»."
+	desc = "В некоторых тёмных кругах это известно как «друг тестировщика-клонера»."
 	max_charges = 500
 	variable_charges = FALSE
 	can_charge = TRUE
@@ -113,7 +113,7 @@
 		INSTRUMENTAL = "очками AVD-CNED",
 		PREPOSITIONAL = "очках AVD-CNED",
 	)
-	desc = "Медицинский, охранно-диагностический худ. Щелкните Alt + ЛКМ, чтобы переключить иксрей"
+	desc = "Медицинский, охранно-диагностический худ."
 	icon_state = "nvgmeson"
 	flags_cover = GLASSESCOVERSEYES
 	flash_protect = FLASH_PROTECTION_WELDER
@@ -135,6 +135,10 @@
 	if(xray)
 		remove_xray(user)
 
+/obj/item/clothing/glasses/hud/debug/examine(mob/user)
+	. = ..()
+	. += span_info("Щелкните <b>Alt + ЛКМ</b>, чтобы переключить иксрей.")
+
 /obj/item/clothing/glasses/hud/debug/AltClick(mob/user)
 	if(!ishuman(user))
 		return
@@ -146,7 +150,7 @@
 	else
 		add_xray(human_user)
 	xray = !xray
-	to_chat(user, span_notice("Вы [!xray ? "де" : ""]активировали иксрей настройку в [declent_ru(PREPOSITIONAL)]")) // ctodo test
+	balloon_alert(user, "рентген-зрение [!xray ? "де" : ""]активировано") // ctodo test
 	human_user.update_sight()
 
 /obj/item/clothing/glasses/hud/debug/visor_toggling(mob/living/carbon/human/user)
@@ -166,14 +170,14 @@
 /obj/item/debug/human_spawner
 	name = "human spawner"
 	ru_names = list(
-		NOMINATIVE = "создатель людей",
-		GENITIVE = "создателя людей",
-		DATIVE = "создателю людей",
-		ACCUSATIVE = "создатель людей",
-		INSTRUMENTAL = "создателем людей",
-		PREPOSITIONAL = "создателе людей",
+		NOMINATIVE = "создатель гуманоидов",
+		GENITIVE = "создателя гуманоидов",
+		DATIVE = "создателю гуманоидов",
+		ACCUSATIVE = "создатель гуманоидов",
+		INSTRUMENTAL = "создателем гуманоидов",
+		PREPOSITIONAL = "создателе гуманоидов",
 	)
-	desc = "Создайте человека, нацелившись на турф и нажав ЛКМ. Используйте в руке, чтобы изменить расу."
+	desc = "Создайте гуманоида, нацелившись на турф и нажав ЛКМ. Используйте в руке, чтобы изменить расу."
 	icon = 'icons/obj/weapons/magic.dmi'
 	icon_state = "nothingwand"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -197,12 +201,12 @@
 /obj/item/rcd/combat/admin
 	name = "AVD-CNED RCD"
 	ru_names = list(
-		NOMINATIVE = "AVD-CNED РСД",
-		GENITIVE = "AVD-CNED РСД",
-		DATIVE = "AVD-CNED РСД",
-		ACCUSATIVE = "AVD-CNED РСД",
-		INSTRUMENTAL = "AVD-CNED РСД",
-		PREPOSITIONAL = "AVD-CNED РСД",
+		NOMINATIVE = "AVD-CNED УБС",
+		GENITIVE = "AVD-CNED УБС",
+		DATIVE = "AVD-CNED УБС",
+		ACCUSATIVE = "AVD-CNED УБС",
+		INSTRUMENTAL = "AVD-CNED УБС",
+		PREPOSITIONAL = "AVD-CNED УБС",
 	)
 	max_matter = INFINITY
 	matter = INFINITY

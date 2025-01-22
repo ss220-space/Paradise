@@ -25,7 +25,7 @@
 		I.icon_state = special_icon
 
 /datum/outfit/admin/observer
-	name = "Observer"
+	name = "Наблюдатель"
 
 	uniform = /obj/item/clothing/under/color/random
 	back = /obj/item/storage/backpack/satchel
@@ -36,7 +36,7 @@
 		)
 
 /datum/outfit/admin/observer/plasmaman
-	name = "Observer (Plasma)"
+	name = "Наблюдатель (Плазмамен)"
 
 	uniform = /obj/item/clothing/under/plasmaman
 	head = /obj/item/clothing/head/helmet/space/plasmaman
@@ -45,7 +45,7 @@
 	box = /obj/item/storage/box/survival_plasmaman
 
 /datum/outfit/admin/observer/vox
-	name = "Observer (Vox)"
+	name = "Наблюдатель (Вокс)"
 
 	mask = /obj/item/clothing/mask/breath/vox
 	belt = /obj/item/tank/internals/emergency_oxygen/double/vox

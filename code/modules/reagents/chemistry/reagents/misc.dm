@@ -735,7 +735,7 @@
 /datum/reagent/admin_cleaner/item
 	name = "WD-2381-ITM"
 	id = "admincleaner_item"
-	description = "Бутылочка со странными нанитами, которые мгновенно пожирают предметы, оставляя все остальное нетронутым."
+	description = "Бутылочка со странными нанитами, которые мгновенно пожирают предметы, оставляя всё остальное нетронутым."
 
 /datum/reagent/admin_cleaner/item/reaction_obj(obj/O, volume)
 	if(isitem(O) && !istype(O, /obj/item/grenade/clusterbuster/segment))
@@ -744,7 +744,7 @@
 /datum/reagent/admin_cleaner/all
 	name = "WD-2381-ALL"
 	id = "admincleaner_all"
-	description = "Невероятно опасный набор нанитов, созданный Уборщиками Синдиката, которые пожирают все, к чему прикасаются."
+	description = "Невероятно опасный набор нанитов, созданный Уборщиками Синдиката, которые пожирают всё, к чему прикасаются."
 
 /datum/reagent/admin_cleaner/all/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/item/grenade/clusterbuster/segment))

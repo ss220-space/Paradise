@@ -933,7 +933,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(isitem(tothing))
 		var/mob/living/toitem = tothing
 
-		var/ask = tgui_alert(usr, "Вы уверены, что хотите разрешить [frommob.declent_ru(DATIVE)]([frommob.key]) управлять [toitem.declent_ru(INSTRUMENTAL)]?", "Поместить призрака управлять предметом?", list("Да", "Нет"))
+		var/ask = tgui_alert(usr, "Вы уверены, что хотите разрешить [frommob]([frommob.key]) управлять [toitem.declent_ru(INSTRUMENTAL)]?", "Поместить призрака управлять предметом?", list("Да", "Нет"))
 		if(ask != "Да")
 			return TRUE
 
@@ -942,8 +942,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 		var/mob/living/simple_animal/possessed_object/tomob = new(toitem)
 
-		message_admins(span_adminnotice("[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name]."))
-		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
+		log_and_message_admins("[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 
 		tomob.ckey = frommob.ckey
@@ -955,8 +954,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 		var/question = ""
 		if(tomob.ckey)
-			question = "This mob already has a user ([tomob.key]) in control of it! "
-		question += "Вы уверены, что хотите разрешить [frommob.declent_ru(DATIVE)]([frommob.key]) управлять [tomob.declent_ru(INSTRUMENTAL)]?"
+			question = "У этого существа уже есть пользователь ([tomob.key]), который управляет им! "
+		question += "Вы уверены, что хотите разрешить [frommob.name]([frommob.key]) управлять [tomob.declent_ru(INSTRUMENTAL)]?"
 
 		var/ask = tgui_alert(usr, question, "Поместить призрака управлять существом?", list("Да", "Нет"))
 		if(ask != "Да")
@@ -968,8 +967,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(tomob.client) //no need to ghostize if there is no client
 			tomob.ghostize(0)
 
-		message_admins(span_adminnotice("[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name]."))
-		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
+		log_and_message_admins("[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 
 		tomob.ckey = frommob.ckey
@@ -979,7 +977,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	if(istype(tothing, /obj/structure/AIcore/deactivated))
 
-		var/question = "Вы уверены, что хотите разрешить [frommob.declent_ru(DATIVE)]([frommob.key]) управлять пустым ядром ИИ?"
+		var/question = "Вы уверены, что хотите разрешить [frommob.name]([frommob.key]) управлять пустым ядром ИИ?"
 
 		var/ask = tgui_alert(usr, question, "Поместить призрака управлять пустым ядром ИИ?", list("Да", "Нет"))
 		if(ask != "Да")
@@ -988,8 +986,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(QDELETED(frommob) || QDELETED(tothing)) //make sure the mobs don't go away while we waited for a response
 			return TRUE
 
-		message_admins(span_adminnotice("[key_name_admin(usr)] has put [frommob.ckey] in control of an empty AI core."))
-		log_admin("[key_name(usr)] stuffed [frommob.ckey] into an empty AI core.")
+		log_and_message_admins("[key_name_admin(usr)] has put [frommob.ckey] in control of an empty AI core.")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 
 		var/transfer_key = frommob.key // frommob is qdel'd in frommob.AIize()

@@ -102,16 +102,16 @@
 	to_chat(offer_mob, span_warning("Призракам предложен контроль над вашим существом."))
 	log_admin("[key_name(usr)] has offered control of ([key_name(offer_mob)]) to ghosts.")
 	if(!hours)
-		minhours = tgui_input_number(usr, "Минимальное количество часов, необходимое для игры на [offer_mob.declent_ru(PREPOSITIONAL)]?", "Установите число часов", 10)
+		minhours = tgui_input_number(usr, "Минимальное количество часов, необходимое для игры на [offer_mob]?", "Установите число часов", 10)
 	else
 		minhours = hours
 	message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(offer_mob)]) to ghosts with [minhours] hrs playtime")
-	var/question = "Вы хотите войти в раунд как [offer_mob.real_name ? offer_mob.real_name : offer_mob.declent_ru(NOMINATIVE)][offer_mob.job ? " ([offer_mob.job])" : ""]"
+	var/question = "Вы хотите войти в раунд как [offer_mob.real_name ? offer_mob.real_name : offer_mob][offer_mob.job ? " ([offer_mob.job])" : ""]"
 	if(isnull(hide_role))
-		if(tgui_alert(usr, "Вы хотите показывать спецроль существа?","Показывать спецроль", list("Да","Нет")) == "Да")
-			question += ", [offer_mob.mind?.special_role || "Нет спец роли"]"
+		if(tgui_alert(usr, "Вы хотите показывать спец-роль существа?","Показывать спец-роль", list("Да","Нет")) == "Да")
+			question += ", [offer_mob.mind?.special_role || "Нет спец-роли"]"
 	else if(!hide_role)
-		question += ", [offer_mob.mind?.special_role ? offer_mob.mind?.special_role : "Нет спецроли"]"
+		question += ", [offer_mob.mind?.special_role ? offer_mob.mind?.special_role : "Нет спец-роли"]"
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("[question]?", poll_time = 10 SECONDS, min_hours = minhours, source = offer_mob)
 	var/mob/dead/observer/theghost = null
 
@@ -119,7 +119,7 @@
 
 	if(LAZYLEN(candidates))
 		theghost = pick(candidates)
-		to_chat(offer_mob, span_notice("Контроль над вашем существом был передан призраку!"))
+		to_chat(offer_mob, span_notice("Контроль над вашим существом был передан призраку!"))
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(offer_mob)])")
 		log_game("[theghost.key] has taken control of [offer_mob] (ckey: [offer_mob.key])")
 		offer_mob.ghostize()

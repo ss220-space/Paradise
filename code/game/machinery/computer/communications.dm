@@ -26,7 +26,7 @@
 		INSTRUMENTAL = "консолью связи",
 		PREPOSITIONAL = "консоли связи",
 	)
-	desc = "Консоль, с помощью которой Капитан может связаться с Центральным Командованием или изменить уровень угрозы. Она так же позволяет командному составу вызвать эвакуационный шаттл."
+	desc = "Консоль, с помощью которой капитан может связаться с Центральным Командованием или изменить уровень угрозы. Она так-же позволяет командному составу вызвать эвакуационный шаттл."
 	icon_keyboard = "tech_key"
 	icon_screen = "comm"
 	req_access = list(ACCESS_HEADS)
@@ -70,7 +70,7 @@
 		return COMM_AUTHENTICATION_HEAD
 	else
 		if(message)
-			to_chat(user, span_warning("Доступ запрещен."))
+			to_chat(user, span_warning("Доступ запрещён."))
 			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return COMM_AUTHENTICATION_NONE
 
@@ -93,14 +93,14 @@
 	if(..())
 		return
 	if(!is_secure_level(z))
-		to_chat(ui.user, span_warning("Невозможно установить соединение: вы находитесь слишком далеко от станции!"))
+		to_chat(ui.user, span_warning("Удалённый сервер не отвечает на запросы: база данных вне зоны досягаемости."))
 		return
 
 	. = TRUE
 
 	if(action == "auth")
 		if(!ishuman(ui.user))
-			to_chat(ui.user, span_warning("Доступ запрещен."))
+			to_chat(ui.user, span_warning("Доступ запрещён."))
 			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 			return FALSE
 		// Logout function.
@@ -132,7 +132,7 @@
 				return
 
 		if(authenticated == COMM_AUTHENTICATION_NONE)
-			to_chat(ui.user, span_warning("Вам необходимо носить своЮ ID карту."))
+			to_chat(ui.user, span_warning("Доступ запрещён."))
 		return
 
 	// All functions below this point require authentication.
@@ -163,17 +163,17 @@
 				if(ACCESS_HEADS in I.access)
 					change_security_level(text2num(params["level"]))
 				else
-					to_chat(ui.user, span_warning("Вы не имеете достаточного доступа, чтобы это делать."))
+					to_chat(ui.user, span_warning("Доступ запрещён."))
 				setMenuState(ui.user, COMM_SCREEN_MAIN)
 			else
-				to_chat(ui.user, span_warning("Вам необходимо носить своЮ ID карту."))
+				to_chat(ui.user, span_warning("Доступ запрещён."))
 
 		if("announce")
 			if(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT)
 				if(message_cooldown > world.time)
-					to_chat(ui.user, span_warning("Пожалуйста, подождите хотя бы одну минуту между объявлениями."))
+					to_chat(ui.user, span_warning("Пожалуйста, подождите, прежде чем сделать новое объявление."))
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, напишите сообщение, чтобы сообщить экипажу станции.", "Приоритетное оповещение", multiline = TRUE)
+				var/input = tgui_input_text(ui.user, "Пожалуйста, напишите своё сообщение экипажу станции.", "Приоритетное оповещение", multiline = TRUE)
 				if(!input || message_cooldown > world.time || ..() || !(is_authenticated(ui.user) == COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_MSGLEN_MINIMUM)
@@ -249,7 +249,7 @@
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("setmsg2")
-			stat_msg2 = tgui_input_text(ui.user, "Строка  2", stat_msg2, "Введите текст сообщения", encode = FALSE)
+			stat_msg2 = tgui_input_text(ui.user, "Строка 2", stat_msg2, "Введите текст сообщения", encode = FALSE)
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("nukerequest")
@@ -407,7 +407,7 @@
 		return
 
 	if(!is_secure_level(src.z))
-		to_chat(user, span_warning("Невозможно установить соединение: вы находитесь слишком далеко от станции!"))
+		to_chat(user, span_warning("Удалённый сервер не отвечает на запросы: база данных вне зоны досягаемости."))
 		return
 
 	ui_interact(user)
@@ -497,14 +497,14 @@
 	var/list/data = list()
 
 	data["levels"] = list(
-		list("id" = SEC_LEVEL_GREEN, "name" = "Зеленый", "icon" = "dove"),
+		list("id" = SEC_LEVEL_GREEN, "name" = "Зелёный", "icon" = "dove"),
 		list("id" = SEC_LEVEL_BLUE,  "name" = "Синий", "icon" = "eye"),
 	)
 
 	data["admin_levels"] = list(
 		list("id" = SEC_LEVEL_RED, "name" = "Красный", "icon" = "exclamation"),
 		list("id" = SEC_LEVEL_GAMMA,  "name" = "Гамма", "icon" = "biohazard"),
-		list("id" = SEC_LEVEL_EPSILON, "name" = "Эпсилон", "icon" = "skull", "tooltip" = "Код Эпсилон активируется только примерно через 15 секунд."),
+		list("id" = SEC_LEVEL_EPSILON, "name" = "Эпсилон", "icon" = "skull", "tooltip" = "Код Эпсилон активируется примерно через 15 секунд."),
 		list("id" = SEC_LEVEL_DELTA,  "name" = "Дельта", "icon" = "bomb"),
 	)
 
@@ -540,7 +540,7 @@
 
 /proc/check_shuttle_ability(mob/user)
 	if(GLOB.sent_strike_team == TRUE || GLOB.security_level == SEC_LEVEL_EPSILON)
-		to_chat(user, "Центральное командование не разрешит вызвать шаттл. Считать все контракты расторгнутыми.")
+		to_chat(user, "Центральное Командование не разрешит вызвать шаттл. Все контракты считаются расторгнутыми.")
 		return FALSE
 
 	if(SSticker?.mode?.blob_stage >= BLOB_STAGE_FIRST && SSshuttle.emergencyNoEscape)
@@ -548,11 +548,11 @@
 		return FALSE
 
 	if(SSshuttle.emergencyNoEscape)
-		to_chat(user, "В настоящее время у Центрального командования нет свободного шаттла в вашем секторе. Пожалуйста, повторите попытку позже.")
+		to_chat(user, "В настоящее время у Центрального Командования нет свободного шаттла в вашем секторе. Пожалуйста, повторите попытку позже.")
 		return FALSE
 
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
-		to_chat(user, span_warning("Эвакуационный шаттл не может быть вызван при возвращении в Центральное командование."))
+		to_chat(user, span_warning("Эвакуационный шаттл не может быть вызван при возвращении на станцию Центрального командования."))
 		return FALSE
 
 	if(world.time < 54000) // 30 minute grace period to let the game get going
@@ -568,10 +568,10 @@
 		return
 
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
-		SSshuttle.emergency.request(null, 0.5, null, " Автоматический Трансвер Экипажа", 1)
+		SSshuttle.emergency.request(null, 0.5, null, " Автоматический Трансфер Экипажа", 1)
 		SSshuttle.emergency.canRecall = FALSE
 	else
-		SSshuttle.emergency.request(null, 1, null, " Автоматический Трансвер Экипажа", 0)
+		SSshuttle.emergency.request(null, 1, null, " Автоматический Трансфер Экипажа", 0)
 		SSshuttle.emergency.canRecall = FALSE
 	if(user)
 		add_game_logs("has called the shuttle.", user)
@@ -587,7 +587,7 @@
 		add_game_logs("has recalled the shuttle.", user)
 		message_admins("[ADMIN_LOOKUPFLW(user)] has recalled the shuttle .")
 	else
-		to_chat(user, span_warning("Центральное командование отклонило запрос об отзыве!"))
+		to_chat(user, span_warning("Центральное Командование отклонило запрос об отзыве!"))
 		add_game_logs("has tried and failed to recall the shuttle.", user)
 		message_admins("[ADMIN_LOOKUPFLW(user)] has tried and failed to recall the shuttle.")
 

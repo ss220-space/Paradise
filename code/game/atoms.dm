@@ -1279,7 +1279,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/atom_emote(emote)
 	if(!emote)
 		return
-	visible_message("<span class='game emote'><span class='name'>[src]</span> [emote]</span>", "<span class='game emote'>Ты слышишь, как что-то [emote]</span>")
+	visible_message("<span class='game emote'><span class='name'>[src]</span> [emote]</span>", "<span class='game emote'>Вы слышите, как что-то [emote].</span>")
 
 	runechat_emote(src, emote)
 

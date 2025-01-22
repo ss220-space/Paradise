@@ -285,7 +285,7 @@
 	payload = /obj/item/grenade/chem_grenade/cleaner/everything
 
 /obj/item/grenade/clusterbuster/admincleaner/organic
-	desc = "Для очистки множетсва остатков, на множетсве мест преступлений."
+	desc = "Для очистки множества остатков, на множестве мест преступлений."
 	payload = /obj/item/grenade/chem_grenade/cleaner/organic
 
 /obj/item/grenade/clusterbuster/admincleaner/object
