@@ -7,7 +7,7 @@
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
 	id = "supply"
-	callTime = 1200
+	callTime = 1
 
 	dir = 8
 	width = 12
