@@ -42,6 +42,8 @@
 	//Value used in multiz_explosions. it set here, so may some objects that cover the floor, may also impact the explosion
 	var/explosion_vertical_block = 0
 
+	var/list/orbiters = list()
+
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
 

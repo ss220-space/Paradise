@@ -1439,3 +1439,28 @@
 /atom/movable/proc/keybind_face_direction(direction)
 	setDir(direction)
 
+
+/**
+ * Adds the deadchat_plays component to this atom with simple movement commands.
+ *
+ * Returns the component added.
+ * Arguments:
+ * * mode - Either DEADCHAT_ANARCHY_MODE or DEADCHAT_DEMOCRACY_MODE passed to the deadchat_control component. See [/datum/component/deadchat_control] for more info.
+ * * cooldown - The cooldown between command inputs passed to the deadchat_control component. See [/datum/component/deadchat_control] for more info.
+ */
+/atom/movable/proc/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
+	return AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown)
+
+/// Easy way to remove the component when the fun has been played out
+/atom/movable/proc/stop_deadchat_plays()
+	var/datum/component/deadchat_control/comp = GetComponent(/datum/component/deadchat_control)
+	if(!QDELETED(comp))
+		qdel(comp)
+
+/atom/movable/vv_get_dropdown()
+	. = ..()
+	if(!GetComponent(/datum/component/deadchat_control))
+		.["Give deadchat control"] = "?_src_=vars;grantdeadchatcontrol=[UID()]"
+	else
+		.["Remove deadchat control"] = "?_src_=vars;removedeadchatcontrol=[UID()]"
+

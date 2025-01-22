@@ -318,3 +318,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	destination_turf = get_edge_target_turf(src, direction)
 	SSmove_manager.move_towards(src, destination_turf, delay = move_delay)
 
+
+
+/obj/effect/immovablerod/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 6 SECONDS)
+	return AddComponent(/datum/component/deadchat_control/immovable_rod, mode, list(), cooldown)
+
