@@ -145,15 +145,13 @@
 /turf/space,
 /area/space)
 "aar" = (
-/obj/machinery/door/window/westright{
-	dir = 4;
-	name = "Front Desk";
-	req_access = list(37)
-	},
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
 /obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/door/window/westright{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -5817,8 +5815,8 @@
 /area/maintenance/fore)
 "aSh" = (
 /obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/decal/cleanable/cobweb2,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/commercial)
 "aSl" = (
@@ -8241,14 +8239,12 @@
 /turf/simulated/wall,
 /area/crew_quarters/trading)
 "bhM" = (
-/obj/machinery/door/window/westright{
-	dir = 4;
-	name = "Front Desk";
-	req_access = list(37)
-	},
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/curtain/black,
+/obj/machinery/door/window/westright{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5
 	},
@@ -10778,6 +10774,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/clothing/mask/cigarette/syndicate,
 /obj/item/trash/tastybread,
 /turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/banya)
@@ -17881,7 +17878,6 @@
 	pixel_x = -16;
 	pixel_y = -8
 	},
-/obj/item/trash/raisins,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
@@ -35581,8 +35577,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/westright{
-	dir = 1;
-	name = "Front Desk"
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/trading)
@@ -58495,8 +58490,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/westright{
-	dir = 1;
-	name = "Front Desk"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
@@ -73451,6 +73445,21 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
+"mbL" = (
+/obj/item/whetstone,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/structure/grille/broken,
+/obj/item/trash/raisins{
+	pixel_y = 8;
+	pixel_x = 3
+	},
+/obj/item/shard,
+/obj/structure/curtain/black,
+/turf/simulated/floor/plating,
+/area/hallway/secondary/entry/commercial)
 "mbM" = (
 /obj/effect/decal/warning_stripes/southeast,
 /obj/structure/table/reinforced,
@@ -83268,10 +83277,6 @@
 /area/maintenance/engineering)
 "ono" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/westright{
-	dir = 1;
-	name = "Front Desk"
-	},
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/weaponcrafting/revolverbarrel/steel,
 /obj/item/clothing/glasses/welding,
@@ -83283,6 +83288,9 @@
 	id_tag = "Traiders Windows";
 	name = "Traiders Privacy Shutters";
 	opacity = 1
+	},
+/obj/machinery/door/window/westright{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
@@ -94271,6 +94279,7 @@
 /area/security/permabrig)
 "qKa" = (
 /obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
 	},
@@ -107998,6 +108007,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/carpet/blue,
 /area/crew_quarters/trading)
 "tTu" = (
@@ -122081,6 +122091,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/sign/bathhouse{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
@@ -123028,18 +123041,13 @@
 /area/aisat/maintenance)
 "xuO" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/westright{
-	dir = 1;
-	name = "Front Desk"
-	},
-/obj/machinery/door/window/westright{
-	dir = 2;
-	name = "Front Desk"
-	},
 /obj/item/pen/red,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
 	id_tag = "Old_Delivery_Shutt"
+	},
+/obj/machinery/door/window/westright{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -154806,7 +154814,7 @@ coE
 uCN
 uCN
 dxk
-dxk
+mbL
 uCN
 uCN
 moG
