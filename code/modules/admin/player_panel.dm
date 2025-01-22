@@ -6,12 +6,11 @@
 	if(!check_rights(R_ADMIN|R_MOD))
 		message_admins("[key_name_admin(usr)] attempted to invoke player panel without admin rights. If this is a mentor, its a chance they accidentally hit F7. If this is NOT a mentor, there is a high chance an exploit is being used")
 		return
-	var/dat = {"<html><meta charset="UTF-8"><head><title>Admin Player Panel</title></head>"}
+	var/dat = ""
 
 	//javascript, the part that does most of the work~
 	dat += {"
 
-		<head>
 			<script type='text/javascript'>
 
 				var locked_tabs = new Array();
@@ -75,7 +74,7 @@
 
 					body += "</td><td align='center'>";
 
-					body += "<font size='2'><b>"+job+" "+name+"</b><br><b>Real name "+real_name+"</b><br><b>Played by "+key+" ("+ip+")</b></font>"
+					body += "<font size='2'><b>"+job+" "+name+"</b><br>Real name: <b>"+real_name+"</b><br>Played by: <b>"+key+" ("+ip+")</b></font>"
 
 					body += "</td><td align='center'>";
 
@@ -187,7 +186,6 @@
 				}
 
 			</script>
-		</head>
 
 
 	"}
@@ -201,7 +199,7 @@
 		<table width='560' align='center' cellspacing='0' cellpadding='5' id='maintable'>
 			<tr id='title_tr'>
 				<td align='center'>
-					<font size='5'><b>Player panel</b></font><br>
+					<font size='5'><b>Player panel</b></font><br><br>
 					Hover over a line to see more information | [check_rights(R_ADMIN,0) ? "<a href='byond://?src=[UID()];check_antagonist=1'>Check antagonists</a> | Kick <a href='byond://?_src_=holder;kick_all_from_lobby=1;afkonly=0'>everyone</a>/<a href='byond://?_src_=holder;kick_all_from_lobby=1;afkonly=1'>AFKers</a> in lobby" : "" ]
 					<p>
 				</td>
@@ -225,9 +223,6 @@
 	for(var/mob/M in mobs)
 		if(M.ckey)
 
-			var/color = "#e6e6e6"
-			if(i%2 == 0)
-				color = "#f2f2f2"
 			var/antagonist_string = get_antag_type_truncated_plaintext_string(M)
 
 			var/M_job = ""
@@ -305,7 +300,7 @@
 			dat += {"
 
 				<tr id='data[i]' name='[i]' onClick="addToLocked('item[i]','data[i]','notice_span[i]')">
-					<td align='center' bgcolor='[color]'>
+					<td align='center' >
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
 						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]","[antagonist_string]","[M.UID()]","[client_ckey]","[M_eyeUID]")'
@@ -330,10 +325,15 @@
 			var maintable = document.getElementById("maintable_data_archive");
 			var complete_list = maintable.innerHTML;
 		</script>
-	</body></html>
+	</body>
 	"}
 
-	usr << browse(dat, "window=players;size=600x480")
+	var/datum/browser/popup = new(usr, "players", "<div align='center'>Admin Player Panel</div>", 600, 480)
+	popup.set_content(dat)
+	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+	popup.add_stylesheet("dark_inputs", "html/dark_inputs.css")
+	popup.open()
+	onclose(usr, "players")
 
 
 /datum/admins/proc/check_antagonists_line(mob/M, caption = "", close = 1)
@@ -351,7 +351,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 	if(SSticker && SSticker.current_state >= GAME_STATE_PLAYING)
-		var/dat = {"<html><meta charset="UTF-8"><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"}
+		var/dat = {"<body><h1><B>Round Status</B></h1>"}
 		dat += "Current Game Mode: <B>[SSticker.mode.name]</B><BR>"
 		dat += "Round Duration: <B>[ROUND_TIME_TEXT()]</B><BR>"
 		dat += "<B>Emergency shuttle</B><BR>"
@@ -624,8 +624,12 @@
 		dat += "<tr><td>Antag: </td><td>[sec_list[4]]</td>"
 		dat += "</table>"
 
-		dat += "</body></html>"
-		usr << browse(dat, "window=roundstatus;size=400x500")
+		dat += "</body>"
+		var/datum/browser/popup = new(usr, "roundstatus", "<div align='center'>Round Status</div>", 400, 500)
+		popup.set_content(dat)
+		popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+		popup.open()
+		onclose(usr, "roundstatus")
 	else
 		alert("The game hasn't started yet!")
 
@@ -664,7 +668,7 @@
 	if(!SSticker || SSticker.current_state < GAME_STATE_PLAYING)
 		return
 
-	var/dat = {"<html><meta charset="UTF-8"><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"}
+	var/dat = {"<body><h1><B>Round Status</B></h1>"}
 	var/list/sec_list = check_active_security_force()
 	dat += "<br><table cellspacing=5><tr><td><b>Security</b></td><td></td></tr>"
 	dat += "<tr><td>Total: </td><td>[sec_list[1]]</td>"
@@ -672,7 +676,7 @@
 	dat += "<tr><td>Dead: </td><td>[sec_list[3]]</td>"
 	dat += "<tr><td>Antag: </td><td>[sec_list[4]]</td>"
 	dat += "</table>"
-	dat += "</body></html>"
+	dat += "</body>"
 
 	dat += "<br><table cellspacing=5><tr><td><B>Security</B></td><td></td></tr>"
 	for(var/datum/mind/mind in SSticker.mode.get_all_sec())
@@ -683,7 +687,11 @@
 	if(SSticker.mode.ert.len)
 		dat += check_role_table_sec("ERT", SSticker.mode.ert)
 
-	usr << browse(dat, "window=roundstatus;size=600x800")
+	var/datum/browser/popup = new(usr, "secstatus", "<div align='center'>Security Status</div>", 600, 800)
+	popup.set_content(dat)
+	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+	popup.open()
+	onclose(usr, "secstatus")
 
 /datum/admins/proc/check_role_table_sec(name, list/members, show_objectives=0)
 	var/txt = "<br><table cellspacing=5><tr><td><b>[name]</b></td><td></td></tr>"

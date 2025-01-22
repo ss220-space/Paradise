@@ -178,7 +178,7 @@
 	if(!SSdbcore.Connect())
 		to_chat(usr, span_danger("Failed to establish database connection."), confidential = TRUE)
 		return
-	var/datum/db_query/query_load_polls = SSdbcore.NewQuery("SELECT id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, IF(polltype='TEXT',(SELECT COUNT(ckey) FROM [format_table_name("poll_textreply")] AS t WHERE t.pollid = q.id AND deleted = 0), (SELECT COUNT(DISTINCT ckey) FROM [format_table_name("poll_vote")] AS v WHERE v.pollid = q.id AND deleted = 0)), IFNULL((SELECT ckey FROM [format_table_name("player")] WHERE ckey = q.createdby_ckey), createdby_ckey), IF(starttime > NOW(), 1, 0), IF(starttime < NOW() AND endtime > NOW(), 1, 0), minimum_playtime FROM [format_table_name("poll_question")] AS q WHERE deleted = 0")
+	var/datum/db_query/query_load_polls = SSdbcore.NewQuery("SELECT id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, IF(polltype = 'Text Reply', (SELECT COUNT(ckey) FROM [format_table_name("poll_textreply")] AS t WHERE t.pollid = q.id AND deleted = 0), (SELECT COUNT(DISTINCT ckey) FROM [format_table_name("poll_vote")] AS v WHERE v.pollid = q.id AND deleted = 0)), IFNULL((SELECT ckey FROM [format_table_name("player")] WHERE ckey = q.createdby_ckey), createdby_ckey), IF(starttime > NOW(), 1, 0), IF(starttime < NOW() AND endtime > NOW(), 1, 0), minimum_playtime FROM [format_table_name("poll_question")] AS q WHERE deleted = 0")
 	if(!query_load_polls.Execute())
 		log_and_message_admins("Poll questions failed to load! There's SQL issue ongoing, contact developers.")
 		qdel(query_load_polls)

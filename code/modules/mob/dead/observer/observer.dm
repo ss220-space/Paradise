@@ -201,7 +201,7 @@ Works together with spawning an observer, noted above.
 		var/mob/dead/observer/observer = ghostize()
 
 		if(!observer)
-			return FALSE 
+			return FALSE
 
 		observer.ManualFollow(target)
 
@@ -217,6 +217,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/warningmsg = null
 	var/obj/machinery/cryopod/P = istype(loc, /obj/machinery/cryopod) && loc
+
+	if(frozen)
+		to_chat(src, span_warning("Вы не можете сделать этого, пока находитесь под действием админфриза."))
+		message_admins("[key_name_admin(src)] tried to ghost while admin frozen")
+		return
 
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
@@ -443,7 +448,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/ManualFollow(atom/movable/target)
 	. = ..()
-	
+
 	if(!.)
 		return
 

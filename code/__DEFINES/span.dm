@@ -16,6 +16,7 @@
 //#define span_alertsyndie(str) ("<span class='alertsyndie'>" + str + "</span>")
 //#define span_alertwarning(str) ("<span class='alertwarning'>" + str + "</span>")
 #define span_alien(str) ("<span class='alien'>" + str + "</span>")
+#define span_all_admin_ping(str) ("<span class='all_admin_ping'>" + str + "</span>")
 #define span_announce(str) ("<span class='announce'>" + str + "</span>")
 #define span_big(str) ("<span class='big'>" + str + "</span>")
 #define span_blob(str) ("<span class='blob'>" + str + "</span>")
