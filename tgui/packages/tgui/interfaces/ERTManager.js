@@ -71,7 +71,10 @@ export const ERTOverview = (props, context) => {
   return (
     <Section title="Обзор">
       <LabeledList>
-        <LabeledList.Item label="Текущий код" color={security_level_color}>
+        <LabeledList.Item
+          label="Текущий уровень угрозы"
+          color={security_level_color}
+        >
           {str_security_level}
         </LabeledList.Item>
         <LabeledList.Item label="Запрос ОБР">
@@ -81,7 +84,7 @@ export const ERTOverview = (props, context) => {
             content={ert_request_answered ? 'Отвечено' : 'Неотвечено'}
             onClick={() => act('toggle_ert_request_answered')}
             tooltip={
-              'Установка этого флага отключит следующее уведомление-напоминание о том, что запрос ОБР проигнорирован'
+              'Установка этого флага отключит следующее уведомление-напоминание о том, что запрос ОБР проигнорирован.'
             }
             selected={null}
           />
@@ -129,7 +132,7 @@ const SendERT = (props, context) => {
             onClick={() => act('toggle_com')}
           />
         </LabeledList.Item>
-        <LabeledList.Item label="Охранник">
+        <LabeledList.Item label="Боец">
           {slotOptions.map((a, i) => (
             <Button
               key={'sec' + a}
@@ -285,7 +288,7 @@ const DenyERT = (props, context) => {
   return (
     <Section>
       <Input
-        placeholder="Введите здесь причину отклонения ОБР.\nМногострочный ввод доступен.."
+        placeholder="Введите здесь причину отклонения ОБР.\nМногострочный ввод доступен."
         rows={10}
         fluid
         multiline={1}
@@ -293,7 +296,7 @@ const DenyERT = (props, context) => {
         onChange={(e, value) => setText(value)}
       />
       <Button.Confirm
-        content="Отклонить ОБР"
+        content="Отклонить запрос ОБР"
         fluid
         icon="times"
         center

@@ -70,7 +70,7 @@
 			cyborg_slots = text2num(params["set_cyb"])
 		if("dispatch_ert")
 			if(GLOB.send_emergency_team)
-				to_chat(usr, span_warning("Центральное командование уже направило группу быстрого реагирования!"))
+				to_chat(usr, span_warning("Центральное Командование уже направило Отряд Быстрого Реагирования!"))
 				return
 			var/datum/response_team/D
 			switch(ert_type)
@@ -89,7 +89,7 @@
 			if(commander_slots > 0)
 				slots_list += "командир: [commander_slots]"
 			if(security_slots > 0)
-				slots_list += "охраник: [security_slots]"
+				slots_list += "боец: [security_slots]"
 			if(medical_slots > 0)
 				slots_list += "медик: [medical_slots]"
 			if(engineering_slots > 0)

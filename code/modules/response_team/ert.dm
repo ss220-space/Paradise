@@ -22,21 +22,21 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /client/proc/response_team()
 	set name = "Dispatch CentComm Response Team"
 	set category = "Event"
-	set desc = "Отправляет на станцию ​​группу реагирования ЦентКомма."
+	set desc = "Отправляет на станцию ​Отряд Быстрого Реагирования."
 
 	if(!check_rights(R_EVENT))
 		return
 
 	if(!SSticker)
-		to_chat(usr, span_warning("Игра еще не началась!"))
+		to_chat(usr, span_warning("Игра ещё не началась!"))
 		return
 
 	if(SSticker.current_state == GAME_STATE_PREGAME)
-		to_chat(usr, span_warning("Раунд еще не начался!"))
+		to_chat(usr, span_warning("Раунд ещё не начался!"))
 		return
 
 	if(GLOB.send_emergency_team)
-		to_chat(usr, span_warning("Центральное командование уже направило группу быстрого реагирования!"))
+		to_chat(usr, span_warning("Центральное Командование уже направило Отряд Быстрого Реагирования!"))
 		return
 
 	var/datum/ui_module/ert_manager/E = new()
@@ -45,24 +45,24 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 /mob/dead/observer/proc/JoinResponseTeam()
 	if(!GLOB.send_emergency_team)
-		to_chat(src, span_warning("В настоящее время группа быстрого реагирования не отправлена."))
+		to_chat(src, span_warning("Отряд Быстрого Реагирования не был отправлен."))
 		return FALSE
 
 	if(jobban_isbanned(src, ROLE_ERT))
-		to_chat(src, span_warning("У вас джоббан на роль бойца отряда быстрого реагирования!"))
+		to_chat(src, span_warning("У вас джоббан на роль бойца ОБР!"))
 		return FALSE
 
 	if(jobban_isbanned(src, JOB_TITLE_OFFICER) || jobban_isbanned(src, JOB_TITLE_CAPTAIN) || jobban_isbanned(src, JOB_TITLE_CYBORG))
-		to_chat(src, span_warning("Один из ваших джоббанов запрещает вам играть в отряде быстрого реагирования!"))
+		to_chat(src, span_warning("Один из ваших джоббанов запрещает вам играть в ОБР!"))
 		return FALSE
 
 	var/player_age_check = check_client_age(client, GLOB.responseteam_age)
 	if(player_age_check && CONFIG_GET(flag/use_age_restriction_for_antags))
-		to_chat(src, span_warning("Эта роль вам пока недоступна. Вам нужно подождать еще [player_age_check] дней."))
+		to_chat(src, span_warning("Эта роль вам пока недоступна. Вам нужно подождать ещё [player_age_check] [declension_ru(player_age_check, "день", "дня", "дней")]."))
 		return FALSE
 
 	if(cannotPossess(src))
-		to_chat(src, span_boldnotice("Активировав antagHUD вы лишились возможности присоединиться к раунду."))
+		to_chat(src, span_boldnotice("Активировав Антаг-ХУД, вы лишились возможности присоединиться к раунду."))
 		return FALSE
 
 	return TRUE
@@ -100,7 +100,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 /proc/get_ert_prefs(mob/user, list/ert_prefs)
 	ert_prefs[user] = list()
-	ert_prefs[user]["gender"] = tgui_input_list(user, "Выберите пол (10 seconds):","", list("Мужской", "Женский"), timeout = 10 SECONDS)
+	ert_prefs[user]["gender"] = tgui_input_list(user, "Выберите пол (10 секунд):","", list("Мужской", "Женский"), timeout = 10 SECONDS)
 	ert_prefs[user]["roles"] = tgui_input_ranked_list(user, "Расположите роли ОБР от наиболее предпочтительных к наименее предпочтительным (20 секунд):", "", GLOB.active_team.get_slot_list(), timeout = 20 SECONDS)
 
 /proc/dispatch_response_team(list/response_team_members, list/ert_prefs)
@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team
 	var/list/slots = list(
 		"Командир" = 0,
-		"Охранник" = 0,
+		"Боец" = 0,
 		"Инженер" = 0,
 		"Медик" = 0,
 		"Уборщик" = 0,
@@ -223,7 +223,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 /datum/response_team/proc/setSlots(com=1, sec=4, med=0, eng=0, jan=0, par=0, cyb=0)
 	slots["Командир"] = com
-	slots["Охранник"] = sec
+	slots["Боец"] = sec
 	slots["Медик"] = med
 	slots["Инженер"] = eng
 	slots["Уборщик"] = jan
@@ -250,7 +250,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		if("Инженер")
 			M.equipOutfit(engineering_outfit)
 
-		if("Охранник")
+		if("Боец")
 			M.equipOutfit(security_outfit)
 
 		if("Медик")
