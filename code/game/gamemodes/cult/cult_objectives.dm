@@ -194,7 +194,7 @@
 		if(valid_spot)
 			summon_spots += summon
 		sanity++
-	explanation_text = "Призовите [SSticker.cultdat ? SSticker.cultdat.entity_name : "вашего бога"], вызвав руну «Разорвать завесу» вместе с 9 культистами, конструкциями или вызванными призраками внутри нее.\
+	explanation_text = "Призовите [SSticker.cultdat ? SSticker.cultdat.entity_name : "вашего бога"], вызвав руну «Разорвать завесу» вместе с 9 культистами, конструкциями или вызванными призраками внутри неё.\
 	\nПризыв может быть осуществлён только в [english_list(summon_spots)] - где завеса достаточно слаба, чтобы начать ритуал."
 
 
