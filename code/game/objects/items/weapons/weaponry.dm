@@ -462,7 +462,7 @@
 	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	throw_speed = 3
 	throw_range = 6
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "рубанул")
 	sharp = TRUE
 
 /obj/item/melee/ghostface_knife/devil
