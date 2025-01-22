@@ -103,7 +103,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Msay")
 
 /client/proc/get_dev_team_say()
-	if(check_rights(R_VIEWRUNTIMES | R_ADMIN | R_MOD))
+	if(check_rights(R_VIEWRUNTIMES | R_ADMIN))
 		var/msg = input(src, null, "devsay \"text\"") as text|null
 		cmd_dev_say(msg)
 
@@ -126,7 +126,7 @@
 
 
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_ADMIN | R_MOD | R_VIEWRUNTIMES, 0, C.mob))
+		if(check_rights(R_ADMIN | R_VIEWRUNTIMES, 0, C.mob))
 			var/display_name = key
 			if(holder.fakekey)
 				if(C.holder && C.holder.rights & R_ADMIN)
