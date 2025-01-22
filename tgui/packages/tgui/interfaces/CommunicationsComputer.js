@@ -34,7 +34,7 @@ export const CommunicationsComputer = (props, context) => {
   const { menu_state } = data;
 
   return (
-    <Window width={500} height={600}>
+    <Window width={500} height={600} title="Консоль связи">
       <Window.Content scrollable>
         <Stack fill vertical>
           <AuthBlock />
