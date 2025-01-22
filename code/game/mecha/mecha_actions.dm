@@ -117,10 +117,14 @@
 	button_icon_state = "mech_defense_mode_[chassis.defence_mode ? "on" : "off"]"
 	if(chassis.defence_mode)
 		chassis.deflect_chance = chassis.defence_mode_deflect_chance
-		chassis.occupant_message(span_notice("You enable [chassis] defence mode."))
+		chassis.occupant_message(span_notice("[chassis] defence mode enabled."))
+		chassis.set_anchored(TRUE)
+		RegisterSignal(chassis, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(Activate))
 	else
+		UnregisterSignal(chassis, COMSIG_MOVABLE_SET_ANCHORED)
 		chassis.deflect_chance = initial(chassis.deflect_chance)
-		chassis.occupant_message(span_danger("You disable [chassis] defence mode."))
+		chassis.occupant_message(span_danger("[chassis] defence mode disabled."))
+		chassis.set_anchored(FALSE)
 	chassis.log_message("Toggled defence mode.")
 	UpdateButtonIcon()
 
