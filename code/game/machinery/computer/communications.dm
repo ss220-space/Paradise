@@ -18,6 +18,7 @@
 // The communications computer
 /obj/machinery/computer/communications
 	name = "communications console"
+	desc = "Консоль, с помощью которой капитан может связаться с Центральным Командованием или изменить уровень угрозы. Она так-же позволяет командному составу вызвать эвакуационный шаттл."
 	ru_names = list(
 		NOMINATIVE = "консоль связи",
 		GENITIVE = "консоли связи",
@@ -26,7 +27,6 @@
 		INSTRUMENTAL = "консолью связи",
 		PREPOSITIONAL = "консоли связи",
 	)
-	desc = "Консоль, с помощью которой капитан может связаться с Центральным Командованием или изменить уровень угрозы. Она так-же позволяет командному составу вызвать эвакуационный шаттл."
 	icon_keyboard = "tech_key"
 	icon_screen = "comm"
 	req_access = list(ACCESS_HEADS)
@@ -86,8 +86,7 @@
 		message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].")
 	if(new_level == SEC_LEVEL_EPSILON)
 		// episilon is delayed... but we still want to log it
-		log_game("[key_name(usr)] has changed the security level to epsilon.")
-		message_admins("[key_name_admin(usr)] has changed the security level to epsilon.")
+		log_and_message_admins("[key_name_admin(usr)] has changed the security level to epsilon.")
 
 /obj/machinery/computer/communications/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
