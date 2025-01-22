@@ -8,3 +8,4 @@
 #define MENTOR_CHANNEL "Mentor"
 #define ADMIN_CHANNEL "Admin"
 #define DSAY_CHANNEL "Dsay"
+#define DEV_CHANNEL "Dev"

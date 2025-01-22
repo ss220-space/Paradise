@@ -1577,6 +1577,12 @@
 
 		usr.client.view_asays()
 
+	else if(href_list["devsays"])
+		if(!check_rights(R_ADMIN | R_VIEWRUNTIMES))
+			return
+
+		usr.client.view_devsays()
+
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 

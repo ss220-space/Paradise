@@ -53,6 +53,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/delbook,
 	/client/proc/view_flagged_books,
 	/client/proc/view_asays,
+	/client/proc/view_devsays,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
@@ -235,6 +236,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/view_runtimes,
 	/client/proc/ss_breakdown,
 	/client/proc/debug_variables,
+	/client/proc/view_devsays,
 ))
 
 /client/proc/add_admin_verbs()
