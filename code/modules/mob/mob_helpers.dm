@@ -100,12 +100,12 @@
 	var/minhours
 	ADD_TRAIT(offer_mob, TRAIT_BEING_OFFERED, ADMIN_OFFER_TRAIT)
 	to_chat(offer_mob, span_warning("Призракам предложен контроль над вашим существом."))
-	log_admin("[key_name(usr)] has offered control of ([key_name(offer_mob)]) to ghosts.")
 	if(!hours)
 		minhours = tgui_input_number(usr, "Минимальное количество часов, необходимое для игры на [offer_mob]?", "Установите число часов", 10)
 	else
 		minhours = hours
-	message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(offer_mob)]) to ghosts with [minhours] hrs playtime")
+		
+	log_and_message_admins("has offered control of ([key_name_admin(offer_mob)]) to ghosts with [minhours] hrs playtime")
 	var/question = "Вы хотите войти в раунд как [offer_mob.real_name ? offer_mob.real_name : offer_mob][offer_mob.job ? " ([offer_mob.job])" : ""]"
 	if(isnull(hide_role))
 		if(tgui_alert(usr, "Вы хотите показывать спец-роль существа?","Показывать спец-роль", list("Да","Нет")) == "Да")

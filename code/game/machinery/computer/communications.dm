@@ -86,7 +86,7 @@
 		message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].")
 	if(new_level == SEC_LEVEL_EPSILON)
 		// episilon is delayed... but we still want to log it
-		log_and_message_admins("[key_name_admin(usr)] has changed the security level to epsilon.")
+		log_and_message_admins("has changed the security level to epsilon.")
 
 /obj/machinery/computer/communications/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())

@@ -942,7 +942,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 		var/mob/living/simple_animal/possessed_object/tomob = new(toitem)
 
-		log_and_message_admins("[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].")
+		log_and_message_admins("has put [frommob.ckey] in control of [tomob.name].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 
 		tomob.ckey = frommob.ckey
@@ -967,7 +967,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(tomob.client) //no need to ghostize if there is no client
 			tomob.ghostize(0)
 
-		log_and_message_admins("[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].")
+		log_and_message_admins("has put [frommob.ckey] in control of [tomob.name].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 
 		tomob.ckey = frommob.ckey
@@ -986,7 +986,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(QDELETED(frommob) || QDELETED(tothing)) //make sure the mobs don't go away while we waited for a response
 			return TRUE
 
-		log_and_message_admins("[key_name_admin(usr)] has put [frommob.ckey] in control of an empty AI core.")
+		log_and_message_admins("has put [frommob.ckey] in control of an empty AI core.")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 
 		var/transfer_key = frommob.key // frommob is qdel'd in frommob.AIize()
