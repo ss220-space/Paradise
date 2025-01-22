@@ -148,4 +148,5 @@
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/amlg,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang,
+		/obj/item/mecha_parts/mecha_equipment/cage,
 	)

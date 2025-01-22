@@ -8,7 +8,7 @@
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "biotech=5"
-	attack_verb = list("attacked", "slapped", "whacked")
+	attack_verb = list("атаковал", "шлёпнул", "огрел")
 	var/mob/living/carbon/brain/brainmob = null
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_BRAIN

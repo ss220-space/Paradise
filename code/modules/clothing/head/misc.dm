@@ -466,7 +466,7 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("warned", "cautioned", "smashed")
+	attack_verb = list("предупредил", "насторожил")
 	resistance_flags = NONE
 	dog_fashion = /datum/dog_fashion/head/cone
 

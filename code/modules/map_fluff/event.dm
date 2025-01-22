@@ -9,7 +9,7 @@
 	dock_name = "NAV Trurl"
 	company_name = "Nanotrasen"
 	company_short = "NT"
-	starsys_name = "Epsilon Eridani"
+	starsys_name = "Epsilon Lucusta"
 	webmap_url = "Optional"
 	admin_only = TRUE
 */
@@ -37,7 +37,7 @@
 	dock_name     = "NAV Trurl"
 	company_name  = "Nanotrasen"
 	company_short = "NT"
-	starsys_name  = "Epsilon Eridani"
+	starsys_name  = "Epsilon Lucusta"
 	admin_only = TRUE
 
 /datum/map/delta_old
@@ -50,18 +50,19 @@
 	dock_name     = "NAV Trurl"
 	company_name  = "Nanotrasen"
 	company_short = "NT"
-	starsys_name  = "Epsilon Eridani"
+	starsys_name  = "Epsilon Lucusta"
 	admin_only = TRUE
 
 /datum/map/coldcolony
 	name = "Malta"
 	map_path = "_maps/map_files/event/Station/coldcolony.dmm"
 	lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
+	traits = list(MAIN_STATION, STATION_LEVEL = "Surface", ZTRAIT_BASETURF = /turf/simulated/floor/plating/asteroid/snow/planet)
 
 	station_name = "NMC Malta"
 	station_short = "Malta"
 	dock_name = "NAV Trurl"
 	company_name = "Nanotrasen"
 	company_short = "NT"
-	starsys_name = "Epsilon Eridani"
+	starsys_name = "Epsilon Lucusta"
 	admin_only = TRUE

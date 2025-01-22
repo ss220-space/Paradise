@@ -20,7 +20,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	blocks_emissive = FALSE
-	attack_verb = list("bapped")
+	attack_verb = list("стукнул")
 	permeability_coefficient = 0.01
 	dog_fashion = /datum/dog_fashion/head
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
@@ -1570,7 +1570,7 @@
 			<td><center><font size=\"4\">Данные<BR>для<BR>доставки</font></center><td>\
 			<center><B><U><font size=\"4\">Получатель</font></U></B></center>\
 			<U>Наименование станции</U>: &#34;ННКСС <B>Тайпан</B>&#34;\
-			<BR><U>Наименование сектора</U>: Эпсилон Эридана\
+			<BR><U>Наименование сектора</U>: Эпсилон Лукусты\
 			</td></tr></table>\
 			</center><BR>В связи с отсутствием в стандартном перечени заказов прошу доставить следующее:\
 			<BR><ul><li><U><span class=\"paper_field\"></span></U></ul>\

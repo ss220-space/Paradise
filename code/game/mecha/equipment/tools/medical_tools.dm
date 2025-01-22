@@ -65,6 +65,9 @@
 		return FALSE
 	if(!patient_insertion_check(target))
 		return FALSE
+	if(get_dist(chassis, target) > 1)
+		occupant_message(span_warning("[target] слишком далеко для погрузки."))
+		return FALSE
 	occupant_message(span_notice("You start putting [target] into [src]..."))
 	chassis.visible_message(span_warning("[chassis] starts putting [target] into \the [src]."))
 	if(!do_after_cooldown(target))

@@ -8,7 +8,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("warned", "cautioned", "smashed")
+	attack_verb = list("предупредил", "насторожил")
 
 /obj/item/caution/proximity_sign
 	var/timing = 0
