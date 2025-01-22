@@ -1643,7 +1643,7 @@
 		INSTRUMENTAL = "чёрным балахоном",
 		PREPOSITIONAL = "чёрном балахоне"
 	)
-	desc = "чёрный, просторный балахон, что может навеивать смутные напоминания о чём-то."
+	desc = "Чёрный, просторный балахон, что может навеивать смутные напоминания о чём-то."
 	icon_state = "ghostface_suit"
 	item_state = "ghostface_suit"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
@@ -1668,7 +1668,7 @@
 		INSTRUMENTAL = "чёрным капюшоном",
 		PREPOSITIONAL = "чёрном капюшоне"
 	)
-	desc = "Черный капюшон. Он вам что-то точно напоминает..."
+	desc = "Чёрный капюшон. Он вам что-то точно напоминает..."
 	icon_state = "ghostface_hood"
 	item_state = "ghostface"
 	flags_inv = HIDEHEADSETS|HIDEHAIR
@@ -1682,7 +1682,7 @@
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 
 /obj/item/clothing/suit/hooded/ghostfacesuit/devil
-	desc = "чёрный с прожилками красного просторный балахон, что может навеивать смутные напоминания о чём-то."
+	desc = "Чёрный с прожилками красного просторный балахон, что может навеивать смутные напоминания о чём-то."
 	ru_names = list(
 		NOMINATIVE = "кроваво-чёрный балахон",
 		GENITIVE = "кроваво-чёрного балахона",
