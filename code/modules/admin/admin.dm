@@ -77,8 +77,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
-	var/body = {"<html><meta charset="UTF-8"><head><title>Options for [M.key]</title></head>"}
-	body += "<body>Options panel for <b>[M]</b>"
+	var/body = "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
 		if(check_rights(R_PERMISSIONS, 0))
@@ -292,11 +291,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			<a href='byond://?_src_=holder;contractor_release=[M.UID()]'>Release now from Syndicate Jail</A> |
 		"}
 
-	body += {"<br>
-		</body></html>
+	body += {"<br></body>
 	"}
 
-	usr << browse(body, "window=adminplayeropts;size=550x615")
+	var/datum/browser/popup = new(usr, "adminplayeropts", "<div align='center'>Options for [M.key]</div>", 600, 615)
+	popup.set_content(body)
+	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+	popup.open()
+	onclose(usr, "adminplayeropts")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Player Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 
@@ -345,29 +347,32 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		dat += text("<tr><td>[t] (<a href='byond://?src=[UID()];removejobban=[r]'>unban</A>)</td></tr>")
 	dat += "</table>"
 	usr << browse(dat, "window=ban;size=400x400")
+	
 
 /datum/admins/proc/Game()
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">
-		<center><B>Game Panel</B></center><hr>\n
-		<a href='byond://?src=[UID()];c_mode=1'>Change Game Mode</A><br>
-		"}
+	var/list/dat = list()
+	var/cached_UID = UID()
+	dat += "<center>"
+	dat += "<p><a href='byond://?src=[cached_UID];c_mode=1'>Change Game Mode</a><br></p>"
 	if(GLOB.master_mode == "secret")
-		dat += "<a href='byond://?src=[UID()];f_secret=1'>(Force Secret Mode)</A><br>"
+		dat += "<p><a href='byond://?src=[cached_UID];f_secret=1'>(Force Secret Mode)</a><br></p>"
 	if(GLOB.master_mode == "antag-paradise" || GLOB.secret_force_mode == "antag-paradise")
-		dat += "<a href='byond://?src=[UID()];change_weights=1'>Change Antag Weights</A><br>"
+		dat += "<p><a href='byond://?src=[cached_UID];change_weights=1'>Change Antag Weights</a><br></p>"
 
-	dat += {"
-		<BR>
-		<a href='byond://?src=[UID()];create_object=1'>Create Object</A><br>
-		<a href='byond://?src=[UID()];quick_create_object=1'>Quick Create Object</A><br>
-		<a href='byond://?src=[UID()];create_turf=1'>Create Turf</A><br>
-		<a href='byond://?src=[UID()];create_mob=1'>Create Mob</A><br>
-		"}
+	dat += "<hr><br>"
+	dat += "<p><a href='byond://?src=[cached_UID];create_object=1'>Create Object</a><br></p>"
+	dat += "<p><a href='byond://?src=[cached_UID];quick_create_object=1'>Quick Create Object</a><br></p>"
+	dat += "<p><a href='byond://?src=[cached_UID];create_turf=1'>Create Turf</a><br></p>"
+	dat += "<p><a href='byond://?src=[cached_UID];create_mob=1'>Create Mob</a></p>"
 
-	usr << browse(dat, "window=admin2;size=210x280")
+	var/datum/browser/popup = new(usr, "game_panel", "<div align='center'>Game Panel</div>", 210, 280)
+	popup.set_content(dat.Join(""))
+	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+	popup.open()
+	onclose(usr, "game_panel")
 	return
 
 /////////////////////////////////////////////////////////////////////////////////////////////////admins2.dm merge
@@ -766,9 +771,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	return ""
 
 
-/datum/admins/proc/spawn_atom(var/object as text)
+/datum/admins/proc/spawn_atom(object as text)
 	set category = "Debug"
-	set desc = "(atom path) Spawn an atom"
+	set desc = "(путь атома) Создайте атом. Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным."
 	set name = "Spawn"
 
 	if(!check_rights(R_SPAWN))
@@ -777,9 +782,20 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	var/list/types = typesof(/atom)
 	var/list/matches = new()
 
-	for(var/path in types)
-		if(findtext("[path]", object))
-			matches += path
+	var/include_subtypes = TRUE
+	if(copytext(object, -1) == ".")
+		include_subtypes = FALSE
+		object = copytext(object, 1, -1)
+
+	if(include_subtypes)
+		for(var/path in types)
+			if(findtext("[path]", object))
+				matches += path
+	else
+		var/needle_length = length(object)
+		for(var/path in types)
+			if(copytext("[path]", -needle_length) == object)
+				matches += path
 
 	if(matches.len==0)
 		return
@@ -788,8 +804,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(matches.len==1)
 		chosen = matches[1]
 	else
-		chosen = input("Select an atom type", "Spawn Atom", matches[1]) as null|anything in matches
-		if(!chosen)
+		chosen = tgui_input_list(usr, "Выберите тип атома", "Спавн атома", matches, matches[1])
+		if(isnull(chosen))
 			return
 
 	if(ispath(chosen,/turf))
