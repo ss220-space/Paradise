@@ -20652,7 +20652,6 @@
 /obj/structure/toilet{
 	dir = 8
 	},
-/obj/effect/landmark/ninja_teleport,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -24139,7 +24138,8 @@
 /area/bridge)
 "cHK" = (
 /obj/machinery/door/airlock{
-	name = "Toilet"
+	name = "Toilet";
+	id_tag = "toilet_arriv"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -51045,6 +51045,14 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/machinery/door_control{
+	desiredstate = 1;
+	id = "toilet_arriv";
+	name = "Toilet Bolt Control";
+	normaldoorcontrol = 1;
+	specialfunctions = 4;
+	pixel_x = -25
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -68786,6 +68794,7 @@
 	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/ninja_teleport,
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/mrchangs)
 "kRz" = (
@@ -109561,6 +109570,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
 /obj/effect/decal/cleanable/dust,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/storage/box/lights/bulbs,
+/obj/random/tool,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "ulo" = (
