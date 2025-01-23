@@ -202,7 +202,7 @@
 
 /client/proc/stickybanpanel()
 	set name = "Sticky Ban Panel"
-	set category = "Admin"
+	set category = "Admin.Ban"
 
 	if(!check_rights(R_BAN))
 		return

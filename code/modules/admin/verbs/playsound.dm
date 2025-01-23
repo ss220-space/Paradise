@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(sounds_cache)
 
 /client/proc/stop_global_admin_sounds()
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Stop Global Admin Sounds"
 	if(!check_rights(R_SOUNDS))
 		return
@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		M << awful_sound
 
 /client/proc/play_sound(S as sound)
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Play Global Sound"
 	if(!check_rights(R_SOUNDS))	return
 
@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 
 /client/proc/play_local_sound(S as sound)
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Play Local Sound"
 	if(!check_rights(R_SOUNDS))	return
 
@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 
 /client/proc/play_web_sound()
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Play Internet Sound"
 	if(!check_rights(R_SOUNDS))
 		return
@@ -155,7 +155,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Internet Sound")
 
 /client/proc/play_server_sound()
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Play Server Sound"
 	if(!check_rights(R_SOUNDS))	return
 
@@ -169,7 +169,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Server Sound") //If you are copy-pasting this, ensure the 2nd paramter is unique to the new proc!
 
 /client/proc/play_intercomm_sound()
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Play Sound via Intercomms"
 	set desc = "Plays a sound at every intercomm on the station z level. Works best with small sounds."
 	if(!check_rights(R_SOUNDS))	return
@@ -211,7 +211,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 /*
 /client/proc/cuban_pete()
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Cuban Pete Time"
 
 	message_admins("[key_name_admin(usr)] has declared Cuban Pete Time!", 1)
@@ -227,7 +227,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 
 /client/proc/bananaphone()
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Banana Phone"
 
 	message_admins("[key_name_admin(usr)] has activated Banana Phone!", 1)
@@ -238,7 +238,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 
 client/proc/space_asshole()
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Space Asshole"
 
 	message_admins("[key_name_admin(usr)] has played the Space Asshole Hymn.", 1)
@@ -249,7 +249,7 @@ client/proc/space_asshole()
 
 
 client/proc/honk_theme()
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Honk"
 
 	message_admins("[key_name_admin(usr)] has creeped everyone out with Blackest Honks.", 1)

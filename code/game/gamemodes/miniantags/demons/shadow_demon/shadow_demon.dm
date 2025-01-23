@@ -59,7 +59,7 @@
 		set_varspeed(-0.3)
 	return lum_count
 
-	
+
 /mob/living/simple_animal/demon/shadow/OnUnarmedAttack(atom/target)
 	if(!ishuman(target))
 		if(isitem(target))
@@ -268,13 +268,14 @@
 
 /datum/objective/wrap
 	name = "Wrap"
+	antag_menu_name = "Обернуть в кокон"
 	needs_target = FALSE
 	target_amount = 10
 
 
 /datum/objective/wrap/New(text, datum/team/team_to_join)
 	target_amount = rand(10,20)
-	explanation_text = "Ambush those who dare to challenge the shadows. Wrap at least [target_amount] mortals."
+	explanation_text = "Устройте засаду тем, кто осмелится бросить вызов теням. Оберните хотя бы [target_amount] смертных."
 	..()
 
 

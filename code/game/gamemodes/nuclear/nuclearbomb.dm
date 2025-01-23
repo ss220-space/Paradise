@@ -56,6 +56,7 @@ GLOBAL_VAR(bomb_set)
 	core = new /obj/item/nuke_core/plutonium(src)
 	STOP_PROCESSING(SSobj, core)
 	ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src) //Let us not irradiate the vault by default.
+	AddElement(/datum/element/high_value_item)
 	update_icon(UPDATE_OVERLAYS)
 
 
@@ -604,6 +605,10 @@ GLOBAL_VAR(bomb_set)
 	..()
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
+
+/obj/item/disk/nuclear/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/disk/nuclear/process()
 	if(!check_disk_loc())

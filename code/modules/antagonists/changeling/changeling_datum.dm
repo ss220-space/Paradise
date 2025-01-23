@@ -25,6 +25,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	russian_wiki_name = "Генокрад"
 	clown_gain_text = "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "As your changeling nature fades, you return to your own clumsy, clownish self."
+	antag_menu_name = "Генокрад"
 	/// List of [/datum/dna] which have been absorbed through the DNA sting or absorb power.
 	var/list/absorbed_dna
 	/// DNA that is not lost when capacity is otherwise full.

@@ -15,7 +15,7 @@ GLOBAL_LIST_EMPTY(asays)
 /client/proc/view_asays()
 	set name = "Asays"
 	set desc = "View Asays from the current round."
-	set category = "Admin"
+	set category = "Admin.Admin"
 
 	if(!check_rights(R_ADMIN))
 		return
