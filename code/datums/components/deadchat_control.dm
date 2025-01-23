@@ -88,7 +88,7 @@
 		addtimer(CALLBACK(src, PROC_REF(end_cooldown), source.ckey), input_cooldown)
 		inputs[message].Invoke()
 		var/input_cooldown_s = input_cooldown * 0.1
-		to_chat(source, span_notice("Команда \"[message]\" принята. Следущий ввод будет доступен через [input_cooldown_s] секунд[declension_ru(input_cooldown_s,"у", "ы", "")]."))
+		to_chat(source, span_notice("Команда \"[message]\" принята. Следующий ввод будет доступен через [input_cooldown_s] секунд[declension_ru(input_cooldown_s,"у", "ы", "")]."))
 		return MOB_DEADSAY_SIGNAL_INTERCEPT
 
 	if(deadchat_mode & DEADCHAT_DEMOCRACY_MODE)
@@ -155,11 +155,11 @@
 	if(isobserver(orbiter))
 		var/mob/dead/observer/O = orbiter
 		if(O.client && !(O.client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
-			to_chat(O, span_deadsay("У вас отключен дедчат, и поэтому вы не будете получать сообщения, связанные с этим объектом, и не сможете управлять им."))
+			to_chat(O, span_deadsay("У вас отключён дедчат, и поэтому вы не будете получать сообщения, связанные с этим объектом, и не сможете управлять им."))
 			to_chat(O, span_notice("Если вы хотите принять участие, включите дедчат и снова прыгните на этот объект."))
 			return
 		else
-			to_chat(O, span_deadsay("[capitalize(atom_parent.declent_ru(NOMINATIVE))] контролируется призраками через чат! Осмотрите [atom_parent.declent_ru(ACCUSATIVE)] чтобы увидеть команды управления, которые вы можете использовать пока летаете вокруг [genderize_ru(atom_parent.gender, "него", "нее", "него", "них")]!"))
+			to_chat(O, span_deadsay("[capitalize(atom_parent.declent_ru(NOMINATIVE))] контролируется призраками через чат! Осмотрите [atom_parent.declent_ru(ACCUSATIVE)] чтобы увидеть команды управления, которые вы можете использовать пока летаете вокруг [genderize_ru(atom_parent.gender, "него", "неё", "него", "них")]!"))
 
 	RegisterSignal(orbiter, COMSIG_MOB_DEADSAY, PROC_REF(deadchat_react))
 	RegisterSignal(orbiter, COMSIG_MOB_AUTOMUTE_CHECK, PROC_REF(waive_automute))
@@ -202,11 +202,11 @@
 	examine_list += span_notice("[genderize_ru(object.gender, "Он", "Она", "Оно", "Они")] контролируется призраками через чат по [(deadchat_mode & DEADCHAT_DEMOCRACY_MODE) ? "демократическому" : "анархическому"] набору правил!")
 
 	if(user.client && !(user.client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
-		examine_list += span_deadsay("Поскольку у вас отключен дедчат, вы не увидите сообщения о голосовании и не сможете участвовать в нем.")
+		examine_list += span_deadsay("Поскольку у вас отключён дедчат, вы не увидите сообщения о голосовании и не сможете участвовать в нем.")
 		return
 
 	if(!(user in orbiters))
-		examine_list += "<span class='deadsay bold'>Прыгнете на [genderize_ru(object.gender, "него", "нее", "него", "них")]] и осмотрите снова, чтобы увидеть список доступных команд.</span>"
+		examine_list += "<span class='deadsay bold'>Прыгнете на [genderize_ru(object.gender, "него", "неё", "него", "них")]] и осмотрите снова, чтобы увидеть список доступных команд.</span>"
 		return
 
 	var/input_cooldown_s = input_cooldown * 0.1

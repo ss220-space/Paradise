@@ -1419,11 +1419,11 @@
 
 		if(!CONFIG_GET(flag/dsay_allowed))
 			// TODO verify what happens when deadchat is muted
-			to_chat(usr, span_warning("Дедчат глобально отключен, включите его перед тем как включать это."))
+			to_chat(usr, span_warning("Дедчат глобально отключён, включите его перед тем как включать это."))
 			return
 
 		if(A.GetComponent(/datum/component/deadchat_control))
-			to_chat(usr, span_warning("[capitalize(A.declent_ru(NOMINATIVE))] уже находится по контролем призраков!"))
+			to_chat(usr, span_warning("[capitalize(A.declent_ru(NOMINATIVE))] уже находится под контролем призраков!"))
 			return
 
 		var/control_mode = tgui_input_list(usr, "Выберите режим управления","Тип управления", list("демократия", "анархия"), null)
@@ -1460,7 +1460,7 @@
 			return
 
 		if(!A.GetComponent(/datum/component/deadchat_control))
-			to_chat(usr, "[capitalize(A.declent_ru(NOMINATIVE))] больше не находится по контролем призраков!")
+			to_chat(usr, "[capitalize(A.declent_ru(NOMINATIVE))] больше не находится под контролем призраков!")
 			return
 
 		A.stop_deadchat_plays()
