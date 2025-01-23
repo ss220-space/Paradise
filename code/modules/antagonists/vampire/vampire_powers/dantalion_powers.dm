@@ -1,6 +1,6 @@
 /datum/vampire_passive/increment_thrall_cap/on_apply(datum/antagonist/vampire/V)
 	V.subclass.thrall_cap++
-	gain_desc = "Теперь вы можете подчинить себе еще одного гуманоида, вплоть до <b>[V.subclass.thrall_cap]</b> ."
+	gain_desc = "Теперь вы можете подчинить себе ещё одного гуманоида, вплоть до <b>[V.subclass.thrall_cap]</b> ."
 
 
 /datum/vampire_passive/increment_thrall_cap/two

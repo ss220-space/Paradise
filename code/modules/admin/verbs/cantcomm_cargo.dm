@@ -7,11 +7,11 @@
 		return
 
 	if(!SSticker)
-		to_chat(usr, span_warning("Игра еще не началась!"))
+		to_chat(usr, span_warning("Игра ещё не началась!"))
 		return
 
 	if(SSticker.current_state <= GAME_STATE_PREGAME)
-		to_chat(usr, span_warning("Раунд еще не начался!"))
+		to_chat(usr, span_warning("Раунд ещё не начался!"))
 		return
 
 	var/datum/centcom_podlauncher/E = new(src.mob)

@@ -50,7 +50,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	if(jobban_isbanned(src, ROLE_ERT))
 		to_chat(src, span_warning("You are jobbanned from playing on an emergency response team!"))
 		return FALSE
-	
+
 	if(jobban_isbanned(src, JOB_TITLE_OFFICER) || jobban_isbanned(src, JOB_TITLE_CAPTAIN) || jobban_isbanned(src, JOB_TITLE_CYBORG))
 		to_chat(src, span_warning("One of your jobbans forbids you from playing on an emergency response team!"))
 		return FALSE

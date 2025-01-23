@@ -10,7 +10,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 		to_chat(src, "Только администраторы могут использовать эту команду.")
 		return
 	if(!SSticker)
-		tgui_alert(src, "Игра еще не началась!")
+		tgui_alert(src, "Игра ещё не началась!")
 		return
 	if(GLOB.sent_syndicate_strike_team == 1)
 		tgui_alert(src, "Синдикат уже отправил отряд, Мистер Тупой.")
