@@ -148,7 +148,6 @@
 
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
-
 	if(!istype(new_character))
 		stack_trace("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob.")
 
@@ -194,6 +193,7 @@
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
 	SEND_SIGNAL(new_character, COMSIG_BODY_TRANSFER_TO)
 
+	new_character.AddComponent(/datum/component/pref_holder)
 
 /datum/mind/proc/store_memory(new_text)
 	memory += "[new_text]<BR>"

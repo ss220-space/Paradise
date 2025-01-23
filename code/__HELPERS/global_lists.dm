@@ -25,6 +25,7 @@
 
 	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
 	init_subtypes(/obj/item/slimepotion, GLOB.slime_potions)
+	init_subtypes(/datum/preference_info, GLOB.preferences_info)
 	// Different bodies
 	__init_body_accessory(/datum/body_accessory/body)
 	// Different tails
