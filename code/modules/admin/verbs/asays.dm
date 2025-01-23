@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(devsays)
 	src.time = time
 
 /client/proc/view_msays()
-	set name = "Msays"
+	set name = "View msays"
 	set desc = "View Msays from the current round."
 	set category = "Admin.Admin"
 
@@ -30,7 +30,7 @@ GLOBAL_LIST_EMPTY(devsays)
 
 
 /client/proc/view_devsays()
-	set name = "Devsays"
+	set name = "View devsays"
 	set desc = "View Devsays from the current round."
 	set category = "Admin.Admin"
 
