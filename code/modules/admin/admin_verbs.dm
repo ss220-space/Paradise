@@ -422,7 +422,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/antagonists_menu()
 	set name = "Antagonists Menu"
-	set category = "Admin"
+	set category = "Admin.Admin"
 
 	if(!check_rights(R_ADMIN))
 		return
