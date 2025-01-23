@@ -11,12 +11,12 @@
     mob/target,
 	list/preferences
 )
-    . = ..()
+	. = ..()
 
 	if(!istype(target))
 		return ELEMENT_INCOMPATIBLE
 
-    RegisterSignal(target, COMSIG_BODY_TRANSFER_TO, PROC_REF(on_mind_transfer))
+	RegisterSignal(target, COMSIG_BODY_TRANSFER_TO, PROC_REF(on_mind_transfer))
 	src.preferences = preferences || forge_preferences()
 
 /datum/element/pref_holder/Detach(mob/target)
@@ -32,8 +32,8 @@
 /datum/element/pref_holder/proc/forge_preferences()
 	var/mob/mob = parent
 
-    if(!mob.client)
-        return
+	if(!mob.client)
+		return
         
 	var/list/prefs
 
