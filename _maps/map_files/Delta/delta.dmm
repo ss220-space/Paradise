@@ -853,6 +853,8 @@
 	color = "";
 	dir = 8
 	},
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aiC" = (
@@ -3014,6 +3016,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/effect/landmark/event/xeno_spawn,
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
 "aAv" = (
@@ -3028,7 +3031,17 @@
 	pixel_y = 32
 	},
 /obj/item/clothing/glasses/sunglasses,
-/obj/item/trash/sosjerky,
+/obj/item/stack/spacechips/c10,
+/obj/item/storage/wallet/color/black,
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/trash/sosjerky{
+	pixel_y = 5;
+	pixel_x = 5
+	},
 /turf/simulated/floor/carpet/red,
 /area/maintenance/casino)
 "aAw" = (
@@ -4162,6 +4175,10 @@
 "aHF" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light/small,
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
+	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/banya)
 "aHG" = (
@@ -5601,7 +5618,6 @@
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
-/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
 "aQx" = (
@@ -6034,9 +6050,9 @@
 	color = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/trash/cheesie,
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/item/trash/cheesie,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aTB" = (
@@ -7724,6 +7740,8 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/junction/reversed,
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
@@ -11110,8 +11128,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
@@ -11689,6 +11705,8 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
@@ -15836,6 +15854,10 @@
 	dir = 1
 	},
 /obj/machinery/light_construct/small,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 9;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
 "bTG" = (
@@ -18273,6 +18295,7 @@
 	icon_state = "grass_edge_medium_corner";
 	color = ""
 	},
+/obj/structure/girder,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
@@ -19550,7 +19573,9 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/event/xeno_spawn,
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	pixel_y = 13
+	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/banya)
 "cmn" = (
@@ -20512,6 +20537,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/wood,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/banya)
 "crF" = (
@@ -22305,6 +22331,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
 "cAg" = (
@@ -22546,9 +22573,7 @@
 /area/bridge/vip)
 "cBo" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/structure/table/wood,
 /obj/effect/decal/cleanable/dust,
-/obj/item/reagent_containers/food/snacks/oliviersalad,
 /turf/simulated/floor/wood/fancy/oak{
 	icon_state = "fancy-wood-oak-broken7"
 	},
@@ -23055,6 +23080,10 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -31582,9 +31611,8 @@
 /area/engineering/controlroom)
 "dnB" = (
 /obj/effect/decal/cleanable/dust,
-/obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/turf_decal/siding/wood/pallet,
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
 "dnD" = (
@@ -32911,6 +32939,15 @@
 	dir = 10
 	},
 /obj/structure/flora/junglebush,
+/obj/structure/closet/walllocker{
+	pixel_y = 28
+	},
+/obj/item/soap/homemade_apple,
+/obj/item/storage/fancy/cigarettes/cigpack_robust,
+/obj/item/stack/tickets{
+	amount = 100
+	},
+/obj/item/stack/sheet/cardboard,
 /turf/simulated/floor/grass,
 /area/maintenance/fpmaint)
 "dtF" = (
@@ -33001,6 +33038,7 @@
 /obj/effect/turf_decal/siding/wood/pallet{
 	dir = 1
 	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
 "duf" = (
@@ -41862,6 +41900,10 @@
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/plating,
 /area/maintenance/library)
+"erw" = (
+/obj/structure/sign/custodian,
+/turf/simulated/wall,
+/area/maintenance/trading)
 "erI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
@@ -44464,11 +44506,6 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
-"eVM" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stack/sheet/cardboard,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "eVO" = (
 /obj/structure/table/reinforced,
 /obj/item/radio/sec{
@@ -48198,7 +48235,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/grille/broken,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
@@ -51071,19 +51107,11 @@
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "gDz" = (
-/obj/structure/table/wood,
 /obj/effect/decal/cleanable/dust,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
-	pixel_y = 13
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_x = 9;
-	pixel_y = 3
-	},
 /obj/effect/turf_decal/siding/wood/pallet{
 	dir = 1
 	},
+/obj/item/reagent_containers/food/snacks/oliviersalad,
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
 "gDB" = (
@@ -52966,6 +52994,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "gWz" = (
@@ -54820,17 +54849,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/consarea_virology)
-"hun" = (
-/obj/effect/decal/cleanable/dust,
-/obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller{
-	pixel_y = 17
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	dir = 5;
-	tag = "icon-vault (NORTHEAST)"
-	},
-/area/maintenance/fpmaint)
 "hur" = (
 /obj/structure/toilet{
 	desc = "Старый грязный туалет, по какой-то причине стоящий в техах. У вас нет ни единого понятия откуда он здесь.";
@@ -68206,8 +68224,6 @@
 	},
 /area/hallway/secondary/exit)
 "kJt" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/grass,
 /area/maintenance/fpmaint)
 "kJu" = (
@@ -75878,6 +75894,10 @@
 /obj/effect/turf_decal/siding/wood/pallet{
 	dir = 8
 	},
+/obj/structure/table/wood,
+/obj/effect/mapping_helpers/table_flip{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
 "mCS" = (
@@ -76781,7 +76801,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/cardboard,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "mME" = (
@@ -80150,11 +80170,8 @@
 /area/crew_quarters/fitness)
 "nBM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/emcloset,
-/obj/structure/sign/vacuum{
-	pixel_y = 32
-	},
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
@@ -87520,8 +87537,6 @@
 /area/maintenance/library)
 "pml" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/turf_decal/siding/green/corner{
 	icon_state = "grass_edge_medium_corner";
 	color = ""
@@ -88171,11 +88186,13 @@
 /area/maintenance/garden)
 "ptH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/girder,
 /obj/effect/turf_decal/siding/green{
 	icon_state = "grass_edge_medium";
 	dir = 8;
 	color = ""
+	},
+/obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller{
+	pixel_y = 17
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -91182,6 +91199,10 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/crew_quarters/hor)
+"qaG" = (
+/obj/item/stack/sheet/cardboard,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "qaH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -91526,6 +91547,9 @@
 /obj/structure/rack,
 /obj/item/trash/semki,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/sign/vacuum{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "qeJ" = (
@@ -94899,11 +94923,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/maintenance/asmaint4)
-"qQs" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/girder,
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint)
 "qQu" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -121093,11 +121112,11 @@
 /area/construction/hallway)
 "wWA" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door_control{
 	id = "Old_Delivery_Shutt"
 	},
+/obj/item/stack/packageWrap,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "wWB" = (
@@ -122150,6 +122169,7 @@
 /obj/structure/sign/bathhouse{
 	pixel_x = -32
 	},
+/obj/structure/grille/broken,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	dir = 5;
@@ -123104,6 +123124,10 @@
 	},
 /obj/machinery/door/window/westright{
 	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/coffee{
+	pixel_x = 7;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -156173,15 +156197,15 @@ liY
 aiA
 ptH
 pml
-hun
-qQs
+pOX
+aVS
 liY
 xjH
-pOX
 twl
+pOX
 cbs
-bJk
-bvG
+cbs
+cbs
 dLj
 bUb
 baF
@@ -158731,7 +158755,7 @@ bxi
 uuh
 aar
 bhM
-cAz
+erw
 dtE
 eOd
 eiC
@@ -159503,7 +159527,7 @@ xwz
 bDi
 wRV
 cKz
-eVM
+aVS
 fFl
 cNV
 auo
@@ -159760,7 +159784,7 @@ jha
 pbK
 vJo
 biq
-cbs
+qaG
 eTZ
 woa
 cbs
