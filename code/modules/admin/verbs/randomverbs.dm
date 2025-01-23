@@ -1262,8 +1262,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!input)
 		return
 	change_command_name(input)
-	message_admins("[key_name_admin(src)] has changed Central Command's name to [input]")
-	log_admin("[key_name(src)] has changed the Central Command name to: [input]")
+	log_and_message_admins("has changed Central Command's name to [input]")
 
 
 /client/proc/polymorph_all()
