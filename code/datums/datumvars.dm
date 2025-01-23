@@ -1449,7 +1449,7 @@
 			cooldown = cooldown SECONDS
 
 		A.deadchat_plays(selected_mode, cooldown)
-		message_admins("[key_name_admin(usr)] provided deadchat control to [A].")
+		log_and_message_admins("provided deadchat control to [A].")
 
 	if(href_list["removedeadchatcontrol"])
 		if(!check_rights(R_EVENT))
