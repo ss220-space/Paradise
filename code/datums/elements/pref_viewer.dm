@@ -8,7 +8,7 @@
     return ..()
 
 /datum/element/pref_viewer/Initialize(
-	mob/target
+	mob/target,
 	list/preferences_to_show
 	)
 	. = ..()
