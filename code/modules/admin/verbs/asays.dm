@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(devsays)
 	display_says(GLOB.devsays, "devsay")
 
 /client/proc/view_asays()
-	set name = "Asays"
+	set name = "View asays"
 	set desc = "View Asays from the current round."
 	set category = "Admin.Admin"
 
