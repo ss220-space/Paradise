@@ -1300,7 +1300,3 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			new_mob.real_name = real_name
 
 
-	message_admins("Mass polymorph started by [who_did_it] is complete.")
-
-	message_admins("[key_name_admin(usr)] started polymorphed all living mobs.")
-	log_admin("[key_name(usr)] polymorphed all living mobs.")
