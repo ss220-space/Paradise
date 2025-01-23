@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 
 /client/proc/outfit_manager()
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Outfit Manager"
 
 	if(!check_rights(R_EVENT))

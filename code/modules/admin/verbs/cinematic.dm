@@ -1,6 +1,6 @@
 /client/proc/cinematic()
 	set name = "Play Cinematic"
-	set category = "Event"
+	set category = "Admin.Event"
 	set desc = "Shows a cinematic." // Intended for testing but I thought it might be nice for events on the rare occasion Feel free to comment it out if it's not wanted.
 
 	if(!SSticker)
