@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(msays)
 /client/proc/view_msays()
 	set name = "Msays"
 	set desc = "View Msays from the current round."
-	set category = "Admin"
+	set category = "Admin.Admin"
 
 	if(!check_rights(R_MENTOR | R_ADMIN))
 		return
