@@ -2,7 +2,7 @@
 // Spawns a group of player-controlled mobs with an outfit specified by the admin, at their location.
 
 /client/proc/gimmick_team()
-	set category = "Event"
+	set category = "Admin.Event Spawn"
 	set name = "Отправить Гиммик тим"
 	set desc = "Спавнит команду игроков в выбранной экипировке."
 	if(!check_rights(R_EVENT))

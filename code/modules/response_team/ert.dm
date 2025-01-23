@@ -20,7 +20,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 /client/proc/response_team()
 	set name = "Dispatch CentComm Response Team"
-	set category = "Event"
+	set category = "Admin.Event Spawn"
 	set desc = "Send an CentComm response team to the station."
 
 	if(!check_rights(R_EVENT))

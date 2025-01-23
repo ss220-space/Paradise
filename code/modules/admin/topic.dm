@@ -1948,20 +1948,9 @@
 
 	else if(href_list["adminplayerobservefollow"])
 		var/client/client = usr.client
-
-		if(!isobserver(usr))
-			if(!check_rights(R_ADMIN | R_MOD)) // Need to be mod or admin to aghost
-				return
-
-			client.admin_ghost()
-
 		var/mob/mob = locateUID(href_list["adminplayerobservefollow"])
 
-		if(!istype(mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
-			return
-
-		addtimer(CALLBACK(client.mob, TYPE_PROC_REF(/mob, ManualFollow), mob), 5 DECISECONDS)
+		client.admin_observe_target(mob)
 
 	else if(href_list["check_antagonist"])
 		check_antagonists()

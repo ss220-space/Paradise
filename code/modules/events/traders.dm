@@ -63,6 +63,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 				M.mind.offstation_role = TRUE
 				greet_trader(M)
 				log_game("[M.ckey] has become TSF trader.")
+				SSticker.mode.traders |= M.mind
 				success_spawn = TRUE
 		if(success_spawn)
 			var/map_trader_port = 5

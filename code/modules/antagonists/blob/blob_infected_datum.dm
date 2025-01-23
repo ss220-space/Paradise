@@ -11,6 +11,7 @@
 	clown_removal_text = "Избавившись от заражения блобом ты возвращаешься к своему неуклюжему, клоунскому \"я\"."
 	show_in_roundend = FALSE
 	show_in_orbit = FALSE
+	antag_menu_name = "Заражённый блобом"
 	/// Variable responsible for the need to add a mind to blob_infected list in game mode.
 	var/add_to_mode = TRUE
 	/// Countdown to burst start.

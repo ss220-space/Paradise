@@ -429,3 +429,35 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
 	new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
 	new /obj/item/book/granter/crafting_recipe/combat_baking(src)
+
+/obj/item/storage/box/syndie_kit/ghostface_kit
+	name = "Ghostface Kit"
+	ru_names = list(
+        NOMINATIVE = "набор \"Гоустфейс\"",
+        GENITIVE = "набора \"Гоустфейс\"",
+        DATIVE = "набору \"Гоустфейс\"",
+        ACCUSATIVE = "набор \"Гоустфейс\"",
+        INSTRUMENTAL = "набором \"Гоустфейс\"",
+        PREPOSITIONAL = "наборе \"Гоустфейс\""
+    )
+
+/obj/item/storage/box/syndie_kit/ghostface_kit/populate_contents()
+	new /obj/item/clothing/head/hooded/ghostface/true(src)
+	new /obj/item/clothing/mask/gas/ghostface/true(src)
+	new /obj/item/melee/ghostface_knife(src)
+
+/obj/item/storage/box/syndie_kit/devil_ghostface_kit
+	name = "Devil Ghostface Kit"
+	ru_names = list(
+        NOMINATIVE = "набор \"Дьявольский Гоустфейс\"",
+        GENITIVE = "набора \"Дьявольский Гоустфейс\"",
+        DATIVE = "набору \"Дьявольский Гоустфейс\"",
+        ACCUSATIVE = "набор \"Дьявольский Гоустфейс\"",
+        INSTRUMENTAL = "набором \"Дьявольский Гоустфейс\"",
+        PREPOSITIONAL = "наборе \"Дьявольский Гоустфейс\""
+    )
+
+/obj/item/storage/box/syndie_kit/devil_ghostface_kit/populate_contents()
+	new /obj/item/clothing/suit/hooded/ghostfacesuit/devil/true(src)
+	new /obj/item/clothing/mask/gas/ghostface/true/devil(src)
+	new /obj/item/melee/ghostface_knife/devil(src)

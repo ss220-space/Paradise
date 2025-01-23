@@ -837,6 +837,7 @@
 	var/datum/job/captain/J = new/datum/job/captain
 	access = J.get_access()
 	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/card/id/admin
 	name = "admin ID card"

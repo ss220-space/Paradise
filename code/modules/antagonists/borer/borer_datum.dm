@@ -3,6 +3,7 @@
 	show_in_roundend = FALSE
 	job_rank = ROLE_BORER
 	special_role = SPECIAL_ROLE_BORER
+	antag_menu_name = "Борер"
 	var/mob/living/simple_animal/borer/user
 	var/mob/living/carbon/human/host
 	/// previous host, used to del transferable effects from previous host.
@@ -92,7 +93,8 @@
 		to_chat(user, span_notice("Вы успешно приобрели [focus.bodypartname]"))
 		return
 
-	to_chat(user, span_notice("Вам требуется ещё [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
+	var/need_points = focus.cost - evo_points
+	to_chat(user, span_notice("Вам требуется ещё [need_points] очк[declension_ru(need_points, "о", "а", "ов")] эволюции для получения [focus.bodypartname]."))
 	return
 
 /datum/antagonist/borer/proc/entered_host()

@@ -4,6 +4,7 @@
 	special_role = SPECIAL_ROLE_SPACE_NINJA
 	antag_hud_name = "hudninja"
 	antag_hud_type = ANTAG_HUD_NINJA
+	antag_menu_name = "Космический ниндзя"
 	/// Abilities bicons used for the end game info.
 	var/purchased_abilities
 	/// If `FALSE` ninja will not get default items.

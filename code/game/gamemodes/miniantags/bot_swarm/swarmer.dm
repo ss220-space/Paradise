@@ -51,6 +51,11 @@
 	new /obj/item/deactivated_swarmer(get_turf(src))
 	qdel(src)
 
+/obj/effect/mob_spawn/swarmer/create(mob/plr, flavour, name, prefs, _mob_name, _mob_gender, _mob_species)
+	. = ..()
+	var/mob/mob = .
+	SSticker.mode.swarmers |= mob.mind
+
 ////The Mob itself////
 
 /mob/living/simple_animal/hostile/swarmer
