@@ -1380,7 +1380,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		stop_orbit()
 
 	orbiting = A
-	A.orbiters |= src
+	LAZYOR(A.orbiters, src)
 	SEND_SIGNAL(orbiting, COMSIG_ATOM_ORBIT_BEGIN, src)
 	if(ismob(A))
 		var/mob/M = A
