@@ -2574,7 +2574,11 @@
 					/obj/item/clothing/under/orangehawaiianshirt = 10,
 					/obj/item/clothing/under/ussptracksuit_red = 10,
 					/obj/item/clothing/under/ussptracksuit_blue = 10,
-					/obj/item/clothing/under/dress50s = 10)
+					/obj/item/clothing/under/dress50s = 10,
+					/obj/item/clothing/suit/hooded/ghostfacesuit = 10,
+					/obj/item/clothing/suit/hooded/ghostfacesuit/devil = 10,
+					/obj/item/clothing/mask/gas/ghostface = 10,
+					/obj/item/clothing/mask/gas/ghostface/devil = 10)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					/obj/item/clothing/head/powdered_wig = 1,
 					/obj/item/gun/magic/wand = 1,
@@ -2704,7 +2708,11 @@
 					/obj/item/clothing/under/orangehawaiianshirt = 20,
 					/obj/item/clothing/under/ussptracksuit_red = 20,
 					/obj/item/clothing/under/ussptracksuit_blue = 20,
-					/obj/item/clothing/under/dress50s = 20)
+					/obj/item/clothing/under/dress50s = 20,
+					/obj/item/clothing/suit/hooded/ghostfacesuit = 100,
+					/obj/item/clothing/suit/hooded/ghostfacesuit/devil = 100,
+					/obj/item/clothing/mask/gas/ghostface = 50,
+					/obj/item/clothing/mask/gas/ghostface/devil = 50)
 	refill_canister = /obj/item/vending_refill/autodrobe
 
 /obj/machinery/vending/dinnerware
