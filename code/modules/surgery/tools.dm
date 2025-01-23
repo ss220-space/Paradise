@@ -198,7 +198,7 @@
 
 /obj/item/scalpel
 	name = "scalpel"
-	desc = "Резать, резать и еще раз резать."
+	desc = "Резать, резать и ещё раз резать."
 	ru_names = list(
 		NOMINATIVE = "скальпель",
 		GENITIVE = "скальпеля",

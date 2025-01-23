@@ -1,6 +1,6 @@
 GLOBAL_LIST_EMPTY(asays)
 GLOBAL_LIST_EMPTY(msays)
-
+GLOBAL_LIST_EMPTY(devsays)
 
 /**
 	* #Special says datum
@@ -28,6 +28,17 @@ GLOBAL_LIST_EMPTY(msays)
 
 	display_says(GLOB.msays, "msay")
 
+
+/client/proc/view_devsays()
+	set name = "Devsays"
+	set desc = "View Devsays from the current round."
+	set category = "Admin.Admin"
+
+	if(!check_rights(R_VIEWRUNTIMES | R_ADMIN))
+		return
+
+	display_says(GLOB.devsays, "devsay")
+
 /client/proc/view_asays()
 	set name = "Asays"
 	set desc = "View Asays from the current round."
@@ -39,7 +50,6 @@ GLOBAL_LIST_EMPTY(msays)
 	display_says(GLOB.asays, "asay")
 
 /client/proc/display_says(list/say_list, title)
-
 	var/list/output = list({"
 	<style>
 		td, th
@@ -71,13 +81,13 @@ GLOBAL_LIST_EMPTY(msays)
 		<tbody>
 	"}
 
-	for(var/datum/say/A in say_list)
-		var/timestr = time2text(A.time, "hh:mm:ss")
+	for(var/datum/say/say in say_list)
+		var/timestr = time2text(say.time, "hh:mm:ss")
 		output += {"
 			<tr>
 				<td width="5%">[timestr]</td>
-				<td width="10%"><b>[A.ckey] ([A.rank])</b></td>
-				<td width="85%">[A.message]</td>
+				<td width="10%"><b>[say.ckey] ([say.rank])</b></td>
+				<td width="85%">[say.message]</td>
 			</tr>
 		"}
 

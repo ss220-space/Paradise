@@ -397,7 +397,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='warning'>У вас нету тела.</span>")
 		return
 	if(mind.current.stat != DEAD)
-		to_chat(src, "<span class='warning'>Твое тело все еще живо!</span>")
+		to_chat(src, "<span class='warning'>Твое тело все ещё живо!</span>")
 		return
 
 	if(tgui_alert(src, "Если вы включите это, ваше тело не смогут больше возродить до конца раунда.", "Вы уверены?", list("Да", "Нет")) == "Да")

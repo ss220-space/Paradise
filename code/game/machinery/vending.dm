@@ -3007,7 +3007,8 @@
 		"Опусти ногу!",
 		"Один размер подходит всем!",
 		"Я ШАГАЮ В ЛУЧАХ СОЛНЦА!",
-		"Хоббитам вход воспрещён."
+		"Хоббитам вход воспрещён.",
+		"НЕТ, ПОЖАЛУЙСТА, ВИЛЛИ, НЕ ДЕЛАЙ МНЕ БОЛЬНО-*БЗЗЗЗ*"
 	)
 
 	products = list(/obj/item/clothing/shoes/black = 10,/obj/item/clothing/shoes/brown = 10,/obj/item/clothing/shoes/blue = 10,/obj/item/clothing/shoes/green = 10,/obj/item/clothing/shoes/yellow = 10,/obj/item/clothing/shoes/purple = 10,/obj/item/clothing/shoes/red = 10,/obj/item/clothing/shoes/white = 10,/obj/item/clothing/shoes/sandal=10)

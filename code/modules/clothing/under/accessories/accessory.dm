@@ -1006,24 +1006,24 @@
 	STOP_PROCESSING(SSobj, src)
 
 
-/proc/english_accessory_list(obj/item/clothing/under/uniform)
+/proc/accessory_list(obj/item/clothing/under/uniform)
 	if(!istype(uniform) || !LAZYLEN(uniform.accessories))
 		return
 	var/list/A = uniform.accessories
 	var/total = A.len
 	if(total == 1)
-		return "\a [A[1]]"
+		return "[A[1]]"
 	else if(total == 2)
-		return "\a [A[1]] and \a [A[2]]"
+		return "[A[1]] и [A[2]]"
 	else
 		var/output = ""
 		var/index = 1
 		var/comma_text = ", "
 		while(index < total)
-			output += "\a [A[index]][comma_text]"
+			output += "[A[index]][comma_text]"
 			index++
 
-		return "[output]and \a [A[index]]"
+		return "[output]и [A[index]]"
 
 /obj/item/clothing/accessory/head_strip
 	name = "captain's strip"

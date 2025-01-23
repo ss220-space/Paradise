@@ -6,7 +6,7 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 
 /client/proc/honksquad()
 	if(!SSticker)
-		to_chat(src, "<font color='red'>Игра еще не началась!</font>")
+		to_chat(src, "<font color='red'>Игра ещё не началась!</font>")
 		return
 	if(world.time < 6000)
 		to_chat(src, "<font color='red'>Осталось [(6000-world.time)/10] секунд до того, как это может быть вызвано.</font>")

@@ -54,7 +54,7 @@
 
 /datum/objective/abductee/oxygen
 	antag_menu_name = "Кислород это яд"
-	explanation_text = "Кислород убивает их всех, даже если они этого еще не знают. Удостоверьтесь что бы на станции не было никакого кислорода."
+	explanation_text = "Кислород убивает их всех, даже если они этого ещё не знают. Удостоверьтесь что бы на станции не было никакого кислорода."
 
 /datum/objective/abductee/blazeit
 	antag_menu_name = "Принять лекарства"
@@ -139,7 +139,7 @@
 
 /datum/objective/abductee/science
 	antag_menu_name = "Ученый"
-	explanation_text = "Столько лжи еще не раскрыто. Нужно вглядеться поглубже в происки вселенной."
+	explanation_text = "Столько лжи ещё не раскрыто. Нужно вглядеться поглубже в происки вселенной."
 
 /datum/objective/abductee/build
 	antag_menu_name = "Расширить станцию"

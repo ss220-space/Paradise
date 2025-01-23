@@ -54,6 +54,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/view_flagged_books,
 	/client/proc/view_asays,
 	/client/proc/view_msays,
+	/client/proc/view_devsays,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
@@ -239,6 +240,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/view_runtimes,
 	/client/proc/ss_breakdown,
 	/client/proc/debug_variables,
+	/client/proc/view_devsays,
 ))
 
 /client/proc/add_admin_verbs()
@@ -429,7 +431,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/antagonists_menu()
 	set name = "Antagonists Menu"
-	set category = "Admin"
+	set category = "Admin.Admin"
 
 	if(!check_rights(R_ADMIN))
 		return
