@@ -267,7 +267,7 @@
 
 		var/task = href_list["editrights"]
 		if(task == "add")
-			var/new_ckey = ckey(clean_input("Сикей нового админа","Добавление админа", null))
+			var/new_ckey = ckey(tgui_input_text(usr, "Сикей нового админа","Добавление админа", null))
 			if(!new_ckey)	return
 			if(new_ckey in GLOB.admin_datums)
 				to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': [new_ckey] уже админ!</font>", confidential=TRUE)
@@ -283,7 +283,7 @@
 		var/datum/admins/D = GLOB.admin_datums[adm_ckey]
 
 		if(task == "remove")
-			if(alert("Вы уверены что хотите удалить [adm_ckey]?","Внимание!","Да","Отмена") == "Да")
+			if(tgui_alert(usr, "Вы уверены что хотите удалить [adm_ckey]?","Внимание!",list("Да","Отмена")) == "Да")
 				if(!D)	return
 				GLOB.admin_datums -= adm_ckey
 				D.disassociate()
@@ -296,7 +296,7 @@
 		else if(task == "rank")
 			var/new_rank
 			if(length(GLOB.admin_ranks))
-				new_rank = trim(input("Выберите стандартный ранг или создайте новый", "Выбор ранга", null, null) as null|anything in (GLOB.admin_ranks|"*Новый Ранг*"))
+				new_rank = trim(tgui_input_list(usr,"Выберите стандартный ранг или создайте новый", "Выбор ранга", (GLOB.admin_ranks|"*Новый Ранг*"), null))
 			else
 				CRASH("GLOB.admin_ranks is empty, inform coders")
 
@@ -306,7 +306,7 @@
 			switch(new_rank)
 				if(null,"") return
 				if("*Новый Ранг*")
-					new_rank = trim(input("Введите название нового ранга", "Новый Ранг", null, null) as null|text)
+					new_rank = trim(tgui_input_text(usr, "Введите название нового ранга", "Новый Ранг", null))
 					if(!new_rank)
 						to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': Неверный ранг</font>", confidential=TRUE)
 						return
@@ -333,24 +333,18 @@
 			log_admin_rank_modification(adm_ckey, new_rank, rights)
 
 		else if(task == "permissions")
-			if(!D)	return
-			while(TRUE)
-				var/list/permissionlist = list()
-				for(var/i=1, i<=R_MAXPERMISSION, i<<=1)		//that <<= is shorthand for i = i << 1. Which is a left bitshift
-					permissionlist[rights2text(i)] = i
-				var/new_permission = input("Выберите флаг для включения/отключения", "Флаги " + adm_ckey, null, null) as null|anything in permissionlist
-				if(!new_permission)
-					edit_admin_permissions()
-					return
-				var/oldrights = D.rights
-				var/toggleresult = "ВКЛ"
-				D.rights ^= permissionlist[new_permission]
-				if(oldrights > D.rights)
-					toggleresult = "ВЫКЛ"
-
-				message_admins("[key_name_admin(usr)] переключил флаг [new_permission] админу [adm_ckey] на [toggleresult]")
-				log_admin("[key_name(usr)] переключил флаг [new_permission] админу [adm_ckey] на [toggleresult]")
-				log_admin_permission_modification(adm_ckey, permissionlist[new_permission])
+			if(!D)	
+				return
+			var/new_value = input_bitfield(usr, "rights", D.rights)
+			if(!new_value)
+				return
+			var/add_bits = new_value & ~D.rights
+			var/removed_bits = D.rights & ~new_value
+			D.rights = new_value
+			edit_admin_permissions() 
+			message_admins("[key_name_admin(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
+			log_admin("[key_name(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
+			log_admin_permission_modification(adm_ckey, new_value )
 
 
 		edit_admin_permissions()
@@ -1019,7 +1013,7 @@
 		if (ismob(M))
 			if(!M.client)
 				return
-			var/dat = {"<meta charset="UTF-8"><html><head><title>GeoIP info</title></head>"}
+			var/dat = ""
 			var/client/C = M.client
 			if(C.geoip.status != "updated")
 				C.geoip.try_update_geoip(C, C.address)
@@ -1035,7 +1029,11 @@
 			dat += "<b>Proxy:</b> [C.geoip.proxy]<br>"
 			dat += "<b>IP:</b> [C.geoip.ip]<br>"
 			dat += "<hr><b>Status:</b> [C.geoip.status]"
-			usr << browse("<!DOCTYPE html>[dat]", "window=geoip;size=400x300")
+			var/datum/browser/popup = new(usr, "geoip", "<div align='center'>GeoIP info</div>", 400, 300)
+			popup.set_content(dat)
+			popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+			popup.open()
+			onclose(usr, "geoip")
 
 	//Player Notes
 	else if(href_list["addnote"])
@@ -1213,29 +1211,38 @@
 
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
-		var/dat = {"<!DOCTYPE html><meta charset="UTF-8"><b>What mode do you wish to play?</b><hr>"}
+		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
 		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
 		for(var/mode in config.modes)
 			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];c_mode2=[mode]'>[config.mode_names[mode]]</A></td></tr>"}
 		dat += {"</table><br><a href='byond://?src=[UID()];c_mode2=secret'>Secret</A><br>"}
 		dat += {"<a href='byond://?src=[UID()];c_mode2=random'>Random</A><br>"}
 		dat += {"Now: [GLOB.master_mode]"}
-		usr << browse(dat, "window=c_mode")
+
+		var/datum/browser/popup = new(usr, "c_mode", "<div align='center'>Game Mode</div>")
+		popup.set_content(dat)
+		popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+		popup.open()
+		onclose(usr, "c_mode")
 
 	else if(href_list["f_secret"])
 		if(!check_rights(R_ADMIN))	return
 
 		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
+			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "secret")
-			return alert(usr, "The game mode has to be secret!", null, null, null, null)
-		var/dat = {"<!DOCTYPE html><meta charset="UTF-8"><b>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</b><hr>"}
+			return tgui_alert(usr, "The game mode has to be secret!")
+		var/dat = {"<b>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</b><hr>"}
 		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
 		for(var/mode in config.modes)
 			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];f_secret2=[mode]'>[config.mode_names[mode]]</A></td></tr>"}
 		dat += {"</table><br><a href='byond://?src=[UID()];f_secret2=secret'>Random (default)</A><br>"}
 		dat += {"Now: [GLOB.secret_force_mode]"}
-		usr << browse(dat, "window=f_secret")
+		var/datum/browser/popup = new(usr, "f_secret", "<div align='center'>Secret Game Mode</div>")
+		popup.set_content(dat)
+		popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+		popup.open()
+		onclose(usr, "f_secret")
 
 	else if(href_list["c_mode2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
@@ -1265,11 +1272,11 @@
 		if(!check_rights(R_ADMIN))
 			return
 		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
+			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "antag-paradise" && GLOB.secret_force_mode != "antag-paradise")
-			return alert(usr, "The game mode has to be Antag Paradise!", null, null, null, null)
+			return tgui_alert(usr, "The game mode has to be Antag Paradise!")
 
-		var/dat = {"<!DOCTYPE html><meta charset="UTF-8"><b>Edit the antag weights for minor antagonists. Higher the weight higher the chance for antag to roll. Press reset if you want default behavior.</b><hr>"}
+		var/dat = {"<b>Edit the antag weights for minor antagonists. Higher the weight higher the chance for antag to roll. Press reset if you want default behavior.</b><hr>"}
 		dat += {"<table><tr><td><b>Antag</b></td><td><b>Weight</b></td></tr>"}
 		var/list/antags_list
 		if(GLOB.antag_paradise_weights)
@@ -1292,7 +1299,11 @@
 
 		dat += {"<br><a href='byond://?src=[UID()];change_weights2=reset'>Reset everything to default.</A><br>"}
 
-		usr << browse(dat, "window=change_weights")
+		var/datum/browser/popup = new(usr, "change_weights", "<div align='center'>Antag Paradise Weights</div>", 900, 700)
+		popup.set_content(dat)
+		popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+		popup.open()
+		onclose(usr, "change_weights")
 
 	else if(href_list["change_weights2"])
 		if(!check_rights(R_ADMIN))
@@ -2612,7 +2623,7 @@
 		else if(istype(fax, /obj/item/paper_bundle))
 			//having multiple people turning pages on a paper_bundle can cause issues
 			//open a browse window listing the contents instead
-			var/data = {"<!DOCTYPE html><meta charset="UTF-8">"}
+			var/data = ""
 			var/obj/item/paper_bundle/bundle = fax
 
 			for(var/page = 1 to length(bundle.papers))
