@@ -291,6 +291,29 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	SSmove_manager.stop_looping(src)
 
 
+/obj/effect/immovablerod/smite
+	/// The target that we're gonna aim for between start and end
+	var/obj/effect/portal/exit
+	var/turf/end
+	admin_spawned = TRUE
+
+/obj/effect/immovablerod/smite/Initialize(mapload, atom/target_atom, atom/special_target, move_delay, force_looping)
+	new /obj/effect/portal(mapload, null, null, 2 SECONDS)
+	end = get_turf(target_atom)
+	return ..()
+
+/obj/effect/immovablerod/smite/Move()
+	. = ..()
+	if(get_turf(src) == end)
+		// our exit condition: get outta there kowalski
+		var/target_turf = get_ranged_target_turf(src, dir, rand(1, 10))
+		walk(src, 0)
+		exit = new /obj/effect/portal(target_turf, null, null, 2 SECONDS)
+		walk_towards(src, exit, move_delay)
+	else if(locate(exit) in get_turf(src))
+		QDEL_NULL(exit)
+		qdel(src)
+
 /**
  * Allows your rod to release restraint level zero and go for a walk.
  *
@@ -317,4 +340,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/proc/walk_in_direction(direction)
 	destination_turf = get_edge_target_turf(src, direction)
 	SSmove_manager.move_towards(src, destination_turf, delay = move_delay)
+
+
+
+/obj/effect/immovablerod/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 6 SECONDS)
+	return AddComponent(/datum/component/deadchat_control/immovable_rod, mode, list(), cooldown)
 

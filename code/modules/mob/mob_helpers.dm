@@ -94,30 +94,40 @@
 		return U.sensor_mode
 	return SUIT_SENSOR_OFF
 
-/proc/offer_control(mob/M)
-	to_chat(M, "Control of your mob has been offered to dead players.")
-	log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
-	var/minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as null|num
-	if(isnull(minhours))
+/proc/offer_control(mob/offer_mob, hours, hide_role)
+	if(HAS_TRAIT(offer_mob, TRAIT_BEING_OFFERED))
 		return
-	message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
-	var/question = "Do you want to play as [M.real_name ? M.real_name : M.name][M.job ? " ([M.job])" : ""]"
-	if(alert("Do you want to show the antag status?","Show antag status","Yes","No") == "Yes")
-		question += ", [M.mind?.special_role ? M.mind?.special_role : "No special role"]"
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("[question]?", poll_time = 10 SECONDS, min_hours = minhours, source = M)
+	var/minhours
+	ADD_TRAIT(offer_mob, TRAIT_BEING_OFFERED, ADMIN_OFFER_TRAIT)
+	to_chat(offer_mob, span_warning("Призракам предложен контроль над вашим существом."))
+	if(!hours)
+		minhours = tgui_input_number(usr, "Минимальное количество часов, необходимое для игры на [offer_mob]?", "Установите число часов", 10)
+	else
+		minhours = hours
+		
+	log_and_message_admins("has offered control of ([key_name_admin(offer_mob)]) to ghosts with [minhours] hrs playtime")
+	var/question = "Вы хотите войти в раунд как [offer_mob.real_name ? offer_mob.real_name : offer_mob][offer_mob.job ? " ([offer_mob.job])" : ""]"
+	if(isnull(hide_role))
+		if(tgui_alert(usr, "Вы хотите показывать спец-роль существа?","Показывать спец-роль", list("Да","Нет")) == "Да")
+			question += ", [offer_mob.mind?.special_role || "Нет спец-роли"]"
+	else if(!hide_role)
+		question += ", [offer_mob.mind?.special_role ? offer_mob.mind?.special_role : "Нет спец-роли"]"
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("[question]?", poll_time = 10 SECONDS, min_hours = minhours, source = offer_mob)
 	var/mob/dead/observer/theghost = null
+
+	REMOVE_TRAIT(offer_mob, TRAIT_BEING_OFFERED, ADMIN_OFFER_TRAIT)
 
 	if(LAZYLEN(candidates))
 		theghost = pick(candidates)
-		to_chat(M, "Your mob has been taken over by a ghost!")
-		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
-		log_game("[theghost.key] has taken control of [M] (ckey: [M.key])")
-		M.ghostize()
-		M.key = theghost.key
+		to_chat(offer_mob, span_notice("Контроль над вашим существом был передан призраку!"))
+		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(offer_mob)])")
+		log_game("[theghost.key] has taken control of [offer_mob] (ckey: [offer_mob.key])")
+		offer_mob.ghostize()
+		offer_mob.key = theghost.key
 	else
-		to_chat(M, "There were no ghosts willing to take control.")
-		log_game("No one decided to take control of [M] (ckey: [M.key])")
-		message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
+		to_chat(offer_mob, span_notice("Не было призраков, желающих взять под свой контроль ваше существо."))
+		log_game("No one decided to take control of [offer_mob] (ckey: [offer_mob.key])")
+		message_admins("No ghosts were willing to take control of [key_name_admin(offer_mob)])")
 
 /proc/check_zone(zone)
 	if(!zone)

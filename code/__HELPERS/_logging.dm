@@ -124,6 +124,10 @@ GLOBAL_PROTECT(log_end)
 	if(CONFIG_GET(flag/log_say))
 		WRITE_LOG(GLOB.world_game_log, "DEADCHAT: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
+/proc/log_devsay(text, mob/speaker)
+	if(CONFIG_GET(flag/log_adminchat))
+		WRITE_LOG(GLOB.world_game_log, "DEVSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+
 /proc/log_ghostemote(text, mob/speaker)
 	if(CONFIG_GET(flag/log_emote))
 		WRITE_LOG(GLOB.world_game_log, "DEADEMOTE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")

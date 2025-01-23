@@ -12,6 +12,21 @@
 /datum/proc/can_vv_get(var_name)
 	return TRUE
 
+/mob/can_vv_get(var_name)
+	var/static/list/protected_vars = list(
+		"lastKnownIP", "computer_id", "attack_log_old"
+	)
+	if(!check_rights(R_ADMIN, FALSE, src) && (var_name in protected_vars))
+		return FALSE
+	return TRUE
+
+/client/can_vv_get(var_name)
+	var/static/list/protected_vars = list(
+		"address", "chatOutput", "computer_id", "connection", "jbh", "pm_tracker", "related_accounts_cid", "related_accounts_ip", "watchlisted"
+	)
+	if(!check_rights(R_ADMIN, FALSE, mob) && (var_name in protected_vars))
+		return FALSE
+	return TRUE
 
 /// Called when a var is edited with the new value to change to
 /datum/proc/vv_edit_var(var_name, var_value)
@@ -58,7 +73,7 @@
 
 /client/proc/debug_variables(datum/D in world)
 	set name = "\[Admin\] View Variables"
-	set category = "Debug"
+	set category = "Admin.Debug"
 
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
@@ -1408,6 +1423,63 @@
 		var/mob/living/carbon/human/H = locateUID(href_list["copyoutfit"])
 		if(istype(H))
 			H.copy_outfit()
+
+	if(href_list["grantdeadchatcontrol"])
+		if(!check_rights(R_EVENT))
+			return
+
+		var/atom/movable/A = locateUID(href_list["grantdeadchatcontrol"])
+		if(!istype(A))
+			return
+
+		if(!CONFIG_GET(flag/dsay_allowed))
+			// TODO verify what happens when deadchat is muted
+			to_chat(usr, span_warning("Дедчат глобально отключён, включите его перед тем как включать это."))
+			return
+
+		if(A.GetComponent(/datum/component/deadchat_control))
+			to_chat(usr, span_warning("[capitalize(A.declent_ru(NOMINATIVE))] уже находится под контролем призраков!"))
+			return
+
+		var/control_mode = tgui_input_list(usr, "Выберите режим управления","Тип управления", list("демократия", "анархия"), null)
+
+		var/selected_mode
+		switch(control_mode)
+			if("демократия")
+				selected_mode = DEADCHAT_DEMOCRACY_MODE
+			if("анархия")
+				selected_mode = DEADCHAT_ANARCHY_MODE
+			else
+				return
+
+		var/cooldown = tgui_input_number(usr, "Пожалуйста, введите время между действиями в секундах. Для демократии это время между действиями (должно быть больше нуля). Для анархии это время между действиями каждого пользователя или -1, если время между ними отсутствует.", "Время между действиями", 0)
+		if(isnull(cooldown) || (cooldown == -1 && selected_mode == DEADCHAT_DEMOCRACY_MODE))
+			return
+		if(cooldown < 0 && selected_mode == DEADCHAT_DEMOCRACY_MODE)
+			to_chat(usr, span_warning("Время между действиями режима демократии должно быть больше нуля."))
+			return
+		if(cooldown == -1)
+			cooldown = 0
+		else
+			cooldown = cooldown SECONDS
+
+		A.deadchat_plays(selected_mode, cooldown)
+		log_and_message_admins("provided deadchat control to [A].")
+
+	if(href_list["removedeadchatcontrol"])
+		if(!check_rights(R_EVENT))
+			return
+
+		var/atom/movable/A = locateUID(href_list["removedeadchatcontrol"])
+		if(!istype(A))
+			return
+
+		if(!A.GetComponent(/datum/component/deadchat_control))
+			to_chat(usr, "[capitalize(A.declent_ru(NOMINATIVE))] больше не находится под контролем призраков!")
+			return
+
+		A.stop_deadchat_plays()
+		log_and_message_admins("removed deadchat control from [A].")
 
 /client/proc/view_var_Topic_list(href, href_list, hsrc)
 	if(href_list["VarsList"])

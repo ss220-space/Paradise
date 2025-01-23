@@ -3,6 +3,7 @@
 	show_in_roundend = FALSE
 	job_rank = ROLE_BORER
 	special_role = SPECIAL_ROLE_BORER
+	antag_menu_name = "Борер"
 	var/mob/living/simple_animal/borer/user
 	var/mob/living/carbon/human/host
 	/// previous host, used to del transferable effects from previous host.
@@ -26,7 +27,7 @@
 	sync()
 	RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(entered_host))
 	RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host))
-	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) 
+	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death))
 	RegisterSignal(user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive))
 
 	if(tick_interval != -1)
@@ -87,13 +88,14 @@
 	if(evo_points >= focus.cost)
 		evo_points -= focus.cost
 		learned_focuses += new focus(user)
-		
+
 		pre_grant_movable_effect()
 		to_chat(user, span_notice("Вы успешно приобрели [focus.bodypartname]"))
 		return
 
-	to_chat(user, span_notice("Вам требуется еще [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
-	return 
+	var/need_points = focus.cost - evo_points
+	to_chat(user, span_notice("Вам требуется ещё [need_points] очк[declension_ru(need_points, "о", "а", "ов")] эволюции для получения [focus.bodypartname]."))
+	return
 
 /datum/antagonist/borer/proc/entered_host()
 	SIGNAL_HANDLER
@@ -114,7 +116,7 @@
 /datum/antagonist/borer/proc/pre_grant_movable_effect()
 	if(QDELETED(user) || QDELETED(host))
 		return
-		
+
 	for(var/datum/borer_focus/focus as anything in learned_focuses)
 		if(focus.movable_granted)
 			continue
@@ -126,7 +128,7 @@
 		focus.grant_movable_effect()
 
 	scaling?.grant_movable_effect()
-	
+
 	return
 
 /datum/antagonist/borer/proc/pre_remove_movable_effect()
@@ -165,7 +167,7 @@
 
 /datum/antagonist/borer/proc/on_mob_death()
 	SIGNAL_HANDLER
-	
+
 	STOP_PROCESSING(SSprocessing, src)
 
 /datum/antagonist/borer/proc/on_mob_revive()
@@ -191,10 +193,10 @@
 		if(QDELING(src))
 			return
 
-/datum/antagonist/borer/proc/update_rank()	
+/datum/antagonist/borer/proc/update_rank()
 	if(!borer_rank?.required_reproductions || !borer_rank.next_rank_type)
 		return FALSE
-		
+
 	if(reproductions < borer_rank.required_reproductions)
 		return FALSE
 

@@ -33,8 +33,8 @@
 	for(var/datum/preference_info/pref as anything in preferences_to_show)
 		var/datum/preference_toggle/toggle = pref.get_preference_toggle()
 		
-		if(!HASBIT(target.client.prefs.toggles, toggle::preftoggle_bitflag) \
-        && !HASBIT(target.client.prefs.toggles2, toggle::preftoggle_bitflag)
+		if(!HASBIT(target.client.prefs.toggles, toggle.preftoggle_bitflag) \
+        && !HASBIT(target.client.prefs.toggles2, toggle.preftoggle_bitflag)
         )
 			continue
 

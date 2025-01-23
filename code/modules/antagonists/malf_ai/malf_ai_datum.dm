@@ -5,6 +5,7 @@
 	special_role = SPECIAL_ROLE_MALFAI
 	antag_hud_name = "hudsyndicate"
 	antag_hud_type = ANTAG_HUD_TRAITOR
+	antag_menu_name = "Сбойный ИИ"
 	/// Should the AI get codewords?
 	var/give_codewords = TRUE
 

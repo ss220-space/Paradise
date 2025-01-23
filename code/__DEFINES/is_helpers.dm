@@ -90,6 +90,8 @@
 
 #define is_internal_organ(A) istype(A, /obj/item/organ/internal)
 
+#define	is_organ(A)			istype((A), /obj/item/organ)
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,

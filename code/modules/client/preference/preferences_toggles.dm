@@ -400,6 +400,17 @@
 	disable_message = "You'll no longer see subsystem information in the verb panel."
 	blackbox_message = "MC tabs toggled"
 
+/datum/preference_toggle/toggle_split_admins_tabs
+	name = "Toggle Split Admins Tabs"
+	description = "Toggles Admins Tabs spliting"
+	preftoggle_bitflag = PREFTOGGLE_2_SPLIT_ADMIN_TABS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	rights_required = R_ADMIN
+	enable_message = "Теперь ваши вербы разделены по подкатегориям."
+	disable_message = "Теперь ваши вербы не разделены по подкатегориям."
+	blackbox_message = "Split Admins Tabs toggled"
+
 /datum/preference_toggle/special_toggle
 	preftoggle_toggle = PREFTOGGLE_SPECIAL
 
