@@ -6,7 +6,7 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 
 /client/proc/honksquad()
 	if(!SSticker)
-		to_chat(src, "<font color='red'>Игра еще не началась!</font>")
+		to_chat(src, "<font color='red'>Игра ещё не началась!</font>")
 		return
 	if(world.time < 6000)
 		to_chat(src, "<font color='red'>Осталось [(6000-world.time)/10] секунд до того, как это может быть вызвано.</font>")
@@ -90,7 +90,7 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	new_honksquad.mind.offstation_role = TRUE
 	new_honksquad.add_language(LANGUAGE_CLOWN)
 	new_honksquad.change_voice()
-	SSticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
+	SSticker.mode.honksquad |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
 	new_honksquad.equip_honksquad(honk_leader_selected, rankName)
 	return new_honksquad
 

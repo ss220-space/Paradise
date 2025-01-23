@@ -6,6 +6,7 @@
 	special_role = SPECIAL_ROLE_VAMPIRE
 	wiki_page_name = "Vampire"
 	russian_wiki_name = "Вампир"
+	antag_menu_name = "Вампир"
 	/// Total blood drained by vampire over round.
 	var/bloodtotal = 0
 	/// Current amount of blood.
@@ -142,6 +143,9 @@
 		user.dna?.species?.hunger_icon = initial(user.dna.species.hunger_icon)
 
 	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
+
+/datum/antagonist/vampire/get_antag_menu_name()
+	return "[antag_menu_name][subclass? "([subclass.antag_menu_addition])" :""]"
 
 
 /**
@@ -691,6 +695,7 @@
 	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "vampthrall"
 	master_hud_icon = "vampire"
+	antag_menu_name = "Раб вампира"
 
 /datum/antagonist/mindslave/thrall/greet()
 	var/greet_text = "<b>Вы были очарованы [master.current.real_name]. Следуйте каждому [genderize_ru(master.current.gender, "его", "её", "его", "их")] приказу.</b>"

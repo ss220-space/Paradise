@@ -15,6 +15,7 @@
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	show_in_orbit = FALSE
+	antag_menu_name = "Контрактор"
 	/// How many telecrystals a traitor must forfeit to become a contractor.
 	var/tc_cost = 100
 	/// How long a traitor's chance to become a contractor lasts before going away. In deciseconds.
@@ -25,6 +26,8 @@
 	var/is_admin_forced = FALSE
 	/// The associated contractor uplink. Only present if the offer was accepted.
 	var/obj/item/contractor_uplink/contractor_uplink = null
+	/// Show if the offer was accepted.
+	var/offer_accepted = FALSE
 
 
 /datum/antagonist/contractor/Destroy(force)
@@ -124,6 +127,10 @@
 	uplink.uses -= tc_cost
 
 	show_in_orbit = TRUE
+	offer_accepted = TRUE
 
 	if(!is_admin_forced)
 		SSticker?.mode?.contractor_accepted++
+
+/datum/antagonist/contractor/check_anatag_menu_ability()
+	return offer_accepted

@@ -1,6 +1,7 @@
 /datum/antagonist/survivalist
 	name = "Survivalist"
 	special_role = "survivalist"
+	antag_menu_name = "Выживальщик"
 	var/greet_message = ""
 
 

@@ -1,5 +1,5 @@
 /client/proc/open_borgopanel(borgo in GLOB.silicon_mob_list)
-	set category = "Admin"
+	set category = "Admin.Event"
 	set name = "Show Borg Panel"
 	set desc = "Show borg panel"
 

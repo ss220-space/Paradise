@@ -1,5 +1,5 @@
 /client/proc/atmosscan()
-	set category = "Mapping"
+	set category = "Debug.Mapping"
 	set name = "Check Piping"
 	if(!src.holder)
 		to_chat(src, "Only administrators may use this command.")
@@ -45,7 +45,7 @@
 	to_chat(usr, "Done")
 
 /client/proc/powerdebug()
-	set category = "Mapping"
+	set category = "Debug.Mapping"
 	set name = "Check Power"
 	if(!src.holder)
 		to_chat(src, "Only administrators may use this command.")

@@ -677,6 +677,20 @@
 	cost = 10
 	race = list(SPECIES_HUMAN)
 
+/datum/uplink_item/racial/ghostface_kit
+	name = "Ghostface kit"
+	desc = "Всё, что нужно, дабы повторить всем известное призрачное лицо! Включает в себя бронированный чёрный балахон, бронированную маску с функцией сокрытия голоса и сверх-острый аутентичный нож."
+	item = /obj/item/storage/box/syndie_kit/ghostface_kit
+	cost = 50
+	race = list(SPECIES_HUMAN)
+
+/datum/uplink_item/racial/devilghostface_kit
+	name = "Devil Ghostface kit"
+	desc = "Всё, что нужно, дабы повторить всем известное призрачное лицо! Включает в себя бронированный чёрный балахон, бронированную маску с функцией сокрытия голоса и сверх-острый аутентичный нож."
+	item = /obj/item/storage/box/syndie_kit/devil_ghostface_kit
+	cost = 50
+	race = list(SPECIES_HUMAN)
+
 //Grey
 
 /datum/uplink_item/racial/agent_belt

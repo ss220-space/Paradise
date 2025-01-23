@@ -158,7 +158,7 @@
 /proc/show_note(target_ckey, index, linkless = 0)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
-	var/list/output = list({"<!DOCTYPE html><meta charset="UTF-8">"})
+	var/list/output = list()
 	var/list/navbar = list()
 	var/ruler = "<hr style='background:#000000; border:0; height:3px'>"
 
@@ -168,7 +168,7 @@
 	navbar += "<br><form method='GET' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='notessearch' value='[index]'>\
-	<input type='submit' value='Search'></form>"
+	<input style='margin-left: 5px;' type='submit' value='Search'></form>"
 	if(!linkless)
 		output += navbar
 	if(target_ckey)
@@ -235,4 +235,10 @@
 		output += "<center><a href='byond://?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler
 	usr << browse(output.Join(""), "window=show_notes;size=900x500")
+	var/datum/browser/popup = new(usr, "show_notes", "<div align='center'>Notes</div>", 900, 500)
+	popup.set_content(output.Join(""))
+	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+	popup.add_stylesheet("dark_inputs", "html/dark_inputs.css")
+	popup.open()
+	onclose(usr, "show_notes")
 

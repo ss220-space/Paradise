@@ -148,6 +148,10 @@
 	list_reagents = list("omnizine" = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
+
 /obj/item/reagent_containers/hypospray/CMO/empty
 	list_reagents = null
 

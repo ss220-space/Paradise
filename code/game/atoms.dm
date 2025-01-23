@@ -404,39 +404,34 @@
 
 //All atoms
 /atom/proc/examine(mob/user, infix = "", suffix = "")
-	//This reformat names to get a/an properly working on item descriptions when they are bloody
-	var/f_name = "\a [src][infix]."
+	var/f_name = "."
 	if(src.blood_DNA && !istype(src, /obj/effect/decal))
-		if(gender == PLURAL)
-			f_name = "some "
-		else
-			f_name = "a "
 		if(blood_color != "#030303")
-			f_name += "<span class='danger'>blood-stained</span> [name][infix]!"
+			f_name = span_danger(", в кровавых следах.")
 		else
-			f_name += "oil-stained [name][infix]."
-	. = list("[bicon(src)] That's [f_name] [suffix]")
+			f_name = ", в масляных следах."
+	. = list("[bicon(src)] Это [declent_ru(NOMINATIVE)][f_name] [suffix]")
 	if(desc)
 		. += desc
 
 	if(reagents)
 		if(container_type & TRANSPARENT)
-			. += "<span class='notice'>It contains:</span>"
+			. += span_notice("Внутри содержится:")
 			if(reagents.reagent_list.len)
 				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/I in reagents.reagent_list)
 						var/datum/reagent/R = I
-						. += "<span class='notice'>[R.volume] units of [R.name]</span>"
+						. += span_notice("[R.volume] единиц[declension_ru(R.volume, "у", "ы", "")] [R.name].")
 				else //Otherwise, just show the total volume
 					if(reagents && reagents.reagent_list.len)
-						. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
+						. += span_notice("[reagents.total_volume] единиц[declension_ru(reagents.total_volume, "у", "ы", "")] различных веществ.")
 			else
-				. += "<span class='notice'>Nothing.</span>"
+				. += span_notice("Ничего.")
 		else if(container_type & AMOUNT_VISIBLE)
 			if(reagents.total_volume)
-				. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
+				. += span_notice("Осталось ещё [reagents.total_volume] единиц[declension_ru(reagents.total_volume, "у", "ы", "")].")
 			else
-				. += "<span class='danger'>It's empty.</span>"
+				. += span_danger("Внутри ничего нет.")
 
 	//Detailed description
 	var/descriptions

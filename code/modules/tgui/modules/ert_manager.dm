@@ -31,6 +31,7 @@
 			data["security_level_color"] = "red"
 		else
 			data["security_level_color"] = "purple"
+	data["ert_request_answered"] = GLOB.ert_request_answered
 	data["ert_type"] = ert_type
 	data["com"] = commander_slots
 	data["sec"] = security_slots
@@ -41,13 +42,16 @@
 	data["cyb"] = cyborg_slots
 	data["total"] = commander_slots + security_slots + medical_slots + engineering_slots + janitor_slots + paranormal_slots + cyborg_slots
 	data["spawnpoints"] = GLOB.emergencyresponseteamspawn.len
+	data["ert_request_messages"] = GLOB.ert_request_messages
 	return data
 
-/datum/ui_module/ert_manager/ui_act(action, params)
+/datum/ui_module/ert_manager/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 	. = TRUE
 	switch(action)
+		if("toggle_ert_request_answered")
+			GLOB.ert_request_answered = !GLOB.ert_request_answered
 		if("ert_type")
 			ert_type = params["ert_type"]
 		if("toggle_com")
@@ -65,6 +69,9 @@
 		if("set_cyb")
 			cyborg_slots = text2num(params["set_cyb"])
 		if("dispatch_ert")
+			if(GLOB.send_emergency_team)
+				to_chat(usr, span_warning("Центральное Командование уже направило Отряд Быстрого Реагирования!"))
+				return
 			var/datum/response_team/D
 			switch(ert_type)
 				if("Amber")
@@ -74,30 +81,41 @@
 				if("Gamma")
 					D = new /datum/response_team/gamma
 				else
-					to_chat(usr, "<span class='userdanger'>Invalid ERT type.</span>")
+					to_chat(usr, span_userdanger("Неверный тип ОБР."))
 					return
+			GLOB.send_emergency_team = TRUE
 			GLOB.ert_request_answered = TRUE
 			var/slots_list = list()
 			if(commander_slots > 0)
-				slots_list += "commander: [commander_slots]"
+				slots_list += "командир: [commander_slots]"
 			if(security_slots > 0)
-				slots_list += "security: [security_slots]"
+				slots_list += "боец: [security_slots]"
 			if(medical_slots > 0)
-				slots_list += "medical: [medical_slots]"
+				slots_list += "медик: [medical_slots]"
 			if(engineering_slots > 0)
-				slots_list += "engineering: [engineering_slots]"
+				slots_list += "инженер: [engineering_slots]"
 			if(janitor_slots > 0)
-				slots_list += "janitor: [janitor_slots]"
+				slots_list += "уборщик: [janitor_slots]"
 			if(paranormal_slots > 0)
-				slots_list += "paranormal: [paranormal_slots]"
+				slots_list += "паранормал: [paranormal_slots]"
 			if(cyborg_slots > 0)
-				slots_list += "cyborg: [cyborg_slots]"
+				slots_list += "борг: [cyborg_slots]"
+			D.silent = params["silent"]
 			var/slot_text = english_list(slots_list)
-			notify_ghosts("An ERT is being dispatched. Open positions: [slot_text]")
-			message_admins("[key_name_admin(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]")
-			log_admin("[key_name(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]")
-			GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы предпринимаем шаги для отправки отряда быстрого реагирования. Ожидайте.", "ВНИМАНИЕ: Активирован протокол ОБР.")
+			log_and_message_admins("dispatched a [params["silent"] ? "silent " : ""][ert_type] ERT. Slots: [slot_text]")
+			if(!params["silent"])
+				GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы предпринимаем шаги для отправки отряда быстрого реагирования. Ожидайте.", "ВНИМАНИЕ: Активирован протокол ОБР.")
 			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
+
+		if("view_player_panel")
+			ui.user.client.holder.show_player_panel(locate(params["uid"]))
+
+		if("deny_ert")
+			GLOB.ert_request_answered = TRUE
+			var/message = "[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования."
+			if(params["reason"])
+				message += " Ваш запрос ОБР был отклонен по следующим причинам:\n[params["reason"]]"
+			GLOB.event_announcement.Announce(message, "Оповещение: ОБР недоступен.")
 		else
 			return FALSE
 

@@ -292,6 +292,10 @@
 	desc = "A golden medal awarded exclusively to those promoted to the rank of captain. It signifies the codified responsibilities of a captain to Nanotrasen, and their undisputable authority over their crew."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/item/clothing/accessory/medal/gold/captain/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
+	
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
 	desc = "An extremely rare golden medal awarded only by CentComm. To recieve such a medal is the highest honor and as such, very few exist."
@@ -1002,24 +1006,24 @@
 	STOP_PROCESSING(SSobj, src)
 
 
-/proc/english_accessory_list(obj/item/clothing/under/uniform)
+/proc/accessory_list(obj/item/clothing/under/uniform)
 	if(!istype(uniform) || !LAZYLEN(uniform.accessories))
 		return
 	var/list/A = uniform.accessories
 	var/total = A.len
 	if(total == 1)
-		return "\a [A[1]]"
+		return "[A[1]]"
 	else if(total == 2)
-		return "\a [A[1]] and \a [A[2]]"
+		return "[A[1]] и [A[2]]"
 	else
 		var/output = ""
 		var/index = 1
 		var/comma_text = ", "
 		while(index < total)
-			output += "\a [A[index]][comma_text]"
+			output += "[A[index]][comma_text]"
 			index++
 
-		return "[output]and \a [A[index]]"
+		return "[output]и [A[index]]"
 
 /obj/item/clothing/accessory/head_strip
 	name = "captain's strip"
