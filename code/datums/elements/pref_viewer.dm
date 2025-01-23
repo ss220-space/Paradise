@@ -21,18 +21,19 @@
 
 /datum/element/pref_viewer/Detach(mob/target)
 	. = ..()
+    
 	UnregisterSignal(target, COMSIG_MOB_RUN_EXAMINATE)
 
 /datum/element/pref_viewer/proc/on_examine(mob/source, mob/target, list/result)
     SIGNAL_HANDLER
 
-    if(!istype(target) || !target.client || !target.GetElement(/datum/element/pref_holder))
+    if(!istype(target) || !target.client || !target.GetComponent(/datum/component/pref_holder))
         return
 
     INVOKE_ASYNC(src, PROC_REF(modify_examine), target, result)
 
 /datum/element/pref_viewer/proc/modify_examine(mob/target, list/result)
-	var/datum/element/pref_holder/holder = target.GetElement(/datum/element/pref_holder)
+	var/datum/component/pref_holder/holder = target.GetComponent(/datum/component/pref_holder)
 
 	for(var/datum/preference_info/info as anything in holder.preferences)
 		if(!is_type_in_list(info, preferences_to_show))

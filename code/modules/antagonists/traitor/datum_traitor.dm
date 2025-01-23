@@ -46,10 +46,10 @@
 
 /datum/antagonist/traitor/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
-	qdel(old_body.GetElement(/datum/element/pref_viewer))
+	old_body.RemoveElement(/datum/element/pref_viewer))
 
 /datum/antagonist/traitor/handle_last_instance_removal()
-	qdel(owner.current.GetElement(/datum/element/pref_viewer))
+	owner.current.RemoveElement(/datum/element/pref_viewer))
 
 /datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
 	. = ..()
