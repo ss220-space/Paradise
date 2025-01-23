@@ -121,11 +121,11 @@
 	)
 
 /datum/antagonist/ninja/handle_last_instance_removal()
-	owner.current.RemoveElement(/datum/element/pref_viewer))
+	owner.current.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/ninja/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
-	old_body.RemoveElement(/datum/element/pref_viewer))
+	old_body.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/ninja/proc/change_species(mob/living/mob_to_change = null) // This should be used to fully to remove robo-limbs & change species for lack of sprites
 	human_ninja = ishuman(mob_to_change) ? mob_to_change : null
