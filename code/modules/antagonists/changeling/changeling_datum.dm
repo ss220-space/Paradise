@@ -171,7 +171,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	old_body.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/changeling/handle_last_instance_removal()
-	owner.current.RemoveElement(/datum/element/pref_viewer))
+	owner.current.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
