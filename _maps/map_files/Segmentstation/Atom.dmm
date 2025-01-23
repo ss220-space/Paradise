@@ -3648,8 +3648,7 @@
 	name = "Труба обработки"
 	},
 /obj/machinery/atmospherics/meter,
-/obj/effect/spawner/window/reinforced/plasma,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/r_wall/coated,
 /area/engineering/supermatter)
 "aMV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -4498,8 +4497,7 @@
 	dir = 6;
 	name = "Труба обработки"
 	},
-/obj/effect/spawner/window/reinforced/plasma,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/r_wall/coated,
 /area/engineering/supermatter)
 "aVj" = (
 /obj/structure/weightmachine/stacklifter,
@@ -10539,8 +10537,7 @@
 /area/hallway/secondary/exit/maint)
 "cej" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6;
-	level = 1
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11038,8 +11035,10 @@
 	},
 /area/janitor)
 "cjW" = (
-/obj/machinery/atmospherics/pipe/simple/visible/universal,
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "cjX" = (
@@ -11819,13 +11818,11 @@
 	},
 /area/crew_quarters/cabin3)
 "cqE" = (
-/obj/machinery/atmospherics/trinary/tvalve/digital/bypass{
-	dir = 1
-	},
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/trinary/tvalve/digital/flipped/bypass,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "cqF" = (
@@ -13800,8 +13797,7 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/meter,
-/obj/effect/spawner/window/reinforced/plasma,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/r_wall/coated,
 /area/engineering/supermatter)
 "cJj" = (
 /obj/structure/cable{
@@ -29966,8 +29962,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/obj/effect/spawner/window/reinforced/plasma,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/r_wall/coated,
 /area/engineering/supermatter)
 "fMd" = (
 /obj/structure/table/glass,
@@ -33579,8 +33574,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced/plasma,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/r_wall,
 /area/engineering/supermatter)
 "gti" = (
 /obj/structure/girder,
@@ -53686,6 +53680,11 @@
 "kmc" = (
 /turf/simulated/wall,
 /area/hallway/secondary/entry/north)
+"kmd" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
+/turf/simulated/floor/plasteel,
+/area/engineering/controlroom)
 "kml" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
@@ -54369,6 +54368,12 @@
 	icon_state = "dark"
 	},
 /area/maintenance/starboardaux)
+"ktB" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/meter,
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/plasteel,
+/area/engineering/controlroom)
 "ktN" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "blueshieldofficewindows"
@@ -63558,13 +63563,6 @@
 	dir = 8
 	},
 /area/medical/research/nhallway)
-"mgQ" = (
-/obj/machinery/door/poddoor/shutters{
-	id_tag = "teleaccessshutter";
-	name = "Teleporter Access Shutters"
-	},
-/turf/space,
-/area/teleporter)
 "mhd" = (
 /obj/effect/landmark/honk_squad,
 /turf/simulated/floor/shuttle,
@@ -64299,8 +64297,7 @@
 /area/engineering/engine)
 "mnx" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6;
-	level = 1
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -77962,8 +77959,7 @@
 "oUI" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6;
-	level = 1
+	dir = 6
 	},
 /obj/structure/barricade/wooden/crude{
 	layer = 4
@@ -91126,8 +91122,7 @@
 /area/security/permahallway)
 "ryz" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6;
-	level = 1
+	dir = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -97696,8 +97691,7 @@
 "sOX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6;
-	level = 1
+	dir = 6
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -115394,8 +115388,7 @@
 /area/hallway/primary/port)
 "wkA" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6;
-	level = 1
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -149231,9 +149224,9 @@ sUA
 uzc
 uzc
 uzc
-uzc
-uzc
 cdi
+kmd
+ktB
 cjW
 uNG
 dKF
@@ -172266,7 +172259,7 @@ gEV
 jUO
 jUO
 jHf
-mgQ
+jHf
 jUO
 jUO
 jUO
