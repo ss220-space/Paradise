@@ -1281,7 +1281,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/list/mobs = shuffle(GLOB.alive_player_list.Copy()) // might change while iterating
 	
-	var/who_did_it = key_name_admin(usr)
+	log_and_message_admins("polymorphed ALL living mobs.")
 
 	for(var/mob/living/M in mobs)
 		CHECK_TICK
