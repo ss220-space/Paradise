@@ -2389,38 +2389,7 @@
 		if(!check_rights(R_ADMIN|R_EVENT))	return
 
 		var/mob/living/M = locateUID(href_list["BlueSpaceArtillery"])
-		if(!isliving(M))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>", confidential=TRUE)
-			return
-
-		if(alert(owner, "Are you sure you wish to hit [key_name(M)] with Bluespace Artillery?",  "Confirm Firing?" , "Yes" , "No") != "Yes")
-			return
-
-		if(GLOB.BSACooldown)
-			to_chat(owner, "Standby. Reload cycle in progress. Gunnery crews ready in five seconds!")
-			return
-
-		GLOB.BSACooldown = 1
-		spawn(50)
-			GLOB.BSACooldown = 0
-
-		to_chat(M, "You've been hit by bluespace artillery!")
-		log_admin("[key_name(M)] has been hit by Bluespace Artillery fired by [key_name(owner)]")
-		message_admins("[key_name_admin(M)] has been hit by Bluespace Artillery fired by [key_name_admin(owner)]")
-
-		var/turf/simulated/floor/T = get_turf(M)
-		if(istype(T))
-			if(prob(80))
-				T.break_tile_to_plating()
-			else
-				T.break_tile()
-
-		if(M.health <= 1)
-			M.gib()
-		else
-			M.adjustBruteLoss(min(99,(M.health - 1)))
-			M.Weaken(40 SECONDS)
-			M.Stuttering(40 SECONDS)
+		usr.client.bluespace_artillery(M)
 
 	else if(href_list["CentcommReply"])
 		if(!check_rights(R_ADMIN))
@@ -2891,6 +2860,10 @@
 		if(!check_rights(R_SPAWN))	return
 		return create_mob(usr)
 
+	else if(href_list["dupe_marked_datum"])
+		if(!check_rights(R_SPAWN))	return
+		return DuplicateObject(marked_datum, perfectcopy=1, newloc=get_turf(usr))
+
 	else if(href_list["object_list"])			//this is the laggiest thing ever
 		if(!check_rights(R_SPAWN))	return
 
@@ -3099,6 +3072,35 @@
 			if("tripleAI")
 				usr.client.triple_ai()
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
+			if("set_station_name")
+				if(!check_rights(R_ADMIN | R_EVENT))
+					return
+
+				if(!you_realy_want_do_this())
+					return
+
+				var/new_name = tgui_input_text(usr, "Пожалуйста, введите новое название станции.", "Что?", "")
+				if(!new_name)
+					return
+				change_station_name(new_name)
+				log_and_message_admins("renamed the station to: [new_name].")
+				GLOB.event_announcement.Announce("Решением [command_name()] станция переименована в \"[new_name]\".")
+
+			if("set_centcomm_name")
+				if(!check_rights(R_ADMIN | R_EVENT))
+					return
+				if(!you_realy_want_do_this())
+					return
+				usr.client.cmd_change_command_name()
+
+			if("reset_station_name")
+				if(!check_rights(R_ADMIN))
+					return
+				var/new_name = new_station_name()
+				change_station_name(new_name)
+				log_and_message_admins("reset the station name.</span>")
+				GLOB.event_announcement.Announce("Решением [command_name()] станция переименована в \"[new_name]\".")
+
 			if("gravity")
 				if(!(SSticker && SSticker.mode))
 					to_chat(usr, "<span class='warning'>Please wait until the game starts! Not sure how it will work otherwise.</span>", confidential=TRUE)
@@ -3305,6 +3307,8 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Weather Ash Storm")
 				SSweather.run_weather(/datum/weather/ash_storm)
 				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining level")
+			if("polymorph")
+				usr.client.polymorph_all()
 			if("stupify")
 				if(!you_realy_want_do_this())
 					return
@@ -3325,15 +3329,33 @@
 					W.item_state = "gun"
 				message_admins("[key_name_admin(usr)] made every item look like a gun")
 			if("schoolgirl") // nyaa~ How much are you paying attention in reviews?
+				if(!check_rights(R_EVENT))
+					return
+
 				if(!you_realy_want_do_this())
 					return
+
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
-				for(var/obj/item/clothing/under/W in world)
-					W.icon_state = "schoolgirl"
-					W.item_state = "w_suit"
-					W.item_color = "schoolgirl"
-				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
-				world << sound('sound/AI/animes.ogg')
+				log_and_message_admins("made everything kawaii.")
+				for(var/mob/living/carbon/human/human in GLOB.mob_list)
+					SEND_SOUND(human, 'sound/AI/animes.ogg')
+					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
+						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))
+						var/obj/item/clothing/head/kitty/hat = new
+						var/seifuku = pick(typesof(/obj/item/clothing/under/schoolgirl))
+						var/obj/item/clothing/under/schoolgirl/uniform = new seifuku
+						human.drop_item_ground(human.w_uniform, TRUE)
+						human.equip_to_slot_or_del(uniform, uniform.slot_flags)
+						human.drop_item_ground(human.head, TRUE)
+						human.equip_to_slot_or_del(hat, hat.slot_flags)
+						ADD_TRAIT(uniform, TRAIT_NODROP, INNATE_TRAIT)
+						ADD_TRAIT(hat, TRAIT_NODROP, INNATE_TRAIT)
+					var/list/honorifics = list(MALE = list("кун"), FEMALE = list("чан","тан"), NEUTER = list("сан")) //John Robust -> Robust-kun
+					var/list/names = splittext(human.real_name," ")
+					var/newname = "[names[names.len]]-[pick(honorifics[human.gender])]"
+					human.name = newname
+					human.real_name = newname
+
 			if("eagles")//
 				if(!you_realy_want_do_this())
 					return
@@ -3575,12 +3597,6 @@
 					usr << browse(dat, "window=jobdebug;size=600x500")
 			if("showailaws")
 				output_ai_laws()
-			if("showgm")
-				if(!SSticker)
-					alert("The game hasn't started yet!")
-				else if(SSticker.mode)
-					alert("The game mode is [SSticker.mode.name]")
-				else alert("For some reason there's a ticker, but not a game mode")
 			if("manifest")
 				var/dat = {"<meta charset="UTF-8"><b>Showing Crew Manifest.</b><hr>"}
 				dat += "<table cellspacing=5><tr><th>Name</th><th>Position</th></tr>"
@@ -3590,11 +3606,6 @@
 						dat += text("<tr><td>[]</td><td>[]</td></tr>", H.name, H.get_assignment())
 				dat += "</table>"
 				usr << browse(dat, "window=manifest;size=440x410")
-			if("check_antagonist")
-				check_antagonists()
-			if("view_codewords")
-				to_chat(usr, "<b>Code Phrases:</b> <span class='codephrases'>[GLOB.syndicate_code_phrase]</span>", confidential=TRUE)
-				to_chat(usr, "<b>Code Responses:</b> <span class='coderesponses'>[GLOB.syndicate_code_response]</span>", confidential=TRUE)
 			if("DNA")
 				var/dat = {"<meta charset="UTF-8"><b>Showing DNA from blood.</b><hr>"}
 				dat += "<table cellspacing=5><tr><th>Name</th><th>DNA</th><th>Blood Type</th><th>Race Blood Type</th></tr>"

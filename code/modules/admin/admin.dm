@@ -367,6 +367,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	dat += "<p><a href='byond://?src=[cached_UID];quick_create_object=1'>Quick Create Object</a><br></p>"
 	dat += "<p><a href='byond://?src=[cached_UID];create_turf=1'>Create Turf</a><br></p>"
 	dat += "<p><a href='byond://?src=[cached_UID];create_mob=1'>Create Mob</a></p>"
+	if(marked_datum && istype(marked_datum, /atom))
+		dat += "<A href='byond://?src=[cached_UID];dupe_marked_datum=1'>Duplicate Marked Datum</A><br>"
 
 	var/datum/browser/popup = new(usr, "game_panel", "<div align='center'>Game Panel</div>", 210, 280)
 	popup.set_content(dat.Join(""))
