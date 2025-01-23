@@ -107,7 +107,7 @@ SUBSYSTEM_DEF(tts)
 		"Scientist Pregraduate" = "Учёный-бакалавр",
 		"Scientist Graduate" = "Научный выпускник",
 		"Scientist Postgraduate" = "Учёный-аспирант",
-		"anomalist" = "Аномалист",
+		"anomalist" = "Шаролов",
 		"plasma researcher" = "Исследователь плазмы",
 		"xenobiologist" = "Ксенобиолог",
 		"chemical researcher" = "Химик-исследователь",
