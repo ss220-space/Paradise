@@ -4639,16 +4639,6 @@
 	tag = "icon-whitebluecorner"
 	},
 /area/medical/medbay)
-"aJe" = (
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -1;
-	pixel_y = 7
-	},
-/obj/structure/table/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/crew_quarters/kitchen)
 "aJg" = (
 /obj/structure/chair/sofa/pew/right{
 	dir = 4
@@ -40845,12 +40835,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
-"fTg" = (
-/obj/machinery/cooker/deepfryer,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/crew_quarters/kitchen)
 "fTi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -59336,7 +59320,7 @@
 	c_tag = "Kitchen West";
 	dir = 5
 	},
-/obj/machinery/kitchen_machine/oven,
+/obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -192903,7 +192887,7 @@ iya
 iya
 qJv
 bUX
-aJe
+bUX
 uyq
 leV
 fDY
@@ -193157,7 +193141,7 @@ tYT
 mvb
 pZY
 uWa
-bUX
+uWa
 vci
 fDY
 fDY
@@ -193671,7 +193655,7 @@ tYT
 lzK
 pZY
 kWE
-fTg
+xCx
 wcX
 fDY
 fZp
