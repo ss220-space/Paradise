@@ -7,7 +7,7 @@
     return ..()
 
 /datum/component/pref_holder/Initialize(list/preferences)
-    var/mob/target = parent
+	var/mob/target = parent
 
 	if(!istype(target))
 		return component_INCOMPATIBLE
