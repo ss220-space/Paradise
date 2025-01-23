@@ -8,7 +8,7 @@
 
 /datum/admins/proc/open_poll_list()
 	set name = "Server Poll Management"
-	set category = "Server"
+	set category = "Admin.Admin"
 
 	if(!check_rights(R_SERVER))
 		return

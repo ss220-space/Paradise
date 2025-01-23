@@ -89,7 +89,7 @@
 	return ""
 
 /mob/proc/Cell()
-	set category = "Admin"
+	set category = "Admin.Debug"
 	set hidden = 1
 
 	if(!loc) return 0
