@@ -195,7 +195,7 @@
 
 /obj/item/debug/human_spawner/attack_self(mob/user)
 	..()
-	var/choice = tgui_input_list(user, "Выберите расу", "Создатель людей", GLOB.all_species, null)
+	var/choice = tgui_input_list(user, "Выберите расу", "Создатель гуманоидов", GLOB.all_species, null)
 	selected_species = GLOB.all_species[choice]
 
 /obj/item/rcd/combat/admin
@@ -246,7 +246,8 @@
 /obj/item/scalpel/laser/manager/debug/attack_self(mob/user)
 	. = ..()
 	toolspeed = toolspeed == 0.5 ? 0.01 : 0.5
-	to_chat(user, "[src] is now set to toolspeed [toolspeed]")
+	to_chat(user, "Установленная скорость работы у [declent_ru(GENITIVE)] - [toolspeed].")
+	balloon_alert(user, "скорость изменена")
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)		//Change the mode
 
 /obj/item/organ/internal/cyberimp/arm/surgery/advanced

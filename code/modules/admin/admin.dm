@@ -971,7 +971,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		var/question = ""
 		if(tomob.ckey)
 			question = "У этого существа уже есть пользователь ([tomob.key]), который управляет им! "
-		question += "Вы уверены, что хотите разрешить [frommob.name]([frommob.key]) управлять [tomob.declent_ru(INSTRUMENTAL)]?"
+		question += "Вы уверены, что хотите разрешить [frommob.name]([frommob.key]) управлять [tomob]?"
 
 		var/ask = tgui_alert(usr, question, "Поместить призрака управлять существом?", list("Да", "Нет"))
 		if(ask != "Да")

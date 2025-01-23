@@ -102,7 +102,7 @@ const AuthBlock = (props, context) => {
       </Stack.Item>
       <Stack.Item>
         {!!esc_section && (
-          <Section fill title="Эвакуационный Шаттл">
+          <Section fill title="Эвакуационный шаттл">
             <LabeledList>
               {!!esc_status && (
                 <LabeledList.Item label="Статус">{esc_status}</LabeledList.Item>
@@ -128,7 +128,7 @@ const AuthBlock = (props, context) => {
                 </LabeledList.Item>
               )}
               {!!lastCallLoc && (
-                <LabeledList.Item label="Последний Вызов/Отзыв из">
+                <LabeledList.Item label="Последний вызов/отзыв из">
                   {lastCallLoc}
                 </LabeledList.Item>
               )}
@@ -175,7 +175,7 @@ const AdminPage = (props, context) => {
           <LabeledList.Item label="Оповещение">
             <Button
               icon="bullhorn"
-              content="Сделать Оповещение ЦК"
+              content="Сделать оповещение ЦК"
               disabled={!is_admin}
               onClick={() => act('send_to_cc_announcement_page')}
             />
@@ -210,7 +210,7 @@ const AdminPage = (props, context) => {
               selected={null}
             />
           </LabeledList.Item>
-          <LabeledList.Item label="Ядерная Боеголовка">
+          <LabeledList.Item label="Ядерная боеголовка">
             <Button.Confirm
               icon="bomb"
               content="Отправить коды аутентификации"
@@ -218,13 +218,13 @@ const AdminPage = (props, context) => {
               onClick={() => act('send_nuke_codes')}
             />
           </LabeledList.Item>
-          <LabeledList.Item label="Оружейная Гамма">
+          <LabeledList.Item label='Оружейный шаттл "Гамма"'>
             <Button.Confirm
               icon="biohazard"
               content={
                 gamma_armory_location
-                  ? 'Отправить Оружейную Гамма'
-                  : 'Вернуть Оружейную Гамма'
+                  ? 'Отправить оружейный шаттл "Гамма"'
+                  : 'Отозвать оружейный шаттл "Гамма"'
               }
               disabled={!is_admin}
               onClick={() => act('move_gamma_armory')}
@@ -262,7 +262,7 @@ const PlayerPage = (props, context) => {
     messages,
   } = data;
 
-  let announceText = 'Сделать Приоритетное Оповещение';
+  let announceText = 'Сделать приоритетное оповещение';
   if (msg_cooldown > 0) {
     announceText += ' (' + msg_cooldown + 's)';
   }
@@ -279,7 +279,10 @@ const PlayerPage = (props, context) => {
       <Stack.Item grow>
         <Section fill title='Действия уровня доступа "Капитан"'>
           <LabeledList>
-            <LabeledList.Item label="Текущий код" color={security_level_color}>
+            <LabeledList.Item
+              label="Текущий уровень угрозы"
+              color={security_level_color}
+            >
               {str_security_level}
             </LabeledList.Item>
             <LabeledList.Item label="Сменить уровень угрозы">
@@ -307,7 +310,7 @@ const PlayerPage = (props, context) => {
                 />
                 <Button
                   icon="sync-alt"
-                  content="Сбросить Реле"
+                  content="Сбросить реле"
                   disabled={!authcapt}
                   onClick={() => act('RestoreBackup')}
                 />
@@ -322,7 +325,7 @@ const PlayerPage = (props, context) => {
                 />
               </LabeledList.Item>
             )}
-            <LabeledList.Item label="Ядерная Боеголовка">
+            <LabeledList.Item label="Ядерная боеголовка">
               <Button
                 icon="bomb"
                 content={nukeRequestText}
@@ -339,12 +342,12 @@ const PlayerPage = (props, context) => {
             <LabeledList.Item label="Дисплеи">
               <Button
                 icon="tv"
-                content="Изменение Дисплеев Статуса"
+                content="Изменение Дисплеев статуса"
                 disabled={!authhead}
                 onClick={() => act('status')}
               />
             </LabeledList.Item>
-            <LabeledList.Item label="Входящие Сообщения">
+            <LabeledList.Item label="Входящие сообщения">
               <Button
                 icon="folder-open"
                 content={'Просмотреть (' + messages.length + ')'}
@@ -391,11 +394,11 @@ const StatusScreens = (props, context) => {
     <Stack.Item grow>
       <Section
         fill
-        title="Изменить Экраны Статуса"
+        title="Изменить экраны статуса"
         buttons={
           <Button
             icon="arrow-circle-left"
-            content="Вернуться в Основное Меню"
+            content="Вернуться в основное меню"
             onClick={() => act('main')}
           />
         }
@@ -476,11 +479,11 @@ const MessageView = (props, context) => {
     });
     messageView = (
       <Section
-        title="Сообщение Получено"
+        title="Сообщение получено"
         buttons={
           <Button
             icon="arrow-circle-left"
-            content="Вернуться в Основное Меню"
+            content="Вернуться в Основное меню"
             onClick={() => act('main')}
           />
         }
@@ -548,7 +551,7 @@ const AdminAnnouncePage = (props, context) => {
         buttons={
           <Button
             icon="arrow-circle-left"
-            content="Вернуться в Основное Меню"
+            content="Вернуться в Основное меню"
             onClick={() => act('main')}
           />
         }
@@ -561,7 +564,7 @@ const AdminAnnouncePage = (props, context) => {
           mb="5px"
         />
         <Input
-          placeholder="Введите Оповещение тут,\nМногострочный ввод принимается."
+          placeholder="Введите текст объявления,\nМногострочный ввод принимается."
           rows={10}
           fluid
           multiline={1}
@@ -581,7 +584,7 @@ const AdminAnnouncePage = (props, context) => {
           onClick={() => setClassified(!classified)}
         />
         <Button.Confirm
-          content="Сделать Оповещение"
+          content="Сделать объявление"
           fluid
           icon="paper-plane"
           center

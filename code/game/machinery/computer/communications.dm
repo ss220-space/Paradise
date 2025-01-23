@@ -121,7 +121,7 @@
 
 		if(ACCESS_CENT_COMMANDER in access)
 			if(!check_rights_all(R_ADMIN|R_EVENT, FALSE, ui.user))
-				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))] гудит, недействительное разрешение центрального командования."))
+				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))] гудит, разрешение Центрального Командования не действительно."))
 				return
 			authenticated = COMM_AUTHENTICATION_CENTCOM
 
@@ -144,20 +144,20 @@
 
 		if("newalertlevel")
 			if(isAI(ui.user) || isrobot(ui.user))
-				to_chat(ui.user, span_warning("Брандмауэры не позволяют вам изменить код уровня угрозы."))
+				to_chat(ui.user, span_warning("Брандмауэры не позволяют вам изменить уровень угрозы."))
 				return
 			else if(FULL_ADMIN_CHECK(ui.user))
 				change_security_level(text2num(params["level"]), force = TRUE)
 				return
 			else if(!ishuman(ui.user))
-				to_chat(ui.user, span_warning("Протоколы безопасности не позволяют вам изменить код уровня угрозы."))
+				to_chat(ui.user, span_warning("Протоколы безопасности не позволяют вам изменить уровень угрозы."))
 				return
 
 			var/mob/living/carbon/human/H = ui.user
 			var/obj/item/card/id/I = H.get_id_card()
 			if(istype(I))
 				if((GLOB.security_level > SEC_LEVEL_RED) && !(ACCESS_CENT_GENERAL in I.access)) //if gamma, epsilon or delta and no centcom access. Decline it
-					to_chat(ui.user, span_warning("Протоколы безопасности Центрального Командования не позволяют вам изменить код уровня угрозы."))
+					to_chat(ui.user, span_warning("Протоколы безопасности Центрального Командования не позволяют вам изменить уровень угрозы."))
 					return
 				if(ACCESS_HEADS in I.access)
 					change_security_level(text2num(params["level"]))
@@ -256,7 +256,7 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, span_warning("Обработка массивов. Пожалуйста, подождите."))
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, укажите причину запроса кодов от устройства самоуничтожения. Злоупотребление системой запросов кодов недопустимо ни при каких обстоятельствах. Запрос не гарантирует ответа.", "Запрос кода самоуничтожения.")
+				var/input = tgui_input_text(ui.user, "Пожалуйста, укажите причину запроса кодов от устройства самоуничтожения. Злоупотребление системой запросов кодов недопустимо ни при каких обстоятельствах. Запрос не гарантирует ответа.", "Запрос кодов устройства самоуничтожения.")
 				if(isnull(input) || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -274,7 +274,7 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, span_warning("Обработка массивов. Пожалуйста, подождите."))
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи Центральному Командованию посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребления приведут к... прекращению действия. Передача не гарантирует ответа", "Сообщение на ЦК")
+				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи Центральному Командованию посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа", "Сообщение на ЦК")
 				if(!input || ..() || !(is_authenticated(ui.user) == COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -293,7 +293,7 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, "Обработка массивов. Пожалуйста, подождите.")
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи в \[АНОМАЛЬНЫЕ КОРДИНАТЫ МАРШРУТИЗАЦИИ\] посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребления приведут к... прекращению действия. Передача не гарантирует ответа.", "Отправить сообщение")
+				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи в \[АНОМАЛЬНЫЕ КОРДИНАТЫ МАРШРУТИЗАЦИИ\] посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа.", "Отправить сообщение")
 				if(!input || ..() || !(is_authenticated(ui.user) == COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -383,7 +383,7 @@
 		if(NUKE_CORE_MISSING)
 			P.info += "Сканеры дальнего действия не обнаруживают радиоактивных сигнатур внутри устройства."
 
-	P.info += "<br><hr><font size=\"1\">Несоблюдение нормативных требований компании по конфиденциальности может привести к немедленному увольнению по приказу сотрудников Центрального командования.</font>"
+	P.info += "<br><hr><font size=\"1\">Несоблюдение нормативных требований компании по конфиденциальности может привести к немедленному увольнению по приказу сотрудников Центрального Командования.</font>"
 
 
 
@@ -439,13 +439,13 @@
 
 		"presets" = list(
 			list("name" = "blank",    "label" = "Чисто",       "desc" = "Чистый лист"),
-			list("name" = "shuttle",  "label" = "ETA шаттла",  "desc" = "Показать, сколько времени осталось."),
+			list("name" = "shuttle",  "label" = "Расчётное время прибытия шаттла",  "desc" = "Показать, сколько времени осталось до прибытия шаттла."),
 			list("name" = "message",  "label" = "Сообщение",     "desc" = "Пользовательское сообщение.")
 		),
 
 		"alerts"=list(
-			list("alert" = "default",   "label" = "Нанотрейзен",  "desc" = "О боже."),
-			list("alert" = "redalert",  "label" = "Красная угроза",   "desc" = "Ничего общего с коммунистами."),
+			list("alert" = "default",   "label" = "Nanotrasen",  "desc" = "О боже."),
+			list("alert" = "redalert",  "label" = "Красная угроза",   "desc" = "Когда дела идут плохо."),
 			list("alert" = "lockdown",  "label" = "Локдаун",    "desc" = "Сообщите всем, что они на карантине."),
 			list("alert" = "biohazard", "label" = "Биоугроза",   "desc" = "Отлично подходит для вирусных вспышек и вечеринок."),
 		)
@@ -539,7 +539,7 @@
 
 /proc/check_shuttle_ability(mob/user)
 	if(GLOB.sent_strike_team == TRUE || GLOB.security_level == SEC_LEVEL_EPSILON)
-		to_chat(user, "Центральное Командование не разрешит вызвать шаттл. Все контракты считаются расторгнутыми.")
+		to_chat(user, "Вызов шаттла эвакуации невозможен. Все контракты считаются расторгнутыми.")
 		return FALSE
 
 	if(SSticker?.mode?.blob_stage >= BLOB_STAGE_FIRST && SSshuttle.emergencyNoEscape)
@@ -551,11 +551,11 @@
 		return FALSE
 
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
-		to_chat(user, span_warning("Эвакуационный шаттл не может быть вызван при возвращении на станцию Центрального командования."))
+		to_chat(user, span_warning("Эвакуационный шаттл не может быть вызван при возвращении на станцию Центрального Командования."))
 		return FALSE
 
 	if(world.time < 54000) // 30 minute grace period to let the game get going
-		to_chat(user, "Шаттл на дозаправке. Пожалуйста, подождите еще [round((54000-world.time)/600)] минут, прежде чем повторить попытку.")
+		to_chat(user, "Шаттл на дозаправке. Пожалуйста, подождите ещё [round((54000-world.time)/600)] минут, прежде чем повторить попытку.")
 		return FALSE
 
 	return TRUE
@@ -586,7 +586,7 @@
 		add_game_logs("has recalled the shuttle.", user)
 		message_admins("[ADMIN_LOOKUPFLW(user)] has recalled the shuttle .")
 	else
-		to_chat(user, span_warning("Центральное Командование отклонило запрос об отзыве!"))
+		to_chat(user, span_warning("Центральное Командование отклонило запрос об отзыве эвакуационного шаттла!"))
 		add_game_logs("has tried and failed to recall the shuttle.", user)
 		message_admins("[ADMIN_LOOKUPFLW(user)] has tried and failed to recall the shuttle.")
 
@@ -623,7 +623,7 @@
 	SSshuttle.autoEvac()
 	return ..()
 
-/proc/print_command_report(text = "", title = "Обновление Центрального Командования", add_to_records = TRUE, var/datum/station_goal/goal = null)
+/proc/print_command_report(text = "", title = "Уведомление Центрального Командования", add_to_records = TRUE, var/datum/station_goal/goal = null)
 	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
 			var/obj/item/paper/P = new (C.loc)
