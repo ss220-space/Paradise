@@ -92,7 +92,7 @@
 
 	// Stuff relating vocalizations
 	/// List of slogans the customat will say, optional
-	var/list/ads_list = list("Купи самый дорогой предмет из моего содержимого! Не пожалеешь!",
+	var/list/slogan_list = list("Купи самый дорогой предмет из моего содержимого! Не пожалеешь!",
 	"Мое содержимое разнообразней чем вся твоя жизнь!",
 	"У меня богатый внутренний мир.",
 	"Во мне может быть что угодно.",
@@ -731,8 +731,8 @@
 		return
 
 	//Pitch to the people!  Really sell it!
-	if(COOLDOWN_FINISHED(src, slogan_cooldown) && (LAZYLEN(ads_list)) && (!shut_up) && prob(5))
-		var/slogan = pick(src.ads_list)
+	if(COOLDOWN_FINISHED(src, slogan_cooldown) && (LAZYLEN(slogan_list)) && (!shut_up) && prob(5))
+		var/slogan = pick(src.slogan_list)
 		speak(slogan)
 		COOLDOWN_START(src, slogan_cooldown, slogan_delay)
 
