@@ -1464,7 +1464,7 @@
 			return
 
 		A.stop_deadchat_plays()
-		message_admins("[key_name_admin(usr)] removed deadchat control from [A].")
+		log_and_message_admins("removed deadchat control from [A].")
 
 /client/proc/view_var_Topic_list(href, href_list, hsrc)
 	if(href_list["VarsList"])
