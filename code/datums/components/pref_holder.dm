@@ -10,7 +10,7 @@
 	var/mob/target = parent
 
 	if(!istype(target))
-		return component_INCOMPATIBLE
+		return COMPONENT_INCOMPATIBLE
 
 	src.preferences = preferences || forge_preferences()
 

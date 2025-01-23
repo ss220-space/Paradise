@@ -7,7 +7,7 @@
 
     return ..()
 
-/datum/element/pref_viewer/Initialize(
+/datum/element/pref_viewer/Attach(
 	mob/target,
 	list/preferences_to_show
 	)
@@ -21,7 +21,7 @@
 
 /datum/element/pref_viewer/Detach(mob/target)
 	. = ..()
-    
+
 	UnregisterSignal(target, COMSIG_MOB_RUN_EXAMINATE)
 
 /datum/element/pref_viewer/proc/on_examine(mob/source, mob/target, list/result)
