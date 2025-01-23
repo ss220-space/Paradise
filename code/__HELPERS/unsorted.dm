@@ -1429,7 +1429,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	SEND_SIGNAL(orbiting, COMSIG_ATOM_ORBIT_STOP, src)
 
-	orbiting.orbiters -= src
+	LAZYREMOVE(orbiting.orbiters, src)
 	orbiting = null
 	transform = cached_transform
 	SpinAnimation(0, 0, parallel = FALSE)
