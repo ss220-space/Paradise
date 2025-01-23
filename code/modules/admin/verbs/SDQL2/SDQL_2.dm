@@ -223,7 +223,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/statclick)
 /client/proc/SDQL2_query()
 	set name = "SDQL2 Query"
 	set desc = "Run a SDQL2 query."
-	set category = "Debug"
+	set category = "Admin.Debug"
 
 	if(!check_rights(R_PROCCALL))  //Shouldn't happen... but just to be safe.
 		message_admins("<span class='danger'>ERROR: Non-admin [key_name_admin(usr)] attempted to execute a SDQL query!</span>")

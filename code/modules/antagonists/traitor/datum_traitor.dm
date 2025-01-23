@@ -12,6 +12,7 @@
 	russian_wiki_name = "Предатель"
 	clown_gain_text = "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
+	antag_menu_name = "Предатель"
 	/// Should the traitor get codewords?
 	var/give_codewords = TRUE
 	/// Whether the traitor should get his uplink.

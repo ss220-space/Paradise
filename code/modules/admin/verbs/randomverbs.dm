@@ -15,7 +15,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Everything") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_admin_prison(mob/M as mob in GLOB.mob_list)
-	set category = "Admin"
+	set category = "Admin.Fun"
 	set name = "Prison"
 
 	if(!check_rights(R_ADMIN))
@@ -68,7 +68,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Subtle Message") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_mentor_check_new_players()	//Allows mentors / admins to determine who the newer players are.
-	set category = "Admin"
+	set category = "Admin.Admin"
 	set name = "Check new Players"
 
 	if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
@@ -103,7 +103,7 @@
 
 
 /client/proc/cmd_admin_world_narrate() // Allows administrators to fluff events a little easier -- TLE
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Global Narrate"
 
 	if(!check_rights(R_SERVER|R_EVENT))
@@ -119,7 +119,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Global Narrate") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_admin_local_narrate(var/atom/A)
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Local Narrate"
 
 	if(!check_rights(R_SERVER|R_EVENT))
@@ -193,7 +193,7 @@
 
 
 /client/proc/cmd_admin_godmode(mob/mob as mob in GLOB.mob_list)
-	set category = "Admin"
+	set category = "Admin.Fun"
 	set name = "Godmode"
 
 	if(!check_rights(R_ADMIN))
@@ -269,7 +269,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Mute") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_admin_add_random_ai_law()
-	set category = "Event"
+	set category = "Admin.Fun"
 	set name = "Add Random AI Law"
 
 	if(!check_rights(R_EVENT))
@@ -288,7 +288,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Add Random AI Law") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/toggle_antagHUD_use()
-	set category = "Server"
+	set category = "Admin.Toggles"
 	set name = "Toggle antagHUD usage"
 	set desc = "Toggles antagHUD usage for observers"
 
@@ -319,7 +319,7 @@
 	log_and_message_admins("has [action] antagHUD usage for observers")
 
 /client/proc/toggle_antagHUD_restrictions()
-	set category = "Server"
+	set category = "Admin.Toggles"
 	set name = "Toggle antagHUD Restrictions"
 	set desc = "Restricts players that have used antagHUD from being able to join this round."
 
@@ -351,7 +351,7 @@ Works kind of like entering the game with a new character. Character receives a 
 Traitors and the like can also be revived with the previous role mostly intact.
 /N */
 /client/proc/respawn_character()
-	set category = "Event"
+	set category = "Admin.Event Spawn"
 	set name = "Respawn Character"
 	set desc = "Respawn a person that has been gibbed/dusted/killed. They must be a ghost for this to work and preferably should not have a body to go back into."
 
@@ -569,7 +569,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return mobs
 
 /client/proc/cmd_admin_add_freeform_ai_law()
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Add Custom AI law"
 
 	if(!check_rights(R_EVENT))
@@ -620,7 +620,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	offer_control(M)
 
 /client/proc/cmd_admin_create_centcom_report()
-	set category = "Event"
+	set category = "Admin.Admin Paperworks"
 	set name = "Create Communications Report"
 
 	if(!check_rights(R_SERVER|R_EVENT))
@@ -691,7 +691,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			qdel(D)
 
 /client/proc/cmd_admin_list_open_jobs()
-	set category = "Admin"
+	set category = "Admin.Admin"
 	set name = "List free slots"
 
 	if(!check_rights(R_ADMIN))
@@ -712,7 +712,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "List Free Slots") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_admin_explosion(atom/O as obj|mob|turf in view(maxview()))
-	set category = "Event"
+	set category = "Admin.Fun"
 	set name = "Explosion"
 
 	if(!check_rights(R_DEBUG|R_EVENT))
@@ -742,7 +742,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 /client/proc/cmd_admin_emp(atom/O as obj|mob|turf in view(maxview()))
-	set category = "Event"
+	set category = "Admin.Fun"
 	set name = "EM Pulse"
 
 	if(!check_rights(R_DEBUG|R_EVENT))
@@ -764,7 +764,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 /client/proc/cmd_admin_gib(mob/M as mob in GLOB.mob_list)
-	set category = "Admin"
+	set category = "Admin.Fun"
 	set name = "Gib"
 
 	if(!check_rights(R_ADMIN|R_EVENT))
@@ -786,7 +786,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/cmd_admin_gib_self()
 	set name = "Gibself"
-	set category = "Event"
+	set category = "Admin.Fun"
 
 	if(!check_rights(R_ADMIN|R_EVENT))
 		return
@@ -814,7 +814,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 
 /client/proc/toggle_view_range()
-	set category = "Admin"
+	set category = "Admin.Toggles"
 	set name = "Change View Range"
 	set desc = "switches between 1x and custom views"
 
@@ -858,7 +858,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/admin_call_shuttle()
 
-	set category = "Admin"
+	set category = "Admin.Admin"
 	set name = "Call Shuttle"
 
 	if(EMERGENCY_AT_LEAST_DOCKED)
@@ -886,7 +886,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	return
 
 /client/proc/admin_cancel_shuttle()
-	set category = "Admin"
+	set category = "Admin.Admin"
 	set name = "Cancel Shuttle"
 
 	if(!check_rights(R_ADMIN))
@@ -915,7 +915,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/toggle_pacifism_gt()
 	set name = "Toggle Pacifism After Greentext"
-	set category = "Admin"
+	set category = "Admin.Toggles"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -940,7 +940,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/toogle_ghost_vision()
 	set name = "Toggle Ghost Vision After Greentext"
-	set category = "Admin"
+	set category = "Admin.Toggles"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -960,28 +960,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		SSticker.toogle_gv = (SSticker.toogle_gv) ? FALSE : TRUE
 		log_and_message_admins("toggled ghost vision after greentext in [(SSticker.toogle_gv) ? "On" : "Off"].")
 
-/client/proc/admin_deny_shuttle()
-	set category = "Admin"
-	set name = "Toggle Deny Shuttle"
-
-	if(!SSticker)
-		return
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	if(alert(usr, "Do you want to [SSshuttle.emergencyNoEscape ? "ALLOW" : "DENY"] shuttle calls?", "Toggle Deny Shuttle", "Yes", "No") != "Yes")
-		return
-
-	if(SSshuttle)
-		SSshuttle.emergencyNoEscape = !SSshuttle.emergencyNoEscape
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Deny Shuttle")
-	log_admin("[key_name(src)] has [SSshuttle.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
-	message_admins("[key_name_admin(usr)] has [SSshuttle.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
 
 /client/proc/everyone_random()
-	set category = "Event"
+	set category = "Admin.Fun"
 	set name = "Make Everyone Random"
 	set desc = "Make everyone have a random appearance. You can only use this before rounds!"
 
@@ -1014,7 +995,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Everyone Random") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/toggle_random_events()
-	set category = "Event"
+	set category = "Admin.Toggles"
 	set name = "Toggle random events on/off"
 
 	set desc = "Toggles random events such as meteors, black holes, blob (but not space dust) on/off"
@@ -1032,7 +1013,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Random Events") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/reset_all_tcs()
-	set category = "Admin"
+	set category = "Admin.Debug"
 	set name = "Reset NTTC Configuration"
 	set desc = "Resets NTTC to the default configuration."
 
@@ -1051,7 +1032,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reset NTTC Configuration") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/list_ssds_afks()
-	set category = "Admin"
+	set category = "Admin.Admin"
 	set name = "List SSDs and AFKs"
 	set desc = "Lists SSD and AFK players"
 
@@ -1144,7 +1125,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	src << browse(msg, "window=Player_ssd_afk_check;size=600x300")
 
 /client/proc/toggle_ert_calling()
-	set category = "Event"
+	set category = "Admin.Toggles"
 	set name = "Toggle ERT"
 
 	set desc = "Toggle the station's ability to call a response team."
@@ -1163,7 +1144,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		log_and_message_admins("has disabled ERT calling.")
 
 /client/proc/show_tip()
-	set category = "Event"
+	set category = "Admin.Fun"
 	set name = "Show Custom Tip"
 	set desc = "Sends a tip (that you specify) to all players. After all \
 		you're the experienced player here."
@@ -1188,7 +1169,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("[key_name(usr)] sent \"[input]\" as the Tip of the Round.")
 
 /client/proc/modify_goals()
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Modify Station Goals"
 
 	if(!check_rights(R_EVENT))

@@ -85,7 +85,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 				R.mind.offstation_role = TRUE
 				if(!(R.mind in SSticker.minds))
 					SSticker.minds += R.mind
-				SSticker.mode.traitors += R.mind
+				SSticker.mode.deathsquad |= R.mind
 				R.key = ghost_mob.key
 				if(nuke_code)
 					R.mind.store_memory("<B>Коды от боеголовки:</B> <span class='warning'>[nuke_code].</span>")

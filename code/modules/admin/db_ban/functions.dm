@@ -416,7 +416,7 @@
 
 
 /client/proc/DB_ban_panel()
-	set category = "Admin"
+	set category = "Admin.Ban"
 	set name = "Banning Panel"
 	set desc = "DB Ban Panel"
 

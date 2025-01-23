@@ -17,6 +17,8 @@
 	var/crit_organ_cap = 2
 	/// Link to a spell with TGUI.
 	var/obj/effect/proc_holder/spell/vampire/self/dissect_info/spell_TGUI
+	/// Name addition for antag menu
+	var/antag_menu_addition
 	/// Associated list of all trophies bestia subclass got via round.
 	var/list/trophies = list(
 		INTERNAL_ORGAN_HEART = 0,
@@ -44,6 +46,7 @@
 
 /datum/vampire_subclass/umbrae
 	name = "umbrae"
+	antag_menu_addition = "умбра"
 	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/cloak = 150,
 							/obj/effect/proc_holder/spell/vampire/shadow_snare = 250,
 							/obj/effect/proc_holder/spell/vampire/soul_anchor = 250,
@@ -65,6 +68,7 @@
 
 /datum/vampire_subclass/hemomancer
 	name = "hemomancer"
+	antag_menu_addition = "гемомансер"
 	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/vamp_claws = 150,
 							/obj/effect/proc_holder/spell/vampire/blood_tendrils = 250,
 							/obj/effect/proc_holder/spell/vampire/blood_barrier = 250,
@@ -79,6 +83,7 @@
 
 /datum/vampire_subclass/gargantua
 	name = "gargantua"
+	antag_menu_addition = "гаргантюа"
 	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/blood_swell = 150,
 							/obj/effect/proc_holder/spell/vampire/self/blood_rush = 250,
 							/obj/effect/proc_holder/spell/vampire/self/stomp = 250,
@@ -95,6 +100,7 @@
 
 /datum/vampire_subclass/dantalion
 	name = "dantalion"
+	antag_menu_addition = "данталион"
 	standard_powers = list(/obj/effect/proc_holder/spell/vampire/enthrall = 150,
 							/obj/effect/proc_holder/spell/vampire/thrall_commune = 150,
 							/obj/effect/proc_holder/spell/vampire/pacify = 250,
@@ -116,6 +122,7 @@
 
 /datum/vampire_subclass/bestia
 	name = "bestia"
+	antag_menu_addition = "бестия"
 	standard_powers = list(/obj/effect/proc_holder/spell/vampire/self/dissect_info = 150,
 							/obj/effect/proc_holder/spell/vampire/self/dissect = 150,
 							/obj/effect/proc_holder/spell/vampire/self/infected_trophy = 150,

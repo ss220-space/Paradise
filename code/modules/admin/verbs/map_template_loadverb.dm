@@ -1,5 +1,5 @@
 /client/proc/map_template_load()
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Map template - Place"
 
 	if(!check_rights(R_DEBUG | R_EVENT))
@@ -36,7 +36,7 @@
 	usr.client.images -= preview
 
 /client/proc/map_template_upload()
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Map Template - Upload"
 
 	if(!check_rights(R_DEBUG | R_EVENT))

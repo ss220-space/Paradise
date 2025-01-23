@@ -70,7 +70,7 @@
 		cmd_mentor_say(msg)
 
 /client/proc/toggle_mentor_chat()
-	set category = "Server"
+	set category = "Admin.Toggles"
 	set name = "Toggle Mentor Chat"
 	set desc = "Toggle whether mentors have access to the msay command"
 

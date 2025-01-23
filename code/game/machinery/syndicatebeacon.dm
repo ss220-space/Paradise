@@ -46,35 +46,43 @@
 			return
 		var/mob/M = locate(href_list["traitormob"])
 		if(M.mind.special_role)
-			temptext = "<i>We have no need for you at this time. Have a pleasant day.</i><br>"
+			temptext = "<i>В данный момент вы нам не нужны. Приятного дня.</i><br>"
 			src.updateUsrDialog()
 			return
 		charges -= 1
 		if(prob(50))
-			temptext = "<font color=red><i><b>Double-crosser. You planned to betray us from the start. Allow us to repay the favor in kind.</b></i></font>"
+			temptext = "<font color=red><i><b>Двойной агент. Ты планировал предать нас с самого начала. Позвольте нам отплатить за услугу тем же.</b></i></font>"
 			src.updateUsrDialog()
 			spawn(rand(50,200)) selfdestruct()
 			return
 		if(ishuman(M))
 			var/mob/living/carbon/human/N = M
-			var/objective = "Free Objective"
+			var/objective = "Свободная цель"
+			var/objective_name = "Свободная цель"
 			switch(rand(1,100))
 				if(1 to 50)
-					objective = "Steal [pick("a hand teleporter", "the Captain's antique laser gun", "a jetpack", "the Captain's ID", "the Captain's jumpsuit")]."
+					objective = "Украдите [pick("ручной телепортер", "Капитанский антикварный лазер", "Капитанский джетпак", "Капитанскую ID карту", "Капитанский комбинезон")]."
+					objective_name = "Украсть"
 				if(51 to 60)
-					objective = "Destroy 70% or more of the station's plasma tanks."
+					objective = "Уничтожьте не менее 70% плазменных резервуаров станции."
+					objective_name = "Уничтожить плазму"
 				if(61 to 70)
-					objective = "Cut power to 80% or more of the station's tiles."
+					objective = "Отключите электроэнергию на 80% или более территории станции."
+					objective_name = "Обесточить станцию"
 				if(71 to 80)
-					objective = "Destroy the AI."
+					objective = "Уничтожьте ИИ."
+					objective_name = "Уничтожить ИИ"
 				if(81 to 90)
-					objective = "Kill all monkeys aboard the station."
+					objective = "Убейте всех обезьян на станции."
+					objective_name = "Уничтожить обезьян"
 				else
-					objective = "Make certain at least 80% of the station evacuates on the shuttle."
+					objective = "Убедитесь, что по крайней мере 80% станции эвакуируется на шаттле."
+					objective_name = "Эвакуировать экипаж"
 
 			var/datum/objective/custom_objective = new(objective)
 			custom_objective.needs_target = FALSE
 			custom_objective.owner = N.mind
+			custom_objective.antag_menu_name = objective_name
 			N.mind.objectives += custom_objective
 			var/datum/objective/escape/escape_objective = new
 			escape_objective.owner = N.mind
@@ -84,7 +92,7 @@
 			T.give_objectives = FALSE
 			N.mind.add_antag_datum(T)
 
-			to_chat(M, "<B>You have joined the ranks of the Syndicate and become a traitor to the station!</B>")
+			to_chat(M, "<B>Вы вступили в ряды Синдиката и стали предателем!</B>")
 			message_admins("[key_name_admin(N)] has accepted a traitor objective from a syndicate beacon.")
 
 

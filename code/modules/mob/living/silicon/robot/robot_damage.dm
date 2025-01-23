@@ -75,7 +75,7 @@
 
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
-		if((C.installed == 1 || (get_borked && C.installed == -1) || (get_missing && C.installed == 0)) || ((get_brute && C.brute_damage) || (get_burn && C.electronics_damage)))
+		if((C.installed == 1 || (get_borked && C.installed == -1) || (get_missing && C.installed == 0)) && ((get_brute && C.brute_damage) || (get_burn && C.electronics_damage)))
 			parts += C
 
 	return parts
@@ -177,7 +177,7 @@
 		var/brute_per_part = round(brute/parts.len, DAMAGE_PRECISION)
 		var/burn_per_part = round(burn/parts.len, DAMAGE_PRECISION)
 
-		. |= picked.heal_damage(brute, burn, updating_health = FALSE)
+		. |= picked.heal_damage(brute_per_part, burn_per_part, updating_health = FALSE)
 
 		brute = max(brute - brute_per_part, 0)
 		burn = max(burn - burn_per_part, 0)

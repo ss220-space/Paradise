@@ -4,6 +4,7 @@
   * Describes the target to kidnap and the extraction area of a [/datum/syndicate_contract].
   */
 /datum/objective/contract
+	antag_menu_name = "Контракт"
 	// Settings
 	/// Jobs that cannot be the kidnapping target.
 	var/static/list/forbidden_jobs = list(
