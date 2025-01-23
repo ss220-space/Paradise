@@ -1,6 +1,7 @@
 /datum/antagonist/devil
 	name = "Devil"
 	roundend_category = "devils"
+	antag_menu_name = "Дьявол"
 	job_rank = ROLE_DEVIL
 	special_role = ROLE_DEVIL
 	antag_hud_type = ANTAG_HUD_DEVIL
@@ -48,7 +49,7 @@
 /datum/antagonist/devil/proc/try_update_rank()
 	if(!rank.required_souls || !rank.next_rank_type)
 		return FALSE
-	
+
 	if(LAZYLEN(soulsOwned) < rank.required_souls)
 		return FALSE
 
@@ -97,8 +98,8 @@
 
 /datum/antagonist/devil/greet()
 	var/list/messages = list()
-	LAZYADD(messages, span_warning("<b>Вы - [info.truename], агент ада, дьявол.\n\  
-    Вы прибыли сюда, преследуя важную цель.\n\  
+	LAZYADD(messages, span_warning("<b>Вы - [info.truename], агент ада, дьявол.\n\
+    Вы прибыли сюда, преследуя важную цель.\n\
     Склоните экипаж к грехопадению и укрепите влияние ада.</b>"))
 	LAZYADD(messages, "Вы никак не можете навредить другим дьяволам.")
 	LAZYADD(messages, info.bane.law)
@@ -124,7 +125,7 @@
 /datum/antagonist/devil/proc/init_devil()
 	GLOB.allDevils[lowertext(info.truename)] = src
 	rank = new BASIC_DEVIL_RANK()
-	
+
 	return
 
 /datum/antagonist/devil/proc/init_bane()
@@ -158,7 +159,7 @@
 		addtimer(CALLBACK(src, PROC_REF(forge_sacrifice_objective)), 1 MINUTES)
 		qdel(sacrifice)
 		return
-	
+
 	add_objective(sacrifice)
 
 /datum/antagonist/devil/add_owner_to_gamemode()

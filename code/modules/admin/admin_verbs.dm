@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(admin_verbs_default, list(
 ))
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
+	/client/proc/antagonists_menu,
 	/client/proc/check_security,		/*shows all security*/
 	/datum/admins/proc/show_player_panel,
 	/client/proc/fax_panel,
@@ -61,6 +62,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 	/client/proc/start_vote,
+	/client/proc/ping_all_admins,
 	/client/proc/list_ssds_afks,
 	/client/proc/ccbdb_lookup_ckey,
 	/client/proc/toggle_pacifism_gt,
@@ -418,6 +420,27 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	holder.check_security()
 	log_admin("[key_name(usr)] checked security")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Secs") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
+/client/proc/antagonists_menu()
+	set name = "Antagonists Menu"
+	set category = "Admin"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	if(!SSticker)
+		to_chat(usr, span_warning("Игра еще не началась!"))
+		return
+
+	if(SSticker.current_state <= GAME_STATE_PREGAME)
+		to_chat(usr, span_warning("Раунд еще не начался!"))
+		return
+
+	var/datum/ui_module/admin = get_admin_ui_module(/datum/ui_module/admin/antagonist_menu)
+	admin.ui_interact(usr)
+	log_admin("[key_name(usr)] checked antagonists")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Antagonists Menu") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	return
 
 /client/proc/ban_panel()
 	set name = "Ban Panel"
@@ -956,14 +979,17 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set name = "De-admin self"
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
+	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
 
 	log_admin("[key_name(usr)] deadmined themself.")
 	message_admins("[key_name_admin(usr)] deadmined themself.")
 	deadmin()
 	add_verb(src, /client/proc/readmin)
-	GLOB.deadmins += ckey
+	if(check_rights(R_ADMIN, FALSE))
+		GLOB.de_admins += ckey
+	else
+		GLOB.de_mentors += ckey
 	update_active_keybindings()
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>", confidential=TRUE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
@@ -1055,13 +1081,15 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
 		update_active_keybindings()
-		GLOB.deadmins -= ckey
+		GLOB.de_admins -= ckey
+		GLOB.de_mentors -= ckey
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-admin")
 		return
 	else
 		to_chat(src, "You are already an admin.", confidential=TRUE)
 		remove_verb(src, /client/proc/readmin)
-		GLOB.deadmins -= ckey
+		GLOB.de_admins -= ckey
+		GLOB.de_mentors -= ckey
 		return
 
 /client/proc/select_next_map()
@@ -1151,6 +1179,27 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		log_and_message_admins("is altering the appearance of [H].")
 		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Admin") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
+/// targeted form of admin_observe: this should only appear in the right-click menu.
+/client/proc/admin_observe_target(mob/target)
+	if(isnewplayer(mob))
+		to_chat(src, span_warning("Вы не можете а-гостнуться, пока находитесь в лобби. Сначала зайдите в раунд (как игрок или как призрак)."))
+		return
+
+	if(isnewplayer(target))
+		to_chat(src, span_warning("[target] сейчас находится в лобби."))
+		return
+
+	if(!isobserver(usr))
+		if(!check_rights(R_ADMIN | R_MOD)) // Need to be mod or admin to aghost
+			return
+		admin_ghost()
+
+	if(!istype(target))
+		to_chat(usr, span_warning("Это можно сделать только с объектами типа /mob"), confidential = TRUE)
+		return
+
+	addtimer(CALLBACK(mob, TYPE_PROC_REF(/mob, ManualFollow), target), 5 DECISECONDS)
 
 /client/proc/change_human_appearance_self(mob/living/carbon/human/H)
 	if(!check_rights(R_EVENT))

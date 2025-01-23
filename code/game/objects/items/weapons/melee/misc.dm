@@ -56,6 +56,11 @@
 	item_state = "rapier"
 	block_type = MELEE_ATTACKS
 
+/obj/item/melee/rapier/captain/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
+
+
 /obj/item/melee/rapier/syndie
 	name = "plastitanium rapier"
 	desc = "A thin blade made of plastitanium with a diamond tip. It appears to be coated in a persistent layer of an unknown substance."

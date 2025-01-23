@@ -90,7 +90,7 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	new_honksquad.mind.offstation_role = TRUE
 	new_honksquad.add_language(LANGUAGE_CLOWN)
 	new_honksquad.change_voice()
-	SSticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
+	SSticker.mode.honksquad |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
 	new_honksquad.equip_honksquad(honk_leader_selected, rankName)
 	return new_honksquad
 

@@ -45,13 +45,17 @@
 	selfcharge = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	unique_reskin = TRUE
+	var/high_risk = TRUE
 
+/obj/item/gun/energy/laser/captain/Initialize(mapload, ...)
+	. = ..()
+	if(high_risk)
+		AddElement(/datum/element/high_value_item)
 
 /obj/item/gun/energy/laser/captain/update_gun_skins()
 	add_skin("The Original", "caplaser")
 	add_skin("Restored", "caplaser_new")
 	add_skin("Alternative", "caplaser_newer")
-
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
@@ -62,6 +66,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
 	shaded_charge = FALSE
 	unique_reskin = FALSE
+	high_risk = FALSE
+	
 
 /obj/item/gun/energy/laser/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"

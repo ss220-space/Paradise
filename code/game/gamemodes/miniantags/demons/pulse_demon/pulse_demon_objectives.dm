@@ -1,12 +1,14 @@
 /datum/objective/pulse_demon/infest
 	name = "Hijack APCs"
+	antag_menu_name = "Захватить ЛКП"
 	/// Amount of APCs we need to hijack, can be 15, 20, or 25
 	var/amount = 0
 
 /datum/objective/pulse_demon/infest/New()
 	. = ..()
 	amount = rand(3, 5) * 5
-	explanation_text = "Hijack [amount] APCs."
+	explanation_text = "Захватить [amount] ЛКП."
+
 
 /datum/objective/pulse_demon/infest/check_completion()
 	if(..())
@@ -21,13 +23,14 @@
 
 /datum/objective/pulse_demon/drain
 	name = "Drain Power"
+	antag_menu_name = "поглотить энергию"
 	/// Amount of power we need to drain, ranges from 500 KW to 5 MW
 	var/amount = 0
 
 /datum/objective/pulse_demon/drain/New()
 	. = ..()
 	amount = rand(1, 10) * 500000
-	explanation_text = "Drain [format_si_suffix(amount)]W of power."
+	explanation_text = "Поглотите [format_si_suffix(amount)]W Энергии."
 
 /datum/objective/pulse_demon/drain/check_completion()
 	if(..())
@@ -43,7 +46,8 @@
 // Requires 1 APC to be hacked and not destroyed to complete
 /datum/objective/pulse_demon/tamper
 	name = "Tamper Machinery"
-	explanation_text = "Cause mischief amongst the machines in rooms with APCs you've hijacked, and defend yourself from anyone trying to stop you."
+	antag_menu_name = "Разрушать машины"
+	explanation_text = "Наносите вред машинам в комнатах с захваченными вами ЛКП и защищайтесь от всех, кто пытается вас остановить."
 
 /datum/objective/pulse_demon/tamper/check_completion()
 	if(..())

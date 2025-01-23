@@ -187,6 +187,7 @@
 					var/datum/objective/custom_objective = new(objective)
 					custom_objective.needs_target = FALSE
 					custom_objective.owner = fucking_target.mind
+					custom_objective.antag_menu_name = "Память стёрта"
 					fucking_target.mind.objectives += custom_objective
 					fucking_target.mind.lost_memory = TRUE
 					var/list/messages = fucking_target.mind.prepare_announce_objectives()

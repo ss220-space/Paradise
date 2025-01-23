@@ -458,6 +458,10 @@
 	matter = RCD_MATTER_500
 	canRwall = TRUE
 
+/obj/item/rcd/combat/Initialize()
+	. = ..()
+	AddElement(/datum/element/high_value_item)
+
 /obj/item/rcd_ammo
 	name = "compressed matter cartridge"
 	desc = "Highly compressed matter for the RCD."
