@@ -554,8 +554,8 @@
 		to_chat(user, span_warning("Эвакуационный шаттл не может быть вызван при возвращении на станцию Центрального Командования."))
 		return FALSE
 
-	if(world.time < 54000) // 30 minute grace period to let the game get going
-		to_chat(user, "Шаттл на дозаправке. Пожалуйста, подождите ещё [round((54000-world.time)/600)] минут, прежде чем повторить попытку.")
+	if(world.time < 30 MINUTES) // 30 minute grace period to let the game get going
+		to_chat(user, "Шаттл на дозаправке. Пожалуйста, подождите ещё [round((30 MINUTES-world.time)/600)] минут, прежде чем повторить попытку.")
 		return FALSE
 
 	return TRUE
