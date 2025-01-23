@@ -302,7 +302,7 @@
 				Syndicate_announce(input, ui.user)
 				to_chat(ui.user, "Сообщение передано.")
 				add_game_logs("has made a Syndicate announcement: [input]", ui.user)
-				centcomm_message_cooldown = world.time + 6000 // 10 minutes
+				centcomm_message_cooldown = world.time + 10 MINUTES
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
 		if("RestoreBackup")
