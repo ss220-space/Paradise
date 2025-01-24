@@ -31,6 +31,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = TRUE //is the ghost able to see things humans can't?
 	var/seedarkness = TRUE
+	var/ghostsight = TRUE
 	/// Defines from __DEFINES/hud.dm go here based on which huds the ghost has activated.
 	var/list/data_hud_seen = list()
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
@@ -444,6 +445,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		orbit_menu = new(src)
 
 	orbit_menu.ui_interact(src)
+
+/mob/dead/observer/verb/toggle_sight_view()
+	set category = "Ghost"
+	set name = "Toggle Sight"
+	set desc = "Переключает Вашу возможность видеть сквозь стены."
+
+	if(ghostsight)
+		sight &= ~(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
+		ghostsight = !ghostsight
+	else
+		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
+		ghostsight = !ghostsight
 
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/ManualFollow(atom/movable/target)
