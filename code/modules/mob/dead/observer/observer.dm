@@ -454,7 +454,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/toggle_sight_view()
 	set category = "Ghost"
 	set name = "Toggle Sight"
-	set desc = "Переключает Вашу возможность видеть сквозь стены."
+	set desc = "Переключает вашу возможность видеть сквозь стены."
 
 	if(ghostsight)
 		sight &= ~(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
