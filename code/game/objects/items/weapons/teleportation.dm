@@ -19,6 +19,9 @@
 	/// Variable contains next time hand tele can be used to make it not EMP proof
 	var/emp_timer = 0
 
+/obj/item/hand_tele/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/hand_tele/attack_self(mob/user)
 	if(emp_timer > world.time)

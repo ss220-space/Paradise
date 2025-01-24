@@ -1,6 +1,6 @@
 /client/proc/ping_all_admins()
 	set name = "Ping all admins"
-	set category = "Admin"
+	set category = "Admin.Admin"
 
 	if(!check_rights(R_ADMIN, FALSE))
 		return
@@ -29,7 +29,7 @@
 		to_chat(usr, span_boldannounceooc("Нет других админов онлайн для пинга[de_admin_also == "Да" ? ", включая тех, кто находится в де-админе" : ""]!"))
 		return
 
-	var/datum/asays/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
+	var/datum/say/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
 	GLOB.asays += asay
 	log_ping_all_admins("[length(admins_to_ping)] clients pinged: [msg]", src)
 

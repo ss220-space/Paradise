@@ -63,6 +63,7 @@
 		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new spider_type(pick(GLOB.xeno_spawn))
 		var/mob/M = pick_n_take(candidates)
 		S.key = M.key
+		SSticker.mode.terror_spiders |= S.mind
 		S.give_intro_text()
 		spawncount--
 		successSpawn = TRUE

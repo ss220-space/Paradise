@@ -374,6 +374,39 @@
 				dat += span_danger("<B>Emergency shuttle lockdowned</B>")
 				dat += "<BR><a href='byond://?src=[UID()];stop_lockdown=1'>Stop lockdown</a><br>"
 		dat += "<a href='byond://?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
+		var/connected_players = GLOB.clients.len
+		var/lobby_players = 0
+		var/observers = 0
+		var/observers_connected = 0
+		var/living_players = 0
+		var/living_players_connected = 0
+		var/living_players_antagonist = 0
+		var/other_players = 0
+		for(var/mob/M in GLOB.mob_list)
+			if(M.ckey)
+				if(isnewplayer(M))
+					lobby_players++
+					continue
+				else if(M.stat != DEAD && M.mind && !isbrain(M))
+					living_players++
+					if(M.mind.special_role)
+						living_players_antagonist++
+					if(M.client)
+						living_players_connected++
+				else if((M.stat == DEAD )||(isobserver(M)))
+					observers++
+					if(M.client)
+						observers_connected++
+				else
+					other_players += M
+		dat += "<BR><b><font color='#9A67EA'>Players:|[connected_players - lobby_players] ingame|[connected_players] connected|[lobby_players] lobby|</font></b>"
+		dat += "<BR><b><font color='green'>Living Players:|[living_players_connected] active|[living_players - living_players_connected] disconnected|[living_players_antagonist] antagonists|</font></b>"
+		dat += "<BR><b><font color='red'>Dead/Observing players:|[observers_connected] active|[observers - observers_connected] disconnected|</font></b>"
+		if(other_players)
+			dat += "<BR><span class='userdanger'>[other_players] players in invalid state or the statistics code is bugged!</span>"
+		dat += "<BR>"
+		dat +="<b>Code Phrases:</b> <span class='codephrases'>[GLOB.syndicate_code_phrase]</span>"
+		dat +="<b>Code Responses:</b> <span class='coderesponses'>[GLOB.syndicate_code_response]</span>"
 		dat += "<br><b>Antagonist Teams</b><br>"
 		dat += "<a href='byond://?src=[UID()];check_teams=1'>View Teams</a><br>"
 		if(SSticker.mode.syndicates.len)

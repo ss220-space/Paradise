@@ -304,6 +304,9 @@
 
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
 
+/obj/item/defibrillator/compact/advanced/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/defibrillator/compact/advanced/loaded/Initialize(mapload)
 	. = ..()

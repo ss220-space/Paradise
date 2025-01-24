@@ -1,7 +1,7 @@
 /client/proc/one_click_antag()
 	set name = "Create Antagonist"
 	set desc = "Auto-create an antagonist of your choice"
-	set category = "Event"
+	set category = "Admin.Event"
 
 	if(!check_rights(R_SERVER|R_EVENT))	return
 

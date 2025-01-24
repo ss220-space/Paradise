@@ -10,7 +10,7 @@
 		return TRUE
 	if(blob_points < cost)
 		to_chat(src, span_warning("Вам не хватает рескрсов, вам нужно как минимум [cost]!"))
-		balloon_alert(src, "нужно еще [cost-blob_points]!")
+		balloon_alert(src, "нужно ещё [cost-blob_points]!")
 		return FALSE
 	add_points(-cost)
 	return TRUE
@@ -58,7 +58,7 @@
 
 	var/area/area = get_area(src)
 	if(!(area.area_flags & BLOBS_ALLOWED)) //factory and resource blobs must be legit
-		to_chat(src, span_warning("Эта плитка должна быть размещена на станции!"))
+		to_chat(src, span_warning("Эта плитка должна быть размещёна на станции!"))
 		balloon_alert(src, "нельзя поставить вне станции!")
 		return FALSE
 

@@ -12,7 +12,7 @@
 	var/opened = FALSE
 	///The supply pod attached to the gondola, that actually holds the contents of our delivery.
 	var/obj/structure/closet/supplypod/centcompod/linked_pod
-	
+
 	///Static list of actions the gondola is given on creation, and taken away when it successfully delivers.
 	var/static/list/gondola_delivering_actions = list(
 		/datum/action/innate/deliver_gondola_package,
@@ -42,7 +42,7 @@
 /mob/living/simple_animal/pet/gondola/gondolapod/examine(mob/user)
 	. = ..()
 	if (contents.len)
-		. += span_notice("Похоже, посылка еще не доставлена.")
+		. += span_notice("Похоже, посылка ещё не доставлена.")
 	else
 		. += span_notice("Судя по всему, доставку уже осуществили.")
 

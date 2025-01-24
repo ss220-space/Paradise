@@ -9,6 +9,7 @@
 	antag_hud_name = "mindslave"	// This isn't named "hudmindslave" because `add_serve_hud()` adds "hud" to the beginning.
 	clown_gain_text = "Your syndicate training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
+	antag_menu_name = "Раб"
 	/// Whether mindslave uses special handling on transfer mind.
 	var/special = FALSE
 	/// Icon slave master will get, must be without "hud" prefix.

@@ -7,6 +7,7 @@
 	russian_wiki_name = "Блоб"
 	show_in_roundend = FALSE
 	show_in_orbit = FALSE
+	antag_menu_name = "Миньон блоба"
 	/// The blob core that this minion is attached to
 	var/datum/weakref/overmind
 	/// Action to talk with nearby mobs

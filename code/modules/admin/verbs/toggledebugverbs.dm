@@ -16,7 +16,6 @@ GLOBAL_LIST_INIT(admin_verbs_show_debug_verbs, list(
 	/datum/admins/proc/show_traitor_panel,
 	/client/proc/print_jobban_old,
 	/client/proc/print_jobban_old_filter,
-	/client/proc/forceEvent,
 	/client/proc/admin_redo_space_transitions,
 	/client/proc/make_turf_space_map,
 	/client/proc/vv_by_ref
@@ -25,11 +24,17 @@ GLOBAL_LIST_INIT(admin_verbs_show_debug_verbs, list(
 // Would be nice to make this a permanent admin pref so we don't need to click it each time
 /client/proc/enable_debug_verbs()
 	set category = "Debug"
-	set name = "Debug verbs"
+	set name = "Debug verbs - Enable"
 
 	if(!check_rights(R_DEBUG))
 		return
 
-	add_verb(src, GLOB.admin_verbs_show_debug_verbs)
+	verbs -= /client/proc/enable_debug_verbs
+	verbs.Add(/client/proc/disable_debug_verbs, GLOB.admin_verbs_show_debug_verbs)
+	
+/client/proc/disable_debug_verbs()
+	set category = "Debug"
+	set name = "Debug verbs - Disable"
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Verbs") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	verbs.Remove(/client/proc/disable_debug_verbs, GLOB.admin_verbs_show_debug_verbs)
+	verbs += /client/proc/enable_debug_verbs

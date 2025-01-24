@@ -440,3 +440,40 @@
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 30
 
+/obj/item/melee/ghostface_knife
+	name = "Knife"
+	desc = "Очень острый нож. Судя по потёртостям и засохшей крови, он совсем не валялся без дела."
+	ru_names = list(
+		NOMINATIVE = "старый нож",
+		GENITIVE = "старого ножа",
+		DATIVE = "старому ножу",
+		ACCUSATIVE = "старый нож",
+		INSTRUMENTAL = "старым ножом",
+		PREPOSITIONAL = "старом ноже"
+	)
+	icon_state = "ghostface_knife"
+	force = 34
+	armour_penetration = 70
+	block_chance = 30
+	w_class = WEIGHT_CLASS_SMALL
+	throwforce = 34
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
+	throw_speed = 3
+	throw_range = 6
+	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "рубанул")
+	sharp = TRUE
+
+/obj/item/melee/ghostface_knife/devil
+	name = "Old knife"
+	desc = "Странный нож с, тем не менее, крайне острым лезвием. Судя по характерным потёртостям и засохшей крови, он явно не валялся без дела."
+	ru_names = list(
+		NOMINATIVE = "старый ржавый нож",
+		GENITIVE = "старого ржавого ножа",
+		DATIVE = "старому ржавому ножу",
+		ACCUSATIVE = "старый ржавый нож",
+		INSTRUMENTAL = "старым ржавым ножом",
+		PREPOSITIONAL = "старом ржавом ноже"
+	)
+	icon_state = "devil_ghostface_knife"

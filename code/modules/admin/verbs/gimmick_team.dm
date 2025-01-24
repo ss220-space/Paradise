@@ -2,14 +2,14 @@
 // Spawns a group of player-controlled mobs with an outfit specified by the admin, at their location.
 
 /client/proc/gimmick_team()
-	set category = "Event"
+	set category = "Admin.Event Spawn"
 	set name = "Отправить Гиммик тим"
 	set desc = "Спавнит команду игроков в выбранной экипировке."
 	if(!check_rights(R_EVENT))
 		return
 
 	if(!SSticker)
-		tgui_alert(src, "Игра еще не началась!")
+		tgui_alert(src, "Игра ещё не началась!")
 		return
 
 	if(tgui_alert(src, "Вы хотите заспавнить Гиммик тим в ВАШЕЙ ТЕКУЩЕЙ ЛОКАЦИИ?", "Подтверждение", list("Да","Нет")) != "Да")

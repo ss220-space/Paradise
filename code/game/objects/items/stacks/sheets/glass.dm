@@ -116,6 +116,9 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/rglass
 	point_value = 4
 
+/obj/item/stack/sheet/rglass/fifty
+	amount = 50
+
 /obj/item/stack/sheet/rglass/cyborg
 	materials = list()
 	is_cyborg = 1
@@ -159,6 +162,9 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	created_window = /obj/structure/window/plasmabasic
 	full_window = /obj/structure/window/full/plasmabasic
 	point_value = 19
+
+/obj/item/stack/sheet/plasmaglass/fifty
+	amount = 50
 
 /obj/item/stack/sheet/plasmaglass/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -209,6 +215,9 @@ GLOBAL_LIST_INIT(prglass_recipes, list ( \
 	full_window = /obj/structure/window/full/plasmareinforced
 	point_value = 23
 
+/obj/item/stack/sheet/plasmarglass/fifty
+	amount = 50
+
 /obj/item/stack/sheet/plasmarglass/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.prglass_recipes
@@ -229,6 +238,9 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	merge_type = /obj/item/stack/sheet/titaniumglass
 	full_window = /obj/structure/window/full/shuttle
 
+/obj/item/stack/sheet/titaniumglass/fifty
+	amount = 50
+
 /obj/item/stack/sheet/titaniumglass/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.titaniumglass_recipes
@@ -248,6 +260,9 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
 	full_window = /obj/structure/window/plastitanium
+
+/obj/item/stack/sheet/plastitaniumglass/fifty
+	amount = 50
 
 /obj/item/stack/sheet/plastitaniumglass/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()

@@ -1,7 +1,3 @@
-#define NUKE_INTACT 0
-#define NUKE_CORE_MISSING 1
-#define NUKE_MISSING 2
-
 /mob/living/verb/pray(msg as text)
 	set category = "IC"
 	set name = "Pray"
@@ -76,12 +72,18 @@
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				X << 'sound/effects/adminhelp.ogg'
 
-/proc/ERT_Announce(var/text , var/mob/Sender, var/repeat_warning)
+/proc/ERT_Announce(text , mob/Sender, repeat_warning)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
+	var/insert_this = list(list(
+		"time" = station_time_timestamp(),
+		"sender_real_name" = "[Sender.real_name ? Sender.real_name : Sender.name]",
+		"sender_uid" = Sender.UID(),
+		"message" = msg))
+	GLOB.ert_request_messages.Insert(1, insert_this) // insert it to the top of the list
 	GLOB.requests.request_ert(Sender.client, msg)
-	msg = "<span class='adminnotice'><b><font color=orange>ERT REQUEST: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<a href='byond://?_src_=holder;ErtReply=[Sender.UID()]'>RESPOND</A>):</b> [msg]</span>"
+	msg = span_adminnotice("<b><font color=orange>ЗАПРОС ОБР: </font>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<a href='byond://?_src_=holder;ErtReply=[Sender.UID()]'>ОТВЕТИТЬ</A>):</b> [msg]")
 	if(repeat_warning)
-		msg += "<BR><span class='adminnotice'><b>WARNING: ERT request has gone 5 minutes with no reply!</b></span>"
+		msg += "<BR>[span_adminnotice("<b>ВНИМАНИЕ: запрос ОБР не получил ответа в течении 15 минут!</b>")]"
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
@@ -105,6 +107,3 @@
 					to_chat(X, "<span class='userdanger'>The nuclear device does not have a core, and will not arm!</span>")
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				X << 'sound/effects/adminhelp.ogg'
-#undef NUKE_INTACT
-#undef NUKE_CORE_MISSING
-#undef NUKE_MISSING

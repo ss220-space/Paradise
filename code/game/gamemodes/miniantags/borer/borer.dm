@@ -739,7 +739,7 @@
 
 	RemoveControlActions()
 	GrantInfestActions()
-	
+
 	talk_to_borer_action.Grant(host)
 	host.med_hud_set_status()
 

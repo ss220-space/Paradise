@@ -3,9 +3,10 @@
 /datum/objective/devil/sacrifice
 	var/list/target_minds = list()
 	needs_target = FALSE
+	antag_menu_name = "Завладеть душами"
 	check_cryo = FALSE
 	target_amount = 12
-	explanation_text = "" 
+	explanation_text = ""
 
 /datum/objective/devil/sacrifice/proc/forge()
 	if(!get_targets())
@@ -38,7 +39,6 @@
 
 		else
 			LAZYADD(other_minds, mind)
-
 	var/command_target_count = ceil(target_amount / 12)
 	var/security_target_count = floor(target_amount / 4)
 	var/other_target_count = target_amount - command_target_count - security_target_count
@@ -71,10 +71,11 @@
 /datum/objective/devil/sintouch
 	needs_target = FALSE
 	explanation_text = "You shouldn't see this text.  Error:DEVIL3"
+	antag_menu_name = "Осквернить души"
 
 /datum/objective/devil/sintouch/New()
 	target_amount = pick(4, 5)
-	explanation_text = "Ensure at least [target_amount] mortals are sintouched."
+	explanation_text = "Убедитесь, что хотя бы [target_amount] смертных было осквернено грехом."
 
 /datum/objective/devil/sintouch/check_completion()
 	return target_amount <= SSticker.mode.sintouched.len
@@ -82,6 +83,7 @@
 /datum/objective/devil/ascend
 	explanation_text = "Ascend to your true form."
 	needs_target = FALSE
+	antag_menu_name = "Возвыситься"
 
 /datum/objective/devil/ascend/check_completion()
 	return isdevil(owner)
