@@ -154,3 +154,14 @@
 
 	return ..()
 
+
+/obj/item/clothing/shoes/convers
+	name = "black convers"
+	desc = "Пара высоких кроссовок сделанных по последнему писку моды. Так называемый DRIP."
+	icon_state = "blackconvers"
+	item_state = "blackconvers"
+
+/obj/item/clothing/shoes/convers/red
+	name = "red convers"
+	icon_state = = "redconvers"
+	item_state = "redconvers"
