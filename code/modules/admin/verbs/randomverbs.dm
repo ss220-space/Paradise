@@ -1247,7 +1247,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 
 /client/proc/polymorph_all()
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Polymorph All"
 	set desc = "Applies the effects of the bolt of change to every single mob."
 

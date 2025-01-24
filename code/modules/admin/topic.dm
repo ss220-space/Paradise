@@ -3097,6 +3097,8 @@
 			if("reset_station_name")
 				if(!check_rights(R_ADMIN))
 					return
+				if(!you_realy_want_do_this())
+					return
 				var/new_name = new_station_name()
 				change_station_name(new_name)
 				log_and_message_admins("reset the station name.</span>")
