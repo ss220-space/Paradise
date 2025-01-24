@@ -454,7 +454,7 @@
 	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_ROBOTICIST)
 	surplus = 0
 
-/datum/uplink_item/jobspecific/lockermech
+/datum/uplink_item/jobspecific/combat_drone
 	name = "Combat Drone Manual"
 	desc = "Manual that will allow you to construct combat drones and control plates for them."
 	item = /obj/item/drone_manual

@@ -39,6 +39,8 @@
 	if(can_strip())
 		ADD_TRAIT(src, TRAIT_CAN_STRIP, GENERIC_TRAIT)
 
+	AddComponent(/datum/component/pref_holder)
+
 /mob/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if(NAMEOF(src, focus))

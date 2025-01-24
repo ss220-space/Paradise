@@ -639,7 +639,7 @@
 		GLOB.human_names_list += new_character.real_name
 
 
-	new_character.key = key		//Manually transfer the key to log them in
+	new_character.key = key		// Manually transfer the key to log them in
 
 	return new_character
 

@@ -148,7 +148,6 @@
 
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
-
 	if(!istype(new_character))
 		stack_trace("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob.")
 

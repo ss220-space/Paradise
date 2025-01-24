@@ -1,3 +1,5 @@
+GLOBAL_LIST_INIT(preferences_info, list())
+
 /datum/preference_info
     var/name
 
