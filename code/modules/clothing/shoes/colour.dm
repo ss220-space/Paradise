@@ -157,11 +157,29 @@
 
 /obj/item/clothing/shoes/convers
 	name = "black convers"
-	desc = "Пара высоких кроссовок сделанных по последнему писку моды. Так называемый DRIP."
+	desc = "Пара высоких чёрных кроссовок сделанных по последнему писку моды. Выглядят просто отпадно."
+	ru_names = list(
+		NOMINATIVE = "чёрные высокие кеды",
+		GENITIVE = "чёрных высоких кедов",
+		DATIVE = "чёрным высоким кедам",
+		ACCUSATIVE = "чёрные высокие кеды",
+		INSTRUMENTAL = "чёрными высокими кедами",
+		PREPOSITIONAL = "чёрных высоких кедах"
+	)
 	icon_state = "blackconvers"
 	item_state = "blackconvers"
 
 /obj/item/clothing/shoes/convers/red
 	name = "red convers"
-	icon_state = = "redconvers"
+	desc = "Пара высоких красных кроссовок, сделанных по последнему писку моды. Выглядят просто отпадно."
+	ru_names = list(
+		NOMINATIVE = "красные высокие кеды",
+		GENITIVE = "красных высоких кедов",
+		DATIVE = "красным высоким кедам",
+		ACCUSATIVE = "красные высокие кеды",
+		INSTRUMENTAL = "красными высокими кедами",
+		PREPOSITIONAL = "красных высоких кедах"
+	)
+	icon_state = "redconvers"
 	item_state = "redconvers"
+
