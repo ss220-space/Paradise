@@ -1,6 +1,6 @@
 /client/proc/bluespace_artillery(mob/living/target in GLOB.mob_list)
 	set name = "Bluespace Artillery"
-	set category = "Event"
+	set category = "Admin.Fun"
 
 	if(!check_rights(R_ADMIN|R_EVENT))
 		return

@@ -29,12 +29,12 @@ GLOBAL_LIST_INIT(admin_verbs_show_debug_verbs, list(
 	if(!check_rights(R_DEBUG))
 		return
 
-	verbs -= /client/proc/enable_debug_verbs
-	verbs.Add(/client/proc/disable_debug_verbs, GLOB.admin_verbs_show_debug_verbs)
+	remove_verb(src, /client/proc/enable_debug_verbs)
+	add_verb(src, GLOB.admin_verbs_show_debug_verbs + /client/proc/disable_debug_verbs)
 	
 /client/proc/disable_debug_verbs()
 	set category = "Debug"
 	set name = "Debug verbs - Disable"
 
-	verbs.Remove(/client/proc/disable_debug_verbs, GLOB.admin_verbs_show_debug_verbs)
-	verbs += /client/proc/enable_debug_verbs
+	remove_verb(src, GLOB.admin_verbs_show_debug_verbs + /client/proc/disable_debug_verbs)
+	add_verb(src, /client/proc/enable_debug_verbs)
