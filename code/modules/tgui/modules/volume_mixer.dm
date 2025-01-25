@@ -1,5 +1,5 @@
 /datum/ui_module/volume_mixer
-	name = "Volume Mixer"
+	name = "Микшер громкости"
 
 /datum/ui_module/volume_mixer/ui_state(mob/user)
 	return GLOB.always_state
