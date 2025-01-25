@@ -77,6 +77,17 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
+	vuap_open_context(M)
+
+/datum/admins/proc/show_old_player_panel(mob/M)
+
+	if(!M)
+		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.", confidential=TRUE)
+		return
+
+	if(!check_rights(R_ADMIN|R_MOD))
+		return
+
 	var/body = "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
@@ -86,7 +97,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			body += "\[[M.client.holder ? M.client.holder.rank : "Player"]\] "
 		body += "\[<a href='byond://?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
 		body += "<br>BYOND account registration date: [M.client.byondacc_date || "ERROR"] [M.client.byondacc_age <= CONFIG_GET(number/byond_account_age_threshold) ? "<b>" : ""]([M.client.byondacc_age] days old)[M.client.byondacc_age <= CONFIG_GET(number/byond_account_age_threshold) ? "</b>" : ""]"
-		body += "<br>Global Ban DB Lookup: [CONFIG_GET(string/centcom_ban_db_url) ? "<a href='byond://?_src_=holder;open_ccbdb=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
+		body += "<br>Global Ban DB Lookup: [CONFIG_GET(string/centcom_ban_db_url) ? "<a href='byond://?_src_=holder;open_ccDB=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
 
 		body += "<br>"
 
@@ -347,7 +358,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		dat += text("<tr><td>[t] (<a href='byond://?src=[UID()];removejobban=[r]'>unban</A>)</td></tr>")
 	dat += "</table>"
 	usr << browse(dat, "window=ban;size=400x400")
-	
+
 
 /datum/admins/proc/Game()
 	if(!check_rights(R_ADMIN))

@@ -333,7 +333,7 @@
 			log_admin_rank_modification(adm_ckey, new_rank, rights)
 
 		else if(task == "permissions")
-			if(!D)	
+			if(!D)
 				return
 			var/new_value = input_bitfield(usr, "rights", D.rights)
 			if(!new_value)
@@ -341,7 +341,7 @@
 			var/add_bits = new_value & ~D.rights
 			var/removed_bits = D.rights & ~new_value
 			D.rights = new_value
-			edit_admin_permissions() 
+			edit_admin_permissions()
 			message_admins("[key_name_admin(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
 			log_admin("[key_name(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
 			log_admin_permission_modification(adm_ckey, new_value )
@@ -1009,6 +1009,9 @@
 			usr.client.open_logging_view(list(M), TRUE)
 
 	else if(href_list["geoip"])
+		if(!check_rights(R_ADMIN))
+			return
+
 		var/mob/M = locateUID(href_list["geoip"])
 		if (ismob(M))
 			if(!M.client)
@@ -1369,7 +1372,8 @@
 		H.monkeyize()
 
 	else if(href_list["forcespeech"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		var/mob/M = locateUID(href_list["forcespeech"])
 		if(!istype(M, /mob))
@@ -1593,7 +1597,7 @@
 			return
 
 		usr.client.view_msays()
-		
+
 	else if(href_list["devsays"])
 		if(!check_rights(R_ADMIN | R_VIEWRUNTIMES))
 			return
@@ -1601,7 +1605,8 @@
 		usr.client.view_devsays()
 
 	else if(href_list["tdome1"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1627,7 +1632,8 @@
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Team 1)")
 
 	else if(href_list["tdome2"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1653,7 +1659,8 @@
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Team 2)")
 
 	else if(href_list["tdomeadmin"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1676,7 +1683,8 @@
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Admin.)")
 
 	else if(href_list["tdomeobserve"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1706,7 +1714,7 @@
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Observer.)")
 
 	else if(href_list["contractor_stop"])
-		if(!check_rights(R_DEBUG|R_ADMIN))
+		if(!check_rights(R_ADMIN))
 			return
 
 		var/mob/M = locateUID(href_list["contractor_stop"])
@@ -1729,7 +1737,7 @@
 		log_admin("[key_name(usr)] has stopped the automatic return of [key_name(M)] from the Syndicate Jail")
 
 	else if(href_list["contractor_start"])
-		if(!check_rights(R_DEBUG|R_ADMIN))
+		if(!check_rights(R_ADMIN))
 			return
 
 		var/mob/M = locateUID(href_list["contractor_start"])
@@ -1756,7 +1764,7 @@
 		log_admin("[key_name(usr)] has started the automatic return of [key_name(M)] from the Syndicate Jail in [time_seconds] second\s")
 
 	else if(href_list["contractor_release"])
-		if(!check_rights(R_DEBUG|R_ADMIN))
+		if(!check_rights(R_ADMIN))
 			return
 
 		var/mob/M = locateUID(href_list["contractor_release"])
@@ -1777,7 +1785,7 @@
 
 
 	else if(href_list["aroomwarp"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_ADMIN))	return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1937,7 +1945,8 @@
 		message_admins("[key_name_admin(G)] was incarnated by [key_name_admin(owner)]")
 
 	else if(href_list["togmutate"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["togmutate"])
 		if(!istype(H))
@@ -3817,10 +3826,10 @@
 			return
 		var/datum/outfit/O = locate(href_list["chosen_outfit"]) in GLOB.custom_outfits
 		save_outfit(usr,O)
-	else if(href_list["open_ccbdb"])
+	else if(href_list["open_ccDB"])
 		if(!check_rights(R_ADMIN))
 			return
-		create_ccbdb_lookup(href_list["open_ccbdb"])
+		create_ccbdb_lookup(href_list["open_ccDB"])
 	else if(href_list["slowquery"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -3847,6 +3856,47 @@
 		var/start_index = text2num(href_list["startat"]) || 0
 		poll_results_panel(poll, start_index)
 
+	else if(href_list["showrelatedacc"])
+		var/client/C = locate(href_list["client"]) in GLOB.clients
+		var/thing_to_check
+		if(href_list["showrelatedacc"] == "cid")
+			thing_to_check = C.related_accounts_cid
+		else
+			thing_to_check = C.related_accounts_ip
+		thing_to_check = splittext(thing_to_check, ", ")
+
+
+		var/list/dat = list("Related accounts by [uppertext(href_list["showrelatedacc"])]:")
+		dat += thing_to_check
+
+		usr << browse(dat.Join("<br>"), "window=related_[C];size=420x300")
+
+	else if(href_list["showdna"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/living/carbon/M = locateUID(href_list["showdna"])
+		if(!M.dna || !iscarbon(M))
+			to_chat(usr, span_warning("It doesn't have DNA nor it's carbon mob!"))
+			return
+
+		var/list/body = list()
+		body += "<b>DNA Blocks:</b><br><table border='0'><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>"
+		for(var/block in 1 to DNA_SE_LENGTH)
+			if(!((block - 1) % 5))
+				body += "</tr><tr><th>[block - 1]</th>"
+
+			body += "<td>"
+			var/gene_name = GLOB.assigned_blocks[block]
+			if(gene_name)
+				var/text_color = "[M.dna.GetSEState(block) ? "#006600" : "#ff0000"]"
+				body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block]' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
+			else
+				body += "[block]"
+			body += "</td>"
+		body += "</tr></table>"
+
+		usr << browse(body.Join("<br>"), "window=related_[C];size=420x600")
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))

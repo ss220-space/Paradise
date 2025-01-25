@@ -1,6 +1,5 @@
 GLOBAL_LIST_EMPTY(admin_ui_modules)
 
-// something something singleton
 /proc/get_admin_ui_module(type)
 	if(GLOB.admin_ui_modules[type])
 		return GLOB.admin_ui_modules[type]
@@ -9,6 +8,7 @@ GLOBAL_LIST_EMPTY(admin_ui_modules)
 		return
 	return new type()
 
+/// UI Admin Module is used by UIs who are shared between admins. For personal UI, don't use this.
 /datum/ui_module/admin
 
 /datum/ui_module/admin/New(datum/_host)
