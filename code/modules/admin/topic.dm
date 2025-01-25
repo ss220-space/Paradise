@@ -3896,7 +3896,7 @@
 			body += "</td>"
 		body += "</tr></table>"
 
-		usr << browse(body.Join("<br>"), "window=related_[C];size=420x600")
+		usr << browse(body.Join("<br>"), "window=related_[M];size=420x600")
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))

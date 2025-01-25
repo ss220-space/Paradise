@@ -10,7 +10,7 @@
 	the client/var/selectedPlayerCkey is used to hold the selected player ckey for moving to and from pp/vuap
 */
 
-/datum/admins/proc/player_panel_new()//The new one
+/datum/admins/proc/player_panel_veth()//The new one
 	if(!usr.client.holder)
 		return
 	// This stops the panel from being invoked by mentors who press F7.
@@ -28,15 +28,14 @@
 
 /datum/player_panel_veth/ui_data(mob/user)
 	var/list/players = list()
-	var/mobs = sort_mobs()
-	for (var/mob/M in mobs)
+	for(var/mob/M in GLOB.mob_list)
 		if (M.ckey)
 			players += list(list(
 				"name" = M.name || "No Character",
 				"job" = M.job || "No Job",
 				"ckey" = M.ckey || "No Ckey",
-				"is_antagonist" = is_special_character(M, allow_fake_antags = TRUE),
-				"last_ip" = M.lastKnownIP ||	 "No Last Known IP",
+				"is_antagonist" = M.mind?.special_role,
+				"last_ip" = M.lastKnownIP || "No Last Known IP",
 				"ref" = M.UID()
 			))
 	return list(
@@ -52,50 +51,32 @@
 	switch(action) //switch for all the actions from the frontend - all of the Topic() calls check rights & log inside themselves.
 		if("refresh")
 			ui.send_update()
-			return
 		if("sendPrivateMessage")
 			usr.client.cmd_admin_pm(M.ckey)
-			return
 		if("follow")
 			usr.client.holder.Topic(null, list("adminplayerobservefollow" = M.UID()))
-			to_chat(usr, "Now following [M.ckey].", confidential = TRUE)
-			return
 		if("smite")
 			usr.client.holder.Topic(null, list("Smite" = M.UID()))
 		if("checkAntags")
-			usr.client.check_antagonists() //logs/rightscheck inside the proc
-			return
+			usr.client.check_antagonists()
 		if("faxPanel")
-			usr.client.fax_panel() //logs/rightscheck inside the proc
-			return
+			usr.client.fax_panel()
 		if("gamePanel")
-			usr.client.game_panel() //logs/rightscheck inside the proc
-			return
-		if("openAdditionalPanel") //logs/rightscheck inside the proc
+			usr.client.game_panel()
+		if("openAdditionalPanel")
 			usr.client.selectedPlayerCkey = params["selectedPlayerCkey"]
 			usr.client.holder.vuap_open()
-			return
 		if("createCommandReport")
-			usr.client.cmd_admin_create_centcom_report() //logs/rightscheck inside the proc
-			return
+			usr.client.cmd_admin_create_centcom_report()
 		if("logs")
-			usr.client.holder.Topic(null, list(
-				"individuallog" = M.UID(),
-				"admin_token" = usr.client.holder.href_token
-			))
-			return
-		if("notes") //i'm pretty sure this checks rights inside the proc but to be safe
-			if(!check_rights(NONE))
-				return
-			browse_messages(target_ckey = M.ckey)
-			return
-		if("vv") //logs/rightscheck inside the proc
+			usr.client.holder.Topic(null, list("open_logging_view" = M.UID()))
+		if("notes")
+			usr.client.holder.Topic(null, list("shownoteckey" = M.ckey))
+		if("vv")
 			usr.client.debug_variables(M)
-			return
 		if("tp")
 			usr.client.holder.Topic(null, list("traitor" = M.UID()))
-			return
-		if("adminaiinteract") //loggin inside the proc
+		if("adminaiinteract")
 			usr.client.toggle_advanced_interaction()
 
 /datum/player_panel_veth/ui_interact(mob/user, datum/tgui/ui)
@@ -120,7 +101,7 @@
 		return
 	if(findtext(M.ckey, "@" ) || M.ckey == "" || M.ckey == null)
 		var/mob/player = M
-		var/datum/mind/player_mind = get_mind(player, include_last = TRUE)
+		var/datum/mind/player_mind = player?.mind
 		var/player_mind_ckey = player_mind.key
 		usr.client.VUAP_selected_mob = M
 		usr.client.holder.vuap_open()
@@ -153,7 +134,7 @@
 			"adminhelp" = FALSE,
 			"deadchat" = FALSE,
 			"webreq" = FALSE
-		)
+		),
 		"adminRights" = "",
 	)
 	if(ckey[1] == "@" || ckey == "" || ckey == null)
@@ -168,31 +149,28 @@
 			player_data["characterName"] = player.real_name || "No Character"
 			player_data["ipAddress"] = client_info.address || "0.0.0.0"
 			player_data["CID"] = client_info.computer_id || "NO_CID"
-			player_data["discord"] = client.prefs.discord_id || "No Discord",
+			player_data["discord"] = client_info.prefs.discord_id || "No Discord"
 			player_data["gameState"] = istype(player) ? "Active" : "Unknown"
-			player_data["rank"] = client.holder?.rank || "Player",
+			player_data["rank"] = client_info.holder?.rank || "Player"
 			player_data["byondVersion"] = "[client_info.byond_version || 0].[client_info.byond_build || 0]"
 			player_data["mobType"] = "[initial(player.type)]" || "null"
 			player_data["accountRegistered"] = client_info.byondacc_date || "Unknown"
 			// Safely check mute states
 			if(client_info.prefs)
 				player_data["muteStates"] = list(
-					"ic" = check_mute(M.client.ckey, MUTE_IC),
-					"ooc" = check_mute(M.client.ckey, MUTE_OOC),
-					"pray" = check_mute(M.client.ckey, MUTE_PRAY),
-					"adminhelp" = check_mute(M.client.ckey, MUTE_ADMINHELP),
-					"deadchat" = check_mute(M.client.ckey, MUTE_DEADCHAT),
-					"tts" = check_mute(M.client.ckey, MUTE_TTS),
-					"emote" = check_mute(M.client.ckey, MUTE_EMOTE),
-					"all" = check_mute(M.client.ckey, MUTE_ALL)
+					"ic" = check_mute(player.client.ckey, MUTE_IC),
+					"ooc" = check_mute(player.client.ckey, MUTE_OOC),
+					"pray" = check_mute(player.client.ckey, MUTE_PRAY),
+					"adminhelp" = check_mute(player.client.ckey, MUTE_ADMINHELP),
+					"deadchat" = check_mute(player.client.ckey, MUTE_DEADCHAT),
+					"tts" = check_mute(player.client.ckey, MUTE_TTS),
+					"emote" = check_mute(player.client.ckey, MUTE_EMOTE),
+					"all" = check_mute(player.client.ckey, MUTE_ALL)
 				)
 
 	player_data["adminRights"] = rights2text(user.client.holder.rights)
 
 	return player_data
-
-/datum/vuap_personal/ui_static_data(mob/user)
-	0
 
 /datum/vuap_personal/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -322,7 +300,7 @@
 			usr.client.holder.Topic(null, list("f" = M.UID()))
 		//health section
 		if("healthscan")
-			healthscan(usr, M, advanced = TRUE, tochat = TRUE)
+			healthscan(usr, M, TRUE)
 		if("chemscan")
 			chemscan(usr, M)
 		if("aheal")
