@@ -524,8 +524,8 @@
 	to_chat(user, span_warning("You have cut off the voice modulator, the mask is broken now."))
 
 
-/obj/item/clothing/mask/gas/sechailer/attack_self()
-	halt()
+/obj/item/clothing/mask/gas/sechailer/attack_self(mob/user)
+	adjustmask(user)
 
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user)
 	if(safety)
