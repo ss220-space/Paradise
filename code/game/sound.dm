@@ -146,8 +146,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		sound.falloff = max_distance || 1 //use max_distance, else just use 1 as we are a direct sound so falloff isnt relevant.
 
 		// Sounds can't have their own environment. A sound'sound environment will be:
-		// 1. the mob'sound
-		// 2. the area'sound (defaults to SOUND_ENVRIONMENT_NONE)
+		// 1. the mob's
+		// 2. the area's (defaults to SOUND_ENVRIONMENT_NONE)
 		if(sound_environment_override != SOUND_ENVIRONMENT_NONE)
 			sound.environment = sound_environment_override
 		else
