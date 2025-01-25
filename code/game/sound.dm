@@ -47,12 +47,13 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		return
 
 	var/turf/turf_source = get_turf(source)
-	if(!turf_source)
-		return
-	if(!SSsounds.channel_list) // Not ready yet
+
+	if(!turf_source \
+	|| !SSsounds.channel_list \
+	|| vol < SOUND_AUDIBLE_VOLUME_MIN)
 		return
 
-	//allocate a channel if necessary now so its the same for everyone
+	// allocate a channel if necessary now so its the same for everyone
 	channel = channel || SSsounds.random_available_channel()
 
 	// Looping through the player list has the added bonus of working for mobs inside containers
@@ -60,19 +61,27 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	var/maxdistance = SOUND_RANGE + extrarange
 	var/source_z = turf_source.z
 	var/list/listeners = SSmobs.clients_by_zlevel[source_z].Copy()
-	if(!ignore_walls) //these sounds don't carry through walls
-		listeners = listeners & hearers(maxdistance, turf_source)
+	var/audible_distance = CALCULATE_MAX_SOUND_AUDIBLE_DISTANCE(vol, maxdistance, falloff_distance, falloff_exponent)
+
+	if(!ignore_walls) // these sounds don't carry through walls
+		listeners = listeners & hearers(audible_distance, turf_source)
+		
 	else
 		var/turf/above_turf = GET_TURF_ABOVE(turf_source)
+
 		if(above_turf?.transparent_floor)
 			listeners += SSmobs.clients_by_zlevel[above_turf.z]
+
 		var/turf/below_turf = GET_TURF_BELOW(turf_source)
+
 		if(below_turf?.transparent_floor)
 			listeners += SSmobs.clients_by_zlevel[below_turf.z]
-	for(var/mob/listening_mob in listeners | SSmobs.dead_players_by_zlevel[source_z])//observers always hear through walls
+
+	for(var/mob/listening_mob in listeners | SSmobs.dead_players_by_zlevel[source_z]) // observers always hear through walls
 		if(!listening_mob.client)
 			continue
-		if(get_dist(listening_mob, turf_source) <= maxdistance)
+
+		if(get_dist(listening_mob, turf_source) <= audible_distance)
 			listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 
 /mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/S, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE, wait = FALSE)
@@ -95,16 +104,16 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		else
 			S.frequency = get_rand_frequency()
 
+	var/distance = 0
+
 	if(isturf(turf_source))
 		var/turf/T = get_turf(src)
 
-		//sound volume falloff with distance
-		var/distance = get_dist(T, turf_source)
-		distance *= distance_multiplier
+		// sound volume falloff with distance
+		distance = get_dist(turf_loc, turf_source) * distance_multiplier
 
 		if(max_distance) //If theres no max_distance we're not a 3D sound, so no falloff.
-			S.volume -= (max(distance - falloff_distance, 0) ** (1 / falloff_exponent)) / ((max(max_distance, distance) - falloff_distance) ** (1 / falloff_exponent)) * S.volume
-			//https://www.desmos.com/calculator/sqdfl8ipgf
+			sound_to_use.volume -= CALCULATE_SOUND_VOLUME(vol, distance, max_distance, falloff_distance, falloff_exponent)
 
 		if(pressure_affected)
 			//Atmosphere affects sound
@@ -125,8 +134,8 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 			S.volume *= pressure_factor
 			//End Atmosphere affecting sound
 
-		if(S.volume <= 0)
-			return //No sound
+		if(S.volume <= SOUND_AUDIBLE_VOLUME_MIN)
+			return // No sound
 
 		var/dx = turf_source.x - T.x // Hearing from the right/left
 		S.x = dx * distance_multiplier
