@@ -217,6 +217,9 @@
 		if("refresh")
 			ui.send_update()
 			return
+		if("old_pp")
+			usr.client.holder.show_old_player_panel(M)
+			return
 		if("relatedbycid")
 			usr.client.holder.Topic(null, list("showrelatedacc" = "cid", "client" = M.client.UID()))
 		if("relatedbyip")

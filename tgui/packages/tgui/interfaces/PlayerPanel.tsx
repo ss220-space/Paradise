@@ -96,6 +96,11 @@ export const PlayerPanel = (props, context) => {
               content="Refresh"
               onClick={() => handleAction('refresh')}
             />
+            <Button
+              icon="sync"
+              content="Old Panel"
+              onClick={() => handleAction('old_pp')}
+            />
           </Stack.Item>
 
           <Stack.Item>
