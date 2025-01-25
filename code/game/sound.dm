@@ -113,7 +113,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		distance = get_dist(T, turf_source) * distance_multiplier
 
 		if(max_distance) // If theres no max_distance we're not a 3D sound, so no falloff.
-			sound_to_use.volume -= CALCULATE_SOUND_VOLUME(vol, distance, max_distance, falloff_distance, falloff_exponent)
+			sound.volume -= CALCULATE_SOUND_VOLUME(vol, distance, max_distance, falloff_distance, falloff_exponent)
 
 		if(pressure_affected)
 			//Atmosphere affects sound
@@ -180,7 +180,7 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 /proc/sound_to_playing_players(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/sound)
 	if(!sound)
 		sound = sound(get_sfx(soundin))
-		
+
 	for(var/m in GLOB.player_list)
 		if(ismob(m) && !isnewplayer(m))
 			var/mob/M = m
