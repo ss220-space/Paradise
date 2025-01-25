@@ -12,6 +12,21 @@
 /datum/proc/can_vv_get(var_name)
 	return TRUE
 
+/mob/can_vv_get(var_name)
+	var/static/list/protected_vars = list(
+		"lastKnownIP", "computer_id", "attack_log_old"
+	)
+	if(!check_rights(R_ADMIN, FALSE, src) && (var_name in protected_vars))
+		return FALSE
+	return TRUE
+
+/client/can_vv_get(var_name)
+	var/static/list/protected_vars = list(
+		"address", "chatOutput", "computer_id", "connection", "jbh", "pm_tracker", "related_accounts_cid", "related_accounts_ip", "watchlisted"
+	)
+	if(!check_rights(R_ADMIN, FALSE, mob) && (var_name in protected_vars))
+		return FALSE
+	return TRUE
 
 /// Called when a var is edited with the new value to change to
 /datum/proc/vv_edit_var(var_name, var_value)
@@ -58,7 +73,7 @@
 
 /client/proc/debug_variables(datum/D in world)
 	set name = "\[Admin\] View Variables"
-	set category = "Debug"
+	set category = "Admin.Debug"
 
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
@@ -431,7 +446,7 @@
 	if(DA)
 		if(islist(DA))
 			var/index = name
-			if(value)
+			if(!isnull(value))
 				name = DA[name] // name is really the index until this line
 			else
 				value = DA[name]
@@ -484,16 +499,22 @@
 				var/val
 				if(IS_NORMAL_LIST(L) && !isnum(key))
 					val = L[key]
-				if(!val)
+				if(isnull(val))
 					val = key
 					key = i
 
 				items += debug_variable(key, val, level + 1, sanitize = sanitize)
 
-			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a><ul>[items.Join()]</ul>"
+			if(isdatum(name))
+				item = "<a href='byond://?_src_=vars;VarsList=\ref[name]'>[VV_HTML_ENCODE(name)]</a> = <a href='byond://?_src_=vars;VarsList=\ref[L]'>/list ([length(L)])</a><ul>[items.Join()]</ul>"
+			else
+				item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([length(L)])</a><ul>[items.Join()]</ul>"
 
 		else
 			item = "<a href='byond://?_src_=vars;VarsList=\ref[L]'>[VV_HTML_ENCODE(name)] = /list ([L.len])</a>"
+
+	else if(name in GLOB.bitfields)
+		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(translate_bitfield(VV_BITFIELD, name, value))]</span>"
 
 	else
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(value)]</span>"
@@ -503,9 +524,6 @@
 #undef VV_HTML_ENCODE
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
-	//This should all be moved over to datum/admins/Topic() or something ~Carn
-	if(!check_rights(R_VAREDIT, FALSE) && !((href_list["datumrefresh"] || href_list["Vars"] || href_list["VarsList"])))
-		return
 
 	if(view_var_Topic_list(href, href_list, hsrc))  // done because you can't use UIDs with lists and I don't want to snowflake into the below check to supress warnings
 		return
@@ -557,6 +575,13 @@
 			return
 
 		modify_variables(D, href_list["varnameedit"], 1)
+
+	else if(href_list["matrix_tester"])
+		var/atom/atom = locateUID(href_list["matrix_tester"])
+		if(!istype(atom))
+			to_chat(usr, "Это можно использовать только для экземпляров типов /atom", confidential = TRUE)
+			return
+		usr?.client.open_matrix_tester(atom)
 
 	else if(href_list["togbit"])
 		if(!check_rights(R_VAREDIT))	return
@@ -880,33 +905,15 @@
 
 		var/atom/A = locateUID(href_list["addreagent"])
 
-		if(!A.reagents)
-			var/amount = input(usr, "Specify the reagent size of [A]", "Set Reagent Size", 50) as num
-			if(amount)
-				A.create_reagents(amount)
+		try_add_reagent(A)
 
-		if(A.reagents)
-			var/chosen_id
-			var/list/reagent_options = sortAssoc(GLOB.chemical_reagents_list)
-			switch(alert(usr, "Choose a method.", "Add Reagents", "Enter ID", "Choose ID"))
-				if("Enter ID")
-					var/valid_id
-					while(!valid_id)
-						chosen_id = stripped_input(usr, "Enter the ID of the reagent you want to add.")
-						if(!chosen_id) //Get me out of here!
-							break
-						for(var/ID in reagent_options)
-							if(ID == chosen_id)
-								valid_id = 1
-						if(!valid_id)
-							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>", confidential=TRUE)
-				if("Choose ID")
-					chosen_id = tgui_input_list(usr, "Choose a reagent to add.", "Choose a reagent.", reagent_options)
-			if(chosen_id)
-				var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", A.reagents.maximum_volume) as num
-				if(amount)
-					A.reagents.add_reagent(chosen_id, amount)
-					log_and_message_admins("has added [amount] units of [chosen_id] to \the [A]")
+	else if(href_list["editreagents"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+
+		var/atom/A = locateUID(href_list["editreagents"])
+
+		try_open_reagent_editor(A)
 
 	else if(href_list["explode"])
 		if(!check_rights(R_DEBUG|R_EVENT))	return
@@ -1397,7 +1404,7 @@
 			href_list["datumrefresh"] = href_list["mobToDamage"]
 
 	else if(href_list["traitmod"])
-		if(!check_rights(NONE))
+		if(!check_rights(R_DEBUG|R_ADMIN))
 			return
 		var/datum/A = locateUID(href_list["traitmod"])
 		if(!istype(A))
@@ -1417,12 +1424,71 @@
 		if(istype(H))
 			H.copy_outfit()
 
+	if(href_list["grantdeadchatcontrol"])
+		if(!check_rights(R_EVENT))
+			return
+
+		var/atom/movable/A = locateUID(href_list["grantdeadchatcontrol"])
+		if(!istype(A))
+			return
+
+		if(!CONFIG_GET(flag/dsay_allowed))
+			// TODO verify what happens when deadchat is muted
+			to_chat(usr, span_warning("Дедчат глобально отключён, включите его перед тем как включать это."))
+			return
+
+		if(A.GetComponent(/datum/component/deadchat_control))
+			to_chat(usr, span_warning("[capitalize(A.declent_ru(NOMINATIVE))] уже находится под контролем призраков!"))
+			return
+
+		var/control_mode = tgui_input_list(usr, "Выберите режим управления","Тип управления", list("демократия", "анархия"), null)
+
+		var/selected_mode
+		switch(control_mode)
+			if("демократия")
+				selected_mode = DEADCHAT_DEMOCRACY_MODE
+			if("анархия")
+				selected_mode = DEADCHAT_ANARCHY_MODE
+			else
+				return
+
+		var/cooldown = tgui_input_number(usr, "Пожалуйста, введите время между действиями в секундах. Для демократии это время между действиями (должно быть больше нуля). Для анархии это время между действиями каждого пользователя или -1, если время между ними отсутствует.", "Время между действиями", 0)
+		if(isnull(cooldown) || (cooldown == -1 && selected_mode == DEADCHAT_DEMOCRACY_MODE))
+			return
+		if(cooldown < 0 && selected_mode == DEADCHAT_DEMOCRACY_MODE)
+			to_chat(usr, span_warning("Время между действиями режима демократии должно быть больше нуля."))
+			return
+		if(cooldown == -1)
+			cooldown = 0
+		else
+			cooldown = cooldown SECONDS
+
+		A.deadchat_plays(selected_mode, cooldown)
+		log_and_message_admins("provided deadchat control to [A].")
+
+	if(href_list["removedeadchatcontrol"])
+		if(!check_rights(R_EVENT))
+			return
+
+		var/atom/movable/A = locateUID(href_list["removedeadchatcontrol"])
+		if(!istype(A))
+			return
+
+		if(!A.GetComponent(/datum/component/deadchat_control))
+			to_chat(usr, "[capitalize(A.declent_ru(NOMINATIVE))] больше не находится под контролем призраков!")
+			return
+
+		A.stop_deadchat_plays()
+		log_and_message_admins("removed deadchat control from [A].")
+
 /client/proc/view_var_Topic_list(href, href_list, hsrc)
 	if(href_list["VarsList"])
 		debug_variables(locate(href_list["VarsList"]))
 		return TRUE
 
 	if(href_list["listedit"] && href_list["index"])
+		if(!check_rights(R_VAREDIT))
+			return
 		var/index = text2num(href_list["index"])
 		if(!index)
 			return TRUE
@@ -1436,6 +1502,8 @@
 		return TRUE
 
 	if(href_list["listchange"] && href_list["index"])
+		if(!check_rights(R_VAREDIT))
+			return
 		var/index = text2num(href_list["index"])
 		if(!index)
 			return TRUE
@@ -1449,6 +1517,8 @@
 		return TRUE
 
 	if(href_list["listremove"] && href_list["index"])
+		if(!check_rights(R_VAREDIT))
+			return
 		var/index = text2num(href_list["index"])
 		if(!index)
 			return TRUE
@@ -1469,6 +1539,8 @@
 		return TRUE
 
 	if(href_list["listadd"])
+		if(!check_rights(R_VAREDIT))
+			return
 		var/list/L = locate(href_list["listadd"])
 		if(!istype(L))
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
@@ -1478,6 +1550,8 @@
 		return TRUE
 
 	if(href_list["listdupes"])
+		if(!check_rights(R_VAREDIT))
+			return
 		var/list/L = locate(href_list["listdupes"])
 		if(!istype(L))
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
@@ -1490,6 +1564,8 @@
 		return TRUE
 
 	if(href_list["listnulls"])
+		if(!check_rights(R_VAREDIT))
+			return
 		var/list/L = locate(href_list["listnulls"])
 		if(!istype(L))
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
@@ -1502,6 +1578,8 @@
 		return TRUE
 
 	if(href_list["listlen"])
+		if(!check_rights(R_VAREDIT))
+			return
 		var/list/L = locate(href_list["listlen"])
 		if(!istype(L))
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)
@@ -1517,6 +1595,9 @@
 		return TRUE
 
 	if(href_list["listshuffle"])
+		if(!check_rights(R_VAREDIT))
+			return
+
 		var/list/L = locate(href_list["listshuffle"])
 		if(!istype(L))
 			to_chat(usr, "This can only be used on instances of type /list", confidential=TRUE)

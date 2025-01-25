@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	var/icon_state_on
-	var/list/attack_verb_on = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	var/list/attack_verb_on = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
 	max_integrity = 200
@@ -85,6 +85,8 @@
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/item/melee/energy/get_heat()
+	return active * 3500
 
 /obj/item/melee/energy/axe
 	name = "energy axe"
@@ -103,7 +105,7 @@
 	flags = CONDUCT
 	armour_penetration = 100
 	origin_tech = "combat=4;magnets=3"
-	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
+	attack_verb = list("атаковал", "рубанул", "поранил", "порезал")
 	attack_verb_on = list()
 	sharp = 1
 	light_color = LIGHT_COLOR_WHITE
@@ -306,8 +308,8 @@
 	icon_state = "cleaving_saw"
 	icon_state_on = "cleaving_saw_open"
 	slot_flags = ITEM_SLOT_BELT
-	var/attack_verb_off = list("attacked", "sawed", "sliced", "torn", "ripped", "diced", "cut")
-	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
+	var/attack_verb_off = list("атаковал", "пропилил", "поранил", "порезал")
+	attack_verb_on = list("рубанул", "полоснул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE

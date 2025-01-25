@@ -3,6 +3,7 @@
 	roundend_category = "space dragons"
 	job_rank = ROLE_SPACE_DRAGON
 	special_role = SPECIAL_ROLE_SPACE_DRAGON
+	antag_menu_name = "Космический дракон"
 	/// All space carps created by this antagonist space dragon
 	var/list/datum/mind/carp = list()
 	/// The innate ability to summon rifts
@@ -207,6 +208,7 @@
 
 /datum/objective/summon_carp
 	needs_target = FALSE
+	antag_menu_name = "Открывать и защищать разломы"
 	explanation_text = "Открывайте и защищайте разрывы, чтобы наводнить станцию карпами."
 
 

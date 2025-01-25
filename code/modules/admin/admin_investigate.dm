@@ -8,7 +8,7 @@
 //ADMINVERBS
 /client/proc/investigate_show()
 	set name = "Investigate"
-	set category = "Admin"
+	set category = "Admin.Admin"
 	if(!check_rights(R_ADMIN))
 		return
 

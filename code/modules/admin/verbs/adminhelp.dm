@@ -2,7 +2,7 @@
 GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of", "monkey", "alien", "as"))
 
 /client/verb/adminhelp()
-	set category = "Admin"
+	set category = "Admin.Admin Tickets"
 	set name = "Adminhelp"
 
 	//handle muting and automuting

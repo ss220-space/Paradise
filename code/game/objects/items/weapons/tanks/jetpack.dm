@@ -214,6 +214,10 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //steal objective items are hard to destroy.
 
+/obj/item/tank/jetpack/oxygen/captain/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
+
 /obj/item/tank/jetpack/oxygen/security
 	name = "security jetpack (oxygen)"
 	desc = "A tank of compressed oxygen for use as propulsion in zero-gravity areas by security forces."
@@ -314,13 +318,15 @@
 
 
 /obj/item/tank/jetpack/suit/ninja/allow_thrust(num, use_fuel = TRUE)
-	var/mob/user = get_owner()
+	var/mob/living/user = get_owner()
 	if(!user)
 		return FALSE
-	if(!skip_trails && user.alpha == NINJA_ALPHA_INVISIBILITY)
+
+	if(!skip_trails && user.alpha_get(ALPHA_SOURCE_NINJA) == standartize_alpha(NINJA_ALPHA_INVISIBILITY))
 		configure_jetpack(skip_trails = TRUE)
-	else if(skip_trails && user.alpha != NINJA_ALPHA_INVISIBILITY)
+	else if(skip_trails && user.alpha_get(ALPHA_SOURCE_NINJA) != standartize_alpha(NINJA_ALPHA_INVISIBILITY))
 		configure_jetpack(skip_trails = FALSE)
+
 	return ..()
 
 

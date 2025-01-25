@@ -150,7 +150,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	item_state = "beer"
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("stabbed", "slashed", "attacked")
+	attack_verb = list("уколол", "полоснул", "поранил")
 	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
 	sharp = 1
 	embed_chance = 10
@@ -437,7 +437,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_hot(I))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_heat())
 		return .
 
 	add_fingerprint(user)

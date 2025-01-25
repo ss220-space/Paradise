@@ -454,7 +454,7 @@
 	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_ROBOTICIST)
 	surplus = 0
 
-/datum/uplink_item/jobspecific/lockermech
+/datum/uplink_item/jobspecific/combat_drone
 	name = "Combat Drone Manual"
 	desc = "Manual that will allow you to construct combat drones and control plates for them."
 	item = /obj/item/drone_manual
@@ -519,9 +519,9 @@
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi
 	name = "Syndicate MMI"
-	desc = "A syndicate developed man-machine-interface which will make any cyborg it is inserted into follow the standard syndicate lawset."
+	desc = "Разработанный синдикатом Нейро-Компьютерный Интерфейс, который сохраняет оригинальное сознание пользователя внутри бездушной машины."
 	item = /obj/item/mmi/syndie
-	cost = 6
+	cost = 15
 	job = list(JOB_TITLE_ROBOTICIST)
 	surplus = 0
 
@@ -675,6 +675,20 @@
 	desc = "A holo-cigar imported from the Sol system. The full effects of looking so badass aren't understood yet, but users show an increase in precision while dual-wielding firearms."
 	item = /obj/item/clothing/mask/holo_cigar
 	cost = 10
+	race = list(SPECIES_HUMAN)
+
+/datum/uplink_item/racial/ghostface_kit
+	name = "Ghostface kit"
+	desc = "Всё, что нужно, дабы повторить всем известное призрачное лицо! Включает в себя бронированный чёрный балахон, бронированную маску с функцией сокрытия голоса и сверх-острый аутентичный нож."
+	item = /obj/item/storage/box/syndie_kit/ghostface_kit
+	cost = 50
+	race = list(SPECIES_HUMAN)
+
+/datum/uplink_item/racial/devilghostface_kit
+	name = "Devil Ghostface kit"
+	desc = "Всё, что нужно, дабы повторить всем известное призрачное лицо! Включает в себя бронированный чёрный балахон, бронированную маску с функцией сокрытия голоса и сверх-острый аутентичный нож."
+	item = /obj/item/storage/box/syndie_kit/devil_ghostface_kit
+	cost = 50
 	race = list(SPECIES_HUMAN)
 
 //Grey
@@ -2330,9 +2344,9 @@
 
 /datum/uplink_item/contractor/zippo
 	name = "Contractor Zippo Lighter"
-	desc = "A kit with your personal assistant. It comes with an increased amount of memory and special programs."
-	item = /obj/item/storage/box/contractor/spai_kit
-	cost = 120
+	desc = "An unique black and gold zippo lighter with no purpose other than showing off."
+	item = /obj/item/lighter/zippo/contractor
+	cost = 1
 
 /datum/uplink_item/contractor/loadout_box
 	name = "Contractor standard loadout box"

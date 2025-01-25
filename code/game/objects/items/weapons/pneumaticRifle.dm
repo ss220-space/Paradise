@@ -3,7 +3,7 @@
 	desc = "Oddly looking design purposed to fire syringes at long range. It requires to be holded in two hands for more accurate shooting."
 	w_class = WEIGHT_CLASS_BULKY
 	force = 8
-	attack_verb = list("bludgeoned", "smashed", "beaten")
+	attack_verb = list("ударил", "огрел")
 	icon = 'icons/obj/weapons/pneumaticRifle.dmi'
 	icon_state = "pneumaticRifle"
 	item_state = "pneumaticRifle"

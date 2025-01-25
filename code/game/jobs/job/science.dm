@@ -21,6 +21,7 @@
 	min_age_type = JOB_MIN_AGE_COMMAND
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_SCIENCE
+	disabilities_allowed = 0
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives = list(
 		/datum/job_objective/further_research

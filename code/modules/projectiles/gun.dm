@@ -14,8 +14,8 @@
 	throw_range = 5
 	force = 5
 	origin_tech = "combat=1"
-	needs_permit = 1
-	attack_verb = list("struck", "hit", "bashed")
+	needs_permit = TRUE
+	attack_verb = list("ударил")
 	pickup_sound = 'sound/items/handling/gun_pickup.ogg'
 	drop_sound = 'sound/items/handling/gun_drop.ogg'
 

@@ -14,6 +14,7 @@
 	min_age_type = JOB_MIN_AGE_COMMAND
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW
+	disabilities_allowed = 0
 	alt_titles = list("Chief Supply Manager")
 	outfit = /datum/outfit/job/qm
 	insurance_type = INSURANCE_TYPE_DELUXE // Always has been.
@@ -82,6 +83,7 @@
 	is_supply = 1
 	supervisors = "the quartermaster"
 	department_head = list(JOB_TITLE_QUARTERMASTER)
+	blocked_race_for_job = list(SPECIES_NUCLEATION)
 	selection_color = "#e2dbc8"
 	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)

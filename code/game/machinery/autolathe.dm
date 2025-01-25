@@ -123,7 +123,8 @@
 				"requirements" =  matreq,
 				"hacked" = ("hacked" in categories) ? TRUE : FALSE,
 				"max_multiplier" = maxmult,
-				"image" = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
+				"icon" = initial(I.icon),
+				"icon_state" = initial(I.icon_state),
 			)))
 		recipiecache = recipes
 	data["recipes"] = recipiecache

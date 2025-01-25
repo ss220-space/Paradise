@@ -368,7 +368,7 @@
 	// Cybernetic implants get removed first (to deal with NODROP stuff)
 	for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
 		// Greys get to keep their implant
-		if(isgrey(H) && istype(I, /obj/item/organ/internal/cyberimp/brain/speech_translator))
+		if(istype(I, /obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator))
 			continue
 		// Try removing it
 		I = I.remove(H)

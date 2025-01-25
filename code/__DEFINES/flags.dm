@@ -37,6 +37,10 @@
 /// Update the atom's icon
 #define UPDATE_ICON (UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
+/// If the thing can reflect light (lasers/energy)
+#define RICOCHET_SHINY (1<<0)
+/// If the thing can reflect matter (bullets/bomb shrapnel)
+#define RICOCHET_HARD (1<<1)
 
 //Reagent flags
 #define REAGENT_NOREACT			1
@@ -145,6 +149,8 @@
 #define MOB_SPAWN_ALLOWED (1<<3)
 /// If megafauna can be spawned by natural random generation
 #define MEGAFAUNA_SPAWN_ALLOWED (1<<4)
+/// If blobs can spawn there and if it counts towards their score.
+#define BLOBS_ALLOWED (1<<5)
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1
@@ -203,6 +209,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define MOBILITY_FLAGS_DEFAULT (MOBILITY_MOVE|MOBILITY_STAND|MOBILITY_PICKUP|MOBILITY_USE|MOBILITY_UI|MOBILITY_STORAGE|MOBILITY_PULL)
 #define MOBILITY_FLAGS_CARBON_DEFAULT (MOBILITY_MOVE|MOBILITY_STAND|MOBILITY_PICKUP|MOBILITY_USE|MOBILITY_UI|MOBILITY_STORAGE|MOBILITY_PULL|MOBILITY_REST|MOBILITY_LIEDOWN)
 #define MOBILITY_FLAGS_REST_CAPABLE_DEFAULT (MOBILITY_MOVE|MOBILITY_STAND|MOBILITY_PICKUP|MOBILITY_USE|MOBILITY_UI|MOBILITY_STORAGE|MOBILITY_PULL|MOBILITY_REST|MOBILITY_LIEDOWN)
+
 
 // timed_action_flags parameter for [/proc/do_after()]
 /// Can do the action even if mob moves location.

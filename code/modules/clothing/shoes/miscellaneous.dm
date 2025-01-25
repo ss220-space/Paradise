@@ -16,6 +16,26 @@
 	pickup_sound = 'sound/items/handling/boots_pickup.ogg'
 	drop_sound = 'sound/items/handling/boots_drop.ogg'
 
+/obj/item/clothing/shoes/combat/riot
+	name = "riot boots"
+	desc = "High speed, low drag riot boots."
+	can_cut_open = FALSE
+	icon_state = "riotboots"
+	item_state = "riotboots"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi'
+	)
+
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
 	name = "\improper SWAT shoes"
 	desc = "High speed, no drag combat boots."
@@ -155,7 +175,7 @@
 	icon_state = "armored_shoes"
 	item_color = "armored_shoes"
 	item_state = "armored_shoes"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 5, "bullet" = 25, "laser" = 10, "energy" = 5, "bomb" = 5, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 75)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',

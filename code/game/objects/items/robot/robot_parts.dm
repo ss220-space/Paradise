@@ -307,11 +307,6 @@
 		aisync = FALSE
 		lawsync = FALSE
 
-	if(new_mmi.syndiemmi)
-		aisync = FALSE
-		lawsync = FALSE
-		laws_to_give = new /datum/ai_laws/syndicate_override
-
 	if(new_mmi.syndicate)	// ffs
 		aisync = FALSE
 		lawsync = FALSE
@@ -357,7 +352,7 @@
 
 	SSticker?.score?.save_silicon_laws(new_borg, user, "robot construction", log_all_laws = TRUE)
 
-	if(new_borg.mind?.special_role)
+	if(!new_borg.mmi.greet(new_borg) && new_borg.mind?.special_role)
 		new_borg.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
 		to_chat(new_borg, span_userdanger("You have been robotized!"))
 		to_chat(new_borg, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
@@ -378,6 +373,8 @@
 
 	forceMove(new_borg)
 	new_borg.robot_suit = src
+
+	new_borg.mmi.apply_effects(new_borg)
 
 	if(new_borg.mmi.clock) // so robots created from vessel have magic
 		new_borg.UnlinkSelf()

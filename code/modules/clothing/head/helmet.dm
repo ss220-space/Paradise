@@ -126,8 +126,9 @@
 	dog_fashion = null
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
-		)
+	)
 
 /obj/item/clothing/head/helmet/riot/knight
 	name = "medieval helmet"

@@ -14,7 +14,7 @@
 		to_chat(src, "There is no active vote")
 
 /client/proc/start_vote()
-	set category = "Admin"
+	set category = "Admin.Admin"
 	set name = "Start Vote"
 	set desc = "Start a vote on the server"
 
@@ -64,7 +64,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Start Vote") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/togglevotedead()
-	set category = "Server"
+	set category = "Admin.Toggles"
 	set desc = "Toggle Dead Vote."
 	set name = "Toggle Dead Vote"
 

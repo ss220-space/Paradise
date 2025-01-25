@@ -16,7 +16,7 @@
 
 	flick("gibbed-a", animation)
 	xgibs(loc)
-	GLOB.dead_mob_list -= src
+	remove_from_dead_mob_list()
 
 	QDEL_IN(animation, 15)
 	QDEL_IN(src, 15)
@@ -30,7 +30,7 @@
 	invisibility = INVISIBILITY_ABSTRACT
 	dust_animation()
 	new /obj/effect/decal/remains/xeno(loc)
-	GLOB.dead_mob_list -= src
+	remove_from_dead_mob_list()
 	QDEL_IN(src, 15)
 	return TRUE
 
@@ -42,7 +42,7 @@
 	animation.master = src
 	flick("dust-a", animation)
 	new /obj/effect/decal/remains/xeno(loc)
-	GLOB.dead_mob_list -= src
+	remove_from_dead_mob_list()
 	QDEL_IN(animation, 15)
 
 /mob/living/carbon/alien/death(gibbed)

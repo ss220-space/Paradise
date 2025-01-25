@@ -3,14 +3,14 @@
 #define SYNDICATE_COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
 GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 /client/proc/syndicate_strike_team()
-	set category = "Event"
+	set category = "Admin.Event Spawn"
 	set name = "Заспавнить Ударный Отряд Синдиката"
 	set desc = "Спавнит Ударный Отряд Синдиката в месте их дислокации на СЦК."
 	if(!src.holder)
 		to_chat(src, "Только администраторы могут использовать эту команду.")
 		return
 	if(!SSticker)
-		tgui_alert(src, "Игра еще не началась!")
+		tgui_alert(src, "Игра ещё не началась!")
 		return
 	if(GLOB.sent_syndicate_strike_team == 1)
 		tgui_alert(src, "Синдикат уже отправил отряд, Мистер Тупой.")
@@ -118,7 +118,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	new_syndicate_commando.mind.special_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
 	new_syndicate_commando.mind.offstation_role = TRUE
 	new_syndicate_commando.change_voice()
-	SSticker.mode.traitors |= new_syndicate_commando.mind	//Adds them to current traitor list. Which is really the extra antagonist list.
+	SSticker.mode.sst |= new_syndicate_commando.mind	//Adds them to current traitor list. Which is really the extra antagonist list.
 	if(is_leader)
 		new_syndicate_commando.equipOutfit(/datum/outfit/admin/syndicate_strike_team/officer)
 	else

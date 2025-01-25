@@ -58,6 +58,7 @@
 
 	var/min_age_type = SPECIES_AGE_MIN
 	var/disabilities_allowed = 1
+	var/disabilities_allowed_slightly = 1
 	var/transfer_allowed = TRUE // If false, ID computer will always discourage transfers to this job, even if player is eligible
 	var/hidden_from_job_prefs = FALSE // if true, job preferences screen never shows this job.
 	var/list/blocked_race_for_job = list()
@@ -133,12 +134,25 @@
 		return 0
 	if(disabilities_allowed)
 		return 0
+	if(disabilities_allowed_slightly)
+		return 0
+
 	var/list/prohibited_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
-	for(var/i = 1, i < prohibited_disabilities.len, i++)
+	var/list/slightly_prohibited_disabilities = list(DISABILITY_FLAG_PARAPLEGIA)
+
+	for(var/i = 1, i <= prohibited_disabilities.len, i++)
 		var/this_disability = prohibited_disabilities[i]
 		if(C.prefs.disabilities & this_disability)
 			return 1
+
+	if(!disabilities_allowed_slightly)
+		for(var/i = 1, i <= slightly_prohibited_disabilities.len, i++)
+			var/this_disability = slightly_prohibited_disabilities[i]
+			if(C.prefs.disabilities & this_disability)
+				return 1
+
 	return 0
+
 
 /datum/job/proc/character_old_enough(client/C)
 	. = FALSE
@@ -216,12 +230,13 @@
 			if(G.implantable) //only works for organ-implants
 				var/obj/item/organ/internal/I = new G.path
 				I.insert(H)
-				to_chat(H, span_notice("Implanting you with [G.display_name]!"))
+				to_chat(H, span_notice("Implanting you with [I.name]!"))
 				continue
 
 			if(G.slot)
-				if(H.equip_to_slot_or_del(G.spawn_item(H, H.client.prefs.loadout_gear[G.display_name]), G.slot))
-					to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")
+				var/obj/item/placed_in = G.spawn_item(H, H.client.prefs.get_gear_metadata(G))
+				if(H.equip_to_slot_or_del(placed_in, G.slot, TRUE))
+					to_chat(H, span_notice("Equipping you with [placed_in.name]!"))
 				else
 					gear_leftovers += G
 			else
@@ -239,19 +254,19 @@
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
-			var/obj/item/placed_in = G.spawn_item(get_turf(H), H.client.prefs.loadout_gear[G.display_name])
+			var/obj/item/placed_in = G.spawn_item(null, H.client.prefs.get_gear_metadata(G))
 			if(placed_in.equip_to_best_slot(H))
-				to_chat(H, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
+				to_chat(H, span_notice("Placing [placed_in.name] in your inventory!"))
 				continue
 			if(H.put_in_hands(placed_in))
-				to_chat(H, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
+				to_chat(H, span_notice("Placing [placed_in.name] in your hands!"))
 				continue
-			to_chat(H, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
+			to_chat(H, span_danger("Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug."))
 			qdel(placed_in)
 
 		qdel(gear_leftovers)
 
-	return 1
+	return TRUE
 
 /datum/outfit/job/proc/imprint_idcard(mob/living/carbon/human/H)
 	var/datum/job/J = SSjobs.GetJobType(jobtype)

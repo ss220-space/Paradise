@@ -96,6 +96,9 @@
 #define LOGIN_TYPE_ROBOT 3
 #define LOGIN_TYPE_ADMIN 4
 
+#define NUKE_STATUS_INTACT 0
+#define NUKE_CORE_MISSING 1
+#define NUKE_MISSING 2
 
 // Bitflags for a machine's preferences on when it should start processing. For use with machinery's `processing_flags` var.
 /// Indicates the machine will automatically start processing right after it's `Initialize()` is ran.

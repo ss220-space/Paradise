@@ -25,34 +25,34 @@
 		return
 
 	if(istype(I, /obj/item/storage/box))
-		to_chat(user, "<span class='notice'>This box is too big to fit in the evidence bag.</span>")
+		to_chat(user, span_notice("This box is too big to fit in the evidence bag."))
 		return
 
 	if(istype(I, /obj/item/evidencebag))
-		to_chat(user, "<span class='notice'>You find putting an evidence bag in another evidence bag to be slightly absurd.</span>")
+		to_chat(user, span_notice("You find putting an evidence bag in another evidence bag to be slightly absurd."))
 		return 1 //now this is podracing
 
 	if(I.w_class > WEIGHT_CLASS_NORMAL)
-		to_chat(user, "<span class='notice'>[I] won't fit in [src].</span>")
+		to_chat(user, span_notice("[I] won't fit in [src]."))
 		return
 
 	if(contents.len)
-		to_chat(user, "<span class='notice'>[src] already has something inside it.</span>")
+		to_chat(user, span_notice("[src] already has something inside it."))
 		return
 
 	if(!isturf(I.loc)) //If it isn't on the floor. Do some checks to see if it's in our hands or a box. Otherwise give up.
 		if(isstorage(I.loc))	//in a container.
 			var/obj/item/storage/U = I.loc
 			U.remove_from_storage(I, src)
-		else if(user.l_hand == I)					//in a hand
+		else if(user.l_hand == I) //in a hand
 			user.drop_l_hand()
-		else if(user.r_hand == I)					//in a hand
+		else if(user.r_hand == I) //in a hand
 			user.drop_r_hand()
 		else
 			return
 
-	user.visible_message("<span class='notice'>[user] puts [I] into [src].</span>", "<span class='notice'>You put [I] inside [src].</span>",\
-	"<span class='notice'>You hear a rustle as someone puts something into a plastic bag.</span>")
+	user.visible_message(span_notice("[user] puts [I] into [src]."), span_notice("You put [I] inside [src]."),\
+	span_notice("You hear a rustle as someone puts something into a plastic bag."))
 
 	icon_state = "evidence"
 
@@ -68,15 +68,15 @@
 	add_overlay("evidence")	//should look nicer for transparent stuff. not really that important, but hey.
 
 	desc = "An evidence bag containing [I]. [I.desc]"
-	I.loc = src
+	I.forceMove(src)
 	w_class = I.w_class
-	return 1
+	return TRUE
 
 /obj/item/evidencebag/attack_self(mob/user)
 	if(contents.len)
 		var/obj/item/I = contents[1]
-		user.visible_message("<span class='notice'>[user] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>",\
-		"<span class='notice'>You hear someone rustle around in a plastic bag, and remove something.</span>")
+		user.visible_message(span_notice("[user] takes [I] out of [src]."), span_notice("You take [I] out of [src]."),\
+		span_notice("You hear someone rustle around in a plastic bag, and remove something."))
 		cut_overlays()	//remove the overlays
 		w_class = WEIGHT_CLASS_TINY
 		icon_state = "evidenceobj"

@@ -267,7 +267,7 @@
 
 		var/task = href_list["editrights"]
 		if(task == "add")
-			var/new_ckey = ckey(clean_input("Сикей нового админа","Добавление админа", null))
+			var/new_ckey = ckey(tgui_input_text(usr, "Сикей нового админа","Добавление админа", null))
 			if(!new_ckey)	return
 			if(new_ckey in GLOB.admin_datums)
 				to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': [new_ckey] уже админ!</font>", confidential=TRUE)
@@ -283,7 +283,7 @@
 		var/datum/admins/D = GLOB.admin_datums[adm_ckey]
 
 		if(task == "remove")
-			if(alert("Вы уверены что хотите удалить [adm_ckey]?","Внимание!","Да","Отмена") == "Да")
+			if(tgui_alert(usr, "Вы уверены что хотите удалить [adm_ckey]?","Внимание!",list("Да","Отмена")) == "Да")
 				if(!D)	return
 				GLOB.admin_datums -= adm_ckey
 				D.disassociate()
@@ -296,7 +296,7 @@
 		else if(task == "rank")
 			var/new_rank
 			if(length(GLOB.admin_ranks))
-				new_rank = trim(input("Выберите стандартный ранг или создайте новый", "Выбор ранга", null, null) as null|anything in (GLOB.admin_ranks|"*Новый Ранг*"))
+				new_rank = trim(tgui_input_list(usr,"Выберите стандартный ранг или создайте новый", "Выбор ранга", (GLOB.admin_ranks|"*Новый Ранг*"), null))
 			else
 				CRASH("GLOB.admin_ranks is empty, inform coders")
 
@@ -306,7 +306,7 @@
 			switch(new_rank)
 				if(null,"") return
 				if("*Новый Ранг*")
-					new_rank = trim(input("Введите название нового ранга", "Новый Ранг", null, null) as null|text)
+					new_rank = trim(tgui_input_text(usr, "Введите название нового ранга", "Новый Ранг", null))
 					if(!new_rank)
 						to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': Неверный ранг</font>", confidential=TRUE)
 						return
@@ -333,24 +333,18 @@
 			log_admin_rank_modification(adm_ckey, new_rank, rights)
 
 		else if(task == "permissions")
-			if(!D)	return
-			while(TRUE)
-				var/list/permissionlist = list()
-				for(var/i=1, i<=R_MAXPERMISSION, i<<=1)		//that <<= is shorthand for i = i << 1. Which is a left bitshift
-					permissionlist[rights2text(i)] = i
-				var/new_permission = input("Выберите флаг для включения/отключения", "Флаги " + adm_ckey, null, null) as null|anything in permissionlist
-				if(!new_permission)
-					edit_admin_permissions()
-					return
-				var/oldrights = D.rights
-				var/toggleresult = "ВКЛ"
-				D.rights ^= permissionlist[new_permission]
-				if(oldrights > D.rights)
-					toggleresult = "ВЫКЛ"
-
-				message_admins("[key_name_admin(usr)] переключил флаг [new_permission] админу [adm_ckey] на [toggleresult]")
-				log_admin("[key_name(usr)] переключил флаг [new_permission] админу [adm_ckey] на [toggleresult]")
-				log_admin_permission_modification(adm_ckey, permissionlist[new_permission])
+			if(!D)	
+				return
+			var/new_value = input_bitfield(usr, "rights", D.rights)
+			if(!new_value)
+				return
+			var/add_bits = new_value & ~D.rights
+			var/removed_bits = D.rights & ~new_value
+			D.rights = new_value
+			edit_admin_permissions() 
+			message_admins("[key_name_admin(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
+			log_admin("[key_name(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
+			log_admin_permission_modification(adm_ckey, new_value )
 
 
 		edit_admin_permissions()
@@ -1019,7 +1013,7 @@
 		if (ismob(M))
 			if(!M.client)
 				return
-			var/dat = {"<meta charset="UTF-8"><html><head><title>GeoIP info</title></head>"}
+			var/dat = ""
 			var/client/C = M.client
 			if(C.geoip.status != "updated")
 				C.geoip.try_update_geoip(C, C.address)
@@ -1035,7 +1029,11 @@
 			dat += "<b>Proxy:</b> [C.geoip.proxy]<br>"
 			dat += "<b>IP:</b> [C.geoip.ip]<br>"
 			dat += "<hr><b>Status:</b> [C.geoip.status]"
-			usr << browse("<!DOCTYPE html>[dat]", "window=geoip;size=400x300")
+			var/datum/browser/popup = new(usr, "geoip", "<div align='center'>GeoIP info</div>", 400, 300)
+			popup.set_content(dat)
+			popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+			popup.open()
+			onclose(usr, "geoip")
 
 	//Player Notes
 	else if(href_list["addnote"])
@@ -1213,29 +1211,38 @@
 
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
-		var/dat = {"<!DOCTYPE html><meta charset="UTF-8"><b>What mode do you wish to play?</b><hr>"}
+		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
 		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
 		for(var/mode in config.modes)
 			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];c_mode2=[mode]'>[config.mode_names[mode]]</A></td></tr>"}
 		dat += {"</table><br><a href='byond://?src=[UID()];c_mode2=secret'>Secret</A><br>"}
 		dat += {"<a href='byond://?src=[UID()];c_mode2=random'>Random</A><br>"}
 		dat += {"Now: [GLOB.master_mode]"}
-		usr << browse(dat, "window=c_mode")
+
+		var/datum/browser/popup = new(usr, "c_mode", "<div align='center'>Game Mode</div>")
+		popup.set_content(dat)
+		popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+		popup.open()
+		onclose(usr, "c_mode")
 
 	else if(href_list["f_secret"])
 		if(!check_rights(R_ADMIN))	return
 
 		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
+			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "secret")
-			return alert(usr, "The game mode has to be secret!", null, null, null, null)
-		var/dat = {"<!DOCTYPE html><meta charset="UTF-8"><b>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</b><hr>"}
+			return tgui_alert(usr, "The game mode has to be secret!")
+		var/dat = {"<b>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</b><hr>"}
 		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
 		for(var/mode in config.modes)
 			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];f_secret2=[mode]'>[config.mode_names[mode]]</A></td></tr>"}
 		dat += {"</table><br><a href='byond://?src=[UID()];f_secret2=secret'>Random (default)</A><br>"}
 		dat += {"Now: [GLOB.secret_force_mode]"}
-		usr << browse(dat, "window=f_secret")
+		var/datum/browser/popup = new(usr, "f_secret", "<div align='center'>Secret Game Mode</div>")
+		popup.set_content(dat)
+		popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+		popup.open()
+		onclose(usr, "f_secret")
 
 	else if(href_list["c_mode2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
@@ -1265,11 +1272,11 @@
 		if(!check_rights(R_ADMIN))
 			return
 		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
+			return tgui_alert(usr, "The game has already started.")
 		if(GLOB.master_mode != "antag-paradise" && GLOB.secret_force_mode != "antag-paradise")
-			return alert(usr, "The game mode has to be Antag Paradise!", null, null, null, null)
+			return tgui_alert(usr, "The game mode has to be Antag Paradise!")
 
-		var/dat = {"<!DOCTYPE html><meta charset="UTF-8"><b>Edit the antag weights for minor antagonists. Higher the weight higher the chance for antag to roll. Press reset if you want default behavior.</b><hr>"}
+		var/dat = {"<b>Edit the antag weights for minor antagonists. Higher the weight higher the chance for antag to roll. Press reset if you want default behavior.</b><hr>"}
 		dat += {"<table><tr><td><b>Antag</b></td><td><b>Weight</b></td></tr>"}
 		var/list/antags_list
 		if(GLOB.antag_paradise_weights)
@@ -1292,7 +1299,11 @@
 
 		dat += {"<br><a href='byond://?src=[UID()];change_weights2=reset'>Reset everything to default.</A><br>"}
 
-		usr << browse(dat, "window=change_weights")
+		var/datum/browser/popup = new(usr, "change_weights", "<div align='center'>Antag Paradise Weights</div>", 900, 700)
+		popup.set_content(dat)
+		popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+		popup.open()
+		onclose(usr, "change_weights")
 
 	else if(href_list["change_weights2"])
 		if(!check_rights(R_ADMIN))
@@ -1572,10 +1583,22 @@
 		usr.client.update_mob_sprite(M)
 
 	else if(href_list["asays"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_ADMIN | R_MOD))
 			return
 
 		usr.client.view_asays()
+
+	else if(href_list["msays"])
+		if(!check_rights(R_ADMIN | R_MENTOR))
+			return
+
+		usr.client.view_msays()
+		
+	else if(href_list["devsays"])
+		if(!check_rights(R_ADMIN | R_VIEWRUNTIMES))
+			return
+
+		usr.client.view_devsays()
 
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
@@ -1937,20 +1960,9 @@
 
 	else if(href_list["adminplayerobservefollow"])
 		var/client/client = usr.client
-
-		if(!isobserver(usr))
-			if(!check_rights(R_ADMIN | R_MOD)) // Need to be mod or admin to aghost
-				return
-
-			client.admin_ghost()
-
 		var/mob/mob = locateUID(href_list["adminplayerobservefollow"])
 
-		if(!istype(mob))
-			to_chat(usr, span_warning("This can only be used on instances of type /mob"), confidential = TRUE)
-			return
-
-		addtimer(CALLBACK(client.mob, TYPE_PROC_REF(/mob, ManualFollow), mob), 5 DECISECONDS)
+		client.admin_observe_target(mob)
 
 	else if(href_list["check_antagonist"])
 		check_antagonists()
@@ -1964,8 +1976,7 @@
 	else if(href_list["edit_blob_win_count"])
 		if(!check_rights(R_ADMIN))
 			return
-
-		var/blob_win_count = input(usr, "Ввидите новое число критической массы","Критическая масса:", SSticker.mode.blob_win_count) as num
+		var/blob_win_count = tgui_input_number(usr, "Ввидите новое число критической массы", "Критическая масса:" , SSticker.mode.blob_win_count)
 		if(!blob_win_count)
 			return
 
@@ -1981,8 +1992,8 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/message = stripped_input(usr, "Введите предупреждение", "Предупреждение")
-		if(alert(usr,"Вы действительно хотите отправить предупреждение всем блобам?", "", "Да", "Нет") == "Нет")
+		var/message = tgui_input_text(usr, "Введите предупреждение", "Предупреждение")
+		if(tgui_alert(usr,"Вы действительно хотите отправить предупреждение всем блобам?", "", list("Да", "Нет")) == "Нет")
 			return
 
 		if(!SSticker || !SSticker.mode)
@@ -1996,7 +2007,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(alert(usr,"Вы действительно хотите лопнуть всех блобов?", "", "Да", "Нет") == "Нет")
+		if(tgui_alert(usr,"Вы действительно хотите лопнуть всех блобов?", "", list("Да", "Нет")) == "Нет")
 			return
 
 		if(!SSticker || !SSticker.mode)
@@ -2024,6 +2035,22 @@
 
 		log_admin("[key_name(usr)] has [mode.delay_blob_end? "stopped" : "returned"] stopped delayed blob win")
 		message_admins("[key_name_admin(usr)] has [mode.delay_blob_end? "stopped" : "returned"] delayed blob win")
+
+	else if(href_list["toggle_blob_infinity_points"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		if(!SSticker || !SSticker.mode)
+			return
+
+		var/datum/game_mode/mode = SSticker.mode
+		if(tgui_alert(usr,"Вы действительно хотите [mode.is_blob_infinity_points? "убрать" : "вернуть"] бесконечные очки у блобов?", "", list("Да", "Нет")) == "Нет")
+			return
+
+		mode.is_blob_infinity_points = !mode.is_blob_infinity_points
+
+		log_admin("[key_name(usr)] has [mode.is_blob_infinity_points? "remove" : "returned"] blob infinity points")
+		message_admins("[key_name_admin(usr)] has [mode.is_blob_infinity_points? "remove" : "returned"] blob infinity points")
 
 	else if(href_list["toggle_auto_nuke_codes"])
 		if(!check_rights(R_ADMIN))
@@ -2363,38 +2390,7 @@
 		if(!check_rights(R_ADMIN|R_EVENT))	return
 
 		var/mob/living/M = locateUID(href_list["BlueSpaceArtillery"])
-		if(!isliving(M))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>", confidential=TRUE)
-			return
-
-		if(alert(owner, "Are you sure you wish to hit [key_name(M)] with Bluespace Artillery?",  "Confirm Firing?" , "Yes" , "No") != "Yes")
-			return
-
-		if(GLOB.BSACooldown)
-			to_chat(owner, "Standby. Reload cycle in progress. Gunnery crews ready in five seconds!")
-			return
-
-		GLOB.BSACooldown = 1
-		spawn(50)
-			GLOB.BSACooldown = 0
-
-		to_chat(M, "You've been hit by bluespace artillery!")
-		log_admin("[key_name(M)] has been hit by Bluespace Artillery fired by [key_name(owner)]")
-		message_admins("[key_name_admin(M)] has been hit by Bluespace Artillery fired by [key_name_admin(owner)]")
-
-		var/turf/simulated/floor/T = get_turf(M)
-		if(istype(T))
-			if(prob(80))
-				T.break_tile_to_plating()
-			else
-				T.break_tile()
-
-		if(M.health <= 1)
-			M.gib()
-		else
-			M.adjustBruteLoss(min(99,(M.health - 1)))
-			M.Weaken(40 SECONDS)
-			M.Stuttering(40 SECONDS)
+		usr.client.bluespace_artillery(M)
 
 	else if(href_list["CentcommReply"])
 		if(!check_rights(R_ADMIN))
@@ -2597,7 +2593,7 @@
 		else if(istype(fax, /obj/item/paper_bundle))
 			//having multiple people turning pages on a paper_bundle can cause issues
 			//open a browse window listing the contents instead
-			var/data = {"<!DOCTYPE html><meta charset="UTF-8">"}
+			var/data = ""
 			var/obj/item/paper_bundle/bundle = fax
 
 			for(var/page = 1 to length(bundle.papers))
@@ -2865,6 +2861,10 @@
 		if(!check_rights(R_SPAWN))	return
 		return create_mob(usr)
 
+	else if(href_list["dupe_marked_datum"])
+		if(!check_rights(R_SPAWN))	return
+		return DuplicateObject(marked_datum, perfectcopy=1, newloc=get_turf(usr))
+
 	else if(href_list["object_list"])			//this is the laggiest thing ever
 		if(!check_rights(R_SPAWN))	return
 
@@ -3073,6 +3073,37 @@
 			if("tripleAI")
 				usr.client.triple_ai()
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
+			if("set_station_name")
+				if(!check_rights(R_ADMIN | R_EVENT))
+					return
+
+				if(!you_realy_want_do_this())
+					return
+
+				var/new_name = tgui_input_text(usr, "Пожалуйста, введите новое название станции.", "Что?", "")
+				if(!new_name)
+					return
+				change_station_name(new_name)
+				log_and_message_admins("renamed the station to: [new_name].")
+				GLOB.event_announcement.Announce("Решением [command_name()] станция переименована в \"[new_name]\".")
+
+			if("set_centcomm_name")
+				if(!check_rights(R_ADMIN | R_EVENT))
+					return
+				if(!you_realy_want_do_this())
+					return
+				usr.client.cmd_change_command_name()
+
+			if("reset_station_name")
+				if(!check_rights(R_ADMIN))
+					return
+				if(!you_realy_want_do_this())
+					return
+				var/new_name = new_station_name()
+				change_station_name(new_name)
+				log_and_message_admins("reset the station name.</span>")
+				GLOB.event_announcement.Announce("Решением [command_name()] станция переименована в \"[new_name]\".")
+
 			if("gravity")
 				if(!(SSticker && SSticker.mode))
 					to_chat(usr, "<span class='warning'>Please wait until the game starts! Not sure how it will work otherwise.</span>", confidential=TRUE)
@@ -3279,6 +3310,8 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Weather Ash Storm")
 				SSweather.run_weather(/datum/weather/ash_storm)
 				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining level")
+			if("polymorph")
+				usr.client.polymorph_all()
 			if("stupify")
 				if(!you_realy_want_do_this())
 					return
@@ -3299,15 +3332,33 @@
 					W.item_state = "gun"
 				message_admins("[key_name_admin(usr)] made every item look like a gun")
 			if("schoolgirl") // nyaa~ How much are you paying attention in reviews?
+				if(!check_rights(R_EVENT))
+					return
+
 				if(!you_realy_want_do_this())
 					return
+
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
-				for(var/obj/item/clothing/under/W in world)
-					W.icon_state = "schoolgirl"
-					W.item_state = "w_suit"
-					W.item_color = "schoolgirl"
-				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
-				world << sound('sound/AI/animes.ogg')
+				log_and_message_admins("made everything kawaii.")
+				for(var/mob/living/carbon/human/human in GLOB.mob_list)
+					SEND_SOUND(human, 'sound/AI/animes.ogg')
+					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
+						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))
+						var/obj/item/clothing/head/kitty/hat = new
+						var/seifuku = pick(typesof(/obj/item/clothing/under/schoolgirl))
+						var/obj/item/clothing/under/schoolgirl/uniform = new seifuku
+						human.drop_item_ground(human.w_uniform, TRUE)
+						human.equip_to_slot_or_del(uniform, uniform.slot_flags)
+						human.drop_item_ground(human.head, TRUE)
+						human.equip_to_slot_or_del(hat, hat.slot_flags)
+						ADD_TRAIT(uniform, TRAIT_NODROP, INNATE_TRAIT)
+						ADD_TRAIT(hat, TRAIT_NODROP, INNATE_TRAIT)
+					var/list/honorifics = list(MALE = list("кун"), FEMALE = list("чан","тан"), NEUTER = list("сан")) //John Robust -> Robust-kun
+					var/list/names = splittext(human.real_name," ")
+					var/newname = "[names[names.len]]-[pick(honorifics[human.gender])]"
+					human.name = newname
+					human.real_name = newname
+
 			if("eagles")//
 				if(!you_realy_want_do_this())
 					return
@@ -3516,6 +3567,7 @@
 				if(!SSshuttle.toggleShuttle("gamma_shuttle","gamma_home","gamma_away", TRUE))
 					message_admins("[key_name_admin(usr)] moved the gamma armory")
 					log_admin("[key_name(usr)] moved the gamma armory")
+					GLOB.gamma_ship_location = !GLOB.gamma_ship_location
 
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")
@@ -3549,12 +3601,6 @@
 					usr << browse(dat, "window=jobdebug;size=600x500")
 			if("showailaws")
 				output_ai_laws()
-			if("showgm")
-				if(!SSticker)
-					alert("The game hasn't started yet!")
-				else if(SSticker.mode)
-					alert("The game mode is [SSticker.mode.name]")
-				else alert("For some reason there's a ticker, but not a game mode")
 			if("manifest")
 				var/dat = {"<meta charset="UTF-8"><b>Showing Crew Manifest.</b><hr>"}
 				dat += "<table cellspacing=5><tr><th>Name</th><th>Position</th></tr>"
@@ -3564,11 +3610,6 @@
 						dat += text("<tr><td>[]</td><td>[]</td></tr>", H.name, H.get_assignment())
 				dat += "</table>"
 				usr << browse(dat, "window=manifest;size=440x410")
-			if("check_antagonist")
-				check_antagonists()
-			if("view_codewords")
-				to_chat(usr, "<b>Code Phrases:</b> <span class='codephrases'>[GLOB.syndicate_code_phrase]</span>", confidential=TRUE)
-				to_chat(usr, "<b>Code Responses:</b> <span class='coderesponses'>[GLOB.syndicate_code_response]</span>", confidential=TRUE)
 			if("DNA")
 				var/dat = {"<meta charset="UTF-8"><b>Showing DNA from blood.</b><hr>"}
 				dat += "<table cellspacing=5><tr><th>Name</th><th>DNA</th><th>Blood Type</th><th>Race Blood Type</th></tr>"
@@ -3801,6 +3842,10 @@
 		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
 		usr.client.cmd_admin_alert_message(about_to_be_banned)
 
+	else if(href_list["resultspoll"])
+		var/datum/poll_question/poll = locate(href_list["resultspoll"]) in GLOB.polls
+		var/start_index = text2num(href_list["startat"]) || 0
+		poll_results_panel(poll, start_index)
 
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
@@ -3865,7 +3910,13 @@
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
 
-	. = ADMIN_FLW(target,"FLW")
+	if(isclient(target))
+		var/client/C = target
+		if(C.mob)
+			target = C.mob
+
+	. = ADMIN_FLW(target, "FLW")
+
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
 		if(A.client && A.eyeobj) // No point following clientless AI eyes

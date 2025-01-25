@@ -5,6 +5,7 @@
 #define TOOL_WIRECUTTER 	"wirecutter"
 #define TOOL_WRENCH 		"wrench"
 #define TOOL_WELDER 		"welder"
+#define TOOL_ANALYZER		"analyzer"
 
 // Surgery tools
 #define TOOL_RETRACTOR "retractor"
