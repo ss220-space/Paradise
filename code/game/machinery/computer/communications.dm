@@ -12,7 +12,7 @@
 #define COMM_MSGLEN_MINIMUM 6
 #define COMM_CCMSGLEN_MINIMUM 20
 
-#define ADMIN_CHECK(user) ((check_rights_all(R_ADMIN, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM) || user.can_admin_interact())
+#define ADMIN_CHECK(user) ((check_rights(R_ADMIN, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM) || user.can_admin_interact())
 #define FULL_ADMIN_CHECK(user) (check_rights_all(R_ADMIN|R_EVENT, FALSE, user) && (authenticated >= COMM_AUTHENTICATION_CENTCOM || user.can_admin_interact()))
 
 // The communications computer
@@ -120,7 +120,7 @@
 				crew_announcement.announcer = GetNameAndAssignmentFromId(id)
 
 		if(ACCESS_CENT_COMMANDER in access)
-			if(!check_rights_all(R_ADMIN|R_EVENT, FALSE, ui.user))
+			if(!check_rights(R_ADMIN, FALSE, ui.user))
 				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))] гудит, разрешение Центрального Командования не действительно."))
 				return
 			authenticated = COMM_AUTHENTICATION_CENTCOM
