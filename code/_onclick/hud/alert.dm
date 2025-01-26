@@ -899,3 +899,16 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!istype(usr))
 		return
 	living_owner.do_succumb(TRUE)
+
+/atom/movable/screen/alert/unpossess_object
+	name = "Unpossess"
+	desc = "Этот объект под вашим контролем. Что бы перестать его контролировать - нажмите сюда."
+	icon_state = "buckled"
+
+/atom/movable/screen/alert/unpossess_object/Click()
+	. = ..()
+
+	if(!.)
+		return
+
+	qdel(owner.GetComponent(/datum/component/object_possession))
