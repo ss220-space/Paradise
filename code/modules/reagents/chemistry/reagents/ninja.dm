@@ -149,7 +149,7 @@
 			if(prob(25))
 				var/phrase = pick("Боль в спине убивает вас!", "Вы так устали...",
 					"Существование - это боль!", "Вы медленно умираешь...",
-					"Чёрт...", "У вас такие тонкие пальцы...".)
+					"Чёрт...", "У вас такие тонкие пальцы...")
 				to_chat(our_mob, span_warning(phrase))
 			mob_human.emote("moan")
 			mob_human.adjustBruteLoss(0.5, FALSE)
