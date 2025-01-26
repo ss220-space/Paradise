@@ -10,119 +10,34 @@
 	the client/var/selectedPlayerCkey is used to hold the selected player ckey for moving to and from pp/vuap
 */
 
-/datum/admins/proc/player_panel_veth()//The new one
-	if(!usr.client.holder)
-		return
-	// This stops the panel from being invoked by mentors who press F7.
-	if(!check_rights(R_ADMIN|R_MOD))
-		message_admins("[key_name_admin(usr)] attempted to invoke player panel without admin rights. If this is a mentor, \
-		its a chance they accidentally hit F7. If this is NOT a mentor, there is a high chance an exploit is being used")
-		return
-
-	var/datum/player_panel_veth/tgui = new(usr)
-	tgui.ui_interact(usr)
-
-
-/datum/player_panel_veth/ //required for tgui component
-	var/title = "Veth's Ultimate Player Panel"
-
-/datum/player_panel_veth/ui_data(mob/user)
-	var/list/players = list()
-	for(var/mob/M in GLOB.mob_list)
-		if (M.ckey)
-			players += list(list(
-				"name" = M.name || "No Character",
-				"job" = M.job || "No Job",
-				"ckey" = M.ckey || "No Ckey",
-				"is_antagonist" = M.mind?.special_role,
-				"last_ip" = M.lastKnownIP || "No Last Known IP",
-				"ref" = M.UID()
-			))
-	return list(
-		"Data" = players
-	)
-
-/datum/player_panel_veth/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	if(..())
-		return
+/datum/admins/proc/vuap_open_context(mob/M)
 	if(!check_rights(NONE))
 		return
-	var/mob/M = get_mob_by_ckey(params["selectedPlayerCkey"]) //gets the mob datum from the ckey in client datum which we've saved. if there's a better way to do this please let me know
-	switch(action) //switch for all the actions from the frontend - all of the Topic() calls check rights & log inside themselves.
-		if("refresh")
-			ui.send_update()
-		if("sendPrivateMessage")
-			usr.client.cmd_admin_pm(M.ckey)
-		if("follow")
-			usr.client.holder.Topic(null, list("adminplayerobservefollow" = M.UID()))
-		if("smite")
-			usr.client.holder.Topic(null, list("Smite" = M.UID()))
-		if("checkAntags")
-			usr.client.check_antagonists()
-		if("faxPanel")
-			usr.client.fax_panel()
-		if("gamePanel")
-			usr.client.game_panel()
-		if("openAdditionalPanel")
-			usr.client.selectedPlayerCkey = params["selectedPlayerCkey"]
-			usr.client.holder.vuap_open()
-		if("createCommandReport")
-			usr.client.cmd_admin_create_centcom_report()
-		if("logs")
-			usr.client.holder.Topic(null, list("open_logging_view" = M.UID()))
-		if("notes")
-			usr.client.holder.Topic(null, list("shownoteckey" = M.ckey))
-		if("vv")
-			usr.client.debug_variables(M)
-		if("tp")
-			usr.client.holder.Topic(null, list("traitor" = M.UID()))
-		if("adminaiinteract")
-			usr.client.toggle_advanced_interaction()
-
-/datum/player_panel_veth/ui_interact(mob/user, datum/tgui/ui)
-
-	ui = SStgui.try_update_ui(user, src, ui)
-
-	if(!ui)
-		ui = new(user, src, "VethPlayerPanel")
-		ui.set_autoupdate(FALSE)
-		ui.open()
-
-/datum/player_panel_veth/ui_state(mob/user)
-	return GLOB.admin_state
-
-
-/client //this is needed to hold the selected player ckey for moving to and from pp/vuap
-	var/selectedPlayerCkey = ""
-	var/VUAP_selected_mob = null
-
-/datum/admins/proc/vuap_open_context(mob/M in GLOB.mob_list) //this is the proc for the right click menu
-	if(!check_rights(NONE))
+	if(!M)
+		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.", confidential=TRUE)
 		return
+	var/mob = null
+	// First we get mob. Check for ckey and client inside
 	if(findtext(M.ckey, "@" ) || M.ckey == "" || M.ckey == null)
-		var/mob/player = M
-		var/datum/mind/player_mind = player?.mind
-		var/player_mind_ckey = player_mind.key
-		usr.client.VUAP_selected_mob = M
-		usr.client.holder.vuap_open()
-		tgui_alert(usr, "WARNING! This mob has no associated Mind! Most actions will not work. Last ckey to control this mob is [player_mind_ckey].", "No Mind!")
-
-	else
-		usr.client.selectedPlayerCkey = M.ckey
-		usr.client.holder.vuap_open()
+		// No ckey? No problem, We will manipulate clientless mob then.
+		mob = M
+	// But we still need to check out ckey so /ui_data will properly work
+	var/ckey = M.ckey
+	// open
+	usr.client.holder.vuap_open(ckey, mob)
 
 /datum/vuap_personal
-
+	var/selected_ckey = ""
+	var/selected_mob = null
 
 /datum/vuap_personal/ui_data(mob/user)
-	var/ckey = user.client?.selectedPlayerCkey
 	var/list/player_data = list(
 		"characterName" = "No Character",
-		"ckey" = ckey || "Unknown",
+		"ckey" = selected_ckey || "Unknown",
 		"ipAddress" = "0.0.0.0",
 		"CID" = "NO_CID",
 		"discord" = "No Discord",
-		"gameState" = "Unknown",
+		"gameState" = "Unknown", // cliented or clientless
 		"rank" = "Player",
 		"byondVersion" = "0.0.0",
 		"mobType" = "null",
@@ -137,20 +52,20 @@
 		),
 		"adminRights" = "",
 	)
-	if(ckey[1] == "@" || ckey == "" || ckey == null)
-		var/mob/player = user.client.VUAP_selected_mob
+	if(selected_ckey[1] == "@" || selected_ckey == "" || selected_ckey == null)
+		var/mob/player = selected_mob
 		player_data["characterName"] = player.name || "No Character"
-		player_data["gameState"] = istype(player) ? "Active" : "Unknown"
+		player_data["gameState"] = "Inactive"
 		player_data["mobType"] = "[initial(player.type)]" || "null"
 	else
-		var/mob/player = get_mob_by_ckey(ckey)
+		var/mob/player = get_mob_by_ckey(selected_ckey)
 		var/client/client_info = player?.client
 		if(player && client_info)
 			player_data["characterName"] = player.real_name || "No Character"
 			player_data["ipAddress"] = client_info.address || "0.0.0.0"
 			player_data["CID"] = client_info.computer_id || "NO_CID"
 			player_data["discord"] = client_info.prefs.discord_id || "No Discord"
-			player_data["gameState"] = istype(player) ? "Active" : "Unknown"
+			player_data["gameState"] = "Active"
 			player_data["rank"] = client_info.holder?.rank || "Player"
 			player_data["byondVersion"] = "[client_info.byond_version || 0].[client_info.byond_build || 0]"
 			player_data["mobType"] = "[initial(player.type)]" || "null"
@@ -175,7 +90,7 @@
 /datum/vuap_personal/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "PlayerPanel")
+		ui = new(user, src, "PlayerPanel", "Player Panel")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -184,7 +99,7 @@
 		return
 	if(!check_rights(NONE))
 		return
-	var/mob/M = get_mob_by_ckey(ui.user.client.selectedPlayerCkey)
+	var/mob/M = get_mob_by_ckey(selected_ckey) || selected_mob
 	if(!M)
 		tgui_alert(usr, "Selected player not found!")
 		return
@@ -206,11 +121,31 @@
 		if("kick")
 			usr.client.holder.Topic(null, list("boot2" = M.UID()))
 		if("ban")
+			if(!selected_ckey)
+				to_chat(usr, "No client inside!")
+				return
 			if(!check_rights(R_BAN))
 				return
-			usr.client.ban_panel()
+			usr.client.holder.Topic(null, list("newban" = M.UID(), "dbbanaddckey" = selected_ckey))
+		if("jobban")
+			if(!selected_ckey)
+				to_chat(usr, "No client inside!")
+				return
+			if(!check_rights(R_BAN))
+				return
+			usr.client.holder.Topic(null, list("jobban2" = M.UID(), "dbbanaddckey" = selected_ckey))
+		if("appban")
+			if(!selected_ckey)
+				to_chat(usr, "No client inside!")
+				return
+			if(!check_rights(R_BAN))
+				return
+			usr.client.holder.Topic(null, list("appearanceban" = M.UID(), "dbbanaddckey" = selected_ckey))
 		if("watchlist")
-			usr.client.holder.Topic(null, list("watchadd" = M.UID()))
+			if(!selected_ckey)
+				to_chat(usr, "No client inside!")
+				return
+			usr.client.watchlist_add(selected_ckey)
 		if("bless")
 			usr.client.holder.Topic(null, list("Bless" = M.UID()))
 		if("smite")
@@ -366,37 +301,41 @@
 			var/muteType = params["type"]
 			switch(muteType)
 				if("ic")
-					cmd_admin_mute(usr.client.selectedPlayerCkey, MUTE_IC)
+					cmd_admin_mute(M, MUTE_IC)
 					ui.send_update()
 				if("ooc")
-					cmd_admin_mute(usr.client.selectedPlayerCkey, MUTE_OOC)
+					cmd_admin_mute(M, MUTE_OOC)
 					ui.send_update()
 				if("pray")
-					cmd_admin_mute(usr.client.selectedPlayerCkey, MUTE_PRAY)
+					cmd_admin_mute(M, MUTE_PRAY)
 					ui.send_update()
 				if("adminhelp")
-					cmd_admin_mute(usr.client.selectedPlayerCkey, MUTE_ADMINHELP)
+					cmd_admin_mute(M, MUTE_ADMINHELP)
 					ui.send_update()
 				if("deadchat")
-					cmd_admin_mute(usr.client.selectedPlayerCkey, MUTE_DEADCHAT)
+					cmd_admin_mute(M, MUTE_DEADCHAT)
 					ui.send_update()
 				if("tts")
-					cmd_admin_mute(usr.client.selectedPlayerCkey, MUTE_TTS)
+					cmd_admin_mute(M, MUTE_TTS)
 					ui.send_update()
 				if("emote")
-					cmd_admin_mute(usr.client.selectedPlayerCkey, MUTE_EMOTE)
+					cmd_admin_mute(M, MUTE_EMOTE)
 					ui.send_update()
 				if("all")
-					cmd_admin_mute(usr.client.selectedPlayerCkey, MUTE_ALL)
+					cmd_admin_mute(M, MUTE_ALL)
 					ui.send_update()
+		if("someadminbutton")
+			SEND_SOUND(usr, 'sound/items/bikehorn.ogg')
 
 
 /datum/vuap_personal/ui_state(mob/user)
 	return GLOB.admin_state
 
-/datum/admins/proc/vuap_open()
+/datum/admins/proc/vuap_open(ckey, mob/M)
 	if (!check_rights(NONE))
 		message_admins("[key_name(src)] attempted to use VUAP without sufficient rights.")
 		return
 	var/datum/vuap_personal/tgui = new(usr)
+	tgui.selected_ckey = ckey
+	tgui.selected_mob = M
 	tgui.ui_interact(usr)

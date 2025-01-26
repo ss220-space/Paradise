@@ -66,7 +66,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
-/datum/admins/proc/show_player_panel(var/mob/M in GLOB.mob_list)
+/datum/admins/proc/show_player_panel(mob/M in GLOB.mob_list)
 	set name = "\[Admin\] Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
 
@@ -77,7 +77,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
-	vuap_open_context(M)
+	if(!check_rights(NONE))
+		return
+
+	usr.client.holder.vuap_open_context(M)
 
 /datum/admins/proc/show_old_player_panel(mob/M)
 

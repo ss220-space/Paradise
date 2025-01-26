@@ -1,26 +1,23 @@
+import { sortBy } from 'common/collections';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Section, Table, TextArea, Grid } from '../components';
 import { Window } from '../layouts';
+import { createSearch } from 'common/string';
 
 export const VethPlayerPanel = (props, context) => {
-  const { data, act } = useBackend(context);
+  const { act, data } = useBackend(context);
 
-  const [searchTerm, setSearchTerm] = useLocalState('searchTerm', '', '');
-  const [selectedPlayerCkey, setSelectedPlayerCkey] = useLocalState(
+  const players = sortBy((player) => player.name)(data.Data || []);
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [selectedPlayerCkey, setSelectedPlayerCkey] = useLocalState(context,
     'selectedPlayerCkey',
-    '',
     ''
   );
-  // Filter player data based on the search term
-  const filteredData = searchTerm
-    ? data.filter((player) =>
-        [
-          player.name?.toLowerCase() || '',
-          player.job?.toLowerCase() || '',
-          player.ckey?.toLowerCase() || '',
-        ].some((field) => field.includes(searchTerm.toLowerCase()))
-      )
-    : data;
+
+  const searcher = createSearch(searchText, (player) => {
+    return player.name?.toLowerCase() + '|' + player.job?.toLowerCase() + '|' + player.ckey?.toLowerCase();
+  });
+
 
   const handleAction = (action, params) => {
     // If params has a ckey, set it as the selected ckey
@@ -62,11 +59,6 @@ export const VethPlayerPanel = (props, context) => {
                 />
                 <Button
                   fluid
-                  content="Old PP"
-                  onClick={() => handleAction('oldPP')}
-                />
-                <Button
-                  fluid
                   content="Check Antags"
                   onClick={() => handleAction('checkAntags')}
                 />
@@ -90,14 +82,14 @@ export const VethPlayerPanel = (props, context) => {
             <TextArea
               autoFocus
               placeholder="Search by name, job, or ckey"
-              value={searchTerm}
-              onInput={(_, value) => setSearchTerm(value)}
+              value={searchText}
+              onInput={(_, value) => setSearchText(value)}
               rows={1}
               height="2rem"
             />
           </Section>
 
-          <Section title={`Players (${filteredData.length})`}>
+          <Section title={`Players`}>
             <Table>
               <Table.Row header>
                 <Table.Cell>Ckey</Table.Cell>
@@ -107,7 +99,7 @@ export const VethPlayerPanel = (props, context) => {
                 <Table.Cell>Last IP</Table.Cell>
                 <Table.Cell>Actions</Table.Cell>
               </Table.Row>
-              {filteredData.map((player) => (
+              {players.filter(searcher).map((player) => (
                 <Table.Row key={player.ckey} className="candystripe">
                   <Table.Cell>{player.ckey}</Table.Cell>
                   <Table.Cell>{player.name}</Table.Cell>

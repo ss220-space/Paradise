@@ -1555,7 +1555,7 @@
 		usr.client.man_up(M)
 
 	else if(href_list["select_equip"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_EVENT))
 			return
 
 		var/mob/M = locateUID(href_list["select_equip"])
@@ -1573,6 +1573,9 @@
 			return
 		var/old_tts_seed = M.tts_seed
 		var/new_tts_seed = M.change_voice(usr, override = TRUE)
+		if(!new_tts_seed)
+			return
+
 		to_chat(M, "<span class='notice'>Your voice has been changed from [old_tts_seed] to [new_tts_seed].</span>", confidential=TRUE)
 		log_and_message_admins("has changed [key_name_admin(M)]'s voice from [old_tts_seed] to [new_tts_seed]")
 
@@ -3896,7 +3899,7 @@
 			body += "</td>"
 		body += "</tr></table>"
 
-		usr << browse(body.Join("<br>"), "window=related_[M];size=420x600")
+		usr << browse(body.Join(""), "window=related_[M];size=420x600")
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))

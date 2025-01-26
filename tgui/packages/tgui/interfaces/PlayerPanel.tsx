@@ -68,7 +68,7 @@ export const PlayerPanel = (props, context) => {
   // Add error display if critical data is missing
   if (!data.ckey) {
     return (
-      <Window title="Options Panel - Error" width={800} height={1050}>
+      <Window title="Options Panel - Error" width={800} height={400}>
         <Window.Content>
           <Section title="Error">
             <Box color="red">
@@ -87,7 +87,7 @@ export const PlayerPanel = (props, context) => {
   }
 
   return (
-    <Window title={`Options Panel - ${data.ckey}`} width={800} height={850}>
+    <Window title={`Options Panel - ${data.ckey}`} width={800} height={950}>
       <Window.Content>
         <Stack vertical>
           <Stack.Item>
@@ -167,6 +167,41 @@ export const PlayerPanel = (props, context) => {
                         color="red"
                         onClick={() => handleAction('kick')}
                       />
+                      <Button
+                        fluid
+                        icon="ban"
+                        content="JOBBAN"
+                        color="red"
+                        disabled={!isButtonAllowed('ban')}
+                        onClick={() => handleAction('jobban')}
+                      />
+                      {isButtonAllowed('admin') ? (
+                        <Button
+                          fluid
+                          icon="bullseye"
+                          content="ADD TO WATCHLIST"
+                          color="red"
+                          onClick={() => handleAction('watchlist')}
+                        />
+                      ) : null}
+                    </Grid.Column>
+                    <Grid.Column size={6}>
+                      <Button
+                        fluid
+                        icon="ban"
+                        content="BAN"
+                        color="red"
+                        disabled={!isButtonAllowed('ban')}
+                        onClick={() => handleAction('ban')}
+                      />
+                      <Button
+                        fluid
+                        icon="ban"
+                        content="APPEARANCE BAN"
+                        color="red"
+                        disabled={!isButtonAllowed('ban')}
+                        onClick={() => handleAction('appban')}
+                      />
                       {isButtonAllowed('event') ? (
                         <Button
                           fluid
@@ -183,25 +218,6 @@ export const PlayerPanel = (props, context) => {
                           icon="hand-holding-heart"
                           content="BLESS"
                           onClick={() => handleAction('bless')}
-                        />
-                      ) : null}
-                    </Grid.Column>
-                    <Grid.Column size={6}>
-                      <Button
-                        fluid
-                        icon="ban"
-                        content="BAN"
-                        color="red"
-                        disabled={!isButtonAllowed('ban')}
-                        onClick={() => handleAction('ban')}
-                      />
-                      {isButtonAllowed('admin') ? (
-                        <Button
-                          fluid
-                          icon="bullseye"
-                          content="ADD TO WATCHLIST"
-                          color="red"
-                          onClick={() => handleAction('watchlist')}
                         />
                       ) : null}
                     </Grid.Column>
@@ -372,7 +388,7 @@ export const PlayerPanel = (props, context) => {
                         <Button
                           fluid
                           icon="database"
-                          content="CHECK CCDB"
+                          content="CHECK GLOBAL CCDB"
                           onClick={() => handleAction('ccdb')}
                         />
                       ) : null}
@@ -530,13 +546,14 @@ export const PlayerPanel = (props, context) => {
                         <Button
                           fluid
                           icon="pencil"
-                          content="MOB RANDOMIZE NAME"
+                          content="MOB RANDOM NAME"
                           onClick={() => handleAction('randomizename')}
                         />
                         <Button
                           fluid
                           icon="shirt"
                           content="SELECT EQUIPMENT"
+                          disabled = {!isButtonAllowed('event')}
                           onClick={() => handleAction('selectequip')}
                         />
                         <Button
@@ -545,18 +562,19 @@ export const PlayerPanel = (props, context) => {
                           content="CHANGE VOICE"
                           onClick={() => handleAction('changevoice')}
                         />
+                        {isButtonAllowed('event') ?
                         <Button
                           fluid
                           icon="circle-user"
                           content="MIRROR UI TO ADMIN"
                           onClick={() => handleAction('mirroradmin')}
-                        />
+                        /> : null}
                       </Grid.Column>
                       <Grid.Column size={6}>
                         <Button
                           fluid
                           icon="pen"
-                          content="CHARACTER RANDOMIZE NAME"
+                          content="CHARACTER RANDOM NAME"
                           onClick={() => handleAction('userandomname')}
                         />
                         <Button
@@ -571,12 +589,13 @@ export const PlayerPanel = (props, context) => {
                           content="CHECK CONTENTS"
                           onClick={() => handleAction('checkcontents')}
                         />
+                        {isButtonAllowed('event') ?
                         <Button
                           fluid
                           icon="circle-user"
                           content="MIRROR UI TO PLAYER"
                           onClick={() => handleAction('mirrorplayer')}
-                        />
+                        /> : null}
                       </Grid.Column>
                     </Grid>
                   </Section>
@@ -600,12 +619,14 @@ export const PlayerPanel = (props, context) => {
                           onClick={() => handleAction('thunderdome2')}
                         />
                       ) : null}
+                      {isButtonAllowed('event') ? (
                       <Button
                         fluid
                         icon="comment"
                         content="FORCESAY"
                         onClick={() => handleAction('forcesay')}
                       />
+                      ) : null}
                       {isButtonAllowed('admin') ? (
                         <Button
                           fluid
@@ -619,6 +640,14 @@ export const PlayerPanel = (props, context) => {
                           fluid
                           content="SYNDI JAIL RELEASE"
                           onClick={() => handleAction('contractor_release')}
+                        />
+                      ) : null}
+                      {isButtonAllowed('event') || isButtonAllowed('admin') ? (
+                        <Button
+                          fluid
+                          icon="cookie"
+                          content="SPAWN COOKIE"
+                          onClick={() => handleAction('spawncookie')}
                         />
                       ) : null}
                       {/* <Button
@@ -667,15 +696,7 @@ export const PlayerPanel = (props, context) => {
                           onClick={() => handleAction('contractor_stop')}
                         />
                       ) : null}
-                      {isButtonAllowed('event') || isButtonAllowed('admin') ? (
-                        <Button
-                          fluid
-                          icon="cookie"
-                          content="SPAWN COOKIE"
-                          onClick={() => handleAction('spawncookie')}
-                        />
-                      ) : null}
-                      <Button fluid content="Some Admin Button" />
+                      <Button fluid content="Some Admin Button" onClick={() => handleAction('someadminbutton')}/>
                     </Grid.Column>
                   </Grid>
                 </Section>

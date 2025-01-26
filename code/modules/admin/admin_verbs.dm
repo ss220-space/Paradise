@@ -11,8 +11,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_security,		/*shows all security*/
 	/datum/admins/proc/show_player_panel,
 	/datum/admins/proc/player_panel_veth,
-	/datum/admins/proc/vuap_open_context,
-	/datum/admins/proc/vuap_open,
 	/client/proc/fax_panel,
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
