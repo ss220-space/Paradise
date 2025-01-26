@@ -58,7 +58,7 @@
 /// Binds the mob to the object and sets up the naming and everything.
 /// Returns FALSE if we don't bind, TRUE if we succeed.
 /datum/component/object_possession/proc/bind_to_new_object(obj/target)
-    if(issingularity(target) && CONFIG_GET(flag/forbid_singulo_possession))
+	if(issingularity(target) && CONFIG_GET(flag/forbid_singulo_possession))
 		to_chat(parent, "[target] сопротивляется вашему контролю.", confidential = TRUE)
 		return FALSE
         
@@ -73,7 +73,7 @@
 	user.reset_perspective(target)
 
 	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(end_possession))
-    SEND_SIGNAL(target, COMSIG_OBJ_POSSESSED, parent)
+	SEND_SIGNAL(target, COMSIG_OBJ_POSSESSED, parent)
 
 	return TRUE
 
@@ -130,5 +130,5 @@
 /datum/component/object_possession/proc/end_possession(datum/source)
 	SIGNAL_HANDLER
 
-    SEND_SIGNAL(possessed, COMSIG_OBJ_RELEASED, parent)
+	SEND_SIGNAL(possessed, COMSIG_OBJ_RELEASED, parent)
 	qdel(src)
