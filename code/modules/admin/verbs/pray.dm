@@ -40,6 +40,8 @@
 				SEND_SOUND(X, 'sound/items/PDA/ambicha4-short.ogg')
 	to_chat(usr, "Your prayers have been received by the gods.")
 
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Pray") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
 /proc/Centcomm_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
 	GLOB.requests.message_centcom(Sender.client, msg)

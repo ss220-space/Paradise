@@ -628,6 +628,8 @@ SUBSYSTEM_DEF(ticker)
 			var/mob/M = m
 			H.add_hud_to(M)
 
+	// Seal the blackbox, stop collecting info
+	SSblackbox.Seal()
 	SSdbcore.SetRoundEnd()
 
 	return TRUE

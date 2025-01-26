@@ -78,6 +78,7 @@
 
 
 	playsound_xenobuild(user.loc)
+	SSblackbox.record_feedback("tally", "alien_growth", 1, "[new_xeno]")
 	qdel(user)
 
 

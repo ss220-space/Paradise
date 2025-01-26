@@ -18,6 +18,7 @@
 		to_chat(user, span_warning("Our healing's effectiveness is reduced by quick repeated use!"))
 
 	user.apply_status_effect(STATUS_EFFECT_FLESHMEND)
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 
 	return TRUE
 

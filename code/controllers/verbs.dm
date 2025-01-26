@@ -12,8 +12,10 @@
 	switch(controller)
 		if("Master")
 			Recreate_MC()
+			SSblackbox.record_feedback("tally", "admin_verb", 1, "Restart MC")
 		if("Failsafe")
 			new /datum/controller/failsafe()
+			SSblackbox.record_feedback("tally", "admin_verb", 1, "Restart Failsafe")
 
 	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
 
@@ -27,12 +29,16 @@
 	switch(controller)
 		if("Configuration")
 			debug_variables(config)
+			SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Config")
 		if("pAI")
 			debug_variables(GLOB.paiController)
+			SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug pAI")
 		if("Cameras")
 			debug_variables(GLOB.cameranet)
+			SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Cameras")
 		if("Space Manager")
 			debug_variables(GLOB.space_manager)
+			SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Space")
 
 	message_admins("Admin [key_name_admin(usr)] is debugging the [controller] controller.")
 
@@ -45,6 +51,7 @@
 
 	GLOB.npcpool_suspension = !GLOB.npcpool_suspension
 	message_admins("Admin [key_name_admin(usr)] toggled NPCpool suspension.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle NPCpool suspension")
 
 /client/proc/toggle_Idlenpcpool_suspension()
 	set category = "Debug"
@@ -55,6 +62,7 @@
 
 	GLOB.idlenpc_suspension = !GLOB.idlenpc_suspension
 	message_admins("Admin [key_name_admin(usr)] toggled IdleNPCpool suspension.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle IdleNPCpool suspension")
 
 /client/proc/toggle_mobs_suspension()
 	set category = "Debug"
@@ -65,3 +73,4 @@
 
 	GLOB.mob_suspension = !GLOB.mob_suspension
 	message_admins("Admin [key_name_admin(usr)] toggled mobs suspension.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Mobs suspension")

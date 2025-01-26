@@ -177,11 +177,17 @@
 		for(var/datum/ambition_objective/objective in employee.ambition_objectives)
 			if(objective.completed)
 				completed_text += "<br>&nbsp;-&nbsp;<B>Амбиция №[count]</B>: [objective.description] <font color='green'><B> реализована!</B></font>"
+				SSblackbox.record_feedback("nested tally", "employee_objective", 1, list("[objective.type]", "SUCCESS"))
 				ambitions_completed = TRUE
+			else
+				SSblackbox.record_feedback("nested tally", "employee_objective", 1, list("[objective.type]", "FAIL"))
 			count++
 
 		if (ambitions_completed)
 			text += completed_text
 			text += "<br>&nbsp;<font color='green'><B>[employee.name] считает, что реализовал свои амбиции!</B></font>"
+			SSblackbox.record_feedback("tally", "employee_success", 1, "SUCCESS")
+		else
+			SSblackbox.record_feedback("tally", "employee_success", 1, "FAIL")
 
 	return text

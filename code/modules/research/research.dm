@@ -137,6 +137,7 @@ research holder datum.
 			// after that it'll bump it up by 1 until it's greater
 			// than the source tech
 			KT.level = max((KT.level + 1), level)
+			SSblackbox.log_research(KT.name, KT.level)
 			return KT.level
 	return null
 

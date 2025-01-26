@@ -196,6 +196,7 @@
 			playsound(loc, 'sound/arcade/win.ogg', 50, TRUE)
 
 			if(emagged)
+				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_emagged")
 				new /obj/effect/spawner/newbomb/timer/syndicate(get_turf(src))
 				new /obj/item/clothing/head/collectable/petehat(get_turf(src))
 				message_admins("[key_name_admin(usr)] has outbombed Cuban Pete and been awarded a bomb.")
@@ -203,6 +204,7 @@
 				Reset()
 				emagged = 0
 			else
+				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_normal")
 				var/score = player_hp + player_mp + 5
 				prizevend(score)
 
@@ -225,7 +227,10 @@
 			temp = "Вы были опустошены! ИГРА ОКОНЧЕНА"
 			playsound(loc, 'sound/arcade/lose.ogg', 50, TRUE)
 			if(emagged)
+				SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_mana_emagged")
 				usr.gib()
+			else
+				SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_mana_normal")
 
 	else if((enemy_hp <= 10) && (enemy_mp > 4))
 		temp = "[enemy_name] восстанавливает 4 единицы здоровья!"
@@ -244,7 +249,10 @@
 		temp = "Вы были сокрушены! ИГРА ОКОНЧЕНА"
 		playsound(loc, 'sound/arcade/lose.ogg', 50, TRUE)
 		if(emagged)
+			SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_hp_emagged")
 			usr.gib()
+		else
+			SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_hp_normal")
 
 	blocked = 0
 	return

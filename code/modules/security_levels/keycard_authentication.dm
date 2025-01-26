@@ -204,6 +204,7 @@
 				GLOB.ert_request_answered = FALSE
 				ERT_Announce(ert_reason , event_triggered_by, 0)
 				ert_reason = null
+				SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
 			else
 				var/list/excludemodes = list(/datum/game_mode/nuclear, /datum/game_mode/blob)
 				if(SSticker.mode.type in excludemodes)
@@ -236,6 +237,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 			D.update_icon()
 	GLOB.minor_announcement.Announce("Ограничения на доступ к техническим и внешним шл+юзам были сняты.")
 	GLOB.maint_all_access = 1
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /proc/revoke_maint_all_access()
 	for(var/area/maintenance/A in GLOB.areas)
@@ -244,6 +246,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 			D.update_icon()
 	GLOB.minor_announcement.Announce("Ограничения на доступ к техническим и внешним шл+юзам были возобновлены.")
 	GLOB.maint_all_access = 0
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))
 
 /proc/make_station_all_access()
 	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
@@ -252,6 +255,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 			D.update_icon()
 	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были сняты в связи с происходящим кризисом. Статьи о незаконном проникновении по-прежнему действуют, если командование не заявит об обратном.")
 	GLOB.station_all_access = 1
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "enabled"))
 
 /proc/revoke_station_all_access()
 	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
@@ -260,3 +264,4 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 			D.update_icon()
 	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были вновь возобновлены. Если вы застряли, обратитесь за помощью к ИИ станции, или к коллегам.")
 	GLOB.station_all_access = 0
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "disabled"))

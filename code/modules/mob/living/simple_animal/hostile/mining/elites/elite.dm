@@ -448,6 +448,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		lootloc = new /obj/structure/closet/crate/necropolis/tendril(loc)
 		new /obj/item/tumor_shard(lootloc)
 		to_chat(mychild, "<span class='warning'>Dont leave your body, if you want to be revived.</span>")
+		SSblackbox.record_feedback("tally", "Player controlled Elite loss", 1, mychild.name)
+	else
+		SSblackbox.record_feedback("tally", "AI controlled Elite loss", 1, mychild.name)
 	new mychild.loot_drop(lootloc)
 	mychild.dif_mult = 1
 	mychild.dif_mult_dmg = 1
@@ -467,7 +470,10 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(boosted)
 		copy.boosted = TRUE
 		copy.update_icon(UPDATE_ICON_STATE)
+		SSblackbox.record_feedback("tally", "Player controlled Elite win", 1, mychild.name)
 		times_won++
+	else
+		SSblackbox.record_feedback("tally", "AI controlled Elite win", 1, mychild.name)
 	qdel(src)
 
 /obj/item/tumor_shard

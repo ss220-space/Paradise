@@ -147,6 +147,7 @@
 
 /datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/R)
 	var/list/contents = get_surroundings(user)
+	var/send_feedback = 1
 	if(!check_contents(R, contents))
 		return ", missing component."
 	if(!check_tools(user, R, contents))
@@ -179,6 +180,9 @@
 		I.CheckParts(parts, R)
 		if(isitem(I))
 			user.put_in_hands(I)
+
+		if(send_feedback)
+			SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
 	return 0
 
 /datum/personal_crafting/proc/requirements_deletion(datum/crafting_recipe/recipe, mob/user)

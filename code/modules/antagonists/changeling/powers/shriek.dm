@@ -31,6 +31,8 @@
 	for(var/obj/machinery/light/lamp in range(4, user))
 		lamp.on = TRUE
 		lamp.break_light_tube()
+
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 

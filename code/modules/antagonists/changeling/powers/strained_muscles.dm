@@ -34,5 +34,7 @@
 			user.apply_status_effect(STATUS_EFFECT_SPEEDLEGS)
 	else
 		user.remove_status_effect(STATUS_EFFECT_SPEEDLEGS)
+
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 

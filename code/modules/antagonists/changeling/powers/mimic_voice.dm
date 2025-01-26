@@ -43,5 +43,7 @@
 	cling.chem_recharge_slowdown += 0.5
 	to_chat(user, span_notice("We shape our glands to take the voice of <b>[mimic_voice]</b>."))
 	to_chat(user, span_notice("Use this power again to return to our original voice."))
+
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 

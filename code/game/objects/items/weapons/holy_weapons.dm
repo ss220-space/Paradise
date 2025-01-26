@@ -99,6 +99,7 @@
 	if(picked_type in container_paths)
 		var/storage_path = container_paths[picked_type]
 		var/obj/item/storage/storage = new storage_path(get_turf(user))
+		SSblackbox.record_feedback("text", "chaplain_weapon", 1, "[picked_type]", 1)
 		var/obj/item/nullrod/new_rod = locate(picked_type) in storage
 		if(new_rod)
 			new_rod.reskinned = TRUE
@@ -110,6 +111,8 @@
 			return
 
 	var/obj/item/nullrod/new_rod = new picked_type(get_turf(user))
+
+	SSblackbox.record_feedback("text", "chaplain_weapon", 1, "[picked_type]", 1)
 
 	if(new_rod)
 		new_rod.reskinned = TRUE

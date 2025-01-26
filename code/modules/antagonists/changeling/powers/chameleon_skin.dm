@@ -15,6 +15,8 @@
 		return FALSE
 
 	h_owner.force_gene_block(GLOB.chameleonblock, !h_owner.dna.GetSEState(GLOB.chameleonblock))
+
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 

@@ -107,15 +107,19 @@
 		for(var/datum/objective/objective in ninja.get_all_objectives())
 			if(objective.check_completion())
 				text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
+				SSblackbox.record_feedback("nested tally", "ninja_objective", 1, list("[objective.type]", "SUCCESS"))
 			else
 				text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
+				SSblackbox.record_feedback("nested tally", "ninja_objective", 1, list("[objective.type]", "FAIL"))
 				ninjawin = FALSE
 			count++
 
 		if(ninja.current && ninja.current.stat != DEAD && ninjawin)
 			text += "<br><font color='green'><B>Ниндзя успешно выполнил свои задачи!</B></font>"
+			SSblackbox.record_feedback("tally", "ninja_success", 1, "SUCCESS")
 		else
 			text += "<br><font color='red'><B>Ниндзя провалился!</B></font>"
+			SSblackbox.record_feedback("tally", "ninja_success", 1, "FAIL")
 		text += "<br>"
 
 	to_chat(world, text)

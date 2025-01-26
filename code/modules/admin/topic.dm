@@ -333,7 +333,7 @@
 			log_admin_rank_modification(adm_ckey, new_rank, rights)
 
 		else if(task == "permissions")
-			if(!D)
+			if(!D)	
 				return
 			var/new_value = input_bitfield(usr, "rights", D.rights)
 			if(!new_value)
@@ -341,7 +341,7 @@
 			var/add_bits = new_value & ~D.rights
 			var/removed_bits = D.rights & ~new_value
 			D.rights = new_value
-			edit_admin_permissions()
+			edit_admin_permissions() 
 			message_admins("[key_name_admin(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
 			log_admin("[key_name(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
 			log_admin_permission_modification(adm_ckey, new_value )
@@ -1593,7 +1593,7 @@
 			return
 
 		usr.client.view_msays()
-
+		
 	else if(href_list["devsays"])
 		if(!check_rights(R_ADMIN | R_VIEWRUNTIMES))
 			return
@@ -2383,6 +2383,7 @@
 			H.update_inv_l_hand()
 		log_admin("[key_name(H)] got their cookie, spawned by [key_name(src.owner)]")
 		message_admins("[key_name_admin(H)] got [H.p_their()] cookie, spawned by [key_name_admin(src.owner)]")
+		SSblackbox.record_feedback("amount", "admin_cookies_spawned", 1)
 		to_chat(H, "<span class='notice'>Your prayers have been answered!! You received the <b>best cookie</b>!</span>")
 
 	else if(href_list["BlueSpaceArtillery"])
@@ -3017,18 +3018,21 @@
 			if("sec_clothes")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove 'internal' clothing")
 				for(var/obj/item/clothing/under/O in world)
 					qdel(O)
 				ok = 1
 			if("sec_all_clothes")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove ALL clothing")
 				for(var/obj/item/clothing/O in world)
 					qdel(O)
 				ok = 1
 			if("sec_classic1")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove firesuits, grilles, and pods")
 				for(var/obj/item/clothing/suit/fire/O in world)
 					qdel(O)
 				for(var/obj/structure/grille/O in world)
@@ -3036,6 +3040,7 @@
 			if("monkey")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Monkeyize All Humans")
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
 					spawn(0)
@@ -3044,23 +3049,30 @@
 			if("corgi")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Corgize All Humans")
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
 					spawn(0)
 						H.corgize()
 				ok = 1
 			if("honksquad")
-				usr.client.honksquad()
+				if(usr.client.honksquad())
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - HONKsquad")
 			if("striketeam")
-				usr.client.strike_team()
+				if(usr.client.strike_team())
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Deathsquad")
 			if("striketeam_syndicate")
-				usr.client.syndicate_strike_team()
+				if(usr.client.syndicate_strike_team())
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Syndie Strike Team")
 			if("infiltrators_syndicate")
-				usr.client.syndicate_infiltration_team()
+				if(usr.client.syndicate_infiltration_team())
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Syndicate Infiltration Team")
 			if("gimmickteam")
-				usr.client.gimmick_team()
+				if(usr.client.gimmick_team())
+					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Gimmick Team")
 			if("tripleAI")
 				usr.client.triple_ai()
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
 			if("set_station_name")
 				if(!check_rights(R_ADMIN | R_EVENT))
 					return
@@ -3110,6 +3122,8 @@
 				if(gravity_announce)
 					GLOB.event_announcement.Announce("[gravity_announce]")
 
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Gravity")
+
 				switch(gravity_state)
 					if("Default Gravity Handling")
 						GLOB.gravity_is_on = null
@@ -3127,16 +3141,19 @@
 			if("power")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All APCs")
 				log_and_message_admins("<span class='notice'>made all areas powered</span>")
 				power_restore()
 			if("unpower")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Depower All APCs")
 				log_and_message_admins("<span class='notice'>made all areas unpowered</span>")
 				power_failure()
 			if("quickpower")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
 				log_and_message_admins("<span class='notice'>made all SMESs powered</span>")
 				power_restore_quick()
 
@@ -3146,6 +3163,7 @@
 					return
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Prison Warp")
 				log_and_message_admins("<span class='notice'>teleported all players to the prison station.</span>")
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
@@ -3186,6 +3204,7 @@
 				var/objective = sanitize(copytext_char(input("Enter an objective"),1,MAX_MESSAGE_LEN))
 				if(!objective)
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Traitor All ([objective])")
 
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					if(H.stat == 2 || !H.client || !H.mind) continue
@@ -3201,6 +3220,7 @@
 			if("togglebombcap")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Bomb Cap")
 
 				var/newBombCap = input(usr,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be between 4 and 128)", "New Bomb Cap", GLOB.max_ex_light_range) as num|null
 				if(newBombCap < 4)
@@ -3221,6 +3241,7 @@
 			if("flicklights")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Flicker Lights")
 				while(!usr.stat)
 //knock yourself out to stop the ghosts
 					for(var/mob/M in GLOB.player_list)
@@ -3252,18 +3273,21 @@
 			if("lightout")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Lights Out")
 				log_and_message_admins("has broke a lot of lights")
 				var/datum/event/electrical_storm/E = new /datum/event/electrical_storm
 				E.lightsoutAmount = 2
 			if("blackout")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Black Out")
 				log_and_message_admins("broke all lights")
 				for(var/obj/machinery/light/L in GLOB.machines)
 					L.break_light_tube()
 			if("whiteout")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fix All Lights")
 				log_and_message_admins("fixed all lights")
 				for(var/obj/machinery/light/L in GLOB.machines)
 					L.fix()
@@ -3271,16 +3295,19 @@
 			if("floorlava")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor")
 				SSweather.run_weather(/datum/weather/floor_is_lava)
 				message_admins("[key_name_admin(usr)] made the floor lava")
 			if("fakelava")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor Fake")
 				SSweather.run_weather(/datum/weather/floor_is_lava/fake)
 				message_admins("[key_name_admin(usr)] made aesthetic lava on the floor")
 			if("weatherashstorm")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Weather Ash Storm")
 				SSweather.run_weather(/datum/weather/ash_storm)
 				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining level")
 			if("polymorph")
@@ -3288,6 +3315,7 @@
 			if("stupify")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Mass Braindamage")
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					to_chat(H, "<span class='danger'>You suddenly feel stupid.</span>", confidential=TRUE)
 					H.setBrainLoss(60)
@@ -3295,6 +3323,7 @@
 			if("fakeguns")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fake Guns")
 				for(var/obj/item/W in world)
 					if(isclothing(W) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
 						continue
@@ -3309,6 +3338,7 @@
 				if(!you_realy_want_do_this())
 					return
 
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				log_and_message_admins("made everything kawaii.")
 				for(var/mob/living/carbon/human/human in GLOB.mob_list)
 					SEND_SOUND(human, 'sound/AI/animes.ogg')
@@ -3332,6 +3362,7 @@
 			if("eagles")//
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Egalitarian Station")
 				for(var/obj/machinery/door/airlock/W in GLOB.airlocks)
 					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
@@ -3340,22 +3371,27 @@
 			if("onlyone")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One")
 				usr.client.only_one()
 				log_and_message_admins("has triggered HIGHLANDER")
 			if("onlyme")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only Me")
 				usr.client.only_me()
 			if("onlyoneteam")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One Team")
 				usr.client.only_one_team()
 //				message_admins("[key_name_admin(usr)] has triggered ")
 			if("rolldice")
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Roll The Dice")
 				usr.client.roll_dices()
 			if("guns")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Guns")
 				var/survivor_probability = 0
 				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
 					if("Some Antags")
@@ -3367,6 +3403,7 @@
 			if("magic")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Magic")
 				var/survivor_probability = 0
 				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
 					if("Some Antags")
@@ -3502,6 +3539,7 @@
 			if("moveminingshuttle")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Mining Shuttle")
 				if(!SSshuttle.toggleShuttle("mining","mining_home","mining_away"))
 					message_admins("[key_name_admin(usr)] moved mining shuttle")
 					log_admin("[key_name(usr)] moved the mining shuttle")
@@ -3509,6 +3547,7 @@
 			if("movelaborshuttle")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Labor Shuttle")
 				if(!SSshuttle.toggleShuttle("laborcamp","laborcamp_home","laborcamp_away"))
 					message_admins("[key_name_admin(usr)] moved labor shuttle")
 					log_admin("[key_name(usr)] moved the labor shuttle")
@@ -3516,6 +3555,7 @@
 			if("moveferry")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send CentComm Ferry")
 				if(!SSshuttle.toggleShuttle("ferry","ferry_home","ferry_away"))
 					message_admins("[key_name_admin(usr)] moved the centcom ferry")
 					log_admin("[key_name(usr)] moved the centcom ferry")
@@ -3523,6 +3563,7 @@
 			if("gammashuttle")
 				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Gamma Armory")
 				if(!SSshuttle.toggleShuttle("gamma_shuttle","gamma_home","gamma_away", TRUE))
 					message_admins("[key_name_admin(usr)] moved the gamma armory")
 					log_admin("[key_name(usr)] moved the gamma armory")

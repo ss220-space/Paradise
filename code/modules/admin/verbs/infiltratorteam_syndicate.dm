@@ -88,6 +88,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		if(!teamsize)
 			break
 	log_and_message_admins("has spawned a Syndicate Infiltration Team.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn SIT") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 // ---------------------------------------------------------------------------------------------------------
 

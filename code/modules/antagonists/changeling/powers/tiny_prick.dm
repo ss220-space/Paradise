@@ -117,6 +117,7 @@
 	add_attack_logs(user, target, "Extraction sting (changeling)")
 	if(!cling.get_dna(target.dna))
 		cling.absorb_dna(target)
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 
@@ -197,6 +198,7 @@
 							span_userdanger("You feel a tiny prick and a begin to uncontrollably convulse!"))
 
 	addtimer(CALLBACK(src, PROC_REF(victim_transformation), target, selected_dna), 1 SECONDS)
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 
@@ -224,6 +226,7 @@
 /datum/action/changeling/sting/mute/sting_action(mob/user, mob/living/carbon/target)
 	add_attack_logs(user, target, "Mute sting (changeling)")
 	target.AdjustSilence(60 SECONDS)
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 
@@ -250,6 +253,7 @@
 			target.update_nearsighted_effects()
 	target.EyeBlind(40 SECONDS)
 	target.EyeBlurry(80 SECONDS)
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 
@@ -270,6 +274,7 @@
 /datum/action/changeling/sting/LSD/sting_action(mob/user, mob/living/carbon/target)
 	add_attack_logs(user, target, "LSD sting (changeling)")
 	addtimer(CALLBACK(src, PROC_REF(start_hallucinations), target, 400 SECONDS), rand(30 SECONDS, 60 SECONDS))
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 /datum/action/changeling/sting/LSD/proc/start_hallucinations(mob/living/carbon/target, amount)
@@ -296,5 +301,6 @@
 	if(target.reagents)
 		target.reagents.add_reagent("frostoil", 30)
 		target.reagents.add_reagent("ice", 30)
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 

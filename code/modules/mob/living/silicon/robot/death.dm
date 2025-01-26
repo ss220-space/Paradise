@@ -70,3 +70,5 @@
 		RC.go_out()
 
 	update_icons()
+
+	SSblackbox.ReportDeath(src)

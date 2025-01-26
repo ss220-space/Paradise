@@ -27,4 +27,6 @@
 	user.get_up(instant = TRUE)
 	user.reagents.add_reagent("synaptizine", 20)
 	user.reagents.add_reagent("adrenaline", 2)
+
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE

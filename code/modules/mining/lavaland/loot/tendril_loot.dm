@@ -144,10 +144,10 @@
 /obj/item/book_of_babel/attack_self(mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_NO_BABEL))
 		user.visible_message(
-			span_notice("[user] внезапно останавлива[pluralize_ru(user, "ет", "ют")]ся, недоумённо глядя на [declent_ru(GENITIVE)]."),
+			span_notice("[user] внезапно останавлива[pluralize_ru(user, "ет", "ют")]ся, недоумённо глядя на [declent_ru(GENITIVE)]."), 
 			span_warning("Вы понятия не имеете, что это такое и что с этим делать.")
 		)
-
+			
 		return
 
 	to_chat(user, "Вы упоённо пролистываете страницы книги, вбирая в себя знания всех существующих языков во Вселенной. К сожалению, [declent_ru(NOMINATIVE)] не выдерживает такого напора и рассыпается в прах. Ой...")
@@ -294,6 +294,8 @@
 		set_light_on(FALSE)
 
 		user.update_sight()
+
+		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
 	else
 		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
 
@@ -305,6 +307,7 @@
 		user.update_sight()
 
 		update_icon(UPDATE_ICON_STATE)
+		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
 
 /obj/item/wisp_lantern/Initialize(mapload)
 	. = ..()
@@ -376,6 +379,7 @@
 		smoke.start()
 
 		user.forceMove(get_turf(linked))
+		SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 
 		var/datum/effect_system/smoke_spread/smoke2 = new
 		smoke2.set_up(1, 0, user.loc)
@@ -514,6 +518,7 @@
 		return
 
 	COOLDOWN_START(src, last_used_immortality_talisman, 60 SECONDS)
+	SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1)
 	user.visible_message(span_danger("[user] исчеза[pluralize_ru(user, "ет", "ют")] из реальности, оставляя после себя дыру в пространстве!"))
 
 	var/obj/effect/immortality_talisman/effect = new(source_turf)

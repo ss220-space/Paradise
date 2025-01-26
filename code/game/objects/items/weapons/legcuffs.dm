@@ -157,6 +157,9 @@
 		else
 			moving_human.apply_damage(trap_damage, BRUTE, (pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)))
 
+		if(moving_human.apply_restraints(src, ITEM_SLOT_LEGCUFFED)) //beartrap can't cuff you leg if there's already a beartrap or legcuffs.
+			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
+
 		return
 
 	moving_thing.apply_damage(trap_damage, BRUTE)
@@ -308,6 +311,7 @@
 	if(knockdown_amt)
 		target.Knockdown(knockdown_amt)
 	playsound(loc, hitsound, 50, TRUE)
+	SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 	if(!reusable)
 		item_flags |= DROPDEL
 

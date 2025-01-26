@@ -35,6 +35,8 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			uploaded_sound.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
 			SEND_SOUND(M, uploaded_sound)
 
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Sound") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
 
 /client/proc/play_local_sound(S as sound)
 	set category = "Admin.Sounds"
@@ -43,6 +45,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 	log_and_message_admins("played a local sound [S]")
 	playsound(get_turf(src.mob), S, 50, 0, 0)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Local Sound") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 
 /client/proc/play_web_sound()
@@ -110,6 +113,8 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 							to_chat(world, span_boldannounceooc("Сейчас играет: [webpage_url]"))
 						if("Cancel")
 							return
+
+					SSblackbox.record_feedback("nested tally", "played_url", 1, list("[ckey]", "[web_sound_input]"))
 					log_admin("[key_name(src)] played web sound: [web_sound_input]")
 					message_admins("[key_name(src)] played web sound: [web_sound_input]")
 			else
@@ -147,6 +152,8 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 				if(C.prefs.sound & SOUND_MIDI)
 					C.tgui_panel?.play_music(url, music_extra_data)
 
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Internet Sound")
+
 /client/proc/play_server_sound()
 	set category = "Admin.Sounds"
 	set name = "Play Server Sound"
@@ -159,6 +166,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	if(!melody)	return
 
 	play_sound(melody)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Server Sound") //If you are copy-pasting this, ensure the 2nd paramter is unique to the new proc!
 
 /client/proc/play_intercomm_sound()
 	set category = "Admin.Sounds"

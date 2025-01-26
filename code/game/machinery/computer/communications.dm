@@ -335,6 +335,7 @@
 		if("move_gamma_armory")
 			if(!FULL_ADMIN_CHECK(ui.user))
 				return
+			SSblackbox.record_feedback("tally", "admin_comms_console", 1, "Send Gamma Armory")
 			log_and_message_admins("moved the gamma armory")
 			if(!SSshuttle.toggleShuttle("gamma_shuttle","gamma_home","gamma_away", TRUE))
 				GLOB.gamma_ship_location = !GLOB.gamma_ship_location
@@ -366,6 +367,8 @@
 				print_command_report(params["text"], "Секретно: [params["subtitle"]]")
 
 			log_and_message_admins("has created a communications report: [params["text"]]")
+			// Okay but this is just an IC way of accessing the same verb
+			SSblackbox.record_feedback("tally", "admin_comms_console", 1, "Create CC Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /obj/machinery/computer/communications/proc/print_nuke_codes()
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)

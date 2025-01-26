@@ -110,6 +110,7 @@
 		)
 
 	add_attack_logs(user, target, "Handcuffed ([src])")
+	SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
 	if(trashtype && !dispense)
 		qdel(src)

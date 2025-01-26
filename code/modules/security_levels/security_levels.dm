@@ -78,6 +78,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					SEND_SOUND(M, sound('sound/effects/powerloss.ogg'))
 				set_stationwide_emergency_lighting()
 				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(epsilon_process)), 15 SECONDS)
+				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
 				return
 
 			if(SEC_LEVEL_DELTA)
@@ -87,9 +88,11 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				post_status(STATUS_DISPLAY_ALERT, "deltaalert")
 				set_stationwide_emergency_lighting()
 				update_station_firealarms()
+				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
 				return
 
 		SSnightshift.check_nightshift(TRUE)
+		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
 
 		if(GLOB.sibsys_automode && !isnull(GLOB.sybsis_registry))
 			for(var/obj/item/sibyl_system_mod/mod as anything in GLOB.sybsis_registry)

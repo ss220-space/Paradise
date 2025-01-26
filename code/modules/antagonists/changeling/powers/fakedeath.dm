@@ -25,6 +25,7 @@
 	var/stasis_delay = LING_FAKEDEATH_TIME + cling.fakedeath_delay
 	addtimer(CALLBACK(src, PROC_REF(ready_to_regenerate), user), stasis_delay)
 	to_chat(user, span_changeling("We begin our stasis, preparing energy to arise once more. This process will take <b>[stasis_delay / 10] seconds</b>."))
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 

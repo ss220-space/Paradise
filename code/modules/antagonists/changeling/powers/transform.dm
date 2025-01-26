@@ -17,5 +17,6 @@
 
 	transform_dna(user, chosen_dna)
 	cling.update_languages()
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 

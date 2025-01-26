@@ -97,6 +97,7 @@
 	I.play_tool_sound(src)
 	. |= (ATTACK_CHAIN_BLOCKED_ALL)
 	attempt_drill(user)
+	SSblackbox.record_feedback("tally", "pick_used_mining", 1, I.name)
 
 
 /turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE, override_bonus = FALSE)
@@ -113,6 +114,7 @@
 		new cached_mineralType(src, cached_mineralAmt)
 		if(is_mining_level(z))
 			SSticker?.score?.score_ore_mined++ // Only include ore spawned on mining level
+		SSblackbox.record_feedback("tally", "ore_mined", cached_mineralAmt, cached_mineralType)
 
 
 /turf/simulated/mineral/proc/attempt_drill(mob/user,triggered_by_explosion = FALSE, power = 1)

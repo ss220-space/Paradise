@@ -22,6 +22,9 @@
 	else
 		return ..()
 
+/datum/construction/mecha/spawn_result(name)
+	SSblackbox.record_feedback("tally", "mechas_created", 1, "[name]")
+
 /datum/construction/reversible/mecha/custom_action(index as num, diff as num, atom/used_atom, mob/user as mob)
 	if(istype(used_atom, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used_atom

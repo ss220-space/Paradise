@@ -113,6 +113,33 @@ CREATE TABLE `customuseritems` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `death`
+--
+
+DROP TABLE IF EXISTS `death`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `death` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pod` text NOT NULL COMMENT 'Place of death',
+  `coord` text NOT NULL COMMENT 'X, Y, Z POD',
+  `tod` datetime NOT NULL COMMENT 'Time of death',
+  `job` text NOT NULL,
+  `special` text NOT NULL,
+  `name` text NOT NULL,
+  `byondkey` text NOT NULL,
+  `laname` text NOT NULL COMMENT 'Last attacker name',
+  `lakey` text NOT NULL COMMENT 'Last attacker key',
+  `gender` text NOT NULL,
+  `bruteloss` int(11) NOT NULL,
+  `brainloss` int(11) NOT NULL,
+  `fireloss` int(11) NOT NULL,
+  `oxyloss` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=166546 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `donators`
 --
 
@@ -204,6 +231,25 @@ CREATE TABLE `ban` (
   KEY `computerid` (`computerid`),
   KEY `ip` (`ip`)
 ) ENGINE=InnoDB AUTO_INCREMENT=58903 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `feedback`
+--
+
+DROP TABLE IF EXISTS `feedback`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `feedback` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `datetime` datetime NOT NULL,
+  `round_id` int(8) NOT NULL,
+  `key_name` varchar(32) NOT NULL,
+  `key_type` enum('text', 'amount', 'tally', 'nested tally', 'associative') NOT NULL,
+  `version` tinyint(3) UNSIGNED NOT NULL,
+  `json` LONGTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=257638 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

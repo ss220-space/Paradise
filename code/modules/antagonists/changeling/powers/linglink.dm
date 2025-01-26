@@ -92,6 +92,8 @@
 
 	addtimer(CALLBACK(src, PROC_REF(remove_language), target, user), time MINUTES, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
+
 	return TRUE
 
 

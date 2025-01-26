@@ -95,6 +95,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 	GLOB.hivemind_bank += chosen_dna
 	to_chat(user, span_notice("We channel the DNA of [chosen_dna.real_name] to the air."))
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 
@@ -115,5 +116,6 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	var/datum/dna/chosen_dna = names[choice]
 	cling.store_dna(chosen_dna)
 	to_chat(user, span_notice("We absorb the DNA of [choice] from the air."))
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 

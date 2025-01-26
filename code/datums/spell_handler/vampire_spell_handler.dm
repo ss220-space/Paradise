@@ -65,6 +65,7 @@
 	if(!vampire)
 		return
 	to_chat(user, span_boldnotice("У Вас осталось [vampire.bloodusable] единиц крови."))
+	SSblackbox.record_feedback("tally", "vampire_powers_used", 1, "[spell]") // Only log abilities which require blood
 
 /datum/spell_handler/vampire/goon/revert_cast(mob/living/carbon/user, obj/effect/proc_holder/spell/spell)
 	var/datum/antagonist/vampire/vampire = user?.mind?.has_antag_datum(/datum/antagonist/vampire)

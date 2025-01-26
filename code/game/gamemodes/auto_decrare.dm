@@ -22,15 +22,19 @@
 			for(var/datum/objective/objective in all_objectives)
 				if(objective.check_completion())
 					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
+					SSblackbox.record_feedback("nested tally", "morph_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
 					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
+					SSblackbox.record_feedback("nested tally", "morph_objective", 1, list("[objective.type]", "FAIL"))
 					traitorwin = FALSE
 				count++
 
 		if(traitorwin)
 			text += "<br><font color='green'><B>Морф был успешен!</B></font>"
+			SSblackbox.record_feedback("tally", "morph_success", 1, "SUCCESS")
 		else
 			text += "<br><font color='red'><B>Морф провалился!</B></font>"
+			SSblackbox.record_feedback("tally", "morph_success", 1, "FAIL")
 	to_chat(world, text)
 	return TRUE
 
@@ -58,15 +62,19 @@
 			for(var/datum/objective/objective in all_objectives)
 				if(objective.check_completion())
 					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
+					SSblackbox.record_feedback("nested tally", "revenant_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
 					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
+					SSblackbox.record_feedback("nested tally", "revenant_objective", 1, list("[objective.type]", "FAIL"))
 					traitorwin = FALSE
 				count++
 
 		if(traitorwin)
 			text += "<br><font color='green'><B>Ревенант был успешен!</B></font>"
+			SSblackbox.record_feedback("tally", "revenant_success", 1, "SUCCESS")
 		else
 			text += "<br><font color='red'><B>Ревенант провалился!</B></font>"
+			SSblackbox.record_feedback("tally", "revenant_success", 1, "FAIL")
 	to_chat(world, text)
 	return TRUE
 
@@ -96,15 +104,19 @@
 			for(var/datum/objective/objective in all_objectives)
 				if(objective.check_completion())
 					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
+					SSblackbox.record_feedback("nested tally", "honksquad_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
 					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
+					SSblackbox.record_feedback("nested tally", "honksquad_objective", 1, list("[objective.type]", "FAIL"))
 					traitorwin = FALSE
 				count++
 
 		if(traitorwin)
 			text += "<br><font color='green'><B>Член Хонксквада был успешен!</B></font>"
+			SSblackbox.record_feedback("tally", "honksquad_success", 1, "SUCCESS")
 		else
 			text += "<br><font color='red'><B>Член Хонксквада провалился!</B></font>"
+			SSblackbox.record_feedback("tally", "honksquad_success", 1, "FAIL")
 	to_chat(world, text)
 	return TRUE
 
@@ -134,15 +146,19 @@
 			for(var/datum/objective/objective in all_objectives)
 				if(objective.check_completion())
 					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
+					SSblackbox.record_feedback("nested tally", "deathsquad_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
 					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
+					SSblackbox.record_feedback("nested tally", "deathsquad_objective", 1, list("[objective.type]", "FAIL"))
 					traitorwin = FALSE
 				count++
 
 		if(traitorwin)
 			text += "<br><font color='green'><B>Боец Отряда Смерти был успешен!</B></font>"
+			SSblackbox.record_feedback("tally", "deathsquad_success", 1, "SUCCESS")
 		else
 			text += "<br><font color='red'><B>Боец Отряда Смерти провалился!</B></font>"
+			SSblackbox.record_feedback("tally", "deathsquad_success", 1, "FAIL")
 	to_chat(world, text)
 	return TRUE
 
@@ -172,15 +188,19 @@
 			for(var/datum/objective/objective in all_objectives)
 				if(objective.check_completion())
 					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
+					SSblackbox.record_feedback("nested tally", "sst_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
 					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
+					SSblackbox.record_feedback("nested tally", "sst_objective", 1, list("[objective.type]", "FAIL"))
 					traitorwin = FALSE
 				count++
 
 		if(traitorwin)
 			text += "<br><font color='green'><B>Боец Ударного Отряда Синдиката успешен!</B></font>"
+			SSblackbox.record_feedback("tally", "sst_success", 1, "SUCCESS")
 		else
 			text += "<br><font color='red'><B>Боец Ударного Отряда Синдиката провалился!</B></font>"
+			SSblackbox.record_feedback("tally", "sst_success", 1, "FAIL")
 	to_chat(world, text)
 	return TRUE
 
@@ -210,14 +230,18 @@
 			for(var/datum/objective/objective in all_objectives)
 				if(objective.check_completion())
 					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
+					SSblackbox.record_feedback("nested tally", "sit_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
 					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
+					SSblackbox.record_feedback("nested tally", "sit_objective", 1, list("[objective.type]", "FAIL"))
 					traitorwin = FALSE
 				count++
 
 		if(traitorwin)
 			text += "<br><font color='green'><B>Агент Диверсионного Отряда Синдиката был успешен!</B></font>"
+			SSblackbox.record_feedback("tally", "sit_success", 1, "SUCCESS")
 		else
 			text += "<br><font color='red'><B>Агент Диверсионного Отряда Синдиката провалился!</B></font>"
+			SSblackbox.record_feedback("tally", "sit_success", 1, "FAIL")
 	to_chat(world, text)
 	return TRUE

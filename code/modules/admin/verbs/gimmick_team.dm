@@ -97,5 +97,6 @@
 
 
 	log_and_message_admins("used Spawn Gimmick Team.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Gimmick Team") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 // ---------------------------------------------------------------------------------------------------------

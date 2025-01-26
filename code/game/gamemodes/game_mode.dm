@@ -197,16 +197,81 @@
 
 
 /datum/game_mode/proc/declare_completion()
+	var/clients = 0
+	var/surviving_humans = 0
 	var/surviving_total = 0
 	var/ghosts = 0
+	var/escaped_humans = 0
+	var/escaped_total = 0
+	var/escaped_on_pod_1 = 0
+	var/escaped_on_pod_2 = 0
+	var/escaped_on_pod_3 = 0
+	var/escaped_on_pod_5 = 0
+	var/escaped_on_shuttle = 0
+
+	var/list/area/escape_locations = list(/area/shuttle/escape, /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom)
+
+	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME) //shuttle didn't get to centcom
+		escape_locations -= /area/shuttle/escape
 
 	for(var/mob/player in GLOB.player_list)
 		if(player.client)
+			clients++
+
+			var/area/player_area = get_area(player)
+
+			if(ishuman(player))
+				if(!player.stat)
+					surviving_humans++
+					if(player_area?.type in escape_locations)
+						escaped_humans++
+
 			if(!player.stat)
-				surviving_total++ //bruh. Beeb - Мы и так не исользуем вебхук, неизвестно почему, но такое вот решение
+				surviving_total++
+
+				if(player_area?.type in escape_locations)
+					escaped_total++
+
+				if(player_area?.type == SSshuttle.emergency.areaInstance.type && SSshuttle.emergency.mode == SHUTTLE_ENDGAME)
+					escaped_on_shuttle++
+
+				if(player_area?.type == /area/shuttle/escape_pod1/centcom)
+					escaped_on_pod_1++
+
+				if(player_area?.type == /area/shuttle/escape_pod2/centcom)
+					escaped_on_pod_2++
+
+				if(player_area?.type == /area/shuttle/escape_pod3/centcom)
+					escaped_on_pod_3++
+
+				if(player_area?.type == /area/shuttle/escape_pod5/centcom)
+					escaped_on_pod_5++
 
 			if(isobserver(player))
 				ghosts++
+
+	if(clients)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", clients, list("clients"))
+	if(ghosts)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", ghosts, list("ghosts"))
+	if(surviving_humans)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", surviving_humans, list("survivors", "human"))
+	if(surviving_total)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", surviving_total, list("survivors", "total"))
+	if(escaped_humans)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_humans, list("escapees", "human"))
+	if(escaped_total)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_total, list("escapees", "total"))
+	if(escaped_on_shuttle)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_shuttle, list("escapees", "on_shuttle"))
+	if(escaped_on_pod_1)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_1, list("escapees", "on_pod_1"))
+	if(escaped_on_pod_2)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_2, list("escapees", "on_pod_2"))
+	if(escaped_on_pod_3)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_3, list("escapees", "on_pod_3"))
+	if(escaped_on_pod_5)
+		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_5, list("escapees", "on_pod_5"))
 
 	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts. Round ID - [GLOB.round_id]. Duration - [ROUND_TIME_TEXT()]")
 	return FALSE

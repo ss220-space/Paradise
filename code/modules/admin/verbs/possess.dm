@@ -26,6 +26,7 @@
 	usr.client.eye = O
 	usr.control_object = O
 	SEND_SIGNAL(O, COMSIG_OBJ_POSSESSED, usr)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Possess Object") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /proc/release(obj/O as obj in world)
 	set name = "\[Admin\] Release Obj"
@@ -46,3 +47,4 @@
 	usr.client.eye = usr
 	usr.control_object = null
 	SEND_SIGNAL(O, COMSIG_OBJ_RELEASED, usr)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Release Object") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!

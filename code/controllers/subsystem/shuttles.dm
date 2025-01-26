@@ -477,6 +477,7 @@ SUBSYSTEM_DEF(shuttle)
 	SSshuttle.initial_load()
 
 	log_and_message_admins(span_notice("[key_name(usr)] re-registered docking ports for SSshuttle."))
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Re-register Docking Ports") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 
 #undef CALL_SHUTTLE_REASON_LENGTH

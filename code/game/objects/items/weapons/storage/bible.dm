@@ -212,6 +212,8 @@
 	item_state = choice_icons["inhand"]
 	customisable = FALSE
 
+	SSblackbox.record_feedback("text", "religion_book", 1, "[choice]", 1)
+
 	if(SSticker)
 		SSticker.Bible_name = name
 		SSticker.Bible_icon_state = icon_state

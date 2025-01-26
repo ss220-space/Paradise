@@ -52,8 +52,10 @@
 	to_chat(world, "<B>Целью блобов было:</B>")
 	if(blob_objective.check_completion() && (!station_was_nuked || blob_stage == BLOB_STAGE_POST_END))
 		to_chat(world, "<br/>[blob_objective.explanation_text] <font color='green'><B>Успех!</B></font>")
+		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[blob_objective.type]", "SUCCESS"))
 	else
 		to_chat(world, "<br/>[blob_objective.explanation_text] <font color='red'>Провал.</font>")
+		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[blob_objective.type]", "FAIL"))
 	return TRUE
 
 

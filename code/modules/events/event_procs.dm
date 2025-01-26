@@ -15,6 +15,7 @@
 	set category = "Admin.Event"
 	if(SSevents)
 		SSevents.Interact(usr)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Event Manager") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
 

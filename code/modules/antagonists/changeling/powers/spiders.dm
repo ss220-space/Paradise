@@ -13,5 +13,7 @@
 	for(var/i in 1 to 2)
 		var/obj/structure/spider/spiderling/spider = new(user.loc)
 		spider.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter
+
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 

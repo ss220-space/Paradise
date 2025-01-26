@@ -136,8 +136,18 @@
 				for(var/datum/objective/objective in all_objectives)
 					if(objective.check_completion())
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
+						if(istype(objective, /datum/objective/steal))
+							var/datum/objective/steal/steal_objective = objective
+							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [steal_objective.steal_target]", "SUCCESS"))
+						else
+							SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
+						if(istype(objective, /datum/objective/steal))
+							var/datum/objective/steal/steal_objective = objective
+							SSblackbox.record_feedback("nested tally", "traitor_steal_objective", 1, list("Steal [steal_objective.steal_target]", "FAIL"))
+						else
+							SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
 						traitorwin = FALSE
 					count++
 
@@ -169,8 +179,10 @@
 
 			if(traitorwin)
 				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font><br>"
+				SSblackbox.record_feedback("tally", "traitor_success", 1, "SUCCESS")
 			else
 				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font><br>"
+				SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
 
 		if(length(SSticker.mode.implanted))
 			text += "<br><br><FONT size = 2><B>The mindslaves were:</B></FONT><br>"

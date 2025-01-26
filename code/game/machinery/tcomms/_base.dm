@@ -372,6 +372,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		// --- Some more pre-message formatting ---
 		var/part_b = "</span> <span class='message'>" // Tweaked for security headsets -- TLE
 
+		// --- This following recording is intended for research and feedback in the use of department radio channels ---
+
+		SSblackbox.LogBroadcast(display_freq)
+
 	 /* ###### Send the message ###### */
 
 

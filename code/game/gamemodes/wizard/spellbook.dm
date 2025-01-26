@@ -49,6 +49,7 @@
 				aspell.on_purchase_upgrade()
 				return TRUE
 	//No same spell found - just learn it
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	user.mind.AddSpell(newspell)
 	to_chat(user, "<span class='notice'>You have learned [newspell.name].</span>")
 	return TRUE
@@ -363,6 +364,7 @@
 	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/guns/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	rightandwrong(SUMMON_GUNS, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
@@ -375,6 +377,7 @@
 	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/magic/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	rightandwrong(SUMMON_MAGIC, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
@@ -394,6 +397,7 @@
 		user.put_in_hands(new item_path)
 	else
 		new item_path(user.loc)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	return TRUE
 
 /datum/spellbook_entry/item/GetInfo()

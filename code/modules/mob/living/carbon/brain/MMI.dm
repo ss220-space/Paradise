@@ -93,6 +93,7 @@
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 		if(radio_action)
 			radio_action.UpdateButtonIcon()
+		SSblackbox.record_feedback("amount", "mmis_filled", 1)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/mmi_radio_upgrade))

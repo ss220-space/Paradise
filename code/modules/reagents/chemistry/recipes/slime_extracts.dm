@@ -10,6 +10,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimespawn/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/mob/living/simple_animal/slime/S = new(get_turf(holder.my_atom), "grey")
 	S.visible_message("<span class='danger'>Infused with plasma, the core begins to quiver and grow, and a new baby slime emerges from it!</span>")
 
@@ -22,6 +23,9 @@
 	required_other = 1
 	required_container = /obj/item/slime_extract/grey
 
+/datum/chemical_reaction/slimeinaprov/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+
 /datum/chemical_reaction/slimemonkey
 	name = "Slime Monkey"
 	id = "m_monkey"
@@ -32,6 +36,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimemonkey/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	for(var/i = 1, i <= 3, i++)
 		var/obj/item/reagent_containers/food/snacks/monkeycube/M = new
 		M.forceMove(get_turf(holder.my_atom))
@@ -46,6 +51,9 @@
 	required_other = 1
 	required_container = /obj/item/slime_extract/green
 
+/datum/chemical_reaction/slimemutate/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+
 /datum/chemical_reaction/slimepotionbio
 	name = "Slime Bio Resistence Potion"
 	id = "m_slime_potion_BioR"
@@ -56,6 +64,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimepotionbio/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/clothing/bio/B = new
 	B.forceMove(get_turf(holder.my_atom))
 
@@ -70,6 +79,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimemetal/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/turf/location = get_turf(holder.my_atom)
 	new /obj/item/stack/sheet/plasteel (location, 5)
 	new /obj/item/stack/sheet/metal (location, 15)
@@ -84,6 +94,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimeglass/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/turf/location = get_turf(holder.my_atom)
 	new /obj/item/stack/sheet/rglass (location, 5)
 	new /obj/item/stack/sheet/glass (location, 15)
@@ -99,6 +110,7 @@
 	required_other = TRUE
 
 /datum/chemical_reaction/slimemobspawn/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/turf/T = get_turf(holder.my_atom)
 	summon_mobs(holder, T)
 
@@ -147,6 +159,8 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimebork/on_reaction(datum/reagents/holder)
+
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/list/blocked = list(/obj/item/reagent_containers/food/snacks,
 		/obj/item/reagent_containers/food/snacks/breadslice,
 		/obj/item/reagent_containers/food/snacks/sliceable,
@@ -192,6 +206,8 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimebork2/on_reaction(datum/reagents/holder)
+
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/list/borks = subtypesof(/obj/item/reagent_containers/food/drinks)
 	var/list/blocked = list(/obj/item/reagent_containers/food/drinks/cans/adminbooze,
 							/obj/item/reagent_containers/food/drinks/cans/madminmalt,
@@ -235,6 +251,9 @@
 	required_container = /obj/item/slime_extract/blue
 	required_other = 1
 
+/datum/chemical_reaction/slimefrost/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+
 /datum/chemical_reaction/slimestabilizer
 	name = "Slime Stabilizer"
 	id = "m_slimestabilizer"
@@ -245,6 +264,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimestabilizer/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/slime/stabilizer/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
@@ -260,6 +280,7 @@
 
 
 /datum/chemical_reaction/slimefreeze/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message(span_danger("The slime extract begins to vibrate adorably!"))
 	addtimer(CALLBACK(src, PROC_REF(delayed_freeze), holder), 5 SECONDS)
@@ -284,6 +305,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimefireproof/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/clothing/fireproof/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
@@ -297,6 +319,8 @@
 	required_container = /obj/item/slime_extract/orange
 	required_other = 1
 
+/datum/chemical_reaction/slimecasp/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 
 /datum/chemical_reaction/slimefire
 	name = "Slime fire"
@@ -308,6 +332,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimefire/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/turf/TU = get_turf(holder.my_atom)
 	TU.visible_message("<span class='danger'>The slime extract begins to vibrate adorably !</span>")
 	spawn(50)
@@ -328,6 +353,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimeoverload/on_reaction(datum/reagents/holder, created_volume)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	empulse(get_turf(holder.my_atom), 3, 7, TRUE, "Slime core")
 
 
@@ -341,6 +367,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimecell/on_reaction(datum/reagents/holder, created_volume)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/stock_parts/cell/high/slime/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
@@ -354,6 +381,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimeglow/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message("<span class='danger'>The slime begins to emit a soft light. Squeezing it will cause it to grow brightly.</span>")
 	var/obj/item/flashlight/slime/F = new
@@ -371,6 +399,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimepsteroid/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/slime/steroid/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
@@ -383,6 +412,8 @@
 	required_container = /obj/item/slime_extract/purple
 	required_other = 1
 
+/datum/chemical_reaction/slimejam/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 
 
 //Dark Purple
@@ -396,6 +427,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimeplasma/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/turf/location = get_turf(holder.my_atom)
 	new /obj/item/stack/sheet/mineral/plasma (location, 3)
 
@@ -409,6 +441,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimeplasmaglass/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/turf/location = get_turf(holder.my_atom)
 	new /obj/item/stack/sheet/plasmaglass (location, 2)
 
@@ -423,6 +456,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimemutator/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/slime/mutator/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
@@ -436,6 +470,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimebloodlust/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	for(var/mob/living/simple_animal/slime/slime in viewers(get_turf(holder.my_atom), null))
 		if(slime.docile) //Undoes docility, but doesn't make rabid.
 			slime.visible_message("<span class='danger'>[slime] forgets its training, becoming wild once again!</span>")
@@ -456,6 +491,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimespeed/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/speed/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
@@ -471,6 +507,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/docility/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/slime/docility/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
@@ -484,6 +521,8 @@
 	required_other = 1
 	required_container = /obj/item/slime_extract/black
 
+/datum/chemical_reaction/slimemutate2/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 
 /datum/chemical_reaction/slimeacid
 	name = "Slime Acid Resistence Potion"
@@ -495,6 +534,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimeacid/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/clothing/acidproof/A = new
 	A.forceMove(get_turf(holder.my_atom))
 
@@ -509,6 +549,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimeexplosion/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/turf/T = get_turf(holder.my_atom)
 	message_admins("[ADMIN_LOOKUPFLW(usr)] has primed a [name] for detonation at [ADMIN_VERBOSEJMP(T)]")
 	add_attack_logs(usr, src, "has primed for detonation", ATKLOG_MOST)
@@ -527,6 +568,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimepotionexplosion/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/clothing/explosionresistencte/E = new
 	E.forceMove(get_turf(holder.my_atom))
 
@@ -541,6 +583,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimepotion2/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/sentience/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
@@ -555,6 +598,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimegolem/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	new /obj/item/stack/sheet/mineral/adamantine(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/moenkeylanguage
@@ -566,6 +610,8 @@
 	required_container = /obj/item/slime_extract/pink
 	required_other = 1
 
+/datum/chemical_reaction/moenkeylanguage/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 
 /datum/chemical_reaction/slimedamage
 	name = "Slime Damage Resistence Potion"
@@ -577,6 +623,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimedamage/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/clothing/damage/D = new
 	D.forceMove(get_turf(holder.my_atom))
 
@@ -591,6 +638,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimefloor2/on_reaction(datum/reagents/holder, created_volume)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	new /obj/item/stack/tile/bluespace(get_turf(holder.my_atom), 25)
 
 /datum/chemical_reaction/slimeteleportation
@@ -603,6 +651,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimeteleportation/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/clothing/teleportation/T = new
 	T.forceMove(get_turf(holder.my_atom))
 
@@ -616,6 +665,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimecrystal/on_reaction(datum/reagents/holder, created_volume)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	if(holder.my_atom)
 		var/obj/item/stack/ore/bluespace_crystal/BC = new(get_turf(holder.my_atom))
 		BC.visible_message("<span class='notice'>The [BC.name] appears out of thin air!</span>")
@@ -631,6 +681,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimepsteroid2/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/enhancer/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
@@ -646,6 +697,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slime_territory/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/areaeditor/blueprints/slime/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
@@ -660,6 +712,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimestop/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/mob/mob = get_mob_by_key(holder.my_atom.fingerprintslast)
 	var/obj/effect/timestop/T = new
 	T.forceMove(get_turf(holder.my_atom))
@@ -676,6 +729,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimepotionlaser/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/clothing/laserresistance/L = new
 	L.forceMove(get_turf(holder.my_atom))
 
@@ -689,6 +743,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimecamera/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/camera/P = new
 	P.forceMove(get_turf(holder.my_atom))
 	var/obj/item/camera_film/Z = new
@@ -704,6 +759,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimefloor/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	new /obj/item/stack/tile/sepia(get_turf(holder.my_atom), 25)
 
 
@@ -720,6 +776,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimepaint/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/list/paints = subtypesof(/obj/item/reagent_containers/glass/paint)
 	var/chosen = pick(paints)
 	var/obj/P = new chosen
@@ -736,6 +793,7 @@
 	required_other = 1
 
 /datum/chemical_reaction/slimepotionrad/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/clothing/radiation/R = new
 	R.forceMove(get_turf(holder.my_atom))
 
@@ -750,6 +808,7 @@
 	required_container = /obj/item/slime_extract/rainbow
 
 /datum/chemical_reaction/slimeRNG/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/mob/living/simple_animal/slime/random/S = new (get_turf(holder.my_atom))
 	S.visible_message("<span class='danger'>Infused with plasma, the core begins to quiver and grow, and a new baby slime emerges from it!</span>")
 
@@ -763,5 +822,6 @@
 	required_container = /obj/item/slime_extract/rainbow
 
 /datum/chemical_reaction/slime_transfer/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slimepotion/transference/P = new
 	P.forceMove(get_turf(holder.my_atom))

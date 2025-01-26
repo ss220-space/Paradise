@@ -13,7 +13,7 @@
 	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Priest","Monk","Preacher","Reverend","Oracle","Nun","Imam","Exorcist")
 	outfit = /datum/outfit/job/chaplain
-
+	
 	//God will not give you a salary roflcat
 	salary = 60
 	min_start_money = 10
@@ -76,6 +76,7 @@
 			B.name = pick("Principle of Relativity", "Quantum Enigma: Physics Encounters Consciousness", "Programming the Universe", "Quantum Physics and Theology", "String Theory for Dummies", "How To: Build Your Own Warp Drive", "The Mysteries of Bluespace", "Playing God: Collector's Edition")
 		else
 			B.name = "The Holy Book of [new_religion]"
+	SSblackbox.record_feedback("text", "religion_name", 1, "[new_religion]", 1)
 
 	var/deity_name = "Space Jesus"
 	var/new_deity = copytext_char(clean_input("Who or what do you worship? Default is Space Jesus.", "Name change", deity_name, user), 1, MAX_NAME_LEN)
@@ -83,6 +84,7 @@
 	if(!length(new_deity) || (new_deity == "Space Jesus"))
 		new_deity = deity_name
 	B.deity_name = new_deity
+	SSblackbox.record_feedback("text", "religion_deity", 1, "[new_deity]", 1)
 
 	user.AddSpell(new /obj/effect/proc_holder/spell/chaplain_bless(null))
 

@@ -42,6 +42,8 @@
 				user.visible_message(span_danger("[user] stabs [target] with the proboscis!"), span_notice("We stab [target] with the proboscis."))
 				to_chat(target, span_danger("You feel a sharp stabbing pain!"))
 				target.take_overall_damage(40)
+
+		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[stage]"))
 		if(!do_after(user, 15 SECONDS, target, NONE) || !can_sting(user, TRUE))
 			to_chat(user, span_warning("Our absorption of [target] has been interrupted!"))
 			cling.is_absorbing = FALSE

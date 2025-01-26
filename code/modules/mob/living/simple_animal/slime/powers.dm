@@ -279,6 +279,7 @@
 	babies += M
 	if(can_mutate)
 		M.mutation_chance = clamp(mutation_chance+(rand(5,-5)),0,100)
+	SSblackbox.record_feedback("tally", "slime_babies_born", 1, M.colour)
 
 /datum/action/innate/slime/reproduce
 	name = "Reproduce"

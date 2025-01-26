@@ -92,6 +92,10 @@
 		//Handle species-specific deaths.
 		dna.species.handle_death(gibbed, src)
 
+	if(SSticker && SSticker.mode)
+		SSblackbox.ReportDeath(src)
+
+
 /mob/living/carbon/human/update_revive(updating, defib_revive)
 	. = ..()
 	if(. && healthdoll)

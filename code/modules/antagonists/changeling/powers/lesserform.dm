@@ -30,5 +30,7 @@
 	user.force_gene_block(GLOB.monkeyblock, TRUE)
 
 	cling.give_power(new /datum/action/changeling/humanform)
+
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 

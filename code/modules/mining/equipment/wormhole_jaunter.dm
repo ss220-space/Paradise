@@ -16,6 +16,7 @@
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
 	user.visible_message(span_notice("[user.name] activates the [name]!"))
+	SSblackbox.record_feedback("tally", "jaunter", 1, "User") // user activated
 	activate(user, TRUE)
 
 
@@ -66,6 +67,7 @@
 
 	if(!.)
 		to_chat(user, span_notice("Your [name] activates, saving you from the chasm!"))
+		SSblackbox.record_feedback("tally", "jaunter", 1, "Chasm") // chasm automatic activation
 
 
 /obj/item/wormhole_jaunter/emag_act(mob/user)

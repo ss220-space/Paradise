@@ -36,6 +36,7 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of"
 
 	//show it to the person adminhelping too
 	to_chat(src, span_boldnotice("[selected_type]</b>: [msg]"), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Adminhelp") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 	switch(selected_type)
 		if("Adminhelp")

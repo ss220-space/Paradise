@@ -370,6 +370,7 @@
 #include "code\controllers\subsystem\non-firing\alarm.dm"
 #include "code\controllers\subsystem\non-firing\assets.dm"
 #include "code\controllers\subsystem\non-firing\atoms.dm"
+#include "code\controllers\subsystem\non-firing\blackbox.dm"
 #include "code\controllers\subsystem\non-firing\cargo_quests.dm"
 #include "code\controllers\subsystem\non-firing\discord.dm"
 #include "code\controllers\subsystem\non-firing\holiday.dm"
