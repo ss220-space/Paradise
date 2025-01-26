@@ -182,7 +182,10 @@ const ChemDispenserBeaker = (properties, context) => {
               />
               <Button
                 content="Округлить"
-                tooltip={'Удаляет лишнее, округляя объём до ' + Math.trunc(chemical.volume)}
+                tooltip={
+                  'Удаляет лишнее, округляя объём до ' +
+                  Math.trunc(chemical.volume)
+                }
                 icon="arrow-circle-down"
                 onClick={() =>
                   act('remove', {

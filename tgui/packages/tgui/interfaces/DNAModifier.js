@@ -641,7 +641,9 @@ const DNAModifierIrradiating = (props, context) => {
       <Box color="label">
         <h3>
           В течении {props.duration} секунд
-          {(props.duration % 10 === 1) && !(props.duration % 100 === 11) ? 'ы' : ''}
+          {props.duration % 10 === 1 && !(props.duration % 100 === 11)
+            ? 'ы'
+            : ''}
         </h3>
       </Box>
     </Dimmer>
