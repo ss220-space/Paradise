@@ -902,7 +902,7 @@ so as to remain in compliance with the most up-to-date laws."
 
 /atom/movable/screen/alert/unpossess_object
 	name = "Unpossess"
-	desc = "Этот объект под вашим контролем. Что бы перестать его контролировать - нажмите сюда."
+	desc = "Этот объект под вашим контролем. Нажмите сюда для прекращения контроля."
 	icon_state = "buckled"
 
 /atom/movable/screen/alert/unpossess_object/Click()
@@ -911,4 +911,4 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!.)
 		return
 
-	qdel(owner.GetComponent(/datum/component/object_possession))
+	qdel(usr.GetComponent(/datum/component/object_possession))

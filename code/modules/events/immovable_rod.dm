@@ -190,13 +190,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 	return ..()
 
-
-/obj/effect/immovablerod/possessed_relay_move(mob/user, direction)
-	. = ..()
-	if(. && !admin_spawned)
-		walk_in_direction(direction)
-
-
 /obj/effect/immovablerod/proc/on_entering_atom(datum/source, atom/destination, atom/oldloc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
