@@ -68,6 +68,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		admin_spawned = TRUE
 
 	RegisterSignal(src, COMSIG_ATOM_ENTERING, PROC_REF(on_entering_atom))
+	RegisterSignal(src, COMSIG_POSSESSED_MOVEMENT, PROC_REF(possessed_relay_move))
 
 	if(dnd_style_level_up)
 		update_appearance(UPDATE_NAME)
@@ -82,10 +83,15 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 
 /obj/effect/immovablerod/Destroy(force)
-	UnregisterSignal(src, COMSIG_ATOM_ENTERING)
+	UnregisterSignal(src, list(
+		COMSIG_ATOM_ENTERING,
+		COMSIG_POSSESSED_MOVEMENT
+		))
+
 	destination_turf = null
 	special_target = null
 	GLOB.poi_list -= src
+	
 	return ..()
 
 
@@ -189,6 +195,16 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 			return
 
 	return ..()
+
+
+/obj/effect/immovablerod/proc/possessed_relay_move(datum/source, mob/user, new_loc, direction)
+	SIGNAL_HANDLER
+
+	if(admin_spawned)
+		return
+
+	walk_in_direction(direction)
+
 
 /obj/effect/immovablerod/proc/on_entering_atom(datum/source, atom/destination, atom/oldloc, list/atom/old_locs)
 	SIGNAL_HANDLER

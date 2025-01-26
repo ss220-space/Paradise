@@ -111,19 +111,15 @@
 
 	. = COMPONENT_MOVABLE_BLOCK_PRE_MOVE // both signals that invoke this are explicitly tied to listen for this define as the return value
 
-	if(QDELETED(possessed))
-		return
-
 	if(!possessed.density)
 		possessed.forceMove(get_step(possessed, direct))
 
 	else
 		step(possessed, direct)
 
-	if(QDELETED(possessed))
-		return
-
 	possessed.setDir(direct)
+	SEND_SIGNAL(possessed, COMSIG_POSSESSED_MOVEMENT, source, new_loc, direct)
+
 	return
 
 /// Just the overall "get me outta here" proc.

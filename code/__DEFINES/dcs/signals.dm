@@ -1290,3 +1290,6 @@
 
 /// Source: /proc/random_hair_style (mob/living/carbon/human/human, valid_hairstyles, robohead)
 #define COMSIG_RANDOM_HAIR_STYLE	"random_hair_style"
+
+/// Source: /datum/component/object_possession/proc/on_move (mob/mob, new_loc, direct)
+#define COMSIG_POSSESSED_MOVEMENT "possessed_movement"
