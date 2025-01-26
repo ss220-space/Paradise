@@ -169,8 +169,11 @@
 /datum/action/innate/slimecolor/Activate()
 	var/mob/living/carbon/human/human = owner
 	if(human.dna.species.bodyflags & HAS_SKIN_COLOR)
-		var/new_color = input("Please select skin color.", "Slime Color", human.skin_colour) as null|color
-		human.skin_colour  = new_color
+		var/new_color = tgui_input_color(human, "Please select skin color.", "Slime Color", human.skin_colour)
+		human.change_skin_color(new_color)
+		if(human.blood_color != new_color)
+			human.blood_color = new_color
+			human.dna.species.blood_color = human.blood_color
 		human.update_body()
 
 
