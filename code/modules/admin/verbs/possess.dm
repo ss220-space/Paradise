@@ -6,8 +6,9 @@
 
 	usr.AddComponent(/datum/component/object_possession, target)
 
-	log_and_message_admins("[key_name(usr)] has possessed [target] ([target.type]) at [AREACOORD(get_turf(target))]")
-	SEND_SIGNAL(target, COMSIG_OBJ_POSSESSED, usr)
+	var/turf/turf = get_turf(target)
+	
+	log_and_message_admins("[key_name(usr)] has possessed [target] ([target.type]) at [AREACOORD(turf)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Possess Object") // If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /proc/release(obj/target in world)
@@ -17,5 +18,5 @@
 		return
 
 	qdel(usr.GetComponent(/datum/component/object_possession))
-	
+
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Release Object") // If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
