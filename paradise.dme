@@ -495,6 +495,7 @@
 #include "code\datums\components\label.dm"
 #include "code\datums\components\material_container.dm"
 #include "code\datums\components\overlay_lighting.dm"
+#include "code\datums\components\object_possession.dm"
 #include "code\datums\components\paintable.dm"
 #include "code\datums\components\pellet_cloud.dm"
 #include "code\datums\components\persistent_overlay.dm"
