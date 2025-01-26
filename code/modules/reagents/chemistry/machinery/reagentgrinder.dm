@@ -109,6 +109,34 @@
 	. = ..()
 	if(panel_open)
 		. += span_notice("Панель техобслуживания открыта.")
+	if(in_range(src, user))
+		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы активировать.<br>Используйте <b>Alt + Shift + ЛКМ</b>, чтобы удалить содержимое")
+
+/obj/machinery/reagentgrinder/AltClick(mob/living/carbon/human/human)
+	if(!istype(human) || !human.Adjacent(src))
+		return
+
+	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(operating)
+		return
+
+	add_fingerprint(human)
+	grind()
+
+/obj/machinery/reagentgrinder/CtrlShiftClick(mob/living/carbon/human/human)
+	if(!istype(human) || !human.Adjacent(src))
+		return
+
+	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(operating)
+		return
+
+	add_fingerprint(human)
+	detach(human)
 
 /obj/machinery/reagentgrinder/empty
 	icon_state = "juicer0"
