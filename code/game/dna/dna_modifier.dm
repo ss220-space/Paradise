@@ -122,7 +122,7 @@
 	if(occupant)
 		. += span_notice("Внутри кто-то есть.")
 	if(Adjacent(user))
-		. += span_info("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.<br>Используйте <b>Alt + ЛКМ</b>, чтобы извлечь ёмкость.")
+		. += span_info("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
 
 /obj/machinery/dna_scannernew/AllowDrop()
 	return FALSE
@@ -248,17 +248,7 @@
 		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return .
 	put_in(target)
-
-
-/obj/machinery/dna_scannernew/AltClick(mob/living/user)
-	if(!beaker)
-		return
-	beaker.forceMove(loc)
-	if(Adjacent(user) && !issilicon(user))
-		user.put_in_hands(beaker, ignore_anim = FALSE)
-		balloon_alert(user, "ёмкость извлечена")
-	beaker = null
-	add_fingerprint(user)
+	add_fingerprint(grabber)
 
 
 /obj/machinery/dna_scannernew/crowbar_act(mob/user, obj/item/I)
@@ -279,14 +269,14 @@
 		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
-/obj/machinery/dna_scannernew/proc/put_in(mob/M)
-	add_fingerprint(usr)
-	if(M == usr)
-		visible_message("[usr] начина[pluralize_ru(usr.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+/obj/machinery/dna_scannernew/proc/put_in(mob/M, mob/living/user)
+	add_fingerprint(user)
+	if(M == user)
+		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[usr] начина[pluralize_ru(usr.gender,"ет","ют")] укладывать [M] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [M] в [declent_ru(ACCUSATIVE)].")
 
-	if(!do_after(usr, 2 SECONDS, M))
+	if(!do_after(user, 2 SECONDS, M))
 		return
 
 	M.forceMove(src)

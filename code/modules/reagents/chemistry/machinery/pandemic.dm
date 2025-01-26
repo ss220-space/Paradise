@@ -26,8 +26,6 @@
 	. = ..()
 	if(panel_open)
 		. += span_notice("Панель техобслуживания открыта.")
-	if(Adjacent(user))
-		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы извлечь ёмкость.")
 
 /obj/machinery/computer/pandemic/New()
 	..()
@@ -183,19 +181,8 @@
 
 	add_fingerprint(usr)
 
-/obj/machinery/computer/pandemic/AltClick(mob/living/user)
-	beaker.forceMove(loc)
-	if(Adjacent(user) && !issilicon(user))
-		user.put_in_hands(beaker, ignore_anim = FALSE)
-	beaker = null
-	icon_state = "mixer0"
-	balloon_alert(user, "ёмкость извлечена")
-	add_fingerprint(user)
-
 /obj/machinery/computer/pandemic/proc/eject_beaker()
 	beaker.forceMove(loc)
-	if(Adjacent(usr) && !issilicon(usr))
-		usr.put_in_hands(beaker, ignore_anim = FALSE)
 	beaker = null
 	icon_state = "mixer0"
 

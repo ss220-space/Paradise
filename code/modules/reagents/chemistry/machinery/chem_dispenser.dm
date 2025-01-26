@@ -145,8 +145,6 @@
 		. += span_notice("Панель техобслуживания открыта.")
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("<br>Монитор состояния сообщает: скорость зарядки - <b>[recharge_amount]</b> единиц[declension_ru(recharge_amount, "у", "ы", "")] энергии за единицу времени.<br>Энергоэффективность увеличена на <b>[round((powerefficiency * 1000) - 100, 1)]%</b>")
-	if(Adjacent(user))
-		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы извлечь ёмкость.")
 
 
 /obj/machinery/chem_dispenser/process()
@@ -288,16 +286,6 @@
 
 	return ..()
 
-/obj/machinery/chem_dispenser/AltClick(mob/living/user)
-	if(!beaker)
-		return
-	beaker.forceMove(loc)
-	if(Adjacent(user) && !issilicon(user))
-		user.put_in_hands(beaker, ignore_anim = FALSE)
-		balloon_alert(user, "ёмкость извлечена")
-	beaker = null
-	add_fingerprint(user)
-	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)

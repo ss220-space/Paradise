@@ -109,8 +109,6 @@
 	. = ..()
 	if(panel_open)
 		. += span_notice("Панель техобслуживания открыта.")
-	if(Adjacent(user))
-		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы извлечь ёмкость.")
 
 /obj/machinery/reagentgrinder/empty
 	icon_state = "juicer0"
@@ -330,27 +328,16 @@
 		if ("detach")
 			detach()
 
-/obj/machinery/reagentgrinder/AltClick(mob/living/user)
+/obj/machinery/reagentgrinder/proc/detach(mob/user)
+	if(user.stat)
+		return
+
 	if(!beaker)
 		return
-	beaker.forceMove(loc)
-	if(Adjacent(user) && !issilicon(user))
-		user.put_in_hands(beaker, ignore_anim = FALSE)
-		balloon_alert(user, "ёмкость извлечена")
-	beaker = null
-	add_fingerprint(user)
-	update_icon(UPDATE_ICON_STATE)
-	updateUsrDialog()
 
-/obj/machinery/reagentgrinder/proc/detach()
-		if (usr.stat != 0)
-				return
-		if (!beaker)
-				return
-		beaker.loc = src.loc
-		if(Adjacent(usr) && !issilicon(usr))
-				usr.put_in_hands(beaker, ignore_anim = FALSE)
-		beaker = null
+	beaker.forceMove(get_turf(src))
+	beaker = null
+
 		update_icon(UPDATE_ICON_STATE)
 		updateUsrDialog()
 

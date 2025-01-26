@@ -99,8 +99,6 @@
 	. = ..()
 	if(panel_open)
 		. += span_notice("Панель техобслуживания открыта.")
-	if(Adjacent(user))
-		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы извлечь ёмкость.")
 
 /obj/machinery/chem_master/ex_act(severity)
 	if(severity < 3)
@@ -175,18 +173,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
-/obj/machinery/chem_master/AltClick(mob/living/user)
-	if(!beaker)
-		return
-	beaker.forceMove(get_turf(src))
-	if(Adjacent(user) && !issilicon(user))
-		user.put_in_hands(beaker, ignore_anim = FALSE)
-		balloon_alert(user, "ёмкость извлечена")
-	beaker = null
-	add_fingerprint(user)
-	reagents.clear_reagents()
-	update_icon()
 
 
 /obj/machinery/chem_master/crowbar_act(mob/user, obj/item/I)

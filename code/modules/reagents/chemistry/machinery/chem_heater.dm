@@ -41,8 +41,6 @@
 	. = ..()
 	if(panel_open)
 		. += span_notice("Панель техобслуживания открыта.")
-	if(Adjacent(user))
-		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы извлечь ёмкость.")
 
 /obj/machinery/chem_heater/process()
 	..()
@@ -101,9 +99,6 @@
 
 	return ..()
 
-/obj/machinery/chem_heater/AltClick(mob/living/user)
-	eject_beaker(user)
-	add_fingerprint(user)
 
 
 /obj/machinery/chem_heater/wrench_act(mob/user, obj/item/I)

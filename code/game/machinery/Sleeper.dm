@@ -103,7 +103,7 @@
 		else
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
-		. += span_info("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.<br>Используйте <b>Alt + ЛКМ</b>, чтобы извлечь ёмкость.")
+		. += span_info("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
 
 /obj/machinery/sleeper/process()
 	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
@@ -366,17 +366,6 @@
 	to_chat(target, span_boldnotice("Вы чувствуете, как вас окутывает холод. Вы цепенеете и расслабляетесь, внутренние процессы организма замедляются."))
 	add_fingerprint(grabber)
 	SStgui.update_uis(src)
-
-/obj/machinery/sleeper/AltClick(mob/living/user)
-	if(!beaker)
-		return
-	beaker.forceMove(loc)
-	if(Adjacent(user) && !issilicon(user))
-		user.put_in_hands(beaker, ignore_anim = FALSE)
-		balloon_alert(user, "ёмкость извлечена")
-	beaker = null
-	add_fingerprint(user)
-	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/sleeper/crowbar_act(mob/user, obj/item/I)

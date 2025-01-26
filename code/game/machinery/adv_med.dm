@@ -45,7 +45,6 @@
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
 		. += span_info("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
-		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы извлечь ID-карту.")
 
 
 /obj/machinery/bodyscanner/update_icon_state()
@@ -101,10 +100,6 @@
 	to_chat(target, span_boldnotice("Крышка [declent_ru(GENITIVE)] закрывается и окружающие звуки сразу становятся тише. Вы видите вокруг множество датчиков и слышите тихое гудение внутренних систем аппарата."))
 	add_fingerprint(grabber)
 	SStgui.update_uis(src)
-
-/obj/machinery/bodyscanner/AltClick(mob/living/carbon/user)
-	eject_id(user)
-	add_fingerprint(user)
 
 
 /obj/machinery/bodyscanner/crowbar_act(mob/user, obj/item/I)
@@ -231,13 +226,10 @@
 		A.forceMove(loc)
 	SStgui.update_uis(src)
 
-/obj/machinery/bodyscanner/proc/eject_id(mob/user)
+/obj/machinery/bodyscanner/proc/eject_id()
 	if(!inserted_id)
 		return
 	inserted_id.forceMove(loc)
-	if(user && Adjacent(user) && !issilicon(user))
-		user.put_in_hands(inserted_id, ignore_anim = FALSE)
-		balloon_alert(user, "ID-карта извлечена")
 	inserted_id = null
 	SStgui.update_uis(src)
 
