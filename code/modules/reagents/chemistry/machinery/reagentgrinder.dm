@@ -328,16 +328,15 @@
 		if ("detach")
 			detach()
 
-/obj/machinery/reagentgrinder/proc/detach(mob/user)
-	if(user.stat)
-		return
-
-	if(!beaker)
-		return
-
-	beaker.forceMove(get_turf(src))
-	beaker = null
-
+/obj/machinery/reagentgrinder/proc/detach()
+		if (usr.stat != 0)
+				return
+		if (!beaker)
+				return
+		beaker.loc = src.loc
+		if(Adjacent(usr) && !issilicon(usr))
+				usr.put_in_hands(beaker, ignore_anim = FALSE)
+		beaker = null
 		update_icon(UPDATE_ICON_STATE)
 		updateUsrDialog()
 
