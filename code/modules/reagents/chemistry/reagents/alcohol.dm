@@ -25,18 +25,18 @@
 /datum/reagent/consumable/ethanol/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/item/paper))
 		if(istype(O,/obj/item/paper/contract/infernal))
-			O.visible_message("<span class='warning'>The solution ignites on contact with [O].</span>")
+			O.visible_message(span_warning("Смесь воспламеняется при контакте с [O.declent_ru(INSTRUMENTAL)]."))
 		else
 			var/obj/item/paper/paperaffected = O
 			paperaffected.clearpaper()
-			paperaffected.visible_message("<span class='notice'>The solution melts away the ink on the paper.</span>")
+			paperaffected.visible_message(span_notice("Раствор плавит чернила на бумаге."))
 	if(istype(O,/obj/item/book))
 		if(volume >= 5)
 			var/obj/item/book/affectedbook = O
 			affectedbook.dat = null
-			affectedbook.visible_message("<span class='notice'>The solution melts away the ink on the book.</span>")
+			affectedbook.visible_message(span_notice("Раствор плавит чернила в книге."))
 		else
-			O.visible_message("<span class='warning'>It wasn't enough...</span>")
+			O.visible_message(span_warning("Объём вещества был слишком мал, чтобы нанести какой-либо эффект книге."))
 
 /datum/reagent/consumable/ethanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with ethanol isn't quite as good as fuel.
 	if(method == REAGENT_TOUCH)
@@ -241,45 +241,45 @@
 	alcohol_perc = 0.4
 	drink_icon = "cognacglass"
 	drink_name = "Стаканконьяка"
-	drink_desc = "Damn, you feel like some kind of French aristocrat just by holding this."
-	taste_description = "cognac"
+	drink_desc = "Вы чувствуете себя аристократом просто держа его в руках."
+	taste_description = "коньяк"
 
 /datum/reagent/consumable/ethanol/suicider //otherwise known as "I want to get so smashed my liver gives out and I die from alcohol poisoning".
-	name = "Suicider"
+	name = "Суисидр"
 	id = "suicider"
-	description = "An unbelievably strong and potent variety of Cider."
+	description = "Невероятно крепкий и мощный сорт сидра."
 	color = "#CF3811"
 	dizzy_adj = 40 SECONDS
 	alcohol_perc = 1 //because that's a thing it's supposed to do, I guess
 	drink_icon = "suicider"
-	drink_name = "Suicider"
-	drink_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
-	taste_description = "approaching death"
+	drink_name = "Стакан суисидра"
+	drink_desc = "Вы действительно достигли дна... Ваша печень собрала вещи и ушла вчера вечером."
+	taste_description = "неминуемая смерть"
 
 /datum/reagent/consumable/ethanol/ale
-	name = "Ale"
+	name = "Эль"
 	id = "ale"
-	description = "A dark alchoholic beverage made by malted barley and yeast."
+	description = "Тёмный алкогольный напиток, приготовленный из ячменного солода и дрожжей."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.1
 	drink_icon = "aleglass"
-	drink_name = "Ale glass"
-	drink_desc = "A freezing pint of delicious Ale"
-	taste_description = "ale"
+	drink_name = "Стакан эля"
+	drink_desc = "Освежающая пинта отличного эля."
+	taste_description = "эль"
 
 /datum/reagent/consumable/ethanol/thirteenloko
-	name = "Thirteen Loko"
+	name = "Тринадцатый Локо"
 	id = "thirteenloko"
-	description = "A potent mixture of caffeine and alcohol."
+	description = "Крепкая смесь кофеина и алкоголя."
 	reagent_state = LIQUID
 	color = "#102000" // rgb: 16, 32, 0
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	alcohol_perc = 0.3
 	heart_rate_increase = 1
 	drink_icon = "thirteen_loko_glass"
-	drink_name = "Стакан Thirteen Loko"
-	drink_desc = "This is a glass of Thirteen Loko, it appears to be of the highest quality. The drink, not the glass"
-	taste_description = "party"
+	drink_name = "Стакан Тринадцатого Локо"
+	drink_desc = "Этот стакан Тринадцатого Локо, судя по всему, самого высокого качества. Напиток, а не стакан."
+	taste_description = "смешанный с алкоголем энергетик"
 
 /datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/M)
 	M.AdjustDrowsy(-14 SECONDS)
