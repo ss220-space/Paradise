@@ -367,6 +367,7 @@ to destroy them and players will be able to make replacements.
 		"ShadyCigs Ultra" =						/obj/machinery/vending/cigarette/beach,
 		"SyndiWallMed" =						/obj/machinery/vending/wallmed/syndicate,
 		"SyndiMed Plus" =						/obj/machinery/vending/medical/syndicate_access,
+		"PlasmaMate" =							/obj/machinery/vending/plasmamate,
 	)
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
@@ -458,6 +459,12 @@ to destroy them and players will be able to make replacements.
 		board_name = "Freezer"
 		to_chat(user, span_notice("You set the board to cooling."))
 
+/obj/item/circuitboard/cell_charger
+	board_name = "Cell Recharger"
+	build_path = /obj/machinery/cell_charger
+	board_type = "machine"
+	origin_tech = "powerstorage=3;materials=2"
+	req_components = list(/obj/item/stock_parts/capacitor = 1)
 
 /obj/item/circuitboard/recharger
 	board_name = "Recharger"
@@ -1174,3 +1181,9 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/cable_coil = 3,
 							/obj/item/stack/sheet/glass = 1)
+
+/obj/item/circuitboard/vendor/plasmamate
+
+/obj/item/circuitboard/vendor/plasmamate/Initialize(mapload)
+	. = ..()
+	set_type("PlasmaMate")

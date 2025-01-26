@@ -114,10 +114,10 @@
 		. |= ATTACK_CHAIN_NO_AFTERATTACK
 	if(signal_out & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return .|ATTACK_CHAIN_BLOCKED
-	var/is_hot = is_hot(src)
-	if(is_hot && target.reagents && !ismob(target))
-		to_chat(user, span_notice("You heat [target] with [src]."))
-		target.reagents.temperature_reagents(is_hot)
+	var/temperature = get_heat()
+	if(temperature && target.reagents && !ismob(target) && !istype(target, /obj/item/clothing/mask/cigarette))
+		to_chat(user, span_notice("Вы нагрели [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]."))
+		target.reagents.temperature_reagents(temperature)
 
 
 /**
@@ -186,7 +186,7 @@
 		return .
 
 	if(force && (HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
-		to_chat(user, span_warning("You don't want to harm other living beings!"))
+		to_chat(user, span_warning("Вы не хотите причинять кому-либо вред!"))
 		return .
 
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target, params, def_zone)
@@ -249,13 +249,13 @@
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	if(!I.force)
 		user.visible_message(
-			span_warning("[user] gently pokes [src] with [I]."),
-			span_warning("You gently poke [src] with [I]."),
+			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]."),
+			span_warning("Вы аккуратно тыкнули [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]."),
 		)
 		return .
 	user.visible_message(
-		span_danger("[user] has hit [src] with [I]!"),
-		span_danger("You have hit [src] with [I]!"),
+		span_danger("[user] ударил[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("Вы ударили [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]!"),
 	)
 	take_damage(I.force, I.damtype, MELEE, TRUE, get_dir(user, src), I.armour_penetration)
 	if(QDELETED(src))	// thats a pretty common behavior with objects, when they take damage
@@ -299,20 +299,20 @@
 
 	if(!I.force)
 		visible_message(
-			span_warning("[user] gently taps [src] with [I]."),
-			span_warning("[user] gently taps you with [I]."),
+			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] вас [I.declent_ru(INSTRUMENTAL)]."),
 			ignored_mobs = user,
 		)
-		to_chat(user, span_warning("You gently tap [src] with [I]."))
+		to_chat(user, span_warning("Вы аккуратно тыкнули [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]."))
 		return
 
-	var/message_verb = "attacked"
+	var/message_verb = "атаковал"
 	if(length(I.attack_verb))
 		message_verb = "[pick(I.attack_verb)]"
 
 	visible_message(
-		span_danger("[user] has [message_verb] [src] with [I]!"),
-		span_userdanger("[user] has [message_verb] you with [I]!"),
+		span_danger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] вас [I.declent_ru(INSTRUMENTAL)]!"),
 		ignored_mobs = user,
 	)
-	to_chat(user, span_danger("You have [message_verb] [src] with [I]!"))
+	to_chat(user, span_danger("Вы [message_verb]и [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]!"))

@@ -90,6 +90,10 @@
 	parent_organ_zone = BODY_ZONE_CHEST
 	actions_types = list(/datum/action/item_action/organ_action/diona_brain_evacuation)
 
+/obj/item/organ/internal/brain/diona/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/diona_internals)
+
 /datum/action/item_action/organ_action/diona_brain_evacuation
 	name = "Evacuation"
 	check_flags = 0
@@ -129,11 +133,19 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 
+/obj/item/organ/internal/kidneys/diona/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/diona_internals)
+
 /obj/item/organ/internal/lungs/diona
 	species_type = /datum/species/diona
 	name = "gas bladder"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
+
+/obj/item/organ/internal/lungs/diona/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/diona_internals)
 
 /obj/item/organ/internal/appendix/diona
 	species_type = /datum/species/diona
@@ -141,12 +153,20 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 
+/obj/item/organ/internal/appendix/diona/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/diona_internals)
+
 /obj/item/organ/internal/heart/diona
 	species_type = /datum/species/diona
 	name = "anchoring ligament"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
+
+/obj/item/organ/internal/heart/diona/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/diona_internals)
 
 /obj/item/organ/internal/heart/diona/update_icon_state()
 	return
@@ -158,12 +178,20 @@
 	icon_state = "claw"
 	parent_organ_zone = BODY_ZONE_CHEST
 
+/obj/item/organ/internal/eyes/diona/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/diona_internals)
+
 /obj/item/organ/internal/liver/diona
 	species_type = /datum/species/diona
 	name = "nutrient vessel"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
 	alcohol_intensity = 0.5
+
+/obj/item/organ/internal/liver/diona/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/diona_internals)
 
 /obj/item/organ/internal/ears/diona
 	species_type = /datum/species/diona
@@ -173,34 +201,6 @@
 	desc = "A strange organic object used by a Gestalt for orientation in a three-dimensional projection."
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
 
-
-/datum/component/diona_internals
-
-
-/datum/component/diona_internals/Initialize()
-	if(!isatom(parent))
-		return COMPONENT_INCOMPATIBLE
-	if(istype(parent, /obj/item/organ/internal))
-		RegisterSignal(parent, COMSIG_ORGAN_REMOVED, PROC_REF(transform_organ))
-
-
-/datum/component/diona_internals/proc/transform_organ()
-	SIGNAL_HANDLER // COMSIG_ORGAN_REMOVED
-
-	if(is_int_organ(parent))
-		var/obj/item/organ/internal/organ = parent
-		var/mob/living/simple_animal/diona/nymph = new /mob/living/simple_animal/diona(get_turf(organ.owner))
-		nymph.health = round(clamp(1 - organ.damage / organ.min_broken_damage, 0, 1) * nymph.maxHealth)
-
-		if(istype(organ, /obj/item/organ/internal/brain))
-			var/obj/item/organ/internal/brain/brain = organ
-			if(brain.brainmob)
-				nymph.random_name = FALSE
-				nymph.real_name = brain.brainmob.real_name
-				nymph.name = brain.brainmob.real_name
-				var/datum/mind/mind = brain.brainmob.mind
-				mind.transfer_to(nymph)
-
-		qdel(organ)
-
-
+/obj/item/organ/internal/ears/diona/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/diona_internals)

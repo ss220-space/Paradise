@@ -109,7 +109,7 @@
 		return
 	var/old_thermal_energy = S.air.thermal_energy()
 	var/amount_cooled = initial_temperature - modifier * 8000 / S.air.heat_capacity()
-	S.air.temperature = max(amount_cooled, lower_temperature_limit)
+	S.air.temperature = max(amount_cooled, lower_temperature_limit, TCMB)
 	air_update_turf()
 	var/new_thermal_energy = S.air.thermal_energy()
 	power_used_this_cycle += (old_thermal_energy - new_thermal_energy) / 100

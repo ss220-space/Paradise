@@ -23,7 +23,7 @@
 
 /obj/item/cane
 	name = "cane"
-	desc = "A cane used by a true gentlemen. Or a clown."
+	desc = "A cane used by a true gentleman. Or a clown."
 	icon_state = "cane"
 	item_state = "stick"
 	flags = CONDUCT
@@ -31,7 +31,7 @@
 	throwforce = 7.0
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=50)
-	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed", "Vaudevilled")
+	attack_verb = list("огрел", "проучил")
 
 /obj/item/cane/is_crutch()
 	return 2
@@ -151,7 +151,7 @@
 	throw_speed = 1
 	throw_range = 4
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("called", "rang")
+	attack_verb = list("вызвал", "прозвонил")
 	hitsound = 'sound/weapons/ring.ogg'
 	var/cooldown = 0
 

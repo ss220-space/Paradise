@@ -205,6 +205,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 			return FALSE
+			
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_TRY_SPEECH, message)
+	if(sigreturn & COMPONENT_CANNOT_SPEAK)
+		return FALSE
 
 	if(sanitize)
 		message = trim_strip_html_properly(message, 512)
@@ -233,6 +237,17 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		CRASH("Message failed to generate pieces. [message] - [json_encode(message_pieces)]")
 
 	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
+
+	if(SEND_SIGNAL( \
+        src, \
+        COMSIG_LIVING_EARLY_SAY, \
+        message, \
+        verb, \
+        ignore_speech_problems, \
+        ignore_atmospherics, \
+        ignore_languages, \
+        first_piece) & COMPONENT_PREVENT_SPEAKING)
+		return FALSE
 
 	if(first_piece.speaking?.flags & HIVEMIND)
 		first_piece.speaking.broadcast(src, first_piece.message)
@@ -270,6 +285,11 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			ignore_atmospherics = TRUE
 
 	if(is_muzzled())
+		var/obj/item/organ/internal/cyberimp/mouth/translator/translator = get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+		if(translator) // we can whisper with translator and muzzle
+			whisper_say(message_pieces)
+			return TRUE
+
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
 		if(G.mute == MUZZLE_MUTE_ALL) //if the mask is supposed to mute you completely or just muffle you
 			to_chat(src, span_danger("You're muzzled and cannot speak!"))
@@ -386,7 +406,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency)
+		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency, FALSE)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
@@ -449,7 +469,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(stat)
 		return
 
-	if(is_muzzled())
+	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+	if(is_muzzled() && !translator?.active)
 		if(istype(wear_mask, /obj/item/clothing/mask/muzzle/tapegag)) //just for tape
 			to_chat(src, span_danger("Your mouth is taped and you cannot speak!"))
 		else
@@ -546,14 +567,14 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE)
+		M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
 	if(eavesdropping.len)
 		stars_all(message_pieces)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
-			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE)
+			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)	
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
 

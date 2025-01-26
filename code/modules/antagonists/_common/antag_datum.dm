@@ -1,4 +1,5 @@
 GLOBAL_LIST_EMPTY(antagonists)
+GLOBAL_LIST_EMPTY(antagonists_datums)
 
 /datum/antagonist
 	/// The name of the antagonist.
@@ -43,6 +44,9 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/russian_wiki_name
 	/// Show antag in ghost orbit
 	var/show_in_orbit = TRUE
+	/// Role name in antag menu
+	var/antag_menu_name
+
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -53,20 +57,32 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/Destroy(force)
 	for(var/datum/objective/objective as anything in objectives)
 		objectives -= objective
+
 		if(!objective.team)
 			qdel(objective)
+
 	remove_owner_from_gamemode()
 	GLOB.antagonists -= src
+
 	if(!silent)
 		farewell()
+
 	remove_innate_effects()
+
 	antag_memory = null
+
 	var/datum/team/team = get_team()
 	team?.remove_member(owner)
+
 	if(owner)
 		LAZYREMOVE(owner.antag_datums, src)
+
+		if(!LAZYLEN(owner.antag_datums)) // that one was the last antag datum.
+			handle_last_instance_removal()
+
 	restore_last_hud_and_role()
 	owner = null
+
 	return ..()
 
 
@@ -92,7 +108,14 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/is_banned(mob/user)
 	if(!user)
 		return FALSE
+
 	return (jobban_isbanned(user, ROLE_SYNDICATE) || (job_rank && jobban_isbanned(user, job_rank)))
+
+/**
+ * When our datum was last and became removed.
+ */
+/datum/antagonist/proc/handle_last_instance_removal()
+	return
 
 
 /**
@@ -375,7 +398,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 				found_valid_target = TRUE
 
 	if(!found_valid_target)
-		new_objective.explanation_text = "Yeah. Do whatever..."
+		new_objective.explanation_text = "Ага. Делай, что душе угодно."
+		new_objective.antag_menu_name = "Свободная цель"
 		new_objective.target = null
 
 	objectives += new_objective
@@ -402,6 +426,18 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/finalize_antag()
 	return
 
+/**
+ * Return name for antag menu
+ */
+/datum/antagonist/proc/get_antag_menu_name()
+	return antag_menu_name
+
+
+/**
+ * Return if antag shows in antag menu
+ */
+/datum/antagonist/proc/check_anatag_menu_ability()
+	return TRUE
 
 /**
  * Individual roundend report.

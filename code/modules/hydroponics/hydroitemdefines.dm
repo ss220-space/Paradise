@@ -66,7 +66,7 @@
 	toolspeed = 0.5
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
-	attack_verb = list("slashed", "sliced", "cut", "clawed")
+	attack_verb = list("полоснул", "порезал", "поцарапал")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/cultivator/rake
@@ -75,7 +75,7 @@
 	toolspeed = 1
 	belt_icon = null
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("slashed", "sliced", "bashed", "clawed")
+	attack_verb = list("полоснул", "ударил", "поцарапал")
 	hitsound = null
 	materials = null
 	flags = NONE
@@ -95,7 +95,7 @@
 	throw_range = 4
 	materials = list(MAT_METAL = 15000)
 	origin_tech = "materials=2;combat=2"
-	attack_verb = list("chopped", "torn", "cut")
+	attack_verb = list("рубанул", "поранил", "порезал")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
 	embed_chance = 70
@@ -112,7 +112,7 @@
 	icon_state = "unathiknife"
 	item_state = "unathiknife"
 	belt_icon = null
-	attack_verb = list("ripped", "torn", "cut")
+	attack_verb = list("поранил", "порезал")
 
 /obj/item/hatchet/wooden
 	name = "wooden hatchet"
@@ -135,7 +135,7 @@
 	armour_penetration = 20
 	slot_flags = ITEM_SLOT_BACK
 	origin_tech = "materials=3;combat=2"
-	attack_verb = list("chopped", "sliced", "cut", "reaped")
+	attack_verb = list("рубанул", "порезал", "скосил")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
 	embed_chance = 15
@@ -187,7 +187,7 @@
 	extend = 0
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=3;combat=3"
-	attack_verb = list("hit", "poked")
+	attack_verb = list("ударил", "ткнул")
 	hitsound = "swing_hit"
 
 /obj/item/scythe/tele/attack_self(mob/user)
@@ -197,7 +197,7 @@
 		slot_flags = ITEM_SLOT_BACK	//won't fit on belt, but can be worn on belt when extended
 		w_class = WEIGHT_CLASS_BULKY		//won't fit in backpacks while extended
 		force = 15		//slightly better than normal scythe damage
-		attack_verb = list("chopped", "sliced", "cut", "reaped")
+		attack_verb = list("рубанул", "порезал", "скосил")
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		//Extend sound (blade unsheath)
 		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	//Sound credit to Qat of Freesound.org
@@ -206,7 +206,7 @@
 		slot_flags = ITEM_SLOT_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
 		w_class = WEIGHT_CLASS_SMALL
 		force = 3
-		attack_verb = list("hit", "poked")
+		attack_verb = list("ударил", "ткнул")
 		hitsound = "swing_hit"
 		//Collapse sound (blade sheath)
 		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, 1)		//Sound credit to Q.K. of Freesound.org

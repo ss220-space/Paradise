@@ -16,7 +16,7 @@
 	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags |= INITIALIZED
-	GLOB.mob_list += src
+	add_to_mob_list()
 	return INITIALIZE_HINT_NORMAL
 
 /mob/new_player/proc/privacy_consent()
@@ -137,6 +137,17 @@
 
 	if(href_list["sound_options"])
 		client.volume_mixer()
+
+	if(href_list["poll_panel"])
+		handle_player_polling()
+
+	if(href_list["viewpoll"])
+		var/datum/poll_question/poll = locate(href_list["viewpoll"]) in GLOB.active_polls
+		poll_player(poll)
+
+	if(href_list["votepollref"])
+		var/datum/poll_question/poll = locate(href_list["votepollref"]) in GLOB.active_polls
+		vote_on_poll_handler(poll, href_list)
 
 	if(href_list["refresh"])
 		src << browse(null, "window=playersetup") //closes the player setup window
@@ -339,7 +350,7 @@
 	if(src != usr)
 		return FALSE
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
-		to_chat(usr, "<span class='warning'>Раунд либо еще не готов, либо уже завершился...</span>")
+		to_chat(usr, "<span class='warning'>Раунд либо ещё не готов, либо уже завершился...</span>")
 		return FALSE
 	if(!GLOB.enter_allowed)
 		to_chat(usr, "<span class='notice'>Администратор заблокировал вход в игру!</span>")
@@ -628,7 +639,7 @@
 		GLOB.human_names_list += new_character.real_name
 
 
-	new_character.key = key		//Manually transfer the key to log them in
+	new_character.key = key		// Manually transfer the key to log them in
 
 	return new_character
 

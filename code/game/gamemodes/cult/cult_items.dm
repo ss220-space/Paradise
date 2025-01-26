@@ -30,7 +30,7 @@
 	throwforce = 10
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	sprite_sheets_inhand = list(SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 
 
@@ -504,7 +504,7 @@
 	throwforce = 15
 	throw_speed = 1
 	throw_range = 3
-	attack_verb = list("bumped", "prodded")
+	attack_verb = list("стукнул", "толкнул")
 	hitsound = 'sound/weapons/smash.ogg'
 	/// Chance that energy projectiles will be reflected
 	var/reflect_chance = 70
@@ -631,7 +631,7 @@
 	throw_speed = 2
 	armour_penetration = 30
 	block_chance = 30
-	attack_verb = list("attacked", "impaled", "stabbed", "torn", "gored")
+	attack_verb = list("атаковал", "пронзил", "уколол", "поранил", "пронзил")
 	sharp = TRUE
 	no_spin_thrown = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'

@@ -41,7 +41,7 @@
 	silent = FALSE,
 	affect_robotic = TRUE,
 )
-	if(amount)
+	if(amount > 0)
 		take_overall_damage(amount, 0, blocked, forced, updating_health, used_weapon, sharp, silent, affect_robotic)
 
 	else
@@ -61,7 +61,7 @@
 	silent = FALSE,
 	affect_robotic = TRUE,
 )
-	if(amount)
+	if(amount > 0)
 		take_overall_damage(0, amount, blocked, forced, updating_health, used_weapon, sharp, silent, affect_robotic)
 
 	else
@@ -97,7 +97,7 @@
 		var/datum/robot_component/C = components[V]
 		if(C.installed == 1)
 			rval += C
-			
+
 	return rval
 
 /mob/living/silicon/robot/proc/get_armour()
@@ -177,7 +177,7 @@
 		var/brute_per_part = round(brute/parts.len, DAMAGE_PRECISION)
 		var/burn_per_part = round(burn/parts.len, DAMAGE_PRECISION)
 
-		. |= picked.heal_damage(brute, burn, updating_health = FALSE)
+		. |= picked.heal_damage(brute_per_part, burn_per_part, updating_health = FALSE)
 
 		brute = max(brute - brute_per_part, 0)
 		burn = max(burn - burn_per_part, 0)

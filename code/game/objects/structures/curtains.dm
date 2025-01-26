@@ -48,7 +48,10 @@
 
 	if(istype(I, /obj/item/toy/crayon))
 		add_fingerprint(user)
-		color = input(user, "Choose Color") as color
+		var/new_color = tgui_input_color(user, "Choose Color")
+		if(isnull(new_color))
+			return ATTACK_CHAIN_PROCEED
+		color = new_color
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()

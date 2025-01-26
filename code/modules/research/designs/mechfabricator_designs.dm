@@ -1004,6 +1004,17 @@
 	construction_time = 20 SECONDS
 	category = list("Exosuit Equipment")
 
+/datum/design/medbeamgun
+	name = "Exosuit Medical Equipment (Mecha Medbeam)"
+	id = "mech_medical_beamgun"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/medical/beamgun
+	req_tech = list("biotech" = 7, "bluespace" = 7, "powerstorage" = 7)
+	materials = list(MAT_METAL=5000,MAT_DIAMOND=600,MAT_GLASS=600,MAT_GOLD=600,MAT_URANIUM=300,MAT_BLUESPACE=650)
+	construction_time = 20 SECONDS
+	category = list("Exosuit Equipment")
+
+
 /datum/design/improved_exosuit_control_system
     name = "Exosuit Common Equipment (Control System Upgrade)"
     id = "mech_improved_exosuit_control_system"
@@ -1033,6 +1044,17 @@
 	req_tech = list("materials" = 5, "combat" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
 	materials = list(MAT_METAL=20000,MAT_SILVER=5000)
+	construction_time = 10 SECONDS
+	category = list("Exosuit Equipment")
+
+/datum/design/mech_cage
+	name = "Клетка SCS-3"
+	desc = "Модуль для экзокостюмов, используемый для задержания и заключения преступников."
+	id = "mech_cage"
+	build_type = MECHFAB
+	req_tech = (list("materials" = 7, "combat" = 7))
+	build_path = /obj/item/mecha_parts/mecha_equipment/cage
+	materials = list(MAT_METAL=10000, MAT_TITANIUM=4000, MAT_SILVER=2000, MAT_DIAMOND=1000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Equipment")
 

@@ -226,6 +226,8 @@
 		turn_off()
 		STOP_PROCESSING(SSobj, src)
 
+/obj/item/flashlight/flare/get_heat()
+	return on * 1000
 
 /obj/item/flashlight/flare/proc/turn_off()
 	on = FALSE

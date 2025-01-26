@@ -1,7 +1,7 @@
 GLOBAL_LIST_INIT(open_logging_views, list())
 
 /client/proc/cmd_admin_open_logging_view()
-	set category = "Admin"
+	set category = "Admin.Admin Tickets"
 	set name = "Logging View"
 	set desc = "Opens the detailed logging viewer"
 	open_logging_view()

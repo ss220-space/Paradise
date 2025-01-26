@@ -56,6 +56,12 @@
 
 #define isstorage(A) (istype(A, /obj/item/storage))
 
+#define isgrenade(A) (istype(A, /obj/item/grenade))
+
+#define issupplypod(A) (istype(A, /obj/structure/closet/supplypod))
+
+#define isammocasing(A) (istype(A, /obj/item/ammo_casing))
+
 #define ismachinery(A) (istype(A, /obj/machinery))
 
 #define isapc(A) (istype(A, /obj/machinery/power/apc))
@@ -81,6 +87,10 @@
 #define isradio(A) istype(A, /obj/item/radio)
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
+
+#define is_internal_organ(A) istype(A, /obj/item/organ/internal)
+
+#define	is_organ(A)			istype((A), /obj/item/organ)
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,

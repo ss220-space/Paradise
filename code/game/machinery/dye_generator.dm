@@ -58,8 +58,8 @@
 	..()
 	if(stat & (BROKEN|NOPOWER))
 		return
-	var/temp = input(usr, "Choose a dye color", "Dye Color") as color|null
-	if(!temp)
+	var/temp = tgui_input_color(usr, "Choose a dye color", "Dye Color")
+	if(isnull(temp))
 		return
 	set_light_color(temp)
 

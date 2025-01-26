@@ -370,7 +370,7 @@
 	unarmed_type = /datum/unarmed_attack/golem/plasteel
 
 /datum/unarmed_attack/golem/plasteel
-	attack_verb = list("smash")
+	attack_verb = list("ударил")
 	attack_sound = 'sound/effects/meteorimpact.ogg'
 
 //More resistant to burn damage and immune to ashstorm
@@ -810,7 +810,7 @@
 	UpdateButtonIcon() //action icon looks available again
 
 /datum/unarmed_attack/golem/bluespace
-	attack_verb = "bluespace punch"
+	attack_verb = list("блюспейс ударил")
 	attack_sound = 'sound/effects/phasein.ogg'
 
 //honk
@@ -906,7 +906,7 @@
 	playsound(get_turf(H), 'sound/misc/sadtrombone.ogg', 70, 0)
 
 /datum/unarmed_attack/golem/bananium
-	attack_verb = list("HONK")
+	attack_verb = list("хонкнул")
 	attack_sound = 'sound/items/airhorn2.ogg'
 	animation_type = ATTACK_EFFECT_DISARM
 	harmless = TRUE

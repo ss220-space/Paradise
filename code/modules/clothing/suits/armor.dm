@@ -322,6 +322,10 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/hit_reflect_chance = 40
 
+/obj/item/clothing/suit/armor/laserproof/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
+	
 /obj/item/clothing/suit/armor/laserproof/IsReflect()
 	if(prob(hit_reflect_chance))
 		return 1
@@ -395,6 +399,10 @@
 	name = "reactive teleport armor"
 	desc = "Someone seperated our Research Director from his own head!"
 	var/tele_range = 2
+
+/obj/item/clothing/suit/armor/reactive/teleport/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!active)

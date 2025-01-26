@@ -9,7 +9,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	armour_penetration = 100
-	attack_verb = list("bludgeoned", "whacked", "disciplined")
+	attack_verb = list("огрел", "проучил")
 	resistance_flags = FLAMMABLE
 
 /obj/item/twohanded/staff/broom
@@ -27,7 +27,7 @@
 
 /obj/item/twohanded/staff/broom/wield(obj/item/source, mob/living/carbon/user)
 	force =  5
-	attack_verb = list("rammed into", "charged at")
+	attack_verb = list("огрел", "ударил", "пихнул")
 	if(!user)
 		return
 
@@ -41,7 +41,7 @@
 
 /obj/item/twohanded/staff/broom/unwield(obj/item/source, mob/living/carbon/user)
 	force = 3
-	attack_verb = list("bludgeoned", "whacked", "cleaned")
+	attack_verb = list("огрел", "ударил")
 	if(!user)
 		return
 	update_icon(UPDATE_ICON_STATE)

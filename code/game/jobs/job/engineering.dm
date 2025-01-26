@@ -21,6 +21,7 @@
 	min_age_type = JOB_MIN_AGE_COMMAND
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_ENGINEERING
+	disabilities_allowed = 0
 	outfit = /datum/outfit/job/chief_engineer
 	insurance_type = INSURANCE_TYPE_DELUXE
 

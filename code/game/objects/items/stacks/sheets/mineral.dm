@@ -252,7 +252,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 
 
 /obj/item/stack/sheet/mineral/plasma/attackby(obj/item/I, mob/user, params)
-	if(is_hot(I))
+	if(I.get_heat())
 		log_and_set_aflame(user, I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
@@ -388,6 +388,9 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 	materials = list(MAT_TITANIUM=2000, MAT_PLASMA=2000)
 	point_value = 45
 
+/obj/item/stack/sheet/mineral/plastitanium/fifty
+	amount = 50
+
 GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	new/datum/stack_recipe("plas-titanium tile", /obj/item/stack/tile/mineral/plastitanium, 1, 4, 20),
 	//adding syndie crate recipe here - Furu
@@ -464,6 +467,9 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	merge_type = /obj/item/stack/sheet/mineral/adamantine
 	wall_allowed = FALSE
 
+/obj/item/stack/sheet/mineral/adamantine/fifty
+	amount = 50
+
 /obj/item/stack/sheet/mineral/adamantine/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.adamantine_recipes
@@ -475,11 +481,14 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	name = "mythril"
 	desc = "A rare mineral used in construction of chitin armor."
 	icon_state = "sheet-mythril"
-	item_state = "sheet-mythril"
+	//item_state = "sheet-mythril"
 	singular_name = "mythril sheet"
 	origin_tech = "materials=7"
 	merge_type = /obj/item/stack/sheet/mineral/mythril
 	wall_allowed = FALSE
+
+/obj/item/stack/sheet/mineral/mythril/fifty
+	amount = 50
 
 /*
  * Snow
@@ -487,11 +496,14 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 /obj/item/stack/sheet/mineral/snow
 	name = "snow"
 	icon_state = "sheet-snow"
-	item_state = "sheet-snow"
+	//item_state = "sheet-snow"
 	singular_name = "snow block"
 	force = 1
 	throwforce = 2
 	merge_type = /obj/item/stack/sheet/mineral/snow
+
+/obj/item/stack/sheet/mineral/snow/fifty
+	amount = 50
 
 /obj/item/stack/sheet/mineral/snow/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()

@@ -187,7 +187,7 @@
 	toolspeed = 1
 	container_type = OPENCONTAINER
 	flags = CONDUCT
-	attack_verb = list("attacked", "slashed", "cut", "sliced")
+	attack_verb = list("атаковал", "полоснул", "порезал")
 	force = 12
 	sharp = 1
 	can_charge = FALSE
@@ -198,6 +198,8 @@
 	if(cell)
 		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
 
+/obj/item/gun/energy/plasmacutter/get_heat()
+	return 3800
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma))
@@ -586,7 +588,7 @@
 		if(amount > 0)
 			target_temperature = min((500 + 500*emagged), target_temperature+amount)
 		else
-			target_temperature = max(0, target_temperature+amount)
+			target_temperature = max(TCMB, target_temperature+amount)
 	if(ismob(loc))
 		attack_self(loc)
 	add_fingerprint(usr)

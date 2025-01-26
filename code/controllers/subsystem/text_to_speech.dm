@@ -292,6 +292,7 @@ SUBSYSTEM_DEF(tts)
 
 	var/dirty_text = message
 	var/text = sanitize_tts_input(dirty_text)
+	var/whisper = FALSE
 
 	if(!text || length_char(text) > MAX_MESSAGE_LEN)
 		return
@@ -304,6 +305,7 @@ SUBSYSTEM_DEF(tts)
 
 	if(traits & TTS_TRAIT_PITCH_WHISPER)
 		text = provider.pitch_whisper(text)
+		whisper = TRUE
 
 	var/hash = rustg_hash_string(RUSTG_HASH_MD5, lowertext(text))
 	var/filename = "sound/tts_cache/[seed.name]/[hash]"
@@ -311,10 +313,10 @@ SUBSYSTEM_DEF(tts)
 	if(fexists("[filename].ogg"))
 		tts_reused++
 		tts_rrps_counter++
-		play_tts(speaker, listener, filename, is_local, effect, preSFX, postSFX)
+		play_tts(speaker, listener, filename, is_local, effect, preSFX, postSFX, whisper)
 		return
 
-	var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX)
+	var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX, whisper)
 
 	if(LAZYLEN(tts_queue[filename]))
 		tts_reused++
@@ -371,7 +373,7 @@ SUBSYSTEM_DEF(tts)
 	tts_queue -= filename
 
 
-/datum/controller/subsystem/tts/proc/play_tts(atom/speaker, mob/listener, filename, is_local = TRUE, effect = SOUND_EFFECT_NONE, preSFX = null, postSFX = null)
+/datum/controller/subsystem/tts/proc/play_tts(atom/speaker, mob/listener, filename, is_local = TRUE, effect = SOUND_EFFECT_NONE, preSFX = null, postSFX = null, whisper = FALSE)
 	if(isnull(listener) || !listener.client)
 		return
 
@@ -393,7 +395,7 @@ SUBSYSTEM_DEF(tts)
 			CRASH("Invalid sound effect chosen.")
 	if(effect != SOUND_EFFECT_NONE)
 		if(!fexists(voice))
-			var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX)
+			var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX, whisper)
 			if(LAZYLEN(tts_effects_queue[voice]))
 				LAZYADD(tts_effects_queue[voice], play_tts_cb)
 				return
@@ -411,7 +413,7 @@ SUBSYSTEM_DEF(tts)
 	var/volume = 100
 	var/channel = CHANNEL_TTS_RADIO
 	if(is_local)
-		volume = 100 * listener.client.prefs.get_channel_volume(CHANNEL_TTS_LOCAL)
+		volume = 100 * listener.client.prefs.get_channel_volume(CHANNEL_TTS_LOCAL) / (whisper ? 3 : 1)
 		channel = get_local_channel_by_owner(speaker)
 
 	var/sound/output = sound(voice)
@@ -420,7 +422,7 @@ SUBSYSTEM_DEF(tts)
 	if(isnull(speaker))
 		output.wait = TRUE
 		output.channel = channel
-		output.volume = volume * listener.client.prefs.get_channel_volume(CHANNEL_GENERAL) * listener.client.prefs.get_channel_volume(channel)
+		output.volume = volume * listener.client.prefs.get_channel_volume(CHANNEL_GENERAL) * listener.client.prefs.get_channel_volume(channel) / (whisper ? 3 : 1)
 		output.environment = -1
 
 		if(output.volume <= 0)

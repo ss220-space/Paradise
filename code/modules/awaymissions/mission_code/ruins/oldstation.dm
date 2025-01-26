@@ -347,86 +347,166 @@
 /obj/item/reagent_containers/glass/bottle/bromine
 	name = "bromine bottle"
 	list_reagents = list("bromine" = 30)
+
 // areas
-//Ruin of ancient Space Station
-
-/area/ruin/space/ancientstation
-	name = "Charlie Station Main Corridor"
-	icon_state = "green"
-	has_gravity = STANDARD_GRAVITY
-
-/area/ruin/space/ancientstation/powered
-	name = "Powered Tile"
-	icon_state = "teleporter"
-	requires_power = FALSE
-	static_lighting = FALSE
-	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
-
-/area/ruin/space/ancientstation/space
-	name = "Exposed To Space"
-	icon_state = "teleporter"
-	has_gravity = FALSE
-
-/area/ruin/space/ancientstation/atmos
-	name = "Beta Station Atmospherics"
-	icon_state = "atmos"
-	ambientsounds = ENGINEERING_SOUNDS
-
-/area/ruin/space/ancientstation/betanorth
-	name = "Beta Station North Corridor"
-	icon_state = "bluenew"
-
-/area/ruin/space/ancientstation/betacargo
-	name = "Beta Station Cargo Equipment"
-	icon_state = "quartstorage"
-
-/area/ruin/space/ancientstation/betamincorridor
-	name = "Beta Station Mining Corridor"
-	icon_state = "mining"
-
-/area/ruin/space/ancientstation/betaengi
-	name = "Beta Station Engineering"
-	icon_state = "storage"
-	ambientsounds = ENGINEERING_SOUNDS
-
-/area/ruin/space/ancientstation/atmosfoyer
-	name = "Beta Station Atmospherics Foyer"
-	icon_state = "engine_control"
-
-/area/ruin/space/ancientstation/engi
-	name = "Charlie Station Engineering"
-	icon_state = "engine"
-	ambientsounds = ENGINEERING_SOUNDS
-
-/area/ruin/space/ancientstation/comm
-	name = "Charlie Station Command"
-	icon_state = "captain"
-
-/area/ruin/space/ancientstation/hydroponics
-	name = "Charlie Station Hydroponics"
-	icon_state = "hydro"
-
-/area/ruin/space/ancientstation/kitchen
-	name = "Charlie Station Kitchen"
-	icon_state = "kitchen"
-
-/area/ruin/space/ancientstation/sec
-	name = "Charlie Station Security"
-	icon_state = "security"
-
-/area/ruin/space/ancientstation/thetacorridor
-	name = "Theta Station Main Corridor"
-	icon_state = "yellow"
-
-/area/ruin/space/ancientstation/proto
-	name = "Theta Station Prototype Lab"
-	icon_state = "toxstorage"
-
-/area/ruin/space/ancientstation/rnd
-	name = "Theta Station Research and Development"
-	icon_state = "toxlab"
+//area/ruin/space/ancientstation
 
 /area/ruin/space/ancientstation/hivebot
 	name = "Hivebot Mothership"
 	icon_state = "xenocell1"
+	ambientsounds = MINING_SOUNDS
+
+/area/ruin/space/ancientstation/cowasteroid
+	icon_state = "away2"
+	ambientsounds = MINING_SOUNDS
+
+//charly
+
+/area/ruin/space/ancientstation/charlie_corridor
+	name = "Charlie Station Main Corridor"
+	icon_state = "green"
+
+/area/ruin/space/ancientstation/charlie_kitchen
+	name = "Charlie Station Kitchen"
+	icon_state = "kitchen"
+
+/area/ruin/space/ancientstation/charlie_dininghall
+	name = "Charlie Station Dining Hall"
+	icon_state = "oldbar"
+
+/area/ruin/space/ancientstation/charlie_engi
+	name = "Charlie Station Engineering"
+	icon_state = "engine"
+	ambientsounds = ENGINEERING_SOUNDS
+
+/area/ruin/space/ancientstation/charlie_comm
+	name = "Charlie Station Command"
+	icon_state = "captain"
+
+/area/ruin/space/ancientstation/charlie_cryo
+	name = "Charlie Station Cryogenetics"
+	icon_state = "dorms"
+
+/area/ruin/space/ancientstation/charlie_recycler
+	name = "Charlie Station Recycler"
+	icon_state = "pet_store"
+
+/area/ruin/space/ancientstation/charlie_restroom
+	name = "Charlie Station Restroom"
+	icon_state = "start"
+
+/area/ruin/space/ancientstation/charlie_hydroponics
+	name = "Charlie Station Hydroponics"
+	icon_state = "hydro"
+
+/area/ruin/space/ancientstation/charlie_hydrostorage
+	name = "Charlie Station Hydroponics Storage"
+	icon_state = "away6"
+
+/area/ruin/space/ancientstation/charlie_hydroroom
+	name = "Charlie Station Hydroponics Rooms"
+	icon_state = "ninja_dojo"
+
+/area/ruin/space/ancientstation/charlie_sec
+	name = "Charlie Station Security"
+	icon_state = "security"
+	ambientsounds = HIGHSEC_SOUNDS
+
+/area/ruin/space/ancientstation/charlie_armory
+	name = "Charlie Station Armory"
+	icon_state = "secarmory"
+	ambientsounds = HIGHSEC_SOUNDS
+
+/area/ruin/space/ancientstation/charlie_warden
+	name = "Charlie Station Warden's Room"
+	icon_state = "brig"
+	ambientsounds = HIGHSEC_SOUNDS
+
+/area/ruin/space/ancientstation/charlie_prison
+	name = "Charlie Station Prison"
+	icon_state = "sec_prison"
+	ambientsounds = HIGHSEC_SOUNDS
+
+/area/ruin/space/ancientstation/charlie_punishmentcell
+	name = "Charlie Station Punishment Cell"
+	icon_state = "brigcella"
+	ambientsounds = HIGHSEC_SOUNDS
+
+/area/ruin/space/ancientstation/charlie_secrest
+	name = "Charlie Station Rest Room"
+	icon_state = "red"
+	ambientsounds = HIGHSEC_SOUNDS
+
+/area/ruin/space/ancientstation/charlie_secintel
+	name = "Charlie Station Interrogation"
+	icon_state = "holdingcell"
+	ambientsounds = HIGHSEC_SOUNDS
+
+//theta
+
+/area/ruin/space/ancientstation/theta_corridor
+	name = "Theta Station Main Corridor"
+	icon_state = "yellow"
+
+/area/ruin/space/ancientstation/theta_exit
+	name = "Theta Station External Output"
+	icon_state = "escape"
+
+/area/ruin/space/ancientstation/theta_docks
+	name = "Tetta station docks"
+	icon_state = "explored"
+
+/area/ruin/space/ancientstation/theta_storage
+	name = "Tetta Station Docks Storage"
+	icon_state = "away4"
+
+/area/ruin/space/ancientstation/theta_mine
+	name = "Tetta Station Miners Lockers"
+	icon_state = "construction"
+
+/area/ruin/space/ancientstation/theta_experi
+	name = "Tetta Station Experimental Room"
+	icon_state = "chapel"
+
+/area/ruin/space/ancientstation/theta_solar
+	name = "Tetta Station Solar Control"
+	icon_state = "dk_yellow"
+
+/area/ruin/space/ancientstation/theta_proto
+	name = "Theta Station Prototype Lab"
+	icon_state = "toxstorage"
+
+/area/ruin/space/ancientstation/theta_rnd
+	name = "Theta Station Research and Development"
+	icon_state = "toxlab"
+
+//beta
+
+/area/ruin/space/ancientstation/beta_north
+	name = "Beta Station North Corridor"
+	icon_state = "away4"
+
+/area/ruin/space/ancientstation/beta_medbay
+	name = "Beta Station Medbay"
+	icon_state = "away1"
+	ambientsounds = MEDICAL_SOUNDS
+
+/area/ruin/space/ancientstation/beta_medstorage
+	name = "Beta Station Medical Storage"
+	icon_state = "quartstorage"
+	ambientsounds = MEDICAL_SOUNDS
+
+/area/ruin/space/ancientstation/beta_surgery
+	name = "Beta Station Surgery"
+	icon_state = "surgery"
+	ambientsounds = MEDICAL_SOUNDS
+
+/area/ruin/space/ancientstation/beta_surgery1
+	name = "Beta Station Surgery"
+	icon_state = "surgery1"
+	ambientsounds = MEDICAL_SOUNDS
+
+/area/ruin/space/ancientstation/beta_atmos
+	name = "Beta Station Atmospherics"
+	icon_state = "atmos"
+	ambientsounds = ENGINEERING_SOUNDS

@@ -1,3 +1,9 @@
+#define PULL_STAMINADAM_WALK	4
+#define PULL_STAMINADAM_RUN		6
+#define PUSH_STAMINADAM_WALK	3
+#define PUSH_STAMINADAM_RUN		4
+
+
 /mob/living/carbon/human/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!forced && (!old_loc || !old_loc.has_gravity()) && has_gravity())
@@ -29,6 +35,7 @@
 	if(.) // did we actually move?
 		if(body_position != LYING_DOWN && !buckled && !throwing)
 			update_splints()
+
 		var/break_bones_chance = get_bones_symptom_prob()
 		if(break_bones_chance && (m_intent == MOVE_INTENT_RUN || pulling))
 			if(prob(break_bones_chance))
@@ -41,6 +48,40 @@
 						break
 			else if(prob(30))
 				playsound(src, "bonebreak", 10, TRUE)
+
+		// If we sooo weak to pull or push something, except items or tiny mobs, get stamina damage
+		var/weak_mob = FALSE
+		if((pulling || now_pushing) && (HAS_TRAIT(src, TRAIT_WEAK_PULLING)))
+			weak_mob = TRUE
+
+		if(weak_mob)
+			var/stamina_damage = 0
+			var/small_pulled = FALSE
+			// Handle pulling all non /obj/item stuff or tiny mobs
+			if(pulling && isliving(pulling))
+				var/mob/living/pulled_mob = pulling
+				if(!pulled_mob.mob_size) // small or bigger mobs
+					small_pulled = TRUE
+
+			if(pulling && !(small_pulled || isitem(pulling)))
+				if(m_intent == MOVE_INTENT_WALK)
+					stamina_damage += PULL_STAMINADAM_WALK
+				else
+					stamina_damage += PULL_STAMINADAM_RUN
+
+				if(staminaloss > 69)
+					balloon_alert(src, "слишком тяжело тащить!")
+					stop_pulling()
+
+			// Handle pushing, NOT swapping sides with mobs in help intent
+			if(now_pushing)
+				if(!(isliving(now_pushing) && a_intent == INTENT_HELP))
+					if(m_intent == MOVE_INTENT_WALK)
+						stamina_damage += PUSH_STAMINADAM_WALK
+					else
+						stamina_damage += PUSH_STAMINADAM_RUN
+
+			apply_damage(stamina_damage, STAMINA)
 
 	if(!has_gravity())
 		return .
@@ -202,3 +243,9 @@
 		return FALSE
 
 	return ..()
+
+
+#undef PULL_STAMINADAM_WALK
+#undef PULL_STAMINADAM_RUN
+#undef PUSH_STAMINADAM_WALK
+#undef PUSH_STAMINADAM_RUN

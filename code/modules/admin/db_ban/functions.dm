@@ -416,7 +416,7 @@
 
 
 /client/proc/DB_ban_panel()
-	set category = "Admin"
+	set category = "Admin.Ban"
 	set name = "Banning Panel"
 	set desc = "DB Ban Panel"
 
@@ -426,7 +426,7 @@
 	holder.DB_ban_panel()
 
 
-/datum/admins/proc/DB_ban_panel(var/playerckey = null, var/adminckey = null, var/playerip = null, var/playercid = null, var/dbbantype = null, var/match = null)
+/datum/admins/proc/DB_ban_panel(playerckey = null, adminckey = null, playerip = null, playercid = null, dbbantype = null, match = null)
 
 	if(!usr.client)
 		return
@@ -435,21 +435,18 @@
 		return
 
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='warning'>Failed to establish database connection</span>", confidential=TRUE)
+		to_chat(usr, span_warning("Не удалось установить соединение с базой данных"), confidential=TRUE)
 		return
 
-	var/output = {"<meta charset="UTF-8"><div align='center'><table width='90%'><tr>"}
+	var/cached_UID = UID()
+	var/list/output = list()
 
-	output += "<td width='35%' align='center'>"
-	output += "<h1>Banning panel</h1>"
-	output += "</td>"
-
-	output += "<td width='65%' align='center' bgcolor='#f9f9f9'>"
-
-	output += "<form method='GET' action='?src=[UID()]'><b>Add custom ban:</b> (ONLY use this if you can't ban through any other method)"
-	output += "<input type='hidden' name='src' value='[UID()]'>"
+	output += "<div align='center'><table width='100%'><tr>"
+	output += "<td align='center'>"
+	output += "<form method='GET' action='?src=[cached_UID]'><b>Add custom ban:</b> (ONLY use this if you can't ban through any other method)</b>"
+	output += "<input type='hidden' name='src' value='[cached_UID]'>"
 	output += "<table width='100%'><tr>"
-	output += "<td width='50%' align='right'><b>Ban type:</b><select name='dbbanaddtype'>"
+	output += "<td width='50%' align='center'><b>Ban Type:</b><br><select name='dbbanaddtype'>"
 	output += "<option value=''>--</option>"
 	output += "<option value='[BANTYPE_PERMA]'>PERMABAN</option>"
 	output += "<option value='[BANTYPE_TEMP]'>TEMPBAN</option>"
@@ -459,11 +456,11 @@
 	output += "<option value='[BANTYPE_ADMIN_PERMA]'>ADMIN PERMABAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_TEMP]'>ADMIN TEMPBAN</option>"
 	output += "</select></td>"
-	output += "<td width='50%' align='right'><b>Ckey:</b> <input type='text' name='dbbanaddckey'></td></tr>"
-	output += "<tr><td width='50%' align='right'><b>IP:</b> <input type='text' name='dbbanaddip'></td>"
-	output += "<td width='50%' align='right'><b>CID:</b> <input type='text' name='dbbanaddcid'></td></tr>"
-	output += "<tr><td width='50%' align='right'><b>Duration:</b> <input type='text' name='dbbaddduration'></td>"
-	output += "<td width='50%' align='right'><b>Job:</b><select name='dbbanaddjob'>"
+	output += "<td width='50%' align='center'><b>Ckey:</b><br><input type='text' name='dbbanaddckey'></td></tr>"
+	output += "<tr><td width='50%' align='center'><b>IP:</b><br><input type='text' name='dbbanaddip'></td>"
+	output += "<td width='50%' align='center'><b>CID:</b><br><input type='text' name='dbbanaddcid'></td></tr>"
+	output += "<tr><td width='50%' align='center'><b>Duration (minutes):</b><br><input type='text' name='dbbaddduration'></td>"
+	output += "<td width='50%' align='center'><b>Job:</b><br><select name='dbbanaddjob'>"
 	output += "<option value=''>--</option>"
 	for(var/j in get_all_jobs())
 		output += "<option value='[j]'>[j]</option>"
@@ -477,7 +474,7 @@
 		output += "<option value='[j]'>[j]</option>"
 	output += "</select></td></tr>"
 	output += "<tr><td width='50%' align='right'><input type='checkbox' value='round' name='dbbanaddround'> Add current ID and server name</td></tr></table>"
-	output += "<b>Reason:<br></b><textarea name='dbbanreason' cols='50'></textarea><br>"
+	output += "<b>Reason:<br></b><textarea name='dbbanreason' cols='55' rows='10'></textarea><br><br>"
 	output += "<input type='submit' value='Add ban'>"
 	output += "</form>"
 
@@ -485,13 +482,15 @@
 	output += "</tr>"
 	output += "</table>"
 
-	output += "<form method='GET' action='?src=[UID()]'><table width='60%'><tr><td colspan='2' align='left'><b>Search:</b>"
-	output += "<input type='hidden' name='src' value='[UID()]'></td></tr>"
-	output += "<tr><td width='50%' align='right'><b>Ckey:</b> <input type='text' name='dbsearchckey' value='[playerckey]'></td>"
-	output += "<td width='50%' align='right'><b>Admin ckey:</b> <input type='text' name='dbsearchadmin' value='[adminckey]'></td></tr>"
-	output += "<tr><td width='50%' align='right'><b>IP:</b> <input type='text' name='dbsearchip' value='[playerip]'></td>"
-	output += "<td width='50%' align='right'><b>CID:</b> <input type='text' name='dbsearchcid' value='[playercid]'></td></tr>"
-	output += "<tr><td width='50%' align='right' colspan='2'><b>Ban type:</b><select name='dbsearchbantype'>"
+	output += "<br><br><hr><br><br>"
+
+	output += "<form method='GET' action='?src=[cached_UID]'><table width='100%'><tr><td colspan='2' align='center'><b>Search:</b>"
+	output += "<input type='hidden' name='src' value='[cached_UID]'></td></tr>"
+	output += "<tr><td width='50%' align='center'><b>Ckey:</b><br><input type='text' name='dbsearchckey' value='[playerckey]'></td>"
+	output += "<td width='50%' align='center'><b>Admin ckey:</b><br><input type='text' name='dbsearchadmin' value='[adminckey]'></td></tr>"
+	output += "<tr><td width='50%' align='center'><b>IP:</b><br><input type='text' name='dbsearchip' value='[playerip]'></td>"
+	output += "<td width='50%' align='center'><b>CID:</b><br><input type='text' name='dbsearchcid' value='[playercid]'></td></tr>"
+	output += "<tr><td width='50%' align='center' colspan='2'><b>Ban type:</b><br><select name='dbsearchbantype'>"
 	output += "<option value=''>--</option>"
 	output += "<option value='[BANTYPE_PERMA]'>PERMABAN</option>"
 	output += "<option value='[BANTYPE_TEMP]'>TEMPBAN</option>"
@@ -501,7 +500,7 @@
 	output += "<option value='[BANTYPE_ADMIN_PERMA]'>ADMIN PERMABAN</option>"
 	output += "<option value='[BANTYPE_ADMIN_TEMP]'>ADMIN TEMPBAN</option>"
 	output += "</select></td></tr></table>"
-	output += "<br><input type='submit' value='search'><br>"
+	output += "<br><br><input type='submit' value='Search'><br>"
 	output += "<input type='checkbox' value='[match]' name='dbmatch' [match? "checked=\"1\"" : null]> Match(min. 3 characters to search by key or ip, and 7 to search by cid)<br>"
 	output += "</form>"
 	output += "This search shows only last 100 bans."
@@ -513,12 +512,12 @@
 
 		if(adminckey || playerckey || playerip || playercid || dbbantype)
 
-			var/blcolor = "#ffeeee" //banned light
-			var/bdcolor = "#ffdddd" //banned dark
-			var/ulcolor = "#eeffee" //unbanned light
-			var/udcolor = "#ddffdd" //unbanned dark
+			var/blcolor = "#fc5f5f" //banned light
+			var/bdcolor = "#c72626" //banned dark
+			var/ulcolor = "#73b873" //unbanned light
+			var/udcolor = "#3faa3f" //unbanned dark
 
-			output += "<table width='90%' bgcolor='#e3e3e3' cellpadding='5' cellspacing='0' align='center'>"
+			output += "<table width='100%' bgcolor='#151515' cellpadding='5' cellspacing='0' align='center'>"
 			output += "<tr>"
 			output += "<th width='25%'><b>TYPE</b></th>"
 			output += "<th width='20%'><b>CKEY</b></th>"
@@ -616,7 +615,7 @@
 				var/typedesc =""
 				switch(bantype)
 					if("PERMABAN")
-						typedesc = "<font color='red'><b>PERMABAN</b></font>"
+						typedesc = "<b>PERMABAN</b>"
 					if("TEMPBAN")
 						typedesc = "<b>TEMPBAN</b><br><font size='2'>([duration] minutes [(unbanned) ? "" : "(<a href=\"byond://?src=[UID()];dbbanedit=duration;dbbanid=[banid]\">Edit</a>))"]<br>Expires [expiration]</font>"
 					if("JOB_PERMABAN")
@@ -628,21 +627,21 @@
 					if("ADMIN_PERMABAN")
 						typedesc = "<b>ADMIN PERMABAN</b>"
 					if("ADMIN_TEMPBAN")
-						typedesc = "<b>ADMIN TEMPBAN</b><br><font size='2'>([duration] minutes [(unbanned) ? "" : "(<a href=\"byond://?src=[UID()];dbbanedit=duration;dbbanid=[banid]\">Edit</a>))"]<br>Expires [expiration]</font>"
+						typedesc = "<b>ADMIN TEMPBAN</b><br><font size='2'>([duration] minutes [(unbanned) ? "" : "(<a href=\"byond://?src=[cached_UID];dbbanedit=duration;dbbanid=[banid]\">Edit</a>))"]<br>Expires<br>[expiration]</font>"
 
 				output += "<tr bgcolor='[dcolor]'>"
 				output += "<td align='center'>[typedesc]</td>"
 				output += "<td align='center'><b>[ckey]</b></td>"
 				output += "<td align='center'>[bantime]</td>"
 				output += "<td align='center'><b>[ackey]</b></td>"
-				output += "<td align='center'>[(unbanned) ? "" : "<b><a href=\"byond://?src=[UID()];dbbanedit=unban;dbbanid=[banid]\">Unban</a></b>"]</td>"
+				output += "<td align='center'>[(unbanned) ? "" : "<b><a href=\"byond://?src=[cached_UID];dbbanedit=unban;dbbanid=[banid]\">Unban</a></b>"]</td>"
 				output += "</tr>"
 				output += "<tr bgcolor='[dcolor]'>"
 				output += "<td align='center' colspan='2' bgcolor=''><b>IP:</b> [ip]</td>"
 				output += "<td align='center' colspan='3' bgcolor=''><b>CID:</b> [cid]</td>"
 				output += "</tr>"
 				output += "<tr bgcolor='[lcolor]'>"
-				output += "<td align='center' colspan='5'><b>Reason: [(unbanned) ? "" : "(<a href=\"byond://?src=[UID()];dbbanedit=reason;dbbanid=[banid]\">Edit</a>)"]</b> <cite>\"[reason]\"</cite></td>"
+				output += "<td align='center' colspan='5'><b>Reason: [(unbanned) ? "" : "(<a href=\"byond://?src=[cached_UID];dbbanedit=reason;dbbanid=[banid]\">Edit</a>)"]</b> <cite>\"[reason]\"</cite></td>"
 				output += "</tr>"
 				if(edits)
 					output += "<tr bgcolor='[dcolor]'>"
@@ -656,14 +655,19 @@
 					output += "<td align='center' colspan='5' bgcolor=''><b>UNBANNED by admin [unbanckey] on [unbantime]</b></td>"
 					output += "</tr>"
 				output += "<tr>"
-				output += "<td colspan='5' bgcolor='white'>&nbsp</td>"
+				output += "<td colspan='5' bgcolor='#151515'>&nbsp</td>"
 				output += "</tr>"
 
 			output += "</table></div>"
 
 			qdel(select_query)
 
-	usr << browse(output,"window=lookupbans;size=900x700")
+	var/datum/browser/popup = new(usr, "ban_panel", "<div align='center'>Manual Ban Panel</div>", 900, 700)
+	popup.set_content(output.Join(""))
+	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+	popup.add_stylesheet("dark_inputs", "html/dark_inputs.css")
+	popup.open()
+	onclose(usr, "ban_panel")
 
 /proc/flag_account_for_forum_sync(ckey)
 	if(!SSdbcore.IsConnected())

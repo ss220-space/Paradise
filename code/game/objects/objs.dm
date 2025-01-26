@@ -73,7 +73,7 @@
 /obj/proc/CouldNotUseTopic(mob/user)
 	// Nada
 
-/obj/Destroy()
+/obj/Destroy(force)
 	if(!ismachinery(src))
 		if(!speed_process)
 			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists

@@ -20,9 +20,7 @@
 						<center><B><h2>Admin Secrets</h2></B>
 						<B>Game</b><br>
 						<a href='byond://?src=[UID()];secretsadmin=showailaws'>Show AI Laws</A>&nbsp;&nbsp;
-						<a href='byond://?src=[UID()];secretsadmin=showgm'>Show Game Mode</A>&nbsp;&nbsp;
 						<a href='byond://?src=[UID()];secretsadmin=manifest'>Show Crew Manifest</A><br>
-						<a href='byond://?src=[UID()];secretsadmin=check_antagonist'>Show current traitors and objectives</A><BR>
 						<a href='byond://?src=[UID()];secretsadmin=view_codewords'>Show code phrases and responses</A><BR>
 						<a href='byond://?src=[UID()];secretsadmin=night_shift_set'>Set Night Shift Mode</a><br>
 						<B>Bombs</b><br>
@@ -87,8 +85,11 @@
 					<b>Reinforce Station</b><BR>
 					<a href='byond://?src=[UID()];secretsfun=gammashuttle'>Move the Gamma Armory</A>&nbsp;&nbsp;
 					<BR>
+					<b>Renames</b><BR>
+					<A href='byond://?src=[UID()];secretsfun=set_station_name'>Rename Station Name</A><BR>
+					<A href='byond://?src=[UID()];secretsfun=reset_station_name'>Reset Station Name</A><BR>
+					<A href='byond://?src=[UID()];secretsfun=set_centcomm_name'>Rename Central Comand</A><BR>
 					</center>"}
-
 		if(2)
 			if(check_rights((R_SERVER|R_EVENT),0))
 				dat += {"
@@ -117,6 +118,7 @@
 					<a href='byond://?src=[UID()];secretsfun=floorlava'>The floor is lava! (DANGEROUS: extremely lame)</A><BR>
 					<a href='byond://?src=[UID()];secretsfun=fakelava'>The floor is fake-lava! (non-harmful)</A><BR>
 					<a href='byond://?src=[UID()];secretsfun=monkey'>Turn all humans into monkeys</A><BR>
+					<a href='byond://?src=[UID()];secretsfun=polymorph'>Polymorph All</A>
 					<a href='byond://?src=[UID()];secretsfun=fakeguns'>Make all items look like guns</A><BR>
 					<a href='byond://?src=[UID()];secretsfun=prisonwarp'>Warp all Players to Prison</A><BR>
 					<a href='byond://?src=[UID()];secretsfun=stupify'>Make all players stupid</A><BR>

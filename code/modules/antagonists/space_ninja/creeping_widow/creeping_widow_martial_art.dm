@@ -14,7 +14,7 @@
 	desc = "A strange autoinjector made of a black metal.<br>You can see a green liquid through the glass."
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "injector"
-	attack_verb = list("poked", "prodded")
+	attack_verb = list("ткнул", "толкнул")
 	var/used = FALSE
 
 

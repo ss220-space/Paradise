@@ -108,7 +108,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/list/allowed = null //suit storage stuff.
 	var/obj/item/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
 
-	var/needs_permit = 0			//Used by security bots to determine if this item is safe for public use.
+	var/needs_permit = FALSE //Used by security bots to determine if this item is safe for public use.
 
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
@@ -273,30 +273,36 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	else
 		return TRUE
 
-/obj/item/blob_act(obj/structure/blob/B)
-	if(B && B.loc == loc && !QDELETED(src))
-		qdel(src)
 
+/obj/item/blob_act(obj/structure/blob/B)
+	if(B && B.loc == loc && !QDELETED(src) && !(obj_flags & IGNORE_BLOB_ACT))
+		obj_destruction(MELEE)
+
+/obj/item/blob_vore_act(obj/structure/blob/special/core/voring_core)
+	. = ..()
+	if(QDELETED(src))
+		return FALSE
+	forceMove(voring_core)
 
 /obj/item/examine(mob/user)
 	var/size
 	switch(src.w_class)
 		if(WEIGHT_CLASS_TINY)
-			size = "tiny"
+			size = "крохотный"
 		if(WEIGHT_CLASS_SMALL)
-			size = "small"
+			size = "маленький"
 		if(WEIGHT_CLASS_NORMAL)
-			size = "normal-sized"
+			size = "обычного размера"
 		if(WEIGHT_CLASS_BULKY)
-			size = "bulky"
+			size = "большой"
 		if(WEIGHT_CLASS_HUGE)
-			size = "huge"
+			size = "огромный"
 		if(WEIGHT_CLASS_GIGANTIC)
-			size = "gigantic"
+			size = "гигантский"
 
-	. = ..(user, "", "It is a [size] item.")
+	. = ..(user, "", "Это [size] предмет.")
 
-	if(user.research_scanner) //Mob has a research scanner active.
+	if(user.research_scanner || user.check_smart_brain()) //Mob has a research scanner active.
 		var/msg = "*--------* <BR>"
 
 		if(origin_tech)
@@ -509,12 +515,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return ..()
 
 
-/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if (!block_type || !(block_type & attack_type))
 		final_block_chance = 0
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) + prob(final_block_chance)
 	if(signal_result != 0)
-		owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
+		owner.visible_message(span_danger("[owner] блокиру[pluralize_ru(owner.gender, "ет", "ют")] [attack_text] с помощью [declent_ru(GENITIVE)]!"))
 		return signal_result
 	return FALSE
 
@@ -534,6 +540,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/talk_into(mob/M, var/text, var/channel=null)
 	return
 
+/// Generic get_heat proc. Returns 0 or number amount of heat an item gives.
+/obj/item/proc/get_heat()
+	return
 
 /**
  * When item is officially left user
@@ -909,7 +918,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(w_class < WEIGHT_CLASS_BULKY)
 		itempush = FALSE // too light to push anything
 
-	var/is_hot = is_hot(src)
 	var/volume = get_volume_by_throwforce_and_or_w_class()
 	var/impact_throwforce = throwforce
 
@@ -921,7 +929,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(. && living.is_in_hands(src))
 			item_catched = TRUE
 
-		if(is_hot && !item_catched)
+		if(get_heat() && !item_catched)
 			living.IgniteMob()
 
 		if(impact_throwforce > 0 && !item_catched)

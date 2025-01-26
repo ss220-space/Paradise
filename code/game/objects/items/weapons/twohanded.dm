@@ -38,6 +38,9 @@
 	var/unwieldsound = FALSE
 	var/sharp_when_wielded = FALSE
 
+	lefthand_file = 'icons/mob/inhands/twohanded_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/twohanded_righthand.dmi'
+
 
 /obj/item/twohanded/Initialize(mapload)
 	. = ..()
@@ -107,7 +110,7 @@
 	force_unwielded = 5
 	force_wielded = 24
 	toolspeed = 0.25
-	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
+	attack_verb = list("атаковал", "рубанул", "поранил", "порезал")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/crowbar.ogg'
 	max_integrity = 200
@@ -207,7 +210,7 @@
 	unwieldsound = 'sound/weapons/saberoff.ogg'
 	armour_penetration = 35
 	origin_tech = "magnets=4;syndicate=5"
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 75
 	sharp_when_wielded = TRUE // only sharp when wielded
 	max_integrity = 200
@@ -271,10 +274,10 @@
 		return .
 
 	if(prob(50))
-		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
+		INVOKE_ASYNC(src, GLOBAL_PROC_REF(jedi_spin), user)
 
 
-/obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user)
+/proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
 		user.setDir(i)
 		if(i == WEST)
@@ -341,7 +344,7 @@
 	armour_penetration = 10
 	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	attack_verb = list("атаковал", "ткнул", "уколол", "поранил", "пронзил")
 	sharp = TRUE
 	embed_chance = 50
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -428,7 +431,6 @@
 	force_wielded = 25
 	throwforce = 20
 	throw_speed = 4
-	attack_verb = list("gored")
 
 /obj/item/twohanded/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity, params)
 	..()
@@ -505,11 +507,6 @@
 		mounted_head = null
 	qdel(src)
 
-/obj/item/twohanded/spear/kidan
-	icon_state = "kidanspear0"
-	name = "Kidan spear"
-	desc = "A spear brought over from the Kidan homeworld."
-
 
 // DIY CHAINSAW
 /obj/item/twohanded/required/chainsaw
@@ -525,7 +522,7 @@
 	throw_range = 4
 	materials = list(MAT_METAL = 13000)
 	origin_tech = "materials=3;engineering=4;combat=2"
-	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
+	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
 	hitsound = "swing_hit"
 	sharp = TRUE
 	embed_chance = 10
@@ -596,7 +593,7 @@
 	hitsound = null
 	armour_penetration = 35
 	origin_tech = "materials=6;syndicate=4"
-	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
+	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
 	sharp = TRUE
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -826,7 +823,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force_unwielded = 7
 	force_wielded = 15
-	attack_verb = list("attacked", "impaled", "pierced")
+	attack_verb = list("атаковал", "пронзил", "проколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
@@ -863,9 +860,9 @@
 	. = ..()
 	if(isliving(user))
 		var/mob/living/U = user
-		if(U.mind && !U.mind.devilinfo && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
-			U.visible_message("<span class='warning'>As [U] picks [src] up, [U]'s arms briefly catch fire.</span>", \
-				"<span class='warning'>\"As you pick up the [src] your arms ignite, reminding you of all your past sins.\"</span>")
+		if(!U.mind?.has_antag_datum(/datum/antagonist/devil) && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
+			U.visible_message(span_warning("As [U] picks [src] up, [U]'s arms briefly catch fire."), \
+				span_warning("\"As you pick up the [src] your arms ignite, reminding you of all your past sins.\""))
 			if(ishuman(U))
 				var/mob/living/carbon/human/H = U
 				H.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
@@ -878,7 +875,7 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
 
-	if(!user.mind || user.mind.devilinfo || (user.mind.soulOwner == user.mind))
+	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner == user.mind))
 		return .
 
 	to_chat(user, span_warning("The [name] burns in your hands!"))
@@ -911,7 +908,7 @@
 	throw_speed = 4
 	armour_penetration = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
+	attack_verb = list("атаковал", "ткнул", "уколол", "пронзил")
 	sharp = TRUE
 	embed_chance = 50
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -931,7 +928,7 @@
 	armour_penetration = 40
 	block_chance = 50
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
+	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "поцарапал")
 	toolspeed = 0.5
 
 /obj/item/twohanded/required/pyro_claws/Initialize(mapload)

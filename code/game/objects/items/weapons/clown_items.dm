@@ -21,7 +21,7 @@
 	var/list/honk_sounds = list('sound/items/bikehorn.ogg')
 	throw_speed = 3
 	throw_range = 15
-	attack_verb = list("HONKED")
+	attack_verb = list("хонкнул")
 
 /obj/item/bikehorn/Initialize()
 	. = ..()

@@ -151,3 +151,24 @@
 	materials = list(MAT_METAL = 800, MAT_GLASS = 600)
 	build_path = /obj/item/vending_refill/custom
 	category = list("Miscellaneous")
+
+/datum/design/translator_chip
+	name = "PVR Language Chip"
+	desc = "Крошечный чип с индикатором. Устанавливается в импланты-переводчики."
+	id = "pvr_language_chip"
+	req_tech = list("materials" = 3, "programming" = 5, "abductor" = 1)
+	build_type = PROTOLATHE
+	build_path = /obj/item/translator_chip
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 100, MAT_TITANIUM = 500, MAT_PLASMA = 500, MAT_DIAMOND = 100)
+	category = list("Miscellaneous")
+
+/datum/design/retranslator_upgrade
+	name = "PVR Storage Upgrade"
+	desc = "Маленькое устройство для расширения количества слотов голосовых чипов в ретрансляторе псионического голоса."
+	id = "pvr_storage_upgrade"
+	req_tech = list("materials" = 5, "programming" = 6, "bluespace" = 6, "abductor" = 2)
+	build_type = PROTOLATHE
+	build_path = /obj/item/translator_upgrade/grey_retraslator
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 100, MAT_TITANIUM = 500, MAT_PLASMA = 500, MAT_DIAMOND = 100)
+	category = list("Miscellaneous")
+

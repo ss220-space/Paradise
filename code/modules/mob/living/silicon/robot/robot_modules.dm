@@ -405,8 +405,11 @@
 	if(!robot.weapons_unlock)
 		var/count_secborgs = 0
 
-		for(var/mob/living/silicon/robot/R in GLOB.alive_mob_list)
-			if(R && R.stat != DEAD && R.module && istype(R.module, /obj/item/robot_module/security))
+		for(var/mob/living/silicon/robot/silicon in GLOB.alive_mob_list)
+			if(silicon == robot)
+				continue
+
+			if(silicon.stat != DEAD && silicon.module && istype(silicon.module, /obj/item/robot_module/security))
 				count_secborgs++
 
 		var/max_secborgs = 2
@@ -624,7 +627,7 @@
 		if(!istype(D, /obj/item/pickaxe/drill/cyborg/diamond))
 			qdel(D)
 			modules -= D // Remove it from this list so it doesn't get added in the rebuild.
-			
+
 	modules += new /obj/item/pickaxe/drill/cyborg/diamond(src)
 	rebuild()
 
@@ -890,7 +893,7 @@
 
 /obj/item/robot_module/hunter/New()
 	..()
-	modules += new /obj/item/melee/energy/alien/claws(src)
+	modules += new /obj/item/melee/energy/alien_claws(src)
 	modules += new /obj/item/flash/cyborg/alien(src)
 	var/obj/item/reagent_containers/spray/alien/stun/S = new /obj/item/reagent_containers/spray/alien/stun(src)
 	S.reagents.add_reagent("cryogenic_liquid",250) //nerfed to sleeptoxin to make it less instant drop.
@@ -1076,7 +1079,7 @@
 	modules += new /obj/item/handheld_defibrillator(src)
 	modules += new /obj/item/twohanded/shockpaddles/borg(src)
 	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
-	modules += new /obj/item/gripper(src)
+	modules += new /obj/item/gripper/universal(src)
 	modules += new /obj/item/flash/cyborg(src)
 	modules += new /obj/item/scalpel/laser/laser1(src)
 	modules += new /obj/item/hemostat(src)
@@ -1144,7 +1147,7 @@
 			return TRUE
 
 		return TRUE
-		
+
 	else
 		return FALSE
 

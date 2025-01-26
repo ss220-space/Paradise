@@ -67,7 +67,7 @@
 	card_force = 5
 	card_throwforce = 10
 	card_throw_speed = 3
-	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
+	card_attack_verb = list("атаковал", "полоснул", "порезал")
 	card_resistance_flags = NONE
 
 

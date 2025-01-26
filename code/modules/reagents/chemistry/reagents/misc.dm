@@ -117,11 +117,6 @@
 	color = "#D0D0D0" // rgb: 208, 208, 208
 	taste_description = "sub-par bling"
 
-/datum/reagent/silver/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(M.has_bane(BANE_SILVER))
-		M.reagents.add_reagent("toxin", volume)
-	. = ..()
-
 /datum/reagent/aluminum
 	name = "Aluminum"
 	id = "aluminum"
@@ -165,13 +160,9 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL)
-			H.blood_volume += 0.8
-	return ..()
+			H.AdjustBlood(0.8)
 
-/datum/reagent/iron/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(M.has_bane(BANE_IRON) && holder && holder.chem_temp < 150) //If the target is weak to cold iron, then poison them.
-		M.reagents.add_reagent("toxin", volume)
-	..()
+	return ..()
 
 //foam
 /datum/reagent/fluorosurfactant
@@ -355,7 +346,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
-		head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name, H = H)
+		head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name, human = H)
 		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
 		H.update_hair()
 		H.update_fhair()
@@ -380,7 +371,7 @@
 		if(head_organ.dna.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
 			head_organ.h_style = "Very Long Hair"
 		else //Otherwise, give them a random hair style.
-			head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name, H = H)
+			head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species, human = H)
 		if(head_organ.dna.species.name in tmp_facial_hair_style.species_allowed) //If 'Very Long Beard' is a style the person's species can have, give it to them.
 			head_organ.f_style = "Very Long Beard"
 		else //Otherwise, give them a random facial hair style.
@@ -717,3 +708,53 @@
 	if(volume > 4)
 		M.add_language(LANGUAGE_MONKEY_HUMAN)
 	return ..()
+
+/datum/reagent/admin_cleaner
+	name = "WD-2381"
+	color = "#da9eda"
+	description = "Супер-пузырьковое чистящее средство, предназначенное для очистки всех предметов. Или, ну, всего, что не прикручено. Или прикуручено, если уж на то пошло. Другими словами: если вы это видите, как вы это заполучили?"
+
+/datum/reagent/admin_cleaner/organic
+	name = "WD-2381-MOB"
+	id = "admincleaner_mob"
+	description = "Бутылочка со странными нанитами, мгновенно пожирающими тела, как живые, так и мёртвые, а также органы."
+
+/datum/reagent/admin_cleaner/organic/reaction_mob(mob/living/M, method, volume, show_message)
+	. = ..()
+	if(method == REAGENT_TOUCH)
+		M.dust()
+
+/datum/reagent/admin_cleaner/organic/reaction_obj(obj/O, volume)
+	if(is_organ(O))
+		qdel(O)
+	if(istype(O, /obj/effect/decal/cleanable/blood) || istype(O, /obj/effect/decal/cleanable/vomit))
+		qdel(O)
+	if(istype(O, /obj/item/mmi))
+		qdel(O)
+
+/datum/reagent/admin_cleaner/item
+	name = "WD-2381-ITM"
+	id = "admincleaner_item"
+	description = "Бутылочка со странными нанитами, которые мгновенно пожирают предметы, оставляя всё остальное нетронутым."
+
+/datum/reagent/admin_cleaner/item/reaction_obj(obj/O, volume)
+	if(isitem(O) && !istype(O, /obj/item/grenade/clusterbuster/segment))
+		qdel(O)
+
+/datum/reagent/admin_cleaner/all
+	name = "WD-2381-ALL"
+	id = "admincleaner_all"
+	description = "Невероятно опасный набор нанитов, созданный Уборщиками Синдиката, которые пожирают всё, к чему прикасаются."
+
+/datum/reagent/admin_cleaner/all/reaction_obj(obj/O, volume)
+	if(istype(O, /obj/item/grenade/clusterbuster/segment))
+		// don't clear clusterbang segments
+		// I'm allowed to make this hack because this is admin only anyway
+		return
+	if(!iseffect(O))
+		qdel(O)
+
+/datum/reagent/admin_cleaner/all/reaction_mob(mob/living/M, method, volume, show_message)
+	. = ..()
+	if(method == REAGENT_TOUCH)
+		M.dust()

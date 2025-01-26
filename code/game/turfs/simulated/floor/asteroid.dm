@@ -233,3 +233,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	nitrogen = 82
 	temperature = 180
 	planetary_atmos = FALSE
+
+/turf/simulated/floor/plating/asteroid/snow/planet
+	oxygen = 22
+	nitrogen = 82

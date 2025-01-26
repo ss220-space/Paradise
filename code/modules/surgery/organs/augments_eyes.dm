@@ -42,11 +42,18 @@
 /obj/item/organ/internal/cyberimp/eyes/emp_act(severity)
 	if(!owner || emp_proof)
 		return
+
 	if(severity > 1)
 		if(prob(10 * severity))
 			return
+
 	to_chat(owner, span_warning("Static obfuscates your vision!"))
-	owner.flash_eyes(3, visual = TRUE)
+
+	if(HAS_TRAIT(owner, TRAIT_ADVANCED_CYBERIMPLANTS))
+		owner.EyeBlurry(1.5 SECONDS)
+	else
+		owner.flash_eyes(3, visual = TRUE)
+
 
 /obj/item/organ/internal/cyberimp/eyes/meson
 	name = "Meson scanner implant"

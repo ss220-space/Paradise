@@ -5,6 +5,7 @@
 	max_grab = GRAB_KILL
 	slowed_by_pull_and_push = FALSE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 5, /obj/item/stack/sheet/animalhide/xeno = 1)
+	hud_type = /datum/hud/alien
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
 	var/caste = ""

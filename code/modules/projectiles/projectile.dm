@@ -287,6 +287,10 @@
 			return FALSE
 
 	prehit(bumped_atom)
+	if(HAS_TRAIT(src, TRAIT_SHRAPNEL))
+		bumped_atom.hitby(src, TRUE)
+		qdel(src)
+
 	var/permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
 		if(forcedodge > 0)
@@ -393,7 +397,7 @@
 		Angle = round(get_angle(src, current))
 	if(spread)
 		Angle += (rand() - 0.5) * spread
-	if(firer)
+	if(firer && ismob(firer))
 		hit_crawling_mobs_chance = firer.a_intent == INTENT_HELP ? 0 : 100
 	// Turn right away
 	var/matrix/M = new
@@ -459,8 +463,12 @@
 
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
-	if(A.flags & CHECK_RICOCHET)
+	if((flag in list(ENERGY, LASER)) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
+
+	if((flag in list(BOMB, BULLET)) && (A.flags_ricochet & RICOCHET_HARD))
+		return TRUE
+
 	return FALSE
 
 
