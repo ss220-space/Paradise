@@ -27,13 +27,13 @@
 
 /datum/component/object_possession/RegisterWithParent()
 	RegisterSignals(parent, list(COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE), PROC_REF(on_move))
-	RegisterSignal(parent, COMSIG_MOB_GHOSTIZED PROC_REF(end_possession))
+	RegisterSignal(parent, COMSIG_MOB_GHOSTIZE, PROC_REF(end_possession))
 
 /datum/component/object_possession/UnregisterFromParent()
     UnregisterSignal(parent, list(
 		COMSIG_MOB_CLIENT_PRE_LIVING_MOVE,
 		COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE,
-		COMSIG_MOB_GHOSTIZED,
+		COMSIG_MOB_GHOSTIZE,
 	))
 
 /datum/component/object_possession/Destroy()
