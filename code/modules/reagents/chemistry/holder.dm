@@ -866,7 +866,7 @@
 	var/list/out = list()
 	var/list/reagent_tastes = list() //in the form reagent_tastes["descriptor"] = strength
 	//mobs should get this message when either they cannot taste, the tastes are all too weak for them to detect, or the tastes somehow don't have any strength
-	var/no_taste_text = "чего-то неописуемого"
+	var/no_taste_text = "вкус чего-то неописуемого"
 	if(minimum_percent > 100)
 		return no_taste_text
 	for(var/datum/reagent/R in reagent_list)
