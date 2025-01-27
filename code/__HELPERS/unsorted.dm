@@ -761,10 +761,10 @@ Returns 1 if the chain up to the area contains the given typepath
 	return mobs
 
 
-/proc/parse_zone(datum/body_zone/zone, case_id)
-	zone = ispath(zone) ? GLOB.body_zones[zone] : zone
+/proc/parse_zone(zone, case_id)
+	var/datum/body_zone/body_zone = ispath(zone) ? GLOB.body_zones[zone] : zone
 	
-	return zone.ru_names[case_id] || zone.name
+	return body_zone.ru_names[case_id] || body_zone.name
 
 
 /*
