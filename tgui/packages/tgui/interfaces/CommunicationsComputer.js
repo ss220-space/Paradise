@@ -374,7 +374,7 @@ const StatusScreens = (props, context) => {
         content={pb.label}
         selected={pb.name === stat_display.type}
         disabled={!authhead}
-        onClick={() => act('setstat', { statdisp: pb.name })}
+        onClick={() => act('setstat', { statdisp: pb.id })}
       />
     );
   });

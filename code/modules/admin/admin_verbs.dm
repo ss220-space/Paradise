@@ -10,6 +10,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/antagonists_menu,
 	/client/proc/check_security,		/*shows all security*/
 	/datum/admins/proc/show_player_panel,
+	/datum/admins/proc/player_panel_veth,
 	/client/proc/fax_panel,
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
@@ -220,7 +221,6 @@ GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/datum/admins/proc/show_player_panel,
 	/client/proc/ban_panel,
 	/client/proc/view_asays,
-	/client/proc/debug_variables,		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
 	/client/proc/openAdminTicketUI,
 ))
 GLOBAL_LIST_INIT(admin_verbs_mentor, list(
@@ -403,7 +403,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!check_rights(R_ADMIN | R_MOD))
 		return
 
-	holder.player_panel_new()
+	holder.player_panel_veth()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Player Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
@@ -467,7 +467,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/game_panel()
 	set name = "Game Panel"
-	set category = "Admin.Event Spawn"
+	set category = "Admin.Event"
 
 	if(!check_rights(R_ADMIN | R_EVENT))
 		return
@@ -937,12 +937,33 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set category = "Admin.Event"
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
+
+	if(!check_rights(R_EVENT))
+		return
+
 	var/choosen_disease = input("Choose the disease to give to that guy", "ACHOO") as null|anything in GLOB.diseases
-	if(!choosen_disease) return
+	if(!choosen_disease)
+		return
 	var/datum/disease/D = new choosen_disease()
 	D.Contract(T)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Disease") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	log_and_message_admins("gave [key_name_log(T)] the disease [D].")
+
+/client/proc/cure_disease(mob/T in GLOB.mob_list)
+	set category = "Admin.Event"
+	set name = "Cure Disease"
+	set desc = "Cures a Disease of a mob."
+
+	if(!check_rights(R_EVENT))
+		return
+	if(!T.diseases)
+		to_chat(usr, span_warning("[T] doesn't have any diseases!"))
+
+	var/datum/disease/choosen_disease = input("Choose the disease to cure", "BLESS YA") as null|anything in T.diseases
+	if(!choosen_disease)
+		return
+	log_and_message_admins("cured [choosen_disease] for [key_name(T)].")
+	choosen_disease.cure()
 
 /client/proc/make_sound(obj/O in view(maxview())) // -- TLE
 	set name = "\[Admin\] Make Sound"

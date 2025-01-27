@@ -2582,6 +2582,20 @@
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					/obj/item/clothing/head/powdered_wig = 1,
 					/obj/item/gun/magic/wand = 1,
+					/obj/item/clothing/mask/balaclava =1,
+					/obj/item/clothing/under/syndicate/blackops_civ = 1,
+					/obj/item/clothing/glasses/thermal_fake = 1,
+					/obj/item/clothing/mask/horsehead = 2)
+	premium = list(/obj/item/clothing/suit/hgpirate = 1,
+					/obj/item/clothing/head/hgpiratecap = 1,
+					/obj/item/clothing/head/helmet/roman/fake = 1,
+					/obj/item/clothing/head/helmet/roman/legionaire/fake = 1,
+					/obj/item/clothing/under/roman = 1,
+					/obj/item/clothing/shoes/roman = 1,
+					/obj/item/shield/riot/roman/fake = 1,
+					/obj/item/clothing/under/cuban_suit = 1,
+					/obj/item/clothing/head/cuban_hat = 1,
+					/obj/item/clothing/under/ussptracksuit_black = 1,
 					/obj/item/clothing/under/ussptracksuit_white = 1,
 					/obj/item/clothing/under/steampunkdress = 1,
 					/obj/item/clothing/suit/hooded/hijab = 1)
@@ -5099,7 +5113,7 @@
 		/obj/item/storage/lockbox/plasma/atmos = 1,
 		/obj/item/storage/lockbox/plasma/mime = 5,
 		/obj/item/storage/lockbox/plasma/clown = 5,
-		/obj/item/storage/lockbox/plasma/blueshield = 1,
+		/obj/item/storage/lockbox/plasma/blueshield = 1
 	)
 
 	refill_canister = /obj/item/vending_refill/plasma

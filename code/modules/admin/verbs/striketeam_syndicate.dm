@@ -3,7 +3,7 @@
 #define SYNDICATE_COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
 GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 /client/proc/syndicate_strike_team()
-	set category = "Admin.Event Spawn"
+	set category = "Admin.Event"
 	set name = "Заспавнить Ударный Отряд Синдиката"
 	set desc = "Спавнит Ударный Отряд Синдиката в месте их дислокации на СЦК."
 	if(!src.holder)
@@ -23,7 +23,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 	var/input = null
 	while(!input)
-		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять ударный отряд синдиката.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять ударный отряд синдиката.", "Укажите миссию", "", encode = FALSE)
 		if(!input)
 			if(tgui_alert(src, "Ошибка, миссия не задана. Вы хотите приостановить процесс? ", "Подтверждение", list("Да","Нет")) == "Да")
 				return

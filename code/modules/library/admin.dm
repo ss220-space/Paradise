@@ -1,7 +1,7 @@
 /client/proc/delbook()
 	set name = "Delete Book"
 	set desc = "Permamently deletes a book from the database."
-	set category = "Admin.Admin Paperworks"
+	set category = "Admin.Admin"
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -24,7 +24,7 @@
 /client/proc/view_flagged_books()
 	set name = "View Flagged Books"
 	set desc = "View books flagged for content."
-	set category = "Admin.Admin Paperworks"
+	set category = "Admin.Admin"
 
 	if(!check_rights(R_ADMIN))
 		return
