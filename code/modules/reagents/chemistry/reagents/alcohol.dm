@@ -12,7 +12,7 @@
 	addict_supertype = /datum/reagent/consumable/ethanol
 	var/dizzy_adj = 6 SECONDS
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
-	taste_description = "жидкий огонь"
+	taste_description = "жидкого огня"
 
 /datum/reagent/consumable/ethanol/New()
 	addict_supertype = /datum/reagent/consumable/ethanol
@@ -51,9 +51,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon ="beerglass"
-	drink_name = "Стаканпива"
+	drink_name = "Стакан пива"
 	drink_desc = "Освежающая пинта пива."
-	taste_description = "пиво"
+	taste_description = "пива"
 
 /datum/reagent/consumable/ethanol/cider
 	name = "Сидр"
@@ -63,9 +63,9 @@
 	nutriment_factor = 1 * REAGENTS_METABOLISM
 	alcohol_perc = 0.2
 	drink_icon = "rewriter"
-	drink_name = "Стакансидра"
-	drink_desc = "Освежающий стакан традиционного сидра."
-	taste_description = "cider"
+	drink_name = "Стакан сидра"
+	drink_desc = "Освежающий Стакан традиционного сидра."
+	taste_description = "сидра"
 
 /datum/reagent/consumable/ethanol/whiskey
 	name = "Виски"
@@ -75,8 +75,8 @@
 	dizzy_adj = 8 SECONDS
 	alcohol_perc = 0.4
 	drink_icon = "whiskeyglass"
-	drink_name = "Стаканвиски"
-	drink_desc = "Шелковистая, дымчатая структура виски в стакане придаёт напитку очень стильный вид."
+	drink_name = "Стакан виски"
+	drink_desc = "Шелковистая, дымчатая структура виски в Стакан е придаёт напитку очень стильный вид."
 	taste_description = "виски"
 
 /datum/reagent/consumable/ethanol/specialwhiskey
@@ -85,7 +85,7 @@
 	description = "Как раз в тот момент, когда вы уже думаете, что обычный станционный виски - это хорошо... Это шелковистое, янтарное великолепие приходит и всё портит."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
-	taste_description = "отличный виски"
+	taste_description = "отличного виски"
 
 /datum/reagent/consumable/ethanol/gin
 	name = "Джин"
@@ -95,22 +95,22 @@
 	dizzy_adj = 6 SECONDS
 	alcohol_perc = 0.5
 	drink_icon = "ginvodkaglass"
-	drink_name = "Стаканджина"
+	drink_name = "Стакан джина"
 	drink_desc = "Кристально чистый бокал джина \"Гриффитер\"."
-	taste_description = "джин"
+	taste_description = "джина"
 
 /datum/reagent/consumable/ethanol/absinthe
 	name = "Абсент"
 	id = "absinthe"
-	description = "Абсент, очень крепкий напиток для очень крепких парней. Смотри, чтобы Зелёная Фея не пришла за вами!"
+	description = "Абсент, очень крепкий напиток для очень крепких парней. Смотрите, чтобы Зелёная Фея не пришла за вами!"
 	color = "#33EE00" // rgb: lots, ??, ??
 	overdose_threshold = 30
 	dizzy_adj = 10 SECONDS
 	alcohol_perc = 0.7
 	drink_icon = "absintheglass"
-	drink_name = "Стаканабсента"
+	drink_name = "Стакан абсента"
 	drink_desc = "Теперь Зелёная Фея до вас точно доберётся!"
-	taste_description = "чёртова боль"
+	taste_description = "чёртовой боли"
 
 //copy paste from LSD... shoot me
 /datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/M)
@@ -131,9 +131,9 @@
 	dizzy_adj = 14 SECONDS
 	alcohol_perc = 1
 	drink_icon = "glass_brown2"
-	drink_name = "Стакансамогона"
+	drink_name = "Стакан самогона"
 	drink_desc = "Теперь вы действительно на дне... Вага печень собрала свои вещи и уехала прошлой ночью."
-	taste_description = "чистое смирение"
+	taste_description = "чистого смирения"
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
 	if(M.mind && M.mind.assigned_role == JOB_TITLE_CIVILIAN)
@@ -151,9 +151,9 @@
 	alcohol_perc = 0.4
 	dizzy_adj = 10 SECONDS
 	drink_icon = "rumglass"
-	drink_name = "Стаканрома"
+	drink_name = "Стакан рома"
 	drink_desc = "Вам захотельно примерить костюм пирата, разве не так?"
-	taste_description = "ром"
+	taste_description = "рома"
 
 /datum/reagent/consumable/ethanol/rum/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -167,7 +167,7 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "mojito"
-	drink_name = "Стаканмохито"
+	drink_name = "Стакан мохито"
 	drink_desc = "Прямо с Космокубы."
 	taste_description = "мохито"
 
@@ -178,9 +178,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
 	drink_icon = "ginvodkaglass"
-	drink_name = "Стаканводки"
-	drink_desc = "Стаканс водкой. Только не забывайте закусывать."
-	taste_description = "водка"
+	drink_name = "Стакан водки"
+	drink_desc = "Стакан с водкой. Только не забывайте закусывать."
+	taste_description = "водки"
 
 /datum/reagent/consumable/ethanol/vodka/on_mob_life(mob/living/M)
 	..()
@@ -194,8 +194,8 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "sake"
-	drink_name = "Стакансакэ"
-	drink_desc = "Стакансакэ. Да, именно так."
+	drink_name = "Стакан сакэ"
+	drink_desc = "Стакан сакэ. Да, именно так."
 	taste_description = "сакэ"
 
 /datum/reagent/consumable/ethanol/tequila
@@ -205,9 +205,9 @@
 	color = "#A8B0B7" // rgb: 168, 176, 183
 	alcohol_perc = 0.4
 	drink_icon = "tequilaglass"
-	drink_name = "Стакантекилы"
+	drink_name = "Стакан текилы"
 	drink_desc = "Не хватает только странных цветных оттенков!"
-	taste_description = "текила"
+	taste_description = "текилы"
 
 /datum/reagent/consumable/ethanol/vermouth
 	name = "Вермут"
@@ -216,9 +216,9 @@
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "vermouthglass"
-	drink_name = "Стаканвермута"
+	drink_name = "Стакан вермута"
 	drink_desc = "Чёрт, зачем вообще пить это неразбавленным?"
-	taste_description = "vermouth"
+	taste_description = "вермута"
 
 /datum/reagent/consumable/ethanol/wine
 	name = "Вино"
@@ -230,7 +230,7 @@
 	drink_icon = "wineglass"
 	drink_name = "Бокал вина"
 	drink_desc = "Очень стильный на вид напиток."
-	taste_description = "вино"
+	taste_description = "вина"
 
 /datum/reagent/consumable/ethanol/cognac
 	name = "Коньяк"
@@ -240,9 +240,9 @@
 	dizzy_adj = 8 SECONDS
 	alcohol_perc = 0.4
 	drink_icon = "cognacglass"
-	drink_name = "Стаканконьяка"
+	drink_name = "Стакан коньяка"
 	drink_desc = "Вы чувствуете себя аристократом просто держа его в руках."
-	taste_description = "коньяк"
+	taste_description = "коньяка"
 
 /datum/reagent/consumable/ethanol/suicider //otherwise known as "I want to get so smashed my liver gives out and I die from alcohol poisoning".
 	name = "Суисидр"
@@ -254,7 +254,7 @@
 	drink_icon = "suicider"
 	drink_name = "Стакан суисидра"
 	drink_desc = "Вы действительно достигли дна... Ваша печень собрала вещи и ушла вчера вечером."
-	taste_description = "неминуемая смерть"
+	taste_description = "неминуемой смерти"
 
 /datum/reagent/consumable/ethanol/ale
 	name = "Эль"
@@ -265,7 +265,7 @@
 	drink_icon = "aleglass"
 	drink_name = "Стакан эля"
 	drink_desc = "Освежающая пинта отличного эля."
-	taste_description = "эль"
+	taste_description = "эля"
 
 /datum/reagent/consumable/ethanol/thirteenloko
 	name = "Тринадцатый Локо"
@@ -278,8 +278,8 @@
 	heart_rate_increase = 1
 	drink_icon = "thirteen_loko_glass"
 	drink_name = "Стакан Тринадцатого Локо"
-	drink_desc = "Этот стакан Тринадцатого Локо, судя по всему, самого высокого качества. Напиток, а не стакан."
-	taste_description = "смешанный с алкоголем энергетик"
+	drink_desc = "Этот стакан Тринадцатого Локо, судя по всему, самого высокого качества. Напиток, а не Стакан ."
+	taste_description = "смешанного с алкоголем энергетика"
 
 /datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/M)
 	M.AdjustDrowsy(-14 SECONDS)
