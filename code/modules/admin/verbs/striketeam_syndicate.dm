@@ -3,7 +3,7 @@
 #define SYNDICATE_COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
 GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 /client/proc/syndicate_strike_team()
-	set category = "Admin.Event Spawn"
+	set category = "Admin.Event"
 	set name = "Заспавнить Ударный Отряд Синдиката"
 	set desc = "Спавнит Ударный Отряд Синдиката в месте их дислокации на СЦК."
 	if(!src.holder)

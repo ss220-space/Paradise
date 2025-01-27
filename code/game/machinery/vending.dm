@@ -5113,7 +5113,7 @@
 		/obj/item/storage/lockbox/plasma/atmos = 1,
 		/obj/item/storage/lockbox/plasma/mime = 5,
 		/obj/item/storage/lockbox/plasma/clown = 5,
-		/obj/item/storage/lockbox/plasma/blueshield = 1,
+		/obj/item/storage/lockbox/plasma/blueshield = 1
 	)
 
 	refill_canister = /obj/item/vending_refill/plasma

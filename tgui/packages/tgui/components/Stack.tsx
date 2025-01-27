@@ -16,23 +16,35 @@ import {
 } from './Flex';
 
 type StackProps = FlexProps & {
-  vertical?: boolean;
+  /** Fills available space. */
   fill?: boolean;
+  /** Reverses the stack. */
+  reverse?: boolean;
+  /** Flex column */
+  vertical?: boolean;
+  /** Adds zebra striping to the stack. */
+  zebra?: boolean;
 };
 
 export const Stack = (props: StackProps) => {
-  const { className, vertical, fill, ...rest } = props;
+  const { className, vertical, fill, reverse, zebra, ...rest } = props;
+
+  const directionPrefix = vertical ? 'column' : 'row';
+  const directionSuffix = reverse ? '-reverse' : '';
+
   return (
     <div
       className={classes([
         'Stack',
         fill && 'Stack--fill',
         vertical ? 'Stack--vertical' : 'Stack--horizontal',
+        zebra && 'Stack--zebra',
+        reverse && `Stack--reverse${vertical ? '--vertical' : ''}`,
         className,
         computeFlexClassName(props),
       ])}
       {...computeFlexProps({
-        direction: vertical ? 'column' : 'row',
+        direction: `${directionPrefix}${directionSuffix}`,
         ...rest,
       })}
     />
