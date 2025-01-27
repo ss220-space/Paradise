@@ -5,7 +5,7 @@
 	reagent_state = LIQUID
 	color = "#E78108" // rgb: 231, 129, 8
 	harmless = TRUE
-	taste_description = "что-то неописуемое"
+	taste_description = "чего-то неописуемого"
 	var/adj_dizzy = 0
 	var/adj_drowsy = 0
 	var/adj_sleepy = 0

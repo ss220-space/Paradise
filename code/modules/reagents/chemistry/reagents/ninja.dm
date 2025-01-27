@@ -20,7 +20,7 @@
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	harmless = FALSE
 	overdose_threshold = 30
-	taste_description = "неумолимое течение времени"
+	taste_description = "неумолимого течения времени"
 	var/turf/last_random_turf //For overdose teleports
 	var/can_work = FALSE //Can metabolise only if it was added in a dose equal to overdose_threshold-5 or more
 	var/obj/effect/temp_visual/ninja_rend/rend = null//Unharmfull trap for playing with time

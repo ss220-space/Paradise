@@ -17,7 +17,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	description = "Повсеместно распространённое химическое вещество, состоящее из водорода и кислорода."
 	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
-	taste_description = "вода"
+	taste_description = "воды"
 	var/cooling_temperature = 2
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "glass_clear"
@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	reagent_state = LIQUID
 	color = "#1BB1AB"
 	harmless = TRUE
-	taste_description = "вишня"
+	taste_description = "вишни"
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	color = "#61C2C2"
 	harmless = TRUE
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "средство для мытья полов"
+	taste_description = "средства для мытья полов"
 
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	drink_icon = "glass_red"
 	drink_name = "Стакан томатного сока"
 	drink_desc = "Стоп, а это точно томатный сок?"
-	taste_description = "кровь"
+	taste_description = "крови"
 	taste_mult = 1.3
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -222,7 +222,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	name = "Вакцина"
 	id = "vaccine"
 	color = "#C81040" // rgb: 200, 16, 64
-	taste_description = "антитела"
+	taste_description = "антител"
 
 /datum/reagent/vaccine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(islist(data) && (method == REAGENT_INGEST))
@@ -242,7 +242,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	description = "Вонючая вода из аквариума. Мерзость!"
 	reagent_state = LIQUID
 	color = "#757547"
-	taste_description = "блевотина"
+	taste_description = "блевотины"
 
 /datum/reagent/fishwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
@@ -262,7 +262,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	description = "Грязная вода, которую взяли из унитаза. Абсолютно отвратительно."
 	reagent_state = LIQUID
 	color = "#757547"
-	taste_description = "жидкое дерьмо"
+	taste_description = "жидкого дерьма"
 
 /datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //For shennanigans
 	return
@@ -277,7 +277,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	drink_icon = "glass_clear"
 	drink_name = "Стакан воды"
 	drink_desc = "Обычный стакан обычной воды."
-	taste_description = "вода"
+	taste_description = "воды"
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -427,7 +427,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	description = "Что-то, не должно существовать в этой реальности."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
-	taste_description = "сера"
+	taste_description = "серы"
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -456,7 +456,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	can_synth = FALSE
-	taste_description = "ожог"
+	taste_description = "ожогов"
 
 /datum/reagent/hellwater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -473,7 +473,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	color = "#FF9966"
 	description = "Вы даже думать не хотите, что это такое."
 	reagent_state = LIQUID
-	taste_description = "мясо"
+	taste_description = "мяса"
 
 /datum/reagent/liquidgibs/reaction_turf(turf/T, volume) //yes i took it from synthflesh...
 	if(volume >= 5 && !isspaceturf(T))
@@ -486,7 +486,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	description = "Также известна как гидроксид натрия."
 	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
-	taste_description = "едкая кислота"//don't drink lye, kids
+	taste_description = "едкой кислоты"//don't drink lye, kids
 
 /datum/reagent/drying_agent
 	name = "Сушильный агент"
@@ -494,7 +494,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	description = "Используется для осушения различных поверхностей."
 	reagent_state = LIQUID
 	color = "#A70FFF"
-	taste_description = "сухость"
+	taste_description = "сухости"
 
 /datum/reagent/drying_agent/reaction_turf(turf/simulated/T, volume)
 	if(istype(T))

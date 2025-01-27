@@ -6,7 +6,7 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	process_flags = ORGANIC | SYNTHETIC	//Adminbuse knows no bounds!
 	can_synth = FALSE
-	taste_description = "админ абуз"
+	taste_description = "админ абуза"
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/M)
 	M.setCloneLoss(0, FALSE)
@@ -63,4 +63,4 @@
 	name = "Наниты"
 	id = "nanites"
 	description = "Наномашины, способствующие быстрой регенерации клеточной структуры."
-	taste_description = "наномашины, сынок"
+	taste_description = "наномашин, сынок"
