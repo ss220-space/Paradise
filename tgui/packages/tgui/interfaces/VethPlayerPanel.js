@@ -9,15 +9,21 @@ export const VethPlayerPanel = (props, context) => {
 
   const players = sortBy((player) => player.name)(data.Data || []);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [selectedPlayerCkey, setSelectedPlayerCkey] = useLocalState(context,
+  const [selectedPlayerCkey, setSelectedPlayerCkey] = useLocalState(
+    context,
     'selectedPlayerCkey',
     ''
   );
 
   const searcher = createSearch(searchText, (player) => {
-    return player.name?.toLowerCase() + '|' + player.job?.toLowerCase() + '|' + player.ckey?.toLowerCase();
+    return (
+      player.name?.toLowerCase() +
+      '|' +
+      player.job?.toLowerCase() +
+      '|' +
+      player.ckey?.toLowerCase()
+    );
   });
-
 
   const handleAction = (action, params) => {
     // If params has a ckey, set it as the selected ckey

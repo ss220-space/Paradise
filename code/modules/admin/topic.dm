@@ -1952,13 +1952,18 @@
 			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["togmutate"])
+		var/source = href_list["version"]
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 		var/block=text2num(href_list["block"])
 		//testing("togmutate([href_list["block"]] -> [block])")
 		usr.client.cmd_admin_toggle_block(H,block)
-		show_player_panel(H)
+		if(source == "old")
+			show_player_panel(H)
+		else
+			usr.client.holder.Topic(null, list("showdna" = M.UID()))
+
 		//H.regenerate_icons()
 
 	else if(href_list["adminplayeropts"])
@@ -3893,13 +3898,17 @@
 			var/gene_name = GLOB.assigned_blocks[block]
 			if(gene_name)
 				var/text_color = "[M.dna.GetSEState(block) ? "#006600" : "#ff0000"]"
-				body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block]' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
+				body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block];version=new' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
 			else
 				body += "[block]"
 			body += "</td>"
 		body += "</tr></table>"
 
-		usr << browse(body.Join(""), "window=related_[M];size=420x600")
+		var/datum/browser/popup = new(usr, "show_dna", "<div align='center'>DNA</div>", 700, 500)
+		popup.set_content(body.Join(""))
+		popup.set_window_options("can_close=1;window=related_[M];")
+		popup.open()
+		onclose(usr, "show_dna")
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))

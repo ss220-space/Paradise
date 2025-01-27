@@ -259,7 +259,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 					var/gene_name = GLOB.assigned_blocks[block]
 					if(gene_name)
 						var/text_color = "[M.dna.GetSEState(block) ? "#006600" : "#ff0000"]"
-						body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block]' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
+						body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block];version=old;' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
 					else
 						body += "[block]"
 					body += "</td>"
