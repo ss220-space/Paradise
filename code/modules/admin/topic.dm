@@ -1962,7 +1962,7 @@
 		if(source == "old")
 			show_player_panel(H)
 		else
-			usr.client.holder.Topic(null, list("showdna" = M.UID()))
+			usr.client.holder.Topic(null, list("showdna" = H.UID()))
 
 		//H.regenerate_icons()
 
