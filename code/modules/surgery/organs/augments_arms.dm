@@ -21,7 +21,10 @@
 		active_item = new active_item(src)
 
 	update_transform()
-	slot = parent_organ_zone + "_device"
+
+	var/datum/body_zone/zone = GLOB.body_zones[parent_organ_zone]
+	slot = zone.name + "_device"
+
 	items_list = contents.Copy()
 
 /obj/item/organ/internal/cyberimp/arm/proc/update_transform()

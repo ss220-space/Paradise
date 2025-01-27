@@ -26,7 +26,6 @@
 	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
 	init_subtypes(/obj/item/slimepotion, GLOB.slime_potions)
 	init_subtypes(/datum/preference_info, GLOB.preferences_info)
-	init_subtypes(/datum/body_zone, GLOB.body_zones)
 	// Different bodies
 	__init_body_accessory(/datum/body_accessory/body)
 	// Different tails
@@ -43,6 +42,7 @@
 	init_datum_subtypes(/datum/job, GLOB.joblist, list(/datum/job/ai, /datum/job/cyborg), "title")
 	init_datum_subtypes(/datum/superheroes, GLOB.all_superheroes, null, "name")
 	init_datum_subtypes(/datum/language, GLOB.all_languages, null, "name")
+	init_datum_subtypes(/datum/body_zone, GLOB.body_zones, null, "name")
 
 	// Setup languages
 	for(var/language_name in GLOB.all_languages)
