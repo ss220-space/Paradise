@@ -40,7 +40,7 @@ export const VethPlayerPanel = (props, context) => {
 
   return (
     <Box>
-      <Window title="Player Panel Veth" width={1000} height={640}>
+      <Window title="Player Panel Veth" width={1100} height={640}>
         <Window.Content>
           <Section>
             <Button
