@@ -1992,7 +1992,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/message = tgui_input_text(usr, "Введите предупреждение", "Предупреждение", encode = FALSE)
+		var/message = tgui_input_text(usr, "Введите предупреждение", "Предупреждение")
 		if(tgui_alert(usr,"Вы действительно хотите отправить предупреждение всем блобам?", "", list("Да", "Нет")) == "Нет")
 			return
 
@@ -3080,7 +3080,7 @@
 				if(!you_realy_want_do_this())
 					return
 
-				var/new_name = tgui_input_text(usr, "Пожалуйста, введите новое название станции.", "Что?", "", encode = FALSE)
+				var/new_name = tgui_input_text(usr, "Пожалуйста, введите новое название станции.", "Что?", "")
 				if(!new_name)
 					return
 				change_station_name(new_name)

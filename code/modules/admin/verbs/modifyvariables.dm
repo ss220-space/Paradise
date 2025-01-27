@@ -96,12 +96,12 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 	switch(.["class"])
 		if(VV_TEXT)
-			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, encode = FALSE)
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 		if(VV_MESSAGE)
-			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, multiline = TRUE, encode = FALSE)
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, multiline = TRUE)
 			if(.["value"] == null)
 				.["class"] = null
 				return
@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			var/type = current_value
 			var/error = ""
 			do
-				type = tgui_input_text(src, "Введите тип:[error]", "Тип", type, encode = FALSE)
+				type = tgui_input_text(src, "Введите тип:[error]", "Тип", type)
 				if(!type)
 					break
 				type = text2path(type)
@@ -147,13 +147,13 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			.["value"] = type
 
 		if(VV_MATRIX)
-			.["value"] = text2matrix(tgui_input_text(src, "Введите a, b, c, d, e, и f, разделённые пробелами.", "Матрица", "1 0 0 0 1 0", encode = FALSE))
+			.["value"] = text2matrix(tgui_input_text(src, "Введите a, b, c, d, e, и f, разделённые пробелами.", "Матрица", "1 0 0 0 1 0"))
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 		if(VV_REGEX)
-			var/reg = tgui_input_text(src, "Введите regex", "Regex", "", encode = FALSE)
+			var/reg = tgui_input_text(src, "Введите regex", "Regex", "")
 			if(!reg)
 				return
 			.["value"] = regex(reg)
@@ -249,7 +249,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			var/type = current_value
 			var/error = ""
 			do
-				type = tgui_input_text(src, "Введите тип:[error]", "Тип", type, encode = FALSE)
+				type = tgui_input_text(src, "Введите тип:[error]", "Тип", type)
 				if(!type)
 					break
 				type = text2path(type)
