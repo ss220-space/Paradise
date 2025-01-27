@@ -4,7 +4,7 @@
 GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 /client/proc/syndicate_infiltration_team()
-	set category = "Admin.Event Spawn"
+	set category = "Admin.Event"
 	set name = "Отправить Диверсионный Отряд Синдиката"
 	set desc = "Спавнит Диверсионный Отряд Синдиката в их месте постоянной дислокации на СЦК."
 	if(!check_rights(R_ADMIN))

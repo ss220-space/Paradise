@@ -351,7 +351,7 @@ Works kind of like entering the game with a new character. Character receives a 
 Traitors and the like can also be revived with the previous role mostly intact.
 /N */
 /client/proc/respawn_character()
-	set category = "Admin.Event Spawn"
+	set category = "Admin.Event"
 	set name = "Respawn Character"
 	set desc = "Respawn a person that has been gibbed/dusted/killed. They must be a ghost for this to work and preferably should not have a body to go back into."
 
@@ -620,7 +620,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	offer_control(M)
 
 /client/proc/cmd_admin_create_centcom_report()
-	set category = "Admin.Admin Paperworks"
+	set category = "Admin.Admin"
 	set name = "Create Communications Report"
 
 	if(!check_rights(R_SERVER|R_EVENT))

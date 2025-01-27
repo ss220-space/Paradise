@@ -52,7 +52,7 @@ export const TextInputModal = (props, context) => {
   // Dynamically changes the window height based on the message.
   const windowHeight =
     130 +
-    (message.length > 40 ? Math.ceil(message.length / 4) : 0) +
+    (message.length > 40 ? Math.ceil(message.length / 3) : 0) +
     (visualMultiline ? 80 : 0);
 
   return (

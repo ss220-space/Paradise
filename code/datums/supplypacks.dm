@@ -2386,7 +2386,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/circuitboard/vendor/plasmamate)
 	cost = 100
 	containername = "plasmamate pack crate"
-	required_tech = list("toxins" = 5, "plasma" = 6)
+	required_tech = list("toxins" = 5, "plasmatech" = 6)
 
 /datum/supply_packs/misc/religious_supplies
 	name = "Religious Supplies Crate"
