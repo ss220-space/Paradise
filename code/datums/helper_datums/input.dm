@@ -75,7 +75,7 @@
 	return dat
 
 /datum/async_input/proc/render_buttons()
-	return button("Принять", "submit=1", , result == null && !immediate_submit)
+	return button("Submit", "submit=1", , result == null && !immediate_submit)
 
 /datum/async_input/proc/button(label, topic, on=FALSE, disabled=FALSE, id="")
 	var/class = ""
@@ -172,8 +172,8 @@
 	return dat
 
 /datum/async_input/autocomplete/render_buttons()
-	var/dat = button("Принять", "", , result == null && !immediate_submit, "submit-button")
-	dat += button("Отменить", "close=1")
+	var/dat = button("Submit", "", , result == null && !immediate_submit, "submit-button")
+	dat += button("Cancel", "close=1")
 	return dat
 
 /datum/async_input/autocomplete/Topic(href, href_list)
