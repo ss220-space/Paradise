@@ -1,5 +1,14 @@
 /obj/machinery/reagentgrinder
 	name = "\improper All-In-One Grinder"
+	desc = "Измельчает, дробит, разжижает и извлекает вещества из предметов, помещённых внутрь. Ради всего святого, не суйте туда свои пальцы."
+	ru_names = list(
+		NOMINATIVE = "универсальный блендер",
+		GENITIVE = "универсального блендера",
+		DATIVE = "универсальному блендеру",
+		ACCUSATIVE = "универсальный блендер",
+		INSTRUMENTAL = "универсальным блендером",
+		PREPOSITIONAL = "универсальном блендере"
+	)
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
 	layer = 2.9
@@ -96,6 +105,39 @@
 
 	var/list/holdingitems = list()
 
+/obj/machinery/reagentgrinder/examine(mob/user)
+	. = ..()
+	if(panel_open)
+		. += span_notice("Панель техобслуживания открыта.")
+	if(in_range(src, user))
+		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы активировать.<br>Используйте <b>Alt + Shift + ЛКМ</b>, чтобы удалить содержимое")
+
+/obj/machinery/reagentgrinder/AltClick(mob/living/carbon/human/human)
+	if(!istype(human) || !human.Adjacent(src))
+		return
+
+	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(operating)
+		return
+
+	add_fingerprint(human)
+	grind()
+
+/obj/machinery/reagentgrinder/CtrlShiftClick(mob/living/carbon/human/human)
+	if(!istype(human) || !human.Adjacent(src))
+		return
+
+	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(operating)
+		return
+
+	add_fingerprint(human)
+	detach(human)
+
 /obj/machinery/reagentgrinder/empty
 	icon_state = "juicer0"
 	beaker = null
@@ -143,6 +185,7 @@
 	if(!anchored || beaker)
 		return
 	if(!panel_open)
+		balloon_alert(user, "панель закрыта!")
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -162,6 +205,7 @@
 		return
 	default_unfasten_wrench(user, I)
 
+
 /obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -172,15 +216,15 @@
 	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
 		add_fingerprint(user)
 		if(panel_open)
-			to_chat(user, span_warning("Close the maintenance panel first."))
+			balloon_alert(user, "панель открыта!")
 			return ATTACK_CHAIN_PROCEED
 		if(beaker)
-			to_chat(user, span_warning("The [name] already has [beaker] loaded."))
+			balloon_alert(user, "слот для ёмкости занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		beaker = I
-		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		balloon_alert(user, "ёмкость установлена")
 		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -189,11 +233,11 @@
 	if(is_type_in_list(I, dried_items) && istype(I, /obj/item/reagent_containers/food/snacks/grown))
 		var/obj/item/reagent_containers/food/snacks/grown/grown = I
 		if(!grown.dry)
-			to_chat(user, span_warning("You must dry that first."))
+			balloon_alert(user, "сначала высушите!")
 			return ATTACK_CHAIN_PROCEED
 
 	if(length(holdingitems) >= limit)
-		to_chat(user, span_warning("The [name] cannot hold anymore items."))
+		balloon_alert(user, "нет места!")
 		return ATTACK_CHAIN_PROCEED
 
 	//Fill machine with a bag!
@@ -201,7 +245,7 @@
 		var/obj/item/storage/bag/bag = I
 		var/original_contents_len = length(bag.contents)
 		if(!length(bag.contents))
-			to_chat(user, span_warning("The [bag.name] is empty."))
+			balloon_alert(user, "нечего загружать!")
 			return ATTACK_CHAIN_PROCEED
 
 		for(var/obj/item/thing as anything in bag.contents)
@@ -213,54 +257,31 @@
 
 		var/new_contents_len = length(bag.contents)
 		if(new_contents_len == original_contents_len)
-			to_chat(user, span_warning("Nothing in [bag] can be put into [src]."))
+			balloon_alert(user, "нечего загружать!")
 			return ATTACK_CHAIN_PROCEED
-
-		to_chat(user, span_notice("You have emptied [new_contents_len ? "some" : "all"] of [bag]'s contents into [src]."))
+		user.visible_message(
+			span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] содержимое [bag.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы загрузили содержимое [bag.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
+		balloon_alert(user, "содержимое загружено")
 		updateUsrDialog()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(!is_type_in_list(I, blend_items) && !is_type_in_list(I, juice_items))
-		to_chat(user, span_warning("Cannot refine [I] into a reagent."))
+		balloon_alert(user, "не подходит!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!user.drop_transfer_item_to_loc(I, src))
 		return ..()
 
 	holdingitems += I
+	user.visible_message(
+		span_notice("[user] загрузил[pluralize_ru(user.gender, "", "а", "о", "и")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы загрузили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+	balloon_alert(user, "загружено в камеру")
 	updateUsrDialog()
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/machinery/reagentgrinder/examine(mob/user)
-	. = ..()
-	if(in_range(src, user))
-		. += "<span class='info'>Alt-click to activate it.<br/>Ctrl-Shift-click to dispose content.</span>"
 
-/obj/machinery/reagentgrinder/AltClick(mob/living/carbon/human/human)
-	if(!istype(human) || !human.Adjacent(src))
-		return
-
-	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(operating)
-		return
-
-	add_fingerprint(human)
-	grind()
-
-/obj/machinery/reagentgrinder/CtrlShiftClick(mob/living/carbon/human/human)
-	if(!istype(human) || !human.Adjacent(src))
-		return
-
-	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(operating)
-		return
-
-	add_fingerprint(human)
-	detach(human)
 
 /obj/machinery/reagentgrinder/attack_ai(mob/user)
 	return FALSE
@@ -280,40 +301,40 @@
 
 		if(!operating)
 				for (var/obj/item/O in holdingitems)
-						processing_chamber += "\A [O.name]<BR>"
+						processing_chamber += "\A [O.declent_ru(NOMINATIVE)]<BR>"
 
 				if (!processing_chamber)
 						is_chamber_empty = 1
-						processing_chamber = "Nothing."
+						processing_chamber = "Ничего."
 				if (!beaker)
-						beaker_contents = "<B>No beaker attached.</B><br>"
+						beaker_contents = "<B>Ёмкость не установлена.</B><br>"
 				else
 						is_beaker_ready = 1
-						beaker_contents = "<B>The beaker contains:</B><br>"
+						beaker_contents = "<B>Содержимое ёмкости:</B><br>"
 						var/anything = 0
 						for(var/datum/reagent/R in beaker.reagents.reagent_list)
 								anything = 1
 								beaker_contents += "[R.volume] - [R.name]<br>"
 						if(!anything)
-								beaker_contents += "Nothing<br>"
+								beaker_contents += "Ничего<br>"
 
 
 				dat += {"
-		<b>Processing chamber contains:</b><br>
+		<b>Содержимое камеры:</b><br>
 		[processing_chamber]<br>
 		[beaker_contents]<hr>
 		"}
 				if (is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
-						dat += "<a href='byond://?src=[src.UID()];action=grind'>Grind the reagents</a><BR>"
-						dat += "<a href='byond://?src=[src.UID()];action=juice'>Juice the reagents</a><BR><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=grind'>Измельчить</a><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=juice'>Выжать</a><BR><BR>"
 				if(holdingitems && holdingitems.len > 0)
-						dat += "<a href='byond://?src=[src.UID()];action=eject'>Eject the reagents</a><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=eject'>Вынуть содержимое камеры</a><BR>"
 				if (beaker)
-						dat += "<a href='byond://?src=[src.UID()];action=detach'>Detach the beaker</a><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=detach'>Извлечь ёмкость</a><BR>"
 		else
-				dat += "Please wait..."
+				dat += "Пожалуйста, подождите..."
 
-		var/datum/browser/popup = new(user, "reagentgrinder", "All-In-One Grinder")
+		var/datum/browser/popup = new(user, "reagentgrinder", "Универсальный блендер")
 		popup.set_content(dat)
 		popup.open(1)
 		return
@@ -344,12 +365,10 @@
 
 	beaker.forceMove(get_turf(src))
 	beaker = null
-
 	update_icon(UPDATE_ICON_STATE)
 	updateUsrDialog()
 
 /obj/machinery/reagentgrinder/proc/eject()
-
 		if (usr.stat != 0)
 				return
 		if (holdingitems && holdingitems.len == 0)

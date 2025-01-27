@@ -24,7 +24,15 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod
 	anchored = TRUE
 	name = "experimental biomass pod"
-	desc = "An electronically-lockable pod for growing organic tissue."
+	desc = "Капсула, предназначенная для искусственного выращивания органической ткани. Оборудована электронным замком. Выглядит жутковато."
+	ru_names = list(
+		NOMINATIVE = "капсула клонирования",
+		GENITIVE = "капсулы клонирования",
+		DATIVE = "капсуле клонирования",
+		ACCUSATIVE = "капсулу клонирования",
+		INSTRUMENTAL = "капсулой клонирования",
+		PREPOSITIONAL = "капсуле клонирования"
+	)
 	density = TRUE
 	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "pod_idle"
@@ -138,6 +146,15 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 //TO-DO: Make the genetics machine accept them.
 /obj/item/disk/data
 	name = "Cloning Data Disk"
+	desc = "Дискета, предназначенная для хранения данных ДНК-кода гуманоида."
+	ru_names = list(
+		NOMINATIVE = "ДНК-дискета",
+		GENITIVE = "ДНК-дискеты",
+		DATIVE = "ДНК-дискете",
+		ACCUSATIVE = "ДНК-дискету",
+		INSTRUMENTAL = "ДНК-дискетой",
+		PREPOSITIONAL = "ДНК-дискете"
+	)
 	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
 	var/datum/dna2/record/buf = null
 	var/read_only = FALSE //Well,it's still a floppy disk
@@ -151,7 +168,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	return ..()
 
 /obj/item/disk/data/demo
-	name = "data disk - 'God Emperor of Mankind'"
+	name = "data disk - 'Император Человечества'"
 	read_only = TRUE
 
 /obj/item/disk/data/demo/New()
@@ -160,7 +177,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	buf.types=DNA2_BUF_UE|DNA2_BUF_UI
 	//data = "066000033000000000AF00330660FF4DB002690"
 	//data = "0C80C80C80C80C80C8000000000000161FBDDEF" - Farmer Jeff
-	buf.dna.real_name="God Emperor of Mankind"
+	buf.dna.real_name="Император Человечества"
 	buf.dna.unique_enzymes = md5(buf.dna.real_name)
 	buf.dna.UI=list(0x066,0x000,0x033,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0xAF0,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x000,0x033,0x066,0x0FF,0x4DB,0x002,0x690,0x000,0x000,0x000,0x328,0x045,0x5FC,0x053,0x035,0x035,0x035)
 	//buf.dna.UI=list(0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x0C8,0x000,0x000,0x000,0x000,0x161,0xFBD,0xDEF) // Farmer Jeff
@@ -171,7 +188,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	buf.dna.UpdateUI()
 
 /obj/item/disk/data/monkey
-	name = "data disk - 'Mr. Muggles'"
+	name = "data disk - 'Мистер Магглс'"
 	read_only = 1
 
 /obj/item/disk/data/monkey/New()
@@ -192,24 +209,24 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/item/disk/data/attack_self(mob/user as mob)
 	read_only = !read_only
-	to_chat(user, "You flip the write-protect tab to [read_only ? "protected" : "unprotected"].")
+	balloon_alert(user, "защита от записи [read_only ? "включена" : "выключена"]")
 
 /obj/item/disk/data/examine(mob/user)
 	. = ..()
-	. += span_notice("The write-protect tab is set to [read_only ? "protected" : "unprotected"].")
+	. += span_notice("Механизм защиты от записи [read_only ? "включён" : "выключен"].")
 
 //Clonepod
 
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
 	if(mess)
-		. += span_warning("It's filled with blood and viscera. You swear you can see it moving...")
+		. += span_warning("Она заполнена мессивом из крови и внутренностей. Вам кажется или оно сейчас сдвинулось..?")
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		. += span_warning("Yellow ooze is dripping out of the synthmeat storage chamber...")
+		. += span_warning("Из камеры хранения органического сырья сочится жёлтая слизь...")
 	if(!occupant || stat & (NOPOWER|BROKEN))
 		return
 	if(occupant && occupant.stat != DEAD)
-		. += span_notice("Current clone cycle is [round(get_completion())]% complete.")
+		. += span_notice("Процесс клонирования завершён на [round(get_completion())]%.")
 
 /obj/machinery/clonepod/return_air() //non-reactive air
 	var/datum/gas_mixture/GM = new
@@ -233,7 +250,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, 1)
 	mess = TRUE
 	update_icon()
-	connected_message("<font face=\"REBUFFED\" color=#600A0A>If you keep trying to steal from me, you'll end up with me.</font>")
+	connected_message("<font face=\"REBUFFED\" color=#600A0A>Если ты снова попытаешься украсть у Меня, то Я приду за тобой лично.</font>")
 
 //Start growing a human clone in the pod!
 /obj/machinery/clonepod/proc/growclone(datum/dna2/record/R)
@@ -273,7 +290,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	else
 		return 0
 
-	attempting = TRUE //One at a time!!
+	attempting = TRUE // One at a time!!
 	countdown.start()
 
 	if(!R.dna)
@@ -283,7 +300,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	H.set_species(R.dna.species.type)
 	occupant = H
 
-	if(!R.dna.real_name)	//to prevent null names
+	if(!R.dna.real_name)	// to prevent null names
 		R.dna.real_name = H.real_name
 	else
 		H.real_name = R.dna.real_name
@@ -294,10 +311,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		H.add_language(L.name)
 
 	if(is_taipan(z))
-		H.faction.Add("syndicate")	//Чтобы синдикатовцы после клонирования оставались синдикатовцами
+		H.faction.Add("syndicate")	// So that Syndie guys remain Syndie guys after cloning
 
 
-	H.check_genes(MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
+	H.check_genes(MUTCHK_FORCED) // Ensures species that get powers by the species proc handle_dna keep them
 
 	if(efficiency > 2 && efficiency < 5 && prob(25))
 		randmutb(H)
@@ -322,11 +339,11 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		H.ckey = R.ckey
 		update_clone_antag(H) //Since the body's got the mind, update their antag stuff right now. Otherwise, wait until they get kicked out (as per the CLONER_MATURE_CLONE business) to do it.
 		var/message
-		message += "<b>Consciousness slowly creeps over you as your body regenerates.</b><br>"
-		message += "<i>So this is what cloning feels like?</i>"
+		message += "<b>Вы медленно обретаете сознание по мере того, как ваше тело восстанавливается.</b><br>"
+		message += "<i>Так вот как ощущается клонирование...</i>"
 		to_chat(H, span_notice("[message]"))
 	else if(grab_ghost_when == CLONER_MATURE_CLONE)
-		to_chat(clonemind.current, span_notice("Your body is beginning to regenerate in a cloning pod. You will become conscious when it is complete."))
+		to_chat(clonemind.current, span_notice("Ваше тело начинает восстанавливаться в капсуле клонирования. Вы обретёте сознание после завершения."))
 		// Set up a soul link with the dead body to catch a revival
 		RegisterSignal(clonemind.current, COMSIG_LIVING_REVIVE, PROC_REF(occupant_got_revived))
 		RegisterSignal(clonemind, COMSIG_MIND_TRANSER_TO, PROC_REF(occupant_got_revived))
@@ -346,18 +363,18 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			biomass += BIOMASS_BASE_AMOUNT
 			show_message = TRUE
 	if(show_message)
-		visible_message("[src] sucks in and processes the nearby biomass.")
+		visible_message("[capitalize(declent_ru(NOMINATIVE))] всасывает и начинает обрабатывать полученную биомассу.")
 
 	if(stat & NOPOWER) //Autoeject if power is lost
 		if(occupant)
 			go_out()
-			connected_message("Clone Ejected: Loss of power.")
+			connected_message("Клон извлечён: Недостаточно энергии.")
 
 	else if((occupant) && (occupant.loc == src))
 		if((occupant.stat == DEAD) || (occupant.suiciding) || (occupant.mind && !occupant.mind.is_revivable()))  //Autoeject corpses and suiciding dudes.
-			announce_radio_message("The cloning of <b>[occupant]</b> has been aborted due to unrecoverable tissue failure.")
+			announce_radio_message("Клонирование пациента <b>[occupant]</b>не было осуществлено из-за необратимого повреждения тканей организма.")
 			go_out()
-			connected_message("Clone Rejected: Deceased.")
+			connected_message("Клонирование невозможно: Смерть пациента.")
 
 		else if(occupant.cloneloss > (100 - heal_level))
 			occupant.Paralyse(8 SECONDS)
@@ -390,8 +407,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			use_power(7500) //This might need tweaking.
 
 		else if((occupant.cloneloss <= (100 - heal_level)))
-			connected_message("Cloning Process Complete.")
-			announce_radio_message("The cloning cycle of <b>[occupant]</b> is complete.")
+			connected_message("Процесс клонирования завершён..")
+			announce_radio_message("Процесс клонирования пациента <b>[occupant]</b> завершён.")
 			go_out()
 
 	else if((!occupant) || (occupant.loc != src))
@@ -411,14 +428,14 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(I.GetID())
 		add_fingerprint(user)
 		if(!check_access(I))
-			to_chat(user, span_danger("Access Denied."))
+			balloon_alert(user, "отказано в доступе!")
 			return ATTACK_CHAIN_PROCEED
 		if(!(occupant || mess))
-			to_chat(user, span_danger("Error: Pod has no occupant."))
+			balloon_alert(user, "внутри пусто!")
 			return ATTACK_CHAIN_PROCEED
-		connected_message("Authorized Ejection")
-		announce_radio_message("An authorized ejection of [(occupant) ? occupant.real_name : "the malfunctioning pod"] has occured")
-		to_chat(user, span_notice("You force an emergency ejection."))
+		connected_message("Инициировано извлечение клона.")
+		announce_radio_message("Инициировано извлечение клона [(occupant) ? occupant.real_name : ""].")
+		balloon_alert(user, "клон извлечён")
 		go_out()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -434,14 +451,14 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		if(!cleaning)
 			return ..()
 		user.visible_message(
-			span_notice("[user] starts to clean the ooze off the [src]."),
-			span_notice("You start to clean the ooze off the [src]."),
+			span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] счищать слизь с [declent_ru(GENITIVE)]."),
+			span_notice("Вы начинаете счищать слизь с [declent_ru(GENITIVE)].")
 		)
 		if(!do_after(user, 5 SECONDS, src))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] cleans the ooze off [src]."),
-			span_notice("You clean the ooze off [src]."),
+			span_notice("[user] убира[pluralize_ru(user.gender, "ет", "ют")] слизь с [declent_ru(GENITIVE)]."),
+			span_notice("Вы убрали слизь с [declent_ru(GENITIVE)].")
 		)
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -451,7 +468,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		add_fingerprint(user)
-		to_chat(user, span_notice("The [name] processes [I]."))
+		balloon_alert(user, "биомасса загружена")
 		biomass += BIOMASS_BASE_AMOUNT
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -483,7 +500,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(occupant)
-		to_chat(user, span_warning("Can not do that while [src] is in use."))
+		balloon_alert(user, "внутри кто-то есть!")
 		return
 	set_anchored(!anchored)
 	if(anchored)
@@ -503,7 +520,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	to_chat(user, span_warning("A droplet of bananium ooze seeps into the synthmeat storage chamber..."))
+	balloon_alert(user, "хонкнуто!")
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
 /obj/machinery/clonepod/proc/update_clone_antag(var/mob/living/carbon/human/H)
@@ -556,9 +573,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		clonemind.transfer_to(occupant)
 		occupant.grab_ghost()
 		update_clone_antag(occupant)
-		to_chat(occupant, span_userdanger("You remember nothing from the time that you were dead!"))
-		to_chat(occupant, span_notice("<b>There is a bright flash!</b><br>\
-			<i>You feel like a new being.</i>"))
+		to_chat(occupant, span_userdanger("Вы не можете ничего вспомнить с момента вашей смерти!"))
+		to_chat(occupant, span_notice("<b>Ваши глаза озаряет яркая вспышка!</b><br>\
+			<i>Вы будто бы заново родились.</i>"))
 		if(HAS_TRAIT(src, TRAIT_CMAGGED))
 			playsound(loc, 'sound/items/bikehorn.ogg', 50, TRUE)
 			occupant.force_gene_block(GLOB.clumsyblock, TRUE, TRUE)
@@ -583,8 +600,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod/proc/malfunction(go_easy = FALSE)
 	if(occupant)
-		connected_message("Critical Error!")
-		announce_radio_message("Critical error! Please contact a Thinktronic Systems technician, as your warranty may be affected.")
+		connected_message("Критическая ошибка!")
+		announce_radio_message("Критическая ошибка! Свяжитесь со специалистом Thinktronic Systems, чтобы получить техническое обслуживание по гарантии!")
 		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
 		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
 		if(!go_easy)
@@ -592,8 +609,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 				clonemind.transfer_to(occupant)
 			occupant.grab_ghost() // We really just want to make you suffer.
 			var/message
-			message += "<b>Agony blazes across your consciousness as your body is torn apart.</b><br>"
-			message += "<i>Is this what dying is like? Yes it is.</i>"
+			message += "<b>Ваше тело выворачивает наизнанку, волна агонизирующей боли заливает ваше сознание.</b><br>"
+			message += "<i>Это и есть [pluralize_ru(occupant.gender, "моя", "наша")] смерть? Да, это она.</i>"
 			to_chat(occupant, span_warning("[message]"))
 			SEND_SOUND(occupant, sound('sound/hallucinations/veryfar_noise.ogg', 0, 1, 50))
 		for(var/i in missing_organs)
@@ -696,6 +713,15 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/item/storage/box/disks
 	name = "Diskette Box"
+	desc = "Коробка для хранения дискет."
+	ru_names = list(
+		NOMINATIVE = "коробка с дискетами",
+		GENITIVE = "коробки с дискетами",
+		DATIVE = "коробке с дискетами",
+		ACCUSATIVE = "коробку с дискетами",
+		INSTRUMENTAL = "коробкой с дискетами",
+		PREPOSITIONAL = "коробке с дискетами"
+	)
 	icon_state = "disk_kit"
 
 /obj/item/storage/box/disks/populate_contents()

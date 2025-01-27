@@ -29,7 +29,7 @@ export const LoginScreen = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { loginState, isAI, isRobot, isAdmin } = data;
   return (
-    <Section title="Welcome" fill stretchContents>
+    <Section title="Добро пожаловать" fill stretchContents>
       <Flex height="100%" align="center" justify="center">
         <Flex.Item textAlign="center" mt="-2rem">
           <Box fontSize="1.5rem" bold>
@@ -39,7 +39,7 @@ export const LoginScreen = (_properties, context) => {
               size={3}
               mr="1rem"
             />
-            Guest
+            Гость
           </Box>
           <Box color="label" my="1rem">
             ID:
@@ -53,7 +53,7 @@ export const LoginScreen = (_properties, context) => {
           <Button
             icon="sign-in-alt"
             disabled={!loginState.id}
-            content="Login"
+            content="Войти"
             onClick={() =>
               act('login_login', {
                 login_type: 1,
@@ -63,7 +63,7 @@ export const LoginScreen = (_properties, context) => {
           {!!isAI && (
             <Button
               icon="sign-in-alt"
-              content="Login as AI"
+              content="Войти как ИИ"
               onClick={() =>
                 act('login_login', {
                   login_type: 2,
@@ -74,7 +74,7 @@ export const LoginScreen = (_properties, context) => {
           {!!isRobot && (
             <Button
               icon="sign-in-alt"
-              content="Login as Cyborg"
+              content="Войти как киборг"
               onClick={() =>
                 act('login_login', {
                   login_type: 3,
@@ -85,7 +85,7 @@ export const LoginScreen = (_properties, context) => {
           {!!isAdmin && (
             <Button
               icon="sign-in-alt"
-              content="CentComm Secure Login"
+              content="Войти как ЦентКом"
               onClick={() =>
                 act('login_login', {
                   login_type: 4,

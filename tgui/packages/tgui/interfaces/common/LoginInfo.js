@@ -18,19 +18,19 @@ export const LoginInfo = (_properties, context) => {
     <NoticeBox info>
       <Stack>
         <Stack.Item grow mt={0.5}>
-          Logged in as: {loginState.name} ({loginState.rank})
+          Выполнен вход в систему как: {loginState.name} ({loginState.rank})
         </Stack.Item>
         <Stack.Item>
           <Button
             icon="sign-out-alt"
-            content="Logout"
+            content="Выйти из системы"
             color="good"
             onClick={() => act('login_logout')}
           />
           <Button
             icon="eject"
             disabled={!loginState.id}
-            content="Eject ID"
+            content="Извлечь ID"
             color="good"
             onClick={() => act('login_eject')}
           />

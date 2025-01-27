@@ -1,4 +1,4 @@
-import { useBackend } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Section, Table, Stack, Grid } from '../components';
 import { Window } from '../layouts';
 
@@ -103,6 +103,8 @@ export const PlayerPanel = (props, context) => {
 
 const PlayerInformation = (props, context) => {
   const { act, data } = useBackend<playerData>(context);
+  const [hideIP, setIP] = useLocalState(context, 'show_ip', false);
+  const [hideCID, setCID] = useLocalState(context, 'show_cid', false);
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -119,28 +121,38 @@ const PlayerInformation = (props, context) => {
             <Table.Cell>{data.ckey}</Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell bold>IP Address:</Table.Cell>
-            <Table.Cell>{data.ipAddress}</Table.Cell>
+            <Table.Cell bold>Rank:</Table.Cell>
+            <Table.Cell>{data.rank}</Table.Cell>
             <Table.Cell bold>Discord:</Table.Cell>
             <Table.Cell>{data.discord}</Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell bold>Rank:</Table.Cell>
-            <Table.Cell>{data.rank}</Table.Cell>
+            <Table.Cell bold>Account Registered:</Table.Cell>
+            <Table.Cell>{data.accountRegistered}</Table.Cell>
             <Table.Cell bold>Byond Version:</Table.Cell>
             <Table.Cell>{data.byondVersion}</Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell bold>Mob Type:</Table.Cell>
-            <Table.Cell>{data.mobType}</Table.Cell>
             <Table.Cell bold>CID:</Table.Cell>
-            <Table.Cell>{data.CID}</Table.Cell>
+            <Table.Cell>
+              <Button
+                content={!hideCID ? 'Hidden' : data.CID}
+                onClick={() => setCID(!hideCID)}
+              />
+            </Table.Cell>
+            <Table.Cell bold>IP Address:</Table.Cell>
+            <Table.Cell>
+              <Button
+                content={!hideIP ? 'Hidden' : data.ipAddress}
+                onClick={() => setIP(!hideIP)}
+              />
+            </Table.Cell>
           </Table.Row>
           <Table.Row>
+            <Table.Cell bold>Mob Type:</Table.Cell>
+            <Table.Cell>{data.mobType}</Table.Cell>
             <Table.Cell bold>Game State:</Table.Cell>
             <Table.Cell>{data.gameState}</Table.Cell>
-            <Table.Cell bold>Account Registered:</Table.Cell>
-            <Table.Cell>{data.accountRegistered}</Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell bold>Related By CID:</Table.Cell>
