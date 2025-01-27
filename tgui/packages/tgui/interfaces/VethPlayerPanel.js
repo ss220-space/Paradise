@@ -108,7 +108,7 @@ export const VethPlayerPanel = (props, context) => {
               {players.filter(searcher).map((player) => (
                 <Table.Row key={player.ckey} className="candystripe">
                   <Table.Cell>{player.ckey}</Table.Cell>
-                  <Table.Cell>{player.name}</Table.Cell>
+                  <Table.Cell collapsing>{player.name}</Table.Cell>
                   <Table.Cell>{player.job}</Table.Cell>
                   <Table.Cell>
                     {player.is_antagonist ? (
