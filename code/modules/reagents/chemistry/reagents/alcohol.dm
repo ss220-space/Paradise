@@ -293,173 +293,173 @@
 /////////////////////////////////////////////////////////////////cocktail entities//////////////////////////////////////////////
 
 /datum/reagent/consumable/ethanol/bilk
-	name = "Bilk"
+	name = "Миво"
 	id = "bilk"
-	description = "This appears to be beer mixed with milk. Disgusting."
+	description = "Это пиво, смешанное с молоком. Ух..."
 	reagent_state = LIQUID
 	color = "#895C4C" // rgb: 137, 92, 76
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	alcohol_perc = 0.2
 	drink_icon = "glass_brown"
-	drink_name = "стакан bilk"
-	drink_desc = "A brew of milk and beer. For those alcoholics who fear osteoporosis."
-	taste_description = "bilk"
+	drink_name = "стакан мива"
+	drink_desc = "Молоко с пивом - миво. Или пиво с молоком - пивоко. Как вам будет угодно."
+	taste_description = "мива"
 
 /datum/reagent/consumable/ethanol/atomicbomb
-	name = "Atomic Bomb"
+	name = "Атомная Бомба"
 	id = "atomicbomb"
-	description = "Nuclear proliferation never tasted so good."
+	description = "Ядерное оружие никогда не было таким вкусным."
 	reagent_state = LIQUID
 	color = "#666300" // rgb: 102, 99, 0
 	alcohol_perc = 0.2
 	drink_icon = "atomicbombglass"
-	drink_name = "Atomic Bomb"
-	drink_desc = "Nanotrasen cannot take legal responsibility for your actions after imbibing."
-	taste_description = "a long, fiery burn"
+	drink_name = "Атомная Бомба"
+	drink_desc = "Nanotrasen не несёт юридической ответственности за ваши действия после употребления напитка."
+	taste_description = "длинного, терпкого ожога"
 
 /datum/reagent/consumable/ethanol/threemileisland
-	name = "THree Mile Island Iced Tea"
+	name = "Чай со льдом Три-Майл-Айленд"
 	id = "threemileisland"
-	description = "Made for a woman, strong enough for a man."
+	description = "Создан для женщин, достаточно крепок для мужчин."
 	reagent_state = LIQUID
 	color = "#666340" // rgb: 102, 99, 64
 	alcohol_perc = 0.2
 	drink_icon = "threemileislandglass"
-	drink_name = "Three Mile Island Ice Tea"
-	drink_desc = "A glass of this is sure to prevent a meltdown."
-	taste_description = "a creeping heat"
+	drink_name = "Чай со льдом Три-Майл-Айленд"
+	drink_desc = "Бокал этого напитка точно предотвратит нервный срыв."
+	taste_description = "текучей волны жара"
 
 /datum/reagent/consumable/ethanol/goldschlager
-	name = "Goldschlager"
+	name = "Гольдшлягер"
 	id = "goldschlager"
-	description = "100 proof cinnamon schnapps, made for alcoholic teen girls on spring break."
+	description = "Шнапс с корицей 100%-ой пробы пробы, созданный для алкоголиков-подростков на весенних каникулах."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
 	drink_icon = "ginvodkaglass"
-	drink_name = "стакан goldschlager"
-	drink_desc = "100 proof that teen girls will drink anything with gold in it."
-	taste_description = "a deep, spicy warmth"
+	drink_name = "стакан шольдшлягера"
+	drink_desc = "Стопроцентное доказательства того, что девочки-подростки будут пить всё, что содержит золото в названии."
+	taste_description = "глубокого, пряного тепла"
 
 /datum/reagent/consumable/ethanol/patron
-	name = "Patron"
+	name = "Патрон"
 	id = "patron"
-	description = "Tequila with silver in it, a favorite of alcoholic women in the club scene."
+	description = "Текила с серебром в составе, которую пьют женщины-алкоголики в клубах."
 	reagent_state = LIQUID
 	color = "#585840" // rgb: 88, 88, 64
 	alcohol_perc = 0.4
 	drink_icon = "patronglass"
-	drink_name = "стакан Patron"
-	drink_desc = "Drinking patron in the bar, with all the subpar ladies."
-	taste_description = "a gift"
+	drink_name = "стакан Патрона"
+	drink_desc = "Пить патрон в клубе в окружении женщин-алкоголиков."
+	taste_description = "подарка"
 
 /datum/reagent/consumable/ethanol/gintonic
-	name = "Gin and Tonic"
+	name = "Джин и тоник"
 	id = "gintonic"
-	description = "An all time classic, mild cocktail."
+	description = "Классический мягкий коктейль, нестареющая классика."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
 	drink_icon = "gintonicglass"
-	drink_name = "Gin and Tonic"
-	drink_desc = "A mild but still great cocktail. Drink up, like a true Englishman."
-	taste_description = "bitter medicine"
+	drink_name = "стакан джина и тоника"
+	drink_desc = "Мягкий, но всё равно отличный коктейль. Пейте, как истинный англичанин."
+	taste_description = "горького лекарства"
 
 /datum/reagent/consumable/ethanol/cuba_libre
-	name = "Cuba Libre"
+	name = "Куба Либре"
 	id = "cubalibre"
-	description = "Rum, mixed with cola. Viva la revolution."
+	description = "Ром, смешанный с колой. Viva la Revolution!"
 	reagent_state = LIQUID
 	color = "#3E1B00" // rgb: 62, 27, 0
 	alcohol_perc = 0.2
 	drink_icon = "cubalibreglass"
-	drink_name = "Cuba Libre"
-	drink_desc = "A classic mix of rum and cola."
-	taste_description = "liberation"
+	drink_name = "стакан Куба Либре"
+	drink_desc = "Классический микс рома и колы."
+	taste_description = "пьянящей свободы"
 
 /datum/reagent/consumable/ethanol/whiskey_cola
-	name = "Whiskey Cola"
+	name = "Виски-кола"
 	id = "whiskeycola"
-	description = "Whiskey, mixed with cola. Surprisingly refreshing."
+	description = "Виски, смешанный с колой. Удивительно освежающий."
 	reagent_state = LIQUID
 	color = "#3E1B00" // rgb: 62, 27, 0
 	alcohol_perc = 0.3
 	drink_icon = "whiskeycolaglass"
-	drink_name = "Whiskey Cola"
-	drink_desc = "An innocent-looking mixture of cola and Whiskey. Delicious."
-	taste_description = "whiskey and coke"
+	drink_name = "стакан виски-колы"
+	drink_desc = "Невинно выглядящая смесь колы и виски. Вкусно."
+	taste_description = "виски с колой"
 
 /datum/reagent/consumable/ethanol/martini
-	name = "Classic Martini"
+	name = "Классический мартини"
 	id = "martini"
-	description = "Vermouth with Gin. Not quite how 007 enjoyed it, but still delicious."
+	description = "Вермут с джином. Не совсем то, что пил 007, но всё равно вкусно."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
 	drink_icon = "martiniglass"
-	drink_name = "Classic Martini"
-	drink_desc = "Damn, the bartender even stirred it, not shook it."
-	taste_description = "class"
+	drink_name = "Классическое мартини"
+	drink_desc = "Взболтать, но не смешивать."
+	taste_description = "аристократии"
 
 /datum/reagent/consumable/ethanol/vodkamartini
-	name = "Vodka Martini"
+	name = "Водка мартини"
 	id = "vodkamartini"
-	description = "Vodka with Gin. Not quite how 007 enjoyed it, but still delicious."
+	description = "Водка с джином. Не совсем то, что пил 007, но всё равно вкусно."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.4
 	drink_icon = "martiniglass"
-	drink_name = "Vodka martini"
-	drink_desc ="A bastardisation of the classic martini. Still great."
-	taste_description = "class and potatoes"
+	drink_name = "Водка мартини"
+	drink_desc ="Славянская версия классического мартини. На удивление вкусно."
+	taste_description = "аристократии и картошки"
 
 /datum/reagent/consumable/ethanol/white_russian
-	name = "White Russian"
+	name = "Белый Русский"
 	id = "whiterussian"
-	description = "That's just, like, your opinion, man..."
+	description = "Но это только твоё мнение, чувак..."
 	reagent_state = LIQUID
 	color = "#A68340" // rgb: 166, 131, 64
 	alcohol_perc = 0.3
 	drink_icon = "whiterussianglass"
-	drink_name = "White Russian"
-	drink_desc = "A very nice looking drink. But that's just, like, your opinion, man."
-	taste_description = "very creamy alcohol"
+	drink_name = "Стакан Белого Русского"
+	drink_desc = "Странно выглядящий напиток. Но это только твое мнение, чувак."
+	taste_description = "очень кремового алкоголя"
 
 /datum/reagent/consumable/ethanol/screwdrivercocktail
-	name = "Screwdriver"
+	name = "Отвёртка"
 	id = "screwdrivercocktail"
-	description = "Vodka, mixed with plain ol' orange juice. The result is surprisingly delicious."
+	description = "Водка, смешанная с апельсиновым соком. Достаточно вкусно."
 	reagent_state = LIQUID
 	color = "#A68310" // rgb: 166, 131, 16
 	alcohol_perc = 0.3
 	drink_icon = "screwdriverglass"
-	drink_name = "Screwdriver"
-	drink_desc = "A simple, yet superb mixture of Vodka and orange juice. Just the thing for the tired engineer."
-	taste_description = "a naughty secret"
+	drink_name = "Стакан Отвёртки"
+	drink_desc = "Простая, но изящная смесь водки и апельсинового сока. То, что нужно уставшему инженеру."
+	taste_description = "водки с апельсином"
 
 /datum/reagent/consumable/ethanol/booger
-	name = "Booger"
+	name = "Козявка"
 	id = "booger"
-	description = "Eww..."
+	description = "Ууу..."
 	reagent_state = LIQUID
 	color = "#A68310" // rgb: 166, 131, 16
 	alcohol_perc = 0.2
 	drink_icon = "booger"
-	drink_name = "Booger"
-	drink_desc = "Eww..."
-	taste_description = "a fruity mess"
+	drink_name = "Стакан Козявки"
+	drink_desc = "Ууу..."
+	taste_description = "фруктовой массы"
 
 /datum/reagent/consumable/ethanol/bloody_mary
-	name = "Bloody Mary"
+	name = "Кровавая Мэри"
 	id = "bloodymary"
-	description = "A strange yet pleasurable mixture made of vodka, tomato and lime juice. Or at least you THINK the red stuff is tomato juice."
+	description = "Странная, но приятная смесь из водки, томатов и сока лайма. А томатов ли?"
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "bloodymaryglass"
-	drink_name = "Bloody Mary"
-	drink_desc = "Tomato juice, mixed with Vodka and a lil' bit of lime. Tastes like liquid murder."
-	taste_description = "tomatoes with booze"
+	drink_name = "Стакан Кровавой Мэри"
+	drink_desc = "Томатный сок, смешанный с водкой и небольшим количеством лайма. На вкус как жидкое убийство."
+	taste_description = "томатов со спиртом"
 
 /datum/reagent/consumable/ethanol/bloody_mary/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -468,64 +468,64 @@
 	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/gargle_blaster
-	name = "Pan-Galactic Gargle Blaster"
+	name = "Пан-Галактический Грызлодёр"
 	id = "gargleblaster"
-	description = "Whoah, this stuff looks volatile!"
+	description = "Вау, эта штука выглядит нестабильно!"
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.7 //ouch
 	drink_icon = "gargleblasterglass"
-	drink_name = "Pan-Galactic Gargle Blaster"
-	drink_desc = "Does... does this mean that Arthur and Ford are on the station? Oh joy."
-	taste_description = "the number fourty two"
+	drink_name = "Пан-Галактический Грызлодёр"
+	drink_desc = "Значит ли... значит ли это, что Артур и Форд на станции? О, отлично."
+	taste_description = "числа 42"
 
 /datum/reagent/consumable/ethanol/flaming_homer
-	name = "Flaming Moe"
+	name = "Горящий Мо"
 	id = "flamingmoe"
-	description = "This appears to be a mixture of various alcohols blended with prescription medicine. It is lightly toasted..."
+	description = "Это, по-видимому, смесь различных алкогольных напитков, смешанных с рецептурным лекарством."
 	reagent_state = LIQUID
 	color = "#58447f" //rgb: 88, 66, 127
 	alcohol_perc = 0.5
 	drink_icon = "flamingmoeglass"
-	drink_name = "Flaming Moe"
-	drink_desc = "Happiness is just a Flaming Moe away!"
-	taste_description = "caramelised booze and sweet, salty medicine"
+	drink_name = "Горящий Мо"
+	drink_desc = "Смотри не обожгись!"
+	taste_description = "карамелизированной выпивки и лекарства"
 
 /datum/reagent/consumable/ethanol/brave_bull
-	name = "Brave Bull"
+	name = "Храбрый Бык"
 	id = "bravebull"
-	description = "A strange yet pleasurable mixture made of vodka, tomato and lime juice. Or at least you THINK the red stuff is tomato juice."
+	description = "Текила с кофейным ликёром. Хех."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 	drink_icon = "bravebullglass"
-	drink_name = "Brave Bull"
-	drink_desc = "Tequila and Coffee liquor, brought together in a mouthwatering mixture. Drink up."
-	taste_description = "sweet alcohol"
+	drink_name = "Стакан Бравого Быка"
+	drink_desc = "Текила и кофейный ликер, соединённые в аппетитную смесь. Так пейте же."
+	taste_description = "сладкого алкоголя"
 
 /datum/reagent/consumable/ethanol/tequila_sunrise
-	name = "Tequila Sunrise"
+	name = "Текила Санрайз"
 	id = "tequilasunrise"
-	description = "Tequila and orange juice. Much like a Screwdriver, only Mexican~"
+	description = "Текила и апельсиновый сок. Как \"Отвёртка\", только по-мексикански."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 	drink_icon = "tequilasunriseglass"
-	drink_name = "Tequila Sunrise"
-	drink_desc = "Oh great, now you feel nostalgic about sunrises back on Terra..."
-	taste_description = "fruity alcohol"
+	drink_name = "Стакан Текилы Санрайз"
+	drink_desc = "Отлично, теперь вы ностальгируете по восходам на Терре..."
+	taste_description = "фруктового алкоголя"
 
 /datum/reagent/consumable/ethanol/toxins_special
-	name = "Toxins Special"
+	name = "Особый из Токсикологии"
 	id = "toxinsspecial"
-	description = "This thing is FLAMING!. CALL THE DAMN SHUTTLE!"
+	description = "Эта штука горит! ВЫЗОВИТЕ ЧЁРТОВ ШАТТЛ!"
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
 	drink_icon = "toxinsspecialglass"
-	drink_name = "Toxins Special"
-	drink_desc = "Whoah, this thing is on FIRE"
-	taste_description = "FIRE"
+	drink_name = "Особый из Токсикологии"
+	drink_desc = "Уох, эта штука ГОРИТ!"
+	taste_description = "огня"
 
 /datum/reagent/consumable/ethanol/toxins_special/on_mob_life(mob/living/M)
 	if(M.bodytemperature < (BODYTEMP_NORMAL + 20))
@@ -533,80 +533,80 @@
 	return ..()
 
 /datum/reagent/consumable/ethanol/beepsky_smash
-	name = "Beepsky Smash"
+	name = "Удар Бипски"
 	id = "beepskysmash"
-	description = "Deny drinking this and prepare for THE LAW."
+	description = "Перестаньте пить это и приготовьтесь к ПРАВОСУДИЮ."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
 	drink_icon = "beepskysmashglass"
-	description = "Whiskey-imbued cream, what else would you expect from the Irish."
-	drink_name = "Beepsky Smash"
-	drink_desc = "Heavy, hot and strong. Just like the Iron fist of the LAW."
-	taste_description = "THE LAW"
+	drink_name = "Удар Бипски"
+	drink_desc = "Тяжелый, горячий и крепкий. Как железный кулак ПРАВОСУДИЯ."
+	taste_description = "правосудия"
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/M)
 	M.drop_from_hands()
 	return ..()
 
 /datum/reagent/consumable/ethanol/irish_cream
-	name = "Irish Cream"
+	name = "Ирландские Сливки"
+	description = "Крем с добавлением виски - чего ещё ожидать от ирландцев?"
 	id = "irishcream"
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 	drink_icon = "irishcreamglass"
-	drink_name = "Irish Cream"
-	drink_desc = "It's cream, mixed with whiskey. What else would you expect from the Irish?"
-	taste_description = "creamy alcohol"
+	drink_name = "Стакан Ирландских Сливок"
+	drink_desc = "Крем с добавлением виски - чего ещё ожидать от ирландцев?"
+	taste_description = "сливочного алкоголя"
 
 /datum/reagent/consumable/ethanol/manly_dorf
-	name = "The Manly Dorf"
+	name = "Мужественный Дворф"
 	id = "manlydorf"
-	description = "Beer and Ale, brought together in a delicious mix. Intended for true men only."
+	description = "Крепкая смесь из эля и пива для настоящих трудяг. За Карла!"
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
 	drink_icon = "manlydorfglass"
-	drink_name = "The Manly Dorf"
-	drink_desc = "A manly concotion made from Ale and Beer. Intended for true men only."
-	taste_description = "manliness"
+	drink_name = "Кружка Мужественного Дворфа"
+	drink_desc = "Крепкая смесь из эля и пива для настоящих трудяг. За Карла!"
+	taste_description = "мужественности"
 
 /datum/reagent/consumable/ethanol/longislandicedtea
-	name = "Long Island Iced Tea"
+	name = "Чай со льдом Лонг Айленд"
 	id = "longislandicedtea"
-	description = "The liquor cabinet, brought together in a delicious mix. Intended for middle-aged alcoholic women only."
+	description = "Содержимое ликёрного шкафа, смешанное в восхитительный микс. Предназначен только для женщин-алкоголичек среднего возраста."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
 	drink_icon = "longislandicedteaglass"
-	drink_name = "Long Island Iced Tea"
-	drink_desc = "The liquor cabinet, brought together in a delicious mix. Intended for middle-aged alcoholic women only."
-	taste_description = "fruity alcohol"
+	drink_name = "Стакан чая со льдом Лонг Айленд"
+	drink_desc = "Содержимое ликёрного шкафа, смешанное в восхитительный микс. Предназначен только для женщин-алкоголичек среднего возраста."
+	taste_description = "фруктового алкоголя"
 
 /datum/reagent/consumable/ethanol/moonshine
-	name = "Moonshine"
+	name = "Самогон"
 	id = "moonshine"
-	description = "You've really hit rock bottom now... your liver packed its bags and left last night."
+	description = "Вы действительно достигли дна... ваша печень собрала вещи и ушла вчера вечером."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.8 //yeeehaw
 	drink_icon = "glass_clear"
-	drink_name = "Moonshine"
-	drink_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
-	taste_description = "prohibition"
+	drink_name = "Стакан самогона"
+	drink_desc = "Вы действительно достигли дна... ваша печень собрала вещи и ушла вчера вечером."
+	taste_description = "чего-то запрещённого"
 
 /datum/reagent/consumable/ethanol/b52
 	name = "B-52"
 	id = "b52"
-	description = "Coffee, Irish Cream, and congac. You will get bombed."
+	description = "Кофе, ирландские сливки и коньяк. Взрывная смесь."
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
 	drink_icon = "b52glass"
-	drink_name = "B-52"
-	drink_desc = "Kahlua, Irish Cream, and congac. You will get bombed."
-	taste_description = "destruction"
+	drink_name = "Стакан B-52"
+	drink_desc = "Кофе, ирландские сливки и коньяк. Взрывная смесь."
+	taste_description = "уничтожения"
 
 /datum/reagent/consumable/ethanol/irishcoffee
 	name = "Irish Coffee"
