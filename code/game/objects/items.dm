@@ -288,19 +288,19 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/size
 	switch(src.w_class)
 		if(WEIGHT_CLASS_TINY)
-			size = "крохотный"
+			size = "крохотного"
 		if(WEIGHT_CLASS_SMALL)
-			size = "маленький"
+			size = "маленького"
 		if(WEIGHT_CLASS_NORMAL)
-			size = "обычного размера"
+			size = "среднего"
 		if(WEIGHT_CLASS_BULKY)
-			size = "большой"
+			size = "большого"
 		if(WEIGHT_CLASS_HUGE)
-			size = "огромный"
+			size = "огромного"
 		if(WEIGHT_CLASS_GIGANTIC)
-			size = "гигантский"
+			size = "гигантского"
 
-	. = ..(user, "", "Это [size] предмет.")
+	. = ..(user, "", "Это предмет [size] размера.")
 
 	if(user.research_scanner || user.check_smart_brain()) //Mob has a research scanner active.
 		var/msg = "*--------* <BR>"

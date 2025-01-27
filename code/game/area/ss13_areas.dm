@@ -427,6 +427,7 @@ This applies to all STANDARD station areas
 
 /area/shuttle/pirate_corvette
 	name = "Pirate Corvette"
+	requires_power = TRUE
 	icon_state = "shuttle"
 	area_flags = NONE
 
@@ -3343,3 +3344,6 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	name = "\improper House"
 	icon_state = "red"
 
+/area/coldcolony/ruin/abandoned_garage
+	name = "\improper Mech Garage"
+	icon_state = "mining"

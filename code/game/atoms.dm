@@ -1354,6 +1354,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/turf/curturf = get_turf(src)
 	if(curturf)
 		.["Jump to turf"] = "?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
+	.["Atom say"] = "?_src_=vars;atom_say=[UID()]"
 	.["Add reagent"] = "?_src_=vars;addreagent=[UID()]"
 	.["Edit reagents"] = "?_src_=vars;editreagents=[UID()]"
 	.["Transform editor"] = "?_src_=vars;matrix_tester=[UID()]"

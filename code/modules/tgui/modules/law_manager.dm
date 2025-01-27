@@ -73,22 +73,22 @@
 				SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, new supplied law was added '[supplied_law]'")
 
 		if("change_zeroth_law")
-			var/new_law = tgui_input_text(usr, "Enter new law Zero. Leaving the field blank will cancel the edit.", "Edit Law", zeroth_law)
+			var/new_law = tgui_input_text(usr, "Enter new law Zero. Leaving the field blank will cancel the edit.", "Edit Law", zeroth_law, encode = FALSE)
 			if(new_law && new_law != zeroth_law && (!..()))
 				zeroth_law = new_law
 
 		if("change_ion_law")
-			var/new_law = tgui_input_text(usr, "Enter new ion law. Leaving the field blank will cancel the edit.", "Edit Law", ion_law)
+			var/new_law = tgui_input_text(usr, "Enter new ion law. Leaving the field blank will cancel the edit.", "Edit Law", ion_law, encode = FALSE)
 			if(new_law && new_law != ion_law && (!..()))
 				ion_law = new_law
 
 		if("change_inherent_law")
-			var/new_law = tgui_input_text(usr, "Enter new inherent law. Leaving the field blank will cancel the edit.", "Edit Law", inherent_law)
+			var/new_law = tgui_input_text(usr, "Enter new inherent law. Leaving the field blank will cancel the edit.", "Edit Law", inherent_law, encode = FALSE)
 			if(new_law && new_law != inherent_law && (!..()))
 				inherent_law = new_law
 
 		if("change_supplied_law")
-			var/new_law = tgui_input_text(usr, "Enter new supplied law. Leaving the field blank will cancel the edit.", "Edit Law", supplied_law)
+			var/new_law = tgui_input_text(usr, "Enter new supplied law. Leaving the field blank will cancel the edit.", "Edit Law", supplied_law, encode = FALSE)
 			if(new_law && new_law != supplied_law && (!..()))
 				supplied_law = new_law
 
@@ -105,7 +105,7 @@
 					to_chat(usr, "<span class='warning'>You cant edit that law.</span>")
 					return
 				if(AL)
-					var/new_law = tgui_input_text(usr, "Enter new law. Leaving the field blank will cancel the edit.", "Edit Law", AL.law)
+					var/new_law = tgui_input_text(usr, "Enter new law. Leaving the field blank will cancel the edit.", "Edit Law", AL.law, encode = FALSE)
 					if(new_law && new_law != AL.law && is_malf(usr) && (!..()))
 						log_and_message_admins("has changed a law of [owner] from '[AL.law]' to '[new_law]'")
 						var/old_law = AL.law

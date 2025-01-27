@@ -73,7 +73,6 @@
 
 /client/proc/debug_variables(datum/D in world)
 	set name = "\[Admin\] View Variables"
-	set category = "Admin.Debug"
 
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
@@ -1480,6 +1479,19 @@
 
 		A.stop_deadchat_plays()
 		log_and_message_admins("removed deadchat control from [A].")
+
+	if(href_list["atom_say"])
+		if(!check_rights(R_EVENT))
+			return
+
+		var/atom/object = locateUID(href_list["atom_say"])
+		if(!istype(object))
+			return
+		var/say_text = tgui_input_text(usr, "Введите текст, который будет озвучен объектом", "Введите текст", multiline = TRUE, encode = FALSE)
+
+		object.atom_say(say_text)
+
+		log_and_message_admins("atom_said on behalf of [object] the following: [say_text].")
 
 /client/proc/view_var_Topic_list(href, href_list, hsrc)
 	if(href_list["VarsList"])
