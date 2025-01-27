@@ -42,7 +42,6 @@
 	init_datum_subtypes(/datum/job, GLOB.joblist, list(/datum/job/ai, /datum/job/cyborg), "title")
 	init_datum_subtypes(/datum/superheroes, GLOB.all_superheroes, null, "name")
 	init_datum_subtypes(/datum/language, GLOB.all_languages, null, "name")
-	init_datum_subtypes(/datum/body_zone, GLOB.body_zones, null, "type")
 
 	// Setup languages
 	for(var/language_name in GLOB.all_languages)
@@ -60,6 +59,10 @@
 		var/datum/species/S = new spath()
 		S.race_key = ++rkey //Used in mob icon caching.
 		GLOB.all_species[S.name] = S
+
+	for(var/body_zone/zone as anything in subtypesof(/datum/species))
+		zone = new zone()
+		GLOB.body_zones[zone.type] = zone
 
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
 
