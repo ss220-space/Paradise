@@ -68,7 +68,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 				target = null
 				targetselected = 0
 
-		var/procname = clean_input("Proc path, eg: /proc/fake_blood","Path:", null)
+		var/procname = tgui_input_text(usr, "Введите имя прока после /proc/. Пример: если путь /proc/fake_blood, нужно ввести fake_blood", "Путь:", null)
 		if(!procname)	return
 
 		//strip away everything but the proc name
@@ -166,7 +166,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 //adv proc call this, ya nerds
 /world/proc/WrapAdminProcCall(datum/target, procname, list/arguments)
 	if(target == GLOBAL_PROC)
-		return call(procname)(arglist(arguments))
+		return call("/proc/[procname]")(arglist(arguments))
 	else if(target != world)
 		return call(target, procname)(arglist(arguments))
 	else
@@ -187,7 +187,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_PROCCALL))
 		return
 
-	var/procname = clean_input("Proc name, eg: fake_blood","Proc:", null)
+	var/procname = tgui_input_text(usr, "Введите имя прока после /proc/. Пример: если путь /proc/fake_blood, нужно ввести fake_blood", "Путь:", null)
 	if(!procname)
 		return
 

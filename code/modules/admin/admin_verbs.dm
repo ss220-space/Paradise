@@ -220,7 +220,6 @@ GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/datum/admins/proc/show_player_panel,
 	/client/proc/ban_panel,
 	/client/proc/view_asays,
-	/client/proc/debug_variables,		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
 	/client/proc/openAdminTicketUI,
 ))
 GLOBAL_LIST_INIT(admin_verbs_mentor, list(

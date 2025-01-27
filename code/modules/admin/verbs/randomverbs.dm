@@ -641,12 +641,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/type = tgui_input_list(usr, "Выберите тип сообщения для отправки.", "Тип сообщения", MsgType, "")
 
 	if(type == "Свой тип")
-		type = tgui_input_text(usr, "Введите тип сообщения.", "Тип сообщения", "Зашифрованная передача")
+		type = tgui_input_text(usr, "Введите тип сообщения.", "Тип сообщения", "Зашифрованная передача", encode = FALSE)
 
-	var/customname = tgui_input_text(usr, "Введите заголовок сообщения.", "Заголовок", MsgType[type])
+	var/customname = tgui_input_text(usr, "Введите заголовок сообщения.", "Заголовок", MsgType[type], encode = FALSE)
 	if(!customname)
 		return
-	var/input = tgui_input_text(usr, "Введите всё, что хотите. Что угодно. Серьёзно.", "Какое сообщение?", multiline = TRUE)
+	var/input = tgui_input_text(usr, "Введите всё, что хотите. Что угодно. Серьёзно.", "Какое сообщение?", multiline = TRUE, encode = FALSE)
 	if(!input)
 		return
 
@@ -1239,7 +1239,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN | R_EVENT))
 		return
 
-	var/input = tgui_input_text(usr, "Введите имя для Центрального Командования.", "Что?", "")
+	var/input = tgui_input_text(usr, "Введите имя для Центрального Командования.", "Что?", "", encode = FALSE)
 	if(!input)
 		return
 	change_command_name(input)
