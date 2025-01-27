@@ -103,8 +103,8 @@ export const PlayerPanel = (props, context) => {
 
 const PlayerInformation = (props, context) => {
   const { act, data } = useBackend<playerData>(context);
-  const [hideIP, setIP] = useLocalState(context, 'show_ip', false)
-  const [hideCID, setCID] = useLocalState(context, 'show_cid', false)
+  const [hideIP, setIP] = useLocalState(context, 'show_ip', false);
+  const [hideCID, setCID] = useLocalState(context, 'show_cid', false);
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -136,14 +136,16 @@ const PlayerInformation = (props, context) => {
             <Table.Cell bold>CID:</Table.Cell>
             <Table.Cell>
               <Button
-             content={!hideCID ? "Hidden" : data.CID}
-             onClick={() => setCID(!hideCID)}/>
+                content={!hideCID ? 'Hidden' : data.CID}
+                onClick={() => setCID(!hideCID)}
+              />
             </Table.Cell>
             <Table.Cell bold>IP Address:</Table.Cell>
             <Table.Cell>
-            <Button
-             content={!hideIP ? "Hidden" : data.ipAddress}
-             onClick={() => setIP(!hideIP)}/>
+              <Button
+                content={!hideIP ? 'Hidden' : data.ipAddress}
+                onClick={() => setIP(!hideIP)}
+              />
             </Table.Cell>
           </Table.Row>
           <Table.Row>
