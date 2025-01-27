@@ -116,22 +116,22 @@
 #define EMBEDDED_UNSAFE_REMOVAL_TIME			30	//A Time in ticks, total removal time = (this*item.w_class)
 
 // Body Part Zones
-#define BODY_ZONE_HEAD		"head"
-#define BODY_ZONE_CHEST		"chest"
-#define BODY_ZONE_L_ARM		"l_arm"
-#define BODY_ZONE_R_ARM		"r_arm"
-#define BODY_ZONE_L_LEG		"l_leg"
-#define BODY_ZONE_R_LEG		"r_leg"
-#define BODY_ZONE_TAIL		"tail"
-#define BODY_ZONE_WING		"wing"
+#define BODY_ZONE_HEAD		/datum/body_zone/head
+#define BODY_ZONE_CHEST		/datum/body_zone/chest
+#define BODY_ZONE_L_ARM		/datum/body_zone/arm/left
+#define BODY_ZONE_R_ARM		/datum/body_zone/arm/right
+#define BODY_ZONE_L_LEG		/datum/body_zone/leg/left
+#define BODY_ZONE_R_LEG		/datum/body_zone/leg/right
+#define BODY_ZONE_TAIL		/datum/body_zone/tail
+#define BODY_ZONE_WING		/datum/body_zone/wing
 
-#define BODY_ZONE_PRECISE_EYES		"eyes"
-#define BODY_ZONE_PRECISE_MOUTH		"mouth"
-#define BODY_ZONE_PRECISE_GROIN		"groin"
-#define BODY_ZONE_PRECISE_L_HAND	"l_hand"
-#define BODY_ZONE_PRECISE_R_HAND	"r_hand"
-#define BODY_ZONE_PRECISE_L_FOOT	"l_foot"
-#define BODY_ZONE_PRECISE_R_FOOT	"r_foot"
+#define BODY_ZONE_PRECISE_EYES		/datum/body_zone/eyes
+#define BODY_ZONE_PRECISE_MOUTH		/datum/body_zone/mouth
+#define BODY_ZONE_PRECISE_GROIN		/datum/body_zone/groin
+#define BODY_ZONE_PRECISE_L_HAND	/datum/body_zone/hand/left
+#define BODY_ZONE_PRECISE_R_HAND	/datum/body_zone/hand/right
+#define BODY_ZONE_PRECISE_L_FOOT	/datum/body_zone/foot/left
+#define BODY_ZONE_PRECISE_R_FOOT	/datum/body_zone/foot/right
 
 
 //We will round to this value in damage calculations.
