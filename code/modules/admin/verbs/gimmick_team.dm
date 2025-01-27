@@ -34,13 +34,13 @@
 
 	var/team_name = null
 	while(!team_name)
-		team_name = tgui_input_text(src, "Укажите название команды. По умолчанию \"Гиммик тим\".", "Укажите название", "", max_length=MAX_MESSAGE_LEN)
+		team_name = tgui_input_text(src, "Укажите название команды. По умолчанию \"Гиммик тим\".", "Укажите название", "",encode = FALSE)
 		if(!team_name)
 			team_name = "Гиммик тим"
 
 	var/themission = null
 	while(!themission)
-		themission = tgui_input_text(src, "Укажите миссию отряда.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
+		themission = tgui_input_text(src, "Укажите миссию отряда.", "Укажите миссию", "", encode = FALSE)
 		if(!themission)
 			tgui_alert(src, "Миссия не указана. Отмена.")
 			return

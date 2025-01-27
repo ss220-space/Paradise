@@ -25,7 +25,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		return
 	var/input = null
 	while(!input)
-		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять Диверсионный Отряд Синдиката.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять Диверсионный Отряд Синдиката.", "Укажите миссию", "", encode = FALSE)
 		if(!input)
 			tgui_alert(src, "Миссия не указана. Отмена.")
 			return

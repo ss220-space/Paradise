@@ -445,6 +445,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	orbit_menu.ui_interact(src)
 
+// TODO: Remove this verb when "True-Observing" be merged.
+/mob/dead/observer/verb/toggle_sight_view()
+	set category = "Ghost"
+	set name = "Toggle Sight"
+	set desc = "Переключает вашу возможность видеть сквозь стены."
+
+	TOGGLEBIT(sight, SEE_TURFS | SEE_MOBS | SEE_OBJS)
+
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/ManualFollow(atom/movable/target)
 	. = ..()
