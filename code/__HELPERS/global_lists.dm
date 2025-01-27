@@ -60,7 +60,7 @@
 		S.race_key = ++rkey //Used in mob icon caching.
 		GLOB.all_species[S.name] = S
 
-	for(var/body_zone/zone as anything in subtypesof(/datum/species))
+	for(var/body_zone/zone as anything in subtypesof(/datum/body_zone))
 		zone = new zone()
 		GLOB.body_zones[zone.type] = zone
 
