@@ -442,7 +442,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
     )
 
 /obj/item/storage/box/syndie_kit/ghostface_kit/populate_contents()
-	new /obj/item/clothing/head/hooded/ghostface/true(src)
+	new /obj/item/clothing/suit/hooded/ghostfacesuit/true(src)
 	new /obj/item/clothing/mask/gas/ghostface/true(src)
 	new /obj/item/melee/ghostface_knife(src)
 
