@@ -269,7 +269,11 @@
 		target.Paralyse(12 SECONDS)
 		target.emote("gasp")
 
-		playsound(get_turf(defib_ref), 'sound/machines/defib_success.ogg', 50, 0)
+		if(target.getBrainLoss() >= 100)
+			playsound(get_turf(defib_ref), 'sound/machines/defib_saftyoff.ogg', 50, 0)
+			defib_ref.atom_say("Реанимация успешна. Критически слабая активность мозга пациента.")
+		else
+			playsound(get_turf(defib_ref), 'sound/machines/defib_success.ogg', 50, 0)
 		defib_ref.atom_say("Реанимация успешна!")
 
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
