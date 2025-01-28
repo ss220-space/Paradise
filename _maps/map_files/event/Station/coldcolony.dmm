@@ -2893,10 +2893,7 @@
 	},
 /area/coldcolony/ruin/miningbar)
 "bcW" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/station_map/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -3230,9 +3227,7 @@
 /area/coldcolony/ruin/sm_lab)
 "bkd" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/machinery/station_map/directional/north,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bke" = (
@@ -11561,6 +11556,7 @@
 "eqe" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/vehicle/ridden/snowmobile/key,
+/obj/machinery/station_map/directional/west,
 /turf/simulated/floor/plasteel,
 /area/medical/research)
 "eqg" = (
@@ -12254,9 +12250,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
+/obj/machinery/station_map/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -18468,6 +18462,9 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/dispenser/oxygen,
 /obj/effect/decal/warning_stripes/northwest,
+/obj/machinery/computer/guestpass{
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -21607,9 +21604,7 @@
 	},
 /area/toxins/lab)
 "inF" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
-	},
+/obj/machinery/station_map/directional/west,
 /turf/simulated/floor/plating,
 /area/medical/sleeper)
 "inG" = (
@@ -22774,6 +22769,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/sleeper)
 "iJD" = (
@@ -23657,6 +23655,17 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/storage)
+"jcb" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-25";
+	tag = "icon-plant-25"
+	},
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = -26
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central/se)
 "jcy" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
@@ -28886,6 +28895,7 @@
 /area/security/prison/cell_block/A)
 "kVY" = (
 /obj/effect/decal/snow/sand/edge,
+/obj/machinery/station_map/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -33248,6 +33258,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/station_map/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -42463,6 +42474,12 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
+"qji" = (
+/obj/machinery/station_map/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/sleep)
 "qjm" = (
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
@@ -47144,9 +47161,7 @@
 	},
 /area/bridge/meeting_room)
 "rQn" = (
-/obj/machinery/computer/guestpass{
-	pixel_y = 28
-	},
+/obj/machinery/station_map/engineering/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -54778,6 +54793,7 @@
 /area/bridge/vip)
 "uOT" = (
 /obj/effect/landmark/tiles/damageturf,
+/obj/machinery/station_map/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -56244,6 +56260,9 @@
 	pixel_x = -22;
 	pixel_y = 24
 	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "vpW" = (
@@ -57421,6 +57440,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/machinery/station_map/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -58875,6 +58895,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
+"wkD" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/vehicle/ridden/snowmobile/key,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 26
+	},
+/turf/simulated/floor/plasteel,
+/area/security/lobby)
 "wkH" = (
 /obj/structure/closet/crate/engineering,
 /obj/item/stack/sheet/metal{
@@ -60745,6 +60774,10 @@
 "wUJ" = (
 /turf/simulated/wall/rust,
 /area/maintenance/fsmaint2)
+"wUN" = (
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/wood/fancy/birch,
+/area/bridge/checkpoint/south)
 "wUX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/start/scientist,
@@ -62954,10 +62987,7 @@
 /area/coldcolony/ruin/sm_chamber)
 "xJS" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/station_map/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -103247,7 +103277,7 @@ pzy
 oQY
 oQY
 oQY
-xqL
+qji
 wku
 mzF
 iNa
@@ -107215,7 +107245,7 @@ eYu
 mNa
 rwj
 wvl
-eYu
+jcb
 twC
 pLS
 wja
@@ -117140,7 +117170,7 @@ nmQ
 xTS
 rVT
 rEA
-xJj
+wkD
 bWt
 rSb
 rSb
@@ -124137,7 +124167,7 @@ rSb
 rSb
 rSb
 mYX
-mKl
+wUN
 oPk
 gvW
 tcx
