@@ -36,6 +36,8 @@
 	SSholomaps.station_holomaps += src
 	floor_markings = image('icons/obj/stationmap.dmi', "decal_station_map")
 	floor_markings.dir = src.dir
+	floor_markings.pixel_x = -src.pixel_x
+	floor_markings.pixel_y = -src.pixel_y
 	add_overlay(floor_markings)
 	..()
 	component_parts = list()
