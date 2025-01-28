@@ -152,26 +152,6 @@
 		for(var/mob/M in src)//Failsafe so you can get mobs out
 			M.forceMove(get_turf(src))
 
-/obj/machinery/dna_scannernew/verb/move_inside()
-	set src in oview(1)
-	set name = "Залезть внутрь"
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-	if(!ishuman(usr)) //Make sure they're a mob that has dna
-		to_chat(usr, span_notice("Как бы вы не старались, у вас не получится забраться в [declent_ru(ACCUSATIVE)]."))
-		return
-	if(occupant)
-		balloon_alert(usr, "внутри кто-то есть!")
-		return
-	if(usr.abiotic())
-		balloon_alert(usr, "руки субъекта заняты!")
-		return
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм!"))
-		return
-	put_in(usr)
-
 /obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user, params)
 	if(!istype(O))
 		return
@@ -203,7 +183,7 @@
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("[L] не помест[pluralize_ru(L.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return TRUE
-	put_in(L)
+	put_in(L, user)
 	return TRUE
 
 
@@ -247,7 +227,7 @@
 	if(target.has_buckled_mobs()) //mob attached to us
 		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return .
-	put_in(target)
+	put_in(target, grabber)
 	add_fingerprint(grabber)
 
 
