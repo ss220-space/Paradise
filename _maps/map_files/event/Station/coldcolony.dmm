@@ -11267,9 +11267,6 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/office)
-"ejn" = (
-/turf/simulated/wall/indestructible/reinforced,
-/area/medical/virology/lab)
 "ejr" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -16759,7 +16756,7 @@
 /area/crew_quarters/mrchangs)
 "gsD" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/wall/r_wall,
 /area/bridge)
 "gsG" = (
 /turf/simulated/wall,
@@ -17622,7 +17619,7 @@
 	},
 /area/security/processing)
 "gKk" = (
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/wall/r_wall,
 /area/tcommsat/chamber)
 "gKn" = (
 /turf/simulated/floor/plasteel{
@@ -21060,7 +21057,7 @@
 	},
 /area/coldcolony/ruin/abandoned_garage)
 "icb" = (
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/wall/r_wall,
 /area/maintenance/maintcentral)
 "icn" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -27480,7 +27477,7 @@
 	},
 /area/crew_quarters/chief)
 "kua" = (
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/wall/r_wall,
 /area/medical/cmo)
 "kue" = (
 /obj/structure/table,
@@ -27508,7 +27505,7 @@
 	},
 /area/hallway/primary/central/north)
 "kuG" = (
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/wall/r_wall,
 /area/crew_quarters/heads/hop)
 "kuQ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -29542,7 +29539,7 @@
 /area/assembly/robotics)
 "ljY" = (
 /obj/machinery/status_display,
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/wall/r_wall,
 /area/crew_quarters/heads/hop)
 "lkm" = (
 /obj/effect/landmark/start/engineer,
@@ -35487,6 +35484,10 @@
 	},
 /area/hydroponics)
 "nCl" = (
+/obj/machinery/alarm{
+	dir = 8;
+	pixel_x = 22
+	},
 /turf/simulated/floor/wood/fancy/light{
 	icon_state = "light-fancy-wood-broken2"
 	},
@@ -36817,7 +36818,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "obp" = (
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/wall/r_wall,
 /area/blueshield)
 "obw" = (
 /obj/machinery/computer/arcade/battle,
@@ -39929,9 +39930,6 @@
 	temperature = 180
 	},
 /area/ruin/unpowered)
-"pjc" = (
-/turf/simulated/wall/indestructible/reinforced,
-/area/ntrep)
 "pjd" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -45515,7 +45513,7 @@
 /turf/simulated/floor/plating,
 /area/medical/research/shallway)
 "rjr" = (
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/wall/r_wall,
 /area/bridge/meeting_room)
 "rjt" = (
 /obj/effect/decal/cleanable/dirt,
@@ -52760,7 +52758,7 @@
 	},
 /area/hallway/primary/central/north)
 "tYA" = (
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/wall/r_wall,
 /area/crew_quarters/captain/bedroom)
 "tYF" = (
 /obj/structure/table,
@@ -55053,7 +55051,7 @@
 	},
 /area/security/permabrig)
 "uTD" = (
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/wall/r_wall,
 /area/crew_quarters/captain)
 "uTG" = (
 /obj/machinery/suit_storage_unit/lavaland,
@@ -55344,7 +55342,7 @@
 /turf/simulated/floor/carpet/black,
 /area/bridge/meeting_room)
 "uYL" = (
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/wall/r_wall,
 /area/bridge/vip)
 "uYP" = (
 /obj/effect/spawner/random_spawners/rodent,
@@ -56226,7 +56224,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "voL" = (
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/wall/r_wall,
 /area/hallway/primary/fore)
 "vpd" = (
 /obj/machinery/door/window/eastleft{
@@ -58424,7 +58422,7 @@
 	},
 /area/medical/medbay2)
 "wdw" = (
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/wall/r_wall,
 /area/bridge)
 "wdY" = (
 /obj/structure/sign/poster/contraband/random{
@@ -61333,7 +61331,7 @@
 /obj/structure/sign/comand{
 	name = "\improper COMMAND"
 	},
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/wall/r_wall,
 /area/hallway/primary/fore)
 "xhw" = (
 /obj/effect/turf_decal/siding/wood{
@@ -112104,7 +112102,7 @@ whV
 bhu
 gnj
 qPW
-ejn
+whV
 dGf
 tBa
 kWx
@@ -112406,7 +112404,7 @@ whV
 jVh
 nIv
 tgo
-ejn
+whV
 nJW
 rmU
 jzD
@@ -129563,14 +129561,14 @@ uYI
 diR
 anq
 jgP
-pjc
+lXT
 lXT
 rcs
 grM
 jlD
 wNP
 lXT
-pjc
+lXT
 uYw
 icb
 icb
@@ -129865,14 +129863,14 @@ rEr
 waq
 hKw
 uhC
-pjc
+lXT
 bFq
 nbY
 xQl
 fCV
 sKl
 xHG
-pjc
+lXT
 dOU
 qAX
 icb
@@ -130174,7 +130172,7 @@ nxK
 aml
 nLc
 aUo
-pjc
+lXT
 gZt
 oab
 icb
@@ -130469,14 +130467,14 @@ gKn
 gKn
 hKw
 reE
-pjc
+lXT
 arv
 jqy
 qii
 cRn
 fwP
 ewv
-pjc
+lXT
 gZt
 keU
 icb
@@ -130771,14 +130769,14 @@ qmI
 wLm
 kBV
 oaw
-pjc
+lXT
 fwP
 fwP
 dpQ
 fwP
 fwP
 tDC
-pjc
+lXT
 pAH
 gZt
 icb
@@ -131073,14 +131071,14 @@ emZ
 emZ
 kgd
 dFy
-pjc
+lXT
 vGX
 sDh
 sDO
 fss
 neF
 wsH
-pjc
+lXT
 cSj
 uYw
 icb
@@ -131375,14 +131373,14 @@ efi
 emZ
 mJs
 nbX
-pjc
-pjc
-pjc
-pjc
-pjc
-pjc
-pjc
-pjc
+lXT
+lXT
+lXT
+lXT
+lXT
+lXT
+lXT
+lXT
 aFw
 dOU
 icb
