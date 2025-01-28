@@ -12,9 +12,7 @@
 /obj/item/organ/internal/cyberimp/leg/Initialize(mapload)
 	. = ..()
 	update_icon()
-
-	var/datum/body_zone/zone = GLOB.body_zones[parent_organ_zone]
-	slot = zone.name + "_device"
+	slot = parent_organ_zone + "_device"
 
 /obj/item/organ/internal/cyberimp/leg/emp_act(severity)
 	. = ..()

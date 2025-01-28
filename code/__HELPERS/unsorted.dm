@@ -761,10 +761,40 @@ Returns 1 if the chain up to the area contains the given typepath
 	return mobs
 
 
-/proc/parse_zone(datum/body_zone/zone, case_id)
-	zone = ispath(zone) ? GLOB.body_zones[zone] : zone
-	
-	return zone.ru_names[case_id] || zone.name
+/proc/parse_zone(zone)
+	switch(zone)
+		if(BODY_ZONE_HEAD)
+			return "голова"
+		if(BODY_ZONE_CHEST)
+			return "грудь"
+		if(BODY_ZONE_L_ARM)
+			return "левая рука"
+		if(BODY_ZONE_R_ARM)
+			return "правая рука"
+		if(BODY_ZONE_L_LEG)
+			return "левая нога"
+		if(BODY_ZONE_R_LEG)
+			return "правая нога"
+		if(BODY_ZONE_TAIL)
+			return "хвост"
+		if(BODY_ZONE_WING)
+			return "крылья"
+		if(BODY_ZONE_PRECISE_EYES)
+			return "глаза"
+		if(BODY_ZONE_PRECISE_MOUTH)
+			return "рот"
+		if(BODY_ZONE_PRECISE_GROIN)
+			return "живот"
+		if(BODY_ZONE_PRECISE_L_HAND)
+			return "левая ладонь"
+		if(BODY_ZONE_PRECISE_R_HAND)
+			return "правая ладонь"
+		if(BODY_ZONE_PRECISE_L_FOOT)
+			return "левая ступня"
+		if(BODY_ZONE_PRECISE_R_FOOT)
+			return "правая ступня"
+		else
+			stack_trace("Wrong zone input.")
 
 
 /*

@@ -402,7 +402,6 @@
 #include "code\datums\ai_laws.dm"
 #include "code\datums\armor.dm"
 #include "code\datums\beam.dm"
-#include "code\datums\body_zone.dm"
 #include "code\datums\browser.dm"
 #include "code\datums\callback.dm"
 #include "code\datums\chat_payload.dm"
