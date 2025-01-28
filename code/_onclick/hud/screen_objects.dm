@@ -263,14 +263,19 @@
 
 /atom/movable/screen/zone_sel/Initialize(mapload, datum/hud/hud_owner, icon, alpha, color)
 	. = ..()
+
 	hover_overlays_cache = list()
 	selecting_overlays_cache = list()
+
 	if(icon)
 		src.icon = icon
+
 	if(alpha)
 		src.alpha = alpha
+
 	if(color)
 		src.color = color
+
 	hud.mymob.zone_selected = selecting
 	update_icon(UPDATE_OVERLAYS)
 
@@ -299,17 +304,20 @@
 	return set_selected_zone(choice)
 
 /atom/movable/screen/zone_sel/AltClick(mob/user, choice)
-
 	if(user.next_click > world.time || user.next_move > world.time)
 		return FALSE
+
 	user.changeNext_click(1)
 
 	var/obj/item/holding_item = user.get_active_hand()
 	var/old_selecting = selecting
+
 	if(!istype(holding_item))
 		return FALSE
+
 	if(!set_selected_zone(choice, FALSE))
 		return FALSE
+
 	holding_item.melee_attack_chain(user, user)
 	set_selected_zone(old_selecting, FALSE)
 
@@ -337,8 +345,10 @@
 	hovering = choice
 
 	var/mutable_appearance/hovering_olay = hover_overlays_cache[hovering]
+
 	if(!hovering_olay)
-		hovering_olay = mutable_appearance(overlay_file, "[hovering]", alpha = 128, appearance_flags = RESET_COLOR)
+		var/datum/body_zone/zone = GLOB.body_zones[hovering]
+		hovering_olay = mutable_appearance(overlay_file, "[zone.name]", alpha = 128, appearance_flags = RESET_COLOR)
 		hover_overlays_cache[hovering] = hovering_olay
 
 	add_overlay(hovering_olay)
@@ -420,17 +430,22 @@
 	if(choice != selecting)
 		selecting = choice
 		hud.mymob.zone_selected = choice
+
 		if(update_overlay)
 			update_icon(UPDATE_OVERLAYS)
+
 	return TRUE
 
 
 /atom/movable/screen/zone_sel/update_overlays()
 	. = ..()
 	var/mutable_appearance/selecting_olay = selecting_overlays_cache[selecting]
+
 	if(!selecting_olay)
-		selecting_olay = mutable_appearance(overlay_file, "[selecting]", appearance_flags = RESET_COLOR)
+		var/datum/body_zone/zone = GLOB.body_zones[selecting]
+		selecting_olay = mutable_appearance(overlay_file, "[zone.name]", appearance_flags = RESET_COLOR)
 		selecting_overlays_cache[selecting] = selecting_olay
+
 	. += selecting_olay
 
 

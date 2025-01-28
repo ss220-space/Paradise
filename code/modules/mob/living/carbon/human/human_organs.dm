@@ -34,7 +34,6 @@
 
 
 /mob/living/carbon/human/proc/handle_grasp()
-
 	if(!l_hand && !r_hand)
 		return
 
