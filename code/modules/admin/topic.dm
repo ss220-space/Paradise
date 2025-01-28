@@ -3587,6 +3587,11 @@
 					log_admin("[key_name(usr)] moved the gamma armory")
 					GLOB.gamma_ship_location = !GLOB.gamma_ship_location
 
+			if("spawn_cargo_crate")
+				if(!you_realy_want_do_this())
+					return
+				create_cargo_crate()
+
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")
 			if(ok)
@@ -3869,10 +3874,9 @@
 		var/client/C = locate(href_list["client"]) in GLOB.clients
 		var/thing_to_check
 		if(href_list["showrelatedacc"] == "cid")
-			thing_to_check = C.related_accounts_cid
+			thing_to_check = jointext(C.related_accounts_cid, "<br>")
 		else
-			thing_to_check = C.related_accounts_ip
-		thing_to_check = splittext(thing_to_check, ", ")
+			thing_to_check = jointext(C.related_accounts_ip, "<br>")
 
 
 		var/list/dat = list("Related accounts by [uppertext(href_list["showrelatedacc"])]:")

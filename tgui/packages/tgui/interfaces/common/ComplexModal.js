@@ -80,7 +80,7 @@ export const ComplexModal = (props, context) => {
     <Button
       className="Button--modal"
       icon="arrow-left"
-      content="Cancel"
+      content="Закрыть"
       onClick={() => modalClose(context)}
     />
   );
@@ -97,7 +97,7 @@ export const ComplexModal = (props, context) => {
     modalBody = (
       <Input
         value={data.modal.value}
-        placeholder="ENTER to submit"
+        placeholder="ENTER для подтверждения"
         width="100%"
         my="0.5rem"
         autofocus
@@ -110,13 +110,13 @@ export const ComplexModal = (props, context) => {
       <Box mt="0.5rem">
         <Button
           icon="arrow-left"
-          content="Cancel"
+          content="Закрыть"
           color="grey"
           onClick={() => modalClose(context)}
         />
         <Button
           icon="check"
-          content={'Confirm'}
+          content={'Подтвердить'}
           color="good"
           float="right"
           m="0"

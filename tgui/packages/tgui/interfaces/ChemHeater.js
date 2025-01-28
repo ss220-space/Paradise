@@ -14,7 +14,7 @@ import { Window } from '../layouts';
 
 export const ChemHeater = (_props, _context) => {
   return (
-    <Window width={350} height={275}>
+    <Window width={450} height={275}>
       <Window.Content>
         <Stack fill vertical>
           <ChemHeaterSettings />
@@ -39,17 +39,17 @@ const ChemHeaterSettings = (_properties, context) => {
     <Stack.Item>
       <Section
         fill
-        title="Settings"
+        title="Параметры"
         buttons={
           <>
             <Button
-              content="Auto-eject"
+              content="Авто-извлечение"
               icon={autoEject ? 'toggle-on' : 'toggle-off'}
               selected={autoEject}
               onClick={() => act('toggle_autoeject')}
             />
             <Button
-              content={isActive ? 'On' : 'Off'}
+              content={isActive ? 'Включено' : 'Выключено'}
               icon="power-off"
               selected={isActive}
               disabled={!isBeakerLoaded}
@@ -59,7 +59,7 @@ const ChemHeaterSettings = (_properties, context) => {
         }
       >
         <LabeledList>
-          <LabeledList.Item label="Target">
+          <LabeledList.Item label="Целевая температура">
             <NumberInput
               width="65px"
               unit="K"
@@ -76,7 +76,7 @@ const ChemHeaterSettings = (_properties, context) => {
             />
           </LabeledList.Item>
           <LabeledList.Item
-            label="Reading"
+            label="Текущая температура"
             color={targetTempReached ? 'good' : 'average'}
           >
             {(isBeakerLoaded && (
@@ -104,18 +104,18 @@ const ChemHeaterBeaker = (_properties, context) => {
   return (
     <Stack.Item grow>
       <Section
-        title="Beaker"
+        title="Ёмкость"
         fill
         scrollable
         buttons={
           !!isBeakerLoaded && (
             <Box>
               <Box inline color="label" mr={2}>
-                {beakerCurrentVolume} / {beakerMaxVolume} units
+                {beakerCurrentVolume} / {beakerMaxVolume} единиц
               </Box>
               <Button
                 icon="eject"
-                content="Eject"
+                content="Извлечь"
                 onClick={() => act('eject_beaker')}
               />
             </Box>
