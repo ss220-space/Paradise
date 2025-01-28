@@ -65,7 +65,7 @@
 			player_data["ipAddress"] = client_info.address || "0.0.0.0"
 			player_data["CID"] = client_info.computer_id || "NO_CID"
 			player_data["discord"] = client_info.prefs.discord_id || "No Discord"
-			player_data["playtime"] = M.client.get_exp_type(EXP_TYPE_CREW) || "none"
+			player_data["playtime"] = client_info.get_exp_type(EXP_TYPE_CREW) || "none"
 			player_data["rank"] = client_info.holder?.rank || "Player"
 			player_data["byondVersion"] = "[client_info.byond_version || 0].[client_info.byond_build || 0]"
 			player_data["mobType"] = "[initial(player.type)]" || "null"
