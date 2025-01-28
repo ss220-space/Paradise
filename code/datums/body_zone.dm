@@ -150,34 +150,34 @@ GLOBAL_LIST_INIT(body_zones, list())
 /datum/body_zone/hand
     name = "hand"
     ru_names = list(
-        NOMINATIVE = "ладонь",
-        GENITIVE = "ладони",
-        DATIVE = "ладони",
-        ACCUSATIVE = "ладонь",
-        INSTRUMENTAL = "ладонью",
-        PREPOSITIONAL = "ладони"
+        NOMINATIVE = "кисть",
+        GENITIVE = "кисти",
+        DATIVE = "кисти",
+        ACCUSATIVE = "кисть",
+        INSTRUMENTAL = "кистью",
+        PREPOSITIONAL = "кисти"
     )
 
 /datum/body_zone/hand/left
     name = "left hand"
     ru_names = list(
-        NOMINATIVE = "левая ладонь",
-        GENITIVE = "левой ладони",
-        DATIVE = "левой ладони",
-        ACCUSATIVE = "левую ладонь",
-        INSTRUMENTAL = "левой ладонью",
-        PREPOSITIONAL = "левой ладони"
+        NOMINATIVE = "левая кисть",
+        GENITIVE = "левой кисти",
+        DATIVE = "левой кисти",
+        ACCUSATIVE = "левую кисть",
+        INSTRUMENTAL = "левой кистью",
+        PREPOSITIONAL = "левой кисти"
     )
 
 /datum/body_zone/hand/right
     name = "right hand"
     ru_names = list(
-        NOMINATIVE = "правая ладонь",
-        GENITIVE = "правой ладони",
-        DATIVE = "правой ладони",
-        ACCUSATIVE = "правую ладонь",
-        INSTRUMENTAL = "правой ладонью",
-        PREPOSITIONAL = "правой ладони"
+        NOMINATIVE = "правая кисть",
+        GENITIVE = "правой кисти",
+        DATIVE = "правой кисти",
+        ACCUSATIVE = "правую кисть",
+        INSTRUMENTAL = "правой кистью",
+        PREPOSITIONAL = "правой кисти"
     )
 
 /datum/body_zone/foot
