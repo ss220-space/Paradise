@@ -62,7 +62,7 @@ SUBSYSTEM_DEF(holomaps)
 	return TRUE
 
 /// Generates the base holomap and the area holomap, before passing the latter to setup_station_map to tidy it up for viewing.
-/datum/controller/subsystem/holomaps/proc/generate_holomap(var/z_level = 1)
+/datum/controller/subsystem/holomaps/proc/generate_holomap(z_level = 1)
 	// Sanity checks - Better to generate a helpful error message now than have DrawBox() runtime
 	var/icon/canvas = icon(HOLOMAP_ICON, "blank")
 	var/icon/area_canvas = icon(HOLOMAP_ICON, "blank")
@@ -108,14 +108,14 @@ SUBSYSTEM_DEF(holomaps)
 			var/image/image_to_use
 
 			if(istype(z_transition_obj, /obj/structure/stairs))
-				if(!z_transition_positions["Stairs Up"])
-					z_transition_positions["Stairs Up"] = list("icon" = image('icons/misc/8x8.dmi', "stairs"), "markers" = list())
+				if(!z_transition_positions["Ступени вверх"])
+					z_transition_positions["Ступени вверх"] = list("icon" = image('icons/misc/8x8.dmi', "stairs"), "markers" = list())
 
 				image_to_use = image('icons/misc/8x8.dmi', "stairs")
-				image_to_use.pixel_x = offset_x
-				image_to_use.pixel_y = offset_y
+				image_to_use.pixel_x = offset_x - 1 // -1 to offset icon properly
+				image_to_use.pixel_y = offset_y - 1
 
-				z_transition_positions["Stairs Up"]["markers"] += image_to_use
+				z_transition_positions["Ступени вверх"]["markers"] += image_to_use
 
 				var/turf/checking = get_step_multiz(get_turf(z_transition_obj), UP)
 				if(!istype(checking))
@@ -127,23 +127,23 @@ SUBSYSTEM_DEF(holomaps)
 					SSholomaps.holomap_z_transitions["[checking.z]"] = transitions
 
 				image_to_use = image('icons/misc/8x8.dmi', "stairs_down")
-				image_to_use.pixel_x = checking.x + HOLOMAP_CENTER_X
-				image_to_use.pixel_y = checking.y + HOLOMAP_CENTER_Y
+				image_to_use.pixel_x = checking.x + HOLOMAP_CENTER_X - 1
+				image_to_use.pixel_y = checking.y + HOLOMAP_CENTER_Y - 1
 
-				if(!transitions["Stairs Down"])
-					transitions["Stairs Down"] = list("icon" = image('icons/misc/8x8.dmi', "stairs_down"), "markers" = list())
+				if(!transitions["Ступени вниз"])
+					transitions["Ступени вниз"] = list("icon" = image('icons/misc/8x8.dmi', "stairs_down"), "markers" = list())
 
-				transitions["Stairs Down"]["markers"] += image_to_use
+				transitions["Ступени вниз"]["markers"] += image_to_use
 				continue
 
-			if(!z_transition_positions["Ladders"])
-				z_transition_positions["Ladders"] = list("icon" = image('icons/misc/8x8.dmi', "ladder"), "markers" = list())
+			if(!z_transition_positions["Лестница"])
+				z_transition_positions["Лестница"] = list("icon" = image('icons/misc/8x8.dmi', "ladder"), "markers" = list())
 
 			image_to_use = image('icons/misc/8x8.dmi', "ladder")
-			image_to_use.pixel_x = offset_x
-			image_to_use.pixel_y = offset_y
+			image_to_use.pixel_x = offset_x - 1
+			image_to_use.pixel_y = offset_y - 1
 
-			z_transition_positions["Ladders"]["markers"] += image_to_use
+			z_transition_positions["Лестница"]["markers"] += image_to_use
 
 		// Check sleeping after each row to avoid *completely* destroying the server
 		CHECK_TICK

@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(holomap_color_to_name, list(
 	HOLOMAP_AREACOLOR_ENGINEERING = "Инженерия",
 	HOLOMAP_AREACOLOR_CARGO = "Снабжение",
 	HOLOMAP_AREACOLOR_HALLWAYS = "Коридоры",
-	HOLOMAP_AREACOLOR_MAINTENANCE = "Технические тоннели",
+	HOLOMAP_AREACOLOR_MAINTENANCE = "Тех. тоннели",
 	HOLOMAP_AREACOLOR_ARRIVALS = "Зона прибытия",
 	HOLOMAP_AREACOLOR_ESCAPE = "Зона отбытия",
 	HOLOMAP_AREACOLOR_DORMS = "Зона отдыха",

@@ -1289,10 +1289,12 @@ This applies to all STANDARD station areas
 /area/hallway/secondary/exit
 	name = "Escape Shuttle Hallway"
 	icon_state = "escape"
+	holomap_color = HOLOMAP_AREACOLOR_ESCAPE
 
 /area/hallway/secondary/exit/maint
 	name = "Abandoned Escape Shuttle Hallway"
 	icon_state = "escape"
+	holomap_color = HOLOMAP_AREACOLOR_MAINTENANCE
 
 /area/hallway/secondary/construction
 	name = "Construction Area"
@@ -1326,6 +1328,7 @@ This applies to all STANDARD station areas
 
 /area/hallway/secondary/entry/lounge
 	name = "Arrivals Lounge"
+	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
 
 
 //Command
@@ -2278,6 +2281,7 @@ This applies to all STANDARD station areas
 /area/security/nuke_storage
 	name = "Vault"
 	icon_state = "nuke_storage"
+	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/security/customs
 	name = "Customs"

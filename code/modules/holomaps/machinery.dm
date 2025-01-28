@@ -36,6 +36,7 @@
 	SSholomaps.station_holomaps += src
 	floor_markings = image('icons/obj/stationmap.dmi', "decal_station_map")
 	floor_markings.dir = src.dir
+	add_overlay(floor_markings)
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/station_map(null)
