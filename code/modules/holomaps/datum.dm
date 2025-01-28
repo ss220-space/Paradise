@@ -36,11 +36,12 @@
 	update_map(extra_overlays)
 
 /datum/station_holomap/proc/generate_legend(list/overlays_to_use = list())
+	var/legend_y = HOLOMAP_LEGEND_Y
 	for(var/list/overlay_name as anything in overlays_to_use)
 		var/image/overlay_icon = overlays_to_use[overlay_name]["icon"]
 
 		overlay_icon.pixel_x = HOLOMAP_LEGEND_X
-		overlay_icon.pixel_y = HOLOMAP_LEGEND_Y
+		overlay_icon.pixel_y = legend_y
 		overlay_icon.maptext = MAPTEXT("<span style='font-size: 6px'>[overlay_name]</span>")
 		overlay_icon.maptext_x = 10
 		overlay_icon.maptext_width = 64
