@@ -19,7 +19,7 @@ interface playerData {
   ipAddress: string;
   CID: string;
   discord: string;
-  gameState: string;
+  playtime: string;
   rank: string;
   byondVersion: string;
   mobType: string;
@@ -129,8 +129,13 @@ const PlayerInformation = (props, context) => {
           <Table.Row>
             <Table.Cell bold>Account Registered:</Table.Cell>
             <Table.Cell>{data.accountRegistered}</Table.Cell>
-            <Table.Cell bold>Byond Version:</Table.Cell>
-            <Table.Cell>{data.byondVersion}</Table.Cell>
+            <Table.Cell bold>Playtime as Crew:</Table.Cell>
+            <Table.Cell>
+              <Button
+                content={data.playtime}
+                onClick={() => handleAction('playtime')}
+              />
+            </Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell bold>CID:</Table.Cell>
@@ -151,8 +156,8 @@ const PlayerInformation = (props, context) => {
           <Table.Row>
             <Table.Cell bold>Mob Type:</Table.Cell>
             <Table.Cell>{data.mobType}</Table.Cell>
-            <Table.Cell bold>Game State:</Table.Cell>
-            <Table.Cell>{data.gameState}</Table.Cell>
+            <Table.Cell bold>Byond Version:</Table.Cell>
+            <Table.Cell>{data.byondVersion}</Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell bold>Related By CID:</Table.Cell>

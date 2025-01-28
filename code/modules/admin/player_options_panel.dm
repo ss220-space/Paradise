@@ -33,11 +33,11 @@
 /datum/vuap_personal/ui_data(mob/user)
 	var/list/player_data = list(
 		"characterName" = "No Character",
-		"ckey" = selected_ckey || "Unknown",
+		"ckey" = selected_ckey || "NO CKEY",
 		"ipAddress" = "0.0.0.0",
-		"CID" = "NO_CID",
+		"CID" = "NO CID",
 		"discord" = "No Discord",
-		"gameState" = "Unknown", // cliented or clientless
+		"playtime" = "No client",
 		"rank" = "Player",
 		"byondVersion" = "0.0.0",
 		"mobType" = "null",
@@ -55,7 +55,7 @@
 	if(selected_ckey[1] == "@" || selected_ckey == "" || selected_ckey == null)
 		var/mob/player = selected_mob
 		player_data["characterName"] = player.name || "No Character"
-		player_data["gameState"] = "Inactive"
+		player_data["playtime"] = "No client"
 		player_data["mobType"] = "[initial(player.type)]" || "null"
 	else
 		var/mob/player = get_mob_by_ckey(selected_ckey)
@@ -65,7 +65,7 @@
 			player_data["ipAddress"] = client_info.address || "0.0.0.0"
 			player_data["CID"] = client_info.computer_id || "NO_CID"
 			player_data["discord"] = client_info.prefs.discord_id || "No Discord"
-			player_data["gameState"] = "Active"
+			player_data["playtime"] = client_info.get_exp_type(EXP_TYPE_CREW) || "none"
 			player_data["rank"] = client_info.holder?.rank || "Player"
 			player_data["byondVersion"] = "[client_info.byond_version || 0].[client_info.byond_build || 0]"
 			player_data["mobType"] = "[initial(player.type)]" || "null"
@@ -113,6 +113,8 @@
 		if("old_pp")
 			usr.client.holder.show_old_player_panel(M)
 			return
+		if("playtime")
+			usr.client.holder.Topic(null, list("getplaytimewindow" = M.UID()))
 		if("relatedbycid")
 			usr.client.holder.Topic(null, list("showrelatedacc" = "cid", "client" = M.client.UID()))
 		if("relatedbyip")
