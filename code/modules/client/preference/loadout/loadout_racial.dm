@@ -121,4 +121,4 @@
 /datum/gear/racial/satan
 	index_name = "Satanic clothes"
 	path = /obj/item/clothing/under/satan
-	whitelisted_species = = list(SPECIES_HUMAN)
+	whitelisted_species = list(SPECIES_HUMAN)
