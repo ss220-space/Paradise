@@ -956,7 +956,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
 	status |= ORGAN_BROKEN
-	broken_description = pick("broken", "fracture", "hairline fracture")
+	broken_description = pick("Смещение кости", "Перелом", "Микротрещина")
 	perma_injury = brute_dam
 
 	// Fractures have a chance of getting you out of restraints

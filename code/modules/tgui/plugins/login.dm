@@ -137,21 +137,21 @@ GLOBAL_LIST(ui_logins)
 			state.rank = state.id.assignment
 			state.access = state.id.access
 		else
-			to_chat(usr, "<span class='warning'>Access Denied.</span>")
+			to_chat(usr, "<span class='warning'>Отказано в доступе.</span>")
 			return
 	else if(login_type == LOGIN_TYPE_AI && (isAI(usr) || ispAI(usr)))
 		state.name = usr.name
 		state.rank = JOB_TITLE_AI
 	else if(iscogscarab(usr))
-		to_chat(usr, "<span class='warning'>Access Denied.</span>")
+		to_chat(usr, "<span class='warning'>Отказано в доступе.</span>")
 		return
 	else if(login_type == LOGIN_TYPE_ROBOT && isrobot(usr))
 		var/mob/living/silicon/robot/R = usr
 		state.name = usr.name
 		state.rank = "[R.modtype] [R.braintype]"
 	else if(login_type == LOGIN_TYPE_ADMIN && usr.can_admin_interact())
-		state.name = "*CONFIDENTIAL*"
-		state.rank = "CentComm Secure Connection"
+		state.name = "*ЗАСЕКРЕЧЕНО*"
+		state.rank = "Защищённый канал ЦентКома"
 		state.access = get_all_accesses() + get_all_centcom_access()
 
 	state.logged_in = TRUE

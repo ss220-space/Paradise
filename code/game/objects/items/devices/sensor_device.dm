@@ -1,6 +1,14 @@
 /obj/item/sensor_device
 	name = "handheld crew monitor"
-	desc = "A miniature machine that tracks suit sensors across the station."
+	desc = "Миниатюрное устройство, с помощью которого можно отслеживать датчики членов экипажа станции."
+	ru_names = list(
+		NOMINATIVE = "ручной монитор экипажа",
+		GENITIVE = "ручного монитора экипажа",
+		DATIVE = "ручному монитору экипажа",
+		ACCUSATIVE = "ручной монитор экипажа",
+		INSTRUMENTAL = "ручным монитором экипажа",
+		PREPOSITIONAL = "ручном мониторе экипажа"
+	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "scanner"
 	item_state = "scanner"
@@ -44,6 +52,15 @@
 
 /obj/item/sensor_device/advanced/command
 	name = "command crew monitor"
+	desc = "Миниатюрное устройство, с помощью которого можно отслеживать датчики членов экипажа станции. Эта модель настроена на членов командования."
+	ru_names = list(
+		NOMINATIVE = "командный монитор экипажа",
+		GENITIVE = "командного монитора экипажа",
+		DATIVE = "командному монитору экипажа",
+		ACCUSATIVE = "командный монитор экипажа",
+		INSTRUMENTAL = "командным монитором экипажа",
+		PREPOSITIONAL = "командном мониторе экипажа"
+	)
 	item_state = "blueshield_monitor"
 	icon_state = "c_scanner"
 
@@ -53,6 +70,15 @@
 
 /obj/item/sensor_device/advanced/security
 	name = "security crew monitor"
+	desc = "Миниатюрное устройство, с помощью которого можно отслеживать датчики членов экипажа станции. Эта модель настроена на членов службы безопасности."
+	ru_names = list(
+		NOMINATIVE = "охранный монитор экипажа",
+		GENITIVE = "охранного монитора экипажа",
+		DATIVE = "охранному монитору экипажа",
+		ACCUSATIVE = "охранный монитор экипажа",
+		INSTRUMENTAL = "охранным монитором экипажа",
+		PREPOSITIONAL = "охранном мониторе экипажа"
+	)
 	item_state = "brig_monitor"
 	icon_state = "s_scanner"
 

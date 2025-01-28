@@ -329,7 +329,7 @@
 
 
 /datum/vuap_personal/ui_state(mob/user)
-	return GLOB.admin_state
+	return GLOB.admin_mod_state
 
 /datum/admins/proc/vuap_open(ckey, mob/M)
 	if (!check_rights(NONE))

@@ -16,16 +16,16 @@ import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
 const stats = [
-  ['good', 'Alive'],
-  ['average', 'Critical'],
-  ['bad', 'DEAD'],
+  ['good', 'Норма'],
+  ['average', 'Критическое состояние'],
+  ['bad', 'Зафиксирована смерть'],
 ];
 
 const operations = [
-  ['ui', 'Modify U.I.', 'dna'],
-  ['se', 'Modify S.E.', 'dna'],
-  ['buffer', 'Transfer Buffers', 'syringe'],
-  ['rejuvenators', 'Rejuvenators', 'flask'],
+  ['ui', 'Модификация УИ', 'dna'],
+  ['se', 'Модификация СФ', 'dna'],
+  ['buffer', 'Буфер данных', 'syringe'],
+  ['rejuvenators', 'Химикаты', 'flask'],
 ];
 
 const rejuvenatorsDoses = [5, 10, 20, 30, 50];
@@ -65,23 +65,23 @@ const DNAModifierOccupant = (props, context) => {
   const { locked, hasOccupant, occupant } = data;
   return (
     <Section
-      title="Occupant"
+      title="Субъект"
       buttons={
         <>
           <Box color="label" inline mr="0.5rem">
-            Door Lock:
+            Электронный замок:
           </Box>
           <Button
             disabled={!hasOccupant}
             selected={locked}
             icon={locked ? 'toggle-on' : 'toggle-off'}
-            content={locked ? 'Engaged' : 'Disengaged'}
+            content={locked ? 'Включён' : 'Выключен'}
             onClick={() => act('toggleLock')}
           />
           <Button
             disabled={!hasOccupant || locked}
             icon="user-slash"
-            content="Eject"
+            content="Извлечь субъект"
             onClick={() => act('ejectOccupant')}
           />
         </>
@@ -91,8 +91,8 @@ const DNAModifierOccupant = (props, context) => {
         <>
           <Box>
             <LabeledList>
-              <LabeledList.Item label="Name">{occupant.name}</LabeledList.Item>
-              <LabeledList.Item label="Health">
+              <LabeledList.Item label="Имя">{occupant.name}</LabeledList.Item>
+              <LabeledList.Item label="Оценка здоровья">
                 <ProgressBar
                   min={occupant.minHealth}
                   max={occupant.maxHealth}
@@ -104,7 +104,10 @@ const DNAModifierOccupant = (props, context) => {
                   }}
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Status" color={stats[occupant.stat][0]}>
+              <LabeledList.Item
+                label="Состояние"
+                color={stats[occupant.stat][0]}
+              >
                 {stats[occupant.stat][1]}
               </LabeledList.Item>
               <LabeledList.Divider />
@@ -113,12 +116,12 @@ const DNAModifierOccupant = (props, context) => {
           {context.isDNAInvalid ? (
             <Box color="bad">
               <Icon name="exclamation-circle" />
-              &nbsp; The occupant&apos;s DNA structure is ruined beyond
-              recognition, please insert a subject with an intact DNA structure.
+              &nbsp; Неподходящий субъект. Проведение манипуляций со структурой
+              ДНК невозможно.
             </Box>
           ) : (
             <LabeledList>
-              <LabeledList.Item label="Radiation">
+              <LabeledList.Item label="Радиационное поражение">
                 <ProgressBar
                   min="0"
                   max="100"
@@ -126,13 +129,13 @@ const DNAModifierOccupant = (props, context) => {
                   color="average"
                 />
               </LabeledList.Item>
-              <LabeledList.Item label="Unique Enzymes">
+              <LabeledList.Item label="Уникальные Ферменты">
                 {data.occupant.uniqueEnzymes ? (
                   data.occupant.uniqueEnzymes
                 ) : (
                   <Box color="bad">
                     <Icon name="exclamation-circle" />
-                    &nbsp; Unknown
+                    &nbsp; Н/Д
                   </Box>
                 )}
               </LabeledList.Item>
@@ -140,7 +143,7 @@ const DNAModifierOccupant = (props, context) => {
           )}
         </>
       ) : (
-        <Box color="label">Cell unoccupied.</Box>
+        <Box color="label">Капсула ДНК-модификатора пуста.</Box>
       )}
     </Section>
   );
@@ -156,7 +159,7 @@ const DNAModifierMain = (props, context) => {
           <Stack.Item grow align="center" textAlign="center" color="label">
             <Icon name="user-slash" mb="0.5rem" size="5" />
             <br />
-            No occupant in DNA modifier.
+            Капсула ДНК-модификатора пуста.
           </Stack.Item>
         </Stack>
       </Section>
@@ -168,7 +171,7 @@ const DNAModifierMain = (props, context) => {
           <Stack.Item grow align="center" textAlign="center" color="label">
             <Icon name="user-slash" mb="0.5rem" size="5" />
             <br />
-            No operation possible on this subject.
+            Манипуляции со структурой ДНК субъекта невозможны.
           </Stack.Item>
         </Stack>
       </Section>
@@ -218,7 +221,7 @@ const DNAModifierMainUI = (props, context) => {
   const { selectedUIBlock, selectedUISubBlock, selectedUITarget, occupant } =
     data;
   return (
-    <Section title="Modify Unique Identifier">
+    <Section title="Модификация Уникальных Идентификаторов">
       <DNAModifierBlocks
         dnaString={occupant.uniqueIdentity}
         selectedBlock={selectedUIBlock}
@@ -227,7 +230,7 @@ const DNAModifierMainUI = (props, context) => {
         action="selectUIBlock"
       />
       <LabeledList>
-        <LabeledList.Item label="Target">
+        <LabeledList.Item label="Выбранный блок">
           <Knob
             minValue={1}
             maxValue={15}
@@ -241,7 +244,7 @@ const DNAModifierMainUI = (props, context) => {
       </LabeledList>
       <Button
         icon="radiation"
-        content="Irradiate Block"
+        content="Облучить выбранный блок"
         mt="0.5rem"
         onClick={() => act('pulseUIRadiation')}
       />
@@ -253,7 +256,7 @@ const DNAModifierMainSE = (props, context) => {
   const { act, data } = useBackend(context);
   const { selectedSEBlock, selectedSESubBlock, occupant } = data;
   return (
-    <Section title="Modify Structural Enzymes">
+    <Section title="Модификация Структурных Ферментов">
       <DNAModifierBlocks
         dnaString={occupant.structuralEnzymes}
         selectedBlock={selectedSEBlock}
@@ -263,7 +266,7 @@ const DNAModifierMainSE = (props, context) => {
       />
       <Button
         icon="radiation"
-        content="Irradiate Block"
+        content="Облучить выбранный блок"
         onClick={() => act('pulseSERadiation')}
       />
     </Section>
@@ -274,9 +277,9 @@ const DNAModifierMainRadiationEmitter = (props, context) => {
   const { act, data } = useBackend(context);
   const { radiationIntensity, radiationDuration } = data;
   return (
-    <Section title="Radiation Emitter">
+    <Section title="Излучатель радиации">
       <LabeledList>
-        <LabeledList.Item label="Intensity">
+        <LabeledList.Item label="Мощность">
           <Knob
             minValue={1}
             maxValue={10}
@@ -287,7 +290,7 @@ const DNAModifierMainRadiationEmitter = (props, context) => {
             onChange={(e, val) => act('radiationIntensity', { value: val })}
           />
         </LabeledList.Item>
-        <LabeledList.Item label="Duration">
+        <LabeledList.Item label="Длительность">
           <Knob
             minValue={1}
             maxValue={20}
@@ -302,8 +305,8 @@ const DNAModifierMainRadiationEmitter = (props, context) => {
       </LabeledList>
       <Button
         icon="radiation"
-        content="Pulse Radiation"
-        tooltip="Mutates a random block of either the occupant's UI or SE."
+        content="Облучить радиацией"
+        tooltip="Мутирует случайный блок, УИ или СФ субъекта."
         tooltipPosition="top-start"
         mt="0.5rem"
         onClick={() => act('pulseRadiation')}
@@ -319,14 +322,14 @@ const DNAModifierMainBuffers = (props, context) => {
     <DNAModifierMainBuffersElement
       key={i}
       id={i + 1}
-      name={'Buffer ' + (i + 1)}
+      name={'Ячейка буфера №' + (i + 1)}
       buffer={buffer}
     />
   ));
   return (
     <Stack fill vertical>
       <Stack.Item height="75%" mt={1}>
-        <Section fill scrollable title="Buffers">
+        <Section fill scrollable title="Буфер">
           {bufferElements}
         </Section>
       </Stack.Item>
@@ -353,7 +356,7 @@ const DNAModifierMainBuffersElement = (props, context) => {
             <Button.Confirm
               disabled={!buffer.data}
               icon="trash"
-              content="Clear"
+              content="Очистить"
               onClick={() =>
                 act('bufferOption', {
                   option: 'clear',
@@ -364,7 +367,7 @@ const DNAModifierMainBuffersElement = (props, context) => {
             <Button
               disabled={!buffer.data}
               icon="pen"
-              content="Rename"
+              content="Переименовать"
               onClick={() =>
                 act('bufferOption', {
                   option: 'changeLabel',
@@ -375,8 +378,8 @@ const DNAModifierMainBuffersElement = (props, context) => {
             <Button
               disabled={!buffer.data || !data.hasDisk}
               icon="save"
-              content="Export"
-              tooltip="Exports this buffer to the currently loaded data disk."
+              content="Экспортировать"
+              tooltip="Экспортировать выбранную ячейку буфера на дискету."
               tooltipPosition="bottom-start"
               onClick={() =>
                 act('bufferOption', {
@@ -389,10 +392,10 @@ const DNAModifierMainBuffersElement = (props, context) => {
         }
       >
         <LabeledList>
-          <LabeledList.Item label="Write">
+          <LabeledList.Item label="Записать в буфер">
             <Button
               icon="arrow-circle-down"
-              content="Subject U.I"
+              content="УИ субъекта"
               mb="0"
               onClick={() =>
                 act('bufferOption', {
@@ -403,7 +406,7 @@ const DNAModifierMainBuffersElement = (props, context) => {
             />
             <Button
               icon="arrow-circle-down"
-              content="Subject U.I and U.E."
+              content="УИ и УФ субъета"
               mb="0"
               onClick={() =>
                 act('bufferOption', {
@@ -414,7 +417,7 @@ const DNAModifierMainBuffersElement = (props, context) => {
             />
             <Button
               icon="arrow-circle-down"
-              content="Subject S.E."
+              content="СФ субъекта"
               mb="0"
               onClick={() =>
                 act('bufferOption', {
@@ -426,7 +429,7 @@ const DNAModifierMainBuffersElement = (props, context) => {
             <Button
               disabled={!data.hasDisk || !data.disk.data}
               icon="arrow-circle-down"
-              content="From Disk"
+              content="С дискеты"
               mb="0"
               onClick={() =>
                 act('bufferOption', {
@@ -438,21 +441,21 @@ const DNAModifierMainBuffersElement = (props, context) => {
           </LabeledList.Item>
           {!!buffer.data && (
             <>
-              <LabeledList.Item label="Subject">
-                {buffer.owner || <Box color="average">Unknown</Box>}
+              <LabeledList.Item label="Субъект">
+                {buffer.owner || <Box color="average">Неизвестно</Box>}
               </LabeledList.Item>
-              <LabeledList.Item label="Data Type">
+              <LabeledList.Item label="Тип данных">
                 {buffer.type === 'ui'
-                  ? 'Unique Identifiers'
-                  : 'Structural Enzymes'}
-                {!!buffer.ue && ' and Unique Enzymes'}
+                  ? 'Уникальные Идентификаторы'
+                  : 'Структурные Ферменты'}
+                {!!buffer.ue && ' и Уникальные Ферменты'}
               </LabeledList.Item>
-              <LabeledList.Item label="Transfer to">
+              <LabeledList.Item label="Передача данных">
                 <Button
                   disabled={!isInjectorReady}
                   icon={isInjectorReady ? 'syringe' : 'spinner'}
                   iconSpin={!isInjectorReady}
-                  content="Injector"
+                  content="Инъектор"
                   mb="0"
                   onClick={() =>
                     act('bufferOption', {
@@ -465,7 +468,7 @@ const DNAModifierMainBuffersElement = (props, context) => {
                   disabled={!isInjectorReady}
                   icon={isInjectorReady ? 'syringe' : 'spinner'}
                   iconSpin={!isInjectorReady}
-                  content="Block Injector"
+                  content="Инъектор блока"
                   mb="0"
                   onClick={() =>
                     act('bufferOption', {
@@ -477,7 +480,7 @@ const DNAModifierMainBuffersElement = (props, context) => {
                 />
                 <Button
                   icon="user"
-                  content="Subject"
+                  content="Субъект"
                   mb="0"
                   onClick={() =>
                     act('bufferOption', {
@@ -492,7 +495,7 @@ const DNAModifierMainBuffersElement = (props, context) => {
         </LabeledList>
         {!buffer.data && (
           <Box color="label" mt="0.5rem">
-            This buffer is empty.
+            Буфер данных пуст.
           </Box>
         )}
       </Section>
@@ -505,19 +508,19 @@ const DNAModifierMainBuffersDisk = (props, context) => {
   const { hasDisk, disk } = data;
   return (
     <Section
-      title="Data Disk"
+      title="Дискета"
       buttons={
         <>
           <Button.Confirm
             disabled={!hasDisk || !disk.data}
             icon="trash"
-            content="Wipe"
+            content="Очистить"
             onClick={() => act('wipeDisk')}
           />
           <Button
             disabled={!hasDisk}
             icon="eject"
-            content="Eject"
+            content="Извлечь"
             onClick={() => act('ejectDisk')}
           />
         </>
@@ -526,25 +529,27 @@ const DNAModifierMainBuffersDisk = (props, context) => {
       {hasDisk ? (
         disk.data ? (
           <LabeledList>
-            <LabeledList.Item label="Label">
-              {disk.label ? disk.label : 'No label'}
+            <LabeledList.Item label="Этикетка">
+              {disk.label ? disk.label : 'Отсутствует'}
             </LabeledList.Item>
-            <LabeledList.Item label="Subject">
-              {disk.owner ? disk.owner : <Box color="average">Unknown</Box>}
+            <LabeledList.Item label="Субъект">
+              {disk.owner ? disk.owner : <Box color="average">Неизвестно</Box>}
             </LabeledList.Item>
-            <LabeledList.Item label="Data Type">
-              {disk.type === 'ui' ? 'Unique Identifiers' : 'Structural Enzymes'}
-              {!!disk.ue && ' and Unique Enzymes'}
+            <LabeledList.Item label="Тип данных">
+              {disk.type === 'ui'
+                ? 'Уникальные Идентификаторы'
+                : 'Структурные Ферменты'}
+              {!!disk.ue && ' и Уникальные Ферменты'}
             </LabeledList.Item>
           </LabeledList>
         ) : (
-          <Box color="label">Disk is blank.</Box>
+          <Box color="label">Данные отсутствуют.</Box>
         )
       ) : (
         <Box color="label" textAlign="center" my="1rem">
           <Icon name="save-o" size="4" />
           <br />
-          No disk inserted.
+          Дискета не вставлена.
         </Box>
       )}
     </Section>
@@ -557,19 +562,19 @@ const DNAModifierMainRejuvenators = (props, context) => {
   return (
     <Section
       fill
-      title="Rejuvenators and Beaker"
+      title="Химикаты и ёмкости"
       buttons={
         <Button
           disabled={!isBeakerLoaded}
           icon="eject"
-          content="Eject"
+          content="Извлечь ёмкость"
           onClick={() => act('ejectBeaker')}
         />
       }
     >
       {isBeakerLoaded ? (
         <LabeledList>
-          <LabeledList.Item label="Inject">
+          <LabeledList.Item label="Ввести химикаты">
             {rejuvenatorsDoses.map((a, i) => (
               <Button
                 key={i}
@@ -586,7 +591,7 @@ const DNAModifierMainRejuvenators = (props, context) => {
             <Button
               disabled={beakerVolume <= 0}
               icon="syringe"
-              content="All"
+              content="Все"
               onClick={() =>
                 act('injectRejuvenators', {
                   amount: beakerVolume,
@@ -594,14 +599,14 @@ const DNAModifierMainRejuvenators = (props, context) => {
               }
             />
           </LabeledList.Item>
-          <LabeledList.Item label="Beaker">
-            <Box mb="0.5rem">{beakerLabel ? beakerLabel : 'No label'}</Box>
+          <LabeledList.Item label="Ёмкость">
+            <Box mb="0.5rem">
+              {beakerLabel ? beakerLabel : 'Этикетка отсутствует'}
+            </Box>
             {beakerVolume ? (
-              <Box color="good">
-                {beakerVolume} unit{beakerVolume === 1 ? '' : 's'} remaining
-              </Box>
+              <Box color="good">Осталось: {beakerVolume}u</Box>
             ) : (
-              <Box color="bad">Empty</Box>
+              <Box color="bad">Пусто</Box>
             )}
           </LabeledList.Item>
         </LabeledList>
@@ -613,7 +618,7 @@ const DNAModifierMainRejuvenators = (props, context) => {
               <Icon name="slash" size={5} color="red" />
             </Icon.Stack>
             <br />
-            <h3>No beaker loaded.</h3>
+            <h3>Ёмкость не вставлена.</h3>
           </Stack.Item>
         </Stack>
       )}
@@ -629,13 +634,16 @@ const DNAModifierIrradiating = (props, context) => {
       <Box color="average">
         <h1>
           <Icon name="radiation" />
-          &nbsp;Irradiating occupant&nbsp;
+          &nbsp;Облучить субъект&nbsp;
           <Icon name="radiation" />
         </h1>
       </Box>
       <Box color="label">
         <h3>
-          For {props.duration} second{props.duration === 1 ? '' : 's'}
+          В течении {props.duration} секунд
+          {props.duration % 10 === 1 && !(props.duration % 100 === 11)
+            ? 'ы'
+            : ''}
         </h3>
       </Box>
     </Dimmer>

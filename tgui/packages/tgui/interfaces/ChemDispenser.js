@@ -17,7 +17,7 @@ export const ChemDispenser = (props, context) => {
   const { act, data } = useBackend(context);
   const { chemicals } = data;
   return (
-    <Window width={460} height={400 + chemicals.length * 8}>
+    <Window width={580} height={400 + chemicals.length * 8}>
       <Window.Content>
         <Stack fill vertical>
           <ChemDispenserSettings />
@@ -34,9 +34,9 @@ const ChemDispenserSettings = (properties, context) => {
   const { amount, energy, maxEnergy } = data;
   return (
     <Stack.Item>
-      <Section title="Settings">
+      <Section title="Параметры">
         <LabeledList>
-          <LabeledList.Item label="Energy">
+          <LabeledList.Item label="Энергия">
             <ProgressBar
               value={energy}
               minValue={0}
@@ -47,10 +47,10 @@ const ChemDispenserSettings = (properties, context) => {
                 bad: [-Infinity, maxEnergy * 0.25],
               }}
             >
-              {energy} / {maxEnergy} Units
+              {energy} / {maxEnergy} Единиц
             </ProgressBar>
           </LabeledList.Item>
-          <LabeledList.Item label="Dispense" verticalAlign="middle">
+          <LabeledList.Item label="Объём синтеза" verticalAlign="middle">
             <Stack>
               {dispenseAmounts.map((a, i) => (
                 <Stack.Item key={i} grow width="15%">
@@ -87,7 +87,7 @@ const ChemDispenserChemicals = (properties, context) => {
       <Section
         fill
         scrollable
-        title={data.glass ? 'Drink Dispenser' : 'Chemical Dispenser'}
+        title={data.glass ? 'Синтез напитков' : 'Синтез реагентов'}
       >
         {chemicals.map((c, i) => (
           <Button
@@ -125,19 +125,19 @@ const ChemDispenserBeaker = (properties, context) => {
   return (
     <Stack.Item height={16}>
       <Section
-        title={data.glass ? 'Glass' : 'Beaker'}
+        title="Ёмкость"
         fill
         scrollable
         buttons={
           <Box>
             {!!isBeakerLoaded && (
               <Box inline color="label" mr={2}>
-                {beakerCurrentVolume} / {beakerMaxVolume} units
+                {beakerCurrentVolume} / {beakerMaxVolume} единиц
               </Box>
             )}
             <Button
               icon="eject"
-              content="Eject"
+              content="Извлечь"
               disabled={!isBeakerLoaded}
               onClick={() => act('ejectBeaker')}
             />
@@ -150,7 +150,7 @@ const ChemDispenserBeaker = (properties, context) => {
           buttons={(chemical) => (
             <>
               <Button
-                content="Isolate"
+                content="Изолировать"
                 icon="compress-arrows-alt"
                 onClick={() =>
                   act('remove', {
@@ -172,7 +172,7 @@ const ChemDispenserBeaker = (properties, context) => {
                 />
               ))}
               <Button
-                content="ALL"
+                content="Удалить всё"
                 onClick={() =>
                   act('remove', {
                     reagent: chemical.id,
@@ -181,8 +181,11 @@ const ChemDispenserBeaker = (properties, context) => {
                 }
               />
               <Button
-                content="Floor"
-                tooltip={'Set to ' + Math.trunc(chemical.volume)}
+                content="Округлить"
+                tooltip={
+                  'Удаляет лишнее, округляя объём до ' +
+                  Math.trunc(chemical.volume)
+                }
                 icon="arrow-circle-down"
                 onClick={() =>
                   act('remove', {
