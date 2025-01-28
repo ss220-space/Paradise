@@ -22144,6 +22144,12 @@
 	},
 /turf/simulated/floor/carpet,
 /area/medical/psych)
+"djp" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/crew_quarters/serviceyard)
 "djy" = (
 /obj/machinery/door_control{
 	id = "mechanicgate";
@@ -49636,9 +49642,6 @@
 	},
 /area/quartermaster/office)
 "hic" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/serviceyard)
 "him" = (
@@ -197789,7 +197792,7 @@ thX
 aoY
 aAZ
 umU
-eDF
+djp
 gEF
 gEF
 gEF
@@ -198046,7 +198049,7 @@ bLN
 vYP
 czK
 jQz
-vzu
+hic
 gEF
 hvj
 obo
@@ -198303,7 +198306,7 @@ qIz
 lPi
 hDy
 jQz
-lPi
+hic
 gEF
 pRW
 pRW
