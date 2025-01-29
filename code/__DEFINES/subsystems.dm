@@ -67,19 +67,20 @@
 // Subsystems shutdown in the reverse of the order they initialize in
 // The numbers just define the ordering, they are meaningless otherwise.
 #define INIT_ORDER_TITLE 100 // This **MUST** load first or people will se blank lobby screens
-#define INIT_ORDER_SPEECH_CONTROLLER 19
-#define INIT_ORDER_GARBAGE 18
-#define INIT_ORDER_DBCORE 17
-#define INIT_ORDER_BLACKBOX 16
-#define INIT_ORDER_CLEANUP 15
-#define INIT_ORDER_INPUT 14
-#define INIT_ORDER_SOUNDS 13
-#define INIT_ORDER_INSTRUMENTS 12
-#define INIT_ORDER_EVENTS 11
-#define INIT_ORDER_HOLIDAY 10
-#define INIT_ORDER_JOBS 9
-#define INIT_ORDER_TICKER 8
-#define INIT_ORDER_MAPPING 7
+#define INIT_ORDER_SPEECH_CONTROLLER 95
+#define INIT_ORDER_GARBAGE 92
+#define INIT_ORDER_DBCORE 91
+#define INIT_ORDER_BLACKBOX 56
+#define INIT_ORDER_CLEANUP 55
+#define INIT_ORDER_INPUT 50
+#define INIT_ORDER_SOUNDS 44
+#define INIT_ORDER_INSTRUMENTS 43
+#define INIT_ORDER_EVENTS 42
+#define INIT_ORDER_HOLIDAY 41
+#define INIT_ORDER_JOBS 40
+#define INIT_ORDER_TICKER 30
+#define INIT_ORDER_MAPPING 20
+#define INIT_ORDER_HOLOMAP 7 // after map loads, but before atoms init
 #define INIT_ORDER_EARLY_ASSETS 6
 #define INIT_ORDER_ATOMS 5
 #define INIT_ORDER_MACHINES 4
@@ -89,7 +90,6 @@
 #define INIT_ORDER_DEFAULT 0
 #define INIT_ORDER_AIR -1
 #define INIT_ORDER_SUN -2
-#define INIT_ORDER_MINIMAP -3
 #define INIT_ORDER_ASSETS -4
 #define INIT_ORDER_ICON_SMOOTHING -5
 #define INIT_ORDER_OVERLAY -6

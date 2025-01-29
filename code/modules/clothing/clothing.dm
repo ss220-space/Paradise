@@ -1169,7 +1169,7 @@ BLIND     // can't see anything
 
 
 /obj/item/clothing/under/verb/rollsuit()
-	set name = "Roll Down Jumpsuit"
+	set name = "Adjust suit style"
 	set category = "Object"
 	set src in usr
 
@@ -1178,11 +1178,11 @@ BLIND     // can't see anything
 
 	var/mob/living/carbon/human/owner = usr
 	if(owner.incapacitated() || HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
-		to_chat(owner, span_notice("You cannot roll down the uniform right now!"))
+		to_chat(owner, span_notice("You cannot adjust style of this uniform right now!"))
 		return
 
 	if(!can_adjust)
-		to_chat(owner, span_notice("You cannot roll down this uniform!"))
+		to_chat(owner, span_notice("You cannot adjust style of this uniform right now!"))
 		return
 
 	var/icon/our_icon = onmob_sheets[ITEM_SLOT_CLOTH_INNER_STRING]
@@ -1192,7 +1192,7 @@ BLIND     // can't see anything
 	var/initial_state = replacetext(item_color, "_d", "")
 
 	if(!icon_exists(our_icon, "[initial_state]_d_s"))
-		to_chat(owner, span_notice("You cannot roll down this uniform!"))
+		to_chat(owner, span_notice("You cannot adjust style of this uniform right now!"))
 		return
 
 	item_color = findtext(item_color, "_d") ? initial_state : "[initial_state]_d"

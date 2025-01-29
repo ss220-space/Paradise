@@ -789,9 +789,19 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /datum/admins/proc/spawn_atom(object as text)
 	set category = "Admin.Event"
-	set desc = "(путь атома) Создайте атом. Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным."
+	set desc = "(путь атома) Создать атом. Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным."
 	set name = "Spawn"
 
+	return usr.client.spawn_atom_impl(object, FALSE)
+
+/datum/admins/proc/spawn_atom_adv(object as text)
+	set category = "Admin.Event Spawn"
+	set desc = "(путь атома) Создать атом c aргументами в New(). Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным."
+	set name = "Advanced Spawn"
+
+	return usr.client.spawn_atom_impl(object, TRUE)
+
+/client/proc/spawn_atom_impl(object, params)
 	if(!check_rights(R_SPAWN))
 		return
 
@@ -799,6 +809,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	var/list/matches = new()
 
 	var/include_subtypes = TRUE
+
 	if(copytext(object, -1) == ".")
 		include_subtypes = FALSE
 		object = copytext(object, 1, -1)
@@ -824,14 +835,23 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(isnull(chosen))
 			return
 
+	var/list/arguments
 	if(ispath(chosen,/turf))
 		var/turf/T = get_turf(usr.loc)
 		T.ChangeTurf(chosen)
 	else
-		var/atom/A = new chosen(usr.loc)
+		if(params)
+			arguments = usr.client.get_callproc_args(TRUE)
+
+		if(!usr)
+			return
+
+		arguments = list(usr.loc) + arguments
+
+		var/atom/A = new chosen(arglist(arguments))
 		A.flags |= ADMIN_SPAWNED
 
-	log_and_message_admins("spawned [chosen] at [COORD(usr)]")
+	log_and_message_admins("spawned [chosen] at [COORD(usr)][LAZYLEN(arguments) > 1 ? " with parameters [print_single_line(arguments)]": ""]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 

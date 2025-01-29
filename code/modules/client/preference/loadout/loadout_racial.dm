@@ -115,3 +115,10 @@
 
 	gear_tweaks += new /datum/gear_tweak/path(available_chips, src)
 
+
+// HUMAN //
+
+/datum/gear/racial/satan
+	index_name = "Satanic clothes"
+	path = /obj/item/clothing/under/satan
+	whitelisted_species = list(SPECIES_HUMAN)

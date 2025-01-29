@@ -582,6 +582,26 @@
 	build_path = /obj/item/circuitboard/microscope
 	category = list ("Misc. Machinery")
 
+/datum/design/station_map
+	name = "Machine Design (Station Map)"
+	desc = "Station Map Board."
+	id = "station_map"
+	req_tech = list("programming" = 2, "engineering" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/station_map
+	category = list ("Misc. Machinery")
+
+/datum/design/station_map_engineer
+	name = "Machine Design (Engineering Station Map)"
+	desc = "Engineering Station Map Board."
+	id = "engineering_station_map"
+	req_tech = list("programming" = 5, "engineering" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/station_map/engineering
+	category = list ("Misc. Machinery")
+
 /datum/design/brs_server
 	name = "Machine Design (Rift Scan Server)"
 	desc = "Плата сервера сканирования и изучения блюспейс разлома."

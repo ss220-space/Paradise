@@ -39,6 +39,7 @@
 	sound_environment = SOUND_AREA_ASTEROID
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
+	holomap_should_draw = FALSE
 
 /area/mine/unexplored/cere
 	sound_environment = SOUND_AREA_ASTEROID
@@ -146,6 +147,7 @@
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
 	area_flags = NONE
+	holomap_should_draw = FALSE
 
 /area/lavaland/underground
 	name = "Lavaland Caves"
