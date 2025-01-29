@@ -73,8 +73,16 @@
 	A.emag_act(user)
 
 /obj/item/card/cmag
-	desc = "It's a card coated in a slurry of electromagnetic bananium."
+	desc = "Это карта, покрытая жидкостью из электромагнитного бананиума."
 	name = "jestographic sequencer"
+	ru_names = list(
+    		NOMINATIVE = "шутографический считыватель",
+    		GENITIVE = "шутографического считывателя",
+    		DATIVE = "шутографическому считывателю",
+    		ACCUSATIVE = "шутографический считыватель",
+    		INSTRUMENTAL = "шутографическим считывателем",
+    		PREPOSITIONAL = "шутографическом считывателе"
+	)
 	icon_state = "cmag"
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"

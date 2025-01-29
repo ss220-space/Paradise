@@ -1951,7 +1951,15 @@
 
 /obj/item/toy/russian_revolver/trick_revolver
 	name = "\improper .357 revolver"
-	desc = "A suspicious revolver. Uses .357 ammo."
+	desc = "Подозрительный револьвер. В нём используются патроны .357 калибра."
+	ru_names = list(
+    		NOMINATIVE = "револьвер .357 калибра",
+    		GENITIVE = "револьвера .357 калибра",
+    		DATIVE = "револьверу .357 калибра",
+    		ACCUSATIVE = "револьвер .357 калибра",
+    		INSTRUMENTAL = "револьвером .357 калибра",
+    		PREPOSITIONAL = "револьвере .357 калибра"
+	)
 	icon_state = "revolver"
 	max_shots = 1
 	var/fake_bullets = 0
@@ -1962,11 +1970,11 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
 	. = ..()
-	. += "<span class='notice'>Has [fake_bullets] round\s remaining.</span>"
-	. += "<span class='notice'>[fake_bullets] of those are live rounds.</span>"
+	. += span_notice("В запасе ещё [fake_bullets] патронов.")
+	. += span_notice("[fake_bullets] из них боевые.")
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
-	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
+	to_chat(user, span_danger("[declent_ru(NOMINATIVE)] действительно выглядел довольно сомнительно!"))
 	SEND_SOUND(user, 'sound/misc/sadtrombone.ogg') //HONK
 /*
  * Rubber Chainsaw

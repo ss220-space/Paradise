@@ -104,8 +104,16 @@
 	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_ICE, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_SLIDE, TRAIT_GUSTPROTECTION)
 
 /obj/item/clothing/shoes/magboots/clown
-	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! There's a red light on the side."
+	desc = "Это же башмаки клоуна, как у того чувака из «Шоу Бенни Хилла»! Черт возьми, они такие огромные! Сбоку мигает красная лампочка."
 	name = "clown shoes"
+	ru_names = list(
+    		NOMINATIVE = "клоунские башмаки",
+    		GENITIVE = "клоунских башмаков",
+    		DATIVE = "клоунским башмакам",
+    		ACCUSATIVE = "клоунские башмаки",
+    		INSTRUMENTAL = "клоунскими башмаками",
+    		PREPOSITIONAL = "клоунских башмаках"
+	)
 	icon_state = "clownmag0"
 	base_icon_state = "clownmag"
 	item_state = "clown_shoes"
@@ -137,13 +145,13 @@
 	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user.get_active_hand() != src)
-		to_chat(user, "You must hold [src] in your hand to do this.")
+		balloon_alert(user, "возьмите предмет в руки")
 		return
 	if(!enabled_waddle)
-		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		balloon_alert(user, "развалочка выключена")
 		enabled_waddle = TRUE
 	else
-		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		balloon_alert(user, "развалочка включена")
 		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/magboots/wizard //bundled with the wiz hardsuit
