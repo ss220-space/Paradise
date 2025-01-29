@@ -634,7 +634,7 @@ const DNAModifierIrradiating = (props, context) => {
       <Box color="average">
         <h1>
           <Icon name="radiation" />
-          &nbsp;Облучить субъект&nbsp;
+          &nbsp;Облучение субъекта&nbsp;
           <Icon name="radiation" />
         </h1>
       </Box>

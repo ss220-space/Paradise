@@ -221,11 +221,11 @@
 /obj/machinery/vending/examine(mob/user)
 	. = ..()
 	if(tilted)
-		. += span_warning("Он лежит на боку и не будет функционировать до тех пор, пока его не поправят.")
+		. += span_warning("Он лежит на боку и не будет функционировать до тех пор, пока его не поднимут.")
 		if(Adjacent(user))
-			. += span_notice("Нажмите <b>Alt-Click</b> чтобы поднять автомат.")
+			. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы поднять автомат.")
 	if(aggressive)
-		. += span_warning("Его индикаторы, кажется, зловеще мигают...")
+		. += span_warning("Его индикаторы зловеще мигают...")
 
 /obj/machinery/vending/AltClick(mob/user)
 	if(!tilted || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -745,7 +745,7 @@
 		var/estimated_height = 100 + min(length(product_records) * 34, 500)
 		if(length(prices) > 0)
 			estimated_height += 100 // to account for the "current user" interface
-		ui = new(user, src, "Vending",  name)
+		ui = new(user, src, "Vending", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 /obj/machinery/vending/ui_data(mob/user)
@@ -766,7 +766,7 @@
 		var/obj/item/stack/spacecash/S = H.get_active_hand()
 		if(istype(S))
 			data["userMoney"] = S.amount
-			data["guestNotice"] = "Принимаем наличные. У вас есть: [S.amount] кредитов."
+			data["guestNotice"] = "Принимаем наличные. У вас есть: [S.amount] кредит[pluralize_ru(S.amount, "", "а", "ов")]."
 		else if(istype(H))
 			var/obj/item/card/id/C = H.get_id_card()
 			if(istype(A))
@@ -781,11 +781,11 @@
 		data["stock"][R.name] = R.amount
 	data["extended_inventory"] = extended_inventory
 	data["vend_ready"] = vend_ready
-	data["coin_name"] = coin ? coin.name : FALSE
+	data["coin_name"] = coin ? coin.declent_ru(NOMINATIVE) : FALSE
 	data["panel_open"] = panel_open ? TRUE : FALSE
 	data["speaker"] = shut_up ? FALSE : TRUE
 	data["item_slot"] = item_slot // boolean
-	data["inserted_item_name"] = inserted_item ? inserted_item.name : FALSE
+	data["inserted_item_name"] = inserted_item ? inserted_item.declent_ru(NOMINATIVE) : FALSE
 	return data
 
 
@@ -795,13 +795,13 @@
 	data["product_records"] = list()
 	var/i = 1
 	for (var/datum/data/vending_product/R in product_records)
-		var/obj/item = R.product_path
+		var/obj/item/newitem = new R.product_path(src)
 		var/list/data_pr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = R.name,
-			price = (item in prices) ? prices[item] : 0,
-			icon = item.icon,
-			icon_state = item.icon_state,
+			name = capitalize(newitem.declent_ru(NOMINATIVE)),
+			price = (newitem in prices) ? prices[newitem] : 0,
+			icon = newitem.icon,
+			icon_state = newitem.icon_state,
 			max_amount = R.max_amount,
 			req_coin = FALSE,
 			is_hidden = FALSE,
@@ -811,13 +811,13 @@
 		i++
 	data["coin_records"] = list()
 	for (var/datum/data/vending_product/R in coin_records)
-		var/obj/item = R.product_path
+		var/obj/item/newitem = new R.product_path(src)
 		var/list/data_cr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = R.name,
-			price = (item in prices) ? prices[item] : 0,
-			icon = item.icon,
-			icon_state = item.icon_state,
+			name = capitalize(newitem.declent_ru(NOMINATIVE)),
+			price = (newitem in prices) ? prices[newitem] : 0,
+			icon = newitem.icon,
+			icon_state = newitem.icon_state,
 			max_amount = R.max_amount,
 			req_coin = TRUE,
 			is_hidden = FALSE,
@@ -828,13 +828,13 @@
 		i++
 	data["hidden_records"] = list()
 	for (var/datum/data/vending_product/R in hidden_records)
-		var/obj/item = R.product_path
+		var/obj/item/newitem = new R.product_path(src)
 		var/list/data_hr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = R.name,
-			price = (item in prices) ? prices[item] : 0,
-			icon = item.icon,
-			icon_state = item.icon_state,
+			name = capitalize(newitem.declent_ru(NOMINATIVE)),
+			price = (newitem in prices) ? prices[newitem] : 0,
+			icon = newitem.icon,
+			icon_state = newitem.icon_state,
 			max_amount = R.max_amount,
 			req_coin = FALSE,
 			is_hidden = TRUE,
@@ -868,7 +868,7 @@
 			if(issilicon(usr))
 				balloon_alert(usr, "у вас нет рук!")
 				return
-			to_chat(usr, span_notice("Вы достали [coin] из [declent_ru(GENITIVE)]."))
+			to_chat(usr, span_notice("Вы достали [coin.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 			coin.forceMove_turf()
 			usr.put_in_hands(coin, ignore_anim = FALSE)
 			coin = null
@@ -907,7 +907,7 @@
 				message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 				return
 			if (R.amount <= 0)
-				to_chat(usr, "Sold out of [R.name].")
+				to_chat(usr, "Товар \"[R.name]\" закончился!")
 				flick_vendor_overlay(FLICK_VEND)
 				return
 
@@ -953,7 +953,7 @@
 				vend(currently_vending, usr)
 				. = TRUE
 			else
-				to_chat(usr, span_warning("Сбой платежа: не удается обработать платеж."))
+				to_chat(usr, span_warning("Сбой платежа: не удаётся обработать платеж."))
 				vend_ready = TRUE
 	if(.)
 		add_fingerprint(usr)
@@ -982,9 +982,9 @@
 			return
 		if(coin.string_attached)
 			if(prob(50))
-				to_chat(user, span_notice("Вы успешно вытаскиваете монету до того, как [declent_ru(NOMINATIVE)] успевает ее проглотить."))
+				to_chat(user, span_warning("Вы успешно вытаскиваете монету до того, как [declent_ru(NOMINATIVE)] успевает ее проглотить!"))
 			else
-				to_chat(user, span_notice("Вы не смогли вытащить монету достаточно быстро, [declent_ru(NOMINATIVE)] съел ее вместе с ниткой и всем остальным."))
+				to_chat(user, span_warning("Вы не смогли вытащить монету достаточно быстро, [declent_ru(NOMINATIVE)] съел её вместе с ниткой и всем остальным!"))
 				QDEL_NULL(coin)
 		else
 			QDEL_NULL(coin)
@@ -1115,7 +1115,7 @@
 	if(!throw_item)
 		return
 	throw_item.throw_at(target, 16, 3)
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] метнул [throw_item.name] в [target.name]!"))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] метнул [throw_item.declent_ru(ACCUSATIVE)] в [target]!"))
 
 
 /obj/machinery/vending/shove_impact(mob/living/target, mob/living/attacker)
