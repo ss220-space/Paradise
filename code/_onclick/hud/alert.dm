@@ -873,10 +873,12 @@ so as to remain in compliance with the most up-to-date laws."
 /atom/movable/screen/alert/Click(location, control, params)
 	if(!usr || !usr.client)
 		return
+
 	var/paramslist = params2list(params)
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
 		return
+		
 	if(master)
 		return usr.client.Click(master, location, control, params)
 
@@ -905,7 +907,7 @@ so as to remain in compliance with the most up-to-date laws."
 	desc = "Этот объект под вашим контролем. Нажмите сюда для прекращения контроля."
 	icon_state = "buckled"
 
-/atom/movable/screen/alert/unpossess_object/Click()
+/atom/movable/screen/alert/unpossess_object/Click(location, control, params)
 	. = ..()
 
 	if(!.)

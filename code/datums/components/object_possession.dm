@@ -53,7 +53,7 @@
 	if(!bind_to_new_object(target))
 		qdel(src)
 
-	stashed_name = old_component.stashed_name
+	stashed_name = old_component?.stashed_name
 
 /// Binds the mob to the object and sets up the naming and everything.
 /// Returns FALSE if we don't bind, TRUE if we succeed.
