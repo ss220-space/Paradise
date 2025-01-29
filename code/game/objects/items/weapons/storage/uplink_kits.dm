@@ -137,6 +137,14 @@
 
 /obj/item/storage/box/syndie_kit/caneshotgun
 	name = "cane gun kit"
+	ru_names = list(
+            NOMINATIVE = "Набор Дробовика-трости",
+            GENITIVE = "Набора Дробовика-трости",
+            DATIVE = "Набору Дробовика-трости",
+            ACCUSATIVE = "Набор Дробовика-трости",
+            INSTRUMENTAL = "Набором Дробовика-трости",
+            PREPOSITIONAL = "Наборе Дробовика-трости"
+    )
 
 
 /obj/item/storage/box/syndie_kit/caneshotgun/populate_contents()
@@ -146,12 +154,28 @@
 
 /obj/item/storage/box/syndie_kit/fake_revolver
 	name = "trick revolver kit"
+	ru_names = list(
+            NOMINATIVE = "Набор Револьвера для розыгрышей",
+            GENITIVE = "Набора Револьвера для розыгрышей",
+            DATIVE = "Набору Револьвера для розыгрышей",
+            ACCUSATIVE = "Набор Револьвера для розыгрышей",
+            INSTRUMENTAL = "Набором Револьвера для розыгрышей",
+            PREPOSITIONAL = "Наборе Револьвера для розыгрышей"
+    )
 
 /obj/item/storage/box/syndie_kit/fake_revolver/populate_contents()
 	new /obj/item/toy/russian_revolver/trick_revolver(src)
 
 /obj/item/storage/box/syndie_kit/mimery
 	name = "advanced mimery kit"
+	ru_names = list(
+            NOMINATIVE = "Набор Продвинутых пантомим",
+            GENITIVE = "Набора Продвинутых пантомим",
+            DATIVE = "Набору Продвинутых пантомим",
+            ACCUSATIVE = "Набор Продвинутых пантомим",
+            INSTRUMENTAL = "Набором Продвинутых пантомим",
+            PREPOSITIONAL = "Наборе Продвинутых пантомим"
+     )
 
 /obj/item/storage/box/syndie_kit/mimery/populate_contents()
 	new /obj/item/spellbook/oneuse/mime/greaterwall(src)
@@ -424,6 +448,14 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/combat_baking
 	name = "Combat Bakery Kit"
+	ru_names = list(
+        NOMINATIVE = "Набор Боевого пекаря",
+        GENITIVE = "Набора Боевого пекаря",
+        DATIVE = "Набору Боевого пекаря",
+        ACCUSATIVE = "Набор Боевого пекаря",
+        INSTRUMENTAL = "Набором Боевого пекаря",
+        PREPOSITIONAL = "Наборе Боевого пекаря"
+    )
 
 /obj/item/storage/box/syndie_kit/combat_baking/populate_contents()
 	new /obj/item/reagent_containers/food/snacks/baguette/combat(src)

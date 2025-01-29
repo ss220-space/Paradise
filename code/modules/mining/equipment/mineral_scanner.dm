@@ -1,7 +1,16 @@
 /**********************Mining Scanner**********************/
 /obj/item/mining_scanner
-	desc = "A scanner that checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear material scanners for optimal results. \nIt has a speaker that can be toggled with <b>alt+click</b>"
+	desc = "Устройство, которое сканирует окружающие породы на наличие полезных минералов, также может быть использован для предотвращения взрывов гибтонита.\
+	 Для достижения наилучших результатов рекомендуется применять мезонные очки. Этот сканер оснащён динамиком, который можно переключать, используя сочетание клавиш <b>Alt+Click</b>"
 	name = "manual mining scanner"
+	ru_names = list(
+            NOMINATIVE = "ручной шахтерский сканер",
+            GENITIVE = "ручного шахтерского сканера",
+            DATIVE = "ручному шахтерскому сканеру",
+            ACCUSATIVE = "ручной шахтерский сканер",
+            INSTRUMENTAL = "ручным шахтерским сканером",
+            PREPOSITIONAL = "ручном шахтерском сканере"
+    )
 	icon = 'icons/obj/device.dmi'
 	icon_state = "miningmanual"
 	item_state = "analyzer"
@@ -18,8 +27,7 @@
 
 /obj/item/mining_scanner/click_alt(mob/user)
 	speaker = !speaker
-	to_chat(user, span_notice("You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"]."))
-	return CLICK_ACTION_SUCCESS
+	to_chat(user, span_notice("Вы переключаете режим работы динамика [declent_ru(GENITIVE)] на [speaker ? "<b>ВКЛ</b>" : "<b>ВЫКЛ</b>"]."))
 
 /obj/item/mining_scanner/attack_self(mob/user)
 	if(!user.client)
@@ -41,8 +49,18 @@
 	qdel(src)
 
 /obj/item/t_scanner/adv_mining_scanner
-	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. This one has an extended range. \nIt has a speaker that can be toggled with <b>alt+click</b>"
+	desc = "Устройство, которое автоматически сканирует окружающие породы на наличие полезных минералов, также может быть использован для предотвращения взрывов гибтонита.\
+	 Для достижения наилучших результатов рекомендуется применять мезонные очки.\
+	 Этот сканер отличается расширенным радиусом действия и оснащён динамиком, который можно переключать, используя сочетание клавиш <b>Alt+Click</b>"
 	name = "advanced automatic mining scanner"
+	ru_names = list(
+            NOMINATIVE = "продвинутый автоматический шахтерский сканер",
+            GENITIVE = "продвинутого автоматического шахтерского сканера",
+            DATIVE = "продвинутому автоматическому шахтерскому сканеру",
+            ACCUSATIVE = "продвинутый автоматический шахтерский сканер",
+            INSTRUMENTAL = "продвинутым автоматическим шахтерским сканером",
+            PREPOSITIONAL = "продвинутом автоматическом шахтерском сканере"
+    )
 	icon_state = "adv_mining0"
 	base_icon_state = "adv_mining"
 	item_state = "analyzer"
@@ -60,8 +78,7 @@
 
 /obj/item/t_scanner/adv_mining_scanner/click_alt(mob/user)
 	speaker = !speaker
-	to_chat(user, span_notice("You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"]."))
-	return CLICK_ACTION_SUCCESS
+	to_chat(user, span_notice("Вы переключаете режим работы динамика [declent_ru(GENITIVE)] на [speaker ? "<b>ВКЛ</b>" : "<b>ВЫКЛ</b>"]."))
 
 /obj/item/t_scanner/adv_mining_scanner/cyborg
 	flags = CONDUCT
@@ -74,10 +91,19 @@
 
 
 /obj/item/t_scanner/adv_mining_scanner/lesser
+	desc = "Устройство, которое автоматически сканирует окружающие породы на наличие полезных минералов, также может быть использован для предотвращения взрывов гибтонита.\
+	 Для достижения наилучших результатов рекомендуется применять мезонные очки. Этот сканер оснащён динамиком, который можно переключать, используя сочетание клавиш <b>Alt+Click</b>"
 	name = "automatic mining scanner"
+	ru_names = list(
+            NOMINATIVE = "автоматический шахтерский сканер",
+            GENITIVE = "автоматического шахтерского сканера",
+            DATIVE = "автоматическому шахтерскому сканеру",
+            ACCUSATIVE = "автоматический шахтерский сканер",
+            INSTRUMENTAL = "автоматическим шахтерским сканером",
+            PREPOSITIONAL = "автоматическом шахтерском сканере"
+    )
 	icon_state = "mining0"
 	base_icon_state = "mining"
-	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. \nIt has a speaker that can be toggled with <b>alt+click</b>"
 	range = 4
 	cooldown = 50
 

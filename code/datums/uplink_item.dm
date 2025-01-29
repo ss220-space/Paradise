@@ -36,10 +36,10 @@
 			if(discount_item.cost >= 100)
 				discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
 			discount_item.cost = max(round(discount_item.cost * (1 - discount)), 1)
-			discount_item.category = "Discounted Gear"
-			discount_item.name += " ([round(((init_cost - discount_item.cost) / init_cost) * 100)]% off!)"
+			discount_item.category = "Снаряжение со скидкой"
+			discount_item.name += " ([round(((init_cost - discount_item.cost) / init_cost) * 100)]% скидка!)"
 			discount_item.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
-			discount_item.desc += " Limit of [discount_item.limited_stock] per uplink. Normally costs [init_cost] TC."
+			discount_item.desc += "Ограничение в размере [discount_item.limited_stock] на аплинк. Обычно это стоит [init_cost] ТК."
 			discount_item.surplus = 0 // stops the surplus crate potentially giving out a bit too much
 
 			. += discount_item
@@ -101,7 +101,7 @@
 	. = null
 	//nukies get items that regular traitors only get with hijack. If a hijack-only item is not for nukies, then exclude it via the gamemode list.
 	if(hijack_only && !(buyer.mind.special_role == SPECIAL_ROLE_NUKEOPS) && !(locate(/datum/objective/hijack) in buyer.mind.get_all_objectives()) && target_uplink.uplink_type != UPLINK_TYPE_ADMIN)
-		to_chat(buyer, span_warning("The Syndicate will only issue this extremely dangerous item to agents assigned the Hijack objective."))
+		to_chat(buyer, span_warning("Синдикат готов предоставить этот чрезвычайно опасный предмет только тем агентам, чьей целью является угон шаттла."))
 		return .
 
 	if(!item)
@@ -158,7 +158,7 @@
 	if(!spawned)
 		return .
 
-	if(category == "Discounted Gear" && refundable)
+	if(category == "Снаряжение со скидкой" && refundable)
 		var/obj/item/refund_item
 		if(istype(spawned, refund_path))
 			refund_item = spawned
@@ -204,101 +204,109 @@
 //Discounts (dynamically filled above)
 
 /datum/uplink_item/discounts
-	category = "Discounted Gear"
+	category = "Снаряжение со скидкой"
 
 //Job specific gear
 
 /datum/uplink_item/jobspecific
-	category = "Job Specific Tools"
+	category = "Специализированные предметы"
 	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) // Stops the job specific category appearing for nukies
 
 //Clown
 /datum/uplink_item/jobspecific/clowngrenade
-	name = "Banana Grenade"
-	desc = "A grenade that explodes into HONK! brand banana peels that are genetically modified to be extra slippery and extrude caustic acid when stepped on"
+	name = "Банановая граната"
+	desc = "Граната, которая взрывается с оглушительным «Хонком»! Внутри неё находятся фирменные банановые кожурки, которые были генетически модифицированы.\
+	 Это делает их особенно скользкими и способными выделять едкую кислоту при контакте."
 	item = /obj/item/grenade/clown_grenade
 	cost = 8
 	job = list(JOB_TITLE_CLOWN)
 
 /datum/uplink_item/jobspecific/cmag
-	name = "Jestographic Sequencer"
-	desc = "The jestographic sequencer, also known as a cmag, is a small card that inverts the access on any door it's used on. Perfect for locking command out of their own departments. Honk!"
+	name = "Шутографический считыватель"
+	desc = "Шутографический считыватель, также известный как кмаг, представляет собой уникальную карту, способную изменять порядок доступа к любой двери, к которой она подключена.\
+	 Превосходный выбор для ограничения доступа сотрудников за пределы их собственных отделов. Хонк!"
 	item = /obj/item/card/cmag
 	cost = 20
 	surplus = 50
 	job = list(JOB_TITLE_CLOWN)
 
 /datum/uplink_item/jobspecific/clownmagboots
-	name = "Clown Magboots"
-	desc = "A pair of modified clown shoes fitted with an advanced magnetic traction system. Look and sound exactly like regular clown shoes unless closely inspected."
+	name = "Клоунские магбутсы"
+	desc = "Пара модифицированных клоунских ботинок, которые оснащены передовой системой магнитного сцепления.\
+	 Если не приглядываться, они выглядят и звучат как обычные клоунские ботинки."
 	item = /obj/item/clothing/shoes/magboots/clown
 	cost = 12
 	job = list(JOB_TITLE_CLOWN)
 
 /datum/uplink_item/jobspecific/acrobatic_shoes
-	name = "Acrobatic Shoes"
-	desc = "A pair of modified clown shoes are power-up with a special jumping mechanism that works on the honk-space, allowing you to do excellent acrobatic tricks!"
+	name = "Клоунские ботинки акробата"
+	desc = "Пара модернизированных клоунских ботинок, оснащенных инновационным прыгающим механизмом, работающим на основе технологии «хонк-спейс».\
+	 Этот механизм открывает перед вами безграничные возможности для выполнения захватывающих акробатических трюков, позволяя стать настоящим мастером в мире развлечений!"
 	item = /obj/item/clothing/shoes/bhop/clown
 	cost = 12
 	job = list(JOB_TITLE_CLOWN)
 
 /datum/uplink_item/jobspecific/trick_revolver
-	name = "Trick Revolver"
-	desc = "A revolver that will fire backwards and kill whoever attempts to use it. Perfect for those pesky vigilante or just a good laugh."
+	name = "Револьвер для розыгрышей"
+	desc = "Револьвер, который стреляет в обратном направлении, убивая любого, кто попытается им воспользоваться.\
+	 Идеально подходит для назойливых мстителей или просто для того, чтобы посмеяться."
 	item = /obj/item/storage/box/syndie_kit/fake_revolver
 	cost = 5
 	job = list(JOB_TITLE_CLOWN)
 
 /datum/uplink_item/jobspecific/bipki
-	name = "Bipki case"
-	desc = "Suck me and I'll tell you what's inside."
+	name = "Чемодан с бипками"
+	desc = "Отсосите мне, тогда я расскажу, что внутри."
 	item = /obj/item/case_with_bipki
 	cost = 30
 	job = list(JOB_TITLE_CLOWN)
 
 //Mime
 /datum/uplink_item/jobspecific/caneshotgun
-	name = "Cane Shotgun and Assassination Shells"
-	desc = "A specialised, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes boxed with 6 specialised shrapnel rounds laced with a silencing toxin and 1 preloaded in the shotgun's chamber."
+	name = "Дробовик-трость и патроны для убийства"
+	desc = "Специализированный однозарядный дробовик, оснащённый маскировочным устройством, имитирующим трость.\
+	 Уникальная конструкция позволяет надёжно скрывать содержимое и блокировать взвод, когда оружие находится в сложенном виде.\
+	 В комплект входят шесть специальных шрапнельных патронов с глушителем и один патрон, который уже заряжен в патронник дробовика."
 	item = /obj/item/storage/box/syndie_kit/caneshotgun
 	cost = 25
 	job = list(JOB_TITLE_MIME)
 
 /datum/uplink_item/jobspecific/mimery
-	name = "Guide to Advanced Mimery Series"
-	desc = "Contains two manuals to teach you advanced Mime skills. You will be able to shoot stunning bullets out of your fingers, and create large walls that can block an entire hallway!"
+	name = "Руководство по продвинутым пантомимам"
+	desc = "В этом сборнике вы найдёте два руководства, которые помогут вам освоить искусство пантомимы на продвинутом уровне.\
+	 Вы научитесь стрелять оглушающими пулями прямо из пальцев и создавать большие стены, способные перекрыть целый коридор!"
 	item = /obj/item/storage/box/syndie_kit/mimery
 	cost = 30
 	job = list(JOB_TITLE_MIME)
 
 /datum/uplink_item/jobspecific/mimejutsu
-	name = "Mimejutsu manual"
-	desc =	"An old manual of the martial art of mimes."
+	name = "Мануал Мимдзютсе"
+	desc =	"Старое пособие по боевому искусству мимов."
 	item = /obj/item/mimejutsu_scroll
 	cost = 40
 	job = list(JOB_TITLE_MIME)
 
 /datum/uplink_item/jobspecific/combat_baking
-	name = "Combat Bakery Kit"
-	desc = "A kit of clandestine baked weapons. Contains a baguette which a skilled mime could use as a sword, \
-		a pair of throwing croissants, and the recipe to make more on demand. Once the job is done, eat the evidence."
+	name = "Набор боевого пекаря"
+	desc = "Набор секретного оружия, приготовленного из выпечки! В наборе вы найдёте багет, который опытный мим мог бы использовать в качестве меча,\
+	 пару круассанов для метания и рецепт, по которому можно приготовить ещё больше. Когда работа будет выполнена, не забудьте съесть улики."
 	item = /obj/item/storage/box/syndie_kit/combat_baking
 	cost = 25
 	job = list(JOB_TITLE_MIME, JOB_TITLE_CHEF)
 
 //Miner
 /datum/uplink_item/jobspecific/pressure_mod
-	name = "Kinetic Accelerator Pressure Mod"
-	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity."
+	name = "Модкит \"Давления\" для кинетического акселератора"
+	desc = "Набор для модификации, который значительно увеличивает урон кинетического ускорителя в герметичной среде. Занимает 35% ёмкости мода."
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 18 //you need two for full damage, so total of 8 for maximum damage
 	job = list(JOB_TITLE_MINER, JOB_TITLE_QUARTERMASTER)
 
 /datum/uplink_item/jobspecific/mining_charge_hacker
-	name = "Mining Charge Hacker"
-	desc = "Looks and functions like an advanced mining scanner, but allows mining charges to be placed anywhere and destroy more than rocks. \
-	Use it on a mining charge to override its safeties. Reduces explosive power of mining charges due to the modification of their internals."
+	name = "Взломщик подрывных зарядов"
+	desc = "Выглядит и функционирует как продвинутый шахтёрский сканер, но позволяет размещать заряды в любом месте и разрушать не только камни.\
+	 Используйте его на шахтёрском заряде, чтобы отменить его предустановки безопасности. Уменьшает взрывную силу зарядов за счет модификации их внутренних компонентов."
 	item = /obj/item/t_scanner/adv_mining_scanner/syndicate
 	cost = 20
 	job = list(JOB_TITLE_MINER, JOB_TITLE_QUARTERMASTER)

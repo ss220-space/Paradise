@@ -715,7 +715,15 @@
 // Indoors
 /obj/item/borg/upgrade/modkit/indoors
 	name = "decrease pressure penalty"
-	desc = "A syndicate modification kit that increases the damage a kinetic accelerator does in high pressure environments."
+	ru_names = list(
+            NOMINATIVE = "уменьшение штрафа от давления",
+            GENITIVE = "уменьшения штрафа от давления",
+            DATIVE = "уменьшению штрафа от давления",
+            ACCUSATIVE = "уменьшение штрафа от давления",
+            INSTRUMENTAL = "уменьшением штрафа от давления",
+            PREPOSITIONAL = "уменьшении штрафа от давления"
+    )
+	desc = "Специальный модкит, который позволяет повысить урон, наносимый кинетическим акселератором в условиях повышенного давления."
 	modifier = 2
 	denied_type = /obj/item/borg/upgrade/modkit/indoors
 	maximum_of_type = 2

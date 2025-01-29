@@ -50,7 +50,15 @@
 
 /obj/item/mimejutsu_scroll
 	name = "Mimejutsu manual"
-	desc =	"An old manual of the martial art of mimes."
+	desc =	"Старое пособие по боевому искусству мимов."
+	ru_names = list(
+        NOMINATIVE = "Мануал Мимдзютсе",
+        GENITIVE = "Мануала Мимдзютсе",
+        DATIVE = "Мануалу Мимдзютсе",
+        ACCUSATIVE = "Мануал Мимдзютсе",
+        INSTRUMENTAL = "Мануалом Мимдзютсе",
+        PREPOSITIONAL = "Мануале Мимдзютсе"
+    )
 	icon = 'icons/obj/library.dmi'
 	icon_state = "mimemanual"
 	var/used = FALSE
@@ -64,9 +72,9 @@
 		F.teach(H)
 		to_chat(H, span_boldannounceic("..."))
 		used = TRUE
-		desc = "An old manual of the martial art of mimes. The pages are blank."
+		desc = "Старое пособие по боевому искусству мимов, но страницы его пусты."
 	else
-		to_chat(user, "<span class='notice'>You must dedicate yourself to silence first.</span>")
+		to_chat(user, span_notice("Сначала вы должны принять обет молчания."))
 
 /datum/martial_art/mimejutsu/explaination_header(user)
 	to_chat(user, "<b><i>...</i></b>")
