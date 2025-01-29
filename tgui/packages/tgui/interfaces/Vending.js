@@ -110,7 +110,7 @@ export const Vending = (props, context) => {
     <Window
       width={470}
       height={100 + Math.min(product_records.length * 38, 500)}
-      title="Vending Machine"
+      title="Торговый автомат"
     >
       <Window.Content>
         <Stack fill vertical>
