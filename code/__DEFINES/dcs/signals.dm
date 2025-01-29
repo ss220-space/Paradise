@@ -1285,3 +1285,5 @@
 
 /// Source: /proc/random_hair_style (mob/living/carbon/human/human, valid_hairstyles, robohead)
 #define COMSIG_RANDOM_HAIR_STYLE	"random_hair_style"
+
+#define COMSIG_MOB_SET_KEY "set_key"
