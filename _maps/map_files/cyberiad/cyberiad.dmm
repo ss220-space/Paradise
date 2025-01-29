@@ -2556,9 +2556,7 @@
 	pixel_x = -32;
 	pixel_y = 32
 	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
+/obj/machinery/station_map/directional/north,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "amd" = (
@@ -13474,10 +13472,7 @@
 /turf/simulated/wall,
 /area/storage/primary)
 "aUt" = (
-/obj/structure/extinguisher_cabinet{
-	name = "north extinguisher cabinet";
-	pixel_y = 30
-	},
+/obj/machinery/station_map/directional/north,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "aUu" = (
@@ -14252,6 +14247,21 @@
 	icon_state = "dark"
 	},
 /area/medical/morgue)
+"aWS" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "south extinguisher cabinet";
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
+/area/hallway/secondary/entry)
 "aWT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -40491,6 +40501,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/machinery/station_map/engineering/directional/west,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "cAN" = (
@@ -53096,6 +53107,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/machinery/station_map/directional/east,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
 "dld" = (
@@ -55553,6 +55565,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"dwN" = (
+/obj/machinery/light,
+/obj/machinery/station_map/directional/south,
+/turf/simulated/floor/shuttle,
+/area/shuttle/arrival/station)
 "dwW" = (
 /obj/machinery/door_control{
 	id = "kitchenhall";
@@ -61003,6 +61020,13 @@
 	icon_state = "whitebluecorner"
 	},
 /area/medical/surgery/north)
+"gWJ" = (
+/obj/machinery/station_map/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "browncorner"
+	},
+/area/hallway/primary/central/sw)
 "gWM" = (
 /obj/machinery/camera{
 	c_tag = "East Primary Hallway 5";
@@ -62044,6 +62068,13 @@
 	icon_state = "cafeteria"
 	},
 /area/medical/research/restroom)
+"hFV" = (
+/obj/machinery/station_map/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitehall"
+	},
+/area/medical/research)
 "hGr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -66865,6 +66896,10 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/ai_upload)
+"kTi" = (
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/starboard/east)
 "kTu" = (
 /obj/structure/largecrate,
 /obj/effect/decal/cleanable/dust,
@@ -68624,6 +68659,13 @@
 	icon_state = "whitegreenfull"
 	},
 /area/medical/virology/lab)
+"lZT" = (
+/obj/machinery/station_map/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/security/lobby)
 "lZV" = (
 /obj/item/radio/intercom{
 	name = "north station intercom (General)";
@@ -69333,6 +69375,7 @@
 /obj/machinery/camera{
 	c_tag = "Central Primary Hallway South"
 	},
+/obj/machinery/station_map/directional/north,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
 "mxB" = (
@@ -69744,6 +69787,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
+"mJX" = (
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "mKg" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Armory";
@@ -86490,6 +86537,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/atmospherics)
+"xoz" = (
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/aft)
 "xoJ" = (
 /obj/item/restraints/handcuffs/cable/cyan,
 /obj/effect/decal/remains/human,
@@ -98036,7 +98090,7 @@ cCu
 aYZ
 aYZ
 aYZ
-bcN
+dwN
 beh
 aSd
 aSd
@@ -101377,7 +101431,7 @@ aWc
 lFU
 bge
 bcX
-bgu
+aWS
 aMs
 aMs
 aMs
@@ -111429,7 +111483,7 @@ sdq
 tPq
 tPq
 wZO
-tPq
+gWJ
 tPq
 cbL
 tPq
@@ -112735,7 +112789,7 @@ czN
 kyC
 uTI
 cNS
-cFa
+xoz
 pjs
 tcA
 cKb
@@ -115487,7 +115541,7 @@ cZE
 avW
 bei
 cZE
-cZE
+lZT
 aAO
 aCj
 aDj
@@ -123209,7 +123263,7 @@ aJx
 aKL
 aMH
 aFI
-aJA
+mJX
 aVw
 aSL
 lYa
@@ -130688,7 +130742,7 @@ dmN
 byU
 dqC
 bau
-bwv
+kTi
 bFr
 bwv
 bEA
@@ -132765,7 +132819,7 @@ cdC
 ceK
 uKx
 cjL
-clg
+hFV
 clW
 qTP
 coA

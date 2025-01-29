@@ -195,7 +195,7 @@
 			usr.client.holder.Topic(null, list("shownoteckey" = M.ckey))
 		if("playtime")
 			usr.client.holder.Topic(null, list("getplaytimewindow" = M.UID()))
-		if("playtime")
+		if("geoip")
 			usr.client.holder.Topic(null, list("geoip" = M.UID()))
 		if("ccdb")
 			usr.client.holder.Topic(null, list("open_ccDB" = M.ckey))

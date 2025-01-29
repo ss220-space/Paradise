@@ -681,14 +681,28 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(src, "[D] rejected your deletion", confidential=TRUE)
 		return
 	var/atom/A = D
-	if(alert(src, "Are you sure you want to delete:\n[D]\nat [COORD(A)]?", "Confirmation", "Yes", "No") == "Yes")
-		log_and_message_admins("deleted [D] at [COORD(A)]")
+	var/coords = ""
+	var/jmp_coords = ""
+	if(istype(A))
+		var/turf/T = get_turf(A)
+		if(T)
+			coords = "at [COORD(T)]"
+			jmp_coords = "at [ADMIN_COORDJMP(T)]"
+		else
+			jmp_coords = coords = "in nullspace"
+
+	if (alert(src, "Are you sure you want to delete:\n[D]\n[coords]?", "Confirmation", "Yes", "No") == "Yes")
+		log_admin("[key_name(usr)] deleted [D] [coords]")
+		message_admins("[key_name_admin(usr)] deleted [D] [jmp_coords]")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delete") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 		if(isturf(D))
 			var/turf/T = D
 			T.ChangeTurf(T.baseturf)
 		else
+			vv_update_display(D, "deleted", VV_MSG_DELETED)
 			qdel(D)
+			if(!QDELETED(D))
+				vv_update_display(D, "deleted", "")
 
 /client/proc/cmd_admin_list_open_jobs()
 	set category = "Admin.Admin"

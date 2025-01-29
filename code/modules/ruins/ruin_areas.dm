@@ -8,6 +8,7 @@
 	static_lighting = TRUE
 	ambientsounds = RUINS_SOUNDS
 	sound_environment = SOUND_ENVIRONMENT_STONEROOM
+	holomap_should_draw = FALSE
 
 /area/ruin/space
 	area_flags = NONE

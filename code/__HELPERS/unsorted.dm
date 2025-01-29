@@ -1855,31 +1855,31 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/get_channel_name(channel)
 	switch(channel)
 		if(CHANNEL_GENERAL)
-			return "General Sounds"
+			return "Основные звуки"
 		if(CHANNEL_LOBBYMUSIC)
-			return "Lobby Music"
+			return "Музыка в лобби"
 		if(CHANNEL_ADMIN)
-			return "Admin MIDIs"
+			return "Админские MIDI"
 		if(CHANNEL_VOX)
-			return "AI Announcements"
+			return "Оповещения ИИ"
 		if(CHANNEL_JUKEBOX)
-			return "Dance Machines"
+			return "Танцевальные машины"
 		if(CHANNEL_HEARTBEAT)
-			return "Heartbeat"
+			return "Сердцебиение"
 		if(CHANNEL_BUZZ)
-			return "White Noise"
+			return "Белый шум"
 		if(CHANNEL_AMBIENCE)
-			return "Ambience"
+			return "Эмбиент"
 		if(CHANNEL_TTS_LOCAL)
-			return "TTS Local"
+			return "TTS рядом"
 		if(CHANNEL_TTS_RADIO)
-			return "TTS Radio"
+			return "TTS в радиосвязи"
 		if(CHANNEL_RADIO_NOISE)
-			return "Radio Noise"
+			return "Звуки радиосвязи"
 		if(CHANNEL_INTERACTION_SOUNDS)
-			return "Item Interaction Sounds"
+			return "Звуки взаимодействия с предметами"
 		if(CHANNEL_BOSS_MUSIC)
-			return "Boss Music"
+			return "Музыка боссов"
 
 /proc/get_compass_dir(atom/start, atom/end) //get_dir() only considers an object to be north/south/east/west if there is zero deviation. This uses rounding instead. // Ported from CM-SS13
 	if(!start || !end)

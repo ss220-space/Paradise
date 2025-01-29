@@ -1,5 +1,6 @@
 /area/syndicate/unpowered
 	has_gravity = STANDARD_GRAVITY
+	holomap_should_draw = FALSE
 
 
 /area/syndicate/unpowered/syndicate_space_base
