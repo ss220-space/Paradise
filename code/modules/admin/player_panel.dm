@@ -6,11 +6,11 @@
 	if(!check_rights(R_ADMIN|R_MOD))
 		message_admins("[key_name_admin(usr)] attempted to invoke player panel without admin rights. If this is a mentor, its a chance they accidentally hit F7. If this is NOT a mentor, there is a high chance an exploit is being used")
 		return
-	var/dat = ""
+	var/dat = {"<html><meta charset="UTF-8"><head><title>Admin Player Panel</title></head>"}
 
 	//javascript, the part that does most of the work~
 	dat += {"
-
+			<head>
 			<script type='text/javascript'>
 
 				var locked_tabs = new Array();
@@ -74,7 +74,7 @@
 
 					body += "</td><td align='center'>";
 
-					body += "<font size='2'><b>"+job+" "+name+"</b><br>Real name: <b>"+real_name+"</b><br>Played by: <b>"+key+" ("+ip+")</b></font>"
+					body += "<font size='2'><b>"+job+" "+name+"</b><br><b>Real name "+real_name+"</b><br><b>Played by "+key+" ("+ip+")</b></font>"
 
 					body += "</td><td align='center'>";
 
@@ -186,7 +186,7 @@
 				}
 
 			</script>
-
+		</head>
 
 	"}
 
@@ -199,7 +199,7 @@
 		<table width='560' align='center' cellspacing='0' cellpadding='5' id='maintable'>
 			<tr id='title_tr'>
 				<td align='center'>
-					<font size='5'><b>Player panel</b></font><br><br>
+					<font size='5'><b>Player panel</b></font><br>
 					Hover over a line to see more information | [check_rights(R_ADMIN,0) ? "<a href='byond://?src=[UID()];check_antagonist=1'>Check antagonists</a> | Kick <a href='byond://?_src_=holder;kick_all_from_lobby=1;afkonly=0'>everyone</a>/<a href='byond://?_src_=holder;kick_all_from_lobby=1;afkonly=1'>AFKers</a> in lobby" : "" ]
 					<p>
 				</td>
@@ -222,6 +222,10 @@
 	var/i = 1
 	for(var/mob/M in mobs)
 		if(M.ckey)
+
+			var/color = "#e6e6e6"
+			if(i%2 == 0)
+				color = "#f2f2f2"
 
 			var/antagonist_string = get_antag_type_truncated_plaintext_string(M)
 
@@ -300,7 +304,7 @@
 			dat += {"
 
 				<tr id='data[i]' name='[i]' onClick="addToLocked('item[i]','data[i]','notice_span[i]')">
-					<td align='center' >
+					<td align='center' bgcolor='[color]'>
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
 						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]","[antagonist_string]","[M.UID()]","[client_ckey]","[M_eyeUID]")'
@@ -325,15 +329,10 @@
 			var maintable = document.getElementById("maintable_data_archive");
 			var complete_list = maintable.innerHTML;
 		</script>
-	</body>
+	</body></html>
 	"}
 
-	var/datum/browser/popup = new(usr, "players", "<div align='center'>Admin Player Panel</div>", 600, 480)
-	popup.set_content(dat)
-	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
-	popup.add_stylesheet("dark_inputs", "html/dark_inputs.css")
-	popup.open()
-	onclose(usr, "players")
+	usr << browse(dat, "window=players;size=600x480")
 
 
 /datum/admins/proc/check_antagonists_line(mob/M, caption = "", close = 1)
@@ -398,15 +397,15 @@
 					if(M.client)
 						observers_connected++
 				else
-					other_players += M
+					other_players++
 		dat += "<BR><b><font color='#9A67EA'>Players:|[connected_players - lobby_players] ingame|[connected_players] connected|[lobby_players] lobby|</font></b>"
 		dat += "<BR><b><font color='green'>Living Players:|[living_players_connected] active|[living_players - living_players_connected] disconnected|[living_players_antagonist] antagonists|</font></b>"
 		dat += "<BR><b><font color='red'>Dead/Observing players:|[observers_connected] active|[observers - observers_connected] disconnected|</font></b>"
 		if(other_players)
 			dat += "<BR><span class='userdanger'>[other_players] players in invalid state or the statistics code is bugged!</span>"
 		dat += "<BR>"
-		dat +="<b>Code Phrases:</b> <span class='codephrases'>[GLOB.syndicate_code_phrase]</span>"
-		dat +="<b>Code Responses:</b> <span class='coderesponses'>[GLOB.syndicate_code_response]</span>"
+		dat +="<br><b>Code Phrases:</b> <span class='codephrases'>[GLOB.syndicate_code_phrase]</span>"
+		dat +="<br><b>Code Responses:</b> <span class='coderesponses'>[GLOB.syndicate_code_response]</span>"
 		dat += "<br><b>Antagonist Teams</b><br>"
 		dat += "<a href='byond://?src=[UID()];check_teams=1'>View Teams</a><br>"
 		if(SSticker.mode.syndicates.len)

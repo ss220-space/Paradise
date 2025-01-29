@@ -141,7 +141,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		else if(H.job)
 			assignment = H.job
 		else
-			assignment = "Unassigned"
+			assignment = "Неназначенный"
 
 		var/id = num2hex(GLOB.record_id_num++, 6)
 
@@ -154,8 +154,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		G.fields["rank"]		= assignment
 		G.fields["age"]			= H.age
 		G.fields["fingerprint"]	= md5(H.dna.uni_identity)
-		G.fields["p_stat"]		= "Active"
-		G.fields["m_stat"]		= "Stable"
+		G.fields["p_stat"]		= "Стабильное"
+		G.fields["m_stat"]		= "Стабильное"
 		G.fields["sex"]			= capitalize(H.gender)
 		G.fields["species"]		= H.dna.species.name
 		G.fields["photo"]		= get_id_photo(H)
@@ -164,11 +164,11 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if(H.gen_record && !jobban_isbanned(H, "Records"))
 			G.fields["notes"] = H.gen_record
 		else
-			G.fields["notes"] = "No notes found."
+			G.fields["notes"] = "Дополнительная информация отсутствует."
 		if(H.exploit_record && !jobban_isbanned(H, "Records"))
 			G.fields["exploit_record"] = H.exploit_record
 		else
-			G.fields["exploit_record"] = "No notes found."
+			G.fields["exploit_record"] = "Дополнительная информация отсутствует."
 		general += G
 
 		//Medical Record
@@ -177,18 +177,18 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		M.fields["name"]		= H.real_name
 		M.fields["blood_type"]	= H.dna.blood_type
 		M.fields["b_dna"]		= H.dna.unique_enzymes
-		M.fields["mi_dis"]		= "None"
-		M.fields["mi_dis_d"]	= "No minor disabilities have been declared."
-		M.fields["ma_dis"]		= "None"
-		M.fields["ma_dis_d"]	= "No major disabilities have been diagnosed."
-		M.fields["alg"]			= "None"
-		M.fields["alg_d"]		= "No allergies have been detected in this patient."
-		M.fields["cdi"]			= "None"
-		M.fields["cdi_d"]		= "No diseases have been diagnosed at the moment."
+		M.fields["mi_dis"]		= "Отсутствуют"
+		M.fields["mi_dis_d"]	= "Незначительные отклонения не указаны."
+		M.fields["ma_dis"]		= "Отсутствуют"
+		M.fields["ma_dis_d"]	= "Инвалидности не указаны."
+		M.fields["alg"]			= "Отсутствуют"
+		M.fields["alg_d"]		= "Аллергии не указаны."
+		M.fields["cdi"]			= "Отсутствуют"
+		M.fields["cdi_d"]		= "Текущие заболевания не указаны."
 		if(H.med_record && !jobban_isbanned(H, "Records"))
 			M.fields["notes"] = H.med_record
 		else
-			M.fields["notes"] = "No notes found."
+			M.fields["notes"] = "Дополнительная информация отсутствует."
 		medical += M
 
 		//Security Record
@@ -204,7 +204,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if(H.sec_record && !jobban_isbanned(H, "Records"))
 			S.fields["notes"] = H.sec_record
 		else
-			S.fields["notes"] = "No notes found."
+			S.fields["notes"] = "Дополнительная информация отсутствует."
 		LAZYINITLIST(S.fields["comments"])
 		security += S
 

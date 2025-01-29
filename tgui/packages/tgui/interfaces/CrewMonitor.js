@@ -8,17 +8,17 @@ import { Window } from '../layouts';
 
 const getStatText = (cm, critThreshold) => {
   if (cm.dead) {
-    return 'Deceased';
+    return 'Мёртв';
   }
   if (parseInt(cm.health, 10) <= critThreshold) {
     // Critical
-    return 'Critical';
+    return 'Критическое состояние';
   }
   if (parseInt(cm.stat, 10) === 1) {
     // Unconscious
-    return 'Unconscious';
+    return 'Без сознания';
   }
-  return 'Living';
+  return 'Жив';
 };
 
 const getStatColor = (cm, critThreshold) => {
@@ -54,7 +54,7 @@ export const CrewMonitor = (props, context) => {
       case 3:
         return <CrewMonitorMapView />;
       default:
-        return "WE SHOULDN'T BE HERE!";
+        return 'ЧТО-ТО ТОЧНО НЕ ТАК!';
     }
   };
 
@@ -69,7 +69,7 @@ export const CrewMonitor = (props, context) => {
                 selected={0 === tabIndex}
                 onClick={() => setTabIndex(0)}
               >
-                <Icon name="table" /> Command Data View
+                <Icon name="table" /> Данные о Командовании
               </Tabs.Tab>
             ) : null}
             {data.isBP ? (
@@ -78,7 +78,7 @@ export const CrewMonitor = (props, context) => {
                 selected={1 === tabIndex}
                 onClick={() => setTabIndex(1)}
               >
-                <Icon name="table" /> Security Data View
+                <Icon name="table" /> Данные о Службе Безопасности
               </Tabs.Tab>
             ) : null}
             <Tabs.Tab
@@ -86,14 +86,14 @@ export const CrewMonitor = (props, context) => {
               selected={2 === tabIndex}
               onClick={() => setTabIndex(2)}
             >
-              <Icon name="table" /> Data View
+              <Icon name="table" /> Данные об Экипаже
             </Tabs.Tab>
             <Tabs.Tab
               key="MapView"
               selected={3 === tabIndex}
               onClick={() => setTabIndex(3)}
             >
-              <Icon name="map-marked-alt" /> Map View
+              <Icon name="map-marked-alt" /> Просмотр Карты
             </Tabs.Tab>
           </Tabs>
           {decideTab(tabIndex)}
@@ -113,15 +113,15 @@ const CrewMonitorTable = ({ crewData, context }) => {
   return (
     <Box>
       <Input
-        placeholder="Search by name, assignment or location.."
+        placeholder="Введите Имя, Должность или Локацию..."
         width="100%"
         onInput={(_e, value) => setSearch(value)}
       />
       <Table m="0.5rem">
         <Table.Row header>
-          <Table.Cell>Name</Table.Cell>
-          <Table.Cell>Status</Table.Cell>
-          <Table.Cell>Location</Table.Cell>
+          <Table.Cell>Имя</Table.Cell>
+          <Table.Cell>Состояние</Table.Cell>
+          <Table.Cell>Локация</Table.Cell>
         </Table.Row>
         {crew.filter(searcher).map((cm) => (
           <Table.Row key={cm.ref} bold={!!cm.is_command}>
@@ -171,7 +171,7 @@ const CrewMonitorTable = ({ crewData, context }) => {
                   cm.area + ' (' + cm.x + ', ' + cm.y + ')'
                 )
               ) : (
-                'Not Available'
+                'Недоступно'
               )}
             </TableCell>
           </Table.Row>

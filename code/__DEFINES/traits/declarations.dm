@@ -44,6 +44,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CHASM_STOPPED "chasm_stopped"
 ///Lava will be safe to cross while it has this trait.
 #define TRAIT_LAVA_STOPPED "lava_stopped"
+/// If a trait is considered as having "coverage" by a meteor shield.
+#define TRAIT_COVERED_BY_METEOR_SHIELD "covered_by_meteor_shield"
 
 //mob traits
 #define TRAIT_GODMODE "godmode"
@@ -297,3 +299,4 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLOB_ZOMBIFIED "blob_zombified"
 
 #define TRAIT_BEING_OFFERED "offered"
+

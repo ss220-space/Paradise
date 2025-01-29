@@ -96,12 +96,12 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 	switch(.["class"])
 		if(VV_TEXT)
-			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value)
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, encode = FALSE)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 		if(VV_MESSAGE)
-			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, multiline = TRUE)
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, multiline = TRUE, encode = FALSE)
 			if(.["value"] == null)
 				.["class"] = null
 				return
@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			var/type = current_value
 			var/error = ""
 			do
-				type = tgui_input_text(src, "Введите тип:[error]", "Тип", type)
+				type = tgui_input_text(src, "Введите тип:[error]", "Тип", type, encode = FALSE)
 				if(!type)
 					break
 				type = text2path(type)
@@ -147,13 +147,13 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			.["value"] = type
 
 		if(VV_MATRIX)
-			.["value"] = text2matrix(tgui_input_text(src, "Введите a, b, c, d, e, и f, разделённые пробелами.", "Матрица", "1 0 0 0 1 0"))
+			.["value"] = text2matrix(tgui_input_text(src, "Введите a, b, c, d, e, и f, разделённые пробелами.", "Матрица", "1 0 0 0 1 0", encode = FALSE))
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 		if(VV_REGEX)
-			var/reg = tgui_input_text(src, "Введите regex", "Regex", "")
+			var/reg = tgui_input_text(src, "Введите regex", "Regex", "", encode = FALSE)
 			if(!reg)
 				return
 			.["value"] = regex(reg)
@@ -235,7 +235,15 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				.["class"] = null
 				return
 			.["type"] = type
-			.["value"] = new type()
+			var/list/arguments
+			
+			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый атом", list("Да", "Нет")) == "Да")
+				arguments = get_callproc_args(FALSE)
+			else
+				arguments = list()
+
+			.["value"] = new type(arglist(arguments))
+
 
 		if(VV_NEW_DATUM)
 			var/type = pick_closest_path(FALSE, get_fancy_list_of_datum_types())
@@ -243,23 +251,34 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				.["class"] = null
 				return
 			.["type"] = type
-			.["value"] = new type()
+			var/list/arguments
+			
+			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый атом", list("Да", "Нет")) == "Да")
+				arguments = get_callproc_args(FALSE)
+			else
+				arguments = list()
+
+			.["value"] = new type(arglist(arguments))
 
 		if(VV_NEW_TYPE)
 			var/type = current_value
 			var/error = ""
-			do
-				type = tgui_input_text(src, "Введите тип:[error]", "Тип", type)
-				if(!type)
-					break
-				type = text2path(type)
-				error = "\nТип не найден, Попробуйте снова"
-			while(!type)
+			type = tgui_input_text(src, "Введите тип:[error]", "Тип", type, encode = FALSE)
 			if(!type)
+				type = text2path(type)
+				error = "\nТип не найден."
 				.["class"] = null
 				return
+
 			.["type"] = type
-			.["value"] = new type()
+			var/list/arguments
+			
+			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый атом", list("Да", "Нет")) == "Да")
+				arguments = get_callproc_args(FALSE)
+			else
+				arguments = list()
+
+			.["value"] = new type(arglist(arguments))
 
 
 		if(VV_NEW_LIST)
@@ -635,8 +654,10 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	if(!O.vv_edit_var(variable, var_new))
 		to_chat(src, "Your edit was rejected by the object.")
 		return
+	vv_update_display(O, "varedited", VV_MSG_EDITED)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_VAR_EDIT, args)
 	log_world("### VarEdit by [src]: [O.type] [variable]=[html_encode("[var_new]")]")
 	log_admin("[key_name(src)] modified [original_name]'s [variable] to [var_new]")
 	var/msg = "[key_name_admin(src)] modified [original_name]'s [variable] to [html_encode(translate_bitfield(default, variable, var_new))] (Type: [class])"
 	message_admins(msg)
+	return TRUE

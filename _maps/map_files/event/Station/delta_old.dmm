@@ -106616,6 +106616,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/bridge/meeting_room)
+"vIK" = (
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/shuttle,
+/area/shuttle/arrival/station)
 "vJn" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -153482,7 +153486,7 @@ aaa
 awU
 aMt
 aMt
-aRN
+vIK
 aRN
 ayi
 nlE

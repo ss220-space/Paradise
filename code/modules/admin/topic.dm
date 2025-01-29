@@ -333,7 +333,7 @@
 			log_admin_rank_modification(adm_ckey, new_rank, rights)
 
 		else if(task == "permissions")
-			if(!D)	
+			if(!D)
 				return
 			var/new_value = input_bitfield(usr, "rights", D.rights)
 			if(!new_value)
@@ -341,7 +341,7 @@
 			var/add_bits = new_value & ~D.rights
 			var/removed_bits = D.rights & ~new_value
 			D.rights = new_value
-			edit_admin_permissions() 
+			edit_admin_permissions()
 			message_admins("[key_name_admin(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
 			log_admin("[key_name(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
 			log_admin_permission_modification(adm_ckey, new_value )
@@ -1009,6 +1009,9 @@
 			usr.client.open_logging_view(list(M), TRUE)
 
 	else if(href_list["geoip"])
+		if(!check_rights(R_ADMIN))
+			return
+
 		var/mob/M = locateUID(href_list["geoip"])
 		if (ismob(M))
 			if(!M.client)
@@ -1369,7 +1372,8 @@
 		H.monkeyize()
 
 	else if(href_list["forcespeech"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		var/mob/M = locateUID(href_list["forcespeech"])
 		if(!istype(M, /mob))
@@ -1551,7 +1555,7 @@
 		usr.client.man_up(M)
 
 	else if(href_list["select_equip"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_EVENT))
 			return
 
 		var/mob/M = locateUID(href_list["select_equip"])
@@ -1569,6 +1573,9 @@
 			return
 		var/old_tts_seed = M.tts_seed
 		var/new_tts_seed = M.change_voice(usr, override = TRUE)
+		if(!new_tts_seed)
+			return
+
 		to_chat(M, "<span class='notice'>Your voice has been changed from [old_tts_seed] to [new_tts_seed].</span>", confidential=TRUE)
 		log_and_message_admins("has changed [key_name_admin(M)]'s voice from [old_tts_seed] to [new_tts_seed]")
 
@@ -1593,7 +1600,7 @@
 			return
 
 		usr.client.view_msays()
-		
+
 	else if(href_list["devsays"])
 		if(!check_rights(R_ADMIN | R_VIEWRUNTIMES))
 			return
@@ -1601,7 +1608,8 @@
 		usr.client.view_devsays()
 
 	else if(href_list["tdome1"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1627,7 +1635,8 @@
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Team 1)")
 
 	else if(href_list["tdome2"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1653,7 +1662,8 @@
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Team 2)")
 
 	else if(href_list["tdomeadmin"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1676,7 +1686,8 @@
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Admin.)")
 
 	else if(href_list["tdomeobserve"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1706,7 +1717,7 @@
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Observer.)")
 
 	else if(href_list["contractor_stop"])
-		if(!check_rights(R_DEBUG|R_ADMIN))
+		if(!check_rights(R_ADMIN))
 			return
 
 		var/mob/M = locateUID(href_list["contractor_stop"])
@@ -1729,7 +1740,7 @@
 		log_admin("[key_name(usr)] has stopped the automatic return of [key_name(M)] from the Syndicate Jail")
 
 	else if(href_list["contractor_start"])
-		if(!check_rights(R_DEBUG|R_ADMIN))
+		if(!check_rights(R_ADMIN))
 			return
 
 		var/mob/M = locateUID(href_list["contractor_start"])
@@ -1756,7 +1767,7 @@
 		log_admin("[key_name(usr)] has started the automatic return of [key_name(M)] from the Syndicate Jail in [time_seconds] second\s")
 
 	else if(href_list["contractor_release"])
-		if(!check_rights(R_DEBUG|R_ADMIN))
+		if(!check_rights(R_ADMIN))
 			return
 
 		var/mob/M = locateUID(href_list["contractor_release"])
@@ -1777,7 +1788,7 @@
 
 
 	else if(href_list["aroomwarp"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_ADMIN))	return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1937,16 +1948,22 @@
 		message_admins("[key_name_admin(G)] was incarnated by [key_name_admin(owner)]")
 
 	else if(href_list["togmutate"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["togmutate"])
+		var/source = href_list["version"]
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 		var/block=text2num(href_list["block"])
 		//testing("togmutate([href_list["block"]] -> [block])")
 		usr.client.cmd_admin_toggle_block(H,block)
-		show_player_panel(H)
+		if(source == "old")
+			show_player_panel(H)
+		else
+			usr.client.holder.Topic(null, list("showdna" = H.UID()))
+
 		//H.regenerate_icons()
 
 	else if(href_list["adminplayeropts"])
@@ -1992,7 +2009,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/message = tgui_input_text(usr, "Введите предупреждение", "Предупреждение")
+		var/message = tgui_input_text(usr, "Введите предупреждение", "Предупреждение", encode = FALSE)
 		if(tgui_alert(usr,"Вы действительно хотите отправить предупреждение всем блобам?", "", list("Да", "Нет")) == "Нет")
 			return
 
@@ -3080,7 +3097,7 @@
 				if(!you_realy_want_do_this())
 					return
 
-				var/new_name = tgui_input_text(usr, "Пожалуйста, введите новое название станции.", "Что?", "")
+				var/new_name = tgui_input_text(usr, "Пожалуйста, введите новое название станции.", "Что?", "", encode = FALSE)
 				if(!new_name)
 					return
 				change_station_name(new_name)
@@ -3340,17 +3357,18 @@
 
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				log_and_message_admins("made everything kawaii.")
-				for(var/mob/living/carbon/human/human in GLOB.mob_list)
+				for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
 					SEND_SOUND(human, 'sound/AI/animes.ogg')
 					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
 						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))
 						var/obj/item/clothing/head/kitty/hat = new
 						var/seifuku = pick(typesof(/obj/item/clothing/under/schoolgirl))
 						var/obj/item/clothing/under/schoolgirl/uniform = new seifuku
-						human.drop_item_ground(human.w_uniform, TRUE)
+						human.drop_item_ground(human.w_uniform, TRUE, FALSE, TRUE)
 						human.equip_to_slot_or_del(uniform, uniform.slot_flags)
-						human.drop_item_ground(human.head, TRUE)
+						human.drop_item_ground(human.head, TRUE, FALSE, TRUE)
 						human.equip_to_slot_or_del(hat, hat.slot_flags)
+
 						ADD_TRAIT(uniform, TRAIT_NODROP, INNATE_TRAIT)
 						ADD_TRAIT(hat, TRAIT_NODROP, INNATE_TRAIT)
 					var/list/honorifics = list(MALE = list("кун"), FEMALE = list("чан","тан"), NEUTER = list("сан")) //John Robust -> Robust-kun
@@ -3568,6 +3586,11 @@
 					message_admins("[key_name_admin(usr)] moved the gamma armory")
 					log_admin("[key_name(usr)] moved the gamma armory")
 					GLOB.gamma_ship_location = !GLOB.gamma_ship_location
+
+			if("spawn_cargo_crate")
+				if(!you_realy_want_do_this())
+					return
+				create_cargo_crate()
 
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")
@@ -3817,10 +3840,10 @@
 			return
 		var/datum/outfit/O = locate(href_list["chosen_outfit"]) in GLOB.custom_outfits
 		save_outfit(usr,O)
-	else if(href_list["open_ccbdb"])
+	else if(href_list["open_ccDB"])
 		if(!check_rights(R_ADMIN))
 			return
-		create_ccbdb_lookup(href_list["open_ccbdb"])
+		create_ccbdb_lookup(href_list["open_ccDB"])
 	else if(href_list["slowquery"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -3847,6 +3870,50 @@
 		var/start_index = text2num(href_list["startat"]) || 0
 		poll_results_panel(poll, start_index)
 
+	else if(href_list["showrelatedacc"])
+		var/client/C = locate(href_list["client"]) in GLOB.clients
+		var/thing_to_check
+		if(href_list["showrelatedacc"] == "cid")
+			thing_to_check = jointext(C.related_accounts_cid, "<br>")
+		else
+			thing_to_check = jointext(C.related_accounts_ip, "<br>")
+
+
+		var/list/dat = list("Related accounts by [uppertext(href_list["showrelatedacc"])]:")
+		dat += thing_to_check
+
+		usr << browse(dat.Join("<br>"), "window=related_[C];size=420x300")
+
+	else if(href_list["showdna"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/living/carbon/M = locateUID(href_list["showdna"])
+		if(!M.dna || !iscarbon(M))
+			to_chat(usr, span_warning("It doesn't have DNA nor it's carbon mob!"))
+			return
+
+		var/list/body = list()
+		body += "<b>DNA Blocks:</b><br><table border='0'><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>"
+		for(var/block in 1 to DNA_SE_LENGTH)
+			if(!((block - 1) % 5))
+				body += "</tr><tr><th>[block - 1]</th>"
+
+			body += "<td>"
+			var/gene_name = GLOB.assigned_blocks[block]
+			if(gene_name)
+				var/text_color = "[M.dna.GetSEState(block) ? "#006600" : "#ff0000"]"
+				body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block];version=new' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
+			else
+				body += "[block]"
+			body += "</td>"
+		body += "</tr></table>"
+
+		var/datum/browser/popup = new(usr, "show_dna", "<div align='center'>DNA</div>", 700, 500)
+		popup.set_content(body.Join(""))
+		popup.set_window_options("can_close=1;window=related_[M];")
+		popup.open()
+		onclose(usr, "show_dna")
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))
