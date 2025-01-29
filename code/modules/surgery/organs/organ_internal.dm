@@ -13,6 +13,9 @@
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 
+	lefthand_file = 'icons/mob/inhands/organ_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/organ_righthand.dmi'
+
 
 /obj/item/organ/internal/Initialize(mapload)
 	. = ..()
