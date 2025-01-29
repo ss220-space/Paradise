@@ -1,6 +1,14 @@
 /obj/machinery/computer/pandemic
-	name = "PanD.E.M.I.C 2200"
-	desc = "Используется для работы с вирусами."
+	name = "PanD.E.M.I.C 220"
+	desc = "Высокотехнологичная машина, предназначенная для исследования и работы с вирусными культурами. Лучший друг вирусолога!"
+	ru_names = list(
+		NOMINATIVE = "Панд.Е.М.И.К 220",
+		GENITIVE = "Панд.Е.М.И.К 220",
+		DATIVE = "Панд.Е.М.И.К 220",
+		ACCUSATIVE = "Панд.Е.М.И.К 220",
+		INSTRUMENTAL = "Панд.Е.М.И.К 220",
+		PREPOSITIONAL = "Панд.Е.М.И.К 220"
+	)
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
@@ -13,6 +21,11 @@
 	var/printing = null
 	var/wait = null
 	var/obj/item/reagent_containers/beaker = null
+
+/obj/machinery/computer/pandemic/examine(mob/user)
+	. = ..()
+	if(panel_open)
+		. += span_notice("Панель техобслуживания открыта.")
 
 /obj/machinery/computer/pandemic/New()
 	..()
@@ -78,7 +91,7 @@
 				B.pixel_y = rand(-3, 3)
 				var/path = GetResistancesByIndex(text2num(href_list["create_vaccine"]))
 				var/vaccine_type = path
-				var/vaccine_name = "Unknown"
+				var/vaccine_name = "Неизвестно"
 
 				if(!ispath(vaccine_type))
 					if(GLOB.archive_diseases[path])
@@ -93,11 +106,11 @@
 
 				if(vaccine_type)
 
-					B.name = "[vaccine_name] vaccine bottle"
+					B.name = "бутылёк вакцины \"[vaccine_name]\""
 					B.reagents.add_reagent("vaccine", 15, list(vaccine_type))
 					replicator_cooldown(200)
 		else
-			temp_html = "The replicator is not ready yet."
+			temp_html = "Репликатор ещё не готов."
 		updateUsrDialog()
 		return
 	else if(href_list["create_disease_culture"])
@@ -112,7 +125,7 @@
 				copy = D.Copy()
 			if(!copy)
 				return
-			var/name = tgui_input_text(usr, "Name:", "Name the culture", D.name, MAX_NAME_LEN)
+			var/name = tgui_input_text(usr, "Название:", "Введите название культуры", D.name, MAX_NAME_LEN)
 			if(name == null || wait)
 				return
 			var/obj/item/reagent_containers/glass/bottle/B = new(loc)
@@ -121,12 +134,12 @@
 			B.pixel_y = rand(-3, 3)
 			replicator_cooldown(50)
 			var/list/data = list("diseases"=list(copy))
-			B.name = "[name] culture bottle"
-			B.desc = "A small bottle. Contains [copy.agent] culture in synthblood medium."
+			B.name = "бутылёк культуры \"[name]\""
+			B.desc = "Небольшой бутылёк. Содержит синтетическую кровь, заражённую культурой \"[copy.agent]\"."
 			B.reagents.add_reagent("blood",20,data)
 			updateUsrDialog()
 		else
-			temp_html = "The replicator is not ready yet."
+			temp_html = "Репликатор ещё не готов."
 		updateUsrDialog()
 		return
 	else if(href_list["empty_beaker"])
@@ -143,7 +156,7 @@
 		updateUsrDialog()
 		return
 	else if(href_list["name_disease"])
-		var/new_name = tgui_input_text(usr, "Name the Disease", "New Name", max_length = MAX_NAME_LEN)
+		var/new_name = tgui_input_text(usr, "Назовите вирус:", "Введите название вируса", max_length = MAX_NAME_LEN)
 		if(!new_name)
 			return
 		if(..())
@@ -188,13 +201,13 @@
 
 		var/signature
 		if(tgui_alert(user, "Вы хотите подписать этот документ?", "Подпись", list("Да","Нет")) == "Да")
-			signature = "<font face=\"[SIGNFONT]\"><i>[user ? user.real_name : "Аноним"]</i></font>"
+			signature = "<font face=\"[SIGNFONT]\"><i>[user ? user.real_name : "Неизвестный"]</i></font>"
 		else
 			signature = "<span class=\"paper_field\"></span>"
 
 		printing = 1
 		var/obj/item/paper/P = new /obj/item/paper(loc)
-		visible_message("<span class='notice'>[src] гремит и печатает лист бумаги.</span>")
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
 		P.info = "<U><font size=\"4\"><B><center> Выпуск вируса </B></center></font></U>"
@@ -223,7 +236,7 @@
 	if(temp_html)
 		dat += "[temp_html]<BR><BR><a href='byond://?src=[UID()];clear=1'>Главное меню</A>"
 	else if(!beaker)
-		dat += "Пожалуйста, вставьте мензурку.<BR>"
+		dat += "Пожалуйста, вставьте ёмкость.<BR>"
 		dat += "<a href='byond://?src=[user.UID()];mach_close=pandemic'>Закрыть</A>"
 	else
 		var/datum/reagents/R = beaker.reagents
@@ -236,15 +249,15 @@
 					continue
 				break
 		if(!R.total_volume||!R.reagent_list.len)
-			dat += "Мензурка пуста<BR>"
+			dat += "Ёмкость пуста<BR>"
 		else if(!Blood)
-			dat += "В мензурке отсутствует образец крови."
+			dat += "В ёмкости отсутствует образец крови."
 		else if(!Blood.data)
-			dat += "В мензурке отсутствует данные крови."
+			dat += "В ёмкости отсутствует данные крови."
 		else
 			dat += "<h3>Данные образца крови:</h3>"
 			dat += "<b>ДНК крови:</b> [(Blood.data["blood_DNA"]||"нет")]<BR>"
-			dat += "<b>Тип крови:</b> [(Blood.data["blood_type"]||"нет")]<BR>"
+			dat += "<b>Группа крови:</b> [(Blood.data["blood_type"]||"нет")]<BR>"
 			dat += "<b>Тип расовой крови:</b> [(Blood.data["blood_species"]||"нет")]<BR>"
 
 			dat += "<h3>Данные о заболеваниях:</h3>"
@@ -296,7 +309,7 @@
 					var/i = 0
 					for(var/type in Blood.data["resistances"])
 						i++
-						var/disease_name = "Unknown"
+						var/disease_name = "Неизвестно"
 
 						if(!ispath(type))
 							var/datum/disease/virus/advance/A = GLOB.archive_diseases[type]
@@ -312,7 +325,7 @@
 					dat += "<BR><b>Не содержит антител</b><BR>"
 			else
 				dat += "<BR><b>Не содержит антител</b><BR>"
-		dat += "<BR><a href='byond://?src=[UID()];eject=1'>Извлечь мензурку</A>[((R.total_volume&&R.reagent_list.len) ? "-- <a href='byond://?src=[UID()];empty_beaker=1'>Очистить и извлечь мензурку</A>":"")]<BR>"
+		dat += "<BR><a href='byond://?src=[UID()];eject=1'>Извлечь ёмкость</A>[((R.total_volume&&R.reagent_list.len) ? "-- <a href='byond://?src=[UID()];empty_beaker=1'>Очистить и извлечь ёмкость</A>":"")]<BR>"
 		dat += "<a href='byond://?src=[user.UID()];mach_close=pandemic'>Закрыть</A>"
 
 	var/datum/browser/popup = new(user, "pandemic", name, 575, 480)
@@ -328,15 +341,15 @@
 	if(istype(I, /obj/item/reagent_containers))
 		add_fingerprint(user)
 		if(!(I.container_type & OPENCONTAINER))
-			to_chat(user, span_warning("The [I.name] is incompatible."))
+			balloon_alert(user, "несовместимо!")
 			return ATTACK_CHAIN_PROCEED
 		if(beaker)
-			to_chat(user, span_warning("The [name] already has [beaker] loaded."))
+			balloon_alert(user, "слот для ёмкости занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		beaker = I
-		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		balloon_alert(user, "ёмкость вставлена")
 		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -348,6 +361,7 @@
 	. = TRUE
 	if(!beaker)
 		add_fingerprint(user)
+		balloon_alert(user, "ёмкость отсутствует!")
 		to_chat(user, span_warning("There is no beaker installed."))
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))

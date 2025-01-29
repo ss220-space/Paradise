@@ -412,7 +412,6 @@
 	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
-
 /obj/item/clothing/mask/gas/sechailer/swat
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
@@ -524,8 +523,8 @@
 	to_chat(user, span_warning("You have cut off the voice modulator, the mask is broken now."))
 
 
-/obj/item/clothing/mask/gas/sechailer/attack_self()
-	halt()
+/obj/item/clothing/mask/gas/sechailer/attack_self(mob/user)
+	adjustmask(user)
 
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user)
 	if(safety)

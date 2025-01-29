@@ -1,5 +1,5 @@
 /datum/ui_module/crew_monitor
-	name = "Crew monitor"
+	name = "Монитор наблюдения за экипажем"
 	var/crew_vision = CREW_VISION_COMMON
 
 /datum/ui_module/crew_monitor/ui_act(action, params)
@@ -8,7 +8,7 @@
 
 	var/turf/T = get_turf(ui_host())
 	if(!T || !is_level_reachable(T.z))
-		to_chat(usr, "<span class='warning'><b>Unable to establish a connection</b>: You're too far away from the station!</span>")
+		to_chat(usr, span_danger("Удалённый сервер не отвечает на запросы") + ": база данных вне зоны досягаемости.")
 		return FALSE
 
 	switch(action)
@@ -25,7 +25,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 
 	if(GLOB.communications_blackout)
-		to_chat(user, span_warning("Monitor shows strange symbols. There is no useful information, because of noise."))
+		to_chat(user, span_warning("Монитор показывает странные символы. Разобрать в них что-то невозможно."))
 		if(ui)
 			ui.close()
 		return

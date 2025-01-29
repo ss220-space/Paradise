@@ -513,8 +513,6 @@
 	else if(health / maxHealth < 0.5)
 		icon_state = "wisewill-Combat"
 
-/mob/living/simple_animal_hostile/mimic/spacebattleshiz // ящики, при прикосновении заменяются на мимиков из него дропается ящик с лутом
-
 // Corpse and loot
 
 /obj/effect/mob_spawn/human/corpse/spacebattle

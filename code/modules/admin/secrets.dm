@@ -89,6 +89,9 @@
 					<A href='byond://?src=[UID()];secretsfun=set_station_name'>Rename Station Name</A><BR>
 					<A href='byond://?src=[UID()];secretsfun=reset_station_name'>Reset Station Name</A><BR>
 					<A href='byond://?src=[UID()];secretsfun=set_centcomm_name'>Rename Central Comand</A><BR>
+					<BR>
+					<b>Spawns</b><BR>
+					<A href='byond://?src=[UID()];secretsfun=spawn_cargo_crate'>Spawn Cargo Crate</A><BR>
 					</center>"}
 		if(2)
 			if(check_rights((R_SERVER|R_EVENT),0))

@@ -12,16 +12,16 @@ import {
 import { Window } from '../layouts';
 
 const stats = [
-  ['good', 'Alive'],
-  ['average', 'Critical'],
-  ['bad', 'DEAD'],
+  ['good', 'Норма'],
+  ['average', 'Критическое состояние'],
+  ['bad', 'Зафиксирована смерть'],
 ];
 
 const damages = [
-  ['Resp.', 'oxyLoss'],
-  ['Toxin', 'toxLoss'],
-  ['Brute', 'bruteLoss'],
-  ['Burn', 'fireLoss'],
+  ['Удушье.', 'oxyLoss'],
+  ['Токсины', 'toxLoss'],
+  ['Физ.', 'bruteLoss'],
+  ['Ожоги', 'fireLoss'],
 ];
 
 const damageRange = {
@@ -74,31 +74,31 @@ const SleeperOccupant = (props, context) => {
   const { occupant, auto_eject_dead } = data;
   return (
     <Section
-      title="Occupant"
+      title="Пациент"
       buttons={
         <>
           <Box color="label" inline>
-            Auto-eject if dead:&nbsp;
+            Авто-извлечение трупов:&nbsp;
           </Box>
           <Button
             icon={auto_eject_dead ? 'toggle-on' : 'toggle-off'}
             selected={auto_eject_dead}
-            content={auto_eject_dead ? 'On' : 'Off'}
+            content={auto_eject_dead ? 'Да' : 'Нет'}
             onClick={() =>
               act('auto_eject_dead_' + (auto_eject_dead ? 'off' : 'on'))
             }
           />
           <Button
             icon="user-slash"
-            content="Eject"
+            content="Извлечь пациента"
             onClick={() => act('ejectify')}
           />
         </>
       }
     >
       <LabeledList>
-        <LabeledList.Item label="Name">{occupant.name}</LabeledList.Item>
-        <LabeledList.Item label="Health">
+        <LabeledList.Item label="Имя">{occupant.name}</LabeledList.Item>
+        <LabeledList.Item label="Оценка здорвоья">
           <ProgressBar
             min="0"
             max={occupant.maxHealth}
@@ -112,10 +112,10 @@ const SleeperOccupant = (props, context) => {
             {round(occupant.health, 0)}
           </ProgressBar>
         </LabeledList.Item>
-        <LabeledList.Item label="Status" color={stats[occupant.stat][0]}>
+        <LabeledList.Item label="Состояние" color={stats[occupant.stat][0]}>
           {stats[occupant.stat][1]}
         </LabeledList.Item>
-        <LabeledList.Item label="Temperature">
+        <LabeledList.Item label="Температура">
           <ProgressBar
             min="0"
             max={occupant.maxTemp}
@@ -128,7 +128,7 @@ const SleeperOccupant = (props, context) => {
         </LabeledList.Item>
         {!!occupant.hasBlood && (
           <>
-            <LabeledList.Item label="Blood Level">
+            <LabeledList.Item label="Уровень крови">
               <ProgressBar
                 min="0"
                 max={occupant.bloodMax}
@@ -142,7 +142,7 @@ const SleeperOccupant = (props, context) => {
                 {occupant.bloodPercent}%, {occupant.bloodLevel}cl
               </ProgressBar>
             </LabeledList.Item>
-            <LabeledList.Item label="Pulse" verticalAlign="middle">
+            <LabeledList.Item label="Пульс" verticalAlign="middle">
               {occupant.pulse} BPM
             </LabeledList.Item>
           </>
@@ -156,7 +156,7 @@ const SleeperDamage = (props, context) => {
   const { data } = useBackend(context);
   const { occupant } = data;
   return (
-    <Section title="Occupant Damage">
+    <Section title="Общий урон">
       <LabeledList>
         {damages.map((d, i) => (
           <LabeledList.Item key={i} label={d[0]}>
@@ -188,20 +188,20 @@ const SleeperDialysis = (props, context) => {
   const canDialysis = dialysis && beakerFreeSpace > 0;
   return (
     <Section
-      title="Dialysis"
+      title="Диализ"
       buttons={
         <>
           <Button
             disabled={!isBeakerLoaded || beakerFreeSpace <= 0 || !hasOccupant}
             selected={canDialysis}
             icon={canDialysis ? 'toggle-on' : 'toggle-off'}
-            content={canDialysis ? 'Active' : 'Inactive'}
+            content={canDialysis ? 'Включено' : 'Выключено'}
             onClick={() => act('togglefilter')}
           />
           <Button
             disabled={!isBeakerLoaded}
             icon="eject"
-            content="Eject"
+            content="Извлечь"
             onClick={() => act('removebeaker')}
           />
         </>
@@ -209,7 +209,7 @@ const SleeperDialysis = (props, context) => {
     >
       {isBeakerLoaded ? (
         <LabeledList>
-          <LabeledList.Item label="Remaining Space">
+          <LabeledList.Item label="Остаточный объём">
             <ProgressBar
               min="0"
               max={beakerMaxSpace}
@@ -225,7 +225,7 @@ const SleeperDialysis = (props, context) => {
           </LabeledList.Item>
         </LabeledList>
       ) : (
-        <Box color="label">No beaker loaded.</Box>
+        <Box color="label">Ёмкость не установлена.</Box>
       )}
     </Section>
   );
@@ -235,7 +235,7 @@ const SleeperChemicals = (props, context) => {
   const { act, data } = useBackend(context);
   const { occupant, chemicals, maxchem, amounts } = data;
   return (
-    <Section title="Occupant Chemicals">
+    <Section title="Кровоток пациента">
       {chemicals.map((chem, i) => {
         let barColor = '';
         let odWarning;
@@ -244,7 +244,7 @@ const SleeperChemicals = (props, context) => {
           odWarning = (
             <Box color="bad">
               <Icon name="exclamation-circle" />
-              &nbsp; Overdosing!
+              &nbsp; Передозировка!
             </Box>
           );
         } else if (chem.od_warning) {
@@ -252,7 +252,7 @@ const SleeperChemicals = (props, context) => {
           odWarning = (
             <Box color="average">
               <Icon name="exclamation-triangle" />
-              &nbsp; Close to overdosing
+              &nbsp; Риск передозировки
             </Box>
           );
         }
@@ -271,7 +271,7 @@ const SleeperChemicals = (props, context) => {
                   max={maxchem}
                   value={chem.occ_amount / maxchem}
                   color={barColor}
-                  title="Amount of chemicals currently inside the occupant / Total amount injectable by this machine"
+                  title="Текущий объём веществ в кровотоке пациента / Общий объём, доступный для ввода аппаратом"
                   mr="0.5rem"
                 >
                   {chem.pretty_amount}/{maxchem}u
@@ -285,13 +285,9 @@ const SleeperChemicals = (props, context) => {
                       occupant.stat === 2
                     }
                     icon="syringe"
-                    content={'Inject ' + a + 'u'}
+                    content={'Ввести ' + a + 'u'}
                     title={
-                      'Inject ' +
-                      a +
-                      'u of ' +
-                      chem.title +
-                      ' into the occupant'
+                      'Ввести ' + a + 'u вещества ' + chem.title + ' в пациента'
                     }
                     mb="0"
                     height="19px"
@@ -319,7 +315,7 @@ const SleeperEmpty = (props, context) => {
         <Stack.Item grow align="center" color="label">
           <Icon name="user-slash" mb="0.5rem" size="5" />
           <br />
-          No occupant detected.
+          Пациент внутри не обнаружен.
         </Stack.Item>
       </Stack>
     </Section>

@@ -1191,3 +1191,15 @@ proc/dd_sortedObjectList(list/incoming)
 	// This ensures that both lists contain the same elements by checking if the difference between them is empty in both directions.
 	return !length(list_one ^ list_two)
 
+
+/proc/print_single_line(list/L)
+	. = "list("
+	for(var/I in 1 to L.len)
+		var/key = L[I]
+		. += "[key]"
+		var/val = L[key]
+		if(!isnull(val))
+			. += " => [val]"
+		if(I < L.len)
+			. += ", "
+	. += ")"
