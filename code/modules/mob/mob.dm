@@ -1221,5 +1221,3 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 /mob/proc/set_key(key)
 	src.key = key
-
-	SEND_SIGNAL(src, COMSIG_MOB_SET_KEY)
