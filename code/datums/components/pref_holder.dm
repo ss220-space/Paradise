@@ -15,10 +15,10 @@
 	src.preferences = preferences || forge_preferences()
 
 /datum/component/pref_holder/RegisterWithParent()
-    RegisterSignal(parent, COMSIG_MOB_SET_KEY, PROC_REF(handle_transfer))
+    RegisterSignal(parent, COMSIG_MOB_LOGIN, PROC_REF(handle_transfer))
 
 /datum/component/pref_holder/UnregisterFromParent()
-    UnregisterSignal(parent, COMSIG_MOB_SET_KEY)
+    UnregisterSignal(parent, COMSIG_MOB_LOGIN)
 
 /datum/component/pref_holder/proc/handle_transfer(mob/source)
     SIGNAL_HANDLER
