@@ -86,7 +86,7 @@
 			var/amount = starting_items[typekey] || 1
 			while(amount--)
 				var/obj/item/newitem = new typekey(src)
-				item_quants[newitem.name] += 1
+				item_quants[newitem.declent_ru(NOMINATIVE)] += 1
 	update_icon(UPDATE_OVERLAYS)
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
@@ -306,7 +306,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Smartfridge", name)
+		ui = new(user, src, "Smartfridge", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 /obj/machinery/smartfridge/ui_data(mob/user)
@@ -361,7 +361,7 @@
 				return
 			if(i == 1 && Adjacent(user) && !issilicon(user))
 				for(var/obj/O in contents)
-					if(O.name == K)
+					if(O.declent_ru(NOMINATIVE) == K)
 						O.forceMove(get_turf(src))
 						adjust_item_drop_location(O)
 						user.put_in_hands(O, ignore_anim = FALSE)
@@ -369,7 +369,7 @@
 						break
 			else
 				for(var/obj/O in contents)
-					if(O.name == K)
+					if(O.declent_ru(NOMINATIVE) == K)
 						O.forceMove(loc)
 						adjust_item_drop_location(O)
 						update_icon(UPDATE_OVERLAYS)
@@ -410,7 +410,7 @@
 	else
 		I.forceMove(src)
 
-	item_quants[I.name] += 1
+	item_quants[I.declent_ru(NOMINATIVE)] += 1
 	return TRUE
 
 
@@ -428,7 +428,7 @@
 			continue
 		item_quants[O]--
 		for(var/obj/I in contents)
-			if(I.name == O)
+			if(I.declent_ru(NOMINATIVE) == O)
 				I.forceMove(loc)
 				throw_item = I
 				update_icon(UPDATE_OVERLAYS)
