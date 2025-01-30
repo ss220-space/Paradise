@@ -31,20 +31,14 @@
 	icon_state = "borg-spray-smoke"
 
 /obj/item/reagent_containers/spray/alien/smoke/afterattack(atom/A, mob/user, proximity, params)
-	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1)
-		if(!A.reagents.total_volume && A.reagents)
-			to_chat(user, "<span class='notice'>\The [A] is empty.</span>")
-			return
-
-		if(reagents.total_volume >= reagents.maximum_volume)
-			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
-			return
-	reagents.remove_reagent(reagents.get_master_reagent_id(),25)
 	var/datum/effect_system/smoke_spread/bad/smoke = new
 	smoke.set_up(5, 0, user.loc)
 	smoke.start()
 	playsound(user.loc, 'sound/effects/bamf.ogg', 50, 2)
 	user.changeNext_move(delay)
+
+	var/mob/living/silicon/robot/Robot = user
+	Robot.cell.use(250) // take energy from borg
 
 /obj/item/reagent_containers/spray/alien/acid
 	name = "acid synthesizer"
@@ -58,8 +52,20 @@
 	desc = "squirts viagra."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-spray-stun"
-	volume = 80
-	list_reagents = list("blob_cryogenic_poison" = 80) // new blow reagent because old was deleted
+
+/obj/item/reagent_containers/spray/alien/stun/afterattack(atom/A, mob/user, proximity, params)
+	var/datum/reagents/reagents_list = new (250)
+	reagents_list.add_reagent("blob_cryogenic_poison", 250) // new blow reagent because old was deleted
+
+	var/datum/effect_system/smoke_spread/chem/smoke = new
+	smoke.set_up(reagents_list, user.loc)
+	smoke.start(3)
+	playsound(user.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+	user.changeNext_move(delay)
+
+	var/mob/living/silicon/robot/Robot = user
+	Robot.cell.use(250) // take energy from borg
+
 
 /obj/item/flash/cyborg/alien
 	name = "eye flash"

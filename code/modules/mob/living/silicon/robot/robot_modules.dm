@@ -900,9 +900,6 @@
 	fix_modules()
 
 /obj/item/robot_module/hunter/respawn_consumable(mob/living/silicon/robot/R)
-	var/obj/item/reagent_containers/spray/alien/stun/stunSpray = locate() in modules
-	stunSpray.reagents.add_reagent("blob_cryogenic_poison", 2)
-
 	if(emag)
 		var/obj/item/reagent_containers/spray/alien/acid/acidSpray = emag
 		acidSpray.reagents.add_reagent("sacid", 3)
