@@ -3343,3 +3343,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	name = "\improper House"
 	icon_state = "red"
 
+/area/coldcolony/ruin/abandoned_garage
+	name = "\improper Mech Garage"
+	icon_state = "mining"
+
