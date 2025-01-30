@@ -227,8 +227,16 @@
 
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
+	desc = "Огромный тесак мясника, предназначенный для измельчения мяса. В том числе и клоунов, а также их субпродуктов."
+	ru_names = list(
+        NOMINATIVE = "Тесак мясника",
+        GENITIVE = "Тесака мясника",
+        DATIVE = "Тесаку мясника",
+        ACCUSATIVE = "Тесак мясника",
+        INSTRUMENTAL = "Тесаком мясника",
+        PREPOSITIONAL = "Тесаке мясника"
+	)
 	icon_state = "butch"
-	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown-by-products."
 	flags = CONDUCT
 	force = 15
 	throwforce = 8
@@ -237,6 +245,14 @@
 
 /obj/item/kitchen/knife/butcher/meatcleaver
 	name = "meat cleaver"
+	ru_names = list(
+        NOMINATIVE = "Тесак для мяса",
+        GENITIVE = "Тесака для мяса",
+        DATIVE = "Тесаку для мяса",
+        ACCUSATIVE = "Тесак для мяса",
+        INSTRUMENTAL = "Тесаком для мяса",
+        PREPOSITIONAL = "Тесаке для мяса"
+	)
 	icon_state = "mcleaver"
 	item_state = "mcleaver"
 	force = 25

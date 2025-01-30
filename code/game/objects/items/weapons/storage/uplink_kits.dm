@@ -138,13 +138,13 @@
 /obj/item/storage/box/syndie_kit/caneshotgun
 	name = "cane gun kit"
 	ru_names = list(
-            NOMINATIVE = "Набор Дробовика-трости",
-            GENITIVE = "Набора Дробовика-трости",
-            DATIVE = "Набору Дробовика-трости",
-            ACCUSATIVE = "Набор Дробовика-трости",
-            INSTRUMENTAL = "Набором Дробовика-трости",
-            PREPOSITIONAL = "Наборе Дробовика-трости"
-    )
+        NOMINATIVE = "Набор Дробовика-трости",
+        GENITIVE = "Набора Дробовика-трости",
+        DATIVE = "Набору Дробовика-трости",
+        ACCUSATIVE = "Набор Дробовика-трости",
+        INSTRUMENTAL = "Набором Дробовика-трости",
+        PREPOSITIONAL = "Наборе Дробовика-трости"
+	)
 
 
 /obj/item/storage/box/syndie_kit/caneshotgun/populate_contents()
@@ -155,13 +155,13 @@
 /obj/item/storage/box/syndie_kit/fake_revolver
 	name = "trick revolver kit"
 	ru_names = list(
-            NOMINATIVE = "Набор Револьвера для розыгрышей",
-            GENITIVE = "Набора Револьвера для розыгрышей",
-            DATIVE = "Набору Револьвера для розыгрышей",
-            ACCUSATIVE = "Набор Револьвера для розыгрышей",
-            INSTRUMENTAL = "Набором Револьвера для розыгрышей",
-            PREPOSITIONAL = "Наборе Револьвера для розыгрышей"
-    )
+        NOMINATIVE = "Набор Револьвера для розыгрышей",
+        GENITIVE = "Набора Револьвера для розыгрышей",
+        DATIVE = "Набору Револьвера для розыгрышей",
+        ACCUSATIVE = "Набор Револьвера для розыгрышей",
+        INSTRUMENTAL = "Набором Револьвера для розыгрышей",
+        PREPOSITIONAL = "Наборе Револьвера для розыгрышей"
+	)
 
 /obj/item/storage/box/syndie_kit/fake_revolver/populate_contents()
 	new /obj/item/toy/russian_revolver/trick_revolver(src)
@@ -169,13 +169,13 @@
 /obj/item/storage/box/syndie_kit/mimery
 	name = "advanced mimery kit"
 	ru_names = list(
-            NOMINATIVE = "Набор Продвинутых пантомим",
-            GENITIVE = "Набора Продвинутых пантомим",
-            DATIVE = "Набору Продвинутых пантомим",
-            ACCUSATIVE = "Набор Продвинутых пантомим",
-            INSTRUMENTAL = "Набором Продвинутых пантомим",
-            PREPOSITIONAL = "Наборе Продвинутых пантомим"
-     )
+    	NOMINATIVE = "Набор Продвинутых пантомим",
+    	GENITIVE = "Набора Продвинутых пантомим",
+    	DATIVE = "Набору Продвинутых пантомим",
+    	ACCUSATIVE = "Набор Продвинутых пантомим",
+    	INSTRUMENTAL = "Набором Продвинутых пантомим",
+    	PREPOSITIONAL = "Наборе Продвинутых пантомим"
+	)
 
 /obj/item/storage/box/syndie_kit/mimery/populate_contents()
 	new /obj/item/spellbook/oneuse/mime/greaterwall(src)
@@ -200,6 +200,14 @@
 
 /obj/item/storage/box/syndie_kit/missionary_set
 	name = "Missionary Starter Kit"
+	ru_names = list(
+        NOMINATIVE = "Стартовый набор миссионера",
+        GENITIVE = "Стартового набора миссионера",
+        DATIVE = "Стартовому набору миссионера",
+        ACCUSATIVE = "Стартовый набор миссионера",
+        INSTRUMENTAL = "Стартовым набором миссионера",
+        PREPOSITIONAL = "Стартовом наборе миссионера"
+	)
 
 /obj/item/storage/box/syndie_kit/missionary_set/populate_contents()
 	new /obj/item/nullrod/missionary_staff(src)
@@ -382,7 +390,15 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/dangertray
 	name = "Danger Tray pack"
-	desc = "Normal size box with compartments for trays."
+	desc = "Коробка обычного размера с отделениями для подносов."
+	ru_names = list(
+        NOMINATIVE = "Набор Особо острых подносов",
+        GENITIVE = "Набора Особо острых подносов",
+        DATIVE = "Набору Особо острых подносов",
+        ACCUSATIVE = "Набор Особо острых подносов",
+        INSTRUMENTAL = "Набором Особо острых подносов",
+        PREPOSITIONAL = "Наборе Особо острых подносов"
+	)
 	can_hold = list(/obj/item/storage/bag/dangertray)
 	max_combined_w_class = 3
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -455,7 +471,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
         ACCUSATIVE = "Набор Боевого пекаря",
         INSTRUMENTAL = "Набором Боевого пекаря",
         PREPOSITIONAL = "Наборе Боевого пекаря"
-    )
+	)
 
 /obj/item/storage/box/syndie_kit/combat_baking/populate_contents()
 	new /obj/item/reagent_containers/food/snacks/baguette/combat(src)
@@ -466,13 +482,13 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/ghostface_kit
 	name = "Ghostface Kit"
 	ru_names = list(
-        NOMINATIVE = "набор \"Гоустфейс\"",
-        GENITIVE = "набора \"Гоустфейс\"",
-        DATIVE = "набору \"Гоустфейс\"",
-        ACCUSATIVE = "набор \"Гоустфейс\"",
-        INSTRUMENTAL = "набором \"Гоустфейс\"",
-        PREPOSITIONAL = "наборе \"Гоустфейс\""
-    )
+        NOMINATIVE = "Набор \"Гоустфейс\"",
+        GENITIVE = "Набора \"Гоустфейс\"",
+        DATIVE = "Набору \"Гоустфейс\"",
+        ACCUSATIVE = "Набор \"Гоустфейс\"",
+        INSTRUMENTAL = "Набором \"Гоустфейс\"",
+        PREPOSITIONAL = "Наборе \"Гоустфейс\""
+	)
 
 /obj/item/storage/box/syndie_kit/ghostface_kit/populate_contents()
 	new /obj/item/clothing/suit/hooded/ghostfacesuit/true(src)
@@ -482,12 +498,12 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/devil_ghostface_kit
 	name = "Devil Ghostface Kit"
 	ru_names = list(
-        NOMINATIVE = "набор \"Дьявольский Гоустфейс\"",
-        GENITIVE = "набора \"Дьявольский Гоустфейс\"",
-        DATIVE = "набору \"Дьявольский Гоустфейс\"",
-        ACCUSATIVE = "набор \"Дьявольский Гоустфейс\"",
-        INSTRUMENTAL = "набором \"Дьявольский Гоустфейс\"",
-        PREPOSITIONAL = "наборе \"Дьявольский Гоустфейс\""
+        NOMINATIVE = "Набор \"Дьявольский Гоустфейс\"",
+        GENITIVE = "Набора \"Дьявольский Гоустфейс\"",
+        DATIVE = "Набору \"Дьявольский Гоустфейс\"",
+        ACCUSATIVE = "Набор \"Дьявольский Гоустфейс\"",
+        INSTRUMENTAL = "Набором \"Дьявольский Гоустфейс\"",
+        PREPOSITIONAL = "Наборе \"Дьявольский Гоустфейс\""
     )
 
 /obj/item/storage/box/syndie_kit/devil_ghostface_kit/populate_contents()

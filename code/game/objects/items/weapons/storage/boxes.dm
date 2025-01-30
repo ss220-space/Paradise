@@ -378,7 +378,15 @@
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
-	desc = "<B>Instructions:</B> <I>Heat in microwave. Product will cool if not eaten within seven minutes.</I>"
+	desc = "<B>Инструкция::</B> <I>Разогрейте в микроволновой печи. Если продукт не употреблять в течение семи минут, он остынет.</I>"
+	ru_names = list(
+        NOMINATIVE = "коробка с Донк-покетами",
+        GENITIVE = "коробки с Донк-покетов",
+        DATIVE = "коробке с Донк-покетам",
+        ACCUSATIVE = "коробку с Донк-покетами",
+        INSTRUMENTAL = "коробкой с Донк-покетами",
+        PREPOSITIONAL = "коробке с Донк-покетах"
+	)
 	icon_state = "donk_kit"
 
 /obj/item/storage/box/donkpockets/populate_contents()
@@ -388,6 +396,14 @@
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
 	desc = "This box feels slightly warm"
+	ru_names = list(
+        NOMINATIVE = "коробка с Донк-покетами",
+        GENITIVE = "коробки с Донк-покетов",
+        DATIVE = "коробке с Донк-покетам",
+        ACCUSATIVE = "коробку с Донк-покетами",
+        INSTRUMENTAL = "коробкой с Донк-покетами",
+        PREPOSITIONAL = "коробке с Донк-покетах"
+	)
 	icon_state = "donk_kit"
 
 /obj/item/storage/box/syndidonkpockets/populate_contents()
