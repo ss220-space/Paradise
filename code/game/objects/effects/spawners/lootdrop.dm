@@ -58,6 +58,7 @@
 	//maintcentral:			2  items,  2 spots 0 extra (08/08/2014)
 	//port:					5  items,  5 spots 0 extra (08/08/2014)
 	loot = list(
+				/obj/item/toy/plushie/mech/sounded = 50,
 				/obj/item/bodybag = 10,
 				/obj/item/clothing/glasses/meson = 20,
 				/obj/item/clothing/glasses/sunglasses = 10,
