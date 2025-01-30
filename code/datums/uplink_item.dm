@@ -216,7 +216,8 @@
 //Clown
 /datum/uplink_item/jobspecific/clowngrenade
 	name = "Банановая граната"
-	desc = "Граната, которая взрывается с оглушительным «Хонком»! Внутри неё находятся фирменные банановые кожурки, которые были генетически модифицированы.\
+	desc = "Граната, которая взрывается с оглушительным «Хонком»!\
+	 Внутри неё находятся фирменные банановые кожурки, которые были генетически модифицированы.\
 	 Это делает их особенно скользкими и способными выделять едкую кислоту при контакте."
 	item = /obj/item/grenade/clown_grenade
 	cost = 8
@@ -224,7 +225,8 @@
 
 /datum/uplink_item/jobspecific/cmag
 	name = "Шутографический считыватель"
-	desc = "Шутографический считыватель, также известный как кмаг, представляет собой уникальную карту, способную изменять порядок доступа к любой двери, к которой она подключена.\
+	desc = "Шутографический считыватель, также известный как кмаг, представляет собой уникальную карту,\
+	 способную изменять порядок доступа к любой двери, к которой она подключена.\
 	 Превосходный выбор для ограничения доступа сотрудников за пределы их собственных отделов. Хонк!"
 	item = /obj/item/card/cmag
 	cost = 20
@@ -306,66 +308,74 @@
 /datum/uplink_item/jobspecific/mining_charge_hacker
 	name = "Взломщик подрывных зарядов"
 	desc = "Выглядит и функционирует как продвинутый шахтёрский сканер, но позволяет размещать заряды в любом месте и разрушать не только камни.\
-	 Используйте его на шахтёрском заряде, чтобы отменить его предустановки безопасности. Уменьшает взрывную силу зарядов за счет модификации их внутренних компонентов."
+	 Используйте его на шахтёрском заряде, чтобы отменить его предустановки безопасности.\
+	 Уменьшает взрывную силу зарядов за счет модификации их внутренних компонентов."
 	item = /obj/item/t_scanner/adv_mining_scanner/syndicate
 	cost = 20
 	job = list(JOB_TITLE_MINER, JOB_TITLE_QUARTERMASTER)
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
-	name = "Chef Excellence's Special Sauce"
-	desc = "A custom sauce made from the highly poisonous fly amanita mushrooms. Anyone who ingests it will take variable toxin damage depending on how long it has been in their system, with a higher dosage taking longer to metabolize."
+	name = "Элитарный соус шефа"
+	desc = "Фирменный соус, приготовленный из смертельно ядовитых мухоморов. Каждый, кто попробует этот соус, ощутит на себе его токсический эффект,\
+	 который будет зависеть от того, как долго он остаётся в организме. Чем больше доза, тем больше времени потребуется для её усвоения."
 	item = /obj/item/reagent_containers/food/condiment/syndisauce
 	cost = 1
 	job = list(JOB_TITLE_CHEF)
 
 /datum/uplink_item/jobspecific/meatcleaver
-	name = "Meat Cleaver"
-	desc = "A mean looking meat cleaver that does damage comparable to an Energy Sword but with the added benefit of chopping your victim into hunks of meat after they've died."
+	name = "Тесак для мяса"
+	desc = "Устрашающий на вид нож для разделки мяса способен нанести урон, сравнимый с энергетическим мечом.\
+	 Но его главное преимущество — он может разрубать жертву на куски после её гибели."
 	item = /obj/item/kitchen/knife/butcher/meatcleaver
 	cost = 20
 	job = list(JOB_TITLE_CHEF)
 
 /datum/uplink_item/jobspecific/syndidonk
-	name = "Syndicate Donk Pockets"
-	desc = "A box of highly specialized Donk pockets with a number of regenerative and stimulating chemicals inside of them; the box comes equipped with a self-heating mechanism."
+	name = "Донк-покеты Синдиката"
+	desc = "Коробка с уникальными «Донк»-покетами, содержащими мощные регенерирующие и стимулирующие химические вещества.\
+	 Кроме того, в коробке предусмотрен механизм самонагрева."
 	item = /obj/item/storage/box/syndidonkpockets
 	cost = 10
 	job = list(JOB_TITLE_CHEF)
 
 /datum/uplink_item/jobspecific/CQC_upgrade
-	name = "CQC Upgrade implant"
-	desc = "Contain special implant for chefs, which destroy safety check their innate CQC implant, allow them to use martial art outside the kitchen. Use in hand."
+	name = "Имплант улучшения CQC"
+	desc = "Содержит специальный имплантат для шеф-поваров, который позволяет им нарушать правила безопасности и использовать CQC за пределами кухни.\
+	 Убедитесь, есть ли у вас врожденный имплантат CQC, который дает вам возможность использовать боевые искусства. Используйте его в руке."
 	item = /obj/item/CQC_manual/chef
 	cost = 30
 	job = list(JOB_TITLE_CHEF)
 	surplus = 0 //because it's useless for all non-chefs
 
 /datum/uplink_item/jobspecific/dangertray
-	name = "Dangerous Tray pack"
-	desc = "Contains a set of three sharp metal trays capable of cutting off limbs. "
+	name = "Набор особо острых подносов"
+	desc = "В набор входят три острых металлических подноса, которые можно использовать для отрезания конечностей. "
 	item = /obj/item/storage/box/syndie_kit/dangertray
 	cost = 15
 	job = list(JOB_TITLE_CHEF)
 
 //Chaplain
 /datum/uplink_item/jobspecific/voodoo
-	name = "Voodoo Doll"
-	desc = "A doll created by Syndicate Witch Doctors. Ingredients: Something of the Thread, Something of the Head, Something of the Body, Something of the Dead, Secret Voodoo herbs, and Monosodium glutamate."
+	name = "Кукла Вуду"
+	desc = "Кукла, созданная колдунами Синдиката, состоит из различных ингредиентов: ниток, частей головы, тела, а также секретных трав вуду и глутамата натрия."
 	item = /obj/item/voodoo
 	cost = 11
 	job = list(JOB_TITLE_CHAPLAIN)
 
 /datum/uplink_item/jobspecific/missionary_kit
-	name = "Missionary Starter Kit"
-	desc = "A box containing a missionary staff, missionary robes, and bible. The robes and staff can be linked to allow you to convert victims at range for a short time to do your bidding. The bible is for bible stuff."
+	name = "Стартовый набор миссионера"
+	desc = "В этой коробке вы найдете миссионерский посох, миссионерскую одежду и Библию.\
+	 С помощью посоха и одежды вы сможете убедить ваших жертв следовать вашим указаниям на короткое время.\
+	 Библия служит хранилищем для различного монастырского стаффа."
 	item = /obj/item/storage/box/syndie_kit/missionary_set
 	cost = 72
 	job = list(JOB_TITLE_CHAPLAIN)
 
 /datum/uplink_item/jobspecific/artistic_toolbox
-	name = "Artistic Toolbox"
-	desc = "An accursed toolbox that grants its followers extreme power at the cost of requiring repeated sacrifices to it. If sacrifices are not provided, it will turn on its follower."
+	name = "Артистический ящик для инструментов"
+	desc = "Проклятый набор инструментов, который наделяет своих последователей невероятной силой, требует от них постоянных жертв.\
+	 Если эти жертвы не будут принесены, он может напасть на своего обладателя."
 	item = /obj/item/storage/toolbox/green/memetic
 	cost = 100
 	job = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_CIVILIAN)
@@ -373,8 +383,9 @@
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
 
 /datum/uplink_item/jobspecific/book_of_babel
-	name = "Book of Babel"
-	desc = "An ancient tome written in countless tongues. Despite this fact, you can read this book effortlessly, to learn all the existing languages. Don't ask questions."
+	name = "Вавилонская книга"
+	desc = "Древнейший фолиант, написанный на бесчисленном множестве языков.\
+	 Тем не менее, вы без труда сможете прочитать эту книгу и освоить все существующие языки. Не задавайте вопросов."
 	item = /obj/item/book_of_babel
 	cost = 1
 	job = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_LIBRARIAN)

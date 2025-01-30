@@ -672,7 +672,15 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/voodoo
 	name = "wicker doll"
-	desc = "Something creepy about it."
+	desc = "Выглядит зловеще."
+	ru_names = list(
+        NOMINATIVE = "Плетёная кукла",
+        GENITIVE = "Плетёной куклы",
+        DATIVE = "Плетёной кукле",
+        ACCUSATIVE = "Плетёную куклу",
+        INSTRUMENTAL = "Плетёной куклой",
+        PREPOSITIONAL = "Плетёной кукле"
+	)
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "voodoo"
 	item_state = "electronic"

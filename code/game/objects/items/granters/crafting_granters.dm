@@ -31,7 +31,7 @@
             ACCUSATIVE = "Кулинарную книгу анархиста",
             INSTRUMENTAL = "Кулинарной книгой анархиста",
             PREPOSITIONAL = "Кулинарной книге анархиста"
-    )
+	)
 	crafting_recipe_types = list(
 		/datum/crafting_recipe/throwing_croissant
 	)

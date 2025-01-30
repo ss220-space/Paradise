@@ -2,12 +2,12 @@
 	name = "Banana Grenade"
 	desc = "Бананы торговой марки «ХОНК!» в специальном аппликаторе, который позволяет быстро наносить их на большие поверхности."
 	ru_names = list(
-    		NOMINATIVE = "банановая граната",
-    		GENITIVE = "банановой гранаты",
-    		DATIVE = "банановой гранате",
-    		ACCUSATIVE = "банановую гранату",
-    		INSTRUMENTAL = "банановой гранатой",
-    		PREPOSITIONAL = "банановой гранате"
+    	NOMINATIVE = "банановая граната",
+    	GENITIVE = "банановой гранаты",
+    	DATIVE = "банановой гранате",
+    	ACCUSATIVE = "банановую гранату",
+    	INSTRUMENTAL = "банановой гранатой",
+    	PREPOSITIONAL = "банановой гранате"
 	)
 	icon_state = "banana"
 	item_state = "flashbang"

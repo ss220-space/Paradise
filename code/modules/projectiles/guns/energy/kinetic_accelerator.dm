@@ -716,13 +716,13 @@
 /obj/item/borg/upgrade/modkit/indoors
 	name = "decrease pressure penalty"
 	ru_names = list(
-            NOMINATIVE = "уменьшение штрафа от давления",
-            GENITIVE = "уменьшения штрафа от давления",
-            DATIVE = "уменьшению штрафа от давления",
-            ACCUSATIVE = "уменьшение штрафа от давления",
-            INSTRUMENTAL = "уменьшением штрафа от давления",
-            PREPOSITIONAL = "уменьшении штрафа от давления"
-    )
+        NOMINATIVE = "уменьшение штрафа от давления",
+        GENITIVE = "уменьшения штрафа от давления",
+        DATIVE = "уменьшению штрафа от давления",
+        ACCUSATIVE = "уменьшение штрафа от давления",
+        INSTRUMENTAL = "уменьшением штрафа от давления",
+        PREPOSITIONAL = "уменьшении штрафа от давления"
+	)
 	desc = "Специальный модкит, который позволяет повысить урон, наносимый кинетическим акселератором в условиях повышенного давления."
 	modifier = 2
 	denied_type = /obj/item/borg/upgrade/modkit/indoors

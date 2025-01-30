@@ -3,13 +3,13 @@
 	name = "industrial mining charge"
 	desc = "Применяется для создания больших отверстий в породе. Эффективно только при работе с камнем!"
 	ru_names = list(
-            NOMINATIVE = "промышленный шахтерский заряд",
-            GENITIVE = "промышленного шахтерского заряда",
-            DATIVE = "промышленному шахтерскому заряду",
-            ACCUSATIVE = "промышленный шахтерский заряд",
-            INSTRUMENTAL = "промышленным шахтерским зарядом",
-            PREPOSITIONAL = "промышленном шахтерском заряде"
-    )
+        NOMINATIVE = "промышленный шахтерский заряд",
+        GENITIVE = "промышленного шахтерского заряда",
+        DATIVE = "промышленному шахтерскому заряду",
+        ACCUSATIVE = "промышленный шахтерский заряд",
+        INSTRUMENTAL = "промышленным шахтерским зарядом",
+        PREPOSITIONAL = "промышленном шахтерском заряде"
+	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "mining-charge-2"
 	item_state = "charge_indust"
@@ -172,7 +172,7 @@
 //MINING CHARGE HACKER
 /obj/item/t_scanner/adv_mining_scanner/syndicate
 	var/charges = 6
-	description_antag = "Это устройство имеет дополнительный порт, который позволяет обойти меры безопасности, применяемые в процессе добычи полезных ископаемых."
+	description_antag = "Это устройство имеет дополнительный порт, который позволяет обойти меры безопасности шахтерских зарядов."
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(istype(target,/obj/item/grenade/plastic/miningcharge))

@@ -514,12 +514,12 @@
 	desc = "Стандартные клоунские башмаки. Черт возьми, они такие огромные! Чтобы включить амортизаторы для ходьбы вразвалочку, нажмите Ctrl!"
 	name = "clown shoes"
 	ru_names = list(
-    NOMINATIVE = "клоунские башмаки",
-    GENITIVE = "клоунских башмаков",
-    DATIVE = "клоунским башмакам",
-    ACCUSATIVE = "клоунские башмаки",
-    INSTRUMENTAL = "клоунскими башмаками",
-    PREPOSITIONAL = "клоунских башмаках"
+    	NOMINATIVE = "клоунские башмаки",
+    	GENITIVE = "клоунских башмаков",
+    	DATIVE = "клоунским башмакам",
+    	ACCUSATIVE = "клоунские башмаки",
+    	INSTRUMENTAL = "клоунскими башмаками",
+    	PREPOSITIONAL = "клоунских башмаках"
 	)
 	icon_state = "clown"
 	item_state = "clown_shoes"
