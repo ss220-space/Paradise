@@ -25,10 +25,10 @@ menu "menu"
 		command = ".quit"
 		category = "&Файл"
 	elem
-		name = "&Изображение"
+		name = "&Экран"
 	elem
 		name = "&Размер"
-		category = "&Изображение"
+		category = "&Экран"
 		saved-params = "is-checked"
 	elem "stretch"
 		name = "&Авто-подбор размера"
@@ -81,7 +81,7 @@ menu "menu"
 		group = "размер"
 	elem
 		name = "&Масштабирование"
-		category = "&Изображение"
+		category = "&Экран"
 		saved-params = "is-checked;command"
 	elem "NN"
 		name = "&Метод ближайшего соседа"
@@ -105,7 +105,7 @@ menu "menu"
 	elem "textmode"
 		name = "&Текст"
 		command = ".winset \"menu.textmode.is-checked=true?mapwindow.map.text-mode=true:mapwindow.map.text-mode=false\""
-		category = "&Изображение"
+		category = "&Экран"
 		can-check = true
 	elem
 		name = "&Опции"
@@ -249,7 +249,7 @@ window "outputwindow"
 		button-type = pushbox
 	elem "saybutton"
 		type = BUTTON
-		pos = 549,460
+		pos = 499,460
 		size = 50x20
 		anchor1 = 100,100
 		anchor2 = -1,-1
@@ -261,13 +261,13 @@ window "outputwindow"
 		button-type = pushbox
 	elem "mebutton"
 		type = BUTTON
-		pos = 499,460
+		pos = 549,460
 		size = 50x20
 		anchor1 = 100,100
 		anchor2 = -1,-1
 		border = line
 		saved-params = "is-checked"
-		text = "Эмоции"
+		text = "Эмоция"
 		command = ".winset \"mebutton.is-checked=true ? input.command=\"!me \\\"\" : input.command=\"\"mebutton.is-checked=true ? saybutton.is-checked=false\"\"mebutton.is-checked=true ? oocbutton.is-checked=false\""
 		is-flat = true
 		button-type = pushbox
