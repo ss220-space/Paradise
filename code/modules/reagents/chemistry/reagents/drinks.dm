@@ -238,13 +238,13 @@
 	taste_description = "фальшивого молока"
 
 /datum/reagent/consumable/drink/milk/cream
-	name = "Крем"
+	name = "Сливки"
 	id = "cream"
 	description = "Жирная, но всё ещё жидкая часть молока. Почему бы вам не смешать это с виски, а?"
 	color = "#DFD7AF" // rgb: 223, 215, 175
-	drink_name = "стакан крема"
+	drink_name = "стакан сливок"
 	drink_desc = "Ууу..."
-	taste_description = "крема"
+	taste_description = "сливок"
 
 /datum/reagent/consumable/drink/milk/chocolate_milk
 	name = "Шоколадное молоко"
