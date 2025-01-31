@@ -554,7 +554,15 @@
 
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
-	desc = "A bandolier for holding shotgun ammunition."
+	desc = "Патронташ для хранения патронов к дробовику."
+	ru_names = list(
+    NOMINATIVE = "патронташ",
+    GENITIVE = "патронташа",
+    DATIVE = "патронташу",
+    ACCUSATIVE = "патронташ",
+    INSTRUMENTAL = "патронташем",
+    PREPOSITIONAL = "патронташе"
+	)
 	icon_state = "bandolier"
 	item_state = "bandolier"
 	storage_slots = 16
@@ -572,7 +580,9 @@
 	update_icon()
 
 /obj/item/storage/belt/bandolier/booze
-	description_antag = "Этот бандольер содержит 16 усыпляющих алкопатрон для превращения противника или жертву в беспомощное нечто. Учтите, патроны супер эффективны против цели с алкоголем внутри, на трезвых работают не так здорово!"
+	description_antag = "Этот пояс содержит 16 усыпляющих алкопатронов, способных превратить противника или жертву в беззащитное существо.\
+	 Обратите внимание, что эти патроны особенно эффективны против людей, находящихся в состоянии алкогольного опьянения.\
+	 На трезвых они действуют не так сильно!"
 
 /obj/item/storage/belt/bandolier/booze/populate_contents()
 	for(var/I in 1 to 16)
@@ -592,7 +602,7 @@
 
 /obj/item/storage/belt/holster
 	name = "shoulder holster"
-	desc = "A holster to conceal a carried handgun. WARNING: Badasses only."
+	desc = "Кобура, в которой можно спрятать пистолет. ВНИМАНИЕ: только для крутых парней."
 	icon_state = "holster"
 	item_state = "holster"
 	storage_slots = 1
