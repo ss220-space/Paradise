@@ -1,6 +1,14 @@
 /obj/item/laser_eyes_injector
 	name = "laser eyes injector"
 	desc = "Инжектор позволяющий вам стрелять лазерами из глаз после исспользования."
+	ru_names = list(
+        NOMINATIVE = "Инжектор лазеров из глаз",
+        GENITIVE = "Инжектора лазеров из глаз",
+        DATIVE = "Инжектору лазеров из глаз",
+        ACCUSATIVE = "Инжектор лазеров из глаз",
+        INSTRUMENTAL = "Инжектором лазеров из глаз",
+        PREPOSITIONAL = "Инжекторе лазеров из глаз"
+    )
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "dnainjector"
 	var/used = FALSE
@@ -23,15 +31,15 @@
 		return .
 
 	if(HAS_TRAIT(target, TRAIT_NO_DNA))
-		to_chat(user, span_warning("Неподходящий геном."))
+		balloon_alert(user, "ДНК не обнаружена")
 		return .
 
 	if(locate(/obj/effect/proc_holder/spell/lasereyes, target.mob_spell_list))
-		to_chat(user, span_warning("Вы уже обладаете данным геномом."))
+		balloon_alert(user, "ген уже имеется")
 		return .
 
 	if(used)
-		to_chat(user, span_warning("Этот инжектор уже исспользован."))
+		balloon_alert(user, "инжектор уже использован")
 		return .
 
 	. |= ATTACK_CHAIN_SUCCESS
