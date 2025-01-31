@@ -395,7 +395,9 @@
 //Janitor
 /datum/uplink_item/jobspecific/cautionsign
 	name = "Бесконтактная мина"
-	desc = "Противопехотная мина, искусно замаскированная под знак «Осторожно! Мокрый пол!», срабатывает, когда кто-то пробегает мимо неё. При активации запускается таймер, отсчитывающий 15 секунд, после чего мина приходит в боевую готовность. Чтобы обезвредить её, необходимо активировать устройство повторно."
+	desc = "Противопехотная мина, искусно замаскированная под знак «Осторожно! Мокрый пол!», срабатывает, когда кто-то пробегает мимо неё.\
+	 При активации запускается таймер, отсчитывающий 15 секунд, после чего мина приходит в боевую готовность.\
+	 Чтобы обезвредить её, необходимо активировать устройство повторно."
 	item = /obj/item/caution/proximity_sign
 	cost = 11
 	job = list(JOB_TITLE_JANITOR)
@@ -412,7 +414,9 @@
 //Medical
 /datum/uplink_item/jobspecific/rad_laser
 	name = "Радиационный излучатель"
-	desc = "Устройство с радиационным лазером, закрепленным снаружи анализатора здоровья. Имеет регулируемое управление, позволяющее выставить необходимые характеристики. Не функционирует как обычный анализатор, а лишь имитирует его работу. Важно отметить, что он может некорректно работать на гуманоидах, устойчивых к радиации!"
+	desc = "Устройство с радиационным лазером, закрепленным снаружи анализатора здоровья.\
+	 Имеет регулируемое управление, позволяющее выставить необходимые характеристики. Не функционирует как обычный анализатор, а лишь имитирует его работу.\
+	 Важно отметить, что он может некорректно работать на гуманоидах, устойчивых к радиации!"
 	item = /obj/item/rad_laser
 	cost = 23
 	job = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST, \
@@ -420,7 +424,8 @@
 
 /datum/uplink_item/jobspecific/batterer
 	name = "Подавитель разума"
-	desc = "Устройство, которое способно на длительное время дезориентировать окружающих и замедлять их движение. Никак не влияет на пользователя. Зарядка занимает 3 минуты."
+	desc = "Устройство, которое способно на длительное время дезориентировать окружающих и замедлять их движение.\
+	 Никак не влияет на пользователя. Зарядка занимает 3 минуты."
 	item = /obj/item/batterer
 	cost = 50
 	job = list(JOB_TITLE_CMO, JOB_TITLE_PSYCHIATRIST)
@@ -443,22 +448,24 @@
 
 //Virology
 /datum/uplink_item/jobspecific/viral_injector
-	name = "Viral Injector"
-	desc = "A modified hypospray disguised as a functional pipette. The pipette can infect victims with viruses upon injection."
+	name = "Вирусный инъектор"
+	desc = "Модифицированный гипоспрей, замаскированный под пипетку.  При введении пипетка может заразить жертву вирусами."
 	item = /obj/item/reagent_containers/dropper/precision/viral_injector
 	cost = 15
 	job = list(JOB_TITLE_VIROLOGIST)
 
 /datum/uplink_item/jobspecific/cat_grenade
-	name = "Feral Cat Delivery Grenade"
-	desc = "The feral cat delivery grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
+	name = "Граната для доставки диких кошек"
+	desc = "Граната для выпуска диких кошек представляет собой устройство, в котором находятся 5 дегидратированных кошек аналогично дегидратированным обезьянам,\
+	 которые после взрыва будут регидратированы небольшим резервуаром воды, содержащимся внутри гранаты.\
+	 Затем эти кошки будут нападать на все, что попадется им на глаза."
 	item = /obj/item/grenade/spawnergrenade/feral_cats
 	cost = 3
 	job = list(JOB_TITLE_PSYCHIATRIST)//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
 /datum/uplink_item/jobspecific/gbs
-	name = "GBS virus bottle"
-	desc = "A bottle containing Gravitokinetic Bipotential SADS culture. Also known as GBS, extremely deadly virus."
+	name = "Бутылка с вирусом ГБС"
+	desc = "Содержит чрезвычайно смертельный вирус ГБС, в начальной фазе имитирующий симптомы гриппа, но со временем разрывает тело носителя."
 	item = /obj/item/reagent_containers/glass/bottle/gbs
 	cost = 60
 	job = list(JOB_TITLE_VIROLOGIST)
@@ -466,31 +473,32 @@
 	hijack_only = TRUE
 
 /datum/uplink_item/jobspecific/lockermech
-	name = "Syndie Locker Mech"
-	desc = "A massive and incredibly deadly Syndicate exosuit(Not really)."
+	name = "Синди-Шкафомех"
+	desc = "Массивный и невероятно смертоносный мех Синдиката (на самом деле нет)."
 	item = /obj/mecha/combat/lockersyndie/loaded
 	cost = 25
 	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_ROBOTICIST)
 	surplus = 0
 
 /datum/uplink_item/jobspecific/combat_drone
-	name = "Combat Drone Manual"
-	desc = "Manual that will allow you to construct combat drones and control plates for them."
+	name = "Руководство по эксплуатации боевого дрона"
+	desc = "Руководство, которое позволит вам сконструировать боевые дроны и панели управления для них."
 	item = /obj/item/drone_manual
 	cost = 45
 	job = list(JOB_TITLE_ROBOTICIST)
 
 /datum/uplink_item/jobspecific/stungloves
-	name = "Stungloves"
-	desc = "A pair of sturdy shock gloves with insulated layer. Protects user from electric shock and allows to shock enemies."
+	name = "Оглушающие перчатки"
+	desc = "Пара прочных перчаток с изоляционным слоем, которые защищают от поражения электрическим током и позволяют эффективно наносить удары по врагам."
 	item = /obj/item/storage/box/syndie_kit/stungloves
 	cost = 7
 	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_MECHANIC, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_CHIEF)
 
 //Bartender
 /datum/uplink_item/jobspecific/drunkbullets
-	name = "Boozey Shotgun Shells"
-	desc = "A box containing 6 shotgun shells that simulate the effects of extreme drunkenness on the target, more effective for each type of alcohol in the target's system."
+	name = "Опьяняющие ружейные патроны"
+	desc = "Коробка с 16 патронами для ружья, которые имитирют сильное алкогольное опьянение.\
+	 Эффективность воздействия возрастает с каждым видом алкоголя, содержащимся в крови жертвы на момент выстрела."
 	item = /obj/item/storage/belt/bandolier/booze
 	cost = 15
 	job = list(JOB_TITLE_BARTENDER)

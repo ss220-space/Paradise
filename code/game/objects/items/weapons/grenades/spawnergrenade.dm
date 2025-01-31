@@ -46,7 +46,15 @@
 
 /obj/item/grenade/spawnergrenade/feral_cats
 	name = "feral cat delivery grenade"
-	desc = "This grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
+	desc = "Граната содержащая 5 дегидратированных кисок!"
+	ru_names = list(
+    NOMINATIVE = "Граната для доставки диких кошек",
+    GENITIVE = "Гранаты для доставки диких кошек",
+    DATIVE = "Гранате для доставки диких кошек",
+    ACCUSATIVE = "Гранату для доставки диких кошек",
+    INSTRUMENTAL = "Гранатой для доставки диких кошек",
+    PREPOSITIONAL = "Гранате для доставки диких кошек"
+	)
 	spawner_type = /mob/living/simple_animal/hostile/feral_cat
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=3"

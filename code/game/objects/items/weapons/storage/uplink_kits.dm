@@ -324,6 +324,14 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/stungloves
 	name = "Stungloves"
+	ru_names = list(
+    NOMINATIVE = "Оглушающие перчатки",
+    GENITIVE = "Оглушающих перчаток",
+    DATIVE = "Оглушающим перчаткам",
+    ACCUSATIVE = "Оглушающие перчатки",
+    INSTRUMENTAL = "Оглушающими перчатками",
+    PREPOSITIONAL = "Оглушающих перчатках"
+	)
 
 /obj/item/storage/box/syndie_kit/stungloves/populate_contents()
 	new /obj/item/clothing/gloves/color/yellow/stun(src)
