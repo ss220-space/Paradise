@@ -179,48 +179,104 @@
 
 /obj/item/reagent_containers/food/drinks/cans/cola
 	name = "space cola"
-	desc = "Cola. in space."
+	desc = "Это кола. Вы сами знаете, что это."
+	ru_names = list(
+		NOMINATIVE = "банка колы",
+		GENITIVE = "банки колы",
+		DATIVE = "банке колы",
+		ACCUSATIVE = "банку колы",
+		INSTRUMENTAL = "банкой колы",
+		PREPOSITIONAL = "банке колы"
+ 	)
 	icon_state = "cola"
 	list_reagents = list("cola" = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/energy
 	name = "heart attack"
-	desc = "The heart will say: - My stop."
+	desc = "Пока сердце вам не скажет - \"Моя остановка\"."
+	ru_names = list(
+		NOMINATIVE = "банка энергетика \"Сердечный Приступ\"",
+		GENITIVE = "банки энергетика \"Сердечный Приступ\"",
+		DATIVE = "банке энергетика \"Сердечный Приступ\"",
+		ACCUSATIVE = "банку энергетика \"Сердечный Приступ\"",
+		INSTRUMENTAL = "банкой энергетика \"Сердечный Приступ\"",
+		PREPOSITIONAL = "банке энергетика \"Сердечный Приступ\""
+ 	)
 	icon_state = "heart_attack"
 	item_state = "heart_attack"
 	list_reagents = list("energetik" = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/energy/trop
 	name = "tropical spasm"
-	desc = "Get a taste of hunting down USSP soldiers."
+	desc = "Почувствуйте бодрящий вкус тропических фруктов!"
+	ru_names = list(
+		NOMINATIVE = "банка энергетика \"Тропический Спазм\"",
+		GENITIVE = "банки энергетика \"Тропический Спазм\"",
+		DATIVE = "банке энергетика \"Тропический Спазм\"",
+		ACCUSATIVE = "банку энергетика \"Тропический Спазм\"",
+		INSTRUMENTAL = "банкой энергетика \"Тропический Спазм\"",
+		PREPOSITIONAL = "банке энергетика \"Тропический Спазм\""
+ 	)
 	icon_state = "tropical_spasm"
 	item_state = "tropical_spasm"
 	list_reagents = list("trop_eng" = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/energy/milk
 	name = "milk flow"
-	desc = "For pro gamers."
+	desc = "Для самых профессиональных геймеров."
+	ru_names = list(
+		NOMINATIVE = "банка энергетика \"Молочный Удар\"",
+		GENITIVE = "банки энергетика \"Молочный Удар\"",
+		DATIVE = "банке энергетика \"Молочный Удар\"",
+		ACCUSATIVE = "банку энергетика \"Молочный Удар\"",
+		INSTRUMENTAL = "банкой энергетика \"Молочный Удар\"",
+		PREPOSITIONAL = "банкой энергетика \"Молочный Удар\""
+ 	)
 	icon_state = "milk_flow"
 	item_state = "milk_flow"
 	list_reagents = list("milk_eng" = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/energy/grey
 	name = "GreyPower"
-	desc = "Your hands will burn from GreyPower."
+	desc = "Ваши руки будут гореть от \"Грей Энерджи\"."
+	ru_names = list(
+		NOMINATIVE = "банка энергетика \"Грей Энерджи\"",
+		GENITIVE = "банки энергетика \"Грей Энерджи\"",
+		DATIVE = "банке энергетика \"Грей Энерджи\"",
+		ACCUSATIVE = "банку энергетика \"Грей Энерджи\"",
+		INSTRUMENTAL = "банкой энергетика \"Грей Энерджи\"",
+		PREPOSITIONAL = "банкой энергетика \"Грей Энерджи\""
+ 	)
 	icon_state = "GreyPower"
 	item_state = "GreyPower"
 	list_reagents = list("grey_eng" = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/beer
 	name = "space beer"
-	desc = "Contains only water, malt and hops."
+	desc = "Содержит только воду, солод и хмель."
+	ru_names = list(
+		NOMINATIVE = "бутылка пива",
+		GENITIVE = "бутылки пива",
+		DATIVE = "бутылке пива",
+		ACCUSATIVE = "бутылку пива",
+		INSTRUMENTAL = "бутылкой пива",
+		PREPOSITIONAL = "бутылкой пива"
+ 	)
 	icon_state = "beer"
 	is_glass = 1
 	list_reagents = list("beer" = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer
 	name = "non-alcoholic beer"
-	desc = "A favorite thing of all students and those who drive."
+	desc = "Любимое пойло студентов и тех, кто за рулём."
+	ru_names = list(
+		NOMINATIVE = "бутылка безалкогольного пива",
+		GENITIVE = "бутылки безалкогольного пива",
+		DATIVE = "бутылке безалкогольного пива",
+		ACCUSATIVE = "бутылку безалкогольного пива",
+		INSTRUMENTAL = "бутылкой безалкогольного пива",
+		PREPOSITIONAL = "бутылкой безалкогольного пива"
+ 	)
 	icon_state = "alcoholfreebeercan"
 	list_reagents = list("noalco_beer" = 30)
 
