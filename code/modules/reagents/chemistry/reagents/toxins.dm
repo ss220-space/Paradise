@@ -151,7 +151,7 @@
 	color = "#13BC5E" // rgb: 19, 188, 94
 	can_synth = FALSE
 	taste_description = "теней"
-а
+
 /datum/reagent/slimetoxin/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/human = M
