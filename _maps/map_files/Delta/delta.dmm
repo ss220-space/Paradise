@@ -89374,8 +89374,8 @@
 	pixel_x = 7;
 	pixel_y = -7
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -110347,6 +110347,7 @@
 /area/medical/genetics)
 "uvd" = (
 /obj/random/tool,
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 6
