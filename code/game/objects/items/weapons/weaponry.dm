@@ -440,11 +440,19 @@
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 30
 
-/obj/item/bone_club
-	name = "колотушка"
+/obj/item/nutcracker
+	name = "nutcracker"
 	desc = "Простейшая дубина из кости, воплощает в себе силу природы и первобытную мощь."
-	icon_state = "bone_club"
-	item_state = "bone_club"
+	ru_names = list(
+		NOMINATIVE = "колотушка",
+		GENITIVE = "колотушки",
+		DATIVE = "колотушке",
+		ACCUSATIVE = "колотушка",
+		INSTRUMENTAL = "колотушкой",
+		PREPOSITIONAL = "колотушке"
+	)
+	icon_state = "nutcracker"
+	item_state = "nutcracker"
 	hitsound = 'sound/weapons/kolotushka_smash.ogg'
 	slot_flags = ITEM_SLOT_BELT
 	force = 3
@@ -452,7 +460,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	var/stamina_damage = 22
 
-/obj/item/bone_club/afterattack(atom/target, mob/user, proximity, params, status)
+/obj/item/nutcracker/afterattack(atom/target, mob/user, proximity, params, status)
 	if(!isliving(target) || !proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 

@@ -734,10 +734,18 @@ REAGENT SCANNER
 
 /obj/item/healthanalyzer/gem_analyzer
 	name = "eye of health"
+	desc = "Необычный самоцвет в форме сердца."
+	ru_names = list(
+		NOMINATIVE = "глаз здоровья",
+		GENITIVE = "глаза здоровья",
+		DATIVE = "глазу здоровья",
+		ACCUSATIVE = "глаз здоровья",
+		INSTRUMENTAL = "глазом здоровья",
+		PREPOSITIONAL = "глазе здоровья"
+	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "Gem_analyzer"
 	item_state = "gem_analyzer"
-	desc = "Необычный самоцвет в форме сердца."
 	origin_tech = null
 
 /obj/item/healthanalyzer/gem_analyzer/attackby(obj/item/I, mob/user, params)

@@ -1647,9 +1647,9 @@
 				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 
-/datum/crafting_recipe/bone_club
-	name = "Колотушка"
-	result = /obj/item/bone_club
+/datum/crafting_recipe/nutcracker
+	name = "Nutcracker" //Колотушка
+	result = /obj/item/nutcracker
 	time = 4 SECONDS
 	reqs = list(/obj/item/stack/sheet/bone = 2,
 				/obj/item/stack/sheet/animalhide/weaver_chitin = 2)

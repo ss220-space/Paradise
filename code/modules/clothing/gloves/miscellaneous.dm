@@ -15,7 +15,15 @@
 
 /obj/item/clothing/gloves/fingerless/weaver
 	name = "weaver chitin gloves"
-	desc = "Grey gloves without fingertips made from the hide of a dead arachnid found on lavaland. Makes wearer stronger in disarming ability."
+	desc = "Серые перчатки без кончиков пальцев, сделанные из шкуры мертвого паукообразного, найденного на Лаваленде. Улучшает способности владельца к обезоруживанию."
+	ru_names = list(
+		NOMINATIVE = "перчатки из хитина ткача",
+		GENITIVE = "перчаток из хитина ткача",
+		DATIVE = "перчаткам из хитина ткача",
+		ACCUSATIVE = "перчатки из хитина ткача",
+		INSTRUMENTAL = "перчатками из хитина ткача",
+		PREPOSITIONAL = "перчатках из хитина ткача"
+	)
 	icon_state = "weaver_chitin"
 	item_state = "weaver_chitin"
 	extra_knock_chance = 20
@@ -43,7 +51,7 @@
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		add_attack_logs(user, target, "Melee attacked with weaver gloves")
 
-		target.visible_message(span_danger("[user] smash [target] with weaver gloves!"))
+		target.visible_message(span_danger("[user] сокрушает [target] [declent_ru(INSTRUMENTAL)]!"))
 
 		target.apply_damage(damage, BRUTE, affecting)
 		target.apply_damage(stamindamage, STAMINA, affecting)

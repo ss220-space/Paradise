@@ -5,7 +5,15 @@
 
 /obj/item/reagent_containers/food/snacks/meat
 	name = "meat"
-	desc = "A slab of meat"
+	desc = "Кусок мяса"
+	ru_names = list(
+		NOMINATIVE = "мясо",
+		GENITIVE = "мяса",
+		DATIVE = "мясу",
+		ACCUSATIVE = "мясо",
+		INSTRUMENTAL = "мясом",
+		PREPOSITIONAL = "мясе"
+	)
 	icon_state = "meat"
 	filling_color = "#FF1C1C"
 	bitesize = 3
@@ -21,7 +29,7 @@
 		return .
 
 	if(!isturf(loc))
-		to_chat(user, span_warning("You cannot cut [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+		to_chat(user, span_warning("Вы не можете порезать [declent_ru(NOMINATIVE)] [ismob(loc) ? "в инвентаре" : "в [loc]"]."))
 		return .
 
 	var/static/list/acceptable_surfaces = typecacheof(list(
@@ -35,21 +43,21 @@
 			acceptable = TRUE
 			break
 	if(!acceptable)
-		to_chat(user, span_warning("You cannot cut [src] here! You need a table or at least a tray to do it."))
+		to_chat(user, span_warning("Вы не можете порезать [declent_ru(NOMINATIVE)] тут! Вам нужен стол или хотя-бы поднос, чтобы сделать это."))
 		return .
 
 	. |= ATTACK_CHAIN_BLOCKED_ALL
 	var/strips_amount = 3
 	if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/scalpel))
 		user.visible_message(
-			span_notice("[user] cuts the meat in thin strips."),
-			span_notice("You have cut the meat in thin strips."),
+			span_notice("[user] режет мясо тонкими полосками."),
+			span_notice("Вы порезали мясо тонкими полосками."),
 		)
 	else
 		strips_amount = 1
 		user.visible_message(
-			span_notice("[user] crudely cuts the meat in thin strips."),
-			span_notice("You have crudely cut the meat in thin strips."),
+			span_notice("[user] грубо режет мясо тонкими полосками."),
+			span_notice("Вы грубо порезали мясо тонкими полосками."),
 		)
 	for(var/i = 1 to strips_amount)
 		var/obj/item/reagent_containers/food/snacks/rawcutlet/cutlet = new(loc)
@@ -58,13 +66,21 @@
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/meat/burn()
-	visible_message(span_notice("[src] finishes cooking!"))
+	visible_message(span_notice("[declent_ru(NOMINATIVE)] приготовилось!"))
 	new /obj/item/reagent_containers/food/snacks/roasted_meat(loc)
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/roasted_meat
 	name = "roasted meat"
 	desc = "Хорошо прожаренный стейк."
+	ru_names = list(
+		NOMINATIVE = "жаренное мясо",
+		GENITIVE = "жаренного мяса",
+		DATIVE = "жаренному мясу",
+		ACCUSATIVE = "жаренное мясо",
+		INSTRUMENTAL = "жаренным мясом",
+		PREPOSITIONAL = "жаренном мясе"
+	)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	icon_state = "roasted_meat"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -430,13 +446,21 @@
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg
 	name = "spider leg"
-	desc = "A still twitching leg of a giant spider. You don't really want to eat this, do you?"
+	desc = "Все еще дергающаяся лапка гигантского паука. Ты ведь не будешь это жрать, правда?"
+	ru_names = list(
+		NOMINATIVE = "паучья лапка",
+		GENITIVE = "паучьей лапки",
+		DATIVE = "паучьей лапке",
+		ACCUSATIVE = "паучья лапка",
+		INSTRUMENTAL = "паучьей лапкой",
+		PREPOSITIONAL = "паучьей лапке"
+	)
 	icon_state = "spiderleg"
 	list_reagents = list("protein" = 2, "toxin" = 2)
 	tastes = list("cobwebs" = 1, "creepy motion" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg/burn()
-	visible_message(span_notice("[src] finishes cooking!"))
+	visible_message(span_notice("[declent_ru(NOMINATIVE)] приготовилась!"))
 	new /obj/item/reagent_containers/food/snacks/roasted_spiderleg(loc)
 	qdel(src)
 
@@ -722,7 +746,15 @@
 
 /obj/item/reagent_containers/food/snacks/roasted_spiderleg
 	name = "roasted spider leg"
-	desc = "Жаренная лапка паука, теперь оно точно мертво."
+	desc = "Жаренная паучья лапка, теперь оно точно мертво."
+	ru_names = list(
+		NOMINATIVE = "жаренная паучья лапка",
+		GENITIVE = "жаренной паучьей лапки",
+		DATIVE = "жаренной паучьей лапке",
+		ACCUSATIVE = "жаренная паучья лапка",
+		INSTRUMENTAL = "жаренной паучьей лапкой",
+		PREPOSITIONAL = "жаренной паучьей лапке"
+	)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	icon_state = "roasted_spiderleg"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'

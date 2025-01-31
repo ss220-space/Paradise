@@ -250,6 +250,14 @@
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
 	name = "coaltree log"
 	desc = "Бревно угледрева, на ощупь мягкое."
+	ru_names = list(
+		NOMINATIVE = "бревно угледрева",
+		GENITIVE = "бревна угледрева",
+		DATIVE = "бревну угледрева",
+		ACCUSATIVE = "бревно угледрева",
+		INSTRUMENTAL = "бревном угледрева",
+		PREPOSITIONAL = "бревне угледрева"
+	)
 	icon_state = "coaltree_log"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -362,7 +370,15 @@
 
 /obj/item/seeds/lavaland/coaltree
 	name = "pack of coaltree seeds"
-	desc = "These seeds grow into coaltree."
+	desc = "Эти семена вырастут в угледрево."
+	ru_names = list(
+		NOMINATIVE = "семена угледрева",
+		GENITIVE = "семян угледрева",
+		DATIVE = "семенам угледрева",
+		ACCUSATIVE = "семена угледрева",
+		INSTRUMENTAL = "семенами угледрева",
+		PREPOSITIONAL = "семенах угледрева"
+	)
 	icon_state = "seed-coaltree"
 	species = "coaltree"
 	plantname = "Coaltree"
