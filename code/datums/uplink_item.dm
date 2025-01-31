@@ -394,16 +394,16 @@
 
 //Janitor
 /datum/uplink_item/jobspecific/cautionsign
-	name = "Proximity Mine"
-	desc = "An Anti-Personnel proximity mine cleverly disguised as a wet floor caution sign that is triggered by running past it, activate it to start the 15 second timer and activate again to disarm."
+	name = "Бесконтактная мина"
+	desc = "Противопехотная мина, искусно замаскированная под знак «Осторожно! Мокрый пол!», срабатывает, когда кто-то пробегает мимо неё. При активации запускается таймер, отсчитывающий 15 секунд, после чего мина приходит в боевую готовность. Чтобы обезвредить её, необходимо активировать устройство повторно."
 	item = /obj/item/caution/proximity_sign
 	cost = 11
 	job = list(JOB_TITLE_JANITOR)
 	surplus = 0
 
 /datum/uplink_item/jobspecific/holomine
-	name = "Holomine Projector"
-	desc = "Projector that can set up to 5 stun mines with additional EMP effect."
+	name = "Проектор голомин"
+	desc = "Проектор, способный установить до пяти оглушающих мин, обладающих дополнительным ЭМИ эффектом."
 	item = /obj/item/holosign_creator/janitor/syndie
 	cost = 40
 	job = list(JOB_TITLE_JANITOR)
@@ -411,30 +411,30 @@
 
 //Medical
 /datum/uplink_item/jobspecific/rad_laser
-	name = "Radiation Laser"
-	desc = "A radiation laser concealed inside of a Health Analyzer. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyzer, only appears like one. May not function correctly on radiation resistant humanoids!"
+	name = "Радиационный излучатель"
+	desc = "Устройство с радиационным лазером, закрепленным снаружи анализатора здоровья. Имеет регулируемое управление, позволяющее выставить необходимые характеристики. Не функционирует как обычный анализатор, а лишь имитирует его работу. Важно отметить, что он может некорректно работать на гуманоидах, устойчивых к радиации!"
 	item = /obj/item/rad_laser
 	cost = 23
 	job = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST, \
 			JOB_TITLE_CHEMIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER, JOB_TITLE_VIROLOGIST)
 
 /datum/uplink_item/jobspecific/batterer
-	name = "Mind Batterer"
-	desc = "A device that has a chance of knocking down people around you for a long amount of time or slowing them down. The user is unaffected. Each charge takes 2 minutes to recharge."
+	name = "Подавитель разума"
+	desc = "Устройство, которое способно на длительное время дезориентировать окружающих и замедлять их движение. Никак не влияет на пользователя. Зарядка занимает 3 минуты."
 	item = /obj/item/batterer
 	cost = 50
 	job = list(JOB_TITLE_CMO, JOB_TITLE_PSYCHIATRIST)
 
 /datum/uplink_item/jobspecific/dna_upgrader
-	name = "Genetic Superiority Injector"
-	desc = "Experimental DNA injector which will give you one advanced gene modification and increase your gene stability."
+	name = "Инъектор генетического превосходства"
+	desc = "Экспериментальный ДНК-инъектор, который позволит вам выбрать один из продвинутых генов и повысит вашу генетическую стабильность."
 	item = /obj/item/dna_upgrader
 	cost = 55
 	job = list(JOB_TITLE_CMO, JOB_TITLE_GENETICIST)
 	surplus = 0
 
 /datum/uplink_item/jobspecific/laser_eyes_injector
-	name = "Laser Eyes Injector"
+	name = "Инжектор лазеров из глаз"
 	desc = "Эксперементальный ДНК инжектор, который навсегда даст вам способность стрелять лазерами из глаз."
 	item = /obj/item/laser_eyes_injector
 	cost = 37
