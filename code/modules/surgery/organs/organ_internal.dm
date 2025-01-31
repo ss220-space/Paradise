@@ -13,16 +13,15 @@
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 
+	lefthand_file = 'icons/mob/inhands/organ_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/organ_righthand.dmi'
+
 
 /obj/item/organ/internal/Initialize(mapload)
 	. = ..()
 
 	if(iscarbon(loc))
 		insert(loc)
-
-
-	if(species_type == /datum/species/diona)
-		AddComponent(/datum/component/diona_internals)
 
 
 // user = who operates on target. Optional for fail_message, can be null(silent check)

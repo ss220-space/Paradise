@@ -387,7 +387,7 @@ UI STUFF
 
 /datum/controller/subsystem/tickets/proc/returnUI(tab = TICKET_OPEN)
 	set name = "Open Ticket Interface"
-	set category = "Tickets"
+	set category = "Admin.Admin Tickets"
 
 //dat
 	var/trStyle = "border-top:2px solid; border-bottom:2px solid; padding-top: 5px; padding-bottom: 5px;"
@@ -619,6 +619,14 @@ UI STUFF
 			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) снят с тикета [ticket_name] номер [index]</span>")
 		else
 			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) снят с тикета [ticket_name] номер [index]</span>", TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
+
+/datum/controller/subsystem/tickets/can_vv_get(var_name)
+	var/static/list/protected_vars = list(
+		"allTickets"
+	)
+	if(!check_rights(R_ADMIN, FALSE, src) && (var_name in protected_vars))
+		return FALSE
+	return TRUE
 
 #undef TICKET_STAFF_MESSAGE_ADMIN_CHANNEL
 #undef TICKET_STAFF_MESSAGE_PREFIX

@@ -16,26 +16,27 @@ GLOBAL_LIST_EMPTY(response_team_members)
 GLOBAL_VAR_INIT(responseteam_age, 21) // Minimum account age to play as an ERT member
 GLOBAL_DATUM(active_team, /datum/response_team)
 GLOBAL_VAR_INIT(send_emergency_team, FALSE)
-GLOBAL_VAR_INIT(ert_request_answered, FALSE)
+GLOBAL_VAR_INIT(ert_request_answered, TRUE)
+GLOBAL_LIST_EMPTY(ert_request_messages)
 
 /client/proc/response_team()
 	set name = "Dispatch CentComm Response Team"
-	set category = "Event"
-	set desc = "Send an CentComm response team to the station."
+	set category = "Admin.Event"
+	set desc = "Отправляет на станцию ​Отряд Быстрого Реагирования."
 
 	if(!check_rights(R_EVENT))
 		return
 
 	if(!SSticker)
-		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
+		to_chat(usr, span_warning("Игра ещё не началась!"))
 		return
 
 	if(SSticker.current_state == GAME_STATE_PREGAME)
-		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
+		to_chat(usr, span_warning("Раунд ещё не начался!"))
 		return
 
 	if(GLOB.send_emergency_team)
-		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
+		to_chat(usr, span_warning("Центральное Командование уже направило Отряд Быстрого Реагирования!"))
 		return
 
 	var/datum/ui_module/ert_manager/E = new()
@@ -44,24 +45,24 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 /mob/dead/observer/proc/JoinResponseTeam()
 	if(!GLOB.send_emergency_team)
-		to_chat(src, span_warning("No emergency response team is currently being sent."))
+		to_chat(src, span_warning("Отряд Быстрого Реагирования не был отправлен."))
 		return FALSE
 
 	if(jobban_isbanned(src, ROLE_ERT))
-		to_chat(src, span_warning("You are jobbanned from playing on an emergency response team!"))
+		to_chat(src, span_warning("У вас джоббан на роль бойца ОБР!"))
 		return FALSE
-	
+
 	if(jobban_isbanned(src, JOB_TITLE_OFFICER) || jobban_isbanned(src, JOB_TITLE_CAPTAIN) || jobban_isbanned(src, JOB_TITLE_CYBORG))
-		to_chat(src, span_warning("One of your jobbans forbids you from playing on an emergency response team!"))
+		to_chat(src, span_warning("Один из ваших джоббанов запрещает вам играть в ОБР!"))
 		return FALSE
 
 	var/player_age_check = check_client_age(client, GLOB.responseteam_age)
 	if(player_age_check && CONFIG_GET(flag/use_age_restriction_for_antags))
-		to_chat(src, span_warning("This role is not yet available to you. You need to wait another [player_age_check] days."))
+		to_chat(src, span_warning("Эта роль вам пока недоступна. Вам нужно подождать ещё [player_age_check] [declension_ru(player_age_check, "день", "дня", "дней")]."))
 		return FALSE
 
 	if(cannotPossess(src))
-		to_chat(src, span_boldnotice("Upon using the antagHUD you forfeited the ability to join the round."))
+		to_chat(src, span_boldnotice("Активировав Антаг-ХУД, вы лишились возможности присоединиться к раунду."))
 		return FALSE
 
 	return TRUE
@@ -72,7 +73,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	GLOB.active_team.setSlots(commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 
 	GLOB.send_emergency_team = TRUE
-	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
+	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Присоединиться к Отряду Быстрого Реагирования?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
 	if(!ert_candidates.len)
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
@@ -92,44 +93,44 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		GLOB.send_emergency_team = FALSE
 		return
 
-	var/list/ert_gender_prefs = list()
+	var/list/ert_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
-		ert_gender_prefs.Add(input_async(M, "Please select a gender (10 seconds):", list("Male", "Female")))
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/get_ert_role_prefs, GLOB.response_team_members, ert_gender_prefs), 100)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_prefs), M, ert_prefs)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(dispatch_response_team), GLOB.response_team_members, ert_prefs), 31 SECONDS) // one additional second for some client-server lags
 
-/proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
-	var/list/ert_role_prefs = list()
-	for(var/datum/async_input/A in ert_gender_prefs)
-		A.close()
-	for(var/mob/M in response_team_members)
-		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (20 seconds):", GLOB.active_team.get_slot_list()))
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/dispatch_response_team, response_team_members, ert_gender_prefs, ert_role_prefs), 200)
+/proc/get_ert_prefs(mob/user, list/ert_prefs)
+	ert_prefs[user] = list()
+	ert_prefs[user]["gender"] = tgui_input_list(user, "Выберите пол (10 секунд):","", list("Мужской", "Женский"), timeout = 10 SECONDS)
+	ert_prefs[user]["roles"] = tgui_input_ranked_list(user, "Расположите роли ОБР от наиболее предпочтительных к наименее предпочтительным (20 секунд):", "", GLOB.active_team.get_slot_list(), timeout = 20 SECONDS)
 
-/proc/dispatch_response_team(list/response_team_members, list/datum/async_input/ert_gender_prefs, list/datum/async_input/ert_role_prefs)
+/proc/dispatch_response_team(list/response_team_members, list/ert_prefs)
 	var/spawn_index = 1
 
-	for(var/i = 1, i <= response_team_members.len, i++)
-		if(spawn_index > GLOB.emergencyresponseteamspawn.len)
+	while(spawn_index <= GLOB.emergencyresponseteamspawn.len)
+		if(!ert_prefs.len)
 			break
+		var/mob/user = pick(ert_prefs)
 		if(!GLOB.active_team.get_slot_list().len)
 			break
-		var/gender_pref = ert_gender_prefs[i].result
-		var/role_pref = ert_role_prefs[i].close()
-		var/mob/M = response_team_members[i]
-		if(!M || !M.client)
+		var/gender_pref = ert_prefs[user]["gender"]
+		var/role_pref = ert_prefs[user]["roles"]
+		if(!user || !user.client)
+			ert_prefs -= user
 			continue
 		if(!gender_pref || !role_pref)
 			// Player was afk and did not select
+			ert_prefs -= user
 			continue
 		for(var/role in role_pref)
 			if(GLOB.active_team.check_slot_available(role))
-				var/mob/living/new_commando = M.client.create_response_team(gender_pref, role, GLOB.emergencyresponseteamspawn[spawn_index])
+				var/mob/living/new_commando = user.client.create_response_team(gender_pref, role, GLOB.emergencyresponseteamspawn[spawn_index])
 				GLOB.active_team.reduceSlots(role)
 				spawn_index++
-				if(!M || !new_commando)
+				ert_prefs -= user
+				if(!user || !new_commando)
 					break
-				new_commando.mind.key = M.key
-				new_commando.key = M.key
+				new_commando.mind.key = user.key
+				new_commando.key = user.key
 				new_commando.update_icons()
 				new_commando.change_voice()
 				break
@@ -150,7 +151,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/obj/item/organ/external/head/head_organ = M.get_organ(BODY_ZONE_HEAD)
 
 	if(new_gender)
-		if(new_gender == "Male")
+		if(new_gender == "Мужской")
 			M.change_gender(MALE)
 		else
 			M.change_gender(FEMALE)
@@ -199,13 +200,13 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 /datum/response_team
 	var/list/slots = list(
-		Commander = 0,
-		Security = 0,
-		Engineer = 0,
-		Medic = 0,
-		Janitor = 0,
-		Paranormal = 0,
-		Cyborg = 0
+		"Командир" = 0,
+		"Боец" = 0,
+		"Инженер" = 0,
+		"Медик" = 0,
+		"Уборщик" = 0,
+		"Паранормал" = 0,
+		"Борг" = 0
 	)
 	var/count = 0
 
@@ -217,14 +218,17 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/paranormal_outfit
 	var/borg_path = /mob/living/silicon/robot/ert
 
+	/// Whether the ERT announcement should be hidden from the station
+	var/silent
+
 /datum/response_team/proc/setSlots(com=1, sec=4, med=0, eng=0, jan=0, par=0, cyb=0)
-	slots["Commander"] = com
-	slots["Security"] = sec
-	slots["Medic"] = med
-	slots["Engineer"] = eng
-	slots["Janitor"] = jan
-	slots["Paranormal"] = par
-	slots["Cyborg"] = cyb
+	slots["Командир"] = com
+	slots["Боец"] = sec
+	slots["Медик"] = med
+	slots["Инженер"] = eng
+	slots["Уборщик"] = jan
+	slots["Паранормал"] = par
+	slots["Борг"] = cyb
 
 /datum/response_team/proc/reduceSlots(role)
 	slots[role]--
@@ -241,30 +245,35 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 /datum/response_team/proc/check_slot_available(role)
 	return slots[role]
 
-/datum/response_team/proc/equip_officer(var/officer_type, var/mob/living/carbon/human/M)
+/datum/response_team/proc/equip_officer(officer_type, mob/living/carbon/human/M)
 	switch(officer_type)
-		if("Engineer")
+		if("Инженер")
 			M.equipOutfit(engineering_outfit)
 
-		if("Security")
+		if("Боец")
 			M.equipOutfit(security_outfit)
 
-		if("Medic")
+		if("Медик")
 			M.equipOutfit(medical_outfit)
 
-		if("Janitor")
+		if("Уборщик")
 			M.equipOutfit(janitor_outfit)
 
-		if("Paranormal")
+		if("Паранормал")
 			M.equipOutfit(paranormal_outfit)
 
-		if("Commander")
+		if("Командир")
 			M.equipOutfit(command_outfit)
 
 /datum/response_team/proc/cannot_send_team()
+	if(silent)
+		message_admins("A silent response team failed to spawn. Likely, no one signed up.")
+		return
 	GLOB.event_announcement.Announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования.", "Оповещение: ОБР недоступен.")
 
 /datum/response_team/proc/announce_team()
+	if(silent)
+		return
 	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем команду высококвалифицированных ассистентов для оказания помощи(?) вам. Ожидайте.", "Оповещение: ОБР в пути.")
 
 // -- AMBER TEAM --
@@ -278,6 +287,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/amber
 
 /datum/response_team/amber/announce_team()
+	if(silent)
+		return
 	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «ЭМБЕР». Ожидайте.", "Оповещение: ОБР в пути.")
 
 // -- RED TEAM --
@@ -292,6 +303,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/red
 
 /datum/response_team/red/announce_team()
+	if(silent)
+		return
 	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «РЭД». Ожидайте.", "Оповещение: ОБР в пути.")
 
 // -- GAMMA TEAM --
@@ -306,6 +319,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/gamma
 
 /datum/response_team/gamma/announce_team()
+	if(silent)
+		return
 	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «ГАММА». Ожидайте.", "Оповещение: ОБР в пути.")
 
 /datum/outfit/job/centcom/response_team

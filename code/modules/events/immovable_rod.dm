@@ -68,6 +68,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		admin_spawned = TRUE
 
 	RegisterSignal(src, COMSIG_ATOM_ENTERING, PROC_REF(on_entering_atom))
+	RegisterSignal(src, COMSIG_POSSESSED_MOVEMENT, PROC_REF(possessed_relay_move))
 
 	if(dnd_style_level_up)
 		update_appearance(UPDATE_NAME)
@@ -82,10 +83,15 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 
 /obj/effect/immovablerod/Destroy(force)
-	UnregisterSignal(src, COMSIG_ATOM_ENTERING)
+	UnregisterSignal(src, list(
+		COMSIG_ATOM_ENTERING,
+		COMSIG_POSSESSED_MOVEMENT
+		))
+
 	destination_turf = null
 	special_target = null
 	GLOB.poi_list -= src
+	
 	return ..()
 
 
@@ -191,10 +197,13 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	return ..()
 
 
-/obj/effect/immovablerod/possessed_relay_move(mob/user, direction)
-	. = ..()
-	if(. && !admin_spawned)
-		walk_in_direction(direction)
+/obj/effect/immovablerod/proc/possessed_relay_move(datum/source, mob/user, new_loc, direction)
+	SIGNAL_HANDLER
+
+	if(admin_spawned)
+		return
+
+	walk_in_direction(direction)
 
 
 /obj/effect/immovablerod/proc/on_entering_atom(datum/source, atom/destination, atom/oldloc, list/atom/old_locs)
@@ -291,6 +300,29 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	SSmove_manager.stop_looping(src)
 
 
+/obj/effect/immovablerod/smite
+	/// The target that we're gonna aim for between start and end
+	var/obj/effect/portal/exit
+	var/turf/end
+	admin_spawned = TRUE
+
+/obj/effect/immovablerod/smite/Initialize(mapload, atom/target_atom, atom/special_target, move_delay, force_looping)
+	new /obj/effect/portal(mapload, null, null, 2 SECONDS)
+	end = get_turf(target_atom)
+	return ..()
+
+/obj/effect/immovablerod/smite/Move()
+	. = ..()
+	if(get_turf(src) == end)
+		// our exit condition: get outta there kowalski
+		var/target_turf = get_ranged_target_turf(src, dir, rand(1, 10))
+		walk(src, 0)
+		exit = new /obj/effect/portal(target_turf, null, null, 2 SECONDS)
+		walk_towards(src, exit, move_delay)
+	else if(locate(exit) in get_turf(src))
+		QDEL_NULL(exit)
+		qdel(src)
+
 /**
  * Allows your rod to release restraint level zero and go for a walk.
  *
@@ -317,4 +349,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/proc/walk_in_direction(direction)
 	destination_turf = get_edge_target_turf(src, direction)
 	SSmove_manager.move_towards(src, destination_turf, delay = move_delay)
+
+
+
+/obj/effect/immovablerod/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 6 SECONDS)
+	return AddComponent(/datum/component/deadchat_control/immovable_rod, mode, list(), cooldown)
 

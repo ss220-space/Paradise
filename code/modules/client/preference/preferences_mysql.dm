@@ -339,7 +339,7 @@
 	if(isnull(speciesprefs)) speciesprefs = initial(speciesprefs)
 	if(!real_name) real_name = random_name(gender,species)
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
-	gender			= sanitize_gender(gender, FALSE, !SP.has_gender)
+	gender			= sanitize_gender(gender, FALSE, !SP?.has_gender)
 	var/age_limits = get_age_limits(SP, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX, JOB_MIN_AGE_COMMAND))
 	age				= sanitize_integer(age, age_limits[SPECIES_AGE_MIN], age_limits[SPECIES_AGE_MAX], age_limits[JOB_MIN_AGE_COMMAND])
 	h_colour		= sanitize_hexcolor(h_colour)

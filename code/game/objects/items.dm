@@ -288,19 +288,19 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/size
 	switch(src.w_class)
 		if(WEIGHT_CLASS_TINY)
-			size = "tiny"
+			size = "крохотного"
 		if(WEIGHT_CLASS_SMALL)
-			size = "small"
+			size = "маленького"
 		if(WEIGHT_CLASS_NORMAL)
-			size = "normal-sized"
+			size = "среднего"
 		if(WEIGHT_CLASS_BULKY)
-			size = "bulky"
+			size = "большого"
 		if(WEIGHT_CLASS_HUGE)
-			size = "huge"
+			size = "огромного"
 		if(WEIGHT_CLASS_GIGANTIC)
-			size = "gigantic"
+			size = "гигантского"
 
-	. = ..(user, "", "It is a [size] item.")
+	. = ..(user, "", "Это предмет [size] размера.")
 
 	if(user.research_scanner || user.check_smart_brain()) //Mob has a research scanner active.
 		var/msg = "*--------* <BR>"
@@ -515,12 +515,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return ..()
 
 
-/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if (!block_type || !(block_type & attack_type))
 		final_block_chance = 0
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) + prob(final_block_chance)
 	if(signal_result != 0)
-		owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
+		owner.visible_message(span_danger("[owner] блокиру[pluralize_ru(owner.gender, "ет", "ют")] [attack_text] с помощью [declent_ru(GENITIVE)]!"))
 		return signal_result
 	return FALSE
 

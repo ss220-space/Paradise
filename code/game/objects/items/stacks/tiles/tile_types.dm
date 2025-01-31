@@ -251,7 +251,7 @@
 	icon_state = "tile_light blue"
 	force = 3
 	throwforce = 5
-	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
+	attack_verb = list("ударил", "долбанул")
 	turf_type = /turf/simulated/floor/light
 
 // FAKESPACE

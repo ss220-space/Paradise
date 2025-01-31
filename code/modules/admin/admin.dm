@@ -66,7 +66,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
-/datum/admins/proc/show_player_panel(var/mob/M in GLOB.mob_list)
+/datum/admins/proc/show_player_panel(mob/M in GLOB.mob_list)
 	set name = "\[Admin\] Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
 
@@ -77,8 +77,21 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
-	var/body = {"<html><meta charset="UTF-8"><head><title>Options for [M.key]</title></head>"}
-	body += "<body>Options panel for <b>[M]</b>"
+	if(!check_rights(NONE))
+		return
+
+	usr.client.holder.vuap_open_context(M)
+
+/datum/admins/proc/show_old_player_panel(mob/M)
+
+	if(!M)
+		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.", confidential=TRUE)
+		return
+
+	if(!check_rights(R_ADMIN|R_MOD))
+		return
+
+	var/body = "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
 		if(check_rights(R_PERMISSIONS, 0))
@@ -87,7 +100,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			body += "\[[M.client.holder ? M.client.holder.rank : "Player"]\] "
 		body += "\[<a href='byond://?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
 		body += "<br>BYOND account registration date: [M.client.byondacc_date || "ERROR"] [M.client.byondacc_age <= CONFIG_GET(number/byond_account_age_threshold) ? "<b>" : ""]([M.client.byondacc_age] days old)[M.client.byondacc_age <= CONFIG_GET(number/byond_account_age_threshold) ? "</b>" : ""]"
-		body += "<br>Global Ban DB Lookup: [CONFIG_GET(string/centcom_ban_db_url) ? "<a href='byond://?_src_=holder;open_ccbdb=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
+		body += "<br>Global Ban DB Lookup: [CONFIG_GET(string/centcom_ban_db_url) ? "<a href='byond://?_src_=holder;open_ccDB=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
 
 		body += "<br>"
 
@@ -246,7 +259,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 					var/gene_name = GLOB.assigned_blocks[block]
 					if(gene_name)
 						var/text_color = "[M.dna.GetSEState(block) ? "#006600" : "#ff0000"]"
-						body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block]' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
+						body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block];version=old;' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
 					else
 						body += "[block]"
 					body += "</td>"
@@ -292,11 +305,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			<a href='byond://?_src_=holder;contractor_release=[M.UID()]'>Release now from Syndicate Jail</A> |
 		"}
 
-	body += {"<br>
-		</body></html>
+	body += {"<br></body>
 	"}
 
-	usr << browse(body, "window=adminplayeropts;size=550x615")
+	var/datum/browser/popup = new(usr, "adminplayeropts", "<div align='center'>Options for [M.key]</div>", 600, 615)
+	popup.set_content(body)
+	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+	popup.open()
+	onclose(usr, "adminplayeropts")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Player Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 
@@ -307,7 +323,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 #define PLAYER_NOTES_ENTRIES_PER_PAGE 50
 /datum/admins/proc/PlayerNotes()
-	set category = "Admin"
+	set category = "Admin.Ban"
 	set name = "Player Notes"
 
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -316,7 +332,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	show_note()
 
 /datum/admins/proc/show_player_notes(var/key as text)
-	set category = "Admin"
+	set category = "Admin.Ban"
 	set name = "Show Player Notes"
 
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -325,7 +341,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	show_note(key)
 
 /datum/admins/proc/vpn_whitelist()
-	set category = "Admin"
+	set category = "Admin.Ban"
 	set name = "VPN Ckey Whitelist"
 	if(!check_rights(R_BAN))
 		return
@@ -346,28 +362,33 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	dat += "</table>"
 	usr << browse(dat, "window=ban;size=400x400")
 
+
 /datum/admins/proc/Game()
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">
-		<center><B>Game Panel</B></center><hr>\n
-		<a href='byond://?src=[UID()];c_mode=1'>Change Game Mode</A><br>
-		"}
+	var/list/dat = list()
+	var/cached_UID = UID()
+	dat += "<center>"
+	dat += "<p><a href='byond://?src=[cached_UID];c_mode=1'>Change Game Mode</a><br></p>"
 	if(GLOB.master_mode == "secret")
-		dat += "<a href='byond://?src=[UID()];f_secret=1'>(Force Secret Mode)</A><br>"
+		dat += "<p><a href='byond://?src=[cached_UID];f_secret=1'>(Force Secret Mode)</a><br></p>"
 	if(GLOB.master_mode == "antag-paradise" || GLOB.secret_force_mode == "antag-paradise")
-		dat += "<a href='byond://?src=[UID()];change_weights=1'>Change Antag Weights</A><br>"
+		dat += "<p><a href='byond://?src=[cached_UID];change_weights=1'>Change Antag Weights</a><br></p>"
 
-	dat += {"
-		<BR>
-		<a href='byond://?src=[UID()];create_object=1'>Create Object</A><br>
-		<a href='byond://?src=[UID()];quick_create_object=1'>Quick Create Object</A><br>
-		<a href='byond://?src=[UID()];create_turf=1'>Create Turf</A><br>
-		<a href='byond://?src=[UID()];create_mob=1'>Create Mob</A><br>
-		"}
+	dat += "<hr><br>"
+	dat += "<p><a href='byond://?src=[cached_UID];create_object=1'>Create Object</a><br></p>"
+	dat += "<p><a href='byond://?src=[cached_UID];quick_create_object=1'>Quick Create Object</a><br></p>"
+	dat += "<p><a href='byond://?src=[cached_UID];create_turf=1'>Create Turf</a><br></p>"
+	dat += "<p><a href='byond://?src=[cached_UID];create_mob=1'>Create Mob</a></p>"
+	if(marked_datum && istype(marked_datum, /atom))
+		dat += "<A href='byond://?src=[cached_UID];dupe_marked_datum=1'>Duplicate Marked Datum</A><br>"
 
-	usr << browse(dat, "window=admin2;size=210x280")
+	var/datum/browser/popup = new(usr, "game_panel", "<div align='center'>Game Panel</div>", 220, 300)
+	popup.set_content(dat.Join(""))
+	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+	popup.open()
+	onclose(usr, "game_panel")
 	return
 
 /////////////////////////////////////////////////////////////////////////////////////////////////admins2.dm merge
@@ -447,7 +468,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /datum/admins/proc/announce()
-	set category = "Admin"
+	set category = "Admin.Event"
 	set name = "Announce"
 	set desc = "Announce your desires to the world"
 
@@ -465,7 +486,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleooc()
-	set category = "Server"
+	set category = "Admin.Toggles"
 	set desc="Globally Toggles OOC"
 	set name="Toggle OOC"
 
@@ -477,7 +498,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/togglelooc()
-	set category = "Server"
+	set category = "Admin.Toggles"
 	set desc="Globally Toggles LOOC"
 	set name="Toggle LOOC"
 
@@ -494,7 +515,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle LOOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggledsay()
-	set category = "Server"
+	set category = "Admin.Toggles"
 	set desc="Globally Toggles DSAY"
 	set name="Toggle DSAY"
 
@@ -511,7 +532,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Deadchat") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc
 
 /datum/admins/proc/toggleoocdead()
-	set category = "Server"
+	set category = "Admin.Toggles"
 	set desc="Toggle Dead OOC."
 	set name="Toggle Dead OOC"
 
@@ -527,7 +548,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead OOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleemoji()
-	set category = "Server"
+	set category = "Admin.Toggles"
 	set desc = "Toggle OOC Emoji"
 	set name = "Toggle OOC Emoji"
 
@@ -585,7 +606,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Entering") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleAI()
-	set category = "Event"
+	set category = "Admin.Toggles"
 	set desc="People can't be AI"
 	set name="Toggle AI"
 
@@ -602,7 +623,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle AI") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleaban()
-	set category = "Server"
+	set category = "Admin.Toggles"
 	set desc="Toggle the ability for players to respawn."
 	set name="Toggle Respawn"
 
@@ -766,20 +787,42 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	return ""
 
 
-/datum/admins/proc/spawn_atom(var/object as text)
-	set category = "Debug"
-	set desc = "(atom path) Spawn an atom"
+/datum/admins/proc/spawn_atom(object as text)
+	set category = "Admin.Event"
+	set desc = "(путь атома) Создать атом. Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным."
 	set name = "Spawn"
 
+	return usr.client.spawn_atom_impl(object, FALSE)
+
+/datum/admins/proc/spawn_atom_adv(object as text)
+	set category = "Admin.Event"
+	set desc = "(путь атома) Создать атом c aргументами в New(). Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным."
+	set name = "Advanced Spawn"
+
+	return usr.client.spawn_atom_impl(object, TRUE)
+
+/client/proc/spawn_atom_impl(object, params)
 	if(!check_rights(R_SPAWN))
 		return
 
 	var/list/types = typesof(/atom)
 	var/list/matches = new()
 
-	for(var/path in types)
-		if(findtext("[path]", object))
-			matches += path
+	var/include_subtypes = TRUE
+
+	if(copytext(object, -1) == ".")
+		include_subtypes = FALSE
+		object = copytext(object, 1, -1)
+
+	if(include_subtypes)
+		for(var/path in types)
+			if(findtext("[path]", object))
+				matches += path
+	else
+		var/needle_length = length(object)
+		for(var/path in types)
+			if(copytext("[path]", -needle_length) == object)
+				matches += path
 
 	if(matches.len==0)
 		return
@@ -788,23 +831,32 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(matches.len==1)
 		chosen = matches[1]
 	else
-		chosen = input("Select an atom type", "Spawn Atom", matches[1]) as null|anything in matches
-		if(!chosen)
+		chosen = tgui_input_list(usr, "Выберите тип атома", "Спавн атома", matches, matches[1])
+		if(isnull(chosen))
 			return
 
+	var/list/arguments
 	if(ispath(chosen,/turf))
 		var/turf/T = get_turf(usr.loc)
 		T.ChangeTurf(chosen)
 	else
-		var/atom/A = new chosen(usr.loc)
+		if(params)
+			arguments = usr.client.get_callproc_args(TRUE)
+
+		if(!usr)
+			return
+
+		arguments = list(usr.loc) + arguments
+
+		var/atom/A = new chosen(arglist(arguments))
 		A.flags |= ADMIN_SPAWNED
 
-	log_and_message_admins("spawned [chosen] at [COORD(usr)]")
+	log_and_message_admins("spawned [chosen] at [COORD(usr)][LAZYLEN(arguments) > 1 ? " with parameters [print_single_line(arguments)]": ""]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 
 /datum/admins/proc/show_traitor_panel(var/mob/M in GLOB.mob_list)
-	set category = "Admin"
+	set category = "Admin.Admin"
 	set desc = "Edit mobs's memory and role"
 	set name = "\[Admin\] Show Traitor Panel"
 
@@ -822,7 +874,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Traitor Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleguests()
-	set category = "Server"
+	set category = "Admin.Toggles"
 	set desc="Guests can't enter"
 	set name="Toggle Guests"
 
@@ -918,32 +970,31 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 //returns 1 to let the dragdrop code know we are trapping this event
 //returns 0 if we don't plan to trap the event
-/datum/admins/proc/cmd_ghost_drag(var/mob/dead/observer/frommob, var/tothing)
+/datum/admins/proc/cmd_ghost_drag(mob/dead/observer/frommob, atom/tothing)
 	if(!istype(frommob))
 		return //extra sanity check to make sure only observers are shoved into things
 
 	//same as assume-direct-control perm requirements.
 	if(!check_rights(R_VAREDIT,0)) //no varedit, check if they have r_admin and r_debug
 		if(!check_rights(R_ADMIN|R_DEBUG,0)) //if they don't have r_admin and r_debug, return
-			return 0 //otherwise, if they have no varedit, but do have r_admin and r_debug, execute the rest of the code
+			return FALSE //otherwise, if they have no varedit, but do have r_admin and r_debug, execute the rest of the code
 
 	if(!frommob.ckey)
-		return 0
+		return FALSE
 
 	if(isitem(tothing))
 		var/mob/living/toitem = tothing
 
-		var/ask = alert("Are you sure you want to allow [frommob.name]([frommob.key]) to possess [toitem.name]?", "Place ghost in control of item?", "Yes", "No")
-		if(ask != "Yes")
-			return 1
+		var/ask = tgui_alert(usr, "Вы уверены, что хотите разрешить [frommob]([frommob.key]) управлять [toitem.declent_ru(INSTRUMENTAL)]?", "Поместить призрака управлять предметом?", list("Да", "Нет"))
+		if(ask != "Да")
+			return TRUE
 
 		if(!frommob || !toitem) //make sure the mobs don't go away while we waited for a response
-			return 1
+			return TRUE
 
 		var/mob/living/simple_animal/possessed_object/tomob = new(toitem)
 
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
-		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
+		log_and_message_admins("has put [frommob.ckey] in control of [tomob.name].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 
 		tomob.ckey = frommob.ckey
@@ -955,27 +1006,52 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 		var/question = ""
 		if(tomob.ckey)
-			question = "This mob already has a user ([tomob.key]) in control of it! "
-		question += "Are you sure you want to place [frommob.name]([frommob.key]) in control of [tomob.name]?"
+			question = "У этого существа уже есть пользователь ([tomob.key]), который управляет им! "
+		question += "Вы уверены, что хотите разрешить [frommob.name]([frommob.key]) управлять [tomob]?"
 
-		var/ask = alert(question, "Place ghost in control of mob?", "Yes", "No")
-		if(ask != "Yes")
-			return 1
+		var/ask = tgui_alert(usr, question, "Поместить призрака управлять существом?", list("Да", "Нет"))
+		if(ask != "Да")
+			return TRUE
 
 		if(!frommob || !tomob) //make sure the mobs don't go away while we waited for a response
-			return 1
+			return TRUE
 
 		if(tomob.client) //no need to ghostize if there is no client
 			tomob.ghostize(0)
 
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of [tomob.name].</span>")
-		log_admin("[key_name(usr)] stuffed [frommob.ckey] into [tomob.name].")
+		log_and_message_admins("has put [frommob.ckey] in control of [tomob.name].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
 
 		tomob.ckey = frommob.ckey
 		qdel(frommob)
 
-		return 1
+		return TRUE
+
+	if(istype(tothing, /obj/structure/AIcore/deactivated))
+
+		var/question = "Вы уверены, что хотите разрешить [frommob.name]([frommob.key]) управлять пустым ядром ИИ?"
+
+		var/ask = tgui_alert(usr, question, "Поместить призрака управлять пустым ядром ИИ?", list("Да", "Нет"))
+		if(ask != "Да")
+			return TRUE
+
+		if(QDELETED(frommob) || QDELETED(tothing)) //make sure the mobs don't go away while we waited for a response
+			return TRUE
+
+		log_and_message_admins("has put [frommob.ckey] in control of an empty AI core.")
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
+
+		var/transfer_key = frommob.key // frommob is qdel'd in frommob.AIize()
+		var/mob/living/silicon/ai/ai_character = frommob.AIize()
+		ai_character.key = transfer_key // this wont occur in mind transferring if the mind is not active, which causes some weird stuff. This fixes it.
+		GLOB.empty_playable_ai_cores -= tothing
+
+		ai_character.forceMove(get_turf(tothing))
+		ai_character.view_core()
+
+		qdel(tothing)
+
+		return TRUE
 
 // Returns a list of the number of admins in various categories
 // result[1] is the number of staff that match the rank mask and are active
@@ -1001,7 +1077,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * Enables an admin to upload a new titlescreen image.
  */
 /client/proc/admin_change_title_screen()
-	set category = "Event"
+	set category = "Admin.Fun"
 	set name = "Title Screen: Change"
 
 	if(!check_rights(R_EVENT))
@@ -1026,7 +1102,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * Sets a titlescreen notice, a big red text on the main screen.
  */
 /client/proc/change_title_screen_notice()
-	set category = "Event"
+	set category = "Admin.Fun"
 	set name = "Title Screen: Set Notice"
 
 	if(!check_rights(R_EVENT))
@@ -1048,7 +1124,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
  * An admin debug command that enables you to change the HTML on the go.
  */
 /client/proc/change_title_screen_html()
-	set category = "Event"
+	set category = "Admin.Fun"
 	set name = "Title Screen: Set HTML"
 
 	if(!check_rights(R_DEBUG))

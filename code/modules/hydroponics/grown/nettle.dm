@@ -41,7 +41,7 @@
 	throw_speed = 1
 	throw_range = 3
 	origin_tech = "combat=3"
-	attack_verb = list("stung")
+	attack_verb = list("ужалил")
 
 /obj/item/grown/nettle/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is eating some of the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")

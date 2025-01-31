@@ -1,341 +1,3 @@
-
-/datum/admins/proc/player_panel_new()//The new one
-	if(!usr.client.holder)
-		return
-	// This stops the panel from being invoked by mentors who press F7.
-	if(!check_rights(R_ADMIN|R_MOD))
-		message_admins("[key_name_admin(usr)] attempted to invoke player panel without admin rights. If this is a mentor, its a chance they accidentally hit F7. If this is NOT a mentor, there is a high chance an exploit is being used")
-		return
-	var/dat = {"<html><meta charset="UTF-8"><head><title>Admin Player Panel</title></head>"}
-
-	//javascript, the part that does most of the work~
-	dat += {"
-
-		<head>
-			<script type='text/javascript'>
-
-				var locked_tabs = new Array();
-
-				function updateSearch(){
-
-
-					var filter_text = document.getElementById('filter');
-					var filter = filter_text.value.toLowerCase();
-
-					if(complete_list != null && complete_list != ""){
-						var mtbl = document.getElementById("maintable_data_archive");
-						mtbl.innerHTML = complete_list;
-					}
-
-					if(filter.value == ""){
-						return;
-					}else{
-
-						var maintable_data = document.getElementById('maintable_data');
-						var ltr = maintable_data.getElementsByTagName("tr");
-						for( var i = 0; i < ltr.length; ++i )
-						{
-							try{
-								var tr = ltr\[i\];
-								if(tr.getAttribute("id").indexOf("data") != 0){
-									continue;
-								}
-								var ltd = tr.getElementsByTagName("td");
-								var td = ltd\[0\];
-								var lsearch = td.getElementsByTagName("b");
-								var search = lsearch\[0\];
-								//var inner_span = li.getElementsByTagName("span")\[1\] //Should only ever contain one element.
-								//document.write("<p>"+search.innerText+"<br>"+filter+"<br>"+search.innerText.indexOf(filter))
-								if( search.innerText.toLowerCase().indexOf(filter) == -1 )
-								{
-									//document.write("a");
-									//ltr.removeChild(tr);
-									td.innerHTML = "";
-									i--;
-								}
-							}catch(err) {   }
-						}
-					}
-
-					var count = 0;
-					var index = -1;
-					var debug = document.getElementById("debug");
-
-					locked_tabs = new Array();
-
-				}
-
-				function expand(id,job,name,real_name,image,key,ip,antagonist,mobUID,client_ckey,eyeUID){
-
-					clearAll();
-
-					var span = document.getElementById(id);
-
-					body = "<table><tr><td>";
-
-					body += "</td><td align='center'>";
-
-					body += "<font size='2'><b>"+job+" "+name+"</b><br><b>Real name "+real_name+"</b><br><b>Played by "+key+" ("+ip+")</b></font>"
-
-					body += "</td><td align='center'>";
-
-					body += "<a href='byond://?src=[UID()];adminplayeropts="+mobUID+"'>PP</a> - "
-					body += "<a href='byond://?src=[UID()];shownoteckey="+key+"'>N</a> - "
-					body += "<a href='byond://?_src_=vars;Vars="+mobUID+"'>VV</a> - "
-					body += "<a href='byond://?src=[UID()];traitor="+mobUID+"'>TP</a> - "
-					body += "<a href='byond://?src=[usr.UID()];priv_msg="+client_ckey+"'>PM</a> - "
-					body += "<a href='byond://?src=[UID()];subtlemessage="+mobUID+"'>SM</a> - "
-					body += "<a href='byond://?src=[UID()];adminplayerobservefollow="+mobUID+"'>FLW</a> - "
-					body += "<a href='byond://?src=[UID()];adminalert="+mobUID+"'>ALERT</a>"
-					if(eyeUID)
-						body += "|<a href='byond://?src=[UID()];adminplayerobservefollow="+eyeUID+"'>EYE</a>"
-					body += "<br>"
-					if(antagonist > 0)
-						body += "<font size='2'><a href='byond://?src=[UID()];check_antagonist=1'><font color='red'><b>Antagonist</b></font></a></font>";
-
-					body += "</td></tr></table>";
-
-
-					span.innerHTML = body
-				}
-
-				function clearAll(){
-					var spans = document.getElementsByTagName('span');
-					for(var i = 0; i < spans.length; i++){
-						var span = spans\[i\];
-
-						var id = span.getAttribute("id");
-
-						if(!(id.indexOf("item")==0))
-							continue;
-
-						var pass = 1;
-
-						for(var j = 0; j < locked_tabs.length; j++){
-							if(locked_tabs\[j\]==id){
-								pass = 0;
-								break;
-							}
-						}
-
-						if(pass != 1)
-							continue;
-
-
-
-
-						span.innerHTML = "";
-					}
-				}
-
-				function addToLocked(id,link_id,notice_span_id){
-					var link = document.getElementById(link_id);
-					var decision = link.getAttribute("name");
-					if(decision == "1"){
-						link.setAttribute("name","2");
-					}else{
-						link.setAttribute("name","1");
-						removeFromLocked(id,link_id,notice_span_id);
-						return;
-					}
-
-					var pass = 1;
-					for(var j = 0; j < locked_tabs.length; j++){
-						if(locked_tabs\[j\]==id){
-							pass = 0;
-							break;
-						}
-					}
-					if(!pass)
-						return;
-					locked_tabs.push(id);
-					var notice_span = document.getElementById(notice_span_id);
-					notice_span.innerHTML = "<font color='red'>Locked</font> ";
-					//link.setAttribute("onClick","attempt('"+id+"','"+link_id+"','"+notice_span_id+"');");
-					//document.write("removeFromLocked('"+id+"','"+link_id+"','"+notice_span_id+"')");
-					//document.write("aa - "+link.getAttribute("onClick"));
-				}
-
-				function attempt(ab){
-					return ab;
-				}
-
-				function removeFromLocked(id,link_id,notice_span_id){
-					//document.write("a");
-					var index = 0;
-					var pass = 0;
-					for(var j = 0; j < locked_tabs.length; j++){
-						if(locked_tabs\[j\]==id){
-							pass = 1;
-							index = j;
-							break;
-						}
-					}
-					if(!pass)
-						return;
-					locked_tabs\[index\] = "";
-					var notice_span = document.getElementById(notice_span_id);
-					notice_span.innerHTML = "";
-					//var link = document.getElementById(link_id);
-					//link.setAttribute("onClick","addToLocked('"+id+"','"+link_id+"','"+notice_span_id+"')");
-				}
-
-				function selectTextField(){
-					var filter_text = document.getElementById('filter');
-					filter_text.focus();
-					filter_text.select();
-				}
-
-			</script>
-		</head>
-
-
-	"}
-
-	//body tag start + onload and onkeypress (onkeyup) javascript event calls
-	dat += "<body onload='selectTextField(); updateSearch();' onkeyup='updateSearch();'>"
-
-	//title + search bar
-	dat += {"
-
-		<table width='560' align='center' cellspacing='0' cellpadding='5' id='maintable'>
-			<tr id='title_tr'>
-				<td align='center'>
-					<font size='5'><b>Player panel</b></font><br>
-					Hover over a line to see more information | [check_rights(R_ADMIN,0) ? "<a href='byond://?src=[UID()];check_antagonist=1'>Check antagonists</a> | Kick <a href='byond://?_src_=holder;kick_all_from_lobby=1;afkonly=0'>everyone</a>/<a href='byond://?_src_=holder;kick_all_from_lobby=1;afkonly=1'>AFKers</a> in lobby" : "" ]
-					<p>
-				</td>
-			</tr>
-			<tr id='search_tr'>
-				<td align='center'>
-					<b>Search:</b> <input type='text' id='filter' value='' style='width:300px;'>
-				</td>
-			</tr>
-	</table>
-
-	"}
-
-	//player table header
-	dat += {"
-		<span id='maintable_data_archive'>
-		<table width='560' align='center' cellspacing='0' cellpadding='5' id='maintable_data'>"}
-
-	var/list/mobs = sortmobs()
-	var/i = 1
-	for(var/mob/M in mobs)
-		if(M.ckey)
-
-			var/color = "#e6e6e6"
-			if(i%2 == 0)
-				color = "#f2f2f2"
-			var/antagonist_string = get_antag_type_truncated_plaintext_string(M)
-
-			var/M_job = ""
-
-			if(isliving(M))
-
-				if(iscarbon(M)) //Carbon stuff
-					if(is_monkeybasic(M))
-						M_job = "Monkey"
-					else if(ishuman(M))
-						M_job = M.job
-					else if(isslime(M))
-						M_job = "slime"
-
-					else if(isalien(M)) //aliens
-						if(islarva(M))
-							M_job = "Alien larva"
-						else
-							M_job = "Alien"
-					else
-						M_job = "Carbon-based"
-
-				else if(issilicon(M)) //silicon
-					if(isAI(M))
-						M_job = "AI"
-					else if(ispAI(M))
-						M_job = "pAI"
-					else if(iscogscarab(M))
-						M_job = "Cogscarab"
-					else if(isrobot(M))
-						M_job = "Cyborg"
-					else
-						M_job = "Silicon-based"
-
-				else if(isanimal(M)) //simple animals
-					if(iscorgi(M))
-						M_job = "Corgi"
-					else
-						M_job = "Animal"
-
-				else
-					M_job = "Living"
-
-			else if(isnewplayer(M))
-				M_job = "New player"
-
-			else if(isobserver(M))
-				M_job = "Ghost"
-
-			M_job = replacetext(M_job, "'", "")
-			M_job = replacetext(M_job, "\"", "")
-			M_job = replacetext(M_job, "\\", "")
-
-			var/M_name = M.name
-			M_name = replacetext(M_name, "'", "")
-			M_name = replacetext(M_name, "\"", "")
-			M_name = replacetext(M_name, "\\", "")
-			var/M_rname = M.real_name
-			M_rname = replacetext(M_rname, "'", "")
-			M_rname = replacetext(M_rname, "\"", "")
-			M_rname = replacetext(M_rname, "\\", "")
-
-			var/M_key = M.key
-			M_key = replacetext(M_key, "'", "")
-			M_key = replacetext(M_key, "\"", "")
-			M_key = replacetext(M_key, "\\", "")
-
-			var/M_eyeUID = ""
-			if(isAI(M))
-				var/mob/living/silicon/ai/A = M
-				if(A.client && A.eyeobj) // No point following clientless AI eyes
-					M_eyeUID = "[A.eyeobj.UID()]"
-			var/client_ckey = M.client ? M.client.ckey : null
-			//output for each mob
-			dat += {"
-
-				<tr id='data[i]' name='[i]' onClick="addToLocked('item[i]','data[i]','notice_span[i]')">
-					<td align='center' bgcolor='[color]'>
-						<span id='notice_span[i]'></span>
-						<a id='link[i]'
-						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]","[antagonist_string]","[M.UID()]","[client_ckey]","[M_eyeUID]")'
-						>
-						<b id='search[i]'>[M_name] - [M_rname] - [M_key] ([M_job])</b>
-						</a>
-						<br><span id='item[i]'></span>
-					</td>
-				</tr>
-
-			"}
-
-			i++
-
-
-	//player table ending
-	dat += {"
-		</table>
-		</span>
-
-		<script type='text/javascript'>
-			var maintable = document.getElementById("maintable_data_archive");
-			var complete_list = maintable.innerHTML;
-		</script>
-	</body></html>
-	"}
-
-	usr << browse(dat, "window=players;size=600x480")
-
-
 /datum/admins/proc/check_antagonists_line(mob/M, caption = "", close = 1)
 	var/logout_status
 	logout_status = M.client ? "" : " <i>(logged out)</i>"
@@ -351,7 +13,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 	if(SSticker && SSticker.current_state >= GAME_STATE_PLAYING)
-		var/dat = {"<html><meta charset="UTF-8"><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"}
+		var/dat = {"<body><h1><B>Round Status</B></h1>"}
 		dat += "Current Game Mode: <B>[SSticker.mode.name]</B><BR>"
 		dat += "Round Duration: <B>[ROUND_TIME_TEXT()]</B><BR>"
 		dat += "<B>Emergency shuttle</B><BR>"
@@ -374,6 +36,39 @@
 				dat += span_danger("<B>Emergency shuttle lockdowned</B>")
 				dat += "<BR><a href='byond://?src=[UID()];stop_lockdown=1'>Stop lockdown</a><br>"
 		dat += "<a href='byond://?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
+		var/connected_players = GLOB.clients.len
+		var/lobby_players = 0
+		var/observers = 0
+		var/observers_connected = 0
+		var/living_players = 0
+		var/living_players_connected = 0
+		var/living_players_antagonist = 0
+		var/other_players = 0
+		for(var/mob/M in GLOB.mob_list)
+			if(M.ckey)
+				if(isnewplayer(M))
+					lobby_players++
+					continue
+				else if(M.stat != DEAD && M.mind && !isbrain(M))
+					living_players++
+					if(M.mind.special_role)
+						living_players_antagonist++
+					if(M.client)
+						living_players_connected++
+				else if((M.stat == DEAD )||(isobserver(M)))
+					observers++
+					if(M.client)
+						observers_connected++
+				else
+					other_players++
+		dat += "<BR><b><font color='#9A67EA'>Players:|[connected_players - lobby_players] ingame|[connected_players] connected|[lobby_players] lobby|</font></b>"
+		dat += "<BR><b><font color='green'>Living Players:|[living_players_connected] active|[living_players - living_players_connected] disconnected|[living_players_antagonist] antagonists|</font></b>"
+		dat += "<BR><b><font color='red'>Dead/Observing players:|[observers_connected] active|[observers - observers_connected] disconnected|</font></b>"
+		if(other_players)
+			dat += "<BR><span class='userdanger'>[other_players] players in invalid state or the statistics code is bugged!</span>"
+		dat += "<BR>"
+		dat +="<br><b>Code Phrases:</b> <span class='codephrases'>[GLOB.syndicate_code_phrase]</span>"
+		dat +="<br><b>Code Responses:</b> <span class='coderesponses'>[GLOB.syndicate_code_response]</span>"
 		dat += "<br><b>Antagonist Teams</b><br>"
 		dat += "<a href='byond://?src=[UID()];check_teams=1'>View Teams</a><br>"
 		if(SSticker.mode.syndicates.len)
@@ -624,8 +319,12 @@
 		dat += "<tr><td>Antag: </td><td>[sec_list[4]]</td>"
 		dat += "</table>"
 
-		dat += "</body></html>"
-		usr << browse(dat, "window=roundstatus;size=400x500")
+		dat += "</body>"
+		var/datum/browser/popup = new(usr, "roundstatus", "<div align='center'>Round Status</div>", 400, 500)
+		popup.set_content(dat)
+		popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+		popup.open()
+		onclose(usr, "roundstatus")
 	else
 		alert("The game hasn't started yet!")
 
@@ -664,7 +363,7 @@
 	if(!SSticker || SSticker.current_state < GAME_STATE_PLAYING)
 		return
 
-	var/dat = {"<html><meta charset="UTF-8"><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"}
+	var/dat = {"<body><h1><B>Round Status</B></h1>"}
 	var/list/sec_list = check_active_security_force()
 	dat += "<br><table cellspacing=5><tr><td><b>Security</b></td><td></td></tr>"
 	dat += "<tr><td>Total: </td><td>[sec_list[1]]</td>"
@@ -672,7 +371,7 @@
 	dat += "<tr><td>Dead: </td><td>[sec_list[3]]</td>"
 	dat += "<tr><td>Antag: </td><td>[sec_list[4]]</td>"
 	dat += "</table>"
-	dat += "</body></html>"
+	dat += "</body>"
 
 	dat += "<br><table cellspacing=5><tr><td><B>Security</B></td><td></td></tr>"
 	for(var/datum/mind/mind in SSticker.mode.get_all_sec())
@@ -683,7 +382,11 @@
 	if(SSticker.mode.ert.len)
 		dat += check_role_table_sec("ERT", SSticker.mode.ert)
 
-	usr << browse(dat, "window=roundstatus;size=600x800")
+	var/datum/browser/popup = new(usr, "secstatus", "<div align='center'>Security Status</div>", 600, 800)
+	popup.set_content(dat)
+	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+	popup.open()
+	onclose(usr, "secstatus")
 
 /datum/admins/proc/check_role_table_sec(name, list/members, show_objectives=0)
 	var/txt = "<br><table cellspacing=5><tr><td><b>[name]</b></td><td></td></tr>"

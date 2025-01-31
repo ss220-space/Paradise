@@ -14,15 +14,15 @@ import { Window } from '../layouts';
 
 const damageTypes = [
   {
-    label: 'Асфиксия',
+    label: 'Удушение',
     type: 'oxyLoss',
   },
   {
-    label: 'Интоксикация',
+    label: 'Токсины',
     type: 'toxLoss',
   },
   {
-    label: 'Раны',
+    label: 'Физические повреждения',
     type: 'bruteLoss',
   },
   {
@@ -34,7 +34,7 @@ const damageTypes = [
 const statNames = [
   ['good', 'В сознании'],
   ['average', 'Без сознания'],
-  ['bad', 'ТРУП'],
+  ['bad', 'Смерть'],
 ];
 
 export const Cryo = (props, context) => {
@@ -80,7 +80,7 @@ const CryoContent = (props, context) => {
               <LabeledList.Item label="Пациент">
                 {occupant.name || 'Имя неизвестно'}
               </LabeledList.Item>
-              <LabeledList.Item label="Здоровье">
+              <LabeledList.Item label="Оценка здоровья">
                 <ProgressBar
                   min={occupant.health}
                   max={occupant.maxHealth}
@@ -91,12 +91,12 @@ const CryoContent = (props, context) => {
                 </ProgressBar>
               </LabeledList.Item>
               <LabeledList.Item
-                label="Статус"
+                label="Состояние"
                 color={statNames[occupant.stat][0]}
               >
                 {statNames[occupant.stat][1]}
               </LabeledList.Item>
-              <LabeledList.Item label="Температура">
+              <LabeledList.Item label="Температура тела">
                 <AnimatedNumber value={Math.round(occupant.bodyTemperature)} />{' '}
                 K
               </LabeledList.Item>
@@ -135,7 +135,7 @@ const CryoContent = (props, context) => {
               onClick={() => act('ejectBeaker')}
               disabled={!isBeakerLoaded}
             >
-              Извлечь ёмкость
+              Извлечь ёмкость.
             </Button>
           }
         >

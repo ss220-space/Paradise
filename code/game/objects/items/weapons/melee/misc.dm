@@ -21,7 +21,7 @@
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=5"
-	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
+	attack_verb = list("выпорол", "хлестнул", "стегнул", "проучил")
 	hitsound = 'sound/weapons/slash.ogg' //pls replace
 
 
@@ -42,7 +42,7 @@
 	armour_penetration = 75
 	sharp = TRUE
 	origin_tech = "combat=5"
-	attack_verb = list("lunged at", "stabbed")
+	attack_verb = list("полоснул", "уколол")
 	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	hitsound = 'sound/weapons/rapierhit.ogg'
@@ -55,6 +55,11 @@
 	icon_state = "rapier"
 	item_state = "rapier"
 	block_type = MELEE_ATTACKS
+
+/obj/item/melee/rapier/captain/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
+
 
 /obj/item/melee/rapier/syndie
 	name = "plastitanium rapier"
@@ -114,7 +119,7 @@
 	sharp = TRUE
 	item_flags = NOSHARPENING
 	origin_tech = "combat=5"
-	attack_verb = list("slashed", "stabbed", "sliced", "caned")
+	attack_verb = list("полоснул", "уколол", "рубанул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 1000)
 	/// Whether we are currently performing double attack
@@ -189,7 +194,7 @@
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("stabbed", "jabbed", "iced,")
+	attack_verb = list("порезал", "уколол", "обледенил")
 
 /obj/item/melee/candy_sword
 	name = "candy cane sword"
@@ -199,7 +204,7 @@
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("slashed", "stabbed", "sliced", "caned")
+	attack_verb = list("полоснул", "уколол", "ударил")
 
 /obj/item/melee/flyswatter
 	name = "flyswatter"
@@ -208,7 +213,7 @@
 	item_state = "flyswatter"
 	force = 1
 	throwforce = 1
-	attack_verb = list("swatted", "smacked")
+	attack_verb = list("прихлопнул", "шлёпнул")
 	hitsound = 'sound/effects/snap.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	//Things in this list will be instantly splatted.  Flyman weakness is handled in the flyman species weakness proc.
@@ -244,7 +249,7 @@
 	var/bonus_damage = 10
 	icon_state = "big_iron"
 	item_state = "big_iron"
-	attack_verb = list("burned", "dominated", "robusted")
+	attack_verb = list("опалил", "задоминировал", "заробастил")
 
 /obj/item/melee/bigiron/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()

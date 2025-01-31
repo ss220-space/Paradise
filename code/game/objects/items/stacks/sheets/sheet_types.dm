@@ -174,6 +174,9 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	merge_type = /obj/item/stack/sheet/plasteel
 	point_value = 23
 
+/obj/item/stack/sheet/plasteel/fifty
+	amount = 50
+
 /obj/item/stack/sheet/plasteel/lowplasma
 	desc = "This sheet is an alloy of iron and plasma. There are an special barcode 'Low Plasma Level'"
 	materials = list(MAT_METAL=2000, MAT_PLASMA=400)

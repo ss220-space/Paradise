@@ -50,7 +50,7 @@
 	. = ..()
 	if(.)
 		return .
-	user.holder.player_panel_new()
+	user.holder.player_panel_veth()
 	return TRUE
 
 

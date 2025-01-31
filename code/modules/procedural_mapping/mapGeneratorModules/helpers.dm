@@ -41,3 +41,14 @@
 			continue
 		return 1
 	return 0
+
+/datum/mapGeneratorModule/bottomLayer/massdelete
+	spawnableAtoms = list()
+	spawnableTurfs = list()
+
+/datum/mapGeneratorModule/bottomLayer/massdelete/generate()
+	if(!mother)
+		return
+	for(var/V in mother.map)
+		var/turf/T = V
+		T.empty()

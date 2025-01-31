@@ -77,12 +77,8 @@
 	for(var/atom/movable/O in get_turf(src))
 		if(itemcount >= storage_capacity)
 			break
-		if(O.density || O.anchored || istype(O,/obj/structure/closet) || isobserver(O))
+		if(O.density || O.anchored || istype(O,/obj/structure/closet) || isobserver(O) || O.has_buckled_mobs())
 			continue
-		if(istype(O, /obj/structure/bed)) //This is only necessary because of rollerbeds and swivel chairs.
-			var/obj/structure/bed/B = O
-			if(B.has_buckled_mobs())
-				continue
 		O.forceMove(src)
 		itemcount++
 

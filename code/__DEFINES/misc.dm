@@ -363,7 +363,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 33
+#define SQL_VERSION 34
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -505,3 +505,14 @@
 #define MECH_TYPE_SIDEWINTER	(1<<11)
 #define MECH_TYPE_OLD_DURAND	(1<<12)
 #define MECH_TYPE_DARK_GYGAX	(1<<13)
+
+
+
+// Deadchat control defines
+
+/// Will execute a single command after the cooldown based on player votes.
+#define DEADCHAT_DEMOCRACY_MODE (1<<0)
+/// Allows each player to do a single command every cooldown.
+#define DEADCHAT_ANARCHY_MODE (1<<1)
+/// Mutes the democracy mode messages send to orbiters at the end of each cycle. Useful for when the cooldown is so low it'd get spammy.
+#define MUTE_DEADCHAT_DEMOCRACY_MESSAGES (1<<2)

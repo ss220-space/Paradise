@@ -56,7 +56,15 @@
 /////////////////////////// DNA MACHINES
 /obj/machinery/dna_scannernew
 	name = "\improper DNA modifier"
-	desc = "Устройство для сканирования структуры ДНК."
+	desc = "Высокотехнологичное устройство, предназначенное для сканирования и изменения структуры ДНК гуманоидов. Здесь и происходит всё волшебство."
+	ru_names = list(
+		NOMINATIVE = "ДНК-модификатор",
+		GENITIVE = "ДНК-модификатора",
+		DATIVE = "ДНК-модификатору",
+		ACCUSATIVE = "ДНК-модификатор",
+		INSTRUMENTAL = "ДНК-модификатором",
+		PREPOSITIONAL = "ДНК-модификаторе"
+	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "scanner_open"
 	density = TRUE
@@ -72,14 +80,7 @@
 	var/damage_coeff
 	var/scan_level
 	var/precision_coeff
-	ru_names = list(
-		NOMINATIVE = "ДНК-модификатор",
-		GENITIVE = "ДНК-модификатора",
-		DATIVE = "ДНК-модификатору",
-		ACCUSATIVE = "ДНК-модификатор",
-		INSTRUMENTAL = "ДНК-модификатором",
-		PREPOSITIONAL = "ДНК-модификаторе"
-	)
+
 
 /obj/machinery/dna_scannernew/New()
 	..()
@@ -116,12 +117,19 @@
 	for(var/obj/item/stock_parts/micro_laser/P in component_parts)
 		damage_coeff = P.rating
 
+/obj/machinery/dna_scannernew/examine(mob/user)
+	. = ..()
+	if(occupant)
+		. += span_notice("Внутри кто-то есть.")
+	if(Adjacent(user))
+		. += span_info("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
+
 /obj/machinery/dna_scannernew/AllowDrop()
 	return FALSE
 
 /obj/machinery/dna_scannernew/verb/eject()
 	set src in oview(1)
-	set name = "Eject DNA Scanner"
+	set name = "Извлечь субъект"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -144,30 +152,6 @@
 		for(var/mob/M in src)//Failsafe so you can get mobs out
 			M.forceMove(get_turf(src))
 
-/obj/machinery/dna_scannernew/verb/move_inside()
-	set src in oview(1)
-	set name = "Enter DNA Scanner"
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other
-		return
-	if(!ishuman(usr)) //Make sure they're a mob that has dna
-		to_chat(usr, span_notice("Как бы вы не старались, у вас не получится забраться в [declent_ru(ACCUSATIVE)]."))
-		return
-	if(occupant)
-		balloon_alert(usr, "занято!")
-		return
-	if(usr.abiotic())
-		balloon_alert(usr, "руки заняты")
-		return
-	if(usr.has_buckled_mobs()) //mob attached to us
-		to_chat(usr, span_warning("[usr] не поместится в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(usr, "нём", "ней", "нём", "них")]  сидит слайм."))
-		return
-	usr.forceMove(src)
-	occupant = usr
-	icon_state = "scanner_occupied"
-	add_fingerprint(usr)
-	SStgui.update_uis(src)
-
 /obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user, params)
 	if(!istype(O))
 		return
@@ -188,22 +172,18 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		balloon_alert(user, "занято")
+		balloon_alert(user, "внутри кто-то есть!")
 		return TRUE
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		balloon_alert(user, "руки заняты")
+		balloon_alert(user, "руки субъекта заняты!")
 		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[pluralize_ru(L, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L, "нём", "ней", "нём", "них")] сидит слайм."))
+		to_chat(user, span_warning("[L] не помест[pluralize_ru(L.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return TRUE
-	if(L == user)
-		visible_message("[user] забира[pluralize_ru(user, "ет", "ют")]ся в [declent_ru(ACCUSATIVE)].")
-	else
-		visible_message("[user] помеща[pluralize_ru(user, "ет", "ют")] [L.name] в [declent_ru(ACCUSATIVE)].")
-	put_in(L)
+	put_in(L, user)
 	return TRUE
 
 
@@ -217,16 +197,14 @@
 	if(istype(I, /obj/item/reagent_containers/glass))
 		add_fingerprint(user)
 		if(beaker)
-			balloon_alert(user, "внутри есть ёмкость")
+			balloon_alert(user, "слот для ёмкости занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		beaker = I
+		visible_message(span_notice("[user] вставля[pluralize_ru(user.gender,"ет","ют")] [I.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))
+		balloon_alert(user, "ёмкость установлена")
 		SStgui.update_uis(src)
-		user.visible_message(
-			span_notice("[user] помеща[pluralize_ru(user, "ет", "ют")] [I] в [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы помещаете [I] в [declent_ru(ACCUSATIVE)]."),
-		)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -237,19 +215,19 @@
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !ismob(grabbed_thing))
 		return .
 	if(panel_open)
-		balloon_alert(grabber, "закройте панель")
+		balloon_alert(grabber, "техпанель открыта!")
 		return .
 	var/mob/target = grabbed_thing
 	if(occupant)
-		balloon_alert(grabber, "занято!")
+		balloon_alert(grabber, "внутри кто-то есть!")
 		return .
 	if(target.abiotic())
-		to_chat(grabber, span_warning("Субъект не должен ничего держать в руках."))
+		balloon_alert(grabber, "руки субъекта заняты!")
 		return .
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target, "нём", "ней", "нём", "них")]  сидит слайм."))
+		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return .
-	put_in(target)
+	put_in(target, grabber)
 	add_fingerprint(grabber)
 
 
@@ -261,7 +239,7 @@
 
 /obj/machinery/dna_scannernew/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
-		balloon_alert(user, "панель заблокирована")
+		balloon_alert(user, "панель заблокирована!")
 		return TRUE
 	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
 		return TRUE
@@ -271,7 +249,16 @@
 		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
-/obj/machinery/dna_scannernew/proc/put_in(mob/M)
+/obj/machinery/dna_scannernew/proc/put_in(mob/M, mob/living/user)
+	add_fingerprint(user)
+	if(M == user)
+		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+	else
+		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [M] в [declent_ru(ACCUSATIVE)].")
+
+	if(!do_after(user, 2 SECONDS, M))
+		return
+
 	M.forceMove(src)
 	occupant = M
 	icon_state = "scanner_occupied"
@@ -288,11 +275,11 @@
 /obj/machinery/dna_scannernew/proc/go_out(mob/user, force)
 	if(!occupant)
 		if(user)
-			balloon_alert(user, "сканер пуст!")
+			to_chat(user, span_warning("Сканер пуст!"))
 		return
 	if(locked && !force)
 		if(user)
-			balloon_alert(user, "сканер заблокирован!")
+			to_chat(user, span_warning("Сканер заблокирован!"))
 		return
 	occupant.forceMove(loc)
 	occupant = null
@@ -330,7 +317,15 @@
 
 /obj/machinery/computer/scan_consolenew
 	name = "\improper DNA Modifier access console"
-	desc = "Устройство позволяет сканировать и изменять ДНК."
+	desc = "Консоль для работы с ДНК-модификатором."
+	ru_names = list(
+		NOMINATIVE = "консоль управления ДНК-модификатором",
+		GENITIVE = "консоли управления ДНК-модификатором",
+		DATIVE = "консоли управления ДНК-модификатором",
+		ACCUSATIVE = "консоль управления ДНК-модификатором",
+		INSTRUMENTAL = "консолью управления ДНК-модификатором",
+		PREPOSITIONAL = "консоли управления ДНК-модификатором"
+	)
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
@@ -354,29 +349,19 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 400
-	ru_names = list(
-		NOMINATIVE = "Консоль доступа ДНК-модификатора",
-		GENITIVE = "Консоли доступа ДНК-модификатора",
-		DATIVE = "Консоли доступа ДНК-модификатора",
-		ACCUSATIVE = "Консоль доступа ДНК-модификатора",
-		INSTRUMENTAL = "Консолью доступа ДНК-модификатора",
-		PREPOSITIONAL = "Консоли доступа ДНК-модификатора"
-	)
 
 
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS
 		add_fingerprint(user)
 		if(disk)
-			balloon_alert(user, "диск уже вставлен")
+			balloon_alert(user, "слот для дискеты занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		disk = I
-		user.visible_message(
-			span_notice("[user] вставля[pluralize_ru(user, "ет", "ют")] [I.name] в [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы вставляете [I.name] в [declent_ru(ACCUSATIVE)]."),
-		)
+		visible_message(span_notice("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+		balloon_alert(user, "дискета вставлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
@@ -440,7 +425,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "DNAModifier", name)
+		ui = new(user, src, "DNAModifier", "Консоль управления ДНК-модификатором")
 		ui.open()
 
 /obj/machinery/computer/scan_consolenew/ui_data(mob/user)
@@ -704,6 +689,8 @@
 				var/obj/item/reagent_containers/glass/B = connected.beaker
 				B.forceMove(connected.loc)
 				connected.beaker = null
+				if(Adjacent(usr) && !issilicon(usr))
+					usr.put_in_hands(B, ignore_anim = FALSE)
 		if("ejectOccupant")
 			connected.eject_occupant()
 		// Transfer Buffer Management
@@ -722,7 +709,7 @@
 						databuf.dna = connected.occupant.dna.Clone()
 						if(ishuman(connected.occupant))
 							databuf.dna.real_name=connected.occupant.name
-						databuf.name = "Unique Identifier"
+						databuf.name = "Уникальные Идентификаторы"
 						buffers[bufferId] = databuf
 				if("saveUIAndUE")
 					if(connected.occupant && connected.occupant.dna)
@@ -731,7 +718,7 @@
 						databuf.dna = connected.occupant.dna.Clone()
 						if(ishuman(connected.occupant))
 							databuf.dna.real_name=connected.occupant.dna.real_name
-						databuf.name = "Unique Identifier + Unique Enzymes"
+						databuf.name = "Уникальные Идентификаторы + Уникальные Ферменты"
 						buffers[bufferId] = databuf
 				if("saveSE")
 					if(connected.occupant && connected.occupant.dna)
@@ -740,12 +727,12 @@
 						databuf.dna = connected.occupant.dna.Clone()
 						if(ishuman(connected.occupant))
 							databuf.dna.real_name = connected.occupant.dna.real_name
-						databuf.name = "Structural Enzymes"
+						databuf.name = "Структурные Ферменты"
 						buffers[bufferId] = databuf
 				if("clear")
 					buffers[bufferId] = new /datum/dna2/record()
 				if("changeLabel")
-					ui_modal_input(src, "changeBufferLabel", "Please enter the new buffer label:", null, list("id" = bufferId), buffer.name, UI_MODAL_INPUT_MAX_LENGTH_NAME)
+					ui_modal_input(src, "changeBufferLabel", "Введите название для ячейки буфера:", null, list("id" = bufferId), buffer.name, UI_MODAL_INPUT_MAX_LENGTH_NAME)
 				if("transfer")
 					if(!connected.occupant || (HAS_TRAIT(connected.occupant, TRAIT_NO_CLONE) && connected.scan_level < 3) || !connected.occupant.dna)
 						return
@@ -782,7 +769,7 @@
 						return
 					if(text2num(params["block"]) > 0)
 						var/list/choices = all_dna_blocks((buffer.types & DNA2_BUF_SE) ? buffer.dna.SE : buffer.dna.UI)
-						ui_modal_choice(src, "createInjectorBlock", "Please select the block to create an injector from:", null, list("id" = bufferId), null, choices)
+						ui_modal_choice(src, "createInjectorBlock", "Выберите блок, на основе которого будет создан инъектор:", null, list("id" = bufferId), null, choices)
 					else
 						create_injector(bufferId, TRUE)
 				if("loadDisk")

@@ -38,7 +38,7 @@
 	throwforce = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 
 /obj/item/sord/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is trying to impale [user.p_them()]self with [src]! It might be a suicide attempt if it weren't so shitty.</span>", \
@@ -61,7 +61,7 @@
 	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 50
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
@@ -92,7 +92,7 @@
 	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 50
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
@@ -138,7 +138,7 @@
 	force = 20
 	throwforce = 15
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("jabbed","stabbed","ripped")
+	attack_verb = list("уколол", "тыкнул")
 
 /obj/item/wirerod
 	name = "Wired rod"
@@ -150,7 +150,7 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=1150, MAT_GLASS=75)
-	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
+	attack_verb = list("ударил", "огрел")
 
 
 /obj/item/wirerod/attackby(obj/item/I, mob/user, params)
@@ -215,7 +215,7 @@
 	var/lastdeflect
 	force = 10
 	throwforce = 12
-	attack_verb = list("beat", "smacked")
+	attack_verb = list("beat", "шлёпнул")
 	w_class = WEIGHT_CLASS_HUGE
 	pickup_sound = 'sound/items/handling/wooden_pickup.ogg'
 	drop_sound = 'sound/items/handling/wooden_drop.ogg'
@@ -372,9 +372,9 @@
 	/// Sound to play when concealing or extending
 	var/extend_sound = 'sound/weapons/batonextend.ogg'
 	/// Attack verbs when concealed (created on Initialize)
-	attack_verb = list("hit", "poked")
+	attack_verb = list("ударил", "ткнул")
 	/// Attack verbs when extended (created on Initialize)
-	var/list/attack_verb_on = list("smacked", "struck", "cracked", "beaten")
+	var/list/attack_verb_on = list("шлёпнул", "ударил", "треснул", "поколотил")
 
 
 /obj/item/melee/baseball_bat/homerun/central_command/srt
@@ -466,3 +466,40 @@
 		victim.apply_damage(stamina_damage, STAMINA, blocked = victim.getarmor(user.zone_selected, MELEE))
 		if(prob(30))
 			victim.Knockdown(3 SECONDS)
+/obj/item/melee/ghostface_knife
+	name = "Knife"
+	desc = "Очень острый нож. Судя по потёртостям и засохшей крови, он совсем не валялся без дела."
+	ru_names = list(
+		NOMINATIVE = "старый нож",
+		GENITIVE = "старого ножа",
+		DATIVE = "старому ножу",
+		ACCUSATIVE = "старый нож",
+		INSTRUMENTAL = "старым ножом",
+		PREPOSITIONAL = "старом ноже"
+	)
+	icon_state = "ghostface_knife"
+	force = 34
+	armour_penetration = 70
+	block_chance = 30
+	w_class = WEIGHT_CLASS_SMALL
+	throwforce = 34
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
+	throw_speed = 3
+	throw_range = 6
+	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "рубанул")
+	sharp = TRUE
+
+/obj/item/melee/ghostface_knife/devil
+	name = "Old knife"
+	desc = "Странный нож с, тем не менее, крайне острым лезвием. Судя по характерным потёртостям и засохшей крови, он явно не валялся без дела."
+	ru_names = list(
+		NOMINATIVE = "старый ржавый нож",
+		GENITIVE = "старого ржавого ножа",
+		DATIVE = "старому ржавому ножу",
+		ACCUSATIVE = "старый ржавый нож",
+		INSTRUMENTAL = "старым ржавым ножом",
+		PREPOSITIONAL = "старом ржавом ноже"
+	)
+	icon_state = "devil_ghostface_knife"

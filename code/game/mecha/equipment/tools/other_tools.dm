@@ -1,5 +1,5 @@
 // Teleporter, Wormhole generator, Gravitational catapult, Armor booster modules,
-// Repair droid, Tesla Energy relay, Generators
+// Repair droid, Tesla Energy relay, Generators, SCS-3 Cage
 
 ////////////////////////////////////////////// TELEPORTER ///////////////////////////////////////////////
 
@@ -590,3 +590,296 @@
 		var/obj/mecha/working/W = loc
 		W.slow_pressure_step_in = initial(W.slow_pressure_step_in)
 		W.fast_pressure_step_in = initial(W.fast_pressure_step_in)
+
+
+
+// SCS-3 CAGE
+
+/obj/item/mecha_parts/mecha_equipment/cage
+	name = "SCS 3 Cage"
+	desc = "Модуль для экзокостюмов, используемый для задержании преступников."
+	ru_names = list(
+	    NOMINATIVE = "модуль \"Клетка SCS-3\"",
+	    GENITIVE = "модуля \"Клетка SCS-3\"",
+	    DATIVE = "модулю \"Клетка SCS-3\"",
+	    ACCUSATIVE = "модуль \"Клетка SCS-3\"",
+	    INSTRUMENTAL = "модулем \"Клетка SCS-3\"",
+	    PREPOSITIONAL = "модулю \"Клетка SCS-3\""
+	)
+	icon_state = "mecha_cage"
+	origin_tech = "combat=6;materials=5"
+	equip_cooldown = 3 SECONDS
+	energy_drain = 500
+	range = MECHA_MELEE
+	salvageable = FALSE
+	harmful = FALSE
+	alert_category = "mecha_cage"
+
+	var/mob/living/carbon/prisoner
+	var/mob/living/carbon/holding
+	///for custom icons
+	var/datum/action/innate/mecha/select_module/button
+	///wacky case
+	var/current_stage
+	var/obj/effect/supress/supress_effect
+
+/obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
+	if(..())
+		if(locate(src) in M.equipment)
+			return FALSE
+		if(istype(M, /obj/mecha/combat/durand) || istype(M, /obj/mecha/combat/lockersyndie) || istype(M, /obj/mecha/combat/marauder))
+			return TRUE
+		else if(M.emagged == TRUE)
+			return TRUE
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/cage/Destroy()
+	for(var/atom/movable/AM in src)
+		AM.forceMove(get_turf(src))
+		if(holding)
+			stop_supressing(holding)
+
+	prisoner = null
+	holding = null
+	return ..()
+
+/obj/item/mecha_parts/mecha_equipment/cage/select_set_alert()
+	. = ..()
+	if(!.)
+		if(prisoner)
+			change_alert(CAGE_STAGE_THREE)
+		else if(holding)
+			if(!holding.handcuffed)
+				change_alert(CAGE_STAGE_ONE)
+			else
+				change_alert(CAGE_STAGE_TWO)
+		else
+			change_alert(CAGE_STAGE_ZERO)
+
+/obj/item/mecha_parts/mecha_equipment/cage/action(mob/living/carbon/target)
+	if(!action_checks(target))
+		return FALSE
+	if(!istype(target))
+		return FALSE
+
+	var/same_target = target == holding
+	var/supress_check = target.IsStamcrited() || (target.health <= HEALTH_THRESHOLD_CRIT) || target.stat != CONSCIOUS
+
+	//SUPRESSING
+	if(((holding && !same_target) || !holding) && supress_check)
+		supress_action(target)
+		return TRUE
+
+	//HANDCUFFING
+	if(same_target && !target.handcuffed)
+		handcuff_action(target)
+		return TRUE
+
+	//PUTTING INTO MECH
+	if(same_target && target.handcuffed)
+		insert_action(target)
+		return TRUE
+
+	occupant_message(span_notice("[target] не мо[pluralize_ru(target.gender, "жет", "гут")] быть удержа[genderize_ru(target.gender, "н", "на", "но", "ны")], так как [target] не наход[pluralize_ru(target.gender, "ит", "ят")]ся в критическом состоянии."))
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/supress_action(mob/living/carbon/target)
+	if(holding)
+		occupant_message(span_notice("Вы перестаёте удерживать [holding], и начинаете удерживать [target]..."))
+		chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] перестаёт удерживать [holding] и начинает удерживать [target]."))
+		stop_supressing(holding)
+	else
+		occupant_message(span_notice("Вы начинаете удерживать [target]..."))
+		chassis.visible_message(span_warning(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает удерживать [target].")))
+
+	set_supress_effect(target)
+	if(!do_after_cooldown(target))
+		qdel(supress_effect)
+		supress_effect = null
+		return FALSE
+	if(!prisoner)
+		change_alert(CAGE_STAGE_ONE)
+	supress(target)
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/handcuff_action(mob/living/carbon/target)
+	occupant_message(span_notice("Вы начинаете сковывать [target]..."))
+	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает сковывать [target]."))
+	if(!do_after_cooldown(target))
+		return FALSE
+	if(!prisoner)
+		change_alert(CAGE_STAGE_TWO)
+	target.apply_restraints(new /obj/item/restraints/handcuffs, ITEM_SLOT_HANDCUFFED, TRUE)
+	occupant_message(span_notice("Вы успешно сковали [target]..."))
+	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] успешно сковал [target]."))
+	add_attack_logs(chassis.occupant, target, "shackled")
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/insert_action(mob/living/carbon/target)
+	if(!prisoner_insertion_check(target))
+		return FALSE
+	if(!button)
+		for(var/datum/action/innate/mecha/select_module/H in chassis.occupant.actions)
+			if(H.button_icon_state == "mecha_cage")
+				button = H
+				break
+
+	change_state("mecha_cage_activate")
+	occupant_message(span_notice("Вы начинаете помещать [target] внутрь клетки..."))
+	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает помещать [target] внутрь клетки."))
+	if(!do_after_cooldown(target))
+		change_state("mecha_cage")
+		return FALSE
+	change_state("mecha_cage_activated")
+	change_alert(CAGE_STAGE_THREE)
+	prisoner = target
+	target.forceMove(src)
+	stop_supressing(target)
+	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
+	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_escape))
+	update_equip_info()
+	occupant_message(span_notice("[target] успешно помещ[genderize_ru(target.gender, "ён", "ена", "ено", "ены")] в клетку."))
+	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] поместил [target] в клетку."))
+	log_message("[target] loaded in SCS-3 Cage.")
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/supress(mob/living/carbon/target)
+	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
+	add_attack_logs(chassis.occupant, target, "started supressing with SCS-3 Cage")
+	holding = target
+	target.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
+	target.move_resist = MOVE_FORCE_STRONG
+	supress_effect.icon_state = "applied"
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/stop_supressing(mob/living/carbon/target)
+	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
+	add_attack_logs(chassis.occupant, target, "stopped supressing with SCS-3 Cage")
+	holding = null
+	target.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
+	target.move_resist = MOVE_FORCE_DEFAULT
+	qdel(supress_effect)
+	supress_effect = null
+
+	if(!prisoner)
+		change_alert(CAGE_STAGE_ZERO)
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/on_moved(mob/living/carbon/target)
+	SIGNAL_HANDLER
+	stop_supressing(target)
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/on_escape(mob/living/carbon/target)
+	SIGNAL_HANDLER
+	occupant_message(span_warning("[prisoner] сбежа[genderize_ru(prisoner.gender, "л", "ла", "ло", "ли")] из клетки."))
+	log_message("[prisoner] escaped from mech cage.")
+	prisoner = null
+	if(holding)
+		if(holding.handcuffed)
+			change_alert(CAGE_STAGE_TWO)
+		else
+			change_alert(CAGE_STAGE_ONE)
+	else
+		change_alert(CAGE_STAGE_ZERO)
+	change_state("mecha_cage")
+	update_equip_info()
+	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/change_state(icon)
+	button.button_icon_state = icon
+	flick(icon, button)
+	button.UpdateButtonIcon()
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/change_alert(var/stage_define)
+	var/mob/living/carbon/H = chassis.occupant
+	for(var/I in subtypesof(/atom/movable/screen/alert/mech_cage))
+		var/atom/movable/screen/alert/mech_cage/alert = I
+		if(alert.stage_define == stage_define)
+			H.throw_alert(alert_category, alert)
+			break
+
+	current_stage = stage_define
+
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/set_supress_effect(mob/living/carbon/target)
+	supress_effect = new(target.loc)
+	flick("effect_on_doll", supress_effect)
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/prisoner_insertion_check(mob/living/carbon/target)
+	if(target.buckled)
+		occupant_message(span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в клетку, так как [target] прикова[genderize_ru(target.gender, "н", "на", "но", "ны")] к [target.buckled.declent_ru(DATIVE)]!"))
+		return FALSE
+	if(target.has_buckled_mobs())
+		occupant_message(span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в клетку, пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] висит слайм!"))
+		return FALSE
+	if(prisoner)
+		occupant_message(span_warning("Клетка уже занята!"))
+		return FALSE
+	return TRUE
+
+/obj/item/mecha_parts/mecha_equipment/cage/proc/eject(force)
+	if(!action_checks(src))
+		return FALSE
+	if(!prisoner)
+		return FALSE
+	if(holding)
+		if(holding.handcuffed)
+			change_alert(CAGE_STAGE_TWO)
+		else
+			change_alert(CAGE_STAGE_ONE)
+	else
+		change_alert(CAGE_STAGE_ZERO)
+	UnregisterSignal(prisoner, COMSIG_MOVABLE_MOVED)
+	prisoner.forceMove(get_turf(src))
+	if(!force)
+		occupant_message("[prisoner] извлеч[genderize_ru(prisoner.gender, "ён", "ена", "ено", "ены")].")
+		log_message("[prisoner] ejected from SCS 3 Cage.")
+	else
+		occupant_message("[prisoner] сбежа[genderize_ru(prisoner.gender, "л", "ла", "ло", "ли")] из клетки.")
+		log_message("[prisoner] escaped from SCS 3 Cage.")
+	prisoner = null
+	change_state("mecha_cage")
+	update_equip_info()
+
+/obj/item/mecha_parts/mecha_equipment/cage/can_detach()
+	if(prisoner || holding)
+		occupant_message(span_warning("Невозможно отсоединить [declent_ru(ACCUSATIVE)] - модуль в работе!"))
+		return FALSE
+	return TRUE
+
+/obj/item/mecha_parts/mecha_equipment/cage/detach_act()
+	button = null
+
+/obj/item/mecha_parts/mecha_equipment/cage/get_module_equip_info()
+	if(prisoner)
+		return " <br />\[Задержанный: [prisoner] \]<br /><a href='byond://?src=[UID()];eject=1'>Eject</a>"
+
+/obj/item/mecha_parts/mecha_equipment/cage/Topic(href,href_list)
+	..()
+	var/datum/topic_input/afilter = new /datum/topic_input(href,href_list)
+	if(afilter.get("eject"))
+		eject(FALSE)
+	return
+
+/obj/item/mecha_parts/mecha_equipment/cage/container_resist()
+	if(prisoner.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER))
+		var/obj/item/clothing/suit/straight_jacket/H = prisoner.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
+		prisoner.cuff_resist(H, FALSE)
+		return
+	if(prisoner.handcuffed)
+		prisoner.cuff_resist(prisoner.handcuffed, FALSE)
+		return
+	if(do_after(prisoner, 30 SECONDS, prisoner))
+		eject(TRUE)
+
+/obj/effect/supress
+	name = "Mech claws"
+	desc = "Пара мощных механических клешней. Такие могут запросто схватить гуманоида, не дав ему возможности выбраться."
+	ru_names = list(
+	    NOMINATIVE = "механические клешни",
+	    GENITIVE = "механических клешней",
+	    DATIVE = "механическим клешням",
+	    ACCUSATIVE = "механические клешни",
+	    INSTRUMENTAL = "механическими клешнями",
+	    PREPOSITIONAL = "механических клешней"
+	)
+	icon = 'icons/misc/supress_effect.dmi'
+	icon_state = "effect_on_doll"
+	anchored = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plane = ABOVE_GAME_PLANE

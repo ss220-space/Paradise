@@ -2,7 +2,15 @@
 
 /obj/item/defibrillator
 	name = "defibrillator"
-	desc = "A device that delivers powerful shocks to detachable paddles that resuscitate incapacitated patients."
+	desc = "Прибор, генерирующий высоковольтный импульс, позволяющий запустить остановившееся сердце."
+	ru_names = list(
+		NOMINATIVE = "дефибриллятор",
+		GENITIVE = "дефибриллятора",
+		DATIVE = "дефибриллятору",
+		ACCUSATIVE = "дефибриллятор",
+		INSTRUMENTAL = "дефибриллятором",
+		PREPOSITIONAL = "дефибрилляторе"
+	)
 	icon_state = "defibunit"
 	item_state = "defibunit"
 	slot_flags = ITEM_SLOT_BACK
@@ -70,7 +78,7 @@
 
 /obj/item/defibrillator/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Ctrl-Click</b> to remove the paddles from the defibrillator.")
+	. += span_info("Используйте <b>Ctrl + ЛКМ</b>, чтобы взять лопасти.")
 
 
 /obj/item/defibrillator/proc/update_power()
@@ -124,16 +132,16 @@
 		add_fingerprint(user)
 		var/obj/item/stock_parts/cell/new_cell = I
 		if(cell)
-			to_chat(user, span_warning("The [name] already has a cell."))
+			balloon_alert(user, "слот для батареи занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(new_cell.maxcharge < paddles.revivecost)
-			to_chat(user, span_warning("The [name] requires a higher capacity cell."))
+			balloon_alert(user, "требуется батарея большей мощности!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(new_cell, src))
 			return ..()
 		cell = new_cell
 		update_icon(UPDATE_OVERLAYS)
-		to_chat(user, span_notice("You install a cell in [src]."))
+		balloon_alert(user, "батарея установлена")
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(I == paddles)
@@ -145,19 +153,19 @@
 
 /obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)
-		to_chat(user, span_notice("[src] doesn't have a cell."))
+		balloon_alert(user, "слот для батареи пуст!")
 		return
 
 	// we want an infinite power cell to stay inside (used in advanced compact defib)
 	if(istype(cell, /obj/item/stock_parts/cell/infinite))
-		to_chat(user, span_notice("[src] somehow resists your attempt to remove a cell."))
+		balloon_alert(user, "невозможно извлечь батарею!")
 		return
 
 	cell.update_icon()
 	cell.forceMove_turf()
 	cell = null
 	I.play_tool_sound(src)
-	to_chat(user, span_notice("You remove the cell from [src]."))
+	balloon_alert(user, "батарея извлечена")
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
@@ -175,7 +183,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/verb/toggle_paddles_verb()
-	set name = "Toggle Paddles"
+	set name = "Взять лопасти"
 	set category = "Object"
 	set src in oview(1)
 
@@ -187,7 +195,7 @@
 
 /obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user = usr)
 	if(!paddles)
-		to_chat(user, span_warning("[src] has no paddles!"))
+		balloon_alert(user, "лопасти отсутствуют!")
 		return
 
 	if(paddles_on_defib)
@@ -208,7 +216,7 @@
 	var/obj/item/organ/external/hand_right = user.get_organ(BODY_ZONE_PRECISE_R_HAND)
 
 	if((!hand_left || !hand_left.is_usable()) && (!hand_right || !hand_right.is_usable()))
-		to_chat(user, span_warning("You can't use your hands to take out the paddles!"))
+		balloon_alert(user, "невозможно взять в руки!")
 		return
 
 	paddles_on_defib = FALSE
@@ -216,7 +224,7 @@
 	if(!user.put_in_hands(paddles, ignore_anim = FALSE))
 		paddles.loc = src
 		paddles_on_defib = TRUE
-		to_chat(user, span_warning("You need a free hand to hold the paddles!"))
+		balloon_alert(user, "руки заняты!")
 		return
 
 	paddles.update_icon(UPDATE_ICON_STATE)
@@ -259,7 +267,15 @@
 
 /obj/item/defibrillator/compact
 	name = "compact defibrillator"
-	desc = "A belt-equipped defibrillator that can be rapidly deployed."
+	desc = "Переносной дефибриллятор, оборудован для ношения на поясе."
+	ru_names = list(
+		NOMINATIVE = "компактный дефибриллятор",
+		GENITIVE = "компактного дефибриллятора",
+		DATIVE = "компактному дефибриллятору",
+		ACCUSATIVE = "компактный дефибриллятор",
+		INSTRUMENTAL = "компактным дефибриллятором",
+		PREPOSITIONAL = "компактном дефибрилляторе"
+	)
 	icon_state = "defibcompact"
 	item_state = "defibcompact"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -278,7 +294,15 @@
 
 /obj/item/defibrillator/compact/combat
 	name = "combat defibrillator"
-	desc = "A belt-equipped blood-red defibrillator that can be rapidly deployed. Does not have the restrictions or safeties of conventional defibrillators and can revive through space suits."
+	desc = "Переносной дефибриллятор кроваво-красного цвета, оборудован для ношения на поясе. Не оснащён протоколами безопасности, в отличие от обычных дефибрилляторов. Может работать через скафандры."
+	ru_names = list(
+		NOMINATIVE = "боевой дефибриллятор",
+		GENITIVE = "боевого дефибриллятора",
+		DATIVE = "боевому дефибриллятору",
+		ACCUSATIVE = "боевой дефибриллятор",
+		INSTRUMENTAL = "боевым дефибриллятором",
+		PREPOSITIONAL = "боевом дефибрилляторе"
+	)
 	icon_state = "defibcombat"
 	item_state = "defibcombat"
 	paddle_type = /obj/item/twohanded/shockpaddles/syndicate
@@ -293,7 +317,15 @@
 
 /obj/item/defibrillator/compact/advanced
 	name = "advanced compact defibrillator"
-	desc = "A belt-mounted state-of-the-art defibrillator that can be rapidly deployed in all environments. Uses an experimental self-charging cell, meaning that it will (probably) never stop working. Can be used to defibrillate through space suits. It is impossible to damage."
+	desc = "Высокотехнологичный продвинутый дефибриллятор, созданный для использования в самых экстремальных условиях. Выполнен из передовых материалов, благодаря чему его почти невозможно повредить или уничтожить. Использует экспериментальную батарею с функций самозаряда. Может работать через скафандры."
+	ru_names = list(
+		NOMINATIVE = "продвинутый компактный дефибриллятор",
+		GENITIVE = "продвинутого компактного дефибриллятора",
+		DATIVE = "продвинутому компактному дефибриллятору",
+		ACCUSATIVE = "продвинутый компактный дефибриллятор",
+		INSTRUMENTAL = "продвинутым компактным дефибриллятором",
+		PREPOSITIONAL = "продвинутом компактном дефибрилляторе"
+	)
 	icon_state = "defibnt"
 	item_state = "defibnt"
 	paddle_type = /obj/item/twohanded/shockpaddles/advanced
@@ -304,6 +336,9 @@
 
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
 
+/obj/item/defibrillator/compact/advanced/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/defibrillator/compact/advanced/loaded/Initialize(mapload)
 	. = ..()
@@ -313,7 +348,7 @@
 
 /obj/item/defibrillator/compact/advanced/emp_act(severity)
 	if(world.time > next_emp_message)
-		atom_say("Warning: Electromagnetic pulse detected. Integrated shielding prevented all potential hardware damage.")
+		atom_say("Предупреждение: зафиксирован мощный электро-магнитный импульс. Защитная система предотвратила возможное повреждение оборудования.")
 		playsound(src, 'sound/machines/defib_saftyon.ogg', 50)
 		next_emp_message = world.time + 5 SECONDS
 
@@ -321,7 +356,15 @@
 
 /obj/item/twohanded/shockpaddles
 	name = "defibrillator paddles"
-	desc = "A pair of plastic-gripped paddles with flat metal surfaces that are used to deliver powerful electric shocks."
+	desc = "Пара лопастей с тонкими металлическими пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током."
+	ru_names = list(
+		NOMINATIVE = "лопасти дефибриллятора",
+		GENITIVE = "лопастей дефибриллятора",
+		DATIVE = "лопастям дефибриллятора",
+		ACCUSATIVE = "лопасти дефибриллятора",
+		INSTRUMENTAL = "лопастями дефибриллятора",
+		PREPOSITIONAL = "лопастях дефибриллятора"
+	)
 	icon_state = "defibpaddles"
 	item_state = "defibpaddles"
 	force = 0
@@ -339,13 +382,30 @@
 
 /obj/item/twohanded/shockpaddles/advanced
 	name = "advanced defibrillator paddles"
-	desc = "A pair of high-tech paddles with flat plasteel surfaces that are used to deliver powerful electric shocks. They possess the ability to penetrate armor to deliver shock."
+	desc = "Пара высокотехнологичных лопастей с тонкими пласталевыми пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током, могут действовать сквозь слой брони."
+	ru_names = list(
+		NOMINATIVE = "лопасти продвинутого дефибриллятора",
+		GENITIVE = "лопастей продвинутого дефибриллятора",
+		DATIVE = "лопастям продвинутого дефибриллятора",
+		ACCUSATIVE = "лопасти продвинутого дефибриллятора",
+		INSTRUMENTAL = "лопастями продвинутого дефибриллятора",
+		PREPOSITIONAL = "лопастях продвинутого дефибриллятора"
+	)
 	icon_state = "ntpaddles"
 	item_state = "ntpaddles"
 
 /obj/item/twohanded/shockpaddles/syndicate
 	name = "combat defibrillator paddles"
 	desc = "A pair of high-tech paddles with flat plasteel surfaces to revive deceased operatives (unless they exploded). They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
+	desc = "Пара высокотехнологичных лопастей с тонкими пласталевыми пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током, могут действовать сквозь слой брони. Одинаково хорошо подходят как для оживления мёртвых оперативников, так и для устранения противников."
+	ru_names = list(
+		NOMINATIVE = "лопасти боевого дефибриллятора",
+		GENITIVE = "лопастей боевого дефибриллятора",
+		DATIVE = "лопастям боевого дефибриллятора",
+		ACCUSATIVE = "лопасти боевого дефибриллятора",
+		INSTRUMENTAL = "лопастями боевого дефибриллятора",
+		PREPOSITIONAL = "лопастях боевого дефибриллятора"
+	)
 	icon_state = "syndiepaddles"
 	item_state = "syndiepaddles"
 
@@ -372,7 +432,7 @@
 	SIGNAL_HANDLER  // COMSIG_DEFIB_PADDLES_APPLIED
 
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
-		to_chat(user, "<span class='boldnotice'>You need to wield the paddles in both hands before you can use them on someone!</span>")
+		balloon_alert(user, "нужно держать обеими руками!")
 		return COMPONENT_BLOCK_DEFIB_MISC
 
 	if(!defib.powered)
@@ -384,10 +444,10 @@
 	on_cooldown = FALSE
 	if(defib.cell)
 		if(defib.cell.charge >= revivecost)
-			defib.visible_message(span_notice("[defib] beeps: Unit ready."))
+			atom_say("Заряд готов.")
 			playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50)
 		else
-			defib.visible_message(span_notice("[defib] beeps: Charge depleted."))
+			atom_say("Заряд исчерпан.")
 			playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
 		update_icon(UPDATE_ICON_STATE)
 	defib.update_icon(UPDATE_ICON_STATE)
@@ -406,7 +466,7 @@
 
 
 /obj/item/twohanded/shockpaddles/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide."))
+	user.visible_message(span_suicide("[user] поднос[pluralize_ru(user.gender, "ит", "ят")] включенные лопасти к своей груди! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить самоубийство!"))
 	defib.deductcharge(revivecost)
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	return OXYLOSS
@@ -417,7 +477,7 @@
 	if(defib)
 		defib.toggle_paddles(user)
 		if(!silent)
-			to_chat(user, span_notice("The paddles snap back into the main unit."))
+			balloon_alert(user, "лопасти возвращены на место")
 	UnregisterSignal(user, COMSIG_MOB_CLIENT_MOVED)
 
 /obj/item/twohanded/shockpaddles/equip_to_best_slot(mob/user, force = FALSE)
@@ -440,7 +500,7 @@
 	return TRUE
 
 /obj/item/twohanded/shockpaddles/borg
-	desc = "A pair of mounted paddles with flat metal surfaces that are used to deliver powerful electric shocks."
+	desc = "Пара встроенных лопастей с тонкими металлическими пластинами. Используются для подачи мощных ударов электрическим током."
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
 	var/safety = TRUE
@@ -470,7 +530,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/twohanded/shockpaddles/borg/on_cooldown_expire(obj/item/paddles)
-	visible_message(span_notice("[src] beeps: Defibrillation unit ready."))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] сообщает: заряд готов."))
 	playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, 0)
 	on_cooldown = FALSE
 	update_icon(UPDATE_ICON_STATE)

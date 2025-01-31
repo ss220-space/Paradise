@@ -148,7 +148,6 @@
 
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
-
 	if(!istype(new_character))
 		stack_trace("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob.")
 
@@ -695,7 +694,7 @@
 		alert("Not before round-start!", "Alert")
 		return
 
-	var/list/out = list("<html><meta charset='UTF-8'><head><title>[name]</title></head><body><b>[name]</b>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
+	var/list/out = list("<body><b>[name]</b>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
 	out.Add("Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]")
 	out.Add("Assigned role: [assigned_role]. <a href='byond://?src=[UID()];role_edit=1'>Edit</a>")
 	out.Add("Special role: [special_role].") //better to change this through /datum/antagonist/, some code uses this var and can break if something goes wrong
@@ -844,7 +843,12 @@
 	out.Add("<a href='byond://?src=[UID()];obj_add=1'>Add objective</a><br>")
 	out.Add("<a href='byond://?src=[UID()];obj_announce=1'>Announce objectives</a><br>")
 	out.Add("</body></html>")
-	usr << browse(out.Join("<br>"), "window=edit_memory[src];size=500x500")
+
+	var/datum/browser/popup = new(usr, "edit_memory[src]", "<div align='center'>[name]</div>", 500, 500)
+	popup.set_content(out.Join("<br>"))
+	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+	popup.open()
+	onclose(usr, "edit_memory[src]")
 
 /datum/mind/Topic(href, href_list)
 	//проверяем на амбиции, после чего прерываем выполнение, иначе он залезет в админский антаг-панель

@@ -8,7 +8,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
 	flags = BLOCKS_LIGHT
-	attack_verb = list("whipped", "lashed", "disciplined")
+	attack_verb = list("хлестнул", "стегнул", "проучил")
 	max_integrity = 300
 	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
 	equip_sound = 'sound/items/handling/backpack_equip.ogg'

@@ -91,11 +91,8 @@ GLOBAL_LIST_EMPTY(overminds)
 
 
 /mob/camera/blob/process()
-	if(!blob_core)
-		qdel(src)
-		return
 	if(!free_strain_rerolls && (last_reroll_time + BLOB_POWER_REROLL_FREE_TIME < world.time))
-		to_chat(src, span_boldnotice("Вы получили еще одну бесплатную смену штамма."))
+		to_chat(src, span_boldnotice("Вы получили ещё одну бесплатную смену штамма."))
 		free_strain_rerolls = TRUE
 	track_z()
 
@@ -140,7 +137,7 @@ GLOBAL_LIST_EMPTY(overminds)
 	var/turf/target_turf = .
 	if(!is_valid_turf(target_turf)) // Allows unplaced blobs to travel through station z-levels
 		if(z_move_flags & ZMOVE_FEEDBACK)
-			to_chat(src, span_warning("Ваш пункт назначения недействителен. Перейдите в другое место и попробуйте еще раз."))
+			to_chat(src, span_warning("Ваш пункт назначения недействителен. Перейдите в другое место и попробуйте ещё раз."))
 		return null
 
 /mob/camera/blob/proc/is_valid_turf(turf/tile)

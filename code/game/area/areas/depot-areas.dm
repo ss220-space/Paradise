@@ -4,6 +4,7 @@
 	icon_state = "dark"
 	tele_proof = 1
 	area_flags = NONE
+	holomap_should_draw = FALSE
 
 /area/syndicate_depot/core
 	icon_state = "red"

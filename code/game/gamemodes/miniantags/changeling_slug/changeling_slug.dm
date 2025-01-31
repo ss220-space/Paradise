@@ -10,18 +10,20 @@
 /mob/living/simple_animal/hostile/headslug/evented/proc/make_slug_antag(give_default_objectives = TRUE)
 	mind.assigned_role = SPECIAL_ROLE_HEADSLUG
 	mind.special_role = SPECIAL_ROLE_HEADSLUG
+	SSticker.mode.headslugs |= mind
 	var/list/messages = list()
-	messages.Add("<b><font size=3 color='red'>We are a headslug.</font><br></b>")
-	messages.Add(span_changeling("Our eggs can be laid in any dead humanoid, but not in small ones. Use <B>Alt-Click</B> on the valid mob and keep calm for 5 seconds."))
-	messages.Add(span_notice("Though this form shall perish after laying the egg, our true self shall be reborn in time."))
+	messages.Add("<b><font size=3 color='red'>Мы личинка генокрада.</font><br></b>")
+	messages.Add(span_changeling("Наши яйца можно отложить в любого крупного мёртвого гуманоида. Используйте <B>Alt + ЛКМ</B> на подходящем существе и стойте неподвижно в течение 5 секунд."))
+	messages.Add(span_notice("Хоть эта форма и погибнет после откладки яиц, наше истинное «я» со временем возродится."))
 
 	SEND_SOUND(src, sound('sound/vox_fem/changeling.ogg'))
 	if(give_default_objectives)
 		var/datum/objective/findhost = new /datum/objective // objective just for rofl
 		findhost.owner = mind
-		findhost.explanation_text = "Find the corpse to lay eggs in and evolve."
+		findhost.explanation_text = "Найдите труп, чтобы отложить в него яйца и начать процесс роста"
 		findhost.completed = TRUE
 		findhost.needs_target = FALSE
+		findhost.antag_menu_name = "Найти носителя"
 		mind.objectives += findhost
 		messages.Add(mind.prepare_announce_objectives())
 	to_chat(src, chat_box_red(messages.Join("<br>")))

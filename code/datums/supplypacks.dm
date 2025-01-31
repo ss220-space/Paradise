@@ -2380,6 +2380,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containername = "laser tag crate"
 
+/datum/supply_packs/misc/plasmavendor
+	name = "PlasmaMate pack crate"
+	contains = list(/obj/item/vending_refill/plasma,
+					/obj/item/circuitboard/vendor/plasmamate)
+	cost = 100
+	containername = "plasmamate pack crate"
+	required_tech = list("toxins" = 5, "plasmatech" = 6)
+
 /datum/supply_packs/misc/religious_supplies
 	name = "Religious Supplies Crate"
 	contains = list(/obj/item/reagent_containers/food/drinks/bottle/holywater,

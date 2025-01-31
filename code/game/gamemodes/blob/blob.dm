@@ -117,6 +117,7 @@
 		blob_objective.critical_mass = legit_blobs.len
 		blob_objective.needed_critical_mass = blob_win_count
 		blob_objective.set_target()
+		blob_objective.owner = src
 
 
 /datum/game_mode/proc/blob_died()

@@ -1,5 +1,5 @@
 /client/proc/edit_admin_permissions()
-	set category = "Admin"
+	set category = "Admin.Admin"
 	set name = "Permissions Panel"
 	set desc = "Edit admin permissions"
 	if(!check_rights(R_PERMISSIONS))
@@ -13,20 +13,46 @@
 	var/datum/asset/permissions_asset = get_asset_datum(/datum/asset/simple/permissions)
 	permissions_asset.send(usr)
 
-	var/output = {"<!DOCTYPE html>
-<html>
-<meta charset="UTF-8">
-<head>
-<title>Permissions Panel</title>
-<script type='text/javascript' src="search.js"></script>
-<link rel='stylesheet' type='text/css' href="panels.css">
-</head>
-<body onload='selectTextField();updateSearch();'>
-<div id='main'><table id='searchable' cellspacing='0'>
+	var/output = {"
+<body onload='selectTextField(); updateSearch();'>
+<style>
+table {
+    table-layout: fixed; /* Фиксирует ширину колонок */
+    width: 100%; /* Заставляет таблицу занимать всю доступную ширину */
+    border-collapse: collapse;
+	max-width: 100%;
+}
+
+#main {
+	overflow:hidden;
+	max-width: 600px;
+}
+
+td, th {
+    overflow: hidden; /* Скрывает содержимое, выходящее за пределы */
+	white-space: nowrap; /* Запрещает перенос текста */
+	margin: 5px;
+	text-align:center;
+}
+
+
+
+</style>
+<div id='main'>
+<table id='searchable'>
+<colgroup>
+    <col style='width: 20%;'>
+    <col style='width: 20%;'>
+    <col style='width: 60%;'>
+</colgroup>
+<thead>
 <tr class='title'>
-<th style='width:20%;text-align:right;'>CKEY <a class='small' href='byond://?src=[UID()];editrights=add'>\[+\]</a></th>
-<th style='width:20%;'>RANK</th><th style='width:60%;'>PERMISSIONS</th>
+<th>CKEY <a class='small' href='byond://?src=[UID()];editrights=add'>\[+\]</a></th>
+<th>RANK</th>
+<th>PERMISSIONS</th>
 </tr>
+</thead>
+<tbody>
 "}
 
 	for(var/adm_ckey in GLOB.admin_datums)
@@ -36,24 +62,27 @@
 		var/rights = rights2text(D.rights," ")
 		if(!rights)	rights = "*none*"
 		output += {"<tr>
-<td style='text-align:right;'>[adm_ckey] <a class='small' href='byond://?src=[UID()];editrights=remove;ckey=[adm_ckey]'>\[-\]</a></td>
-<td><a href='byond://?src=[UID()];editrights=rank;ckey=[adm_ckey]'>[rank]</a></td>
-<td><a class='small' href='byond://?src=[UID()];editrights=permissions;ckey=[adm_ckey]'>[rights]</a></font></td>
+<td style='min-width: 20%;'>[adm_ckey] <a class='small' href='byond://?src=[UID()];editrights=remove;ckey=[adm_ckey]'>\[-\]</a></td>
+<td slyle='min-width: 20%;'><a href='byond://?src=[UID()];editrights=rank;ckey=[adm_ckey]'>[rank]</a></td>
+<td style='min-width: 60%;'><a class='small' href='byond://?src=[UID()];editrights=permissions;ckey=[adm_ckey]'>[rights]</a></td>
 </tr>"}
 
-		/*output += "<tr>"
-		output += "<td style='text-align:right;'>[adm_ckey] <a class='small' href='byond://?src=[UID()];editrights=remove;ckey=[adm_ckey]'>\[-\]</a></td>"
-		output += "<td><a href='byond://?src=[UID()];editrights=rank;ckey=[adm_ckey]'>[rank]</a></td>"
-		output += "<td><a class='small' href='byond://?src=[UID()];editrights=permissions;ckey=[adm_ckey]'>[rights]</a></font></td>"
-		output += "</tr>"*/
-
 	output += {"
-</table></div>
+</tbody>
+</table>
+</div>
 <div id='top'><b>Search:</b> <input type='text' id='filter' value='' style='width:70%;' onkeyup='updateSearch();'></div>
 </body>
-</html>"}
+"}
 
-	usr << browse(output,"window=editrights;size=600x500")
+	var/datum/browser/popup = new(usr, "editrights", "<div align='center'>Permissions Panel</div>", 600, 500)
+	popup.set_content(output)
+	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+	//popup.add_stylesheet("dark_inputs", "html/panels.css")
+	popup.add_stylesheet("dark_inputs", "html/dark_inputs.css")
+	popup.add_script("search", "html/search.js")
+	popup.open()
+	onclose(usr, "editrights")
 
 /datum/admins/proc/log_admin_rank_modification(adm_ckey, new_rank, new_rigths = 0)
 	if(CONFIG_GET(flag/admin_legacy_system))	return
@@ -140,7 +169,7 @@
 			qdel(log_query)
 			to_chat(usr, "<span class='notice'>Admin rank changed.</span>")
 
-/datum/admins/proc/log_admin_permission_modification(var/adm_ckey, var/new_permission)
+/datum/admins/proc/log_admin_permission_modification(adm_ckey, new_permission)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, span_boldannounceooc("Admin edit blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to edit admin ranks via advanced proc-call")
@@ -156,7 +185,7 @@
 		return
 
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='warning'>Failed to establish database connection</span>")
+		to_chat(usr, span_warning("Failed to establish database connection"))
 		return
 
 	if(!adm_ckey || !new_permission)
@@ -173,7 +202,7 @@
 	if(!istext(adm_ckey) || !isnum(new_permission))
 		return
 
-	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT id, flags FROM [format_table_name("admin")] WHERE ckey=:adm_ckey", list(
+	var/datum/db_query/select_query = SSdbcore.NewQuery("SELECT id FROM [format_table_name("admin")] WHERE ckey=:adm_ckey", list(
 		"adm_ckey" = adm_ckey
 	))
 	if(!select_query.warn_execute())
@@ -181,51 +210,26 @@
 		return
 
 	var/admin_id
-	var/admin_rights
+
 	while(select_query.NextRow())
 		admin_id = text2num(select_query.item[1])
-		admin_rights = text2num(select_query.item[2])
 
 	qdel(select_query)
 	if(!admin_id)
 		return
 
 	flag_account_for_forum_sync(adm_ckey)
-	if(admin_rights & new_permission) //This admin already has this permission, so we are removing it.
-		var/datum/db_query/insert_query = SSdbcore.NewQuery("UPDATE [format_table_name("admin")] SET flags=:newflags WHERE id=:admin_id", list(
-			"newflags" = (admin_rights & ~new_permission),
-			"admin_id" = admin_id
-		))
-		if(!insert_query.warn_execute())
-			qdel(insert_query)
-			return
+	var/datum/db_query/insert_query = SSdbcore.NewQuery("UPDATE [format_table_name("admin")] SET flags=:newflags WHERE id=:admin_id", list(
+		"newflags" = new_permission,
+		"admin_id" = admin_id
+	))
+	if(!insert_query.warn_execute())
 		qdel(insert_query)
+		return
+	qdel(insert_query)
 
-		var/logtxt = "Removed permission [rights2text(new_permission)] (flag = [new_permission]) to admin [adm_ckey]"
-		var/datum/db_query/log_query = SSdbcore.NewQuery({"
-			INSERT INTO [format_table_name("admin_log")] (`datetime` ,`adminckey` ,`adminip` ,`log`)
-			VALUES (Now() , :uckey, :uip, :logtxt)"}, list(
-				"uckey" = usr.ckey,
-				"uip" = usr.client.address,
-				"logtxt" = logtxt
-			))
-		if(!log_query.warn_execute())
-			qdel(log_query)
-			return
-		qdel(log_query)
-		to_chat(usr, "<span class='notice'>Permission removed.</span>")
-	else //This admin doesn't have this permission, so we are adding it.
-		var/datum/db_query/insert_query = SSdbcore.NewQuery("UPDATE [format_table_name("admin")] SET flags=:newflags WHERE id=:admin_id", list(
-			"newflags" = (admin_rights | new_permission),
-			"admin_id" = admin_id
-		))
-		if(!insert_query.warn_execute())
-			qdel(insert_query)
-			return
-		qdel(insert_query)
-
-		var/logtxt = "Added permission [rights2text(new_permission)] (flag = [new_permission]) to admin [adm_ckey]"
-		var/datum/db_query/log_query = SSdbcore.NewQuery({"
+	var/logtxt = "Updated permission [rights2text(new_permission, " ")] (flags = [new_permission]) to admin [adm_ckey]"
+	var/datum/db_query/log_query = SSdbcore.NewQuery({"
 			INSERT INTO [format_table_name("admin_log")] (`datetime` ,`adminckey` ,`adminip` ,`log`)
 			VALUES (Now() , :uckey, :uip, :logtxt)"}, list(
 				"uckey" = usr.ckey,
@@ -233,11 +237,11 @@
 				"logtxt" = logtxt
 			))
 
-		if(!log_query.warn_execute())
-			qdel(log_query)
-			return
+	if(!log_query.warn_execute())
 		qdel(log_query)
-		to_chat(usr, "<span class='notice'>Permission added.</span>")
+		return
+	qdel(log_query)
+	to_chat(usr, span_notice("Permission Updated."))
 
 /datum/admins/proc/updateranktodb(ckey,newrank)
 	if(!SSdbcore.IsConnected())

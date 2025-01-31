@@ -77,7 +77,7 @@
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=1"
-	attack_verb = list("attacked", "pinched")
+	attack_verb = list("атаковал", "ущипнул")
 	tool_behaviour = TOOL_HEMOSTAT
 
 /obj/item/hemostat/Initialize(mapload)
@@ -130,7 +130,7 @@
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=1"
-	attack_verb = list("burnt")
+	attack_verb = list("подпалил")
 	tool_behaviour = TOOL_CAUTERY
 
 /obj/item/cautery/Initialize(mapload)
@@ -171,7 +171,7 @@
 	sharp = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "materials=1;biotech=1"
-	attack_verb = list("drilled")
+	attack_verb = list("продырявил")
 	tool_behaviour = TOOL_DRILL
 
 /obj/item/surgicaldrill/Initialize(mapload)
@@ -189,7 +189,7 @@
 
 	ADD_TRAIT(user, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 	playsound(user, 'sound/machines/juicer.ogg', 20, TRUE)
-	
+
 	return OBLITERATION
 
 /obj/item/surgicaldrill/proc/second_act(mob/user)
@@ -225,7 +225,7 @@
 
 /obj/item/scalpel
 	name = "scalpel"
-	desc = "Резать, резать и еще раз резать."
+	desc = "Резать, резать и ещё раз резать."
 	ru_names = list(
 		NOMINATIVE = "скальпель",
 		GENITIVE = "скальпеля",
@@ -248,7 +248,7 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	materials = list(MAT_METAL=4000, MAT_GLASS=1000)
 	origin_tech = "materials=1;biotech=1"
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	tool_behaviour = TOOL_SCALPEL
 
@@ -372,7 +372,7 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
 	origin_tech = "biotech=1;combat=1"
-	attack_verb = list("attacked", "slashed", "sawed", "cut")
+	attack_verb = list("атаковал", "полоснул", "пропилил", "порезал")
 	tool_behaviour = TOOL_SAW
 
 /obj/item/circular_saw/Initialize(mapload)
@@ -517,7 +517,7 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("attacked", "hit", "bludgeoned")
+	attack_verb = list("атаковал", "ударил")
 	origin_tech = "materials=1;biotech=1"
 	tool_behaviour = TOOL_BONESET
 
@@ -566,4 +566,4 @@
 	icon_state = "surgical_drapes"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "biotech=1"
-	attack_verb = list("slapped")
+	attack_verb = list("шлёпнул")

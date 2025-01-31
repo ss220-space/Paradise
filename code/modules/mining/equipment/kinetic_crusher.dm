@@ -24,7 +24,7 @@
 	armour_penetration = 10
 	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("smashed", "crushed", "cleaved", "chopped", "pulped")
+	attack_verb = list("сокрушил", "рубанул", "ударил")
 	sharp = TRUE
 	actions_types = list(/datum/action/item_action/toggle_light)
 	var/list/trophies = list()
@@ -493,7 +493,7 @@
 /obj/item/crusher_trophy/gland/on_mark_detonation(mob/living/simple_animal/target, mob/living/user)
 	if(!istype(target)) // double check
 		return
-		
+
 	target.melee_damage_lower /= bonus_value
 	target.melee_damage_upper /= bonus_value
 
@@ -760,4 +760,4 @@
 
 /obj/item/twohanded/kinetic_crusher/almost/examine(mob/living/user)
 	. = ..()
-	. += span_notice("Возможно, вы можете применить еще немного магмитовых деталей, чтобы полностью улучшить ваш крушитель.")
+	. += span_notice("Возможно, вы можете применить ещё немного магмитовых деталей, чтобы полностью улучшить ваш крушитель.")

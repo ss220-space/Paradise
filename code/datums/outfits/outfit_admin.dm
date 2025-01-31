@@ -24,6 +24,33 @@
 	if(special_icon)
 		I.icon_state = special_icon
 
+/datum/outfit/admin/observer
+	name = "Наблюдатель"
+
+	uniform = /obj/item/clothing/under/color/random
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/black
+	box = /obj/item/storage/box/survival
+	backpack_contents = list(
+		/obj/item/implanter/dust = 1
+		)
+
+/datum/outfit/admin/observer/plasmaman
+	name = "Наблюдатель (Плазмамен)"
+
+	uniform = /obj/item/clothing/under/plasmaman
+	head = /obj/item/clothing/head/helmet/space/plasmaman
+	mask = /obj/item/clothing/mask/breath
+	belt = /obj/item/tank/internals/plasmaman/belt/full
+	box = /obj/item/storage/box/survival_plasmaman
+
+/datum/outfit/admin/observer/vox
+	name = "Наблюдатель (Вокс)"
+
+	mask = /obj/item/clothing/mask/breath/vox
+	belt = /obj/item/tank/internals/emergency_oxygen/double/vox
+	box = /obj/item/storage/box/survival_vox
+
 /datum/outfit/admin/syndicate
 	name = "Syndicate Agent"
 

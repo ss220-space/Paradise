@@ -12,6 +12,7 @@
 	russian_wiki_name = "Предатель"
 	clown_gain_text = "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
+	antag_menu_name = "Предатель"
 	/// Should the traitor get codewords?
 	var/give_codewords = TRUE
 	/// Whether the traitor should get his uplink.
@@ -38,17 +39,17 @@
 	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_phrase_regex, "codephrases", src)
 	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_response_regex, "coderesponses", src)
 
-	datum_owner.AddComponent( \
-		/datum/component/pref_viewer, \
+	datum_owner.AddElement( \
+		/datum/element/pref_viewer, \
 		list(/datum/preference_info/take_out_of_the_round_without_obj), \
 	)
 
 /datum/antagonist/traitor/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
-	qdel(old_body.GetComponent(/datum/component/pref_viewer))
+	old_body.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/traitor/handle_last_instance_removal()
-	qdel(owner.current.GetComponent(/datum/component/pref_viewer))
+	owner.current.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
 	. = ..()

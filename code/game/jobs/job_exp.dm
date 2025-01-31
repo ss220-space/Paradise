@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 // Admin Verbs
 
 /client/proc/cmd_mentor_check_player_exp()	//Allows admins to determine who the newer players are.
-	set category = "Admin"
+	set category = "Admin.Admin"
 	set name = "Check Player Playtime"
 	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return

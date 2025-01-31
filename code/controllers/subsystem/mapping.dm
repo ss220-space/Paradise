@@ -215,12 +215,11 @@ SUBSYSTEM_DEF(mapping)
 			existing_station_areas += AR
 
 	// World name
-	if(config && CONFIG_GET(string/servername))
-		world.name = "[CONFIG_GET(string/servername)] — [station_name()]"
-	else
-		world.name = station_name()
+	GLOB.station_name = station_name()
+	update_world_name()
 
 	return SS_INIT_SUCCESS
+
 
 /datum/controller/subsystem/mapping/fire(resumed)
 	// Cache for sonic speed

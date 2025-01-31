@@ -242,12 +242,13 @@
 //Objective info, Based on Reverent mini Atang
 /datum/objective/slaughter
 	needs_target = FALSE
+	antag_menu_name = "Поглотить смертных"
 	var/targetKill = 10
 
 
 /datum/objective/slaughter/New()
 	targetKill = rand(10,20)
-	explanation_text = "Devour [targetKill] mortals."
+	explanation_text = "Поглотить [targetKill] смертн[declension_ru(targetKill, "ого", "ых", "ых")]."
 	..()
 
 
@@ -275,15 +276,15 @@
 	var/targetname = "someone"
 	if(target?.current)
 		targetname = target.current.real_name
-	var/list/explanation_texts = list("Spread blood all over the bridge.", \
-									 "Spread blood all over the brig.", \
-									 "Spread blood all over the chapel.", \
-									 "Kill or Destroy all Janitors or Sanitation bots.", \
-									 "Spare a few after striking them... make them bleed before the harvest.", \
-									 "Hunt those that try to hunt you first.", \
-									 "Hunt those that run away from you in fear", \
-									 "Show [targetname] the power of blood.", \
-									 "Drive [targetname] insane with demonic whispering."
+	var/list/explanation_texts = list("Залейте кровью весь мостик.", \
+									 "Залейте кровью весь бриг.", \
+									 "Залейте кровью всю церковь.", \
+									 "Убейте или уничтожьте всех чистоботов или медботов.", \
+									 "Нанесите удар жертве и скройтесь... Заставьте их обагрить всё своей кровью.", \
+									 "Охотьтесь на тех, кто попытается охотиться на вас.", \
+									 "Охотьтесь на тех, кто в страхе убегает от вас.", \
+									 "Покажите [targetname] силу крови.", \
+									 "Сведите [targetname] с ума демоническим шепотом."
 									 )
 
 	// As this is a fluff objective, we don't need a target, so we want to null it out.

@@ -6,6 +6,7 @@
 	special_role = SPECIAL_ROLE_VAMPIRE
 	wiki_page_name = "Vampire"
 	russian_wiki_name = "Вампир"
+	antag_menu_name = "Вампир"
 	/// Total blood drained by vampire over round.
 	var/bloodtotal = 0
 	/// Current amount of blood.
@@ -113,17 +114,17 @@
 			//slaved.leave_serv_hud(mob_override.mind)
 			//.mind.som = null
 
-	user.AddComponent( \
-		/datum/component/pref_viewer, \
+	user.AddElement( \
+		/datum/element/pref_viewer, \
 		list(/datum/preference_info/take_out_of_the_round_without_obj), \
 	)
 
 /datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
-	qdel(old_body.GetComponent(/datum/component/pref_viewer))
+	old_body.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/vampire/handle_last_instance_removal()
-	qdel(owner.current.GetComponent(/datum/component/pref_viewer))
+	owner.current.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override, transformation = FALSE)
 	var/mob/living/user = ..()
@@ -142,6 +143,9 @@
 		user.dna?.species?.hunger_icon = initial(user.dna.species.hunger_icon)
 
 	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
+
+/datum/antagonist/vampire/get_antag_menu_name()
+	return "[antag_menu_name][subclass? "([subclass.antag_menu_addition])" :""]"
 
 
 /**
@@ -691,6 +695,7 @@
 	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "vampthrall"
 	master_hud_icon = "vampire"
+	antag_menu_name = "Раб вампира"
 
 /datum/antagonist/mindslave/thrall/greet()
 	var/greet_text = "<b>Вы были очарованы [master.current.real_name]. Следуйте каждому [genderize_ru(master.current.gender, "его", "её", "его", "их")] приказу.</b>"

@@ -140,7 +140,6 @@
 		if(hud_used)
 			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
 
-
 /mob/living/simple_animal/hostile/guardian/adjustHealth(
 	amount = 0,
 	updating_health = TRUE,
@@ -164,6 +163,17 @@
 		to_chat(summoner, span_danger("Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!"))
 		summoner.adjustCloneLoss(amount / 2)
 
+/mob/living/simple_animal/hostile/guardian/adjustStaminaLoss(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	forced = FALSE,
+	used_weapon = null,
+)
+	return FALSE
+
+/mob/living/simple_animal/hostile/guardian/setStaminaLoss(amount, updating_health = TRUE)
+	return FALSE
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target)
 	switch(severity)
@@ -196,13 +206,12 @@
 		cooldown = world.time + 10
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
-	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
-		return
-	if(!summoner) return
-	new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
-	forceMove(summoner)
-	buckled = null
-	cooldown = world.time + 10
+    if(!summoner || loc == summoner || (cooldown > world.time && !forced))
+        return
+    buckled?.unbuckle_mob(src, force = TRUE)
+    new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
+    forceMove(summoner)
+    cooldown = world.time + 10
 
 /mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
 	var/input
@@ -246,7 +255,7 @@
 	var/used = FALSE
 	var/theme = "magic"
 	var/mob_name = "Дух-хранитель"
-	var/confirmation_message = "Карты все еще не использованы. Желаете попытать счастье?"
+	var/confirmation_message = "Карты все ещё не использованы. Желаете попытать счастье?"
 	var/use_message = "Вы перетасовываете колоду..."
 	var/used_message = "Все карты выглядят пустыми."
 	var/failure_message = "..и вытаскиваете карту! Она...пустая? Возможно лучше попытаться позже."
@@ -344,6 +353,7 @@
 	var/mob/living/simple_animal/hostile/guardian/G = new pickedtype(user, user)
 	G.summoned = TRUE
 	G.key = key
+	SSticker.mode.guardians |= G.mind
 	to_chat(G, "Вы [mob_name], обязанный служить [user.real_name].")
 	to_chat(G, "Вы можете появляться или возвращаться к вашему хозяину с помощью кнопок на панели Стража. Там же вы найдете кнопку связи с хозяином.")
 	to_chat(G, "Будучи лично неуязвимым, Вы умрете если [user.real_name] умрет, и любой урон попавший по вам будет пропорционально перенесен хозяину, так как вы питаетесь от его жизненной силы.")
@@ -374,7 +384,7 @@
 	icon_state = "combat_hypo"
 	theme = "tech"
 	mob_name = "Голопаразит"
-	confirmation_message =  "Инъектор все еще содержит голопаразитов. Вы хотите использовать его?"
+	confirmation_message =  "Инъектор все ещё содержит голопаразитов. Вы хотите использовать его?"
 	use_message = "Вы начинаете подавать питание на инъектор..."
 	used_message = "Инъектор уже был использован."
 	failure_message = "<B>...ОШИБКА. ПОСЛЕДОВАТЕЛЬНОСТЬ ЗАГРУЗКИ ПРЕРВАНА. AI НЕ УДАЛОСЬ ИНИЦИАЛИЗИРОВАТЬ. ОБРАТИТЕСЬ В СЛУЖБУ ПОДДЕРЖКИ ИЛИ ПОВТОРИТЕ ПОПЫТКУ ПОЗЖЕ.</B>"
@@ -415,7 +425,7 @@
 	theme = "bio"
 	mob_name = "Рой Скарабеев"
 	use_message = "Яйца начинают дергаться..."
-	confirmation_message =  "Эти яйца все еще в спящем состоянии. Хотите ли вы активировать их?"
+	confirmation_message =  "Эти яйца все ещё в спящем состоянии. Хотите ли вы активировать их?"
 	used_message = "Скопление уже вылупилось."
 	failure_message = "<B>..но вскоре снова успокаиваются. Видимо, они не были готовы к вылуплению.</B>"
 	color_list = list("Rose" = "#F62C6B",

@@ -74,6 +74,12 @@
 	var/noAutoEnd       = FALSE
 	/// The area the event will hit
 	var/area/impact_area
+	/// Is event forced by administrator
+	var/forced = FALSE
+	/// Event can be canceled by administrator
+	var/alertadmins = TRUE
+	/// Whether the event was canceled or not. TRUE if not
+	var/triggering = FALSE
 	var/datum/event_meta/event_meta = null
 
 /datum/event/nothing
@@ -176,30 +182,70 @@
 	SSevents.active_events -= src
 	SSevents.event_complete(src)
 
-/datum/event/New(datum/event_meta/EM, skeleton = FALSE)
+/datum/event/New(datum/event_meta/EM, skeleton = FALSE, forced = FALSE)
 	// event needs to be responsible for this, as stuff like APLUs currently make their own events for curious reasons
-	if(!skeleton)
-		SSevents.active_events += src
+	if(skeleton)
+		return ..()
 
 	if(!EM)
 		EM = new /datum/event_meta(EVENT_LEVEL_MAJOR, "Unknown, Most likely admin called", src.type)
 
 	event_meta = EM
 	severity = event_meta.severity
+	src.forced = forced
+  
+	if(forced)
+		admin_setup()
 
 	// Validate severity
 	if(severity != EVENT_LEVEL_NONE \
-		|| severity != EVENT_LEVEL_MUNDANE \
-		|| severity != EVENT_LEVEL_MODERATE \
-		|| severity != EVENT_LEVEL_MAJOR \
+		&& severity != EVENT_LEVEL_MUNDANE \
+		&& severity != EVENT_LEVEL_MODERATE \
+		&& severity != EVENT_LEVEL_MAJOR \
 	)
 		severity = EVENT_LEVEL_NONE
 
-	startedAt = world.time
+	triggering = TRUE
 
-	if(!skeleton)
-		setup()
+	if (alertadmins)
+		message_admins(span_warning("[forced? "Зафоршенное" : "Случайное"] событие сработает через 10 секунд: [EM.name] ([type]) (<a href='byond://?src=[UID()];cancel=1'>ОТМЕНИТЬ</a>)"))
+	
+	addtimer(CALLBACK(src, PROC_REF(run_event), skeleton), 10 SECONDS)
 	..()
+
+/datum/event/proc/run_event(skeleton)
+	if(!triggering)
+		return FALSE
+
+	startedAt = world.time
+	setup()
+	SSevents.active_events += src
+	triggering = FALSE
+	return TRUE
+
+/datum/event/Topic(href, href_list)
+	. = ..()
+
+	if(href_list["cancel"])
+		if(!check_rights(R_EVENT))
+			return
+
+		if(!triggering)
+			to_chat(usr, span_admin("Событие уже началось. Его уже поздно отменять"))
+			return
+		
+		if(!forced && tgui_alert(usr, "Вы хотите, чтобы через 60 секунд было выбрано другое событие из этой категории (события, созданные не через панель событий или подсистему, считаются мажорными)?", "", list("Да", "Нет")) == "Да")
+			reroll_event_in_category()
+
+		triggering = FALSE
+		log_and_message_admins("cancelled event ([type]).")
+
+
+/datum/event/proc/reroll_event_in_category(new_severity = severity)
+	if(new_severity == EVENT_LEVEL_NONE)
+		return
+	var/datum/event_container/EC = SSevents.event_containers[new_severity]
+	EC?.next_event_time = world.time + 60 SECONDS
 
 //Called after something followable has been spawned by an event
 //Provides ghosts a follow link to an atom if possible
@@ -215,3 +261,9 @@
   */
 /datum/event/proc/fake_announce()
 	return FALSE
+
+/**
+  * Override this to allow admins to configure the force event.
+  */
+/datum/event/proc/admin_setup()
+	return

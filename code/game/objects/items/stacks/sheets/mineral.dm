@@ -388,6 +388,9 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 	materials = list(MAT_TITANIUM=2000, MAT_PLASMA=2000)
 	point_value = 45
 
+/obj/item/stack/sheet/mineral/plastitanium/fifty
+	amount = 50
+
 GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	new/datum/stack_recipe("plas-titanium tile", /obj/item/stack/tile/mineral/plastitanium, 1, 4, 20),
 	//adding syndie crate recipe here - Furu
@@ -464,6 +467,9 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	merge_type = /obj/item/stack/sheet/mineral/adamantine
 	wall_allowed = FALSE
 
+/obj/item/stack/sheet/mineral/adamantine/fifty
+	amount = 50
+
 /obj/item/stack/sheet/mineral/adamantine/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.adamantine_recipes
@@ -481,6 +487,9 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	merge_type = /obj/item/stack/sheet/mineral/mythril
 	wall_allowed = FALSE
 
+/obj/item/stack/sheet/mineral/mythril/fifty
+	amount = 50
+
 /*
  * Snow
  */
@@ -492,6 +501,9 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	force = 1
 	throwforce = 2
 	merge_type = /obj/item/stack/sheet/mineral/snow
+
+/obj/item/stack/sheet/mineral/snow/fifty
+	amount = 50
 
 /obj/item/stack/sheet/mineral/snow/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()

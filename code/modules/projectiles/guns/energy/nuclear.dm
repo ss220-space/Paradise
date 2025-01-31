@@ -51,6 +51,10 @@
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/item/gun/energy/gun/hos/Initialize(mapload, ...)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
+
 /obj/item/gun/energy/gun/blueshield
 	name = "advanced stun revolver"
 	desc = "An advanced stun revolver with the capacity to shoot both electrodes and lasers."

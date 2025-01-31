@@ -399,7 +399,7 @@
 	desc = "A bouquet of beautiful flowers, looks a little withered."
 	icon = 'icons/obj/weapons/bouquet.dmi'
 	icon_state = "mixedbouquet"
-	attack_verb = list("attacked", "slashed", "torn", "ripped", "cut", "smashed")
+	attack_verb = list("атаковал", "полоснул", "поранил", "порезал")
 	max_integrity = 20
 	force = 2
 	throwforce = 1

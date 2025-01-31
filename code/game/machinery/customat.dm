@@ -92,7 +92,7 @@
 
 	// Stuff relating vocalizations
 	/// List of slogans the customat will say, optional
-	var/list/ads_list = list("Купи самый дорогой предмет из моего содержимого! Не пожалеешь!",
+	var/list/slogan_list = list("Купи самый дорогой предмет из моего содержимого! Не пожалеешь!",
 	"Мое содержимое разнообразней чем вся твоя жизнь!",
 	"У меня богатый внутренний мир.",
 	"Во мне может быть что угодно.",
@@ -104,7 +104,7 @@
 	"Каждый раз, когда вы что-то покупаете, где-то в мире радуется один ассистент!")
 
 	/// List of replies the customat will say after vends
-	var/list/vend_reply	= list("Спасибо за покупку, приходите еще!",
+	var/list/vend_reply	= list("Спасибо за покупку, приходите ещё!",
 	"Вы купили что-то, а разнообразие моего содержимого не уменьшилось!",
 	"Ваши кредиты пойдут на разработку новых уникальных товаров!",
 	"Спасибо что выбрали нас!",
@@ -394,6 +394,8 @@
 	if(from_tube)
 		if(I.name in remembered_costs)
 			cost = remembered_costs[I.name]
+		insert(user, I, cost)
+		return
 
 	else if(fast_insert && (I.name in remembered_costs))
 		cost = remembered_costs[I.name]
@@ -729,8 +731,8 @@
 		return
 
 	//Pitch to the people!  Really sell it!
-	if(COOLDOWN_FINISHED(src, slogan_cooldown) && (LAZYLEN(ads_list)) && (!shut_up) && prob(5))
-		var/slogan = pick(src.ads_list)
+	if(COOLDOWN_FINISHED(src, slogan_cooldown) && (LAZYLEN(slogan_list)) && (!shut_up) && prob(5))
+		var/slogan = pick(src.slogan_list)
 		speak(slogan)
 		COOLDOWN_START(src, slogan_cooldown, slogan_delay)
 

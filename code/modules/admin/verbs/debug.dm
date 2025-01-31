@@ -68,7 +68,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 				target = null
 				targetselected = 0
 
-		var/procname = clean_input("Proc path, eg: /proc/fake_blood","Path:", null)
+		var/procname = tgui_input_text(usr, "Введите имя прока после /proc/. Пример: если путь /proc/fake_blood, нужно ввести fake_blood", "Путь:", null)
 		if(!procname)	return
 
 		//strip away everything but the proc name
@@ -166,7 +166,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 //adv proc call this, ya nerds
 /world/proc/WrapAdminProcCall(datum/target, procname, list/arguments)
 	if(target == GLOBAL_PROC)
-		return call(procname)(arglist(arguments))
+		return call("/proc/[procname]")(arglist(arguments))
 	else if(target != world)
 		return call(target, procname)(arglist(arguments))
 	else
@@ -187,7 +187,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_PROCCALL))
 		return
 
-	var/procname = clean_input("Proc name, eg: fake_blood","Proc:", null)
+	var/procname = tgui_input_text(usr, "Введите имя прока после /proc/. Пример: если путь /proc/fake_blood, нужно ввести fake_blood", "Путь:", null)
 	if(!procname)
 		return
 
@@ -211,8 +211,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Atom Proc-Call") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
-/client/proc/get_callproc_args()
-	var/argnum = tgui_input_number(src, "Введите число аргументов","Число аргументов:", 0)
+/client/proc/get_callproc_args(is_atom_new = FALSE)
+	var/argnum = tgui_input_number(src, "Введите число аргументов [is_atom_new ? " (За исключением loc)" : ""]", "Число аргументов:", 0)
 	if(argnum <= 0)
 		return list() // to allow for calling with 0 args
 
@@ -274,7 +274,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status (Location)") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_admin_robotize(mob/M in GLOB.mob_list)
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Make Robot"
 
 	if(!check_rights(R_SPAWN))
@@ -295,7 +295,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		alert("Invalid mob")
 
 /client/proc/cmd_admin_animalize(var/mob/M in GLOB.mob_list)
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Make Simple Animal"
 
 	if(!check_rights(R_SPAWN))
@@ -318,7 +318,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		M.Animalize()
 
 /client/proc/cmd_admin_gorillize(mob/M in GLOB.mob_list)
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Make Gorilla"
 
 	if(!check_rights(R_SPAWN))
@@ -348,7 +348,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 
 /client/proc/cmd_admin_super(var/mob/M in GLOB.mob_list)
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Make Superhero"
 
 	if(!check_rights(R_SPAWN))
@@ -398,7 +398,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Powernets") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_admin_grantfullaccess(var/mob/M in GLOB.mob_list)
-	set category = "Admin"
+	set category = "Admin.Debug"
 	set name = "\[Admin\] Grant Full Access"
 
 	if(!check_rights(R_EVENT))
@@ -430,7 +430,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_and_message_admins("<span class='notice'>has granted [M.key] full access.</span>")
 
 /client/proc/cmd_assume_direct_control(var/mob/M in GLOB.mob_list)
-	set category = "Admin"
+	set category = "Admin.Debug"
 	set name = "\[Admind\] Assume direct control"
 	set desc = "Direct intervention"
 
@@ -452,7 +452,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 
 /client/proc/cmd_admin_areatest()
-	set category = "Mapping"
+	set category = "Debug.Mapping"
 	set name = "Test areas"
 
 	if(!check_rights(R_DEBUG))
@@ -567,14 +567,14 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	for(var/areatype in areas_without_camera)
 		to_chat(world, "* [areatype]")
 
-/client/proc/cmd_admin_dress(mob/living/carbon/human/M in GLOB.human_list)
+/client/proc/cmd_admin_dress(mob/living/carbon/human/M in GLOB.mob_list)
 	set name = "\[Admin\] Select equipment"
 
 	if(!check_rights(R_EVENT))
 		return
 
 	if(!ishuman(M) && !isobserver(M))
-		alert("Invalid mob")
+		tgui_alert(usr, "Неподходящее существо")
 		return
 
 	var/dresscode = robust_dress_shop()
@@ -585,11 +585,14 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	var/delete_pocket
 	var/mob/living/carbon/human/H
 	if(isobserver(M))
-		H = M.change_mob_type(/mob/living/carbon/human, null, null, TRUE)
+		if(!check_rights(R_SPAWN))
+			return
+		var/mob/dead/observer/ghost = M
+		H = ghost.incarnate_ghost()
 	else
 		H = M
 		if(H.l_store || H.r_store || H.s_store) //saves a lot of time for admins and coders alike
-			if(alert("Should the items in their pockets be dropped? Selecting \"No\" will delete them.", "Robust quick dress shop", "Yes", "No") == "No")
+			if(tgui_alert(usr, "Нужно ли выбрасывать вещи из карманов? Выбор \"Нет\" удалит их.", "Выбор экипировки существа", "Да", "Нет") == "Нет")
 				delete_pocket = TRUE
 
 	for (var/obj/item/I in H.get_equipped_items(delete_pocket))
@@ -598,9 +601,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		H.equipOutfit(dresscode)
 	else	// We have regenerate_icons() proc in the end of equipOutfit(), so don't need to call it two times.
 		H.regenerate_icons()
-
+	log_and_message_admins(span_notice("changed the equipment of [key_name_admin(M)] to [dresscode]."))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Select Equipment") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
-	log_and_message_admins("<span class='notice'>changed the equipment of [key_name_admin(M)] to [dresscode].</span>")
 
 /client/proc/robust_dress_shop()
 	var/list/outfits = list(
@@ -647,7 +649,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	return dresscode
 
 /client/proc/startSinglo()
-	set category = "Debug"
+	set category = "Admin.Debug"
 	set name = "Start Singularity"
 	set desc = "Sets up the singularity and all machines to get power flowing through the station"
 
@@ -823,7 +825,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	winset(src, "", "browser-options=byondstorage,find,devtools")
 
 /client/proc/jump_to_ruin()
-	set category = "Debug"
+	set category = "OOC"
 	set name = "Jump to Ruin"
 	set desc = "Displays a list of all placed ruins to teleport to."
 
@@ -1013,3 +1015,22 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_and_message_admins("cleared dynamic transit space.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "CDT") // If...
 	SSmapping.wipe_reservations() //this goes after it's logged, incase something horrible happens.
+
+/client/proc/cmd_reload_polls()
+	set category = "Debug"
+	set name = "Reload Polls"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	//This gets a confirmation check because it's way easier to accidentally hit this and delete things than it is with qdel-all
+	var/confirm = alert("This will reload all polls? Consider using it ONLY if polls do stopped working.", "Confirm", "Yes", "No")
+	if(confirm != "Yes")
+		return
+
+	GLOB.polls.Cut()
+	GLOB.poll_options.Cut()
+	load_poll_data()
+
+	log_and_message_admins("reloaded polls.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reload Polls") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
