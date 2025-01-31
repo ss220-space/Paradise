@@ -466,6 +466,7 @@
 		victim.apply_damage(stamina_damage, STAMINA, blocked = victim.getarmor(user.zone_selected, MELEE))
 		if(prob(30))
 			victim.Knockdown(3 SECONDS)
+
 /obj/item/melee/ghostface_knife
 	name = "Knife"
 	desc = "Очень острый нож. Судя по потёртостям и засохшей крови, он совсем не валялся без дела."
