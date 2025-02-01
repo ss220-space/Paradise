@@ -93,7 +93,7 @@
 		balloon_alert(chugger, "сначала откройте!")
 		return
 	if(!get_location_accessible(chugger, BODY_ZONE_PRECISE_MOUTH))
-		balloon_alert(user, "ваш рот закрыт!")
+		balloon_alert(chugger, "ваш рот закрыт!")
 		return
 	if(reagents.total_volume && loc == chugger && src == chugger.get_active_hand())
 		chugger.visible_message(span_notice("[chugger] поднос[pluralize_ru(chugger.gender, "ит", "ят")] [declent_ru(ACCUSATIVE)] к своему рту и начина[pluralize_ru(chugger.gender, "ет", "ют")] [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
