@@ -24,9 +24,9 @@
 /obj/item/reagent_containers/glass/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2 && !is_open_container())
-		. += "<span class='notice'>Airtight lid seals it completely.</span>"
+		. += span_notice("Закрыто герметичной крышкой.")
 
-	. += "<span class='notice'>[src] can hold up to [reagents.maximum_volume] units.</span>"
+	. += span_notice("Вмещает до [reagents.maximum_volume] единиц[declension_ru(reagents.maximum_volume, "ы", "", "")] вещества.")
 
 
 /obj/item/reagent_containers/glass/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -36,7 +36,7 @@
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!reagents || !reagents.total_volume)
-		to_chat(user, span_warning("[src] is empty!"))
+		balloon_alert(user, "пусто!")
 		return .
 
 	var/list/transferred = list()
@@ -47,8 +47,8 @@
 
 	if(user.a_intent == INTENT_HARM)
 		target.visible_message(
-			span_danger("[user] splashes the contents of [src] onto [target]!"),
-			span_userdanger("[user] splashes the contents of [src] onto [target]!")
+			span_danger("[user] вылива[pluralize_ru(user.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)] на [target]!"),
+			span_userdanger("[user] вылива[pluralize_ru(user.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)] на вас!")
 		)
 		add_attack_logs(user, target, "Splashed with [name] containing [contained]")
 		reagents.reaction(target, REAGENT_TOUCH)
@@ -56,30 +56,30 @@
 		return .|ATTACK_CHAIN_SUCCESS
 
 	if(!iscarbon(target)) // Non-carbons can't process reagents
-		to_chat(user, span_warning("You cannot find a way to feed [target]."))
+		balloon_alert(user, "невозможно!")
 		return .
 
 	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
 		if(target == user)
-			to_chat(user, span_warning("Your face is obscured"))
+			balloon_alert(user, "ваш рот закрыт!")
 		else
-			to_chat(user, span_warning("[target]'s face is obscured."))
+			balloon_alert(user, "рот цели закрыт!")
 		return .
 
 	if(target != user)
 		target.visible_message(
-			span_danger("[user] attempts to feed something to [target]."),
-			span_userdanger("[user] attempts to feed something to you."),
+			span_danger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся напоить содержимым [declent_ru(GENITIVE)] [target]!"),
+			span_userdanger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся напоить вас содержимым [declent_ru(GENITIVE)]!"),
 		)
 		if(!do_after(user, 3 SECONDS, target, NONE) || !reagents || !reagents.total_volume)
 			return .
 		target.visible_message(
-			span_danger("[user] feeds something to [target]."),
-			span_userdanger("[user] feeds something to you."),
+			span_danger("[user] напоил[genderize_ru(user.gender, "", "а", "о", "и")] [target] содержимым [declent_ru(GENITIVE)]!"),
+			span_userdanger("[user] напоил[genderize_ru(user.gender, "", "а", "о", "и")] вас содержимым [declent_ru(GENITIVE)]!"),
 		)
 		add_attack_logs(user, target, "Fed with [name] containing [contained]")
 	else
-		to_chat(user, span_notice("You swallow a gulp of [src]."))
+		to_chat(user, span_notice("Вы делаете глоток из [declent_ru(GENITIVE)]."))
 
 	. |= ATTACK_CHAIN_SUCCESS
 	var/fraction = min(5 / reagents.total_volume, 1)
@@ -97,32 +97,32 @@
 
 	if(target.is_refillable()) //Something like a glass. Player probably wants to transfer TO it.
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='warning'>[src] is empty!</span>")
+			balloon_alert(usr, "пусто!")
 			return
 
 		if(target.reagents.holder_full())
-			to_chat(user, "<span class='warning'>[target] is full.</span>")
+			balloon_alert(usr, "нет места!")
 			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You transfer [trans] unit\s of the solution to [target].</span>")
+		to_chat(user, span_notice("Вы переливаете [trans] единиц[declension_ru(trans, "у", "ы", "")] вещества из [declent_ru(GENITIVE)] в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!target.reagents.total_volume)
-			to_chat(user, "<span class='warning'>[target] is empty and can't be refilled!</span>")
+			balloon_alert(user, "пусто!")
 			return
 
 		if(reagents.holder_full())
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
+			balloon_alert(user, "нет места!")
 			return
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] unit\s of the contents of [target].</span>")
+		to_chat(user, "Вы наполняете [declent_ru(ACCUSATIVE)] [trans] единиц[declension_ru(trans, "ей", "ами", "ами")] вещества из содержимого [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(reagents.total_volume)
 		if(user.a_intent == INTENT_HARM)
-			user.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
-								"<span class='notice'>You splash the contents of [src] onto [target].</span>")
+			user.visible_message(span_danger("[user] облива[pluralize_ru(user, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"), \
+								("Вы обливаете [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"))
 			reagents.reaction(target, REAGENT_TOUCH)
 			reagents.clear_reagents()
 
@@ -139,6 +139,14 @@
 /obj/item/reagent_containers/glass/beaker
 	name = "beaker"
 	desc = "A simple glass beaker, nothing special."
+	ru_names = list(
+		NOMINATIVE = "мерный стакан",
+		GENITIVE = "мерного стакана",
+		DATIVE = "мерному стакану",
+		ACCUSATIVE = "мерный стакан",
+		INSTRUMENTAL = "мерным стаканос",
+		PREPOSITIONAL = "мерном стакане"
+ 	)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	item_state = "beaker"
@@ -270,6 +278,14 @@
 /obj/item/reagent_containers/glass/beaker/large
 	name = "large beaker"
 	desc = "A large glass beaker with twice the capacity of a normal beaker."
+	ru_names = list(
+		NOMINATIVE = "мерный стакан",
+		GENITIVE = "мерного стакана",
+		DATIVE = "мерному стакану",
+		ACCUSATIVE = "мерный стакан",
+		INSTRUMENTAL = "мерным стаканос",
+		PREPOSITIONAL = "мерном стакане"
+ 	)
 	icon_state = "beakerlarge"
 	belt_icon = "large_beaker"
 	materials = list(MAT_GLASS=2500)
@@ -281,6 +297,14 @@
 /obj/item/reagent_containers/glass/beaker/vial
 	name = "vial"
 	desc = "A small glass vial, often used by virologists of the 25th century."
+	ru_names = list(
+		NOMINATIVE = "мерный стакан",
+		GENITIVE = "мерного стакана",
+		DATIVE = "мерному стакану",
+		ACCUSATIVE = "мерный стакан",
+		INSTRUMENTAL = "мерным стаканос",
+		PREPOSITIONAL = "мерном стакане"
+ 	)
 	icon_state = "vial"
 	belt_icon = "vial"
 	materials = list(MAT_GLASS=250)
@@ -293,6 +317,14 @@
 /obj/item/reagent_containers/glass/beaker/drugs
 	name = "baggie"
 	desc = "A small plastic baggie, often used by pharmaceutical \"entrepreneurs\"."
+	ru_names = list(
+		NOMINATIVE = "мерный стакан",
+		GENITIVE = "мерного стакана",
+		DATIVE = "мерному стакану",
+		ACCUSATIVE = "мерный стакан",
+		INSTRUMENTAL = "мерным стаканос",
+		PREPOSITIONAL = "мерном стакане"
+ 	)
 	icon_state = "baggie"
 	amount_per_transfer_from_this = 2
 	possible_transfer_amounts = null
@@ -303,6 +335,14 @@
 /obj/item/reagent_containers/glass/beaker/thermite
 	name = "Thermite load"
 	desc = "A baggie loaded with combustible chemicals."
+	ru_names = list(
+		NOMINATIVE = "мерный стакан",
+		GENITIVE = "мерного стакана",
+		DATIVE = "мерному стакану",
+		ACCUSATIVE = "мерный стакан",
+		INSTRUMENTAL = "мерным стаканос",
+		PREPOSITIONAL = "мерном стакане"
+ 	)
 	icon_state = "baggie"
 	amount_per_transfer_from_this = 25
 	possible_transfer_amounts = null
@@ -314,6 +354,14 @@
 /obj/item/reagent_containers/glass/beaker/noreact
 	name = "cryostasis beaker"
 	desc = "A cryostasis beaker that allows for chemical storage without reactions."
+	ru_names = list(
+		NOMINATIVE = "мерный стакан",
+		GENITIVE = "мерного стакана",
+		DATIVE = "мерному стакану",
+		ACCUSATIVE = "мерный стакан",
+		INSTRUMENTAL = "мерным стаканос",
+		PREPOSITIONAL = "мерном стакане"
+ 	)
 	icon_state = "beakernoreact"
 	materials = list(MAT_METAL=3000)
 	volume = 50
@@ -329,6 +377,14 @@
 /obj/item/reagent_containers/glass/beaker/bluespace
 	name = "bluespace beaker"
 	desc = "A bluespace beaker, powered by experimental bluespace technology and Element Cuban combined with the Compound Pete."
+	ru_names = list(
+		NOMINATIVE = "мерный стакан",
+		GENITIVE = "мерного стакана",
+		DATIVE = "мерному стакану",
+		ACCUSATIVE = "мерный стакан",
+		INSTRUMENTAL = "мерным стаканос",
+		PREPOSITIONAL = "мерном стакане"
+ 	)
 	icon_state = "beakerbluespace"
 	materials = list(MAT_GLASS=3000)
 	volume = 300
@@ -355,6 +411,14 @@
 
 /obj/item/reagent_containers/glass/bucket
 	desc = "It's a bucket."
+	ru_names = list(
+		NOMINATIVE = "мерный стакан",
+		GENITIVE = "мерного стакана",
+		DATIVE = "мерному стакану",
+		ACCUSATIVE = "мерный стакан",
+		INSTRUMENTAL = "мерным стаканос",
+		PREPOSITIONAL = "мерном стакане"
+ 	)
 	name = "bucket"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "bucket"
@@ -457,6 +521,14 @@
 /obj/item/reagent_containers/glass/beaker/waterbottle
 	name = "bottle of water"
 	desc = "A bottle of water filled at an old Earth bottling facility."
+	ru_names = list(
+		NOMINATIVE = "мерный стакан",
+		GENITIVE = "мерного стакана",
+		DATIVE = "мерному стакану",
+		ACCUSATIVE = "мерный стакан",
+		INSTRUMENTAL = "мерным стаканос",
+		PREPOSITIONAL = "мерном стакане"
+ 	)
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "smallbottle"
 	item_state = "bottle"
@@ -470,6 +542,14 @@
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/large
 	desc = "A fresh commercial-sized bottle of water."
+	ru_names = list(
+		NOMINATIVE = "мерный стакан",
+		GENITIVE = "мерного стакана",
+		DATIVE = "мерному стакану",
+		ACCUSATIVE = "мерный стакан",
+		INSTRUMENTAL = "мерным стаканос",
+		PREPOSITIONAL = "мерном стакане"
+ 	)
 	icon_state = "largebottle"
 	materials = list(MAT_GLASS = 0)
 	list_reagents = list("water" = 100)
@@ -482,6 +562,14 @@
 /obj/item/reagent_containers/glass/pet_bowl
 	name = "pet bowl"
 	desc = "Миска под еду для любимых домашних животных!"
+	ru_names = list(
+		NOMINATIVE = "мерный стакан",
+		GENITIVE = "мерного стакана",
+		DATIVE = "мерному стакану",
+		ACCUSATIVE = "мерный стакан",
+		INSTRUMENTAL = "мерным стаканос",
+		PREPOSITIONAL = "мерном стакане"
+ 	)
 	icon = 'icons/obj/pet_bowl.dmi'
 	icon_state = "petbowl"
 	item_state = "petbowl"
