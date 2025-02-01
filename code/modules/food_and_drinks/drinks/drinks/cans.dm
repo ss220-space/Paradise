@@ -8,6 +8,7 @@
 	var/can_burst = FALSE
 	var/burst_chance = 0
 	foodtype = SUGAR
+	gender = FEMALE
 
 /obj/item/reagent_containers/food/drinks/cans/empty()
 	if(!canopened)
@@ -17,10 +18,9 @@
 
 /obj/item/reagent_containers/food/drinks/cans/examine(mob/user)
 	. = ..()
-	if(canopened)
-		. += span_notice("Она открыта.")
-	else
-		. += span_info("Используйте <b>Ctrl+ЛКМ</b>, чтобы встряхнуть её!")
+	. += span_notice("<b>[canopened ? "Открыто" : "Закрыто"]</b>")
+	if(!canopened)
+		. += span_info("Используйте <b>Ctrl+ЛКМ</b>, чтобы встряхнуть!")
 
 /obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
 	if(canopened)
@@ -315,12 +315,12 @@
 	name = "badmin brew"
 	desc = "Бутылированная эссенция со вкусом щитспавна и ужасных ивентов. Наверное, это вам пить не стоит."
 	ru_names = list(
-		NOMINATIVE = "бутылка настойки \"Седали Пуки\"",
-		GENITIVE = "бутылки настойки \"Седали Пуки\"",
-		DATIVE = "бутылке настойки \"Седали Пуки\"",
-		ACCUSATIVE = "бутылку настойки \"Седали Пуки\"",
-		INSTRUMENTAL = "бутылкой настойки \"Седали Пуки\"",
-		PREPOSITIONAL = "бутылке настойки \"Седали Пуки\""
+		NOMINATIVE = "бутылка настойки \"Плохой Админ\"",
+		GENITIVE = "бутылки настойки \"Плохой Админ\"",
+		DATIVE = "бутылке настойки \"Плохой Админ\"",
+		ACCUSATIVE = "бутылку настойки \"Плохой Админ\"",
+		INSTRUMENTAL = "бутылкой настойки \"Плохой Админ\"",
+		PREPOSITIONAL = "бутылке настойки \"Плохой Админ\""
  	)
 	icon_state = "badminbrew"
 	is_glass = 1
