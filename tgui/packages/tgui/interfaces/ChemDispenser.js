@@ -47,7 +47,7 @@ const ChemDispenserSettings = (properties, context) => {
                 bad: [-Infinity, maxEnergy * 0.25],
               }}
             >
-              {energy} / {maxEnergy} Единиц
+              {energy} / {maxEnergy} единиц
             </ProgressBar>
           </LabeledList.Item>
           <LabeledList.Item label="Объём синтеза" verticalAlign="middle">
