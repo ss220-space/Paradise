@@ -5,25 +5,25 @@
 /datum/reagent/consumable/drink/cold/tonic
 	name = "Тоник"
 	id = "tonic"
-	description = "Вкус странный, но, по крайней мере, хинин держит космическую малярию на расстоянии."
+	description = "Вкус странный, но, по крайней мере, хинин держит Космическую Малярию на расстоянии."
 	color = "#664300" // rgb: 102, 67, 0
 	adj_dizzy = -10 SECONDS
 	adj_drowsy = -6 SECONDS
 	adj_sleepy = -4 SECONDS
 	drink_icon = "glass_clear"
-	drink_name = "Стакан тоника"
-	drink_desc = "Хинин на вкус не очень приятный, но, по крайней мере, он убережёт от космической малярии."
+	drink_name = "стакан тоника"
+	drink_desc = "Хинин на вкус не очень приятный, но, по крайней мере, он убережёт от Космической Малярии."
 	taste_description = "горечи"
 
 /datum/reagent/consumable/drink/cold/sodawater
-	name = "Газированная вода"
+	name = "Содовая вода"
 	id = "sodawater"
-	description = "Банка газированной воды."
+	description = "Содовая, потрясно."
 	color = "#619494" // rgb: 97, 148, 148
 	adj_dizzy = -10 SECONDS
 	adj_drowsy = -6 SECONDS
 	drink_icon = "glass_clear"
-	drink_name = "Стакан газированный воды"
+	drink_name = "стакан газированный воды"
 	drink_desc = "Газированная вода. Почему бы не сделать виски с содовой?"
 	taste_description = "шипучей газировки"
 
@@ -35,7 +35,7 @@
 	color = "#619494" // rgb: 97, 148, 148
 	adj_temp_cool = 0
 	drink_icon = "iceglass"
-	drink_name = "Стакан льда"
+	drink_name = "стакан льда"
 	drink_desc = "Вообще-то, вы должны положить туда ещё что-нибудь..."
 	taste_description = "холодного льда"
 
@@ -51,7 +51,7 @@
 	color = "#100800" // rgb: 16, 8, 0
 	adj_drowsy = -10 SECONDS
 	drink_icon = "glass_brown"
-	drink_name = "Стакан колы"
+	drink_name = "стакан колы"
 	drink_desc = "Стакан освежающей КосмоКолы."
 	taste_description = "колы"
 
@@ -70,7 +70,7 @@
 	addiction_chance = 1
 	addiction_threshold = 200
 	drink_icon = "lemonglass"
-	drink_name = "Стакан энергетического напитка"
+	drink_name = "стакан энергетического напитка"
 	drink_desc = "Стакан бодрящего энергетика."
 	taste_description = "сладких фруктов"
 
@@ -158,7 +158,7 @@
 	adj_drowsy = -14 SECONDS
 	adj_sleepy = -2 SECONDS
 	drink_icon = "Space_mountain_wind_glass"
-	drink_name = "Стакан Космического Маунтин Винда"
+	drink_name = "стакан Космического Маунтин Винда"
 	drink_desc = "Космический Маунтин Винд. Как вы знаете, в космосе нет гор, только ветер."
 	taste_description = "лаймовой газировки"
 
@@ -169,18 +169,18 @@
 	color = "#102000" // rgb: 16, 32, 0
 	adj_drowsy = -12 SECONDS
 	drink_icon = "dr_gibb_glass"
-	drink_name = "Стакан Доктора Гибба"
+	drink_name = "стакан Доктора Гибба"
 	drink_desc = "Доктор Гибб. Не так опасен, как может показаться."
 	taste_description = "вишнёвой газировки"
 
 /datum/reagent/consumable/drink/cold/space_up
 	name = "Спейс-Ап"
 	id = "space_up"
-	description = "На вкус как дыра в ошибке у вас во рту. Да, звучит странно."
+	description = "На вкус как дыра в обшивке у вас во рту. Да, звучит странно."
 	color = "#202800" // rgb: 32, 40, 0
 	adj_temp_cool = 8
 	drink_icon = "space-up_glass"
-	drink_name = "Стакан Спейс-Апа"
+	drink_name = "стакан Спейс-Апа"
 	drink_desc = "Спейс-Ап. Держит вас в тонусе."
 	taste_description = "лимонной газировки"
 
@@ -255,7 +255,7 @@
 	id = "zaza"
 	color = "#b10023" // rgb:177, 0, 35
 	drink_icon = "zaza"
-	drink_name = "Стакан Зазы"
+	drink_name = "стакан Зазы"
 	drink_desc = "Стакан, наполненный вишнёвым напитком, для отличной Заза-пятницы."
 	taste_description = "восхитительной вишнёвой газировки"
 	var/alternate_taste_description = "неприятной приторно-сладкой воды"
