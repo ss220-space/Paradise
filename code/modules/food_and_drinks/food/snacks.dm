@@ -43,8 +43,8 @@
 		return
 	if(!reagents.total_volume)
 		if(M == user)
-			to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
-		user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
+			to_chat(user, span_notice("Вы доели [declent_ru(ACCUSATIVE)]."))
+		user.visible_message(span_notice("[M] доел[genderize_ru(M.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)]."))
 		user.drop_item_ground(src)	//so icons update :[
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(usr)
