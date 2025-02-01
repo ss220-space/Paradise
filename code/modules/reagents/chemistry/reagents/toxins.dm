@@ -1279,7 +1279,7 @@
 	..()
 
 /datum/reagent/capulettium_plus
-	name = "Capulettium Plus"
+	name = "Капулеттий+"
 	id = "capulettium_plus"
 	description = "Редкий препарат, используемый для симуляции смерти организма употребившего. Пока находится в кровотоке, не позволяет субъекту говорить."
 	reagent_state = LIQUID

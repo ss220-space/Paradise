@@ -79,7 +79,7 @@
 
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!canopened)
-		balloon_alert(H, "сначала откройте!")
+		balloon_alert(user, "сначала откройте!")
 		return ATTACK_CHAIN_PROCEED
 	if(target == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == BODY_ZONE_HEAD)
 		user.visible_message(
