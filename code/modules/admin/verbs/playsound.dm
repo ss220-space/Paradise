@@ -210,7 +210,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		playsound(I, melody, cvol)
 
 /client/proc/play_direct_mob_sound(S as sound, mob/M)
-	set category = "Admin.Fun"
+	set category = "Admin.Sounds"
 	set name = "Play Direct Mob Sound"
 	if(!check_rights(R_SOUNDS))
 		return

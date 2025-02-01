@@ -371,34 +371,34 @@ BLIND     // can't see anything
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user.pulledby && user.pulledby.grab_state >= GRAB_NECK)
-		to_chat(user, "You can't reach the controls.")
+		balloon_alert(user, "не добраться!")
 		return
 	if(has_sensor >= 2)
-		to_chat(user, "The controls are locked.")
+		balloon_alert(user, "датчики заблокированы!")
 		return
 	if(has_sensor <= 0)
-		to_chat(user, "This suit does not have any sensors.")
+		balloon_alert(user, "датчики отсутствуют!")
 		return
 
-	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
-	var/switchMode = tgui_input_list(user, "Select a sensor mode:", "Suit Sensor Mode", modes, modes[sensor_mode+1])
+	var/list/modes = list("Выключены", "Бинарный режим", "Мониторинг жизненных показателей", "Полный мониторинг")
+	var/switchMode = tgui_input_list(user, "Выберите режим работы датчиков:", "Режим работы датчиков костюма", modes, modes[sensor_mode+1])
 	if(!switchMode)
 		return
 	if(get_dist(user, src) > 1)
-		to_chat(user, "You have moved too far away.")
+		balloon_alert(user, "слишком далеко!")
 		return
 	sensor_mode = modes.Find(switchMode) - 1
 
 	if(src.loc == user)
 		switch(sensor_mode)
 			if(0)
-				to_chat(user, "You disable your suit's remote sensing equipment.")
+				to_chat(user, "Вы отключаете датчики вашего костюма.")
 			if(1)
-				to_chat(user, "Your suit will now report whether you are live or dead.")
+				to_chat(user, "Теперь датчики вашего костюма будут отслеживать, живы вы или мертвы.")
 			if(2)
-				to_chat(user, "Your suit will now report your vital lifesigns.")
+				to_chat(user, "Теперь датчики вашего костюма будут отслеживать ваши жизненные показатели.")
 			if(3)
-				to_chat(user, "Your suit will now report your vital lifesigns as well as your coordinate position.")
+				to_chat(user, "Теперь датчики вашего костюма будут отслеживать ваши жизненные показатели и местоположение.")
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(H.w_uniform == src)
@@ -408,23 +408,23 @@ BLIND     // can't see anything
 		switch(sensor_mode)
 			if(0)
 				for(var/mob/V in viewers(user, 1))
-					V.show_message("<span class='warning'>[user] disables [src.loc]'s remote sensing equipment.</span>", 1)
+					V.show_message(span_warning("[user] отключа[pluralize_ru(user.gender, "ет", "ют")] датчики [src.loc]."), 1)
 			if(1)
 				for(var/mob/V in viewers(user, 1))
-					V.show_message("[user] turns [src.loc]'s remote sensors to binary.", 1)
+					V.show_message("[user] устанавлива[pluralize_ru(user.gender, "ет", "ют")] датчики [src.loc] в бинарный режим.", 1)
 			if(2)
 				for(var/mob/V in viewers(user, 1))
-					V.show_message("[user] sets [src.loc]'s sensors to track vitals.", 1)
+					V.show_message("[user] устанавлива[pluralize_ru(user.gender, "ет", "ют")] датчики [src.loc] в режим мониторинга жизненных показателей.", 1)
 			if(3)
 				for(var/mob/V in viewers(user, 1))
-					V.show_message("[user] sets [src.loc]'s sensors to maximum.", 1)
+					V.show_message("[user] устанавлива[pluralize_ru(user.gender, "ет", "ют")] датчики [src.loc] в режим мониторинга жизненных показателей и текущего местоположения.", 1)
 		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
 /obj/item/clothing/under/verb/toggle()
-	set name = "Toggle Suit Sensors"
+	set name = "Переключение датчиков костюма"
 	set category = "Object"
 	set src in usr
 	set_sensors(usr)
@@ -1156,13 +1156,13 @@ BLIND     // can't see anything
 	if(has_sensor)
 		switch(sensor_mode)
 			if(0)
-				. += span_notice("Its sensors appear to be disabled.")
+				. += span_notice("Датчики отключены.")
 			if(1)
-				. += span_notice("Its binary life sensors appear to be enabled.")
+				. += span_notice("Датчики работают в бинарном режиме.")
 			if(2)
-				. += span_notice("Its vital tracker appears to be enabled.")
+				. += span_notice("Датчики работают в режиме мониторинга жизненных показателей.")
 			if(3)
-				. += span_notice("Its vital tracker and tracking beacon appear to be enabled.")
+				. += span_notice("Датчики работают в режиме мониторинга жизненных показателей и текущего местоположения.")
 
 	for(var/obj/item/clothing/accessory/accessory as anything in accessories)
 		. += accessory.attached_examine()

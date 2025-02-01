@@ -684,6 +684,11 @@
 /// From base of /client/Move(): (direction, old_dir)
 #define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
 
+/// From base of /client/Move(), invoked when a non-living mob is attempting to move: (list/move_args)
+#define COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE "mob_client_pre_non_living_move"
+	/// Cancels the move attempt
+	#define COMSIG_MOB_CLIENT_BLOCK_PRE_NON_LIVING_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+
 /// From base of /client/Move(): (list/move_args)
 #define COMSIG_MOB_CLIENT_PRE_LIVING_MOVE "mob_client_pre_living_move"
 	/// Should we stop the current living movement attempt
@@ -1285,3 +1290,6 @@
 
 /// Source: /proc/random_hair_style (mob/living/carbon/human/human, valid_hairstyles, robohead)
 #define COMSIG_RANDOM_HAIR_STYLE	"random_hair_style"
+
+/// Source: /datum/component/object_possession/proc/on_move (mob/mob, new_loc, direct)
+#define COMSIG_POSSESSED_MOVEMENT "possessed_movement"

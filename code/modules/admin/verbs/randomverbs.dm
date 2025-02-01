@@ -52,7 +52,7 @@
 	if(!check_rights(R_EVENT))
 		return
 
-	var/msg = clean_input("Message:", text("Subtle PM to [M.key]"))
+	var/msg = tgui_input_text(src, "Message:", text("Subtle PM to [M.key]"), multiline = TRUE, encode = FALSE)
 
 	if(!msg)
 		return
@@ -175,12 +175,12 @@
 		return
 
 	if(!sender)
-		sender = input("Who is the message from?", "Sender") as null|anything in list("Centcomm", "Syndicate")
+		sender = tgui_input_list(src, "Who is the message from?", "Sender", list("Centcomm", "Syndicate"))
 		if(!sender)
 			return
 
 	message_admins("[key_name_admin(src)] has started answering [key_name_admin(H)]'s [sender] request.")
-	var/input = clean_input("Please enter a message to reply to [key_name(H)] via their headset.", "Outgoing message from [sender]", "")
+	var/input = tgui_input_text(src, "Please enter a message to reply to [key_name(H)] via their headset.", "Outgoing message from [sender]", multiline = TRUE, encode = FALSE)
 	if(!input)
 		message_admins("[key_name_admin(src)] decided not to answer [key_name_admin(H)]'s [sender] request.")
 		return

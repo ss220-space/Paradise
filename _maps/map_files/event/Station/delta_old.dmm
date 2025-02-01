@@ -940,7 +940,7 @@
 	dir = 8;
 	icon_state = "darkbluecorners"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "aon" = (
 /obj/structure/table/wood,
 /obj/item/camera,
@@ -12015,7 +12015,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "bEr" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -13713,7 +13713,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "bNS" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -14154,7 +14154,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "bPU" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -14587,7 +14587,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "bRF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/emitter{
@@ -14617,7 +14617,7 @@
 	dir = 6;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "bRT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -17034,7 +17034,7 @@
 /obj/structure/lattice,
 /obj/machinery/light/small,
 /turf/space,
-/area/aisat)
+/area/aisat/aihallway)
 "ccC" = (
 /obj/machinery/status_display{
 	pixel_y = 32
@@ -21093,7 +21093,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "cwL" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -22504,7 +22504,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "cCE" = (
 /turf/simulated/wall/rust,
 /area/space/nearstation)
@@ -23877,7 +23877,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/aisat)
+/area/aisat/aihallway)
 "cHJ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -28246,7 +28246,7 @@
 	dir = 9;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "cZS" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -28320,7 +28320,7 @@
 	dir = 5;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "daj" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -29252,7 +29252,7 @@
 	dir = 1;
 	icon_state = "darkbluecorners"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "deB" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -29440,7 +29440,7 @@
 	dir = 4;
 	icon_state = "darkbluecorners"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "deX" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
@@ -29524,7 +29524,7 @@
 	dir = 5;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "dfr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -30087,7 +30087,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "dhw" = (
 /obj/structure/table/wood,
 /obj/machinery/light{
@@ -30423,7 +30423,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "diX" = (
 /obj/machinery/computer/aiupload/cyborg,
 /obj/item/radio/intercom/private{
@@ -31084,7 +31084,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "dlL" = (
 /obj/machinery/reagentgrinder,
 /obj/structure/table/reinforced,
@@ -31324,7 +31324,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "dmz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -32249,7 +32249,7 @@
 	dir = 6;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "dpR" = (
 /obj/machinery/door/airlock/public{
 	name = "Bar";
@@ -32838,7 +32838,7 @@
 	dir = 10;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "dsx" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -32936,7 +32936,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "dsR" = (
 /obj/item/radio/intercom{
 	pixel_x = -32
@@ -33033,7 +33033,7 @@
 	dir = 6;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "dte" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -34022,7 +34022,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "dxT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -34074,7 +34074,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "dyn" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -35603,7 +35603,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/maintenance/ai)
+/area/aisat/aihallway)
 "dFa" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -38716,16 +38716,6 @@
 	icon_state = "dark"
 	},
 /area/security/permabrig)
-"dSb" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/lattice,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/space,
-/area/aisat)
 "dSc" = (
 /obj/structure/window/reinforced,
 /obj/structure/closet/coffin,
@@ -39274,16 +39264,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
-"dTT" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/lattice,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/space,
-/area/aisat)
 "dTW" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/chair,
@@ -40482,7 +40462,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "dYc" = (
 /obj/machinery/camera{
 	c_tag = "Central Ring Hallway West 4";
@@ -40624,7 +40604,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "dYz" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -40829,7 +40809,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "dZk" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/disposalpipe/segment{
@@ -42531,7 +42511,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "evo" = (
 /obj/structure/chair/wood{
 	dir = 1
@@ -44297,7 +44277,7 @@
 	dir = 10;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "eTz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -45520,7 +45500,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "fkX" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -45610,7 +45590,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "fmF" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/hologram/holopad,
@@ -47237,7 +47217,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/aisat)
+/area/aisat/aihallway)
 "fKF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -47341,7 +47321,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "fLz" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -52342,7 +52322,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "gXk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -52866,7 +52846,7 @@
 "heT" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
-/area/construction/hallway)
+/area/aisat/aihallway)
 "heZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -60215,7 +60195,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/aisat)
+/area/aisat/aihallway)
 "jiS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -61429,7 +61409,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "jxS" = (
 /obj/machinery/alarm{
 	dir = 8;
@@ -63672,7 +63652,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/maintenance/ai)
+/area/aisat/aihallway)
 "kgz" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -63976,7 +63956,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/maintenance/ai)
+/area/aisat/aihallway)
 "klw" = (
 /turf/simulated/floor/engine/n20,
 /area/atmos)
@@ -64172,7 +64152,7 @@
 	dir = 4;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "kna" = (
 /turf/simulated/wall/r_wall,
 /area/atmos/control)
@@ -66996,7 +66976,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/maintenance/ai)
+/area/aisat/aihallway)
 "liE" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -67179,7 +67159,7 @@
 	dir = 1
 	},
 /turf/space,
-/area/aisat)
+/area/aisat/aihallway)
 "llN" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -71108,7 +71088,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "mpA" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -71352,7 +71332,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "msG" = (
 /obj/structure/window/reinforced,
 /obj/structure/chair/comfy/black{
@@ -71528,7 +71508,7 @@
 	dir = 5;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "muV" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -71904,7 +71884,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "mzZ" = (
 /obj/structure/sign/science{
 	icon_state = "doors"
@@ -77365,7 +77345,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "nWY" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
@@ -81973,7 +81953,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/aisat)
+/area/aisat/aihallway)
 "pjj" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -81998,7 +81978,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "pjI" = (
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -82951,7 +82931,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "puB" = (
 /turf/simulated/wall/r_wall,
 /area/toxins/storage)
@@ -84923,7 +84903,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "pUL" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -90543,7 +90523,7 @@
 	dir = 9;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "rtb" = (
 /obj/structure/closet/coffin,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -94749,7 +94729,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "sAQ" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
@@ -95166,7 +95146,7 @@
 	dir = 5;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "sGl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -95703,7 +95683,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "sOC" = (
 /obj/structure/closet/secure_closet/exile,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -99386,7 +99366,7 @@
 "tOj" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/construction/hallway)
+/area/aisat/aihallway)
 "tOq" = (
 /obj/machinery/camera{
 	c_tag = "Arrivals South End";
@@ -100545,7 +100525,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "ufo" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -101416,7 +101396,7 @@
 	dir = 6;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "urC" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction,
 /turf/simulated/wall/r_wall/coated,
@@ -101789,7 +101769,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "uwZ" = (
 /obj/machinery/ai_slipper,
 /obj/structure/cable{
@@ -102267,7 +102247,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "uEV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -102969,7 +102949,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "uNn" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -103051,7 +103031,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "uOt" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -103433,7 +103413,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "uTm" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -103886,7 +103866,7 @@
 	dir = 9;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "uYT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -103926,7 +103906,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "uZl" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -104276,7 +104256,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "vfb" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Briefing Room";
@@ -105066,7 +105046,7 @@
 	dir = 10;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "vpK" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -105341,7 +105321,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/maintenance/ai)
+/area/aisat/aihallway)
 "vtR" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -105643,7 +105623,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/maintenance/ai)
+/area/aisat/aihallway)
 "vxk" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -108002,7 +107982,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/maintenance/ai)
+/area/aisat/aihallway)
 "waS" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -108102,7 +108082,7 @@
 	dir = 8
 	},
 /turf/space,
-/area/maintenance/ai)
+/area/aisat/aihallway)
 "wcl" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
@@ -108114,7 +108094,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "wcr" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/access_button{
@@ -108435,7 +108415,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "whc" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -109314,7 +109294,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "wsN" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -110615,7 +110595,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "wKB" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -110698,7 +110678,7 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "wMm" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/navbeacon{
@@ -111144,7 +111124,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluecorners"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "wRB" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light_switch{
@@ -111515,7 +111495,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "wWK" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -112614,7 +112594,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "xkm" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -113725,7 +113705,7 @@
 	dir = 6;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "xwM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -114175,7 +114155,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "xBS" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -115651,7 +115631,7 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "xTh" = (
 /obj/machinery/camera{
 	c_tag = "Server Room";
@@ -115763,7 +115743,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "xUL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/cobweb_left_frequent,
@@ -116288,7 +116268,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "ybL" = (
 /obj/structure/table/reinforced,
 /obj/item/wrench,
@@ -116865,7 +116845,7 @@
 	dir = 5;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "yiC" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -116922,7 +116902,7 @@
 	dir = 10;
 	icon_state = "darkblue"
 	},
-/area/construction/hallway)
+/area/aisat/aihallway)
 "yjA" = (
 /obj/structure/particle_accelerator/particle_emitter/left{
 	dir = 8
@@ -122956,7 +122936,7 @@ dYy
 wVe
 iGo
 fFm
-dSb
+kfX
 iGo
 iGo
 iGo
@@ -123208,7 +123188,7 @@ iGo
 iGo
 iGo
 iGo
-dSb
+kfX
 iGo
 iGw
 iGw
@@ -127834,7 +127814,7 @@ dxZ
 dxZ
 dxZ
 dxZ
-dTT
+klv
 dxZ
 iGw
 iGw
@@ -128096,7 +128076,7 @@ dZj
 eER
 dxZ
 fHS
-dTT
+klv
 dxZ
 dxZ
 dxZ

@@ -87,6 +87,10 @@
 
 	return player_data
 
+/datum/vuap_personal/ui_status(mob/user, datum/ui_state/state)
+	. = (check_rights(R_ADMIN | R_MOD, user)) ? UI_INTERACTIVE : ..()
+	
+
 /datum/vuap_personal/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -234,7 +238,7 @@
 		if("reviveghost")
 			usr.client.holder.Topic(null, list("incarn_ghost" = M.UID()))
 		if("respawnability")
-			usr.client.holder.Topic(null, list("f" = M.UID()))
+			usr.client.holder.Topic(null, list("togglerespawnability" = M.UID()))
 		//health section
 		if("healthscan")
 			healthscan(usr, M, TRUE)
