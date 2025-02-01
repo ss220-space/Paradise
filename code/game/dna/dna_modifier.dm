@@ -262,7 +262,7 @@
 	if(occupant)
 		balloon_alert(user, "внутри кто-то есть!")
 		return
-	var/mob/living/L = O
+	var/mob/living/L = M
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
