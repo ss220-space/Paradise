@@ -111,6 +111,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 ///////////////////////
 //The meteor effect
 //////////////////////
+#define DEFAULT_METEOR_LIFETIME 1800
 
 /obj/effect/meteor
 	name = "the concept of meteor"
@@ -131,6 +132,10 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	var/meteorsound = 'sound/effects/meteorimpact.ogg'
 	///Our starting z level, prevents infinite meteors
 	var/z_original
+	/// used for determining which meteors are most interesting
+	var/threat = 0
+	/// In order for Augury to not stuck on one living meteor, we'd like to remove after awhile of not hitting
+	var/lifetime = DEFAULT_METEOR_LIFETIME
 
 	//Potential items to spawn when we die. Can be list.
 	var/list/meteordrop = /obj/item/stack/ore/iron
@@ -151,6 +156,9 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	GLOB.meteor_list += src
 	SpinAnimation()
 	chase_target(target)
+	if(SSaugury)
+		SSaugury.register_doom(src, threat)
+	QDEL_IN(src, lifetime)
 
 
 /obj/effect/meteor/Destroy()
@@ -266,6 +274,8 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	var/random_frequency = get_rand_frequency()
 
 	for(var/mob/mob as anything in GLOB.player_list)
+		if((mob.orbiting) && (SSaugury?.watchers[mob]))
+			continue
 		var/turf/mob_turf = get_turf(mob)
 		if(!mob_turf || mob_turf.z != z)
 			continue
@@ -296,6 +306,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 /obj/effect/meteor/medium
 	name = "meteor"
 	dropamt = 3
+	threat = 5
 
 
 /obj/effect/meteor/medium/meteor_effect()
@@ -310,6 +321,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	heavy = TRUE
 	hits = 6
 	dropamt = 4
+	threat = 10
 
 
 /obj/effect/meteor/big/meteor_effect()
@@ -325,6 +337,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	heavy = TRUE
 	meteorsound = 'sound/effects/bamf.ogg'
 	meteordrop = /obj/item/stack/ore/plasma
+	threat = 20
 
 
 /obj/effect/meteor/flaming/meteor_effect()
@@ -338,6 +351,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	icon_state = "glowing"
 	heavy = TRUE
 	meteordrop = /obj/item/stack/ore/uranium
+	threat = 15
 
 
 /obj/effect/meteor/irradiated/meteor_effect()
@@ -358,6 +372,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	heavy = TRUE
 	meteorsound = 'sound/effects/bamf.ogg'
 	meteordrop = /obj/item/stack/ore/plasma
+	threat = 50
 
 
 /obj/effect/meteor/tunguska/meteor_effect()
@@ -382,6 +397,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	meteorsound = 'sound/effects/blobattack.ogg'
 	meteordrop = /obj/item/reagent_containers/food/snacks/meat
 	var/meteorgibs = /obj/effect/gibspawner/generic
+	threat = 2
 
 
 /obj/effect/meteor/gore/make_debris()
@@ -410,6 +426,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	icon_state = "syndicaterangedpsace"
 	hits = 10
 	hitpwr = EXPLODE_DEVASTATE
+	threat = 30
 
 
 /obj/effect/meteor/gore/pigops
@@ -419,6 +436,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	hitpwr = EXPLODE_DEVASTATE
 	hits = 3
 	shake_chance = 20
+	threat = 25
 
 
 //Dust
@@ -431,6 +449,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	hitpwr = EXPLODE_LIGHT
 	meteorsound = 'sound/weapons/tap.ogg'
 	meteordrop = /obj/item/stack/ore/glass
+	threat = 1
 
 
 // Space Dust
@@ -442,6 +461,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	hitpwr = EXPLODE_HEAVY
 	hits = 2
 	meteordrop = null
+	threat = 5
 
 
 /obj/effect/meteor/space_dust/ex_act(severity)
@@ -451,14 +471,18 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 /obj/effect/meteor/space_dust/weak
 	hitpwr = EXPLODE_LIGHT
 	hits = 1
+	threat = 1
 
 
 /obj/effect/meteor/space_dust/strong
 	hitpwr = EXPLODE_DEVASTATE
 	hits = 6
+	threat = 10
 
 
 /obj/effect/meteor/space_dust/super
 	hitpwr = EXPLODE_DEVASTATE
 	hits = 40
+	threat = 40
 
+#undef DEFAULT_METEOR_LIFETIME
