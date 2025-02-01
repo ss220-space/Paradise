@@ -19,6 +19,8 @@
 
 	/// The mob beholding this marvel.
 	var/mob/watching_mob
+	/// The mob we're looking after if moved. Used by AI eye only.
+	var/mob/moving_mob
 	/// The image that can be seen in-world.
 	var/image/small_station_map
 	/// The little "map" floor painting.
@@ -101,7 +103,8 @@
 	holomap_datum.base_map.alpha = 0 // Set to transparent so we can fade in
 	if(isAI(user))
 		var/mob/living/silicon/ai/our_ai = user
-		RegisterSignal(our_ai.eyeobj, COMSIG_AI_EYE_MOVED, PROC_REF(check_position))
+		moving_mob = our_ai.eyeobj
+		RegisterSignal(moving_mob, COMSIG_AI_EYE_MOVED, PROC_REF(check_position))
 	else
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
 
@@ -146,10 +149,8 @@
 	if(!watching_mob)
 		return
 
-	if(isAI(watching_mob))
-		UnregisterSignal(watching_mob, COMSIG_AI_EYE_MOVED)
-	else
-		UnregisterSignal(watching_mob, COMSIG_MOVABLE_MOVED)
+	UnregisterSignal(moving_mob, COMSIG_AI_EYE_MOVED)
+	UnregisterSignal(watching_mob, COMSIG_MOVABLE_MOVED)
 	playsound(src, 'sound/effects/holomap_close.ogg', 125)
 	icon_state = initial(icon_state)
 	if(watching_mob?.client)
