@@ -119,7 +119,7 @@
 
 /obj/item/reagent_containers/food/pill/patch/nicotine
 	name = "nicotine patch"
-	desc = "Помогает облегчить никотиновой зависимости."
+	desc = "Помогает облегчить никотиновую зависимость."
 	ru_names = list(
         NOMINATIVE = "пластырь (Никотин)",
         GENITIVE = "пластыря (Никотин)",
