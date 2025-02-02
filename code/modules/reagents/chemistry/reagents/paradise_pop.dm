@@ -94,7 +94,7 @@
 	taste_description = "набегаторства"
 
 /datum/reagent/consumable/drink/blackeye_brew/on_mob_life(mob/living/M)
-	if(prob(10))
+	if(prob(25))
 		var/list/tider_talk = list("ПО РП, ПО РП БЛЯДЬ! МНЕ ПОХУЙ НА ТВОЁ РП!",
 									"ПРОКЛЯТИЕ 220!",
 									"ПЕДАЛИ СУКИ!",
