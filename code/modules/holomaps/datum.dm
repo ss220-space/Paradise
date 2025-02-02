@@ -73,7 +73,7 @@
 		base_map.add_overlay(legend)
 		return
 
-	if(location_turf && location_turf.z == map_z && check_level_trait(location_turf.z, STATION_LEVEL))
+	if(location_turf && location_turf.z == map_z && is_station_level(location_turf.z))
 		cursor.pixel_x = location_turf.x - 3 + HOLOMAP_CENTER_X
 		cursor.pixel_y = location_turf.y - 3 + HOLOMAP_CENTER_Y
 

@@ -42,7 +42,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		var/turf/pos = get_turf(C)
 		if(!istype(pos) || !T)
 			continue
-		if((pos.z != T.z) && !(check_level_trait(pos.z, STATION_LEVEL) && check_level_trait(T.z, STATION_LEVEL))) // same z_level or both on STATION_LEVEL
+		if((pos.z != T.z) && !(is_station_level(pos.z) && is_station_level(T.z))) // same z_level or both on STATION_LEVEL
 			continue
 		var/list/crewmemberData = list("dead"=0, "oxy"=-1, "tox"=-1, "fire"=-1, "brute"=-1, "area"="", "x"=-1, "y"=-1, "ref" = "\ref[H]")
 
