@@ -259,6 +259,19 @@
 	if(!do_after(user, 2 SECONDS, M))
 		return
 
+	if(occupant)
+		balloon_alert(user, "внутри кто-то есть!")
+		return
+	var/mob/living/L = M
+	if(!istype(L) || L.buckled)
+		return
+	if(L.abiotic())
+		balloon_alert(user, "руки субъекта заняты!")
+		return
+	if(L.has_buckled_mobs()) //mob attached to us
+		to_chat(user, span_warning("[L] не помест[pluralize_ru(L.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		return
+
 	M.forceMove(src)
 	occupant = M
 	icon_state = "scanner_occupied"
