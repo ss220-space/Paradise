@@ -1019,6 +1019,14 @@
 /obj/machinery/smartfridge/drying_rack/ash
 	name = "primitive drying rack"
 	desc = "Самодельная сушилка, используется для сушки кожи и еды."
+	ru_names = list(
+		NOMINATIVE = "примитивная сушилка",
+		GENITIVE = "примитивной сушилки",
+		DATIVE = "примитивной сушилке",
+		ACCUSATIVE = "примитивная сушилка",
+		INSTRUMENTAL = "примитивной сушилкой",
+		PREPOSITIONAL = "примитивной сушилке",
+	)
 	icon_state = "primitive-drying-rack"
 	use_power = NO_POWER_USE
 	can_dry = FALSE //trust me
