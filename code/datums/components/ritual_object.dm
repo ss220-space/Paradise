@@ -89,28 +89,64 @@
 		to_chat(human, "Не имеется доступных для выполнения ритуалов.")
 		return
 
-	var/choosen_ritual = tgui_input_list(human, "Выберите ритуал", "Ритуалы", rituals_list)
+	ui_interact(human)
+	return
 
+
+/datum/component/ritual_object/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		// Open UI
+		ui = new(user, src, "RitualMenu")
+		ui.open()
+
+/datum/component/ritual_object/ui_data(mob/user)
+	var/list/data = list()
+	data["rituals"] = get_available_rituals(user)
+	data["selected_ritual"] = ritual?.name
+	if(ritual)
+		if(ritual.description)
+			data["description"] = ritual.description
+		var/list/params = ritual.get_ui_params()
+		if(params?.len)
+			data["params"] = params
+		var/list/things = ritual.get_ui_things()
+		if(things?.len)
+			data["things"] = things
+		data["ritual_available"] = COOLDOWN_FINISHED(ritual, ritual_cooldown)
+		data["time_left"] = round(COOLDOWN_TIMELEFT(ritual, ritual_cooldown) / (1 SECONDS))
+
+	return data
+
+/datum/component/ritual_object/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
+		return
+	switch(action)
+		if("select_ritual")
+			handle_ritual_selection(ui.user, params["selected_ritual"])
+			. = TRUE
+
+		if("start_ritual")
+			var/ritual_status = pre_ritual_check(ui.user)
+			if(ritual_status)
+				active_ui = FALSE
+			. = TRUE
+
+/datum/component/ritual_object/ui_close(mob/user)
+	. = ..()
+	active_ui = FALSE
+
+/datum/component/ritual_object/proc/handle_ritual_selection(mob/living/carbon/human/human, choosen_ritual)
 	if(!choosen_ritual)
 		active_ui = FALSE
 		return
 
-	return handle_ritual_selection(human, choosen_ritual)
-
-/datum/component/ritual_object/proc/handle_ritual_selection(mob/living/carbon/human/human, choosen_ritual)
-	var/ritual_status
-
 	for(var/datum/ritual/ritual as anything in rituals)
 		if(choosen_ritual != ritual.name)
 			continue
-
 		src.ritual = ritual
-		ritual_status = pre_ritual_check(human)
-
 		break
-
-	if(ritual_status)
-		active_ui = FALSE
 
 	return TRUE
 

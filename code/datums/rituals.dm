@@ -37,6 +37,25 @@
 	LAZYNULL(required_things)
 	return ..()
 
+/datum/ritual/proc/get_ui_params()
+	var/list/params = list()
+	params["Необходимо участников:"] = extra_invokers + 1
+	if(cast_time)
+		params["Время выполнения:"] = "[round(cast_time/ (1 SECONDS))]c"
+	params["Доступно использований:"] = charges == -1 ? "Не ограничено" : charges
+	params["Время ожидания между ритуалами:"] = "[round(cooldown_after_cast/ (1 SECONDS))]c"
+	params["Шанс катастрофы:"] =  "[disaster_prob]%"
+	params["Шанс провала:"] = "[fail_chance]%"
+	params["Удаление предметов:"] = ritual_should_del_things? "Да" : (ritual_should_del_things_on_fail)? "При провале" : "Нет"
+	return params
+
+
+/datum/ritual/proc/get_ui_things()
+	var/list/things = list()
+	for(var/atom/item as anything in required_things)
+		things[item.name] = required_things[item]
+	return things
+
 /datum/ritual/proc/is_valid_invoker(mob/living/carbon/human/human)
 	if(!istype(human))
 		return FALSE
@@ -87,6 +106,14 @@
 /datum/ritual/ashwalker/New()
 	. = ..()
 	AddElement(/datum/element/dye_removal)
+
+/datum/ritual/ashwalker/get_ui_params()
+	. = list()
+	.["Необходимо участников-шаманов:"] = extra_shaman_invokers
+	.["Может выполнить только шаман:"] = (shaman_only)? "Да" : "Нет"
+	. += ..()
+	if(needed_dye)
+		.["Краска на участниках:"] = needed_dye
 
 /datum/ritual/ashwalker/is_valid_invoker(atom/atom)
 	return istype(atom, /obj/structure/ash_totem) || ..()
