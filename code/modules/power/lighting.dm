@@ -508,7 +508,6 @@
 		light_color = spraycan.colour
 		playsound(src, 'sound/effects/spray.ogg', 50, TRUE)
 		update()
-		log_admin("LOG: [user.name] ([user.ckey]) sprayed [src] with [spraycan.name] at [AREACOORD(src)]")
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
