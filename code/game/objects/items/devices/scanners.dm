@@ -744,7 +744,7 @@ REAGENT SCANNER
 		PREPOSITIONAL = "глазе здоровья"
 	)
 	icon = 'icons/obj/device.dmi'
-	icon_state = "Gem_analyzer"
+	icon_state = "gem_analyzer"
 	item_state = "gem_analyzer"
 	origin_tech = null
 

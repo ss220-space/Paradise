@@ -1649,7 +1649,7 @@
 
 /datum/crafting_recipe/nutcracker
 	name = "Nutcracker" //Колотушка
-	result = /obj/item/nutcracker
+	result = /obj/item/melee/nutcracker
 	time = 4 SECONDS
 	reqs = list(/obj/item/stack/sheet/bone = 2,
 				/obj/item/stack/sheet/animalhide/weaver_chitin = 2)
