@@ -387,9 +387,9 @@
 		if(isnull(amount))
 			amount = 0
 
-		var/atom/temp = typepath
+		var/obj/item = new typepath(src)
 		var/datum/data/vending_product/R = new /datum/data/vending_product()
-		R.name = initial(temp.name)
+		R.name = capitalize(item.ru_names ? item.ru_names[1] : item.name)
 		R.product_path = typepath
 		if(!start_empty)
 			R.amount = amount
@@ -796,9 +796,10 @@
 	var/i = 1
 	for (var/datum/data/vending_product/R in product_records)
 		var/obj/item = R.product_path
+		var/obj/item/item_ru = new R.product_path(src)
 		var/list/data_pr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = R.name,
+			name = capitalize(item_ru.ru_names ? item_ru.ru_names[1] : item.name),
 			price = (item in prices) ? prices[item] : 0,
 			icon = item.icon,
 			icon_state = item.icon_state,
@@ -812,9 +813,10 @@
 	data["coin_records"] = list()
 	for (var/datum/data/vending_product/R in coin_records)
 		var/obj/item = R.product_path
+		var/obj/item/item_ru = new R.product_path(src)
 		var/list/data_cr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = R.name,
+			name = capitalize(item_ru.ru_names ? item_ru.ru_names[1] : item.name),
 			price = (item in prices) ? prices[item] : 0,
 			icon = item.icon,
 			icon_state = item.icon_state,
@@ -829,9 +831,10 @@
 	data["hidden_records"] = list()
 	for (var/datum/data/vending_product/R in hidden_records)
 		var/obj/item = R.product_path
+		var/obj/item/item_ru = new R.product_path(src)
 		var/list/data_hr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = R.name, // (NOMINATIVE in R.ru_names) ? R.ru_names[NOMINATIVE] : R.name,
+			name = capitalize(item_ru.ru_names ? item_ru.ru_names[1] : item.name),
 			price = (item in prices) ? prices[item] : 0,
 			icon = item.icon,
 			icon_state = item.icon_state,
