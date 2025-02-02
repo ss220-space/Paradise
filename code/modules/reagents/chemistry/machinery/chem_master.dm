@@ -619,6 +619,9 @@
 		var/obj/item/reagent_containers/P = new item_type(location)
 		if(!isnull(medicine_name))
 			P.name = "[name_suffix][medicine_name]"
+			if(P.ru_names)
+				for(var/j = 1; j <= 6; j++)
+					P.ru_names[j] = "[P.ru_names[j]] - [medicine_name]"
 		P.pixel_x = rand(-7, 7) // Random position
 		P.pixel_y = rand(-7, 7)
 		configure_item(data, reagents, P)
@@ -635,7 +638,7 @@
 	item_type = /obj/item/reagent_containers/food/pill
 	max_items_amount = MAX_MULTI_AMOUNT
 	max_units_per_item = MAX_UNITS_PER_PILL
-	name_suffix = "Таблетка - "
+	name_suffix = "pill - "
 	sprite_mask = "pill"
 	sprites_amount = MAX_PILL_SPRITE
 
@@ -646,7 +649,7 @@
 	item_type = /obj/item/reagent_containers/food/pill/patch
 	max_items_amount = MAX_MULTI_AMOUNT
 	max_units_per_item = MAX_UNITS_PER_PATCH
-	name_suffix = "Пластырь - "
+	name_suffix = "patch - "
 	sprite_mask = "bandaid"
 	sprites_amount = MAX_PATCH_SPRITE
 
@@ -676,7 +679,7 @@
 
 	max_items_amount = 5
 	max_units_per_item = 50
-	name_suffix = "Бутылка - "
+	name_suffix = "bottle - "
 
 /datum/chemical_production_mode/bottles/get_base_placeholder_name(datum/reagents/reagents, amount_per_item)
 	return reagents.get_master_reagent_name()
@@ -698,7 +701,7 @@
 	item_type = /obj/item/reagent_containers/food/condiment/pack
 	max_items_amount = 10
 	max_units_per_item = 10
-	name_suffix = "Пакет для специй - "
+	name_suffix = "pack - "
 
 /datum/chemical_production_mode/condiment_packs/get_base_placeholder_name(datum/reagents/reagents, amount_per_item)
 	return reagents.get_master_reagent_name()

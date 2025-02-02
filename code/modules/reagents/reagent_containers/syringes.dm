@@ -138,8 +138,8 @@
 						return
 					if(L.reagents.total_volume >= L.reagents.maximum_volume)
 						return
-					L.visible_message(span_danger("[user] сделал[genderize_ru(user.gender, "", "а", "о", "и")] [L] укол [declent_ru(INSTRUMENTAL)]!"), \
-										span_userdanger("[user] сделал[genderize_ru(user.gender, "", "а", "о", "и")] вам укол [declent_ru(INSTRUMENTAL)]!"))
+					L.visible_message(span_danger("[user] дела[pluralize_ru(user.gender, "ет", "ют")] [L] укол [declent_ru(INSTRUMENTAL)]!"), \
+										span_userdanger("[user] дела[pluralize_ru(user.gender, "ет", "ют")] вам укол [declent_ru(INSTRUMENTAL)]!"))
 
 			add_attack_logs(user, target, "Injected with [name] containing [reagents.log_list()], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 

@@ -1,13 +1,13 @@
 /obj/item/reagent_containers/food/pill/patch
 	name = "chemical patch"
-	desc = "Химический патч, предназначенный для медленного ввода веществ в кровоток пациента через контакт с кожей."
+	desc = "Химический пластырь, предназначенный для медленного ввода веществ в кровоток пациента через контакт с кожей."
 	ru_names = list(
-        NOMINATIVE = "патч",
-        GENITIVE = "патча",
-        DATIVE = "патчу",
-        ACCUSATIVE = "патч",
-        INSTRUMENTAL = "патчем",
-        PREPOSITIONAL = "патче"
+        NOMINATIVE = "пластырь",
+        GENITIVE = "пластыря",
+        DATIVE = "пластырю",
+        ACCUSATIVE = "пластырь",
+        INSTRUMENTAL = "пластырем",
+        PREPOSITIONAL = "пластыре"
 	)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bandaid"
@@ -50,12 +50,12 @@
 	name = "healing patch"
 	desc = "Помогает при порезах и ушибах."
 	ru_names = list(
-        NOMINATIVE = "патч (Мех. Повреждения)",
-        GENITIVE = "патча (Мех. Повреждения)",
-        DATIVE = "патчу (Мех. Повреждения)",
-        ACCUSATIVE = "патч (Мех. Повреждения)",
-        INSTRUMENTAL = "патчем (Мех. Повреждения)",
-        PREPOSITIONAL = "патче (Мех. Повреждения)"
+        NOMINATIVE = "пластырь (Мех. Повреждения)",
+        GENITIVE = "пластыря (Мех. Повреждения)",
+        DATIVE = "пластырю (Мех. Повреждения)",
+        ACCUSATIVE = "пластырь (Мех. Повреждения)",
+        INSTRUMENTAL = "пластырем (Мех. Повреждения)",
+        PREPOSITIONAL = "пластыре (Мех. Повреждения)"
 	)
 	icon_state = "bandaid2"
 	instant_application = 1
@@ -64,12 +64,12 @@
 /obj/item/reagent_containers/food/pill/patch/styptic/small
 	name = "healing mini-patch"
 	ru_names = list(
-        NOMINATIVE = "мини-патч (Мех. Повреждения)",
-        GENITIVE = "мини-патча (Мех. Повреждения)",
-        DATIVE = "мини-патчу (Мех. Повреждения)",
-        ACCUSATIVE = "мини-патч (Мех. Повреждения)",
-        INSTRUMENTAL = "мини-патчем (Мех. Повреждения)",
-        PREPOSITIONAL = "мини-патче (Мех. Повреждения)"
+        NOMINATIVE = "мини-пластырь (Мех. Повреждения)",
+        GENITIVE = "мини-пластыря (Мех. Повреждения)",
+        DATIVE = "мини-пластырю (Мех. Повреждения)",
+        ACCUSATIVE = "мини-пластырь (Мех. Повреждения)",
+        INSTRUMENTAL = "мини-пластырем (Мех. Повреждения)",
+        PREPOSITIONAL = "мини-пластыре (Мех. Повреждения)"
 	)
 	icon_state = "bandaid1"
 	list_reagents = list("styptic_powder" = 10)
@@ -78,12 +78,12 @@
 	name = "burn patch"
 	desc = "Помогает при ожогах."
 	ru_names = list(
-        NOMINATIVE = "патч (Терм. Повреждения)",
-        GENITIVE = "патча (Терм. Повреждения)",
-        DATIVE = "патчу (Терм. Повреждения)",
-        ACCUSATIVE = "патч (Терм. Повреждения)",
-        INSTRUMENTAL = "патчем (Терм. Повреждения)",
-        PREPOSITIONAL = "патче (Терм. Повреждения)"
+        NOMINATIVE = "пластырь (Терм. Повреждения)",
+        GENITIVE = "пластыря (Терм. Повреждения)",
+        DATIVE = "пластырю (Терм. Повреждения)",
+        ACCUSATIVE = "пластырь (Терм. Повреждения)",
+        INSTRUMENTAL = "пластырем (Терм. Повреждения)",
+        PREPOSITIONAL = "пластыре (Терм. Повреждения)"
 	)
 	icon_state = "bandaid4"
 	instant_application = 1
@@ -92,12 +92,12 @@
 /obj/item/reagent_containers/food/pill/patch/silver_sulf/small
 	name = "burn mini-patch"
 	ru_names = list(
-        NOMINATIVE = "мини-патч (Терм. Повреждения)",
-        GENITIVE = "мини-патча (Терм. Повреждения)",
-        DATIVE = "мини-патчу (Терм. Повреждения)",
-        ACCUSATIVE = "мини-патч (Терм. Повреждения)",
-        INSTRUMENTAL = "мини-патчем (Терм. Повреждения)",
-        PREPOSITIONAL = "мини-патче (Терм. Повреждения)"
+        NOMINATIVE = "мини-пластырь (Терм. Повреждения)",
+        GENITIVE = "мини-пластыря (Терм. Повреждения)",
+        DATIVE = "мини-пластырю (Терм. Повреждения)",
+        ACCUSATIVE = "мини-пластырь (Терм. Повреждения)",
+        INSTRUMENTAL = "мини-пластырем (Терм. Повреждения)",
+        PREPOSITIONAL = "мини-пластыре (Терм. Повреждения)"
 	)
 	icon_state = "bandaid3"
 	list_reagents = list("silver_sulfadiazine" = 10)
@@ -106,12 +106,12 @@
 	name = "synthflesh patch"
 	desc = "Помогает лечить как механические, так и термические повреждения."
 	ru_names = list(
-        NOMINATIVE = "патч (Синт-плоть)",
-        GENITIVE = "патча (Синт-плоть)",
-        DATIVE = "патчу (Синт-плоть)",
-        ACCUSATIVE = "патч (Синт-плоть)",
-        INSTRUMENTAL = "патчем (Синт-плоть)",
-        PREPOSITIONAL = "патче (Синт-плоть)"
+        NOMINATIVE = "пластырь (Синт-плоть)",
+        GENITIVE = "пластыря (Синт-плоть)",
+        DATIVE = "пластырю (Синт-плоть)",
+        ACCUSATIVE = "пластырь (Синт-плоть)",
+        INSTRUMENTAL = "пластырем (Синт-плоть)",
+        PREPOSITIONAL = "пластыре (Синт-плоть)"
 	)
 	icon_state = "bandaid8"
 	instant_application = 1
@@ -121,12 +121,12 @@
 	name = "nicotine patch"
 	desc = "Помогает облегчить никотиновой зависимости."
 	ru_names = list(
-        NOMINATIVE = "патч (Никотин)",
-        GENITIVE = "патча (Никотин)",
-        DATIVE = "патчу (Никотин)",
-        ACCUSATIVE = "патч (Никотин)",
-        INSTRUMENTAL = "патчем (Никотин)",
-        PREPOSITIONAL = "патче (Никотин)"
+        NOMINATIVE = "пластырь (Никотин)",
+        GENITIVE = "пластыря (Никотин)",
+        DATIVE = "пластырю (Никотин)",
+        ACCUSATIVE = "пластырь (Никотин)",
+        INSTRUMENTAL = "пластырем (Никотин)",
+        PREPOSITIONAL = "пластыре (Никотин)"
 	)
 	list_reagents = list("nicotine" = 10)
 
@@ -134,12 +134,12 @@
 	name = "jestosterone patch"
 	desc = "Вводит необходимую дозу хи-хи и ха-ха прямо в кровь."
 	ru_names = list(
-        NOMINATIVE = "патч (Шутостерон)",
-        GENITIVE = "патча (Шутостерон)",
-        DATIVE = "патчу (Шутостерон)",
-        ACCUSATIVE = "патч (Шутостерон)",
-        INSTRUMENTAL = "патчем (Шутостерон)",
-        PREPOSITIONAL = "патче (Шутостерон)"
+        NOMINATIVE = "пластырь (Шутостерон)",
+        GENITIVE = "пластыря (Шутостерон)",
+        DATIVE = "пластырю (Шутостерон)",
+        ACCUSATIVE = "пластырь (Шутостерон)",
+        INSTRUMENTAL = "пластырем (Шутостерон)",
+        PREPOSITIONAL = "пластыре (Шутостерон)"
 	)
 	icon_state = "bandaid20"
 	list_reagents = list("jestosterone" = 20)
