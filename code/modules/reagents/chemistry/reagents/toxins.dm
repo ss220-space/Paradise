@@ -1172,7 +1172,7 @@
 /datum/reagent/glyphosate
 	name = "Глифосат"
 	id = "glyphosate"
-	description = "Гербицид широкого спектра применения, эффективно уничтожающий растения."
+	description = "Гербицид широкого спектра применения, эффективно уничтожающий вредителей."
 	reagent_state = LIQUID
 	color = "#d3cf50"
 	var/lethality = 0 //Glyphosate is non-toxic to people
