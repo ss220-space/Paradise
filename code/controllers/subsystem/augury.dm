@@ -54,12 +54,12 @@ SUBSYSTEM_DEF(augury)
 			watchers -= w
 			continue
 		var/mob/dead/observer/O = w
-		if(biggest_doom && (!O.orbiting || O.orbiting.parent != biggest_doom))
+		if(biggest_doom && (!O.orbiting || O.orbiting != biggest_doom))
 			O.ManualFollow(biggest_doom)
 
 /datum/action/innate/augury
 	name = "Авто-отслеживание обломок"
-	button_icon = 'icons/obj/meteor.dmi'
+	icon_icon = 'icons/obj/meteor.dmi'
 	button_icon_state = "flaming"
 
 /datum/action/innate/augury/Destroy()

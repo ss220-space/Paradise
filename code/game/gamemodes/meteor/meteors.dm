@@ -111,7 +111,6 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 ///////////////////////
 //The meteor effect
 //////////////////////
-#define DEFAULT_METEOR_LIFETIME 1800
 
 /obj/effect/meteor
 	name = "the concept of meteor"
@@ -134,8 +133,6 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	var/z_original
 	/// used for determining which meteors are most interesting
 	var/threat = 0
-	/// In order for Augury to not stuck on one living meteor, we'd like to remove after awhile of not hitting
-	var/lifetime = DEFAULT_METEOR_LIFETIME
 
 	//Potential items to spawn when we die. Can be list.
 	var/list/meteordrop = /obj/item/stack/ore/iron
@@ -422,8 +419,8 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 //Meteor Ops
 /obj/effect/meteor/gore/ops
 	name = "meteorOps"
-	icon = 'icons/mob/animal.dmi'
-	icon_state = "syndicaterangedpsace"
+	icon = 'icons/mob/simple_human.dmi'
+	icon_state = "syndicate_space"
 	hits = 10
 	hitpwr = EXPLODE_DEVASTATE
 	threat = 30
@@ -484,5 +481,3 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	hitpwr = EXPLODE_DEVASTATE
 	hits = 40
 	threat = 40
-
-#undef DEFAULT_METEOR_LIFETIME
