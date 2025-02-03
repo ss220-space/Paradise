@@ -1,6 +1,14 @@
 /obj/item/reagent_containers/applicator
 	name = "auto-mender"
-	desc = "A small electronic device designed to topically apply healing chemicals."
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов."
+	ru_names = list(
+        NOMINATIVE = "авто-мендер",
+        GENITIVE = "авто-мендера",
+        DATIVE = "авто-мендеру",
+        ACCUSATIVE = "авто-мендер",
+        INSTRUMENTAL = "авто-мендером",
+        PREPOSITIONAL = "авто-мендере"
+	)
 	icon = 'icons/goonstation/objects/objects.dmi'
 	icon_state = "mender"
 	item_state = "mender"
@@ -25,7 +33,7 @@
 		emagged = TRUE
 		ignore_flags = TRUE
 		if(user)
-			to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
+			balloon_alert(user, "протоколы безопасности взломаны")
 
 /obj/item/reagent_containers/applicator/set_APTFT()
 	set hidden = TRUE
@@ -39,9 +47,9 @@
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)
 			if(ismob(loc))
-				to_chat(loc, "<span class='warning'>[src] identifies and removes a harmful substance.</span>")
+				to_chat(loc, span_warning("[capitalize(declent_ru(NOMINATIVE))] определяет и удаляет недопустимое вещество."))
 			else
-				visible_message("<span class='warning'>[src] identifies and removes a harmful substance.</span>")
+				visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] определяет и удаляет недопустимое вещество."))
 	update_icon()
 
 
@@ -72,11 +80,11 @@
 		return .
 
 	if(!reagents || !reagents.total_volume)
-		to_chat(user, span_warning("[src] is empty!"))
+		balloon_alert(user, "пусто!")
 		return .
 
 	if(applying)
-		to_chat(user, span_warning("You're already applying [src]."))
+		balloon_alert(user, "уже используется!")
 		return .
 
 	if(!ignore_flags && !target.can_inject(user, TRUE))
@@ -84,13 +92,13 @@
 
 	if(target == user)
 		target.visible_message(
-			span_notice("[user] begins mending [user.p_them()]self with [src]."),
-			span_notice("You begin mending yourself with [src]."),
+			span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] применять [declent_ru(ACCUSATIVE)] на себе."),
+			span_notice("Вы начинаете применять [declent_ru(ACCUSATIVE)] на себе."),
 		)
 	else
 		user.visible_message(
-			span_notice("[user] begins mending [target] with [src]."),
-			span_notice("You begin mending [target] with [src]."),
+			span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] применять [declent_ru(ACCUSATIVE)] на [target]."),
+			span_notice("Вы начинаете применять [declent_ru(ACCUSATIVE)] на [target]."),
 		)
 
 	. |= ATTACK_CHAIN_SUCCESS
@@ -106,10 +114,10 @@
 		measured_health = target.health
 		apply_to(target, user, 1, FALSE, def_zone)
 		if(measured_health == target.health)
-			to_chat(user, span_notice("[target] is finished healing and [src] powers down automatically."))
+			balloon_alert(user, "авто-мендер выключен!")
 			break
 		if(!reagents.total_volume)
-			to_chat(user, span_notice("[src] is out of reagents and powers down automatically."))
+			balloon_alert(user, "содержимое закончилось!")
 			break
 		cycle_count++
 
@@ -132,14 +140,41 @@
 
 /obj/item/reagent_containers/applicator/brute
 	name = "brute auto-mender"
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления механических повреждений."
+	ru_names = list(
+        NOMINATIVE = "авто-мендер (Мех. Повреждения)",
+        GENITIVE = "авто-мендера (Мех. Повреждения)",
+        DATIVE = "авто-мендеру (Мех. Повреждения)",
+        ACCUSATIVE = "авто-мендер (Мех. Повреждения)",
+        INSTRUMENTAL = "авто-мендером (Мех. Повреждения)",
+        PREPOSITIONAL = "авто-мендере (Мех. Повреждения)"
+	)
 	list_reagents = list("styptic_powder" = 200)
 
 /obj/item/reagent_containers/applicator/burn
 	name = "burn auto-mender"
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления термических повреждений."
+	ru_names = list(
+        NOMINATIVE = "авто-мендер (Терм. Повреждения)",
+        GENITIVE = "авто-мендера (Терм. Повреждения)",
+        DATIVE = "авто-мендеру (Терм. Повреждения)",
+        ACCUSATIVE = "авто-мендер (Терм. Повреждения)",
+        INSTRUMENTAL = "авто-мендером (Терм. Повреждения)",
+        PREPOSITIONAL = "авто-мендере (Терм. Повреждения)"
+	)
 	list_reagents = list("silver_sulfadiazine" = 200)
 
 /obj/item/reagent_containers/applicator/dual
 	name = "dual auto-mender"
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления как механических, так и термических повреждений."
+	ru_names = list(
+        NOMINATIVE = "авто-мендер (Синт-плоть)",
+        GENITIVE = "авто-мендера (Синт-плоть)",
+        DATIVE = "авто-мендеру (Синт-плоть)",
+        ACCUSATIVE = "авто-мендер (Синт-плоть)",
+        INSTRUMENTAL = "авто-мендером (Синт-плоть)",
+        PREPOSITIONAL = "авто-мендере (Синт-плоть)"
+	)
 	list_reagents = list("synthflesh" = 200)
 
 /obj/item/reagent_containers/applicator/dual/syndi // It magically goes through hardsuits. Don't ask how.

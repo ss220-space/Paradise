@@ -13,6 +13,7 @@
         INSTRUMENTAL = "пипеткой",
         PREPOSITIONAL = "пипетке"
 	)
+	gender = FEMALE
 	icon_state = "dropper"
 	item_state = "dropper"
 	amount_per_transfer_from_this = 5
