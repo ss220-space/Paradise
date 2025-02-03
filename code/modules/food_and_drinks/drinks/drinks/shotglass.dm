@@ -29,18 +29,23 @@
 	. = ..()
 	if(reagents.total_volume)
 		name = "shot glass of " + reagents.get_master_reagent_name() //No matter what, the glass will tell you the reagent's name. Might be too abusable in the future.
-		if(ru_names)
-			for(var/i = 1; i <= 6; i++)
-				ru_names[i] = ru_names[i] + " - [reagents.get_master_reagent_name()]"
+		ru_names = list(
+			NOMINATIVE = "рюмка - " + reagents.get_master_reagent_name(),
+			GENITIVE = "рюмки - " + reagents.get_master_reagent_name(),
+			DATIVE = "рюмке - " + reagents.get_master_reagent_name(),
+			ACCUSATIVE = "рюмку - " + reagents.get_master_reagent_name(),
+			INSTRUMENTAL = "рюмкой - " + reagents.get_master_reagent_name(),
+			PREPOSITIONAL = "рюмке - " +reagents.get_master_reagent_name()
+		)
 		if(resistance_flags & ON_FIRE)
 			name = "flaming [name]"
 			if(ru_names)
-				ru_names[1] = "горящая" + ru_names[1]
-				ru_names[2] = "горящей" + ru_names[2]
-				ru_names[3] = "горящей" + ru_names[3]
-				ru_names[4] = "горящую" + ru_names[4]
-				ru_names[5] = "горящей" + ru_names[5]
-				ru_names[6] = "горящей" + ru_names[6]
+				ru_names[1] = "горящая " + ru_names[1]
+				ru_names[2] = "горящей " + ru_names[2]
+				ru_names[3] = "горящей " + ru_names[3]
+				ru_names[4] = "горящую " + ru_names[4]
+				ru_names[5] = "горящей " + ru_names[5]
+				ru_names[6] = "горящей " + ru_names[6]
 	else
 		name = "shot glass"
 		ru_names = list(
