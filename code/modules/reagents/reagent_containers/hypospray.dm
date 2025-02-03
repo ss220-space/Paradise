@@ -34,7 +34,7 @@
 		return .
 
 	if(!reagents || !reagents.total_volume)
-		balloon_alert(user, "гипоспрей пуст!")
+		balloon_alert(user, "пусто!")
 		return .
 
 	if(!ignore_flags && !target.can_inject(user, TRUE))
