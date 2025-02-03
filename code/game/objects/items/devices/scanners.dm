@@ -413,11 +413,11 @@ REAGENT SCANNER
 		span_notice("Вы по глупости проанализировали жизненные показатели пола!")
 		)
 		. += "Состояние: <b>100% Здоров</b>"
-		. += "Тип повреждений: <font color='#0080ff'>Удушение</font>/<font color='green'>Токсины</font>/<font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font>"
+		. += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>"
 		. += "Уровень повреждений: <font color='#0080ff'>0</font> - <font color='green'>0</font> - <font color='#FF8000'>0</font> - <font color='red'>0</font>"
 		. += "Температура тела: --- &deg;C (--- &deg;F)"
 		if(mode == 1)
-			. += "Локализация повреждений, <font color='red'>Физ.</font>/<font color='#FF8000'>Ожоги</font>:"
+			. += "Локализация повреждений, <font color='red'>Мех.</font>/<font color='#FF8000'>Терм.</font>:"
 		. += "Уровень крови: --- %, --- u, тип: ---"
 		. += "Пульс: <font color='#0080ff'>--- уд/мин</font>"
 		. += "Гены не обнаружены."
@@ -470,11 +470,11 @@ REAGENT SCANNER
 	if(!ishuman(M) || ismachineperson(M))
 		//these sensors are designed for organic life
 		. += "Состояние: <span class='danger'>ОШИБКА</span></span>"
-		. += "Тип повреждений: <font color='#0080ff'>Удушение</font>/<font color='green'>Токсины</font>/<font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font></span>"
+		. += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font></span>"
 		. += "Уровень повреждений: <font color='#0080ff'>?</font> - <font color='green'>?</font> - <font color='#FF8000'>?</font> - <font color='red'>?</font></span>"
 		. += "Температура тела: [M.bodytemperature-T0C] &deg;C ([M.bodytemperature*1.8-459.67] &deg;F)</span>"
 		if(mode == 1)
-			. += "Локализация повреждений, <font color='red'>Физ.</font>/<font color='#FF8000'>Ожоги</font>:</span>"
+			. += "Локализация повреждений, <font color='red'>Мех.</font>/<font color='#FF8000'>Терм.</font>:</span>"
 		. += "Уровень крови: --- %, --- u, тип: ---</span>"
 		. += "Пульс: <font color='#0080ff'>--- bpm.</font></span>"
 		. += "Гены не обнаружены."
@@ -498,7 +498,7 @@ REAGENT SCANNER
 			. += "Состояние: <span class='danger'>Смерть</span>"
 		else
 			. += "Состояние: [H.stat > 1 ? "<span class='danger'>Смерть</span>" : H.health > 0 ? "[H.health]%" : "<span class='danger'>[H.health]%</span>"]"
-	. += "Тип повреждений: <font color='#0080ff'>Удушение</font>/<font color='green'>Токсины</font>/<font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font>"
+	. += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>"
 	. += "Уровень повреждений: <font color='#0080ff'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FF8000'>[BU]</font> - <font color='red'>[BR]</font>"
 	. += "Температура тела: [H.bodytemperature-T0C] &deg;C ([H.bodytemperature*1.8-459.67] &deg;F)"
 	if(H.timeofdeath && (H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH)))
@@ -512,7 +512,7 @@ REAGENT SCANNER
 
 	if(mode == 1)
 		var/list/damaged = H.get_damaged_organs(1,1)
-		. += "Локализация повреждений, <font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font>:"
+		. += "Локализация повреждений, <font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>:"
 		if(length(damaged) > 0)
 			for(var/obj/item/organ/external/org as anything in damaged)
 				. += "&emsp;<span class='info'>[capitalize(org.name)]</span>: [(org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : "<font color='#FF8000'>0</font>"] - [(org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font>" : "<font color='red'>0</font>"]"

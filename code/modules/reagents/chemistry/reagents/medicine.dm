@@ -357,7 +357,7 @@
 /datum/reagent/medicine/charcoal
 	name = "Активированный уголь"
 	id = "charcoal"
-	description = "Активированный уголь помогает поглощать токсины."
+	description = "Активированный уголь поглощает токсины."
 	reagent_state = LIQUID
 	color = "#000000"
 	taste_description = "пыли"
