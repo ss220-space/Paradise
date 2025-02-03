@@ -4,7 +4,7 @@
 
 /obj/item/reagent_containers/hypospray
 	name = "hypospray"
-	desc = "Гипоспрей производства \"Медицинская Корпорация DeForest\" - это стерильный автоинъектор с воздушной иглой для быстрого введения лекарств пациентам."
+	desc = "Гипоспрей - это стерильный автоинъектор с воздушной иглой для быстрого введения лекарств пациентам."
 	ru_names = list(
         NOMINATIVE = "гипоспрей",
         GENITIVE = "гипоспрея",
@@ -55,10 +55,10 @@
 	var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 
 	if(safety_hypo)
-		visible_message(span_warning("[user] вкалыва[pluralize_ru(user.gender, "ет", "ют")] [target] [trans] единиц[declension_ru(trans, "у", "ы", "")] вещества \"[primary_reagent_name]\"."))
+		visible_message(span_warning("[user] вкалыва[pluralize_ru(user.gender, "ет", "ют")] [target] <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")] вещества \"[primary_reagent_name]\"."))
 		playsound(loc, 'sound/goonstation/items/hypo.ogg', 80)
 
-	to_chat(user, span_notice("Вы вкалываете [trans] единиц[declension_ru(trans, "у", "ы", "")]. В [declent_ru(PREPOSITIONAL)] осталось ещё [reagents.total_volume] единиц[declension_ru(reagents.total_volume, "а", "ы", "")]."))
+	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")]. В [declent_ru(PREPOSITIONAL)] осталось ещё <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")]."))
 	add_attack_logs(user, target, "Injected with [src] containing ([english_list(injected)])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 
