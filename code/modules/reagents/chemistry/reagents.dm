@@ -30,10 +30,10 @@
 	var/overdosed = FALSE // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
 	var/current_cycle = 1
 	var/drink_icon = null
-	var/drink_name = "Стакан... чего?"
+	var/drink_name = "стакан... чего?"
 	var/drink_desc = "Вы понятия не имеете, чем это может быть."
 	var/taste_mult = 1 //how easy it is to taste - the more the easier
-	var/taste_description = "метафорическая соль"
+	var/taste_description = "метафорической соли"
 	var/addict_supertype = /datum/reagent
 
 /datum/reagent/New()
