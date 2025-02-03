@@ -423,7 +423,7 @@
 				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/I in reagents.reagent_list)
 						var/datum/reagent/R = I
-						. += span_notice("<b>[R.name]</b> - [R.volume] единиц[declension_ru(R.volume, "а", "ы", "")].")
+						. += span_notice("<b>[R.name]</b> - <b>[R.volume]</b> единиц[declension_ru(R.volume, "а", "ы", "")].")
 				else //Otherwise, just show the total volume
 					if(reagents && reagents.reagent_list.len)
 						. += span_notice("<b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества.")
