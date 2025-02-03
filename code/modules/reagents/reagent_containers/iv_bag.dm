@@ -341,12 +341,12 @@
 
 /obj/item/reagent_containers/iv_bag/slime/Initialize(mapload)
 	name = "[initial(name)] - Slime Jelly"
-		ru_names = list(
-			NOMINATIVE = "капельница - Слаймовое желе" ,
-			GENITIVE = "капельницы - Слаймовое желе",
-			DATIVE = "капельнице - Слаймовое желе",
-			ACCUSATIVE = "капельницу - Слаймовое желе",
-			INSTRUMENTAL = "капельницей - Слаймовое желе",
-			PREPOSITIONAL = "капельнице - Слаймовое желе"
-		)
+	ru_names = list(
+		NOMINATIVE = "капельница - Слаймовое желе" ,
+		GENITIVE = "капельницы - Слаймовое желе",
+		DATIVE = "капельнице - Слаймовое желе",
+		ACCUSATIVE = "капельницу - Слаймовое желе",
+		INSTRUMENTAL = "капельницей - Слаймовое желе",
+		PREPOSITIONAL = "капельнице - Слаймовое желе"
+	)
 	. = ..()
