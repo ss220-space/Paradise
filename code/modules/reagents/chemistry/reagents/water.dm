@@ -180,7 +180,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 				V.Contract(M, need_protection_check = FALSE)
 
 /datum/reagent/blood/synthetic/vox
-	name = "Синтетическая кровь"
+	name = "Синтетическая кровь (Азот)"
 	id = "sbloodvox"
 	data = list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"="#6093dc","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
 	color = "#6093dc"
@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 
 /datum/reagent/blood/synthetic/oxy
-	name = "Синтетическая кровь"
+	name = "Синтетическая кровь (Кислород)"
 	id = "sbloodoxy"
 	data = list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"="#e8479d","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
 	color = "#e8479d"
