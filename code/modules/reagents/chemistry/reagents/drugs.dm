@@ -98,7 +98,7 @@
 
 /datum/reagent/nicotine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	var/smoke_message = pick("Вы чувствуете себя расслабленным.", "Вы чувствуете успокоение.", "Вы чувствуете себя менее напряженно.", "Вы чувствуете себя спокойнее.")
+	var/smoke_message = pick("Вы чувствуете себя расслабленным.", "Вы чувствуете умиротворение.", "Вы чувствуете себя менее напряжённо.", "Вы чувствуете себя спокойнее.")
 	M.AdjustParalysis(-2 SECONDS)
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)

@@ -108,7 +108,7 @@
 
 				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this) // transfer from, transfer to - who cares?
 
-				to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] [trans] единиц[declension_ru(trans, "ей", "ами", "ами")] вещества. Теперь он содержит [reagents.total_volume] единиц[declension_ru(reagents.total_volume, "у", "ы", "")] вещества."))
+				to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[declension_ru(trans, "ей", "ами", "ами")] вещества. Теперь он содержит <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "у", "ы", "")] вещества."))
 			if(reagents.holder_full())
 				mode = !mode
 				update_icon()
@@ -146,7 +146,7 @@
 			var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
 			reagents.reaction(L, REAGENT_INGEST, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this)
-			to_chat(user, span_notice("Вы вкололи [amount_per_transfer_from_this] единиц[declension_ru(amount_per_transfer_from_this, "у", "ы", "")] вещества с помощью [declent_ru(GENITIVE)]. Теперь он содержит [reagents.total_volume] единиц[declension_ru(reagents.total_volume, "у", "ы", "")] вещества."))
+			to_chat(user, span_notice("Вы вкололи <b>[amount_per_transfer_from_this]</b> единиц[declension_ru(amount_per_transfer_from_this, "у", "ы", "")] вещества с помощью [declent_ru(GENITIVE)]. В нём остаётся <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества."))
 			if(istype(target, /obj/item/reagent_containers/food))
 				var/obj/item/reagent_containers/food/F = target
 				F.log_eating = TRUE
@@ -332,7 +332,7 @@
 
 /obj/item/reagent_containers/syringe/lethal
 	name = "lethal injection syringe"
-	desc = "Шприц, используемый для смертельных инъекций. Вмещает в себя до 50 единиц вещества."
+	desc = "Шприц, используемый для смертельных инъекций. Вмещает в себя вплоть до <b>50</b> единиц вещества."
 	ru_names = list(
         NOMINATIVE = "шприц (Смертельная инъекция)",
         GENITIVE = "шприца (Смертельная инъекция)",
