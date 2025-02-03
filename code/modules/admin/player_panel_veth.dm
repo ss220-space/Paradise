@@ -77,7 +77,7 @@
 		ui.open()
 
 /datum/player_panel_veth/ui_status(mob/user, datum/ui_state/state)
-	. = (check_rights(R_ADMIN | R_MOD, user)) ? UI_INTERACTIVE : ..()
+	. = (check_rights(R_ADMIN | R_MOD, user = user)) ? UI_INTERACTIVE : ..()
 
 /datum/player_panel_veth/ui_state(mob/user)
 	return GLOB.admin_state

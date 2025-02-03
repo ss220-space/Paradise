@@ -440,7 +440,7 @@
 	return TRUE
 
 /datum/language/grey/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
-	if(atoms_share_level(other, speaker))
+	if(are_zs_connected(other, speaker))
 		return TRUE
 	return FALSE
 

@@ -51,7 +51,7 @@
 	if(used)
 		return FALSE
 	var/turf/UT = get_turf(user)
-	if((check_level_trait(UT.z, STATION_LEVEL)) && !emagged)
+	if((is_station_level(UT.z)) && !emagged)
 		to_chat(user, span_notice("Error. Deployment was attempted on the station sector. Deployment aborted."))
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
@@ -65,7 +65,7 @@
 	if(QDELETED(src))
 		return
 	var/turf/deploy_location = get_turf(src)
-	if((check_level_trait(deploy_location.z, STATION_LEVEL)) && !emagged)
+	if((is_station_level(deploy_location.z)) && !emagged)
 		to_chat(triggerer, span_notice("Error. Expanding was attempted on the station sector. Expanding aborted."))
 		playsound(triggerer, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return

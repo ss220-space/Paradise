@@ -151,22 +151,22 @@
 	if(!istype(new_character))
 		stack_trace("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob.")
 
-	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
+	var/datum/atom_hud/antag/hud_to_transfer = antag_hud // we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
 
-	if(current)					//remove ourself from our old body's mind variable
+	if(current)					// remove ourself from our old body's mind variable
 		current.mind = null
-		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
+		leave_all_huds() // leave all the huds in the old body, so it won't get huds if somebody else enters it
 
 		SStgui.on_transfer(current, new_character)
 
-	if(new_character.mind)		//remove any mind currently in our new body's mind variable
+	if(new_character.mind)		// remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
 
-	current = new_character		//link ourself to our new body
-	new_character.mind = src	//and link our new body to ourself
+	current = new_character		// link ourself to our new body
+	new_character.mind = src	// and link our new body to ourself
 
-	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
+	transfer_antag_huds(hud_to_transfer)				// inherit the antag HUD
 	transfer_actions(new_character, old_current)
 
 	if(martial_art)
@@ -177,11 +177,11 @@
 			if(!MA.temporary)
 				MA.teach(current)
 
-	for(var/datum/antagonist/antag in antag_datums)	//Makes sure all antag datums effects are applied in the new body
+	for(var/datum/antagonist/antag in antag_datums)	// Makes sure all antag datums effects are applied in the new body
 		antag.on_body_transfer(old_current, current)
 
 	if(active)
-		new_character.key = key		//now transfer the key to link the client to our new body
+		new_character.set_key(key)		// now transfer the key to link the client to our new body
 
 	// essential mob updates
 	new_character.update_blind_effects()

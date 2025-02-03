@@ -182,30 +182,35 @@
 	name = "medical scrubs"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is in baby blue."
 	icon_state = "scrubsblue"
+	item_state = "scrubsblue"
 	item_color = "scrubsblue"
 
 /obj/item/clothing/under/rank/medical/green
 	name = "medical scrubs"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is in dark green."
 	icon_state = "scrubsdarkgreen"
+	item_state = "scrubsdarkgreen"
 	item_color = "scrubsdarkgreen"
 
 /obj/item/clothing/under/rank/medical/lightgreen
 	name = "medical scrubs"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is in green."
 	icon_state = "scrubsgreen"
+	item_state = "scrubsgreen"
 	item_color = "scrubsgreen"
 
 /obj/item/clothing/under/rank/medical/purple
 	name = "medical scrubs"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is in deep purple."
 	icon_state = "scrubspurple"
+	item_state = "scrubspurple"
 	item_color = "scrubspurple"
 
 /obj/item/clothing/under/rank/medical/mortician
 	name = "coroner's scrubs"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is as dark as an emo's poetry."
 	icon_state = "scrubsblack"
+	item_state = "scrubsblack"
 	item_color = "scrubsblack"
 
 //paramedic
@@ -243,7 +248,7 @@
 	name = "psychologist's turtleneck"
 	desc = "A turqouise turtleneck and a pair of dark blue slacks, belonging to a psychologist."
 	icon_state = "psychturtle"
-	item_state = "b_suit"
+	item_state = "psychturtle"
 	item_color = "psychturtle"
 
 

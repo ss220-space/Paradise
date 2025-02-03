@@ -718,10 +718,17 @@ SUBSYSTEM_DEF(mapping)
 
 			true_to_offset_planes[string_real] |= offset_plane
 
-/proc/generate_lighting_appearance_by_z(z_level)
+/datum/controller/subsystem/mapping/proc/generate_lighting_appearance_by_z(z_level)
 	if(length(GLOB.default_lighting_underlays_by_z) < z_level)
 		GLOB.default_lighting_underlays_by_z.len = z_level
 	GLOB.default_lighting_underlays_by_z[z_level] = mutable_appearance(LIGHTING_ICON, "transparent_lighting_object", z_level * 0.01, null, LIGHTING_PLANE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM, offset_const = GET_Z_PLANE_OFFSET(z_level))
+
+/// Takes a turf or a z level, and returns a list of all the z levels that are connected to it
+/datum/controller/subsystem/mapping/proc/get_connected_levels(turf/connected)
+	var/z_level = connected
+	if(isturf(z_level))
+		z_level = connected.z
+	return z_level_to_stack[z_level]
 
 /datum/controller/subsystem/mapping/Recover()
 	flags |= SS_NO_INIT
