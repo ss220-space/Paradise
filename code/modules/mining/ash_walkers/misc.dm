@@ -176,4 +176,30 @@
 	item_state = "stool"
 	force = 8
 	origin_type = /obj/structure/chair/stool/wooden
-	break_chance = 10 //It's too sturdy.
+	break_chance = 10
+
+/obj/structure/rack/wooden
+	name = "wooden rack"
+	ru_names = list(
+		NOMINATIVE = "деревянный стеллаж",
+		GENITIVE = "деревянного стеллажа",
+		DATIVE = "деревянному стеллажу",
+		ACCUSATIVE = "деревянный стеллаж",
+		INSTRUMENTAL = "деревянным стеллажом",
+		PREPOSITIONAL = "деревянном стеллаже"
+	)
+	desc = "Небольшой стеллаж, сделанный из дерева. Вы можете хранить на нем вещи!"
+	icon_state = "wooden_rack"
+	wooden_version = TRUE
+	obj_flags = NODECONSTRUCT
+
+/obj/structure/rack/wooden/wrench_act(mob/user, obj/item/I)
+	return
+
+/obj/structure/rack/wooden/MouseDrop_T(obj/item/dropping, mob/user, params)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/structure/rack/wooden/update_overlays()
+	overlays.Cut()
+	overlays += image('icons/obj/objects.dmi', src, "wooden_rack_overlay", ABOVE_OBJ_LAYER)
