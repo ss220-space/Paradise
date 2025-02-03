@@ -234,7 +234,15 @@
 
 /obj/item/reagent_containers/food/drinks/ice
 	name = "ice cup"
-	desc = "Careful, cold ice, do not chew."
+	desc = "Стаканчик льда. Не жуйте, а то горло болеть будет."
+	ru_names = list(
+        NOMINATIVE = "стаканчик льда",
+        GENITIVE = "стаканчика льда",
+        DATIVE = "стаканчику льда",
+        ACCUSATIVE = "стаканчик льда",
+        INSTRUMENTAL = "стаканчиком льда",
+        PREPOSITIONAL = "стаканчике льда"
+	)
 	icon_state = "icecup"
 	list_reagents = list("ice" = 30)
 
