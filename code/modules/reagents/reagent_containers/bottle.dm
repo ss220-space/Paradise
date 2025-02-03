@@ -938,7 +938,8 @@
         ACCUSATIVE = "бутылку вирусной культуры (ГБС-)",
         INSTRUMENTAL = "бутылкой вирусной культуры (ГБС-)",
         PREPOSITIONAL = "бутылке вирусной культуры (ГБС-)"
-	)	icon_state = "round_bottle"
+	)
+	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/virus/fake_gbs
 
 /obj/item/reagent_containers/glass/bottle/brainrot
