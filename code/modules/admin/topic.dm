@@ -1390,45 +1390,26 @@
 	else if(href_list["sendtoprison"])
 		if(!check_rights(R_ADMIN))	return
 
-		if(alert(usr, "Send to admin prison for the round?", "Message", "Yes", "No") != "Yes")
+		if(tgui_alert(usr, "Отправить в админскую тюрьму на остаток раунда?", "Подтверждение", list("Да", "Нет")) != "Да")
 			return
 
 		var/mob/M = locateUID(href_list["sendtoprison"])
 		if(!istype(M, /mob))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>", confidential=TRUE)
+			to_chat(usr, span_warning("Это можно использовать только на объектах типа /mob"), confidential=TRUE)
 			return
 		if(istype(M, /mob/living/silicon/ai))
-			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>", confidential=TRUE)
+			to_chat(usr, span_warning("Это нельзя использовать на объектах типа /mob/living/silicon/ai"), confidential=TRUE)
 			return
 
 		var/turf/prison_cell = pick(GLOB.prisonwarp)
 		if(!prison_cell)	return
 
-		var/obj/structure/closet/secure_closet/brig/locker = new /obj/structure/closet/secure_closet/brig(prison_cell)
-		locker.opened = 0
-		locker.locked = 1
+		var/obj/structure/closet/supplypod/centcompod/prison_warp/pod = new()
+		pod.reverse_dropoff_coords = list(prison_cell.x, prison_cell.y, prison_cell.z)
+		pod.target = M
+		new /obj/effect/pod_landingzone(M, pod)
 
-		//strip their stuff and stick it in the crate
-		for(var/obj/item/I in M)
-			M.drop_transfer_item_to_loc(I, locker)
-		M.update_icons()
-
-		//so they black out before warping
-		if(isliving(M))
-			var/mob/living/L = M
-			L.Paralyse(10 SECONDS)
-		sleep(5)
-		if(!M)
-			return
-
-		M.forceMove(prison_cell)
-		if(ishuman(M))
-			var/mob/living/carbon/human/prisoner = M
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), ITEM_SLOT_CLOTH_INNER)
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), ITEM_SLOT_FEET)
-
-		to_chat(M, "<span class='warning'>You have been sent to the prison station!</span>")
-		log_and_message_admins("<span class='notice'>sent [key_name_admin(M)] to the prison station.</span>")
+		log_and_message_admins("sent [key_name_admin(M)] to the prison station.")
 
 	else if(href_list["sendbacktolobby"])
 		if(!check_rights(R_ADMIN))
@@ -2924,18 +2905,19 @@
 
 		var/atom/target //Where the object will be spawned
 		var/where = href_list["object_where"]
-		if(!( where in list("onfloor","inhand","inmarked") ))
+		if(!( where in list("onfloor","frompod","inhand","inmarked")))
 			where = "onfloor"
 
 
 		switch(where)
+
 			if("inhand")
 				if(!iscarbon(usr) && !isrobot(usr))
 					to_chat(usr, "<span class='warning'>Can only spawn in hand when you're a carbon mob or cyborg.</span>", confidential=TRUE)
 					where = "onfloor"
 				target = usr
 
-			if("onfloor")
+			if("onfloor", "frompod")
 				switch(href_list["offset_type"])
 					if("absolute")
 						target = locate(0 + X,0 + Y,0 + Z)
@@ -2951,7 +2933,11 @@
 				else
 					target = marked_datum
 
+		var/obj/structure/closet/supplypod/centcompod/pod
+
 		if(target)
+			if(where == "frompod")
+				pod = new()
 			for(var/path in paths)
 				for(var/i = 0; i < number; i++)
 					if(path in typesof(/turf))
@@ -2960,7 +2946,13 @@
 						if(N && obj_name)
 							N.name = obj_name
 					else
-						var/atom/O = new path(target)
+						var/atom/O
+
+						if(where == "frompod")
+							O = new path(pod)
+						else
+							O = new path(target)
+
 						if(O)
 							O.flags |= ADMIN_SPAWNED
 							O.dir = obj_dir
@@ -2981,6 +2973,8 @@
 										R.module.rebuild()
 										R.activate_module(I)
 										R.module.fix_modules()
+		if(pod)
+			new /obj/effect/pod_landingzone(target, pod)
 
 		if(number == 1)
 			log_admin("[key_name(usr)] created a [english_list(paths)]")
@@ -3087,6 +3081,54 @@
 			if("gimmickteam")
 				if(usr.client.gimmick_team())
 					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Gimmick Team")
+			if("customportal")
+				if(!check_rights(R_EVENT))
+					return
+
+				var/list/settings = list(
+					"mainsettings" = list(
+					"typepath" = list("desc" = "Тип мобов для спавна", "type" = "datum", "path" = "/mob/living", "subtypesonly" = TRUE, "value" = /mob/living/simple_animal/hostile/poison/bees),
+					"amount" = list("desc" = "Число мобов", "type" = "number", "value" = 1),
+					"portalnum" = list("desc" = "Число порталов", "type" = "number", "value" = 10),
+					"delay" = list("desc" = "Время между порталами(в децесекундах)", "type" = "number", "value" = 50),
+					"color" = list("desc" = "Цвет портала", "type" = "color", "value" = "#00FF00"),
+					"playlightning" = list("desc" = "Проигрывать звук молнии при оповещении", "type" = "boolean", "value" = "Да"),
+					"announce_players" = list("desc" = "Делать оповещении", "type" = "boolean", "value" = "Да"),
+					"announcement" = list("desc" = "Оповещение", "type" = "string", "value" = "Массивная блюспейс аномалия зафиксирована вблизи станции %STATION%. Готовьтесь к худшему."),
+					)
+				)
+
+				message_admins("[key_name(usr)] is creating a custom portal storm...")
+				var/list/prefreturn = presentpreflikepicker(usr,"Настройка портального шторма", "Настройка портального шторма", Button1="Старт", width = 600, StealFocus = 1,Timeout = 0, settings=settings)
+
+				if (prefreturn["button"] == 1)
+					var/list/prefs = settings["mainsettings"]
+
+					if (prefs["amount"]["value"] < 1 || prefs["portalnum"]["value"] < 1)
+						to_chat(usr, "Число порталов для спавна должно быть минимум 1")
+						return
+
+					var/pathToSpawn = prefs["typepath"]["value"]
+					if (!ispath(pathToSpawn))
+						pathToSpawn = text2path(pathToSpawn)
+
+					if (!ispath(pathToSpawn))
+						to_chat(usr, "Некорректный тип [pathToSpawn]")
+						return
+
+					if (prefs["announce_players"]["value"] == "Да")
+						portalAnnounce(prefs["announcement"]["value"], (prefs["playlightning"]["value"] == "Да" ? TRUE : FALSE))
+
+					var/mutable_appearance/storm = mutable_appearance('icons/obj/stationobjs.dmi', "portal-projector0", FLY_LAYER)
+					storm.color = prefs["color"]["value"]
+
+					log_and_message_admins("has created a customized portal storm that will spawn [prefs["portalnum"]["value"]] portals, each of them spawning [prefs["amount"]["value"]] of [pathToSpawn]")
+
+					for (var/i in 1 to prefs["portalnum"]["value"])
+						var/turf/turf = get_random_station_turf()
+						while(iswallturf(turf))
+							turf = get_random_station_turf()
+						addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), turf, pathToSpawn, prefs["amount"]["value"], storm), i*prefs["delay"]["value"])
 			if("tripleAI")
 				usr.client.triple_ai()
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
@@ -3181,37 +3223,29 @@
 				if(!you_realy_want_do_this())
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Prison Warp")
-				log_and_message_admins("<span class='notice'>teleported all players to the prison station.</span>")
+				log_and_message_admins("teleported all players to the prison station.")
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
 					var/turf/loc = find_loc(H)
-					var/security = 0
-					if(!is_station_level(loc.z) || GLOB.prisonwarped.Find(H))
-
-//don't warp them if they aren't ready or are already there
+					var/security = FALSE
+					if(!is_station_level(loc.z) || GLOB.prisonwarped.Find(H)) //don't warp them if they aren't ready or are already there
 						continue
-					H.Paralyse(10 SECONDS)
 					if(H.wear_id)
 						var/obj/item/card/id/id = H.get_id_card()
 						if(istype(id))
 							for(var/A in id.access)
 								if(A == ACCESS_SECURITY)
-									security++
-					if(!security)
-						//strip their stuff before they teleport into a cell :downs:
-						for(var/obj/item/W in H)
-							if(istype(W, /obj/item/organ/external))
-								continue
-								//don't strip organs
-							H.drop_item_ground(W)
-						//teleport person to cell
-						H.forceMove(pick(GLOB.prisonwarp))
-						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), ITEM_SLOT_CLOTH_INNER)
-						H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), ITEM_SLOT_FEET)
-					else
-						//teleport security person
-						H.forceMove(pick(GLOB.prisonsecuritywarp))
-					GLOB.prisonwarped += H
+									security = TRUE
+					var/turf/prison_cell = pick((security? GLOB.prisonsecuritywarp : GLOB.prisonwarp))
+					if(!prison_cell)
+						continue
+
+					var/obj/structure/closet/supplypod/centcompod/prison_warp/pod = new()
+					pod.reverse_dropoff_coords = list(prison_cell.x, prison_cell.y, prison_cell.z)
+					pod.target = H
+					pod.security =security
+					new /obj/effect/pod_landingzone(H, pod)
+
 			if("traitor_all")
 				if(!SSticker)
 					alert("The game hasn't started yet!")
@@ -3996,3 +4030,20 @@
 /proc/you_realy_want_do_this()
 	var/sure = tgui_alert(usr, "Вы действительно хотите сделать это?", "Подтверждение", list("Да", "Нет"))
 	return sure == "Да"
+
+
+/proc/portalAnnounce(announcement, playlightning)
+	set waitfor = 0
+	if (playlightning)
+		sound_to_playing_players('sound/magic/lightning_chargeup.ogg')
+		sleep(80)
+	GLOB.priority_announcement.Announce(replacetext(announcement, "%STATION%", station_name()))
+	if (playlightning)
+		sleep(20)
+		sound_to_playing_players('sound/magic/lightningbolt.ogg')
+
+/proc/doPortalSpawn(turf/loc, mobtype, numtospawn, portal_appearance)
+	loc.flick_overlay_static(portal_appearance, 15)
+	playsound(loc, "sparks", rand(80, 100), 1)
+	for (var/i in 1 to numtospawn)
+		new mobtype(loc)
