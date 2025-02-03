@@ -156,12 +156,10 @@
 				span_userdanger("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] в вашу руку!"),
 			ignored_mobs = user,
 		)
-			to_chat(user, span_notice("Вы вставляете иглу [declent_ru(GENITIVE)] в руку [target]."))
+		balloon_alert(user, "игла вставлена")
 	else
-		user.visible_message(
-				span_warning("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] в свою руку!"),
-				span_notice("Вы вставляете иглу [declent_ru(GENITIVE)] в свою руку."),
-		)
+		user.visible_message(span_warning("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] в свою руку!"))
+		balloon_alert(user, "игла вставлена")
 	add_attack_logs(user, target, "Inserted [name](mode: [mode == IV_INJECT ? "Injecting" : "Drawing"]) containing ([reagents.log_list()]), transfering [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 	begin_processing(target, def_zone)
 	return .|ATTACK_CHAIN_SUCCESS
