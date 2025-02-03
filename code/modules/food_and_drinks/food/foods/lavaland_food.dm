@@ -36,6 +36,7 @@
 /obj/item/reagent_containers/food/snacks/lavaland/soft_meat_cubes
 	name = "soft meat cubes"
 	desc = "Филе рыбы, порезанное на маленькие кубики и обжаренное в печи. Выглядит аппетитно."
+	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "soft_meat_cubes"
 	list_reagents = list("nutriment" = 2, "vitamin" = 3, "protein" = 3)
 	bitesize = 3
@@ -46,6 +47,7 @@
 /obj/item/reagent_containers/food/snacks/lavaland/predatory_fish_slab
 	name = "cooked predatory fish slab"
 	desc = "Кусок мяса хищной рыбы, обжаренный в печи. Пригоден к употреблению."
+	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "predatory_fish_slab"
 	list_reagents = list("nutriment" = 4, "protein" = 6)
 	bitesize = 3
@@ -56,6 +58,7 @@
 /obj/item/reagent_containers/food/snacks/lavaland/eel_ringlets
 	name = "eel ringlets"
 	desc = "Обжаренное в печи филе донного угря. Невероятно вкусное."
+	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "eel_ringlets"
 	list_reagents = list("nutriment" = 4, "protein" = 6)
 	bitesize = 3
