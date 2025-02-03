@@ -143,10 +143,14 @@
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
 		if("newalertlevel")
+			var/code = text2num(params["level"])
 			if(isAI(ui.user) || isrobot(ui.user))
 				to_chat(ui.user, span_warning("Брандмауэры не позволяют вам изменить уровень угрозы."))
 				return
-			else if(FULL_ADMIN_CHECK(ui.user))
+			else if(ADMIN_CHECK(ui.user))
+				if(code > SEC_LEVEL_GAMMA && !FULL_ADMIN_CHECK(ui.user))
+					to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для повышения уровня угрозы выше чем Гамма."))
+					return
 				change_security_level(text2num(params["level"]), force = TRUE)
 				return
 			else if(!ishuman(ui.user))
@@ -314,26 +318,31 @@
 
 		if("send_to_cc_announcement_page")
 			if(!ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки данного типа оповещений."))
 				return
 			setMenuState(ui.user, COMM_SCREEN_ANNOUNCER)
 
 		if("make_other_announcement")
 			if(!FULL_ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки данного типа оповещений."))
 				return
 			ui.user.client.cmd_admin_create_centcom_report()
 
 		if("dispatch_ert")
-			if(!FULL_ADMIN_CHECK(ui.user))
+			if(!ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки ОБР."))
 				return
-			ui.user.client.response_team() // check_rights is handled on the other side, if someone does get ahold of this
+			ui.user.client.send_response_team()// check_rights is handled on the other side, if someone does get ahold of this
 
 		if("send_nuke_codes")
 			if(!ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки кодов аутентификации."))
 				return
 			print_nuke_codes()
 
 		if("move_gamma_armory")
 			if(!FULL_ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки оружейного шаттла \"Гамма\"."))
 				return
 			SSblackbox.record_feedback("tally", "admin_comms_console", 1, "Send Gamma Armory")
 			log_and_message_admins("moved the gamma armory")
@@ -342,17 +351,20 @@
 
 		if("toggle_ert_allowed")
 			if(!FULL_ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для запрета вызова ОБР."))
 				return
 			ui.user.client.toggle_ert_calling()
 
 
 		if("view_fax")
 			if(!ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для открытия факс панели."))
 				return
 			ui.user.client.fax_panel()
 
 		if("make_cc_announcement")
 			if(!ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки данного типа оповещений."))
 				return
 			if(!params["classified"])
 				GLOB.command_announcement.Announce(

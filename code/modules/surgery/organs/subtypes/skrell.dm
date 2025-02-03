@@ -2,6 +2,7 @@
 	species_type = /datum/species/skrell
 	name = "skrell liver"
 	icon = 'icons/obj/species_organs/skrell.dmi'
+	item_state = "skrell_liver"
 	alcohol_intensity = 4
 
 /obj/item/organ/internal/liver/skrell/on_life()
@@ -21,6 +22,7 @@
 	desc = "Allows Skrell to hide tiny objects within their head tentacles."
 	icon = 'icons/obj/species_organs/skrell.dmi'
 	icon_state = "skrell_headpocket"
+	item_state = "skrell_headpocket"
 	origin_tech = "biotech=2"
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ_zone = BODY_ZONE_HEAD
@@ -82,12 +84,15 @@
 	name = "skrell heart"
 	desc = "A stream lined heart."
 	icon = 'icons/obj/species_organs/skrell.dmi'
+	item_state = "skrell_heart-on"
+	item_base = "skrell_heart"
 
 /obj/item/organ/internal/brain/skrell
 	species_type = /datum/species/skrell
 	icon = 'icons/obj/species_organs/skrell.dmi'
 	desc = "A brain with a odd division in the middle."
 	icon_state = "brain2"
+	item_state = "skrell_brain"
 	mmi_icon = 'icons/obj/species_organs/skrell.dmi'
 	mmi_icon_state = "mmi_full"
 
@@ -95,11 +100,13 @@
 	species_type = /datum/species/skrell
 	name = "skrell lungs"
 	icon = 'icons/obj/species_organs/skrell.dmi'
+	item_state = "skrell_lungs"
 
 /obj/item/organ/internal/kidneys/skrell
 	species_type = /datum/species/skrell
 	name = "skrell kidneys"
 	icon = 'icons/obj/species_organs/skrell.dmi'
+	item_state = "skrell_kidneys"
 	desc = "The smallest kidneys you have ever seen, it probably doesn't even work."
 
 /obj/item/organ/internal/eyes/skrell
@@ -108,3 +115,4 @@
 	can_see_food = TRUE
 	name = "skrell eyeballs"
 	icon = 'icons/obj/species_organs/skrell.dmi'
+	item_state = "skrell_eyes"

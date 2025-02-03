@@ -283,11 +283,10 @@
 	if(length(z_transitions))
 		legend += z_transitions
 
-	/* with meteor shields refactor
 	if(length(GLOB.meteor_shielded_turfs))
 		var/icon/canvas = icon(HOLOMAP_ICON, "blank")
 		var/z_has_coverage = FALSE
-		for(var/turf/open/shielded_turf as anything in GLOB.meteor_shielded_turfs)
+		for(var/turf/shielded_turf as anything in GLOB.meteor_shielded_turfs)
 			if(shielded_turf?.z != current_z_level)
 				continue
 			var/offset_x = HOLOMAP_CENTER_X + shielded_turf.x
@@ -296,8 +295,7 @@
 			canvas.DrawBox(color, offset_x, offset_y)
 			z_has_coverage = TRUE
 		if(z_has_coverage)
-			legend["Meteor Shield"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "meteor_shield"), "markers" = list(image(canvas)))
-	*/
+			legend["Метеор щиты"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "meteor_shield"), "markers" = list(image(canvas)))
 	return legend
 
 /obj/machinery/station_map/engineering

@@ -7,13 +7,16 @@
 	var/beating = TRUE
 	dead_icon = "heart-off"
 	var/icon_base = "heart"
+	var/item_base = "heart"
 
 
 /obj/item/organ/internal/heart/update_icon_state()
 	if(beating)
 		icon_state = "[icon_base]-on"
+		item_state = "[item_base]-on"
 	else
 		icon_state = "[icon_base]-off"
+		item_state = "[item_base]-off"
 
 
 /obj/item/organ/internal/heart/remove(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
