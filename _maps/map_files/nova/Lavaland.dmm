@@ -4539,7 +4539,7 @@
 	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/bluegrid,
-/area/lavaland/surface/outdoors)
+/area/mine/maintenance)
 "Dl" = (
 /obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/indestructible/boss,

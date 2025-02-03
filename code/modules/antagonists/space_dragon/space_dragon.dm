@@ -225,7 +225,7 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/dragon_name()
 	var/chosen_name = reject_bad_name(input(src, "Какое имя вы хотите задать?", "Выбор имени", real_name))
 	if(!chosen_name)
-		to_chat(src, span_warning("Это имя некорректно, попробуйте еще раз."))
+		to_chat(src, span_warning("Это имя некорректно, попробуйте ещё раз."))
 		dragon_name()
 		return
 	to_chat(src, span_notice("Ваше имя теперь - [span_name("[chosen_name]")], устрашающий Космический Дракон."))
@@ -241,7 +241,7 @@
 /mob/living/simple_animal/hostile/space_dragon/proc/color_selection()
 	chosen_color = tgui_input_color(src,"Какого цвета вы хотите быть?","Выбор цвета", COLOR_WHITE)
 	if(isnull(chosen_color)) //redo proc until we get a color
-		to_chat(src, span_warning("Этот цвет некорректен, попробуйте еще раз."))
+		to_chat(src, span_warning("Этот цвет некорректен, попробуйте ещё раз."))
 		color_selection()
 		return
 	var/temp_hsv = RGBtoHSV(chosen_color)

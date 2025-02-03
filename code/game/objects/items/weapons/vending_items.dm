@@ -188,6 +188,10 @@
 	machine_name = "RoboFriends"
 	icon_state = "restock_pai"
 
+/obj/item/vending_refill/plasma
+	machine_name = "PlasmaMate"
+	icon_state = "refill_plasma"
+
 /obj/item/vending_refill/custom
 	machine_name = "Customat"
 	icon = 'icons/obj/machines/customat.dmi'

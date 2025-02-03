@@ -217,6 +217,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/Initialize(mapload)
 	. = ..()
 	add_traits(list(TRAIT_PULL_BLOCKED, TRAIT_HANDS_BLOCKED), ROUNDSTART_TRAIT)
+	AddElement(/datum/element/high_value_item)
 
 
 /mob/living/silicon/ai/proc/on_mob_init()
@@ -1521,3 +1522,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+
+/mob/living/silicon/ai/ghostize(can_reenter_corpse)
+	var/old_turf = get_turf(eyeobj)
+	. = ..()
+	if(isobserver(.))
+		var/mob/dead/observer/ghost = .
+		ghost.forceMove(old_turf)

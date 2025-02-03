@@ -17,7 +17,13 @@ GLOBAL_VAR(church_name)
 
 GLOBAL_VAR(command_name)
 /proc/command_name()
-	return SSmapping.map_datum.dock_name
+	return GLOB.command_name? GLOB.command_name : SSmapping.map_datum.dock_name
+
+/proc/change_command_name(name)
+
+	GLOB.command_name = name
+
+	return name
 
 GLOBAL_VAR(religion_name)
 /proc/religion_name()
@@ -34,8 +40,19 @@ GLOBAL_VAR(religion_name)
 /proc/system_name()
 	return SSmapping.map_datum.starsys_name
 
+GLOBAL_VAR(station_name)
 /proc/station_name()
-	return SSmapping.map_datum.station_name
+	return GLOB.station_name? GLOB.station_name : SSmapping.map_datum.station_name
+
+/proc/change_station_name(designation)
+	GLOB.station_name = designation
+	update_world_name()
+
+/proc/update_world_name()
+	if(config && CONFIG_GET(string/servername))
+		world.name = "[CONFIG_GET(string/servername)] — [station_name()]"
+	else
+		world.name = station_name()
 
 /proc/new_station_name()
 	var/random = rand(1,5)

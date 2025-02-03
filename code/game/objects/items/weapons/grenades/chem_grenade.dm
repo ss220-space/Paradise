@@ -589,6 +589,8 @@
 	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "cleaner"
 	stage = READY
+	/// The chemical used to clean things
+	var/cleaning_chem = "cleaner"
 
 /obj/item/grenade/chem_grenade/cleaner/Initialize(mapload)
 	. = ..()
@@ -597,12 +599,26 @@
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
 	B1.reagents.add_reagent("fluorosurfactant", 40)
-	B2.reagents.add_reagent("cleaner", 10)
+	B2.reagents.add_reagent(cleaning_chem, 10)
 	B2.reagents.add_reagent("water", 40) //when you make pre-designed foam reactions that carry the reagents, always add water last
 
 	beakers += B1
 	beakers += B2
 
+/obj/item/grenade/chem_grenade/cleaner/everything
+	payload_name = "melter"
+	desc = "Внутри этой гранаты находятся наниты Синдиката с чёрного рынка, которые поглощают всё, с чем сталкиваются. Органы, одежда, пульты, люди. Ничто не в безопасности.<br>Теперь с новым пенящимся аппликатором!"
+	cleaning_chem = "admincleaner_all"
+
+/obj/item/grenade/chem_grenade/cleaner/object
+	payload_name = "object dissolving"
+	desc = "Внутри этой гранаты находятся наниты Синдиката с чёрного рынка, которые, как ни странно, поглощают только предметы, оставляя живых существ и более крупные машины в покое.<br>Теперь с новым пенообразующим аппликатором!"
+	cleaning_chem = "admincleaner_item"
+
+/obj/item/grenade/chem_grenade/cleaner/organic
+	payload_name = "organic dissolving"
+	desc = "Внутри этой гранаты находятся наниты Синдиката с чёрного рынка, которые жаждут живых существ и их органов, кремниевых или органических, мёртвых или живых.<br>Теперь с новым пенящимся аппликатором!"
+	cleaning_chem = "admincleaner_mob"
 
 /obj/item/grenade/chem_grenade/teargas
 	payload_name = "teargas"

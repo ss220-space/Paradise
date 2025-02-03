@@ -1,6 +1,6 @@
 /datum/devil_banish
     var/name
-    
+
     var/desc
     var/law
 
@@ -86,5 +86,5 @@
 	var/mob/living/carbon/human/human = owner
 	if(human.w_uniform && istype(human.w_uniform, /obj/item/clothing/under/burial))
 		return TRUE
-			
+
 	return locate(/obj/item/clothing/under/burial) in range(1, human)

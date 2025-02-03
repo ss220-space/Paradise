@@ -228,7 +228,7 @@
 	if(!istype(user))
 		return
 	if(locked)
-		boom(user)
+		attack_hand(user)
 	else
 		..()
 

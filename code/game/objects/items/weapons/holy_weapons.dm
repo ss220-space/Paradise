@@ -203,6 +203,8 @@
 /obj/item/shield/riot/templar
 	name = "templar shield"
 	icon_state = "templar_shield"
+	lefthand_file = 'icons/mob/inhands/chaplain_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/chaplain_righthand.dmi'
 
 /obj/item/nullrod/claymore/chainsaw_sword
 	name = "sacred chainsaw sword"
@@ -413,6 +415,8 @@
 /obj/item/nullrod/armblade
 	name = "dark blessing"
 	desc = "Particularly twisted deities grant gifts of dubious value."
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	item_flags = ABSTRACT

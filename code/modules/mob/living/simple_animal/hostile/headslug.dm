@@ -126,6 +126,7 @@
 		origin.transfer_to(monka)
 		if(evented && !(monka.mind.has_antag_datum(/datum/antagonist/changeling)))
 			monka.mind.add_antag_datum(/datum/antagonist/changeling/evented)
+		SSticker.mode.headslugs -= origin
 		var/datum/antagonist/changeling/cling = monka.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(evented && !(cling.oncepoped))
 			owner.real_name = owner.dna.species.get_random_name(owner.gender) // part of technical task, name must be random

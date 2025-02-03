@@ -1,5 +1,14 @@
 /obj/machinery/bodyscanner
 	name = "body scanner"
+	desc = "Сложное медицинское устройство, используется для сканирования физического состояния гуманоидов."
+	ru_names = list(
+		NOMINATIVE = "медицинский сканер",
+		GENITIVE = "медицинского сканера",
+		DATIVE = "медицинскому сканеру",
+		ACCUSATIVE = "медицинский сканер",
+		INSTRUMENTAL = "медицинским сканером",
+		PREPOSITIONAL = "медицинском сканере"
+	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
 	density = TRUE
@@ -31,11 +40,11 @@
 	. = ..()
 	if(occupant)
 		if(occupant.is_dead())
-			. += span_warning("You see [occupant.name] inside. [occupant.p_they(TRUE)] [occupant.p_are()] dead!>")
+			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [genderize_ru(occupant.gender, "Он мёртв", "Она мертва", "Оно мертво", "Они мертвы")]!")
 		else
-			. += span_notice("You see [occupant.name] inside.")
+			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
-		. += span_info("You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the scanner to place them inside.")
+		. += span_info("Наведите курсор на гуманоида, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить его внутрь.")
 
 
 /obj/machinery/bodyscanner/update_icon_state()
@@ -68,21 +77,27 @@
 	if(grabber.grab_state < GRAB_AGGRESSIVE || !ishuman(grabbed_thing))
 		return .
 	if(panel_open)
-		to_chat(grabber, span_warning("Close the maintenance panel first."))
+		balloon_alert(grabber, "техпанель открыта!")
 		return .
 	var/mob/living/carbon/human/target = grabbed_thing
 	if(occupant)
-		to_chat(grabber, span_warning("[src] is already occupied!"))
+		balloon_alert(grabber, "внутри кто-то есть!")
 		return .
 	if(target.abiotic())
-		to_chat(grabber, span_warning("Subject cannot have abiotic items on."))
+		balloon_alert(grabber, "руки субъекта заняты!")
 		return .
 	if(target.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[grabbed_thing] will not fit into the [src] because [grabbed_thing.p_they()] [grabbed_thing.p_have()] a slime latched onto [grabbed_thing.p_their()] head."))
+		to_chat(grabber, span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
 		return .
-	grabbed_thing.forceMove(src)
-	occupant = grabbed_thing
+
+	visible_message("[grabber] начина[pluralize_ru(grabber.gender,"ет","ют")] укладывать [target] в [declent_ru(ACCUSATIVE)].")
+	if(!do_after(grabber, 2 SECONDS, target) || panel_open || !target || !grabber || grabber.pulling != target || !grabber.Adjacent(src))
+		return .
+
+	target.forceMove(src)
+	occupant = target
 	update_icon(UPDATE_ICON_STATE)
+	to_chat(target, span_boldnotice("Крышка [declent_ru(GENITIVE)] закрывается и окружающие звуки сразу становятся тише. Вы видите вокруг множество датчиков и слышите тихое гудение внутренних систем аппарата."))
 	add_fingerprint(grabber)
 	SStgui.update_uis(src)
 
@@ -101,10 +116,10 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(occupant)
-		to_chat(user, span_notice("The scanner is occupied."))
+		balloon_alert(user, "внутри кто-то есть!")
 		return
 	if(panel_open)
-		to_chat(user, span_notice("Close the maintenance panel first."))
+		balloon_alert(user, "техпанель открыта!")
 		return
 
 	setDir(turn(dir, -90))
@@ -122,29 +137,32 @@
 	if(!ishuman(user) && !isrobot(user))
 		return FALSE //not a borg or human
 	if(panel_open)
-		to_chat(user, span_notice("Close the maintenance panel first."))
+		balloon_alert(user, "техпанель открыта!")
 		return TRUE //panel open
 	if(occupant)
-		to_chat(user, span_notice("[src] is already occupied."))
+		balloon_alert(user, "внутри кто-то есть!")
 		return TRUE //occupied
 	if(H.buckled)
 		return FALSE
 	if(H.abiotic())
-		to_chat(user, span_notice("Subject cannot have abiotic items on."))
+		balloon_alert(user, "руки субъекта заняты!")
 		return TRUE
 	if(H.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[H] will not fit into [src] because [H.p_they()] [H.p_have()] a slime latched onto [H.p_their()] head."))
+		to_chat(user, span_warning("Вы не поместитесь в [declent_ru(ACCUSATIVE)], пока на вас сидит слайм!"))
 		return TRUE
 
 	if(H == user)
-		visible_message("[user] climbs into [src].")
+		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[user] puts [H] into the body scanner.")
+		visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [H] в [declent_ru(ACCUSATIVE)].")
 
-	add_fingerprint(user)
+	if(!do_after(user, 2 SECONDS, H))
+		return
+
 	H.forceMove(src)
 	occupant = H
 	update_icon(UPDATE_ICON_STATE)
+	to_chat(H, span_boldnotice("Крышка [declent_ru(GENITIVE)] закрывается и окружающие звуки сразу становятся тише. Вы видите вокруг множество датчиков и слышите тихое гудение внутренних систем аппарата."))
 	add_fingerprint(user)
 	SStgui.update_uis(src)
 	return TRUE
@@ -166,7 +184,7 @@
 		return // you cant reach that
 
 	if(panel_open)
-		to_chat(user, span_notice("Close the maintenance panel first."))
+		balloon_alert(user, "техпанель открыта!")
 		return
 
 	add_fingerprint(user)
@@ -175,10 +193,10 @@
 /obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/card/id))
 		if(inserted_id)
-			user.balloon_alert(user, "занято")
+			balloon_alert(user, "слот ID карты занят")
 		else if(user.drop_transfer_item_to_loc(I, src))
 			inserted_id = I
-			user.balloon_alert(user, "карта вставлена")
+			balloon_alert(user, "карта вставлена")
 
 	. = ..()
 
@@ -190,7 +208,7 @@
 /obj/machinery/bodyscanner/verb/eject()
 	set src in oview(1)
 	set category = "Object"
-	set name = "Eject Body Scanner"
+	set name = "Извлечь пациента"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -243,7 +261,7 @@
 /obj/machinery/bodyscanner/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "BodyScanner", "Body Scanner")
+		ui = new(user, src, "BodyScanner", "Медицинский сканер")
 		ui.open()
 
 /obj/machinery/bodyscanner/ui_data(mob/user)
@@ -389,23 +407,23 @@
 				return
 			isPrinting = TRUE
 			if(GLOB.copier_items_printed >= GLOB.copier_max_items)
-				visible_message(span_warning("Nothing happens. Printing device is broken?"))
+				visible_message(span_warning("Ничего не происходит. Устройство печати сломано?"))
 				if(!GLOB.copier_items_printed_logged)
 					message_admins("Photocopier cap of [GLOB.copier_max_items] papers reached, all photocopiers/printers are now disabled. This may be the cause of any lag.")
 					GLOB.copier_items_printed_logged = TRUE
 				sleep(3 SECONDS)
 				isPrinting = FALSE
 				return
-			visible_message(span_notice("[src] rattles and prints out a sheet of paper."))
+			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 			sleep(3 SECONDS)
 			var/obj/item/paper/P = new /obj/item/paper(loc)
-			var/name = occupant ? occupant.name : "Unknown"
-			P.info = "<CENTER><B>Body Scan - [name]</B></CENTER><BR>"
-			P.info += "<b>Time of scan:</b> [station_time_timestamp()]<br><br>"
+			var/name = occupant ? occupant.name : "Неизвестный"
+			P.info = "<CENTER><B>Отчёт по сканированию пациента - [name]</B></CENTER><BR>"
+			P.info += "<b>Время сканирования</b> [station_time_timestamp()]<br><br>"
 			P.info += "[generate_printing_text()]"
-			P.info += "<br><br><b>Notes:</b><br>"
-			P.name = "Body Scan - [name]"
+			P.info += "<br><br><b>Заметки:</b><br>"
+			P.name = "Отчёт по сканированию пациента - [name]"
 			isPrinting = FALSE
 		if("insurance")
 			do_insurance_collection(usr, occupant, inserted_id ? inserted_id.associated_account_number : null)
@@ -417,17 +435,17 @@
 /obj/machinery/bodyscanner/proc/generate_printing_text()
 	var/dat = ""
 
-	dat = "<font color='blue'><b>Occupant Statistics:</b></font><br>" //Blah obvious
+	dat = "<font color='blue'><b>Состояние пациента:</b></font><br>" //Blah obvious
 	if(istype(occupant)) //is there REALLY someone in there?
 		var/t1
 		switch(occupant.stat) // obvious, see what their status is
 			if(0)
-				t1 = "Conscious"
+				t1 = "в сознании"
 			if(1)
-				t1 = "Unconscious"
+				t1 = "без сознания"
 			else
-				t1 = "*dead*"
-		dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [occupant.health], ([t1])</font><br>"
+				t1 = "[genderize_ru(occupant.gender, "мёртв", "мертва", "мертво", "мертвы")]"
+		dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tПроцентная оценка состояния: [occupant.health]%, [t1]</font><br>"
 
 		var/found_disease = FALSE
 		for(var/thing in occupant.diseases)
@@ -437,63 +455,63 @@
 			found_disease = TRUE
 			break
 		if(found_disease)
-			dat += "<font color='red'>Disease detected in occupant.</font><BR>"
+			dat += "<font color='red'>У пациента выявлено заболевание</font><BR>"
 
 		var/extra_font = null
 		extra_font = (occupant.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Brute Damage %: [occupant.getBruteLoss()]</font><br>"
+		dat += "[extra_font]\t-Физические повреждения: [occupant.getBruteLoss()]</font><br>"
 
 		extra_font = (occupant.getOxyLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Respiratory Damage %: [occupant.getOxyLoss()]</font><br>"
+		dat += "[extra_font]\t-Удушение: [occupant.getOxyLoss()]</font><br>"
 
 		extra_font = (occupant.getToxLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Toxin Content %: [occupant.getToxLoss()]</font><br>"
+		dat += "[extra_font]\t-Токсины: [occupant.getToxLoss()]</font><br>"
 
 		extra_font = (occupant.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Burn Severity %: [occupant.getFireLoss()]</font><br>"
+		dat += "[extra_font]\t-Ожоги: [occupant.getFireLoss()]</font><br>"
 
 		extra_font = (occupant.radiation < 10 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tRadiation Level %: [occupant.radiation]</font><br>"
+		dat += "[extra_font]\tРадиационное поражение: [occupant.radiation]</font><br>"
 
 		extra_font = (occupant.getCloneLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tGenetic Tissue Damage %: [occupant.getCloneLoss()]<br>"
+		dat += "[extra_font]\tГенетические повреждения: [occupant.getCloneLoss()]<br>"
 
 		extra_font = (occupant.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tApprox. Brain Damage %: [occupant.getBrainLoss()]<br>"
+		dat += "[extra_font]\tПовреждение мозга: [occupant.getBrainLoss()]<br>"
 
-		dat += "Paralysis Summary %: [occupant.AmountParalyzed()] ([round(occupant.AmountParalyzed() / 10)] seconds left!)<br>"
-		dat += "Body Temperature: [occupant.bodytemperature-T0C]&deg;C ([occupant.bodytemperature*1.8-459.67]&deg;F)<br>"
+		dat += "Паралич тела: [occupant.AmountParalyzed()] ([round(occupant.AmountParalyzed() / 10)] секунд осталось!)<br>"
+		dat += "Температура тела: [occupant.bodytemperature-T0C]&deg;C ([occupant.bodytemperature*1.8-459.67]&deg;F)<br>"
 
 		dat += "<hr>"
 
 		if(occupant.has_brain_worms())
-			dat += "Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended.<br>"
+			dat += "В лобной доле обнаружено крупное образование, возможно, злокачественное. Рекомендуется хирургическое удаление."
 
 		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL))
 		blood_percent *= 100
 
 		extra_font = (occupant.blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tBlood Level %: [blood_percent] ([occupant.blood_volume] units)</font><br>"
+		dat += "[extra_font]\tУровень крови: [blood_percent] ([occupant.blood_volume] u)</font><br>"
 
 		if(occupant.reagents)
-			dat += "Epinephrine units: [occupant.reagents.get_reagent_amount("Epinephrine")] units<BR>"
-			dat += "Ether: [occupant.reagents.get_reagent_amount("ether")] units<BR>"
+			dat += "Эпинефрин: [occupant.reagents.get_reagent_amount("Epinephrine")] u<BR>"
+			dat += "Эфир: [occupant.reagents.get_reagent_amount("ether")] u<BR>"
 
 			extra_font = (occupant.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tSilver Sulfadiazine: [occupant.reagents.get_reagent_amount("silver_sulfadiazine")]</font><br>"
+			dat += "[extra_font]\tСульфадиазин серебра: [occupant.reagents.get_reagent_amount("silver_sulfadiazine")] u</font><br>"
 
 			extra_font = (occupant.reagents.get_reagent_amount("styptic_powder") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tStyptic Powder: [occupant.reagents.get_reagent_amount("styptic_powder")] units<BR>"
+			dat += "[extra_font]\tКровоостанавливающая пудра: [occupant.reagents.get_reagent_amount("styptic_powder")] u<BR>"
 
 			extra_font = (occupant.reagents.get_reagent_amount("salbutamol") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tSalbutamol: [occupant.reagents.get_reagent_amount("salbutamol")] units<BR>"
+			dat += "[extra_font]\tСальбутамол: [occupant.reagents.get_reagent_amount("salbutamol")] u<BR>"
 
 		dat += "<hr><table border='1'>"
 		dat += "<tr>"
-		dat += "<th>Organ</th>"
-		dat += "<th>Burn Damage</th>"
-		dat += "<th>Brute Damage</th>"
-		dat += "<th>Other Wounds</th>"
+		dat += "<th>Орган</th>"
+		dat += "<th>Ожоги</th>"
+		dat += "<th>Физ. повреждения</th>"
+		dat += "<th>Другие повреждения</th>"
 		dat += "</tr>"
 
 		for(var/obj/item/organ/external/e as anything in occupant.bodyparts)
@@ -504,79 +522,81 @@
 			var/dead = ""
 			var/robot = ""
 			var/imp = ""
-			var/bled = ""
 			var/splint = ""
 			var/internal_bleeding = ""
 			var/lung_ruptured = ""
 			if(e.has_internal_bleeding())
-				internal_bleeding = "<br>Internal bleeding"
+				internal_bleeding = "<br>Внутреннее кровотечение"
 			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
-				lung_ruptured = "Lung ruptured:"
+				lung_ruptured = "Пробито лёгкое"
 			if(e.is_splinted())
-				splint = "Splinted:"
+				splint = "Наложена шина"
 			if(e.has_fracture())
-				AN = "[e.broken_description]:"
+				AN = "[e.broken_description]"
 			if(e.is_dead())
-				dead = "DEAD:"
+				dead = "Мертво"
 			if(e.is_robotic())
-				robot = "Robotic:"
+				robot = "Синтетическое"
 			if(e.open)
-				open = "Open:"
+				open = "Открыто"
 			switch(e.germ_level)
 				if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
-					infected = "Mild Infection:"
+					infected = "Лёгкая инфекция"
 				if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
-					infected = "Mild Infection+:"
+					infected = "Лёгкая инфекция+"
 				if(INFECTION_LEVEL_ONE + 300 to INFECTION_LEVEL_ONE + 400)
-					infected = "Mild Infection++:"
+					infected = "Лёгкая инфекция++"
 				if(INFECTION_LEVEL_TWO to INFECTION_LEVEL_TWO + 200)
-					infected = "Acute Infection:"
+					infected = "Острая инфекция"
 				if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
-					infected = "Acute Infection+:"
+					infected = "Острая инфекция+"
 				if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 399)
-					infected = "Acute Infection++:"
+					infected = "Острая инфекция++"
 				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
-					infected = "Septic:"
+					infected = "Сепсис"
 
 			if(LAZYLEN(e.embedded_objects) || e.hidden)
-				imp += "Unknown body present:"
-			if(!AN && !open && !infected && !imp)
-				AN = "None:"
-			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
+				imp += "Обнаружено инородное тело"
+			if(!AN && !open && !infected && !imp && !internal_bleeding && !lung_ruptured)
+				AN = "Отсутствуют"
+			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot] [AN] [splint] [open] [infected] [imp] [internal_bleeding] [lung_ruptured] [dead]</td>"
 			dat += "</tr>"
 		for(var/obj/item/organ/internal/organ as anything in occupant.internal_organs)
-			var/mech = organ.desc
-			var/infection = "None"
+			var/robot = ""
+			var/infection = ""
 			var/dead = ""
+			if(organ.is_robotic())
+				robot = "Синтетическое"
 			if(organ.is_dead())
-				dead = "DEAD:"
+				dead = "Мертво"
 			switch(organ.germ_level)
 				if(1 to INFECTION_LEVEL_ONE + 200)
-					infection = "Mild Infection:"
+					infection = "Лёгкая инфекция"
 				if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
-					infection = "Mild Infection+:"
+					infection = "Лёгкая инфекция+"
 				if(INFECTION_LEVEL_ONE + 300 to INFECTION_LEVEL_ONE + 400)
-					infection = "Mild Infection++:"
+					infection = "Лёгкая инфекция++"
 				if(INFECTION_LEVEL_TWO to INFECTION_LEVEL_TWO + 200)
-					infection = "Acute Infection:"
+					infection = "Острая инфекция"
 				if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
-					infection = "Acute Infection+:"
+					infection = "Острая инфекция+"
 				if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 399)
-					infection = "Acute Infection++:"
+					infection = "Острая инфекция++"
 				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
-					infection = "Septic:"
-
+					infection = "Сепсис"
+			if(!infection && !dead)
+				infection = "Отсутствуют"
 			dat += "<tr>"
-			dat += "<td>[organ.name]</td><td>N/A</td><td>[organ.damage]</td><td>[infection]:[mech][dead]</td><td></td>"
+			dat += "<td>[organ.name]</td><td>Н/Д</td><td>[organ.damage]</td><td>[infection] [robot] [dead]</td>"
 			dat += "</tr>"
 		dat += "</table>"
 		if(HAS_TRAIT(occupant, TRAIT_BLIND))
-			dat += "<font color='red'>Cataracts detected.</font><BR>"
+			dat += "<font color='red'>Обнаружена катаракта.</font><BR>"
 		if(HAS_TRAIT(occupant, TRAIT_COLORBLIND))
-			dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
+			dat += "<font color='red'>Обнаружены нарушения в работе фоторецепторов.</font><BR>"
 		if(HAS_TRAIT(occupant, TRAIT_NEARSIGHTED))
-			dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
+			dat += "<font color='red'>Обнаружено смещение сетчатки.</font><BR>"
 	else
-		dat += "[src] is empty."
+		dat += "[capitalize(declent_ru(NOMINATIVE))] пуст."
 
 	return dat

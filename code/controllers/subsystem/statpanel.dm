@@ -53,10 +53,16 @@ SUBSYSTEM_DEF(statpanels)
 		if(target.stat_tab == "Status" && num_fires % status_wait == 0)
 			set_status_tab(target)
 
-		if(!target.holder || !(target.prefs?.toggles2 & PREFTOGGLE_2_MC_TAB))
-			target.stat_panel.send_message("remove_mc_tab", !target.holder ? TRUE : FALSE)
+		var/holder_check = !isnull(target.holder)
 
-		else if(target.mob && check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, target.mob))
+		if(!holder_check || !(target.prefs?.toggles2 & PREFTOGGLE_2_MC_TAB))
+			target.stat_panel.send_message("remove_mc_tab", !target.holder ? TRUE : FALSE)
+		
+		if(holder_check)
+			target.stat_panel.send_message("update_split_admin_tabs", !!(target.prefs.toggles2 & PREFTOGGLE_2_SPLIT_ADMIN_TABS))
+		
+		if(holder_check && target.mob && check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, target.mob))
+			
 			// Shows SDQL2 list
 			if(!length(GLOB.sdql2_queries) && ("SDQL2" in target.panel_tabs))
 				target.stat_panel.send_message("remove_sdql2")

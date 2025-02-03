@@ -11,6 +11,15 @@
 		return get_step(GET_TURF_BELOW(us), dir)
 	return get_step(ref, dir)
 
+/proc/get_step_towards_multiz(atom/start, atom/target)
+	if(target.z == start.z)
+		return get_step_towards(start, target)
+	var/turf/start_turf = get_turf(start)
+	if(target.z > start.z)
+		return GET_TURF_ABOVE(start_turf)
+	return GET_TURF_BELOW(start_turf)
+
+
 /proc/get_dir_multiz(turf/us, turf/them)
 	us = get_turf(us)
 	them = get_turf(them)

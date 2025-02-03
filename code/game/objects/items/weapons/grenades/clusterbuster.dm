@@ -278,3 +278,16 @@
 /obj/item/grenade/clusterbuster/mega_emp
 	name = "Electromagnetic Storm"
 	payload = /obj/item/grenade/clusterbuster/emp
+
+
+/obj/item/grenade/clusterbuster/admincleaner
+	desc = "Для уборки <b>действительно</b> больших беспорядков."
+	payload = /obj/item/grenade/chem_grenade/cleaner/everything
+
+/obj/item/grenade/clusterbuster/admincleaner/organic
+	desc = "Для очистки множества остатков, на множестве мест преступлений."
+	payload = /obj/item/grenade/chem_grenade/cleaner/organic
+
+/obj/item/grenade/clusterbuster/admincleaner/object
+	desc = "Для уборки типичной корпоративной вечеринки Nanotrasen."
+	payload = /obj/item/grenade/chem_grenade/cleaner/object

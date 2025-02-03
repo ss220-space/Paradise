@@ -90,6 +90,8 @@
 
 #define is_internal_organ(A) istype(A, /obj/item/organ/internal)
 
+#define	is_organ(A)			istype((A), /obj/item/organ)
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
@@ -140,6 +142,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define islava(A) (istype(A, /turf/simulated/floor/lava))
 
 #define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
+
+#define issingularity(atom) (istype(atom, /obj/singularity))
 
 //Structures
 #define isstructure(A) (istype(A, /obj/structure))

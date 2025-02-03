@@ -997,7 +997,7 @@ Byond.subscribeTo('update_listedturf', function (TC) {
 Byond.subscribeTo('update_interviews', function (I) {
 	interviewManager = I;
 	if (current_tab == 'Tickets') {
-		draw_interviews();
+		//draw_interviews(); //not exist
 	}
 });
 
