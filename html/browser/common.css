@@ -14,7 +14,7 @@ hr
 	height: 1px;
 }
 
-a, a:link, a:visited, a:active, .linkOn, .linkOff
+a, button, a:link, a:visited, a:active, .linkOn, .linkOff
 {
 	color: #ffffff;
 	text-decoration: none;
@@ -40,6 +40,7 @@ a.nobg:hover
 {
 	color:#40628a;
 }
+
 
 a:hover
 {
@@ -92,7 +93,6 @@ a.icon img, .linkOn.icon img
 	width: 18px;
 	height: 18px;
 }
-
 ul
 {
 	padding: 4px 0 0 10px;
@@ -156,23 +156,22 @@ h4
 }
 
 .uiTitleWrapper
- {
- 	position:fixed;
- 	top:0px;
- 	left:0px;
- 	right:0px;
- 	z-index: 10
- }
+{
+	position:fixed;
+	top:0px;
+	left:0px;
+	right:0px;
+	z-index: 10
+}
 
- .uiTitleButtons
- {
- 	position:fixed;
- 	top:0px;
- 	right:0px;
- 	height:32px;
- 	z-index:11;
- }
-
+.uiTitleButtons
+{
+	position:fixed;
+	top:0px;
+	right:0px;
+	height:32px;
+	z-index:11;
+}
 
 .uiTitle.icon
 {
@@ -212,6 +211,7 @@ h4
 {
 	color: #272727;
 }
+
 
 .notice
 {
@@ -351,12 +351,15 @@ div.notice
 	width: 100%;
 	clear: both;
 }
+
+
 .charPreview
 {
 	-ms-interpolation-mode: nearest-neighbor; /* TODO: Remove with 516 */
     image-rendering: pixelated;
 	width: 64px;
 	height:64px;
+
 }
 
 .loadoutPreview
@@ -375,6 +378,7 @@ div.notice
 	animation: ellipsis steps(4,end) 900ms infinite;
 	content: "\2026";
 	width: 0px;
+
 }
 
 @keyframes ellipsis
@@ -383,4 +387,124 @@ div.notice
 	{
 		width: 1.25em;
 	}
+}
+
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 50px;
+	height: 26px;
+}
+
+.switch input {display:none;}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #383838;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 18px;
+	width: 18px;
+	left: 4px;
+	bottom: 4px;
+	background-color: #98B0C3;
+	transition: .4s;
+}
+
+.slider.red:before {
+	background-color: #d6858b;
+}
+
+.slider.locked:before {
+	content: url("padlock.png");
+	background-color: #b4b4b4;
+}
+
+input:checked + .slider {
+	background-color: #40628a;
+}
+
+input:checked + .slider.red {
+	background-color: #a92621;
+}
+
+input:checked + .slider.locked {
+	background-color: #707070;
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px #2196F3;
+}
+
+input:focus + .slider.red {
+	box-shadow: 0 0 1px #f3212d;
+}
+
+input:focus + .slider.locked {
+	box-shadow: 0 0 1px #979797;
+}
+
+input:checked + .slider:before {
+	transform: translateX(24px);
+}
+
+.switch span {
+	display: inline-block;
+	position: relative;
+	width: 60px;
+	margin-left: 60px;
+}
+
+ul.sparse {
+	padding-bottom:20px;
+}
+
+.sparse li {
+	margin-top: 2px;
+}
+
+.slider.round {
+	border-radius: 34px;
+}
+
+.slider.round:before {
+	border-radius: 50%;
+}
+
+.severity {
+	margin:0px;
+	padding: 1px 8px 1px 8px;
+	border-radius: 25px;
+	border: 1px solid #161616;
+	background: #40628a;
+	color: #ffffff;
+}
+
+.severity img {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.code {
+	padding: 6px 8px;
+	border: 1px solid #161616;
+	background: #383838;
+	color: #FFFFFF;
+	font-size: 12px;
+	display: block;
+	margin: 4px 0;
+	font-family: 'Courier New', Courier, monospace;
+}
+
+.user-select {
+	user-select: all;
 }

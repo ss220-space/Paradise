@@ -528,5 +528,5 @@
 	..(severity ? max(1, severity - 1) : 0)
 
 
-/obj/machinery/door/GetExplosionBlock()
+/obj/machinery/door/get_explosion_block()
 	return density ? real_explosion_block : 0

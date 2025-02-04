@@ -76,6 +76,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(notify)
 		notify_ghosts("Приближается [name]!", enter_link="<a href=?src=[UID()];follow=1>(Click to follow)</a>", source = src, action = NOTIFY_FOLLOW)
 
+	if(SSaugury)
+		SSaugury.register_doom(src, 2000)
+
 	if(special_target)
 		SSmove_manager.home_onto(src, special_target, delay = move_delay)
 	else
@@ -91,7 +94,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	destination_turf = null
 	special_target = null
 	GLOB.poi_list -= src
-	
+
 	return ..()
 
 

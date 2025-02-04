@@ -2,6 +2,7 @@
 	species_type = /datum/species/unathi
 	name = "unathi liver"
 	icon = 'icons/obj/species_organs/unathi.dmi'
+	item_state = "unathi_liver"
 	desc = "A large looking liver."
 	alcohol_intensity = 0.8
 
@@ -9,6 +10,7 @@
 	species_type = /datum/species/unathi
 	name = "unathi eyeballs"
 	icon = 'icons/obj/species_organs/unathi.dmi'
+	item_state = "unathi_eyes"
 	see_in_dark = 3
 
 /obj/item/organ/internal/heart/unathi
@@ -16,12 +18,15 @@
 	name = "unathi heart"
 	desc = "A large looking heart."
 	icon = 'icons/obj/species_organs/unathi.dmi'
+	item_state = "unathi_heart-on"
+	item_base = "unathi_heart"
 
 /obj/item/organ/internal/brain/unathi
 	species_type = /datum/species/unathi
 	icon = 'icons/obj/species_organs/unathi.dmi'
 	desc = "A smallish looking brain."
 	icon_state = "brain2"
+	item_state = "unathi_brain"
 	mmi_icon = 'icons/obj/species_organs/unathi.dmi'
 	mmi_icon_state = "mmi_full"
 
@@ -29,11 +34,13 @@
 	species_type = /datum/species/unathi
 	name = "unathi lungs"
 	icon = 'icons/obj/species_organs/unathi.dmi'
+	item_state = "unathi_lungs"
 
 /obj/item/organ/internal/kidneys/unathi
 	species_type = /datum/species/unathi
 	name = "unathi kidneys"
 	icon = 'icons/obj/species_organs/unathi.dmi'
+	item_state = "unathi_kidneys"
 
 /obj/item/organ/external/tail/unathi
 	species_type = /datum/species/unathi

@@ -610,7 +610,7 @@
 	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
 
 /mob/new_player/proc/create_character()
-	spawning = 1
+	spawning = TRUE
 	close_spawn_windows()
 
 	check_prefs_are_sane()
@@ -627,19 +627,22 @@
 
 
 	if(mind)
-		mind.active = 0					//we wish to transfer the key manually
-		if(mind.assigned_role == JOB_TITLE_CLOWN)				//give them a clownname if they are a clown
-			new_character.real_name = pick(GLOB.clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
+		mind.active = FALSE					// we wish to transfer the key manually
+
+		if(mind.assigned_role == JOB_TITLE_CLOWN)				// give them a clownname if they are a clown
+			new_character.real_name = pick(GLOB.clown_names)	// I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self(JOB_TITLE_CLOWN)
+
 		else if(mind.assigned_role == JOB_TITLE_MIME)
 			new_character.real_name = pick(GLOB.mime_names)
 			new_character.rename_self(JOB_TITLE_MIME)
+
 		mind.set_original_mob(new_character)
-		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
+		mind.transfer_to(new_character)					// won't transfer key since the mind is not active
 		GLOB.human_names_list += new_character.real_name
 
 
-	new_character.key = key		// Manually transfer the key to log them in
+	new_character.set_key(key)		// Manually transfer the key to log them in
 
 	return new_character
 
