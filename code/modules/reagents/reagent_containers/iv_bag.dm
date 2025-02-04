@@ -127,10 +127,8 @@
 			)
 			to_chat(user, span_notice("Вы убираете иглу [declent_ru(GENITIVE)] из руки [target]."))
 		else
-			user.visible_message(
-				span_warning("[user] убира[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] из своей руки!"),
-				span_notice("Вы убираете иглу [declent_ru(GENITIVE)] из своей руки."),
-			)
+			user.visible_message(span_warning("[user] убира[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] из своей руки!"))
+			balloon_alert(user, "игла убрана")
 		end_processing()
 		return .|ATTACK_CHAIN_SUCCESS
 
