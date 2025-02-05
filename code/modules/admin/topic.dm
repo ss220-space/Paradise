@@ -4055,7 +4055,7 @@
 		new mobtype(loc)
 
 /datum/admins/proc/mass_mindswap()
-	if(!check_rights(R_EVENT) || if(!you_realy_want_do_this(owner.mob)))
+	if(!check_rights(R_EVENT) || !you_realy_want_do_this(owner.mob))
 		return
 
 	for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
