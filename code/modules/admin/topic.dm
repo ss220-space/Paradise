@@ -3129,9 +3129,14 @@
 						while(iswallturf(turf))
 							turf = get_random_station_turf()
 						addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), turf, pathToSpawn, prefs["amount"]["value"], storm), i*prefs["delay"]["value"])
+
 			if("tripleAI")
 				usr.client.triple_ai()
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
+
+			if("mass_mindswap")
+				mass_mindswap()
+
 			if("set_station_name")
 				if(!check_rights(R_ADMIN | R_EVENT))
 					return
@@ -4027,8 +4032,9 @@
 		if(O.mind && O.mind.current)
 			. += "|[ADMIN_FLW(O.mind.current,"BDY")]"
 
-/proc/you_realy_want_do_this()
-	var/sure = tgui_alert(usr, "Вы действительно хотите сделать это?", "Подтверждение", list("Да", "Нет"))
+/proc/you_realy_want_do_this(mob/user)
+	user = user || usr
+	var/sure = tgui_alert(user, "Вы действительно хотите сделать это?", "Подтверждение", list("Да", "Нет"))
 	return sure == "Да"
 
 
@@ -4047,3 +4053,15 @@
 	playsound(loc, "sparks", rand(80, 100), 1)
 	for (var/i in 1 to numtospawn)
 		new mobtype(loc)
+
+/datum/admins/proc/mass_mindswap()
+	if(!check_rights(R_EVENT) || if(!you_realy_want_do_this(owner.mob)))
+		return
+
+	for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
+		if(!human.mind)
+			continue
+
+		human.mind.transfer_to(safepick(GLOB.human_list))
+
+	log_and_message_admins("Initiated mass mindswap")
