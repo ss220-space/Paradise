@@ -325,7 +325,7 @@
 /obj/item/clothing/suit/armor/laserproof/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
-	
+
 /obj/item/clothing/suit/armor/laserproof/IsReflect()
 	if(prob(hit_reflect_chance))
 		return 1
@@ -724,6 +724,14 @@
 
 /obj/item/clothing/suit/armor/cartilage //parent type, used in order not to copy-paste same lines in 3 same armors
 	name = "cartilage armor"
+	ru_names = list(
+		NOMINATIVE = "броня из хрящевых пластин",
+		GENITIVE = "брони из хрящевых пластин",
+		DATIVE = "броне из хрящевых пластин",
+		ACCUSATIVE = "броню из хрящевых пластин",
+		INSTRUMENTAL = "броней из хрящевых пластин",
+		PREPOSITIONAL = "броне из хрящевых пластин"
+	)
 	desc = "Полностью завершённая броня, сделанная из хрящевых пластин лавовой рыбы. Слегка крепче, чем её костяной аналог."
 	icon_state = "cartilage_set"
 	item_state = "cartilage_set"
@@ -748,6 +756,14 @@
 
 /obj/item/clothing/suit/armor/cartilage/cartilage_pads
 	name = "cartilage shoulder pads"
+	ru_names = list(
+		NOMINATIVE = "наплечники из хрящевых пластин",
+		GENITIVE = "наплечников из хрящевых пластин",
+		DATIVE = "наплечникам из хрящевых пластин",
+		ACCUSATIVE = "наплечники из хрящевых пластин",
+		INSTRUMENTAL = "наплечниками из хрящевых пластин",
+		PREPOSITIONAL = "наплечниках из хрящевых пластин"
+	)
 	desc = "Достаточно крепкие наплечники, сделанные из хрящевых пластин. Защищают тело, но не предоставляют защиты для ног. Могут быть улучшены до полноценной брони в случае, если будут соединены с поножами, сделанными из того же материала."
 	icon_state = "cartilage_shoulder_pads"
 	item_state = "cartilage_shoulder_pads"
@@ -769,6 +785,14 @@
 
 /obj/item/clothing/suit/armor/cartilage/cartilage_greaves
 	name = "cartilage greaves"
+	ru_names = list(
+		NOMINATIVE = "поножи из хрящевых пластин",
+		GENITIVE = "поножей из хрящевых пластин",
+		DATIVE = "поножам из хрящевых пластин",
+		ACCUSATIVE = "поножи из хрящевых пластин",
+		INSTRUMENTAL = "поножами из хрящевых пластин",
+		PREPOSITIONAL = "поножах из хрящевых пластин"
+	) //i actually have to google it
 	desc = "Достаточно крепкие поножи, сделанные из хрящевых пластин. Защищают ноги, но не предоставляют защиты для торса. Могут быть улучшены до полноценной брони в случае, если будут соединены с наплечниками, сделанными из того же материала."
 	icon_state = "cartilage_greaves"
 	item_state = "cartilage_greaves"

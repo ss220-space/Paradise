@@ -1,5 +1,13 @@
 /obj/effect/decal/ash_rune_centre
 	name = "ash sigil"
+	ru_names = list(
+		NOMINATIVE = "пепельный сигил",
+		GENITIVE = "пепельного сигила",
+		DATIVE = "пепельному сигилу",
+		ACCUSATIVE = "пепельный сигил",
+		INSTRUMENTAL = "пепельным сигилом",
+		PREPOSITIONAL = "пепельном сигиле"
+	)
 	desc = "Незаконченная руна, нарисованная на пепле."
 	icon = 'icons/effects/ash_runes.dmi'
 	icon_state = "runaash_1"
@@ -12,6 +20,14 @@
 // Our little cheat in order to make first rune activation unforgetable
 /obj/effect/rune_animation_landmark
 	name = "ash rune"
+	ru_names = list(
+		NOMINATIVE = "пепельная руна",
+		GENITIVE = "пепельной руны",
+		DATIVE = "пепельной руне",
+		ACCUSATIVE = "пепельную руну",
+		INSTRUMENTAL = "пепельной руной",
+		PREPOSITIONAL = "пепельной руне"
+	)
 	icon = 'icons/effects/ashwalker_rune.dmi'
 	icon_state = "AshRun"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

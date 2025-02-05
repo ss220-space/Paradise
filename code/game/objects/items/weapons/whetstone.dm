@@ -101,6 +101,14 @@
 
 /obj/item/whetstone/crab_shell
 	name = "sturdy crab shell"
+	ru_names = list(
+		NOMINATIVE = "крепкий панцирь рака",
+		GENITIVE = "крепкого панциря рака",
+		DATIVE = "крепкому панцирю рака",
+		ACCUSATIVE = "крепкий панцирь рака",
+		INSTRUMENTAL = "крепким панцирем рака",
+		PREPOSITIONAL = "крепком панцире рака"
+	)
 	desc = "Маленький панцирь пепельного рака, предназначенный для лёгкой заточки оружия или когтей. Достаточно крепкий для того, чтобы им можно пользоваться несколько раз."
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "crab_shell"

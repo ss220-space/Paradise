@@ -4,6 +4,14 @@
 
 /obj/item/twohanded/fishing_rod
 	name = "ol' reliable"
+	ru_names = list(
+		NOMINATIVE = "старая добрая удочка",
+		GENITIVE = "старой доброй удочки",
+		DATIVE = "старой доброй удочке",
+		ACCUSATIVE = "старую добрую удочку",
+		INSTRUMENTAL = "старой доброй удочкой",
+		PREPOSITIONAL = "старой доброй удочке"
+	)
 	desc = "О! Кажется, я поймал шахтера!"
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	lefthand_file = 'icons/mob/inhands/lavaland/lava_items_lefthand.dmi'
@@ -26,6 +34,14 @@
 
 /obj/item/twohanded/fishing_rod/tribal
 	name = "fishing rod"
+	ru_names = list(
+		NOMINATIVE = "удочка",
+		GENITIVE = "удочки",
+		DATIVE = "удочке",
+		ACCUSATIVE = "удочку",
+		INSTRUMENTAL = "удочкой",
+		PREPOSITIONAL = "удочке"
+	)
 	desc = "Примитивная костяная удочка, использующая сухожилия наблюдателя в качестве высокопрочной лески. Не совсем понятно, почему эта \"леска\" не плавится в лаве."
 	icon_state = "tribal_rod"
 	item_state = "tribal_rod"

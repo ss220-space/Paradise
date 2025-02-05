@@ -284,6 +284,14 @@
 
 /obj/item/kitchen/knife/combat/survival/bone/eel
 	name = "eel sharpened tail"
+	ru_names = list(
+		NOMINATIVE = "хвост донного угря",
+		GENITIVE = "хвоста донного угря",
+		DATIVE = "хвосту донного угря",
+		ACCUSATIVE = "хвост донного угря",
+		INSTRUMENTAL = "хвостом донного угря",
+		PREPOSITIONAL = "хвосте донного угря"
+	)
 	desc = "Бритвенно-острый хвост донного угля, аккуратно отделенный от основного тела рыбы. Используется для улучшения копья, однако сам по себе может использоваться как отличный нож."
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "eel_sharpened_tail"

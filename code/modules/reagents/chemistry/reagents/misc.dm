@@ -710,12 +710,12 @@
 	return ..()
 
 /datum/reagent/bugmilk
-	name = "bug milk"
+	name = "пепельное молоко"
 	id = "bugmilk"
-	description = "ash milk"
+	description = "Молочная субстанция, вырабатывающаяся некоторыми видами на Лазис Ардакс. Весьма вкусное."
 	reagent_state = LIQUID
 	color = "#e4dac5"
-	taste_description = "milk"
+	taste_description = "молока"
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 
 /datum/reagent/bugmilk/on_mob_life(mob/living/M)

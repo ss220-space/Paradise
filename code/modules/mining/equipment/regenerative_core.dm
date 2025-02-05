@@ -9,6 +9,14 @@
 
 /obj/item/hivelordstabilizer/molten_mass
 	name = "gooey molten mass"
+	ru_names = list(
+		NOMINATIVE = "сплавленный сгусток",
+		GENITIVE = "сплавленного сгустка",
+		DATIVE = "сплавленному сгустку",
+		ACCUSATIVE = "сплавленный сгусток",
+		INSTRUMENTAL = "сплавленным сгустком",
+		PREPOSITIONAL = "сплавленном сгустке"
+	)
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "gooey_molten_mass"
 	desc = "Странноватые сгустки, снятые с головы магмового рыбы-молота. Являются природным аналогом стабилизатора регенеративных ядер."

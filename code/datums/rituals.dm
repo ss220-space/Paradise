@@ -5,6 +5,8 @@
 	var/name
 	/// Description of our ritual. Later be used in tgui
 	var/description
+	/// Our fluff tgui name for dyes
+	var/fluff_tgui_dye = "краска не нужна."
 	/// If ritual requires more than one invoker
 	var/extra_invokers = 0
 	/// If invoker species isn't in allowed - he won't do ritual.
@@ -113,7 +115,7 @@
 	.["Может выполнить только шаман:"] = (shaman_only)? "Да" : "Нет"
 	. += ..()
 	if(needed_dye)
-		.["Краска на участниках:"] = needed_dye
+		.["Краска на участниках:"] = fluff_tgui_dye
 
 /datum/ritual/ashwalker/is_valid_invoker(atom/atom)
 	return istype(atom, /obj/structure/ash_totem) || ..()
@@ -156,7 +158,8 @@
 
 /datum/ritual/ashwalker/summon_ashstorm
 	name = "Призыв Пепельной Бури"
-	description = "Проведение данного ритуала обрушивает на Лазис суровую пепельную бурю, значительно ухудшая видимость и смешивая планы чужеземцев."
+	description = "Проведение данного ритуала обрушивает на Лазис суровую пепельную бурю, значительно уменьшая видимость и затрудняя перемещение по Лазису на некоторое время. \
+					Катастрофическая неудача приведет к заражению трупной лихорадкой всех причастных к ритуалу."
 	shaman_only = TRUE
 	disaster_prob = 20
 	charges = 2
@@ -164,6 +167,7 @@
 	cast_time = 20 SECONDS
 	fail_chance = 20
 	extra_invokers = 2
+	fluff_tgui_dye = "Янтарная краска"
 	needed_dye = "Amber Dyes"
 	totem_dye = "amber"
 	required_things = list(
@@ -226,13 +230,15 @@
 
 /datum/ritual/ashwalker/transformation
 	name = "Ритуал Превращения"
-	description = "Проведение данного ритуала обращает тело вторженца в подобного нам. Выбранная жертва должна иметь душу."
+	description = "Проведение данного ритуала обращает тело пленника в подобного нам. Выбранная жертва должна быть жива и иметь душу. \
+					Катастрофическая неудача приведет к освобождению пленника и его побегу."
 	disaster_prob = 30
 	fail_chance = 50
 	extra_invokers = 1
 	cooldown_after_cast = 480 SECONDS
 	cast_time = 30 SECONDS
 	ritual_should_del_things_on_fail = TRUE
+	fluff_tgui_dye = "Киноварная краска"
 	needed_dye = "Cinnabar Dyes"
 	totem_dye = "cinnabar"
 	required_things = list(
@@ -279,10 +285,12 @@
 
 /datum/ritual/ashwalker/summon
 	name = "Ритуал Призыва"
-	description = "Проведение данного ритуала позволяет шаману призвать к руне любого пеплоходца вне зависимости от его текущего состояния."
+	description = "Проведение данного ритуала позволяет шаману призвать к руне любого пеплоходца вне зависимости от его текущего состояния. \
+					Катастрофическая неудача приведет к насильственной потере конечностей."
 	disaster_prob = 30
 	fail_chance = 30
 	shaman_only = TRUE
+	fluff_tgui_dye = "Кровавая краска"
 	needed_dye = "Crimson Dyes"
 	totem_dye = "crimson"
 	cooldown_after_cast = 900 SECONDS
@@ -351,13 +359,15 @@
 
 /datum/ritual/ashwalker/curse
 	name = "Ритуал Проклятия"
-	description = "Проведение данного ритуала приведёт к наложению страшной, почти неизлечимой болезни на случайного гуманоида, который не принадлежит нашему племени."
+	description = "Проведение данного ритуала приведёт к наложению страшной, почти неизлечимой болезни на случайного гуманоида, который не принадлежит нашему племени. \
+					Катастрофическая неудача приведет к генетической деградации одного из наших соплеменников."
 	disaster_prob = 30
 	fail_chance = 30
 	cooldown_after_cast = 600 SECONDS
 	cast_time = 30 SECONDS
 	charges = 3
 	shaman_only = TRUE
+	fluff_tgui_dye = "Кровавая краска"
 	needed_dye = "Crimson Dyes"
 	totem_dye = "crimson"
 	extra_invokers = 2
@@ -421,14 +431,16 @@
 
 /datum/ritual/ashwalker/power
 	name = "Ритуал Силы"
-	description = "Проведение данного ритуала значительно увеличит силу всех его участников, позволяя им таскать тяжести без замедления."
+	description = "Проведение данного ритуала значительно увеличит силу всех его участников, позволяя им таскать тяжести без замедления. \
+					Катастрофическая неудача приведет к случайной плохой мутации у всех участников ритуала."
 	disaster_prob = 40
 	fail_chance = 40
-	charges = 1
+	charges = 2
 	cooldown_after_cast = 800 SECONDS
 	cast_time = 30 SECONDS
 	shaman_only = TRUE
 	extra_invokers = 2
+	fluff_tgui_dye = "Тёмно-синяя краска"
 	needed_dye = "Indigo Dyes"
 	totem_dye = "indigo"
 	required_things = list(
@@ -498,7 +510,8 @@
 
 /datum/ritual/ashwalker/resurrection
 	name = "Ритуал Воскрешения"
-	description = "Проведение данного ритуала позволит оживить погибшего гуманоида, находящегося на руне."
+	description = "Проведение данного ритуала позволит оживить погибшего гуманоида, находящегося на руне. \
+					Катастрофическая неудача приведет к сильнейшему повреждению мозга у всех, кто находится рядом с руной."
 	charges = 3
 	extra_invokers = 2
 	cooldown_after_cast = 180 SECONDS
@@ -506,6 +519,7 @@
 	shaman_only = TRUE
 	disaster_prob = 25
 	fail_chance = 35
+	fluff_tgui_dye = "Мятная краска"
 	needed_dye = "Mint Dyes"
 	totem_dye = "mint"
 	required_things = list(
@@ -562,13 +576,15 @@
 
 /datum/ritual/ashwalker/recharge
 	name = "Ритуал Восстановления"
-	description = "Проведение данного ритуала позволит восстановить заряды у ритуалов, имеющих ограниченное количество зарядов."
+	description = "Проведение данного ритуала позволит восстановить заряды у ритуалов, имеющих ограниченное количество зарядов. \
+					Катастрофическая неудача приведет к заражению опухолью Легиона у случайного соплеменника."
 	extra_invokers = 3
 	disaster_prob = 30
 	fail_chance = 50
 	cooldown_after_cast = 360 SECONDS
 	cast_time = 30 SECONDS
 	shaman_only = TRUE
+	fluff_tgui_dye =  "Янтарная краска"
 	needed_dye = "Amber Dyes"
 	totem_dye = "amber"
 	required_things = list(
@@ -644,12 +660,14 @@
 
 /datum/ritual/ashwalker/population
 	name = "Ритуал Населения"
-	description = "Проведение данного ритуала позволит племени пеплоходцев получить второго шамана."
+	description = "Проведение данного ритуала позволит племени пеплоходцев получить второго шамана. \
+					Катастрофическая неудача приведет к выпадению всех вещей на пол у случайных соплеменников."
 	extra_invokers = 2
 	charges = 1
 	cooldown_after_cast = 120 SECONDS
 	cast_time = 30 SECONDS
 	ritual_should_del_things_on_fail = TRUE
+	fluff_tgui_dye = "Киноварная краска"
 	needed_dye = "Cinnabar Dyes"
 	totem_dye = "cinnabar"
 	required_things = list(
@@ -725,10 +743,12 @@
 
 /datum/ritual/ashwalker/soul
 	name = "Ритуал Души"
-	description = "Проведение данного ритуала позволяет призывающему возвыситься до драконида."
+	description = "Проведение данного ритуала позволяет призывающему возвыситься до драконида. \
+					Катастрофическая неудача приведет к ужасающим ожогам среди всех участников ритуала."
 	extra_invokers = 3
 	cooldown_after_cast = 1200 SECONDS
 	cast_time = 30 SECONDS
+	fluff_tgui_dye = "Кровавая краска"
 	needed_dye = "Crimson Dyes"
 	totem_dye = "crimson"
 	required_things = list(
@@ -804,7 +824,8 @@
 
 /datum/ritual/ashwalker/transmutation
 	name = "Ритуал Трансмутации"
-	description = "Проведение данного ритуала позволяет трансмутировать 10 единиц любой руды в другую случайную руду."
+	description = "Проведение данного ритуала позволяет трансмутировать 10 единиц любой руды в другую случайную руду. \
+					Катастрофическая неудача приведет к расплавлению руды в руках и последующим ужасающим ожогам."
 	cooldown_after_cast = 20 SECONDS
 	cast_time = 10 SECONDS
 	required_things = list(
@@ -857,7 +878,8 @@
 
 /datum/ritual/ashwalker/interrogation
 	name = "Ритуал Допроса"
-	description = "Проведение данного ритуала позволяет получить информацию о чувствах и мыслях вашей жертвы."
+	description = "Проведение данного ритуала позволяет получить информацию о чувствах и мыслях вашей жертвы. \
+					Катастрофическая неудача приведет к затуманиванию разума шамана и серьезным повреждениям мозга."
 	cooldown_after_cast = 50 SECONDS
 	shaman_only = TRUE
 	cast_time = 10 SECONDS
@@ -930,11 +952,13 @@
 
 /datum/ritual/ashwalker/creation
 	name = "Ритуал Создания"
-	description = "Проведение данного ритуала позволяет призвать двух случайных враждебных существ к руне."
+	description = "Проведение данного ритуала позволяет призвать двух случайных враждебных существ к руне. \
+					Катастрофическая неудача приведет к ужасающим ожогам среди всех участников ритуала."
 	cooldown_after_cast = 150 SECONDS
 	shaman_only = TRUE
 	extra_invokers = 2
 	cast_time = 30 SECONDS
+	fluff_tgui_dye = "Тёмно-синяя краска"
 	needed_dye = "Indigo Dyes"
 	totem_dye = "indigo"
 	required_things = list(
@@ -1003,13 +1027,15 @@
 			playsound(ritual_object.loc, 'sound/magic/castsummon.ogg', 50, TRUE)
 
 /datum/ritual/ashwalker/command
-	name = "Ритуал Коммандования"
-	description = "Проведение данного ритуала позволяет получить в ваше подчинение местную фауну."
+	name = "Ритуал Командования"
+	description = "Проведение данного ритуала позволяет получить в подчинение племени местную фауну. \
+					Катастрофическая неудача приведет к призыву агрессивного древнего голиафа."
 	cooldown_after_cast = 150 SECONDS
 	shaman_only = TRUE
 	disaster_prob = 35
 	extra_invokers = 1
 	cast_time = 30 SECONDS
+	fluff_tgui_dye = "Мятная краска"
 	needed_dye = "Mint Dyes"
 	totem_dye = "mint"
 	required_things = list(

@@ -598,6 +598,14 @@
 
 /obj/item/clothing/head/scorched_skull
 	name = "scorched skull"
+	ru_names = list(
+		NOMINATIVE = "обожженный череп",
+		GENITIVE = "обожженного черепа",
+		DATIVE = "обожженному черепу",
+		ACCUSATIVE = "обожженный череп",
+		INSTRUMENTAL = "обожженным черепом",
+		PREPOSITIONAL = "обожженном черепе"
+	)
 	desc = "Голова мертвого всадника, очищенная от чешуи, крови и внутренних органов во время разделки. Вселяет страх в ваших врагов."
 	icon_state = "scorched_skull"
 	item_state = "scorched_skull"

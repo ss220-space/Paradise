@@ -1621,13 +1621,13 @@
 	user.clear_alert("penthrite")
 
 /datum/reagent/medicine/ashiezine
-	name = "lavaland syrup"
+	name = "Сироп Лаваленда"
 	id = "ashiezine"
-	description = "Strange reagent from lavaland, that heals only ash walkers."
+	description = "Странный реагент, найденный на Лазис Ардаксе. Судя по всему, он работает только на пеплоходцев."
 	reagent_state = LIQUID
 	color = "#f45555"
 	harmless = FALSE
-	taste_description = "some gibs"
+	taste_description = "потрохов"
 	can_synth = FALSE
 
 /datum/reagent/medicine/ashiezine/on_mob_life(mob/living/M)

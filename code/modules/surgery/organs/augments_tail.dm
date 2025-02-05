@@ -123,6 +123,14 @@
 //organic buff
 /obj/item/organ/internal/cyberimp/tail/blade/organic_upgrade
 	name = "tail tumour"
+	ru_names = list(
+		NOMINATIVE = "хвостовая опухоль",
+		GENITIVE = "хвостовой опухоли",
+		DATIVE = "хвостовой опухоли",
+		ACCUSATIVE = "хвостовую опухоль",
+		INSTRUMENTAL = "хвостовой опухолью",
+		PREPOSITIONAL = "хвостовом сгустке"
+	)
 	icon_state = "roro core"
 	desc = "небольшая странноватая опухоль, находящаяся в хвосте. На удивление, не делает ничего страшного, но значительно увеличивает мощность удара хвостом."
 	slash_strength = 0

@@ -668,6 +668,14 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 
 /obj/item/stack/sheet/razor_sharp_teeth
 	name = "razor sharp teeth"
+	ru_names = list(
+		NOMINATIVE = "бритвенно-острые зубы",
+		GENITIVE = "бритвенно-острых зубов",
+		DATIVE = "бритвенно-острым зубам",
+		ACCUSATIVE = "бритвенно-острые зубы",
+		INSTRUMENTAL = "бритвенно-острыми зубами",
+		PREPOSITIONAL = "бритвенно-острых зубах"
+	)
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "razor_sharp_teeth"
 	singular_name = "razor sharp tooth"

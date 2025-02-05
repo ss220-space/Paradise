@@ -142,6 +142,14 @@
 
 /obj/item/twohanded/fireaxe/boneaxe/guillotine
 	name = "guillotine"
+	ru_names = list(
+		NOMINATIVE = "гильотина",
+		GENITIVE = "гильотины",
+		DATIVE = "гильотине",
+		ACCUSATIVE = "гильотину",
+		INSTRUMENTAL = "гильотиной",
+		PREPOSITIONAL = "гильотине"
+	)
 	desc = "Массивный, грозно выглядящий пилотопор, созданный с использованием костяного нароста ослеплённого жнеца. Идеален для убийства и последующей разделки чудовищ."
 	icon_state = "guillotine0"
 	force_unwielded = 7
@@ -427,6 +435,14 @@
 
 /obj/item/twohanded/spear/bonespear/her_biting_embrace
 	name = "her biting embrace"
+	ru_names = list(
+		NOMINATIVE = "её обжигающие объятия",
+		GENITIVE = "её обжигающих объятий",
+		DATIVE = "её обжигающим объятиям",
+		ACCUSATIVE = "её обжигающие объятия",
+		INSTRUMENTAL = "её обжигающими объятиями",
+		PREPOSITIONAL = "её обжигающих объятиях"
+	) //holy fuck
 	desc = "Качественно созданное копье, украшенное церемониальными узорами, использующее хвост донного угря в качестве наконечника."
 	icon_state = "her_biting_embrace0"
 	icon_prefix = "her_biting_embrace"
