@@ -1092,3 +1092,40 @@
 	used = FALSE
 	REMOVE_TRAIT(src, TRAIT_NODROP, PYRO_CLAWS_TRAIT)
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
+
+
+/obj/item/twohanded/sledgehammer
+	name = "tactical sledgehammer"
+	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
+	ru_names = list(
+		NOMINATIVE = "тактическая кувалда",
+		GENITIVE = "тактической кувалды",
+		DATIVE = "тактической кувалде",
+		ACCUSATIVE = "тактическую кувалду",
+		INSTRUMENTAL = "тактической кувалдой",
+		PREPOSITIONAL = "тактической кувалде"
+	)
+	icon_state = "sledgehammer0"
+	throwforce = 20
+	throw_range = 2
+	w_class = WEIGHT_CLASS_BULKY
+	force_unwielded = 15
+	force_wielded = 35
+	armour_penetration = 40
+	attack_verb = list("атаковал", "ударил", "шибанул", "долбанул", "припечатал")
+	max_integrity = 200
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	resistance_flags = FIRE_PROOF
+
+
+	icon_state = "sledgehammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
+/obj/item/twohanded/sledgehammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
+
+
+/obj/item/twohanded/sledgehammer/afterattack(atom/A, mob/user, proximity, params)
+	if(!proximity)
+		return
+	if(HAS_TRAIT(src, TRAIT_WIELDED)) //destroys windows and grilles in one hit
+		if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
+			var/obj/structure/W = A
+			W.obj_destruction("sledgehammer")
