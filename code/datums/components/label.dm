@@ -79,9 +79,18 @@
 /datum/component/label/proc/apply_label()
 	var/atom/owner = parent
 	owner.name += " ([label_name])"
+	if(owner.ru_names)
+		for(var/i = 1; i <= 6; i++)
+			owner.ru_names[i] += " ([label_name])"
 
 /// Removes the label from the parent's name
 /datum/component/label/proc/remove_label()
 	var/atom/owner = parent
 	owner.name = replacetext(owner.name, "([label_name])", "") // Remove the label text from the parent's name, wherever it's located.
+	if(owner.ru_names)
+		for(var/i = 1; i <= 6; i++)
+			owner.ru_names[i] = replacetext(owner.ru_names[i], "([label_name])", "")
 	owner.name = trim(owner.name) // Shave off any white space from the beginning or end of the parent's name.
+	if(owner.ru_names)
+		for(var/i = 1; i <= 6; i++)
+			owner.ru_names[i] = trim(owner.ru_names[i])
