@@ -1094,9 +1094,9 @@
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
 
 
-/obj/item/twohanded/sledgehammer
+/obj/item/twohanded/sechammer
 	name = "tactical sledgehammer"
-	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
+	desc = "Тяжёлая кувалда, используемая силовыми структурами Нанотрейзен. Удобная эргономичная рукоятка вкупе обеспечивает надёжный хват, а боёк кувалды увеличенной массы позволяет наносить мощные и точные удары, что делает её отличным инструментом для разрушения препятствий и создания брешей в стенах. Хотя конструкция и является слишком неудобной для эффективного использования в качестве оружия, удар такой силы способен раздробить любую кость в теле гуманоида."
 	ru_names = list(
 		NOMINATIVE = "тактическая кувалда",
 		GENITIVE = "тактической кувалды",
@@ -1105,27 +1105,29 @@
 		INSTRUMENTAL = "тактической кувалдой",
 		PREPOSITIONAL = "тактической кувалде"
 	)
-	icon_state = "sledgehammer0"
+	gender = FEMALE
+	icon_state = "sechammer0"
 	throwforce = 20
 	throw_range = 2
 	w_class = WEIGHT_CLASS_BULKY
+	attack_speed = 16
 	force_unwielded = 15
 	force_wielded = 35
 	armour_penetration = 40
 	attack_verb = list("атаковал", "ударил", "шибанул", "долбанул", "припечатал")
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
 
 
-	icon_state = "sledgehammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
-/obj/item/twohanded/sledgehammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
+/obj/item/twohanded/sechammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
+	icon_state = "sechammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 
-/obj/item/twohanded/sledgehammer/afterattack(atom/A, mob/user, proximity, params)
+/obj/item/twohanded/sechammer/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(HAS_TRAIT(src, TRAIT_WIELDED)) //destroys windows and grilles in one hit
 		if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
 			var/obj/structure/W = A
-			W.obj_destruction("sledgehammer")
+			W.obj_destruction("sechammer")
