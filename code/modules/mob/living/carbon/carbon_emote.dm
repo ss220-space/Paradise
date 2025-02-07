@@ -244,14 +244,14 @@
 			grabbed_mob = user.pulling
 
 	if(!held_item && !grabbed_mob)
-		to_chat(user, span_warning("You need something in your hand to use this emote!"))
+		user.balloon_alert(user, "вы ничего не держите!")
 		return TRUE
 
 	if(held_item)
 		if(held_item.item_flags & ABSTRACT)
-			to_chat(user, span_warning("You cannot twirl [held_item.name]!"))
+			user.balloon_alert(user, "неподходящий предмет!")
 			return TRUE
-		message = "верт%(ит,ят)% [held_item.name] в руках!"
+		message = "верт%(ит,ят)% [held_item.declent_ru(ACCUSATIVE)] в руках!"
 	else if(grabbed_mob)
 		message = "крут%(ит,ят)% <b>[grabbed_mob.name]</b>, удерживая [genderize_ru(grabbed_mob.gender, "его", "её", "его", "их")] в захвате!"
 		grabbed_mob.spin(32, 1)

@@ -619,13 +619,13 @@
 	if(.)
 		return TRUE
 	if(href_list["description_info"])
-		to_chat(usr, "<div class='examine'><span class='info'>[get_description_info()]</span></div>")
+		to_chat(usr, span_info("<div class='examine'>[get_description_info()]</div>"))
 		return TRUE
 	if(href_list["description_antag"])
-		to_chat(usr, "<div class='examine'><span class='syndradio'>[get_description_antag()]</span></div>")
+		to_chat(usr, span_syndradio("<div class='examine'>[get_description_antag()]</div>"))
 		return TRUE
 	if(href_list["description_fluff"])
-		to_chat(usr, "<div class='examine'><span class='notice'>[get_description_fluff()]</span></div>")
+		to_chat(usr,  span_notice("<div class='examine'>[get_description_fluff()]</div>"))
 		return TRUE
 
 /atom/proc/relaymove()
@@ -679,7 +679,7 @@
 //Check if the multitool has an item in its data buffer
 /atom/proc/multitool_check_buffer(user, silent = FALSE)
 	if(!silent)
-		to_chat(user, "<span class='warning'>[src] has no data buffer!</span>")
+		balloon_alert(user, "буфер данных отсутствует!")
 	return FALSE
 
 /atom/proc/screwdriver_act(mob/living/user, obj/item/I)
@@ -1220,7 +1220,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	var/list/speech_bubble_hearers = list()
 	for(var/mob/M in get_mobs_in_view(7, src))
-		M.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>", 2, null, 1)
+		M.show_message(span_gamesay(span_name("[src]") + " [atom_say_verb], \"[message]\""), 2, null, 1)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
@@ -1250,7 +1250,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else
 		tts_seeds = SStts.get_available_seeds(src)
 
-	var/new_tts_seed = tgui_input_list(user || src, "Choose your preferred voice:", "Character Preference", tts_seeds, tts_seed)
+	var/new_tts_seed = tgui_input_list(user || src, "Выберите предпочитаемый голос:", "Выбор голоса", tts_seeds, tts_seed)
 	if(!new_tts_seed)
 		new_tts_seed = tts_seed
 	if(!silent_target && ismob(src) && src != user)
@@ -1276,7 +1276,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/atom_emote(emote)
 	if(!emote)
 		return
-	visible_message(span_game_emote("<span class='name'>[src]</span> [emote]"), span_game_emote("Вы слышите, как что-то [emote]."))
+	visible_message(span_game_emote(span_name("[src]") + "[emote]"), span_game_emote("Вы слышите, как что-то [emote]."))
 
 	runechat_emote(src, emote)
 
