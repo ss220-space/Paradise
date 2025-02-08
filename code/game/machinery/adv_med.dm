@@ -318,7 +318,7 @@
 		for(var/obj/item/implant/I in occupant)
 			if(I.implanted && is_type_in_list(I, known_implants))
 				var/implantSubData[0]
-				implantSubData["name"] = sanitize(I.name)
+				implantSubData["name"] = sanitize(I.declent_ru(NOMINATIVE))
 				implantData.Add(list(implantSubData))
 		occupantData["implant"] = implantData
 		occupantData["implant_len"] = implantData.len
@@ -326,7 +326,7 @@
 		var/extOrganData[0]
 		for(var/obj/item/organ/external/E as anything in occupant.bodyparts)
 			var/organData[0]
-			organData["name"] = E.name
+			organData["name"] = E.declent_ru(NOMINATIVE)
 			organData["open"] = E.open
 			organData["germ_level"] = E.germ_level
 			organData["bruteLoss"] = E.brute_dam
@@ -339,7 +339,7 @@
 			var/shrapnelData[0]
 			for(var/obj/item/I in E.embedded_objects)
 				var/shrapnelSubData[0]
-				shrapnelSubData["name"] = I.name
+				shrapnelSubData["name"] = I.declent_ru(NOMINATIVE)
 
 				shrapnelData.Add(list(shrapnelSubData))
 
@@ -371,7 +371,7 @@
 		var/intOrganData[0]
 		for(var/obj/item/organ/internal/organ as anything in occupant.internal_organs)
 			var/organData[0]
-			organData["name"] = organ.name
+			organData["name"] = organ.declent_ru(NOMINATIVE)
 			organData["desc"] = organ.desc
 			organData["germ_level"] = organ.germ_level
 			organData["damage"] = organ.damage
@@ -559,7 +559,7 @@
 				imp += "Обнаружено инородное тело"
 			if(!AN && !open && !infected && !imp && !internal_bleeding && !lung_ruptured)
 				AN = "Отсутствуют"
-			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot] [AN] [splint] [open] [infected] [imp] [internal_bleeding] [lung_ruptured] [dead]</td>"
+			dat += "<td>[e.declent_ru(NOMINATIVE)]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot] [AN] [splint] [open] [infected] [imp] [internal_bleeding] [lung_ruptured] [dead]</td>"
 			dat += "</tr>"
 		for(var/obj/item/organ/internal/organ as anything in occupant.internal_organs)
 			var/robot = ""
@@ -587,7 +587,7 @@
 			if(!infection && !dead)
 				infection = "Отсутствуют"
 			dat += "<tr>"
-			dat += "<td>[organ.name]</td><td>Н/Д</td><td>[organ.damage]</td><td>[infection] [robot] [dead]</td>"
+			dat += "<td>[capitalize(organ.declent_ru(NOMINATIVE))]</td><td>Н/Д</td><td>[organ.damage]</td><td>[infection] [robot] [dead]</td>"
 			dat += "</tr>"
 		dat += "</table>"
 		if(HAS_TRAIT(occupant, TRAIT_BLIND))

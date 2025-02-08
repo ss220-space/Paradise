@@ -42,6 +42,7 @@
 	var/tox_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
 	var/tox_damage_type = TOX
 
+	var/cold_message = ", что ваши дыхательные пути замораживаются"
 	var/cold_level_1_threshold = 260
 	var/cold_level_2_threshold = 200
 	var/cold_level_3_threshold = 120
@@ -50,7 +51,6 @@
 	var/cold_level_3_damage = COLD_GAS_DAMAGE_LEVEL_3
 	var/cold_damage_types = list(BURN = 1)
 
-	var/hot_message = "your face burning and a searing heat"
 	var/heat_level_1_threshold = 360
 	var/heat_level_2_threshold = 400
 	var/heat_level_3_threshold = 1000
@@ -89,7 +89,7 @@
 
 	if(is_bruised())
 		if(prob(2))
-			owner.custom_emote(EMOTE_AUDIBLE, "откашлива%(ет,ют)% большое количество крови!")
+			owner.custom_emote(EMOTE_AUDIBLE, "отхаркива%(ет,ют)% кровь!")
 			owner.bleed(1)
 		if(prob(4))
 			owner.custom_emote(EMOTE_VISIBLE, "задыха%(ет,ют)%ся!")
@@ -294,7 +294,7 @@
 				H.apply_damage(TC * CM * cold_damage_types[D], D, spread_damage = TRUE, forced = TRUE)
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
-				to_chat(H, span_warning("Вы чувствуете, что ваши дыхательные пути замерзают!"))
+				to_chat(H, span_warning("Вы чувствуете[cold_message]!"))
 
 	if(!HAS_TRAIT(H, TRAIT_RESIST_HEAT)) // HEAT DAMAGE
 		var/HM = abs(H.dna.species.heatmod * H.physiology.heat_mod)

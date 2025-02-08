@@ -53,7 +53,7 @@
 			last_stomach_attack = world.time
 			for(var/mob/M in hearers(4, src))
 				if(M.client)
-					M.show_message(text(span_warning("Вы слышите, как в животе [name] что-то урчит.")), 2)
+					M.show_message(span_warning("Вы слышите, как в животе [name] что-то урчит."), 2)
 
 			var/obj/item/I = user.get_active_hand()
 			if(I && I.force)
@@ -61,7 +61,7 @@
 
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
-						M.show_message(text(span_warning("[user] атаку[pluralize_ru(user.gender, "ет", "ют")] стенку желудка [name], используя [I.declent_ru(ACCUSATIVE)]!")), 2)
+						M.show_message(span_warning("[user] атаку[pluralize_ru(user.gender, "ет", "ют")] стенку желудка [name], используя [I.declent_ru(ACCUSATIVE)]!"), 2)
 				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 				if(prob(getBruteLoss() - 50))
@@ -279,9 +279,8 @@
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
 	visible_message( \
-		text(span_notice("[name] осматрива[pluralize_ru(gender, "ет", "ют")] себя."),\
-		span_notice("Вы осматриваете себя на наличие травм.")), \
-		)
+		span_notice("[name] осматрива[pluralize_ru(gender, "ет", "ют")] себя."), \
+		span_notice("Вы осматриваете себя на наличие травм."))
 
 	var/list/missing = list(
 		BODY_ZONE_CHEST,

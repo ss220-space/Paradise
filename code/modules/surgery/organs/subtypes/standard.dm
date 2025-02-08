@@ -504,7 +504,7 @@
 		name = "[dna.real_name]'s head"
 		if(ru_names)
 			for(var/i = 1; i <= 6; i++)
-				ru_names[i] + " [dna.real_name]"
+				ru_names[i] += " [dna.real_name]"
 		owner.drop_item_ground(owner.head, force = TRUE)
 		owner.drop_item_ground(owner.wear_mask, force = TRUE)
 		owner.drop_item_ground(owner.glasses, force = TRUE)
