@@ -327,8 +327,8 @@ They're basically just lizards with all-around marginally better stats and fire 
 
 //igniter. only for ashwalkers and drakonids because of """lore"""
 /datum/action/innate/ignite_unathi
-	name = "Ignite"
-	desc = "You form a fire in your mouth, fierce enough to... light a cigarette."
+	name = "поджог"
+	desc = "Вы формируете небольшой сгусток пламени в вашей пасти, достаточный для... розжига костра"
 	icon_icon = 'icons/obj/cigarettes.dmi'
 	button_icon_state = "match_unathi"
 	var/cooldown = 0
@@ -338,38 +338,42 @@ They're basically just lizards with all-around marginally better stats and fire 
 /datum/action/innate/ignite_unathi/Activate()
 	var/mob/living/carbon/human/user = owner
 	if(world.time <= cooldown)
-		to_chat(user, span_warning("Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again."))
+		to_chat(user, span_warning("Ваша пасть болит из-за прошлой попытки. Подождите [round((cooldown - world.time) / 10)] секунд и попробуйте еще раз"))
 		return
 	if((user.head?.flags_cover & HEADCOVERSMOUTH) || (user.wear_mask?.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask?.up)
-		to_chat(user, span_warning("Your mouth is covered."))
+		to_chat(user, span_warning("Ваша пасть закрыта."))
 		return
 	var/obj/item/match/unathi/fire = new(user.loc, src)
 	if(user.put_in_hands(fire))
-		to_chat(user, span_notice("You ignite a small flame in your mouth."))
+		to_chat(user, span_notice("Вы формируете огонь в вашей пасти."))
 		cooldown = world.time + cooldown_duration
 	else
 		qdel(fire)
-		to_chat(user, span_warning("You don't have any free hands."))
+		to_chat(user, span_warning("Ваши руки заняты."))
 
 /datum/action/innate/anvil_finder
-	name = "Find World Anvil"
-	desc = "You call the Necropolis in order to find The World Anvil."
+	name = "Помощь некрополя"
+	desc = "Вы используете силу Некрополя чтобы узнать примерное местоположение точек интереса."
 	icon_icon = 'icons/mob/actions/actions_clockwork.dmi'
 	button_icon_state = "stun" //better than nothing
 
 /datum/action/innate/anvil_finder/Activate()
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, owner, \
-							span_warning("Я чувствую, что Мировая Кузница [get_direction()]")), 2 SECONDS)
+	var/list/list_of_points = GLOB.lavaland_points_of_interest
+	if(list_of_points)
+		var/selected_poi = tgui_input_list(owner, "Выберите точку интереса", "точки интереса", list_of_points)
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, owner, \
+							span_warning("Я чувствую, что [selected_poi] [get_direction(selected_poi)]")), 2 SECONDS)
+	else
+		to_chat(owner, "Все церемониальные тотемы уничтожены.")
 
-/datum/action/innate/anvil_finder/proc/get_direction()
-	for(var/obj/structure/world_anvil/Anvil in GLOB.anvils)
-		if(!Anvil)
-			. = "уничтожена."
-			return
-		var/turf/T = get_turf(Anvil)
-		if(owner.z == T.z) //"кузница находится где-то на северо-востоке" or whatever
-			. = "находится где-то на "
-			. += dir2rustext(get_dir(owner.loc, Anvil.loc))
-			. += "e."
-		else
-			. = "находится где-то далеко отсюда."
+/datum/action/innate/anvil_finder/proc/get_direction(obj/structure/selected_poi)
+	if(!selected_poi)
+		. = "уничтожен."
+		return
+	var/turf/T = get_turf(selected_poi)
+	if(owner.z == T.z) //"кузница находится где-то на северо-востоке" or whatever
+		. = "находится где-то на "
+		. += dir2rustext(get_dir(owner.loc, selected_poi.loc))
+		. += "e."
+	else
+		. = "находится где-то далеко отсюда."

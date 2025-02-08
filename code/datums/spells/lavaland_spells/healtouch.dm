@@ -1,7 +1,7 @@
 //basic touch ability that heals basic damage types accessed by the ashwalker shaman
 /obj/effect/proc_holder/spell/touch/healtouch
-	name = "healing touch"
-	desc = "This spell charges your hand with the vile energy of the Necropolis, permitting you to undo some external injuries from a target."
+	name = "прикосновение шамана"
+	desc = "Это заклинание заряжает вашу руку энергией Некрополя, позволяя вам лечить некоторые повреждения и взаимодействовать с некоторыми предметами."
 	hand_path = /obj/item/melee/touch_attack/healtouch
 
 	school = "evocation"

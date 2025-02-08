@@ -131,7 +131,7 @@
 	return
 
 /obj/structure/fluff/ash_statue //used to mark point of interest
-	name = "ash totem"
+	name = "тотем"
 	ru_names = list(
 		NOMINATIVE = "пепельный тотем",
 		GENITIVE = "пепельного тотема",
@@ -146,6 +146,18 @@
 	anchored = TRUE
 	density = TRUE
 	deconstructible = FALSE
+	/// Used in shaman spell. Perfect for finding stuff ic
+	var/special_name = "точка интереса"
+
+/obj/structure/fluff/ash_statue/Initialize(mapload)
+	name = "тотем - [special_name]"
+	GLOB.lavaland_points_of_interest += src
+	. = ..()
+
+/obj/structure/fluff/ash_statue/Destroy(force)
+	GLOB.lavaland_points_of_interest -= src
+	. = ..()
+
 
 /obj/structure/ash_totem
 	name = "totem"
@@ -264,6 +276,10 @@
 	icon_state = "wooden_rack"
 	wooden_version = TRUE
 	obj_flags = NODECONSTRUCT
+
+/obj/structure/rack/wooden/Initialize(mapload)
+	. = ..()
+	update_overlays()
 
 /obj/structure/rack/wooden/wrench_act(mob/user, obj/item/I)
 	return

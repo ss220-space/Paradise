@@ -272,6 +272,13 @@
 "je" = (
 /turf/simulated/wall/mineral/wood,
 /area/ruin/unpowered/ash_walkers)
+"jq" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 8
+	},
+/obj/effect/rune_fluff_marks,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "jv" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -331,10 +338,10 @@
 /obj/structure/stone_tile/slab/cracked{
 	dir = 1
 	},
-/obj/structure/closet/crate/wooden,
 /obj/item/flashlight/lantern,
 /obj/item/flashlight/lantern,
 /obj/item/flashlight/lantern,
+/obj/structure/closet/crate/miningcar,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "lm" = (
@@ -355,6 +362,11 @@
 "lT" = (
 /turf/simulated/wall/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"mb" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/effect/rune_fluff_marks,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "mp" = (
 /obj/structure/stone_tile/block,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -642,6 +654,7 @@
 	dir = 1
 	},
 /obj/effect/rune_animation_landmark,
+/obj/effect/rune_fluff_marks,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "to" = (
@@ -904,6 +917,7 @@
 /area/ruin/unpowered/ash_walkers)
 "zD" = (
 /obj/item/pickaxe,
+/obj/structure/closet/crate/miningcar,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "zI" = (
@@ -1189,8 +1203,19 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
+"Fu" = (
+/obj/effect/rune_fluff_marks,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "FV" = (
 /obj/structure/stone_tile/surrounding/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Gh" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/effect/rune_fluff_marks,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Gs" = (
@@ -1582,7 +1607,6 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Se" = (
-/obj/structure/closet/crate/internals,
 /obj/item/pickaxe,
 /obj/item/pickaxe,
 /obj/item/pickaxe,
@@ -1590,6 +1614,7 @@
 /obj/item/pickaxe,
 /obj/item/pickaxe,
 /obj/structure/stone_tile/slab/cracked,
+/obj/structure/closet/crate/miningcar,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Sp" = (
@@ -1705,7 +1730,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Vt" = (
-/obj/structure/fluff/ash_statue,
+/obj/structure/fluff/ash_statue{
+	special_name = "логово пеплоходцев"
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "VD" = (
@@ -2355,8 +2382,8 @@ sJ
 XK
 ie
 Cd
-uH
-PD
+mb
+Fu
 sW
 rd
 PD
@@ -2390,9 +2417,9 @@ jb
 yv
 WX
 BR
-PD
+Fu
 pL
-PD
+Fu
 Lr
 kS
 WX
@@ -2425,9 +2452,9 @@ sJ
 fC
 EP
 ks
-uZ
-PD
-rl
+jq
+Fu
+Gh
 Dl
 PD
 Pq

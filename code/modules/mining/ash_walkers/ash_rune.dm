@@ -18,6 +18,33 @@
 	var/activated = FALSE
 
 // Our little cheat in order to make first rune activation unforgetable
+/obj/effect/rune_fluff_marks
+	name = "ash rune"
+	ru_names = list(
+		NOMINATIVE = "пепельная руна",
+		GENITIVE = "пепельной руны",
+		DATIVE = "пепельной руне",
+		ACCUSATIVE = "пепельную руну",
+		INSTRUMENTAL = "пепельной руной",
+		PREPOSITIONAL = "пепельной руне"
+	)
+	icon = 'icons/effects/ash_runes.dmi'
+	icon_state = "runaash_2"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	anchored = TRUE
+	plane = FLOOR_PLANE
+	layer = TURF_DECAL_LAYER
+
+/obj/effect/rune_fluff_marks/Initialize(mapload)
+	. = ..()
+	icon_state = ""
+	invisibility = INVISIBILITY_MAXIMUM
+
+/obj/effect/rune_fluff_marks/proc/activate()
+	invisibility = 0
+	var/number = rand(1, 36)
+	icon_state = "runaash_[number]"
+
 /obj/effect/rune_animation_landmark
 	name = "ash rune"
 	ru_names = list(
@@ -63,6 +90,8 @@
 		visible_message(span_warning("но ничего не происходит."))
 	if(!activated)
 		our_landmark.activate()
+	for(var/obj/effect/rune_fluff_marks/runes in orange(3, src))
+		runes.activate()
 	activate_rune()
 	qdel(I)
 	return ATTACK_CHAIN_PROCEED
