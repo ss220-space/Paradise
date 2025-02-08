@@ -1,5 +1,15 @@
 /obj/item/organ/internal/liver
 	name = "liver"
+	desc = "Орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма."
+	ru_names = list(
+		NOMINATIVE = "печень",
+		GENITIVE = "печени",
+		DATIVE = "печени",
+		ACCUSATIVE = "печень",
+		INSTRUMENTAL = "печенью",
+		PREPOSITIONAL = "печени"
+	)
+	gender = FEMALE
 	icon_state = "liver"
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
 	slot = INTERNAL_ORGAN_LIVER
@@ -8,7 +18,7 @@
 /obj/item/organ/internal/liver/on_life()
 	if(germ_level > INFECTION_LEVEL_ONE)
 		if(prob(1))
-			to_chat(owner, span_warning(" Your skin itches."))
+			to_chat(owner, span_warning("Ваша кожа зудит."))
 	if(germ_level > INFECTION_LEVEL_TWO)
 		if(prob(1))
 			owner.vomit()
@@ -52,7 +62,15 @@
 /obj/item/organ/internal/liver/cybernetic
 	name = "cybernetic liver"
 	icon_state = "liver-c"
-	desc = "An electronic device designed to mimic the functions of a human liver. It has no benefits over an organic liver, but is easy to produce."
+	desc = "Электронное устройство, имитирующее работу органической печени. Функционально не имеет никаких отличий от органического аналога, кроме производственных затрат."
+	ru_names = list(
+		NOMINATIVE = "кибернетическая печень",
+		GENITIVE = "кибернетической печени",
+		DATIVE = "кибернетической печени",
+		ACCUSATIVE = "кибернетическую печень",
+		INSTRUMENTAL = "кибернетической печенью",
+		PREPOSITIONAL = "кибернетической печени"
+	)
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
