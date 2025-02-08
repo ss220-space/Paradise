@@ -112,7 +112,7 @@
 
 	calculate_fishing_chance()
 	var/fish =  new reward_fish(loc)
-	to_chat(fisher, span_notice("Вы поймали [fish]!"))
+	to_chat(fisher, span_notice("Вы поймали [fish.declent_ru(ACCUSATIVE)]!"))
 
 	unwield(fisher)
 	fisher.put_in_hands(fish)
