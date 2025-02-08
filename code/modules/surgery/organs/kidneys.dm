@@ -1,5 +1,15 @@
 /obj/item/organ/internal/kidneys
 	name = "kidneys"
+	desc = "Орган, отвчечающий за фильтрацию кровотока и выведение токсинов и отходов из организма."
+	ru_names = list(
+		NOMINATIVE = "почки",
+		GENITIVE = "почек",
+		DATIVE = "почкам",
+		ACCUSATIVE = "почки",
+		INSTRUMENTAL = "почками",
+		PREPOSITIONAL = "почках"
+	)
+	gender = PLURAL
 	icon_state = "kidneys"
 	gender = PLURAL
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
@@ -20,8 +30,16 @@
 
 /obj/item/organ/internal/kidneys/cybernetic
 	name = "cybernetic kidneys"
+	desc = "Электронное устройство, имитирующее работу органических почек. Функционально не имеет никаких отличий от органического аналога, кроме производственных затрат."
+	ru_names = list(
+		NOMINATIVE = "кибернетические почки",
+		GENITIVE = "кибернетических почек",
+		DATIVE = "кибернетическим почкам",
+		ACCUSATIVE = "кибернетические почки",
+		INSTRUMENTAL = "кибернетическими почками",
+		PREPOSITIONAL = "кибернетических почках"
+	)
 	icon_state = "kidneys-c"
-	desc = "An electronic device designed to mimic the functions of human kidneys. It has no benefits over a pair of organic kidneys, but is easy to produce."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'

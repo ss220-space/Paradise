@@ -61,7 +61,6 @@
 
 /obj/item/organ/internal/liver/cybernetic
 	name = "cybernetic liver"
-	icon_state = "liver-c"
 	desc = "Электронное устройство, имитирующее работу органической печени. Функционально не имеет никаких отличий от органического аналога, кроме производственных затрат."
 	ru_names = list(
 		NOMINATIVE = "кибернетическая печень",
@@ -71,6 +70,7 @@
 		INSTRUMENTAL = "кибернетической печенью",
 		PREPOSITIONAL = "кибернетической печени"
 	)
+	icon_state = "liver-c"
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
