@@ -4062,6 +4062,12 @@
 		if(!human.mind)
 			continue
 
-		/obj/effect/proc_holder/spell/mind_transfer::cast(list(safepick(GLOB.human_list - human)), human)
+		var/mob/living/target = safepick(GLOB.human_list - human)
+
+		if(!target \
+		|| !/obj/effect/proc_holder/spell/mind_transfer::valid_target(target, human))
+			continue
+
+		/obj/effect/proc_holder/spell/mind_transfer::cast(list(target), human)
 
 	log_and_message_admins("Initiated mass mindswap")
