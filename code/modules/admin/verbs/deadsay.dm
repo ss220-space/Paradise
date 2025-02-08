@@ -48,5 +48,5 @@
 /client/proc/get_dead_say()
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
-	var/msg = input(src, null, "dsay \"text\"") as text | null
+	var/msg = tgui_input_text(src, null, "dsay \"text\"", encode = FALSE)
 	dsay(msg)

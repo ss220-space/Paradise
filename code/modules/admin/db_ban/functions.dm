@@ -311,7 +311,7 @@
 	switch(param)
 		if("reason")
 			if(!value)
-				value = tgui_input_text(usr, "Insert the new reason for [pckey]'s ban", "New Reason", "[reason]", multiline = TRUE, encode=FALSE)
+				value = tgui_input_text(usr, "Insert the new reason for [pckey]'s ban", "New Reason", "[reason]", multiline = TRUE, encode = FALSE)
 				if(!value)
 					to_chat(usr, "Cancelled", confidential=TRUE)
 					return

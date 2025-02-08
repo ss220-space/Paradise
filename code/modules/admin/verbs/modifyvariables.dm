@@ -290,7 +290,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 /client/proc/vv_parse_text(O, new_var)
 	if(O && findtext(new_var, "\["))
-		var/process_vars = alert(usr, "\[] detected in string, process as variables?", "Process Variables?", "Yes", "No")
+		var/process_vars = tgui_alert(usr, "\[] detected in string, process as variables?", "Process Variables?", list("Yes", "No"))
 		if(process_vars == "Yes")
 			. = string2listofvars(new_var, O)
 
@@ -305,7 +305,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	if(!subtypes || !subtypes.len)
 		return FALSE
 	if(subtypes && subtypes.len)
-		switch(alert("Strict object type detection?", "Type detection", "Strictly this type","This type and subtypes", "Cancel"))
+		switch(tgui_alert(usr, "Strict object type detection?", "Type detection", list("Strictly this type", "This type and subtypes", "Cancel")))
 			if("Strictly this type")
 				return FALSE
 			if("This type and subtypes")
@@ -376,7 +376,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 	L += var_value
 
-	switch(alert("Would you like to associate a value with the list entry?",,"Yes","No"))
+	switch(tgui_alert(usr, "Would you like to associate a value with the list entry?",, list("Yes", "No")))
 		if("Yes")
 			L[var_value] = mod_list_add_ass(O) //hehe
 	if(O)
@@ -395,7 +395,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 		return
 
 	if(L.len > 1000)
-		var/confirm = alert(src, "The list you're trying to edit is very long, continuing may crash the server.", "Warning", "Continue", "Abort")
+		var/confirm = tgui_alert(src, "The list you're trying to edit is very long, continuing may crash the server.", "Warning", list("Continue", "Abort"))
 		if(confirm != "Continue")
 			return
 
@@ -411,7 +411,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			value = "null"
 		names["#[i] [key] = [value]"] = i
 	if(!index)
-		var/variable = input("Which var?","Var") as null|anything in names + "(ADD VAR)" + "(CLEAR NULLS)" + "(CLEAR DUPES)" + "(SHUFFLE)"
+		var/variable = tgui_input_list(usr, "Which var?", "Var", names + "(ADD VAR)" + "(CLEAR NULLS)" + "(CLEAR DUPES)" + "(SHUFFLE)")
 
 		if(variable == null)
 			return
@@ -458,7 +458,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	if(index == null)
 		return
 	var/assoc = 0
-	var/prompt = alert(src, "Do you want to edit the key or it's assigned value?", "Associated List", "Key", "Assigned Value", "Cancel")
+	var/prompt = tgui_alert(src, "Do you want to edit the key or it's assigned value?", "Associated List", list("Key", "Assigned Value", "Cancel"))
 	if(prompt == "Cancel")
 		return
 	if(prompt == "Assigned Value")
@@ -559,7 +559,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	if(param_var_name in GLOB.VVpixelmovement)
 		if(!check_rights(R_DEBUG))
 			return FALSE
-		var/prompt = alert(usr, "Editing this var may irreparably break tile gliding for the rest of the round. THIS CAN'T BE UNDONE", "DANGER", "ABORT ", "Continue", " ABORT")
+		var/prompt = tgui_alert(usr, "Editing this var may irreparably break tile gliding for the rest of the round. THIS CAN'T BE UNDONE", "DANGER", list("ABORT ", "Continue", " ABORT"))
 		if(prompt != "Continue")
 			return FALSE
 	return TRUE

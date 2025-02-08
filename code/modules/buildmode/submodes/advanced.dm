@@ -17,16 +17,16 @@
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 
 /datum/buildmode_mode/advanced/change_settings(mob/user)
-	var/target_path = input(user,"Enter typepath:" ,"Typepath","/obj/structure/closet")
+	var/target_path = tgui_input_text(user, "Enter typepath:", "Typepath", "/obj/structure/closet", encode = FALSE)
 	objholder = text2path(target_path)
 	if(!ispath(objholder))
 		objholder = pick_closest_path(target_path)
 		if(!objholder)
-			alert("No path was selected")
+			tgui_alert(usr, "No path was selected")
 			return
 		else if(ispath(objholder, /area))
 			objholder = null
-			alert("That path is not allowed.")
+			tgui_alert(usr, "That path is not allowed.")
 			return
 
 /datum/buildmode_mode/advanced/handle_click(user, params, obj/object)
