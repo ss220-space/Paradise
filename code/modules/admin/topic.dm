@@ -4062,6 +4062,6 @@
 		if(!human.mind)
 			continue
 
-		/obj/effect/proc_holder/spell/mind_transfer::cast(human, safepick(GLOB.human_list - owner.mob))
+		/obj/effect/proc_holder/spell/mind_transfer::cast(list(safepick(GLOB.human_list - human)), human)
 
 	log_and_message_admins("Initiated mass mindswap")
