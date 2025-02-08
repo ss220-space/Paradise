@@ -30,10 +30,10 @@
 
 /client/proc/get_admin_say()
 	if(check_rights(R_ADMIN|R_MOD, FALSE))
-		var/msg = input(src, null, "asay \"text\"") as text|null
+		var/msg = tgui_input_text(src, null, "asay \"text\"", encode = FALSE)
 		cmd_admin_say(msg)
 	else if(check_rights(R_MENTOR))
-		var/msg = input(src, null, "msay \"text\"") as text|null
+		var/msg = tgui_input_text(src, null, "msay \"text\"", encode = FALSE)
 		cmd_mentor_say(msg)
 
 /client/proc/cmd_mentor_say(msg as text)
@@ -67,7 +67,7 @@
 
 /client/proc/get_mentor_say()
 	if(check_rights(R_MENTOR | R_ADMIN | R_MOD))
-		var/msg = input(src, null, "msay \"text\"") as text|null
+		var/msg = tgui_input_text(src, null, "msay \"text\"", encode = FALSE)
 		cmd_mentor_say(msg)
 
 /client/proc/toggle_mentor_chat()
@@ -105,7 +105,7 @@
 
 /client/proc/get_dev_team_say()
 	if(check_rights(R_VIEWRUNTIMES | R_ADMIN))
-		var/msg = input(src, null, "devsay \"text\"") as text|null
+		var/msg = tgui_input_text(src, null, "devsay \"text\"", encode = FALSE)
 		cmd_dev_say(msg)
 
 /client/proc/cmd_dev_say(msg as text)

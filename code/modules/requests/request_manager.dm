@@ -100,7 +100,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 			return TRUE
 		if ("tp")
 			if(!SSticker.HasRoundStarted())
-				alert(usr,"The game hasn't started yet!")
+				tgui_alert(usr, "The game hasn't started yet!")
 				return TRUE
 			var/mob/M = request.owner?.mob
 			usr.client.holder.show_traitor_panel(M)
@@ -137,7 +137,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 			if (request.req_type != REQUEST_ERT)
 				to_chat(usr, "You cannot respond with ert for a non-ert-request request!")
 				return TRUE
-			if(alert(usr, "Accept or Deny ERT request?", "CentComm Response", "Accept", "Deny") == "Deny")
+			if(tgui_alert(usr, "Accept or Deny ERT request?", "CentComm Response", list("Accept", "Deny")) == "Deny")
 				var/mob/living/carbon/human/H = request.owner?.mob
 				if(!istype(H))
 					to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
@@ -149,7 +149,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 					to_chat(usr, "<span class='warning'>The person you are trying to contact is not wearing a headset</span>")
 					return
 
-				var/input = input(usr, "Please enter a reason for denying [key_name(H)]'s ERT request.","Outgoing message from CentComm", "")
+				var/input = tgui_input_text(usr, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm", "", multiline = TRUE, encode = FALSE)
 				if(!input)	return
 				GLOB.ert_request_answered = TRUE
 				to_chat(usr, "You sent [input] to [H] via a secure channel.")

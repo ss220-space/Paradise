@@ -143,7 +143,7 @@
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/filter = clean_input("Contains what?","Filter")
+	var/filter = tgui_input_text(usr, "Contains what?", "Filter")
 	if(!filter)
 		return
 
@@ -164,7 +164,7 @@
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/refstring = clean_input("Which reference?","Ref")
+	var/refstring = tgui_input_text(usr, "Which reference?", "Ref")
 	if(!refstring)
 		return
 

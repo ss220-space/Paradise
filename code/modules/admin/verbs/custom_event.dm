@@ -6,7 +6,7 @@
 	if(!check_rights(R_EVENT))
 		return
 
-	var/input = input(usr, "Enter the description of the custom event. Be descriptive. To cancel the event, make this blank or hit cancel.", "Custom Event", GLOB.custom_event_msg) as message|null
+	var/input = tgui_input_text(usr, "Enter the description of the custom event. Be descriptive. To cancel the event, make this blank or hit cancel.", "Custom Event", GLOB.custom_event_msg, multiline = TRUE, encode = FALSE, max_length = 1e5)
 	if(!input || input == "")
 		GLOB.custom_event_msg = null
 		log_admin("[key_name(usr)] has cleared the custom event text.")

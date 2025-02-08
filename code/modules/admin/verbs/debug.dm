@@ -39,27 +39,27 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		var/returnval = null
 		var/class = null
 
-		switch(alert("Proc owned by something?",,"Yes","No"))
+		switch(tgui_alert(usr, "Proc owned by something?",, list("Yes", "No")))
 			if("Yes")
 				targetselected = 1
 				if(src.holder && src.holder.marked_datum)
-					class = input("Proc owned by...","Owner",null) as null|anything in list("Obj","Mob","Area or Turf","Client","Marked datum ([holder.marked_datum.type])")
+					class = tgui_input_list(usr, "Proc owned by...", "Owner", list("Obj", "Mob", "Area or Turf", "Client", "Marked datum ([holder.marked_datum.type])"), null)
 					if(class == "Marked datum ([holder.marked_datum.type])")
 						class = "Marked datum"
 				else
-					class = input("Proc owned by...","Owner",null) as null|anything in list("Obj","Mob","Area or Turf","Client")
+					class = tgui_input_list(usr,"Proc owned by...", "Owner", list("Obj","Mob","Area or Turf","Client"), null)
 				switch(class)
 					if("Obj")
-						target = input("Enter target:","Target",usr) as obj in world
+						target = input(usr, "Enter target:", "Target", usr) as obj in world
 					if("Mob")
-						target = input("Enter target:","Target",usr) as mob in world
+						target = tgui_input_list(usr, "Enter target:", "Target", GLOB.mob_list, usr)
 					if("Area or Turf")
-						target = input("Enter target:","Target",usr.loc) as area|turf in world
+						target = input(usr, "Enter target:", "Target", usr.loc) as area|turf in world
 					if("Client")
 						var/list/keys = list()
 						for(var/client/C)
 							keys += C
-						target = input("Please, select a player!", "Selection", null, null) as null|anything in keys
+						target = tgui_input_list(usr, "Please, select a player!", "Selection", keys, null)
 					if("Marked datum")
 						target = holder.marked_datum
 					else
@@ -68,7 +68,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 				target = null
 				targetselected = 0
 
-		var/procname = tgui_input_text(usr, "Введите имя прока после /proc/. Пример: если путь /proc/fake_blood, нужно ввести fake_blood", "Путь:", null)
+		var/procname = tgui_input_text(usr, "Введите имя прока после /proc/. Пример: если путь /proc/fake_blood, нужно ввести fake_blood", "Путь:", null, encode = FALSE)
 		if(!procname)	return
 
 		//strip away everything but the proc name
@@ -187,7 +187,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_PROCCALL))
 		return
 
-	var/procname = tgui_input_text(usr, "Введите имя прока после /proc/. Пример: если путь /proc/fake_blood, нужно ввести fake_blood", "Путь:", null)
+	var/procname = tgui_input_text(usr, "Введите имя прока после /proc/. Пример: если путь /proc/fake_blood, нужно ввести fake_blood", "Путь:", null, encode = FALSE)
 	if(!procname)
 		return
 
@@ -240,10 +240,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 				lst += tgui_input_list(src, "Выберите тип:", "Тип", typesof(/obj,/mob,/area,/turf))
 
 			if("reference")
-				lst += input(src, "Выберите ссылку:", "Ссылка",src) as mob|obj|turf|area in world
+				lst += input(src, "Выберите ссылку:", "Ссылка", src) as mob|obj|turf|area in world
 
 			if("mob's area")
-				var/mob/temp = input(src, "Выберите моба", "Выбор", usr) as mob in world
+				var/mob/temp = tgui_input_list(src, "Выберите моба", "Выбор", GLOB.mob_list, usr)
 				lst += temp.loc
 
 	return lst
@@ -281,7 +281,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(!SSticker)
-		alert("Wait until the game starts")
+		tgui_alert(usr, "Wait until the game starts")
 		return
 	if(ishuman(M))
 		var/mob/living/carbon/human/human = M
@@ -292,9 +292,9 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 				SSticker?.score?.save_silicon_laws(new_robot, src.mob, "admin robotized user", log_all_laws = TRUE)
 
 	else
-		alert("Invalid mob")
+		tgui_alert(usr, "Invalid mob")
 
-/client/proc/cmd_admin_animalize(var/mob/M in GLOB.mob_list)
+/client/proc/cmd_admin_animalize(mob/M in GLOB.mob_list)
 	set category = "Admin.Event"
 	set name = "Make Simple Animal"
 
@@ -302,15 +302,15 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(!SSticker)
-		alert("Wait until the game starts")
+		tgui_alert(usr, "Wait until the game starts")
 		return
 
 	if(!M)
-		alert("That mob doesn't seem to exist, close the panel and try again.")
+		tgui_alert(usr, "That mob doesn't seem to exist, close the panel and try again.")
 		return
 
 	if(isnewplayer(M))
-		alert("The mob must not be a new_player.")
+		tgui_alert(usr, "The mob must not be a new_player.")
 		return
 
 	log_admin("[key_name(src)] has animalized [M.key].")
@@ -325,21 +325,21 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(!SSticker)
-		alert("Wait until the game starts")
+		tgui_alert(usr, "Wait until the game starts")
 		return
 
 	if(!M)
-		alert("That mob doesn't seem to exist, close the panel and try again.")
+		tgui_alert(usr, "That mob doesn't seem to exist, close the panel and try again.")
 		return
 
 	if(isnewplayer(M))
-		alert("The mob must not be a new_player.")
+		tgui_alert(usr, "The mob must not be a new_player.")
 		return
 
-	if(alert(usr, "Confirm make gorilla?",, "Yes", "No") != "Yes")
+	if(tgui_alert(usr, "Confirm make gorilla?",, list("Yes", "No")) != "Yes")
 		return
 
-	var/gorilla_type = alert(usr, "What kind of gorilla?", , "Normal", "Enraged", "Cargorilla")
+	var/gorilla_type = tgui_alert(usr, "What kind of gorilla?", , list("Normal", "Enraged", "Cargorilla"))
 	if(!gorilla_type)
 		return
 
@@ -355,16 +355,16 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(!SSticker)
-		alert("Wait until the game starts")
+		tgui_alert(usr, "Wait until the game starts")
 		return
 	if(ishuman(M))
-		var/type = input("Pick the Superhero","Superhero") as null|anything in GLOB.all_superheroes
+		var/type = tgui_input_list(usr, "Pick the Superhero", "Superhero", GLOB.all_superheroes)
 		var/datum/superheroes/S = GLOB.all_superheroes[type]
 		if(S)
 			S.create(M)
 		log_and_message_admins("<span class='notice'>made [key_name(M)] into a Superhero.</span>")
 	else
-		alert("Invalid mob")
+		tgui_alert(usr, "Invalid mob")
 
 /client/proc/cmd_debug_del_sing()
 	set category = "Debug"
@@ -374,7 +374,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	//This gets a confirmation check because it's way easier to accidentally hit this and delete things than it is with qdel-all
-	var/confirm = alert("This will delete ALL Singularities and Tesla orbs except for any that are on away mission z-levels or the centcomm z-level. Are you sure you want to delete them?", "Confirm Panic Button", "Yes", "No")
+	var/confirm = tgui_alert(usr, "This will delete ALL Singularities and Tesla orbs except for any that are on away mission z-levels or the centcomm z-level. Are you sure you want to delete them?", "Confirm Panic Button", list("Yes", "No"))
 	if(confirm != "Yes")
 		return
 
@@ -405,7 +405,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(!SSticker)
-		alert("Wait until the game starts")
+		tgui_alert(usr, "Wait until the game starts")
 		return
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
@@ -425,7 +425,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			H.equip_to_slot_or_del(id, ITEM_SLOT_ID)
 			H.update_inv_wear_id()
 	else
-		alert("Invalid mob")
+		tgui_alert(usr, "Invalid mob")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Grant Full Access") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	log_and_message_admins("<span class='notice'>has granted [M.key] full access.</span>")
 
@@ -438,7 +438,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(M.ckey)
-		if(alert("This mob is being controlled by [M.ckey]. Are you sure you wish to assume control of it? [M.ckey] will be made a ghost.",,"Yes","No") != "Yes")
+		if(tgui_alert(usr, "This mob is being controlled by [M.ckey]. Are you sure you wish to assume control of it? [M.ckey] will be made a ghost.",, list("Yes", "No")) != "Yes")
 			return
 		else
 			var/mob/dead/observer/ghost = new/mob/dead/observer(M,1)
@@ -656,7 +656,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_DEBUG))
 		return
 
-	if(alert("Are you sure? This will start up the engine. Should only be used during debug!",,"Yes","No") != "Yes")
+	if(tgui_alert(usr, "Are you sure? This will start up the engine. Should only be used during debug!",, list("Yes", "No")) != "Yes")
 		return
 
 	for(var/obj/machinery/power/emitter/E in GLOB.machines)
@@ -704,7 +704,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_DEBUG))
 		return
 
-	switch(input("Which list?") in list("Players", "Admins", "Mobs", "Living Mobs", "Alive Mobs", "Dead Mobs", "Silicons", "Clients", "Respawnable Mobs"))
+	switch(tgui_input_list(usr, "Which list?", items = list("Players", "Admins", "Mobs", "Living Mobs", "Alive Mobs", "Dead Mobs", "Silicons", "Clients", "Respawnable Mobs")))
 		if("Players")
 			to_chat(usr, jointext(GLOB.player_list, ","))
 		if("Admins")
@@ -789,7 +789,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	if(!SSticker)
-		alert("Wait until the game starts")
+		tgui_alert(usr, "Wait until the game starts")
 		return
 	if(iscarbon(M))
 		var/state_value = M.dna.GetSEState(block)
@@ -799,7 +799,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		message_admins("[key_name_admin(src)] has toggled [M.key]'s [blockname] block [state_word]!")
 		log_admin("[key_name(src)] has toggled [M.key]'s [blockname] block [state_word]!")
 	else
-		alert("Invalid mob")
+		tgui_alert(usr, "Invalid mob")
 
 /client/proc/view_runtimes()
 	set category = "Debug"
@@ -890,7 +890,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
-	var/confirm = alert(usr, "WARNING: This process is lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you with to continue", "WARNING", "Im sure", "Nope")
+	var/confirm = tgui_alert(usr, "WARNING: This process is lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you with to continue", "WARNING", list("Im sure", "Nope"))
 	if(confirm != "Im sure")
 		return
 
@@ -912,7 +912,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	for(var/key in zlevel_turf_indexes)
 		to_chat(usr, "<span class='notice'>Z[key]: <b>[length(zlevel_turf_indexes["[key]"])] ATs</b></span>")
 
-	var/z_to_view = input(usr, "A list of z-levels their ATs has appeared in chat. Please enter a Z to visualise. Enter 0 to cancel.", "Selection", 0) as num
+	var/z_to_view = tgui_input_number(usr, "A list of z-levels their ATs has appeared in chat. Please enter a Z to visualise. Enter 0 to cancel.", "Selection", 0, max_value = 255)
 
 	if(!z_to_view)
 		return
@@ -1009,7 +1009,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		conditions."
 	if(!check_rights(R_DEBUG))
 		return
-	var/answer = alert("WARNING: THIS WILL WIPE ALL RESERVED SPACE TO A CLEAN SLATE! ANY MOVING SHUTTLES, ELEVATORS, OR IN-PROGRESS PHOTOGRAPHY WILL BE DELETED!", "Really wipe dynamic turfs?", "YES", "NO")
+	var/answer = tgui_alert(usr, "WARNING: THIS WILL WIPE ALL RESERVED SPACE TO A CLEAN SLATE! ANY MOVING SHUTTLES, ELEVATORS, OR IN-PROGRESS PHOTOGRAPHY WILL BE DELETED!", "Really wipe dynamic turfs?", list("YES", "NO"))
 	if(answer != "YES")
 		return
 	log_and_message_admins("cleared dynamic transit space.")
@@ -1024,7 +1024,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		return
 
 	//This gets a confirmation check because it's way easier to accidentally hit this and delete things than it is with qdel-all
-	var/confirm = alert("This will reload all polls? Consider using it ONLY if polls do stopped working.", "Confirm", "Yes", "No")
+	var/confirm = tgui_alert(usr, "This will reload all polls? Consider using it ONLY if polls do stopped working.", "Confirm", list("Yes", "No"))
 	if(confirm != "Yes")
 		return
 
