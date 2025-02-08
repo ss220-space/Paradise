@@ -1,7 +1,16 @@
 /obj/item/organ/internal/ears
 	name = "ears"
-	icon_state = "ears"
+	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации и положении гуманоида в пространстве."
+	ru_names = list(
+		NOMINATIVE = "уши",
+		GENITIVE = "ушей",
+		DATIVE = "ушам",
+		ACCUSATIVE = "уши",
+		INSTRUMENTAL = "ушами",
+		PREPOSITIONAL = "ушах"
+	)
 	gender = PLURAL
+	icon_state = "eyes"
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_EARS
 
@@ -44,8 +53,16 @@
 
 /obj/item/organ/internal/ears/cybernetic
 	name = "cybernetic ears"
-	icon_state = "ears-c"
-	desc = "a basic cybernetic designed to mimic the operation of ears."
+	desc = "Электронное устройство, имитирующее работу органических ушей. Функционально не имеет никаких отличий от органического аналога, кроме производственных затрат."
+	ru_names = list(
+		NOMINATIVE = "кибернетические уши",
+		GENITIVE = "кибернетических ушей",
+		DATIVE = "кибернетическим ушам",
+		ACCUSATIVE = "кибернетические уши",
+		INSTRUMENTAL = "кибернетическими ушами",
+		PREPOSITIONAL = "кибернетических ушах"
+	)
+	icon_state = "eyes-c"
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
