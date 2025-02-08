@@ -848,3 +848,12 @@
 	materials = list(MAT_METAL = 340, MAT_GLASS = 340, MAT_PLASMA = 200, MAT_BLUESPACE = 30)
 	build_path = /obj/item/storage/pill_bottle/bluespace
 	category = list("Medical")
+
+/datum/design/adv_reagent_scanner
+	name = "Inugami medical gloves"
+	id = "medical_gloves_inugami"
+	req_tech = list("materials" = 7, "biotech" = 7, "magnets" = 8, "programming" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1200, MAT_GLASS = 1000, MAT_SILVER = 800, MAT_GOLD = 800, MAT_DIAMOND = 1000, MAT_BLUESPACE = 600)
+	build_path = /obj/item/clothing/gloves/color/latex/inugami
+	category = list("Medical")

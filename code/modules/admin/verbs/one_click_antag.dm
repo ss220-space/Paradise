@@ -55,7 +55,7 @@
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many traitors you want to create? Enter 0 to cancel","Amount:", 0) as num
+	var/antnum = tgui_input_number(owner, "How many traitors you want to create? Enter 0 to cancel", "Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making [antnum] traitors with One-Click-Antag")
@@ -87,7 +87,7 @@
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many changelings you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	var/antnum = tgui_input_number(owner, "How many changelings you want to create? Enter 0 to cancel.", "Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making [antnum] changelings with One-Click-Antag")
@@ -110,13 +110,13 @@
 
 /datum/admins/proc/makeBlobs()
 
-	var/antnum = input(owner, "Сколько вы хотите создать? Введите 0 для отмены.","Кол-во:", 0) as num
+	var/antnum = tgui_input_number(owner, "Сколько вы хотите создать? Введите 0 для отмены.","Кол-во:", 0)
 	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making [antnum] blobs with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making [antnum] blobs with One-Click-Antag")
 	var/result = FALSE
-	switch(alert(usr, "Вы хотите создать блобов из членов экипажа или же с помощью инфицированных мышек?", "", "Из экипажа", "С помощью мышек"))
+	switch(tgui_alert(usr, "Вы хотите создать блобов из членов экипажа или же с помощью инфицированных мышек?", "", list("Из экипажа", "С помощью мышек")))
 		if("Из экипажа")
 			result = SSticker?.mode?.make_blobs(antnum)
 		if("С помощью мышек")
@@ -132,7 +132,7 @@
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many revolutionaries you want to create? Enter 0 to cancel","Amount:", 0) as num
+	var/antnum = tgui_input_number(owner, "How many revolutionaries you want to create? Enter 0 to cancel", "Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making [antnum] revolutionaries with One-Click-Antag")
@@ -154,7 +154,7 @@
 
 /datum/admins/proc/makeWizard()
 
-	var/confirm = alert("Are you sure?", "Confirm creation", "Yes", "No")
+	var/confirm = tgui_alert(usr, "Are you sure?", "Confirm creation", list("Yes", "No"))
 	if(confirm != "Yes")
 		return 0
 	var/image/I = new('icons/mob/simple_human.dmi', "wizard")
@@ -181,7 +181,7 @@
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
-	var/antnum = input(owner, "How many cultists do you want to create? Enter 0 to cancel.", "Amount:", 0) as num
+	var/antnum = tgui_input_number(owner, "How many cultists do you want to create? Enter 0 to cancel.", "Amount:", 0)
 	if(!antnum || antnum <= 0) // 5 because cultist can really screw balance over if spawned in high amount.
 		return
 	log_admin("[key_name(owner)] tried making a Cult with One-Click-Antag")
@@ -211,7 +211,7 @@
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
-	var/antnum = input(owner, "How many cultists do you want to create? Enter 0 to cancel.", "Amount:", 0) as num
+	var/antnum = tgui_input_number(owner, "How many cultists do you want to create? Enter 0 to cancel.", "Amount:", 0)
 	if(!antnum || antnum <= 0) // 5 because cultist can really screw balance over if spawned in high amount.
 		return
 	log_admin("[key_name(owner)] tried making a Clockwork Cult with One-Click-Antag")
@@ -239,7 +239,7 @@
 	var/mob/theghost = null
 	var/time_passed = world.time
 
-	var/antnum = input(owner, "How many nuclear operative you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	var/antnum = tgui_input_number(owner, "How many nuclear operative you want to create? Enter 0 to cancel.", "Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making a [antnum] person Nuke Op Team with One-Click-Antag")
@@ -250,7 +250,7 @@
 			if(!jobban_isbanned(G, "operative") && !jobban_isbanned(G, "Syndicate"))
 				if(player_old_enough_antag(G.client,ROLE_OPERATIVE))
 					spawn(0)
-						switch(alert(G,"Do you wish to be considered for a nuke team being sent in?","Please answer in 30 seconds!","Yes","No"))
+						switch(tgui_alert(G, "Do you wish to be considered for a nuke team being sent in?", "Please answer in 30 seconds!", list("Yes", "No")))
 							if("Yes")
 								if((world.time-time_passed)>300)//If more than 30 game seconds passed.
 									return
@@ -319,7 +319,7 @@
 //Abductors
 /datum/admins/proc/makeAbductorTeam()
 
-	var/confirm = alert("Are you sure?", "Confirm creation", "Yes", "No")
+	var/confirm = tgui_alert(usr, "Are you sure?", "Confirm creation", list("Yes", "No"))
 	if(confirm != "Yes")
 		return 0
 	new /datum/event/abductor
@@ -332,7 +332,7 @@
 /datum/admins/proc/makeAliens()
 	var/datum/event/alien_infestation/E = new /datum/event/alien_infestation
 
-	var/antnum = input(owner, "How many aliens you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	var/antnum = tgui_input_number(owner, "How many aliens you want to create? Enter 0 to cancel.", "Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making Aliens with One-Click-Antag")
@@ -347,12 +347,12 @@
 
 /datum/admins/proc/makeSpaceNinja()
 	. = FALSE
-	var/confirm = alert("Are you sure?", "Confirm creation", "Yes", "No")
+	var/confirm = tgui_alert(usr, "Are you sure?", "Confirm creation", list("Yes", "No"))
 	if(confirm != "Yes")
 		return
 	var/datum/objective/custom_objective = null
-	if(alert(usr, "Хотите ли вы выдать этому ниндзя особую цель?","Особая цель","Да", "Нет") == "Да")
-		var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", "") as text|null,1,MAX_MESSAGE_LEN))
+	if(tgui_alert(usr, "Хотите ли вы выдать этому ниндзя особую цель?", "Особая цель", list("Да", "Нет")) == "Да")
+		var/expl = sanitize(tgui_input_text(usr, "Custom objective:", "Objective", "", encode = FALSE))
 		if(!expl)
 			return
 		custom_objective = new
@@ -387,7 +387,7 @@
 	return new_character
 
 /datum/admins/proc/makeVoxRaiders()
-	var/antnum = input(owner, "How many raiders you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	var/antnum = tgui_input_number(owner, "How many raiders you want to create? Enter 0 to cancel.", "Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making Vox Raiders with One-Click-Antag")
@@ -447,7 +447,7 @@
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many vampires you want to create? Enter 0 to cancel","Amount:", 0) as num
+	var/antnum = tgui_input_number(owner, "How many vampires you want to create? Enter 0 to cancel", "Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return
 
@@ -481,7 +481,7 @@
 	//Generates a list of candidates from active ghosts.
 	for(var/mob/G in GLOB.respawnable_list)
 		spawn(0)
-			switch(alert(G,"Do you wish to be considered for a Thunderdome match about to start?","Please answer in 30 seconds!","Yes","No"))
+			switch(tgui_alert(G, "Do you wish to be considered for a Thunderdome match about to start?", "Please answer in 30 seconds!", list("Yes", "No")))
 				if("Yes")
 					if((world.time-time_passed)>300)//If more than 30 game seconds passed.
 						return
@@ -557,7 +557,7 @@
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many thieves you want to create? Enter 0 to cancel","Amount:", 0) as num
+	var/antnum = tgui_input_number(owner, "How many thieves you want to create? Enter 0 to cancel", "Amount:", 0)
 	if(!antnum || antnum <= 0)
 		return 0
 
