@@ -795,7 +795,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	return usr.client.spawn_atom_impl(object, FALSE)
 
 /datum/admins/proc/spawn_atom_adv(object as text)
-	set category = "Admin.Event Spawn"
+	set category = "Admin.Event"
 	set desc = "(путь атома) Создать атом c aргументами в New(). Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным."
 	set name = "Advanced Spawn"
 

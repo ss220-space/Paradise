@@ -1000,15 +1000,16 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!check_rights(R_EVENT))
 		return
 
-	if(mob.control_object)
-		if(!msg)
-			return
-		for(var/mob/V in hearers(mob.control_object))
-			V.show_message("<b>[mob.control_object.name]</b> says: \"" + msg + "\"", 2)
-		log_admin("[key_name(usr)] used oSay on [mob.control_object]: [msg]")
-		message_admins("[key_name_admin(usr)] used oSay on [mob.control_object]: [msg]")
+	var/datum/component/object_possession/possession_comp = mob.GetComponent(/datum/component/object_possession)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "oSay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	if(!possession_comp || !possession_comp.possessed || !msg)
+		return
+
+	for(var/mob/hearer in hearers(possession_comp.possessed))
+		hearer.show_message("<b>[possession_comp.possessed.name]</b> says: \"" + msg + "\"", 2)
+
+	log_and_message_admins("[key_name_admin(usr)] used oSay on [possession_comp.possessed]: [msg]")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "oSay") // If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/force_hijack()
 	set category = "Admin.Toggles"

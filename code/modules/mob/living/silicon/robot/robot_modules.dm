@@ -885,7 +885,6 @@
 
 /obj/item/robot_module/hunter/on_apply(mob/living/silicon/robot/robot)
 	robot.modtype = "Xeno-Hu"
-
 	return TRUE
 
 /obj/item/robot_module/hunter/add_default_robot_items()
@@ -895,17 +894,17 @@
 	..()
 	modules += new /obj/item/melee/energy/alien_claws(src)
 	modules += new /obj/item/flash/cyborg/alien(src)
-	var/obj/item/reagent_containers/spray/alien/stun/S = new /obj/item/reagent_containers/spray/alien/stun(src)
-	S.reagents.add_reagent("cryogenic_liquid",250) //nerfed to sleeptoxin to make it less instant drop.
-	modules += S
-	var/obj/item/reagent_containers/spray/alien/smoke/A = new /obj/item/reagent_containers/spray/alien/smoke(src)
-	S.reagents.add_reagent("water",50) //Water is used as a dummy reagent for the smoke bombs. More of an ammo counter.
-	modules += A
+	modules += new /obj/item/reagent_containers/spray/alien/smoke(src)
+	modules += new /obj/item/reagent_containers/spray/alien/stun(src)
 	emag = new /obj/item/reagent_containers/spray/alien/acid(src)
-	emag.reagents.add_reagent("facid", 125)
-	emag.reagents.add_reagent("sacid", 125)
-
 	fix_modules()
+
+/obj/item/robot_module/hunter/respawn_consumable(mob/living/silicon/robot/R)
+	if(emag)
+		var/obj/item/reagent_containers/spray/alien/acid/acidSpray = emag
+		acidSpray.reagents.add_reagent("sacid", 3)
+		acidSpray.reagents.add_reagent("facid", 3)
+	..()
 
 /obj/item/robot_module/hunter/add_languages(var/mob/living/silicon/robot/R)
 	..()

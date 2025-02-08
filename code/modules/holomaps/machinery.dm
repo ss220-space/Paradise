@@ -19,6 +19,8 @@
 
 	/// The mob beholding this marvel.
 	var/mob/watching_mob
+	/// The mob we're looking after if moved. Used by AI eye only.
+	var/mob/moving_mob
 	/// The image that can be seen in-world.
 	var/image/small_station_map
 	/// The little "map" floor painting.
@@ -101,8 +103,12 @@
 	var/datum/hud/human/user_hud = user.hud_used
 	holomap_datum.base_map.loc = user_hud.holomap  // Put the image on the holomap hud
 	holomap_datum.base_map.alpha = 0 // Set to transparent so we can fade in
-
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
+	if(isAI(user))
+		var/mob/living/silicon/ai/our_ai = user
+		moving_mob = our_ai.eyeobj
+		RegisterSignal(moving_mob, COMSIG_AI_EYE_MOVED, PROC_REF(check_position))
+	else
+		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
 
 	playsound(src, 'sound/effects/holomap_open.ogg', 125)
 	animate(holomap_datum.base_map, alpha = 255, time = 5, easing = LINEAR_EASING)
@@ -135,16 +141,17 @@
 	if((stat & (NOPOWER | BROKEN)) || !anchored)
 		close_map()
 
-/obj/machinery/station_map/proc/check_position()
+/obj/machinery/station_map/proc/check_position(mob/moved_mob)
 	SIGNAL_HANDLER
 
-	if(!watching_mob || (watching_mob.loc != loc) || (dir != watching_mob.dir))
+	if(!moved_mob || (moved_mob.loc != loc) || (dir != moved_mob.dir))
 		close_map()
 
 /obj/machinery/station_map/proc/close_map()
 	if(!watching_mob)
 		return
 
+	UnregisterSignal(moving_mob, COMSIG_AI_EYE_MOVED)
 	UnregisterSignal(watching_mob, COMSIG_MOVABLE_MOVED)
 	playsound(src, 'sound/effects/holomap_close.ogg', 125)
 	icon_state = initial(icon_state)
@@ -276,11 +283,10 @@
 	if(length(z_transitions))
 		legend += z_transitions
 
-	/* with meteor shields refactor
 	if(length(GLOB.meteor_shielded_turfs))
 		var/icon/canvas = icon(HOLOMAP_ICON, "blank")
 		var/z_has_coverage = FALSE
-		for(var/turf/open/shielded_turf as anything in GLOB.meteor_shielded_turfs)
+		for(var/turf/shielded_turf as anything in GLOB.meteor_shielded_turfs)
 			if(shielded_turf?.z != current_z_level)
 				continue
 			var/offset_x = HOLOMAP_CENTER_X + shielded_turf.x
@@ -289,8 +295,7 @@
 			canvas.DrawBox(color, offset_x, offset_y)
 			z_has_coverage = TRUE
 		if(z_has_coverage)
-			legend["Meteor Shield"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "meteor_shield"), "markers" = list(image(canvas)))
-	*/
+			legend["Метеор щиты"] = list("icon" = image('icons/misc/8x8.dmi', icon_state = "meteor_shield"), "markers" = list(image(canvas)))
 	return legend
 
 /obj/machinery/station_map/engineering

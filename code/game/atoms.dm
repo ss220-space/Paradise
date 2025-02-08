@@ -1754,3 +1754,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  */
 /atom/proc/relaydrive(mob/living/user, direction)
 	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)
+
+///returns how much the object blocks an explosion. Used by subtypes.
+/atom/proc/get_explosion_block()
+	CRASH("Unimplemented get_explosion_block()")

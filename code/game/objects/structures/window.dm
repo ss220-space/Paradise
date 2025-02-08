@@ -516,7 +516,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		C.throw_at(throwingdatum.initial_target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
 
 
-/obj/structure/window/GetExplosionBlock()
+/obj/structure/window/get_explosion_block()
 	return reinf && fulltile ? real_explosion_block : 0
 
 /obj/structure/window/basic

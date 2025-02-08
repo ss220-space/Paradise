@@ -21,14 +21,6 @@
 	/// TRUE giving to a user sci hud and active research scanner
 	var/smart_mind = FALSE
 
-/obj/item/organ/internal/brain/xeno
-	name = "xenomorph brain"
-	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
-	icon_state = "brain-x"
-	origin_tech = "biotech=6"
-	mmi_icon = 'icons/mob/alien.dmi'
-	mmi_icon_state = "AlienMMI"
-
 /obj/item/organ/internal/brain/Destroy()
 	QDEL_NULL(brainmob)
 	return ..()
@@ -136,15 +128,6 @@
 
 /obj/item/organ/internal/brain/prepare_eat()
 	return // Too important to eat.
-
-/obj/item/organ/internal/brain/slime
-	species_type = /datum/species/slime
-	name = "slime core"
-	desc = "A complex, organic knot of jelly and crystalline particles."
-	icon = 'icons/mob/slimes.dmi'
-	icon_state = "green slime extract"
-	mmi_icon_state = "slime_mmi"
-	parent_organ_zone = BODY_ZONE_CHEST
 
 /obj/item/organ/internal/brain/golem
 	name = "Runic mind"
