@@ -1,6 +1,6 @@
 #define MAX_ADMIN_BANS_PER_ADMIN 1
 
-/datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = -1, var/reason, var/job = "", var/rounds = 0, var/banckey = null, var/banip = null, var/bancid = null)
+/datum/admins/proc/DB_ban_record(bantype, mob/banned_mob, duration = -1, reason, job = "", rounds = 0, banckey = null, banip = null, bancid = null)
 
 	if(!check_rights(R_BAN))	return
 
@@ -113,7 +113,7 @@
 
 	if(blockselfban)
 		if(a_ckey == ckey)
-			to_chat(usr, "<span class='danger'>You cannot apply this ban type on yourself.</span>", confidential=TRUE)
+			to_chat(usr, span_danger("You cannot apply this ban type on yourself."), confidential=TRUE)
 			return
 
 	var/who
@@ -140,7 +140,7 @@
 		if(adm_query.NextRow())
 			var/adm_bans = text2num(adm_query.item[1])
 			if(adm_bans >= MAX_ADMIN_BANS_PER_ADMIN)
-				to_chat(usr, "<span class='danger'>You already logged [MAX_ADMIN_BANS_PER_ADMIN] admin ban(s) or more. Do not abuse this function!</span>", confidential=TRUE)
+				to_chat(usr, span_danger("You already logged [MAX_ADMIN_BANS_PER_ADMIN] admin ban(s) or more. Do not abuse this function!"), confidential=TRUE)
 				qdel(adm_query)
 				return
 		qdel(adm_query)
@@ -170,7 +170,7 @@
 		return
 
 	qdel(query_insert)
-	to_chat(usr, "<span class='notice'>Ban saved to database.</span>", confidential=TRUE)
+	to_chat(usr, span_notice("Ban saved to database."), confidential=TRUE)
 	message_admins("[key_name_admin(usr)] has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.")
 
 	if(announce_in_discord)
@@ -185,7 +185,7 @@
 	else
 		flag_account_for_forum_sync(ckey)
 
-/datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
+/datum/admins/proc/DB_ban_unban(ckey, bantype, job = "")
 
 	if(!check_rights(R_BAN))	return
 
@@ -255,17 +255,17 @@
 	qdel(query)
 
 	if(ban_number == 0)
-		to_chat(usr, "<span class='warning'>Database update failed due to no bans fitting the search criteria. If this is not a legacy ban you should contact the database admin.</span>", confidential=TRUE)
+		to_chat(usr, span_warning("Database update failed due to no bans fitting the search criteria. If this is not a legacy ban you should contact the database admin."), confidential=TRUE)
 		return
 
 	if(ban_number > 1)
-		to_chat(usr, "<span class='warning'>Database update failed due to multiple bans fitting the search criteria. Note down the ckey, job and current time and contact the database admin.</span>", confidential=TRUE)
+		to_chat(usr, span_warning("Database update failed due to multiple bans fitting the search criteria. Note down the ckey, job and current time and contact the database admin."), confidential=TRUE)
 		return
 
 	if(istext(ban_id))
 		ban_id = text2num(ban_id)
 	if(!isnum(ban_id))
-		to_chat(usr, "<span class='warning'>Database update failed due to a ban ID mismatch. Contact the database admin.</span>", confidential=TRUE)
+		to_chat(usr, span_warning("Database update failed due to a ban ID mismatch. Contact the database admin."), confidential=TRUE)
 		return
 
 	DB_ban_unban_by_id(ban_id)
@@ -274,7 +274,7 @@
 	else
 		flag_account_for_forum_sync(ckey)
 
-/datum/admins/proc/DB_ban_edit(var/banid = null, var/param = null)
+/datum/admins/proc/DB_ban_edit(banid = null, param = null)
 
 	if(!check_rights(R_BAN))	return
 
@@ -311,7 +311,7 @@
 	switch(param)
 		if("reason")
 			if(!value)
-				value = input("Insert the new reason for [pckey]'s ban", "New Reason", "[reason]", null) as null|text
+				value = tgui_input_text(usr, "Insert the new reason for [pckey]'s ban", "New Reason", "[reason]", multiline = TRUE, encode=FALSE)
 				if(!value)
 					to_chat(usr, "Cancelled", confidential=TRUE)
 					return
@@ -330,7 +330,18 @@
 			message_admins("[key_name_admin(usr)] has edited a ban for [pckey]'s reason from [reason] to [value]")
 		if("duration")
 			if(!value)
-				value = input("Insert the new duration (in minutes) for [pckey]'s ban", "New Duration", "[duration]", null) as null|num
+				var/days = floor(duration/(1 BAN_DAYS))
+				var/hours = floor((duration - days BAN_DAYS)/(1 BAN_HOURS))
+				var/minutes = duration - days BAN_DAYS - hours BAN_HOURS
+				var/raw_values = tgui_input_text(usr, "Введите новую длительность бана в формате Д:Ч:M", "Новая длительность", "[days]:[hours]:[minutes]")
+				if(!raw_values)
+					to_chat(usr, "Cancelled", confidential=TRUE)
+					return
+				var/list/values = text2numlist(raw_values, ":")
+				if(!values?.len || values.len != 3)
+					to_chat(usr, "Cancelled", confidential=TRUE)
+					return
+				value = values[1] BAN_DAYS + values[2] BAN_HOURS + values[3]
 				if(!isnum(value) || !value)
 					to_chat(usr, "Cancelled", confidential=TRUE)
 					return
@@ -348,7 +359,7 @@
 			qdel(update_query)
 			message_admins("[key_name_admin(usr)] has edited a ban for [pckey]'s duration from [duration] to [value]")
 		if("unban")
-			if(alert("Unban [pckey]?", "Unban?", "Yes", "No") == "Yes")
+			if(tgui_alert(usr, "Unban [pckey]?", "Unban?", list("Yes", "No")) == "Yes")
 				DB_ban_unban_by_id(banid)
 				if(job && length(job))
 					jobban_unban_client(pckey, job)
@@ -385,11 +396,11 @@
 	qdel(query)
 
 	if(ban_number == 0)
-		to_chat(usr, "<span class='warning'>Database update failed due to a ban id not being present in the database.</span>", confidential=TRUE)
+		to_chat(usr, span_warning("Database update failed due to a ban id not being present in the database."), confidential=TRUE)
 		return
 
 	if(ban_number > 1)
-		to_chat(usr, "<span class='warning'>Database update failed due to multiple bans having the same ID. Contact the database admin.</span>", confidential=TRUE)
+		to_chat(usr, span_warning("Database update failed due to multiple bans having the same ID. Contact the database admin."), confidential=TRUE)
 		return
 
 	if(!src.owner || !isclient(src.owner))
@@ -459,7 +470,29 @@
 	output += "<td width='50%' align='center'><b>Ckey:</b><br><input type='text' name='dbbanaddckey'></td></tr>"
 	output += "<tr><td width='50%' align='center'><b>IP:</b><br><input type='text' name='dbbanaddip'></td>"
 	output += "<td width='50%' align='center'><b>CID:</b><br><input type='text' name='dbbanaddcid'></td></tr>"
-	output += "<tr><td width='50%' align='center'><b>Duration (minutes):</b><br><input type='text' name='dbbaddduration'></td>"
+	output += "<tr>\
+	<td width='50%' align='center'>\
+		<table style='width: auto; margin: 0 auto;'>\
+		<tr>\
+		<td style='padding-right: 8px; text-align: right;'><b>Days:</b></td>\
+			<td><input type='text' pattern='\\d*' style='width: 40px; padding: 2px; font-size: 12px;' name='dbbadddurationdays'\
+				oninvalid='this.setCustomValidity(\"Только числа допустимы\")'\
+				oninput='this.setCustomValidity(\"\")'></td>\
+		</tr>\
+		<tr>\
+		<td style='padding-right: 8px; text-align: right;'><b>Hours:</b></td>\
+			<td><input type='text' pattern='\\d*' style='width: 40px; padding: 2px; font-size: 12px;' name='dbbadddurationhours'\
+				oninvalid='this.setCustomValidity(\"Только числа допустимы\")'\
+				oninput='this.setCustomValidity(\"\")'></td>\
+		</tr>\
+		<tr>\
+		<td style='padding-right: 8px; text-align: right;'><b>Minutes:</b></td>\
+			<td><input type='text' pattern='\\d*' style='width: 40px; padding: 2px; font-size: 12px;' name='dbbadddurationminutes'\
+			oninvalid='this.setCustomValidity(\"Только числа допустимы\")'\
+			oninput='this.setCustomValidity(\"\")'></td>\
+		</tr>\
+		</table>\
+	</td>"
 	output += "<td width='50%' align='center'><b>Job:</b><br><select name='dbbanaddjob'>"
 	output += "<option value=''>--</option>"
 	for(var/j in get_all_jobs())

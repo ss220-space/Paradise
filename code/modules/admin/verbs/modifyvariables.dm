@@ -96,19 +96,19 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 	switch(.["class"])
 		if(VV_TEXT)
-			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, encode = FALSE)
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, encode = FALSE, trim = FALSE)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 		if(VV_MESSAGE)
-			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, multiline = TRUE, encode = FALSE)
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, multiline = TRUE, encode = FALSE, trim = FALSE)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 
 		if(VV_NUM)
-			.["value"] = tgui_input_number(src, "Введите число:", "Число", current_value)
+			.["value"] = tgui_input_number(src, "Введите число:", "Число", current_value, max_value = INFINITY)
 			if(.["value"] == null)
 				.["class"] = null
 				return
@@ -236,13 +236,14 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				return
 			.["type"] = type
 			var/list/arguments
-			
+
 			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый атом", list("Да", "Нет")) == "Да")
 				arguments = get_callproc_args(FALSE)
-			else
-				arguments = list()
 
-			.["value"] = new type(arglist(arguments))
+			if(!arguments?.len)
+				.["value"] = new type()
+			else
+				.["value"] = new type(arglist(arguments))
 
 
 		if(VV_NEW_DATUM)
@@ -252,13 +253,14 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				return
 			.["type"] = type
 			var/list/arguments
-			
-			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый атом", list("Да", "Нет")) == "Да")
-				arguments = get_callproc_args(FALSE)
-			else
-				arguments = list()
 
-			.["value"] = new type(arglist(arguments))
+			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый датум", list("Да", "Нет")) == "Да")
+				arguments = get_callproc_args(FALSE)
+
+			if(!arguments?.len)
+				.["value"] = new type()
+			else
+				.["value"] = new type(arglist(arguments))
 
 		if(VV_NEW_TYPE)
 			var/type = current_value
@@ -272,13 +274,14 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 			.["type"] = type
 			var/list/arguments
-			
+
 			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый атом", list("Да", "Нет")) == "Да")
 				arguments = get_callproc_args(FALSE)
-			else
-				arguments = list()
 
-			.["value"] = new type(arglist(arguments))
+			if(!arguments?.len)
+				.["value"] = new type()
+			else
+				.["value"] = new type(arglist(arguments))
 
 
 		if(VV_NEW_LIST)

@@ -615,7 +615,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!mob)
 		return
 	if(!istype(M))
-		alert("This can only be used on instances of type /mob")
+		tgui_alert(src, "This can only be used on instances of type /mob")
 		return
 	offer_control(M)
 
@@ -1275,7 +1275,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/keep_name = tgui_alert(src, "Вы хотите, чтобы существа сохранили свои имена?", "Сохранить имена?", list("Да", "Нет"))
 
 	var/list/mobs = shuffle(GLOB.alive_player_list.Copy()) // might change while iterating
-	
+
 	log_and_message_admins("polymorphed ALL living mobs.")
 
 	for(var/mob/living/M in mobs)

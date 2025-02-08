@@ -120,7 +120,10 @@
 		var/banckey = href_list["dbbanaddckey"]
 		var/banip = href_list["dbbanaddip"]
 		var/bancid = href_list["dbbanaddcid"]
-		var/banduration = text2num(href_list["dbbaddduration"])
+		var/duration = text2num(href_list["dbbadddurationdays"]) BAN_DAYS
+		duration += text2num(href_list["dbbadddurationdays"]) BAN_HOURS
+		duration += text2num(href_list["dbbadddurationdays"])
+		var/banduration = duration
 		var/banjob = href_list["dbbanaddjob"]
 		var/banround = href_list["dbbanaddround"]
 		var/banreason = href_list["dbbanreason"]
@@ -1256,7 +1259,8 @@
 		log_and_message_admins("<span class='notice'>set the mode as [GLOB.master_mode].</span>")
 		to_chat(world, "<span class='boldnotice'>The mode is now: [GLOB.master_mode]</span>")
 		Game() // updates the main game menu
-		world.save_mode(GLOB.master_mode)
+		if (tgui_alert(usr, " Хотите ли вы сохранить этот режим как режим по умолчанию?", "Сохранить режим", list("Да", "Нет")) == "Да")
+			world.save_mode(GLOB.master_mode)
 		.(href, list("c_mode"=1))
 
 	else if(href_list["f_secret2"])

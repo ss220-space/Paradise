@@ -89,7 +89,7 @@
 		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 			if(!C.can_use())
 				continue
-			if(C.network&networks)
+			if(length(networks & C.network))
 				camera_location = get_turf(C)
 				break
 		if(camera_location)
