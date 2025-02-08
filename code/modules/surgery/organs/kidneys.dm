@@ -1,6 +1,6 @@
 /obj/item/organ/internal/kidneys
 	name = "kidneys"
-	desc = "Орган, отвчечающий за фильтрацию кровотока и выведение токсинов и отходов из организма."
+	desc = "Парный орган, отвечающий за фильтрацию кровотока и выведение токсинов и отходов из организма."
 	ru_names = list(
 		NOMINATIVE = "почки",
 		GENITIVE = "почек",
@@ -9,7 +9,6 @@
 		INSTRUMENTAL = "почками",
 		PREPOSITIONAL = "почках"
 	)
-	gender = PLURAL
 	icon_state = "kidneys"
 	gender = PLURAL
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN

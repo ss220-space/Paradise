@@ -1,6 +1,6 @@
 /obj/item/organ/internal/lungs
 	name = "lungs"
-	desc = "Орган, отвечаюший за газообмен между между внешней средой и кровотоком организма гуманоида."
+	desc = "Парный орган, отвечающий за газообмен между между внешней средой и кровотоком организма гуманоида."
 	ru_names = list(
 		NOMINATIVE = "лёгкие",
 		GENITIVE = "лёгких",
@@ -13,7 +13,6 @@
 	icon_state = "lungs"
 	parent_organ_zone = BODY_ZONE_CHEST
 	slot = INTERNAL_ORGAN_LUNGS
-	gender = PLURAL
 	w_class = WEIGHT_CLASS_NORMAL
 
 	//Breath damage
