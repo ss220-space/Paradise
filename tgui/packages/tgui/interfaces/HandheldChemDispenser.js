@@ -29,9 +29,9 @@ const HandheldChemDispenserSettings = (properties, context) => {
   const { amount, energy, maxEnergy, mode } = data;
   return (
     <Stack.Item>
-      <Section title="Settings">
+      <Section title="Параметры">
         <LabeledList>
-          <LabeledList.Item label="Energy">
+          <LabeledList.Item label="Энергия">
             <ProgressBar
               value={energy}
               minValue={0}
@@ -42,10 +42,10 @@ const HandheldChemDispenserSettings = (properties, context) => {
                 bad: [-Infinity, maxEnergy * 0.25],
               }}
             >
-              {energy} / {maxEnergy} Units
+              {energy} / {maxEnergy} Единиц
             </ProgressBar>
           </LabeledList.Item>
-          <LabeledList.Item label="Amount" verticalAlign="middle">
+          <LabeledList.Item label="Объём синтеза" verticalAlign="middle">
             <Stack>
               {dispenseAmounts.map((a, i) => (
                 <Stack.Item key={i} grow width="15%">
@@ -64,12 +64,12 @@ const HandheldChemDispenserSettings = (properties, context) => {
               ))}
             </Stack>
           </LabeledList.Item>
-          <LabeledList.Item label="Mode" verticalAlign="middle">
+          <LabeledList.Item label="Режим" verticalAlign="middle">
             <Stack justify="space-between">
               <Button
                 icon="cog"
                 selected={mode === 'dispense'}
-                content="Dispense"
+                content="Синтез"
                 m="0"
                 width="32%"
                 onClick={() =>
@@ -81,7 +81,7 @@ const HandheldChemDispenserSettings = (properties, context) => {
               <Button
                 icon="cog"
                 selected={mode === 'remove'}
-                content="Remove"
+                content="Удаление"
                 m="0"
                 width="32%"
                 onClick={() =>
@@ -93,7 +93,7 @@ const HandheldChemDispenserSettings = (properties, context) => {
               <Button
                 icon="cog"
                 selected={mode === 'isolate'}
-                content="Isolate"
+                content="Изоляция"
                 m="0"
                 width="32%"
                 onClick={() =>
@@ -122,7 +122,7 @@ const HandheldChemDispenserChemicals = (properties, context) => {
       <Section
         fill
         scrollable
-        title={data.glass ? 'Drink Selector' : 'Chemical Selector'}
+        title={data.glass ? 'Выбор напитка' : 'Выбор реагента'}
       >
         {chemicals.map((c, i) => (
           <Button

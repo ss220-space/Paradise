@@ -89,6 +89,9 @@
 					<A href='byond://?src=[UID()];secretsfun=set_station_name'>Rename Station Name</A><BR>
 					<A href='byond://?src=[UID()];secretsfun=reset_station_name'>Reset Station Name</A><BR>
 					<A href='byond://?src=[UID()];secretsfun=set_centcomm_name'>Rename Central Comand</A><BR>
+					<BR>
+					<b>Spawns</b><BR>
+					<A href='byond://?src=[UID()];secretsfun=spawn_cargo_crate'>Spawn Cargo Crate</A><BR>
 					</center>"}
 		if(2)
 			if(check_rights((R_SERVER|R_EVENT),0))
@@ -122,6 +125,7 @@
 					<a href='byond://?src=[UID()];secretsfun=fakeguns'>Make all items look like guns</A><BR>
 					<a href='byond://?src=[UID()];secretsfun=prisonwarp'>Warp all Players to Prison</A><BR>
 					<a href='byond://?src=[UID()];secretsfun=stupify'>Make all players stupid</A><BR>
+					<A href='byond://?src=[UID()];secretsfun=customportal'>Spawn a custom portal storm</A><BR>
 					<b>Misc</b><br>
 					<a href='byond://?src=[UID()];secretsfun=sec_classic1'>Remove firesuits, grilles, and pods</A>&nbsp;&nbsp;
 					<a href='byond://?src=[UID()];secretsfun=tripleAI'>Triple AI mode (needs to be used in the lobby)</A><BR>

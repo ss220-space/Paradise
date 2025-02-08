@@ -12,7 +12,7 @@
 #define COMM_MSGLEN_MINIMUM 6
 #define COMM_CCMSGLEN_MINIMUM 20
 
-#define ADMIN_CHECK(user) ((check_rights_all(R_ADMIN, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM) || user.can_admin_interact())
+#define ADMIN_CHECK(user) ((check_rights(R_ADMIN, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM) || user.can_admin_interact())
 #define FULL_ADMIN_CHECK(user) (check_rights_all(R_ADMIN|R_EVENT, FALSE, user) && (authenticated >= COMM_AUTHENTICATION_CENTCOM || user.can_admin_interact()))
 
 // The communications computer
@@ -120,7 +120,7 @@
 				crew_announcement.announcer = GetNameAndAssignmentFromId(id)
 
 		if(ACCESS_CENT_COMMANDER in access)
-			if(!check_rights_all(R_ADMIN|R_EVENT, FALSE, ui.user))
+			if(!check_rights(R_ADMIN, FALSE, ui.user))
 				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))] гудит, разрешение Центрального Командования не действительно."))
 				return
 			authenticated = COMM_AUTHENTICATION_CENTCOM
@@ -143,10 +143,14 @@
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
 		if("newalertlevel")
+			var/code = text2num(params["level"])
 			if(isAI(ui.user) || isrobot(ui.user))
 				to_chat(ui.user, span_warning("Брандмауэры не позволяют вам изменить уровень угрозы."))
 				return
-			else if(FULL_ADMIN_CHECK(ui.user))
+			else if(ADMIN_CHECK(ui.user))
+				if(code > SEC_LEVEL_GAMMA && !FULL_ADMIN_CHECK(ui.user))
+					to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для повышения уровня угрозы выше чем Гамма."))
+					return
 				change_security_level(text2num(params["level"]), force = TRUE)
 				return
 			else if(!ishuman(ui.user))
@@ -172,8 +176,8 @@
 				if(message_cooldown > world.time)
 					to_chat(ui.user, span_warning("Пожалуйста, подождите, прежде чем сделать новое объявление."))
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, напишите своё сообщение экипажу станции.", "Приоритетное оповещение", multiline = TRUE)
-				if(!input || message_cooldown > world.time || ..() || !(is_authenticated(ui.user) == COMM_AUTHENTICATION_CAPT))
+				var/input = tgui_input_text(ui.user, "Пожалуйста, напишите своё сообщение экипажу станции.", "Приоритетное оповещение", multiline = TRUE, encode = FALSE)
+				if(!input || message_cooldown > world.time || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_MSGLEN_MINIMUM)
 					to_chat(ui.user, span_warning("Сообщение '[input]' слишком короткое. Минимальное число символов - [COMM_MSGLEN_MINIMUM]."))
@@ -182,7 +186,7 @@
 				message_cooldown = world.time + 600 //One minute
 
 		if("callshuttle")
-			var/input = tgui_input_text(ui.user, "Пожалуйста, укажите причину вызова шаттла", "Причина вызова шаттла.","")
+			var/input = tgui_input_text(ui.user, "Пожалуйста, укажите причину вызова шаттла", "Причина вызова шаттла.","", encode = FALSE)
 			if(!input || ..() || !is_authenticated(ui.user))
 				return
 			call_shuttle_proc(ui.user, input)
@@ -256,7 +260,7 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, span_warning("Обработка массивов. Пожалуйста, подождите."))
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, укажите причину запроса кодов от устройства самоуничтожения. Злоупотребление системой запросов кодов недопустимо ни при каких обстоятельствах. Запрос не гарантирует ответа.", "Запрос кодов устройства самоуничтожения.")
+				var/input = tgui_input_text(ui.user, "Пожалуйста, укажите причину запроса кодов от устройства самоуничтожения. Злоупотребление системой запросов кодов недопустимо ни при каких обстоятельствах. Запрос не гарантирует ответа.", "Запрос кодов устройства самоуничтожения.", encode = FALSE)
 				if(isnull(input) || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -274,7 +278,7 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, span_warning("Обработка массивов. Пожалуйста, подождите."))
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи Центральному Командованию посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа", "Сообщение на ЦК")
+				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи Центральному Командованию посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа", "Сообщение на ЦК", encode = FALSE)
 				if(!input || ..() || !(is_authenticated(ui.user) == COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -293,7 +297,7 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, "Обработка массивов. Пожалуйста, подождите.")
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи в \[АНОМАЛЬНЫЕ КОРДИНАТЫ МАРШРУТИЗАЦИИ\] посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа.", "Отправить сообщение")
+				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи в \[АНОМАЛЬНЫЕ КОРДИНАТЫ МАРШРУТИЗАЦИИ\] посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа.", "Отправить сообщение", encode = FALSE)
 				if(!input || ..() || !(is_authenticated(ui.user) == COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -314,26 +318,31 @@
 
 		if("send_to_cc_announcement_page")
 			if(!ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки данного типа оповещений."))
 				return
 			setMenuState(ui.user, COMM_SCREEN_ANNOUNCER)
 
 		if("make_other_announcement")
 			if(!FULL_ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки данного типа оповещений."))
 				return
 			ui.user.client.cmd_admin_create_centcom_report()
 
 		if("dispatch_ert")
-			if(!FULL_ADMIN_CHECK(ui.user))
+			if(!ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки ОБР."))
 				return
-			ui.user.client.response_team() // check_rights is handled on the other side, if someone does get ahold of this
+			ui.user.client.send_response_team()// check_rights is handled on the other side, if someone does get ahold of this
 
 		if("send_nuke_codes")
 			if(!ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки кодов аутентификации."))
 				return
 			print_nuke_codes()
 
 		if("move_gamma_armory")
 			if(!FULL_ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки оружейного шаттла \"Гамма\"."))
 				return
 			SSblackbox.record_feedback("tally", "admin_comms_console", 1, "Send Gamma Armory")
 			log_and_message_admins("moved the gamma armory")
@@ -342,17 +351,20 @@
 
 		if("toggle_ert_allowed")
 			if(!FULL_ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для запрета вызова ОБР."))
 				return
 			ui.user.client.toggle_ert_calling()
 
 
 		if("view_fax")
 			if(!ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для открытия факс панели."))
 				return
 			ui.user.client.fax_panel()
 
 		if("make_cc_announcement")
 			if(!ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки данного типа оповещений."))
 				return
 			if(!params["classified"])
 				GLOB.command_announcement.Announce(
@@ -438,9 +450,9 @@
 		"line_2" = (stat_msg2 ? stat_msg2 : "-----"),
 
 		"presets" = list(
-			list("name" = "blank",    "label" = "Чисто",       "desc" = "Чистый лист"),
-			list("name" = "shuttle",  "label" = "Расчётное время прибытия шаттла",  "desc" = "Показать, сколько времени осталось до прибытия шаттла."),
-			list("name" = "message",  "label" = "Сообщение",     "desc" = "Пользовательское сообщение.")
+			list("name" = "blank", "id" = STATUS_DISPLAY_BLANK, "label" = "Чисто",       "desc" = "Чистый лист"),
+			list("name" = "shuttle", "id" = STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME, "label" = "Расчётное время прибытия шаттла",  "desc" = "Показать, сколько времени осталось до прибытия шаттла."),
+			list("name" = "message", "id" = STATUS_DISPLAY_MESSAGE, "label" = "Сообщение",     "desc" = "Пользовательское сообщение.")
 		),
 
 		"alerts"=list(

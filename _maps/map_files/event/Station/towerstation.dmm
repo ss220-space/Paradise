@@ -2051,6 +2051,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/bar/atrium)
+"bnN" = (
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/starboard)
 "boT" = (
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
@@ -2880,6 +2884,10 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/lawoffice)
+"bRT" = (
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/exit)
 "bSd" = (
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
@@ -7164,6 +7172,10 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay)
+"eOW" = (
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/plasteel,
+/area/medical/medbay)
 "ePS" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/window/reinforced{
@@ -7519,6 +7531,16 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/primary/central)
+"fbw" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/aft)
 "fbE" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -11036,6 +11058,11 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
+"hfO" = (
+/obj/machinery/camera/autoname,
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "hgz" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -13526,6 +13553,10 @@
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
+"iJe" = (
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/bar/atrium)
 "iJx" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/delivery,
@@ -19109,6 +19140,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
+"mmO" = (
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/plasteel,
+/area/medical/research)
 "mmX" = (
 /obj/machinery/door/airlock/atmos{
 	name = "Atmospherics Access";
@@ -20350,6 +20385,13 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
+"ncm" = (
+/obj/effect/turf_decal/stripes/red/line{
+	dir = 1
+	},
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/plasteel/dark,
+/area/hallway/secondary/entry)
 "ncD" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -28241,6 +28283,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
+"skG" = (
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/plasteel,
+/area/engineering/break_room)
 "sla" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -34849,6 +34895,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/medbay)
+"wrc" = (
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/central)
 "wri" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -69755,7 +69805,7 @@ wBh
 bap
 mKS
 alT
-ifb
+fbw
 oxq
 oNw
 mBm
@@ -132721,7 +132771,7 @@ oNy
 oNy
 oNy
 xOC
-guh
+ncm
 jnG
 fvr
 xOC
@@ -200570,7 +200620,7 @@ mma
 mma
 mma
 jXL
-uJh
+iJe
 uJh
 uJh
 jXL
@@ -266106,7 +266156,7 @@ oQA
 oQA
 oQA
 gWA
-sEB
+hfO
 rUg
 rUg
 gWA
@@ -333698,7 +333748,7 @@ jar
 jar
 jar
 lNH
-xgF
+eOW
 xgF
 hQl
 lNH
@@ -399234,7 +399284,7 @@ iZj
 iZj
 iZj
 ptv
-fKq
+mmO
 fKq
 gAH
 ptv
@@ -464770,7 +464820,7 @@ oVX
 oVX
 oVX
 riC
-tbt
+skG
 tbt
 jjQ
 riC
@@ -530306,7 +530356,7 @@ iHe
 iHe
 iHe
 sYJ
-sUW
+bnN
 sUW
 sIR
 sYJ
@@ -595842,7 +595892,7 @@ uJV
 uJV
 uJV
 pIt
-mBa
+wrc
 mBa
 pLN
 pIt
@@ -661378,7 +661428,7 @@ pZj
 pZj
 pZj
 nKk
-azd
+bRT
 azd
 tCb
 nKk

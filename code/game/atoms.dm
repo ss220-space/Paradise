@@ -1354,6 +1354,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/turf/curturf = get_turf(src)
 	if(curturf)
 		.["Jump to turf"] = "?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
+	.["Atom say"] = "?_src_=vars;atom_say=[UID()]"
 	.["Add reagent"] = "?_src_=vars;addreagent=[UID()]"
 	.["Edit reagents"] = "?_src_=vars;editreagents=[UID()]"
 	.["Transform editor"] = "?_src_=vars;matrix_tester=[UID()]"
@@ -1753,3 +1754,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  */
 /atom/proc/relaydrive(mob/living/user, direction)
 	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)
+
+///returns how much the object blocks an explosion. Used by subtypes.
+/atom/proc/get_explosion_block()
+	CRASH("Unimplemented get_explosion_block()")

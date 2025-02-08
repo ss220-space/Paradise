@@ -333,7 +333,7 @@
 			log_admin_rank_modification(adm_ckey, new_rank, rights)
 
 		else if(task == "permissions")
-			if(!D)	
+			if(!D)
 				return
 			var/new_value = input_bitfield(usr, "rights", D.rights)
 			if(!new_value)
@@ -341,7 +341,7 @@
 			var/add_bits = new_value & ~D.rights
 			var/removed_bits = D.rights & ~new_value
 			D.rights = new_value
-			edit_admin_permissions() 
+			edit_admin_permissions()
 			message_admins("[key_name_admin(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
 			log_admin("[key_name(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
 			log_admin_permission_modification(adm_ckey, new_value )
@@ -1009,6 +1009,9 @@
 			usr.client.open_logging_view(list(M), TRUE)
 
 	else if(href_list["geoip"])
+		if(!check_rights(R_ADMIN))
+			return
+
 		var/mob/M = locateUID(href_list["geoip"])
 		if (ismob(M))
 			if(!M.client)
@@ -1369,7 +1372,8 @@
 		H.monkeyize()
 
 	else if(href_list["forcespeech"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		var/mob/M = locateUID(href_list["forcespeech"])
 		if(!istype(M, /mob))
@@ -1386,45 +1390,26 @@
 	else if(href_list["sendtoprison"])
 		if(!check_rights(R_ADMIN))	return
 
-		if(alert(usr, "Send to admin prison for the round?", "Message", "Yes", "No") != "Yes")
+		if(tgui_alert(usr, "Отправить в админскую тюрьму на остаток раунда?", "Подтверждение", list("Да", "Нет")) != "Да")
 			return
 
 		var/mob/M = locateUID(href_list["sendtoprison"])
 		if(!istype(M, /mob))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>", confidential=TRUE)
+			to_chat(usr, span_warning("Это можно использовать только на объектах типа /mob"), confidential=TRUE)
 			return
 		if(istype(M, /mob/living/silicon/ai))
-			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>", confidential=TRUE)
+			to_chat(usr, span_warning("Это нельзя использовать на объектах типа /mob/living/silicon/ai"), confidential=TRUE)
 			return
 
 		var/turf/prison_cell = pick(GLOB.prisonwarp)
 		if(!prison_cell)	return
 
-		var/obj/structure/closet/secure_closet/brig/locker = new /obj/structure/closet/secure_closet/brig(prison_cell)
-		locker.opened = 0
-		locker.locked = 1
+		var/obj/structure/closet/supplypod/centcompod/prison_warp/pod = new()
+		pod.reverse_dropoff_coords = list(prison_cell.x, prison_cell.y, prison_cell.z)
+		pod.target = M
+		new /obj/effect/pod_landingzone(M, pod)
 
-		//strip their stuff and stick it in the crate
-		for(var/obj/item/I in M)
-			M.drop_transfer_item_to_loc(I, locker)
-		M.update_icons()
-
-		//so they black out before warping
-		if(isliving(M))
-			var/mob/living/L = M
-			L.Paralyse(10 SECONDS)
-		sleep(5)
-		if(!M)
-			return
-
-		M.forceMove(prison_cell)
-		if(ishuman(M))
-			var/mob/living/carbon/human/prisoner = M
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), ITEM_SLOT_CLOTH_INNER)
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), ITEM_SLOT_FEET)
-
-		to_chat(M, "<span class='warning'>You have been sent to the prison station!</span>")
-		log_and_message_admins("<span class='notice'>sent [key_name_admin(M)] to the prison station.</span>")
+		log_and_message_admins("sent [key_name_admin(M)] to the prison station.")
 
 	else if(href_list["sendbacktolobby"])
 		if(!check_rights(R_ADMIN))
@@ -1551,7 +1536,7 @@
 		usr.client.man_up(M)
 
 	else if(href_list["select_equip"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_EVENT))
 			return
 
 		var/mob/M = locateUID(href_list["select_equip"])
@@ -1569,6 +1554,9 @@
 			return
 		var/old_tts_seed = M.tts_seed
 		var/new_tts_seed = M.change_voice(usr, override = TRUE)
+		if(!new_tts_seed)
+			return
+
 		to_chat(M, "<span class='notice'>Your voice has been changed from [old_tts_seed] to [new_tts_seed].</span>", confidential=TRUE)
 		log_and_message_admins("has changed [key_name_admin(M)]'s voice from [old_tts_seed] to [new_tts_seed]")
 
@@ -1593,7 +1581,7 @@
 			return
 
 		usr.client.view_msays()
-		
+
 	else if(href_list["devsays"])
 		if(!check_rights(R_ADMIN | R_VIEWRUNTIMES))
 			return
@@ -1601,7 +1589,8 @@
 		usr.client.view_devsays()
 
 	else if(href_list["tdome1"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1627,7 +1616,8 @@
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Team 1)")
 
 	else if(href_list["tdome2"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1653,7 +1643,8 @@
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Team 2)")
 
 	else if(href_list["tdomeadmin"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1676,7 +1667,8 @@
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Admin.)")
 
 	else if(href_list["tdomeobserve"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1706,7 +1698,7 @@
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Observer.)")
 
 	else if(href_list["contractor_stop"])
-		if(!check_rights(R_DEBUG|R_ADMIN))
+		if(!check_rights(R_ADMIN))
 			return
 
 		var/mob/M = locateUID(href_list["contractor_stop"])
@@ -1729,7 +1721,7 @@
 		log_admin("[key_name(usr)] has stopped the automatic return of [key_name(M)] from the Syndicate Jail")
 
 	else if(href_list["contractor_start"])
-		if(!check_rights(R_DEBUG|R_ADMIN))
+		if(!check_rights(R_ADMIN))
 			return
 
 		var/mob/M = locateUID(href_list["contractor_start"])
@@ -1756,7 +1748,7 @@
 		log_admin("[key_name(usr)] has started the automatic return of [key_name(M)] from the Syndicate Jail in [time_seconds] second\s")
 
 	else if(href_list["contractor_release"])
-		if(!check_rights(R_DEBUG|R_ADMIN))
+		if(!check_rights(R_ADMIN))
 			return
 
 		var/mob/M = locateUID(href_list["contractor_release"])
@@ -1777,7 +1769,7 @@
 
 
 	else if(href_list["aroomwarp"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_ADMIN))	return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1937,16 +1929,22 @@
 		message_admins("[key_name_admin(G)] was incarnated by [key_name_admin(owner)]")
 
 	else if(href_list["togmutate"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["togmutate"])
+		var/source = href_list["version"]
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 		var/block=text2num(href_list["block"])
 		//testing("togmutate([href_list["block"]] -> [block])")
 		usr.client.cmd_admin_toggle_block(H,block)
-		show_player_panel(H)
+		if(source == "old")
+			show_player_panel(H)
+		else
+			usr.client.holder.Topic(null, list("showdna" = H.UID()))
+
 		//H.regenerate_icons()
 
 	else if(href_list["adminplayeropts"])
@@ -1992,7 +1990,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/message = tgui_input_text(usr, "Введите предупреждение", "Предупреждение")
+		var/message = tgui_input_text(usr, "Введите предупреждение", "Предупреждение", encode = FALSE)
 		if(tgui_alert(usr,"Вы действительно хотите отправить предупреждение всем блобам?", "", list("Да", "Нет")) == "Нет")
 			return
 
@@ -2907,18 +2905,19 @@
 
 		var/atom/target //Where the object will be spawned
 		var/where = href_list["object_where"]
-		if(!( where in list("onfloor","inhand","inmarked") ))
+		if(!( where in list("onfloor","frompod","inhand","inmarked")))
 			where = "onfloor"
 
 
 		switch(where)
+
 			if("inhand")
 				if(!iscarbon(usr) && !isrobot(usr))
 					to_chat(usr, "<span class='warning'>Can only spawn in hand when you're a carbon mob or cyborg.</span>", confidential=TRUE)
 					where = "onfloor"
 				target = usr
 
-			if("onfloor")
+			if("onfloor", "frompod")
 				switch(href_list["offset_type"])
 					if("absolute")
 						target = locate(0 + X,0 + Y,0 + Z)
@@ -2934,7 +2933,11 @@
 				else
 					target = marked_datum
 
+		var/obj/structure/closet/supplypod/centcompod/pod
+
 		if(target)
+			if(where == "frompod")
+				pod = new()
 			for(var/path in paths)
 				for(var/i = 0; i < number; i++)
 					if(path in typesof(/turf))
@@ -2943,7 +2946,13 @@
 						if(N && obj_name)
 							N.name = obj_name
 					else
-						var/atom/O = new path(target)
+						var/atom/O
+
+						if(where == "frompod")
+							O = new path(pod)
+						else
+							O = new path(target)
+
 						if(O)
 							O.flags |= ADMIN_SPAWNED
 							O.dir = obj_dir
@@ -2964,6 +2973,8 @@
 										R.module.rebuild()
 										R.activate_module(I)
 										R.module.fix_modules()
+		if(pod)
+			new /obj/effect/pod_landingzone(target, pod)
 
 		if(number == 1)
 			log_admin("[key_name(usr)] created a [english_list(paths)]")
@@ -3070,6 +3081,54 @@
 			if("gimmickteam")
 				if(usr.client.gimmick_team())
 					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Gimmick Team")
+			if("customportal")
+				if(!check_rights(R_EVENT))
+					return
+
+				var/list/settings = list(
+					"mainsettings" = list(
+					"typepath" = list("desc" = "Тип мобов для спавна", "type" = "datum", "path" = "/mob/living", "subtypesonly" = TRUE, "value" = /mob/living/simple_animal/hostile/poison/bees),
+					"amount" = list("desc" = "Число мобов", "type" = "number", "value" = 1),
+					"portalnum" = list("desc" = "Число порталов", "type" = "number", "value" = 10),
+					"delay" = list("desc" = "Время между порталами(в децесекундах)", "type" = "number", "value" = 50),
+					"color" = list("desc" = "Цвет портала", "type" = "color", "value" = "#00FF00"),
+					"playlightning" = list("desc" = "Проигрывать звук молнии при оповещении", "type" = "boolean", "value" = "Да"),
+					"announce_players" = list("desc" = "Делать оповещении", "type" = "boolean", "value" = "Да"),
+					"announcement" = list("desc" = "Оповещение", "type" = "string", "value" = "Массивная блюспейс аномалия зафиксирована вблизи станции %STATION%. Готовьтесь к худшему."),
+					)
+				)
+
+				message_admins("[key_name(usr)] is creating a custom portal storm...")
+				var/list/prefreturn = presentpreflikepicker(usr,"Настройка портального шторма", "Настройка портального шторма", Button1="Старт", width = 600, StealFocus = 1,Timeout = 0, settings=settings)
+
+				if (prefreturn["button"] == 1)
+					var/list/prefs = settings["mainsettings"]
+
+					if (prefs["amount"]["value"] < 1 || prefs["portalnum"]["value"] < 1)
+						to_chat(usr, "Число порталов для спавна должно быть минимум 1")
+						return
+
+					var/pathToSpawn = prefs["typepath"]["value"]
+					if (!ispath(pathToSpawn))
+						pathToSpawn = text2path(pathToSpawn)
+
+					if (!ispath(pathToSpawn))
+						to_chat(usr, "Некорректный тип [pathToSpawn]")
+						return
+
+					if (prefs["announce_players"]["value"] == "Да")
+						portalAnnounce(prefs["announcement"]["value"], (prefs["playlightning"]["value"] == "Да" ? TRUE : FALSE))
+
+					var/mutable_appearance/storm = mutable_appearance('icons/obj/stationobjs.dmi', "portal-projector0", FLY_LAYER)
+					storm.color = prefs["color"]["value"]
+
+					log_and_message_admins("has created a customized portal storm that will spawn [prefs["portalnum"]["value"]] portals, each of them spawning [prefs["amount"]["value"]] of [pathToSpawn]")
+
+					for (var/i in 1 to prefs["portalnum"]["value"])
+						var/turf/turf = get_random_station_turf()
+						while(iswallturf(turf))
+							turf = get_random_station_turf()
+						addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), turf, pathToSpawn, prefs["amount"]["value"], storm), i*prefs["delay"]["value"])
 			if("tripleAI")
 				usr.client.triple_ai()
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
@@ -3080,7 +3139,7 @@
 				if(!you_realy_want_do_this())
 					return
 
-				var/new_name = tgui_input_text(usr, "Пожалуйста, введите новое название станции.", "Что?", "")
+				var/new_name = tgui_input_text(usr, "Пожалуйста, введите новое название станции.", "Что?", "", encode = FALSE)
 				if(!new_name)
 					return
 				change_station_name(new_name)
@@ -3164,37 +3223,29 @@
 				if(!you_realy_want_do_this())
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Prison Warp")
-				log_and_message_admins("<span class='notice'>teleported all players to the prison station.</span>")
+				log_and_message_admins("teleported all players to the prison station.")
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
 					var/turf/loc = find_loc(H)
-					var/security = 0
-					if(!is_station_level(loc.z) || GLOB.prisonwarped.Find(H))
-
-//don't warp them if they aren't ready or are already there
+					var/security = FALSE
+					if(!is_station_level(loc.z) || GLOB.prisonwarped.Find(H)) //don't warp them if they aren't ready or are already there
 						continue
-					H.Paralyse(10 SECONDS)
 					if(H.wear_id)
 						var/obj/item/card/id/id = H.get_id_card()
 						if(istype(id))
 							for(var/A in id.access)
 								if(A == ACCESS_SECURITY)
-									security++
-					if(!security)
-						//strip their stuff before they teleport into a cell :downs:
-						for(var/obj/item/W in H)
-							if(istype(W, /obj/item/organ/external))
-								continue
-								//don't strip organs
-							H.drop_item_ground(W)
-						//teleport person to cell
-						H.forceMove(pick(GLOB.prisonwarp))
-						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), ITEM_SLOT_CLOTH_INNER)
-						H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), ITEM_SLOT_FEET)
-					else
-						//teleport security person
-						H.forceMove(pick(GLOB.prisonsecuritywarp))
-					GLOB.prisonwarped += H
+									security = TRUE
+					var/turf/prison_cell = pick((security? GLOB.prisonsecuritywarp : GLOB.prisonwarp))
+					if(!prison_cell)
+						continue
+
+					var/obj/structure/closet/supplypod/centcompod/prison_warp/pod = new()
+					pod.reverse_dropoff_coords = list(prison_cell.x, prison_cell.y, prison_cell.z)
+					pod.target = H
+					pod.security =security
+					new /obj/effect/pod_landingzone(H, pod)
+
 			if("traitor_all")
 				if(!SSticker)
 					alert("The game hasn't started yet!")
@@ -3340,17 +3391,18 @@
 
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				log_and_message_admins("made everything kawaii.")
-				for(var/mob/living/carbon/human/human in GLOB.mob_list)
+				for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
 					SEND_SOUND(human, 'sound/AI/animes.ogg')
 					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
 						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))
 						var/obj/item/clothing/head/kitty/hat = new
 						var/seifuku = pick(typesof(/obj/item/clothing/under/schoolgirl))
 						var/obj/item/clothing/under/schoolgirl/uniform = new seifuku
-						human.drop_item_ground(human.w_uniform, TRUE)
+						human.drop_item_ground(human.w_uniform, TRUE, FALSE, TRUE)
 						human.equip_to_slot_or_del(uniform, uniform.slot_flags)
-						human.drop_item_ground(human.head, TRUE)
+						human.drop_item_ground(human.head, TRUE, FALSE, TRUE)
 						human.equip_to_slot_or_del(hat, hat.slot_flags)
+
 						ADD_TRAIT(uniform, TRAIT_NODROP, INNATE_TRAIT)
 						ADD_TRAIT(hat, TRAIT_NODROP, INNATE_TRAIT)
 					var/list/honorifics = list(MALE = list("кун"), FEMALE = list("чан","тан"), NEUTER = list("сан")) //John Robust -> Robust-kun
@@ -3568,6 +3620,11 @@
 					message_admins("[key_name_admin(usr)] moved the gamma armory")
 					log_admin("[key_name(usr)] moved the gamma armory")
 					GLOB.gamma_ship_location = !GLOB.gamma_ship_location
+
+			if("spawn_cargo_crate")
+				if(!you_realy_want_do_this())
+					return
+				create_cargo_crate()
 
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")
@@ -3817,10 +3874,10 @@
 			return
 		var/datum/outfit/O = locate(href_list["chosen_outfit"]) in GLOB.custom_outfits
 		save_outfit(usr,O)
-	else if(href_list["open_ccbdb"])
+	else if(href_list["open_ccDB"])
 		if(!check_rights(R_ADMIN))
 			return
-		create_ccbdb_lookup(href_list["open_ccbdb"])
+		create_ccbdb_lookup(href_list["open_ccDB"])
 	else if(href_list["slowquery"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -3847,6 +3904,50 @@
 		var/start_index = text2num(href_list["startat"]) || 0
 		poll_results_panel(poll, start_index)
 
+	else if(href_list["showrelatedacc"])
+		var/client/C = locate(href_list["client"]) in GLOB.clients
+		var/thing_to_check
+		if(href_list["showrelatedacc"] == "cid")
+			thing_to_check = jointext(C.related_accounts_cid, "<br>")
+		else
+			thing_to_check = jointext(C.related_accounts_ip, "<br>")
+
+
+		var/list/dat = list("Related accounts by [uppertext(href_list["showrelatedacc"])]:")
+		dat += thing_to_check
+
+		usr << browse(dat.Join("<br>"), "window=related_[C];size=420x300")
+
+	else if(href_list["showdna"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/living/carbon/M = locateUID(href_list["showdna"])
+		if(!M.dna || !iscarbon(M))
+			to_chat(usr, span_warning("It doesn't have DNA nor it's carbon mob!"))
+			return
+
+		var/list/body = list()
+		body += "<b>DNA Blocks:</b><br><table border='0'><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>"
+		for(var/block in 1 to DNA_SE_LENGTH)
+			if(!((block - 1) % 5))
+				body += "</tr><tr><th>[block - 1]</th>"
+
+			body += "<td>"
+			var/gene_name = GLOB.assigned_blocks[block]
+			if(gene_name)
+				var/text_color = "[M.dna.GetSEState(block) ? "#006600" : "#ff0000"]"
+				body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block];version=new' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
+			else
+				body += "[block]"
+			body += "</td>"
+		body += "</tr></table>"
+
+		var/datum/browser/popup = new(usr, "show_dna", "<div align='center'>DNA</div>", 700, 500)
+		popup.set_content(body.Join(""))
+		popup.set_window_options("can_close=1;window=related_[M];")
+		popup.open()
+		onclose(usr, "show_dna")
 
 /client/proc/create_eventmob_for(var/mob/living/carbon/human/H, var/killthem = 0)
 	if(!check_rights(R_EVENT))
@@ -3929,3 +4030,20 @@
 /proc/you_realy_want_do_this()
 	var/sure = tgui_alert(usr, "Вы действительно хотите сделать это?", "Подтверждение", list("Да", "Нет"))
 	return sure == "Да"
+
+
+/proc/portalAnnounce(announcement, playlightning)
+	set waitfor = 0
+	if (playlightning)
+		sound_to_playing_players('sound/magic/lightning_chargeup.ogg')
+		sleep(80)
+	GLOB.priority_announcement.Announce(replacetext(announcement, "%STATION%", station_name()))
+	if (playlightning)
+		sleep(20)
+		sound_to_playing_players('sound/magic/lightningbolt.ogg')
+
+/proc/doPortalSpawn(turf/loc, mobtype, numtospawn, portal_appearance)
+	loc.flick_overlay_static(portal_appearance, 15)
+	playsound(loc, "sparks", rand(80, 100), 1)
+	for (var/i in 1 to numtospawn)
+		new mobtype(loc)

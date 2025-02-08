@@ -47,7 +47,7 @@
 		H += M.rating
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		T += M.rating
-	min_temperature = max(0,T0C - (170 + (T*15)))
+	min_temperature = max(TCMB, T0C - (170 + (T*15)))
 	current_heat_capacity = 1000 * ((H - 1) ** 2)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/on_construction()

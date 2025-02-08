@@ -4,6 +4,15 @@
 
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
+	desc = "Высокотехнологичная машина, способная синтезировать определённые вещества с помощью сложных физико-химических процессов. Даже не спрашивайте, как оно работает - вы всё равно не поймёте."
+	ru_names = list(
+		NOMINATIVE = "химический раздатчик",
+		GENITIVE = "химического раздатчика",
+		DATIVE = "химическому раздатчику",
+		ACCUSATIVE = "химический раздатчик",
+		INSTRUMENTAL = "химическим раздатчиком",
+		PREPOSITIONAL = "химическом раздатчике"
+	)
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
@@ -11,7 +20,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	var/ui_title = "Chem Dispenser 5000"
+	var/ui_title = "ХимРаздатчик 5000"
 	var/cell_type = /obj/item/stock_parts/cell/high
 	var/obj/item/stock_parts/cell/cell
 	var/powerefficiency = 0.1
@@ -27,8 +36,6 @@
 	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "iodine", "bromine", "silver", "chromium")
 	var/list/upgrade_reagents = list("oil", "ash", "acetone", "saltpetre", "ammonia", "diethylamine", "fuel")
 	var/list/hacked_reagents = list("toxin")
-	var/hack_message = "You disable the safety safeguards, enabling the \"Mad Scientist\" mode."
-	var/unhack_message = "You re-enable the safety safeguards, enabling the \"NT Standard\" mode."
 	var/is_drink = FALSE
 
 /obj/machinery/chem_dispenser/get_cell()
@@ -74,7 +81,15 @@
 
 /obj/machinery/chem_dispenser/mutagensaltpeter
 	name = "botanical chemical dispenser"
-	desc = "Creates and dispenses chemicals useful for botany."
+	desc = "Узкоспециализированная модель химического раздатчика, настроенная на синтез ограниченного числа веществ, специально для ботанических нужд."
+	ru_names = list(
+		NOMINATIVE = "ботанический раздатчик",
+		GENITIVE = "ботанического раздатчика",
+		DATIVE = "ботаническому раздатчику",
+		ACCUSATIVE = "ботанический раздатчик",
+		INSTRUMENTAL = "ботаническим раздатчиком",
+		PREPOSITIONAL = "ботаническом раздатчике"
+	)
 	obj_flags = NODECONSTRUCT
 
 	dispensable_reagents = list(
@@ -127,9 +142,9 @@
 /obj/machinery/chem_dispenser/examine(mob/user)
 	. = ..()
 	if(panel_open)
-		. += "<span class='notice'>[src]'s maintenance hatch is open!</span>"
+		. += span_notice("Панель техобслуживания открыта.")
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: <br>Recharging <b>[recharge_amount]</b> power units per interval.<br>Power efficiency increased by <b>[round((powerefficiency * 1000) - 100, 1)]%</b>.<span>"
+		. += span_notice("<br>Монитор состояния сообщает: скорость зарядки - <b>[recharge_amount]</b> единиц[declension_ru(recharge_amount, "у", "ы", "")] энергии за единицу времени.<br>Энергоэффективность увеличена на <b>[round((powerefficiency * 1000) - 100, 1)]%</b>")
 
 
 /obj/machinery/chem_dispenser/process()
@@ -256,15 +271,15 @@
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks))
 		add_fingerprint(user)
 		if(panel_open)
-			to_chat(user, span_warning("Close the maintenance panel first."))
+			balloon_alert(user, "техпанель открыта!")
 			return ATTACK_CHAIN_PROCEED
 		if(beaker)
-			to_chat(user, span_warning("The [name] already has [beaker] loaded."))
+			balloon_alert(user, "слот для ёмкости занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		beaker = I
-		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		balloon_alert(user, "ёмкость установлена")
 		SStgui.update_uis(src) // update all UIs attached to src
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -274,6 +289,7 @@
 
 /obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)
+		balloon_alert(user, "техпанель закрыта!")
 		return
 	if(default_deconstruction_crowbar(user, I))
 		return TRUE
@@ -307,7 +323,7 @@
 		return
 
 	hackedcheck = !hackedcheck
-	to_chat(user, hackedcheck ? hack_message : unhack_message)
+	balloon_alert(user, "защитные протоколы [hackedcheck ? "активированы" : "дезактивированы"]")
 	update_reagents(UPDATE_TYPE_HACK)
 	SStgui.update_uis(src)
 
@@ -361,18 +377,24 @@
 
 
 /obj/machinery/chem_dispenser/soda
-	icon_state = "soda_dispenser"
 	name = "soda fountain"
-	desc = "A drink fabricating machine, capable of producing many sugary drinks with just one touch."
-	ui_title = "Soda Dispens-o-matic"
+	desc = "Машина, способная синтезировать целый ряд самых разных напитков. Круто!"
+	ru_names = list(
+		NOMINATIVE = "раздатчик напитков",
+		GENITIVE = "раздатчика напитков",
+		DATIVE = "раздатчику напитков",
+		ACCUSATIVE = "раздатчик напитков",
+		INSTRUMENTAL = "раздатчиком напитков",
+		PREPOSITIONAL = "раздатчике напитков"
+	)
+	icon_state = "soda_dispenser"
+	ui_title = "Фонтан Напитков 10000"
 	dispensable_reagents = list("water", "ice", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
 	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
 	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
 	upgrade_reagents = list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea")
 	hacked_reagents = list("thirteenloko")
-	var/list/hackedupgrade_reagents = list("zaza")
-	hack_message = "You change the mode from 'McNano' to 'Pizza King'."
-	unhack_message = "You change the mode from 'Pizza King' to 'McNano'."
+	var/list/hackedupgrade_reagents = list("zaza") //I possess zaza
 	is_drink = TRUE
 
 /obj/machinery/chem_dispenser/soda/New()
@@ -413,15 +435,21 @@
 
 
 /obj/machinery/chem_dispenser/beer
-	icon_state = "booze_dispenser"
 	name = "booze dispenser"
-	ui_title = "Booze Portal 9001"
-	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
+	desc = "Машина, способная синтезировать для вас любую алкогольную бурду, которая только может прийти в голову. Настоящее чудо алкологольных технологий!"
+	ru_names = list(
+		NOMINATIVE = "раздатчик алкоголя",
+		GENITIVE = "раздатчика алкоголя",
+		DATIVE = "раздатчику алкоголя",
+		ACCUSATIVE = "раздатчик алкоголя",
+		INSTRUMENTAL = "раздатчиком алкоголя",
+		PREPOSITIONAL = "раздатчике алкоголя"
+	)
+	icon_state = "booze_dispenser"
+	ui_title = "Наливатель Бухла 9001"
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol", "jagermeister", "bluecuracao", "sambuka", "schnaps", "sheridan")
 	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
 	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "bitter", "champagne", "aperol", "noalco_beer")
-	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
-	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
 	is_drink = TRUE
 
 /obj/machinery/chem_dispenser/beer/New()
@@ -451,8 +479,16 @@
 //botanical chemical dispenser
 /obj/machinery/chem_dispenser/botanical
 	name = "botanical chemical dispenser"
-	desc = "A botanical chemical dispenser on a budget."
-	ui_title = "Botanical Chem Dispenser"
+	desc = "Узкоспециализированная модель химического раздатчика, настроенная на синтез ограниченного числа веществ, специально для ботанических нужд."
+	ru_names = list(
+		NOMINATIVE = "ботанический раздатчик",
+		GENITIVE = "ботанического раздатчика",
+		DATIVE = "ботаническому раздатчику",
+		ACCUSATIVE = "ботанический раздатчик",
+		INSTRUMENTAL = "ботаническим раздатчиком",
+		PREPOSITIONAL = "ботаническом раздатчике"
+	)
+	ui_title = "Ботанический ХимРаздатчик"
 	dispensable_reagents = list("mutagen", "saltpetre", "ammonia", "water")
 	upgrade_reagents = list("atrazine", "glyphosate", "pestkiller", "diethylamine", "ash")
 
@@ -483,6 +519,15 @@
 // Handheld chem dispenser
 /obj/item/handheld_chem_dispenser
 	name = "handheld chem dispenser"
+	desc = "Компактная версия химического раздатчика. Удобно!"
+	ru_names = list(
+		NOMINATIVE = "ручной химический раздатчик",
+		GENITIVE = "ручного химического раздатчика",
+		DATIVE = "ручному химическому раздатчику",
+		ACCUSATIVE = "ручной химический раздатчик",
+		INSTRUMENTAL = "ручным химическим раздатчиком",
+		PREPOSITIONAL = "ручном химическом раздатчике"
+	)
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "handheld_chem"
 	icon_state = "handheld_chem"
@@ -526,20 +571,20 @@
 			target.reagents.add_reagent(current_reagent, actual)
 			cell.charge -= actual / efficiency
 			if(actual)
-				to_chat(user, "<span class='notice'>You dispense [amount] units of [current_reagent] into the [target].</span>")
+				to_chat(user, span_notice("Вы наливаете [amount] единиц[declension_ru(amount, "у", "ы", "")] [current_reagent] в [target.declent_ru(ACCUSATIVE)]."))
 			update_icon(UPDATE_OVERLAYS)
 		if("remove")
 			if(!target.reagents.remove_reagent(current_reagent, amount))
-				to_chat(user, "<span class='notice'>You remove [amount] units of [current_reagent] from the [target].</span>")
+				to_chat(user, span_notice("Вы удаляете [amount] единиц[declension_ru(amount, "у", "ы", "")] [current_reagent] из [target.declent_ru(GENITIVE)]."))
 		if("isolate")
 			if(!target.reagents.isolate_reagent(current_reagent))
-				to_chat(user, "<span class='notice'>You remove all but the [current_reagent] from the [target].</span>")
+				to_chat(user, span_notice("Вы удаляете всё, кроме [current_reagent] в [target.declent_ru(PREPOSITIONAL)]."))
 
 /obj/item/handheld_chem_dispenser/attack_self(mob/user)
 	if(cell)
 		ui_interact(user)
 	else
-		to_chat(user, "<span class='warning'>The [src] lacks a power cell!</span>")
+		balloon_alert(user, "нет батареи!")
 
 /obj/item/handheld_chem_dispenser/ui_state(mob/user)
 	return GLOB.inventory_state
@@ -547,7 +592,7 @@
 /obj/item/handheld_chem_dispenser/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "HandheldChemDispenser", name)
+		ui = new(user, src, "HandheldChemDispenser", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 /obj/item/handheld_chem_dispenser/ui_data(mob/user)
@@ -639,16 +684,16 @@
 	if(istype(I, /obj/item/stock_parts/cell))
 		add_fingerprint(user)
 		if(cell)
-			to_chat(user, span_warning("The [name] already has a cell."))
+			balloon_alert(user, "слот для батареи занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(cell.maxcharge < 100)
-			to_chat(user, span_warning("The [name] requires a higher capacity cell."))
+			balloon_alert(user, "требуется батарея большей ёмкости!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		cell = I
 		update_icon(UPDATE_OVERLAYS)
-		to_chat(user, span_notice("You have installed [I] into the [src]."))
+		balloon_alert(user, "батарея установлена")
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -657,15 +702,15 @@
 /obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(isrobot(loc))
-		to_chat(user, span_warning("That was dumb idea."))
+		balloon_alert(user, "невозможно!")
 		return .
 	if(!cell)
 		add_fingerprint(user)
-		to_chat(user, span_warning("The [name] has no power cell installed."))
+		balloon_alert(user, "батарея отсутствует!")
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
-	to_chat(user, span_notice("You have removed [cell] from [src]."))
+	balloon_alert(user, "батарея извлечена")
 	cell.update_icon()
 	cell.forceMove(drop_location())
 	cell.add_fingerprint(user)
@@ -675,6 +720,15 @@
 
 /obj/item/handheld_chem_dispenser/booze
 	name = "handheld bar tap"
+	desc = "Компактная версия алкогольного раздатчика. Удобно!"
+	ru_names = list(
+		NOMINATIVE = "ручной алкогольный раздатчик",
+		GENITIVE = "ручного алкогольного раздатчика",
+		DATIVE = "ручному алкогольному раздатчику",
+		ACCUSATIVE = "ручной алкогольный раздатчик",
+		INSTRUMENTAL = "ручным алкогольным раздатчиком",
+		PREPOSITIONAL = "ручном алкогольном раздатчике"
+	)
 	item_state = "handheld_booze"
 	icon_state = "handheld_booze"
 	is_drink = TRUE
@@ -685,6 +739,15 @@
 
 /obj/item/handheld_chem_dispenser/soda
 	name = "handheld soda fountain"
+	desc = "Компактная версия раздатчика напитков. Удобно!"
+	ru_names = list(
+		NOMINATIVE = "ручной раздатчик напитков",
+		GENITIVE = "ручного раздатчика напитков",
+		DATIVE = "ручному раздатчику напитков",
+		ACCUSATIVE = "ручной раздатчик напитков",
+		INSTRUMENTAL = "ручным раздатчиком напитков",
+		PREPOSITIONAL = "ручном раздатчике напитков"
+	)
 	item_state = "handheld_soda"
 	icon_state = "handheld_soda"
 	is_drink = TRUE
@@ -695,6 +758,15 @@
 
 /obj/item/handheld_chem_dispenser/botanical
 	name = "handheld botanical chemical dispenser"
+	desc = "Компактная версия ботанического раздатчика. Удобно!"
+	ru_names = list(
+		NOMINATIVE = "ручной ботанический раздатчик",
+		GENITIVE = "ручного ботанического раздатчика",
+		DATIVE = "ручному ботаническому раздатчику",
+		ACCUSATIVE = "ручной ботанический раздатчик",
+		INSTRUMENTAL = "ручным ботаническим раздатчиком",
+		PREPOSITIONAL = "ручном ботаническом раздатчике"
+	)
 	dispensable_reagents = list(
 		"mutagen",
 		"saltpetre",
@@ -712,6 +784,15 @@
 
 /obj/item/handheld_chem_dispenser/cooking
 	name = "handheld cooking chemical dispenser"
+	desc = "Компактный кухонный раздатчик. Удобно!"
+	ru_names = list(
+		NOMINATIVE = "компактный кухонный раздатчик",
+		GENITIVE = "компактного кухонного раздатчика",
+		DATIVE = "компактному кухонному раздатчику",
+		ACCUSATIVE = "компактный кухонный раздатчик",
+		INSTRUMENTAL = "компактным кухонным раздатчиком",
+		PREPOSITIONAL = "компактном кухонном раздатчике"
+	)
 	dispensable_reagents = list(
 		"sodiumchloride",
 		"blackpepper",

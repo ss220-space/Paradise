@@ -47,20 +47,20 @@ const doEdit = (context, field) => {
 const virusModalBodyOverride = (modal, context) => {
   const virus = modal.args;
   return (
-    <Section m="-1rem" pb="1.5rem" title={virus.name || 'Virus'}>
+    <Section m="-1rem" pb="1.5rem" title={virus.name || 'Вирус'}>
       <Box mx="0.5rem">
         <LabeledList>
-          <LabeledList.Item label="Number of stages">
+          <LabeledList.Item label="Количество стадий">
             {virus.max_stages}
           </LabeledList.Item>
-          <LabeledList.Item label="Spread">
-            {virus.spread_text} Transmission
+          <LabeledList.Item label="Распространение">
+            {virus.spread_text}
           </LabeledList.Item>
-          <LabeledList.Item label="Possible cure">
+          <LabeledList.Item label="Возможные методы лечения">
             {virus.cure}
           </LabeledList.Item>
-          <LabeledList.Item label="Notes">{virus.desc}</LabeledList.Item>
-          <LabeledList.Item label="Severity" color={severities[virus.severity]}>
+          <LabeledList.Item label="Заметки">{virus.desc}</LabeledList.Item>
+          <LabeledList.Item label="Тяжесть" color={severities[virus.severity]}>
             {virus.severity}
           </LabeledList.Item>
         </LabeledList>
@@ -127,7 +127,7 @@ const MedicalRecordsList = (_properties, context) => {
         <Stack fill>
           <Stack.Item>
             <Button
-              content="Manage Records"
+              content="Медицинские записи"
               icon="wrench"
               ml="0.25rem"
               onClick={() => act('screen', { screen: 3 })}
@@ -136,7 +136,7 @@ const MedicalRecordsList = (_properties, context) => {
           <Stack.Item grow>
             <Input
               fluid
-              placeholder="Search by Name, ID, Physical Status, or Mental Status"
+              placeholder="Введите Имя, ID, Физическое или Психологическое состояние"
               onInput={(e, value) => setSearchText(value)}
             />
           </Stack.Item>
@@ -146,11 +146,11 @@ const MedicalRecordsList = (_properties, context) => {
         <Section fill scrollable>
           <Table className="MedicalRecords__list">
             <Table.Row bold>
-              <SortButton id="name">Name</SortButton>
+              <SortButton id="name">Имя</SortButton>
               <SortButton id="id">ID</SortButton>
-              <SortButton id="rank">Assignment</SortButton>
-              <SortButton id="p_stat">Patient Status</SortButton>
-              <SortButton id="m_stat">Mental Status</SortButton>
+              <SortButton id="rank">Должность</SortButton>
+              <SortButton id="p_stat">Физическое состояние</SortButton>
+              <SortButton id="m_stat">Психологическое состояние</SortButton>
             </Table.Row>
             {records
               .filter(
@@ -209,7 +209,7 @@ const MedicalRecordsMaintenance = (_properties, context) => {
             lineHeight={3}
             color="translucent"
             icon="download"
-            content="Backup to Disk"
+            content="Резервное копирование на дискету"
             disabled
           />
         </Stack.Item>
@@ -219,7 +219,7 @@ const MedicalRecordsMaintenance = (_properties, context) => {
             lineHeight={3}
             color="translucent"
             icon="upload"
-            content="Upload from Disk"
+            content="Загрузить с дискеты"
             my="0.5rem"
             disabled
           />{' '}
@@ -230,7 +230,7 @@ const MedicalRecordsMaintenance = (_properties, context) => {
             lineHeight={3}
             icon="trash"
             color="translucent"
-            content="Delete All Medical Records"
+            content="Удалить базу данных медицинских записей"
             onClick={() => act('del_all')}
           />
         </Stack.Item>
@@ -248,13 +248,13 @@ const MedicalRecordsView = (_properties, context) => {
         <Section
           fill
           scrollable
-          title="General Data"
+          title="Основная информация"
           buttons={
             <Button
               icon={printing ? 'spinner' : 'print'}
               disabled={printing}
               iconSpin={!!printing}
-              content="Print Record"
+              content="Распечатать запись"
               ml="0.5rem"
               onClick={() => act('print_record')}
             />
@@ -267,11 +267,11 @@ const MedicalRecordsView = (_properties, context) => {
         <Stack.Item grow color="bad">
           <Section
             fill
-            title="Medical Data"
+            title="Медицинская информация"
             buttons={
               <Button
                 icon="pen"
-                content="Create New Record"
+                content="Создать новую запись"
                 onClick={() => act('new')}
               />
             }
@@ -290,7 +290,7 @@ const MedicalRecordsView = (_properties, context) => {
                   <Icon name="slash" size={5} color="red" />
                 </Icon.Stack>
                 <br />
-                Medical records lost!
+                Медицинская запись утрачена!
               </Stack.Item>
             </Stack>
           </Section>
@@ -301,12 +301,12 @@ const MedicalRecordsView = (_properties, context) => {
             <Section
               fill
               scrollable
-              title="Medical Data"
+              title="Медицинская информация"
               buttons={
                 <Button.Confirm
                   icon="trash"
                   disabled={!!medical.empty}
-                  content="Delete Medical Record"
+                  content="Удалить медицинскую запись"
                   onClick={() => act('del_r')}
                 />
               }
@@ -367,7 +367,7 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
               }}
             />
             <br />
-            Photo #{i + 1}
+            Фото №{i + 1}
           </Stack.Item>
         ))}
     </Stack>
@@ -381,7 +381,7 @@ const MedicalRecordsViewMedical = (_properties, context) => {
     return (
       <Stack fill vertical>
         <Stack.Item grow color="bad">
-          <Section fill>Medical records lost!</Section>
+          <Section fill>Медицинская запись утрачена!</Section>
         </Stack.Item>
       </Stack>
     );
@@ -417,17 +417,17 @@ const MedicalRecordsViewComments = (_properties, context) => {
       <Section
         fill
         scrollable
-        title="Comments/Log"
+        title="Комментарии"
         buttons={
           <Button
             icon="comment"
-            content="Add Entry"
+            content="Добавить комментарий"
             onClick={() => modalOpen(context, 'add_comment')}
           />
         }
       >
         {medical.comments.length === 0 ? (
-          <Box color="label">No comments found.</Box>
+          <Box color="label">Комментарии отсутствуют.</Box>
         ) : (
           medical.comments.map((comment, i) => (
             <Box key={i}>
@@ -466,7 +466,7 @@ const MedicalRecordsViruses = (_properties, context) => {
         <Input
           ml="0.25rem"
           fluid
-          placeholder="Search by Name, Max Stages, or Severity"
+          placeholder="Введите Название, Количество Стадий или Тяжесть"
           onInput={(e, value) => setSearchText(value)}
         />
       </Stack.Item>
@@ -475,9 +475,9 @@ const MedicalRecordsViruses = (_properties, context) => {
           <Section fill scrollable>
             <Table className="MedicalRecords__list">
               <Table.Row bold>
-                <SortButton2 id="name">Name</SortButton2>
-                <SortButton2 id="max_stages">Max Stages</SortButton2>
-                <SortButton2 id="severity">Severity</SortButton2>
+                <SortButton2 id="name">Название</SortButton2>
+                <SortButton2 id="max_stages">Количество стадий</SortButton2>
+                <SortButton2 id="severity">Тяжесть</SortButton2>
               </Table.Row>
               {virus
                 .filter(
@@ -533,7 +533,7 @@ const MedicalRecordsMedbots = (_properties, context) => {
                 <Icon name="slash" size={5} color="red" />
               </Icon.Stack>
               <br />
-              There are no Medibots.
+              Медботы не обнаружены.
             </Stack.Item>
           </Stack>
         </Section>
@@ -545,10 +545,10 @@ const MedicalRecordsMedbots = (_properties, context) => {
       <Section fill scrollable>
         <Table className="MedicalRecords__list">
           <Table.Row bold>
-            <Table.Cell>Name</Table.Cell>
-            <Table.Cell>Area</Table.Cell>
-            <Table.Cell>Status</Table.Cell>
-            <Table.Cell>Chemicals</Table.Cell>
+            <Table.Cell>Название</Table.Cell>
+            <Table.Cell>Локация</Table.Cell>
+            <Table.Cell>Состояние</Table.Cell>
+            <Table.Cell>Химикаты</Table.Cell>
           </Table.Row>
           {medbots.map((medbot) => (
             <Table.Row
@@ -559,22 +559,22 @@ const MedicalRecordsMedbots = (_properties, context) => {
                 <Icon name="medical" /> {medbot.name}
               </Table.Cell>
               <Table.Cell>
-                {medbot.area || 'Unknown'} ({medbot.x}, {medbot.y})
+                {medbot.area || 'Неизвестно'} ({medbot.x}, {medbot.y})
               </Table.Cell>
               <Table.Cell>
                 {medbot.on ? (
-                  <Box color="good">Online</Box>
+                  <Box color="good">Включён</Box>
                 ) : (
-                  <Box color="average">Offline</Box>
+                  <Box color="average">Выключен</Box>
                 )}
               </Table.Cell>
               <Table.Cell>
                 {medbot.use_beaker
-                  ? 'Reservoir: ' +
+                  ? 'Ёмкость: ' +
                     medbot.total_volume +
                     '/' +
                     medbot.maximum_volume
-                  : 'Using internal synthesizer'}
+                  : 'Используется внутренний синтезатор'}
               </Table.Cell>
             </Table.Row>
           ))}
@@ -655,7 +655,7 @@ const MedicalRecordsNavigation = (_properties, context) => {
             act('screen', { screen: 2 });
           }}
         >
-          List Records
+          Просмотр записей
         </Tabs.Tab>
         <Tabs.Tab
           icon="database"
@@ -664,23 +664,23 @@ const MedicalRecordsNavigation = (_properties, context) => {
             act('screen', { screen: 5 });
           }}
         >
-          Virus Database
+          База данных вирусов
         </Tabs.Tab>
         <Tabs.Tab
           icon="plus-square"
           selected={screen === 6}
           onClick={() => act('screen', { screen: 6 })}
         >
-          Medibot Tracking
+          Отслеживание медботов
         </Tabs.Tab>
         {screen === 3 && (
           <Tabs.Tab icon="wrench" selected={screen === 3}>
-            Record Maintenance
+            Обслуживание базы данных записей
           </Tabs.Tab>
         )}
         {screen === 4 && general && !general.empty && (
           <Tabs.Tab icon="file" selected={screen === 4}>
-            Record: {general.fields[0].value}
+            Запись: {general.fields[0].value}
           </Tabs.Tab>
         )}
       </Tabs>
