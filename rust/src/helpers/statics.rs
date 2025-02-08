@@ -1,5 +1,4 @@
-use byondapi::sys::ByondValueData;
-use byondapi::sys::CByondValue;
+use byondapi::sys::{ByondValueData, CByondValue};
 use byondapi::value::ByondValue;
 
 pub static WORLD: ByondValue = ByondValue(CByondValue {
