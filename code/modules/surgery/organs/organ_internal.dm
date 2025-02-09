@@ -447,15 +447,14 @@
 
 /obj/item/organ/internal/beard
 	name = "beard organ"
-	desc = "Пусть те, кто достоин, носят бороду Торбьернсдоттир."
-	desc = "Наполненный воздухом мешок, который издаёт звуки, напоминающие велосипедный гудок."
+	desc = "Пусть те, кто достоин, носят бороду Торбьёрнсдоттир."
 	ru_names = list(
-		NOMINATIVE = "гудящий пузырь",
-		GENITIVE = "гудящего пузыря",
-		DATIVE = "гудящему пузырю",
-		ACCUSATIVE = "гудящий пузырь",
-		INSTRUMENTAL = "гудящим пузырём",
-		PREPOSITIONAL = "гудящем пузыре"
+		NOMINATIVE = "бородатый орган",
+		GENITIVE = "бородатого органа",
+		DATIVE = "бородатому органу",
+		ACCUSATIVE = "бородатый орган",
+		INSTRUMENTAL = "бородатым органом",
+		PREPOSITIONAL = "бородатом органе"
 	)
 	icon_state = "liver"
 	origin_tech = "biotech=1"
