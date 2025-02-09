@@ -1,49 +1,109 @@
 /obj/item/organ/external/chest/diona
 	species_type = /datum/species/diona
 	name = "core trunk"
+	desc = "Основной ствол - ядро."
+	ru_names = list(
+		NOMINATIVE = "основной ствол",
+		GENITIVE = "основного ствола",
+		DATIVE = "основному стволу",
+		ACCUSATIVE = "основной ствол",
+		INSTRUMENTAL = "основным стволом",
+		PREPOSITIONAL = "основном стволе"
+	)
+	gender = MALE
 	max_damage = 200
 	min_broken_damage = 50
-	amputation_point = "trunk"
+	amputation_point = "ствол"
 	encased = null
 	gendered_icon = FALSE
 
 /obj/item/organ/external/groin/diona
 	species_type = /datum/species/diona
 	name = "fork"
+	desc = "Нижнее разветвление ствола."
+	ru_names = list(
+		NOMINATIVE = "нижнее разветвление",
+		GENITIVE = "нижнего разветвления",
+		DATIVE = "нижнему разветвлению",
+		ACCUSATIVE = "нижнее разветвление",
+		INSTRUMENTAL = "нижним разветвлением",
+		PREPOSITIONAL = "нижнем разветвлении"
+	)
+	gender = NEUTER
 	min_broken_damage = 50
-	amputation_point = "lower trunk"
+	amputation_point = "нижний ствол"
 	gendered_icon = FALSE
 
 /obj/item/organ/external/arm/diona
 	species_type = /datum/species/diona
 	name = "left upper tendril"
+	desc = "Верхнее левое ответвление ствола."
+	ru_names = list(
+		NOMINATIVE = "левый верхний отросток",
+		GENITIVE = "левого верхнего отростка",
+		DATIVE = "левому верхнему отростку",
+		ACCUSATIVE = "левый верхний отросток",
+		INSTRUMENTAL = "левым верхним отростоком",
+		PREPOSITIONAL = "левом верхнем отростке"
+	)
+	gender = MALE
 	max_damage = 35
 	min_broken_damage = 20
-	amputation_point = "upper left trunk"
+	amputation_point = "левый верхний отросток"
 	convertable_children = list(/obj/item/organ/external/hand/diona)
 
 /obj/item/organ/external/arm/right/diona
 	species_type = /datum/species/diona
 	name = "right upper tendril"
+	desc = "Верхнее правое ответвление ствола."
+	ru_names = list(
+		NOMINATIVE = "правый верхний отросток",
+		GENITIVE = "правого верхнего отростка",
+		DATIVE = "правому верхнему отростку",
+		ACCUSATIVE = "правый верхний отросток",
+		INSTRUMENTAL = "правым верхним отростоком",
+		PREPOSITIONAL = "правом верхнем отростке"
+	)
+	gender = MALE
 	max_damage = 35
 	min_broken_damage = 20
-	amputation_point = "upper right trunk"
+	amputation_point = "правый верхний отросток"
 	convertable_children = list(/obj/item/organ/external/hand/right/diona)
 
 /obj/item/organ/external/leg/diona
 	species_type = /datum/species/diona
 	name = "left lower tendril"
+	desc = "Нижнее левое ответвление ствола."
+	ru_names = list(
+		NOMINATIVE = "левый нижний отросток",
+		GENITIVE = "левого нижнего отростка",
+		DATIVE = "левому нижнему отростку",
+		ACCUSATIVE = "левый нижний отросток",
+		INSTRUMENTAL = "левым нижним отростоком",
+		PREPOSITIONAL = "левом нижнем отростке"
+	)
+	gender = MALE
 	max_damage = 35
 	min_broken_damage = 20
-	amputation_point = "lower left fork"
+	amputation_point = "левый нижний отросток"
 	convertable_children = list(/obj/item/organ/external/foot/diona)
 
 /obj/item/organ/external/leg/right/diona
 	species_type = /datum/species/diona
 	name = "right lower tendril"
+	desc = "Нижнее правое ответвление ствола."
+	ru_names = list(
+		NOMINATIVE = "правый нижний отросток",
+		GENITIVE = "правого нижнего отростка",
+		DATIVE = "правому нижнему отростку",
+		ACCUSATIVE = "правый нижний отросток",
+		INSTRUMENTAL = "правым нижним отростоком",
+		PREPOSITIONAL = "правом нижнем отростке"
+	)
+	gender = MALE
 	max_damage = 35
 	min_broken_damage = 20
-	amputation_point = "lower right fork"
+	amputation_point = "правый нижний отросток"
 	convertable_children = list(/obj/item/organ/external/foot/right/diona)
 
 /obj/item/organ/external/foot/diona
