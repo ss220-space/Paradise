@@ -195,6 +195,10 @@
 	name = "prisonwarp"
 	icon_state = "aroomwarp"
 
+/obj/effect/landmark/prisonsecuritywarp
+	name = "prisonsecuritywarp"
+	icon_state = "aroomwarp"
+
 /obj/effect/landmark/syndieprisonwarp
 	name = "syndieprisonwarp"
 	icon_state = "aroomwarp"

@@ -305,6 +305,10 @@ BLIND     // can't see anything
 	var/surgeryspeedmod = 0
 	/// Same as above, used for surgery modifiers
 	var/toolspeedmod = 0
+	/// Constant time of surgery step
+	var/surgery_step_time = null
+	/// Chance of germs transfering to organ
+	var/surgery_germ_chance = 100
 	strip_delay = 20
 	put_on_delay = 40
 
@@ -336,6 +340,23 @@ BLIND     // can't see anything
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
+	if(!ishuman(loc))
+		return FALSE //Only works while worn
+
+	if(!ishuman(A))
+		return FALSE
+
+	if(!proximity)
+		return FALSE
+
+	var/mob/living/carbon/human/human = loc
+	if(human.a_intent == INTENT_HELP)
+		if(!human.is_hands_free())
+			balloon_alert(usr, "руки заняты!")
+			return FALSE
+		SEND_SIGNAL(src, COMSIG_GLOVES_DOUBLE_HANDS_TOUCH, A, usr)
+		return TRUE
+
 	return FALSE // return TRUE to cancel attack_hand()
 
 
