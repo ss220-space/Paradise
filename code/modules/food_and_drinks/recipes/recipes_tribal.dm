@@ -7,7 +7,6 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/lavaland_food/fine_meal
 
-
 /datum/recipe/tribal_oven/freaky_leg
 	reagents = list()
 	items = list(
@@ -80,7 +79,6 @@
 		/obj/item/kitchen/knife/combat/survival/bone,
 		/obj/item/organ/internal/heart,
 		/obj/item/organ/internal/heart/unathi,
-		/obj/item/stack/sheet/wood
 	)
 	result = /obj/item/reagent_containers/food/snacks/lavaland_food/cure_curse
 
@@ -99,7 +97,8 @@
 		/obj/item/reagent_containers/food/snacks/monstermeat/goliath,
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf
 	)
-	result = /obj/item/reagent_containers/food/snacks/lavaland_food/goli_kernels/triple
+	result = /obj/item/reagent_containers/food/snacks/lavaland_food/goli_kernels
+	byproduct = /obj/item/reagent_containers/food/snacks/lavaland_food/goli_kernels
 
 /datum/recipe/tribal_oven/beer_grub_stew
 	reagents = list(
@@ -110,9 +109,9 @@
 		/obj/item/reagent_containers/food/snacks/grown/mushroom/reishi,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom/reishi,
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit,
-		/obj/item/reagent_containers/food/drinks/mushroom_bowl
 	)
 	result = /obj/item/reagent_containers/food/snacks/lavaland_food/beer_grub_stew
+	byproduct = /obj/item/reagent_containers/food/snacks/lavaland_food/beer_grub_stew
 
 /datum/recipe/tribal_oven/thick_red_paste
 	reagents = list(
@@ -125,9 +124,9 @@
 		/obj/item/reagent_containers/food/snacks/grown/wheat,
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf,
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf,
-		/obj/item/reagent_containers/food/drinks/mushroom_bowl
 	)
 	result = /obj/item/reagent_containers/food/snacks/lavaland_food/thick_red_paste
+	byproduct = /obj/item/reagent_containers/food/snacks/lavaland_food/thick_red_paste
 
 /datum/recipe/tribal_oven/black_blood_sausage
 	reagents = list(
@@ -140,6 +139,7 @@
 		/obj/item/reagent_containers/food/snacks/monstermeat/goliath
 	)
 	result = /obj/item/reagent_containers/food/snacks/lavaland_food/black_blood_sausage
+	byproduct = /obj/item/reagent_containers/food/snacks/lavaland_food/black_blood_sausage
 
 /datum/recipe/tribal_oven/xeno_sticks
 	reagents = list()
@@ -188,6 +188,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/wheat
 	)
 	result = /obj/item/reagent_containers/food/snacks/lavaland_food/eel_katigo
+	byproduct = /obj/item/reagent_containers/food/snacks/lavaland_food/eel_katigo
 
 /datum/recipe/tribal_oven/predatory_chowder
 	reagents = list(
@@ -201,6 +202,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
 	)
 	result = /obj/item/reagent_containers/food/snacks/lavaland_food/predatory_chowder
+	byproduct = /obj/item/reagent_containers/food/snacks/lavaland_food/predatory_chowder
 
 /datum/recipe/tribal_oven/abu_ghosh
 	reagents = list(
@@ -208,23 +210,22 @@
 	)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom,
-		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/reagent_containers/food/snacks/monstermeat/goliath,
 		/obj/item/reagent_containers/food/snacks/grown/wheat
 	)
 	result = /obj/item/reagent_containers/food/snacks/lavaland_food/abu_ghosh
+	byproduct = /obj/item/reagent_containers/food/snacks/lavaland_food/abu_ghosh
 
 /datum/recipe/tribal_oven/thali_lazis
 	reagents = list()
 	items = list(
 		/obj/item/reagent_containers/food/snacks/grown/mushroom/reishi,
 		/obj/item/crusher_trophy/watcher_wing,
-		/obj/item/reagent_containers/food/snacks/grown/wheat,
 		/obj/item/reagent_containers/food/snacks/lavaland/soft_meat,
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom,
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf,
 		/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit,
-		/obj/item/reagent_containers/food/snacks/raw_bacon,
-		/obj/item/reagent_containers/food/snacks/rawcutlet
+		/obj/item/reagent_containers/food/snacks/monstermeat/goliath
 	)
-	result = /obj/item/storage/bag/tray/lava_tray/full
+	result = /obj/item/storage/lava_tray/full

@@ -308,7 +308,7 @@
 	status_type = STATUS_EFFECT_REFRESH
 
 /datum/status_effect/forced_rumble/tick(seconds_between_ticks)
-	if(prob(40) && isunathi(owner))
+	if(prob(20) && isunathi(owner))
 		owner.emote("rumble")
 
 /datum/status_effect/forced_sneeze
@@ -318,11 +318,11 @@
 	status_type = STATUS_EFFECT_REFRESH
 
 /datum/status_effect/forced_sneeze/tick(seconds_between_ticks)
-	if(prob(60))
+	if(prob(30))
 		owner.emote("sneeze")
 
 /atom/movable/screen/alert/status_effect/lavaland_tail_o_dead
-	name = "freaky legs"
+	name = "tail'o'dead"
 	desc = "Поедание человеческих конечностей себя оправдало!"
 	icon_state = "tail_o_dead"
 
@@ -346,10 +346,16 @@
 		human.force_gene_block(GLOB.colourblindblock, FALSE)
 		human.set_vision_override(null)
 
+/atom/movable/screen/alert/status_effect/temperature_stabilize
+	name = "beer grub stew"
+	desc = "Температура тела стабилизируется в разы быстрее."
+	icon_state = "beer_grub_stew"
+
 /datum/status_effect/temperature_stabilize
 	id = "temperature stabilisation"
 	duration = 5 MINUTES
 	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/temperature_stabilize
 	var/temp_effect
 
 /datum/status_effect/temperature_stabilize/tick(seconds_between_ticks)

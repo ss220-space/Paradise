@@ -801,10 +801,16 @@
 /datum/status_effect/lavaland_no_pain/on_remove()
 	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
 
+/atom/movable/screen/alert/status_effect/lavaland_eternal_bleeding_fix
+	name = "thick red paste"
+	desc = "Вы чувствуете, как вам становится слегка лучше."
+	icon_state = "thick_red_paste"
+
 /datum/status_effect/lavaland_eternal_bleeding_fix
 	id = "Lavaland Eternal Bleeding"
 	status_type = STATUS_EFFECT_REPLACE
 	duration = 30 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/lavaland_eternal_bleeding_fix
 
 /datum/status_effect/lavaland_eternal_bleeding_fix/tick(seconds_between_ticks)
 	if(ishuman(owner))
@@ -814,28 +820,39 @@
 				to_chat(hum, span_notice("You feel a burning sensation in your [bodypart.name] as your veins begin to recover!"))
 				bodypart.stop_internal_bleeding()
 
+/atom/movable/screen/alert/status_effect/lavaland_night_vision
+	name = "xeno sticks"
+	desc = "Вы начинаете лучше видеть в темноте."
+	icon_state = "xeno_sticks"
+
 /datum/status_effect/lavaland_night_vision
 	id = "Lavaland Night Vision"
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 450 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/lavaland_night_vision
 
-/datum/status_effect/lavaland_no_pain/on_apply()
+/datum/status_effect/lavaland_night_vision/on_apply()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human = owner
-		human.force_gene_block(GLOB.colourblindblock, TRUE)
 		human.set_vision_override(/datum/vision_override/nightvision)
 	return TRUE
 
-/datum/status_effect/lavaland_no_pain/on_remove()
+/datum/status_effect/lavaland_night_vision/on_remove()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human = owner
-		human.force_gene_block(GLOB.colourblindblock, FALSE)
 		human.set_vision_override(null)
+
+/atom/movable/screen/alert/status_effect/lavaland_blood_regen
+	name = "abu ghosh"
+	desc = "Вы чувствуете, что ваша кровь начала регенерировать быстрее."
+	icon_state = "abu_ghosh"
 
 /datum/status_effect/lavaland_blood_regen
 	id = "Lavaland Blood Regeneration"
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 5 MINUTES
+	alert_type = /atom/movable/screen/alert/status_effect/lavaland_blood_regen
+
 
 /datum/status_effect/lavaland_blood_regen/tick(seconds_between_ticks)
 	if(ishuman(owner))

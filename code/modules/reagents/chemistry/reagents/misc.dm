@@ -721,6 +721,7 @@
 /datum/reagent/bugmilk/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("cream", 0.4)
 	M.reagents.add_reagent("salglu_solution", 0,4)
+	return ..()
 
 /datum/reagent/admin_cleaner
 	name = "WD-2381"
