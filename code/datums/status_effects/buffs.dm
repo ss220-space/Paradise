@@ -790,7 +790,7 @@
 
 /datum/status_effect/lavaland_no_pain
 	id = "Freaky Legs"
-	duration = 3 MINUTES
+	duration = 1 MINUTES
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /atom/movable/screen/alert/status_effect/lavaland_freaky_leg
 
