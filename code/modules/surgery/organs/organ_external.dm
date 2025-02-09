@@ -1078,7 +1078,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner)
 		owner.update_body()
 		if(!silent)
-			to_chat(owner, span_danger("Вы перестаёте чувствовать ваш[genderize_ru(gender, "", "у", "е", "и")] [declent_ru(ACCUSATIVE)]."))
+			to_chat(owner, span_danger("Вы перестаёте чувствовать ваш[genderize_ru(gender, "", "у", "е", "и")] [declent_ru(ACCUSATIVE)]!"))
 		if(vital)
 			owner.death()
 
