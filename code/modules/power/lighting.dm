@@ -480,6 +480,35 @@
 			explode()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
+	if(istype(I, /obj/item/toy/crayon/spraycan))
+		add_fingerprint(user)
+		var/obj/item/toy/crayon/spraycan/spraycan = I
+		if(spraycan.colour == light_color)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		/* Реализация проверки цвета, который был выбран в распылителе
+		Если цвет слишком тёмный, то return */
+		var/r = hex2num(copytext(spraycan.colour, 2, 4))
+		var/g = hex2num(copytext(spraycan.colour, 4, 6))
+		var/b = hex2num(copytext(spraycan.colour, 6, 8))
+
+		var/brightness = (0.299 * r + 0.587 * g + 0.114 * b) // Формула для определения яркости цвета(Да, магические числа)
+		if(brightness < 100) // Порог яркости
+			to_chat(user, span_warning("Выбранный цвет слишком тёмный для того чтоб он мог пропускать свет!"))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		var/min_rgb = min(r, g, b)
+		var/max_rgb = max(r, g, b)
+		var/saturation = (max_rgb - min_rgb) / max_rgb
+		if(saturation > 0.8) // Максимально допустимая насыщенность
+			to_chat(user, span_warning("Цвет слишком насыщенный для освещения!"))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		/* Конец проверки цвета */
+		to_chat(user, span_warning("Вы покрасили [src] при помощи [spraycan.name]!"))
+		spraycan.uses--
+		color = spraycan.colour
+		light_color = spraycan.colour
+		playsound(src, 'sound/effects/spray.ogg', 50, TRUE)
+		update()
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 

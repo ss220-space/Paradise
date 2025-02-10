@@ -44,7 +44,7 @@
 					 Любой ценой необходимо активировать систему самоуничтожения станции, код[(off_auto_nuke_codes)? " будет направлен Центральным Коммандованием в скором времени" : ": [nukecode]"]."
 					aiPlayer.set_zeroth_law(law)
 					SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "вспышка блоба, добавлен новый нулевой закон'[law]'")
-					to_chat(aiPlayer, "Законы обновлены: [law]")
+					to_chat(aiPlayer, span_warning("Законы обновлены: [law]"))
 
 		if(BLOB_THIRD_REPORT)
 			interceptname = "Секретное постановление [command_name()]"
@@ -65,7 +65,7 @@
 					if(aiPlayer.client)
 						aiPlayer.laws.clear_zeroth_laws()
 						SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "блоб уничтожен, нулевой закон удален")
-						to_chat(aiPlayer, "Законы обновлены")
+						to_chat(aiPlayer, span_warning("Законы обновлены"))
 
 	print_command_report(intercepttext, interceptname, FALSE)
 	GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")

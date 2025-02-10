@@ -487,7 +487,7 @@
 	name = "first responder jacket"
 	desc = "A high-visibility jacket worn by medical first responders."
 	icon_state = "fr_jacket_open"
-	item_state = "fr_jacket_open"
+	item_state = "fr_jacket"
 	blood_overlay_type = "armor"
 	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
 	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen,/obj/item/rad_laser)

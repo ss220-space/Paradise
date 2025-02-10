@@ -85,7 +85,7 @@
 	if(repeat_warning)
 		msg += "<BR>[span_adminnotice("<b>ВНИМАНИЕ: запрос ОБР не получил ответа в течении 15 минут!</b>")]"
 	for(var/client/X in GLOB.admins)
-		if(check_rights(R_EVENT,0,X.mob))
+		if(check_rights(R_ADMIN, FALSE, X.mob))
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				X << 'sound/effects/adminhelp.ogg'

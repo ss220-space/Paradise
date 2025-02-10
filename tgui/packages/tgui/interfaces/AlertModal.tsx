@@ -84,7 +84,7 @@ export const AlertModal = (props, context) => {
                 {message}
               </Box>
             </Stack.Item>
-            <Stack.Item>
+            <Stack.Item grow>
               {!!autofocus && <Autofocus />}
               {isVerbose ? (
                 <VerticalButtons selected={selected} />
@@ -158,6 +158,7 @@ const VerticalButtons = (props: ButtonDisplayProps, context) => {
           width={large_buttons ? '100%' : undefined}
           key={index}
           m={0}
+          mb={large_buttons ? 2.5 : 0}
         >
           <Button
             fluid

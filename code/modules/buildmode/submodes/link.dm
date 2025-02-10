@@ -44,7 +44,7 @@
 			var/obj/machinery/door_control/M = link_obj
 			var/obj/machinery/door/airlock/P = object
 			if(!M.id || M.id == "")
-				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
+				M.id = tgui_input_text(user, "Please select an ID for the button", "Buildmode", "", encode = FALSE)
 				if(!M.id || M.id == "")
 					speed_execute()
 					return
@@ -54,11 +54,11 @@
 				speed_execute()
 				return
 			if(!M.normaldoorcontrol)
-				if(link_lines.len && alert(user, "Warning: This will disable links to connected pod doors. Continue?", "Buildmode", "Yes", "No") == "No")
+				if(link_lines.len && tgui_alert(user, "Warning: This will disable links to connected pod doors. Continue?", "Buildmode", list("Yes", "No")) == "No")
 					speed_execute()
 					return
 				M.normaldoorcontrol = 1
-			if(P.id_tag && alert(user, "Warning: This will unlink something else from the door. Continue?", "Buildmode", "Yes", "No") == "No")
+			if(P.id_tag && tgui_alert(user, "Warning: This will unlink something else from the door. Continue?", "Buildmode", list("Yes", "No")) == "No")
 				speed_execute()
 				return
 			P.id_tag = M.id
@@ -66,7 +66,7 @@
 			var/obj/machinery/door_control/M = link_obj
 			var/obj/machinery/door/poddoor/P = object
 			if(!M.id || M.id == "")
-				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
+				M.id = tgui_input_text(user, "Please select an ID for the button", "Buildmode", "", encode = FALSE)
 				if(!M.id || M.id == "")
 					speed_execute()
 					return
@@ -76,16 +76,16 @@
 				speed_execute()
 				return
 			if(M.normaldoorcontrol)
-				if(link_lines.len && alert(user, "Warning: This will disable links to connected airlocks. Continue?", "Buildmode", "Yes", "No") == "No")
+				if(link_lines.len && tgui_alert(user, "Warning: This will disable links to connected airlocks. Continue?", "Buildmode", list("Yes", "No")) == "No")
 					speed_execute()
 					return
 				M.normaldoorcontrol = 0
 			if(!M.id || M.id == "")
-				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
+				M.id = tgui_input_text(user, "Please select an ID for the button", "Buildmode", "", encode = FALSE)
 				if(!M.id || M.id == "")
 					speed_execute()
 					return
-			if(P.id_tag && P.id_tag != 1 && alert(user, "Warning: This will unlink something else from the door. Continue?", "Buildmode", "Yes", "No") == "No")
+			if(P.id_tag && P.id_tag != 1 && tgui_alert(user, "Warning: This will unlink something else from the door. Continue?", "Buildmode", list("Yes", "No")) == "No")
 				speed_execute()
 				return
 			P.id_tag = M.id

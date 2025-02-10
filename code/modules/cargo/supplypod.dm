@@ -120,6 +120,57 @@
 		MECHA_OPTION = TRUE,
 	)
 
+/obj/structure/closet/supplypod/centcompod/prison_warp
+	delays = list(POD_TRANSIT = 1 SECONDS, POD_FALLING = 1 SECONDS, POD_OPENING = 0, POD_LEAVING = 0.2)
+	reverse_delays = list(POD_TRANSIT = 10 SECONDS, POD_FALLING = 1.5 SECONDS, POD_OPENING = 0.6 SECONDS, POD_LEAVING = 0)
+	custom_rev_delay = TRUE
+	effectStealth = TRUE
+	effectStun = TRUE
+	reversing = TRUE
+	reverse_option_list = list(
+		MOB_OPTION = TRUE,
+		UNANCHORED_OPTION = FALSE,
+		ANCHORED_OPTION = FALSE,
+		MECHA_OPTION = TRUE,
+	)
+	var/mob/target
+	var/security = FALSE
+
+/obj/structure/closet/supplypod/centcompod/prison_warp/close(atom/movable/holder)
+	target.forceMove(get_turf(src))
+	. = ..()
+
+/obj/structure/closet/supplypod/centcompod/prison_warp/insertion_allowed(atom/to_insert)
+	return to_insert == target
+
+/obj/structure/closet/supplypod/centcompod/prison_warp/handleReturnAfterDeparting(atom/movable/holder)
+	. = ..()
+	if(security)
+		to_chat(target, span_warning("Вас перевели на тюремную станцию!"))
+		return ..()
+	GLOB.prisonwarped += target
+	var/obj/structure/closet/secure_closet/brig/locker = new /obj/structure/closet/secure_closet/brig(holder)
+	locker.opened = FALSE
+	locker.locked = TRUE
+
+	for(var/obj/item/item in target)
+		target.drop_transfer_item_to_loc(item, locker)
+	target.update_icons()
+
+	if(ishuman(target))
+		var/mob/living/carbon/human/prisoner = target
+
+		if(isplasmaman(prisoner))
+			prisoner.equipOutfit(/datum/outfit/prisoner/plasmamen)
+		else if(isvox(prisoner) || isvoxarmalis(prisoner))
+			prisoner.equipOutfit(/datum/outfit/prisoner/vox)
+		else
+			prisoner.equipOutfit(/datum/outfit/prisoner)
+
+
+	to_chat(target, span_warning("Вы были этапированы на тюремную станцию!"))
+
+
 /obj/structure/closet/supplypod/back_to_station
 	name = "blood-red supply pod"
 	desc = "Устрашающая капсула снабжения, покрытая кроваво-красными отметинами."
@@ -693,8 +744,8 @@
 		mob_in_pod.reset_perspective(src)
 	if(pod.effectStun) //If effectStun is true, stun any mobs caught on this pod_landingzone until the pod gets a chance to hit them
 		for (var/mob/living/target_living in get_turf(src))
-			target_living.AdjustWeakened(pod.delays[POD_TRANSIT] + 20, TRUE)//you ain't goin nowhere, kid.
-			target_living.AdjustStunned(pod.delays[POD_TRANSIT] + 20, TRUE)
+			target_living.AdjustWeakened(pod.delays[POD_TRANSIT] + 3 SECONDS, TRUE)//you ain't goin nowhere, kid.
+			target_living.AdjustStunned(pod.delays[POD_TRANSIT] + 3 SECONDS, TRUE)
 	if (pod.delays[POD_TRANSIT] + pod.delays[POD_FALLING] < pod.fallingSoundLength)
 		pod.fallingSoundLength = 3 //The default falling sound is a little long, so if the landing time is shorter than the default falling sound, use a special, shorter default falling sound
 		pod.fallingSound = 'sound/weapons/mortar_whistle.ogg'
