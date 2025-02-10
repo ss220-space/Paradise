@@ -229,6 +229,12 @@
 		return r_hand
 	return null
 
+/**
+ * Returns `TRUE` if mob's hands free
+ */
+/mob/proc/is_hands_free()
+	return !l_hand && !r_hand
+
 
 /**
  * Returns `TRUE` if item is in mob's active hand

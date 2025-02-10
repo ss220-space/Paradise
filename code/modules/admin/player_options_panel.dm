@@ -168,7 +168,7 @@
 		if("playsoundto")
 			if(!check_rights(R_SOUNDS))
 				return
-			var/S = input("", "Select a sound file",) as null|sound
+			var/S = input(usr, "", "Select a sound file",) as null|sound
 			if(S)
 				usr.client.play_direct_mob_sound(S, M)
 		if("sendalert")

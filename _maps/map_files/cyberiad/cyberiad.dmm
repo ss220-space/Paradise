@@ -25651,6 +25651,8 @@
 	name = "east station intercom (General)";
 	pixel_x = 28
 	},
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -26360,20 +26362,14 @@
 	req_access = list(47)
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Biohazard Shutter";
-	opacity = 0
+	name = "Biohazard Shutter"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "rdlab";
-	name = "Research and Development Lab Shutters";
-	opacity = 0
+	name = "Research Desk Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
@@ -66400,20 +66396,14 @@
 /area/hallway/primary/starboard/east)
 "kBi" = (
 /obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
-	name = "Biohazard Shutter";
-	opacity = 0
+	name = "Biohazard Shutter"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "rdlab";
-	name = "Research and Development Lab Shutters";
-	opacity = 0
+	name = "Research Desk Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
@@ -66607,13 +66597,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
-"kIe" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/lab)
 "kIr" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -72241,6 +72224,34 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
+"oBC" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/window/brigdoor{
+	dir = 1;
+	id = "Autolathe";
+	name = "Autolathe Access";
+	req_access = list(47)
+	},
+/obj/item/stack/sheet/glass{
+	amount = 10
+	},
+/obj/item/stack/sheet/metal{
+	amount = 10
+	},
+/obj/machinery/autolathe,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard";
+	name = "Biohazard Shutter"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "rdlab";
+	name = "Research Desk Shutters"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/lab)
 "oCq" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -134857,8 +134868,8 @@ cWJ
 bwv
 gkd
 bwv
-bUQ
-kIe
+oBC
+bSz
 bSz
 bIt
 bNp
