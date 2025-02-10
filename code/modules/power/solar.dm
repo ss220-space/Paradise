@@ -108,8 +108,9 @@
 		sunfrac = 0
 		return
 
-	//find the smaller angle between the direction the panel is facing and the direction of the sun (the sign is not important here)
-	var/p_angle = min(abs(adir - SSsun.angle), 360 - abs(adir - SSsun.angle))
+	// find the smaller angle between the direction the panel is facing and the direction of the sun (the sign is not important here)
+	var/sun_angle = SSsun.get_angle()
+	var/p_angle = min(abs(adir - sun_angle), 360 - abs(adir - sun_angle))
 
 	if(p_angle > 90)			// if facing more than 90deg from sun, zero output
 		sunfrac = 0
@@ -149,12 +150,12 @@
 
 //trace towards sun to see if we're in shadow
 /obj/machinery/power/solar/proc/occlusion()
-
 	var/ax = x		// start at the solar panel
 	var/ay = y
 	var/turf/T = null
-	var/dx = SSsun.dx
-	var/dy = SSsun.dy
+
+	var/dx = SSsun.get_dx()
+	var/dy = SSsun.get_dy()
 
 	for(var/i = 1 to 20)		// 20 steps is enough
 		ax += dx	// do step
@@ -338,11 +339,16 @@
 	autostart = TRUE // Automatically search for connected devices
 
 /obj/machinery/power/solar_control/Initialize(mapload, obj/structure/computerframe)
-	SSsun.solars |= src
 	setup()
+
 	. = ..()
+
 	if(computerframe)
 		qdel(computerframe)
+
+/obj/machinery/power/solar_control/LateInitialize()
+	. = ..()
+	SSsun.add_solar(src)
 
 /obj/machinery/power/solar_control/proc/setup()
 	connect_to_network()
@@ -350,7 +356,7 @@
 	if(autostart)
 		search_for_connected()
 		if(connected_tracker && track == TRACKER_AUTO)
-			connected_tracker.modify_angle(SSsun.angle)
+			connected_tracker.modify_angle(SSsun.get_angle())
 		set_panels(cdir)
 
 /obj/machinery/power/solar_control/Destroy()
@@ -362,12 +368,14 @@
 
 /obj/machinery/power/solar_control/disconnect_from_network()
 	..()
-	SSsun.solars.Remove(src)
+	SSsun.remove_solar(src)
 
 /obj/machinery/power/solar_control/connect_to_network()
 	var/to_return = ..()
+
 	if(powernet) //if connected and not already in solar list...
-		SSsun.solars |= src //... add it
+		SSsun.add_solar(src) //... add it
+
 	return to_return
 
 //search for unconnected panels and trackers in the computer powernet and connect them
@@ -390,8 +398,9 @@
 		return
 
 	if(track == TRACKER_AUTO && connected_tracker) // auto-tracking
-		connected_tracker.modify_angle(SSsun.angle)
+		connected_tracker.modify_angle(SSsun.get_angle())
 		set_panels(cdir)
+
 	updateDialog()
 
 
@@ -464,7 +473,7 @@
 			track = text2num(params["track"])
 			if(track == TRACKER_AUTO)
 				if(connected_tracker)
-					connected_tracker.modify_angle(SSsun.angle)
+					connected_tracker.modify_angle(SSsun.get_angle())
 					set_panels(cdir)
 			else if(track == TRACKER_TIMED)
 				targetdir = cdir
@@ -474,7 +483,7 @@
 		if("refresh")
 			search_for_connected()
 			if(connected_tracker && track == TRACKER_AUTO)
-				connected_tracker.modify_angle(SSsun.angle)
+				connected_tracker.modify_angle(SSsun.get_angle())
 			set_panels(cdir)
 
 /obj/machinery/power/solar_control/screwdriver_act(mob/user, obj/item/I)

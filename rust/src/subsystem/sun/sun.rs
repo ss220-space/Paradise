@@ -1,60 +1,58 @@
 use byondapi::value::ByondValue;
-use eyre::Result;
-use rand::Rng;
 
-#[byondapi::bind]
-pub fn sun_subsystem_initialize(mut subsystem: ByondValue) -> eyre::Result<ByondValue> {
-    let mut rng = rand::thread_rng();
-
-    let angle: f32 = rng.gen_range(0.0..=360.0);
-    let mut rate: f32 = rng.gen_range(0.5..=2.0);
-
-    if rng.gen_bool(0.5) {
-        rate = -rate;
-    }
-
-    let solars = subsystem.read_var("solars")?;
-
-    for solar in solars.get_list_values()? {
-        solar.call("setup", &[])?;
-    }
-
-    subsystem.write_var("angle", &ByondValue::from(angle))?;
-    subsystem.write_var("rate", &ByondValue::from(rate))?;
-
-    Ok(ByondValue::null())
+pub struct Sun {
+    pub rate: f32,
+    pub dx: f32,
+    pub dy: f32,
+    pub solars: Option<ByondValue>,
+    pub angle: f32,
 }
 
-#[byondapi::bind]
-pub fn sun_subsystem_fire(mut subsystem: ByondValue) -> eyre::Result<ByondValue> {
-    let angle = subsystem.read_var("angle")?.get_number()?;
-    let rate = subsystem.read_var("rate")?.get_number()?;
-    let new_angle = (360.0 + angle + rate * 6.0) % 360.0;
-
-    subsystem.write_var("angle", &ByondValue::from(new_angle))?;
-
-    let sin = new_angle.to_radians().sin();
-    let cos = new_angle.to_radians().cos();
-
-    let sin_abs = sin.abs();
-    let cos_abs = cos.abs();
-
-    if sin_abs < cos_abs {
-        subsystem.write_var("dx", &ByondValue::from(sin / cos_abs))?;
-        subsystem.write_var("dy", &ByondValue::from(cos / cos_abs))?;
-    } else {
-        subsystem.write_var("dx", &ByondValue::from(sin / sin_abs))?;
-        subsystem.write_var("dy", &ByondValue::from(cos / sin_abs))?;
-    }
-
-    let solars = subsystem.read_var("solars")?;
-
-    for solar in solars.get_list_values()? {
-        if solar.read_var("powernet")?.is_null() {
-            solars.call("Remove", &[solar])?;
-            continue;
+impl Sun {
+    pub fn setup_solars(&self) -> eyre::Result<ByondValue> {
+        for solar in self.solars.unwrap_or_default().get_list_values()? {
+            let _ = solar.call("setup", &[])?;
         }
-        solar.call("update", &[])?;
+        Ok(ByondValue::from(true))
     }
-    Ok(ByondValue::null())
+    pub fn update_solars(&mut self) -> eyre::Result<ByondValue> {
+        if let Some(solars) = &mut self.solars {
+            let solars_list = solars.get_list_values()?;
+            for solar in solars_list {
+                if solar.read_var("powernet")?.is_null() {
+                    let _ = solars.call("Remove", &[solar])?;
+                    continue;
+                }
+                let _ = solar.call("update", &[])?;
+            }
+            return Ok(ByondValue::from(true));
+        }
+        Ok(ByondValue::null())
+    }
+    pub fn add_solar(&self, solar: ByondValue) -> eyre::Result<ByondValue> {
+        if let Some(mut solars) = self.solars {
+            let _ = solars.push_list(solar);
+            return Ok(solar);
+        }
+        Ok(ByondValue::null())
+    }
+    pub fn remove_solar(&self, solar: ByondValue) -> eyre::Result<ByondValue> {
+        if let Some(solars) = self.solars {
+            let _ = solars.call("Remove", &[solar]);
+            return Ok(solar);
+        }
+        Ok(ByondValue::null())
+    }
+    pub fn get_dy(&self) -> eyre::Result<ByondValue> {
+        Ok(ByondValue::from(self.dy))
+    }
+    pub fn get_dx(&self) -> eyre::Result<ByondValue> {
+        Ok(ByondValue::from(self.dx))
+    }
+    pub fn get_solars(&self) -> eyre::Result<ByondValue> {
+        if let Some(solars) = self.solars {
+            return Ok(solars);
+        }
+        Ok(ByondValue::null())
+    }
 }
