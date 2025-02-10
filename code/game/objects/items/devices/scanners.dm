@@ -734,7 +734,7 @@ REAGENT SCANNER
 
 /obj/item/healthanalyzer/gem_analyzer
 	name = "eye of health"
-	desc = "Необычный самоцвет в форме сердца."
+	desc = "Необычный самоцвет в форме сердца. Позволяет пользователю ощущать раны и болезни других существу на метафизическом уровне. Магия, не иначе."
 	ru_names = list(
 		NOMINATIVE = "глаз здоровья",
 		GENITIVE = "глаза здоровья",

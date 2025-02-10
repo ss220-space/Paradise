@@ -372,13 +372,13 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/coaltree_extract
-	name = "Coaltree extract"
+	name = "Экстракт Угледрева"
 	id = "coaltree_extract"
-	description = "Экстракт полученный из угледрева, выводит из организма токсины ценой больших мучений."
+	description = "Экстракт, полученный из угледрева. Выводит из организма вредные токсины, но имеет ряд побочных эффектов."
 	reagent_state = LIQUID
 	metabolization_rate = 0.4 * REAGENTS_METABOLISM
 	color = "#000000"
-	taste_description = "ash"
+	taste_description = "пепла"
 
 /datum/reagent/medicine/coaltree_extract/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

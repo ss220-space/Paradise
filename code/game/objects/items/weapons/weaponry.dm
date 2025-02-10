@@ -442,17 +442,18 @@
 
 /obj/item/melee/nutcracker
 	name = "nutcracker"
-	desc = "Простейшая дубина из кости, воплощает в себе силу природы и первобытную мощь."
+	desc = "Простейшая дубина из кости. Воплощение силы первобытного разума и природной мощи. Настоящая классика."
 	ru_names = list(
 		NOMINATIVE = "колотушка",
 		GENITIVE = "колотушки",
 		DATIVE = "колотушке",
-		ACCUSATIVE = "колотушка",
+		ACCUSATIVE = "колотушку",
 		INSTRUMENTAL = "колотушкой",
 		PREPOSITIONAL = "колотушке"
 	)
 	icon_state = "nutcracker"
 	item_state = "nutcracker"
+	gender = FEMALE
 	hitsound = 'sound/weapons/kolotushka_smash.ogg'
 	slot_flags = ITEM_SLOT_BELT
 	force = 3

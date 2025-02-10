@@ -182,6 +182,15 @@
 	icon_state = "coaltree"
 	name = "coaltree"
 	desc = "Небольшое мрачное дерево, растущее на просторах такой же мрачной планеты."
+	ru_names = list(
+		NOMINATIVE = "угледрево",
+		GENITIVE = "угледрева",
+		DATIVE = "угледреву",
+		ACCUSATIVE = "угледрево",
+		INSTRUMENTAL = "угледревом",
+		PREPOSITIONAL = "угледреве"
+	)
+	gender = NEUTER
 	harvested_name = "coaltree stump"
 	harvested_desc = "Голый ствол дерева, оставшийся без своей уродливой кроны."
 	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
@@ -258,6 +267,7 @@
 		INSTRUMENTAL = "бревном угледрева",
 		PREPOSITIONAL = "бревне угледрева"
 	)
+	gender = NEUTER
 	icon_state = "coaltree_log"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -271,10 +281,10 @@
 	if(is_sharp(I))
 		if(!isturf(loc))
 			add_fingerprint(user)
-			to_chat(user, span_warning("You cannot chop [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+			to_chat(user, span_warning("Вы не можете рубить [declent_ru(ACCUSATIVE)] [ismob(loc) ? "в инвентаре" : "в [loc.declent_ru(PREPOSITIONAL)]"]."))
 			return ATTACK_CHAIN_PROCEED
 
-		to_chat(user, span_notice("You have chopped [src] into planks."))
+		to_chat(user, span_notice("Вы порубили [declent_ru(ACCUSATIVE)] на доски."))
 		var/seed_modifier = 0
 		if(seed)
 			seed_modifier = round(seed.potency / 25)
@@ -372,13 +382,14 @@
 	name = "pack of coaltree seeds"
 	desc = "Эти семена вырастут в угледрево."
 	ru_names = list(
-		NOMINATIVE = "семена угледрева",
-		GENITIVE = "семян угледрева",
-		DATIVE = "семенам угледрева",
-		ACCUSATIVE = "семена угледрева",
-		INSTRUMENTAL = "семенами угледрева",
-		PREPOSITIONAL = "семенах угледрева"
+		NOMINATIVE = "пачка семян угледрева",
+		GENITIVE = "пачки семян угледрева",
+		DATIVE = "пачке семян угледрева",
+		ACCUSATIVE = "пачку семян угледрева",
+		INSTRUMENTAL = "пачкой семян угледрева",
+		PREPOSITIONAL = "пачке семян угледрева"
 	)
+	gender = FEMALE
 	icon_state = "seed-coaltree"
 	species = "coaltree"
 	plantname = "Coaltree"

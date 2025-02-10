@@ -9,6 +9,7 @@
 		INSTRUMENTAL = "деревянным луком",
 		PREPOSITIONAL = "деревянном луке"
 	)
+	gender = MALE
 	icon_state = "bow"
 	item_state = "bow"
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
@@ -23,7 +24,7 @@
 
 /obj/item/gun/projectile/bow/ashen //better than wooden
 	name = "bone bow"
-	desc = "Примитивный лук с тетивой сделанной из жилы. Обычно используется племенными охотниками и воинами. Из-за специфической конструкции лука, можно стрелять только костяными стрелами."
+	desc = "Примитивный лук с тетивой, сделанной из жилы. Обычно используется племенными охотниками и воинами. Из-за специфической конструкции лука из него можно стрелять только костяными стрелами."
 	ru_names = list(
 		NOMINATIVE = "костяной лук",
 		GENITIVE = "костяного лука",
@@ -32,6 +33,7 @@
 		INSTRUMENTAL = "костяным луком",
 		PREPOSITIONAL = "костяном луке"
 	)
+	gender = MALE
 	icon_state = "ashenbow"
 	item_state = "ashenbow"
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/ashen //you can't shoot wooden arrows from bone bow!
@@ -156,15 +158,16 @@
 
 /obj/item/ammo_casing/caseless/arrow
 	name = "arrow"
-	desc = "Резать, резать, резать!"
+	desc = "Послушай, ты не мог бы положить это яблоко себе на голову?"
 	ru_names = list(
 		NOMINATIVE = "деревянная стрела",
 		GENITIVE = "деревянной стрелы",
 		DATIVE = "деревянной стреле",
-		ACCUSATIVE = "деревянная стрела",
+		ACCUSATIVE = "деревянную стрелу",
 		INSTRUMENTAL = "деревянной стрелой",
 		PREPOSITIONAL = "деревянной стреле"
 	)
+	gender = FEMALE
 	icon_state = "arrow"
 	item_state = "arrow"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -181,10 +184,11 @@
 		NOMINATIVE = "костяная стрела",
 		GENITIVE = "костяной стрелы",
 		DATIVE = "костяной стреле",
-		ACCUSATIVE = "костяная стрела",
+		ACCUSATIVE = "костяную стрелу",
 		INSTRUMENTAL = "костяной стрелой",
 		PREPOSITIONAL = "костяной стреле"
 	)
+	gender = FEMALE
 	icon_state = "bone_arrow"
 	item_state = "bone_arrow"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -205,6 +209,7 @@
 		INSTRUMENTAL = "колчаном",
 		PREPOSITIONAL = "колчане"
 	)
+	gender =  MALE
 	icon_state = "quiver"
 	item_state = "quiver"
 	storage_slots = 21
@@ -236,6 +241,7 @@
 		INSTRUMENTAL = "колчаном из хитина ткача",
 		PREPOSITIONAL = "колчане из хитина ткача"
 	)
+	gender = MALE
 	icon_state = "quiver_weaver"
 	item_state = "quiver_weaver"
 	storage_slots = 21 //every craft makes 3 arrows
