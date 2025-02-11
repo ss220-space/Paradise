@@ -1096,7 +1096,7 @@
 
 /obj/item/twohanded/sechammer
 	name = "tactical sledgehammer"
-	desc = "Тяжёлая кувалда, используемая силовыми структурами Нанотрейзен. Удобная эргономичная рукоятка вкупе обеспечивает надёжный хват, а боёк кувалды увеличенной массы позволяет наносить мощные и точные удары, что делает её отличным инструментом для разрушения препятствий и создания брешей в стенах. Хотя конструкция и является слишком неудобной для эффективного использования в качестве оружия, удар такой силы способен раздробить любую кость в теле гуманоида."
+	desc = "Тяжёлая кувалда, используемая силовыми структурами Нанотрейзен. Удобная эргономичная рукоятка обеспечивает надёжный хват, а боёк кувалды увеличенной массы позволяет наносить мощные и точные удары, что делает её отличным инструментом для разрушения препятствий и создания брешей в стенах. Хотя конструкция и является слишком неудобной для эффективного использования в качестве оружия, силы удара достаточно, чтобы раздробить любую кость в теле гуманоида."
 	ru_names = list(
 		NOMINATIVE = "тактическая кувалда",
 		GENITIVE = "тактической кувалды",
@@ -1118,16 +1118,61 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
+	item_flags = SLOWS_WHILE_IN_HAND
 
+	var/wall_damage = 35
+	var/extra_girder_damage = 65
+	var/extra_door_damage = 25
 
-/obj/item/twohanded/sechammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
+	var/stamina_drain = 8
+	var/max_stamina_damage = 40
+
+/obj/item/twohanded/sechammer/update_icon_state()
 	icon_state = "sechammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
+/obj/item/twohanded/sechammer/wield(obj/item/source, mob/living/carbon/user)
+	slowdown = 0.5
 
-/obj/item/twohanded/sechammer/afterattack(atom/A, mob/user, proximity, params)
-	if(!proximity)
+
+/obj/item/twohanded/sechammer/unwield(obj/item/source, mob/living/carbon/user)
+	slowdown = 0
+
+/obj/item/twohanded/sechammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(user.getStaminaLoss() >= max_stamina_damage)
+		balloon_alert(user, "вы слишком устали!")
 		return
-	if(HAS_TRAIT(src, TRAIT_WIELDED)) //destroys windows and grilles in one hit
-		if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
-			var/obj/structure/W = A
-			W.obj_destruction("sechammer")
+	..()
+	user.adjustStaminaLoss(stamina_drain)
+
+/obj/item/twohanded/sechammer/attack_obj(obj/object, mob/living/user, params)
+	if(user.getStaminaLoss() >= max_stamina_damage)
+		balloon_alert(user, "вы слишком устали!")
+		return
+	..()
+	user.adjustStaminaLoss(stamina_drain)
+
+/obj/item/twohanded/sechammer/afterattack(atom/A, mob/living/user, proximity, params)
+	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
+		return
+	if(iswallturf(A))
+		var/turf/simulated/wall/W = A
+		if(user.getStaminaLoss() >= max_stamina_damage)
+			balloon_alert(user, "вы слишком устали!")
+			return
+		user.changeNext_move(attack_speed)
+		user.do_attack_animation(src)
+		playsound(src, 'sound/weapons/smash.ogg', 50, 1)
+		W.take_damage(wall_damage)
+		user.adjustStaminaLoss(stamina_drain)
+		return 1
+	if(user.getStaminaLoss() < max_stamina_damage)
+		if(istype(A, /obj/structure/girder))
+			var/obj/structure/G = A
+			G.take_damage(extra_girder_damage)
+			return 1
+		else if(istype(A, /obj/machinery/door))
+			var/obj/machinery/D = A
+			D.take_damage(extra_door_damage)
+			return 1
+
+	..()
