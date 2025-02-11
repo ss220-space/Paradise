@@ -15,44 +15,39 @@ impl Sun {
         }
         Ok(ByondValue::from(true))
     }
+
     pub fn update_solars(&mut self) -> eyre::Result<ByondValue> {
-        if let Some(solars) = &mut self.solars {
-            let solars_list = solars.get_list_values()?;
-            for solar in solars_list {
-                if solar.read_var("powernet")?.is_null() {
-                    let _ = solars.call("Remove", &[solar])?;
-                    continue;
-                }
-                let _ = solar.call("update", &[])?;
+        let solars_list = self.solars.unwrap_or_default();
+
+        for solar in solars_list.get_list_values()? {
+            if solar.read_var("powernet")?.is_null() {
+                let _ = solars_list.call("Remove", &[solar])?;
+                continue;
             }
-            return Ok(ByondValue::from(true));
+            let _ = solar.call("update", &[])?;
         }
-        Ok(ByondValue::null())
+        Ok(ByondValue::from(true))
     }
+
     pub fn add_solar(&self, solar: ByondValue) -> eyre::Result<ByondValue> {
-        if let Some(mut solars) = self.solars {
-            let _ = solars.push_list(solar);
-            return Ok(solar);
-        }
-        Ok(ByondValue::null())
+        let _ = self.solars.unwrap_or_default().push_list(solar);
+        Ok(solar)
     }
+
     pub fn remove_solar(&self, solar: ByondValue) -> eyre::Result<ByondValue> {
-        if let Some(solars) = self.solars {
-            let _ = solars.call("Remove", &[solar]);
-            return Ok(solar);
-        }
-        Ok(ByondValue::null())
+        let _ = self.solars.unwrap_or_default().call("Remove", &[solar]);
+        Ok(solar)
     }
+
     pub fn get_dy(&self) -> eyre::Result<ByondValue> {
         Ok(ByondValue::from(self.dy))
     }
+
     pub fn get_dx(&self) -> eyre::Result<ByondValue> {
         Ok(ByondValue::from(self.dx))
     }
+
     pub fn get_solars(&self) -> eyre::Result<ByondValue> {
-        if let Some(solars) = self.solars {
-            return Ok(solars);
-        }
-        Ok(ByondValue::null())
+        Ok(self.solars.unwrap_or_default())
     }
 }
