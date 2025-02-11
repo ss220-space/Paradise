@@ -16,7 +16,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(tgui_alert(usr, "Are you sure you want to resolve ALL open mentor tickets?", "Resolve all open mentor tickets?", list("Yes", "No")) != "Yes")
+	if(alert("Are you sure you want to resolve ALL open mentor tickets?","Resolve all open mentor tickets?","Yes","No") != "Yes")
 		return
 
 	SSmentor_tickets.resolveAllOpenTickets()

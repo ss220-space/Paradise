@@ -2,7 +2,6 @@
 	species_type = /datum/species/kidan
 	name = "kidan liver"
 	icon = 'icons/obj/species_organs/kidan.dmi'
-	item_state = "kidan_liver"
 	alcohol_intensity = 0.5
 
 
@@ -16,7 +15,6 @@
 	desc = "A specialized tissue that reacts with oxygen, nutriment and blood to produce light in Kidan."
 	icon = 'icons/obj/species_organs/kidan.dmi'
 	icon_state = "kid_lantern"
-	item_state = "kidan_lantern"
 	origin_tech = "biotech=2"
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
@@ -120,20 +118,16 @@
 	species_type = /datum/species/kidan
 	name = "kidan eyeballs"
 	icon = 'icons/obj/species_organs/kidan.dmi'
-	item_state = "kidan_eyes"
 
 /obj/item/organ/internal/heart/kidan
 	species_type = /datum/species/kidan
 	name = "kidan heart"
 	icon = 'icons/obj/species_organs/kidan.dmi'
-	item_state = "kidan_heart-on"
-	item_base = "kidan_heart"
 
 /obj/item/organ/internal/brain/kidan
 	species_type = /datum/species/kidan
 	icon = 'icons/obj/species_organs/kidan.dmi'
 	icon_state = "brain2"
-	item_state = "kidan_brain"
 	mmi_icon = 'icons/obj/species_organs/kidan.dmi'
 	mmi_icon_state = "mmi_full"
 	parent_organ_zone = BODY_ZONE_CHEST
@@ -153,13 +147,11 @@
 	species_type = /datum/species/kidan
 	name = "kidan lungs"
 	icon = 'icons/obj/species_organs/kidan.dmi'
-	item_state = "kidan_lungs"
 
 /obj/item/organ/internal/kidneys/kidan
 	species_type = /datum/species/kidan
 	name = "kidan kidneys"
 	icon = 'icons/obj/species_organs/kidan.dmi'
-	item_state = "kidan_kidneys"
 
 /obj/item/organ/external/head/kidan
 	species_type = /datum/species/kidan

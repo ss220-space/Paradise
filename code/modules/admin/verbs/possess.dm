@@ -1,22 +1,50 @@
-/proc/possess(obj/target as obj in world)
+/proc/possess(obj/O as obj in world)
 	set name = "\[Admin\] Possess Obj"
 
 	if(!check_rights(R_POSSESS))
 		return
 
-	usr.AddComponent(/datum/component/object_possession, target)
+	if(istype(O,/obj/singularity))
+		if(CONFIG_GET(flag/forbid_singulo_possession))
+			to_chat(usr, "It is forbidden to possess singularities.")
+			return
 
-	var/turf/turf = get_turf(target)
-	
-	log_and_message_admins("[key_name(usr)] has possessed [target] ([target.type]) at [AREACOORD(turf)]")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Possess Object") // If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	var/turf/T = get_turf(O)
 
-/proc/release(obj/target in world)
+	var/confirm = alert("Are you sure you want to possess [O]?", "Confirm posession", "Yes", "No")
+
+	if(confirm != "Yes")
+		return
+	log_and_message_admins("has possessed [O] ([O.type]) at [COORD(T)]")
+
+	if(!usr.control_object) //If you're not already possessing something...
+		usr.name_archive = usr.real_name
+
+	usr.loc = O
+	usr.real_name = O.name
+	usr.name = O.name
+	usr.client.eye = O
+	usr.control_object = O
+	SEND_SIGNAL(O, COMSIG_OBJ_POSSESSED, usr)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Possess Object") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
+/proc/release(obj/O as obj in world)
 	set name = "\[Admin\] Release Obj"
+	//usr.loc = get_turf(usr)
 
 	if(!check_rights(R_POSSESS))
 		return
 
-	qdel(usr.GetComponent(/datum/component/object_possession))
+	if(usr.control_object && usr.name_archive) //if you have a name archived and if you are actually relassing an object
+		usr.real_name = usr.name_archive
+		usr.name = usr.real_name
+		if(ishuman(usr))
+			var/mob/living/carbon/human/H = usr
+			H.name = H.get_visible_name()
+//		usr.regenerate_icons() //So the name is updated properly
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Release Object") // If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	usr.loc = O.loc // Appear where the object you were controlling is -- TLE
+	usr.client.eye = usr
+	usr.control_object = null
+	SEND_SIGNAL(O, COMSIG_OBJ_RELEASED, usr)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Release Object") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!

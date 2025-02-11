@@ -39,11 +39,11 @@
 	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list
 		msg += "!\n"    //omit the species when examining
 	else if(displayed_species == SPECIES_SLIMEPERSON) //snowflakey because Slime People are defined as a plural
-		msg += ",<b><font color='[examine_color]'> слаймолюд</font></b>!\n"
+		msg += ", a<b><font color='[examine_color]'> слаймомен</font></b>!\n"
 	else if(displayed_species == SPECIES_UNATHI) //DAMN YOU, VOWELS
-		msg += ",<b><font color='[examine_color]'> унатх</font></b>!\n"
+		msg += ", a<b><font color='[examine_color]'> унатх</font></b>!\n"
 	else
-		msg += ",<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!\n"
+		msg += ", a<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!\n"
 
 	//uniform
 	if(w_uniform && !skipjumpsuit && !(w_uniform.item_flags & ABSTRACT))

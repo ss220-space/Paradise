@@ -872,17 +872,13 @@ so as to remain in compliance with the most up-to-date laws."
 
 /atom/movable/screen/alert/Click(location, control, params)
 	if(!usr || !usr.client)
-		return FALSE
-
+		return
 	var/paramslist = params2list(params)
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
-		return FALSE
-		
+		return
 	if(master)
 		return usr.client.Click(master, location, control, params)
-
-	return TRUE
 
 /atom/movable/screen/alert/Destroy()
 	severity = 0
@@ -903,16 +899,3 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!istype(usr))
 		return
 	living_owner.do_succumb(TRUE)
-
-/atom/movable/screen/alert/unpossess_object
-	name = "Unpossess"
-	desc = "Этот объект под вашим контролем. Нажмите сюда для прекращения контроля."
-	icon_state = "buckled"
-
-/atom/movable/screen/alert/unpossess_object/Click(location, control, params)
-	. = ..()
-
-	if(!.)
-		return
-
-	qdel(usr.GetComponent(/datum/component/object_possession))

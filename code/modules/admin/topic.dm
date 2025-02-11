@@ -120,10 +120,7 @@
 		var/banckey = href_list["dbbanaddckey"]
 		var/banip = href_list["dbbanaddip"]
 		var/bancid = href_list["dbbanaddcid"]
-		var/duration = text2num(href_list["dbbadddurationdays"]) BAN_DAYS
-		duration += text2num(href_list["dbbadddurationdays"]) BAN_HOURS
-		duration += text2num(href_list["dbbadddurationdays"])
-		var/banduration = duration
+		var/banduration = text2num(href_list["dbbaddduration"])
 		var/banjob = href_list["dbbanaddjob"]
 		var/banround = href_list["dbbanaddround"]
 		var/banreason = href_list["dbbanreason"]
@@ -270,7 +267,7 @@
 
 		var/task = href_list["editrights"]
 		if(task == "add")
-			var/new_ckey = ckey(tgui_input_text(usr, "Сикей нового админа", "Добавление админа", null, encode=FALSE))
+			var/new_ckey = ckey(tgui_input_text(usr, "Сикей нового админа","Добавление админа", null))
 			if(!new_ckey)	return
 			if(new_ckey in GLOB.admin_datums)
 				to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': [new_ckey] уже админ!</font>", confidential=TRUE)
@@ -286,7 +283,7 @@
 		var/datum/admins/D = GLOB.admin_datums[adm_ckey]
 
 		if(task == "remove")
-			if(tgui_alert(usr, "Вы уверены что хотите удалить [adm_ckey]?","Внимание!",list("Да", "Отмена")) == "Да")
+			if(tgui_alert(usr, "Вы уверены что хотите удалить [adm_ckey]?","Внимание!",list("Да","Отмена")) == "Да")
 				if(!D)	return
 				GLOB.admin_datums -= adm_ckey
 				D.disassociate()
@@ -299,7 +296,7 @@
 		else if(task == "rank")
 			var/new_rank
 			if(length(GLOB.admin_ranks))
-				new_rank = tgui_input_list(usr, "Выберите стандартный ранг или создайте новый", "Выбор ранга", (GLOB.admin_ranks|"*Новый Ранг*"), null)
+				new_rank = trim(tgui_input_list(usr,"Выберите стандартный ранг или создайте новый", "Выбор ранга", (GLOB.admin_ranks|"*Новый Ранг*"), null))
 			else
 				CRASH("GLOB.admin_ranks is empty, inform coders")
 
@@ -309,7 +306,7 @@
 			switch(new_rank)
 				if(null,"") return
 				if("*Новый Ранг*")
-					new_rank = tgui_input_text(usr, "Введите название нового ранга", "Новый Ранг", null, encode = FALSE)
+					new_rank = trim(tgui_input_text(usr, "Введите название нового ранга", "Новый Ранг", null))
 					if(!new_rank)
 						to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': Неверный ранг</font>", confidential=TRUE)
 						return
@@ -384,7 +381,7 @@
 	else if(href_list["edit_shuttle_time"])
 		if(!check_rights(R_SERVER))	return
 
-		var/timer = tgui_input_number(usr, "Enter new shuttle duration (seconds):", "Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft())
+		var/timer = input("Enter new shuttle duration (seconds):","Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft() ) as num
 		SSshuttle.emergency.setTimer(timer SECONDS)
 		var/time_to_destination = round(SSshuttle.emergency.timeLeft(600))
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
@@ -414,17 +411,6 @@
 		log_and_message_admins(span_adminnotice("[key_name_admin(usr)] lockdowned the Emergency Shuttle"))
 		href_list["secrets"] = "check_antagonist"
 
-	else if(href_list["full_lockdown"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		if(!you_realy_want_do_this())
-			return
-
-		GLOB.full_lockdown = !GLOB.full_lockdown
-		log_and_message_admins("[GLOB.full_lockdown? "enabled" : "disabled"] Full Lockdown")
-		href_list["secrets"] =  "check_antagonist"
-
 	else if(href_list["delay_round_end"])
 		if(!check_rights(R_SERVER))	return
 
@@ -443,7 +429,7 @@
 			return
 
 		var/delmob = 0
-		switch(tgui_alert(usr, "Delete old mob?", "Message", list("Yes", "No", "Cancel")))
+		switch(alert("Delete old mob?","Message","Yes","No","Cancel"))
 			if("Cancel")	return
 			if("Yes")		delmob = 1
 
@@ -484,11 +470,11 @@
 		var/banfolder = href_list["unbanf"]
 		GLOB.banlist_savefile.cd = "/base/[banfolder]"
 		var/key = GLOB.banlist_savefile["key"]
-		if(tgui_alert(usr, "Are you sure you want to unban [key]?", "Confirmation", list("Yes", "No")) == "Yes")
+		if(alert(usr, "Are you sure you want to unban [key]?", "Confirmation", "Yes", "No") == "Yes")
 			if(RemoveBan(banfolder))
 				unbanpanel()
 			else
-				tgui_alert(usr, "This ban has already been lifted / does not exist.", "Error", list("Ok"))
+				alert(usr, "This ban has already been lifted / does not exist.", "Error", "Ok")
 				unbanpanel()
 
 	else if(href_list["unbane"])
@@ -509,24 +495,23 @@
 
 		var/duration
 
-		switch(tgui_alert(usr, "Temporary Ban?",, list("Yes", "No")))
+		switch(alert("Temporary Ban?",,"Yes","No"))
 			if("Yes")
 				temp = 1
 				var/mins = 0
 				if(minutes > GLOB.CMinutes)
 					mins = minutes - GLOB.CMinutes
-				mins = tgui_input_number(usr, "How long (in minutes)? (Default: 1440)", "Ban time", mins ? mins : 1440, max_value = 525599)
-				if(!mins)
-					return
+				mins = input(usr,"How long (in minutes)? (Default: 1440)","Ban time",mins ? mins : 1440) as num|null
+				if(!mins)	return
+				mins = min(525599,mins)
 				minutes = GLOB.CMinutes + mins
 				duration = GetExp(minutes)
-				reason = tgui_input_text(usr, "Please state the reason", "Reason", reason2, multiline = TRUE, encode = FALSE)
-				if(!reason)
-					return
+				reason = input(usr,"Please state the reason","Reason",reason2) as message|null
+				if(!reason)	return
 			if("No")
 				temp = 0
 				duration = "Perma"
-				reason = tgui_input_text(usr, "Please state the reason", "Reason", reason2, multiline = TRUE, encode = FALSE)
+				reason = input(usr,"Please state the reason","Reason",reason2) as message|null
 				if(!reason)	return
 
 		log_admin("[key_name(usr)] edited [banned_key]'s ban. Reason: [reason] Duration: [duration]")
@@ -560,7 +545,7 @@
 				to_chat(usr, "<span class='warning'>Unfortunately, database based unbanning cannot be done through this panel</span>")
 				DB_ban_panel(M.ckey)
 				return	*/
-			switch(tgui_alert(usr, "Reason: '[banreason]' Remove appearance ban?", "Please Confirm", list("Yes", "No")))
+			switch(alert("Reason: '[banreason]' Remove appearance ban?","Please Confirm","Yes","No"))
 				if("Yes")
 					ban_unban_log_save("[key_name(usr)] removed [key_name(M)]'s appearance ban")
 					log_admin("[key_name(usr)] removed [key_name(M)]'s appearance ban")
@@ -569,9 +554,9 @@
 					message_admins("<span class='notice'>[key_name_admin(usr)] removed [key_name_admin(M)]'s appearance ban</span>")
 					to_chat(M, "<span class='warning'><big><b>[usr.client.ckey] has removed your appearance ban.</b></big></span>", confidential=TRUE)
 
-		else switch(tgui_alert(usr, "Appearance ban [M.ckey]?",, list("Yes", "No", "Cancel")))
+		else switch(alert("Appearance ban [M.ckey]?",,"Yes","No", "Cancel"))
 			if("Yes")
-				var/reason = tgui_input_text(usr, "Please state the reason", "Reason", multiline = TRUE, encode = FALSE)
+				var/reason = input(usr,"Please state the reason","Reason") as message|null
 				if(!reason)
 					return
 				M = admin_ban_mobsearch(M, ban_ckey_param, usr)
@@ -849,7 +834,7 @@
 
 		if(M != usr)																//we can jobban ourselves
 			if(M.client && M.client.holder && (M.client.holder.rights & R_BAN))		//they can ban too. So we can't ban them
-				tgui_alert(usr, "You cannot perform this action. You must be of a higher administrative rank!")
+				alert("You cannot perform this action. You must be of a higher administrative rank!")
 				return
 
 		var/ban_ckey_param = href_list["dbbanaddckey"]
@@ -921,15 +906,15 @@
 
 		//Banning comes first
 		if(notbannedlist.len) //at least 1 unbanned job exists in joblist so we have stuff to ban.
-			switch(tgui_alert(usr, "Temporary Ban of [M.ckey]?",, list("Yes", "No", "Cancel")))
+			switch(alert("Temporary Ban of [M.ckey]?",,"Yes","No", "Cancel"))
 				if("Yes")
 					if(CONFIG_GET(flag/ban_legacy_system))
 						to_chat(usr, "<span class='warning'>Your server is using the legacy banning system, which does not support temporary job bans. Consider upgrading. Aborting ban.</span>", confidential=TRUE)
 						return
-					var/mins = tgui_input_number(usr, "How long (in minutes)?", "Ban time", 1440, max_value = 525599)
+					var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
 					if(!mins)
 						return
-					var/reason = tgui_input_text(usr, "Please state the reason", "Reason", "", multiline = TRUE, encode = FALSE)
+					var/reason = input(usr,"Please state the reason","Reason","") as message|null
 					if(!reason)
 						return
 
@@ -952,7 +937,7 @@
 					href_list["jobban2"] = 1 // lets it fall through and refresh
 					return 1
 				if("No")
-					var/reason = tgui_input_text(usr, "Please state the reason", "Reason", "", multiline = TRUE, encode = FALSE)
+					var/reason = input(usr,"Please state the reason","Reason","") as message|null
 					if(reason)
 						var/msg
 						M = admin_ban_mobsearch(M, ban_ckey_param, usr)
@@ -984,7 +969,7 @@
 			for(var/job in joblist)
 				var/reason = jobban_isbanned(M, job)
 				if(!reason) continue //skip if it isn't jobbanned anyway
-				switch(tgui_alert(usr, "Job: '[job]' Reason: '[reason]' Un-jobban?", "Please Confirm", list("Yes", "No")))
+				switch(alert("Job: '[job]' Reason: '[reason]' Un-jobban?","Please Confirm","Yes","No"))
 					if("Yes")
 						ban_unban_log_save("[key_name(usr)] unjobbanned [key_name(M)] from [job]")
 						log_admin("[key_name(usr)] unbanned [key_name(M)] from [job]")
@@ -1009,7 +994,7 @@
 		if(C == null)
 			to_chat(usr, "<span class='warning'>Mob has no client to kick.</span>", confidential=TRUE)
 			return
-		if(tgui_alert(usr, "Kick [C.ckey]?",, list("Yes", "No")) == "Yes")
+		if(alert("Kick [C.ckey]?",,"Yes","No") == "Yes")
 			if(C && C.holder && (C.holder.rights & R_BAN))
 				to_chat(usr, "<span class='warning'>[key_name_admin(C)] cannot be kicked from the server.</span>", confidential=TRUE)
 				return
@@ -1063,7 +1048,7 @@
 
 	else if(href_list["removenote"])
 		var/note_id = href_list["removenote"]
-		if(tgui_alert(usr, "Do you really want to delete this note?", "Note deletion confirmation", list("Yes", "No")) == "Yes")
+		if(alert("Do you really want to delete this note?", "Note deletion confirmation", "Yes", "No") == "Yes")
 			remove_note(note_id)
 
 	else if(href_list["editnote"])
@@ -1083,7 +1068,7 @@
 		var/target_ckey = href_list["webtools"]
 		if(CONFIG_GET(string/forum_playerinfo_url))
 			var/url_to_open = CONFIG_GET(string/forum_playerinfo_url) + target_ckey
-			if(tgui_alert(usr, "Open [url_to_open]",, list("Yes", "No")) == "Yes")
+			if(alert("Open [url_to_open]",,"Yes","No")=="Yes")
 				usr.client << link(url_to_open)
 
 	else if(href_list["shownoteckey"])
@@ -1099,7 +1084,7 @@
 
 		var/t = href_list["removejobban"]
 		if(t)
-			if((tgui_alert(usr, "Do you want to unjobban [t]?", "Unjobban confirmation", list("Yes", "No")) == "Yes") && t) //No more misclicks! Unless you do it twice.
+			if((alert("Do you want to unjobban [t]?","Unjobban confirmation", "Yes", "No") == "Yes") && t) //No more misclicks! Unless you do it twice.
 				log_and_message_admins("<span class='notice'>removed [t]</span>")
 				jobban_remove(t)
 				href_list["ban"] = 1 // lets it fall through and refresh
@@ -1116,12 +1101,13 @@
 			return
 		var/ban_ckey_param = href_list["dbbanaddckey"]
 
-		switch(tgui_alert(usr, "Temporary Ban of [M.ckey] / [ban_ckey_param]?",, list("Yes", "No", "Cancel")))
+		switch(alert("Temporary Ban of [M.ckey] / [ban_ckey_param]?",,"Yes","No", "Cancel"))
 			if("Yes")
-				var/mins = tgui_input_number(usr, "How long (in minutes)?", "Ban time", 1440, max_value = 525599)
+				var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
 				if(!mins)
 					return
-				var/reason = tgui_input_text(usr, "Please state the reason", "Reason", multiline = TRUE, encode = FALSE)
+				if(mins >= 525600) mins = 525599
+				var/reason = input(usr,"Please state the reason","Reason") as message|null
 				if(!reason)
 					return
 				M = admin_ban_mobsearch(M, ban_ckey_param, usr)
@@ -1141,7 +1127,7 @@
 
 				qdel(M.client)
 			if("No")
-				var/reason = tgui_input_text(usr, "Please state the reason", "Reason", multiline = TRUE, encode = FALSE)
+				var/reason = input(usr,"Please state the reason","Reason") as message|null
 				if(!reason)
 					return
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
@@ -1170,7 +1156,7 @@
 
 	else if(href_list["watchremove"])
 		var/target_ckey = href_list["watchremove"]
-		var/confirm = tgui_alert(usr, "Are you sure you want to remove [target_ckey] from the watchlist?", "Confirm Watchlist Removal", list("Yes", "No"))
+		var/confirm = alert("Are you sure you want to remove [target_ckey] from the watchlist?", "Confirm Watchlist Removal", "Yes", "No")
 		if(confirm == "Yes")
 			usr.client.watchlist_remove(target_ckey)
 
@@ -1227,7 +1213,7 @@
 		if(!check_rights(R_ADMIN))	return
 
 		if(SSticker && SSticker.mode)
-			return tgui_alert(usr, "The game has already started.")
+			return alert(usr, "The game has already started.", null, null, null, null)
 		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
 		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
 		for(var/mode in config.modes)
@@ -1265,22 +1251,21 @@
 		if(!check_rights(R_ADMIN|R_SERVER))	return
 
 		if(SSticker && SSticker.mode)
-			return tgui_alert(usr, "The game has already started.")
+			return alert(usr, "The game has already started.", null, null, null, null)
 		GLOB.master_mode = href_list["c_mode2"]
 		log_and_message_admins("<span class='notice'>set the mode as [GLOB.master_mode].</span>")
 		to_chat(world, "<span class='boldnotice'>The mode is now: [GLOB.master_mode]</span>")
 		Game() // updates the main game menu
-		if (tgui_alert(usr, " Хотите ли вы сохранить этот режим как режим по умолчанию?", "Сохранить режим", list("Да", "Нет")) == "Да")
-			world.save_mode(GLOB.master_mode)
+		world.save_mode(GLOB.master_mode)
 		.(href, list("c_mode"=1))
 
 	else if(href_list["f_secret2"])
 		if(!check_rights(R_ADMIN|R_SERVER))	return
 
 		if(SSticker && SSticker.mode)
-			return tgui_alert(usr, "The game has already started.")
+			return alert(usr, "The game has already started.", null, null, null, null)
 		if(GLOB.master_mode != "secret")
-			return tgui_alert(usr, "The game mode has to be secret!")
+			return alert(usr, "The game mode has to be secret!", null, null, null, null)
 		GLOB.secret_force_mode = href_list["f_secret2"]
 		log_and_message_admins("<span class='notice'>set the forced secret mode as [GLOB.secret_force_mode].</span>")
 		Game() // updates the main game menu
@@ -1327,9 +1312,9 @@
 		if(!check_rights(R_ADMIN))
 			return
 		if(SSticker && SSticker.mode)
-			return tgui_alert(usr, "The game has already started.")
+			return alert(usr, "The game has already started.", null, null, null, null)
 		if(GLOB.master_mode != "antag-paradise" && GLOB.secret_force_mode != "antag-paradise")
-			return tgui_alert(usr, "The game mode has to be Antag Paradise!")
+			return alert(usr, "The game mode has to be Antag Paradise!", null, null, null, null)
 
 		var/command = href_list["change_weights2"]
 		if(command == "reset")
@@ -1339,9 +1324,10 @@
 			log_and_message_admins(span_notice("resets everything to default in Antag Paradise gamemode."))
 
 		else if(command == "chance")
-			var/choice = tgui_input_number(usr, "Adjust the chance for [capitalize(ROLE_TRAITOR)] antag to roll additional role on top", "Double Antag Adjustment", 0, min_value = 0, max_value = 100)
+			var/choice = input(usr, "Adjust the chance for [capitalize(ROLE_TRAITOR)] antag to roll additional role on top", "Double Antag Adjustment", 0) as null|num
 			if(isnull(choice))
 				return
+			choice = round(clamp(choice, 0, 100))
 			GLOB.antag_paradise_double_antag_chance = choice
 			log_and_message_admins(span_notice("set the [choice]% chance to roll double antag for [capitalize(ROLE_TRAITOR)] antagonist in Antag Paradise gamemode."))
 
@@ -1353,9 +1339,10 @@
 					antags_list[key] = !!(key in antags_list)
 				GLOB.antag_paradise_weights = antags_list
 			var/antag = replacetext(command, "weights_normal_", "")
-			var/choice = tgui_input_number(usr, "Adjust the weight for [capitalize(antag)]", "Antag Weight Adjustment", 0, min_value = 0, max_value = 100)
+			var/choice = input(usr, "Adjust the weight for [capitalize(antag)]", "Antag Weight Adjustment", 0) as null|num
 			if(isnull(choice))
 				return
+			choice = round(clamp(choice, 0, 100))
 			GLOB.antag_paradise_weights[antag] = choice
 			log_and_message_admins(span_notice("set the weight for [capitalize(antag)] as antagonist to [choice] in Antag Paradise gamemode."))
 
@@ -1363,9 +1350,10 @@
 			if(!GLOB.antag_paradise_special_weights)
 				GLOB.antag_paradise_special_weights = config_to_roles(CONFIG_GET(keyed_list/antag_paradise_special_antags_weights))
 			var/antag = replacetext(command, "weights_special_", "")
-			var/choice = tgui_input_number(usr, "Adjust the weight for [capitalize(antag)]", "Antag Weight Adjustment", 0, min_value = 0, max_value = 100)
+			var/choice = input(usr, "Adjust the weight for [capitalize(antag)]", "Antag Weight Adjustment", 0) as null|num
 			if(isnull(choice))
 				return
+			choice = round(clamp(choice, 0, 100))
 			GLOB.antag_paradise_special_weights[antag] = choice
 			log_and_message_admins(span_notice("set the weight for [capitalize(antag)] as special antagonist to [choice] in Antag Paradise gamemode."))
 		.(href, list("change_weights"=1))
@@ -1377,7 +1365,7 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>", confidential=TRUE)
 			return
-		if(tgui_alert(usr, "Confirm make monkey?",, list("Yes", "No")) != "Yes")
+		if(alert(usr, "Confirm make monkey?",, "Yes", "No") != "Yes")
 			return
 
 		log_and_message_admins("<span class='notice'>attempting to monkeyize [key_name_admin(H)]</span>")
@@ -1392,7 +1380,7 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>", confidential=TRUE)
 			return
 
-		var/speech = tgui_input_text(usr, "What will [key_name(M)] say?.", "Force speech", "", encode = FALSE)// Don't need to sanitize, since it does that in say(), we also trust our admins.
+		var/speech = input("What will [key_name(M)] say?.", "Force speech", "")// Don't need to sanitize, since it does that in say(), we also trust our admins.
 		if(!speech)	return
 		M.say(speech)
 		speech = sanitize(speech) // Nah, we don't trust them
@@ -1402,26 +1390,45 @@
 	else if(href_list["sendtoprison"])
 		if(!check_rights(R_ADMIN))	return
 
-		if(tgui_alert(usr, "Отправить в админскую тюрьму на остаток раунда?", "Подтверждение", list("Да", "Нет")) != "Да")
+		if(alert(usr, "Send to admin prison for the round?", "Message", "Yes", "No") != "Yes")
 			return
 
 		var/mob/M = locateUID(href_list["sendtoprison"])
 		if(!istype(M, /mob))
-			to_chat(usr, span_warning("Это можно использовать только на объектах типа /mob"), confidential=TRUE)
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>", confidential=TRUE)
 			return
 		if(istype(M, /mob/living/silicon/ai))
-			to_chat(usr, span_warning("Это нельзя использовать на объектах типа /mob/living/silicon/ai"), confidential=TRUE)
+			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>", confidential=TRUE)
 			return
 
 		var/turf/prison_cell = pick(GLOB.prisonwarp)
 		if(!prison_cell)	return
 
-		var/obj/structure/closet/supplypod/centcompod/prison_warp/pod = new()
-		pod.reverse_dropoff_coords = list(prison_cell.x, prison_cell.y, prison_cell.z)
-		pod.target = M
-		new /obj/effect/pod_landingzone(M, pod)
+		var/obj/structure/closet/secure_closet/brig/locker = new /obj/structure/closet/secure_closet/brig(prison_cell)
+		locker.opened = 0
+		locker.locked = 1
 
-		log_and_message_admins("sent [key_name_admin(M)] to the prison station.")
+		//strip their stuff and stick it in the crate
+		for(var/obj/item/I in M)
+			M.drop_transfer_item_to_loc(I, locker)
+		M.update_icons()
+
+		//so they black out before warping
+		if(isliving(M))
+			var/mob/living/L = M
+			L.Paralyse(10 SECONDS)
+		sleep(5)
+		if(!M)
+			return
+
+		M.forceMove(prison_cell)
+		if(ishuman(M))
+			var/mob/living/carbon/human/prisoner = M
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), ITEM_SLOT_CLOTH_INNER)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), ITEM_SLOT_FEET)
+
+		to_chat(M, "<span class='warning'>You have been sent to the prison station!</span>")
+		log_and_message_admins("<span class='notice'>sent [key_name_admin(M)] to the prison station.</span>")
 
 	else if(href_list["sendbacktolobby"])
 		if(!check_rights(R_ADMIN))
@@ -1437,7 +1444,7 @@
 			to_chat(usr, "<span class='warning'>[M] doesn't seem to have an active client.</span>", confidential=TRUE)
 			return
 
-		if(tgui_alert(usr, "Send [key_name(M)] back to Lobby?", "Message", list("Yes", "No")) != "Yes")
+		if(alert(usr, "Send [key_name(M)] back to Lobby?", "Message", "Yes", "No") != "Yes")
 			return
 
 		log_admin("[key_name(usr)] has sent [key_name(M)] back to the Lobby.")
@@ -1466,7 +1473,7 @@
 			to_chat(usr, "<span class='warning'>[M] has no flavor text set.</span>", confidential=TRUE)
 			return
 
-		if(tgui_alert(usr, "Erase [key_name(M)]'s flavor text?", "Message", list("Yes", "No")) != "Yes")
+		if(alert(usr, "Erase [key_name(M)]'s flavor text?", "Message", "Yes", "No") != "Yes")
 			return
 
 		log_admin("[key_name(usr)] has erased [key_name(M)]'s flavor text.")
@@ -1493,7 +1500,7 @@
 			to_chat(usr, "<span class='warning'>[M] doesn't seem to have an active client.</span>", confidential=TRUE)
 			return
 
-		if(tgui_alert(usr, "Force [key_name(M)] to use a random name?", "Message", list("Yes", "No")) != "Yes")
+		if(alert(usr, "Force [key_name(M)] to use a random name?", "Message", "Yes", "No") != "Yes")
 			return
 
 		log_admin("[key_name(usr)] has forced [key_name(M)] to use a random name.")
@@ -1604,7 +1611,7 @@
 		if(!check_rights(R_EVENT))
 			return
 
-		if(tgui_alert(usr, "Confirm?", "Message", list("Yes", "No")) != "Yes")
+		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
 
 		var/mob/M = locateUID(href_list["tdome1"])
@@ -1631,7 +1638,7 @@
 		if(!check_rights(R_EVENT))
 			return
 
-		if(tgui_alert(usr, "Confirm?", "Message", list("Yes", "No")) != "Yes")
+		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
 
 		var/mob/M = locateUID(href_list["tdome2"])
@@ -1658,7 +1665,7 @@
 		if(!check_rights(R_EVENT))
 			return
 
-		if(tgui_alert(usr, "Confirm?", "Message", list("Yes", "No")) != "Yes")
+		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
 
 		var/mob/M = locateUID(href_list["tdomeadmin"])
@@ -1682,7 +1689,7 @@
 		if(!check_rights(R_EVENT))
 			return
 
-		if(tgui_alert(usr, "Confirm?", "Message", list("Yes", "No")) != "Yes")
+		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
 
 		var/mob/M = locateUID(href_list["tdomeobserve"])
@@ -1749,7 +1756,7 @@
 			to_chat(usr, "<span class='warning'>[M] is already scheduled to return from the Syndicate Jail.</span>", confidential=TRUE)
 			return
 
-		var/time_seconds = tgui_input_number(usr, "Enter the jail time in seconds:", "Start Syndicate Jail Timer")
+		var/time_seconds = input(usr, "Enter the jail time in seconds:", "Start Syndicate Jail Timer") as num|null
 		time_seconds = text2num(time_seconds)
 		if(time_seconds < 0)
 			return
@@ -1783,7 +1790,7 @@
 	else if(href_list["aroomwarp"])
 		if(!check_rights(R_ADMIN))	return
 
-		if(tgui_alert(usr, "Confirm?", "Message", list("Yes", "No")) != "Yes")
+		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
 
 		var/mob/M = locateUID(href_list["aroomwarp"])
@@ -1834,7 +1841,7 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>", confidential=TRUE)
 			return
 
-		if(tgui_alert(usr, "Confirm make ai?",, list("Yes", "No")) != "Yes")
+		if(alert(usr, "Confirm make ai?",, "Yes", "No") != "Yes")
 			return
 
 		log_and_message_admins("AIized [key_name(H)]")
@@ -1850,7 +1857,7 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>", confidential=TRUE)
 			return
 
-		if(tgui_alert(usr, "Confirm make superhero?",, list("Yes", "No")) != "Yes")
+		if(alert(usr, "Confirm make superhero?",, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_super(H)
@@ -1862,7 +1869,7 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>", confidential=TRUE)
 			return
-		if(tgui_alert(usr, "Confirm make robot?",, list("Yes", "No")) != "Yes")
+		if(alert(usr, "Confirm make robot?",, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_robotize(H)
@@ -1874,7 +1881,7 @@
 		if(isnewplayer(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/new_player</span>", confidential=TRUE)
 			return
-		if(tgui_alert(usr, "Confirm make animal?",, list("Yes", "No")) != "Yes")
+		if(alert(usr, "Confirm make animal?",, "Yes", "No") != "Yes")
 			return
 
 		usr.client.cmd_admin_animalize(M)
@@ -1888,18 +1895,18 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human", confidential=TRUE)
 			return
 
-		if(tgui_alert(usr, "Confirm make pAI?",, list("Yes", "No")) == "No")
+		if(alert(usr, "Confirm make pAI?",,"Yes","No") == "No")
 			return
 
-		if(tgui_alert(usr, "pAI or SpAI?",, list("pAI", "SpAI")) == "SpAI")
+		if(alert(usr, "pAI or SpAI?",,"pAI","SpAI") == "SpAI")
 			bespai = TRUE
 
 		var/painame = "Default"
 		var/name = ""
-		if(tgui_alert(usr, "Do you want to set their name or let them choose their own name?", "Name Choice", list("Set Name", "Let them choose")) == "Set Name")
-			name = sanitize(tgui_input_text(usr, "Enter a name for the new pAI. Default name is [painame].", "pAI Name", painame, encode=FALSE, max_length = MAX_NAME_LEN))
+		if(alert(usr, "Do you want to set their name or let them choose their own name?", "Name Choice", "Set Name", "Let them choose") == "Set Name")
+			name = sanitize(copytext(input(usr, "Enter a name for the new pAI. Default name is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
 		else
-			name = sanitize(tgui_input_text(H, "An admin wants to make you into a pAI. Choose a name. Default is [painame].", "pAI Name", painame, encode=FALSE, max_length = MAX_NAME_LEN))
+			name = sanitize(copytext(input(H, "An admin wants to make you into a pAI. Choose a name. Default is [painame].", "pAI Name", painame),1,MAX_NAME_LEN))
 
 		if(!name)
 			name = painame
@@ -2225,7 +2232,7 @@
 			SStickets.convert_to_other_ticket(indexNum)
 
 	else if(href_list["cult_mindspeak"])
-		var/input = tgui_input_text(usr, "Communicate to all the cultists with the voice of [SSticker.cultdat.entity_name]", "Voice of [SSticker.cultdat.entity_name]", encode = FALSE)
+		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [SSticker.cultdat.entity_name]", "Voice of [SSticker.cultdat.entity_name]")
 		if(!input)
 			return
 
@@ -2240,7 +2247,7 @@
 		log_admin("[key_name(usr)] Voice of [SSticker.cultdat.entity_name]: [input]")
 
 	else if(href_list["cult_adjustsacnumber"])
-		var/amount = tgui_input_number(usr, "Adjust the amount of sacrifices required before summoning Nar'Sie", "Sacrifice Adjustment", 2)
+		var/amount = input("Adjust the amount of sacrifices required before summoning Nar'Sie", "Sacrifice Adjustment", 2) as null | num
 		if(amount > 0)
 			var/datum/game_mode/gamemode = SSticker.mode
 			var/old = gamemode.cult_objs.sacrifices_required
@@ -2249,7 +2256,7 @@
 			log_admin("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
 
 	else if(href_list["cult_newtarget"])
-		if(tgui_alert(usr, "Reroll the cult's sacrifice target?", "Cult Debug", list("Yes", "No")) != "Yes")
+		if(alert(usr, "Reroll the cult's sacrifice target?", "Cult Debug", "Yes", "No") != "Yes")
 			return
 
 		var/datum/game_mode/gamemode = SSticker.mode
@@ -2260,7 +2267,7 @@
 		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
 
 	else if(href_list["cult_newsummonlocations"])
-		if(tgui_alert(usr, "Reroll the cult's summoning locations?", "Cult Debug", list("Yes", "No")) != "Yes")
+		if(alert(usr, "Reroll the cult's summoning locations?", "Cult Debug", "Yes", "No") != "Yes")
 			return
 
 		var/datum/game_mode/gamemode = SSticker.mode
@@ -2275,7 +2282,7 @@
 		log_admin("Admin [key_name_admin(usr)] has rerolled the Cult's sacrifice target.")
 
 	else if(href_list["cult_unlocknarsie"])
-		if(tgui_alert(usr, "Unlock the ability to summon Nar'Sie?", "Cult Debug", list("Yes", "No")) != "Yes")
+		if(alert(usr, "Unlock the ability to summon Nar'Sie?", "Cult Debug", "Yes", "No") != "Yes")
 			return
 
 		var/datum/game_mode/gamemode = SSticker.mode
@@ -2284,7 +2291,7 @@
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's ability to summon Nar'Sie.")
 
 	else if(href_list["clock_mindspeak"])
-		var/input = tgui_input_text(usr, "Communicate to all the clockers with the voice of Ratvar", "Voice of Ratvar", encode = FALSE)
+		var/input = stripped_input(usr, "Communicate to all the clockers with the voice of Ratvar", "Voice of Ratvar")
 		if(!input)
 			return
 
@@ -2299,7 +2306,7 @@
 		log_admin("[key_name(usr)] Voice of Ratvar: [input]")
 
 	else if(href_list["clock_adjustpower"])
-		var/amount = tgui_input_number(usr, "Adjust the amount of power required before summoning Ratvar", "Power Adjustment", 50000)
+		var/amount = input("Adjust the amount of power required before summoning Ratvar", "Power Adjustment", 50000) as null | num
 		if(amount > 0)
 			var/datum/game_mode/gamemode = SSticker.mode
 			var/old = gamemode.clocker_objs.power_goal
@@ -2308,7 +2315,7 @@
 			log_admin("Admin [key_name_admin(usr)] has modified the amount of clock cult power required before summoning from [old] to [amount]")
 
 	else if(href_list["clock_adjustbeacon"])
-		var/amount = tgui_input_number(usr, "Adjust the amount of beacon required before summoning Ratvar", "Beacon Adjustment", 10)
+		var/amount = input("Adjust the amount of beacon required before summoning Ratvar", "Beacon Adjustment", 10) as null | num
 		if(amount > 0)
 			var/datum/game_mode/gamemode = SSticker.mode
 			var/old = gamemode.clocker_objs.beacon_goal
@@ -2317,7 +2324,7 @@
 			log_admin("Admin [key_name_admin(usr)] has modified the amount of clock cult beacon required before summoning from [old] to [amount]")
 
 	else if(href_list["clock_adjustclocker"])
-		var/amount = tgui_input_number(usr, "Adjust the amount of clockers required before summoning Ratvar", "Clockers Adjustment", 10)
+		var/amount = input("Adjust the amount of clockers required before summoning Ratvar", "Clockers Adjustment", 10) as null | num
 		if(amount > 0)
 			var/datum/game_mode/gamemode = SSticker.mode
 			var/old = gamemode.clocker_objs.clocker_goal
@@ -2326,7 +2333,7 @@
 			log_admin("Admin [key_name_admin(usr)] has modified the amount of clock cult clocker required before summoning from [old] to [amount]")
 
 	else if(href_list["clock_newsummonlocations"])
-		if(tgui_alert(usr, "Reroll the Clock cult's summoning locations?", "Clock Cult Debug", list("Yes", "No")) != "Yes")
+		if(alert(usr, "Reroll the Clock cult's summoning locations?", "Clock Cult Debug", "Yes", "No") != "Yes")
 			return
 
 		var/datum/game_mode/gamemode = SSticker.mode
@@ -2341,7 +2348,7 @@
 		log_admin("Admin [key_name_admin(usr)] has rerolled the Clock Cult's sacrifice target.")
 
 	else if(href_list["clock_unlockratvar"])
-		if(tgui_alert(usr, "Unlock the ability to summon Ratvar?", "Clock Cult Debug", list("Yes", "No")) != "Yes")
+		if(alert(usr, "Unlock the ability to summon Ratvar?", "Clock Cult Debug", "Yes", "No") != "Yes")
 			return
 
 		SSticker.mode.clocker_objs.ratvar_is_ready()
@@ -2446,10 +2453,10 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>", confidential=TRUE)
 			return
 		var/etypes = list("Borgification", "Corgification", "Death By Fire", "Total Brain Death", "Honk Tumor", "Cluwne", "Demote", "Demote with Bot", "Revoke Fax Access", "Angry Fax Machine")
-		var/eviltype = tgui_input_list(src.owner, "Which type of evil fax do you wish to send [H]?", "Its good to be baaaad...", etypes)
+		var/eviltype = input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "") as null|anything in etypes
 		if(!(eviltype in etypes))
 			return
-		var/customname = tgui_input_text(owner, "Pick a title for the evil fax.", "Fax Title",)
+		var/customname = clean_input("Pick a title for the evil fax.", "Fax Title", , owner)
 		if(!customname)
 			customname = "paper"
 		var/obj/item/paper/evilfax/P = new /obj/item/paper/evilfax(null)
@@ -2459,7 +2466,7 @@
 		P.info = "<b>You <i>really</i> should've known better.</b>"
 		P.myeffect = eviltype
 		P.mytarget = H
-		if(tgui_alert(usr, "Do you want the Evil Fax to activate automatically if [H] tries to ignore it?",, list("Yes", "No")) == "Yes")
+		if(alert("Do you want the Evil Fax to activate automatically if [H] tries to ignore it?",,"Yes", "No") == "Yes")
 			P.activate_on_timeout = 1
 		P.stamp(/obj/item/stamp/centcom)
 		P.faxmachineid = fax.UID()
@@ -2519,7 +2526,7 @@
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
 		P.name = "Центральное командование - paper"
 		var/stypes = list("Разберитесь с этим сами!","Неразборчивый факс","Факс не подписан","Не сейчас","Вы напрасно тратите наше время", "Продолжайте в том же духе", "Инструкции ОБР")
-		var/stype = tgui_input_list(src.owner, "Какой тип заготовленного письма вы хотите отправить [H]?", "Выберите этот документ", stypes)
+		var/stype = input(src.owner, "Какой тип заготовленного письма вы хотите отправить [H]?","Выберите этот документ", "") as null|anything in stypes
 		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><b>Научная станция NanoTrasen [SSmapping.map_datum.station_short]</b></font><BR><BR><BR><font size='4'>Отчет отдела коммуникаций АКН 'Трурль'</font></center><BR><BR>"
 		if(stype == "Разберитесь с этим сами!")
 			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов АКН 'Трурль'.<BR><BR>Пожалуйста, действуйте в соответствии со Стандартными Рабочими Процедурами и/или Космическим Законом. Вы полностью обучены справляться с данной ситуацией без вмешательства Центрального Командования.<BR><BR><i><small>Это автоматическое сообщение.</small>"
@@ -2556,7 +2563,7 @@
 			to_chat(usr, "<span class='warning'>The person you are trying to contact is not wearing a headset</span>", confidential=TRUE)
 			return
 
-		var/input = tgui_input_text(src.owner, "Please enter a message to reply to [key_name(H)] via [H.p_their()] headset.", "Outgoing message from HONKplanet", "", encode = FALSE)
+		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via [H.p_their()] headset.","Outgoing message from HONKplanet", "")
 		if(!input)	return
 
 		to_chat(src.owner, "You sent [input] to [H] via a secure channel.", confidential=TRUE)
@@ -2567,7 +2574,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(tgui_alert(src.owner, "Accept or Deny ERT request?", "CentComm Response", list("Accept", "Deny")) == "Deny")
+		if(alert(src.owner, "Accept or Deny ERT request?", "CentComm Response", "Accept", "Deny") == "Deny")
 			var/mob/living/carbon/human/H = locateUID(href_list["ErtReply"])
 			if(!istype(H))
 				to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>", confidential=TRUE)
@@ -2579,7 +2586,7 @@
 				to_chat(usr, "<span class='warning'>The person you are trying to contact is not wearing a headset</span>", confidential=TRUE)
 				return
 
-			var/input = tgui_input_text(src.owner, "Please enter a reason for denying [key_name(H)]'s ERT request.","Outgoing message from CentComm", "", encode = FALSE)
+			var/input = input(src.owner, "Please enter a reason for denying [key_name(H)]'s ERT request.","Outgoing message from CentComm", "")
 			if(!input)	return
 			GLOB.ert_request_answered = TRUE
 			to_chat(src.owner, "You sent [input] to [H] via a secure channel.", confidential=TRUE)
@@ -2642,10 +2649,10 @@
 		var/destination
 		var/notify
 		var/obj/item/paper/P
-		var/use_letterheard = tgui_alert(usr, "Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.",, list("Yes", "No"))
+		var/use_letterheard = alert("Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.",,"Yes","No")
 		switch(use_letterheard)
 			if("Yes")
-				var/choose_letterheard = tgui_alert(usr, "Which style of header and footer do you want to use?",, list("Nanotrasen", "Syndicate", "USSP"))
+				var/choose_letterheard = alert("Which style of header and footer do you want to use?",,"Nanotrasen","Syndicate","USSP")
 				switch(choose_letterheard)
 					if("Nanotrasen")
 						P = new /obj/item/paper/central_command(null)
@@ -2667,13 +2674,13 @@
 					fax = F
 
 
-		var/input = tgui_input_text(src.owner, "Please enter a message to send a fax via secure connection. Use <br> for line breaks. Both pencode and HTML work.", "Outgoing message from Centcomm", "", multiline = TRUE, encode = FALSE)
+		var/input = input(src.owner, "Please enter a message to send a fax via secure connection. Use <br> for line breaks. Both pencode and HTML work.", "Outgoing message from Centcomm", "") as message|null
 		if(!input)
 			qdel(P)
 			return
 		input = admin_pencode_to_html(html_encode(input)) // Encode everything from pencode to html
 
-		var/customname = tgui_input_text(owner, "Pick a title for the fax.", "Fax Title")
+		var/customname = clean_input("Pick a title for the fax.", "Fax Title", , owner)
 		if(!customname)
 			customname = "paper"
 
@@ -2695,9 +2702,9 @@
 				stampvalue = "ussp"
 				sendername = "Первый секретарь народного комиссара космических станций и планетоидов СССП"
 			if("Administrator")
-				stamptype = tgui_input_list(src.owner, "Pick a stamp type.", "Stamp Type", list("icon", "text", "none"))
+				stamptype = input(src.owner, "Pick a stamp type.", "Stamp Type") as null|anything in list("icon","text","none")
 				if(stamptype == "icon")
-					stampname = tgui_input_list(src.owner, "Pick a stamp icon.", "Stamp Icon", list("centcom", "syndicate", "granted", "denied", "clown", "ussp"))
+					stampname = input(src.owner, "Pick a stamp icon.", "Stamp Icon") as null|anything in list("centcom","syndicate","granted","denied","clown","ussp")
 					switch(stampname)
 						if("centcom")
 							stampvalue = "cent"
@@ -2712,17 +2719,17 @@
 						if("ussp")
 							stampvalue = "ussp"
 				else if(stamptype == "text")
-					stampvalue = tgui_input_text(owner, "What should the stamp say?", "Stamp Text")
+					stampvalue = clean_input("What should the stamp say?", "Stamp Text", , owner)
 				else if(stamptype == "none")
 					stamptype = ""
 				else
 					qdel(P)
 					return
 
-				sendername = tgui_input_text(owner, "What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title). This is optional.", "Organization",)
+				sendername = clean_input("What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title). This is optional.", "Organization", , owner)
 
 		if(sender)
-			notify = tgui_alert(src.owner, "Would you like to inform the original sender that a fax has arrived?", "Notify Sender", list("Yes", "No"))
+			notify = alert(src.owner, "Would you like to inform the original sender that a fax has arrived?","Notify Sender","Yes","No")
 
 		// Create the reply message
 		if(sendername)
@@ -2807,7 +2814,7 @@
 	else if(href_list["getmob"])
 		if(!check_rights(R_ADMIN))	return
 
-		if(tgui_alert(usr, "Confirm?", "Message", list("Yes", "No")) != "Yes")	return
+		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")	return
 		var/mob/M = locateUID(href_list["getmob"])
 		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>", confidential=TRUE)
@@ -2846,7 +2853,7 @@
 		if(!check_rights(R_ADMIN|R_MOD))	return
 
 		if(!SSticker || !SSticker.mode)
-			tgui_alert(usr, "The game hasn't started yet!")
+			alert("The game hasn't started yet!")
 			return
 
 		var/mob/M = locateUID(href_list["traitor"])
@@ -2897,10 +2904,10 @@
 			paths += path
 
 		if(!paths)
-			tgui_alert(usr, "The path list you sent is empty")
+			alert("The path list you sent is empty")
 			return
 		if(length(paths) > 5)
-			tgui_alert(usr, "Select fewer object types, (max 5)")
+			alert("Select fewer object types, (max 5)")
 			return
 
 		var/list/offset = splittext(href_list["offset"],",")
@@ -2917,19 +2924,18 @@
 
 		var/atom/target //Where the object will be spawned
 		var/where = href_list["object_where"]
-		if(!( where in list("onfloor","frompod","inhand","inmarked")))
+		if(!( where in list("onfloor","inhand","inmarked") ))
 			where = "onfloor"
 
 
 		switch(where)
-
 			if("inhand")
 				if(!iscarbon(usr) && !isrobot(usr))
 					to_chat(usr, "<span class='warning'>Can only spawn in hand when you're a carbon mob or cyborg.</span>", confidential=TRUE)
 					where = "onfloor"
 				target = usr
 
-			if("onfloor", "frompod")
+			if("onfloor")
 				switch(href_list["offset_type"])
 					if("absolute")
 						target = locate(0 + X,0 + Y,0 + Z)
@@ -2945,11 +2951,7 @@
 				else
 					target = marked_datum
 
-		var/obj/structure/closet/supplypod/centcompod/pod
-
 		if(target)
-			if(where == "frompod")
-				pod = new()
 			for(var/path in paths)
 				for(var/i = 0; i < number; i++)
 					if(path in typesof(/turf))
@@ -2958,13 +2960,7 @@
 						if(N && obj_name)
 							N.name = obj_name
 					else
-						var/atom/O
-
-						if(where == "frompod")
-							O = new path(pod)
-						else
-							O = new path(target)
-
+						var/atom/O = new path(target)
 						if(O)
 							O.flags |= ADMIN_SPAWNED
 							O.dir = obj_dir
@@ -2985,8 +2981,6 @@
 										R.module.rebuild()
 										R.activate_module(I)
 										R.module.fix_modules()
-		if(pod)
-			new /obj/effect/pod_landingzone(target, pod)
 
 		if(number == 1)
 			log_admin("[key_name(usr)] created a [english_list(paths)]")
@@ -3007,7 +3001,7 @@
 			return
 		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 			var/afkonly = text2num(href_list["afkonly"])
-			if(tgui_alert(usr, "Are you sure you want to kick all [afkonly ? "AFK" : ""] clients from the lobby?", "Confirmation", list("Yes", "Cancel")) != "Yes")
+			if(alert("Are you sure you want to kick all [afkonly ? "AFK" : ""] clients from the lobby?","Confirmation","Yes","Cancel") != "Yes")
 				return
 			var/list/listkicked = kick_clients_in_lobby("<span class='danger'>You were kicked from the lobby by an Administrator.</span>", afkonly)
 
@@ -3093,54 +3087,6 @@
 			if("gimmickteam")
 				if(usr.client.gimmick_team())
 					SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Team - Gimmick Team")
-			if("customportal")
-				if(!check_rights(R_EVENT))
-					return
-
-				var/list/settings = list(
-					"mainsettings" = list(
-					"typepath" = list("desc" = "Тип мобов для спавна", "type" = "datum", "path" = "/mob/living", "subtypesonly" = TRUE, "value" = /mob/living/simple_animal/hostile/poison/bees),
-					"amount" = list("desc" = "Число мобов", "type" = "number", "value" = 1),
-					"portalnum" = list("desc" = "Число порталов", "type" = "number", "value" = 10),
-					"delay" = list("desc" = "Время между порталами(в децесекундах)", "type" = "number", "value" = 50),
-					"color" = list("desc" = "Цвет портала", "type" = "color", "value" = "#00FF00"),
-					"playlightning" = list("desc" = "Проигрывать звук молнии при оповещении", "type" = "boolean", "value" = "Да"),
-					"announce_players" = list("desc" = "Делать оповещении", "type" = "boolean", "value" = "Да"),
-					"announcement" = list("desc" = "Оповещение", "type" = "string", "value" = "Массивная блюспейс аномалия зафиксирована вблизи станции %STATION%. Готовьтесь к худшему."),
-					)
-				)
-
-				message_admins("[key_name(usr)] is creating a custom portal storm...")
-				var/list/prefreturn = presentpreflikepicker(usr,"Настройка портального шторма", "Настройка портального шторма", Button1="Старт", width = 600, StealFocus = 1,Timeout = 0, settings=settings)
-
-				if (prefreturn["button"] == 1)
-					var/list/prefs = settings["mainsettings"]
-
-					if (prefs["amount"]["value"] < 1 || prefs["portalnum"]["value"] < 1)
-						to_chat(usr, "Число порталов для спавна должно быть минимум 1")
-						return
-
-					var/pathToSpawn = prefs["typepath"]["value"]
-					if (!ispath(pathToSpawn))
-						pathToSpawn = text2path(pathToSpawn)
-
-					if (!ispath(pathToSpawn))
-						to_chat(usr, "Некорректный тип [pathToSpawn]")
-						return
-
-					if (prefs["announce_players"]["value"] == "Да")
-						portalAnnounce(prefs["announcement"]["value"], (prefs["playlightning"]["value"] == "Да" ? TRUE : FALSE))
-
-					var/mutable_appearance/storm = mutable_appearance('icons/obj/stationobjs.dmi', "portal-projector0", FLY_LAYER)
-					storm.color = prefs["color"]["value"]
-
-					log_and_message_admins("has created a customized portal storm that will spawn [prefs["portalnum"]["value"]] portals, each of them spawning [prefs["amount"]["value"]] of [pathToSpawn]")
-
-					for (var/i in 1 to prefs["portalnum"]["value"])
-						var/turf/turf = get_random_station_turf()
-						while(iswallturf(turf))
-							turf = get_random_station_turf()
-						addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), turf, pathToSpawn, prefs["amount"]["value"], storm), i*prefs["delay"]["value"])
 			if("tripleAI")
 				usr.client.triple_ai()
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
@@ -3185,11 +3131,11 @@
 					"Enable Gravity Globally",
 					"Disable Gravity Globally",
 				)
-				var/gravity_state = tgui_input_list(usr, "Enable or disable global gravity state", "Global Gravity State", gravity_states)
+				var/gravity_state = input(usr, "Enable or disable global gravity state", "Global Gravity State") as null|anything in gravity_states
 				if(!gravity_state)
 					return
 
-				var/gravity_announce = tgui_input_text(usr, "Do you wish to make any global announcement?", "Announcement Text", encode = FALSE)
+				var/gravity_announce = input(usr, "Do you wish to make any global announcement?", "Announcement Text") as text|null
 				if(gravity_announce)
 					GLOB.event_announcement.Announce("[gravity_announce]")
 
@@ -3230,71 +3176,61 @@
 
 			if("prisonwarp")
 				if(!SSticker)
-					tgui_alert(usr, "The game hasn't started yet!")
+					alert("The game hasn't started yet!", null, null, null, null, null)
 					return
 				if(!you_realy_want_do_this())
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Prison Warp")
-				log_and_message_admins("teleported all players to the prison station.")
+				log_and_message_admins("<span class='notice'>teleported all players to the prison station.</span>")
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
 					var/turf/loc = find_loc(H)
-					var/security = FALSE
-					if(!H.client)
+					var/security = 0
+					if(!is_station_level(loc.z) || GLOB.prisonwarped.Find(H))
+
+//don't warp them if they aren't ready or are already there
 						continue
-					if(!loc?.z)
-						continue
-					var/datum/space_level/level = GLOB.space_manager.get_zlev(loc.z)
-					if(!is_station_level(loc.z) || level.name != CENTCOMM || GLOB.prisonwarped.Find(H)) //don't warp them if they aren't ready or are already there
-						continue
+					H.Paralyse(10 SECONDS)
 					if(H.wear_id)
 						var/obj/item/card/id/id = H.get_id_card()
 						if(istype(id))
-							if(ACCESS_CENT_COMMANDER in id.access)
+							for(var/A in id.access)
+								if(A == ACCESS_SECURITY)
+									security++
+					if(!security)
+						//strip their stuff before they teleport into a cell :downs:
+						for(var/obj/item/W in H)
+							if(istype(W, /obj/item/organ/external))
 								continue
-							if(ACCESS_SECURITY in id.access)
-								security = TRUE
-					var/turf/prison_cell = pick((security? GLOB.prisonsecuritywarp : GLOB.prisonwarp))
-					if(!prison_cell)
-						continue
-
-					var/obj/structure/closet/supplypod/centcompod/prison_warp/pod = new()
-					pod.reverse_dropoff_coords = list(prison_cell.x, prison_cell.y, prison_cell.z)
-					pod.target = H
-					pod.security = security
-					new /obj/effect/pod_landingzone(H, pod)
-
+								//don't strip organs
+							H.drop_item_ground(W)
+						//teleport person to cell
+						H.forceMove(pick(GLOB.prisonwarp))
+						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), ITEM_SLOT_CLOTH_INNER)
+						H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), ITEM_SLOT_FEET)
+					else
+						//teleport security person
+						H.forceMove(pick(GLOB.prisonsecuritywarp))
+					GLOB.prisonwarped += H
 			if("traitor_all")
 				if(!SSticker)
-					tgui_alert(usr, "The game hasn't started yet!")
+					alert("The game hasn't started yet!")
 					return
 				if(!you_realy_want_do_this())
 					return
-				var/objective_text = sanitize(tgui_input_text(usr, "Enter an objective", encode = FALSE))
-				var/datum/objective/objective
-
-				if(objective_text)
-					objective = new(objective_text)
-					objective.needs_target = FALSE
-					objective.antag_menu_name = "Цель предателей"
-
+				var/objective = sanitize(copytext_char(input("Enter an objective"),1,MAX_MESSAGE_LEN))
 				if(!objective)
 					return
-
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Traitor All ([objective])")
-				var/datum/antagonist/traitor/antag_datum
+
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					if(H.stat == 2 || !H.client || !H.mind) continue
 					if(is_special_character(H)) continue
 					//traitorize(H, objective, 0)
-					antag_datum = new
-					antag_datum.add_objective(objective)
-					H.mind.add_antag_datum(antag_datum)
+					H.mind.add_antag_datum(/datum/antagonist/traitor)
 
 				for(var/mob/living/silicon/A in GLOB.player_list)
-					antag_datum = new
-					antag_datum.add_objective(objective)
-					A.mind.add_antag_datum(antag_datum)
+					A.mind.add_antag_datum(/datum/antagonist/traitor)
 
 				log_and_message_admins("<span class='notice'>used everyone is a traitor secret. Objective is [objective]</span>")
 
@@ -3303,7 +3239,7 @@
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Bomb Cap")
 
-				var/newBombCap = tgui_input_number(usr, "What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be between 4 and 128)", "New Bomb Cap", GLOB.max_ex_light_range)
+				var/newBombCap = input(usr,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be between 4 and 128)", "New Bomb Cap", GLOB.max_ex_light_range) as num|null
 				if(newBombCap < 4)
 					return
 				if(newBombCap > 128)
@@ -3475,7 +3411,7 @@
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Guns")
 				var/survivor_probability = 0
-				switch(tgui_alert(usr, "Do you want this to create survivors antagonists?", , list("No Antags", "Some Antags", "All Antags!")))
+				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
 					if("Some Antags")
 						survivor_probability = 25
 					if("All Antags!")
@@ -3487,7 +3423,7 @@
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Magic")
 				var/survivor_probability = 0
-				switch(tgui_alert(usr, "Do you want this to create survivors antagonists?", , list("No Antags", "Some Antags", "All Antags!")))
+				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
 					if("Some Antags")
 						survivor_probability = 25
 					if("All Antags!")
@@ -3557,14 +3493,14 @@
 				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset ertarmory to default with delete_mobs==[delete_mobs].</span>")
 			*/
 			if("tdomereset")
-				var/delete_mobs = tgui_alert(usr, "Clear all mobs?", "Confirm", list("Yes", "No", "Cancel"))
+				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
 				if(delete_mobs == "Cancel")
 					return
 				var/area/thunderdome = locate(/area/tdome/arena)
 				var/area/team1 = locate(/area/tdome/tdome1)
 				var/area/team2 = locate(/area/tdome/tdome2)
 				if(delete_mobs == "Yes")
-					var/clear_team_spawns = tgui_alert(usr, "Clear mobs on thunderdome spawns too?", "Confirm", list("Yes", "No"))
+					var/clear_team_spawns = alert("Clear mobs on thunderdome spawns too?","Confirm","Yes","No")
 					if(clear_team_spawns == "Yes")
 						for(var/mob/living/mob in team1)
 							qdel(mob) //Clear mobs
@@ -3581,20 +3517,18 @@
 				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].</span>")
 
 			if("tdomestart")
-				var/confirmation = tgui_alert(usr, "Start a Thunderdome match?", "Confirm", list("Yes", "No"))
+				var/confirmation = alert("Start a Thunderdome match?","Confirm","Yes","No")
 				if(confirmation == "No")
 					return
 				if(makeThunderdomeTeams())
 					log_and_message_admins("<span class='adminnotice'>has started a Thunderdome match!</span>")
 				else
 					log_and_message_admins("<span class='adminnotice'>tried starting a Thunderdome match, but no ghosts signed up.</span>")
-
 			if("securitylevel0")
 				if(!you_realy_want_do_this())
 					return
 				set_security_level(SEC_LEVEL_GREEN)
 				log_and_message_admins("<span class='notice'>change security level to Green.</span>")
-
 			if("securitylevel1")
 				if(!you_realy_want_do_this())
 					return
@@ -3723,7 +3657,7 @@
 				dat += "</table>"
 				usr << browse(dat, "window=fingerprints;size=440x410")
 			if("night_shift_set")
-				var/val = tgui_alert(usr, "What do you want to set night shift to? This will override the automatic system until set to automatic again.", "Night Shift", list("On", "Off", "Automatic"))
+				var/val = alert(usr, "What do you want to set night shift to? This will override the automatic system until set to automatic again.", "Night Shift", "On", "Off", "Automatic")
 				switch(val)
 					if("Automatic")
 						if(CONFIG_GET(flag/enable_night_shifts))
@@ -3802,16 +3736,16 @@
 		if(!check_rights(R_EVENT))
 			return
 		var/list/type_choices = typesof(/datum/station_goal)
-		var/picked = tgui_input_list(usr, "Choose goal type", items = type_choices)
+		var/picked = input("Choose goal type") as null|anything in type_choices
 		if(!picked)
 			return
 		var/datum/station_goal/G = new picked()
 		if(picked == /datum/station_goal)
-			var/newname = tgui_input_text(usr, "Enter goal name:")
+			var/newname = clean_input("Enter goal name:")
 			if(!newname)
 				return
 			G.name = newname
-			var/description = tgui_input_text(usr, "Enter [command_name()] message contents:", encode = FALSE, multiline = TRUE)
+			var/description = input("Enter [command_name()] message contents:") as null|message
 			if(!description)
 				return
 			G.report_message = description
@@ -3917,8 +3851,8 @@
 		var/answer = href_list["slowquery"]
 		if(answer == "yes")
 			log_sql("[usr.key] | Reported a server hang")
-			if(tgui_alert(usr, "Had you just pressed any admin buttons which could lag the server?", "Query server hang report", list("Yes", "No")) == "Yes")
-				var/response = tgui_input_text(usr, "What were you just doing?", "Query server hang report", encode = FALSE)
+			if(alert(usr, "Had you just pressed any admin buttons which could lag the server?", "Query server hang report", "Yes", "No") == "Yes")
+				var/response = input(usr,"What were you just doing?","Query server hang report") as null|text
 				if(response)
 					log_sql("[usr.key] | [response]")
 		else if(answer == "no")
@@ -3989,7 +3923,7 @@
 	for(var/type in admin_outfits)
 		var/datum/outfit/admin/O = type
 		hunter_outfits[initial(O.name)] = type
-	var/dresscode = tgui_input_list(usr, "Select type", "Contracted Agents", hunter_outfits)
+	var/dresscode = input("Select type", "Contracted Agents") as null|anything in hunter_outfits
 	if(isnull(dresscode))
 		return
 	var/datum/outfit/O = hunter_outfits[dresscode]
@@ -4062,20 +3996,3 @@
 /proc/you_realy_want_do_this()
 	var/sure = tgui_alert(usr, "Вы действительно хотите сделать это?", "Подтверждение", list("Да", "Нет"))
 	return sure == "Да"
-
-
-/proc/portalAnnounce(announcement, playlightning)
-	set waitfor = 0
-	if (playlightning)
-		sound_to_playing_players('sound/magic/lightning_chargeup.ogg')
-		sleep(80)
-	GLOB.priority_announcement.Announce(replacetext(announcement, "%STATION%", station_name()))
-	if (playlightning)
-		sleep(20)
-		sound_to_playing_players('sound/magic/lightningbolt.ogg')
-
-/proc/doPortalSpawn(turf/loc, mobtype, numtospawn, portal_appearance)
-	loc.flick_overlay_static(portal_appearance, 15)
-	playsound(loc, "sparks", rand(80, 100), 1)
-	for (var/i in 1 to numtospawn)
-		new mobtype(loc)

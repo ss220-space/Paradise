@@ -41,7 +41,6 @@
 	if(!force_update && (destination == get_turf(src)))
 		return //we are already here!
 	abstract_move(destination)
-	SEND_SIGNAL(src, COMSIG_AI_EYE_MOVED, destination)
 	if(use_static)
 		ai.camera_visibility(src)
 	if(ai.client)

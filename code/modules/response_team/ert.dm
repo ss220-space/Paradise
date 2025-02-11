@@ -26,9 +26,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 	if(!check_rights(R_EVENT))
 		return
-	send_response_team()
 
-/client/proc/send_response_team()
 	if(!SSticker)
 		to_chat(usr, span_warning("Игра ещё не началась!"))
 		return
@@ -43,6 +41,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 	var/datum/ui_module/ert_manager/E = new()
 	E.ui_interact(usr)
+
 
 /mob/dead/observer/proc/JoinResponseTeam()
 	if(!GLOB.send_emergency_team)
@@ -144,7 +143,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	GLOB.active_team.cannot_send_team()
 
 /client/proc/create_response_team(new_gender, role, turf/spawn_location)
-	if(role == ERT_ROLE_CYBORG)
+	if(role == JOB_TITLE_CYBORG)
 		var/mob/living/silicon/robot/ert/R = new GLOB.active_team.borg_path(spawn_location)
 		return R
 
@@ -201,13 +200,13 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 /datum/response_team
 	var/list/slots = list(
-		ERT_ROLE_COMMANDER = 0,
-		ERT_ROLE_SECURITY = 0,
-		ERT_ROLE_MEDIC = 0,
-		ERT_ROLE_ENGINEER = 0,
-		ERT_ROLE_JANITOR = 0,
-		ERT_ROLE_PARANORMAL = 0,
-		ERT_ROLE_CYBORG = 0
+		"Командир" = 0,
+		"Боец" = 0,
+		"Инженер" = 0,
+		"Медик" = 0,
+		"Уборщик" = 0,
+		"Паранормал" = 0,
+		"Борг" = 0
 	)
 	var/count = 0
 
@@ -223,13 +222,13 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	var/silent
 
 /datum/response_team/proc/setSlots(com=1, sec=4, med=0, eng=0, jan=0, par=0, cyb=0)
-	slots[ERT_ROLE_COMMANDER] = com
-	slots[ERT_ROLE_SECURITY] = sec
-	slots[ERT_ROLE_MEDIC] = med
-	slots[ERT_ROLE_ENGINEER] = eng
-	slots[ERT_ROLE_JANITOR] = jan
-	slots[ERT_ROLE_PARANORMAL] = par
-	slots[ERT_ROLE_CYBORG] = cyb
+	slots["Командир"] = com
+	slots["Боец"] = sec
+	slots["Медик"] = med
+	slots["Инженер"] = eng
+	slots["Уборщик"] = jan
+	slots["Паранормал"] = par
+	slots["Борг"] = cyb
 
 /datum/response_team/proc/reduceSlots(role)
 	slots[role]--
@@ -248,22 +247,22 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 /datum/response_team/proc/equip_officer(officer_type, mob/living/carbon/human/M)
 	switch(officer_type)
-		if(ERT_ROLE_ENGINEER)
+		if("Инженер")
 			M.equipOutfit(engineering_outfit)
 
-		if(ERT_ROLE_SECURITY )
+		if("Боец")
 			M.equipOutfit(security_outfit)
 
-		if(ERT_ROLE_MEDIC)
+		if("Медик")
 			M.equipOutfit(medical_outfit)
 
-		if(ERT_ROLE_JANITOR)
+		if("Уборщик")
 			M.equipOutfit(janitor_outfit)
 
-		if(ERT_ROLE_PARANORMAL)
+		if("Паранормал")
 			M.equipOutfit(paranormal_outfit)
 
-		if(ERT_ROLE_COMMANDER)
+		if("Командир")
 			M.equipOutfit(command_outfit)
 
 /datum/response_team/proc/cannot_send_team()

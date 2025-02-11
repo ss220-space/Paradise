@@ -7,7 +7,7 @@
 		return
 
 	if(!isrobot(borgo))
-		borgo = tgui_input_list(usr, "Select a borg", "Select a borg", GLOB.silicon_mob_list, null)
+		borgo = input("Select a borg", "Select a borg", null, null) as null|anything in GLOB.silicon_mob_list
 	if(!isrobot(borgo))
 		to_chat(usr, "<span class='warning'>Borg is required for borgpanel</span>")
 		return
@@ -84,7 +84,7 @@
 		return
 	switch (action)
 		if("set_charge")
-			var/newcharge = tgui_input_number(usr, "Set new charge", borg.name, borg.cell.charge, max_value = INFINITY)
+			var/newcharge = input(usr, "Set new charge", borg.name, borg.cell.charge) as num|null
 			newcharge = between(0,newcharge, borg.cell.maxcharge)
 			if(isnull(newcharge))
 				return
@@ -148,7 +148,7 @@
 			else
 				log_and_message_admins("disabled scrambled codes on [key_name(borg)].")
 		if("rename")
-			var/new_name = sanitize(tgui_input_text(user, "What would you like to name this cyborg?", "Cyborg Reclassification", borg.real_name, encode = FALSE))
+			var/new_name = sanitize(input(user, "What would you like to name this cyborg?", "Cyborg Reclassification", borg.real_name))
 			if(!new_name)
 				return
 			log_and_message_admins("renamed [key_name(borg)] to [new_name].")

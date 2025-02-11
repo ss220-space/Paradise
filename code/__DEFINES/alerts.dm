@@ -26,7 +26,6 @@
 #define ALERT_EMBEDDED "embedded"
 #define ALERT_NUTRITION "nutrition"
 #define ALERT_DIRECTION_LOCK "direction_lock"
-#define ALERT_UNPOSSESS_OBJECT "unpossess_object"
 
 /** Silicon related */
 #define ALERT_LOCKED "locked"

@@ -1,6 +1,6 @@
 /client/proc/only_one_team()
 	if(!SSticker)
-		tgui_alert(usr, "The game hasn't started yet!")
+		alert("The game hasn't started yet!")
 		return
 
 	var/list/incompatible_species = list(/datum/species/plasmaman, /datum/species/vox)

@@ -33235,7 +33235,6 @@
 /obj/structure/sign/poster/contraband/punch_shit{
 	pixel_y = 32
 	},
-/obj/effect/landmark/prisonsecuritywarp,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -46045,7 +46044,6 @@
 /area/centcom/specops)
 "vdf" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark/prisonsecuritywarp,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

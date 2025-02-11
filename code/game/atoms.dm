@@ -1494,9 +1494,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		// OR (much more likely) the thing is unlabeled yet.
 		default_value = ""
 	if(!prompt)
-		prompt = "Что вы хотите написать на этикетке [declent_ru(GENITIVE)]?"
+		prompt = "What would you like the label on [src] to be?"
 
-	var/t = input(user, prompt, "Переименование [declent_ru(GENITIVE)]", default_value)  as text | null
+	var/t = input(user, prompt, "Renaming [src]", default_value)  as text | null
 	if(isnull(t))
 		// user pressed Cancel
 		return null
@@ -1505,13 +1505,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!user)
 		return null
 	else if(implement && implement.loc != user)
-		balloon_alert(user, "ваша ручка недоступна!")
+		to_chat(user, "<span class='warning'>You no longer have the pen to rename [src].</span>")
 		return null
 	else if(!in_range(src, user))
-		balloon_alert(user, "слишком далеко!")
+		to_chat(user, "<span class='warning'>You cannot rename [src] from here.</span>")
 		return null
 	else if (user.incapacitated())
-		balloon_alert(user, "невозможно в данный момент!")
+		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>")
 		return null
 
 
@@ -1525,14 +1525,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	if(actually_rename)
 		if(t == "")
-			if(ru_names)
-				for(var/i = 1; i <= 6; i++)
-					ru_names[i] = "[initial(ru_names[i])]"
 			name = "[initial(name)]"
 		else
-			if(ru_names)
-				for(var/i = 1; i <= 6; i++)
-					ru_names[i] = "[initial(ru_names[i])] - [t]"
 			name = "[prefix][t]"
 	return t
 
@@ -1761,7 +1755,3 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  */
 /atom/proc/relaydrive(mob/living/user, direction)
 	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)
-
-///returns how much the object blocks an explosion. Used by subtypes.
-/atom/proc/get_explosion_block()
-	CRASH("Unimplemented get_explosion_block()")

@@ -89,7 +89,7 @@
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
 		set_typing(C, TRUE)
-		msg = tgui_input_text(src, "Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", multiline = TRUE, encode = FALSE)
+		msg = clean_input("Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", , src)
 		msg = handleDiscordEmojis(msg)
 		set_typing(C, FALSE)
 
@@ -150,7 +150,7 @@
 			spawn(0)	//so we don't hold the caller proc up
 				var/sender = src
 				var/sendername = key
-				var/reply = tgui_input_text(C, msg,"[recieve_pm_type] [type] from-[sendername]", multiline = TRUE, encode = FALSE)		//show message and await a reply
+				var/reply = clean_input(msg,"[recieve_pm_type] [type] from-[sendername]", "", C)		//show message and await a reply
 				if(C && reply)
 					if(sender)
 						C.cmd_admin_pm(sender,reply)										//sender is still about, let's reply to them
@@ -226,7 +226,7 @@
 	// We only allow PMs once every 10 seconds, othewrise the channel can get spammed very quickly
 	last_discord_pm_time = world.time + 10 SECONDS
 
-	var/msg = tgui_input_text(src, "Message:", "Private message to admins on Discord / 400 character limit", multiline = TRUE, encode = FALSE)
+	var/msg = clean_input("Message:", "Private message to admins on Discord / 400 character limit", , src)
 
 	if(!msg)
 		return
@@ -251,7 +251,7 @@
 
 /client/verb/open_pms_ui()
 	set name = "My PMs"
-	set category = "Admin.Admin Tickets"
+	set category = "OOC"
 	pm_tracker.show_ui(usr)
 
 /client/proc/set_typing(client/target, value)

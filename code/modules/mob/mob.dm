@@ -1248,5 +1248,4 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 			add_misc_logs(src, "Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
 			update_z(null)
 
-/mob/proc/set_key(key)
-	src.key = key
+

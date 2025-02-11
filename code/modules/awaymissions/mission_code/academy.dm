@@ -6,7 +6,6 @@
 	report_alerts = FALSE
 	no_teleportlocs = TRUE
 	tele_proof = TRUE
-	requires_power = FALSE
 
 /area/awaymission/academy/headmaster
 	name = "\improper Academy Fore Block"

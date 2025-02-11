@@ -50,7 +50,7 @@
 		return FALSE
 	if(R.scrambledcodes)
 		return FALSE
-	if(!are_zs_connected(src, R))
+	if(!atoms_share_level(get_turf(src), get_turf(R)))
 		return FALSE
 	return TRUE
 

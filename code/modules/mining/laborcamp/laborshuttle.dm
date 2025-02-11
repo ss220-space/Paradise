@@ -4,7 +4,6 @@
 	circuit = /obj/item/circuitboard/labor_shuttle
 	shuttleId = "laborcamp"
 	possible_destinations = "laborcamp_home;laborcamp_away"
-	lockdown_affected = TRUE
 	req_access = list(ACCESS_BRIG)
 
 
