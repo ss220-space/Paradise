@@ -126,8 +126,8 @@
 /area/maintenance/asmaint3)
 "acM" = (
 /obj/effect/turf_decal/tile/purple{
-	dir = 1;
-	color = "#9932CC"
+	color = "#9932CC";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -158,9 +158,9 @@
 "ado" = (
 /obj/machinery/atmospherics/binary/pump/on{
 	desc = "Отправляет дыхательную смесь к коннекторам";
+	dir = 4;
 	name = "Дыхательную смесь к коннекторам";
-	target_pressure = 3000;
-	dir = 4
+	target_pressure = 3000
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -273,8 +273,8 @@
 /area/maintenance/kitchen)
 "aer" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken6"
+	icon_state = "wood-cherry-broken6";
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "aev" = (
@@ -753,9 +753,9 @@
 /obj/machinery/door_control{
 	id = "paramedic";
 	name = "Garage Door Control";
-	req_access = list(66);
 	pixel_x = 24;
-	pixel_y = 24
+	pixel_y = 24;
+	req_access = list(66)
 	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/paramedic)
@@ -823,9 +823,9 @@
 	dir = 1;
 	faction = "pirate";
 	name = "Corvette turrets";
+	pixel_x = -32;
 	req_access = list(160);
-	syndicate = 1;
-	pixel_x = -32
+	syndicate = 1
 	},
 /obj/item/gps{
 	tracking = 0
@@ -929,8 +929,8 @@
 /area/maintenance/casino)
 "arv" = (
 /obj/machinery/power/apc{
-	pixel_y = 26;
-	dir = 1
+	dir = 1;
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -1334,8 +1334,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken"
+	icon_state = "wood-cherry-broken";
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "ayF" = (
@@ -1566,8 +1566,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/binary/pump/on{
-	target_pressure = 303.325;
-	dir = 1
+	dir = 1;
+	target_pressure = 303.325
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
@@ -2032,16 +2032,16 @@
 /area/coldcolony/ruin/syndie_outpost)
 "aMf" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
-	faction = "pirate";
 	dir = 6;
+	faction = "pirate";
+	name = "machine gun turret (4.6x30mm)";
 	pixel_x = -2
 	},
 /turf/simulated/wall/shuttle/nosmooth{
+	density = 0;
 	dir = 6;
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners";
-	density = 0
+	icon_state = "gray_walls_corners"
 	},
 /area/shuttle/pirate_corvette)
 "aMn" = (
@@ -2393,8 +2393,8 @@
 "aTl" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light_switch{
-	pixel_y = 24;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 24
 	},
 /obj/structure/rack,
 /obj/item/circuitboard/protolathe{
@@ -2700,8 +2700,8 @@
 /area/medical/research/nhallway)
 "aZm" = (
 /obj/machinery/vending/wallmed{
-	pixel_y = -1;
-	pixel_x = 25
+	pixel_x = 25;
+	pixel_y = -1
 	},
 /obj/machinery/light{
 	dir = 4
@@ -3044,8 +3044,8 @@
 "bhu" = (
 /obj/machinery/shower{
 	dir = 8;
-	tag = "icon-shower (WEST)";
-	pixel_y = 4
+	pixel_y = 4;
+	tag = "icon-shower (WEST)"
 	},
 /obj/effect/decal/warning_stripes/blue,
 /obj/effect/decal/warning_stripes/south,
@@ -3133,8 +3133,8 @@
 /obj/structure/grille,
 /obj/structure/window/full/reinforced/ice,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "SKPP";
-	dir = 8
+	dir = 8;
+	id_tag = "SKPP"
 	},
 /turf/simulated/floor/plating,
 /area/bridge/checkpoint/south)
@@ -3262,8 +3262,8 @@
 "bkG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_switch{
-	pixel_y = 24;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/civilian/vacantoffice)
@@ -3366,8 +3366,8 @@
 /area/coldcolony/ruin/sm_chamber)
 "bmt" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken6"
+	icon_state = "wood-cherry-broken6";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "bmy" = (
@@ -3557,9 +3557,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	active_power_usage = 0;
+	dir = 1;
 	icon_state = "tube-broken";
-	status = 2;
-	dir = 1
+	status = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -3671,8 +3671,8 @@
 "bsa" = (
 /obj/item/flag/ussp,
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken6"
+	icon_state = "wood-cherry-broken6";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
 "bsi" = (
@@ -3721,8 +3721,8 @@
 /area/hallway/primary/central/nw)
 "btl" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken4"
+	icon_state = "wood-cherry-broken4";
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "btK" = (
@@ -3805,8 +3805,8 @@
 /area/crew_quarters/mrchangs)
 "bvN" = (
 /obj/structure/wooden_sign{
-	name = "MINE!!!";
-	desc = "THERE IS FUCKING MINE!!!"
+	desc = "THERE IS FUCKING MINE!!!";
+	name = "MINE!!!"
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
@@ -3895,8 +3895,8 @@
 	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters{
-	id_tag = "evacgarage";
-	dir = 8
+	dir = 8;
+	id_tag = "evacgarage"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/fans/tiny,
@@ -4048,8 +4048,8 @@
 /area/medical/genetics)
 "bBm" = (
 /obj/machinery/door/poddoor/shutters{
-	id_tag = "engigarage";
-	dir = 1
+	dir = 1;
+	id_tag = "engigarage"
 	},
 /obj/structure/fans/tiny,
 /obj/effect/decal/warning_stripes/yellow,
@@ -4058,8 +4058,8 @@
 	},
 /obj/machinery/door_control{
 	id = "engigarage";
-	req_access = list(32);
-	pixel_x = 24
+	pixel_x = 24;
+	req_access = list(32)
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/break_room)
@@ -4244,9 +4244,9 @@
 /obj/structure/table/abductor,
 /obj/item/storage/box/alienhandcuffs,
 /turf/simulated/floor/mineral/abductor{
+	nitrogen = 82;
 	oxygen = 22;
-	temperature = 180;
-	nitrogen = 82
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "bEF" = (
@@ -5088,8 +5088,8 @@
 /area/hallway/primary/central/sw)
 "bTc" = (
 /obj/machinery/power/apc{
-	pixel_y = 26;
 	dir = 1;
+	pixel_y = 26;
 	start_charge = 0
 	},
 /turf/simulated/floor/plating,
@@ -5674,8 +5674,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbrowncorners";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbrowncorners"
 	},
 /area/bridge/vip)
 "cfo" = (
@@ -5917,16 +5917,16 @@
 /obj/machinery/door_control{
 	id = "rightpirat_blast";
 	name = "Right BlastDoor";
-	req_access = list(160);
+	pixel_x = 6;
 	pixel_y = 6;
-	pixel_x = 6
+	req_access = list(160)
 	},
 /obj/machinery/door_control{
 	id = "leftpirat_blast";
 	name = "Left BlastDoor";
-	req_access = list(160);
+	pixel_x = -6;
 	pixel_y = 6;
-	pixel_x = -6
+	req_access = list(160)
 	},
 /obj/machinery/light_switch{
 	pixel_y = -2
@@ -6043,8 +6043,8 @@
 /area/maintenance/apmaint)
 "cmq" = (
 /obj/machinery/conveyor{
-	id = "CargoUnload";
-	dir = 10
+	dir = 10;
+	id = "CargoUnload"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -6235,8 +6235,8 @@
 /obj/structure/fans/tiny,
 /obj/effect/decal/snow/sand/edge,
 /obj/machinery/door/airlock/command{
-	req_access = list(19);
-	name = "Command Room"
+	name = "Command Room";
+	req_access = list(19)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/wood/fancy/birch,
@@ -6334,9 +6334,9 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light{
 	active_power_usage = 0;
+	dir = 1;
 	icon_state = "tube-broken";
-	status = 2;
-	dir = 1
+	status = 2
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/ruin/ore_production)
@@ -6382,8 +6382,8 @@
 /area/ruin/unpowered)
 "cuD" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Security";
-	id_tag = "BrigEnt"
+	id_tag = "BrigEnt";
+	name = "Security"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -6443,8 +6443,8 @@
 "cvQ" = (
 /obj/structure/closet/secure_closet{
 	icon_state = "cmo";
-	req_access = list(40);
-	name = "chief medical officer's locker"
+	name = "chief medical officer's locker";
+	req_access = list(40)
 	},
 /obj/item/clothing/suit/hooded/wintercoat/medical/cmo,
 /obj/item/flash,
@@ -6582,8 +6582,8 @@
 /area/hallway/primary/starboard/east)
 "cxM" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken7"
+	icon_state = "wood-cherry-broken7";
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "cxT" = (
@@ -7104,8 +7104,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door_control{
-	pixel_x = -24;
 	id = "secgarage";
+	pixel_x = -24;
 	req_access = list(63)
 	},
 /turf/simulated/floor/plasteel,
@@ -7220,8 +7220,8 @@
 	pixel_y = 3
 	},
 /obj/item/radio/intercom{
-	pixel_y = -26;
-	pixel_x = 26
+	pixel_x = 26;
+	pixel_y = -26
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
@@ -7357,8 +7357,8 @@
 /area/coldcolony/ruin/abandoned_house)
 "cJB" = (
 /obj/structure/sign/directions/security{
-	pixel_y = 11;
-	dir = 1
+	dir = 1;
+	pixel_y = 11
 	},
 /obj/structure/sign/directions/evac{
 	pixel_y = 4
@@ -7404,8 +7404,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light_switch{
-	pixel_y = 24;
-	pixel_x = -8
+	pixel_x = -8;
+	pixel_y = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
@@ -7569,8 +7569,8 @@
 /obj/item/rcs,
 /obj/item/rcs,
 /obj/machinery/power/apc{
-	pixel_y = 26;
-	dir = 1
+	dir = 1;
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -7689,8 +7689,8 @@
 "cQv" = (
 /obj/machinery/door_timer/cell_5{
 	dir = 1;
-	pixel_y = 32;
-	name = "General Detention Cell"
+	name = "General Detention Cell";
+	pixel_y = 32
 	},
 /obj/machinery/camera{
 	c_tag = "Brig Cells";
@@ -8182,8 +8182,8 @@
 /area/atmos)
 "cZW" = (
 /obj/machinery/door/airlock{
-	name = "Storage";
-	locked = 1
+	locked = 1;
+	name = "Storage"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -8538,8 +8538,8 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "podfloor_light";
-	icon_regular_floor = "podfloor_light"
+	icon_regular_floor = "podfloor_light";
+	icon_state = "podfloor_light"
 	},
 /area/shuttle/pirate_corvette)
 "dfO" = (
@@ -8683,8 +8683,8 @@
 /area/maintenance/fore)
 "diB" = (
 /obj/machinery/door/airlock/command{
-	req_access = list(19);
-	name = "Command Room"
+	name = "Command Room";
+	req_access = list(19)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/wood/fancy/birch,
@@ -8919,10 +8919,10 @@
 /obj/structure/grille,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
 	id_tag = "restaurant";
 	layer = 2;
-	name = "Restaurant Shutters";
-	dir = 8
+	name = "Restaurant Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
@@ -9005,9 +9005,9 @@
 /area/crew_quarters/kitchen)
 "dor" = (
 /turf/simulated/floor/mineral/abductor{
+	nitrogen = 82;
 	oxygen = 22;
-	temperature = 180;
-	nitrogen = 82
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
 "dos" = (
@@ -9049,8 +9049,8 @@
 /area/hallway/primary/central/sw)
 "dpz" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbrown";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbrown"
 	},
 /area/bridge/vip)
 "dpQ" = (
@@ -9157,8 +9157,8 @@
 /obj/structure/table/reinforced,
 /obj/item/analyzer,
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken"
+	icon_state = "wood-cherry-broken";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
 "dsY" = (
@@ -9392,9 +9392,9 @@
 "dxv" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external{
-	req_access = list(160);
+	aiControlDisabled = 1;
 	hackProof = 1;
-	aiControlDisabled = 1
+	req_access = list(160)
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "rightpirat_blast"
@@ -9518,9 +9518,9 @@
 /obj/machinery/vending/boozeomat,
 /obj/machinery/light{
 	active_power_usage = 0;
+	dir = 1;
 	icon_state = "tube-broken";
-	status = 2;
-	dir = 1
+	status = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -9552,8 +9552,8 @@
 	pixel_y = -8
 	},
 /obj/machinery/light_switch{
-	pixel_y = 8;
-	pixel_x = 24
+	pixel_x = 24;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9951,8 +9951,8 @@
 "dKh" = (
 /obj/structure/bed,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10);
-	name = "bedsheet"
+	name = "bedsheet";
+	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10)
 	},
 /obj/effect/landmark/join_late,
 /turf/simulated/floor/carpet,
@@ -11154,8 +11154,8 @@
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbrown";
-	dir = 5
+	dir = 5;
+	icon_state = "darkbrown"
 	},
 /area/bridge/vip)
 "ehs" = (
@@ -11476,18 +11476,18 @@
 /area/coldcolony/ruin/sm_chamber)
 "enu" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
-	faction = "pirate";
 	dir = 1;
-	stat = 1;
+	faction = "pirate";
 	icon_state = "syndieturret2";
-	icon_state_initial = "syndieturret2"
+	icon_state_initial = "syndieturret2";
+	name = "machine gun turret (4.6x30mm)";
+	stat = 1
 	},
 /turf/simulated/wall/shuttle/nosmooth{
+	density = 0;
 	dir = 10;
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners";
-	density = 0
+	icon_state = "gray_walls_corners"
 	},
 /area/shuttle/pirate_corvette)
 "enJ" = (
@@ -12091,8 +12091,8 @@
 /area/security/detectives_office)
 "eAE" = (
 /obj/machinery/power/apc/noalarm{
-	pixel_y = 26;
-	dir = 1
+	dir = 1;
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -12449,8 +12449,8 @@
 /area/engineering/engine)
 "eIn" = (
 /obj/machinery/power/apc{
-	pixel_y = 26;
-	dir = 1
+	dir = 1;
+	pixel_y = 26
 	},
 /obj/structure/table,
 /obj/structure/cable{
@@ -12792,9 +12792,9 @@
 	dir = 8
 	},
 /obj/machinery/door/window/southleft{
+	dir = 4;
 	name = "Research Lab Desk";
-	req_access = list(47);
-	dir = 4
+	req_access = list(47)
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -13018,8 +13018,8 @@
 /area/assembly/chargebay)
 "eSn" = (
 /obj/machinery/atmospherics/binary/pump/on{
-	target_pressure = 303.325;
-	dir = 8
+	dir = 8;
+	target_pressure = 303.325
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -13410,8 +13410,8 @@
 /area/hallway/primary/central/east)
 "eZJ" = (
 /obj/machinery/atmospherics/unary/tank/toxins{
-	volume = 2000;
-	dir = 1
+	dir = 1;
+	volume = 2000
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
@@ -13500,8 +13500,8 @@
 /area/bridge)
 "fbz" = (
 /obj/machinery/vending/coffee{
-	stat = 1;
-	obj_integrity = 95
+	obj_integrity = 95;
+	stat = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 8
@@ -13536,8 +13536,8 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc{
-	pixel_y = 26;
-	dir = 1
+	dir = 1;
+	pixel_y = 26
 	},
 /obj/structure/closet/crate/engineering,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -14259,8 +14259,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbrown";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrown"
 	},
 /area/bridge/vip)
 "fvH" = (
@@ -14636,9 +14636,9 @@
 "fCt" = (
 /obj/structure/pit/closed/grave,
 /obj/item/reagent_containers/food/snacks/grown/tomato/blood{
-	name = "He died for our sins";
+	anchored = 1;
 	desc = "So bloody...so...very...bloody...";
-	anchored = 1
+	name = "He died for our sins"
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/unpowered)
@@ -14730,8 +14730,8 @@
 "fEi" = (
 /obj/structure/displaycase,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbrown";
-	dir = 8
+	dir = 8;
+	icon_state = "darkbrown"
 	},
 /area/bridge/vip)
 "fEl" = (
@@ -15070,8 +15070,8 @@
 /area/quartermaster/qm)
 "fKY" = (
 /obj/machinery/atmospherics/unary/tank/carbon_dioxide{
-	volume = 0;
-	name = "Pressure Tank (Gases)"
+	name = "Pressure Tank (Gases)";
+	volume = 0
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
@@ -15200,14 +15200,14 @@
 /area/security/brig)
 "fOf" = (
 /obj/docking_port/stationary{
+	area_type = /area/ruin/unpowered/coldcolony_outside;
 	dir = 4;
 	dwidth = 7;
 	height = 5;
 	id = "sit_arrivals";
 	name = "Colony East";
-	width = 11;
-	area_type = /area/ruin/unpowered/coldcolony_outside;
-	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere
+	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
+	width = 11
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
@@ -15367,9 +15367,9 @@
 /area/hallway/secondary/entry/lounge)
 "fRn" = (
 /obj/machinery/door/airlock{
-	name = "Bathroom";
 	aiControlDisabled = 1;
-	hackProof = 1
+	hackProof = 1;
+	name = "Bathroom"
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
@@ -15499,8 +15499,8 @@
 	pixel_y = -3
 	},
 /obj/structure/sign/directions/medical{
-	pixel_y = 4;
-	dir = 1
+	dir = 1;
+	pixel_y = 4
 	},
 /obj/structure/sign/directions/security{
 	dir = 1;
@@ -15570,8 +15570,8 @@
 /area/bridge)
 "fVn" = (
 /obj/machinery/atmospherics/unary/tank/carbon_dioxide{
-	volume = 0;
-	name = "Pressure Tank (Gases)"
+	name = "Pressure Tank (Gases)";
+	volume = 0
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
@@ -16207,8 +16207,8 @@
 "gkl" = (
 /obj/structure/table,
 /obj/item/flashlight/flare{
-	pixel_y = 6;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/mining_post1)
@@ -16584,18 +16584,18 @@
 /area/hallway/secondary/entry/lounge)
 "gqg" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
-	faction = "pirate";
 	dir = 1;
-	stat = 1;
+	faction = "pirate";
 	icon_state = "syndieturret2";
-	icon_state_initial = "syndieturret2"
+	icon_state_initial = "syndieturret2";
+	name = "machine gun turret (4.6x30mm)";
+	stat = 1
 	},
 /turf/simulated/wall/shuttle/nosmooth{
+	density = 0;
 	dir = 9;
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners";
-	density = 0
+	icon_state = "gray_walls_corners"
 	},
 /area/shuttle/pirate_corvette)
 "gqj" = (
@@ -17064,8 +17064,8 @@
 /area/engineering/engine/monitor)
 "gzc" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Security";
-	id_tag = "BrigEnt"
+	id_tag = "BrigEnt";
+	name = "Security"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -17400,8 +17400,8 @@
 "gET" = (
 /obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken4"
+	icon_state = "wood-cherry-broken4";
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "gFd" = (
@@ -17759,8 +17759,8 @@
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbrown";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbrown"
 	},
 /area/bridge/vip)
 "gMv" = (
@@ -17796,15 +17796,15 @@
 	pixel_y = -28
 	},
 /obj/structure/sign/directions/cargo{
-	pixel_y = -35;
-	dir = 4
+	dir = 4;
+	pixel_y = -35
 	},
 /obj/structure/sign/directions/engineering{
 	pixel_y = -42
 	},
 /obj/structure/sign/directions/security{
-	pixel_y = -21;
-	dir = 1
+	dir = 1;
+	pixel_y = -21
 	},
 /obj/structure/flora/bush,
 /turf/simulated/floor/plating/asteroid/snow/planet,
@@ -17848,8 +17848,8 @@
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken6"
+	icon_state = "wood-cherry-broken6";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
 "gNM" = (
@@ -18136,8 +18136,8 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbrown";
-	dir = 8
+	dir = 8;
+	icon_state = "darkbrown"
 	},
 /area/bridge/vip)
 "gSa" = (
@@ -18407,8 +18407,8 @@
 /obj/machinery/door_control{
 	id = "smresdesk1";
 	name = "Research Shutters";
-	pixel_y = -8;
-	pixel_x = -24
+	pixel_x = -24;
+	pixel_y = -8
 	},
 /obj/machinery/light_switch{
 	pixel_x = -21;
@@ -19278,10 +19278,10 @@
 	specialfunctions = 4
 	},
 /obj/machinery/door_control{
-	pixel_x = -6;
 	id = "secgarage";
-	pixel_y = -8;
-	name = "Garage Shutters Control"
+	name = "Garage Shutters Control";
+	pixel_x = -6;
+	pixel_y = -8
 	},
 /obj/machinery/light{
 	dir = 8
@@ -19611,8 +19611,8 @@
 /obj/structure/window/reinforced,
 /obj/structure/closet/secure_closet{
 	icon_state = "ce";
-	req_access = list(56);
-	name = "chief engineer's locker"
+	name = "chief engineer's locker";
+	req_access = list(56)
 	},
 /obj/item/clothing/suit/hooded/wintercoat/engineering/ce,
 /obj/item/flash,
@@ -19645,8 +19645,8 @@
 /area/maintenance/brig)
 "hxB" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken4"
+	icon_state = "wood-cherry-broken4";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
 "hxV" = (
@@ -19663,8 +19663,8 @@
 "hyp" = (
 /obj/structure/bed,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10);
-	name = "bedsheet"
+	name = "bedsheet";
+	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10)
 	},
 /obj/effect/landmark/join_late,
 /obj/structure/sign/poster/official/random{
@@ -20025,8 +20025,8 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbrown";
-	dir = 8
+	dir = 8;
+	icon_state = "darkbrown"
 	},
 /area/bridge/vip)
 "hGD" = (
@@ -20373,9 +20373,9 @@
 "hNR" = (
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /mob/living/simple_animal/hostile/bear/polar{
-	name = "HUMANEATER";
 	health = 220;
-	maxHealth = 220
+	maxHealth = 220;
+	name = "HUMANEATER"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/fancy/cherry,
@@ -20593,9 +20593,9 @@
 /obj/machinery/optable/abductor,
 /obj/item/scalpel/alien,
 /turf/simulated/floor/mineral/abductor{
+	nitrogen = 82;
 	oxygen = 22;
-	temperature = 180;
-	nitrogen = 82
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "hSj" = (
@@ -21160,8 +21160,8 @@
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbrown";
-	dir = 5
+	dir = 5;
+	icon_state = "darkbrown"
 	},
 /area/bridge/vip)
 "ifc" = (
@@ -21801,8 +21801,8 @@
 /area/quartermaster/sorting)
 "irw" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken6"
+	icon_state = "wood-cherry-broken6";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
 "irJ" = (
@@ -22606,8 +22606,8 @@
 /obj/machinery/door_control{
 	id = "HoSPriv";
 	name = "HoS Office Privacy Shutters Control";
-	pixel_y = -23;
-	pixel_x = 24
+	pixel_x = 24;
+	pixel_y = -23
 	},
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
@@ -22773,8 +22773,8 @@
 /area/medical/sleeper)
 "iJD" = (
 /obj/structure/wooden_sign{
-	name = "STOOOOOOOOP!!!";
-	desc = "THERE IS FUCKING MINE!!!"
+	desc = "THERE IS FUCKING MINE!!!";
+	name = "STOOOOOOOOP!!!"
 	},
 /turf/simulated/floor/plating,
 /area/engineering/gravitygenerator)
@@ -22866,8 +22866,8 @@
 /area/hydroponics)
 "iKY" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken2"
+	icon_state = "wood-cherry-broken2";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "iLb" = (
@@ -23399,8 +23399,8 @@
 /obj/item/folder/yellow,
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbrown";
-	dir = 6
+	dir = 6;
+	icon_state = "darkbrown"
 	},
 /area/bridge/vip)
 "iXb" = (
@@ -23486,8 +23486,8 @@
 /obj/item/clipboard,
 /obj/structure/closet/secure_closet{
 	icon_state = "qm";
-	req_access = list(41);
-	name = "quartermaster's locker"
+	name = "quartermaster's locker";
+	req_access = list(41)
 	},
 /obj/item/megaphone,
 /obj/item/door_remote/quartermaster,
@@ -24212,8 +24212,8 @@
 /obj/item/clothing/suit/hooded/wintercoat/medical/cmo,
 /obj/structure/closet/secure_closet{
 	icon_state = "cmo";
-	req_access = list(40);
-	name = "chief medical officer's locker"
+	name = "chief medical officer's locker";
+	req_access = list(40)
 	},
 /obj/item/megaphone,
 /obj/item/clothing/accessory/medal/medical,
@@ -24522,10 +24522,10 @@
 /area/shuttle/pirate_corvette)
 "jrs" = (
 /obj/machinery/computer/shuttle{
-	shuttleId = "pirateship";
 	possible_destinations = "pirateship_home;pirateship_custom;pirateship_planet";
-	use_power = 0;
-	req_access = list(160)
+	req_access = list(160);
+	shuttleId = "pirateship";
+	use_power = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -24706,9 +24706,9 @@
 /obj/structure/closet/abductor,
 /obj/item/surgicaldrill/alien,
 /turf/simulated/floor/mineral/abductor{
+	nitrogen = 82;
 	oxygen = 22;
-	temperature = 180;
-	nitrogen = 82
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "jvP" = (
@@ -24932,11 +24932,11 @@
 /area/security/detectives_office)
 "jyK" = (
 /obj/machinery/computer/camera_advanced/shuttle_docker{
+	access_derelict = 1;
+	access_station = 0;
 	shuttleId = "pirateship";
 	shuttlePortId = "pirateship_custom";
-	view_range = 20;
-	access_derelict = 1;
-	access_station = 0
+	view_range = 20
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -25103,8 +25103,8 @@
 /area/quartermaster/qm)
 "jCm" = (
 /obj/structure/sink/kitchen{
-	pixel_y = 28;
-	name = "sink"
+	name = "sink";
+	pixel_y = 28
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -25362,8 +25362,8 @@
 "jHM" = (
 /obj/structure/bed,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10);
-	name = "bedsheet"
+	name = "bedsheet";
+	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -25480,8 +25480,8 @@
 "jKi" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/security{
-	name = "Security";
-	id_tag = "BrigEnt"
+	id_tag = "BrigEnt";
+	name = "Security"
 	},
 /obj/effect/decal/snow/sand/edge{
 	dir = 8
@@ -26558,9 +26558,9 @@
 "kdv" = (
 /obj/machinery/atmospherics/binary/pump/on{
 	desc = "Отправляет дыхательную смесь из трубы распространяться по инженерии через вентиляции";
+	dir = 4;
 	name = "Дыхательную смесь в систему инженерии";
-	target_pressure = 303.325;
-	dir = 4
+	target_pressure = 303.325
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -26628,9 +26628,9 @@
 /obj/structure/grille,
 /obj/structure/window/full/reinforced/ice,
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
 	id_tag = "Cargo Office Windows";
-	name = "Cargo Office Shutters";
-	dir = 8
+	name = "Cargo Office Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
@@ -27123,8 +27123,8 @@
 	id = "toilet3";
 	name = "Toilet Bolt Control";
 	normaldoorcontrol = 1;
-	specialfunctions = 4;
-	pixel_y = -24
+	pixel_y = -24;
+	specialfunctions = 4
 	},
 /obj/structure/toilet{
 	dir = 1
@@ -27208,8 +27208,8 @@
 	icon_state = "small"
 	},
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken6"
+	icon_state = "wood-cherry-broken6";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
 "kpt" = (
@@ -27454,8 +27454,8 @@
 	desc = "A floor-mounted flashbulb device.";
 	id = "permacell2";
 	layer = 5;
-	range = 3;
-	pixel_x = 24
+	pixel_x = 24;
+	range = 3
 	},
 /turf/simulated/floor/plating,
 /area/security/permahallway)
@@ -27875,14 +27875,14 @@
 "kBk" = (
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbrown";
-	dir = 10
+	dir = 10;
+	icon_state = "darkbrown"
 	},
 /area/bridge/vip)
 "kBl" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken3"
+	icon_state = "wood-cherry-broken3";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "kBy" = (
@@ -28983,9 +28983,9 @@
 /obj/machinery/door_control{
 	id = "piratehutters";
 	name = "Shutters";
-	req_access = list(160);
+	pixel_x = 6;
 	pixel_y = 6;
-	pixel_x = 6
+	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -29121,8 +29121,8 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken5"
+	icon_state = "wood-cherry-broken5";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "lbI" = (
@@ -29237,8 +29237,8 @@
 	dir = 8
 	},
 /obj/machinery/power/apc{
-	pixel_y = 26;
-	dir = 1
+	dir = 1;
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -29312,24 +29312,24 @@
 /area/hallway/primary/central/sw)
 "lfn" = (
 /obj/docking_port/mobile{
+	dheight = 8;
+	dir = 2;
 	height = 17;
 	id = "pirateship";
 	name = "Pirate Corvette";
 	rebuildable = 1;
-	width = 19;
-	dheight = 8;
-	dir = 2
+	width = 19
 	},
 /obj/docking_port/stationary{
+	area_type = /area/ruin/unpowered/coldcolony_outside;
+	dheight = 8;
+	dir = 2;
 	height = 17;
 	id = "pirateship_planet";
 	name = "Planet";
-	width = 19;
 	pixel_x = 20;
-	area_type = /area/ruin/unpowered/coldcolony_outside;
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
-	dheight = 8;
-	dir = 2
+	width = 19
 	},
 /obj/effect/turf_decal/caution{
 	dir = 4;
@@ -29337,8 +29337,8 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "podfloor_light";
-	icon_regular_floor = "podfloor_light"
+	icon_regular_floor = "podfloor_light";
+	icon_state = "podfloor_light"
 	},
 /area/shuttle/pirate_corvette)
 "lfw" = (
@@ -29379,8 +29379,8 @@
 /area/medical/biostorage)
 "lgA" = (
 /obj/machinery/atmospherics/binary/pump/on{
-	target_pressure = 303.325;
-	dir = 4
+	dir = 4;
+	target_pressure = 303.325
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -29525,8 +29525,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/shutters{
-	id_tag = "comgarage";
-	dir = 2
+	dir = 2;
+	id_tag = "comgarage"
 	},
 /obj/machinery/door_control{
 	id = "comgarage";
@@ -29914,10 +29914,10 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
 	armor = list("melee"=60,"bullet"=70,"laser"=70,"energy"=70,"bomb"=40,"bio"=100,"rad"=100,"fire"=70,"acid"=100);
-	name = "Secure Armory";
-	req_access = list(1);
 	base_state = "rightsecure";
-	icon_state = "rightsecure"
+	icon_state = "rightsecure";
+	name = "Secure Armory";
+	req_access = list(1)
 	},
 /obj/machinery/door/window/brigdoor{
 	armor = list("melee"=60,"bullet"=70,"laser"=70,"energy"=70,"bomb"=40,"bio"=100,"rad"=100,"fire"=70,"acid"=100);
@@ -29946,8 +29946,8 @@
 	dir = 1
 	},
 /obj/machinery/door/airlock/command{
-	req_access = list(19);
-	name = "Command Room"
+	name = "Command Room";
+	req_access = list(19)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/wood/fancy/birch,
@@ -30254,8 +30254,8 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "podfloor_light";
-	icon_regular_floor = "podfloor_light"
+	icon_regular_floor = "podfloor_light";
+	icon_state = "podfloor_light"
 	},
 /area/shuttle/pirate_corvette)
 "lAI" = (
@@ -30507,8 +30507,8 @@
 /area/toxins/test_chamber)
 "lFE" = (
 /obj/machinery/power/apc/noalarm{
-	start_charge = 30;
-	pixel_y = -26
+	pixel_y = -26;
+	start_charge = 30
 	},
 /obj/structure/cable,
 /turf/simulated/floor/wood/cherry{
@@ -31068,9 +31068,9 @@
 /area/coldcolony/ruin/miningeva)
 "lQI" = (
 /obj/structure/target_stake{
+	density = 0;
 	icon = 'icons/obj/lighting.dmi';
 	icon_state = "lantern-on";
-	density = 0;
 	light_color = "#FFBF00";
 	light_range = 6;
 	name = "Street lamp"
@@ -31153,8 +31153,8 @@
 "lRw" = (
 /obj/structure/closet/secure_closet{
 	icon_state = "qm";
-	req_access = list(41);
-	name = "quartermaster's locker"
+	name = "quartermaster's locker";
+	req_access = list(41)
 	},
 /obj/item/clothing/suit/hooded/wintercoat/cargo/qm,
 /obj/item/flash,
@@ -31242,9 +31242,9 @@
 "lTw" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "Kitchen Dinner Windows";
-	name = "Kitchen Shutters";
-	dir = 1
+	name = "Kitchen Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/kitchen)
@@ -31492,9 +31492,9 @@
 	stat = 1
 	},
 /turf/simulated/floor/mineral/abductor{
+	nitrogen = 82;
 	oxygen = 22;
-	temperature = 180;
-	nitrogen = 82
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "lZE" = (
@@ -31508,8 +31508,8 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken4"
+	icon_state = "wood-cherry-broken4";
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "lZK" = (
@@ -31667,8 +31667,8 @@
 /area/hydroponics)
 "mca" = (
 /turf/simulated/floor/wood/fancy/light{
-	icon_state = "light-fancy-wood-broken4";
-	color = "orange"
+	color = "orange";
+	icon_state = "light-fancy-wood-broken4"
 	},
 /area/magistrateoffice)
 "mcj" = (
@@ -31688,8 +31688,8 @@
 /area/chapel/office)
 "mcw" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken7"
+	icon_state = "wood-cherry-broken7";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
 "mcA" = (
@@ -31825,8 +31825,8 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken7"
+	icon_state = "wood-cherry-broken7";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
 "meY" = (
@@ -31934,10 +31934,10 @@
 /area/coldcolony/ruin/ore_production)
 "mhp" = (
 /mob/living/simple_animal/hostile/winter/reindeer{
+	health = 200;
+	maxHealth = 200;
 	melee_damage_lower = 20;
 	melee_damage_upper = 30;
-	maxHealth = 200;
-	health = 200;
 	name = "evil reindeer"
 	},
 /turf/simulated/floor/wood/cherry{
@@ -31973,10 +31973,10 @@
 /area/bridge/vip)
 "mip" = (
 /mob/living/simple_animal/hostile/winter/reindeer{
+	health = 200;
+	maxHealth = 200;
 	melee_damage_lower = 20;
 	melee_damage_upper = 30;
-	maxHealth = 200;
-	health = 200;
 	name = "evil reindeer"
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
@@ -32427,8 +32427,8 @@
 /area/shuttle/pirate_corvette)
 "mtY" = (
 /obj/structure/sign/directions/engineering{
-	pixel_y = -10;
-	dir = 4
+	dir = 4;
+	pixel_y = -10
 	},
 /obj/structure/sign/directions/cargo{
 	dir = 4;
@@ -32740,22 +32740,22 @@
 /area/hallway/primary/central/north)
 "mzJ" = (
 /obj/docking_port/stationary{
+	area_type = /area/ruin/unpowered/coldcolony_outside;
 	dir = 8;
 	dwidth = 5;
 	height = 7;
 	id = "supply_home";
 	name = "supply bay";
-	width = 12;
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
-	area_type = /area/ruin/unpowered/coldcolony_outside
+	width = 12
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
 "mzR" = (
 /obj/structure/bed,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10);
-	name = "bedsheet"
+	name = "bedsheet";
+	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10)
 	},
 /obj/effect/landmark/join_late,
 /obj/structure/sign/poster/official/random{
@@ -33656,14 +33656,14 @@
 /area/security/processing)
 "mQW" = (
 /obj/docking_port/stationary{
+	area_type = /area/ruin/unpowered/coldcolony_outside;
 	dir = 8;
 	dwidth = 2;
 	height = 11;
 	id = "specops_home";
 	name = "port bay 2";
-	width = 5;
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
-	area_type = /area/ruin/unpowered/coldcolony_outside
+	width = 5
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
@@ -34098,8 +34098,8 @@
 "mYd" = (
 /obj/effect/decal/snow/sand/edge,
 /obj/machinery/door/poddoor/shutters{
-	id_tag = "evacgarage";
-	dir = 8
+	dir = 8;
+	id_tag = "evacgarage"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/fans/tiny,
@@ -34218,8 +34218,8 @@
 "mZz" = (
 /obj/structure/bed,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10);
-	name = "bedsheet"
+	name = "bedsheet";
+	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10)
 	},
 /obj/effect/landmark/join_late,
 /obj/structure/sign/poster/official/random{
@@ -34445,8 +34445,8 @@
 /area/hallway/secondary/entry/eastarrival)
 "ndo" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken"
+	icon_state = "wood-cherry-broken";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "ndq" = (
@@ -34470,8 +34470,8 @@
 "ndE" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/security{
-	name = "Security";
-	id_tag = "BrigEnt"
+	id_tag = "BrigEnt";
+	name = "Security"
 	},
 /obj/effect/decal/snow/sand/edge{
 	dir = 4
@@ -34778,8 +34778,8 @@
 /area/hallway/secondary/entry/lounge)
 "nkH" = (
 /obj/machinery/power/apc{
-	pixel_y = 26;
-	dir = 1
+	dir = 1;
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -34789,8 +34789,8 @@
 /area/medical/research/nhallway)
 "nkP" = (
 /obj/item/reagent_containers/food/snacks/bun{
-	pixel_y = 6;
-	pixel_x = 3
+	pixel_x = 3;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plating/asteroid{
 	temperature = 180
@@ -34991,8 +34991,8 @@
 /obj/effect/decal/snow/sand/edge,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken2"
+	icon_state = "wood-cherry-broken2";
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "noW" = (
@@ -35343,8 +35343,8 @@
 /area/coldcolony/ruin/miningbar)
 "nzZ" = (
 /obj/structure/sign/engineering{
-	pixel_y = 32;
-	pixel_x = 32
+	pixel_x = 32;
+	pixel_y = 32
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
@@ -35357,11 +35357,11 @@
 	dir = 4
 	},
 /obj/machinery/door/window{
-	dir = 2;
-	name = "Secure Armory";
-	req_access = list(1);
 	base_state = "right";
-	icon_state = "right"
+	dir = 2;
+	icon_state = "right";
+	name = "Secure Armory";
+	req_access = list(1)
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/item/storage/lockbox/mindshield,
@@ -35806,8 +35806,8 @@
 	pixel_y = 3
 	},
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken"
+	icon_state = "wood-cherry-broken";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "nGU" = (
@@ -36327,8 +36327,8 @@
 /area/crew_quarters/locker)
 "nSv" = (
 /obj/machinery/vending/hydronutrients{
-	stat = 1;
-	obj_integrity = 95
+	obj_integrity = 95;
+	stat = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 1
@@ -36604,8 +36604,8 @@
 	id = "toilet4";
 	name = "Toilet Bolt Control";
 	normaldoorcontrol = 1;
-	specialfunctions = 4;
-	pixel_y = -24
+	pixel_y = -24;
+	specialfunctions = 4
 	},
 /obj/structure/toilet{
 	dir = 1
@@ -37005,9 +37005,9 @@
 /obj/structure/closet/abductor,
 /obj/item/cautery/alien,
 /turf/simulated/floor/mineral/abductor{
+	nitrogen = 82;
 	oxygen = 22;
-	temperature = 180;
-	nitrogen = 82
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "oeb" = (
@@ -37303,8 +37303,8 @@
 "ojB" = (
 /obj/effect/decal/ants,
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken7"
+	icon_state = "wood-cherry-broken7";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "ojE" = (
@@ -37333,8 +37333,8 @@
 /area/hallway/primary/central/sw)
 "ojX" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken2"
+	icon_state = "wood-cherry-broken2";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
 "okk" = (
@@ -37419,16 +37419,16 @@
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light_switch{
-	pixel_y = 24;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 24
 	},
 /obj/machinery/camera{
 	c_tag = "Engineering Lobby";
 	network = list("Engineering","SS13")
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 28;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = 28
 	},
 /obj/item/clothing/suit/hooded/wintercoat/engineering,
 /obj/item/clothing/suit/hooded/wintercoat/engineering,
@@ -37577,18 +37577,18 @@
 /area/maintenance/perma)
 "opa" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
-	faction = "pirate";
 	dir = 1;
-	stat = 1;
+	faction = "pirate";
 	icon_state = "syndieturret2";
-	icon_state_initial = "syndieturret2"
+	icon_state_initial = "syndieturret2";
+	name = "machine gun turret (4.6x30mm)";
+	stat = 1
 	},
 /turf/simulated/wall/shuttle/nosmooth{
+	density = 0;
 	dir = 5;
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners";
-	density = 0
+	icon_state = "gray_walls_corners"
 	},
 /area/shuttle/pirate_corvette)
 "opu" = (
@@ -37613,8 +37613,8 @@
 "opF" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood/fancy/light{
-	icon_state = "light-fancy-wood-broken6";
-	color = "orange"
+	color = "orange";
+	icon_state = "light-fancy-wood-broken6"
 	},
 /area/magistrateoffice)
 "opO" = (
@@ -37991,8 +37991,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/light{
-	icon_state = "light-fancy-wood-broken3";
-	color = "orange"
+	color = "orange";
+	icon_state = "light-fancy-wood-broken3"
 	},
 /area/magistrateoffice)
 "ovo" = (
@@ -38707,8 +38707,8 @@
 "oJH" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken5"
+	icon_state = "wood-cherry-broken5";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "oKj" = (
@@ -38885,9 +38885,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/worn_out{
-	pixel_x = 26;
+	cell_type = 0;
 	dir = 4;
-	cell_type = 0
+	pixel_x = 26
 	},
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -39231,8 +39231,8 @@
 /area/hallway/primary/central/se)
 "oTY" = (
 /obj/structure/wooden_sign{
-	name = "MINE!!!";
-	desc = "THERE IS FUCKING MINE!!!"
+	desc = "THERE IS FUCKING MINE!!!";
+	name = "MINE!!!"
 	},
 /turf/simulated/floor/plating,
 /area/engineering/gravitygenerator)
@@ -39699,8 +39699,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken7"
+	icon_state = "wood-cherry-broken7";
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "pdN" = (
@@ -39892,9 +39892,9 @@
 /area/coldcolony/ruin/syndie_outpost)
 "pig" = (
 /turf/simulated/floor/mineral/abductor{
+	nitrogen = 82;
 	oxygen = 22;
-	temperature = 180;
-	nitrogen = 82
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "pip" = (
@@ -40027,8 +40027,8 @@
 /area/quartermaster/office)
 "pkW" = (
 /obj/machinery/power/apc{
-	pixel_y = 26;
-	dir = 1
+	dir = 1;
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -40217,8 +40217,8 @@
 /area/hallway/primary/central/nw)
 "pnT" = (
 /obj/machinery/door/poddoor/shutters{
-	id_tag = "engigarage";
-	dir = 1
+	dir = 1;
+	id_tag = "engigarage"
 	},
 /obj/structure/fans/tiny,
 /obj/effect/decal/warning_stripes/yellow,
@@ -40258,8 +40258,8 @@
 /area/hallway/secondary/exit)
 "ppl" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken"
+	icon_state = "wood-cherry-broken";
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "ppy" = (
@@ -40425,8 +40425,8 @@
 	dir = 5
 	},
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken6"
+	icon_state = "wood-cherry-broken6";
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "psx" = (
@@ -40456,8 +40456,8 @@
 "psL" = (
 /obj/structure/table/wood,
 /obj/machinery/keycard_auth{
-	pixel_y = 7;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 7
 	},
 /obj/item/folder/blue,
 /obj/item/paper{
@@ -40824,8 +40824,8 @@
 	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","air_sensor"="Air Mix","mix_sensor"="Gas Mix Tank")
 	},
 /obj/machinery/light_switch{
-	pixel_y = 24;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -41001,10 +41001,10 @@
 "pCO" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
 	id_tag = "restaurant";
 	layer = 2;
-	name = "Restaurant Shutters";
-	dir = 2
+	name = "Restaurant Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
@@ -41481,8 +41481,8 @@
 /obj/effect/decal/cleanable/dust,
 /obj/item/broken_bottle,
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken3"
+	icon_state = "wood-cherry-broken3";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "pNm" = (
@@ -41727,9 +41727,9 @@
 	},
 /obj/machinery/light{
 	active_power_usage = 0;
+	dir = 1;
 	icon_state = "tube-broken";
-	status = 2;
-	dir = 1
+	status = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -42183,9 +42183,9 @@
 /obj/structure/bed/abductor,
 /obj/item/circular_saw/alien,
 /turf/simulated/floor/mineral/abductor{
+	nitrogen = 82;
 	oxygen = 22;
-	temperature = 180;
-	nitrogen = 82
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "qbF" = (
@@ -42299,9 +42299,9 @@
 /obj/effect/mob_spawn/human/abductor,
 /obj/item/wrench/abductor,
 /turf/simulated/floor/mineral/abductor{
+	nitrogen = 82;
 	oxygen = 22;
-	temperature = 180;
-	nitrogen = 82
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "qeI" = (
@@ -42311,8 +42311,8 @@
 /area/toxins/storage)
 "qfl" = (
 /obj/machinery/atmospherics/binary/pump/on{
-	target_pressure = 303.325;
-	dir = 1
+	dir = 1;
+	target_pressure = 303.325
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -42615,12 +42615,12 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flashlight/seclite{
-	pixel_y = 5;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = 5
 	},
 /obj/item/flashlight/seclite{
-	pixel_y = 5;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
@@ -43147,8 +43147,8 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "podfloor_light";
-	icon_regular_floor = "podfloor_light"
+	icon_regular_floor = "podfloor_light";
+	icon_state = "podfloor_light"
 	},
 /area/shuttle/pirate_corvette)
 "qtk" = (
@@ -43192,8 +43192,8 @@
 	},
 /obj/item/shovel/spade,
 /obj/item/cultivator{
-	pixel_y = -2;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = -2
 	},
 /obj/machinery/firealarm{
 	dir = 1;
@@ -43247,8 +43247,8 @@
 /area/toxins/storage)
 "quu" = (
 /obj/machinery/power/apc{
-	pixel_y = 26;
-	dir = 1
+	dir = 1;
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -43363,8 +43363,8 @@
 /obj/machinery/computer/security/engineering,
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/light_switch{
-	pixel_y = 8;
-	pixel_x = -24
+	pixel_x = -24;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -43725,8 +43725,8 @@
 "qDT" = (
 /obj/machinery/blackbox_recorder,
 /obj/machinery/power/apc{
-	pixel_y = 26;
-	dir = 1
+	dir = 1;
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -44235,6 +44235,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/medical/surgery/north)
 "qOe" = (
+/obj/structure/closet/sechammercabinet{
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -44545,8 +44548,8 @@
 "qUp" = (
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken5"
+	icon_state = "wood-cherry-broken5";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
 "qUx" = (
@@ -44780,16 +44783,16 @@
 /area/maintenance/fore)
 "qZe" = (
 /obj/structure/sign/directions/engineering{
-	pixel_y = -10;
-	dir = 4
+	dir = 4;
+	pixel_y = -10
 	},
 /obj/structure/sign/directions/evac{
-	pixel_y = 4;
-	dir = 4
+	dir = 4;
+	pixel_y = 4
 	},
 /obj/structure/sign/directions/cargo{
-	pixel_y = -3;
-	dir = 4
+	dir = 4;
+	pixel_y = -3
 	},
 /obj/structure/sign/directions/science{
 	pixel_y = 11
@@ -44997,8 +45000,8 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/closet/secure_closet{
 	icon_state = "ce";
-	req_access = list(56);
-	name = "chief engineer's locker"
+	name = "chief engineer's locker";
+	req_access = list(56)
 	},
 /obj/item/clothing/suit/hooded/wintercoat/engineering/ce,
 /obj/item/megaphone,
@@ -45368,8 +45371,8 @@
 "rht" = (
 /obj/structure/bed,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10);
-	name = "bedsheet"
+	name = "bedsheet";
+	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10)
 	},
 /obj/effect/landmark/join_late,
 /turf/simulated/floor/plasteel{
@@ -45415,8 +45418,8 @@
 	id = "toilet3";
 	name = "Toilet Bolt Control";
 	normaldoorcontrol = 1;
-	specialfunctions = 4;
-	pixel_y = -24
+	pixel_y = -24;
+	specialfunctions = 4
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -45475,8 +45478,8 @@
 "rio" = (
 /obj/structure/bed,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10);
-	name = "bedsheet"
+	name = "bedsheet";
+	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10)
 	},
 /obj/effect/landmark/join_late,
 /turf/simulated/floor/plasteel{
@@ -45596,8 +45599,8 @@
 /area/engineering/gravitygenerator)
 "rkU" = (
 /obj/machinery/crema_switch{
-	pixel_y = 26;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = 26
 	},
 /obj/structure/table,
 /obj/item/storage/box/bodybags,
@@ -45615,8 +45618,8 @@
 	pixel_y = 3
 	},
 /obj/item/gun/projectile/automatic/pistol{
-	pixel_y = 6;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -45725,8 +45728,8 @@
 "rmJ" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken6"
+	icon_state = "wood-cherry-broken6";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
 "rmU" = (
@@ -46062,8 +46065,8 @@
 "rsv" = (
 /obj/structure/bed,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10);
-	name = "bedsheet"
+	name = "bedsheet";
+	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10)
 	},
 /obj/effect/landmark/join_late,
 /turf/simulated/floor/plasteel{
@@ -46175,8 +46178,8 @@
 /area/assembly/robotics)
 "rup" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken3"
+	icon_state = "wood-cherry-broken3";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
 "ruu" = (
@@ -46624,9 +46627,9 @@
 /area/security/permabrig)
 "rDR" = (
 /obj/machinery/atmospherics/unary/tank/carbon_dioxide{
-	volume = 0;
+	dir = 1;
 	name = "Pressure Tank (Gases)";
-	dir = 1
+	volume = 0
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
@@ -46989,8 +46992,8 @@
 /obj/item/crowbar,
 /obj/structure/cable,
 /obj/machinery/power/apc/noalarm{
-	start_charge = 30;
-	pixel_y = -26
+	pixel_y = -26;
+	start_charge = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -47191,8 +47194,8 @@
 "rRy" = (
 /obj/effect/decal/cleanable/generic,
 /obj/machinery/power/apc/noalarm{
-	pixel_y = 26;
 	dir = 1;
+	pixel_y = 26;
 	start_charge = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -47203,8 +47206,8 @@
 /area/coldcolony/ruin/sm_division)
 "rRD" = (
 /obj/machinery/door/airlock/command{
-	req_access = list(19);
-	name = "Command Room"
+	name = "Command Room";
+	req_access = list(19)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
@@ -47242,8 +47245,8 @@
 /area/hallway/secondary/exit)
 "rRL" = (
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
-	dir = 4
+	dir = 4;
+	do_not_delete_me = 1
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/effect/landmark/tiles/burnturf,
@@ -47455,8 +47458,8 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbrown";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrown"
 	},
 /area/bridge/vip)
 "rWU" = (
@@ -47466,8 +47469,8 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Permabrig Office West";
-	network = list("Prison","SS13");
-	dir = 4
+	dir = 4;
+	network = list("Prison","SS13")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -47480,9 +47483,9 @@
 "rXK" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "Pirate Corvette Air alarm";
 	pixel_y = -25;
-	req_access = list(160);
-	name = "Pirate Corvette Air alarm"
+	req_access = list(160)
 	},
 /obj/machinery/light/small{
 	active_power_usage = 0;
@@ -47580,9 +47583,9 @@
 "sam" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/eastleft{
+	dir = 1;
 	name = "Hydroponics Desk";
-	req_access = list(35);
-	dir = 1
+	req_access = list(35)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -47855,9 +47858,9 @@
 /area/security/permabrig)
 "sfG" = (
 /obj/machinery/power/apc/worn_out{
-	pixel_x = 26;
+	cell_type = 0;
 	dir = 4;
-	cell_type = 0
+	pixel_x = 26
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -47964,9 +47967,9 @@
 /area/medical/surgery/north)
 "siE" = (
 /obj/machinery/door/airlock/external{
-	req_access = list(160);
+	aiControlDisabled = 1;
 	hackProof = 1;
-	aiControlDisabled = 1
+	req_access = list(160)
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
@@ -48090,8 +48093,8 @@
 /area/crew_quarters/bar/atrium)
 "snk" = (
 /obj/item/reagent_containers/food/snacks/meat{
-	pixel_y = -4;
-	pixel_x = -7
+	pixel_x = -7;
+	pixel_y = -4
 	},
 /obj/effect/decal/ants,
 /turf/simulated/floor/plating/asteroid{
@@ -48441,8 +48444,8 @@
 /area/bridge)
 "stk" = (
 /obj/structure/closet/crate/freezer{
-	opened = 1;
-	icon_state = "freezeropen"
+	icon_state = "freezeropen";
+	opened = 1
 	},
 /obj/item/reagent_containers/food/snacks/bun,
 /turf/simulated/floor/plating/asteroid{
@@ -48476,8 +48479,8 @@
 "stA" = (
 /obj/machinery/shower{
 	dir = 4;
-	tag = "icon-shower (EAST)";
-	pixel_y = 4
+	pixel_y = 4;
+	tag = "icon-shower (EAST)"
 	},
 /obj/effect/decal/warning_stripes/blue,
 /obj/effect/decal/warning_stripes/south,
@@ -48593,8 +48596,8 @@
 	pixel_x = -8
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "podfloor_light";
-	icon_regular_floor = "podfloor_light"
+	icon_regular_floor = "podfloor_light";
+	icon_state = "podfloor_light"
 	},
 /area/shuttle/pirate_corvette)
 "swN" = (
@@ -48740,8 +48743,8 @@
 /area/maintenance/asmaint2)
 "szw" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken4"
+	icon_state = "wood-cherry-broken4";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "szx" = (
@@ -48835,8 +48838,8 @@
 /area/assembly/chargebay)
 "sAD" = (
 /obj/structure/sign/directions/medical{
-	pixel_y = 7;
-	dir = 1
+	dir = 1;
+	pixel_y = 7
 	},
 /obj/structure/sign/directions/security{
 	dir = 1
@@ -49514,15 +49517,15 @@
 /area/quartermaster/qm)
 "sNm" = (
 /obj/machinery/power/apc{
-	pixel_y = 26;
-	dir = 1
+	dir = 1;
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
 /obj/machinery/light_switch{
-	pixel_y = 24;
-	pixel_x = 12
+	pixel_x = 12;
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -50084,8 +50087,8 @@
 /area/crew_quarters/fitness)
 "sZT" = (
 /obj/effect/turf_decal/stripes/line{
-	do_not_delete_me = 1;
-	dir = 8
+	dir = 8;
+	do_not_delete_me = 1
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
@@ -51018,8 +51021,8 @@
 /obj/effect/decal/cleanable/blood/gibs/limb,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken2"
+	icon_state = "wood-cherry-broken2";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "tsm" = (
@@ -51044,14 +51047,14 @@
 /area/hallway/secondary/entry/eastarrival)
 "ttc" = (
 /obj/docking_port/stationary{
+	area_type = /area/ruin/unpowered/coldcolony_outside;
+	dir = 4;
 	dwidth = 2;
 	height = 12;
 	id = "ferry_home";
 	name = "port bay 3";
-	width = 5;
-	dir = 4;
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
-	area_type = /area/ruin/unpowered/coldcolony_outside
+	width = 5
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
@@ -51369,8 +51372,8 @@
 	pixel_y = 2
 	},
 /obj/item/toy/russian_revolver{
-	pixel_y = 12;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = 12
 	},
 /obj/item/toy/russian_revolver{
 	pixel_x = -12;
@@ -52194,14 +52197,14 @@
 /area/medical/sleeper)
 "tPC" = (
 /obj/docking_port/stationary{
+	area_type = /area/ruin/unpowered/coldcolony_outside;
 	dir = 4;
 	dwidth = 11;
 	height = 18;
 	id = "emergency_home";
 	name = "emergency evac bay";
-	width = 29;
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
-	area_type = /area/ruin/unpowered/coldcolony_outside
+	width = 29
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
@@ -52434,8 +52437,8 @@
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -26;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -52521,11 +52524,11 @@
 /area/medical/research)
 "tUz" = (
 /obj/machinery/door/window/brigdoor{
+	base_state = "rightsecure";
+	icon_state = "rightsecure";
 	id = "Cell 1";
 	name = "Cell 1";
-	req_access = list(2);
-	base_state = "rightsecure";
-	icon_state = "rightsecure"
+	req_access = list(2)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -52544,8 +52547,8 @@
 "tUH" = (
 /obj/structure/bed,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10);
-	name = "bedsheet"
+	name = "bedsheet";
+	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10)
 	},
 /obj/effect/landmark/join_late,
 /obj/machinery/status_display{
@@ -52598,8 +52601,8 @@
 /obj/machinery/door_control{
 	id = "researchdesk1";
 	name = "Primary Research Shutters";
-	pixel_y = -8;
-	pixel_x = -24
+	pixel_x = -24;
+	pixel_y = -8
 	},
 /obj/machinery/light_switch{
 	pixel_x = -21;
@@ -52825,8 +52828,8 @@
 /area/engineering/break_room)
 "tZr" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
-	dir = 8
+	dir = 8;
+	name = "machine gun turret (4.6x30mm)"
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -52971,8 +52974,8 @@
 	desc = "A floor-mounted flashbulb device.";
 	id = "permacell1";
 	layer = 5;
-	range = 3;
-	pixel_x = -24
+	pixel_x = -24;
+	range = 3
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -53133,9 +53136,9 @@
 /obj/structure/table/abductor,
 /obj/item/hemostat/alien,
 /turf/simulated/floor/mineral/abductor{
+	nitrogen = 82;
 	oxygen = 22;
-	temperature = 180;
-	nitrogen = 82
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "ueY" = (
@@ -53423,8 +53426,8 @@
 /area/security/brig)
 "ujW" = (
 /turf/simulated/floor/wood/fancy/light{
-	icon_state = "light-fancy-wood-broken2";
-	color = "orange"
+	color = "orange";
+	icon_state = "light-fancy-wood-broken2"
 	},
 /area/magistrateoffice)
 "ujY" = (
@@ -53559,8 +53562,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door_control{
-	pixel_x = -24;
-	id = "rndgarage"
+	id = "rndgarage";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/research)
@@ -53657,8 +53660,8 @@
 /obj/machinery/computer/security,
 /obj/machinery/camera{
 	c_tag = "HoS Office";
-	network = list("SS13","Security");
-	dir = 10
+	dir = 10;
+	network = list("SS13","Security")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -53669,8 +53672,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken5"
+	icon_state = "wood-cherry-broken5";
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "uog" = (
@@ -53779,8 +53782,8 @@
 /obj/item/clothing/suit/hooded/wintercoat/medical/science/rd,
 /obj/structure/closet/secure_closet{
 	icon_state = "rd";
-	req_access = list(30);
-	name = "research director's locker"
+	name = "research director's locker";
+	req_access = list(30)
 	},
 /obj/item/megaphone,
 /obj/item/clothing/accessory/medal/science,
@@ -54201,9 +54204,9 @@
 "uBh" = (
 /obj/machinery/abductor/gland_dispenser,
 /turf/simulated/floor/mineral/abductor{
+	nitrogen = 82;
 	oxygen = 22;
-	temperature = 180;
-	nitrogen = 82
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "uBr" = (
@@ -54243,8 +54246,8 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Medbay Staff Room";
-	network = list("SS13","Medical");
-	dir = 10
+	dir = 10;
+	network = list("SS13","Medical")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -54253,8 +54256,8 @@
 "uCg" = (
 /obj/structure/bed,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10);
-	name = "bedsheet"
+	name = "bedsheet";
+	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10)
 	},
 /obj/effect/landmark/join_late,
 /obj/machinery/firealarm{
@@ -54337,9 +54340,9 @@
 "uEc" = (
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/mineral/abductor{
+	nitrogen = 82;
 	oxygen = 22;
-	temperature = 180;
-	nitrogen = 82
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "uEu" = (
@@ -54411,8 +54414,8 @@
 /area/hallway/secondary/exit)
 "uGa" = (
 /obj/machinery/power/apc{
-	pixel_y = 26;
-	dir = 1
+	dir = 1;
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -54486,8 +54489,8 @@
 	pixel_y = -10
 	},
 /obj/structure/sign/directions/security{
-	pixel_y = 11;
-	dir = 1
+	dir = 1;
+	pixel_y = 11
 	},
 /obj/structure/sign/directions/evac{
 	pixel_y = -3
@@ -54592,8 +54595,8 @@
 /area/security/prison/cell_block/A)
 "uKm" = (
 /obj/machinery/door/airlock/silver{
-	name = "Bathroom";
-	id_tag = "comtoilet"
+	id_tag = "comtoilet";
+	name = "Bathroom"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -54898,11 +54901,11 @@
 /area/hallway/secondary/exit)
 "uQx" = (
 /obj/item/card/id/thunderdome/red{
-	name = "Pirate ID";
-	registered_name = "Pirate";
 	access = list(160,26);
+	assignment = "Pirate";
 	desc = "A card used to determine access across.";
-	assignment = "Pirate"
+	name = "Pirate ID";
+	registered_name = "Pirate"
 	},
 /turf/simulated/floor/plating,
 /area/engineering/gravitygenerator)
@@ -54976,8 +54979,8 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/camera{
 	c_tag = "Atmospherics South";
-	network = list("SS13","Engineering");
-	dir = 4
+	dir = 4;
+	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -55019,8 +55022,8 @@
 /area/crew_quarters/captain)
 "uSN" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken5"
+	icon_state = "wood-cherry-broken5";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "uSU" = (
@@ -55079,8 +55082,8 @@
 "uUq" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbrown";
-	dir = 9
+	dir = 9;
+	icon_state = "darkbrown"
 	},
 /area/bridge/vip)
 "uUI" = (
@@ -55292,8 +55295,8 @@
 /area/hydroponics)
 "uYk" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken3"
+	icon_state = "wood-cherry-broken3";
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "uYv" = (
@@ -55420,8 +55423,8 @@
 /area/security/lobby)
 "vbe" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken7"
+	icon_state = "wood-cherry-broken7";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "vbo" = (
@@ -55714,8 +55717,8 @@
 "vgP" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/power/apc{
-	pixel_y = 26;
-	dir = 1
+	dir = 1;
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -55982,9 +55985,9 @@
 	},
 /obj/machinery/light{
 	active_power_usage = 0;
+	dir = 1;
 	icon_state = "tube-broken";
-	status = 2;
-	dir = 1
+	status = 2
 	},
 /turf/simulated/floor/plating{
 	temperature = 180
@@ -55998,8 +56001,8 @@
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/camera{
 	c_tag = "Medbay Genetics Office";
-	network = list("Medical","SS13");
-	dir = 4
+	dir = 4;
+	network = list("Medical","SS13")
 	},
 /obj/machinery/firealarm{
 	dir = 8;
@@ -56140,8 +56143,8 @@
 "vnF" = (
 /obj/structure/bed,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10);
-	name = "bedsheet"
+	name = "bedsheet";
+	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10)
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
@@ -56162,23 +56165,23 @@
 /area/security/processing)
 "vol" = (
 /obj/docking_port/stationary{
+	area_type = /area/ruin/unpowered/coldcolony_outside;
 	dheight = 1;
 	dir = 8;
 	dwidth = 7;
 	height = 18;
 	id = "trade_dock";
 	name = "port bay 1 at Malta";
-	width = 15;
 	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
-	area_type = /area/ruin/unpowered/coldcolony_outside
+	width = 15
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
 "von" = (
 /obj/structure/bed,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10);
-	name = "bedsheet"
+	name = "bedsheet";
+	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10)
 	},
 /obj/effect/landmark/join_late,
 /obj/machinery/firealarm{
@@ -56598,8 +56601,8 @@
 /obj/item/clothing/suit/hooded/wintercoat/medical/science/rd,
 /obj/structure/closet/secure_closet{
 	icon_state = "rd";
-	req_access = list(30);
-	name = "research director's locker"
+	name = "research director's locker";
+	req_access = list(30)
 	},
 /obj/item/flash,
 /obj/item/radio/headset/heads/rd,
@@ -56844,8 +56847,8 @@
 	},
 /obj/machinery/light,
 /obj/machinery/light_switch{
-	pixel_y = -24;
-	pixel_x = 8
+	pixel_x = 8;
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
@@ -56994,8 +56997,8 @@
 "vBh" = (
 /obj/structure/bed,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10);
-	name = "bedsheet"
+	name = "bedsheet";
+	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -57085,8 +57088,8 @@
 /area/medical/medbay2)
 "vCF" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken2"
+	icon_state = "wood-cherry-broken2";
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "vCG" = (
@@ -57721,9 +57724,9 @@
 "vOu" = (
 /obj/machinery/abductor/pad,
 /turf/simulated/floor/mineral/abductor{
+	nitrogen = 82;
 	oxygen = 22;
-	temperature = 180;
-	nitrogen = 82
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "vOX" = (
@@ -58469,8 +58472,8 @@
 /area/coldcolony/ruin/sm_chamber)
 "wey" = (
 /obj/machinery/atmospherics/binary/pump/on{
-	target_pressure = 303.325;
-	dir = 8
+	dir = 8;
+	target_pressure = 303.325
 	},
 /turf/simulated/floor/plating,
 /area/medical/virology/lab)
@@ -58532,9 +58535,9 @@
 	},
 /obj/machinery/recharger,
 /obj/item/stack/tile/plasteel{
+	amount = 5;
 	pixel_x = 10;
-	pixel_y = 10;
-	amount = 5
+	pixel_y = 10
 	},
 /obj/item/airlock_painter,
 /turf/simulated/floor/plasteel{
@@ -58552,9 +58555,9 @@
 "wgl" = (
 /obj/structure/computerframe,
 /obj/machinery/power/apc/worn_out{
-	pixel_x = 26;
+	cell_type = 0;
 	dir = 4;
-	cell_type = 0
+	pixel_x = 26
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -58834,13 +58837,13 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	active_power_usage = 0;
+	dir = 1;
 	icon_state = "tube-broken";
-	status = 2;
-	dir = 1
+	status = 2
 	},
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken4"
+	icon_state = "wood-cherry-broken4";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "wjk" = (
@@ -58942,9 +58945,9 @@
 /obj/machinery/bottler,
 /obj/machinery/light{
 	active_power_usage = 0;
+	dir = 1;
 	icon_state = "tube-broken";
-	status = 2;
-	dir = 1
+	status = 2
 	},
 /turf/simulated/floor/wood,
 /area/coldcolony/ruin/miningbar)
@@ -58985,9 +58988,9 @@
 "wlv" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
@@ -59238,8 +59241,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken4"
+	icon_state = "wood-cherry-broken4";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "wqn" = (
@@ -59293,8 +59296,8 @@
 "wsg" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken7"
+	icon_state = "wood-cherry-broken7";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "wss" = (
@@ -59584,9 +59587,9 @@
 /obj/structure/rack,
 /obj/machinery/light{
 	active_power_usage = 0;
+	dir = 1;
 	icon_state = "tube-broken";
-	status = 2;
-	dir = 1
+	status = 2
 	},
 /obj/item/weldingtool,
 /turf/simulated/floor/plasteel{
@@ -60024,8 +60027,8 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/purple{
-	dir = 8;
-	color = "#9932CC"
+	color = "#9932CC";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -60170,8 +60173,8 @@
 "wKj" = (
 /obj/structure/bed/pod,
 /obj/item/clothing/under/pants/galifepants{
-	name = "Lis West pants";
-	desc = "Штаны широкого фасона в бёдрах, ткань в районе коленей порвана и свисает открывая обзор на отверстия, ширинка грубо разорвана, голень штанины в крови как и в целом общая часть покрытия. На бирке пришитой к задней стороне штанов надпись 'Лейтенант Лис Вест, 6-ой разведывательный батальон СолГов'"
+	desc = "Штаны широкого фасона в бёдрах, ткань в районе коленей порвана и свисает открывая обзор на отверстия, ширинка грубо разорвана, голень штанины в крови как и в целом общая часть покрытия. На бирке пришитой к задней стороне штанов надпись 'Лейтенант Лис Вест, 6-ой разведывательный батальон СолГов'";
+	name = "Lis West pants"
 	},
 /obj/item/restraints/handcuffs/cable/zipties/used,
 /obj/effect/decal/cleanable/pie_smudge,
@@ -60302,8 +60305,8 @@
 /area/crew_quarters/fitness)
 "wMk" = (
 /obj/machinery/atmospherics/unary/tank/air{
-	volume = 20000;
-	dir = 1
+	dir = 1;
+	volume = 20000
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
@@ -60434,8 +60437,8 @@
 /obj/structure/grille,
 /obj/structure/window/full/reinforced/ice,
 /obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "SKPP";
-	dir = 1
+	dir = 1;
+	id_tag = "SKPP"
 	},
 /turf/simulated/floor/plating,
 /area/bridge/checkpoint/south)
@@ -60491,8 +60494,8 @@
 "wOC" = (
 /obj/machinery/constructable_frame/machine_frame,
 /obj/machinery/light_switch{
-	pixel_y = 8;
-	pixel_x = -24
+	pixel_x = -24;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -60513,8 +60516,8 @@
 "wPt" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/shutters{
-	id_tag = "comgarage";
-	dir = 2
+	dir = 2;
+	id_tag = "comgarage"
 	},
 /obj/effect/decal/snow/sand/edge{
 	dir = 4
@@ -60742,12 +60745,12 @@
 /area/atmos)
 "wUy" = (
 /obj/machinery/door/window/brigdoor{
+	base_state = "rightsecure";
 	dir = 1;
+	icon_state = "rightsecure";
 	id = "Cell 5";
 	name = "General Detention Cell";
-	req_access = list(2);
-	base_state = "rightsecure";
-	icon_state = "rightsecure"
+	req_access = list(2)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -60960,8 +60963,8 @@
 /obj/machinery/door/airlock/hatch{
 	aiControlDisabled = 1;
 	hackProof = 1;
-	req_access = list(160);
-	name = "Bridge"
+	name = "Bridge";
+	req_access = list(160)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -61046,8 +61049,8 @@
 /area/maintenance/asmaint2)
 "wZG" = (
 /obj/machinery/power/apc{
-	pixel_y = 26;
-	dir = 1
+	dir = 1;
+	pixel_y = 26
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -61170,8 +61173,8 @@
 "xda" = (
 /obj/structure/bed,
 /obj/effect/spawner/random_spawners/syndicate/loot{
-	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10);
-	name = "bedsheet"
+	name = "bedsheet";
+	result = list(/obj/item/bedsheet/blue = 10, /obj/item/bedsheet/black = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/brown = 10, /obj/item/bedsheet/fluff = 10, /obj/item/bedsheet/green = 10, /obj/item/bedsheet/orange = 10, /obj/item/bedsheet/purple = 10, /obj/item/bedsheet/red = 10, /obj/item/bedsheet/yellow = 10)
 	},
 /obj/effect/landmark/join_late,
 /turf/simulated/floor/plasteel{
@@ -61296,8 +61299,8 @@
 "xgv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor{
-	id = "CargoUnload";
-	dir = 8
+	dir = 8;
+	id = "CargoUnload"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -61610,9 +61613,9 @@
 	id = "magistrateoffice";
 	name = "Office Door";
 	normaldoorcontrol = 1;
+	pixel_x = 14;
 	pixel_y = -2;
-	req_access = list(74);
-	pixel_x = 14
+	req_access = list(74)
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -62558,10 +62561,10 @@
 /obj/machinery/autolathe,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/brigdoor{
+	dir = 2;
 	id = "Autolathe";
 	name = "Autolathe Access";
-	req_access = list(47);
-	dir = 2
+	req_access = list(47)
 	},
 /obj/item/stack/sheet/metal{
 	amount = 20
@@ -62847,8 +62850,8 @@
 /area/medical/genetics)
 "xIo" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken5"
+	icon_state = "wood-cherry-broken5";
+	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
 "xIz" = (
@@ -62890,8 +62893,8 @@
 /area/security/hos)
 "xIP" = (
 /turf/simulated/floor/wood/cherry{
-	temperature = 180;
-	icon_state = "wood-cherry-broken5"
+	icon_state = "wood-cherry-broken5";
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "xIR" = (
@@ -63371,8 +63374,8 @@
 /area/maintenance/casino)
 "xTg" = (
 /obj/structure/wooden_sign{
-	name = "DANGER!";
-	desc = "BEARS!"
+	desc = "BEARS!";
+	name = "DANGER!"
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
@@ -63542,9 +63545,9 @@
 /obj/structure/table/abductor,
 /obj/item/retractor/alien,
 /turf/simulated/floor/mineral/abductor{
+	nitrogen = 82;
 	oxygen = 22;
-	temperature = 180;
-	nitrogen = 82
+	temperature = 180
 	},
 /area/ruin/unpowered)
 "xVQ" = (
