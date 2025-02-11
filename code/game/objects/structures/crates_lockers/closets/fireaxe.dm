@@ -274,7 +274,7 @@
 
 /obj/structure/closet/sechammercabinet
 	name = "tactical sledgehammer cabinet"
-	desc = "Стойка, предназначенная для хранения тактической кувалды. Надпись на этикетке гласит: \"Для особых случаев\"."
+	desc = "Стойка, предназначенная для хранения тактической кувалды. Надпись гласит: \"Для особых случаев\"."
 	ru_names = list(
 		NOMINATIVE = "стойка для тактической кувалды",
 		GENITIVE = "стойки для тактической кувалды",
@@ -287,6 +287,7 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "sechammer_full"
 	anchored = TRUE
+	density = FALSE
 	no_overlays = TRUE
 	armor = list(MELEE = 50, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 90, ACID = 50)
 	var/obj/item/twohanded/sechammer/sledgehammer
