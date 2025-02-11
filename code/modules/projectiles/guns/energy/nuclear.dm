@@ -131,6 +131,7 @@
 	origin_tech = "combat=7;magnets=6;powerstorage=6"
 	slot_flags = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	item_flags = SLOWS_WHILE_IN_HAND
 	weapon_weight = WEAPON_MEDIUM
 	w_class = WEIGHT_CLASS_GIGANTIC
 	throw_range = 0
