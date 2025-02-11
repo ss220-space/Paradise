@@ -11,7 +11,7 @@ pub struct Sun {
 impl Sun {
     pub fn setup_solars(&self) -> eyre::Result<ByondValue> {
         for solar in self.solars.unwrap_or_default().get_list_values()? {
-            let _ = solar.call("setup", &[])?;
+            solar.call("setup", &[])?;
         }
         Ok(ByondValue::from(true))
     }
@@ -21,21 +21,21 @@ impl Sun {
 
         for solar in solars_list.get_list_values()? {
             if solar.read_var("powernet")?.is_null() {
-                let _ = solars_list.call("Remove", &[solar])?;
+                solars_list.call("Remove", &[solar])?;
                 continue;
             }
-            let _ = solar.call("update", &[])?;
+            solar.call("update", &[])?;
         }
         Ok(ByondValue::from(true))
     }
 
     pub fn add_solar(&self, solar: ByondValue) -> eyre::Result<ByondValue> {
-        let _ = self.solars.unwrap_or_default().push_list(solar);
+        self.solars.unwrap_or_default().push_list(solar)?;
         Ok(solar)
     }
 
     pub fn remove_solar(&self, solar: ByondValue) -> eyre::Result<ByondValue> {
-        let _ = self.solars.unwrap_or_default().call("Remove", &[solar]);
+        self.solars.unwrap_or_default().call("Remove", &[solar])?;
         Ok(solar)
     }
 
