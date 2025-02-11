@@ -17,6 +17,7 @@
 		PREPOSITIONAL = "печени вульпканина"
 	)
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	item_state = "vulpkanin_liver"
 	alcohol_intensity = 1.4
 
 /obj/item/organ/internal/eyes/vulpkanin
@@ -32,6 +33,7 @@
 		PREPOSITIONAL = "глазах вульпканина"
 	)
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	item_state = "vulpkanin_eyes"
 	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix parameter that the mob will recieve when they get the disability.
 	replace_colours = PROTANOPIA_COLOR_REPLACE
 	see_in_dark = 8
@@ -78,6 +80,8 @@
 		PREPOSITIONAL = "сердце вульпканина"
 	)
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	item_state = "vulpkanin_heart-on"
+	item_base = "vulpkanin_heart"
 
 /obj/item/organ/internal/brain/vulpkanin
 	species_type = /datum/species/vulpkanin
@@ -92,6 +96,7 @@
 	)
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
 	icon_state = "brain2"
+	item_state = "vulpkanin_brain"
 	mmi_icon = 'icons/obj/species_organs/vulpkanin.dmi'
 	mmi_icon_state = "mmi_full"
 
@@ -108,6 +113,7 @@
 		PREPOSITIONAL = "лёгких вульпканина"
 	)
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	item_state = "vulpkanin_lungs"
 
 /obj/item/organ/internal/kidneys/vulpkanin
 	species_type = /datum/species/vulpkanin
@@ -122,6 +128,7 @@
 		PREPOSITIONAL = "почках вульпканина"
 	)
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	item_state = "vulpkanin_kidneys"
 
 /obj/item/organ/external/tail/vulpkanin
 	species_type = /datum/species/vulpkanin

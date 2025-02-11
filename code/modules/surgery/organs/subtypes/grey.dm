@@ -11,6 +11,7 @@
 		PREPOSITIONAL = "печени серого"
 	)
 	icon = 'icons/obj/species_organs/grey.dmi'
+	item_state = "grey_liver"
 	alcohol_intensity = 1.4
 
 /obj/item/organ/internal/brain/grey
@@ -26,6 +27,7 @@
 	)
 	icon = 'icons/obj/species_organs/grey.dmi'
 	icon_state = "brain2"
+	item_state = "grey_brain"
 	mmi_icon = 'icons/obj/species_organs/grey.dmi'
 	mmi_icon_state = "mmi_full"
 	smart_mind = TRUE // nerd brains show us sci-hud and research scanner
@@ -51,6 +53,7 @@
 		PREPOSITIONAL = "глазах серого"
 	)
 	icon = 'icons/obj/species_organs/grey.dmi'
+	item_state = "grey_eyes"
 	see_in_dark = 3
 	examine_mod = EXAMINE_INSTANT // Insta carbon examine
 
@@ -80,6 +83,8 @@
 		PREPOSITIONAL = "сердце серого"
 	)
 	icon = 'icons/obj/species_organs/grey.dmi'
+	item_state = "grey_heart-on"
+	item_base = "grey_heart"
 
 /obj/item/organ/internal/lungs/grey
 	species_type = /datum/species/grey
@@ -94,6 +99,7 @@
 		PREPOSITIONAL = "лёгких серого"
 	)
 	icon = 'icons/obj/species_organs/grey.dmi'
+	item_state = "grey_lungs"
 
 /obj/item/organ/internal/kidneys/grey
 	species_type = /datum/species/grey
@@ -108,3 +114,4 @@
 		PREPOSITIONAL = "почках серого"
 	)
 	icon = 'icons/obj/species_organs/grey.dmi'
+	item_state = "grey_kidneys"

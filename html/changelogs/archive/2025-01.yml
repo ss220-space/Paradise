@@ -1,0 +1,336 @@
+'2025-01-01':
+  FlitchTime:
+  - bugfix: detective and contractor zippo (#6302)
+  Sheya:
+  - add: universal gripper (#6299)
+  - tweak: kopeyka gender and tts (#6298)
+  - tweak: slime brain in chest (#6297)
+  - add: RPD in toolbelt (#6295)
+  Vladisvell:
+  - server: CI beta byond versions bump to 516.1648 (#6293)
+  chomasuke:
+  - bugfix: fix transfer blood (#6300)
+'2025-01-02':
+  dageavtobusnick:
+  - add: welder sword (#5976)
+'2025-01-03':
+  FlitchTime:
+  - add: laser minigun (#6279)
+  KefirTT:
+  - add: Aphasia disability (#6181)
+'2025-01-04':
+  Anorak2020:
+  - add: normally working invisibility (#6071)
+  Antoonij:
+  - refactor: reagent attacks & Unarmed attacks (#5926)
+  - qol: optimize trim, inheritance for animal_temp + components (#6209)
+  - add: separated thermo control & drask coma (#6059)
+  BeebBeebBoob:
+  - add: TGUI 4K support (#6301)
+  - bugfix: AI upload freeforms & hacked modules and safe-checks (#6308)
+  Daeberdir:
+  - bugfix: In-Closet emotes doubling. (#6117)
+  Explosi00N:
+  - qol: kinetic crusher translation (#6283)
+  FlitchTime:
+  - tweak: edit armor for gloves and boots from armory (#6254)
+  Koko4yXa:
+  - bugfix: Can't pick sec cyborg (#6313)
+  L343-CJ:
+  - add: Mecha medbeam module (#6098)
+  PiroMage:
+  - add: 2 new statue on Nova and Nova button bugfix + new stairs (#6294)
+  PlayerUnknown14:
+  - tweak: thunderdome cooldown (once more) (#6306)
+  Sheya:
+  - add: blueshield sunglasses (#6044)
+  Vladisvell:
+  - bugfix: now contents of cargo crates are destroyed upon arriving to centcomm (#6315)
+  dageavtobusnick:
+  - unknown: tgui loadout + tgui color picker (#6280)
+  - add: blob update (#6113)
+  - bugfix: ashed paintkit make some mechs invisible (#6312)
+  - tweak: VV fixes and tweaks (#6307)
+  - tweak: tgui coin press (#6309)
+  - unknown: supply pods launcher admin button (#6305)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#6194)
+'2025-01-05':
+  Antoonij:
+  - add: Pref viewer & bitflag helpers (#6282)
+  Arceniu:
+  - bugfix: Lasergun implant doesnt have icon in inventory (#6322)
+  BeebBeebBoob:
+  - bugfix: No acceleration between space and space loopholes (#6318)
+  - refactor: split items_lefthand items_righthand dmi (#6310)
+  - server: GitHub README update (#6321)
+  Den109G:
+  - del: Comment out gatling (#6324)
+  Etrnlmelancholy:
+  - tweak: nucleations banned from robust based jobs (#6319)
+  FlitchTime:
+  - qol: Maximize up all tech and up to 8 level (#6304)
+  Rafnik02:
+  - qol: Sound for pacman (#6149)
+  dageavtobusnick:
+  - tweak: malf not ai traitor anymore (#6316)
+  - bugfix: Fix some bugs and errors (#6323)
+  - bugfix: presets fix (#6325)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#6317)
+'2025-01-06':
+  Antoonij:
+  - add: Updated Devil gamemode (#5944)
+  Koko4yXa:
+  - tweak: Changed max light for borgs (#6314)
+  Valtor:
+  - add: grey rework (#6108)
+  littleboobs:
+  - qol: vampire mode translation (#6311)
+'2025-01-08':
+  BeebBeebBoob:
+  - bugfix: Blind AI while carding regains sight back (#6333)
+  - bugfix: chameleon gen deactivates properly (#6335)
+  - tweak: Assigns jobs first, antags second (#6334)
+  - bugfix: buildmode properly finishes on quit(eg. area_edit fix) (#6336)
+  Koko4yXa:
+  - bugfix: fix borg light overlay (#6337)
+  Vitalya:
+  - imageadd: Christmas decoration Resprite (#6331)
+'2025-01-10':
+  Andrew455h:
+  - bugfix: exosuit fabricator unpowered print (#6343)
+'2025-01-11':
+  BeebBeebBoob:
+  - del: Assigns jobs first, antags second" (#6349)
+  Koko4yXa:
+  - bugfix: Standard guardian phrase length (#6338)
+  Sheya:
+  - add: GreyTide strip (#6296)
+  Vitalya:
+  - bugfix: Plasmamen Engineer uniform fix  (#6348)
+  dageavtobusnick:
+  - bugfix: fix some bugs (blob, loadout and etc) (#6345)
+  - add: pulse gatling (#6330)
+  - refactor: replace some icon2base64 to DMicon (#6347)
+'2025-01-12':
+  dageavtobusnick:
+  - qol: tgchat lag fix caused by chat spam.  (#6351)
+'2025-01-16':
+  BeebBeebBoob:
+  - refactor: is_hot get_heat refactor (#6332)
+  - bugfix: Now chasm kills mechas properly (#6354)
+  - bugfix: More negative atmos (#6362)
+  Dictor:
+  - add: Increase SMMI TС cost & Overdrive ability  (#6346)
+  FlitchTime:
+  - bugfix: slow kits and operation desc fix (#6363)
+  PiroMage:
+  - add: Lasergun & Riotshotgun flashlights V2 (#6360)
+  TimChi:
+  - qol: TGUI input for paper (#6357)
+  Vesterlim13:
+  - admin: event map - coldcolony (#6356)
+  userbaza:
+  - tweak: additional disability job restrictions (#6359)
+'2025-01-18':
+  Andrew455h:
+  - bugfix: syndie drone wrong path (#6377)
+  FlitchTime:
+  - bugfix: borg light damage fix (#6373)
+  Mahimka42:
+  - add: HUD optical visors for donators (#6355)
+  NuSanya:
+  - bugfix: customat deleting things from pipes (#6364)
+  PiroMage:
+  - tweak: Nova gas storage roof (#6375)
+  TimChi:
+  - bugfix: grab people with a sleeper from any distance (#6374)
+  Vesterlim13:
+  - bugfix: coldcolony map fix (#6376)
+  Vitalya:
+  - imageadd: Cosmic Carp Resprite (#6352)
+  dageavtobusnick:
+  - unknown: vv options rights fix (#6378)
+  - bugfix: blob overminds in nullspace (#6370)
+'2025-01-19':
+  Antoonij:
+  - code_imp: Diona internals improve (#6383)
+  BeebBeebBoob:
+  - admin: Poll voting (#6361)
+  Mahimka42:
+  - imageadd: Inhand detective hats and detective hats fixes. (#6382)
+  NoName:
+  - balance: Rework DNA Increaserun (#6366)
+  PlayerUnknown14:
+  - qol: attack messages translation (#6327)
+  Ravgolin:
+  - tweak: Delta Northwest maintenance remap 3
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#6384)
+'2025-01-20':
+  Baldek0:
+  - tweak: New name for star system (#6386)
+  BeebBeebBoob:
+  - code_imp: Removes REF() in favor UID() (#6387)
+  - bugfix: Can't set direction at floor painter (#6389)
+  - bugfix: Unbuckling buckled guardians on recall (#6392)
+  - bugfix: cell charger dismantle & component upgrade (#6393)
+  - bugfix: cane sprites (#6394)
+  - bugfix: Return ability for wryn to pick hair color and underwear (#6396)
+  - bugfix: Runtiming no DB - random character load (#6395)
+  NuSanya:
+  - add: SCS-3 Cage, alert qol (#6350)
+  PlayerUnknown14:
+  - bugfix: attack message fix (#6391)
+'2025-01-21':
+  Vesterlim13:
+  - admin: coldcolony update (#6397)
+  dageavtobusnick:
+  - admin: VV atoms transform editor (#6379)
+'2025-01-22':
+  Antoonij:
+  - bugfix: correct prize in arcade & poll query (#6400)
+  Honker9999999:
+  - add: Durand can't be moved in Defence mode [Bounty] (#6367)
+  dageavtobusnick:
+  - admin: some admin buttons tweaks (#6398)
+  tsoivecen199015:
+  - server: Abotch remap (#5903)
+'2025-01-23':
+  Antoonij:
+  - bugfix: static pref info to object (#6418)
+  BeebBeebBoob:
+  - bugfix: evidence bag works properly (& removed move_contents_to proc) (#6415)
+  - bugfix: chair into crate while buckled, makes crate teleporter (#6416)
+  - server: deploy fix (#6421)
+  - server: Deploy fix 2
+  - server: Deploy fix 3
+  FlitchTime:
+  - balance: guardian ignore stamina damage (#6417)
+  Honker9999999:
+  - add: ghostface equipment [bounty] (#6371)
+  - add: autodrobe pricing and quantity update (#6399)
+  - add: PlasmaMate vendor (#6406)
+  Koko4yXa:
+  - bugfix: cyborg heal amount  (#6407)
+  PlayerUnknown14:
+  - tweak: vendor slogans fix (#6410)
+  - qol: examine messages translation (#6412)
+  - qol: some localization fixes (#6409)
+  dageavtobusnick:
+  - admin: Updated admin antag UI menu (#6329)
+  - admin: admin buttons sorting (#6408)
+  - bugfix: antag menu sorting fix (#6413)
+  - admin: new ingame chat for developers (#6402)
+  - admin: ERT manager panel update (#6385)
+  - admin: some admin tweaks part 2 (#6401)
+  - admin: ghostchat contol (#6405)
+  - admin: some admin tweaks part 3 (#6419)
+'2025-01-24':
+  Andrew455h:
+  - bugfix: syndi lockermech unavailable (#6420)
+  Antoonij:
+  - code_imp: pref holder & improve pref viewer (#6422)
+  dageavtobusnick:
+  - bugfix: admin verbs bugfix (#6424)
+'2025-01-25':
+  BeebBeebBoob:
+  - del: SSblackbox system Removal (#6388)
+  Vesterlim13:
+  - admin: coldcolony update2 (#6433)
+  dageavtobusnick:
+  - bugfix: admin communication console access fix (#6425)
+'2025-01-26':
+  BeebBeebBoob:
+  - del: SSblackbox system Removal" (#6456)
+  Honker9999999:
+  - bugfix: ghostface and autodrobe (#6463)
+  PlayerUnknown14:
+  - spellcheck: item sizes (#6457)
+  TimChi:
+  - add: Ghosts can toggles their sight (#6426)
+  - bugfix: TGUI input for paper working incorrectly (#6437)
+  dageavtobusnick:
+  - admin: atom_say in vv (#6452)
+  - admin: no vv verb for moders (#6428)
+  - bugfix: Advanced ProcCall global procs fix (#6434)
+  - bugfix: fix text input extra encoding (#6436)
+'2025-01-27':
+  BeebBeebBoob:
+  - admin: Player Panel & PP Panel TGUI (#6440)
+  - bugfix: PP для модеров, подправка окна и скрытие инфы (#6470)
+  - bugfix: подправление надочёта в панеле PP (#6471)
+  Honker9999999:
+  - bugfix: plasmamate kit (#6465)
+  PlayerUnknown14:
+  - bugfix: стало возможным мыть голову при выборе головы (#6466)
+  - qol: Перевод медицинского оборудования (#6172)
+  Sheya:
+  - add: Хамелеон шеи в хамелеон ките
+  dageavtobusnick:
+  - bugfix: anomalies bugfix (#6468)
+  - bugfix: Ящики в упаковке теперь правильно удаляются на карго шаттле (#6467)
+  - admin: подправление разделов, исправление недочётов
+  - qol: Шёпот теперь по умолчанию Shift+T
+  - admin: Админы теперь могут отменять события
+  - bugfix: Кнопки алёртов теперь вмещаются
+  - admin: Настройка форс событий
+  - admin: mass anime button fix (#6430)
+  - tweak: mob_suspension now affects mob spawners (#6429)
+  - bugfix: Потенциальное решение смертельности блоба (#6464)
+'2025-01-28':
+  Antoonij:
+  - experiment: turf defines with block to 515 syntax (#6454)
+  - refactor: datumize bodyzones (#6469)
+  BeebBeebBoob:
+  - bugfix: Капсула генетиков теперь работает (#6472)
+  - admin: Обновление PP, время, фикс related by (#6473)
+  - add: Голомапы (#6476)
+  - del: datumize bodyzones" (#6480)
+  - bugfix: название у station map сдвигается в начале (#6482)
+  - bugfix: GeoIP работает в админ Options Panel (#6481)
+  - add: 'Добавление map: иконки в чейнджлог (#6484)'
+  Etrnlmelancholy:
+  - add: сатанинская одежда (#6474)
+  L343-CJ:
+  - add: Slimes can choose skin color (#6353)
+  Mahimka42:
+  - tweak: adjust instead of halt in security gas mask (#6446)
+  Navvok:
+  - bugfix: случайный взрыв руки от abandoned crate (#6477)
+  PiroMage:
+  - tweak: Nova Kitchen and Lavaland outpost zone (#6411)
+  PlayerUnknown14:
+  - qol: локализация интерфейса и ещё всякое (#6445)
+  Vesterlim13:
+  - admin: coldcolony fix (#6483)
+  dageavtobusnick:
+  - admin: admins now can spawn cargo crates (#6455)
+  - admin: sound emitters (#6451)
+  - admin: select equipment on ghosts (#6453)
+  - admin: Advanced Spawn button (#6438)
+  - admin: Оптимизация поиска и работы VV + несколько ВВ qol-ов (#6478)
+  - admin: Событие для тушения плазменых пожаров (#6475)
+'2025-01-29':
+  PlayerUnknown14:
+  - qol: микроправки кода и локализации (#6488)
+'2025-01-30':
+  Rafnik02:
+  - imageadd: органы, рюкзаки, папки в руки (#6490)
+  dageavtobusnick:
+  - bugfix: Категория у Advanced Spawn + возможность удаления излучателя звука (#6487)
+'2025-01-31':
+  Antoonij:
+  - add: object posession component (#6461)
+  FlitchTime:
+  - bugfix: Задержка для дымогена и новый реагент взамен удалённого для ксеноборга
+      (#6495)
+  - unknown: Заменил название зоны внешнего коридора спутника на Дельтах (#6500)
+  dageavtobusnick:
+  - bugfix: player panel fixes (#6494)
+  - admin: Несколько PM qol-ов (#6497)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#6486)
+  littleboobs:
+  - spellcheck: перевод датчиков костюма + фиксы локализации (#6485)

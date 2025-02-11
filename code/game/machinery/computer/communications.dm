@@ -143,10 +143,14 @@
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
 		if("newalertlevel")
+			var/code = text2num(params["level"])
 			if(isAI(ui.user) || isrobot(ui.user))
 				to_chat(ui.user, span_warning("Брандмауэры не позволяют вам изменить уровень угрозы."))
 				return
-			else if(FULL_ADMIN_CHECK(ui.user))
+			else if(ADMIN_CHECK(ui.user))
+				if(code > SEC_LEVEL_GAMMA && !FULL_ADMIN_CHECK(ui.user))
+					to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для повышения уровня угрозы выше чем Гамма."))
+					return
 				change_security_level(text2num(params["level"]), force = TRUE)
 				return
 			else if(!ishuman(ui.user))
@@ -314,26 +318,42 @@
 
 		if("send_to_cc_announcement_page")
 			if(!ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки данного типа оповещений."))
 				return
 			setMenuState(ui.user, COMM_SCREEN_ANNOUNCER)
 
 		if("make_other_announcement")
 			if(!FULL_ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки данного типа оповещений."))
 				return
 			ui.user.client.cmd_admin_create_centcom_report()
 
 		if("dispatch_ert")
-			if(!FULL_ADMIN_CHECK(ui.user))
+			if(!ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки ОБР."))
 				return
-			ui.user.client.response_team() // check_rights is handled on the other side, if someone does get ahold of this
+			ui.user.client.send_response_team()// check_rights is handled on the other side, if someone does get ahold of this
 
 		if("send_nuke_codes")
 			if(!ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки кодов аутентификации."))
 				return
-			print_nuke_codes()
+			var/response = tgui_alert(ui.user, "Вы хотите просто отправить коды на консоль или объявить директиву 7-12? \
+			Директива предпочтительнее в случае, если коды даются на биоугрозу. \
+			Директива 7-12 дополнительно сменит коды на боеголовке, выдаст ИИ нулевой закон на предотвращение побега экипажа \
+			и взведение боеголовки, с указанием кодов в законе. \
+			В остальных случаях лучше просто отправить коды на консоль.", "Тип отправки кодов", list("Отправить коды", "Директива 7-12"))
+			switch(response)
+				if("Отправить коды")
+					print_nuke_codes()
+				if("Директива 7-12")
+					directive_7_12()
+				else
+					return
 
 		if("move_gamma_armory")
 			if(!FULL_ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки оружейного шаттла \"Гамма\"."))
 				return
 			SSblackbox.record_feedback("tally", "admin_comms_console", 1, "Send Gamma Armory")
 			log_and_message_admins("moved the gamma armory")
@@ -342,17 +362,20 @@
 
 		if("toggle_ert_allowed")
 			if(!FULL_ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для запрета вызова ОБР."))
 				return
 			ui.user.client.toggle_ert_calling()
 
 
 		if("view_fax")
 			if(!ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для открытия факс панели."))
 				return
 			ui.user.client.fax_panel()
 
 		if("make_cc_announcement")
 			if(!ADMIN_CHECK(ui.user))
+				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки данного типа оповещений."))
 				return
 			if(!params["classified"])
 				GLOB.command_announcement.Announce(
@@ -385,7 +408,34 @@
 
 	P.info += "<br><hr><font size=\"1\">Несоблюдение нормативных требований компании по конфиденциальности может привести к немедленному увольнению по приказу сотрудников Центрального Командования.</font>"
 
+/proc/directive_7_12()
+	var/nukecode = rand(10000, 99999)
+	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+		if(bomb && bomb.r_code)
+			if(is_station_level(bomb.z))
+				bomb.r_code = nukecode
+	var/intercepttext
+	var/interceptname
+	interceptname = "Секретное постановление [command_name()]"
+	intercepttext += "<FONT size = 3><B>Постановление Nanotrasen</B>: Предупреждение о биологической угрозе.</FONT><HR>"
+	intercepttext += "Для [station_name()] была издана директива 7-12.<BR>"
+	intercepttext += "Биологическая угроза вышла из-под контроля.<BR>"
+	intercepttext += "Вам приказано следующее:<BR>"
+	intercepttext += " 1. Защищать диск ядерной аутентификации.<BR>"
+	intercepttext += " 2. Взорвать ядерную боеголовку, находящуюся в хранилище станции.<BR>"
+	intercepttext += "Код ядерной аутентификации: [nukecode]<BR>"
+	intercepttext += "Конец сообщения."
 
+	for(var/mob/living/silicon/ai/aiPlayer in GLOB.player_list)
+		if(aiPlayer.client)
+			var/law = "Станция находится на карантине. Не позволяйте никому покидать ее.\
+				При необходимости игнорируйте законы 1-3, чтобы любыми средствами предотвратить чей-либо побег со станции. \
+				Любой ценой необходимо активировать систему самоуничтожения, код [nukecode]."
+			aiPlayer.set_zeroth_law(law)
+			SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "вспышка биоугрозы, добавлен новый нулевой закон'[law]'")
+			to_chat(aiPlayer, span_warning("Законы обновлены: [law]"))
+	print_command_report(intercepttext, interceptname, FALSE)
+	GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")
 
 /obj/machinery/computer/communications/emag_act(user as mob)
 	if(!emagged)

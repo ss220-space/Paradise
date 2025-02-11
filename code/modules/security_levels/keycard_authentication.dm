@@ -197,7 +197,7 @@
 
 			var/fullmin_count = 0
 			for(var/client/C in GLOB.admins)
-				if(check_rights(R_EVENT, 0, C.mob))
+				if(check_rights(R_ADMIN, 0, C.mob))
 					fullmin_count++
 			if(fullmin_count)
 				addtimer(CALLBACK(src, PROC_REF(remind_admins), ert_reason, event_triggered_by), 15 MINUTES)

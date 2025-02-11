@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		to_chat(src, span_boldwarning("yt-dlp was not configured, action unavailable"), confidential=TRUE) //Check config.txt for the INVOKE_YOUTUBEDL value
 		return
 
-	var/web_sound_input = input("Enter content URL (supported sites only, leave blank to stop playing)", "Play Internet Sound via yt-dlp") as text|null
+	var/web_sound_input = tgui_input_text(usr, "Enter content URL (supported sites only, leave blank to stop playing)", "Play Internet Sound via yt-dlp", encode = FALSE)
 	if(istext(web_sound_input))
 		var/web_sound_path = ""
 		var/web_sound_url = ""
@@ -162,7 +162,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/melody = input(usr, "Select a sound from the server to play", "Server sound list") as null|anything in sounds
 	if(!melody)	return
 
 	play_sound(melody)
@@ -174,19 +174,19 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	set desc = "Plays a sound at every intercomm on the station z level. Works best with small sounds."
 	if(!check_rights(R_SOUNDS))	return
 
-	var/A = alert("This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
+	var/A = alert(usr, "This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
 	if(A != "Yep")	return
 
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/melody = input(usr, "Select a sound from the server to play", "Server sound list") as null|anything in sounds
 	if(!melody)	return
 
 	var/cvol = 35
-	var/inputvol = input("How loud would you like this to be? (1-70)", "Volume", "35") as num | null
+	var/inputvol = tgui_input_number(usr, "How loud would you like this to be? (1-70)", "Volume", cvol, min_value = 1, max_value = 70)
 	if(!inputvol)	return
-	if(inputvol && inputvol >= 1 && inputvol <= 70)
+	if(inputvol)
 		cvol = inputvol
 
 	//Allows for override to utilize intercomms on all z-levels
@@ -210,13 +210,13 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		playsound(I, melody, cvol)
 
 /client/proc/play_direct_mob_sound(S as sound, mob/M)
-	set category = "Admin.Fun"
+	set category = "Admin.Sounds"
 	set name = "Play Direct Mob Sound"
 	if(!check_rights(R_SOUNDS))
 		return
 
 	if(!M)
-		M = input(usr, "Choose a mob to play the sound to. Only they will hear it.", "Play Mob Sound") as null|anything in sort_names(GLOB.player_list)
+		M = tgui_input_list(usr, "Choose a mob to play the sound to. Only they will hear it.", "Play Mob Sound", sort_names(GLOB.player_list))
 	if(!M || QDELETED(M))
 		return
 

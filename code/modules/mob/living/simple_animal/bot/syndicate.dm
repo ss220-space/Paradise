@@ -94,11 +94,11 @@
 	var/turf/current_turf = get_turf(src)
 	if(saved_turf && current_turf != saved_turf)
 		playsound(loc, stepsound, 40, TRUE)
-	if(spawn_turf && !atoms_share_level(src, spawn_turf))
+	if(spawn_turf && !are_zs_connected(src, spawn_turf))
 		raise_alert("[capitalize(declent_ru(NOMINATIVE))] потерялся в пространстве.")
 		raised_alert = FALSE
 		raise_alert("[capitalize(declent_ru(NOMINATIVE))] активировал протокол само-уничтожения.")
-		qdel(src)
+		explode()
 	saved_turf = current_turf
 	switch(mode)
 		if(BOT_IDLE)

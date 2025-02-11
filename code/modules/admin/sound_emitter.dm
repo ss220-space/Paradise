@@ -33,11 +33,12 @@
 	var/started = FALSE
 
 /obj/effect/sound_emitter/Destroy(force)
-	if(!force)
-		return QDEL_HINT_LETMELIVE
 	. = ..()
 
 /obj/effect/sound_emitter/singularity_act()
+	return
+
+/obj/effect/sound_emitter/ex_act()
 	return
 
 /obj/effect/sound_emitter/examine(mob/user)

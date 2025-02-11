@@ -102,6 +102,7 @@
 #define INIT_ORDER_NIGHTSHIFT -24
 #define INIT_ORDER_GAME_EVENTS -26
 #define INIT_ORDER_PATH -50
+#define INIT_ORDER_EXPLOSIONS -69
 #define INIT_ORDER_PERSISTENCE -95
 #define INIT_ORDER_STATPANELS -98
 #define INIT_ORDER_DEMO	-99 // To avoid a bunch of changes related to initialization being written, do this last
@@ -139,6 +140,7 @@
 #define FIRE_PRIORITY_CHAT 			400
 #define FIRE_PRIORITY_RUNECHAT		410 // I hate how high the fire priority on this is -aa
 #define FIRE_PRIORITY_OVERLAYS		500
+#define FIRE_PRIORITY_EXPLOSIONS	666
 #define FIRE_PRIORITY_TIMER			700
 #define FIRE_PRIORITY_SPEECH_CONTROLLER 900
 #define FIRE_PRIORITY_DELAYED_VERBS 950

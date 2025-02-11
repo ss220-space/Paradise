@@ -133,13 +133,13 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/level = clean_input("Which z-level?","Level?")
+	var/level = tgui_input_text(usr, "Which z-level?", "Level?")
 	if(!level) return
 	var/num_level = text2num(level)
 	if(!num_level) return
 	if(!isnum(num_level)) return
 
-	var/type_text = clean_input("Which type path?","Path?")
+	var/type_text = tgui_input_text(usr, "Which type path?","Path?")
 	if(!type_text) return
 	var/type_path = text2path(type_text)
 	if(!type_path) return
@@ -171,7 +171,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/type_text = clean_input("Which type path?","")
+	var/type_text = tgui_input_text(usr, "Which type path?", "")
 	if(!type_text) return
 	var/type_path = text2path(type_text)
 	if(!type_path) return
