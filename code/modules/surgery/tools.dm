@@ -52,7 +52,7 @@
 
 /obj/item/retractor/primitive_retractor
 	name = "primitive bone retractor"
-	desc = "Расшираяет штуки."
+	desc = "Примитивный инструмент, сделанный из кости. Используется для расширения полостей при операциях."
 	ru_names = list(
 		NOMINATIVE = "примитивный ретрактор",
 		GENITIVE = "примитивного ретрактора",
@@ -61,6 +61,7 @@
 		INSTRUMENTAL = "примитивным ретрактором",
 		PREPOSITIONAL = "примитивном ретракторе",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_retractor"
 	item_state = "primitive_retractor"
@@ -113,7 +114,7 @@
 
 /obj/item/hemostat/primitive_hemostat
 	name = "primitive hemostat"
-	desc = "Зажимает красные трубки."
+	desc = "Примитивный инструмент, сделанный из кости. Используется для зажима кровоточащих сосудов во время операций."
 	ru_names = list(
 		NOMINATIVE = "примитивный гемостат",
 		GENITIVE = "примитивного гемостата",
@@ -122,6 +123,7 @@
 		INSTRUMENTAL = "примитивным гемостатом",
 		PREPOSITIONAL = "примитивном гемостате",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_hemostat"
 	item_state = "primitive_hemostat"
@@ -159,7 +161,7 @@
 
 /obj/item/cautery/primitive_cautery
 	name = "primitive cautery"
-	desc = "Удерживает сок жизни."
+	desc = "Примитивный инструмент, сделанный из кости. Используется для прижигания ран."
 	ru_names = list(
 		NOMINATIVE = "примитивный прижигатель",
 		GENITIVE = "примитивного прижигателя",
@@ -168,6 +170,7 @@
 		INSTRUMENTAL = "примитивным прижигателем",
 		PREPOSITIONAL = "примитивном прижигателе",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_cautery"
 	item_state = "primitive_cautery"
@@ -295,7 +298,7 @@
 
 /obj/item/scalpel/primitive_scalpel
 	name = "primitive scalpel"
-	desc = "Резать, резать и ещё раз резать."
+	desc = "Примитивный скальпель, сделанный из кости. Несмотря на материал, из которого сделан, всё ещё крайне эффективен."
 	ru_names = list(
 		NOMINATIVE = "примитивный скальпель",
 		GENITIVE = "примитивного скальпеля",
@@ -304,6 +307,7 @@
 		INSTRUMENTAL = "примитивным скальпелем",
 		PREPOSITIONAL = "примитивном скальпеле",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_scalpel"
 	item_state = "primitive_scalpel"
@@ -435,7 +439,7 @@
 
 /obj/item/primitive_saw
 	name = "primitive circular saw"
-	desc = "Отлично режет кости."
+	desc = "Примитивная хирургическая пила, сделанная из крепкой кости."
 	ru_names = list(
 		NOMINATIVE = "примитивная хирургическая пила",
 		GENITIVE = "примитивной хирургической пилы",
@@ -444,6 +448,7 @@
 		INSTRUMENTAL = "примитивной хирургической пилой",
 		PREPOSITIONAL = "примитивной хирургической пиле",
 	)
+	gender = FEMALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_saw"
 	item_state = "primitive_saw"
@@ -496,7 +501,7 @@
 
 /obj/item/bonegel/primitive_bonegel
 	name = "primitive bone gel"
-	desc = "Сращивает кости."
+	desc = "Примитивная смесь, используется для заживления костей."
 	ru_names = list(
 		NOMINATIVE = "примитивный костяной гель",
 		GENITIVE = "примитивного костяного геля",
@@ -505,6 +510,7 @@
 		INSTRUMENTAL = "примитивным костяным гелем",
 		PREPOSITIONAL = "примитивном костяном геле",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_bonegel"
 	item_state = "primitive_bonegel"
@@ -541,7 +547,7 @@
 
 /obj/item/FixOVein/primitive_FixOVein
 	name = "primitive FixOVein"
-	desc = "Сшивает красные трубки."
+	desc = "Примитивное средство для сращивания сосудов."
 	ru_names = list(
 		NOMINATIVE = "нить для сращивания сосудов",
 		GENITIVE = "нити для сращивания сосудов",
@@ -550,6 +556,7 @@
 		INSTRUMENTAL = "нитью для сращивания сосудов",
 		PREPOSITIONAL = "нити для сращивания сосудов",
 	)
+	gender = FEMALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_fixovein"
 	item_state = "primitive_fixovein"
@@ -603,7 +610,7 @@
 
 /obj/item/bonesetter/primitive_bonesetter
 	name = "primitive bone setter"
-	desc = "Правит кости."
+	desc = "Примитивный инструмент, сделанный из кости. Используется для правки костей."
 	ru_names = list(
 		NOMINATIVE = "примитивный костоправ",
 		GENITIVE = "примитивного костоправа",
@@ -612,6 +619,7 @@
 		INSTRUMENTAL = "примитивным костоправом",
 		PREPOSITIONAL = "примитивном костоправе",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_bonesetter"
 	item_state = "primitive_bonesetter"
