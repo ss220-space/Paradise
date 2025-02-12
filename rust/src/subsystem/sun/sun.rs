@@ -30,13 +30,17 @@ impl Sun {
     }
 
     pub fn add_solar(&self, solar: ByondValue) -> eyre::Result<ByondValue> {
-        self.solars.unwrap_or_default().push_list(solar)?;
+        self.solars
+            .unwrap_or(ByondValue::new_list()?)
+            .push_list(solar)?;
         Ok(solar)
     }
 
     pub fn remove_solar(&self, solar: ByondValue) -> eyre::Result<ByondValue> {
-        self.solars.unwrap_or_default().call("Remove", &[solar])?;
-        Ok(solar)
+        Ok(self
+            .solars
+            .unwrap_or(ByondValue::new_list()?)
+            .call("Remove", &[solar])?)
     }
 
     pub fn get_dy(&self) -> eyre::Result<ByondValue> {
