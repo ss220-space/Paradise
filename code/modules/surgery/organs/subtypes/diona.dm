@@ -332,16 +332,15 @@
 /obj/item/organ/internal/liver/diona
 	species_type = /datum/species/diona
 	name = "nutrient vessel"
-	desc = "Светочувствительные мембраны, выполняющие зрительную функцию."
+	desc = "Железа, отвечающая за метаболизацию поступающих в гештальт веществ."
 	ru_names = list(
-		NOMINATIVE = "рецепторный узел",
-		GENITIVE = "рецепторного узла",
-		DATIVE = "рецепторному узлу",
-		ACCUSATIVE = "рецепторный узел",
-		INSTRUMENTAL = "рецепторным узлом",
-		PREPOSITIONAL = "рецепторном узле"
+		NOMINATIVE = "питательная железа",
+		GENITIVE = "питательной железы",
+		DATIVE = "питательной железе",
+		ACCUSATIVE = "питательную железа",
+		INSTRUMENTAL = "питательной железой",
+		PREPOSITIONAL = "питательной железе"
 	)
-	gender = MALE
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
 	alcohol_intensity = 0.5

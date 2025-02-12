@@ -10,7 +10,7 @@
 		PREPOSITIONAL = "ушах"
 	)
 	gender = PLURAL
-	icon_state = "eyes"
+	icon_state = "ears"
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_EARS
 

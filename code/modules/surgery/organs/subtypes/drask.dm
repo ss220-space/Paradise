@@ -2,14 +2,32 @@
 /obj/item/organ/internal/drask
 	species_type = /datum/species/drask
 	name = "drask organ"
+	desc = "Зеленоватый, слегка прозрачный орган. Он чрезвычайно холодный."
+	ru_names = list(
+		NOMINATIVE = "орган драска",
+		GENITIVE = "органа драска",
+		DATIVE = "органу драска",
+		ACCUSATIVE = "орган драска",
+		INSTRUMENTAL = "органом драска",
+		PREPOSITIONAL = "органе драска"
+	)
+	gender = MALE
 	icon = 'icons/obj/species_organs/drask.dmi'
 	icon_state = "innards"
 	item_state = "drask_innards"
-	desc = "A greenish, slightly translucent organ. It is extremely cold."
 
 /obj/item/organ/internal/heart/drask
 	species_type = /datum/species/drask
 	name = "drask heart"
+	desc = "Орган, качающий криоксадон по организму драска."
+	ru_names = list(
+		NOMINATIVE = "сердце драска",
+		GENITIVE = "сердца драска",
+		DATIVE = "сердцу драска",
+		ACCUSATIVE = "сердце драска",
+		INSTRUMENTAL = "сердцем драска",
+		PREPOSITIONAL = "сердце драска"
+	)
 	icon = 'icons/obj/species_organs/drask.dmi'
 	item_state = "drask_heart-on"
 	item_base = "drask_heart"
@@ -18,6 +36,16 @@
 /obj/item/organ/internal/liver/drask
 	species_type = /datum/species/drask
 	name = "metabolic strainer"
+	desc = "Орган выделительной системы организма драска. Выделяет особый фермент, очищающий кровоток от токсинов и стимулирующий процесс клеточного деления."
+	ru_names = list(
+		NOMINATIVE = "метаболический фильтр",
+		GENITIVE = "метаболического фильтра",
+		DATIVE = "метаболическому фильтру",
+		ACCUSATIVE = "метаболический фильтр",
+		INSTRUMENTAL = "метаболическим фильтром",
+		PREPOSITIONAL = "метаболическом фильтре"
+	)
+	gender = MALE
 	icon = 'icons/obj/species_organs/drask.dmi'
 	icon_state = "kidneys"
 	item_state = "drask_liver"
@@ -34,12 +62,30 @@
 /obj/item/organ/internal/eyes/drask
 	species_type = /datum/species/drask
 	name = "drask eyeballs"
+	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Этот - драска."
+	ru_names = list(
+		NOMINATIVE = "глаза драска",
+		GENITIVE = "глаз драска",
+		DATIVE = "глазам драска",
+		ACCUSATIVE = "глаза драска",
+		INSTRUMENTAL = "глазами драска",
+		PREPOSITIONAL = "глазах драска"
+	)
 	icon = 'icons/obj/species_organs/drask.dmi'
 	item_state = "drask_eyes"
-	desc = "Drask eyes. They look even stranger disembodied."
 	see_in_dark = 5
 
 /obj/item/organ/internal/lungs/drask
+	name = "drask lungs"
+	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма драска."
+	ru_names = list(
+		NOMINATIVE = "лёгкие драска",
+		GENITIVE = "лёгких драска",
+		DATIVE = "лёгким драска",
+		ACCUSATIVE = "лёгкие драска",
+		INSTRUMENTAL = "лёгкими драска",
+		PREPOSITIONAL = "лёгких драска"
+	)
 	icon = 'icons/obj/species_organs/drask.dmi'
 	item_state = "drask_lungs"
 	cold_message = " освежающий холод"
