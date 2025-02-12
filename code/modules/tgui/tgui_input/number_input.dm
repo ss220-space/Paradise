@@ -86,7 +86,7 @@
 	if(timeout)
 		src.timeout = timeout
 		start_time = world.time
-		deletion_timer = QDEL_IN(src, timeout)
+		deletion_timer = QDEL_IN_STOPPABLE(src, timeout)
 
 	/// Checks for empty numbers - bank accounts, etc.
 	if(max_value == 0)

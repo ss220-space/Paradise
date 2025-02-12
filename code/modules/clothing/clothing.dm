@@ -354,8 +354,8 @@ BLIND     // can't see anything
 		if(!human.is_hands_free())
 			balloon_alert(usr, "руки заняты!")
 			return FALSE
-		SEND_SIGNAL(src, COMSIG_GLOVES_DOUBLE_HANDS_TOUCH, A, usr)
-		return TRUE
+
+		return SEND_SIGNAL(src, COMSIG_GLOVES_DOUBLE_HANDS_TOUCH, A, usr) & COMPONENT_CANCEL_ATTACK_CHAIN
 
 	return FALSE // return TRUE to cancel attack_hand()
 
