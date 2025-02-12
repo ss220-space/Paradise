@@ -52,7 +52,7 @@ pub fn sun_subsystem_fire() -> eyre::Result<ByondValue> {
 #[byondapi::bind]
 pub fn get_sun_angle() -> eyre::Result<ByondValue> {
     let sun = SUN.lock().unwrap();
-    Ok(ByondValue::from(sun.angle))
+    Ok(sun.get_angle()?)
 }
 
 #[byondapi::bind]

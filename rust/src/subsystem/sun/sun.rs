@@ -54,4 +54,8 @@ impl Sun {
     pub fn get_solars(&self) -> eyre::Result<ByondValue> {
         Ok(self.solars.unwrap_or_default())
     }
+
+    pub fn get_angle(&self) -> eyre::Result<ByondValue> {
+        Ok(ByondValue::from(self.angle))
+    }
 }
