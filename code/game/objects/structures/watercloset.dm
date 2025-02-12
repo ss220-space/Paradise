@@ -755,7 +755,7 @@
 		var/mob/living/l_target = target
 		l_target.ExtinguishMob()
 		l_target.adjust_fire_stacks(-20)
-		to_chat(l_target, span_warning("You've been drenched in water!"))
+		to_chat(l_target, span_warning("Вы насквозь промокли!"))
 
 	target.clean_blood()
 
