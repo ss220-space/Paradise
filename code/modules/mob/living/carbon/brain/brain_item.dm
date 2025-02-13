@@ -42,7 +42,7 @@
 	name = "\the [dna.real_name]'s [initial(src.name)]"
 	if(ru_names)
 		for(var/i = 1; i <=6; i++)
-			ru_names[i] = initial(ru_names[i]) + "[dna.real_name]"
+			ru_names[i] = initial(ru_names[i]) + " [dna.real_name]"
 	brainmob.dna = dna.Clone() // Silly baycode, what you do
 //	brainmob.dna = H.dna.Clone() Putting in and taking out a brain doesn't make it a carbon copy of the original brain of the body you put it in
 	brainmob.name = dna.real_name
@@ -75,7 +75,7 @@
 		name = "[dna.real_name]'s [initial(name)]"
 		if(ru_names)
 			for(var/i = 1; i <=6; i++)
-				ru_names[i] = initial(ru_names[i]) + "[dna.real_name]"
+				ru_names[i] = initial(ru_names[i]) + " [dna.real_name]"
 
 	if(!owner)
 		return ..() // Probably a redundant removal; just bail
