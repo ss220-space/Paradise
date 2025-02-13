@@ -2,12 +2,12 @@
 	name = "brain"
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал человеку."
 	ru_names = list(
-		NOMINATIVE = "мозг",
-		GENITIVE = "мозга",
-		DATIVE = "мозгу",
-		ACCUSATIVE = "мозг",
-		INSTRUMENTAL = "мозгом",
-		PREPOSITIONAL = "мозге"
+		NOMINATIVE = "мозг человека",
+		GENITIVE = "мозга человека",
+		DATIVE = "мозгу человека",
+		ACCUSATIVE = "мозг человека",
+		INSTRUMENTAL = "мозгом человека",
+		PREPOSITIONAL = "мозге человека"
 	)
 	icon_state = "brain2"
 	max_damage = 120

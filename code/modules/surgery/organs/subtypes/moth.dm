@@ -43,6 +43,14 @@
 
 /obj/item/organ/internal/brain/nian
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал луам."
+	ru_names = list(
+		NOMINATIVE = "мозг луам",
+		GENITIVE = "мозга луам",
+		DATIVE = "мозгу луам",
+		ACCUSATIVE = "мозг луам",
+		INSTRUMENTAL = "мозгом луам",
+		PREPOSITIONAL = "мозге луам"
+	)
 	icon = 'icons/obj/species_organs/nian.dmi'
 	icon_state = "brain2"
 	item_state = "nian_brain"

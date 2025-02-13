@@ -54,6 +54,14 @@
 /obj/item/organ/internal/brain/drask
 	species_type = /datum/species/drask
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал драску."
+	ru_names = list(
+		NOMINATIVE = "мозг драска",
+		GENITIVE = "мозга драска",
+		DATIVE = "мозгу драска",
+		ACCUSATIVE = "мозг драска",
+		INSTRUMENTAL = "мозгом драска",
+		PREPOSITIONAL = "мозге драска"
+	)
 	icon = 'icons/obj/species_organs/drask.dmi'
 	icon_state = "brain2"
 	item_state = "drask_brain"

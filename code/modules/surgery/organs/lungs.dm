@@ -2,12 +2,12 @@
 	name = "lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали человеку."
 	ru_names = list(
-		NOMINATIVE = "лёгкие",
-		GENITIVE = "лёгких",
-		DATIVE = "лёгким",
-		ACCUSATIVE = "лёгкие",
-		INSTRUMENTAL = "лёгкими",
-		PREPOSITIONAL = "лёгких"
+		NOMINATIVE = "лёгкие человека",
+		GENITIVE = "лёгких человека",
+		DATIVE = "лёгким человека",
+		ACCUSATIVE = "лёгкие человека",
+		INSTRUMENTAL = "лёгкими человека",
+		PREPOSITIONAL = "лёгких человека"
 	)
 	gender = PLURAL
 	icon_state = "lungs"

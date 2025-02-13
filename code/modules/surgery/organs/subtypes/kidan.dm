@@ -170,6 +170,14 @@
 /obj/item/organ/internal/brain/kidan
 	species_type = /datum/species/kidan
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал кидану."
+	ru_names = list(
+		NOMINATIVE = "мозг кидана",
+		GENITIVE = "мозга кидана",
+		DATIVE = "мозгу кидана",
+		ACCUSATIVE = "мозг кидана",
+		INSTRUMENTAL = "мозгом кидана",
+		PREPOSITIONAL = "мозге кидана"
+	)
 	icon = 'icons/obj/species_organs/kidan.dmi'
 	icon_state = "brain2"
 	item_state = "kidan_brain"

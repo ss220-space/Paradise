@@ -141,7 +141,7 @@
 	species_type = /datum/species/machine
 	name = "microbattery"
 	desc = "A small, powerful cell for use in fully prosthetic bodies."
-	desc = "Маленькая, но мощная батарея, используемая для питания протезированных и роботизированных гуманоидов."
+	desc = "Маленькая, но мощная батарея, используемая для питания роботизированных систем. Такие устанавливаются в КПБ."
 	ru_names = list(
 		NOMINATIVE = "микробатарея",
 		GENITIVE = "микробатареи",
@@ -163,7 +163,7 @@
 /obj/item/organ/internal/eyes/optical_sensor
 	species_type = /datum/species/machine
 	name = "optical sensor"
-	desc = "Сенсор, оснащённый светочувствительной матрицей, выполняет зрительную функцию."
+	desc = "Сенсор, оснащённый светочувствительной матрицей, выполняет зрительную функцию. Такие устанавливаются в КПБ."
 	ru_names = list(
 		NOMINATIVE = "оптический сенсор",
 		GENITIVE = "оптического сенсора",
@@ -225,7 +225,7 @@
 /obj/item/organ/internal/ears/microphone
 	species_type = /datum/species/machine
 	name = "microphone"
-	desc = "Пара микрофонов, устанавливаемых в КПБ. Используются для получения аудиальной информации об окружающей среде."
+	desc = "Пара микрофонов. Используются для получения аудиальной информации об окружающей среде. Такие устанавливаются в КПБ."
 	ru_names = list(
 		NOMINATIVE = "парные микрофоны",
 		GENITIVE = "парных микрофонов",

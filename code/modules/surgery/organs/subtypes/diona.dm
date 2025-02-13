@@ -173,14 +173,14 @@
 /obj/item/organ/internal/brain/diona
 	species_type = /datum/species/diona
 	name = "neural strata"
-	desc = "Прослойка из нейронной ткани, центральный орган нервной системы дионы."
+	desc = "Прослойка из нейронной ткани, центральный орган нервной системы гештальта. Эта принадлежала дионе."
 	ru_names = list(
-		NOMINATIVE = "нейронная прослойка",
-		GENITIVE = "нейронной прослойки",
-		DATIVE = "нейронной прослойке",
-		ACCUSATIVE = "нейронную прослойку",
-		INSTRUMENTAL = "нейронной прослойкой",
-		PREPOSITIONAL = "нейронной прослойке"
+		NOMINATIVE = "нейронная прослойка дионы",
+		GENITIVE = "нейронной прослойки дионы",
+		DATIVE = "нейронной прослойке дионы",
+		ACCUSATIVE = "нейронную прослойку дионы",
+		INSTRUMENTAL = "нейронной прослойкой дионы",
+		PREPOSITIONAL = "нейронной прослойке дионы"
 	)
 	gender = FEMALE
 	icon = 'icons/obj/objects.dmi'
@@ -228,7 +228,7 @@
 /obj/item/organ/internal/kidneys/diona
 	species_type = /datum/species/diona
 	name = "filtrating vacuoles"
-	desc = "Парный орган, отвечающий за выведение токсинов и вредных веществ из биомассы гештальта."
+	desc = "Парный орган, отвечающий за выведение токсинов и вредных веществ из биомассы гештальта. Эти принадлежали дионе."
 	ru_names = list(
 		NOMINATIVE = "фильтрационные вакуоли",
 		GENITIVE = "фильтрационных вакуолей",
@@ -237,7 +237,6 @@
 		INSTRUMENTAL = "фильтрационными вакуолями",
 		PREPOSITIONAL = "фильтрационных вакуолях"
 	)
-	gender = PLURAL
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 
@@ -248,7 +247,7 @@
 /obj/item/organ/internal/lungs/diona
 	species_type = /datum/species/diona
 	name = "gas bladder"
-	desc = "Парный орган, отвечающий за газообмен между внешней средой и биомассой гештальта."
+	desc = "Парный орган, отвечающий за газообмен между внешней средой и биомассой гештальта. Эти принадлежали дионе."
 	ru_names = list(
 		NOMINATIVE = "газовые пузыри",
 		GENITIVE = "газовых пузырей",
@@ -257,7 +256,6 @@
 		INSTRUMENTAL = "газовыми пузырями",
 		PREPOSITIONAL = "газовых пузырях"
 	)
-	gender = PLURAL
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 
@@ -268,7 +266,7 @@
 /obj/item/organ/internal/appendix/diona
 	species_type = /datum/species/diona
 	name = "polyp segment"
-	desc = "Наслоение биомассы. Является рудиментарным органом и не несёт полезной функции для гештальта дионы."
+	desc = "Наслоение биомассы. Является рудиментарным органом и не несёт полезной функции для гештальта. Этот принадлежал дионе."
 	ru_names = list(
 		NOMINATIVE = "сегментированный отросток",
 		GENITIVE = "сегментированного отростка",
@@ -287,7 +285,7 @@
 /obj/item/organ/internal/heart/diona
 	species_type = /datum/species/diona
 	name = "anchoring ligament"
-	desc = "Орган, связывающий части гештальта воедино."
+	desc = "Орган, связывающий части гештальта воедино. Этот принадлежал дионе."
 	ru_names = list(
 		NOMINATIVE = "якорная связка",
 		GENITIVE = "якорной связки",
@@ -311,7 +309,7 @@
 /obj/item/organ/internal/eyes/diona
 	species_type = /datum/species/diona
 	name = "receptor node"
-	desc = "Светочувстительные мембраны, выполняющие зрительную функцию."
+	desc = "Светочувстительные мембраны, выполняющие зрительную функцию. Этот принадлежал дионе."
 	ru_names = list(
 		NOMINATIVE = "рецепторный узел",
 		GENITIVE = "рецепторного узла",
@@ -332,7 +330,7 @@
 /obj/item/organ/internal/liver/diona
 	species_type = /datum/species/diona
 	name = "nutrient vessel"
-	desc = "Железа, отвечающая за метаболизацию поступающих в гештальт веществ."
+	desc = "Железа, отвечающая за метаболизацию поступающих в гештальт веществ. Эта принадлежала дионе."
 	ru_names = list(
 		NOMINATIVE = "питательная железа",
 		GENITIVE = "питательной железы",
@@ -352,7 +350,7 @@
 /obj/item/organ/internal/ears/diona
 	species_type = /datum/species/diona
 	name = "oscillatory catcher"
-	desc = "Сгусток биомассы, улавливающий колебания в окружающей среде и отвечающий за ориентацию гештальта в пространстве."
+	desc = "Сгусток биомассы, улавливающий колебания в окружающей среде и отвечающий за ориентацию гештальта в пространстве. Этот принадлежал дионе."
 	ru_names = list(
 		NOMINATIVE = "колебательный уловитель",
 		GENITIVE = "колебательного уловителя",

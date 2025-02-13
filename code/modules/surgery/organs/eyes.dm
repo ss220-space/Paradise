@@ -3,12 +3,12 @@
 	name = "eyeballs"
 	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали человеку."
 	ru_names = list(
-		NOMINATIVE = "глаза",
-		GENITIVE = "глаз",
-		DATIVE = "глазам",
-		ACCUSATIVE = "глаза",
-		INSTRUMENTAL = "глазами",
-		PREPOSITIONAL = "глазах"
+		NOMINATIVE = "глаза человека",
+		GENITIVE = "глаз человека",
+		DATIVE = "глазам человека",
+		ACCUSATIVE = "глаза человека",
+		INSTRUMENTAL = "глазами человека",
+		PREPOSITIONAL = "глазах человека"
 	)
 	gender = PLURAL
 	icon_state = "eyes"

@@ -17,6 +17,14 @@
 /obj/item/organ/internal/brain/grey
 	species_type = /datum/species/grey
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал серому."
+	ru_names = list(
+		NOMINATIVE = "мозг серого",
+		GENITIVE = "мозга серого",
+		DATIVE = "мозгу серого",
+		ACCUSATIVE = "мозг серого",
+		INSTRUMENTAL = "мозгом серого",
+		PREPOSITIONAL = "мозге серого"
+	)
 	icon = 'icons/obj/species_organs/grey.dmi'
 	icon_state = "brain2"
 	item_state = "grey_brain"

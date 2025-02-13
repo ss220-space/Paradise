@@ -1,13 +1,13 @@
 /obj/item/organ/internal/heart
 	name = "heart"
-	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида."
+	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало человеку."
 	ru_names = list(
-		NOMINATIVE = "сердце",
-		GENITIVE = "сердца",
-		DATIVE = "сердцу",
-		ACCUSATIVE = "сердце",
-		INSTRUMENTAL = "сердцем",
-		PREPOSITIONAL = "сердце"
+		NOMINATIVE = "сердце человека",
+		GENITIVE = "сердца человека",
+		DATIVE = "сердцу человека",
+		ACCUSATIVE = "сердце человека",
+		INSTRUMENTAL = "сердцем человека",
+		PREPOSITIONAL = "сердце человека"
 	)
 	gender = NEUTER
 	icon_state = "heart-on"
