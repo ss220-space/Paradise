@@ -53,6 +53,7 @@
 
 /obj/item/organ/internal/brain/drask
 	species_type = /datum/species/drask
+	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал драску."
 	icon = 'icons/obj/species_organs/drask.dmi'
 	icon_state = "brain2"
 	item_state = "drask_brain"

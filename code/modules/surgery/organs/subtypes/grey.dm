@@ -16,7 +16,7 @@
 
 /obj/item/organ/internal/brain/grey
 	species_type = /datum/species/grey
-	desc = "A large brain"
+	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал серому."
 	icon = 'icons/obj/species_organs/grey.dmi'
 	icon_state = "brain2"
 	item_state = "grey_brain"
