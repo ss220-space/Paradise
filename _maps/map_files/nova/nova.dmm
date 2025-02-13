@@ -11046,7 +11046,7 @@
 	},
 /area/security/range)
 "bCZ" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/bookbinder,
 /turf/simulated/floor/wood,
 /area/library)
 "bDa" = (
@@ -33620,7 +33620,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/structure/table/wood,
+/obj/machinery/arcade/minesweeper{
+	freeplay = 1
+	},
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "eRj" = (
@@ -47977,7 +47979,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/structure/table/wood,
+/obj/machinery/computer/arcade,
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "gWD" = (
@@ -78610,6 +78612,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -84978,17 +84981,12 @@
 	color = "red";
 	dir = 4
 	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal{
-	pixel_y = 0;
-	pixel_x = -2
+/obj/item/gun/projectile/automatic/pistol/enforcer/security{
+	pixel_x = -4
 	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal{
-	pixel_y = 0;
-	pixel_x = 2
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal{
-	pixel_y = 0;
-	pixel_x = 6
+/obj/item/gun/projectile/automatic/pistol/enforcer/security,
+/obj/item/gun/projectile/automatic/pistol/enforcer/security{
+	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -85663,6 +85661,10 @@
 "mGR" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -1;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_regular_floor = "yellowsiding";
@@ -123215,8 +123217,10 @@
 	},
 /area/aisat/aihallway)
 "sbk" = (
-/turf/simulated/floor/carpet,
-/area/library)
+/obj/effect/decal/ants,
+/obj/effect/spawner/random_spawners/rodent,
+/turf/simulated/floor/plating,
+/area/security/permabrig)
 "sbm" = (
 /obj/machinery/status_display{
 	pixel_x = -32
@@ -125486,6 +125490,15 @@
 	tag = "icon-whitebluecorner"
 	},
 /area/maintenance/medroom)
+"ssL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/rodent,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/security/permabrig)
 "ssN" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -135719,6 +135732,17 @@
 "tNK" = (
 /turf/simulated/floor/engine,
 /area/engineering/controlroom)
+"tNL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/effect/spawner/random_spawners/rodent,
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "tNR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -136631,7 +136655,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library,
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "tUc" = (
@@ -142633,6 +142657,14 @@
 /obj/effect/landmark/start/roboticist,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
+"uPb" = (
+/obj/effect/turf_decal/siding/white,
+/obj/effect/turf_decal/siding/white{
+	dir = 1
+	},
+/obj/effect/spawner/random_spawners/rodent,
+/turf/simulated/floor/glass/reinforced,
+/area/security/permabrig)
 "uPc" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -176609,7 +176641,7 @@ sUF
 qYi
 ilr
 qDt
-iNO
+ssL
 lhm
 tQA
 fUt
@@ -177120,7 +177152,7 @@ eam
 uYD
 elg
 iNO
-iNO
+ssL
 vLe
 lFS
 cLT
@@ -177897,7 +177929,7 @@ qyy
 uYD
 uYD
 jzz
-xFS
+sbk
 scx
 dhP
 gWy
@@ -179176,7 +179208,7 @@ ojd
 wnr
 tru
 mZX
-kWt
+uPb
 pkC
 cIw
 cmZ
@@ -180721,7 +180753,7 @@ aTt
 dYO
 afA
 bfS
-bfS
+tNL
 siH
 vOg
 bfS
@@ -187155,7 +187187,7 @@ nwQ
 bCH
 bvg
 sBR
-lDx
+qel
 lDx
 lDx
 jOC
@@ -187412,8 +187444,8 @@ mOV
 nCp
 ggK
 mmg
+qel
 gGp
-sbk
 hLp
 jOC
 pzp
@@ -187669,7 +187701,7 @@ pJV
 sSS
 xCQ
 hOQ
-lDx
+qel
 lDx
 lDx
 jOC
@@ -187926,8 +187958,8 @@ aAA
 dyL
 qel
 qel
+qel
 gGp
-sbk
 hLp
 jOC
 nTa
@@ -188183,7 +188215,7 @@ qog
 oVN
 qel
 qel
-lDx
+qel
 lDx
 lDx
 jOC

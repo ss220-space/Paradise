@@ -61,7 +61,9 @@
 	..()
 	var/list/boots = list(/obj/item/clothing/shoes/black,
 						  /obj/item/clothing/shoes/brown,
-						  /obj/item/clothing/shoes/white)
+						  /obj/item/clothing/shoes/white,
+						  /obj/item/clothing/shoes/convers,
+						  /obj/item/clothing/shoes/convers/red)
 	gear_tweaks += new /datum/gear_tweak/path(boots, src, TRUE)
 
 /datum/gear/shoes/jackcross
