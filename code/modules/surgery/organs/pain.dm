@@ -80,7 +80,7 @@
 			damaged_organ = bodypart
 			maxdam = dam
 		if(damaged_organ)
-			pain(damaged_organ.name, maxdam)
+			pain(damaged_organ.declent_ru(PREPOSITIONAL), maxdam)
 
 	// Damage to internal organs hurts a lot.
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
