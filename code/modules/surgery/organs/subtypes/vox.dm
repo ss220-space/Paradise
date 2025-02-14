@@ -119,6 +119,7 @@
 /obj/item/organ/external/tail/vox
 	species_type = /datum/species/vox
 	name = "vox tail"
+	desc = "Хвост. Этот принадлежал воксу."
 	ru_names = list(
 		NOMINATIVE = "хвост вокса",
 		GENITIVE = "хвоста вокса",

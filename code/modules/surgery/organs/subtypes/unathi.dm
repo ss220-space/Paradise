@@ -109,6 +109,7 @@
 /obj/item/organ/external/tail/unathi
 	species_type = /datum/species/unathi
 	name = "unathi tail"
+	desc = "Хвост. Этот принадлежал унатху."
 	ru_names = list(
 		NOMINATIVE = "хвост унатха",
 		GENITIVE = "хвоста унатха",

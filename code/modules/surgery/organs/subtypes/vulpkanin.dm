@@ -133,6 +133,7 @@
 /obj/item/organ/external/tail/vulpkanin
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin tail"
+	desc = "Хвост. Этот принадлежал вульпканину."
 	ru_names = list(
 		NOMINATIVE = "хвост вульпканина",
 		GENITIVE = "хвоста вульпканина",

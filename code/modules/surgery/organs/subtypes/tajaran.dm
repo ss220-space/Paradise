@@ -127,6 +127,7 @@
 /obj/item/organ/external/tail/tajaran
 	species_type = /datum/species/tajaran
 	name = "tajaran tail"
+	desc = "Хвост. Этот принадлежал таярану."
 	ru_names = list(
 		NOMINATIVE = "хвост таярана",
 		GENITIVE = "хвоста таярана",
