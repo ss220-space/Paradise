@@ -147,7 +147,30 @@
 
 /obj/item/organ/internal/eyes/wryn
 	species_type = /datum/species/wryn
+	name = "wryn eyes"
+	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали врину."
+	ru_names = list(
+		NOMINATIVE = "глаза врина",
+		GENITIVE = "глаз врина",
+		DATIVE = "глазам врина",
+		ACCUSATIVE = "глаза врина",
+		INSTRUMENTAL = "глазами врина",
+		PREPOSITIONAL = "глазах врина"
+	)
 	see_in_dark = 3
+
+/obj/item/organ/internal/ears/wryn
+	species_type = /datum/species/wryn
+	name = "wryn ears"
+	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали врину."
+	ru_names = list(
+		NOMINATIVE = "уши врина",
+		GENITIVE = "ушей врина",
+		DATIVE = "ушам врина",
+		ACCUSATIVE = "уши врина",
+		INSTRUMENTAL = "ушами врина",
+		PREPOSITIONAL = "ушах врина"
+	)
 
 /obj/item/organ/external/tail/wryn
 	species_type = /datum/species/wryn
