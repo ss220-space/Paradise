@@ -41,18 +41,31 @@
 /obj/item/organ/internal/eyes/vulpkanin/wolpin //Being the lesser form of Vulpkanin, Wolpins have an utterly incurable version of their colourblindness.
 	species_type = /datum/species/monkey/vulpkanin
 	name = "wolpin eyeballs"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали вульпканину."
+	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали вульпину."
 	ru_names = list(
-		NOMINATIVE = "глаза вульпканина",
-		GENITIVE = "глаз вульпканина",
-		DATIVE = "глазам вульпканина",
-		ACCUSATIVE = "глаза вульпканина",
-		INSTRUMENTAL = "глазами вульпканина",
-		PREPOSITIONAL = "глазах вульпканина"
+		NOMINATIVE = "глаза вульпина",
+		GENITIVE = "глаз вульпина",
+		DATIVE = "глазам вульпина",
+		ACCUSATIVE = "глаза вульпина",
+		INSTRUMENTAL = "глазами вульпина",
+		PREPOSITIONAL = "глазах вульпина"
 	)
 	colourmatrix = MATRIX_VULP_CBLIND
 	see_in_dark = 8
 	replace_colours = PROTANOPIA_COLOR_REPLACE
+
+/obj/item/organ/internal/ears/vulpkanin
+	species_type = /datum/species/vulpkanin
+	name = "vulpkanin ears"
+	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали вульпканину."
+	ru_names = list(
+		NOMINATIVE = "уши вульпканина",
+		GENITIVE = "ушей вульпканина",
+		DATIVE = "ушам вульпканина",
+		ACCUSATIVE = "уши вульпканина",
+		INSTRUMENTAL = "ушами вульпканина",
+		PREPOSITIONAL = "ушах вульпканина"
+	)
 
 /obj/item/organ/internal/heart/vulpkanin
 	species_type = /datum/species/vulpkanin
