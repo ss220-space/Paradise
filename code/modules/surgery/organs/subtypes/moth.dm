@@ -1,5 +1,4 @@
 /obj/item/organ/internal/eyes/nian
-	species_type = /datum/species/nian
 	name = "luam eyeballs"
 	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали луам."
 	ru_names = list(
@@ -14,7 +13,6 @@
 	see_in_dark = 5
 
 /obj/item/organ/internal/ears/nian
-	species_type = /datum/species/nian
 	name = "nian ears"
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали луам."
 	ru_names = list(
@@ -27,7 +25,6 @@
 	)
 
 /obj/item/organ/internal/liver/nian
-	species_type = /datum/species/nian
 	name = "luam liver"
 	desc = "Орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма. Эта принадлежала луам."
 	ru_names = list(
@@ -42,7 +39,6 @@
 	item_state = "nian_liver"
 
 /obj/item/organ/internal/heart/nian
-	species_type = /datum/species/nian
 	name = "luam heart"
 	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало луам."
 	ru_names = list(
@@ -58,7 +54,6 @@
 	item_base = "nian_heart"
 
 /obj/item/organ/internal/brain/nian
-	species_type = /datum/species/nian
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал луам."
 	ru_names = list(
 		NOMINATIVE = "мозг луам",
@@ -75,7 +70,6 @@
 	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/lungs/nian
-	species_type = /datum/species/nian
 	name = "luam lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали луам."
 	ru_names = list(
@@ -90,7 +84,6 @@
 	item_state = "nian_lungs"
 
 /obj/item/organ/internal/kidneys/nian
-	species_type = /datum/species/nian
 	name = "luam kidneys"
 	desc = "Парный орган, отвечающий за фильтрацию кровотока и выведение токсинов и отходов из организма. Эти принадлежали луам."
 	ru_names = list(
@@ -105,7 +98,6 @@
 	item_state = "nian_kidneys"
 
 /obj/item/organ/external/wing/nian
-	species_type = /datum/species/nian
 	name = "luam wings"
 	desc = "Крылья. Эти принадлежали луам."
 	ru_names = list(
