@@ -84,6 +84,19 @@
 	item_state = "drask_eyes"
 	see_in_dark = 5
 
+/obj/item/organ/internal/ears/drask
+	species_type = /datum/species/drask
+	name = "drask ears"
+	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали драску."
+	ru_names = list(
+		NOMINATIVE = "уши драска",
+		GENITIVE = "ушей драска",
+		DATIVE = "ушам драска",
+		ACCUSATIVE = "уши драска",
+		INSTRUMENTAL = "ушами драска",
+		PREPOSITIONAL = "ушах драска"
+	)
+
 /obj/item/organ/internal/lungs/drask
 	name = "drask lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма драска."

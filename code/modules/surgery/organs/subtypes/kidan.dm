@@ -151,6 +151,19 @@
 	icon = 'icons/obj/species_organs/kidan.dmi'
 	item_state = "kidan_eyes"
 
+/obj/item/organ/internal/ears/kidan
+	species_type = /datum/species/kidan
+	name = "kidan ears"
+	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали кидану."
+	ru_names = list(
+		NOMINATIVE = "уши кидана",
+		GENITIVE = "ушей кидана",
+		DATIVE = "ушам кидана",
+		ACCUSATIVE = "уши кидана",
+		INSTRUMENTAL = "ушами кидана",
+		PREPOSITIONAL = "ушах кидана"
+	)
+
 /obj/item/organ/internal/heart/kidan
 	species_type = /datum/species/kidan
 	name = "kidan heart"

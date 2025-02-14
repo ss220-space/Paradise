@@ -32,6 +32,19 @@
 	replace_colours = TRITANOPIA_COLOR_REPLACE
 	see_in_dark = 8
 
+/obj/item/organ/internal/ears/tajaran
+	species_type = /datum/species/tajaran
+	name = "tajaran ears"
+	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали таярану."
+	ru_names = list(
+		NOMINATIVE = "уши таярана",
+		GENITIVE = "ушей таярана",
+		DATIVE = "ушам таярана",
+		ACCUSATIVE = "уши таярана",
+		INSTRUMENTAL = "ушами таярана",
+		PREPOSITIONAL = "ушах таярана"
+	)
+
 /obj/item/organ/internal/eyes/tajaran/farwa //Being the lesser form of Tajara, Farwas have an utterly incurable version of their colourblindness.
 	species_type = /datum/species/monkey/tajaran
 	name = "farwa eyeballs"

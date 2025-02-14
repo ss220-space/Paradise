@@ -30,6 +30,19 @@
 	item_state = "unathi_eyes"
 	see_in_dark = 3
 
+/obj/item/organ/internal/ears/unathi
+	species_type = /datum/species/unathi
+	name = "unathi ears"
+	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали унатху."
+	ru_names = list(
+		NOMINATIVE = "уши унатха",
+		GENITIVE = "ушей унатха",
+		DATIVE = "ушам унатха",
+		ACCUSATIVE = "уши унатха",
+		INSTRUMENTAL = "ушами унатха",
+		PREPOSITIONAL = "ушах унатха"
+	)
+
 /obj/item/organ/internal/heart/unathi
 	species_type = /datum/species/unathi
 	name = "unathi heart"

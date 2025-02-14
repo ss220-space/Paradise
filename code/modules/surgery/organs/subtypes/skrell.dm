@@ -175,3 +175,16 @@
 	item_state = "skrell_eyes"
 	see_in_dark = 5
 	can_see_food = TRUE
+
+/obj/item/organ/internal/ears/skrell
+	species_type = /datum/species/skrell
+	name = "skrell ears"
+	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали скреллу."
+	ru_names = list(
+		NOMINATIVE = "уши скрелла",
+		GENITIVE = "ушей скрелла",
+		DATIVE = "ушам скрелла",
+		ACCUSATIVE = "уши скрелла",
+		INSTRUMENTAL = "ушами скрелла",
+		PREPOSITIONAL = "ушах скрелла"
+	)

@@ -28,6 +28,19 @@
 	icon = 'icons/obj/species_organs/plasmaman.dmi'
 	item_state = "plasmaman_eyes"
 
+/obj/item/organ/internal/ears/plasmaman
+	species_type = /datum/species/plasmaman
+	name = "plasmaman ears"
+	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали плазмолюду."
+	ru_names = list(
+		NOMINATIVE = "уши плазмолюда",
+		GENITIVE = "ушей плазмолюда",
+		DATIVE = "ушам плазмолюда",
+		ACCUSATIVE = "уши плазмолюда",
+		INSTRUMENTAL = "ушами плазмолюда",
+		PREPOSITIONAL = "ушах плазмолюда"
+	)
+
 /obj/item/organ/internal/heart/plasmaman
 	species_type = /datum/species/plasmaman
 	name = "plasmaman heart"

@@ -57,6 +57,19 @@
 	see_in_dark = 3
 	examine_mod = EXAMINE_INSTANT // Insta carbon examine
 
+/obj/item/organ/internal/ears/grey
+	species_type = /datum/species/grey
+	name = "grey ears"
+	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали серому."
+	ru_names = list(
+		NOMINATIVE = "уши серого",
+		GENITIVE = "ушей серого",
+		DATIVE = "ушам серого",
+		ACCUSATIVE = "уши серого",
+		INSTRUMENTAL = "ушами серого",
+		PREPOSITIONAL = "ушах серого"
+	)
+
 /obj/item/organ/internal/heart/grey
 	species_type = /datum/species/grey
 	name = "grey heart"

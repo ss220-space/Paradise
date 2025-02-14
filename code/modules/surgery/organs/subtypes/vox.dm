@@ -31,6 +31,19 @@
 	item_state = "vox_eyes"
 	sterile = TRUE
 
+/obj/item/organ/internal/ears/vox
+	species_type = /datum/species/vox
+	name = "vox ears"
+	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали воксу."
+	ru_names = list(
+		NOMINATIVE = "уши вокса",
+		GENITIVE = "ушей вокса",
+		DATIVE = "ушам вокса",
+		ACCUSATIVE = "уши вокса",
+		INSTRUMENTAL = "ушами вокса",
+		PREPOSITIONAL = "ушах вокса"
+	)
+
 /obj/item/organ/internal/heart/vox
 	species_type = /datum/species/vox
 	name = "vox heart"
