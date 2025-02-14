@@ -154,3 +154,32 @@
 
 	return ..()
 
+
+/obj/item/clothing/shoes/convers
+	name = "black convers"
+	desc = "Пара высоких чёрных кед, сделанных по последнему писку моды. Выглядят просто отпадно."
+	ru_names = list(
+		NOMINATIVE = "чёрные высокие кеды",
+		GENITIVE = "чёрных высоких кедов",
+		DATIVE = "чёрным высоким кедам",
+		ACCUSATIVE = "чёрные высокие кеды",
+		INSTRUMENTAL = "чёрными высокими кедами",
+		PREPOSITIONAL = "чёрных высоких кедах"
+	)
+	icon_state = "blackconvers"
+	item_state = "blackconvers"
+
+/obj/item/clothing/shoes/convers/red
+	name = "red convers"
+	desc = "Пара высоких красных кед, сделанных по последнему писку моды. Выглядят просто отпадно."
+	ru_names = list(
+		NOMINATIVE = "красные высокие кеды",
+		GENITIVE = "красных высоких кедов",
+		DATIVE = "красным высоким кедам",
+		ACCUSATIVE = "красные высокие кеды",
+		INSTRUMENTAL = "красными высокими кедами",
+		PREPOSITIONAL = "красных высоких кедах"
+	)
+	icon_state = "redconvers"
+	item_state = "redconvers"
+

@@ -65,19 +65,24 @@ const createReconnectedNode = () => {
 };
 
 const handleImageError = (e) => {
-  setTimeout(() => {
-    /** @type {HTMLImageElement} */
-    const node = e.target;
+  /** @type {HTMLImageElement} */
+  const node = e.target;
+
+  const reloadImage = () => {
     const attempts = parseInt(node.getAttribute('data-reload-n'), 10) || 0;
+
     if (attempts >= IMAGE_RETRY_LIMIT) {
-      logger.error(`failed to load an image after ${attempts} attempts`);
+      logger.error(`Failed to load an image after ${attempts} attempts`);
       return;
     }
+
     const src = node.src;
-    node.src = null;
+    node.src = '';
     node.src = src + '#' + attempts;
     node.setAttribute('data-reload-n', attempts + 1);
-  }, IMAGE_RETRY_DELAY);
+  };
+
+  requestAnimationFrame(reloadImage);
 };
 
 /**
@@ -108,6 +113,7 @@ class ChatRenderer {
     this.queue = [];
     this.messages = [];
     this.visibleMessages = [];
+    this.regexCache = new Map();
     this.page = null;
     this.events = new EventEmitter();
     // Scroll handler
@@ -151,7 +157,7 @@ class ChatRenderer {
     // Find scrollable parent
     this.scrollNode = findNearestScrollableParent(this.rootNode);
     this.scrollNode.addEventListener('scroll', this.handleScroll);
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       this.scrollToBottom();
     });
     // Flush the queue
@@ -178,19 +184,25 @@ class ChatRenderer {
 
   setHighlight(highlightSettings, highlightSettingById) {
     this.highlightParsers = null;
+
     if (!highlightSettings) {
       return;
     }
+
     highlightSettings.map((id) => {
       const setting = highlightSettingById[id];
-      const text = setting.highlightText;
-      const highlightColor = setting.highlightColor;
-      const highlightWholeMessage = setting.highlightWholeMessage;
-      const matchWord = setting.matchWord;
-      const matchCase = setting.matchCase;
+      const {
+        highlightText,
+        highlightColor,
+        highlightWholeMessage,
+        matchWord,
+        matchCase,
+      } = setting;
+
       const allowedRegex = /^[a-zа-яё0-9_\-$/^[\s\]\\]+$/gi;
       const regexEscapeCharacters = /[!#$%^&*)(+=.<>{}[\]:;'"|~`_\-\\/]/g;
-      const lines = String(text)
+
+      const lines = String(highlightText)
         .split(/[,|]/)
         .map((str) => str.trim())
         .filter(
@@ -203,12 +215,13 @@ class ChatRenderer {
             // Reset lastIndex so it does not mess up the next word
             ((allowedRegex.lastIndex = 0) || true)
         );
-      let highlightWords;
-      let highlightRegex;
+
       // Nothing to match, reset highlighting
       if (lines.length === 0) {
         return;
       }
+
+      let highlightWords = [];
       let regexExpressions = [];
       // Organize each highlight entry into regex expressions and words
       for (let line of lines) {
@@ -216,43 +229,49 @@ class ChatRenderer {
         if (line.charAt(0) === '/' && line.charAt(line.length - 1) === '/') {
           const expr = line.substring(1, line.length - 1);
           // Check if this is more than one character
-          if (/^(\[.*\]|\\.|.)$/.test(expr)) {
-            continue;
-          }
+          if (/^(\[.*\]|\\.|.)$/.test(expr)) continue;
           regexExpressions.push(expr);
         } else {
-          // Lazy init
-          if (!highlightWords) {
-            highlightWords = [];
-          }
           // We're not going to let regex characters fuck up our RegEx operation.
           line = line.replace(regexEscapeCharacters, '\\$&');
-
           highlightWords.push(line);
         }
       }
+
       const regexStr = regexExpressions.join('|');
       const flags = 'g' + (matchCase ? '' : 'i');
+
+      let highlightRegex;
+
       // We wrap this in a try-catch to ensure that broken regex doesn't break
       // the entire chat.
       try {
         // setting regex overrides matchword
         if (regexStr) {
-          highlightRegex = new RegExp('(' + regexStr + ')', flags);
+          if (!this.regexCache.has(regexStr)) {
+            this.regexCache.set(
+              regexStr,
+              new RegExp('(' + regexStr + ')', flags)
+            );
+          }
+          highlightRegex = this.regexCache.get(regexStr);
         } else {
-          const pattern = `${matchWord ? '\\b' : ''}(${highlightWords.join(
-            '|'
-          )})${matchWord ? '\\b' : ''}`;
-          highlightRegex = new RegExp(pattern, flags);
+          const pattern = `${matchWord ? '\\b' : ''}(${highlightWords.join('|')})${matchWord ? '\\b' : ''}`;
+          if (!this.regexCache.has(pattern)) {
+            this.regexCache.set(pattern, new RegExp(pattern, flags));
+          }
+          highlightRegex = this.regexCache.get(pattern);
         }
       } catch {
         // We just reset it if it's invalid.
         highlightRegex = null;
       }
+
       // Lazy init
       if (!this.highlightParsers) {
         this.highlightParsers = [];
       }
+
       this.highlightParsers.push({
         highlightWords,
         highlightRegex,
@@ -297,16 +316,14 @@ class ChatRenderer {
   getCombinableMessage(predicate, now, from, to) {
     for (let i = from; i >= to; i--) {
       const message = this.visibleMessages[i];
-      // prettier-ignore
-      const matches = (
+      if (
         // Is not an internal message
-        !message.type.startsWith(MESSAGE_TYPE_INTERNAL)
+        !message.type.startsWith(MESSAGE_TYPE_INTERNAL) &&
         // Text payload must fully match
-        && isSameMessage(message, predicate)
+        isSameMessage(message, predicate) &&
         // Must land within the specified time window
-        && now < message.createdAt + COMBINE_MAX_TIME_WINDOW
-      );
-      if (matches) {
+        now < message.createdAt + COMBINE_MAX_TIME_WINDOW
+      ) {
         return message;
       }
     }
@@ -415,14 +432,14 @@ class ChatRenderer {
       }
     }
     if (node) {
-      const firstChild = this.rootNode.childNodes[0];
+      const firstChild = this.rootNode.firstChild;
       if (prepend && firstChild) {
         this.rootNode.insertBefore(fragment, firstChild);
       } else {
         this.rootNode.appendChild(fragment);
       }
       if (this.scrollTracking) {
-        setTimeout(() => this.scrollToBottom());
+        requestAnimationFrame(() => this.scrollToBottom());
       }
     }
     // Notify listeners that we have processed the batch

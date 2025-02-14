@@ -68,7 +68,7 @@
 	if(timeout)
 		src.timeout = timeout
 		start_time = world.time
-		deletion_timer = QDEL_IN(src, timeout)
+		deletion_timer = QDEL_IN_STOPPABLE(src, timeout)
 
 /datum/tgui_input_color/Destroy(force, ...)
 	SStgui.close_uis(src)

@@ -3236,19 +3236,18 @@
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Prison Warp")
 				log_and_message_admins("teleported all players to the prison station.")
-				for(var/thing in GLOB.human_list)
-					var/mob/living/carbon/human/H = thing
-					var/turf/loc = find_loc(H)
+				for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
+					var/turf/loc = get_turf(human)
 					var/security = FALSE
-					if(!H.client)
+					if(!human.client)
 						continue
 					if(!loc?.z)
 						continue
 					var/datum/space_level/level = GLOB.space_manager.get_zlev(loc.z)
-					if(!is_station_level(loc.z) || level.name != CENTCOMM || GLOB.prisonwarped.Find(H)) //don't warp them if they aren't ready or are already there
+					if(!(is_station_level(loc.z) || level.name == CENTCOMM) || GLOB.prisonwarped.Find(human)) //don't warp them if they aren't ready or are already there
 						continue
-					if(H.wear_id)
-						var/obj/item/card/id/id = H.get_id_card()
+					if(human.wear_id)
+						var/obj/item/card/id/id = human.get_id_card()
 						if(istype(id))
 							if(ACCESS_CENT_COMMANDER in id.access)
 								continue
@@ -3260,9 +3259,9 @@
 
 					var/obj/structure/closet/supplypod/centcompod/prison_warp/pod = new()
 					pod.reverse_dropoff_coords = list(prison_cell.x, prison_cell.y, prison_cell.z)
-					pod.target = H
+					pod.target = human
 					pod.security = security
-					new /obj/effect/pod_landingzone(H, pod)
+					new /obj/effect/pod_landingzone(human, pod)
 
 			if("traitor_all")
 				if(!SSticker)

@@ -21,7 +21,7 @@
 		else
 			for(var/obj/structure/blob/normal/B in range(strong_reinforce_range, src))
 				reinforce_tile(B, /obj/structure/blob/shield/core, seconds_per_tick)
-				
+
 	if(reflector_reinforce_range)
 		if(is_there_multiz())
 			for(var/obj/structure/blob/shield/B in urange_multiz(reflector_reinforce_range, src))
@@ -55,7 +55,7 @@
 		var/obj/structure/blob/B = L
 		if(!is_location_within_transition_boundaries(get_turf(B)))
 			continue
-		if(!B.overmind && overmind && prob(30))
+		if(!B.overmind && overmind && prob(30) && !istype(B, /obj/structure/blob/special/core))
 			B.link_to_overmind(pulsing_overmind) //reclaim unclaimed, non-core blobs.
 			B.update_blob()
 		var/distance = get_dist(get_turf(src), get_turf(B))
