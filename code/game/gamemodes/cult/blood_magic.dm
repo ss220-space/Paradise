@@ -59,6 +59,11 @@
 	if(QDELETED(src) || owner.incapacitated() || !BS || (rune && !(locate(/obj/effect/rune/empower) in range(1, owner))) || (length(spells) >= limit))
 		return
 
+	if(length(spells))
+		if(entered_spell_name == "Blood Rites")
+			if(locate(/datum/action/innate/cult/blood_spell/manipulation) in spells)
+				to_chat(owner, "<span class='warning'>You can't have more than one blood rites spell!</span>")
+				return
 	if(!channeling)
 		channeling = TRUE
 		to_chat(owner, "<span class='cultitalic'>You begin to carve unnatural symbols into your flesh!</span>")
@@ -345,6 +350,8 @@
 	button_icon_state = "manip"
 	charges = 5
 	magic_path = /obj/item/melee/blood_magic/manipulator
+
+
 
 // The "magic hand" items
 /obj/item/melee/blood_magic
@@ -772,6 +779,8 @@
 
 			//Draining blood from non-cultists
 			else
+				if(uses >= 300)
+					to_chat(user, "<span class='danger'>You have enough blood</span>")
 				if(H.stat == DEAD)
 					to_chat(user, "<span class='warning'>[H.p_their(TRUE)] blood has stopped flowing, you'll have to find another way to extract it.</span>")
 					return
@@ -815,16 +824,23 @@
 
 		//Draining blood on the floor
 		if(istype(target, /obj/effect/decal/cleanable/blood) || istype(target, /obj/effect/decal/cleanable/trail_holder))
+			if(uses >= 300)
+				to_chat(user, "<span class='danger'>You have enough blood</span>")
+				return
 			blood_draw(target, user)
 		if(istype(target, /obj/item/blood_orb))
 			var/obj/item/blood_orb/candidate = target
+			if(uses >= 300)
+				to_chat(user, "<span class='danger'>You have enough blood</span>")
+				return
 			if(candidate.blood)
 				uses += candidate.blood
 				to_chat(user, "<span class='warning'>You obtain [candidate.blood] blood from the orb of blood!</span>")
 				playsound(user, 'sound/misc/enter_blood.ogg', 50)
 				qdel(candidate)
-
 		..()
+	if(uses > 300)
+		uses = 300
 
 /obj/item/melee/blood_magic/manipulator/proc/blood_draw(atom/target, mob/living/carbon/human/user)
 	var/temp = 0
