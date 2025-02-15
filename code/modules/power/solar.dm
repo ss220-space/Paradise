@@ -348,19 +348,23 @@
 		qdel(computerframe)
 
 /obj/machinery/power/solar_control/proc/setup()
-	connect_to_network()
 	set_panels(cdir)
+	
 	if(autostart)
 		search_for_connected()
+
 		if(connected_tracker && track == TRACKER_AUTO)
 			connected_tracker.modify_angle(SSsun.get_angle())
+
 		set_panels(cdir)
 
 /obj/machinery/power/solar_control/Destroy()
-	for(var/obj/machinery/power/solar/M in connected_panels)
-		M.unset_control()
+	for(var/obj/machinery/power/solar/solar in connected_panels)
+		solar.unset_control()
+
 	if(connected_tracker)
 		connected_tracker.unset_control()
+
 	return ..()
 
 /obj/machinery/power/solar_control/disconnect_from_network()
@@ -370,7 +374,7 @@
 /obj/machinery/power/solar_control/connect_to_network()
 	var/to_return = ..()
 
-	if(powernet) //if connected and not already in solar list...
+	if(powernet) // if connected and not already in solar list...
 		SSsun.add_solar(src) //... add it
 
 	return to_return

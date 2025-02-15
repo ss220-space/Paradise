@@ -61,9 +61,10 @@ impl Sun {
     }
 
     pub fn setup_solars(&self) -> eyre::Result<ByondValue> {
-        for solar in self.solars.clone() {
+        for solar in &self.solars {
             solar.call("setup", &[])?;
         }
+
         Ok(ByondValue::from(true))
     }
 
@@ -72,10 +73,15 @@ impl Sun {
             solar.read_var("powernet").unwrap_or_default().is_null()
                 || solar.call("update", &[]).is_ok()
         });
+
         Ok(ByondValue::from(true))
     }
 
     pub fn add_solar(&mut self, solar: ByondValue) -> eyre::Result<ByondValue> {
+        if self.solars.contains(&solar) {
+            return Ok(ByondValue::from(false));
+        }
+
         self.solars.push(solar);
         Ok(ByondValue::from(true))
     }
@@ -96,8 +102,8 @@ impl Sun {
     pub fn get_solars(&self) -> eyre::Result<ByondValue> {
         let mut byond_list = ByondValue::new_list()?;
 
-        for solar in self.solars.clone() {
-            byond_list.push_list(solar)?;
+        for solar in &self.solars {
+            byond_list.push_list(solar.clone())?;
         }
 
         Ok(byond_list)
