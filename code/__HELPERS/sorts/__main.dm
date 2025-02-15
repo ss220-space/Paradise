@@ -101,7 +101,9 @@ start	the index of the first element in the range that is	not already known to b
 	if(start <= lo)
 		start = lo + 1
 
-	for(,start < hi, ++start)
+	var/list/L = src.L
+
+	for(start in start to hi - 1)
 		var/pivot = fetchElement(L,start)
 
 		//set left and right to the index where pivot belongs
@@ -140,6 +142,7 @@ reverse a descending sequence without violating stability.
 	if(runHi >= hi)
 		return 1
 
+	var/list/L = src.L
 	var/last = fetchElement(L, lo)
 	var/current = fetchElement(L, runHi++)
 
@@ -259,6 +262,7 @@ reverse a descending sequence without violating stability.
 /datum/sortInstance/proc/gallopLeft(key, base, len, hint)
 	//ASSERT(len > 0 && hint >= 0 && hint < len)
 
+	var/list/L = src.L
 	var/lastOffset = 0
 	var/offset = 1
 	if(call(cmp)(key, fetchElement(L,base + hint)) > 0)
@@ -318,6 +322,7 @@ reverse a descending sequence without violating stability.
 /datum/sortInstance/proc/gallopRight(key, base, len, hint)
 	//ASSERT(len > 0 && hint >= 0 && hint < len)
 
+	var/list/L = src.L
 	var/offset = 1
 	var/lastOffset = 0
 	if(call(cmp)(key, fetchElement(L, base + hint)) < 0)	//key <= L[base+hint]
@@ -366,6 +371,7 @@ reverse a descending sequence without violating stability.
 /datum/sortInstance/proc/mergeLo(base1, len1, base2, len2)
 	//ASSERT(len1 > 0 && len2 > 0 && base1 + len1 == base2)
 
+	var/list/L = src.L
 	var/cursor1 = base1
 	var/cursor2 = base2
 
@@ -468,6 +474,7 @@ reverse a descending sequence without violating stability.
 /datum/sortInstance/proc/mergeHi(base1, len1, base2, len2)
 	//ASSERT(len1 > 0 && len2 > 0 && base1 + len1 == base2)
 
+	var/list/L = src.L
 	var/cursor1 = base1 + len1 - 1	//start at end of sublists
 	var/cursor2 = base2 + len2 - 1
 
@@ -610,6 +617,7 @@ reverse a descending sequence without violating stability.
 	return L
 
 /datum/sortInstance/proc/mergeAt2(i)
+	var/list/L = src.L
 	var/cursor1 = runBases[i]
 	var/cursor2 = runBases[i + 1]
 

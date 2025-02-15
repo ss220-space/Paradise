@@ -18,7 +18,7 @@
 
 #define COMSIG_SPEED_POTION_APPLIED "speed_potion"
 	#define SPEED_POTION_STOP (1<<0)
-	
+
 ///from base of [/obj/proc/update_integrity]: (old_value, new_value)
 #define COMSIG_OBJ_INTEGRITY_CHANGED "obj_integrity_changed"
 
@@ -32,3 +32,6 @@
 ///from [/obj/structure/closet/supplypod/proc/preOpen]:
 #define COMSIG_SUPPLYPOD_LANDED "supplypodgoboom"
 
+
+/// from  /datum/surgery_step/proc/initiate() : (&time)
+#define COMSIG_SURGERY_STEP_INIT "surgery_step_init"

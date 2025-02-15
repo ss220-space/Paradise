@@ -6,7 +6,7 @@
 		return
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Piping") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
-	if(alert("WARNING: This command should not be run on a live server. Do you want to continue?", "Check Piping", "No", "Yes") == "No")
+	if(tgui_alert(usr, "WARNING: This command should not be run on a live server. Do you want to continue?", "Check Piping", list("No", "Yes")) == "No")
 		return
 
 	//all plumbing - yes, some things might get stated twice, doesn't matter.

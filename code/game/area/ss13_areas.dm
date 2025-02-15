@@ -2760,6 +2760,8 @@ This applies to all STANDARD station areas
 /area/aisat/aihallway
 	name = "AI Satellite Exterior Hallway"
 	icon_state = "yellow"
+	ambientsounds = ENGINEERING_SOUNDS
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
 /area/aisat/entrance
 	name = "AI Satellite Entrance"

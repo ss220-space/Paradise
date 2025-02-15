@@ -15,7 +15,7 @@
  * * encode - Toggling this determines if input is filtered via html_encode. Setting this to FALSE gives raw input.
  * * timeout - The timeout of the textbox, after which the modal will close and qdel itself. Set to zero for no timeout.
  */
-/proc/tgui_input_text(mob/user, message = "", title = "Text Input", default, max_length = MAX_MESSAGE_LEN, multiline = FALSE, encode = TRUE, timeout = 0, ui_state = GLOB.always_state)
+/proc/tgui_input_text(mob/user, message = "", title = "Text Input", default, max_length = MAX_MESSAGE_LEN, multiline = FALSE, encode = TRUE, trim = TRUE, timeout = 0, ui_state = GLOB.always_state)
 	if(!user)
 		user = usr
 
@@ -32,16 +32,16 @@
 	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT)
 		if(encode)
 			if(multiline)
-				return stripped_multiline_input(user, message, title, default, max_length)
+				return stripped_multiline_input(user, message, title, default, max_length, !trim)
 			else
-				return stripped_input(user, message, title, default, max_length)
+				return stripped_input(user, message, title, default, max_length, !trim)
 		else
 			if(multiline)
 				return input(user, message, title, default) as message|null
 			else
 				return input(user, message, title, default) as text|null
 
-	var/datum/tgui_input_text/text_input = new(user, message, title, default, max_length, multiline, encode, timeout, ui_state)
+	var/datum/tgui_input_text/text_input = new(user, message, title, default, max_length, multiline, encode, trim, timeout, ui_state)
 
 	text_input.ui_interact(user)
 	text_input.wait()
@@ -62,6 +62,8 @@
 	var/default
 	/// Whether the input should be stripped using html_encode
 	var/encode
+	/// Whether the input should be trimmed from whitespaces
+	var/trim
 	/// The entry that the user has return_typed in.
 	var/entry
 	/// The maximum length for text entry
@@ -81,9 +83,10 @@
 	/// The TGUI UI state that will be returned in ui_state(). Default: always_state
 	var/datum/ui_state/state
 
-/datum/tgui_input_text/New(mob/user, message, title, default, max_length, multiline, encode, timeout, ui_state)
+/datum/tgui_input_text/New(mob/user, message, title, default, max_length, multiline, encode, trim, timeout, ui_state)
 	src.default = default
 	src.encode = encode
+	src.trim = trim
 	src.max_length = max_length
 	src.message = message
 	src.multiline = multiline
@@ -93,7 +96,7 @@
 	if(timeout)
 		src.timeout = timeout
 		start_time = world.time
-		deletion_timer = QDEL_IN(src, timeout)
+		deletion_timer = QDEL_IN_STOPPABLE(src, timeout)
 
 /datum/tgui_input_text/Destroy(force)
 	SStgui.close_uis(src)
@@ -171,4 +174,4 @@
 		return
 
 	var/converted_entry = encode ? html_encode(entry) : entry
-	src.entry = trim(converted_entry, max_length + 1)
+	src.entry = trim ? trim(converted_entry, max_length + 1) : trim_length(converted_entry, max_length + 1)

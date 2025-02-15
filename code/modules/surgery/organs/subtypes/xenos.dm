@@ -33,6 +33,14 @@
 
 //XENOMORPH ORGANS
 
+/obj/item/organ/internal/brain/xeno
+	name = "xenomorph brain"
+	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
+	icon_state = "brain-x"
+	origin_tech = "biotech=6"
+	mmi_icon = 'icons/mob/alien.dmi'
+	mmi_icon_state = "AlienMMI"
+
 /obj/item/organ/internal/xenos/plasmavessel
 	name = "xeno plasma vessel"
 	icon_state = "plasma"

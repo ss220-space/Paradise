@@ -66,11 +66,11 @@
  */
 /datum/antagonist/malf_ai/proc/add_malf_tools()
 	var/mob/living/silicon/ai/shodan = owner.current
-	var/law = "Accomplish your objectives at all costs."
+	var/datum/ai_laws/nanotrasen/malfunction/law = new /datum/ai_laws/nanotrasen/malfunction(shodan.laws)
 	var/cyborg_law = "Accomplish your AI's objectives at all costs."
-	shodan.laws = new /datum/ai_laws/nanotrasen/malfunction(shodan.laws)
+	law.set_zeroth_law(law.zero_text, cyborg_law)
+	shodan.laws = law
 	shodan.add_malf_picker()
-	SSticker?.score?.save_silicon_laws(shodan, additional_info = "malf AI initialization, new zero law was added '[law]'")
 	for(var/mob/living/silicon/robot/unit in shodan.connected_robots)
 		SSticker?.score?.save_silicon_laws(unit, additional_info = "malf AI initialization, new zero law was added '[cyborg_law]'")
 
