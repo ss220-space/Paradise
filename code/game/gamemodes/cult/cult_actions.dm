@@ -95,7 +95,7 @@
 	if(SSticker && SSticker.mode)
 		SSticker.mode.cult_objs.study(usr, TRUE)
 	else
-		to_chat(usr, "<span class='cultitalic'>Вы не смогли изучить печать. (Такого не должно случиться, сообщите в админхелп и/или обматерите кодеров)</span>")
+		to_chat(usr, span_cultitalic("Вы не смогли изучить печать. (Такого не должно случиться, сообщите в админхелп и/или обматерите кодеров)"))
 
 
 //Draw rune
