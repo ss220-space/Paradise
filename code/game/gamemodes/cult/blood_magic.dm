@@ -1,7 +1,7 @@
 /datum/action/innate/cult/blood_magic //Blood magic handles the creation of blood spells (formerly talismans)
-	name = "Prepare Blood Magic"
+	name = "Подготовить Магию Крови"
 	button_icon_state = "carve"
-	desc = "Prepare blood magic by carving runes into your flesh. This is easier with an <b>empowering rune</b>."
+	desc = "Погдотовить магию крови рисуя руны на своем теле. Гораздо легче с  <b>руной усиления</b>."
 	var/list/spells = list()
 	var/channeling = FALSE
 
@@ -35,11 +35,11 @@
 		break
 	if(length(spells) >= limit)
 		if(rune)
-			to_chat(owner, "<span class='cultitalic'>You cannot store more than [MAX_BLOODCHARGE] spell\s. <b>Pick a spell to remove.</b></span>")
-			remove_spell("You cannot store more than [MAX_BLOODCHARGE] spell\s, pick a spell to remove.")
+			to_chat(owner, "<span class='cultitalic'>Вы не можете хранить больше чем [MAX_BLOODCHARGE] заклинания\s. <b>Уберите одно.</b></span>")
+			remove_spell("Вы не можете хранить больше чем [MAX_BLOODCHARGE] заклинания\s, выберите заклинание для удаления.")
 		else
-			to_chat(owner, "<span class='cultitalic'>You cannot store more than [RUNELESS_MAX_BLOODCHARGE] spell\s without an empowering rune! <b>Pick a spell to remove.</b></span>")
-			remove_spell("You cannot store more than [RUNELESS_MAX_BLOODCHARGE] spell\s without an empowering rune, pick a spell to remove.")
+			to_chat(owner, "<span class='cultitalic'>Вы не можете хранить больше чем [RUNELESS_MAX_BLOODCHARGE] заклинание\s без руны усиления! <b>Pick a spell to remove.</b></span>")
+			remove_spell("Вы не можете хранить больше чем [RUNELESS_MAX_BLOODCHARGE] заклинание\s без руны усиления, выберите заклинание для удаления.")
 		return
 	var/entered_spell_name
 	var/datum/action/innate/cult/blood_spell/BS
@@ -104,7 +104,7 @@
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
 	all_magic = BM
 	button.ordered = FALSE
-	
+
 	..()
 
 /datum/action/innate/cult/blood_spell/override_location()

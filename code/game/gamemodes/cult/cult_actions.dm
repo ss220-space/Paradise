@@ -12,13 +12,13 @@
 
 //Comms
 /datum/action/innate/cult/comm
-	name = "Communion"
-	desc = "Whispered words that all cultists can hear.<br><b>Warning:</b>Nearby non-cultists can still hear you."
+	name = "Молитва"
+	desc = "Прошептать слова которые смогут услышать все культисты. <br><b>Осторожно!</b> Стоящие рядом не-культисты могут услышать шепот!"
 	button_icon_state = "cult_comms"
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
 /datum/action/innate/cult/comm/Activate()
-	var/input = tgui_input_text(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", encode = FALSE)
+	var/input = tgui_input_text(usr, "Введите сообщение для других аколитов.", "Голос Крови", encode = FALSE)
 	if(!input || !IsAvailable())
 		return
 	cultist_commune(usr, input)
@@ -28,12 +28,12 @@
 	if(!user || !message)
 		return
 	if(!user.can_speak())
-		to_chat(user, "<span class='warning'>You can't speak!</span>")
+		to_chat(user, "<span class='warning'>Вы не можете говорить!</span>")
 		return
 
 	if(HAS_TRAIT(user, TRAIT_MUTE) || user.mind.miming) //Under vow of silence/mute?
-		user.visible_message("<span class='notice'>[user] appears to whisper to themselves.</span>",
-		"<span class='notice'>You begin to whisper to yourself.</span>") //Make them do *something* abnormal.
+		user.visible_message("<span class='notice'>[user] что-то шепч[genderize_ru(user.gender, "ет", "ет", "ут", "ат")] себе под нос.</span>",
+		"<span class='notice'>Вы начинаете шептать про себя.</span>") //Make them do *something* abnormal.
 		sleep(10)
 	else
 		user.whisper("O bidai nabora se[pick("'","`")]sma!") // Otherwise book club sayings.
@@ -42,9 +42,9 @@
 
 	var/my_message
 	if(istype(user, /mob/living/simple_animal/demon/slaughter/cult)) //Harbringers of the Slaughter
-		my_message = "<span class='cultlarge'><b>Harbringer of the Slaughter:</b> [message]</span>"
+		my_message = "<span class='cultlarge'><b>Предвестник Резни:</b> [message]</span>"
 	else
-		my_message = "<span class='cultspeech'><b>[(isconstruct(user) ? "Construct" : isshade(user) ? "" : "Acolyte")] [user.real_name]:</b> [message]</span>"
+		my_message = "<span class='cultspeech'><b>[(isconstruct(user) ? "Конструкт" : isshade(user) ? "" : "Аколит")] [user.real_name]:</b> [message]</span>"
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
 			to_chat(M, my_message)
@@ -74,9 +74,9 @@
 
 //Objectives
 /datum/action/innate/cult/check_progress
-	name = "Study the Veil"
+	name = "Изучить печать"
 	button_icon_state = "tome"
-	desc = "Check your cult's current progress and objective."
+	desc = "Проверить текущий прогресс и цели культа."
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
 /datum/action/innate/cult/check_progress/New()
@@ -95,13 +95,13 @@
 	if(SSticker && SSticker.mode)
 		SSticker.mode.cult_objs.study(usr, TRUE)
 	else
-		to_chat(usr, "<span class='cultitalic'>You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)</span>")
+		to_chat(usr, "<span class='cultitalic'>Вы не смогли изучить печать. (Такого не должно случиться, сообщите в админхелп и/или обматерите кодеров)</span>")
 
 
 //Draw rune
 /datum/action/innate/cult/use_dagger
-	name = "Draw Blood Rune"
-	desc = "Use the ritual dagger to create a powerful blood rune"
+	name = "Нарисовать кровавую руну"
+	desc = "Использовать ритуальный клинок чтобы создать мощную кровавую руну"
 	button_icon_state = "blood_dagger"
 
 /datum/action/innate/cult/use_dagger/Grant()
@@ -132,4 +132,4 @@
 		owner.put_in_hands(dagger)
 		dagger.attack_self(owner)
 	else
-		to_chat(usr, "<span class='cultitalic'>You do not seem to carry a ritual dagger to draw a rune with. If you need a new one, prepare and use the Summon Dagger spell.</span>")
+		to_chat(usr, "<span class='cultitalic'>Кажется у вас нет ритуального клинка чтобы нарисовать руну. Если вам нужен новый, используйте заклинание Подготовки клинка.</span>")
