@@ -755,6 +755,7 @@
 	time = 6 SECONDS
 	reqs = list(/obj/item/twohanded/spear/bonespear = 1,
 				/obj/item/reagent_containers/food/snacks/monstermeat/goliath = 18)
+	blacklist = list(/obj/item/twohanded/spear/bonespear/chitinspear, /obj/item/twohanded/spear/bonespear/her_biting_embrace)
 	result = /obj/structure/grace_of_lazis
 	category = CAT_PRIMAL
 	subcategory = CAT_MISC2
@@ -912,8 +913,8 @@
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
 
-/datum/crafting_recipe/boneaxe
-	name = "Bone Axe"
+/datum/crafting_recipe/upgraded_boneaxe
+	name = "Guillotine (Bone Axe)"
 	result = /obj/item/twohanded/fireaxe/boneaxe/guillotine
 	time = 5 SECONDS
 	reqs = list(/obj/item/twohanded/fireaxe/boneaxe = 1,

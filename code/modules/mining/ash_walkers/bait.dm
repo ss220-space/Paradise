@@ -18,6 +18,7 @@
 	tastes = list("ash" = 5, "hopelessness" = 1)
 	bitesize = 1
 	foodtype = MEAT
+	antable = FALSE
 	/// This will be visually shown on fishing rod.
 	var/rod_overlay  = "ash_eater_rod"
 
@@ -91,6 +92,7 @@
 	item_state = "charred_krill"
 	list_reagents = list("protein" = 1)
 	bitesize = 1
+	antable = FALSE
 	tastes = list("ash" = 5, "wasted opportunity" = 1)
 	var/in_lava = FALSE
 
