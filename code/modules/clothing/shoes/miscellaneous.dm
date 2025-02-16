@@ -511,19 +511,19 @@
 
 
 /obj/item/clothing/shoes/bhop/clown
-	desc = "Стандартные клоунские башмаки. Черт возьми, они такие огромные! Чтобы включить амортизаторы для ходьбы вразвалочку, нажмите Ctrl!"
+	desc = "Стандартные клоунские башмаки. Черт возьми, они такие огромные! Чтобы включить амортизаторы для ходьбы вразвалочку, нажмите \"Ctrl!\""
 	name = "clown shoes"
 	ru_names = list(
-    	NOMINATIVE = "клоунские башмаки",
-    	GENITIVE = "клоунских башмаков",
-    	DATIVE = "клоунским башмакам",
-    	ACCUSATIVE = "клоунские башмаки",
-    	INSTRUMENTAL = "клоунскими башмаками",
-    	PREPOSITIONAL = "клоунских башмаках"
+		NOMINATIVE = "клоунские башмаки",
+		GENITIVE = "клоунских башмаков",
+		DATIVE = "клоунским башмакам",
+		ACCUSATIVE = "клоунские башмаки",
+		INSTRUMENTAL = "клоунскими башмаками",
+		PREPOSITIONAL = "клоунских башмаках"
 	)
 	icon_state = "clown"
 	item_state = "clown_shoes"
-	description_antag = "Эти ботинки снабжены специальным механизмом для прыжков, работающим на основе технологии «хонк-спейс», позволяя выполнять захватывающие акробатические трюки!"
+	description_antag = "Эти ботинки снабжены специальным механизмом для прыжков, работающим на основе технологии \"хонк-спейс\", позволяя выполнять захватывающие акробатические трюки!"
 	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
 	actions_types = list(/datum/action/item_action/bhop/clown)
@@ -562,7 +562,7 @@
 
 /obj/item/clothing/shoes/ducky
 	name = "rubber ducky shoes"
-	desc = "These shoes are made for quacking, and thats just what they'll do."
+	desc = "Эти тапочки сделаны, чтобы крякать, и они реально крякают!"
 	icon_state = "ducky"
 	item_state = "ducky"
 
@@ -612,4 +612,4 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi'
-		)
+	)

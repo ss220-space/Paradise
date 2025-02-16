@@ -129,12 +129,12 @@
 	name = "Book of Babel"
 	desc = "Древнейший фолиант, написанный на бесчисленном множестве языков."
 	ru_names = list(
-        NOMINATIVE = "Вавилонская книга",
-        GENITIVE = "Вавилонской книги",
-        DATIVE = "Вавилонской книге",
-        ACCUSATIVE = "Вавилонскую книгу",
-        INSTRUMENTAL = "Вавилонской книгой",
-        PREPOSITIONAL = "Вавилонской книге"
+		NOMINATIVE = "Вавилонская книга",
+		GENITIVE = "Вавилонской книги",
+		DATIVE = "Вавилонской книге",
+		ACCUSATIVE = "Вавилонскую книгу",
+		INSTRUMENTAL = "Вавилонской книгой",
+		PREPOSITIONAL = "Вавилонской книге"
 	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book1"

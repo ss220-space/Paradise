@@ -53,11 +53,11 @@
 	desc =	"Старое пособие по боевому искусству мимов."
 	ru_names = list(
 		NOMINATIVE = "Мануал Мимдзютсе",
-        GENITIVE = "Мануала Мимдзютсе",
-        DATIVE = "Мануалу Мимдзютсе",
-        ACCUSATIVE = "Мануал Мимдзютсе",
-        INSTRUMENTAL = "Мануалом Мимдзютсе",
-        PREPOSITIONAL = "Мануале Мимдзютсе"
+		GENITIVE = "Мануала Мимдзютсе",
+		DATIVE = "Мануалу Мимдзютсе",
+		ACCUSATIVE = "Мануал Мимдзютсе",
+		INSTRUMENTAL = "Мануалом Мимдзютсе",
+		PREPOSITIONAL = "Мануале Мимдзютсе"
 	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "mimemanual"

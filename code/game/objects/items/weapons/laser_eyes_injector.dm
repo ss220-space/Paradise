@@ -1,14 +1,14 @@
 /obj/item/laser_eyes_injector
 	name = "laser eyes injector"
-	desc = "Инжектор позволяющий вам стрелять лазерами из глаз после исспользования."
+	desc = "Инъектор, который даст вам способность стрелять лазерами из глаз."
 	ru_names = list(
-        NOMINATIVE = "Инжектор лазеров из глаз",
-        GENITIVE = "Инжектора лазеров из глаз",
-        DATIVE = "Инжектору лазеров из глаз",
-        ACCUSATIVE = "Инжектор лазеров из глаз",
-        INSTRUMENTAL = "Инжектором лазеров из глаз",
-        PREPOSITIONAL = "Инжекторе лазеров из глаз"
-    )
+		NOMINATIVE = "Инъектор лазерных глаз",
+		GENITIVE = "Инъектора лазерных глаз",
+		DATIVE = "Инъектору лазерных глаз",
+		ACCUSATIVE = "Инъектор лазерных глаз",
+		INSTRUMENTAL = "Инъектором лазерных глаз",
+		PREPOSITIONAL = "Инъекторе лазерных глаз"
+	)
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "dnainjector"
 	var/used = FALSE
@@ -39,7 +39,7 @@
 		return .
 
 	if(used)
-		balloon_alert(user, "инжектор уже использован")
+		balloon_alert(user, "инъектор уже использован")
 		return .
 
 	. |= ATTACK_CHAIN_SUCCESS
@@ -64,8 +64,8 @@
 /obj/effect/proc_holder/spell/lasereyes/cast(list/targets, mob/user = usr)
 	if(HAS_TRAIT_FROM(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src)))
 		REMOVE_TRAIT(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src))
-		to_chat(user, span_warning("Легкое жжение в области ваших глаз прошло."))
+		to_chat(user, span_warning("Лёгкое жжение в области ваших глаз прошло."))
 	else
 		ADD_TRAIT(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src))
-		to_chat(user, span_warning("Вы чувствуете легкое жжение в области ваших глаз."))
+		to_chat(user, span_warning("Вы чувствуете лёгкое жжение в области ваших глаз."))
 

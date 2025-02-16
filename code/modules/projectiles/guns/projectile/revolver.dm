@@ -610,12 +610,12 @@
 	name = "cane"
 	desc = "Трость — верный спутник настоящего джентльмена. Или клоуна."
 	ru_names = list(
-    		NOMINATIVE = "трость",
-    		GENITIVE = "трусти",
-    		DATIVE = "трусти",
-    		ACCUSATIVE = "трость",
-    		INSTRUMENTAL = "тростью",
-    		PREPOSITIONAL = "трусти"
+		NOMINATIVE = "трость",
+		GENITIVE = "трусти",
+		DATIVE = "трусти",
+		ACCUSATIVE = "трость",
+		INSTRUMENTAL = "тростью",
+		PREPOSITIONAL = "трусти"
 	)
 	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'

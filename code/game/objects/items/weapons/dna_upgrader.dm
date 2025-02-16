@@ -10,13 +10,13 @@
 	name = "dna upgrader"
 	desc = "Кто-то мог бы сказать, что для такой сильной модификации необходимо достичь цель станции... Дураки!"
 	ru_names = list(
-        NOMINATIVE = "Модификатор ДНК",
-        GENITIVE = "Модификатора ДНК",
-        DATIVE = "Модификатору ДНК",
-        ACCUSATIVE = "Модификатор ДНК",
-        INSTRUMENTAL = "Модификатором ДНК",
-        PREPOSITIONAL = "Модификаторе ДНК"
-    )
+		NOMINATIVE = "Модификатор ДНК",
+		GENITIVE = "Модификатора ДНК",
+		DATIVE = "Модификатору ДНК",
+		ACCUSATIVE = "Модификатор ДНК",
+		INSTRUMENTAL = "Модификатором ДНК",
+		PREPOSITIONAL = "Модификаторе ДНК"
+	)
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "dnaupgrader"
 	var/used = FALSE
@@ -58,7 +58,7 @@
 			H.physiology.burn_mod *= 0.5
 			ADD_TRAIT(H, TRAIT_RESIST_HEAT, name)
 		if(VAULT_STUNTIME)
-			to_chat(H, span_notice("Вы ощущаете, что ничто не способно надолго вас сломить."))
+			to_chat(H, span_notice("Вы ощущаете, что ничто не может надолго вывести вас из равновесия."))
 			H.physiology.stun_mod *= 0.5
 			H.physiology.stamina_mod *= 0.5
 			H.stam_regen_start_modifier *= 0.5
