@@ -32,7 +32,7 @@
 		return
 
 	if(HAS_TRAIT(user, TRAIT_MUTE) || user.mind.miming) //Under vow of silence/mute?
-		user.visible_message("<span class='notice'>[user] что-то шепч[genderize_ru(user.gender, "ет", "ет", "ут", "ат")] себе под нос.</span>",
+		user.visible_message(span_notice("[user] что-то шепч[genderize_ru(user.gender, "ет", "ет", "ут", "ат")] себе под нос."),
 		"<span class='notice'>Вы начинаете шептать про себя.</span>") //Make them do *something* abnormal.
 		sleep(10)
 	else
