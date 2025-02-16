@@ -26,13 +26,13 @@
 			if(jumping)
 				return jumptokey(jumping)
 		if("Coordinates")
-			var/x = input(src, "X Coordinate", "Jump to Coordinates") as null|num
+			var/x = tgui_input_number(src, "X Coordinate", "Jump to Coordinates")
 			if(!x)
 				return
-			var/y = input(src, "Y Coordinate", "Jump to Coordinates") as null|num
+			var/y = tgui_input_number(src, "Y Coordinate", "Jump to Coordinates")
 			if(!y)
 				return
-			var/z = input(src, "Z Coordinate", "Jump to Coordinates") as null|num
+			var/z = tgui_input_number(src, "Z Coordinate", "Jump to Coordinates")
 			if(!z)
 				return
 			return jumptocoord(x, y, z)

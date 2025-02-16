@@ -98,7 +98,6 @@
 
 	. = TRUE
 	var/outmsg
-	var/turf/targloc = get_turf(target)
 
 	//human/alien mobs
 	if(iscarbon(target))
@@ -143,16 +142,16 @@
 	is_pointing = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, PROC_REF(stop_pointing)), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_NO_HASH_WAIT)
-	var/image/I = image('icons/obj/weapons/projectiles.dmi',targloc,pointer_icon_state,10)
+	var/mutable_appearance/laser = mutable_appearance('icons/obj/weapons/projectiles.dmi', pointer_icon_state, target.layer + 0.01)
 	var/list/click_params = params2list(params)
 	if(click_params)
 		if(click_params["icon-x"])
-			I.pixel_x = (text2num(click_params["icon-x"]) - 16)
+			laser.pixel_x = (text2num(click_params["icon-x"]) - 16)
 		if(click_params["icon-y"])
-			I.pixel_y = (text2num(click_params["icon-y"]) - 16)
+			laser.pixel_y = (text2num(click_params["icon-y"]) - 16)
 	else
-		I.pixel_x = target.pixel_x + rand(-5,5)
-		I.pixel_y = target.pixel_y + rand(-5,5)
+		laser.pixel_x = target.pixel_x + rand(-5,5)
+		laser.pixel_y = target.pixel_y + rand(-5,5)
 
 	if(outmsg)
 		to_chat(user, outmsg)
@@ -168,7 +167,7 @@
 			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
 			recharge_locked = 1
 
-	flick_overlay_view(I, 1 SECONDS)
+	target.flick_overlay_view(laser, 1 SECONDS)
 
 
 /obj/item/laser_pointer/proc/stop_pointing()

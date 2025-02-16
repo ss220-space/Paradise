@@ -41,12 +41,15 @@
 		update_blob()
 	return ..()
 
+/obj/structure/blob/special/core/link_to_overmind(mob/camera/blob/owner_overmind)
+	. = ..()
+	owner_overmind.blob_core = src
 
 /obj/structure/blob/special/core/Destroy()
 	GLOB.blob_cores -= src
 	if(overmind)
 		overmind.blob_core = null
-		QDEL_NULL(overmind.blob_core)
+		QDEL_NULL(overmind)
 	SSticker?.mode?.blob_died()
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
@@ -132,10 +135,9 @@
 
 	if(C && !QDELETED(src))
 		var/mob/camera/blob/B = new(loc, src)
-		B.blob_core = src
 		B.mind_initialize()
 		B.key = C.key
-		overmind = B
+		link_to_overmind(B)
 		B.is_offspring = is_offspring
 		addtimer(CALLBACK(src, PROC_REF(add_datum_if_not_exist)), TIME_TO_ADD_OM_DATUM)
 		log_game("[B.key] has become Blob [is_offspring ? "offspring" : ""]")

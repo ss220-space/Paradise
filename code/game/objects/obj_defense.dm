@@ -310,6 +310,3 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 			var/mob/living/buckled_mob = m
 			buckled_mob.electrocute_act((clamp(round(strength * 1.25e-3), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
 
-///returns how much the object blocks an explosion. Used by subtypes.
-/obj/proc/GetExplosionBlock()
-	CRASH("Unimplemented GetExplosionBlock()")

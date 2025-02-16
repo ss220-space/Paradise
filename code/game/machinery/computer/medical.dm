@@ -9,7 +9,15 @@
 
 /obj/machinery/computer/med_data //TODO:SANITY
 	name = "medical records console"
-	desc = "Используется для проверки медицинских записей."
+	desc = "Консоль, подключённая к станционной базе данных. Позволяет просматривать и редактировать медицинские записи членов экипажа."
+	ru_names = list(
+		NOMINATIVE = "консоль медицинских записей",
+		GENITIVE = "консоли медицинских записей",
+		DATIVE = "консоли медицинских записей",
+		ACCUSATIVE = "консоль медицинских записей",
+		INSTRUMENTAL = "консолью медицинских записей",
+		PREPOSITIONAL = "консоли медицинских записей"
+	)
 	icon_keyboard = "med_key"
 	icon_screen = "medcomp"
 	req_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
@@ -29,29 +37,29 @@
 	. = ..()
 	field_edit_questions = list(
 		// General
-		"sex" = "Please select new sex:",
-		"age" = "Please input new age:",
-		"fingerprint" = "Please input new fingerprint hash:",
-		"p_stat" = "Please select new physical status:",
-		"m_stat" = "Please select new mental status:",
+		"sex" = "Укажите пол:",
+		"age" = "Укажите возраст:",
+		"fingerprint" = "Введите код отпечатков пальцев:",
+		"p_stat" = "Укажите физическое состояние:",
+		"m_stat" = "Укажите психологическое состояние:",
 		// Medical
-		"blood_type" = "Please select new blood type:",
-		"b_dna" = "Please input new DNA:",
-		"mi_dis" = "Please input new minor disabilities:",
-		"mi_dis_d" = "Please summarize minor disabilities:",
-		"ma_dis" = "Please input new major disabilities:",
-		"ma_dis_d" = "Please summarize major disabilities:",
-		"alg" = "Please input new allergies:",
-		"alg_d" = "Please summarize allergies:",
-		"cdi" = "Please input new current diseases:",
-		"cdi_d" = "Please summarize current diseases:",
-		"notes" = "Please input new important notes:",
+		"blood_type" = "Укажите группу крови:",
+		"b_dna" = "Введите ДНК-код:",
+		"mi_dis" = "Укажите незначительные отклонения:",
+		"mi_dis_d" = "Укажите детали незначительных отклонений:",
+		"ma_dis" = "Укажите инвалидности:",
+		"ma_dis_d" = "Укажите детали инвалидностей:",
+		"alg" = "Укажите аллергии:",
+		"alg_d" = "Укажите детали аллергий:",
+		"cdi" = "Укажите текущие заболевания:",
+		"cdi_d" = "Укажите детали текущих заболеваний:",
+		"notes" = "Укажите дополнительную информацию:",
 	)
 	field_edit_choices = list(
 		// General
-		"sex" = list("Male", "Female"),
-		"p_stat" = list("*Deceased*", "*SSD*", "Active", "Physically Unfit", "Disabled"),
-		"m_stat" = list("*Insane*", "*Unstable*", "*Watch*", "Stable"),
+		"sex" = list("Мужской", "Женский", "Небинарный", "Множественный"),
+		"p_stat" = list("Смерть", "КРС", "Стабильное", "Нетрудоспособность", "Ограниченные возможности"),
+		"m_stat" = list("Невменяемость", "Нестабильное", "Рекомендуется наблюдение", "Стабильное"),
 		// Medical
 		"blood_type" = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"),
 	)
@@ -77,7 +85,7 @@
 	if(..())
 		return
 	if(is_away_level(z))
-		to_chat(user, span_danger("Unable to establish a connection") + ": You're too far away from the station!")
+		to_chat(user, span_danger("Удалённый сервер не отвечает на запросы") + ": база данных вне зоны досягаемости.")
 		return
 	add_fingerprint(user)
 	ui_interact(user)
@@ -85,7 +93,7 @@
 /obj/machinery/computer/med_data/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "MedicalRecords", "Medical Records")
+		ui = new(user, src, "MedicalRecords", "Медицинские записи")
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -116,13 +124,13 @@
 				if(istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1))
 					var/list/fields = list()
 					general["fields"] = fields
-					fields[++fields.len] = FIELD("Name", active1.fields["name"], null)
+					fields[++fields.len] = FIELD("Имя", active1.fields["name"], null)
 					fields[++fields.len] = FIELD("ID", active1.fields["id"], null)
-					fields[++fields.len] = FIELD("Sex", active1.fields["sex"], "sex")
-					fields[++fields.len] = FIELD("Age", active1.fields["age"], "age")
-					fields[++fields.len] = FIELD("Fingerprint", active1.fields["fingerprint"], "fingerprint")
-					fields[++fields.len] = FIELD("Physical Status", active1.fields["p_stat"], "p_stat")
-					fields[++fields.len] = FIELD("Mental Status", active1.fields["m_stat"], "m_stat")
+					fields[++fields.len] = FIELD("Пол", active1.fields["sex"], "sex")
+					fields[++fields.len] = FIELD("Возраст", active1.fields["age"], "age")
+					fields[++fields.len] = FIELD("Отпечатки пальцев", active1.fields["fingerprint"], "fingerprint")
+					fields[++fields.len] = FIELD("Физическое состояние", active1.fields["p_stat"], "p_stat")
+					fields[++fields.len] = FIELD("Психологическое состояние", active1.fields["m_stat"], "m_stat")
 					var/list/photos = list()
 					general["photos"] = photos
 					photos[++photos.len] = active1.fields["photo-south"]
@@ -137,17 +145,17 @@
 				if(istype(active2, /datum/data/record) && GLOB.data_core.medical.Find(active2))
 					var/list/fields = list()
 					medical["fields"] = fields
-					fields[++fields.len] = MED_FIELD("Blood Type", active2.fields["blood_type"], "blood_type", FALSE)
-					fields[++fields.len] = MED_FIELD("DNA", active2.fields["b_dna"], "b_dna", TRUE)
-					fields[++fields.len] = MED_FIELD("Minor Disabilities", active2.fields["mi_dis"], "mi_dis", FALSE)
-					fields[++fields.len] = MED_FIELD("Details", active2.fields["mi_dis_d"], "mi_dis_d", FALSE)
-					fields[++fields.len] = MED_FIELD("Major Disabilities", active2.fields["ma_dis"], "ma_dis", FALSE)
-					fields[++fields.len] = MED_FIELD("Details", active2.fields["ma_dis_d"], "ma_dis_d", TRUE)
-					fields[++fields.len] = MED_FIELD("Allergies", active2.fields["alg"], "alg", FALSE)
-					fields[++fields.len] = MED_FIELD("Details", active2.fields["alg_d"], "alg_d", FALSE)
-					fields[++fields.len] = MED_FIELD("Current Diseases", active2.fields["cdi"], "cdi", FALSE)
-					fields[++fields.len] = MED_FIELD("Details", active2.fields["cdi_d"], "cdi_d", TRUE)
-					fields[++fields.len] = MED_FIELD("Important Notes", active2.fields["notes"], "notes", FALSE)
+					fields[++fields.len] = MED_FIELD("Группа крови", active2.fields["blood_type"], "blood_type", FALSE)
+					fields[++fields.len] = MED_FIELD("ДНК", active2.fields["b_dna"], "b_dna", TRUE)
+					fields[++fields.len] = MED_FIELD("Незначительные отклонения", active2.fields["mi_dis"], "mi_dis", FALSE)
+					fields[++fields.len] = MED_FIELD("Детали", active2.fields["mi_dis_d"], "mi_dis_d", FALSE)
+					fields[++fields.len] = MED_FIELD("Инвалидности", active2.fields["ma_dis"], "ma_dis", FALSE)
+					fields[++fields.len] = MED_FIELD("Детали", active2.fields["ma_dis_d"], "ma_dis_d", TRUE)
+					fields[++fields.len] = MED_FIELD("Аллергии", active2.fields["alg"], "alg", FALSE)
+					fields[++fields.len] = MED_FIELD("Детали", active2.fields["alg_d"], "alg_d", FALSE)
+					fields[++fields.len] = MED_FIELD("Текущие заболевания", active2.fields["cdi"], "cdi", FALSE)
+					fields[++fields.len] = MED_FIELD("Детали", active2.fields["cdi_d"], "cdi_d", TRUE)
+					fields[++fields.len] = MED_FIELD("Дополнительная информация", active2.fields["notes"], "notes", FALSE)
 					if(!active2.fields["comments"] || !islist(active2.fields["comments"]))
 						active2.fields["comments"] = list()
 					medical["comments"] = active2.fields["comments"]
@@ -238,7 +246,7 @@
 					name = D.name,
 					max_stages = D.max_stages,
 					spread_text = istype(V) ? V.spread_text() : "",
-					cure = D.cure_text || "None",
+					cure = D.cure_text || "Н/Д",
 					desc = D.desc,
 					severity = D.severity
 				)
@@ -247,15 +255,15 @@
 			if("del_all_med_records")
 				for(var/datum/data/record/R in GLOB.data_core.medical)
 					qdel(R)
-				set_temp("All medical records deleted.")
+				set_temp("База данных очищена.")
 			if("del_med_record")
 				if(active2)
-					set_temp("Medical record deleted.")
+					set_temp("Запись удалена.")
 					qdel(active2)
 			if("view_record")
 				var/datum/data/record/general_record = locate(params["view_record"] || "")
 				if(!GLOB.data_core.general.Find(general_record))
-					set_temp("Record not found.", "danger")
+					set_temp("Запись не найдена.", "danger")
 					return
 
 				var/datum/data/record/medical_record
@@ -272,22 +280,22 @@
 					var/datum/data/record/R = new /datum/data/record()
 					R.fields["name"] = active1.fields["name"]
 					R.fields["id"] = active1.fields["id"]
-					R.name = "Medical Record #[R.fields["id"]]"
-					R.fields["blood_type"] = "Unknown"
-					R.fields["b_dna"] = "Unknown"
-					R.fields["mi_dis"] = "None"
-					R.fields["mi_dis_d"] = "No minor disabilities have been declared."
-					R.fields["ma_dis"] = "None"
-					R.fields["ma_dis_d"] = "No major disabilities have been diagnosed."
-					R.fields["alg"] = "None"
-					R.fields["alg_d"] = "No allergies have been detected in this patient."
-					R.fields["cdi"] = "None"
-					R.fields["cdi_d"] = "No diseases have been diagnosed at the moment."
-					R.fields["notes"] = "No notes."
+					R.name = "Медицинская запись №[R.fields["id"]]"
+					R.fields["blood_type"] = "Неизвестно"
+					R.fields["b_dna"] = "Неизвестно"
+					R.fields["mi_dis"] = "Отсутствуют"
+					R.fields["mi_dis_d"] = "Незначительные отклонения не указаны."
+					R.fields["ma_dis"] = "Отсутствуют"
+					R.fields["ma_dis_d"] = "Инвалидности не указаны."
+					R.fields["alg"] = "Отсутствуют"
+					R.fields["alg_d"] = "Аллергии не указаны."
+					R.fields["cdi"] = "Отсутствуют"
+					R.fields["cdi_d"] = "Текущие заболевания не указаны."
+					R.fields["notes"] = "Дополнительная информация не указана."
 					GLOB.data_core.medical += R
 					active2 = R
 					screen = MED_DATA_RECORD
-					set_temp("Medical record created.", "success")
+					set_temp("Медицинская запись создана.", "success")
 			if("del_comment")
 				var/index = text2num(params["del_comment"] || "")
 				if(!index || !istype(active2, /datum/data/record))
@@ -331,7 +339,7 @@
 					else
 						ui_modal_input(src, id, question, arguments = arguments, value = arguments["value"])
 				if("add_comment")
-					ui_modal_input(src, id, "Please enter your message:")
+					ui_modal_input(src, id, "Введите комментарий.")
 				else
 					return FALSE
 		if(UI_MODAL_ANSWER)
@@ -353,7 +361,7 @@
 						var/new_age = text2num(answer)
 						var/age_limits = get_age_limits(species, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
 						if(new_age < age_limits[SPECIES_AGE_MIN] || new_age > age_limits[SPECIES_AGE_MAX])
-							set_temp("Invalid age. It must be between [age_limits[SPECIES_AGE_MIN]] and [age_limits[SPECIES_AGE_MAX]].", "danger")
+							set_temp("Недопустимый возраст. Принимаются значения от [age_limits[SPECIES_AGE_MIN]] до [age_limits[SPECIES_AGE_MAX]] лет.", "danger")
 							return
 
 						answer = new_age
@@ -367,7 +375,7 @@
 					if(!length(answer) || !istype(active2) || !length(state.name))
 						return
 					active2.fields["comments"] += list(list(
-						header = "Made by [state.name] ([state.rank]) on [GLOB.current_date_string] [station_time_timestamp()]",
+						header = "Создатель записи - [state.name] ([state.rank]). Запись создана [GLOB.current_date_string] [station_time_timestamp()].",
 						text = answer
 					))
 				else
@@ -380,38 +388,38 @@
   */
 /obj/machinery/computer/med_data/proc/print_finish()
 	var/obj/item/paper/P = new /obj/item/paper(loc)
-	P.info = "<center></b>Medical Record</b></center><br>"
+	P.info = "<center></b>Медицинская запись</b></center><br>"
 	if(istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1))
-		P.info += {"Name: [active1.fields["name"]] ID: [active1.fields["id"]]
-		<br>\nSex: [active1.fields["sex"]]
-		<br>\nAge: [active1.fields["age"]]
-		<br>\nFingerprint: [active1.fields["fingerprint"]]
-		<br>\nPhysical Status: [active1.fields["p_stat"]]
-		<br>\nMental Status: [active1.fields["m_stat"]]<br>"}
+		P.info += {"Имя: [active1.fields["name"]] ID: [active1.fields["id"]]
+		<br>\nПол: [active1.fields["sex"]]
+		<br>\nВозраст: [active1.fields["age"]]
+		<br>\nОтпечатки пальцев: [active1.fields["fingerprint"]]
+		<br>\nФизическое состояние: [active1.fields["p_stat"]]
+		<br>\nПсихологическое состояние: [active1.fields["m_stat"]]<br>"}
 	else
-		P.info += "</b>General Record Lost!</b><br>"
+		P.info += "</b>Основная информация утрачена!</b><br>"
 	if(istype(active2, /datum/data/record) && GLOB.data_core.medical.Find(active2))
-		P.info += {"<br>\n<center></b>Medical Data</b></center>
-		<br>\nBlood Type: [active2.fields["blood_type"]]
-		<br>\nDNA: [active2.fields["b_dna"]]<br>\n
-		<br>\nMinor Disabilities: [active2.fields["mi_dis"]]
-		<br>\nDetails: [active2.fields["mi_dis_d"]]<br>\n
-		<br>\nMajor Disabilities: [active2.fields["ma_dis"]]
-		<br>\nDetails: [active2.fields["ma_dis_d"]]<br>\n
-		<br>\nAllergies: [active2.fields["alg"]]
-		<br>\nDetails: [active2.fields["alg_d"]]<br>\n
-		<br>\nCurrent Diseases: [active2.fields["cdi"]] (per disease info placed in log/comment section)
-		<br>\nDetails: [active2.fields["cdi_d"]]<br>\n
-		<br>\nImportant Notes:
+		P.info += {"<br>\n<center></b>Медицинские данные</b></center>
+		<br>\nГруппа крови: [active2.fields["blood_type"]]
+		<br>\nДНК: [active2.fields["b_dna"]]<br>\n
+		<br>\nНезначительные отклонения: [active2.fields["mi_dis"]]
+		<br>\nДетали: [active2.fields["mi_dis_d"]]<br>\n
+		<br>\nИнвалидности: [active2.fields["ma_dis"]]
+		<br>\nДетали: [active2.fields["ma_dis_d"]]<br>\n
+		<br>\nАллергии: [active2.fields["alg"]]
+		<br>\nДетали: [active2.fields["alg_d"]]<br>\n
+		<br>\nТекущие заболевания: [active2.fields["cdi"]]
+		<br>\nДетали: [active2.fields["cdi_d"]]<br>\n
+		<br>\nДополнительная информация:
 		<br>\n\t[active2.fields["notes"]]<br>\n
 		<br>\n
-		<center></b>Comments/Log</b></center>"}
+		<center></b>Комментарии</b></center>"}
 		for(var/c in active2.fields["comments"])
-			P.info += "<br>[c["header"]]<br>Comment: [c["text"]]<br>"
+			P.info += "<br>[c["header"]]<br>Комментарий: [c["text"]]<br>"
 	else
-		P.info += "</b>Medical Record Lost!</b><br>"
+		P.info += "</b>Медицинская информация утрачена!</b><br>"
 	P.info += "</tt>"
-	P.name = "paper - 'Medical Record: [active1.fields["name"]]'"
+	P.name = "Медицинская запись: [active1.fields["name"]]"
 	printing = FALSE
 	SStgui.update_uis(src)
 
@@ -437,15 +445,15 @@
 				if(1)
 					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
 				if(2)
-					R.fields["sex"] = pick("Male", "Female")
+					R.fields["sex"] = pick("Мужской", "Женский", "Небинарный", "Множественный")
 				if(3)
-					R.fields["age"] = rand(5, 85)
+					R.fields["age"] = rand(1, 999)
 				if(4)
 					R.fields["blood_type"] = pick("A-", "B-", "AB-", "O-", "A+", "B+", "AB+", "O+")
 				if(5)
-					R.fields["p_stat"] = pick("*SSD*", "Active", "Physically Unfit", "Disabled")
+					R.fields["p_stat"] = pick("Смерть", "КРС", "Стабильное", "Нетрудоспособность", "Ограниченные возможности")
 				if(6)
-					R.fields["m_stat"] = pick("*Insane*", "*Unstable*", "*Watch*", "Stable")
+					R.fields["m_stat"] = pick("Невменяемость", "Нестабильное", "Рекомендуется наблюдение", "Стабильное")
 			continue
 
 		else if(prob(1))
@@ -461,7 +469,15 @@
 
 /obj/machinery/computer/med_data/laptop
 	name = "medical laptop"
-	desc = "Дешёвый ноутбук корпорации Nanotrasen."
+	desc = "Дешёвый ноутбук, произведённый Nanotrasen."
+	ru_names = list(
+		NOMINATIVE = "медицинский ноутбук",
+		GENITIVE = "медицинского ноутбука",
+		DATIVE = "медицинскому ноутбуку",
+		ACCUSATIVE = "медицинский ноутбук",
+		INSTRUMENTAL = "медицинским ноутбуком",
+		PREPOSITIONAL = "медицинском ноутбуке"
+	)
 	icon_state = "laptop"
 	icon_keyboard = "laptop_key"
 	icon_screen = "medlaptop"

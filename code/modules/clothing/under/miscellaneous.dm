@@ -1224,3 +1224,31 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
+
+/obj/item/clothing/under/satan
+	name = "satanic clothes"
+	desc = "Костюм, который обычно носят сатанисты."
+	ru_names = list(
+		NOMINATIVE = "сатанинские одеяния",
+		GENITIVE = "сатанинских одеяний",
+		DATIVE = "сатанинским одеяниям",
+		ACCUSATIVE = "сатанинские одеяния",
+		INSTRUMENTAL = "сатанинскими одеяниями",
+		PREPOSITIONAL = "сатанинских одеяниях"
+	)
+	over_shoes = TRUE
+	can_adjust = TRUE
+	icon_state = "satan"
+	item_state = "satan"
+	item_color = "satan"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)

@@ -303,8 +303,8 @@ SUBSYSTEM_DEF(ticker)
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	// Generate the list of empty playable AI cores in the world
-	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
-		if(S.name != JOB_TITLE_AI)
+	for(var/obj/effect/landmark/S as anything in GLOB.landmarks_list)
+		if(S.name != JOB_TITLE_AI && !(triai && S.name == /obj/effect/landmark/event/tripai::name))
 			continue
 		if(locate(/mob/living) in S.loc)
 			continue

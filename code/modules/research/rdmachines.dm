@@ -133,7 +133,7 @@
 		var/obj/item/stack/S = type_inserted
 		stack_name = initial(S.name)
 		use_power(min(1000, (amount_inserted / 100)))
-	flick_overlay_view(image(icon, src,"[initial(name)]_[stack_name]", layer + 0.01), 1 SECONDS)
+	flick_overlay_view(mutable_appearance(icon, "[initial(name)]_[stack_name]"), 1 SECONDS)
 
 
 /obj/machinery/r_n_d/proc/check_mat(datum/design/being_built, var/M)

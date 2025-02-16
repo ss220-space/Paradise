@@ -227,6 +227,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/radio/headset/chameleon(src)
+	new /obj/item/clothing/neck/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pda/chameleon(src)
 	new /obj/item/pen/fakesign(src)
@@ -442,7 +443,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
     )
 
 /obj/item/storage/box/syndie_kit/ghostface_kit/populate_contents()
-	new /obj/item/clothing/head/hooded/ghostface/true(src)
+	new /obj/item/clothing/suit/hooded/ghostfacesuit/true(src)
 	new /obj/item/clothing/mask/gas/ghostface/true(src)
 	new /obj/item/melee/ghostface_knife(src)
 

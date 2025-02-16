@@ -726,9 +726,6 @@
 	set_antag_hud(mob_mind.current, null)
 
 /datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)
-	if(god.soul_devoured <= 17 && !inevitable)
-		return FALSE
-
 	if(istype(god, /obj/singularity/god/narsie))
 		return SSticker.cultdat.apocalypse_cinema
 

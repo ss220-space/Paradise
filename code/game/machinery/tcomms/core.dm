@@ -181,7 +181,7 @@
 		if(C == src)
 			continue
 		// We dont care about ones on other zlevels
-		if(!atoms_share_level(C, src))
+		if(!are_zs_connected(C, src))
 			continue
 		// If another core is active, return FALSE
 		if(C.active)

@@ -19,7 +19,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 
 	var/input = null
 	while(!input)
-		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять Отряд Смерти.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять Отряд Смерти.", "Укажите миссию", "", encode = FALSE)
 		if(!input)
 			if(tgui_alert(src, "Ошибка, миссия не задана. Вы хотите приостановить процесс? ", "Подтверждение", list("Да","Нет")) == "Да")
 				return

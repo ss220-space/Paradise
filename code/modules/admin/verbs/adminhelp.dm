@@ -14,9 +14,9 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of"
 
 	var/msg
 	var/list/type = list("Mentorhelp", "Adminhelp")
-	var/selected_type = input("Pick a category.", "Admin Help") as null|anything in type
+	var/selected_type = tgui_input_list(src, "Pick a category.", "Admin Help", type)
 	if(selected_type)
-		msg = clean_input("Please enter your message.", selected_type)
+		msg = tgui_input_text(src, "Please enter your message.", selected_type, multiline = TRUE, encode = FALSE)
 
 	if(!msg)
 		return

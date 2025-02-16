@@ -258,11 +258,19 @@ REAGENT SCANNER
 
 /obj/item/healthanalyzer
 	name = "health analyzer"
+	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта."
+	ru_names = list(
+		NOMINATIVE = "анализатор здоровья",
+		GENITIVE = "анализатора здоровья",
+		DATIVE = "анализатору здоровья",
+		ACCUSATIVE = "анализатор здоровья",
+		INSTRUMENTAL = "анализатором здоровья",
+		PREPOSITIONAL = "анализаторе здоровья"
+	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health"
 	item_state = "healthanalyzer"
 	belt_icon = "health_analyzer"
-	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта."
 	flags = CONDUCT
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
@@ -301,7 +309,7 @@ REAGENT SCANNER
 
 /obj/item/healthanalyzer/attack_self(mob/user)
 	if(!scan_data)
-		to_chat(user, "<span class='notice'>[src] не содержит сохраненных данных.</span>")
+		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] не содержит сохранённых данных."))
 		return
 	show_results(user)
 
@@ -313,7 +321,7 @@ REAGENT SCANNER
 	winset(user, "mapwindow.map", "focus=true")
 
 	if(!in_range(user, src))
-		to_chat(user, "<span class='notice'>Нужно подойти ближе, чтобы нажать на кнопку.</span>")
+		to_chat(user, span_notice("Нужно подойти ближе, чтобы нажать на кнопку."))
 		return
 
 	if(href_list["print"])
@@ -327,14 +335,14 @@ REAGENT SCANNER
 		toggle_mode()
 		return 1
 	if(href_list["clear"])
-		to_chat(user, "Вы очистили буфер данных [src].")
+		to_chat(user, "Вы очистили буфер данных [declent_ru(ACCUSATIVE)].")
 		scan_data = null
 		scan_title = null
 		user << browse(null, "window=scanner")
 		return 1
 
 /obj/item/healthanalyzer/proc/print_report_verb()
-	set name = "Печать отчета"
+	set name = "Печать отчёта"
 	set category = "Object"
 	set src = usr
 
@@ -351,7 +359,7 @@ REAGENT SCANNER
 		return
 	isPrinting = TRUE
 	if(reports_printed > reports_per_device || GLOB.copier_items_printed >= GLOB.copier_max_items)
-		visible_message("<span class='warning'>Nothing happens. Printing device is broken?</span>")
+		visible_message(span_warning("Ничего не происходит. Устройство печати сломано?"))
 		if(!GLOB.copier_items_printed_logged)
 			message_admins("Photocopier cap of [GLOB.copier_max_items] papers reached, all photocopiers/printers are now disabled. This may be the cause of any lag.")
 			GLOB.copier_items_printed_logged = TRUE
@@ -370,7 +378,7 @@ REAGENT SCANNER
 	P.info += "<br><br><b>Заметки:</b><br>"
 	if(in_range(user, src))
 		user.put_in_hands(P, ignore_anim = FALSE)
-		user.visible_message("<span class='notice'>[src.declent_ru(NOMINATIVE)] [pluralize_ru(src.gender,"выдаёт","выдают")] лист с отчётом.</span>")
+		user.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
 	GLOB.copier_items_printed++
 	reports_printed++
 	isPrinting = FALSE
@@ -381,7 +389,7 @@ REAGENT SCANNER
 	popup.open(no_focus = 1)
 
 /obj/item/healthanalyzer/proc/get_header(mob/user)
-	return "<a href='byond://?src=[src.UID()];user=[user.UID()];clear=1'>Очистить</a><a href='byond://?src=[src.UID()];user=[user.UID()];mode=1'>Локализация</a>[advanced ? "<a href='byond://?src=[src.UID()];user=[user.UID()];print=1'>Печать отчета</a><a href='byond://?src=[src.UID()];user=[user.UID()];insurance=1'>Списать страховку</a>" : ""]"
+	return "<a href='byond://?src=[src.UID()];user=[user.UID()];clear=1'>Очистить</a><a href='byond://?src=[src.UID()];user=[user.UID()];mode=1'>Локализация</a>[advanced ? "<a href='byond://?src=[src.UID()];user=[user.UID()];print=1'>Печать отчёта</a><a href='byond://?src=[src.UID()];user=[user.UID()];insurance=1'>Списать страховку</a>" : ""]"
 
 /obj/item/healthanalyzer/examine(mob/user)
 	. = ..()
@@ -389,25 +397,29 @@ REAGENT SCANNER
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			show_results(user)
 		else
-			. += "<span class='notice'>Нужно подойти ближе, чтобы прочесть содержимое.</span>"
+			. += span_notice("Нужно подойти ближе, чтобы прочесть содержмое.")
 
-/proc/medical_scan_action(mob/living/user, atom/target, var/obj/item/healthanalyzer/scanner, var/mode, var/advanced)
+/obj/item/healthanalyzer/proc/medical_scan_action(mob/living/user, atom/target, var/obj/item/healthanalyzer/scanner, var/mode, var/advanced)
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>Вы не достаточно ловки, чтобы использовать это устройство.</span>")
+		to_chat(user, span_warning("Вам не хватает ловкости, чтобы использовать [declent_ru(ACCUSATIVE)]!"))
+		balloon_alert(user, "невозможно!")
 		return
 
 	scanner.window_height = initial(scanner.window_height)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		. = list()
-		user.visible_message("<span class='warning'>[user] анализирует жизненные показатели пола!</span>", "<span class='notice'>Вы по глупости анализировали жизненные показатели пола!</span>")
-		. += "Общий статус: <b>100% Здоров</b>"
+		user.visible_message(
+		span_warning("[user] анализиру[pluralize_ru(user.gender, "ет", "ют")] жизненные показатели пола!"),
+		span_notice("Вы по глупости проанализировали жизненные показатели пола!")
+		)
+		. += "Состояние: <b>100% Здоров</b>"
 		. += "Тип повреждений: <font color='#0080ff'>Удушение</font>/<font color='green'>Токсины</font>/<font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font>"
 		. += "Уровень повреждений: <font color='#0080ff'>0</font> - <font color='green'>0</font> - <font color='#FF8000'>0</font> - <font color='red'>0</font>"
-		. += "Температура тела: ---&deg;C (---&deg;F)"
+		. += "Температура тела: --- &deg;C (--- &deg;F)"
 		if(mode == 1)
 			. += "Локализация повреждений, <font color='red'>Физ.</font>/<font color='#FF8000'>Ожоги</font>:"
-		. += "Уровень крови: --- %, --- cl, тип: ---"
-		. += "Пульс: <font color='#0080ff'>--- bpm.</font>"
+		. += "Уровень крови: --- %, --- u, тип: ---"
+		. += "Пульс: <font color='#0080ff'>--- уд/мин</font>"
 		. += "Гены не обнаружены."
 		scanner.window_height += length(.) * 20
 		scanner.scan_title = "Сканирование: Пол"
@@ -427,19 +439,25 @@ REAGENT SCANNER
 				for(var/mob/living/carbon/human/L in scan_content)
 					scan_subject = L
 			else if(scan_content.len > 1)
-				to_chat(user, "<span class='warning'>[scanner] обнаружил несколько субъектов внутри [target], слишком близко для нормального сканирования.</span>")
+				balloon_alert(user, "внутри слишком много субъектов!")
 				return
 			else
-				to_chat(user, "[scanner] не обнаружил никого внутри [target].")
+				balloon_alert(user, "внутри пусто!")
 				return
 
 	if(!scan_subject)
 		return
 
 	if(user == target)
-		user.visible_message("<span class='notice'>[user.declent_ru(NOMINATIVE)] анализиру[pluralize_ru(user.gender,"ет","ют")] свои жизненные показатели.</span>", "<span class='notice'>[pluralize_ru(user.gender,"Ты анализируешь","Вы анализируете")] свои жизненные показатели.</span>")
+		user.visible_message(
+			span_notice("[user] сканиру[pluralize_ru(user.gender,"ет","ют")] себя с помощью [declent_ru(GENITIVE)]."),
+			span_notice("Вы сканируете себя с помощью [declent_ru(GENITIVE)].")
+		)
 	else
-		user.visible_message("<span class='notice'>[user.declent_ru(NOMINATIVE)] анализиру[pluralize_ru(user.gender,"ет","ют")] жизненные показатели [target.declent_ru(ACCUSATIVE)].</span>", "<span class='notice'>[pluralize_ru(user.gender,"Ты анализируешь","Вы анализируете")] жизненные показатели [target.declent_ru(ACCUSATIVE)].</span>")
+		user.visible_message(
+			span_notice("[user] сканиру[pluralize_ru(user.gender,"ет","ют")] [target] с помощью [declent_ru(GENITIVE)]."),
+			span_notice("Вы сканируете [target] с помощью [declent_ru(GENITIVE)].")
+		)
 
 	. = medical_scan_results(scan_subject, mode, advanced)
 	scanner.window_height += length(.) * 20
@@ -451,13 +469,13 @@ REAGENT SCANNER
 	. = list()
 	if(!ishuman(M) || ismachineperson(M))
 		//these sensors are designed for organic life
-		. += "Общий статус: <span class='danger'>ОШИБКА</span></span>"
+		. += "Состояние: <span class='danger'>ОШИБКА</span></span>"
 		. += "Тип повреждений: <font color='#0080ff'>Удушение</font>/<font color='green'>Токсины</font>/<font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font></span>"
 		. += "Уровень повреждений: <font color='#0080ff'>?</font> - <font color='green'>?</font> - <font color='#FF8000'>?</font> - <font color='red'>?</font></span>"
-		. += "Температура тела: [M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F)</span>"
+		. += "Температура тела: [M.bodytemperature-T0C] &deg;C ([M.bodytemperature*1.8-459.67] &deg;F)</span>"
 		if(mode == 1)
 			. += "Локализация повреждений, <font color='red'>Физ.</font>/<font color='#FF8000'>Ожоги</font>:</span>"
-		. += "Уровень крови: --- %, --- cl, тип: ---</span>"
+		. += "Уровень крови: --- %, --- u, тип: ---</span>"
 		. += "Пульс: <font color='#0080ff'>--- bpm.</font></span>"
 		. += "Гены не обнаружены."
 		return .
@@ -471,18 +489,18 @@ REAGENT SCANNER
 	var/DNR = !H.ghost_can_reenter()
 	if(H.stat == DEAD)
 		if(DNR)
-			. += "Общий статус: <span class='danger'>МЕРТВ <b>\[DNR]</b></span>"
+			. += "Состояние: <span class='danger'>Смерть<b>\[НР]</b></span>"
 		else
-			. += "Общий статус: <span class='danger'>МЕРТВ</span>"
+			. += "Состояние: <span class='danger'>Смерть</span>"
 	else //Если живой или отключка
 		if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
 			OX = fake_oxy > 50 			? 	"<b>[fake_oxy]</b>" 			: fake_oxy
-			. += "Общий статус: <span class='danger'>МЕРТВ</span>"
+			. += "Состояние: <span class='danger'>Смерть</span>"
 		else
-			. += "Общий статус: [H.stat > 1 ? "<span class='danger'>МЕРТВ</span>" : H.health > 0 ? "[H.health]%" : "<span class='danger'>[H.health]%</span>"]"
+			. += "Состояние: [H.stat > 1 ? "<span class='danger'>Смерть</span>" : H.health > 0 ? "[H.health]%" : "<span class='danger'>[H.health]%</span>"]"
 	. += "Тип повреждений: <font color='#0080ff'>Удушение</font>/<font color='green'>Токсины</font>/<font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font>"
 	. += "Уровень повреждений: <font color='#0080ff'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FF8000'>[BU]</font> - <font color='red'>[BR]</font>"
-	. += "Температура тела: [H.bodytemperature-T0C]&deg;C ([H.bodytemperature*1.8-459.67]&deg;F)"
+	. += "Температура тела: [H.bodytemperature-T0C] &deg;C ([H.bodytemperature*1.8-459.67] &deg;F)"
 	if(H.timeofdeath && (H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH)))
 		. += "Время смерти: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]"
 		var/tdelta = round(world.time - H.timeofdeath)
@@ -538,27 +556,24 @@ REAGENT SCANNER
 			. += "&emsp;Стадия: 1/1"
 			. += "&emsp;Лечение: Электрический шок</span>"
 		else if(heart && heart.is_dead())
-			. += "<span class='alert'><b>Обнаружен некроз сердца!</b></span>"
+			. += "<span class='alert'><b>Обнаружен некроз сердца.</b></span>"
 		else if(!heart)
-			. += "<span class='alert'><b>Сердце не обнаружено!</b></span>"
+			. += "<span class='alert'><b>Сердце не обнаружено.</b></span>"
 
 	if(H.getStaminaLoss())
 		. += "<span class='info'>Обнаружено переутомление.</span>"
 	if(H.getCloneLoss())
-		. += "<span class='warning'>Обнаружено [H.getCloneLoss() > 30 ? "серьезное" : "незначительное"] клеточное повреждение.</span>"
+		. += "<span class='warning'>Обнаружено [H.getCloneLoss() > 30 ? "серьёзное" : "незначительное"] клеточное повреждение.</span>"
 	if(H.has_brain_worms())
-		. += "<span class='warning'>Обнаружено отклонение в мозговой активности."
-		. += "&emsp;Рекомендуется подробное сканирование.</span>"
+		. += "<span class='warning'>Обнаружены отклонения в работе мозга.</span>"
 
 	if(H.get_int_organ(/obj/item/organ/internal/brain))
 		if(H.getBrainLoss() >= 100)
-			. += "<span class='warning'>Мозг мертв.</span>"
+			. += "<span class='warning'>Мозг мёртв.</span>"
 		else if(H.getBrainLoss() >= 60)
-			. += "<span class='warning'>Обнаружено серьезное повреждение мозга."
-			. += "&emsp;У субъекта может быть слабоумие.</span>"
+			. += "<span class='warning'>Обнаружено серьёзное повреждение мозга.</span>"
 		else if(H.getBrainLoss() >= 10)
-			. += "<span class='warning'>Обнаружено значительное повреждение мозга."
-			. += "&emsp;У субъекта могло быть сотрясение мозга.</span>"
+			. += "<span class='warning'>Обнаружено значительное повреждение мозга.</span>"
 	else
 		. += "<span class='warning'>Мозг не обнаружен.</span>"
 
@@ -570,29 +585,25 @@ REAGENT SCANNER
 		if(e.has_fracture())
 			var/list/check_list = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 			if((e.limb_zone in check_list) && !e.is_splinted())
-				. += "<span class='warning'>Незакрепленные переломы в [limb]."
-				. += "&emsp;Рекомендуется применить шину.</span>"
+				. += "<span class='warning'>Обнаружен перелом в [limb].</span>"
 		if(e.has_infected_wound())
-			. += "<span class='warning'>Заражение в [limb]."
-			. += "&emsp;Рекомендуется дезинфекция.</span>"
+			. += "<span class='warning'>Заражение в [limb].</span>"
 
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/e = H.bodyparts_by_name[name]
 		if(!e)
 			continue
 		if(e.has_fracture())
-			. += "<span class='warning'>Обнаружены переломы."
-			. += "&emsp;Рекомендуется подробное сканирование.</span>"
+			. += "<span class='warning'>Обнаружены переломы. Локализация повреждений невозможна.</span>"
 			break
 	for(var/obj/item/organ/external/e as anything in H.bodyparts)
 		if(e.has_internal_bleeding())
-			. += "<span class='warning'>Внутреннее кровотечение."
-			. += "&emsp;Рекомендуется подробное сканирование.</span>"
+			. += "<span class='warning'>Обнаружено внутреннее кровотечение. Локализация невозможна.</span>"
 			break
 	var/blood_id = H.get_blood_id()
 	if(blood_id)
 		if(H.bleed_rate)
-			. += "<span class='danger'>Обнаружено кровотечение!</span>"
+			. += "<span class='danger'>Обнаружено кровотечение.</span>"
 		var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
 		var/blood_type = H.dna.blood_type
 		var/blood_species = H.dna.species.blood_species
@@ -603,13 +614,13 @@ REAGENT SCANNER
 			else
 				blood_type = blood_id
 		if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
-			. += "Уровень крови: <span class='danger'>НИЗКИЙ [blood_percent] %, [H.blood_volume] cl,</span> тип: [blood_type], кровь расы: [blood_species]"
+			. += "Уровень крови: <span class='danger'>НИЗКИЙ - [blood_percent] %, [H.blood_volume] u,</span> тип: [blood_type], кровь расы: [blood_species]."
 		else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
-			. += "Уровень крови: <span class='danger'>КРИТИЧЕСКИЙ [blood_percent] %, [H.blood_volume] cl,</span> тип: [blood_type], кровь расы: [blood_species]"
+			. += "Уровень крови: <span class='danger'>КРИТИЧЕСКИЙ - [blood_percent] %, [H.blood_volume] u,</span> тип: [blood_type], кровь расы: [blood_species]."
 		else
-			. += "Уровень крови: [blood_percent] %, [H.blood_volume] cl, тип: [blood_type], кровь расы: [blood_species]"
+			. += "Уровень крови: [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [blood_species]."
 
-	. += "Пульс: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "#0080ff"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font>"
+	. += "Пульс: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "#0080ff"]'>[H.get_pulse(GETPULSE_TOOL)] уд/мин.</font>"
 	var/list/implant_detect = list()
 	for(var/obj/item/organ/internal/cyberimp/cybernetics in H.internal_organs)
 		if(cybernetics.is_robotic())
@@ -618,22 +629,22 @@ REAGENT SCANNER
 		. += "Обнаружены кибернетические модификации:"
 		. += implant_detect
 	if(H.gene_stability < 40)
-		. += "<span class='userdanger'>Гены быстро распадаются!</span>"
+		. += "<span class='userdanger'>Критическая генная нестабильность.</span>"
 	else if(H.gene_stability < 70)
-		. += "<span class='danger'>Возможно спонтанное генное разложение.</span>"
+		. += "<span class='danger'>Тяжёлая генная нестабильность.</span>"
 	else if(H.gene_stability < 85)
-		. += "<span class='warning'>Признаки незначительной генной нестабильности.</span>"
+		. += "<span class='warning'>Незначительная генная нестабильность.</span>"
 	else
 		. += "Гены стабильны."
 
 	var/datum/money_account/acc = get_insurance_account(H)
 	if(acc)
-		. += "Тип страховки - [acc.insurance_type]"
+		. += "Тип страховки - [acc.insurance_type]."
 	else
-		. += "Аккаунт не обнаружен"
-	. += "Требуемое количество очков страховки: [get_req_insurance(H)]"
+		. += "Аккаунт не обнаружен."
+	. += "Требуемое количество очков страховки: [get_req_insurance(H)]."
 	if(acc)
-		. += "Текущее количество очков страховки: [acc.insurance]"
+		. += "Текущее количество очков страховки: [acc.insurance]."
 
 // This is the output to the chat
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
@@ -650,9 +661,9 @@ REAGENT SCANNER
 	mode = !mode
 	switch(mode)
 		if(1)
-			to_chat(usr, "Сканер теперь показывает повреждения конечностей.")
+			to_chat(usr, "Локализация повреждений включена.")
 		if(0)
-			to_chat(usr, "Сканер больше не показывает повреждения конечностей.")
+			to_chat(usr, "Локализация повреждений выключена.")
 
 
 /obj/item/healthanalyzer/update_overlays()
@@ -665,11 +676,11 @@ REAGENT SCANNER
 	if(istype(I, /obj/item/healthupgrade))
 		add_fingerprint(user)
 		if(advanced)
-			to_chat(user, span_warning("Продвинутый модуль сканирования уже установлен."))
+			balloon_alert(user, "уже установлено!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("Вы установили продвинутый модуль сканирования."))
+		balloon_alert(user, "модуль установлен")
 		playsound(loc, I.usesound, 50, TRUE)
 		advanced = TRUE
 		update_icon(UPDATE_OVERLAYS)
@@ -679,13 +690,13 @@ REAGENT SCANNER
 	if(istype(I, /obj/item/card/id))
 		add_fingerprint(user)
 		if(!advanced)
-			to_chat(user, span_warning("Для привязки счета требуется наличие продвинутого модуля сканирования."))
+			to_chat(user, span_warning("Для привязки счёта требуется наличие продвинутого модуля сканирования."))
 			return ATTACK_CHAIN_PROCEED
 
 		var/obj/item/card/id/id = I
 
 		if(!id.associated_account_number)
-			to_chat(user, span_warning("Не обнаружено привязанного аккаунта."))
+			to_chat(user, span_warning("Привязанный аккаунт не обнаружен."))
 			return ATTACK_CHAIN_PROCEED
 
 		connected_acc = id.associated_account_number
@@ -705,10 +716,18 @@ REAGENT SCANNER
 
 
 /obj/item/healthupgrade
-	name = "Health Analyzer Upgrade"
+	name = "health analyzer upgrade"
+	desc = "Модуль, устанавливаемый на анализатор здоровья для расширения его функционала."
+	ru_names = list(
+		NOMINATIVE = "модуль улучшения анализатора здоровья",
+		GENITIVE = "модуля улучшения анализатора здоровья",
+		DATIVE = "модулю улучшения анализатора здоровья",
+		ACCUSATIVE = "модуль улучшения анализатора здоровья",
+		INSTRUMENTAL = "модулем улучшения анализатора здоровья",
+		PREPOSITIONAL = "модуле улучшения анализатора здоровья"
+	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "healthupgrade"
-	desc = "Модуль обновления, устанавливаемый на Health Analyzer для расширения функционала."
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/deconstruct.ogg'
@@ -1042,7 +1061,7 @@ REAGENT SCANNER
 	dat += "[extra_font]\tApprox. Brain Damage %: [target.getBrainLoss()]<br>"
 
 	dat += "Paralysis Summary %: [target.AmountParalyzed()] ([round(target.AmountParalyzed() / 10)] seconds left!)<br>"
-	dat += "Body Temperature: [target.bodytemperature-T0C]&deg;C ([target.bodytemperature*1.8-459.67]&deg;F)<br>"
+	dat += "Body Temperature: [target.bodytemperature-T0C] &deg;C ([target.bodytemperature*1.8-459.67] &deg;F)<br>"
 
 	dat += "<hr>"
 

@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(create_object_forms, list(/obj, /obj/structure, /obj/machinery,
 	onclose(user, "create_obj")
 
 /datum/admins/proc/quick_create_object(var/mob/user)
-	var/path = input("Select the path of the object you wish to create.", "Path", /obj) in GLOB.create_object_forms
+	var/path = tgui_input_list(usr, "Select the path of the object you wish to create.", "Path", GLOB.create_object_forms, /obj)
 	var/html_form = GLOB.create_object_forms[path]
 
 	if(!html_form)
