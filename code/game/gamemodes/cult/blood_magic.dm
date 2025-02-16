@@ -35,7 +35,7 @@
 		break
 	if(length(spells) >= limit)
 		if(rune)
-			to_chat(owner, "<span class='cultitalic'>Вы не можете хранить больше чем [MAX_BLOODCHARGE] заклинания\s. <b>Уберите одно.</b></span>")
+			to_chat(owner,  span_cultitalic("Вы не можете хранить больше, чем [MAX_BLOODCHARGE] заклинания\s. <b>Уберите одно.</b>"))
 			remove_spell("Вы не можете хранить больше чем [MAX_BLOODCHARGE] заклинания\s, выберите заклинание для удаления.")
 		else
 			to_chat(owner, "<span class='cultitalic'>Вы не можете хранить больше чем [RUNELESS_MAX_BLOODCHARGE] заклинание\s без руны усиления! <b>Pick a spell to remove.</b></span>")
