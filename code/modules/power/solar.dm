@@ -339,7 +339,7 @@
 	autostart = TRUE // Automatically search for connected devices
 
 /obj/machinery/power/solar_control/Initialize(mapload, obj/structure/computerframe)
-	SSsun.add_solar(src)
+	connect_to_network()
 	setup()
 
 	. = ..()
