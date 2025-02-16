@@ -192,13 +192,13 @@
 	name = "baguette"
 	desc = "Bon appetit!"
 	ru_names = list(
-            NOMINATIVE = "багет",
-            GENITIVE = "багета",
-            DATIVE = "багету",
-            ACCUSATIVE = "багет",
-            INSTRUMENTAL = "багетом",
-            PREPOSITIONAL = "багете"
-    )
+		NOMINATIVE = "багет",
+		GENITIVE = "багета",
+		DATIVE = "багету",
+		ACCUSATIVE = "багет",
+		INSTRUMENTAL = "багетом",
+		PREPOSITIONAL = "багете"
+	)
 	icon_state = "baguette"
 	item_state = "baguette"
 	filling_color = "#E3D796"

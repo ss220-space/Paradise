@@ -25,12 +25,12 @@
 	name = "the anarchist's cookbook"
 	desc = "Знаменитая книга рецептов, которая поможет вам научиться печь круассаны, за которые можно умереть."
 	ru_names = list(
-            NOMINATIVE = "Кулинарная книга анархиста",
-            GENITIVE = "Кулинарной книги анархиста",
-            DATIVE = "Кулинарной книге анархиста",
-            ACCUSATIVE = "Кулинарную книгу анархиста",
-            INSTRUMENTAL = "Кулинарной книгой анархиста",
-            PREPOSITIONAL = "Кулинарной книге анархиста"
+		NOMINATIVE = "Кулинарная книга анархиста",
+		GENITIVE = "Кулинарной книги анархиста",
+		DATIVE = "Кулинарной книге анархиста",
+		ACCUSATIVE = "Кулинарную книгу анархиста",
+		INSTRUMENTAL = "Кулинарной книгой анархиста",
+		PREPOSITIONAL = "Кулинарной книге анархиста"
 	)
 	crafting_recipe_types = list(
 		/datum/crafting_recipe/throwing_croissant

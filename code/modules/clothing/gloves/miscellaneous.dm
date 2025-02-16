@@ -152,12 +152,12 @@
 	name = "stun gloves"
 	desc = "Эти перчатки не защитят ваших врагов от электрического удара."
 	ru_names = list(
-    NOMINATIVE = "оглушающие перчатки",
-    GENITIVE = "оглушающих перчаток",
-    DATIVE = "оглушающим перчаткам",
-    ACCUSATIVE = "оглушающие перчатки",
-    INSTRUMENTAL = "оглушающими перчатками",
-    PREPOSITIONAL = "оглушающих перчатках"
+		NOMINATIVE = "оглушающие перчатки",
+		GENITIVE = "оглушающих перчаток",
+		DATIVE = "оглушающим перчаткам",
+		ACCUSATIVE = "оглушающие перчатки",
+		INSTRUMENTAL = "оглушающими перчатками",
+		PREPOSITIONAL = "оглушающих перчатках"
 	)
 	var/obj/item/stock_parts/cell/cell = null
 	var/stun_strength = 2 SECONDS

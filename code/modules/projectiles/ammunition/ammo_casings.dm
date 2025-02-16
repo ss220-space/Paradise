@@ -239,12 +239,12 @@
 	name = "assassination shell"
 	desc = "Специальная гильза для шрапнели, обработанная глушащим токсином."
 	ru_names = list(
-        NOMINATIVE = "патрон для убийства",
-        GENITIVE = "патрона для убийства",
-        DATIVE = "патрону для убийства",
-        ACCUSATIVE = "патрон для убийства",
-        INSTRUMENTAL = "патроном для убийства",
-        PREPOSITIONAL = "патроне для убийства"
+		NOMINATIVE = "патрон для убийства",
+		GENITIVE = "патрона для убийства",
+		DATIVE = "патрону для убийства",
+		ACCUSATIVE = "патрон для убийства",
+		INSTRUMENTAL = "патроном для убийства",
+		PREPOSITIONAL = "патроне для убийства"
     )
 	materials = list(MAT_METAL = 1500, MAT_GLASS = 200)
 	projectile_type = /obj/item/projectile/bullet/pellet/assassination

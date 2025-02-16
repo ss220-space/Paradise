@@ -2,12 +2,12 @@
 	desc = "Шкафчик с украденными проводами, распорками, электроникой и сервоприводами шлюза, грубо собранными во что-то, напоминающее меха."
 	name = "Locker Mech"
 	ru_names = list(
-    NOMINATIVE = "Шкафомех",
-    GENITIVE = "Шкафомеха",
-    DATIVE = "Шкафомеху",
-    ACCUSATIVE = "Шкафомеха",
-    INSTRUMENTAL = "Шкафомехом",
-    PREPOSITIONAL = "Шкафомехе"
+		NOMINATIVE = "Шкафомех",
+		GENITIVE = "Шкафомеха",
+		DATIVE = "Шкафомеху",
+		ACCUSATIVE = "Шкафомеха",
+		INSTRUMENTAL = "Шкафомехом",
+		PREPOSITIONAL = "Шкафомехе"
 	)
 	icon = 'icons/obj/mecha/lockermech.dmi'
 	icon_state = "lockermech"
@@ -34,12 +34,12 @@
 	desc = "Шкафчик с украденными проводами, распорками, электроникой и сервоприводами шлюза, грубо собранными во что-то, напоминающее меха. Окрашен в темно-красный цвет."
 	name = "Syndie Locker Mech"
 	ru_names = list(
-    NOMINATIVE = "Синди-Шкафомех",
-    GENITIVE = "Синди-Шкафомеха",
-    DATIVE = "Синди-Шкафомеху",
-    ACCUSATIVE = "Синди-Шкафомеха",
-    INSTRUMENTAL = "Синди-Шкафомехом",
-    PREPOSITIONAL = "Синди-Шкафомехе"
+		NOMINATIVE = "Синди-Шкафомех",
+		GENITIVE = "Синди-Шкафомеха",
+		DATIVE = "Синди-Шкафомеху",
+		ACCUSATIVE = "Синди-Шкафомеха",
+		INSTRUMENTAL = "Синди-Шкафомехом",
+		PREPOSITIONAL = "Синди-Шкафомехе"
 	)
 	icon = 'icons/obj/mecha/lockermech.dmi'
 	icon_state = "syndielockermech"
@@ -83,12 +83,12 @@
 	name = "mechadrop tool"
 	desc = "Простой инструмент, всего с одной кнопкой."
 	ru_names = list(
-    NOMINATIVE = "инструмент для сбрасывания меха",
-    GENITIVE = "инструмента для сбрасывания меха",
-    DATIVE = "инструменту для сбрасывания меха",
-    ACCUSATIVE = "инструмент для сбрасывания меха",
-    INSTRUMENTAL = "инструментом для сбрасывания меха",
-    PREPOSITIONAL = "инструменте для сбрасывания меха"
+		NOMINATIVE = "инструмент для доставки меха",
+		GENITIVE = "инструмента для доставки меха",
+		DATIVE = "инструменту для доставки меха",
+		ACCUSATIVE = "инструмент для доставки меха",
+		INSTRUMENTAL = "инструментом для доставки меха",
+		PREPOSITIONAL = "инструменте для доставки меха"
 	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pointer"

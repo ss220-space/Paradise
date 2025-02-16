@@ -1953,12 +1953,12 @@
 	name = "\improper .357 revolver"
 	desc = "Подозрительный револьвер. В нём используются патроны .357 калибра."
 	ru_names = list(
-    		NOMINATIVE = "револьвер .357 калибра",
-    		GENITIVE = "револьвера .357 калибра",
-    		DATIVE = "револьверу .357 калибра",
-    		ACCUSATIVE = "револьвер .357 калибра",
-    		INSTRUMENTAL = "револьвером .357 калибра",
-    		PREPOSITIONAL = "револьвере .357 калибра"
+		NOMINATIVE = "револьвер .357 калибра",
+		GENITIVE = "револьвера .357 калибра",
+		DATIVE = "револьверу .357 калибра",
+		ACCUSATIVE = "револьвер .357 калибра",
+		INSTRUMENTAL = "револьвером .357 калибра",
+		PREPOSITIONAL = "револьвере .357 калибра"
 	)
 	icon_state = "revolver"
 	max_shots = 1
