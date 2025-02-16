@@ -780,7 +780,8 @@
 			//Draining blood from non-cultists
 			else
 				if(uses >= 300)
-					to_chat(user, "<span class='danger'>У тебя уже достаточно крови!</span>")
+					balloon_alert(user, "у вас достаточно крови!")
+					return
 				if(H.stat == DEAD)
 					to_chat(user, "<span class='warning'>[H.p_their(TRUE)] blood has stopped flowing, you'll have to find another way to extract it.</span>")
 					return
@@ -825,13 +826,13 @@
 		//Draining blood on the floor
 		if(istype(target, /obj/effect/decal/cleanable/blood) || istype(target, /obj/effect/decal/cleanable/trail_holder))
 			if(uses >= 300)
-				to_chat(user, "<span class='danger'>У тебя уже достаточно крови!</span>")
+				balloon_alert(user, "у вас достаточно крови!")
 				return
 			blood_draw(target, user)
 		if(istype(target, /obj/item/blood_orb))
 			var/obj/item/blood_orb/candidate = target
 			if(uses >= 300)
-				to_chat(user, "<span class='danger'>У тебя уже достаточно крови!</span>")
+				balloon_alert(user, "у вас достаточно крови!")
 				return
 			if(candidate.blood)
 				uses += candidate.blood
