@@ -1,7 +1,7 @@
 /datum/action/innate/cult/blood_magic //Blood magic handles the creation of blood spells (formerly talismans)
 	name = "Подготовить Магию Крови"
 	button_icon_state = "carve"
-	desc = "Погдотовить магию крови рисуя руны на своем теле. Гораздо легче с  <b>руной усиления</b>."
+	desc = "Подготовить магию крови, рисуя руны на своем теле. Гораздо легче с  <b>руной усиления</b>."
 	var/list/spells = list()
 	var/channeling = FALSE
 
