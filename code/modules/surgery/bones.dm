@@ -5,7 +5,7 @@
 ///Surgery Datums
 
 /datum/surgery/bone_repair
-	name = "Bone Repair"
+	name = "Восстановление повреждённых костей"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -31,7 +31,7 @@
 	restricted_speciestypes = list(/datum/species/plasmaman)
 
 /datum/surgery/bone_repair/non_hitin
-	name = "Bone Repair"
+	name = "Восстановление повреждённых костей"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -49,7 +49,7 @@
 	restricted_speciestypes = list(/datum/species/plasmaman, /datum/species/wryn, /datum/species/kidan)
 
 /datum/surgery/bone_repair/plasmaman
-	name = "Plasmaman Bone Repair"
+	name = "Восстановление повреждённых костей (Плазмолюд)"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -76,7 +76,7 @@
 	restricted_speciestypes = null
 
 /datum/surgery/bone_repair/insect
-	name = "Insectoid Bone Repair"
+	name = "Восстановление повреждённых костей (Инсектоид)"
 	steps = list(
 		/datum/surgery_step/open_encased/saw,
 		/datum/surgery_step/generic/retract_skin,
@@ -97,7 +97,7 @@
 	restricted_speciestypes = null
 
 /datum/surgery/bone_repair/skull
-	name = "Skull Repair"
+	name = "Восстановление повреждённых костей черепа"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -112,7 +112,7 @@
 	restricted_speciestypes = list(/datum/species/plasmaman)
 
 /datum/surgery/bone_repair/plasmaman/skull
-	name = "Plasmaman Skull Repair"
+	name = "Восстановление повреждённых костей черепа (Плазмолюд)"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -137,7 +137,7 @@
 
 //surgery steps
 /datum/surgery_step/glue_bone
-	name = "mend bone"
+	name = "заживление кости"
 	begin_sound = 'sound/surgery/bonegel.ogg'
 	end_sound = 'sound/surgery/hemostat1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -151,7 +151,7 @@
 	time = 2.4 SECONDS
 
 /datum/surgery_step/glue_bone/plasma
-	name = "mend bone"
+	name = "заживление кости (Плазмолюд)"
 
 	allowed_tools = list(
 	/obj/item/stack/sheet/mineral/plasma = 100
