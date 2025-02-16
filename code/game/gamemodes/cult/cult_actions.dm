@@ -42,7 +42,7 @@
 
 	var/my_message
 	if(istype(user, /mob/living/simple_animal/demon/slaughter/cult)) //Harbringers of the Slaughter
-		my_message = "<span class='cultlarge'><b>Предвестник Резни:</b> [message]</span>"
+		my_message = span_cultlarge("<b>Предвестник Резни:</b> [message]")
 	else
 		my_message = "<span class='cultspeech'><b>[(isconstruct(user) ? "Конструкт" : isshade(user) ? "" : "Аколит")] [user.real_name]:</b> [message]</span>"
 	for(var/mob/M in GLOB.player_list)
