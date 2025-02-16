@@ -28,7 +28,7 @@
 	if(!user || !message)
 		return
 	if(!user.can_speak())
-		to_chat(user, "<span class='warning'>Вы не можете говорить!</span>")
+		to_chat(user, span_warning("Вы не можете говорить!"))
 		return
 
 	if(HAS_TRAIT(user, TRAIT_MUTE) || user.mind.miming) //Under vow of silence/mute?
