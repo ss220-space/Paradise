@@ -9,6 +9,7 @@
 		INSTRUMENTAL = "ретрактором",
 		PREPOSITIONAL = "ретракторе",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "retractor"
 	item_state = "retractor"
@@ -61,7 +62,6 @@
 		INSTRUMENTAL = "примитивным ретрактором",
 		PREPOSITIONAL = "примитивном ретракторе",
 	)
-	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_retractor"
 	item_state = "primitive_retractor"
@@ -79,6 +79,7 @@
 		INSTRUMENTAL = "гемостатом",
 		PREPOSITIONAL = "гемостате",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "hemostat"
 	item_state = "hemostat"
@@ -123,7 +124,6 @@
 		INSTRUMENTAL = "примитивным гемостатом",
 		PREPOSITIONAL = "примитивном гемостате",
 	)
-	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_hemostat"
 	item_state = "primitive_hemostat"
@@ -141,6 +141,7 @@
 		INSTRUMENTAL = "прижигателем",
 		PREPOSITIONAL = "прижигателе",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "cautery"
 	item_state = "cautery"
@@ -170,7 +171,6 @@
 		INSTRUMENTAL = "примитивным прижигателем",
 		PREPOSITIONAL = "примитивном прижигателе",
 	)
-	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_cautery"
 	item_state = "primitive_cautery"
@@ -189,6 +189,7 @@
 		INSTRUMENTAL = "хирургической дрелью",
 		PREPOSITIONAL = "хирургической дрели",
 	)
+	gender = FEMALE
 	icon_state = "drill"
 	item_state = "drills"
 	hitsound = 'sound/weapons/drill.ogg'
@@ -261,6 +262,7 @@
 		INSTRUMENTAL = "скальпелем",
 		PREPOSITIONAL = "скальпеле",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "scalpel"
 	item_state = "scalpel"
@@ -307,7 +309,6 @@
 		INSTRUMENTAL = "примитивным скальпелем",
 		PREPOSITIONAL = "примитивном скальпеле",
 	)
-	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_scalpel"
 	item_state = "primitive_scalpel"
@@ -393,6 +394,7 @@
 		INSTRUMENTAL = "хирургической пилой",
 		PREPOSITIONAL = "хирургической пиле",
 	)
+	gender = FEMALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "saw3"
 	hitsound = 'sound/weapons/circsawhit.ogg'
@@ -448,7 +450,6 @@
 		INSTRUMENTAL = "примитивной хирургической пилой",
 		PREPOSITIONAL = "примитивной хирургической пиле",
 	)
-	gender = FEMALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_saw"
 	item_state = "primitive_saw"
@@ -483,6 +484,7 @@
 		INSTRUMENTAL = "костяным гелем",
 		PREPOSITIONAL = "костяном геле",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone-gel"
 	item_state = "bone-gel"
@@ -510,7 +512,6 @@
 		INSTRUMENTAL = "примитивным костяным гелем",
 		PREPOSITIONAL = "примитивном костяном геле",
 	)
-	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_bonegel"
 	item_state = "primitive_bonegel"
@@ -528,7 +529,7 @@
 		INSTRUMENTAL = "гелью для сосудов",
 		PREPOSITIONAL = "геле для сосудов",
 	)
-	ic
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "fixovein"
 	item_state = "fixovein"
@@ -574,6 +575,7 @@
 		INSTRUMENTAL = "костоправом",
 		PREPOSITIONAL = "костоправе",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone setter"
 	item_state = "bone setter"
@@ -619,7 +621,6 @@
 		INSTRUMENTAL = "примитивным костоправом",
 		PREPOSITIONAL = "примитивном костоправе",
 	)
-	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "primitive_bonesetter"
 	item_state = "primitive_bonesetter"

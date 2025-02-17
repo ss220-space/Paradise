@@ -51,13 +51,13 @@
 	var/strips_amount = 3
 	if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/scalpel))
 		user.visible_message(
-			span_notice("[user] реж[pluralize_ru(user.gender,"ет","ут")] мясо тонкими полосками."),
+			span_notice("[user] реж[pluralize_ru(user.gender, "ет", "ут")] мясо тонкими полосками."),
 			span_notice("Вы режете мясо тонкими полосками."),
 		)
 	else
 		strips_amount = 1
 		user.visible_message(
-			span_notice("[user] грубо реж[pluralize_ru(user.gender,"ет","ут")] мясо тонкими полосками."),
+			span_notice("[user] грубо реж[pluralize_ru(user.gender, "ет", "ут")] мясо тонкими полосками."),
 			span_notice("Вы грубо режете мясо тонкими полосками."),
 		)
 	for(var/i = 1 to strips_amount)
@@ -67,7 +67,7 @@
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/meat/burn()
-	visible_message(span_notice("[declent_ru(NOMINATIVE)] приготовилось!"))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] приготовился!"))
 	new /obj/item/reagent_containers/food/snacks/roasted_meat(loc)
 	qdel(src)
 
@@ -460,7 +460,7 @@
 	gender = FEMALE
 	icon_state = "spiderleg"
 	list_reagents = list("protein" = 2, "toxin" = 2)
-	tastes = list("паутины" = 1, "жутких движений" = 1)
+	tastes = list("паутины" = 1, "слабых подёргиваний во рту" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg/burn()
 	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] приготовилась!"))
@@ -504,15 +504,24 @@
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goldgrub
-	name= "goldgrub meat"
-	desc = "Gross, slimy, and green intestines with goldgrub skin, retrieved from a Goldgrub. Legends say it is valuable in traditional medicines, however it's highly toxic now."
+	name = "goldgrub meat"
+	desc = "Плотные слизистые, покрытые золотистой шкурой зелёные внутренности. Были извлечены из Златожора. Легенды гласят, что мясо ценится в традиционной медицине, однако сейчас оно крайне ядовито."
+	ru_names = list(
+		NOMINATIVE = "мясо златожора",
+		GENITIVE = "мяса златожора",
+		DATIVE = "мясу златожору",
+		ACCUSATIVE = "мясо златожора",
+		INSTRUMENTAL = "мясом златожором",
+		PREPOSITIONAL = "мясе златожора"
+	)
+	gender = NEUTER
 	icon_state = "Goldgrubmeat"
 	list_reagents = list("grub_juice" = 5, "toxin" = 10)
 	bitesize = 2
-	tastes = list("meat" = 1)
+	tastes = list("слизистого мяса" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goldgrub/burn()
-	visible_message(span_notice("[src] finishes cooking!"))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] приготовилось!"))
 	new /obj/item/reagent_containers/food/snacks/goldgrubmeat(loc)
 	qdel(src)
 
@@ -748,8 +757,7 @@
 
 /obj/item/reagent_containers/food/snacks/goliath_steak
 	name = "goliath steak"
-	desc = "Восхитительный, приготовленный на лаве стейк."
-	desc = "Кусок мяса голиафа. Сейчас не очень съедобно, но в лаве оно готовится отлично."
+	desc = "Восхитительный стейк из мяса голиафа, прожаренный прямо в лаве. Так первобытно."
 	ru_names = list(
 		NOMINATIVE = "стейк из мяса голиафа",
 		GENITIVE = "стейка из мяса голиафа",
@@ -763,7 +771,7 @@
 	icon_state = "goliathsteak"
 	trash = null
 	list_reagents = list("protein" = 6, "vitamin" = 2)
-	tastes = list("мяса" = 1)
+	tastes = list("нежного мяса" = 1)
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/roasted_spiderleg

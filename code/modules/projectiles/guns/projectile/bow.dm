@@ -33,7 +33,6 @@
 		INSTRUMENTAL = "костяным луком",
 		PREPOSITIONAL = "костяном луке"
 	)
-	gender = MALE
 	icon_state = "ashenbow"
 	item_state = "ashenbow"
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/ashen //you can't shoot wooden arrows from bone bow!
@@ -188,7 +187,6 @@
 		INSTRUMENTAL = "костяной стрелой",
 		PREPOSITIONAL = "костяной стреле"
 	)
-	gender = FEMALE
 	icon_state = "bone_arrow"
 	item_state = "bone_arrow"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
