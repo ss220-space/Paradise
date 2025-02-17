@@ -84,14 +84,17 @@
 /obj/machinery/power/solar/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
 		if(disassembled)
-			var/obj/item/solar_assembly/S = locate() in src
-			if(S)
-				S.forceMove(loc)
-				S.give_glass(stat & BROKEN)
+			var/obj/item/solar_assembly/assembly = locate() in src
+			
+			if(assembly)
+				assembly.forceMove(loc)
+				assembly.give_glass(stat & BROKEN)
+
 		else
 			playsound(src, "shatter", 70, TRUE)
 			new /obj/item/shard(src.loc)
 			new /obj/item/shard(src.loc)
+
 	qdel(src)
 
 /obj/machinery/power/solar/update_overlays()
@@ -365,6 +368,7 @@
 	if(connected_tracker)
 		connected_tracker.unset_control()
 
+	SSsun.remove_solar(src)
 	return ..()
 
 /obj/machinery/power/solar_control/disconnect_from_network()
@@ -395,15 +399,11 @@
 
 //called by the sun controller, update the facing angle (either manually or via tracking) and rotates the panels accordingly
 /obj/machinery/power/solar_control/proc/update()
-	if(stat & (NOPOWER | BROKEN))
-		return
-
 	if(track == TRACKER_AUTO && connected_tracker) // auto-tracking
 		connected_tracker.modify_angle(SSsun.get_angle())
 		set_panels(cdir)
 
 	updateDialog()
-
 
 /obj/machinery/power/solar_control/update_overlays()
 	. = ..()
@@ -529,6 +529,7 @@
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 		stat |= BROKEN
 		update_icon(UPDATE_OVERLAYS)
+		SSsun.remove_solar(src)
 
 /obj/machinery/power/solar_control/process()
 	lastgen = gen

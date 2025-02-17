@@ -1,5 +1,5 @@
 use byondapi::value::ByondValue;
-use std::sync::RwLock;
+use parking_lot::RwLock;
 
 pub static RATE: RwLock<f32> = RwLock::new(0.0);
 pub static DX: RwLock<f32> = RwLock::new(0.0);
