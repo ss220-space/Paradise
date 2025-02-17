@@ -202,7 +202,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/set_bone
-	name = "закреплений кости"
+	name = "закрепление кости"
 	begin_sound = 'sound/surgery/bonesetter.ogg'
 	end_sound = 'sound/surgery/hemostat1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
