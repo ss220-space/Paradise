@@ -3937,6 +3937,9 @@
 
 	else if(href_list["showrelatedacc"])
 		var/client/C = locate(href_list["client"]) in GLOB.clients
+		if(!C)
+			to_chat(usr, "No client inside!")
+			return
 		var/thing_to_check
 		if(href_list["showrelatedacc"] == "cid")
 			thing_to_check = jointext(C.related_accounts_cid, "<br>")

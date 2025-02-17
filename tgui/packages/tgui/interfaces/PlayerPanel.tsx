@@ -235,7 +235,7 @@ const PunishSection = (props, context) => {
             content="JOBBAN"
             color="red"
             tooltip={hasCkey ? null : 'NO CKEY'}
-            disabled={!isButtonAllowed('ban') && !hasCkey()}
+            disabled={!isButtonAllowed('ban') || !hasCkey()}
             onClick={() => handleAction('jobban')}
           />
           {isButtonAllowed('admin') ? (
@@ -257,7 +257,7 @@ const PunishSection = (props, context) => {
             content="BAN"
             color="red"
             tooltip={hasCkey ? null : 'NO CKEY'}
-            disabled={!isButtonAllowed('ban') && !hasCkey()}
+            disabled={!isButtonAllowed('ban') || !hasCkey()}
             onClick={() => handleAction('ban')}
           />
           <Button
@@ -266,7 +266,7 @@ const PunishSection = (props, context) => {
             content="APPEARANCE BAN"
             color="red"
             tooltip={hasCkey ? null : 'NO CKEY'}
-            disabled={!isButtonAllowed('ban') && !hasCkey()}
+            disabled={!isButtonAllowed('ban') || !hasCkey()}
             onClick={() => handleAction('appban')}
           />
           {isButtonAllowed('event') ? (
