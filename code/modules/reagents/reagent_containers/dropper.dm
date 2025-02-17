@@ -166,7 +166,7 @@
 				if(istype(adv_disease))
 					for(var/datum/symptom/symptom as anything in adv_disease.symptoms)
 						english_symptoms += symptom.name
-					virusData += " ([english_list(english_symptoms)])"
+					virusData += " ([russian_list(english_symptoms)])"
 				virList += virusData
 			add_attack_logs(user, target, "Infected with [english_list(virList)].")
 

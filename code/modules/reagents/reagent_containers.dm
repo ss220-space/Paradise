@@ -17,7 +17,7 @@
 	var/pass_open_check = FALSE // Pass open check in empty verb
 
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
-	set name = "Установить объём перемещения содержимого"
+	set name = "Объём перемещения содержимого"
 	set category = "Object"
 	set src in usr
 

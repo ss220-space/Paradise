@@ -192,11 +192,11 @@
 	if(!(printing) && D)
 		var/reason = tgui_input_text(user,"Укажите причину выпуска", "Указать", multiline = TRUE)
 		reason += "<span class=\"paper_field\"></span>"
-		var/english_symptoms = list()
+		var/symptoms_list = list()
 		for(var/I in D.symptoms)
 			var/datum/symptom/S = I
-			english_symptoms += S.name
-		var/symtoms = english_list(english_symptoms)
+			symptoms_list += S.name
+		var/symtoms = russian_list(symptoms_list)
 
 
 		var/signature
@@ -292,10 +292,10 @@
 						if(istype(D, /datum/disease/virus/advance))
 							var/datum/disease/virus/advance/A = D
 							dat += "<BR><b>Симптомы:</b> "
-							var/english_symptoms = list()
+							var/symptoms_list = list()
 							for(var/datum/symptom/S in A.symptoms)
-								english_symptoms += S.name
-							dat += english_list(english_symptoms)
+								symptoms_list += S.name
+							dat += russian_list(symptoms_list)
 						dat += "<BR>"
 				if(i == 0)
 					dat += "В образце не обнаружен вирус."

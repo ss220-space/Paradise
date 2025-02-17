@@ -895,7 +895,7 @@
 		else
 			out += "вкус [taste_desc]"
 
-	return english_list(out, no_taste_text)
+	return russian_list(out, no_taste_text)
 
 ///////////////////////////////////////////////////////////////////////////////////
 

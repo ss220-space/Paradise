@@ -1387,16 +1387,16 @@
 		for(var/i in 1 to 3)
 			fruits += names_in_order[i]
 		fruits += "других растений"
-	var/fruit_list = english_list(fruits)
+	var/fruit_list = russian_list(fruits)
 	description = "Образец [alcohol_description] вина, приготовленного из [fruit_list]."
 
 	var/flavor = ""
 	if(!primary_tastes.len)
 		primary_tastes = list("[alcohol_description] алкоголя")
-	flavor += english_list(primary_tastes)
+	flavor += russian_list(primary_tastes)
 	if(secondary_tastes.len)
 		flavor += ", с лёгким привкусом "
-		flavor += english_list(secondary_tastes)
+		flavor += russian_list(secondary_tastes)
 	taste_description = flavor
 	if(holder.my_atom)
 		holder.my_atom.on_reagent_change()

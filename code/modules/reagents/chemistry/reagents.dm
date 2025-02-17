@@ -95,7 +95,7 @@
 		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[new_reagent.id]
 
 		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
-			to_chat(M, span_danger("Вы чувствуете сильную эйфорию с лёгким оттенком вины. Что это?"))
+			to_chat(M, span_danger("Вы чувствуете сильную эйфорию с лёгким оттенком вины..."))
 			new_reagent.last_addiction_dose = world.timeofday
 			M.reagents.addiction_list.Add(new_reagent)
 
