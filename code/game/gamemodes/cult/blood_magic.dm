@@ -62,7 +62,7 @@
 	if(length(spells))
 		if(entered_spell_name == "Blood Rites")
 			if(locate(/datum/action/innate/cult/blood_spell/manipulation) in spells)
-				balloon_alert(owner, "лимит данного заклинания достигнут!")
+				balloon_alert(user, "лимит данного заклинания достигнут!")
 				return
 	if(!channeling)
 		channeling = TRUE
