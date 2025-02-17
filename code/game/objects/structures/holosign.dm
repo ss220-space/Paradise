@@ -4,13 +4,13 @@
 /obj/structure/holosign
 	name = "holo sign"
 	ru_names = list(
-        NOMINATIVE = "голографическая табличка",
-        GENITIVE = "голографической таблички",
-        DATIVE = "голографической табличке",
-        ACCUSATIVE = "голографическую табличку",
-        INSTRUMENTAL = "голографической табличкой",
-        PREPOSITIONAL = "голографической табличке"
-    )
+		NOMINATIVE = "голографическая табличка",
+		GENITIVE = "голографической таблички",
+		DATIVE = "голографической табличке",
+		ACCUSATIVE = "голографическую табличку",
+		INSTRUMENTAL = "голографической табличкой",
+		PREPOSITIONAL = "голографической табличке"
+	)
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	max_integrity = 1
@@ -61,13 +61,13 @@
 	name = "wet floor sign"
 	desc = "Слова пролетают мимо, как будто они ничего не значат."
 	ru_names = list(
-        NOMINATIVE = "знак мокрого пола",
-        GENITIVE = "знака мокрого пола",
-        DATIVE = "знаку мокрого пола",
-        ACCUSATIVE = "знак мокрого пола",
-        INSTRUMENTAL = "знаком мокрого пола",
-        PREPOSITIONAL = "знаке мокрого пола"
-    )
+		NOMINATIVE = "знак мокрого пола",
+		GENITIVE = "знака мокрого пола",
+		DATIVE = "знаку мокрого пола",
+		ACCUSATIVE = "знак мокрого пола",
+		INSTRUMENTAL = "знаком мокрого пола",
+		PREPOSITIONAL = "знаке мокрого пола"
+	)
 	icon_state = "holosign"
 
 /obj/structure/holosign/wetsign/proc/wet_timer_start(obj/item/holosign_creator/HS_C)
@@ -108,13 +108,13 @@
 	name = "holo barrier"
 	desc = "Небольшое голографическое препятствие, преодолеть которое можно только пешком."
 	ru_names = list(
-        NOMINATIVE = "голографический барьер",
-        GENITIVE = "голографического барьера",
-        DATIVE = "голографическому барьеру",
-        ACCUSATIVE = "голографический барьер",
-        INSTRUMENTAL = "голографическим барьером",
-        PREPOSITIONAL = "голографическом барьере"
-    )
+		NOMINATIVE = "голографический барьер",
+		GENITIVE = "голографического барьера",
+		DATIVE = "голографическому барьеру",
+		ACCUSATIVE = "голографический барьер",
+		INSTRUMENTAL = "голографическим барьером",
+		PREPOSITIONAL = "голографическом барьере"
+	)
 	icon_state = "holosign_sec"
 	pass_flags_self = PASSTABLE|PASSGRILLE|PASSGLASS|LETPASSTHROW
 	density = TRUE
@@ -143,13 +143,13 @@
 	name = "holo firelock"
 	desc = "Голографический барьер, похожий на пожарный шлюз. Он не препятствует прохождению твёрдых предметов, но не позволяет газу проникать внутрь."
 	ru_names = list(
-        NOMINATIVE = "голографический пожарный шлюз",
-        GENITIVE = "голографического пожарного шлюза",
-        DATIVE = "голографическому пожарному шлюзу",
-        ACCUSATIVE = "голографический пожарный шлюз",
-        INSTRUMENTAL = "голографическим пожарным шлюзом",
-        PREPOSITIONAL = "голографическом пожарном шлюзе"
-    )
+		NOMINATIVE = "голографический пожарный шлюз",
+		GENITIVE = "голографического пожарного шлюза",
+		DATIVE = "голографическому пожарному шлюзу",
+		ACCUSATIVE = "голографический пожарный шлюз",
+		INSTRUMENTAL = "голографическим пожарным шлюзом",
+		PREPOSITIONAL = "голографическом пожарном шлюзе"
+	)
 	icon_state = "holo_firelock"
 	density = FALSE
 	layer = ABOVE_MOB_LAYER
@@ -173,13 +173,13 @@
 	name = "Energy Field"
 	desc = "Хрупкое энергетическое поле, которое блокирует движение. Отлично защищает от смертоносных снарядов."
 	ru_names = list(
-        NOMINATIVE = "энергетический барьер",
-        GENITIVE = "энергетического барьера",
-        DATIVE = "энергетическому барьеру",
-        ACCUSATIVE = "энергетический барьер",
-        INSTRUMENTAL = "энергетическим барьером",
-        PREPOSITIONAL = "энергетическом барьере"
-    )
+		NOMINATIVE = "энергетический барьер",
+		GENITIVE = "энергетического барьера",
+		DATIVE = "энергетическому барьеру",
+		ACCUSATIVE = "энергетический барьер",
+		INSTRUMENTAL = "энергетическим барьером",
+		PREPOSITIONAL = "энергетическом барьере"
+	)
 	density = TRUE
 	max_integrity = 10
 	allow_walk = FALSE
@@ -195,13 +195,13 @@
 	name = "Charged Energy Field"
 	desc = "Мощный энергетический барьер, который блокирует движение. От него исходит энергия."
 	ru_names = list(
-        NOMINATIVE = "заряженный энергетический барьер",
-        GENITIVE = "заряженного энергетического барьера",
-        DATIVE = "заряженному энергетическому барьеру",
-        ACCUSATIVE = "заряженный энергетический барьер",
-        INSTRUMENTAL = "заряженным энергетическим барьером",
-        PREPOSITIONAL = "заряженном энергетическом барьере"
-    )
+		NOMINATIVE = "заряженный энергетический барьер",
+		GENITIVE = "заряженного энергетического барьера",
+		DATIVE = "заряженному энергетическому барьеру",
+		ACCUSATIVE = "заряженный энергетический барьер",
+		INSTRUMENTAL = "заряженным энергетическим барьером",
+		PREPOSITIONAL = "заряженном энергетическом барьере"
+	)
 	max_integrity = 20
 	COOLDOWN_DECLARE(shock_cooldown)
 
