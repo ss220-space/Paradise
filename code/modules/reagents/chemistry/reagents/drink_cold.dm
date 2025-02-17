@@ -138,7 +138,6 @@
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nuka_cola)
 	return ..() | update_flags
 
-
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_add(mob/living/user)
 	. = ..()
 	if(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG))
