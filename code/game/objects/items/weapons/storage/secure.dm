@@ -243,6 +243,12 @@
 	add_fingerprint(user)
 	return
 
+/obj/item/storage/secure/briefcase/captian
+
+/obj/item/storage/secure/briefcase/captian/populate_contents()
+	new /obj/item/card/id/captains_spare(src)
+
+
 //Syndie variant of Secure Briefcase. Contains space cash, slightly more robust.
 /obj/item/storage/secure/briefcase/syndie
 	force = 15

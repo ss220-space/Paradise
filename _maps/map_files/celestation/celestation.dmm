@@ -39304,7 +39304,7 @@
 /area/hallway/primary/fore)
 "gfF" = (
 /obj/structure/table/wood,
-/obj/item/card/id/captains_spare,
+/obj/item/storage/secure/briefcase/captian,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
