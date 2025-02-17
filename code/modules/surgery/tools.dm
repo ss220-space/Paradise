@@ -195,7 +195,7 @@
 	hitsound = 'sound/weapons/drill.ogg'
 	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
 	flags = CONDUCT
-	force = 15.0
+	force = 15
 	sharp = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "materials=1;biotech=1"
@@ -400,10 +400,10 @@
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	mob_throw_hit_sound =  'sound/weapons/pierce.ogg'
 	flags = CONDUCT
-	force = 15.0
+	force = 15
 	sharp = 1
 	w_class = WEIGHT_CLASS_NORMAL
-	throwforce = 9.0
+	throwforce = 9
 	throw_speed = 3
 	throw_range = 5
 	embed_chance = 20
@@ -459,7 +459,7 @@
 	force = 15.0
 	sharp = 1
 	w_class = WEIGHT_CLASS_NORMAL
-	throwforce = 9.0
+	throwforce = 9
 	throw_speed = 3
 	throw_range = 5
 	embed_chance = 20

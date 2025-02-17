@@ -892,7 +892,7 @@
 	can_dry = TRUE
 	visible_contents = FALSE
 	var/primitive = FALSE //used for energy consuming stuff
-	var/drying_timer = 1
+	var/drying_timer = 0
 	icon_lightmask = null
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
@@ -959,14 +959,17 @@
 
 
 /obj/machinery/smartfridge/drying_rack/process()
-	..()
-	if(drying)//no need to update unless something got dried
-		if(drying_timer && length(contents))
-			drying_timer--
-		else
-			rack_dry()
+	if(!drying)//no need to update if we don't dry
+		return
+	if(drying_timer)
+		drying_timer--
+		if(!drying_timer) //if it went to zero, dry and reset
 			drying_timer = initial(drying_timer)
-	update_icon(UPDATE_OVERLAYS)
+			if(rack_dry())
+				update_icon(UPDATE_OVERLAYS)
+	else // no timer
+		if(rack_dry())
+			update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smartfridge/drying_rack/accept_check(obj/item/O)
 	. = ..()
