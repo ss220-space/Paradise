@@ -180,7 +180,6 @@
 "rj" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/table/wood,
-/obj/item/oar,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
@@ -191,12 +190,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"rV" = (
-/obj/structure/stone_tile/slab/cracked,
-/obj/vehicle/ridden/lavaboat,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "tZ" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -825,7 +818,7 @@ tZ
 tZ
 tZ
 PL
-rV
+Md
 EO
 mL
 mO
