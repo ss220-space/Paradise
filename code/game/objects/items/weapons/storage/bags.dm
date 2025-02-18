@@ -228,7 +228,7 @@
 		var/list/bombs = list()
 		for(var/I in contents)
 			var/atom/explos = I
-			bombs["[explos.name]"] = image(icon = explos.icon, icon_state = explos.icon_state)
+			bombs[explos.name] = image(mutable_appearance = explos.icon, icon_state = explos.icon_state)
 		nextbomb = show_radial_menu(user = user, anchor = src, choices = bombs, require_near = TRUE)
 	else
 		balloon_alert(user, "Сумка пустая!")
