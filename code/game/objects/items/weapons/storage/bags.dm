@@ -225,20 +225,22 @@
 
 /obj/item/storage/bag/kaboom/AltClick(mob/user)
 	if(LAZYLEN(contents))
-		var/list/bombs = list()
-		for(var/I in contents)
-			var/atom/explos = I
-			bombs[explos.name] = image(mutable_appearance = explos.icon, icon_state = explos.icon_state)
-		nextbomb = show_radial_menu(user = user, anchor = src, choices = bombs, require_near = TRUE)
+		if(LAZYLEN(contents) <= storage_slots)
+			var/list/bombs = list()
+			var/list/bombs_inside = list()
+			for(var/I in contents)
+				var/atom/explos = I
+				bombs[explos.name] = image(mutable_appearance = explos.icon, icon_state = explos.icon_state)
+				bombs_inside[explos.name] = explos
+			nextbomb = show_radial_menu(user = user, anchor = src, choices = bombs, require_near = TRUE)
+			nextbomb = bombs[nextbomb]
+		else
+			balloon_alert(user, "Сумка полная!")
 	else
 		balloon_alert(user, "Сумка пустая!")
 
-/obj/item/storage/bag/kaboom/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
-	var/bomb = null
-	for(var/I in contents)
-		if(I.name == nextbomb.name)
-			bomb = I
-
+///obj/item/storage/bag/kaboom/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
+	//nextbomb.attack(target, user)
 
 
 /obj/item/storage/bag/kaboom/cyborg // borg version
@@ -248,7 +250,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 
-/obj/item/storage/bag/kaboom/cyborg/upgraded // borg version
+/obj/item/storage/bag/kaboom/cyborg/upgraded // borg with storage increase version
 	storage_slots = 15
 
 
