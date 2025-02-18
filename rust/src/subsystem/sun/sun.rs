@@ -1,6 +1,5 @@
 use super::statics::*;
-use byondapi::byond_string;
-use byondapi::value::ByondValue;
+use byondapi::{byond_string, value::ByondValue};
 use rand::Rng;
 
 pub struct Sun {}
@@ -46,9 +45,10 @@ impl Sun {
 
     pub fn setup_solars() -> eyre::Result<ByondValue> {
         let solars = SOLARS.read();
+        let proc_setup = byond_string!("setup");
 
         solars.iter().for_each(|solar| {
-            let _ = solar.call_id(byond_string!("setup"), &[]);
+            let _ = solar.call_id(proc_setup, &[]);
         });
 
         Ok(ByondValue::from(true))
@@ -56,9 +56,10 @@ impl Sun {
 
     pub fn update_solars() -> eyre::Result<ByondValue> {
         let solars = SOLARS.write();
+        let proc_update = byond_string!("update");
 
         solars.iter().for_each(|solar| {
-            let _ = solar.call_id(byond_string!("update"), &[]);
+            let _ = solar.call_id(proc_update, &[]);
         });
 
         Ok(ByondValue::from(true))
