@@ -135,7 +135,7 @@
 
 	if(requires_visibility)
 		for(var/mob/living/candidate in view(range, parent))
-			if (!isnull(limit_to_trait) && !HAS_TRAIT(candidate, limit_to_trait))
+			if(!isnull(limit_to_trait) && !HAS_TRAIT(candidate, limit_to_trait))
 				continue
 			to_heal[candidate] = TRUE
 	else
