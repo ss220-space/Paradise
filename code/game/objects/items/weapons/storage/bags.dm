@@ -196,6 +196,61 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 
+// -----------------------------
+//          bombs bag
+// -----------------------------
+
+/obj/item/storage/bag/kaboom // bag that can hold plastic explosions(used only for emagged mining borg)
+	name = "bomb satchell"
+	ru_names = list(
+		NOMINATIVE = "сумка для взрывчатки",
+		GENITIVE = "сумки для взрывчатки",
+		DATIVE = "сумке для взрывчатки",
+		ACCUSATIVE = "сумку для взрывчатки",
+		INSTRUMENTAL = "сумкой для взрывчатки",
+		PREPOSITIONAL = "сумке для взрывчатки"
+	)
+	desc = "Сумка для хранения взрычатки. Способна автоматически устанавливать выбранную взрывчатку, однако это делает невозможным доставть содержимое поштучно."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "satchel"
+	origin_tech = "engineering=2"
+	slot_flags = ITEM_SLOT_BELT
+	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
+	w_class = WEIGHT_CLASS_NORMAL
+	storage_slots = 5
+	max_combined_w_class = 200
+	max_w_class = WEIGHT_CLASS_BULKY
+	can_hold = list(/obj/item/grenade/plastic)
+	var/nextbomb = null
+
+/obj/item/storage/bag/kaboom/AltClick(mob/user)
+	if(LAZYLEN(contents))
+		var/list/bombs = list()
+		for(var/I in contents)
+			var/atom/explos = I
+			bombs["[explos.name]"] = image(icon = explos.icon, icon_state = explos.icon_state)
+		nextbomb = show_radial_menu(user = user, anchor = src, choices = bombs, require_near = TRUE)
+	else
+		balloon_alert(user, "Сумка пустая!")
+
+/obj/item/storage/bag/kaboom/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
+	var/bomb = null
+	for(var/I in contents)
+		if(I.name == nextbomb.name)
+			bomb = I
+
+
+
+/obj/item/storage/bag/kaboom/cyborg // borg version
+	name = "cyborg bomb satchel"
+
+/obj/item/storage/bag/kaboom/cyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
+/obj/item/storage/bag/kaboom/cyborg/upgraded // borg version
+	storage_slots = 15
+
 
 // -----------------------------
 //          Plant bag
