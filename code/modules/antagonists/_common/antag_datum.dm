@@ -394,7 +394,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 				general_targets |= general_objective.target
 
 			new_objective.find_target(target_blacklist = general_targets)
-			if(new_objective.target)
+			if(new_objective.target )
 				found_valid_target = TRUE
 
 	if(!found_valid_target)

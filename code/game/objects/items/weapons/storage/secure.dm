@@ -104,7 +104,7 @@
 	emagged = TRUE
 	locked = FALSE
 	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	flick_overlay_view(image(icon, src, icon_sparking), 1 SECONDS)
+	flick_overlay_view(mutable_appearance(icon, icon_sparking), 1 SECONDS)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS)
 
 	if(istype(weapon, /obj/item/melee/energy/blade))

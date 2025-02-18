@@ -104,7 +104,8 @@
 		minhours = tgui_input_number(usr, "Минимальное количество часов, необходимое для игры на [offer_mob]?", "Установите число часов", 10)
 	else
 		minhours = hours
-		
+	if(isnull(minhours))
+		return
 	log_and_message_admins("has offered control of ([key_name_admin(offer_mob)]) to ghosts with [minhours] hrs playtime")
 	var/question = "Вы хотите войти в раунд как [offer_mob.real_name ? offer_mob.real_name : offer_mob][offer_mob.job ? " ([offer_mob.job])" : ""]"
 	if(isnull(hide_role))

@@ -64,6 +64,7 @@
 	circuit = /obj/item/circuitboard/mining_shuttle
 	shuttleId = "mining"
 	possible_destinations = "mining_home;mining_away"
+	lockdown_affected = TRUE
 
 /******************************Lantern*******************************/
 

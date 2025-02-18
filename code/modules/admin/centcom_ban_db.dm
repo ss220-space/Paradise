@@ -113,5 +113,5 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/input_ckey = input(usr, "Please enter a ckey to lookup", "Global Ban DB Lookup")
+	var/input_ckey = tgui_input_text(usr, "Please enter a ckey to lookup", "Global Ban DB Lookup", encode = FALSE)
 	holder.create_ccbdb_lookup(input_ckey)

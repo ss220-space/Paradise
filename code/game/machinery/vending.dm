@@ -3143,7 +3143,7 @@
 		"НЕТ, ПОЖАЛУЙСТА, ВИЛЛИ, НЕ ДЕЛАЙ МНЕ БОЛЬНО-*БЗЗЗЗ*"
 	)
 
-	products = list(/obj/item/clothing/shoes/black = 10,/obj/item/clothing/shoes/brown = 10,/obj/item/clothing/shoes/blue = 10,/obj/item/clothing/shoes/green = 10,/obj/item/clothing/shoes/yellow = 10,/obj/item/clothing/shoes/purple = 10,/obj/item/clothing/shoes/red = 10,/obj/item/clothing/shoes/white = 10,/obj/item/clothing/shoes/sandal=10)
+	products = list(/obj/item/clothing/shoes/black = 10,/obj/item/clothing/shoes/brown = 10,/obj/item/clothing/shoes/blue = 10,/obj/item/clothing/shoes/green = 10,/obj/item/clothing/shoes/yellow = 10,/obj/item/clothing/shoes/purple = 10,/obj/item/clothing/shoes/red = 10,/obj/item/clothing/shoes/white = 10,/obj/item/clothing/shoes/sandal=10,/obj/item/clothing/shoes/convers/red = 10,/obj/item/clothing/shoes/convers = 10)
 	contraband = list(/obj/item/clothing/shoes/orange = 5)
 	premium = list(/obj/item/clothing/shoes/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/shoedispenser

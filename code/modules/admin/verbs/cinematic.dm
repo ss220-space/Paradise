@@ -6,7 +6,7 @@
 	if(!SSticker)
 		return
 
-	var/datum/cinematic/choice = input(usr, "Choose a cinematic to play to everyone in the server.", "Choose Cinematic") in sort_list(subtypesof(/datum/cinematic), cmp = /proc/cmp_typepaths_asc)
+	var/datum/cinematic/choice = tgui_input_list(usr, "Choose a cinematic to play to everyone in the server.", "Choose Cinematic", sort_list(subtypesof(/datum/cinematic), cmp = /proc/cmp_typepaths_asc))
 	if(!choice || !ispath(choice, /datum/cinematic))
 		return
 
