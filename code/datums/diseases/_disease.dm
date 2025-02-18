@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 			var/datum/reagent/R = GLOB.chemical_reagents_list[id]
 			if(istype(R))
 				reagents += R.name
-		cure_text = english_list(reagents, "Неизлечимо", needs_all_cures ? " & " : " or ")
+		cure_text = russian_list(reagents, "Неизлечимо", needs_all_cures ? " и " : " или ")
 
 /datum/disease/Destroy()
 	affected_mob = null

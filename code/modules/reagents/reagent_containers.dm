@@ -17,7 +17,7 @@
 	var/pass_open_check = FALSE // Pass open check in empty verb
 
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
-	set name = "Set transfer amount"
+	set name = "Установить объём перемещения"
 	set category = "Object"
 	set src in usr
 
@@ -28,20 +28,20 @@
 	var/default = null
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
 		default = amount_per_transfer_from_this
-	var/N = input("Amount per transfer from this:", "[src]", default) as null|anything in possible_transfer_amounts
+	var/N = input("Объём перемещения отсюда:", "[declent_ru(NOMINATIVE)]", default) as null|anything in possible_transfer_amounts
 
 	if(!N)
 		return
 	if(!Adjacent(usr))
-		to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
+		balloon_alert(usr, "слишком далеко!")
 		return
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		to_chat(usr, "<span class='warning'>You can't use your hands!</span>")
+		balloon_alert(usr, "руки заблокированы!")
 		return
 
 	amount_per_transfer_from_this = N
-	to_chat(usr, "<span class='notice'>[src] will now transfer [N] units at a time.</span>")
+	to_chat(usr, span_notice("Теперь [declent_ru(NOMINATIVE)] буд[pluralize_ru(gender, "ет", "ут")] перемещать по <b>[N]</b> единиц[declension_ru(N, "у", "ы", "")] вещества за раз."))
 
 /obj/item/reagent_containers/AltClick(mob/user)
 	if(Adjacent(user))
@@ -49,26 +49,26 @@
 
 /obj/item/reagent_containers/verb/empty()
 
-	set name = "Empty Container"
+	set name = "Вылить содержимое"
 	set category = "Object"
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
-	if(alert(usr, "Are you sure you want to empty that?", "Empty Container:", "Yes", "No") != "Yes")
+	if(tgui_alert(usr, "Вы уверены?", "Вылить содержимое", list("Да", "Нет")) != "Да")
 		return
 	if(!usr.Adjacent(src) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	if(isturf(usr.loc) && loc == usr)
 		if(!is_open_container() && !pass_open_check)
-			to_chat(usr, "<span class='warning'>Open [src] first.</span>")
+			balloon_alert(usr, "сначала откройте!")
 			return
 		if(reagents.total_volume)
-			to_chat(usr, "<span class='notice'>You empty [src] onto the floor.</span>")
+			balloon_alert(usr, "содержимое вылито")
 			reagents.reaction(usr.loc)
 			reagents.clear_reagents()
 		else
-			to_chat(usr, "<span class='notice'>You tried emptying [src], but there's nothing in it.</span>")
+			balloon_alert(usr, "пусто, нечего выливать!")
 
 /obj/item/reagent_containers/New()
 	create_reagents(volume, temperature_min, temperature_max)
@@ -110,10 +110,10 @@
 /obj/item/reagent_containers/attack_self(mob/user = usr)
 	if(has_lid)
 		if(is_open_container())
-			to_chat(user, "<span class='notice'>You put the lid on [src].</span>")
+			balloon_alert(user, "крышка надета")
 			add_lid()
 		else
-			to_chat(user, "<span class='notice'>You take the lid off [src].</span>")
+			balloon_alert(user, "крышка снята")
 			remove_lid()
 
 
@@ -126,19 +126,19 @@
 /obj/item/reagent_containers/wash(mob/user, atom/source)
 	if(is_open_container())
 		if(reagents.total_volume >= volume)
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
+			balloon_alert(user, "нет места!")
 			return
 		else
 			reagents.add_reagent("water", min(volume - reagents.total_volume, amount_per_transfer_from_this))
-			to_chat(user, "<span class='notice'>You fill [src] from [source].</span>")
+			to_chat(user, span_notice("Вы наполняете [declent_ru(ACCUSATIVE)] из [source.declent_ru(GENITIVE)]."))
 			return
 	..()
 
 /obj/item/reagent_containers/examine(mob/user)
 	. = ..()
 	if(visible_transfer_rate)
-		. += "<span class='notice'>It will transfer [amount_per_transfer_from_this] unit[amount_per_transfer_from_this != 1 ? "s" : ""] at a time.</span>"
+		. += span_notice("Объём перемещения содержимого отсюда - <b>[amount_per_transfer_from_this]</b> единиц[declension_ru(amount_per_transfer_from_this, "а", "ы", "")] вещества за раз.")
 
 	if(possible_transfer_amounts)
-		. += "<span class='notice'>Alt-click to change the transfer amount.</span>"
+		. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы изменить объём перемещения содержимого.")
 

@@ -459,16 +459,16 @@
 
 		var/extra_font = null
 		extra_font = (occupant.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Физические повреждения: [occupant.getBruteLoss()]</font><br>"
+		dat += "[extra_font]\t-Механические повреждения: [occupant.getBruteLoss()]</font><br>"
 
 		extra_font = (occupant.getOxyLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Удушение: [occupant.getOxyLoss()]</font><br>"
+		dat += "[extra_font]\t-Удушье: [occupant.getOxyLoss()]</font><br>"
 
 		extra_font = (occupant.getToxLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Токсины: [occupant.getToxLoss()]</font><br>"
+		dat += "[extra_font]\t-Отравление: [occupant.getToxLoss()]</font><br>"
 
 		extra_font = (occupant.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Ожоги: [occupant.getFireLoss()]</font><br>"
+		dat += "[extra_font]\t-Термические повреждения: [occupant.getFireLoss()]</font><br>"
 
 		extra_font = (occupant.radiation < 10 ?"<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tРадиационное поражение: [occupant.radiation]</font><br>"
@@ -509,8 +509,8 @@
 		dat += "<hr><table border='1'>"
 		dat += "<tr>"
 		dat += "<th>Орган</th>"
-		dat += "<th>Ожоги</th>"
-		dat += "<th>Физ. повреждения</th>"
+		dat += "<th>Терм. повреждения</th>"
+		dat += "<th>Мех. повреждения</th>"
 		dat += "<th>Другие повреждения</th>"
 		dat += "</tr>"
 

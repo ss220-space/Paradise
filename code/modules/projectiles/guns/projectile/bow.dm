@@ -1,6 +1,15 @@
 /obj/item/gun/projectile/bow
 	name = "bow"
-	desc = "A sturdy bow made out of wood and reinforced with iron."
+	desc = "Прочный лук, сделанный из дерева."
+	ru_names = list(
+		NOMINATIVE = "деревянный лук",
+		GENITIVE = "деревянного лука",
+		DATIVE = "деревянному луку",
+		ACCUSATIVE = "деревянный лук",
+		INSTRUMENTAL = "деревянным луком",
+		PREPOSITIONAL = "деревянном луке"
+	)
+	gender = MALE
 	icon_state = "bow"
 	item_state = "bow"
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
@@ -15,7 +24,15 @@
 
 /obj/item/gun/projectile/bow/ashen //better than wooden
 	name = "bone bow"
-	desc = "A primitive bow with a sinew bowstring. Typically used by tribal hunters and warriors. Due to the specific design of the bow, it's able to shoot only bone arrows."
+	desc = "Примитивный лук с тетивой, сделанной из жилы. Обычно используется племенными охотниками и воинами. Из-за специфической конструкции лука из него можно стрелять только костяными стрелами."
+	ru_names = list(
+		NOMINATIVE = "костяной лук",
+		GENITIVE = "костяного лука",
+		DATIVE = "костяному луку",
+		ACCUSATIVE = "костяной лук",
+		INSTRUMENTAL = "костяным луком",
+		PREPOSITIONAL = "костяном луке"
+	)
 	icon_state = "ashenbow"
 	item_state = "ashenbow"
 	mag_type = /obj/item/ammo_box/magazine/internal/bow/ashen //you can't shoot wooden arrows from bone bow!
@@ -111,6 +128,23 @@
 	range = 10
 	damage = 25
 	damage_type = BRUTE
+	var/faction_bonus_damage = 13
+	var/nemesis_factions = list("mining", "boss")
+	var/nemesis_faction = FALSE
+
+/obj/item/projectile/bullet/reusable/arrow/prehit(atom/target)
+	var/mob/living/H = target
+
+	if(!ismob(H) || !LAZYLEN(nemesis_factions))
+		return
+
+	for(var/faction in H.faction)
+		if(faction in nemesis_factions)
+			nemesis_faction = TRUE
+			damage += faction_bonus_damage
+			break
+
+	. = ..()
 
 /obj/item/projectile/bullet/reusable/arrow/bone //A fully upgraded normal arrow; it's got the stats to show. Still *less* damage than a slug, slower, and with negative AP. Only for bone bow!
 	name = "bone-tipped arrow"
@@ -119,11 +153,24 @@
 	range = 12
 	damage = 45
 	armour_penetration = -10
+	faction_bonus_damage = 23
 
 /obj/item/ammo_casing/caseless/arrow
 	name = "arrow"
-	desc = "Stab, stab, stab."
+	desc = "Послушай, ты не мог бы положить это яблоко себе на голову?"
+	ru_names = list(
+		NOMINATIVE = "деревянная стрела",
+		GENITIVE = "деревянной стрелы",
+		DATIVE = "деревянной стреле",
+		ACCUSATIVE = "деревянную стрелу",
+		INSTRUMENTAL = "деревянной стрелой",
+		PREPOSITIONAL = "деревянной стреле"
+	)
+	gender = FEMALE
 	icon_state = "arrow"
+	item_state = "arrow"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 10
 	projectile_type = /obj/item/projectile/bullet/reusable/arrow
 	muzzle_flash_effect = null
@@ -131,8 +178,19 @@
 
 /obj/item/ammo_casing/caseless/arrow/bone_tipped
 	name = "bone-tipped arrow"
-	desc = "An arrow made from bone, wood, and sinew. Sturdy and sharp."
+	desc = "Стрела, сделанная из кости, дерева и сухожилий. Прочная и острая."
+	ru_names = list(
+		NOMINATIVE = "костяная стрела",
+		GENITIVE = "костяной стрелы",
+		DATIVE = "костяной стреле",
+		ACCUSATIVE = "костяную стрелу",
+		INSTRUMENTAL = "костяной стрелой",
+		PREPOSITIONAL = "костяной стреле"
+	)
 	icon_state = "bone_arrow"
+	item_state = "bone_arrow"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 12
 	projectile_type = /obj/item/projectile/bullet/reusable/arrow/bone
 	caliber = "bone_arrow"
@@ -140,7 +198,16 @@
 //quiver
 /obj/item/storage/backpack/quiver
 	name = "quiver"
-	desc = "A quiver for holding arrows."
+	desc = "Колчан для хранения стрел."
+	ru_names = list(
+		NOMINATIVE = "колчан",
+		GENITIVE = "колчана",
+		DATIVE = "колчану",
+		ACCUSATIVE = "колчан",
+		INSTRUMENTAL = "колчаном",
+		PREPOSITIONAL = "колчане"
+	)
+	gender =  MALE
 	icon_state = "quiver"
 	item_state = "quiver"
 	storage_slots = 21
@@ -163,7 +230,16 @@
 
 /obj/item/storage/belt/quiver_weaver //belt slot
 	name = "weaver chitin quiver"
-	desc = "A fireproof quiver made from the chitin of a marrow weaver. Used to hold arrows."
+	desc = "Огнеупорный колчан, сделанный из хитина ткача. Используется для хранения стрел."
+	ru_names = list(
+		NOMINATIVE = "колчан из хитина ткача",
+		GENITIVE = "колчана из хитина ткача",
+		DATIVE = "колчану из хитина ткача",
+		ACCUSATIVE = "колчан из хитина ткача",
+		INSTRUMENTAL = "колчаном из хитина ткача",
+		PREPOSITIONAL = "колчане из хитина ткача"
+	)
+	gender = MALE
 	icon_state = "quiver_weaver"
 	item_state = "quiver_weaver"
 	storage_slots = 21 //every craft makes 3 arrows

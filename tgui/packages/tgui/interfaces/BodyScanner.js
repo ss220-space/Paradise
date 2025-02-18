@@ -35,13 +35,13 @@ const abnormalities = [
 ];
 
 const damages = [
-  ['Удушение', 'oxyLoss'],
+  ['Удушье', 'oxyLoss'],
   ['Повреждение мозга', 'brainLoss'],
-  ['Токсины', 'toxLoss'],
+  ['Отравление', 'toxLoss'],
   ['Радиационное поражение', 'radLoss'],
-  ['Физические повреждения', 'bruteLoss'],
+  ['Механические повреждения', 'bruteLoss'],
   ['Генетические повреждения', 'cloneLoss'],
-  ['Ожоги', 'fireLoss'],
+  ['Термические повреждения', 'fireLoss'],
   ['Паралич тела', 'paralysis'],
 ];
 
@@ -315,7 +315,7 @@ const BodyScannerMainOrgansExternal = (props) => {
                     </Stack.Item>
                   </Tooltip>
                   {!!o.bruteLoss && (
-                    <Tooltip content="Физические повреждения">
+                    <Tooltip content="Механические повреждения">
                       <Stack.Item grow>
                         <Icon name="bone" mr={0.5} />
                         {round(o.bruteLoss)}
@@ -323,7 +323,7 @@ const BodyScannerMainOrgansExternal = (props) => {
                     </Tooltip>
                   )}
                   {!!o.fireLoss && (
-                    <Tooltip content="Ожоги">
+                    <Tooltip content="Термические повреждения">
                       <Stack.Item>
                         <Icon name="fire" mr={0.5} />
                         {round(o.fireLoss)}

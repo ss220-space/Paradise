@@ -596,6 +596,33 @@
 	icon_state = "shamskull"
 	species_restricted = list(SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
 
+/obj/item/clothing/head/roach
+	name = "roach"
+	desc = "Символ шамана племени, визуально отличающий его от соплеменников. Ценится как трофей среди шахтёров."
+	ru_names = list(
+		NOMINATIVE = "роуч",
+		GENITIVE = "роуча",
+		DATIVE = "роучу",
+		ACCUSATIVE = "роуч",
+		INSTRUMENTAL = "роучем",
+		PREPOSITIONAL = "роуче"
+	)
+	icon_state = "roach"
+	item_state = "roach"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	sprite_sheets = list(
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/head.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/head.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+	)
+
 /obj/item/clothing/head/mr_chang_band
 	name = "Tight headband"
 	desc = "It is a safety tool, designed to prevent all marketing and selling techniques from escaping the wearers skull. Handle with care."
