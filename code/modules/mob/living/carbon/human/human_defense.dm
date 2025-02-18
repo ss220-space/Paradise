@@ -590,11 +590,11 @@ emp_act
 
 	if(!I.force)
 		visible_message(
-			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [src] [message_hit_area] [I.declent_ru(INSTRUMENTAL)]."),
-			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] вас [message_hit_area] [I.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [src] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]."),
+			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] вас [I.declent_ru(INSTRUMENTAL)] [message_hit_area]."),
 			ignored_mobs = user,
 		)
-		to_chat(user, span_warning("Вы аккуратно тыкнули [src] [message_hit_area] [I.declent_ru(INSTRUMENTAL)]."))
+		to_chat(user, span_warning("Вы аккуратно тыкнули [src] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]."))
 		return
 
 	var/message_verb = "атаковал"
@@ -602,11 +602,11 @@ emp_act
 		message_verb = "[pick(I.attack_verb)]"
 
 	visible_message(
-		span_danger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] [src] [message_hit_area] [I.declent_ru(INSTRUMENTAL)]!"),
-		span_userdanger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] вас [message_hit_area] [I.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] [src] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]!"),
+		span_userdanger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] вас [I.declent_ru(INSTRUMENTAL)] [message_hit_area]!"),
 		ignored_mobs = user,
 	)
-	to_chat(user, span_danger("Вы [message_verb]и [src] [message_hit_area] [I.declent_ru(INSTRUMENTAL)]!"))
+	to_chat(user, span_danger("Вы [message_verb]и [src] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]!"))
 
 
 /**
