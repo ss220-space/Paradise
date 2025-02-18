@@ -371,6 +371,27 @@
 				M.reagents.remove_reagent(R.id,1)
 	return ..() | update_flags
 
+/datum/reagent/medicine/coaltree_extract
+	name = "Экстракт Угледрева"
+	id = "coaltree_extract"
+	description = "Экстракт, полученный из угледрева. Выводит из организма вредные токсины, но имеет ряд побочных эффектов."
+	reagent_state = LIQUID
+	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+	color = "#000000"
+	taste_description = "пепла"
+
+/datum/reagent/medicine/coaltree_extract/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(-3, FALSE)
+	update_flags |= M.adjustBruteLoss(1, FALSE)
+	if(prob(10))
+		to_chat(M, span_warning("Ваша кожа покрывается кровавыми волдырями."))
+	if(prob(50))
+		for(var/datum/reagent/R in M.reagents.reagent_list)
+			if(R != src)
+				M.reagents.remove_reagent(R.id,1)
+	return ..() | update_flags
+
 /datum/reagent/medicine/omnizine
 	name = "Омнизин"
 	id = "omnizine"

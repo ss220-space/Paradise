@@ -134,7 +134,7 @@
 /datum/outfit/ashwalker/shaman //yep, we adding uniform available only for lizards
 	name = "Ashwalker Shaman"
 	uniform = /obj/item/clothing/under/ash_walker_shaman
-	head = /obj/item/clothing/head/shamanash
+	head = /obj/item/clothing/head/roach
 	neck = /obj/item/clothing/neck/mantle/unathi
 	belt = /obj/item/storage/bag/medpouch
 	gloves = /obj/item/clothing/gloves/color/black/goliath

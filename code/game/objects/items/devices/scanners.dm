@@ -732,6 +732,25 @@ REAGENT SCANNER
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/deconstruct.ogg'
 
+/obj/item/healthanalyzer/gem_analyzer
+	name = "eye of health"
+	desc = "Необычный самоцвет в форме сердца. Позволяет пользователю ощущать раны и болезни других существ на метафизическом уровне. Магия, не иначе."
+	ru_names = list(
+		NOMINATIVE = "глаз здоровья",
+		GENITIVE = "глаза здоровья",
+		DATIVE = "глазу здоровья",
+		ACCUSATIVE = "глаз здоровья",
+		INSTRUMENTAL = "глазом здоровья",
+		PREPOSITIONAL = "глазе здоровья"
+	)
+	icon = 'icons/obj/device.dmi'
+	icon_state = "gem_analyzer"
+	item_state = "gem_analyzer"
+	origin_tech = null
+
+/obj/item/healthanalyzer/gem_analyzer/attackby(obj/item/I, mob/user, params)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 /obj/item/reagent_scanner
 	name = "reagent scanner"
 	desc = "A hand-held reagent scanner which identifies chemical agents and blood types."
