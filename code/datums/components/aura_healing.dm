@@ -240,7 +240,7 @@
 
 		candidate.updatehealth()
 
-	for (var/mob/living/remove_alert_from as anything in current_alerts - to_heal)
+	for(var/mob/living/remove_alert_from as anything in current_alerts - to_heal)
 		remove_alert_from.clear_alert(alert_category)
 		current_alerts -= remove_alert_from
 
