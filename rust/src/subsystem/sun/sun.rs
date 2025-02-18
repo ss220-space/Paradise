@@ -1,4 +1,5 @@
 use super::statics::*;
+use byondapi::byond_string;
 use byondapi::value::ByondValue;
 use rand::Rng;
 
@@ -47,7 +48,7 @@ impl Sun {
         let solars = SOLARS.read();
 
         solars.iter().for_each(|solar| {
-            let _ = solar.call("setup", &[]);
+            let _ = solar.call_id(byond_string!("setup"), &[]);
         });
 
         Ok(ByondValue::from(true))
@@ -57,7 +58,7 @@ impl Sun {
         let solars = SOLARS.write();
 
         solars.iter().for_each(|solar| {
-            let _ = solar.call("update", &[]);
+            let _ = solar.call_id(byond_string!("update"), &[]);
         });
 
         Ok(ByondValue::from(true))
