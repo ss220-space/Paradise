@@ -24,7 +24,7 @@
 
 /obj/item/gun/projectile/bow/ashen //better than wooden
 	name = "bone bow"
-	desc = "Примитивный лук с тетивой, сделанной из жилы. Обычно используется племенными охотниками и воинами. Из-за специфической конструкции лука из него можно стрелять только костяными стрелами."
+	desc = "Примитивный лук с тетивой, сделанной из жилы. Обычно используется племенными охотниками и воинами."
 	ru_names = list(
 		NOMINATIVE = "костяной лук",
 		GENITIVE = "костяного лука",
@@ -154,8 +154,9 @@
 	icon_state = "jagged_arrow"
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/jagged
 	range = 12
-	damage = 70
+	damage = 60
 	armour_penetration = -10
+	faction_bonus_damage = 27
 
 /obj/item/ammo_casing/caseless/arrow
 	name = "arrow"

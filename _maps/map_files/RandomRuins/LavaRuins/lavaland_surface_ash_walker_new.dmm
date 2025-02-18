@@ -2,8 +2,18 @@
 "aq" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/table/wood,
-/obj/item/seeds/reishi,
-/obj/item/seeds/reishi,
+/obj/item/seeds/reishi{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/seeds/reishi{
+	pixel_x = 9;
+	pixel_y = 5
+	},
+/obj/item/seeds/reishi{
+	pixel_x = 8;
+	pixel_y = -5
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "au" = (
@@ -158,6 +168,22 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
+"gi" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom{
+	pixel_y = 4;
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
+	pixel_y = 3;
+	pixel_x = 6
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "gn" = (
 /obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -211,6 +237,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/item/reagent_containers/glass/bucket/wooden,
 /turf/simulated/floor/indestructible/boss/indoors,
 /area/ruin/unpowered/ash_walkers)
 "hM" = (
@@ -236,6 +263,18 @@
 "is" = (
 /obj/structure/stone_tile/slab/burnt,
 /obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/meat{
+	pixel_x = -10;
+	pixel_y = -4
+	},
+/obj/item/reagent_containers/food/snacks/meat{
+	pixel_x = -7;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/food/snacks/monstermeat/goliath{
+	pixel_x = 6;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "iu" = (
@@ -290,6 +329,17 @@
 /obj/structure/stone_tile/slab/burnt,
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/lavaland_food/veggie_meal,
+/obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_wing{
+	pixel_x = 8;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_cacti{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_crunchie{
+	pixel_y = 6
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "jL" = (
@@ -302,14 +352,15 @@
 /area/ruin/unpowered/ash_walkers)
 "jU" = (
 /obj/structure/stone_tile/slab,
-/obj/structure/closet/crate/medical,
-/obj/item/storage/firstaid/adv,
-/obj/item/stack/sheet/cloth/ten,
-/obj/item/stack/medical/splint,
-/obj/item/reagent_containers/iv_bag/blood,
-/obj/item/reagent_containers/iv_bag/blood,
-/obj/item/reagent_containers/iv_bag/blood,
-/obj/item/kitchen/utensil/fork,
+/obj/structure/table/wood,
+/obj/item/storage/toolbox/surgery/ashwalker{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/healthanalyzer/gem_analyzer{
+	pixel_x = -10;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "ks" = (
@@ -381,11 +432,36 @@
 /obj/item/twohanded/spear,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
+"mx" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/rack/wooden,
+/obj/item/reagent_containers/food/snacks/egg{
+	pixel_x = 3;
+	pixel_y = -8
+	},
+/obj/item/reagent_containers/food/snacks/egg{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/snacks/egg{
+	pixel_y = -9;
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/food/snacks/egg{
+	pixel_x = 3;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"mF" = (
+/obj/item/shovel/spade/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "mN" = (
 /obj/item/seeds/aloe,
-/obj/item/seeds/wheat,
 /obj/structure/closet/crate/wooden,
-/obj/item/seeds/comfrey,
+/obj/item/seeds/aloe,
+/obj/item/seeds/aloe,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "mQ" = (
@@ -431,8 +507,15 @@
 /area/ruin/unpowered/ash_walkers)
 "nv" = (
 /obj/structure/stone_tile/slab,
-/obj/structure/table/wood,
-/obj/item/kitchen/knife/combat/survival/bone,
+/obj/structure/rack/wooden,
+/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+	pixel_x = 4;
+	pixel_y = -7
+	},
+/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+	pixel_y = 5;
+	pixel_x = -2
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "ny" = (
@@ -488,11 +571,40 @@
 	},
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"oS" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 4
+	},
+/obj/structure/rack/wooden,
+/obj/item/stack/sheet/wood{
+	amount = 15
+	},
+/obj/item/ammo_casing/caseless/arrow,
+/obj/item/ammo_casing/caseless/arrow,
+/obj/item/ammo_casing/caseless/arrow,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "pc" = (
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
 /obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf{
+	pixel_y = -6;
+	pixel_x = -9
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf{
+	pixel_y = -2;
+	pixel_x = -9
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap{
+	pixel_x = 2;
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings{
+	pixel_x = 11;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "pg" = (
@@ -596,7 +708,11 @@
 	dir = 8
 	},
 /obj/structure/closet/crate/wooden,
-/obj/item/storage/box/rxglasses,
+/obj/item/stack/sheet/cloth/ten,
+/obj/item/reagent_containers/iv_bag/blood/unathi,
+/obj/item/reagent_containers/iv_bag/blood/unathi,
+/obj/item/reagent_containers/iv_bag/blood/unathi,
+/obj/item/stack/medical/splint/tribal,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "rB" = (
@@ -618,11 +734,17 @@
 "rM" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/lavaland_food/fine_meal{
+	pixel_x = 4;
+	pixel_y = 14
+	},
+/obj/item/reagent_containers/food/snacks/lavaland_food/veggie_meal,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "sd" = (
 /obj/structure/stone_tile/slab/burnt,
 /obj/structure/closet/crate/wooden,
+/obj/item/clothing/gloves/color/black/goliath,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "so" = (
@@ -638,6 +760,9 @@
 	dir = 8;
 	pixel_y = -16;
 	pixel_x = -16
+	},
+/obj/machinery/torch_holder/mapping{
+	dir = 8
 	},
 /turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
@@ -657,6 +782,10 @@
 /obj/effect/rune_fluff_marks,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
+"tm" = (
+/obj/structure/flora/ash/coaltree,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "to" = (
 /obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 8
@@ -665,6 +794,7 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/wooden,
+/obj/item/clothing/shoes/footwraps/goliath,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "tp" = (
@@ -731,6 +861,9 @@
 "uY" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/closet/crate/wooden,
+/obj/item/storage/firstaid/adv,
+/obj/item/stack/medical/bruise_pack/improvised,
+/obj/item/stack/medical/splint/tribal,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "uZ" = (
@@ -763,7 +896,18 @@
 "vH" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/spear,
-/obj/item/flashlight/lantern,
+/obj/item/clothing/head/shamanash,
+/obj/item/ammo_casing/caseless/arrow{
+	pixel_y = 7;
+	pixel_x = -4
+	},
+/obj/item/ammo_casing/caseless/arrow{
+	pixel_x = 7
+	},
+/obj/item/ammo_casing/caseless/arrow{
+	pixel_y = 10;
+	pixel_x = -7
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "wb" = (
@@ -911,6 +1055,10 @@
 	},
 /turf/simulated/floor/indestructible/boss/indoors,
 /area/ruin/unpowered/ash_walkers)
+"zw" = (
+/obj/item/hatchet/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "zx" = (
 /obj/structure/flora/ash/tall_shroom,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -960,6 +1108,9 @@
 	pixel_x = 16;
 	pixel_y = 15
 	},
+/obj/machinery/torch_holder/mapping{
+	dir = 4
+	},
 /turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
 "AM" = (
@@ -980,6 +1131,11 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/mushroom_bowl,
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap{
+	pixel_x = -9;
+	pixel_y = -7
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "AS" = (
@@ -994,7 +1150,6 @@
 	dir = 1
 	},
 /obj/machinery/optable,
-/obj/item/storage/toolbox/syndicate,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Bf" = (
@@ -1016,6 +1171,13 @@
 	},
 /obj/structure/statue/bone/rib,
 /turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"BK" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/item/cultivator/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "BR" = (
 /obj/structure/stone_tile/surrounding,
@@ -1053,6 +1215,7 @@
 /obj/structure/stone_tile/slab,
 /obj/structure/closet/crate/wooden,
 /obj/item/weldingtool/experimental,
+/obj/item/storage/toolbox/syndicate,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Ck" = (
@@ -1092,6 +1255,12 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
+"Da" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/seeds/comfrey,
+/obj/item/seeds/comfrey,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "De" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -1111,6 +1280,18 @@
 "Dn" = (
 /obj/structure/stone_tile/surrounding/cracked,
 /obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
+	pixel_x = -6;
+	pixel_y = -4
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
+	pixel_x = 4;
+	pixel_y = -1
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
+	pixel_x = -3;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Dq" = (
@@ -1279,12 +1460,16 @@
 /obj/structure/table/wood,
 /obj/item/twohanded/spear,
 /obj/item/clothing/head/helmet/roman/legionaire,
+/obj/item/melee/nutcracker,
+/obj/item/storage/belt/mining/primitive,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Il" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/closet/crate/wooden,
-/obj/item/rcd/preloaded,
+/obj/item/stack/sheet/wood{
+	amount = 20
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "IB" = (
@@ -1380,9 +1565,15 @@
 "JJ" = (
 /obj/structure/stone_tile/slab/burnt,
 /obj/structure/table/wood,
-/obj/item/shovel,
 /obj/item/seeds/glowshroom,
-/obj/item/seeds/glowshroom,
+/obj/item/seeds/glowshroom{
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/obj/item/seeds/glowshroom{
+	pixel_x = 10;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "JM" = (
@@ -1505,7 +1696,14 @@
 "Nu" = (
 /obj/structure/stone_tile/slab/burnt,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/lavaland_food/abu_ghosh,
+/obj/item/reagent_containers/food/snacks/lavaland_food/abu_ghosh{
+	pixel_x = -6;
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/food/snacks/lavaland_food/grace_of_lazis{
+	pixel_x = 6;
+	pixel_y = 9
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Ny" = (
@@ -1537,6 +1735,34 @@
 /obj/structure/table/wood,
 /obj/item/seeds/tower,
 /obj/item/cultivator/wooden,
+/obj/item/seeds/tower{
+	pixel_y = -7;
+	pixel_x = -10
+	},
+/obj/item/seeds/tower{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Of" = (
+/obj/structure/table/wood,
+/obj/item/seeds/wheat{
+	pixel_x = 9;
+	pixel_y = 10
+	},
+/obj/item/seeds/wheat{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/seeds/wheat{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/shovel/spade/wooden{
+	pixel_y = 4;
+	pixel_x = -1
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "OC" = (
@@ -1577,6 +1803,11 @@
 	name = "black curtain";
 	anchored = 1
 	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Qy" = (
+/obj/structure/closet/crate/miningcar,
+/obj/item/pickaxe,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "QT" = (
@@ -1649,8 +1880,11 @@
 "Ti" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/table/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/twohanded/spear,
+/obj/item/gun/projectile/bow,
+/obj/item/storage/backpack/quiver{
+	pixel_x = -7;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Tl" = (
@@ -1742,13 +1976,10 @@
 "VM" = (
 /obj/structure/stone_tile/block/cracked,
 /obj/structure/rack/wooden,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
-/obj/item/stack/sheet/wood,
 /obj/machinery/torch_holder/mapping{
 	dir = 1
 	},
+/obj/item/stack/fireproof_rods/twentyfive,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Wh" = (
@@ -1779,6 +2010,11 @@
 /area/ruin/unpowered/ash_walkers)
 "WX" = (
 /obj/structure/stone_tile/slab/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Xs" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/machinery/smartfridge/drying_rack/ash,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "XK" = (
@@ -1821,12 +2057,12 @@
 /obj/structure/stone_tile/slab/burnt,
 /obj/structure/rack/wooden,
 /obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Zg" = (
 /obj/structure/stone_tile/slab,
 /obj/machinery/iv_drip,
-/obj/item/reagent_containers/glass/beaker/waterbottle/large,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Zt" = (
@@ -1840,6 +2076,19 @@
 /obj/structure/bed/wicker,
 /obj/machinery/torch_holder/mapping{
 	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"ZJ" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/obj/item/kitchen/knife/combat/survival/bone{
+	pixel_y = 6;
+	pixel_x = -4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -2000,8 +2249,8 @@ PD
 PD
 je
 je
-rM
-rM
+ZJ
+gi
 ew
 bx
 cF
@@ -2034,7 +2283,7 @@ WX
 jv
 Pt
 je
-XK
+mx
 fG
 Ck
 GD
@@ -2491,7 +2740,7 @@ gd
 WX
 Ft
 uH
-nI
+PD
 PD
 sJ
 sJ
@@ -2527,7 +2776,7 @@ oz
 uy
 hM
 Dq
-PD
+tm
 PD
 sJ
 sJ
@@ -2586,7 +2835,7 @@ lT
 lT
 sJ
 AS
-PD
+Qy
 PD
 PD
 PD
@@ -2595,7 +2844,7 @@ sJ
 YC
 rl
 NC
-cF
+oS
 cx
 mp
 PD
@@ -2668,7 +2917,7 @@ PD
 sJ
 sJ
 XV
-nI
+tm
 PD
 mN
 je
@@ -2703,7 +2952,7 @@ FV
 Ic
 sJ
 wd
-PD
+zw
 nI
 vb
 je
@@ -2737,7 +2986,7 @@ vH
 tR
 sJ
 sJ
-PD
+Of
 PD
 nI
 vb
@@ -2804,8 +3053,8 @@ PD
 PD
 zx
 Wp
-PD
-PD
+Da
+mF
 PD
 PD
 PD
@@ -2831,7 +3080,7 @@ Tl
 Wh
 xJ
 FV
-oz
+Xs
 ba
 Se
 je
@@ -2874,7 +3123,7 @@ sJ
 gV
 Bf
 Dq
-uy
+BK
 ny
 vb
 vb

@@ -23,8 +23,8 @@
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit,
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf,
 		/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf,
-		//тут должен быть угледрев, но он все еще не залит увы
-		//тут должен быть угледрев, но он все еще не залит увы
+		/obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log,
+		/obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom/reishi
 	)
 	result = /obj/item/reagent_containers/food/snacks/lavaland_food/veggie_meal

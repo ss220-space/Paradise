@@ -272,6 +272,7 @@
 		PREPOSITIONAL = "деревянной лопатке"
 	)
 	desc = "Маленький инструмент для вскапывания и перемещения земли. Эта модель сделана из древесины."
+	icon_state = "wooden_spade"
 
 /obj/item/shovel/safety
 	name = "safety shovel"

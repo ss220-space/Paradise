@@ -186,7 +186,8 @@
 	regrowth_time_high = 4000
 
 /obj/structure/flora/ash/coaltree
-	icon_state = "coaltree"
+	icon_state = "coaltree1"
+	base_icon_state = "coaltree"
 	name = "coaltree"
 	desc = "Небольшое мрачное дерево, растущее на просторах такой же мрачной планеты."
 	ru_names = list(

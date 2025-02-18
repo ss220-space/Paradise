@@ -765,15 +765,9 @@
 	time = 30
 	reqs = list(/obj/item/stack/sheet/bone = 6,
 				/obj/item/stack/sheet/sinew = 3)
-	result = list(/obj/item/retractor/primitive_retractor,
-				/obj/item/hemostat/primitive_hemostat,
-				/obj/item/cautery/primitive_cautery,
-				/obj/item/scalpel/primitive_scalpel,
-				/obj/item/primitive_saw,
-				/obj/item/bonegel/primitive_bonegel,
-				/obj/item/FixOVein/primitive_FixOVein,
-				/obj/item/bonesetter/primitive_bonesetter)
+	result = list(/obj/item/storage/toolbox/surgery/ashwalker)
 	category = CAT_PRIMAL
+	subcategory = CAT_MISC2
 
 /datum/crafting_recipe/bonedagger
 	name = "Bone Dagger"
@@ -1785,6 +1779,7 @@
 	reqs = list(/obj/item/stack/sheet/wood = 2,
 				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
+	subcategory = CAT_MISC2
 
 /datum/crafting_recipe/nutcracker
 	name = "Nutcracker" //Колотушка
@@ -1793,3 +1788,4 @@
 	reqs = list(/obj/item/stack/sheet/bone = 2,
 				/obj/item/stack/sheet/animalhide/weaver_chitin = 2)
 	category = CAT_PRIMAL
+	subcategory = CAT_WEAPONS
