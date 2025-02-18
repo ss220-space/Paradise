@@ -760,6 +760,21 @@
 	category = CAT_PRIMAL
 	subcategory = CAT_MISC2
 
+/datum/crafting_recipe/primitive_surgical_kit
+	name = "Primitive surgical kit"
+	time = 30
+	reqs = list(/obj/item/stack/sheet/bone = 6,
+				/obj/item/stack/sheet/sinew = 3)
+	result = list(/obj/item/retractor/primitive_retractor,
+				/obj/item/hemostat/primitive_hemostat,
+				/obj/item/cautery/primitive_cautery,
+				/obj/item/scalpel/primitive_scalpel,
+				/obj/item/primitive_saw,
+				/obj/item/bonegel/primitive_bonegel,
+				/obj/item/FixOVein/primitive_FixOVein,
+				/obj/item/bonesetter/primitive_bonesetter)
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/bonedagger
 	name = "Bone Dagger"
 	result = /obj/item/kitchen/knife/combat/survival/bone
@@ -782,7 +797,7 @@
 	result = /obj/item/shield/riot/goliath
 	time = 6 SECONDS
 	reqs = list(/obj/item/stack/sheet/bone = 4,
-				/obj/item/stack/sheet/animalhide/goliath_hide = 3)
+				/obj/item/stack/sheet/animalhide/goliath_hide = 2)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
 
@@ -932,6 +947,10 @@
 	category = CAT_PRIMAL
 	subcategory = CAT_MISC2
 	alert_admins_on_craft = TRUE
+
+/datum/crafting_recipe/bonfire/coaltree
+	name = "Bonfire (coaltree)"
+	reqs = list(/obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log = 5)
 
 /datum/crafting_recipe/rake //Category resorting incoming
 	name = "Rake"
@@ -1622,9 +1641,9 @@
 	time = 5 SECONDS
 	reqs = list(/obj/item/clothing/suit/hooded/goliath = 1,
 				/obj/item/stack/sheet/animalhide/goliath_hide = 2, //2 plates for the cloak plus 2 here plus 3 for plating the armor = 7 total
-				/obj/item/stack/sheet/animalhide/weaver_chitin = 10,
-				/obj/item/stack/sheet/bone = 8,
-				/obj/item/stack/sheet/sinew = 10)
+				/obj/item/stack/sheet/animalhide/weaver_chitin = 6,
+				/obj/item/stack/sheet/bone = 5,
+				/obj/item/stack/sheet/sinew = 5)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
 
@@ -1758,3 +1777,19 @@
 	category = CAT_ROBOT
 	always_availible = FALSE
 	time = 1 SECONDS
+
+/datum/crafting_recipe/ashrack
+	name = "Primitive drying rack"
+	result = /obj/machinery/smartfridge/drying_rack/ash
+	time = 15 SECONDS
+	reqs = list(/obj/item/stack/sheet/wood = 2,
+				/obj/item/stack/sheet/sinew = 1)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/nutcracker
+	name = "Nutcracker" //Колотушка
+	result = /obj/item/melee/nutcracker
+	time = 4 SECONDS
+	reqs = list(/obj/item/stack/sheet/bone = 2,
+				/obj/item/stack/sheet/animalhide/weaver_chitin = 2)
+	category = CAT_PRIMAL

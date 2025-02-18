@@ -19,7 +19,7 @@
 	var/eat_time = 0 SECONDS
 	var/consume_sound = 'sound/items/eatfood.ogg'
 	var/apply_type = REAGENT_INGEST
-	var/apply_method = "swallow"
+	var/apply_method = "проглоти"
 	var/transfer_efficiency = 1.0
 	var/instant_application = 0 //if we want to bypass the forcedfeed delay
 	var/can_taste = TRUE//whether you can taste eating from this

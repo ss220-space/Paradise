@@ -26,7 +26,7 @@
 	info_list += "[span_info("ДНК: [ninja.dna.unique_enzymes]")]\n"
 	info_list += "[span_info("Общее состояние здоровья: [ninja.stat > 1 ? "Мёртв" : "[ninja.health]%"]")]\n"
 	info_list += "[span_info("Уровень питательных веществ: [ninja.nutrition]")]\n"
-	info_list += "[span_info("Удушение: [ninja.getOxyLoss()]")]\n"
+	info_list += "[span_info("Удушье: [ninja.getOxyLoss()]")]\n"
 	info_list += "[span_info("Токсины: [ninja.getToxLoss()]")]\n"
 	info_list += "[span_info("Ожоги: [ninja.getFireLoss()]")]\n"
 	info_list += "[span_info("Физ.: [ninja.getBruteLoss()]")]\n"

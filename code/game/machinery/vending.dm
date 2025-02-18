@@ -387,9 +387,9 @@
 		if(isnull(amount))
 			amount = 0
 
-		var/atom/temp = typepath
+		var/obj/item = new typepath(src)
 		var/datum/data/vending_product/R = new /datum/data/vending_product()
-		R.name = initial(temp.name)
+		R.name = capitalize(item.ru_names ? item.ru_names[1] : item.name)
 		R.product_path = typepath
 		if(!start_empty)
 			R.amount = amount
@@ -687,11 +687,11 @@
 	if(!item_slot || inserted_item)
 		return
 	if(!user.drop_transfer_item_to_loc(I, src))
-		to_chat(user, span_warning("[I] будто бы приклеен к твоей руке! Вы не можете его скинуть!"))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] будто бы приклеен[genderize_ru(I.gender, "", "а", "о", "ы")] к вашей руке! Вы не можете [genderize_ru(I.gender, "его", "её", "его", "их")] скинуть!"))
 		return
 	inserted_item = I
 	balloon_alert(user, "предмет вставлен")
-	to_chat(user, span_notice("Вы вставили [I] в [declent_ru(GENITIVE)]."))
+	to_chat(user, span_notice("Вы вставили [I.declent_ru(ACCUSATIVE)] в [declent_ru(GENITIVE)]."))
 	SStgui.update_uis(src)
 
 /obj/machinery/vending/proc/eject_item(mob/user)
@@ -711,7 +711,7 @@
 /obj/machinery/vending/emag_act(mob/user)
 	emagged = TRUE
 	if(user)
-		to_chat(user, "Вы закоротили микросхемы [declent_ru(GENITIVE)]")
+		to_chat(user, "Вы закоротили микросхемы [declent_ru(GENITIVE)].")
 
 /obj/machinery/vending/attack_ai(mob/user)
 	return attack_hand(user)
@@ -759,7 +759,7 @@
 		data["user"] = list()
 		data["user"]["name"] = A.owner_name
 		data["userMoney"] = A.money
-		data["user"]["job"] = "Silicon"
+		data["user"]["job"] = "Силикон"
 	if(ishuman(user))
 		A = get_card_account(user)
 		var/mob/living/carbon/human/H = user
@@ -773,7 +773,7 @@
 				data["user"] = list()
 				data["user"]["name"] = A.owner_name
 				data["userMoney"] = A.money
-				data["user"]["job"] = (istype(C) && C.rank) ? C.rank : "No Job"
+				data["user"]["job"] = (istype(C) && C.rank) ? C.rank : "Должность отсутствует"
 			else
 				data["guestNotice"] = "Обнаруженная ID-карта не привязана к счёту.";
 	data["stock"] = list()
@@ -781,11 +781,11 @@
 		data["stock"][R.name] = R.amount
 	data["extended_inventory"] = extended_inventory
 	data["vend_ready"] = vend_ready
-	data["coin_name"] = coin ? coin.declent_ru(NOMINATIVE) : FALSE
+	data["coin_name"] = coin ? capitalize(coin.declent_ru(NOMINATIVE)) : FALSE
 	data["panel_open"] = panel_open ? TRUE : FALSE
 	data["speaker"] = shut_up ? FALSE : TRUE
 	data["item_slot"] = item_slot // boolean
-	data["inserted_item_name"] = inserted_item ? inserted_item.declent_ru(NOMINATIVE) : FALSE
+	data["inserted_item_name"] = inserted_item ? capitalize(inserted_item.declent_ru(NOMINATIVE)) : FALSE
 	return data
 
 
@@ -795,11 +795,11 @@
 	data["product_records"] = list()
 	var/i = 1
 	for (var/datum/data/vending_product/R in product_records)
-		var/obj/item = R.product_path
+		var/obj/item/item = new R.product_path(src)
 		var/list/data_pr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = R.name,
-			price = (item in prices) ? prices[item] : 0,
+			name = capitalize(item.ru_names ? item.ru_names[1] : item.name),
+			price = (R.product_path in prices) ? prices[R.product_path] : 0,
 			icon = item.icon,
 			icon_state = item.icon_state,
 			max_amount = R.max_amount,
@@ -811,11 +811,11 @@
 		i++
 	data["coin_records"] = list()
 	for (var/datum/data/vending_product/R in coin_records)
-		var/obj/item = R.product_path
+		var/obj/item/item = new R.product_path(src)
 		var/list/data_cr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = R.name,
-			price = (item in prices) ? prices[item] : 0,
+			name = capitalize(item.ru_names ? item.ru_names[1] : item.name),
+			price = (R.product_path in prices) ? prices[R.product_path] : 0,
 			icon = item.icon,
 			icon_state = item.icon_state,
 			max_amount = R.max_amount,
@@ -828,11 +828,11 @@
 		i++
 	data["hidden_records"] = list()
 	for (var/datum/data/vending_product/R in hidden_records)
-		var/obj/item = R.product_path
+		var/obj/item/item = new R.product_path(src)
 		var/list/data_hr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = R.name, // (NOMINATIVE in R.ru_names) ? R.ru_names[NOMINATIVE] : R.name,
-			price = (item in prices) ? prices[item] : 0,
+			name = capitalize(item.ru_names ? item.ru_names[1] : item.name),
+			price = (R.product_path in prices) ? prices[R.product_path] : 0,
 			icon = item.icon,
 			icon_state = item.icon_state,
 			max_amount = R.max_amount,

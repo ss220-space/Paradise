@@ -1,11 +1,11 @@
 /datum/reagent/phlogiston
-	name = "phlogiston"
+	name = "Флогистон"
 	id = "phlogiston"
-	description = "It appears to be liquid fire."
+	description = "Похоже, это жидкий огонь."
 	reagent_state = LIQUID
 	color = "#FFAF00"
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "burning"
+	taste_description = "огня"
 	var/temp_fire = 4000
 	var/temp_deviance = 1000
 	var/size_divisor = 40
@@ -25,7 +25,7 @@
 	M.IgniteMob()
 	if(method == REAGENT_INGEST)
 		M.adjustFireLoss(min(max(10, volume * 2), 45))
-		to_chat(M, "<span class='warning'>It burns!</span>")
+		to_chat(M, span_warning("Жжётся!"))
 		M.emote("scream")
 
 /datum/reagent/phlogiston/on_mob_life(mob/living/M)
@@ -36,22 +36,22 @@
 	return ..()
 
 /datum/reagent/phlogiston/firedust
-	name = "phlogiston dust"
+	name = "Флогистоновая пыль"
 	id = "phlogiston_dust"
-	description = "And this is solid fire. However that works."
+	description = "А это - твёрдый огонь. Как бы то ни было, это работает."
 	temp_fire = 1500
 	temp_deviance = 500
 	size_divisor = 80
 	mob_burning = 3 // 15
 
 /datum/reagent/napalm
-	name = "napalm"
+	name = "Напалм"
 	id = "napalm"
-	description = "A highly flammable jellied fuel."
+	description = "Легковоспламеняющееся желеобразное топливо."
 	reagent_state = LIQUID
 	process_flags = ORGANIC | SYNTHETIC
 	color = "#C86432"
-	taste_description = "burning"
+	taste_description = "горения"
 
 /datum/reagent/napalm/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 100)
@@ -81,14 +81,14 @@
 	return ..()
 
 /datum/reagent/fuel
-	name = "Welding fuel"
+	name = "Сварочное топливо"
 	id = "fuel"
-	description = "A highly flammable blend of basic hydrocarbons, mostly Acetylene. Useful for both welding and organic chemistry, and can be fortified into a heavier oil."
+	description = "Легковоспламеняющаяся смесь основных углеводородов, в основном ацетилена. Используется как для сварки, так и для органической химии, может быть переработано в более тяжёлое масло."
 	reagent_state = LIQUID
 	color = "#060606"
 	drink_icon = "dr_gibb_glass"
-	drink_name = "Glass of welder fuel"
-	drink_desc = "Unless you are an industrial tool, this is probably not safe for consumption."
+	drink_name = "стакан сварочного топлива"
+	drink_desc = "Если вы не являетесь промышленным инструментом, это, вероятно, небезопасно для употребления. Хотя ассистенты любят такое пить."
 	taste_description = "mistakes"
 	process_flags = ORGANIC | SYNTHETIC
 	var/max_radius = 7
@@ -117,7 +117,7 @@
 		var/will_explode = volume >= explosion_threshold
 		if(will_explode && holder.my_atom)
 			// Log beforehand
-			holder.my_atom.visible_message("<span class='danger'>[holder.my_atom] explodes!</span>")
+			holder.my_atom.visible_message(span_danger("[capitalize(holder.my_atom.declent_ru(NOMINATIVE))] взрывается!"))
 			message_admins("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
 			add_game_logs("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
 			holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
@@ -145,12 +145,12 @@
 			M.adjust_fire_stacks(6)
 
 /datum/reagent/plasma
-	name = "Plasma"
+	name = "Плазма"
 	id = "plasma"
-	description = "The liquid phase of an unusual extraterrestrial compound."
+	description = "Жидкая форма необычного внеземного соединения."
 	reagent_state = LIQUID
 	color = "#7A2B94"
-	taste_description = "corporate assets going to waste"
+	taste_description = "пропадающих зря корпоративных активов"
 	taste_mult = 1.5
 
 /datum/reagent/plasma/reaction_temperature(exposed_temperature, exposed_volume)
@@ -178,13 +178,13 @@
 
 
 /datum/reagent/thermite
-	name = "Thermite"
+	name = "Термит"
 	id = "thermite"
-	description = "Thermite produces an aluminothermic reaction known as a thermite reaction. Can be used to melt walls."
+	description = "Термит вызывает алюминотермическую реакцию, известную как термитная реакция. Может использоваться для плавления замков. Или стен."
 	reagent_state = SOLID
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "rust"
+	taste_description = "ржавчины"
 
 /datum/reagent/thermite/reaction_mob(mob/living/M, method= REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -215,25 +215,25 @@
 			S.reagents.temperature_reagents(S.active_hotspot.temperature, 10, 300)
 
 /datum/reagent/glycerol
-	name = "Glycerol"
+	name = "Глицерин"
 	id = "glycerol"
-	description = "Glycerol is a simple polyol compound. Glycerol is sweet-tasting and of low toxicity."
+	description = "Глицерин - это простое полиольное соединение. Глицерин обладает сладким вкусом и низкой токсичностью."
 	reagent_state = LIQUID
 	color = "#808080" // rgb: 128, 128, 128
-	taste_description = "sweetness"
+	taste_description = "сладости"
 
 /datum/reagent/stabilizing_agent
-	name = "Stabilizing Agent"
+	name = "Стабилизирующий агент"
 	id = "stabilizing_agent"
-	description = "A chemical that stabilises normally volatile compounds, preventing them from reacting immediately."
+	description = "Химикат, который стабилизирует обычно летучие соединения, не позволяя им немедленно вступать в реакцию."
 	reagent_state = LIQUID
 	color = "#FFFF00"
-	taste_description = "long-term stability"
+	taste_description = "стабильности"
 
 /datum/reagent/clf3
-	name = "Chlorine Trifluoride"
+	name = "Трифторид хлора"
 	id = "clf3"
-	description = "An extremely volatile substance, handle with the utmost care."
+	description = "Крайне летучее вещество, обращаться с ним следует с особой осторожностью."
 	reagent_state = LIQUID
 	color = "#FF0000"
 	metabolization_rate = 10 * REAGENTS_METABOLISM
@@ -258,16 +258,16 @@
 		M.IgniteMob()
 	if(method == REAGENT_INGEST)
 		M.adjustFireLoss(min(max(15, volume * 2.5), 90))
-		to_chat(M, "<span class='warning'>It burns!</span>")
+		to_chat(M, span_warning("Жжётся!"))
 		M.emote("scream")
 
 /datum/reagent/sorium
-	name = "Sorium"
+	name = "Сорий"
 	id = "sorium"
-	description = "Sends everything flying from the detonation point."
+	description = "Отправляет всё в полет от точки взрыва."
 	reagent_state = LIQUID
 	color = "#FFA500"
-	taste_description = "air and bitterness"
+	taste_description = "горького воздуха"
 
 /datum/reagent/sorium/reaction_turf(turf/T, volume) // oh no
 	if(prob(75))
@@ -279,12 +279,12 @@
 	T.reagents.add_reagent("sorium", 5)
 
 /datum/reagent/liquid_dark_matter
-	name = "Liquid Dark Matter"
+	name = "Жидкая тёмная материя"
 	id = "liquid_dark_matter"
-	description = "Sucks everything into the detonation point."
+	description = "Всасывает всё в точку взрыва."
 	reagent_state = LIQUID
 	color = "#800080"
-	taste_description = "compressed bitterness"
+	taste_description = "горького вакуума"
 
 /datum/reagent/liquid_dark_matter/reaction_turf(turf/T, volume) //Oh gosh, why
 	if(prob(75))
@@ -296,14 +296,14 @@
 	T.reagents.add_reagent("liquid_dark_matter", 5)
 
 /datum/reagent/blackpowder
-	name = "Black Powder"
+	name = "Чёрный порох"
 	id = "blackpowder"
-	description = "Explodes. Violently."
+	description = "Взрывается. Сильно взрывается."
 	reagent_state = LIQUID
 	color = "#000000"
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 	penetrates_skin = TRUE
-	taste_description = "explosions"
+	taste_description = "взрывов"
 
 /datum/reagent/blackpowder/reaction_turf(turf/T, volume) //oh shit
 	if(volume >= 5 && !isspaceturf(T))
@@ -311,38 +311,38 @@
 			new /obj/effect/decal/cleanable/dirt/blackpowder(T)
 
 /datum/reagent/flash_powder
-	name = "Flash Powder"
+	name = "Порошок-вспышка"
 	id = "flash_powder"
-	description = "Makes a very bright flash."
+	description = "Создаёт очень яркую вспышку."
 	reagent_state = LIQUID
 	color = "#FFFF00"
 	penetrates_skin = TRUE
-	taste_description = "salt"
+	taste_description = "соли"
 
 /datum/reagent/smoke_powder
-	name = "Smoke Powder"
+	name = "Дымный порошок"
 	id = "smoke_powder"
-	description = "Makes a large cloud of smoke that can carry reagents."
+	description = "Создаёт большое облако дыма, в котором могут находиться реагенты."
 	reagent_state = LIQUID
 	color = "#808080"
-	taste_description = "smoke"
+	taste_description = "дыма"
 
 /datum/reagent/sonic_powder
-	name = "Sonic Powder"
+	name = "Звуковой порошок"
 	id = "sonic_powder"
-	description = "Makes a deafening noise."
+	description = "Производит оглушительный шум."
 	reagent_state = LIQUID
 	color = "#0000FF"
 	penetrates_skin = TRUE
-	taste_description = "loud noises"
+	taste_description = "шума"
 
 /datum/reagent/cryostylane
-	name = "Cryostylane"
+	name = "Криостилан"
 	id = "cryostylane"
-	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Cryostylane slowly cools all other reagents in the mob down to 0K."
+	description = "Синтезируется с температурой в 20К. Пока в реакции с кислородом, медленно охлаждает все остальные вещества в теле существа до 0K."
 	color = "#B2B2FF" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "bitterness"
+	taste_description = "леденящей язык горечи"
 
 /datum/reagent/cryostylane/on_new(data)
 	..()
@@ -379,12 +379,12 @@
 			M.adjustToxLoss(rand(15,30))
 
 /datum/reagent/pyrosium
-	name = "Pyrosium"
+	name = "Пирозий"
 	id = "pyrosium"
-	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Pyrosium slowly heats all other reagents."
+	description = "Синтезируется с температурой в 20К.  Пока в реакции с кислородом, медленно нагревает все остальные вещества в теле существа до 0K."
 	color = "#B20000" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "bitterness"
+	taste_description = "обжигающей язык горечи"
 
 /datum/reagent/pyrosium/on_new(data)
 	..()
@@ -408,13 +408,13 @@
 			holder.temperature_reagents(holder.chem_temp + 200)
 
 /datum/reagent/firefighting_foam
-	name = "Firefighting foam"
+	name = "Противопожарная пена"
 	id = "firefighting_foam"
-	description = "Carbon Tetrachloride is a foam used for fire suppression."
+	description = "Тетрахлорид углерода - это пена, используемая для тушения пожаров."
 	reagent_state = LIQUID
 	color = "#A0A090"
 	var/cooling_temperature = 3 // more effective than water
-	taste_description = "the inside of a fire extinguisher"
+	taste_description = "пены для огнетушителей"
 
 /datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 // Put out fire
@@ -438,11 +438,11 @@
 		qdel(hotspot)
 
 /datum/reagent/plasma_dust
-	name = "Plasma Dust"
+	name = "Плазменная пыль"
 	id = "plasma_dust"
-	description = "A fine dust of plasma. This chemical has unusual mutagenic properties for viruses and slimes alike."
+	description = "Тонкая пыль из плазмы. Это химическое вещество обладает необычными мутагенными свойствами как для вирусов, так и для слаймов."
 	color = "#500064" // rgb: 80, 0, 100
-	taste_description = "corporate assets going to waste"
+	taste_description = "пропадающих зря корпоративных активов"
 	taste_mult = 1.5
 
 /datum/reagent/plasma_dust/reaction_temperature(exposed_temperature, exposed_volume)

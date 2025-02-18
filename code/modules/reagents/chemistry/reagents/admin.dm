@@ -1,12 +1,12 @@
 /datum/reagent/medicine/adminordrazine //An OP chemical for admins
-	name = "Adminordrazine"
+	name = "Админордразин"
 	id = "adminordrazine"
-	description = "It's magic. We don't have to explain it."
+	description = "Это магия. Тут нечего объяснять."
 	reagent_state = LIQUID
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	process_flags = ORGANIC | SYNTHETIC	//Adminbuse knows no bounds!
 	can_synth = FALSE
-	taste_description = "admin abuse"
+	taste_description = "админ абуза"
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/M)
 	M.setCloneLoss(0, FALSE)
@@ -60,7 +60,7 @@
 	return STATUS_UPDATE_ALL
 
 /datum/reagent/medicine/adminordrazine/nanites
-	name = "Nanites"
+	name = "Наниты"
 	id = "nanites"
-	description = "Nanomachines that aid in rapid cellular regeneration."
-	taste_description = "nanomachines, son"
+	description = "Наномашины, способствующие быстрой регенерации клеточной структуры."
+	taste_description = "наномашин, сынок"

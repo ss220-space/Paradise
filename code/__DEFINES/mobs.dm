@@ -211,6 +211,7 @@
 #define isunathi(A) (is_species(A, /datum/species/unathi))
 #define isashwalker(A) (is_species(A, /datum/species/unathi/ashwalker))
 #define isashwalkershaman(A) (is_species(A, /datum/species/unathi/ashwalker/shaman))
+#define isdraconid(A) (is_species(A, /datum/species/unathi/draconid))
 #define istajaran(A) (is_species(A, /datum/species/tajaran))
 #define isvulpkanin(A) (is_species(A, /datum/species/vulpkanin))
 #define isskrell(A) (is_species(A, /datum/species/skrell))
