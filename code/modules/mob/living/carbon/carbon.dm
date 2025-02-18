@@ -309,7 +309,7 @@
 		if(brutedamage > 0 && burndamage > 0)
 			status += " и "
 		if(burndamage > 40)
-			status += "выгляд[pluralize_ru(bodypart.gender, "ит", "ят")] кусками обожённой плоти"
+			status += "сло[pluralize_ru(bodypart.gender, "ит", "ят")]ся кусками обожённой плоти"
 
 		else if(burndamage > 20)
 			status += "покрыт[genderize_ru(bodypart.gender, "", "а", "о", "ы")] волдырями"
