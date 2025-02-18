@@ -709,7 +709,7 @@
 	description = "Эээ..."
 	reagent_state = SOLID
 	color = "#f0d18f" // rgb: 128, 128, 128
-	taste_description = "чего-то странногл"
+	taste_description = "чего-то странного"
 
 /datum/reagent/monkeylanguage/on_mob_life(mob/living/M)
 	if(volume > 4)
