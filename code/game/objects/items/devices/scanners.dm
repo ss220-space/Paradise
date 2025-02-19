@@ -28,7 +28,7 @@ REAGENT SCANNER
 	icon_state = "t-ray-range0"
 	base_icon_state = "t-ray-range"
 	scan_range = 3
-	origin_tech = "magnets=3;engineering=3"
+	origin_tech = "magnets=2;engineering=3"
 	materials = list(MAT_METAL=300)
 
 /obj/item/t_scanner/longer_pulse
@@ -38,7 +38,7 @@ REAGENT SCANNER
 	icon_state = "t-ray-pulse0"
 	base_icon_state = "t-ray-pulse"
 	pulse_duration = 5 SECONDS
-	origin_tech = "magnets=5;engineering=3"
+	origin_tech = "magnets=2;engineering=3"
 	materials = list(MAT_METAL=300)
 
 /obj/item/t_scanner/advanced
@@ -49,7 +49,7 @@ REAGENT SCANNER
 	base_icon_state = "t-ray-advanced"
 	scan_range = 3
 	pulse_duration = 5 SECONDS
-	origin_tech = "magnets=7;engineering=3"
+	origin_tech = "magnets=3;engineering=3"
 	materials = list(MAT_METAL=300)
 
 /obj/item/t_scanner/science
@@ -60,7 +60,7 @@ REAGENT SCANNER
 	base_icon_state = "t-ray-science"
 	scan_range = 5
 	pulse_duration = 10 SECONDS
-	origin_tech = "magnets=8;engineering=5"
+	origin_tech = "magnets=4;engineering=5"
 	materials = list(MAT_METAL=500)
 
 /obj/item/t_scanner/experimental	//a high-risk that cannot be disassembled, since this garbage was invented by, well, you know who.
