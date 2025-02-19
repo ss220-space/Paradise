@@ -764,25 +764,24 @@
 
 /datum/uplink_item/dangerous/minotaur
 	name = "Дробовик AS-12 \"Минотавр\""
-	desc = "Современный дробовик с магнитным механизмом питания, способный стрелять очередями. \
-			В барабанах помещается 12 или 24 патронов, что делает его идеальным для борьбы с большими группами людей в узких коридорах или в ближнем бою. \
-			Обладает большим разнообразием боеприпасов, и выбор подходящего вида во многом определяет эффективность дробовика и стиль ведения боя. \
-			Добро пожаловать в Лабиринт Минотавра!"
+	desc = "Современный дробовик с магнитным механизмом питания, способный стрелять очередями. В зависимости от типа барабана, он может вмещать от 12 до 24 патронов, \
+			что делает его идеальным для борьбы с большими группами людей в узких коридорах или в ближнем бою. \
+			Обладает большим разнообразием боеприпасов, и выбор подходящего вида во многом определяет эффективность дробовика и стиль ведения боя."
 	item = /obj/item/gun/projectile/automatic/shotgun/minotaur
 	cost = 80
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
 /datum/uplink_item/dangerous/pistol
-	name = "Пистолет стечкина ФК-69"
+	name = "Пистолет FK-69 \"Стечкин\""
 	desc = "Полностью заряженный пистолет, оснащённый магазином на 8 патронов калибра 10 мм. Обладает большим разнообразием боеприпасов. \
-			Крайне компактный пистолет, который легко спрятать даже в карман. Совместим с глушителем."
+			Крайне компактный пистолет, который легко помещается в карман. Совместим с глушителем."
 	item = /obj/item/gun/projectile/automatic/pistol
 	cost = 20
 
 /datum/uplink_item/dangerous/revolver
 	name = "Револьвер синдиката .357"
-	desc = "Полностью заряженный револьвер, оснащённый барабаном на 7 патронов \"Магнум\" калибра .357."
+	desc = "Полностью заряженный револьвер, оснащённый барабаном на 7 патронов \"Магнум\" .357 калибра."
 	item = /obj/item/gun/projectile/revolver
 	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -790,7 +789,7 @@
 
 /datum/uplink_item/dangerous/deagle
 	name = "Пистолет Desert Eagle"
-	desc = "Легендарный мощный пистолет с магазином на 7 патронов калибра .50ae."
+	desc = "Легендарный мощный пистолет с магазином на 7 патронов калибра .50AE."
 	item = /obj/item/gun/projectile/automatic/pistol/deagle
 	cost = 50
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -805,7 +804,7 @@
 
 /datum/uplink_item/dangerous/smg
 	name = "Пистолет-пулемет C-20r"
-	desc = "Полностью заряженный пистолет-пулемет, оснащённый магазином на 20 патронов калибра .45. \
+	desc = "Полностью заряженный пистолет-пулемет, оснащённый магазином на 20 патронов  .45 калибра. \
 			Имеет два режима стрельбы: полуавтоматический и с отсечкой по 2 патрона. Совместим с глушителем, и к нему можно прикрепить нож."
 	item = /obj/item/gun/projectile/automatic/c20r
 	cost = 70
@@ -814,7 +813,7 @@
 
 /datum/uplink_item/dangerous/carbine
 	name = "Карабин М-90gl"
-	desc = "Полностью заряженный трехзарядный карабин, оснащённый магазином калибра 5,56 мм на 30 патронов. \
+	desc = "Полностью заряженный трехзарядный карабин, оснащённый магазином калибра 5.56 мм на 30 патронов. \
 			Cовместим с глушителем. Имеет подстольный гранатомет под снаряды калибра 40 мм."
 	item = /obj/item/gun/projectile/automatic/m90
 	cost = 80
@@ -822,8 +821,8 @@
 	surplus = 50
 
 /datum/uplink_item/dangerous/machinegun
-	name = "Автоматический пулемёт L6"
-	desc = "Полностью заряженный пулемет с ленточным питанием. Это смертоносное оружие имеет массивный магазин на 50 патронов калибра 5,56х45 мм. \
+	name = "Ручной пулемёт L6"
+	desc = "Полностью заряженный пулемет с ленточным питанием, оснащённый лентой на 50 патронов калибра 5.56х45 мм. \
 			Требует использования обоих рук для стрельбы. Имеет два режима стрельбы: полуавтоматический и с отсечкой по 3 патрона."
 	item = /obj/item/gun/projectile/automatic/l6_saw
 	cost = 175
@@ -831,15 +830,15 @@
 	surplus = 0
 
 /datum/uplink_item/dangerous/rapid
-	name = "Перчатки Полярной звезды"
+	name = "Перчатки \"Полярная звезда\""
 	desc = "Позволяют владельцу наносить удары с невероятной скоростью. Однако они не увеличивают скорость атаки оружием."
 	item = /obj/item/clothing/gloves/fingerless/rapid
 	cost = 16
 
 /datum/uplink_item/dangerous/sniper
-	name = "Снайперская винтовка"
-	desc = "Полностью заряженная винтовка со снайперским прицелом, оснащённая магазином на 5 патронов калибра .50. Совместима с глушителем. \
-			Обладает огромной убойной силой и бронепробитием в зависимости от типа патрона. \
+	name = "Снайперская винтовка Baronet L"
+	desc = "Полностью заряженная винтовка со снайперским прицелом, оснащённая магазином на 5 патронов .50 калибра. Совместима с глушителем. \
+			Требует использования обоих рук для стрельбы. Обладает огромной убойной силой и бронепробитием в зависимости от типа патрона. \
 			Будьте уверены, она не оставит вас равнодушными, а ваши ТК будут потрачены с пользой! Невероятная мощь в стиле Синдиката!"
 	item = /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	cost = 100
@@ -847,8 +846,8 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/sniper_compact //For when you really really hate that one guy.
-	name = "Компактная снайперская винтовка"
-	desc = "Полностью заряженная компактная версия оперативной снайперской винтовки без прицела, оснащённая магазином на 4 патрона калибра .50. \
+	name = "Компактная снайперская винтовка Baronet M"
+	desc = "Полностью заряженная компактная версия оперативной снайперской винтовки без прицела, оснащённая магазином на 4 патрона .50 калибра. \
 			У неё большая убойная сила, но количество патронов ограничено."
 	item = /obj/item/gun/projectile/automatic/sniper_rifle/compact
 	cost = 40
@@ -979,8 +978,9 @@
 	refund_path = /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 
 /datum/uplink_item/dangerous/foamsmg
-	name = "Игрушечный пистолет-пулемет C-20r"
-	desc = "Полностью заряженный игрушечный пистолет-пулемет, оснащённый магазином на 20 усиленных пенных дротиков. \
+	name = "Игрушечный пистолет-пулемет \"Донксофт\" C-20r"
+	desc = "Полностью заряженный игрушечный пистолет-пулемет, оснащённый магазином на 20 усиленных пенных патронов. \
+			Предназначен для выведения из строя цели, не причиняя ей вреда. \
 			Имеет два режима стрельбы: полуавтоматический и с отсечкой по 2 патрона."
 	item = /obj/item/gun/projectile/automatic/c20r/toy
 	cost = 20
@@ -988,9 +988,10 @@
 	surplus = 0
 
 /datum/uplink_item/dangerous/foammachinegun
-	name = "Игрушечный автоматический пулемёт L6"
-	desc = "Полностью заряженный игрушечный пулемет с ленточным питанием. Имеет массивный магазин на 50 усиленных пенных дротиков, \
-			способных ненадолго вывести человека из строя всего одним залпом. Требует использования обоих рук для стрельбы. \
+	name = "Игрушечный ручной пулемёт \"Донксофт\" L6"
+	desc = "Полностью заряженный игрушечный пулемет с ленточным питанием, оснащённый лентой на 50 усиленных пенных патронов. \
+			Предназначен для выведения из строя цели, не причиняя ей вреда. \
+			Способен ненадолго вывести цель из строя всего одним залпом. Требует использования обоих рук для стрельбы. \
 			Имеет два режима стрельбы: полуавтоматический и с отсечкой по 3 патрона."
 	item = /obj/item/gun/projectile/automatic/l6_saw/toy
 	cost = 50
@@ -1012,163 +1013,167 @@
 // Ammunition
 
 /datum/uplink_item/ammo
-	category = "Ammunition"
+	category = "Боеприпасы"
 	surplus = 40
 
 /datum/uplink_item/ammo/pistol
-	name = "Stechkin - Two 10mm Magazines"
-	desc = "A 2 additional 8-round 10mm magazines for use in the syndicate pistol, loaded with rounds that are cheap but around half as effective as .357"
+	name = "\"Стечкин\" — 2 стандартных магазина калибра 10 мм"
+	desc = "Два магазина на 8 стандартных патронов калибра 10 мм. Эти патроны примерно в два раза менее эффективны, чем патроны .357 калибра."
 	item = /obj/item/storage/box/syndie_kit/pistol_ammo
 	cost = 5
 
 /datum/uplink_item/ammo/pistolap
-	name = "Stechkin - 10mm Armour Piercing Magazine"
-	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are less effective at injuring the target but penetrate protective gear."
+	name = "\"Стечкин\" — бронебойный магазин 10 мм"
+	desc = "Магазин на 8 бронебойных патронов калибра 10 мм. Эти патроны наносят немного меньше повреждений, чем стандартные, но обладают высокой пробивной силой."
 	item = /obj/item/ammo_box/magazine/m10mm/ap
 	cost = 5
 
 /datum/uplink_item/ammo/pistolfire
-	name = "Stechkin - 10mm Incendiary Magazine"
-	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with incendiary rounds which ignite the target."
+	name = "\"Стечкин\" — зажигательный магазин 10 мм"
+	desc = "Магазин на 8 зажигательных патронов калибра 10 мм. Эти патроны поджигают цель при попадании."
 	item = /obj/item/ammo_box/magazine/m10mm/fire
 	cost = 5
 
 /datum/uplink_item/ammo/pistolhp
-	name = "Stechkin - 10mm Hollow Point Magazine"
-	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds which are more damaging but ineffective against armour."
+	name = "\"Стечкин\" — экспансивный магазин 10 мм"
+	desc = "Магазин на 8 экспансивных патронов калибра 10 мм. Эти патроны наносят намного больше повреждений, чем стандартные, но они совершенно бесполезны против брони."
 	item = /obj/item/ammo_box/magazine/m10mm/hp
 	cost = 5
 
 /datum/uplink_item/ammo/bullbuck
-	name = "Drum - 12g Buckshot"
-	desc = "An additional 12-round buckshot magazine for use in the auto shotguns. Front towards enemy."
+	name = "Барабан 12g — \"Картечь\""
+	desc = "Барабан на 12 патронов картечи калибра 12g. Отлично подходит для ближней дистанции."
 	item = /obj/item/ammo_box/magazine/m12g
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldragon
-	name = "Drum - 12g Dragon's Breath"
-	desc = "An alternative 12-round dragon's breath magazine for use in the auto shotguns. I'm a fire starter, twisted fire starter!"
+	name = "Барабан 12g — \"Дыхание дракона\""
+	desc = "Барабан на 12 патронов \"Дыхание дракона\" калибра 12g. Каждый снаряд содержит 4 поражающих элемента, которые при попадании поджигают цель."
 	item = /obj/item/ammo_box/magazine/m12g/dragon
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bullflechette
-	name = "Drum - 12g Flechette"
-	desc = "An additional 12-round flechette magazine for use in the auto shotguns. Works well against armour."
+	name = "Барабан 12g — \"Флешетта\""
+	desc = "Барабан на 12 патронов \"Флешетта\" калибра 12g. В отличие от картечи, у этих дробинок более узкая траектория полёта. Они обладают бронебойным действием."
 	item = /obj/item/ammo_box/magazine/m12g/flechette
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bullterror
-	name = "Drum - 12g Bioterror"
-	desc = "An alternative 12-round bioterror magazine for use in the auto shotguns. Extremely toxic!"
+	name = "Барабан 12g — \"Биотеррор\""
+	desc = "Барабан на 12 патронов \"Биотеррор\" калибра 12g. Эти снаряды наносят повреждения за счёт токсинов и радиации."
 	item = /obj/item/ammo_box/magazine/m12g/bioterror
 	cost = 15
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bullmeteor
-	name = "Drum - 12g Meteor"
-	desc = "An alternative 12-round breaching magazine for use in the auto shotguns. This ammo should be illegal!"
+	name = "Барабан 12g — \"Метеорит\""
+	desc = "Барабан на 12 патронов \"Метеорит\" калибра 12g. Каждый выстрел отбрасывает цель на три тайла и на некоторое время оглушает её. \
+			С их помощью можно выбить даже шлюз."
 	item = /obj/item/ammo_box/magazine/m12g/breach
 	cost = 25
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLbuck
-	name = "Extended drum - 12g Buckshot"
-	desc = "An additional 24-round buckshot magazine for use in the auto shotguns. Front towards enemy."
+	name = "Расширенный барабан 12g — Картечь"
+	desc = "Расширенный барабан на 24 патронов картечи калибра 12g. Отлично подходит для ближней дистанции. "
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLflechette
-	name = "Extended drum - 12g Flechette"
-	desc = "An additional 24-round flechette magazine for use in the auto shotguns. Works well against armour."
+	name = "Расширенный барабан 12g — \"Флешетта\""
+	desc = "Расширенный барабан на 24 патронов \"Флешетта\" калибра 12g. \
+			В отличие от картечи, у этих дробинок более узкая траектория полёта. Они обладают бронебойным действием."
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg/flechette
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bull_XLdragon
-	name = "Extended drum - 12g Dragon's Breath"
-	desc = "An additional 24-round dragon's breath magazine for use in the auto shotguns. I'm a fire starter, twisted fire starter!"
+	name = "Расширенный барабан 12g — \"Дыхание дракона\""
+	desc = "Расширенный барабан на 24 патронов \"Дыхание дракона\" калибра 12g. Каждый снаряд содержит 4 поражающих элемента, которые при попадании поджигают цель."
 	item = /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldog_ammobag
-	name = "Drum - 12g Ammo Duffel Bag"
-	desc = "A duffel bag filled with enough 12g ammo to supply an entire team, at a discounted price."
+	name = "Барабан 12g — сумка"
+	desc = "Сумка, содержащая 8 барабанов на 12 патронов калибра 12g \"Картечь\" и 1 барабан \"Дыхание дракона\"."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgun
 	cost = 60 // normally 90
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/bulldog_XLmagsbag
-	name = "Drum - 12g XL Ammo Duffel Bag"
-	desc = "A duffel bag containing three 24 round drum magazines(Buckshot, Flechette, Dragon's Breath)."
+	name = "Расширенный барабан 12g — сумка"
+	desc = "Сумка, содержащая 3 расширенных барабана на 24 патронов калибра 12g: \"Картечь\", \"Дыхание дракона\", \"Флешетта\"."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
 	cost = 45 // normally 90
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/uzi
-	name = "Type U3 Uzi - 9mm Magazine"
-	desc = "An additional 30 round 9mm magazine for use in Type-U3 Uzi."
+	name = "Пистолет-пулемёт Uzi — магазин 9 мм"
+	desc = "Магазин на 30 патронов калибра 9 мм."
 	item = /obj/item/ammo_box/magazine/uzim9mm
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/uzi_ammobag
-	name = "Type U3 Uzi - 9mm Ammo Duffel Bag"
-	desc = "A duffel bag filled with enough 9mm ammo to supply an entire gang. Groove street forever."
+	name = "Пистолет-пулемёт Uzi — сумка с магазинами 9 мм"
+	desc = "Сумка, содержащая 10 магазинов на 30 патронов калибра 9 мм. Молоко для детей с Лесной улицы."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/uzi
 	cost = 70 // normally 100
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/smg
-	name = "C-20r - .45 Magazine"
-	desc = "An additional 20-round .45 magazine for use in the C-20r submachine gun. These bullets pack a lot of punch that can knock most targets down, but do limited overall damage."
+	name = "Пистолет-пулемет C-20r — магазин .45"
+	desc = "Магазин на 20 патронов .45 калибра. \
+			Эти патроны обладают высокой ударной силой, способной сбить с ног большинство целей, однако они не наносят серьёзных повреждений."
 	item = /obj/item/ammo_box/magazine/smgm45
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/smg_ammobag
-	name = "C-20r - .45 Ammo Duffel Bag"
-	desc = "A duffel bag filled with enough .45 ammo to supply an entire team, at a discounted price."
+	name = "Пистолет-пулемет C-20r — сумка с магазинами .45"
+	desc = "Сумка, содержащая 10 магазинов на 20 патронов .45 калибра."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/smg
 	cost = 70 // normally 100
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/carbine
-	name = "Carbine - 5.56 Toploader Magazine"
-	desc = "An additional 30-round 5.56 magazine for use in the M-90gl carbine. These bullets don't have the punch to knock most targets down, but dish out higher overall damage."
+	name = "Карабин М-90gl — магазин 5.56 мм"
+	desc = "Магазин на 30 патронов калибра 5.56 мм. \
+			Эти патроны не обладают достаточной ударной силой, чтобы сбить с ног, но наносят серьёзные повреждения."
 	item = /obj/item/ammo_box/magazine/m556
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/a40mm
-	name = "Carbine - 40mm Grenade Ammo Box"
-	desc = "A box of 4 additional 40mm HE grenades for use the C-90gl's underbarrel grenade launcher. Your teammates will thank you to not shoot these down small hallways."
+	name = "Карабин М-90gl — коробка гранат 40 мм"
+	desc = "Коробка на 4 осколочно-фугасные гранаты калибра 40 мм, предназначенными для подствольного гранатомёта."
 	item = /obj/item/ammo_box/a40mm
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/carbine_ammobag
-	name = "Carbine - 5.56 Ammo Duffel Bag"
-	desc = "A duffel bag filled with 9 5.56 Toploader magazines, and a 40 mm Grenade Ammo Box. Pew pew."
+	name = "Карабин М-90gl — сумка с магазинами 5.56 мм"
+	desc = "Сумка, содержащая 9 магазинов на 30 патронов калибра 5.56 мм и 1 коробку на 4 осколочно-фугасных гранат калибра 40 мм."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/carbine
 	cost = 90 // normally 120
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/machinegun
-	name = "L6 SAW - 5.56x45mm Box Magazine"
-	desc = "A 50-round magazine of 5.56x45mm ammunition for use in the L6 SAW machine gun. By the time you need to use this, you'll already be on a pile of corpses."
+	name = "Ручной пулемёт L6 — лента 5.56x45 мм"
+	desc = "Лента на 50 патронов калибра 5.56x45 мм."
 	item = /obj/item/ammo_box/magazine/mm556x45
 	cost = 50
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
 /datum/uplink_item/ammo/LMG_ammobag
-	name = "L6 SAW - 5.56x45m Ammo Duffel Bag"
-	desc = "A Duffel Bag filled with 5 mm556x45 box magazines. Remember, no Russian."
+	name = "Ручной пулемёт L6 — сумка с лентами 5.56x45 мм"
+	desc = "Сумка, содержащая 5 лент на 50 патронов калибра 5.56x45 мм. Ни слова по-русски."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/lmg
 	cost = 200 // normally 250
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1178,83 +1183,88 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/sniper/basic
-	name = "Sniper - .50 Magazine"
-	desc = "An additional standard 5-round magazine for use with .50 sniper rifles."
+	name = "Снайперская винтовка Baronet L — магазин .50 \"Стандартный\""
+	desc = "Магазин на 5 стандартных патронов .50 калибра. Эти патроны способны с лёгкостью оторвать голову или конечность."
 	item = /obj/item/ammo_box/magazine/sniper_rounds
 	cost = 20
 
 /datum/uplink_item/ammo/sniper/soporific
-	name = "Sniper - .50 Soporific Magazine"
-	desc = "A 3-round magazine of soporific ammo designed for use with .50 sniper rifles. Put your enemies to sleep today!"
+	name = "Снайперская винтовка Baronet L — магазин .50 \"Снотворный\" "
+	desc = "Магазин на 5 усыпляющих патронов .50 калибра. Снотворное действует мгновенно, и его нельзя обнаружить с помощью сканера. \
+			\"Иди поспи, реально. Иди приляг и поспи.\""
 	item = /obj/item/ammo_box/magazine/sniper_rounds/soporific
 	cost = 15
 
 /datum/uplink_item/ammo/sniper/explosive
-	name = "Sniper - .50 Explosive Magazine"
-	desc = "A 5-round magazine of explosive ammo designed for use with .50 sniper rifles. Human rights? What?"
+	name = "Снайперская винтовка Baronet L — магазин .50 \"Разрывной\""
+	desc = "Магазин на 5 разрывных патронов .50 калибра. При попадании в цель эти патроны взрываются, нанося серьёзный урон."
 	item = /obj/item/ammo_box/magazine/sniper_rounds/explosive
 	cost = 30
 
 /datum/uplink_item/ammo/sniper/penetrator
-	name = "Sniper - .50 Penetrator Magazine"
-	desc = "A 5-round magazine of penetrator ammo designed for use with .50 sniper rifles. \
-			Can pierce walls and multiple enemies."
+	name = "Снайперская винтовка Baronet L — магазин .50 \"Бронебойный\""
+	desc = "Магазин на 5 бронебойных патронов .50 калибра. В отличие от стандартных патронов, эти наносят чуть меньше урона и не способны отрывать конечности. \
+			Однако их высокая пробивная сила позволяет им легко проходить сквозь стены и поражать несколько целей подряд."
 	item = /obj/item/ammo_box/magazine/sniper_rounds/penetrator
 	cost = 25
 
 /datum/uplink_item/ammo/bioterror
-	name = "Box of Bioterror Syringes"
-	desc = "A box full of preloaded syringes, containing various chemicals that seize up the victim's motor and broca system , making it impossible for them to move or speak while in their system."
+	name = "Коробка с шприцами \"Биотеррор\""
+	desc = "В коробке находится семь шприцов, каждый из которых содержит смесь химических веществ: нейротоксин, капулеттий плюс и тиопентал натрия. \
+			Для эффективного использования рекомендуется применять шприцемёт."
 	item = /obj/item/storage/box/syndie_kit/bioterror
 	cost = 25
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/toydarts
-	name = "Box of Riot Darts"
-	desc = "A box of 40 Donksoft foam riot darts, for reloading any compatible foam dart gun. Don't forget to share!"
+	name = "Коробка усиленных пенных патронов"
+	desc = "Коробка содержит 40 усиленных пенных патронов, предназначенных для перезарядки игрушечного оружия от компании \"Донксофт\". \
+			Эти патроны предназначены для того, чтобы вывести из строя цель, не причиняя ей вреда."
 	item = /obj/item/ammo_box/foambox/riot
 	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
 /datum/uplink_item/ammo/compact
-	name = "50. compact ammo box"
-	desc = "A box of 50. cal sniper ammo."
+	name = "Компактная снайперская винтовка Baronet M — магазин .50 \"Стандартный\""
+	desc = "Магазин на 4 стандартных патронов .50 калибра."
 	item = /obj/item/ammo_box/magazine/sniper_rounds/compact
 	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/revolver
-	name = ".357 Revolver - Two Speedloaders"
-	desc = "A box with 2 speed loaders that contains fourteen additional .357 Magnum rounds for the syndicate revolver. For when you really need a lot of things dead."
+	name = "Револьвер синдиката .357 — 2 сменных барабана"
+	desc = "В коробке находятся 2 сменных барабана, каждый из которых вмещает 7 патронов \"Магнум\" .357 калибра."
 	item = /obj/item/storage/box/syndie_kit/revolver_ammo
 	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/deagle
-	name = ".50AE handgun magazine"
-	desc = "A magazine that contains seven additional .50AE round for Desert Eagle. Kill them all."
+	name = "Пистолет Desert Eagle — магазин .50AE"
+	desc = "Магазин на 7 патронов .50AE калибра. Убей их всех."
 	item = /obj/item/ammo_box/magazine/m50
 	cost = 5
 	surplus = 0
 
 /datum/uplink_item/ammo/rocketHE
-	name = "84mm High Explosive rocket"
-	desc = "A rocket from a rocketlauncher. This one deals a devastating explosion, enough to tear the station and civillian apart."
+	name = "Реактивный гранатомёт — осколочно-фугасная ракета 84 мм"
+	desc = "Ракета для реактивного гранатомёта PML-9. Этот снаряд может вызвать мощный взрыв, \
+			который способен причинить значительный ущерб станции и нанести серьёзные повреждения экипажу."
 	item = /obj/item/ammo_casing/caseless/rocket
 	cost = 40
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/rocketHEDP
-	name = "84mm High Explosive Dual Purpose rocket"
-	desc = "A rocket from a rocketlauncher. This one emits shrapnel and incendiary ammunition. The rocket itself is strong enough to destroy station mechs and robots with one shot."
+	name = "Реактивный гранатомёт — осколочно-фугасная ракета двойного назначения 84 мм"
+	desc = "Ракета для реактивного гранатомёта PML-9. Она обладает высокой проникающей способностью, \
+			что делает её идеальным оружием для борьбы с экзоскелетами и роботами на станции. Ракета способна уничтожить цель с одного выстрела."
 	item = /obj/item/ammo_casing/caseless/rocket/hedp
 	cost = 30
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/ammo/knives_kit
-	name = "Throwing knives kit"
-	desc = "A box containing 7 throwing knives"
+	name = "Набор метательных ножей"
+	desc = "Коробка с 7 метательными ножами. Испытайте себя в роли Рэмбо."
 	item = /obj/item/storage/box/syndie_kit/knives_kit
 	cost = 4
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1262,20 +1272,22 @@
 // STEALTHY WEAPONS
 
 /datum/uplink_item/stealthy_weapons
-	category = "Stealthy and Inconspicuous Weapons"
+	category = "Незаметное и тихое оружие"
 
 /datum/uplink_item/stealthy_weapons/garrote
-	name = "Fiber Wire Garrote"
-	desc = "A length of fiber wire between two wooden handles, perfect for the discrete assassin. This weapon, when used on a target from behind \
-			will instantly put them in your grasp and silence them, as well as causing rapid suffocation. Does not work on those who do not need to breathe."
+	name = "Гаррота"
+	desc = "Отрезок скрученной проволоки, зажатый между двумя деревянными рукоятками, идеальное оружие для осторожного убийцы. \
+			При использовании сзади оно мгновенно захватывает шею жертвы, лишая её возможности говорить, и приводит к быстрой асфиксии. \
+			Очевидно, что невозможно задушить того, кому не нужно дышать."
 	item = /obj/item/twohanded/garrote
 	cost = 20
 
 /datum/uplink_item/stealthy_weapons/martialarts
-	name = "Martial Arts Scroll"
-	desc = "This scroll contains the secrets of an ancient martial arts technique. You will master unarmed combat, \
-			deflecting all ranged weapon fire, but you also refuse to use dishonorable ranged weaponry. Learning this art means you will also refuse to use dishonorable ranged weaponry. \
-			Unable to be understood by vampire and changeling agents."
+	name = "Свиток боевого искусства \"Путь Спящего Карпа\""
+	desc = "Этот свиток хранит в себе тайны древнейшего боевого искусства, известного как \"Путь Спящего Карпа\". \
+			Овладев его секретами, вы научитесь мастерски отражать снаряды, выпущенные из любого оружия дальнего боя, используя только рукопашные техники. \
+			Однако, чтобы освоить этот путь, вам придётся полностью отказаться от применения любого оружия дальнего боя. Обратите внимание, что техники этого \
+			искусства не будут эффективны, если вы зависимы от каких-либо препаратов. Недоступно для изучения генокрадам и вампирам."
 	item = /obj/item/sleeping_carp_scroll
 	cost = 80
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1284,98 +1296,112 @@
 	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/cqc
-	name = "CQC Manual"
-	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
+	name = "Руководство по \"Тактике ближнего боя\""
+	desc = "Это одноразовое руководство по тактике ближнего боя, также известное как CQC. \
+			Оно предназначено для того, чтобы быстро и эффективно нейтрализовать противников с помощью захватов и сокрушительных ударов. \
+			Оно не накладывает ограничений на использование оружия, однако не может быть использовано вместе с перчатками \"Полярная звезда\"."
 	item = /obj/item/CQC_manual
 	cost = 50
 	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/mr_chang
-	name = "Mr. Chang's Aggressive Marketing Technique"
-	desc = "This package was kindly provided to us by Mr. Cheng's corporation. It contains a wide range of implements for the most effective promotion of products in a free market environment."
+	name = "Техника агрессивного маркетинга мистера Чанга"
+	desc = "Этот набор был любезно предоставлен нам корпорацией мистера Чанга и является абсолютно законным. \
+			В набор входит одноразовый журнал, обучающий пользователя агрессивным приемам маркетинга, а также стильная одежда. \
+			Освоив описанные в журнале приёмы, вы научитесь без труда воровать кошельки, использовать деньги как оружие и по-новому ощутить вкус еды мистера Чанга."
 	item = /obj/item/storage/box/syndie_kit/mr_chang_technique
 	cost = 18
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
-	desc = "A flash disguised as a camera with a self-charging safety system preventing the flash from burning out.\
-			 Due to its design, this flash cannot be overcharged like regular flashes can.\
-			 Useful for stunning borgs and individuals without eye protection or blinding a crowd for a get away."
+	desc = "Флешер, который выглядит как фотоаппарат, обладает всеми функциями обычного флешера, но при этом имеет несколько преимуществ. \
+			Он оснащён самозарядным аккумулятором, что исключает возможность полного разряда. Устройство рассчитано на 5 зарядов."
 	item = /obj/item/flash/cameraflash
 	cost = 6
 
 /datum/uplink_item/stealthy_weapons/throwingweapons
-	name = "Box of Throwing Weapons"
-	desc = "A box of shurikens and reinforced bolas from ancient Earth martial arts. They are highly effective \
-			 throwing weapons. The bolas can knock a target down and the shurikens will embed into limbs."
+	name = "Набор метательного оружия"
+	desc = "В коробке находятся 5 сюрикенов и 2 усиленные болы, которые были созданы в рамках древних боевых искусств, практикуемых на Земле. \
+			Эти метательные орудия крайне эффективны. Болы способны сбивать с ног, а сюрикены могут с лёгкостью вонзаться в конечности, \
+			нанося серьёзные ранения."
 	item = /obj/item/storage/box/syndie_kit/throwing_weapons
 	cost = 3
 
 /datum/uplink_item/stealthy_weapons/edagger
-	name = "Energy Dagger"
-	desc = "A dagger made of energy that looks and functions as a pen when off."
+	name = "Энергетический кинжал"
+	desc = "Энергетический кинжал, который в неактивном состоянии выглядит и функционирует как обычная ручка."
 	item = /obj/item/pen/edagger
 	cost = 7
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
-	name = "Sleepy Pen"
-	desc = "A syringe disguised as a functional pen. It's filled with a potent anaesthetic. \ The pen holds two doses of the mixture. The pen can be refilled."
+	name = "Усыпляющая ручка"
+	desc = "Гипоспрей, замаскированный под обычную ручку, содержит 100 единиц кетамина. \
+			При использовании на цели он незаметно вводит 50 единиц препарата. Может быть повторно заправлен любыми веществами."
 	item = /obj/item/pen/sleepy
 	cost = 36
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_weapons/foampistol
-	name = "Toy Gun (with Stun Darts)"
-	desc = "An innocent looking toy pistol designed to fire foam darts. Comes loaded with riot grade darts, to incapacitate a target."
+	name = "Игрушечный пистолет \"Донксофт\" FK-69 \"Стечкин\""
+	desc = "Полностью заряженный игрушечный пистолет, оснащённый магазином на 8 усиленных пенных патронов. \
+			Как и его огнестрельный аналог, этот пистолет очень компактный и легко помещается в карман. \
+			Предназначен для выведения из строя цели, не причиняя ей вреда."
 	item = /obj/item/gun/projectile/automatic/toy/pistol/riot
 	cost = 12
 	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/false_briefcase
-	name = "False Bottomed Briefcase"
-	desc = "A modified briefcase capable of storing and firing a gun under a false bottom. Use a screwdriver to pry away the false bottom and make modifications. Distinguishable upon close examination due to the added weight."
+	name = "Портфель с фальшивым дном"
+	desc = "Модифицированный портфель, позволяющий спрятать оружие внутри, что дает возможность стрелять, не вынимая его. \
+			Для того чтобы использовать портфель в качестве тайника, необходимо открутить двойное дно с помощью отвёртки, поместить оружие внутрь и снова закрутить дно.  \
+			При ближайшем рассмотрении его можно отличить по утолщённому дну."
 	item = /obj/item/storage/briefcase/false_bottomed
 	cost = 1
 
 /datum/uplink_item/stealthy_weapons/soap
-	name = "Syndicate Soap"
-	desc = "A sinister-looking surfactant used to clean blood stains to hide murders and prevent DNA analysis. You can also drop it underfoot to slip people."
+	name = "Мыло Синдиката"
+	desc = "Устрашающе красный кусок специального мыла, созданного Синдикатом, предназначен для быстрого удаления пятен крови и других улик, чтобы скрыть убийства. \
+			Его можно использовать и как оружие, например, бросить кому-то под ноги, чтобы он поскользнулся."
 	item = /obj/item/soap/syndie
 	cost = 1
 	surplus = 50
 
 /datum/uplink_item/stealthy_weapons/tape
-	name = "Thick tape roll"
-	desc = "Incredibly thick duct tape, suspiciously black in appearance. It is quite uncomfortable to hold it as it sticks to your hands."
+	name = "Плотная изолента Синдиката"
+	desc = "Чрезвычайно прочная клейкая лента. Она позволяет быстро заклеить рот жертве, при этом моментально сбивая маску. \
+			Увеличенный размер ленты позволяет использовать её до 40 раз."
 	item = /obj/item/stack/tape_roll/thick
 	cost = 7
 	surplus = 50
 
 /datum/uplink_item/stealthy_weapons/dart_pistol
-	name = "Dart Pistol Kit"
-	desc = "A miniaturized version of a normal syringe gun. It is very quiet when fired and can fit into any space a small item can. Comes with 3 syringes, a knockout poison, a silencing agent and a deadly neurotoxin."
+	name = "Набор шприцемёта"
+	desc = "Это миниатюрная версия обычного шприцемёта. Он не издаёт громких звуков при выстреле и легко помещается в кармане. \
+			В комплекте с ним идут три шприца, содержащие: Капулеттий+, Зарин и Панкуроний."
 	item = /obj/item/storage/box/syndie_kit/dart_gun
 	cost = 18
 	surplus = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_weapons/RSG
-	name = "Rapid Syringe Gun"
-	desc = "A rapid syringe gun able to hold six shot and fire them rapidly. Great together with the bioterror syringe"
+	name = "Барабанный шприцемёт"
+	desc = "В барабане можно разместить шесть шприцов, что позволяет быстро и эффективно поражать цели. \
+			Прекрасно подходит для использования со шприцами \"Биотеррор\"."
 	item = /obj/item/gun/syringe/rapidsyringe
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_weapons/silencer
-	name = "Universal Suppressor"
-	desc = "Fitted for use on any small caliber weapon with a threaded barrel, this suppressor will silence the shots of the weapon for increased stealth and superior ambushing capability."
+	name = "Универсальный глушитель"
+	desc = "Обеспечивает повышенную скрытность, заглушая звуки выстрелов."
 	item = /obj/item/suppressor
 	cost = 4
 	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/dehy_carp
-	name = "Dehydrated Space Carp"
-	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie. The first person to squeeze it will be registered as its owner, who it will not attack. If no owner is registered, it'll just attack everyone."
+	name = "Дегидрированный Космический карп"
+	desc = "Просто добавьте воды, чтобы обзавестись ручным карпом, который будет настроен агрессивно по отношению ко всем, кроме вас. \
+			Он замаскирован под игрушечного карпа. Не забудьте обнять карпа перед тем, как налить воду, иначе он не признает вас своим хозяином."
 	item = /obj/item/toy/carpplushie/dehy_carp
 	cost = 7
 
@@ -1479,7 +1505,7 @@
 	cost = 30
 
 /datum/uplink_item/explosives/rocketlauncher
-	name = "84mm Rocket Propelled Grenade Launcher"
+	name = "Реактивный гранатомет PML-9"
 	desc = "A reusable rocket propelled grenade launcher preloaded with a low-yield 84mm HE round. Guaranteed to send your target out with a bang or your money back!"
 	item = /obj/item/gun/projectile/revolver/rocketlauncher
 	cost = 50
@@ -1487,7 +1513,7 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/explosives/rocketbelt
-	name = "84mm Rocket Belt"
+	name = "Пояс с ракетами калибра 84 мм"
 	desc = "A belt full of rockets for a rocket propelled grenade launcher. Guaranteed to eliminate most of your targets. Just don't blow up your mates!"
 	item = /obj/item/storage/belt/rocketman
 	cost = 175
