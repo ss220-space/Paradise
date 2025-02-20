@@ -33,6 +33,22 @@
 	var/ritual_should_del_things_on_fail = FALSE
 	/// If defined - do_after will be added to your ritual
 	var/cast_time
+	/// Generic list of ritual sounds
+	var/start_sounds = list(
+		'sound/rituals/ritual_start1.ogg',
+		'sound/rituals/ritual_start2.ogg',
+		'sound/rituals/ritual_start3.ogg',
+	)
+	/// Generic list of success sounds
+	var/success_sounds = list(
+		'sound/rituals/ritual_success1.ogg',
+		'sound/rituals/ritual_success2.ogg',
+	)
+	/// Generic list of fail sounds
+	var/fail_sounds = list(
+		'sound/rituals/ritual_fail1.ogg',
+		'sound/rituals/ritual_fail2.ogg',
+	)
 
 /datum/ritual/Destroy(force)
 	ritual_object = null
@@ -73,11 +89,20 @@
 /datum/ritual/proc/handle_ritual_object(stage, silent = FALSE)
 	switch(stage)
 		if(RITUAL_STARTED)
-			playsound(ritual_object.loc, 'sound/effects/ghost2.ogg', 50, TRUE)
+			var/chosen_sound = start_sounds
+			if(islist(start_sounds) && length(start_sounds))
+				chosen_sound = pick(start_sounds)
+			playsound(ritual_object.loc, chosen_sound, 50, TRUE)
 		if(RITUAL_ENDED)
-			playsound(ritual_object.loc, 'sound/effects/phasein.ogg', 50, TRUE)
+			var/chosen_sound = success_sounds
+			if(islist(success_sounds) && length(success_sounds))
+				chosen_sound = pick(success_sounds)
+			playsound(ritual_object.loc, chosen_sound, 50, TRUE)
 		if(RITUAL_FAILED)
-			playsound(ritual_object.loc, 'sound/effects/empulse.ogg', 50, TRUE)
+			var/chosen_sound = fail_sounds
+			if(islist(fail_sounds) && length(fail_sounds))
+				chosen_sound = pick(fail_sounds)
+			playsound(ritual_object.loc, chosen_sound, 50, TRUE)
 
 /datum/ritual/proc/del_things(list/used_things)
 	return
@@ -111,7 +136,7 @@
 
 /datum/ritual/ashwalker/get_ui_params()
 	. = list()
-	.["Необходимо участников-шаманов:"] = extra_shaman_invokers
+	.["Необходимо участников-шаманов:"] = (shaman_only)? extra_shaman_invokers + 1 : "0"
 	.["Может выполнить только шаман:"] = (shaman_only)? "Да" : "Нет"
 	. += ..()
 	if(needed_dye)
@@ -219,15 +244,6 @@
 
 	return
 
-/datum/ritual/ashwalker/summon_ashstorm/handle_ritual_object(stage, silent = FALSE)
-	switch(stage)
-		if(RITUAL_ENDED)
-			playsound(ritual_object.loc, 'sound/magic/fleshtostone.ogg', 50, TRUE)
-		if(RITUAL_STARTED)
-			playsound(ritual_object.loc, 'sound/magic/invoke_general.ogg', 50, TRUE)
-		if(RITUAL_FAILED)
-			playsound(ritual_object.loc, 'sound/magic/castsummon.ogg', 50, TRUE)
-
 /datum/ritual/ashwalker/transformation
 	name = "Ритуал Превращения"
 	description = "Проведение данного ритуала обращает тело пленника в подобного нам. Выбранная жертва должна быть жива и иметь душу. \
@@ -272,16 +288,9 @@
 		LAZYADD(destinations, get_turf(beacon))
 
 	human.forceMove(safepick(destinations))
-	playsound(get_turf(human), 'sound/magic/invoke_general.ogg', 50, TRUE)
+	playsound(get_turf(human), 'sound/rituals/ritual_fail2.ogg', 50, TRUE)
 
 	return
-
-/datum/ritual/ashwalker/transformation/handle_ritual_object(stage, silent = FALSE)
-	if(stage & RITUAL_ENDED)
-		playsound(ritual_object.loc, 'sound/effects/clone_jutsu.ogg', 50, TRUE)
-		return
-
-	return ..()
 
 /datum/ritual/ashwalker/summon
 	name = "Ритуал Призыва"
@@ -348,14 +357,23 @@
 /datum/ritual/ashwalker/summon/handle_ritual_object(stage, silent = FALSE)
 	switch(stage)
 		if(RITUAL_ENDED)
-			playsound(ritual_object.loc, 'sound/weapons/zapbang.ogg', 50, TRUE)
+			var/chosen_sound = success_sounds
+			if(islist(success_sounds) && length(success_sounds))
+				chosen_sound = pick(success_sounds)
+			playsound(ritual_object.loc, chosen_sound, 50, TRUE)
 			var/datum/effect_system/smoke_spread/smoke = new
 			smoke.set_up(5, FALSE, ritual_object.loc)
 			smoke.start()
 		if(RITUAL_STARTED)
-			playsound(ritual_object.loc, 'sound/magic/forcewall.ogg', 50, TRUE)
+			var/chosen_sound = start_sounds
+			if(islist(start_sounds) && length(start_sounds))
+				chosen_sound = pick(start_sounds)
+			playsound(ritual_object.loc, chosen_sound, 50, TRUE)
 		if(RITUAL_FAILED)
-			playsound(ritual_object.loc, 'sound/magic/invoke_general.ogg', 50, TRUE)
+			var/chosen_sound = fail_sounds
+			if(islist(fail_sounds) && length(fail_sounds))
+				chosen_sound = pick(fail_sounds)
+			playsound(ritual_object.loc, chosen_sound, 50, TRUE)
 
 /datum/ritual/ashwalker/curse
 	name = "Ритуал Проклятия"
@@ -499,15 +517,6 @@
 
 	return
 
-/datum/ritual/ashwalker/power/handle_ritual_object(stage, silent =  FALSE)
-	switch(stage)
-		if(RITUAL_ENDED)
-			playsound(ritual_object.loc, 'sound/magic/castsummon.ogg', 50, TRUE)
-		if(RITUAL_STARTED)
-			playsound(ritual_object.loc, 'sound/magic/smoke.ogg', 50, TRUE)
-		if(RITUAL_FAILED)
-			playsound(ritual_object.loc, 'sound/magic/strings.ogg', 50, TRUE)
-
 /datum/ritual/ashwalker/resurrection
 	name = "Ритуал Воскрешения"
 	description = "Проведение данного ритуала позволит оживить погибшего гуманоида, находящегося на руне. \
@@ -564,15 +573,6 @@
 		human.adjustBrainLoss(15)
 
 	return
-
-/datum/ritual/ashwalker/resurrection/handle_ritual_object(stage, silent =  FALSE)
-	switch(stage)
-		if(RITUAL_ENDED)
-			playsound(ritual_object.loc, 'sound/magic/clockwork/reconstruct.ogg', 50, TRUE)
-		if(RITUAL_STARTED)
-			playsound(ritual_object.loc, 'sound/magic/disable_tech.ogg', 50, TRUE)
-		if(RITUAL_FAILED)
-			playsound(ritual_object.loc, 'sound/magic/invoke_general.ogg', 50, TRUE)
 
 /datum/ritual/ashwalker/recharge
 	name = "Ритуал Восстановления"
@@ -649,15 +649,6 @@
 
 	return
 
-/datum/ritual/ashwalker/recharge/handle_ritual_object(stage, silent =  FALSE)
-	switch(stage)
-		if(RITUAL_ENDED)
-			playsound(ritual_object.loc, 'sound/magic/castsummon.ogg', 50, TRUE)
-		if(RITUAL_STARTED)
-			playsound(ritual_object.loc, 'sound/magic/cult_spell.ogg', 50, TRUE)
-		if(RITUAL_FAILED)
-			playsound(ritual_object.loc, 'sound/magic/invoke_general.ogg', 50, TRUE)
-
 /datum/ritual/ashwalker/population
 	name = "Ритуал Населения"
 	description = "Проведение данного ритуала позволит племени пеплоходцев получить второго шамана. \
@@ -732,14 +723,23 @@
 /datum/ritual/ashwalker/population/handle_ritual_object(stage, silent =  FALSE)
 	switch(stage)
 		if(RITUAL_ENDED)
-			playsound(ritual_object.loc, 'sound/magic/demon_consume.ogg', 50, TRUE)
+			var/chosen_sound = success_sounds
+			if(islist(success_sounds) && length(success_sounds))
+				chosen_sound = pick(success_sounds)
+			playsound(ritual_object.loc, chosen_sound, 50, TRUE)
 			var/datum/effect_system/smoke_spread/smoke = new
 			smoke.set_up(5, FALSE, get_turf(ritual_object.loc))
 			smoke.start()
 		if(RITUAL_STARTED)
-			playsound(ritual_object.loc, 'sound/magic/cult_spell.ogg', 50, TRUE)
+			var/chosen_sound = success_sounds
+			if(islist(success_sounds) && length(success_sounds))
+				chosen_sound = pick(success_sounds)
+			playsound(ritual_object.loc, chosen_sound, 50, TRUE)
 		if(RITUAL_FAILED)
-			playsound(ritual_object.loc, 'sound/magic/teleport_diss.ogg', 50, TRUE)
+			var/chosen_sound = fail_sounds
+			if(islist(fail_sounds) && length(fail_sounds))
+				chosen_sound = pick(fail_sounds)
+			playsound(ritual_object.loc, chosen_sound, 50, TRUE)
 
 /datum/ritual/ashwalker/soul
 	name = "Ритуал Души"
@@ -813,15 +813,6 @@
 
 	return
 
-/datum/ritual/ashwalker/soul/handle_ritual_object(stage, silent =  FALSE)
-	switch(stage)
-		if(RITUAL_ENDED)
-			playsound(ritual_object.loc, 'sound/effects/whoosh.ogg', 50, TRUE)
-		if(RITUAL_STARTED)
-			playsound(ritual_object.loc, 'sound/effects/bamf.ogg', 50, TRUE)
-		if(RITUAL_FAILED)
-			playsound(ritual_object.loc, 'sound/effects/blobattack.ogg', 50, TRUE)
-
 /datum/ritual/ashwalker/transmutation
 	name = "Ритуал Трансмутации"
 	description = "Проведение данного ритуала позволяет трансмутировать 10 единиц любой руды в другую случайную руду. \
@@ -829,7 +820,7 @@
 	cooldown_after_cast = 20 SECONDS
 	cast_time = 10 SECONDS
 	required_things = list(
-		/obj/item/stack/ore = 10
+		/obj/item/stack/ore/metal = 10
 	)
 
 /datum/ritual/ashwalker/transmutation/check_invokers(mob/living/carbon/human/invoker, list/invokers)
@@ -866,15 +857,6 @@
 		turf.hotspot_expose(700, 50, 1)
 
 	return
-
-/datum/ritual/ashwalker/transmutation/handle_ritual_object(stage, silent =  FALSE)
-	switch(stage)
-		if(RITUAL_ENDED)
-			playsound(ritual_object.loc, 'sound/effects/bin_close.ogg', 50, TRUE)
-		if(RITUAL_STARTED)
-			playsound(ritual_object.loc, 'sound/magic/cult_spell.ogg', 50, TRUE)
-		if(RITUAL_FAILED)
-			playsound(ritual_object.loc, 'sound/magic/knock.ogg', 50, TRUE)
 
 /datum/ritual/ashwalker/interrogation
 	name = "Ритуал Допроса"
@@ -940,15 +922,6 @@
 		smoke.start()
 
 	return
-
-/datum/ritual/ashwalker/interrogation/handle_ritual_object(stage, silent =  FALSE)
-	switch(stage)
-		if(RITUAL_ENDED)
-			playsound(ritual_object.loc, 'sound/effects/anvil_start.ogg', 50, TRUE)
-		if(RITUAL_STARTED)
-			playsound(ritual_object.loc, 'sound/effects/hulk_hit_airlock.ogg', 50, TRUE)
-		if(RITUAL_FAILED)
-			playsound(ritual_object.loc, 'sound/effects/forge_destroy.ogg', 50, TRUE)
 
 /datum/ritual/ashwalker/creation
 	name = "Ритуал Создания"
@@ -1016,15 +989,6 @@
 		turf.hotspot_expose(700, 50, 1)
 
 	return
-
-/datum/ritual/ashwalker/creation/handle_ritual_object(stage, silent =  FALSE)
-	switch(stage)
-		if(RITUAL_ENDED)
-			playsound(ritual_object.loc, 'sound/magic/demon_consume.ogg', 50, TRUE)
-		if(RITUAL_STARTED)
-			playsound(ritual_object.loc, 'sound/magic/blind.ogg', 50, TRUE)
-		if(RITUAL_FAILED)
-			playsound(ritual_object.loc, 'sound/magic/castsummon.ogg', 50, TRUE)
 
 /datum/ritual/ashwalker/command
 	name = "Ритуал Командования"
@@ -1110,12 +1074,3 @@
 	new /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient(get_turf(ritual_object))
 
 	return
-
-/datum/ritual/ashwalker/command/handle_ritual_object(stage, silent = FALSE)
-	switch(stage)
-		if(RITUAL_ENDED)
-			playsound(ritual_object.loc, 'sound/magic/demon_consume.ogg', 50, TRUE)
-		if(RITUAL_STARTED)
-			playsound(ritual_object.loc, 'sound/magic/invoke_general.ogg', 50, TRUE)
-		if(RITUAL_FAILED)
-			playsound(ritual_object.loc, 'sound/magic/castsummon.ogg', 50, TRUE)

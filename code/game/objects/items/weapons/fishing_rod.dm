@@ -32,6 +32,9 @@
 	/// Actual fish that we catch
 	var/reward_fish = null
 
+	var/throw_sound = 'sound/objects/fishing_rod_throw.ogg'
+	var/catch_sound = 'sound/objects/fishing_rod_catch.ogg'
+
 /obj/item/twohanded/fishing_rod/tribal
 	name = "fishing rod"
 	ru_names = list(
@@ -91,10 +94,12 @@
 	fisher = user
 	var/turf/fishing_turf = fishing_component.parent
 	fishing_turf.add_overlay(bobber)
+	playsound(src, throw_sound, 30)
 	to_chat(user, span_notice("Вы начали рыбачить."))
 
 	if(do_after(fisher, 10 SECONDS, target = fishing_turf, max_interact_count = 1))
 		catch_fish()
+		playsound(src, catch_sound, 30)
 		fishing = FALSE
 		fishing_turf.cut_overlay(bobber)
 	else

@@ -12,13 +12,19 @@
 	gender = MALE
 	icon_state = "bow"
 	item_state = "bow"
-	fire_sound = 'sound/weapons/grenadelaunch.ogg'
+
+	fire_sound = 'sound/weapons/bows/bow_fire.ogg'
+	pickup_sound = 'sound/weapons/bows/bow_pickup.ogg'
+	drop_sound = 'sound/weapons/bows/bow_drop.ogg'
+	equip_sound = 'sound/weapons/bows/bow_equip.ogg'
+
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
 	item_flags = SLOWS_WHILE_IN_HAND
 	slot_flags = ITEM_SLOT_BACK
 	weapon_weight = WEAPON_HEAVY
 	trigger_guard = TRIGGER_GUARD_NONE
-	var/draw_sound = 'sound/weapons/draw_bow.ogg'
+
+	var/draw_sound = 'sound/weapons/bows/bow_pull.ogg'
 	var/ready_to_fire = FALSE
 	var/slowdown_when_ready = 2
 
@@ -35,10 +41,15 @@
 	)
 	icon_state = "ashenbow"
 	item_state = "ashenbow"
+
+	fire_sound = 'sound/weapons/bows/bonebow_fire.ogg'
+	drop_sound = 'sound/weapons/bows/bonebow_drop.ogg'
+	draw_sound = 'sound/weapons/bows/bonebow_pull.ogg'
+
+	item_flags = NONE
 	flags = NONE
 	force = 10
 	slowdown_when_ready = 1
-
 
 /obj/item/gun/projectile/bow/proc/update_state()
 	update_slowdown()
@@ -114,6 +125,22 @@
 	caliber = "arrow"
 	max_ammo = 1
 	start_empty = TRUE
+	replacing_sound = list(
+		'sound/weapons/bows/arrow_insert1.ogg',
+		'sound/weapons/bows/arrow_insert2.ogg'
+	)
+	remove_sound = list(
+		'sound/weapons/bows/arrow_remove1.ogg',
+		'sound/weapons/bows/arrow_remove2.ogg'
+	)
+	insert_sound = list(
+		'sound/weapons/bows/arrow_insert1.ogg',
+		'sound/weapons/bows/arrow_insert2.ogg'
+	)
+	load_sound = list(
+		'sound/weapons/bows/arrow_remove1.ogg',
+		'sound/weapons/bows/arrow_remove2.ogg'
+	) //all these sounds are too good to be true
 
 /obj/item/projectile/bullet/reusable/arrow //only for wooden bow!
 	name = "arrow"
