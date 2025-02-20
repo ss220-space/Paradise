@@ -6,6 +6,7 @@
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "spleen"
+	w_class = WEIGHT_CLASS_TINY
 	/// Name of body marking, that applies to human
 	var/picked_dye = "Cinnabar Dyes"
 	/// Name of overlay, that applies to totem
@@ -109,6 +110,7 @@
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "paint"
 	desc = "Небольшая ступка с находящейся в ней растолоченной селезёнкой. Используется для нанесения красок на тело."
+	w_class = WEIGHT_CLASS_TINY
 	/// Name of body marking, that applies to human
 	var/picked_dye = "Cinnabar Dyes"
 	/// Name of overlay, that applies to totem, also used in icon_states

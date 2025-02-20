@@ -400,3 +400,9 @@
 		/obj/item/clothing/accessory/necklace/gem = 1
 	)
 
+/obj/effect/spawner/random_spawners/sixty_pc_skull
+	name = "60pc scorched_skull"
+	result = list(
+		/datum/nothing = 60,
+		/obj/item/clothing/head/scorched_skull = 40
+	)

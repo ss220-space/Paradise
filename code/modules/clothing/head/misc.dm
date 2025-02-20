@@ -609,8 +609,9 @@
 	desc = "Голова мертвого всадника, очищенная от чешуи, крови и внутренних органов во время разделки. Вселяет страх в ваших врагов."
 	icon_state = "scorched_skull"
 	item_state = "scorched_skull"
+	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 60, ACID = 60)
 	w_class = WEIGHT_CLASS_TINY
-	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
+	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDENAME|HIDEHAIR
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',

@@ -152,6 +152,7 @@
 	)
 	desc = "Массивный, грозно выглядящий пилотопор, созданный с использованием костяного нароста ослеплённого жнеца. Идеален для убийства и последующей разделки чудовищ."
 	icon_state = "guillotine0"
+	hitsound = 'sound/weapons/circsawhit.ogg'
 	force_unwielded = 7
 	force_wielded = 25
 	throwforce = 20

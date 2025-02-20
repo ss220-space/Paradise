@@ -17,7 +17,7 @@
 	var/obj/item/stack/digResult = /obj/item/stack/ore/glass/basalt
 	var/dug
 	///Chance to dig up a worm
-	var/worm_chance = 40
+	var/worm_chance = 30
 
 /turf/simulated/floor/plating/asteroid/Initialize(mapload)
 	var/proper_name = name

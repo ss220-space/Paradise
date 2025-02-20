@@ -258,7 +258,6 @@
 	needed_dye = "Cinnabar Dyes"
 	totem_dye = "cinnabar"
 	required_things = list(
-		/obj/item/organ/internal/regenerative_core = 1,
 		/mob/living/carbon/human = 1
 	)
 
@@ -389,9 +388,6 @@
 	needed_dye = "Crimson Dyes"
 	totem_dye = "crimson"
 	extra_invokers = 2
-	required_things = list(
-		/mob/living/carbon/human = 1
-	)
 
 /datum/ritual/ashwalker/curse/del_things(list/used_things)
 	for(var/mob/living/carbon/human/human in used_things)
@@ -449,20 +445,19 @@
 
 /datum/ritual/ashwalker/power
 	name = "Ритуал Силы"
-	description = "Проведение данного ритуала значительно увеличит силу всех его участников, позволяя им таскать тяжести без замедления. \
+	description = "Проведение данного ритуала значительно увеличит силу, скорость и регенерацию здоровья у всех его участников, позволяя им таскать тяжести без замедления. \
 					Катастрофическая неудача приведет к случайной плохой мутации у всех участников ритуала."
 	disaster_prob = 40
 	fail_chance = 40
 	charges = 2
 	cooldown_after_cast = 800 SECONDS
-	cast_time = 30 SECONDS
+	cast_time = 40 SECONDS
 	shaman_only = TRUE
 	extra_invokers = 2
 	fluff_tgui_dye = "Тёмно-синяя краска"
 	needed_dye = "Indigo Dyes"
 	totem_dye = "indigo"
 	required_things = list(
-		/mob/living/simple_animal/hostile/asteroid/goliath = 1,
 		/obj/item/organ/internal/regenerative_core = 1
 	)
 
@@ -493,6 +488,8 @@
 			human.force_gene_block(GLOB.weakblock)
 
 		human.force_gene_block(GLOB.strongblock, TRUE)
+		human.force_gene_block(GLOB.increaserunblock, TRUE)
+		human.force_gene_block(GLOB.regenerateblock, TRUE)
 
 	return RITUAL_SUCCESSFUL
 
@@ -532,9 +529,8 @@
 	needed_dye = "Mint Dyes"
 	totem_dye = "mint"
 	required_things = list(
-		/obj/item/organ/internal/regenerative_core = 2,
+		/obj/item/organ/internal/regenerative_core = 1,
 		/mob/living/carbon/human = 1,
-		/obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom = 2
 	)
 
 /datum/ritual/ashwalker/resurrection/check_contents(mob/living/carbon/human/invoker, list/used_things)
@@ -588,8 +584,6 @@
 	needed_dye = "Amber Dyes"
 	totem_dye = "amber"
 	required_things = list(
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher = 1,
-		/mob/living/simple_animal/hostile/asteroid/goliath = 1,
 		/obj/item/organ/internal/regenerative_core = 1,
 	)
 	var/list/blacklisted_rituals = list(/datum/ritual/ashwalker/power)
@@ -752,7 +746,6 @@
 	needed_dye = "Crimson Dyes"
 	totem_dye = "crimson"
 	required_things = list(
-		/mob/living/carbon/human = 3,
 		/obj/item/stack/sheet/animalhide/ashdrake = 1
 	)
 
@@ -934,9 +927,6 @@
 	fluff_tgui_dye = "Тёмно-синяя краска"
 	needed_dye = "Indigo Dyes"
 	totem_dye = "indigo"
-	required_things = list(
-		/mob/living/carbon/human = 2
-	)
 
 /datum/ritual/ashwalker/creation/check_invokers(mob/living/carbon/human/invoker, list/invokers)
 	. = ..()
@@ -948,23 +938,6 @@
 		if(human.stat != UNCONSCIOUS)
 			disaster_prob += 20
 			fail_chance += 20
-
-	return TRUE
-
-/datum/ritual/ashwalker/creation/check_contents(mob/living/carbon/human/invoker, list/used_things)
-	. = ..()
-
-	if(!.)
-		return FALSE
-
-	for(var/mob/living/carbon/human/human in used_things)
-		if(human.stat != DEAD)
-			to_chat(invoker, "Гуманоиды должны быть мертвы.")
-			return FALSE
-
-		if(!isashwalker(human))
-			to_chat(invoker, "Гуманоиды должны быть пеплоходцами.")
-			return FALSE
 
 	return TRUE
 
@@ -1004,7 +977,6 @@
 	totem_dye = "mint"
 	required_things = list(
 		/mob/living/simple_animal = 1,
-		/obj/item/organ/internal/regenerative_core = 1,
 	)
 
 /datum/ritual/ashwalker/command/check_contents(mob/living/carbon/human/invoker, list/used_things)

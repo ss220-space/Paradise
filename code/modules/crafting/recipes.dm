@@ -673,7 +673,7 @@
 	result = /obj/item/clothing/suit/armor/cartilage/cartilage_greaves
 	time = 4 SECONDS
 	reqs = list(/obj/item/stack/sheet/cartilage_plate = 2,
-				/obj/item/stack/sheet/leather = 2,
+				/obj/item/stack/sheet/cloth = 3,
 				/obj/item/stack/sheet/sinew = 2)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
@@ -683,7 +683,7 @@
 	result = /obj/item/clothing/suit/armor/cartilage/cartilage_pads
 	time = 4 SECONDS
 	reqs = list(/obj/item/stack/sheet/cartilage_plate = 2,
-				/obj/item/stack/sheet/leather = 2,
+				/obj/item/stack/sheet/cloth = 3,
 				/obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR

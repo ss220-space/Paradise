@@ -28,8 +28,9 @@
 
 /obj/item/reagent_containers/food/snacks/bait/random/Initialize(mapload)
 	. = ..()
-	var/bait = pick(subtypesof(/obj/item/reagent_containers/food/snacks/bait))
-	new bait(loc)
+	if(prob(40)) //60pc chance to nothing
+		var/bait = pick(subtypesof(/obj/item/reagent_containers/food/snacks/bait))
+		new bait(loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/item/reagent_containers/food/snacks/bait/ash_eater

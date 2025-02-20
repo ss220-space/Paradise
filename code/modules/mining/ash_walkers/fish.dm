@@ -61,9 +61,9 @@
 
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	throwforce = 5
-	force = 1
+	force = 10
 	attack_verb = list("охлестал", "ударил", "стукнул", "опозорил")
-	hitsound = 'sound/effects/snap.ogg'
+	hitsound = 'sound/weapons/bite.ogg'
 
 	/// If this fish should do the flopping animation
 	var/do_flop_animation = TRUE
@@ -189,7 +189,7 @@
 	desc = "Небольших размеров рыба, питающаяся преимущественно кровавыми пиявками, зарытыми в пепле. Получила свое название из-за своего характерного внешнего вида - голова всадника внешне напоминает гуманоидный череп. Ценится местными племенами в первую очередь из-за селезёнки, содержащей в себе частицы киновари и используемой для создания коричневого красителя."
 	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/bloody_leach
 	butcher_loot = list(
-		/obj/item/clothing/head/scorched_skull = 1,
+		/obj/effect/spawner/random_spawners/sixty_pc_skull = 1,
 		/obj/item/reagent_containers/food/snacks/lavaland/soft_meat = 1,
 		/obj/item/lavaland_dye/cinnabar = 1,
 		)
@@ -287,6 +287,9 @@
 	)
 	icon_state = "blind_reaper"
 	item_state = "blind_reaper"
+	throwforce = 20
+	force = 10
+	hitsound = 'sound/weapons/circsawhit.ogg'
 	desc = "Самая маленькая представительница глубоководных рыб Лазис Ардакса, она привлекает к себе внимание не только небольшим размером, но и огромным костным наростом на голове, напоминающем лезвие циркулярной пилы. Данный вид, будучи лишенным зрения, использует свое лезвие в качестве биологического сонара, что помогает ей ориентироваться на огромных лавовых глубинах."
 	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/ash_eater
 	butcher_loot = list(
@@ -346,4 +349,3 @@
 	var/datum/effect_system/smoke_spread/chem/smoke = new
 	smoke.set_up(reagents_list, location, TRUE)
 	smoke.start(2)
-

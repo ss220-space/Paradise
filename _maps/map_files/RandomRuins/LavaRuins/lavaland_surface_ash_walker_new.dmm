@@ -461,7 +461,6 @@
 /obj/item/seeds/aloe,
 /obj/structure/closet/crate/wooden,
 /obj/item/seeds/aloe,
-/obj/item/seeds/aloe,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "mQ" = (
@@ -970,7 +969,7 @@
 "xu" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/table/wood,
-/obj/item/paper/food_scroll,
+/obj/item/book/manual/lavaland_scroll,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "xy" = (
@@ -1075,6 +1074,16 @@
 	},
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"zK" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 4
+	},
+/obj/item/seeds/cotton,
+/obj/item/seeds/cotton,
+/obj/item/seeds/cotton,
+/obj/structure/closet/crate/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
 "zO" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -1890,9 +1899,8 @@
 "Tl" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/rack/wooden,
-/obj/item/stack/marker_beacon/ten{
-	icon_state = "markerrandom"
-	},
+/obj/item/grown/cotton,
+/obj/item/grown/cotton,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "TB" = (
@@ -3121,7 +3129,7 @@ je
 je
 sJ
 gV
-Bf
+zK
 Dq
 BK
 ny
