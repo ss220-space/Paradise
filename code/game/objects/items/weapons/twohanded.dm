@@ -436,12 +436,12 @@
 /obj/item/twohanded/spear/bonespear/her_biting_embrace
 	name = "her biting embrace"
 	ru_names = list(
-		NOMINATIVE = "её обжигающие объятия",
-		GENITIVE = "её обжигающих объятий",
-		DATIVE = "её обжигающим объятиям",
-		ACCUSATIVE = "её обжигающие объятия",
-		INSTRUMENTAL = "её обжигающими объятиями",
-		PREPOSITIONAL = "её обжигающих объятиях"
+		NOMINATIVE = "копье \"её обжигающие объятия\"",
+		GENITIVE = "копья \"её обжигающие объятия\"",
+		DATIVE = "копью \"её обжигающие объятия\"",
+		ACCUSATIVE = "копье \"её обжигающие объятия\"",
+		INSTRUMENTAL = "копьем \"её обжигающие объятия\"",
+		PREPOSITIONAL = "копье \"её обжигающие объятия\""
 	) //holy fuck
 	desc = "Качественно созданное копье, украшенное церемониальными узорами, использующее хвост донного угря в качестве наконечника."
 	icon_state = "her_biting_embrace0"
