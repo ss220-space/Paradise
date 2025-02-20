@@ -295,6 +295,8 @@
 	desc = "Бритвенно-острый хвост донного угля, аккуратно отделенный от основного тела рыбы. Используется для улучшения копья, однако сам по себе может использоваться как отличный нож."
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "eel_sharpened_tail"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "eel_sharpened_tail"
 
 /obj/item/kitchen/knife/combat/cyborg

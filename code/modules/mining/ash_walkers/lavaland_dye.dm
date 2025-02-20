@@ -3,6 +3,9 @@
 	desc = "Если вы это видите, то зюзя дебил конечно."
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "cinnabar_spleen"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "spleen"
 	/// Name of body marking, that applies to human
 	var/picked_dye = "Cinnabar Dyes"
 	/// Name of overlay, that applies to totem
@@ -102,6 +105,9 @@
 	)
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "amber_dyes"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "paint"
 	desc = "Небольшая ступка с находящейся в ней растолоченной селезёнкой. Используется для нанесения красок на тело."
 	/// Name of body marking, that applies to human
 	var/picked_dye = "Cinnabar Dyes"

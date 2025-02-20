@@ -19,6 +19,9 @@
 	)
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "gooey_molten_mass"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "acid_bladder"
 	desc = "Странноватые сгустки, снятые с головы магмового рыбы-молота. Являются природным аналогом стабилизатора регенеративных ядер."
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=5"

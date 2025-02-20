@@ -112,5 +112,8 @@
 	desc = "Маленький панцирь пепельного рака, предназначенный для лёгкой заточки оружия или когтей. Достаточно крепкий для того, чтобы им можно пользоваться несколько раз."
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "crab_shell"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "crab_shell"
 	increment = 2
 	uses = -1

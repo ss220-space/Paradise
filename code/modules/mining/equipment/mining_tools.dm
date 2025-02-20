@@ -273,6 +273,9 @@
 	)
 	desc = "Маленький инструмент для вскапывания и перемещения земли. Эта модель сделана из древесины."
 	icon_state = "wooden_spade"
+	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
+	item_state = "small_shovel"
 
 /obj/item/shovel/safety
 	name = "safety shovel"

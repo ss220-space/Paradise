@@ -141,6 +141,9 @@
 	desc = "Глаз, вырванный из тела массивного сернистого странника. Даже спустя долгое время, он все еще движется и внимательно осматривает местность в поисках руды."
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "bleary_eye"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "bleary_eye"
 	flags = NONE
 	materials = null
 	origin_tech = "magnets=6;biotech=6"

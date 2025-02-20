@@ -685,6 +685,9 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	)
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "razor_sharp_teeth"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "razor_sharp_teeth"
 	singular_name = "razor sharp tooth"
 	desc = "Бритвенно-острые зубы, добытые из пасти лавового хищника. Хороши для улучшения стрел."
 	w_class = WEIGHT_CLASS_NORMAL

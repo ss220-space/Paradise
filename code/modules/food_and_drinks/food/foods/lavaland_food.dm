@@ -1,5 +1,8 @@
 /obj/item/reagent_containers/food/snacks/lavaland
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "food"
 	var/overlay_sprite
 	list_reagents = list("nutriment" = 2, "vitamin" = 4, "protein" = 2)
 
@@ -15,6 +18,7 @@
 	)
 	desc = "Нежное филе лавовой рыбы. Сырое в текущем виде, однако с правильными ингридиентами её можно превратить в прекрасное блюдо."
 	icon_state = "soft_meat_cut"
+	item_state = "soft_meat_cut"
 	list_reagents = list("nutriment" = 1, "vitamin" = 3, "protein" = 3)
 	bitesize = 2
 	filling_color = "#D49284"
@@ -33,6 +37,7 @@
 	)
 	desc = "Сырое филе донного угря. Хоть оно съедобно и в сыром виде, с правильными ингридиентами, ее можно превратить в прекрасное блюдо."
 	icon_state = "eel_filet"
+	item_state = "eel_filet"
 	list_reagents = list("nutriment" = 2, "menthol" = 3, "protein" = 4)
 	bitesize = 2
 	filling_color = "#414F71"
@@ -51,6 +56,7 @@
 	)
 	desc = "Достаточно большой кусок мяса, добытый из хищной рыбы. Не рекомендуется к употреблению в сыром виде."
 	icon_state = "predatory_fish_slice"
+	item_state = "predatory_fish_slice"
 	list_reagents = list("nutriment" = 2, "toxin" = 2, "protein" = 4)
 	bitesize = 3
 	filling_color = "#BE7C64"
@@ -223,6 +229,9 @@
 	desc = "самое обычное блюдо. Если вы это видите, то зюзя напортачил"
 	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "fine_meal"
+	lefthand_file = 'icons/mob/inhands/lavaland/food_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/food_righthand.dmi'
+	item_state = "food"
 	bitesize = 100 //eat whole thing down
 	list_reagents = list("nutriment" = 6, "protein" = 6)
 	tastes = list("good food" = 1)
@@ -335,6 +344,7 @@
 		PREPOSITIONAL = "пепло-кебабе Лазиса",
 	)
 	icon_state = "ashie_kebab"
+	item_state = "ashie_kebab"
 	desc = "Несколько жизненно-важных органов, грубо удаленных из тела и насаженных на железный стержень. Выглядит вкусно!"
 	list_reagents = list("nutriment" = 6, "protein" = 6, "ephedrine" = 10)
 
@@ -519,6 +529,7 @@
 	)
 	desc = "Небольшая кровяная колбаска, сделанная из мяса голиафа и... настоящей крови. Крайне полезно, если вы в критическом состоянии."
 	icon_state = "black_blood_sausage"
+	item_state = "black_blood_sausage"
 	list_reagents = list("nutriment" = 4, "protein" = 3, "ashiezine" = 6)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/xeno_sticks
@@ -533,6 +544,7 @@
 	)
 	desc = "Мясо ксеноморфа на палочках, украшенное грибами рейши. На удивление довольно вкусное!"
 	icon_state = "xeno_sticks"
+	item_state = "xeno_sticks"
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/xeno_sticks/on_mob_eating_effect(mob/user)
 	if(isliving(user))

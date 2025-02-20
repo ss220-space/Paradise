@@ -12,6 +12,9 @@
 	desc = "Небольшой кислотный мешочек, добытый с тела сернистого странника. Оболочка данного пузыря достаточно слабая и вероятнее всего разорвется при броске во что-то. Или в кого-то."
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "acid_bladder"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "acid_bladder"
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/acid_bladder/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -47,6 +50,9 @@
 	desc = "Костный нарост в виде циркулярной пилы, вырванный из черепа ослеплённого жнеца. Используется для улучшения костяного топора."
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "circular_saw_blade"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "circular_saw_blade"
 	w_class = WEIGHT_CLASS_TINY
 
 //**********Grace of Lazis **********//
@@ -257,7 +263,9 @@
 	desc = "Деревянная табуретка. Достаточно удобная, чтобы держать ее в руках."
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "wooden_stool_toppled"
-	item_state = "stool"
+	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
+	item_state = "wooden_stool"
 	force = 8
 	origin_type = /obj/structure/chair/stool/wooden
 	break_chance = 10

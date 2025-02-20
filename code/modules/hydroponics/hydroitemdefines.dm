@@ -86,6 +86,10 @@
 	hitsound = null
 	materials = null
 	flags = NONE
+	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
+	item_state = "cultivator"
+
 
 /obj/item/hatchet
 	name = "hatchet"
@@ -127,6 +131,9 @@
 	belt_icon = "wooden_hatchet"
 	materials = null
 	flags = NONE
+	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
+	item_state = "small_shovel"
 
 /obj/item/scythe
 	icon_state = "scythe0"
@@ -361,5 +368,8 @@
 	desc = "небольшой желтоватый мешочек, добываемый из лавового панцирника. Является мощным удобрением, значительно повышающим урожай и уровень нутриментов растения."
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "conductive_organ"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "acid_bladder" //yeah
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=6"

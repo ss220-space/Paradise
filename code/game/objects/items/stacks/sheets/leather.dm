@@ -281,6 +281,9 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	desc = "Хрящевая пластина, снятая с тела лавового панцирника. Судя по всему, пластина начала терять свой характерный кроваво-красный цвет, однако она остаётся такой же крепкой, как и до этого."
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "thick_cartilage_plate"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "thick_cartilage_plate"
 	singular_name = "cartilage plate"
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
