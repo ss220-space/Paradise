@@ -425,6 +425,26 @@
 	icon_state = "mushroom_bowl"
 	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/reagent_containers/food/drinks/mushroom_bowl/attackby(obj/item/I, mob/user, params)
+	if(!istype(I, /obj/item/lavaland_dye))
+		return ..()
+
+	var/obj/item/lavaland_dye/dye = I
+	to_chat(user, span_notice("Вы начали толочь селезёнку в ступке."))
+	if(!do_after(user, 5 SECONDS, src, max_interact_count = 1, cancel_on_max = TRUE))
+		return ..()
+
+	var/obj/item/lavaland_mortar/new_item = new(loc)
+	new_item.picked_dye = dye.picked_dye
+	new_item.totem_dye = dye.totem_dye
+	new_item.fluff_name = dye.fluff_name
+	new_item.update_icon(UPDATE_ICON_STATE)
+
+	user.put_in_hands(new_item)
+
+	qdel(dye)
+	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /*********
  * Rocks *
