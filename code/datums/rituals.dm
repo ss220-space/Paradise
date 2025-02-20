@@ -820,7 +820,7 @@
 	cooldown_after_cast = 20 SECONDS
 	cast_time = 10 SECONDS
 	required_things = list(
-		/obj/item/stack/ore/metal = 10
+		/obj/item/stack/ore = 10
 	)
 
 /datum/ritual/ashwalker/transmutation/check_invokers(mob/living/carbon/human/invoker, list/invokers)
