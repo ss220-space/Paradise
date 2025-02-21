@@ -2,15 +2,16 @@
 
 /obj/item/gem
 	name = "\improper gem"
+	desc = "Ооо! Блестяшка!"
 	ru_names = list(
-		NOMINATIVE = "гем",
-		GENITIVE = "гема",
-		DATIVE = "гему",
-		ACCUSATIVE = "гем",
-		INSTRUMENTAL = "гемом",
-		PREPOSITIONAL = "геме"
+		NOMINATIVE = "самоцвет",
+		GENITIVE = "самоцвета",
+		DATIVE = "самоцвету",
+		ACCUSATIVE = "самоцвет",
+		INSTRUMENTAL = "самоцветом",
+		PREPOSITIONAL = "самоцвете"
 	)
-	desc = "Ооо! Блестяшка!!"
+	gender = MALE
 	icon = 'icons/obj/lavaland/gems.dmi'
 	icon_state = "rupee"
 	w_class = WEIGHT_CLASS_SMALL
@@ -56,7 +57,7 @@
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
-	balloon_alert(user, "просканировано!")
+	balloon_alert(user, "просканировано")
 	if(analysed_message)
 		to_chat(user, analysed_message)
 
@@ -84,12 +85,13 @@
 			to_chat(user, span_notice("Вы осторожно разрезаете [declent_ru(ACCUSATIVE)]."))
 			qdel(src)
 		else
-			to_chat(user, span_notice("Вы, кажется, не можете разрезать [declent_ru(ACCUSATIVE)]."))
+			balloon_alert(user, "не получается разрезать!")
 	return TRUE
 
 //goldgrub gem
 /obj/item/gem/rupee
 	name = "\improper ruperium crystal"
+	desc = "Крайне радиоактивное кристаллическое соединение, которое можно найти во внутренностях златожора. Хоть вы и можете преобразовать кристалл в урановую руду, его истинная ценность заключается в его резонирующих свойствах."
 	ru_names = list(
 		NOMINATIVE = "кристалл рупериума",
 		GENITIVE = "кристалла рупериума",
@@ -98,7 +100,6 @@
 		INSTRUMENTAL = "кристаллом рупериума",
 		PREPOSITIONAL = "кристалле рупериума"
 	)
-	desc = "Крайне радиоактивное кристаллическое соединение, которое можно найти во внутренностях златожора. Хоть вы и можете разрезать кристалл ради листов урана, его истинная ценность заключается в его резонирующих свойствах."
 	light_color = "#5ECC38"
 	icon_state = "rupee"
 	materials = list(MAT_URANIUM = 60000)
@@ -120,7 +121,7 @@
 /obj/item/gem/rupee/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_BLOCK_RADIATION))
-		. += span_info("Вы можете использовать что-нибудь <b>острое</b>, чтобы повредить кристалл.")
+		. += span_info("Вы можете использовать что-нибудь <b>острое</b>, чтобы распилить кристалл.")
 	else
 		. += span_warning("Кристалл ярко горит!")
 
@@ -134,11 +135,11 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_sharp(I) || !HAS_TRAIT(src, TRAIT_BLOCK_RADIATION))
 		return .
 
-	to_chat(user, span_notice("Вы начали повреждать кристалл! Это явно плохая идея..."))
-	if(!do_after(user, 5 SECONDS, src, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы решили не умирать от радиации."), category = DA_CAT_TOOL))
+	to_chat(user, span_notice("Вы начали распиливать кристалл! Это явно плохая идея..."))
+	if(!do_after(user, 5 SECONDS, src, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы решили не делать глупостей."), category = DA_CAT_TOOL))
 		return .
 	. |= ATTACK_CHAIN_SUCCESS
-	to_chat(user, span_warning("Вы повредили внешнюю оболочку кристалла! Голова начинает болеть..."))
+	to_chat(user, span_warning("Вы разрушили внешнюю оболочку кристалла! Голова начинает болеть..."))
 	user.apply_effect(50, IRRADIATE)
 	REMOVE_TRAIT(src, TRAIT_BLOCK_RADIATION, INNATE_TRAIT)
 	update_icon(UPDATE_ICON_STATE)
@@ -147,6 +148,7 @@
 //magmawing watcher gem
 /obj/item/gem/magma
 	name = "\improper calcified auric"
+	desc = "Горячий на ощупь, слегка святящийся минерал, получаемый из потрохов магменных наблюдателей. Может быть переплавлен в чистое золото."
 	ru_names = list(
 		NOMINATIVE = "окаменелый аурит",
 		GENITIVE = "окаменелого аурита",
@@ -155,7 +157,6 @@
 		INSTRUMENTAL = "окаменелым ауритом",
 		PREPOSITIONAL = "окаменелом аурите"
 	)
-	desc = "Горячий на ощупь, слегка святящийся минерал, получаемый из потрохов магменных наблюдателей. Чаще всего используется для переплавки в чистое золото."
 	icon_state = "magma"
 	materials = list(MAT_GOLD = 100000)
 	sheet_type = /obj/item/stack/sheet/mineral/gold{amount = 50}
@@ -194,6 +195,7 @@
 //icewing watcher gem
 /obj/item/gem/fdiamond
 	name = "\improper frost diamond"
+	desc = "Уникальный алмаз, получаемый из морозных наблюдателей. Кажется его можно разрезать на маленькие алмазы."
 	ru_names = list(
 		NOMINATIVE = "морозный бриллиант",
 		GENITIVE = "морозного бриллианта",
@@ -202,7 +204,6 @@
 		INSTRUMENTAL = "морозным бриллиантом",
 		PREPOSITIONAL = "морозном бриллианте"
 	)
-	desc = "Уникальный алмаз, получаемый из морозных наблюдателей. Кажется его можно разрезать на маленькие алмазы."
 	icon_state = "diamond"
 	materials = list(MAT_DIAMOND = 60000)
 	sheet_type = /obj/item/stack/sheet/mineral/diamond{amount = 30}
@@ -241,6 +242,7 @@
 //blood-drunk miner gem
 /obj/item/gem/phoron
 	name = "\improper stabilized baroxuldium"
+	desc = "Мягкий на ощупь кристалл, который можно найти исключительно в самых глупоких жилах плазмы. Судя по всему, ученые им явно заинтересуются."
 	ru_names = list(
 		NOMINATIVE = "стабилизированный бароксильдиум",
 		GENITIVE = "стабилизированного бароксильдиума",
@@ -249,7 +251,6 @@
 		INSTRUMENTAL = "стабилизированным бароксильдиумом",
 		PREPOSITIONAL = "стабилизированном бароксильдиуме"
 	)
-	desc = "Мягкий на ощупь кристалл, который можно найти исключительно в самых глупоких жилах плазмы. Судя по всему, ученые им явно заинтересуются."
 	icon_state = "phoron"
 	materials = list(MAT_PLASMA = 80000)
 	sheet_type = /obj/item/stack/sheet/mineral/plasma{amount = 40}
@@ -264,6 +265,7 @@
 //hierophant gem
 /obj/item/gem/purple
 	name = "\improper densified dilithium"
+	desc = "Крайне необычная форма дилитиума, пульсирующая в устойчивом ритме. Этот ритм достаточно легко улавливается большинством систем GPS."
 	ru_names = list(
 		NOMINATIVE = "уплотненный дилитиум",
 		GENITIVE = "уплотненного дилитиума",
@@ -272,7 +274,6 @@
 		INSTRUMENTAL = "уплотненным дилитиумом",
 		PREPOSITIONAL = "уплотненном дилитиуме"
 	)
-	desc = "Крайне необычная форма дилитиума, пульсирующая в устойчивом ритме. Этот ритм достаточно легко улавливается большинством систем GPS."
 	icon_state = "purple"
 	point_value = 1200
 	sell_multiplier = 4
@@ -303,6 +304,7 @@
 //drake gem
 /obj/item/gem/amber //all cool effects in the necklace, not here. Also this works as fuel for Anvil
 	name = "\improper draconic amber"
+	desc = "Крайне хрупкий минерал, формирующийся из загустевшей крови пепельного дракона. Крайне популярен среди браконьеров из-за его необычной формы и свечения. Среди охотников ходят истории о невероятной силе, даруемой носителю украшений из этого жемчуга."
 	ru_names = list(
 		NOMINATIVE = "Драконий жемчуг",
 		GENITIVE = "драконего жемчуга",
@@ -311,7 +313,6 @@
 		INSTRUMENTAL = "драконим жемчугом",
 		PREPOSITIONAL = "драконем жемчуге"
 	)
-	desc = "Крайне хрупкий минерал, формирующийся из загустевшей крови Пепельного дракона. Крайне популярен среди браконьеров из-за его необычной формы и свечения. Среди охотников ходят истории о невероятной силе, даруемой носителю украшений из этого жемчуга."
 	icon_state = "amber"
 	point_value = 1400
 	sell_multiplier = 5
@@ -323,6 +324,7 @@
 //colossus gem
 /obj/item/gem/void
 	name = "\improper null crystal"
+	desc = "Осколок чистой, кристаллизированной энергии. Эти странные объекты изредка формируются там, где покров реальности крайне неустойчив. Он слегка бьётся током при прикосновении."
 	ru_names = list(
 		NOMINATIVE = "пустотный кристалл",
 		GENITIVE = "пустотного кристалла",
@@ -331,7 +333,6 @@
 		INSTRUMENTAL = "пустотным кристаллом",
 		PREPOSITIONAL = "пустотном кристалле"
 	)
-	desc = "Осколок чистой, кристаллизированной энергии. Эти странные объекты изредка формируются там, где покров реальности крайне неустойчив. Он слегка бьется током при прикосновении."
 	icon_state ="void"
 	point_value = 1600
 	sell_multiplier = 6
@@ -354,17 +355,17 @@
 
 /obj/item/gem/void/attack_self(mob/user)
 	if(cooldown)
-		to_chat(user, span_warning("Кристалл неподвижен. Может немного подождать?"))
+		to_chat(user, span_warning("Кристалл неподвижен. Может стоит немного подождать?"))
 		return
 	var/mob/living/carbon/human/H = user
 	teleport(H)
-	H.visible_message(span_notice("[H] сжимает кристалл в руках!"))
+	H.visible_message(span_notice("[H] сжима[pluralize_ru(H.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] в руках!"))
 	cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)),cooldown_time)
 
 /obj/item/gem/void/proc/teleport(mob/living/L)
 	if(!is_teleport_allowed(L.z))
-		src.visible_message(span_warning("Кажется [declent_ru(NOMINATIVE)] начинает дрожать!"))
+		src.visible_message(span_warning("Кажется, [declent_ru(NOMINATIVE)] начинает дрожать!"))
 		return
 	do_teleport(L, get_turf(L), blink_range, asoundin = 'sound/effects/phasein.ogg')
 
@@ -374,6 +375,7 @@
 //bubblegum gem. Can be used for antags to get some active blood or TK.
 /obj/item/gem/bloodstone
 	name = "\improper ichorium"
+	desc = "Странная, липкая субстанция, срастающаяся в единое целое в присутствии чего-то ужасающего и потустороннего. В то время, как большинство спиритических групп избегает использования этого кристалла, некоторые наиболее опасные секты высоко его ценят."
 	ru_names = list(
 		NOMINATIVE = "кровавый ихор",
 		GENITIVE = "кровавого ихора",
@@ -382,7 +384,6 @@
 		INSTRUMENTAL = "кровавым ихором",
 		PREPOSITIONAL = "кровавом ихоре"
 	)
-	desc = "Странная, липкая субстанция, срастающаяся в единое целое в присутствии чего-то ужасающего и потустороннего. В то время, как большинство спиритических групп избегает использование этого кристалла, некоторые наиболее опасные секты высоко его ценят."
 	icon_state = "red"
 	point_value = 1800
 	sell_multiplier = 7
@@ -397,18 +398,18 @@
 /obj/item/gem/bloodstone/examine(mob/user)
 	. = ..()
 	if(isvampire(user) && !used)
-		. += span_warning("Вы чувствуете опьяняющий запах крови, исходящий из кристалла.")
+		. += span_warning("Вы чувствуете опьяняющий запах крови, исходящий от кристалла.")
 	if(user.mind.has_antag_datum(/datum/antagonist/traitor))
-		. += span_warning("Судя по всему, этот кристалл можно использовать, чтобы зарядить ваш апплинк.")
+		. += span_warning("Судя по всему, этот кристалл можно использовать, чтобы зарядить ваш аплинк.")
 
 /obj/item/gem/bloodstone/attack_self(mob/user)
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(vampire && !used)
-		user.visible_message(span_warning("[user] начинает сжимать [declent_ru(ACCUSATIVE)] в своих руках!"), \
-							span_notice("вы сжимаете [declent_ru(NOMINATIVE)] в ваших руках."))
+		user.visible_message(span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] сжимать [declent_ru(ACCUSATIVE)] в своих руках!"), \
+							span_notice("вы сжимаете [declent_ru(ACCUSATIVE)] в ваших руках."))
 		if(!do_after(user, 10 SECONDS, user, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Вы ослабили хватку.")))
 			return
-		user.visible_message(span_warning("[user] начинает впитывать в себя содержимое [declent_ru(GENITIVE)]!"), \
+		user.visible_message(span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] впитывать в себя содержимое [declent_ru(GENITIVE)]!"), \
 						span_notice("Вы пожираете содержимое [declent_ru(GENITIVE)]. Энергия от кристалла насыщает вас."))
 		vampire.bloodusable += blood
 		used = TRUE
@@ -427,6 +428,7 @@
 //vetus gem
 /obj/item/gem/data
 	name = "\improper bluespace data crystal"
+	desc = "Массивный блюспейс кристалл, на котором выгравированы наносхемы. Кажется, он черпает энергию из воздуха."
 	ru_names = list(
 		NOMINATIVE = "блюспейс кристалл данных",
 		GENITIVE = "блюспейс кристалла данных",
@@ -435,7 +437,6 @@
 		INSTRUMENTAL = "блюспейс кристаллом данных",
 		PREPOSITIONAL = "блюспейс кристалле данных"
 	)
-	desc = "Массивный блюспейс кристалл, на котором выгравированы наносхемы. Кажется, он черпает энергию из воздуха."
 	icon_state = "data"
 	materials = list(MAT_BLUESPACE = 48000)
 	sheet_type = /obj/item/stack/sheet/bluespace_crystal{amount = 24}

@@ -100,6 +100,7 @@
 	icon_state = "fireaxe0"
 	name = "fire axe"
 	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
+	gender = MALE
 	force = 5
 	throwforce = 15
 	sharp = TRUE
@@ -142,6 +143,7 @@
 
 /obj/item/twohanded/fireaxe/boneaxe/guillotine
 	name = "guillotine"
+	desc = "Массивный, грозно выглядящий пилотопор, созданный с использованием костяного нароста ослеплённого жнеца. Идеален для убийства и последующей разделки чудовищ."
 	ru_names = list(
 		NOMINATIVE = "гильотина",
 		GENITIVE = "гильотины",
@@ -150,7 +152,6 @@
 		INSTRUMENTAL = "гильотиной",
 		PREPOSITIONAL = "гильотине"
 	)
-	desc = "Массивный, грозно выглядящий пилотопор, созданный с использованием костяного нароста ослеплённого жнеца. Идеален для убийства и последующей разделки чудовищ."
 	icon_state = "guillotine0"
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	force_unwielded = 7
@@ -436,15 +437,15 @@
 
 /obj/item/twohanded/spear/bonespear/her_biting_embrace
 	name = "her biting embrace"
+	desc = "Качественно созданное копьё, украшенное церемониальными узорами и использующее хвост донного угря в качестве наконечника. Настоящее произведение первобытного оружейного искусства."
 	ru_names = list(
-		NOMINATIVE = "копье \"её обжигающие объятия\"",
-		GENITIVE = "копья \"её обжигающие объятия\"",
-		DATIVE = "копью \"её обжигающие объятия\"",
-		ACCUSATIVE = "копье \"её обжигающие объятия\"",
-		INSTRUMENTAL = "копьем \"её обжигающие объятия\"",
-		PREPOSITIONAL = "копье \"её обжигающие объятия\""
+		NOMINATIVE = "копьё \"Её Обжигающие Объятия\"",
+		GENITIVE = "копья \"Её Обжигающие Объятия\"",
+		DATIVE = "копью \"Её Обжигающие Объятия\"",
+		ACCUSATIVE = "копьё \"Её Обжигающие Объятия\"",
+		INSTRUMENTAL = "копьём \"Её Обжигающие Объятия\"",
+		PREPOSITIONAL = "копьё \"Её Обжигающие Объятия\""
 	) //holy fuck
-	desc = "Качественно созданное копье, украшенное церемониальными узорами, использующее хвост донного угря в качестве наконечника."
 	icon_state = "her_biting_embrace0"
 	icon_prefix = "her_biting_embrace"
 	lefthand_file = 'icons/mob/inhands/lavaland/lava_items_lefthand.dmi'

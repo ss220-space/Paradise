@@ -32,6 +32,6 @@
 		for(var/obj/structure/ash_totem/totem in invokers)
 			totem.applied_dye = null
 			totem.applied_dye_fluff_name = null
-			totem.visible_message(span_notice("Краска медленно испаряется с тотема."))
+			totem.visible_message(span_notice("Краска медленно испаряется с поверхности тотема."))
 			totem.update_icon(UPDATE_OVERLAYS)
 

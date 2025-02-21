@@ -2,8 +2,8 @@
 /**********************Asteroid**************************/
 
 /turf/simulated/floor/plating/asteroid
-	gender = PLURAL
 	name = "asteroid sand"
+	gender = PLURAL
 	baseturf = /turf/simulated/floor/plating/asteroid
 	icon_state = "asteroid"
 	icon_plating = "asteroid"

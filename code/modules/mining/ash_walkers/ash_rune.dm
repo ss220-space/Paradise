@@ -1,5 +1,6 @@
 /obj/effect/decal/ash_rune_centre
 	name = "ash sigil"
+	desc = "Незаконченная руна, нарисованная на пепле."
 	ru_names = list(
 		NOMINATIVE = "пепельный сигил",
 		GENITIVE = "пепельного сигила",
@@ -8,7 +9,7 @@
 		INSTRUMENTAL = "пепельным сигилом",
 		PREPOSITIONAL = "пепельном сигиле"
 	)
-	desc = "Незаконченная руна, нарисованная на пепле."
+	gender = MALE
 	icon = 'icons/effects/ash_runes.dmi'
 	icon_state = "runaash_1"
 
@@ -28,6 +29,7 @@
 		INSTRUMENTAL = "пепельной руной",
 		PREPOSITIONAL = "пепельной руне"
 	)
+	gender = FEMALE
 	icon = 'icons/effects/ash_runes.dmi'
 	icon_state = "runaash_2"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -55,6 +57,7 @@
 		INSTRUMENTAL = "пепельной руной",
 		PREPOSITIONAL = "пепельной руне"
 	)
+	gender = FEMALE
 	icon = 'icons/effects/ashwalker_rune.dmi'
 	icon_state = "AshRun"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -71,7 +74,7 @@
 	invisibility = 0
 	flick("3", src)
 	icon_state = "AshRun"
-	visible_message(span_notice("руна полностью готова к использованию!"))
+	visible_message(span_notice("Руна полностью готова к использованию!"))
 
 /obj/effect/decal/ash_rune_centre/Initialize(mapload)
 	. = ..()
@@ -83,11 +86,11 @@
 		return ..()
 	if(transforming)
 		return ..()
-	visible_message(span_notice("[user] прикасается рукой к руне."))
+	visible_message(span_notice("[user] прикаса[pluralize_ru(user.gender)]ся рукой к руне."))
 	transforming = TRUE
 	var/obj/effect/rune_animation_landmark/our_landmark = locate() in orange(3, src)
 	if(!our_landmark)
-		visible_message(span_warning("но ничего не происходит."))
+		visible_message(span_warning("Но ничего не происходит..."))
 	if(!activated)
 		our_landmark.activate()
 	for(var/obj/effect/rune_fluff_marks/runes in orange(3, src))
@@ -101,7 +104,15 @@
 		return
 	activated = TRUE
 	name = "ash rune"
-	desc = "полностью функционирующая руна, готовая для ритуальных действий."
+	desc = "Полностью функционирующая руна, готовая для ритуальных действий."
+	ru_names = list(
+		NOMINATIVE = "пепельная руна",
+		GENITIVE = "пепельной руны",
+		DATIVE = "пепельной руне",
+		ACCUSATIVE = "пепельную руну",
+		INSTRUMENTAL = "пепельной руной",
+		PREPOSITIONAL = "пепельной руне"
+	)
 	AddComponent( \
 		/datum/component/ritual_object, \
 		/datum/ritual/ashwalker, \

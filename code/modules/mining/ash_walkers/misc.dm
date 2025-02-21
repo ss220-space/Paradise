@@ -1,6 +1,7 @@
 //********** Acid Bladder **********//
 /obj/item/acid_bladder
 	name = "acid bladder"
+	desc = "Небольшой кислотный мешочек, добытый с тела сернистого странника. Оболочка данного пузыря достаточно слабая и вероятнее всего разорвётся при броске во что-то. Или в кого-то."
 	ru_names = list(
 		NOMINATIVE = "кислотный мешочек",
 		GENITIVE = "кислотного мешочка",
@@ -9,7 +10,7 @@
 		INSTRUMENTAL = "кислотным мешочком",
 		PREPOSITIONAL = "кислотном мешочке"
 	)
-	desc = "Небольшой кислотный мешочек, добытый с тела сернистого странника. Оболочка данного пузыря достаточно слабая и вероятнее всего разорвется при броске во что-то. Или в кого-то."
+	gender = MALE
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "acid_bladder"
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
@@ -39,6 +40,7 @@
 //********** Saw Blade **********//
 /obj/item/circular_saw_blade
 	name = "circular saw blade"
+	desc = "Костный нарост, похожий на лезвие циркулярной пилы, вырванный из черепа ослеплённого жнеца. Может быть использован для улучшения костяного топора."
 	ru_names = list(
 		NOMINATIVE = "лезвие дисковой пилы",
 		GENITIVE = "лезвия дисковой пилы",
@@ -47,7 +49,6 @@
 		INSTRUMENTAL = "лезвием дисковой пилы",
 		PREPOSITIONAL = "лезвии дисковой пилы"
 	)
-	desc = "Костный нарост в виде циркулярной пилы, вырванный из черепа ослеплённого жнеца. Используется для улучшения костяного топора."
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "circular_saw_blade"
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
@@ -58,6 +59,7 @@
 //**********Grace of Lazis **********//
 /obj/structure/grace_of_lazis
 	name = "grace of lazis"
+	desc = "Огромное количество мяса, насаженного на костяное копье. Символ невероятно удачного сезона охоты."
 	ru_names = list(
 		NOMINATIVE = "благодать Лазис Ардакса",
 		GENITIVE = "благодати Лазис Ардакса",
@@ -66,9 +68,9 @@
 		INSTRUMENTAL = "благодатью Лазис Ардакса",
 		PREPOSITIONAL = "благодати Лазис Ардакса"
 	)
+	gender = FEMALE
 	icon = 'icons/obj/lavaland/grace_of_lazis.dmi'
 	icon_state = "grace_of_lazis4"
-	desc = "Огромное количество мяса, насаженное на костяное копье. Символ невероятно удачного сезона охоты."
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 1000
@@ -78,18 +80,18 @@
 	if(!istype(I, /obj/item/kitchen/knife))
 		return ..()
 
-	to_chat(user, span_notice("Вы начали отрезать порцию мяса от постамента."))
+	to_chat(user, span_notice("Вы начинаете отрезать порцию мяса от постамента."))
 
 	if(!do_after(user, 3 SECONDS, src, max_interact_count = 1))
 		return ..()
 
 	meat_parts--
 	update_icon(UPDATE_ICON_STATE)
-	to_chat(user, span_notice("Вы отрезали порцию мяса с постамента."))
+	to_chat(user, span_notice("Вы отрезаете порцию мяса с постамента."))
 	var/obj/item/reagent_containers/food/snacks/lavaland_food/grace_of_lazis/food = new()
 	user.put_in_hands(food)
 	if(meat_parts == 0)
-		visible_message(span_warning("от постамента остается лишь одно копье!"))
+		visible_message(span_warning("От постамента остаётся лишь одно копье!"))
 		new /obj/item/twohanded/spear/bonespear(src.loc)
 		qdel(src)
 		return ATTACK_CHAIN_PROCEED
@@ -109,6 +111,7 @@
 //**********Food Scroll**********//
 /obj/item/book/manual/lavaland_scroll
 	name = "cooking scroll"
+	desc = "Пергамент, изготовленный из человеческой кожи. На нём нанесена информация о том, как прокормить голодное племя."
 	ru_names = list(
 		NOMINATIVE = "свиток готовки",
 		GENITIVE = "свитка готовки",
@@ -117,15 +120,16 @@
 		INSTRUMENTAL = "свитком готовки",
 		PREPOSITIONAL = "свитке готовки"
 	)
+	gender = MALE
 	icon_state = "food_scroll"
 	item_state = "food_scroll"
-	desc = "Пергамент, изготовленный из человеческой кожи. На нем нанесена информация о том, как прокормить голодное племя."
 	author = "Шаман голодного племени"
 	title = "Руководство по Готовке"
 	wiki_title = "Еда_пеплоходцев"
 
 /obj/structure/fluff/ash_statue //used to mark point of interest
 	name = "тотем"
+	desc = "Массивный каменный столб с прикреплённым к нему черепом убитого зверя. Кажется, вы зашли в охотничьи угодья пеплоходцев."
 	ru_names = list(
 		NOMINATIVE = "пепельный тотем",
 		GENITIVE = "пепельного тотема",
@@ -134,7 +138,6 @@
 		INSTRUMENTAL = "пепельным тотемом",
 		PREPOSITIONAL = "пепельном тотеме"
 	)
-	desc = "Массивный каменный столб с прикрепленным к нему черепом убитого зверя. Кажется вы зашли в охотничьи угодья пеплоходцев."
 	icon = 'icons/obj/lavaland/grace_of_lazis.dmi'
 	icon_state = "totem_stone"
 	anchored = TRUE
@@ -155,6 +158,7 @@
 
 /obj/structure/ash_totem
 	name = "totem"
+	desc = "Совершенно обычный тотем! Выглядит прикольно. Вы не должны видеть это."
 	ru_names = list(
 		NOMINATIVE = "тотем",
 		GENITIVE = "тотема",
@@ -163,9 +167,9 @@
 		INSTRUMENTAL = "тотемом",
 		PREPOSITIONAL = "тотеме"
 	)
+	gender = MALE
 	icon = 'icons/obj/lavaland/grace_of_lazis.dmi'
 	icon_state = "totem_wooden"
-	desc = "совершенно обычный тотем! Выглядит прикольно. Вы не должны видеть это."
 	max_integrity = 1000
 	anchored = TRUE
 	density = TRUE
@@ -187,6 +191,7 @@
 
 /obj/structure/ash_totem/wooden
 	name = "wooden totem"
+	desc = "Массивная статуя, сделанная из цельного куска древесины. Рисунок на статуе отдалённо напоминает человеческое лицо, искаженное в гримасе ужаса."
 	ru_names = list(
 		NOMINATIVE = "деревянный тотем",
 		GENITIVE = "деревянного тотема",
@@ -196,10 +201,10 @@
 		PREPOSITIONAL = "деревянном тотеме"
 	)
 	icon_state = "totem_wooden"
-	desc = "Массивная статуя, сделанная из цельного куска древесины. Рисунок на статуе отдаленно напоминает человеческое лицо, искаженное в гримасе ужаса."
 
 /obj/structure/ash_totem/stone
 	name = "stone totem"
+	desc = "Массивная каменная статуя с прикреплённым к ней черепом убитого животного. Сухожилия, держащие череп на месте, медленно покачиваются на ветру."
 	ru_names = list(
 		NOMINATIVE = "каменный тотем",
 		GENITIVE = "каменного тотема",
@@ -209,10 +214,10 @@
 		PREPOSITIONAL = "каменном тотеме"
 	)
 	icon_state = "totem_stone"
-	desc = "Массивная каменная статуя с прикрепленным к ней черепом убитого животного. Сухожилия, держащие череп на месте, медленно покачиваются на ветру."
 
 /obj/structure/ash_totem/bone
 	name = "bone totem"
+	desc = "Массивная статуя, сделанная из огромной кости. Вы не знаете, какому именно животному принадлежит эта кость, и вы явно не хотите это узнавать."
 	ru_names = list(
 		NOMINATIVE = "костяной тотем",
 		GENITIVE = "костяного тотема",
@@ -222,10 +227,10 @@
 		PREPOSITIONAL = "костяном тотеме"
 	)
 	icon_state = "totem_bone"
-	desc = "Массивная статуя, сделанная из огромной кости. Вы не знаете, какому именно животному принадлежит эта кость, и вы явно не хотите это узнавать."
 
 /obj/structure/chair/stool/wooden
 	name = "wooden stool"
+	desc = "Деревянная табуретка. Достаточно удобная, чтобы на ней сидеть."
 	ru_names = list(
 		NOMINATIVE = "деревянная табуретка",
 		GENITIVE = "деревянной табуретки",
@@ -234,12 +239,13 @@
 		INSTRUMENTAL = "деревянной табуреткой",
 		PREPOSITIONAL = "деревянной табуретке"
 	)
-	desc = "Деревянная табуретка. Достаточно удобная, чтобы на ней сидеть."
+	gender = FEMALE
 	icon_state = "wooden_stool"
 	item_chair = /obj/item/chair/stool/wooden
 
 /obj/item/chair/stool/wooden
 	name = "wooden stool"
+	desc = "Деревянная табуретка. Достаточно удобная, чтобы держать её в руках."
 	ru_names = list(
 		NOMINATIVE = "деревянная табуретка",
 		GENITIVE = "деревянной табуретки",
@@ -248,7 +254,7 @@
 		INSTRUMENTAL = "деревянной табуреткой",
 		PREPOSITIONAL = "деревянной табуретке"
 	)
-	desc = "Деревянная табуретка. Достаточно удобная, чтобы держать ее в руках."
+	gender = FEMALE
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "wooden_stool_toppled"
 	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
@@ -260,6 +266,7 @@
 
 /obj/structure/rack/wooden
 	name = "wooden rack"
+	desc = "Небольшой стеллаж, сделанный из дерева. Вы можете хранить на нём вещи!"
 	ru_names = list(
 		NOMINATIVE = "деревянный стеллаж",
 		GENITIVE = "деревянного стеллажа",
@@ -268,7 +275,6 @@
 		INSTRUMENTAL = "деревянным стеллажом",
 		PREPOSITIONAL = "деревянном стеллаже"
 	)
-	desc = "Небольшой стеллаж, сделанный из дерева. Вы можете хранить на нем вещи!"
 	icon_state = "wooden_rack"
 	wooden_version = TRUE
 	obj_flags = NODECONSTRUCT

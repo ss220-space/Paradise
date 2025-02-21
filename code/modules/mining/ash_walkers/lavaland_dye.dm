@@ -1,6 +1,7 @@
 /obj/item/lavaland_dye
 	name = "generic dye"
-	desc = "Если вы это видите, то зюзя дебил конечно."
+	desc = "Если вы это видите, то Зюзя дебил конечно."
+	gender = FEMALE
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "cinnabar_spleen"
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
@@ -16,6 +17,7 @@
 
 /obj/item/lavaland_dye/cinnabar
 	name = "cinnabar-colored spleen"
+	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе частицы киновари и обладает характерным коричневато-красным цветом."
 	ru_names = list(
 		NOMINATIVE = "селезёнка зелёного цвета",
 		GENITIVE = "селезёнки зелёного цвета",
@@ -24,7 +26,6 @@
 		INSTRUMENTAL = "селезёнкой зелёного цвета",
 		PREPOSITIONAL = "селезёнке зелёного цвета",
 	)
-	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе частицы киновари и обладает характерным коричневато-красным цветом."
 	icon_state = "cinnabar_spleen"
 	picked_dye = "Cinnabar Dyes"
 	totem_dye = "cinnabar"
@@ -32,6 +33,7 @@
 
 /obj/item/lavaland_dye/crimson
 	name = "crimson-colored spleen"
+	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе частицы неизвестной жидкости, похожей на кровь, и обладает характерным кроваво-красным цветом."
 	ru_names = list(
 		NOMINATIVE = "селезёнка кровавого цвета",
 		GENITIVE = "селезёнки кровавого цвета",
@@ -40,7 +42,6 @@
 		INSTRUMENTAL = "селезёнкой кровавого цвета",
 		PREPOSITIONAL = "селезёнке кровавого цвета",
 	)
-	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе частицы неизвестной жидкости, похожей на кровь, и обладает характерным кроваво-красным цветом."
 	icon_state = "crimson_spleen"
 	picked_dye = "Crimson Dyes"
 	totem_dye = "crimson"
@@ -48,6 +49,7 @@
 
 /obj/item/lavaland_dye/indigo
 	name = "indigo-colored spleen"
+	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе вещество, похожее на чернила, и обладает характерным тёмно-синим цветом."
 	ru_names = list(
 		NOMINATIVE = "селезёнка тёмно-синего цвета",
 		GENITIVE = "селезёнки тёмно-синего цвета",
@@ -56,7 +58,6 @@
 		INSTRUMENTAL = "селезёнкой тёмно-синего цвета",
 		PREPOSITIONAL = "селезёнке тёмно-синего цвета",
 	)
-	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе вещество, похожее на чернила, и обладает характерным тёмно-синим цветом."
 	icon_state = "indigo_spleen"
 	picked_dye = "Indigo Dyes"
 	totem_dye = "indigo"
@@ -64,6 +65,7 @@
 
 /obj/item/lavaland_dye/mint
 	name = "mint-colored spleen"
+	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе частицы минералов и обладает характерным мятно-зелёным цветом."
 	ru_names = list(
 		NOMINATIVE = "селезёнка мятного цвета",
 		GENITIVE = "селезёнки мятного цвета",
@@ -72,7 +74,6 @@
 		INSTRUMENTAL = "селезёнкой мятного цвета",
 		PREPOSITIONAL = "селезёнке мятного цвета",
 	)
-	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе частицы минералов и обладает характерным мятно-зелёным цветом."
 	icon_state = "mint_spleen"
 	picked_dye = "Mint Dyes"
 	totem_dye = "mint"
@@ -80,6 +81,7 @@
 
 /obj/item/lavaland_dye/amber
 	name = "amber-colored spleen"
+	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе частицы природного янтаря и обладает характерным янтарно-желтым цветом."
 	ru_names = list(
 		NOMINATIVE = "селезёнка янтарного цвета",
 		GENITIVE = "селезёнки янтарного цвета",
@@ -88,7 +90,6 @@
 		INSTRUMENTAL = "селезёнкой янтарного цвета",
 		PREPOSITIONAL = "селезёнке янтарного цвета",
 	)
-	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе частицы природного янтаря и обладает характерным янтарно-желтым цветом."
 	icon_state = "amber_spleen"
 	picked_dye = "Amber Dyes"
 	totem_dye = "amber"
@@ -96,6 +97,7 @@
 
 /obj/item/lavaland_mortar
 	name = "wooden mortar"
+	desc = "Небольшая ступка с находящейся в ней растолочённой селезёнкой. Используется для нанесения красок на тело."
 	ru_names = list(
 		NOMINATIVE = "деревянная ступка",
 		GENITIVE = "деревянной ступки",
@@ -104,12 +106,12 @@
 		INSTRUMENTAL = "деревянной ступкой",
 		PREPOSITIONAL = "деревянной ступке",
 	)
+	gender = FEMALE
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "amber_dyes"
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "paint"
-	desc = "Небольшая ступка с находящейся в ней растолоченной селезёнкой. Используется для нанесения красок на тело."
 	w_class = WEIGHT_CLASS_TINY
 	/// Name of body marking, that applies to human
 	var/picked_dye = "Cinnabar Dyes"
@@ -161,7 +163,7 @@
 
 /obj/item/lavaland_mortar/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim)
 	if(!isunathi(target))
-		to_chat(user, span_warning("Краску можно нанести только на унати или пеплоходцев."))
+		balloon_alert(user, "цель неподходящей расы!")
 		return ..()
 
 	if(user.a_intent != INTENT_HELP)
@@ -169,14 +171,14 @@
 
 	. = ATTACK_CHAIN_PROCEED
 
-	to_chat(user, span_notice("Вы начали наносить краску на [target]."))
-	if(!do_after(user, 5 SECONDS, target, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Вы прекратили наносить краску на тело.")))
+	to_chat(user, span_notice("Вы начинаете наносить краску на [target]."))
+	if(!do_after(user, 5 SECONDS, target, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Вы прекращаете наносить краску на тело.")))
 		return ..()
 
 	target.change_markings(picked_dye, location = "body")
 	uses--
 	if(!uses)
-		to_chat(user, span_warning("Краска закончилась!"))
+		balloon_alert(user, "краска закончилась!")
 		qdel(src)
 		var/obj/item/reagent_containers/food/drinks/mushroom_bowl/bowl = new(loc)
 		user.put_in_hands(bowl)
@@ -188,9 +190,9 @@
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
 	var/obj/structure/ash_totem/totem = object
-	to_chat(user, span_notice("Вы начали наносить краску на [totem.declent_ru(ACCUSATIVE)]."))
+	to_chat(user, span_notice("Вы начинаете наносить краску на [totem.declent_ru(ACCUSATIVE)]."))
 
-	if(!do_after(user, 5 SECONDS, totem, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Вы прекратили наносить краску на тотем.")))
+	if(!do_after(user, 5 SECONDS, totem, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Вы прекращаете наносить краску на [totem.declent_ru(ACCUSATIVE)].")))
 		return ..()
 
 	totem.applied_dye = totem_dye
@@ -199,7 +201,7 @@
 
 	uses--
 	if(!uses)
-		to_chat(user, span_warning("Краска закончилась!"))
+		balloon_alert(user, "краска закончилась!")
 		qdel(src)
 		var/obj/item/reagent_containers/food/drinks/mushroom_bowl/bowl = new(loc)
 		user.put_in_hands(bowl)

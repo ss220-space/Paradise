@@ -1,5 +1,6 @@
 /obj/machinery/kitchen_machine/tribal_oven
 	name = "stone oven"
+	desc = "Огромная примитивная каменная печь, используемая для приготовления пищи."
 	ru_names = list(
 		NOMINATIVE = "каменная печь",
 		GENITIVE = "каменной печи",
@@ -8,7 +9,7 @@
 		INSTRUMENTAL = "каменной печью",
 		PREPOSITIONAL = "каменной печи"
 	)
-	desc = "Огромная примитивная каменная печь, используемая для примитивной готовки из подручных средств."
+	gender = FEMALE
 	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "oven_off"
 	use_power = NO_POWER_USE

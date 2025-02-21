@@ -817,7 +817,7 @@
 		var/mob/living/carbon/human/hum = owner
 		for(var/obj/item/organ/external/bodypart as anything in hum.bodyparts)
 			if(bodypart.has_internal_bleeding() && prob(7))
-				to_chat(hum, span_notice("You feel a burning sensation in your [bodypart.name] as your veins begin to recover!"))
+				to_chat(hum, span_notice("Вы чувствуете сильное жжение в [bodypart.declent_ru(PREPOSITIONAL)], а затем облегчение. Судя по всему, ваши повреждённые кровеносные сосуды восстанавливаются!"))
 				bodypart.stop_internal_bleeding()
 
 /atom/movable/screen/alert/status_effect/lavaland_night_vision

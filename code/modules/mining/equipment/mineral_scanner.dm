@@ -130,6 +130,7 @@
 
 /obj/item/t_scanner/adv_mining_scanner/bleary_eye
 	name = "bleary eye"
+	desc = "Глаз, вырванный из тела массивного сернистого странника. Даже спустя долгое время, он всё ещё движется и внимательно осматривает местность в поисках руды."
 	ru_names = list(
 		NOMINATIVE = "затуманенный глаз",
 		GENITIVE = "затуманенного глаза",
@@ -138,7 +139,6 @@
 		INSTRUMENTAL = "затуманенным глазом",
 		PREPOSITIONAL = "затуманенном глазе"
 	)
-	desc = "Глаз, вырванный из тела массивного сернистого странника. Даже спустя долгое время, он все еще движется и внимательно осматривает местность в поисках руды."
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "bleary_eye"
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'

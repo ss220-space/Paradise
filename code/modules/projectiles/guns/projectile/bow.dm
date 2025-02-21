@@ -227,6 +227,7 @@
 
 /obj/item/ammo_casing/caseless/arrow/jagged
 	name = "jagged-tipped arrow"
+	desc = "Стрела, сделанная из зубов хищной рыбы. Невероятно острая и крепкая."
 	ru_names = list(
 		NOMINATIVE = "зазубренная стрела",
 		GENITIVE = "зазубренной стрелы",
@@ -235,7 +236,6 @@
 		INSTRUMENTAL = "зазубренной стрелой",
 		PREPOSITIONAL = "зазубренной стреле",
 	)
-	desc = "Стрела, сделанная из зубов хищной рыбы. Невероятно острая и крепкая."
 	icon_state = "jagged_arrow"
 	force = 16
 	projectile_type = /obj/item/projectile/bullet/reusable/arrow/jagged

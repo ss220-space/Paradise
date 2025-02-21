@@ -12,6 +12,7 @@
 /obj/structure/bed
 	name = "bed"
 	desc = "This is used to lie in, sleep in or strap on."
+	gender = FEMALE
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "bed"
 	can_buckle = TRUE
@@ -55,15 +56,15 @@
 
 /obj/structure/bed/wicker
 	name = "wicker bed"
-	ru_names = list(
-		NOMINATIVE = "плетеная кровать",
-		GENITIVE = "плетеной кровати",
-		DATIVE = "плетеной кровати",
-		ACCUSATIVE = "плетеную кровать",
-		INSTRUMENTAL = "плетеной кроватью",
-		PREPOSITIONAL = "плетеной кровати"
-	)
 	desc = "Большая кровать, сотканная из чего-то, напоминающего ткань. Выглядит достаточно удобно."
+	ru_names = list(
+		NOMINATIVE = "плетёная кровать",
+		GENITIVE = "плетёной кровати",
+		DATIVE = "плетёной кровати",
+		ACCUSATIVE = "плетёную кровать",
+		INSTRUMENTAL = "плетёной кроватью",
+		PREPOSITIONAL = "плетёной кровати"
+	)
 	icon_state = "wicker_bed"
 	comfort = 1.5
 	buildstacktype = /obj/item/stack/sheet/cloth
@@ -71,6 +72,7 @@
 
 /obj/structure/bed/leather
 	name = "leather bed"
+	desc = "Куски кожи, грубо сшитые друг с другом и прикреплённые к деревянной раме. Не самое удобное место для лежания."
 	ru_names = list(
 		NOMINATIVE = "кровать из кожи",
 		GENITIVE = "кровати из кожи",
@@ -79,7 +81,6 @@
 		INSTRUMENTAL = "кроватью из кожи",
 		PREPOSITIONAL = "кровати из кожи"
 	)
-	desc = "Куски кожи, грубо сшитые друг с другом и прикрепленные к деревянной раме. Не самое удобное место для лежания."
 	icon_state = "leather_bed"
 	comfort = 1.2
 	buildstacktype = /obj/item/stack/sheet/leather
@@ -87,6 +88,7 @@
 
 /obj/structure/bed/wooden
 	name = "wooden bed"
+	desc = "Кровать, сделанная из качественной древесины. Выглядит очень мило и уютно."
 	ru_names = list(
 		NOMINATIVE = "деревянная кровать",
 		GENITIVE = "деревянной кровати",
@@ -95,7 +97,6 @@
 		INSTRUMENTAL = "деревянной кроватью",
 		PREPOSITIONAL = "деревянной кровати"
 	)
-	desc = "Кровать, сделанная из качественной древесины. Выглядит очень мило и уютно."
 	icon_state = "wooden_bed"
 	comfort = 2.5
 	buildstacktype = /obj/item/stack/sheet/wood

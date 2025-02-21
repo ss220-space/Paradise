@@ -348,7 +348,7 @@
 
 /atom/movable/screen/alert/status_effect/temperature_stabilize
 	name = "beer grub stew"
-	desc = "Температура тела стабилизируется в разы быстрее."
+	desc = "Температура вашего тела стабилизируется в разы быстрее."
 	icon_state = "beer_grub_stew"
 
 /datum/status_effect/temperature_stabilize

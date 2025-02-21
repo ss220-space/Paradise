@@ -48,7 +48,7 @@
 /mob/living/simple_animal/hostile/asteroid/gutlunch/examine(mob/user)
 	. = ..()
 	if(udder)
-		. += span_notice("[src]'s [udder.name] is currently has [udder.reagents.total_volume] units of milk in it")
+		. += span_notice("В его [udder.declent_ru(ACCUSATIVE)] содержится [udder.reagents.total_volume] единиц[declension_ru(udder.reagents.total_volume, "а", "ы", "")] молока.")
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Destroy()
 	QDEL_NULL(udder)

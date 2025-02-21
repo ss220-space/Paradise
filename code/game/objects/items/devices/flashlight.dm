@@ -4,6 +4,7 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight"
 	item_state = "flashlight"
+	gender = MALE
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
@@ -348,6 +349,7 @@
 
 /obj/item/flashlight/flare/torch
 	name = "torch"
+	desc = "Простейший факел, сделанный из листьев, намотанных на древесину."
 	ru_names = list(
 		NOMINATIVE = "факел",
 		GENITIVE = "факела",
@@ -356,7 +358,6 @@
 		INSTRUMENTAL = "факелом",
 		PREPOSITIONAL = "факеле",
 	)
-	desc = "Простейший факел, сделанный из листьев, намотанных на древесину."
 	w_class = WEIGHT_CLASS_BULKY
 	light_range = 6
 	icon_state = "torch"

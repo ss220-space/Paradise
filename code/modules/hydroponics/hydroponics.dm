@@ -956,13 +956,13 @@
 	if(istype(I, /obj/item/conductive_organ))
 		add_fingerprint(user)
 		if(!myseed)
-			to_chat(user, span_warning("[src]' has no seeds inside!"))
+			balloon_alert(user, "внутри нет семян!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		user.visible_message(
-			span_notice("[user] gently rubs [I] into [src]."),
-			span_notice("You are gently rub [I] into [src]."),
+			span_notice("[user] аккуратно втира[pluralize_ru(user.gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы аккуратно втираете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
 		)
 		yieldmod = 1.7
 		waterlevel = maxwater

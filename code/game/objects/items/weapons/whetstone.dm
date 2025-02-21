@@ -1,6 +1,7 @@
 /obj/item/whetstone
 	name = "whetstone"
 	desc = "A block of stone used to sharpen things."
+	gender = MALE
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "whetstone"
 	w_class = WEIGHT_CLASS_SMALL
@@ -101,15 +102,15 @@
 
 /obj/item/whetstone/crab_shell
 	name = "sturdy crab shell"
+	desc = "Маленький панцирь пепельного рака, подходящий для заточки оружия или когтей. Достаточно крепкий для того, чтобы им можно пользоваться несколько раз."
 	ru_names = list(
-		NOMINATIVE = "крепкий панцирь рака",
-		GENITIVE = "крепкого панциря рака",
-		DATIVE = "крепкому панцирю рака",
-		ACCUSATIVE = "крепкий панцирь рака",
-		INSTRUMENTAL = "крепким панцирем рака",
-		PREPOSITIONAL = "крепком панцире рака"
+		NOMINATIVE = "панцирь пепельного рака",
+		GENITIVE = "панциря пепельного рака",
+		DATIVE = "панцирю пепельного рака",
+		ACCUSATIVE = "панцирь пепельного рака",
+		INSTRUMENTAL = "панцирем пепельного рака",
+		PREPOSITIONAL = "панцире пепельного рака"
 	)
-	desc = "Маленький панцирь пепельного рака, предназначенный для лёгкой заточки оружия или когтей. Достаточно крепкий для того, чтобы им можно пользоваться несколько раз."
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "crab_shell"
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'

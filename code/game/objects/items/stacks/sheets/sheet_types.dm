@@ -675,6 +675,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 
 /obj/item/stack/sheet/razor_sharp_teeth
 	name = "razor sharp teeth"
+	desc = "Бритвенно-острые зубы, добытые из пасти лавового хищника. Прекрасно подходят для стрел."
 	ru_names = list(
 		NOMINATIVE = "бритвенно-острые зубы",
 		GENITIVE = "бритвенно-острых зубов",
@@ -683,13 +684,13 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 		INSTRUMENTAL = "бритвенно-острыми зубами",
 		PREPOSITIONAL = "бритвенно-острых зубах"
 	)
+	gender = PLURAL
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "razor_sharp_teeth"
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "razor_sharp_teeth"
 	singular_name = "razor sharp tooth"
-	desc = "Бритвенно-острые зубы, добытые из пасти лавового хищника. Хороши для улучшения стрел."
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
 	throw_range = 7

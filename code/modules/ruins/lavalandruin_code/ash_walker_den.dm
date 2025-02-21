@@ -2,6 +2,7 @@
 //The ash walker den consumes corpses or unconscious mobs to create ash walker eggs. For more info on those, check ghost_role_spawners.dm
 /obj/structure/lavaland/ash_walker
 	name = "necropolis tendril nest"
+	desc = "Щупальце искажённой злобы. Вокруг него обустроено гнездо, полное быстро растущих яиц..."
 	ru_names = list(
 		NOMINATIVE = "гнездо некрополя",
 		GENITIVE = "гнезда некрополя",
@@ -10,7 +11,6 @@
 		INSTRUMENTAL = "гнездом некрополя",
 		PREPOSITIONAL = "гнезде некрополя"
 	)
-	desc = "Щупальце искажённой злобы. Вокруг него обустроено гнездо, полное быстро растущих яиц…"
 	icon = 'icons/mob/nest.dmi'
 	icon_state = "ash_walker_nest"
 
