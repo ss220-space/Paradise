@@ -306,7 +306,8 @@
 	dir = 8
 	},
 /obj/structure/necropolis_gate/ashwalker,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/indestructible/boss/indoors,
 /area/ruin/unpowered/ash_walkers)
 "je" = (
 /turf/simulated/wall/mineral/wood,
