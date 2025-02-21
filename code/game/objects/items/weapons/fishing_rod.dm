@@ -1,4 +1,4 @@
-#define BAIT_AFFECT 80
+#define BAIT_AFFECT 70
 
 //Fishing rode and related stuff
 
@@ -27,7 +27,7 @@
 
 	var/static/mutable_appearance/bobber = mutable_appearance('icons/obj/fish_items.dmi',"bobber")
 
-	var/datum/component/simple_fishing/fishing_component
+	var/turf/simulated/floor/lava/lava_land_surface/fishing_target
 
 	var/mob/fisher
 	/// Actual fish that we catch
@@ -69,9 +69,12 @@
 	if(!proximity)
 		return
 
-	var/datum/component/simple_fishing/fish_component = target.GetComponent(/datum/component/simple_fishing)
+	if(!istype(target, /turf/simulated/floor/lava/lava_land_surface))
+		return ..()
 
-	if(!fish_component)
+	var/turf/simulated/floor/lava/lava_land_surface/fishing_pool = target
+
+	if(!fishing_pool.can_be_fished_on)
 		return ..()
 
 	if(!fishing)
@@ -79,40 +82,40 @@
 			balloon_alert(user, "необходим двуручный хват!")
 			return
 		fishing = TRUE
-		start_fishing(fish_component, user)
+		start_fishing(fishing_pool, user)
 	else
-		if(fish_component != fishing_component)
+		if(fishing_pool != target)
 			balloon_alert(user, "вы уже рыбачите!")
 			return
 
-/obj/item/twohanded/fishing_rod/proc/start_fishing(datum/component/simple_fishing/fc, mob/user)
+/obj/item/twohanded/fishing_rod/proc/start_fishing(turf/simulated/floor/lava/lava_land_surface/fishing_pool, mob/user)
 	if(!bait)
 		balloon_alert(user, "вам нужна наживка!")
 		fishing = FALSE
 		return
 
-	fishing_component = fc
+	fishing_target = fishing_pool
 	fisher = user
-	var/turf/fishing_turf = fishing_component.parent
-	fishing_turf.add_overlay(bobber)
+	fishing_target.add_overlay(bobber)
 	playsound(src, throw_sound, 30)
 	to_chat(user, span_notice("Вы начали рыбачить."))
 
-	if(do_after(fisher, 10 SECONDS, target = fishing_turf, max_interact_count = 1))
+	if(do_after(fisher, 10 SECONDS, target = fishing_target, max_interact_count = 1))
 		if(prob(20))
 			to_chat(user, span_warning("Рыба сорвалась вместе с наживкой! Чёрт!"))
 			fishing = FALSE
-			fishing_turf.cut_overlay(bobber)
+			fishing_target.cut_overlay(bobber)
 			bait = null
+			update_icon(UPDATE_OVERLAYS)
 			return
 
 		catch_fish()
 		playsound(src, catch_sound, 30)
 		fishing = FALSE
-		fishing_turf.cut_overlay(bobber)
+		fishing_target.cut_overlay(bobber)
 	else
 		balloon_alert(user, "вам нужна стоять на месте!")
-		fishing_turf.cut_overlay(bobber)
+		fishing_target.cut_overlay(bobber)
 		fishing = FALSE
 		return
 
@@ -127,19 +130,17 @@
 	var/obj/item/fish =  new reward_fish(loc)
 	to_chat(fisher, span_notice("Вы поймали [fish.declent_ru(ACCUSATIVE)]!"))
 
-	unwield(fisher)
 	fisher.put_in_hands(fish)
 	bait = null
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/twohanded/fishing_rod/proc/calculate_fishing_chance() // I fucking hate it
-	var/list/fishable_list = fishing_component.catchable_fish.Copy()
+	var/list/fishable_list = fishing_target.get_fish()
 	var/list/bait_list = list()
 
 	for(var/fish in fishable_list) //After this stage, bait_list will have 1-2 fish in bait_list
 		var/obj/item/lavaland_fish/cooler_fish = fish
 		if(bait.type == cooler_fish.favorite_bait)
-			fishable_list -= cooler_fish
 			bait_list += cooler_fish
 	if(isemptylist(bait_list)) //if something went wrong and list is empty
 		reward_fish = pick(fishable_list)

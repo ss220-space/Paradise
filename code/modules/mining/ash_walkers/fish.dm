@@ -41,6 +41,10 @@
 
 // actual fish
 
+GLOBAL_LIST_INIT(deep_fish, subtypesof(/obj/item/lavaland_fish/deep_water))
+
+GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
+
 /obj/item/lavaland_fish
 	name = "generic lavaland fish"
 	desc = "Вау, она такая... невпечатляющая!"

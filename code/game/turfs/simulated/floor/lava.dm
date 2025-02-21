@@ -27,6 +27,8 @@
 	var/immunity_trait = TRAIT_LAVA_IMMUNE
 	/// Objects with these flags won't burn.
 	var/immunity_resistance_flags = LAVA_PROOF
+	/// Is the lava close to the shore
+	var/deep_water = TRUE
 
 /turf/simulated/floor/lava/ex_act()
 	return
@@ -53,21 +55,7 @@
 			START_PROCESSING(SSprocessing, src)
 
 /turf/simulated/floor/lava/proc/krill_act(atom/movable/AM)
-	var/obj/item/reagent_containers/food/snacks/charred_krill/krill = AM //yourself
-	var/datum/component/simple_fishing/fc = GetComponent(/datum/component/simple_fishing)
-	krill.in_lava = TRUE
-	krill.anchored = TRUE	//no closet kidnaping
-	visible_message(span_warning("[capitalize(krill.declent_ru(NOMINATIVE))] медленно тон[pluralize_ru(krill.gender, "ет", "ут")] в лаве!"))
-	sleep(5 SECONDS)
-	qdel(krill)
-	if(!fc)
-		visible_message(span_warning("И ничего не происходит..."))
-		return
-	visible_message(span_warning("Неожиданно, из лавы выныривают две рыбы и разрывают [krill.declent_ru(ACCUSATIVE)] на части!"))
-	var/list/fishable_list = fc.catchable_fish.Copy()
-	for(var/i in 1 to 2)
-		var/fish = pick(fishable_list)
-		new fish(src)
+	return
 
 /turf/simulated/floor/lava/process()
 	if(!burn_stuff())
@@ -202,23 +190,6 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
-	if(istype(I, /obj/item/reagent_containers/food/snacks/charred_krill))
-		to_chat(user, span_notice("Вы осторожно кладёте креветку на поверхность лавы..."))
-		if(do_after(user, 5 SECONDS, target = src))
-			if(QDELETED(I))
-				return .
-			var/datum/component/simple_fishing/fc = GetComponent(/datum/component/simple_fishing)
-			if(!fc)
-				to_chat(user, span_warning("И ничего не происходит..."))
-				return .
-			to_chat(user, span_notice("Неожиданно, из лавы выныривают две рыбы и разрывают креветку на части!"))
-			var/list/fishable_list = fc.catchable_fish.Copy()
-			for(var/i in 1 to 2)
-				var/fish = pick(fishable_list)
-				new fish(src)
-			qdel(I)
-			return .|ATTACK_CHAIN_SUCCESS
-
 	if(istype(I, /obj/item/stack/fireproof_rods))
 		var/obj/item/stack/fireproof_rods/rods = I
 		if(locate(/obj/structure/lattice/catwalk/fireproof, src))
@@ -267,7 +238,55 @@
 /turf/simulated/floor/lava/lava_land_surface/Initialize(mapload)
 	. = ..()
 	if(can_be_fished_on)
-		AddComponent(/datum/component/simple_fishing)
+		calculate_deep()
+
+/turf/simulated/floor/lava/lava_land_surface/proc/calculate_deep()
+	if(locate(/turf/simulated/floor/plating/asteroid/basalt) in range(3, src))
+		deep_water = FALSE
+
+/turf/simulated/floor/lava/lava_land_surface/proc/get_fish()
+	if(deep_water)
+		return GLOB.deep_fish
+	else
+		return GLOB.shore_fish
+
+/turf/simulated/floor/lava/lava_land_surface/krill_act(atom/movable/AM)
+	var/obj/item/reagent_containers/food/snacks/charred_krill/krill = AM //yourself
+	krill.in_lava = TRUE
+	krill.anchored = TRUE	//no closet kidnaping
+	visible_message(span_warning("[capitalize(krill.declent_ru(NOMINATIVE))] медленно тон[pluralize_ru(krill.gender, "ет", "ут")] в лаве!"))
+	sleep(5 SECONDS)
+	qdel(krill)
+	if(!can_be_fished_on)
+		visible_message(span_warning("И ничего не происходит..."))
+		return
+	visible_message(span_warning("Неожиданно, из лавы выныривают две рыбы и разрывают [krill.declent_ru(ACCUSATIVE)] на части!"))
+	var/list/fishable_list = get_fish()
+	for(var/i in 1 to 2)
+		var/fish = pick(fishable_list)
+		new fish(src)
+
+/turf/simulated/floor/lava/lava_land_surface/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(istype(I, /obj/item/reagent_containers/food/snacks/charred_krill))
+		to_chat(user, span_notice("Вы осторожно кладёте креветку на поверхность лавы..."))
+		if(do_after(user, 5 SECONDS, target = src))
+			if(QDELETED(I))
+				return .
+			if(!can_be_fished_on)
+				to_chat(user, span_warning("И ничего не происходит..."))
+				return .
+			to_chat(user, span_notice("Неожиданно, из лавы выныривают две рыбы и разрывают креветку на части!"))
+			var/list/fishable_list = get_fish()
+			for(var/i in 1 to 2)
+				var/fish = pick(fishable_list)
+				new fish(src)
+			qdel(I)
+			return .|ATTACK_CHAIN_SUCCESS
 
 /turf/simulated/floor/lava/airless
 	temperature = TCMB
