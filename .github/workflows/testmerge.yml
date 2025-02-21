@@ -166,7 +166,7 @@ jobs:
 
           if [ "$CHANGES" -gt 0 ] ; then
             ./tgui/bin/tgui
-            if [ ! git diff --quiet | wc -l || ! git diff --cached --quiet | wc -l] ; then
+            if [ git diff --quiet | wc -l || git diff --cached --quiet | wc -l] ; then
               git config --local user.email "action@github.com"
               git config --local user.name "TGUI bundle Generation"
               git commit -am "Testmerge TGUI bundle build generation"
