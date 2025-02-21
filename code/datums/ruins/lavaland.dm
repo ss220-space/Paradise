@@ -330,4 +330,4 @@
 	if(SSmapping.lavaland_theme.lavaland_type != LAVALAND_TYPE_LAVA)
 		always_place = TRUE
 	else
-		always_place = FALSE
+		unpickable = TRUE
