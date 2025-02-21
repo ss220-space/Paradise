@@ -466,6 +466,7 @@
         INSTRUMENTAL = "пузырьком для таблеток",
         PREPOSITIONAL = "пузырьке для таблеток"
 	)
+	gender = MALE
 	icon_state = "pill_canister"
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "contsolid"

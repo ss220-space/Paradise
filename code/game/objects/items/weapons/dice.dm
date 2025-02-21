@@ -1,6 +1,14 @@
 /obj/item/storage/pill_bottle/dice
-	name = "Мешок игральных костей"
-	desc = "Содержит всю удачу, которая вам могла бы пригодиться."
+	name = "dice pack"
+	desc = "Мешочек с игральными костями внутри."
+	ru_names = list(
+        NOMINATIVE = "мешок игральных костей",
+        GENITIVE = "мешка игральных костей",
+        DATIVE = "мешку игральных костей",
+        ACCUSATIVE = "мешок игральных костей",
+        INSTRUMENTAL = "мешком игральных костей",
+        PREPOSITIONAL = "мешке игральных костей"
+	)
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
 	can_hold = list(/obj/item/dice)
