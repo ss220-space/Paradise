@@ -118,6 +118,6 @@
 	id = "fishingrod"
 	req_tech = list("materials" = 5, "engineering" = 4, "plasmatech" = 5, "biotech" = 4)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 1000, MAT_TITANIUM = 1500)
+	materials = list(MAT_METAL = 4000, MAT_TITANIUM = 6000)
 	build_path = /obj/item/twohanded/fishing_rod
 	category = list("Mining")

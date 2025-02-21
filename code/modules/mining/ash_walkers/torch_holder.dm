@@ -210,7 +210,7 @@
 			if(H.gloves)
 				var/obj/item/clothing/gloves/G = H.gloves
 				if(G.max_heat_protection_temperature)
-					prot = (G.max_heat_protection_temperature > 360)
+					prot = (G.max_heat_protection_temperature > fakel.get_heat())
 		else
 			prot = 1
 

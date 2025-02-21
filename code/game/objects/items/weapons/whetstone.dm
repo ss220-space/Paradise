@@ -116,4 +116,4 @@
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "crab_shell"
 	increment = 2
-	uses = -1
+	uses = 2

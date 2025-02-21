@@ -17,6 +17,41 @@
 	///Is our rune activated? Another sanity check, love it
 	var/activated = FALSE
 
+/obj/effect/decal/ash_rune_centre/Initialize(mapload)
+	. = ..()
+	var/number = rand(1, 36)
+	icon_state = "runaash_[number]"
+
+/obj/effect/decal/ash_rune_centre/attackby(obj/item/I, mob/user, params)
+	if(!istype(I, /obj/item/melee/touch_attack/healtouch))
+		return ..()
+	if(transforming)
+		return ..()
+	visible_message(span_notice("[user] прикасается рукой к руне."))
+	transforming = TRUE
+	var/obj/effect/rune_animation_landmark/our_landmark = locate() in orange(3, src)
+	if(!our_landmark)
+		visible_message(span_warning("но ничего не происходит."))
+	if(!activated)
+		our_landmark.activate()
+	for(var/obj/effect/rune_fluff_marks/runes in orange(3, src))
+		runes.activate()
+	activate_rune()
+	qdel(I)
+	return ATTACK_CHAIN_PROCEED
+
+/obj/effect/decal/ash_rune_centre/proc/activate_rune()
+	if(activated)
+		return
+	activated = TRUE
+	name = "ash rune"
+	desc = "полностью функционирующая руна, готовая для ритуальных действий."
+	AddComponent( \
+		/datum/component/ritual_object, \
+		/datum/ritual/ashwalker, \
+	)
+
+
 // Our little cheat in order to make first rune activation unforgetable
 /obj/effect/rune_fluff_marks
 	name = "ash rune"
@@ -72,37 +107,3 @@
 	flick("3", src)
 	icon_state = "AshRun"
 	visible_message(span_notice("руна полностью готова к использованию!"))
-
-/obj/effect/decal/ash_rune_centre/Initialize(mapload)
-	. = ..()
-	var/number = rand(1, 36)
-	icon_state = "runaash_[number]"
-
-/obj/effect/decal/ash_rune_centre/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/melee/touch_attack/healtouch))
-		return ..()
-	if(transforming)
-		return ..()
-	visible_message(span_notice("[user] прикасается рукой к руне."))
-	transforming = TRUE
-	var/obj/effect/rune_animation_landmark/our_landmark = locate() in orange(3, src)
-	if(!our_landmark)
-		visible_message(span_warning("но ничего не происходит."))
-	if(!activated)
-		our_landmark.activate()
-	for(var/obj/effect/rune_fluff_marks/runes in orange(3, src))
-		runes.activate()
-	activate_rune()
-	qdel(I)
-	return ATTACK_CHAIN_PROCEED
-
-/obj/effect/decal/ash_rune_centre/proc/activate_rune()
-	if(activated)
-		return
-	activated = TRUE
-	name = "ash rune"
-	desc = "полностью функционирующая руна, готовая для ритуальных действий."
-	AddComponent( \
-		/datum/component/ritual_object, \
-		/datum/ritual/ashwalker, \
-	)

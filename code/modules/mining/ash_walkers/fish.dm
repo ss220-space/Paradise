@@ -189,7 +189,7 @@
 	desc = "Небольших размеров рыба, питающаяся преимущественно кровавыми пиявками, зарытыми в пепле. Получила свое название из-за своего характерного внешнего вида - голова всадника внешне напоминает гуманоидный череп. Ценится местными племенами в первую очередь из-за селезёнки, содержащей в себе частицы киновари и используемой для создания коричневого красителя."
 	favorite_bait = /obj/item/reagent_containers/food/snacks/bait/bloody_leach
 	butcher_loot = list(
-		/obj/effect/spawner/random_spawners/sixty_pc_skull = 1,
+		/obj/effect/spawner/random_spawners/forty_pc_skull = 1,
 		/obj/item/reagent_containers/food/snacks/lavaland/soft_meat = 1,
 		/obj/item/lavaland_dye/cinnabar = 1,
 		)

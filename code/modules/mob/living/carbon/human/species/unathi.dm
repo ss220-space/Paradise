@@ -246,7 +246,7 @@
 	var/obj/effect/proc_holder/spell/touch/healtouch/healtouch = locate() in owner.mob_spell_list
 	if(!healtouch)
 		owner.AddSpell(new /obj/effect/proc_holder/spell/touch/healtouch)
-	var/datum/action/innate/anvil_finder/finder = locate() in owner.actions
+	var/datum/action/innate/shaman_gps/finder = locate() in owner.actions
 	if(!finder)
 		finder = new
 		finder.Grant(owner)
@@ -259,10 +259,10 @@
 /datum/species/unathi/ashwalker/shaman/on_species_loss(mob/living/carbon/human/owner)
 	. = ..()
 	owner.RemoveSpell(/obj/effect/proc_holder/spell/touch/healtouch)
-	var/datum/action/innate/anvil_finder/finder = locate() in owner.actions
+	var/datum/action/innate/shaman_gps/finder = locate() in owner.actions
 	if(finder)
 		finder.Remove(owner)
-	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
+	var/datum/action/innate/shaman_gps/fire = locate() in owner.actions
 	if(fire)
 		fire.Remove(owner)
 
@@ -351,13 +351,13 @@ They're basically just lizards with all-around marginally better stats and fire 
 		qdel(fire)
 		to_chat(user, span_warning("Ваши руки заняты."))
 
-/datum/action/innate/anvil_finder
+/datum/action/innate/shaman_gps
 	name = "Помощь некрополя"
 	desc = "Вы используете силу Некрополя чтобы узнать примерное местоположение точек интереса."
 	icon_icon = 'icons/mob/actions/actions_clockwork.dmi'
 	button_icon_state = "stun" //better than nothing
 
-/datum/action/innate/anvil_finder/Activate()
+/datum/action/innate/shaman_gps/Activate()
 	var/list/list_of_points = GLOB.lavaland_points_of_interest
 	if(list_of_points)
 		var/selected_poi = tgui_input_list(owner, "Выберите точку интереса", "точки интереса", list_of_points)
@@ -366,7 +366,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 	else
 		to_chat(owner, "Все церемониальные тотемы уничтожены.")
 
-/datum/action/innate/anvil_finder/proc/get_direction(obj/structure/selected_poi)
+/datum/action/innate/shaman_gps/proc/get_direction(obj/structure/selected_poi)
 	if(!selected_poi)
 		. = "уничтожен."
 		return
