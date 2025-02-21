@@ -961,6 +961,39 @@
 	build_path = /obj/item/ammo_box/c9mm
 	category = list("hacked", "Security")
 
+/datum/design/specter/disable
+	name = "Ammo box (specter disable)"
+	id = "specter_disable"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 25000)
+	build_path = /obj/item/ammo_box/specter/disabler
+	category = list("initial", "Security")
+
+/datum/design/specter/laser
+	name = "Ammo box (specter laser)"
+	id = "specter_laser"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/ammo_box/specter/laser
+	category = list("hacked", "Security")
+
+/datum/design/spectermag_disabler
+	name = "specter magazine (disable)"
+	id = "spectermag_disabler"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 8000)
+	build_path = /obj/item/ammo_box/magazine/specter
+	category = list("initial", "Security")
+
+//hacked autolathe recipes
+/datum/design/spectermag_laser
+	name = "specter magazine (laser)"
+	id = "spectermag_laser"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 10000)
+	build_path = /obj/item/ammo_box/magazine/specter/laser
+	category = list("hacked", "Security")
+
 /datum/design/knuckles
 	name = "Knuckles"
 	id = "knuckles"

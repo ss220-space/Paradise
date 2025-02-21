@@ -628,3 +628,21 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
+
+/obj/item/ammo_casing/specter/laser
+	desc = "A specter bullet casing."
+	icon_state = "laser-casing"
+	caliber = "specter"
+	materials = list(MAT_METAL = 1000)
+	projectile_type = /obj/item/projectile/beam/specter/laser
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	muzzle_flash_color = LIGHT_COLOR_DARKRED
+
+/obj/item/ammo_casing/specter/disable
+	desc = "A specter bullet casing."
+	icon_state = "stam-casing"
+	caliber = "specter"
+	materials = list(MAT_METAL = 800)
+	projectile_type = /obj/item/projectile/beam/specter/disabler
+	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE

@@ -192,3 +192,47 @@
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
+
+//Specter//
+/obj/item/gun/projectile/automatic/pistol/specter
+	name = "Спектр"
+	ru_names = list(
+		NOMINATIVE = "Спектр",
+		GENITIVE = "Спектра",
+		DATIVE = "Спектру",
+		ACCUSATIVE = "Спектр",
+		INSTRUMENTAL = "Спектром",
+		PREPOSITIONAL = "Спектре"
+	)
+	desc = "Современный пистолет Спектр, модернизирован для стрельбы лазерными патронами. Поставляется только силовым структурам Нанотрейзен."
+	origin_tech = "combat=4;materials=2"
+	icon_state = "specter"
+	item_state = "specter"
+	force = 10
+	mag_type = /obj/item/ammo_box/magazine/specter
+	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
+	can_suppress = FALSE
+	unique_reskin = TRUE
+	can_flashlight = FALSE
+	gun_light_overlay = "specter_light"
+	materials = list(MAT_METAL = 1000)
+
+/obj/item/gun/projectile/automatic/pistol/specter/update_gun_skins()
+	add_skin("Grey slide", "specter")
+	add_skin("Red slide", "specter_red")
+	add_skin("Green slide", "specter_green")
+	add_skin("Tan slide", "specter_tan")
+	add_skin("Green Handle", "specter_greengrip")
+	add_skin("Tan Handle", "specter_tangrip")
+	add_skin("Red Handle", "specter_redgrip")
+
+
+/obj/item/gun/projectile/automatic/pistol/specter/update_icon_state()
+	if(current_skin)
+		icon_state = "[current_skin][chambered ? "" : "-e"]"
+	else
+		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+
+/obj/item/gun/projectile/automatic/pistol/specter/Initialize(mapload, ...)
+	. = ..()
+	set_gun_light(new /obj/item/flashlight/seclite(src))

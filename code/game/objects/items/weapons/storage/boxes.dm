@@ -1465,6 +1465,18 @@
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/clothing/accessory/holster(src)
 
+/obj/item/storage/box/specter_kit
+	name = "Specter kit"
+	desc = "Коробка с пистолетом Спектр, кобурой и двумя обоймами  парализующих патронов"
+	icon_state = "box_dominator"
+
+
+/obj/item/storage/box/specter_kit/populate_contents()
+	new /obj/item/gun/projectile/automatic/pistol/specter(src)
+	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/ammo_box/magazine/specter(src)
+	new /obj/item/ammo_box/magazine/specter(src)
+
 /obj/item/storage/box/revolver_kit
 	name = "Revolver kit"
 	icon_state = "box_revolver"
