@@ -600,7 +600,7 @@
 	taste_description = "эволюции"
 
 /datum/reagent/plantnutriment/robustharvestnutriment
-	name = "Робастный-Урожай"
+	name = "Робаст-Харвест"
 	id = "robustharvestnutriment"
 	description = "Очень мощное питательное вещество, предотвращающее мутацию растений."
 	color = "#9D9D00" // RBG: 157, 157, 0

@@ -9,6 +9,7 @@
 		INSTRUMENTAL = "распылителем",
 		PREPOSITIONAL = "распылителе"
 	)
+	gender = MALE
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cleaner"
 	item_state = "cleaner"

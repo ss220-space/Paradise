@@ -831,7 +831,15 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/applicator/abductor
 	name = "alien mender"
-	desc = "Hidden behind a high-tech look is a time-tested mechanism"
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Выполнено из прочного инопланетного материала."
+	ru_names = list(
+        NOMINATIVE = "инопланетный авто-мендер",
+        GENITIVE = "инопланетного авто-мендера",
+        DATIVE = "инопланетному авто-мендеру",
+        ACCUSATIVE = "инопланетный авто-мендер",
+        INSTRUMENTAL = "инопланетным авто-мендером",
+        PREPOSITIONAL = "инопланетном авто-мендере"
+	)
 	origin_tech = "materials=2;biotech=3;abductor=2"
 	icon_state = "alien_mender_empty"
 	item_state = "alien_mender"
@@ -852,17 +860,43 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/applicator/abductor/brute
 	name = "alien brute mender"
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления механических повреждений. Выполнено из прочного инопланетного материала."
+	ru_names = list(
+        NOMINATIVE = "инопланетный авто-мендер (Мех. Повреждения)",
+        GENITIVE = "инопланетного авто-мендера (Мех. Повреждения)",
+        DATIVE = "инопланетному авто-мендеру (Мех. Повреждения)",
+        ACCUSATIVE = "инопланетный авто-мендер (Мех. Повреждения)",
+        INSTRUMENTAL = "инопланетным авто-мендером (Мех. Повреждения)",
+        PREPOSITIONAL = "инопланетном авто-мендере (Мех. Повреждения)"
+	)
 	base_icon = "alien_mender_brute"
 	list_reagents = list("styptic_powder" = 200)
 
 /obj/item/reagent_containers/applicator/abductor/burn
 	name = "alien burn mender"
+	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия - для заживления термических повреждений. Выполнено из прочного инопланетного материала."
+	ru_names = list(
+        NOMINATIVE = "инопланетный авто-мендер (Терм. Повреждения)",
+        GENITIVE = "инопланетного авто-мендера (Терм. Повреждения)",
+        DATIVE = "инопланетному авто-мендеру (Терм. Повреждения)",
+        ACCUSATIVE = "инопланетный авто-мендер (Терм. Повреждения)",
+        INSTRUMENTAL = "инопланетным авто-мендером (Терм. Повреждения)",
+        PREPOSITIONAL = "инопланетном авто-мендере (Терм. Повреждения)"
+	)
 	base_icon = "alien_mender_burn"
 	list_reagents = list("silver_sulfadiazine" = 200)
 
 /obj/item/reagent_containers/glass/bottle/abductor
 	name = "alien bottle"
-	desc = "A durable bottle, made from alien alloy"
+	desc = "Прочная бутылка, сделанная из инопланетного материала."
+	ru_names = list(
+        NOMINATIVE = "инопланетная бутылка",
+        GENITIVE = "инопланетной бутылки",
+        DATIVE = "инопланетной бутылке",
+        ACCUSATIVE = "инопланетную бутылку",
+        INSTRUMENTAL = "инопланетной бутылкой",
+        PREPOSITIONAL = "инопланетной бутылке"
+	)
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=4"
 	icon_state = "alien_bottle"
@@ -871,32 +905,80 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/glass/bottle/abductor/rezadone
 	name = "rezadone bottle"
+	ru_names = list(
+        NOMINATIVE = "инопланетная бутылка (Резадон)",
+        GENITIVE = "инопланетной бутылки (Резадон)",
+        DATIVE = "инопланетной бутылке (Резадон)",
+        ACCUSATIVE = "инопланетную бутылку (Резадон)",
+        INSTRUMENTAL = "инопланетной бутылкой (Резадон)",
+        PREPOSITIONAL = "инопланетной бутылке (Резадон)"
+	)
 	list_reagents = list("rezadone" = 50)
 
 /obj/item/reagent_containers/glass/bottle/abductor/epinephrine
 	name = "epinephrine bottle"
+	ru_names = list(
+        NOMINATIVE = "инопланетная бутылка (Эпинефрин)",
+        GENITIVE = "инопланетной бутылки (Эпинефрин)",
+        DATIVE = "инопланетной бутылке (Эпинефрин)",
+        ACCUSATIVE = "инопланетную бутылку (Эпинефрин)",
+        INSTRUMENTAL = "инопланетной бутылкой (Эпинефрин)",
+        PREPOSITIONAL = "инопланетной бутылке (Эпинефрин)"
+	)
 	list_reagents = list("epinephrine" = 50)
 
 /obj/item/reagent_containers/glass/bottle/abductor/salgu
 	name = "saline-glucose solution bottle"
+	ru_names = list(
+        NOMINATIVE = "инопланетная бутылка (Физиологический раствор)",
+        GENITIVE = "инопланетной бутылки (Физиологический раствор)",
+        DATIVE = "инопланетной бутылке (Физиологический раствор)",
+        ACCUSATIVE = "инопланетную бутылку (Физиологический раствор)",
+        INSTRUMENTAL = "инопланетной бутылкой (Физиологический раствор)",
+        PREPOSITIONAL = "инопланетной бутылке (Физиологический раствор)"
+	)
 	list_reagents = list("salglu_solution" = 50)
 
 /obj/item/reagent_containers/glass/bottle/abductor/oculine
 	name = "oculine bottle"
+	ru_names = list(
+        NOMINATIVE = "инопланетная бутылка (Окулин)",
+        GENITIVE = "инопланетной бутылки (Окулин)",
+        DATIVE = "инопланетной бутылке (Окулин)",
+        ACCUSATIVE = "инопланетную бутылку (Окулин)",
+        INSTRUMENTAL = "инопланетной бутылкой (Окулин)",
+        PREPOSITIONAL = "инопланетной бутылке (Окулин)"
+	)
 	list_reagents = list("oculine" = 50)
 
 /obj/item/reagent_containers/glass/bottle/abductor/pen_acid
 	name = "pentetic acid bottle"
+	ru_names = list(
+        NOMINATIVE = "инопланетная бутылка (Пентетовая кислота)",
+        GENITIVE = "инопланетной бутылки (Пентетовая кислота)",
+        DATIVE = "инопланетной бутылке (Пентетовая кислота)",
+        ACCUSATIVE = "инопланетную бутылку (Пентетовая кислота)",
+        INSTRUMENTAL = "инопланетной бутылкой (Пентетовая кислота)",
+        PREPOSITIONAL = "инопланетной бутылке (Пентетовая кислота)"
+	)
 	list_reagents = list("pen_acid" = 50)
 
 /obj/item/healthanalyzer/abductor
 	name = "alien health analyzer"
+	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта. Выполнен из прочного инопланетного материала."
+	ru_names = list(
+		NOMINATIVE = "инопланетный анализатор здоровья",
+		GENITIVE = "инопланетного анализатора здоровья",
+		DATIVE = "инопланетному анализатору здоровья",
+		ACCUSATIVE = "инопланетный анализатор здоровья",
+		INSTRUMENTAL = "инопланетным анализатором здоровья",
+		PREPOSITIONAL = "инопланетном анализаторе здоровья"
+	)
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=4;biotech=4;abductor=2"
 	advanced = TRUE
 	icon_state = "alien_hscanner"
 	item_state = "alien_hscanner"
-	desc = "Why its interface looks so familiar?"
 
 /obj/item/storage/firstaid_abductor
 	name = "alien medkit"
