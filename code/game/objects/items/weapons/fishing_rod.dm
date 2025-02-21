@@ -4,6 +4,7 @@
 
 /obj/item/twohanded/fishing_rod
 	name = "ol' reliable"
+	desc = "Старая, видавшая виды удочка. Если она прослужила так долго и ещё не развалилась - вам точно не следует волноваться о её надёжности."
 	ru_names = list(
 		NOMINATIVE = "удочка",
 		GENITIVE = "удочки",
@@ -12,7 +13,7 @@
 		INSTRUMENTAL = "удочкой",
 		PREPOSITIONAL = "удочке"
 	)
-	desc = "О! Кажется, я поймал шахтера!"
+	gender = FEMALE
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	lefthand_file = 'icons/mob/inhands/lavaland/lava_items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/lava_items_righthand.dmi'
@@ -37,6 +38,7 @@
 
 /obj/item/twohanded/fishing_rod/tribal
 	name = "fishing rod"
+	desc = "Примитивная костяная удочка, использующая сухожилия наблюдателя в качестве высокопрочной лески. Не совсем понятно, почему эта \"леска\" не плавится в лаве."
 	ru_names = list(
 		NOMINATIVE = "примитивная удочка",
 		GENITIVE = "примитивной удочки",
@@ -45,7 +47,6 @@
 		INSTRUMENTAL = "примитивной удочкой",
 		PREPOSITIONAL = "примитивной удочке"
 	)
-	desc = "Примитивная костяная удочка, использующая сухожилия наблюдателя в качестве высокопрочной лески. Не совсем понятно, почему эта \"леска\" не плавится в лаве."
 	icon_state = "tribal_rod"
 	item_state = "tribal_rod"
 
@@ -56,8 +57,8 @@
 /obj/item/twohanded/fishing_rod/examine(mob/user)
 	. = ..()
 	if(bait)
-		. += span_notice("на крючке находится [bait.declent_ru(NOMINATIVE)].")
-		. += span_notice("Вы можете снять наживку с помощью комбинации \"Alt+click\".")
+		. += span_notice("на крючке наход[pluralize_ru(bait.gender, "ит", "ят")]ся [bait.declent_ru(NOMINATIVE)].")
+		. += span_notice("Вы можете снять наживку, используя <b>Alt + ЛКМ</b>.")
 
 /obj/item/twohanded/fishing_rod/update_icon_state()
 	. = ..()
@@ -75,18 +76,18 @@
 
 	if(!fishing)
 		if(!HAS_TRAIT(src, TRAIT_WIELDED))
-			to_chat(user, span_warning("Вам необходимо взять удочку в обе руки перед тем, как её использовать!"))
+			balloon_alert(user, "необходим двуручный хват!")
 			return
 		fishing = TRUE
 		start_fishing(fish_component, user)
 	else
 		if(fish_component != fishing_component)
-			to_chat(user, span_warning("Вы уже рыбачите в другом месте!"))
+			balloon_alert(user, "вы уже рыбачите!")
 			return
 
 /obj/item/twohanded/fishing_rod/proc/start_fishing(datum/component/simple_fishing/fc, mob/user)
 	if(!bait)
-		to_chat(user, span_warning("Будет глупо рыбачить без наживки."))
+		balloon_alert(user, "вам нужна наживка!")
 		fishing = FALSE
 		return
 
@@ -99,7 +100,7 @@
 
 	if(do_after(fisher, 10 SECONDS, target = fishing_turf, max_interact_count = 1))
 		if(prob(20))
-			to_chat(user, span_warning("Рыба сорвалась вместе с наживкой! Чёрт возьми."))
+			to_chat(user, span_warning("Рыба сорвалась вместе с наживкой! Чёрт!"))
 			fishing = FALSE
 			fishing_turf.cut_overlay(bobber)
 			bait = null
@@ -110,7 +111,7 @@
 		fishing = FALSE
 		fishing_turf.cut_overlay(bobber)
 	else
-		to_chat(user, span_warning("Вам нужно стоять смирно для рыбалки!"))
+		balloon_alert(user, "вам нужна стоять на месте!")
 		fishing_turf.cut_overlay(bobber)
 		fishing = FALSE
 		return
@@ -154,7 +155,7 @@
 		return ATTACK_CHAIN_PROCEED
 
 	if(bait)
-		to_chat(user, span_warning("На удочке уже есть наживка!"))
+		balloon_alert(user, "наживка уже на удочке!")
 		return ATTACK_CHAIN_PROCEED
 
 	var/obj/item/reagent_containers/food/snacks/bait/worm = I

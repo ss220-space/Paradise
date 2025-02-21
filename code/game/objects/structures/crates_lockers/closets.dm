@@ -3,6 +3,7 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet
 	name = "closet"
 	desc = "It's a basic storage unit."
+	gender = MALE
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "closed"
 	density = TRUE

@@ -356,6 +356,7 @@
 
 /obj/item/conductive_organ
 	name = "conductive organ"
+	desc = "небольшой желтоватый мешочек, добываемый из лавового панцирника. Является мощным удобрением, значительно повышающим урожай и уровень нутриментов растения."
 	ru_names = list(
 		NOMINATIVE = "проводящий орган",
 		GENITIVE = "проводящего органа",
@@ -364,8 +365,7 @@
 		INSTRUMENTAL = "проводящим органом",
 		PREPOSITIONAL = "проводящем органе",
 	)
-
-	desc = "небольшой желтоватый мешочек, добываемый из лавового панцирника. Является мощным удобрением, значительно повышающим урожай и уровень нутриментов растения."
+	gender = MALE
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	icon_state = "conductive_organ"
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'

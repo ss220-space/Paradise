@@ -328,7 +328,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 //igniter. only for ashwalkers and drakonids because of """lore"""
 /datum/action/innate/ignite_unathi
 	name = "поджог"
-	desc = "Вы формируете небольшой сгусток пламени в вашей пасти, достаточный для... розжига костра"
+	desc = "Вы формируете небольшой сгусток пламени в вашей пасти, достаточный для... розжига костра."
 	icon_icon = 'icons/obj/cigarettes.dmi'
 	button_icon_state = "match_unathi"
 	var/cooldown = 0
@@ -338,10 +338,10 @@ They're basically just lizards with all-around marginally better stats and fire 
 /datum/action/innate/ignite_unathi/Activate()
 	var/mob/living/carbon/human/user = owner
 	if(world.time <= cooldown)
-		to_chat(user, span_warning("Ваша пасть болит из-за прошлой попытки. Подождите [round((cooldown - world.time) / 10)] секунд и попробуйте еще раз"))
+		to_chat(user, span_warning("Ваша пасть болит из-за прошлой попытки. Подождите [round((cooldown - world.time) / 10)] секунд[declension_ru(round((cooldown - world.time) / 10), "у", "ы", "")] и попробуйте ещё раз"))
 		return
 	if((user.head?.flags_cover & HEADCOVERSMOUTH) || (user.wear_mask?.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask?.up)
-		to_chat(user, span_warning("Ваша пасть закрыта."))
+		user.balloon_alert(user, "ваша пасть закрыта!")
 		return
 	var/obj/item/match/unathi/fire = new(user.loc, src)
 	if(user.put_in_hands(fire))
@@ -349,11 +349,11 @@ They're basically just lizards with all-around marginally better stats and fire 
 		cooldown = world.time + cooldown_duration
 	else
 		qdel(fire)
-		to_chat(user, span_warning("Ваши руки заняты."))
+		user.balloon_alert(user, "ваши руки заняты!")
 
 /datum/action/innate/shaman_gps
 	name = "Помощь некрополя"
-	desc = "Вы используете силу Некрополя чтобы узнать примерное местоположение точек интереса."
+	desc = "Вы используете силу Некрополя, чтобы узнать примерное местоположение точек интереса."
 	icon_icon = 'icons/mob/actions/actions_clockwork.dmi'
 	button_icon_state = "stun" //better than nothing
 

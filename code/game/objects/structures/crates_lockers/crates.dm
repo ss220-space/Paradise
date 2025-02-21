@@ -562,6 +562,7 @@
 
 /obj/structure/closet/crate/wooden //i'm sure hope this won't be used as cheese strat to obtain cargo points
 	name = "wooden crate"
+	desc = "Ящик, сделанный из дерева."
 	ru_names = list(
 		NOMINATIVE = "деревянный ящик",
 		GENITIVE = "деревянного ящика",
@@ -570,7 +571,6 @@
 		INSTRUMENTAL = "деревянным ящиком",
 		PREPOSITIONAL = "деревянном ящике"
 	)
-	desc = "Ящик, сделанный из дерева."
 	icon_state = "wooden_crate"
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/I)

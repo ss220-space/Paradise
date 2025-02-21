@@ -1,14 +1,16 @@
 /*********************Hivelord stabilizer****************/
 /obj/item/hivelordstabilizer
 	name = "hivelord stabilizer"
+	desc = "Inject a hivelord core with this stabilizer to preserve its healing powers indefinitely."
+	gender = MALE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
-	desc = "Inject a hivelord core with this stabilizer to preserve its healing powers indefinitely."
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=3"
 
 /obj/item/hivelordstabilizer/molten_mass
 	name = "gooey molten mass"
+	desc = "Странноватые сгустки, снятые с головы магмового рыбы-молота. Являются природным аналогом стабилизатора регенеративных ядер."
 	ru_names = list(
 		NOMINATIVE = "сплавленный сгусток",
 		GENITIVE = "сплавленного сгустка",
@@ -22,7 +24,6 @@
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "acid_bladder"
-	desc = "Странноватые сгустки, снятые с головы магмового рыбы-молота. Являются природным аналогом стабилизатора регенеративных ядер."
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=5"
 	light_range = 2

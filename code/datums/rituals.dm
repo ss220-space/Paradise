@@ -184,7 +184,7 @@
 /datum/ritual/ashwalker/summon_ashstorm
 	name = "Призыв Пепельной Бури"
 	description = "Проведение данного ритуала обрушивает на Лазис суровую пепельную бурю, значительно уменьшая видимость и затрудняя перемещение по Лазису на некоторое время. \
-					Катастрофическая неудача приведет к заражению трупной лихорадкой всех причастных к ритуалу."
+					Катастрофическая неудача приведёт к заражению трупной лихорадкой всех причастных к ритуалу."
 	shaman_only = TRUE
 	disaster_prob = 20
 	charges = 2
@@ -207,7 +207,7 @@
 
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
-			to_chat(invoker, "Существа должны быть мертвы")
+			invoker.balloon_alert(invoker, "существа должны быть мертвы!")
 			return FALSE
 
 	return TRUE
@@ -247,7 +247,7 @@
 /datum/ritual/ashwalker/transformation
 	name = "Ритуал Превращения"
 	description = "Проведение данного ритуала обращает тело пленника в подобного нам. Выбранная жертва должна быть жива и иметь душу. \
-					Катастрофическая неудача приведет к освобождению пленника и его побегу."
+					Катастрофическая неудача приведёт к освобождению пленника и его побегу."
 	disaster_prob = 30
 	fail_chance = 50
 	extra_invokers = 1
@@ -268,7 +268,7 @@
 		return RITUAL_FAILED_ON_PROCEED // Your punishment
 
 	human.set_species(/datum/species/unathi/ashwalker)
-	human.mind.store_memory("Теперь вы пеплоходец, вы часть племени! Вы довольно смутно помните о прошлой жизни, и вы не помните, как пользоваться технологиями!")
+	human.mind.store_memory("Теперь вы пеплоходец, часть племени! Вы довольно смутно помните о своей прошлой жизни, и понятия не имеете, как пользоваться технологичными предметами!")
 
 	return RITUAL_SUCCESSFUL
 
@@ -294,7 +294,7 @@
 /datum/ritual/ashwalker/summon
 	name = "Ритуал Призыва"
 	description = "Проведение данного ритуала позволяет шаману призвать к руне любого пеплоходца вне зависимости от его текущего состояния. \
-					Катастрофическая неудача приведет к насильственной потере конечностей."
+					Катастрофическая неудача приведёт к насильственной потере конечностей."
 	disaster_prob = 30
 	fail_chance = 30
 	shaman_only = TRUE
@@ -320,7 +320,7 @@
 	if(!LAZYLEN(ready_for_summoning))
 		return RITUAL_FAILED_ON_PROCEED
 
-	var/mob/living/carbon/human/human = tgui_input_list(invoker, "Who will be summoned?", "Summon ritual", ready_for_summoning)
+	var/mob/living/carbon/human/human = tgui_input_list(invoker, "Кого вы хотите призвать?", "Ритуал Призыва", ready_for_summoning)
 
 	if(!human)
 		return RITUAL_FAILED_ON_PROCEED
@@ -377,7 +377,7 @@
 /datum/ritual/ashwalker/curse
 	name = "Ритуал Проклятия"
 	description = "Проведение данного ритуала приведёт к наложению страшной, почти неизлечимой болезни на случайного гуманоида, который не принадлежит нашему племени. \
-					Катастрофическая неудача приведет к генетической деградации одного из наших соплеменников."
+					Катастрофическая неудача приведёт к генетической деградации одного из наших соплеменников."
 	disaster_prob = 30
 	fail_chance = 30
 	cooldown_after_cast = 600 SECONDS
@@ -403,7 +403,7 @@
 
 	for(var/mob/living/carbon/human/human in used_things)
 		if(human.stat != DEAD)
-			to_chat(invoker, "Гуманоиды должны быть мертвы.")
+			invoker.balloon_alert(invoker, "гуманоиды должны быть мертвы!")
 			return FALSE
 
 	return TRUE
@@ -446,7 +446,7 @@
 /datum/ritual/ashwalker/power
 	name = "Ритуал Силы"
 	description = "Проведение данного ритуала значительно увеличит силу, скорость и регенерацию здоровья у всех его участников, позволяя им таскать тяжести без замедления. \
-					Катастрофическая неудача приведет к случайной плохой мутации у всех участников ритуала."
+					Катастрофическая неудача приведёт к случайной плохой мутации у всех участников ритуала."
 	disaster_prob = 40
 	fail_chance = 40
 	charges = 2
@@ -475,7 +475,7 @@
 
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
-			to_chat(invoker, "Существа должны быть мертвы.")
+			invoker.balloon_alert(invoker, "существа должны быть мертвы!")
 			return FALSE
 
 	return TRUE
@@ -517,7 +517,7 @@
 /datum/ritual/ashwalker/resurrection
 	name = "Ритуал Воскрешения"
 	description = "Проведение данного ритуала позволит оживить погибшего гуманоида, находящегося на руне. \
-					Катастрофическая неудача приведет к сильнейшему повреждению мозга у всех, кто находится рядом с руной."
+					Катастрофическая неудача приведёт к сильнейшему повреждению мозга у всех, кто находится рядом с руной."
 	charges = 3
 	extra_invokers = 2
 	cooldown_after_cast = 180 SECONDS
@@ -541,7 +541,7 @@
 
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
-			to_chat(invoker, "Существа должны быть мертвы.")
+			invoker.balloon_alert(invoker, "существа должны быть мертвы!")
 			return FALSE
 
 	var/mob/living/carbon/human/human = locate() in used_things
@@ -573,7 +573,7 @@
 /datum/ritual/ashwalker/recharge
 	name = "Ритуал Восстановления"
 	description = "Проведение данного ритуала позволит восстановить заряды у ритуалов, имеющих ограниченное количество зарядов. \
-					Катастрофическая неудача приведет к заражению опухолью Легиона у случайного соплеменника."
+					Катастрофическая неудача приведёт к заражению опухолью Легиона у случайного соплеменника."
 	extra_invokers = 3
 	disaster_prob = 30
 	fail_chance = 50
@@ -604,7 +604,7 @@
 
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
-			to_chat(invoker, "Существа должны быть мертвы.")
+			invoker.balloon_alert(invoker, "существа должны быть мертвы!")
 			return FALSE
 
 	return TRUE
@@ -646,7 +646,7 @@
 /datum/ritual/ashwalker/population
 	name = "Ритуал Населения"
 	description = "Проведение данного ритуала позволит племени пеплоходцев получить второго шамана. \
-					Катастрофическая неудача приведет к выпадению всех вещей на пол у случайных соплеменников."
+					Катастрофическая неудача приведёт к выпадению всех вещей на пол у случайных соплеменников."
 	extra_invokers = 2
 	charges = 1
 	cooldown_after_cast = 120 SECONDS
@@ -687,7 +687,7 @@
 
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
-			to_chat(invoker, "Существа должны быть мертвы.")
+			invoker.balloon_alert(invoker, "существа должны быть мертвы!")
 			return FALSE
 
 	return TRUE
@@ -738,7 +738,7 @@
 /datum/ritual/ashwalker/soul
 	name = "Ритуал Души"
 	description = "Проведение данного ритуала позволяет призывающему возвыситься до драконида. \
-					Катастрофическая неудача приведет к ужасающим ожогам среди всех участников ритуала."
+					Катастрофическая неудача приведёт к ужасающим ожогам всем участникам ритуала."
 	extra_invokers = 3
 	cooldown_after_cast = 1200 SECONDS
 	cast_time = 30 SECONDS
@@ -778,7 +778,7 @@
 
 	for(var/mob/living/living in used_things)
 		if(living.stat != DEAD)
-			to_chat(invoker, "Существа должны быть мертвы.")
+			invoker.balloon_alert(invoker, "существа должны быть мертвы!")
 			return FALSE
 
 	return TRUE
@@ -809,7 +809,7 @@
 /datum/ritual/ashwalker/transmutation
 	name = "Ритуал Трансмутации"
 	description = "Проведение данного ритуала позволяет трансмутировать 10 единиц любой руды в другую случайную руду. \
-					Катастрофическая неудача приведет к расплавлению руды в руках и последующим ужасающим ожогам."
+					Катастрофическая неудача приведёт к расплавлению руды в руках и последующим ужасающим ожогам."
 	cooldown_after_cast = 20 SECONDS
 	cast_time = 10 SECONDS
 	required_things = list(
@@ -854,7 +854,7 @@
 /datum/ritual/ashwalker/interrogation
 	name = "Ритуал Допроса"
 	description = "Проведение данного ритуала позволяет получить информацию о чувствах и мыслях вашей жертвы. \
-					Катастрофическая неудача приведет к затуманиванию разума шамана и серьезным повреждениям мозга."
+					Катастрофическая неудача приведёт к затуманиванию разума шамана и серьёзным повреждениям мозга."
 	cooldown_after_cast = 50 SECONDS
 	shaman_only = TRUE
 	cast_time = 10 SECONDS
@@ -885,7 +885,7 @@
 		return RITUAL_FAILED_ON_PROCEED
 
 	if(human.stat == DEAD || !human.mind)
-		to_chat(invoker, "Гуманоид должен быть жив и иметь разум.")
+		invoker.balloon_alert(invoker, "гуманоид мёртв или без души!")
 		return FALSE
 
 	return TRUE
@@ -906,7 +906,7 @@
 			continue
 
 		var/turf/turf = human.loc
-		to_chat(human, "<font color='red' size='7'>HONK</font>")
+		to_chat(human, "<font color='red' size='7'>ХОНК</font>")
 		SEND_SOUND(turf, sound('sound/items/airhorn.ogg'))
 		human.AdjustHallucinate(150 SECONDS)
 		human.EyeBlind(5 SECONDS)
@@ -919,7 +919,7 @@
 /datum/ritual/ashwalker/creation
 	name = "Ритуал Создания"
 	description = "Проведение данного ритуала позволяет призвать двух случайных враждебных существ к руне. \
-					Катастрофическая неудача приведет к ужасающим ожогам среди всех участников ритуала."
+					Катастрофическая неудача приведёт к ужасающим ожогам всех участников ритуала."
 	cooldown_after_cast = 150 SECONDS
 	shaman_only = TRUE
 	extra_invokers = 2
@@ -966,7 +966,7 @@
 /datum/ritual/ashwalker/command
 	name = "Ритуал Командования"
 	description = "Проведение данного ритуала позволяет получить в подчинение племени местную фауну. \
-					Катастрофическая неудача приведет к призыву агрессивного древнего голиафа."
+					Катастрофическая неудача приведёт к призыву агрессивного древнего голиафа."
 	cooldown_after_cast = 150 SECONDS
 	shaman_only = TRUE
 	disaster_prob = 35
@@ -987,15 +987,15 @@
 
 	for(var/mob/living/simple_animal/living in used_things)
 		if(living.client)
-			to_chat(invoker, "Существо должно быть бездушным.")
+			invoker.balloon_alert(invoker, "существо должно быть без души!")
 			return FALSE
 
 		if(living.sentience_type == SENTIENCE_BOSS)
-			to_chat(invoker, "Ритуал не может воздействовать на мегафауну.")
+			invoker.balloon_alert(invoker, "мегафауна не подходит!")
 			return FALSE
 
 		if(living.stat != DEAD)
-			to_chat(invoker, "Существа должны быть мертвы.")
+			invoker.balloon_alert(invoker, "существа должны быть мертвы!")
 			return FALSE
 
 	return TRUE
@@ -1022,7 +1022,7 @@
 	animal.del_on_death = FALSE
 	animal.master_commander = invoker
 
-	animal.mind.store_memory("<B>Мой хозяин [invoker.name], выполню [genderize_ru(invoker.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
+	animal.mind.store_memory("<B>Мой хозяин - [invoker.name], выполню [genderize_ru(invoker.gender, "его", "её", "его", "их")] цели любой ценой!</B>")
 	to_chat(animal, chat_box_green("Вы - раб пеплоходцев. Всегда подчиняйтесь и помогайте им."))
 	add_game_logs("стал питомцем игрока [key_name(invoker)]", animal)
 

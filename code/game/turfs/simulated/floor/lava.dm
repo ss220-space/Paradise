@@ -57,11 +57,11 @@
 	var/datum/component/simple_fishing/fc = GetComponent(/datum/component/simple_fishing)
 	krill.in_lava = TRUE
 	krill.anchored = TRUE	//no closet kidnaping
-	visible_message(span_warning("[krill.declent_ru(NOMINATIVE)] медленно тонет в лаве!"))
+	visible_message(span_warning("[capitalize(krill.declent_ru(NOMINATIVE))] медленно тон[pluralize_ru(krill.gender, "ет", "ут")] в лаве!"))
 	sleep(5 SECONDS)
 	qdel(krill)
 	if(!fc)
-		visible_message(span_warning("Но никто не пришёл."))
+		visible_message(span_warning("И ничего не происходит..."))
 		return
 	visible_message(span_warning("Неожиданно, из лавы выныривают две рыбы и разрывают [krill.declent_ru(ACCUSATIVE)] на части!"))
 	var/list/fishable_list = fc.catchable_fish.Copy()
@@ -203,13 +203,13 @@
 		return .
 
 	if(istype(I, /obj/item/reagent_containers/food/snacks/charred_krill))
-		to_chat(user, span_notice("Вы осторожно кладёте креветку на поверхность лавы.."))
+		to_chat(user, span_notice("Вы осторожно кладёте креветку на поверхность лавы..."))
 		if(do_after(user, 5 SECONDS, target = src))
 			if(QDELETED(I))
 				return .
 			var/datum/component/simple_fishing/fc = GetComponent(/datum/component/simple_fishing)
 			if(!fc)
-				to_chat(user, span_warning("Но никто не пришёл."))
+				to_chat(user, span_warning("И ничего не происходит..."))
 				return .
 			to_chat(user, span_notice("Неожиданно, из лавы выныривают две рыбы и разрывают креветку на части!"))
 			var/list/fishable_list = fc.catchable_fish.Copy()

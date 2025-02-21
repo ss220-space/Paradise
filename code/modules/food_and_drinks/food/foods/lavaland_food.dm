@@ -1,4 +1,5 @@
 /obj/item/reagent_containers/food/snacks/lavaland
+	gender = MALE
 	icon = 'icons/obj/lavaland/lava_fishing.dmi'
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
@@ -8,6 +9,7 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland/soft_meat
 	name = "soft meat cut"
+	desc = "Нежное филе лавовой рыбы. Сырое в текущем виде, однако с помощью правильных ингридиентов её можно будет превратить в прекрасное блюдо."
 	ru_names = list(
 		NOMINATIVE = "нежная мясная вырезка",
 		GENITIVE = "нежной мясной вырезки",
@@ -16,17 +18,18 @@
 		INSTRUMENTAL = "нежной мясной вырезкой",
 		PREPOSITIONAL = "нежной мясной вырезке",
 	)
-	desc = "Нежное филе лавовой рыбы. Сырое в текущем виде, однако с правильными ингридиентами её можно превратить в прекрасное блюдо."
+	gender = FEMALE
 	icon_state = "soft_meat_cut"
 	item_state = "soft_meat_cut"
 	list_reagents = list("nutriment" = 1, "vitamin" = 3, "protein" = 3)
 	bitesize = 2
 	filling_color = "#D49284"
-	tastes = list("raw meat" = 1)
+	tastes = list("сырого мяса" = 1)
 	foodtype = MEAT | RAW
 
 /obj/item/reagent_containers/food/snacks/lavaland/eel_filet
 	name = "eel filet"
+	desc = "Сырое филе донного угря. Хоть оно съедобно и в сыром виде, однако с помощью правильных ингридиентов её можно будет превратить в прекрасное блюдо."
 	ru_names = list(
 		NOMINATIVE = "филе угря",
 		GENITIVE = "филе угря",
@@ -35,17 +38,18 @@
 		INSTRUMENTAL = "филе угря",
 		PREPOSITIONAL = "филе угря",
 	)
-	desc = "Сырое филе донного угря. Хоть оно съедобно и в сыром виде, с правильными ингридиентами, ее можно превратить в прекрасное блюдо."
+	gender = NEUTER
 	icon_state = "eel_filet"
 	item_state = "eel_filet"
 	list_reagents = list("nutriment" = 2, "menthol" = 3, "protein" = 4)
 	bitesize = 2
 	filling_color = "#414F71"
-	tastes = list("raw meat" = 1)
+	tastes = list("сырого мяса" = 1)
 	foodtype = MEAT | RAW
 
 /obj/item/reagent_containers/food/snacks/lavaland/predator_meat
 	name = "predatory fish slice"
+	desc = "Достаточно большой кусок мяса, добытый из хищной рыбы. Не рекомендуется к употреблению в сыром виде."
 	ru_names = list(
 		NOMINATIVE = "кусок мяса хищной рыбы",
 		GENITIVE = "куска мяса хищной рыбы",
@@ -54,17 +58,17 @@
 		INSTRUMENTAL = "куском мяса хищной рыбы",
 		PREPOSITIONAL = "куске мяса хищной рыбы",
 	)
-	desc = "Достаточно большой кусок мяса, добытый из хищной рыбы. Не рекомендуется к употреблению в сыром виде."
 	icon_state = "predatory_fish_slice"
 	item_state = "predatory_fish_slice"
 	list_reagents = list("nutriment" = 2, "toxin" = 2, "protein" = 4)
 	bitesize = 3
 	filling_color = "#BE7C64"
-	tastes = list("toxin meat" = 1)
+	tastes = list("очень горького мяса" = 1)
 	foodtype = MEAT | TOXIC | RAW
 
 /obj/item/reagent_containers/food/snacks/lavaland/soft_meat_cubes
 	name = "soft meat cubes"
+	desc = "Филе рыбы, порезанное на маленькие кубики и обжаренное в печи. Выглядит аппетитно."
 	ru_names = list(
 		NOMINATIVE = "нежные мясные кубики",
 		GENITIVE = "нежных мясных кубиков",
@@ -73,17 +77,18 @@
 		INSTRUMENTAL = "нежными мясными кубиками",
 		PREPOSITIONAL = "нежных мясных кубиках",
 	)
-	desc = "Филе рыбы, порезанное на маленькие кубики и обжаренное в печи. Выглядит аппетитно."
+	gender = PLURAL
 	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "soft_meat_cubes"
 	list_reagents = list("nutriment" = 2, "vitamin" = 3, "protein" = 3)
 	bitesize = 3
 	filling_color = "#BE7C64"
-	tastes = list("soft meat" = 1)
+	tastes = list("нежного мяса" = 1)
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/lavaland/predatory_fish_slab
 	name = "cooked predatory fish slab"
+	desc = "Кусок мяса хищной рыбы, обжаренный в печи. Пригоден к употреблению."
 	ru_names = list(
 		NOMINATIVE = "жаренный кусок мяса хищной рыбы",
 		GENITIVE = "жаренного куска мяса хищной рыбы",
@@ -92,17 +97,17 @@
 		INSTRUMENTAL = "жаренным куском мяса хищной рыбы",
 		PREPOSITIONAL = "жаренном куске мяса хищной рыбы",
 	)
-	desc = "Кусок мяса хищной рыбы, обжаренный в печи. Пригоден к употреблению."
 	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "predatory_fish_slab"
 	list_reagents = list("nutriment" = 4, "protein" = 6)
 	bitesize = 3
 	filling_color = "#BE7C64"
-	tastes = list("meat" = 1)
+	tastes = list("мяса" = 1)
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/lavaland/eel_ringlets
 	name = "eel ringlets"
+	desc = "Обжаренное в печи филе донного угря. Невероятно вкусное."
 	ru_names = list(
 		NOMINATIVE = "колечки из угря",
 		GENITIVE = "колечек из угря",
@@ -111,17 +116,18 @@
 		INSTRUMENTAL = "колечками из угря",
 		PREPOSITIONAL = "колечках из угря",
 	)
-	desc = "Обжаренное в печи филе донного угря. Невероятно вкусное."
+	gender = PLURAL
 	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "eel_ringlets"
 	list_reagents = list("nutriment" = 4, "protein" = 6)
 	bitesize = 3
 	filling_color = "#BE7C64"
-	tastes = list("meat" = 1)
+	tastes = list("нежного мяса" = 1)
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_bacon
 	name = "thali lazis bacon part"
+	desc = "Небольшая порция бекона, взятая из тарелки Тали Лазис."
 	ru_names = list(
 		NOMINATIVE = "кусочек бекона Тали Лазис",
 		GENITIVE = "кусочка бекона Тали Лазис",
@@ -130,7 +136,6 @@
 		INSTRUMENTAL = "кусочком бекона Тали Лазис",
 		PREPOSITIONAL = "кусочке бекона Тали Лазис",
 	)
-	desc = "Небольшая порция бекона, взятая из тарелки Тали Лазис."
 	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "thali_lazis_bacon"
 	overlay_sprite = "thali_lazis_bacon_overlay"
@@ -138,6 +143,7 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_cacti
 	name = "thali lazis cacti part"
+	desc = "Небольшой кактус, взятый из тарелки Тали Лазис."
 	ru_names = list(
 		NOMINATIVE = "кусочек кактуса Тали Лазис",
 		GENITIVE = "кусочка кактуса Тали Лазис",
@@ -146,7 +152,6 @@
 		INSTRUMENTAL = "кусочком кактуса Тали Лазис",
 		PREPOSITIONAL = "кусочке кактуса Тали Лазис",
 	)
-	desc = "Небольшой кактус, взятый из тарелки Тали Лазис."
 	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "thali_lazis_cacti"
 	overlay_sprite = "thali_lazis_cacti_overlay"
@@ -154,6 +159,7 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_wing
 	name = "thali lazis wing part"
+	desc = "Небольшое крыло, взятое из тарелки Тали Лазис."
 	ru_names = list(
 		NOMINATIVE = "кусочек крылышка Тали Лазис",
 		GENITIVE = "кусочка крылышка Тали Лазис",
@@ -162,7 +168,6 @@
 		INSTRUMENTAL = "кусочком крылышка Тали Лазис",
 		PREPOSITIONAL = "кусочке крылышка Тали Лазис",
 	)
-	desc = "Небольшое крыло, взятое из тарелки Тали Лазис."
 	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "thali_lazis_wing"
 	overlay_sprite = "thali_lazis_wing_overlay"
@@ -170,6 +175,7 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_fish
 	name = "thali lazis fish part"
+	desc = "Небольшая порция рыбы, взятая из тарелки Тали Лазис."
 	ru_names = list(
 		NOMINATIVE = "кусочек рыбы Тали Лазис",
 		GENITIVE = "кусочка рыбы Тали Лазис",
@@ -178,7 +184,6 @@
 		INSTRUMENTAL = "кусочком рыбы Тали Лазис",
 		PREPOSITIONAL = "кусочке рыбы Тали Лазис",
 	)
-	desc = "Небольшая порция рыбы, взятая из тарелки Тали Лазис."
 	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "thali_lazis_fish"
 	overlay_sprite = "thali_lazis_fish_overlay"
@@ -186,6 +191,7 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_crunchie
 	name = "thali lazis crunchie part"
+	desc = "Небольшая хрустящая порция, взятая из тарелки Тали Лазис."
 	ru_names = list(
 		NOMINATIVE = "хрустящий кусочек Тали Лазис",
 		GENITIVE = "хрустящего кусочка Тали Лазис",
@@ -194,7 +200,6 @@
 		INSTRUMENTAL = "хрустящим кусочком Тали Лазис",
 		PREPOSITIONAL = "хрустящем кусочке Тали Лазис",
 	)
-	desc = "Небольшая хрустящая порция, взятая из тарелки Тали Лазис."
 	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "thali_lazis_crunchie"
 	overlay_sprite = "thali_lazis_crunchie_overlay"
@@ -202,6 +207,7 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_bungus
 	name = "thali lazis bungus part"
+	desc = "Небольшая порция грибов, взятая из тарелки Тали Лазис."
 	ru_names = list(
 		NOMINATIVE = "грибной кусочек Тали Лазис",
 		GENITIVE = "грибного кусочка Тали Лазис",
@@ -210,7 +216,6 @@
 		INSTRUMENTAL = "грибном кусочком Тали Лазис",
 		PREPOSITIONAL = "грибном кусочке Тали Лазис",
 	)
-	desc = "Небольшая порция грибов, взятая из тарелки Тали Лазис."
 	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "thali_lazis_bungus"
 	overlay_sprite = "thali_lazis_bungus_overlay"
@@ -218,6 +223,7 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland_food
 	name = "generic lavaland food"
+	desc = "самое обычное блюдо. Если вы это видите, то Зюзя напортачил"
 	ru_names = list(
 		NOMINATIVE = "блюдо Лазиса",
 		GENITIVE = "блюда Лазиса",
@@ -226,7 +232,7 @@
 		INSTRUMENTAL = "блюдом Лазиса",
 		PREPOSITIONAL = "блюде Лазиса",
 	)
-	desc = "самое обычное блюдо. Если вы это видите, то зюзя напортачил"
+	gender = NEUTER
 	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "fine_meal"
 	lefthand_file = 'icons/mob/inhands/lavaland/food_lefthand.dmi'
@@ -234,13 +240,14 @@
 	item_state = "food"
 	bitesize = 100 //eat whole thing down
 	list_reagents = list("nutriment" = 6, "protein" = 6)
-	tastes = list("good food" = 1)
+	tastes = list("вкусной еды" = 1)
 	has_special_eating_effects = TRUE
 	eat_time = 5 SECONDS
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/fine_meal
 	name = "fine meal"
+	desc = "Мясо Голиафа, обжаренное в соку кактусового фрукта. Невероятно вкусное и питательное."
 	ru_names = list(
 		NOMINATIVE = "изысканная еда Лазиса",
 		GENITIVE = "изысканной еды Лазиса",
@@ -249,10 +256,10 @@
 		INSTRUMENTAL = "изысканной едой Лазиса",
 		PREPOSITIONAL = "изысканное еде Лазиса",
 	)
+	gender = FEMALE
 	icon_state = "fine_meal"
-	desc = "Мясо голиафа, обжаренное в соку кактусового фрукта. Невероятно вкусное и питательное."
 	list_reagents = list("vitfro" = 6, "protein" = 7, "vitamin" = 3)
-	tastes = list("well-balanced food" = 1)
+	tastes = list("сбалансированной еды" = 1)
 	foodtype = MEAT|FRUIT
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/fine_meal/on_mob_eating_effect(mob/user)
@@ -262,17 +269,17 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/freaky_leg
 	name = "freaky leg"
+	desc = "Многие народы галактики расценивают поедание себе подобных как ужасающее преступление. Однако эти стопы вышли уж слишком питательными..."
 	ru_names = list(
-		NOMINATIVE = "блюдо \"причудливые ноги\"",
-		GENITIVE = "блюда \"причудливые ноги\"",
-		DATIVE = "блюду \"причудливые ноги\"",
-		ACCUSATIVE = "блюдо\"причудливые ноги\"",
-		INSTRUMENTAL = "блюдом \"причудливые ноги\"",
-		PREPOSITIONAL = "блюде \"причудливые ноги\"",
+		NOMINATIVE = "блюдо \"Причудливые Ноги\"",
+		GENITIVE = "блюда \"Причудливые Ноги\"",
+		DATIVE = "блюду \"Причудливые Ноги\"",
+		ACCUSATIVE = "блюдо\"Причудливые Ноги\"",
+		INSTRUMENTAL = "блюдом \"Причудливые Ноги\"",
+		PREPOSITIONAL = "блюде \"Причудливые Ноги\"",
 	)
 	icon_state = "freaky_leg"
-	desc = "Многие народы галактики расценивают поедание себе подобных как ужасающее преступление. Однако эти стопы вышли слишком питательными.."
-	tastes = list("bad times" = 1)
+	tastes = list("тяжёлых времён" = 1)
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/freaky_leg/on_mob_eating_effect(mob/user)
@@ -282,6 +289,7 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/veggie_meal
 	name = "veggie meal"
+	desc = "Обычно пеплоходцы питаются мясом местной фауны, однако, если правильно смешать нужные вещества, то получится крайне полезное растительное блюдо. Хотя на вкус оно так себе."
 	ru_names = list(
 		NOMINATIVE = "вегетарианское блюдо Лазиса",
 		GENITIVE = "вегетарианского блюда Лазиса",
@@ -291,9 +299,8 @@
 		PREPOSITIONAL = "вегетарианском блюде Лазиса",
 	)
 	icon_state = "veggie_meal"
-	desc = "Обычно пеплоходцы питаются мясом местной фауны, однако, если правильно смешать нужные реагенты, то получится крайне полезное, хоть не очень вкусное блюдо."
 	list_reagents = list("spaceacillin" = 10, "lavaland_extract" = 2, "vitfro" = 20, "sal_acid" = 15)
-	tastes = list("herbs" = 1)
+	tastes = list("трав" = 1)
 	foodtype = FRUIT|VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/veggie_meal/on_mob_eating_effect(mob/user)
@@ -303,16 +310,16 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/hunters_treat
 	name = "hunter's treat"
+	desc = "Человеческое сердце, обжаренное в соку мяса Голиафа. Легенды говорят, что если сьесть сердце поверженного врага, то обретёшь невероятную силу."
 	ru_names = list(
-		NOMINATIVE = "блюдо \"угощение охотника\"",
-		GENITIVE = "блюда \"угощение охотника\"",
-		DATIVE = "блюду \"угощение охотника\"",
-		ACCUSATIVE = "блюдо\"угощение охотника\"",
-		INSTRUMENTAL = "блюдом \"угощение охотника\"",
-		PREPOSITIONAL = "блюде \"угощение охотника\"",
+		NOMINATIVE = "блюдо \"Угощение Охотника\"",
+		GENITIVE = "блюда \"Угощение Охотника\"",
+		DATIVE = "блюду \"Угощение Охотника\"",
+		ACCUSATIVE = "блюдо\"Угощение Охотника\"",
+		INSTRUMENTAL = "блюдом \"Угощение Охотника\"",
+		PREPOSITIONAL = "блюде \"Угощение Охотника\"",
 	)
 	icon_state = "hunters_treat"
-	desc = "Человеческое сердце, обжаренное в соку мяса голиафа. Легенды говорят, что если сьесть сердце поверженного врага, то обретешь невероятную силу."
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/hunters_treat/on_mob_eating_effect(mob/user)
 	if(ishuman(user))
@@ -321,31 +328,31 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/yum_grub
 	name = "yum-grub"
+	desc = "Мясо златожора, обжаренное вместе с грибами. Говорят, что оно благотворно воздействует на здоровье нервной системы и сенсорных органов."
 	ru_names = list(
-		NOMINATIVE = "блюдо \"ям-граб\"",
-		GENITIVE = "блюда \"ям-граб\"",
-		DATIVE = "блюду \"ям-граб\"",
-		ACCUSATIVE = "блюдо\"ям-граб\"",
-		INSTRUMENTAL = "блюдом \"ям-граб\"",
-		PREPOSITIONAL = "блюде \"ям-граб\"",
+		NOMINATIVE = "блюдо \"Ям-Граб\"",
+		GENITIVE = "блюда \"Ям-Граб\"",
+		DATIVE = "блюду \"Ям-Граб\"",
+		ACCUSATIVE = "блюдо\"Ям-Граб\"",
+		INSTRUMENTAL = "блюдом \"Ям-Граб\"",
+		PREPOSITIONAL = "блюде \"Ям-Граб\"",
 	)
 	icon_state = "yum_grub"
-	desc = "Мясо златожора, обжаренное вместе с грибами. Крайне полезно для зрения и мозга."
 	list_reagents = list("oculine" = 12, "mannitol" = 12, "vitamin" = 3)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/ashie_kebab
 	name = "ashie-kebab"
+	desc = "Несколько жизненно-важных органов, грубо удаленных из тела и насаженных на железный стержень. Настолько же первобытно, насколько и вкусно!"
 	ru_names = list(
 		NOMINATIVE = "пепло-кебаб Лазиса",
 		GENITIVE = "пепло-кебаба Лазиса",
-		DATIVE = "пепло-кебабу Лазиса",
+		DATIVE = "пепло-кебАбу Газиса",
 		ACCUSATIVE = "пепло-кебаб Лазиса",
 		INSTRUMENTAL = "пепло-кебабом Лазиса",
 		PREPOSITIONAL = "пепло-кебабе Лазиса",
 	)
 	icon_state = "ashie_kebab"
 	item_state = "ashie_kebab"
-	desc = "Несколько жизненно-важных органов, грубо удаленных из тела и насаженных на железный стержень. Выглядит вкусно!"
 	list_reagents = list("nutriment" = 6, "protein" = 6, "ephedrine" = 10)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/ashie_kebab/on_mob_eating_effect(mob/user)
@@ -355,16 +362,16 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/tail_o_dead
 	name = "tail'o'dead"
+	desc = "Массивный хвост унатха, запечённый в соку фруктовых кактусов. Выглядит аппетитно!"
 	ru_names = list(
-		NOMINATIVE = "блюдо \"отрезанный хвост\"",
-		GENITIVE = "блюда \"отрезанный хвост\"",
-		DATIVE = "блюду \"отрезанный хвост\"",
-		ACCUSATIVE = "блюдо\"отрезанный хвост\"",
-		INSTRUMENTAL = "блюдом \"отрезанный хвост\"",
-		PREPOSITIONAL = "блюде \"отрезанный хвост\"",
+		NOMINATIVE = "блюдо \"Отрезанный Хвост\"",
+		GENITIVE = "блюда \"Отрезанный Хвост\"",
+		DATIVE = "блюду \"Отрезанный Хвост\"",
+		ACCUSATIVE = "блюдо\"Отрезанный Хвост\"",
+		INSTRUMENTAL = "блюдом \"Отрезанный Хвост\"",
+		PREPOSITIONAL = "блюде \"Отрезанный Хвост\"",
 	)
 	icon_state = "tail_o_dead"
-	desc = "Массивный хвост унати, запечённый в соку фруктовых кактусов. Выглядит аппетитно!"
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/tail_o_dead/on_mob_eating_effect(mob/user)
 	if(isliving(user))
@@ -373,24 +380,24 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/cure_curse
 	name = "cure curse"
+	desc = "Два проткнутых сердца, одно из которых проклято. Что может пойти не так?"
 	ru_names = list(
-		NOMINATIVE = "блюдо \"проклятое лечение\"",
-		GENITIVE = "блюда \"проклятое лечение\"",
-		DATIVE = "блюду \"проклятое лечение\"",
-		ACCUSATIVE = "блюдо\"проклятое лечение\"",
-		INSTRUMENTAL = "блюдом \"проклятое лечение\"",
-		PREPOSITIONAL = "блюде \"проклятое лечение\"",
+		NOMINATIVE = "блюдо \"Проклятое Лечение\"",
+		GENITIVE = "блюда \"Проклятое Лечение\"",
+		DATIVE = "блюду \"Проклятое Лечение\"",
+		ACCUSATIVE = "блюдо\"Проклятое Лечение\"",
+		INSTRUMENTAL = "блюдом \"Проклятое Лечение\"",
+		PREPOSITIONAL = "блюде \"Проклятое Лечение\"",
 	)
 	icon_state = "cure_curse"
-	desc = "Два проткнутых сердца, одно из которых проклято. Что может пойти не так?"
 	var/active = FALSE
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/cure_curse/examine(mob/user)
 	. = ..()
 	if(active)
-		. += span_notice("проклятое сердце бьётся.")
+		. += span_notice("Проклятое сердце бьётся.")
 	else
-		. += span_danger("проклятое сердце неподвижно.")
+		. += span_danger("Проклятое сердце неподвижно.")
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/cure_curse/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -419,16 +426,16 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/wings_n_fangs_n_tentacles
 	name = "wings'n'fangs'n'tentacles"
+	desc = "Одно из щупалец Голиафа, крыло наблюдателя и жвало ткача, запеченные вместе. На вкус оно так же ужасно, как и на вид."
 	ru_names = list(
-		NOMINATIVE = "блюдо \"крылья, клыки и тентакли\"",
-		GENITIVE = "блюда \"крылья, клыки и тентакли\"",
-		DATIVE = "блюду \"крылья, клыки и тентакли\"",
-		ACCUSATIVE = "блюдо\"крылья, клыки и тентакли\"",
-		INSTRUMENTAL = "блюдом \"крылья, клыки и тентакли\"",
-		PREPOSITIONAL = "блюде \"крылья, клыки и тентакли\"",
+		NOMINATIVE = "блюдо \"Крылья, клыки и щупальца\"",
+		GENITIVE = "блюда \"Крылья, клыки и щупальца\"",
+		DATIVE = "блюду \"Крылья, клыки и щупальца\"",
+		ACCUSATIVE = "блюдо\"Крылья, клыки и щупальца\"",
+		INSTRUMENTAL = "блюдом \"Крылья, клыки и щупальца\"",
+		PREPOSITIONAL = "блюде \"Крылья, клыки и щупальца\"",
 	)
 	icon_state = "wings_n_fangs_n_tentacles"
-	desc = "Одно из щупалец голиафа, крыло наблюдателя и жвало ткача, запеченные вместе. На вкус оно так же ужасно, как и на вид."
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/wings_n_fangs_n_tentacles/on_mob_eating_effect(mob/user)
 	if(isunathi(user))
@@ -441,16 +448,16 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/goli_kernels
 	name = "goli-kernels"
+	desc = "небольшой мясной шарик на \"подносе\" из грибной шляпки. Вкуснятина!"
 	ru_names = list(
-		NOMINATIVE = "блюдо \"голи-кернельс\"",
-		GENITIVE = "блюда \"голи-кернельс\"",
-		DATIVE = "блюду \"голи-кернельс\"",
-		ACCUSATIVE = "блюдо\"голи-кернельс\"",
-		INSTRUMENTAL = "блюдом \"голи-кернельс\"",
-		PREPOSITIONAL = "блюде \"голи-кернельс\"",
+		NOMINATIVE = "блюдо \"Голи-кернельс\"",
+		GENITIVE = "блюда \"Голи-кернельс\"",
+		DATIVE = "блюду \"Голи-кернельс\"",
+		ACCUSATIVE = "блюдо\"Голи-кернельс\"",
+		INSTRUMENTAL = "блюдом \"Голи-кернельс\"",
+		PREPOSITIONAL = "блюде \"Голи-кернельс\"",
 	)
 	icon_state = "goli_kernels"
-	desc = "небольшой мясной шарик на \"подносе\" из грибной шляпки. Вкуснятина!"
 	list_reagents = list("nutriment" = 2, "protein" = 2)
 	eat_time = 0 SECONDS
 
@@ -466,6 +473,7 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/grace_of_lazis
 	name = "grace of lazis portion"
+	desc = "Кусок мяса, срезанный с массивного постамента в честь славной охоты. Невероятно вкусно."
 	ru_names = list(
 		NOMINATIVE = "порция с постамента \"Благодать Лазис Ардакса\"",
 		GENITIVE = "порции с постамента \"Благодать Лазис Ардакса\"",
@@ -474,22 +482,22 @@
 		INSTRUMENTAL = "порцией с постамента \"Благодать Лазис Ардакса\"",
 		PREPOSITIONAL = "порции с постамента \"Благодать Лазис Ардакса\"",
 	)
-	desc = "Кусок мяса, срезанный с массивного постамента в честь славной охоты. Невероятно вкусно."
+	gender = FEMALE
 	icon_state = "grace_of_lazis"
 	list_reagents = list("protein" = 4, "vitamin" = 2)
 	eat_time = 0 SECONDS
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/beer_grub_stew
 	name = "beer grub stew"
-	ru_names = list(
-		NOMINATIVE = "тушеное рагу",
-		GENITIVE = "тушеного рагу",
-		DATIVE = "тушеному рагу",
-		ACCUSATIVE = "тушеное рагу",
-		INSTRUMENTAL = "тушеным рагу",
-		PREPOSITIONAL = "тушеном рагу",
-	)
 	desc = "Алкогольное рагу, приготовленное с использованием мяса златожора. Питательно!"
+	ru_names = list(
+		NOMINATIVE = "тушёное рагу",
+		GENITIVE = "тушёного рагу",
+		DATIVE = "тушёному рагу",
+		ACCUSATIVE = "тушёное рагу",
+		INSTRUMENTAL = "тушёным рагу",
+		PREPOSITIONAL = "тушёном рагу",
+	)
 	icon_state = "beer_grub_stew"
 	list_reagents = list("nutriment" = 4, "protein" = 6, "beer" = 7)
 
@@ -500,6 +508,7 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/thick_red_paste
 	name = "thick red paste"
+	desc = "Отвратительно выглядящая на вид вязкая красная паста, сделанная из ошмётков тел. На вкус невероятно омерзительно."
 	ru_names = list(
 		NOMINATIVE = "густая красная паста",
 		GENITIVE = "густой красной пасты",
@@ -508,7 +517,7 @@
 		INSTRUMENTAL = "густой красной пастой",
 		PREPOSITIONAL = "густой красной пасте",
 	)
-	desc = "Отвратительно выглядящая на вид вязкая красная паста, сделанная из ошмётков тел. На вкус невероятно отвратительно."
+	gender = FEMALE
 	icon_state = "thick_red_paste"
 	list_reagents = list("protein" = 2)
 
@@ -519,6 +528,7 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/black_blood_sausage
 	name = "black blood sausage"
+	desc = "Небольшая кровяная колбаска, сделанная из мяса Голиафа и... настоящей крови. Крайне полезно, если вы в критическом состоянии."
 	ru_names = list(
 		NOMINATIVE = "черная кровяная колбаска",
 		GENITIVE = "черной кровяной колбаски",
@@ -527,13 +537,14 @@
 		INSTRUMENTAL = "черной кровяной колбаской",
 		PREPOSITIONAL = "черной кровяной колбаске",
 	)
-	desc = "Небольшая кровяная колбаска, сделанная из мяса голиафа и... настоящей крови. Крайне полезно, если вы в критическом состоянии."
+	gender = FEMALE
 	icon_state = "black_blood_sausage"
 	item_state = "black_blood_sausage"
 	list_reagents = list("nutriment" = 4, "protein" = 3, "ashiezine" = 6)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/xeno_sticks
 	name = "xeno sticks"
+	desc = "Мясо ксеноморфа на палочках, украшенное грибами рейши. На удивление довольно вкусное!"
 	ru_names = list(
 		NOMINATIVE = "ксено-палочки",
 		GENITIVE = "ксено-палочек",
@@ -542,7 +553,7 @@
 		INSTRUMENTAL = "ксено-палочками",
 		PREPOSITIONAL = "ксено-палочках",
 	)
-	desc = "Мясо ксеноморфа на палочках, украшенное грибами рейши. На удивление довольно вкусное!"
+	gender = PLURAL
 	icon_state = "xeno_sticks"
 	item_state = "xeno_sticks"
 
@@ -553,57 +564,57 @@
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/filet_madras
 	name = "filet madras"
-	ru_names = list(
-		NOMINATIVE = "блюдо \"филе мадрас\"",
-		GENITIVE = "блюда \"филе мадрас\"",
-		DATIVE = "блюду \"филе мадрас\"",
-		ACCUSATIVE = "блюдо\"филе мадрас\"",
-		INSTRUMENTAL = "блюдом \"филе мадрас\"",
-		PREPOSITIONAL = "блюде \"филе мадрас\"",
-	)
 	desc = "Нежное филе рыбы, обжаренное вместе с грибами. Невероятно вкусно."
+	ru_names = list(
+		NOMINATIVE = "блюдо \"Филе Мадрас\"",
+		GENITIVE = "блюда \"Филе Мадрас\"",
+		DATIVE = "блюду \"Филе Мадрас\"",
+		ACCUSATIVE = "блюдо\"Филе Мадрас\"",
+		INSTRUMENTAL = "блюдом \"Филе Мадрас\"",
+		PREPOSITIONAL = "блюде \"Филе Мадрас\"",
+	)
 	icon_state = "filet_madras"
 	list_reagents = list("nutriment" = 3, "protein" = 2, "pen_acid" = 4)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/eel_katigo
 	name = "eel katigo"
-	ru_names = list(
-		NOMINATIVE = "блюдо \"угорь катиго\"",
-		GENITIVE = "блюда \"угорь катиго\"",
-		DATIVE = "блюду \"угорь катиго\"",
-		ACCUSATIVE = "блюдо\"угорь катиго\"",
-		INSTRUMENTAL = "блюдом \"угорь катиго\"",
-		PREPOSITIONAL = "блюде \"угорь катиго\"",
-	)
 	desc = "Филе донного угря с травяными приправами и \"соусом\" в виде собранных кусков мяса. Питательно!"
+	ru_names = list(
+		NOMINATIVE = "блюдо \"Угорь Катиго\"",
+		GENITIVE = "блюда \"Угорь Катиго\"",
+		DATIVE = "блюду \"Угорь Катиго\"",
+		ACCUSATIVE = "блюдо\"Угорь Катиго\"",
+		INSTRUMENTAL = "блюдом \"Угорь Катиго\"",
+		PREPOSITIONAL = "блюде \"Угорь Катиго\"",
+	)
 	icon_state = "eel_katigo"
 	list_reagents = list("nutriment" = 3, "protein" = 2, "nicotine" = 6, "menthol" = 15)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/predatory_chowder
 	name = "predatory chowder"
-	ru_names = list(
-		NOMINATIVE = "блюдо \"похлебка хищника\"",
-		GENITIVE = "блюда \"похлебка хищника\"",
-		DATIVE = "блюду \"похлебка хищника\"",
-		ACCUSATIVE = "блюдо\"похлебка хищника\"",
-		INSTRUMENTAL = "блюдом \"похлебка хищника\"",
-		PREPOSITIONAL = "блюде \"похлебка хищника\"",
-	)
 	desc = "Суп, приготовленный с использованием рыбного мяса, приправ и человеческих органов. Вкусно!"
+	ru_names = list(
+		NOMINATIVE = "блюдо \"Похлёбка Хищника\"",
+		GENITIVE = "блюда \"Похлёбка Хищника\"",
+		DATIVE = "блюду \"Похлёбка Хищника\"",
+		ACCUSATIVE = "блюдо\"Похлёбка Хищника\"",
+		INSTRUMENTAL = "блюдом \"Похлёбка Хищника\"",
+		PREPOSITIONAL = "блюде \"Похлёбка Хищника\"",
+	)
 	icon_state = "predatory_chowder"
 	list_reagents = list("nutriment" = 3, "protein" = 2, "godblood" = 20)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/abu_ghosh
 	name = "abu ghosh"
-	ru_names = list(
-		NOMINATIVE = "блюдо \"абу гош\"",
-		GENITIVE = "блюда \"абу гош\"",
-		DATIVE = "блюду \"абу гош\"",
-		ACCUSATIVE = "блюдо\"абу гош\"",
-		INSTRUMENTAL = "блюдом \"абу гош\"",
-		PREPOSITIONAL = "блюде \"абу гош\"",
-	)
 	desc = "Суп, приготовленный с использованием молока гатланчей и местных ингридиентов. Вкуснятина!"
+	ru_names = list(
+		NOMINATIVE = "блюдо \"Абу Гош\"",
+		GENITIVE = "блюда \"Абу Гош\"",
+		DATIVE = "блюду \"Абу Гош\"",
+		ACCUSATIVE = "блюдо\"Абу Гош\"",
+		INSTRUMENTAL = "блюдом \"Абу Гош\"",
+		PREPOSITIONAL = "блюде \"Абу Гош\"",
+	)
 	icon_state = "abu_ghosh"
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/abu_ghosh/on_mob_eating_effect(mob/user)
@@ -613,6 +624,7 @@
 
 /obj/item/storage/lava_tray
 	name = "thali lazis plate"
+	desc = "Большой поднос, сделанный из дерева. Предназначен для хранения огромного количества съестного."
 	ru_names = list(
 		NOMINATIVE = "поднос \"Тали Лазис\"",
 		GENITIVE = "подноса \"Тали Лазис\"",
@@ -621,7 +633,7 @@
 		INSTRUMENTAL = "подносом \"Тали Лазис\"",
 		PREPOSITIONAL = "подносе \"Тали Лазис\"",
 	)
-	desc = "Большой поднос, сделанный из дерева. Предназначен для хранения огромного количества съестного."
+	gender = MALE
 	icon = 'icons/obj/lavaland/ashie_food.dmi'
 	icon_state = "thali_lazis_plate"
 	flags = NONE

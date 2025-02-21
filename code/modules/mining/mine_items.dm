@@ -70,6 +70,7 @@
 
 /obj/item/flashlight/lantern
 	name = "lantern"
+	desc = "Шахтёрская лампа."
 	ru_names = list(
 		NOMINATIVE = "лампа",
 		GENITIVE = "лампы",
@@ -78,7 +79,7 @@
 		INSTRUMENTAL = "лампой",
 		PREPOSITIONAL = "лампе"
 	)
-	desc = "Шахтерская лампа."
+	gender = FEMALE
 	icon_state = "lantern"
 	item_state = "lantern"
 	belt_icon = "lantern"
@@ -95,7 +96,7 @@
 /obj/item/flashlight/lantern/examine(mob/user)
 	. = ..()
 	if(!inserted_gem)
-		. += span_notice("Внутри лампы есть небольшое отверстие под гем.")
+		. += span_notice("Внутри лампы есть небольшое отверстие под самоцвет.")
 	else
 		. += span_notice("Внутри лампы находится [inserted_gem.declent_ru(NOMINATIVE)]. Его можно извлечь с помощью лома.")
 
@@ -106,10 +107,10 @@
 
 /obj/item/flashlight/lantern/crowbar_act(mob/living/user, obj/item/I)
 	if(on)
-		balloon_alert(user, "сначала выключи лампу!")
+		balloon_alert(user, "лампа включена!")
 		return
 	if(!inserted_gem)
-		balloon_alert(user, "внутри нет гема!")
+		balloon_alert(user, "самоцвет отсутствует!")
 		return
 	to_chat(user, span_notice("Вы осторожно вынимаете [inserted_gem.declent_ru(ACCUSATIVE)] из лампы."))
 	inserted_gem.set_light_on(TRUE)
@@ -136,18 +137,18 @@
 		return .
 
 	if(on)
-		balloon_alert(user, "сначала выключи лампу!")
+		balloon_alert(user, "лампа включена!")
 		return .
 
 	add_fingerprint(user)
 	var/obj/item/gem/new_gem = I
 	if(inserted_gem)
-		balloon_alert(user, "уже есть!")
+		balloon_alert(user, "уже вставлено!")
 		return .
 	if(!user.drop_transfer_item_to_loc(new_gem, src))
 		return .
 	. |= ATTACK_CHAIN_BLOCKED_ALL
-	to_chat(user, span_notice("вы осторожно установили [new_gem.declent_ru(NOMINATIVE)] в лампу."))
+	to_chat(user, span_notice("вы осторожно устанавливаете [new_gem.declent_ru(NOMINATIVE)] в лампу."))
 	inserted_gem = new_gem
 	inserted_gem.set_light_on(FALSE)
 	refresh_lantern_lights()
@@ -156,6 +157,7 @@
 
 /obj/structure/closet/crate/miningcar
 	name = "mining car"
+	desc = "Шахтёрская вагонетка. К сожалению, рельсов на Лазисе нет. Зато её можно тащить."
 	ru_names = list(
 		NOMINATIVE = "вагонетка",
 		GENITIVE = "вагонетки",
@@ -164,5 +166,5 @@
 		INSTRUMENTAL = "вагонеткой",
 		PREPOSITIONAL = "вагонетке"
 	)
-	desc = "Шахтерская вагонетка. К сожалению, рельсов на Лазисе нет. Зато ее можно тащить."
+	gender = FEMALE
 	icon_state = "miningcar"
