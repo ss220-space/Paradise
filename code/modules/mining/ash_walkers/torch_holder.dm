@@ -226,7 +226,7 @@
 	var/obj/item/flashlight/flare/torch/torch = new(src)
 	if(status == TORCH_OK)
 		torch.attack_self(user)//forcing it to light up and start processing
-	var/our_fuel = timeleft(timer) * 0.1
+	var/our_fuel = timeleft(timer) / 10
 	torch.fuel = our_fuel
 
 	torch.set_light_range_power_color(brightness_range, brightness_power, brightness_color)
