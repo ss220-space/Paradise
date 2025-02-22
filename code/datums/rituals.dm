@@ -445,7 +445,7 @@
 
 /datum/ritual/ashwalker/power
 	name = "Ритуал Силы"
-	description = "Проведение данного ритуала значительно увеличит силу, скорость и регенерацию здоровья у всех его участников, позволяя им таскать тяжести без замедления. \
+	description = "Проведение данного ритуала значительно увеличит силу и регенерацию здоровья у всех его участников, позволяя им таскать тяжести без замедления. \
 					Катастрофическая неудача приведёт к случайной плохой мутации у всех участников ритуала."
 	disaster_prob = 40
 	fail_chance = 40
@@ -488,7 +488,6 @@
 			human.force_gene_block(GLOB.weakblock)
 
 		human.force_gene_block(GLOB.strongblock, TRUE)
-		human.force_gene_block(GLOB.increaserunblock, TRUE)
 		human.force_gene_block(GLOB.regenerateblock, TRUE)
 
 	return RITUAL_SUCCESSFUL
