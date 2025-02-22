@@ -292,7 +292,6 @@
 	armor = list(MELEE = 50, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 90, ACID = 50)
 	var/obj/item/twohanded/sechammer/sledgehammer
 	opened = TRUE
-	var/has_hammer = null
 
 
 /obj/structure/closet/sechammercabinet/Destroy()
@@ -307,7 +306,6 @@
 
 /obj/structure/closet/sechammercabinet/populate_contents()
 	sledgehammer = new(src)
-	has_hammer = "full"
 	update_icon_state()	// So its initial icon doesn't show it without the fireaxe
 
 
@@ -320,7 +318,6 @@
 		if(!user.drop_transfer_item_to_loc(hammer, src))
 			return ..()
 		balloon_alert(user, "кувалда закреплена")
-		has_hammer = "full"
 		sledgehammer = hammer
 		update_icon_state()
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -330,13 +327,12 @@
 
 /obj/structure/closet/sechammercabinet/attack_hand(mob/user)
 	if(!sledgehammer)
-		return ..()
+		return
 
 	add_fingerprint(user)
 	sledgehammer.forceMove_turf()
 	user.put_in_hands(sledgehammer, ignore_anim = FALSE)
 	balloon_alert(user, "кувалда извлечена")
-	has_hammer = "empty"
 	sledgehammer = null
 	update_icon_state()
 
@@ -347,4 +343,7 @@
 	qdel(src)
 
 /obj/structure/closet/sechammercabinet/update_icon_state()
-	icon_state = "sechammer_[has_hammer]"
+	if(sledgehammer)
+		icon_state = "sechammer_full"
+	else
+		icon_state = "sechammer_empty"

@@ -945,7 +945,7 @@
 		user.visible_message("<span class='danger'>[user] blasts \the [target] with \the [src]!</span>")
 		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
 		W.devastate_wall(TRUE)
-		return 1
+		return TRUE
 	..()
 
 /obj/item/twohanded/bamboospear
@@ -1137,42 +1137,27 @@
 /obj/item/twohanded/sechammer/unwield(obj/item/source, mob/living/carbon/user)
 	slowdown = 0
 
-/obj/item/twohanded/sechammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/twohanded/sechammer/pre_attackby(atom/target, mob/living/user, params)
+	. = ..()
 	if(user.getStaminaLoss() >= max_stamina_damage)
 		balloon_alert(user, "вы слишком устали!")
-		return
-	..()
-	user.adjustStaminaLoss(stamina_drain)
-
-/obj/item/twohanded/sechammer/attack_obj(obj/object, mob/living/user, params)
-	if(user.getStaminaLoss() >= max_stamina_damage)
-		balloon_alert(user, "вы слишком устали!")
-		return
-	..()
-	user.adjustStaminaLoss(stamina_drain)
+		return .|ATTACK_CHAIN_BLOCKED
 
 /obj/item/twohanded/sechammer/afterattack(atom/A, mob/living/user, proximity, params)
 	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 	if(iswallturf(A))
 		var/turf/simulated/wall/W = A
-		if(user.getStaminaLoss() >= max_stamina_damage)
-			balloon_alert(user, "вы слишком устали!")
-			return
 		user.changeNext_move(attack_speed)
 		user.do_attack_animation(src)
 		playsound(src, 'sound/weapons/smash.ogg', 50, 1)
 		W.take_damage(wall_damage)
-		user.adjustStaminaLoss(stamina_drain)
-		return 1
 	if(user.getStaminaLoss() < max_stamina_damage)
 		if(istype(A, /obj/structure/girder))
 			var/obj/structure/G = A
 			G.take_damage(extra_girder_damage)
-			return 1
 		else if(istype(A, /obj/machinery/door))
 			var/obj/machinery/D = A
 			D.take_damage(extra_door_damage)
-			return 1
-
+	user.adjustStaminaLoss(stamina_drain)
 	..()
