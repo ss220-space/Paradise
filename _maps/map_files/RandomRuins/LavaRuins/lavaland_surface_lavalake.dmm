@@ -49,6 +49,10 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/lava_land_surface/lava_only,
 /area/lavaland/surface/outdoors)
+"gW" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/indestructible/boss,
+/area/ruin/unpowered/safe_cave)
 "hP" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 10
@@ -118,6 +122,10 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/lava_land_surface/lava_only,
 /area/lavaland/surface/outdoors)
+"nA" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
 "nZ" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
@@ -238,6 +246,10 @@
 "zO" = (
 /turf/simulated/wall/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"BU" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/mineral/wood,
+/area/ruin/unpowered/safe_cave)
 "EO" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
@@ -314,7 +326,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/lava/lava_land_surface/lava_only,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Lr" = (
 /obj/structure/stone_tile/cracked{
@@ -609,7 +621,7 @@ WH
 tZ
 tZ
 yi
-tZ
+Yd
 Yd
 Yd
 Yd
@@ -631,7 +643,7 @@ pg
 pg
 cc
 tZ
-tZ
+Yd
 Yd
 Yd
 Yd
@@ -708,7 +720,7 @@ Yd
 Yd
 Yd
 Yd
-Yd
+tZ
 tZ
 tZ
 cc
@@ -729,12 +741,12 @@ Yd
 Yd
 Yd
 Yd
-Yd
+tZ
 tZ
 cc
-PL
-kx
-kx
+gW
+BU
+BU
 "}
 (14,1,1) = {"
 pg
@@ -753,10 +765,10 @@ Yd
 Lg
 tZ
 tZ
-PL
-kx
+gW
+BU
 Jc
-PL
+gW
 "}
 (15,1,1) = {"
 pg
@@ -766,7 +778,7 @@ tZ
 tZ
 tZ
 tZ
-tZ
+Yd
 Yd
 mN
 Yd
@@ -774,11 +786,11 @@ Yd
 Yd
 Xn
 tZ
-tZ
+nA
 Md
 bq
 Un
-kx
+BU
 "}
 (16,1,1) = {"
 pg
@@ -789,18 +801,18 @@ tZ
 tZ
 lN
 Mn
-tZ
-tZ
+Yd
+Yd
 Yd
 tZ
 tZ
 tZ
-PL
-PL
+gW
+gW
 ey
 oi
 nZ
-PL
+gW
 "}
 (17,1,1) = {"
 pg
@@ -817,12 +829,12 @@ Qx
 tZ
 tZ
 tZ
-PL
+gW
 Md
 EO
 mL
 mO
-PL
+gW
 "}
 (18,1,1) = {"
 pg
@@ -839,12 +851,12 @@ tZ
 tZ
 XU
 tZ
-kx
-kx
+BU
+BU
 rj
 im
 Rn
-kx
+BU
 "}
 (19,1,1) = {"
 pg
@@ -862,11 +874,11 @@ yY
 tZ
 cc
 OB
-kx
-PL
+BU
+gW
 PJ
 kk
-kx
+BU
 "}
 (20,1,1) = {"
 pg
@@ -885,8 +897,8 @@ pg
 pg
 pg
 pg
-PL
-PL
-kx
-kx
+gW
+gW
+BU
+BU
 "}

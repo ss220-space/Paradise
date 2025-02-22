@@ -12,8 +12,7 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
 		/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
-		/obj/item/organ/external/foot,
-		/obj/item/organ/external/foot/right
+		/obj/item/organ/external/foot
 	)
 	result = /obj/item/reagent_containers/food/snacks/lavaland_food/freaky_leg
 

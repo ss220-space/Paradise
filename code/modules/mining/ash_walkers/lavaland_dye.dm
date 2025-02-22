@@ -19,12 +19,12 @@
 	name = "cinnabar-colored spleen"
 	desc = "Селезёнка, добытая из тела лавовой рыбы. Содержит в себе частицы киновари и обладает характерным коричневато-красным цветом."
 	ru_names = list(
-		NOMINATIVE = "селезёнка зелёного цвета",
-		GENITIVE = "селезёнки зелёного цвета",
-		DATIVE = "селезёнке зелёного цвета",
-		ACCUSATIVE = "селезёнку зелёного цвета",
-		INSTRUMENTAL = "селезёнкой зелёного цвета",
-		PREPOSITIONAL = "селезёнке зелёного цвета",
+		NOMINATIVE = "селезёнка киноварного цвета",
+		GENITIVE = "селезёнки киноварного цвета",
+		DATIVE = "селезёнке киноварного цвета",
+		ACCUSATIVE = "селезёнку киноварного цвета",
+		INSTRUMENTAL = "селезёнкой киноварного цвета",
+		PREPOSITIONAL = "селезёнке киноварного цвета",
 	)
 	icon_state = "cinnabar_spleen"
 	picked_dye = "Cinnabar Dyes"
@@ -124,6 +124,7 @@
 
 /obj/item/lavaland_mortar/examine(mob/user)
 	. = ..()
+	. += span_notice("В ступке находится [fluff_name] краска.")
 	if(uses > 0) //what if someone makes -1 uses for testing or smth
 		. += span_notice("Краски в ступке осталось на [uses] использовани[declension_ru(uses, "е", "я", "й")].")
 

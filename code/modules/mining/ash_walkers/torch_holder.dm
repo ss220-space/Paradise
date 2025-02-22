@@ -29,7 +29,7 @@
 	if(!do_after(user, 4 SECONDS, on_wall, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете устанавливать [declent_ru(ACCUSATIVE)].")))
 		return
 
-	var/obj/machinery/torch_holder/built/torch = new(constrloc)
+	var/obj/structure/torch_holder/built/torch = new(constrloc)
 	torch.dir = constrdir
 	torch.fingerprints = src.fingerprints
 	torch.fingerprintshidden = src.fingerprintshidden
@@ -38,7 +38,7 @@
 		span_notice("вы устанавливаете [declent_ru(ACCUSATIVE)] на [on_wall.declent_ru(ACCUSATIVE)]."))
 	qdel(src)
 
-/obj/machinery/torch_holder
+/obj/structure/torch_holder
 	name = "torch holder"
 	desc = "Красиво выглядящее крепление для факела."
 	ru_names = list(
@@ -63,49 +63,41 @@
 	var/brightness_power = 1
 	/// Torch holder status (TORCH_OK | TORCH_EMPTY | TORCH_OFF | TORCH_BURNED)
 	var/status = TORCH_OK
-	///Fuel consumption
+	/// Fuel consumption
 	var/fuel = 0
-	///New torch related stuff
+	/// New torch related stuff
 	var/fuel_lower = 0
 	var/fuel_upp = 0
+	/// Timer for our torch.
+	var/timer = null
 
-/obj/machinery/torch_holder/Initialize(mapload) //mapping version, preloaded with torch
+/obj/structure/torch_holder/Initialize(mapload) //mapping version, preloaded with torch
 	. = ..()
 	fakel = new(src)
 	fuel = fakel.fuel
 	update_icon(UPDATE_OVERLAYS)
 	update_light_state()
-	START_PROCESSING(SSobj, src)
+	if(TORCH_OK && !ancient)
+		timer = addtimer(CALLBACK(src, PROC_REF(burnout)), fuel * 10, TIMER_STOPPABLE|TIMER_UNIQUE) //hope this works
 
-/obj/machinery/torch_holder/Destroy()
+/obj/structure/torch_holder/Destroy()
 	. = ..()
 	QDEL_NULL(fakel)
-	STOP_PROCESSING(SSobj, src)
+	deltimer(timer)
 
-/obj/machinery/torch_holder/examine(mob/user)
+/obj/structure/torch_holder/examine(mob/user)
 	. = ..()
-	if(in_range(user, src))
-		switch(status)
-			if(TORCH_OK)
-				. += span_notice("[capitalize(fakel.declent_ru(NOMINATIVE))] ярко горит.")
-			if(TORCH_EMPTY)
-				. += span_notice("Внутри нет факела.")
-			if(TORCH_OFF)
-				. += span_notice("[capitalize(fakel.declent_ru(NOMINATIVE))] не подожжён.")
-			if(TORCH_BURNED)
-				. += span_notice("[capitalize(fakel.declent_ru(NOMINATIVE))] выгорел.")
+	switch(status)
+		if(TORCH_OK)
+			. += span_notice("[capitalize(fakel.declent_ru(NOMINATIVE))] ярко горит.")
+		if(TORCH_EMPTY)
+			. += span_notice("Внутри нет факела.")
+		if(TORCH_OFF)
+			. += span_notice("[capitalize(fakel.declent_ru(NOMINATIVE))] не подожжён.")
+		if(TORCH_BURNED)
+			. += span_notice("[capitalize(fakel.declent_ru(NOMINATIVE))] выгорел.")
 
-/obj/machinery/torch_holder/process()
-	if(ancient)
-		return
-	if(status != TORCH_OK)
-		return
-	fuel = max(fuel - 1, 0)
-	if(!fuel)
-		burnout()
-		STOP_PROCESSING(SSobj, src)
-
-/obj/machinery/torch_holder/proc/update_light_state() //I can't make it better..
+/obj/structure/torch_holder/proc/update_light_state() //I can't make it better..
 	switch(status)
 		if(TORCH_OFF, TORCH_BURNED, TORCH_EMPTY)
 			set_light(0)
@@ -116,17 +108,16 @@
 			light_color = brightness_color
 			update_light()
 
-/obj/machinery/torch_holder/proc/burnout()
+/obj/structure/torch_holder/proc/burnout()
 	if(ancient)
 		return
-	if(!fuel) //double check
-		status = TORCH_BURNED
-		update_light_state()
-		update_icon(UPDATE_OVERLAYS)
-	else
-		return
+	fuel = 0 //if someone will take our fakel
+	status = TORCH_BURNED
+	update_light_state()
+	update_icon(UPDATE_OVERLAYS)
+	deltimer(timer)
 
-/obj/machinery/torch_holder/update_overlays()
+/obj/structure/torch_holder/update_overlays()
 	. = ..()
 	if(ancient)
 		return
@@ -139,7 +130,7 @@
 		if(TORCH_EMPTY)
 			overlays += ""
 
-/obj/machinery/torch_holder/attackby(obj/item/item, mob/user, params)
+/obj/structure/torch_holder/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -160,7 +151,7 @@
 				brightness_color = torch.light_color
 
 				update_light_state()
-				START_PROCESSING(SSobj, src)
+				timer = addtimer(CALLBACK(src, PROC_REF(burnout)),  fuel * 10, TIMER_STOPPABLE|TIMER_UNIQUE)
 				return ATTACK_CHAIN_BLOCKED_ALL
 			else
 				balloon_alert(user, "уже есть!")
@@ -176,7 +167,6 @@
 				status = TORCH_OFF
 			else
 				status = TORCH_OK
-				START_PROCESSING(SSobj, src)
 
 		set_light_range_power_color(torch.light_range, torch.light_power, torch.light_color)
 
@@ -185,12 +175,13 @@
 		fuel_upp = torch.fuel_upp
 		update_icon(UPDATE_OVERLAYS)
 		update_light_state()
-
+		if(status == TORCH_OK)
+			timer = addtimer(CALLBACK(src, PROC_REF(burnout)),  fuel * 10, TIMER_STOPPABLE|TIMER_UNIQUE)
 		user.drop_transfer_item_to_loc(torch, src)	//drop the item to update overlays and such
 		qdel(torch)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/machinery/torch_holder/attack_hand(mob/user)
+/obj/structure/torch_holder/attack_hand(mob/user)
 	if(ancient)
 		balloon_alert(user, "невозможно вынуть!")
 		return FALSE
@@ -231,11 +222,11 @@
 
 	drop_fakel(user)
 
-/obj/machinery/torch_holder/proc/drop_fakel(mob/user)
+/obj/structure/torch_holder/proc/drop_fakel(mob/user)
 	var/obj/item/flashlight/flare/torch/torch = new(src)
 	if(status == TORCH_OK)
 		torch.attack_self(user)//forcing it to light up and start processing
-	torch.fuel = fuel
+	torch.fuel = fuel * 0.5 //kinda lame, but I don't have any bright idea how to take variables from addtimer
 
 	torch.set_light_range_power_color(brightness_range, brightness_power, brightness_color)
 
@@ -249,9 +240,10 @@
 	status = TORCH_EMPTY
 	update_icon(UPDATE_OVERLAYS)
 	update_light_state()
+	deltimer(timer)
 	return torch
 
-/obj/machinery/torch_holder/mapping
+/obj/structure/torch_holder/mapping //infinite mapping version
 	name = "ancient torch holder"
 	desc = "Красиво выглядящее крепление для факела. Поверхность проржавела от времени, а сам факел практически прирос к креплению."
 	ru_names = list(
@@ -265,18 +257,17 @@
 	icon_state = "torch_holder_complete"
 	ancient = TRUE
 
-/obj/machinery/torch_holder/mapping/Initialize(mapload)
+/obj/structure/torch_holder/mapping/Initialize(mapload)
 	. = ..()
 	fuel = INFINITY
 
-/obj/machinery/torch_holder/built/Initialize(mapload)
+/obj/structure/torch_holder/built/Initialize(mapload)
 	status = TORCH_EMPTY
-	STOP_PROCESSING(SSobj, src)
 	..()
 
-/obj/machinery/torch_holder/extinguish_light(force = FALSE)
+/obj/structure/torch_holder/extinguish_light(force = FALSE)
 	if(force)
-		fuel = 0
+		burnout()
 		visible_message(span_danger("[capitalize(fakel.declent_ru(NOMINATIVE))] быстро выгорает!"))
 	else
 		visible_message(span_notice("[capitalize(fakel.declent_ru(NOMINATIVE))] ненадолго меркнет, после чего снова начинает освещать пространство вокруг."))

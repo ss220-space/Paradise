@@ -114,7 +114,7 @@
 		return
 	to_chat(user, span_notice("Вы осторожно вынимаете [inserted_gem.declent_ru(ACCUSATIVE)] из лампы."))
 	inserted_gem.set_light_on(TRUE)
-	inserted_gem.forceMove(loc)
+	inserted_gem.forceMove(get_turf(user))
 	inserted_gem = null
 	refresh_lantern_lights()
 	return TRUE
