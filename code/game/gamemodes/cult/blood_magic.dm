@@ -59,11 +59,10 @@
 	if(QDELETED(src) || owner.incapacitated() || !BS || (rune && !(locate(/obj/effect/rune/empower) in range(1, owner))) || (length(spells) >= limit))
 		return
 
-	if(length(spells))
-		if(entered_spell_name == "Blood Rites")
-			if(locate(/datum/action/innate/cult/blood_spell/manipulation) in spells)
-				owner.balloon_alert(owner, "лимит данного заклинания достигнут!")
-				return
+	if(entered_spell_name == "Blood Rites")
+		if(locate(/datum/action/innate/cult/blood_spell/manipulation) in spells)
+			owner.balloon_alert(owner, "лимит данного заклинания достигнут!")
+			return
 	if(!channeling)
 		channeling = TRUE
 		to_chat(owner, "<span class='cultitalic'>You begin to carve unnatural symbols into your flesh!</span>")
@@ -374,6 +373,7 @@
 	var/uses = 1
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
 	var/datum/action/innate/cult/blood_spell/source
+	var/max_charges
 
 /obj/item/melee/blood_magic/New(loc, spell)
 	if(has_source)
@@ -707,6 +707,7 @@
 	name = "Blood Rite Aura"
 	desc = "Absorbs blood from anything you touch. Touching cultists and constructs can heal them. Use in-hand to cast an advanced rite."
 	color = "#7D1717"
+	max_charges = 300
 
 /obj/item/melee/blood_magic/manipulator/examine(mob/user)
 	. = ..()
@@ -779,7 +780,7 @@
 
 			//Draining blood from non-cultists
 			else
-				if(uses >= 300)
+				if(uses >= max_charges)
 					balloon_alert(user, "лимит крови достигнут!")
 					return
 				if(H.stat == DEAD)
@@ -825,13 +826,13 @@
 
 		//Draining blood on the floor
 		if(istype(target, /obj/effect/decal/cleanable/blood) || istype(target, /obj/effect/decal/cleanable/trail_holder))
-			if(uses >= 300)
+			if(uses >= max_charges)
 				balloon_alert(user, "лимит крови достигнут!")
 				return
 			blood_draw(target, user)
 		if(istype(target, /obj/item/blood_orb))
 			var/obj/item/blood_orb/candidate = target
-			if(uses >= 300)
+			if(uses >= max_charges)
 				balloon_alert(user, "лимит крови достигнут!")
 				return
 			if(candidate.blood)
@@ -840,8 +841,8 @@
 				playsound(user, 'sound/misc/enter_blood.ogg', 50)
 				qdel(candidate)
 		..()
-	if(uses > 300)
-		uses = 300
+	if(uses > max_charges)
+		uses = max_charges
 
 /obj/item/melee/blood_magic/manipulator/proc/blood_draw(atom/target, mob/living/carbon/human/user)
 	var/temp = 0
