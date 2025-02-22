@@ -78,7 +78,7 @@
 	update_icon(UPDATE_OVERLAYS)
 	update_light_state()
 	if(TORCH_OK && !ancient)
-		timer = addtimer(CALLBACK(src, PROC_REF(burnout)), fuel * 10, TIMER_STOPPABLE|TIMER_UNIQUE) //hope this works
+		timer = addtimer(CALLBACK(src, PROC_REF(burnout)), fuel SECONDS, TIMER_STOPPABLE|TIMER_UNIQUE) //hope this works
 
 /obj/structure/torch_holder/Destroy()
 	. = ..()
@@ -151,7 +151,7 @@
 				brightness_color = torch.light_color
 
 				update_light_state()
-				timer = addtimer(CALLBACK(src, PROC_REF(burnout)),  fuel * 10, TIMER_STOPPABLE|TIMER_UNIQUE)
+				timer = addtimer(CALLBACK(src, PROC_REF(burnout)),  fuel SECONDS, TIMER_STOPPABLE|TIMER_UNIQUE)
 				return ATTACK_CHAIN_BLOCKED_ALL
 			else
 				balloon_alert(user, "уже есть!")
@@ -176,7 +176,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		update_light_state()
 		if(status == TORCH_OK)
-			timer = addtimer(CALLBACK(src, PROC_REF(burnout)),  fuel * 10, TIMER_STOPPABLE|TIMER_UNIQUE)
+			timer = addtimer(CALLBACK(src, PROC_REF(burnout)),  fuel SECONDS, TIMER_STOPPABLE|TIMER_UNIQUE)
 		user.drop_transfer_item_to_loc(torch, src)	//drop the item to update overlays and such
 		qdel(torch)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -226,7 +226,8 @@
 	var/obj/item/flashlight/flare/torch/torch = new(src)
 	if(status == TORCH_OK)
 		torch.attack_self(user)//forcing it to light up and start processing
-	torch.fuel = fuel * 0.5 //kinda lame, but I don't have any bright idea how to take variables from addtimer
+	var/our_fuel = timeleft(timer) * 0.1
+	torch.fuel = our_fuel
 
 	torch.set_light_range_power_color(brightness_range, brightness_power, brightness_color)
 
