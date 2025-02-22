@@ -55,7 +55,7 @@ impl Sun {
     }
 
     pub fn update_solars() -> eyre::Result<ByondValue> {
-        let solars = SOLARS.write();
+        let solars = SOLARS.read();
         let proc_update = byond_string!("update");
 
         solars.iter().for_each(|solar| {
