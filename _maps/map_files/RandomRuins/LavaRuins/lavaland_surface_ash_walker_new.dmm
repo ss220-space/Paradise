@@ -1988,7 +1988,7 @@
 /obj/structure/torch_holder/mapping{
 	dir = 1
 	},
-/obj/item/stack/fireproof_rods/twentyfive,
+/obj/item/stack/rods/twentyfive,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Wh" = (
