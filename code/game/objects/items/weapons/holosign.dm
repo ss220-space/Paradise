@@ -68,7 +68,7 @@
 	afterattack(target, user, proximity_flag, click_parameters)
 
 /obj/item/holosign_creator/janitor
-	name = "голографический проектор уборщика"
+	name = "Janitorial Holosign projector"
 	desc = "Удобный голографический проектор, отображающий знак уборщика."
 	ru_names = list(
 		NOMINATIVE = "голографический проектор уборщика",

@@ -245,7 +245,7 @@
 		ACCUSATIVE = "патрон для убийства",
 		INSTRUMENTAL = "патроном для убийства",
 		PREPOSITIONAL = "патроне для убийства"
-    )
+	)
 	materials = list(MAT_METAL = 1500, MAT_GLASS = 200)
 	projectile_type = /obj/item/projectile/bullet/pellet/assassination
 	muzzle_flash_effect = null

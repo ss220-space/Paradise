@@ -52,12 +52,12 @@
 	name = "Mimejutsu manual"
 	desc =	"Старое пособие по боевому искусству мимов."
 	ru_names = list(
-		NOMINATIVE = "Мануал Мимдзютсе",
-		GENITIVE = "Мануала Мимдзютсе",
-		DATIVE = "Мануалу Мимдзютсе",
-		ACCUSATIVE = "Мануал Мимдзютсе",
-		INSTRUMENTAL = "Мануалом Мимдзютсе",
-		PREPOSITIONAL = "Мануале Мимдзютсе"
+		NOMINATIVE = "мануал Мимдзютсе",
+		GENITIVE = "мануала Мимдзютсе",
+		DATIVE = "мануалу Мимдзютсе",
+		ACCUSATIVE = "мануал Мимдзютсе",
+		INSTRUMENTAL = "мануалом Мимдзютсе",
+		PREPOSITIONAL = "мануале Мимдзютсе"
 	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "mimemanual"
