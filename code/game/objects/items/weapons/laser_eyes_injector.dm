@@ -2,12 +2,12 @@
 	name = "laser eyes injector"
 	desc = "Инъектор, который даст вам способность стрелять лазерами из глаз."
 	ru_names = list(
-		NOMINATIVE = "Инъектор лазерных глаз",
-		GENITIVE = "Инъектора лазерных глаз",
-		DATIVE = "Инъектору лазерных глаз",
-		ACCUSATIVE = "Инъектор лазерных глаз",
-		INSTRUMENTAL = "Инъектором лазерных глаз",
-		PREPOSITIONAL = "Инъекторе лазерных глаз"
+		NOMINATIVE = "инъектор лазерных глаз",
+		GENITIVE = "инъектора лазерных глаз",
+		DATIVE = "инъектору лазерных глаз",
+		ACCUSATIVE = "инъектор лазерных глаз",
+		INSTRUMENTAL = "инъектором лазерных глаз",
+		PREPOSITIONAL = "инъекторе лазерных глаз"
 	)
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "dnainjector"

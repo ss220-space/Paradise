@@ -215,12 +215,12 @@
 	name = "\improper Chef Excellence's Special Sauce"
 	desc = "Этот ароматный соус, приготовленный из мухоморов, просто восхитителен! Смерть никогда не была такой приятной на вкус."
 	ru_names = list(
-		NOMINATIVE = "Элитарный соус шефа",
-		GENITIVE = "Элитарного соуса шефа",
-		DATIVE = "Элитарному соусу шефа",
-		ACCUSATIVE = "Элитарный соус шефа",
-		INSTRUMENTAL = "Элитарным соусом шефа",
-		PREPOSITIONAL = "Элитарном соусе шефа"
+		NOMINATIVE = "элитарный соус шефа",
+		GENITIVE = "элитарного соуса шефа",
+		DATIVE = "элитарному соусу шефа",
+		ACCUSATIVE = "элитарный соус шефа",
+		INSTRUMENTAL = "элитарным соусом шефа",
+		PREPOSITIONAL = "элитарном соусе шефа"
 	)
 	list_reagents = list("amanitin" = 50)
 	possible_states = list()

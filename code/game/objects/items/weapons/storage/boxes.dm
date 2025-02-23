@@ -381,11 +381,11 @@
 	desc = "<B>Инструкция:</B> <I>Разогрейте в микроволновой печи. Если продукт не употреблять в течение семи минут, он остынет.</I>"
 	ru_names = list(
 		NOMINATIVE = "коробка с Донк-покетами",
-		GENITIVE = "коробки с Донк-покетов",
-		DATIVE = "коробке с Донк-покетам",
+		GENITIVE = "коробки с Донк-покетами",
+		DATIVE = "коробке с Донк-покетами",
 		ACCUSATIVE = "коробку с Донк-покетами",
 		INSTRUMENTAL = "коробкой с Донк-покетами",
-		PREPOSITIONAL = "коробке с Донк-покетах"
+		PREPOSITIONAL = "коробке с Донк-покетами"
 	)
 	icon_state = "donk_kit"
 
@@ -395,14 +395,14 @@
 
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
-	desc = "This box feels slightly warm"
+	desc = "Эта коробка кажется немного тёплой на ощупь."
 	ru_names = list(
 		NOMINATIVE = "коробка с Донк-покетами",
-		GENITIVE = "коробки с Донк-покетов",
-		DATIVE = "коробке с Донк-покетам",
+		GENITIVE = "коробки с Донк-покетами",
+		DATIVE = "коробке с Донк-покетами",
 		ACCUSATIVE = "коробку с Донк-покетами",
 		INSTRUMENTAL = "коробкой с Донк-покетами",
-		PREPOSITIONAL = "коробке с Донк-покетах"
+		PREPOSITIONAL = "коробке с Донк-покетами"
 	)
 	icon_state = "donk_kit"
 

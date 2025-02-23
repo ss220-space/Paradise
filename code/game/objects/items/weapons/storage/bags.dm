@@ -432,6 +432,7 @@
 /*
  * Trays - Agouri
  */
+
 /obj/item/storage/bag/tray
 	name = "tray"
 	icon = 'icons/obj/food/containers.dmi'
@@ -536,11 +537,20 @@
 /*
  *	Antag Tray
  */
+
 /obj/item/storage/bag/dangertray
 	name = "tray"
+	desc = "Металлический поднос для еды с острыми как бритва краями."
+	ru_names = list(
+		NOMINATIVE = "поднос",
+		GENITIVE = "подноса",
+		DATIVE = "подносу",
+		ACCUSATIVE = "поднос",
+		INSTRUMENTAL = "подносом",
+		PREPOSITIONAL = "подносе"
+	)
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "dangertray"
-	desc = "A metal tray to lay food on. The edges are razor sharp"
 	force = 25
 	throwforce = 25.0
 	throw_speed = 3
@@ -579,7 +589,6 @@
 	for(var/obj/item/item in contents)
 		. += image(icon = item.icon, icon_state = item.icon_state, layer = -1, pixel_x = rand(-4,4), pixel_y = rand(-4,4))
 
-
 /*
  *	Chemistry bag
  */
@@ -595,6 +604,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/reagent_containers/food/pill,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle)
 	resistance_flags = FLAMMABLE
+
 /*
  *  Biowaste bag (mostly for xenobiologists)
  */

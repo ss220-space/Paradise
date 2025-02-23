@@ -18,12 +18,12 @@ effective or pretty fucking useless.
 	name = "mind batterer"
 	desc = "Странное устройство с двумя антеннами."
 	ru_names = list(
-		NOMINATIVE = "Подавитель разума",
-		GENITIVE = "Подавителя разума",
-		DATIVE = "Подавителю разума",
-		ACCUSATIVE = "Подавитель разума",
-		INSTRUMENTAL = "Подавителем разума",
-		PREPOSITIONAL = "Подавителе разума"
+		NOMINATIVE = "подавитель разума",
+		GENITIVE = "подавителя разума",
+		DATIVE = "подавителю разума",
+		ACCUSATIVE = "подавитель разума",
+		INSTRUMENTAL = "подавителем разума",
+		PREPOSITIONAL = "подавителе разума"
 	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "batterer"
@@ -89,14 +89,14 @@ effective or pretty fucking useless.
 	icon = 'icons/obj/device.dmi'
 	icon_state = "health2"
 	item_state = "healthanalyzer"
-	desc = "Анализатор здоровья, способный распознавать жизненные показатели пациента. К концу сканера прикреплен необычный микролазер."
+	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта. К концу сканера прикреплен необычный микролазер."
 	ru_names = list(
-		NOMINATIVE = "Анализатор здоровья",
-		GENITIVE = "Анализатора здоровья",
-		DATIVE = "Анализатору здоровья",
-		ACCUSATIVE = "Анализатор здоровья",
-		INSTRUMENTAL = "Анализатором здоровья",
-		PREPOSITIONAL = "Анализаторе здоровья"
+		NOMINATIVE = "анализатор здоровья",
+		GENITIVE = "анализатора здоровья",
+		DATIVE = "анализатору здоровья",
+		ACCUSATIVE = "анализатор здоровья",
+		INSTRUMENTAL = "анализатором здоровья",
+		PREPOSITIONAL = "анализаторе здоровья"
 	)
 	flags = CONDUCT
 	item_flags = NOBLUDGEON

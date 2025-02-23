@@ -48,12 +48,12 @@
 	name = "feral cat delivery grenade"
 	desc = "Граната содержащая 5 дегидратированных кисок!"
 	ru_names = list(
-		NOMINATIVE = "Граната с дикими кисками",
-		GENITIVE = "Гранаты с дикими кисками",
-		DATIVE = "Гранате с дикими кисками",
-		ACCUSATIVE = "Гранату с дикими кисками",
-		INSTRUMENTAL = "Гранатой с дикими кисками",
-		PREPOSITIONAL = "Гранате с дикими кисками"
+		NOMINATIVE = "граната с дикими кисками",
+		GENITIVE = "гранаты с дикими кисками",
+		DATIVE = "гранате с дикими кисками",
+		ACCUSATIVE = "гранату с дикими кисками",
+		INSTRUMENTAL = "гранатой с дикими кисками",
+		PREPOSITIONAL = "гранате с дикими кисками"
 	)
 	spawner_type = /mob/living/simple_animal/hostile/feral_cat
 	deliveryamt = 5

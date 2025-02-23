@@ -10,12 +10,12 @@
 	name = "dna upgrader"
 	desc = "Кто-то мог бы сказать, что для такой сильной модификации необходимо достичь цель станции... Дураки!"
 	ru_names = list(
-		NOMINATIVE = "Модификатор ДНК",
-		GENITIVE = "Модификатора ДНК",
-		DATIVE = "Модификатору ДНК",
-		ACCUSATIVE = "Модификатор ДНК",
-		INSTRUMENTAL = "Модификатором ДНК",
-		PREPOSITIONAL = "Модификаторе ДНК"
+		NOMINATIVE = "модификатор ДНК",
+		GENITIVE = "модификатора ДНК",
+		DATIVE = "модификатору ДНК",
+		ACCUSATIVE = "модификатор ДНК",
+		INSTRUMENTAL = "модификатором ДНК",
+		PREPOSITIONAL = "модификаторе ДНК"
 	)
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "dnaupgrader"
