@@ -26,6 +26,10 @@ Thus, the two variables affect pump operation are set in New():
 
 	var/id = null
 
+/obj/machinery/atmospherics/binary/volume_pump/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_ALT_CLICK_BLOCKER, UNIQUE_TRAIT_SOURCE(src))
+
 /obj/machinery/atmospherics/binary/volume_pump/CtrlClick(mob/living/user)
 	if(!ishuman(user) && !issilicon(user))
 		return
