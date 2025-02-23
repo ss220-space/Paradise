@@ -61,6 +61,7 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/New()
 	..()
+	ADD_TRAIT(src, TRAIT_ALT_CLICK_BLOCKER, UNIQUE_TRAIT_SOURCE(src))
 	GLOB.all_vent_pumps += src
 	icon = null
 	initial_loc = get_area(loc)
