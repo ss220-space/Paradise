@@ -33,7 +33,7 @@
 	for(var/obj/vent as anything in GLOB.all_vent_pumps)
 		var/area = get_area(vent)
 		if(area in impacted_areas)
-			affected_vents_list[vent] = area
+			affected_vents_list[vent] = TRUE
 
 
 /datum/weather/xeno_storm/fire()
@@ -44,7 +44,6 @@
 		var/obj/machinery/atmospherics/unary/vent_pump/vent = pick(affected_vents_list)
 		vent.set_welded(TRUE)
 		new/obj/structure/alien/weeds/node(get_turf(vent))
-		var/area/area = affected_vents_list[vent]
 		vents += vent
 	affected_vents_list -= vents
 
