@@ -753,6 +753,7 @@
 #include "code\datums\weather\weather_types\snow_storm.dm"
 #include "code\datums\weather\weather_types\solar_flare.dm"
 #include "code\datums\weather\weather_types\web_storm.dm"
+#include "code\datums\weather\weather_types\xeno_storm.dm"
 #include "code\datums\wires\airlock.dm"
 #include "code\datums\wires\alarm.dm"
 #include "code\datums\wires\apc.dm"

@@ -45,6 +45,9 @@
 		/obj/item/organ/internal/xenos/neurotoxin
 	)
 
+/mob/living/carbon/alien/humanoid/queen/death(gibbed)
+	. = ..()
+	SSshuttle.remove_hostile_environment(src)
 
 /mob/living/carbon/alien/humanoid/queen/can_inject(mob/user, error_msg, target_zone, penetrate_thick, ignore_pierceimmune)
 	return FALSE

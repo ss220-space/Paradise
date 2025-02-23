@@ -422,6 +422,17 @@
 		log_and_message_admins(span_adminnotice("[key_name_admin(usr)] lockdowned the Emergency Shuttle"))
 		href_list["secrets"] = "check_antagonist"
 
+	else if(href_list["reload_shuttle"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		if(!you_realy_want_do_this())
+			return
+
+		if(SSshuttle?.reload_shuttle(TRUE))
+			log_and_message_admins(span_adminnotice("[key_name_admin(usr)] reloaded the Emergency Shuttle"))
+		href_list["secrets"] = "check_antagonist"
+
 	else if(href_list["full_lockdown"])
 		if(!check_rights(R_ADMIN))
 			return

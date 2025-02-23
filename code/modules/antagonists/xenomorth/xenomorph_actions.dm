@@ -25,7 +25,7 @@
 	if(tgui_alert(queen, "Вы действительно хотите начать эволюцию? После начала вы не сможете что-либо сделать пока процесс эволюции не завершится.", "Подтверждение", list("Да", "Нет")) != "Да")
 		return
 
-	if(queen.use_plasma_spell(TO_EMPRESS_EVOLVE_COST, queen))
+	if(!queen.use_plasma_spell(TO_EMPRESS_EVOLVE_COST, queen))
 		queen.balloon_alert(queen, "Не хватает плазмы")
 		return
 
@@ -45,7 +45,7 @@
 		alien_walls += new /obj/structure/alien/resin/wall/empress_cocon(turf)
 
 	alien_walls += new /obj/structure/alien/weeds/node(alienturf)
-
+	team.evolve_start(get_area(alienturf))
 	addtimer(CALLBACK(src, PROC_REF(after_evolve), alien_walls, ghost, queen), TO_EMPRESS_EVOLVE_COST)
 	Remove(queen)
 

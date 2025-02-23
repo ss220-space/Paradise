@@ -43,15 +43,17 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	GLOB.event_announcement.Announce("Вспышка биологической угрозы 3-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой! Особая директива распечатана на всех консолях связи.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
 	SSticker?.mode?.special_directive()
 	SSshuttle?.emergency.cancel()
-	SSshuttle?.lockdown_escape()
+	for(var/datum/mind/mind as anything in get_main_spiders())
+		if(mind.current && mind.current.stat != DEAD)
+			SSshuttle?.add_hostile_environment(mind)
 
 /datum/team/terror_spiders/proc/egg_announce()
 	if(QDELETED(empress_egg))
 		return
-	GLOB.event_announcement.Announce("На борту станции [station_name()] зафиксирован биологическая сигнатура яйца Императрицы Ужаса в [get_area(empress_egg)]. Уничтожите его для вырождения станционного выводка, пока не стало слишком поздно.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
+	GLOB.event_announcement.Announce("На борту станции [station_name()] зафиксирована биологическая сигнатура яйца Императрицы Ужаса в [get_area(empress_egg)]. Уничтожите его, пока не стало слишком поздно.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
 
 /datum/team/terror_spiders/proc/spider_win_announce()
-	GLOB.event_announcement.Announce("Подтверждено проявление Императрицы Ужаса на борту станции [station_name()], станция переклассифицированна в гнездо S класса. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.", "Отчет об объекте [station_name()]")
+	GLOB.event_announcement.Announce("Подтверждено наличие Императрицы Ужаса на борту [station_name()]. Станция переклассифицированна в гнездо биоугрозы 3-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.", "Отчет об объекте [station_name()]")
 
 /datum/team/terror_spiders/proc/get_main_spiders()
 	return main_spiders[TERROR_QUEEN] + \
@@ -94,6 +96,8 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	var/list/spiders = main_spiders[type]
 	spiders |= mind
 	other_target?.generate_text(src)
+	if(terror_announce)
+		SSshuttle?.add_hostile_environment(mind)
 
 /datum/team/terror_spiders/proc/check_announce()
 	if(terror_announce)
@@ -118,8 +122,8 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	return result
 
 /datum/team/terror_spiders/proc/on_major_spider_died(mind, type)
-	if(!check_main_spiders())
-		SSshuttle.stop_lockdown()
+	ASYNC
+		SSshuttle?.remove_hostile_environment(mind)
 
 
 /datum/team/terror_spiders/proc/on_terror_infection_removed(source, eggs)

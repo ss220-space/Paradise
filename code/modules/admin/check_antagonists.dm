@@ -29,12 +29,11 @@
 		if(!SSshuttle.emergencyNoEscape)
 			dat += "<a href='byond://?src=[UID()];lockdown_shuttle=1'>Lockdown Shuttle</a><br>"
 		else
-			if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
-				dat += span_danger("<B>Emergency shuttle stranded</B>")
-				dat += "<BR><a href='byond://?src=[UID()];stop_lockdown=1'>Stop lockdown and De-Strandise</a><br>"
-			else
-				dat += span_danger("<B>Emergency shuttle lockdowned</B>")
-				dat += "<BR><a href='byond://?src=[UID()];stop_lockdown=1'>Stop lockdown</a><br>"
+			dat += span_danger("<B>Emergency shuttle lockdowned</B>")
+			dat += "<BR><a href='byond://?src=[UID()];stop_lockdown=1'>Stop lockdown</a><br>"
+		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
+			dat += span_danger("<B>Emergency shuttle stranded</B>")
+			dat += "<BR><a href='byond://?src=[UID()];reload_shuttle=1'>Reload Shuttle</a><br>"
 		dat += "<a href='byond://?src=[UID()];full_lockdown=1'>Full Lockdown</a>Now: [GLOB.full_lockdown? "ON" : "OFF"]<br>"
 		dat += "<a href='byond://?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
 		var/connected_players = GLOB.clients.len

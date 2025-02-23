@@ -11,3 +11,9 @@
 #define QUEEN_TYPE /mob/living/carbon/alien/humanoid/queen
 
 #define EMPRESS_TYPE /mob/living/carbon/alien/humanoid/empress
+
+#define XENO_STAGE_START 0
+#define XENO_STAGE_PROTECT_COCON 1
+#define XENO_STAGE_STORM 2
+#define XENO_STAGE_END 3
+#define XENO_STAGE_POST_END 4

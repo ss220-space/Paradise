@@ -30,12 +30,12 @@
 /datum/weather/web_storm/telegraph()
 	. = ..()
 	status_alarm(TRUE)
-	GLOB.event_announcement.Announce("Зафиксировано возможное проявление Императрицы Ужаса на борту станции [station_name()]. Запущено глубокое сканирование.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
+	GLOB.event_announcement.Announce("Зафиксирована сигнатура Императрицы Ужаса на борту станции [station_name()]. Запущено глубокое сканирование.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
 
 	if(!.)
 		return
 	for(var/area/area as anything in impacted_areas)
-		for(var/turf/turf in area)
+		for(var/turf/turf in area.get_contained_turfs())
 			if(is_space_or_openspace(turf) || turf.density)
 				continue
 			affected_turfs_list += turf

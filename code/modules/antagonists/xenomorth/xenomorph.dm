@@ -18,6 +18,9 @@
 	role_text = alien.role_text
 	. = ..()
 
+/datum/antagonist/xenomorph/farewell()
+	return
+
 /datum/antagonist/xenomorph/greet()
 	var/list/messages = list()
 	messages.Add(span_danger("<center>Вы ксеноморф!</center>"))

@@ -224,8 +224,13 @@
 */
 		if(SHUTTLE_DOCKED)
 
-			if(time_left <= 0 && SSshuttle.emergencyNoEscape)
+			if(time_left <= 0 && SSshuttle.hostile_environment.len)
 				GLOB.priority_announcement.Announce("Обнаружена угроза. Отлёт отложен на неопределённый срок до разрешения конфликта.")
+				sound_played = 0
+				mode = SHUTTLE_STRANDED
+				
+			if(time_left <= 0 && SSshuttle.emergencyNoEscape && mode != SHUTTLE_STRANDED)
+				GLOB.priority_announcement.Announce("Шаттл заблокирован. Свяжитесь с Центральным Командованием для уточнения причин и снятия блокировки.")
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
 
@@ -239,7 +244,7 @@
 				for(var/area/shuttle/escape/E in GLOB.areas)
 					E << 'sound/effects/hyperspace_begin_new.ogg'
 
-			if(time_left <= 0 && !SSshuttle.emergencyNoEscape)
+			if(time_left <= 0 && !(SSshuttle.emergencyNoEscape || SSshuttle.hostile_environment.len))
 				//move each escape pod to its corresponding transit dock
 				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
 					if(is_station_level(M.z)) //Will not launch from the mine/planet

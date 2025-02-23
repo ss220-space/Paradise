@@ -48,7 +48,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	SHOULD_CALL_PARENT(TRUE)
 	var/datum/antagonist/team_antag = get_antag_datum_from_member(new_member)
 	members |= new_member
-	team_antag.objectives |= objectives
+	if(add_objectives)
+		team_antag.objectives |= objectives
 
 /**
  * Return count of alife `members`.
