@@ -169,7 +169,7 @@
 
 /datum/language/unathi
 	name = "Sinta'unathi"
-	desc = "The common language of Moghes, composed of sibilant hisses and rattles. Spoken natively by Unathi."
+	desc = "Общий язык Могса, состоящий из шипящих звуков и дребезжания. Является родным языком унатхов.."
 	speech_verb = "hisses"
 	ask_verb = "hisses"
 	exclaim_verbs = list("roars")
@@ -177,21 +177,21 @@
 	runechat_span = "soghun"
 	key = "o"
 	flags = RESTRICTED
-	syllables = list("za","az","ze","ez","zi","iz","zo","oz","zu","uz","zs","sz","ha","ah","he","eh","hi","ih", \
-	"ho","oh","hu","uh","hs","sh","la","al","le","el","li","il","lo","ol","lu","ul","ls","sl","ka","ak","ke","ek", \
-	"ki","ik","ko","ok","ku","uk","ks","sk","sa","as","se","es","si","is","so","os","su","us","ss","ss","ra","ar", \
-	"re","er","ri","ir","ro","or","ru","ur","rs","sr","a","a","e","e","i","i","o","o","u","u","s","s" )
-
+	syllables = list("за","аз","зе","ез","зи","из","зо","оз","зу","уз","зс","сз","ха","ах","хе","ех","хи","их", \
+	"хо","ох","ху","ух","хс","сх","ла","ал","ле","ел","ли","ил","ло","ол","лу","ул","лс","сл", \
+	"ка","ак","ке","ек","ки","ик","ко","ок","ку","ук","кс","ск","са","ас","се","ес","си","ис", \
+	"со","ос","су","ус","сс","сс","ра","ар","ре","ер","ри","ир","ро","ор","ру","ур","рс","ср", \
+	"а","а","е","е","и","и","о","о","у","у","с","с")
 /datum/language/unathi/get_random_name()
 
 	var/new_name = ..()
-	while(findtextEx(new_name,"sss",1,null))
-		new_name = replacetext(new_name, "sss", "ss")
+	while(findtextEx(new_name,"ссс",1,null))
+		new_name = replacetext(new_name, "ссс", "сс")
 	return capitalize(new_name)
 
 /datum/language/tajaran
 	name = "Siik'tajr"
-	desc = "The traditionally employed tongue of Ahdomai, composed of expressive yowls and chirps. Native to the Tajaran."
+	desc = "Традиционный язык Адомая, состоящий из выразительных мяукающих звуков и щебета. Родной язык для таяран."
 	speech_verb = "mrowls"
 	ask_verb = "mrowls"
 	exclaim_verbs = list("yowls")
@@ -199,10 +199,10 @@
 	runechat_span = "tajaran"
 	key = "j"
 	flags = RESTRICTED
-	syllables = list("rr","rr","tajr","kir","raj","kii","mir","kra","ahk","nal","vah","khaz","jri","ran","darr", \
-	"mi","jri","dynh","manq","rhe","zar","rrhaz","kal","chur","eech","thaa","dra","jurl","mah","sanu","dra","ii'r", \
-	"ka","aasi","far","wa","baq","ara","qara","zir","sam","mak","hrar","nja","rir","khan","jun","dar","rik","kah", \
-	"hal","ket","jurl","mah","tul","cresh","azu","ragh")
+	syllables = list("рр","рр","тайр","кир","радж","кии","мир","кра","ахк","нал","вах","хаз","джри","ран","дарр", \
+	"ми","джри","динх","манк","рхе","зар","ррхаз","кал","чур","иич","тхаа","дра","джурл","мах","сану","дра","иир", \
+	"ка","ааси","фар","ва","бак","ара","кара","зир","сам","мак","храр","нджа","рир","хан","джун","дар","рик","ках", \
+	"хал","кет","джурл","мах","тул","креш","азу","рагх")
 
 /datum/language/tajaran/get_random_name(gender) //code by @valtor0
 	var/static/list/tajaran_female_endings_list = list("и","а","о","е","й","ь") // Customise this with ru_name_syllables changes.
@@ -232,7 +232,7 @@
 
 /datum/language/vulpkanin
 	name = "Canilunzt"
-	desc = "The guttural language spoken and utilized by the inhabitants of Vazzend system, composed of growls, barks, yaps, and heavy utilization of ears and tail movements.Vulpkanin speak this language with ease."
+	desc = "Гортанный язык, на котором говорят обитатели системы Ваззенд. Он состоит из рычания, лая, тявканья и активно использует движения ушей и хвоста. Вульпканины говорят на нём с лёгкостью."
 	speech_verb = "rawrs"
 	ask_verb = "rurs"
 	exclaim_verbs = list("barks")
@@ -240,14 +240,14 @@
 	runechat_span = "vulpkanin"
 	key = "7"
 	flags = RESTRICTED
-	syllables = list("rur","ya","cen","rawr","bar","kuk","tek","qat","uk","wu","vuh","tah","tch","schz","auch", \
-	"ist","ein","entch","zwichs","tut","mir","wo","bis","es","vor","nic","gro","lll","enem","zandt","tzch","noch", \
-	"hel","ischt","far","wa","baram","iereng","tech","lach","sam","mak","lich","gen","or","ag","eck","gec","stag","onn", \
-	"bin","ket","jarl","vulf","einech","cresthz","azunein","ghzth")
+	syllables = list("рур","я","цен","равр","бар","кук","тек","кат","ук","ву","вух","тах","тч","щз","аух", \
+	"ист","айн","ентч","цвихс","тут","мир","во","бис","эс","фор","ниц","гро","ллл","енем","цандт","цч","нох", \
+	"хель","ишт","фар","ва","барам","иренг","тех","лах","сам","мак","лих","ген","ор","аг","экк","гек","штаг","онн", \
+	"бин","кет","ярл","вульф","айнех","крестц","ацунайн","гхзтх")
 
 /datum/language/skrell
 	name = "Skrellian"
-	desc = "A melodic and complex language spoken by the Skrell of Qerrbalak. Some of the notes are inaudible to humans."
+	desc = "Мелодичный и сложный язык, на котором говорят скреллы Керрбаллака. Некоторые из его звуков находятся за пределами слышимости человека."
 	speech_verb = "warbles"
 	ask_verb = "warbles"
 	exclaim_verbs = list("warbles")
@@ -255,7 +255,7 @@
 	runechat_span = "skrell"
 	key = "k"
 	flags = RESTRICTED
-	syllables = list("qr","qrr","xuq","qil","quum","xuqm","vol","xrim","zaoo","qu-uu","qix","qoo","zix","*","!")
+	syllables = list("кр","крр","зук","кил","куум","зукм","воль","зрим","заоо","ку-уу","кикс","коо","зикс","*","!")
 
 
 #define SKRELL_ADDITIONAL_SYLLABLES 2 // Maximum of additional syllables for first and second names
@@ -317,7 +317,7 @@
 
 /datum/language/vox
 	name = "Vox-pidgin"
-	desc = "The common tongue of the various Vox ships making up the Shoal. It sounds like chaotic shrieking to everyone else."
+	desc = "Общий язык различных кораблей Воксов, составляющих Шоал. Для всех остальных он звучит как хаотичные вопли."
 	speech_verb = "shrieks"
 	ask_verb = "creels"
 	exclaim_verbs = list("loudly skrees")
@@ -325,14 +325,14 @@
 	runechat_span = "vox"
 	key = "v"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("ti","ti","ti","hi","hi","ki","ki","ki","ki","ya","ta","ha","ka","ya","yi","chi","cha","kah", \
-	"SKRE","AHK","EHK","RAWK","KRA","AAA","EEE","KI","II","KRI","KA")
+	syllables = list("ти","ти","ти","хи","хи","ки","ки","ки","ки","я","та","ха","ка","я","йи","чи","ча","ках", \
+	"СКРИИИ", "АААХ", "ЭЭЭХ", "РАААК", "КРАА", "ААА", "ИИИ", "КИИ", "ИИИ", "КРИИ", "КАА")
 
 /datum/language/vox/get_random_name()
 	var/sounds = rand(2, 8)
 	var/i = 0
 	var/newname = ""
-	var/static/list/vox_name_syllables = list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah")
+	var/static/list/vox_name_syllables = list("ти","хи","ки","йа","та","ха","ка","йа","чи","ча","ках")
 	while(i <= sounds)
 		i++
 		newname += pick(vox_name_syllables)
@@ -340,7 +340,7 @@
 
 /datum/language/diona
 	name = "Rootspeak"
-	desc = "A creaking, subvocal language spoken instinctively by the Dionaea. Due to the unique makeup of the average Diona, a phrase of Rootspeak can be a combination of anywhere from one to twelve individual voices and notes."
+	desc = "Скрипучий, подголосочный язык, на котором инстинктивно говорят Дионеи. Из-за уникального строения обычной Дионеи, фраза на языке Речекорня может представлять собой комбинацию от одного до двенадцати отдельных голосов и звуков."
 	speech_verb = "creaks and rustles"
 	ask_verb = "creaks"
 	exclaim_verbs = list("rustles")
@@ -348,7 +348,7 @@
 	runechat_span = "diona"
 	key = "q"
 	flags = RESTRICTED
-	syllables = list("hs","zt","kr","st","sh")
+	syllables = list("хс","ят","кр","ст","сш")
 
 /datum/language/diona/get_random_name()
 	var/new_name = "[pick(list("To Sleep Beneath", "Wind Over", "Embrace Of", "Dreams Of", "Witnessing", "To Walk Beneath", "Approaching The", "Glimmer Of", "The Ripple Of", "Colors Of", "The Still Of", "Silence Of", "Gentle Breeze Of", "Glistening Waters Under", "Child Of", "Blessed Plant-Ling Of", "Grass-Walker Of", "Element Of", "Spawn Of"))]"
@@ -357,7 +357,7 @@
 
 /datum/language/trinary
 	name = "Trinary"
-	desc = "A modification of binary to allow fuzzy logic. 0 is no, 1 is maybe, 2 is yes. Credited with giving Machine People the ability to think creatively."
+	desc = "Модификация двоичного кода, позволяющая использовать нечёткую логику. 0 — это нет, 1 — возможно, 2 — да. Считается, что именно эта система дала машинам способность мыслить творчески."
 	speech_verb = "states"
 	ask_verb = "queries"
 	exclaim_verbs = list("exclaims")
@@ -377,7 +377,7 @@
 
 /datum/language/kidan
 	name = "Chittin"
-	desc = "The noise made by rubbing its antennae together is actually a complex form of communication for Kidan."
+	desc = "Звук, который издают Киданы, потирая усики друг о друга, на самом деле является сложной формой общения."
 	speech_verb = "rubs their antennae together"
 	ask_verb = "rubs their antennae together"
 	exclaim_verbs = list("rubs their antennae together")
@@ -385,20 +385,20 @@
 	runechat_span = "kidan"
 	key = "4"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("click","clack")
+	syllables = list("клик","клак")
 
 /datum/language/kidan/get_random_name()
-	var/new_name = "[pick(list("Vrax", "Krek", "Vriz", "Zrik", "Zarak", "Click", "Zerk", "Drax", "Zven", "Drexx"))]"
+	var/new_name = "[pick(list("Вракс","Крек","Вриз","Зрик","Зарак","Клик","Зерк","Дракс","Звен","Дрэкс"))]"
 	new_name += ", "
-	new_name += "[pick(list("Noble", "Worker", "Scout", "Builder", "Farmer", "Gatherer", "Soldier", "Guard", "Prospector"))]"
-	new_name += " of Clan "
-	new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax"))]"	//I ran out of ideas after the first two tbh -_-
+	new_name += "[pick(list("Дворянин","Рабочий","Разведчик","Строитель","Фермер","Собиратель","Солдат","Охранник","Старатель"))]"
+	new_name += " Клана "
+	new_name += "[pick(list("Тристан","Зарлан","Клак","Краз","Крамн","Орлан","Зракс"))]"	//I ran out of ideas after the first two tbh -_-
 	return new_name
 
 
 /datum/language/slime
 	name = "Bubblish"
-	desc = "The language of slimes. It's a mixture of bubbling noises and pops. Very difficult to speak without mechanical aid for humans."
+	desc = "Язык слаймов. Это смесь булькающих и хлюпающих звуков. Людям очень сложно говорить на нём без механической помощи."
 	speech_verb = "bubbles and pops"
 	ask_verb = "bubbles and pops"
 	exclaim_verbs = list("bubbles and pops")
@@ -406,11 +406,11 @@
 	runechat_span = "slime"
 	key = "f"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("blob","plop","pop","bop","boop")
+	syllables = list("блоб","плоп","поп","боп","буп")
 
 /datum/language/grey
 	name = "Psionic Communication"
-	desc = "The grey's psionic communication, less potent version of their distant cousin's telepathy. Talk to other greys within a limited radius."
+	desc = "Псионическое общение серых, менее мощная версия телепатии их дальних родственников. Позволяет общаться с другими серыми в ограниченном радиусе."
 	speech_verb = "expresses"
 	ask_verb = "inquires"
 	exclaim_verbs = list("imparts")
@@ -429,13 +429,13 @@
 		var/obj/item/organ/external/rhand = S.get_organ(BODY_ZONE_PRECISE_R_HAND)
 		var/obj/item/organ/external/lhand = S.get_organ(BODY_ZONE_PRECISE_L_HAND)
 		if((!rhand || !rhand.is_usable()) && (!lhand || !lhand.is_usable()))
-			to_chat(speaker,"<span class='warning'>You can't communicate without the ability to use your hands!</span>")
+			to_chat(speaker,"<span class='warning'>Вы не можете общаться, не имея возможности пользоваться руками!</span>")
 			return FALSE
 	if(speaker.incapacitated())
-		to_chat(speaker,"<span class='warning'>You can't communicate while unable to move your hands to your head!</span>")
+		to_chat(speaker,"<span class='warning'>Вы не можете общаться, пока не можете поднести руки к голове!</span>")
 		return FALSE
 
-	speaker.visible_message("<span class='notice'>[speaker] touches [speaker.p_their()] fingers to [speaker.p_their()] temple.</span>") //If placed in grey/broadcast, it will happen regardless of the success of the action.
+	speaker.visible_message("<span class='notice'>[speaker] прикладывает [speaker.p_their()] пальцы к виску [speaker.p_their()].</span>") //If placed in grey/broadcast, it will happen regardless of the success of the action.
 
 	return TRUE
 
@@ -446,7 +446,7 @@
 
 /datum/language/drask
 	name = "Orluum"
-	desc = "The droning, vibrous language of the Drask. It sounds somewhat like whalesong."
+	desc = "Монотонный, вибрирующий язык драсков. Звучит примерно как песня китов."
 	speech_verb = "drones"
 	ask_verb = "hums"
 	exclaim_verbs = list("rumbles")
@@ -454,17 +454,17 @@
 	runechat_span = "drask"
 	key = "%"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("hoorb","vrrm","ooorm","urrrum","ooum","ee","ffm","hhh","mn","ongg")
+	syllables = list("хуурб", "вррм", "оорм", "уррум", "уум", "ии", "ффм", "ххх", "мн", "онгг")
 
 /datum/language/drask/get_random_name()
-	var/new_name = "[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
-	new_name += "-[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
-	new_name += "-[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
+	var/new_name = "[pick(list("Хоорм","Вииск","Саар","Мнуу","Оумн","Фмонг","Гнии","Вррм","Оорм","Дромнн","Ссуумн","Овв","Хоорб","Ваар","Гаар","Гуум","Руум","Румум"))]"
+	new_name += "-[pick(list("Хоорм","Вииск","Саар","Мнуу","Оумн","Фмонг","Гнии","Вррм","Оорм","Дромнн","Ссуумн","Овв","Хоорб","Ваар","Гаар","Гуум","Руум","Румум"))]"
+	new_name += "-[pick(list("Хоорм","Вииск","Саар","Мнуу","Оумн","Фмонг","Гнии","Вррм","Оорм","Дромнн","Ссуумн","Овв","Хоорб","Ваар","Гаар","Гуум","Руум","Румум"))]"
 	return new_name
 
 /datum/language/moth
 	name = "Tkachi"
-	desc = "The language of the Nianae mothpeople borders on complete unintelligibility."
+	desc = "Язык мотыльковых гуманоидов Ниан граничит с полной непонятностью."
 	speech_verb = "buzzes"
 	ask_verb = "flaps"
 	exclaim_verbs = list("chatters")
@@ -473,11 +473,7 @@
 	key = "#"
 	flags = RESTRICTED | WHITELISTED
 	join_override = "-"
-	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
-					 "lit", "ygg", "van", "dår", "nø", "møt", "idd", "hvo", "ja", "på", "han",
-					 "så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två",
-					 "må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
-					 "huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
+	syllables = list("ор","и","гор","сек","мо","фф","ок","гй","ё","го","ла","ле","лит","игг","ван","дор","нё","мёт","идд","хво","я","по","хан","со","он","дет","атт","но","гё","бра","ин","тыц","ом","нер","тво","мо","даг","шя","вии","вуо","ейл","тун","кяйт","тех","вя","хей","хуо","суо","яя","тен","я","хеу","сту","ур","кён","ве","хён")
 
 /datum/language/moth/get_random_name()
 	var/new_name = "[pick(list("Abbot","Archer","Arkwright","Baker","Bard","Biologist","Broker","Caller","Chamberlain","Clerk","Cooper","Culinarian","Dean","Director","Duke","Energizer","Excavator","Explorer","Fletcher","Gatekeeper","Guardian","Guide","Healer","Horner","Keeper","Knight","Laidler","Mapper","Marshall","Mechanic","Miller","Navigator","Pilot","Prior","Seeker","Seer","Smith","Stargazer","Teacher","Tech Whisperer","Tender","Thatcher","Voidcrafter","Voidhunter","Voidwalker","Ward","Watcher","Weaver","Webster","Wright"))]"
@@ -487,18 +483,18 @@
 
 /datum/language/common
 	name = "Galactic Common"
-	desc = "The common galactic tongue."
+	desc = "Общегалактический язык."
 	speech_verb = "says"
 	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
 	key = "9"
 	flags = RESTRICTED
-	syllables = list("blah","blah","blah","bleh","meh","neh","nah","wah")
+	syllables = list("блах","блях","блах","блех","мех","нех","нах","вах")
 	english_names = TRUE
 
 /datum/language/human
 	name = "Sol Common"
-	desc = "A bastardized hybrid of informal English and elements of Mandarin Chinese; the common language of the Sol system."
+	desc = "Упрощённый гибрид разговорного английского и элементов китайского языка; это общий язык Солнечной системы."
 	speech_verb = "says"
 	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
@@ -506,50 +502,50 @@
 	runechat_span = "solcom"
 	key = "1"
 	flags = RESTRICTED
-	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
+	syllables = list("тао","ши","тцу","йи","ком","бэ","ис","и","оп","ви","ед","лек","мо","кле","те","дис","е")
 	english_names = TRUE
 
 // Galactic common languages (systemwide accepted standards).
 /datum/language/trader
 	name = "Tradeband"
-	desc = "Maintained by the various trading cartels in major systems, this elegant, structured language is used for bartering and bargaining."
+	desc = "Этот элегантный и структурированный язык используется различными торговыми картелями в крупных системах для торга и заключения сделок."
 	speech_verb = "enunciates"
 	colour = "say_quote"
 	key = "2"
 	space_chance = 100
-	syllables = list("lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
-					 "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
-					 "magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud",
-					 "exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo",
-					 "consequat", "duis", "aute", "irure", "dolor", "in", "reprehenderit", "in",
-					 "voluptate", "velit", "esse", "cillum", "dolore", "eu", "fugiat", "nulla",
-					 "pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
-					 "in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum")
+	syllables = list("кредит","актив","сделка","контракт","премиум","лицензия","импорт","экспорт",
+	"квота","тариф","логист","транзит","валюта","акция","бонус","претензия","арбитраж",
+	"оферта","депозит","лизинг","фрахт","аудит","тендер","лимит","резерв","профит","уступка",
+	"гарант","форвард","фьючерс","опцион","клиринг","депорта","аккредитив","инвойс","консалт",
+	"маркет","брокер","дивидент","кэшфло","хеджинг","риск","преференция","комиссия","ликвидация",
+	"нотис","овердрафт","репа","спот","своп","трейд","фактор","холдинг","эмиссия","юнит")
 
 /datum/language/gutter
 	name = "Gutter"
-	desc = "Much like Standard, this crude pidgin tongue descended from numerous languages and serves as Tradeband for criminal elements."
+	desc = "Как и Общегалактический язык, этот грубый пиджин произошёл от множества языков и служит 'Торговым жаргоном' для криминальных элементов."
 	speech_verb = "growls"
 	ask_verb = "gnarls"
 	exclaim_verbs = list("snarls")
 	colour = "gutter"
 	key = "3"
-	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh","gra")
+	syllables = list ("грит","шанк","дроч","балк","крип","фанк","зум","варг","треш","клоп",
+	"хакс","мут","глох","вирт","брут","крен","шмук","флек","дрюк","клоак",
+	"твист","жрэк","блякс","фрот","сквиз","грух","чунк","дрип","шлюх","крут")
 
 /datum/language/clown
 	name = "Clownish"
-	desc = "The language of clown planet. Mother tongue of clowns throughout the Galaxy."
+	desc = "Язык планеты клоунов. Родной язык клоунов по всей Галактике."
 	speech_verb = "honks"
 	ask_verb = "honks"
 	exclaim_verbs = list("toots", "wubs", "honks")
 	colour = "clown"
 	runechat_span = "clown"
 	key = "0"
-	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
+	syllables = list ("хонк","скуик","боньк","туут","нарф","сюз","вии","вуб","норф")
 
 /datum/language/com_srus
 	name = "Neo-Russkiya"
-	desc = "Neo-Russkiya, a bastard mix of Gutter, Sol Common, and old Russian. The official language of the USSP. It has started to see use outside of the fringe in hobby circles and protest groups. The linguistic spirit of Sol-Gov criticisms."
+	desc = "Нео-Русский — грубая смесь Торгового жаргона, Общесолнечного и старого русского. Официальный язык СССП. Он начал использоваться за пределами окраинных миров в кругах энтузиастов и протестных групп. Лингвистическое воплощение критики в адрес Солнечного Государства."
 	speech_verb = "articulates"
 	whisper_verb = "mutters"
 	exclaim_verbs = list("exaggerates")
@@ -558,19 +554,19 @@
 	key = "?"
 	space_chance = 65
 	english_names = TRUE
-	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
-					 "nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
-					 "comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
-					 "ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
-					 "key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
-					 "tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
-					 "odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
-					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
-					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
+	syllables = list("дьен","бар","бота","век","тво","слов","слав","сен","дуп","вах","лаз","глоз","ет",
+	"нет","да","ски","глав","глаз","нец","думат","зат","моч","боз",
+	"комы","врад","враде","тай","бли","ай","нов","ливн","толв","глаз","глиз",
+	"оуй","зет","евт","дат","ботат","нев","новы","евоный","нов","шо","обш","даски",
+	"кей","скей","овский","ская","биба","киев","студен","вар","бул","вян",
+	"цион","вая","мяк","гино","воло","олам","мити","нино","менов","перов",
+	"одаски","тров","ники","ивано","достов","сокол","оупа","первом","щел",
+	"тизан","чка","таган","добры","окт","бода","вета","иди","цык","блыт","хуй","на",
+	"уди","лички","каса","линка","толи","анатов","ихний","веч","вуч","той","ка","вод")
 
 /datum/language/wryn
 	name = "Wryn Hivemind"
-	desc = "Wryn have the strange ability to commune over a psychic hivemind."
+	desc = "У Вринов есть способность общаться через псионическую сеть сознания."
 	speech_verb = "chitters"
 	ask_verb = "chitters"
 	exclaim_verbs = list("buzzes")
@@ -591,17 +587,17 @@
 /datum/language/xenocommon
 	name = "Xenomorph"
 	colour = "alien"
-	desc = "The common tongue of the xenomorphs."
+	desc = "Основной язык ксеноморфов."
 	speech_verb = "hisses"
 	ask_verb = "hisses"
 	exclaim_verbs = list("hisses")
 	key = "6"
 	flags = RESTRICTED
-	syllables = list("sss","sSs","SSS")
+	syllables = list("ссс","сСс","ССС")
 
 /datum/language/xenos
 	name = "Xenomorph Hivemind"
-	desc = "Xenomorphs have the strange ability to commune over a psychic hivemind."
+	desc = "Ксеноморфы обладают способностью общаться через псионический разум улья."
 	speech_verb = "hisses"
 	ask_verb = "hisses"
 	exclaim_verbs = list("hisses")
@@ -612,7 +608,7 @@
 
 /datum/language/terrorspider
 	name = "Spider Hivemind"
-	desc = "Terror spiders have a limited ability to commune over a psychic hivemind, similar to xenomorphs."
+	desc = "Пауки Ужасса обладают ограниченной способностью общаться через псионический разум улья, подобно ксеноморфам."
 	speech_verb = "chitters"
 	ask_verb = "chitters"
 	exclaim_verbs = list("chitters")
@@ -624,7 +620,7 @@
 
 /datum/language/ling
 	name = "Changeling Hivemind"
-	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
+	desc = "Хотя обычно они относятся друг к другу с осторожностью и подозрением, генокрады могут общаться на расстоянии."
 	speech_verb = "says"
 	colour = "changeling"
 	key = "g"
@@ -641,7 +637,7 @@
 
 /datum/language/eventling
 	name = "Infiltrated Changeling Hivemind"
-	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
+	desc = "Хотя обычно они относятся друг к другу с осторожностью и подозрением, генокрады могут общаться на расстоянии."
 	speech_verb = "says"
 	colour = "changeling"
 	key = "gi"
@@ -658,7 +654,7 @@
 
 /datum/language/shadowling
 	name = "Shadowling Hivemind"
-	desc = "Shadowlings and their thralls are capable of communicating over a psychic hivemind."
+	desc = "Тенеморфы и их рабы способны общаться через псионический коллективный разум."
 	speech_verb = "says"
 	colour = "shadowling"
 	key = "8"
@@ -675,7 +671,7 @@
 
 /datum/language/abductor
 	name = "Abductor Mindlink"
-	desc = "Abductors are incapable of speech, but have a psychic link attuned to their own team."
+	desc = "Абдукторы не способны к речи, но обладают псионической связью, настроенной на свою команду."
 	speech_verb = "gibbers"
 	ask_verb = "gibbers"
 	exclaim_verbs = list("gibbers")
@@ -697,7 +693,7 @@
 
 /datum/language/abductor/golem
 	name = "Golem Mindlink"
-	desc = "Communicate with other alien alloy golems through a psychic link."
+	desc = "Общаются с другими големами через псионическую связь."
 	follow = TRUE
 
 /datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
@@ -705,7 +701,7 @@
 
 /datum/language/borer
 	name = "Cortical Link"
-	desc = "Cortical borers possess a strange link between their tiny minds."
+	desc = "Бореры обладают связью между своими крошечными разумами."
 	speech_verb = "sings"
 	ask_verb = "sings"
 	exclaim_verbs = list("sings")
@@ -729,7 +725,7 @@
 
 /datum/language/binary
 	name = "Robot Talk"
-	desc = "Most human stations support free-use communications protocols and routing hubs for synthetic use."
+	desc = "Большинство человеческих станций поддерживают свободные коммуникационные протоколы и маршрутизационные узлы для использования синтетиками."
 	colour = "say_quote"
 	speech_verb = "states"
 	ask_verb = "queries"
@@ -772,11 +768,11 @@
 	for(var/mob/living/M in listening)
 		if(issilicon(M) || M.binarycheck())
 			continue
-		M.show_message("<i><span class='game say'><span class='name'>synthesised voice</span> <span class='message'>beeps, \"beep beep beep\"</span></span></i>",2)
+		M.show_message("<i><span class='game say'><span class='name'>синтезированный голос</span> <span class='message'>бип, \"бип бип бип\"</span></span></i>",2)
 
 /datum/language/binary/drone
 	name = "Drone Talk"
-	desc = "A heavily encoded damage control coordination stream."
+	desc = "Сильно закодированный поток для координирования работы."
 	speech_verb = "transmits"
 	ask_verb = "transmits"
 	exclaim_verbs = list("transmits")
@@ -788,18 +784,18 @@
 
 /datum/language/drone
 	name = "Drone"
-	desc = "An encrypted stream of data converted to speech patterns."
+	desc = "Зашифрованный поток данных, преобразованный в речевые паттерны."
 	speech_verb = "states"
 	ask_verb = "queries"
 	exclaim_verbs = list("declares")
 	key = "db"
 	flags = RESTRICTED
 	follow = TRUE
-	syllables = list ("beep", "boop")
+	syllables = list ("бип", "буп")
 
 /datum/language/swarmer
 	name = "Swarmer"
-	desc = "A heavily encoded alien binary pattern."
+	desc = "Сильно закодированный инопланетный бинарный паттерн."
 	speech_verb = "tones"
 	ask_verb = "tones"
 	exclaim_verbs = list("tones")
@@ -810,7 +806,7 @@
 
 /datum/language/human/monkey
 	name = "Chimpanzee"
-	desc = "Ook ook ook."
+	desc = "Уаа-Уаа-Аа."
 	speech_verb = "chimpers"
 	ask_verb = "chimpers"
 	exclaim_verbs = list("screeches")
@@ -818,22 +814,22 @@
 
 /datum/language/skrell/monkey
 	name = "Neara"
-	desc = "Squik squik squik."
+	desc = "Скуик-скуик-скуик."
 	key = "fn"
 
 /datum/language/unathi/monkey
 	name = "Stok"
-	desc = "Hiss hiss hiss."
+	desc = "Хисс-хисс-хисс."
 	key = "fs"
 
 /datum/language/tajaran/monkey
 	name = "Farwa"
-	desc = "Meow meow meow."
+	desc = "Мяу-мяу-мяу."
 	key = "fa"
 
 /datum/language/vulpkanin/monkey
 	name = "Wolpin"
-	desc = "Bark bark bark."
+	desc = "Гаф-гав-гаф."
 	key = "vu"
 
 
@@ -871,14 +867,14 @@
 	. = ""
 
 	if(default_language)
-		. += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br><br>"
+		. += "Current default language: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>Сброс</a><br><br>"
 
 	for(var/datum/language/L in languages)
 		if(!(L.flags & NONGLOBAL))
 			if(L == default_language)
-				. += "<b>[L.name] (:[L.key])</b> - default - <a href='byond://?src=[UID()];default_lang=reset'>reset</a><br>[L.desc]<br><br>"
+				. += "<b>[L.name] (:[L.key])</b> - default - <a href='byond://?src=[UID()];default_lang=reset'>Сброс</a><br>[L.desc]<br><br>"
 			else
-				. += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=[UID()];default_lang=[L.name]\">set default</a><br>[L.desc]<br><br>"
+				. += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=[UID()];default_lang=[L.name]\">По умолчанию</a><br>[L.desc]<br><br>"
 
 
 /mob/verb/check_languages()
