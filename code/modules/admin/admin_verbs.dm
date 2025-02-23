@@ -861,10 +861,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			logmsg = "shamebrero"
 
 		if("Fat")
-			target.set_nutrition(NUTRITION_LEVEL_FAT*2)
+			H.set_nutrition(NUTRITION_LEVEL_FAT*2)
 
 		if("Fakebwoink")
-			SEND_SOUND(target, 'sound/effects/adminhelp.ogg')
+			SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
 
 		if("Nugget")
 			H.Weaken(12 SECONDS, TRUE)
