@@ -352,6 +352,6 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	var/datum/reagents/reagents_list = new (500)
 	reagents_list.add_reagent("sacid", 2450)
 
-	var/datum/effect_system/smoke_spread/chem/smoke = new
-	smoke.set_up(reagents_list, location, TRUE)
-	smoke.start(2)
+	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+	smoke.set_up(range = 2, carry = reagents_list, location = location)
+	smoke.start()
