@@ -31,7 +31,6 @@
 #define COMSIG_GLOB_EMPRESS_EGG_BURST "!empress_egg_burst"
 #define COMSIG_GLOB_IFECTION_CREATED "!infection_created"
 #define COMSIG_GLOB_IFECTION_REMOVED "!infection_removed"
-#define COMSIG_GLOB_WEB_STORM_ENDED "!web_storm_ended"
 #define COMSIG_GLOB_XENO_STORM_ENDED "!xeno_storm_ended"
 
 /// signals from globally accessible objects
