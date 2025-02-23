@@ -182,8 +182,8 @@
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/jagged
 	range = 12
 	damage = 60
-	armour_penetration = -10
-	faction_bonus_damage = 27
+	armour_penetration = -30
+	faction_bonus_damage = 50
 
 /obj/item/ammo_casing/caseless/arrow
 	name = "arrow"
