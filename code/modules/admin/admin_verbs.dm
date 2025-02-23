@@ -861,7 +861,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			logmsg = "shamebrero"
 
 		if("Fat")
-			H.set_nutrition(NUTRITION_LEVEL_FAT*2)
+			H.set_nutrition(NUTRITION_LEVEL_FAT * 2)
 
 		if("Fakebwoink")
 			SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
