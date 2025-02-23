@@ -297,7 +297,7 @@
 
 
 /obj/machinery/computer/supplyquest/workers/proc/print_animation()
-	flick_overlay_view(image(icon, src, "print_quest_overlay", layer + 0.1), 4 SECONDS)
+	flick_overlay_view(mutable_appearance(icon, "print_quest_overlay"), 4 SECONDS)
 
 
 /obj/item/qm_quest_tablet

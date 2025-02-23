@@ -1401,7 +1401,7 @@
 	. = TRUE
 	to_chat(user, span_notice("You begin to butcher [src]..."))
 	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-	if(!do_after(user, 4 SECONDS * mob_size, src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
+	if(!do_after(user, I.has_speed_harvest ? 1 SECONDS : (4 SECONDS * mob_size), src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
 		return .
 	harvest(user)
 

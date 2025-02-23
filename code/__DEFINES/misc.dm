@@ -506,7 +506,10 @@
 #define MECH_TYPE_OLD_DURAND	(1<<12)
 #define MECH_TYPE_DARK_GYGAX	(1<<13)
 
-
+/// Lavaland types
+#define LAVALAND_TYPE_LAVA	(1<<0)
+#define	LAVALAND_TYPE_PLASMA	(1<<1)
+#define	LAVALAND_TYPE_CHASM	(1<<2)
 
 // Deadchat control defines
 

@@ -953,6 +953,24 @@
 		myseed.variant_prompt(user, src)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
+	if(istype(I, /obj/item/conductive_organ))
+		add_fingerprint(user)
+		if(!myseed)
+			balloon_alert(user, "внутри нет семян!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		user.visible_message(
+			span_notice("[user] аккуратно втира[pluralize_ru(user.gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы аккуратно втираете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		)
+		yieldmod = 1.7
+		waterlevel = maxwater
+		nutrilevel = maxnutri
+		plant_hud_set_nutrient()
+		plant_hud_set_water()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 

@@ -1556,26 +1556,26 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
 	if(!istype(toEat, /obj/item/reagent_containers/food/pill/patch) && !check_has_mouth())
-		to_chat(src, "Where do you intend to put [toEat]? You don't have a mouth!")
+		balloon_alert(src, "у вас нет рта!") //but I must scream
 		return FALSE
 	return ..()
 
 /mob/living/carbon/human/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(!istype(toEat, /obj/item/reagent_containers/food/pill/patch) && !check_has_mouth())
 		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachineperson(src)))))
-			to_chat(user, "Where do you intend to put [toEat]? [src] doesn't have a mouth!")
+			balloon_alert(user, "у цели нет рта!")
 			return FALSE
 	return ..()
 
 /mob/living/carbon/human/selfDrink(obj/item/reagent_containers/food/drinks/toDrink)
 	if(!check_has_mouth())
 		if(!ismachineperson(src))
-			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
+			balloon_alert(src, "у вас нет рта!")
 			return FALSE
 		else
-			to_chat(src, "<span class='notice'>You pour a bit of liquid from [toDrink] into your connection port.</span>")
+			to_chat(src, span_notice("Вы заливете часть содержимого [toDrink.declent_ru(GENITIVE)] в свой отсек для жидкостей."))
 	else
-		to_chat(src, "<span class='notice'>You swallow a gulp of [toDrink].</span>")
+		to_chat(src, span_notice("Вы делаете глоток из [toDrink.declent_ru(GENITIVE)]."))
 	return TRUE
 
 /mob/living/carbon/human/can_track(mob/living/user)
@@ -1613,7 +1613,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ..()
 
 	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && HAS_TRAIT(src, TRAIT_NO_GUNS))
-		balloon_alert(src, span_warning("слишком толстые пальцы"))
+		balloon_alert(src, span_warning("слишком толстые пальцы!"))
 		return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry

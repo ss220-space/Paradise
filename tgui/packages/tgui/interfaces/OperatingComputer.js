@@ -20,10 +20,10 @@ const stats = [
 ];
 
 const damages = [
-  ['Удушение', 'oxyLoss'],
-  ['Токсины', 'toxLoss'],
-  ['Физические повреждения', 'bruteLoss'],
-  ['Ожоги', 'fireLoss'],
+  ['Удушье', 'oxyLoss'],
+  ['Отравление', 'toxLoss'],
+  ['Механические повреждения', 'bruteLoss'],
+  ['Термические повреждения', 'fireLoss'],
 ];
 
 const damageRange = {

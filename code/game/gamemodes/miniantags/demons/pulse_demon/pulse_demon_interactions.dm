@@ -76,7 +76,7 @@
 	if(get_area(A) == controlling_area)
 		A.AIAltClick(src)
 	else
-		AltClickNoInteract(src, A)
+		A.AltClick(src)
 
 /mob/living/simple_animal/demon/pulse_demon/CtrlClickOn(atom/A)
 	if(get_area(A) == controlling_area)

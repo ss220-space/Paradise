@@ -270,6 +270,42 @@
 	item_color = "modified"
 	surgeryspeedmod = -0.3
 
+/obj/item/clothing/gloves/color/latex/inugami
+	name = "medical gloves Inugami"
+	desc = "Прототип медицинских перчаток, оснащённых наночипами, что значительно повышают эффективность работы носителя во время проведения хирургических операций."
+	ru_names = list(
+		NOMINATIVE = "медицинские перчатки Inugami",
+		GENITIVE = "медицинских перчаток Inugami",
+		DATIVE = "медицинским перчаткам Inugami",
+		ACCUSATIVE = "медицинские перчатки Inugami",
+		INSTRUMENTAL = "медицинскими перчатками Inugami",
+		PREPOSITIONAL = "медицинских перчатках Inugami",
+	)
+	icon_state = "inugami_gl"
+	item_state = "inugami_gl"
+	item_color = null
+	surgery_step_time = 0.5 SECONDS
+	surgery_germ_chance = 50
+
+/obj/item/clothing/gloves/color/latex/inugami/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/defib, ignore_hardsuits = TRUE, safe_by_default = TRUE, emp_proof = TRUE, emag_proof = TRUE)
+
+/obj/item/clothing/gloves/color/latex/inugami/equipped(mob/living/carbon/human/user, slot, initial)
+	. = ..()
+	if(slot == ITEM_SLOT_GLOVES)
+		RegisterSignal(user, COMSIG_SURGERY_STEP_INIT, PROC_REF(on_surgery_step_init))
+	else
+		UnregisterSignal(user, COMSIG_SURGERY_STEP_INIT)
+
+/obj/item/clothing/gloves/color/latex/inugami/dropped(mob/living/carbon/human/user, slot, silent)
+	. = ..()
+	UnregisterSignal(user, COMSIG_SURGERY_STEP_INIT)
+
+/obj/item/clothing/gloves/color/latex/inugami/proc/on_surgery_step_init(user, time_pointer)
+	SIGNAL_HANDLER
+	*time_pointer = surgery_step_time
+
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"
 	desc = "These look pretty fancy."

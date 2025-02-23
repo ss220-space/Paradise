@@ -230,11 +230,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/statclick)
 		log_admin("Non-admin [key_name(usr)] attempted to execute a SDQL query!")
 		return FALSE
 
-	var/prompt = alert(usr, "Run SDQL2 Query?", "SDQL2", "Yes", "Cancel")
+	var/prompt = tgui_alert(usr, "Run SDQL2 Query?", "SDQL2", list("Yes", "Cancel"))
 	if (prompt != "Yes")
 		return
 
-	var/query_text = input("SDQL2 query") as message
+	var/query_text = tgui_input_text(usr, "SDQL2 query", multiline = TRUE, encode = FALSE)
 
 	if(!query_text || length(query_text) < 1)
 		return

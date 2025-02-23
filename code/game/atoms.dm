@@ -418,20 +418,20 @@
 
 	if(reagents)
 		if(container_type & TRANSPARENT)
-			. += span_notice("Внутри содержится:")
+			. += span_notice("Содержимое:")
 			if(reagents.reagent_list.len)
 				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/I in reagents.reagent_list)
 						var/datum/reagent/R = I
-						. += span_notice("[R.volume] единиц[declension_ru(R.volume, "у", "ы", "")] [R.name].")
+						. += span_notice("<b>[R.name]</b> - <b>[R.volume]</b> единиц[declension_ru(R.volume, "а", "ы", "")].")
 				else //Otherwise, just show the total volume
 					if(reagents && reagents.reagent_list.len)
-						. += span_notice("[reagents.total_volume] единиц[declension_ru(reagents.total_volume, "у", "ы", "")] различных веществ.")
+						. += span_notice("<b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества.")
 			else
 				. += span_notice("Ничего.")
 		else if(container_type & AMOUNT_VISIBLE)
 			if(reagents.total_volume)
-				. += span_notice("Осталось ещё [reagents.total_volume] единиц[declension_ru(reagents.total_volume, "у", "ы", "")].")
+				. += span_notice("Осталось ещё <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества.")
 			else
 				. += span_danger("Внутри ничего нет.")
 
@@ -1491,9 +1491,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		// OR (much more likely) the thing is unlabeled yet.
 		default_value = ""
 	if(!prompt)
-		prompt = "What would you like the label on [src] to be?"
+		prompt = "Что вы хотите написать на этикетке [declent_ru(GENITIVE)]?"
 
-	var/t = input(user, prompt, "Renaming [src]", default_value)  as text | null
+	var/t = input(user, prompt, "Переименование [declent_ru(GENITIVE)]", default_value)  as text | null
 	if(isnull(t))
 		// user pressed Cancel
 		return null
@@ -1502,13 +1502,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!user)
 		return null
 	else if(implement && implement.loc != user)
-		to_chat(user, "<span class='warning'>You no longer have the pen to rename [src].</span>")
+		balloon_alert(user, "ваша ручка недоступна!")
 		return null
 	else if(!in_range(src, user))
-		to_chat(user, "<span class='warning'>You cannot rename [src] from here.</span>")
+		balloon_alert(user, "слишком далеко!")
 		return null
 	else if (user.incapacitated())
-		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>")
+		balloon_alert(user, "невозможно в данный момент!")
 		return null
 
 
@@ -1522,8 +1522,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	if(actually_rename)
 		if(t == "")
+			if(ru_names)
+				for(var/i = 1; i <= 6; i++)
+					ru_names[i] = "[initial(ru_names[i])]"
 			name = "[initial(name)]"
 		else
+			if(ru_names)
+				for(var/i = 1; i <= 6; i++)
+					ru_names[i] = "[initial(ru_names[i])] - [t]"
 			name = "[prefix][t]"
 	return t
 

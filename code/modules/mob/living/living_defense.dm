@@ -74,13 +74,13 @@
 		apply_damage(shock_damage, BURN, spread_damage = TRUE)
 		if(shock_damage > 200)
 			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
-			explosion(loc, -1, 0, 2, 2, cause = "[source] over electrocuted [name]")
+			explosion(loc, -1, 0, 2, 2, cause = "[name] over electrocuted by [source]")
 	else
 		apply_damage(shock_damage, STAMINA)
 	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
 		visible_message(
 			span_danger("[name] получа[pluralize_ru(gender,"ет","ют")] удар током от [source]!"),
-			span_userdanger("Вы чувствуете как через Ваше тело проходит электрический разряд!"),
+			span_userdanger("Вы чувствуете как через ваше тело проходит электрический разряд!"),
 			span_hear("Вы слышите громкий электрический треск."),
 		)
 	return shock_damage

@@ -27,6 +27,8 @@
 	var/immunity_trait = TRAIT_LAVA_IMMUNE
 	/// Objects with these flags won't burn.
 	var/immunity_resistance_flags = LAVA_PROOF
+	/// Is the lava close to the shore
+	var/deep_water = TRUE
 
 /turf/simulated/floor/lava/ex_act()
 	return
@@ -46,8 +48,14 @@
 		START_PROCESSING(SSprocessing, src)
 
 /turf/simulated/floor/lava/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(burn_stuff(AM))
-		START_PROCESSING(SSprocessing, src)
+	if(istype(AM, /obj/item/reagent_containers/food/snacks/charred_krill))
+		krill_act(AM)
+	else
+		if(burn_stuff(AM))
+			START_PROCESSING(SSprocessing, src)
+
+/turf/simulated/floor/lava/proc/krill_act(atom/movable/AM)
+	return
 
 /turf/simulated/floor/lava/process()
 	if(!burn_stuff())
@@ -224,6 +232,61 @@
 	nitrogen = 23
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
+	/// Check for plasma river, subtype of lava, prevents simple fishing
+	var/can_be_fished_on = TRUE
+
+/turf/simulated/floor/lava/lava_land_surface/Initialize(mapload)
+	. = ..()
+	if(can_be_fished_on)
+		calculate_deep()
+
+/turf/simulated/floor/lava/lava_land_surface/proc/calculate_deep()
+	if(locate(/turf/simulated/floor/plating/asteroid/basalt) in range(3, src))
+		deep_water = FALSE
+
+/turf/simulated/floor/lava/lava_land_surface/proc/get_fish()
+	if(deep_water)
+		return GLOB.deep_fish
+	else
+		return GLOB.shore_fish
+
+/turf/simulated/floor/lava/lava_land_surface/krill_act(atom/movable/AM)
+	var/obj/item/reagent_containers/food/snacks/charred_krill/krill = AM //yourself
+	krill.in_lava = TRUE
+	krill.anchored = TRUE	//no closet kidnaping
+	visible_message(span_warning("[capitalize(krill.declent_ru(NOMINATIVE))] медленно тон[pluralize_ru(krill.gender, "ет", "ут")] в лаве!"))
+	sleep(5 SECONDS)
+	qdel(krill)
+	if(!can_be_fished_on)
+		visible_message(span_warning("И ничего не происходит..."))
+		return
+	visible_message(span_warning("Неожиданно, из лавы выныривают две рыбы и разрывают [krill.declent_ru(ACCUSATIVE)] на части!"))
+	var/list/fishable_list = get_fish()
+	for(var/i in 1 to 2)
+		var/fish = pick(fishable_list)
+		new fish(src)
+
+/turf/simulated/floor/lava/lava_land_surface/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(istype(I, /obj/item/reagent_containers/food/snacks/charred_krill))
+		to_chat(user, span_notice("Вы осторожно кладёте креветку на поверхность лавы..."))
+		if(do_after(user, 5 SECONDS, target = src))
+			if(QDELETED(I))
+				return .
+			if(!can_be_fished_on)
+				to_chat(user, span_warning("И ничего не происходит..."))
+				return .
+			to_chat(user, span_notice("Неожиданно, из лавы выныривают две рыбы и разрывают креветку на части!"))
+			var/list/fishable_list = get_fish()
+			for(var/i in 1 to 2)
+				var/fish = pick(fishable_list)
+				new fish(src)
+			qdel(I)
+			return .|ATTACK_CHAIN_SUCCESS
 
 /turf/simulated/floor/lava/airless
 	temperature = TCMB
@@ -236,7 +299,7 @@
 	base_icon_state = "liquidplasma"
 	icon_state = "unsmooth"
 	smooth = SMOOTH_BITMASK
-
+	can_be_fished_on = FALSE // ~ Sin City's cold and empty, No one`s around to judge me ~
 	light_range = 3
 	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
@@ -322,3 +385,5 @@
 	. = ..()
 	if(SSmapping.lavaland_theme?.primary_turf_type)
 		ChangeTurf(SSmapping.lavaland_theme.primary_turf_type, after_flags = CHANGETURF_IGNORE_AIR)
+
+/turf/simulated/floor/lava/lava_land_surface/lava_only //used to override reader.dm for lava only instead of adaptive type

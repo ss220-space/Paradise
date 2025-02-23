@@ -1,0 +1,3259 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aq" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/table/wood,
+/obj/item/seeds/reishi{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/seeds/reishi{
+	pixel_x = 9;
+	pixel_y = 5
+	},
+/obj/item/seeds/reishi{
+	pixel_x = 8;
+	pixel_y = -5
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"au" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"aN" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/machinery/kitchen_machine/tribal_oven,
+/obj/structure/torch_holder/mapping{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"ba" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/torch_holder/mapping{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"bf" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/block,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"bx" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"bS" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/table/wood,
+/obj/item/hatchet/wooden,
+/obj/item/scythe,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"cx" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/item/twohanded/spear,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"cB" = (
+/obj/structure/stone_tile/slab/cracked,
+/mob/living/simple_animal/chicken,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"cF" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"cG" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/item/twohanded/spear,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"da" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/burnt{
+	dir = 1
+	},
+/obj/structure/rack/wooden,
+/obj/item/malf_upgrade,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"dB" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/curtain/open{
+	color = "#222222";
+	name = "black curtain";
+	anchored = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"dM" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ec" = (
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"et" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/lava,
+/area/ruin/unpowered/ash_walkers)
+"ew" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/center/burnt,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"eK" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"eS" = (
+/obj/structure/stone_tile/center/cracked,
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"fC" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"fG" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/chair/stool/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"gd" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"gi" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom{
+	pixel_y = 4;
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
+	pixel_y = 3;
+	pixel_x = 6
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"gn" = (
+/obj/structure/stone_tile/slab/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"gu" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/chair/stool/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"gv" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/ore_box,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"gx" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/template_noop,
+/area/lavaland/surface/outdoors)
+"gI" = (
+/obj/structure/stone_tile/slab/cracked,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"gV" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"he" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/burnt,
+/obj/structure/stone_tile/block/burnt{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"hp" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/item/reagent_containers/glass/bucket/wooden,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"hM" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/torch_holder/mapping{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"hY" = (
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ie" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"is" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/meat{
+	pixel_x = -10;
+	pixel_y = -4
+	},
+/obj/item/reagent_containers/food/snacks/meat{
+	pixel_x = -7;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/food/snacks/monstermeat/goliath{
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"iu" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 10
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"iU" = (
+/obj/structure/closet/crate/radiation,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/flare,
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"jb" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/necropolis_gate/ashwalker,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"je" = (
+/turf/simulated/wall/mineral/wood,
+/area/ruin/unpowered/ash_walkers)
+"jq" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 8
+	},
+/obj/effect/rune_fluff_marks,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"jv" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"jC" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/lavaland_food/veggie_meal,
+/obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_wing{
+	pixel_x = 8;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_cacti{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_crunchie{
+	pixel_y = 6
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"jL" = (
+/obj/structure/stone_tile/surrounding_tile,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"jO" = (
+/obj/item/reagent_containers/glass/bucket/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"jU" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/table/wood,
+/obj/item/storage/toolbox/surgery/ashwalker{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/healthanalyzer/gem_analyzer{
+	pixel_x = -10;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"ks" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 1
+	},
+/obj/structure/stone_tile/burnt,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"kQ" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"kS" = (
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"ld" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 1
+	},
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/obj/structure/closet/crate/miningcar,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"lm" = (
+/turf/template_noop,
+/area/lavaland/surface/outdoors)
+"ls" = (
+/obj/structure/stone_tile/block/burnt,
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"lF" = (
+/obj/effect/mob_spawn/human/corpse/damaged,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"lT" = (
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors)
+"mb" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/effect/rune_fluff_marks,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"mp" = (
+/obj/structure/stone_tile/block,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"ms" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/lava,
+/area/ruin/unpowered/ash_walkers)
+"mt" = (
+/obj/item/twohanded/spear,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"mx" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/rack/wooden,
+/obj/item/reagent_containers/food/snacks/egg{
+	pixel_x = 3;
+	pixel_y = -8
+	},
+/obj/item/reagent_containers/food/snacks/egg{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/snacks/egg{
+	pixel_y = -9;
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/food/snacks/egg{
+	pixel_x = 3;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"mF" = (
+/obj/item/shovel/spade/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"mN" = (
+/obj/item/seeds/aloe,
+/obj/structure/closet/crate/wooden,
+/obj/item/seeds/aloe,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"mQ" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/meat{
+	pixel_x = 8;
+	pixel_y = -2
+	},
+/obj/item/reagent_containers/food/snacks/meat{
+	pixel_x = 9;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/snacks/monstermeat/goliath{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/snacks/monstermeat/goliath{
+	pixel_x = -10;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"mV" = (
+/obj/structure/flora/ash/leaf_shroom,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"na" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"nc" = (
+/obj/item/seeds/aloe,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"nt" = (
+/obj/item/cultivator/rake,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"nv" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/rack/wooden,
+/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+	pixel_x = 4;
+	pixel_y = -7
+	},
+/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+	pixel_y = 5;
+	pixel_x = -2
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"ny" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"nI" = (
+/obj/structure/flora/ash/cacti,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"oc" = (
+/obj/structure/stone_tile/block/burnt,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"oj" = (
+/obj/structure/stone_tile/block/cracked,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/template_noop,
+/area/lavaland/surface/outdoors)
+"oz" = (
+/obj/structure/stone_tile/slab/burnt,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"oA" = (
+/obj/structure/table/reinforced/brass,
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/item/toy/plushie/ashwalkerplushie,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"oH" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"oS" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 4
+	},
+/obj/structure/rack/wooden,
+/obj/item/stack/sheet/wood{
+	amount = 15
+	},
+/obj/item/ammo_casing/caseless/arrow,
+/obj/item/ammo_casing/caseless/arrow,
+/obj/item/ammo_casing/caseless/arrow,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"pc" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf{
+	pixel_y = -6;
+	pixel_x = -9
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf{
+	pixel_y = -2;
+	pixel_x = -9
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap{
+	pixel_x = 2;
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings{
+	pixel_x = 11;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"pg" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/simulated/floor/lava,
+/area/ruin/unpowered/ash_walkers)
+"pm" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/lava,
+/area/ruin/unpowered/ash_walkers)
+"pL" = (
+/obj/effect/decal/ash_rune_centre,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"pR" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"pW" = (
+/obj/item/storage/bag/plants/portaseeder,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"pX" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"pZ" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked,
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"qb" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"qu" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/bed/leather,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"qy" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"qC" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/chair/stool/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"rd" = (
+/obj/structure/stone_tile/block/burnt,
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"rl" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"rn" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 8
+	},
+/obj/structure/closet/crate/wooden,
+/obj/item/stack/sheet/cloth/ten,
+/obj/item/reagent_containers/iv_bag/blood/unathi,
+/obj/item/reagent_containers/iv_bag/blood/unathi,
+/obj/item/reagent_containers/iv_bag/blood/unathi,
+/obj/item/stack/medical/splint/tribal,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"rB" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/burnt,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"rG" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/curtain/open{
+	color = "#222222";
+	name = "black curtain";
+	anchored = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"rM" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/lavaland_food/fine_meal{
+	pixel_x = 4;
+	pixel_y = 14
+	},
+/obj/item/reagent_containers/food/snacks/lavaland_food/veggie_meal,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"sd" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/closet/crate/wooden,
+/obj/item/clothing/gloves/color/black/goliath,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"so" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4;
+	pixel_x = -16;
+	pixel_y = 16
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8;
+	pixel_y = -16;
+	pixel_x = -16
+	},
+/obj/structure/torch_holder/mapping{
+	dir = 8
+	},
+/turf/simulated/floor/lava,
+/area/ruin/unpowered/ash_walkers)
+"sJ" = (
+/turf/simulated/wall/indestructible/boss,
+/area/ruin/unpowered/ash_walkers)
+"sK" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/bed/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"sW" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/effect/rune_animation_landmark,
+/obj/effect/rune_fluff_marks,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"tm" = (
+/obj/structure/flora/ash/coaltree,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"to" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/closet/crate/wooden,
+/obj/item/clothing/shoes/footwraps/goliath,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"tp" = (
+/obj/structure/stone_tile/center/burnt,
+/obj/structure/stone_tile/surrounding/burnt,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"tw" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"ty" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/template_noop,
+/area/lavaland/surface/outdoors)
+"tR" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 6
+	},
+/obj/structure/stone_tile/center,
+/obj/structure/table/wood,
+/obj/item/twohanded/spear,
+/obj/item/storage/belt/mining/primitive,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"tT" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"ub" = (
+/obj/structure/lavaland/ash_walker,
+/turf/simulated/floor/lava,
+/area/ruin/unpowered/ash_walkers)
+"uw" = (
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/curtain/black{
+	anchored = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"uy" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"uH" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"uY" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/closet/crate/wooden,
+/obj/item/storage/firstaid/adv,
+/obj/item/stack/medical/bruise_pack/improvised,
+/obj/item/stack/medical/splint/tribal,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"uZ" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"va" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"vb" = (
+/obj/machinery/hydroponics/soil,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"vx" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/chair/stool/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"vD" = (
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/lava,
+/area/ruin/unpowered/ash_walkers)
+"vH" = (
+/obj/structure/table/wood,
+/obj/item/twohanded/spear,
+/obj/item/clothing/head/shamanash,
+/obj/item/ammo_casing/caseless/arrow{
+	pixel_y = 7;
+	pixel_x = -4
+	},
+/obj/item/ammo_casing/caseless/arrow{
+	pixel_x = 7
+	},
+/obj/item/ammo_casing/caseless/arrow{
+	pixel_y = 10;
+	pixel_x = -7
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"wb" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"wd" = (
+/obj/structure/torch_holder/mapping{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"wm" = (
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"wL" = (
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/burnt{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"xj" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/structure/torch_holder/mapping{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"xq" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 8
+	},
+/turf/simulated/floor/lava,
+/area/ruin/unpowered/ash_walkers)
+"xu" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/table/wood,
+/obj/item/book/manual/lavaland_scroll,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"xy" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"xF" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/turf/simulated/floor/lava,
+/area/ruin/unpowered/ash_walkers)
+"xG" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/obj/item/shovel,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"xJ" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"xK" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"yv" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"yw" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"yV" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/template_noop,
+/area/lavaland/surface/outdoors)
+"za" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"zw" = (
+/obj/item/hatchet/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"zx" = (
+/obj/structure/flora/ash/tall_shroom,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"zD" = (
+/obj/item/pickaxe,
+/obj/structure/closet/crate/miningcar,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"zI" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/block/burnt{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"zK" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 4
+	},
+/obj/item/seeds/cotton,
+/obj/item/seeds/cotton,
+/obj/item/seeds/cotton,
+/obj/structure/closet/crate/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"zO" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"Al" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"AL" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	pixel_x = 16;
+	pixel_y = -16
+	},
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 1;
+	pixel_x = 16;
+	pixel_y = 15
+	},
+/obj/structure/torch_holder/mapping{
+	dir = 4
+	},
+/turf/simulated/floor/lava,
+/area/ruin/unpowered/ash_walkers)
+"AM" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"AQ" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/mushroom_bowl,
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap{
+	pixel_x = -9;
+	pixel_y = -7
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"AS" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Ba" = (
+/obj/structure/stone_tile/surrounding/cracked,
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/center/burnt,
+/obj/structure/torch_holder/mapping{
+	dir = 1
+	},
+/obj/machinery/optable,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Bf" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"BJ" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/statue/bone/rib,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"BK" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/item/cultivator/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"BR" = (
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center/burnt,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"BX" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Ca" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"Cd" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Cg" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/closet/crate/wooden,
+/obj/item/weldingtool/experimental,
+/obj/item/storage/toolbox/syndicate,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Ck" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/chair/stool/wooden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"CC" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/ore_box,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"CO" = (
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"CS" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"CZ" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/slab/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Da" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/seeds/comfrey,
+/obj/item/seeds/comfrey,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"De" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/block/burnt{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Dl" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Dn" = (
+/obj/structure/stone_tile/surrounding/cracked,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
+	pixel_x = -6;
+	pixel_y = -4
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
+	pixel_x = 4;
+	pixel_y = -1
+	},
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Dq" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"DA" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"DS" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Ep" = (
+/obj/structure/stone_tile/slab/cracked,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"EK" = (
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/flora/ash/fireblossom,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"EP" = (
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"ET" = (
+/obj/structure/stone_tile/burnt{
+	dir = 1
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Fc" = (
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Ff" = (
+/obj/structure/stone_tile/surrounding_tile,
+/turf/simulated/floor/lava,
+/area/ruin/unpowered/ash_walkers)
+"Fk" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"Ft" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Fu" = (
+/obj/effect/rune_fluff_marks,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"FV" = (
+/obj/structure/stone_tile/surrounding/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Gh" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/obj/effect/rune_fluff_marks,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Gs" = (
+/obj/structure/stone_tile/surrounding_tile/cracked,
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/lava,
+/area/ruin/unpowered/ash_walkers)
+"Gw" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"GD" = (
+/obj/structure/stone_tile/block/burnt,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"GK" = (
+/turf/template_noop,
+/area/template_noop)
+"GU" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"GZ" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 4
+	},
+/turf/simulated/floor/lava,
+/area/ruin/unpowered/ash_walkers)
+"HL" = (
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile/burnt{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Ic" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/table/wood,
+/obj/item/twohanded/spear,
+/obj/item/clothing/head/helmet/roman/legionaire,
+/obj/item/melee/nutcracker,
+/obj/item/storage/belt/mining/primitive,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Il" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/closet/crate/wooden,
+/obj/item/stack/sheet/wood{
+	amount = 20
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"IB" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/flora/ash/fireblossom,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"IJ" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"IO" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/center/cracked,
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/lava,
+/area/ruin/unpowered/ash_walkers)
+"IV" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile/burnt{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Jg" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"Ji" = (
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Jk" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/burnt{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Jl" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Jo" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"Jr" = (
+/obj/structure/stone_tile/slab,
+/obj/machinery/the_singularitygen,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"JJ" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/table/wood,
+/obj/item/seeds/glowshroom,
+/obj/item/seeds/glowshroom{
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/obj/item/seeds/glowshroom{
+	pixel_x = 10;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"JM" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"JN" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"JY" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/turf/template_noop,
+/area/lavaland/surface/outdoors)
+"Kg" = (
+/obj/structure/stone_tile/block/cracked,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Kl" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Kv" = (
+/obj/structure/stone_tile/block/burnt{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"KA" = (
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"KC" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/closet/crate/wooden,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Lr" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/structure/stone_tile/burnt,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"LJ" = (
+/obj/structure/sink/puddle,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Ms" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"Mz" = (
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/torch_holder/mapping{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"ME" = (
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/statue/bone/rib{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"MK" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/burnt,
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Nu" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/lavaland_food/abu_ghosh{
+	pixel_x = -6;
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/food/snacks/lavaland_food/grace_of_lazis{
+	pixel_x = 6;
+	pixel_y = 9
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Ny" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"NC" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"NF" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"NG" = (
+/obj/structure/table/wood,
+/obj/item/seeds/tower,
+/obj/item/cultivator/wooden,
+/obj/item/seeds/tower{
+	pixel_y = -7;
+	pixel_x = -10
+	},
+/obj/item/seeds/tower{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Of" = (
+/obj/structure/table/wood,
+/obj/item/seeds/wheat{
+	pixel_x = 9;
+	pixel_y = 10
+	},
+/obj/item/seeds/wheat{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/seeds/wheat{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/shovel/spade/wooden{
+	pixel_y = 4;
+	pixel_x = -1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"OC" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/item/twohanded/spear,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Pq" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Pt" = (
+/obj/structure/flora/ash/cap_shroom,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"PD" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Qc" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Qk" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/curtain/open{
+	color = "#222222";
+	name = "black curtain";
+	anchored = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Qy" = (
+/obj/structure/closet/crate/miningcar,
+/obj/item/pickaxe,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"QT" = (
+/obj/structure/stone_tile/surrounding_tile/burnt{
+	dir = 1
+	},
+/turf/simulated/floor/lava,
+/area/ruin/unpowered/ash_walkers)
+"QW" = (
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/torch_holder/mapping{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Rj" = (
+/obj/structure/flora/ash/stem_shroom,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Rz" = (
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/burnt{
+	dir = 1
+	},
+/obj/structure/stone_tile/block/burnt,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Se" = (
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/closet/crate/miningcar,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Sp" = (
+/obj/structure/stone_tile/block,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"Sw" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/bed/wicker,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"SV" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Te" = (
+/obj/structure/stone_tile/surrounding/cracked,
+/obj/structure/stone_tile/center/burnt,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Ti" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/table/wood,
+/obj/item/gun/projectile/bow,
+/obj/item/storage/backpack/quiver{
+	pixel_x = -7;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Tl" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/rack/wooden,
+/obj/item/grown/cotton,
+/obj/item/grown/cotton,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"TB" = (
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/obj/structure/curtain/black{
+	anchored = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"TD" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"TP" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/bed/leather,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"TV" = (
+/obj/structure/stone_tile/block/burnt,
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Uc" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 1
+	},
+/mob/living/simple_animal/cock,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Ue" = (
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"UQ" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"Vh" = (
+/obj/structure/stone_tile/surrounding,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Vk" = (
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/curtain/open{
+	color = "#222222";
+	name = "black curtain";
+	anchored = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Vt" = (
+/obj/structure/fluff/ash_statue{
+	special_name = "логово пеплоходцев"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"VD" = (
+/obj/structure/stone_tile,
+/turf/template_noop,
+/area/lavaland/surface/outdoors)
+"VM" = (
+/obj/structure/stone_tile/block/cracked,
+/obj/structure/rack/wooden,
+/obj/structure/torch_holder/mapping{
+	dir = 1
+	},
+/obj/item/stack/rods/twentyfive,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Wh" = (
+/obj/structure/stone_tile/surrounding/burnt,
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Wp" = (
+/obj/structure/torch_holder/mapping{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"WH" = (
+/obj/structure/stone_tile/surrounding,
+/obj/structure/bonfire,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"WI" = (
+/obj/structure/ore_box,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"WT" = (
+/obj/structure/stone_tile/surrounding/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"WX" = (
+/obj/structure/stone_tile/slab/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Xs" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/machinery/smartfridge/drying_rack/ash,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"XK" = (
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"XV" = (
+/obj/structure/stone_tile/surrounding_tile,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Yd" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"Ye" = (
+/obj/structure/necropolis_arch,
+/obj/structure/necropolis_gate,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Yy" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"YC" = (
+/obj/structure/stone_tile/slab/burnt,
+/obj/structure/rack/wooden,
+/obj/item/flashlight/lantern,
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Zg" = (
+/obj/structure/stone_tile/slab,
+/obj/machinery/iv_drip,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"Zt" = (
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/turf/template_noop,
+/area/lavaland/surface/outdoors)
+"ZA" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/bed/wicker,
+/obj/structure/torch_holder/mapping{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"ZJ" = (
+/obj/structure/stone_tile/slab,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/obj/item/kitchen/knife/combat/survival/bone{
+	pixel_y = 6;
+	pixel_x = -4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+
+(1,1,1) = {"
+lT
+lT
+lT
+sJ
+je
+je
+sJ
+je
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(2,1,1) = {"
+lT
+lT
+je
+sJ
+je
+uY
+ZA
+sd
+je
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(3,1,1) = {"
+lT
+je
+je
+KC
+sK
+Kv
+XV
+qb
+Sw
+je
+AS
+AS
+AS
+GK
+GK
+GK
+je
+je
+je
+sJ
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(4,1,1) = {"
+lT
+je
+jU
+XV
+rl
+SV
+XK
+jv
+to
+sJ
+WI
+zD
+AS
+AS
+je
+sJ
+je
+rM
+aN
+jC
+je
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(5,1,1) = {"
+lT
+sJ
+Ba
+PD
+tw
+XV
+PD
+OC
+ls
+TB
+PD
+PD
+PD
+je
+je
+ZJ
+gi
+ew
+bx
+cF
+is
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(6,1,1) = {"
+lT
+je
+Zg
+DS
+XK
+PD
+Vt
+lF
+WX
+rG
+WX
+jv
+Pt
+je
+mx
+fG
+Ck
+GD
+Jl
+rl
+xu
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(7,1,1) = {"
+lT
+je
+je
+rn
+JN
+pR
+PD
+rl
+oc
+TB
+PD
+XK
+rl
+sJ
+Uc
+bx
+cG
+XV
+PD
+cB
+mQ
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(8,1,1) = {"
+lT
+lT
+je
+TP
+Ue
+GU
+XK
+Ft
+qu
+sJ
+PD
+NF
+kQ
+WX
+PD
+XK
+rl
+qC
+ie
+Pq
+sJ
+sJ
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(9,1,1) = {"
+lT
+lT
+je
+je
+sJ
+uw
+Vk
+uw
+sJ
+sJ
+wd
+WX
+tT
+oz
+xJ
+Jl
+gu
+WH
+mp
+mt
+pc
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(10,1,1) = {"
+lT
+lT
+lT
+sJ
+AS
+ie
+mV
+PD
+Pq
+Mz
+PD
+na
+PD
+sJ
+nv
+ie
+Pq
+vx
+XV
+fG
+AQ
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(11,1,1) = {"
+lT
+lT
+lT
+sJ
+AS
+AS
+PD
+PD
+rl
+ie
+zx
+Fc
+PD
+je
+je
+Nu
+WX
+HL
+ny
+uy
+Dn
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(12,1,1) = {"
+lT
+lT
+lT
+sJ
+sJ
+AS
+ie
+Pt
+sJ
+XV
+PD
+IV
+PD
+PD
+je
+je
+sJ
+oz
+BR
+WX
+je
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(13,1,1) = {"
+lT
+lT
+sJ
+sJ
+sJ
+sJ
+sJ
+Dq
+NC
+PD
+PD
+GU
+TV
+eK
+PD
+Wp
+qb
+TD
+TD
+Qc
+sJ
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(14,1,1) = {"
+lT
+sJ
+sJ
+GZ
+so
+xq
+sJ
+sJ
+XK
+PD
+nI
+PD
+PD
+XK
+PD
+PD
+Rj
+PD
+PD
+sJ
+sJ
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+JY
+GK
+GK
+GK
+"}
+(15,1,1) = {"
+sJ
+sJ
+Gw
+Jg
+yw
+AM
+CS
+sJ
+sJ
+IB
+PD
+rl
+ET
+iu
+jv
+uZ
+PD
+PD
+sJ
+sJ
+IJ
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+lT
+lT
+yV
+GK
+GK
+"}
+(16,1,1) = {"
+sJ
+ME
+Sp
+pm
+ms
+IO
+hp
+sJ
+sJ
+XK
+ie
+Cd
+mb
+Fu
+sW
+rd
+PD
+rl
+Te
+sJ
+KA
+wb
+dM
+pZ
+Rz
+xK
+DA
+De
+gn
+lT
+gx
+lm
+GK
+"}
+(17,1,1) = {"
+sJ
+oA
+pX
+vD
+ub
+pg
+Ep
+UQ
+jb
+yv
+WX
+BR
+Fu
+pL
+Fu
+Lr
+kS
+WX
+CZ
+Ye
+wm
+gn
+Jk
+oH
+hY
+gI
+zI
+MK
+tp
+Ji
+oj
+lm
+GK
+"}
+(18,1,1) = {"
+sJ
+BJ
+Jo
+Gs
+et
+xF
+Yd
+sJ
+sJ
+fC
+EP
+ks
+jq
+Fu
+Gh
+Dl
+PD
+Pq
+eS
+sJ
+he
+wL
+Yy
+qy
+BX
+rB
+xy
+Kl
+Kg
+lT
+ty
+lm
+GK
+"}
+(19,1,1) = {"
+sJ
+sJ
+zO
+Ca
+za
+Ms
+Fk
+sJ
+sJ
+EK
+PD
+qb
+gd
+WX
+Ft
+uH
+PD
+PD
+sJ
+sJ
+jL
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+lT
+lT
+VD
+GK
+GK
+"}
+(20,1,1) = {"
+lT
+sJ
+sJ
+QT
+AL
+Ff
+sJ
+sJ
+WX
+PD
+Bf
+uy
+Dq
+oz
+uy
+hM
+Dq
+tm
+PD
+sJ
+sJ
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+Zt
+GK
+GK
+GK
+"}
+(21,1,1) = {"
+lT
+lT
+sJ
+sJ
+sJ
+sJ
+sJ
+va
+EP
+PD
+yv
+sJ
+sJ
+PD
+PD
+sJ
+sJ
+PD
+PD
+lF
+sJ
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(22,1,1) = {"
+lT
+lT
+lT
+lT
+sJ
+AS
+Qy
+PD
+PD
+PD
+Al
+sJ
+YC
+rl
+NC
+oS
+cx
+mp
+PD
+PD
+je
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(23,1,1) = {"
+lT
+lT
+lT
+lT
+sJ
+AS
+PD
+PD
+xj
+mV
+tT
+CZ
+WT
+Pq
+XV
+Ny
+JM
+ec
+PD
+jO
+LJ
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(24,1,1) = {"
+lT
+lT
+lT
+lT
+je
+sJ
+Qk
+Vk
+sJ
+QW
+yv
+bf
+au
+PD
+PD
+sJ
+sJ
+XV
+tm
+PD
+mN
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(25,1,1) = {"
+lT
+lT
+sJ
+je
+je
+ld
+PD
+PD
+dB
+PD
+tT
+sJ
+Ti
+NC
+FV
+Ic
+sJ
+wd
+zw
+nI
+vb
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(26,1,1) = {"
+lT
+je
+je
+gv
+Jr
+iU
+uy
+ie
+dB
+NC
+Pq
+sJ
+sJ
+vH
+tR
+sJ
+sJ
+Of
+PD
+nI
+vb
+sJ
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(27,1,1) = {"
+lT
+sJ
+da
+WT
+PD
+tT
+Vh
+mp
+sJ
+sJ
+PD
+PD
+sJ
+sJ
+sJ
+sJ
+NG
+CO
+PD
+pW
+vb
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(28,1,1) = {"
+lT
+je
+VM
+PD
+CO
+Pq
+TD
+XV
+CC
+je
+PD
+PD
+zx
+Wp
+Da
+mF
+PD
+PD
+PD
+vb
+je
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(29,1,1) = {"
+lT
+je
+Tl
+Wh
+xJ
+FV
+Xs
+ba
+Se
+je
+xG
+PD
+PD
+PD
+PD
+nI
+PD
+nc
+nt
+vb
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(30,1,1) = {"
+lT
+je
+je
+je
+Il
+Cg
+je
+sJ
+je
+je
+sJ
+gV
+zK
+Dq
+BK
+ny
+vb
+vb
+vb
+je
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(31,1,1) = {"
+lT
+lT
+lT
+je
+sJ
+je
+je
+lT
+lT
+lT
+sJ
+je
+je
+bS
+aq
+JJ
+je
+je
+sJ
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(32,1,1) = {"
+lT
+lT
+lT
+lT
+lT
+lT
+lT
+lT
+lT
+lT
+lT
+lT
+je
+je
+sJ
+je
+je
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}
+(33,1,1) = {"
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+GK
+"}

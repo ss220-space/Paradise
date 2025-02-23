@@ -141,7 +141,7 @@ SUBSYSTEM_DEF(explosions)
 	if(!epicenter)
 		return FALSE
 
-	var/datum/explosion_data/data = new(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, ignorecap, flame_range, breach, multiz_explosions, protect_epicenter, explosion_direction, explosion_arc)
+	var/datum/explosion_data/data = new(get_turf(epicenter), devastation_range, heavy_impact_range, light_impact_range, flash_range, ignorecap, flame_range, breach, multiz_explosions, protect_epicenter, explosion_direction, explosion_arc)
 	INVOKE_ASYNC(src, PROC_REF(start_explosion), data, adminlog, cause, smoke, silent)
 
 	return TRUE
@@ -186,12 +186,11 @@ SUBSYSTEM_DEF(explosions)
 	var/list/cached_turf_exp_block = list()
 	var/list/cached_turf_vert_exp_block = list()
 	var/list/cached_exp_block = list()
-	var/list/epicenter_list = list()
 	var/watch
 
 /datum/explosion_data/New(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, ignorecap = FALSE, flame_range = 0, breach = TRUE, multiz = FALSE, protect_epicenter = FALSE, explosion_direction = 0, explosion_arc = 360)
 	. = ..()
-	src.epicenter = get_turf(epicenter)
+	src.epicenter = epicenter
 	src.flame_range = flame_range
 	src.flash_range = flash_range
 	src.devastation_range = devastation_range
@@ -225,13 +224,10 @@ SUBSYSTEM_DEF(explosions)
 	far_dist += devastation_range * 20
 	if(!ignorecap)
 		clamp_ranges()
-	epicenter_list += epicenter
 	watch = start_watch()
 
 /datum/explosion_data/Destroy()
 	qdel(affected_turfs_queue)
-	LAZYCLEARLIST(epicenter_list)
-	LAZYNULL(epicenter_list)
 	LAZYCLEARLIST(cached_exp_block)
 	LAZYNULL(cached_exp_block)
 	LAZYCLEARLIST(cached_turf_exp_block)

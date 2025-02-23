@@ -654,8 +654,8 @@
 		if(restraints)
 			breakouttime = restraints.breakouttime
 		visible_message(
-			span_warning("[name] пыта[pluralize_ru(gender,"ет","ют")]ся себя отстегнуть!"),
-			span_notice("Вы пытаетесь себя отстегнуть... (Это займет [breakouttime / 10] секунд и Вам нельзя двигаться."),
+			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся себя отстегнуть!"),
+			span_notice("Вы пытаетесь себя отстегнуть. Это займет примерно [breakouttime / 10] секунд, любое движение собъёт прогресс."),
 		)
 		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			if(!buckled)
@@ -699,10 +699,13 @@
 	if(!istype(toEat))
 		return FALSE
 	var/fullness = nutrition + 10
+	var/time_to_eat = toEat.eat_time
 	if(istype(toEat, /obj/item/reagent_containers/food/snacks))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
 			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency * digestion_ratio)
 	if(user == src)
+		if(time_to_eat > 0 && !do_after(user, time_to_eat, max_interact_count = 1))
+			return FALSE
 		if(istype(toEat, /obj/item/reagent_containers/food/drinks))
 			if(!selfDrink(toEat))
 				return FALSE
@@ -724,21 +727,21 @@
 
 /mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
 	if(ispill(toEat))
-		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
+		to_chat(src, span_notify("Вы [toEat.apply_method]ли [toEat.declent_ru(ACCUSATIVE)]."))
 	else
 		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50 )
-			to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
+			to_chat(src, span_notify("Вы не хотите есть вредную пищу прямо сейчас."))
 			return FALSE
 		if(fullness <= 50)
-			to_chat(src, "<span class='warning'>You hungrily chew out a piece of [toEat] and gobble it!</span>")
+			to_chat(src, span_warning("Вы жадко откусываете кусок от [toEat.declent_ru(GENITIVE)] и проглатываете, не жуя!"))
 		else if(fullness > 50 && fullness < 150)
-			to_chat(src, "<span class='notice'>You hungrily begin to eat [toEat].</span>")
+			to_chat(src, span_notice("Вы жадко кусаете [toEat.declent_ru(ACCUSATIVE)]."))
 		else if(fullness > 150 && fullness < 500)
-			to_chat(src, "<span class='notice'>You take a bite of [toEat].</span>")
+			to_chat(src, span_notice("Вы откусываете от [toEat.declent_ru(GENITIVE)]."))
 		else if(fullness > 500 && fullness < 600)
-			to_chat(src, "<span class='notice'>You unwillingly chew a bit of [toEat].</span>")
+			to_chat(src, span_notice("Вы без особого желания откусываете от [toEat.declent_ru(GENITIVE)]."))
 		else if(fullness > (600 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
-			to_chat(src, "<span class='warning'>You cannot force any more of [toEat] to go down your throat.</span>")
+			to_chat(src, span_warning("Вы не можете заставить себя съесть хотя бы кусочек от [toEat.declent_ru(GENITIVE)]!"))
 			return FALSE
 	return TRUE
 
@@ -750,14 +753,14 @@
 /mob/living/carbon/proc/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
 		if(!toEat.instant_application)
-			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
+			visible_message(span_warning("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся заставить [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 	else
-		visible_message("<span class='warning'>[user] cannot force anymore of [toEat] down [src]'s throat.</span>")
+		visible_message(span_warning("[user] не мо[pluralize_ru(user.gender, "жет", "гутт")]ся заставить [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 		return FALSE
 	if(!toEat.instant_application)
 		if(!do_after(user, 3 SECONDS, src, NONE))
 			return FALSE
-	visible_message("<span class='warning'>[user] forces [src] to [toEat.apply_method] [toEat].</span>")
+	visible_message(span_warning("[user] заставля[pluralize_ru(user.gender, "ет", "ют")] [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 	return TRUE
 
 
@@ -771,6 +774,8 @@ so that different stomachs can handle things in different ways VB*/
 		satiety -= toEat.junkiness
 	if(toEat.consume_sound)
 		playsound(loc, toEat.consume_sound, rand(10,50), 1)
+	if(toEat.has_special_eating_effects)
+		toEat.on_mob_eating_effect(src)
 	if(toEat.reagents.total_volume)
 		var/fraction = min(this_bite/toEat.reagents.total_volume, 1)
 		if(fraction)

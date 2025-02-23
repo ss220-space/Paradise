@@ -202,6 +202,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	///Datum used in item pixel shift TGUI
 	var/datum/ui_module/item_pixel_shift/item_pixel_shift
 
+	/// Used in butchering of animals, set to TRUE for near instant butchering
+	var/has_speed_harvest = FALSE
 
 /obj/item/Initialize(mapload)
 	. = ..()
@@ -215,7 +217,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 		if(damtype == "brute")
 			hitsound = "swing_hit"
-
 	for(var/path in actions_types)
 		if(action_icon && action_icon_state)
 			new path(src, action_icon[path], action_icon_state[path])
@@ -1233,7 +1234,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(get_turf(src) == get_turf(target))	// No need for pickup animation if item is on user or on the same turf
 		return
 
-	var/image/transfer_animation = image(icon = src, loc = src.loc, layer = MOB_LAYER + 0.1)
+	var/image/transfer_animation = image(icon = src, layer = ABOVE_MOB_LAYER)
 	SET_PLANE(transfer_animation, GAME_PLANE, loc)
 	transfer_animation.transform.Scale(0.75)
 	transfer_animation.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
@@ -1254,13 +1255,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		target_y += 10
 		transfer_animation.pixel_x += 6 * (prob(50) ? 1 : -1)
 
-	flick_overlay_view(transfer_animation, 4)
-	var/matrix/animation_matrix = new(transfer_animation.transform)
+	var/atom/movable/flick_visual/pickup = src.loc.flick_overlay_view(transfer_animation, 0.4 SECONDS)
+	var/matrix/animation_matrix = new(pickup.transform)
 	animation_matrix.Turn(pick(-30, 30))
 	animation_matrix.Scale(0.65)
 
-	animate(transfer_animation, alpha = 175, pixel_x = target_x, pixel_y = target_y, time = 3, transform = animation_matrix, easing = CUBIC_EASING)
-	animate(alpha = 0, transform = matrix().Scale(0.7), time = 1)
+
+	animate(pickup, alpha = 175, pixel_x = target_x, pixel_y = target_y, time = 0.3 SECONDS, transform = animation_matrix, easing = CUBIC_EASING)
+	animate(alpha = 0, transform = matrix().Scale(0.7), time = 0.1 SECONDS)
 
 
 /obj/item/proc/do_drop_animation(atom/moving_from)
@@ -1301,6 +1303,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	alpha = 0
 	transform = animation_matrix
 
+	SEND_SIGNAL(src, COMSIG_ATOM_TEMPORARY_ANIMATION_START, 3)
 	// This is instant on byond's end, but to our clients this looks like a quick drop
 	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
 

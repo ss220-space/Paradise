@@ -213,6 +213,8 @@
 #define COMSIG_ATOM_HITBY "atom_hitby"
 /// Called when an atom is sharpened or dulled.
 #define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
+/// generally called before temporary non-parallel animate()s on the atom (animation_duration)
+#define COMSIG_ATOM_TEMPORARY_ANIMATION_START "atom_temp_animate_start"
 
 // Attack signals. These should share the returned flags, to standardize the attack chain.
 // The chain currently works like:
@@ -432,6 +434,8 @@
 ///from base of /obj/item/attack(): (mob/M, mob/user)
 #define COMSIG_MOB_ITEM_ATTACK "mob_item_attack"
 	#define COMPONENT_ITEM_NO_ATTACK (1<<0)
+
+#define COMSIG_GLOVES_DOUBLE_HANDS_TOUCH "gloves_double_hands_touch"
 
 ///from base of /mob/living/proc/get_incoming_damage_modifier(): (list/damage_mods, damage, damagetype, def_zone, sharp, used_weapon)
 #define COMSIG_MOB_APPLY_DAMAGE_MODIFIERS "mob_apply_damage_modifiers"
@@ -1290,6 +1294,9 @@
 
 /// Source: /proc/random_hair_style (mob/living/carbon/human/human, valid_hairstyles, robohead)
 #define COMSIG_RANDOM_HAIR_STYLE	"random_hair_style"
+
+/// Source: /datum/component/ritual_object/proc/pre_ritual_check (status_bitflag, mob/living/carbon/human, list/invokers, list/used_things)
+#define COMSIG_RITUAL_ENDED "ritual_ended"
 
 /// Source: /datum/component/object_possession/proc/on_move (mob/mob, new_loc, direct)
 #define COMSIG_POSSESSED_MOVEMENT "possessed_movement"

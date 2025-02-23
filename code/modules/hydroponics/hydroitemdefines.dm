@@ -81,6 +81,16 @@
 	flags = NONE
 	resistance_flags = FLAMMABLE
 
+/obj/item/cultivator/wooden
+	icon_state = "cultivator_wooden"
+	hitsound = null
+	materials = null
+	flags = NONE
+	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
+	item_state = "cultivator"
+
+
 /obj/item/hatchet
 	name = "hatchet"
 	desc = "A very sharp axe blade upon a short fibremetal handle. It has a long history of chopping things, but now it is used for chopping wood."
@@ -121,6 +131,9 @@
 	belt_icon = "wooden_hatchet"
 	materials = null
 	flags = NONE
+	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
+	item_state = "small_shovel"
 
 /obj/item/scythe
 	icon_state = "scythe0"
@@ -340,3 +353,23 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_pk"
 	list_reagents = list("pestkiller" = 80)
+
+/obj/item/conductive_organ
+	name = "conductive organ"
+	desc = "небольшой желтоватый мешочек, добываемый из лавового панцирника. Является мощным удобрением, значительно повышающим урожай и уровень нутриментов растения."
+	ru_names = list(
+		NOMINATIVE = "проводящий орган",
+		GENITIVE = "проводящего органа",
+		DATIVE = "проводящему органу",
+		ACCUSATIVE = "проводящий орган",
+		INSTRUMENTAL = "проводящим органом",
+		PREPOSITIONAL = "проводящем органе",
+	)
+	gender = MALE
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "conductive_organ"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "acid_bladder" //yeah
+	w_class = WEIGHT_CLASS_TINY
+	origin_tech = "biotech=6"

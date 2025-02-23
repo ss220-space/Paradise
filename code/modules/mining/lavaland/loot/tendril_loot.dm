@@ -144,10 +144,10 @@
 /obj/item/book_of_babel/attack_self(mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_NO_BABEL))
 		user.visible_message(
-			span_notice("[user] внезапно останавлива[pluralize_ru(user, "ет", "ют")]ся, недоумённо глядя на [declent_ru(GENITIVE)]."), 
+			span_notice("[user] внезапно останавлива[pluralize_ru(user, "ет", "ют")]ся, недоумённо глядя на [declent_ru(GENITIVE)]."),
 			span_warning("Вы понятия не имеете, что это такое и что с этим делать.")
 		)
-			
+
 		return
 
 	to_chat(user, "Вы упоённо пролистываете страницы книги, вбирая в себя знания всех существующих языков во Вселенной. К сожалению, [declent_ru(NOMINATIVE)] не выдерживает такого напора и рассыпается в прах. Ой...")
@@ -183,7 +183,7 @@
 		icon_state = "potionflask_empty"
 
 /datum/reagent/flightpotion
-	name = "Flight Potion"
+	name = "Зелье полёта"
 	id = "flightpotion"
 	description = "Странный мутагенный состав неизвестного происхождения."
 	reagent_state = LIQUID

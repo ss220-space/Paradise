@@ -14,19 +14,19 @@ import { Window } from '../layouts';
 
 const damageTypes = [
   {
-    label: 'Удушение',
+    label: 'Удушье',
     type: 'oxyLoss',
   },
   {
-    label: 'Токсины',
+    label: 'Отравление',
     type: 'toxLoss',
   },
   {
-    label: 'Физические повреждения',
+    label: 'Механические повреждения',
     type: 'bruteLoss',
   },
   {
-    label: 'Ожоги',
+    label: 'Термические повреждения',
     type: 'fireLoss',
   },
 ];

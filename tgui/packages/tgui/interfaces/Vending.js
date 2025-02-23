@@ -23,13 +23,13 @@ const VendingRow = (props, context) => {
     inserted_item_name,
   } = data;
   const free = !chargesMoney || product.price === 0;
-  let buttonText = 'ERROR!';
+  let buttonText = 'ОШИБКА';
   let rowIcon = '';
   if (product.req_coin) {
-    buttonText = 'COIN';
+    buttonText = 'МОНЕТА';
     rowIcon = 'circle';
   } else if (free) {
-    buttonText = 'FREE';
+    buttonText = 'БЕСПЛАТНО';
     rowIcon = 'arrow-circle-down';
   } else {
     buttonText = product.price;
@@ -59,7 +59,7 @@ const VendingRow = (props, context) => {
             'good'
           }
         >
-          {productStock} in stock
+          {productStock} в наличии
         </Box>
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
@@ -108,34 +108,33 @@ export const Vending = (props, context) => {
   inventory = inventory.filter((item) => !!item);
   return (
     <Window
-      width={470}
+      width={710}
       height={100 + Math.min(product_records.length * 38, 500)}
-      title="Торговый автомат"
     >
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
             {!!chargesMoney && (
-              <Section title="User">
+              <Section title="Пользователь">
                 {(user && (
                   <Box>
-                    Welcome, <b>{user.name}</b>,{' '}
-                    <b>{user.job || 'Unemployed'}</b>
+                    Здраствуйте, <b>{user.name}</b>,{' '}
+                    <b>{user.job || 'Безработный'}</b>
                     !
                     <br />
-                    Your balance is <b>{userMoney} credits</b>.
+                    Ваш баланс: <b>{userMoney} кр.</b>
                   </Box>
                 )) || <Box color="light-grey">{guestNotice}</Box>}
               </Section>
             )}
             {!!coin_name && (
               <Section
-                title="Coin"
+                title="Монета"
                 buttons={
                   <Button
                     fluid
                     icon="eject"
-                    content="Remove Coin"
+                    content="Извлечь монету"
                     onClick={() => act('remove_coin', {})}
                   />
                 }
@@ -145,12 +144,12 @@ export const Vending = (props, context) => {
             )}
             {!!inserted_item_name && (
               <Section
-                title="Item"
+                title="Предмет"
                 buttons={
                   <Button
                     fluid
                     icon="eject"
-                    content="Eject Item"
+                    content="Извлечь предмет"
                     onClick={() => act('eject_item', {})}
                   />
                 }
@@ -159,11 +158,11 @@ export const Vending = (props, context) => {
               </Section>
             )}
             {!!panel_open && (
-              <Section title="Maintenance">
+              <Section title="Тех. обслуживание">
                 <Button
                   icon={speaker ? 'check' : 'volume-mute'}
                   selected={speaker}
-                  content="Speaker"
+                  content="Динамик"
                   textAlign="left"
                   onClick={() => act('toggle_voice', {})}
                 />
@@ -171,7 +170,7 @@ export const Vending = (props, context) => {
             )}
           </Stack.Item>
           <Stack.Item grow>
-            <Section title="Products" fill scrollable>
+            <Section title="Продукция" fill scrollable>
               <Table>
                 {inventory.map((product) => (
                   <VendingRow

@@ -312,6 +312,9 @@
 	if(empty)
 		return
 
+	var/obj/item/pickaxe/emergency/pickaxe = new(src)
+	load(pickaxe)
+
 	for(var/i in 1 to 5)
 		var/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak/W = new(src)
 		load(W)

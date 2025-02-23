@@ -61,7 +61,7 @@ export class Window extends Component {
   }
 
   render() {
-    const { theme, title, children } = this.props;
+    const { theme, title, children, buttons } = this.props;
     const { config, suspended } = useBackend(this.context);
     const { debugLayout } = useDebug(this.context);
     const dispatch = useDispatch(this.context);
@@ -84,7 +84,9 @@ export class Window extends Component {
             logger.log('pressed close');
             dispatch(backendSuspendStart());
           }}
-        />
+        >
+          {buttons}
+        </TitleBar>
         <div
           className={classes(['Window__rest', debugLayout && 'debug-layout'])}
         >
@@ -141,8 +143,16 @@ const statusToColor = (status) => {
 };
 
 const TitleBar = (props, context) => {
-  const { className, title, status, fancy, onDragStart, onClose } = props;
+  const { className, title, status, fancy, onDragStart, onClose, children } =
+    props;
   const dispatch = useDispatch(context);
+  // prettier-ignore
+  const finalTitle = (
+    typeof title === 'string'
+    && title === title.toLowerCase()
+    && toTitleCase(title)
+    || title
+  );
   return (
     <div className={classes(['TitleBar', className])}>
       {(status === undefined && (
@@ -154,16 +164,14 @@ const TitleBar = (props, context) => {
           name="eye"
         />
       )}
-      <div className="TitleBar__title">
-        {(typeof title === 'string' &&
-          title === title.toLowerCase() &&
-          toTitleCase(title)) ||
-          title}
-      </div>
       <div
         className="TitleBar__dragZone"
         onMousedown={(e) => fancy && onDragStart(e)}
       />
+      <div className="TitleBar__title">
+        {finalTitle}
+        {!!children && <div className="TitleBar__buttons">{children}</div>}
+      </div>
       {process.env.NODE_ENV !== 'production' && (
         <div
           className="TitleBar__devBuildIndicator"
