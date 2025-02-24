@@ -33,7 +33,7 @@
 		return .
 	. |= ATTACK_CHAIN_SUCCESS
 	cigarette.light(span_rose("[user] привычным движением прикурива[pluralize_ru(user.gender, "ет", "ют")] заслуженную \
-					[genderize_ru(user.gender, "им", "ей", "им", "ими")] [cigarette.name] [name.declent_ru(INSTRUMENTAL)]. В воздухе запахло телекристаллами."))
+					[genderize_ru(user.gender, "им", "ей", "им", "ими")] [cigarette.name] сигнальной ракетой контрактора. В воздухе запахло телекристаллами."))
 
 
 /**
@@ -72,7 +72,7 @@
 	if(M.mind != target_mind)
 		if(usr?.mind == contractor_mind) // Contractor shoving a non-target into the portal
 			if(!silent)
-				to_chat(M, span_warning("Почему-то вы не уверены, что [М] — именно та цель, которую вам нужно экспортировать."))
+				to_chat(M, span_warning("Почему-то вы не уверены, что [M] — именно та цель, которую вам нужно экспортировать."))
 			return FALSE
 		else if(usr == M) // Non-target trying to enter the portal
 			if(!silent)

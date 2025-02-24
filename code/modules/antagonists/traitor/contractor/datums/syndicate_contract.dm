@@ -444,7 +444,7 @@
 	var/obj/item/reagent_containers/food/snacks/breadslice/food = new(get_turf(M))
 	food.name = "stale bread"
 	food.desc = "Похоже, ваши похитители позаботились о вашем питании."
-	ru_names = list(
+	food.ru_names = list(
 		NOMINATIVE = "чёрствый хлеб",
 		GENITIVE = "чёрствого хлеба",
 		DATIVE = "чёрствому хлебу",
@@ -452,13 +452,13 @@
 		INSTRUMENTAL = "чёрствым хлебом",
 		PREPOSITIONAL = "чёрством хлебе"
 	)
-	gender = MALE
+	food.gender = MALE
 	food.trash = null
 	food.reagents.add_reagent("nutriment", 5) // It may be stale, but it still has to be nutritive enough for the whole duration!
 	if(prob(10))
 		// Mold adds a bit of spice to it
 		food.name = "moldy bread"
-		ru_names = list(
+		food.ru_names = list(
 			NOMINATIVE = "заплесневелый хлеб",
 			GENITIVE = "заплесневелого хлеба",
 			DATIVE = "заплесневелому хлебу",
@@ -466,7 +466,7 @@
 			INSTRUMENTAL = "заплесневелым хлебом",
 			PREPOSITIONAL = "заплесневелом хлебе"
 		)
-		gender = MALE
+		food.gender = MALE
 		food.reagents.add_reagent("fungus", 1)
 
 	var/obj/item/reagent_containers/food/drinks/drinkingglass/drink = new(get_turf(M))
