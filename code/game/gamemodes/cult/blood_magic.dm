@@ -59,10 +59,9 @@
 	if(QDELETED(src) || owner.incapacitated() || !BS || (rune && !(locate(/obj/effect/rune/empower) in range(1, owner))) || (length(spells) >= limit))
 		return
 
-	if(entered_spell_name == "Blood Rites")
-		if(locate(/datum/action/innate/cult/blood_spell/manipulation) in spells)
-			owner.balloon_alert(owner, "лимит данного заклинания достигнут!")
-			return
+	if(can_blood_cast == FALSE)
+		owner.balloon_alert(owner, "лимит данного заклинания достигнут!")
+		return
 	if(!channeling)
 		channeling = TRUE
 		to_chat(owner, "<span class='cultitalic'>You begin to carve unnatural symbols into your flesh!</span>")
@@ -143,6 +142,8 @@
 			qdel(hand_magic)
 			hand_magic = null
 
+/datum/action/innate/cult/blood_spell/proc/can_blood_cast()
+    return TRUE
 //the spell list
 
 /datum/action/innate/cult/blood_spell/stun
@@ -708,6 +709,11 @@
 	desc = "Absorbs blood from anything you touch. Touching cultists and constructs can heal them. Use in-hand to cast an advanced rite."
 	color = "#7D1717"
 	max_charges = 300
+
+/datum/action/innate/cult/blood_spell/manipulation/can_blood_cast()
+    if(locate(/datum/action/innate/cult/blood_spell/manipulation) in owner.actions)
+        return FALSE
+    return ..()
 
 /obj/item/melee/blood_magic/manipulator/examine(mob/user)
 	. = ..()
