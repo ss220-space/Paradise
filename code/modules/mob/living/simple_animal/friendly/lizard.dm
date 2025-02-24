@@ -1,11 +1,19 @@
 /mob/living/simple_animal/lizard
-	name = "Ящерица"
+	name = "lizard"
 	desc = "Милая маленькая ящерица."
+	ru_names = list(
+		NOMINATIVE = "ящерица",
+		GENITIVE = "ящерицы",
+		DATIVE = "ящерице",
+		ACCUSATIVE = "ящерицу",
+		INSTRUMENTAL = "ящерицей",
+		PREPOSITIONAL = "ящерице"
+	)
 	icon = 'icons/mob/critter.dmi'
 	icon_state = "lizard"
 	icon_living = "lizard"
 	icon_dead = "lizard_dead"
-	speak_emote = list("шипит.")
+	speak_emote = list("шипит")
 	tts_seed = "Ladyvashj"
 	death_sound = 'sound/creatures/lizard_death.ogg'
 	health = 5
@@ -27,14 +35,6 @@
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	holder_type = /obj/item/holder/lizard
-	ru_names = list(
-		NOMINATIVE = "ящерица",
-		GENITIVE = "ящерицы",
-		DATIVE = "ящерице",
-		ACCUSATIVE = "ящерицу",
-		INSTRUMENTAL = "ящерицей",
-		PREPOSITIONAL = "ящерице"
-	)
 
 /mob/living/simple_animal/lizard/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!isdrone(user))
@@ -48,18 +48,18 @@
 	return ..()
 
 /mob/living/simple_animal/lizard/axolotl
-	name = "Аксолотль"
+	name = "axolotl"
 	desc = "Маленький милый аксолотль."
-	icon = 'icons/mob/animal.dmi'
-	icon_state = "axolotl"
-	icon_living = "axolotl"
-	icon_dead = "axolotl_dead"
-	holder_type = /obj/item/holder/axolotl
 	ru_names = list(
-		NOMINATIVE = "аколотль",
+		NOMINATIVE = "аксолотль",
 		GENITIVE = "аксолотля",
 		DATIVE = "аксолотлю",
 		ACCUSATIVE = "аксолотля",
 		INSTRUMENTAL = "аксолотлем",
 		PREPOSITIONAL = "аксолотле"
 	)
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "axolotl"
+	icon_living = "axolotl"
+	icon_dead = "axolotl_dead"
+	holder_type = /obj/item/holder/axolotl

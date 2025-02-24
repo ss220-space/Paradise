@@ -438,7 +438,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak = list("oink?","oink","OINK")
 	speak_emote = list("хрюкает")
 	tts_seed = "Anubarak"
-//	emote_hear = list("brays")
+//	emote_hear = list("ревёт")
 	emote_see = list("перекатывается по земле")
 	speak_chance = 1
 	turns_per_move = 5
@@ -495,7 +495,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak = list("quack?","quack","QUACK")
 	speak_emote = list("quacks")
 	tts_seed = "pantheon" //Жи есть брат да, я гусь, до тебя доебусь.
-//	emote_hear = list("brays")
+//	emote_hear = list("ревёт")
 	emote_see = list("хлопает крыльями")
 	speak_chance = 1
 	turns_per_move = 5
@@ -536,14 +536,22 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /mob/living/simple_animal/seal
 	name = "Белёк"
 	desc = "Красивый белый белёк."
+	ru_names = list(
+		NOMINATIVE = "белёк",
+		GENITIVE = "белька",
+		DATIVE = "бельку",
+		ACCUSATIVE = "белька",
+		INSTRUMENTAL = "бельком",
+		PREPOSITIONAL = "бельке"
+	)
 	icon_state = "seal"
 	icon_living = "seal"
 	icon_dead = "seal_dead"
 	speak = list("Барф?","Барф.","БАРФ!")
-	speak_emote = list("гавкает.", "стонет.")
+	speak_emote = list("гавкает", "стонет")
 	tts_seed = "Narrator"
 	death_sound = 'sound/creatures/seal_death.ogg'
-//	emote_hear = list("brays")
+//	emote_hear = list("ревёт")
 	emote_see = list("хлопает ластами")
 	speak_chance = 1
 	turns_per_move = 5
@@ -559,26 +567,26 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 	footstep_type = FOOTSTEP_MOB_CLAW
-	ru_names = list(
-		NOMINATIVE = "белёк",
-		GENITIVE = "белька",
-		DATIVE = "бельку",
-		ACCUSATIVE = "белька",
-		INSTRUMENTAL = "бельком",
-		PREPOSITIONAL = "бельке"
-	)
 
 /mob/living/simple_animal/walrus
 	name = "Морж"
 	desc = "Большой коричневый морж."
+	ru_names = list(
+		NOMINATIVE = "морж",
+		GENITIVE = "моржа",
+		DATIVE = "моржу",
+		ACCUSATIVE = "моржа",
+		INSTRUMENTAL = "моржом",
+		PREPOSITIONAL = "морже"
+	)
 	icon_state = "walrus"
 	icon_living = "walrus"
 	icon_dead = "walrus_dead"
 	speak = list("Урррфф?","Урррфф.","Урррфф!")
-	speak_emote = list("рычит.","гудит.")
+	speak_emote = list("рычит","гудит")
 	tts_seed = "Tychus"
 	death_sound = 'sound/creatures/seal_death.ogg'
-//	emote_hear = list("brays")
+//	emote_hear = list("ревёт")
 	emote_see = list("хлопает ластами")
 	speak_chance = 1
 	turns_per_move = 5
@@ -593,14 +601,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
-	ru_names = list(
-		NOMINATIVE = "морж",
-		GENITIVE = "моржа",
-		DATIVE = "моржу",
-		ACCUSATIVE = "моржа",
-		INSTRUMENTAL = "моржом",
-		PREPOSITIONAL = "морже"
-	)
 
 /obj/item/udder
 	name = "udder"
@@ -622,14 +622,14 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 
 /obj/item/udder/proc/milkAnimal(obj/item/reagent_containers/glass/container, mob/user)
 	if(!container.reagents)
-		user.balloon_alert(user, "неподходящая ёмкость!")
+		balloon_alert(user, "неподходящая ёмкость!")
 		return FALSE
 	if(container.reagents.total_volume >= container.volume)
-		user.balloon_alert(user, "ёмкость заполнена!")
+		balloon_alert(user, "ёмкость заполнена!")
 		return FALSE
 	var/transfered = reagents.trans_to(container, rand(5,10))
 	if(!transfered)
-		user.balloon_alert(user, "вымя сухое, подождите")
+		balloon_alert(user, "вымя сухое!")
 		return FALSE
 	user.visible_message(
 		span_notice("[user] до[pluralize_ru(user.gender, "ит", "ят")] [declent_ru(ACCUSATIVE)]."),
