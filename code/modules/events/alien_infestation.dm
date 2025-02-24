@@ -4,10 +4,6 @@
 /datum/event/alien_infestation
 	announceWhen	= 400
 	var/list/playercount
-	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
-
-/datum/event/alien_infestation/setup()
-	announceWhen = rand(announceWhen, announceWhen + 50)
 
 /datum/event/alien_infestation/announce(false_alarm)
 	if(false_alarm)

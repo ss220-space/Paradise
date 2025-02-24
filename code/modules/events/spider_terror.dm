@@ -4,12 +4,9 @@
 
 /datum/event/spider_terror
 	announceWhen = 240
-	var/spawncount = 1
-	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 
 /datum/event/spider_terror/setup()
 	announceWhen = rand(announceWhen, announceWhen + 30)
-	spawncount = 1
 
 /datum/event/spider_terror/announce(false_alarm)
 	if(false_alarm)
@@ -22,6 +19,7 @@
 /datum/event/spider_terror/proc/wrappedstart()
 	var/spider_type
 	var/infestation_type
+	var/spawncount
 	var/player_count = num_station_players()
 	if(player_count <= TS_MINPLAYERS_TRIGGER)
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
@@ -53,7 +51,8 @@
 			spider_type = TERROR_PRINCE
 			spawncount = 1
 
-	successSpawn = create_terror_spiders(spider_type, spawncount)
+	var/successSpawn = create_terror_spiders(spider_type, spawncount)
+
 	if(!successSpawn)
 		log_and_message_admins("Warning: Could not spawn any mobs for event Terror Spiders")
 		return kill()

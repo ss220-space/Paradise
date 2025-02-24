@@ -1,7 +1,6 @@
 /datum/event/blob
 	announceWhen	= 180
 	endWhen			= 240
-	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 
 /datum/event/blob/announce(false_alarm)
 	if(false_alarm)
@@ -17,5 +16,4 @@
 	if(!SSticker?.mode?.make_blobized_mouses(num_blobs))
 		log_and_message_admins("Warning: Could not spawn any mobs for event Blob")
 		return kill()
-	successSpawn = TRUE
 	processing = TRUE // Let it naturally end, if it runs successfully
