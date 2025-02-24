@@ -534,13 +534,13 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	ru_names = list(NOMINATIVE = "гусёнок", GENITIVE = "гусёнка", DATIVE = "гусёнку", ACCUSATIVE = "гусёнка", INSTRUMENTAL = "гусёнком", PREPOSITIONAL = "гусёнке")
 
 /mob/living/simple_animal/seal
-	name = "seal"
+	name = "Белёк"
 	desc = "Красивый белый тюлень."
 	icon_state = "seal"
 	icon_living = "seal"
 	icon_dead = "seal_dead"
-	speak = list("Urk?","urk","URK")
-	speak_emote = list("urks") //idk how to translate it...
+	speak = list("Барф?","Барф","БАРФ!")
+	speak_emote = list("Гавкает", "стонет") //idk how to translate it...
 	tts_seed = "Narrator"
 	death_sound = 'sound/creatures/seal_death.ogg'
 //	emote_hear = list("brays")
@@ -559,16 +559,16 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 	footstep_type = FOOTSTEP_MOB_CLAW
-	ru_names = list(NOMINATIVE = "тюлень", GENITIVE = "тюленя", DATIVE = "тюленю", ACCUSATIVE = "тюленя", INSTRUMENTAL = "тюленем", PREPOSITIONAL = "тюлене")
+	ru_names = list(NOMINATIVE = "белёк", GENITIVE = "белька", DATIVE = "бельку", ACCUSATIVE = "белька", INSTRUMENTAL = "бельком", PREPOSITIONAL = "бельке")
 
 /mob/living/simple_animal/walrus
-	name = "walrus"
-	desc = "A big brown walrus."
+	name = "Морж"
+	desc = "Большой коричневый морж."
 	icon_state = "walrus"
 	icon_living = "walrus"
 	icon_dead = "walrus_dead"
-	speak = list("Urk?","urk","URK")
-	speak_emote = list("urks") //idk how to translate it...
+	speak = list("Урррфф?","Урррфф","Урррфф!")
+	speak_emote = list("рычит","гудит") //idk how to translate it...
 	tts_seed = "Tychus"
 	death_sound = 'sound/creatures/seal_death.ogg'
 //	emote_hear = list("brays")
