@@ -99,15 +99,15 @@ export const Uplink = (props, context) => {
                   {!data.contractor.is_admin_forced &&
                   !data.contractor.accepted ? (
                     data.contractor.available_offers > 0 ? (
-                      <i>[Left:{data.contractor.available_offers}]</i>
+                      <i>[Осталось:{data.contractor.available_offers}]</i>
                     ) : (
-                      <i>[Offers over]</i>
+                      <i>[Предложения закончились]</i>
                     )
                   ) : (
                     ''
                   )}
                   {data.contractor.accepted ? (
-                    <i>&nbsp;(Accepted)</i>
+                    <i>&nbsp;(Заключён)</i>
                   ) : !data.contractor.is_admin_forced &&
                     data.contractor.available_offers <= 0 ? (
                     ''
@@ -581,8 +581,8 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
         Это позволит вам заключать контракты на похищение людей, получая за
         свою работу телекристаллы и кредиты.
         <br />
-        Кроме того, вам будет выдан стандартный набор контрактника,
-        который включает в себя специальный аплинк, руководство и три случайных недорогих предмета.
+        Кроме того, вам будет выдан стандартный набор контрактора,
+        специальный контракторский аплинк, руководство и три случайных недорогих предмета.
         <br />
         <br />
         Более подробные инструкции вы сможете найти в руководстве, которое прилагается к комплекту,
@@ -593,7 +593,7 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
             предложение. Количество доступных предложений ограничено, и если
             другие агенты примут их раньше вас, то у вас не останется возможности принять участие.
             <br />
-            <b>Available offers: {available_offers}</b>
+            <b>Доступные предложения: {available_offers}</b>
           </Box>
         ) : (
           ''
@@ -621,9 +621,9 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
             'Недостаточно ТК'
           ) : !data.contractor.is_admin_forced ? (
             data.contractor.available_offers > 0 ? (
-              <i>[Left:{data.contractor.available_offers}]</i>
+              <i>[Осталось:{data.contractor.available_offers}]</i>
             ) : (
-              <i>[Offers are over]</i>
+              <i>[Предложения закончились]</i>
             )
           ) : (
             'Срок действия предложения истек'

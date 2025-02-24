@@ -207,7 +207,7 @@ const Contracts = (properties, context) => {
           disabled={!can_extract || extractionCooldown}
           icon="parachute-box"
           content={[
-            'Начать извлечение',
+            'Начать экспорт',
             extractionCooldown && (
               <Countdown
                 timeLeft={activeContract.time_left}
@@ -293,7 +293,7 @@ const Contracts = (properties, context) => {
                   <Box color="bad" mt="0.5rem" bold>
                     <Icon name="exclamation-triangle" mr="0.5rem" />
                     Награда в виде телекристаллов существенно уменьшилась,
-                    так как цель была мертва на момент извлечения.
+                    так как цель была мертва в момент экспортирования.
                   </Box>
                 )}
                 {!!contract.fail_reason && (
@@ -306,7 +306,7 @@ const Contracts = (properties, context) => {
               </Flex.Item>
               <Flex.Item flexBasis="100%">
                 <Flex mb="0.5rem" color="label">
-                  Зона извлечения:&nbsp;
+                  Зона экспорта:&nbsp;
                   {areaArrow(contract)}
                 </Flex>
                 {contract.difficulties?.map((difficulty, key) => (
