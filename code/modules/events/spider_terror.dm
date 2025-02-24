@@ -5,9 +5,6 @@
 /datum/event/spider_terror
 	announceWhen = 240
 
-/datum/event/spider_terror/setup()
-	announceWhen = rand(announceWhen, announceWhen + 30)
-
 /datum/event/spider_terror/announce(false_alarm)
 	if(false_alarm)
 		GLOB.command_announcement.Announce("Вспышка биологической угрозы 3-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой! Особая директива распечатана на всех консолях связи.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')

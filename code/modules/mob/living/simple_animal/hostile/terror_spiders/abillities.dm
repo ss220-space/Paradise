@@ -78,7 +78,7 @@
 //VENOM SPIT
 /obj/effect/proc_holder/spell/fireball/venom_spit
 	name = "Venom spit"
-	desc = "Плюнуть кислоту, создающую дым, наполненный наркотиками и ядом, при ударе."
+	desc = "Плюнуть кислоту, при контакте создающую дым, наполненный наркотиками и ядом."
 	invocation_type = "none"
 	action_icon_state = "fake_death"
 	action_background_icon_state = "bg_terror"
