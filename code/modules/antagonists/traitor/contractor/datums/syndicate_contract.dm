@@ -551,8 +551,8 @@
 	var/datum/feed_message/FM = new
 	FM.author = "Nyx Daily"
 	FM.admin_locked = TRUE
-	FM.body = "Suspected Syndicate activity was reported in the system. Rumours have surfaced about a [R?.fields["rank"] || M?.mind.assigned_role || DEFAULT_RANK] aboard the [SSmapping.map_datum.station_name] being the victim of a kidnapping.\n\n" +\
-				"A reliable source said the following: There was a note with the victim's initials which were \"[initials]\" and a scribble saying \"[fluff_message]\""
+	FM.body = "В системе зафиксирована подозрительная активность, предположительно связанная с Синдикатом. Появились слухи о том, что [R?.fields["rank"] || M?.mind.assigned_role || DEFAULT_RANK] на борту [SSmapping.map_datum.station_name] стал жертвой похищения.\n\n" +\
+				"Надёжный источник сообщил следующее: Была найдена записка с инициалами жертвы — \"[initials]\", а также каракулями, гласящими: \"[fluff_message]\""
 	GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(FM)
 
 	// Bonus story if the contractor has done all their contracts (appears only once per round)
@@ -562,8 +562,8 @@
 		var/datum/feed_message/FM2 = new
 		FM2.author = "Nyx Daily"
 		FM2.admin_locked = TRUE
-		FM2.body = "Nanotrasen's Asset Management board has resigned today after a series of kidnappings aboard the [SSmapping.map_datum.station_name]." +\
-					"One former member of the board was heard saying: \"I can't do this anymore. How does a single shift on this cursed station manage to cost us over ten million Credits in ransom payments? Is there no security aboard?!\""
+		FM2.body = "Совет по управлению активами Nanotrasen сегодня ушёл в отставку после серии похищений на борту [SSmapping.map_datum.station_name]." +\
+					"Один из бывших членов совета заявил: – Я больше не могу этого выносить. Как одна смена на этой проклятой станции может обойтись нам более чем в десять миллионов кредитов в виде выкупов? Неужели на борту совсем нет Службы Безопасности?!\""
 		GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(FM2)
 
 	for(var/nc in GLOB.allNewscasters)
