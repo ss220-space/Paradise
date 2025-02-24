@@ -1,6 +1,15 @@
 /obj/item/storage/box/syndie_kit/contractor
 	name = "contractor kit"
-	desc = "A box containing supplies destined to Syndicate contractors."
+	desc = "Коробка с вещами, предназначенными Контракторам Синдиката."
+	ru_names = list(
+		NOMINATIVE = "набор контрактора",
+		GENITIVE = "набора контрактора",
+		DATIVE = "набору контрактора",
+		ACCUSATIVE = "набор контрактора",
+		INSTRUMENTAL = "набором контрактора",
+		PREPOSITIONAL = "наборе контрактора"
+	)
+	gender = MALE
 	// Settings
 	/// Amount of random items to be added to the contractor kit.
 	/// See [/obj/item/storage/box/syndie_kit/contractor/var/item_list] for the available items.
@@ -47,7 +56,16 @@
 
 /obj/item/storage/box/syndie_kit/contractor_loadout
 	name = "contractor standard loadout box"
-	desc = "A standard issue box included in a contractor kit."
+	desc = "Стандартная коробка, входящая в комплект поставки для Контрактора."
+	ru_names = list(
+		NOMINATIVE = "стандартный набор контрактора",
+		GENITIVE = "стандартного набора контрактора",
+		DATIVE = "стандартному набору контрактора",
+		ACCUSATIVE = "стандартный набор контрактора",
+		INSTRUMENTAL = "стандартным набором контрактора",
+		PREPOSITIONAL = "стандартном наборе контрактора"
+	)
+	gender = MALE
 
 /obj/item/storage/box/syndie_kit/contractor_loadout/populate_contents()
 	new /obj/item/clothing/head/helmet/space/syndicate/contractor(src)
@@ -62,18 +80,19 @@
 	new /obj/item/lighter/zippo(src)
 
 /obj/item/paper/contractor_guide
-	name = "Инструкции контрактнику"
+	name = "Руководство для Контрактора"
 
-/obj/item/paper/contractor_guide/Initialize() //The translation is slightly different from the original text, since the chapter "extraction" does not correspond to the actions in the game
-	info = {"<p>Приветствуем, агент. Наши поздравления по поводу вашего назначения на должность контрактника Синдиката. Помимо уже имеющихся у вас целей,
-			данный набор открывает вам доступ к контрактам, выполнение которых оплачивается телекристаллами.</p>
+/obj/item/paper/contractor_guide/Initialize() // This translation is full of shit, it should be redone by someone who will take up the paperwork (not me)
+	info = {"<p>Здравствуйте, уважаемый агент! Примите наши поздравления с назначением на должность Контрактора Синдиката!
+			В дополнение к уже поставленным перед вами задачам, этот набор открывает новые горизонты и предоставляет возможность выполнять контракты,
+			за успешное завершение которых вы будете вознаграждены телекристаллами и кредитами.</p>
 			<p>Внутри вашего набора находится специализированный скафандр контрактника. Он компактнее, чем стандартные скафандры Синдиката, доступные в вашем аплинке,
 			и может влезть в ваш карман. Скафандр сделан из легких материалов и не замедляет вас. Помимо прочего, мы предоставили вам противогаз и комбинезон с функцией "Хамелеон",
 			оба этих предмета могут в любой момент менять свой внешний вид на нужный вам. Сигареты пропитаны особой смесью - они будут медленно исцелять ваши травмы с течением времени.</p>
 			<p>Дополнительно вам в набор будет выделено три случайных предмета, что были у нас под рукой. Мы надеемся, что они помогут вам в вашей задаче.</p>
 			<p>Хаб контрактника, доступный в вашем специализированном аплинке, предоставляет доступ к уникальным предметам и возможностям.
 			Покупка осуществляется с помощью особой валюты - репутации (Rep), которая предоставляется в двух условных единицах после каждого успешного завершения контракта.</p>
-			<h3>Использование Аплинка Контрактника</h3>
+			<h3>Использование аплинка Контрактора</h3>
 			<ol>
 				<li>Возьмите в руки аплинк, лежащий в вашем наборе, и запустите его.</li>
 				<li>После успешного запуска вы можете принимать контракты и получать выплаты в телекристаллах за их выполнение.</li>
