@@ -97,7 +97,7 @@
 /obj/item/projectile/johyo/fire(setAngle)
 	if(firer)
 		firer.say(pick("Get over here!", "Come here!"))
-		chain = firer.Beam(src, icon_state = "chain_dark", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+		chain = firer.Beam(src, icon_state = "chain_dark", time = INFINITY, maxdistance = INFINITY)
 	. = ..()
 
 /obj/item/projectile/johyo/on_hit(atom/target)
