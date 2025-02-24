@@ -535,12 +535,12 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 
 /mob/living/simple_animal/seal
 	name = "Белёк"
-	desc = "Красивый белый тюлень."
+	desc = "Красивый белый белёк."
 	icon_state = "seal"
 	icon_living = "seal"
 	icon_dead = "seal_dead"
-	speak = list("Барф?","Барф","БАРФ!")
-	speak_emote = list("Гавкает", "стонет") //idk how to translate it...
+	speak = list("Барф?","Барф.","БАРФ!")
+	speak_emote = list("гавкает.", "стонет.")
 	tts_seed = "Narrator"
 	death_sound = 'sound/creatures/seal_death.ogg'
 //	emote_hear = list("brays")
@@ -559,7 +559,14 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 	footstep_type = FOOTSTEP_MOB_CLAW
-	ru_names = list(NOMINATIVE = "белёк", GENITIVE = "белька", DATIVE = "бельку", ACCUSATIVE = "белька", INSTRUMENTAL = "бельком", PREPOSITIONAL = "бельке")
+	ru_names = list(
+		NOMINATIVE = "белёк",
+		GENITIVE = "белька",
+		DATIVE = "бельку",
+		ACCUSATIVE = "белька",
+		INSTRUMENTAL = "бельком",
+		PREPOSITIONAL = "бельке"
+	)
 
 /mob/living/simple_animal/walrus
 	name = "Морж"
@@ -567,8 +574,8 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_state = "walrus"
 	icon_living = "walrus"
 	icon_dead = "walrus_dead"
-	speak = list("Урррфф?","Урррфф","Урррфф!")
-	speak_emote = list("рычит","гудит") //idk how to translate it...
+	speak = list("Урррфф?","Урррфф.","Урррфф!")
+	speak_emote = list("рычит.","гудит.")
 	tts_seed = "Tychus"
 	death_sound = 'sound/creatures/seal_death.ogg'
 //	emote_hear = list("brays")
@@ -586,7 +593,14 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
-	ru_names = list(NOMINATIVE = "морж", GENITIVE = "моржа", DATIVE = "моржу", ACCUSATIVE = "моржа", INSTRUMENTAL = "моржом", PREPOSITIONAL = "морже")
+	ru_names = list(
+		NOMINATIVE = "морж",
+		GENITIVE = "моржа",
+		DATIVE = "моржу",
+		ACCUSATIVE = "моржа",
+		INSTRUMENTAL = "моржом",
+		PREPOSITIONAL = "морже"
+	)
 
 /obj/item/udder
 	name = "udder"

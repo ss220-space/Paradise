@@ -5,9 +5,9 @@
 	icon_state = "crab"
 	icon_living = "crab"
 	icon_dead = "crab_dead"
-	speak_emote = list("щёлкает")
-	emote_hear = list("цокает клещнями")
-	emote_see = list("клацает клещнями")
+	speak_emote = list("щёлкает.")
+	emote_hear = list("цокает клещнями.")
+	emote_see = list("клацает клещнями.")
 	death_sound = 'sound/creatures/crack_death2.ogg'
 	speak_chance = 1
 	turns_per_move = 5
@@ -25,11 +25,18 @@
 	tts_seed = "Riki"
 	holder_type = /obj/item/holder/crab
 	mob_size = MOB_SIZE_SMALL
-	ru_names = list(NOMINATIVE = "краб", GENITIVE = "краба", DATIVE = "крабу", ACCUSATIVE = "краба", INSTRUMENTAL = "крабом", PREPOSITIONAL = "крабе")
+	ru_names = list(
+		NOMINATIVE = "краб",
+		GENITIVE = "краба",
+		DATIVE = "крабу",
+		ACCUSATIVE = "краба",
+		INSTRUMENTAL = "крабом",
+		PREPOSITIONAL = "крабе"
+	)
 
 
 /mob/living/simple_animal/crab/royal
-	name = "королевский краб"
+	name = "Королевский краб"
 	desc = "Величественный королевский краб."
 	icon_state = "royalcrab"
 	icon_living = "royalcrab"
@@ -40,7 +47,14 @@
 	health = 50
 	maxHealth = 50
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
-	ru_names = list(NOMINATIVE = "королевский краб", GENITIVE = "королевского краба", DATIVE = "королевскому крабу", ACCUSATIVE = "королевского краба", INSTRUMENTAL = "королевским крабом", PREPOSITIONAL = "королевском крабе")
+	ru_names = list(
+		NOMINATIVE = "королевский краб",
+		GENITIVE = "королевского краба",
+		DATIVE = "королевскому крабу",
+		ACCUSATIVE = "королевского краба",
+		INSTRUMENTAL = "королевским крабом",
+		PREPOSITIONAL = "королевском крабе"
+	)
 
 
 //COFFEE! SQUEEEEEEEEE!
@@ -50,7 +64,14 @@
 	desc = "Любитель потягать топливные баки и штангу. Коффи? Кофе?"
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
-	ru_names = list(NOMINATIVE = "Коффи", GENITIVE = "Коффи", DATIVE = "крабу", ACCUSATIVE = "краба", INSTRUMENTAL = "крабом", PREPOSITIONAL = "крабе")
+	ru_names = list(
+		NOMINATIVE = "Коффи",
+		GENITIVE = "Коффи",
+		DATIVE = "крабу",
+		ACCUSATIVE = "краба",
+		INSTRUMENTAL = "крабом",
+		PREPOSITIONAL = "крабе"
+	)
 
 /mob/living/simple_animal/crab/evil
 	name = "Злой краб"
@@ -64,4 +85,11 @@
 	response_harm   = "топчет"
 	gold_core_spawnable = HOSTILE_SPAWN
 	holder_type = /obj/item/holder/evilcrab
-	ru_names = list(NOMINATIVE = "злой краб", GENITIVE = "злого краба", DATIVE = "злому крабу", ACCUSATIVE = "злого краба", INSTRUMENTAL = "злым крабом", PREPOSITIONAL = "злом крабе")
+	ru_names = list(
+		NOMINATIVE = "злой краб",
+		GENITIVE = "злого краба",
+		DATIVE = "злому крабу",
+		ACCUSATIVE = "злого краба",
+		INSTRUMENTAL = "злым крабом",
+		PREPOSITIONAL = "злом крабе"
+	)
