@@ -140,13 +140,11 @@
 
 
 /obj/item/storage/click_alt(mob/user)
-	if(ishuman(user) || issilicon(user))
-		open(user)
-		return CLICK_ACTION_SUCCESS
-
-	else if(isobserver(user))
+	if(isobserver(user))
 		show_to(user)
 		return CLICK_ACTION_SUCCESS
+	open(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/storage/proc/return_inv()
 	var/list/L = list()

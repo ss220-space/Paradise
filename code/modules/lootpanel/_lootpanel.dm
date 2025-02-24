@@ -63,7 +63,14 @@
 	if(user.incapacitated())
 		return UI_DISABLED
 
-	return UI_INTERACTIVE
+	var/dist = get_dist(source_turf, user)
+	if(dist <= 1)
+		return UI_INTERACTIVE
+
+	else if(dist <= 6)
+		return UI_UPDATE
+
+	return UI_CLOSE
 
 
 /datum/lootpanel/ui_act(action, list/params)

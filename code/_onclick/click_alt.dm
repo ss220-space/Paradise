@@ -14,10 +14,6 @@
 	//if(SEND_SIGNAL(src, COMSIG_MOB_ALTCLICKON, target) & COMSIG_MOB_CANCEL_CLICKON)
 	//	return TRUE
 
-	// Is it visible (and we're not wearing it (our clothes are invisible))?
-	if(!(src in viewers(7, target)))
-		return
-
 	// Ghosties just see loot
 	if(isobserver(src))
 		client.loot_panel.open(get_turf(target))
@@ -42,8 +38,9 @@
 /mob/living/base_click_alt(atom/target)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
-	. = ..()
-	if(. || !CAN_I_SEE(target) || (!has_vision() && !IN_GIVEN_RANGE(src, target, 1)))
+	if(..())
+		return
+	if(!CAN_I_SEE(target) || (!has_vision() && !IN_GIVEN_RANGE(src, target, 1)))
 		return
 
 	// No alt clicking to view turf from beneath
