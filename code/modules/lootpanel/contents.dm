@@ -24,6 +24,8 @@
 			continue
 		if(thing.invisibility > owner.mob.see_invisible)
 			continue
+		if(!thing.name)
+			continue
 
 		// convert
 		var/datum/search_object/index = new(owner, thing)

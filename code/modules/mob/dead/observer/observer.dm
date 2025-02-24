@@ -749,6 +749,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	return new_char
 
+/mob/dead/observer/can_perform_action(atom/movable/target, action_bitflags)
+	return can_advanced_admin_interact()
+
 /mob/dead/observer/is_literate()
 	return TRUE
 

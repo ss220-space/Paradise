@@ -37,6 +37,8 @@
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
+/datum/lootpanel/ui_state(mob/user)
+	return GLOB.range_state
 
 /datum/lootpanel/ui_close(mob/user)
 	. = ..()
@@ -55,8 +57,8 @@
 
 
 /datum/lootpanel/ui_status(mob/user, datum/ui_state/state)
-	if(!source_turf.Adjacent(user))
-		return UI_CLOSE
+	if(isobserver(user))
+		return UI_INTERACTIVE
 
 	if(user.incapacitated())
 		return UI_DISABLED

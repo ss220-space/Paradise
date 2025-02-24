@@ -16,11 +16,10 @@
 
 	origin_tech = "engineering=1;magnets=1"
 
-/obj/item/mining_scanner/AltClick(mob/user)
-	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
+/obj/item/mining_scanner/click_alt(mob/user)
 	speaker = !speaker
-	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
+	to_chat(user, span_notice("You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"]."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/mining_scanner/attack_self(mob/user)
 	if(!user.client)
@@ -59,11 +58,10 @@
 
 	origin_tech = "engineering=3;magnets=3"
 
-/obj/item/t_scanner/adv_mining_scanner/AltClick(mob/user)
-	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
+/obj/item/t_scanner/adv_mining_scanner/click_alt(mob/user)
 	speaker = !speaker
-	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
+	to_chat(user, span_notice("You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"]."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/t_scanner/adv_mining_scanner/cyborg
 	flags = CONDUCT
@@ -161,5 +159,5 @@
 /obj/item/t_scanner/adv_mining_scanner/bleary_eye/attack_self(mob/user)
 	return
 
-/obj/item/t_scanner/adv_mining_scanner/bleary_eye/AltClick(mob/user)
-	return
+/obj/item/t_scanner/adv_mining_scanner/bleary_eye/click_alt(mob/user)
+	return NONE

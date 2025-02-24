@@ -276,10 +276,11 @@
 		return
 	chassis.toggle_strafe()
 
-/obj/mecha/AltClick(mob/living/user) //Strafing is toggled by interface button or by Alt-clicking on mecha
+/obj/mecha/click_alt(mob/living/user) //Strafing is toggled by interface button or by Alt-clicking on mecha
 	if(!occupant || occupant != user)
 		return
 	toggle_strafe()
+	return CLICK_ACTION_SUCCESS
 
 /**
  * Proc that toggles strafe mode of the mecha ON/OFF

@@ -108,12 +108,12 @@
 	open_bag(user)
 
 
-/obj/item/shared_storage/AltClick(mob/user)
+/obj/item/shared_storage/click_alt(mob/user)
 	if(!bag || !iscarbon(user) || loc != user)
-		return ..()
+		return NONE
 
 	open_bag(user)
-
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/shared_storage/attack_hand(mob/living/carbon/user)

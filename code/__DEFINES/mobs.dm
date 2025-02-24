@@ -467,3 +467,35 @@
 
 /// Eyes examine time mod
 #define EXAMINE_INSTANT	0 // 0 seconds
+
+//Incapacitated ignore flags for [/proc/incapacitated()].
+// They also used at interaction_flags_c var.
+/// If the incapacitated will ignore a mob in restraints
+#define INC_IGNORE_RESTRAINED (1<<0)
+/// If the incapacitated will ignore a mob being agressively grabbed
+#define INC_IGNORE_GRABBED (1<<1)
+
+/// If reading is required to perform action (can't read a book if you are illiterate)
+#define NEED_LITERACY (1<<0)
+/// If incapacitated doesn't needed to be checked.
+#define BYPASS_INCAPACITATED (1<<1)
+/// If other mobs (monkeys, aliens, etc) can perform action (can't use computers if you are a monkey)
+#define NEED_DEXTERITY (1<<2)
+/// If hands are required to perform action (can't use objects that require hands if you are a cyborg)
+#define NEED_HANDS (1<<3)
+/// If telekinesis is forbidden to perform action from a distance (ex. canisters are blacklisted from telekinesis manipulation)
+#define FORBID_TELEKINESIS_REACH (1<<4)
+/// If silicons are allowed to perform action from a distance (silicons can operate airlocks from far away)
+#define ALLOW_SILICON_REACH (1<<5)
+/// If resting on the floor is allowed to perform action (pAIs can play music while resting)
+#define ALLOW_RESTING (1<<6)
+/// If this is accessible to creatures with ventcrawl capabilities
+#define NEED_VENTCRAWL (1<<7)
+/// Skips adjacency checks
+#define BYPASS_ADJACENCY (1<<8)
+/// Skips recursive loc checks
+#define NOT_INSIDE_TARGET (1<<9)
+/// Checks for base adjacency, but silences the error
+#define SILENT_ADJACENCY (1<<10)
+/// Allows pAIs to perform an action
+#define ALLOW_PAI (1<<11)

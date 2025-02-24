@@ -139,14 +139,14 @@
 	return ..()
 
 
-/obj/item/storage/AltClick(mob/user)
-	if((ishuman(user) || issilicon(user)) \
-	&& Adjacent(user) && !user.incapacitated() \
-	&& !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+/obj/item/storage/click_alt(mob/user)
+	if(ishuman(user) || issilicon(user))
 		open(user)
+		return CLICK_ACTION_SUCCESS
 
 	else if(isobserver(user))
 		show_to(user)
+		return CLICK_ACTION_SUCCESS
 
 /obj/item/storage/proc/return_inv()
 	var/list/L = list()

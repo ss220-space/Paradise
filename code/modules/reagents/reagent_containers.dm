@@ -43,9 +43,9 @@
 	amount_per_transfer_from_this = N
 	to_chat(usr, span_notice("Теперь [declent_ru(NOMINATIVE)] буд[pluralize_ru(gender, "ет", "ут")] перемещать по <b>[N]</b> единиц[declension_ru(N, "у", "ы", "")] вещества за раз."))
 
-/obj/item/reagent_containers/AltClick(mob/user)
-	if(Adjacent(user))
-		set_APTFT()
+/obj/item/reagent_containers/click_alt(mob/user)
+	set_APTFT()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/reagent_containers/verb/empty()
 

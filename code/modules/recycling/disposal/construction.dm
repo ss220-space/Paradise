@@ -117,9 +117,9 @@
 	rotate(usr)
 
 
-/obj/structure/disposalconstruct/AltClick(mob/user)
-	if(Adjacent(user))
-		rotate(user)
+/obj/structure/disposalconstruct/click_alt(mob/user)
+	rotate(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /// Rotates construct 90 degrees counter-clockwise

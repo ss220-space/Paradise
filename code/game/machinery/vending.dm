@@ -227,11 +227,11 @@
 	if(aggressive)
 		. += span_warning("Его индикаторы зловеще мигают...")
 
-/obj/machinery/vending/AltClick(mob/user)
-	if(!tilted || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
+/obj/machinery/vending/click_alt(mob/user)
+	if(!tilted)
+		return NONE
 	untilt(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/vending/Destroy()
 	SStgui.close_uis(wires)

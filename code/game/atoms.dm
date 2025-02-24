@@ -25,6 +25,9 @@
 	/// Things we can pass through while moving. If any of this matches the thing we're trying to pass's [pass_flags_self], then we can pass through.
 	var/pass_flags = NONE
 
+	/// Flags to check for in can_perform_action. Used in alt-click checks
+	var/interaction_flags_click = NONE
+
 	/// How this atom should react to having its astar blocking checked
 	var/can_astar_pass = CANASTARPASS_DENSITY
 
@@ -1724,8 +1727,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!usr?.client)
 		return
 
-	if(loc != usr.listed_turf)
-		return
 
 	if(href_list["statpanel_item_click"])
 		var/client/usr_client = usr.client

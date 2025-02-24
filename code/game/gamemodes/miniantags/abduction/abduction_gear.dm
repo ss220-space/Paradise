@@ -423,8 +423,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/paper/abductor/update_icon_state()
 	return
 
-/obj/item/paper/abductor/AltClick()
-	return
+/obj/item/paper/abductor/click_alt()
+	return NONE
 
 
 #define BATON_STUN 0

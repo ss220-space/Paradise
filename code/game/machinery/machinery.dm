@@ -103,6 +103,7 @@ Class Procs:
 	layer = BELOW_OBJ_LAYER
 	pass_flags_self = PASSMACHINE|LETPASSCLICKS
 	pull_push_slowdown = 1.3
+	interaction_flags_click = NEED_HANDS
 	var/stat = 0
 	var/emagged = 0
 	var/use_power = IDLE_POWER_USE

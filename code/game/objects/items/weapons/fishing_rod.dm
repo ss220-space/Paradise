@@ -168,12 +168,14 @@
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 
-/obj/item/twohanded/fishing_rod/AltClick(mob/user)
-	if(bait)
-		user.put_in_hands(bait)
-		to_chat(user, span_notice("Вы сняли [bait.declent_ru(ACCUSATIVE)] с крючка."))
-		bait = null
-		update_icon(UPDATE_OVERLAYS)
+/obj/item/twohanded/fishing_rod/click_alt(mob/user)
+	if(!bait)
+		return NONE
+	user.put_in_hands(bait)
+	to_chat(user, span_notice("Вы сняли [bait.declent_ru(ACCUSATIVE)] с крючка."))
+	bait = null
+	update_icon(UPDATE_OVERLAYS)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/twohanded/fishing_rod/update_overlays()
 	. = ..()

@@ -264,7 +264,7 @@
 	#define COMPONENT_ALLOW_EXAMINATE (1<<0) 							//Allows the user to examinate regardless of client.eye.
 ///from base of atom/CtrlClickOn(): (/mob)
 #define COMSIG_CLICK_CTRL "ctrl_click"
-///from base of atom/AltClick(): (/mob)
+///from base of atom/base_click_alt(): (/mob)
 #define COMSIG_CLICK_ALT "alt_click"
 ///from base of atom/CtrlShiftClick(/mob)
 #define COMSIG_CLICK_CTRL_SHIFT "ctrl_shift_click"

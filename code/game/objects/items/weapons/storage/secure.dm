@@ -117,9 +117,9 @@
 		to_chat(user, "You short out the lock on [src].")
 
 
-/obj/item/storage/secure/AltClick(mob/living/user)
+/obj/item/storage/secure/click_alt(mob/living/user)
 	if(!try_to_open(user))
-		return FALSE
+		return CLICK_ACTION_BLOCKING
 	return ..()
 
 /obj/item/storage/secure/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
@@ -132,7 +132,7 @@
 		return TRUE
 	if(locked)
 		add_fingerprint(usr)
-		to_chat(usr, "<span class='warning'>It's locked!</span>")
+		to_chat(usr, span_warning("It's locked!"))
 		return FALSE
 	return TRUE
 
