@@ -30,8 +30,8 @@
 	var/obj/effect/ebeam/visuals
 	///The color of the beam we're drawing.
 	var/beam_color
-	///If we use an emissive appearance
-	var/emissive = TRUE
+	///If we use an emissive appearance. Don't use until proper tg emissive port
+	var/emissive = FALSE
 	/// If set will be used instead of origin's pixel_x in offset calculations
 	var/override_origin_pixel_x = null
 	/// If set will be used instead of origin's pixel_y in offset calculations
