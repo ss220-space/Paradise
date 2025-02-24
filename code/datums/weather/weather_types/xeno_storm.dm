@@ -1,5 +1,5 @@
 /datum/weather/xeno_storm
-	name = "xeno storm"
+	name = "Ксено-буря"
 
 	telegraph_duration = 2 SECONDS
 	telegraph_message = null

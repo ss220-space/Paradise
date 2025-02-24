@@ -11,12 +11,12 @@
 	name = "Empress of Terror"
 	desc = "Нечестивое порождение пауков, кошмаров и фантастики Лавкрафта."
 	ru_names = list(
-		NOMINATIVE = "императрица Ужаса",
-		GENITIVE = "императрицы Ужаса",
-		DATIVE = "императрице Ужаса",
-		ACCUSATIVE = "императрицу Ужаса",
-		INSTRUMENTAL = "императрицой Ужаса",
-		PREPOSITIONAL = "императрице Ужаса",
+		NOMINATIVE = "Императрица Ужаса",
+		GENITIVE = "Императрицы Ужаса",
+		DATIVE = "Императрице Ужаса",
+		ACCUSATIVE = "Императрицу Ужаса",
+		INSTRUMENTAL = "Императрицой Ужаса",
+		PREPOSITIONAL = "Императрице Ужаса",
 	)
 	ai_target_method = TS_DAMAGE_SIMPLE
 	maxHealth = 1000
@@ -39,7 +39,7 @@
 	var/datum/action/innate/terrorspider/queen/empress/empresslings/empresslings_action
 	var/datum/action/innate/terrorspider/queen/empress/empresserase/empresserase_action
 	tts_seed = "Queen"
-	spider_intro_text = "Вы - Императрица Ужаса. Вы - вершина иерархии гнезда и одно из самых опасных существ этого мира. Управляйте, разрушайте, захватывайте. Теперь это ВАША станция."
+	spider_intro_text = "Вы - Императрица Ужаса, вершина иерархии гнезда и одно из самых опасных существ этого мира. Управляйте, разрушайте, захватывайте. Теперь это ВАША станция."
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/New()
 	..()
@@ -103,7 +103,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/proc/EmpressLings()
 	var/numlings = tgui_input_number(usr, "Сколько?", "", 10, 50, 10)
-	var/sbpc = tgui_input_number(usr, "Шанс быть мертворожденным?", "", 0, 100, 0)
+	var/sbpc = tgui_input_number(usr, "Шанс быть мертворождённым?", "", 0, 100, 0)
 	if(!numlings || isnull(sbpc))
 		return
 	for(var/i=0, i<numlings, i++)

@@ -11,15 +11,16 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/knight
 	name = "Knight of Terror"
-	desc = "Зловещий на вид красный паук, c восемь. красными глазами-бусинками и ужасными, большими, заостренными клыками! Похоже, у него порочная полоса шириной в милю."
+	desc = "Зловещий на вид красный паук c восемью красными глазами-бусинками и ужасными, большими, заострёнными клыками! Похоже, у него порочная полоса шириной в милю."
 	ru_names = list(
-		NOMINATIVE = "рыцарь Ужаса",
-		GENITIVE = "рыцаря Ужаса",
-		DATIVE = "рыцарю Ужаса",
-		ACCUSATIVE = "рыцаря Ужаса",
-		INSTRUMENTAL = "рыцарем Ужаса",
-		PREPOSITIONAL = "рыцаре Ужаса",
+		NOMINATIVE = "Рыцарь Ужаса",
+		GENITIVE = "Рыцаря Ужаса",
+		DATIVE = "Рыцарю Ужаса",
+		ACCUSATIVE = "Рыцаря Ужаса",
+		INSTRUMENTAL = "Рыцарем Ужаса",
+		PREPOSITIONAL = "Рыцаре Ужаса",
 	)
+	gender = MALE
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_red"
 	icon_living = "terror_red"
@@ -40,7 +41,6 @@
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	web_type = /obj/structure/spider/terrorweb/knight
 	spider_intro_text = "Будучи Рыцарем Ужаса, ваша задача - создавать места для прорыва, или же оборонять гнездо. Несмотря на медлительность, вы живучи и опасны вблизи, используйте свою силу и выносливость, чтобы другие пауки могли выполнять свои функции! Ваши способности позволяют вам переключаться между режимом атаки и обороны, первый - увеличивает скорость, а также наносимый и получаемый урон, второй - уменьшает скорость, получаемый и наносимый урон."
-	gender = MALE
 	tts_seed = "Chu"
 	var/last_attack_mode = 0
 	var/last_defence_mode = 0
@@ -94,7 +94,7 @@
 			last_mode = t
 			attack_mode_av = 0
 			playsound(src, 'sound/creatures/terrorspiders/mod_attack.ogg', 120)
-			to_chat(src, span_notice("Вы впадаете ярость"))
+			to_chat(src, span_danger("Вы впадаете в ярость!"))
 			set_varspeed(0)
 			damage_coeff = list(BRUTE = 0.8, BURN = 1.2, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 			melee_damage_lower = 30
@@ -110,7 +110,7 @@
 			last_mode = t
 			defence_mode_av = 0
 			playsound(src, 'sound/creatures/terrorspiders/keratosis_in.ogg', 150)
-			to_chat(src, span_notice("Вы покрываетесь кератозисом!"))
+			to_chat(src, span_danger("Вы покрываетесь кератозисом!"))
 			set_varspeed(1.6)
 			damage_coeff = list(BRUTE = 0.4, BURN = 0.7, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 			melee_damage_lower = 10
@@ -124,7 +124,7 @@
 /obj/structure/spider/terrorweb/knight
 	max_integrity = 30
 	name = "reinforced web"
-	desc = "Эта паутина усилена дополнительными нитями для дополнительной прочности."
+	desc = "Эта паутина усилена прочными нитями для дополнительной прочности."
 	ru_names = list(
 		NOMINATIVE = "укрепленная паутина",
 		GENITIVE = "укрепленной паутины",

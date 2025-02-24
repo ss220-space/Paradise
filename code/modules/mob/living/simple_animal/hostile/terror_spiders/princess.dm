@@ -12,12 +12,12 @@
 	name = "Princess of Terror spider"
 	desc = "Огромный паук. Он выглядит необычайно милым и пушистым."
 	ru_names = list(
-		NOMINATIVE = "принцесса Ужаса",
-		GENITIVE = "принцессы Ужаса",
-		DATIVE = "принцессе Ужаса",
-		ACCUSATIVE = "принцессу Ужаса",
-		INSTRUMENTAL = "принцессой Ужаса",
-		PREPOSITIONAL = "принцессе Ужаса",
+		NOMINATIVE = "Принцесса Ужаса",
+		GENITIVE = "Принцессы Ужаса",
+		DATIVE = "Принцессе Ужаса",
+		ACCUSATIVE = "Принцессу Ужаса",
+		INSTRUMENTAL = "Принцессой Ужаса",
+		PREPOSITIONAL = "Принцессе Ужаса",
 	)
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_princess1"
@@ -30,7 +30,7 @@
 	health = 200
 	speed = -0.1
 	delay_web = 20
-	deathmessage = "Издает пронзительный визг и медленно падает на землю."
+	deathmessage = "Издаёт пронзительный визг и медленно опадает на землю."
 	death_sound = 'sound/creatures/terrorspiders/princess_death.ogg'
 	spider_tier = TS_TIER_3
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
@@ -96,7 +96,7 @@
 		icon_state = "terror_princess3"
 		icon_living = "terror_princess3"
 		icon_dead = "terror_princess3_dead"
-		desc = "Огромный паук. Все его тело похоже на цвет засохшей крови."
+		desc = "Огромный паук. Всё его тело покрыто засохшей кровью."
 
 	if((brood_count + canlay) >= spider_max_children)
 		return
@@ -105,7 +105,7 @@
 		to_chat(src, span_notice("У вас есть яйцо, которое можно отложить."))
 		SEND_SOUND(src, sound('sound/effects/ping.ogg'))
 	else
-		to_chat(src, span_notice("У вас есть [canlay] яиц, которые можно отложить."))
+		to_chat(src, span_notice("У вас есть [canlay] [declension_ru(canlay, "яйцо", "яйца", "яиц")], которые можно отложить."))
 		SEND_SOUND(src, sound('sound/effects/ping.ogg'))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/NestMode()

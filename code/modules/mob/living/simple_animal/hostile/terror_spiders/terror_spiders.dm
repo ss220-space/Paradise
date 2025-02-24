@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	icon_dead = "terror_red_dead"
 	attacktext = "кусает"
 	attack_sound = 'sound/creatures/terrorspiders/bite.ogg'
-	deathmessage = "Кричит от боли и медленно перестает двигаться."
+	deathmessage = "кричит от боли и медленно перестаёт двигаться."
 	death_sound = 'sound/creatures/terrorspiders/death.ogg'
 	damaged_sound = list('sound/creatures/spider_attack1.ogg', 'sound/creatures/spider_attack2.ogg')
 	var/spider_intro_text = "Если ты это видишь, это баг."
@@ -33,8 +33,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	emote_hear = list("hisses")
 	tts_seed = "Anubarak"
 	sentience_type = SENTIENCE_OTHER
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
+	response_help  = "гладит"
+	response_disarm = "осторожно отодвигает в сторону"
 	friendly = "осторожно проводит лапками по"
 	footstep_type = FOOTSTEP_MOB_CLAW
 	talk_sound = list('sound/creatures/terrorspiders/speech_1.ogg', 'sound/creatures/terrorspiders/speech_2.ogg', 'sound/creatures/terrorspiders/speech_3.ogg', 'sound/creatures/terrorspiders/speech_4.ogg', 'sound/creatures/terrorspiders/speech_5.ogg', 'sound/creatures/terrorspiders/speech_6.ogg')
@@ -172,7 +172,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			enemies -= target
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = target
 		if(T.spider_tier > spider_tier)
-			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] съеживается перед [target.declent_ru(INSTRUMENTAL)]."))
+			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] съёживается перед [target.declent_ru(INSTRUMENTAL)]."))
 		else if(T.spider_tier == spider_tier)
 			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] тычется носом в [target.declent_ru(ACCUSATIVE)]."))
 		else if(T.spider_tier < spider_tier && spider_tier >= 4)
@@ -189,9 +189,9 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		var/obj/machinery/door/firedoor/F = target
 		if(F.density)
 			if(F.welded)
-				to_chat(src, "Противопожарная дверь заварена.")
+				to_chat(src, "[capitalize(F.declent_ru(NOMINATIVE))] заварен.")
 			else
-				visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] открывает противопожарную дверь!"))
+				visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] открывает [F.declent_ru(ACCUSATIVE)]!"))
 				F.open()
 		else
 			to_chat(src, "Закрытие противопожарных дверей не помогает.")
@@ -235,19 +235,19 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	. = ..()
 	if(stat != DEAD)
 		if(key)
-			. += span_warning("[p_they(TRUE)] regards [p_their()] surroundings with a curious intelligence.")
+			. += span_warning("Внимательно осматривает окружение взглядом, говорящем о признаках разумности.")
 		if(health > (maxHealth*0.95))
-			. += span_notice("[p_they(TRUE)] is in excellent health.")
+			. += span_notice("Не имеет видимых повреждений.")
 		else if(health > (maxHealth*0.75))
-			. += span_notice("[p_they(TRUE)] has a few injuries.")
+			. += span_notice("Имеет несколько царапин.")
 		else if(health > (maxHealth*0.55))
-			. += span_warning("[p_they(TRUE)] has many injuries.")
+			. += span_warning("Имеет серьёзные травмы.")
 		else if(health > (maxHealth*0.25))
-			. += span_warning("[p_they(TRUE)] is barely clinging on to life!")
+			. += span_danger("Едва стоит на своих лапах!")
 		if(degenerate || !spider_awaymission && GLOB.global_degenerate)
-			. += span_warning("[p_they(TRUE)] appears to be dying.")
+			. += span_danger("Находится на грани жизни и смерти.")
 		if(killcount >= 1)
-			. += span_warning("[p_they(TRUE)] has blood dribbling from [p_their()] mouth.")
+			. += span_warning("Разбрызгивает во все стороны алую кровь, струяющуюся из пасти.")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
@@ -268,7 +268,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		wrap_action.Grant(src)
 	name += " ([rand(1, 1000)])"
 	real_name = name
-	msg_terrorspiders("[capitalize(declent_ru(NOMINATIVE))] вырос в [get_area(src)].")
+	msg_terrorspiders("[capitalize(declent_ru(NOMINATIVE))] вырастает в локации \"[get_area(src)]\".")
 	if(is_away_level(z))
 		spider_awaymission = 1
 		GLOB.ts_count_alive_awaymission++
@@ -295,10 +295,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(stat == DEAD)
 		return
 	if(ckey)
-		notify_ghosts("[capitalize(declent_ru(NOMINATIVE))] (контролируется игроком) появился в [get_area(src)].")
+		notify_ghosts("[capitalize(declent_ru(NOMINATIVE))] (контролируется игроком) появляется в локации \"[get_area(src)]\".")
 	else if(ai_playercontrol_allowtype)
 		var/image/alert_overlay = image(icon, icon_state)
-		notify_ghosts("[capitalize(declent_ru(NOMINATIVE))] появился в [get_area(src)].", enter_link = "<a href=?src=[UID()];activate=1>(Нажмите для взятия контроля)</a>", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
+		notify_ghosts("[capitalize(declent_ru(NOMINATIVE))] появляется в локации \"[get_area(src)]\".", enter_link = "<a href=?src=[UID()];activate=1>(Нажмите для взятия контроля)</a>", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	GLOB.ts_spiderlist -= src
@@ -333,7 +333,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/death(gibbed)
 	if(can_die())
 		if(!gibbed)
-			msg_terrorspiders("[capitalize(declent_ru(NOMINATIVE))] умер в [get_area(src)].")
+			msg_terrorspiders("[capitalize(declent_ru(NOMINATIVE))] умирает в локации \"[get_area(src)]\".")
 		handle_dying()
 		if(mind)
 			SEND_SIGNAL(mind, COMSIG_TERROR_SPIDER_DIED)
@@ -362,7 +362,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
 	if(faction.len != 2 || (!("terrorspiders" in faction)) || master_commander != null)
-		to_chat(src, span_userdanger("Ваша связь с коллективным разумом разорвана!"))
+		to_chat(src, span_userdanger("Ваша связь с коллективным разумом разрывается!"))
 		log_runtime(EXCEPTION("Terror spider with incorrect faction list at: [atom_loc_line(src)]"))
 		gib()
 
@@ -380,9 +380,9 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			D.close(TRUE)
 		return TRUE
 	else if(D.arePowerSystemsOn() && (spider_opens_doors != 2))
-		to_chat(src, span_warning("Двигатели двери сопротивляются вашим попыткам взломать ее."))
+		to_chat(src, span_warning("Привод шлюза сопротивляется вашим попыткам взломать её."))
 	else if(!spider_opens_doors)
-		to_chat(src, span_warning("Ваш тип паука недостаточно силен, чтобы взломать двери."))
+		to_chat(src, span_warning("Вы недостаточно сильны, чтобы взломать шлюз."))
 	else
 		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] открывает дверь силой!"))
 		playsound(src.loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -428,7 +428,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		if(T.spider_awaymission != spider_awaymission)
 			continue
 		targets |= T // we use |= instead of += to avoid adding src to the list twice
-	var/mob/living/L = tgui_input_list(usr, "Выберите террора для просмотра.", "Выбор", targets)
+	var/mob/living/L = tgui_input_list(usr, "Выберите Паука Ужаса для просмотра.", "Выбор", targets)
 	if(istype(L))
 		reset_perspective(L)
 

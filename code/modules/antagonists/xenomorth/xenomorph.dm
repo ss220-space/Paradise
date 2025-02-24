@@ -23,8 +23,8 @@
 
 /datum/antagonist/xenomorph/greet()
 	var/list/messages = list()
-	messages.Add(span_danger("<center>Вы ксеноморф!</center>"))
-	messages.Add("<center>Работайте сообща, помогайте своим сёстрам, слушайтесь королеву(если она есть), саботируйте станцию, заражайте экипаж, превратите это место в своё гнездо!</center>")
+	messages.Add(span_danger("<center>Вы Ксеноморф!</center>"))
+	messages.Add("<center>Работайте сообща, помогайте своим сёстрам, слушайтесь королеву (если она есть), саботируйте станцию, заражайте экипаж, превратите это место в своё гнездо!</center>")
 	messages.Add("<center>[role_text]</center>")
 	SEND_SOUND(owner.current, sound('sound/voice/hiss1.ogg'))
 	return messages
@@ -35,7 +35,7 @@
 
 /datum/antagonist/xenomorph/queen/greet()
 	var/list/messages = list()
-	messages.Add(span_danger("<center>Вы королева ксеноморфов!</center>"))
+	messages.Add(span_danger("<center>Вы Королева ксеноморфов!</center>"))
 	messages.Add("<center>Руководите ульем, откладывайте яйца, стройте гнездо и накапливайте силы для дальнейшей эволюции в Императрицу и преращения станции в свой дом!</center>")
 	messages.Add("<center>Помните, что после вашей смерти в гнезде не останется королевы и оно будет обречено на вымирание!</center>")
 	SEND_SOUND(owner.current, sound('sound/voice/hiss1.ogg'))

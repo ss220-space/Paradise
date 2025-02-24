@@ -1,14 +1,14 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/reaper
 	name = "Reaper of Terror"
-	desc = "Ужасного вида паук, у него острые когти и челюсти, а тело покрыто опухолями. В его светящихся глазах можно увидеть агонию и жажду крови.."
+	desc = "Ужасного вида паук. У него острые когти и челюсти, а тело покрыто опухолями. В его светящихся глазах можно увидеть агонию и жажду крови.."
 	ru_names = list(
-		NOMINATIVE = "жнец Ужаса",
-		GENITIVE = "жнеца Ужаса",
-		DATIVE = "жнецу Ужаса",
-		ACCUSATIVE = "жнеца Ужаса",
-		INSTRUMENTAL = "жнецом Ужаса",
-		PREPOSITIONAL = "жнеце Ужаса",
+		NOMINATIVE = "Жнец Ужаса",
+		GENITIVE = "Жнеца Ужаса",
+		DATIVE = "Жнецу Ужаса",
+		ACCUSATIVE = "Жнеца Ужаса",
+		INSTRUMENTAL = "Жнецом Ужаса",
+		PREPOSITIONAL = "Жнеце Ужаса",
 	)
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_reaper"
@@ -27,7 +27,6 @@
 	spider_opens_doors = 2
 	speed = -0.3
 	web_type = null
-	gender = FEMALE
 	tts_seed = "Myra"
 	spider_intro_text = "Будучи Жнецом Ужаса, ваша задача - уничтожение живой силы противника. Вы быстры, наносите много урона, обладаете вампиризмом, и с каждым укусом высасываете у противников немного крови. Однако, платой за эту силу стало то, что вы постепенно теряете здоровье. Если прекратите убивать - погибните."
 

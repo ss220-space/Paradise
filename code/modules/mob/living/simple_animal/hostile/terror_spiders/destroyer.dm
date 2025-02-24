@@ -11,12 +11,12 @@
 	name = "Destroyer of Terror"
 	desc = "Зловещего вида паук, коричневый, как земля, из которой он выполз. На предплечьях имеются острые когти."
 	ru_names = list(
-		NOMINATIVE = "разрушитель Ужаса",
-		GENITIVE = "разрушителя Ужаса",
-		DATIVE = "разрушителю Ужаса",
-		ACCUSATIVE = "разрушителя Ужаса",
-		INSTRUMENTAL = "разрушителем Ужаса",
-		PREPOSITIONAL = "разрушителе Ужаса",
+		NOMINATIVE = "Разрушитель Ужаса",
+		GENITIVE = "Разрушителя Ужаса",
+		DATIVE = "Разрушителю Ужаса",
+		ACCUSATIVE = "Разрушителя Ужаса",
+		INSTRUMENTAL = "Разрушителем Ужаса",
+		PREPOSITIONAL = "Разрушителе Ужаса",
 	)
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_brown"

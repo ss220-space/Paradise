@@ -12,12 +12,12 @@
 	name = "Widow of Terror"
 	desc = "Зловещий паук, черный, как самая темная ночь. У него безжалостные глаза и кроваво-красный узор в виде песочных часов на спине."
 	ru_names = list(
-		NOMINATIVE = "вдова Ужаса",
-		GENITIVE = "вдовы Ужаса",
-		DATIVE = "вдове Ужаса",
-		ACCUSATIVE = "вдову Ужаса",
-		INSTRUMENTAL = "вдовой Ужаса",
-		PREPOSITIONAL = "вдове Ужаса",
+		NOMINATIVE = "Вдова Ужаса",
+		GENITIVE = "Вдовы Ужаса",
+		DATIVE = "Вдове Ужаса",
+		ACCUSATIVE = "Вдову Ужаса",
+		INSTRUMENTAL = "Вдовой Ужаса",
+		PREPOSITIONAL = "Вдове Ужаса",
 	)
 	ai_target_method = TS_DAMAGE_POISON
 	icon_state = "terror_widow"
@@ -63,7 +63,7 @@
 
 /obj/structure/spider/terrorweb/widow
 	name = "sinister web"
-	desc = "На нитях этой паутины есть капли темной жидкости."
+	desc = "На нитях этой паутины сверкают капли тёмной жидкости."
 	ru_names = list(
 		NOMINATIVE = "зловещая паутина",
 		GENITIVE = "зловещей паутины",

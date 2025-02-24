@@ -1,11 +1,11 @@
 /datum/weather/web_storm
-	name = "web storm"
-	desc = "Плотное облако из мельчайших частичек паутины, липнущих ко всмеу вокруг."
+	name = "Паутинная буря"
+	desc = "Плотное облако из мельчайших частичек паутины, липнущих ко всему вокруг."
 
 	telegraph_duration = 2 SECONDS
-	telegraph_message = "<span class='danger'>Вы замечаете мелкие частицы паутины в воздухе</span>"
+	telegraph_message = span_danger("Вы замечаете мелкие частицы паутины в воздухе.")
 
-	weather_message = "<span class='userdanger'><i>Вы ощущаете поток мелких частиц паутины, липнуших ко всему вокруг.</i></span>"
+	weather_message = span_userdanger("<i>Вы ощущаете поток мельчайших частиц паутины, липнуших ко всему вокруг.</i>")
 	weather_overlay = "web_storm"
 	weather_duration_lower = 30 SECONDS
 	weather_duration_upper = 1 MINUTES
@@ -14,7 +14,7 @@
 	weather_sound = 'sound/creatures/terrorspiders/queen_shriek.ogg'
 
 	end_duration = 10 SECONDS
-	end_message = "<span class='notice'>Поток паутины осел.</span>"
+	end_message = span_notice("Поток паутины прекращается.")
 
 	area_type = /area
 	protected_areas = list(/area/space, /area/crew_quarters/sleep)

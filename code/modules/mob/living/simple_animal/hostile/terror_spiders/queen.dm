@@ -12,12 +12,12 @@
 	name = "Queen of Terror spider"
 	desc = "Огромный, ужасающий паук. Её яйцевой мешок почти такого же размера, как и её тело, и изобилует паучьими яйцами!"
 	ru_names = list(
-		NOMINATIVE = "королева Ужаса",
-		GENITIVE = "королевы Ужаса",
-		DATIVE = "королеве Ужаса",
-		ACCUSATIVE = "королеву Ужаса",
-		INSTRUMENTAL = "королевой Ужаса",
-		PREPOSITIONAL = "королеве Ужаса",
+		NOMINATIVE = "Королева Ужаса",
+		GENITIVE = "Королевы Ужаса",
+		DATIVE = "Королеве Ужаса",
+		ACCUSATIVE = "Королеву Ужаса",
+		INSTRUMENTAL = "Королевой Ужаса",
+		PREPOSITIONAL = "Королеве Ужаса",
 	)
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_queen"
@@ -27,7 +27,7 @@
 	health = 340
 	damage_coeff = list(BRUTE = 0.7, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 	regeneration = 3
-	deathmessage = "Издает пронзительный визг, эхом разносящийся по коридорам, леденящий сердца окружающих, когда паук безжизненно падает на землю."
+	deathmessage = "Издаёт пронзительный визг, эхом разносящийся по коридорам и леденящий сердца окружающих, в то время как паук безжизненно падает на землю."
 	death_sound = 'sound/creatures/terrorspiders/queen_death.ogg'
 	melee_damage_lower = 25
 	melee_damage_upper = 30
@@ -52,7 +52,7 @@
 	delay_web = 15
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_shriek_queen)
 	can_wrap = FALSE
-	spider_intro_text = "Будучи Королевой Ужаса, ваша цель - управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать поражение, ведь все пауки погибнут."
+	spider_intro_text = "Будучи Королевой Ужаса, ваша цель - управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать неминуюемую гибель гнезда, ведь все пауки погибнут."
 	datum_type = /datum/antagonist/terror_spider/main_spider/queen
 	var/spider_spawnfrequency = 1600 // 160 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
 	var/spider_spawnfrequency_stable = 3600 // 360 seconds. Spawnfrequency is set to this on awaymission spiders once nest setup is complete.
@@ -105,7 +105,7 @@
 		to_chat(src, span_notice("У вас есть яйцо, которое можно отложить."))
 		SEND_SOUND(src, sound('sound/effects/ping.ogg'))
 	else if(canlay > 1)
-		to_chat(src, span_notice("У вас есть [canlay] яиц, которые можно отложить."))
+		to_chat(src, span_notice("У вас есть [canlay] [declension_ru(canlay, "яйцо", "яйца", "яиц")], которые можно отложить."))
 		SEND_SOUND(src, sound('sound/effects/ping.ogg'))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/getSpiderLevel()

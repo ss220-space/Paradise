@@ -157,15 +157,15 @@
 
 /obj/structure/spider/terrorweb
 	name = "terror web"
+	desc = "Вязкая и липкая паутина."
 	ru_names = list(
-		NOMINATIVE = "паутина ужаса",
-		GENITIVE = "паутины ужаса",
-		DATIVE = "паутине ужаса",
-		ACCUSATIVE = "паутину ужаса",
-		INSTRUMENTAL = "паутиной ужаса",
-		PREPOSITIONAL = "паутине ужаса",
+		NOMINATIVE = "паутина Ужаса",
+		GENITIVE = "паутины Ужаса",
+		DATIVE = "паутине Ужаса",
+		ACCUSATIVE = "паутину Ужаса",
+		INSTRUMENTAL = "паутиной Ужаса",
+		PREPOSITIONAL = "паутине Ужаса"
 	)
-	desc = "она вязкая и липкая"
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE // prevents people dragging it
 	density = FALSE // prevents it blocking all movement
@@ -198,7 +198,7 @@
 			return TRUE
 
 		if(prob(80))
-			to_chat(mover, span_danger("Вы на мгновение застряли в [declent_ru(PREPOSITIONAL)]."))
+			to_chat(mover, span_danger("Вы на мгновение застреваете в [declent_ru(PREPOSITIONAL)]."))
 			living_mover.Weaken(2 SECONDS) // 2 seconds, wow
 			living_mover.Slowed(10 SECONDS)
 			if(iscarbon(mover))

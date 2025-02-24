@@ -12,13 +12,14 @@
 	name = "Lurker of Terror"
 	desc = "Зловещего вида серый паук. Кажется, что он сливается с паутиной, из-за чего его трудно увидеть."
 	ru_names = list(
-		NOMINATIVE = "наблюдатель Ужаса",
-		GENITIVE = "наблюдателя Ужаса",
-		DATIVE = "наблюдателю Ужаса",
-		ACCUSATIVE = "наблюдателя Ужаса",
-		INSTRUMENTAL = "наблюдателем Ужаса",
-		PREPOSITIONAL = "наблюдателе Ужаса",
+		NOMINATIVE = "Наблюдатель Ужаса",
+		GENITIVE = "Наблюдателя Ужаса",
+		DATIVE = "Наблюдателю Ужаса",
+		ACCUSATIVE = "Наблюдателя Ужаса",
+		INSTRUMENTAL = "Наблюдателем Ужаса",
+		PREPOSITIONAL = "Наблюдателе Ужаса",
 	)
+	gender = MALE
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_gray"
 	icon_living = "terror_gray"
@@ -87,7 +88,7 @@
 /obj/structure/spider/terrorweb/gray
 	alpha = 80
 	name = "transparent web"
-	desc = "Эта паутина частично прозрачна, поэтому ее труднее увидеть и легче попасться."
+	desc = "Эта паутина частично прозрачна, поэтому её труднее увидеть и легче попасться."
 	ru_names = list(
 		NOMINATIVE = "прозрачная паутина",
 		GENITIVE = "прозрачной паутины",

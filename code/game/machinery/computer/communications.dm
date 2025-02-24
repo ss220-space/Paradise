@@ -597,7 +597,7 @@
 		return FALSE
 
 	if(SSshuttle.emergencyNoEscape)
-		to_chat(user, "Вызов шаттла заблокирован. Свяжитесь с Центральным Командованием для уточнения причин и снятия блокировки")
+		to_chat(user, "Вызов шаттла заблокирован. Свяжитесь с Центральным Командованием для уточнения причин и снятия блокировки.")
 		return FALSE
 
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)

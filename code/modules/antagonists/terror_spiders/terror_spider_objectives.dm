@@ -31,7 +31,7 @@
 	return .
 
 /datum/objective/spider_protect_egg
-	name = "Защищайть яйцо императрицы"
+	name = "Защищать яйцо Императрицы"
 	needs_target = FALSE
 	explanation_text = "Ошибка. Текст не сгенерирован. Напишите атикет и создайте баг репорт."
 
@@ -42,7 +42,7 @@
 /datum/objective/spider_protect_egg/proc/generate_text(datum/team/terror_spiders/spider_team)
 	if(spider_team?.empress_egg)
 		return
-	explanation_text = "Защищайте яйцо императрицы ужаса. Оно находится в [get_area(spider_team?.empress_egg)]. Его уничтожение приведет к гибели всего гнезда."
+	explanation_text = "Защищайте яйцо Императрицы Ужаса. Оно находится в [get_area(spider_team?.empress_egg)]. Его уничтожение приведёт к гибели всего гнезда."
 
 /datum/objective/spider_get_power
 	name = "spider bug"
@@ -63,7 +63,7 @@
 
 /datum/objective/spider_get_power/alife_spiders/generate_text()
 	. = ..()
-	explanation_text = "Расплодитесь. Для того, чтобы вы могли отложить яйцо императрицы в вашем гнезде должно быть [targets_need] пауков."
+	explanation_text = "Расплодитесь. Для того, чтобы вы могли отложить яйцо Императрицы, в вашем гнезде долж[declension_ru(targets_need, "ен", "о", "о")] быть [targets_need] паук[declension_ru(targets_need, "", "а", "ов")]."
 
 /datum/objective/spider_get_power/alife_spiders/check_completion(datum/team/terror_spiders/spider_team)
 	. = ..()
@@ -84,7 +84,7 @@
 
 /datum/objective/spider_get_power/spider_infections/generate_text()
 	. = ..()
-	explanation_text = "Заражайте. Для того, чтобы вы могли отложить яйцо императрицы должно быть заражено [targets_need] гуманоидов."
+	explanation_text = "Заражайте. Для того, чтобы вы могли отложить яйцо Императрицы, долж[declension_ru(targets_need, "ен", "о", "о")] быть заражено [targets_need] гуманоид[declension_ru(targets_need, "", "а", "ов")]."
 
 /datum/objective/spider_get_power/spider_infections/check_completion(datum/team/terror_spiders/spider_team)
 	. = ..()
@@ -104,7 +104,7 @@
 
 /datum/objective/spider_get_power/eat_humans/generate_text()
 	. = ..()
-	explanation_text = "Ешьте и набирайтесь сил. Для того, чтобы вы могли отложить яйцо императрицы вам нужно заплести в кокон [targets_need] гуманоидов. "
+	explanation_text = "Ешьте и набирайтесь сил. Для того, чтобы вы могли отложить яйцо Императрицы, вам нужно заплести в кокон [targets_need] гуманоид[declension_ru(targets_need, "а", "ов", "ов")]. "
 
 /datum/objective/spider_get_power/eat_humans/check_completion(human_count, datum/team/terror_spiders/spider_team)
 	. = ..()

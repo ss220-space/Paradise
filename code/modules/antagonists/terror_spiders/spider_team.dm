@@ -1,7 +1,7 @@
 GLOBAL_VAR_INIT(global_degenerate, FALSE)
 
 /datum/team/terror_spiders
-	name = "Пауки ужаса"
+	name = "Пауки Ужаса"
 	antag_datum_type = /datum/antagonist/terror_spider
 	need_antag_hud = FALSE
 	var/list/main_spiders = list(TERROR_QUEEN = list(), TERROR_PRINCE = list(), TERROR_PRINCESS = list(), TERROR_DEFILER = list())
@@ -50,7 +50,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 /datum/team/terror_spiders/proc/egg_announce()
 	if(QDELETED(empress_egg))
 		return
-	GLOB.event_announcement.Announce("На борту станции [station_name()] зафиксирована биологическая сигнатура яйца Императрицы Ужаса в [get_area(empress_egg)]. Уничтожите его, пока не стало слишком поздно.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
+	GLOB.event_announcement.Announce("На борту станции [station_name()] зафиксирована биологическая сигнатура яйца Императрицы Ужаса в [get_area(empress_egg)]. Уничтожьте его, пока ситуация не вышла из под контроля.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
 
 /datum/team/terror_spiders/proc/spider_win_announce()
 	GLOB.event_announcement.Announce("Подтверждено наличие Императрицы Ужаса на борту [station_name()]. Станция переклассифицированна в гнездо биоугрозы 3-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.", "Отчет об объекте [station_name()]")
@@ -172,7 +172,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	GLOB.global_degenerate = TRUE
 	for(var/mob/spider in GLOB.ts_spiderlist)
 		if(spider)
-			to_chat(spider, span_danger("Вы чувствуесте невообразимую боль. Яйцо императрицы уничтожено."))
+			to_chat(spider, span_danger("Вы чувствуесте невообразимую боль. Яйцо Императрицы уничтожено."))
 	erase_eggs()
 
 /datum/team/terror_spiders/proc/erase_eggs()
@@ -192,11 +192,11 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	if(SSticker?.mode?.station_was_nuked && !terror_stage == TERROR_STAGE_POST_END)
 		to_chat(world, "<BR><FONT size = 3><B>Частичная победа Пауков Ужаса!</B></FONT>")
 		to_chat(world, "<B>Станция была уничтожена!</B>")
-		to_chat(world, "<B>Устройство самоуничтожения сработало, предотвращая распространение Пауков Ужаса.</B>")
+		to_chat(world, "<B>Устройство самоуничтожения сработало, предотвратив распространение Пауков Ужаса.</B>")
 	else if(protect_egg.check_completion(src))
 		to_chat(world, "<BR><FONT size = 3><B>Полная победа Пауков Ужаса!</B></FONT>")
 		to_chat(world, "<B>Пауки захватили станцию!</B>")
-		to_chat(world, "<B>Императрица ужаса появилась на свет, превратив всю станцию в гнездо.</B>")
+		to_chat(world, "<B>Императрица Ужаса появилась на свет, превратив всю станцию в гнездо.</B>")
 	else if(!check_main_spiders())
 		to_chat(world, "<BR><FONT size = 3><B>Полная победа персонала станции!</B></FONT>")
 		to_chat(world, "<B>Экипаж защитил станцию от Пауков Ужаса!</B>")
@@ -284,7 +284,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		if(!SSticker || !SSticker.mode)
 			return
 
-		if(tgui_alert(usr,"Вы действительно хотите [delay_terror_end? "вернуть" : "преостановить"] конец раунда в случае победы Пауков Ужаса?", "", list("Да", "Нет")) == "Нет")
+		if(tgui_alert(usr,"Вы действительно хотите [delay_terror_end? "вернуть" : "приостановить"] конец раунда в случае победы Пауков Ужаса?", "", list("Да", "Нет")) == "Нет")
 			return
 
 		if(!delay_terror_end)
@@ -298,7 +298,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 /proc/create_terror_spiders(type, count)
 	var/spider_type = get_spider_type(type)
 	if(!spider_type)
-		to_chat(usr, "Некорректный тип паука ужаса.")
+		to_chat(usr, "Некорректный тип паука Ужаса.")
 		return FALSE
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Паука Ужаса?", ROLE_TERROR_SPIDER, TRUE, 60 SECONDS, source = spider_type)
 	if(length(candidates) < count)

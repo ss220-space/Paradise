@@ -79,7 +79,7 @@
 	var/mob/living/our_mob = parent
 	if(our_mob.stat == DEAD || our_mob.key || awaiting_ghosts)
 		return
-	examine_text += span_boldnotice("Вы можете взять под контроль этого моба, нажав на него..")
+	examine_text += span_boldnotice("Вы можете взять под контроль это существо, нажав на него.")
 
 /// Send out a request for a brain
 /datum/component/ghost_direct_control/proc/request_ghost_control(poll_question, role_name, poll_length, age_check, check_ahud)
@@ -108,10 +108,10 @@
 	if(!hopeful_ghost.client)
 		return
 	if(awaiting_ghosts)
-		to_chat(hopeful_ghost, span_warning("В настоящее время идет отбор кандидатов-призраков!"))
+		to_chat(hopeful_ghost, span_warning("В настоящее время идёт отбор кандидатов-призраков!"))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	if(!SSticker.HasRoundStarted())
-		to_chat(hopeful_ghost, span_warning("Вы не можете взять на себя управление этим мобом до начала раунда!"))
+		to_chat(hopeful_ghost, span_warning("Вы не можете взять на себя управление этим существом до начала раунда!"))
 		return COMPONENT_CANCEL_ATTACK_CHAIN
 	INVOKE_ASYNC(src, PROC_REF(attempt_possession), our_mob, hopeful_ghost)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
@@ -126,17 +126,17 @@
 /// Grant possession of our mob, component is now no longer required
 /datum/component/ghost_direct_control/proc/assume_direct_control(mob/harbinger)
 	if(QDELETED(src))
-		to_chat(harbinger, span_warning("Срок действия предложения о контроле над существом истек.!"))
+		to_chat(harbinger, span_warning("Срок действия предложения о контроле над существом истёк!"))
 		return
 	if(jobban_isbanned(harbinger, ban_type) || (ban_syndicate && jobban_isbanned(harbinger, ROLE_SYNDICATE)))
-		to_chat(harbinger, span_warning("У вас джоббан на этой роли!"))
+		to_chat(harbinger, span_warning("Эта роль для вас заблокирована!"))
 		return
 	var/mob/living/new_body = parent
 	if(new_body.stat == DEAD)
 		to_chat(harbinger, span_warning("Это тело умерло, оно бесполезно!"))
 		return
 	if(new_body.key)
-		to_chat(harbinger, span_warning("[capitalize(new_body.declent_ru(NOMINATIVE))] уже стал разумным!"))
+		to_chat(harbinger, span_warning("[capitalize(new_body.declent_ru(NOMINATIVE))] уже является разумным!"))
 		qdel(src)
 		return
 	if(extra_control_checks && !extra_control_checks.Invoke(harbinger))

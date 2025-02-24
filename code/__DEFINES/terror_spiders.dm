@@ -3,20 +3,20 @@
 #define TS_DAMAGE_BRUTE 2
 
 //TIER 1
-#define TS_DESC_KNIGHT "Рыцарь - ШТУРМОВИК"
-#define TS_DESC_LURKER "Наблюдатель - ЗАСАДНИК"
-#define TS_DESC_HEALER "Лекарь - МЕДСЕСТРА"
-#define TS_DESC_REAPER "Жнец - БОЕЦ"
-#define TS_DESC_BUILDER "Дрон - СТРОИТЕЛЬ"
+#define TS_DESC_KNIGHT "Рыцарь - ШТУРМ"
+#define TS_DESC_LURKER "Наблюдатель - ЗАСАДЫ"
+#define TS_DESC_HEALER "Лекарь - ЛЕЧЕНИЕ"
+#define TS_DESC_REAPER "Жнец - БОЙ"
+#define TS_DESC_BUILDER "Дрон - СТРОИТЕЛЬСТВО"
 //TIER 2
-#define TS_DESC_WIDOW "Вдова - ОТРАВИТЕЛЬ"
-#define TS_DESC_GUARDIAN "Защитник - СТРАЖ"
-#define TS_DESC_DESTROYER "Разрушитель - САБОТАЖНИК"
+#define TS_DESC_WIDOW "Вдова - ОТРАВЛЕНИЕ"
+#define TS_DESC_GUARDIAN "Защитник - ОБОРОНА"
+#define TS_DESC_DESTROYER "Разрушитель - САБОТАЖ"
 //TIER 3
-#define TS_DESC_PRINCE "Принц - ГЕРОЙ"
-#define TS_DESC_PRINCESS "Принцесса - ОРДА"
+#define TS_DESC_PRINCE "Принц - КРОВАВАЯ БАНЯ"
+#define TS_DESC_PRINCESS "Принцесса - РАЗМНОЖЕНИЕ"
 #define TS_DESC_MOTHER "Мать - ПОДДЕРЖКА"
-#define TS_DESC_DEFILER "Осквернитель - ЗАРАЗИТЕЛЬ"
+#define TS_DESC_DEFILER "Осквернитель - ЗАРАЖЕНИЕ"
 //TIER 4
 #define TS_DESC_QUEEN "Королева - ЛИДЕР"
 
@@ -47,6 +47,6 @@
 
 #define SPIDERS_ANNOUNCE_TRIGGER 0.1
 
-#define TIME_TO_ANNOUNCE 10 SECONDS 
+#define TIME_TO_ANNOUNCE 10 SECONDS
 
 #define EMPRESS_EGG_TARGET_COUNT 2 + num_station_players() / 5

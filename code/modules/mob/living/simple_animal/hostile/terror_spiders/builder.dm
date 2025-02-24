@@ -12,12 +12,12 @@
 	name = "Drone of Terror"
 	desc = "Зловещий на вид паук, несмотря на размер, он кажется тяжелым."
 	ru_names = list(
-		NOMINATIVE = "дрон Ужаса",
-		GENITIVE = "дрона Ужаса",
-		DATIVE = "дрону Ужаса",
-		ACCUSATIVE = "дрона Ужаса",
-		INSTRUMENTAL = "дроном Ужаса",
-		PREPOSITIONAL = "дроне Ужаса",
+		NOMINATIVE = "Дрон Ужаса",
+		GENITIVE = "Дрона Ужаса",
+		DATIVE = "Дрону Ужаса",
+		ACCUSATIVE = "Дрона Ужаса",
+		INSTRUMENTAL = "Дроном Ужаса",
+		PREPOSITIONAL = "Дроне Ужаса",
 	)
 	gender = MALE
 	ai_target_method = TS_DAMAGE_BRUTE
@@ -81,12 +81,12 @@
 	name = "drone web"
 	desc = "Очень толстая паутина."
 	ru_names = list(
-		NOMINATIVE = "паутина дрона",
-		GENITIVE = "паутиы дрона",
-		DATIVE = "паутине дрона",
-		ACCUSATIVE = "паутину дрона",
-		INSTRUMENTAL = "паутиной дрона",
-		PREPOSITIONAL = "паутине дрона",
+		NOMINATIVE = "паутина Дрона Ужаса",
+		GENITIVE = "паутиы Дрона Ужаса",
+		DATIVE = "паутине Дрона Ужаса",
+		ACCUSATIVE = "паутину Дрона Ужаса",
+		INSTRUMENTAL = "паутиной Дрона Ужаса",
+		PREPOSITIONAL = "паутине Дрона Ужаса",
 	)
 
 /obj/item/projectile/terrorspider/builder

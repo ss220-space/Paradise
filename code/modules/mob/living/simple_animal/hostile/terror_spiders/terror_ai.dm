@@ -131,7 +131,7 @@
 					CreatePath(entry_vent)
 					step_with_glide(entry_vent)
 					if(spider_debug)
-						visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] движется к вентиляционному отверстию [entry_vent.declent_ru(NOMINATIVE)]."))
+						visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] движется к вентиляционному отверстию [entry_vent.declent_ru(GENITIVE)]."))
 			else
 				path_to_vent = 0
 		else if(ai_break_lights && world.time > (last_break_light + freq_break_light))
@@ -142,14 +142,14 @@
 					L.on = 1
 					L.break_light_tube()
 					do_attack_animation(L)
-					visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] разбивает [L.declent_ru(GENITIVE)]."))
+					visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] разбивает [L.declent_ru(ACCUSATIVE)]."))
 					return
 		else if(ai_spins_webs && web_type && world.time > (last_spins_webs + freq_spins_webs))
 			last_spins_webs = world.time
 			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)
 			if(!T)
 				new web_type(loc)
-				visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] плетет паутину."))
+				visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] плетёт паутину."))
 		else if(ai_ventcrawls && world.time > (last_ventcrawl_time + my_ventcrawl_freq))
 			if(prob(idle_ventcrawl_chance))
 				last_ventcrawl_time = world.time
@@ -287,7 +287,7 @@
 							try_open_airlock(A)
 				for(var/obj/machinery/door/firedoor/F in view(1, src))
 					if(tgt_dir == get_dir(src,F) && F.density && !F.welded)
-						visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] открывает противопожарную дверь!"))
+						visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] открывает [F.declent_ru(ACCUSATIVE)]!"))
 						F.open()
 
 	else

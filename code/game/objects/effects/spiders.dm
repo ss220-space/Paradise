@@ -2,6 +2,7 @@
 /obj/structure/spider
 	name = "web"
 	desc = "it's stringy and sticky"
+	gender = FEMALE
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	density = FALSE

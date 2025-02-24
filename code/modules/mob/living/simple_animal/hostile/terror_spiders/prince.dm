@@ -10,14 +10,14 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince
 	name = "Prince of Terror"
-	desc = "Огромный, ужасающий паук. Похоже, он карает все, что видит. Его шкура кажется бронированной, и на нем видны шрамы многих сражений."
+	desc = "Огромный, ужасающий паук. Похоже, он уничтожает всё, что видит. Его шкура кажется непробиваемой, и на нём видны шрамы многих сражений."
 	ru_names = list(
-		NOMINATIVE = "принц Ужаса",
-		GENITIVE = "принца Ужаса",
-		DATIVE = "принцу Ужаса",
-		ACCUSATIVE = "принца Ужаса",
-		INSTRUMENTAL = "принцем Ужаса",
-		PREPOSITIONAL = "принце Ужаса",
+		NOMINATIVE = "Принц Ужаса",
+		GENITIVE = "Принца Ужаса",
+		DATIVE = "Принцу Ужаса",
+		ACCUSATIVE = "Принца Ужаса",
+		INSTRUMENTAL = "Принцем Ужаса",
+		PREPOSITIONAL = "Принце Ужаса",
 	)
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_allblack"
@@ -27,7 +27,7 @@
 	health = 600
 	speed = -0.1
 	damage_coeff = list(BRUTE = 0.3, BURN = 0.6, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
-	deathmessage =  "болезненно рычит, трясется и разрешается, пока смерть наконец смывает пылающую ненависть в его глазах."
+	deathmessage =  "болезненно рычит, трясётся и ослабевает, пока смерть наконец не смывает пылающую ненависть из его ужасающих глаз."
 	death_sound = 'sound/creatures/terrorspiders/prince_dead.ogg'
 	regeneration = 0 //no healing on life, prince should play agressive
 	force_threshold = 30

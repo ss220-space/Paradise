@@ -11,13 +11,14 @@
 	name = "Defiler of Terror"
 	desc = "Зловещий на вид белый паук, с призрачными глазами и злобными кошмарными клыками."
 	ru_names = list(
-		NOMINATIVE = "осквернитель Ужаса",
-		GENITIVE = "осквернителя Ужаса",
-		DATIVE = "осквернителю Ужаса",
-		ACCUSATIVE = "осквернителя Ужаса",
-		INSTRUMENTAL = "осквернителем Ужаса",
-		PREPOSITIONAL = "осквернителе Ужаса",
+		NOMINATIVE = "Осквернитель Ужаса",
+		GENITIVE = "Осквернителя Ужаса",
+		DATIVE = "Осквернителю Ужаса",
+		ACCUSATIVE = "Осквернителя Ужаса",
+		INSTRUMENTAL = "Осквернителем Ужаса",
+		PREPOSITIONAL = "Осквернителе Ужаса",
 	)
+	gender = MALE
 	ai_target_method = TS_DAMAGE_POISON
 	icon_state = "terror_white"
 	icon_living = "terror_white"
@@ -30,7 +31,6 @@
 	melee_damage_upper = 1
 	spider_opens_doors = 2
 	spider_tier = TS_TIER_3
-	gender = MALE
 	web_type = /obj/structure/spider/terrorweb/white
 	delay_web = 10
 	special_abillity = list(/obj/effect/proc_holder/spell/terror_smoke,

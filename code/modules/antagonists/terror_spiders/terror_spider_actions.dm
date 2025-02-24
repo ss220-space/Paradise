@@ -1,6 +1,6 @@
 /datum/action/innate/terrorspider/lay_empress_egg
 	name = "Отложить яйцо Императрицы"
-	desc = "Отложить яйцо Имератрицы ужаса."
+	desc = "Отложить яйцо Имератрицы Ужаса."
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "eggs"
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
@@ -25,4 +25,4 @@
 	team.on_empress_egg_layed(C)
 	var/mob/living/simple_animal/hostile/poison/terror_spider/spider = owner
 	if(istype(spider))
-		spider.msg_terrorspiders("Яйцо императрицы ужаса отложено в [get_area(owner)]. Защищайте его любой ценой.")
+		spider.msg_terrorspiders("Яйцо императрицы Ужаса отложено в [get_area(owner)]. Защищайте его любой ценой.")

@@ -10,7 +10,7 @@
 			continue
 		hsline = "* [capitalize(T.declent_ru(NOMINATIVE))] в [get_area(T)], "
 		if(T.stat == DEAD)
-			hsline += "МЕРТВ"
+			hsline += "МЁРТВ"
 		else
 			hsline += "здоровье [T.health] / [T.maxHealth], "
 		if(T.ckey)

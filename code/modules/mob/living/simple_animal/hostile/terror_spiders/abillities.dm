@@ -6,7 +6,7 @@
 
 //STEALTH AKA INVISIBILLITY
 /obj/effect/proc_holder/spell/terror_stealth
-	name = "Stealth"
+	name = "Невидимость"
 	desc = "Стать полностью невидимым на короткое время."
 	action_icon_state = "stealth"
 	action_background_icon_state = "bg_terror"
@@ -40,8 +40,8 @@
 
 //LESSER HEALING
 /obj/effect/proc_holder/spell/aoe/terror_healing
-	name = "Heal"
-	desc = "Источать феромоны, исцеляющие союзников."
+	name = "Исцеляющие феромоны"
+	desc = "Выбросить в атмосферу феромоны, лечащие ваших союзников."
 	action_icon_state = "heal"
 	action_background_icon_state = "bg_terror"
 	base_cooldown = 30 SECONDS
@@ -62,7 +62,7 @@
 
 /obj/effect/proc_holder/spell/aoe/terror_healing/cast(list/targets, mob/user = usr)
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/spider in targets)
-		visible_message(span_green("[capitalize(user.declent_ru(NOMINATIVE))] источает феромоны и лечит пауков вокруг!"))
+		visible_message(span_green("[capitalize(user.declent_ru(NOMINATIVE))] источает целительные феромоны!"))
 		spider.adjustBruteLoss(-heal_amount)
 		if(apply_heal_buff)
 			spider.apply_status_effect(STATUS_EFFECT_TERROR_REGEN)
@@ -77,12 +77,12 @@
 
 //VENOM SPIT
 /obj/effect/proc_holder/spell/fireball/venom_spit
-	name = "Venom spit"
+	name = "Кислотный плевок"
 	desc = "Плюнуть кислоту, при контакте создающую дым, наполненный наркотиками и ядом."
 	invocation_type = "none"
 	action_icon_state = "fake_death"
 	action_background_icon_state = "bg_terror"
-	selection_activated_message	= span_notice("Вы подготавливаете свой ядовитый плевок! <B>Щелкните левой кнопкой мыши, чтобы плюнуть в цель!</B>")
+	selection_activated_message	= span_notice("Вы подготавливаете свой ядовитый плевок! <B>ЛКМ, чтобы плюнуть в цель</B>.")
 	selection_deactivated_message = span_notice("Вы отменяете свой плевок.")
 	sound = 'sound/creatures/terrorspiders/spit2.ogg'
 	need_active_overlay = TRUE
@@ -118,12 +118,12 @@
 
 //SMOKE SPIT
 /obj/effect/proc_holder/spell/fireball/smoke_spit
-	name = "Smoke spit"
+	name = "Плевок дымящейся кислотой"
 	desc = "Плюнуть кислоту, создающую дым при контакте."
 	invocation_type = "none"
 	action_icon_state = "smoke"
 	action_background_icon_state = "bg_terror"
-	selection_activated_message	= span_notice("Вы подготавливаете дымный плевок! <B>Щелкните левой кнопкой мыши, чтобы плюнуть в цель!</B>")
+	selection_activated_message	= span_notice("Вы подготавливаете дымный плевок! <B>ЛКМ, чтобы плюнуть в цель</B>")
 	selection_deactivated_message = span_notice("Вы отменяете свой плевок.")
 	sound = 'sound/creatures/terrorspiders/spit2.ogg'
 	need_active_overlay = TRUE
@@ -156,8 +156,8 @@
 //EMP
 
 /obj/effect/proc_holder/spell/emplosion/terror_emp
-	name = "EMP shriek"
-	desc = "Издать визг, вызывающий ЭМИ-импульс."
+	name = "Электро-магнитный визг"
+	desc = "Издать визг, вызывающий ЭМИ."
 	action_icon_state = "emp_new"
 	action_background_icon_state = "bg_terror"
 	base_cooldown = 40 SECONDS
@@ -176,7 +176,7 @@
 
 //EXPLOSION
 /obj/effect/proc_holder/spell/explosion/terror_burn
-	name = "Burn!"
+	name = "Воспламенение"
 	desc = "Высвободить энергию, создавая огромное огненное кольцо."
 	action_icon_state = "explosion"
 	action_background_icon_state = "bg_terror"
@@ -197,7 +197,7 @@
 
 //SHIELD
 /obj/effect/proc_holder/spell/aoe/conjure/build/terror_shield
-	name = "Guardian shield"
+	name = "Защитная мембрана"
 	desc = "Создать временный органический щит для защиты вашего гнезда."
 	action_icon_state = "terror_shield"
 	action_background_icon_state = "bg_terror"
@@ -210,8 +210,8 @@
 
 
 /obj/effect/forcefield/terror
+	name = "Защитная мембрана"
 	desc = "Толстая защитная мембрана, созданная Защитником Ужаса."
-	name = "Guardian shield"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "terror_shield"
 	lifetime = 16.5 SECONDS                       //max 2 shields existing at one time
@@ -230,7 +230,7 @@
 
 //SMOKE
 /obj/effect/proc_holder/spell/terror_smoke
-	name = "Smoke"
+	name = "Дымовая завеса"
 	desc = "Извергнуть дым, сбивающий врагов с толку."
 	action_icon_state = "smoke"
 	action_background_icon_state = "bg_terror"
@@ -254,7 +254,7 @@
 
 //PARALYSING SMOKE
 /obj/effect/proc_holder/spell/terror_parasmoke
-	name = "Paralyzing Smoke"
+	name = "Парализующий дым"
 	desc = "Извергнуть дым, парализующий врагов."
 	action_icon_state = "biohazard2"
 	action_background_icon_state = "bg_terror"
@@ -285,8 +285,8 @@
 
 //TERRIFYING SHRIEK
 /obj/effect/proc_holder/spell/aoe/terror_shriek
-	name = "Terrify"
-	desc = "Издать громкий визг, пугающий врагов."
+	name = "Ужасающий визг"
+	desc = "Издать громкий крик, пугающий врагов."
 	action_icon_state = "terror_shriek"
 	action_background_icon_state = "bg_terror"
 	base_cooldown = 60 SECONDS
@@ -325,7 +325,7 @@
 
 //SHRIEK
 /obj/effect/proc_holder/spell/aoe/terror_shriek_princess
-	name = "Princess Shriek"
+	name = "Ужасающий визг Принцессы"
 	desc = "Издать громкий визг, ослабляющий врагов."
 	action_icon_state = "terror_shriek"
 	action_background_icon_state = "bg_terror"
@@ -362,7 +362,7 @@
 
 //SLAM
 /obj/effect/proc_holder/spell/aoe/terror_slam
-	name = "Slam"
+	name = "Топот"
 	desc = "Ударить землю своим телом."
 	action_icon_state = "slam"
 	action_background_icon_state = "bg_terror"
@@ -395,7 +395,7 @@
 
 //JELLY PRODUCTION
 /obj/effect/proc_holder/spell/aoe/conjure/build/terror_jelly
-	name = "Produce jelly"
+	name = "Секреция желе"
 	desc = "Произвести органическое желе, лечащее пауков."
 	action_icon_state = "spiderjelly"
 	action_background_icon_state = "bg_terror"
@@ -409,7 +409,7 @@
 
 //MASS HEAL
 /obj/effect/proc_holder/spell/aoe/terror_healing/greater
-	name = "Massive healing"
+	name = "Массовое исцеление"
 	base_cooldown = 40 SECONDS
 	aoe_range = 7
 	heal_amount = 30
@@ -422,7 +422,7 @@
 
 //SHRIEK
 /obj/effect/proc_holder/spell/aoe/terror_shriek_queen
-	name = "Queen Shriek"
+	name = "Ужасающий визг Королевы"
 	desc = "Издать громкий визг, ослабляющий врагов."
 	action_icon_state = "terror_shriek"
 	action_background_icon_state = "bg_terror"

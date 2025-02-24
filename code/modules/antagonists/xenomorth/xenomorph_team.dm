@@ -103,7 +103,7 @@
 	GLOB.event_announcement.Announce("Зафиксировано изменение организации улья, указывающее на начало трансформации в Императрицу Ксеноморфов. Обнаружено значительное скопление биоугрозы в [loc.name]. Уничтожте огранизм до окончания трансформации любой ценой.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
 
 /datum/team/xenomorph/proc/win_announce()
-	GLOB.event_announcement.Announce("Подтверждено наличие Императрицы Ксеноморфов на борту [station_name()]. Обнаружено загрязнение систем жизнеобеспечения. Станция переклассифицированна в гнездо биоугрозы 4-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.", "Отчет об объекте [station_name()]")
+	GLOB.event_announcement.Announce("Подтверждено наличие Императрицы Ксеноморфов на борту [station_name()]. Обнаружено загрязнение систем жизнеобеспечения. Станция переклассифицирована в гнездо биоугрозы 4-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.", "Отчёт об объекте [station_name()]")
 
 
 /datum/team/xenomorph/proc/evolve_start(area/loc)
@@ -151,7 +151,7 @@
 	if(SSticker?.mode?.station_was_nuked && !stage == XENO_STAGE_POST_END)
 		to_chat(world, "<BR><FONT size = 3><B>Частичная победа Ксеноморфов!</B></FONT>")
 		to_chat(world, "<B>Станция была уничтожена!</B>")
-		to_chat(world, "<B>Устройство самоуничтожения сработало, предотвращая распространение Ксеноморфов.</B>")
+		to_chat(world, "<B>Устройство самоуничтожения сработало, предотвратив распространение Ксеноморфов.</B>")
 	else if(protect_cocon.check_completion(src))
 		to_chat(world, "<BR><FONT size = 3><B>Полная победа Ксеноморфов!</B></FONT>")
 		to_chat(world, "<B>Ксеноморфы захватили станцию!</B>")
@@ -229,7 +229,7 @@
 		spawn_larvas(vents, spawn_count)
 
 /proc/spawn_larvas(list/vents, spawncount)
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Чужого?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/larva)
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Ксеноморфа?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/larva)
 	var/first_spawn = TRUE
 	while(spawncount && length(vents) && length(candidates))
 		var/obj/vent = pick_n_take(vents)
@@ -251,7 +251,7 @@
 
 /proc/spawn_vectors(list/vents, spawncount)
 	spawncount = 1
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Чужого Вектора?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/humanoid/hunter/vector)
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Ксеноморфа (Вектор)?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/humanoid/hunter/vector)
 	var/first_spawn = TRUE
 	while(spawncount && length(vents) && length(candidates))
 		var/obj/vent = pick_n_take(vents)

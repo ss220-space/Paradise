@@ -22,11 +22,11 @@
 		to_chat(owner, span_warning("Данное действие может выполнить только королева ксеноморфов."))
 		return
 
-	if(tgui_alert(queen, "Вы действительно хотите начать эволюцию? После начала вы не сможете что-либо сделать пока процесс эволюции не завершится.", "Подтверждение", list("Да", "Нет")) != "Да")
+	if(tgui_alert(queen, "Вы действительно хотите начать эволюцию? После начала вы не сможете что-либо делать, пока процесс эволюции не завершится.", "Подтверждение", list("Да", "Нет")) != "Да")
 		return
 
 	if(!queen.use_plasma_spell(TO_EMPRESS_EVOLVE_COST, queen))
-		queen.balloon_alert(queen, "Не хватает плазмы")
+		queen.balloon_alert(queen, "не хватает плазмы!")
 		return
 
 	playsound_xenobuild(queen)

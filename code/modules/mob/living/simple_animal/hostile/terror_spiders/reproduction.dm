@@ -7,12 +7,12 @@
 	name = "spiderling"
 	desc = "Быстро движущийся крошечный паук, склонный издавать агрессивные шипящие звуки. Надеюсь, оно не вырастет."
 	ru_names = list(
-		NOMINATIVE = "спайдерлинг",
-		GENITIVE = "спайдерлинга",
-		DATIVE = "спайдерлингу",
-		ACCUSATIVE = "спайдерлинга",
-		INSTRUMENTAL = "спайдерлингом",
-		PREPOSITIONAL = "спайдерлинге",
+		NOMINATIVE = "паучок",
+		GENITIVE = "паучка",
+		DATIVE = "паучку",
+		ACCUSATIVE = "паучка",
+		INSTRUMENTAL = "паучком",
+		PREPOSITIONAL = "паучке",
 	)
 	icon_state = "spiderling"
 	anchored = FALSE
@@ -219,7 +219,8 @@
 
 /obj/structure/spider/eggcluster/terror_eggcluster
 	name = "terror egg cluster"
-	desc = "Скопление крошечных паучьих яиц. Они пульсируют сильной внутренней жизнью и, кажется, имеют острые шипы по бокам."
+	desc = "Скопление крошечных паучьих яиц. Они активно пульсируют и имеют острые шипы по бокам."
+	gender = PLURAL
 	icon_state = "egg"
 	max_integrity = 40
 	grown_tick_count = 140
@@ -283,7 +284,7 @@
 		DATIVE = "яйцам [ru_prefix]",
 		ACCUSATIVE = "яйца [ru_prefix]",
 		INSTRUMENTAL = "яйцами [ru_prefix]",
-		PREPOSITIONAL = "яйцах [ru_prefix]",
+		PREPOSITIONAL = "яйцах [ru_prefix]"
 	)
 
 /obj/structure/spider/eggcluster/terror_eggcluster/Destroy()
@@ -334,14 +335,13 @@
 
 /obj/structure/spider/eggcluster/terror_eggcluster/empress
 	name = "empress egg cluster"
-	desc = "Скопление крошечных паучьих яиц. Они пульсируют сильной внутренней жизнью и, кажется, имеют острые шипы по бокам."
 	ru_names = list(
-		NOMINATIVE = "яйца императрицы ужаса",
-		GENITIVE = "яиц императрицы ужаса",
-		DATIVE = "яйцам императрицы ужаса",
-		ACCUSATIVE = "яйца императрицы ужаса",
-		INSTRUMENTAL = "яйцами императрицы ужаса",
-		PREPOSITIONAL = "яйцах императрицы ужаса",
+		NOMINATIVE = "яйца Императрицы Ужаса",
+		GENITIVE = "яиц Императрицы Ужаса",
+		DATIVE = "яйцам Императрицы Ужаса",
+		ACCUSATIVE = "яйца Императрицы Ужаса",
+		INSTRUMENTAL = "яйцами Императрицы Ужаса",
+		PREPOSITIONAL = "яйцах Императрицы Ужаса",
 	)
 	spiderling_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/weak
 	max_integrity = 1000
@@ -372,6 +372,7 @@
 
 /obj/structure/spider/royaljelly
 	name = "royal jelly"
+	desc = "Пульсирующая масса слизи, желе, крови или сжиженных органов гуманоидов, которую Пауки Ужаса считают вкусной и очень питательной."
 	ru_names = list(
 		NOMINATIVE = "королевское желе",
 		GENITIVE = "королевского желе",
@@ -380,5 +381,5 @@
 		INSTRUMENTAL = "королевским желе",
 		PREPOSITIONAL = "королевском желе",
 	)
-	desc = "Пульсирующая масса слизи, желе, крови и/или сжиженных человеческих органов, которую пауки ужаса считают вкусной и очень питательной."
+	gender = NEUTER
 	icon_state = "spiderjelly"

@@ -10,15 +10,16 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/healer
 	name = "Healer of Terror"
-	desc = "Зловещий зеленый паук. К нему прикреплен небольшой яичный мешок, а на панцире виднеются засохшие пятна крови."
+	desc = "Зловещий зелёный паук. К нему прикреплен небольшой яичный мешок, а на панцире виднеются засохшие пятна крови."
 	ru_names = list(
-		NOMINATIVE = "лекарь Ужаса",
-		GENITIVE = "лекаря Ужаса",
-		DATIVE = "лекарю Ужаса",
-		ACCUSATIVE = "лекаря Ужаса",
-		INSTRUMENTAL = "лекарем Ужаса",
-		PREPOSITIONAL = "лекаре Ужаса",
+		NOMINATIVE = "Лекарь Ужаса",
+		GENITIVE = "Лекаря Ужаса",
+		DATIVE = "Лекарю Ужаса",
+		ACCUSATIVE = "Лекаря Ужаса",
+		INSTRUMENTAL = "Лекарем Ужаса",
+		PREPOSITIONAL = "Лекаре Ужаса",
 	)
+	gender = MALE
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_green"
 	icon_living = "terror_green"
@@ -31,7 +32,7 @@
 	melee_damage_upper = 15
 	web_type = /obj/structure/spider/terrorweb/green
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_healing)
-	spider_intro_text = "Будучи Лекарем Ужаса, ваша задача исцелять других пауков и откладывать яйца. Чем больше трупов вы поглотили, тем эффективнее исцеление, однако, для откладывания яиц, вам также необходимы трупы."
+	spider_intro_text = "Будучи Лекарем Ужаса, ваша задача - исцелять других пауков и откладывать яйца. Чем больше трупов вы поглотили, тем эффективнее исцеление и тем больше яиц вы сможете отложить."
 	var/feedings_to_lay = 3
 	var/datum/action/innate/terrorspider/greeneggs/greeneggs_action
 	tts_seed = "Jolene"
@@ -135,7 +136,7 @@
 
 /obj/structure/spider/terrorweb/green
 	name = "slimy web"
-	desc = "Эта паутина частично состоит из нитей зеленой слизи."
+	desc = "Эта паутина частично состоит из нитей зелёной слизи."
 	ru_names = list(
 		NOMINATIVE = "скользкая паутина",
 		GENITIVE = "скользкой паутины",

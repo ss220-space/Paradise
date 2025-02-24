@@ -13,17 +13,17 @@
 	desc = "Зловещего вида фиолетовый паук. Он смотрит по сторонам настороженно, словно чего-то ожидая."
 	ai_target_method = TS_DAMAGE_BRUTE
 	ru_names = list(
-		NOMINATIVE = "защитник Ужаса",
-		GENITIVE = "защитника Ужаса",
-		DATIVE = "защитнику Ужаса",
-		ACCUSATIVE = "защитника Ужаса",
-		INSTRUMENTAL = "защитником Ужаса",
-		PREPOSITIONAL = "защитнике Ужаса",
+		NOMINATIVE = "Защитник Ужаса",
+		GENITIVE = "Защитника Ужаса",
+		DATIVE = "Защитнику Ужаса",
+		ACCUSATIVE = "Защитника Ужаса",
+		INSTRUMENTAL = "Защитником Ужаса",
+		PREPOSITIONAL = "Защитнике Ужаса",
 	)
+	gender = MALE
 	icon_state = "terror_purple"
 	icon_living = "terror_purple"
 	icon_dead = "terror_purple_dead"
-	gender = MALE
 	maxHealth = 250
 	health = 250
 	damage_coeff = list(BRUTE = 0.6, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
@@ -46,7 +46,7 @@
 	delay_web = 20
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe/conjure/build/terror_shield)
 	can_wrap = FALSE
-	spider_intro_text = "Будучи Защитником Ужаса, ваша задача - охрана гнезда, яиц, принцесс и королевы. Вы очень сильны и живучи, используйте это, чтобы защитить выводок. Ваша активная способность создает временный неразрушимый барьер, через который могут пройти только пауки. Если встанет выбор, спасти принцессу, или королеву, при этои обрекая себя на смерть - делайте это без раздумий!."
+	spider_intro_text = "Будучи Защитником Ужаса, ваша задача - охрана гнезда, яиц, Принцесс и Королевы. Вы очень сильны и живучи, используйте это, чтобы защитить выводок. Ваша активная способность создаёт временный неразрушимый барьер, через который могут пройти только пауки. Если встанет выбор, спасти Принцессу, или Королеву, при этои обрекая себя на смерть - делайте это без раздумий!"
 	ai_spins_webs = FALSE
 	tts_seed = "Avozu"
 	var/queen_visible = TRUE
@@ -89,7 +89,7 @@
 			if(Q.stat == DEAD)
 				spider_myqueen = null
 				degenerate = TRUE
-				to_chat(src, span_userdanger("[capitalize(Q.declent_ru(NOMINATIVE))] умерла! Ее сила больше не поддерживает вас!"))
+				to_chat(src, span_userdanger("[capitalize(Q.declent_ru(NOMINATIVE))] умерла! Её сила больше не поддерживает вас!"))
 				return
 
 			if(get_dist(src, Q) < vision_range)
@@ -135,7 +135,7 @@
 			else if(cycles_noqueen >= 18)
 				status_tab_data[++status_tab_data.len] = list("Связь:", "<font color='#eb4034'>Критическая - вернитесь к [spider_myqueen.declent_ru(DATIVE)] в [A.declent_ru(PREPOSITIONAL)]</font>") // color=red
 			else
-				status_tab_data[++status_tab_data.len] = list("Связь:", "<font color='#fcba03'>Опасаная - вернитесь к  [spider_myqueen.declent_ru(DATIVE)] в [A.declent_ru(PREPOSITIONAL)]</font>") // color=orange
+				status_tab_data[++status_tab_data.len] = list("Связь:", "<font color='#fcba03'>Опасная - вернитесь к  [spider_myqueen.declent_ru(DATIVE)] в [A.declent_ru(PREPOSITIONAL)]</font>") // color=orange
 
 /obj/structure/spider/terrorweb/purple
 	name = "thick web"
