@@ -1,3 +1,5 @@
+#define SMOKE_TICK_TO_SECONDS *15
+
 /**
  * A fluid which spreads through the air affecting every mob it engulfs.
  */
@@ -14,7 +16,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	animate_movement = FALSE
 	/// How long the smoke sticks around before it dissipates.
-	var/lifetime = 10 SECONDS
+	var/lifetime = 5 SMOKE_TICK_TO_SECONDS
 	/// Makes the smoke react to changes on/of its turf.
 	var/static/loc_connections = list(
 		COMSIG_TURF_CALCULATED_ADJACENT_ATMOS = PROC_REF(react_to_atmos_adjacency_changes)
@@ -71,7 +73,7 @@
 
 
 /obj/effect/particle_effect/fluid/smoke/spread(seconds_per_tick = 0.1 SECONDS)
-	if(group.total_size > group.target_size)
+	if(!group || group.total_size > group.target_size)
 		return
 	var/turf/t_loc = get_turf(src)
 	if(!t_loc)
@@ -117,7 +119,7 @@
 		return FALSE
 	if(lifetime < 1)
 		return FALSE
-	if(smoker.internal != null || smoker.can_breathe_gas())
+	if(!smoker.can_breathe_gas())
 		return FALSE
 	if(smoker.smoke_delay)
 		return FALSE
@@ -191,7 +193,8 @@
 
 /// Smoke that makes you cough and reduces the power of lasers.
 /obj/effect/particle_effect/fluid/smoke/bad
-	lifetime = 16 SECONDS
+	lifetime = 8 SMOKE_TICK_TO_SECONDS
+	var/beam_resistance = 2
 
 /obj/effect/particle_effect/fluid/smoke/bad/Initialize(mapload)
 	. = ..()
@@ -222,11 +225,34 @@
 	SIGNAL_HANDLER
 	if(istype(arrived, /obj/item/projectile/beam))
 		var/obj/item/projectile/beam/beam = arrived
-		beam.damage *= 0.5
+		beam.damage = (beam.damage / beam_resistance)
 
 /// A factory which produces smoke that makes you cough.
 /datum/effect_system/fluid_spread/smoke/bad
 	effect_type = /obj/effect/particle_effect/fluid/smoke/bad
+
+/obj/effect/particle_effect/fluid/smoke/bad/solid
+	lifetime = 9 SMOKE_TICK_TO_SECONDS
+
+/////////////////////////////////////////////
+// Solid smoke
+/////////////////////////////////////////////
+
+/datum/effect_system/fluid_spread/smoke/solid
+	effect_type = /obj/effect/particle_effect/fluid/smoke/bad/solid
+	var/effect_range
+
+/datum/effect_system/fluid_spread/smoke/solid/set_up(range, amount, atom/holder, atom/location, effect_range, ...)
+	. = ..()
+	src.effect_range = effect_range
+
+/datum/effect_system/fluid_spread/smoke/solid/start(log)
+	var/location = src.location || get_turf(holder)
+	for(var/turf/effect_location in view(effect_range, location))
+		var/obj/effect/particle_effect/fluid/flood = new effect_type(effect_location, new /datum/fluid_group(amount))
+		if(log) // Smoke is used as an aesthetic effect in a tonne of places and we don't want, say, a broken secway spamming admin chat.
+			help_out_the_admins(flood, holder, location)
+		flood.spread()
 
 /////////////////////////////////////////////
 // Bad Smoke (But Green (and Black))
@@ -235,8 +261,20 @@
 /// Green smoke that makes you cough.
 /obj/effect/particle_effect/fluid/smoke/bad/green
 	name = "green smoke"
-	color = COLOR_LIME
-	opacity = FALSE
+	color = "#00ff00"
+
+/obj/effect/particle_effect/fluid/smoke/bad/red
+	name = "red smoke"
+	color = "#af0033"
+
+/obj/effect/particle_effect/fluid/smoke/bad/blue
+	name = "blue smoke"
+	color = "#88aaff"
+
+/obj/effect/particle_effect/fluid/smoke/bad/bombarda
+	name = "bombarda smoke"
+	color = "#800080"
+	lifetime = 20 SMOKE_TICK_TO_SECONDS
 
 /// A factory which produces green smoke that makes you cough.
 /datum/effect_system/fluid_spread/smoke/bad/green
@@ -339,7 +377,7 @@
 /// Smoke which knocks you out if you breathe it in.
 /obj/effect/particle_effect/fluid/smoke/sleeping
 	color = "#9C3636"
-	lifetime = 20 SECONDS
+	lifetime = 10 SMOKE_TICK_TO_SECONDS
 
 /obj/effect/particle_effect/fluid/smoke/sleeping/smoke_mob(mob/living/carbon/smoker, seconds_per_tick)
 	if(..())
@@ -351,6 +389,27 @@
 /datum/effect_system/fluid_spread/smoke/sleeping
 	effect_type = /obj/effect/particle_effect/fluid/smoke/sleeping
 
+
+/////////////////////////////////////////////
+// Vomiting smoke
+/////////////////////////////////////////////
+
+/obj/effect/particle_effect/fluid/smoke/vomiting
+	color = "#752424"
+	lifetime = 3 SMOKE_TICK_TO_SECONDS
+
+/obj/effect/particle_effect/fluid/smoke/smoke_mob(mob/living/carbon/victim)
+	. = ..()
+	if(!.)
+		return .
+	victim.drop_from_active_hand()
+	victim.vomit()
+	INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "cough")
+
+
+/datum/effect_system/fluid_spread/smoke/vomiting
+	effect_type = /obj/effect/particle_effect/fluid/smoke/vomiting
+
 /////////////////////////////////////////////
 // Chem smoke
 /////////////////////////////////////////////
@@ -359,7 +418,7 @@
  * Smoke which contains reagents which it applies to everything it comes into contact with.
  */
 /obj/effect/particle_effect/fluid/smoke/chem
-	lifetime = 20 SECONDS
+	lifetime = 12 SECONDS
 
 /obj/effect/particle_effect/fluid/smoke/chem/process(seconds_per_tick)
 	. = ..()
@@ -381,7 +440,7 @@
 		return FALSE
 	if(!istype(smoker))
 		return FALSE
-	if(smoker.internal != null || !smoker.can_breathe_gas())
+	if(!smoker.can_breathe_gas())
 		return FALSE
 
 	var/fraction = (seconds_per_tick SECONDS) / initial(lifetime)
@@ -390,7 +449,7 @@
 	return TRUE
 
 /// Helper to quickly create a cloud of reagent smoke
-/proc/do_chem_smoke(range = 0, amount = DIAMOND_AREA(range), atom/holder = null, location = null, reagent_type = /datum/reagent/water, smoke_type = /datum/effect_system/fluid_spread/smoke/chem, reagent_volume = 10, log = FALSE)
+/proc/do_chem_smoke(range = 0, amount = DIAMOND_AREA(range), atom/holder = null, location = null, reagent_type = /datum/reagent/water, smoke_type = /datum/effect_system/fluid_spread/smoke/chem, reagent_volume = 10, log = FALSE, color = null)
 	var/datum/reagents/smoke_reagents = new/datum/reagents(reagent_volume)
 	smoke_reagents.add_reagent(reagent_type, reagent_volume)
 
@@ -461,3 +520,21 @@
 
 /datum/effect_system/fluid_spread/smoke/chem/quick
 	effect_type = /obj/effect/particle_effect/fluid/smoke/chem/quick
+
+/obj/effect/particle_effect/fluid/smoke/chem/quick/vapor
+	lifetime = 2 SECONDS
+
+/obj/effect/particle_effect/fluid/smoke/chem/quick/vapor/smoke_mob(mob/living/carbon/smoker, seconds_per_tick)
+	if(!istype(smoker))
+		return FALSE
+	if(!smoker.can_breathe_gas())
+		return FALSE
+
+	smoker.emote("gasp")
+	if(reagents.total_volume >= 60)
+		smoker.AdjustLoseBreath(2 SECONDS)
+	reagents.copy_to(smoker, REAGENT_EVAPORATION(reagents.total_volume))
+	return TRUE
+
+/datum/effect_system/fluid_spread/smoke/chem/quick/vapor
+	effect_type = /obj/effect/particle_effect/fluid/smoke/chem/quick/vapor

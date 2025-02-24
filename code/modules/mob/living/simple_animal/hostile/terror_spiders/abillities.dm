@@ -100,9 +100,9 @@
 	damage = 5
 
 
-/obj/item/projectile/terrorspider/widow/venom/on_hit(var/target)
+/obj/item/projectile/terrorspider/widow/venom/on_hit(target)
 	. = ..()
-	var/datum/effect_system/smoke_spread/chem/S = new
+	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 	var/turf/T = get_turf(target)
 	create_reagents(1250)
 	reagents.add_reagent("thc", 250)
@@ -110,8 +110,8 @@
 	reagents.add_reagent("lsd", 250)
 	reagents.add_reagent("space_drugs", 250)
 	reagents.add_reagent("terror_black_toxin", 250)
-	S.set_up(reagents, T, TRUE)
-	S.start()
+	smoke.set_up(range = 2, location = T, carry = reagents, silent = TRUE)
+	smoke.start()
 
 	return ..()
 
@@ -141,13 +141,12 @@
 	damage = 5
 
 
-/obj/item/projectile/terrorspider/widow/smoke/on_hit(var/target)
+/obj/item/projectile/terrorspider/widow/smoke/on_hit(target)
 	. = ..()
-	var/datum/effect_system/smoke_spread/smoke = new
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
 	var/turf/T = get_turf(target)
-	smoke.set_up(15, 0, T)
+	smoke.set_up(amount = 15, location = T)
 	smoke.start()
-
 	return ..()
 
 
@@ -275,11 +274,11 @@
 
 
 /obj/effect/proc_holder/spell/terror_parasmoke/cast(list/targets, mob/user = usr)
-	var/datum/effect_system/smoke_spread/chem/smoke = new
+	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 	create_reagents(2000)
 	reagents.add_reagent("neurotoxin", 1000)
 	reagents.add_reagent("capulettium_plus", 1000)
-	smoke.set_up(reagents, user, TRUE)
+	smoke.set_up(range = 2, location = user, carry = reagents, silent = TRUE)
 	smoke.start()
 
 

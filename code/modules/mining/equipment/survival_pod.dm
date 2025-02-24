@@ -84,7 +84,7 @@
 	template.load(deploy_location, centered = TRUE)
 	trigger_admin_alert(triggerer, deploy_location)
 	playsound(src, 'sound/effects/phasein.ogg', 100, TRUE)
-	new /obj/effect/particle_effect/smoke(get_turf(src))
+	new /obj/effect/particle_effect/fluid/smoke(get_turf(src))
 	qdel(src)
 
 /// Throws any mobs near the deployed location away from the item / shelter

@@ -31,7 +31,7 @@
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart,
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/wryn, //3 darksight.
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/wryn,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
 		INTERNAL_ORGAN_HIVENODE = /obj/item/organ/internal/wryn/hivenode,
 		INTERNAL_ORGAN_WAX_GLANDS = /obj/item/organ/internal/wryn/glands,

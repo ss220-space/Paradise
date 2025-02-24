@@ -360,8 +360,8 @@
 			if(islist(success_sounds) && length(success_sounds))
 				chosen_sound = pick(success_sounds)
 			playsound(ritual_object.loc, chosen_sound, 50, TRUE)
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(5, FALSE, ritual_object.loc)
+			var/datum/effect_system/fluid_spread/smoke/smoke = new
+			smoke.set_up(amount = 5, location = ritual_object.loc)
 			smoke.start()
 		if(RITUAL_STARTED)
 			var/chosen_sound = start_sounds
@@ -704,8 +704,8 @@
 		if(!isturf(human.loc))
 			continue
 
-		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(5, FALSE, get_turf(human.loc))
+		var/datum/effect_system/fluid_spread/smoke/smoke = new
+		smoke.set_up(amount = 5, location = get_turf(human.loc))
 		smoke.start()
 
 		for(var/obj/item/obj as anything in human.get_equipped_items(TRUE, TRUE))
@@ -720,8 +720,8 @@
 			if(islist(success_sounds) && length(success_sounds))
 				chosen_sound = pick(success_sounds)
 			playsound(ritual_object.loc, chosen_sound, 50, TRUE)
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(5, FALSE, get_turf(ritual_object.loc))
+			var/datum/effect_system/fluid_spread/smoke/smoke = new
+			smoke.set_up(amount = 5, location = get_turf(ritual_object.loc))
 			smoke.start()
 		if(RITUAL_STARTED)
 			var/chosen_sound = success_sounds
@@ -783,8 +783,8 @@
 	return TRUE
 
 /datum/ritual/ashwalker/soul/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(5, FALSE, get_turf(invoker.loc))
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 5, location = get_turf(invoker.loc))
 	smoke.start()
 	invoker.set_species(/datum/species/unathi/draconid)
 
@@ -909,8 +909,8 @@
 		SEND_SOUND(turf, sound('sound/items/airhorn.ogg'))
 		human.AdjustHallucinate(150 SECONDS)
 		human.EyeBlind(5 SECONDS)
-		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(5, FALSE, turf)
+		var/datum/effect_system/fluid_spread/smoke/smoke = new
+		smoke.set_up(amount = 5, location = turf)
 		smoke.start()
 
 	return
@@ -1035,8 +1035,8 @@
 		if(!isturf(human.loc))
 			continue
 
-		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(5, FALSE, get_turf(human.loc))
+		var/datum/effect_system/fluid_spread/smoke/smoke = new
+		smoke.set_up(amount = 5, location = get_turf(human.loc))
 		smoke.start()
 
 	var/mob/living/simple_animal/mob = locate() in used_things

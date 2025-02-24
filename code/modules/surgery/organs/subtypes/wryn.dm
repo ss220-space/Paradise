@@ -2,6 +2,15 @@
 /obj/item/organ/internal/wryn/hivenode
 	species_type = /datum/species/wryn
 	name = "antennae"
+	desc = "Орган, отвечающий за телепатическую связь врина с его сородичами."
+	ru_names = list(
+		NOMINATIVE = "антенна",
+		GENITIVE = "антенны",
+		DATIVE = "антенне",
+		ACCUSATIVE = "антенну",
+		INSTRUMENTAL = "антенной",
+		PREPOSITIONAL = "антенне"
+	)
 	icon = 'icons/obj/species_organs/wryn.dmi'
 	icon_state = "antennae"
 	parent_organ_zone = BODY_ZONE_HEAD
@@ -37,6 +46,16 @@
 /obj/item/organ/internal/wryn/glands
 	species_type = /datum/species/wryn
 	name = "wryn wax glands"
+	desc = "Парные железы, выделяющие воск, который может использоваться вринами как строительный материал."
+	ru_names = list(
+		NOMINATIVE = "восковые железы",
+		GENITIVE = "восковых желез",
+		DATIVE = "восковым железам",
+		ACCUSATIVE = "восковые железы",
+		INSTRUMENTAL = "восковыми железами",
+		PREPOSITIONAL = "восковых железах"
+	)
+	gender = PLURAL
 	icon = 'icons/obj/species_organs/wryn.dmi'
 	icon_state = "waxsac"
 	parent_organ_zone = BODY_ZONE_PRECISE_MOUTH
@@ -69,15 +88,15 @@
 	. = ..()
 
 /datum/action/innate/honeycomb
-	name = "Secrete Wax"
-	desc = "Secrete Wax"
+	name = "Секреция воска"
+	desc = "Выделите воск для строительства."
 	button_icon_state = "wax_wall"
 
 /datum/action/innate/honeycomb/Activate()
 	var/mob/living/carbon/human/wryn/host = owner
 
 	if(host.getWax() >= 50)
-		var/choice = input("Что бы построить...","Строительство") as null|anything in list("соты","прозрачные соты")
+		var/choice = input("Доступно для постройки:", "Строительство") as null|anything in list("соты", "прозрачные соты")
 
 		if(!choice || host.getWax() < 50)	return
 
@@ -86,7 +105,7 @@
 				owner.balloon_alert(owner, "место уже занято!")
 				return
 			host.adjustWax(-50)
-			host.visible_message(("[host] выделяет кучу воска и формирует из неё [choice]!"))
+			host.visible_message(("[host] выделя[pluralize_ru(host.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё [choice]."))
 			switch(choice)
 				if("соты")
 					new /obj/structure/wryn/wax/wall(host.loc)
@@ -99,8 +118,8 @@
 	return
 
 /datum/action/innate/honeyfloor
-	name = "Honey Floor"
-	desc = "Honey Floor"
+	name = "Восковой пол"
+	desc = "Покрывает поверхность под вами воском."
 	button_icon_state = "wax_floor"
 
 /datum/action/innate/honeyfloor/Activate()
@@ -109,17 +128,17 @@
 	if(host.getWax() >= 25)
 		if(do_after(usr, 1 SECONDS, usr))
 			if(locate(/obj/structure/wryn/floor) in get_turf(owner))
-				owner.balloon_alert(owner, "уже покрыто воском")
+				owner.balloon_alert(owner, "уже покрыто воском!")
 				return
 			host.adjustWax(-25)
-			host.visible_message(span_alert("[owner] выделяет кучу воска и формирует из неё пол!"))
+			host.visible_message(span_alert("[owner] выделя[pluralize_ru(host.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё пол!"))
 			new /obj/structure/wryn/floor(owner.loc)
 	else
 		owner.balloon_alert(owner, "недостаточно воска!")
 	return
 
 /datum/action/innate/toggle_producing
-	name = "Toggle Wax Producing"
+	name = "Переключить секрецию воска"
 	button_icon_state = "wrynglands"
 
 /datum/action/innate/toggle_producing/Activate()
@@ -128,22 +147,54 @@
 
 /obj/item/organ/internal/eyes/wryn
 	species_type = /datum/species/wryn
+	name = "wryn eyes"
+	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали врину."
+	ru_names = list(
+		NOMINATIVE = "глаза врина",
+		GENITIVE = "глаз врина",
+		DATIVE = "глазам врина",
+		ACCUSATIVE = "глаза врина",
+		INSTRUMENTAL = "глазами врина",
+		PREPOSITIONAL = "глазах врина"
+	)
 	see_in_dark = 3
+
+/obj/item/organ/internal/ears/wryn
+	species_type = /datum/species/wryn
+	name = "wryn ears"
+	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали врину."
+	ru_names = list(
+		NOMINATIVE = "уши врина",
+		GENITIVE = "ушей врина",
+		DATIVE = "ушам врина",
+		ACCUSATIVE = "уши врина",
+		INSTRUMENTAL = "ушами врина",
+		PREPOSITIONAL = "ушах врина"
+	)
 
 /obj/item/organ/external/tail/wryn
 	species_type = /datum/species/wryn
 	name = "wryn tail"
+	desc = "Хвост. Этот принадлежал врину."
+	ru_names = list(
+		NOMINATIVE = "хвост врина",
+		GENITIVE = "хвоста врина",
+		DATIVE = "хвосту врина",
+		ACCUSATIVE = "хвост врина",
+		INSTRUMENTAL = "хвостом врина",
+		PREPOSITIONAL = "хвосте врина"
+	)
 	icon_name = "wryntail_s"
 	max_damage = 35
 	min_broken_damage = 25
 
 /obj/item/organ/external/chest/wryn
-	encased = "chitin armour"
+	encased = "хитиновую оболочку на груди"
 	convertable_children = list(/obj/item/organ/external/groin/wryn)
 
 /obj/item/organ/external/groin/wryn
-	encased = "groin chitin"
+	encased = "хитиновую оболочку на животе"
 
 /obj/item/organ/external/head/wryn
 	species_type = /datum/species/wryn
-	encased = "head chitin"
+	encased = "хитиновую оболочку на голове"

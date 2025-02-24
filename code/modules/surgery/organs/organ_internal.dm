@@ -191,9 +191,18 @@
 
 /obj/item/reagent_containers/food/snacks/organ
 	name = "appendix"
+	desc = "Придаток слепой кишки. Является рудиментарным органом, поэтому не несёт полезной функции для организма."
+	ru_names = list(
+		NOMINATIVE = "аппендикс",
+		GENITIVE = "аппендикса",
+		DATIVE = "аппендиксу",
+		ACCUSATIVE = "аппендикс",
+		INSTRUMENTAL = "аппендиксом",
+		PREPOSITIONAL = "аппендиксе"
+	)
 	icon_state = "appendix"
 	icon = 'icons/obj/surgery.dmi'
-	list_reagents = list("nutriment" = 5)
+	list_reagents = list("nutriment" = 5, "toxin" = 5)
 
 
 /obj/item/organ/internal/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -239,6 +248,15 @@
 
 /obj/item/organ/internal/appendix
 	name = "appendix"
+	desc = "Придаток слепой кишки. Является рудиментарным органом, поэтому не несёт полезной функции для организма."
+	ru_names = list(
+		NOMINATIVE = "аппендикс",
+		GENITIVE = "аппендикса",
+		DATIVE = "аппендиксу",
+		ACCUSATIVE = "аппендикс",
+		INSTRUMENTAL = "аппендиксом",
+		PREPOSITIONAL = "аппендиксе"
+	)
 	icon_state = "appendix"
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
 	slot = INTERNAL_ORGAN_APPENDIX
@@ -274,7 +292,16 @@
 //shadowling tumor
 /obj/item/organ/internal/shadowtumor
 	name = "black tumor"
-	desc = "A tiny black mass with red tendrils trailing from it. It seems to shrivel in the light."
+	desc = "Небольшой чёрный сгусток с тянущимися щупальцами красного цвета. При воздействии на него света он сморщивается и сворачивается."
+	ru_names = list(
+		NOMINATIVE = "чёрная опухоль",
+		GENITIVE = "чёрной опухоли",
+		DATIVE = "чёрной опухоли",
+		ACCUSATIVE = "чёрную опухоль",
+		INSTRUMENTAL = "чёрной опухолью",
+		PREPOSITIONAL = "чёрной опухоли"
+	)
+	gender = FEMALE
 	icon_state = "blacktumor"
 	origin_tech = "biotech=5"
 	w_class = WEIGHT_CLASS_TINY
@@ -304,7 +331,7 @@
 			obj_integrity++
 
 		if(obj_integrity <= 0)
-			visible_message(span_warning("[src] collapses in on itself!"))
+			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] расслаивается и распадается на множество крошечных кусочков."))
 			qdel(src)
 
 
@@ -312,7 +339,16 @@
 
 /obj/item/organ/internal/honktumor
 	name = "banana tumor"
-	desc = "A tiny yellow mass shaped like..a banana?"
+	desc = "Небольшой жёлтый сгусток, по форме напоминающий... банан?"
+	ru_names = list(
+		NOMINATIVE = "банановая опухоль",
+		GENITIVE = "банановой опухоли",
+		DATIVE = "банановой опухоли",
+		ACCUSATIVE = "банановую опухоль",
+		INSTRUMENTAL = "банановой опухолью",
+		PREPOSITIONAL = "банановой опухоли"
+	)
+	gender = FEMALE
 	icon_state = "honktumor"
 	origin_tech = "biotech=1"
 	w_class = WEIGHT_CLASS_TINY
@@ -344,7 +380,7 @@
 /obj/item/organ/internal/honktumor/on_life()
 	if(organhonked < world.time)
 		organhonked = world.time + suffering_delay
-		to_chat(owner, "<font color='red' size='7'>HONK</font>")
+		to_chat(owner, "<font color='red' size='7'>ХОНК</font>")
 		owner.SetSleeping(0)
 		owner.Stuttering(40 SECONDS)
 		owner.Deaf(60 SECONDS)
@@ -381,7 +417,15 @@
 
 /obj/item/organ/internal/honkbladder
 	name = "honk bladder"
-	desc = "a air filled sac that produces honking noises."
+	desc = "Наполненный воздухом мешок, который издаёт звуки, напоминающие велосипедный гудок."
+	ru_names = list(
+		NOMINATIVE = "гудящий пузырь",
+		GENITIVE = "гудящего пузыря",
+		DATIVE = "гудящему пузырю",
+		ACCUSATIVE = "гудящий пузырь",
+		INSTRUMENTAL = "гудящим пузырём",
+		PREPOSITIONAL = "гудящем пузыре"
+	)
 	icon_state = "honktumor"//Not making a new icon
 	origin_tech = "biotech=1"
 	w_class = WEIGHT_CLASS_TINY
@@ -403,7 +447,15 @@
 
 /obj/item/organ/internal/beard
 	name = "beard organ"
-	desc = "Let they who is worthy wear the beard of Thorbjorndottir."
+	desc = "Пусть те, кто достоин, носят бороду Торбьёрнсдоттир."
+	ru_names = list(
+		NOMINATIVE = "бородатый орган",
+		GENITIVE = "бородатого органа",
+		DATIVE = "бородатому органу",
+		ACCUSATIVE = "бородатый орган",
+		INSTRUMENTAL = "бородатым органом",
+		PREPOSITIONAL = "бородатом органе"
+	)
 	icon_state = "liver"
 	origin_tech = "biotech=1"
 	w_class = WEIGHT_CLASS_TINY

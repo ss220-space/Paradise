@@ -374,15 +374,15 @@
 		balloon_alert(user, "куб искрится и шипит.")
 		return
 	if(do_after(user, 1.5 SECONDS, user))
-		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(1, 0, user.loc)
+		var/datum/effect_system/fluid_spread/smoke/smoke = new
+		smoke.set_up(amount = 1, location = user.loc)
 		smoke.start()
 
 		user.forceMove(get_turf(linked))
 		SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 
-		var/datum/effect_system/smoke_spread/smoke2 = new
-		smoke2.set_up(1, 0, user.loc)
+		var/datum/effect_system/fluid_spread/smoke/smoke2 = new
+		smoke2.set_up(amount = 1, location = user.loc)
 		smoke2.start()
 	else
 		balloon_alert(user, "прервано из-за движения")

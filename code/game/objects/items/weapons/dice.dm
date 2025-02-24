@@ -278,8 +278,8 @@
 		user.drop_item_ground(src)
 
 /obj/item/dice/d20/fate/proc/create_smoke(amount)
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(amount, 0, drop_location())
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = amount, location = drop_location())
 	smoke.start()
 
 /obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user, roll)
