@@ -13,9 +13,9 @@
 	icon_state = "crab"
 	icon_living = "crab"
 	icon_dead = "crab_dead"
-	speak_emote = list("щёлкает.")
-	emote_hear = list("цокает клешнями.")
-	emote_see = list("клацает клешнями.")
+	speak_emote = list("щёлкает")
+	emote_hear = list("цокает клешнями")
+	emote_see = list("клацает клешнями")
 	death_sound = 'sound/creatures/crack_death2.ogg'
 	speak_chance = 1
 	turns_per_move = 5
