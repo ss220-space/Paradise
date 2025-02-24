@@ -534,7 +534,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	ru_names = list(NOMINATIVE = "гусёнок", GENITIVE = "гусёнка", DATIVE = "гусёнку", ACCUSATIVE = "гусёнка", INSTRUMENTAL = "гусёнком", PREPOSITIONAL = "гусёнке")
 
 /mob/living/simple_animal/seal
-	name = "Белёк"
+	name = "white seal"
 	desc = "Красивый белый белёк."
 	ru_names = list(
 		NOMINATIVE = "белёк",
@@ -569,7 +569,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/walrus
-	name = "Морж"
+	name = "walrus"
 	desc = "Большой коричневый морж."
 	ru_names = list(
 		NOMINATIVE = "морж",

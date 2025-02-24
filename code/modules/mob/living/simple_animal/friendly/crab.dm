@@ -1,6 +1,6 @@
 //Look Sir, free crabs!
 /mob/living/simple_animal/crab
-	name = "Краб"
+	name = "crab"
 	desc = "Небольшое ракообразное с твёрдым панцирем. Похоже, что ему нравится шляться без дела."
 	ru_names = list(
 		NOMINATIVE = "краб",
@@ -36,7 +36,7 @@
 
 
 /mob/living/simple_animal/crab/royal
-	name = "Королевский краб"
+	name = "royal crab"
 	desc = "Величественный королевский краб."
 	ru_names = list(
 		NOMINATIVE = "королевский краб",
@@ -59,7 +59,7 @@
 
 //COFFEE! SQUEEEEEEEEE!
 /mob/living/simple_animal/crab/Coffee
-	name = "Коффи"
+	name = "coffee"
 	real_name = "Коффи"
 	desc = "Любитель потягать топливные баки и штангу. Коффи? Кофе?"
 	ru_names = list(
@@ -74,7 +74,7 @@
 	unique_pet = TRUE
 
 /mob/living/simple_animal/crab/evil
-	name = "Злой краб"
+	name = "evil crab"
 	real_name = "Злой краб"
 	desc = "Жуткий, да? Похоже, он что-то замышляет..."
 	ru_names = list(
