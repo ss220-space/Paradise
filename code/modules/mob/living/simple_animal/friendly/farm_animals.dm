@@ -2,10 +2,18 @@
 /mob/living/simple_animal/hostile/retaliate/goat
 	name = "goat"
 	desc = "Не отличаются приятным нравом."
+	ru_names = list(
+		NOMINATIVE = "козёл",
+		GENITIVE = "козла",
+		DATIVE = "козлу",
+		ACCUSATIVE = "козла",
+		INSTRUMENTAL = "козлом",
+		PREPOSITIONAL = "козле"
+	)
 	icon_state = "goat"
 	icon_living = "goat"
 	icon_dead = "goat_dead"
-	speak = list("EHEHEHEHEH","eh?")
+	speak = list("БЕЕЕЕЕХХ","Беээ?")
 	speak_emote = list("блеет")
 	emote_hear = list("блеет")
 	emote_see = list("трясёт головой", "бьёт копытом", "грозно зыркает вокруг")
@@ -31,7 +39,6 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
 	footstep_type = FOOTSTEP_MOB_SHOE
-	ru_names = list(NOMINATIVE = "козёл", GENITIVE = "козла", DATIVE = "козлу", ACCUSATIVE = "козла", INSTRUMENTAL = "козлом", PREPOSITIONAL = "козле")
 
 /mob/living/simple_animal/hostile/retaliate/goat/New()
 	udder = new()
@@ -120,11 +127,19 @@
 /mob/living/simple_animal/cow
 	name = "cow"
 	desc = "Известны своим молоком. Только не опрокидывайте их."
+	ru_names = list(
+		NOMINATIVE = "корова",
+		GENITIVE = "коровы",
+		DATIVE = "корове",
+		ACCUSATIVE = "корову",
+		INSTRUMENTAL = "коровой",
+		PREPOSITIONAL = "корове"
+	)
 	icon_state = "cow"
 	icon_living = "cow"
 	icon_dead = "cow_dead"
 	icon_gib = "cow_gib"
-	speak = list("moo?","moo","MOOOOOO")
+	speak = list("Муу?","Мууу","ММУУУУУУ!")
 	speak_emote = list("мычит","протяжно мычит")
 	emote_hear = list("ревёт")
 	emote_see = list("трясёт головой")
@@ -151,7 +166,6 @@
 	var/obj/item/udder/udder = null
 	gender = FEMALE
 	footstep_type = FOOTSTEP_MOB_SHOE
-	ru_names = list(NOMINATIVE = "корова", GENITIVE = "коровы", DATIVE = "корове", ACCUSATIVE = "корову", INSTRUMENTAL = "коровой", PREPOSITIONAL = "корове")
 	COOLDOWN_DECLARE(feeded_cow)
 
 /mob/living/simple_animal/cow/Initialize()
@@ -226,12 +240,20 @@
 /mob/living/simple_animal/chick
 	name = "\improper chick"
 	desc = "Прелесть! Но они такие шумные."
+	ru_names = list(
+		NOMINATIVE = "цыплёнок",
+		GENITIVE = "цыплёнка",
+		DATIVE = "цыплёнку",
+		ACCUSATIVE = "цыплёнка",
+		INSTRUMENTAL = "цыплёнком",
+		PREPOSITIONAL = "цыплёнке"
+	)
 	icon_state = "chick"
 	icon_living = "chick"
 	icon_dead = "chick_dead"
 	icon_gib = "chick_gib"
 	gender = FEMALE
-	speak = list("Cherp.","Cherp?","Chirrup.","Cheep!")
+	speak = list("Чик.","Чирик?","Чик-чирик.","Чик-чик-чириик!")
 	speak_emote = list("чирикает")
 	emote_hear = list("чирикает")
 	emote_see = list("клюёт землю","хлопает крылышками")
@@ -256,7 +278,6 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 	holder_type = /obj/item/holder/chick
-	ru_names = list(NOMINATIVE = "цыплёнок", GENITIVE = "цыплёнка", DATIVE = "цыплёнку", ACCUSATIVE = "цыплёнка", INSTRUMENTAL = "цыплёнком", PREPOSITIONAL = "цыплёнке")
 
 /mob/living/simple_animal/chick/New()
 	..()
@@ -282,12 +303,20 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 
 /mob/living/simple_animal/chicken
 	name = "\improper chicken"
-	desc = "Надеюсь, в этом сезоне яйца будут хорошими."
+	desc = "Надеюсь, в этом году яйца уродятся."
+	ru_names = list(
+		NOMINATIVE = "курица",
+		GENITIVE = "курицы",
+		DATIVE = "курице",
+		ACCUSATIVE = "курицу",
+		INSTRUMENTAL = "курицей",
+		PREPOSITIONAL = "курице"
+	)
 	gender = FEMALE
 	icon_state = "chicken_brown"
 	icon_living = "chicken_brown"
 	icon_dead = "chicken_brown_dead"
-	speak = list("Cluck!","BWAAAAARK BWAK BWAK BWAK!","Bwaak bwak.")
+	speak = list("Кудах!","КУДАХ-ДАХ-ТАХ!","Ко-ко-ко.")
 	speak_emote = list("кудахчет","квохчет")
 	emote_hear = list("кудахчет")
 	emote_see = list("клюёт землю", "резко встряхивает крыльями")
@@ -321,7 +350,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 	holder_type = /obj/item/holder/chicken
-	ru_names = list(NOMINATIVE = "курица", GENITIVE = "курицы", DATIVE = "курице", ACCUSATIVE = "курицу", INSTRUMENTAL = "курицей", PREPOSITIONAL = "курице")
 
 /mob/living/simple_animal/chicken/New()
 	..()
@@ -394,11 +422,20 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /mob/living/simple_animal/cock
 	name = "Петух"
 	desc = "Гордый и важный вид."
+	ru_names = list(
+		NOMINATIVE = "петух",
+		GENITIVE = "петуха",
+		DATIVE = "петуху",
+		ACCUSATIVE = "петуха",
+		INSTRUMENTAL = "петухом",
+		PREPOSITIONAL = "петухе"
+	)
+
 	gender = MALE
 	icon_state = "cock"
 	icon_living = "cock"
 	icon_dead = "cock_dead"
-	speak = list("Cluck!","BWAAAAARK BWAK BWAK BWAK!","Bwaak bwak.")
+	speak = list("Кудах!","КУ-КА-РЕ-КУ!","Ко-ко-ко.", "КУДАХ-ДАХ-ТАХ!")
 	speak_emote = list("кудахчет","квохчет")
 	emote_hear = list("кудахчет")
 	emote_see = list("клюёт землю", "резко встряхивает крыльями")
@@ -427,15 +464,22 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 	holder_type = /obj/item/holder/cock
-	ru_names = list(NOMINATIVE = "петух", GENITIVE = "петуха", DATIVE = "петуху", ACCUSATIVE = "петуха", INSTRUMENTAL = "петухом", PREPOSITIONAL = "петухе")
 
 /mob/living/simple_animal/pig
 	name = "pig"
 	desc = "Хрю-хрю!"
+	ru_names = list(
+		NOMINATIVE = "свинья",
+		GENITIVE = "свиньи",
+		DATIVE = "свинье",
+		ACCUSATIVE = "свинью",
+		INSTRUMENTAL = "свиньёй",
+		PREPOSITIONAL = "свинье"
+	)
 	icon_state = "pig"
 	icon_living = "pig"
 	icon_dead = "pig_dead"
-	speak = list("oink?","oink","OINK")
+	speak = list("Хрю?","Хрю","ХРЮ!")
 	speak_emote = list("хрюкает")
 	tts_seed = "Anubarak"
 //	emote_hear = list("brays")
@@ -456,16 +500,23 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
-	ru_names = list(NOMINATIVE = "свинья", GENITIVE = "свиньи", DATIVE = "свинье", ACCUSATIVE = "свинью", INSTRUMENTAL = "свиньёй", PREPOSITIONAL = "свинье")
 
 /mob/living/simple_animal/turkey
 	name = "turkey"
 	desc = "Бенджамин Франклин мог бы гордиться."
+	ru_names = list(
+		NOMINATIVE = "индейка",
+		GENITIVE = "индейки",
+		DATIVE = "индейке",
+		ACCUSATIVE = "индейку",
+		INSTRUMENTAL = "индейкой",
+		PREPOSITIONAL = "индейке"
+	)
 	icon_state = "turkey"
 	icon_living = "turkey"
 	icon_dead = "turkey_dead"
 	icon_resting = "turkey_rest"
-	speak = list("gobble?","gobble","GOBBLE")
+	speak = list("Кудлл?", "Вабблу.","КУДЛЛУ!")
 	speak_emote = list("кулдычет")
 	emote_see = list("важно расхаживает")
 	speak_chance = 1
@@ -483,17 +534,24 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_SHOE
-	ru_names = list(NOMINATIVE = "индейка", GENITIVE = "индейки", DATIVE = "индейке", ACCUSATIVE = "индейку", INSTRUMENTAL = "индейкой", PREPOSITIONAL = "индейке")
 
 /mob/living/simple_animal/goose
 	name = "goose"
 	desc = "Прекрасная птица для набива подушек и страха детишек."
+	ru_names = list(
+		NOMINATIVE = "гусь",
+		GENITIVE = "гуся",
+		DATIVE = "гусю",
+		ACCUSATIVE = "гуся",
+		INSTRUMENTAL = "гусём",
+		PREPOSITIONAL = "гусе"
+	)
 	icon_state = "goose"
 	icon_living = "goose"
 	icon_dead = "goose_dead"
 	icon_resting = "goose_rest"
-	speak = list("quack?","quack","QUACK")
-	speak_emote = list("quacks")
+	speak = list("Га-га-га?","Га-га.","ГА-ГА-ГА-ГА!")
+	speak_emote = list("Гогочет")
 	tts_seed = "pantheon" //Жи есть брат да, я гусь, до тебя доебусь.
 //	emote_hear = list("brays")
 	emote_see = list("хлопает крыльями")
@@ -517,11 +575,18 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
-	ru_names = list(NOMINATIVE = "гусь", GENITIVE = "гуся", DATIVE = "гусю", ACCUSATIVE = "гуся", INSTRUMENTAL = "гусём", PREPOSITIONAL = "гусе")
 
 /mob/living/simple_animal/goose/gosling
 	name = "gosling"
 	desc = "Симпатичный гусёнок. Скоро он станет грозой всей станции."
+	ru_names = list(
+		NOMINATIVE = "гусёнок",
+		GENITIVE = "гусёнка",
+		DATIVE = "гусёнку",
+		ACCUSATIVE = "гусёнка",
+		INSTRUMENTAL = "гусёнком",
+		PREPOSITIONAL = "гусёнке"
+	)
 	icon_state = "gosling"
 	icon_living = "gosling"
 	icon_dead = "gosling_dead"
@@ -531,7 +596,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	melee_damage_upper = 0
 	health = 20
 	maxHealth = 20
-	ru_names = list(NOMINATIVE = "гусёнок", GENITIVE = "гусёнка", DATIVE = "гусёнку", ACCUSATIVE = "гусёнка", INSTRUMENTAL = "гусёнком", PREPOSITIONAL = "гусёнке")
 
 /mob/living/simple_animal/seal
 	name = "seal"

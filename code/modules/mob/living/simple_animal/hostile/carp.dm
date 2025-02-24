@@ -2,7 +2,7 @@
 
 /mob/living/simple_animal/hostile/carp
 	name = "space carp"
-	desc = "A ferocious, fang-bearing creature that resembles a fish."
+	desc = "Свирепое, клыкастое существо, похожее на рыбу."
 	icon = 'icons/mob/carp.dmi'
 	icon_state = "base"
 	icon_living = "base"
@@ -11,9 +11,9 @@
 	speak_chance = 0
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 2)
-	response_help = "pets"
-	response_disarm = "gently pushes aside"
-	emote_taunt = list("gnashes")
+	response_help = "гладит"
+	response_disarm = "осторожно отодвигает в сторону"
+	emote_taunt = list("рычит", "фырчит", "пыхтит")
 	taunt_chance = 30
 	speed = 0
 	maxHealth = 25
@@ -144,7 +144,7 @@
 /mob/living/simple_animal/hostile/carp/megacarp
 	icon = 'icons/mob/alienqueen.dmi'
 	name = "Mega Space Carp"
-	desc = "A ferocious, fang bearing creature that resembles a shark. This one seems especially ticked off."
+	desc = "Свирепое, клыкастое существо, напоминающее акулу. Похоже, оно особенно озлоблено."
 	icon_state = "megacarp"
 	icon_living = "megacarp"
 	icon_dead = "megacarp_dead"
@@ -187,12 +187,12 @@
 
 /mob/living/simple_animal/hostile/carp/sea
 	name = "sea carp"
-	desc = "A large fish bearing similarities to a certain space-faring menace."
+	desc = "Большая рыба, схожая с некой космической угрозой."
 	icon_state = "carp"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 1)
-	response_help = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm = "hits"
+	response_help = "гладит"
+	response_disarm = "осторожно отодвигает в сторону"
+	response_harm = "ударяет"
 	retreat_distance = 6
 	vision_range = 5
 	retaliate_only = TRUE
@@ -208,7 +208,7 @@
 
 /mob/living/simple_animal/hostile/carp/mcarp
 	name = "mutated Carp"
-	desc = "Strange-looking space carp."
+	desc = "Космический карп со странной внешностью."
 	icon_state = "Mcarp"
 	icon_living = "Mcarp"
 	icon_dead = "MCarp_Dead"
@@ -221,7 +221,7 @@
 
 /mob/living/simple_animal/hostile/carp/koi
 	name = "space koi"
-	desc = "A gentle space-faring koi."
+	desc = "Дружелюбный кой, бороздящий просторы космоса."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "koi1"
 	icon_living = "koi1"
