@@ -13,7 +13,7 @@
 	icon_state = "snail"
 	icon_living = "snail"
 	icon_dead = "snail_dead"
-	speak = list("Бхх.", "Бхухх.", "Бхххх", "Бххуухх".)
+	speak = list("Бхх.", "Бхухх.", "Бхххх.", "Бххуухх.")
 	tts_seed = "Ladyvashj"
 	health = 100
 	maxHealth = 100
