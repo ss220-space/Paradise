@@ -183,7 +183,7 @@
 	range = 12
 	damage = 50
 	armour_penetration = -30
-	faction_bonus_damage = 50
+	faction_bonus_damage = 60
 
 /obj/item/ammo_casing/caseless/arrow
 	name = "arrow"
