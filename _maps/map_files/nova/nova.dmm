@@ -45272,6 +45272,9 @@
 /area/crew_quarters/chief)
 "gxr" = (
 /obj/effect/decal/warning_stripes/northwest,
+/obj/structure/closet/sechammercabinet{
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
