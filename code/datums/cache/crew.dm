@@ -3,12 +3,13 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 /datum/repository/crew
 	var/static/list/bold_jobs
 	var/static/list/security_jobs_list
+	var/static/list/mining_jobs_list
 
 /datum/repository/crew/New()
 	cache_data = list()
 	..()
 
-/datum/repository/crew/proc/health_data(turf/T)
+/datum/repository/crew/proc/health_data(turf/T, lavaland_trackable)
 	var/list/crewmembers = list()
 	if(!T)
 		return crewmembers
@@ -34,6 +35,10 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		security_jobs_list = list()
 		security_jobs_list += GLOB.security_positions
 
+	if(!mining_jobs_list)
+		mining_jobs_list = list()
+		mining_jobs_list += GLOB.mining_positions
+
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
 		var/obj/item/clothing/under/C = H.w_uniform
@@ -42,7 +47,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		var/turf/pos = get_turf(C)
 		if(!istype(pos) || !T)
 			continue
-		if((pos.z != T.z) && !(is_station_level(pos.z) && is_station_level(T.z))) // same z_level or both on STATION_LEVEL
+		if((pos.z != T.z) && !(is_station_level(pos.z) && is_station_level(T.z)) && !(lavaland_trackable && is_mining_level(T.z))) // (same z_level) OR (both on STATION_LEVEL) OR (mining crew monitor and on mining level)
 			continue
 		var/list/crewmemberData = list("dead"=0, "oxy"=-1, "tox"=-1, "fire"=-1, "brute"=-1, "area"="", "x"=-1, "y"=-1, "ref" = "\ref[H]")
 
@@ -52,6 +57,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		crewmemberData["assignment"] = H.get_assignment(if_no_id="Unknown", if_no_job="No Job")
 		crewmemberData["is_command"] = (crewmemberData["rank"] in bold_jobs)
 		crewmemberData["is_security"] = (crewmemberData["rank"] in security_jobs_list)
+		crewmemberData["is_shaft_miner"] = (crewmemberData["rank"] in mining_jobs_list)
 
 		if(C.sensor_mode >= SUIT_SENSOR_BINARY)
 			crewmemberData["dead"] = H.stat == DEAD
@@ -66,7 +72,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 
 		if(C.sensor_mode >= SUIT_SENSOR_TRACKING)
 			var/area/A = get_area(H)
-			crewmemberData["area"] = A.name
+			crewmemberData["area"] = (pos.z == T.z) ? A.name : "???"
 			crewmemberData["x"] = pos.x
 			crewmemberData["y"] = pos.y
 			crewmemberData["z"] = pos.z

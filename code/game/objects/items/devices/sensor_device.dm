@@ -85,3 +85,24 @@
 /obj/item/sensor_device/advanced/security/Initialize(mapload)
 	. = ..()
 	crew_monitor.crew_vision = CREW_VISION_SECURITY
+
+/obj/item/sensor_device/advanced/mining
+	name = "mining crew monitor"
+	desc = "Миниатюрное устройство, с помощью которого можно отслеживать датчики членов экипажа станции. Эта модель напрямую связана с орбитальным спутником и позволяет считывать данные с датчиков на поверхности Лазис Ардакса."
+	ru_names = list(
+		NOMINATIVE = "охранный монитор экипажа",
+		GENITIVE = "охранного монитора экипажа",
+		DATIVE = "охранному монитору экипажа",
+		ACCUSATIVE = "охранный монитор экипажа",
+		INSTRUMENTAL = "охранным монитором экипажа",
+		PREPOSITIONAL = "охранном мониторе экипажа"
+	)
+	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
+	item_state = "brig_monitor"
+	icon_state = "shaft_scanner"
+
+/obj/item/sensor_device/advanced/mining/Initialize(mapload)
+	. = ..()
+	crew_monitor.crew_vision = CREW_VISION_MINING
+	crew_monitor.lavaland_trackable = TRUE

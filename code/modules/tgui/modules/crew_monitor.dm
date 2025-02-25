@@ -1,6 +1,8 @@
 /datum/ui_module/crew_monitor
 	name = "Монитор наблюдения за экипажем"
 	var/crew_vision = CREW_VISION_COMMON
+	/// Can we track lavaland folks from station?
+	var/lavaland_trackable = FALSE
 
 /datum/ui_module/crew_monitor/ui_act(action, params)
 	if(..())
@@ -53,9 +55,8 @@
 /datum/ui_module/crew_monitor/ui_data(mob/user)
 	var/list/data = list()
 	var/turf/T = get_turf(ui_host())
-
 	data["isAI"] = isAI(user)
-	data["crewmembers"] = GLOB.crew_repository.health_data(T)
+	data["crewmembers"] = GLOB.crew_repository.health_data(T, lavaland_trackable)
 	data["critThreshold"] = HEALTH_THRESHOLD_CRIT
 	data["IndexToggler"] = crew_vision
 	switch(crew_vision)
@@ -63,4 +64,6 @@
 			data["isBS"] = 1
 		if(CREW_VISION_SECURITY)
 			data["isBP"] = 1
+		if(CREW_VISION_MINING)
+			data["isMM"] = 1
 	return data
