@@ -193,7 +193,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		to_chat(world, "<BR><FONT size = 3><B>Частичная победа Пауков Ужаса!</B></FONT>")
 		to_chat(world, "<B>Станция была уничтожена!</B>")
 		to_chat(world, "<B>Устройство самоуничтожения сработало, предотвратив распространение Пауков Ужаса.</B>")
-	else if(protect_egg.check_completion(src))
+	else if(protect_egg?.check_completion(src))
 		to_chat(world, "<BR><FONT size = 3><B>Полная победа Пауков Ужаса!</B></FONT>")
 		to_chat(world, "<B>Пауки захватили станцию!</B>")
 		to_chat(world, "<B>Императрица Ужаса появилась на свет, превратив всю станцию в гнездо.</B>")
@@ -234,21 +234,26 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	if(terror_queens.len || terror_princes.len || terror_princesses.len || terror_defilers.len)
 		declare_results()
 		var/text = "<br/><FONT size = 2><B>Основа гнезда:</B></FONT>"
-		text += "<br/><FONT size = 1><B>Королев[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</B></FONT>"
-		for(var/datum/mind/spider in terror_queens)
-			text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
-		text += "<br/><FONT size = 1><B>Принц[(terror_queens?.len > 1 ? "ами были" : "ем был")]:</B></FONT>"
-		for(var/datum/mind/spider in terror_princes)
-			text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
-		text += "<br/><FONT size = 1><B>Принцесс[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</B></FONT>"
-		for(var/datum/mind/spider in terror_princesses)
-			text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
-		text += "<br/><FONT size = 1><B>Осквернител[(terror_queens?.len > 1 ? "ями были" : "ем был")]:</B></FONT>"
-		for(var/datum/mind/spider in terror_defilers)
-			text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
-		text += "<br/><FONT size = 2><B>Паук[(members?.len > 1 ? "ами Ужаса были" : "ом Ужаса был")]:</B></FONT>"
-		for(var/datum/mind/spider in members)
-			text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
+		if(terror_queens.len)
+			text += "<br/><FONT size = 1><B>Королев[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</B></FONT>"
+			for(var/datum/mind/spider in terror_queens)
+				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
+		if(terror_princes.len)
+			text += "<br/><FONT size = 1><B>Принц[(terror_queens?.len > 1 ? "ами были" : "ем был")]:</B></FONT>"
+			for(var/datum/mind/spider in terror_princes)
+				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
+		if(terror_princesses.len)
+			text += "<br/><FONT size = 1><B>Принцесс[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</B></FONT>"
+			for(var/datum/mind/spider in terror_princesses)
+				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
+		if(terror_defilers.len)
+			text += "<br/><FONT size = 1><B>Осквернител[(terror_queens?.len > 1 ? "ями были" : "ем был")]:</B></FONT>"
+			for(var/datum/mind/spider in terror_defilers)
+				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
+		if(members.len)
+			text += "<br/><FONT size = 2><B>Паук[(members?.len > 1 ? "ами Ужаса были" : "ом Ужаса был")]:</B></FONT>"
+			for(var/datum/mind/spider in members)
+				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
 		to_chat(world, text)
 	return TRUE
 
