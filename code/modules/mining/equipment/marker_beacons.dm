@@ -57,15 +57,15 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		var/obj/structure/marker_beacon/M = new(user.loc, picked_color)
 		transfer_fingerprints_to(M)
 
-/obj/item/stack/marker_beacon/AltClick(mob/living/user)
-	if(!istype(user) || ui_status(user, GLOB.physical_state) != UI_INTERACTIVE)
-		return
+/obj/item/stack/marker_beacon/click_alt(mob/living/user)
 	var/input_color = tgui_input_list(user, "Choose a color.", "Beacon Color", GLOB.marker_beacon_colors)
-	if(!istype(user) || ui_status(user, GLOB.physical_state) != UI_INTERACTIVE)
-		return
-	if(input_color)
-		picked_color = input_color
-		update_icon(UPDATE_ICON_STATE)
+	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return CLICK_ACTION_BLOCKING
+	if(!input_color)
+		return CLICK_ACTION_BLOCKING
+	picked_color = input_color
+	update_icon(UPDATE_ICON_STATE)
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/marker_beacon
 	name = "marker beacon"
@@ -78,6 +78,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	anchored = TRUE
 	light_range = 2
 	light_power = 3
+	interaction_flags_click = NEED_HANDS
 	var/remove_speed = 15
 	var/picked_color
 
@@ -148,13 +149,12 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	return ..()
 
 
-/obj/structure/marker_beacon/AltClick(mob/living/user)
-	..()
-	if(!istype(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ui_status(user, GLOB.physical_state) != UI_INTERACTIVE)
-		return
+/obj/structure/marker_beacon/click_alt(mob/living/user)
 	var/input_color = tgui_input_list(user, "Choose a color.", "Beacon Color", GLOB.marker_beacon_colors)
-	if(!istype(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ui_status(user, GLOB.physical_state) != UI_INTERACTIVE)
-		return
-	if(input_color)
-		picked_color = input_color
-		update_state()
+	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return CLICK_ACTION_BLOCKING
+	if(!input_color)
+		return CLICK_ACTION_BLOCKING
+	picked_color = input_color
+	update_state()
+	return CLICK_ACTION_SUCCESS

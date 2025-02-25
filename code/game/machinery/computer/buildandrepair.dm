@@ -550,6 +550,7 @@
 	max_integrity = 100
 	var/state = STATE_EMPTY
 	var/obj/item/circuitboard/circuit = null
+	interaction_flags_click = NEED_HANDS | NEED_DEXTERITY
 
 
 /obj/structure/computerframe/Initialize(mapload, obj/item/circuitboard/circuit)
@@ -607,16 +608,12 @@
 	return ..()
 
 
-/obj/structure/computerframe/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
+/obj/structure/computerframe/click_alt(mob/user)
 	if(anchored)
 		to_chat(user, span_warning("The frame is anchored to the floor!"))
-		return
+		return CLICK_ACTION_BLOCKING
 	setDir(turn(dir, 90))
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/structure/computerframe/obj_break(damage_flag)

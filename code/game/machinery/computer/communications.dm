@@ -592,12 +592,12 @@
 		to_chat(user, "Вызов шаттла эвакуации невозможен. Все контракты считаются расторгнутыми.")
 		return FALSE
 
-	if(SSticker?.mode?.blob_stage >= BLOB_STAGE_FIRST && SSshuttle.emergencyNoEscape)
-		to_chat(user, span_warning("Согласно директиве 7-10, [station_name()] находится на карантине до дальнейшего уведомления."))
+	if(SSshuttle.hostile_environment.len)
+		to_chat(user, span_warning("Обнаружена угроза на борту [station_name()]. Вызов шаттла заблокирован."))
 		return FALSE
 
 	if(SSshuttle.emergencyNoEscape)
-		to_chat(user, "В настоящее время у Центрального Командования нет свободного шаттла в вашем секторе. Пожалуйста, повторите попытку позже.")
+		to_chat(user, "Вызов шаттла заблокирован. Свяжитесь с Центральным Командованием для уточнения причин и снятия блокировки.")
 		return FALSE
 
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)

@@ -88,9 +88,9 @@
 	togglelock(user)
 
 
-/obj/structure/closet/secure_closet/AltClick(mob/user)
-	if(Adjacent(user))
-		togglelock(user)
+/obj/structure/closet/secure_closet/click_alt(mob/user)
+	togglelock(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)

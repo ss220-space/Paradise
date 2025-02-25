@@ -293,12 +293,12 @@
 		return TRUE
 
 	if(PL["alt"])
-		AltClick(usr, choice)
+		usr.base_click_alt(src)
 		return
 
 	return set_selected_zone(choice)
 
-/atom/movable/screen/zone_sel/AltClick(mob/user, choice)
+/atom/movable/screen/zone_sel/click_alt(mob/user, choice)
 
 	if(user.next_click > world.time || user.next_move > world.time)
 		return FALSE
@@ -312,6 +312,7 @@
 		return FALSE
 	holding_item.melee_attack_chain(user, user)
 	set_selected_zone(old_selecting, FALSE)
+	return CLICK_ACTION_SUCCESS
 
 
 /atom/movable/screen/zone_sel/MouseEntered(location, control, params)

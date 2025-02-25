@@ -37,8 +37,9 @@
 	return TRUE
 
 
-/obj/effect/proc_holder/spell/watchers_look/AltClick(mob/user)
+/obj/effect/proc_holder/spell/watchers_look/click_alt(mob/user)
 	//switch to next type of projectile and update action's icon
 	selected_projectile = selected_projectile % length(projectiles_icons) + 1
 	action.button_icon_state = projectiles_icons[selected_projectile]
 	action.UpdateButtonIcon()
+	return CLICK_ACTION_SUCCESS

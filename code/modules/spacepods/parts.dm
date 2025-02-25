@@ -115,9 +115,9 @@
 	return TRUE
 
 
-/obj/item/pod_parts/pod_frame/AltClick(mob/user)
-	if(Adjacent(user))
-		rotate()
+/obj/item/pod_parts/pod_frame/click_alt(mob/user)
+	rotate()
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/pod_parts/pod_frame/attack_hand()

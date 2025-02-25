@@ -40,6 +40,9 @@
 	var/leaping = FALSE
 	dirslash_enabled = TRUE
 
+	var/antag_datum_type = /datum/antagonist/xenomorph
+	var/role_text = ""
+
 	var/can_evolve = FALSE
 	var/evolution_points = 0
 	var/max_evolution_points = 200
@@ -73,6 +76,15 @@
 		night_vision_action.Remove(src)
 		night_vision_action = null
 	return ..()
+
+/mob/living/carbon/alien/proc/update_datum()
+	var/datum/old_datum = mind.has_antag_datum(/datum/antagonist/xenomorph)
+	if(old_datum)
+		if(old_datum.type != antag_datum_type)
+			mind.remove_antag_datum(old_datum)
+		else
+			return
+	mind.add_antag_datum(antag_datum_type, /datum/team/xenomorph)
 
 
 /**

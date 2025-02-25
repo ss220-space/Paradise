@@ -1343,6 +1343,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
+/mob/living/silicon/ai/can_perform_action(atom/target, action_bitflags)
+	if(control_disabled)
+		to_chat(src, span_warning("You can't do that right now!"))
+		return FALSE
+	return can_see(target) && ..() //stop AIs from leaving windows open and using then after they lose vision
 
 /mob/living/silicon/ai/switch_to_camera(obj/machinery/camera/C)
 	if(!C.can_use() || !is_in_chassis())

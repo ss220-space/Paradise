@@ -17,6 +17,7 @@
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/filter.dmi'
 	icon_state = "map"
 	can_unwrench = TRUE
+	interaction_flags_click = NEED_HANDS | ALLOW_SILICON_REACH
 	/// The amount of pressure the filter wants to operate at.
 	var/target_pressure = ONE_ATMOSPHERE
 	/// The type of gas we want to filter. Valid values that go here are from the `FILTER` defines at the top of the file.
@@ -45,17 +46,11 @@
 	toggle()
 	return ..()
 
-/obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
-	if(!ishuman(usr) && !issilicon(usr))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
-	if(!in_range(src, user) && !issilicon(user))
-		return
+/obj/machinery/atmospherics/trinary/filter/click_alt(mob/living/user)
 	set_max()
+	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/atmospherics/trinary/filter/AIAltClick()
+/obj/machinery/atmospherics/trinary/filter/ai_click_alt()
 	set_max()
 	return ..()
 

@@ -1144,25 +1144,22 @@ BLIND     // can't see anything
 	handle_accessories_removal(usr)
 
 
-/obj/item/clothing/under/AltClick(mob/user)
-	if(Adjacent(user))
-		handle_accessories_removal(user)
+/obj/item/clothing/under/click_alt(mob/user)
+	if(handle_accessories_removal(user))
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
 
 
 /obj/item/clothing/under/proc/handle_accessories_removal(mob/user)
-	if(!isliving(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
 	var/accessories_len = LAZYLEN(accessories)
 	if(!accessories_len)
 		to_chat(user, span_notice("There are no accessories attached to [src]."))
-		return
+		return FALSE
 	var/obj/item/clothing/accessory/accessory
 	if(accessories_len > 1)
 		accessory = tgui_input_list(user, "Select an accessory to remove from [src]", "Accessory Removal", accessories)
 		if(!accessory || !LAZYIN(accessories, accessory) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-			return
+			return FALSE
 	else
 		accessory = accessories[1]
 
@@ -1170,6 +1167,7 @@ BLIND     // can't see anything
 	accessory.on_removed(user)
 	if(!user.put_in_hands(accessory, ignore_anim = FALSE))
 		accessory.forceMove_turf()
+	return TRUE
 
 
 /obj/item/clothing/under/examine(mob/user)

@@ -136,6 +136,7 @@
 	icon_state = "stairs_frame"
 	density = FALSE
 	anchored = FALSE
+	interaction_flags_click = NEED_HANDS
 	/// What type of stack will this drop on deconstruction?
 	var/frame_stack = /obj/item/stack/rods
 	/// How much of frame_stack should this drop on deconstruction?
@@ -146,18 +147,13 @@
 	desc = "Everything you need to build a staircase, minus the actual stairs, this one is made of wood."
 	frame_stack = /obj/item/stack/sheet/wood
 
-/obj/structure/stairs_frame/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/structure/stairs_frame/click_alt(mob/user)
 	if(anchored)
-		to_chat(user, "It is fastened to the floor!")
-		return
+		to_chat(user, span_warning("It is fastened to the floor!"))
+		return CLICK_ACTION_BLOCKING
 	add_fingerprint(usr)
 	setDir(turn(dir, 90))
-
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/stairs_frame/examine(mob/living/carbon/human/user)
 	. = ..()

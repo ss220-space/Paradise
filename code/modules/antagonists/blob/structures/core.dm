@@ -30,6 +30,8 @@
 
 /obj/structure/blob/special/core/Initialize(mapload, client/new_overmind = null, offspring)
 	GLOB.blob_cores += src
+	if(SSticker?.mode?.blob_stage >= BLOB_STAGE_FIRST)
+		SSshuttle?.add_hostile_environment(src)
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	update_blob() //so it atleast appears
@@ -47,6 +49,7 @@
 
 /obj/structure/blob/special/core/Destroy()
 	GLOB.blob_cores -= src
+	SSshuttle?.remove_hostile_environment(src)
 	if(overmind)
 		overmind.blob_core = null
 		QDEL_NULL(overmind)
