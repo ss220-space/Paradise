@@ -19141,6 +19141,15 @@
 	icon_state = "brownfull"
 	},
 /area/teleporter/quantum/engi)
+"czI" = (
+/obj/structure/closet/sechammercabinet{
+	pixel_x = 30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/security/armory)
 "czK" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -285669,7 +285678,7 @@ rmd
 puS
 pus
 nxd
-iWY
+czI
 gRJ
 pNG
 aeM
