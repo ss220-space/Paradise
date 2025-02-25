@@ -119641,7 +119641,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "wCY" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/closet/sechammercabinet{
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
