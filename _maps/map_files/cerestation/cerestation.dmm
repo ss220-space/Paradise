@@ -24905,6 +24905,9 @@
 "dlB" = (
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/vehicle/ridden/secway,
+/obj/structure/closet/sechammercabinet{
+	pixel_x = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
