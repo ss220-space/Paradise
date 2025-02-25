@@ -5621,7 +5621,7 @@
 	},
 /area/bridge)
 "aVg" = (
-/obj/item/card/id/captains_spare,
+/obj/item/storage/secure/briefcase/captian,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"

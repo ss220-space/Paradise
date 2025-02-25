@@ -60,6 +60,8 @@
 	if(!open)
 		to_chat(user, span_warning("Open the service panel first."))
 		return .
+	if(l_hacking)
+		return .
 	to_chat(user, span_notice("Now attempting to reset internal memory, please hold..."))
 	l_hacking = TRUE
 	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume) || !open)
@@ -242,6 +244,12 @@
 		orient2hud(user)
 	add_fingerprint(user)
 	return
+
+/obj/item/storage/secure/briefcase/captian
+
+/obj/item/storage/secure/briefcase/captian/populate_contents()
+	new /obj/item/card/id/captains_spare(src)
+
 
 //Syndie variant of Secure Briefcase. Contains space cash, slightly more robust.
 /obj/item/storage/secure/briefcase/syndie
