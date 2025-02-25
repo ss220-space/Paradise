@@ -100,6 +100,7 @@
 	icon_state = "fireaxe0"
 	name = "fire axe"
 	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
+	gender = MALE
 	force = 5
 	throwforce = 15
 	sharp = TRUE
@@ -137,9 +138,32 @@
 	force_wielded = 23
 	needs_permit = TRUE
 
-
 /obj/item/twohanded/fireaxe/boneaxe/update_icon_state()
 	icon_state = "bone_axe[HAS_TRAIT(src, TRAIT_WIELDED)]"
+
+/obj/item/twohanded/fireaxe/boneaxe/guillotine
+	name = "guillotine"
+	desc = "Массивный, грозно выглядящий пилотопор, созданный с использованием костяного нароста ослеплённого жнеца. Идеален для убийства и последующей разделки чудовищ."
+	ru_names = list(
+		NOMINATIVE = "гильотина",
+		GENITIVE = "гильотины",
+		DATIVE = "гильотине",
+		ACCUSATIVE = "гильотину",
+		INSTRUMENTAL = "гильотиной",
+		PREPOSITIONAL = "гильотине"
+	)
+	icon_state = "guillotine0"
+	hitsound = 'sound/weapons/circsawhit.ogg'
+	force_unwielded = 7
+	force_wielded = 25
+	throwforce = 20
+	armour_penetration = 30
+	lefthand_file = 'icons/mob/inhands/lavaland/lava_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/lava_items_righthand.dmi'
+	has_speed_harvest = TRUE
+
+/obj/item/twohanded/fireaxe/boneaxe/guillotine/update_icon_state()
+	icon_state = "guillotine[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 
 /obj/item/twohanded/fireaxe/energized
@@ -411,6 +435,35 @@
 	throwforce = 26
 	icon_prefix = "chitin_spear"
 
+/obj/item/twohanded/spear/bonespear/her_biting_embrace
+	name = "her biting embrace"
+	desc = "Качественно созданное копьё, украшенное церемониальными узорами и использующее хвост донного угря в качестве наконечника. Настоящее произведение первобытного оружейного искусства."
+	ru_names = list(
+		NOMINATIVE = "копьё \"Её Обжигающие Объятия\"",
+		GENITIVE = "копья \"Её Обжигающие Объятия\"",
+		DATIVE = "копью \"Её Обжигающие Объятия\"",
+		ACCUSATIVE = "копьё \"Её Обжигающие Объятия\"",
+		INSTRUMENTAL = "копьём \"Её Обжигающие Объятия\"",
+		PREPOSITIONAL = "копьё \"Её Обжигающие Объятия\""
+	) //holy fuck
+	icon_state = "her_biting_embrace0"
+	icon_prefix = "her_biting_embrace"
+	lefthand_file = 'icons/mob/inhands/lavaland/lava_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/lava_items_righthand.dmi'
+	force = 16
+	force_unwielded = 16
+	force_wielded = 28 // I have no idea about balance too
+	throwforce = 45
+
+/obj/item/twohanded/spear/bonespear/her_biting_embrace/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
+		return .
+	var/datum/status_effect/saw_bleed/bloodletting/A = target.has_status_effect(STATUS_EFFECT_BLOODLETTING)
+	if(!A)
+		target.apply_status_effect(STATUS_EFFECT_BLOODLETTING)
+	else
+		A.add_bleed(6)
 
 /obj/item/twohanded/spear/plasma
 	name = "plasma spear"
@@ -1039,23 +1092,3 @@
 	used = FALSE
 	REMOVE_TRAIT(src, TRAIT_NODROP, PYRO_CLAWS_TRAIT)
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
-
-/obj/item/twohanded/fishingrod
-	name = "ol' reliable"
-	desc = "Hey! I caught a miner!"
-	icon_state = "fishing_rod0"
-	item_state = ""
-	w_class = WEIGHT_CLASS_SMALL
-	var/w_class_on = WEIGHT_CLASS_BULKY
-
-/obj/item/twohanded/fishingrod/wield()
-	w_class = w_class_on
-	item_state = "fishing_rod"
-
-/obj/item/twohanded/fishingrod/unwield()
-	w_class = initial(w_class)
-	item_state = ""
-
-/obj/item/twohanded/fishingrod/update_icon_state()
-	icon_state = "fishing_rod[HAS_TRAIT(src, TRAIT_WIELDED)]"
-

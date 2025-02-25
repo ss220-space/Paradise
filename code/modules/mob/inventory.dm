@@ -640,6 +640,16 @@
 /mob/proc/is_general_slot(slot)
 	return (slot & (ITEM_SLOT_HANDS|ITEM_SLOT_POCKETS|ITEM_SLOT_BACKPACK|ITEM_SLOT_HANDCUFFED|ITEM_SLOT_LEGCUFFED|ITEM_SLOT_ACCESSORY))
 
+//GetAllContents that is reasonable and not stupid
+/mob/living/proc/get_all_gear(recursive = TRUE)
+	var/list/processing_list = get_equipped_items(TRUE, TRUE)
+	listclearnulls(processing_list) // handles empty hands
+	var/i = 0
+	while(i < length(processing_list))
+		var/obj/item/storage/A = processing_list[++i]
+		if(istype(A) && recursive)
+			processing_list += A.return_inv()
+	return processing_list
 
 /// Collects all items in possibly equipped slots.
 /mob/proc/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)

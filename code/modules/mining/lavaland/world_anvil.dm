@@ -22,12 +22,10 @@
 
 /obj/structure/world_anvil/Initialize()
 	. = ..()
-	GLOB.anvils += src
 	internal = new /obj/item/gps/internal/world_anvil(src)
 
 /obj/structure/world_anvil/Destroy()
 	QDEL_NULL(internal)
-	GLOB.anvils -= src
 	. = ..()
 
 /obj/structure/world_anvil/update_icon_state()

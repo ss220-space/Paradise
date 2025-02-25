@@ -25,15 +25,10 @@
 	atom_say(input)
 	add_say_logs(user, input, language = "TTS")
 
-/obj/item/ttsdevice/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/item/ttsdevice/click_alt(mob/living/user)
 	var/noisechoice = input(user, "What noise would you like to make?", "Robot Noises") as null|anything in list("Beep","Buzz","Ping")
 	if(!noisechoice || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
+		return CLICK_ACTION_BLOCKING
 	switch(noisechoice)
 		if("Beep")
 			user.visible_message("<span class='notice'>[user] has made their TTS beep!</span>", "You make your TTS beep!")
@@ -44,6 +39,7 @@
 		if("Ping")
 			user.visible_message("<span class='notice'>[user] has made their TTS ping!</span>", "You make your TTS ping!")
 			playsound(user, 'sound/machines/ping.ogg', 50, 1, -1)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/ttsdevice/CtrlClick(mob/living/user)
 	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

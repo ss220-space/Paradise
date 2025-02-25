@@ -282,6 +282,23 @@
 	pickup_sound = 'sound/items/handling/bone_pickup.ogg'
 	drop_sound = 'sound/items/handling/bone_drop.ogg'
 
+/obj/item/kitchen/knife/combat/survival/bone/eel
+	name = "eel sharpened tail"
+	desc = "Бритвенно-острый хвост донного угля, аккуратно отделённый от основного тела рыбы. Из такого выйдет отличный нож или наконечник для копья."
+	ru_names = list(
+		NOMINATIVE = "хвост донного угря",
+		GENITIVE = "хвоста донного угря",
+		DATIVE = "хвосту донного угря",
+		ACCUSATIVE = "хвост донного угря",
+		INSTRUMENTAL = "хвостом донного угря",
+		PREPOSITIONAL = "хвосте донного угря"
+	)
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "eel_sharpened_tail"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "eel_sharpened_tail"
+
 /obj/item/kitchen/knife/combat/cyborg
 	name = "cyborg knife"
 	icon = 'icons/obj/items_cyborg.dmi'

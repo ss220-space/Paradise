@@ -390,26 +390,31 @@
 	name = "medical satchel"
 	desc = "A sterile satchel used in medical departments."
 	icon_state = "satchel-med"
+	item_state = "satchel-med"
 
 /obj/item/storage/backpack/satchel_vir
 	name = "virologist satchel"
 	desc = "A sterile satchel with virologist colours."
 	icon_state = "satchel-vir"
+	item_state = "satchel-vir"
 
 /obj/item/storage/backpack/satchel_chem
 	name = "chemist satchel"
 	desc = "A sterile satchel with chemist colours."
 	icon_state = "satchel-chem"
+	item_state = "satchel-chem"
 
 /obj/item/storage/backpack/satchel_gen
 	name = "geneticist satchel"
 	desc = "A sterile satchel with geneticist colours."
 	icon_state = "satchel-gen"
+	item_state = "satchel-gen"
 
 /obj/item/storage/backpack/satchel_tox
 	name = "scientist satchel"
 	desc = "Useful for holding research materials."
 	icon_state = "satchel-tox"
+	item_state = "satchel-tox"
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel_sec

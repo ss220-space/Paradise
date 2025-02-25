@@ -106,7 +106,15 @@
 
 				if(vaccine_type)
 
-					B.name = "бутылёк вакцины \"[vaccine_name]\""
+					B.name = "бутылка вакцины \"[vaccine_name]\""
+					B.ru_names = list(
+						NOMINATIVE = "бутылка вакцины \"[vaccine_name]\"",
+						GENITIVE = "бутылки вакцины \"[vaccine_name]\"",
+						DATIVE = "бутылке вакцины \"[vaccine_name]\"",
+						ACCUSATIVE = "бутылку вакцины \"[vaccine_name]\"",
+						INSTRUMENTAL = "бутылкой вакцины \"[vaccine_name]\"",
+						PREPOSITIONAL = "бутылке вакцины \"[vaccine_name]\""
+					)
 					B.reagents.add_reagent("vaccine", 15, list(vaccine_type))
 					replicator_cooldown(200)
 		else
@@ -134,8 +142,16 @@
 			B.pixel_y = rand(-3, 3)
 			replicator_cooldown(50)
 			var/list/data = list("diseases"=list(copy))
-			B.name = "бутылёк культуры \"[name]\""
-			B.desc = "Небольшой бутылёк. Содержит синтетическую кровь, заражённую культурой \"[copy.agent]\"."
+			B.name = "бутылка культуры \"[name]\""
+			B.ru_names = list(
+				NOMINATIVE = "бутылка культуры \"[name]\"",
+				GENITIVE = "бутылки культуры \"[name]\"",
+				DATIVE = "бутылке культуры \"[name]\"",
+				ACCUSATIVE = "бутылку культуры \"[name]\"",
+				INSTRUMENTAL = "бутылкой культуры \"[name]\"",
+				PREPOSITIONAL = "бутылке культуры \"[name]\""
+			)
+			B.desc = "Небольшая бутылка. Содержит синтетическую кровь, заражённую культурой \"[copy.agent]\"."
 			B.reagents.add_reagent("blood",20,data)
 			updateUsrDialog()
 		else
@@ -192,11 +208,11 @@
 	if(!(printing) && D)
 		var/reason = tgui_input_text(user,"Укажите причину выпуска", "Указать", multiline = TRUE)
 		reason += "<span class=\"paper_field\"></span>"
-		var/english_symptoms = list()
+		var/symptoms_list = list()
 		for(var/I in D.symptoms)
 			var/datum/symptom/S = I
-			english_symptoms += S.name
-		var/symtoms = english_list(english_symptoms)
+			symptoms_list += S.name
+		var/symtoms = russian_list(symptoms_list)
 
 
 		var/signature
@@ -292,10 +308,10 @@
 						if(istype(D, /datum/disease/virus/advance))
 							var/datum/disease/virus/advance/A = D
 							dat += "<BR><b>Симптомы:</b> "
-							var/english_symptoms = list()
+							var/symptoms_list = list()
 							for(var/datum/symptom/S in A.symptoms)
-								english_symptoms += S.name
-							dat += english_list(english_symptoms)
+								symptoms_list += S.name
+							dat += russian_list(symptoms_list)
 						dat += "<BR>"
 				if(i == 0)
 					dat += "В образце не обнаружен вирус."
@@ -319,7 +335,7 @@
 							var/datum/disease/D = new type()
 							disease_name = D.name
 
-						dat += "<li>[disease_name] - <a href='byond://?src=[UID()];create_vaccine=[i]'>Создать бутылёк с вакциной</A></li>"
+						dat += "<li>[disease_name] - <a href='byond://?src=[UID()];create_vaccine=[i]'>Создать бутылка с вакциной</A></li>"
 					dat += "</ul><BR>"
 				else
 					dat += "<BR><b>Не содержит антител</b><BR>"

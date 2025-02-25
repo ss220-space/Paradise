@@ -58,7 +58,7 @@
 	/// The suit's spark system, used for... sparking.
 	var/datum/effect_system/spark_spread/spark_system
 	/// The suit's smoke system. For the tactical smoke escapes and other smokey things!
-	var/datum/effect_system/smoke_spread/bad/smoke_system
+	var/datum/effect_system/fluid_spread/smoke/bad/smoke_system
 
 	/// The katana registered with the suit, used for recalling and catching the katana.  Set when the ninja outfit is created.
 	var/obj/item/melee/energy_katana/energyKatana
@@ -511,11 +511,11 @@
 	//Покраска дыма
 	switch(color_choice)
 		if("red")
-			smoke_system.color = "#af0033"
+			smoke_system.effect_type = /obj/effect/particle_effect/fluid/smoke/bad/red
 		if("blue")
-			smoke_system.color = "#88aaff"
+			smoke_system.effect_type = /obj/effect/particle_effect/fluid/smoke/bad/blue
 		if("green")
-			smoke_system.color = "#00ff00"
+			smoke_system.effect_type = /obj/effect/particle_effect/fluid/smoke/bad/green
 
 	var/datum/action/item_action/action
 	for(action in ninja.actions)

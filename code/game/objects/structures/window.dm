@@ -37,6 +37,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
+	interaction_flags_click = NEED_HANDS
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
@@ -125,7 +126,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		else
 			. += "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>"
 	if(!anchored && !fulltile)
-		. += "<span class='notice'>Alt-click to rotate it.</span>"
+		. += span_info("<b>Alt-click</b> to rotate it.")
 
 
 /obj/structure/window/narsie_act()
@@ -426,30 +427,21 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return RCD_ACT_FAILED
 
 
-/obj/structure/window/AltClick(mob/user)
-
-	if(!Adjacent(user))
-		to_chat(user, "<span class='warning'>Move closer to the window!</span>")
-		return
-
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-
+/obj/structure/window/click_alt(mob/user)
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
-		return FALSE
+		to_chat(user, span_warning("[src] cannot be rotated while it is fastened to the floor!"))
+		return CLICK_ACTION_BLOCKING
 
 	var/target_dir = turn(dir, 90)
 
 	if(!valid_build_direction(loc, target_dir, fulltile))
-		to_chat(user, "<span class='warning'>There is no room to rotate the [src]</span>")
-		return FALSE
+		to_chat(user, span_warning("There is no room to rotate the [src]"))
+		return CLICK_ACTION_BLOCKING
 
 	setDir(target_dir)
 	ini_dir = dir
 	add_fingerprint(user)
-	return TRUE
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/structure/window/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)

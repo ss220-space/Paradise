@@ -494,6 +494,7 @@ GLOBAL_VAR(bomb_set)
 					if(!is_syndicate)
 						set_security_level("delta")
 					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke
+					SSshuttle?.add_hostile_environment(src)
 				else
 					GLOB.bomb_set = TRUE
 			else

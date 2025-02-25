@@ -51,15 +51,24 @@
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/radio/headset/headset_med(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/storage/belt/medical(src)
+	new /obj/item/reagent_containers/hypospray/safety(src)
+
+/obj/structure/closet/secure_closet/medical4
+	name = "surgeon locker"
+	req_access = list(ACCESS_SURGERY)
+	icon_state = "med"
+
+/obj/structure/closet/secure_closet/medical4/populate_contents()
+	new /obj/item/storage/box/masks(src)
+	new /obj/item/storage/box/gloves(src)
+	new /obj/item/storage/box/bodybags(src)
+	new /obj/item/storage/box/bodybags/biohazard(src)
+	new /obj/item/storage/belt/medical/surgery/loaded(src)
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/handheld_defibrillator(src)
 	new /obj/item/handheld_defibrillator(src)
-	new /obj/item/storage/belt/medical(src)
-	new /obj/item/clothing/glasses/hud/health(src)
-	new /obj/item/clothing/shoes/sandal/white(src)
-	new /obj/item/clothing/head/surgery/lightgreen(src)
-	new /obj/item/clothing/under/rank/medical/lightgreen(src)
-
 
 //Exam Room
 /obj/structure/closet/secure_closet/exam

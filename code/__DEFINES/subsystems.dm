@@ -80,8 +80,9 @@
 #define INIT_ORDER_JOBS 40
 #define INIT_ORDER_TICKER 30
 #define INIT_ORDER_MAPPING 20
-#define INIT_ORDER_HOLOMAP 7 // after map loads, but before atoms init
-#define INIT_ORDER_EARLY_ASSETS 6
+#define INIT_ORDER_HOLOMAP 8 // after map loads, but before atoms init
+#define INIT_ORDER_EARLY_ASSETS 7
+#define INIT_ORDER_FLUIDS 6 // Needs to be above atoms, as some atoms may want to start fluids/gases on init
 #define INIT_ORDER_ATOMS 5
 #define INIT_ORDER_MACHINES 4
 #define INIT_ORDER_IDLENPCS 3
@@ -103,6 +104,7 @@
 #define INIT_ORDER_GAME_EVENTS -26
 #define INIT_ORDER_PATH -50
 #define INIT_ORDER_EXPLOSIONS -69
+#define INIT_ORDER_LOOT -70
 #define INIT_ORDER_PERSISTENCE -95
 #define INIT_ORDER_STATPANELS -98
 #define INIT_ORDER_DEMO	-99 // To avoid a bunch of changes related to initialization being written, do this last

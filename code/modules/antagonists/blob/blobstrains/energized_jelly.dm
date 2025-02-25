@@ -24,7 +24,7 @@
 /datum/reagent/blob/energized_jelly
 	name = "Энергетическое желе"
 	id = "blob_energized_jelly"
-	taste_description = "желатин"
+	taste_description = "желатина"
 	color = "#EFD65A"
 
 
@@ -40,4 +40,4 @@
 			exposed_mob.reagents.del_reagent("teslium")
 			return //don't add more teslium after you shock it out of someone.
 		exposed_mob.reagents.add_reagent("teslium", 0.125 * reac_volume)  // a little goes a long way
-	
+

@@ -1773,6 +1773,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 		sync()
 
+/mob/living/silicon/robot/can_perform_action(atom/target, action_bitflags)
+	if(lockcharge || low_power_mode)
+		to_chat(src, span_warning("You can't do that right now!"))
+		return FALSE
+	return ..()
 
 /mob/living/silicon/robot/adjustOxyLoss(
 	amount = 0,

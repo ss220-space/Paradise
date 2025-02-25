@@ -22,7 +22,7 @@
 /datum/reagent/blob/radioactive_gel
 	name = "Рadioactive_gel"
 	id = "blob_radioactive_gel"
-	taste_description = "радиация"
+	taste_description = "радиации"
 	color = "#2476f0"
 
 /datum/reagent/blob/radioactive_gel/reaction_mob(mob/living/exposed_mob, methods=REAGENT_TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)

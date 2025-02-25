@@ -137,10 +137,9 @@
 	return TRUE
 
 
-/obj/structure/reflector/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
+/obj/structure/reflector/click_alt(mob/user)
 	rotate()
+	return CLICK_ACTION_SUCCESS
 
 
 //TYPES OF REFLECTORS, SINGLE, DOUBLE, BOX

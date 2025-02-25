@@ -5,6 +5,7 @@
 	can_unwrench = TRUE
 
 	name = "gas mixer"
+	interaction_flags_click = NEED_HANDS | ALLOW_SILICON_REACH
 
 	var/target_pressure = ONE_ATMOSPHERE
 	var/node1_concentration = 0.5
@@ -26,17 +27,11 @@
 	toggle()
 	return ..()
 
-/obj/machinery/atmospherics/trinary/mixer/AltClick(mob/living/user)
-	if(!ishuman(user) && !issilicon(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
-	if(!in_range(src, user) && !issilicon(user))
-		return
+/obj/machinery/atmospherics/trinary/mixer/click_alt(mob/living/user)
 	set_max()
+	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/atmospherics/trinary/mixer/AIAltClick()
+/obj/machinery/atmospherics/trinary/mixer/ai_click_alt()
 	set_max()
 	return ..()
 

@@ -15,6 +15,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=2;magnets=1;bluespace=2"
+	interaction_flags_click = NEED_HANDS | NEED_DEXTERITY
 	/// Whether the GPS is on.
 	var/tracking = TRUE
 	/// The tag that is visible to other GPSes.
@@ -56,15 +57,9 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), EMP_DISABLE_TIME)
 
-/obj/item/gps/AltClick(mob/living/user)
-	if(!Adjacent(user))
-		return
-	if(!iscarbon(usr) && !isrobot(usr))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/item/gps/click_alt(mob/living/user)
 	toggle_gps(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/gps/proc/toggle_gps(mob/living/user)
 	if(emped)

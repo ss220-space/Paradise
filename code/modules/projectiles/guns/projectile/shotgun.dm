@@ -387,10 +387,8 @@
 		balloon_alert(user, "переключено на второй ствол")
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/AltClick(mob/living/user)
-	. = ..()
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
-		return
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/click_alt(mob/living/user)
 	pump()
+	return CLICK_ACTION_SUCCESS
 
 // DOUBLE BARRELED SHOTGUN, IMPROVISED SHOTGUN, and CANE SHOTGUN are in revolver.dm

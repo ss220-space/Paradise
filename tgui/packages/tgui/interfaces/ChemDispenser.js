@@ -17,7 +17,7 @@ export const ChemDispenser = (props, context) => {
   const { act, data } = useBackend(context);
   const { chemicals } = data;
   return (
-    <Window width={580} height={400 + chemicals.length * 8}>
+    <Window width={650} height={400 + chemicals.length * 8}>
       <Window.Content>
         <Stack fill vertical>
           <ChemDispenserSettings />
@@ -47,7 +47,7 @@ const ChemDispenserSettings = (properties, context) => {
                 bad: [-Infinity, maxEnergy * 0.25],
               }}
             >
-              {energy} / {maxEnergy} Единиц
+              {energy} / {maxEnergy} единиц
             </ProgressBar>
           </LabeledList.Item>
           <LabeledList.Item label="Объём синтеза" verticalAlign="middle">

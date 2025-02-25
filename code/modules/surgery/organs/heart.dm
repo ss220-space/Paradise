@@ -1,5 +1,15 @@
 /obj/item/organ/internal/heart
 	name = "heart"
+	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало человеку."
+	ru_names = list(
+		NOMINATIVE = "сердце человека",
+		GENITIVE = "сердца человека",
+		DATIVE = "сердцу человека",
+		ACCUSATIVE = "сердце человека",
+		INSTRUMENTAL = "сердцем человека",
+		PREPOSITIONAL = "сердце человека"
+	)
+	gender = NEUTER
 	icon_state = "heart-on"
 	parent_organ_zone = BODY_ZONE_CHEST
 	slot = INTERNAL_ORGAN_HEART
@@ -39,7 +49,7 @@
 /obj/item/organ/internal/heart/attack_self(mob/user)
 	..()
 	if(is_dead())
-		to_chat(user, span_warning("You can't restart a dead heart."))
+		balloon_alert(user, "мёртвое сердце не запустить!")
 		return
 	if(!beating)
 		Restart()
@@ -76,7 +86,15 @@
 
 /obj/item/organ/internal/heart/cursed
 	name = "cursed heart"
-	desc = "it needs to be pumped..."
+	desc = "Странно выглядящее сердце. Судя по всему, ему требуется постоянная подкачка..."
+	ru_names = list(
+		NOMINATIVE = "проклятое сердце",
+		GENITIVE = "проклятого сердца",
+		DATIVE = "проклятому сердцу",
+		ACCUSATIVE = "проклятое сердце",
+		INSTRUMENTAL = "проклятое сердцем",
+		PREPOSITIONAL = "проклятое сердце"
+	)
 	icon_state = "cursedheart-off"
 	icon_base = "cursedheart"
 	origin_tech = "biotech=6"
@@ -96,7 +114,7 @@
 		return ..()
 
 	if(HAS_TRAIT(user, TRAIT_NO_BLOOD))
-		to_chat(user, span_userdanger("The [name] is not compatible with your form!"))
+		balloon_alert(user, "несовместимо с вами!")
 		return ATTACK_CHAIN_PROCEED
 
 	if(!user.temporarily_remove_item_from_inventory(src))
@@ -113,7 +131,7 @@
 			var/mob/living/carbon/human/H = owner
 			if(!HAS_TRAIT(H, TRAIT_NO_BLOOD))
 				H.blood_volume = max(H.blood_volume - blood_loss, 0)
-				to_chat(H, span_userdanger("You have to keep pumping your blood!"))
+				to_chat(H, span_userdanger("Ваш кровоток нуждается в подкачке!"))
 				if(H.client)
 					H.client.color = "red" //bloody screen so real
 		else
@@ -123,11 +141,11 @@
 /obj/item/organ/internal/heart/cursed/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(owner)
-		to_chat(owner, span_userdanger("Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!"))
+		to_chat(owner, span_userdanger("Ваше сердце было заменено на проклятое! Вам придётся качать его вручную, иначе вы умрёте!"))
 
 
 /datum/action/item_action/organ_action/cursed_heart
-	name = "pump your blood"
+	name = "Подкачка крови"
 
 
 //You are now brea- pumping blood manually
@@ -137,12 +155,12 @@
 		var/obj/item/organ/internal/heart/cursed/cursed_heart = target
 
 		if(world.time < (cursed_heart.last_pump + (cursed_heart.pump_delay - 10))) //no spam
-			owner.balloon_alert(owner, "слишком рано")
+			owner.balloon_alert(owner, "слишком рано!")
 			return
 
 		cursed_heart.last_pump = world.time
 		playsound(owner,'sound/effects/singlebeat.ogg',40,1)
-		owner.balloon_alert(owner, "твоё сердце бьется")
+		owner.balloon_alert(owner, "ваше сердце бьётся")
 
 		var/mob/living/carbon/human/H = owner
 		if(istype(H) && !HAS_TRAIT(H, TRAIT_NO_BLOOD))
@@ -161,7 +179,15 @@
 
 /obj/item/organ/internal/heart/cybernetic
 	name = "cybernetic heart"
-	desc = "An electronic device designed to mimic the functions of an organic human heart. Offers no benefit over an organic heart other than being easy to make."
+	desc = "Электронное устройство, имитирующее работу органического сердца. Функционально не имеет никаких отличий от органического аналога, кроме производственных затрат."
+	ru_names = list(
+		NOMINATIVE = "кибернетическое сердце",
+		GENITIVE = "кибернетического сердца",
+		DATIVE = "кибернетическому сердцу",
+		ACCUSATIVE = "кибернетическое сердце",
+		INSTRUMENTAL = "кибернетическим сердцем",
+		PREPOSITIONAL = "кибернетическом сердце"
+	)
 	icon_state = "heart-c-on"
 	icon_base = "heart-c"
 	dead_icon = "heart-c-off"
@@ -172,7 +198,15 @@
 
 /obj/item/organ/internal/heart/cybernetic/upgraded
 	name = "upgraded cybernetic heart"
-	desc = "A more advanced version of a cybernetic heart. Grants the user additional stamina and heart stability, but the electronics are vulnerable to shock."
+	desc = "Продвинутая версия кибернетического сердца. Даёт пользователю дополнительную выносливость и стабильность работы, но при этом является очень уязвимым к ЭМИ."
+	ru_names = list(
+		NOMINATIVE = "улучшенное кибернетическое сердце",
+		GENITIVE = "улучшенного кибернетического сердца",
+		DATIVE = "улучшенному кибернетическому сердцу",
+		ACCUSATIVE = "улучшенное кибернетическое сердце",
+		INSTRUMENTAL = "улучшенным кибернетическим сердцем",
+		PREPOSITIONAL = "улучшенном кибернетическом сердце"
+	)
 	icon_state = "heart-c-u-on"
 	icon_base = "heart-c-u"
 	dead_icon = "heart-c-u-off"
@@ -201,16 +235,16 @@
 		return
 
 	if(!is_dead() && !attempted_restart && !beating)
-		to_chat(owner, span_warning("Your [name] detects a cardiac event and attempts to return to its normal rhythm!"))
+		to_chat(owner, span_danger("Ваше [declent_ru(NOMINATIVE)] обнаруживает сердечный приступ и пытается вернуться к нормальному ритму!"))
 		if(prob(20) && emagged)
 			attempted_restart = TRUE
 			Restart()
-			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, span_warning("Your [name] returns to its normal rhythm!")), 30)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, span_warning("Ваше [declent_ru(NOMINATIVE)] возвращается к нормальному ритму.")), 30)
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 		else if(prob(10))
 			attempted_restart = TRUE
 			Restart()
-			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, span_warning("Your [name] returns to its normal rhythm!")), 30)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, span_warning("Ваше [declent_ru(NOMINATIVE)] возвращается к нормальному ритму.")), 30)
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
 		else
 			attempted_restart = TRUE
@@ -218,21 +252,21 @@
 				addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 			else
 				addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
-			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, span_warning("Your [name] fails to return to its normal rhythm!")), 30)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, span_danger("Ваше [declent_ru(NOMINATIVE)] не смогло вернуться к нормальному ритму!")), 30)
 
 	if(!is_dead() && !attempted_restart && owner.HasDisease(/datum/disease/critical/heart_failure))
-		to_chat(owner, span_warning("Your [name] detects a cardiac event and attempts to return to its normal rhythm!"))
+		to_chat(owner, span_danger("Ваше [declent_ru(NOMINATIVE)] обнаруживает сердечный приступ и пытается вернуться к нормальному ритму!"))
 		if(prob(40) && emagged)
 			attempted_restart = TRUE
 			for(var/datum/disease/critical/heart_failure/HF in owner.diseases)
 				HF.cure()
-			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, span_warning("Your [name] returns to its normal rhythm!")), 30)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, span_warning("Ваше [declent_ru(NOMINATIVE)] обнаруживает сердечный приступ и пытается вернуться к нормальному ритму!")), 30)
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 		else if(prob(25))
 			attempted_restart = TRUE
 			for(var/datum/disease/critical/heart_failure/HF in owner.diseases)
 				HF.cure()
-			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, span_warning("Your [name] returns to its normal rhythm!")), 30)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, span_warning("Ваше [declent_ru(NOMINATIVE)] обнаруживает сердечный приступ и пытается вернуться к нормальному ритму!")), 30)
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 		else
 			attempted_restart = TRUE
@@ -240,7 +274,7 @@
 				addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 			else
 				addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
-			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, span_warning("Your [name] fails to return to its normal rhythm!")), 30)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, span_danger("Ваше [declent_ru(NOMINATIVE)] не смогло вернуться к нормальному ритму!")), 30)
 
 	if(!is_dead())
 		var/boost = emagged ? 2 : 1
@@ -264,12 +298,12 @@
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		if(user)
-			to_chat(user, span_warning("You disable the safeties on [src]"))
+			balloon_alert(user, "протоколы безопасности взломаны")
 		emagged = TRUE
 	else
 		add_attack_logs(user, src, "un-emagged")
 		if(user)
-			to_chat(user, span_warning("You re-enable the safeties on [src]"))
+			balloon_alert(user, "протоколы безопасности восстановлены")
 		emagged = FALSE
 
 
@@ -296,29 +330,29 @@
 	var/numLow = round(intensity / 20)
 	if(emagged && !is_dead())
 		if(prob(numHigh))
-			to_chat(owner, span_warning("Your [name] spasms violently!"))
+			to_chat(owner, span_warning("У вас сердечный спазм!"))
 			owner.adjustBruteLoss(numHigh)
 		if(prob(numHigh))
-			to_chat(owner, span_warning("Your [name] shocks you painfully!"))
+			to_chat(owner, span_warning("Ваше [declent_ru(NOMINATIVE)] бьёт вас током!"))
 			owner.adjustFireLoss(numHigh)
 		if(prob(numMid))
-			to_chat(owner, span_warning("Your [name] lurches awkwardly!"))
+			to_chat(owner, span_warning("Ваше [declent_ru(NOMINATIVE)] болезненно бьётся!"))
 			var/datum/disease/critical/heart_failure/D = new
 			D.Contract(owner)
 		if(prob(numMid))
-			to_chat(owner, span_danger("Your [name] stops beating!"))
+			to_chat(owner, span_danger("Ваше [declent_ru(NOMINATIVE)] перестаёт биться!"))
 			Stop()
 		if(prob(numLow))
-			to_chat(owner, span_danger("Your [name] shuts down!"))
+			to_chat(owner, span_danger("Ваше [declent_ru(NOMINATIVE)] выключается!"))
 			necrotize()
 	else if(!emagged && !is_dead())
 		if(prob(numMid))
-			to_chat(owner, span_warning("Your [name] spasms violently!"))
+			to_chat(owner, span_warning("У вас сердечный спазм!"))
 			owner.adjustBruteLoss(numMid)
 		if(prob(numMid))
-			to_chat(owner, span_warning("Your [name] shocks you painfully!"))
+			to_chat(owner, span_warning("Ваше [declent_ru(NOMINATIVE)] бьёт вас током!"))
 			owner.adjustFireLoss(numMid)
 		if(prob(numLow))
-			to_chat(owner, span_warning("Your [name] lurches awkwardly!"))
+			to_chat(owner, span_warning("Ваше [declent_ru(NOMINATIVE)] болезненно бьётся!"))
 			var/datum/disease/critical/heart_failure/D = new
 			D.Contract(owner)

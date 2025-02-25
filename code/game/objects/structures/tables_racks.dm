@@ -852,10 +852,12 @@
 	anchored = TRUE
 	pass_flags_self = LETPASSTHROW //You can throw objects over this, despite it's density.
 	max_integrity = 20
+	var/wooden_version = FALSE
 
 /obj/structure/rack/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
+	if(!wooden_version)
+		. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 
 
 /obj/structure/rack/CanAllowThrough(atom/movable/mover, border_dir)
@@ -902,6 +904,8 @@
 	deconstruct(TRUE)
 
 /obj/structure/rack/attack_hand(mob/living/user)
+	if(wooden_version)
+		return ..()
 	if(user.incapacitated())
 		return
 	add_fingerprint(user)

@@ -29,12 +29,11 @@
 		if(!SSshuttle.emergencyNoEscape)
 			dat += "<a href='byond://?src=[UID()];lockdown_shuttle=1'>Lockdown Shuttle</a><br>"
 		else
-			if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
-				dat += span_danger("<B>Emergency shuttle stranded</B>")
-				dat += "<BR><a href='byond://?src=[UID()];stop_lockdown=1'>Stop lockdown and De-Strandise</a><br>"
-			else
-				dat += span_danger("<B>Emergency shuttle lockdowned</B>")
-				dat += "<BR><a href='byond://?src=[UID()];stop_lockdown=1'>Stop lockdown</a><br>"
+			dat += span_danger("<B>Emergency shuttle lockdowned</B>")
+			dat += "<BR><a href='byond://?src=[UID()];stop_lockdown=1'>Stop lockdown</a><br>"
+		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
+			dat += span_danger("<B>Emergency shuttle stranded</B>")
+			dat += "<BR><a href='byond://?src=[UID()];reload_shuttle=1'>Reload Shuttle</a><br>"
 		dat += "<a href='byond://?src=[UID()];full_lockdown=1'>Full Lockdown</a>Now: [GLOB.full_lockdown? "ON" : "OFF"]<br>"
 		dat += "<a href='byond://?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
 		var/connected_players = GLOB.clients.len
@@ -275,9 +274,6 @@
 		if(SSticker.mode.devils.len)
 			dat += check_role_table("Devils", SSticker.mode.devils)
 
-		if(SSticker.mode.xenos.len)
-			dat += check_role_table("Xenos", SSticker.mode.xenos)
-
 		if(SSticker.mode.superheroes.len)
 			dat += check_role_table("Superheroes", SSticker.mode.superheroes)
 
@@ -289,24 +285,6 @@
 
 		if(SSticker.mode.eventmiscs.len)
 			dat += check_role_table("Event Roles", SSticker.mode.eventmiscs)
-
-		if(GLOB.ts_spiderlist.len)
-			var/list/spider_minds = list()
-			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
-				if(S.ckey)
-					spider_minds += S.mind
-			if(spider_minds.len)
-				dat += check_role_table("Terror Spiders", spider_minds)
-
-				var/count_eggs = 0
-				var/count_spiderlings = 0
-				for(var/obj/structure/spider/eggcluster/terror_eggcluster/E in GLOB.ts_egg_list)
-					if(is_station_level(E.z))
-						count_eggs += E.spiderling_number
-				for(var/obj/structure/spider/spiderling/terror_spiderling/L in GLOB.ts_spiderling_list)
-					if(!L.stillborn && is_station_level(L.z))
-						count_spiderlings += 1
-				dat += "<table cellspacing=5><TR><TD>Growing TS on-station: [count_eggs] egg[count_eggs != 1 ? "s" : ""], [count_spiderlings] spiderling[count_spiderlings != 1 ? "s" : ""]. </TD></TR></TABLE>"
 
 		if(SSticker.mode.ert.len)
 			dat += check_role_table("ERT", SSticker.mode.ert)

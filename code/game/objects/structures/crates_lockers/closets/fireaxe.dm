@@ -222,7 +222,7 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "fishingrod"
 	anchored = TRUE
-	var/obj/item/twohanded/fishingrod/olreliable //what the fuck?
+	var/obj/item/twohanded/fishing_rod/olreliable //what the fuck?
 
 
 /obj/structure/fishingrodcabinet/Initialize(mapload)
@@ -241,8 +241,8 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/twohanded/fishingrod))
-		var/obj/item/twohanded/fishingrod/rod = I
+	if(istype(I, /obj/item/twohanded/fishing_rod))
+		var/obj/item/twohanded/fishing_rod/rod = I
 		if(HAS_TRAIT(rod, TRAIT_WIELDED))
 			to_chat(user, span_warning("Unwield [rod] first."))
 			return ATTACK_CHAIN_PROCEED

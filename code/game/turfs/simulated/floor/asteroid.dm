@@ -2,8 +2,8 @@
 /**********************Asteroid**************************/
 
 /turf/simulated/floor/plating/asteroid
-	gender = PLURAL
 	name = "asteroid sand"
+	gender = PLURAL
 	baseturf = /turf/simulated/floor/plating/asteroid
 	icon_state = "asteroid"
 	icon_plating = "asteroid"
@@ -16,6 +16,8 @@
 	var/floor_variance = 20 //probability floor has a different icon state
 	var/obj/item/stack/digResult = /obj/item/stack/ore/glass/basalt
 	var/dug
+	///Chance to dig up a worm
+	var/worm_chance = 30
 
 /turf/simulated/floor/plating/asteroid/Initialize(mapload)
 	var/proper_name = name
@@ -169,8 +171,21 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 
 /turf/simulated/floor/plating/asteroid/basalt/getDug()
 	set_light_on(FALSE)
+	if(prob(worm_chance))
+		spawn_random_worm()
 	GLOB.dug_up_basalt |= src
 	return ..()
+
+/turf/simulated/floor/plating/asteroid/basalt/proc/spawn_random_worm()
+	switch(rand(0, 100))
+		if(0 to 41)
+			new /obj/item/reagent_containers/food/snacks/bait/ash_eater(src)
+		if(42 to 74)
+			new /obj/item/reagent_containers/food/snacks/bait/bloody_leach(src)
+		if(75 to 98)
+			new /obj/item/reagent_containers/food/snacks/bait/goldgrub_larva(src)
+		if(99 to 100)
+			new /obj/item/reagent_containers/food/snacks/charred_krill(src)
 
 /proc/set_basalt_light(turf/simulated/floor/B)
 	switch(B.icon_state)

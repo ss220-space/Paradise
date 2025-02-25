@@ -22,7 +22,7 @@
 		/obj/effect/light_emitter/tendril,
 		/obj/effect/collapse,
 		/obj/effect/abstract,
-		/obj/effect/particle_effect/smoke,
+		/obj/effect/particle_effect/fluid/smoke,
 		/obj/effect/particle_effect/ion_trails,
 		/obj/effect/particle_effect/sparks,
 		/obj/effect/particle_effect/expl_particles,

@@ -2,7 +2,15 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass
 	name = "glass"
-	desc = "Your standard drinking glass."
+	desc = "Стеклянный стакан, из таких обычно пьют. Постарайтесь не разбить его."
+	ru_names = list(
+        NOMINATIVE = "стакан",
+        GENITIVE = "стакана",
+        DATIVE = "стакану",
+        ACCUSATIVE = "стакан",
+        INSTRUMENTAL = "стаканом",
+        PREPOSITIONAL = "стакане"
+	)
 	icon_state = "glass_empty"
 	item_state = "drinking_glass"
 	amount_per_transfer_from_this = 10
@@ -28,12 +36,12 @@
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
 		add_fingerprint(user)
 		if(!reagents)
-			to_chat(user, span_warning("The [I.name] is empty."))
+			balloon_alert(user, "яйцо пустое!")
 			return ATTACK_CHAIN_PROCEED
 		if(reagents.total_volume >= reagents.maximum_volume)
-			to_chat(user, span_warning("The [name] is full."))
+			balloon_alert(user, "нет места!")
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("You break [I] into [src]."))
+		to_chat(user, span_notice("Вы разбиваете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		I.reagents.trans_to(src, I.reagents.total_volume)
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL

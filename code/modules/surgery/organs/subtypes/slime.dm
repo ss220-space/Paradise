@@ -1,10 +1,18 @@
 /obj/item/organ/internal/heart/slime
 	species_type = /datum/species/slime
-	icon = 'icons/obj/species_organs/slime.dmi'
 	name = "slime heart"
+	desc = "Орган, регулирующий давление и потоки передвижения слизи по организму, по принципу работы схожий с сердцем. Это принадлежало слаймолюду."
+	ru_names = list(
+		NOMINATIVE = "сердце слаймолюда",
+		GENITIVE = "сердца слаймолюда",
+		DATIVE = "сердцу слаймолюда",
+		ACCUSATIVE = "сердце слаймолюда",
+		INSTRUMENTAL = "сердцем слаймолюда",
+		PREPOSITIONAL = "сердце слаймолюда"
+	)
+	icon = 'icons/obj/species_organs/slime.dmi'
 	icon_state = "heart"
 	item_state = "slime_heart"
-	desc = "This is a slime's osmotic pressure regulator, it appears to be some kind of biological pump that uses osmotic pressure to regulate water flow. It seems to work similar to a heart."
 	dead_icon = null
 
 /obj/item/organ/internal/heart/slime/update_icon_state()
@@ -12,16 +20,33 @@
 
 /obj/item/organ/internal/lungs/slime
 	species_type = /datum/species/slime
-	icon = 'icons/obj/species_organs/slime.dmi'
 	name = "slime lungs"
+	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали слаймолюду."
+	ru_names = list(
+		NOMINATIVE = "лёгкие слаймолюда",
+		GENITIVE = "лёгких слаймолюда",
+		DATIVE = "лёгким слаймолюда",
+		ACCUSATIVE = "лёгкие слаймолюда",
+		INSTRUMENTAL = "лёгкими слаймолюда",
+		PREPOSITIONAL = "лёгких слаймолюда"
+	)
+	icon = 'icons/obj/species_organs/slime.dmi'
 	icon_state = "lungs"
 	item_state = "slime_lungs"
-	desc = "This is a slime's gas exchange membrane, this membrane used for oxygen intake and gas exchange. These seem to work similar to lungs."
 
 /obj/item/organ/internal/brain/slime
 	species_type = /datum/species/slime
 	name = "slime core"
 	desc = "A complex, organic knot of jelly and crystalline particles."
+	desc = "Орган нервной системы, состоящий из кристало- и желеподобных образований. Фактически, именно здесь и находится разум. Этот принадлежал слаймолюду."
+	ru_names = list(
+		NOMINATIVE = "ядро слаймолюда",
+		GENITIVE = "ядра слаймолюда",
+		DATIVE = "ядру слаймолюда",
+		ACCUSATIVE = "ядро слаймолюда",
+		INSTRUMENTAL = "ядром слаймолюда",
+		PREPOSITIONAL = "ядре слаймолюда"
+	)
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "green slime extract"
 	mmi_icon_state = "slime_mmi"
