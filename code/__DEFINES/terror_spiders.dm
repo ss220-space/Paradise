@@ -49,4 +49,4 @@
 
 #define TIME_TO_ANNOUNCE 10 SECONDS
 
-#define EMPRESS_EGG_TARGET_COUNT 2 + num_station_players() / 5
+#define EMPRESS_EGG_TARGET_COUNT round(2 + num_station_players() / 5)

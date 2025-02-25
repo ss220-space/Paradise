@@ -1,4 +1,4 @@
-#define EMPRESS_EVOLVE_TARGET_COUNT 2 + num_station_players() / 6
+#define EMPRESS_EVOLVE_TARGET_COUNT round(2 + num_station_players() / 6)
 
 #define EVOLVE_ANNOUNCE_TRIGGER 0.1
 
