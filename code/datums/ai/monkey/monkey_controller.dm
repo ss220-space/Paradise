@@ -98,9 +98,9 @@ have ways of interacting with a specific mob and control it.
 					//blackboard[BB_MONKEY_CURRENT_ATTACK_TARGET] = selected_enemy
 					//blackboard[BB_MONKEY_TARGET_DISPOSAL] = bodyDisposal
 					//current_behaviors += GET_AI_BEHAVIOR(/datum/ai_behavior/disposal_mob)
-				return
 
-			return //Too busy fighting to steal atm.
+
+				return //Too busy fighting to steal atm.
 
 	else if(SPT_PROB(MONKEY_SHENANIGAN_PROB, delta_time))
 		if(TryFindWeapon()) //Found a better weapon, let's grab it first.
