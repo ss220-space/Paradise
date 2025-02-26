@@ -212,7 +212,7 @@
 	)
 	desc = "Сумка для хранения взрычатки. Способна автоматически устанавливать выбранную взрывчатку, однако это делает невозможным достать содержимое поштучно."
 	icon = 'icons/obj/mining.dmi'
-	icon_state = "satchel"
+	icon_state = "bomb_satchel"
 	origin_tech = "engineering=2"
 	slot_flags = ITEM_SLOT_BELT
 	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
@@ -221,26 +221,30 @@
 	max_combined_w_class = 200
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/grenade/plastic)
-	var/nextbomb = null
+	var/obj/item/grenade/plastic/nextbomb = null
+	var/obj/item/grenade/plastic/miningcharge/nextbombbutmining = null
 
 /obj/item/storage/bag/kaboom/AltClick(mob/user)
 	if(LAZYLEN(contents))
-		if(LAZYLEN(contents) <= storage_slots)
-			var/list/bombs = list()
-			var/list/bombs_inside = list()
-			for(var/I in contents)
-				var/atom/explos = I
-				bombs[explos.name] = image(mutable_appearance = explos.icon, icon_state = explos.icon_state)
-				bombs_inside[explos.name] = explos
-			nextbomb = show_radial_menu(user = user, anchor = src, choices = bombs, require_near = TRUE)
-			nextbomb = bombs[nextbomb]
-		else
-			balloon_alert(user, "Сумка полная!")
+		var/list/bombs = list()
+		var/list/bombs_inside = list()
+		for(var/I in contents)
+			var/atom/explos = I
+			bombs[explos.name] = image(icon = explos.icon, icon_state = explos.icon_state)
+			bombs_inside[explos.name] = explos
+		nextbomb = show_radial_menu(user = user, anchor = src, choices = bombs, require_near = TRUE)
+		nextbomb = bombs_inside[nextbomb]
 	else
 		balloon_alert(user, "Сумка пустая!")
 
-///obj/item/storage/bag/kaboom/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
-	//nextbomb.attack(target, user)
+/obj/item/storage/bag/kaboom/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
+	if(nextbomb == null)
+		balloon_alert(user, "Сумка пустая!")
+	else
+		if(nextbomb == /obj/item/grenade/plastic/miningcharge)
+			nextbombbutmining = nextbomb
+			nextbombbutmining.override_safety()
+		nextbomb.attack(target, user, params, def_zone, skip_attack_anim = FALSE)
 
 
 /obj/item/storage/bag/kaboom/cyborg // borg version
