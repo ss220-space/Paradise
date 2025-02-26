@@ -92,13 +92,13 @@ have ways of interacting with a specific mob and control it.
 				current_behaviors += GET_AI_BEHAVIOR(/datum/ai_behavior/monkey_attack_mob)
 				return //Focus on this
 
-			else //He's down, can we disposal him?
-				var/obj/machinery/disposal/bodyDisposal = locate(/obj/machinery/disposal/) in view(MONKEY_ENEMY_VISION, living_pawn)
-				if(bodyDisposal)
-					blackboard[BB_MONKEY_CURRENT_ATTACK_TARGET] = selected_enemy
-					blackboard[BB_MONKEY_TARGET_DISPOSAL] = bodyDisposal
-					//current_behaviors += GET_AI_BEHAVIOR(/datum/ai_behavior/disposal_mob) //currently not working right, disabled
-					return
+			else //He's down, can we disposal him? //currently not working right, disabled
+				//var/obj/machinery/disposal/bodyDisposal = locate(/obj/machinery/disposal/) in view(MONKEY_ENEMY_VISION, living_pawn)
+				//if(bodyDisposal)
+					//blackboard[BB_MONKEY_CURRENT_ATTACK_TARGET] = selected_enemy
+					//blackboard[BB_MONKEY_TARGET_DISPOSAL] = bodyDisposal
+					//current_behaviors += GET_AI_BEHAVIOR(/datum/ai_behavior/disposal_mob)
+				return
 
 			return //Too busy fighting to steal atm.
 
