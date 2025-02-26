@@ -97,7 +97,7 @@ have ways of interacting with a specific mob and control it.
 				if(bodyDisposal)
 					blackboard[BB_MONKEY_CURRENT_ATTACK_TARGET] = selected_enemy
 					blackboard[BB_MONKEY_TARGET_DISPOSAL] = bodyDisposal
-					current_behaviors += GET_AI_BEHAVIOR(/datum/ai_behavior/disposal_mob)
+					//current_behaviors += GET_AI_BEHAVIOR(/datum/ai_behavior/disposal_mob) //currently not working right, disabled
 					return
 
 			return //Too busy fighting to steal atm.
@@ -135,7 +135,8 @@ have ways of interacting with a specific mob and control it.
 	var/mob/living/living_pawn = pawn
 
 	if(SPT_PROB(25, delta_time) && (living_pawn.mobility_flags & MOBILITY_MOVE) && isturf(living_pawn.loc) && !living_pawn.pulledby)
-		step(living_pawn, pick(GLOB.cardinal))
+		var/move_dir = pick(GLOB.alldirs)
+		living_pawn.Move(get_step(living_pawn, move_dir), move_dir)
 	else if(SPT_PROB(5, delta_time))
 		INVOKE_ASYNC(living_pawn, TYPE_PROC_REF(/mob, emote), pick("screech"))
 	else if(SPT_PROB(1, delta_time))

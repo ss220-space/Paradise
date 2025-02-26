@@ -275,17 +275,14 @@
 											// must be awake, not stunned or whatever
 		msg = "[user.name] climbs into [src]."
 		to_chat(user, "You climb into [src].")
-		. = TRUE
 	else if(target != user && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		msg = "[user.name] stuffs [target.name] into [src]!"
 		to_chat(user, "You stuff [target.name] into [src]!")
-		. = TRUE
 		if(!iscarbon(user))
 			target.LAssailant = null
 		else
 			target.LAssailant = user
 		add_attack_logs(user, target, "Disposal'ed")
-		. = TRUE
 	else
 		return
 	target.forceMove(src)
