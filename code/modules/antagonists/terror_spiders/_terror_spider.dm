@@ -179,7 +179,7 @@
 	if(!mode)
 		return
 	if(!terror_team.prince_target)
-		terror_team.prince_target= new
+		terror_team.prince_target = new
 		terror_team.prince_target.owner = team
 		terror_team.prince_target.generate_text()
 	add_objective(terror_team.prince_target)

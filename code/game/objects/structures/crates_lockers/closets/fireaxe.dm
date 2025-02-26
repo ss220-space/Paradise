@@ -272,3 +272,78 @@
 	olreliable = null
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/structure/closet/sechammercabinet
+	name = "tactical sledgehammer cabinet"
+	desc = "Стойка, предназначенная для хранения тактической кувалды. Надпись гласит: \"Для особых случаев\"."
+	ru_names = list(
+		NOMINATIVE = "стойка для тактической кувалды",
+		GENITIVE = "стойки для тактической кувалды",
+		DATIVE = "стойке для тактической кувалды",
+		ACCUSATIVE = "стойку для тактической кувалды",
+		INSTRUMENTAL = "стойкой для тактической кувалды",
+		PREPOSITIONAL = "стойке для тактической кувалды"
+	)
+	gender = MALE
+	icon = 'icons/obj/closet.dmi'
+	icon_state = "sechammer_full"
+	anchored = TRUE
+	density = FALSE
+	no_overlays = TRUE
+	armor = list(MELEE = 50, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 90, ACID = 50)
+	var/obj/item/twohanded/sechammer/sledgehammer
+	opened = TRUE
+
+
+/obj/structure/closet/sechammercabinet/Destroy()
+	if(!obj_integrity)
+		if(sledgehammer)
+			sledgehammer.forceMove(loc)
+			sledgehammer = null
+		else
+			QDEL_NULL(sledgehammer)
+	return ..()
+
+
+/obj/structure/closet/sechammercabinet/populate_contents()
+	sledgehammer = new(src)
+	update_icon_state()	// So its initial icon doesn't show it without the fireaxe
+
+
+/obj/structure/closet/sechammercabinet/attackby(obj/item/I, mob/living/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/twohanded/sechammer))
+		var/obj/item/twohanded/sechammer/hammer = I
+		if(!user.drop_transfer_item_to_loc(hammer, src))
+			return ..()
+		balloon_alert(user, "кувалда закреплена")
+		sledgehammer = hammer
+		update_icon_state()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/structure/closet/sechammercabinet/attack_hand(mob/user)
+	if(!sledgehammer)
+		return
+
+	add_fingerprint(user)
+	sledgehammer.forceMove_turf()
+	user.put_in_hands(sledgehammer, ignore_anim = FALSE)
+	balloon_alert(user, "кувалда извлечена")
+	sledgehammer = null
+	update_icon_state()
+
+
+/obj/structure/closet/sechammercabinet/blob_act(obj/structure/blob/B)
+	if(sledgehammer)
+		sledgehammer.forceMove(loc)
+	qdel(src)
+
+/obj/structure/closet/sechammercabinet/update_icon_state()
+	if(sledgehammer)
+		icon_state = "sechammer_full"
+	else
+		icon_state = "sechammer_empty"

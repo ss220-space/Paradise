@@ -129,8 +129,8 @@
 		var/banip = href_list["dbbanaddip"]
 		var/bancid = href_list["dbbanaddcid"]
 		var/duration = text2num(href_list["dbbadddurationdays"]) BAN_DAYS
-		duration += text2num(href_list["dbbadddurationdays"]) BAN_HOURS
-		duration += text2num(href_list["dbbadddurationdays"])
+		duration += text2num(href_list["dbbadddurationhours"]) BAN_HOURS
+		duration += text2num(href_list["dbbadddurationminutes"])
 		var/banduration = duration
 		var/banjob = href_list["dbbanaddjob"]
 		var/banround = href_list["dbbanaddround"]

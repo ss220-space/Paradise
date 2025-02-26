@@ -477,6 +477,7 @@
 /datum/effect_system/fluid_spread/smoke/chem/set_up(range = 1, amount = DIAMOND_AREA(range), atom/holder, atom/location = null, datum/reagents/carry = null, silent = FALSE)
 	. = ..()
 	carry?.copy_to(chemholder, carry.total_volume)
+	carry?.clear_reagents()
 
 	if(silent)
 		return

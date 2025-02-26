@@ -16967,7 +16967,7 @@
 "cag" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
-/obj/item/card/id/captains_spare,
+/obj/item/storage/secure/briefcase/captian,
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
@@ -119641,7 +119641,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "wCY" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/structure/closet/sechammercabinet{
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
