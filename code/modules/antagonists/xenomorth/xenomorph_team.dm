@@ -152,7 +152,7 @@
 		to_chat(world, "<BR><FONT size = 3><B>Частичная победа Ксеноморфов!</B></FONT>")
 		to_chat(world, "<B>Станция была уничтожена!</B>")
 		to_chat(world, "<B>Устройство самоуничтожения сработало, предотвратив распространение Ксеноморфов.</B>")
-	else if(protect_cocon.check_completion(src))
+	else if(protect_cocon?.check_completion(src))
 		to_chat(world, "<BR><FONT size = 3><B>Полная победа Ксеноморфов!</B></FONT>")
 		to_chat(world, "<B>Ксеноморфы захватили станцию!</B>")
 		to_chat(world, "<B>Императрица Ксеноморфов появилась на свет, превратив всю станцию в гнездо.</B>")
