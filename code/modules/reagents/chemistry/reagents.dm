@@ -1,5 +1,5 @@
 /datum/reagent
-	var/name = "Reagent"
+	var/name = "Реагент"
 	var/id = "reagent"
 	var/description = ""
 	var/datum/reagents/holder = null
@@ -30,10 +30,10 @@
 	var/overdosed = FALSE // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
 	var/current_cycle = 1
 	var/drink_icon = null
-	var/drink_name = "Glass of ..what?"
-	var/drink_desc = "You can't really tell what this is."
+	var/drink_name = "стакан... чего?"
+	var/drink_desc = "Вы понятия не имеете, чем это может быть."
 	var/taste_mult = 1 //how easy it is to taste - the more the easier
-	var/taste_description = "metaphorical salt"
+	var/taste_description = "метафорической соли"
 	var/addict_supertype = /datum/reagent
 
 /datum/reagent/New()
@@ -58,7 +58,7 @@
 			var/can_become_addicted = M.reagents.reaction_check(M, src)
 			if(can_become_addicted)
 				if(count_by_type(M.reagents.addiction_list, addict_supertype) > 0)
-					to_chat(M, span_notice("You feel slightly better, but for how long?")) // sate_addiction handles this now, but kept this for the feed back.
+					to_chat(M, span_notice("Вы чувствуете себя немногим лучше, но надолго ли?")) // sate_addiction handles this now, but kept this for the feed back.
 
 		return TRUE
 
@@ -86,7 +86,7 @@
 	return
 
 /datum/reagent/proc/on_mob_end_metabolize(mob/living/metabolizer)
-	return 
+	return
 
 /datum/reagent/proc/handle_addiction(mob/living/M, consumption_rate)
 	if(addiction_chance && count_by_type(M.reagents.addiction_list, addict_supertype) < 1)
@@ -95,7 +95,7 @@
 		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[new_reagent.id]
 
 		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
-			to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")
+			to_chat(M, span_danger("Вы чувствуете сильную эйфорию с лёгким оттенком вины..."))
 			new_reagent.last_addiction_dose = world.timeofday
 			M.reagents.addiction_list.Add(new_reagent)
 

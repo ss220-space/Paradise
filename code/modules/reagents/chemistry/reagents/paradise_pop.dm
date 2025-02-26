@@ -10,7 +10,7 @@
 
 //Райский удар: Без эффекта, aside from maybe messages about how tasty it is or something
 /datum/reagent/consumable/drink/paradise_punch
-	name = "Райский удар"
+	name = "Райский Удар"
 	id = "paradise_punch"
 	description = "На вкус именно таков, каким вы себе представляете вкус рая, если бы его можно было разлить по бутылкам."
 	reagent_state = LIQUID
@@ -19,7 +19,7 @@
 
 //Яблопокалипсис: Low chance to cause a goonchem vortex that pulls things within a very small radius (2 tiles?) towards the drinker
 /datum/reagent/consumable/drink/apple_pocalypse
-	name = "Яблопокалипсис"
+	name = "Яблокопокалипсис"
 	id = "apple-pocalypse"
 	description = "Если бы судный день имел форму фрукта, скорее всего это было бы яблоко."
 	reagent_state = LIQUID
@@ -30,12 +30,12 @@
 	if(prob(1))
 		var/turf/simulated/T = get_turf(M)
 		goonchem_vortex(T, 1, 0)
-		to_chat(M, "<span class='notice'>Вы на мгновение чувствуете себя сверхтяжёлым, как чёрная дыра. Возможно, это просто ваше воображение...</span>")
+		to_chat(M, span_notice("Вы на мгновение чувствуете себя сверхтяжёлым, как чёрная дыра. Возможно, это просто ваше воображение..."))
 	return ..()
 
 //Забаненный плод: This one is tasty and safe to drink, might have a low chance of healing a random damage type?
 /datum/reagent/consumable/drink/berry_banned
-	name = "Забаненный плод"
+	name = "Забаненный Плод"
 	id = "berry_banned"
 	description = "Причина бана: исключительный вкус."
 	reagent_state = LIQUID
@@ -59,12 +59,12 @@
 				update_flags |= M.adjustCloneLoss(-0.25, FALSE)
 			if(5)
 				update_flags |= M.adjustBrainLoss(-0.5, FALSE)
-		to_chat(M, "<span class='notice'>Вы чувствуете себя слегка помолодевшим!</span>")
+		to_chat(M, span_notice("Вы чувствуете себя слегка помолодевшим!"))
 	return ..() | update_flags
 
 //Забаненный плод 2: Очень вкусный и токсичный. Наносит урон токсинами и, ВОЗМОЖНО, проигрывает звук "Бьёньк!", убивая кого-то?
 /datum/reagent/consumable/drink/berry_banned2
-	name = "Забаненный плод"
+	name = "Забаненный Плод"
 	id = "berry_banned2"
 	description = "Причина бана: исключительный вкус."
 	reagent_state = LIQUID
@@ -76,22 +76,22 @@
 	if(prob(50))
 		update_flags |= M.adjustToxLoss(1, FALSE)		//double strength of poison berry juice alone, because it's concentrated (this is equal to the damage of normal toxin, less often)
 	if(prob(10))
-		to_chat(M, "<span class='notice'>Вы чувствуете себя слегка помолодевшим!</span>")		//meta this!
+		to_chat(M, span_notice("Вы чувствуете себя слегка помолодевшим!"))		//meta this!
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/berry_banned2/on_mob_death(mob/living/M)
 	M << sound('sound/effects/adminhelp.ogg',0,1,0,25)
-	to_chat(M, chat_box_red("<span class='adminhelp'>PM from-<b>Administrator</b>: BWOINK!</span>"))
+	to_chat(M, chat_box_red(span_adminhelp("PM from-<b>Administrator</b>: ТЫ ЗАБАНЕН БЛЯДЬ!!!")))
 	..()
 
-//Черноглазое варево: Шанс заставить пьющего говорить грейтайдовые фразы, типа "Я думал что клоун был настоящим!"
+//Blackeye Brew: Chance to make the drinker say greytider-themed things like "ГРЕЙТАЙД ВПЕРЁД!"
 /datum/reagent/consumable/drink/blackeye_brew
-	name = "Черноглазое варево"
+	name = "Черноглазое Варево"
 	id = "blackeye_brew"
-	description = "Сливочный, мягкий вкус, прямо как у лысин толпы ассистентов. Предположительно, выдерживался около 30 лет."
+	description = "Сливочный, мягкий вкус, прямо как у лысины ассистента. Предположительно, выдерживался около 30 лет. При употреблении вызывает помутнение в сознании употребившего, заставляя его выкрикивать странные фразы."
 	reagent_state = LIQUID
 	color = "#4d2600"
-	taste_description = "серой волны"
+	taste_description = "набегаторства"
 
 /datum/reagent/consumable/drink/blackeye_brew/on_mob_life(mob/living/M)
 	if(prob(25))
@@ -109,31 +109,31 @@
 
 //Grape Granade: causes the drinker to sometimes burp, has a low chance to cause a goonchem vortex that pushes things within a very small radius (1-2 tiles) away from the drinker
 /datum/reagent/consumable/drink/grape_granade
-	name = "Гранатовый взрыв"
+	name = "Гранатовый Взрыв"
 	id = "grape_granade"
 	description = "Взрывной гранатовый вкус, любимый сотрудниками ОБР по всей системе."
 	reagent_state = LIQUID
 	color = "#9933ff"
-	taste_description = "дедов"
+	taste_description = "атомного взрыва"
 
 /datum/reagent/consumable/drink/grape_granade/on_mob_life(mob/living/M)
 	if(prob(1))
 		var/turf/simulated/T = get_turf(M)
 		goonchem_vortex(T, 0, 0)
 		M.emote("burp")
-		to_chat(M, "<span class='notice'>Вы чувствуете, что готовы взорваться! А, нет, это просто отрыжка…</span>")
+		to_chat(M, span_notice("Вы чувствуете, что готовы взорваться! А, нет, это просто отрыжка..."))
 	else if(prob(25))
 		M.emote("burp")
 	return ..()
 
 //Meteor Malt: Sometimes causes screen shakes for the drinker like a meteor impact, low chance to add 1-5 units of a random mineral reagent to the drinker's blood (iron, copper, silver, gold, uranium, carbon, etc)
 /datum/reagent/consumable/drink/meteor_malt
-	name = "Метеорный солод"
+	name = "Метеорный Солод"
 	id = "meteor_malt"
 	description = "Зафиксировано движение безалкогольных напитков на встречном с вашими вкусовыми рецепторами курсе."
 	reagent_state = LIQUID
 	color = "#cc9900"
-	taste_description = "летающих космических скал"
+	taste_description = "летающих космических камней"
 
 /datum/reagent/consumable/drink/meteor_malt/on_mob_life(mob/living/M)
 	if(prob(25))
@@ -146,15 +146,15 @@
 	return ..()
 
 /datum/reagent/consumable/ethanol/moonlight_skuma
-	name = "Moon'drin"
+	name = "Мун'дрин"
 	id = "moonlight_skuma"
-	description = "Double distilled Moon'lin. Soft mint taste which is loved by all tajarans. Used in cocktails."
+	description = "Мун'лин двойной дистилляции. Мягкий мятный вкус, который любят все таяры. Используется в коктейлях."
 	reagent_state = LIQUID
 	color = "#6734df"
-	taste_description = "alcohol, mint and you feel funny"
+	taste_description = "алкоголя и мяты"
 	drink_icon = "moonlight_skuma"
-	drink_name = "Moon'drin"
-	drink_desc = "Double distilled Moon'lin. Soft mint taste which is loved by all tajarans. Used in cocktails."
+	drink_name = "Мун'дрин"
+	drink_desc = "Мун'лин двойной дистилляции. Мягкий мятный вкус, который любят все таяры. Используется в коктейлях."
 	addiction_chance = 2
 	alcohol_perc = 0.5
 
@@ -168,5 +168,5 @@
 	if(prob(5))
 		M.Jitter(10 SECONDS)
 		M.emote("smile")
-		to_chat(M, "<span class='notice'>Вы испытываете приятные, теплые чувства, словно вы дома...</span>")
+		to_chat(M, span_notice("Вы испытываете приятные, тёплые чувства, словно вы дома..."))
 	return ..() | update_flags

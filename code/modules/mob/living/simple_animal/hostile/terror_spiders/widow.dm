@@ -10,7 +10,15 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/widow
 	name = "Widow of Terror"
-	desc = "An ominous-looking spider, black as the darkest night. It has merciless eyes, and a blood-red hourglass pattern on its back."
+	desc = "Зловещий паук, черный, как самая темная ночь. У него безжалостные глаза и кроваво-красный узор в виде песочных часов на спине."
+	ru_names = list(
+		NOMINATIVE = "Вдова Ужаса",
+		GENITIVE = "Вдовы Ужаса",
+		DATIVE = "Вдове Ужаса",
+		ACCUSATIVE = "Вдову Ужаса",
+		INSTRUMENTAL = "Вдовой Ужаса",
+		PREPOSITIONAL = "Вдове Ужаса",
+	)
 	ai_target_method = TS_DAMAGE_POISON
 	icon_state = "terror_widow"
 	icon_living = "terror_widow"
@@ -55,14 +63,22 @@
 
 /obj/structure/spider/terrorweb/widow
 	name = "sinister web"
-	desc = "This web has beads of a dark fluid on its strands."
+	desc = "На нитях этой паутины сверкают капли тёмной жидкости."
+	ru_names = list(
+		NOMINATIVE = "зловещая паутина",
+		GENITIVE = "зловещей паутины",
+		DATIVE = "зловещей паутине",
+		ACCUSATIVE = "зловещую паутину",
+		INSTRUMENTAL = "зловещей паутиной",
+		PREPOSITIONAL = "зловещей паутине",
+	)
 
 /obj/structure/spider/terrorweb/widow/web_special_ability(mob/living/carbon/C)
 	if(istype(C))
 		if(!C.reagents.has_reagent("terror_black_toxin", 60))
 			var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 			if(C.can_inject(null, FALSE, inject_target, FALSE))
-				to_chat(C, "<span class='danger'>[src] slices into you!</span>")
+				to_chat(C, span_danger("[capitalize(declent_ru(NOMINATIVE))] врезается в тебя!"))
 				C.reagents.add_reagent("terror_black_toxin", 45)
 
 /obj/item/projectile/terrorspider/widow

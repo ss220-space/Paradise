@@ -9,6 +9,7 @@ REAGENT SCANNER
 /obj/item/t_scanner
 	name = "T-ray scanner"
 	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
+	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
 	base_icon_state = "t-ray"
@@ -28,7 +29,7 @@ REAGENT SCANNER
 	icon_state = "t-ray-range0"
 	base_icon_state = "t-ray-range"
 	scan_range = 3
-	origin_tech = "magnets=3;engineering=3"
+	origin_tech = "magnets=2;engineering=3"
 	materials = list(MAT_METAL=300)
 
 /obj/item/t_scanner/longer_pulse
@@ -38,7 +39,7 @@ REAGENT SCANNER
 	icon_state = "t-ray-pulse0"
 	base_icon_state = "t-ray-pulse"
 	pulse_duration = 5 SECONDS
-	origin_tech = "magnets=5;engineering=3"
+	origin_tech = "magnets=2;engineering=3"
 	materials = list(MAT_METAL=300)
 
 /obj/item/t_scanner/advanced
@@ -49,7 +50,7 @@ REAGENT SCANNER
 	base_icon_state = "t-ray-advanced"
 	scan_range = 3
 	pulse_duration = 5 SECONDS
-	origin_tech = "magnets=7;engineering=3"
+	origin_tech = "magnets=3;engineering=3"
 	materials = list(MAT_METAL=300)
 
 /obj/item/t_scanner/science
@@ -60,7 +61,7 @@ REAGENT SCANNER
 	base_icon_state = "t-ray-science"
 	scan_range = 5
 	pulse_duration = 10 SECONDS
-	origin_tech = "magnets=8;engineering=5"
+	origin_tech = "magnets=4;engineering=5"
 	materials = list(MAT_METAL=500)
 
 /obj/item/t_scanner/experimental	//a high-risk that cannot be disassembled, since this garbage was invented by, well, you know who.
@@ -413,11 +414,11 @@ REAGENT SCANNER
 		span_notice("Вы по глупости проанализировали жизненные показатели пола!")
 		)
 		. += "Состояние: <b>100% Здоров</b>"
-		. += "Тип повреждений: <font color='#0080ff'>Удушение</font>/<font color='green'>Токсины</font>/<font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font>"
+		. += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>"
 		. += "Уровень повреждений: <font color='#0080ff'>0</font> - <font color='green'>0</font> - <font color='#FF8000'>0</font> - <font color='red'>0</font>"
 		. += "Температура тела: --- &deg;C (--- &deg;F)"
 		if(mode == 1)
-			. += "Локализация повреждений, <font color='red'>Физ.</font>/<font color='#FF8000'>Ожоги</font>:"
+			. += "Локализация повреждений, <font color='red'>Мех.</font>/<font color='#FF8000'>Терм.</font>:"
 		. += "Уровень крови: --- %, --- u, тип: ---"
 		. += "Пульс: <font color='#0080ff'>--- уд/мин</font>"
 		. += "Гены не обнаружены."
@@ -470,11 +471,11 @@ REAGENT SCANNER
 	if(!ishuman(M) || ismachineperson(M))
 		//these sensors are designed for organic life
 		. += "Состояние: <span class='danger'>ОШИБКА</span></span>"
-		. += "Тип повреждений: <font color='#0080ff'>Удушение</font>/<font color='green'>Токсины</font>/<font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font></span>"
+		. += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font></span>"
 		. += "Уровень повреждений: <font color='#0080ff'>?</font> - <font color='green'>?</font> - <font color='#FF8000'>?</font> - <font color='red'>?</font></span>"
 		. += "Температура тела: [M.bodytemperature-T0C] &deg;C ([M.bodytemperature*1.8-459.67] &deg;F)</span>"
 		if(mode == 1)
-			. += "Локализация повреждений, <font color='red'>Физ.</font>/<font color='#FF8000'>Ожоги</font>:</span>"
+			. += "Локализация повреждений, <font color='red'>Мех.</font>/<font color='#FF8000'>Терм.</font>:</span>"
 		. += "Уровень крови: --- %, --- u, тип: ---</span>"
 		. += "Пульс: <font color='#0080ff'>--- bpm.</font></span>"
 		. += "Гены не обнаружены."
@@ -498,7 +499,7 @@ REAGENT SCANNER
 			. += "Состояние: <span class='danger'>Смерть</span>"
 		else
 			. += "Состояние: [H.stat > 1 ? "<span class='danger'>Смерть</span>" : H.health > 0 ? "[H.health]%" : "<span class='danger'>[H.health]%</span>"]"
-	. += "Тип повреждений: <font color='#0080ff'>Удушение</font>/<font color='green'>Токсины</font>/<font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font>"
+	. += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>"
 	. += "Уровень повреждений: <font color='#0080ff'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FF8000'>[BU]</font> - <font color='red'>[BR]</font>"
 	. += "Температура тела: [H.bodytemperature-T0C] &deg;C ([H.bodytemperature*1.8-459.67] &deg;F)"
 	if(H.timeofdeath && (H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH)))
@@ -512,7 +513,7 @@ REAGENT SCANNER
 
 	if(mode == 1)
 		var/list/damaged = H.get_damaged_organs(1,1)
-		. += "Локализация повреждений, <font color='#FF8000'>Ожоги</font>/<font color='red'>Физ.</font>:"
+		. += "Локализация повреждений, <font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>:"
 		if(length(damaged) > 0)
 			for(var/obj/item/organ/external/org as anything in damaged)
 				. += "&emsp;<span class='info'>[capitalize(org.name)]</span>: [(org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : "<font color='#FF8000'>0</font>"] - [(org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font>" : "<font color='red'>0</font>"]"
@@ -731,6 +732,25 @@ REAGENT SCANNER
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/deconstruct.ogg'
+
+/obj/item/healthanalyzer/gem_analyzer
+	name = "eye of health"
+	desc = "Необычный самоцвет в форме сердца. Позволяет пользователю ощущать раны и болезни других существ на метафизическом уровне. Магия, не иначе."
+	ru_names = list(
+		NOMINATIVE = "глаз здоровья",
+		GENITIVE = "глаза здоровья",
+		DATIVE = "глазу здоровья",
+		ACCUSATIVE = "глаз здоровья",
+		INSTRUMENTAL = "глазом здоровья",
+		PREPOSITIONAL = "глазе здоровья"
+	)
+	icon = 'icons/obj/device.dmi'
+	icon_state = "gem_analyzer"
+	item_state = "gem_analyzer"
+	origin_tech = null
+
+/obj/item/healthanalyzer/gem_analyzer/attackby(obj/item/I, mob/user, params)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/reagent_scanner
 	name = "reagent scanner"

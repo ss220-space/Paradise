@@ -969,7 +969,23 @@
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/stack/ore,
 		/obj/item/reagent_containers/food/snacks/grown,
-		/obj/item/reagent_containers/applicator)
+		/obj/item/reagent_containers/applicator,
+		/obj/item/reagent_containers/food/snacks/bait,
+		/obj/item/reagent_containers/food/snacks/charred_krill,
+		/obj/item/whetstone,
+		/obj/item/reagent_containers/food/snacks/lavaland,
+		/obj/item/lavaland_dye,
+		/obj/item/conductive_organ,
+		/obj/item/stack/sheet/cartilage_plate,
+		/obj/item/stack/sheet/razor_sharp_teeth,
+		/obj/item/hivelordstabilizer,
+		/obj/item/circular_saw_blade,
+		/obj/item/t_scanner/adv_mining_scanner/bleary_eye,
+		/obj/item/acid_bladder,
+		/obj/item/shovel/spade/wooden,
+		/obj/item/hatchet/wooden,
+		/obj/item/cultivator/wooden,
+		)
 
 /obj/item/storage/belt/chef
 	name = "culinary tool apron"

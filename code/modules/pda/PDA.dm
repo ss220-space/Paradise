@@ -217,14 +217,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 	else
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
-/obj/item/pda/AltClick(mob/living/user)
-	if(!iscarbon(user))
-		return
+/obj/item/pda/click_alt(mob/living/user)
 	if(can_use(user))
 		if(id)
 			remove_id(user)
 		else
-			to_chat(user, "<span class='warning'>This PDA does not have an ID in it!</span>")
+			to_chat(user, span_warning("This PDA does not have an ID in it!"))
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/pda/CtrlClick(mob/user)

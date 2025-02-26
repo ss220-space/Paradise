@@ -988,7 +988,9 @@
 	allowed_tools = list(
 		TOOL_SAW = 100,
 		/obj/item/melee/energy/sword/cyborg/saw = 100,
+		/obj/item/primitive_saw = 100,
 		/obj/item/hatchet = 90,
+		/obj/item/circular_saw_blade = 80,
 		/obj/item/wirecutters = 70
 	)
 

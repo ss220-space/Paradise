@@ -133,7 +133,7 @@
 			seen_revived_enemy = TRUE
 			raise_alert("[name] reports intruder [target] has returned from death!")
 			depotarea.list_remove(target, depotarea.dead_list)
-		if(!atoms_share_level(src, target) && prob(20))
+		if(!are_zs_connected(src, target) && prob(20))
 			// This prevents someone from aggroing a depot mob, then hiding in a locker, perfectly safe, while the mob stands there getting killed by their friends.
 			LoseTarget()
 
@@ -149,7 +149,7 @@
 			raise_alert("[name] has reported contact with hostile entity: [seen_enemy_name]")
 	if(scan_cycles >= 15)
 		scan_cycles = 0
-		if(!atoms_share_level(src, spawn_turf))
+		if(!are_zs_connected(src, spawn_turf))
 			if(istype(loc, /obj/structure/closet))
 				var/obj/structure/closet/O = loc
 				forceMove(get_turf(src))

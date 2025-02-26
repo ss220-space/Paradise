@@ -12,6 +12,7 @@
 	density = FALSE
 	max_integrity = 200
 	integrity_failure = 50
+	interaction_flags_click = NEED_HANDS
 	var/obj/item/extinguisher/has_extinguisher = null
 	var/extinguishertype
 	var/opened = FALSE
@@ -33,19 +34,13 @@
 
 /obj/structure/extinguisher_cabinet/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to [opened ? "close":"open"] it.</span>"
+	. += span_notice("Alt-click to [opened ? "close":"open"] it.")
 
-/obj/structure/extinguisher_cabinet/AltClick(mob/living/user)
-	if(!iscarbon(usr) && !isrobot(usr))
-		return
-	if(!in_range(src, user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/structure/extinguisher_cabinet/click_alt(mob/living/user)
 	playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 	opened = !opened
 	update_icon(UPDATE_ICON_STATE)
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/extinguisher_cabinet/Destroy()
 	QDEL_NULL(has_extinguisher)

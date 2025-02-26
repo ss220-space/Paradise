@@ -91,15 +91,10 @@
 				var/datum/mind/mind = M.mind
 				var/list/other_antags = list()
 
-				if(GLOB.ts_spiderlist.len && M.ckey)
-					var/list/spider_minds = list()
-					for(var/datum/mind/spider_mind in SSticker.mode.terror_spiders)
-						if(!QDELETED(spider_mind.current))
-							spider_minds |= spider_mind
-					other_antags += list(
-						"Пауки Ужаса ([spider_minds.len])" = (mind in SSticker.mode.terror_spiders),
-					)
-
+				for(var/team_type in GLOB.antagonist_teams)
+					var/datum/team/team = GLOB.antagonist_teams[team_type]
+					if(!team.need_antag_hud)
+						other_antags += list("[team.name] — ([team.alife_members_count()])" = (mind in team.members))
 				if(user.antagHUD)
 					// If a mind is many antags at once, we'll display all of them, each
 					// under their own antag sub-section.
@@ -114,6 +109,10 @@
 						antag_serialized["antag"] = A.name
 						antagonists += list(antag_serialized)
 
+					for(var/team_type in GLOB.antagonist_teams)
+						var/datum/team/team = GLOB.antagonist_teams[team_type]
+						if(team.need_antag_hud)
+							other_antags += list("[team.name] — ([team.alife_members_count()])" = (mind in team.members))
 					// Not-very-datumized antags follow
 					// Associative list of antag name => whether this mind is this antag
 					if(SSticker && SSticker.mode)
@@ -131,7 +130,6 @@
 							"Тени — ([length(SSticker.mode.shadows)])" = (mind in SSticker.mode.shadows),
 							"Маги — ([length(SSticker.mode.wizards)])" = (mind in SSticker.mode.wizards),
 							"Ученики магов — ([length(SSticker.mode.apprentices)])" = (mind in SSticker.mode.apprentices),
-							"Ксеноморфы — ([length(SSticker.mode.xenos)])" = (mind in SSticker.mode.xenos),
 							"Торговцы — ([length(SSticker.mode.traders)])" = (mind in SSticker.mode.traders),
 							"Морфы — ([length(SSticker.mode.morphs)])" = (mind in SSticker.mode.morphs),
 							"Свармеры — ([length(SSticker.mode.swarmers)])" = (mind in SSticker.mode.swarmers),

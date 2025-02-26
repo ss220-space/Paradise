@@ -261,3 +261,32 @@
 
 /obj/item/storage/toolbox/surgery/alien/empty/populate_contents()
 	return
+
+/obj/item/storage/toolbox/surgery/ashwalker
+	name = "surgery bag"
+	desc = "Небольшой кожанный футляр, хранящий в себе различные хирургические предметы. От него исходит едва заметный запах... пепла?"
+	ru_names = list(
+		NOMINATIVE = "хирургический саквояж",
+		GENITIVE = "хирургического саквояжа",
+		DATIVE = "хирургическому саквояжу",
+		ACCUSATIVE = "хирургический саквояж",
+		INSTRUMENTAL = "хирургическим саквояжем",
+		PREPOSITIONAL = "хирургическом саквояже"
+	)
+	icon_state = "surgery_bag"
+	flags = NONE
+	force = 2
+	throwforce = 4
+
+/obj/item/storage/toolbox/surgery/ashwalker/populate_contents()
+	new /obj/item/scalpel/primitive_scalpel(src)
+	new /obj/item/hemostat/primitive_hemostat(src)
+	new /obj/item/retractor/primitive_retractor(src)
+	new /obj/item/primitive_saw(src)
+	new /obj/item/cautery/primitive_cautery(src)
+	new /obj/item/bonegel/primitive_bonegel(src)
+	new /obj/item/FixOVein/primitive_FixOVein(src)
+	new /obj/item/bonesetter/primitive_bonesetter(src)
+
+/obj/item/storage/toolbox/surgery/ashwalker/empty/populate_contents()
+	return

@@ -43,8 +43,8 @@
 		return
 	if(!reagents.total_volume)
 		if(M == user)
-			to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
-		user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
+			to_chat(user, span_notice("Вы доели [declent_ru(ACCUSATIVE)]."))
+		user.visible_message(span_notice("[M] доел[genderize_ru(M.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)]."))
 		user.drop_item_ground(src)	//so icons update :[
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(usr)
@@ -195,31 +195,27 @@
 
 /obj/item/reagent_containers/food/snacks/sliceable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to put something small inside.</span>"
+	. += span_info("<b>Alt-click</b> to put something small inside.")
 
-/obj/item/reagent_containers/food/snacks/sliceable/AltClick(mob/living/user)
-	if(!iscarbon(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/item/reagent_containers/food/snacks/sliceable/click_alt(mob/living/user)
 	var/obj/item/I = user.get_active_hand()
 	if(!I)
-		return
+		return NONE
 	if(I.w_class > WEIGHT_CLASS_SMALL)
-		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
-		return
+		to_chat(user, span_warning("You cannot fit [I] in [src]!"))
+		return CLICK_ACTION_BLOCKING
 	var/newweight = GetTotalContentsWeight() + I.GetTotalContentsWeight() + I.w_class
 	if(newweight > MAX_WEIGHT_CLASS)
 		// Nope, no bluespace slice food
-		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
-		return
+		to_chat(user, span_warning("You cannot fit [I] in [src]!"))
+		return CLICK_ACTION_BLOCKING
 	if(!user.drop_transfer_item_to_loc(I, src))
-		to_chat(user, "<span class='warning'>You cannot slip [I] inside [src]!</span>")
-		return
-	to_chat(user, "<span class='warning'>You slip [I] inside [src].</span>")
+		to_chat(user, span_warning("You cannot slip [I] inside [src]!"))
+		return CLICK_ACTION_BLOCKING
+	to_chat(user, span_warning("You slip [I] inside [src]."))
 	total_w_class += I.w_class
 	add_fingerprint(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/reagent_containers/food/snacks/sliceable/attackby(obj/item/I, mob/user, params)

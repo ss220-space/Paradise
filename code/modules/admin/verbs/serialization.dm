@@ -21,6 +21,6 @@
 	if(!check_rights(R_SPAWN)) // this involves spawning things
 		return
 
-	var/json_text = input("Enter the JSON code:","Text") as message|null
+	var/json_text = tgui_input_text(usr, "Enter the JSON code:", "Text", multiline = TRUE, encode = FALSE)
 	if(json_text)
 		json_to_object(json_text, get_turf(usr))

@@ -39,11 +39,11 @@
 	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list
 		msg += "!\n"    //omit the species when examining
 	else if(displayed_species == SPECIES_SLIMEPERSON) //snowflakey because Slime People are defined as a plural
-		msg += ", a<b><font color='[examine_color]'> слаймомен</font></b>!\n"
+		msg += ",<b><font color='[examine_color]'> слаймолюд</font></b>!\n"
 	else if(displayed_species == SPECIES_UNATHI) //DAMN YOU, VOWELS
-		msg += ", a<b><font color='[examine_color]'> унатх</font></b>!\n"
+		msg += ",<b><font color='[examine_color]'> унатх</font></b>!\n"
 	else
-		msg += ", a<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!\n"
+		msg += ",<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!\n"
 
 	//uniform
 	if(w_uniform && !skipjumpsuit && !(w_uniform.item_flags & ABSTRACT))
@@ -355,7 +355,7 @@
 
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
 	if(istype(implant) && implant.activated)
-		msg += "You can see a strange glint on [p_their()] tail.\n"
+		msg += "Вы замечаете странный [implant.biological ? "нарост" : "блеск"] на [genderize_ru(gender, "его", "её", "его", "их")] хвосте.\n"
 
 	if(decaylevel == 1)
 		msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"

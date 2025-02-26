@@ -325,7 +325,7 @@
 /obj/item/clothing/suit/armor/laserproof/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
-	
+
 /obj/item/clothing/suit/armor/laserproof/IsReflect()
 	if(prob(hit_reflect_chance))
 		return 1
@@ -647,7 +647,7 @@
 	item_state = "goliath_cloak"
 	desc = "A staunch, practical cape made out of numerous monster materials, it is coveted amongst exiles & hermits."
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
-	armor = list("melee" = 40, "bullet" = 15, "laser" = 30, "energy" = 15, "bomb" = 35, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
+	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
 	hoodtype = /obj/item/clothing/head/hooded/goliath
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -656,7 +656,7 @@
 	icon_state = "golhood"
 	item_state = "golhood"
 	desc = "A protective & concealing hood."
-	armor = list("melee" = 40, "bullet" = 15, "laser" = 30, "energy" = 15, "bomb" = 35, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
+	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
 	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
@@ -722,3 +722,95 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
 		)
 
+/obj/item/clothing/suit/armor/cartilage //parent type, used in order not to copy-paste same lines in 3 same armors
+	name = "cartilage armor"
+	desc = "Полностью завершённая броня, сделанная из хрящевых пластин лавовой рыбы. Крепче своих костяных аналогов."
+	ru_names = list(
+		NOMINATIVE = "броня из хрящевых пластин",
+		GENITIVE = "брони из хрящевых пластин",
+		DATIVE = "броне из хрящевых пластин",
+		ACCUSATIVE = "броню из хрящевых пластин",
+		INSTRUMENTAL = "броней из хрящевых пластин",
+		PREPOSITIONAL = "броне из хрящевых пластин"
+	)
+	gender = FEMALE
+	icon_state = "cartilage_set"
+	item_state = "cartilage_set"
+	blood_overlay_type = "armor"
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
+	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 60, ACID = 60)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	sprite_sheets = list(
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		)
+
+
+/obj/item/clothing/suit/armor/cartilage/cartilage_pads
+	name = "cartilage shoulder pads"
+	desc = "Достаточно крепкие наплечники, сделанные из хрящевых пластин. Защищают тело, но не предоставляют защиты для ног. Могут быть улучшены до полноценной брони в случае, если будут соединены с поножами, сделанными из того же материала."
+	ru_names = list(
+		NOMINATIVE = "наплечники из хрящевых пластин",
+		GENITIVE = "наплечников из хрящевых пластин",
+		DATIVE = "наплечникам из хрящевых пластин",
+		ACCUSATIVE = "наплечники из хрящевых пластин",
+		INSTRUMENTAL = "наплечниками из хрящевых пластин",
+		PREPOSITIONAL = "наплечниках из хрящевых пластин"
+	)
+	gender = PLURAL
+	icon_state = "cartilage_shoulder_pads"
+	item_state = "cartilage_shoulder_pads"
+	body_parts_covered = UPPER_TORSO|ARMS
+
+/obj/item/clothing/suit/armor/cartilage/cartilage_pads/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clothing/suit/armor/cartilage/cartilage_greaves))
+		add_fingerprint(user)
+		to_chat(user, span_notice("Вы начинаете подвязывать части брони."))
+		if(do_after(user, 4 SECONDS, src, max_interact_count = 1))
+			to_chat(user, span_notice("Вы улучшили броню!"))
+			var/turf/user_turf = get_turf(user)
+			var/obj/item/clothing/suit/armor/cartilage/armor = new(user_turf)
+			user.put_in_inactive_hand(armor)
+			qdel(I)
+			qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
+/obj/item/clothing/suit/armor/cartilage/cartilage_greaves
+	name = "cartilage greaves"
+	desc = "Достаточно крепкие поножи, сделанные из хрящевых пластин. Защищают ноги, но не предоставляют защиты для торса. Могут быть улучшены до полноценной брони в случае, если будут соединены с наплечниками, сделанными из того же материала."
+	ru_names = list(
+		NOMINATIVE = "поножи из хрящевых пластин",
+		GENITIVE = "поножей из хрящевых пластин",
+		DATIVE = "поножам из хрящевых пластин",
+		ACCUSATIVE = "поножи из хрящевых пластин",
+		INSTRUMENTAL = "поножами из хрящевых пластин",
+		PREPOSITIONAL = "поножах из хрящевых пластин"
+	) //i actually have to google it
+	gender = PLURAL
+	icon_state = "cartilage_greaves"
+	item_state = "cartilage_greaves"
+	body_parts_covered = LOWER_TORSO|LEGS
+
+/obj/item/clothing/suit/armor/cartilage/cartilage_greaves/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clothing/suit/armor/cartilage/cartilage_pads))
+		add_fingerprint(user)
+		to_chat(user, span_notice("Вы начинаете подвязывать части брони."))
+		if(do_after(user, 4 SECONDS, src, max_interact_count = 1))
+			to_chat(user, span_notice("Вы улучшили броню!"))
+			var/turf/user_turf = get_turf(user)
+			var/obj/item/clothing/suit/armor/cartilage/armor = new(user_turf)
+			user.put_in_inactive_hand(armor)
+			qdel(I)
+			qdel(src)
+			return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()

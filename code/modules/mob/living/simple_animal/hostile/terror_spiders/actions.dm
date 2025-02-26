@@ -137,27 +137,35 @@
 	if(!web_type)
 		return
 	if(!isturf(loc))
-		to_chat(src, "<span class='danger'>Webs can only be spun while standing on a floor.</span>")
+		to_chat(src, span_danger("Паутину можно плести только стоя на полу."))
 		return
 	var/turf/mylocation = loc
-	visible_message("<span class='notice'>[src] begins to secrete a sticky substance.</span>")
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает выделять липкое вещество."))
 	playsound(src.loc, 'sound/creatures/terrorspiders/web.ogg', 50, 1)
 	if(do_after(src, delay_web, loc))
 		if(loc != mylocation)
 			return
 		else if(isspaceturf(loc))
-			to_chat(src, "<span class='danger'>Webs cannot be spun in space.</span>")
+			to_chat(src, span_danger("Паутину невозможно плести в космосе."))
 		else
 			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)
 			if(T)
-				to_chat(src, "<span class='danger'>There is already a web here.</span>")
+				to_chat(src, span_danger("Здесь уже есть паутина."))
 			else
 				var/obj/structure/spider/terrorweb/W = new web_type(loc)
 				W.creator_ckey = ckey
 
 /obj/structure/spider/terrorweb
 	name = "terror web"
-	desc = "it's stringy and sticky"
+	desc = "Вязкая и липкая паутина."
+	ru_names = list(
+		NOMINATIVE = "паутина Ужаса",
+		GENITIVE = "паутины Ужаса",
+		DATIVE = "паутине Ужаса",
+		ACCUSATIVE = "паутину Ужаса",
+		INSTRUMENTAL = "паутиной Ужаса",
+		PREPOSITIONAL = "паутине Ужаса"
+	)
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE // prevents people dragging it
 	density = FALSE // prevents it blocking all movement
@@ -190,7 +198,7 @@
 			return TRUE
 
 		if(prob(80))
-			to_chat(mover, span_danger("You get stuck in [src] for a moment."))
+			to_chat(mover, span_danger("Вы на мгновение застреваете в [declent_ru(PREPOSITIONAL)]."))
 			living_mover.Weaken(2 SECONDS) // 2 seconds, wow
 			living_mover.Slowed(10 SECONDS)
 			if(iscarbon(mover))
@@ -205,7 +213,7 @@
 
 /obj/structure/spider/terrorweb/bullet_act(obj/item/projectile/Proj)
 	if(Proj.damage_type != BRUTE && Proj.damage_type != BURN)
-		visible_message("<span class='danger'>[src] is undamaged by [Proj]!</span>")
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] невосприимчива к [Proj.declent_ru(DATIVE)]!"))
 		// Webs don't care about disablers, tasers, etc. Or toxin damage. They're organic, but not alive.
 		return
 	..()
@@ -240,9 +248,9 @@
 				if(!istype(O, /obj/structure/spider))
 					choices += O
 		if(choices.len)
-			cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
+			cocoon_target = tgui_input_list(src, "Что вы хотите замотать в кокон?", "", choices)
 		else
-			to_chat(src, "<span class='danger'>There is nothing nearby you can wrap.</span>")
+			to_chat(src, span_danger("Рядом нет ничего, что можно было бы завернуть в кокон."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoWrap()
 	if(cocoon_target && busy != SPINNING_COCOON)
@@ -250,7 +258,7 @@
 			cocoon_target = null
 			return
 		busy = SPINNING_COCOON
-		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>")
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает выделять липкое вещество вокруг [cocoon_target.declent_ru(GENITIVE)]."))
 		playsound(src.loc, 'sound/creatures/terrorspiders/wrap.ogg', 120, 1)
 		stop_automated_movement = 1
 		SSmove_manager.stop_looping(src)
@@ -277,10 +285,12 @@
 						if(iscarbon(L))
 							apply_status_effect(STATUS_EFFECT_TERROR_FOOD_REGEN)
 							fed++
-							visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
-							to_chat(src, "<span class='notice'>You begin to regenerate quickly!</span>")
+							visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] втыкает хоботок в [L.declent_ru(ACCUSATIVE)] и высасывает вязкое вещество."))
+							to_chat(src, span_notice("Вы начинаете быстро восстанавливаться!"))
+							if(L.mind && ishuman(L))
+								SEND_SIGNAL(mind, COMSIG_HUMAN_EATEN)
 						else
-							visible_message("<span class='danger'>[src] wraps [L] in a web.</span>")
+							visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] заматывает [L.declent_ru(ACCUSATIVE)] в паутину."))
 						large_cocoon = 1
 						last_cocoon_object = 0
 						L.forceMove(C)
@@ -302,7 +312,7 @@
 		if(C.welded)
 			valid_target = TRUE
 	if(!valid_target)
-		to_chat(src, "<span class='warning'>No welded vent or scrubber nearby!</span>")
+		to_chat(src, span_warning("Рядом нет заваренного вентиляционного отверстия или скраббера!"))
 		return
 	playsound(get_turf(src), 'sound/creatures/terrorspiders/ventbreak.ogg', 75, 0)
 	if(do_after(src, 4.3 SECONDS, loc))
@@ -310,13 +320,13 @@
 			if(P.welded)
 				P.set_welded(FALSE)
 				forceMove(P.loc)
-				P.visible_message("<span class='danger'>[src] smashes the welded cover off [P]!</span>")
+				P.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] выбивает приваренную крышку [P.declent_ru(GENITIVE)]!"))
 				return
 		for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
 			if(C.welded)
 				C.set_welded(FALSE)
 				forceMove(C.loc)
-				C.visible_message("<span class='danger'>[src] smashes the welded cover off [C]!</span>")
+				C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] выбивает приваренную крышку [C.declent_ru(GENITIVE)]!"))
 				return
-		to_chat(src, "<span class='danger'>There is no welded vent or scrubber close enough to do this.</span>")
+		to_chat(src, span_danger("Поблизости нет заваренного вентиляционного отверстия или скраббера."))
 

@@ -18,7 +18,7 @@
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/grey,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/grey, // 3 darksight.
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/grey,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/grey

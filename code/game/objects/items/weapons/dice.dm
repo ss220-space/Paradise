@@ -1,6 +1,14 @@
 /obj/item/storage/pill_bottle/dice
-	name = "Мешок игральных костей"
-	desc = "Содержит всю удачу, которая вам могла бы пригодиться."
+	name = "dice pack"
+	desc = "Мешочек с игральными костями внутри."
+	ru_names = list(
+        NOMINATIVE = "мешок игральных костей",
+        GENITIVE = "мешка игральных костей",
+        DATIVE = "мешку игральных костей",
+        ACCUSATIVE = "мешок игральных костей",
+        INSTRUMENTAL = "мешком игральных костей",
+        PREPOSITIONAL = "мешке игральных костей"
+	)
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
 	can_hold = list(/obj/item/dice)
@@ -270,8 +278,8 @@
 		user.drop_item_ground(src)
 
 /obj/item/dice/d20/fate/proc/create_smoke(amount)
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(amount, 0, drop_location())
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = amount, location = drop_location())
 	smoke.start()
 
 /obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user, roll)

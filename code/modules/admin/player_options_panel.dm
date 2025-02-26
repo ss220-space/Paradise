@@ -52,7 +52,7 @@
 		),
 		"adminRights" = "",
 	)
-	if(selected_ckey[1] == "@" || selected_ckey == "" || selected_ckey == null)
+	if(selected_ckey == null || selected_ckey == "" || selected_ckey[1] == "@")
 		var/mob/player = selected_mob
 		player_data["characterName"] = player.name || "No Character"
 		player_data["playtime"] = "No client"
@@ -87,6 +87,10 @@
 
 	return player_data
 
+/datum/vuap_personal/ui_status(mob/user, datum/ui_state/state)
+	. = (check_rights(R_ADMIN | R_MOD, user = user)) ? UI_INTERACTIVE : ..()
+
+
 /datum/vuap_personal/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -116,9 +120,9 @@
 		if("playtime")
 			usr.client.holder.Topic(null, list("getplaytimewindow" = M.UID()))
 		if("relatedbycid")
-			usr.client.holder.Topic(null, list("showrelatedacc" = "cid", "client" = M.client.UID()))
+			usr.client.holder.Topic(null, list("showrelatedacc" = "cid", "client" = M.client?.UID()))
 		if("relatedbyip")
-			usr.client.holder.Topic(null, list("showrelatedacc" = "ip", "client" = M.client.UID()))
+			usr.client.holder.Topic(null, list("showrelatedacc" = "ip", "client" = M.client?.UID()))
 		// Punish Section
 		if("kick")
 			usr.client.holder.Topic(null, list("boot2" = M.UID()))
@@ -164,7 +168,7 @@
 		if("playsoundto")
 			if(!check_rights(R_SOUNDS))
 				return
-			var/S = input("", "Select a sound file",) as null|sound
+			var/S = input(usr, "", "Select a sound file",) as null|sound
 			if(S)
 				usr.client.play_direct_mob_sound(S, M)
 		if("sendalert")
@@ -234,7 +238,7 @@
 		if("reviveghost")
 			usr.client.holder.Topic(null, list("incarn_ghost" = M.UID()))
 		if("respawnability")
-			usr.client.holder.Topic(null, list("f" = M.UID()))
+			usr.client.holder.Topic(null, list("togglerespawnability" = M.UID()))
 		//health section
 		if("healthscan")
 			healthscan(usr, M, TRUE)

@@ -81,9 +81,9 @@
 		explode()
 		return
 	var/turf/simulated/mineral/location = get_turf(target)
-	var/datum/effect_system/smoke_spread/S = new
-	S.set_up(smoke_amount,0,location,null)
-	S.start()
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = smoke_amount, location = location)
+	smoke.start()
 	//location.attempt_drill(null,TRUE,3) //orange says it doesnt include the actual middle
 	for(var/turf/simulated/mineral/rock in circlerangeturfs(location, boom_sizes[3]))
 		var/distance = get_dist_euclidean(location, rock)

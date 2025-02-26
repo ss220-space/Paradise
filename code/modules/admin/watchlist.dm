@@ -2,7 +2,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 	if(!target_ckey)
-		var/new_ckey = ckey(clean_input("Who would you like to add to the watchlist?","Enter a ckey",null))
+		var/new_ckey = ckey(tgui_input_text(usr, "Who would you like to add to the watchlist?", "Enter a ckey", null))
 		if(!new_ckey)
 			return
 		var/datum/db_query/query_watchfind = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ckey=:new_ckey", list(
@@ -20,7 +20,7 @@
 	if(check_watchlist(target_ckey))
 		to_chat(usr, "<span class='redtext'>[target_ckey] is already on the watchlist.</span>")
 		return
-	var/reason = input(usr,"Please state the reason","Reason") as message|null
+	var/reason = tgui_input_text(usr, "Please state the reason", "Reason", multiline = TRUE, encode = FALSE)
 	if(!reason)
 		return
 	var/adminckey = usr.ckey
@@ -68,7 +68,7 @@
 		return
 	if(query_watchreason.NextRow())
 		var/watch_reason = query_watchreason.item[1]
-		var/new_reason = input("Input the new reason", "New Reason", "[watch_reason]") as message|null
+		var/new_reason = tgui_input_text(usr, "Input the new reason", "New Reason", "[watch_reason]", multiline = TRUE, encode = FALSE)
 		if(!new_reason || new_reason == watch_reason)
 			return
 		var/sql_ckey = usr.ckey

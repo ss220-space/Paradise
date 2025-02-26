@@ -741,23 +741,3 @@
 	else
 		forcedodge = 0
 	..()
-
-//almost ready magmite crusher
-/obj/item/twohanded/kinetic_crusher/almost
-	icon_state = "magmite_crusher"
-	item_state = "magmite_crusher0"
-	name = "unfinished proto-kinetic crusher"
-	desc = "Ранний дизайн прото-кинетического акселератора, теперь являющийся кучей различных шахтёрских иструментов приваренных друг к другу плазменным магмитом. Судя по всему, магмитовых деталей на улучшение его дестабилизатора было недостаточно."
-	ru_names = list(
-            NOMINATIVE = "незавершенный прото-кинетический крушитель",
-            GENITIVE = "незавершенного прото-кинетического крушителя",
-            DATIVE = "незавершенному прото-кинетическому крушителю",
-            ACCUSATIVE = "незавершенный прото-кинетический крушитель",
-            INSTRUMENTAL = "незавершенным прото-кинетическим крушителем",
-            PREPOSITIONAL = "незавершенном прото-кинетическом крушителе"
-	)
-	upgraded = TRUE
-
-/obj/item/twohanded/kinetic_crusher/almost/examine(mob/living/user)
-	. = ..()
-	. += span_notice("Возможно, вы можете применить ещё немного магмитовых деталей, чтобы полностью улучшить ваш крушитель.")

@@ -9,6 +9,7 @@
 		INSTRUMENTAL = "ретрактором",
 		PREPOSITIONAL = "ретракторе",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "retractor"
 	item_state = "retractor"
@@ -50,6 +51,23 @@
 	w_class = WEIGHT_CLASS_TINY
 	toolspeed = 0.5
 
+/obj/item/retractor/primitive_retractor
+	name = "primitive bone retractor"
+	desc = "Примитивный инструмент, сделанный из кости. Используется для расширения полостей при операциях."
+	ru_names = list(
+		NOMINATIVE = "примитивный ретрактор",
+		GENITIVE = "примитивного ретрактора",
+		DATIVE = "примитивному ретрактору",
+		ACCUSATIVE = "примитивный ретрактор",
+		INSTRUMENTAL = "примитивным ретрактором",
+		PREPOSITIONAL = "примитивном ретракторе",
+	)
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_retractor"
+	item_state = "primitive_retractor"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+
 /obj/item/hemostat
 	name = "hemostat"
 	desc = "Инструмент для зажима кровоточащих сосудов во время операций."
@@ -61,6 +79,7 @@
 		INSTRUMENTAL = "гемостатом",
 		PREPOSITIONAL = "гемостате",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "hemostat"
 	item_state = "hemostat"
@@ -94,6 +113,23 @@
 	desc = "Хирургический инструмент, состоящий из нескольких зажимов и сервомоторов. Используется для перекрытия сосудов и остановки возникающего кровотечения во время операции."
 	toolspeed = 0.5
 
+/obj/item/hemostat/primitive_hemostat
+	name = "primitive hemostat"
+	desc = "Примитивный инструмент, сделанный из кости. Используется для зажима кровоточащих сосудов во время операций."
+	ru_names = list(
+		NOMINATIVE = "примитивный гемостат",
+		GENITIVE = "примитивного гемостата",
+		DATIVE = "примитивному гемостату",
+		ACCUSATIVE = "примитивный гемостат",
+		INSTRUMENTAL = "примитивным гемостатом",
+		PREPOSITIONAL = "примитивном гемостате",
+	)
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_hemostat"
+	item_state = "primitive_hemostat"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+
 /obj/item/cautery
 	name = "cautery"
 	desc = "Хирургический инструмент, используемый для прижигания открытых ран и надрезов."
@@ -105,6 +141,7 @@
 		INSTRUMENTAL = "прижигателем",
 		PREPOSITIONAL = "прижигателе",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "cautery"
 	item_state = "cautery"
@@ -123,6 +160,23 @@
 	desc = "Нагревательный элемент, используемый для прижигания ран."
 	toolspeed = 0.5
 
+/obj/item/cautery/primitive_cautery
+	name = "primitive cautery"
+	desc = "Примитивный инструмент, сделанный из кости. Используется для прижигания ран."
+	ru_names = list(
+		NOMINATIVE = "примитивный прижигатель",
+		GENITIVE = "примитивного прижигателя",
+		DATIVE = "примитивному прижигателю",
+		ACCUSATIVE = "примитивный прижигатель",
+		INSTRUMENTAL = "примитивным прижигателем",
+		PREPOSITIONAL = "примитивном прижигателе",
+	)
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_cautery"
+	item_state = "primitive_cautery"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+
 /obj/item/surgicaldrill
 	name = "surgical drill"
 	desc = "Инструмент, предназначенный для сверления отверстий. Постарайтесь не попасть себе в глаз!"
@@ -135,12 +189,13 @@
 		INSTRUMENTAL = "хирургической дрелью",
 		PREPOSITIONAL = "хирургической дрели",
 	)
+	gender = FEMALE
 	icon_state = "drill"
 	item_state = "drills"
 	hitsound = 'sound/weapons/drill.ogg'
 	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
 	flags = CONDUCT
-	force = 15.0
+	force = 15
 	sharp = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "materials=1;biotech=1"
@@ -207,6 +262,7 @@
 		INSTRUMENTAL = "скальпелем",
 		PREPOSITIONAL = "скальпеле",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "scalpel"
 	item_state = "scalpel"
@@ -241,6 +297,23 @@
 /obj/item/scalpel/augment
 	desc = "Миниатюрное сверхострое лезвие, которое крепится напрямую к вашей кости, обеспечивая дополнительную точность."
 	toolspeed = 0.5
+
+/obj/item/scalpel/primitive_scalpel
+	name = "primitive scalpel"
+	desc = "Примитивный скальпель, сделанный из кости. Несмотря на материал, из которого сделан, всё ещё крайне эффективен."
+	ru_names = list(
+		NOMINATIVE = "примитивный скальпель",
+		GENITIVE = "примитивного скальпеля",
+		DATIVE = "примитивному скальпелю",
+		ACCUSATIVE = "примитивный скальпель",
+		INSTRUMENTAL = "примитивным скальпелем",
+		PREPOSITIONAL = "примитивном скальпеле",
+	)
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_scalpel"
+	item_state = "primitive_scalpel"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /*
  * Researchable Scalpels
@@ -321,15 +394,16 @@
 		INSTRUMENTAL = "хирургической пилой",
 		PREPOSITIONAL = "хирургической пиле",
 	)
+	gender = FEMALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "saw3"
 	hitsound = 'sound/weapons/circsawhit.ogg'
 	mob_throw_hit_sound =  'sound/weapons/pierce.ogg'
 	flags = CONDUCT
-	force = 15.0
+	force = 15
 	sharp = 1
 	w_class = WEIGHT_CLASS_NORMAL
-	throwforce = 9.0
+	throwforce = 9
 	throw_speed = 3
 	throw_range = 5
 	embed_chance = 20
@@ -365,6 +439,39 @@
 	w_class = WEIGHT_CLASS_SMALL
 	toolspeed = 0.5
 
+/obj/item/primitive_saw
+	name = "primitive circular saw"
+	desc = "Примитивная хирургическая пила, сделанная из крепкой кости."
+	ru_names = list(
+		NOMINATIVE = "примитивная хирургическая пила",
+		GENITIVE = "примитивной хирургической пилы",
+		DATIVE = "примитивной хирургической пиле",
+		ACCUSATIVE = "примитивную хирургическую пилу",
+		INSTRUMENTAL = "примитивной хирургической пилой",
+		PREPOSITIONAL = "примитивной хирургической пиле",
+	)
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_saw"
+	item_state = "primitive_saw"
+	hitsound = 'sound/weapons/slice.ogg'
+	mob_throw_hit_sound =  'sound/weapons/pierce.ogg'
+	flags = CONDUCT
+	force = 15.0
+	sharp = 1
+	w_class = WEIGHT_CLASS_NORMAL
+	throwforce = 9
+	throw_speed = 3
+	throw_range = 5
+	embed_chance = 20
+	embedded_ignore_throwspeed_threshold = TRUE
+	attack_verb = list("атаковал", "полоснул", "пропилил", "порезал")
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+
+/obj/item/primitive_saw/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
+
 //misc, formerly from code/defines/weapons.dm
 /obj/item/bonegel
 	name = "bone gel"
@@ -377,6 +484,7 @@
 		INSTRUMENTAL = "костяным гелем",
 		PREPOSITIONAL = "костяном геле",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone-gel"
 	item_state = "bone-gel"
@@ -393,6 +501,23 @@
 /obj/item/bonegel/augment
 	toolspeed = 0.5
 
+/obj/item/bonegel/primitive_bonegel
+	name = "primitive bone gel"
+	desc = "Примитивная смесь, используется для заживления костей."
+	ru_names = list(
+		NOMINATIVE = "примитивный костяной гель",
+		GENITIVE = "примитивного костяного геля",
+		DATIVE = "примитивному костяному гелю",
+		ACCUSATIVE = "примитивный костяной гель",
+		INSTRUMENTAL = "примитивным костяным гелем",
+		PREPOSITIONAL = "примитивном костяном геле",
+	)
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_bonegel"
+	item_state = "primitive_bonegel"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+
 /obj/item/FixOVein
 	name = "FixOVein"
 	desc = "Небольшой баллончик, содержищий в себе гель, сращивающий и заживляющий кровеносные сосуды."
@@ -404,7 +529,7 @@
 		INSTRUMENTAL = "гелью для сосудов",
 		PREPOSITIONAL = "геле для сосудов",
 	)
-	ic
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "fixovein"
 	item_state = "fixovein"
@@ -421,6 +546,24 @@
 /obj/item/FixOVein/augment
 	toolspeed = 0.5
 
+/obj/item/FixOVein/primitive_FixOVein
+	name = "primitive FixOVein"
+	desc = "Примитивное средство для сращивания сосудов."
+	ru_names = list(
+		NOMINATIVE = "нить для сращивания сосудов",
+		GENITIVE = "нити для сращивания сосудов",
+		DATIVE = "нити для сращивания сосудов",
+		ACCUSATIVE = "нить для сращивания сосудов",
+		INSTRUMENTAL = "нитью для сращивания сосудов",
+		PREPOSITIONAL = "нити для сращивания сосудов",
+	)
+	gender = FEMALE
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_fixovein"
+	item_state = "primitive_fixovein"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+
 /obj/item/bonesetter
 	name = "bone setter"
 	desc = "Хирургический инструмент, предназначенный для вправления и закрепления костей."
@@ -432,6 +575,7 @@
 		INSTRUMENTAL = "костоправом",
 		PREPOSITIONAL = "костоправе",
 	)
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone setter"
 	item_state = "bone setter"
@@ -465,6 +609,23 @@
 
 /obj/item/bonesetter/augment
 	toolspeed = 0.5
+
+/obj/item/bonesetter/primitive_bonesetter
+	name = "primitive bone setter"
+	desc = "Примитивный инструмент, сделанный из кости. Используется для правки костей."
+	ru_names = list(
+		NOMINATIVE = "примитивный костоправ",
+		GENITIVE = "примитивного костоправа",
+		DATIVE = "примитивному костоправу",
+		ACCUSATIVE = "примитивный костоправ",
+		INSTRUMENTAL = "примитивным костоправом",
+		PREPOSITIONAL = "примитивном костоправе",
+	)
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "primitive_bonesetter"
+	item_state = "primitive_bonesetter"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
 /obj/item/surgical_drapes
 	name = "surgical drapes"

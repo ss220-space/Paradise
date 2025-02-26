@@ -28,9 +28,9 @@
 		R.my_atom = vent
 		R.add_reagent(pick(gunk), 2450)
 
-		var/datum/effect_system/smoke_spread/chem/smoke = new
-		smoke.set_up(R, vent, TRUE)
+		var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+		smoke.set_up(range = 3, location = vent, carry = R, silent = TRUE)
 		playsound(vent.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
-		smoke.start(3)
+		smoke.start()
 		add_game_logs("Smoke at [COORD(vent)] spread including [R.reagent_list]")
 		qdel(R)

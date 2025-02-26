@@ -384,3 +384,25 @@
 	icon_state = "spacepod"
 	result = list(/obj/spacepod/syndi = 1,
 		/obj/spacepod/syndi/unlocked = 1)
+
+//random lavaland loot
+/obj/effect/spawner/random_spawners/lavaland_random_loot //terraria fishing vibes
+	name = "33pc random lavaland minor loot"
+	result = list(
+		/datum/nothing = 40, //40-20
+		/obj/item/stack/sheet/sinew/five = 4,
+		/obj/item/stack/sheet/animalhide/goliath_hide/five = 2,
+		/obj/item/stack/sheet/animalhide/ashdrake = 1,
+		/obj/item/stack/sheet/animalhide/weaver_chitin/five = 3,
+		/obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit = 3,
+		/obj/item/kitchen/knife/combat/survival/bone = 1,
+		/obj/item/gem/random = 5,
+		/obj/item/clothing/accessory/necklace/gem = 1
+	)
+
+/obj/effect/spawner/random_spawners/forty_pc_skull
+	name = "40pc scorched_skull"
+	result = list(
+		/datum/nothing = 60,
+		/obj/item/clothing/head/scorched_skull = 40
+	)

@@ -39,7 +39,7 @@
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/vulpkanin,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/vulpkanin,
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/vulpkanin,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/vulpkanin

@@ -8,7 +8,7 @@
 	if(check_incapacitating_immunity(CANSTAMCRIT))
 		return
 	SEND_SIGNAL(src, COMSIG_CARBON_ENTER_STAMCRIT)
-	to_chat(src, span_notice("You're too exhausted to keep going..."))
+	to_chat(src, span_warning("Вы слишком истощены, чтобы передвигаться."))
 	add_traits(list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_FLOORED, TRAIT_HANDS_BLOCKED), STAMINA_TRAIT)
 	if(getStaminaLoss() < 120) // Puts you a little further into the initial stamcrit, makes stamcrit harder to outright counter with chems.
 		adjustStaminaLoss(30, FALSE)

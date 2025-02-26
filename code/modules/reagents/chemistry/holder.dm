@@ -866,7 +866,7 @@
 	var/list/out = list()
 	var/list/reagent_tastes = list() //in the form reagent_tastes["descriptor"] = strength
 	//mobs should get this message when either they cannot taste, the tastes are all too weak for them to detect, or the tastes somehow don't have any strength
-	var/no_taste_text = "something indescribable"
+	var/no_taste_text = "вкус чего-то неописуемого"
 	if(minimum_percent > 100)
 		return no_taste_text
 	for(var/datum/reagent/R in reagent_list)
@@ -884,18 +884,18 @@
 		var/percent = (reagent_tastes[taste_desc] / total_taste) * 100
 		if(percent < minimum_percent) //the lower the minimum percent, the more sensitive the message is
 			continue
-		var/intensity_desc = "a hint of"
+		var/intensity_desc = "едва заметный привкус"
 		if(percent > minimum_percent * 3 && percent != 100)
-			intensity_desc = "a strong flavor of"
+			intensity_desc = "привкус"
 		else if(percent > minimum_percent * 2 || percent == 100)
 			intensity_desc = ""
 
 		if(intensity_desc != "")
 			out += "[intensity_desc] [taste_desc]"
 		else
-			out += "[taste_desc]"
+			out += "вкус [taste_desc]"
 
-	return english_list(out, no_taste_text)
+	return russian_list(out, no_taste_text)
 
 ///////////////////////////////////////////////////////////////////////////////////
 

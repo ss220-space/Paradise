@@ -86,7 +86,7 @@
 			var/amount = starting_items[typekey] || 1
 			while(amount--)
 				var/obj/item/newitem = new typekey(src)
-				item_quants[newitem.name] += 1
+				item_quants[newitem.declent_ru(NOMINATIVE)] += 1
 	update_icon(UPDATE_OVERLAYS)
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
@@ -306,7 +306,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Smartfridge", name)
+		ui = new(user, src, "Smartfridge", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 /obj/machinery/smartfridge/ui_data(mob/user)
@@ -361,7 +361,7 @@
 				return
 			if(i == 1 && Adjacent(user) && !issilicon(user))
 				for(var/obj/O in contents)
-					if(O.name == K)
+					if(O.declent_ru(NOMINATIVE) == K)
 						O.forceMove(get_turf(src))
 						adjust_item_drop_location(O)
 						user.put_in_hands(O, ignore_anim = FALSE)
@@ -369,7 +369,7 @@
 						break
 			else
 				for(var/obj/O in contents)
-					if(O.name == K)
+					if(O.declent_ru(NOMINATIVE) == K)
 						O.forceMove(loc)
 						adjust_item_drop_location(O)
 						update_icon(UPDATE_OVERLAYS)
@@ -410,7 +410,7 @@
 	else
 		I.forceMove(src)
 
-	item_quants[I.name] += 1
+	item_quants[I.declent_ru(NOMINATIVE)] += 1
 	return TRUE
 
 
@@ -428,7 +428,7 @@
 			continue
 		item_quants[O]--
 		for(var/obj/I in contents)
-			if(I.name == O)
+			if(I.declent_ru(NOMINATIVE) == O)
 				I.forceMove(loc)
 				throw_item = I
 				update_icon(UPDATE_OVERLAYS)
@@ -891,6 +891,8 @@
 	active_power_usage = 200
 	can_dry = TRUE
 	visible_contents = FALSE
+	var/primitive = FALSE //used for energy consuming stuff
+	var/drying_timer = 0
 	icon_lightmask = null
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
@@ -912,6 +914,9 @@
 	return
 
 /obj/machinery/smartfridge/drying_rack/power_change(forced = FALSE)
+	if(primitive)
+		return
+
 	if(powered() && anchored)
 		stat &= ~NOPOWER
 	else
@@ -941,9 +946,9 @@
 	switch(action)
 		if("drying")
 			drying = !drying
-			use_power = drying ? ACTIVE_POWER_USE : IDLE_POWER_USE
+			if(!primitive)
+				use_power = drying ? ACTIVE_POWER_USE : IDLE_POWER_USE
 			update_icon(UPDATE_OVERLAYS)
-
 
 /obj/machinery/smartfridge/drying_rack/update_overlays()
 	. = list()
@@ -954,9 +959,17 @@
 
 
 /obj/machinery/smartfridge/drying_rack/process()
-	if(drying && rack_dry())//no need to update unless something got dried
-		update_icon(UPDATE_OVERLAYS)
-
+	if(!drying)//no need to update if we don't dry
+		return
+	if(drying_timer)
+		drying_timer--
+		if(!drying_timer) //if it went to zero, dry and reset
+			drying_timer = initial(drying_timer)
+			if(rack_dry())
+				update_icon(UPDATE_OVERLAYS)
+	else // no timer
+		if(rack_dry())
+			update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smartfridge/drying_rack/accept_check(obj/item/O)
 	. = ..()
@@ -1005,3 +1018,34 @@
 		SStgui.update_uis(src)
 		return TRUE
 	return FALSE
+
+/obj/machinery/smartfridge/drying_rack/ash
+	name = "primitive drying rack"
+	desc = "Примитивная самодельная сушилка, предназначенная для просушки растительных продуктов, еды и кожи."
+	ru_names = list(
+		NOMINATIVE = "примитивная сушилка",
+		GENITIVE = "примитивной сушилки",
+		DATIVE = "примитивной сушилке",
+		ACCUSATIVE = "примитивную сушилку",
+		INSTRUMENTAL = "примитивной сушилкой",
+		PREPOSITIONAL = "примитивной сушилке",
+	)
+	gender = FEMALE
+	icon_state = "primitive-drying-rack"
+	use_power = NO_POWER_USE
+	can_dry = FALSE //trust me
+	drying = TRUE
+	idle_power_usage = 0
+	active_power_usage = 0
+	drying_timer = 8
+	primitive = TRUE
+
+/obj/machinery/smartfridge/drying_rack/ash/update_overlays()
+	overlays.Cut()
+	if(length(contents))
+		overlays += "primitive-drying-rack_leather"
+
+/obj/machinery/smartfridge/drying_rack/ash/on_deconstruction()
+	new /obj/item/stack/sheet/wood(loc, 2)
+	new /obj/item/stack/sheet/sinew(loc, 1)
+	..()
