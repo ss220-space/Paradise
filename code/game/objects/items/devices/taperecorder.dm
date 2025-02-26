@@ -122,23 +122,25 @@
 		record()
 
 
-/obj/item/taperecorder/AltClick(mob/living/user)
-	if(istype(user) && mytape && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && Adjacent(user))
-		var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
-						"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
-						"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
-						)
-		var/choice = show_radial_menu(user, src, options, require_near = TRUE)
-		if(!choice || user.incapacitated())
-			return
-		switch(choice)
-			if("Playback Tape")
-				play(user)
-			if("Print Transcript")
-				print_transcript(user)
-			if("Eject Tape")
-				eject(user)
+/obj/item/taperecorder/click_alt(mob/living/user)
+	if(!mytape)
+		return NONE
 
+	var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
+					"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
+					"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
+					)
+	var/choice = show_radial_menu(user, src, options, require_near = TRUE)
+	if(!choice || user.incapacitated())
+		return CLICK_ACTION_BLOCKING
+	switch(choice)
+		if("Playback Tape")
+			play(user)
+		if("Print Transcript")
+			print_transcript(user)
+		if("Eject Tape")
+			eject(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/taperecorder/proc/recorder_say(message, datum/tape_piece/record_datum)
 	if(record_datum)

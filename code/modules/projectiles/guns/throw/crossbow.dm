@@ -142,9 +142,10 @@
 	cell = null
 
 
-/obj/item/gun/throw/crossbow/AltClick(mob/user)
+/obj/item/gun/throw/crossbow/click_alt(mob/user)
 	if(src in user)
 		set_tension()
+		return CLICK_ACTION_SUCCESS
 
 
 /obj/item/gun/throw/crossbow/verb/set_tension()

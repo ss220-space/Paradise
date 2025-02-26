@@ -793,22 +793,19 @@
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
 	if(in_range(src, user))
-		. += "<span class='info'>Alt-click to toggle locker.<br/>Ctrl-click to toggle power.</span>"
+		. += span_info("<b>Alt-click</b> to toggle locker.<br/><b>Ctrl-click</b> to toggle power.")
 
-/obj/machinery/power/apc/AltClick(mob/user)
-	var/mob/living/carbon/human/human = user
-	if(!istype(human) || human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(!Adjacent(human) || (get_turf(user) != user.loc))
-		return
-
-	var/obj/item/card/id/card = human.get_id_card()
+/obj/machinery/power/apc/click_alt(mob/living/carbon/human/H)
+	if(!istype(H))
+		return NONE
+	var/obj/item/card/id/card = H.get_id_card()
 	if(!istype(card))
-		return
+		return NONE
 
-	add_fingerprint(user)
-	togglelock(user)
+	add_fingerprint(H)
+	togglelock(H)
+	return CLICK_ACTION_SUCCESS
+
 
 /obj/machinery/power/apc/CtrlClick(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)

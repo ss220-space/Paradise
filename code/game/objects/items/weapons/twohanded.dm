@@ -945,7 +945,7 @@
 		user.visible_message("<span class='danger'>[user] blasts \the [target] with \the [src]!</span>")
 		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
 		W.devastate_wall(TRUE)
-		return 1
+		return TRUE
 	..()
 
 /obj/item/twohanded/bamboospear
@@ -1092,3 +1092,72 @@
 	used = FALSE
 	REMOVE_TRAIT(src, TRAIT_NODROP, PYRO_CLAWS_TRAIT)
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
+
+
+/obj/item/twohanded/sechammer
+	name = "tactical sledgehammer"
+	desc = "Тяжёлая кувалда, используемая силовыми структурами Нанотрейзен. Удобная эргономичная рукоятка обеспечивает надёжный хват, а боёк кувалды увеличенной массы позволяет наносить мощные и точные удары, что делает её отличным инструментом для разрушения препятствий и создания брешей в стенах. Хотя конструкция и является слишком неудобной для эффективного использования в качестве оружия, силы удара достаточно, чтобы раздробить любую кость в теле гуманоида."
+	ru_names = list(
+		NOMINATIVE = "тактическая кувалда",
+		GENITIVE = "тактической кувалды",
+		DATIVE = "тактической кувалде",
+		ACCUSATIVE = "тактическую кувалду",
+		INSTRUMENTAL = "тактической кувалдой",
+		PREPOSITIONAL = "тактической кувалде"
+	)
+	gender = FEMALE
+	icon_state = "sechammer0"
+	throwforce = 20
+	throw_range = 2
+	w_class = WEIGHT_CLASS_BULKY
+	attack_speed = 16
+	force_unwielded = 15
+	force_wielded = 35
+	armour_penetration = 40
+	attack_verb = list("атаковал", "ударил", "шибанул", "долбанул", "припечатал")
+	max_integrity = 200
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	resistance_flags = FIRE_PROOF
+	item_flags = SLOWS_WHILE_IN_HAND
+
+	var/wall_damage = 35
+	var/extra_girder_damage = 65
+	var/extra_door_damage = 25
+
+	var/stamina_drain = 8
+	var/max_stamina_damage = 40
+
+/obj/item/twohanded/sechammer/update_icon_state()
+	icon_state = "sechammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
+
+/obj/item/twohanded/sechammer/wield(obj/item/source, mob/living/carbon/user)
+	slowdown = 0.5
+
+
+/obj/item/twohanded/sechammer/unwield(obj/item/source, mob/living/carbon/user)
+	slowdown = 0
+
+/obj/item/twohanded/sechammer/pre_attackby(atom/target, mob/living/user, params)
+	. = ..()
+	if(user.getStaminaLoss() >= max_stamina_damage)
+		balloon_alert(user, "вы слишком устали!")
+		return .|ATTACK_CHAIN_BLOCKED
+
+/obj/item/twohanded/sechammer/afterattack(atom/A, mob/living/user, proximity, params)
+	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
+		return
+	if(iswallturf(A))
+		var/turf/simulated/wall/W = A
+		user.changeNext_move(attack_speed)
+		user.do_attack_animation(src)
+		playsound(src, 'sound/weapons/smash.ogg', 50, 1)
+		W.take_damage(wall_damage)
+	if(user.getStaminaLoss() < max_stamina_damage)
+		if(istype(A, /obj/structure/girder))
+			var/obj/structure/G = A
+			G.take_damage(extra_girder_damage)
+		else if(istype(A, /obj/machinery/door))
+			var/obj/machinery/D = A
+			D.take_damage(extra_door_damage)
+	user.adjustStaminaLoss(stamina_drain)
+	..()

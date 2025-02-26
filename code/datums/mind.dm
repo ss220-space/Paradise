@@ -550,6 +550,23 @@
 		. += "<a href='byond://?src=[UID()];blob=blob'>blobize</a>|<b>NO</b>"
 	. += _memory_edit_role_enabled(ROLE_BLOB)
 
+/datum/mind/proc/memory_edit_terrors()
+	. = _memory_edit_header("terror spiders")
+	var/datum/antagonist/terror_spider/spider_datum = has_antag_datum(/datum/antagonist/terror_spider/)
+	if(spider_datum)
+		. += "|<b><font color='red'>[spider_datum.spider_category]</font></b>"
+	else
+		. += "<a href='byond://?src=[UID()];terror=datumise'>datumise</a>|<b>NO</b>"
+	. += _memory_edit_role_enabled(ROLE_TERROR_SPIDER)
+
+/datum/mind/proc/memory_edit_xenomorphs()
+	. = _memory_edit_header("xenomorphs")
+	var/datum/antagonist/xenomorph/xeno_datum = has_antag_datum(/datum/antagonist/xenomorph)
+	if(xeno_datum)
+		. += "|<b><font color='red'>[xeno_datum.antag_menu_name]</font></b>"
+	else
+		. += "<a href='byond://?src=[UID()];xenomorph=datumise'>datumise</a>|<b>NO</b>"
+	. += _memory_edit_role_enabled(ROLE_ALIEN)
 
 /datum/mind/proc/memory_edit_traitor()
 	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp", "traitorthief"))
@@ -755,7 +772,10 @@
 
 	if((isliving(current) && current.can_be_blob()) || isblobovermind(src))
 		sections["blob"] = memory_edit_blob(current)
-
+	if(isterrorspider(current))
+		sections["terror_spiders"] = memory_edit_terrors(current)
+	if(isalien(current))
+		sections["xenomorphs"] = memory_edit_xenomorphs()
 	if(!issilicon(current))
 		/** CULT ***/
 		sections["cult"] = memory_edit_cult(H)
@@ -2476,6 +2496,24 @@
 					blob_overmind.set_strain(strain)
 					log_admin("[key_name(usr)] changed the strain to [strain] for [key_name(current)]")
 					message_admins("[key_name_admin(usr)] changed the strain to [strain] for [key_name_admin(current)]")
+	
+	else if(href_list["terror"])
+		switch(href_list["terror"])
+			if("datumise")
+				if(QDELETED(current) || current.stat == DEAD)
+					return
+				var/mob/living/simple_animal/hostile/poison/terror_spider/spider = current
+				spider.add_datum_if_not_exist()
+				log_and_message_admins("has made [key_name(current)] into a \"Terror Spider\"")
+	
+	else if(href_list["xenomorph"])
+		switch(href_list["xenomorph"])
+			if("datumise")
+				if(QDELETED(current) || current.stat == DEAD)
+					return
+				var/mob/living/carbon/alien/alien = current
+				alien.update_datum()
+				log_and_message_admins("has made [key_name(current)] into a \"Xenomorph\"")
 
 	else if(href_list["common"])
 		switch(href_list["common"])

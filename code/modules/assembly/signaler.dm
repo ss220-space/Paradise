@@ -38,11 +38,10 @@
 	. += span_info("<b>Alt+Click</b> to send a signal.")
 
 
-/obj/item/assembly/signaler/AltClick(mob/user)
-	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
-		return ..()
+/obj/item/assembly/signaler/click_alt(mob/user)
 	to_chat(user, span_notice("You activate [src]."))
 	activate()
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/assembly/signaler/activate()

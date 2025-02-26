@@ -20,15 +20,12 @@ Thus, the two variables affect pump operation are set in New():
 	desc = "A volumetric pump"
 
 	can_unwrench = TRUE
+	interaction_flags_click = NEED_HANDS | ALLOW_SILICON_REACH
 
 	on = FALSE
 	var/transfer_rate = 200
 
 	var/id = null
-
-/obj/machinery/atmospherics/binary/volume_pump/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_ALT_CLICK_BLOCKER, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/machinery/atmospherics/binary/volume_pump/CtrlClick(mob/living/user)
 	if(!ishuman(user) && !issilicon(user))
@@ -44,17 +41,11 @@ Thus, the two variables affect pump operation are set in New():
 	toggle()
 	return ..()
 
-/obj/machinery/atmospherics/binary/volume_pump/AltClick(mob/living/user)
-	if(!ishuman(user) && !issilicon(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
-	if(!in_range(src, user) && !issilicon(user))
-		return
+/obj/machinery/atmospherics/binary/volume_pump/click_alt(mob/living/user)
 	set_max()
+	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/atmospherics/binary/volume_pump/AIAltClick()
+/obj/machinery/atmospherics/binary/volume_pump/ai_click_alt()
 	set_max()
 	return ..()
 

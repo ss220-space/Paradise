@@ -10,6 +10,7 @@
 	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	climbable = TRUE
 	layer = ABOVE_MOB_LAYER
+	interaction_flags_click = NEED_HANDS
 	var/currently_climbed = FALSE
 	var/buildstacktype = /obj/item/stack/rods
 	var/buildstackamount = 3
@@ -124,12 +125,12 @@
 
 /obj/structure/railing/proc/can_be_rotated(mob/user)
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
+		to_chat(user, span_warning("[src] cannot be rotated while it is fastened to the floor!"))
 		return FALSE
 
 	var/target_dir = turn(dir, -45)
 	if(!valid_build_direction(loc, target_dir))	//Expanded to include rails, as well!
-		to_chat(user, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
+		to_chat(user, span_warning("[src] cannot be rotated in that direction!"))
 		return FALSE
 	return TRUE
 
@@ -139,15 +140,11 @@
 /obj/structure/railing/proc/after_rotation(mob/user)
 	add_fingerprint(user)
 
-/obj/structure/railing/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(can_be_rotated(user))
-		setDir(turn(dir, 45))
-
+/obj/structure/railing/click_alt(mob/user)
+	if(!can_be_rotated(user))
+		return CLICK_ACTION_BLOCKING
+	setDir(turn(dir, 45))
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/railing/setDir(newdir)
 	. = ..()
@@ -182,17 +179,13 @@
 	else
 		layer = HIGH_OBJ_LAYER
 
-/obj/structure/railing/wooden/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/structure/railing/wooden/click_alt(mob/user)
 	if(anchored)
 		to_chat(user, "It is fastened to the floor!")
-		return
+		return CLICK_ACTION_BLOCKING
 	setDir(turn(dir, 90))
 	after_rotation(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/railing/wooden/wrench_act(mob/user, obj/item/I)
 	. = TRUE

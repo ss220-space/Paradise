@@ -2,6 +2,7 @@
 /obj/structure/spider
 	name = "web"
 	desc = "it's stringy and sticky"
+	gender = FEMALE
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	density = FALSE
@@ -62,6 +63,7 @@
 	desc = "They seem to pulse slightly with an inner life"
 	icon_state = "eggs"
 	var/amount_grown = 0
+	var/grown_tick_count = 100
 	var/player_spiders = 0
 	var/list/faction = list("spiders")
 
@@ -76,7 +78,7 @@
 		return
 
 	amount_grown += rand(0,2)
-	if(amount_grown >= 100)
+	if(amount_grown >= grown_tick_count)
 		var/num = rand(3, 12)
 		for(var/i in 1 to num)
 			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)

@@ -574,13 +574,14 @@
 		azoom.Remove(user)
 
 
-/obj/item/gun/AltClick(mob/user)
+/obj/item/gun/click_alt(mob/user)
 	if(!unique_reskin || current_skin || loc != user)
-		return ..()
+		return NONE
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
-		return ..()
+		return CLICK_ACTION_BLOCKING
 	reskin_gun(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/gun/proc/reskin_gun(mob/user)

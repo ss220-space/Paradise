@@ -86,6 +86,9 @@
 		to_chat(src, "<span class='revenboldnotice'>You can move again!</span>")
 	update_icon(UPDATE_ICON_STATE)
 
+/mob/living/simple_animal/revenant/can_perform_action(atom/target, action_bitflags)
+	return FALSE
+
 /mob/living/simple_animal/revenant/ex_act(severity)
 	return 1 //Immune to the effects of explosions.
 

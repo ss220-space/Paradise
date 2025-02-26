@@ -188,15 +188,15 @@
 	return ..()
 
 
-/obj/item/newspaper/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		rolled = !rolled
-		icon_state = "newspaper[rolled ? "_rolled" : ""]"
-		update_icon()
-		var/verbtext = "[rolled ? "" : "un"]roll"
-		user.visible_message("<span class='notice'>[user] [verbtext]s [src].</span>",\
-								"<span class='notice'>You [verbtext] [src].</span>")
-		name = "[rolled ? "rolled" : ""] [initial(name)]"
+/obj/item/newspaper/click_alt(mob/user)
+	rolled = !rolled
+	icon_state = "newspaper[rolled ? "_rolled" : ""]"
+	update_icon()
+	var/verbtext = "[rolled ? "" : "un"]roll"
+	user.visible_message(span_notice("[user] [verbtext]s [src]."),\
+							span_notice("You [verbtext] [src]."))
+	name = "[rolled ? "rolled" : ""] [initial(name)]"
+	return CLICK_ACTION_SUCCESS
 
 #undef SCREEN_COVER
 #undef SCREEN_PAGE_INNER

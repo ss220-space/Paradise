@@ -74,9 +74,9 @@
 
 /mob/living/simple_animal/demon/pulse_demon/AltClickOn(atom/A)
 	if(get_area(A) == controlling_area)
-		A.AIAltClick(src)
+		ai_click_alt(A)
 	else
-		A.AltClick(src)
+		base_click_alt(A)
 
 /mob/living/simple_animal/demon/pulse_demon/CtrlClickOn(atom/A)
 	if(get_area(A) == controlling_area)

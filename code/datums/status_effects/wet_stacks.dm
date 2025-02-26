@@ -48,10 +48,11 @@
 
 
 /datum/status_effect/stacking/wet/proc/DryMob()
-	if(stacks > 0)
-		qdel(owner.GetComponent(/datum/component/slippery))
-		stacks = 0
-		update_wet()
+	var/slippery = owner.GetComponent(/datum/component/slippery)
+	if(slippery)
+		qdel(slippery)
+	stacks = 0
+	update_wet()
 
 /datum/status_effect/stacking/wet/stack_decay_effect()
 	. = ..()

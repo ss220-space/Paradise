@@ -75,7 +75,7 @@
 		ShiftClickOn(A)
 		return
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
-		AltClickOn(A)
+		ai_base_click_alt(A)
 		return
 	if(modifiers["ctrl"])
 		CtrlClickOn(A)
@@ -126,8 +126,6 @@
 	A.AIShiftClick(src)
 /mob/living/silicon/ai/CtrlClickOn(atom/A)
 	A.AICtrlClick(src)
-/mob/living/silicon/ai/AltClickOn(atom/A)
-	A.AIAltClick(src)
 /mob/living/silicon/ai/MiddleClickOn(atom/A)
     A.AIMiddleClick(src)
 /mob/living/silicon/ai/MiddleShiftClickOn(atom/A)
@@ -151,8 +149,26 @@
 /atom/proc/AICtrlClick(mob/living/silicon/user)
 	return
 
-/atom/proc/AIAltClick(atom/A)
-	AltClick(A)
+/// Reimplementation of base_click_alt for AI
+/mob/living/silicon/ai/proc/ai_base_click_alt(atom/target)
+	// If for some reason we can't alt click
+	if(SEND_SIGNAL(src, COMSIG_MOB_ALTCLICKON, target) & COMSIG_MOB_CANCEL_CLICKON)
+		return
+
+	if(!isturf(target) && can_perform_action(target, (target.interaction_flags_click | SILENT_ADJACENCY)))
+		// Signal intercept
+		if(SEND_SIGNAL(target, COMSIG_CLICK_ALT, src) & CLICK_ACTION_ANY)
+			return
+
+		// AI alt click interaction succeeds
+		if(target.ai_click_alt(src) & CLICK_ACTION_ANY)
+			return
+
+	client.loot_panel.open(get_turf(target))
+
+/atom/proc/ai_click_alt(mob/living/silicon/ai/user)
+	return
+
 
 /atom/proc/AIMiddleClick(mob/living/user)
 	return
@@ -179,7 +195,7 @@
 	enabled = !enabled
 	updateTurrets()
 
-/obj/machinery/turretid/AIAltClick() //toggles lethal on turrets
+/obj/machinery/turretid/ai_click_alt(mob/living/silicon/ai/user) //toggles lethal on turrets
 	if(lethal_is_configurable)
 		lethal = !lethal
 		updateTurrets()
@@ -201,7 +217,7 @@
 		return
 	toggle_bolt(user)
 
-/obj/machinery/door/airlock/AIAltClick(mob/living/silicon/user) // Electrifies doors.
+/obj/machinery/door/airlock/ai_click_alt(mob/living/silicon/ai/user) // Electrifies doors.
 	if(!ai_control_check(user))
 		return
 	if(wires.is_cut(WIRE_ELECTRIFY))
@@ -222,5 +238,5 @@
 /obj/machinery/ai_slipper/AICtrlClick(mob/living/silicon/ai/user) //Turns liquid dispenser on or off
 	ToggleOn()
 
-/obj/machinery/ai_slipper/AIAltClick() //Dispenses liquid if on
+/obj/machinery/ai_slipper/ai_click_alt(mob/living/silicon/ai/user) //Dispenses liquid if on
 	Activate()

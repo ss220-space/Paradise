@@ -13,6 +13,7 @@ GLOBAL_LIST_EMPTY(closets)
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60)
 	pass_flags_self = PASSSTRUCTURE|LETPASSCLICKS
 	pull_push_slowdown = 1.3 // Same as a prone mob
+	interaction_flags_click = NEED_HANDS
 
 	/// Special marker for the closet to use default icon_closed/icon_opened states, skipping everything else.
 	var/no_overlays = FALSE
@@ -503,11 +504,12 @@ GLOBAL_LIST_EMPTY(closets)
 	return
 
 
-/obj/structure/closet/AltClick(mob/living/simple_animal/hostile/gorilla/gorilla)
-	if(istype(gorilla) && !gorilla.incapacitated() && !HAS_TRAIT(gorilla, TRAIT_HANDS_BLOCKED) && Adjacent(gorilla))
+/obj/structure/closet/click_alt(mob/living/simple_animal/hostile/gorilla/gorilla)
+	if(istype(gorilla))
 		gorilla.face_atom(src)
 		toggle()
 		gorilla.oogaooga()
+		return CLICK_ACTION_SUCCESS
 	return ..()
 
 /obj/structure/closet/shove_impact(mob/living/target, mob/living/attacker)

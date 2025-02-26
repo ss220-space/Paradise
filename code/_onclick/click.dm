@@ -210,7 +210,7 @@
 	return FALSE
 
 // Default behavior: ignore double clicks, consider them normal clicks instead
-/mob/proc/DblClickOn(var/atom/A, var/params)
+/mob/proc/DblClickOn(atom/A, params)
 	return
 
 /*
@@ -252,14 +252,14 @@
 	Used when you are handcuffed and click things.
 	Not currently used by anything but could easily be.
 */
-/mob/proc/RestrainedClickOn(var/atom/A)
+/mob/proc/RestrainedClickOn(atom/A)
 	return
 
 /*
 	Middle click
 	Only used for swapping hands
 */
-/mob/proc/MiddleClickOn(var/atom/A)
+/mob/proc/MiddleClickOn(atom/A)
 	pointed(A)
 	return
 
@@ -313,10 +313,10 @@
 	For most mobs, examine.
 	This is overridden in ai.dm
 */
-/mob/proc/ShiftClickOn(var/atom/A)
+/mob/proc/ShiftClickOn(atom/A)
 	A.ShiftClick(src)
 	return
-/atom/proc/ShiftClick(var/mob/user)
+/atom/proc/ShiftClick(mob/user)
 	if(user.client && get_turf(user.client.eye) == get_turf(user))
 		user.examinate(src)
 	return
@@ -325,7 +325,7 @@
 	Ctrl click
 	For most objects, pull
 */
-/mob/proc/CtrlClickOn(var/atom/A)
+/mob/proc/CtrlClickOn(atom/A)
 	A.CtrlClick(src)
 	return
 
@@ -350,50 +350,6 @@
 	return ..()
 
 
-/*
-	Alt click
-	Unused except for AI
-*/
-/mob/proc/AltClickOn(var/atom/A)
-	A.AltClick(src)
-	return
-
-// See click_override.dm
-/mob/living/AltClickOn(atom/A)
-	if(middleClickOverride)
-		middleClickOverride.onClick(A, src)
-	else
-		..()
-
-/**
- * Alt click on an atom.
- * Performs alt-click actions before attempting to open a loot window.
- * Returns TRUE if successful, FALSE if not.
- */
-/atom/proc/AltClick(mob/user)
-	if(HAS_TRAIT(src, TRAIT_ALT_CLICK_BLOCKER) && !isobserver(user))
-		return TRUE
-
-	var/turf/T = get_turf(src)
-	if(isnull(T))
-		return FALSE
-
-	if(!isturf(loc) && !isturf(src))
-		return FALSE
-
-	if(!user.TurfAdjacent(T))
-		return FALSE
-
-	if(HAS_TRAIT(user, TRAIT_MOVE_VENTCRAWLING))
-		return FALSE
-
-	var/datum/lootpanel/panel = user.client?.loot_panel
-	if(isnull(panel))
-		return FALSE
-
-	panel.open(T)
-	return TRUE
-
 
 /mob/proc/TurfAdjacent(turf/T)
 	return T.Adjacent(src)
@@ -402,18 +358,18 @@
 	Control+Shift/Alt+Shift click
 	Unused except for AI
 */
-/mob/proc/CtrlShiftClickOn(var/atom/A)
+/mob/proc/CtrlShiftClickOn(atom/A)
 	A.CtrlShiftClick(src)
 	return
 
-/atom/proc/CtrlShiftClick(var/mob/user)
+/atom/proc/CtrlShiftClick(mob/user)
 	return
 
-/mob/proc/AltShiftClickOn(var/atom/A)
+/mob/proc/AltShiftClickOn(atom/A)
 	A.AltShiftClick(src)
 	return
 
-/atom/proc/AltShiftClick(var/mob/user)
+/atom/proc/AltShiftClick(mob/user)
 	return
 
 

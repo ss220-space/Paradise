@@ -706,7 +706,7 @@
 /datum/action/spell_action/AltTrigger()
 	if(target)
 		var/obj/effect/proc_holder/spell/spell = target
-		spell.AltClick(usr)
+		owner.base_click_alt(spell)
 		return TRUE
 
 /datum/action/spell_action/IsAvailable(message = FALSE)

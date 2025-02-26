@@ -141,12 +141,12 @@
 	name = "kidan eyeballs"
 	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали кидану."
 	ru_names = list(
-		NOMINATIVE = "глаза",
-		GENITIVE = "глаз",
-		DATIVE = "глазам",
-		ACCUSATIVE = "глаза",
-		INSTRUMENTAL = "глазами",
-		PREPOSITIONAL = "глазах"
+		NOMINATIVE = "глаза кидана",
+		GENITIVE = "глаз кидана",
+		DATIVE = "глазам кидана",
+		ACCUSATIVE = "глаза кидана",
+		INSTRUMENTAL = "глазами кидана",
+		PREPOSITIONAL = "глазах кидана"
 	)
 	icon = 'icons/obj/species_organs/kidan.dmi'
 	item_state = "kidan_eyes"
@@ -169,12 +169,12 @@
 	name = "kidan heart"
 	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало кидану."
 	ru_names = list(
-		NOMINATIVE = "сердце",
-		GENITIVE = "сердца",
-		DATIVE = "сердцу",
-		ACCUSATIVE = "сердце",
-		INSTRUMENTAL = "сердцем",
-		PREPOSITIONAL = "сердце"
+		NOMINATIVE = "сердце кидана",
+		GENITIVE = "сердца кидана",
+		DATIVE = "сердцу кидана",
+		ACCUSATIVE = "сердце кидана",
+		INSTRUMENTAL = "сердцем кидана",
+		PREPOSITIONAL = "сердце кидана"
 	)
 	icon = 'icons/obj/species_organs/kidan.dmi'
 	item_state = "kidan_heart-on"
@@ -214,12 +214,12 @@
 	name = "kidan lungs"
 	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали кидану."
 	ru_names = list(
-		NOMINATIVE = "лёгкие",
-		GENITIVE = "лёгких",
-		DATIVE = "лёгким",
-		ACCUSATIVE = "лёгкие",
-		INSTRUMENTAL = "лёгкими",
-		PREPOSITIONAL = "лёгких"
+		NOMINATIVE = "лёгкие кидана",
+		GENITIVE = "лёгких кидана",
+		DATIVE = "лёгким кидана",
+		ACCUSATIVE = "лёгкие кидана",
+		INSTRUMENTAL = "лёгкими кидана",
+		PREPOSITIONAL = "лёгких кидана"
 	)
 	icon = 'icons/obj/species_organs/kidan.dmi'
 	item_state = "kidan_lungs"
@@ -229,12 +229,12 @@
 	name = "kidan kidneys"
 	desc = "Парный орган, отвечающий за фильтрацию кровотока и выведение токсинов и отходов из организма. Эти принадлежали кидану."
 	ru_names = list(
-		NOMINATIVE = "почки",
-		GENITIVE = "почек",
-		DATIVE = "почкам",
-		ACCUSATIVE = "почки",
-		INSTRUMENTAL = "почками",
-		PREPOSITIONAL = "почках"
+		NOMINATIVE = "почки кидана",
+		GENITIVE = "почек кидана",
+		DATIVE = "почкам кидана",
+		ACCUSATIVE = "почки кидана",
+		INSTRUMENTAL = "почками кидана",
+		PREPOSITIONAL = "почках кидана"
 	)
 	icon = 'icons/obj/species_organs/kidan.dmi'
 	item_state = "kidan_kidneys"

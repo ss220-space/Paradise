@@ -63,22 +63,10 @@
 /obj/item/twohanded/spear,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
-"cB" = (
-/obj/structure/stone_tile/slab/cracked,
-/mob/living/simple_animal/chicken,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
 "cF" = (
 /obj/structure/stone_tile/surrounding/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
-"cG" = (
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
-/obj/item/twohanded/spear,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "da" = (
@@ -88,6 +76,10 @@
 	},
 /obj/structure/rack/wooden,
 /obj/item/malf_upgrade,
+/obj/item/rcd{
+	pixel_x = 1;
+	pixel_y = -7
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "dB" = (
@@ -133,16 +125,6 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/cracked,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
-"eS" = (
-/obj/structure/stone_tile/center/cracked,
-/obj/structure/stone_tile/surrounding/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/surrounding/cracked{
-	dir = 8
-	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "fC" = (
@@ -354,13 +336,13 @@
 "jU" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/table/wood,
-/obj/item/storage/toolbox/surgery/ashwalker{
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /obj/item/healthanalyzer/gem_analyzer{
 	pixel_x = -10;
 	pixel_y = 7
+	},
+/obj/item/stack/medical/splint/tribal{
+	pixel_x = 7;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -429,28 +411,16 @@
 	},
 /turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
-"mt" = (
-/obj/item/twohanded/spear,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
 "mx" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/rack/wooden,
-/obj/item/reagent_containers/food/snacks/egg{
-	pixel_x = 3;
+/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+	pixel_y = 5;
+	pixel_x = 2
+	},
+/obj/item/reagent_containers/food/drinks/mushroom_bowl{
+	pixel_x = -4;
 	pixel_y = -8
-	},
-/obj/item/reagent_containers/food/snacks/egg{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/food/snacks/egg{
-	pixel_y = -9;
-	pixel_x = -6
-	},
-/obj/item/reagent_containers/food/snacks/egg{
-	pixel_x = 3;
-	pixel_y = 5
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -712,7 +682,6 @@
 /obj/item/reagent_containers/iv_bag/blood/unathi,
 /obj/item/reagent_containers/iv_bag/blood/unathi,
 /obj/item/reagent_containers/iv_bag/blood/unathi,
-/obj/item/stack/medical/splint/tribal,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "rB" = (
@@ -826,6 +795,7 @@
 /obj/structure/table/wood,
 /obj/item/twohanded/spear,
 /obj/item/storage/belt/mining/primitive,
+/obj/item/clothing/head/shamanash,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "tT" = (
@@ -896,7 +866,6 @@
 "vH" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/spear,
-/obj/item/clothing/head/shamanash,
 /obj/item/ammo_casing/caseless/arrow{
 	pixel_y = 7;
 	pixel_x = -4
@@ -1470,7 +1439,6 @@
 /obj/structure/table/wood,
 /obj/item/twohanded/spear,
 /obj/item/clothing/head/helmet/roman/legionaire,
-/obj/item/melee/nutcracker,
 /obj/item/storage/belt/mining/primitive,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -1706,13 +1674,17 @@
 "Nu" = (
 /obj/structure/stone_tile/slab/burnt,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/lavaland_food/abu_ghosh{
-	pixel_x = -6;
-	pixel_y = -5
-	},
 /obj/item/reagent_containers/food/snacks/lavaland_food/grace_of_lazis{
 	pixel_x = 6;
 	pixel_y = 9
+	},
+/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg{
+	pixel_x = -6;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg{
+	pixel_x = 6;
+	pixel_y = 2
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -1882,11 +1854,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
-"Te" = (
-/obj/structure/stone_tile/surrounding/cracked,
-/obj/structure/stone_tile/center/burnt,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
 "Ti" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/table/wood,
@@ -1930,13 +1897,6 @@
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
-"Uc" = (
-/obj/structure/stone_tile/surrounding/cracked{
-	dir = 1
-	},
-/mob/living/simple_animal/cock,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Ue" = (
@@ -2046,8 +2006,8 @@
 /turf/simulated/floor/indestructible/boss/indoors,
 /area/ruin/unpowered/ash_walkers)
 "Ye" = (
-/obj/structure/necropolis_arch,
 /obj/structure/necropolis_gate,
+/obj/structure/necropolis_arch,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "Yy" = (
@@ -2327,12 +2287,12 @@ PD
 XK
 rl
 sJ
-Uc
+WT
 bx
-cG
+TD
 XV
 PD
-cB
+WX
 mQ
 je
 GK
@@ -2402,7 +2362,7 @@ Jl
 gu
 WH
 mp
-mt
+PD
 pc
 je
 GK
@@ -2568,7 +2528,7 @@ sJ
 sJ
 XK
 PD
-nI
+PD
 PD
 PD
 XK
@@ -2645,8 +2605,8 @@ Fu
 sW
 rd
 PD
-rl
-Te
+sJ
+sJ
 sJ
 KA
 wb
@@ -2715,8 +2675,8 @@ Fu
 Gh
 Dl
 PD
-Pq
-eS
+sJ
+sJ
 sJ
 he
 wL
@@ -2785,7 +2745,7 @@ oz
 uy
 hM
 Dq
-tm
+PD
 PD
 sJ
 sJ
@@ -2882,7 +2842,7 @@ AS
 PD
 PD
 xj
-mV
+PD
 tT
 CZ
 WT
@@ -2962,7 +2922,7 @@ Ic
 sJ
 wd
 zw
-nI
+PD
 vb
 je
 GK
@@ -2997,7 +2957,7 @@ sJ
 sJ
 Of
 PD
-nI
+PD
 vb
 sJ
 GK
@@ -3060,7 +3020,7 @@ CC
 je
 PD
 PD
-zx
+PD
 Wp
 Da
 mF
