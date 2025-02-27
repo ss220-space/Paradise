@@ -12,8 +12,9 @@
 	)
 	icon_state = "goat"
 	icon_living = "goat"
+	icon_resting = "goat_rest"
 	icon_dead = "goat_dead"
-	speak = list("БЕЕЕЕЕХХ","Беээ?")
+	speak = list("БЕЭЭХХ!","Беээ?")
 	speak_emote = list("блеет")
 	emote_hear = list("блеет")
 	emote_see = list("трясёт головой", "бьёт копытом", "грозно зыркает вокруг")
@@ -21,6 +22,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	nightvision = 6
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 4)
 	response_help = "гладит"
 	response_disarm = "осторожно отодвигает в сторону"
@@ -135,10 +137,10 @@
 		INSTRUMENTAL = "коровой",
 		PREPOSITIONAL = "корове"
 	)
-	icon_state = "cow"
-	icon_living = "cow"
+	icon_state = "cow_black"
+	icon_living = "cow_black"
+	icon_resting = "cow_black_rest"
 	icon_dead = "cow_dead"
-	icon_gib = "cow_gib"
 	speak = list("Муу?","Мууу","ММУУУУУУ!")
 	speak_emote = list("мычит","протяжно мычит")
 	emote_hear = list("ревёт")
@@ -147,9 +149,12 @@
 	speak_chance = 1
 	turns_per_move = 5
 	nightvision = 6
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 6)
 	food_type = list(/obj/item/reagent_containers/food/snacks/grown/wheat)
 	var/list/feedMessages = list("довольно мычит","благодарно мычит", "довольно помахивает хвостом")
+	var/body_color
+	var/icon_prefix = "cow"
 	response_help = "гладит"
 	response_disarm = "осторожно отодвигает в сторону"
 	response_harm = "пинает"
@@ -166,7 +171,17 @@
 	var/obj/item/udder/udder = null
 	gender = FEMALE
 	footstep_type = FOOTSTEP_MOB_SHOE
+	var/list/validColors = list("black","brown","white")
 	COOLDOWN_DECLARE(feeded_cow)
+
+/mob/living/simple_animal/cow/New()
+	..()
+	if(!body_color)
+		body_color = pick(validColors)
+	icon_state = "[icon_prefix]_[body_color]"
+	icon_living = "[icon_prefix]_[body_color]"
+	icon_resting = "[icon_prefix]_[body_color]_rest"
+	icon_dead = "[icon_prefix]_[body_color]_dead"
 
 /mob/living/simple_animal/cow/Initialize()
 	udder = new()
@@ -301,7 +316,7 @@
 #define MAX_CHICKENS 50
 GLOBAL_VAR_INIT(chicken_count, 0)
 
-/mob/living/simple_animal/chicken
+/mob/living/simple_animal/chicken // chichken
 	name = "\improper chicken"
 	desc = "Надеюсь, в этом году яйца уродятся."
 	ru_names = list(
@@ -430,7 +445,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		INSTRUMENTAL = "петухом",
 		PREPOSITIONAL = "петухе"
 	)
-
 	gender = MALE
 	icon_state = "cock"
 	icon_living = "cock"
@@ -478,6 +492,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	)
 	icon_state = "pig"
 	icon_living = "pig"
+	icon_resting = "pig_rest"
 	icon_dead = "pig_dead"
 	speak = list("Хрю?","Хрю","ХРЮ!")
 	speak_emote = list("хрюкает")
@@ -487,6 +502,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak_chance = 1
 	turns_per_move = 5
 	nightvision = 6
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/ham = 6)
 	response_help = "гладит"
 	response_disarm = "осторожно отодвигает в сторону"
@@ -686,4 +702,11 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		span_notice("Вы доите [declent_ru(ACCUSATIVE)]."),
 	)
 	return TRUE
+
+/mob/living/simple_animal/hostile/retaliate/goat/hump
+	name = "the humpback goat"
+	desc = "Очень злой и горбатый козёл. Он, кажется, привык к тесному ящику."
+	icon_state = "goat_hump"
+	icon_living = "goat_hump"
+	icon_dead = "goat_dead"
 

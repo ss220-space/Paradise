@@ -1,8 +1,18 @@
 /mob/living/simple_animal/pig/Sanya
 	name = "Саня"
 	desc = "Старый добрый хряк с сединой. Слегка подслеповат, но нюх и харизма по прежнему с ним. Чудом не пущен на мясо и дожил до почтенного возраста."
+	ru_names = list(
+		NOMINATIVE = "Саня",
+		GENITIVE = "Сани",
+		DATIVE = "Сане",
+		ACCUSATIVE = "Саню",
+		INSTRUMENTAL = "Саней",
+		PREPOSITIONAL = "Сане"
+	)
+	gender = MALE
 	icon_state = "pig_old"
 	icon_living = "pig_old"
+	icon_resting = "pig_old_rest"
 	icon_dead = "pig_old_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/ham/old = 10)
 	unique_pet = TRUE
@@ -13,12 +23,29 @@
 /mob/living/simple_animal/cow/Betsy
 	name = "Бетси"
 	desc = "Старая добрая старушка. Нескончаемый источник природного молока без ГМО. Ну почти без ГМО..."
+	ru_names = list(
+		NOMINATIVE = "Бетси",
+		GENITIVE = "Бетси",
+		DATIVE = "Бетси",
+		ACCUSATIVE = "Бетси",
+		INSTRUMENTAL = "Бетси",
+		PREPOSITIONAL = "Бетси"
+	)
+	body_color = "black"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/chicken/Wife
 	name = "Галя"
 	desc = "Почетная наседка. Жена Коммандора, следующая за ним в коммандировки по космическим станциям."
+	ru_names = list(
+		NOMINATIVE = "Галя",
+		GENITIVE = "Гали",
+		DATIVE = "Гале",
+		ACCUSATIVE = "Галю",
+		INSTRUMENTAL = "Галей",
+		PREPOSITIONAL = "Гале"
+	)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	maxHealth = 20
@@ -27,6 +54,14 @@
 /mob/living/simple_animal/cock/Commandor
 	name = "Коммандор Клакки"
 	desc = "Его великая армия бесчисленна. Ко-ко-ко."
+	ru_names = list(
+		NOMINATIVE = "Коммандор Клакки",
+		GENITIVE = "Коммандора Клакки",
+		DATIVE = "Коммандору Клакки",
+		ACCUSATIVE = "Коммандора Клакки",
+		INSTRUMENTAL = "Коммандором Клакки",
+		PREPOSITIONAL = "Коммандоре Клакки"
+	)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	maxHealth = 40	//Veteran
@@ -35,6 +70,14 @@
 /mob/living/simple_animal/goose/Scientist
 	name = "Гусар"
 	desc = "И учёный, и жнец, и на дуде игрец."
+	ru_names = list(
+		NOMINATIVE = "Гусар",
+		GENITIVE = "Гусара",
+		DATIVE = "Гусару",
+		ACCUSATIVE = "Гусара",
+		INSTRUMENTAL = "Гусаром",
+		PREPOSITIONAL = "Гусаре"
+	)
 	icon_state = "goose_labcoat"
 	icon_living = "goose_labcoat"
 	icon_dead = "goose_labcoat_dead"
@@ -49,12 +92,28 @@
 /mob/living/simple_animal/pet/cat/fat/Iriska
 	name = "Ириска"
 	desc = "Упитана. Счастлива. Бюрократы её обожают. И похоже даже черезчур сильно."
+	ru_names = list(
+		NOMINATIVE = "Ириска",
+		GENITIVE = "Ириски",
+		DATIVE = "Ириске",
+		ACCUSATIVE = "Ириску",
+		INSTRUMENTAL = "Ириской",
+		PREPOSITIONAL = "Ириске"
+	)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/pet/cat/white/Penny
 	name = "Копейка"
 	desc = "Любит таскать монетки и мелкие предметы. Успевайте прятать их!"
+	ru_names = list(
+		NOMINATIVE = "Копейка",
+		GENITIVE = "Копейки",
+		DATIVE = "Копейке",
+		ACCUSATIVE = "Копейку",
+		INSTRUMENTAL = "Копейкой",
+		PREPOSITIONAL = "Копейке"
+	)
 	icon_state = "penny"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
