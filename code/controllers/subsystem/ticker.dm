@@ -649,7 +649,7 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/setup_news_feeds()
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Public Station Announcements"
+	newChannel.channel_name = NEWS_CHANNEL_STATION
 	newChannel.author = "Automated Announcement Listing"
 	newChannel.icon = "bullhorn"
 	newChannel.frozen = TRUE

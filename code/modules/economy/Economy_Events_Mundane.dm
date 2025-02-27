@@ -13,7 +13,7 @@
 
 	//copy-pasted from the admin verbs to submit new newscaster messages
 	var/datum/feed_message/newMsg = new /datum/feed_message
-	newMsg.author = "Nyx Daily"
+	newMsg.author = NEWS_CHANNEL_NYX
 	newMsg.admin_locked = TRUE
 
 	//see if our location has custom event info for this event
@@ -126,10 +126,10 @@
 				Nyx Daily is offering discount tickets for two to see [random_name(pick(MALE,FEMALE))] live in return for eyewitness reports and up to the minute coverage."
 
 
-	GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(newMsg)
+	GLOB.news_network.get_channel_by_name(NEWS_CHANNEL_NYX)?.add_message(newMsg)
 	for(var/nc in GLOB.allNewscasters)
 		var/obj/machinery/newscaster/NC = nc
-		NC.alert_news("Nyx Daily")
+		NC.alert_news(NEWS_CHANNEL_NYX)
 
 /datum/event/trivial_news
 	endWhen = 10
@@ -137,13 +137,13 @@
 /datum/event/trivial_news/announce()
 	//copy-pasted from the admin verbs to submit new newscaster messages
 	var/datum/feed_message/newMsg = new /datum/feed_message
-	newMsg.author = "Editor Mike Hammers"
+	newMsg.author = EDITOR_GIB
 	//newMsg.is_admin_message = 1
 	var/datum/trade_destination/affected_dest = pick(GLOB.weighted_mundaneevent_locations)
 	newMsg.body = pick(file2list("config/news/trivial.txt"))
-	newMsg.body = replacetext(newMsg.body,"{{AFFECTED}}",affected_dest.name)
+	newMsg.body = replacetext(newMsg.body, "{{AFFECTED}}", affected_dest.name)
 
-	GLOB.news_network.get_channel_by_name("The Gibson Gazette")?.add_message(newMsg)
+	GLOB.news_network.get_channel_by_name(NEWS_CHANNEL_GIB)?.add_message(newMsg)
 	for(var/nc in GLOB.allNewscasters)
 		var/obj/machinery/newscaster/NC = nc
-		NC.alert_news("The Gibson Gazette")
+		NC.alert_news(NEWS_CHANNEL_GIB)
