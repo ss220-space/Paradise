@@ -645,8 +645,8 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/setup_news_feeds()
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Станционные оповещения"
-	newChannel.author = "Автоматизированная рассылка объявлений"
+	newChannel.channel_name = "Public Station Announcements"
+	newChannel.author = "Automated Announcement Listing"
 	newChannel.icon = "bullhorn"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
@@ -654,7 +654,7 @@ SUBSYSTEM_DEF(ticker)
 
 	newChannel = new /datum/feed_channel
 	newChannel.channel_name = "Nyx Daily"
-	newChannel.author = "Информационное министерство Центрального Командования"
+	newChannel.author = "CentComm Minister of Information"
 	newChannel.icon = "meteor"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
@@ -662,7 +662,7 @@ SUBSYSTEM_DEF(ticker)
 
 	newChannel = new /datum/feed_channel
 	newChannel.channel_name = "The Gibson Gazette"
-	newChannel.author = "Редактор Майк Хаммерс"
+	newChannel.author = "Editor Mike Hammers"
 	newChannel.icon = "star"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
