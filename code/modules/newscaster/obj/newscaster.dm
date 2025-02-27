@@ -16,15 +16,7 @@
   */
 /obj/machinery/newscaster
 	name = "newscaster"
-	ru_names = list(
-			NOMINATIVE = "новостник",
-			GENITIVE = "новостника",
-			DATIVE = "новостнику",
-			ACCUSATIVE = "новостник",
-			INSTRUMENTAL = "новостником",
-			PREPOSITIONAL = "новостнике"
-	)
-	desc = "Стандартный обработчик новостных лент, лицензированный НаноТрейзен, для использования на коммерческих космических станциях. Все новости, которые вам абсолютно не нужны, в одном месте!"
+	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "newscaster"
 	max_integrity = 200
@@ -60,14 +52,6 @@
 
 /obj/machinery/newscaster/security_unit
 	name = "security newscaster"
-	ru_names = list(
-			NOMINATIVE = "новостник охраны",
-			GENITIVE = "новостника охраны",
-			DATIVE = "новостнику охраны",
-			ACCUSATIVE = "новостник охраны",
-			INSTRUMENTAL = "новостником охраны",
-			PREPOSITIONAL = "новостнике охраны"
-	)
 	is_security = TRUE
 
 /obj/machinery/newscaster/New()
@@ -152,17 +136,17 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>Вы [anchored ? "от" : "за"]кручиваете [name]</span>")
+	to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>")
 	if(!I.use_tool(src, user, 60, volume = I.tool_volume))
 		return
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 	if(stat & BROKEN)
-		to_chat(user, "<span class='warning'>Разбитые части [src.declent_ru(GENITIVE)] падают на пол.</span>")
+		to_chat(user, "<span class='warning'>The broken remains of [src] fall on the ground.</span>")
 		new /obj/item/stack/sheet/metal(loc, 5)
 		new /obj/item/shard(loc)
 		new /obj/item/shard(loc)
 	else
-		to_chat(user, "<span class='notice'>Вы [anchored ? "от" : "за"]кручиваете [name].</span>")
+		to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
 		var/obj/item/mounted/frame/newscaster_frame/frame = new(loc)
 		transfer_fingerprints_to(frame)
 	qdel(src)
@@ -390,8 +374,8 @@
 				var/obj/item/photo/P = usr.get_active_hand()
 				if(istype(P) && usr.drop_transfer_item_to_loc(P, src))
 					photo = P
-					usr.visible_message("<span class='notice'>[usr] вставил[genderize_ru(usr.gender, "", "а", "о", "и")] [P] в слот для фотографий [src.declent_ru(GENITIVE)]</span>",\
-										"<span class='notice'>Вы вставили [P] в слот для фотографий [src.declent_ru(GENITIVE)].</span>")
+					usr.visible_message("<span class='notice'>[usr] inserts [P] into [src]'s photo slot.</span>",\
+										"<span class='notice'>You insert [P] into [src]'s photo slot.</span>")
 					playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 			else if(issilicon(usr))
 				var/mob/living/silicon/M = usr
@@ -402,31 +386,31 @@
 				P.construct(selection)
 				P.forceMove(src)
 				photo = P
-				visible_message("<span class='notice'>Слот для фотографий [src.declent_ru(GENITIVE)] тихо жужжит когда в нем печатается [P]</span>")
+				visible_message("<span class='notice'>[src]'s photo slot quietly whirs as it prints [P] inside it.</span>")
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 15, TRUE)
 		if("eject_photo")
 			eject_photo(usr)
 			return FALSE // Updating handled in that proc
 		if("censor_channel")
 			if(is_security && !get_scanned_user(usr)["security"])
-				set_temp("У вас нет разрешения на выполнение этого действия. Убедитесь, что ваша ID-карта имеет соответствующий доступ.", "danger")
+				set_temp("You do not have permission to perform this action. Please ensure your ID has appropiate access.", "danger")
 				return
 			var/datum/feed_channel/FC = locateUID(params["uid"])
 			if(!istype(FC))
 				return
 			if(FC.admin_locked && !usr.can_admin_interact())
-				set_temp("Этот канал был заблокирован Центральным Командованием и, следовательно, не может быть разблокирован.", "danger")
+				set_temp("This channel has been locked by CentComm and thus cannot be (un)censored.", "danger")
 				return
 			FC.censored = !FC.censored
 		if("censor_author", "censor_story")
 			if(is_security && !get_scanned_user(usr)["security"])
-				set_temp("У вас нет разрешения на выполнение этого действия. Убедитесь, что ваша ID-карта имеет соответствующий доступ.", "danger")
+				set_temp("You do not have permission to perform this action. Please ensure your ID has appropiate access.", "danger")
 				return
 			var/datum/feed_message/FM = locateUID(params["uid"])
 			if(!istype(FM))
 				return
 			if(FM.admin_locked && !usr.can_admin_interact())
-				set_temp("Эта статья была заблокирована Центральным Командованием и, следовательно, не может быть разблокирована.", "danger")
+				set_temp("This story has been locked by CentComm and thus cannot be censored in any way.", "danger")
 				return
 			if(action == "censor_author")
 				FM.censor_flags = (FM.censor_flags & CENSOR_AUTHOR) ? (FM.censor_flags & ~CENSOR_AUTHOR) : (FM.censor_flags|CENSOR_AUTHOR)
@@ -436,16 +420,16 @@
 				return FALSE
 		if("clear_wanted_notice")
 			if(is_security && !get_scanned_user(usr)["security"])
-				set_temp("У вас нет разрешения на выполнение этого действия. Пожалуйста, убедитесь, что ваша ID-карта имеет соответствующий доступ.", "danger")
+				set_temp("You do not have permission to perform this action. Please ensure your ID has appropiate access.", "danger")
 				return
 			var/datum/feed_message/WN = GLOB.news_network.wanted_issue
 			if(!WN)
 				return
 			if(WN.admin_locked && !usr.can_admin_interact())
-				set_temp("Это уведомление о розыске было заблокировано Центральным Командованием и, следовательно, не может быть изменено.", "danger")
+				set_temp("This wanted notice has been locked by CentComm and thus cannot be altered.", "danger")
 				return
 			GLOB.news_network.wanted_issue = null
-			set_temp("Уведомление о розыске снято.", update_now = TRUE)
+			set_temp("Wanted notice cleared.", update_now = TRUE)
 			for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
 				NC.update_icon(UPDATE_OVERLAYS)
 			return FALSE
@@ -455,7 +439,7 @@
 			if(is_printing)
 				return
 			if(paper_remaining <= 0)
-				set_temp("Больше нет доступной бумаги.", "danger")
+				set_temp("There is no more paper available.", "danger")
 				return
 			print_newspaper()
 		else
@@ -512,10 +496,10 @@
 					var/datum/feed_channel/FC = null
 					if(id == "create_channel") // Channel creation
 						if(GLOB.news_network.get_channel_by_name(name))
-							set_temp("Канал с таким названием уже существует.", "danger")
+							set_temp("A channel with this name already exists.", "danger")
 							return
 						if(GLOB.news_network.get_channel_by_author(author))
-							set_temp("Канал с таким именем автора уже существует.", "danger")
+							set_temp("A channel with this author name already exists.", "danger")
 							return
 						FC = new
 						GLOB.news_network.channels += FC
@@ -534,7 +518,7 @@
 					FC.author = usr.can_admin_interact() ? author : scanned_user
 					FC.is_public = public
 					FC.admin_locked = usr.can_admin_interact() && admin_locked
-					set_temp("Канал [FC.channel_name] создан.", "good")
+					set_temp("Channel [FC.channel_name] created.", "good")
 				if("create_story")
 					var/author = trim(arguments["author"])
 					var/channel = trim(arguments["channel"])
@@ -568,7 +552,7 @@
 					screen = NEWSCASTER_CHANNEL
 					viewing_channel = FC
 					eject_photo(usr)
-					set_temp("Статья была опубликована в канале [FC.channel_name].", "good")
+					set_temp("Story published to channel [FC.channel_name].", "good")
 				if("wanted_notice")
 					if(id == "wanted_notice" && !(is_security || usr.can_admin_interact()))
 						return
@@ -581,13 +565,13 @@
 					var/datum/feed_message/WN = GLOB.news_network.wanted_issue
 					if(WN)
 						if(WN.admin_locked && !usr.can_admin_interact())
-							set_temp("Это уведомление о розыске было заблокировано Центральным Командованием и, следовательно, не может быть изменено.", "danger")
+							set_temp("This wanted notice has been locked by CentComm and thus cannot be altered.", "danger")
 							return
 					else
 						WN = new
 						GLOB.news_network.wanted_issue = WN
 					WN.author = usr.can_admin_interact() ? author : scanned_user
-					WN.title = "РОЗЫСК: [copytext_char(name, 1, WANTED_NOTICE_NAME_MAX_LENGTH)]"
+					WN.title = "WANTED: [copytext_char(name, 1, WANTED_NOTICE_NAME_MAX_LENGTH)]"
 					WN.body = copytext_char(description, 1, WANTED_NOTICE_DESC_MAX_LENGTH)
 					WN.img = photo?.img
 					WN.admin_locked = usr.can_admin_interact() && admin_locked
@@ -597,7 +581,7 @@
 						var/obj/machinery/newscaster/NC = nc
 						NC.alert_news(wanted_notice = TRUE)
 					eject_photo(usr)
-					set_temp("Уведомление о розыске опубликовано.", "good")
+					set_temp("Wanted notice distributed.", "good")
 				else
 					return FALSE
 		else
@@ -616,9 +600,9 @@
 	photo = null
 	P.forceMove(loc)
 	if(ishuman(user) && user.put_in_active_hand(P, ignore_anim = FALSE))
-		visible_message("<span class='notice'>[src] извлекает [P] из слота для фотографий в руку [user]")
+		visible_message("<span class='notice'>[src] ejects [P] from its photo slot into [user]'s hand.")
 	else
-		visible_message("<span class='notice'>[src] извлекает [P] из слота для фотографий.")
+		visible_message("<span class='notice'>[src] ejects [P] from its photo slot.")
 	playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 	SStgui.update_uis(src)
 
@@ -677,7 +661,7 @@
 	// Print it
 	is_printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-	visible_message("<span class='notice'>[capitalize(src.declent_ru(NOMINATIVE))] жужжит, печатая газету.</span>")
+	visible_message("<span class='notice'>[src] whirs as it prints a newspaper.</span>")
 	addtimer(CALLBACK(src, PROC_REF(print_newspaper_finish)), 5 SECONDS)
 
 /**
