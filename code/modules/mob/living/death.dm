@@ -80,8 +80,6 @@
 	update_stamina_hud()
 	med_hud_set_health()
 	med_hud_set_status()
-	if(!gibbed && !QDELETED(src))
-		addtimer(CALLBACK(src, PROC_REF(med_hud_set_status)), DEFIB_TIME_LIMIT + 1)
 
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s

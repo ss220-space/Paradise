@@ -75,7 +75,8 @@
 	var/bleedsuppress = 0 //for stopping bloodloss
 
 	var/heartbeat = 0
-	var/receiving_cpr = FALSE
+	/// UID of the person who is giving this mob CPR.
+	var/receiving_cpr_from
 
 	var/datum/body_accessory/body_accessory = null
 	/// Name of tail image in species effects icon file.

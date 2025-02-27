@@ -227,7 +227,7 @@
 	// Run through some quick failure states after shocking.
 	var/time_dead = world.time - target.timeofdeath
 
-	if((time_dead > DEFIB_TIME_LIMIT) || !target.get_organ_slot(INTERNAL_ORGAN_HEART))
+	if(!target.is_revivable() || !target.get_organ_slot(INTERNAL_ORGAN_HEART))
 		defib_ref.atom_say("Реанимация не удалась - обнаружены необратимые повреждения сердца!")
 		defib_success = FALSE
 	else if(target.getBruteLoss() >= 180 || target.getFireLoss() >= 180 || target.getCloneLoss() >= 180)
@@ -258,7 +258,7 @@
 		target.heal_damages(tox = heal_amount, oxy = heal_amount)
 
 		// Inflict some brain damage scaling with time spent dead
-		var/defib_time_brain_damage = min(100 * time_dead / DEFIB_TIME_LIMIT, 99) // 20 from 1 minute onward, +20 per minute up to 99
+		var/defib_time_brain_damage = min(100 * time_dead / BASE_DEFIB_TIME_LIMIT, 99) // 20 from 1 minute onward, +20 per minute up to 99
 		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > target.getBrainLoss())
 			target.setBrainLoss(defib_time_brain_damage)
 
@@ -276,6 +276,10 @@
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		if(ishuman(target.pulledby)) // for some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
 			excess_shock(user, target, target.pulledby, defib_ref)
+		if(target.receiving_cpr_from)
+			var/mob/living/carbon/human/H = locateUID(target.receiving_cpr_from)
+			if(istype(H))
+				excess_shock(user, target, H, defib_ref)
 
 		target.med_hud_set_health()
 		target.med_hud_set_status()

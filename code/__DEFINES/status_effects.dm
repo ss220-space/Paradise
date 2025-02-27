@@ -209,3 +209,6 @@
 
 /// Makes you lean on something
 #define STATUS_EFFECT_LEANING /datum/status_effect/leaning
+
+/// This status effect allows a mob to be revived with a defibrillator.
+#define STATUS_EFFECT_REVIVABLE /datum/status_effect/limited_bonus/revivable

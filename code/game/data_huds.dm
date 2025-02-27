@@ -207,7 +207,7 @@
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	// To the right of health bar
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
+		var/revivable = is_revivable()
 		if(!ghost_can_reenter() || suiciding) // DNR or AntagHUD or Suicide
 			revivable = FALSE
 		if(revivable)

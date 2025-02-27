@@ -1016,6 +1016,8 @@
 #define COMSIG_HUMAN_SPECIES_CHANGED "human_species_changed"
 /// Source: /mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
 #define COMSIG_HUMAN_EARLY_HANDLE_ENVIRONMENT "human_early_handle_environment"
+/// Sent from mob/living/carbon/human/do_cpr(): (mob/living/carbon/human/H, new_seconds_of_life)
+#define COMSIG_HUMAN_RECEIVE_CPR "human_receieve_cpr"
 
 ///from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
 #define COMSIG_HUMAN_CHECK_SHIELDS "human_check_shields"

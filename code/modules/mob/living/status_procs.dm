@@ -910,6 +910,12 @@
 		force_gene_block(block, FALSE)
 
 
+// Revivability
+
+/mob/living/proc/is_revivable()
+	return has_status_effect(/datum/status_effect/limited_bonus/revivable)
+
+
 ///Unignores all slowdowns that lack the IGNORE_NOSLOW flag.
 /mob/living/proc/unignore_slowdown(source)
 	REMOVE_TRAIT(src, TRAIT_IGNORESLOWDOWN, source)

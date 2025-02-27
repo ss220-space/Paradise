@@ -605,7 +605,7 @@ REAGENT SCANNER
 	if(H.timeofdeath)
 		data["timeofdeath"] = "[station_time_timestamp("hh:mm:ss", H.timeofdeath)]"
 		var/tdelta = round(world.time - H.timeofdeath)
-		if(tdelta < DEFIB_TIME_LIMIT && !DNR)
+		if(H.is_revivable() && !DNR)
 			data["timetodefib"] = "[DisplayTimeText(tdelta)]"
 			data["timetodefibText"] = "Дефибриляция возможна!"
 		else
@@ -811,7 +811,7 @@ REAGENT SCANNER
 	if(H.timeofdeath && (H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH)))
 		scan_data += "Время смерти: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]"
 		var/tdelta = round(world.time - H.timeofdeath)
-		if(tdelta < DEFIB_TIME_LIMIT && !DNR)
+		if(H.is_revivable() && !DNR)
 			scan_data += "<span class='danger'>&emsp;Субъект умер [DisplayTimeText(tdelta)] назад"
 			scan_data += "&emsp;Дефибриляция возможна!</span>"
 		else
