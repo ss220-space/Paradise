@@ -598,10 +598,6 @@ SUBSYSTEM_DEF(ticker)
 		emobtext += "<br>"
 		to_chat(world, emobtext)
 
-	for(var/team_type in GLOB.antagonist_teams)
-		var/datum/team/team = GLOB.antagonist_teams[team_type]
-		team.declare_completion()
-		
 	mode.declare_completion()//To declare normal completion.
 
 	//calls auto_declare_completion_* for all modes
@@ -650,23 +646,23 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/setup_news_feeds()
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
 	newChannel.channel_name = NEWS_CHANNEL_STATION
-	newChannel.author = "Automated Announcement Listing"
+	newChannel.author = "Автоматический листинг оповещений"
 	newChannel.icon = "bullhorn"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
 	GLOB.news_network.channels += newChannel
 
 	newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Nyx Daily"
-	newChannel.author = "CentComm Minister of Information"
+	newChannel.channel_name = "Никс Дейли"
+	newChannel.author = "Министерство Информации Центрального Командования"
 	newChannel.icon = "meteor"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
 	GLOB.news_network.channels += newChannel
 
 	newChannel = new /datum/feed_channel
-	newChannel.channel_name = "The Gibson Gazette"
-	newChannel.author = "Editor Mike Hammers"
+	newChannel.channel_name = Газета Гибсона"
+	newChannel.author = "Редактор Майк Хаммерс"
 	newChannel.icon = "star"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
