@@ -59,7 +59,7 @@
 
 //COFFEE! SQUEEEEEEEEE!
 /mob/living/simple_animal/crab/Coffee
-	name = "coffee"
+	name = "Coffee"
 	real_name = "Коффи"
 	desc = "Любитель потягать топливные баки и штангу. Коффи? Кофе?"
 	ru_names = list(
