@@ -124,6 +124,14 @@
 /mob/living/simple_animal/pet/cat/birman/Crusher
 	name = "Бедокур"	//Не цель для воров
 	desc = "Любит крушить всё что не прикручено. Нужно вовремя прибираться."
+	ru_names = list(
+		NOMINATIVE = "Бедокур",
+		GENITIVE = "Бедокура",
+		DATIVE = "Бедокуру",
+		ACCUSATIVE = "Бедокура",
+		INSTRUMENTAL = "Бедокуром",
+		PREPOSITIONAL = "Бедокуре"
+	)
 	icon_state = "crusher"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
@@ -132,6 +140,14 @@
 /mob/living/simple_animal/mouse/hamster/Representative
 	name = "Представитель Алексей"
 	desc = "Представитель федерации хомяков. Проявите уважение при его виде, ведь он с позитивным исходом решил немало дипломатических вопросов между федерацией мышей, республикой крыс и корпорацией Нанотрейзен. Да и кто вообще хомяка так назвал?!"
+	ru_names = list(
+		NOMINATIVE = "Представитель Алексей",
+		GENITIVE = "Представителя Алексея",
+		DATIVE = "Представителю Алексею",
+		ACCUSATIVE = "Представителя Алексея",
+		INSTRUMENTAL = "Представителем Алексеем",
+		PREPOSITIONAL = "Представителе Алексее"
+	)
 	icon_state = "hamster_rep"
 	icon_living = "hamster_rep"
 	icon_dead = "hamster_rep_dead"
@@ -146,6 +162,14 @@
 /mob/living/simple_animal/pet/dog/bullterrier/Genn
 	name = "Геннадий"
 	desc = "Собачий аристократ. Выглядит очень важным и начитанным. Доброжелательный любимец ассистентов."
+	ru_names = list(
+		NOMINATIVE = "Генеадий",
+		GENITIVE = "Геннадия",
+		DATIVE = "Геннадию",
+		ACCUSATIVE = "Геннадия",
+		INSTRUMENTAL = "Геннадием",
+		PREPOSITIONAL = "Геннадии"
+	)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	maxHealth = 5
@@ -156,6 +180,14 @@
 	name = "Брейн"
 	real_name = "Брейн"
 	desc = "Сообразительная личная лабораторная крыса директора исследований, даже освоившая речь. Настолько часто сбегал, что его перестали помещать в клетку. Он явно хочет захватить мир. Где-то спрятался его напарник..."
+	ru_names = list(
+		NOMINATIVE = "Брейн",
+		GENITIVE = "Брейна",
+		DATIVE = "Брейну",
+		ACCUSATIVE = "Брейна",
+		INSTRUMENTAL = "Брейном",
+		PREPOSITIONAL = "Брейне"
+	)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	maxHealth = 20
@@ -166,11 +198,27 @@
 /obj/effect/decal/remains/mouse/Pinkie
 	name = "Пинки"
 	desc = "Когда-то это был напарник самой сообразительной крысы в мире. К сожалению он таковым не являлся..."
+	ru_names = list(
+		NOMINATIVE = "Пинки",
+		GENITIVE = "Пинки",
+		DATIVE = "Пинки",
+		ACCUSATIVE = "Пинки",
+		INSTRUMENTAL = "Пинки",
+		PREPOSITIONAL = "Пинки"
+	)
 	anchored = TRUE
 
 /mob/living/simple_animal/mouse/rat/Ratatui
 	name = "Рататуй"
 	real_name = "Рататуй"
+	ru_names = list(
+		NOMINATIVE = "Рататуй",
+		GENITIVE = "Рататуя",
+		DATIVE = "Рататую",
+		ACCUSATIVE = "Рататуя",
+		INSTRUMENTAL = "Рататуем",
+		PREPOSITIONAL = "Рататуе"
+	)
 	desc = "Личная крыса шеф повара, помогающая ему при готовке наиболее изысканных блюд. До момента пока он не пропадет и повар не начнет готовить что-то новенькое..."
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
@@ -180,6 +228,14 @@
 /mob/living/simple_animal/mouse/rat/irish/Remi
 	name = "Реми"
 	real_name = "Реми"
+	ru_names = list(
+		NOMINATIVE = "Брейн",
+		GENITIVE = "Брейна",
+		DATIVE = "Брейну",
+		ACCUSATIVE = "Брейна",
+		INSTRUMENTAL = "Брейном",
+		PREPOSITIONAL = "Брейне"
+	)
 	desc = "Близкий друг Рататуя. Не любимец повара, но пока тот не мешает на кухне, ему разрешили здесь остаться. Очень толстая крыса."
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
@@ -190,6 +246,14 @@
 /mob/living/simple_animal/pet/dog/fox/fennec/Fenya
 	name = "Феня"
 	desc = "Миниатюрная лисичка c важным видом и очень большими ушами. Был пойман во время разливания огромного мороженого по формочкам и теперь Магистрат держит его при себе и следит за ним. Но похоже что ему даже нравится быть частью правосудия."
+	ru_names = list(
+		NOMINATIVE = "Феня",
+		GENITIVE = "Фени",
+		DATIVE = "Фене",
+		ACCUSATIVE = "Феню",
+		INSTRUMENTAL = "Феней",
+		PREPOSITIONAL = "Фене"
+	)
 	resting = TRUE
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
@@ -198,6 +262,14 @@
 	name = "Перрито"
 	real_name = "Перрито"
 	desc = "Собака, обожающая котов, особенно в сапогах, прекрасно лающая на Испанском, прошла терапевтические курсы, готова выслушать все ваши проблемы и выдать вам целебных объятий с завершением в виде почесыванием животика."
+	ru_names = list(
+		NOMINATIVE = "Перрито",
+		GENITIVE = "Перрито",
+		DATIVE = "Перрито",
+		ACCUSATIVE = "Перрито",
+		INSTRUMENTAL = "Перрито",
+		PREPOSITIONAL = "Перрито"
+	)
 	resting = TRUE
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
@@ -206,6 +278,14 @@
 	name = "Фрэнк"
 	real_name = "Фрэнк"
 	desc = "Мопс полученный в результате эксперимента ученых в черном. Почему его не забрали интересный вопрос. Похоже он всем надоел своей болтовней, после чего его лишили дара речи."
+	ru_names = list(
+		NOMINATIVE = "Фрэнк",
+		GENITIVE = "Френка",
+		DATIVE = "Фрэнку",
+		ACCUSATIVE = "Фрэнка",
+		INSTRUMENTAL = "Фрэнком",
+		PREPOSITIONAL = "Френке"
+	)
 	resting = TRUE
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
