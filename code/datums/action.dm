@@ -671,6 +671,9 @@
 	name = "Mirror Walk"
 	desc = "Use near a mirror to enter it."
 
+/datum/action/item_action/accessory/mining_camera
+	name = "Переключить камеру"
+
 //Preset for spells
 /datum/action/spell_action
 	check_flags = 0
