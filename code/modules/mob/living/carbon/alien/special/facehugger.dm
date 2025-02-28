@@ -215,7 +215,7 @@
 			qdel(mask)
 
 		else if(mask)
-			if(prob(40))
+			if(prob(80))
 				return FALSE
 
 			if(istype(mask, /obj/item/clothing/mask/muzzle) && real)
@@ -286,7 +286,6 @@
 
 		try_drop_hugger(target)
 		holdered_mob.on_impregnated()
-		to_chat(target, span_boldwarning("Вы не помните, что на вас напрыгнул лицехват. Продолжайте жить как будто ничего не произошло, по крайней мере пока не почувствуете себя плохо или не обнаружите труп лицехвата рядом с вами."))
 
 		if(!target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 			new /obj/item/organ/internal/body_egg/alien_embryo(target)

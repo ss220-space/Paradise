@@ -29,7 +29,7 @@
 	obj_damage = FALSE
 	ranged = 1
 	ranged_message = "прыгает"
-	ranged_cooldown_time = 30
+	ranged_cooldown_time = 3 SECONDS
 	can_hide = TRUE
 	AI_delay_max = 0.5 SECONDS
 	mob_size = MOB_SIZE_SMALL
@@ -180,14 +180,14 @@
 		if(hugger.stat == DEAD)
 			death()
 		else
-			Stun(0.5 SECONDS, ignore_canstun = TRUE)
+			Stun(2 SECONDS, ignore_canstun = TRUE)
 			update_icons()
 		QDEL_NULL(hugger_holder)
 		if(CanHug(target))
 			LoseTarget()
 		return TRUE
 	else
-		Stun(0.5 SECONDS, ignore_canstun = TRUE)
+		Stun(2 SECONDS, ignore_canstun = TRUE)
 		update_icons()
 		return FALSE
 
