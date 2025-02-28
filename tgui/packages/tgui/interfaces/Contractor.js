@@ -32,7 +32,9 @@ const terminalMessages = [
   'Ожидание ответа...',
   'Ожидание ответа...',
   'Ожидание ответа...',
-  'Получен ответ, код подтверждения ' + Math.round(Math.random() * 25500) + '...',
+  'Получен ответ, код подтверждения ' +
+    Math.round(Math.random() * 25500) +
+    '...',
   'АККАУНТ ПОДТВЕРЖДЁН ' + Math.round(Math.random() * 20000),
   'Создание личной учётной записи...',
   'СОЗДАНА УЧЕТНАЯ ЗАПИСЬ КОНТРАКТНИКА',
@@ -141,12 +143,18 @@ const Summary = (properties, context) => {
         </Box>
         <Box flexBasis="50%">
           <LabeledList>
-            <LabeledList.Item label="Завершённые контракты" verticalAlign="middle">
+            <LabeledList.Item
+              label="Завершённые контракты"
+              verticalAlign="middle"
+            >
               <Box height="5px" lineHeight="20px" display="inline-block">
                 {completed_contracts}
               </Box>
             </LabeledList.Item>
-            <LabeledList.Item label="Статус Контрактника" verticalAlign="middle">
+            <LabeledList.Item
+              label="Статус Контрактника"
+              verticalAlign="middle"
+            >
               АКТИВЕН
             </LabeledList.Item>
           </LabeledList>
@@ -292,8 +300,8 @@ const Contracts = (properties, context) => {
                 {!!contract.dead_extraction && (
                   <Box color="bad" mt="0.5rem" bold>
                     <Icon name="exclamation-triangle" mr="0.5rem" />
-                    Награда в виде телекристаллов существенно уменьшилась,
-                    так как цель была мертва в момент эвакуации.
+                    Награда в виде телекристаллов существенно уменьшилась, так
+                    как цель была мертва в момент эвакуации.
                   </Box>
                 )}
                 {!!contract.fail_reason && (
