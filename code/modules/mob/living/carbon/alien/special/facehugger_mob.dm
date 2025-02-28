@@ -167,6 +167,8 @@
 
 
 /mob/living/simple_animal/hostile/facehugger/attack_proc()
+	if(impregnated)
+		return FALSE
 	if(isstructure(target) && target.attack_animal(src))
 		return TRUE
 	return try_hug(target)
