@@ -3,6 +3,14 @@
 /mob/living/simple_animal/hostile/carp
 	name = "space carp"
 	desc = "Свирепое, клыкастое существо, похожее на рыбу."
+	ru_names = list(
+		NOMINATIVE = "космокарп",
+		GENITIVE = "космокарпа",
+		DATIVE = "космокарпу",
+		ACCUSATIVE = "космокарпа",
+		INSTRUMENTAL = "космокарпом",
+		PREPOSITIONAL = "космокарпе"
+	)
 	icon = 'icons/mob/carp.dmi'
 	icon_state = "base"
 	icon_living = "base"
@@ -145,6 +153,14 @@
 	icon = 'icons/mob/alienqueen.dmi'
 	name = "Mega Space Carp"
 	desc = "Свирепое, клыкастое существо, напоминающее акулу. Похоже, оно особенно озлоблено."
+	ru_names = list(
+		NOMINATIVE = "мегакосмокарп",
+		GENITIVE = "мегакосмокарпа",
+		DATIVE = "мегакосмокарпу",
+		ACCUSATIVE = "мегакосмокарпа",
+		INSTRUMENTAL = "мегакосмокарпом",
+		PREPOSITIONAL = "мегакосмокарпе"
+	)
 	icon_state = "megacarp"
 	icon_living = "megacarp"
 	icon_dead = "megacarp_dead"
@@ -188,6 +204,14 @@
 /mob/living/simple_animal/hostile/carp/sea
 	name = "sea carp"
 	desc = "Большая рыба, схожая с некой космической угрозой."
+	ru_names = list(
+		NOMINATIVE = "морской карп",
+		GENITIVE = "морского карпа",
+		DATIVE = "морскому карпу",
+		ACCUSATIVE = "морского карпа",
+		INSTRUMENTAL = "морским карпом",
+		PREPOSITIONAL = "морском карпе"
+	)
 	icon_state = "carp"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 1)
 	response_help = "гладит"
@@ -209,6 +233,14 @@
 /mob/living/simple_animal/hostile/carp/mcarp
 	name = "mutated Carp"
 	desc = "Космический карп со странной внешностью."
+	ru_names = list(
+		NOMINATIVE = "мутировавший карп",
+		GENITIVE = "мутирововшего карпа",
+		DATIVE = "мутирововшему карпу",
+		ACCUSATIVE = "мутировавшего карпа",
+		INSTRUMENTAL = "мутировавшим карпом",
+		PREPOSITIONAL = "мутировавшем карпе"
+	)
 	icon_state = "Mcarp"
 	icon_living = "Mcarp"
 	icon_dead = "MCarp_Dead"
@@ -222,6 +254,14 @@
 /mob/living/simple_animal/hostile/carp/koi
 	name = "space koi"
 	desc = "Дружелюбный кой, бороздящий просторы космоса."
+	ru_names = list(
+		NOMINATIVE = "космокой",
+		GENITIVE = "космокоя",
+		DATIVE = "космокою",
+		ACCUSATIVE = "космокоя",
+		INSTRUMENTAL = "космокоем",
+		PREPOSITIONAL = "космокое"
+	)
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "koi1"
 	icon_living = "koi1"
