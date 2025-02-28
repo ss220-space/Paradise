@@ -2,6 +2,15 @@
 /obj/item/camera_bug
 	name = "camera bug"
 	desc = "Для незаконного слежения через сеть камер наблюдения."
+	ru_names = list(
+		NOMINATIVE = "переносной монитор",
+		GENITIVE = "переносного монитора",
+		DATIVE = "переносному монитору",
+		ACCUSATIVE = "переносной монитор",
+		INSTRUMENTAL = "переносным монитором",
+		PREPOSITIONAL = "переносном мониторе"
+	)
+	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state	= "camera_bug"
 	w_class		= WEIGHT_CLASS_TINY

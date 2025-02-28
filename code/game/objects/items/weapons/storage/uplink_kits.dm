@@ -15,6 +15,7 @@
 /obj/item/storage/box/syndie_kit
 	name = "Box"
 	desc = "A sleek, sturdy box"
+	gender = MALE
 	icon_state = "box_of_doom"
 	gender = MALE
 
@@ -252,6 +253,14 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/chameleon
 	name = "chameleon kit"
+	ru_names = list(
+		NOMINATIVE = "набор одежды \"Хамелеон\"",
+		GENITIVE = "набора одежды \"Хамелеон\"",
+		DATIVE = "набору одежды \"Хамелеон\"",
+		ACCUSATIVE = "набор одежды \"Хамелеон\"",
+		INSTRUMENTAL = "набором одежды \"Хамелеон\"",
+		PREPOSITIONAL = "наборе одежды \"Хамелеон\""
+	)
 
 /obj/item/storage/box/syndie_kit/chameleon/populate_contents()
 	new /obj/item/clothing/under/chameleon(src)
@@ -336,6 +345,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		INSTRUMENTAL = "набором оглушающих перчаток",
 		PREPOSITIONAL = "наборе оглушающих перчаток"
 	)
+	gender = MALE
 
 /obj/item/storage/box/syndie_kit/stungloves/populate_contents()
 	new /obj/item/clothing/gloves/color/yellow/stun(src)

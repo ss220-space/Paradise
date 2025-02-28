@@ -14,6 +14,7 @@
 /obj/item/card
 	name = "card"
 	desc = "A card."
+	gender = MALE
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	pickup_sound = 'sound/items/handling/card_pickup.ogg'
@@ -373,6 +374,14 @@
 
 /obj/item/card/id/syndicate
 	name = "agent card"
+	ru_names = list(
+		NOMINATIVE = "карта агента",
+		GENITIVE = "карты агента",
+		DATIVE = "карте агента",
+		ACCUSATIVE = "карту агента",
+		INSTRUMENTAL = "картой агента",
+		PREPOSITIONAL = "карте агента"
+	)
 	var/list/initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS)
 	origin_tech = "syndicate=1"
 	var/mob/living/carbon/human/registered_user = null

@@ -8,12 +8,12 @@
 	name = "contractor baton"
 	desc = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets."
 	ru_names = list(
-		NOMINATIVE = "дубинка контрактора",
-		GENITIVE = "дубинки контрактора",
-		DATIVE = "дубинке контрактора",
-		ACCUSATIVE = "дубинку контрактора",
-		INSTRUMENTAL = "дубинкой контрактора",
-		PREPOSITIONAL = "дубинке контрактора"
+		NOMINATIVE = "дубинка контрактника",
+		GENITIVE = "дубинки контрактника",
+		DATIVE = "дубинке контрактника",
+		ACCUSATIVE = "дубинку контрактника",
+		INSTRUMENTAL = "дубинкой контрактника",
+		PREPOSITIONAL = "дубинке контрактника"
 	)
 	icon_state = "contractor_baton"
 	affect_cyborgs = TRUE

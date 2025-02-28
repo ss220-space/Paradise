@@ -41,6 +41,7 @@
 		INSTRUMENTAL = "Синди-Шкафомехом",
 		PREPOSITIONAL = "Синди-Шкафомехе"
 	)
+	gender = MALE
 	icon = 'icons/obj/mecha/lockermech.dmi'
 	icon_state = "syndielockermech"
 	initial_icon = "syndielockermech"

@@ -563,6 +563,7 @@
 		INSTRUMENTAL = "патронташем",
 		PREPOSITIONAL = "патронташе"
 	)
+	gender = MALE
 	icon_state = "bandolier"
 	item_state = "bandolier"
 	storage_slots = 16

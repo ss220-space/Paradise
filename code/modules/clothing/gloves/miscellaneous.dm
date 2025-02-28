@@ -159,6 +159,7 @@
 		INSTRUMENTAL = "оглушающими перчатками",
 		PREPOSITIONAL = "оглушающих перчатках"
 	)
+	gender = PLURAL
 	var/obj/item/stock_parts/cell/cell = null
 	var/stun_strength = 2 SECONDS
 	var/stun_cost = 1500
