@@ -123,20 +123,22 @@
 	. = ..()
 	if(!istype(user) || !LAZYLEN(clothing_traits))
 		return .
-
-	for(var/trait in clothing_traits)
-		REMOVE_CLOTHING_TRAIT(user, src, trait)
-
+	remove_clothing_traits(user)
 
 /obj/item/clothing/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
 	if(!istype(user) || !LAZYLEN(clothing_traits) || !(slot_flags & slot))
 		return .
 
+	add_clothing_traits(user)
+
+/obj/item/clothing/proc/remove_clothing_traits(mob/living/user)
+	for(var/trait in clothing_traits)
+		REMOVE_CLOTHING_TRAIT(user, src, trait)
+
+/obj/item/clothing/proc/add_clothing_traits(mob/living/user)
 	for(var/trait in clothing_traits)
 		ADD_CLOTHING_TRAIT(user, src, trait)
-
-
 /**
   * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
   */

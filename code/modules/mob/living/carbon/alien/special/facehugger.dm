@@ -115,6 +115,12 @@
 		pre_impregnate(user)
 	. = ..()
 
+/obj/item/clothing/mask/facehugger/add_clothing_traits(mob/living/user)
+	if(stat == DEAD)
+		return
+	. = ..()
+	
+
 /obj/item/clothing/mask/facehugger/dropped(mob/living/user, slot, silent, mob/living/carbon/alien/alien)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(check_mob_inside)), 0.1 SECONDS)
@@ -280,7 +286,7 @@
 
 		try_drop_hugger(target)
 		holdered_mob.on_impregnated()
-		to_chat(target, span_boldwarning("Вы не помните, что на вас напрыгнул лицехват. Продолжайте жить как будто ничего не произошло, по крайней мере пока не почуствуете себя плохо или не обнаружете труп лицехвата рядом с вами."))
+		to_chat(target, span_boldwarning("Вы не помните, что на вас напрыгнул лицехват. Продолжайте жить как будто ничего не произошло, по крайней мере пока не почувствуете себя плохо или не обнаружите труп лицехвата рядом с вами."))
 
 		if(!target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 			new /obj/item/organ/internal/body_egg/alien_embryo(target)
@@ -331,7 +337,8 @@
 	stat = DEAD
 	if(holdered_mob.stat != DEAD)
 		holdered_mob?.death()
-
+	if(iscarbon(loc))
+		remove_clothing_traits(loc)
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сворачивается в клубок!"))
 
 /proc/CanHug(mob/living/hugged_mob)
