@@ -255,12 +255,12 @@
 	name = "space koi"
 	desc = "Дружелюбный кой, бороздящий просторы космоса."
 	ru_names = list(
-		NOMINATIVE = "космокой",
-		GENITIVE = "космокоя",
-		DATIVE = "космокою",
-		ACCUSATIVE = "космокоя",
-		INSTRUMENTAL = "космокоем",
-		PREPOSITIONAL = "космокое"
+		NOMINATIVE = "космический кой",
+		GENITIVE = "космического коя",
+		DATIVE = "космическому кою",
+		ACCUSATIVE = "космического коя",
+		INSTRUMENTAL = "космическим коем",
+		PREPOSITIONAL = "космическом кое"
 	)
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "koi1"
