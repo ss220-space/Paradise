@@ -425,11 +425,29 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
 	name = "SRX-13 Heavy Missile Launcher"
+	ru_names = list(
+		NOMINATIVE = "тяжёлая пусковая ракетная установка SRX-13",
+		GENITIVE = "тяжёлой пусковой ракетной установки SRX-13",
+		DATIVE = "тяжёлой пусковой ракетной установке SRX-13",
+		ACCUSATIVE = "тяжёлую пусковую ракетную установку SRX-13",
+		INSTRUMENTAL = "тяжёлой пусковой ракетной установкой SRX-13",
+		PREPOSITIONAL = "тяжёлой пусковой ракетной установке SRX-13"
+	)
+	gender = FEMALE
 	icon_state = "mecha_missilerack"
 	projectile = /obj/item/missile/heavy
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
 	name = "SRM-8 Missile Rack"
+	ru_names = list(
+		NOMINATIVE = "пусковая ракетная установка SRM-8",
+		GENITIVE = "пусковой ракетной установки SRM-8",
+		DATIVE = "пусковой ракетной установке SRM-8",
+		ACCUSATIVE = "пусковую ракетную установку SRM-8",
+		INSTRUMENTAL = "пусковой ракетной установкой SRM-8",
+		PREPOSITIONAL = "пусковой ракетной установке SRM-8"
+	)
+	gender = FEMALE
 	icon_state = "mecha_missilerack"
 	projectile = /obj/item/missile
 
