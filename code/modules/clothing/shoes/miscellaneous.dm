@@ -511,8 +511,8 @@
 
 
 /obj/item/clothing/shoes/bhop/clown
-	desc = "Стандартные клоунские башмаки. Черт возьми, они такие огромные! Чтобы включить амортизаторы для ходьбы вразвалочку, нажмите \"Ctrl!\""
 	name = "clown shoes"
+	desc = "Стандартные клоунские башмаки. Чёрт возьми, они такие огромные! Чтобы включить амортизаторы для ходьбы вразвалочку, используйте \"Ctrl!\""
 	ru_names = list(
 		NOMINATIVE = "клоунские башмаки",
 		GENITIVE = "клоунских башмаков",
@@ -551,7 +551,7 @@
 	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user.get_active_hand() != src)
-		balloon_alert(user, "возьмите предмет в руки")
+		balloon_alert(user, "нужно держать в руках!")
 		return
 	if(!enabled_waddle)
 		balloon_alert(user, "развалочка выключена")

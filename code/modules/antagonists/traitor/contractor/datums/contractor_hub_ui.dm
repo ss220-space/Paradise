@@ -32,7 +32,7 @@
 					return
 				C.initiate(user, difficulty)
 			if("abort")
-				current_contract?.fail("Отменен агентом.")
+				current_contract?.fail("Отменено агентом.")
 			if("purchase")
 				var/datum/rep_purchase/P = locateUID(params["uid"])
 				if(!istype(P) || !(P in purchases) || rep < P.cost)
@@ -54,7 +54,7 @@
 /datum/contractor_hub/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Контрактор", "Аплинк Контрактора")
+		ui = new(user, src, "Contractor", "Аплинк Контрактника")
 		ui.open()
 
 /datum/contractor_hub/ui_data(mob/user)

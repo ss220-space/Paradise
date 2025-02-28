@@ -15,7 +15,6 @@
 		INSTRUMENTAL = "дубинкой контрактора",
 		PREPOSITIONAL = "дубинке контрактора"
 	)
-	gender = FEMALE
 	icon_state = "contractor_baton"
 	affect_cyborgs = TRUE
 	affect_bots = TRUE
@@ -38,7 +37,7 @@
 /obj/item/melee/baton/telescopic/contractor/examine(mob/user)
 	. = ..()
 	if(has_upgrade(UPGRADE_CUFFS))
-		. += span_info("В нём остал[declension_ru(cuffs_amount,"а","о","о")]сь <b>[cuffs_amount]</b> стяж[declension_ru(cuffs_amount,"ка","ки","ек")].")
+		. += span_info("В нём остал[declension_ru(cuffs_amount, "а", "о", "о")]сь <b>[cuffs_amount]</b> стяж[declension_ru(cuffs_amount, "ка", "ки", "ек")].")
 	for(var/obj/item/baton_upgrade/upgrade as anything in upgrades)
 		. += span_notice("В нём установлен <b>[upgrade.declent_ru(NOMINATIVE)]</b>, который [upgrade.upgrade_examine].")
 
@@ -124,11 +123,11 @@
 
 /obj/item/melee/baton/telescopic/contractor/proc/CuffAttack(mob/living/carbon/target, mob/living/user)
 	if(target.handcuffed)
-		to_chat(user, span_warning("[target] уже связан[genderize_ru(target.gender, "", "а", "о", "ы")]!"))
+		balloon_alert(user, "цель уже связана!")
 		return
 
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-	target.visible_message(span_danger("[user] начина[pluralize_ru(user.gender, "ет", "ют")] связывать [target] дубинкой контрактора!"),
+	target.visible_message(span_danger("[user] начина[pluralize_ru(user.gender, "ет", "ют")] связывать [target] [declent_ru(INSTRUMENTAL)]!"),
 							span_userdanger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся связать вас!"))
 	if(!do_after(user, 1 SECONDS, target, NONE) || target.handcuffed || !cuffs_amount)
 		to_chat(user, span_warning("Вам не удается связать [target]."))
@@ -156,10 +155,10 @@
 //upgrades
 /obj/item/baton_upgrade
 	var/upgrade_examine
-
+	gender = FEMALE
 
 /obj/item/baton_upgrade/cuff
-	name = "модуль \"Стяжки\""
+	name = "handcuff upgrade"
 	desc = "Позволяет заряжать стяжки, которые будут автоматически надеваться на цель после удара дубинкой."
 	ru_names = list(
 		NOMINATIVE = "модуль \"Стяжки\"",
@@ -169,13 +168,12 @@
 		INSTRUMENTAL = "модулем \"Стяжки\"",
 		PREPOSITIONAL = "модуле \"Стяжки\""
 	)
-	gender = MALE
 	icon_state = "cuff_upgrade"
 	upgrade_examine = "автоматически связывает цель, если она истощена. Сначала необходимо зарядить стяжками"
 
 
 /obj/item/baton_upgrade/mute
-	name = "модуль \"Безмолвие\""
+	name = "mute upgrade"
 	desc = "Удар дубинкой по цели заставит ее замолчать на короткое время."
 	ru_names = list(
 		NOMINATIVE = "модуль \"Безмолвие\"",
@@ -185,14 +183,13 @@
 		INSTRUMENTAL = "модулем \"Безмолвие\"",
 		PREPOSITIONAL = "модуле \"Безмолвие\""
 	)
-	gender = MALE
 	icon_state = "mute_upgrade"
 	upgrade_examine = "лишает жертву способности говорить на некоторое время"
 
 
 /obj/item/baton_upgrade/focus
-	name = "модуль \"Фокусировка\""
-	desc = "Удар дубинкой по цели, если она является объектом вашего контракта, приведет к дополнительному истощению."
+	name = "focus upgrade"
+	desc = "Удар дубинкой по цели, если она является объектом вашего контракта, приведёт к дополнительному истощению."
 	ru_names = list(
 		NOMINATIVE = "модуль \"Фокусировка\"",
 		GENITIVE = "модуля \"Фокусировка\"",
@@ -201,23 +198,21 @@
 		INSTRUMENTAL = "модулем \"Фокусировка\"",
 		PREPOSITIONAL = "модуле \"Фокусировка\""
 	)
-	gender = MALE
 	icon_state = "focus_upgrade"
 	upgrade_examine = "позволяет нанести дополнительный ущерб цели вашего текущего контракта"
 
 
 /obj/item/baton_upgrade/antidrop
-	name = "модуль \"Защита от выпадения\""
+	name = "antidrop upgrade"
 	desc = "Этот модуль фиксирует дубинку, не позволяя выронить её из рук ни при каких обстоятельствах."
 	ru_names = list(
-		NOMINATIVE = "модуль \"Фокусировка\"",
-		GENITIVE = "модуля \"Фокусировка\"",
-		DATIVE = "модулю \"Фокусировка\"",
-		ACCUSATIVE = "модуль \"Фокусировка\"",
-		INSTRUMENTAL = "модулем \"Фокусировка\"",
-		PREPOSITIONAL = "модуле \"Фокусировка\""
+		NOMINATIVE = "модуль \"Защита от выпадения\"",
+		GENITIVE = "модуля \"Защита от выпадения\"",
+		DATIVE = "модулю \"Защита от выпадения\"",
+		ACCUSATIVE = "модуль \"Защита от выпадения\"",
+		INSTRUMENTAL = "модулем \"Защита от выпадения\"",
+		PREPOSITIONAL = "модуле \"Защита от выпадения\""
 	)
-	gender = MALE
 	icon_state = "antidrop_upgrade"
 	upgrade_examine = "позволяет держать в руках дубинку, невзирая на происходящее с вами"
 

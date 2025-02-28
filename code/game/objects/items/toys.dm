@@ -1970,11 +1970,11 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
 	. = ..()
-	. += span_notice("В запасе ещё [fake_bullets] патронов.")
+	. += span_notice("В запасе ещё [fake_bullets] патрон[declension_ru(fake_bullets, "", "а", "ов")].")
 	. += span_notice("[fake_bullets] из них боевые.")
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
-	to_chat(user, span_danger("[declent_ru(NOMINATIVE)] действительно выглядел довольно сомнительно!"))
+	to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] действительно выглядел довольно сомнительно!"))
 	SEND_SOUND(user, 'sound/misc/sadtrombone.ogg') //HONK
 /*
  * Rubber Chainsaw

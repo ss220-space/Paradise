@@ -40,14 +40,14 @@ effective or pretty fucking useless.
 
 /obj/item/batterer/examine(mob/user)
 	. = ..()
-	. += span_notice("У [declent_ru(GENITIVE)] осталось [charges] зарядов.")
+	. += span_notice("У [declent_ru(GENITIVE)] осталось [charges] заряд[declension_ru(charges, "", "а", "ов")].")
 
 
 /obj/item/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!user)
 		return
 	if(charges == 0)
-		to_chat(user, span_danger("У [declent_ru(GENITIVE)] кончились заряды!"))
+		balloon_alert(user, "заряд закончился!")
 		return
 
 	for(var/mob/living/carbon/human/M in orange (10, user))
@@ -55,7 +55,7 @@ effective or pretty fucking useless.
 			M.Weaken(rand(2,6) SECONDS)
 			M.apply_damage(rand(35, 60), STAMINA)
 			add_attack_logs(user, M, "Stunned with [src]")
-			to_chat(M, span_danger("Вы чувствуете, как мощная, парализующая волна захлестывает ваш разум."))
+			to_chat(M, span_danger("Вы чувствуете, как мощная, парализующая волна захлёстывает ваш разум."))
 		else
 			to_chat(M, span_danger("Вы чувствуете, как будто мощный электрический ток пронзает вашу голову."))
 			M.Slowed(10 SECONDS)
@@ -63,7 +63,7 @@ effective or pretty fucking useless.
 
 	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
 	charges--
-	to_chat(user,span_notice("Вы активируете [declent_ru(NOMINATIVE)]. У него осталось [charges] зарядов."))
+	to_chat(user,span_notice("Вы активируете [declent_ru(ACCUSATIVE)]. У него осталось [charges] заряд[declension_ru(charges, "", "а", "ов")]."))
 	addtimer(CALLBACK(src, PROC_REF(recharge)), 3 MINUTES)
 
 
@@ -86,10 +86,7 @@ effective or pretty fucking useless.
 
 /obj/item/rad_laser
 	name = "Health Analyzer"
-	icon = 'icons/obj/device.dmi'
-	icon_state = "health2"
-	item_state = "healthanalyzer"
-	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта. К концу сканера прикреплен необычный микролазер."
+	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта. К концу сканера прикреплён необычный микролазер."
 	ru_names = list(
 		NOMINATIVE = "анализатор здоровья",
 		GENITIVE = "анализатора здоровья",
@@ -98,6 +95,9 @@ effective or pretty fucking useless.
 		INSTRUMENTAL = "анализатором здоровья",
 		PREPOSITIONAL = "анализаторе здоровья"
 	)
+	icon = 'icons/obj/device.dmi'
+	icon_state = "health2"
+	item_state = "healthanalyzer"
 	flags = CONDUCT
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
@@ -123,7 +123,7 @@ effective or pretty fucking useless.
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	add_attack_logs(user, target, "Irradiated by [src]")
-	user.visible_message(span_notice("[user] анализирует жизненные показатели [target]"))
+	user.visible_message(span_notice("[user] анализиру[pluralize_ru(user.gender, "ет", "ют")] жизненные показатели [target]."))
 	var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
 	used = TRUE
 	update_icon(UPDATE_ICON_STATE)

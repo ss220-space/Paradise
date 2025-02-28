@@ -28,12 +28,12 @@
 		var/turf/T = get_turf(target)
 		var/obj/structure/holosign/H = locate(holosign_type) in T
 		if(H)
-			to_chat(user, span_notice("Вы используете [declent_ru(NOMINATIVE)] для деактивации [H]."))
+			to_chat(user, span_notice("Вы используете [declent_ru(ACCUSATIVE)] для деактивации [H.declent_ru(GENITIVE)]."))
 			qdel(H)
 		else
 			if(!T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
 				if(holocreator_busy)
-					to_chat(user, span_notice("[declent_ru(NOMINATIVE)] занят созданием голограммы."))
+					balloon_alert(user, "уже в работе!")
 					return
 				if(signs.len < max_signs)
 					playsound(src.loc, 'sound/machines/click.ogg', 20, 1)
@@ -48,10 +48,10 @@
 						if(T.is_blocked_turf(exclude_mobs = TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 							return
 					H = new holosign_type(get_turf(target), src)
-					to_chat(user, span_notice("Вы создаете [H.declent_ru(NOMINATIVE)] с помощью [declent_ru(GENITIVE)]."))
+					to_chat(user, span_notice("Вы создаёте [H.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]."))
 					return H
 				else
-					to_chat(user, span_notice("[declent_ru(NOMINATIVE)] работает на максимальной мощности!"))
+					to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] работает на максимальной мощности!"))
 
 
 /obj/item/holosign_creator/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -71,12 +71,12 @@
 	name = "Janitorial Holosign projector"
 	desc = "Удобный голографический проектор, отображающий знак уборщика."
 	ru_names = list(
-		NOMINATIVE = "голографический проектор уборщика",
-		GENITIVE = "голографического проектора уборщика",
-		DATIVE = "голографическому проектору уборщика",
-		ACCUSATIVE = "голографический проектор уборщика",
-		INSTRUMENTAL = "голографическим проектором уборщика",
-		PREPOSITIONAL = "голографическом проекторе уборщика"
+		NOMINATIVE = "голо-проектор уборщика",
+		GENITIVE = "голо-проектора уборщика",
+		DATIVE = "голо-проектору уборщика",
+		ACCUSATIVE = "голо-проектор уборщика",
+		INSTRUMENTAL = "голо-проектором уборщика",
+		PREPOSITIONAL = "голо-проекторе уборщика"
 	)
 	belt_icon = "sign_projector"
 	holosign_type = /obj/structure/holosign/wetsign
@@ -86,13 +86,13 @@
 	wet_enabled = !wet_enabled
 	playsound(loc, 'sound/weapons/empty.ogg', 20)
 	if(wet_enabled)
-		to_chat(user, span_notice("Вы активируете функцию \"W.E.T.\" (таймер влажного испарения)\nНовые голографические надписи исчезают, когда вымытая плитка полностью высыхает."))
+		to_chat(user, span_notice("Вы активируете таймер влажного испарения.\nНовые голо-знаки исчезнут, когда вымытая плитка полностью высохнет."))
 	else
-		to_chat(user, span_notice("Вы деактивируете функцию \"W.E.T.\" (таймер влажного испарения)\nНовые голографические вывески будут оставаться на месте без ограничений по времени."))
+		to_chat(user, span_notice("Вы деактивируете таймер влажного испарения.\nНовые голо-знаки будут оставаться на месте без ограничений по времени."))
 
 /obj/item/holosign_creator/janitor/examine(mob/user)
 	. = ..()
-	. += span_info("Нажмите \"Alt-Click\", чтобы [wet_enabled ? "деактивировать" : "активировать"] встроенный таймер влажного испарения.")
+	. += span_info("Используйте <b>Alt+ЛКМ</b>, чтобы [wet_enabled ? "деактивировать" : "активировать"] таймер влажного испарения.")
 
 /obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, flag, params)
 	var/obj/structure/holosign/wetsign/WS = ..()
@@ -107,14 +107,14 @@
 
 /obj/item/holosign_creator/security
 	name = "security holobarrier projector"
-	desc = "Голографический проектор, который создает голографические барьеры службы безопасности."
+	desc = "Голографический проектор, который создаёт голографические барьеры службы безопасности."
 	ru_names = list(
-		NOMINATIVE = "проектор голобарьера службы безопасности",
-		GENITIVE = "проектора голобарьера службы безопасности",
-		DATIVE = "проектору голобарьера службы безопасности",
-		ACCUSATIVE = "проектор голобарьера службы безопасности",
-		INSTRUMENTAL = "проектором голобарьера службы безопасности",
-		PREPOSITIONAL = "проекторе голобарьера службы безопасности"
+		NOMINATIVE = "голо-проектор службы безопасности",
+		GENITIVE = "голо-проектора службы безопасности",
+		DATIVE = "голо-проектору службы безопасности",
+		ACCUSATIVE = "голо-проектор службы безопасности",
+		INSTRUMENTAL = "голо-проектором службы безопасности",
+		PREPOSITIONAL = "голо-проекторе службы безопасности"
 	)
 	icon_state = "signmaker_sec"
 	item_state = "signmaker_sec"
@@ -125,14 +125,14 @@
 
 /obj/item/holosign_creator/engineering
 	name = "engineering holobarrier projector"
-	desc = "Голографический проектор, который создает инженерные голографические барьеры."
+	desc = "Голографический проектор, который создаёт инженерные голографические барьеры."
 	ru_names = list(
-		NOMINATIVE = "инженерный проектор голобарьера",
-		GENITIVE = "инженерного проектора голобарьера",
-		DATIVE = "инженерному проектору голобарьера",
-		ACCUSATIVE = "инженерный проектор голобарьера",
-		INSTRUMENTAL = "инженерным проектором голобарьера",
-		PREPOSITIONAL = "инженерном проекторе голобарьера"
+		NOMINATIVE = "инженерный голо-проектор",
+		GENITIVE = "инженерного голо-проектора",
+		DATIVE = "инженерному голо-проектору",
+		ACCUSATIVE = "инженерный голо-проектор",
+		INSTRUMENTAL = "инженерным голо-проектором",
+		PREPOSITIONAL = "инженерном голо-проекторе"
 	)
 	icon_state = "signmaker_engi"
 	item_state = "signmaker_engi"
@@ -144,12 +144,12 @@
 	name = "ATMOS holofan projector"
 	desc = "Голографический проектор, создающий голографические барьеры, препятствующие изменению атмосферы."
 	ru_names = list(
-		NOMINATIVE = "атмосферный проектор голобарьера",
-		GENITIVE = "атмосферного проектора голобарьера",
-		DATIVE = "атмосферному проектору голобарьера",
-		ACCUSATIVE = "атмосферный проектор голобарьера",
-		INSTRUMENTAL = "атмосферным проектором голобарьера",
-		PREPOSITIONAL = "атмосферном проекторе голобарьера"
+		NOMINATIVE = "атмосферный голо-проектор",
+		GENITIVE = "атмосферного голо-проектора",
+		DATIVE = "атмосферному голо-проектору",
+		ACCUSATIVE = "атмосферный голо-проектор",
+		INSTRUMENTAL = "атмосферным голо-проектором",
+		PREPOSITIONAL = "атмосферном голо-проекторе"
 	)
 	icon_state = "signmaker_engi"
 	item_state = "signmaker_engi"
@@ -161,12 +161,12 @@
 	name = "Energy Barrier Projector"
 	desc = "Голографический проектор, создающий хрупкие энергетические поля."
 	ru_names = list(
-		NOMINATIVE = "проектор энергетического барьера",
-		GENITIVE = "проектора энергетического барьера",
-		DATIVE = "проектору энергетического барьера",
-		ACCUSATIVE = "проектор энергетического барьера",
-		INSTRUMENTAL = "проектором энергетического барьера",
-		PREPOSITIONAL = "проекторе энергетического барьера"
+		NOMINATIVE = "проектор энерго-барьера",
+		GENITIVE = "проектора энерго-барьера",
+		DATIVE = "проектору энерго-барьера",
+		ACCUSATIVE = "проектор энерго-барьера",
+		INSTRUMENTAL = "проектором энерго-барьера",
+		PREPOSITIONAL = "проекторе энерго-барьера"
 	)
 	creation_time = 15
 	max_signs = 9

@@ -109,7 +109,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
  */
 /obj/item/uplink/proc/buy(datum/uplink_item/uplink_item, mob/buyer)
 	if(is_jammed)
-		to_chat(buyer, span_warning("[src.declent_ru(NOMINATIVE)], похоже, заблокирован - нельзя использовать!"))
+		to_chat(buyer, span_warning("[declent_ru(NOMINATIVE)], похоже, заблокирован - нельзя использовать!"))
 		return FALSE
 	if(!uplink_item)
 		return FALSE
@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
  */
 /obj/item/uplink/hidden/proc/check_trigger(mob/user, value, target)
 	if(is_jammed)
-		to_chat(user, span_warning("[src.declent_ru(NOMINATIVE)], похоже, заблокирован - нельзя использовать!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))], похоже, заблокирован - нельзя использовать!"))
 		return FALSE
 	if(value == target)
 		trigger(user)
@@ -244,7 +244,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/hidden/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Аплинк", name)
+		ui = new(user, src, "Uplink", "Аплинк")
 		ui.open()
 
 
@@ -384,10 +384,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			if(!LAZYLEN(shopping_cart)) // sanity check
 				return
 			if(calculate_cart_tc() > uses)
-				to_chat(ui.user, span_warning("[src.declent_ru(NOMINATIVE)] вибрирует, в нём недостаточно телекристаллов!"))
+				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))] вибрирует, в нём недостаточно телекристаллов!"))
 				return
 			if(is_jammed)
-				to_chat(ui.user, span_warning("[src.declent_ru(NOMINATIVE)], похоже, заблокирован - нельзя использовать!"))
+				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))], похоже, заблокирован - нельзя использовать!"))
 				return
 
 			// Buying of the uplink stuff

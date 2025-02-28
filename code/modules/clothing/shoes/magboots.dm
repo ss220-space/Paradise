@@ -104,8 +104,8 @@
 	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_ICE, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_SLIDE, TRAIT_GUSTPROTECTION)
 
 /obj/item/clothing/shoes/magboots/clown
-	desc = "Это обычные башмаки клоуна. Черт возьми, они такие огромные! Сбоку мигает красная лампочка."
 	name = "clown shoes"
+	desc = "Это обычные башмаки клоуна. Чёрт возьми, они такие огромные! Сбоку мигает красная лампочка."
 	ru_names = list(
 		NOMINATIVE = "клоунские башмаки",
 		GENITIVE = "клоунских башмаков",
@@ -145,7 +145,7 @@
 	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user.get_active_hand() != src)
-		balloon_alert(user, "возьмите предмет в руки")
+		balloon_alert(user, "нужно держать в руках!")
 		return
 	if(!enabled_waddle)
 		balloon_alert(user, "развалочка выключена")

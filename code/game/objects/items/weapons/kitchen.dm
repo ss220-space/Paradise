@@ -227,14 +227,14 @@
 
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
-	desc = "Огромный тесак мясника, предназначенный для измельчения мяса. В том числе и клоунов, а также их субпродуктов."
+	desc = "Огромный мясницкий тесак, предназначенный для измельчения мяса. В том числе и клоунов и их субпродуктов."
 	ru_names = list(
-		NOMINATIVE = "тесак мясника",
-		GENITIVE = "тесака мясника",
-		DATIVE = "тесаку мясника",
-		ACCUSATIVE = "тесак мясника",
-		INSTRUMENTAL = "тесаком мясника",
-		PREPOSITIONAL = "тесаке мясника"
+		NOMINATIVE = "мясницкий тесак",
+		GENITIVE = "мясницкого тесака",
+		DATIVE = "мясницкому тесаку",
+		ACCUSATIVE = "мясницкий тесак",
+		INSTRUMENTAL = "мясницким тесаком",
+		PREPOSITIONAL = "мясницком тесаке"
 	)
 	icon_state = "butch"
 	flags = CONDUCT

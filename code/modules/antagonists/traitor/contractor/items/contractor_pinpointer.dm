@@ -1,15 +1,14 @@
 /obj/item/pinpointer/crew/contractor
 	name = "contractor pinpointer"
-	desc = "Портативное устройство слежения, которое указывает на членов экипажа, не используя датчики костюма, за счет снижения точности."
+	desc = "Портативное устройство слежения, которое указывает на членов экипажа, не используя датчики костюма, ценой снижения точности."
 	ru_names = list(
-		NOMINATIVE = "целеуказатель контрактора",
-		GENITIVE = "целеуказателя контрактора",
-		DATIVE = "целеуказателю контрактора",
-		ACCUSATIVE = "целеуказатель контрактора",
-		INSTRUMENTAL = "целеуказателем контрактора",
-		PREPOSITIONAL = "целеуказателе контрактора"
+		NOMINATIVE = "целеуказатель Контрактника",
+		GENITIVE = "целеуказателя Контрактника",
+		DATIVE = "целеуказателю Контрактника",
+		ACCUSATIVE = "целеуказатель Контрактника",
+		INSTRUMENTAL = "целеуказателем Контрактника",
+		PREPOSITIONAL = "целеуказателе Контрактника"
 	)
-	gender = MALE
 	icon_state = "pinoff_contractor"
 	item_state = "pinoff_contractor"
 	icon_off = "pinoff_contractor"
@@ -52,10 +51,10 @@
 /obj/item/pinpointer/crew/contractor/cycle(mob/user, silent = FALSE)
 	if(owner)
 		if(owner != user)
-			to_chat(user, span_warning("[src.declent_ru(NOMINATIVE)] отказывается что-либо делать."))
+			balloon_alert(user, "устройство не отвечает!")
 			return
 	else
 		owner = user
-		to_chat(user, span_notice("Теперь [src.declent_ru(NOMINATIVE)] признает вас своим единственным пользователем."))
+		to_chat(user, span_notice("Теперь [declent_ru(NOMINATIVE)] признаёт вас своим единственным пользователем."))
 	return ..()
 

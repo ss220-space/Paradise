@@ -8,13 +8,13 @@
 		return
 	for(var/datum/crafting_recipe/crafting_recipe_type as anything in crafting_recipe_types)
 		user.mind.teach_crafting_recipe(crafting_recipe_type)
-		to_chat(user, span_notice("Вы узнали, как сделать  [initial(crafting_recipe_type.name)]."))
+		to_chat(user, span_notice("Вы узнаёте новый рецепт -  \"[initial(crafting_recipe_type.name)]\"."))
 
 /obj/item/book/granter/crafting_recipe/dusting
 	icon_state = "book1"
 
 /obj/item/book/granter/crafting_recipe/dusting/recoil(mob/living/user)
-	to_chat(user, span_notice("Книга рассыпается в прах у вас в руках."))
+	to_chat(user, span_warning("Книга рассыпается в прах у вас в руках!"))
 	qdel(src)
 
 // actual crafting ganters
@@ -23,14 +23,14 @@
 
 /obj/item/book/granter/crafting_recipe/combat_baking
 	name = "the anarchist's cookbook"
-	desc = "Знаменитая книга рецептов, которая поможет вам научиться печь круассаны, за которые можно умереть."
+	desc = "Знаменитая книга рецептов, которая поможет вам научиться печь такие круассаны, за которые можно и умереть."
 	ru_names = list(
-		NOMINATIVE = "кулинарная книга анархиста",
-		GENITIVE = "кулинарной книги анархиста",
-		DATIVE = "кулинарной книге анархиста",
-		ACCUSATIVE = "кулинарную книгу анархиста",
-		INSTRUMENTAL = "кулинарной книгой анархиста",
-		PREPOSITIONAL = "кулинарной книге анархиста"
+		NOMINATIVE = "поваренная книга анархиста",
+		GENITIVE = "поваренной книги анархиста",
+		DATIVE = "поваренной книге анархиста",
+		ACCUSATIVE = "поваренную книгу анархиста",
+		INSTRUMENTAL = "поваренной книгой анархиста",
+		PREPOSITIONAL = "поваренной книге анархиста"
 	)
 	crafting_recipe_types = list(
 		/datum/crafting_recipe/throwing_croissant
@@ -40,7 +40,7 @@
 		"\"Австриец? Не по-французски?\"",
 		"\"Нужно правильно распределить масло...\"",
 		"\"Это лучшее, что может быть после нарезанного хлеба!\"",
-		"\"Я не оставлю следов, кроме крошек!\"",
+		"\"Я не оставлю ни следа, кроме крошек!\"",
 		"\"Кто бы мог подумать, что хлеб может причинить такую сильную боль?\""
 	)
 

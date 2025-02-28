@@ -94,8 +94,8 @@
 		return ..()
 
 /obj/item/case_with_bipki
-	name = "Чемодан с бипками"
-	desc = "Легендарнейший чемодан с бипками! Что такое бипки?"
+	name = "bipki case"
+	desc = "Легендарный чемодан с бипками! Стоп, а что такое бипки?"
 	icon = 'icons/obj/beebki.dmi'
 	icon_state = "briefcase_bipki"
 	item_state = "briefcase"

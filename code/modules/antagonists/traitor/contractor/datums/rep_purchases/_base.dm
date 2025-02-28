@@ -28,7 +28,7 @@
 /datum/rep_purchase/proc/buy(datum/contractor_hub/hub, mob/living/carbon/human/user)
 	. = FALSE
 	if(hub.owner.current != user)
-		to_chat(user, span_warning("Вы не были признаны первоначальным пользователем этого устройства."))
+		to_chat(user, span_warning("Вы не были идентифицированы как первоначальный владелец этого устройства."))
 		return
 	if(hub.rep < cost)
 		to_chat(user, span_warning("У вас недостаточно очков репутации."))
@@ -90,7 +90,7 @@
 	if(!istype(item) || item.type != path || !item.check_uplink_validity())
 		return
 	if(hub.owner.current != user)
-		to_chat(user, span_warning("Вы не были признаны первоначальным пользователем этого устройства."))
+		to_chat(user, span_warning("Вы не были идентифицированы как первоначальный владелец этого устройства."))
 		return
 	if(initial(stock) <= stock)
 		to_chat(user, span_warning("В магазине слишком много подобных товаров. Не перегружайте рынок!"))
@@ -110,5 +110,5 @@
   * * user - The user who made the refund.
   */
 /datum/rep_purchase/item/proc/on_refund(datum/contractor_hub/hub, obj/item/item, mob/living/carbon/human/user)
-	to_chat(user, span_notice("[item] возвращен."))
+	to_chat(user, span_notice("Вы вернули [item.declent_ru(ACCUSATIVE)]."))
 	qdel(item)

@@ -14,6 +14,7 @@
 
 /obj/item/pinpointer
 	name = "pinpointer"
+	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinoff"
 	flags = CONDUCT

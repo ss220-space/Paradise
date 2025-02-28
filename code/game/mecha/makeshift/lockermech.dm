@@ -109,11 +109,11 @@
 	if(isfloorturf(target))
 		for(var/turf/T in (RANGE_TURFS(1, target) + target))
 			if(!isfloorturf(T))
-				to_chat(user, "Вам нужна свободная зона размером 3х3 для вызова меха.")
+				balloon_alert(user, "требуется зона 3x3!")
 				return
 			for(var/obj/O in T)
 				if(O.density && O.anchored)
-					to_chat(user, "Вам нужна свободная зона размером 3х3 для вызова меха.")
+					balloon_alert(user, "требуется зона 3x3!")
 					return
 		used = TRUE
 		var/obj/effect/particle_effect/mecha_drop/mecha_effect = new(target)
@@ -133,5 +133,5 @@
 			used = FALSE
 		qdel(mecha_effect)
 	else
-		to_chat(user, "Вы можете использовать его только на полу.")
+		balloon_alert(user, "для использования нужно стоять на полу!")
 

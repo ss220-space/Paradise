@@ -56,7 +56,7 @@
 				src.target = AM
 				loc = null
 				if(hacked)
-					message_admins("[ADMIN_LOOKUPFLW(user)] planted [src.name] on [target.name] at [ADMIN_COORDJMP(target)]")
+					message_admins("[ADMIN_LOOKUPFLW(user)] planted [src] on [target.name] at [ADMIN_COORDJMP(target)]")
 					add_game_logs("planted [name] on [target.name] at [COORD(target)]", user)
 				installed = TRUE
 				target.add_overlay(image_overlay)
@@ -172,7 +172,7 @@
 //MINING CHARGE HACKER
 /obj/item/t_scanner/adv_mining_scanner/syndicate
 	var/charges = 6
-	description_antag = "Это устройство имеет дополнительный порт, который позволяет обойти меры безопасности шахтерских зарядов."
+	description_antag = "Это устройство имеет дополнительный порт, который позволяет обойти меры безопасности шахтёрских зарядов."
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(istype(target,/obj/item/grenade/plastic/miningcharge))
@@ -184,11 +184,11 @@
 			balloon_alert(user, "заряды закончились!")
 			return
 		charge.override_safety()
-		visible_message(span_warning("Из [declent_ru(GENITIVE)] летят искры!"), span_notice("Вы перезаписываете [declent_ru(ACCUSATIVE)], отключая его защиту."))
+		visible_message(span_warning("Из [declent_ru(GENITIVE)] летят искры!"), span_notice("Вы перегружаете [declent_ru(ACCUSATIVE)], отключая его защиту."))
 		playsound(src, "sparks", 50, 1)
 		charges--
 		if(charges <= 0)
-			to_chat(user , span_warning("Внутренняя батарея [declent_ru(GENITIVE)], предназначенная для перезаписи шахтерских зарядов, разрядилась!"))
+			to_chat(user , span_warning("Внутренняя батарея [declent_ru(GENITIVE)], предназначенная для перегрузки шахтёрских зарядов, разрядилась!"))
 
 // MINING CHARGES DETONATOR
 
