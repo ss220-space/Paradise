@@ -27,7 +27,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	viable_mundane_events = list(ELECTION, RESIGNATION, CELEBRITY_DEATH)
 
 /datum/trade_destination/anansi
-	name = "МКН \"Ананси\""
+	name = "ИСН \"Ананси\""
 	description = "Медицинская станция, управляемая Вторым Красным Крестом (но принадлежащая НаноТрейзен), предназначенная для обработки экстренных случаев с ближайших колоний."
 	distance = 1.7
 	willing_to_buy = list()
@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 	viable_random_events = list(SECURITY_BREACH, AI_LIBERATION, PIRATES)
 
 /datum/trade_destination/redolant
-	name = "НИС \"Редолант\""
+	name = "СОА \"Редолант\""
 	description = "Станция Осирис Атмосферикс на орбите газового гиганта (пока безымянного). Боевые корабли OA защищают свою установку и контролируют судоходство вблизи планеты, что, собственно говоря, не редкость в Тау Кита. НаноТрейзен со скрипом терпят чужое военно-космическое присутствие в обмен на долю прибыли с этого предприятия."
 	distance = 0.6
 	willing_to_buy = list()

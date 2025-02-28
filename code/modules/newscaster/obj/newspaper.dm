@@ -50,15 +50,15 @@
 /obj/item/newspaper/examine(mob/user)
 	. = ..()
 	if(rolled)
-		. += "<span class='notice'>Вы должны развернуть её, если хотите прочитать.</span>"
+		. += span_notice("Вы должны развернуть её, если хотите прочитать.")
 	else
 		if(user.is_literate())
 			if(in_range(user, src) || istype(user, /mob/dead/observer))
 				attack_self(user)
 			else
-				. += "<span class='notice'>Вам нужно подойти поближе, если вы хотите это прочитать.</span>"
+				. += span_notice("Вам нужно подойти поближе, если вы хотите это прочитать.")
 		else
-			. += "<span class='notice'>Вы не умеете читать.</span>"
+			. += span_notice("Вы не умеете читать.")
 
 /obj/item/newspaper/attack_self(mob/user)
 	if(rolled)
