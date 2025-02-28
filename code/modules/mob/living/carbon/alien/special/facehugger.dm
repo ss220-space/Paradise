@@ -200,11 +200,12 @@
 		var/mob/living/carbon/target = attached_mob
 		var/obj/item/head = target.head
 
-		if(real && head && head.flags_cover & HEADCOVERSMOUTH)
-			target.visible_message(span_danger("[text_name] бьется о [head.declent_ru(ACCUSATIVE)] [target.declent_ru(GENITIVE)], оставляя немного кислоты, которая повреждает [head.declent_ru(ACCUSATIVE)]!"), \
-								span_userdanger("[text_name] бьется о [head.declent_ru(ACCUSATIVE)] [target.declent_ru(GENITIVE)], оставляя немного кислоты, которая повреждает [head.declent_ru(ACCUSATIVE)]!"))
-			head.take_damage(HELMET_BASE_DAMAGE, BRUTE, ACID)
-			holdered_mob.adjustBruteLoss(HELMET_HUGGER_DAMAGE)
+		if(head && head.flags_cover & HEADCOVERSMOUTH)
+			target.visible_message(span_danger("[text_name] бьется о [head.declent_ru(ACCUSATIVE)] [target.declent_ru(GENITIVE)][real? ", оставляя немного кислоты, которая повреждает [head.declent_ru(ACCUSATIVE)]" : ""]!"), \
+								span_userdanger("[text_name] бьется о [head.declent_ru(ACCUSATIVE)] [target.declent_ru(GENITIVE)][real? ", оставляя немного кислоты, которая повреждает [head.declent_ru(ACCUSATIVE)]" : ""]!"))
+			if(real)
+				head.take_damage(HELMET_BASE_DAMAGE, BRUTE, ACID)
+				holdered_mob.adjustBruteLoss(HELMET_HUGGER_DAMAGE)
 			return FALSE
 
 		var/obj/item/clothing/mask = target.wear_mask
