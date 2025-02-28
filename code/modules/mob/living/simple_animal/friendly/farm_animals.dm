@@ -704,8 +704,16 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	return TRUE
 
 /mob/living/simple_animal/hostile/retaliate/goat/hump
-	name = "the humpback goat"
+	name = "humpback goat"
 	desc = "Очень злой и горбатый козёл. Он, кажется, привык к тесному ящику."
+	ru_names = list(
+		NOMINATIVE = "горбатый козёл",
+		GENITIVE = "горбатого козла",
+		DATIVE = "горбатому козлу",
+		ACCUSATIVE = "горбатого козла",
+		INSTRUMENTAL = "горбатым козлом",
+		PREPOSITIONAL = "горбатом козле"
+	)
 	icon_state = "goat_hump"
 	icon_living = "goat_hump"
 	icon_dead = "goat_dead"
