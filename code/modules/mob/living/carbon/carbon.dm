@@ -238,22 +238,6 @@
 						span_notice("Вы трясёте [name], пытаясь разбудить [genderize_ru(gender, "его", "её", "его", "их")]."),\
 						)
 
-			else if(on_fire)
-				var/self_message = span_warning("Вы пытаетесь потушить [name].")
-				if(prob(30) && ishuman(M)) // 30% chance of burning your hands
-					var/mob/living/carbon/human/H = M
-					var/protected = FALSE // Protected from the fire
-					if((H.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(H, TRAIT_RESIST_HEAT))
-						protected = TRUE
-					if(!protected)
-						H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-						self_message = span_danger("Вы обжигаете свои руки, пытаясь потушить [name]!")
-						H.update_icons()
-
-				M.visible_message(span_warning("[M] пыта[pluralize_ru(M.gender, "ет", "ют")]ся потушить [name]."), self_message)
-				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				adjust_fire_stacks(-0.5)
-
 			// BEGIN HUGCODE - N3X
 			else
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -275,6 +259,34 @@
 						else if(H.w_uniform)
 							H.w_uniform.add_fingerprint(M)
 
+/**
+  * Handles patting out a fire on someone.
+  *
+  * Removes 0.5 fire stacks per pat, with a 30% chance of the user burning their hand if they don't have adequate heat resistance.
+  * Arguments:
+  * * src - The mob doing the patting
+  * * target - The mob who is currently on fire
+  */
+/mob/living/carbon/proc/pat_out(mob/living/target)
+	if(target == src) // stop drop and roll, no trying to put out fire on yourself for free.
+		to_chat(src, "<span class='warning'>Stop drop and roll!</span>")
+		return
+	var/self_message = span_warning("Вы пытаетесь потушить [name].")
+	if(prob(30) && ishuman(src)) // 30% chance of burning your hands
+		var/mob/living/carbon/human/H = src
+		var/protected = FALSE // Protected from the fire
+		if((H.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(H, TRAIT_RESIST_HEAT))
+			protected = TRUE
+
+		var/obj/item/organ/external/active_hand = H.get_active_hand()
+		if(active_hand && !protected) // Wouldn't really work without a hand
+			active_hand.external_receive_damage(0, 5)
+			self_message = span_danger("Вы обжигаете свои руки, пытаясь потушить [name]!")
+			H.update_icons()
+
+	target.visible_message(span_warning("[target] пыта[pluralize_ru(target.gender, "ет", "ют")]ся потушить [name]."), self_message)
+	playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+	target.adjust_fire_stacks(-0.5)
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src

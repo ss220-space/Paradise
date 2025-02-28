@@ -47,19 +47,22 @@
 
 /mob/living/carbon/alien/attack_hand(mob/living/carbon/human/M)
 	if(..())	//to allow surgery to return properly.
-		return 0
+		return FALSE
 
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			help_shake_act(M)
+			if(M.on_fire)
+				pat_out(M)
+			else
+				help_shake_act(M)
 		if(INTENT_GRAB)
 			grabbedby(M)
 		if(INTENT_HARM)
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		if(INTENT_DISARM)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 
 /mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M)
@@ -70,7 +73,7 @@
 
 
 /mob/living/carbon/alien/acid_act(acidpwr, acid_volume)
-	return 0 //aliens are immune to acid.
+	return FALSE //aliens are immune to acid.
 
 /mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
