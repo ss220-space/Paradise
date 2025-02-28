@@ -616,15 +616,43 @@
 
 /obj/item/storage/bag/medpouch
 	name = "medicinal pouch"
+	desc = "Небольшой мешочек для хранения трав, припарок, наживки и мелких предметов."
+	ru_names = list(
+		NOMINATIVE = "лекарственный мешочек",
+		GENITIVE = "лекарственного мешочка",
+		DATIVE = "лекарственному мешочку",
+		ACCUSATIVE = "лекарственный мешочек",
+		INSTRUMENTAL = "лекарственным мешочком",
+		PREPOSITIONAL = "лекарственном мешочке"
+	)
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "pouch_ash"
-	desc = "A small pouch for holding plants, poultices, resin, and pestles."
 	storage_slots = 40
 	max_combined_w_class = 200
 	can_hold = list(/obj/item/reagent_containers/food/snacks/grown,
-				/obj/item/stack/medical,
-				/obj/item/reagent_containers/food/snacks/bait,
-				/obj/item/reagent_containers/food/snacks/charred_krill,
-				/obj/item/stack/sheet/cartilage_plate,
-				/obj/item/stack/sheet/razor_sharp_teeth,
+					/obj/item/stack/medical,
+					/obj/item/reagent_containers/food/snacks/bait,
+					/obj/item/reagent_containers/food/snacks/charred_krill,
+					/obj/item/stack/sheet/cartilage_plate,
+					/obj/item/stack/sheet/razor_sharp_teeth,
+			)
+
+/obj/item/storage/bag/medpouch/fishing
+	name = "fishing pouch"
+	desc = "Небольшой мешочек для хранения различной наживки и частей рыб."
+	ru_names = list(
+		NOMINATIVE = "рыболовный мешочек",
+		GENITIVE = "рыболовного мешочка",
+		DATIVE = "рыболовному мешочку",
+		ACCUSATIVE = "рыболовный мешочек",
+		INSTRUMENTAL = "рыболовным мешочком",
+		PREPOSITIONAL = "рыболовным мешочке"
+	)
+	icon_state = "fishpouch_ash"
+	storage_slots = 40
+	max_combined_w_class = 200
+	can_hold = list(/obj/item/reagent_containers/food/snacks/bait,
+					/obj/item/reagent_containers/food/snacks/charred_krill,
+					/obj/item/stack/sheet/cartilage_plate,
+					/obj/item/stack/sheet/razor_sharp_teeth,
 			)
