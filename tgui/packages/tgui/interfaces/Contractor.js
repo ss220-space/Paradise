@@ -23,9 +23,9 @@ const contractStatuses = {
 // Lifted from /tg/station
 const terminalMessages = [
   'Запись биометрических данных...',
-  'Анализ встроенной информации о синдикате...',
-  'СТАТУС ПОДТВЕРЖДЕН',
-  'Обращение к базе данных синдиката...',
+  'Анализ встроенной информации о Синдикате...',
+  'СТАТУС ПОДТВЕРЖДЁН',
+  'Обращение к базе данных Синдиката...',
   'Ожидание ответа...',
   'Ожидание ответа...',
   'Ожидание ответа...',
@@ -35,7 +35,7 @@ const terminalMessages = [
   'Получен ответ, код подтверждения ' + Math.round(Math.random() * 25500) + '...',
   'АККАУНТ ПОДТВЕРЖДЁН ' + Math.round(Math.random() * 20000),
   'Создание личной учётной записи...',
-  'СОЗДАНА УЧЕТНАЯ ЗАПИСЬ КОНТРАКТОРА',
+  'СОЗДАНА УЧЕТНАЯ ЗАПИСЬ КОНТРАКТНИКА',
   'Поиск доступных контрактов...',
   'Поиск доступных контрактов...',
   'Поиск доступных контрактов...',
@@ -134,7 +134,7 @@ const Summary = (properties, context) => {
                 />
               </Flex>
             </LabeledList.Item>
-            <LabeledList.Item label="Заработанно ТК" verticalAlign="middle">
+            <LabeledList.Item label="Заработано ТК" verticalAlign="middle">
               {tc_paid_out} ТК
             </LabeledList.Item>
           </LabeledList>
@@ -146,7 +146,7 @@ const Summary = (properties, context) => {
                 {completed_contracts}
               </Box>
             </LabeledList.Item>
-            <LabeledList.Item label="Статус контрактора" verticalAlign="middle">
+            <LabeledList.Item label="Статус Контрактника" verticalAlign="middle">
               АКТИВЕН
             </LabeledList.Item>
           </LabeledList>
@@ -207,7 +207,7 @@ const Contracts = (properties, context) => {
           disabled={!can_extract || extractionCooldown}
           icon="parachute-box"
           content={[
-            'Начать экспорт',
+            'Начать эвакуацию',
             extractionCooldown && (
               <Countdown
                 timeLeft={activeContract.time_left}
@@ -293,7 +293,7 @@ const Contracts = (properties, context) => {
                   <Box color="bad" mt="0.5rem" bold>
                     <Icon name="exclamation-triangle" mr="0.5rem" />
                     Награда в виде телекристаллов существенно уменьшилась,
-                    так как цель была мертва в момент экспортирования.
+                    так как цель была мертва в момент эвакуации.
                   </Box>
                 )}
                 {!!contract.fail_reason && (
@@ -306,7 +306,7 @@ const Contracts = (properties, context) => {
               </Flex.Item>
               <Flex.Item flexBasis="100%">
                 <Flex mb="0.5rem" color="label">
-                  Зона экспорта:&nbsp;
+                  Зона эвакуации:&nbsp;
                   {areaArrow(contract)}
                 </Flex>
                 {contract.difficulties?.map((difficulty, key) => (

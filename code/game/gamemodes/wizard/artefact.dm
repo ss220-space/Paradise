@@ -681,6 +681,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		INSTRUMENTAL = "плетёной куклой",
 		PREPOSITIONAL = "плетёной кукле"
 	)
+	gender = FEMALE
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "voodoo"
 	item_state = "electronic"

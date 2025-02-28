@@ -611,12 +611,13 @@
 	desc = "Трость — верный спутник настоящего джентльмена. Или клоуна."
 	ru_names = list(
 		NOMINATIVE = "трость",
-		GENITIVE = "трусти",
-		DATIVE = "трусти",
+		GENITIVE = "трости",
+		DATIVE = "трости",
 		ACCUSATIVE = "трость",
 		INSTRUMENTAL = "тростью",
-		PREPOSITIONAL = "трусти"
+		PREPOSITIONAL = "трости"
 	)
+	gender = FEMALE
 	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'

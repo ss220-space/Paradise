@@ -16,6 +16,7 @@
 	name = "Box"
 	desc = "A sleek, sturdy box"
 	icon_state = "box_of_doom"
+	gender = MALE
 
 /obj/item/storage/box/syndie_kit/mantisblade
 	name = "Horlex Mantis blade set"
@@ -328,12 +329,12 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/stungloves
 	name = "Stungloves"
 	ru_names = list(
-		NOMINATIVE = "оглушающие перчатки",
-		GENITIVE = "оглушающих перчаток",
-		DATIVE = "оглушающим перчаткам",
-		ACCUSATIVE = "оглушающие перчатки",
-		INSTRUMENTAL = "оглушающими перчатками",
-		PREPOSITIONAL = "оглушающих перчатках"
+		NOMINATIVE = "набор оглушающих перчаток",
+		GENITIVE = "набора оглушающих перчаток",
+		DATIVE = "набору оглушающих перчаток",
+		ACCUSATIVE = "набор оглушающих перчаток",
+		INSTRUMENTAL = "набором оглушающих перчаток",
+		PREPOSITIONAL = "наборе оглушающих перчаток"
 	)
 
 /obj/item/storage/box/syndie_kit/stungloves/populate_contents()
@@ -420,8 +421,16 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		new /obj/item/storage/bag/dangertray(src)
 
 /obj/item/storage/box/syndie_kit/mr_chang_technique
-	name = "Техника агрессивного маркетинга мистера Ченга"
+	name = "Mr. Chang's Aggressive Marketing Technique"
 	desc = "Special delivery package that contains a set of items dedicated to maximize the income. Sell me that pen."
+	ru_names = list(
+		NOMINATIVE = "набор маркетинговой техники Мр. Чанга",
+		GENITIVE = "набора маркетинговой техники Мр. Чанга",
+		DATIVE = "набору маркетинговой техники Мр. Чанга",
+		ACCUSATIVE = "набор маркетинговой техники Мр. Чанга",
+		INSTRUMENTAL = "набором маркетинговой техники Мр. Чанга",
+		PREPOSITIONAL = "наборе маркетинговой техники Мр. Чанга"
+	)
 	icon_state = "box_mr_chang"
 
 /obj/item/storage/box/syndie_kit/mr_chang_technique/populate_contents()

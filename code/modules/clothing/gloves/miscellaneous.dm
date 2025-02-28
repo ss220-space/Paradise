@@ -189,7 +189,7 @@
 				do_sparks(5, 0, loc)
 				playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 				H.do_attack_animation(C)
-				visible_message(span_danger("[H] дотронулся [declent_ru(INSTRUMENTAL)] до [C]!"))
+				visible_message(span_danger("[H] дотрагива[pluralize_ru(H.gender, "ет", "ют")]ся [declent_ru(INSTRUMENTAL)] до [C]!"))
 				add_attack_logs(H, C, "Touched with stun gloves")
 				C.Weaken(stun_strength)
 				C.Stuttering(stun_strength)

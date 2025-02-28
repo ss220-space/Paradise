@@ -2,36 +2,35 @@
   * # Rep Purchase - Fulton Extraction Kit
   */
 /datum/rep_purchase/item/fulton
-	name = "Набор для эвакуации Фултон"
-	description = "Устройство, похожее на шахтёрский набор, но предназначенное для работы на космической станции. Оно используется для транспортировки целей в труднодоступные места."
+	name = "Набор для эвакуации \"Фултон\""
+	description = "Устройство, похожее на шахтёрское оборудование, но предназначенное для работы на космической станции. Оно используется для транспортировки целей в труднодоступные места."
 	cost = 1
 	stock = 2
 	item_type = /obj/item/storage/box/contractor/fulton_kit
 
 /obj/item/extraction_pack/contractor
 	name = "black fulton extraction pack"
-	desc = "Модифицированный фултон, который можно использовать в помещении благодаря технологии блюспейс. Пользуется спросом у Контракторов Синдиката."
+	desc = "Модифицированный Фултон, который можно использовать в помещении благодаря блюспейс-технологиям. Пользуется спросом у Контрактников Синдиката."
 	ru_names = list(
-		NOMINATIVE = "чёрный фултон пакет",
-		GENITIVE = "чёрного фултон пакета",
-		DATIVE = "чёрному фултон пакету",
-		ACCUSATIVE = "чёрный фултон пакет",
-		INSTRUMENTAL = "чёрным фултон пакетом",
-		PREPOSITIONAL = "чёрном фултон пакете"
+		NOMINATIVE = "система эвакуации \"Фултон\"",
+		GENITIVE = "системы эвакуации \"Фултон\"",
+		DATIVE = "системе эвакуации \"Фултон\"",
+		ACCUSATIVE = "систему эвакуации \"Фултон\"",
+		INSTRUMENTAL = "системой эвакуации \"Фултон\"",
+		PREPOSITIONAL = "системе эвакуации \"Фултон\""
 	)
-	gender = MALE
 	icon_state = "black"
 	can_use_indoors = TRUE
 
 /obj/item/storage/box/contractor/fulton_kit
 	name = "fulton extraction kit"
 	ru_names = list(
-		NOMINATIVE = "набор для эвакуации фултон",
-		GENITIVE = "набора для эвакуации фултон",
-		DATIVE = "набору для эвакуации фултон",
-		ACCUSATIVE = "набор для эвакуации фултон",
-		INSTRUMENTAL = "набором для эвакуации фултон",
-		PREPOSITIONAL = "наборе для эвакуации фултон"
+		NOMINATIVE = "набор для эвакуации Фултон",
+		GENITIVE = "набора для эвакуации Фултон",
+		DATIVE = "набору для эвакуации Фултон",
+		ACCUSATIVE = "набор для эвакуации Фултон",
+		INSTRUMENTAL = "набором для эвакуации Фултон",
+		PREPOSITIONAL = "наборе для эвакуации Фултон"
 	)
 	gender = MALE
 	icon_state = "box_of_doom"

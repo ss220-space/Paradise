@@ -1,6 +1,6 @@
 /obj/item/grenade/spawnergrenade
-	desc = "Она взорвётся через 5 секунд, что вызовет выброс всех содержащихся в ней существ."
 	name = "delivery grenade"
+	desc = "Она взорвётся через 5 секунд, что вызовет выброс всех содержащихся в ней существ."
 	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "delivery"
 	item_state = "flashbang"
@@ -46,14 +46,14 @@
 
 /obj/item/grenade/spawnergrenade/feral_cats
 	name = "feral cat delivery grenade"
-	desc = "Граната содержащая 5 дегидратированных кисок!"
+	desc = "Граната, содержащая 5 дегидратированных кошек!"
 	ru_names = list(
-		NOMINATIVE = "граната с дикими кисками",
-		GENITIVE = "гранаты с дикими кисками",
-		DATIVE = "гранате с дикими кисками",
-		ACCUSATIVE = "гранату с дикими кисками",
-		INSTRUMENTAL = "гранатой с дикими кисками",
-		PREPOSITIONAL = "гранате с дикими кисками"
+		NOMINATIVE = "граната с дикими кошками",
+		GENITIVE = "гранаты с дикими кошками",
+		DATIVE = "гранате с дикими кошками",
+		ACCUSATIVE = "гранату с дикими кошками",
+		INSTRUMENTAL = "гранатой с дикими кошками",
+		PREPOSITIONAL = "гранате с дикими кошками"
 	)
 	spawner_type = /mob/living/simple_animal/hostile/feral_cat
 	deliveryamt = 5

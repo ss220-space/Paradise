@@ -31,15 +31,15 @@
 		return .
 
 	if(HAS_TRAIT(target, TRAIT_NO_DNA))
-		balloon_alert(user, "ДНК не обнаружена")
+		balloon_alert(user, "ДНК не обнаружена!")
 		return .
 
 	if(locate(/obj/effect/proc_holder/spell/lasereyes, target.mob_spell_list))
-		balloon_alert(user, "ген уже имеется")
+		balloon_alert(user, "ген уже имеется!")
 		return .
 
 	if(used)
-		balloon_alert(user, "инъектор уже использован")
+		balloon_alert(user, "уже использовано!")
 		return .
 
 	. |= ATTACK_CHAIN_SUCCESS
@@ -50,7 +50,7 @@
 
 /obj/effect/proc_holder/spell/lasereyes
 	name = "Лазеры из глаз"
-	desc = "Переключатель позволяющий активировать и деактивировать способность стрелять лазерами из глаз."
+	desc = "Активация или дезактивация способности стрелять лазерами из глаз."
 	clothes_req = FALSE
 	base_cooldown = 1 SECONDS
 	cooldown_min = 1 SECONDS

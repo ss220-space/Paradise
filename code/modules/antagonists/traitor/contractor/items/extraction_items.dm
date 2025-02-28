@@ -6,12 +6,12 @@
 /obj/effect/contractor_flare
 	name = "contractor extraction flare"
 	ru_names = list(
-		NOMINATIVE = "сигнальная ракета контрактора",
-		GENITIVE = "сигнальной ракеты контрактора",
-		DATIVE = "сигнальной ракете контрактора",
-		ACCUSATIVE = "сигнальную ракету контрактора",
-		INSTRUMENTAL = "сигнальной ракетой контрактора",
-		PREPOSITIONAL = "сигнальной ракете контрактора"
+		NOMINATIVE = "сигнальная ракета контрактника",
+		GENITIVE = "сигнальной ракеты контрактника",
+		DATIVE = "сигнальной ракете контрактника",
+		ACCUSATIVE = "сигнальную ракету контрактника",
+		INSTRUMENTAL = "сигнальной ракетой контрактника",
+		PREPOSITIONAL = "сигнальной ракете контрактника"
 	)
 	gender = MALE
 	icon = 'icons/obj/lighting.dmi'
@@ -33,7 +33,7 @@
 		return .
 	. |= ATTACK_CHAIN_SUCCESS
 	cigarette.light(span_rose("[user] привычным движением прикурива[pluralize_ru(user.gender, "ет", "ют")] заслуженную \
-					[genderize_ru(user.gender, "им", "ей", "им", "ими")] [cigarette.name] сигнальной ракетой контрактора. В воздухе запахло телекристаллами."))
+					[genderize_ru(user.gender, "им", "ей", "им", "ими")] [cigarette.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]. В воздухе запахло телекристаллами."))
 
 
 /**
@@ -51,7 +51,6 @@
 		INSTRUMENTAL = "подозрительным порталом",
 		PREPOSITIONAL = "подозрительном портале"
 	)
-	gender = MALE
 	icon_state = "portal-syndicate"
 	/// The contract associated with this portal.
 	var/datum/syndicate_contract/contract = null
@@ -67,12 +66,12 @@
 		return FALSE
 	if(M == usr && M.mind == contractor_mind)
 		if(!silent)
-			to_chat(M, span_warning("Портал здесь для того, чтобы экспортировать цель контракта, а не вас!"))
+			to_chat(M, span_warning("Портал здесь для того, чтобы эвакуировать цель контракта, а не вас!"))
 		return FALSE
 	if(M.mind != target_mind)
 		if(usr?.mind == contractor_mind) // Contractor shoving a non-target into the portal
 			if(!silent)
-				to_chat(M, span_warning("Почему-то вы не уверены, что [M] — именно та цель, которую вам нужно экспортировать."))
+				to_chat(M, span_warning("Почему-то вы не уверены, что [M] — именно та цель, которую вам нужно эвакуировать."))
 			return FALSE
 		else if(usr == M) // Non-target trying to enter the portal
 			if(!silent)

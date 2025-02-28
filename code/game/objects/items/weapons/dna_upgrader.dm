@@ -32,7 +32,7 @@
 	if(!used)
 		choose_genes(user)
 	else
-		balloon_alert(user, "уже используется")
+		balloon_alert(user, "уже используется!")
 
 /obj/item/dna_upgrader/proc/choose_genes(mob/user)
 	var/choosen_mod = tgui_input_list(user, "Выберите модификацию", name, list(VAULT_TOXIN, VAULT_NOBREATH, VAULT_FIREPROOF, VAULT_STUNTIME, VAULT_ARMOUR, VAULT_SPEED, VAULT_QUICK), ui_state = GLOB.not_incapacitated_state)
@@ -40,7 +40,7 @@
 		return
 	var/mob/living/carbon/human/H = user
 	if(HAS_TRAIT(H, TRAIT_NO_DNA))
-		balloon_alert(H, "ДНК не обнаружена")
+		balloon_alert(H, "ДНК не обнаружена!")
 		return
 	switch(choosen_mod)
 		if(VAULT_TOXIN)
@@ -63,7 +63,7 @@
 			H.physiology.stamina_mod *= 0.5
 			H.stam_regen_start_modifier *= 0.5
 		if(VAULT_ARMOUR)
-			to_chat(H, span_notice("Вы чувствуете себя уверенно."))
+			to_chat(H, span_notice("Вы чувствуете себя крепче."))
 			H.physiology.brute_mod *= 0.7
 			H.physiology.burn_mod *= 0.7
 			H.physiology.tox_mod *= 0.7

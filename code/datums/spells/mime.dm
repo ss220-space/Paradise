@@ -18,9 +18,9 @@
 /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall/Click()
 	if(usr && usr.mind)
 		if(!usr.mind.miming)
-			to_chat(usr, span_notice("Сначала вы должны принять обет молчания."))
+			to_chat(usr, span_warning("Сначала вы должны принять обет молчания!"))
 			return
-		invocation = "<B>[usr.name]</B> выглядит так, как будто перед [genderize_ru(usr.gender, "ним", "ней", "ним", "ними")] находится стена."
+		invocation = "<B>[usr]</B> выглядит так, как будто бы перед [genderize_ru(usr.gender, "ним", "ней", "ним", "ними")] находится стена."
 	else
 		invocation_type ="none"
 	..()
@@ -64,7 +64,7 @@
 	target.mind.miming = !target.mind.miming
 
 	if(target.mind.miming)
-		to_chat(target, span_notice("Вы даете обет молчания."))
+		to_chat(target, span_notice("Вы даёте обет молчания."))
 	else
 		to_chat(target, span_notice("Вы нарушаете свой обет молчания."))
 
@@ -81,7 +81,7 @@
 //Advanced Mimery traitor item spells
 
 /obj/effect/proc_holder/spell/forcewall/mime
-	name = "Невидимая Великая стена"
+	name = "Великая Невидимая стена"
 	desc = "Создайте перед собой невидимую стену шириной в три тайла."
 	school = "mime"
 	wall_type = /obj/effect/forcefield/mime/advanced
@@ -99,17 +99,17 @@
 /obj/effect/proc_holder/spell/forcewall/mime/Click()
 	if(usr && usr.mind)
 		if(!usr.mind.miming)
-			to_chat(usr, span_notice("Сначала вы должны принять обет молчания."))
+			to_chat(usr, span_warning("Сначала вы должны принять обет молчания!"))
 			return
-		invocation = "<B>[usr.name]</B> выглядит так, как будто перед [genderize_ru(usr.gender, "ним", "ней", "ним", "ними")] находится стена."
+		invocation = "<B>[usr]</B> выглядит так, как будто бы перед [genderize_ru(usr.gender, "ним", "ней", "ним", "ними")] находится стена."
 	else
 		invocation_type ="none"
 	..()
 
 
 /obj/effect/proc_holder/spell/mime/fingergun
-	name = "Пальчиковый пистолет"
-	desc = "Стреляйте из пальцев бесшумными смертоносными пулями! В вашем распоряжении будет 3 пули. Носите пальцы в карманах, как будто это кобура."
+	name = "Пальцы-пистолеты"
+	desc = "Стреляйте из пальцев бесшумными смертоносными пулями! В вашем распоряжении будет 3 пули. Пау-пау-пау!"
 	school = "mime"
 	clothes_req = FALSE
 	base_cooldown = 1 MINUTES
@@ -122,7 +122,7 @@
 
 
 /obj/effect/proc_holder/spell/mime/fingergun/fake
-	desc = "Представьте, что вы стреляете из пальцев, как из пистолета! В вашем распоряжении будет 6 пуль. Носите пальцы в карманах, как будто это кобура."
+	desc = "Представьте, что вы стреляете из пальцев, как из пистолета! В вашем распоряжении будет 6 пуль. Пау-пау-пау!"
 	gun = /obj/item/gun/projectile/revolver/fingergun/fake
 
 
@@ -134,7 +134,7 @@
 /obj/effect/proc_holder/spell/mime/fingergun/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/target in targets)
 		if(!current_gun)
-			to_chat(user, span_notice("Ты рисуешь своими пальцами!"))
+			to_chat(user, span_notice("Вы взводите свои пальцы!"))
 			current_gun = new gun(get_turf(user), src)
 			target.drop_from_active_hand()
 			target.put_in_hands(current_gun)
@@ -148,7 +148,7 @@
 	SIGNAL_HANDLER
 	if(!current_gun || action.owner.get_active_hand() != current_gun)
 		return
-	to_chat(action.owner, span_notice("Ты прячешь пальцы в кобуру. Возможно, в другой раз..."))
+	to_chat(action.owner, span_notice("Вы ставите свои пальцы на предохранитель! Пока что..."))
 	QDEL_NULL(current_gun)
 	return COMPONENT_CANCEL_DROP
 
@@ -158,8 +158,16 @@
 /obj/item/spellbook/oneuse/mime
 	spell = /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall
 	spellname = "Невидимая стена"
-	name = "Руководство по пантомиме : "
+	name = "Miming Manual"
 	desc = "В книге представлены разнообразные фотографии, на которых запечатлены мимы в процессе выступления, а также несколько иллюстрированных руководств."
+	ru_names = list(
+		NOMINATIVE = "руководство по пантомимам",
+		GENITIVE = "руководства по пантомимам",
+		DATIVE = "руководству по пантомимам",
+		ACCUSATIVE = "руководство по пантомимам",
+		INSTRUMENTAL = "руководством по пантомимам",
+		PREPOSITIONAL = "руководстве по пантомимам"
+	)
 	icon_state = "bookmime"
 
 
@@ -168,13 +176,13 @@
 		return
 	for(var/obj/effect/proc_holder/spell/knownspell as anything in user.mind.spell_list)
 		if(knownspell.type == spell)
-			to_chat(user, span_notice("Вы уже ознакомились с этим."))
+			balloon_alert(user, "вы уже знаете это!")
 			return
 	if(used)
 		recoil(user)
 	else
 		user.mind.AddSpell(new spell)
-		to_chat(user, span_notice("Вы переворачиваете страницы, и ваше понимание мира становится все более глубоким. Теперь вы способны использовать [spellname]!"))
+		to_chat(user, span_notice("Вы впитываете в себя содержимое книги, приобретая новую способность - <b>\"[spellname]\"</b>!"))
 		user.create_log(MISC_LOG, "learned the spell [spellname]")
 		user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname].</font>")
 		onlearned(user)
@@ -188,13 +196,13 @@
 	used = TRUE
 	if(!locate(/obj/effect/proc_holder/spell/mime/speak) in user.mind.spell_list) //add vow of silence if not known by user
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak)
-		to_chat(user, span_notice("Вы узнали, как применять обет молчания в представлениях."))
+		to_chat(user, span_notice("Вы узнали, как применять обет молчания в своих представлениях."))
 
 
 /obj/item/spellbook/oneuse/mime/fingergun
 	spell = /obj/effect/proc_holder/spell/mime/fingergun
-	spellname = "Пальчиковый пистолет"
-	desc = "Содержит изображения оружия, а также приёмы его имитации с помощью пантомимы."
+	spellname = "Пальцы-пистолеты"
+	desc = "Содержит изображения оружия, а также способы его имитации с помощью пантомим."
 
 
 /obj/item/spellbook/oneuse/mime/fingergun/fake
@@ -203,6 +211,6 @@
 
 /obj/item/spellbook/oneuse/mime/greaterwall
 	spell = /obj/effect/proc_holder/spell/forcewall/mime
-	spellname = "Невидимая Великая стена"
+	spellname = "Великая Невидимая стена"
 	desc = "Содержит изображения выдающихся сооружений, которые оставили след в истории человечества."
 

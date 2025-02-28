@@ -3,7 +3,7 @@
   */
 /datum/rep_purchase/reroll
 	name = "Обновление контрактов"
-	description = "Заменяет неактивные контракты на новые, содержащие новую цель и зоны экспорта."
+	description = "Заменяет неактивные контракты на новые, содержащие новую цель и зоны для эвакуации."
 	cost = 0
 	stock = 2
 
@@ -26,4 +26,4 @@
 		var/datum/syndicate_contract/C = c
 		if(C.status == CONTRACT_STATUS_INACTIVE && C.generate())
 			changed++
-	hub.contractor_uplink?.message_holder("Агент, мы заменили [changed] контракт[declension_ru(changed,"","а","ов")] на новые.")
+	hub.contractor_uplink?.message_holder("Агент, мы заменили [changed] контракт[declension_ru(changed, "", "а", "ов")] на новы[declension_ru(changed, "й", "е", "е")].")

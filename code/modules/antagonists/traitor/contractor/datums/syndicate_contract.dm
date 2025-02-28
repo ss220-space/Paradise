@@ -176,7 +176,7 @@
 	status = CONTRACT_STATUS_ACTIVE
 	chosen_difficulty = difficulty
 	owning_hub.current_contract = src
-	owning_hub.contractor_uplink?.message_holder("Запрос на этот контракт подтвержден. Удачи, агент!", 'sound/machines/terminal_prompt.ogg')
+	owning_hub.contractor_uplink?.message_holder("Запрос на этот контракт подтверждён. Удачи, агент!", 'sound/machines/terminal_prompt.ogg')
 
 	return TRUE
 
@@ -214,18 +214,18 @@
 	var/pre_text
 	if(src == owning_hub.current_contract)
 		owning_hub.current_contract = null
-		pre_text = "Агент, похоже, что цель, которую вам поручили похитить, больше недоступна."
+		pre_text = "Агент, цель вашего похищения более недоступна."
 	else
-		pre_text = "Агент, неактивный контракт больше не может быть выполнен, так как цель исчезла с наших сенсоров."
+		pre_text = "Агент, неактивный контракт более не может быть выполнен, так как цель исчезла с наших сенсоров."
 
 	var/outcome_text
 	if(generate())
 		status = CONTRACT_STATUS_INACTIVE
-		outcome_text = "К счастью, на станции есть еще одна цель, которую мы можем похитить. Новый контракт можно получить в аплинке."
+		outcome_text = "К счастью, на станции есть ещё одна цель, которую мы можем похитить. Новый контракт можно получить в аплинке."
 	else
 		// Too bad.
 		status = CONTRACT_STATUS_INVALID
-		outcome_text = "К сожалению, мы не смогли найти другую цель для похищения и поэтому не можем предоставить вам еще один контракт."
+		outcome_text = "К сожалению, мы не смогли найти другую цель для похищения и поэтому не можем предоставить вам ещё один контракт."
 
 	if(owning_hub.contractor_uplink)
 		owning_hub.contractor_uplink.message_holder("[pre_text] [outcome_text]", 'sound/machines/terminal_prompt_deny.ogg')
@@ -247,7 +247,7 @@
 	fail_reason = reason
 	// Notify
 	clean_up()
-	owning_hub.contractor_uplink?.message_holder("Вам не удалось похитить цель, агент. Больше не разочаровывайте нас!", 'sound/machines/terminal_prompt_deny.ogg')
+	owning_hub.contractor_uplink?.message_holder("Вам не удалось похитить цель, агент. Впредь постарайтесь так не разочаровывать нас!", 'sound/machines/terminal_prompt_deny.ogg')
 
 /**
   * Initiates the extraction process if conditions are met.
@@ -257,30 +257,30 @@
   */
 /datum/syndicate_contract/proc/start_extraction_process(obj/item/contractor_uplink/U, mob/living/carbon/human/M)
 	if(!U?.Adjacent(M))
-		return "Где в космосе находится ваш аплинк?!"
+		return "Где ваш чёртов аплинк?!"
 	else if(status != CONTRACT_STATUS_ACTIVE)
 		return "Данный контракт не активен."
 	else if(extraction_deadline > world.time)
-		return "Новая попытка экспорта пока не может быть предпринята."
+		return "Новая попытка похищения пока не может быть предпринята."
 
 	var/mob/target = contract.target.current
 	if(!target)
 		invalidate()
-		return "Цель больше не фиксируется нашими датчиками. Ваш контракт будет аннулирован и заменен на другой."
+		return "Цель более не фиксируется нашими датчиками. Ваш контракт будет аннулирован и заменён на другой."
 	else if(!contract.can_start_extraction_process(M, target))
-		return "Чтобы начать процесс экспортирования, вы и цель должны находиться в зоне экспорта."
+		return "Чтобы начать процесс похищения, вы и цель должны находиться в нужной локации."
 
 	M.visible_message(span_notice("[M] начина[pluralize_ru(M.gender, "ет", "ют")] вводить загадочную серию символов в [U.declent_ru(ACCUSATIVE)]..."),\
-					  span_notice("Вы начинаете подавать сигнал для экспорта своим кураторам через [U.declent_ru(ACCUSATIVE)]..."))
+					  span_notice("Вы начинаете подавать сигнал для эвакуации своим кураторам через [U.declent_ru(ACCUSATIVE)]..."))
 	if(do_after(M, EXTRACTION_PHASE_PREPARE, M))
 		if(!U.Adjacent(M) || extraction_deadline > world.time)
 			return
 		var/obj/effect/contractor_flare/F = new(get_turf(M))
 		extraction_flare = F
 		extraction_deadline = world.time + extraction_cooldown
-		M.visible_message(span_notice("[M] ввод[pluralize_ru(M.gender, "ит", "ят")] таинственный код в [U.declent_ru(ACCUSATIVE)] и доста[pluralize_ru(M.gender, "ет", "ют")] \
-							чёрно-золотую сигнальную ракету, после чего зажига[pluralize_ru(M.gender, "ет", "ют")] ее."),\
-						  span_notice("Вы завершаете ввод сигнала в [U.declent_ru(ACCUSATIVE)] и зажигаете сигнальную ракету, начиная процесс экспортирования."))
+		M.visible_message(span_notice("[M] ввод[pluralize_ru(M.gender, "ит", "ят")] таинственный код в [U.declent_ru(ACCUSATIVE)] и доста[pluralize_ru(M.gender, "ёт", "ют")] \
+							чёрно-золотую сигнальную ракету, после чего зажига[pluralize_ru(M.gender, "ет", "ют")] её."),\
+						  span_notice("Вы завершаете ввод сигнала в [U.declent_ru(ACCUSATIVE)] и зажигаете сигнальную ракету, начиная процесс эвакуации."))
 		addtimer(CALLBACK(src, PROC_REF(open_extraction_portal), U, M, F), EXTRACTION_PHASE_PORTAL)
 		extraction_timer_handle = addtimer(CALLBACK(src, PROC_REF(deadline_reached)), portal_duration, TIMER_STOPPABLE)
 
@@ -297,13 +297,13 @@
 		invalidate()
 		return
 	else if(!F)
-		U.message_holder("Агент, нам не удалось обнаружить [F.declent_ru(ACCUSATIVE)]. Убедитесь, что зона экспорта свободна, прежде чем посылать нам сигнал.", 'sound/machines/terminal_prompt_deny.ogg')
+		U.message_holder("Агент, нам не удалось обнаружить [F.declent_ru(ACCUSATIVE)]. Убедитесь, что зона эвакуации свободна, прежде чем посылать нам сигнал.", 'sound/machines/terminal_prompt_deny.ogg')
 		return
 	else if(!ismob(contract.target.current))
 		invalidate()
 		return
-	U.message_holder("Агент, мы получили сигнал экспорта. Системы помех блюспейс транспорту на борту НСС [SSmapping.map_datum.station_name], были саботированы. "\
-			 	   + "Мы открыли временный портал на месте вашей сигнальной ракеты. Поместите цель в портал, чтобы завершить процесс экспортирования.", 'sound/effects/confirmdropoff.ogg')
+	U.message_holder("Агент, мы получили сигнал эвакуации. Системы помех блюспейс транспорту на борту НСС [SSmapping.map_datum.station_name], были саботированы. "\
+			 	   + "Мы открыли временный портал на месте вашей сигнальной ракеты. Поместите цель в портал, чтобы завершить процесс эвакуации.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
 	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), F, 0, M)
 	P.contract = src
@@ -335,9 +335,9 @@
 /datum/syndicate_contract/proc/notify_completion(tc, creds, target_dead)
 	var/penalty_text = ""
 	if(target_dead)
-		penalty_text = " (штраф применяется, если цель была экспортирована мёртвой)"
-	owning_hub.contractor_uplink?.message_holder("Отличная работа, агент! Посылка доставлена и в ближайшее время её обработают, после чего отправят обратно. "\
-									 + "Как и было оговорено, вам начислено [tc] ТК[penalty_text] и [creds] кредитов.", 'sound/machines/terminal_prompt_confirm.ogg')
+		penalty_text = " (штраф применяется, если цель была эвакуирована мёртвой)"
+	owning_hub.contractor_uplink?.message_holder("Отличная работа, агент! Цель доставлена и в ближайшее время её обработают, после чего отправят обратно. "\
+									 + "Как и было оговорено, вам начислено [tc] ТК[penalty_text] и [creds] кредит[declension_ru(creds, "", "а", "ов")].", 'sound/machines/terminal_prompt_confirm.ogg')
 
 /**
   * Handles the target's experience from extraction.
@@ -499,7 +499,7 @@
 					мы благодарим вас за то, что вы их предоставили. Ваша ценность возросла, и вы будете выкуплены обратно на свою станцию. \
 					Нам всегда платят, так что отправка вас обратно — лишь вопрос времени...\"</i>"))
 
-		to_chat(M, span_danger("<font size=3>Вас похитили и допрашивают, чтобы получить ценную информацию! \
+		to_chat(M, span_danger("<font size=3>Вас похитили и допросили, чтобы получить ценную информацию! \
 					Через несколько минут вас отправят обратно на станцию...</font>"))
 
 /**
@@ -598,7 +598,7 @@
   */
 /datum/syndicate_contract/proc/deadline_reached()
 	clean_up()
-	owning_hub.contractor_uplink?.message_holder("Окно экспорта закрылось, как и портал, агент. Вам придется начать экспорт ещё раз, чтобы мы могли открыть новый портал.")
+	owning_hub.contractor_uplink?.message_holder("Окно эвакуации закрылось, как и портал, агент. Вам придется начать процесс эвакуации ещё раз, чтобы мы могли открыть новый портал.")
 	SStgui.update_uis(owning_hub)
 
 /**

@@ -79,7 +79,7 @@
 
 
 /obj/structure/holosign/wetsign/mine
-	desc = "Слова пролетают мимо, как будто они ничего не значат."
+	desc = "Слова пролетают мимо, как будто они что-то точно значат."
 
 
 /obj/structure/holosign/wetsign/mine/Initialize(mapload, source_projector)

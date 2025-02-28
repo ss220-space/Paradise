@@ -52,12 +52,12 @@
 	name = "Mimejutsu manual"
 	desc =	"Старое пособие по боевому искусству мимов."
 	ru_names = list(
-		NOMINATIVE = "мануал Мимдзютсе",
-		GENITIVE = "мануала Мимдзютсе",
-		DATIVE = "мануалу Мимдзютсе",
-		ACCUSATIVE = "мануал Мимдзютсе",
-		INSTRUMENTAL = "мануалом Мимдзютсе",
-		PREPOSITIONAL = "мануале Мимдзютсе"
+		NOMINATIVE = "мануал Мимдзютсю",
+		GENITIVE = "мануала Мимдзютсю",
+		DATIVE = "мануалу Мимдзютсю",
+		ACCUSATIVE = "мануал Мимдзютсю",
+		INSTRUMENTAL = "мануалом Мимдзютсю",
+		PREPOSITIONAL = "мануале Мимдзютсю"
 	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "mimemanual"
@@ -74,7 +74,7 @@
 		used = TRUE
 		desc = "Старое пособие по боевому искусству мимов, но страницы его пусты."
 	else
-		to_chat(user, span_notice("Сначала вы должны принять обет молчания."))
+		to_chat(user, span_warning("Сначала вы должны принять обет молчания!"))
 
 /datum/martial_art/mimejutsu/explaination_header(user)
 	to_chat(user, "<b><i>...</i></b>")

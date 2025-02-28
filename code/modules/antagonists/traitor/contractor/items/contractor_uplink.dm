@@ -5,14 +5,14 @@
   */
 /obj/item/contractor_uplink
 	name = "contractor uplink"
-	desc = "Планшет, выданный Синдикатом, для работы с контрактами в полевых условиях."
+	desc = "Устройство, выданное Синдикатом, для работы с контрактами в полевых условиях."
 	ru_names = list(
-		NOMINATIVE = "аплинк контрактора",
-		GENITIVE = "аплинка контрактора",
-		DATIVE = "аплинку контрактору",
-		ACCUSATIVE = "аплинк контрактора",
-		INSTRUMENTAL = "аплинком контрактором",
-		PREPOSITIONAL = "аплинке контракторе"
+		NOMINATIVE = "аплинк контрактника",
+		GENITIVE = "аплинка контрактника",
+		DATIVE = "аплинку контрактнику",
+		ACCUSATIVE = "аплинк контрактника",
+		INSTRUMENTAL = "аплинком контрактником",
+		PREPOSITIONAL = "аплинке контрактнике"
 	)
 	gender = MALE
 	icon = 'icons/obj/device.dmi'

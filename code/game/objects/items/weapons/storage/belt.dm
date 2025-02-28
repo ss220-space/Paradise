@@ -602,7 +602,7 @@
 
 /obj/item/storage/belt/holster
 	name = "shoulder holster"
-	desc = "Кобура, в которой можно спрятать пистолет. ВНИМАНИЕ: только для крутых парней."
+	desc = "Кобура, предназначенная для хранения пистолета."
 	icon_state = "holster"
 	item_state = "holster"
 	storage_slots = 1
