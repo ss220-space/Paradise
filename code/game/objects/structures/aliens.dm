@@ -171,6 +171,12 @@
 
 	try_switch_state(user)
 
+/obj/structure/alien/resin/door/attack_animal(mob/living/simple_animal/M)
+	if(M.a_intent == INTENT_HARM)
+		return ..()
+
+	try_switch_state(M)
+		
 
 /obj/structure/alien/resin/door/attack_hand(mob/living/user)
 	if(!isalien(user))
@@ -209,8 +215,10 @@
 		return
 
 	add_fingerprint(user)
-
-	if(!isalien(user))
+	if(!isliving(user))
+		return
+	var/mob/living/mob = user
+	if(!isalien(user) || ("alien" in mob.faction))
 		return
 
 	var/mob/living/carbon/alien/alien = user
@@ -442,6 +450,7 @@
 #define GROWN 3
 #define MIN_GROWTH_TIME 1200	//time it takes to grow a hugger
 #define MAX_GROWTH_TIME 1800
+#define PROXIMITY_RADIUS 5
 
 /obj/structure/alien/egg
 	name = "egg"
@@ -453,6 +462,7 @@
 	integrity_failure = 5
 	var/status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
+	vae
 
 /obj/structure/alien/egg/grown
 	status = GROWN
@@ -468,11 +478,13 @@
 	update_icon(UPDATE_ICON_STATE)
 	switch(status)
 		if(GROWING)
-			new /obj/item/clothing/mask/facehugger(src)
+			var/mob/living/simple_animal/hostile/facehugger/player_controlled/hugger = new(src)
+			hugger.LoseTarget()
 			addtimer(CALLBACK(src, PROC_REF(Grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 		if(GROWN)
-			new /obj/item/clothing/mask/facehugger(src)
-			AddComponent(/datum/component/proximity_monitor)
+			var/mob/living/simple_animal/hostile/facehugger/player_controlled/hugger = new(src)
+			hugger.LoseTarget()
+			AddComponent(/datum/component/proximity_monitor, PROXIMITY_RADIUS)
 		if(BURST)
 			obj_integrity = integrity_failure
 
@@ -512,40 +524,41 @@
 
 
 /obj/structure/alien/egg/proc/GetFacehugger()
-	return locate(/obj/item/clothing/mask/facehugger) in contents
+	return locate(/mob/living/simple_animal/hostile/facehugger) in contents
 
 
 /obj/structure/alien/egg/proc/Grow()
 	status = GROWN
 	update_icon(UPDATE_ICON_STATE)
-	AddComponent(/datum/component/proximity_monitor)
-
+	AddComponent(/datum/component/proximity_monitor, PROXIMITY_RADIUS)
 
 ///Need to carry the kill from Burst() to Hatch(), this section handles the alien opening the egg
-/obj/structure/alien/egg/proc/Burst(kill = TRUE)	//drops and kills the hugger if any is remaining
+/obj/structure/alien/egg/proc/Burst(kill = TRUE, atom/movable/trigger)	//drops and kills the hugger if any is remaining
 	if(status == GROWN || status == GROWING)
 		playsound(get_turf(src), 'sound/creatures/alien/xeno_egg_crack.ogg', 50)
 		flick("egg_opening", src)
 		status = BURSTING
 		qdel(GetComponent(/datum/component/proximity_monitor))
-		addtimer(CALLBACK(src, PROC_REF(Hatch), kill), 1.5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(Hatch), kill, trigger), 1.5 SECONDS)
 
 
 ///We now check HOW the hugger is hatching, kill carried from Burst() and obj_break()
-/obj/structure/alien/egg/proc/Hatch(kill)
+/obj/structure/alien/egg/proc/Hatch(kill, atom/movable/trigger)
 	status = BURST
 	update_icon(UPDATE_ICON_STATE)
-	var/obj/item/clothing/mask/facehugger/child = GetFacehugger()
+	var/mob/living/simple_animal/hostile/facehugger/child = GetFacehugger()
 	if(!child)
 		return
 	child.forceMove(get_turf(src))
 	if(kill)
-		child.Die()
+		child.death()
 		return
 	for(var/mob/living/victim in range(1, src))
 		if(CanHug(victim))
-			child.Attach(victim)
+			child.try_hug(victim)
 			break
+	child.GiveTarget(trigger)
+	child.MoveToTarget(list(trigger))
 
 
 /obj/structure/alien/egg/obj_break(damage_flag)
@@ -567,8 +580,10 @@
 		var/mob/living/carbon/target = AM
 		if(iscarbon(target) && target.stat == CONSCIOUS && target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 			return
+		if(isalien(target))
+			return
 
-		Burst(kill = FALSE)
+		Burst(kill = FALSE, trigger = AM)
 
 
 #undef BURST
@@ -577,6 +592,7 @@
 #undef GROWN
 #undef MIN_GROWTH_TIME
 #undef MAX_GROWTH_TIME
+#undef PROXIMITY_RADIUS
 
 #undef ALIEN_RESIN_BURN_MOD
 #undef ALIEN_RESIN_BRUTE_MOD

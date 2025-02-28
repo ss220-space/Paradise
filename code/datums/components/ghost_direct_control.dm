@@ -8,6 +8,10 @@
 	var/ban_type
 	/// Check Syndicate ban
 	var/ban_syndicate
+	/// Check ghost respawnability
+	var/respawnable_check = TRUE
+	/// Check antaghud use
+	var/check_antaghud = TRUE
 	/// Any extra checks which need to run before we take over
 	var/datum/callback/extra_control_checks
 	/// Callback run after someone successfully takes over the body
@@ -25,6 +29,7 @@
 	poll_candidates = TRUE,
 	antag_age_check = TRUE,
 	check_antaghud = TRUE,
+	respawnable_check = TRUE,
 	poll_length = 10 SECONDS,
 	ban_syndicate = FALSE,
 	assumed_control_message = null,
@@ -43,6 +48,8 @@
 	src.extra_control_checks = extra_control_checks
 	src.after_assumed_control = after_assumed_control
 	src.question_text = question_text
+	src.respawnable_check = respawnable_check
+	src.check_antaghud = check_antaghud
 
 	LAZYADD(GLOB.mob_spawners[format_text("[initial(mob_parent.name)]")], mob_parent)
 
@@ -135,13 +142,18 @@
 	if(new_body.stat == DEAD)
 		to_chat(harbinger, span_warning("Это тело умерло, оно бесполезно!"))
 		return
+	if(respawnable_check && !(harbinger in GLOB.respawnable_list))
+		to_chat(harbinger, "Вы не можете повторно присоединиться к раунду.")
+		return
+	if(respawnable_check && cannotPossess(harbinger))
+		to_chat(harbinger, "Вы не можете повторно присоединиться к раунду, активировав антаг худ.")
+		return
 	if(new_body.key)
 		to_chat(harbinger, span_warning("[capitalize(new_body.declent_ru(NOMINATIVE))] уже является разумным!"))
 		qdel(src)
 		return
 	if(extra_control_checks && !extra_control_checks.Invoke(harbinger))
 		return
-
 	add_game_logs("took control of [new_body].", harbinger)
 	// doesn't transfer mind because that transfers antag datum as well
 	new_body.key = harbinger.key

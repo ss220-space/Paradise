@@ -585,7 +585,7 @@
 				I.move_to_null_space()
 			else
 				I.forceMove(newloc)
-		I.dropped(src, slot, silent)
+		I.dropped(src, slot, silent, newloc)
 
 	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent)
 	if(!not_handled)

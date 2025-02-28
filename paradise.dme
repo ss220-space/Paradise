@@ -2584,6 +2584,7 @@
 #include "code\modules\mob\living\carbon\alien\larva\update_icons.dm"
 #include "code\modules\mob\living\carbon\alien\special\alien_embryo.dm"
 #include "code\modules\mob\living\carbon\alien\special\facehugger.dm"
+#include "code\modules\mob\living\carbon\alien\special\facehugger_mob.dm"
 #include "code\modules\mob\living\carbon\brain\brain.dm"
 #include "code\modules\mob\living\carbon\brain\brain_emote.dm"
 #include "code\modules\mob\living\carbon\brain\brain_item.dm"

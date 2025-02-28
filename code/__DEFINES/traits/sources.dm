@@ -75,6 +75,8 @@
 /// Traits applied to a silicon mob by their model.
 #define ROBOT_TRAIT "robot_trait"
 
+#define FACEHUGER_TRAIT "facehugger_trait"
+
 /// A trait gained from a mob's leap action, like the leaper
 #define LEAPING_TRAIT "leaping"
 

@@ -39,6 +39,8 @@
 #define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
 
 #define isalienqueen(A) (istype(A, /mob/living/carbon/alien/humanoid/queen))
+#define isfacehugger(A) (istype(A, /mob/living/simple_animal/hostile/facehugger))
+#define isfacehugger_mask(A) (istype(A, /obj/item/clothing/mask/facehugger) && !istype(A, /obj/item/clothing/mask/facehugger/toy))
 
 // Simple animals
 // #define issimple_animal(A) (istype(A, /mob/living/simple_animal)) use isanimal(A) instead
