@@ -60,6 +60,14 @@
 /obj/item/organ/internal/brain/plasmaman
 	species_type = /datum/species/plasmaman
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал плазмолюду."
+	ru_names = list(
+		NOMINATIVE = "мозг плазмолюда",
+		GENITIVE = "мозга плазмолюда",
+		DATIVE = "мозгу плазмолюда",
+		ACCUSATIVE = "мозг плазмолюда",
+		INSTRUMENTAL = "мозгом плазмолюда",
+		PREPOSITIONAL = "мозге плазмолюда"
+	)
 	icon = 'icons/obj/species_organs/plasmaman.dmi'
 	icon_state = "brain2"
 	item_state = "plasmaman_brain"

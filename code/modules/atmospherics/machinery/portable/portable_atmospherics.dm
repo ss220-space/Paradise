@@ -4,6 +4,7 @@
 	max_integrity = 250
 	pull_push_slowdown = 1.3
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 60, "acid" = 30)
+	interaction_flags_click = NEED_HANDS | ALLOW_SILICON_REACH
 	var/datum/gas_mixture/air_contents = new
 
 	var/obj/machinery/atmospherics/unary/portables_connector/connected_port
@@ -92,17 +93,12 @@
 /obj/machinery/portable_atmospherics/portableConnectorReturnAir()
 	return air_contents
 
-/obj/machinery/portable_atmospherics/AltClick(mob/living/user)
-	if(!ishuman(user) && !issilicon(user))
-		return
-	if(!Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
-	if(holding)
-		to_chat(user, span_notice("You remove [holding] from [src]."))
-		replace_tank(user, TRUE)
+/obj/machinery/portable_atmospherics/click_alt(mob/living/user)
+	if(!holding)
+		return NONE
+	to_chat(user, span_notice("You remove [holding] from [src]."))
+	replace_tank(user, TRUE)
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/portable_atmospherics/examine(mob/user)
 	. = ..()

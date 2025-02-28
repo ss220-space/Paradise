@@ -10,6 +10,7 @@
 	large = TRUE
 	move_resist = MOVE_FORCE_STRONG
 	ventcrawler_trait = null
+	antag_datum_type = /datum/antagonist/xenomorph/queen
 
 /mob/living/carbon/alien/humanoid/empress/large
 	name = "alien empress"

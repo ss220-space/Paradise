@@ -224,8 +224,6 @@
 	//Ghosted var, set only if a player has manually ghosted out of this mob.
 	var/player_ghosted = 0
 
-	var/turf/listed_turf = null  //the current turf being examined in the stat panel
-
 	var/list/active_genes
 
 	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.

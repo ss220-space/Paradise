@@ -158,20 +158,15 @@
 /obj/machinery/kitchen_machine/examine(mob/user)
 	. = ..()
 	if(in_range(src, user))
-		. += "<span class='info'>Alt-click to activate it.<br/>Ctrl-Shift-click to dispose content.</span>"
+		. += span_info("<b>Alt-click</b> to activate it.<br/><b>Ctrl-Shift-click</b> to dispose content.")
 
-/obj/machinery/kitchen_machine/AltClick(mob/living/carbon/human/human)
-	if(!istype(human) || !human.Adjacent(src))
-		return
-
-	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
-		return
-
+/obj/machinery/kitchen_machine/click_alt(mob/living/carbon/human/human)
 	if(operating)
-		return
+		return NONE
 
 	add_fingerprint(human)
 	cook()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/kitchen_machine/CtrlShiftClick(mob/living/carbon/human/human)
 	if(!istype(human) || !human.Adjacent(src))

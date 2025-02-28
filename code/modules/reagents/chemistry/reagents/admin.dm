@@ -64,3 +64,55 @@
 	id = "nanites"
 	description = "Наномашины, способствующие быстрой регенерации клеточной структуры."
 	taste_description = "наномашин, сынок"
+
+/datum/reagent/admin_cleaner
+	name = "WD-2381"
+	color = "#da9eda"
+	can_synth = FALSE
+	description = "Супер-пузырьковое чистящее средство, предназначенное для очистки всех предметов. Или, ну, всего, что не прикручено. Или прикуручено, если уж на то пошло. Другими словами: если вы это видите, как вы это заполучили?"
+
+/datum/reagent/admin_cleaner/organic
+	name = "WD-2381-MOB"
+	id = "admincleaner_mob"
+	description = "Бутылочка со странными нанитами, мгновенно пожирающими тела, как живые, так и мёртвые, а также органы."
+
+/datum/reagent/admin_cleaner/organic/reaction_mob(mob/living/M, method, volume, show_message)
+	. = ..()
+	if(method == REAGENT_TOUCH)
+		M.dust()
+
+/datum/reagent/admin_cleaner/organic/reaction_obj(obj/O, volume)
+	if(is_organ(O))
+		qdel(O)
+	if(istype(O, /obj/effect/decal/cleanable/blood) || istype(O, /obj/effect/decal/cleanable/vomit))
+		qdel(O)
+	if(istype(O, /obj/item/mmi))
+		qdel(O)
+
+/datum/reagent/admin_cleaner/item
+	name = "WD-2381-ITM"
+	id = "admincleaner_item"
+	description = "Бутылочка со странными нанитами, которые мгновенно пожирают предметы, оставляя всё остальное нетронутым."
+
+/datum/reagent/admin_cleaner/item/reaction_obj(obj/O, volume)
+	if(isitem(O) && !istype(O, /obj/item/grenade/clusterbuster/segment))
+		qdel(O)
+
+/datum/reagent/admin_cleaner/all
+	name = "WD-2381-ALL"
+	id = "admincleaner_all"
+	description = "Невероятно опасный набор нанитов, созданный Уборщиками Синдиката, которые пожирают всё, к чему прикасаются."
+
+/datum/reagent/admin_cleaner/all/reaction_obj(obj/O, volume)
+	if(istype(O, /obj/item/grenade/clusterbuster/segment))
+		// don't clear clusterbang segments
+		// I'm allowed to make this hack because this is admin only anyway
+		return
+	if(!iseffect(O))
+		qdel(O)
+
+/datum/reagent/admin_cleaner/all/reaction_mob(mob/living/M, method, volume, show_message)
+	. = ..()
+	if(method == REAGENT_TOUCH)
+		M.dust()
+

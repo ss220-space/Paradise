@@ -126,10 +126,9 @@
 	return connected
 
 
-/obj/machinery/hydroponics/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user))
-		return
+/obj/machinery/hydroponics/click_alt(mob/living/user)
 	toggle_lid(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/machinery/hydroponics/proc/toggle_lid(mob/living/user)

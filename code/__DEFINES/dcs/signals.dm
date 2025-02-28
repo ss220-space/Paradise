@@ -26,6 +26,13 @@
 /// cable was placed or joined somewhere : (turf)
 #define COMSIG_GLOB_CABLE_UPDATED "!cable_updated"
 
+#define COMSIG_GLOB_WEB_STORM_ENDED "!web_storm_ended"
+#define COMSIG_GLOB_EMPRESS_EGG_DESTROYED "!empress_egg_destroyed"
+#define COMSIG_GLOB_EMPRESS_EGG_BURST "!empress_egg_burst"
+#define COMSIG_GLOB_IFECTION_CREATED "!infection_created"
+#define COMSIG_GLOB_IFECTION_REMOVED "!infection_removed"
+#define COMSIG_GLOB_XENO_STORM_ENDED "!xeno_storm_ended"
+
 /// signals from globally accessible objects
 
 ///from SSsun when the sun changes position : (azimuth)
@@ -264,7 +271,7 @@
 	#define COMPONENT_ALLOW_EXAMINATE (1<<0) 							//Allows the user to examinate regardless of client.eye.
 ///from base of atom/CtrlClickOn(): (/mob)
 #define COMSIG_CLICK_CTRL "ctrl_click"
-///from base of atom/AltClick(): (/mob)
+///from base of atom/base_click_alt(): (/mob)
 #define COMSIG_CLICK_ALT "alt_click"
 ///from base of atom/CtrlShiftClick(/mob)
 #define COMSIG_CLICK_CTRL_SHIFT "ctrl_shift_click"
@@ -1294,6 +1301,19 @@
 
 /// Source: /proc/random_hair_style (mob/living/carbon/human/human, valid_hairstyles, robohead)
 #define COMSIG_RANDOM_HAIR_STYLE	"random_hair_style"
+// Terror Spiders Signals
+/// Defilers ore queen sybtypes now can lay empress egg
+#define COMSIG_SPIDER_CAN_LAY "spider_can_lay"
+
+/// Human eaten by prince
+#define COMSIG_HUMAN_EATEN "human_eaten"
+
+/// Terror spider died
+#define COMSIG_TERROR_SPIDER_DIED "terror_spider_died"
+
+#define COMSIG_EMPRESS_EGG_LAYED "empress_egg_layed"
+
+#define COMSIG_ALIEN_EVOLVE "alien_evolve"
 
 /// Source: /datum/component/ritual_object/proc/pre_ritual_check (status_bitflag, mob/living/carbon/human, list/invokers, list/used_things)
 #define COMSIG_RITUAL_ENDED "ritual_ended"

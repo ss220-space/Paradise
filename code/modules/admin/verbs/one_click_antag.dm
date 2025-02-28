@@ -25,6 +25,8 @@
 		<a href='byond://?src=[UID()];makeAntag=10'>Make Space Ninja (Requires Ghosts)</a><br>
 		<a href='byond://?src=[UID()];makeAntag=11'>Make Thieves</a><br>
 		<a href='byond://?src=[UID()];makeAntag=12'>Make Blobs</a><br>
+		<a href='byond://?src=[UID()];makeAntag=13'>Make Terror Spiders</a><br>
+		<a href='byond://?src=[UID()];makeAntag=14'>Make Aliens</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -112,7 +114,7 @@
 
 	var/antnum = tgui_input_number(owner, "Сколько вы хотите создать? Введите 0 для отмены.","Кол-во:", 0)
 	if(!antnum || antnum <= 0)
-		return
+		return FALSE
 	log_admin("[key_name(owner)] tried making [antnum] blobs with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making [antnum] blobs with One-Click-Antag")
 	var/result = FALSE
@@ -121,6 +123,18 @@
 			result = SSticker?.mode?.make_blobs(antnum)
 		if("С помощью мышек")
 			result = SSticker?.mode?.make_blobized_mouses(antnum)
+	return result
+
+/datum/admins/proc/makeTerrorSpiders()
+
+	var/antnum = tgui_input_number(owner, "Сколько вы хотите создать? Введите 0 для отмены.","Кол-во:", 0, min_value = 0)
+	if(!antnum)
+		return FALSE
+	log_admin("[key_name(owner)] tried making [antnum] terror spiders with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] terror spiders with One-Click-Antag")
+	var/result = FALSE
+	var/type = tgui_input_list(usr, "Выберите тип паука", "Тип паука", SPAWN_TERROR_TYPES)
+	result = create_terror_spiders(type, antnum)
 	return result
 
 /datum/admins/proc/makeRevs()
@@ -330,18 +344,12 @@
 	return 1
 
 /datum/admins/proc/makeAliens()
-	var/datum/event/alien_infestation/E = new /datum/event/alien_infestation
 
-	var/antnum = tgui_input_number(owner, "How many aliens you want to create? Enter 0 to cancel.", "Amount:", 0)
+	var/antnum = tgui_input_number(owner, "Сколько ксеноморфов создать? Введите 0 для отмены.","Количество:", 0)
 	if(!antnum || antnum <= 0)
 		return
-	log_admin("[key_name(owner)] tried making Aliens with One-Click-Antag")
-	message_admins("[key_name_admin(owner)] tried making Aliens with One-Click-Antag")
-
-	E.spawncount = antnum
-	// TODO The fact we have to do this rather than just have events start
-	// when we ask them to, is bad.
-	E.processing = TRUE
+	log_and_message_admins("tried making Aliens with One-Click-Antag")
+	spawn_aliens(antnum)
 	return TRUE
 
 

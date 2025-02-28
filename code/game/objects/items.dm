@@ -5,6 +5,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	pass_flags_self = PASSITEM
 	pass_flags = PASSTABLE
+	interaction_flags_click = NEED_HANDS
 
 	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 

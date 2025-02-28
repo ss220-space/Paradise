@@ -112,18 +112,13 @@
 	if(in_range(src, user))
 		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы активировать.<br>Используйте <b>Alt + Shift + ЛКМ</b>, чтобы удалить содержимое")
 
-/obj/machinery/reagentgrinder/AltClick(mob/living/carbon/human/human)
-	if(!istype(human) || !human.Adjacent(src))
-		return
-
-	if(human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
-		return
-
+/obj/machinery/reagentgrinder/click_alt(mob/living/carbon/human/human)
 	if(operating)
-		return
+		return NONE
 
 	add_fingerprint(human)
 	grind()
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/reagentgrinder/CtrlShiftClick(mob/living/carbon/human/human)
 	if(!istype(human) || !human.Adjacent(src))

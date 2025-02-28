@@ -9,6 +9,7 @@
 	max_integrity = 100
 	resistance_flags = FLAMMABLE
 	pass_flags_self = PASSGLASS
+	interaction_flags_click = NEED_HANDS
 	var/buildstacktype = /obj/item/stack/sheet/wood
 	var/buildstackamount = 5
 	var/mover_dir = null
@@ -61,17 +62,13 @@
 	else
 		layer = ABOVE_MOB_LAYER
 
-/obj/structure/tribune/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/structure/tribune/click_alt(mob/user)
 	if(anchored)
-		to_chat(user, "It is fastened to the floor!")
-		return
+		to_chat(user, span_warning("It is fastened to the floor!"))
+		return CLICK_ACTION_BLOCKING
 	setDir(turn(dir, 90))
 	after_rotation(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/structure/tribune/CanAllowThrough(atom/movable/mover, border_dir)

@@ -9,6 +9,7 @@
 	item_state = "camera"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_NECK
+	interaction_flags_click = NONE
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
 	var/pictures_left = 10
@@ -51,14 +52,15 @@
 	icon_state = on ? icon_on : icon_off
 	item_state = on ? item_on : item_off
 
-/obj/item/camera/AltClick(mob/user)
-	if(!issilicon(user) && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
+/obj/item/camera/click_alt(mob/user)
+	if(!issilicon(user) && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))) // silicons have inbuilt cameras, that' why unique check here
 		return
 
 	var/nsize = tgui_input_list(user, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))
 	if(nsize)
 		size = nsize
 		to_chat(user, span_notice("Camera will now take [size]x[size] photos."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/camera/AltShiftClick(mob/user)
 	if(!issilicon(usr) && (usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)))

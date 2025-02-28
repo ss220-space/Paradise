@@ -21,6 +21,7 @@
 	pass_flags_self = PASSGLASS
 	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	set_dir_on_move = FALSE
+	interaction_flags_click = NEED_HANDS
 	var/ini_dir
 	var/obj/item/access_control/electronics
 	var/created_name
@@ -32,7 +33,7 @@
 
 /obj/structure/windoor_assembly/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to rotate it clockwise.</span>"
+	. += span_info("<b>Alt-click</b> to rotate it clockwise.")
 
 /obj/structure/windoor_assembly/Initialize(mapload, set_dir)
 	. = ..()
@@ -322,21 +323,20 @@
 		qdel(src)
 
 
+/obj/structure/windoor_assembly/click_alt(mob/user)
+	if(revrotate())
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
+
 //Rotates the windoor assembly clockwise
 /obj/structure/windoor_assembly/verb/revrotate()
-	set name = "Rotate Windoor Assembly"
-	set category = "Object"
-	set src in oview(1)
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
-		return
 	if(anchored)
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
+		to_chat(usr, span_warning("[src] cannot be rotated while it is fastened to the floor!"))
 		return FALSE
 	var/target_dir = turn(dir, 270)
 
 	if(!valid_build_direction(loc, target_dir))
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
+		to_chat(usr, span_warning("[src] cannot be rotated in that direction!"))
 		return FALSE
 
 	setDir(target_dir)
@@ -345,10 +345,6 @@
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-/obj/structure/windoor_assembly/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	revrotate()
 
 //Flips the windoor assembly, determines whather the door opens to the left or the right
 /obj/structure/windoor_assembly/verb/flip()

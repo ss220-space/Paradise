@@ -13,7 +13,7 @@
 	see_in_dark = 5
 
 /obj/item/organ/internal/ears/nian
-	name = "nian ears"
+	name = "luam ears"
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали луам."
 	ru_names = list(
 		NOMINATIVE = "уши луам",

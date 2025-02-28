@@ -598,6 +598,10 @@ SUBSYSTEM_DEF(ticker)
 		emobtext += "<br>"
 		to_chat(world, emobtext)
 
+	for(var/team_type in GLOB.antagonist_teams)
+		var/datum/team/team = GLOB.antagonist_teams[team_type]
+		team.declare_completion()
+		
 	mode.declare_completion()//To declare normal completion.
 
 	//calls auto_declare_completion_* for all modes
