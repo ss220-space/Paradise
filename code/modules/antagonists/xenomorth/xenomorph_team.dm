@@ -188,8 +188,8 @@
 	if(members.len)
 		declare_results()
 		var/text = ""
-		if(queens.len)
-			text += "<br/><FONT size = 2><B>Королев[(queens?.len > 1 ? "ами были" : "ой была")]:</B></FONT>"
+		if(queens?.len)
+			text += "<br/><FONT size = 2><B>Королев[(queens.len > 1 ? "ами были" : "ой была")]:</B></FONT>"
 			for(var/datum/mind/queen in queens)
 				text += "<br/><b>[queen.key]</b> был <b>[queen.name]</b>"
 		text += "<br/><FONT size = 2><B>Ксеноморф[(members?.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
