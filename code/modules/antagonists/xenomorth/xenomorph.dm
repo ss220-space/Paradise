@@ -62,6 +62,6 @@
 	var/list/messages = list()
 	messages.Add(span_danger("<center>Вы лицехват!</center>"))
 	messages.Add("<center>Вы одна из первых стадий ксеноморфа. Ваша задача предельно простая: \
-	найти цель, напрыгнуть ей на лицо, оплодотворить и спрятаться, чтобы носительне понял что к чему!</center>")
+	найти цель, напрыгнуть ей на лицо, оплодотворить и спрятаться так, чтобы носитель не понял что к чему!</center>")
 	SEND_SOUND(owner.current, sound('sound/voice/hiss1.ogg'))
 	return messages

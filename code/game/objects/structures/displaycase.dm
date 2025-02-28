@@ -288,6 +288,7 @@
 
 /obj/structure/displaycase/labcage/dump()
 	var/obj/item/clothing/mask/facehugger/hugger = showpiece
+	. = ..()
 	hugger?.check_mob_inside()
 
 /obj/structure/displaycase/stechkin

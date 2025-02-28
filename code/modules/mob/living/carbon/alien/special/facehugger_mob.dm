@@ -23,6 +23,7 @@
 	pixel_y = -8
 	health = 30
 	maxHealth = 30
+	throwforce = 0
 	melee_damage_lower = 0
 	melee_damage_upper = 1
 	obj_damage = FALSE
@@ -32,7 +33,8 @@
 	can_hide = TRUE
 	AI_delay_max = 0.5 SECONDS
 	mob_size = MOB_SIZE_SMALL
-	pass_flags = PASSTABLE | PASSMOB
+	pass_flags = PASSTABLE | PASSMOB | PASSFENCE | PASSVEHICLE
+	pass_flags_self =  PASSMOB
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	pull_force = MOVE_FORCE_EXTREMELY_WEAK
@@ -56,6 +58,7 @@
 	blood_color = COLOR_LIGHT_GREEN
 	gold_core_spawnable = FALSE
 	faction = list("alien")
+	use_pathfinding = TRUE
 	var/jumpdistance = 6
 	var/jumpspeed = 1
 	var/host_species = ""
@@ -108,6 +111,9 @@
 	if(impregnated)
 		return
 
+	if(IsStunned())
+		return
+
 	if(body_position == LYING_DOWN)
 		set_resting(FALSE, silent = TRUE, instant = TRUE)
 
@@ -126,7 +132,7 @@
 	. = ..()
 	hugger_holder?.Die()
 	if(impregnated_death)
-		var/obj/item/clothing/mask/facehugger/hugger = new holder_type(loc)
+		var/obj/item/clothing/mask/facehugger/hugger = !QDELETED(hugger_holder)? hugger_holder : new holder_type(loc)
 		hugger.icon_state = "[initial(hugger.icon_state)]_impregnated"
 		hugger.layer = layer
 		qdel(src)
@@ -139,11 +145,13 @@
 
 /mob/living/simple_animal/hostile/facehugger/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	var/old_atom = hit_atom
-	if(isturf(hit_atom))
-		hit_atom = locate(/mob/living/carbon) in hit_atom
-		if(!hit_atom)
-			hit_atom = old_atom
+	if(iscarbon(hit_atom))
+		try_hug(hit_atom)
+		return .
+	for(var/mob/living/carbon/target in hit_atom)
+		if(CanHug(target))
+			try_hug(target)
+			return .
 	try_hug(hit_atom)
 
 /mob/living/simple_animal/hostile/facehugger/attack_hand(mob/living/carbon/human/M)
@@ -158,9 +166,10 @@
 	return result
 
 
-/mob/living/simple_animal/hostile/facehugger/AttackingTarget()
-	. = ..()
-	try_hug(target)
+/mob/living/simple_animal/hostile/facehugger/attack_proc()
+	if(isstructure(target) && target.attack_animal(src))
+		return TRUE
+	return try_hug(target)
 
 /mob/living/simple_animal/hostile/facehugger/proc/try_hug(atom/hit_atom)
 	var/turf/current_loc = loc
@@ -171,12 +180,52 @@
 		if(hugger.stat == DEAD)
 			death()
 		else
-			Stun(3 SECONDS)
+			Stun(0.5 SECONDS, ignore_canstun = TRUE)
 			update_icons()
 		QDEL_NULL(hugger_holder)
+		if(CanHug(target))
+			LoseTarget()
+		return TRUE
 	else
-		Stun(3 SECONDS)
+		Stun(0.5 SECONDS, ignore_canstun = TRUE)
 		update_icons()
+		return FALSE
+
+/mob/living/simple_animal/hostile/facehugger/Stun(amount, ignore_canstun)
+	var/stuncheck = isnull(IsStunned())
+	. = ..()
+	if(stuncheck && .)
+		RegisterSignal(src, COMSIG_MOB_STATUS_EFFECT_ENDED, PROC_REF(on_status_effect_ended))
+
+/mob/living/simple_animal/hostile/facehugger/proc/on_status_effect_ended(effect_type)
+	SIGNAL_HANDLER
+	update_icons()
+	UnregisterSignal(src, COMSIG_MOB_STATUS_EFFECT_ENDED)
+
+/mob/living/simple_animal/hostile/facehugger/gib()
+	if(!death(TRUE) && stat != DEAD)
+		return FALSE
+	var/atom/movable/overlay/animation = null
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
+	var/old_icon = icon
+	icon = null
+	invisibility = INVISIBILITY_ABSTRACT
+
+	animation = new(loc)
+	animation.pixel_x = pixel_x
+	animation.pixel_x = pixel_y
+	animation.icon_state = "blank"
+	animation.icon = old_icon
+	animation.master = src
+
+	playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+
+	flick(icon_gib, animation)
+	remove_from_dead_mob_list()
+
+	QDEL_IN(animation, 15)
+	QDEL_IN(src, 15)
+	return TRUE
 
 /mob/living/simple_animal/hostile/facehugger/proc/on_impregnated()
 	impregnated = TRUE
@@ -186,11 +235,17 @@
 	var/target
 	var/max_dist = 0
 
-	for(var/obj/item/twohanded/required/kirbyplants/flower in view(7, get_turf(src)))
-		var/dist = get_dist(flower, src)
+	for(var/obj/object in view(7, get_turf(src)))
+
+		if(!isflower(object) && !istable(object))
+			continue
+		var/list/path = get_path_to(src, object)
+		if(!path.len)
+			continue
+		var/dist = get_dist(object, src)
 		if(dist > max_dist)
 			max_dist = dist
-			target = flower
+			target = object
 
 	if(target && !client)
 		Goto(target, move_to_delay, 0)
@@ -223,6 +278,9 @@
 
 	if(!istype(grabber))
 		return
+	
+	if(!isnull(hugger_holder))
+		QDEL_NULL(hugger_holder)
 
 	hugger_holder = new holder_type(loc, src)
 

@@ -74,6 +74,7 @@
 		owner.clear_alert(id)
 		LAZYREMOVE(owner.status_effects, src)
 		on_remove()
+		SEND_SIGNAL(owner, COMSIG_MOB_STATUS_EFFECT_ENDED, type)
 		owner = null
 	if(linked_alert)
 		linked_alert.attached_effect = null

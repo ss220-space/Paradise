@@ -721,6 +721,24 @@ BLIND     // can't see anything
 		user.drop_item_ground(match, force = TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
+	if(istype(I, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/nanopaste = I
+
+		if(obj_integrity >= max_integrity)
+			user.balloon_alert(user, "[capitalize(declent_ru(NOMINATIVE))] в полном порядке")
+			return ATTACK_CHAIN_PROCEED
+
+		if(!nanopaste.use(1))
+			user.balloon_alert(user, "нанопаста закончилась!")
+			return ATTACK_CHAIN_PROCEED
+
+		repair_damage(max_integrity * 0.15)
+		visible_message(
+			span_notice("[capitalize(user.declent_ru(NOMINATIVE))] наносит немного нанопасты на [declent_ru(ACCUSATIVE)]. [capitalize(declent_ru(NOMINATIVE))] выглядит целее."),
+			span_notice("Вы нанесли немного нанопасты на [declent_ru(ACCUSATIVE)]. [capitalize(declent_ru(NOMINATIVE))] выглядит целее."),
+		)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 

@@ -6,7 +6,7 @@
 
 #define HELMET_HUGGER_DAMAGE 10
 
-#define HELMET_BASE_DAMAGE 90
+#define HELMET_BASE_DAMAGE 140
 
 #define MASK_MIN_PROTECTION 50
 
@@ -26,6 +26,7 @@
 	item_state = "facehugger"
 	w_class = WEIGHT_CLASS_TINY //note: can be picked up by aliens unlike most other items of w_class below 4
 	throw_range = 5
+	throwforce = 0
 	tint = 3
 	clothing_flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
@@ -37,6 +38,8 @@
 	pickup_sound = 'sound/misc/moist_impact.ogg'
 
 	holder_flags = ALIEN_HOLDER
+
+	clothing_traits = list(TRAIT_NO_BREATH)
 
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
@@ -108,17 +111,12 @@
 
 
 /obj/item/clothing/mask/facehugger/equipped(mob/living/user, slot, initial = FALSE)
-	if(slot == ITEM_SLOT_MASK)
-		if(!HAS_TRAIT_FROM(user, TRAIT_NO_BREATH, FACEHUGER_TRAIT))
-			ADD_TRAIT(user, TRAIT_NO_BREATH, FACEHUGER_TRAIT)
-	else
-		REMOVE_TRAIT(user, TRAIT_NO_BREATH, FACEHUGER_TRAIT)
-	if(!Attach(user))
-		return ..()
+	if(slot_flags && slot && !sterile)
+		pre_impregnate(user)
+	. = ..()
 
 /obj/item/clothing/mask/facehugger/dropped(mob/living/user, slot, silent, mob/living/carbon/alien/alien)
 	. = ..()
-	REMOVE_TRAIT(user, TRAIT_NO_BREATH, FACEHUGER_TRAIT)
 	addtimer(CALLBACK(src, PROC_REF(check_mob_inside)), 0.1 SECONDS)
 
 /obj/item/clothing/mask/facehugger/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
@@ -172,28 +170,22 @@
 	if(!isliving(attached_mob))
 		return FALSE
 
-	if((!iscorgi(attached_mob) && !iscarbon(attached_mob)) || isalien(attached_mob))
+	if((!iscarbon(attached_mob)) || isalien(attached_mob))
 		return FALSE
 
 	if(isfacehugger_mask(attached_mob.wear_mask))
 		return FALSE
 
-	if(attached_mob.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
-		return FALSE
-
-	if(attached_mob.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
+	if(!impregnate_check(attached_mob))
 		return FALSE
 
 	if(loc == attached_mob)
 		return FALSE
 
-	if(stat != CONSCIOUS)
-		return FALSE
-
 	var/text_name = capitalize(declent_ru(NOMINATIVE))
 
 	if(!sterile) 
-		attached_mob.take_organ_damage(strength, 0) //done here so that even borgs and humans in helmets take damage
+		attached_mob.apply_damage(strength, BRUTE, BODY_ZONE_HEAD, forced = TRUE, silent = TRUE)
 	
 	attached_mob.visible_message(span_danger("[text_name] прыгает на лицо [attached_mob.declent_ru(GENITIVE)]!"), \
 						span_userdanger("[text_name] прыгает на лицо [attached_mob.declent_ru(GENITIVE)]!"))
@@ -202,7 +194,7 @@
 		var/mob/living/carbon/target = attached_mob
 		var/obj/item/head = target.head
 
-		if(head && head.flags_cover & HEADCOVERSMOUTH)
+		if(real && head && head.flags_cover & HEADCOVERSMOUTH)
 			target.visible_message(span_danger("[text_name] бьется о [head.declent_ru(ACCUSATIVE)] [target.declent_ru(GENITIVE)], оставляя немного кислоты, которая повреждает [head.declent_ru(ACCUSATIVE)]!"), \
 								span_userdanger("[text_name] бьется о [head.declent_ru(ACCUSATIVE)] [target.declent_ru(GENITIVE)], оставляя немного кислоты, которая повреждает [head.declent_ru(ACCUSATIVE)]!"))
 			head.take_damage(HELMET_BASE_DAMAGE, BRUTE, ACID)
@@ -210,15 +202,17 @@
 			return FALSE
 
 		var/obj/item/clothing/mask = target.wear_mask
-		if(mask && !(mask.resistance_flags & ACID_PROOF) && (mask.armor.acid < MASK_MIN_PROTECTION))
+		if(real && mask && !(mask.resistance_flags & ACID_PROOF) && (mask.armor.acid < MASK_MIN_PROTECTION))
 			target.visible_message(span_danger("[text_name] расплавляет [mask.declent_ru(ACCUSATIVE)] своей кислотой!"), \
 									span_userdanger("[text_name] расплавляет [mask.declent_ru(ACCUSATIVE)] своей кислотой!"))
 			target.drop_item_ground(mask)
 			qdel(mask)
+
 		else if(mask)
 			if(prob(40))
 				return FALSE
-			if(istype(mask, /obj/item/clothing/mask/muzzle))
+
+			if(istype(mask, /obj/item/clothing/mask/muzzle) && real)
 				var/obj/item/clothing/mask/muzzle/muzzle = mask
 				
 				if(muzzle.do_break())
@@ -235,17 +229,36 @@
 
 		loc = target
 		target.equip_to_slot_if_possible(src, ITEM_SLOT_MASK, disable_warning = TRUE)
-		if(!sterile)
-			attached_mob.Paralyse(MAX_IMPREGNATION_TIME SECONDS / 6) //something like 25 ticks = 20 seconds with the default settings
 
 	GoIdle() //so it doesn't jump the people that tear it off
 
-	spawn(rand(MIN_IMPREGNATION_TIME, MAX_IMPREGNATION_TIME))
-		Impregnate(attached_mob)
-
 	return TRUE
 
-/obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target as mob)
+
+/obj/item/clothing/mask/facehugger/proc/impregnate_check(mob/living/attached_mob)
+	if(attached_mob.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+		return FALSE
+
+	if(attached_mob.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
+		return FALSE
+
+	if(stat != CONSCIOUS)
+		return FALSE
+	
+	return TRUE
+
+/obj/item/clothing/mask/facehugger/proc/pre_impregnate(mob/living/attached_mob)
+	if(!impregnate_check(attached_mob))
+		return
+
+	GoActive()
+
+	attached_mob.Paralyse(MAX_IMPREGNATION_TIME SECONDS / 6) //something like 25 ticks = 20 seconds with the default settings
+
+	spawn(rand(MIN_IMPREGNATION_TIME, MAX_IMPREGNATION_TIME))
+		impregnate(attached_mob)
+
+/obj/item/clothing/mask/facehugger/proc/impregnate(mob/living/target)
 	if(!target || target.stat == DEAD || loc != target) //was taken off or something
 		return
 
@@ -321,23 +334,25 @@
 
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сворачивается в клубок!"))
 
-/proc/CanHug(mob/living/M)
-	if(!istype(M))
-		return FALSE
-	if(M.stat == DEAD)
-		return FALSE
-	if(M.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+/proc/CanHug(mob/living/hugged_mob)
+	if(!istype(hugged_mob))
 		return FALSE
 
-	if(iscorgi(M))
+	if(hugged_mob.stat == DEAD)
+		return FALSE
+
+	if(hugged_mob.wear_mask && isfacehugger_mask(hugged_mob.wear_mask))
+		return FALSE
+
+	if(hugged_mob.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+		return FALSE
+
+	if(hugged_mob.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
+		return FALSE
+
+	if(ishuman(hugged_mob))
 		return TRUE
 
-	var/mob/living/carbon/C = M
-	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		if(H.head && H.head.flags_cover & HEADCOVERSMOUTH)
-			return FALSE
-		return TRUE
 	return FALSE
 
 /obj/item/clothing/mask/facehugger/lamarr

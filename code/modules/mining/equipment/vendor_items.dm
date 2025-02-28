@@ -13,6 +13,7 @@
 	equip_sound = 'sound/items/handling/generic_equip4.ogg'
 	drop_sound = 'sound/items/handling/generic_drop5.ogg'
 	pickup_sound = 'sound/items/handling/generic_pickup3.ogg'
+	clothing_traits = null
 
 /obj/item/clothing/mask/facehugger/toy/Initialize(mapload)
 	. = ..()

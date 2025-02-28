@@ -896,7 +896,7 @@
 		to_chat(usr, "OOC Metadata is not supported by this server!")
 
 
-/mob/living/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+/mob/living/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)	
 	if(lying_angle != 0 && !buckled)
 		lying_angle_on_movement(direct)
 

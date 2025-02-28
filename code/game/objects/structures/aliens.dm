@@ -169,13 +169,13 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	try_switch_state(user)
+	return try_switch_state(user)
 
 /obj/structure/alien/resin/door/attack_animal(mob/living/simple_animal/M)
 	if(M.a_intent == INTENT_HARM)
 		return ..()
 
-	try_switch_state(M)
+	return try_switch_state(M)
 		
 
 /obj/structure/alien/resin/door/attack_hand(mob/living/user)
@@ -212,20 +212,21 @@
 
 /obj/structure/alien/resin/door/proc/try_switch_state(atom/movable/user)
 	if(operating)
-		return
+		return FALSE
 
 	add_fingerprint(user)
 	if(!isliving(user))
-		return
+		return FALSE
 	var/mob/living/mob = user
-	if(!isalien(user) || ("alien" in mob.faction))
-		return
+	if(!isalien(user) && !("alien" in mob.faction))
+		return FALSE
 
 	var/mob/living/carbon/alien/alien = user
 	if(alien.incapacitated())
-		return
+		return FALSE
 
 	switch_state()
+	return TRUE
 
 
 /obj/structure/alien/resin/door/proc/switch_state()
@@ -462,7 +463,6 @@
 	integrity_failure = 5
 	var/status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
-	vae
 
 /obj/structure/alien/egg/grown
 	status = GROWN
@@ -547,16 +547,23 @@
 	status = BURST
 	update_icon(UPDATE_ICON_STATE)
 	var/mob/living/simple_animal/hostile/facehugger/child = GetFacehugger()
+	
 	if(!child)
 		return
+
 	child.forceMove(get_turf(src))
 	if(kill)
 		child.death()
 		return
+
 	for(var/mob/living/victim in range(1, src))
 		if(CanHug(victim))
 			child.try_hug(victim)
 			break
+
+	if(!CanHug(trigger))
+		return
+
 	child.GiveTarget(trigger)
 	child.MoveToTarget(list(trigger))
 

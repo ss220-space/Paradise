@@ -94,6 +94,8 @@
 
 #define isradio(A) istype(A, /obj/item/radio)
 
+#define isflower(A) istype(A, /obj/item/twohanded/required/kirbyplants)
+
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
 #define is_internal_organ(A) istype(A, /obj/item/organ/internal)
@@ -155,6 +157,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 //Structures
 #define isstructure(A) (istype(A, /obj/structure))
+#define istable(A) (istype(A, /obj/structure/table))
 
 // Misc
 #define isclient(A) istype(A, /client)
