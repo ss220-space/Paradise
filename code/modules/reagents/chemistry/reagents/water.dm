@@ -378,15 +378,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 						M.emote("scream")
 					vamp.base_nullification()
 
-	if(ishuman(M) && !M.mind?.isholy)
-		switch(current_cycle)
-			if(0 to 24)
-				M.adjustBrainLoss(0.5, FALSE)
-			if(25 to 49)
-				M.adjustBrainLoss(1, FALSE)
-			if(50 to INFINITY)
-				M.adjustBrainLoss(2, FALSE)
-
 	return ..() | update_flags
 
 

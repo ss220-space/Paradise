@@ -293,7 +293,7 @@
 /obj/structure/statue/tranquillite/mime
 	name = "statue of a mime"
 	icon_state = "mime"
-	interaction_flags_click = NEED_HANDS
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 
 /obj/structure/statue/tranquillite/mime/click_alt(mob/user)//has 4 dirs
 	if(anchored)

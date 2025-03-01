@@ -46,7 +46,7 @@
 
 	alien_walls += new /obj/structure/alien/weeds/node(alienturf)
 	team.evolve_start(get_area(alienturf))
-	addtimer(CALLBACK(src, PROC_REF(after_evolve), alien_walls, ghost, queen), TO_EMPRESS_EVOLVE_COST)
+	addtimer(CALLBACK(src, PROC_REF(after_evolve), alien_walls, ghost, queen), TO_EMPRESS_EVOLVE_TIME)
 	Remove(queen)
 
 

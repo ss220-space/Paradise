@@ -78,7 +78,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	anchored = TRUE
 	light_range = 2
 	light_power = 3
-	interaction_flags_click = NEED_HANDS
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	var/remove_speed = 15
 	var/picked_color
 

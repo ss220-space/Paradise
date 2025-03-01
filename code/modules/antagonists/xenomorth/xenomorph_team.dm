@@ -2,6 +2,7 @@
 	name = "Ксеноморфы"
 	antag_datum_type = /datum/antagonist/xenomorph
 	var/datum/mind/current_queen
+	var/list/queens = list()
 	var/datum/mind/current_empress
 	var/datum/objective/xeno_get_power/xeno_power_objective
 	var/datum/objective/create_queen/create_queen
@@ -57,6 +58,7 @@
 
 /datum/team/xenomorph/proc/add_queen(datum/mind/queen)
 	current_queen = queen
+	queens |= queen
 	create_queen.completed = TRUE
 	protect_queen = new
 	protect_queen.owner = src
@@ -152,7 +154,7 @@
 		to_chat(world, "<BR><FONT size = 3><B>Частичная победа Ксеноморфов!</B></FONT>")
 		to_chat(world, "<B>Станция была уничтожена!</B>")
 		to_chat(world, "<B>Устройство самоуничтожения сработало, предотвратив распространение Ксеноморфов.</B>")
-	else if(protect_cocon.check_completion(src))
+	else if(protect_cocon?.check_completion(src))
 		to_chat(world, "<BR><FONT size = 3><B>Полная победа Ксеноморфов!</B></FONT>")
 		to_chat(world, "<B>Ксеноморфы захватили станцию!</B>")
 		to_chat(world, "<B>Императрица Ксеноморфов появилась на свет, превратив всю станцию в гнездо.</B>")
@@ -165,7 +167,7 @@
 		to_chat(world, "<B>Экипаж эвакуирован!</B>")
 		to_chat(world, "<B>Ксеноморфы не были истреблены.</B>")
 
-	to_chat(world, "<B>Целями Пауков Ужаса было:</B>")
+	to_chat(world, "<B>Целями Ксеноморфов было:</B>")
 
 	if(xeno_power_objective)
 		to_chat(world, "<br/>Цель Королевы: [xeno_power_objective.explanation_text] [xeno_power_objective.completed?"<font color='green'><B>Успех!</B></font>": "<font color='red'>Провал.</font>"]")
@@ -186,9 +188,10 @@
 	if(members.len)
 		declare_results()
 		var/text = ""
-		if(current_queen)
-			text += "<br/><FONT size = 2><B>Королевой был:</B></FONT>"
-			text += "<br/><b>[current_queen.key]</b> был <b>[current_queen.name]</b>"
+		if(queens?.len)
+			text += "<br/><FONT size = 2><B>Королев[(queens.len > 1 ? "ами были" : "ой была")]:</B></FONT>"
+			for(var/datum/mind/queen in queens)
+				text += "<br/><b>[queen.key]</b> был <b>[queen.name]</b>"
 		text += "<br/><FONT size = 2><B>Ксеноморф[(members?.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
 		for(var/datum/mind/spider in members)
 			text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"

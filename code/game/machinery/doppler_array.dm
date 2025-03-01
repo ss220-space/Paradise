@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	density = TRUE
 	anchored = TRUE
 	atom_say_verb = "states coldly"
-	interaction_flags_click = NEED_HANDS | NEED_DEXTERITY
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | NEED_DEXTERITY
 	var/list/logged_explosions = list()
 	var/explosion_target
 	var/datum/tech/toxins/toxins_tech
