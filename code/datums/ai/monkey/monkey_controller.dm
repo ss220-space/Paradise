@@ -106,7 +106,7 @@ have ways of interacting with a specific mob and control it.
 
 	var/obj/item/W = locate(/obj/item) in oview(2, living_pawn)
 
-	if(W && !blackboard[BB_MONKEY_BLACKLISTITEMS][W] && W.force > blackboard[BB_MONKEY_BEST_FORCE_FOUND])
+	if(W && !HAS_TRAIT(W, TRAIT_NODROP) && !blackboard[BB_MONKEY_BLACKLISTITEMS][W] && W.force > blackboard[BB_MONKEY_BEST_FORCE_FOUND])
 		blackboard[BB_MONKEY_PICKUPTARGET] = W
 		current_movement_target = W
 		current_behaviors += GET_AI_BEHAVIOR(/datum/ai_behavior/monkey_equip/ground)
@@ -170,7 +170,7 @@ have ways of interacting with a specific mob and control it.
 	if(istype(AM, /obj/item))
 		var/mob/living/living_pawn = pawn
 		var/obj/item/I = AM
-		if(I.throwforce < living_pawn.health && ishuman(I.thrownby))
+		if(I.throwforce && I.throwforce < living_pawn.health && ishuman(I.thrownby))
 			var/mob/living/carbon/human/H = I.thrownby
 			retaliate(H)
 
