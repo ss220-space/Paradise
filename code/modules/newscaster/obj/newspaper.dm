@@ -172,7 +172,7 @@
 		user << browse(dat, "window=newspaper_main;size=625x800")
 		onclose(user, "newspaper_main")
 	else
-		to_chat(user, "<span class='warning'>Бумага заполнена непонятными символами!</span>")
+		to_chat(user, span_warning("Бумага заполнена непонятными символами!"))
 
 /obj/item/newspaper/Topic(href, href_list)
 	if(..())

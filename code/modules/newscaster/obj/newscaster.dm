@@ -152,17 +152,17 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, "<span class='notice'>Вы [anchored ? "от" : "за"]кручиваете [name]</span>")
+	to_chat(user, span_notice("Вы [anchored ? "от" : "за"]кручиваете [name]."))
 	if(!I.use_tool(src, user, 60, volume = I.tool_volume))
 		return
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 	if(stat & BROKEN)
-		to_chat(user, "<span class='warning'>Разбитые части [src.declent_ru(GENITIVE)] падают на пол.</span>")
+		to_chat(user, span_warning("Разбитые части [src.declent_ru(GENITIVE)] падают на пол."))
 		new /obj/item/stack/sheet/metal(loc, 5)
 		new /obj/item/shard(loc)
 		new /obj/item/shard(loc)
 	else
-		to_chat(user, "<span class='notice'>Вы [anchored ? "от" : "за"]кручиваете [name].</span>")
+		to_chat(user, span_notice("Вы [anchored ? "от" : "за"]кручиваете [name]."))
 		var/obj/item/mounted/frame/newscaster_frame/frame = new(loc)
 		transfer_fingerprints_to(frame)
 	qdel(src)
