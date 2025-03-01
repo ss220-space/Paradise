@@ -171,7 +171,7 @@
 	var/obj/item/udder/udder = null
 	gender = FEMALE
 	footstep_type = FOOTSTEP_MOB_SHOE
-	var/list/validColors = list("black","brown","white")
+	var/list/validColors = list("black", "brown", "white")
 	COOLDOWN_DECLARE(feeded_cow)
 
 /mob/living/simple_animal/cow/New()
