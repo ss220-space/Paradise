@@ -96,19 +96,19 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 	switch(.["class"])
 		if(VV_TEXT)
-			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, encode = FALSE, trim = FALSE)
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, max_length = INFINITY, encode = FALSE, trim = FALSE)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 		if(VV_MESSAGE)
-			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, multiline = TRUE, encode = FALSE, trim = FALSE)
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, max_length = INFINITY, multiline = TRUE, encode = FALSE, trim = FALSE)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 
 		if(VV_NUM)
-			.["value"] = tgui_input_number(src, "Введите число:", "Число", current_value, max_value = INFINITY)
+			.["value"] = tgui_input_number(src, "Введите число:", "Число", current_value, max_value = INFINITY, min_value = -INFINITY, round_value = FALSE)
 			if(.["value"] == null)
 				.["class"] = null
 				return

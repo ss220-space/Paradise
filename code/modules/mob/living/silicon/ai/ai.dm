@@ -129,7 +129,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	announcement.title = "Оповещение ИИ"
 	announcement.announcement_type = "Оповещение ИИ"
 	announcement.announcer = name
-	announcement.newscast = 0
+	announcement.newscast = FALSE
 
 	var/list/possibleNames = GLOB.ai_names
 

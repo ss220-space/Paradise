@@ -46,14 +46,14 @@
 /obj/item/organ/internal/heart/unathi
 	species_type = /datum/species/unathi
 	name = "unathi heart"
-	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали унатху."
+	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало унатху."
 	ru_names = list(
-		NOMINATIVE = "глаза унатха",
-		GENITIVE = "глаз унатха",
-		DATIVE = "глазам унатха",
-		ACCUSATIVE = "глаза унатха",
-		INSTRUMENTAL = "глазами унатха",
-		PREPOSITIONAL = "глазах унатха"
+		NOMINATIVE = "сердце унатха",
+		GENITIVE = "сердца унатха",
+		DATIVE = "сердцу унатха",
+		ACCUSATIVE = "сердце унатха",
+		INSTRUMENTAL = "сердцем унатха",
+		PREPOSITIONAL = "сердце унатха"
 	)
 	icon = 'icons/obj/species_organs/unathi.dmi'
 	item_state = "unathi_heart-on"

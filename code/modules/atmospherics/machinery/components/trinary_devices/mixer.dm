@@ -5,7 +5,7 @@
 	can_unwrench = TRUE
 
 	name = "gas mixer"
-	interaction_flags_click = NEED_HANDS | ALLOW_SILICON_REACH
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | ALLOW_SILICON_REACH
 
 	var/target_pressure = ONE_ATMOSPHERE
 	var/node1_concentration = 0.5

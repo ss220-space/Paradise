@@ -1864,7 +1864,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/deathsquad/bullet_act(obj/item/projectile/P)
 	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting)
-		visible_message(span_danger("The [P.name] gets reflected by [src]!"), span_userdanger("The [P.name] gets reflected by [src]!"))
+		visible_message(span_danger("The [P.name] gets reflected by [src]!"), span_userdanger("The [P.name] gets reflected by [src]!"), projectile_message = TRUE)
 		P.reflect_back(src)
 		return -1
 
@@ -1979,7 +1979,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/destroyer/bullet_act(obj/item/projectile/P)
 	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting && !(istype(module_active, /obj/item/borg/destroyer/mobility)))
-		visible_message(span_danger("The [P.name] gets reflected by [src]!"), span_userdanger("The [P.name] gets reflected by [src]!"))
+		visible_message(span_danger("The [P.name] gets reflected by [src]!"), span_userdanger("The [P.name] gets reflected by [src]!"), projectile_message = TRUE)
 		P.reflect_back(src)
 		return -1
 

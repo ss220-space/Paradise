@@ -88,9 +88,9 @@
 	roundstart_move = "emergency_away"
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
-	var/datum/announcement/priority/emergency_shuttle_docked = new(0, new_sound = sound('sound/AI/shuttledock.ogg'))
-	var/datum/announcement/priority/emergency_shuttle_called = new(0, new_sound = sound('sound/AI/shuttlecalled.ogg'))
-	var/datum/announcement/priority/emergency_shuttle_recalled = new(0, new_sound = sound('sound/AI/shuttlerecalled.ogg'))
+	var/datum/announcement/priority/emergency_shuttle_docked = new(do_log = FALSE, new_sound = sound('sound/AI/shuttledock.ogg'))
+	var/datum/announcement/priority/emergency_shuttle_called = new(do_log = FALSE, new_sound = sound('sound/AI/shuttlecalled.ogg'))
+	var/datum/announcement/priority/emergency_shuttle_recalled = new(do_log = FALSE, new_sound = sound('sound/AI/shuttlerecalled.ogg'))
 
 	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
 	var/forceHijacked = FALSE // forced change of arrival at the syndicate base
