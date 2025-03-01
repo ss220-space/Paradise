@@ -412,6 +412,15 @@
 /obj/item/storage/belt/rocketman
 	name = "rocket belt"
 	desc = "A belt for holding rockets."
+	ru_names = list(
+		NOMINATIVE = "пояс с ракетами",
+		GENITIVE = "пояса с ракетами",
+		DATIVE = "поясу с ракетами",
+		ACCUSATIVE = "пояс с ракетами",
+		INSTRUMENTAL = "поясом с ракетами",
+		PREPOSITIONAL = "поясе с ракетами"
+	)
+	gender = MALE
 	icon_state = "assaultbelt"
 	item_state = "assault"
 	storage_slots = 7
