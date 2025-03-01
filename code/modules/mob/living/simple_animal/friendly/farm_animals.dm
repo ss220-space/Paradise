@@ -14,7 +14,7 @@
 	icon_living = "goat"
 	icon_resting = "goat_rest"
 	icon_dead = "goat_dead"
-	speak = list("БЕЭЭХХ!","Беээ?")
+	speak = list("БЕЭЭХХ!", "Беээ?")
 	speak_emote = list("блеет")
 	emote_hear = list("блеет")
 	emote_see = list("трясёт головой", "бьёт копытом", "грозно зыркает вокруг")
