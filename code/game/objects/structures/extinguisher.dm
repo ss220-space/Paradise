@@ -12,7 +12,7 @@
 	density = FALSE
 	max_integrity = 200
 	integrity_failure = 50
-	interaction_flags_click = NEED_HANDS
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	var/obj/item/extinguisher/has_extinguisher = null
 	var/extinguishertype
 	var/opened = FALSE

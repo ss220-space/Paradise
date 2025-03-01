@@ -20,7 +20,7 @@ Thus, the two variables affect pump operation are set in New():
 	desc = "A volumetric pump"
 
 	can_unwrench = TRUE
-	interaction_flags_click = NEED_HANDS | ALLOW_SILICON_REACH
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | ALLOW_SILICON_REACH
 
 	on = FALSE
 	var/transfer_rate = 200

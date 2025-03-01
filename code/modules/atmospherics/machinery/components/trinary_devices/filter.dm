@@ -17,7 +17,7 @@
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/filter.dmi'
 	icon_state = "map"
 	can_unwrench = TRUE
-	interaction_flags_click = NEED_HANDS | ALLOW_SILICON_REACH
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | ALLOW_SILICON_REACH
 	/// The amount of pressure the filter wants to operate at.
 	var/target_pressure = ONE_ATMOSPHERE
 	/// The type of gas we want to filter. Valid values that go here are from the `FILTER` defines at the top of the file.

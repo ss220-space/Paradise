@@ -21,7 +21,7 @@
 	pass_flags_self = PASSGLASS
 	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	set_dir_on_move = FALSE
-	interaction_flags_click = NEED_HANDS
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	var/ini_dir
 	var/obj/item/access_control/electronics
 	var/created_name
