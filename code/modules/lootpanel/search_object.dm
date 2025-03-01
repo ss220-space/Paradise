@@ -26,7 +26,7 @@
 	if(isturf(item))
 		RegisterSignal(item, COMSIG_TURF_CHANGE, PROC_REF(on_turf_change))
 	else
-		RegisterSignals(item, list(
+		RegisterSignal(item, list(
 			COMSIG_ITEM_PICKUP,
 			COMSIG_MOVABLE_MOVED,
 			COMSIG_QDELETING,

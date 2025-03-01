@@ -60,6 +60,12 @@
 	if(isobserver(user))
 		return UI_INTERACTIVE
 
+	if(isAI(user) && !user.stat)
+		var/mob/living/silicon/ai/AI = user
+		if(AI.can_see(source_turf))
+			return UI_INTERACTIVE
+		return UI_CLOSE
+
 	if(user.incapacitated())
 		return UI_DISABLED
 

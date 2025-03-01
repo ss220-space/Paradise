@@ -549,26 +549,26 @@
 		initials = initials + "[s[1]]."
 
 	var/datum/feed_message/FM = new
-	FM.author = "Nyx Daily"
+	FM.author = NEWS_CHANNEL_NYX
 	FM.admin_locked = TRUE
 	FM.body = "Suspected Syndicate activity was reported in the system. Rumours have surfaced about a [R?.fields["rank"] || M?.mind.assigned_role || DEFAULT_RANK] aboard the [SSmapping.map_datum.station_name] being the victim of a kidnapping.\n\n" +\
 				"A reliable source said the following: There was a note with the victim's initials which were \"[initials]\" and a scribble saying \"[fluff_message]\""
-	GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(FM)
+	GLOB.news_network.get_channel_by_name(NEWS_CHANNEL_NYX)?.add_message(FM)
 
 	// Bonus story if the contractor has done all their contracts (appears only once per round)
 	if(!nt_am_board_resigned && (owning_hub.completed_contracts >= owning_hub.num_contracts))
 		nt_am_board_resigned = TRUE
 
 		var/datum/feed_message/FM2 = new
-		FM2.author = "Nyx Daily"
+		FM2.author = NEWS_CHANNEL_NYX
 		FM2.admin_locked = TRUE
 		FM2.body = "Nanotrasen's Asset Management board has resigned today after a series of kidnappings aboard the [SSmapping.map_datum.station_name]." +\
 					"One former member of the board was heard saying: \"I can't do this anymore. How does a single shift on this cursed station manage to cost us over ten million Credits in ransom payments? Is there no security aboard?!\""
-		GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(FM2)
+		GLOB.news_network.get_channel_by_name(NEWS_CHANNEL_NYX)?.add_message(FM2)
 
 	for(var/nc in GLOB.allNewscasters)
 		var/obj/machinery/newscaster/NC = nc
-		NC.alert_news("Nyx Daily")
+		NC.alert_news(NEWS_CHANNEL_NYX)
 
 	prisoner_timer_handle = null
 	GLOB.prisoner_belongings.prisoners[M] = null

@@ -9,7 +9,7 @@
 	max_integrity = 100
 	resistance_flags = FLAMMABLE
 	pass_flags_self = PASSGLASS
-	interaction_flags_click = NEED_HANDS
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	var/buildstacktype = /obj/item/stack/sheet/wood
 	var/buildstackamount = 5
 	var/mover_dir = null

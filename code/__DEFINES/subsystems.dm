@@ -104,7 +104,6 @@
 #define INIT_ORDER_GAME_EVENTS -26
 #define INIT_ORDER_PATH -50
 #define INIT_ORDER_EXPLOSIONS -69
-#define INIT_ORDER_LOOT -70
 #define INIT_ORDER_PERSISTENCE -95
 #define INIT_ORDER_STATPANELS -98
 #define INIT_ORDER_DEMO	-99 // To avoid a bunch of changes related to initialization being written, do this last

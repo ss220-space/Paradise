@@ -26,7 +26,7 @@
 	var/pass_flags = NONE
 
 	/// Flags to check for in can_perform_action. Used in alt-click checks
-	var/interaction_flags_click = NONE
+	var/interaction_flags_click = 0
 
 	/// How this atom should react to having its astar blocking checked
 	var/can_astar_pass = CANASTARPASS_DENSITY

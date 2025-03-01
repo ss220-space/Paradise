@@ -21,7 +21,7 @@
 	max_integrity = 50
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "wall"
-	interaction_flags_click = NEED_HANDS
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	var/torn = /obj/item/inflatable/torn
 	var/intact = /obj/item/inflatable
 

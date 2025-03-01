@@ -37,8 +37,7 @@
 /obj/item/organ/internal/brain/slime
 	species_type = /datum/species/slime
 	name = "slime core"
-	desc = "A complex, organic knot of jelly and crystalline particles."
-	desc = "Орган нервной системы, состоящий из кристало- и желеподобных образований. Фактически, именно здесь и находится разум. Этот принадлежал слаймолюду."
+	desc = "Орган нервной системы, состоящий из кристальных и желеподобных образований. Фактически, именно здесь и находится разум. Этот принадлежал слаймолюду."
 	ru_names = list(
 		NOMINATIVE = "ядро слаймолюда",
 		GENITIVE = "ядра слаймолюда",

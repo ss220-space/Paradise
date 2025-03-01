@@ -550,7 +550,7 @@
 	max_integrity = 100
 	var/state = STATE_EMPTY
 	var/obj/item/circuitboard/circuit = null
-	interaction_flags_click = NEED_HANDS | NEED_DEXTERITY
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | NEED_DEXTERITY
 
 
 /obj/structure/computerframe/Initialize(mapload, obj/item/circuitboard/circuit)
