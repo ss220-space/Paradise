@@ -242,7 +242,7 @@
 //blood-drunk miner gem
 /obj/item/gem/phoron
 	name = "\improper stabilized baroxuldium"
-	desc = "Мягкий на ощупь кристалл, который можно найти исключительно в самых глупоких жилах плазмы. Судя по всему, ученые им явно заинтересуются."
+	desc = "Мягкий на ощупь кристалл, который можно найти исключительно в самых глубоких жилах плазмы. Судя по всему, ученые им явно заинтересуются."
 	ru_names = list(
 		NOMINATIVE = "стабилизированный бароксильдиум",
 		GENITIVE = "стабилизированного бароксильдиума",
@@ -422,7 +422,7 @@
 	if(istype(I) && I.hidden_uplink && I.hidden_uplink.active)
 		I.hidden_uplink.uses += charges
 		qdel(src)
-		to_chat(user, span_notice("Вы вставляете [declent_ru(NOMINATIVE)] внутрь вашего апплинка, заряжая его."))
+		to_chat(user, span_notice("Вы вставляете [declent_ru(ACCUSATIVE)] внутрь вашего апплинка, заряжая его."))
 
 
 //vetus gem
@@ -498,12 +498,12 @@
 /obj/item/gem/emerald
 	name = "\improper emerald"
 	ru_names = list(
-		NOMINATIVE = "эмеральд",
-		GENITIVE = "эмеральда",
-		DATIVE = "эмеральду",
-		ACCUSATIVE = "эмеральд",
-		INSTRUMENTAL = "эмеральдом",
-		PREPOSITIONAL = "эмеральде"
+		NOMINATIVE = "изумруд",
+		GENITIVE = "изумруда",
+		DATIVE = "изумруду",
+		ACCUSATIVE = "изумруд",
+		INSTRUMENTAL = "изумрудом",
+		PREPOSITIONAL = "изумруд"
 	)
 	icon_state = "emerald"
 	point_value = 100
