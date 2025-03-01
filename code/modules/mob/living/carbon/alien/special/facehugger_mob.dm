@@ -59,6 +59,7 @@
 	gold_core_spawnable = FALSE
 	faction = list("alien")
 	use_pathfinding = TRUE
+	can_strip = FALSE
 	var/jumpdistance = 6
 	var/jumpspeed = 1
 	var/host_species = ""

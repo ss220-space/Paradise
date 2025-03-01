@@ -138,6 +138,8 @@
 
 	var/in_throw_mode = FALSE
 
+	var/can_strip = TRUE
+
 	// See /datum/emote
 
 	/// Cooldown on audio effects from emotes.
