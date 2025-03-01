@@ -566,7 +566,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_living = "goose"
 	icon_dead = "goose_dead"
 	icon_resting = "goose_rest"
-	speak = list("Га-га-га?","Га-га.","ГА-ГА-ГА-ГА!")
+	speak = list("Га-га-га?", "Га-га.", "ГА-ГА-ГА-ГА!")
 	speak_emote = list("Гогочет")
 	tts_seed = "pantheon" //Жи есть брат да, я гусь, до тебя доебусь.
 //	emote_hear = list("brays")
