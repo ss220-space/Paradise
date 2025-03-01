@@ -9,10 +9,10 @@
 		INSTRUMENTAL = "ящерицей",
 		PREPOSITIONAL = "ящерице"
 	)
-	icon = 'icons/mob/critter.dmi'
 	icon_state = "lizard"
 	icon_living = "lizard"
 	icon_dead = "lizard_dead"
+	icon_gib = "lizard_gib"
 	speak_emote = list("шипит")
 	tts_seed = "Ladyvashj"
 	death_sound = 'sound/creatures/lizard_death.ogg'
@@ -58,7 +58,6 @@
 		INSTRUMENTAL = "аксолотлем",
 		PREPOSITIONAL = "аксолотле"
 	)
-	icon = 'icons/mob/animal.dmi'
 	icon_state = "axolotl"
 	icon_living = "axolotl"
 	icon_dead = "axolotl_dead"
