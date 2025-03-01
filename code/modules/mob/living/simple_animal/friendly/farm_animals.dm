@@ -141,7 +141,7 @@
 	icon_living = "cow_black"
 	icon_resting = "cow_black_rest"
 	icon_dead = "cow_dead"
-	speak = list("Муу?","Мууу","ММУУУУУУ!")
+	speak = list("Муу?", "Мууу", "ММУУУУУУ!")
 	speak_emote = list("мычит","протяжно мычит")
 	emote_hear = list("ревёт")
 	emote_see = list("трясёт головой")
