@@ -716,5 +716,6 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	)
 	icon_state = "goat_hump"
 	icon_living = "goat_hump"
+	icon_resting = "goat_hump_rest"
 	icon_dead = "goat_dead"
 
