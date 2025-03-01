@@ -15,12 +15,29 @@
 /obj/item/storage/box/syndie_kit
 	name = "Box"
 	desc = "A sleek, sturdy box"
+	ru_names = list(
+		NOMINATIVE = "коробка",
+		GENITIVE = "коробки",
+		DATIVE = "коробке",
+		ACCUSATIVE = "коробку",
+		INSTRUMENTAL = "коробкой",
+		PREPOSITIONAL = "коробке"
+	)
 	gender = MALE
 	icon_state = "box_of_doom"
 	gender = MALE
 
 /obj/item/storage/box/syndie_kit/mantisblade
 	name = "Horlex Mantis blade set"
+	ru_names = list(
+		NOMINATIVE = "набор клинков богомола",
+		GENITIVE = "набора клинков богомола",
+		DATIVE = "набору клинков богомола",
+		ACCUSATIVE = "набор клинков богомола",
+		INSTRUMENTAL = "набором клинков богомола",
+		PREPOSITIONAL = "наборе клинков богомола"
+	)
+	gender = MALE
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/mantisblade/populate_contents()

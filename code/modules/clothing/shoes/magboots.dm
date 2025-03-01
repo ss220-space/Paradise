@@ -148,10 +148,10 @@
 		balloon_alert(user, "нужно держать в руках!")
 		return
 	if(!enabled_waddle)
-		balloon_alert(user, "развалочка выключена")
+		balloon_alert(user, "развалочка включена")
 		enabled_waddle = TRUE
 	else
-		balloon_alert(user, "развалочка включена")
+		balloon_alert(user, "развалочка выключена")
 		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/magboots/wizard //bundled with the wiz hardsuit

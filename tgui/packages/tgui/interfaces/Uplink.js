@@ -44,7 +44,7 @@ export const Uplink = (props, context) => {
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
   return (
-    <Window width={1100} height={860} theme="syndicate">
+    <Window width={900} height={700} theme="syndicate">
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>
@@ -208,7 +208,7 @@ const ItemsPage = (_properties, context) => {
         </Stack.Item>
       </Stack>
       <Stack fill mt={0.3}>
-        <Stack.Item width="25%">
+        <Stack.Item width="26%">
           <Section fill scrollable>
             <Tabs vertical>
               {cats.map((c) => (
@@ -219,6 +219,9 @@ const ItemsPage = (_properties, context) => {
                     setUplinkItems(c.items);
                     setSearchText('');
                   }}
+                  backgroundColor={'rgba(255, 0, 0, 0.1)'}
+                  mb={0.5}
+                  ml={0.5}
                 >
                   {c.cat}
                 </Tabs.Tab>
@@ -314,6 +317,7 @@ const CartPage = (_properties, context) => {
 const Advert = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { cats, lucky_numbers } = data;
+  const [showDesc, setShowDesc] = useLocalState(context, 'showDesc', 0);
 
   return (
     <Stack.Item grow>
@@ -336,13 +340,13 @@ const Advert = (_properties, context) => {
             .map((item, index) => (
               <Stack.Item
                 key={index}
-                p={2}
+                p={1}
                 mb={1}
-                ml={12}
+                ml={1}
                 width={34}
                 backgroundColor={'rgba(255, 0, 0, 0.15)'}
               >
-                <UplinkItem grow i={item} />
+                <UplinkItem grow i={item} showDecription={showDesc} />
               </Stack.Item>
             ))}
         </Stack>
@@ -359,12 +363,9 @@ const UplinkItem = (props, context) => {
   } = props;
 
   return (
-    <Section
-      title={decodeHtmlEntities(i.name)}
-      showBottom={showDecription}
-      buttons={buttons}
-    >
+    <Section title={decodeHtmlEntities(i.name)} showBottom={showDecription}>
       {showDecription ? <Box italic>{decodeHtmlEntities(i.desc)}</Box> : null}
+      <Box mt={2}>{buttons}</Box>
     </Section>
   );
 };
@@ -400,7 +401,7 @@ const UplinkItemButtons = (props, context) => {
         // Yes I care this much about both of these being able to render at the same time
         tooltip={
           i.hijack_only === 1 &&
-          'Только для агентов, имеющих цель — угон шаттла!'
+          'Только для агентов, имеющих цель — угон эвакуационного шаттла!'
         }
         tooltipPosition="left"
         onClick={() =>

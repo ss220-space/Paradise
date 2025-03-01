@@ -512,7 +512,7 @@
 
 /obj/item/clothing/shoes/bhop/clown
 	name = "clown shoes"
-	desc = "Стандартные клоунские башмаки. Чёрт возьми, они такие огромные! Чтобы включить амортизаторы для ходьбы вразвалочку, используйте \"Ctrl!\""
+	desc = "Стандартные клоунские башмаки. Чёрт возьми, они такие огромные! Чтобы включить амортизаторы для ходьбы вразвалочку, используйте <b>Ctrl</b>!"
 	ru_names = list(
 		NOMINATIVE = "клоунские башмаки",
 		GENITIVE = "клоунских башмаков",
@@ -554,10 +554,10 @@
 		balloon_alert(user, "нужно держать в руках!")
 		return
 	if(!enabled_waddle)
-		balloon_alert(user, "развалочка выключена")
+		balloon_alert(user, "развалочка включена")
 		enabled_waddle = TRUE
 	else
-		balloon_alert(user, "развалочка включена")
+		balloon_alert(user, "развалочка выключена")
 		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/ducky
