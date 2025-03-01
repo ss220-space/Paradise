@@ -210,9 +210,9 @@
 	return !locked
 
 
-/obj/structure/closet/crate/secure/AltClick(mob/living/user)
-	if(Adjacent(user))
-		togglelock(user)
+/obj/structure/closet/crate/secure/click_alt(mob/living/user)
+	togglelock(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/structure/closet/crate/secure/proc/togglelock(mob/living/user)

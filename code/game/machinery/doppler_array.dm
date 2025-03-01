@@ -9,6 +9,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	density = TRUE
 	anchored = TRUE
 	atom_say_verb = "states coldly"
+	interaction_flags_click = NEED_HANDS | NEED_DEXTERITY
 	var/list/logged_explosions = list()
 	var/explosion_target
 	var/datum/tech/toxins/toxins_tech
@@ -20,12 +21,16 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	var/actual_size_message
 	var/theoretical_size_message
 
-/datum/explosion_log/New(var/log_time, var/log_epicenter, var/log_actual_size_message, var/log_theoretical_size_message)
+/datum/explosion_log/New(log_time, log_epicenter, log_actual_size_message, log_theoretical_size_message)
 	..()
 	logged_time = log_time
 	epicenter = log_epicenter
 	actual_size_message = log_actual_size_message
 	theoretical_size_message = log_theoretical_size_message
+
+/obj/machinery/doppler_array/examine(mob/user)
+	. = ..()
+	. += span_info("<b>Alt-Click</b> to rotate.")
 
 /obj/machinery/doppler_array/New()
 	..()
@@ -70,25 +75,11 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	ui_interact(user)
 
 
-/obj/machinery/doppler_array/AltClick(mob/user)
+/obj/machinery/doppler_array/click_alt(mob/user)
 	rotate(user)
-
-
-/obj/machinery/doppler_array/verb/rotate_verb()
-	set name = "Rotate Tachyon-doppler Dish"
-	set category = "Object"
-	set src in oview(1)
-	rotate(usr)
-
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/doppler_array/proc/rotate(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-	if(!Adjacent(user))
-		return
-	if(!user.IsAdvancedToolUser())
-		to_chat(user, span_warning("You don't have the dexterity to do that!"))
-		return
 	add_fingerprint(user)
 	dir = turn(dir, 90)
 	to_chat(user, span_notice("You rotate [src]."))

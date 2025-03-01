@@ -145,6 +145,31 @@
 	var/mob/living/carbon/human/host = owner
 	host.toggle_producing()
 
+/obj/item/organ/internal/brain/wryn
+	name = "wryn brain"
+	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал врину."
+	ru_names = list(
+		NOMINATIVE = "мозг врина",
+		GENITIVE = "мозга врина",
+		DATIVE = "мозгу врина",
+		ACCUSATIVE = "мозг врина",
+		INSTRUMENTAL = "мозгом врина",
+		PREPOSITIONAL = "мозге врина"
+	)
+
+/obj/item/organ/internal/heart/wryn
+	species_type = /datum/species/wryn
+	name = "wryn heart"
+	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало врину."
+	ru_names = list(
+		NOMINATIVE = "сердце врина",
+		GENITIVE = "сердца врина",
+		DATIVE = "сердцу врина",
+		ACCUSATIVE = "сердце врина",
+		INSTRUMENTAL = "сердцем врина",
+		PREPOSITIONAL = "сердце врина"
+	)
+
 /obj/item/organ/internal/eyes/wryn
 	species_type = /datum/species/wryn
 	name = "wryn eyes"

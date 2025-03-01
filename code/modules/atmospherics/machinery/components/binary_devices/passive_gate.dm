@@ -14,10 +14,6 @@
 
 	var/id = null
 
-/obj/machinery/atmospherics/binary/passive_gate/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_ALT_CLICK_BLOCKER, UNIQUE_TRAIT_SOURCE(src))
-
 /obj/machinery/atmospherics/binary/passive_gate/atmos_init()
 	..()
 	if(frequency)

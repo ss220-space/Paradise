@@ -16,10 +16,6 @@
 	var/det_time = 5 SECONDS
 	var/display_timer = TRUE
 
-/obj/item/grenade/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_ALT_CLICK_BLOCKER, UNIQUE_TRAIT_SOURCE(src))
-
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
 		prime()

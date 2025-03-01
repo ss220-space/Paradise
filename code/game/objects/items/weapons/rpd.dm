@@ -188,13 +188,9 @@
 		get_asset_datum(/datum/asset/spritesheet/rpd)
 	)
 
-/obj/item/rpd/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/item/rpd/click_alt(mob/living/user)
 	radial_menu(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/rpd/ui_data(mob/user)
 	var/list/data = list()

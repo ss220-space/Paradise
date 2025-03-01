@@ -10,6 +10,7 @@
 	max_integrity = 250
 	integrity_failure = 25
 	pull_push_slowdown = 0.5
+	interaction_flags_click = NEED_HANDS
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
@@ -152,8 +153,9 @@
 	return TRUE
 
 
-/obj/structure/chair/AltClick(mob/living/user)
+/obj/structure/chair/click_alt(mob/living/user)
 	rotate(user)
+	return CLICK_ACTION_SUCCESS
 
 
 // CHAIR TYPES
@@ -534,12 +536,7 @@
 /obj/structure/chair/brass/ratvar_act()
 	return
 
-/obj/structure/chair/brass/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
+/obj/structure/chair/brass/click_alt(mob/living/user)
 	add_fingerprint(user)
 	turns = 0
 	if(!isprocessing)
@@ -550,6 +547,7 @@
 		user.visible_message(span_notice("[user] stops [src]'s uncontrollable spinning."), \
 		span_notice("You grab [src] and stop its wild spinning."))
 		STOP_PROCESSING(SSfastprocess, src)
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/chair/brass/fake
 	name = "brass chair"

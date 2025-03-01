@@ -43,10 +43,8 @@
 	/// Upper bound on time before intercept arrives.
 	var/const/waittime_h = 180 SECONDS
 	var/list/player_draft_log = list()
-	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
 	var/list/datum/mind/traders = list()
-	var/list/datum/mind/terror_spiders = list()
 	var/list/datum/mind/morphs = list()
 	var/list/datum/mind/swarmers = list()
 	var/list/datum/mind/guardians = list()
@@ -770,3 +768,20 @@
 	sleep(15 SECONDS)
 	SSticker.force_ending = TRUE
 	return
+
+/datum/game_mode/proc/special_directive(custom_text = null, custom_name = null)
+	var/intercepttext = custom_text ? custom_text : ""
+	var/interceptname = custom_name ? custom_name : ""
+	if(!custom_name)
+		interceptname = "Директива 7-10"
+	if(!custom_text)
+		intercepttext += "<FONT size = 3><B>Постановление Nanotrasen</B>: Особая директива.</FONT><HR>"
+		intercepttext += "Nanotrasen выпустила директиву 7-10 для [station_name()]. Станцию следует считать закрытой на карантин.<BR>"
+		intercepttext += "Приказы для всего персонала [station_name()] следующие:<BR>"
+		intercepttext += " 1. Не покидать карантинную зону.<BR>"
+		intercepttext += " 2. Обнаружить все очаги угрозы на станции.<BR>"
+		intercepttext += " 3. При обнаружении использовать любые необходимые средства для сдерживания организмов.<BR>"
+		intercepttext += " 4. Предотвратить повреждения критической инфраструктуры станции.<BR>"
+		intercepttext += "<BR>Примечание. в случае нарушения карантина или неконтролируемого распространения биологической угрозы директива 7-10 может быть дополнена директивой 7-12.<BR>"
+		intercepttext += "Конец сообщения."
+	print_command_report(intercepttext, interceptname, FALSE)

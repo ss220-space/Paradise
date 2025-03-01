@@ -3,20 +3,20 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoHiveSense()
 	var/hsline = ""
-	to_chat(src, "Your Brood: ")
+	to_chat(src, "Ваш род: ")
 	for(var/thing in GLOB.ts_spiderlist)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.spider_awaymission != spider_awaymission)
 			continue
-		hsline = "* [T] in [get_area(T)], "
+		hsline = "* [capitalize(T.declent_ru(NOMINATIVE))] в [get_area(T)], "
 		if(T.stat == DEAD)
-			hsline += "DEAD"
+			hsline += "МЁРТВ"
 		else
-			hsline += "health [T.health] / [T.maxHealth], "
+			hsline += "здоровье [T.health] / [T.maxHealth], "
 		if(T.ckey)
-			hsline += " *Player Controlled* "
+			hsline += " *Управляется Игроком* "
 		else
-			hsline += " AI "
+			hsline += " ИИ "
 		to_chat(src,hsline)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CountSpiders()

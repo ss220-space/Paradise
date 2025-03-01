@@ -157,18 +157,15 @@
 /obj/item/flamethrower/attack_self(mob/user)
 	toggle_igniter(user)
 
-/obj/item/flamethrower/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(ptank)
-		ptank.forceMove_turf()
-		user.put_in_hands(ptank, ignore_anim = FALSE)
-		ptank = null
-		to_chat(user, "<span class='notice'>You remove the plasma tank from [src]!</span>")
-		update_icon()
+/obj/item/flamethrower/click_alt(mob/living/user)
+	if(!ptank)
+		return NONE
+	ptank.forceMove_turf()
+	user.put_in_hands(ptank, ignore_anim = FALSE)
+	ptank = null
+	to_chat(user, span_notice("You remove the plasma tank from [src]!"))
+	update_icon()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/flamethrower/examine(mob/user)
 	. = ..()

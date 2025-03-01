@@ -284,6 +284,11 @@
 		if(EXPLODE_LIGHT)
 			apply_damage(30)
 
+// See software.dm for Topic()
+/mob/living/silicon/pai/can_perform_action(atom/target, action_bitflags)
+	action_bitflags |= ALLOW_RESTING // Resting is just an aesthetic feature for them
+	action_bitflags &= ~ALLOW_SILICON_REACH // They don't get long reach like the rest of silicons
+	return ..(target, action_bitflags)
 
 // See software.dm for ui_act()
 

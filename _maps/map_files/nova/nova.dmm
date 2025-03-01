@@ -45272,6 +45272,9 @@
 /area/crew_quarters/chief)
 "gxr" = (
 /obj/effect/decal/warning_stripes/northwest,
+/obj/structure/closet/sechammercabinet{
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -103321,7 +103324,7 @@
 "plF" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
-/obj/item/card/id/captains_spare,
+/obj/item/storage/secure/briefcase/captian,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = -32
 	},

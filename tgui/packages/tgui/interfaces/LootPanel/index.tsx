@@ -35,6 +35,13 @@ export const LootPanel = (props, context) => {
     }
   }
 
+  // Search
+  const [showSearchBar, setShowSearchBar] = useLocalState(
+    context,
+    'search_bar',
+    false
+  );
+
   const [grouping, setGrouping] = useLocalState(context, 'grouping', true);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
@@ -56,10 +63,21 @@ export const LootPanel = (props, context) => {
       height={height}
       buttons={
         <Box align={'left'}>
-          <Input
-            onInput={(event, value) => setSearchText(value)}
-            placeholder={`Search items...`}
-          />
+          {!showSearchBar && (
+            <Button
+              icon="search"
+              tooltip="Search..."
+              onClick={() => {
+                setShowSearchBar(!showSearchBar);
+              }}
+            />
+          )}
+          {showSearchBar && (
+            <Input
+              onInput={(event, value) => setSearchText(value)}
+              placeholder={`Search items...`}
+            />
+          )}
           <Button
             icon={grouping ? 'layer-group' : 'object-ungroup'}
             selected={grouping}

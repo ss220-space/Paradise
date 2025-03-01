@@ -6,8 +6,8 @@
 
 //STEALTH AKA INVISIBILLITY
 /obj/effect/proc_holder/spell/terror_stealth
-	name = "Stealth"
-	desc = "Become completely invisible for a short time."
+	name = "Невидимость"
+	desc = "Стать полностью невидимым на короткое время."
 	action_icon_state = "stealth"
 	action_background_icon_state = "bg_terror"
 	base_cooldown = 25 SECONDS
@@ -23,7 +23,7 @@
 
 /obj/effect/proc_holder/spell/terror_stealth/cast(list/targets, mob/user = usr)
 	user.alpha = 0
-	user.visible_message("<span class='warning'>[user] suddenly disappears!</span>", "<span class='purple'>You are invisible now!</span>")
+	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] внезапно исчезает!"), span_purple("Вы теперь невидимы!"))
 	addtimer(CALLBACK(src, PROC_REF(reveal), user), duration)
 
 
@@ -32,7 +32,7 @@
 		return
 
 	user.alpha = initial(user.alpha)
-	user.visible_message("<span class='warning'>[user] appears from nowhere!</span>", "<span class='purple'>You are visible again!</span>")
+	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] появляется из ниоткуда!"), span_purple("Вы снова видимы!"))
 	playsound(user.loc, 'sound/creatures/terrorspiders/stealth_out.ogg', 150, TRUE)
 
 
@@ -40,8 +40,8 @@
 
 //LESSER HEALING
 /obj/effect/proc_holder/spell/aoe/terror_healing
-	name = "Heal"
-	desc = "Exude feromones to heal your allies"
+	name = "Исцеляющие феромоны"
+	desc = "Выбросить в атмосферу феромоны, лечащие ваших союзников."
 	action_icon_state = "heal"
 	action_background_icon_state = "bg_terror"
 	base_cooldown = 30 SECONDS
@@ -62,7 +62,7 @@
 
 /obj/effect/proc_holder/spell/aoe/terror_healing/cast(list/targets, mob/user = usr)
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/spider in targets)
-		visible_message("<span class='green'>[user] exudes feromones and heals spiders around!</span>")
+		visible_message(span_green("[capitalize(user.declent_ru(NOMINATIVE))] источает целительные феромоны!"))
 		spider.adjustBruteLoss(-heal_amount)
 		if(apply_heal_buff)
 			spider.apply_status_effect(STATUS_EFFECT_TERROR_REGEN)
@@ -77,13 +77,13 @@
 
 //VENOM SPIT
 /obj/effect/proc_holder/spell/fireball/venom_spit
-	name = "Venom spit"
-	desc = "Spit an acid that creates smoke filled with drugs and venom on impact."
+	name = "Кислотный плевок"
+	desc = "Плюнуть кислоту, при контакте создающую дым, наполненный наркотиками и ядом."
 	invocation_type = "none"
 	action_icon_state = "fake_death"
 	action_background_icon_state = "bg_terror"
-	selection_activated_message	= "<span class='notice'>Your prepare your venom spit! <B>Left-click to spit at a target!</B></span>"
-	selection_deactivated_message = "<span class='notice'>You cancel your spit.</span>"
+	selection_activated_message	= span_notice("Вы подготавливаете свой ядовитый плевок! <B>ЛКМ, чтобы плюнуть в цель</B>.")
+	selection_deactivated_message = span_notice("Вы отменяете свой плевок.")
 	sound = 'sound/creatures/terrorspiders/spit2.ogg'
 	need_active_overlay = TRUE
 	human_req = FALSE
@@ -118,13 +118,13 @@
 
 //SMOKE SPIT
 /obj/effect/proc_holder/spell/fireball/smoke_spit
-	name = "Smoke spit"
-	desc = "Spit an acid that creates smoke on impact."
+	name = "Плевок дымящейся кислотой"
+	desc = "Плюнуть кислоту, создающую дым при контакте."
 	invocation_type = "none"
 	action_icon_state = "smoke"
 	action_background_icon_state = "bg_terror"
-	selection_activated_message	= "<span class='notice'>Your prepare your smoke spit! <B>Left-click to spit at a target!</B></span>"
-	selection_deactivated_message = "<span class='notice'>You cancel your spit.</span>"
+	selection_activated_message	= span_notice("Вы подготавливаете дымный плевок! <B>ЛКМ, чтобы плюнуть в цель</B>")
+	selection_deactivated_message = span_notice("Вы отменяете свой плевок.")
 	sound = 'sound/creatures/terrorspiders/spit2.ogg'
 	need_active_overlay = TRUE
 	human_req = FALSE
@@ -155,8 +155,8 @@
 //EMP
 
 /obj/effect/proc_holder/spell/emplosion/terror_emp
-	name = "EMP shriek"
-	desc = "Emits a shriek that causes EMP pulse."
+	name = "Электро-магнитный визг"
+	desc = "Издать визг, вызывающий ЭМИ."
 	action_icon_state = "emp_new"
 	action_background_icon_state = "bg_terror"
 	base_cooldown = 40 SECONDS
@@ -175,8 +175,8 @@
 
 //EXPLOSION
 /obj/effect/proc_holder/spell/explosion/terror_burn
-	name = "Burn!"
-	desc = "Release your energy to create a massive fire ring."
+	name = "Воспламенение"
+	desc = "Высвободить энергию, создавая огромное огненное кольцо."
 	action_icon_state = "explosion"
 	action_background_icon_state = "bg_terror"
 	base_cooldown = 60 SECONDS
@@ -196,8 +196,8 @@
 
 //SHIELD
 /obj/effect/proc_holder/spell/aoe/conjure/build/terror_shield
-	name = "Guardian shield"
-	desc = "Create a temporary organic shield to protect your hive."
+	name = "Защитная мембрана"
+	desc = "Создать временный органический щит для защиты вашего гнезда."
 	action_icon_state = "terror_shield"
 	action_background_icon_state = "bg_terror"
 	base_cooldown = 8 SECONDS
@@ -209,8 +209,8 @@
 
 
 /obj/effect/forcefield/terror
-	desc = "Thick protective membrane produced by Guardians of Terror."
-	name = "Guardian shield"
+	name = "Защитная мембрана"
+	desc = "Толстая защитная мембрана, созданная Защитником Ужаса."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "terror_shield"
 	lifetime = 16.5 SECONDS                       //max 2 shields existing at one time
@@ -229,8 +229,8 @@
 
 //SMOKE
 /obj/effect/proc_holder/spell/terror_smoke
-	name = "Smoke"
-	desc = "Erupt a smoke to confuse your enemies."
+	name = "Дымовая завеса"
+	desc = "Извергнуть дым, сбивающий врагов с толку."
 	action_icon_state = "smoke"
 	action_background_icon_state = "bg_terror"
 	base_cooldown = 8 SECONDS
@@ -253,8 +253,8 @@
 
 //PARALYSING SMOKE
 /obj/effect/proc_holder/spell/terror_parasmoke
-	name = "Paralyzing Smoke"
-	desc = "Erupt a smoke to paralyze your enemies."
+	name = "Парализующий дым"
+	desc = "Извергнуть дым, парализующий врагов."
 	action_icon_state = "biohazard2"
 	action_background_icon_state = "bg_terror"
 	base_cooldown = 60 SECONDS
@@ -284,8 +284,8 @@
 
 //TERRIFYING SHRIEK
 /obj/effect/proc_holder/spell/aoe/terror_shriek
-	name = "Terrify"
-	desc = "Emit a loud shriek to terrify your enemies."
+	name = "Ужасающий визг"
+	desc = "Издать громкий крик, пугающий врагов."
 	action_icon_state = "terror_shriek"
 	action_background_icon_state = "bg_terror"
 	base_cooldown = 60 SECONDS
@@ -305,13 +305,13 @@
 /obj/effect/proc_holder/spell/aoe/terror_shriek/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		if(iscarbon(target))
-			to_chat(target, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
+			to_chat(target, span_danger("<b>Всплеск боли пронзает вашу голову и путает ваши мысли!</b>"))
 			target.AdjustConfused(20 SECONDS)
 			target.Slowed(2 SECONDS)
 			target.Jitter(20 SECONDS)
 
 		if(issilicon(target))
-			to_chat(target, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
+			to_chat(target, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! СЕНСОРНАЯ ПЕРЕГРУЗКА \[$(!@#</b>"))
 			target << 'sound/misc/interference.ogg'
 			playsound(target, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
 			do_sparks(5, 1, target)
@@ -324,8 +324,8 @@
 
 //SHRIEK
 /obj/effect/proc_holder/spell/aoe/terror_shriek_princess
-	name = "Princess Shriek"
-	desc = "Emits a loud shriek that weakens your enemies."
+	name = "Ужасающий визг Принцессы"
+	desc = "Издать громкий визг, ослабляющий врагов."
 	action_icon_state = "terror_shriek"
 	action_background_icon_state = "bg_terror"
 	base_cooldown = 60 SECONDS
@@ -345,13 +345,13 @@
 /obj/effect/proc_holder/spell/aoe/terror_shriek_princess/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
 		if(iscarbon(target))
-			to_chat(target, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
+			to_chat(target, span_danger("<b>Всплеск боли пронзает вашу голову и путает ваши мысли!</b>"))
 			target.apply_damage(30, STAMINA)
 			target.Slowed(10 SECONDS)
 			target.Jitter(20 SECONDS)
 
 		if(issilicon(target))
-			to_chat(target, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
+			to_chat(target, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! СЕНСОРНАЯ ПЕРЕГРУЗКА \[$(!@#</b>"))
 			target << 'sound/misc/interference.ogg'
 			playsound(target, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
 			do_sparks(5, 1, target)
@@ -361,8 +361,8 @@
 
 //SLAM
 /obj/effect/proc_holder/spell/aoe/terror_slam
-	name = "Slam"
-	desc = "Slam the ground with your body."
+	name = "Топот"
+	desc = "Ударить землю своим телом."
 	action_icon_state = "slam"
 	action_background_icon_state = "bg_terror"
 	base_cooldown = 35 SECONDS
@@ -394,8 +394,8 @@
 
 //JELLY PRODUCTION
 /obj/effect/proc_holder/spell/aoe/conjure/build/terror_jelly
-	name = "Produce jelly"
-	desc = "Produce an organic jelly that heals spiders."
+	name = "Секреция желе"
+	desc = "Произвести органическое желе, лечащее пауков."
 	action_icon_state = "spiderjelly"
 	action_background_icon_state = "bg_terror"
 	base_cooldown = 30 SECONDS
@@ -408,7 +408,7 @@
 
 //MASS HEAL
 /obj/effect/proc_holder/spell/aoe/terror_healing/greater
-	name = "Massive healing"
+	name = "Массовое исцеление"
 	base_cooldown = 40 SECONDS
 	aoe_range = 7
 	heal_amount = 30
@@ -421,8 +421,8 @@
 
 //SHRIEK
 /obj/effect/proc_holder/spell/aoe/terror_shriek_queen
-	name = "Queen Shriek"
-	desc = "Emit a loud shriek that weakens your enemies."
+	name = "Ужасающий визг Королевы"
+	desc = "Издать громкий визг, ослабляющий врагов."
 	action_icon_state = "terror_shriek"
 	action_background_icon_state = "bg_terror"
 	base_cooldown = 45 SECONDS
@@ -442,14 +442,14 @@
 	for(var/turf/target_turf in targets)
 		for(var/mob/living/target in target_turf.contents)
 			if(iscarbon(target))
-				to_chat(target, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
+				to_chat(target, span_danger("<b>Всплеск боли пронзает вашу голову и путает ваши мысли!</b>"))
 				target.AdjustWeakened(2 SECONDS)
 				target.apply_damage(50, STAMINA)
 				target.Jitter(40 SECONDS)
 				target.Slowed(14 SECONDS)
 
 			if(issilicon(target))
-				to_chat(target, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
+				to_chat(target, span_warning("<b>ОШИБКА $!(@ ОШИБКА )#^! СЕНСОРНАЯ ПЕРЕГРУЗКА \[$(!@#</b>"))
 				target << 'sound/misc/interference.ogg'
 				playsound(target, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				do_sparks(5, 1, target)

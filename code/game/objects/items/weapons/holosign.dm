@@ -74,18 +74,14 @@
 	holosign_type = /obj/structure/holosign/wetsign
 	var/wet_enabled = TRUE
 
-/obj/item/holosign_creator/janitor/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/item/holosign_creator/janitor/click_alt(mob/living/user)
 	wet_enabled = !wet_enabled
 	playsound(loc, 'sound/weapons/empty.ogg', 20)
 	if(wet_enabled)
-		to_chat(user, "<span class='notice'>You enable the W.E.T. (wet evaporation timer)\nAny newly placed holographic signs will clear after the likely time it takes for a mopped tile to dry.</span>")
+		to_chat(user, span_notice("You enable the W.E.T. (wet evaporation timer)\nAny newly placed holographic signs will clear after the likely time it takes for a mopped tile to dry."))
 	else
-		to_chat(user, "<span class='notice'>You disable the W.E.T. (wet evaporation timer)\nAny newly placed holographic signs will now stay indefinitely.</span>")
+		to_chat(user, span_notice("You disable the W.E.T. (wet evaporation timer)\nAny newly placed holographic signs will now stay indefinitely."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/holosign_creator/janitor/examine(mob/user)
 	. = ..()
